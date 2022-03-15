@@ -23,7 +23,7 @@ local ToggleAllBreakpoints = require(script.Parent.ToggleAllBreakpoints)
 
 local function fakeDebuggerConnect(store)
 	local mainConnectionManager = MockDebuggerConnectionManager.new()
-	
+
 	local _mainListener = DebugConnectionListener.new(store, mainConnectionManager, MockDebuggerUIService.new(), MockCrossDMScriptChangeListenerService.new())
 	local currentMockConnection = MockDebuggerConnection.new(1)
 	mainConnectionManager.ConnectionStarted:Fire(currentMockConnection)
@@ -49,7 +49,7 @@ return function()
 	it("should set all BP to same state", function()
 		local store = Rodux.Store.new(MainReducer, nil, MainMiddleware)
 		fakeDebuggerConnect(store)
-		
+
 		local mockBreakpointManager = MockBreakpointManager.new()
 		local mockCrossDMScriptChangeListenerService = MockCrossDMScriptChangeListenerService.new()
 		local _mainBreakpointListener = BreakpointManagerListener.new(store, mockBreakpointManager, mockCrossDMScriptChangeListenerService)
@@ -59,15 +59,15 @@ return function()
 		local metaBreakpoint2 = createMockMetaBreakpoint(2,"scriptString2", mockBreakpointManager)
 		mockBreakpointManager.MetaBreakpointAdded:Fire(metaBreakpoint1)
 		mockBreakpointManager.MetaBreakpointAdded:Fire(metaBreakpoint2)
-		
+
 		-- before toggling all breakpoints, all should be enabled
 		local state = store:getState()
 		for id, info in pairs(state.Breakpoint.MetaBreakpoints) do
 			expect(info.isEnabled).to.equal(true)
 		end
-		
-		store:dispatch(ToggleAllBreakpoints(mockBreakpointManager))
-		
+
+		store:dispatch(ToggleAllBreakpoints(mockBreakpointManager, false))
+
 		state = store:getState()
 		-- after toggling all breakpoints, all should be disabled
 		for id, info in pairs(state.Breakpoint.MetaBreakpoints) do

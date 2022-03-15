@@ -12,6 +12,8 @@
 		Color3 BorderColor: Override the color of the border image.
 		any HeaderComponent: Extra component to render in the header.
 		Enum.FillDirection Layout: An optional Enum.FillDirection adding a UIListLayout instance.
+		Enum.HorizontalAlignment HorizontalAlignment: Property on UIListLayout
+		Enum.VerticalAlignment VerticalAlignment: Property on UIListLayout
 		number LayoutOrder: The layout order of this component in a list.
 		Style Style: The style with which to render this component.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.

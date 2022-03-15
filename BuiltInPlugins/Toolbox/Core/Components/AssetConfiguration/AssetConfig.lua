@@ -8,7 +8,9 @@
 
 local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
 local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
-local FFlagToolboxPrivatePublicAudioAssetConfig = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig")
+local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
+local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
+local FFlagToolboxAudioAssetConfigDisablePublicAudio = game:GetFastFlag("ToolboxAudioAssetConfigDisablePublicAudio")
 
 local StudioService = game:GetService("StudioService")
 
@@ -70,6 +72,7 @@ local AvatarAssetsGetUploadFeeRequest = require(Requests.AvatarAssetsGetUploadFe
 local AvatarAssetsUploadRequest = require(Requests.AvatarAssetsUploadRequest)
 local PatchMakeAssetPublicRequest = require(Requests.PatchMakeAssetPublicRequest)
 local GetAssetPermissionsRequest = require(Requests.GetAssetPermissionsRequest)
+local GetVerificationStatusRequest = require(Requests.GetVerificationStatusRequest)
 
 local ClearChange = require(Plugin.Core.Actions.ClearChange)
 local SetAssetConfigTab = require(Plugin.Core.Actions.SetAssetConfigTab)
@@ -125,8 +128,8 @@ function AssetConfig:init(props)
 
 		isShowChangeDiscardMessageBox = false,
 
-		isPublishAssetsDialogEnabled = if FFlagToolboxPrivatePublicAudioAssetConfig then false else nil,
-		descendantIds = if FFlagToolboxPrivatePublicAudioAssetConfig then {} else nil,
+		isPublishAssetsDialogEnabled = if FFlagToolboxPrivatePublicAudioAssetConfig3 then false else nil,
+		descendantIds = if FFlagToolboxPrivatePublicAudioAssetConfig3 then {} else nil,
 
 		overrideAssetId = nil,
 		groupId = nil,
@@ -134,8 +137,8 @@ function AssetConfig:init(props)
 
 		dispatchGetFunction = false,
 
-		isConfirmationDialogEnabled = if FFlagToolboxPrivatePublicAudioAssetConfig then false else nil,
-		confirmationDialogKey = if FFlagToolboxPrivatePublicAudioAssetConfig then false else nil,
+		isConfirmationDialogEnabled = if FFlagToolboxPrivatePublicAudioAssetConfig3 then false else nil,
+		confirmationDialogKey = if FFlagToolboxPrivatePublicAudioAssetConfig3 then false else nil,
 	}
 
 	if AssetConfigUtil.isMarketplaceAsset(props.assetTypeEnum) then
@@ -150,7 +153,7 @@ function AssetConfig:init(props)
 	self.descriptionString = nil
 	self.init = false
 
-	if FFlagToolboxPrivatePublicAudioAssetConfig then
+	if FFlagToolboxPrivatePublicAudioAssetConfig3 then
 		self.onDialogAccepted = function()
 			local state = self.state
 			self:setState(function()
@@ -253,7 +256,7 @@ function AssetConfig:init(props)
 
 			if AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW == props.screenFlowType then
 				-- download flow should only be for animations currently
-				if FFlagToolboxPrivatePublicAudioAssetConfig then
+				if FFlagToolboxPrivatePublicAudioAssetConfig3 then
 					StudioService:AnimationIdSelected(directImportId ~= DIRECT_IMPORT_ID_DEFAULT and directImportId or state.overrideAssetId)
 				else
 					StudioService:AnimationIdSelected(directImportId ~= "" and directImportId or state.overrideAssetId)
@@ -297,7 +300,7 @@ function AssetConfig:init(props)
 						saleStatus = state.status,
 						price = state.price,
 						iconFile = state.iconFile,
-						isAssetPublic = if FFlagToolboxPrivatePublicAudioAssetConfig then state.isAssetPublic else nil,
+						isAssetPublic = if FFlagToolboxPrivatePublicAudioAssetConfig3 then state.isAssetPublic else nil,
 					})
 				end
 			elseif AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW == props.screenFlowType then
@@ -528,9 +531,9 @@ function AssetConfig:init(props)
 	end
 
 	self.toggleCopy = function(newCopyStatus, copyChanged)
-		if FFlagToolboxPrivatePublicAudioAssetConfig and copyChanged == nil then
+		if FFlagToolboxPrivatePublicAudioAssetConfig3 and copyChanged == nil then
 			copyChanged = true
-		elseif not FFlagToolboxPrivatePublicAudioAssetConfig then
+		elseif not FFlagToolboxPrivatePublicAudioAssetConfig3 then
 			copyChanged = true
 		end
 		self:setState({
@@ -576,7 +579,7 @@ function AssetConfig:init(props)
 		end
 	end
 
-	if FFlagToolboxPrivatePublicAudioAssetConfig then
+	if FFlagToolboxPrivatePublicAudioAssetConfig3 then
 		self.onSharingChanged = function(isAssetPublic)
 			self:setState({
 				isAssetPublic = isAssetPublic
@@ -588,6 +591,12 @@ function AssetConfig:init(props)
 				local hasCopyValueChanged = state.copyOnOriginalValue ~= state.copyOn
 				self.toggleCopy(false, hasCopyValueChanged)
 			end
+		end
+	end
+
+	if FFlagToolboxAudioAssetConfigIdVerification then
+		self.getVerficationStatus = function()
+			self.props.dispatchGetVerificationStatus(getNetwork(self))
 		end
 	end
 end
@@ -636,7 +645,7 @@ function AssetConfig:didUpdate(previousProps, previousState)
 		if next(assetConfigData) and (not self.init) then
 
 			local isAssetPublic
-			if FFlagToolboxPrivatePublicAudioAssetConfig and assetConfigData["AssetPermissions"] then
+			if FFlagToolboxPrivatePublicAudioAssetConfig3 and assetConfigData["AssetPermissions"] then
 				isAssetPublic = AssetPermissionUtil.isAssetPublic(assetConfigData["AssetPermissions"])
 			end
 
@@ -677,6 +686,10 @@ end
 
 function AssetConfig:didMount()
 	self:attachXButtonCallback()
+
+	if FFlagToolboxAudioAssetConfigIdVerification and self.props.assetTypeEnum == Enum.AssetType.Audio then
+		self.getVerficationStatus()
+	end
 
 	-- From here, we can reqeust assetConfig data if we have assetId.
 	if AssetConfigConstants.FLOW_TYPE.EDIT_FLOW == self.props.screenFlowType then
@@ -719,7 +732,7 @@ function AssetConfig:didMount()
 			self.props.getCatalogItemUploadFee(getNetwork(self), self.props.assetTypeEnum, self.props.instances)
 		end
 
-		if FFlagToolboxPrivatePublicAudioAssetConfig then
+		if FFlagToolboxPrivatePublicAudioAssetConfig3 then
 			self.props.dispatchSetDescendantPermissions({})
 			self:setState({
 				descendantIds = {},
@@ -862,7 +875,7 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 	local Size = props.Size
 
 	local isAssetPublicOriginalValue
-	if FFlagToolboxPrivatePublicAudioAssetConfig then
+	if FFlagToolboxPrivatePublicAudioAssetConfig3 then
 		isAssetPublicOriginalValue = state.isAssetPublicOriginalValue
 	end
 	local currentTab = props.currentTab
@@ -940,7 +953,8 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 	local assetPublishTitle
 	local isPublishAssetsDialogEnabled
 	local allowSelectPrivate
-	if FFlagToolboxPrivatePublicAudioAssetConfig then
+	local showSharing = false
+	if FFlagToolboxPrivatePublicAudioAssetConfig3 then
 		local localization = props.Localization
 		-- Confirmation Dialog localization
 		publicConfirmationAcceptText = localization:getText("General", "Proceed")
@@ -965,6 +979,13 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 		elseif isModel then
 			allowSelectPrivate = true
 		end
+		if isAudio then
+			showSharing = true
+		end
+	end
+	
+	if FFlagToolboxAudioAssetConfigDisablePublicAudio and isAudio then
+		allowCopy = false
 	end
 
 	return Roact.createElement("Frame", {
@@ -985,7 +1006,7 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 		AssetConfigMessageBox = isShowChangeDiscardMessageBox and Roact.createElement(MessageBox,
 			getMessageBoxProps(showGetAssetFailed, localizedContent, self.onMessageBoxClosed, self.tryCloseAssetConfig)),
 
-		AssetConfigMakeAssetPublicMessageBox = if FFlagToolboxPrivatePublicAudioAssetConfig and isPublishAssetsDialogEnabled then Roact.createElement(WarningDialog, {
+		AssetConfigMakeAssetPublicMessageBox = if FFlagToolboxPrivatePublicAudioAssetConfig3 and isPublishAssetsDialogEnabled then Roact.createElement(WarningDialog, {
 			AcceptText = assetPublishAcceptText,
 			CancelText = assetPublishCancelText,
 			ConfirmationKey = nil,
@@ -1012,7 +1033,7 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 				Padding = UDim.new(0, 0),
 			}),
 
-			SharingConfirmationDialog = if FFlagToolboxPrivatePublicAudioAssetConfig then Roact.createElement(WarningDialog, {
+			SharingConfirmationDialog = if FFlagToolboxPrivatePublicAudioAssetConfig3 then Roact.createElement(WarningDialog, {
 				AcceptText = publicConfirmationAcceptText,
 				CancelText = publicConfirmationCancelText,
 				ConfirmationKey = confirmationDialogKey,
@@ -1083,12 +1104,13 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 					isAssetPublic = isAssetPublic,
 
 					assetTypeEnum = assetTypeEnum,
+					onClickRefreshVerficationStatus = if FFlagToolboxAudioAssetConfigIdVerification then self.getVerficationStatus else nil,
 					onNameChange = self.onNameChange,
 					onDescChange = self.onDescChange,
 					onTagsChange = self.onTagsChange,
 					onOwnerSelected = self.onAccessChange,
 					onGenreSelected = self.onGenreChange,
-					onSharingChanged = if FFlagToolboxPrivatePublicAudioAssetConfig then self.onSharingChanged else nil,
+					onSharingChanged = if FFlagToolboxPrivatePublicAudioAssetConfig3 then self.onSharingChanged else nil,
 					toggleCopy = self.toggleCopy,
 					toggleComment = self.toggleComment,
 
@@ -1098,6 +1120,7 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 					displayComment = showComment,
 					displayAssetType = showAssetType,
 					displayTags = showTags,
+					displaySharing = showSharing,
 
 					maximumItemTagsPerItem = props.maximumItemTagsPerItem,
 
@@ -1159,7 +1182,7 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 			AssetId = state.overrideAssetId,
 
 			TryCancel = self.tryCancelWithYield,
-			TryPublish = if FFlagToolboxPrivatePublicAudioAssetConfig then self.tryPublishWithConfirmDialog else self.tryPublish,
+			TryPublish = if FFlagToolboxPrivatePublicAudioAssetConfig3 then self.tryPublishWithConfirmDialog else self.tryPublish,
 
 			LayoutOrder = 2
 		})
@@ -1169,7 +1192,7 @@ end
 
 AssetConfig = withContext({
 	Focus = ContextServices.Focus,
-	Localization = if FFlagToolboxPrivatePublicAudioAssetConfig then ContextServices.Localization else nil,
+	Localization = if FFlagToolboxPrivatePublicAudioAssetConfig3 then ContextServices.Localization else nil,
 	Stylizer = ContextServices.Stylizer,
 })(AssetConfig)
 
@@ -1300,17 +1323,21 @@ local function mapDispatchToProps(dispatch)
 			dispatch(GetUsername(userId))
 		end,
 
-		dispatchPatchMakeAssetPublicRequest = if FFlagToolboxPrivatePublicAudioAssetConfig then function(networkInterface, assetId)
+		dispatchPatchMakeAssetPublicRequest = if FFlagToolboxPrivatePublicAudioAssetConfig3 then function(networkInterface, assetId)
 			dispatch(PatchMakeAssetPublicRequest(networkInterface, assetId))
 		end else nil,
 
-		dispatchGetAssetPermissionsRequest = if FFlagToolboxPrivatePublicAudioAssetConfig then function(networkInterface, assetId)
+		dispatchGetAssetPermissionsRequest = if FFlagToolboxPrivatePublicAudioAssetConfig3 then function(networkInterface, assetId)
 			dispatch(GetAssetPermissionsRequest(networkInterface, assetId))
 		end else nil,
 
-		dispatchSetDescendantPermissions = if FFlagToolboxPrivatePublicAudioAssetConfig then function(descendantPermissions) 
+		dispatchSetDescendantPermissions = if FFlagToolboxPrivatePublicAudioAssetConfig3 then function(descendantPermissions) 
 			dispatch(SetDescendantPermissions(descendantPermissions))
 		end else nil,
+
+		dispatchGetVerificationStatus = function(networkInterface)
+			dispatch(GetVerificationStatusRequest(networkInterface))
+		end,
 	}
 
 	dispatchToProps["uploadAnimationAsset"] = function(requestInfo)

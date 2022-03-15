@@ -314,7 +314,7 @@ function CallstackComponent:render()
 			Style = "Box",
 		}, {
 			TableView = Roact.createElement(TreeTable, {
-				Scroll = true,  
+				Scroll = false,  
 				Size = UDim2.fromScale(1, 1),
 				Columns = tableColumns,
 				RootItems = props.RootItems,

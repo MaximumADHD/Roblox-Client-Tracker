@@ -10,7 +10,7 @@ local WatchHelperFunctions = require(Util.WatchHelperFunctions)
 local LazyLoadVariableThunk = require(Plugin.Src.Thunks.Watch.LazyLoadVariable)
 
 return function(variablePath : string, stepStateBundle : StepStateBundle.StepStateBundle,
-	isExpression : boolean, debuggerConnection)
+	isVariablesTab : boolean, debuggerConnection)
 	return function(store, contextItems)
 		if not debuggerConnection then
 			return
@@ -22,7 +22,7 @@ return function(variablePath : string, stepStateBundle : StepStateBundle.StepSta
 		for _, childVar in ipairs(targetVar:GetChildren()) do
 			if childVar.VariableId ~= 0 and not childVar.Populated then
 				local childPath = variablePath .. Constants.SeparationToken .. tostring(childVar.VariableId)
-				store:dispatch(LazyLoadVariableThunk(childPath, stepStateBundle, isExpression, debuggerConnection))
+				store:dispatch(LazyLoadVariableThunk(childPath, stepStateBundle, isVariablesTab, debuggerConnection))
 			end
 		end
 	end

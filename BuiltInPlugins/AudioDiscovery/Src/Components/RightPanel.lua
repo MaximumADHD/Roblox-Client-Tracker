@@ -59,7 +59,7 @@ function RightPanel:render()
 			Width = state.sizes[index]
 		})
 	end)
-	if #props.Rows > 0 then
+	if props.Rows and #props.Rows > 0 then
 		return Roact.createElement(AudioTable, {
 			Scroll = true,
 			UseScale = if FFlagDevFrameworkSplitPane then true else nil,

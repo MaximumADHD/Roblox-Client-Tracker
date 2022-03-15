@@ -14,8 +14,11 @@ local Stylizer = Framework.Style.Stylizer
 local StudioUI = Framework.StudioUI
 local StyledDialog = StudioUI.StyledDialog
 
-local ImportAssetHandler = require(Plugin.Src.Util.ImportAssetHandler)
+local Actions = Plugin.Src.Actions
+local ClearMaterialVariant = require(Actions.ClearMaterialVariant)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+
+local ImportAssetHandler = require(Plugin.Src.Util.ImportAssetHandler)
 local MaterialVariantCreator = require(Plugin.Src.Components.MaterialVariantCreator)
 
 export type Props = {
@@ -33,6 +36,7 @@ type _Props = Props & {
 	Localization : any,
 	Stylizer : any,
 	ImportAssetHandler : any,
+	dispatchClearMaterialVariant : () -> (),
 }
 
 type _Style = {
@@ -49,32 +53,42 @@ function MaterialPrompt:init()
 
 		local assetHandler = props.ImportAssetHandler
 
-		local function handleMaps(maps : { _Types.TextureMap })
-			for _, map in pairs(maps) do
-				if map and map.file then
+		local function handleMaps(maps : { [string] : _Types.TextureMap }, materialVariant : MaterialVariant)
+			for mapType, map in pairs(maps) do
+				-- Upload maps if a new asset
+				if map.file then
 					task.spawn(function()
-						assetHandler:handleAsset(map.file)
+						assetHandler:handleAsset(map.file, function(assetId)
+							(materialVariant :: any)[mapType] = assetId
+						end)
 					end)
+				-- Use already uploaded assetId
+				elseif map.assetId then
+					(materialVariant:: any)[mapType] = map.assetId
 				end
 			end
 		end
 
-		if not props.name or not props.baseMaterial then
+		if not (props.name and props.baseMaterial) then
 			-- TODO: Warnings and errors
 			return
 		end
 
 		if props.colorMap or props.normalMap or props.metalnessMap or props.roughnessMap then
-			-- TODO:
-			-- create Material Variant
+			-- Create Material Variant Instance
+			local materialVariant = Instance.new("MaterialVariant")
+			materialVariant.Name = props.name
+			materialVariant.BaseMaterial = props.baseMaterial
+			materialVariant.Parent = game:GetService("MaterialService")
 
+			-- Set texture maps
 			local maps = {
-				props.colorMap, 
-				props.normalMap, 
-				props.metalnessMap, 
-				props.roughnessMap
+				ColorMap = props.colorMap,
+				NormalMap = props.normalMap,
+				MetalnessMap = props.metalnessMap,
+				RoughnessMap = props.roughnessMap
 			}
-			handleMaps(maps)
+			handleMaps(maps, materialVariant)
 
 		-- TODO: Warnings and errors
 		-- else
@@ -83,12 +97,15 @@ function MaterialPrompt:init()
 
 	self.onButtonPressed = function(key)
 		local props : _Props = self.props
+		
 		if key == "Cancel" then
 			props.PromptClosed()
 		elseif key == "Save" then
 			self.onSave()
 			props.PromptClosed()
 		end
+
+		props.dispatchClearMaterialVariant()
 	end
 end
 
@@ -135,13 +152,21 @@ MaterialPrompt = withContext({
 
 local function mapStateToProps(state : MainReducer.State, _)
 	return {
-		name = state.MaterialPromptReducer.name or nil,
-		baseMaterial = state.MaterialPromptReducer.baseMaterial or nil,
-		colorMap = state.MaterialPromptReducer.colorMap or {},
-		normalMap = state.MaterialPromptReducer.normalMap or {},
-		metalnessMap = state.MaterialPromptReducer.metalnessMap or {},
-		roughnessMap = state.MaterialPromptReducer.roughnessMap or {},
+		name = state.MaterialPromptReducer.name,
+		baseMaterial = state.MaterialPromptReducer.baseMaterial,
+		colorMap = state.MaterialPromptReducer.colorMap,
+		normalMap = state.MaterialPromptReducer.normalMap,
+		metalnessMap = state.MaterialPromptReducer.metalnessMap,
+		roughnessMap = state.MaterialPromptReducer.roughnessMap,
 	}
 end
 
-return RoactRodux.connect(mapStateToProps, nil)(MaterialPrompt)
+local function mapDispatchToProps(dispatch)
+	return {
+		dispatchClearMaterialVariant = function ()
+			dispatch(ClearMaterialVariant())
+		end,
+	}
+end
+
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(MaterialPrompt)

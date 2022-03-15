@@ -1,6 +1,4 @@
-local FFlagStudioTeamCreateStreamingEnabled = game:getFastFlag("StudioTeamCreateStreamingEnabled")
 local FFlagCollabEditingWarnBothWays2 = game:GetFastFlag("CollabEditingWarnBothWays2")
-local FFlagGreyOutCollabEditingForTeamCreateOff = game:GetFastFlag("GreyOutCollabEditingForTeamCreateOff")
 
 local isTeamCreateEnabled
 
@@ -43,12 +41,6 @@ function GameOptionsController:voiceUniverseSettingsPOST(gameId, optIn)
 	})
 end
 
-function GameOptionsController:teamCreateEnabledGET(gameId)
-    assert(FFlagStudioTeamCreateStreamingEnabled or FFlagGreyOutCollabEditingForTeamCreateOff)
-    local networking = self.__networking
-    return networking:get("api", "/universes/" .. gameId .. "/cloudeditenabled")
-end
-
 function GameOptionsController:voiceUniverseSettingsGET(gameId)
     local networking = self.__networking
     return networking:get("voice", "/v1/settings/universe/" .. gameId)
@@ -76,26 +68,6 @@ function GameOptionsController:setScriptCollaborationEnabled(game, enabled)
     local StudioData = game:GetService("StudioData")
 
     StudioData.EnableScriptCollabByDefaultOnLoad = enabled
-end
-
-function GameOptionsController:getTeamCreateStreamingEnabled(game)
-    assert(FFlagStudioTeamCreateStreamingEnabled)
-    
-    local StudioData = game:GetService("StudioData")
-    return StudioData.EnableTeamCreateStreamingOnLoad
-end
-
-function GameOptionsController:setTeamCreateStreamingEnabled(game, enabled)
-    assert(FFlagStudioTeamCreateStreamingEnabled)
-    
-    local StudioData = game:GetService("StudioData")
-    StudioData.EnableTeamCreateStreamingOnLoad = enabled
-end
-
-function GameOptionsController:getTeamCreateEnabled(gameId)
-    assert(FFlagStudioTeamCreateStreamingEnabled or FFlagGreyOutCollabEditingForTeamCreateOff)
-    local response = self:teamCreateEnabledGET(gameId):await()
-    return response.responseBody.enabled
 end
 
 function GameOptionsController:shutdownAllServers(gameId)

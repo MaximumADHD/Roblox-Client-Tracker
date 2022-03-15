@@ -34,7 +34,7 @@ local TopBar = Roact.PureComponent:extend("TopBar")
 
 export type Props = {
 	LayoutOrder : number?,
-	OpenPrompt : (type : string) -> (),
+	OpenPrompt : (type : _Types.MaterialPromptType) -> (),
 	Size : UDim2?,
 }
 

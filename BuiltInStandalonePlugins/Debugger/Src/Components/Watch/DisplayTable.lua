@@ -27,11 +27,11 @@ local watchHelperFunctions = require(PluginRoot.Src.Util.WatchHelperFunctions)
 
 local Actions = PluginRoot.Src.Actions
 local SetVariableExpanded = require(Actions.Watch.SetVariableExpanded)
+local SetExpressionExpanded = require(Actions.Watch.SetExpressionExpanded)
 local ChangeExpression = require(Actions.Watch.ChangeExpression)
 local AddExpression = require(Actions.Watch.AddExpression)
 local RemoveExpression = require(Actions.Watch.RemoveExpression)
 local SetWatchSortState = require(Actions.Watch.SetWatchSortState)
-
 
 local LazyLoadVariableChildren = require(PluginRoot.Src.Thunks.Watch.LazyLoadVariableChildren)
 local ExecuteExpression = require(PluginRoot.Src.Thunks.Watch.ExecuteExpressionThunk)
@@ -167,10 +167,15 @@ function DisplayTable:init()
 		end
 		local debuggerConnection = debuggerConnectionManager:GetConnectionById(currentStepStateBundle.debuggerStateToken.debuggerConnectionId)
 		for row, expandedBool in pairs(newExpansion) do
+			local isVariablesTab = props.SelectedTab == TableTab.Variables
 			if expandedBool then
-				self.props.OnLazyLoadChildren(row.pathColumn, currentStepStateBundle, props.SelectedTab == TableTab.Watches, debuggerConnection)
+				self.props.OnLazyLoadChildren(row.pathColumn, currentStepStateBundle, isVariablesTab, debuggerConnection)
 			end
-			self.props.OnExpansionDispatch(row.pathColumn, expandedBool)
+			if isVariablesTab then
+				self.props.OnVariableExpansionDispatch(row.pathColumn, expandedBool)
+			else
+				self.props.OnExpressionExpansionDispatch(row.pathColumn, expandedBool)
+			end
 		end
 	end
 
@@ -258,7 +263,7 @@ function DisplayTable:render()
 	
 	local textInputCols = not isVariablesTab and {[1] = true} or nil
 	return Roact.createElement(TreeTable, {
-		Scroll = true,  
+		Scroll = false,  
 		Size = UDim2.fromScale(1, 1),
 		Columns = isVariablesTab and self.getVariableTableColumns() or self.getWatchTableColumns(),
 		RootItems = props.RootItems,
@@ -350,8 +355,11 @@ DisplayTable = RoactRodux.connect(
 	
 	function(dispatch)
 		return {
-			OnExpansionDispatch = function(path, expanded)
+			OnVariableExpansionDispatch = function(path, expanded)
 				return dispatch(SetVariableExpanded(path, expanded))
+			end,
+			OnExpressionExpansionDispatch = function(path, expanded)
+				return dispatch(SetExpressionExpanded(path, expanded))
 			end,
 			OnChangeExpression = function(oldName, newName)
 				return dispatch(ChangeExpression(oldName, newName))

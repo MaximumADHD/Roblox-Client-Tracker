@@ -26,7 +26,7 @@ MenuConnector.validateProps = t.strictInterface({
 
 function MenuConnector:didMount()
 	if isNewInGameMenuEnabled() then
-		local InGameMenu = require(RobloxGui.Modules.InGameMenu)
+		local InGameMenu = require(RobloxGui.Modules.InGameMenuInit)
 		self.props.setMenuOpen(InGameMenu.getOpen())
 
 		local isEnabled, customCallback = InGameMenu.getRespawnBehaviour()
@@ -43,7 +43,7 @@ end
 function MenuConnector:render()
 	if isNewInGameMenuEnabled() then
 		--TODO: Move require the top of the script when removing isNewInGameMenuEnabled
-		local InGameMenu = require(RobloxGui.Modules.InGameMenu)
+		local InGameMenu = require(RobloxGui.Modules.InGameMenuInit)
 		local inGameMenuOpenChangedEvent = InGameMenu.getOpenChangedEvent()
 
 		local respawnBehaviourChangedEvent

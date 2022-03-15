@@ -80,7 +80,7 @@ function TopBar.new()
 
 	if isNewInGameMenuEnabled() then
 		-- Move to top of script when removing isNewInGameMenuEnabled
-		local InGameMenu = require(RobloxGui.Modules.InGameMenu)
+		local InGameMenu = require(RobloxGui.Modules.InGameMenuInit)
 		InGameMenu.mountInGameMenu()
 	end
 

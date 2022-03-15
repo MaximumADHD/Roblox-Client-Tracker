@@ -21,6 +21,7 @@ local Category = require(Plugin.Core.Types.Category)
 local ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
 local PermissionTypes = require(Plugin.Core.Types.PermissionTypes)
 
+local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 local FIntToolboxGrantUniverseAudioPermissionsTimeoutInMS = game:GetFastInt("ToolboxGrantUniverseAudioPermissionsTimeoutInMS")
 
 local NetworkInterface = {}
@@ -863,5 +864,15 @@ function NetworkInterface:getAutocompleteResults(categoryName, searchTerm, numbe
 	printUrl("getAutocompleteResults", "GET", targetUrl)
 	return self._networkImp:httpGetJson(targetUrl)
 end
+
+if FFlagToolboxAudioAssetConfigIdVerification then
+	function NetworkInterface:getUserAgeVerification()
+		local targetUrl = Urls.constructUserAgeVerificationUrl()
+		printUrl("getUserAgeVerification", "GET", targetUrl)
+		return self._networkImp:httpGetJson(targetUrl)
+	end
+end
+
+export type NetworkInterface = typeof(NetworkInterface)
 
 return NetworkInterface

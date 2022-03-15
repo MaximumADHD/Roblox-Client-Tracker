@@ -1,6 +1,6 @@
 local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
 local FFlagUGCLCAssetTypes2 = game:GetFastFlag("UGCLCAssetTypes2")
-local FFlagToolboxPrivatePublicAudioAssetConfig = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig")
+local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -207,7 +207,7 @@ if FFlagToolboxRedirectToLibraryAbuseReport then
 	}
 end
 
-if FFlagToolboxPrivatePublicAudioAssetConfig then
+if FFlagToolboxPrivatePublicAudioAssetConfig3 then
 	AssetConfigConstants.SHARING_KEYS = {
 		Public = true,
 		Private = false,

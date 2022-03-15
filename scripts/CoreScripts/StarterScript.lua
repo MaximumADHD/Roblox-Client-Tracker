@@ -62,6 +62,8 @@ local FFlagEnableLuobuWarningToast = require(RobloxGui.Modules.Flags.FFlagEnable
 -- We do this explicitly because the LocalPlayer hasn't been created at this
 -- point, so we can't check enrollment status.
 initify(CoreGuiModules.InGameMenu)
+initify(CoreGuiModules.InGameMenuV3)
+
 
 local UIBlox = require(CorePackages.UIBlox)
 local uiBloxConfig = require(CoreGuiModules.UIBloxInGameConfig)
@@ -263,7 +265,7 @@ if GetFFlagEnableIXPInGame() then
 end
 
 if FFlagEnableExperienceChat then
-	ScriptContext:AddCoreScriptLocal("CoreScripts/ExperienceChat", RobloxGui)
+	ScriptContext:AddCoreScriptLocal("CoreScripts/ExperienceChatMain", RobloxGui)
 end
 
 if game:DefineFastFlag("ReportChatEmoteUsage", false) then

@@ -16,7 +16,7 @@ return function()
 	local SetSelectedLattice = require(Plugin.Src.Actions.SetSelectedLattice)
 
 	local ScrollerPath = TestHelper.getEditScreenContainer()
-	local EditorFrame = ScrollerPath:cat(XPath.new("EditSwizzle.ViewArea.EditorFrame"))
+	local EditorFrame = ScrollerPath:cat(XPath.new("EditSwizzle.Content.EditorFrame"))
 
 	local PointToolTabButton =
 		EditorFrame:cat(XPath.new("TabsRibbon.2 PointTool.1.Contents.TextButton"))

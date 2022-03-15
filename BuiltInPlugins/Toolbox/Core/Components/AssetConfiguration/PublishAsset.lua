@@ -32,7 +32,9 @@
 	Optional Props:
 		LayoutOrder, number, used by the layouter to set the position of the component.
 ]]
-local FFlagToolboxPrivatePublicAudioAssetConfig = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig")
+local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
+local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
+local FFlagToolboxAudioAssetConfigDisablePublicAudio = game:GetFastFlag("ToolboxAudioAssetConfigDisablePublicAudio")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -46,6 +48,7 @@ local withContext = ContextServices.withContext
 local Framework = require(Packages.Framework)
 local TitledFrame = Framework.StudioUI.TitledFrame
 local Separator = Framework.UI.Separator
+local Pane = Framework.UI.Pane
 local StyledScrollingFrame = require(Plugin.Core.Components.StyledScrollingFrame)
 
 local Util = Plugin.Core.Util
@@ -53,6 +56,7 @@ local ContextHelper = require(Util.ContextHelper)
 local LayoutOrderIterator = require(Util.LayoutOrderIterator)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local Constants = require(Util.Constants)
+local Images = require(Plugin.Core.Util.Images)
 
 local withLocalization = ContextHelper.withLocalization
 
@@ -79,6 +83,9 @@ local COMMENT_HEIGHT = 80
 local PADDING = 24
 local HEIGHT_FOR_ACCOUNT_SETTING_TEXT = 60
 local DIVIDER_BASE_HEIGHT = 20
+local ICON_SIZE = 24
+local BOTTOM_PADDING = 30
+local SPACING = 5
 
 function PublishAsset:init(props)
 	self.state = {
@@ -181,21 +188,33 @@ function PublishAsset:renderContent(theme, localizedContent)
 	local displayComment = props.displayComment
 	local displayAssetType = props.displayAssetType
 	local displayTags = props.displayTags
+	local displaySharing = props.displaySharing
 
 	local maximumItemTagsPerItem = props.maximumItemTagsPerItem
+
+	local isVerified
+	local onClickRefreshVerficationStatus
+	if FFlagToolboxAudioAssetConfigIdVerification then
+		isVerified = props.isVerified
+		onClickRefreshVerficationStatus = props.onClickRefreshVerficationStatus
+	end
 
 	local isAudio = assetTypeEnum == Enum.AssetType.Audio
 	local isModel = assetTypeEnum == Enum.AssetType.Model
 
 	local copyWarning
-	if FFlagToolboxPrivatePublicAudioAssetConfig
-		and isAudio
-		and not isAssetPublic
-		and copyOn
-	then
+	local modelPublishWarningText
+	if FFlagToolboxPrivatePublicAudioAssetConfig3 then
 		local localization = props.Localization
-		copyWarning = localization:getText("AssetConfigCopy", "MustShare")
-	end	
+
+		if isAudio and not isAssetPublic and copyOn then
+			copyWarning = localization:getText("AssetConfigCopy", "MustShare")
+		end
+
+		if isModel then
+			modelPublishWarningText = localization:getText("AssetConfig", "ModelPublishWarning")
+		end
+	end
 	
 	local orderIterator = LayoutOrderIterator.new()
 
@@ -238,6 +257,40 @@ function PublishAsset:renderContent(theme, localizedContent)
 
 			[Roact.Ref] = self.listLayoutRef,
 		}),
+
+		ModelWarningFrame = if FFlagToolboxPrivatePublicAudioAssetConfig3 and isModel then Roact.createElement(Pane, {
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			Layout = Enum.FillDirection.Horizontal,
+			LayoutOrder = orderIterator:getNextOrder(),
+			Size = UDim2.new(1, 0, 0, Constants.FONT_SIZE_TITLE),
+			Padding = {
+				Bottom = BOTTOM_PADDING,
+			},
+			Spacing = SPACING,
+			VerticalAlignment = Enum.VerticalAlignment.Top,
+		}, {
+			Icon = Roact.createElement("ImageLabel", {
+				LayoutOrder = 1,
+				BackgroundTransparency = 1,
+				Image = Images.WARNING_ICON,
+				ImageColor3 = publishAssetTheme.warningIconColor,
+				Size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
+			}),
+
+			WarningText = Roact.createElement("TextLabel", {
+				AutomaticSize = Enum.AutomaticSize.XY,
+				LayoutOrder = 2,
+				BackgroundTransparency = 1,
+				Font = Constants.FONT,
+				Size = UDim2.new(1, 0, 1, 0),
+				Text = modelPublishWarningText,
+				TextWrapped = true,
+				TextColor3 = theme.assetConfig.warningColor,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Center,
+				TextSize = Constants.FONT_SIZE_TITLE,
+			}),
+		}) else nil,
 
 		Title = Roact.createElement(ConfigTextField, {
 			Title = publishAssetLocalized.Title,
@@ -338,17 +391,22 @@ function PublishAsset:renderContent(theme, localizedContent)
 			}),
 		}),
 		
-		Sharing = if FFlagToolboxPrivatePublicAudioAssetConfig and (isAudio or isModel) then
+		Sharing = if FFlagToolboxPrivatePublicAudioAssetConfig3 and displaySharing then
 			Roact.createElement(ConfigSharing, {
+				AssetType = if FFlagToolboxAudioAssetConfigDisablePublicAudio then assetTypeEnum else nil,
 				AllowSelectPrivate = allowSelectPrivate,
 				LayoutOrder = orderIterator:getNextOrder(),
+				IsIdVerificationRequired = if FFlagToolboxAudioAssetConfigIdVerification then isAudio else nil,
+				IsVerified = isVerified,
 				IsAssetPublic = isAssetPublic,
 				OnSelected = onSharingChanged,
+				OnClickRefreshVerficationStatus = onClickRefreshVerficationStatus,
 			})
 		else nil,
 
 		Copy = displayCopy and Roact.createElement(ConfigCopy, {
-			Title = if FFlagToolboxPrivatePublicAudioAssetConfig then publishAssetLocalized.DistributeOnMarketplace else publishAssetLocalized.Copy,
+			AssetType = if FFlagToolboxPrivatePublicAudioAssetConfig3 or FFlagToolboxAudioAssetConfigDisablePublicAudio then assetTypeEnum else nil,
+			Title = if FFlagToolboxPrivatePublicAudioAssetConfig3 then publishAssetLocalized.DistributeOnMarketplace else publishAssetLocalized.Copy,
 
 			TotalHeight = configCopyHeight,
 			CopyEnabled = allowCopy,
@@ -359,8 +417,8 @@ function PublishAsset:renderContent(theme, localizedContent)
 
 			LayoutOrder = orderIterator:getNextOrder(),
 
-			IsAssetPublic = if FFlagToolboxPrivatePublicAudioAssetConfig then isAssetPublic else nil,
-			IsAudio = if FFlagToolboxPrivatePublicAudioAssetConfig then isAudio else nil,
+			IsAssetPublic = if FFlagToolboxPrivatePublicAudioAssetConfig3 then isAssetPublic else nil,
+			IsAudio = if FFlagToolboxPrivatePublicAudioAssetConfig3 then isAudio else nil,
 		}),
 
 		Comment = displayComment and Roact.createElement(ConfigComment, {
@@ -377,6 +435,17 @@ function PublishAsset:renderContent(theme, localizedContent)
 	})
 end
 
+local mapStateToProps
+if FFlagToolboxAudioAssetConfigIdVerification then
+	mapStateToProps = function(state, props)
+		state = state or {}
+
+		return {
+			isVerified = state.isVerified,
+		}
+	end
+end
+
 local function mapDispatchToProps(dispatch)
 	return {
 		setFieldError = function(fieldName, hasError)
@@ -385,11 +454,9 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-
 PublishAsset = withContext({
-	Localization = if FFlagToolboxPrivatePublicAudioAssetConfig then ContextServices.Localization else nil,
+	Localization = if FFlagToolboxPrivatePublicAudioAssetConfig3 then ContextServices.Localization else nil,
 	Stylizer = ContextServices.Stylizer,
 })(PublishAsset)
 
-
-return RoactRodux.connect(nil, mapDispatchToProps)(PublishAsset)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PublishAsset)

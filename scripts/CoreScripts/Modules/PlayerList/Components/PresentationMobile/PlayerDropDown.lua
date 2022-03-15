@@ -158,7 +158,7 @@ function PlayerDropDown:createReportButton()
 		onActivated = function()
 			if isNewInGameMenuEnabled() then
 				-- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
-				local InGameMenu = require(RobloxGui.Modules.InGameMenu)
+				local InGameMenu = require(RobloxGui.Modules.InGameMenuInit)
 				InGameMenu.openReportDialog(selectedPlayer)
 			else
 				-- This module has to be required here or it yields on initalization which breaks the unit tests.

@@ -17,6 +17,11 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+
+local Components = AvatarToolsShared.Components
+local InputBlocker = Components.InputBlocker
+local FlowScreenLayout = Components.FlowScreenLayout
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -27,9 +32,6 @@ local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
 local SetControlsPanelBlockerActivity = require(Plugin.Src.Actions.SetControlsPanelBlockerActivity)
 local ReleaseEditor = require(Plugin.Src.Thunks.ReleaseEditor)
 local FinishEditing = require(Plugin.Src.Thunks.FinishEditing)
-
-local ControlsPanelBlocker = require(Plugin.Src.Components.ControlsPanelBlocker)
-local FlowScreenLayout = require(Plugin.Src.Components.Screens.FlowScreenLayout)
 
 local GenerateScreen = Roact.PureComponent:extend("GenerateScreen")
 
@@ -77,7 +79,7 @@ function GenerateScreen:render()
 			GoToPrevious = goToPrevious,
 		}),
 
-		ControlsPanelBlocker = props.IsControlsPanelBlockerActive and Roact.createElement(ControlsPanelBlocker,{
+		ControlsPanelBlocker = props.IsControlsPanelBlockerActive and Roact.createElement(InputBlocker,{
 			OnFocused = function() end,
 			Text = localization:getText("Generate", "Wait"),
 		}),

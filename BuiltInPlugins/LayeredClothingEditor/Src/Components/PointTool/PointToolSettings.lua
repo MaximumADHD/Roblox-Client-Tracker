@@ -9,8 +9,10 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 
-local SliderSetting = require(Plugin.Src.Components.SliderSetting)
+local Components = AvatarToolsShared.Components
+local SliderSetting = Components.SliderSetting
 
 local SetFalloff = require(Plugin.Src.Actions.SetFalloff)
 local SoftSelectRbfPoints = require(Plugin.Src.Thunks.SoftSelectRbfPoints)

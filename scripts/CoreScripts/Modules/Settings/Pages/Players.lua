@@ -87,6 +87,8 @@ local GetFFlagOldMenuNewIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuN
 local GetFFlagPauseMuteFix = require(RobloxGui.Modules.Flags.GetFFlagPauseMuteFix)
 local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPlayerListAnimateMic)
 local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuUseSpeakerIcons)
+local GetFFlagSubscriptionFailureRejoin = require(RobloxGui.Modules.Flags.GetFFlagSubscriptionFailureRejoin)
+local GetFFlagInviteTextTruncateFix = require(RobloxGui.Modules.Flags.GetFFlagInviteTextTruncateFix)
 
 local isEngineTruncationEnabledForIngameSettings = require(RobloxGui.Modules.Flags.isEngineTruncationEnabledForIngameSettings)
 
@@ -493,6 +495,8 @@ local function Initialize()
 							VoiceChatServiceManager:ToggleMutePlayer(
 								playerStatus.userId
 							)
+						elseif GetFFlagSubscriptionFailureRejoin() and status.subscriptionFailed then
+							VoiceChatServiceManager:SubscribeRetry(playerStatus.userId)
 						end
 					else
 						VoiceChatServiceManager:ToggleMutePlayer(
@@ -739,12 +743,16 @@ local function Initialize()
 	local TAP_ACCURACY_THREASHOLD = 20
 	createShareGameButton = function()
 		local frame = createRow("ImageButton")
-		if voiceChatServiceConnected and GetFFlagEnableVoiceChatMuteAll() then
-			frame.Size = UDim2.new(0.5, -10, 0, PLAYER_ROW_HEIGHT)
-			frame.AnchorPoint = Vector2.new(0, 0)
-		end
 		local textLabel = frame.TextLabel
 		local icon = frame.Icon
+		if voiceChatServiceConnected and GetFFlagEnableVoiceChatMuteAll() then
+			frame.Size = UDim2.new(0.5, -10, 0, PLAYER_ROW_HEIGHT)
+			if GetFFlagInviteTextTruncateFix() then
+				textLabel.Size = UDim2.new(0.5, 0, 0, 0)
+				textLabel.TextTruncate = Enum.TextTruncate.AtEnd
+			end
+			frame.AnchorPoint = Vector2.new(0, 0)
+		end
 
 		textLabel.Font = Enum.Font.SourceSansSemibold
 		textLabel.AutoLocalize = false

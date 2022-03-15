@@ -8,8 +8,6 @@ local AddMessage = require(script.Parent.Parent.Actions.AddMessage)
 local RemoveMessage = require(script.Parent.Parent.Actions.RemoveMessage)
 local PlayerRemoved = require(RobloxGui.Modules.VoiceChat.Actions.PlayerRemoved)
 
-local GetFFlagBubbleVoiceCleanupOnLeave = require(RobloxGui.Modules.Flags.GetFFlagBubbleVoiceCleanupOnLeave)
-
 local userMessages = Rodux.createReducer({
 	-- [userId] = { messageId, ... }
 }, {
@@ -45,11 +43,6 @@ local userMessages = Rodux.createReducer({
 	end,
 
 	[PlayerRemoved.name] = function(state, action)
-		-- This shouldn't get called if the flag is off, but just to be safe.
-		if not GetFFlagBubbleVoiceCleanupOnLeave() then
-			return state
-		end
-
 		local messages = state[action.userId]
 
 		if messages then

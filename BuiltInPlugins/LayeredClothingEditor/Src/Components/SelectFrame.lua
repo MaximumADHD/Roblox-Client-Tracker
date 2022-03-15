@@ -19,7 +19,9 @@ local withContext = ContextServices.withContext
 
 local GetFFlagDebugLCEditAvatarCage = require(Plugin.Src.Flags.GetFFlagDebugLCEditAvatarCage)
 
-local FlowScreenLayout = require(Plugin.Src.Components.Screens.FlowScreenLayout)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+local Components = AvatarToolsShared.Components
+local FlowScreenLayout = Components.FlowScreenLayout
 
 local UI = Framework.UI
 local TextLabel = UI.Decoration.TextLabel
@@ -50,7 +52,6 @@ function SelectFrame:init()
 			LayoutOrder = order,
 			Layout = Enum.FillDirection.Horizontal,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			Spacing = theme.MainPadding,
 		}, {
 			TextBoxLabel = Roact.createElement(TextLabel, {
 				TextXAlignment = Enum.TextXAlignment.Left,

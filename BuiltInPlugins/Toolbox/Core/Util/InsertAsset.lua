@@ -86,7 +86,9 @@ local function insertAudio(assetId, assetName)
 				},
 			},
 		}
-		local response = networkInterface:grantAssetPermissionWithTimeout(assetId, requestBody):await()
+		networkInterface:grantAssetPermissionWithTimeout(assetId, requestBody):catch(function(err)
+			local errMessage = err
+		end):await()
 	end
 
 	local soundObj = Instance.new("Sound")

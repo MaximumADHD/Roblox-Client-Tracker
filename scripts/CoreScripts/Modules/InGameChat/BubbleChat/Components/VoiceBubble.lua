@@ -18,7 +18,6 @@ local getSizeSpringFromSettings = require(root.Helpers.getSizeSpringFromSettings
 local getTransparencySpringFromSettings = require(root.Helpers.getTransparencySpringFromSettings)
 
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
-local GetFFlagBubbleVoiceCheckInsertSize = require(RobloxGui.Modules.Flags.GetFFlagBubbleVoiceCheckInsertSize)
 
 local VoiceBubble = Roact.PureComponent:extend("VoiceBubble")
 
@@ -39,14 +38,10 @@ function VoiceBubble:init(props)
 	end)
 
 	self.frameSize = self.width:map(function(width)
-		if GetFFlagBubbleVoiceCheckInsertSize() then
-			if self.props.insertSize then
-				return UDim2.fromOffset(width, self.props.insertSize.Y + self.props.chatSettings.Padding * 2)
-			else
-				return UDim2.fromOffset(width, 0)
-			end
-		else
+		if self.props.insertSize then
 			return UDim2.fromOffset(width, self.props.insertSize.Y + self.props.chatSettings.Padding * 2)
+		else
+			return UDim2.fromOffset(width, 0)
 		end
 	end)
 
@@ -84,11 +79,7 @@ function VoiceBubble:render()
 	local backgroundGradientSettings = chatSettings.BackgroundGradient
 
 	local fullHeight = 0
-	if GetFFlagBubbleVoiceCheckInsertSize() then
-		if self.props.insertSize then
-			fullHeight = self.props.insertSize.Y + chatSettings.Padding * 2
-		end
-	else
+	if self.props.insertSize then
 		fullHeight = self.props.insertSize.Y + chatSettings.Padding * 2
 	end
 

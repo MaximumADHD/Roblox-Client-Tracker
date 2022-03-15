@@ -24,7 +24,7 @@ return function()
 			createSelectFrame(),
 			function(container)
 				local frame = container:FindFirstChildOfClass("Frame")
-				local content = frame.ViewArea.Content
+				local content = frame.Content.Content
 				local selectPartFrameLayout = content.Layout
 				local textBoxLabel = content.TextBoxLabel
 				local selectedPartBox = content.SelectedPartBox

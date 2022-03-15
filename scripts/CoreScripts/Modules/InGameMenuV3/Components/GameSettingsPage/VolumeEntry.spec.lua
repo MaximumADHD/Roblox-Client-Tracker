@@ -1,0 +1,105 @@
+return function()
+	local CorePackages = game:GetService("CorePackages")
+
+	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
+	local Roact = InGameMenuDependencies.Roact
+	local Rodux = InGameMenuDependencies.Rodux
+	local RoactRodux = InGameMenuDependencies.RoactRodux
+	local UIBlox = InGameMenuDependencies.UIBlox
+
+	local InGameMenu = script.Parent.Parent.Parent
+	local Localization = require(InGameMenu.Localization.Localization)
+	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
+	local reducer = require(InGameMenu.reducer)
+
+	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
+	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+
+	local Flags = InGameMenu.Flags
+	local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
+	local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
+
+	local appStyle = {
+		Theme = AppDarkTheme,
+		Font = AppFont,
+	}
+
+	local FocusHandlerContextProvider = require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
+	local VolumeEntry = require(script.Parent.VolumeEntry)
+
+	itSKIP("should create and destroy without errors", function()
+		local testButtonRef = Roact.createRef()
+
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = Rodux.Store.new(reducer)
+		}, {
+			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
+				style = appStyle,
+			}, {
+				LocalizationProvider = Roact.createElement(LocalizationProvider, {
+					localization = Localization.new("en-us"),
+				}, {
+					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+						VolumeEntry = Roact.createElement(VolumeEntry, {
+							LayoutOrder = 9,
+							canCaptureFocus = true,
+							isMenuOpen = true,
+							buttonRef =  testButtonRef,
+						}),
+					}) or nil,
+					VolumeEntry = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(VolumeEntry, {
+						LayoutOrder = 9,
+						canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and true or nil,
+						isMenuOpen = GetFFlagInGameMenuControllerDevelopmentOnly() and true or nil,
+						buttonRef =  GetFFlagInGameMenuControllerDevelopmentOnly() and testButtonRef or nil,
+					}) or nil,
+				}),
+			}),
+		})
+
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
+	end)
+
+
+	itSKIP("should set buttonRef properties reference to a button instance", function()
+
+		if GetFFlagInGameMenuControllerDevelopmentOnly() then
+			local testButtonRef = Roact.createRef()
+
+			local element = Roact.createElement(RoactRodux.StoreProvider, {
+				store = Rodux.Store.new(reducer)
+			}, {
+				ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
+					style = appStyle,
+				}, {
+					LocalizationProvider = Roact.createElement(LocalizationProvider, {
+						localization = Localization.new("en-us"),
+					}, {
+						FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+							VolumeEntry = Roact.createElement(VolumeEntry, {
+								LayoutOrder = 9,
+								canCaptureFocus = true,
+								isMenuOpen = true,
+								buttonRef =  testButtonRef,
+							}),
+						}) or nil,
+						VolumeEntry = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(VolumeEntry, {
+							LayoutOrder = 9,
+							canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and true or nil,
+							isMenuOpen = GetFFlagInGameMenuControllerDevelopmentOnly() and true or nil,
+							buttonRef =  GetFFlagInGameMenuControllerDevelopmentOnly() and testButtonRef or nil,
+						}) or nil,
+					}),
+				}),
+			})
+
+			local instance = Roact.mount(element)
+
+			expect(testButtonRef:getValue()).to.be.ok()
+			expect(type(testButtonRef:getValue())).to.equal("userdata")
+
+			Roact.unmount(instance)
+		end
+	end)
+end

@@ -39,12 +39,12 @@ type _ExternalProps = {
 }
 
 type _InternalProps = {
-	LabelColumnWidth : UDim,
-	LayoutOrder : number,
-	Spacing : number,
-	Text : string,
-	TextXAlignment : Enum.TextXAlignment,
-	TextYAlignment : Enum.TextYAlignment,
+	LabelColumnWidth : UDim?,
+	LayoutOrder : number?,
+	Spacing : number?,
+	Text : string?,
+	TextXAlignment : Enum.TextXAlignment?,
+	TextYAlignment : Enum.TextYAlignment?,
 }
 
 export type Props = _ExternalProps & _InternalProps

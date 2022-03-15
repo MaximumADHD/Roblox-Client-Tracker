@@ -1,7 +1,7 @@
 --[[
 	This request will try to use develop endpoint and item config end point to fetch data for the plugin and conbine them together.
 ]]
-local FFlagToolboxPrivatePublicAudioAssetConfig = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig")
+local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -77,7 +77,7 @@ return function(networkInterface, assetId)
 			store:dispatch(NetworkError(err, ConfigTypes.NetworkErrors.GET_ASSET_DETAIL_FAILURE))
 		end
 
-		if FFlagToolboxPrivatePublicAudioAssetConfig then
+		if FFlagToolboxPrivatePublicAudioAssetConfig3 then
 			Promise.all({
 				networkInterface:getAssetConfigData(assetId):andThen(onAssetConfigDataGet, onAssetConfigDataFailed),
 				networkInterface:getAssetCreationDetails({ assetId }):andThen(onPriceDataGet, onPriceDataFailed),

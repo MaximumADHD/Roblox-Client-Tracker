@@ -28,6 +28,7 @@ local GetFFlagLazyLoadPlayerBlockedEvent = require(RobloxGui.Modules.Flags.GetFF
 local GetFFlagDeferredBlockStatusChange = require(RobloxGui.Modules.Flags.GetFFlagDeferredBlockStatusChange)
 local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPlayerListAnimateMic)
 local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuUseSpeakerIcons)
+local GetFFlagClearVoiceStateOnRejoin = require(RobloxGui.Modules.Flags.GetFFlagClearVoiceStateOnRejoin)
 
 local Constants = require(script.Parent.Constants)
 local GetFFlagModerationByProxyUserBanNotification = require(RobloxGui.Modules.Flags.GetFFlagModerationByProxyUserBanNotification)
@@ -650,12 +651,24 @@ function VoiceChatServiceManager:ToggleMic()
 	end
 end
 
+function VoiceChatServiceManager:SubscribeRetry(userId: number)
+	self:ensureInitialized("subscribe retry")
+	log:debug("Attempting to retry connection to user: {}", shorten(userId))
+	self.service:SubscribeRetry(userId)
+end
+
 function VoiceChatServiceManager:RejoinCurrentChannel()
 	pcall(function()
 		local groupId = self.service:GetGroupId()
 		if groupId and groupId ~= "" then
 			local muted = self.service:IsPublishPaused()
 			self.service:Leave()
+			if GetFFlagClearVoiceStateOnRejoin() then
+				log:debug('Rejoining current channel {}', groupId)
+				-- Resets the UI on rejoin, as "Leave" doesn't seem to send any events in this case
+				self.participants = {}
+				self.participantsUpdate:Fire(self.participants)
+			end
 			local joinInProgress = self.service:JoinByGroupIdToken(groupId, muted)
 			if not joinInProgress then
 				VoiceChatServiceManager:InitialJoinFailedPrompt()

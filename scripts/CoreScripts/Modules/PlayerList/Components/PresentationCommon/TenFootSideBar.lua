@@ -101,7 +101,7 @@ function TenFootSideBar:openSidebar(player)
 			GuiService.SelectedCoreObject = nil
 			if isNewInGameMenuEnabled() then
 				-- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
-				local InGameMenu = require(RobloxGui.Modules.InGameMenu)
+				local InGameMenu = require(RobloxGui.Modules.InGameMenuInit)
 				InGameMenu.openReportDialog(player)
 			else
 				ReportAbuseMenu:ReportPlayer(player)

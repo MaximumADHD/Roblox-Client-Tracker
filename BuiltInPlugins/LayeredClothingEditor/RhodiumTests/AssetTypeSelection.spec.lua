@@ -14,7 +14,7 @@ return function()
 	local ScreenFlowPath = TestHelper.getScreenFlow(true)
 	local EditScreenPath = TestHelper.getEditScreenContainer()
 	local AssetTypeScreenPath =
-		ScreenFlowPath:cat(XPath.new("SwizzleView.ViewArea"))
+		ScreenFlowPath:cat(XPath.new("ExpandablePane.Content"))
 	local ShirtButtonPath =
 		AssetTypeScreenPath:cat(XPath.new("Content.ClothingTypeList.List.Shirt"))
 	local ShirtButtonSelectedPath =
@@ -32,9 +32,9 @@ return function()
 	local AssetTypeScreenBackButtonPath =
 		AssetTypeScreenPath:cat(XPath.new("NextAndBackButtonContainer.BackButton.Contents.TextButton"))
 	local EditScreenBackButtonPath =
-		EditScreenPath:cat(XPath.new("EditAndPreviewContainer.EditAndPreviewFrame.ViewArea.NextAndBackButtonContainer.BackButton.Contents.TextButton"))
+		EditScreenPath:cat(XPath.new("EditAndPreviewContainer.EditAndPreviewFrame.Content.NextAndBackButtonContainer.BackButton.Contents.TextButton"))
 	local SelectFramePath =
-		ScreenFlowPath:cat(XPath.new("SelectFrame.ViewArea"))
+		ScreenFlowPath:cat(XPath.new("SelectFrame.Content"))
 	local SelectScreenNextButtonPath =
 		SelectFramePath:cat(XPath.new("NextAndBackButtonContainer.NextButton.Contents.TextButton"))
 

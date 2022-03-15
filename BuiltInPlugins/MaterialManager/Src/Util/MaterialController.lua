@@ -9,6 +9,9 @@ local Provider = Framework.ContextServices.Provider
 local FrameworkUtil = Framework.Util
 local Signal = FrameworkUtil.Signal
 
+local Flags = Plugin.Src.Flags
+local getFFlagMaterialServiceStringOverride = require(Flags.getFFlagMaterialServiceStringOverride)
+
 local Util = Plugin.Src.Util
 local getMaterialPath = require(Util.getMaterialPath)
 local getMaterialType = require(Util.getMaterialType)
@@ -32,7 +35,7 @@ end
 
 local MaterialController = ContextItem:extend("MaterialController")
 
-function MaterialController.new(initialMaterialVariants : _Types.Array<MaterialVariant>, mockMaterialService : Instance?)
+function MaterialController.new(initialMaterialVariants : _Types.Array<MaterialVariant>, materialServiceWrapper : any)
 	local self = setmetatable({
 		_categoryChangedSignal = Signal.new(),
 		_materialAddedSignal = Signal.new(),
@@ -46,16 +49,17 @@ function MaterialController.new(initialMaterialVariants : _Types.Array<MaterialV
 			Materials = {},
 		},
 		_materialPaths = {},
-		_materialService = mockMaterialService or game:GetService("MaterialService")
+		_materialWrappers = {},
+		_materialServiceWrapper = materialServiceWrapper,
 	}, MaterialController)
 
-	self._materialServiceAdded = self._materialService.DescendantAdded:Connect(function(instance)
+	self._materialServiceAdded = self._materialServiceWrapper:asInstance().DescendantAdded:Connect(function(instance)
 		if instance:IsA("MaterialVariant") then
 			self:addMaterial(instance, getMaterialPath(instance))
 		end
 	end)
 
-	self._materialServiceRemoved = self._materialService.DescendantRemoving:Connect(function(instance)
+	self._materialServiceRemoved = self._materialServiceWrapper:asInstance().DescendantRemoving:Connect(function(instance)
 		if instance:IsA("MaterialVariant") then
 			self:removeMaterial(instance)
 		end
@@ -65,7 +69,7 @@ function MaterialController.new(initialMaterialVariants : _Types.Array<MaterialV
 		self:addMaterial(materialVariant, getMaterialPath(materialVariant))
 	end
 
-	for _, descendant in ipairs(self._materialService:GetDescendants()) do
+	for _, descendant in ipairs(self._materialServiceWrapper:asInstance():GetDescendants()) do
 		if descendant:IsA("MaterialVariant") then
 			self:addMaterial(descendant, getMaterialPath(descendant))
 		end
@@ -83,7 +87,7 @@ end
 function MaterialController:destroy()
 	self._materialServiceAdded:Disconnect()
 	self._materialServiceRemoved:Disconnect()
-	
+
 	for materialIndex, materialListeners in ipairs(self._materialChangedListeners) do
 		self._materialChangedListeners[materialIndex]:Disconnect()
 		self._materialChangedListeners[materialIndex] = nil
@@ -92,7 +96,7 @@ end
 
 function MaterialController:getMaterialWrapper(material : MaterialVariant) : _Types.Material
 	return {
-		IsBase = not material:IsDescendantOf(self._materialService),
+		IsBuiltin = not material:IsDescendantOf(self._materialServiceWrapper:asInstance()),
 		MaterialPath = getMaterialPath(material),
 		MaterialType = getMaterialType(material.BaseMaterial),
 		MaterialVariant = material,
@@ -159,11 +163,12 @@ end
 function MaterialController:addMaterial(material : MaterialVariant)
 	local path = getMaterialPath(material)
 	local materialWrapper = self:getMaterialWrapper(material)
-	local category = self:addCategory(path, materialWrapper.IsBase)
+	local category = self:addCategory(path, materialWrapper.IsBuiltin)
 	assert(category, "Category to which a Material is added should exist, or be created")
 	table.insert(category.Materials, materialWrapper)
 
 	self._materialPaths[material] = path
+	self._materialWrappers[material] = materialWrapper
 	-- If the way to categorize is changed, make it happen here
 	assert(not self._materialChangedListeners[material], "Already connected to material changed")
 
@@ -172,8 +177,9 @@ function MaterialController:addMaterial(material : MaterialVariant)
 			self._materialChangedSignal:Fire(material)
 		elseif property == "BaseMaterial" then
 			self:moveMaterial(material)
+			self._materialChangedSignal:Fire(material)
 		elseif property == "Name" then
-			self:moveMaterial(material)		
+			self._materialChangedSignal:Fire(material)		
 		end
 	end)
 
@@ -194,10 +200,9 @@ function MaterialController:removeMaterial(material : MaterialVariant)
 	end
 
 	self._materialPaths[material] = nil
+	self._materialWrappers[material] = nil
 
-	for _, listener in ipairs(self._materialChangedListeners[material]) do
-		listener:Disconnect()
-	end
+	self._materialChangedListeners[material]:Disconnect()
 	self._materialChangedListeners[material] = nil
 
 	self._materialRemovedSignal:Fire(path)
@@ -210,6 +215,10 @@ function MaterialController:moveMaterial(material : MaterialVariant)
 	self:addMaterial(material)
 end
 
+function MaterialController:getMaterial(material : MaterialVariant)
+	return self._materialWrappers[material]
+end
+
 function MaterialController:getMaterials(path : _Types.Path) : _Types.Array<_Types.Material>
 	local category = self:findCategory(path)
 	assert(category, "Tried to get materials for path which does not exist")
@@ -220,15 +229,59 @@ function MaterialController:getMaterials(path : _Types.Path) : _Types.Array<_Typ
 	return materials
 end
 
-function MaterialController:getMaterialAddedSignal()
+function MaterialController:getMaterialOverride(material : Enum.Material) : string
+	assert(getFFlagMaterialServiceStringOverride(), "Enable FFlagMaterialServiceStringOverride in order to use this functionality.")
+
+	return self._materialServiceWrapper:asMaterialService():GetMaterialOverride(material)
+end
+
+function MaterialController:setMaterialOverride(material : Enum.Material, materialVariant : string?)
+	assert(getFFlagMaterialServiceStringOverride(), "Enable FFlagMaterialServiceStringOverride in order to use this functionality.")
+
+	self._materialServiceWrapper:asMaterialService():SetMaterialOverride(material, materialVariant or "")
+end
+
+function MaterialController:getPartOverride(material : Enum.Material) : MaterialVariant
+	assert(not getFFlagMaterialServiceStringOverride(), "getPartOverride is deprecated, please use getMaterialOverride.")
+
+	return self._materialServiceWrapper:asMaterialService():GetOverridePartMaterial(material)
+end
+
+function MaterialController:getTerrainOverride(material : Enum.Material) : MaterialVariant
+	assert(not getFFlagMaterialServiceStringOverride(), "getTerrainOverride is deprecated, please use getMaterialOverride.")
+
+	return self._materialServiceWrapper:asMaterialService():GetOverrideTerrainMaterial(material)
+end
+
+function MaterialController:setPartOverride(material : Enum.Material, materialVariant : MaterialVariant?)
+	assert(not getFFlagMaterialServiceStringOverride(), "setPartOverride is deprecated, please use setMaterialOverride.")
+
+	if materialVariant then
+		self._materialServiceWrapper:asMaterialService():SetOverridePartMaterial(materialVariant)
+	else
+		self._materialServiceWrapper:asMaterialService():ClearOverridePartMaterial(material)
+	end
+end
+
+function MaterialController:setTerrainOverride(material : Enum.Material, materialVariant : MaterialVariant?)
+	assert(not getFFlagMaterialServiceStringOverride(), "setTerrainOverride is deprecated, please use setMaterialOverride.")
+
+	if materialVariant then
+		self._materialServiceWrapper:asMaterialService():SetOverrideTerrainMaterial(materialVariant)
+	else
+		self._materialServiceWrapper:asMaterialService():ClearOverrideTerrainMaterial(material)
+	end
+end
+
+function MaterialController:getMaterialAddedSignal() : RBXScriptSignal
 	return self._materialAddedSignal
 end
 
-function MaterialController:getMaterialRemovedSignal()
+function MaterialController:getMaterialRemovedSignal() : RBXScriptSignal
 	return self._materialRemovedSignal
 end
 
-function MaterialController:getMaterialChangedSignal()
+function MaterialController:getMaterialChangedSignal() : RBXScriptSignal
 	return self._materialChangedSignal
 end
 

@@ -91,5 +91,12 @@ require(game:GetService("CoreGui").RobloxGui.Modules.Server.ServerSound.SoundDis
 
 local FFlagEnableExperienceChat = require(RobloxGui.Modules.Common.Flags.FFlagEnableExperienceChat)
 if FFlagEnableExperienceChat then
-	require(game:GetService("CorePackages").Packages._Index.ExperienceChat.ExperienceChat.mountServerApp)()
+	local CorePackages = game:GetService("CorePackages")
+
+	-- initialize UIBlox here since requiring ExperienceChat will otherwise trigger a UIBlox config error...
+	local UIBlox = require(CorePackages.UIBlox)
+	UIBlox.init()
+
+	local ExperienceChat = require(CorePackages.ExperienceChat)
+	ExperienceChat.mountServerApp()
 end

@@ -4,18 +4,19 @@ local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local Actions = Plugin.Src.Actions
+local ClearMaterial = require(Actions.ClearMaterial)
 local SetMaterial = require(Actions.SetMaterial)
 local SetPath = require(Actions.SetPath)
 local SetSearch = require(Actions.SetSearch)
 
 export type State = {
-    Material : _Types.Material?,
+	Material : _Types.Material?,
 	Path : _Types.Path,
-    Search : string,
+	Search : string,
 }
 
 local initialState : State = {
-    Search = "",
+	Search = "",
 	Path = {},
 }
 
@@ -35,6 +36,12 @@ return (Rodux.createReducer(initialState, {
 	[SetSearch.name] = function(state : State, action : SetSearch.Payload)
 		return Cryo.Dictionary.join(state, {
 			Search = action.Search,
+		})
+	end,
+
+	[ClearMaterial.name] = function(state, action : ClearMaterial.Payload)
+		return Cryo.Dictionary.join(state, {
+			Material = Cryo.None,
 		})
 	end,
 }))

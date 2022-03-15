@@ -18,7 +18,9 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local FlowScreenLayout = require(Plugin.Src.Components.Screens.FlowScreenLayout)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+local Components = AvatarToolsShared.Components
+local FlowScreenLayout = Components.FlowScreenLayout
 
 local EditAndPreviewFrame = Roact.PureComponent:extend("EditAndPreviewFrame")
 

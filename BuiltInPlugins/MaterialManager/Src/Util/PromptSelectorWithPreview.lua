@@ -13,12 +13,14 @@
 
 		RenderPreview : void -> Roact element
 			Function to render a preview of the current item
-		GetMetadata : void -> [String]
-			Return an array of strings of metadata about the current item. Each item in the array is rendered as a separate row
 		PromptSelection : void -> void
 			Callback to prompt the user to select an item (e.g. with StudioService:PromptImportFile())
+		UrlSelection : string -> void
+			Callback to select already uploaded item (by URL)
 		ClearSelection : void -> void
 			Callback to clear the current selection
+		SearchUrl : string
+			AssetId that is inserted by user
 ]]
 
 local Plugin = script.Parent.Parent.Parent
@@ -28,6 +30,7 @@ local Framework = require(Plugin.Packages.Framework)
 local FrameworkTypes = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Types)
 
 local ContextServices = Framework.ContextServices
+local Localization = ContextServices.Localization
 local withContext = ContextServices.withContext
 
 local Stylizer = Framework.Style.Stylizer
@@ -57,9 +60,10 @@ type _ExternalProps = {
 	PreviewTitle : string?,
 	HasSelection : boolean,
 	RenderPreview : () -> FrameworkTypes.RoactElement,
-	GetMetadata : () -> (Array<string>?),
-	ClearSelection : () -> (),
 	PromptSelection : () -> (),
+	UrlSelection : (string) -> (),
+	SearchUrl : string?,
+	ClearSelection : () -> (),
 }
 
 type _InternalProps = {
@@ -72,6 +76,7 @@ type Props = _ExternalProps & _InternalProps
 
 type _Props = Props & {
 	Stylizer : any,
+	Localization : any,
 }
 
 type _Style = {
@@ -194,7 +199,7 @@ function PreviewDialog:render()
 	local metadata = props.Metadata or {}
 
 	local padding = 4
-	local imageInset = #metadata > 0 and (padding + ((padding + style.TextHeight) * #metadata)) or 0
+	local imageInset = #metadata > 0 and (padding * 2 + style.TextHeight) or 0
 
 	local layoutOrderIterator = LayoutOrderIterator.new()
 
@@ -338,6 +343,7 @@ end
 
 function PromptSelectorWithPreview:render()
 	local props : _Props = self.props
+	local localization = props.Localization
 	local state = self.state
 	local style : _Style = props.Stylizer.PromptSelectorWithPreview
 	local layoutOrderIterator = LayoutOrderIterator.new()
@@ -363,11 +369,7 @@ function PromptSelectorWithPreview:render()
 
 	local metadata
 	if showingExpandedPreview then
-		if props.GetMetadata then
-			metadata = Dash.append({selectionName}, props.GetMetadata())
-		else
-			metadata = {selectionName}
-		end
+		metadata = {selectionName}
 	end
 
 	local content = {
@@ -459,11 +461,12 @@ function PromptSelectorWithPreview:render()
 				Layout = Enum.FillDirection.Vertical,
 				LayoutOrder = 2,
 			}, {
-				--TODO: add UrlImport with next PR and localization
 				UrlImport = Roact.createElement(TextInput2, {
-					PlaceholderText = "Insert asset URL",
-					-- OnTextChanged = props.UrlSelection,
-					-- ErrorText = "",
+					PlaceholderText = localization:getText("CreateDialog", "InsertAssetURL"),
+					Text = props.SearchUrl,
+					OnTextChanged = props.UrlSelection,
+					-- TODO: add error text
+					ErrorText = "",
 					Size = UDim2.new(0, importWidth, 0, 25),
 				}),
 
@@ -486,6 +489,7 @@ end
 
 PromptSelectorWithPreview = withContext({
 	Stylizer = Stylizer,
+	Localization = Localization,
 })(PromptSelectorWithPreview)
 
 return PromptSelectorWithPreview

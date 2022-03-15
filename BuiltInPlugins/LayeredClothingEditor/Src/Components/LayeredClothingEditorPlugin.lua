@@ -3,6 +3,10 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 local Framework = require(Plugin.Packages.Framework)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+
+local Components = AvatarToolsShared.Components
+local ConfirmDialog = Components.ConfirmDialog
 
 local RunService = game:GetService("RunService")
 
@@ -30,7 +34,6 @@ local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentT
 local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
 
 local LayeredClothingEditor = require(Plugin.Src.Components.LayeredClothingEditor)
-local ConfirmDialog = require(Plugin.Src.Components.ConfirmDialog)
 
 local ReleaseEditor = require(Plugin.Src.Thunks.ReleaseEditor)
 

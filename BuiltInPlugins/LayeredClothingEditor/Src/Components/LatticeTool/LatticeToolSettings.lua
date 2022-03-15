@@ -20,12 +20,15 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 
-local Vector3Entry = require(Plugin.Src.Components.Vector3Entry)
-local CheckboxSetting = require(Plugin.Src.Components.CheckboxSetting)
+local Components = AvatarToolsShared.Components
+local Vector3Entry = Components.Vector3Entry
+local CheckboxSetting = Components.CheckboxSetting
+local ConfirmCancelDialog = Components.ConfirmCancelDialog
+
 local DeformerDropdownMenu = require(Plugin.Src.Components.DeformerDropdownMenu)
 local ShowDialog = require(Plugin.Src.Util.ShowDialog)
-local ConfirmCancelDialog = require(Plugin.Src.Components.ConfirmCancelDialog)
 
 local SetSelectedLattice = require(Plugin.Src.Actions.SetSelectedLattice)
 local SetSubdivisions = require(Plugin.Src.Thunks.SetSubdivisions)

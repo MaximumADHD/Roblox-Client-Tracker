@@ -9,6 +9,14 @@ local Roact = require(Plugin.Packages.Roact)
 
 local StatusMessage = require(Plugin.Src.Utility.StatusMessage)
 
+local isValidTarget
+if getFFlagPivotEditorPreventDraggingInvalidTarget() then
+	function isValidTarget(instance)
+		return instance and instance:IsA("PVInstance") and instance ~= Workspace
+			and instance ~= Workspace.Terrain
+	end
+end
+
 local SelectionUpdater = Roact.PureComponent:extend("SelectionUpdater")
 
 function SelectionUpdater:init()
@@ -37,7 +45,7 @@ function SelectionUpdater:_update()
 		local targetObject = selection[1]
 		if self.props.targetObject ~= targetObject then
 			if getFFlagPivotEditorPreventDraggingInvalidTarget() then
-				if targetObject:IsA("PVInstance") then
+				if isValidTarget(targetObject) then
 					self.props.selectObjectForEditing(targetObject)
 				else
 					self.props.selectInvalidSelection(StatusMessage.InvalidTarget)

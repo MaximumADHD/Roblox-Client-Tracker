@@ -9,16 +9,12 @@ return function()
 	local TestRunner = require(Plugin.Src.Util.TestRunner)
 	local runRhodiumTest = TestRunner.runRhodiumTest
 
-	local Constants = require(Plugin.Src.Util.Constants)
-	local ModelUtil = require(Plugin.Src.Util.ModelUtil)
-
 	local nearLimit = 1e-5 -- when set transparency, there might be some value precision issue
 
 	local ScrollerPath = TestHelper.getEditScreenContainer()
-	local PointToolTabButton =
-		ScrollerPath:cat(XPath.new("EditSwizzle.ViewArea.EditorFrame.TabsRibbon.Tabs.2"))
-	local TransparencyViewPath =
-		ScrollerPath:cat(XPath.new("EditSwizzle.ViewArea.EditorFrame.TransparencyView"))
+	local EditorFrame = ScrollerPath:cat(XPath.new("EditSwizzle.Content.EditorFrame"))
+	local PointToolTabButton = EditorFrame:cat(XPath.new("TabsRibbon.Tabs.2"))
+	local TransparencyViewPath = EditorFrame:cat(XPath.new("TransparencyView"))
 	local InnerCageValueTextBoxPath =
 		TransparencyViewPath:cat(XPath.new("InnerCage.SliderContainer.ValueTextBoxFrame"))
 	local OuterCageValueTextBoxPath =
@@ -26,11 +22,9 @@ return function()
 	local MeshValueTextBoxPath =
 		TransparencyViewPath:cat(XPath.new("Mesh.SliderContainer.ValueTextBoxFrame"))
 	local OuterCageRadioButton =
-		ScrollerPath:cat(XPath.new("EditSwizzle.ViewArea.EditorFrame.EditingModeFrame.EditingModeRadioButtonList.Outer.RadioImage.Contents.TextButton"))
+		EditorFrame:cat(XPath.new("EditingModeFrame.EditingModeRadioButtonList.Outer.RadioImage.Contents.TextButton"))
 	local InnerCageRadioButton =
-		ScrollerPath:cat(XPath.new("EditSwizzle.ViewArea.EditorFrame.EditingModeFrame.EditingModeRadioButtonList.Inner.RadioImage.Contents.TextButton"))
-	local MeshRadioButton =
-		ScrollerPath:cat(XPath.new("EditSwizzle.ViewArea.EditorFrame.EditingModeFrame.EditingModeRadioButtonList.Mesh.RadioImage.Contents.TextButton"))
+		EditorFrame:cat(XPath.new("EditingModeFrame.EditingModeRadioButtonList.Inner.RadioImage.Contents.TextButton"))
 
 	local function getTextBox(path)
 		return path:cat(XPath.new("ValueTextBox.Contents.TextBox"))

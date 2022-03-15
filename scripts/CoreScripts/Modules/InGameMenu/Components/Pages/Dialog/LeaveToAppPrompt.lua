@@ -19,7 +19,6 @@ local Constants = require(InGameMenu.Resources.Constants)
 
 local Flags = InGameMenu.Flags
 local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
-local GetFFlagDeeplinkFromGameToHome = require(Flags.GetFFlagDeeplinkFromGameToHome)
 
 local LeaveToAppPrompt = Roact.PureComponent:extend("LeaveToAppPrompt")
 
@@ -49,9 +48,7 @@ function LeaveToAppPrompt:init()
 		-- and without this it would look as if the app just froze for a few seconds instead of actually processing the tap.
 		RunService.Heartbeat:Wait()
 
-		if GetFFlagDeeplinkFromGameToHome() then
-			self.props.linkingProtocol:detectURL("roblox://navigation/home")
-		end
+		self.props.linkingProtocol:detectURL("roblox://navigation/home")
 
 		game:Shutdown()
 	end

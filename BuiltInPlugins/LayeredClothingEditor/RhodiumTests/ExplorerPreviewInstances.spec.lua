@@ -13,7 +13,7 @@ return function()
 
 	local LayeredClothingEditorPreviewPath = XPath.new("game.Workspace.LayeredClothingEditorPreview")
 	local ScrollerPath = TestHelper.getEditScreenContainer()
-	local editSwizzlePath = ScrollerPath:cat(XPath.new("EditSwizzle.TopBar.DoubleClickDetector.Swizzle"))
+	local editSwizzlePath = ScrollerPath:cat(XPath.new("EditSwizzle.Header"))
 	local previewAvatarPath = LayeredClothingEditorPreviewPath:cat(XPath.new(PreviewConstants.PreviewAvatarName))
 	local previewClothesPath = previewAvatarPath:cat(XPath.new(TestHelper.DefaultClothesName))
 
@@ -137,7 +137,7 @@ return function()
 			expect(TestHelper.waitForXPathInstance(previewAvatarPath)).to.be.ok()
 
 			-- change to the clothes tab
-			local PreviewTabsRibbonPath = ScrollerPath:cat(XPath.new("PreviewSwizzle.ViewArea.PreviewFrame.PreviewTabsRibbon"))
+			local PreviewTabsRibbonPath = ScrollerPath:cat(XPath.new("PreviewSwizzle.Content.PreviewFrame.PreviewTabsRibbon"))
 			local clothesButtonPath = PreviewTabsRibbonPath:cat(XPath.new("Tabs.2"))
 
 			TestHelper.clickXPath(clothesButtonPath)

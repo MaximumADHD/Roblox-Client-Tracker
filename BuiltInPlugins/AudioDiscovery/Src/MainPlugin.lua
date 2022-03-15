@@ -2,6 +2,9 @@
 	The main plugin component.
 	Consists of the PluginWidget, Toolbar, Button, and Roact tree.
 ]]
+local FFlagStudioAudioDiscoveryPluginV2 = game:GetFastFlag("StudioAudioDiscoveryPluginV2")
+
+local FFlagStudioAudioDiscoveryPluginV2 = game:GetFastFlag("StudioAudioDiscoveryPluginV2")
 
 local main = script.Parent.Parent
 local Roact = require(main.Packages.Roact)
@@ -35,6 +38,7 @@ local TranslationReferenceTable = main.Src.Resources.Localization.TranslationRef
 local Components = main.Src.Components
 local Window = require(Components.Window)
  
+local SetDialog = require(main.Src.Actions.SetDialog)
 local DiscoverAudio = require(main.Src.Thunks.DiscoverAudio)
 local Analytics = require(main.Src.Util.Analytics)
 
@@ -87,6 +91,9 @@ end
 function MainPlugin:didUpdate()
 	if self.state.enabled then
 		self.store:dispatch(DiscoverAudio())
+		if FFlagStudioAudioDiscoveryPluginV2 and game.CreatorId == 0 then
+			self.store:dispatch(SetDialog(true))
+		end
 	end
 end
 
@@ -147,6 +154,7 @@ function MainPlugin:render()
 			OnClose = self.onClose,
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
+			[Roact.Change.Enabled] = if FFlagStudioAudioDiscoveryPluginV2 then self.onWidgetEnabledChanged else nil,
 		}, {
 			Window = Roact.createElement(Window),
 		}),

@@ -12,8 +12,6 @@ local Localization = ContextServices.Localization
 
 local Stylizer = Framework.Style.Stylizer
 
-local HeightmapImporterService = game:GetService("HeightmapImporterService")
-
 local LabeledElementList = require(Plugin.Src.Components.LabeledElementList)
 local TextureMapSelector = require(Plugin.Src.Components.TextureMapSelector)
 
@@ -38,9 +36,9 @@ type _Props = Props & {
 	metalnessMap : _Types.TextureMap?,
 	roughnessMap : _Types.TextureMap?,
 
-	dispatchSetColorMap : (_Types.TextureMap) -> (),
+	dispatchSetColorMap : (_Types.TextureMap?) -> (),
 	dispatchSetNormalMap : (_Types.TextureMap?) -> (),
-	dispatchSetMetalnessMap : (_Types.TextureMap) -> (),
+	dispatchSetMetalnessMap : (_Types.TextureMap?) -> (),
 	dispatchSetRoughnessMap : (_Types.TextureMap?) -> (),
 }
 
@@ -48,75 +46,77 @@ local TextureSettings = Roact.PureComponent:extend("TextureSettings")
 
 function TextureSettings:init()
 	local function textureMapFromFileImport(file : File?, errorMessage : string?) : _Types.TextureMap?
+		
 		local id
 		if file then
 			id = file:GetTemporaryId()
 		-- TODO: warnings and errors
-		else			
+		else
 			-- warn(("Failed to select map: %s"):format(tostring(errorMessage)))
-			-- self.setErrorMessage("FailedToLoadColormap", "FailedToSelectFile")
-			return
-		end
-
-		local success, _, width, height, channels = HeightmapImporterService:IsValidColormap(id)
-		
-		-- TODO: warnings and errors
-		if not success then
-			--self.setErrorMessage("FailedToLoad" .. mapName, status)
+			-- self.setErrorMessage("FailedToLoadColormap", "FailedToSelectTextureMap")
 			return
 		end
 
 		return {
-			preview = id,
 			file = file,
-			width = width,
-			height = height,
-			channels = channels,
+			tempId = id,
 		}
 	end
 
-	self.selectColorMap = function(file, errorMessage)
-		local newState = textureMapFromFileImport(file, errorMessage)
+	local function getNewState(file, assetId, errorMessage)
+		local newState
+		if assetId then
+			newState = {
+				assetId = assetId,
+			}
+		else
+			newState = textureMapFromFileImport(file, errorMessage)
+		end
+		return newState
+	end
+
+	self.selectColorMap = function(file, assetId, errorMessage)
+		local newState = getNewState(file, assetId, errorMessage)
 		if newState then
 			self.props.dispatchSetColorMap(newState)
 		end
 	end
 
-	self.selectNormalMap = function(file, errorMessage)
-		local newState = textureMapFromFileImport(file, errorMessage)
+	self.selectNormalMap = function(file, assetId, errorMessage)
+		local newState = getNewState(file, assetId, errorMessage)
 		if newState then
 			self.props.dispatchSetNormalMap(newState)
 		end
 	end
 
-	self.selectMetalnessMap = function(file, errorMessage)
-		local newState = textureMapFromFileImport(file, errorMessage)
+	self.selectMetalnessMap = function(file, assetId, errorMessage)
+		local newState = getNewState(file, assetId, errorMessage)
 		if newState then
 			self.props.dispatchSetMetalnessMap(newState)
 		end
 	end
 
-	self.selectRoughnessMap = function(file, errorMessage)
-		local newState = textureMapFromFileImport(file, errorMessage)
+	self.selectRoughnessMap = function(file, assetId, errorMessage)
+		local newState = getNewState(file, assetId, errorMessage)
 		if newState then
 			self.props.dispatchSetRoughnessMap(newState)
 		end
 	end
 
 	self.clearColorMap = function()
-		self.props.dispatchSetColorMap({})
+		self.props.dispatchSetColorMap(nil)
 	end
 
 	self.clearNormalMap = function()
-		self.props.dispatchSetNormalMap({})
+		self.props.dispatchSetNormalMap(nil)
 	end
 
 	self.clearMetalnessMap = function()
-		self.props.dispatchSetMetalnessMap({})
+		self.props.dispatchSetMetalnessMap(nil)
 	end
 
 	self.clearRoughnessMap = function()
-		self.props.dispatchSetRoughnessMap({})
+		self.props.dispatchSetRoughnessMap(nil)
 	end
 end
 
@@ -130,8 +130,8 @@ function TextureSettings:render()
 			Key = "ImportColorMap",
 			Text = localization:getText("CreateDialog", "ImportColorMap"),
 			Content = Roact.createElement(TextureMapSelector, {
-				CurrentFile = props.colorMap,
-				SelectFile = self.selectColorMap,
+				CurrentTextureMap = props.colorMap,
+				SelectTextureMap = self.selectColorMap,
 				ClearSelection = self.clearColorMap,
 				PreviewTitle = localization:getText("Import", "ColorMapPreview"),
 			}),
@@ -140,8 +140,8 @@ function TextureSettings:render()
 			Key = "ImportNormalMap",
 			Text = localization:getText("CreateDialog", "ImportNormalMap"),
 			Content = Roact.createElement(TextureMapSelector, {
-				CurrentFile = props.normalMap,
-				SelectFile = self.selectNormalMap,
+				CurrentTextureMap = props.normalMap,
+				SelectTextureMap = self.selectNormalMap,
 				ClearSelection = self.clearNormalMap,
 				PreviewTitle = localization:getText("Import", "NormalMapPreview"),
 			}),
@@ -150,8 +150,8 @@ function TextureSettings:render()
 			Key = "ImportMetalnessMap",
 			Text = localization:getText("CreateDialog", "ImportMetalnessMap"),
 			Content = Roact.createElement(TextureMapSelector, {
-				CurrentFile = props.metalnessMap,
-				SelectFile = self.selectMetalnessMap,
+				CurrentTextureMap = props.metalnessMap,
+				SelectTextureMap = self.selectMetalnessMap,
 				ClearSelection = self.clearMetalnessMap,
 				PreviewTitle = localization:getText("Import", "MetalnessMapPreview"),
 			}),
@@ -160,8 +160,8 @@ function TextureSettings:render()
 			Key = "ImportRoughnessMap",
 			Text = localization:getText("CreateDialog", "ImportRoughnessMap"),
 			Content = Roact.createElement(TextureMapSelector, {
-				CurrentFile = props.roughnessMap,
-				SelectFile = self.selectRoughnessMap,
+				CurrentTextureMap = props.roughnessMap,
+				SelectTextureMap = self.selectRoughnessMap,
 				ClearSelection = self.clearRoughnessMap,
 				PreviewTitle = localization:getText("Import", "RoughnessMapPreview"),
 			}),
@@ -185,10 +185,10 @@ TextureSettings = withContext({
 
 local function mapStateToProps(state : MainReducer.State, _)
 	return {
-		colorMap = state.MaterialPromptReducer.colorMap or {},
-		normalMap = state.MaterialPromptReducer.normalMap or {},
-		metalnessMap = state.MaterialPromptReducer.metalnessMap or {},
-		roughnessMap = state.MaterialPromptReducer.roughnessMap or {},
+		colorMap = state.MaterialPromptReducer.colorMap,
+		normalMap = state.MaterialPromptReducer.normalMap,
+		metalnessMap = state.MaterialPromptReducer.metalnessMap,
+		roughnessMap = state.MaterialPromptReducer.roughnessMap,
 	}
 end
 

@@ -6,6 +6,8 @@ local Url = require(Plugin.Libs.Http.Url)
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 local Rollouts = require(Plugin.Core.Rollouts)
 
+local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
+
 local Urls = {}
 
 local GET_ASSETS = Url.BASE_URL .. "IDE/Toolbox/Items?"
@@ -94,6 +96,8 @@ local AVATAR_ASSETS_UPLOAD = Url.ITEM_CONFIGURATION_URL .. "v1/avatar-assets/%s/
 local ASSET_TYPE_AGENTS = Url.ITEM_CONFIGURATION_URL .. "v1/asset-types/%s/agents?"
 
 local AUTOCOMPLETE = Url.APIS_URL .. "autocomplete-studio/v2/suggest?"
+
+local AGE_VERIFICATION_URL = Url.APIS_URL .. "age-verification-service/v1/age-verification/verified-age"
 
 local DEFAULT_ASSET_SIZE = 100
 local DEFAULT_SEARCH_ROWS = 3
@@ -539,6 +543,12 @@ function Urls.constructToolboxAutocompleteUrl(categoryName, searchTerm, numberOf
 			prefix = searchTerm,
 		})
 	return url
+end
+
+if FFlagToolboxAudioAssetConfigIdVerification then
+	function Urls.constructUserAgeVerificationUrl(assetType: Enum.AssetType)
+		return AGE_VERIFICATION_URL
+	end
 end
 
 return wrapStrictTable(Urls)

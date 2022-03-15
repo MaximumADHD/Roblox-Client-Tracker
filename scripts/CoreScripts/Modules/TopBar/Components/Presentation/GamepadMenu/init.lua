@@ -29,7 +29,7 @@ local ChatModule = require(RobloxGui.Modules.ChatSelector)
 local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
-local InGameMenuConstants = require(RobloxGui.Modules.InGameMenu.Resources.Constants)
+local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
 
 local Components = script.Parent.Parent
 local Actions = Components.Parent.Actions
@@ -283,7 +283,7 @@ end
 function GamepadMenu.openRootMenu()
 	-- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
 	if isNewInGameMenuEnabled() then
-		local InGameMenu = require(RobloxGui.Modules.InGameMenu)
+		local InGameMenu = require(RobloxGui.Modules.InGameMenuInit)
 		InGameMenu.openInGameMenu(InGameMenuConstants.MainPagePageKey)
 	else
 		local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
@@ -297,7 +297,7 @@ end
 function GamepadMenu.openSettingsMenu()
 	-- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
 	if isNewInGameMenuEnabled() then
-		local InGameMenu = require(RobloxGui.Modules.InGameMenu)
+		local InGameMenu = require(RobloxGui.Modules.InGameMenuInit)
 		InGameMenu.openGameSettingsPage()
 	else
 		local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
@@ -313,7 +313,7 @@ end
 function GamepadMenu.toggleLeaderboard()
 	-- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
 	if isNewInGameMenuEnabled() and FFlagEnableNewVrSystem then
-		local InGameMenu = require(RobloxGui.Modules.InGameMenu)
+		local InGameMenu = require(RobloxGui.Modules.InGameMenuInit)
 		InGameMenu.openPlayersPage()
 	else
 		PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
@@ -335,7 +335,7 @@ end
 function GamepadMenu.leaveGame()
 	-- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
 	if isNewInGameMenuEnabled() and FFlagEnableNewVrSystem then
-		local InGameMenu = require(RobloxGui.Modules.InGameMenu)
+		local InGameMenu = require(RobloxGui.Modules.InGameMenuInit)
 		InGameMenu.openGameLeavePage()
 	else
 		local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
@@ -346,7 +346,7 @@ end
 
 function GamepadMenu.respawnCharacter()
 	if isNewInGameMenuEnabled() then
-		local InGameMenu = require(RobloxGui.Modules.InGameMenu)
+		local InGameMenu = require(RobloxGui.Modules.InGameMenuInit)
 		InGameMenu.openCharacterResetPage()
 	else
 		local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)

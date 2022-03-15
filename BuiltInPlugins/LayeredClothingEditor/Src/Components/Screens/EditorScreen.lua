@@ -20,6 +20,10 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+
+local Components = AvatarToolsShared.Components
+local InputBlocker = Components.InputBlocker
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -30,12 +34,14 @@ local PreviewContext = require(Plugin.Src.Context.PreviewContext)
 local Util = Framework.Util
 local LayoutOrderIterator = Util.LayoutOrderIterator
 
-local SwizzleView = require(Plugin.Src.Components.SwizzleView)
+local UI = Framework.UI
+local SimpleExpandablePane = UI.SimpleExpandablePane
+local Pane = UI.Pane
+
 local EditAndPreviewFrame = require(Plugin.Src.Components.EditAndPreviewFrame)
 local EditorFrame = require(Plugin.Src.Components.EditorFrame)
 local PreviewFrame = require(Plugin.Src.Components.PreviewFrame)
 local ExplorerPreviewInstances = require(Plugin.Src.Components.Preview.ExplorerPreviewInstances)
-local ControlsPanelBlocker = require(Plugin.Src.Components.ControlsPanelBlocker)
 local AnimationPlayback = require(Plugin.Src.Components.AnimationPlayback.AnimationPlayback)
 
 local FinishSelectingFromExplorer = require(Plugin.Src.Thunks.FinishSelectingFromExplorer)
@@ -72,9 +78,8 @@ function EditorScreen:render()
 	return ContextServices.provide({
 		PreviewContext.new(),
 	}, {
-		Container = Roact.createElement("Frame", {
+		Container = Roact.createElement(Pane, {
 			BackgroundColor3 = theme.BackgroundColor,
-			Size = UDim2.new(1, 0, 1, 0),
 		}, {
 			MainFrame = Roact.createElement("ScrollingFrame", {
 				BackgroundTransparency = 1,
@@ -91,8 +96,7 @@ function EditorScreen:render()
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
 
-				EditAndPreviewContainer = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
+				EditAndPreviewContainer = Roact.createElement(Pane, {
 					Size = UDim2.new(1, 0, 0, theme.EditAndPreviewHeight),
 					LayoutOrder = orderIterator:getNextOrder(),
 				}, {
@@ -103,9 +107,19 @@ function EditorScreen:render()
 					}),
 				}),
 
-				EditSwizzle = Roact.createElement(SwizzleView, {
-					Title = localization:getText("Editor", "Edit"),
+				EditSwizzle = Roact.createElement(SimpleExpandablePane, {
+					Text = localization:getText("Editor", "Edit"),
 					LayoutOrder = orderIterator:getNextOrder(),
+					Style = "Section",
+					HorizontalAlignment = Enum.HorizontalAlignment.Left,
+					VerticalAlignment = Enum.VerticalAlignment.Top,
+					Expanded = true,
+					ContentPadding = {
+						Left = 0,
+						Top = 0,
+						Right = 0,
+						Bottom = 0,
+					},
 				}, {
 					EditorFrame = Roact.createElement(EditorFrame, {
 						Size = UDim2.new(1, 0, 0, theme.EditHeight),
@@ -113,9 +127,19 @@ function EditorScreen:render()
 					}),
 				}),
 
-				PreviewSwizzle = Roact.createElement(SwizzleView, {
-					Title = localization:getText("Editor", "Preview"),
+				PreviewSwizzle = Roact.createElement(SimpleExpandablePane, {
+					Text = localization:getText("Editor", "Preview"),
 					LayoutOrder = orderIterator:getNextOrder(),
+					Style = "Section",
+					HorizontalAlignment = Enum.HorizontalAlignment.Left,
+					VerticalAlignment = Enum.VerticalAlignment.Top,
+					Expanded = true,
+					ContentPadding = {
+						Left = 0,
+						Top = 0,
+						Right = 0,
+						Bottom = 0,
+					},
 				}, {
 					PreviewFrame = Roact.createElement(PreviewFrame, {
 						Size = UDim2.new(1, 0, 0, theme.PreviewHeight),
@@ -125,7 +149,7 @@ function EditorScreen:render()
 				}),
 			}),
 
-			ControlsPanelBlocker = props.IsControlsPanelBlockerActive and Roact.createElement(ControlsPanelBlocker,{
+			ControlsPanelBlocker = props.IsControlsPanelBlockerActive and Roact.createElement(InputBlocker,{
 				OnFocused = props.FinishSelectingFromExplorer,
 				Text = props.ControlsPanelBlockerMessage,
 			}),

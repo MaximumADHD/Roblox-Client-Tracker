@@ -5,7 +5,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Roact = require(CorePackages.Roact)
 local UIBlox = require(CorePackages.UIBlox)
 
-local Constants = require(RobloxGui.Modules.InGameMenu.Resources.Constants)
+local Constants = require(RobloxGui.Modules.InGameMenuConstants)
 local ControllerBar = UIBlox.App.Bar.ControllerBar
 
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)

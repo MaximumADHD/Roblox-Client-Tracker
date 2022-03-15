@@ -9,15 +9,15 @@ return function()
 	local isProductionEnvironment = require(Plugin.Src.Util.isProductionEnvironment)
 
 	local ScrollerPath = TestHelper.getEditScreenContainer()
-	local editSwizzlePath = ScrollerPath:cat(XPath.new("EditSwizzle.TopBar.DoubleClickDetector.Swizzle"))
-	local previewTabsFramePath = ScrollerPath:cat(XPath.new("PreviewSwizzle.ViewArea.PreviewFrame"))
+	local editSwizzlePath = ScrollerPath:cat(XPath.new("EditSwizzle.Header"))
+	local previewTabsFramePath = ScrollerPath:cat(XPath.new("PreviewSwizzle.Content.PreviewFrame"))
 	local previewAnimationTabPath =
 		previewTabsFramePath:cat(XPath.new("PreviewTabsRibbon.Tabs.3"))
 	local selectionControlsPath = previewTabsFramePath:cat(XPath.new("SelectionControls"))
 	local previewAnimationSliderPath = selectionControlsPath:cat(XPath.new("AnimPlaybackSlider"))
 	local playPauseButtonPath = previewAnimationSliderPath:cat(XPath.new("PlayPauseButton"))
 	local playTimeLabelPath = previewAnimationSliderPath:cat(XPath.new("PlayTimeLabel"))
-	local GridPath = ScrollerPath:cat(XPath.new("PreviewSwizzle.ViewArea.PreviewFrame.Grid"))
+	local GridPath = ScrollerPath:cat(XPath.new("PreviewSwizzle.Content.PreviewFrame.Grid"))
 
 	local GridScrollerPath
 	if game:GetFastFlag("DevFrameworkScrollingFrameUsePane") then

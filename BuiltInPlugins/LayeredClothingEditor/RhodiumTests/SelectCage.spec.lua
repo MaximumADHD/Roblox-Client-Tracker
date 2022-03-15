@@ -11,7 +11,7 @@ return function()
 
 	local MainPath = TestHelper.getEditScreenContainer()
 	local EditingModeRadioButtonList =
-		MainPath:cat(XPath.new("EditSwizzle.ViewArea.EditorFrame.EditingModeFrame.EditingModeRadioButtonList"))
+		MainPath:cat(XPath.new("EditSwizzle.Content.EditorFrame.EditingModeFrame.EditingModeRadioButtonList"))
 	local SelectInnerCageRadioButtonPath =
 		EditingModeRadioButtonList:cat(XPath.new("Inner.RadioImage.Contents"))
 	local SelectOuterCageRadioButtonPath =

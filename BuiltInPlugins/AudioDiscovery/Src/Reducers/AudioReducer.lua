@@ -1,3 +1,5 @@
+local FFlagStudioAudioDiscoveryPluginV2 = game:GetFastFlag("StudioAudioDiscoveryPluginV2")
+
 local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 local Framework = require(Plugin.Packages.Framework)
@@ -6,10 +8,12 @@ local Dash = Framework.Dash
 local append = Dash.append
 local join = Dash.join
 local findIndex = Dash.findIndex
+local None = Dash.None
 
 local sort = table.sort
 
 local Actions = Plugin.Src.Actions
+local SetDialog = require(Actions.SetDialog)
 local SelectRow = require(Actions.SelectRow)
 local UpdateRows = require(Actions.UpdateRows)
 local UpdateLocations = require(Actions.UpdateLocations)
@@ -20,23 +24,33 @@ local columns = {
 	Right = {"Instance", "Path"}
 }
 
-local function sanitize(value)
-	return if type(value) == "userdata" then tostring(value) else value
+local function sanitize(columnName: string, row, locations)
+	local value = row[columnName]
+	if FFlagStudioAudioDiscoveryPluginV2 and locations and columnName == "OK" then
+		if locations[row.Id] and #locations[row.Id] == 0 then
+			return "fixed"
+		else
+			return value
+		end
+	else
+		return if type(value) == "userdata" then tostring(value) else value
+	end
 end
 
-local function sortRows(rows, column: string, order: Enum.SortDirection)
+local function sortRows(rows, columnName: string, order: Enum.SortDirection, locations)
 	local result = join({}, rows)
 	sort(result, function(a, b)
 		if order == Enum.SortDirection.Descending then
-			return sanitize(a[column]) < sanitize(b[column])
+			return sanitize(columnName, a, locations) < sanitize(columnName, b, locations)
 		else
-			return sanitize(a[column]) > sanitize(b[column])
+			return sanitize(columnName, a, locations) > sanitize(columnName, b, locations)
 		end
 	end)
 	return result
 end
 
 return Rodux.createReducer({
+	Dialog = false,
 	Rows = {},
 	SelectedRow = nil,
 	Left = {
@@ -45,20 +59,33 @@ return Rodux.createReducer({
 	},
 	Right = {},
 }, {
-	[UpdateRows.name] = function(state, action)
-		local column = columns.Left[state.Left.SortIndex]
-		local rows = append({}, state.Rows, action.Rows)
+	[SetDialog.name] = function(state, action)
 		return join(state, {
-			Rows = sortRows(rows, column, state.Left.SortOrder),
+			Dialog = action.Open,
+		})
+	end,
+	[UpdateRows.name] = function(state, action)
+		local columnName = columns.Left[state.Left.SortIndex]
+		local rows = append({}, state.Rows, action.Rows)
+		local selectedRow
+		if FFlagStudioAudioDiscoveryPluginV2 and state.SelectedRow then
+			local assetId = state.Rows[state.SelectedRow].Id
+			selectedRow = findIndex(rows, function(row)
+				return row.Id == assetId
+			end) or None
+		end
+		return join(state, {
+			SelectedRow = selectedRow,
+			Rows = sortRows(rows, columnName, state.Left.SortOrder, state.Locations),
 		})
 	end,
 	[SelectRow.name] = function(state, action)
 		local locations = state.locations
 		if state.Right.SortIndex and state.SelectedRow then
 			local assetId = state.Rows[state.SelectedRow].Id
-			local column = columns.Right[state.Right.SortIndex]
+			local columnName = columns.Right[state.Right.SortIndex]
 			locations = join({}, state.Locations, {
-				[assetId] = sortRows(state.Locations[assetId], column, state.Right.SortOrder)
+				[assetId] = sortRows(state.Locations[assetId], columnName, state.Right.SortOrder)
 			})
 		end
 		return join(state, {
@@ -67,27 +94,37 @@ return Rodux.createReducer({
 		})
 	end,
 	[UpdateLocations.name] = function(state, action)
+		local rows
+		local locations = join({}, state.Locations, action.Locations)
+		if FFlagStudioAudioDiscoveryPluginV2 then
+			local columnName = columns.Left[state.Left.SortIndex]
+			rows = sortRows(state.Rows, columnName, state.Left.SortOrder, locations)
+		end
 		return join(state, {
-			Locations = join({}, state.Locations, action.Locations),
+			Rows = rows,
+			Locations = locations,
 		})
 	end,
 	[SortTable.name] = function(state, action)
-		local column = columns[action.TableName][action.SortIndex]
+		local columnName = columns[action.TableName][action.SortIndex]
 		local selectedRow = state.SelectedRow
 		local rows = state.Rows
 		local locations = state.Locations
 		local assetId = if state.SelectedRow then state.Rows[state.SelectedRow].Id else nil
 		if action.TableName == "Left" then
-			rows = sortRows(state.Rows, column, action.SortOrder)
+			rows = sortRows(state.Rows, columnName, action.SortOrder, locations)
 			if state.SelectedRow then
 				selectedRow = findIndex(rows, function(row)
 					return row.Id == assetId
 				end)
+				if FFlagStudioAudioDiscoveryPluginV2 and not selectedRow then
+					selectedRow = None
+				end
 			end
 		end
 		if action.TableName == "Right" and assetId then
 			locations = join({}, state.Locations, {
-				[assetId] = sortRows(state.Locations[assetId], column, action.SortOrder)
+				[assetId] = sortRows(state.Locations[assetId], columnName, action.SortOrder)
 			})
 		end
 		return join(state, {

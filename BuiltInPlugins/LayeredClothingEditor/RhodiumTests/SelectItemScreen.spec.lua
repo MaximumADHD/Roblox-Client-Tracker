@@ -14,14 +14,15 @@ return function()
 	local Constants = require(Plugin.Src.Util.Constants)
 
 	local ScreenFlowPath = TestHelper.getScreenFlow()
+	local ScreenFlowScrollerPath = TestHelper.getScreenFlow(true)
 	local SelectFramePath =
-		ScreenFlowPath:cat(XPath.new("SelectFrame.ViewArea"))
+		ScreenFlowPath:cat(XPath.new("SelectFrame.Content"))
 	local NextButtonPath =
 		SelectFramePath:cat(XPath.new("NextAndBackButtonContainer.NextButton.Contents.TextButton"))
 	local SelectScreenTextBoxPath =
 		SelectFramePath:cat(XPath.new("Content.SelectedPartBox.Contents.TextBox"))
 	local AssetTypeScreenPath =
-		ScreenFlowPath:cat(XPath.new("Screen.MainFrame.SwizzleView.ViewArea"))
+		ScreenFlowScrollerPath:cat(XPath.new("ExpandablePane.Content"))
 	local BackButtonPath =
 		AssetTypeScreenPath:cat(XPath.new("NextAndBackButtonContainer.BackButton.Contents.TextButton"))
 

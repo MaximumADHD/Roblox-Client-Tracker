@@ -25,17 +25,15 @@ return function()
 			createEditAndPreviewFrame(),
 			function(container)
 				local frame = container:FindFirstChildOfClass("Frame")
-				local viewArea = frame.ViewArea
+				local expandanblePaneContent = frame.Content
 
-				local uiPadding_Main = viewArea.UIPadding
-				local prompt = viewArea.Prompt
-				local nextBackButtonContainer = viewArea.NextAndBackButtonContainer
+				local prompt = expandanblePaneContent.Prompt
+				local nextBackButtonContainer = expandanblePaneContent.NextAndBackButtonContainer
 				local nextButton = nextBackButtonContainer.NextButton
 				local backButton = nextBackButtonContainer.BackButton
 
 				expect(frame).to.be.ok()
-				expect(viewArea).to.be.ok()
-				expect(uiPadding_Main).to.be.ok()
+				expect(expandanblePaneContent).to.be.ok()
 				expect(prompt).to.be.ok()
 				expect(backButton).to.be.ok()
 				expect(nextButton).to.be.ok()

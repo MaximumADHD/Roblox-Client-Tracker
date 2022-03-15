@@ -40,10 +40,8 @@ local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatSer
 local initVoiceChatStore = require(RobloxGui.Modules.VoiceChat.initVoiceChatStore)
 local GetFFlagBubbleVoiceIndicator = require(RobloxGui.Modules.Flags.GetFFlagBubbleVoiceIndicator)
 local GetFFlagEnableVoiceChatVoiceUISync = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatVoiceUISync)
-local GetFFlagBubbleVoiceCleanupOnLeave = require(RobloxGui.Modules.Flags.GetFFlagBubbleVoiceCleanupOnLeave)
 local GetFFlagBubbleChatDuplicateMessagesFix = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatDuplicateMessagesFix)
 local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatLocalMuteUI)
-local FFlagBubbleVoiceHideBlockedPlayer = game:DefineFastFlag("BubbleVoiceHideBlockedPlayer", false)
 local FFlagBubbleVoiceLocalErrorState = game:DefineFastFlag("BubbleVoiceLocalErrorStateV3", false)
 
 local log = require(RobloxGui.Modules.InGameChat.BubbleChat.Logger)(script.Name)
@@ -292,10 +290,8 @@ local function initVoiceChat()
 
 	Players.PlayerRemoving:Connect(function(player)
 		log:trace("Removing player {}", shorten(player.UserId))
-		if GetFFlagBubbleVoiceCleanupOnLeave() then
-			-- For now, these two always occur together, but that won't be true later.
-			chatStore:dispatch(PlayerRemoved(tostring(player.userId)))
-		end
+		-- For now, these two always occur together, but that won't be true later.
+		chatStore:dispatch(PlayerRemoved(tostring(player.userId)))
 		chatStore:dispatch(ParticipantRemoved(tostring(player.userId)))
 	end)
 

@@ -417,7 +417,7 @@ return function(plugin, pluginLoaderContext)
 			end
 		end)
 		InsertAsset.registerLocalization(devFrameworkLocalization)
-		InsertAsset.registerProcessDragHandler(plugin)
+		InsertAsset.registerProcessDragHandler()
 	end
 
 	main()

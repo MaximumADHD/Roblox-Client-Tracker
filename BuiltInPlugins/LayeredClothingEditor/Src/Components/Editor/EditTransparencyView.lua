@@ -14,8 +14,11 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 
-local TransparencySlider = require(Plugin.Src.Components.TransparencySlider)
+local Components = AvatarToolsShared.Components
+local TransparencySlider = Components.TransparencySlider
+
 local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
 local GetTransparency = require(Plugin.Src.Util.GetTransparency)
 

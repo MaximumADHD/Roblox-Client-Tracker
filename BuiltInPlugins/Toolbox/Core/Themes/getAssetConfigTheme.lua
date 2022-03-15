@@ -2,7 +2,8 @@
 	Gets the new Stylizer-compatible AssetConfigTheme
 	This should replace AssetConfigTheme once UILibrary and withTheme are completely removed.
 ]]
-local FFlagToolboxPrivatePublicAudioAssetConfig = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig")
+local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
+local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -30,10 +31,15 @@ return function()
 	return {
 		assetConfig = {
 			backgroundColor = StyleKey.MainBackground,
-			brightText = if FFlagToolboxPrivatePublicAudioAssetConfig then StyleKey.BrightText else nil,
+			brightText = if FFlagToolboxPrivatePublicAudioAssetConfig3 then StyleKey.BrightText else nil,
 			errorColor = StyleKey.ErrorText,
+			warningColor = if FFlagToolboxPrivatePublicAudioAssetConfig3 then StyleKey.WarningText else nil,
 			labelTextColor = StyleKey.DimmedText,
 			textColor = StyleKey.MainText,
+
+			publishAsset = {
+				warningIconColor = if FFlagToolboxPrivatePublicAudioAssetConfig3 then Color3.fromHex("#FFAA21") else nil,
+			},
 
 			packagePermissions = {
 				backgroundColor = StyleKey.MainBackground,
@@ -76,6 +82,10 @@ return function()
 					defaultImageColor = StyleKey.AssetConfig_SubjectThumbnailDefaultImageColor,
 				},
 			},
+
+			verificationNotice = if FFlagToolboxAudioAssetConfigIdVerification then {
+				backgroundColor = StyleKey.InputFieldBackground,
+			} else nil,
 		},
 
 		detailedDropdown = {
@@ -196,6 +206,9 @@ return function()
 					TextColor = StyleKey.MainTextSelected,
 				}),
 			},
+			["&AssetConfigRoundPrimary"] = if FFlagToolboxAudioAssetConfigIdVerification then Cryo.Dictionary.join(button["&RoundPrimary"], {
+				Font = Enum.Font.SourceSans,
+			}) else nil,
 		}),
 
 		[ui.RoundBox] = Cryo.Dictionary.join(roundBox, {
@@ -219,13 +232,13 @@ return function()
 			},
 		}),
 
-		[ui.StyledDialog] = if FFlagToolboxPrivatePublicAudioAssetConfig then Cryo.Dictionary.join(getRawComponentStyle("StyledDialog"), {
+		[ui.StyledDialog] = if FFlagToolboxPrivatePublicAudioAssetConfig3 then Cryo.Dictionary.join(getRawComponentStyle("StyledDialog"), {
 			["&AssetConfigWarningDialog"] = {
 				ButtonSpacing = 8,
 			},
 		}) else nil,
 			
-		[ui.RadioButton] = if FFlagToolboxPrivatePublicAudioAssetConfig then Cryo.Dictionary.join(radioButton, {
+		[ui.RadioButton] = if FFlagToolboxPrivatePublicAudioAssetConfig3 then Cryo.Dictionary.join(radioButton, {
 			["&AssetConfigRadioButton"] = {
 				TextSize = Constants.FONT_SIZE_ASSET_CONFIG_INPUT,
 
@@ -243,7 +256,7 @@ return function()
 			},
 		}) else nil,
 
-		[ui.RadioButtonList] = if FFlagToolboxPrivatePublicAudioAssetConfig then Cryo.Dictionary.join(getRawComponentStyle("RadioButtonList"), {
+		[ui.RadioButtonList] = if FFlagToolboxPrivatePublicAudioAssetConfig3 then Cryo.Dictionary.join(getRawComponentStyle("RadioButtonList"), {
 			["&AssetConfigRadioButtonList"] = {
 				Padding = 17,
 				RadioButtonStyle = "AssetConfigRadioButton",

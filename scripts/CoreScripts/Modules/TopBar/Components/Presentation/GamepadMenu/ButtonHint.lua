@@ -15,10 +15,9 @@ local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local Modules = script.Parent.Parent.Parent.Parent.Parent
 local InGameMenu = Modules.InGameMenu
-local GetFFlagIGMControllerBarRefactor = require(InGameMenu.Flags.GetFFlagIGMControllerBarRefactor)
 
 local ICON_SIZE = 36
-local PADDING = GetFFlagIGMControllerBarRefactor() and 8 or 12
+local PADDING = 8
 
 local ButtonHint = Roact.PureComponent:extend("ButtonHint")
 
@@ -35,10 +34,10 @@ function ButtonHint:render()
 
 		local text = RobloxTranslator:FormatByKey(self.props.localizationKey)
 
-		local fontSize = GetFFlagIGMControllerBarRefactor() and font.BaseSize * font.Header2.RelativeSize or font.BaseSize * font.Header1.RelativeSize
+		local fontSize = font.BaseSize * font.Header2.RelativeSize or font.BaseSize * font.Header1.RelativeSize
 		local textWidth = TextService:GetTextSize(text,
 			fontSize,
-			GetFFlagIGMControllerBarRefactor() and font.Header2.Font or font.Header1.Font,
+			font.Header2.Font,
 			Vector2.new(1000, 1000)).X
 		local buttonHintWidth = ICON_SIZE + PADDING + textWidth
 
@@ -69,7 +68,7 @@ function ButtonHint:render()
 				Size = UDim2.new(0, textWidth, 0, 1),
 				LayoutOrder = 2,
 
-				Font = GetFFlagIGMControllerBarRefactor() and font.Header2.Font or font.Header1.Font,
+				Font = font.Header2.Font,
 				Text = text,
 				TextSize = fontSize,
 				TextColor3 = theme.TextEmphasis.Color,

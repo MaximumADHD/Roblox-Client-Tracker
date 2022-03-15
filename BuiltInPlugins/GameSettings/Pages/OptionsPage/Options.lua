@@ -1,5 +1,4 @@
 local FFlagCollabEditingWarnBothWays2 = game:GetFastFlag("CollabEditingWarnBothWays2")
-local FFlagGreyOutCollabEditingForTeamCreateOff = game:GetFastFlag("GreyOutCollabEditingForTeamCreateOff")
 
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
@@ -32,7 +31,6 @@ local LayoutOrderIterator = require(Plugin.Packages.Framework).Util.LayoutOrderI
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 
 local FFlagGameSettingsEnableVoiceChat = game:GetFastFlag("GameSettingsEnableVoiceChat")
-local FFlagStudioTeamCreateStreamingEnabled = game:getFastFlag("StudioTeamCreateStreamingEnabled")
 
 local FStringSpatialVoiceChatLink = game:DefineFastString("SpatialVoiceChatLink", "https://developer.roblox.com/articles/spatial-voice")
 
@@ -40,12 +38,6 @@ local GuiService = game:GetService("GuiService")
 
 local GetVoiceChatEnabledKeyName = KeyProvider.getVoiceChatEnabledKeyName
 local voiceChatEnabledKey = FFlagGameSettingsEnableVoiceChat and GetVoiceChatEnabledKeyName() or nil
-
-local GetTeamCreateStreamingEnabledKeyName = KeyProvider.getTeamCreateStreamingEnabledKeyName
-local teamCreateStreamingEnabledKey = FFlagStudioTeamCreateStreamingEnabled and GetTeamCreateStreamingEnabledKeyName() or nil
-
-local GetTeamCreateEnabledKeyName = KeyProvider.getTeamCreateEnabledKeyName
-local teamCreateEnabledKey = (FFlagStudioTeamCreateStreamingEnabled or FFlagGreyOutCollabEditingForTeamCreateOff) and GetTeamCreateEnabledKeyName() or nil
 
 local GetScriptCollaborationEnabledOnServerKeyName = KeyProvider.getScriptCollaborationEnabledOnServerKeyName
 local scriptCollaborationEnabledOnServerKey = FFlagCollabEditingWarnBothWays2 and GetScriptCollaborationEnabledOnServerKeyName() or nil
@@ -70,22 +62,6 @@ local function loadSettings(store, contextItems)
                 local optIn = gameOptionsController:getVoiceChatEnabled(gameId)
 
                 loadedSettings[voiceChatEnabledKey] = optIn
-            end
-        end,
-        
-        function(loadedSettings)
-            if FFlagStudioTeamCreateStreamingEnabled then
-                local enabled = gameOptionsController:getTeamCreateStreamingEnabled(game)
-                
-                loadedSettings[teamCreateStreamingEnabledKey] = enabled
-            end
-        end,
-
-        function(loadedSettings)
-            if (FFlagStudioTeamCreateStreamingEnabled or FFlagGreyOutCollabEditingForTeamCreateOff) then
-                local enabled = gameOptionsController:getTeamCreateEnabled(gameId)
-
-                loadedSettings[teamCreateEnabledKey] = enabled
             end
         end,
         
@@ -122,15 +98,6 @@ local function saveSettings(store, contextItems)
                 end
             end
         end,
-        function()
-            if FFlagStudioTeamCreateStreamingEnabled then
-                local changed = state.Settings.Changed.TeamCreateStreamingEnabled
-                
-                if changed ~= nil then
-                    gameOptionsController:setTeamCreateStreamingEnabled(game, changed)
-                end
-            end
-        end,
 	}
 end
 
@@ -146,9 +113,6 @@ local function loadValuesToProps(getValue, state)
         ScriptCollabEnabled = getValue("ScriptCollabEnabled"),
         CurrentScriptCollabEnabled = state.Settings.Current.ScriptCollabEnabled,
         VoiceChatEnabled = FFlagGameSettingsEnableVoiceChat and getValue(voiceChatEnabledKey) or nil,
-        TeamCreateStreamingEnabled = FFlagStudioTeamCreateStreamingEnabled and getValue(teamCreateStreamingEnabledKey) or nil,
-        CurrentTeamCreateStreamingEnabled = FFlagStudioTeamCreateStreamingEnabled and state.Settings.Current.TeamCreateStreamingEnabled or nil,
-        TeamCreateEnabled = (FFlagStudioTeamCreateStreamingEnabled or FFlagGreyOutCollabEditingForTeamCreateOff) and state.Settings.Current.TeamCreateEnabled or nil,
         -- This value holds the server value (which cannot be changed during session). Used to display warning about needing to restart
         ScriptCollabEnabledOnServer = scriptCollabEnabledOnServer
     }
@@ -164,7 +128,6 @@ local function dispatchChanges(setValue, dispatch)
 			dispatch(ShutdownAllServers())
 		end,
         VoiceChatEnabledChanged = setValue(voiceChatEnabledKey),
-        TeamCreateStreamingEnabledChanged = FFlagStudioTeamCreateStreamingEnabled and setValue(teamCreateStreamingEnabledKey) or nil
 	}
 
 	return dispatchFuncs
@@ -189,14 +152,6 @@ function Options:render()
 
 	local dispatchShutdownAllServers = props.dispatchShutdownAllServers
 
-    -- Display to user that they must turn on TC to turn on Collab Editing if TC is off
-    local TeamCreateEnabled
-    local EnableTeamCreateForCollabEditingText
-    if FFlagGreyOutCollabEditingForTeamCreateOff then
-        TeamCreateEnabled = props.TeamCreateEnabled
-        EnableTeamCreateForCollabEditingText = localization:getText("General", "EnableTeamCreateForCollabEditing")
-    end
-
     -- Display warning to user that collab editing change will only take affect if the server restarts
     local shouldDisplayScriptCollabWarning
     local scriptCollabWarningText
@@ -208,23 +163,6 @@ function Options:render()
         scriptCollabWarningText = localization:getText("General", "DEPRECATED_ScriptCollabWarning")
     end
     
-    -- Display warning to user that streaming setting change will only take effect if the server restarts
-    local displayTeamCreateStreamingWarning = nil
-    if FFlagStudioTeamCreateStreamingEnabled then
-        displayTeamCreateStreamingWarning = (props.CurrentTeamCreateStreamingEnabled ~= props.TeamCreateStreamingEnabled)
-    end
-
-    -- Prioritized EnableTeamCreateForCollabEditingText here since if TC is off that text should always show
-    local toggleButtonDescriptionText
-    if FFlagGreyOutCollabEditingForTeamCreateOff and not TeamCreateEnabled then
-        toggleButtonDescriptionText = EnableTeamCreateForCollabEditingText
-    elseif shouldDisplayScriptCollabWarning then
-        toggleButtonDescriptionText = scriptCollabWarningText
-    else
-        toggleButtonDescriptionText = localization:getText("General", "ScriptCollabDesc")
-    end
-
-    
     local layoutIndex = LayoutOrderIterator.new()
 
 	local function createChildren()
@@ -232,25 +170,13 @@ function Options:render()
 
 		local localization = props.Localization
 
-        return {
-            EnableTeamCreateStreamingToggle = FFlagStudioTeamCreateStreamingEnabled and props.TeamCreateEnabled and Roact.createElement(ToggleButtonWithTitle, {
-                Title = localization:getText("General", "TitleTeamCreateStreaming"),
-                Description = displayTeamCreateStreamingWarning and localization:getText("General", "ServerRestartWarning")
-                    or localization:getText("General", "TeamCreateStreamingDesc"),
-                LayoutOrder = layoutIndex:getNextOrder(),
-                Disabled = false,
-                Selected = props.TeamCreateStreamingEnabled,
-                ShowWarning = displayTeamCreateStreamingWarning,
-                OnClick = function()
-                    props.TeamCreateStreamingEnabledChanged(not props.TeamCreateStreamingEnabled)
-                end, 
-            }) or nil,            
-            
+        return {            
             EnableScriptCollab = Roact.createElement(ToggleButtonWithTitle, {
                 Title = localization:getText("General", "TitleScriptCollab"),
-                Description = toggleButtonDescriptionText,
+                Description = shouldDisplayScriptCollabWarning and scriptCollabWarningText
+                    or localization:getText("General", "ScriptCollabDesc"),
                 LayoutOrder = layoutIndex:getNextOrder(),
-                Disabled = if FFlagGreyOutCollabEditingForTeamCreateOff then not TeamCreateEnabled else false,
+                Disabled = false,
                 Selected = props.ScriptCollabEnabled,
                 ShowWarning = shouldDisplayScriptCollabWarning,
                 OnClick = function()

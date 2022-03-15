@@ -32,7 +32,7 @@ local FFlagEnableExperienceChat = require(RobloxGui.Modules.Common.Flags.FFlagEn
 local ExperienceChat
 local ChatTopBarButtonActivated
 if FFlagEnableExperienceChat then
-	ExperienceChat = require(game:GetService("CorePackages").Packages.ExperienceChat)
+	ExperienceChat = require(game:GetService("CorePackages").ExperienceChat)
 	ChatTopBarButtonActivated = ExperienceChat.ChatVisibility.Actions.ChatTopBarButtonActivated
 end
 

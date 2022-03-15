@@ -29,7 +29,6 @@ local BreakpointsTreeTableCell = require(PluginFolder.Src.Components.Breakpoints
 local Constants = require(PluginFolder.Src.Util.Constants)
 
 local BreakpointsTable = Roact.PureComponent:extend("BreakpointsTable")
-local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
 local FFlagDevFrameworkDoubleClick = game:GetFastFlag("DevFrameworkDoubleClick")
 local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
@@ -61,7 +60,7 @@ local tableColumnKeys = {
 function BreakpointsTable:init()
 
 	local initialSizes = {}
-	if hasTableColumnResizeFFlags then 
+	if hasTableColumnResizeFFlags then
 		for i = 1, #tableColumnKeys do
 			table.insert(initialSizes, UDim.new(1/(#tableColumnKeys), 0))
 		end
@@ -76,11 +75,11 @@ function BreakpointsTable:init()
 		local DebuggerUIService = game:GetService("DebuggerUIService")
 		DebuggerUIService:EditBreakpoint(row.item.id)
 	end
-	
+
 	self.OnSizesChange = function(newSizes)
 		if hasTableColumnResizeFFlags then
 			self:setState(function(state)
-				return { 
+				return {
 					sizes = newSizes
 				}
 			end)
@@ -160,7 +159,7 @@ function BreakpointsTable:init()
 
 	self.toggleEnabledAll = function()
 		local BreakpointManager = game:GetService("BreakpointManager")
-		self.props.onToggleEnabledAll(BreakpointManager)
+		self.props.onToggleEnabledAll(BreakpointManager, self.props.hasDisabledBreakpoints)
 	end
 
 	self.goToScript = function()
@@ -256,8 +255,6 @@ function BreakpointsTable:render()
 	local props = self.props
 	local localization = props.Localization
 	local style = props.Stylizer
-	local shouldFocusBreakpoint = props.IsPaused and props.CurrentBreakpoint and self.state.selectedBreakpoints[1] and
-		props.CurrentBreakpoint.id == self.state.selectedBreakpoints[1].id
 
 	local tableColumns = {
 		{
@@ -285,9 +282,9 @@ function BreakpointsTable:render()
 	}
 
 	local textInputCols = {[5] = true, [6] = true}
-	
+
 	watchHelperFunctions.sortTableByColumnAndOrder(props.Breakpoints, props.SortIndex, props.SortOrder, tableColumns, false)
-	
+
 	if hasTableColumnResizeFFlags then
 		tableColumns = map(tableColumns, function(column, index: number)
 			return join(column, {
@@ -302,6 +299,13 @@ function BreakpointsTable:render()
 			self.state.breakpointIdToExpansionState[bp.id] = false
 		end
 		expansionTable[bp] = self.state.breakpointIdToExpansionState[bp.id]
+	end
+
+	local toggleButtonText
+	if props.hasDisabledBreakpoints then
+		toggleButtonText = localization:getText("BreakpointsWindow", "EnableAll")
+	else
+		toggleButtonText = localization:getText("BreakpointsWindow", "DisableAll")
 	end
 
 	return Roact.createElement(Pane, {
@@ -332,8 +336,8 @@ function BreakpointsTable:render()
 				Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
 				LayoutOrder = 2,
 				LeftIcon = "rbxasset://textures/Debugger/Breakpoints/disable_all@2x.png",
-				TooltipText = localization:getText("BreakpointsWindow", "DisableAll"),
-				OnClick = self.toggleEnabledAll,
+				TooltipText = toggleButtonText,
+				OnClick = self.toggleEnabledAll
 			}),
 			DeleteBreakpointButton = Roact.createElement(IconButton, {
 				Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
@@ -365,8 +369,7 @@ function BreakpointsTable:render()
 				LayoutOrder = 2,
 				OnSelectionChange = self.onSelectionChange,
 				HighlightedRows = self.state.selectedBreakpoints,
-				Scroll = true,
-				ScrollFocusIndex = (FFlagDevFrameworkInfiniteScrollerIndex and shouldFocusBreakpoint and self.props.CurrentBreakpointIndex) or nil,
+				Scroll = false,
 				Expansion = expansionTable,
 				GetChildren = self.getTreeChildren,
 				TextInputCols = textInputCols,
@@ -393,21 +396,21 @@ BreakpointsTable = RoactRodux.connect(
 	function(state, props)
 		local breakpointsArray = {}
 		local currentBreakpoint = nil
-		local currentBreakpointIndex = nil
+		local hasDisabledBreakpoints = false
 		for breakpointId, breakpoint in pairs(state.Breakpoint.MetaBreakpoints) do
 			local bpCopy = deepCopy(breakpoint)
 			bpCopy.scriptGUID = breakpoint.scriptName
 			bpCopy.scriptName = state.ScriptInfo.ScriptInfo[bpCopy.scriptName]
 			table.insert(breakpointsArray, bpCopy)
+			if breakpoint.isEnabled == false then
+				hasDisabledBreakpoints = true
+			end
 		end
 
-		local i = 1
 		for _, breakpoint in ipairs(breakpointsArray) do
 			if breakpoint.id == state.Common.currentBreakpointId then
 				currentBreakpoint = breakpoint
-				currentBreakpointIndex = i
 			end
-			i = i + 1
 			breakpoint.children = {}
 
 			for context, connectionIdAndBreakpoints in pairs(breakpoint.contextBreakpoints) do
@@ -415,6 +418,7 @@ BreakpointsTable = RoactRodux.connect(
 					local bpRow = BreakpointRow.extractNonChildData(breakpoint, context, individualBreakpoint.Script)
 					bpRow.hiddenLineNumber = bpRow.lineNumber
 					bpRow.lineNumber = ""
+					bpRow.isEnabled = individualBreakpoint.Enabled
 					bpRow.scriptGUID = bpRow.scriptName
 					bpRow.scriptName = state.ScriptInfo.ScriptInfo[bpRow.scriptName]
 					table.insert(breakpoint.children, bpRow)
@@ -425,17 +429,17 @@ BreakpointsTable = RoactRodux.connect(
 			Breakpoints = breakpointsArray,
 			IsPaused = state.Common.isPaused,
 			CurrentBreakpoint = currentBreakpoint,
-			CurrentBreakpointIndex = currentBreakpointIndex,
 			CurrentDebuggerConnectionId = state.Common.currentDebuggerConnectionId,
 			SortIndex = state.Breakpoint.ColumnIndex,
-			SortOrder = state.Breakpoint.SortDirection
+			SortOrder = state.Breakpoint.SortDirection,
+			hasDisabledBreakpoints = hasDisabledBreakpoints
 		}
 	end,
 
 	function(dispatch)
 		return {
-			onToggleEnabledAll = function(breakpointManager)
-				return dispatch(ToggleAllBreakpoints(breakpointManager))
+			onToggleEnabledAll = function(breakpointManager, stateToSet)
+				return dispatch(ToggleAllBreakpoints(breakpointManager, stateToSet))
 			end,
 			onSetBreakpointSortState = function(sortDirection, columnIndex)
 				return dispatch(SetBreakpointSortState(sortDirection, columnIndex))

@@ -1,4 +1,4 @@
-local FFlagToolboxPrivatePublicAudioAssetConfig = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig")
+local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
@@ -49,7 +49,7 @@ return function(patchInfo)
 			store:dispatch(UploadResult(false))
 		end
 
-		if FFlagToolboxPrivatePublicAudioAssetConfig then
+		if FFlagToolboxPrivatePublicAudioAssetConfig3 then
 			local function onPatchAssetPermissionsSuccess()
 				return patchInfo.networkInterface
 					:patchAsset(

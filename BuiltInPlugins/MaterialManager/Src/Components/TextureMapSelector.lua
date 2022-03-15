@@ -2,15 +2,17 @@
 	Wraps a PromptSelectorWithPreview to give the user a way to select a local image and see a preview.
 
 	Props:
-		CurrentFile : File?
+		CurrentTextureMap : TextureMap?
 			The currently selected file we should render a preview of.
 			Can be nil to mean no file is selected.
-		SelectFile : (File?, string?) -> void
+		SelectTextureMap : (File?, string?, string?) -> void
 			Callback to select a new file. If an error occurred, file is nil and 2nd param is error message
 		ClearSelection : void -> void
 			Callback to clear the current selection
 		PreviewTitle : string
 			Title to use on the expanded preview window
+		SearchUrl : string?
+			AssetId that is inserted by user
 ]]
 
 local Plugin = script.Parent.Parent.Parent
@@ -27,16 +29,19 @@ local Stylizer = Framework.Style.Stylizer
 
 local Dash = Framework.Dash
 
+local MarketplaceService = game:GetService("MarketplaceService")
+
 local LoadingImage = require(Plugin.Src.Util.LoadingImage)
 local PromptSelectorWithPreview = require(Plugin.Src.Util.PromptSelectorWithPreview)
 
 local StudioService = game:GetService("StudioService")
 
-type Props = {
-	CurrentFile : _Types.TextureMap?,
-	SelectFile : (File?, errorMessage : string?) -> (),
+export type Props = {
+	CurrentTextureMap : _Types.TextureMap?,
+	SelectTextureMap : (file: File?, assetId : string?, errorMessage : string?) -> (),
 	ClearSelection : () -> (),
 	PreviewTitle : string?,
+	SearchUrl : string?,
 }
 
 type _Props = Props & {
@@ -56,40 +61,63 @@ function TextureMapSelector:init()
 		end)
 		if success then
 			if file then
-				self.props.SelectFile(file)
+				self.props.SelectTextureMap(file, nil)
 			end
+		-- TODO: warnings and errors
 		else
-			self.props.SelectFile(nil, err)
+			self.props.SelectTextureMap(nil, nil, err)
 		end
 	end
 
+	self.urlSelection = function(searchUrl)
+		if not searchUrl then
+			self.props.ClearSelection()
+			return
+		end
+
+		local numericId = tonumber(searchUrl:match("://(%d+)"))
+		if not numericId then
+			-- TODO: warnings and errors + should it ClearSelection() anyway?
+			return
+		end
+
+		local assetInfo
+		spawn(function()
+			if not self._isMounted then
+				return
+			end
+
+			assetInfo = MarketplaceService:GetProductInfo(numericId)
+			
+			if not self._isMounted then
+				return
+			end
+
+			-- AssetTypeId = 1 is Image, AssetTypeId = 13 is Decal
+			if not assetInfo or (assetInfo.AssetTypeId ~= 1 and assetInfo.AssetTypeId ~= 13) then				
+				-- TODO: warnings and errors
+				return
+			end
+
+			self.props.SelectTextureMap(nil, searchUrl)
+		end)
+	end
+
 	self.renderPreview = function()
-		local currentFile = self.props.CurrentFile
-		if not currentFile or not currentFile.file then
+		local currentTextureMap = self.props.CurrentTextureMap
+		if not currentTextureMap or (not currentTextureMap.file and not currentTextureMap.assetId) then
 			-- Nothing selected
 			return nil
 		end
 
-		local imageId = self.props.CurrentFile.preview
+		local imageId = if currentTextureMap.file then currentTextureMap.tempId else currentTextureMap.assetId
 
 		return Roact.createElement(LoadingImage, {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 1, 0),
-
 			Image = imageId,
 			ScaleType = Enum.ScaleType.Fit,
 		})
-	end
-
-	self.getMetadata = function()
-		local currentFile = self.props.CurrentFile
-		if not currentFile or not currentFile.file then
-			return {}
-		end
-		return {
-			-- TODO: Add 8/16 bit info here once supported
-			("%ix%ipx"):format(currentFile.width, currentFile.height),
-		}
 	end
 end
 
@@ -99,30 +127,42 @@ function TextureMapSelector:render()
 
 	local hasSelection = false
 	local filename
-	if props.CurrentFile and props.CurrentFile.file then
+	if props.CurrentTextureMap and props.CurrentTextureMap.file then
 		hasSelection = true
-		filename = props.CurrentFile.file.Name
+		filename = props.CurrentTextureMap.file.Name
 	-- TODO: warnings and errors
+	elseif props.CurrentTextureMap and props.CurrentTextureMap.assetId then
+		hasSelection = true
+		filename = props.CurrentTextureMap.assetId
 	else
 		filename = localization:getText("LocalImageSelector", "NoImageSelected")
 	end
 
 	local newProps = Dash.join(props, {
-		CurrentFile = Dash.None,
-		SelectFile = Dash.None,
+		CurrentTextureMap = Dash.None,
+		SelectTextureMap = Dash.None,
 
 		SelectionName = filename,
 		HasSelection = hasSelection,
 
 		PreviewTitle = props.PreviewTitle,
 		RenderPreview = self.renderPreview,
-		GetMetadata = self.getMetadata,
 
 		PromptSelection = self.promptSelection,
+		UrlSelection = self.urlSelection,
+		SearchUrl = props.CurrentTextureMap and props.CurrentTextureMap.assetId or "",
 		ClearSelection = props.ClearSelection,
 	})
 
 	return Roact.createElement(PromptSelectorWithPreview, newProps)
+end
+
+function TextureMapSelector:didMount()
+	self._isMounted = true
+end
+
+function TextureMapSelector:willUnmount()
+	self._isMounted = false
 end
 
 TextureMapSelector = withContext({

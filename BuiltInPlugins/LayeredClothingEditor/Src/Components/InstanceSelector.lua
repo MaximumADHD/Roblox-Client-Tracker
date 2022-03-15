@@ -14,11 +14,14 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+
+local Components = AvatarToolsShared.Components
+local ConfirmDialog = Components.ConfirmDialog
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local ConfirmDialog = require(Plugin.Src.Components.ConfirmDialog)
 local ShowDialog = require(Plugin.Src.Util.ShowDialog)
 
 -- Connects to Run and Selection services in order to detect

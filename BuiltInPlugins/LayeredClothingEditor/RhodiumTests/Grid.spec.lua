@@ -16,8 +16,8 @@ return function()
 	local SelectPreviewTab = require(Plugin.Src.Actions.SelectPreviewTab)
 
 	local ScrollerPath = TestHelper.getEditScreenContainer()
-	local editSwizzlePath = ScrollerPath:cat(XPath.new("EditSwizzle.TopBar.DoubleClickDetector.Swizzle"))
-	local GridPath = ScrollerPath:cat(XPath.new("PreviewSwizzle.ViewArea.PreviewFrame.Grid"))
+	local editSwizzlePath = ScrollerPath:cat(XPath.new("EditSwizzle.Header"))
+	local GridPath = ScrollerPath:cat(XPath.new("PreviewSwizzle.Content.PreviewFrame.Grid"))
 	local GridScrollerPath
 	if game:GetFastFlag("DevFrameworkScrollingFrameUsePane") then
 		GridScrollerPath = GridPath:cat(XPath.new("ScrollingFrame.Scroller"))

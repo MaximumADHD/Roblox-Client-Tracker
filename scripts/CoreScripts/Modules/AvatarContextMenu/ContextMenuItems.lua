@@ -13,6 +13,7 @@ local RunService = game:GetService("RunService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local GuiService = game:GetService("GuiService")
 local CorePackages = game:GetService("CorePackages")
+local TextChatService = game:GetService("TextChatService")
 
 -- MODULES
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
@@ -30,6 +31,7 @@ local ArgCheck = require(CorePackages.ArgCheck)
 -- FLAGS
 local FFlagAvatarContextMenuItemsChatButtonRefactor
 	= require(CoreGuiModules.Flags.FFlagAvatarContextMenuItemsChatButtonRefactor)
+local FFlagEnableExperienceChat = require(CoreGuiModules.Common.Flags.FFlagEnableExperienceChat)
 
 -- VARIABLES
 
@@ -45,6 +47,7 @@ local EnabledContextMenuItems = {
 	[Enum.AvatarContextMenuOption.Emote] = true,
 	[Enum.AvatarContextMenuOption.InspectMenu] = true
 }
+
 local CustomContextMenuItems = {}
 local CustomItemAddedOrder = 0
 
@@ -304,6 +307,15 @@ local IChatButtonProps = t.interface({
 })
 
 function ContextMenuItems:CreateChatButton(props)
+	local chatVersionValid, _ = pcall(function()
+		local _ = Enum.ChatVersion.LegacyChatService
+	end)
+	if chatVersionValid then
+		if FFlagEnableExperienceChat and self.TextChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+			return
+		end
+	end
+
 	local chatDisabled = false
 	local function chatFunc()
 		if chatDisabled then
@@ -420,18 +432,18 @@ function ContextMenuItems:SetCloseMenuFunc(closeMenuFunc)
 	self.CloseMenuFunc = closeMenuFunc
 end
 
-function ContextMenuItems.new(menuItemFrame)
-	local obj = setmetatable({}, ContextMenuItems)
+function ContextMenuItems.new(menuItemFrame, config)
+    local obj = setmetatable({}, ContextMenuItems)
 
-	obj.MenuItemFrame = menuItemFrame
-	obj.SelectedPlayer = nil
+    obj.MenuItemFrame = menuItemFrame
+    obj.SelectedPlayer = nil
+    obj.TextChatService = (config and config.TextChatService) or TextChatService
+    obj:RegisterCoreMethods()
 
-	obj:RegisterCoreMethods()
+    -- If disabled in a script, sometimes it registers before we can receive the signal.
+    ContextMenuItems:UpdateInspectMenuEnabled()
 
-	-- If disabled in a script, sometimes it registers before we can receive the signal.
-	ContextMenuItems:UpdateInspectMenuEnabled()
-
-	return obj
+    return obj
 end
 
 GuiService.InspectMenuEnabledChangedSignal:Connect(function(enabled)

@@ -3,5 +3,6 @@ local RefactorFlags = require(main.Packages._Index.DeveloperFramework.DeveloperF
 RefactorFlags.THEME_REFACTOR = true
 
 game:DefineFastFlag("PluginManagementDeduplicatePackages", false)
+game:DefineFastFlag("PluginManagementFixUnmountSetState", false)
 
 return nil

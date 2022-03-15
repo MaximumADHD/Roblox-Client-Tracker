@@ -11,6 +11,7 @@ game:DefineFastFlag("UGCValidateLayeredClothing2", false)
 game:DefineFastFlag("UGCLCAssetTypeIdsGuard", false)
 game:DefineFastString("UGCLCAllowedAssetTypeIds", "")
 game:DefineFastFlag("UGCValidateHSR", false)
+game:DefineFastFlag("UGCFixModerationCheck", false)
 
 local root = script
 

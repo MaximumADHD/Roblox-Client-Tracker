@@ -1,3 +1,6 @@
+local Plugin = script.Parent.Parent.Parent
+local _Types = require(Plugin.Src.Types)
+
 local enumToType = {
 	[Enum.Material.Air] = "Terrain",
 	[Enum.Material.Asphalt] = "Terrain",
@@ -37,6 +40,6 @@ local enumToType = {
 	[Enum.Material.WoodPlanks] = "Base",
 }
 
-return function(material : Enum.Material) : string
+return function(material : Enum.Material) : _Types.MaterialType
 	return enumToType[material]
 end

@@ -2,7 +2,6 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Players = game:GetService("Players")
 
-local GetFFlagBubbleVoiceCleanupOnLeave = require(RobloxGui.Modules.Flags.GetFFlagBubbleVoiceCleanupOnLeave)
 local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatLocalMuteUI)
 local FFlagEnableVoiceChatStorybookFix = require(RobloxGui.Modules.Flags.FFlagEnableVoiceChatStorybookFix)
 local GetFFlagSubscriptionFailureUX = require(RobloxGui.Modules.Flags.GetFFlagSubscriptionFailureUX)
@@ -88,10 +87,8 @@ local initVoice = function(chatStore)
 
 	Players.PlayerRemoving:Connect(function(player)
 		log:trace("Removing player {}", shorten(player.UserId))
-		if GetFFlagBubbleVoiceCleanupOnLeave() then
-			-- For now, these two always occur together, but that won't be true later.
-			chatStore:dispatch(PlayerRemoved(tostring(player.userId)))
-		end
+		-- For now, these two always occur together, but that won't be true later.
+		chatStore:dispatch(PlayerRemoved(tostring(player.userId)))
 		chatStore:dispatch(ParticipantRemoved(tostring(player.userId)))
 	end)
 

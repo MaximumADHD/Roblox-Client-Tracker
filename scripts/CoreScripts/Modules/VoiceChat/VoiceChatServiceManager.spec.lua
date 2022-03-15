@@ -85,6 +85,8 @@ return function()
 		SubscribePauseCB = noop,
 		SubscribeBlockCB = noop,
 		SubscribeUnblockCB = noop,
+		groupId = 10000,
+		publishPaused = false,
 		available = true
 	}
 	local VoiceChatServiceManager
@@ -100,6 +102,20 @@ return function()
 	function VoiceChatServiceStub:Disconnect()
 		-- Note: This currently doesn't work due to Enum.VoiceChatState not being available in the test runner
 		-- StateChangedMock:Fire(Enum.VoiceChatState.Ended)
+	end
+
+	function VoiceChatServiceStub:Leave()
+		-- Note: This currently doesn't work due to Enum.VoiceChatState not being available in the test runner
+		-- StateChangedMock:Fire(Enum.VoiceChatState.Ended)
+	end
+	function VoiceChatServiceStub:GetGroupId()
+		return self.groupId
+	end
+	function VoiceChatServiceStub:IsPublishPaused()
+		return self.publishPaused
+	end
+	function VoiceChatServiceStub:JoinByGroupIdToken()
+		return true
 	end
 
 	function VoiceChatServiceStub:IsSubscribePaused()
@@ -440,6 +456,26 @@ return function()
 					["002"] = makeMockUser("002"),
 				}
 			)).to.equal(true)
+		end)
+
+		it("Rejoin clears participants", function ()
+			local ClearStateOnRejoinOld = game:SetFastFlagForTesting("ClearVoiceStateOnRejoin", true)
+			expect(VoiceChatServiceManager).to.be.ok()
+			VoiceChatServiceStub:addUsers({makeMockUser("001"), makeMockUser("002")})
+			
+			expect(deepEqual(
+				VoiceChatServiceManager.participants,
+				{
+					["001"] = makeMockUser("001"),
+					["002"] = makeMockUser("002"),
+				}
+			)).to.equal(true)
+			VoiceChatServiceManager:RejoinCurrentChannel()
+			expect(deepEqual(
+				VoiceChatServiceManager.participants,
+				{}
+			)).to.equal(true)
+			game:SetFastFlagForTesting("ClearVoiceStateOnRejoin", ClearStateOnRejoinOld)
 		end)
 	end)
 end

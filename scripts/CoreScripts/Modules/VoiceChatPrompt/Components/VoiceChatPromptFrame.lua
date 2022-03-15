@@ -14,7 +14,14 @@ local SlideFromTopToast = UIBlox.App.Dialog.Toast
 local Images = UIBlox.App.ImageSet.Images
 
 local PromptType = require(script.Parent.Parent.PromptType)
-local Assets = require(script.Parent.Parent.Parent.InGameMenu.Resources.Assets)
+local EnableInGameMenuV3 = require(script.Parent.Parent.Parent.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
+
+local Assets
+if EnableInGameMenuV3() then
+	Assets = require(script.Parent.Parent.Parent.InGameMenuV3.Resources.Assets)
+else
+	Assets = require(script.Parent.Parent.Parent.InGameMenu.Resources.Assets)
+end
 
 local CoreGui = game:GetService("CoreGui")
 local runService = game:GetService("RunService")

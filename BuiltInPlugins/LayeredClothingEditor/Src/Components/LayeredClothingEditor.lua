@@ -9,9 +9,11 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local UI = Framework.UI
+local ScreenFlow = UI.ScreenFlow
+
 local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
 
-local ScreenFlow = require(Plugin.Src.Components.ScreenFlow)
 local AssetTypeScreen = require(Plugin.Src.Components.Screens.AssetTypeScreen)
 local EditorScreen = require(Plugin.Src.Components.Screens.EditorScreen)
 local SelectItemScreen = require(Plugin.Src.Components.Screens.SelectItemScreen)

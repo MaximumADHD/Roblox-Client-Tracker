@@ -22,7 +22,7 @@ local FFlagInspectAndBuyLayeredClothingR6Support =
 local GetFFlagInGameMenuControllerDevelopmentOnly = 
 	require(CoreGui.RobloxGui.Modules.InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
-local CONTROLLER_BAR_HEIGHT = require(CoreGui.RobloxGui.Modules.InGameMenu.Resources.Constants).ControllerBarHeight
+local CONTROLLER_BAR_HEIGHT = require(CoreGui.RobloxGui.Modules.InGameMenuConstants).ControllerBarHeight
 
 local AssetDetails = Roact.PureComponent:extend("AssetDetails")
 

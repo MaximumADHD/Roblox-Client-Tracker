@@ -3,6 +3,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Models = Plugin.Src.Models
 local StepStateBundle = require(Models.StepStateBundle)
 local VariableRow = require(Plugin.Src.Models.Watch.VariableRow)
+local WatchRow = require(Plugin.Src.Models.Watch.WatchRow)
 
 local Actions = Plugin.Src.Actions
 local AddChildExpression = require(Actions.Watch.AddChildExpression)
@@ -22,8 +23,18 @@ local function convertChildrenToVariableRows(parent, parentVariableRow, state)
 	return toReturn
 end
 
+local function convertChildrenToWatchRows(parent, parentWatchRow)
+	local toReturn = {}
+	local children = parent:GetChildren()
+	for index, child in ipairs(children) do
+		local instance1 = WatchRow.fromChildInstance(child, parentWatchRow.pathColumn)
+		table.insert(toReturn, instance1)
+	end 
+	return toReturn
+end
+
 return function(variablePath : string, stepStateBundle : StepStateBundle.StepStateBundle,
-	isExpression : boolean, debuggerConnection)
+	isVariablesTab : boolean, debuggerConnection)
 	return function(store, contextItems)
 		local targetVar = WatchHelperFunctions.getDebuggerVariableFromSplitPath(variablePath, debuggerConnection)
 		if not targetVar then
@@ -38,14 +49,14 @@ return function(variablePath : string, stepStateBundle : StepStateBundle.StepSta
 
 			local flattenedTree = state.Watch.stateTokenToFlattenedTree[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber]
 
-			if (isExpression) then
-				local targetVariableRow = flattenedTree.Watches[variablePath]
-				local children = convertChildrenToVariableRows(targetVar, targetVariableRow, state)
-				store:dispatch(AddChildExpression(stepStateBundle, variablePath, children))
-			else
+			if (isVariablesTab) then
 				local targetVariableRow = flattenedTree.Variables[variablePath]
 				local children = convertChildrenToVariableRows(targetVar, targetVariableRow, state)
 				store:dispatch(AddChildVariables(stepStateBundle, variablePath, children))
+			else
+				local targetWatchRow = flattenedTree.Watches[variablePath]
+				local children = convertChildrenToWatchRows(targetVar, targetWatchRow)
+				store:dispatch(AddChildExpression(stepStateBundle, variablePath, children))
 			end
 		end)
     end

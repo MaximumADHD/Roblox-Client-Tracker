@@ -1,3 +1,5 @@
+local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -47,6 +49,7 @@ local SetFieldError = require(Actions.SetFieldError)
 local SetUploadFee = require(Actions.SetUploadFee)
 local SetAssetConfigAssetTypeAgents = require(Actions.SetAssetConfigAssetTypeAgents)
 local SetDescendantPermissions = require(Actions.SetDescendantPermissions)
+local SetAgeVerificationData = require(Actions.SetAgeVerificationData)
 
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 
@@ -122,6 +125,10 @@ return Rodux.createReducer({
 	tagSuggestions = {},
 	latestTagSuggestionTime = 0,
 	latestTagSearchQuery = "",
+
+	-- user verification
+	isVerified = nil,
+	verifiedAge = nil,
 }, {
 
 	[UpdateAssetConfigStore.name] = function(state, action)
@@ -448,4 +455,11 @@ return Rodux.createReducer({
 			descendantPermissions = action.permission,
 		})
 	end,
+
+	[SetAgeVerificationData.name] = if FFlagToolboxAudioAssetConfigIdVerification then function(state, action)
+		return Cryo.Dictionary.join(state, {
+			isVerified = action.isVerified,
+			verifiedAge = action.verifiedAge,
+		})
+	end else nil,
 })

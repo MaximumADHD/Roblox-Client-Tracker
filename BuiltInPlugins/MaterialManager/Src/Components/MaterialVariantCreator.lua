@@ -18,7 +18,7 @@ local ScrollingFrame = UI.ScrollingFrame
 local Util = Framework.Util
 local LayoutOrderIterator = Util.LayoutOrderIterator
 
-local MaterialVariantSettings = require(Plugin.Src.Components.MaterialVariantSettings)
+local GeneralSettings = require(Plugin.Src.Components.GeneralSettings)
 local TextureSettings = require(Plugin.Src.Components.TextureSettings)
 
 type _Props = {
@@ -66,7 +66,7 @@ function MaterialVariantCreator:render()
 				LayoutOrder = layoutOrderIterator:getNextOrder(),
 			}),
 
-			MaterialVariantSettings = Roact.createElement(MaterialVariantSettings, {
+			GeneralSettings = Roact.createElement(GeneralSettings, {
 				LayoutOrder = layoutOrderIterator:getNextOrder(),
 			}),
 

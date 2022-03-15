@@ -12,7 +12,6 @@ local isSubjectToDesktopPolicies = require(
 	script.Parent.isSubjectToDesktopPolicies)
 
 local FFlagUseGUACforDUARPolicy = game:DefineFastFlag("UseGUACforDUARPolicy", false)
-local FFlagUseGUACforFullscreenTitleBar = game:DefineFastFlag("UseGUACforFullscreenTitleBar", false)
 
 InGameMenuPolicy.Mapper = function(policy)
 	return {
@@ -37,14 +36,7 @@ InGameMenuPolicy.Mapper = function(policy)
 		end,
 
 		enableFullscreenTitleBar = function()
-			if FFlagUseGUACforFullscreenTitleBar then
-				return policy.FullscreenTitleBarEnabled or false
-			else
-				if isSubjectToDesktopPolicies() then
-					return true
-				end
-			end
-			return false
+			return policy.FullscreenTitleBarEnabled or false
 		end,
 	}
 end

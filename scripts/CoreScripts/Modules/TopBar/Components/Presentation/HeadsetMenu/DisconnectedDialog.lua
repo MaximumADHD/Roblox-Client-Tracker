@@ -20,7 +20,7 @@ local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local Modules = CoreGui.RobloxGui.Modules
 local RobloxTranslator = require(Modules.RobloxTranslator)
-local InGameMenuConstants = require(Modules.InGameMenu.Resources.Constants)
+local InGameMenuConstants = require(Modules.InGameMenuConstants)
 
 local TITLE_TEXT_KEY = "InGame.ConnectionError.Heading.VRDisconnected"
 local BODY_TEXT_KEY = "InGame.ConnectionError.Message.RestartApp"

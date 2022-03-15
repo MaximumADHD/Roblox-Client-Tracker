@@ -22,33 +22,31 @@ return function()
 			function(container)
 				local frame = container:FindFirstChildOfClass("Frame")
 				local screen = frame.Screen
-				local mainFrame = screen.MainFrame
-				local swizzleView = mainFrame.SwizzleView
-				local viewArea = swizzleView.ViewArea
+				local mainFrame = screen.MainFrame.Scroller
+				local expandablePane = mainFrame.ExpandablePane
+				local content = expandablePane.Content
 
-				local prompt = viewArea.Prompt
-				local nextBackButtonContainer = viewArea.NextAndBackButtonContainer
+				local prompt = content.Prompt
+				local nextBackButtonContainer = content.NextAndBackButtonContainer
 				local nextButton = nextBackButtonContainer.NextButton
 				local backButton = nextBackButtonContainer.BackButton
 
-				local content = viewArea.Content
-				local accessoryTypeList = content.AccessoryTypeList
-				local clothingTypeList = content.ClothingTypeList
-				local layout = content.Layout
+				local flowScreencontent = content.Content
+				local accessoryTypeList = flowScreencontent.AccessoryTypeList
+				local clothingTypeList = flowScreencontent.ClothingTypeList
 
 				expect(frame).to.be.ok()
 				expect(mainFrame).to.be.ok()
-				expect(swizzleView).to.be.ok()
+				expect(expandablePane).to.be.ok()
 				expect(screen).to.be.ok()
-				expect(viewArea).to.be.ok()
+				expect(content).to.be.ok()
 				expect(prompt).to.be.ok()
 				expect(nextButton).to.be.ok()
 				expect(backButton).to.be.ok()
 
-				expect(content).to.be.ok()
+				expect(flowScreencontent).to.be.ok()
 				expect(accessoryTypeList).to.be.ok()
 				expect(clothingTypeList).to.be.ok()
-				expect(layout).to.be.ok()
 			end
 		)
 	end)

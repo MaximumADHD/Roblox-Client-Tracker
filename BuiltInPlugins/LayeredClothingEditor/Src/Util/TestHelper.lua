@@ -64,7 +64,7 @@ end
 function TestHelper.goToAssetTypeScreenFromStart(caged, hasAttachment)
 	local ScreenFlowPath = TestHelper.getScreenFlow()
 	local SelectFramePath =
-		ScreenFlowPath:cat(XPath.new("SelectFrame.ViewArea"))
+		ScreenFlowPath:cat(XPath.new("SelectFrame.Content"))
 	local NextButtonPath =
 		SelectFramePath:cat(XPath.new("NextAndBackButtonContainer.NextButton.Contents.TextButton"))
 
@@ -88,7 +88,7 @@ function TestHelper.goToEditScreenFromStart(caged, hasAttachment)
 
 	local ScreenFlowPath = TestHelper.getScreenFlow(true)
 	local AssetTypeScreenPath =
-		ScreenFlowPath:cat(XPath.new("SwizzleView.ViewArea"))
+		ScreenFlowPath:cat(XPath.new("ExpandablePane.Content"))
 	local ShirtButtonPath =
 		AssetTypeScreenPath:cat(XPath.new("Content.ClothingTypeList.List.Shirt"))
 	local WaistButtonPath =
@@ -128,7 +128,7 @@ end
 
 function TestHelper.getEquippableGridTilePath(index)
 	local ScrollerPath = TestHelper.getEditScreenContainer()
-	local GridPath = ScrollerPath:cat(XPath.new("PreviewSwizzle.ViewArea.PreviewFrame.Grid"))
+	local GridPath = ScrollerPath:cat(XPath.new("PreviewSwizzle.Content.PreviewFrame.Grid"))
 	local GridScrollerPath
 	if game:GetFastFlag("DevFrameworkScrollingFrameUsePane") then
 		GridScrollerPath = GridPath:cat(XPath.new("ScrollingFrame.Scroller"))
@@ -198,7 +198,7 @@ end
 
 function TestHelper.getScreenFlow(hasScrollFrame)
 	if hasScrollFrame then
-		return XPath.new("game.CoreGui.PluginMockGui.ScreenFlow.Screen.MainFrame")
+		return XPath.new("game.CoreGui.PluginMockGui.ScreenFlow.Screen.MainFrame.Scroller")
 	else
 		return XPath.new("game.CoreGui.PluginMockGui.ScreenFlow")
 	end
@@ -434,7 +434,7 @@ end
 
 local function addItemToGrid(item)
 	local ScrollerPath = TestHelper.getEditScreenContainer()
-	local GridPath = ScrollerPath:cat(XPath.new("PreviewSwizzle.ViewArea.PreviewFrame.Grid"))
+	local GridPath = ScrollerPath:cat(XPath.new("PreviewSwizzle.Content.PreviewFrame.Grid"))
 	local GridScrollerPath
 	if game:GetFastFlag("DevFrameworkScrollingFrameUsePane") then
 		GridScrollerPath = GridPath:cat(XPath.new("ScrollingFrame.Scroller"))
@@ -462,7 +462,7 @@ end
 function TestHelper.selectCage(cage)
 	local ScrollerPath = TestHelper.getMainScroller()
 	local SelectCageRadioButtonListPath =
-		ScrollerPath:cat(XPath.new("EditSwizzle.ViewArea.EditorFrame.EditingModeFrame.EditingModeRadioButtonList"))
+		ScrollerPath:cat(XPath.new("EditSwizzle.Content.EditorFrame.EditingModeFrame.EditingModeRadioButtonList"))
 	local cageButtonPath
 	if cage == Enum.CageType.Inner then
 		local SelectInnerCageRadioButtonPath =

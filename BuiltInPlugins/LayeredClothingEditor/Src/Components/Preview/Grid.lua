@@ -29,6 +29,10 @@ local FFlagDevFrameworkScrollingFrameUsePane = game:GetFastFlag("DevFrameworkScr
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+
+local Components = AvatarToolsShared.Components
+local ConfirmCancelDialog = Components.ConfirmCancelDialog
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -53,7 +57,6 @@ local ShowDialog = require(Plugin.Src.Util.ShowDialog)
 
 local Tile = require(Plugin.Src.Components.Preview.Tile)
 local InstanceSelector = require(Plugin.Src.Components.InstanceSelector)
-local ConfirmCancelDialog = require(Plugin.Src.Components.ConfirmCancelDialog)
 
 local Grid = Roact.PureComponent:extend("Grid")
 Typecheck.wrap(Grid, script)

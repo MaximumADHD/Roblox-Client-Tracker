@@ -18,8 +18,10 @@ local DraggedPivot = require(DraggerFramework.Components.DraggedPivot)
 local classifyInstancePivot = require(Plugin.Src.Utility.classifyInstancePivot)
 
 local getSelectableWithCache = require(Packages.DraggerSchemaCore.getSelectableWithCache)
+local shouldSelectSubPart = require(Packages.DraggerSchemaCore.shouldSelectSubPart)
 
 local getEngineFeatureDraggerBruteForceAll = require(DraggerFramework.Flags.getEngineFeatureDraggerBruteForceAll)
+local getFFlagPivotEditorAllowSnapToSubPart = require(Plugin.Src.Flags.getFFlagPivotEditorAllowSnapToSubPart)
 
 local ZERO_VECTOR = Vector3.new()
 
@@ -173,7 +175,11 @@ function FreeformDragger:_recomputeSnapPoints()
 	end
 	local result = Workspace:Raycast(ray.Origin, ray.Direction, params)
 	if result then
-		local useBoundsOf = getSelectableWithCache(result.Instance, false, {})
+		local getMostNested = false
+		if getFFlagPivotEditorAllowSnapToSubPart() then
+			getMostNested = shouldSelectSubPart(self._draggerContext)
+		end
+		local useBoundsOf = getSelectableWithCache(result.Instance, getMostNested, {})
 		if useBoundsOf then
 			if useBoundsOf == self._pivotOwner then
 				self._snapPoints = self._originalPivotSnapPoints
@@ -195,7 +201,7 @@ function FreeformDragger:_snapToSnapPoints()
 	local closestSnap = nil
 	local closestDistance = math.huge
 	for _, snapPoint in ipairs(self._snapPoints) do
-		local screenPosition, onScreen = 
+		local screenPosition, onScreen =
 			self._draggerContext:worldToViewportPoint(snapPoint.Position)
 		if onScreen then
 			local screenLocation = Vector2.new(screenPosition.X, screenPosition.Y)

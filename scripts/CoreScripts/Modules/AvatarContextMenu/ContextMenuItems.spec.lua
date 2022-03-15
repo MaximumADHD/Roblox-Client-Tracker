@@ -7,12 +7,13 @@ local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 
 local FFlagAvatarContextMenuItemsChatButtonRefactor
 	= require(CoreGuiModules.Flags.FFlagAvatarContextMenuItemsChatButtonRefactor)
+local FFlagEnableExperienceChat = require(CoreGuiModules.Common.Flags.FFlagEnableExperienceChat)
 
 return function()
 	-- Returns a frame with context menu items as children.
-	local function makeContextMenuItemsFrame(props)
+	local function makeContextMenuItemsFrame(props, config)
 		local parentFrame = Instance.new("Frame")
-		local contextMenuItems = ContextMenuItems.new(parentFrame)
+		local contextMenuItems = ContextMenuItems.new(parentFrame, config)
 
 		if not RobloxReplicatedStorage:FindFirstChild("SetPlayerBlockList") then
 			local mockEvent = Instance.new("RemoteEvent")
@@ -74,20 +75,107 @@ return function()
 			end
 		end)
 
-		it("should have 4 default buttons: Friend, Chat, Wave, View.", function()
-			local props = {
-				localPlayerChatEnabled = true,
-				localPlayerCanChatWithSelectedPlayer = true,
-			}
-			local menuItemsFrame = makeContextMenuItemsFrame(props)
-			local buttons = menuItemsFrame:GetChildren()
+		describe("GIVEN the EnableExperienceChat Flag", function()
+			beforeAll(function(context)
+				context.testForCorrectButtonNames = function(buttonNames, textChatService)
+					local props = {
+						localPlayerChatEnabled = true,
+						localPlayerCanChatWithSelectedPlayer = true,
+					}
+					local menuItemsFrame = makeContextMenuItemsFrame(props, { TextChatService = textChatService })
+					local buttons = menuItemsFrame:GetChildren()
+					expect(#buttons).to.equal(#buttonNames)
 
-			local buttonNames = { "Wave", "ChatStatus", "FriendStatus", "View" }
-			expect(#buttons).to.equal(#buttonNames)
+					for _, name in ipairs(buttonNames) do
+						expect(menuItemsFrame:FindFirstChild(name)).to.be.ok()
+					end
+				end
 
-			for _, name in ipairs(buttonNames) do
-				expect(menuItemsFrame:FindFirstChild(name)).to.be.ok()
-			end
+				context.isChatVersionValid = function()
+					local chatVersionValid, _ = pcall(function()
+						local _ = Enum.ChatVersion.LegacyChatService
+					end)
+					return chatVersionValid
+				end
+			end)
+
+			describe("WHEN EnableExperienceChat Flag is true", function()
+				beforeAll(function(context)
+					context.oldExperienceChatFlag = game:SetFastFlagForTesting("EnableExperienceChat", true)
+				end)
+
+				afterAll(function(context)
+					game:SetFastFlagForTesting("EnableExperienceChat", context.oldExperienceChatFlag)
+				end)
+
+				describe("WHEN TextChatService.ChatVersion is Legacy Chat", function()
+
+					it("SHOULD have 4 default buttons: Friend, Chat, Wave, View.", function(c)
+						if c.isChatVersionValid() then
+							c.TextChatService = {
+								ChatVersion = Enum.ChatVersion.LegacyChatService,
+							}
+							c.testForCorrectButtonNames(
+								{ "Wave", "ChatStatus", "FriendStatus", "View" },
+								c.TextChatService
+							)
+						end
+					end)
+				end)
+
+				describe("WHEN TextChatService.ChatVersion is new TextChatService", function()
+
+					it("SHOULD have 3 default buttons: Friend, Wave, View.", function(c)
+						if c.isChatVersionValid() then
+							c.TextChatService = {
+								ChatVersion = Enum.ChatVersion.TextChatService,
+							}
+							c.testForCorrectButtonNames({ "Wave", "FriendStatus", "View" }, c.TextChatService)
+						end
+					end)
+				end)
+			end)
+
+			describe("WHEN EnableExperienceChat Flag is false", function()
+				beforeAll(function(context)
+					context.oldExperienceChatFlag = game:SetFastFlagForTesting("EnableExperienceChat", false)
+				end)
+
+				afterAll(function(context)
+					game:SetFastFlagForTesting("EnableExperienceChat", context.oldExperienceChatFlag)
+				end)
+
+				describe("WHEN TextChatService.ChatVersion is Legacy Chat", function()
+					it("SHOULD have 4 default buttons: Friend, Chat, Wave, View.", function(c)
+						if c.isChatVersionValid() and not FFlagEnableExperienceChat then
+							c.TextChatService = {
+								ChatVersion = Enum.ChatVersion.LegacyChatService,
+							}
+							c.testForCorrectButtonNames(
+								{ "Wave", "ChatStatus", "FriendStatus", "View" },
+								c.TextChatService
+							)
+						end
+					end)
+				end)
+
+				describe("WHEN TextChatService.ChatVersion is new TextChatService", function()
+					it("SHOULD have 4 default buttons: Friend, Chat, Wave, View.", function(c)
+						if c.isChatVersionValid() and not FFlagEnableExperienceChat then
+							c.TextChatService = {
+								ChatVersion = Enum.ChatVersion.TextChatService,
+							}
+							c.testForCorrectButtonNames(
+								{ "Wave", "ChatStatus", "FriendStatus", "View" },
+								c.TextChatService
+							)
+						end
+					end)
+				end)
+			end)
+
 		end)
+
+
 	end)
 end

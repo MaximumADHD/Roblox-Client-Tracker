@@ -95,7 +95,7 @@ function ScreenPublishManagement:render()
 	local gameName = parentGame and parentGame.name or ""
 	local headerText = localization:getText("ScreenHeader", "PublishManagement", {name, gameName}) --"How would you like to release the overwrite to {name} under {gameName}?"
 	local rolloutOptionsText = localization:getText("General", "RolloutOption") --"RolloutOption"
-	local footerMainButtonName = localization:getText("FooterButton", "Overwrite") --"Overwrite"
+	local footerMainButtonName = "Overwrite"
 	local toggleDescriptionWidth = self.state.toggleDescriptionWidth
 	local isOptInChina = getIsOptInChina(optInRegions)
 	local showRolloutOption = not isOptInChina

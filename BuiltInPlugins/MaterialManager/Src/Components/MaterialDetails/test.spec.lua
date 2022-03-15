@@ -1,5 +1,6 @@
 return function()
     local Plugin = script.Parent.Parent.Parent.Parent
+    local _Types = require(Plugin.Src.Types)
     local Roact = require(Plugin.Packages.Roact)
     local mockContext = require(Plugin.Src.Util.mockContext)
 
@@ -7,7 +8,7 @@ return function()
 
     local function createTestElement(props: MaterialDetails.Props?)
         props = props or {
-            OpenPrompt = function() end
+            OpenPrompt = function(type: _Types.MaterialPromptType) end
         }
 
         return mockContext({
@@ -25,7 +26,7 @@ return function()
         local container = Instance.new("Folder")
         local element = createTestElement({
             LayoutOrder = 1,
-            OpenPrompt = function(name : string) end,
+            OpenPrompt = function(type: _Types.MaterialPromptType) end,
             Size = UDim2.fromScale(1, 1),
         })
         local instance = Roact.mount(element, container)

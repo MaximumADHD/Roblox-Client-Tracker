@@ -1,0 +1,194 @@
+return function()
+	local CorePackages = game:GetService("CorePackages")
+	local Modules = game:GetService("CoreGui").RobloxGui.Modules
+
+	local act = require(Modules.act)
+	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
+	local InGameMenu = script.Parent.Parent
+	local reducer = require(InGameMenu.reducer)
+	local UIBlox = InGameMenuDependencies.UIBlox
+	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
+	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+	local Players = game:GetService("Players")
+	local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
+	local SetInputType = require(InGameMenu.Actions.SetInputType)
+	local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
+	local Pages = require(script.Parent.Pages)
+
+	local appStyle = {
+		Theme = AppDarkTheme,
+		Font = AppFont,
+	}
+
+	local Localization = require(InGameMenu.Localization.Localization)
+	local Rodux = InGameMenuDependencies.Rodux
+	local RoactRodux = InGameMenuDependencies.RoactRodux
+	local Roact = InGameMenuDependencies.Roact
+	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
+	local Constants = require(InGameMenu.Resources.Constants)
+	local FocusHandlerContextProvider = require(script.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
+	local MainPage = require(script.Parent.MainPage)
+
+	local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
+	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
+	local GuiService = game:GetService("GuiService")
+
+	local CoreGui = game:GetService("CoreGui")
+	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+	local GetFFlagEnableVoiceChatMuteButton = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatMuteButton)
+	local RhodiumHelpers = require(RobloxGui.Modules.NotForProductionUse.RhodiumHelpers.api)
+	local ParticipantAdded = require(RobloxGui.Modules.VoiceChat.Actions.ParticipantAdded)
+
+	local function getMountableTreeAndStore(props)
+		local store = Rodux.Store.new(reducer)
+
+		return Roact.createElement(RoactRodux.StoreProvider, {
+			store = store
+		}, {
+			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
+				style = appStyle,
+			}, {
+				LocalizationProvider = Roact.createElement(LocalizationProvider, {
+					localization = Localization.new("en-us"),
+				}, {
+					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+						MainPage = Roact.createElement(MainPage, props)
+					}) or nil,
+					MainPage = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(MainPage, props) or nil
+				}),
+			}),
+		}), store
+	end
+
+	itSKIP("should mount and unmount with minimal props", function()
+		local element = getMountableTreeAndStore()
+
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
+	end)
+
+	itSKIP("should render basic MainPage components", function()
+		local element, store = getMountableTreeAndStore()
+		expect(Players.LocalPlayer.PlayerGui).to.be.ok()
+
+		local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+		act(function()
+			store:dispatch(SetCurrentPage(Constants.MainPagePageKey))
+			store:flush()
+		end)
+
+		local renderedMainPage = Players.LocalPlayer.PlayerGui:GetChildren()[1]
+		expect(renderedMainPage).never.to.equal(nil)
+
+		-- Check all the NavigationButtons are rendered
+		local renderedPageNavigation = renderedMainPage:FindFirstChild("PageNavigation", true)
+		expect(renderedPageNavigation).never.to.equal(nil)
+
+		local expectedPageCount = 0
+		local renderedPageCount = 0
+
+		for _, page in ipairs(Pages.pagesByIndex) do
+			if page.parentPage == Constants.MainPagePageKey then
+				expect(renderedPageNavigation:FindFirstChild("Page" .. page.key))
+				expectedPageCount += 1
+			end
+		end
+
+		for _, inst in pairs(renderedPageNavigation:GetChildren()) do
+			-- filter out non-navigationButton children (some children are layout related)
+			if inst:FindFirstChild("ContentContainer") then
+				renderedPageCount += 1
+			end
+		end
+		expect(renderedPageCount).to.equal(expectedPageCount)
+
+		-- Check the BottomButtons are rendered
+		local renderedBottomButtons = renderedMainPage:FindFirstChild("BottomButtons", true)
+		expect(renderedBottomButtons).never.to.equal(nil)
+
+		Roact.unmount(instance)
+	end)
+
+	describeSKIP("Gamepad", function()
+		it("Should not gain focus when gamepad is not the last used device", function()
+			local element, store = getMountableTreeAndStore()
+			expect(Players.LocalPlayer.PlayerGui).to.be.ok()
+
+			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+			act(function()
+				store:dispatch(SetInputType(Constants.InputType.MouseAndKeyboard))
+				store:dispatch(SetMenuOpen(true))
+				store:dispatch(SetCurrentPage(Constants.MainPagePageKey))
+				store:flush()
+			end)
+
+			expect(GuiService.SelectedCoreObject).to.equal(nil)
+
+			Roact.unmount(instance)
+		end)
+
+		it("Should gain focus only when gamepad was used and FFlagInGameMenuController is enabled", function()
+			local element, store = getMountableTreeAndStore({open = true})
+			expect(Players.LocalPlayer.PlayerGui).to.be.ok()
+
+			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+			act(function()
+				store:dispatch(SetInputType(Constants.InputType.Gamepad))
+				store:dispatch(SetCurrentPage(Constants.MainPagePageKey))
+				store:dispatch(SetMenuOpen(true))
+				store:flush()
+			end)
+
+			if GetFFlagInGameMenuControllerDevelopmentOnly() == false then
+				expect(GuiService.SelectedCoreObject).to.equal(nil)
+			elseif GetFFlagInGameMenuControllerDevelopmentOnly() == true then
+				expect(GuiService.SelectedCoreObject:IsA("Instance")).to.be.ok()
+			end
+
+			Roact.unmount(instance)
+			GuiService.SelectedCoreObject = nil
+		end)
+	end)
+
+	describeSKIP("Voice chat mute button", function()
+		it("should render mute button when voice chat is enabled", function()
+			if GetFFlagEnableVoiceChatMuteButton() then
+				local element, store = getMountableTreeAndStore({voiceEnabled = true})
+
+				-- ensure initial player voice state is available for local player
+				local localUserId = tostring(Players.LocalPlayer.UserId)
+				act(function()
+					store:dispatch(ParticipantAdded(localUserId))
+				end)
+
+				local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+				expect(Players.LocalPlayer.PlayerGui).to.be.ok()
+
+				local button = RhodiumHelpers.findFirstInstance(Players.LocalPlayer.PlayerGui, {
+					Name = "VoiceChatMuteButton",
+				});
+				expect(button).to.be.ok()
+
+				Roact.unmount(instance)
+			end
+		end)
+
+		it("should render mute button when voice chat is not enabled", function()
+			local element, store = getMountableTreeAndStore({voiceEnabled = false})
+
+			-- ensure initial player voice state is available for local player
+			local localUserId = tostring(Players.LocalPlayer.UserId)
+			store:dispatch(ParticipantAdded(localUserId))
+
+			expect(Players.LocalPlayer.PlayerGui).to.be.ok()
+			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+
+			local button = RhodiumHelpers.findFirstInstance(Players.LocalPlayer.PlayerGui, {
+				Name = "VoiceChatMuteButton",
+			});
+			expect(button).never.to.be.ok()
+
+			Roact.unmount(instance)
+		end)
+	end)
+end

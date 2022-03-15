@@ -25,7 +25,7 @@ return function()
 		local dst = state.Common.debuggerConnectionIdToDST[1]
 		local stepStateBundle = StepStateBundle.ctor(dst,1,1)
 		
-		store:dispatch(LazyLoadVariable("1", stepStateBundle, false, currentMockConnection))
+		store:dispatch(LazyLoadVariable("1", stepStateBundle, true, currentMockConnection))
 		state = store:getState()
 		
 		expect(state.Watch.stateTokenToFlattenedTree).to.be.ok()

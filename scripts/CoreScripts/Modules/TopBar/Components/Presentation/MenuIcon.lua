@@ -10,7 +10,7 @@ local t = require(CorePackages.Packages.t)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
-local InGameMenuConstants = require(RobloxGui.Modules.InGameMenu.Resources.Constants)
+local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
 
 local isSubjectToDesktopPolicies = require(RobloxGui.Modules.InGameMenu.isSubjectToDesktopPolicies)
 
@@ -22,7 +22,7 @@ local SetGamepadMenuOpen = require(Actions.SetGamepadMenuOpen)
 
 local InGameMenu
 if isNewInGameMenuEnabled() then
-	InGameMenu = require(RobloxGui.Modules.InGameMenu)
+	InGameMenu = require(RobloxGui.Modules.InGameMenuInit)
 end
 
 local IconButton = require(script.Parent.IconButton)

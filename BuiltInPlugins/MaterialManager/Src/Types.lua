@@ -4,22 +4,33 @@ export type Array<T> = Map<number, T>
 
 export type Path = Array<string>
 
+export type MaterialPromptType = "Edit" | "Create" | "CreatePart" | "CreateTerrain"
+
+export type MaterialType = "Base" | "Part" | "Terrain"
+
 export type Material = {
-    IsBase : boolean,
+    IsBuiltin : boolean,
     MaterialPath : Path,
     MaterialVariant : MaterialVariant,
-    MaterialType : string,
+    MaterialType : MaterialType,
 }
 
-export type TextureMap = {
+-- TODO: decide on type for TextureMap
+
+--[[
+	There are 2 possible ways to import texture map:
+	1. Import new file -> add file and tempId, width, height, channel
+	2. Insert assetId -> add assetId
+]]--
+export type TextureMap = {	
 	file : File?,
-	preview : number,
-	width : number,
-	height : number,
-	channels : number,
-	-- TODO: decide where assetIds go
-	-- tempId : string,
-	-- assetId : string,
+	tempId : string?,
+	assetId : string?,
+}
+
+export type Image = {
+	Image : string,
+	Color : Color3,
 }
 
 return {}

@@ -7,6 +7,7 @@ local Framework = require(Plugin.Packages.Framework)
 
 local Util = Framework.Util
 local StyleModifier = Util.StyleModifier
+local deepCopy = Util.deepCopy
 
 local UI = Framework.UI
 local Spritesheet = Framework.Util.Spritesheet
@@ -91,12 +92,6 @@ local function createValuesInternal(mock)
 		TextSize = 18,
 	})
 
-	local FlowScreenLayout = {
-		ButtonWidth = 64,
-		ButtonHeight = 24,
-		HeaderHeight = 64,
-	}
-
 	local EditorScreen = {
 		EditHeight = 350,
 		EditAndPreviewHeight = 175,
@@ -121,30 +116,6 @@ local function createValuesInternal(mock)
 		LayoutPadding = 6,
 	}
 
-	local SwizzleView = {
-		TopBarColor = StyleKey.Button,
-		TopBarTextColor = StyleKey.TitlebarText,
-		TextSize = 18,
-		TopBarHeight = 32,
-		TopBarPadding = 12,
-		Arrows = {
-			Collapsed = {
-				Image = "rbxasset://textures/StudioToolbox/ArrowCollapsed.png",
-				Size = UDim2.new(0, 9, 0, 7),
-			},
-			Expanded = {
-				Image = "rbxasset://textures/StudioToolbox/ArrowExpanded.png",
-				Size = UDim2.new(0, 7, 0, 9),
-			}
-		},
-		ImageColor = StyleKey.MainText,
-	}
-
-	local CheckboxSetting = {
-		BoxSize = UDim2.new(0, 20, 0, 20),
-		FramePadding = 96,
-	}
-
 	local Point = {
 		DefaultPointSize = 0.015,
 		DefaultColor = Color3.new(0, 1, 1),
@@ -165,13 +136,6 @@ local function createValuesInternal(mock)
 		SelectedColor = Color3.new(1, 0, 0),
 	}
 
-	local Vector3Entry = {
-		PlaceholderTextColor = StyleKey.DimmedText,
-		ValueTextBoxPadding = 12,
-		ValueTextBoxWidth = 64,
-		FramePadding = 96,
-	}
-
 	local EditTransparencyView = {
 		TitleHeight = 32,
 	}
@@ -186,22 +150,6 @@ local function createValuesInternal(mock)
 
 	local InstanceSelector = {
 		HoverLineThickness = 0.02,
-	}
-
-	local SliderSetting = {
-		PercentageLabelWidth = 10,
-		ValueTextBoxPadding = 5,
-		SliderContainerPadding = 24,
-		DefaultSnap = 1,
-		LabelWidth = 80,
-		InputWidth = 60,
-		InputHeight = 22,
-		TextInputOverride = Cryo.Dictionary.join(devFrameworkRoundTextInput, {
-			Padding = 6,
-			[StyleModifier.Disabled] = {
-				TextColor = StyleKey.DimmedText,
-			},
-		}),
 	}
 
 	local AddItemFromExplorerButton = {
@@ -255,13 +203,6 @@ local function createValuesInternal(mock)
 	local SelectItemMoreButton = {
 		MoreButtonImage = StyleKey.MoreActionsImage,
 		MoreButtonSize = 20,
-	}
-
-	local ControlsPanelBlocker = {
-		TextSize = 25,
-		TextColor = Color3.fromRGB(255, 255, 255),
-		BackgroundColor = Color3.fromRGB(0, 0, 0),
-		BackgroundTransparency = 0.2,
 	}
 
 	local Tile = {
@@ -352,13 +293,10 @@ local function createValuesInternal(mock)
 	}
 
 	local componentThemes = {
-		FlowScreenLayout = FlowScreenLayout,
 		EditorScreen = EditorScreen,
 		EditorFrame = EditorFrame,
 		DeformerDropdownMenu = DeformerDropdownMenu,
 		LatticeToolSettings = LatticeToolSettings,
-		SwizzleView = SwizzleView,
-		Vector3Entry = Vector3Entry,
 		AddItemFromExplorerButton = AddItemFromExplorerButton,
 		EditingModeFrame = EditingModeFrame,
 		EditingModeRadioButtonList = EditingModeRadioButtonList,
@@ -367,11 +305,8 @@ local function createValuesInternal(mock)
 		SelectItemListRow = SelectItemListRow,
 		SelectItemMoreButton = SelectItemMoreButton,
 		Grid = Grid,
-		ControlsPanelBlocker = ControlsPanelBlocker,
 		EditTransparencyView = EditTransparencyView,
 		AnimPlaybackSlider = AnimPlaybackSlider,
-		SliderSetting = SliderSetting,
-		CheckboxSetting = CheckboxSetting,
 		Tile = Tile,
 		SelectFrame = SelectFrame,
 		PointTool = PointTool,

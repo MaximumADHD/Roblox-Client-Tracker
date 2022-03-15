@@ -32,6 +32,7 @@ local getBuiltInMaterialVariants = require(Utils.getBuiltInMaterialVariants)
 local ImageUploader = require(main.Src.Util.ImageUploader)
 local ImportAssetHandler = require(main.Src.Util.ImportAssetHandler)
 local ImageLoader = require(Utils.ImageLoader)
+local MaterialServiceWrapper = require(Utils.MaterialServiceWrapper)
 
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
@@ -102,7 +103,8 @@ function MainPlugin:init(props)
 	end, {})
 
 	self.materialController = MaterialController.new(
-		getBuiltInMaterialVariants()
+		getBuiltInMaterialVariants(),
+		MaterialServiceWrapper.new()
 	)
 end
 

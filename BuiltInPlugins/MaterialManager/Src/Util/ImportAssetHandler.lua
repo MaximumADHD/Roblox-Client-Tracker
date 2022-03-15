@@ -44,7 +44,7 @@ if not FFlagDevFrameworkUseCreateContext then
 	end
 end
 
-function ImportAssetHandler:handleAsset(assetFile : File)
+function ImportAssetHandler:handleAsset(assetFile : File, onAssetUpload : (string) -> ())
 	assert(assetFile, "ImportAssetHandler:handleAsset() requires an assetFile")
 
 	local tempId = assetFile:GetTemporaryId()
@@ -66,6 +66,12 @@ function ImportAssetHandler:handleAsset(assetFile : File)
 			local msg = ("Asset id \"%s\" for temp id \"%s\" could not be cast to an integer"):format(assetId, tempId)
 			warn(msg)
 			assert(assetIdNumber, msg)
+		end
+
+		assetId = "rbxassetid://" .. assetIdNumber
+
+		if onAssetUpload then
+			onAssetUpload(assetId)
 		end
 
 	end, function(err)

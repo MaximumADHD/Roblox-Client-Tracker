@@ -4,7 +4,8 @@
 	Props:
 	ToggleCallback, function, will return current selected statue if toggled.
 ]]
-local FFlagToolboxPrivatePublicAudioAssetConfig = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig")
+local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
+local FFlagToolboxAudioAssetConfigDisablePublicAudio = game:GetFastFlag("ToolboxAudioAssetConfigDisablePublicAudio")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -52,7 +53,7 @@ local TIPS_SPACING = 10
 local WARNING_TIME_IN_SECONDS = 5
 
 function ConfigCopy:init(props)
-	if FFlagToolboxPrivatePublicAudioAssetConfig then
+	if FFlagToolboxPrivatePublicAudioAssetConfig3 then
 		self.warningCountdown = 0
 		self.state = {
 			copyWarning = Cryo.None,
@@ -68,13 +69,14 @@ function ConfigCopy:init(props)
 	end
 
 	self.toggleCallback = function()
+		local assetType = props.AssetType
 		local props = self.props
 		local copyOn = props.CopyOn
 		local localization = props.Localization
 		local isAssetPublic = props.IsAssetPublic
 
-		if FFlagToolboxPrivatePublicAudioAssetConfig then
-			if not isAssetPublic then
+		if FFlagToolboxPrivatePublicAudioAssetConfig3 then
+			if assetType == Enum.AssetType.Audio and not isAssetPublic then
 				self.warningCountdown = WARNING_TIME_IN_SECONDS
 				self:setState({
 					copyWarning = localization:getText("AssetConfigCopy", "MustShare"),
@@ -88,7 +90,7 @@ function ConfigCopy:init(props)
 	end
 end
 
-if FFlagToolboxPrivatePublicAudioAssetConfig then
+if FFlagToolboxPrivatePublicAudioAssetConfig3 then
 	function ConfigCopy:didMount(prevProps, prevState)
 		local timeSignal = game:GetService("RunService").Heartbeat
 		local countdownTime = 0
@@ -114,33 +116,36 @@ if FFlagToolboxPrivatePublicAudioAssetConfig then
 
 	function ConfigCopy:didUpdate(prevProps, prevState)
 		local props = self.props
+		local assetType = props.AssetType
 		local localization = props.Localization
 
 		local warningText = localization:getText("AssetConfigCopy", "MustShare")
 
-		self:setState(function(state)
-			local wasPublicThenPrivate = not props.IsAssetPublic and prevProps.IsAssetPublic
-			if props.IsAudio
-				and state.copyWarning ~= warningText
-				and ((wasPublicThenPrivate and prevProps.CopyOn))
-			then
-				self.warningCountdown = WARNING_TIME_IN_SECONDS
-				return {
-					copyWarning = warningText,
-				}
-			elseif prevState.copyWarning ~= Cryo.None and props.IsAssetPublic then
-				return {
-					copyWarning = Cryo.None,
-				}
-			else
-				return nil
-			end
-		end)
+		if assetType == Enum.AssetType.Audio then
+			self:setState(function(state)
+				local wasPublicThenPrivate = not props.IsAssetPublic and prevProps.IsAssetPublic
+				if props.IsAudio
+					and state.copyWarning ~= warningText
+					and ((wasPublicThenPrivate and prevProps.CopyOn))
+				then
+					self.warningCountdown = WARNING_TIME_IN_SECONDS
+					return {
+						copyWarning = warningText,
+					}
+				elseif prevState.copyWarning ~= Cryo.None and props.IsAssetPublic then
+					return {
+						copyWarning = Cryo.None,
+					}
+				else
+					return nil
+				end
+			end)
+		end
 	end
 end
 
 function ConfigCopy:render()
-	if FFlagToolboxPrivatePublicAudioAssetConfig then
+	if FFlagToolboxPrivatePublicAudioAssetConfig3 then
 		return self:renderContent()
 	else
 		return withLocalization(function(_, localizedContent)
@@ -168,8 +173,9 @@ function ConfigCopy:renderContent(theme, localizedContent)
 	local informationText
 	local learnMoreText
 	local showWarningText
-	if FFlagToolboxPrivatePublicAudioAssetConfig then
-		local localization = props.Localization
+	local localization
+	if FFlagToolboxPrivatePublicAudioAssetConfig3 then
+		localization = props.Localization
 		informationText = localization:getText("AssetConfigCopy", "DistributeAgreement")
 		learnMoreText = localization:getText("General", "LearnMore")
 		showWarningText = copyWarning ~= Cryo.None
@@ -179,10 +185,18 @@ function ConfigCopy:renderContent(theme, localizedContent)
 		learnMoreText = publishAssetLocalized.LearnMore
 		informationText = CopyEnabled and localizedContent.AssetConfig.Terms or localizedContent.AssetConfig.Accounts
 	end
+	
+	if FFlagToolboxAudioAssetConfigDisablePublicAudio then
+		local assetType = props.AssetType
+		if assetType == Enum.AssetType.Audio then
+			localization = props.Localization
+			informationText = localization:getText("AssetConfigCopy", "TemporarilyDisabledMessage")
+		end
+	end
 
 	return Roact.createElement("Frame", {
-		AutomaticSize = if FFlagToolboxPrivatePublicAudioAssetConfig then Enum.AutomaticSize.Y else nil,
-		Size = if FFlagToolboxPrivatePublicAudioAssetConfig then UDim2.new(1, 0, 0, TOGGLE_BUTTON_HEIGHT + LINK_BUTTON_HEIGHT + 10) else UDim2.new(1, 0, 0, informationHeight + TOGGLE_BUTTON_HEIGHT + LINK_BUTTON_HEIGHT + 10),
+		AutomaticSize = if FFlagToolboxPrivatePublicAudioAssetConfig3 then Enum.AutomaticSize.Y else nil,
+		Size = if FFlagToolboxPrivatePublicAudioAssetConfig3 then UDim2.new(1, 0, 0, TOGGLE_BUTTON_HEIGHT + LINK_BUTTON_HEIGHT + 10) else UDim2.new(1, 0, 0, informationHeight + TOGGLE_BUTTON_HEIGHT + LINK_BUTTON_HEIGHT + 10),
 
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
@@ -198,7 +212,7 @@ function ConfigCopy:renderContent(theme, localizedContent)
 		}),
 
 		Title = Roact.createElement("TextLabel", {
-			AutomaticSize = if FFlagToolboxPrivatePublicAudioAssetConfig then Enum.AutomaticSize.Y else nil,
+			AutomaticSize = if FFlagToolboxPrivatePublicAudioAssetConfig3 then Enum.AutomaticSize.Y else nil,
 			Size = UDim2.new(0, AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, TITLE_HEIGHT),
 
 			BackgroundTransparency = 1,
@@ -209,7 +223,7 @@ function ConfigCopy:renderContent(theme, localizedContent)
 			TextYAlignment = Enum.TextYAlignment.Top,
 			TextSize = Constants.FONT_SIZE_TITLE,
 			TextColor3 = publishAssetTheme.titleTextColor,
-			TextWrapped = if FFlagToolboxPrivatePublicAudioAssetConfig then true else nil,
+			TextWrapped = if FFlagToolboxPrivatePublicAudioAssetConfig3 then true else nil,
 			Font = Constants.FONT,
 
 			LayoutOrder = 1,
@@ -225,7 +239,7 @@ function ConfigCopy:renderContent(theme, localizedContent)
 		}, {
 			UIPadding = Roact.createElement("UIPadding", {
 				-- TODO: Remove this when we refactor the rest of the PublishAsset "Config" components to use AutomaticSize.
-				PaddingBottom = UDim.new(0, if FFlagToolboxPrivatePublicAudioAssetConfig then BOTTOM_PADDING else 0),
+				PaddingBottom = UDim.new(0, if FFlagToolboxPrivatePublicAudioAssetConfig3 then BOTTOM_PADDING else 0),
 				PaddingLeft = UDim.new(0, 0),
 				PaddingRight = UDim.new(0, 0),
 				PaddingTop = UDim.new(0, 0),
@@ -239,7 +253,7 @@ function ConfigCopy:renderContent(theme, localizedContent)
 				Padding = UDim.new(0, 0)
 			}),
 
-			ToggleButtonContainer = if FFlagToolboxPrivatePublicAudioAssetConfig then Roact.createElement(Pane, {
+			ToggleButtonContainer = if FFlagToolboxPrivatePublicAudioAssetConfig3 then Roact.createElement(Pane, {
 				BackgroundTransparency = 1,
 				HorizontalAlignment = Enum.HorizontalAlignment.Left,
 				Layout = Enum.FillDirection.Horizontal,
@@ -274,7 +288,7 @@ function ConfigCopy:renderContent(theme, localizedContent)
 				}) else nil,
 			}) else nil,
 
-			ToggleButton = if not FFlagToolboxPrivatePublicAudioAssetConfig then Roact.createElement(ToggleButton, {
+			ToggleButton = if not FFlagToolboxPrivatePublicAudioAssetConfig3 then Roact.createElement(ToggleButton, {
 				Disabled = not CopyEnabled,
 				LayoutOrder = 1,
 				OnClick = self.toggleCallback,
@@ -283,8 +297,8 @@ function ConfigCopy:renderContent(theme, localizedContent)
 			}) else nil,
 
 			TipsLabel = Roact.createElement("TextLabel", {
-				AutomaticSize = if FFlagToolboxPrivatePublicAudioAssetConfig then Enum.AutomaticSize.Y else nil,
-				Size = if FFlagToolboxPrivatePublicAudioAssetConfig then UDim2.new(1, 0, 0, 0) else UDim2.new(1, 0, 0, informationHeight),
+				AutomaticSize = if FFlagToolboxPrivatePublicAudioAssetConfig3 then Enum.AutomaticSize.Y else nil,
+				Size = if FFlagToolboxPrivatePublicAudioAssetConfig3 then UDim2.new(1, 0, 0, 0) else UDim2.new(1, 0, 0, informationHeight),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 
@@ -299,7 +313,7 @@ function ConfigCopy:renderContent(theme, localizedContent)
 				LayoutOrder = 2,
 			}),
 
-			LinkButton = if FFlagToolboxPrivatePublicAudioAssetConfig then Roact.createElement(LinkText, {
+			LinkButton = if FFlagToolboxPrivatePublicAudioAssetConfig3 then Roact.createElement(LinkText, {
 				LayoutOrder = 3,
 				OnClick = self.onLearnMoreActivated,
 				Text = learnMoreText,
@@ -318,7 +332,7 @@ function ConfigCopy:renderContent(theme, localizedContent)
 end
 
 ConfigCopy = withContext({
-	Localization = if FFlagToolboxPrivatePublicAudioAssetConfig then ContextServices.Localization else nil,
+	Localization = if FFlagToolboxPrivatePublicAudioAssetConfig3 or FFlagToolboxAudioAssetConfigDisablePublicAudio then ContextServices.Localization else nil,
 	Stylizer = ContextServices.Stylizer,
 })(ConfigCopy)
 

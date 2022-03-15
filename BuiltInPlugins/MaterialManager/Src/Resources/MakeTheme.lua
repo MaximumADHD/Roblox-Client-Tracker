@@ -12,11 +12,15 @@ local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 
+local join = Framework.Dash.join
+
 local Util = Framework.Util
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Style = Framework.Style
 local StudioTheme = Style.Themes.StudioTheme
+local DarkTheme = Style.Themes.DarkTheme
+local LightTheme = Style.Themes.LightTheme
 local _StyleKey = Style.StyleKey
 
 local function getPluginTheme()
@@ -25,6 +29,8 @@ local function getPluginTheme()
 	local MaterialDetailsWidth = 300
 	local TopBarButtonWidth = 28
 	local TopBarDropdownWidth = 150
+	local MaterialDetailsRowHeight = 30
+	local MaterialDetailsTextureHeight = 60
 
 	return {
 		MaterialManagerView = {
@@ -56,10 +62,47 @@ local function getPluginTheme()
 			TextWidth = UDim.new(0, 80),
 		},
 
+		MaterialGrid = {
+			BackgroundColor = _StyleKey.ScrollingFrameBackgroundColor
+		},
+
 		MaterialTile = {
-			Padding = 10,
+			Padding = 5,
+			MaxWidth = 190,
 			Size = UDim2.fromOffset(200, 200),
-			TextSize = 12,
+			Spacing = 5,
+			TextLabelSize = UDim2.new(1, -10, 0, 18),
+			TextSize = 16,
+		},
+
+		MaterialDetails = {
+			ButtonPosition = UDim2.new(1, -MaterialDetailsRowHeight, 0, 5),
+			ButtonSize = UDim2.fromOffset(MaterialDetailsRowHeight, MaterialDetailsRowHeight),
+			ButtonStyle = "RoundSubtle",
+			Close = {
+				Image = "rbxasset://textures/ui/TopBar/close.png",
+				Color = _StyleKey.MainText,
+			},
+			DropdownSize = UDim2.fromOffset(160, 30),
+			Favorite = {
+				Image = "rbxasset://textures/MaterialManager/Favorite.png",
+				Color = _StyleKey.MainText,
+			},
+			HeaderBackground = _StyleKey.ScrollingFrameBackgroundColor,
+			HeaderSize = UDim2.new(1, 0, 0, 300),
+			ImagePosition = UDim2.fromOffset(5, 5),
+			ImageSize = UDim2.fromOffset(20, 20),
+			LabelColumnWidth = UDim.new(0, 110),
+			MoreMenu = {
+				Image = "rbxasset://textures/MaterialManager/More_Menu.png",
+				Color = _StyleKey.MainText,
+			},
+			NameLabelSize = UDim2.new(1, -2 * MaterialDetailsRowHeight, 1, 0),
+			LabelRowSize = UDim2.new(1, 0, 0, MaterialDetailsRowHeight),
+			Padding = 10,
+			TextureLabelSize = UDim2.new(1, -MaterialDetailsTextureHeight, 1, 0),
+			TextureRowSize = UDim2.new(1, 0, 0, MaterialDetailsTextureHeight),
+			TextureSize = UDim2.fromOffset(MaterialDetailsTextureHeight, MaterialDetailsTextureHeight),
 		},
 
 		SideBar = {
@@ -127,10 +170,18 @@ end
 if THEME_REFACTOR then
 	return function(createMock: boolean?)
 		local styleRoot
+		local overridedDarkTheme = join(DarkTheme, {
+			[_StyleKey.ScrollingFrameBackgroundColor] = Color3.fromRGB(41, 41, 41),
+
+		})
+		local overridedLightTheme = join(LightTheme, {
+			[_StyleKey.ScrollingFrameBackgroundColor] = Color3.fromRGB(245, 245, 245),
+		})
+
 		if createMock then
-			styleRoot = StudioTheme.mock()
+			styleRoot = StudioTheme.mock(overridedDarkTheme, overridedLightTheme)
 		else
-			styleRoot = StudioTheme.new()
+			styleRoot = StudioTheme.new(overridedDarkTheme, overridedLightTheme)
 		end
 
 		return styleRoot:extend(getPluginTheme())
@@ -139,3 +190,4 @@ else
 	-- TODO: DEVTOOLS-4731: Once THEME_REFACTOR is on, remove this
 	warn("Stylizer is required for this template")
 end
+

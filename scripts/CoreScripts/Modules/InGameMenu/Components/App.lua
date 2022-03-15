@@ -3,16 +3,14 @@
 ]]
 
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 
 local IGMControllerBar = require(script.Parent.IGMControllerBar)
-
-local InGameMenuPolicy = require(RobloxGui.Modules.InGameMenu.InGameMenuPolicy)
+local InGameMenu = script.Parent.Parent
+local InGameMenuPolicy = require(InGameMenu.InGameMenuPolicy)
 
 local ViewportOverlay = require(script.Parent.ViewportOverlay)
 local SideNavigation = require(script.Parent.SideNavigation)
@@ -27,7 +25,6 @@ local EducationalPopup = require(script.Parent.EducationalPopup)
 local MenuIconTooltip = require(script.Parent.MenuIconTooltip)
 local FullscreenTitleBar = require(script.Parent.FullscreenTitleBar)
 
-local InGameMenu = script.Parent.Parent
 local Flags = InGameMenu.Flags
 local FFlagLuaMenuPerfImprovements = require(Flags.FFlagLuaMenuPerfImprovements)
 local GetFFlagUseIGMControllerBar = require(Flags.GetFFlagUseIGMControllerBar)

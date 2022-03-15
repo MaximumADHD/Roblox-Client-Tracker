@@ -24,18 +24,16 @@ return function()
 			function(container)
 				local frame = container:FindFirstChildOfClass("Frame")
 				local screen = frame.Screen
-				local viewArea = screen.ViewArea
+				local content = screen.Content
 
-				local uiPadding_Main = viewArea.UIPadding
-				local prompt = viewArea.Prompt
-				local nextBackButtonContainer = viewArea.NextAndBackButtonContainer
+				local prompt = content.Prompt
+				local nextBackButtonContainer = content.NextAndBackButtonContainer
 				local nextButton = nextBackButtonContainer.NextButton
 				local backButton = nextBackButtonContainer.BackButton
 
 				expect(frame).to.be.ok()
 				expect(screen).to.be.ok()
-				expect(viewArea).to.be.ok()
-				expect(uiPadding_Main).to.be.ok()
+				expect(content).to.be.ok()
 				expect(prompt).to.be.ok()
 				expect(nextButton).to.be.ok()
 				expect(backButton).to.be.ok()

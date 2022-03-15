@@ -11,60 +11,61 @@ local InsertService = game:GetService("InsertService")
 local materialModel = InsertService:LoadLocalAsset("rbxasset://models/MaterialManager/sphere_model.rbxm")
 
 export type Props = {
-    BackgroundColor : Color3?,
-    ColorMap : string?,
-    LayoutOrder : number?,
-    Position : UDim2?,
-    MetalnessMap : string?,
-    NormalMap : string?,
-    RoughnessMap : string?,
-    Size : UDim2?,
-    Static : boolean?,
+	BackgroundColor : Color3?,
+	ColorMap : string?,
+	LayoutOrder : number?,
+	Position : UDim2?,
+	MetalnessMap : string?,
+	NormalMap : string?,
+	RoughnessMap : string?,
+	Size : UDim2?,
+	Static : boolean?,
 }
 
 type _Props = Props & {
-    Analytics: any,
-    Localization: any,
-    Stylizer: any,
+	Analytics: any,
+	Localization: any,
+	Stylizer: any,
 }
 
 local MaterialPreview = Roact.PureComponent:extend("MaterialPreview")
 
 function MaterialPreview:render()
-    local props : _Props = self.props
+	local props : _Props = self.props
 
-    local model = materialModel:Clone()
-    local surfaceAppearance = model.MeshPart.SurfaceAppearance
+	local model = materialModel:Clone()
+	local surfaceAppearance = model.MeshPart.SurfaceAppearance
 
-    if props.ColorMap then
-        surfaceAppearance.ColorMap = props.ColorMap
-    end
+	if props.ColorMap then
+		surfaceAppearance.ColorMap = props.ColorMap
+	end
 
-    if props.MetalnessMap then
-        surfaceAppearance.MetalnessMap = props.MetalnessMap
-    end
+	if props.MetalnessMap then
+		surfaceAppearance.MetalnessMap = props.MetalnessMap
+	end
 
-    if props.NormalMap then
-        surfaceAppearance.NormalMap = props.NormalMap
-    end
+	if props.NormalMap then
+		surfaceAppearance.NormalMap = props.NormalMap
+	end
 
-    if props.RoughnessMap then
-        surfaceAppearance.RoughnessMap = props.RoughnessMap
-    end
+	if props.RoughnessMap then
+		surfaceAppearance.RoughnessMap = props.RoughnessMap
+	end
 
-    return Roact.createElement(Pane, {
-        BackgroundColor = props.BackgroundColor,
-        Position = props.Position,
-        Size = props.Size,
-        LayoutOrder = props.LayoutOrder,
-    }, {
-        AssetRenderModel = Roact.createElement(AssetRenderModel, {
-            Size = UDim2.fromScale(1, 1),
-            Model = model,
-            Static = props.Static,
-            InitialDistance = 5,
-        })
-    })
+	return Roact.createElement(Pane, {
+		BackgroundColor = props.BackgroundColor,
+		Position = props.Position,
+		Size = props.Size,
+		LayoutOrder = props.LayoutOrder,
+	}, {
+		AssetRenderModel = Roact.createElement(AssetRenderModel, {
+			DisableZoom = true,
+			Size = UDim2.fromScale(1, 1),
+			Model = model,
+			Static = props.Static,
+			InitialDistance = 5,
+		})
+	})
 end
 
 return MaterialPreview

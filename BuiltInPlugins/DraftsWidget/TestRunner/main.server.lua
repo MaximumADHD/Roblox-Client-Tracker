@@ -7,11 +7,6 @@ require(script.Parent.defineLuaFlags)
 
 local Plugin = script.Parent.Parent
 
-if not game:GetFastFlag("StudioForceDraftsUsageOnRCCSettingDeprecated") and
-   not settings():GetFFlag("StudioForceDraftsUsageOnRCCSetting") then
-   return
-end
-
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 local MockDraftsService = require(Plugin.Src.TestHelpers.MockDraftsService)
 local DraftsService = game:GetService("DraftsService")

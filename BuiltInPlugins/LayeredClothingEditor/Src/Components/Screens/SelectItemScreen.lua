@@ -18,6 +18,11 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+
+local Components = AvatarToolsShared.Components
+local ConfirmDialog = Components.ConfirmDialog
+local ConfirmCancelDialog = Components.ConfirmCancelDialog
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -29,8 +34,6 @@ local AddUserAddedAssetForPreview = require(Plugin.Src.Thunks.AddUserAddedAssetF
 
 local SelectFrame = require(Plugin.Src.Components.SelectFrame)
 local InstanceSelector = require(Plugin.Src.Components.InstanceSelector)
-local ConfirmCancelDialog = require(Plugin.Src.Components.ConfirmCancelDialog)
-local ConfirmDialog = require(Plugin.Src.Components.ConfirmDialog)
 
 local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
 local ShowDialog = require(Plugin.Src.Util.ShowDialog)

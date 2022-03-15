@@ -23,6 +23,7 @@ local ExpressionEvaluated = require(Actions.Watch.ExpressionEvaluated)
 local RemoveExpression = require(Actions.Watch.RemoveExpression)
 local SetExpansionTree = require(Actions.Watch.SetExpansionTree)
 local SetWatchSortState = require(Actions.Watch.SetWatchSortState)
+local SetExpressionExpanded = require(Actions.Watch.SetExpressionExpanded)
 
 --Other
 local SimPaused = require(Actions.Common.SimPaused)
@@ -308,6 +309,12 @@ return Rodux.createReducer(productionStartStore, {
 	[SetVariableExpanded.name] = function(state : WatchStore, action : SetVariableExpanded.Props)
 		return Cryo.Dictionary.join(state, {
 			pathToExpansionState = Cryo.Dictionary.join(state.pathToExpansionState, {[action.path] = action.expanded})
+		})
+	end,
+
+	[SetExpressionExpanded.name] = function(state : WatchStore, action : SetExpressionExpanded.Props)
+		return Cryo.Dictionary.join(state, {
+			expressionToExpansionState = Cryo.Dictionary.join(state.expressionToExpansionState, {[action.path] = action.expanded})
 		})
 	end,
 

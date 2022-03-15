@@ -28,7 +28,6 @@ local getSettingsForMessage = require(script.Parent.Parent.Helpers.getSettingsFo
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local GetFFlagBubbleVoiceIndicator = require(RobloxGui.Modules.Flags.GetFFlagBubbleVoiceIndicator)
 local GetFFlagEnableVoiceChatSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatSpeakerIcons)
-local GetFFlagBubbleVoiceCleanupOnLeave = require(RobloxGui.Modules.Flags.GetFFlagBubbleVoiceCleanupOnLeave)
 local GetFFlagEnableVoiceChatManualReconnect = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatManualReconnect)
 local GetFFlagBubbleChatInexistantAdorneeFix = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatInexistantAdorneeFix)
 
@@ -79,7 +78,7 @@ function BubbleChatBillboard:init()
 			self.props.onFadeOut(self.props.userId)
 		end
 
-		if GetFFlagBubbleVoiceCleanupOnLeave() and self.state.hasMessage and self.isMounted then
+		if self.state.hasMessage and self.isMounted then
 			self:setState({
 				hasMessage = false,
 			})
@@ -382,42 +381,6 @@ function BubbleChatBillboard:render()
 			onLastBubbleFadeOut = self.onLastBubbleFadeOut,
 			chatSettings = chatSettings,
 		})
-	elseif not GetFFlagBubbleVoiceCleanupOnLeave() then
-		-- If neither bubble chat nor voice is on, this whole component shouldn't be rendered.
-		if self.props.voiceEnabled and (
-			not self.props.bubbleChatEnabled 
-			or not self.props.messageIds
-			or #self.props.messageIds == 0)
-		then
-			-- Render the VoiceBubble if neither of the other two should render.
-			children.VoiceBubble = Roact.createElement(VoiceBubble, {
-				chatSettings = chatSettings,
-				renderInsert = self.renderInsert,
-				insertSize = self.insertSize,
-				isDistant = not self.state.isInsideMaximizeDistance,
-			})
-		else
-			if self.state.isInsideMaximizeDistance then
-				children.BubbleChatList = Roact.createElement(BubbleChatList, {
-					userId = self.props.userId,
-					isVisible = self.state.isInsideMaximizeDistance,
-					onLastBubbleFadeOut = self.onLastBubbleFadeOut,
-					chatSettings = chatSettings,
-					renderFirstInsert = self.props.voiceEnabled and self.renderInsert,
-					insertSize = self.insertSize,
-				})
-			else
-				children.DistantBubble = Roact.createElement(ChatBubbleDistant, {
-					fadingOut = not self.props.messageIds or #self.props.messageIds == 0,
-					onFadeOut = self.onLastBubbleFadeOut,
-					chatSettings = chatSettings,
-					renderInsert = self.props.voiceEnabled and self.renderInsert,
-					insertSize = self.insertSize,
-				})
-			end
-		end
-
-		active = self.props.voiceEnabled
 	else
 		local showVoiceIndicator = self.props.voiceEnabled and not self.state.voiceTimedOut
 
@@ -483,10 +446,8 @@ function BubbleChatBillboard:didUpdate(_lastProps, lastState)
 		self.onLastBubbleFadeOut()
 	end
 
-	if GetFFlagBubbleVoiceCleanupOnLeave() then
-		if self.props.messageIds and #self.props.messageIds > 0 then
-			self.isFadingOut = false
-		end
+	if self.props.messageIds and #self.props.messageIds > 0 then
+		self.isFadingOut = false
 	end
 
 	self:checkCounterForTimeout(lastState.voiceStateCounter)
@@ -499,10 +460,7 @@ function BubbleChatBillboard.getDerivedStateFromProps(nextProps, lastState)
 
 	local shortId = "..." .. string.sub(tostring(nextProps.userId), -4)
 
-	local hasMessage
-	if GetFFlagBubbleVoiceCleanupOnLeave() then
-		hasMessage = not lastState.hasMessage and nextProps.messageIds and #nextProps.messageIds > 0
-	end
+	local hasMessage = not lastState.hasMessage and nextProps.messageIds and #nextProps.messageIds > 0
 	
 	local lastVoiceState
 	local voiceStateCounter
