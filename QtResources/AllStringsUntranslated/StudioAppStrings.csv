@@ -313,6 +313,13 @@ Studio.App.MainWindow.UploadingPlaceQuitPublishAuto,Main Window,Publishing in pr
 Studio.App.MainWindow.UploadingPlaceQuitCommitAuto,Main Window,Applying script changes. Studio will close automatically when complete.,Applying script changes. Studio will close automatically when complete.
 Studio.App.MainWindow.UploadingPlaceQuitSaveFailed,Main Window,Failed To Save. Please try again later.,Failed To Save. Please try again later.
 Studio.App.MainWindow.UploadingPlaceQuitPublishFailed,Main Window,Failed To Publish. Please try again later.,Failed To Publish. Please try again later.
+Studio.App.AudioPrivacyPublishDialog.WarningTitle,Description title for warning pop-up that lets users know they have to grant audio permissions,Be aware before publishing,Be aware before publishing
+Studio.App.AudioPrivacyPublishDialog.WarningDescription,"Description of warning that users need to give their universe permission to use audio or else, their audio won't play in the experience they publsih","You are publishing an Experience that includes assets that may be private. Please consider granting access to the destination Experience. If you do not grant access, any private assets will not work.","You are publishing an Experience that includes assets that may be private. Please consider granting access to the destination Experience. If you do not grant access, any private assets will not work."
+Studio.App.AudioPrivacyPublishDialog.AssetTable.AssetNameColTitle,Name of audio file in the place file,Audio Asset Name,Audio Asset Name
+Studio.App.AudioPrivacyPublishDialog.AssetTable.AssetIdColTitle,,Asset ID,Asset ID
+Studio.App.AudioPrivacyPublishDialog.AssetTable.AssetCreatorColTitle,,Creator,Creator
+Studio.App.AudioPrivacyPublishDialog.PublishWithoutPermissionButton,warning modal button that publishes game without granting permission,Publish without Granting,Publish without Granting
+Studio.App.AudioPrivacyPublishDialog.PublishAndGrantPermissionButton,warning modal button that grants the universe permission to all assets in the game during publish,Grant Permissions,Grant Permissions
 Studio.App.MainWindow.Version1,Main Window,Version %1,Version %1
 Studio.App.MainWindow.VersionLatest1,About Dialog,Latest version available %1,Latest version available %1
 Studio.App.MainWindow.WaitingForShutdown,Main Window,Waiting for Shutdown,Waiting for Shutdown
@@ -444,10 +451,7 @@ Studio.App.EmulatorMainWidget.ModeNotEnabledTitle,,%1 Not Enabled,%1 Not Enabled
 Studio.App.EmulatorMainWidget.StarterGuiModeNotEnabledMessage1,,%1 mode is not enabled for your game.,%1 mode is not enabled for your game.
 Studio.App.EmulatorMainWidget.StarterGuiEnabledModeMessage3,,"To enable it, stop the experience if running, and set the %1 setting of %2 to one of the following: %3","To enable it, stop the experience if running, and set the %1 setting of %2 to one of the following: %3"
 Studio.App.EmulatorMainWidget.StarterGui,,StarterGui,StarterGui
-Studio.App.EmulatorMainWidget.ModeNotEnabledMessage1,,"%1 mode is not enabled for your game. To enable it, %2 set the ","%1 mode is not enabled for your game. To enable it, %2 set the "
 Studio.App.EmulatorMainWidget.ScreenOrientation,,ScreenOrientation,ScreenOrientation
-Studio.App.EmulatorMainWidget.ModeNotEnabledMessage2,,setting of StarterGui to,setting of StarterGui to
-Studio.App.EmulatorMainWidget.ModeNotEnabledMessageOr,,or,or
 Studio.App.EmulatorMainWidget.Landscape,,Landscape,Landscape
 Studio.App.EmulatorMainWidget.LandscapeRightSpace,,Landscape Right,Landscape Right
 Studio.App.EmulatorMainWidget.LandscapeRight,,LandscapeRight,LandscapeRight
@@ -2310,6 +2314,7 @@ Studio.App.RobloxStudioVerbs.DirtyPublishWarning1,,There are uncommitted script 
 Studio.App.RobloxStudioVerbs.Grant.Permission,,Grant Permission,Grant Permission
 Studio.App.RobloxStudioVerbs.Warning,,Warning,Warning
 Studio.App.RobloxStudioVerbs.GrantUniversePermissionQuestion,,Do you want to allow this game to use this asset?,Do you want to allow this game to use this asset?
+Studio.App.RobloxStudioVerbs.GrantUniversePermissionQuestionCancelButton,,Cancel,Cancel
 Studio.App.AutoSaveDialog.ConfirmTitle,,Confirm Auto-Recovery Delete,Confirm Auto-Recovery Delete
 Studio.App.AutoSaveDialog.ConfirmMessageSingular,,Do you want to delete all auto-recovery files?  There is 1 file.,Do you want to delete all auto-recovery files?  There is 1 file.
 Studio.App.AutoSaveDialog.ConfirmMessage1,,Do you want to delete all auto-recovery files?  There are %1 files.,Do you want to delete all auto-recovery files?  There are %1 files.
@@ -2769,6 +2774,14 @@ Studio.App.IDEGameSettingsLinkDefinition.GameSettingsNotAvailable,,Game Settings
 Studio.App.IDEGameSettingsLinkDefinition.OpenGameSettings,,Open Game Settings,Open Game Settings
 Studio.App.IDEPermissionsResolutionLinkDefinition.PermissionsResolutionNotAvailable,,Permissions Resolution not available,Permissions Resolution not available
 Studio.App.IDEPermissionsResolutionLinkDefinition.OpenPermissionsResolution,,Open Permissions Resolution,Open Permissions Resolution
+Studio.App.IDEPermissionsResolutionLinkDefinition.AssetInfo3,,"Name: %1
+AssetId: %2
+Type: %3","Name: %1
+AssetId: %2
+Type: %3"
+Studio.App.IDEPermissionsResolutionLinkDefinition.FailureMessage1,Message that's output after user fails to grant their universe permission to use asset,Failed to grant Universe permission to use asset %1,Failed to grant Universe permission to use asset %1
+Studio.App.IDEPermissionsResolutionLinkDefinition.SuccessMessage1,Message that's output after user sucessfully grants their universe permission to use asset,Successfully granted Universe permission to use asset %1,Successfully granted Universe permission to use asset %1
+Studio.App.IDEPermissionsResolutionLinkDefinition.LoadingElps,,Loading...,Loading...
 Studio.App.StudioUtilities.LogInRequired,,Log in required,Log in required
 Studio.App.StudioUtilities.YouMustLogInToPerformThisAction,,You must log in to perform this action!,You must log in to perform this action!
 Studio.App.RESTRICTED.QtUtilities.DontAskMeAgain,,Don't ask me again,Don't ask me again
@@ -2873,8 +2886,6 @@ Studio.App.RobloxOutputRibbonDropdown.NumberTypes1,,%1 Types,%1 Types
 Studio.App.RobloxOutputRibbonDropdown.NumberContexts1,,%1 Contexts,%1 Contexts
 Studio.App.RobloxOutputRibbonDropdown.MessageTypes,,Message Types,Message Types
 Studio.App.RobloxOutputRibbonDropdown.Context,,Context,Context
-Studio.App.BreakpointConditionEditDialog.BreakpointCondition,,Breakpoint Condition,Breakpoint Condition
-Studio.App.BreakpointConditionEditDialog.Condition,,Condition:,Condition:
 Studio.App.DebuggerClientManager.Disable,,Disable,Disable
 Studio.App.DebuggerClientManager.KeepBreakingOnError,,Keep breaking on error,Keep breaking on error
 Studio.App.DebuggerClientManager.RobloxLuaDebuggerCaughtError,,"The Roblox Lua Debugger caught an error and will now take you to the exception in the script.

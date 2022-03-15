@@ -58,7 +58,8 @@ My Plugins,My Plugins,Studio.Toolbox.General.CategoryMyAnimations
 My Animations,My Animations,Studio.Toolbox.General.SortByText
 Sort by:,Sort by:,Studio.Toolbox.General.CategoryRecentModels
 Recent Models,Recent Models,Studio.Toolbox.General.CategoryRecentMeshes
-Recent Meshes,Recent Meshes,Studio.Toolbox.General.CategoryRecentAnimations
+Recent Meshes,Recent Meshes,Studio.Toolbox.AssetConfigCopy.TemporarilyDisabledMessage
+Enabling Marketplace is unavailable at this time. Please check back later.,Enabling Marketplace is unavailable at this time. Please check back later.,Studio.Toolbox.General.CategoryRecentAnimations
 Recent Animations,Recent Animations,Studio.Toolbox.General.CategoryCreationsRightShoeAccessory
 Right Shoe Accessories,Right Shoe Accessories,Studio.Toolbox.General.VerifiedCreatorBadgeTooltipText
 Creator is ID verified,Creator is ID verified,Studio.Toolbox.AssetConfigPackagePermissions.SearchByUser
@@ -235,10 +236,15 @@ Animation ID,Studio.Toolbox.AssetConfigCopy.Terms,"By switching on, you are gran
 "By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.",Studio.Toolbox.AssetConfigCopy.DistributeAgreement,"To maintain community safety, Roblox may terminate accounts that publish spam or assets with malicious or obfuscated code."
 "To maintain community safety, Roblox may terminate accounts that publish spam or assets with malicious or obfuscated code.",Studio.Toolbox.AssetConfigPreview.Preview,Preview
 Preview,Studio.Toolbox.AssetConfigPreview.Change,Change
-Change,Studio.Toolbox.AssetConfigSharing.PublicInformation,I certify that I am the creator of this asset. I agree that the asset may be shared and used by others on Roblox. This cannot be undone.
+Change,Studio.Toolbox.AssetConfigSharing.PublicDisabledInformation,Audio files cannot be made public at this time. Please check back at a later date.
+Audio files cannot be made public at this time. Please check back at a later date.,Studio.Toolbox.AssetConfigSharing.PublicInformation,I certify that I am the creator of this asset. I agree that the asset may be shared and used by others on Roblox. This cannot be undone.
 I certify that I am the creator of this asset. I agree that the asset may be shared and used by others on Roblox. This cannot be undone.,Studio.Toolbox.AssetConfigSharing.AnyoneOnRoblox,Anyone on Roblox
-Anyone on Roblox,Studio.Toolbox.AssetConfigSharing.PublicConfirmationTitle,Are you sure?
-Are you sure?,Studio.Toolbox.AssetConfigVersions.Current,Current published version
+Anyone on Roblox,Studio.Toolbox.AssetConfigSharing.CheckStatus,Check Status
+Check Status,Studio.Toolbox.AssetConfigSharing.PublicConfirmationTitle,Are you sure?
+Are you sure?,Studio.Toolbox.General.CategoryVideos,Videos
+Videos,Studio.Toolbox.AssetConfigSharing.VerificationNotice,"To make audio assets public, you must first verify your identity. Use the Refresh button to update your Verification status."
+"To make audio assets public, you must first verify your identity. Use the Refresh button to update your Verification status.",Studio.Toolbox.AssetConfigSharing.VerificationAction,ID Verify your account
+ID Verify your account,Studio.Toolbox.AssetConfigVersions.Current,Current published version
 Current published version,Studio.Toolbox.AssetConfigVersions.Restore,Restore previous version
 Restore previous version,Studio.Toolbox.AssetConfig.GetAssetFailed,There was an problem fetching asset data. We will be closing AssetConfig page.
 There was an problem fetching asset data. We will be closing AssetConfig page.,Studio.Toolbox.AssetConfigPackagePermissions.UserOwnedWarning, Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package.
@@ -267,7 +273,8 @@ My Friends,Studio.Toolbox.AssetConfigPackagePermissions.TooManyCollaboratorsText
 You cannot add more than {maxNumCollaborators:int} collaborators,Studio.Toolbox.AssetConfig.PublishAssetDialogHeading,This model contains private assets
 This model contains private assets,Studio.Toolbox.AssetConfig.PublishAssetDialogDescription,"On Publish, all private assets will be made public. If you do not wish to do so, do not proceed with Publish."
 "On Publish, all private assets will be made public. If you do not wish to do so, do not proceed with Publish.",Studio.Toolbox.AssetConfig.PublishAssetDialogPublish,Publish
-Publish,Studio.Toolbox.Purchase.RobuxBalance,Your current balance:
+Publish,Studio.Toolbox.AssetConfig.ModelPublishWarning,Any private audio in your model will not be playable.
+ Any private audio in your model will not be playable.,Studio.Toolbox.Purchase.RobuxBalance,Your current balance:
 Your current balance:,Studio.Toolbox.Purchase.InsufficientPrompt,You need {robux:int} more Robux to buy "{name}" from {creator}.
 You need {robux:int} more Robux to buy "{name}" from {creator}.,Studio.Toolbox.Purchase.Retry,Retry
 Retry,Studio.Toolbox.Purchase.Buy,Buy
@@ -292,8 +299,7 @@ s,Studio.Toolbox.General.AbbreviatedMinutes,m
 m,Studio.Toolbox.General.SearchOptionAudioTo,to
 to,Studio.Toolbox.General.SearchOptionAudioLength,Sound Length
 Sound Length,Studio.Toolbox.AssetConfigAnimation.FilterID,Filter ID
-Filter ID,Studio.Toolbox.General.CategoryVideos,Videos
-Videos,Studio.Toolbox.General.NoPluginsFound.TextLine2,"For more plugins, try searching in the {link} on our website."
+Filter ID,Studio.Toolbox.General.NoPluginsFound.TextLine2,"For more plugins, try searching in the {link} on our website."
 "For more plugins, try searching in the {link} on our website.",Studio.Toolbox.AssetConfigAnimation.InvalidAnimationID,Invalid Animation ID
 Invalid Animation ID,Studio.Toolbox.AssetPreview.PluginNotice,This plugin was created by a third party. Roblox does not guarantee its safety or quality.
 This plugin was created by a third party. Roblox does not guarantee its safety or quality.,Studio.Toolbox.ScriptWarning.InstructionText,Please review the scripts to prevent unwanted changes to your experience.

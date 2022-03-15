@@ -7458,7 +7458,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">FaceControls</string>
-        <string name="FFlag">FacialAnimation1</string>
+        <string name="FFlag">FacialAnimationGui</string>
         <string name="ClassCategory">Animations</string>
         <bool name="Browsable">true</bool>
         <bool name="Insertable">true</bool>

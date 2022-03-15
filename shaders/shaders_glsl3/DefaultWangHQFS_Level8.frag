@@ -20,7 +20,7 @@ uniform sampler2D NormalMapTexture;
 uniform sampler2D NormalDetailMapTexture;
 uniform sampler2D SpecularMapTexture;
 
-centroid in vec2 VARYING0;
+in vec2 VARYING0;
 in vec4 VARYING2;
 in vec4 VARYING3;
 in vec4 VARYING4;

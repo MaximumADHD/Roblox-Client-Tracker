@@ -13,7 +13,7 @@ in vec4 NORMAL;
 in vec4 TEXCOORD0;
 in vec4 TEXCOORD2;
 in vec4 COLOR0;
-centroid out vec2 VARYING0;
+out vec2 VARYING0;
 out vec2 VARYING1;
 out vec4 VARYING2;
 out vec4 VARYING3;

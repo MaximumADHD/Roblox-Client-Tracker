@@ -31,7 +31,7 @@ PolicyProvider = { git = "https://github.com/Roblox/lua-roact-policy-provider", 
 Lumberyak = { git = "https://github.com/Roblox/lumberyak" }
 StringUtilities = "github.com/Roblox/string-utilities@1.0.0"
 UrlBuilder = { git = "https://github.com/Roblox/url-builder", rev = "master" }
-FitFrame = "github.com/roblox/roact-fit-components@1.4.0"
+FitFrame = "github.com/roblox/roact-fit-components@2.0.0"
 ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v0.0.5" }
 Roact17UpgradeFlag = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "Roact17UpgradeFlag" }
 RoactNavigationUpgradeFlag = { git = "https://github.com/Roblox/roact-navigation-upgrade", rev = "v0.0.6", package = "RoactNavigationUpgradeFlag" }
@@ -48,7 +48,7 @@ RoactGamepad = "github.com/roblox/roact-gamepad@0.4.6"
 
 [dev_dependencies]
 JestGlobals = { git = "https://github.com/roblox/jest-roblox", rev = "v2.3.1" }
-Rhodium = "github.com/roblox/rhodium@0.2.7"
+Rhodium = "github.com/roblox/rhodium@0.2.8"
 
 # Dependencies for the Roact17 inspector
 ReactDevtoolsExtensions = { git = "https://github.com/roblox/roact-alignment", package = "ReactDevtoolsExtensions", rev="v17.0.1-rc.10" }

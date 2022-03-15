@@ -2240,25 +2240,57 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.ThirdPartyPurchaseFinished(Instance player, string productId, string receipt, bool wasPurchased) {LocalUserSecurity}
 	Callback Enum.ProductPurchaseDecision MarketplaceService.ProcessReceipt(Dictionary receiptInfo)
 Class MaterialService : Instance [NotCreatable] [Service] [NotBrowsable]
+	Property string MaterialService.AsphaltName {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.BasaltName {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.Brick {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.BrickName {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.Cobblestone {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.CobblestoneName {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.Concrete {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.ConcreteName {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.CorrodedMetal {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.CorrodedMetalName {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.CrackedLavaName {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.DiamondPlate {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.DiamondPlateName {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.Fabric {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.FabricName {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.Foil {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.FoilName {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.GlacierName {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.Granite {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.GraniteName {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.Grass {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.GrassName {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.GroundName {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.Ice {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.IceName {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.LeafyGrassName {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.LimestoneName {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.Marble {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.MarbleName {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.Metal {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.MetalName {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.MudName {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.PavementName {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.Pebble {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.PebbleName {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.Plastic {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.PlasticName {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.RockName {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.SaltName {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.Sand {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.SandName {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.SandstoneName {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.Slate {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.SlateName {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.SmoothPlastic {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.SmoothPlasticName {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.SnowName {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.Wood {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.WoodName {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.WoodPlanks {RobloxSecurity} [NotScriptable]
+	Property string MaterialService.WoodPlanksName {RobloxSecurity} [NotScriptable]
 	Property bool MaterialService.Use2022Materials {RobloxScriptSecurity}
 	Property MaterialVariant MaterialService.TerrainAsphalt {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.TerrainBasalt {RobloxSecurity} [NotScriptable]
@@ -2284,8 +2316,10 @@ Class MaterialService : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property bool MaterialService.hasPropertyWarningInStudio {RobloxSecurity} [Hidden] [ReadOnly]
 	Function void MaterialService:ClearOverridePartMaterial(Enum.Material material)
 	Function void MaterialService:ClearOverrideTerrainMaterial(Enum.Material material)
+	Function string MaterialService:GetMaterialOverride(Enum.Material material)
 	Function MaterialVariant MaterialService:GetOverridePartMaterial(Enum.Material material)
 	Function MaterialVariant MaterialService:GetOverrideTerrainMaterial(Enum.Material material)
+	Function void MaterialService:SetMaterialOverride(Enum.Material material, string name)
 	Function void MaterialService:SetOverridePartMaterial(MaterialVariant materialVariant)
 	Function void MaterialService:SetOverrideTerrainMaterial(MaterialVariant materialVariant)
 Class MaterialVariant : Instance [NotBrowsable]
@@ -3821,7 +3855,6 @@ Class StudioAssetService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string StudioAssetService:SerializeInstances(Objects instances) {RobloxScriptSecurity} [Yields]
 Class StudioData : Instance [NotCreatable] [Service]
 	Property bool StudioData.EnableScriptCollabByDefaultOnLoad {RobloxScriptSecurity} [Hidden]
-	Property bool StudioData.EnableTeamCreateStreamingOnLoad {RobloxScriptSecurity} [Hidden]
 	Property int64 StudioData.SrcPlaceId {RobloxSecurity} [Hidden] [NotReplicated]
 	Property int64 StudioData.SrcUniverseId {RobloxSecurity} [Hidden] [NotReplicated]
 Class StudioDeviceEmulatorService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -4024,7 +4057,7 @@ Class TextChatService : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property bool TextChatService.CreateDefaultCommands {✏️PluginSecurity}
 	Property bool TextChatService.CreateDefaultTextChannels {✏️PluginSecurity}
 	Event TextChatService.MessageReceived(TextChatMessage textChatMessage)
-	Event TextChatService.SendingMessage(TextChatMessage textChatMessage)
+	Event TextChatService.SendingMessage(TextChatMessage textChatMessage) {RobloxScriptSecurity}
 	Callback Tuple TextChatService.OnIncomingMessage(TextChatMessage message)
 Class TextFilterResult : Instance [NotCreatable] [NotReplicated]
 	Function string TextFilterResult:GetChatForUserAsync(int64 toUserId) [Yields]
@@ -6173,22 +6206,6 @@ Enum SortOrder
 	EnumItem SortOrder.Name : 0
 	EnumItem SortOrder.Custom : 1 [Deprecated]
 	EnumItem SortOrder.LayoutOrder : 2
-Enum SoundType
-	EnumItem SoundType.NoSound : 0
-	EnumItem SoundType.Boing : 1
-	EnumItem SoundType.Bomb : 2
-	EnumItem SoundType.Break : 3
-	EnumItem SoundType.Click : 4
-	EnumItem SoundType.Clock : 5
-	EnumItem SoundType.Slingshot : 6
-	EnumItem SoundType.Page : 7
-	EnumItem SoundType.Ping : 8
-	EnumItem SoundType.Snap : 9
-	EnumItem SoundType.Splat : 10
-	EnumItem SoundType.Step : 11
-	EnumItem SoundType.StepOn : 12
-	EnumItem SoundType.Swoosh : 13
-	EnumItem SoundType.Victory : 14
 Enum SpecialKey
 	EnumItem SpecialKey.Insert : 0
 	EnumItem SpecialKey.Home : 1

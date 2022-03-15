@@ -38,7 +38,7 @@ Studio.Debugger.Common.DeleteSelected,Delete Selected,Delete Selected
 Studio.Debugger.BreakpointsWindow.LineColumn,Line,Line
 Studio.Debugger.Callstack.LineColumn,Line,Line
 Studio.Debugger.Callstack.DropdownFieldText,{NumFields:int} Columns,{NumFields:int} Columns
-Studio.Debugger.Callstack.CurrentScriptTitle,Current Script: ,Current Script: 
+Studio.Debugger.Callstack.CurrentScriptTitle,Current Script: ,Current Script:
 Studio.Debugger.Callstack.SelectInputPlaceholderText,Select Script,Select Script
 Studio.Debugger.Common.DisableBreakpoint,Disable Breakpoint,Disable Breakpoint
 Studio.Debugger.Common.SelectAll,Select All,Select All
@@ -51,6 +51,7 @@ Studio.Debugger.Watch.Global,Global,Global
 Studio.Debugger.Common.AddExpression,Add Expression,Add Expression
 Studio.Debugger.Common.EditExpression,Edit Expression,Edit Expression
 Studio.Debugger.Common.EnableBreakpoint,Enable Breakpoint,Enable Breakpoint
+Studio.Debugger.BreakpointsWindow.EnableAll,Enable All Breakpoints,Enable All Breakpoints
 Studio.Debugger.Common.DeleteBreakpoint,Delete Breakpoint,Delete Breakpoint
 Studio.Debugger.Common.EditLogpoint,Edit Logpoint,Edit Logpoint
 Studio.Debugger.Common.DisableLogpoint,Disable Logpoint,Disable Logpoint

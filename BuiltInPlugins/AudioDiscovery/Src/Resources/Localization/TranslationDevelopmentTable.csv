@@ -1,4 +1,7 @@
 Key,en-us
+Studio.AudioDiscovery.Dialog.Close,View Anyway
+Studio.AudioDiscovery.Dialog.Text,The Audio Discovery plugin finds any audio assets used in this place and checks that they are licenced sound effects or owned by the creator of this place.<br/><br/>This place is not yet published so it has no associated creator. Publish it to ensure any sounds uploaded by the creator are marked as available.
+Studio.AudioDiscovery.Dialog.Title,Publish Place
 Studio.AudioDiscovery.Plugin.Button,View Sounds
 Studio.AudioDiscovery.Plugin.Description,Discover the audio assets in this place and see who owns them
 Studio.AudioDiscovery.Plugin.Info,"Discover Audio used in this place.<br/><br/>Any audio marked with a red cross should be replaced.<br/><br/>Select an asset to see a list of locations where it is used, and update each one to use a new asset id.<br/><br/>Select a location to highlight it in the Explorer window."

@@ -5,7 +5,7 @@
 uniform vec4 CB0[53];
 uniform sampler2D DiffuseMapTexture;
 
-centroid varying vec2 VARYING0;
+varying vec2 VARYING0;
 varying vec2 VARYING1;
 varying vec4 VARYING2;
 varying vec4 VARYING4;

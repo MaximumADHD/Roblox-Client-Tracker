@@ -16,7 +16,7 @@ uniform sampler2D GBufferDepthTexture;
 uniform sampler2D GBufferColorTexture;
 uniform samplerCube EnvironmentMapTexture;
 
-centroid varying vec2 VARYING0;
+varying vec2 VARYING0;
 varying vec4 VARYING2;
 varying vec4 VARYING3;
 varying vec4 VARYING4;

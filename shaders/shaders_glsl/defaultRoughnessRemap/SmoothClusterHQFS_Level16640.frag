@@ -75,8 +75,8 @@ void main()
         f27 = f26;
     }
     float f35 = f27.x - f27.z;
-    vec3 f36 = vec4(vec3(f35, f27.x, f35) + (vec3(f27.yzy) * vec3(1.0, 1.0, -1.0)), 0.0).xyz;
-    vec3 f37 = mix(f36, f36 * VARYING9.xyz, vec3(VARYING9.w));
+    vec3 f36 = vec4(vec3(f35, f27.x, f35) + (vec3(f27.yzy) * vec3(1.0, 1.0, -1.0)), f27.w).xyz;
+    vec3 f37 = mix(f36, f36 * VARYING9.xyz, vec3(VARYING9.w * f27.w));
     vec4 f38 = vec4(0.0);
     f38.x = f37.x;
     vec4 f39 = f38;

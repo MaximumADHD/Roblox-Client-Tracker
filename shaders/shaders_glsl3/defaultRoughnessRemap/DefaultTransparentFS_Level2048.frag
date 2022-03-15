@@ -9,7 +9,7 @@ uniform sampler3D LightGridSkylightTexture;
 uniform samplerCube PrefilteredEnvTexture;
 uniform sampler2D DiffuseMapTexture;
 
-centroid in vec2 VARYING0;
+in vec2 VARYING0;
 in vec4 VARYING2;
 in vec4 VARYING3;
 in vec4 VARYING4;

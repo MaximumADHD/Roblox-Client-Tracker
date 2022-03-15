@@ -98,7 +98,6 @@ Studio.GameSettings.General.AvatarOverridePrompt,Override Player Choice?, ,Overr
 Studio.GameSettings.AccessPermissions.FriendsCollaboratorType,Friends, ,Friends
 Studio.GameSettings.General.PlayabilityFriends,Friends, ,Friends
 Studio.GameSettings.Permissions.FriendsCollaboratorType,Friends, ,Friends
-Studio.GameSettings.General.EnableTeamCreateForCollabEditing,Turn on Team Create to enable Collaborative Editing for scripts, ,Turn on Team Create to enable Collaborative Editing for scripts
 Studio.GameSettings.General.PlayabilityPublicDesc,Anyone on Roblox, ,Anyone on Roblox
 Studio.GameSettings.General.ImageReview,In Review, ,In Review
 Studio.GameSettings.General.PlayabilityGroupDesc,Members of {group}, ,Members of {group}
@@ -138,7 +137,6 @@ Studio.GameSettings.General.GenreTownAndCity,Town and City, ,Town and City
 Studio.GameSettings.General.GenreWestern,Western, ,Western
 Studio.GameSettings.Errors.ErrorPriceBelowMin,Price must be greater than {1}., ,Price must be greater than {1}.
 Studio.GameSettings.General.DeviceComputer,Computer, ,Computer
-Studio.GameSettings.General.TitleTeamCreateStreaming,Streaming for Team Create, ,Streaming for Team Create
 Studio.GameSettings.General.DevicePhone,Phone, ,Phone
 Studio.GameSettings.General.DeviceTablet,Tablet, ,Tablet
 Studio.GameSettings.General.DeviceConsole,Console, ,Console
@@ -275,7 +273,6 @@ Studio.GameSettings.Permissions.MultipleLabel,(Multiple), ,(Multiple)
 Studio.GameSettings.AccessPermissions.AdminDescription,"Can play, edit, and manage this game", ,"Can play, edit, and manage this game"
 Studio.GameSettings.Permissions.AdminDescription,"Can play, edit, and manage this game", ,"Can play, edit, and manage this game"
 Studio.GameSettings.Permissions.NoUserEditGroupGameDescription,Must be in owner group to edit, ,Must be in owner group to edit
-Studio.GameSettings.General.TeamCreateStreamingDesc,Enable Streaming to begin editing your experience sooner, ,Enable Streaming to begin editing your experience sooner
 Studio.GameSettings.Monetization.DevProducts,Developer Products, ,Developer Products
 Studio.GameSettings.General.ServerRestartWarning,The Team Create server needs to restart for this change to take effect. The server will automatically restart once all editors have left the session., ,The Team Create server needs to restart for this change to take effect. The server will automatically restart once all editors have left the session.
 Studio.GameSettings.General.TitleScriptCollab,Enable Collaborative Editing, ,Enable Collaborative Editing

@@ -27,6 +27,7 @@ Studio.MaterialManager.CreateDialog.ImportColorMap,Color
 Studio.MaterialManager.CreateDialog.ImportMetalnessMap,Metalness
 Studio.MaterialManager.CreateDialog.ImportNormalMap,Normal
 Studio.MaterialManager.CreateDialog.ImportRoughnessMap,Roughness
+Studio.MaterialManager.CreateDialog.InsertAssetURL,Insert asset URL
 Studio.MaterialManager.CreateDialog.NameVariant,Name
 Studio.MaterialManager.CreateDialog.PlaceholderBaseMaterial,Select base material
 Studio.MaterialManager.CreateDialog.PlaceholderName,Material Variant name
@@ -37,6 +38,18 @@ Studio.MaterialManager.Import.MetalnessMapPreview,Metalness Map Preview
 Studio.MaterialManager.Import.NormalMapPreview,Normal Map Preview
 Studio.MaterialManager.Import.RoughnessMapPreview,Roughness Map Preview
 Studio.MaterialManager.LocalImageSelector.NoImageSelected,No image
+Studio.MaterialManager.MaterialInformation.Color,Color
+Studio.MaterialManager.MaterialInformation.Metalness,Metalness
+Studio.MaterialManager.MaterialInformation.Normal,Normal
+Studio.MaterialManager.MaterialInformation.Roughness,Roughness
+Studio.MaterialManager.MaterialOptions.CreateVariant,Create Variant
+Studio.MaterialManager.MaterialOptions.Edit,Edit
+Studio.MaterialManager.MaterialOptions.ResetMaterial,Reset Material
+Studio.MaterialManager.MaterialOptions.ResetPartMaterial,Reset Part Material
+Studio.MaterialManager.MaterialOptions.ResetTerrainMaterial,Reset Terrain Material
+Studio.MaterialManager.MaterialOptions.SetOverride,Set Override
+Studio.MaterialManager.MaterialOptions.SetPartOverride,Set Part Override
+Studio.MaterialManager.MaterialOptions.SetTerrainOverride,Set Terrain Override
 Studio.MaterialManager.MaterialTile.BaseMaterial,Base Material
 Studio.MaterialManager.MaterialTile.BaseVariant,Base Variant
 Studio.MaterialManager.MaterialTile.PartMaterial,Part Material

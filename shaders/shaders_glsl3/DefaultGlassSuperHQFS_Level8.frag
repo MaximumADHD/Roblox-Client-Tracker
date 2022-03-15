@@ -21,7 +21,7 @@ uniform sampler2D SpecularMapTexture;
 uniform sampler2D GBufferDepthTexture;
 uniform sampler2D GBufferColorTexture;
 
-centroid in vec2 VARYING0;
+in vec2 VARYING0;
 in vec4 VARYING2;
 in vec4 VARYING3;
 in vec4 VARYING4;

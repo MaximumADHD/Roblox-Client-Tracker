@@ -95,6 +95,7 @@ Studio.AssetImporter.EnumItem.Inch,Inch,Inch
 Studio.AssetImporter.Statuses.TextureBadFileFormatError,Unsupported texture file format,Unsupported texture file format
 Studio.AssetImporter.Upload.FailureDescriptionNoError,Something went wrong. Please try again.,Something went wrong. Please try again.
 Studio.AssetImporter.HttpError.422,Name was moderated. Please rename and try again.,Name was moderated. Please rename and try again.
+Studio.AssetImporter.PropertiesTooltip.MetalnessFilePath,The file path of the metalness map. The metalness map is a grayscale image used to determine how metallic a surface should look,The file path of the metalness map. The metalness map is a grayscale image used to determine how metallic a surface should look
 Studio.AssetImporter.HttpError.429,Upload failed. Endpoint has too many requests - please try again later.,Upload failed. Endpoint has too many requests - please try again later.
 Studio.AssetImporter.HttpError.UnknownStatusCode,Upload failed. Status Code:,Upload failed. Status Code:
 Studio.AssetImporter.HttpError.UploadResultBadIdParse,Could not upload. Asset name may have been rejected by moderation.,Could not upload. Asset name may have been rejected by moderation.
@@ -110,3 +111,6 @@ Studio.AssetImporter.Properties.NormalFilePath,Normal File Path,Normal File Path
 Studio.AssetImporter.Properties.MetalnessFilePath,Metalness File Path,Metalness File Path
 Studio.AssetImporter.Properties.RoughnessFilePath,Roughness File Path,Roughness File Path
 Studio.AssetImporter.Properties.NoFilePath,No file provided,No file provided
+Studio.AssetImporter.PropertiesTooltip.DiffuseFilePath,The file path of the diffuse map. The diffuse map is an RGB[A] image used to determine the base color of the surface,The file path of the diffuse map. The diffuse map is an RGB[A] image used to determine the base color of the surface
+Studio.AssetImporter.PropertiesTooltip.NormalFilePath,The file path of the normal map. The normal map is an RGB image used to enhance surface details for lighting,The file path of the normal map. The normal map is an RGB image used to enhance surface details for lighting
+Studio.AssetImporter.PropertiesTooltip.RoughnessFilePath,The file path of the roughness map. The roughness map is a grayscale image used to determine how light should be reflected off a surface,The file path of the roughness map. The roughness map is a grayscale image used to determine how light should be reflected off a surface

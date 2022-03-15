@@ -39,6 +39,7 @@ Studio.AssetImporter.Plugin.ImportConfiguration,Settings for the current import
 Studio.AssetImporter.Plugin.Name,AssetImporter
 Studio.AssetImporter.Plugin.Toolbar,Mesh Importer
 Studio.AssetImporter.Plugin.WindowTitle,Import Preview
+Studio.AssetImporter.PreviewTooltip.ResetCam,Reset camera
 Studio.AssetImporter.Properties.Anchored,Anchored
 Studio.AssetImporter.Properties.DiffuseFilePath,Diffuse File Path
 Studio.AssetImporter.Properties.Dimensions,Object Dimensions

@@ -79,7 +79,7 @@ void main()
     if (!(CB4[f24 * 1 + 0].w == 0.0))
     {
         f43 = f31;
-        f42 = CB4[f24 * 1 + 0].xyz * VARYING0.x;
+        f42 = mix(vec3(1.0), CB4[f24 * 1 + 0].xyz, vec3(f17.w)) * VARYING0.x;
     }
     else
     {
@@ -97,7 +97,7 @@ void main()
     if (!(CB4[f25 * 1 + 0].w == 0.0))
     {
         f48 = f36;
-        f47 = f42 + (CB4[f25 * 1 + 0].xyz * VARYING0.y);
+        f47 = f42 + (mix(vec3(1.0), CB4[f25 * 1 + 0].xyz, vec3(f20.w)) * VARYING0.y);
     }
     else
     {
@@ -115,7 +115,7 @@ void main()
     if (!(CB4[f26 * 1 + 0].w == 0.0))
     {
         f53 = f41;
-        f52 = f47 + (CB4[f26 * 1 + 0].xyz * VARYING0.z);
+        f52 = f47 + (mix(vec3(1.0), CB4[f26 * 1 + 0].xyz, vec3(f23.w)) * VARYING0.z);
     }
     else
     {

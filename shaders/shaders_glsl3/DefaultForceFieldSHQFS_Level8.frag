@@ -7,7 +7,7 @@ uniform samplerCube PrefilteredEnvTexture;
 uniform sampler2D GBufferDepthTexture;
 uniform sampler2D DiffuseMapTexture;
 
-centroid in vec2 VARYING0;
+in vec2 VARYING0;
 in vec2 VARYING1;
 in vec4 VARYING2;
 in vec4 VARYING4;
