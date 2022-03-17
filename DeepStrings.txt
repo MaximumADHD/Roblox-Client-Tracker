@@ -318,6 +318,7 @@ Actualizar
 ActualType
 ActuatorRelativeTo
 ActuatorType
+ACurrentPage
 Acutesmall
 AdapterDesc
 AdaptiveAnalog
@@ -401,7 +402,6 @@ AddTransceiver.
 AddTransportOffer
 AddUserAsync
 AddWaypointSpacingPathParameter
-ADebugSSAOForce
 Adicionando
 Adieresissmall
 Adjuntados
@@ -678,6 +678,7 @@ AESRemoveUnnecessaryLocking
 AESSaveRobloxSecurity
 AesSettingsCipherMode
 AF1224888D11E18561866242201959
+AFADVFtFbA
 AfCfEfGfIftg
 Affiliation
 AffirmTrust
@@ -726,7 +727,6 @@ AHVWeakObjectRef
 AHW4DataStoreRequestType
 AHW4DebuggerExceptionBreakMode
 AHW4UserInputType
-AignoreList
 AimdRateControl
 AinDisableReportErrorTelemetry
 AinPointsThrottleValue
@@ -1056,6 +1056,7 @@ AndShowIDEDocFromPlaceSessionConfigSuccess
 AndUpdateResultsCount
 AndValidateScript
 AndVerifyCertificateChain
+ANewSettingsEndpointExceptionInfluxPermyriad
 Anforderung.
 Angeforderter
 AngleSnapEnabled
@@ -1573,7 +1574,6 @@ AtomicGrayTimeMs
 AtomicTimeMs
 AtomicUpvalTimeMs
 AtomicWeakTimeMs
-AtRL0ANQIl
 AtStartSimulator
 AttachAudioBuffer
 AttachCallout
@@ -1620,7 +1620,6 @@ AttributeType
 AttributeType27
 Atualizando
 AtUserChoice
-ATweenTime
 AU_ATL_MODULE70
 AU_Collvec
 AU_Crt_new_delete
@@ -1976,6 +1975,7 @@ AUscheduler_interface
 AUScriptPerformanceViewData
 AUSendPacketMessageData
 AUSequentialTaskDispatcher
+AUserRemoveTheCameraApi
 AUServerCapabilities
 AUServerInfo
 AUServerPolicyFastFlagPicker
@@ -6427,7 +6427,6 @@ BlueValues
 BlurAxisXYZScratch
 BlurEffect
 BlurRadius
-BmXBbLCL6PO4PujSmgSOEYQGiABH84vlvs8JnfEErXywjevbZnabA0Gi
 BN_BLINDING_convert_ex
 BN_BLINDING_create_param
 BN_BLINDING_invert_ex
@@ -6613,7 +6612,6 @@ BridgeStyleSupports
 Briefumschlag
 Brightness
 BrightText
-BRiseVelocity
 BroadcastNotification
 Broadphase
 BroadPhase
@@ -6753,7 +6751,6 @@ BundleThumbnail
 BundleType
 BundleTypes
 BuoyancyAccumulator
-BUSGSOPGferp
 BusyStatesShifted
 Buttermilk
 Button1Down
@@ -6787,6 +6784,7 @@ BVD`F`H6Jm
 BvhParallelMidPhase
 BVQItemSelection
 BVQJsonValue
+BVrDqpZV5S16kaBlESZaC
 BVRegion3int16
 BVSystemAddress
 BVTextureId
@@ -7197,7 +7195,6 @@ CDNProbefff
 Cdotaccent
 CE583B11E29A3DBD856014A660
 Cedillasmall
-CejoXCn7aJEerwz
 CelestialBodiesShown
 Cell_count
 CellCenterToWorld
@@ -10651,7 +10648,6 @@ DebugShowFlagState
 DebugShowHSRAssetId
 DebugShowRccLoadErrors
 DebugShowStudioDisplayModerationPendingStatus
-DebugShowTextBounds
 DebugSimForceUnthrottledSteps
 DebugSimForceWorldStepCount
 DebugSimLDLProgramPrintBuildStats
@@ -10665,6 +10661,7 @@ DebugSimulateHangAtStartup
 DebugSkipMeshVoxelizer
 DebugSkyGray
 DebugSmallTexturePack
+DebugSSAOForce
 DebugStartMicroProfilerWebServer
 DebugStartPageRefreshOnF5
 DebugStaticFilteredValue
@@ -10931,7 +10928,6 @@ DeleteSync
 DeleteTextures
 DELETETOSTARTOFLINE
 DeleteVertexArrays
-DelistPpr2
 DeliverLowMemoryWarningsViaPolling
 DeliverRtcp
 DeliverRtp
@@ -11424,6 +11420,13 @@ DiffuseFilePath
 DigestAlgorithm_find_ctx
 DigestAlgorithm_init_bio
 DigestedData_do_final
+DigiCertAssuredIDRootCA.crl0
+DigiCertAssuredIDRootCA.crl0P
+DigiCertAssuredIDRootCA.crt0
+DigiCertEVCodeSigningCA
+DigiCertHighAssuranceEVRootCA.crl0
+DigiCertHighAssuranceEVRootCA.crt0
+DigiCertSHA2AssuredIDTimestampingCA.crt0
 DigitalSignature
 DilateTemporalFS
 DilleniaUPC
@@ -11491,6 +11494,7 @@ DisableSetWaypointDuringWaypointPlay
 DisableSignalrHundredthsPercentage
 DisableSignalrHundredthsPercentageWindows
 DisableSingleTraceIdPerPlace
+DisableSizingRemovalCharacter
 DisableSkinnedMeshPartWorkSpace
 DisableSkinningWorkspace
 DisableSkinningWorkspaceDeploy
@@ -12318,6 +12322,7 @@ Einzelspiel
 Einzelspielermodus
 EJJJJJJJJJJJJJJJJJJJJ
 EJTU\^bcfguw
+EJzalVUsPsNDV2nAZ8KSGW07rFUbGDL1wFN38ZGx7mOWoRUIHWMCAwEAAQ
 ElapsedSeconds
 ElapsedTime
 ElasticBehavior
@@ -12830,6 +12835,7 @@ EvaluatedKey
 EvaluateForHovers
 EvaluateGlobalTransform
 EvaluateWatch
+EVCodeSigningSHA2
 Event.button
 Event.clientX
 Event.clientY
@@ -13384,7 +13390,6 @@ FFlagStudioDisableMipMapsOnMac
 FFlagStudioEnableTeachingCallouts
 FFlagStudioHighlightWholeRow
 FFlagStudioToastNotificationsInLua
-FFLciCUmW9knUuYiZkRlqewS4yuJWeHF1jNR
 FFoRLVHHHHoTJVF
 FHFRF\FfFpFzF
 FieldChanged
@@ -13743,7 +13748,6 @@ FixWeldConstraintTeamCreateReplication
 FixWinStudioMissingStartEvent
 FixWriteCombinedMemoryReadWrite2
 FJFTF^FhFrF
-FKcQOFkVZXUq
 FlagCaptured
 FlagCreated
 FlagCursor.png
@@ -13951,7 +13955,7 @@ FoundThread
 FourByFour
 FpFramebuffer
 FpsVariance
-FqCDisableSizingRemovalCharacter
+FqCDelistPpr2
 Fractional
 FRAGMENT_SCRIPT
 Frame_.LogEnd[nLog]
@@ -14153,7 +14157,6 @@ FrustumLodOptional
 FrustumOrdered
 FrustumRenderQueue
 FtHpJpLpNpPbR
-FTrcTQyGdcqOAjeGaHyfLGCwIiL24CptYad9IebJr3R8oY2XYxiXEC0XpxSMxkYL
 FullBandHpfKillSwitch
 FullCompleteness
 FullProcess
@@ -15313,6 +15316,7 @@ GImageTGARemoveTagCheck
 GImpactCollisionAlgorithm
 GImpactCompound
 GImpactCompoundShape
+GiqLLW5OrsSKzdEAzdsaLa1vj1DnZx3XeRwxL3r6YK
 GivenByTargetSpeedKBps
 GizmoRaycast
 GL_ARB_copy_image
@@ -15657,6 +15661,7 @@ HA^A]A\_^[
 HA_A]A\_][
 HA_A]A\_^[
 HA_A^A\_][
+HA_A^A]A\][
 HA_A^A]A\^]
 HA_A^A]A\_
 HA_A^A]A\_[
@@ -15707,6 +15712,7 @@ HandleActiveSystemList
 HandleAdornment
 HandleAltEnterFullscreenManually
 HandleAttachment
+HandleBackendErrorCodeForPublicAssets
 HandleGamepadAxisInput
 HandleGamepadButtonInput
 HandleGamepadConnect
@@ -16431,7 +16437,7 @@ HW4Orientation
 HW4PacketPriority
 HW4TransformationMode
 HwatfCnkndvyKCMPSa0VAl2M2c0GQv9
-HwngSmldAskhBcraMaweNegsOgnaT
+HwngSmldAskhBcraMaweNegsOgnaTDebugShowTextBounds
 HwngSmldAskhBcraMegsOgnaTaweNmnoGuhsNoyoSbnaZrgoDgnoGghoRakaMfdeMogoSdgoSmylEdnaNpnmHohcWsrhCkaiDstiKizeY
 HWYGOTH.ttf
 HybridEvent
@@ -16442,6 +16448,7 @@ IAEBVInstanceIdentifier
 IAudioCaptureClient
 IAudioClient
 IAudioClock
+IB2sZRoow5zSlaas4NdS8hBR
 IBeamCursor
 Ic2UseCustomUpdateQueue2
 ICCProfile
@@ -16574,9 +16581,9 @@ IID_IVPObject
 IID_IVPVBIConfig
 IID_IVPVBINotify
 IID_IVPVBIObject
-IIkDraggerAnchorMode
 IKCollisionsMode
 IkDragCollisionsMode
+IkDraggerAnchorMode
 IkDraggerSolveIterations
 ILegacyStudioBridge
 IllegalMessageTo
@@ -17584,7 +17591,6 @@ JdiV2ProcessedPerFrame
 JDJNJXJbJlJvJ
 JHJRJ\JfJpJxJ
 JHW4MembershipType
-JiFl6JNwZrDmwWf79HKK
 JIIIIIIIKI
 JitterBufferDelayInterface
 JitterBufferDelayProxyWithInternal
@@ -17707,7 +17713,6 @@ KaiTi_GB2312
 Kameraempfindlichkeit
 Kamerageschwindigkeit
 Kamerazoom
-KaWnPUPoNsg
 KBytesPerSec
 KeepAliveTimeout
 KeepPositionOnInsert
@@ -17782,7 +17787,6 @@ KKKKKKKKKKKK
 KKKKKKKKKKKKKKKKKKKKKK
 Klebeoberfl
 Kleinschreibung
-KmZZAs142KuJe6Eg
 KnownPrefixIndex
 KnownPublishRequest
 KodchiangUPC
@@ -17807,10 +17811,11 @@ Kopplungen
 Kopplungsbeschr
 Korrodiertes
 KPEAVICHull
-KtR5qUYwHIAOXxbnNQXJrIcKFUHCYwgXi0LNd8xHWzRnt6DRncaiOcfBbOwIgd
+KtvfQLtLVofeH6ly4LN
 Kugelverbindung
 Kundendienst.
 Kundensupport.
+KVN2YnBnDGizmBeGSW4OkgvjWwLyf4MJb0voFyrzYGzMlbPFfLUm6zj
 KYULPhCBFoD3mw5mygYqAeFlHdSL2k3MnDG
 L^N6LfN6LlN6LdN6Ly
 LA_SHAPE_MAX
@@ -18027,6 +18032,7 @@ LevelofDetail
 LevelOfDetail
 LevelOfDetailSetting
 LevelQuality
+Lf1ZvaBq1NIJiJDmqbgV3sKQqgLEqwiXqpZiPZvVn1CdmDiXPCwdh
 LfA9r0uEfA9r
 LhF`F`F`F`F`
 Liberation
@@ -19577,7 +19583,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEAt9yXz
+MIICCgKCAgEAuRMwrxCPEGONgYShTqorWwu86zv9DAnxvhTPngdBNOy64xgq
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -19637,6 +19643,7 @@ Mitbearbeiter
 Mitglieder
 Mitteilungen
 Mitwirkender
+Mjo8AZ6WEQv3ZeZf
 MkvStreamWriter
 MLineIndex
 MMDeviceEnumerator
@@ -19949,6 +19956,7 @@ MsToScreen
 MSVCP140.dll
 MTU_Country_
 MTU_Platform_
+MTwrQO66NzBRcgPiZxtDyhk94zr1JpM
 Mtx_current_owns
 Mtx_destroy_in_situ
 Mtx_init_in_situ
@@ -20175,7 +20183,6 @@ NETSCAPE_SPKI_b64_encode
 NETSCAPE2.0
 NETWORK_ERROR
 Network1.0
-Network100.
 NetworkAudit
 NetworkAudit]
 NetworkBandwdithManager
@@ -20361,7 +20368,6 @@ NewScriptEditAverageHandlingTimeOfTyping
 NewScriptTab
 NewSecurityKeyMismatch
 Newsession
-NewSettingsEndpointExceptionInfluxPermyriad
 NewTemplate
 NewTimerIndex
 NewTimers.findIndex
@@ -21031,6 +21037,7 @@ OPUS_BANDWIDTH_WIDEBAND
 OpusCustomMode
 OpusPlcUsePrevDecodedSamples
 OpusSoftwareCodec
+OqVZf8yLkqx4nH350RTnyEEYFDJJStAXHnVOwdpIXG
 OrCharacter
 OrCreateFileSyncItemClient
 Ordenamento
@@ -21045,6 +21052,7 @@ OrFetchPlugin
 OrFirstTier
 Organizaci
 Organization
+Organization1
 OrganizationDomain
 OrganizationName
 Organizations
@@ -23687,7 +23695,6 @@ PushButtonLabel
 PushPixels
 PushResampler
 PVAdornment
-PveOjP74wSRxQEudccET5lFZOFE7sBqKUrchHe6W
 PVInstance
 PVK_header
 PxnhPiraCmahCilaKcpeLicyLidyLkclOgnjRruaSdnuSiiaVtsvAumaBpygEimrAilhPitrPavaJihtKusiLietMbraShkrOrmaSanaLtvaTktaBharBdnaMmkaCcreMoreMdrlPdrhSaroSrkaTssaBbhgAlpuDablEnarGjohKdniSaniLjhaMinaMdneMidoMoorMtabNbraNmrePgnmHmlaPcuaPplhPddiShriTaraWmohAwulHrtaHtluMgn
@@ -24448,7 +24455,6 @@ QValidator
 QVariantAnimation
 QVBoxLayout
 QVersionNumber
-Qvs3evay66HliEW
 QWheelEvent
 QWidgetAction
 QWidgetPluginGui
@@ -26164,6 +26170,7 @@ RigidConstraint
 RigidConstraintAction
 RigidityEnabled
 RigImporter
+RiseVelocity
 Risoluzione
 Rj0isQcnqX
 ROBLOSECURITY
@@ -27003,6 +27010,7 @@ SCTP_STREAM_RESET_INCOMING_SSN
 SCTP_STREAM_RESET_OUTGOING_SSN
 SctpTransport
 SdesTransport.
+SdJkdEiZj8udHpzsedn9vkMluZYT566kjZknIzxWxQKom32GmLWyzvl0djj
 SDK_OPEN_URL
 SDL_APP_DIDENTERBACKGROUND
 SDL_APP_DIDENTERFOREGROUND
@@ -27195,6 +27203,7 @@ SecurityPolicy
 SecurityQuestions
 SecurityQuestionsChallengeDialog
 SecurityViolation
+SeG93xggNFSn1qa6lIW18A3
 Seilbeschr
 Selecciona
 Seleccionar
@@ -33656,7 +33665,6 @@ SXNET_add_id_INTEGER
 SXNET_add_id_ulong
 SXNET_get_id_asc
 SXNET_get_id_ulong
-SymantecPKI
 SymbolicLinkAlreadyExist
 SymbolProvider
 SymbolValue
@@ -34951,6 +34959,7 @@ ToolboxAudioAssetConfigIdVerification
 ToolboxAutocompleteDropdownSize
 ToolboxCollaboratorSearchUseFind
 ToolboxDisableAutocompleteWithGuac
+ToolboxEnableAudioGrantDialog
 ToolboxEnablePostDropScriptConfirmation
 ToolboxEnableScriptConfirmation
 ToolboxFixCreatorSearchResults
@@ -35444,6 +35453,7 @@ Ubad_offset
 Ubad_weekday
 UBadCallError
 UBatchThumbnailResult
+Ubh2DppPGPVBRDcvbD
 UBlockAdditions
 UBlockGroup
 UBlockMore
@@ -36356,7 +36366,6 @@ UserPresenceType
 UserPreventOldBubbleChatOverlap
 USERPROFILE
 UserRemoveMessageOnTextFilterFailures
-UserRemoveTheCameraApi
 UserRoactBubbleChatBeta
 UserService
 UserSession
@@ -37964,6 +37973,7 @@ VPX_SS_MAX_LAYERS]
 VPX_TS_MAX_LAYERS]
 VPX_VBR..VPX_Q]
 VpxSoftwareCodec
+Vq6EWMqoB5
 VQByteArray
 VQComboBox
 VQFileInfo
@@ -38796,7 +38806,6 @@ WGL_NV_vertex_array_range
 WGL_NV_video_capture
 WGL_NV_video_output
 WGL_OML_sync_control
-WGPtI41kfOokmIjZdWwjWKXIV0hIiNeReNXOg
 WhatsNewAction
 WhatsNewNumEntries
 WhatsNewWindow
@@ -39160,7 +39169,6 @@ XInputSetState
 Xinvalid_argument
 Xlength_error
 XNTNPNLNH9
-XNv2nRK7j17iwQHUoc7hlaCbX8HCymdHfoKWkJk3YmWyxfMGF
 Xout_of_range
 XP6AXAEBVQString
 XP6AXPEAVContentProvider
@@ -39339,7 +39347,8 @@ YffYZefYDNNDCOO
 YieldEvent
 YieldFuncDesc
 YieldFunction
-YPYMWPQBZfDj
+YlwKVVysYQp
+YpuHOnkKPZ1
 YResolution
 YwBBvY55YvBBwY5
 YYYYYYYYYYYYYYYYYYYYYYYYY
@@ -39354,7 +39363,6 @@ Zeilennummer
 ZeroTargetSpeedStartTimeCountToTotalCount
 ZgnhKhWhci
 ZhniZzzzZbarAnmrAgneBlryCaveDroeGkerGrjuGuruGgnaHinaHrbeHariHadnKanaKooaLntaLmylMayrOlmaTuleTiahTtbiTopoBiarBsnaCrehCihtErmhKgnoMrmyMmagOrnuRhniScrySaahTiiiYtrsDhtoGlatIdhuBonaHglgTbgaTtrpCbmiLbniLamsOwahSelaTragUiguBtpoCgalGrahKulaToepXolySgnfTilaBxusXookNga
-Zie3koZpWH3jwBxGp5OVhbDp5Ez9IE
 ZIndexBehavior
 ZLcJhLcGhM
 ZNjlXiODrHUcaGRYt
@@ -39365,7 +39373,6 @@ ZoomToExtents
 ZoomToHighlight
 ZP6APEAX1PEBX
 ZP6AX1PEAX
-ZPDEUxC1e6vvYqrL9uDru7wOxksxnoqCUZoR3PLPMVYEocKwJ92qUUCAwEAAQ
 ZPEAVPluginMouse
 ZPu4fE9Z`u
 ZRZZZbZt[.[
@@ -39376,7 +39383,7 @@ ZVTouchedSignal
 Zwischenablage
 Zwischenspeicher
 Zwischenspeichergr
-ZxHtLKVFqRV4leV46ubYVVnSajT6QpTfJGCxS5JrL9WnAtfAzyPR0IZzu4hVOB
+ZXve0hb1wXjBZLRrSWoSb
 Zylinderteil
 Zylindrisch
 Zylindrische

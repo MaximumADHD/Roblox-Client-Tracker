@@ -90,6 +90,7 @@ vote,vote,Studio.Toolbox.General.VotingVotesText
 votes,votes,Studio.Toolbox.General.FooterButtonBlackName
 Black,Black,Studio.Toolbox.General.Cancel
 Cancel,Cancel,Studio.Toolbox.General.SearchOptionsCancel
+Cancel,Cancel,Studio.Toolbox.GrantAssetPermission.CancelButton
 Cancel,Cancel,Studio.Toolbox.Purchase.Cancel
 Cancel,Cancel,Studio.Toolbox.Purchase.FailedDetails
 Purchase of "{name}" failed.,Purchase of "{name}" failed.,Studio.Toolbox.General.CategoryCreationsPantsAccessory
@@ -131,7 +132,8 @@ Shirt Accessories,Shirt Accessories,Studio.Toolbox.General.CategoryCreationsJack
 Jacket Accessories,Jacket Accessories,Studio.Toolbox.General.CategoryCreationsSweaterAccessory
 Sweater Accessories,Sweater Accessories,Studio.Toolbox.AssetConfigPackagePermissions.UseViewDescription
 Can use and view this package,Can use and view this package,Studio.Toolbox.General.CategoryCreationsShortsAccessory
-Shorts Accessories,Shorts Accessories,Studio.Toolbox.General.CategoryCreationsLeftShoeAccessory
+Shorts Accessories,Shorts Accessories,Studio.Toolbox.GrantAssetPermission.Success
+Successfully granted Universe permission to use asset {assetId:int},Successfully granted Universe permission to use asset {assetId:int},Studio.Toolbox.General.CategoryCreationsLeftShoeAccessory
 Left Shoe Accessories,Left Shoe Accessories,Studio.Toolbox.General.CategoryMyVideos
 My Videos,My Videos,Studio.Toolbox.General.CategoryCreationsDressSkirtAccessory
 Dress Skirt Accessories,Dress Skirt Accessories,Studio.Toolbox.AssetUploadResult.Failure
@@ -304,4 +306,9 @@ Filter ID,Studio.Toolbox.General.NoPluginsFound.TextLine2,"For more plugins, try
 Invalid Animation ID,Studio.Toolbox.AssetPreview.PluginNotice,This plugin was created by a third party. Roblox does not guarantee its safety or quality.
 This plugin was created by a third party. Roblox does not guarantee its safety or quality.,Studio.Toolbox.ScriptWarning.InstructionText,Please review the scripts to prevent unwanted changes to your experience.
 Please review the scripts to prevent unwanted changes to your experience.,Studio.Toolbox.HomeView.SeeAll,See All
-See All
+See All,Studio.Toolbox.GrantAssetPermission.Failure,Failed to grant Universe permission to use asset {assetId:int}
+Failed to grant Universe permission to use asset {assetId:int},Studio.Toolbox.GrantAssetPermission.DialogText,Do you grant permission for this Experience to use this asset?
+Do you grant permission for this Experience to use this asset?,Studio.Toolbox.GrantAssetPermission.Information,Name: {assetName}
+ID: {assetId:int},Type: {assetType},Name: {assetName}
+ID: {assetId:int},Type: {assetType},Studio.Toolbox.GrantAssetPermission.GrantButton
+Grant,Grant
