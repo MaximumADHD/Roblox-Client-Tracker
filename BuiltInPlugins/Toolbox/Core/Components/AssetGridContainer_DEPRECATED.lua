@@ -489,10 +489,11 @@ end
 
 function AssetGridContainer:render()
 	return withModal(function(_, modalStatus)
-		return withLocalization(function(localization, localizedContent)
+		return withLocalization(function(_, localizedContent)
 			local props = self.props
 			local state = self.state
 
+			local localization = props.Localization
 			local assetIds = props.assetIds
 
 			local position = props.Position or UDim2.new(0, 0, 0, 0)
