@@ -295,7 +295,8 @@ We encountered some problems:,Studio.Toolbox.AssetConfigPackagePermissions.Searc
 Search for Friends,Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedWarning,No Access takes effect from new versions of this package. Users assigned to rolesets with "Edit" permissions will always have access to current and previous versions of this package.
 No Access takes effect from new versions of this package. Users assigned to rolesets with "Edit" permissions will always have access to current and previous versions of this package.,Studio.Toolbox.Purchase.SuccessHeader,Buy & Installation Complete!
 Buy & Installation Complete!,Studio.Toolbox.Purchase.SuccessDetails,Successfully installed "{name}".
-Successfully installed "{name}".,Studio.Toolbox.MaxTagsDescription,Add up to {max:int} tags from the tag library
+Successfully installed "{name}".,Studio.Toolbox.GrantAssetPermission.DialogText,Do you grant permission for this Experience?
+Do you grant permission for this Experience?,Studio.Toolbox.MaxTagsDescription,Add up to {max:int} tags from the tag library
 Add up to {max:int} tags from the tag library,Studio.Toolbox.General.AbbreviatedSeconds,s
 s,Studio.Toolbox.General.AbbreviatedMinutes,m
 m,Studio.Toolbox.General.SearchOptionAudioTo,to
@@ -307,8 +308,7 @@ Invalid Animation ID,Studio.Toolbox.AssetPreview.PluginNotice,This plugin was cr
 This plugin was created by a third party. Roblox does not guarantee its safety or quality.,Studio.Toolbox.ScriptWarning.InstructionText,Please review the scripts to prevent unwanted changes to your experience.
 Please review the scripts to prevent unwanted changes to your experience.,Studio.Toolbox.HomeView.SeeAll,See All
 See All,Studio.Toolbox.GrantAssetPermission.Failure,Failed to grant Universe permission to use asset {assetId:int}
-Failed to grant Universe permission to use asset {assetId:int},Studio.Toolbox.GrantAssetPermission.DialogText,Do you grant permission for this Experience to use this asset?
-Do you grant permission for this Experience to use this asset?,Studio.Toolbox.GrantAssetPermission.Information,Name: {assetName}
+Failed to grant Universe permission to use asset {assetId:int},Studio.Toolbox.GrantAssetPermission.Information,Name: {assetName}
 ID: {assetId:int},Type: {assetType},Name: {assetName}
 ID: {assetId:int},Type: {assetType},Studio.Toolbox.GrantAssetPermission.GrantButton
 Grant,Grant
