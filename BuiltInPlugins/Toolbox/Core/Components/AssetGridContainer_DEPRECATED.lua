@@ -17,6 +17,7 @@ local HttpService = game:GetService("HttpService")
 
 local FFlagToolboxFixTryInStudioContextMenu = game:GetFastFlag("ToolboxFixTryInStudioContextMenu")
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
+local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
 local FFlagToolboxGetItemsDetailsUsesSingleApi = game:GetFastFlag("ToolboxGetItemsDetailsUsesSingleApi")
 
@@ -86,7 +87,10 @@ function AssetGridContainer:init(props)
 		hoveredAssetId = 0,
 		isShowingToolMessageBox = false,
 		isShowingScriptWarningMessageBox = false,
+		isShowingGrantPermissionsMessageBox = false,
+
 		scriptWarningInfo = nil,
+		grantPermissionsInfo = nil,
 	}
 
 	--[[
@@ -244,7 +248,43 @@ function AssetGridContainer:init(props)
 		end
 	end
 
-	self.insertToolPromise = InsertToolPromise.new(self.onInsertToolPrompt, self.onInsertScriptWarningPrompt)
+	self.onPermissionsGrantClosed = function()
+		if not FFlagToolboxEnableAudioGrantDialog then
+			return
+		end
+		self:setState({
+			isShowingGrantPermissionsMessageBox = false,
+		})
+		self.insertToolPromise:returnResult(false)
+	end
+
+	self.onPermissionsGranted = function(index, action)
+		if not FFlagToolboxEnableAudioGrantDialog then
+			return
+		end
+		self:setState({
+			isShowingGrantPermissionsMessageBox = false,
+		})
+
+		local result = if action == "yes" then true else false
+		self.insertToolPromise:returnResult(result)
+	end
+	
+	self.onPermissionsGrantCallback = function(info)
+		if not FFlagToolboxEnableAudioGrantDialog then
+			return
+		end
+		self:setState({
+			isShowingGrantPermissionsMessageBox = true,
+			grantPermissionsInfo = info,
+		})
+	end
+
+	self.insertToolPromise = InsertToolPromise.new(
+		self.onInsertToolPrompt,
+		self.onInsertScriptWarningPrompt,
+		self.onPermissionsGrantCallback
+	)
 
 	self.onAssetInsertionSuccesful = function(assetId)
 		self.props.onAssetInserted(getNetwork(self), assetId)
@@ -449,7 +489,7 @@ end
 
 function AssetGridContainer:render()
 	return withModal(function(_, modalStatus)
-		return withLocalization(function(_, localizedContent)
+		return withLocalization(function(localization, localizedContent)
 			local props = self.props
 			local state = self.state
 
@@ -467,7 +507,9 @@ function AssetGridContainer:render()
 			local hoveredAssetId = modalStatus:canHoverAsset() and state.hoveredAssetId or 0
 			local isShowingToolMessageBox = state.isShowingToolMessageBox
 			local isShowingScriptWarningMessageBox = state.isShowingScriptWarningMessageBox
+			local isShowingGrantPermissionsMessageBox = state.isShowingGrantPermissionsMessageBox
 			local scriptWarningInfo = state.scriptWarningInfo
+			local grantPermissionsInfo = state.grantPermissionsInfo
 
 			local showPrices = Category.shouldShowPrices(props.categoryName)
 
@@ -576,6 +618,35 @@ function AssetGridContainer:render()
 					onClose = self.onScriptWarningBoxClosed,
 					onButtonClicked = self.onScriptWarningBoxClosed,
 					onChangeShowDialog = self.onScriptWarningBoxToggleShow,
+				})
+
+			assetElements.GrantPermissionsMessageBox = isShowingGrantPermissionsMessageBox
+				and Roact.createElement(MessageBox, {
+					Name = string.format("ToolboxPermissionsMessageBox-%s", HttpService:GenerateGUID()),
+
+					Title = localization:getText("General", "RobloxStudio"),
+					Text = localization:getText("GrantAssetPermission", "DialogText"),
+					InformativeText = localization:getText("GrantAssetPermission", "Information", {
+						assetName = grantPermissionsInfo.assetName,
+						assetId = grantPermissionsInfo.assetId,
+						assetType = grantPermissionsInfo.assetType,
+					}),
+					Icon = Images.WARNING_ICON,
+					IconColor = Color3.fromHex("#FFAA21"),
+
+					onClose = self.onPermissionsGrantClosed,
+					onButtonClicked = self.onPermissionsGranted,
+
+					buttons = {
+						{
+							Text = localization:getText("GrantAssetPermission", "CancelButton"),
+							action = "no",
+						},
+						{
+							Text = localization:getText("GrantAssetPermission", "GrantButton"),
+							action = "yes",
+						},
+					},
 				})
 
 			assetElements.ToolMessageBox = isShowingToolMessageBox

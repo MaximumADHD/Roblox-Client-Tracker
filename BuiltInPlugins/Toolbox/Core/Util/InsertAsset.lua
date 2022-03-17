@@ -15,6 +15,7 @@ local EngineFeatureDraggerBruteForce = game:GetEngineFeature("DraggerBruteForceA
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 local FFlagToolboxEnablePostDropScriptConfirmation = game:GetFastFlag("ToolboxEnablePostDropScriptConfirmation")
 local FFlagToolboxGrantUniverseAudioPermissions = game:GetFastFlag("ToolboxGrantUniverseAudioPermissions")
+local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local InsertService = game:GetService("InsertService")
@@ -23,6 +24,7 @@ local StarterPack = game:GetService("StarterPack")
 local Workspace = game:GetService("Workspace")
 local StudioService = game:GetService("StudioService")
 local Lighting = game:GetService("Lighting")
+local MarketplaceService = game:GetService("MarketplaceService")
 local ToolboxService
 -- ToolboxService is not available in roblox-cli.
 if isCli() then
@@ -68,27 +70,74 @@ local function getInsertPosition()
 	end
 end
 
-local function insertAudio(assetId, assetName)
+local function grantAssetPermission(assetId)
+	if game.GameId == 0 then
+		return
+	end
+	local networkInterface = NetworkInterface.new()
+
+	local requestBody = {
+		requests = {
+			{
+				action = webKeys.UseAction,
+				subjectId = game.GameId,
+				subjectType = webKeys.Universe,
+			},
+		},
+	}
+	return networkInterface
+		:grantAssetPermissionWithTimeout(assetId, requestBody)
+		:catch(function(err)
+			return err
+		end)
+		:await()
+end
+
+local function doPermissionGrantDialogForAsset(assetName, assetId, assetTypeId, insertToolPromise, localization)
+	if game.GameId == 0 then
+		return
+	end
+	if not insertToolPromise then
+		return
+	end
+
+	local productInfo = MarketplaceService:GetProductInfo(assetId, Enum.InfoType.Asset)
+	if productInfo.IsPublicDomain then
+		return -- Don't show dialog if public domain
+	end
+
+	if assetTypeId ~= Enum.AssetType.Audio.Value then
+		error("Only support for fetching permissions on Audio is implemented at this time.")
+	end
+
+	local grantPermission = insertToolPromise:promptPermissionsGrantAndWait({
+		assetName = assetName,
+		assetId = assetId,
+		assetType = localization:getText("General", "AssetTypeAudio"),
+	})
+	if grantPermission then
+		local result = grantAssetPermission(assetId)
+		if result ~= nil and result.Body ~= nil and result.Body.Error ~= nil and result.Body.Error.Code ~= nil and result.Body.Error.Code ~= 4 then
+			warn(localization:getText("GrantAssetPermission", "Failure", {
+				assetId = assetId,
+			}))
+			return
+		end
+
+		print(localization:getText("GrantAssetPermission", "Success", {
+			assetId = assetId,
+		}))
+	end
+end
+
+local function insertAudio(assetId, assetName, insertToolPromise, localization)
 	local url = Urls.constructAssetIdString(assetId)
 	if DebugFlags.shouldDebugUrls() then
 		print(("Inserting sound %s"):format(url))
 	end
 
-	if FFlagToolboxGrantUniverseAudioPermissions and game.GameId ~= 0 then
-		local networkInterface = NetworkInterface.new()
-		
-		local requestBody = {
-			requests = {
-				{
-					action = webKeys.UseAction,
-					subjectId = game.GameId,
-					subjectType = webKeys.Universe,
-				},
-			},
-		}
-		networkInterface:grantAssetPermissionWithTimeout(assetId, requestBody):catch(function(err)
-			local errMessage = err
-		end):await()
+	if FFlagToolboxGrantUniverseAudioPermissions then
+		grantAssetPermission(assetId)
 	end
 
 	local soundObj = Instance.new("Sound")
@@ -97,6 +146,12 @@ local function insertAudio(assetId, assetName)
 	soundObj.Name = assetName
 	soundObj.Parent = (Selection:Get() or {})[1] or Workspace
 	Selection:Set({ soundObj })
+
+	if FFlagToolboxEnableAudioGrantDialog then
+		-- If for some reason this fails in an unexpected way, we want it to happen after inserting
+		-- the asset for parity with the drag/drop code where the asset is already inserted.
+		doPermissionGrantDialogForAsset(assetName, assetId, Enum.AssetType.Audio.Value, insertToolPromise, localization)
+	end
 
 	return soundObj
 end
@@ -358,7 +413,7 @@ local function dispatchInsertAsset(options, insertToolPromise)
 	if isPackage then
 		return insertPackage(options.assetId)
 	elseif options.assetTypeId == Enum.AssetType.Audio.Value then
-		return insertAudio(options.assetId, options.assetName)
+		return insertAudio(options.assetId, options.assetName, insertToolPromise, options.localization)
 	elseif options.assetTypeId == Enum.AssetType.Decal.Value then
 		return insertDecal(options.plugin, options.assetId, options.assetName)
 	elseif options.assetTypeId == Enum.AssetType.Plugin.Value then
@@ -423,6 +478,9 @@ function InsertAsset.tryInsert(options, insertToolPromise, assetWasDragged)
 		if FFlagToolboxEnablePostDropScriptConfirmation then
 			activeDraggingState = {
 				assetName = options.assetName,
+				assetId = if FFlagToolboxEnableAudioGrantDialog then options.assetId else nil,
+				assetTypeId = if FFlagToolboxEnableAudioGrantDialog then options.assetTypeId else nil,
+				localization = if FFlagToolboxEnableAudioGrantDialog then options.localization else nil,
 				insertToolPromise = insertToolPromise,
 			}
 		end
@@ -550,6 +608,18 @@ function InsertAsset.registerProcessDragHandler()
 			-- We can't yield within the drop, so spawn this work to pick it up after the drop event finishes.
 			spawn(function()
 				if activeDraggingState then
+					if FFlagToolboxEnableAudioGrantDialog then
+						if activeDraggingState.assetTypeId == Enum.AssetType.Audio.Value then
+							doPermissionGrantDialogForAsset(
+								activeDraggingState.assetName,
+								activeDraggingState.assetId,
+								activeDraggingState.assetTypeId,
+								activeDraggingState.insertToolPromise,
+								activeDraggingState.localization
+							)
+						end
+					end
+
 					-- Popup the script warning dialog if necessary
 					doScriptConfirmationIfContainsScripts(
 						activeDraggingState.assetName,

@@ -10,6 +10,7 @@
 --]]
 local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
 local FFlagToolboxGrantUniverseAudioPermissions = game:GetFastFlag("ToolboxGrantUniverseAudioPermissions")
+local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 
 local webKeys = {
 	All = if FFlagToolboxPrivatePublicAudioAssetConfig3 then "All" else nil,
@@ -43,7 +44,7 @@ local webKeys = {
 	RoleSubject = "Roleset",
 	GroupRolesetSubject = "GroupRoleset",
 	Requests = "requests",
-	Universe = if FFlagToolboxGrantUniverseAudioPermissions then "Universe" else nil,
+	Universe = if FFlagToolboxGrantUniverseAudioPermissions or FFlagToolboxEnableAudioGrantDialog then "Universe" else nil,
 
 	--Permissions Status
 	UnknownError = "UnknownError",

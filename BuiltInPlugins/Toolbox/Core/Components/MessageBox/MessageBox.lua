@@ -130,6 +130,7 @@ function MessageBox:render()
 	local iconToTextPadding = 20
 	local fullIconWidth = iconSize + iconToTextPadding
 	local topWidth = fullIconWidth + textWidth
+	local iconColor = if props.IconColor then props.IconColor else nil
 
 	-- Buttons + padding between
 	local buttonsWidth = (#buttonTexts * buttonWidth) + ((#buttonTexts - 1) * buttonPadding)
@@ -215,6 +216,7 @@ function MessageBox:render()
 					BackgroundTransparency = 1,
 					LayoutOrder = 0,
 					Image = icon,
+					ImageColor3 = iconColor,
 				}),
 
 				Texts = Roact.createElement("Frame", {

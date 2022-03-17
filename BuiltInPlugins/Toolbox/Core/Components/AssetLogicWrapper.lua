@@ -6,6 +6,7 @@
 local HttpService = game:GetService("HttpService")
 
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
+local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -65,6 +66,7 @@ type _InternalProps = {
 	AssetAnalytics: any,
 	Plugin: any,
 	Settings: any,
+	Localization: any,
 }
 
 type _State = {
@@ -73,7 +75,9 @@ type _State = {
 	hoveredAssetId : number,
 	isShowingToolMessageBox : boolean,
 	isShowingScriptWarningMessageBox : boolean,
+	isShowingGrantPermissionsMessageBox : boolean,
 	scriptWarningInfo : any?,
+	grantPermissionsInfo : any?,
 }
 
 type _Props = _ExternalProps & _InternalProps
@@ -94,7 +98,9 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			hoveredAssetId = 0,
 			isShowingToolMessageBox = false,
 			isShowingScriptWarningMessageBox = false,
+			isShowingGrantPermissionsMessageBox = false,
 			scriptWarningInfo = nil,
+			grantPermissionsInfo = nil,
 		}
 
 		--[[
@@ -169,7 +175,43 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			settings:setShowScriptWarning(showState)
 		end
 
-		self.insertToolPromise = InsertToolPromise.new(self.onInsertToolPrompt, self.onInsertScriptWarningPrompt)
+		self.onPermissionsGrantClosed = function()
+			if not FFlagToolboxEnableAudioGrantDialog then
+				return
+			end
+			self:setState({
+				isShowingGrantPermissionsMessageBox = false,
+			})
+			self.insertToolPromise:returnResult(false)
+		end
+
+		self.onPermissionsGranted = function(index, action)
+			if not FFlagToolboxEnableAudioGrantDialog then
+				return
+			end
+			self:setState({
+				isShowingGrantPermissionsMessageBox = false,
+			})
+
+			local result = if action == "yes" then true else false
+			self.insertToolPromise:returnResult(result)
+		end
+		
+		self.onPermissionsGrantCallback = function(info)
+			if not FFlagToolboxEnableAudioGrantDialog then
+				return
+			end
+			self:setState({
+				isShowingGrantPermissionsMessageBox = true,
+				grantPermissionsInfo = info,
+			})
+		end
+
+		self.insertToolPromise = InsertToolPromise.new(
+			self.onInsertToolPrompt,
+			self.onInsertScriptWarningPrompt,
+			self.onPermissionsGrantCallback
+		)
 
 		self.tryInsert = function(assetData, assetWasDragged, insertionMethod)
 			self.lastInsertAttemptTime = tick()
@@ -239,7 +281,11 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 
 		local isShowingToolMessageBox = state.isShowingToolMessageBox
 		local isShowingScriptWarningMessageBox = state.isShowingScriptWarningMessageBox
+		local isShowingGrantPermissionsMessageBox = state.isShowingGrantPermissionsMessageBox
 		local scriptWarningInfo = state.scriptWarningInfo
+		local grantPermissionsInfo = state.grantPermissionsInfo
+
+		local localization = self.props.Localization
 
 		local wrappedProps = Cryo.Dictionary.join(props, {
 			CanInsertAsset = self.canInsertAsset,
@@ -262,8 +308,9 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 				[Roact.Change.AbsoluteSize] = self.updateBoundaryVariables,
 			}),
 
-			ToolScriptWarningMessageBox = isShowingScriptWarningMessageBox
-				and Roact.createElement(ScriptConfirmationDialog, {
+			ToolScriptWarningMessageBox = isShowingScriptWarningMessageBox and Roact.createElement(
+				ScriptConfirmationDialog,
+				{
 					Name = string.format("ToolboxToolScriptWarningMessageBox-%s", HttpService:GenerateGUID()),
 
 					Info = scriptWarningInfo,
@@ -272,7 +319,36 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 					onClose = self.onScriptWarningBoxClosed,
 					onButtonClicked = self.onScriptWarningBoxClosed,
 					onChangeShowDialog = self.onScriptWarningBoxToggleShow,
+				}
+			),
+
+			GrantPermissionsMessageBox = isShowingGrantPermissionsMessageBox and Roact.createElement(MessageBox, {
+				Name = string.format("ToolboxPermissionsMessageBox-%s", HttpService:GenerateGUID()),
+
+				Title = localization:getText("General", "RobloxStudio"),
+				Text = localization:getText("GrantAssetPermission", "DialogText"),
+				InformativeText = localization:getText("GrantAssetPermission", "Information", {
+					assetName = grantPermissionsInfo.assetName,
+					assetId = grantPermissionsInfo.assetId,
+					assetType = grantPermissionsInfo.assetType,
 				}),
+				Icon = Images.WARNING_ICON,
+				IconColor = Color3.fromHex("#FFAA21"),
+
+				onClose = self.onPermissionsGrantClosed,
+				onButtonClicked = self.onPermissionsGranted,
+
+				buttons = {
+					{
+						Text = localization:getText("GrantAssetPermission", "CancelButton"),
+						action = "no",
+					},
+					{
+						Text = localization:getText("GrantAssetPermission", "GrantButton"),
+						action = "yes",
+					},
+				},
+			}),
 
 			ToolMessageBox = isShowingToolMessageBox and Roact.createElement(MessageBox, {
 				Name = string.format("ToolboxToolMessageBox-%s", HttpService:GenerateGUID()),
@@ -301,13 +377,14 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 				tryOpenAssetConfig = tryOpenAssetConfig,
 			}),
 
-			Contents = Roact.createElement(wrappedComponent, wrappedProps)
+			Contents = Roact.createElement(wrappedComponent, wrappedProps),
 		})
 	end
 
 	AssetLogicWrapper = withContext({
 		AssetAnalytics = AssetAnalyticsContextItem,
 		Plugin = ContextServices.Plugin,
+		Localization = ContextServices.Localization,
 		Settings = Settings,
 	})(AssetLogicWrapper)
 

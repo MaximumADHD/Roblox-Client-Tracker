@@ -1,4 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
+local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 
 local InsertToolPromise = {}
@@ -8,10 +9,11 @@ InsertToolPromise.INSERT_TO_WORKSPACE = 0
 InsertToolPromise.INSERT_TO_STARTER_PACK = 1
 InsertToolPromise.INSERT_CANCELLED = 2
 
-function InsertToolPromise.new(onPromptCallback, onScriptWarningCallback)
+function InsertToolPromise.new(onPromptCallback, onScriptWarningCallback, onPermissionsGrantCallback)
 	local self = {
 		_onPromptCallback = onPromptCallback,
 		_onScriptWarningCallback = onScriptWarningCallback,
+		_onPermissionsGrantCallback = onPermissionsGrantCallback,
 		_bindable = Instance.new("BindableEvent"),
 		_waiting = false,
 	}
@@ -42,6 +44,21 @@ end
 
 function InsertToolPromise:dismissWarningPrompt()
 	self._bindable:Fire()
+end
+
+function InsertToolPromise:returnResult(result)
+	self._bindable:Fire(result)
+end
+
+function InsertToolPromise:promptPermissionsGrantAndWait(message)
+	if not FFlagToolboxEnableAudioGrantDialog then
+		return false
+	end
+	self._waiting = true
+	self._onPermissionsGrantCallback(message)
+	local result = self._bindable.Event:Wait()
+	self._waiting = false
+	return result
 end
 
 function InsertToolPromise:promptScriptWarningAndWait(message)

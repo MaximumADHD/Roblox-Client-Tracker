@@ -6,6 +6,7 @@ local Plugin = script.Parent.Parent.Parent
 
 local FFlagToolboxNilDisconnectSignals = game:GetFastFlag("ToolboxNilDisconnectSignals")
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
+local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
 local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
 local Packages = Plugin.Packages
@@ -869,6 +870,15 @@ function Localization:_recalculateContent()
 			DontShowAgain = self:_safeLocalize("Studio.Toolbox.ScriptWarning.DontShowAgain"),
 			InstructionText = self:_safeLocalize("Studio.Toolbox.ScriptWarning.InstructionText"),
 			InstructionText2 = self:_safeLocalize("Studio.Toolbox.ScriptWarning.InstructionText2"),
+		},
+
+		GrantAssetPermission = FFlagToolboxEnableAudioGrantDialog and {
+			Success = self:_safeLocalize("Studio.Toolbox.GrantAssetPermission.Success", { assetId = 0 }),
+			Failure = self:_safeLocalize("Studio.Toolbox.GrantAssetPermission.Failure", { assetId = 0 }),
+			DialogText = self:_safeLocalize("Studio.Toolbox.GrantAssetPermission.DialogText"),
+			Information = self:_safeLocalize("Studio.Toolbox.GrantAssetPermission.Information", { assetName = "{assetName}", assetId = 0, assetType = "{assetType}" }),
+			CancelButton = self:_safeLocalize("Studio.Toolbox.GrantAssetPermission.CancelButton"),
+			GrantButton = self:_safeLocalize("Studio.Toolbox.GrantAssetPermission.GrantButton"),
 		},
 	})
 end
