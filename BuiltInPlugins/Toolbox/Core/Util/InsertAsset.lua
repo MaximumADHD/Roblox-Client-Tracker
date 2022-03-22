@@ -480,7 +480,7 @@ function InsertAsset.tryInsert(options, insertToolPromise, assetWasDragged)
 				assetName = options.assetName,
 				assetId = if FFlagToolboxEnableAudioGrantDialog then options.assetId else nil,
 				assetTypeId = if FFlagToolboxEnableAudioGrantDialog then options.assetTypeId else nil,
-				localization = if FFlagToolboxEnableAudioGrantDialog then options.localization else nil,
+				localization = if FFlagToolboxEnableAudioGrantDialog then InsertAsset._localization else nil,
 				insertToolPromise = insertToolPromise,
 			}
 		end
