@@ -916,7 +916,6 @@ AmdPowerXpressRequestHighPerformance
 AmericanExpress
 Amimjmwmxm
 AMMW4TweenEasingStyle
-AMnypdDKeYYWIgxCoQ2WcJsNsCucLKHIDVqmE2j37zc1OgPP8Scmq7WPuSQ4an
 AMPROPSETID_Pin
 AMVVector3
 AMW4DeveloperTag
@@ -6786,6 +6785,7 @@ BVD`F`H6Jm
 BvhParallelMidPhase
 BVQItemSelection
 BVQJsonValue
+BvQueBgnoMu80P9oLfAV7TYD8issnchnD8w1VEYG1hGX8KcLG9ErqxJIgzquGa46
 BVRegion3int16
 BVSystemAddress
 BVTextureId
@@ -7466,7 +7466,6 @@ CheckState
 ChecksumAlgorithms
 CheckTeamCreateReplicatorQueue
 CheckTimeout
-ChhrzxYpQDXyQx3EOpvTPgYlGF24PSU
 ChildAdded
 ChildAddedHelper
 ChildBinaryStringLength
@@ -9311,6 +9310,7 @@ CountTimeout
 CountWidth
 Covariance
 CoverageRef
+CpRWhAGZWYaPPiOiecHYcdhXcbF8TO52soomLPH1hcs6LP
 CpuArchitecture
 CPULogicalCore
 CpuTimeSpentOnDecodingAudio
@@ -9778,6 +9778,7 @@ CtrlLimitBytes
 CubeFramebuffer
 CubeMipGen
 Cuentagotas
+CUGMYMeUuDIeZB8viLGPlnrx3A3JFfUNu9XvpL6hrLE
 CullDistance
 Cumulative
 CumulativeDeserializeWithJdiOverThrottleMs
@@ -11346,7 +11347,7 @@ DH_meth_new
 DH_meth_set1_name
 DH_new_by_nid
 DH_new_method
-DH24HT2p4LJHL4J\PVR.T
+DH24HT2p4LJHL4J\PZR.T
 DHBasedMac
 DHParameters
 DHparams_print_fp
@@ -11423,13 +11424,6 @@ DiffuseFilePath
 DigestAlgorithm_find_ctx
 DigestAlgorithm_init_bio
 DigestedData_do_final
-DigiCertAssuredIDRootCA.crl0
-DigiCertAssuredIDRootCA.crl0P
-DigiCertAssuredIDRootCA.crt0
-DigiCertEVCodeSigningCA
-DigiCertHighAssuranceEVRootCA.crl0
-DigiCertHighAssuranceEVRootCA.crt0
-DigiCertSHA2AssuredIDTimestampingCA.crt0
 DigitalSignature
 DilateTemporalFS
 DilleniaUPC
@@ -12826,7 +12820,9 @@ EstimationLPCOrder
 EstQueuedMemSize
 EstQueuedMemSizeBytes
 Estrangelo
+Et9Pmz0mmpjfQ2tdAdr0tlFsl7qlmXjf
 EThrottleType
+ETYK959sEzuPKfMEQM8aOFYjp
 EucrosiaUPC
 EulerAngles
 EulerAnglesXYZ
@@ -12836,7 +12832,6 @@ EvaluatedKey
 EvaluateForHovers
 EvaluateGlobalTransform
 EvaluateWatch
-EVCodeSigningSHA2
 Event.button
 Event.clientX
 Event.clientY
@@ -14196,7 +14191,6 @@ FXCompositingFS
 FXCompositingLinearFS
 FXComposition
 FXHcFLH9FX
-FyDMxBYXSB6gIWs9K
 GainControl
 GainController2
 GainMakeup
@@ -15409,6 +15403,7 @@ GoToSourceCodeTB
 GotoTargetsRequest
 GoToVersionFailed
 GpuVariance
+GqniNgs219gO2ODvDcTfqCSad4In0i0P
 GrabCursor.png
 GrabRotateCursor
 GrabRotateCursor.png
@@ -15781,6 +15776,7 @@ HBAODepthDownFS
 HbaoRenderCompute
 Hbbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaaaaaaaaaa
 HBblurRender
+HBL.PXRrPfH
 Hcircumflex
 HdAvailables
 HDCacheLock
@@ -16461,7 +16457,6 @@ ICharacterSubject
 Icircumflex
 Icircumflex.a
 Icircumflexsmall
-IcJMPm1PtM3
 ICloudEditConnectionModel
 ICloudEditModel
 IconCameraTrack.png
@@ -16582,7 +16577,6 @@ IID_IVPVBIConfig
 IID_IVPVBINotify
 IID_IVPVBIObject
 IIkDraggerAnchorMode
-IjHzjKfbxFSlJXr7EoA2qeBoHvWFI1xhkjPLQgNWsZDTyoZf7iLhCraFrq4XR6
 IKCollisionsMode
 IkDragCollisionsMode
 IkDraggerSolveIterations
@@ -17289,6 +17283,7 @@ InvalidRedirect
 InvalidResponse
 InvalidRevokedPublicKeyIds
 InvalidRevokedSignatureTypes
+InvalidSoundIdPermHotfix
 InvalidState
 InvalidTextChannelPermissions
 InvalidUrl
@@ -17490,6 +17485,7 @@ IsWatchingScript
 Italic.ttf
 ITALIC_ANGLE
 ItalicAngle
+ITdCgzhCPmhdFPYGRe5Kk1lBavM5edv5mDZRXn0CAwEAAQ
 ItemActivated
 ItemAndMaybeCloseDialog
 ItemAvgTimeInAllQueues
@@ -17581,7 +17577,6 @@ JacketAccessory
 JasmineUPC
 JavaScript
 JavaScriptCallback
-JAxu0YbHy7xxswypDv0UqkucEL1W948Ykqp6qP4fryQBI3lQF
 Jba5qWkYU5nARYZm1gQVP
 Jcircumflex
 JdiDeserializerConfigPerDC
@@ -17718,6 +17713,7 @@ Kamerazoom
 KBytesPerSec
 KeepAliveTimeout
 KeepPositionOnInsert
+KEkLUyI3d0g5ZSMUvBqvlaS8ZNbmCR14n
 KERNEL32.dll
 KERNEL32.DLL
 KernelJoint
@@ -18518,7 +18514,6 @@ LSPTextSync]
 LSPWarning
 LSPWarning]
 LSRegExErrorHundredthsPercentage
-LU8F79hrbDmh7ko
 LUA_ERRRUN
 LUA_ERRSYNTAX
 LUA_UNAUTHORIZED_LOG_OUT
@@ -19583,7 +19578,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEAttUQ5NrSF684
+MIICCgKCAgEA9gPbF1M2DbMy1BoYWVUWC4DpdCeUD5Zc21cyFimVTmOdC1fgcoc5
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -19941,6 +19936,7 @@ MQStandardItem
 MQTableWidgetItem
 MQTreeWidgetItem
 MrdInCachePendingList
+MrPrgz9Al6ZcgtkJKfn28A
 MRSMessageSize
 MRSTopicNameLength
 MRULocalFileStore
@@ -20181,6 +20177,7 @@ NETSCAPE_SPKI_b64_encode
 NETSCAPE2.0
 NETWORK_ERROR
 Network1.0
+Network100.
 NetworkAudit
 NetworkAudit]
 NetworkBandwdithManager
@@ -21036,6 +21033,7 @@ OPUS_BANDWIDTH_WIDEBAND
 OpusCustomMode
 OpusPlcUsePrevDecodedSamples
 OpusSoftwareCodec
+OpzWk1jMxlIu6xLwUr79m6rcIqIfZSIg
 OrCharacter
 OrCreateFileSyncItemClient
 Ordenamento
@@ -21050,7 +21048,6 @@ OrFetchPlugin
 OrFirstTier
 Organizaci
 Organization
-Organization1
 OrganizationDomain
 OrganizationName
 Organizations
@@ -21101,7 +21098,6 @@ OtherPlayer
 OtherTextChanged
 OtherTopLabelOverride
 Otildesmall
-Oup5vBtVUbN
 Out_old.png
 OutActionV2
 OutboundTotal
@@ -21607,7 +21603,6 @@ PCertResTBS
 PcFactoryDefaultBitrates
 PCStudioApp
 PCStudioAppCJV
-Pdmw0xxttnHyzwR
 PE_D_SRCH_LENGTH
 PE_MAX_NB_SUBFR
 PEAD1AEAPEAD
@@ -26172,7 +26167,6 @@ RigidityEnabled
 RigImporter
 Risoluzione
 Rj0isQcnqX
-RNZecesheT9UFCOhZxg8AJMFEcCAwEAAQ
 ROBLOSECURITY
 Roblox.Hybrid
 Roblox.Hybrid.Bridge.emitEvent
@@ -26373,6 +26367,7 @@ RowsToRemove
 RowStretch
 RowVisibilityChanged
 RPCServers
+RQZg8ThfnfBftU6xsKoD1F07tCcDBRztI98QYmNXTX1vgIhEUg76
 RRakRecvToAppPop
 RRReceiptFail
 RRReceiptTotal
@@ -27875,6 +27870,7 @@ SetWindowPos
 SetWindowsHookExA
 SetWindowsHookExW
 SetWindowTextW
+SFXTUGNgvl38S9GOcqvtgAhBLwpWhcbm8ZcvvspCM3dRmnA4Awa4toku8aGww7D
 ShaderLoad
 ShaderLoad_TotalTime
 ShaderLoad_TotalTime_
@@ -28453,7 +28449,6 @@ SmoothWaterHQFS_
 SmoothWaterHQVS_
 SmoothWaterSuperHQFS_
 SmoothWaterVS
-SmwJJnK7l2vn0915IucRRn7p58wMFPovVVaBYeiV855ZU7BVFEw3yOfXq
 SnapAttachmentsVerb
 Snowball.png
 Snowflake.png
@@ -33664,6 +33659,7 @@ SXNET_add_id_INTEGER
 SXNET_add_id_ulong
 SXNET_get_id_asc
 SXNET_get_id_ulong
+SymantecPKI
 SymbolicLinkAlreadyExist
 SymbolProvider
 SymbolValue
@@ -35986,7 +35982,6 @@ Unverified
 UnverifiedChatMessage
 Unwalkable]
 Unwritable
-UoJed4uK99ljuMVMaPEJdEqbpZRiXohxB
 UOperatorX2_cJDxTO
 Up_key.png
 Up_key_dn.png
@@ -36540,7 +36535,6 @@ VAdService
 VAdvArrowTool
 VAdvLuaDragger
 VAdvLuaDragTool
-Vagk0pylxGp
 Val.toFixed
 VAliasCollisionSolver
 VAliasRequestResult
@@ -38378,6 +38372,7 @@ VUserPluginsModel
 VUserService
 VUVUVUVUVUVU
 VUVUVUVUVUVUVUVUVUVUVUVUVUVU
+VUZHyLvMEGO1VVKEP4QmvVB
 Vvalidation_error
 VValueBase
 Vvariable_value
@@ -39162,13 +39157,11 @@ XboxUseNewValidUsernameCheck2
 XFbxAMatrix
 XFREE86_GLYPH_RANGES
 XHW4Status_e
-XieIZgdmfFfekdMZv41tPz4qnfefhpkb88S7TsoQIWUjjWgHmiTDqYyEoGXqWvMZ
 XInputGetBatteryInformation
 XInputGetCapabilities
 XInputGetState
 XInputSetState
 Xinvalid_argument
-XJujjMG7bqcZU
 Xlength_error
 XNTNPNLNH9
 Xout_of_range
@@ -39350,7 +39343,7 @@ YieldEvent
 YieldFuncDesc
 YieldFunction
 YResolution
-YRhleXQ0b7DoDvlCmd
+YVV7zk1PjexBj
 YwBBvY55YvBBwY5
 YYYYYYYYYYYYYYYYYYYYYYYYY
 ZAEAPEAV34
@@ -39384,7 +39377,6 @@ ZVTouchedSignal
 Zwischenablage
 Zwischenspeicher
 Zwischenspeichergr
-ZXXLOPbAsQ33vP8sQpdSAH
 Zylinderteil
 Zylindrisch
 Zylindrische
