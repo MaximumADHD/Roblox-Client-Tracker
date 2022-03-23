@@ -854,8 +854,9 @@ Class CorePackages : Instance [NotCreatable] [Service] [NotReplicated]
 Class CoreScriptSyncService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Variant CoreScriptSyncService:GetScriptFilePath(Instance script) {RobloxScriptSecurity}
 Class CrossDMScriptChangeListener : Instance [NotCreatable] [Service] [NotReplicated]
-	Function bool CrossDMScriptChangeListener:IsWatchingScript(string scriptRef) {RobloxScriptSecurity}
-	Function void CrossDMScriptChangeListener:StartWatchingScript(string scriptRef, int debuggerConnectionId) {RobloxScriptSecurity}
+	Function bool CrossDMScriptChangeListener:IsWatchingScriptLine(string scriptRef, int lineNumber) {RobloxScriptSecurity}
+	Function void CrossDMScriptChangeListener:StartWatchingScriptLine(string scriptRef, int debuggerConnectionId, int lineNumber) {RobloxScriptSecurity}
+	Event CrossDMScriptChangeListener.GuidLineContentsChanged(string guid, int lineNumber, string contents) {RobloxScriptSecurity}
 	Event CrossDMScriptChangeListener.GuidNameChanged(string guid, string fullName) {RobloxScriptSecurity}
 Class CustomEvent : Instance [Deprecated]
 	Function Objects CustomEvent:GetAttachedReceivers() [Deprecated]
@@ -937,6 +938,7 @@ Class DebugSettings : Instance [NotCreatable] [Settings] [NotBrowsable]
 	Property int DebugSettings.JobCount [ReadOnly]
 	Property int DebugSettings.PlayerCount [ReadOnly]
 	Property string DebugSettings.RobloxVersion [ReadOnly]
+Class DebuggablePluginWatcher : Instance [NotCreatable] [Service] [NotReplicated]
 Class DebuggerBreakpoint : Instance [NotCreatable]
 	Property string DebuggerBreakpoint.Condition
 	Property bool DebuggerBreakpoint.ContinueExecution
@@ -1687,6 +1689,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void GuiService:RemoveKey(string key) {RobloxScriptSecurity}
 	Function void GuiService:RemoveSelectionGroup(string selectionName)
 	Function void GuiService:RemoveSpecialKey(Enum.SpecialKey key) {RobloxScriptSecurity}
+	Function void GuiService:Select(Instance selectionParent) {RobloxScriptSecurity}
 	Function void GuiService:SetEmotesMenuOpen(bool isOpen)
 	Function void GuiService:SetGameplayPausedNotificationEnabled(bool enabled)
 	Function void GuiService:SetGlobalGuiInset(int x1, int y1, int x2, int y2) {RobloxScriptSecurity}
@@ -1934,6 +1937,7 @@ Class ImporterGroupSettings : ImporterBaseSettings [NotCreatable] [NotReplicated
 Class ImporterJointSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 Class ImporterMaterialSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property string ImporterMaterialSettings.DiffuseFilePath [ReadOnly]
+	Property bool ImporterMaterialSettings.IsPbr [ReadOnly]
 	Property string ImporterMaterialSettings.MetalnessFilePath [ReadOnly]
 	Property string ImporterMaterialSettings.NormalFilePath [ReadOnly]
 	Property string ImporterMaterialSettings.RoughnessFilePath [ReadOnly]
@@ -1985,7 +1989,6 @@ Class InsertService : Instance [NotCreatable] [Service]
 	Function Instance InsertService:LoadLocalAsset(string assetPath) {RobloxScriptSecurity}
 	Function Objects InsertService:LoadPackageAsset(Content url) {RobloxScriptSecurity}
 	Function Objects InsertService:LoadPackageAssetAsync(Content url) {RobloxScriptSecurity} [Yields]
-Class InternalContainer : Instance [NotCreatable] [Service] [NotReplicated]
 Class JointInstance : Instance [NotCreatable]
 	Property bool JointInstance.Active [ReadOnly]
 	Property bool JointInstance.Enabled
@@ -2021,7 +2024,7 @@ Class VelocityMotor : JointInstance
 	Property float VelocityMotor.DesiredAngle
 	Property Hole VelocityMotor.Hole
 	Property float VelocityMotor.MaxVelocity
-Class Weld : JointInstance [Deprecated]
+Class Weld : JointInstance
 Class JointsService : Instance [NotCreatable] [Service] [Deprecated]
 	Function void JointsService:ClearJoinAfterMoveJoints() [Deprecated]
 	Function void JointsService:CreateJoinAfterMoveJoints() [Deprecated]
@@ -2316,10 +2319,10 @@ Class MaterialService : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property bool MaterialService.hasPropertyWarningInStudio {RobloxSecurity} [Hidden] [ReadOnly]
 	Function void MaterialService:ClearOverridePartMaterial(Enum.Material material)
 	Function void MaterialService:ClearOverrideTerrainMaterial(Enum.Material material)
-	Function string MaterialService:GetMaterialOverride(Enum.Material material)
+	Function string MaterialService:GetBaseMaterialOverride(Enum.Material material)
 	Function MaterialVariant MaterialService:GetOverridePartMaterial(Enum.Material material)
 	Function MaterialVariant MaterialService:GetOverrideTerrainMaterial(Enum.Material material)
-	Function void MaterialService:SetMaterialOverride(Enum.Material material, string name)
+	Function void MaterialService:SetBaseMaterialOverride(Enum.Material material, string name)
 	Function void MaterialService:SetOverridePartMaterial(MaterialVariant materialVariant)
 	Function void MaterialService:SetOverrideTerrainMaterial(MaterialVariant materialVariant)
 Class MaterialVariant : Instance [NotBrowsable]
@@ -2377,11 +2380,11 @@ Class MessagingService : Instance [NotCreatable] [Service] [NotReplicated]
 Class MetaBreakpoint : Instance [NotCreatable] [NotReplicated]
 	Property string MetaBreakpoint.Condition {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property int MetaBreakpoint.Id {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Property int MetaBreakpoint.Line {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property int MetaBreakpoint.Line {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property string MetaBreakpoint.LogMessage {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property string MetaBreakpoint.Script {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Property bool MetaBreakpoint.ContinueExecution {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Property bool MetaBreakpoint.Enabled {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property string MetaBreakpoint.Script {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property bool MetaBreakpoint.ContinueExecution {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property bool MetaBreakpoint.Enabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool MetaBreakpoint.IsLogpoint {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function Dictionary MetaBreakpoint:GetContextBreakpoints() {RobloxScriptSecurity}
 	Function int MetaBreakpoint:Remove(Function status) {RobloxScriptSecurity}
@@ -3844,6 +3847,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Color3 Studio.Select Color
 	Property float Studio.Selection Highlight Thickness {RobloxSecurity}
 	Property bool Studio.Show Hover Over
+	Property bool Studio.Use Bounding Box Move Handles {RobloxScriptSecurity}
 	Property Enum.RuntimeUndoBehavior Studio.RuntimeUndoBehavior
 	Property bool Studio.Show Light Guides {RobloxScriptSecurity}
 	Property bool Studio.Show Navigation Areas {RobloxScriptSecurity}
@@ -3890,7 +3894,6 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioService:AnimationIdSelected(int64 id) {RobloxScriptSecurity}
 	Function void StudioService:ConvertToPackageUpload(string uploadUrl) {RobloxScriptSecurity}
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
-	Function void StudioService:DEPRECATED_SetDocumentDisplayName(string newName) {RobloxScriptSecurity}
 	Function void StudioService:DEPRECATED_SetTurnOnTeamCreateOnPublish(bool turnOn) {RobloxScriptSecurity}
 	Function void StudioService:EmitPlacePublishedSignal() {RobloxScriptSecurity}
 	Function string StudioService:GetBadgeConfigureUrl(int64 badgeId) {RobloxScriptSecurity}
@@ -4057,7 +4060,7 @@ Class TextChatService : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property bool TextChatService.CreateDefaultCommands {✏️PluginSecurity}
 	Property bool TextChatService.CreateDefaultTextChannels {✏️PluginSecurity}
 	Event TextChatService.MessageReceived(TextChatMessage textChatMessage)
-	Event TextChatService.SendingMessage(TextChatMessage textChatMessage) {RobloxScriptSecurity}
+	Event TextChatService.SendingMessage(TextChatMessage textChatMessage)
 	Callback Tuple TextChatService.OnIncomingMessage(TextChatMessage message)
 Class TextFilterResult : Instance [NotCreatable] [NotReplicated]
 	Function string TextFilterResult:GetChatForUserAsync(int64 toUserId) [Yields]
@@ -4496,7 +4499,7 @@ Class VoiceChatInternal : Instance [NotCreatable] [Service] [NotBrowsable]
 	Event VoiceChatInternal.PlayerMicActivitySignalChange(Dictionary activityInfo) {RobloxScriptSecurity} [Deprecated]
 	Event VoiceChatInternal.StateChanged(Enum.VoiceChatState old, Enum.VoiceChatState new) {RobloxScriptSecurity} [Deprecated]
 Class VoiceChatService : Instance [NotCreatable] [Service]
-	Property bool VoiceChatService.GenerateDefaultChannel {PluginSecurity} [NotBrowsable]
+	Property bool VoiceChatService.EnableDefaultVoice {PluginSecurity} [NotBrowsable]
 	Function bool VoiceChatService:IsVoiceEnabledForUserIdAsync(int64 userId) [Yields]
 Class VoiceSource : Instance [NotCreatable] [Deprecated]
 	Property int64 VoiceSource.UserId [ReadOnly] [Deprecated]
@@ -6494,6 +6497,7 @@ Enum TextChatMessageStatus
 	EnumItem TextChatMessageStatus.Floodchecked : 5
 	EnumItem TextChatMessageStatus.InvalidPrivacySettings : 6
 	EnumItem TextChatMessageStatus.InvalidTextChannelPermissions : 7
+	EnumItem TextChatMessageStatus.MessageTooLong : 8
 Enum TextFilterContext
 	EnumItem TextFilterContext.PublicChat : 1
 	EnumItem TextFilterContext.PrivateChat : 2

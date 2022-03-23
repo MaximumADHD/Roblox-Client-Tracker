@@ -212,7 +212,6 @@ Studio.App.IdeDoc.UncommittedScriptChangesPublishedToNewPlace,Roblox IDE Doc,You
 Studio.App.IdeDoc.PublishedSuccessfully1,Roblox IDE Doc,%1 was published successfully.,%1 was published successfully.
 Studio.App.IdeDoc.PublishedFailed1,Roblox IDE Doc,%1 publish failed.,%1 publish failed.
 Studio.App.IdeDoc.SaveFailed1,Roblox IDE Doc,%1 save failed.,%1 save failed.
-Studio.App.IdeDoc.DEPRECATEDPlaceNotDirty,Roblox IDE Doc,No changes detected. Did not save.,No changes detected. Did not save.
 Studio.App.IdeDoc.PlaceNotDirty,Roblox IDE Doc,No changes to the place detected. Did not save.,No changes to the place detected. Did not save.
 Studio.App.IdeDoc.AreYouSureYouWantToExit1,Message prompt for when user exits a Team Create place,Are you sure you want to exit '%1'?,Are you sure you want to exit '%1'?
 Studio.App.IdeDoc.DeprecateCSGv1,,You are using the legacy CSG modeling system that will soon be removed from Roblox Studio. We have changed your Studio Setting to use the latest version. <a href=%1>Learn More</a>,You are using the legacy CSG modeling system that will soon be removed from Roblox Studio. We have changed your Studio Setting to use the latest version. <a href=%1>Learn More</a>
@@ -320,6 +319,7 @@ Studio.App.AudioPrivacyPublishDialog.AssetTable.AssetIdColTitle,,Asset ID,Asset 
 Studio.App.AudioPrivacyPublishDialog.AssetTable.AssetCreatorColTitle,,Creator,Creator
 Studio.App.AudioPrivacyPublishDialog.PublishWithoutPermissionButton,warning modal button that publishes game without granting permission,Publish without Granting,Publish without Granting
 Studio.App.AudioPrivacyPublishDialog.PublishAndGrantPermissionButton,warning modal button that grants the universe permission to all assets in the game during publish,Grant Permissions,Grant Permissions
+Studio.App.AudioPrivacyCheck.GrantPermissionFailure,"Appears in output window when permission granting fails. %1 and %2 are replaced by assed ids, and %3 is replaced by an error code.",Failed to grant universe [%1] permission to asset [%2]: %3,Failed to grant universe [%1] permission to asset [%2]: %3
 Studio.App.MainWindow.Version1,Main Window,Version %1,Version %1
 Studio.App.MainWindow.VersionLatest1,About Dialog,Latest version available %1,Latest version available %1
 Studio.App.MainWindow.WaitingForShutdown,Main Window,Waiting for Shutdown,Waiting for Shutdown
@@ -1830,6 +1830,8 @@ Studio.App.Property.ActiveColor,,Active Color,Active Color
 Studio.App.Property.ActiveHoverOverColor,,Active Hover Over Color,Active Hover Over Color
 Studio.App.Property.PhysicalDraggersSelectScopeByDefault,,Physical Draggers Select Scope (Alt-click) By Default,Physical Draggers Select Scope (Alt-click) By Default
 Studio.App.PropertyTooltip.PhysicalDraggersSelectScopeByDefault,,"When using the Physical draggers, toggle if a single click selects the Model or a scope by default.  Alt-click to toggle behavior.","When using the Physical draggers, toggle if a single click selects the Model or a scope by default.  Alt-click to toggle behavior."
+Studio.App.Property.BoundingBoxMoveHandles,,Use Bounding Box Move Handles,Use Bounding Box Move Handles
+Studio.App.PropertyTooltip.BoundingBoxMoveHandles,,Position Move handles at the edges of the bounding box instead of at the pivot.,Position Move handles at the edges of the bounding box instead of at the pivot.
 Studio.App.Property.PivotSnapToGeometryColor,,Pivot Snap To Geometry Color,Pivot Snap To Geometry Color
 Studio.App.PropertyTooltip.PivotSnapToGeometryColor,,"When snapping the pivot to geometry in the Pivot Editor, what color should the interesting points be highlighted with?","When snapping the pivot to geometry in the Pivot Editor, what color should the interesting points be highlighted with?"
 Studio.App.Property.HoverBoxThickness,,Hover Box Thickness,Hover Box Thickness

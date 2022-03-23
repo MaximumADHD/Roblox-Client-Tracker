@@ -145,6 +145,7 @@ GrassHQFS,Fragment
 GrassHQVS,Vertex
 GrassHQVSWind,Vertex
 GrassVS,Vertex
+GrassVSPrecise,Vertex
 GridFS_Level0,Fragment
 GridVS_Level0,Vertex
 GridVS_Level2,Vertex

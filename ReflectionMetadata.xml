@@ -3784,8 +3784,8 @@
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
           <Properties>
-            <string name="Name">GenerateDefaultChannel</string>
-            <string name="FFlag">VoiceServiceGenerateDefaultChannel</string>
+            <string name="Name">EnableDefaultVoice</string>
+            <string name="FFlag">VoiceServiceEnableDefaultVoice</string>
           </Properties>
         </Item>
       </Item>

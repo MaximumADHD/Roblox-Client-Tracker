@@ -38,18 +38,27 @@ Studio.MaterialManager.Import.MetalnessMapPreview,Metalness Map Preview
 Studio.MaterialManager.Import.NormalMapPreview,Normal Map Preview
 Studio.MaterialManager.Import.RoughnessMapPreview,Roughness Map Preview
 Studio.MaterialManager.LocalImageSelector.NoImageSelected,No image
-Studio.MaterialManager.MaterialInformation.Color,Color
-Studio.MaterialManager.MaterialInformation.Metalness,Metalness
-Studio.MaterialManager.MaterialInformation.Normal,Normal
-Studio.MaterialManager.MaterialInformation.Roughness,Roughness
-Studio.MaterialManager.MaterialOptions.CreateVariant,Create Variant
-Studio.MaterialManager.MaterialOptions.Edit,Edit
-Studio.MaterialManager.MaterialOptions.ResetMaterial,Reset Material
-Studio.MaterialManager.MaterialOptions.ResetPartMaterial,Reset Part Material
-Studio.MaterialManager.MaterialOptions.ResetTerrainMaterial,Reset Terrain Material
-Studio.MaterialManager.MaterialOptions.SetOverride,Set Override
-Studio.MaterialManager.MaterialOptions.SetPartOverride,Set Part Override
-Studio.MaterialManager.MaterialOptions.SetTerrainOverride,Set Terrain Override
+Studio.MaterialManager.MaterialInformation.ClearOverride,Clear Override
+Studio.MaterialManager.MaterialInformation.ClearPartOverride,Clear Part Override
+Studio.MaterialManager.MaterialInformation.ClearTerrainOverride,Clear Terrain Override
+Studio.MaterialManager.MaterialInformation.CreateVariant,Create Variant
+Studio.MaterialManager.MaterialInformation.Edit,Edit
+Studio.MaterialManager.MaterialInformation.ResetMaterial,Reset Material
+Studio.MaterialManager.MaterialInformation.ResetPartMaterial,Reset Part Material
+Studio.MaterialManager.MaterialInformation.ResetTerrainMaterial,Reset Terrain Material
+Studio.MaterialManager.MaterialInformation.SetOverride,Set Override
+Studio.MaterialManager.MaterialInformation.SetPartOverride,Set Part Override
+Studio.MaterialManager.MaterialInformation.SetTerrainOverride,Set Terrain Override
+Studio.MaterialManager.MaterialOverrides.MaterialOverride,Material Override
+Studio.MaterialManager.MaterialOverrides.MaterialOverrides,Material Overrides
+Studio.MaterialManager.MaterialOverrides.None,None
+Studio.MaterialManager.MaterialOverrides.PartOverride,Part Override
+Studio.MaterialManager.MaterialOverrides.TerrainOverride,Terrain Override
+Studio.MaterialManager.MaterialTextures.Color,Color
+Studio.MaterialManager.MaterialTextures.Metalness,Metalness
+Studio.MaterialManager.MaterialTextures.Normal,Normal
+Studio.MaterialManager.MaterialTextures.Roughness,Roughness
+Studio.MaterialManager.MaterialTextures.TextureMaps,Texture Maps
 Studio.MaterialManager.MaterialTile.BaseMaterial,Base Material
 Studio.MaterialManager.MaterialTile.BaseVariant,Base Variant
 Studio.MaterialManager.MaterialTile.PartMaterial,Part Material
@@ -57,41 +66,113 @@ Studio.MaterialManager.MaterialTile.PartVariant,Part Variant
 Studio.MaterialManager.MaterialTile.TerrainMaterial,Terrain Material
 Studio.MaterialManager.MaterialTile.TerrainVariant,Terrain Variant
 Studio.MaterialManager.Materials.Air,Air
+Studio.MaterialManager.Materials.AirMaterial,Air Material
+Studio.MaterialManager.Materials.AirVariant,Air Variant
 Studio.MaterialManager.Materials.Asphalt,Asphalt
+Studio.MaterialManager.Materials.AsphaltMaterial,Asphalt Material
+Studio.MaterialManager.Materials.AsphaltVariant,Asphalt Variant
 Studio.MaterialManager.Materials.Basalt,Basalt
+Studio.MaterialManager.Materials.BasaltMaterial,Basalt Material
+Studio.MaterialManager.Materials.BasaltVariant,Basalt Variant
 Studio.MaterialManager.Materials.Brick,Brick
+Studio.MaterialManager.Materials.BrickMaterial,Brick Material
+Studio.MaterialManager.Materials.BrickVariant,Brick Variant
 Studio.MaterialManager.Materials.Cobblestone,Cobblestone
+Studio.MaterialManager.Materials.CobblestoneMaterial,Cobblestone Material
+Studio.MaterialManager.Materials.CobblestoneVariant,Cobblestone Variant
 Studio.MaterialManager.Materials.Concrete,Concrete
+Studio.MaterialManager.Materials.ConcreteMaterial,Concrete Material
+Studio.MaterialManager.Materials.ConcreteVariant,Concrete Variant
 Studio.MaterialManager.Materials.CorrodedMetal,Corroded Metal
+Studio.MaterialManager.Materials.CorrodedMetalMaterial,Corroded Metal Material
+Studio.MaterialManager.Materials.CorrodedMetalVariant,Corroded Metal Variant
 Studio.MaterialManager.Materials.CrackedLava,Cracked Lava
+Studio.MaterialManager.Materials.CrackedLavaMaterial,Cracked Lava Material
+Studio.MaterialManager.Materials.CrackedLavaVariant,Cracked Lava Variant
 Studio.MaterialManager.Materials.DiamondPlate,Diamond Plate
+Studio.MaterialManager.Materials.DiamondPlateMaterial,Diamond Plate Material
+Studio.MaterialManager.Materials.DiamondPlateVariant,Diamond Plate Variant
 Studio.MaterialManager.Materials.Fabric,Fabric
+Studio.MaterialManager.Materials.FabricMaterial,Fabric Material
+Studio.MaterialManager.Materials.FabricVariant,Fabric Variant
 Studio.MaterialManager.Materials.Foil,Foil
+Studio.MaterialManager.Materials.FoilMaterial,Foil Material
+Studio.MaterialManager.Materials.FoilVariant,Foil Variant
 Studio.MaterialManager.Materials.Forcefield,Force Field
+Studio.MaterialManager.Materials.ForcefieldMaterial,Force Field Material
+Studio.MaterialManager.Materials.ForcefieldVariant,Force Field Variant
 Studio.MaterialManager.Materials.Glacier,Glacier
+Studio.MaterialManager.Materials.GlacierMaterial,Glacier Material
+Studio.MaterialManager.Materials.GlacierVariant,Glacier Variant
 Studio.MaterialManager.Materials.Glass,Glass
+Studio.MaterialManager.Materials.GlassMaterial,Glass Material
+Studio.MaterialManager.Materials.GlassVariant,Glass Variant
 Studio.MaterialManager.Materials.Granite,Granite
+Studio.MaterialManager.Materials.GraniteMaterial,Granite Material
+Studio.MaterialManager.Materials.GraniteVariant,Granite Variant
 Studio.MaterialManager.Materials.Grass,Grass
+Studio.MaterialManager.Materials.GrassMaterial,Grass Material
+Studio.MaterialManager.Materials.GrassVariant,Grass Variant
 Studio.MaterialManager.Materials.Ground,Ground
+Studio.MaterialManager.Materials.GroundMaterial,Ground Material
+Studio.MaterialManager.Materials.GroundVariant,Ground Variant
 Studio.MaterialManager.Materials.Ice,Ice
+Studio.MaterialManager.Materials.IceMaterial,Ice Material
+Studio.MaterialManager.Materials.IceVariant,Ice Variant
 Studio.MaterialManager.Materials.LeafyGrass,Leafy Grass
+Studio.MaterialManager.Materials.LeafyGrassMaterial,Leafy Grass Material
+Studio.MaterialManager.Materials.LeafyGrassVariant,Leafy Grass Variant
 Studio.MaterialManager.Materials.Limestone,Limestone
+Studio.MaterialManager.Materials.LimestoneMaterial,Limestone Material
+Studio.MaterialManager.Materials.LimestoneVariant,Limestone Variant
 Studio.MaterialManager.Materials.Marble,Marble
+Studio.MaterialManager.Materials.MarbleMaterial,Marble Material
+Studio.MaterialManager.Materials.MarbleVariant,Marble Variant
 Studio.MaterialManager.Materials.Metal,Metal
+Studio.MaterialManager.Materials.MetalMaterial,Metal Material
+Studio.MaterialManager.Materials.MetalVariant,Metal Variant
 Studio.MaterialManager.Materials.Mud,Mud
+Studio.MaterialManager.Materials.MudMaterial,Mud Material
+Studio.MaterialManager.Materials.MudVariant,Mud Variant
 Studio.MaterialManager.Materials.Neon,Neon
+Studio.MaterialManager.Materials.NeonMaterial,Neon Material
+Studio.MaterialManager.Materials.NeonVariant,Neon Variant
 Studio.MaterialManager.Materials.Pavement,Pavement
+Studio.MaterialManager.Materials.PavementMaterial,Pavement Material
+Studio.MaterialManager.Materials.PavementVariant,Pavement Variant
 Studio.MaterialManager.Materials.Pebble,Pebble
+Studio.MaterialManager.Materials.PebbleMaterial,Pebble Material
+Studio.MaterialManager.Materials.PebbleVariant,Pebble Variant
 Studio.MaterialManager.Materials.Plastic,Plastic
+Studio.MaterialManager.Materials.PlasticMaterial,Plastic Material
+Studio.MaterialManager.Materials.PlasticVariant,Plastic Variant
 Studio.MaterialManager.Materials.Rock,Rock
+Studio.MaterialManager.Materials.RockMaterial,Rock Material
+Studio.MaterialManager.Materials.RockVariant,Rock Variant
 Studio.MaterialManager.Materials.Salt,Salt
+Studio.MaterialManager.Materials.SaltMaterial,Salt Material
+Studio.MaterialManager.Materials.SaltVariant,Salt Variant
 Studio.MaterialManager.Materials.Sand,Sand
+Studio.MaterialManager.Materials.SandMaterial,Sand Material
+Studio.MaterialManager.Materials.SandVariant,Sand Variant
 Studio.MaterialManager.Materials.Sandstone,Sandstone
+Studio.MaterialManager.Materials.SandstoneMaterial,Sandstone Material
+Studio.MaterialManager.Materials.SandstoneVariant,Sandstone Variant
 Studio.MaterialManager.Materials.Slate,Slate
+Studio.MaterialManager.Materials.SlateMaterial,Slate Material
+Studio.MaterialManager.Materials.SlateVariant,Slate Variant
 Studio.MaterialManager.Materials.SmoothPlastic,Smooth Plastic
+Studio.MaterialManager.Materials.SmoothPlasticMaterial,Smooth Plastic Material
+Studio.MaterialManager.Materials.SmoothPlasticVariant,Smooth Plastic Variant
 Studio.MaterialManager.Materials.Water,Water
+Studio.MaterialManager.Materials.WaterMaterial,Water Material
+Studio.MaterialManager.Materials.WaterVariant,Water Variant
 Studio.MaterialManager.Materials.Wood,Wood
+Studio.MaterialManager.Materials.WoodMaterial,Wood Material
 Studio.MaterialManager.Materials.WoodPlanks,Wood Planks
+Studio.MaterialManager.Materials.WoodPlanksMaterial,Wood Planks Material
+Studio.MaterialManager.Materials.WoodPlanksVariant,Wood Planks Variant
+Studio.MaterialManager.Materials.WoodVariant,Wood Variant
 Studio.MaterialManager.Plugin.Button,Material Manager
 Studio.MaterialManager.Plugin.Description,Toggles the Material Manager window.
 Studio.MaterialManager.Plugin.Name,Material Manager

@@ -16213,13 +16213,20 @@
             "Members": [
                 {
                     "MemberType": "Function",
-                    "Name": "IsWatchingScript",
+                    "Name": "IsWatchingScriptLine",
                     "Parameters": [
                         {
                             "Name": "scriptRef",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "lineNumber",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
                             }
                         }
                     ],
@@ -16232,7 +16239,7 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "StartWatchingScript",
+                    "Name": "StartWatchingScriptLine",
                     "Parameters": [
                         {
                             "Name": "scriptRef",
@@ -16247,12 +16254,48 @@
                                 "Category": "Primitive",
                                 "Name": "int"
                             }
+                        },
+                        {
+                            "Name": "lineNumber",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
                         }
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
                         "Name": "void"
                     },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "GuidLineContentsChanged",
+                    "Parameters": [
+                        {
+                            "Name": "guid",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "lineNumber",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "contents",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
@@ -17697,6 +17740,18 @@
                 "NotCreatable",
                 "Settings",
                 "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "DebuggablePluginWatcher",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
             ]
         },
         {
@@ -31449,6 +31504,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "Select",
+                    "Parameters": [
+                        {
+                            "Name": "selectionParent",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SetEmotesMenuOpen",
                     "Parameters": [
                         {
@@ -36148,6 +36222,28 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "IsPbr",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "MetalnessFilePath",
                     "Security": {
                         "Read": "None",
@@ -37174,18 +37270,6 @@
         },
         {
             "Members": [
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "InternalContainer",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotCreatable",
-                "Service",
-                "NotReplicated"
-            ]
-        },
-        {
-            "Members": [
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
@@ -37752,10 +37836,7 @@
             ],
             "MemoryCategory": "PhysicsParts",
             "Name": "Weld",
-            "Superclass": "JointInstance",
-            "Tags": [
-                "Deprecated"
-            ]
+            "Superclass": "JointInstance"
         },
         {
             "Members": [
@@ -43646,7 +43727,7 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "GetMaterialOverride",
+                    "Name": "GetBaseMaterialOverride",
                     "Parameters": [
                         {
                             "Name": "material",
@@ -43703,7 +43784,7 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "SetMaterialOverride",
+                    "Name": "SetBaseMaterialOverride",
                     "Parameters": [
                         {
                             "Name": "material",
@@ -45025,12 +45106,11 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
+                        "CanLoad": true,
+                        "CanSave": true
                     },
                     "Tags": [
                         "Hidden",
-                        "ReadOnly",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
@@ -45048,12 +45128,11 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": false,
+                        "CanLoad": true,
                         "CanSave": true
                     },
                     "Tags": [
                         "Hidden",
-                        "ReadOnly",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
@@ -45117,12 +45196,11 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": false,
+                        "CanLoad": true,
                         "CanSave": true
                     },
                     "Tags": [
                         "Hidden",
-                        "ReadOnly",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
@@ -45162,12 +45240,11 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": false,
+                        "CanLoad": true,
                         "CanSave": true
                     },
                     "Tags": [
                         "Hidden",
-                        "ReadOnly",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
@@ -73212,6 +73289,24 @@
                     }
                 },
                 {
+                    "Category": "Tools",
+                    "MemberType": "Property",
+                    "Name": "Use Bounding Box Move Handles",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Script Editor Colors",
                     "MemberType": "Property",
                     "Name": "Warning Color",
@@ -74027,25 +74122,6 @@
                     "Parameters": [
                         {
                             "Name": "stringToCopy",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "DEPRECATED_SetDocumentDisplayName",
-                    "Parameters": [
-                        {
-                            "Name": "newName",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
@@ -77309,7 +77385,7 @@
                             }
                         }
                     ],
-                    "Security": "RobloxScriptSecurity",
+                    "Security": "None",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -85604,7 +85680,7 @@
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
-                    "Name": "GenerateDefaultChannel",
+                    "Name": "EnableDefaultVoice",
                     "Security": {
                         "Read": "PluginSecurity",
                         "Write": "PluginSecurity"
@@ -94122,6 +94198,10 @@
                 {
                     "Name": "InvalidTextChannelPermissions",
                     "Value": 7
+                },
+                {
+                    "Name": "MessageTooLong",
+                    "Value": 8
                 }
             ],
             "Name": "TextChatMessageStatus"

@@ -88,7 +88,8 @@ Waist Accessories,Waist Accessories,Studio.Toolbox.General.SortByRatings
 Ratings,Ratings,Studio.Toolbox.General.VotingVoteText
 vote,vote,Studio.Toolbox.General.VotingVotesText
 votes,votes,Studio.Toolbox.General.FooterButtonBlackName
-Black,Black,Studio.Toolbox.General.Cancel
+Black,Black,Studio.Toolbox.HomeView.essential
+Essential,Essential,Studio.Toolbox.General.Cancel
 Cancel,Cancel,Studio.Toolbox.General.SearchOptionsCancel
 Cancel,Cancel,Studio.Toolbox.GrantAssetPermission.CancelButton
 Cancel,Cancel,Studio.Toolbox.Purchase.Cancel
@@ -97,15 +98,15 @@ Purchase of "{name}" failed.,Purchase of "{name}" failed.,Studio.Toolbox.General
 Pants Accessories,Pants Accessories,Studio.Toolbox.General.SearchOptionsApply
 Apply,Apply,Studio.Toolbox.General.FooterButtonNoneName
 None,None,Studio.Toolbox.General.SearchResultsKeyword
-Search Results for,Search Results for,Studio.Toolbox.AssetConfigSharing.PublicConfirmationHeading
-You have allowed this asset to be shared with anyone on Roblox,You have allowed this asset to be shared with anyone on Roblox,Studio.Toolbox.General.SearchResultsClearAll
+Search Results for,Search Results for,Studio.Toolbox.General.SearchResultsClearAll
 Clear,Clear,Studio.Toolbox.General.SearchTagCreator
 by:,by:,Studio.Toolbox.General.RightClickMenuCopyTextureID
 Copy Texture ID,Copy Texture ID,Studio.Toolbox.General.TabMarketplace
 Marketplace,Marketplace,Studio.Toolbox.General.TabInventory
 Inventory,Inventory,Studio.Toolbox.General.GoBack
 Go Back,Go Back,Studio.Toolbox.General.TabRecent
-Recent,Recent,Studio.Toolbox.General.CategoryCreationsPlugins
+Recent,Recent,Studio.Toolbox.General.Categories
+Categories,Categories,Studio.Toolbox.General.CategoryCreationsPlugins
 Plugins,Plugins,Studio.Toolbox.General.CategoryPaidPlugins
 Plugins,Plugins,Studio.Toolbox.General.CategoryCreationsDevelopmentSectionDivider
 Game development assets,Game development assets,Studio.Toolbox.General.CategoryCreationsAnimations
@@ -123,7 +124,8 @@ Hair,Hair,Studio.Toolbox.General.CategoryCreationsHair
 Hair,Hair,Studio.Toolbox.General.CategoryCreationsNeckAccessory
 Neck Accessories,Neck Accessories,Studio.Toolbox.General.PremiumBenefits
 Add Premium benefits,Add Premium benefits,Studio.Toolbox.AssetConfigUpload.IDCopied
-ID Copied!,ID Copied!,Studio.Toolbox.General.CategoryCreationsShoulderAccessory
+ID Copied!,ID Copied!,Studio.Toolbox.AssetConfigSharing.PrivateInformation
+Grant permissions to specific Universes through Asset Configuration on the web.,Grant permissions to specific Universes through Asset Configuration on the web.,Studio.Toolbox.General.CategoryCreationsShoulderAccessory
 Shoulder Accessories,Shoulder Accessories,Studio.Toolbox.General.CategoryCreationsFrontAccessory
 Front Accessories,Front Accessories,Studio.Toolbox.General.CategoryCreationsBackAccessory
 Back Accessories,Back Accessories,Studio.Toolbox.General.CategoryCreationsTShirtAccessory
@@ -180,8 +182,7 @@ Offsale,Studio.Toolbox.General.StatusUnknown,Unknown
 Unknown,Studio.Toolbox.General.AssetTypeModel,Model
 Model,Studio.Toolbox.General.AssetTypeDecal,Decal
 Decal,Studio.Toolbox.ThumbnailStatus.Pending,Pending
-Pending,Studio.Toolbox.AssetConfigSharing.PublicConfirmationMessage,"Once shared with anyone on Roblox, you cannot set it back to private."
-"Once shared with anyone on Roblox, you cannot set it back to private.",Studio.Toolbox.General.AssetTypeShortsAccessory,Shorts Accessory
+Pending,Studio.Toolbox.General.AssetTypeShortsAccessory,Shorts Accessory
 Shorts Accessory,Studio.Toolbox.General.AssetTypeMesh,Mesh
 Mesh,Studio.Toolbox.General.AssetTypeHat,Hat
 Hat,Studio.Toolbox.General.AssetTypeTeeShirt,T-Shirt
@@ -222,7 +223,8 @@ You earn: {earning},Studio.Toolbox.AssetConfigPreview.Process,Image will be revi
 Image will be reviewed by moderators before being made visible to other users,Studio.Toolbox.General.Sharing,Sharing
 Sharing,Studio.Toolbox.AssetConfigFooter.Override,Overwrite an existing asset...
 Overwrite an existing asset...,Studio.Toolbox.General.SideTabVersions,Versions
-Versions,Studio.Toolbox.General.SideTabGeneral,General
+Versions,Studio.Toolbox.HomeView.newest,Newest
+Newest,Studio.Toolbox.General.SideTabGeneral,General
 General,Studio.Toolbox.General.SideTabPermissions,Permissions
 Permissions,Studio.Toolbox.General.TermsOfUse,Terms of use
 Terms of use,Studio.Toolbox.General.PreviewAreaAssetID,Asset ID: {assetId}
@@ -240,10 +242,15 @@ Animation ID,Studio.Toolbox.AssetConfigCopy.Terms,"By switching on, you are gran
 Preview,Studio.Toolbox.AssetConfigPreview.Change,Change
 Change,Studio.Toolbox.AssetConfigSharing.PublicDisabledInformation,Audio files cannot be made public at this time. Please check back at a later date.
 Audio files cannot be made public at this time. Please check back at a later date.,Studio.Toolbox.AssetConfigSharing.PublicInformation,I certify that I am the creator of this asset. I agree that the asset may be shared and used by others on Roblox. This cannot be undone.
-I certify that I am the creator of this asset. I agree that the asset may be shared and used by others on Roblox. This cannot be undone.,Studio.Toolbox.AssetConfigSharing.AnyoneOnRoblox,Anyone on Roblox
+I certify that I am the creator of this asset. I agree that the asset may be shared and used by others on Roblox. This cannot be undone.,Studio.Toolbox.AssetConfigSharing.AllExperiences,All experiences
+All experiences,Studio.Toolbox.AssetConfigSharing.AnyoneOnRoblox,Anyone on Roblox
 Anyone on Roblox,Studio.Toolbox.AssetConfigSharing.CheckStatus,Check Status
-Check Status,Studio.Toolbox.AssetConfigSharing.PublicConfirmationTitle,Are you sure?
-Are you sure?,Studio.Toolbox.General.CategoryVideos,Videos
+Check Status,Studio.Toolbox.AssetConfigSharing.ExperiencesWithAccess,Experiences with access
+Experiences with access,Studio.Toolbox.AssetConfigSharing.PublicConfirmationTitle,Are you sure?
+Are you sure?,Studio.Toolbox.AssetConfigSharing.PublicConfirmationMessage,"Once shared with Anyone on Roblox, you cannot set it back to private."
+"Once shared with Anyone on Roblox, you cannot set it back to private.",Studio.Toolbox.AssetConfigSharing.PublicConfirmationHeading,You have allowed this asset to be shared with Anyone on Roblox
+You have allowed this asset to be shared with Anyone on Roblox,Studio.Toolbox.AssetConfigSharing.SpecificExperiences,Specific experiences
+Specific experiences,Studio.Toolbox.General.CategoryVideos,Videos
 Videos,Studio.Toolbox.AssetConfigSharing.VerificationNotice,"To make audio assets public, you must first verify your identity. Use the Refresh button to update your Verification status."
 "To make audio assets public, you must first verify your identity. Use the Refresh button to update your Verification status.",Studio.Toolbox.AssetConfigSharing.VerificationAction,ID Verify your account
 ID Verify your account,Studio.Toolbox.AssetConfigVersions.Current,Current published version
@@ -307,7 +314,9 @@ Filter ID,Studio.Toolbox.General.NoPluginsFound.TextLine2,"For more plugins, try
 Invalid Animation ID,Studio.Toolbox.AssetPreview.PluginNotice,This plugin was created by a third party. Roblox does not guarantee its safety or quality.
 This plugin was created by a third party. Roblox does not guarantee its safety or quality.,Studio.Toolbox.ScriptWarning.InstructionText,Please review the scripts to prevent unwanted changes to your experience.
 Please review the scripts to prevent unwanted changes to your experience.,Studio.Toolbox.HomeView.SeeAll,See All
-See All,Studio.Toolbox.GrantAssetPermission.Failure,Failed to grant Universe permission to use asset {assetId:int}
+See All,Studio.Toolbox.HomeView.TheEssentials,The Essentials
+The Essentials,Studio.Toolbox.HomeView.trending,Trending
+Trending,Studio.Toolbox.GrantAssetPermission.Failure,Failed to grant Universe permission to use asset {assetId:int}
 Failed to grant Universe permission to use asset {assetId:int},Studio.Toolbox.GrantAssetPermission.Information,Name: {assetName}
 ID: {assetId:int},Type: {assetType},Name: {assetName}
 ID: {assetId:int},Type: {assetType},Studio.Toolbox.GrantAssetPermission.GrantButton

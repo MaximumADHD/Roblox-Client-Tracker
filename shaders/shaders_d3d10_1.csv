@@ -43,6 +43,7 @@ CloudsReprojectFilterFS,Fragment
 CloudsSunCoverFS,Fragment
 CloudsUpsampleNoHistoryFS,Fragment
 CloudsVS,Vertex
+CloudsWideSunCoverFS,Fragment
 CloudsWind2dFS,Fragment
 CloudsWindFS,Fragment
 CopyGuiVS,Vertex
@@ -371,6 +372,8 @@ GrassHQFSShadowedFSM,Fragment
 GrassHQFSShadowedFSMAo,Fragment
 GrassHQVS,Vertex
 GrassHQVSDepth,Vertex
+GrassHQVSPreciseShadowedFSM,Vertex
+GrassHQVSPreciseWindShadowedFSM,Vertex
 GrassHQVSShadowed,Vertex
 GrassHQVSShadowedFSM,Vertex
 GrassHQVSWind,Vertex
@@ -379,6 +382,7 @@ GrassHQVSWindShadowed,Vertex
 GrassHQVSWindShadowedFSM,Vertex
 GrassVS,Vertex
 GrassVSDepth,Vertex
+GrassVSPrecise,Vertex
 GridFS_Level0,Fragment
 GridFS_Level8,Fragment
 GridFS_Level24,Fragment

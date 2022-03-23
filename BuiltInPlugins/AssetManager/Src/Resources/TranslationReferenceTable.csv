@@ -48,7 +48,7 @@ Studio.AssetManager.Folders.MODELS,Models,Models,Modelos, ,モデル,모델,Mode
 Studio.AssetManager.ContextMenu.RemoveFromGame,Remove From Game,Remove From Game,Eliminar del juego,Retirer du jeu,ゲームから削除,게임에서 제거,Remover do jogo,从游戏中移除,从游戏中移除,從遊戲中移除
 Studio.AssetManager.Folders.AUDIO,Audio,Audio,Audio,Audio,オーディオ,오디오,Áudio,音频,音频,音訊
 Studio.AssetManager.ContextMenu.PackageDetails,Package Details,Package Details,Detalles del paquete,Détails du package,パッケージの詳細,패키지 세부 정보,Detalhes do pacote,包详情,包详情,套件詳細資料
-Studio.AssetManager.ContextMenu.RefreshScript,Refresh Script,Refresh Script,Actualizar script,Rafraîchir script,スクリプトをリフレッシュ,스크립트 새로고침,Atualizar script,刷新脚本,刷新脚本,重新整理指令碼
+Studio.AssetManager.ContextMenu.RefreshScript,Refresh Script,Refresh Script,Actualizar script,Rafraîchir script,スクリプトをリフレッシュ,스크립트 새로 고침,Atualizar script,刷新脚本,刷新脚本,重新整理指令碼
 Studio.AssetManager.ContextMenu.AddAudio,Add Audio,Add Audio,Añadir audio,Ajouter audio,オーディオを追加,오디오 추가,Adicionar áudio,添加音频,添加音频,新增音訊
 Studio.AssetManager.AssetGrid.LoadButton,Load All Pages,Load All Pages,Cargar todas las páginas,Charger toutes les pages,すべてのページを読み込む,모든 페이지 불러오기,Carregar todas as páginas,加载所有页面,加载所有页面,載入所有頁面
 Studio.AssetManager.ContextMenu.CopyMeshIdToClipboard,Copy Mesh ID to Clipboard,Copy Mesh ID to Clipboard,Copiar ID de la malla al portapapeles, ,メッシュIDをクリップボードにコピー,메시 ID를 클립보드로 복사,Copiar ID da malha para a área de transferência,将网格 ID 复制到剪贴板,将网格 ID 复制到剪贴板,將網格 ID 複製到剪貼簿

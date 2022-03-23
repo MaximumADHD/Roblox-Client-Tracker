@@ -4,7 +4,9 @@ Studio.AnimationClipEditor.ContextMenu.AddKeyframe, ,Add Keyframe
 Studio.AnimationClipEditor.ContextMenu.AddKeyframeHere, ,Add Keyframe Here
 Studio.AnimationClipEditor.ContextMenu.AddResetKeyframe, ,Add Reset Keyframe Here
 Studio.AnimationClipEditor.ContextMenu.ChangeDuration, ,Change Duration
-Studio.AnimationClipEditor.ContextMenu.ClearTangents, ,Clear Tangents
+Studio.AnimationClipEditor.ContextMenu.ClearBothTangents, ,Use Auto-Tangent
+Studio.AnimationClipEditor.ContextMenu.ClearTangent, ,Use Auto-Tangent
+Studio.AnimationClipEditor.ContextMenu.ClearTangents, ,Use Auto-Tangent
 Studio.AnimationClipEditor.ContextMenu.ClearTrack, ,Clear Track
 Studio.AnimationClipEditor.ContextMenu.CopyEvents, ,Copy Selected
 Studio.AnimationClipEditor.ContextMenu.CopySelected, ,Copy Selected
@@ -30,6 +32,13 @@ Studio.AnimationClipEditor.ContextMenu.SelectAll, ,Select All
 Studio.AnimationClipEditor.ContextMenu.ToggleBoneVis, ,Toggle Microbone Visibility
 Studio.AnimationClipEditor.ContextMenu.TogglePlay, ,Toggle Play
 Studio.AnimationClipEditor.ContextMenu.Undo, ,Undo
+Studio.AnimationClipEditor.ContextMenu.ZeroBothTangents, ,Set Both Tangents To Zero
+Studio.AnimationClipEditor.ContextMenu.ZeroTangent, ,Set Tangent To Zero
+Studio.AnimationClipEditor.Curves.InterpolationMode, ,Interpolation Mode: {interpolationMode}
+Studio.AnimationClipEditor.Curves.LeftTangentAuto, ,Left tangent: Auto
+Studio.AnimationClipEditor.Curves.LeftTangentValuePerSecond, ,Left tangent: {value}/s
+Studio.AnimationClipEditor.Curves.RightTangentAuto, ,Right tangent: Auto
+Studio.AnimationClipEditor.Curves.RightTangentValuePerSecond, ,Right tangent: {value}/s
 Studio.AnimationClipEditor.Dialog.AnimationName, ,Animation Name
 Studio.AnimationClipEditor.Dialog.Cancel, ,Cancel
 Studio.AnimationClipEditor.Dialog.ChangeAll, ,Change All
