@@ -1,13 +1,12 @@
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
-local TextChatService = game:GetService("TextChatService")
 
 local ExperienceChat = script:FindFirstAncestor("ExperienceChat")
 local Packages = ExperienceChat.Parent
 local Promise = require(Packages.Promise)
 
 local ChatTopBarButtonActivated = require(ExperienceChat.ChatVisibility.Actions.ChatTopBarButtonActivated)
-local TargetChannelDisplayNameChanged = require(ExperienceChat.ChatInput.Actions.TargetChannelDisplayNameChanged)
+local TargetTextChannelChanged = require(ExperienceChat.ChatInput.Actions.TargetTextChannelChanged)
 local TextChatServiceChatWindowPropertyChanged = require(
 	ExperienceChat.ChatVisibility.Actions.TextChatServiceChatWindowPropertyChanged
 )
@@ -22,31 +21,20 @@ return function(dispatch)
 			dispatch(TextChatServiceChatWindowPropertyChanged)
 		end,
 
-		-- * @TODO remove SendChatMessage action and related elements when bridge to SendAsync is done
-		onSendChat = function(message, targetChannelDisplayName)
-			-- generate messageId
-			local channel
+		onSendChat = function(message, targetTextChannel)
 			local messageId = tostring(Players.LocalPlayer.UserId) .. "-" .. HttpService:GenerateGUID(false)
 
-			if targetChannelDisplayName == "[Team]" then
-				local team = Players.LocalPlayer.Team
-				if team then
-					local channelName = "RBXTeam" .. tostring(team.TeamColor.Name)
-					channel = TextChatService:FindFirstChild(channelName, true)
-				end
-			else
-				channel = TextChatService:FindFirstChild("RBXGeneral", true)
-			end
-
-			if channel then
+			if targetTextChannel then
 				Promise.try(function()
-					channel:SendAsync(message, messageId)
+					targetTextChannel:SendAsync(message, messageId)
 				end)
+			else
+				warn("TargetTextChannel was nil!")
 			end
 		end,
 
-		onTargetChannelChanged = function(newChannelName)
-			dispatch(TargetChannelDisplayNameChanged(newChannelName))
+		onTargetTextChannelChanged = function(newChannel)
+			dispatch(TargetTextChannelChanged(newChannel))
 		end,
 	}
 end

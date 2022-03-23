@@ -2,9 +2,12 @@ local Packages = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
+local Cryo = require(Packages.Cryo)
 local withStyle = require(Packages.UIBlox.Core.Style.withStyle)
 local Images = require(Packages.UIBlox.App.ImageSet.Images)
 local InputButton = require(Packages.UIBlox.Core.InputButton.InputButton)
+local RoactGamepad = require(Packages.RoactGamepad)
+local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 
 local RadioButton = Roact.PureComponent:extend("RadioButton")
 
@@ -16,6 +19,14 @@ local validateProps = t.strictInterface({
 	size = t.UDim2,
 	layoutOrder = t.optional(t.number),
 	id = t.number,
+
+	-- optional parameters for RoactGamepad
+	NextSelectionLeft = t.optional(t.table),
+	NextSelectionRight = t.optional(t.table),
+	NextSelectionUp = t.optional(t.table),
+	NextSelectionDown = t.optional(t.table),
+	SelectionImageObject = t.optional(t.table),
+	forwardRef = t.optional(t.table),
 })
 
 RadioButton.defaultProps = {
@@ -65,7 +76,12 @@ function RadioButton:render()
 			fillImageSize = UDim2.new(0, 0, 0, 0)
 		end
 
-		return Roact.createElement(InputButton, {
+		local buttonComponent = InputButton
+		if UIBloxConfig.enableRadioButtonGamepadSupport then
+			buttonComponent = RoactGamepad.Focusable[InputButton]
+		end
+
+		return Roact.createElement(buttonComponent, {
 			text = self.props.text,
 			onActivated = self.onSetValue,
 			size = self.props.size,
@@ -79,8 +95,24 @@ function RadioButton:render()
 			transparency = transparency,
 			layoutOrder = self.props.layoutOrder,
 			isDisabled = self.props.isDisabled,
+
+			[Roact.Ref] = UIBloxConfig.enableRadioButtonGamepadSupport and self.props.forwardRef or nil,
+			NextSelectionUp = UIBloxConfig.enableRadioButtonGamepadSupport and self.props.NextSelectionUp or nil,
+			NextSelectionDown = UIBloxConfig.enableRadioButtonGamepadSupport and self.props.NextSelectionDown or nil,
+			NextSelectionLeft = UIBloxConfig.enableRadioButtonGamepadSupport and self.props.NextSelectionLeft or nil,
+			NextSelectionRight = UIBloxConfig.enableRadioButtonGamepadSupport and self.props.NextSelectionRight or nil,
+			SelectionImageObject = UIBloxConfig.enableRadioButtonGamepadSupport and self.props.SelectionImageObject or nil,
 		})
 	end)
 end
 
-return RadioButton
+if UIBloxConfig.enableRadioButtonGamepadSupport then
+	return Roact.forwardRef(function (props, ref)
+		return Roact.createElement(RadioButton, Cryo.Dictionary.join(
+			props,
+			{forwardRef = ref}
+		))
+	end)
+else
+	return RadioButton
+end

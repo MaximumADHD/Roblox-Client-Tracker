@@ -24,7 +24,6 @@ return function()
 					onSendChat = callback,
 					disabledChatPlaceholderText = c.disabledChatPlaceholderText,
 					controls = {
-						targetChannelDisplayName = c.targetChannelDisplayName,
 						canLocalUserChat = c.canLocalUserChat,
 					},
 				}),
@@ -82,9 +81,11 @@ return function()
 
 				local textBoxInstance = c.findFirstInstance(c.mountResult.instance, { ClassName = "TextBox" })
 				c.textBox = c.Rhodium.Element.new(textBoxInstance)
-				c.textBox:click()
 
-				textBoxInstance.Text = message
+				c.Roact.act(function()
+					c.textBox:click()
+					textBoxInstance.Text = message
+				end)
 
 				local sendButtonInstance = c.findFirstInstance(c.mountResult.instance, { ClassName = "TextButton" })
 				c.sendButton = c.Rhodium.Element.new(sendButtonInstance)
@@ -94,8 +95,10 @@ return function()
 		describe("WHEN sending message", function()
 			beforeAll(function(c)
 				c:sendMessage("blah blah blah")
-				c.textBox:sendKey(Enum.KeyCode.Return)
-				wait()
+				c.Roact.act(function()
+					c.textBox:sendKey(Enum.KeyCode.Return)
+					wait()
+				end)
 			end)
 
 			afterAll(function(c)
@@ -121,22 +124,28 @@ return function()
 			end)
 
 			it("SHOULD send the chat message when enter key is pressed", function(c)
-				c.textBox:sendKey(Enum.KeyCode.KeypadEnter)
-				wait()
+				c.Roact.act(function()
+					c.textBox:sendKey(Enum.KeyCode.KeypadEnter)
+					wait()
+				end)
 
 				expect(c.mountResult.callback).toHaveReturnedWith("some message")
 			end)
 
 			it("SHOULD send the chat message when return key is pressed", function(c)
-				c.textBox:sendKey(Enum.KeyCode.Return)
-				wait()
+				c.Roact.act(function()
+					c.textBox:sendKey(Enum.KeyCode.Return)
+					wait()
+				end)
 
 				expect(c.mountResult.callback).toHaveReturnedWith("some message")
 			end)
 
 			it("SHOULD send the chat message when send button is pressed", function(c)
-				c.sendButton:click()
-				wait()
+				c.Roact.act(function()
+					c.sendButton:click()
+					wait()
+				end)
 
 				expect(c.mountResult.callback).toHaveReturnedWith("some message")
 			end)
@@ -152,8 +161,10 @@ return function()
 			end)
 
 			it("SHOULD escape chat message when enter key is pressed", function(c)
-				c.textBox:sendKey(Enum.KeyCode.KeypadEnter)
-				wait()
+				c.Roact.act(function()
+					c.textBox:sendKey(Enum.KeyCode.KeypadEnter)
+					wait()
+				end)
 
 				expect(c.mountResult.callback).toHaveReturnedWith("&lt;b&gt;hello world&lt;/b&gt;")
 			end)
@@ -186,15 +197,18 @@ return function()
 			end)
 
 			it("SHOULD escape chat message when enter key is pressed", function(c)
-				c.textBox:sendKey(Enum.KeyCode.KeypadEnter)
-				wait()
+				c.Roact.act(function()
+					c.textBox:sendKey(Enum.KeyCode.KeypadEnter)
+					wait()
+				end)
 
 				expect(c.mountResult.callback).toHaveReturnedWith("&lt;3")
 			end)
 		end)
 	end)
 
-	describe("GIVEN targetChannelDisplayName", function()
+	-- @TODO EXPCHAT-67 this test case should be added back when team channels can be created in
+	--[[ 	describe("GIVEN targetChannelDisplayName", function()
 		beforeAll(function(c)
 			-- canLocalUserChat must be true because there can be no channel name if canLocalUserChat is false.
 			c.canLocalUserChat = true
@@ -217,7 +231,7 @@ return function()
 		it("SHOULD wrap the chat input bar to fit the entire placeholder text", function(c)
 			expect(c.textBoxInstance).toHaveProperty("TextFits", true)
 		end)
-	end)
+	end) ]]
 
 	describe("GIVEN user set ChatPrivacy settings to No One", function()
 		it("SHOULD show the appropriate placeholder text", function(c)

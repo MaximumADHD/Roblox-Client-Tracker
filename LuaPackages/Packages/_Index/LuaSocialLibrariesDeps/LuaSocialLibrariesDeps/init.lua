@@ -13,7 +13,7 @@ return {
 	RoduxFriends_v220 = require(LuaSocialLibrariesDeps.RoduxFriends_v220),
 	RoduxFriends_v3 = require(LuaSocialLibrariesDeps.RoduxFriends_v3),
 	RoduxPresence = require(LuaSocialLibrariesDeps.RoduxPresence),
-	RoduxPresence_101 = require(LuaSocialLibrariesDeps.RoduxPresence),
+	RoduxPresence_v2 = require(LuaSocialLibrariesDeps.RoduxPresence_v2),
 	RoduxGames = require(LuaSocialLibrariesDeps.RoduxGames),
 	httpRequest = require(LuaSocialLibrariesDeps.httpRequest),
 	NetworkingPresence = require(LuaSocialLibrariesDeps.NetworkingPresence),

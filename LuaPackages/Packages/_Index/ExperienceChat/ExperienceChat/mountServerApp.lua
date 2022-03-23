@@ -2,6 +2,12 @@ local Players = game:GetService("Players")
 local Teams = game:GetService("Teams")
 local TextChatService = game:GetService("TextChatService")
 
+local ExperienceChat = script:FindFirstAncestor("ExperienceChat")
+
+local CommandTypes = require(ExperienceChat.Commands.types)
+type Command = CommandTypes.Command
+local Commands = require(ExperienceChat.Commands)
+
 return function()
 	if TextChatService.CreateDefaultTextChannels then
 		local function findChannel(channelName)
@@ -101,23 +107,18 @@ return function()
 	end
 
 	if TextChatService.CreateDefaultTextChannels then
-		local defaultCommands = {
-			{ "RBXHelpCommand", "/help", "/?" },
-			{ "RBXMuteCommand", "/mute" },
-			{ "RBXUnmuteCommand", "/unmute" },
-		}
-
-		for _, commandData in ipairs(defaultCommands) do
-			local name = commandData[1]
-			local primaryAlias = commandData[2]
-			local secondaryAlias = commandData[3]
-
+		for _, command in ipairs(Commands) do
 			local textChatCommand = Instance.new("TextChatCommand")
-			textChatCommand.Name = name
-			textChatCommand.PrimaryAlias = primaryAlias
-			if secondaryAlias then
-				textChatCommand.SecondaryAlias = secondaryAlias
+			textChatCommand.Name = command.name
+			textChatCommand.PrimaryAlias = command.alias[1]
+			textChatCommand.SecondaryAlias = command.alias[2] or ""
+
+			if command.serverRun then
+				textChatCommand.Triggered:Connect(function(...)
+					command.serverRun(nil, ...)
+				end)
 			end
+
 			textChatCommand.Parent = TextChatService
 		end
 	end

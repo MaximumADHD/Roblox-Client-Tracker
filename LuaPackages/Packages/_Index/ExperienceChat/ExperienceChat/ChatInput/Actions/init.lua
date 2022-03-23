@@ -1,3 +1,3 @@
 return {
-	TargetChannelDisplayNameChanged = require(script.TargetChannelDisplayNameChanged),
+	TargetTextChannelChanged = require(script.TargetTextChannelChanged),
 }

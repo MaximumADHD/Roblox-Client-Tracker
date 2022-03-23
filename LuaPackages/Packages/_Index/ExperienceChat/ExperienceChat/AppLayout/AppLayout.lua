@@ -1,8 +1,6 @@
 local ExperienceChat = script:FindFirstAncestor("ExperienceChat")
 local ProjectRoot = ExperienceChat.Parent
 
-local llama = require(ProjectRoot.llama)
-local Dictionary = llama.Dictionary
 local Otter = require(ProjectRoot.Otter)
 local Roact = require(ProjectRoot.Roact)
 
@@ -18,13 +16,11 @@ AppLayout.defaultProps = {
 	isChatInputBarVisible = true,
 	isChatWindowVisible = true,
 	LayoutOrder = 1,
-	messages = nil,
-	messageHistory = nil,
 	mutedUserIds = nil,
 	onSendChat = nil,
-	onTargetChannelChanged = function() end,
+	onTargetTextChannelChanged = function() end,
 	textTimer = Timer.new(Config.ChatWindowTextFadeOutTime),
-	targetChannelDisplayName = nil,
+	targetTextChannel = nil,
 	timer = Timer.new(Config.ChatWindowBackgroundFadeOutTime),
 }
 
@@ -35,27 +31,27 @@ local SPRING_PARAMS = {
 
 function AppLayout:init()
 	self.state = {
-		targetChannelDisplayName = self.props.targetChannelDisplayName,
+		targetTextChannel = self.props.targetTextChannel,
 	}
 
-	self.onTargetChannelChanged = function(newChannelName)
-		self.props.onTargetChannelChanged(newChannelName)
+	self.onTargetTextChannelChanged = function(channel)
+		self.props.onTargetTextChannelChanged(channel)
 
 		self:setState({
-			targetChannelDisplayName = newChannelName or Roact.None,
+			targetTextChannel = channel or Roact.None,
 		})
 	end
 
 	self.isChatWindowHovered = false
 	self.isChatInputBarHoveredOrFocused = false
 
-	self.transparencyValue, self.updatebackgroundTransparency = Roact.createBinding(0)
+	self.transparencyValue, self.updateBackgroundTransparency = Roact.createBinding(0)
 	self.backgroundTransparencyMotor = Otter.createSingleMotor(0)
-	self.backgroundTransparencyMotor:onStep(self.updatebackgroundTransparency)
+	self.backgroundTransparencyMotor:onStep(self.updateBackgroundTransparency)
 
-	self.textTransparencyValue, self.updatextTransparencyValue = Roact.createBinding(0)
+	self.textTransparencyValue, self.updateTextTransparencyValue = Roact.createBinding(0)
 	self.textTransparencyMotor = Otter.createSingleMotor(0)
-	self.textTransparencyMotor:onStep(self.updatextTransparencyValue)
+	self.textTransparencyMotor:onStep(self.updateTextTransparencyValue)
 
 	self.fadeIn = function()
 		self.backgroundTransparencyMotor:setGoal(Otter.instant(0))
@@ -123,19 +119,10 @@ function AppLayout:didMount()
 	end)
 end
 
-function AppLayout:getDerivedStateFromProps(nextProps, _)
-	return {
-		targetChannelDisplayName = nextProps.targetChannelDisplayName,
-	}
-end
-
 function AppLayout:didUpdate(previousProps, _)
 	if
 		not (self.isChatWindowHovered or self.isChatInputBarHoveredOrFocused)
-		and previousProps.messageHistory.RBXAll
-		and self.props.messageHistory.RBXAll
-		and Dictionary.count(previousProps.messageHistory.RBXAll)
-			< Dictionary.count(self.props.messageHistory.RBXAll)
+		and previousProps.messages ~= self.props.messages
 	then
 		self.resetTextTransparency()
 	end
@@ -169,20 +156,19 @@ function AppLayout:render()
 		}),
 		chatWindow = self.props.isChatWindowVisible and Roact.createElement(ChatWindow, {
 			LayoutOrder = 2,
-			messageHistory = self.props.messageHistory,
-			messages = self.props.messages,
 			size = UDim2.fromScale(1, 1),
 			transparencyValue = self.transparencyValue,
 			textTransparency = self.textTransparencyValue,
 			onChatWindowHovered = self.onChatWindowHovered,
 			onChatWindowNotHovered = self.onChatWindowNotHovered,
 			mutedUserIds = self.props.mutedUserIds,
+			canLocalUserChat = self.props.canLocalUserChat,
 		}),
 		chatInputBar = self.props.isChatInputBarVisible and Roact.createElement(ChatInputBar, {
 			LayoutOrder = 3,
 			addTopPadding = self.props.isChatWindowVisible,
-			targetChannelDisplayName = self.state.targetChannelDisplayName,
-			onTargetChannelChanged = self.onTargetChannelChanged,
+			targetTextChannel = self.state.targetTextChannel,
+			onTargetTextChannelChanged = self.onTargetTextChannelChanged,
 			onSendChat = self.props.onSendChat,
 			transparencyValue = self.transparencyValue,
 			onChatInputBarHoveredOrFocused = self.onChatInputBarHoveredOrFocused,

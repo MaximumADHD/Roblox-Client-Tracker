@@ -26,4 +26,10 @@ return {
 
 	ChatWindowBackgroundFadeOutTime = 3.5,
 	ChatWindowTextFadeOutTime = 30,
+
+	TextChannelDisplayNames = {
+		["RBXGeneral"] = "",
+		["RBXSystem"] = "",
+		["RBXTeam"] = "{Team} ",
+	},
 }

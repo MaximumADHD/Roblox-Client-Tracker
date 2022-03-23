@@ -100,6 +100,29 @@ if THEME_REFACTOR then
 				TextColor = StyleKey.DialogMainButtonTextDisabled,
 			},
 		},
+
+		["&RoundActive"] = {
+			Font = Enum.Font.SourceSansBold,
+			Background = Decoration.RoundBox,
+			BackgroundStyle = Cryo.Dictionary.join(roundBox, {
+				BorderColor = StyleKey.DialogMainButton,
+				Color = StyleKey.Button,
+			}),
+			TextColor = StyleKey.DialogMainButtonText,
+			[StyleModifier.Hover] = {
+				BackgroundStyle = Cryo.Dictionary.join(roundBox, {
+					BorderColor = StyleKey.DialogMainButton,
+					Color = StyleKey.ButtonHover,
+				}),
+			},
+			[StyleModifier.Disabled] = {
+				BackgroundStyle = Cryo.Dictionary.join(roundBox, {
+					BorderColor = StyleKey.DialogMainButton,
+					Color = StyleKey.ButtonDisabled,
+				}),
+				TextColor = StyleKey.DialogMainButtonTextDisabled,
+			},
+		}
 	}
 else
 	return function(theme, getColor)

@@ -1,11 +1,8 @@
-local Chat = game:GetService("Chat")
-local GuiService = game:GetService("GuiService")
-local VRService = game:GetService("VRService")
-
 local ProjectRoot = script:FindFirstAncestor("ExperienceChat").Parent
 local Roact = require(ProjectRoot.Roact)
 local RoactRodux = require(ProjectRoot.RoactRodux)
 
+local Localization = require(script.Parent.Localization)
 local AppContainer = require(script.Parent.AppContainer)
 local createStore = require(script.Parent.createStore)
 
@@ -14,21 +11,18 @@ local App = Roact.Component:extend("App")
 local store = createStore()
 
 App.defaultProps = {
-	messages = {},
-	messageHistory = {},
-	targetChannelDisplayName = nil,
+	defaultTargetTextChannel = nil,
 	store = store,
+	translator = {
+		FormatByKey = function(_, key)
+			return tostring(key)
+		end,
+	},
 }
-
-App.DispatchBindableEvent = require(script.Parent.createDispatchBindableEvent)(App.defaultProps.store)
 
 function App:isChatEnabled()
 	if self.props.isDefaultChatEnabled ~= nil then
 		return self.props.isDefaultChatEnabled
-	end
-
-	if Chat.LoadDefaultChat and not GuiService.IsTenFootInterface and not VRService.Enabled then
-		return true
 	end
 
 	return false
@@ -73,12 +67,14 @@ function App:render()
 		and Roact.createElement(RoactRodux.StoreProvider, {
 			store = self.props.store,
 		}, {
-			container = Roact.createElement(AppContainer, {
-				messages = self.props.messages,
-				messageHistory = self.props.messageHistory,
-				isChatInputBarVisible = self:isChatInputBarVisible(),
-				isChatWindowVisible = self:isChatWindowVisible(),
-				targetChannelDisplayName = self.props.targetChannelDisplayName,
+			localization = Roact.createElement(Localization.Provider, {
+				value = self.props.translator,
+			}, {
+				container = Roact.createElement(AppContainer, {
+					isChatInputBarVisible = self:isChatInputBarVisible(),
+					isChatWindowVisible = self:isChatWindowVisible(),
+					defaultTargetTextChannel = self.props.defaultTargetTextChannel,
+				}),
 			}),
 		})
 end

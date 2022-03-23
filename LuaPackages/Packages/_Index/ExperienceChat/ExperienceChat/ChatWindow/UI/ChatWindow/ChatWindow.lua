@@ -18,18 +18,20 @@ ChatWindow.defaultProps = {
 	LayoutOrder = 1,
 	size = UDim2.fromScale(1, 1),
 	messages = {},
-	messageHistory = {
-		RBXAll = {},
-	},
 	transparencyValue = Config.ChatWindowBackgroundTransparency,
 	textTransparency = 0,
 	onChatWindowHovered = function() end,
 	onChatWindowNotHovered = function() end,
 	messageLimit = Config.ChatWindowMessageLimit,
-	mutedUserIds = nil,
+	mutedUserIds = {},
+	canLocalUserChat = false,
 }
 
 function ChatWindow:init()
+	self:setState({
+		messages = {},
+	})
+
 	self.getTransparencyOrBindingValue = function(initialTransparency, bindingOrValue)
 		if type(bindingOrValue) == "number" then
 			return self.props.transparencyValue
@@ -40,64 +42,57 @@ function ChatWindow:init()
 		end)
 	end
 
-	self.createChildren = function(history, msgs)
-		-- Filter msgs by the mutedUserIds
-		local filteredMsgs = Dictionary.filter(msgs, function(message)
-			-- If mutedUserIds is nil then the user has not muted anyone.
-			if not self.props.mutedUserIds then
-				return true
-			end
-			return message.UserId and message.Visible
-		end)
-
-		local result = {}
-		if history and history.RBXAll then
-			local messageCount = Dictionary.count(history.RBXAll)
-			result = Dictionary.join(
-				{
-					layout = Roact.createElement("UIListLayout", {
-						Padding = UDim.new(0, 4),
-						SortOrder = Enum.SortOrder.LayoutOrder,
-					}),
-				},
-				Dictionary.map(history.RBXAll, function(messageId, index)
-					if messageCount > self.props.messageLimit and index <= (messageCount - self.props.messageLimit) then
-						return
-					end
-
-					if
-						not filteredMsgs[messageId]
-						or (
-							filteredMsgs[messageId].Status
-							and filteredMsgs[messageId].Status ~= Enum.TextChatMessageStatus.Success
-						)
-					then
-						return
-					end
-
-					local child = Roact.createElement(TextMessageLabel, {
-						textChatMessage = filteredMsgs[messageId],
-						LayoutOrder = filteredMsgs[messageId].Timestamp or index,
-						textTransparency = self.getTransparencyOrBindingValue(0, self.props.textTransparency),
-						textStrokeTransparency = self.getTransparencyOrBindingValue(0.5, self.props.textTransparency),
-					})
-					return child, "message" .. index
-				end)
-			)
+	local function isSystemMessage(message): boolean
+		return message.userId == nil
+	end
+	local function shouldShowMessage(message, index)
+		if index > self.props.messageLimit then
+			return false
 		end
 
-		return result
+		if self.props.canLocalUserChat then
+			if
+				message.status == Enum.TextChatMessageStatus.Success
+				or message.status == Enum.TextChatMessageStatus.Sending
+			then
+				return message.visible
+			end
+		else
+			return isSystemMessage(message)
+		end
+	end
+
+	self.createChildren = function(messages)
+		local children = Dictionary.map(messages, function(message, index)
+			if shouldShowMessage(message, index) then
+				return Roact.createElement(TextMessageLabel, {
+					message = message,
+					LayoutOrder = index,
+					textTransparency = self.getTransparencyOrBindingValue(0, self.props.textTransparency),
+					textStrokeTransparency = self.getTransparencyOrBindingValue(0.5, self.props.textTransparency),
+				}),
+					message.messageId
+			else
+				return nil
+			end
+		end)
+
+		children["$layout"] = Roact.createElement("UIListLayout", {
+			Padding = UDim.new(0, 4),
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		})
+
+		return children
 	end
 end
 
 function ChatWindow.getDerivedStateFromProps(nextProps, lastState)
-	local newMessages = {}
-	for id, message in pairs(nextProps.messages) do
+	local newMessages = Dictionary.map(nextProps.messages, function(message, id)
 		if lastState.messages == nil or lastState.messages[id] == nil then
-			local isMuted = (nextProps.mutedUserIds and Set.has(nextProps.mutedUserIds, message.UserId)) or false
-			newMessages[id] = Dictionary.join(message, { Visible = not isMuted })
+			local isMuted = if message.userId then Set.has(nextProps.mutedUserIds, message.userId) else false
+			return Dictionary.join(message, { visible = not isMuted })
 		end
-	end
+	end)
 
 	if Dictionary.count(newMessages) > 0 then
 		return {
@@ -123,10 +118,7 @@ function ChatWindow:render()
 	}, {
 		scrollingView = Roact.createElement(ScrollingView, {
 			size = self.props.size,
-		}, self.createChildren(
-			self.props.messageHistory,
-			self.state.messages or {}
-		)),
+		}, self.createChildren(self.state.messages)),
 	})
 end
 

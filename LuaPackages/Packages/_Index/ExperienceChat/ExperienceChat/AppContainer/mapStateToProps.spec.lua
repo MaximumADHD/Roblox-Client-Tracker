@@ -19,8 +19,9 @@ return function()
 					isChatInputBarVisible = true,
 					isChatWindowVisible = true,
 				},
-				ChatMessages = {
+				Messages = {
 					byMessageId = {},
+					inOrder = {},
 				},
 			}
 			local returnVal = c.mapStateToProps(mockState, nil)
@@ -34,8 +35,9 @@ return function()
 					isChatInputBarVisible = false,
 					isChatWindowVisible = false,
 				},
-				ChatMessages = {
+				Messages = {
 					byMessageId = {},
+					inOrder = {},
 				},
 			}
 			local returnVal = c.mapStateToProps(mockState, nil)

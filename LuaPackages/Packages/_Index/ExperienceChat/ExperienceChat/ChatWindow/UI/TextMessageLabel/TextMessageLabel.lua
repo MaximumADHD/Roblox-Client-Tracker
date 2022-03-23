@@ -9,8 +9,8 @@ local TextMessageLabel = Roact.Component:extend("TextMessageLabel")
 TextMessageLabel.defaultProps = {}
 
 function TextMessageLabel:render()
-	local text = self.props.textChatMessage.Text or ""
-	local prefixText = self.props.textChatMessage.PrefixText or ""
+	local text = self.props.message.text or ""
+	local prefixText = self.props.message.prefixText or ""
 
 	return Roact.createElement("TextLabel", {
 		AutomaticSize = Enum.AutomaticSize.XY,

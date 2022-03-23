@@ -31,7 +31,7 @@ function BottomLockedScrollView:render()
 		useAutomaticCanvasSize = true,
 		size = UDim2.fromScale(1, 1),
 		canvasSizeY = UDim.new(0, 0),
-		paddingHorizontal = 8,
+		paddingHorizontal = 12,
 		[Roact.Ref] = self.scrollViewRef,
 		[Roact.Change.CanvasPosition] = function()
 			self.currCanvasPositionY = self.scrollViewRef:getValue().CanvasPosition.Y

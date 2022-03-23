@@ -24,7 +24,7 @@ dependencies = [
     "RoduxNetworking RoduxNetworking 3.0.0 url+https://github.com/roblox/rodux-networking",
     "RoduxPresence roblox/rodux-presence d060d8dd git+https://github.com/roblox/rodux-presence#master",
     "RoduxProfile RoduxProfile 5977b047 git+https://github.com/roblox/lua-profile#v1.0.1",
-    "UIBlox UIBlox f6869bf1 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 2a902e37 git+https://github.com/roblox/uiblox#master",
     "UnitTestHelpers UnitTestHelpers 5977b047 git+https://github.com/roblox/lua-profile#v1.0.1",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]

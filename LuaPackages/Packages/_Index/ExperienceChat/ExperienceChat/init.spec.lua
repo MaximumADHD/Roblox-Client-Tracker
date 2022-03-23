@@ -1,20 +1,18 @@
-local ProjectRoot = script:FindFirstAncestor("ExperienceChat").Parent
-
-local CoreGui = game:GetService("CoreGui")
-local ExperienceChat = CoreGui:FindFirstChild("ExperienceChat", true)
-local globals = require(ExperienceChat.Dev.Jest).Globals
+local ExperienceChat = script:FindFirstAncestor("ExperienceChat")
+local Packages = ExperienceChat.Parent
+local globals = require(Packages.Dev.Jest).Globals
 local expect = globals.expect
 
 return function()
 	beforeAll(function(c)
-		expect.extend(require(ProjectRoot.Dev.CollisionMatchers).Jest)
+		expect.extend(require(Packages.Dev.CollisionMatchers).Jest)
 
-		c.Roact = require(ProjectRoot.Roact)
-		c.Rodux = require(ProjectRoot.Rodux)
-		c.RoactRodux = require(ProjectRoot.RoactRodux)
-		c.Rhodium = require(ProjectRoot.Dev.Rhodium)
+		c.Roact = require(Packages.Roact)
+		c.Rodux = require(Packages.Rodux)
+		c.RoactRodux = require(Packages.RoactRodux)
+		c.Rhodium = require(Packages.Dev.Rhodium)
 		c.storyMiddleware = require(
-			ProjectRoot:FindFirstChild("ExperienceChat.storybook"):FindFirstChild("storyMiddleware")
+			Packages:FindFirstChild("ExperienceChat.storybook"):FindFirstChild("storyMiddleware")
 		)
 		c.findFirstInstance = require(script.Parent.TestUtilities.findFirstInstance)
 		c.makeTree = function(context, story, createProps)
@@ -43,7 +41,7 @@ return function()
 	end)
 
 	it("should require all ModuleScripts", function()
-		for _, child in ipairs(ProjectRoot:GetChildren()) do
+		for _, child in ipairs(Packages:GetChildren()) do
 			if child:IsA("ModuleScript") then
 				require(child)
 			end

@@ -8,9 +8,7 @@ return {
 	story = function(props)
 		return Roact.createElement(ScrollingView, {
 			size = props.size,
-		}, props.createChildren(
-			props.controls.numberOfChildren
-		))
+		}, props.createChildren(props.controls.numberOfChildren))
 	end,
 	controls = { numberOfChildren = 10 },
 	props = {

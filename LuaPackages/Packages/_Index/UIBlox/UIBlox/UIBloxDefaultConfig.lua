@@ -86,4 +86,7 @@ return {
 
 	-- Fix a slight inconsistentcy of the tile thumbnail background color.
 	fixTileThumbnailColorInconsistency = false,
+
+	-- Adds roact-gamepad navigation support to RadioButtonList and RadioButton.
+	enableRadioButtonGamepadSupport = false,
 }

@@ -1,26 +1,29 @@
-local ProjectRoot = script:FindFirstAncestor("ExperienceChat").Parent
+local ExperienceChat = script:FindFirstAncestor("ExperienceChat")
+local ProjectRoot = ExperienceChat.Parent
 local Roact = require(ProjectRoot.Roact)
+local RoactRodux = require(ProjectRoot.RoactRodux)
+
+local createStore = require(ExperienceChat.createStore)
+local store = createStore()
 
 local AppContainer = require(script.Parent)
 
 return {
 	story = function(props)
-		return Roact.createElement(AppContainer, {
-			messages = props.messages,
-			messageHistory = props.messageHistory,
-			isChatInputBarVisible = props.isChatInputBarVisible,
-			isChatWindowVisible = props.isChatWindowVisible,
-			targetChannelDisplayName = props.targetChannelDisplayName,
-			textTimer = props.textTimer,
+		return Roact.createElement(RoactRodux.StoreProvider, {
+			store = props.store or store,
+		}, {
+			container = Roact.createElement(AppContainer, {
+				isChatInputBarVisible = props.isChatInputBarVisible,
+				isChatWindowVisible = props.isChatWindowVisible,
+				textTimer = props.textTimer,
+			}),
 		})
 	end,
 	controls = {},
 	props = {
-		messages = {},
-		messageHistory = {},
 		isChatInputBarVisible = false,
 		isChatWindowVisible = false,
-		targetChannelDisplayName = "",
 		textTimer = nil,
 	},
 }

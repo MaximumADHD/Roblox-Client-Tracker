@@ -18,6 +18,10 @@ function MockPluginToolbar.new(plugin, id)
 	return self
 end
 
+function MockPluginToolbar:getButtons()
+	return self._buttons
+end
+
 function MockPluginToolbar:Destroy()
 	self._plugin = nil
 	for _, button in pairs(self._buttons) do

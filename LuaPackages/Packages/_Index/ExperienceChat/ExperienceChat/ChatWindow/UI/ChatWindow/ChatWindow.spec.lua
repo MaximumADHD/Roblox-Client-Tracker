@@ -5,7 +5,6 @@ local ProjectRoot = script:FindFirstAncestor("ExperienceChat").Parent
 local Roact = require(ProjectRoot.Roact)
 local llama = require(ProjectRoot.llama)
 local Set = llama.Set
-local Dictionary = llama.Dictionary
 local List = llama.List
 
 local globals = require(ExperienceChat.Dev.Jest).Globals
@@ -17,31 +16,136 @@ return function()
 		rootContext.mount = rootContext.createMount(rootContext.storyDefinition.story, function(c)
 			return {
 				messages = c.messages,
-				messageHistory = c.messageHistory,
 				messageLimit = c.messageLimit,
 				mutedUserIds = c.mutedUserIds,
+				canLocalUserChat = c.canLocalUserChat,
 			}
 		end)
 	end)
 
-	describe("GIVEN a short messageHistory", function()
+	describe("GIVEN canLocalUserChat", function()
 		beforeAll(function(c)
 			c.messages = {
-				id1 = { PrefixText = "First", Text = "First" },
-				id2 = { PrefixText = "Second", Text = "Second" },
-				id3 = { PrefixText = "Third", Text = "Third" },
+				{
+					userId = nil,
+					prefixText = "System",
+					text = "System message 1",
+					messageId = "id1",
+					status = Enum.TextChatMessageStatus.Success,
+				},
+				{
+					userId = nil,
+					prefixText = "System",
+					text = "System message 2",
+					messageId = "id2",
+					status = Enum.TextChatMessageStatus.Success,
+				},
+				{
+					userId = 1,
+					prefixText = "Player1",
+					text = "Player message 1",
+					messageId = "id3",
+					status = Enum.TextChatMessageStatus.Success,
+				},
 			}
-			c.messageHistory = {
-				RBXAll = { "id1", "id2", "id3" },
+		end)
+
+		it("SHOULD render all messages if canLocalUserChat is true", function(c)
+			c.canLocalUserChat = true
+
+			local instance = c:mount().instance
+			local firstMessage = c.findFirstInstance(instance, { text = "System: System message 1" })
+			local secondMessage = c.findFirstInstance(instance, { text = "System: System message 2" })
+			local thirdMessage = c.findFirstInstance(instance, { text = "Player1: Player message 1" })
+			expect(firstMessage).never.toBeNil()
+			expect(secondMessage).never.toBeNil()
+			expect(thirdMessage).never.toBeNil()
+		end)
+
+		it("SHOULD render only system messages if canLocalUserChat is false", function(c)
+			c.canLocalUserChat = false
+
+			local instance = c:mount().instance
+			local firstMessage = c.findFirstInstance(instance, { text = "System: System message 1" })
+			local secondMessage = c.findFirstInstance(instance, { text = "System: System message 2" })
+			local thirdMessage = c.findFirstInstance(instance, { text = "Player1: Player message 1" })
+			expect(firstMessage).never.toBeNil()
+			expect(secondMessage).never.toBeNil()
+			expect(thirdMessage).toBeNil()
+		end)
+	end)
+
+	describe("GIVEN a short message history where one message failed to send", function()
+		beforeAll(function(c)
+			c.messages = {
+				{
+					prefixText = "First",
+					text = "First",
+					messageId = "id1",
+					status = Enum.TextChatMessageStatus.Success,
+				},
+				{
+					prefixText = "Second",
+					text = "Second",
+					messageId = "id2",
+					status = Enum.TextChatMessageStatus.Success,
+				},
+				{
+					prefixText = "Third",
+					text = "Third",
+					messageId = "id3",
+					status = Enum.TextChatMessageStatus.InvalidPrivacySettings,
+				},
 			}
+			c.canLocalUserChat = true
+		end)
+
+		it("SHOULD only mount messages if TextChatMessage.Status is success", function(c)
+			local instance = c:mount().instance
+			local firstMessage = c.findFirstInstance(instance, { text = "First: First" })
+			local secondMessage = c.findFirstInstance(instance, { text = "Second: Second" })
+			local thirdMessage = c.findFirstInstance(instance, { text = "Third: Third" })
+
+			expect(firstMessage).never.toBeNil()
+			expect(secondMessage).never.toBeNil()
+			expect(thirdMessage).toBeNil()
+		end)
+	end)
+
+	describe("GIVEN a short message history of Successful messages", function()
+		beforeAll(function(c)
+			c.messages = {
+				{
+					prefixText = "First",
+					text = "First",
+					messageId = "id1",
+					status = Enum.TextChatMessageStatus.Success,
+					timeStamp = DateTime.fromUnixTimestamp(1),
+				},
+				{
+					prefixText = "Second",
+					text = "Second",
+					messageId = "id2",
+					status = Enum.TextChatMessageStatus.Success,
+					timeStamp = DateTime.fromUnixTimestamp(2),
+				},
+				{
+					prefixText = "Third",
+					text = "Third",
+					messageId = "id3",
+					status = Enum.TextChatMessageStatus.Success,
+					timeStamp = DateTime.fromUnixTimestamp(3),
+				},
+			}
+			c.canLocalUserChat = true
 		end)
 
 		it("SHOULD mount the messages in descending order", function(c)
 			local instance = c:mount().instance
 
-			local firstMessage = c.findFirstInstance(instance, { Text = "First: First" })
-			local secondMessage = c.findFirstInstance(instance, { Text = "Second: Second" })
-			local thirdMessage = c.findFirstInstance(instance, { Text = "Third: Third" })
+			local firstMessage = c.findFirstInstance(instance, { text = "First: First" })
+			local secondMessage = c.findFirstInstance(instance, { text = "Second: Second" })
+			local thirdMessage = c.findFirstInstance(instance, { text = "Third: Third" })
 			expect(firstMessage).never.toBeNil()
 			expect(secondMessage).never.toBeNil()
 			expect(thirdMessage).never.toBeNil()
@@ -49,50 +153,31 @@ return function()
 			expect(firstMessage).toBeAbove(secondMessage)
 			expect(secondMessage).toBeAbove(thirdMessage)
 		end)
-
-		it("SHOULD only mount messages if TextChatMessage.Status is success", function(c)
-			c.messages["id1"].Status = Enum.TextChatMessageStatus.Success
-			c.messages["id2"].Status = Enum.TextChatMessageStatus.Success
-			c.messages["id3"].Status = Enum.TextChatMessageStatus.InvalidPrivacySettings
-
-			local instance = c:mount().instance
-			local firstMessage = c.findFirstInstance(instance, { Text = "First: First" })
-			local secondMessage = c.findFirstInstance(instance, { Text = "Second: Second" })
-			local thirdMessage = c.findFirstInstance(instance, { Text = "Third: Third" })
-
-			expect(firstMessage).never.toBeNil()
-			expect(secondMessage).never.toBeNil()
-			expect(thirdMessage).toBeNil()
-		end)
-
-		it("SHOULD order messages by TextChatMessage.Timestamp property", function(c)
-			c.messages["id3"].Status = Enum.TextChatMessageStatus.Success
-			c.messages["id1"].Timestamp = 1637621912
-			c.messages["id2"].Timestamp = 1637621910
-			c.messages["id3"].Timestamp = 1637621913
-			-- Order of messages should be secondMessage, firstMessage, thirdMessage
-
-			local instance = c:mount().instance
-			local firstMessage = c.findFirstInstance(instance, { Text = "First: First" })
-			local secondMessage = c.findFirstInstance(instance, { Text = "Second: Second" })
-			local thirdMessage = c.findFirstInstance(instance, { Text = "Third: Third" })
-
-			expect(secondMessage).toBeAbove(firstMessage)
-			expect(firstMessage).toBeAbove(thirdMessage)
-		end)
 	end)
 
 	describe("GIVEN a messageLimit", function()
 		beforeAll(function(c)
 			c.messages = {
-				id1 = { PrefixText = "First", Text = "First" },
-				id2 = { PrefixText = "Second", Text = "Second" },
-				id3 = { PrefixText = "Third", Text = "Third" },
+				{
+					prefixText = "First",
+					text = "First",
+					messageId = "id1",
+					status = Enum.TextChatMessageStatus.Success,
+				},
+				{
+					prefixText = "Second",
+					text = "Second",
+					messageId = "id2",
+					status = Enum.TextChatMessageStatus.Success,
+				},
+				{
+					prefixText = "Third",
+					text = "Third",
+					messageId = "id3",
+					status = Enum.TextChatMessageStatus.Success,
+				},
 			}
-			c.messageHistory = {
-				RBXAll = { "id1", "id2", "id3" },
-			}
-
+			c.canLocalUserChat = true
 			c.getNumMessages = function(instance)
 				local scrollingFrame = c.findFirstInstance(instance, { ClassName = "ScrollingFrame" })
 				local scrollingFrameChildren = scrollingFrame:GetChildren()
@@ -115,7 +200,7 @@ return function()
 
 		it("SHOULD never mount more messages than messageLimit", function(c)
 			c.messageLimit = 1
-			-- 3 messages in messageHistory but only 1 should be shown in chat
+			-- 3 messages in message history but only 1 should be shown in chat
 			local mountResult = c:mount()
 			expect(c.getNumMessages(mountResult.instance)).toEqual(1)
 			mountResult.unmount()
@@ -136,15 +221,43 @@ return function()
 	describe("GIVEN a set of muted userIds", function()
 		beforeAll(function(c)
 			c.messages = {
-				id1 = { UserId = 1, PrefixText = "Player1", Text = "First" },
-				id2 = { UserId = 2, PrefixText = "Player2", Text = "Second" },
-				id3 = { UserId = 3, PrefixText = "Player3", Text = "Third" },
-				id4 = { UserId = 3, PrefixText = "Player3", Text = "Fourth" },
-				id5 = { UserId = 4, PrefixText = "Player4", Text = "Fifth" },
+				{
+					userId = 1,
+					prefixText = "Player1",
+					text = "First",
+					messageId = "id1",
+					status = Enum.TextChatMessageStatus.Success,
+				},
+				{
+					userId = 2,
+					prefixText = "Player2",
+					text = "Second",
+					messageId = "id2",
+					status = Enum.TextChatMessageStatus.Success,
+				},
+				{
+					userId = 3,
+					prefixText = "Player3",
+					text = "Third",
+					messageId = "id3",
+					status = Enum.TextChatMessageStatus.Success,
+				},
+				{
+					userId = 3,
+					prefixText = "Player3",
+					text = "Fourth",
+					messageId = "id4",
+					status = Enum.TextChatMessageStatus.Success,
+				},
+				{
+					userId = 4,
+					prefixText = "Player4",
+					text = "Fifth",
+					messageId = "id5",
+					status = Enum.TextChatMessageStatus.Success,
+				},
 			}
-			c.messageHistory = {
-				RBXAll = { "id1", "id2", "id3", "id4", "id5" },
-			}
+			c.canLocalUserChat = true
 		end)
 
 		it("SHOULD render all messages if mutedUserIds is nil or empty", function(c)
@@ -161,7 +274,7 @@ return function()
 			expect(numMessages).toEqual(5)
 		end)
 
-		it("SHOULD render all messages if all messages are from nonmuted users", function(c)
+		it("SHOULD render all messages if all messages are from non-muted users", function(c)
 			c.mutedUserIds = Set.add({}, 6)
 
 			local instance = c:mount().instance
@@ -220,13 +333,18 @@ return function()
 			local roactTree = mounted.roactInstance
 
 			local newTree = c:makeTree(c.storyDefinition.story, function()
-				c.messageHistory.RBXAll = List.append(c.messageHistory.RBXAll, "id6")
 				return {
-					messages = Dictionary.join(c.messages, {
-						id6 = { UserId = 1, PrefixText = "Player1", Text = "ShouldNotShow" },
+					messages = List.append(c.messages, {
+						{
+							userId = 1,
+							prefixText = "Player1",
+							text = "ShouldNotShow",
+							messageId = "id6",
+							status = Enum.TextChatMessageStatus.Success,
+						},
 					}),
-					messageHistory = c.messageHistory,
 					messageLimit = c.messageLimit,
+					canLocalUserChat = c.canLocalUserChat,
 					mutedUserIds = Set.add({}, 1),
 				}
 			end)
@@ -259,13 +377,16 @@ return function()
 			local roactTree = mounted.roactInstance
 
 			local newTree = c:makeTree(c.storyDefinition.story, function()
-				c.messageHistory.RBXAll = List.append(c.messageHistory.RBXAll, "id6")
 				return {
-					messages = Dictionary.join(c.messages, {
-						id6 = { UserId = 1, PrefixText = "Player1", Text = "ShouldShow" },
+					messages = List.append(c.messages, {
+						userId = 1,
+						prefixText = "Player1",
+						text = "ShouldShow",
+						messageId = "id6",
+						status = Enum.TextChatMessageStatus.Success,
 					}),
-					messageHistory = c.messageHistory,
 					messageLimit = c.messageLimit,
+					canLocalUserChat = c.canLocalUserChat,
 					mutedUserIds = {}, -- Mocking unmute by making mutedUserIds empty
 				}
 			end)

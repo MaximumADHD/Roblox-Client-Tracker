@@ -8,6 +8,8 @@
 	replacing incompatible files with stubs and rewriting method calls to plugin-security APIs
 	with suitable placeholder values.
 ]]
+local FFlagDeveloperStorybookMigrateToRoact17 = game:GetFastFlag("DeveloperStorybookMigrateToRoact17")
+
 local Framework = script.Parent.Parent
 local Packages = Framework.packages
 
@@ -44,21 +46,55 @@ function EmbedFramework.installPeerDependencies(root: Instance, pluginPackages: 
 	-- When we get support for peer dependencies in rotriever / packages
 	-- we should derive these automatically.
 	EmbedFramework.installPeerDependency(root, pluginPackages, "Cryo")
-	EmbedFramework.installPeerDependency(root, pluginPackages, "Roact")
+	if FFlagDeveloperStorybookMigrateToRoact17 then
+		local packages = getDeepFolder({"Packages"}, root)
+		local pluginIndex = pluginPackages:FindFirstChild("_Index")
+		local roactRedirect = Instance.new("ModuleScript")
+		roactRedirect.Name = "Roact"
+		roactRedirect.Source = [[local Packages = script:FindFirstAncestor("Packages")
+return require(Packages._Index["RoactCompat"]["RoactCompat"])]]
+		roactRedirect.Parent = packages
+		local roact17Redirect = Instance.new("ModuleScript")
+		roact17Redirect.Name = "Roact17"
+		roact17Redirect.Source = [[local Packages = script:FindFirstAncestor("Packages")
+return require(Packages._Index["RoactCompat"]["RoactCompat"])]]
+		roact17Redirect.Parent = packages
+		local index = getDeepFolder({"_Index"}, packages)
+		local react17Packages = {
+			"LuauPolyfill",
+			"InfiniteScroller",
+			"Promise",
+			"React",
+			"ReactReconciler",
+			"ReactRoblox",
+			"RoactCompat",
+			"Scheduler",
+			"Shared",
+		}
+		forEach(react17Packages, function(libraryName: string)
+			local library = pluginIndex:FindFirstChild(libraryName)
+			local embeddedLibrary = library:Clone()
+			embeddedLibrary.Parent = index
+		end)
+		EmbedFramework.installPeerDependency(root, pluginPackages, "ReactIs")
+	else
+		EmbedFramework.installPeerDependency(root, pluginPackages, "Roact")
+	end
 	EmbedFramework.installPeerDependency(root, pluginPackages, "RoactRodux")
 	EmbedFramework.installPeerDependency(root, pluginPackages, "Rodux")
 end
 
 function EmbedFramework.installPeerDependency(root: Instance, pluginPackages: Folder, packageName: string)
 	local packages = getDeepFolder({"Packages"}, root)
+	local pluginIndex = pluginPackages:FindFirstChild("_Index")
 	if packages:FindFirstChild(packageName) then
 		return
 	end
-	local index = getDeepFolder({"_Index"}, packages)
 	local redirect = pluginPackages:FindFirstChild(packageName):Clone()
 	redirect.Parent = packages
 	local libraryName = redirect.Source:match('PackageIndex%[%"([^"]+)%"%]')
-	local library = pluginPackages:FindFirstChild("_Index"):FindFirstChild(libraryName)
+	local library = pluginIndex:FindFirstChild(libraryName)
+	local index = getDeepFolder({"_Index"}, packages)
 	local embeddedLibrary = library:Clone()
 	embeddedLibrary.Parent = index
 end

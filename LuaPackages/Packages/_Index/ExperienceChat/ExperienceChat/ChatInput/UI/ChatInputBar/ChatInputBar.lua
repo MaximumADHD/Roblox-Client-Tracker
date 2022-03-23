@@ -1,3 +1,6 @@
+local Players = game:GetService("Players")
+local TextChatService = game:GetService("TextChatService")
+
 local ExperienceChat = script:FindFirstAncestor("ExperienceChat")
 local ProjectRoot = script:FindFirstAncestor("ExperienceChat").Parent
 
@@ -16,8 +19,8 @@ ChatInputBar.defaultProps = {
 	contextActionService = game:GetService("ContextActionService"),
 	LayoutOrder = 1,
 	sendButtonContainerWidth = 30,
-	targetChannelDisplayName = nil,
-	onTargetChannelChanged = function() end,
+	targetTextChannel = nil,
+	onTargetTextChannelChanged = function() end,
 	transparencyValue = Config.ChatWindowBackgroundTransparency,
 	onChatInputBarHoveredOrFocused = function() end,
 	onChatInputBarNotHoveredOrFocused = function() end,
@@ -68,16 +71,20 @@ function ChatInputBar:init()
 
 		self.emptyInputText = #newText == 0 and self.emptyInputText
 
-		-- if text is changed and it's a /t or /team we autocomplete targetchannel
 		if newText == "/t " or newText == "/team " or newText == "% " then
-			self.props.onTargetChannelChanged("[Team]")
+			local team = Players.LocalPlayer.Team
 
-			-- clear text
-			rbx.Text = ""
+			if team then
+				local channelName = "RBXTeam" .. tostring(team.TeamColor.Name)
+				local channel = TextChatService:FindFirstChild(channelName, true)
+				self.props.onTargetTextChannelChanged(channel)
 
-			self:setState({
-				inputText = "",
-			})
+				rbx.Text = ""
+
+				self:setState({
+					inputText = "",
+				})
+			end
 		end
 	end
 
@@ -92,9 +99,8 @@ function ChatInputBar:init()
 			["&"] = "&amp;",
 		})
 
-		-- * In the future, this is where we would call some bridge to SendAsync
 		if self.props.onSendChat and text ~= "" then
-			self.props.onSendChat(text, self.props.targetChannelDisplayName)
+			self.props.onSendChat(text, self.props.targetTextChannel)
 		end
 
 		self.textBoxRef:getValue().Text = ""
@@ -112,12 +118,12 @@ function ChatInputBar:init()
 			and inputObj.KeyCode == Enum.KeyCode.Backspace
 			and self.state.inputText == ""
 		then
-			if not self.emptyInputText then
-				self.emptyInputText = true
-			else
-				self.props.onTargetChannelChanged(Roact.None)
-				self.updateTargetChannelWidth(0)
-			end
+			self.emptyInputText = true
+			local channel = TextChatService:FindFirstChild("RBXGeneral", true)
+			self.props.onTargetTextChannelChanged(channel)
+			self.updateTargetChannelWidth(0)
+
+			self:setState({})
 		end
 	end)
 
@@ -135,6 +141,15 @@ end
 function ChatInputBar:render()
 	local hasEmptyInputText = self.state.inputText == ""
 	local showPlaceholderText = hasEmptyInputText and not self.state.isFocused
+
+	local targetTextChannelDisplayName = ""
+	if self.props.targetTextChannel then
+		for k, v in pairs(Config.TextChannelDisplayNames) do
+			if string.match(self.props.targetTextChannel.Name, k) then
+				targetTextChannelDisplayName = v
+			end
+		end
+	end
 
 	return Roact.createElement("Frame", {
 		AutomaticSize = Enum.AutomaticSize.Y,
@@ -187,21 +202,16 @@ function ChatInputBar:render()
 						AutomaticSize = Enum.AutomaticSize.XY,
 						BackgroundTransparency = 1,
 						Font = Config.ChatInputBarFont,
+						Text = targetTextChannelDisplayName,
 						TextSize = Config.ChatInputBarTextSize,
-						Text = self.props.targetChannelDisplayName or "",
 						TextWrapped = true,
 						TextTransparency = self.getTransparencyOrBindingValue(0),
 						TextColor3 = Config.ChatInputBarTextColor3,
 						Size = UDim2.fromScale(0, 1),
-						Visible = self.props.targetChannelDisplayName ~= nil,
 
 						[Roact.Change.AbsoluteSize] = function(rbx)
 							self.updateTargetChannelWidth(rbx.AbsoluteSize.X)
 						end,
-					}, {
-						textPadding = Roact.createElement("UIPadding", {
-							PaddingRight = UDim.new(0, 4),
-						}),
 					}),
 					DisabledPlaceholderLabel = not self.props.canLocalUserChat and Roact.createElement("TextLabel", {
 						AnchorPoint = Vector2.new(1, 0),

@@ -41,6 +41,11 @@ local validateProps = t.strictInterface({
 	isDisabled = t.optional(t.boolean),
 	layoutOrder = t.optional(t.number),
 	frameRef = t.optional(t.table),
+
+	NextSelectionLeft = t.optional(t.table),
+	NextSelectionRight = t.optional(t.table),
+	NextSelectionUp = t.optional(t.table),
+	NextSelectionDown = t.optional(t.table),
 	SelectionImageObject = t.optional(t.table),
 })
 

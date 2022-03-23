@@ -6,9 +6,9 @@ local TextMessageLabel = require(script.Parent)
 return {
 	story = function(props)
 		return Roact.createElement(TextMessageLabel, {
-			textChatMessage = {
-				Text = props.controls.text,
-				PrefixText = props.controls.prefixText,
+			message = {
+				text = props.controls.text,
+				prefixText = props.controls.prefixText,
 			},
 		})
 	end,
@@ -16,10 +16,5 @@ return {
 		text = "Sample text chat message text!",
 		prefixText = '<font color="#FFA500">PrefixText</font>',
 	},
-	props = {
-		textChatMessage = {
-			Text = "",
-			PrefixText = "",
-		},
-	},
+	props = {},
 }

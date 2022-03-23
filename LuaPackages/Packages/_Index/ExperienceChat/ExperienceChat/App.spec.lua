@@ -5,8 +5,8 @@ local expect = globals.expect
 
 return function()
 	beforeAll(function(rootContext)
-		local storyDefinition = require(script.Parent:FindFirstChild("App.story"))
-		rootContext.mount = rootContext.createMount(storyDefinition.story, function(c)
+		local storyDefinition = require(script.Parent:FindFirstChild("App"))
+		rootContext.mount = rootContext.createMount(storyDefinition, function(c)
 			return {
 				isDefaultChatEnabled = c.isDefaultChatEnabled,
 			}

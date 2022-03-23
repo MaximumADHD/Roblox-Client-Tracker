@@ -1,22 +1,28 @@
-local CoreGui = game:GetService("CoreGui")
-local ExperienceChat = CoreGui:FindFirstChild("ExperienceChat", true)
-local globals = require(ExperienceChat.Dev.Jest).Globals
+local ExperienceChat = script:FindFirstAncestor("ExperienceChat")
+local Packages = ExperienceChat.Parent
+local globals = require(Packages.Dev.Jest).Globals
 local expect = globals.expect
-local Timer = require(ExperienceChat.ExperienceChat.Timer)
+local Timer = require(ExperienceChat.Timer)
+
+local createStore = require(ExperienceChat.createStore)
 
 return function()
 	beforeAll(function(rootContext)
+		local store = createStore()
+		rootContext.store = store
+
 		local storyDefinition = require(script.Parent:FindFirstChild("AppLayout.story"))
 		rootContext.mount = rootContext.createMount(storyDefinition.story, function(c)
 			return {
+				store = store,
 				controls = {
 					isChatWindowVisible = c.isChatWindowVisible,
 					isChatInputBarVisible = c.isChatInputBarVisible,
-					targetChannelDisplayName = c.targetChannelDisplayName,
 					timer = c.timer,
 					textTimer = c.textTimer,
-					messageHistory = c.messageHistory,
+					messages = c.messages,
 					canLocalUserChat = c.canLocalUserChat,
+					sentMessageHz = 1,
 				},
 				timeSignal = c.timeBindableEvent.Event,
 			}
@@ -76,7 +82,8 @@ return function()
 			end)
 		end)
 
-		describe(
+		-- @TODO EXPCHAT-67 this test case should be added back when team channels can be created in
+		--[[ 		describe(
 			"WHEN chat is enabled in privacy settings, GIVEN targetChannelDisplayName and backspace is pressed",
 			function()
 				beforeAll(function(c)
@@ -156,7 +163,7 @@ return function()
 					expect(c.targetChannelLabel).toHaveProperty("Visible", false)
 				end)
 			end
-		)
+		) ]]
 	end)
 
 	describe("GIVEN timer and default chat window,inputbar, and textbox tranparencies", function()
@@ -245,6 +252,7 @@ return function()
 			c.timeBindableEvent = Instance.new("BindableEvent")
 			c.timer = Timer.new(math.huge)
 			c.textTimer = Timer.new(0)
+			c.canLocalUserChat = true
 
 			c.DEFAULT_CHAT_TEXT_TRANSPARENCY = 0
 			c.DEFAULT_TEXT_STROKE_TRANSPARENCY = 0.5
@@ -266,9 +274,16 @@ return function()
 			local chatWindow = c.findFirstInstance(result.instance, { Name = "chatWindow" })
 			local chatInputBar = c.findFirstInstance(result.instance, { Name = "chatInputBar" })
 
-			-- Should be visible with inital transparency at startup
+			-- pass the time and update the store so a message will appear
+			c.Roact.act(function()
+				c.timeBindableEvent:Fire(1)
+				c.store:flush()
+			end)
+
+			-- Should be visible with initial transparency at startup
 			local scrollingFrame = c.findFirstInstance(result.instance, { ClassName = "ScrollingFrame" })
 			local message = c.findFirstInstance(scrollingFrame, { ClassName = "TextLabel" })
+			assert(message, "Could not find any messages in scrolling frame!")
 			c.checkComponentEquality(message, c.DEFAULT_TEXT_TRANSPARENCIES)
 
 			wait(1)
@@ -292,8 +307,6 @@ return function()
 		end)
 
 		it("SHOULD not fade out when user clicks textbox", function(c)
-			-- canLocalUserChat must be true because it is not possible to click on the textbox when canLocalUserChat is false.
-			c.canLocalUserChat = true
 			local result = c:mount()
 			local chatInputTextBox = c.findFirstInstance(result.instance, { Name = "TextBox" })
 			local scrollingFrame = c.findFirstInstance(result.instance, { ClassName = "ScrollingFrame" })

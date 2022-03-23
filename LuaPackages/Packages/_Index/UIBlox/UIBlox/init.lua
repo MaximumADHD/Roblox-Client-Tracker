@@ -91,7 +91,7 @@ local function initializeLibrary(configs)
 			LinkButton = require(script.App.Button.LinkButton),
 			IconButton = require(script.App.Button.IconButton),
 			ActionBar = require(script.App.Button.ActionBar),
-			LogoTray = require(script.App.Button.LogoTray)
+			LogoTray = require(script.App.Button.LogoTray),
 		}),
 
 		Cell = strict({
@@ -220,6 +220,7 @@ local function initializeLibrary(configs)
 				BadgeStates = require(script.App.Indicator.Enum.BadgeStates),
 			}),
 			PlayerContext = require(script.App.Indicator.PlayerContext),
+			PlayerCount = require(script.App.Indicator.PlayerCount),
 		}),
 
 		Menu = strict({
@@ -254,6 +255,18 @@ local function initializeLibrary(configs)
 			SelectionCursorProvider = require(script.App.SelectionImage.SelectionCursorProvider),
 			CursorKind = require(script.App.SelectionImage.CursorKind),
 			withSelectionCursorProvider = require(script.App.SelectionImage.withSelectionCursorProvider),
+		}),
+
+		Template = strict({
+			--Inital API for Details Page Template. The will be enabled when details page is ready for full release
+			--[[
+			DetailsPage = {
+				Enum = {
+					ContentPosition = require(script.App.Template.DetailsPage.Enum.ContentPosition),
+				},
+				DetailsPageTemplate = require(script.App.Template.DetailsPage.DetailsPageTemplate),
+			},
+			]]
 		}),
 	})
 

@@ -10,26 +10,30 @@ return {
 		return Roact.createElement(ChatWindow, {
 			size = props.size,
 			messages = props.messages,
-			messageHistory = props.messageHistory,
 			messageLimit = props.messageLimit,
 			mutedUserIds = props.mutedUserIds,
+			canLocalUserChat = props.canLocalUserChat,
 		})
 	end,
 	controls = {},
 	props = {
+		canLocalUserChat = true,
 		size = UDim2.fromOffset(350, 100),
 		messages = {
-			id1 = {
-				PrefixText = "Player1",
-				Text = "Hello world!",
+			{
+				prefixText = "Player1",
+				text = "Hello world!",
+				timestamp = DateTime.fromUnixTimestamp(1),
+				userId = "1",
+				status = Enum.TextChatMessageStatus.Success,
 			},
-			id2 = {
-				PrefixText = "<font color='#AA55AA'>Player2</font>",
-				Text = "Nice work.",
+			{
+				prefixText = "<font color='#AA55AA'>Player2</font>",
+				text = "Nice work.",
+				timestamp = DateTime.fromUnixTimestamp(2),
+				userId = "2",
+				status = Enum.TextChatMessageStatus.Success,
 			},
-		},
-		messageHistory = {
-			RBXAll = { "id1", "id2" },
 		},
 	},
 }

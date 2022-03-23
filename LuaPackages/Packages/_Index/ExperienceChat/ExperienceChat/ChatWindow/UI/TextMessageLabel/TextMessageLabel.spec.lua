@@ -9,8 +9,8 @@ return function()
 		rootContext.mount = rootContext.createMount(storyDefinition.story, function(c)
 			return {
 				controls = {
-					text = c.textChatMessage.Text,
-					prefixText = c.textChatMessage.PrefixText,
+					text = c.message.text,
+					prefixText = c.message.prefixText,
 				},
 			}
 		end)
@@ -21,11 +21,11 @@ return function()
 			c.size = UDim2.fromOffset(300, 300)
 		end)
 
-		describe("GIVEN textChatMessage", function()
+		describe("GIVEN message", function()
 			beforeAll(function(c)
-				c.textChatMessage = {
-					Text = 'This is <font size="50">big</font> and this is <font size="10">small</font>!',
-					PrefixText = '<font size="50">PrefixText</font>',
+				c.message = {
+					text = 'This is <font size="50">big</font> and this is <font size="10">small</font>!',
+					prefixText = '<font size="50">PrefixText</font>',
 				}
 			end)
 
@@ -34,7 +34,7 @@ return function()
 				local instance = findFirstInstance(c:mount().instance, { ClassName = "TextLabel" })
 				expect(instance).never.toBeNil()
 
-				local messageText = c.textChatMessage.PrefixText .. ": " .. c.textChatMessage.Text
+				local messageText = c.message.prefixText .. ": " .. c.message.text
 
 				expect(instance.Text).toEqual(messageText)
 			end)
