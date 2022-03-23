@@ -2,20 +2,7 @@ return function(plugin, pluginLoaderContext)
 	--[[
 		Mounts and unmounts the Roact tree.
 	]]
-
-	local FFlagImprovePluginSpeed_LocalizationTool = game:GetFastFlag("ImprovePluginSpeed_LocalizationTool")
-
 	local Plugin = script.Parent.Parent
-
-	if not FFlagImprovePluginSpeed_LocalizationTool then
-		-- Fast flags
-		require(script.Parent.defineLuaFlags)
-
-		local DebugFlags = require(Plugin.Src.Util.DebugFlags)
-		if DebugFlags.RunningUnderCLI() then
-			return
-		end
-	end
 
 	local Roact = require(Plugin.Packages.Roact)
 
@@ -27,7 +14,7 @@ return function(plugin, pluginLoaderContext)
 
 		local mainPlugin = Roact.createElement(MainPlugin, {
 			Plugin = plugin,
-			pluginLoaderContext = FFlagImprovePluginSpeed_LocalizationTool and pluginLoaderContext or nil
+			pluginLoaderContext = pluginLoaderContext or nil
 		})
 
 		handle = Roact.mount(mainPlugin)

@@ -125,9 +125,6 @@ return function()
 			TestHelpers.loadAnimation(store, testAnimationData)
 			local summary = TestPaths.getTrack(container, "SummaryTrack")
 
-			print(Element.new(summary["1"]):getCenter())
-			print(Element.new(summary["2"]):getCenter())
-
 			TestHelpers.clickInstance(summary["1"])
 			VirtualInput.pressKey(Enum.KeyCode.LeftControl)
 			TestHelpers.clickInstance(summary["2"])

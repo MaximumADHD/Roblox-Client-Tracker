@@ -21,6 +21,9 @@ local GetFFlagUIBloxUseNewGenericTextLabelProps = require(
 local FFlagImprovementsToGridView = require(CorePackages.UIBloxFlags.FFlagImprovementsToGridView)
 
 local FFlagFixThumbnailTileInconsistency = require(CorePackages.UIBloxFlags.FFlagFixThumbnailTileInconsistency)
+local GetFFlagUIBloxEnableRadioButtonGamepadSupport = require(
+	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableRadioButtonGamepadSupport
+)
 
 return {
 	improvementsToGridView = FFlagImprovementsToGridView,
@@ -39,4 +42,5 @@ return {
 	useNewGenericTextLabelProps = GetFFlagUIBloxUseNewGenericTextLabelProps(),
 	enableCustomMinPaddingForLinkButton = game:DefineFastFlag("UIBloxEnableCustomMinPaddingForLinkButton", false),
 	fixTileThumbnailColorInconsistency = FFlagFixThumbnailTileInconsistency,
+	enableRadioButtonGamepadSupport = GetFFlagUIBloxEnableRadioButtonGamepadSupport(),
 }

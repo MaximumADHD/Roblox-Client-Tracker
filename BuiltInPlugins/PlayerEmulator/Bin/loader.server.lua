@@ -1,7 +1,3 @@
-if not game:GetFastFlag("ImprovePluginSpeed_PlayerEmulator") then
-    return
-end
-
 local Plugin = script.Parent.Parent
 
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)

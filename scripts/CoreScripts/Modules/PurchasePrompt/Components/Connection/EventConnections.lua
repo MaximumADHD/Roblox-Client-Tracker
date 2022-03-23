@@ -15,7 +15,6 @@ local MarketplaceServiceEventConnector = require(script.Parent.MarketplaceServic
 local InputTypeManager = require(script.Parent.InputTypeManager)
 local BrowserPurchaseFinishedConnector = require(script.Parent.BrowserPurchaseFinishedConnector)
 local NativePurchaseFinishedConnector = require(script.Parent.NativePurchaseFinishedConnector)
-local PlayerConnector = require(script.Parent.PlayerConnector)
 
 local function EventConnections()
 	local upsellConnector
@@ -32,7 +31,6 @@ local function EventConnections()
 		MarketPlaceServiceEventConnector = Roact.createElement(MarketplaceServiceEventConnector),
 		InputTypeManager = enableInputManager and Roact.createElement(InputTypeManager) or nil,
 		UpsellFinishedConnector = upsellConnector,
-		PlayerConnector = Roact.createElement(PlayerConnector),
 	})
 end
 

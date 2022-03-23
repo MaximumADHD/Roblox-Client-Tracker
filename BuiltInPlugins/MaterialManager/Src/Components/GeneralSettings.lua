@@ -72,6 +72,39 @@ function MaterialVariantSettings:init()
 		-- else
 		end
 	end
+
+	self.renderContent = function(key: string)
+		local props : _Props = self.props
+		local localization = props.Localization
+		local style : _Style = props.Stylizer.MaterialVariantSettings
+
+		if key == "NameVariant" then
+			return Roact.createElement(TextInput, {
+				PlaceholderText = localization:getText("CreateDialog", "PlaceholderName"),
+				Style = "FilledRoundedBorder",
+				Size = style.DialogColumnSize,
+				OnTextChanged = self.onNameChanged,
+				Text = props.Name,
+			})
+		elseif key == "BaseMaterialVariant" then
+			return Roact.createElement(SelectInput, {
+				Items = self.baseMaterials,
+				Size = style.DialogColumnSize,
+				OnItemActivated = self.onBaseMaterialSelected,
+				PlaceholderText = localization:getText("CreateDialog", "PlaceholderBaseMaterial"),
+				SelectedIndex = self.state.currentIndex,
+			})
+		end
+
+		return nil
+	end
+
+	self.getText = function(key: string)
+		local props : _Props = self.props
+		local localization = props.Localization
+
+		return localization:getText("CreateDialog", key)
+	end
 end
 
 function MaterialVariantSettings:didMount()
@@ -90,36 +123,17 @@ end
 
 function MaterialVariantSettings:render()
 	local props : _Props = self.props
-	local localization = props.Localization
-	local style : _Style = props.Stylizer.MaterialVariantSettings
 
 	local items = {
-		{
-			Key = "NameVariant",
-			Text = localization:getText("CreateDialog", "NameVariant"),
-			Content = Roact.createElement(TextInput, {
-				PlaceholderText = props.Name or localization:getText("CreateDialog", "PlaceholderName"),
-				Style = "FilledRoundedBorder",
-				Size = style.DialogColumnSize,
-				OnTextChanged = self.onNameChanged,
-			}),
-		},
-		{
-			Key = "BaseMaterialVariant",
-			Text = localization:getText("CreateDialog", "BaseMaterialVariant"),
-			Content = Roact.createElement(SelectInput, {
-				Items = self.baseMaterials,
-				Size = style.DialogColumnSize,
-				OnItemActivated = self.onBaseMaterialSelected,
-				PlaceholderText = localization:getText("CreateDialog", "PlaceholderBaseMaterial"),
-				SelectedIndex = self.state.currentIndex,
-			}),
-		},
+		"NameVariant",
+		"BaseMaterialVariant",
 	}
 
 	return Roact.createElement(LabeledElementList, {
+		GetText = self.getText,
 		Items = items,
 		LayoutOrder = props.LayoutOrder,
+		RenderContent = self.renderContent,
 	})
 end
 
@@ -130,12 +144,10 @@ MaterialVariantSettings = withContext({
 	Stylizer = Stylizer,
 })(MaterialVariantSettings)
 
-
-
 local function mapStateToProps(state : MainReducer.State, _)
 	return {
-		name = state.MaterialPromptReducer.name,
-		baseMaterial = state.MaterialPromptReducer.baseMaterial,
+		Name = state.MaterialPromptReducer.name,
+		BaseMaterial = state.MaterialPromptReducer.baseMaterial,
 	}
 end
 

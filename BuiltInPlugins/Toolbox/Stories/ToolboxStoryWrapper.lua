@@ -30,6 +30,9 @@ local function ToolboxStoryWrapper(props)
 	local middleware = CoreTestUtils.createThunkMiddleware()
 
 	local store = props.store or Rodux.Store.new(ToolboxReducer, nil, middleware)
+	if props.storeSetup then
+		props.storeSetup(store)
+	end
 	local pluginGui = props.pluginGui or nil
 	local settings = props.settings or Settings.new(plugin)
 	local networkInterface = props.networkInterface or NetworkInterfaceMock.new()
@@ -57,7 +60,9 @@ local function ToolboxStoryWrapper(props)
 				translationResourceTable = Framework.Resources.TranslationReferenceTable,
 			},
 		},
-		overrideGetLocale = function() return "en-us" end,
+		overrideGetLocale = function()
+			return "en-us"
+		end,
 		overrideLocaleId = "en-us",
 		overrideLocaleChangedSignal = Signal.new(),
 	})

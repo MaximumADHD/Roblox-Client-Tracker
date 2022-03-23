@@ -11,6 +11,8 @@ return function()
 	local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
 	local SetRootInstance = require(Plugin.Src.Actions.SetRootInstance)
 	local SetScrollZoom = require(Plugin.Src.Actions.SetScrollZoom)
+	local SetHorizontalScrollZoom = require(Plugin.Src.Actions.SetHorizontalScrollZoom)
+	local SetVerticalScrollZoom = require(Plugin.Src.Actions.SetVerticalScrollZoom)
 	local SetPlayState = require(Plugin.Src.Actions.SetPlayState)
 	local SetClipboard = require(Plugin.Src.Actions.SetClipboard)
 	local SetPlayhead = require(Plugin.Src.Actions.SetPlayhead)
@@ -32,6 +34,8 @@ return function()
 	local SetTool = require(Plugin.Src.Actions.SetTool)
 	local ToggleWorldSpace = require(Plugin.Src.Actions.ToggleWorldSpace)
 	local SetActive = require(Plugin.Src.Actions.SetActive)
+
+	local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 	local testRightClickInfo = {
 		InstanceName = "Root",
@@ -164,10 +168,20 @@ return function()
 	describe("SetScrollZoom", function()
 		it("should set Scroll and Zoom values", function()
 			local store = createTestStore()
-			store:dispatch(SetScrollZoom(0.5, 0.4))
-			local state = store:getState()
-			expect(state.Scroll).to.equal(0.5)
-			expect(state.Zoom).to.equal(0.4)
+			if GetFFlagCurveEditor() then
+				store:dispatch(SetHorizontalScrollZoom(0.1, 0.2))
+				store:dispatch(SetVerticalScrollZoom(0.3, 0.4))
+				local state = store:getState()
+				expect(state.HorizontalScroll).to.equal(0.1)
+				expect(state.HorizontalZoom).to.equal(0.2)
+				expect(state.VerticalScroll).to.equal(0.3)
+				expect(state.VerticalZoom).to.equal(0.4)
+			else
+				store:dispatch(SetScrollZoom(0.5, 0.4))
+				local state = store:getState()
+				expect(state.Scroll).to.equal(0.5)
+				expect(state.Zoom).to.equal(0.4)
+			end
 		end)
 	end)
 
@@ -309,13 +323,25 @@ return function()
 				{ Name = "TestTrack2", },
 				{ Name = "TestTrack3", },
 			}))
-			store:dispatch(SetSelectedTracks({"TestTrack1"}))
+			if GetFFlagCurveEditor() then
+				store:dispatch(SetSelectedTracks({{"TestTrack1"}}))
+			else
+				store:dispatch(SetSelectedTracks({"TestTrack1"}))
+			end
 			store:dispatch(MoveSelectedTrack(1))
 			local state = store:getState()
-			expect(state.SelectedTracks[1]).to.equal("TestTrack2")
+			if GetFFlagCurveEditor() then
+				expect(state.SelectedTracks[1][1]).to.equal("TestTrack2")
+			else
+				expect(state.SelectedTracks[1]).to.equal("TestTrack2")
+			end
 			store:dispatch(MoveSelectedTrack(-1))
 			state = store:getState()
-			expect(state.SelectedTracks[1]).to.equal("TestTrack1")
+			if GetFFlagCurveEditor() then
+				expect(state.SelectedTracks[1][1]).to.equal("TestTrack1")
+			else
+				expect(state.SelectedTracks[1]).to.equal("TestTrack1")
+			end
 		end)
 
 		it("should clamp the selection", function()
@@ -325,13 +351,25 @@ return function()
 				{ Name = "TestTrack2", },
 				{ Name = "TestTrack3", },
 			}))
-			store:dispatch(SetSelectedTracks({"TestTrack1"}))
+			if GetFFlagCurveEditor() then
+				store:dispatch(SetSelectedTracks({{"TestTrack1"}}))
+			else
+				store:dispatch(SetSelectedTracks({"TestTrack1"}))
+			end
 			store:dispatch(MoveSelectedTrack(-1))
 			local state = store:getState()
-			expect(state.SelectedTracks[1]).to.equal("TestTrack1")
+			if GetFFlagCurveEditor() then
+				expect(state.SelectedTracks[1][1]).to.equal("TestTrack1")
+			else
+				expect(state.SelectedTracks[1]).to.equal("TestTrack1")
+			end
 			store:dispatch(MoveSelectedTrack(4))
 			state = store:getState()
-			expect(state.SelectedTracks[1]).to.equal("TestTrack3")
+			if GetFFlagCurveEditor() then
+				expect(state.SelectedTracks[1][1]).to.equal("TestTrack3")
+			else
+				expect(state.SelectedTracks[1]).to.equal("TestTrack3")
+			end
 		end)
 	end)
 

@@ -32,7 +32,7 @@ return function(threadState, debuggerConnection, debuggerStateToken, scriptChang
 					sourceColumn = stackFrame.Script,
 				}
 				store:dispatch(SetFilenameForGuidAction(stackFrame.Script, ""))
-				scriptChangeService:StartWatchingScript(stackFrame.Script, store:getState().Common.currentDebuggerConnectionId)
+				scriptChangeService:StartWatchingScriptLine(stackFrame.Script, store:getState().Common.currentDebuggerConnectionId, stackFrame.Line)
 				table.insert(callstackRows, CallstackRow.fromData(data))
 			end
 			

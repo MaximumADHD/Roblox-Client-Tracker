@@ -19,8 +19,8 @@ local MemStorageService = game:GetService("MemStorageService")
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxWindowTelemetry = game:GetFastFlag("ToolboxWindowTelemetry")
-local FFlagToolboxNilDisconnectSignals = game:GetFastFlag("ToolboxNilDisconnectSignals")
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+local FFlagToolboxRefactorSearchOptions = game:GetFastFlag("ToolboxRefactorSearchOptions")
 
 local Packages = Plugin.Packages
 local Cryo = require(Packages.Cryo)
@@ -37,6 +37,7 @@ local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
 local ContextGetter = require(Util.ContextGetter)
 local PageInfoHelper = require(Util.PageInfoHelper)
+local getModal = ContextGetter.getModal
 local getTabs = require(Util.getTabs)
 local Analytics = require(Util.Analytics.Analytics)
 
@@ -53,6 +54,8 @@ local Footer = require(Components.Footer.Footer)
 local Header = require(Components.Header)
 local MainView = require(Components.MainView.MainView)
 local SoundPreviewComponent = require(Components.SoundPreviewComponent)
+local HomeWrapper = if FFlagToolboxAssetCategorization then require(Components.Home.HomeWrapper) else nil
+local SearchOptions = require(Plugin.Core.Components.SearchOptions.SearchOptions)
 
 local Requests = Plugin.Core.Networking.Requests
 local UpdatePageInfoAndSendRequest = require(Requests.UpdatePageInfoAndSendRequest)
@@ -65,6 +68,9 @@ local GetRobuxBalance = require(Requests.GetRobuxBalance)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
+local IXPContext = require(Plugin.Core.ContextServices.IXPContext)
+
+local HomeTypes = require(Plugin.Core.Types.HomeTypes)
 
 local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
 local FFlagToolboxAssetGridRefactor5 = game:GetFastFlag("ToolboxAssetGridRefactor5")
@@ -112,6 +118,8 @@ function Toolbox:handleInitialSettings()
 		self.props.getToolboxManageableGroups(networkInterface, settings, newPageInfo)
 	end
 
+	-- TODO: we don't need to do this if we are showing the home view experiment
+
 	-- Set the initial page info for the toolbox
 	-- This will trigger a web request to load the first round of assets
 	self.props.updatePageInfo(networkInterface, settings, newPageInfo)
@@ -145,6 +153,10 @@ function Toolbox:init(props)
 
 		if not showSearchOptions then
 			Analytics.onSearchOptionsOpened()
+		end
+
+		if FFlagToolboxRefactorSearchOptions then
+			getModal(self).onSearchOptionsToggled(not showSearchOptions)
 		end
 
 		self:setState({
@@ -234,9 +246,7 @@ end
 function Toolbox:willUnmount()
 	if self._showPluginsConnection then
 		self._showPluginsConnection:Disconnect()
-		if FFlagToolboxNilDisconnectSignals then
-			self._showPluginsConnection = nil
-		end
+		self._showPluginsConnection = nil
 	end
 end
 
@@ -249,7 +259,8 @@ function Toolbox:render()
 
 	local backgrounds = props.backgrounds
 	local suggestions = props.suggestions or {}
-	local currentTabKey = Category.getTabKeyForCategoryName(props.categoryName)
+	local categoryName = props.categoryName
+	local currentTabKey = Category.getTabKeyForCategoryName(categoryName)
 
 	local tryOpenAssetConfig = props.tryOpenAssetConfig
 	local pluginGui = props.pluginGui
@@ -257,11 +268,31 @@ function Toolbox:render()
 	local size = self.props.Size
 	local toolboxTheme = self.props.Stylizer
 	local localizedContent = props.Localization
+	local ixp = props.IXP
 
 	local onAbsoluteSizeChange = self.onAbsoluteSizeChange
 
 	local tabHeight = Constants.TAB_WIDGET_HEIGHT
 	local headerOffset = tabHeight
+
+	local inHomeViewExperiment
+	local selectedAssetType = if FFlagToolboxAssetCategorization
+		then Category.getEngineAssetType(Category.getCategoryByName(categoryName).assetType)
+		else nil
+	if
+		FFlagToolboxAssetCategorization
+		and currentTabKey == Category.MARKETPLACE_KEY
+		and table.find(HomeTypes.ENABLED_ASSET_TYPES, selectedAssetType) ~= nil
+	then
+		if not ixp:isReady() then
+			-- IXP state has not loaded yet, avoid a flash of (potentially) the wrong content
+			return nil
+		end
+		local ixpVariables = ixp:getVariables()["MarketplaceHomeView"]
+		if ixpVariables then
+			inHomeViewExperiment = ixpVariables["HomeViewEnabled"]
+		end
+	end
 
 	return Roact.createElement("Frame", {
 		Position = UDim2.new(0, 0, 0, 0),
@@ -272,7 +303,7 @@ function Toolbox:render()
 
 		[Roact.Ref] = self.toolboxRef,
 		[Roact.Change.AbsoluteSize] = onAbsoluteSizeChange,
-		[Roact.Event.MouseEnter] = FFlagToolboxWindowTelemetry and props.onMouseEnter or nil,
+		[Roact.Event.MouseEnter] = props.onMouseEnter,
 	}, {
 		Tabs = Roact.createElement(TabSet, {
 			Size = UDim2.new(1, 0, 0, Constants.TAB_WIDGET_HEIGHT),
@@ -290,19 +321,31 @@ function Toolbox:render()
 				or nil,
 		}),
 
-		MainView = Roact.createElement(MainView, {
-			Position = UDim2.new(0, 0, 0, headerOffset + Constants.HEADER_HEIGHT + 1),
-			Size = UDim2.new(1, 0, 1, -(Constants.HEADER_HEIGHT + Constants.FOOTER_HEIGHT + headerOffset + 2)),
-
-			maxWidth = toolboxWidth,
-			suggestions = suggestions,
-			showSearchOptions = showSearchOptions,
+		SearchOptions = if FFlagToolboxRefactorSearchOptions and showSearchOptions then Roact.createElement(SearchOptions, {
 			onSearchOptionsToggled = self.toggleSearchOptions,
-			tryOpenAssetConfig = tryOpenAssetConfig,
-			mostRecentAssetInsertTime = not FFlagToolboxAssetGridRefactor5 and self.state.mostRecentAssetInsertTime
-				or nil,
-			onAssetInsertionSuccesful = not FFlagToolboxAssetGridRefactor5 and self.updateMostRecentAssetTime or nil,
-		}),
+		}) else nil,
+
+		MainView = if inHomeViewExperiment
+			then Roact.createElement(HomeWrapper, {
+				AssetType = selectedAssetType,
+				Position = UDim2.new(0, 0, 0, headerOffset + Constants.HEADER_HEIGHT + 1),
+				Size = UDim2.new(1, 0, 1, -(Constants.HEADER_HEIGHT + Constants.FOOTER_HEIGHT + headerOffset + 2)),
+				TryOpenAssetConfig = tryOpenAssetConfig,
+			})
+			else Roact.createElement(MainView, {
+				Position = UDim2.new(0, 0, 0, headerOffset + Constants.HEADER_HEIGHT + 1),
+				Size = UDim2.new(1, 0, 1, -(Constants.HEADER_HEIGHT + Constants.FOOTER_HEIGHT + headerOffset + 2)),
+
+				maxWidth = toolboxWidth,
+				suggestions = suggestions,
+				showSearchOptions = showSearchOptions,
+				onSearchOptionsToggled = self.toggleSearchOptions,
+				tryOpenAssetConfig = tryOpenAssetConfig,
+				mostRecentAssetInsertTime = not FFlagToolboxAssetGridRefactor5 and self.state.mostRecentAssetInsertTime
+					or nil,
+				onAssetInsertionSuccesful = not FFlagToolboxAssetGridRefactor5 and self.updateMostRecentAssetTime
+					or nil,
+			}),
 
 		Footer = Roact.createElement(Footer, {
 			backgrounds = backgrounds,
@@ -313,6 +356,7 @@ function Toolbox:render()
 end
 
 Toolbox = withContext({
+	IXP = if FFlagToolboxAssetCategorization then IXPContext else nil,
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Settings = Settings,

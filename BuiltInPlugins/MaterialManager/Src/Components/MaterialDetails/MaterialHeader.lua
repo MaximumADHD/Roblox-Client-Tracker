@@ -47,6 +47,7 @@ type _Style = {
 	DropdownSize : UDim2,
 	Favorite : _Types.Image,
 	HeaderBackground : Color3,
+	HeaderFont : Enum.Font,
 	HeaderSize : UDim2,
 	ImagePosition : UDim2,
 	ImageSize : UDim2,
@@ -55,9 +56,12 @@ type _Style = {
 	NameLabelSize : UDim2,
 	LabelRowSize : UDim2,
 	Padding : number,
+	SectionFont : Enum.Font,
+	SectionHeaderTextSize : number,
 	TextureLabelSize : UDim2,
 	TextureRowSize : UDim2,
 	TextureSize : UDim2,
+	TitleTextSize : number,
 }
 
 local MaterialHeader = Roact.PureComponent:extend("MaterialHeader")

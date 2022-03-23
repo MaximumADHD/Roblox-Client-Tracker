@@ -1,5 +1,14 @@
+--!strict
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+
+local Plugin = script:FindFirstAncestor("Toolbox")
+local Packages = Plugin.Packages
+
+local JestGlobals = require(Packages.Dev.JestGlobals)
+local jest = JestGlobals.jest
+local expect = JestGlobals.expect
+
 return function()
-	local Plugin = script.Parent.Parent.Parent
 	local Category = require(Plugin.Core.Types.Category)
 	local Urls = require(script.Parent.Urls)
 
@@ -8,7 +17,9 @@ return function()
 		local EXPECTED_BASE_URL = "https://apis.roblox.com/toolbox-service/v1"
 
 		local function urlForCategory(category)
-			return Urls.constructGetToolboxItemsUrl(category, nil, nil, nil, nil, nil, OWNER_ID, nil, nil, nil, nil)
+			return if FFlagToolboxAssetCategorization
+				then Urls.constructGetToolboxItemsUrl({ categoryName = category, ownerId = OWNER_ID })
+				else Urls.constructGetToolboxItemsUrl(category, nil, nil, nil, nil, nil, OWNER_ID, nil, nil, nil, nil)
 		end
 
 		local EXPECTED = {
@@ -41,13 +52,38 @@ return function()
 			local expectedPath = item[2]
 
 			it(string.format("for getting %s", category.name), function()
-				local expectedUrl = string.format("%s%s?", EXPECTED_BASE_URL, expectedPath)
-				expect(urlForCategory(category.name)).to.equal(expectedUrl)
+				local expectedUrl = string.format("%s%s", EXPECTED_BASE_URL, expectedPath)
+				expect(urlForCategory(category.name)).toBe(expectedUrl)
 			end)
 		end
 
 		it("for inserts", function()
-			expect(Urls.constructInsertAssetUrl(123)).to.equal(string.format("%s/insert/asset/123", EXPECTED_BASE_URL))
+			expect(Urls.constructInsertAssetUrl(123)).toBe(string.format("%s/insert/asset/123", EXPECTED_BASE_URL))
 		end)
+
+		if FFlagToolboxAssetCategorization then
+			it("should generate section asset urls", function()
+				expect(Urls.constructGetToolboxItemsUrl({
+					categoryName = Category.FREE_MODELS.name,
+					sectionName = "trending",
+				})).toBe(
+					string.format("%s/home/%d/section/trending/assets", EXPECTED_BASE_URL, Enum.AssetType.Model.Value)
+				)
+			end)
+
+			it("should generate section asset urls with params", function()
+				expect(Urls.constructGetToolboxItemsUrl({
+					categoryName = Category.FREE_MODELS.name,
+					sectionName = "trending",
+					limit = 10,
+				})).toBe(
+					string.format(
+						"%s/home/%d/section/trending/assets?limit=10",
+						EXPECTED_BASE_URL,
+						Enum.AssetType.Model.Value
+					)
+				)
+			end)
+		end
 	end)
 end

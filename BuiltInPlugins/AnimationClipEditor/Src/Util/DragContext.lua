@@ -9,11 +9,14 @@ local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local deepCopy = require(Plugin.Src.Util.deepCopy)
+local Constants = require(Plugin.Src.Util.Constants)
+
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 local DragContext = {}
 DragContext.__index = DragContext
 
-function DragContext.new(animationData, selectedKeyframes, pivotTick)
+function DragContext.new(animationData, selectedKeyframes, pivotTick, pivotValue)
 	-- Only deepcopy the selected tracks, the other tracks will be left untouched
 	-- during the move/scale operation
 	animationData = Cryo.Dictionary.join({}, animationData)
@@ -37,9 +40,37 @@ function DragContext.new(animationData, selectedKeyframes, pivotTick)
 		selectedKeyframes = selectedKeyframes,
 		pivotTick = pivotTick,
 		newTick = pivotTick,
+		pivotValue = pivotValue,
+		newValue = pivotValue,
 		scale = 1,
 		earliestTick = earliestTick,
 		latestTick = latestTick,
+		dragMode = if GetFFlagCurveEditor() then Constants.DRAG_MODE.Keyframe else nil,
+	}
+
+	setmetatable(self, DragContext)
+
+	return self
+end
+
+function DragContext.newTangentContext(animationData, instance, path, tck, side)
+	local track = AnimationData.getTrack(animationData, instance, path)
+	if not track then
+		return nil
+	end
+
+	local keyframe = track.Data[tck]
+	if not keyframe then
+		return nil
+	end
+
+	local self = {
+		instance = instance,
+		path = path,
+		tck = tck,
+		value = keyframe.Value,
+		side = side,
+		dragMode = Constants.DRAG_MODE.Tangent,
 	}
 
 	setmetatable(self, DragContext)
@@ -48,8 +79,9 @@ function DragContext.new(animationData, selectedKeyframes, pivotTick)
 end
 
 -- Update metadata for when the user drags the selected keyframes
-function DragContext:moveKeyframes(newTick)
+function DragContext:moveKeyframes(newTick, newValue)
 	self.newTick = newTick
+	self.newValue = newValue
 end
 
 -- Update metadata for when the user scales the selected keyframes

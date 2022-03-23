@@ -17,6 +17,7 @@ local DraggedPivot = require(DraggerFramework.Components.DraggedPivot)
 local computeDraggedDistance = require(DraggerFramework.Utility.computeDraggedDistance)
 
 local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
+local getFFlagFixScalingWithNonDefaultPivot = require(DraggerFramework.Flags.getFFlagFixScalingWithNonDefaultPivot)
 
 local ExtrudeHandle = {}
 ExtrudeHandle.__index = ExtrudeHandle
@@ -182,7 +183,7 @@ function ExtrudeHandle:_refreshDrag()
 	-- here, but that it's almost impossible to hit that edge case (You have to
 	-- key-bind a camera alignment command).
 	local hasDistance, distance =
-		self:_getDistanceAlongAxis(self._draggerContext:getMouseRay())
+		self:_getDistanceAlongAxis(self._draggerContext:getMouseRay(), true)
 	self._startDistance = hasDistance and distance or 0
 end
 
@@ -370,7 +371,7 @@ function ExtrudeHandle:mouseDown(mouseRay, handleId)
 
 	self:_updateExtrudeMode()
 
-	local hasDistance, distance = self:_getDistanceAlongAxis(mouseRay)
+	local hasDistance, distance = self:_getDistanceAlongAxis(mouseRay, true)
 	self._startDistance = hasDistance and distance or 0.0
 
 	-- When you change extrude modes mid drag, we need to separate the
@@ -463,15 +464,51 @@ function ExtrudeHandle:mouseDrag(mouseRay)
 	local axis = handleProps.Axis
 
 	local localOffset
-	if self._lastResizeFromCenter then
-		delta = delta * 2
-		localOffset = Vector3.new()
+	if getEngineFeatureModelPivotVisual() and getFFlagFixScalingWithNonDefaultPivot() then
+		local sizeComponents = {
+			self._originalBoundingBoxSize.X,
+			self._originalBoundingBoxSize.Y,
+			self._originalBoundingBoxSize.Z
+		}
+		local oldScale = sizeComponents[normalId]
+		if not self:_getBasisOffset().Position:FuzzyEq(Vector3.new()) then
+			-- pivot is not center of boundingBox
+			-- base the scaling on relative/proportional change of distance from mouse to scale center
+			local distanceRatio = distance / self._startDistance
+			local newScale = distanceRatio * oldScale
+			delta = self._draggerContext:snapToGridSize(newScale - oldScale)
+		else
+			-- delta is the absolute dragged distance; but doubled if rotating about center
+			if self._lastResizeFromCenter then
+				delta = delta * 2
+			end
+		end
+		local scalingRatio = (oldScale + delta) / oldScale
+		local originalGlobalCenterToBoundingBox = self._originalBoundingBoxCFrame.Position - self._scaleCenter
+		local newGlobalCenterToBoundingBox = scalingRatio * originalGlobalCenterToBoundingBox
+		local globalOffset = newGlobalCenterToBoundingBox - originalGlobalCenterToBoundingBox
+		local inverseBoundingBoxCFrame = self._originalBoundingBoxCFrame:Inverse()
+		localOffset = inverseBoundingBoxCFrame:VectorToWorldSpace(globalOffset)
+		if not self._lastAxesToScale.X then
+			localOffset = Vector3.new(0, localOffset.Y, localOffset.Z)
+		end
+		if not self._lastAxesToScale.Y then
+			localOffset = Vector3.new(localOffset.X, 0, localOffset.Z)
+		end
+		if not self._lastAxesToScale.Z then
+			localOffset = Vector3.new(localOffset.X, localOffset.Y, 0)
+		end
 	else
-		localOffset = axis * 0.5 * delta
+		if self._lastResizeFromCenter then
+			delta = delta * 2
+			localOffset = Vector3.new()
+		else
+			localOffset = axis * 0.5 * delta
+		end
 	end
 
 	-- Add the movement thanks to an offset center
-	if getEngineFeatureModelPivotVisual() then
+	if getEngineFeatureModelPivotVisual() and not getFFlagFixScalingWithNonDefaultPivot() then
 		local sizeComponents = {self._originalBoundingBoxSize.X, self._originalBoundingBoxSize.Y, self._originalBoundingBoxSize.Z}
 		local ratio = delta / sizeComponents[normalId]
 		
@@ -540,13 +577,60 @@ function ExtrudeHandle:mouseUp(mouseRay)
 	self._schema.addUndoWaypoint(self._draggerContext, "Scale Selection")
 end
 
-function ExtrudeHandle:_getDistanceAlongAxis(mouseRay)
+if getFFlagFixScalingWithNonDefaultPivot() then
+	function ExtrudeHandle:_getLocalOppositeBoundingBoxSideCenterOffset(draggingHandleId)
+		local offset = ScaleHandleDefinitions[draggingHandleId].Offset
+		local inverseHandleCFrame = offset:Inverse()
+		local localSize = inverseHandleCFrame:VectorToWorldSpace(self._originalBoundingBoxSize)
+		local halfLocalZ = 0.5 * math.abs(localSize.Z)
+		return offset * CFrame.new(0, 0, halfLocalZ)
+	end
+end
+
+if getFFlagFixScalingWithNonDefaultPivot() then
+	function ExtrudeHandle:_getWorldOppositeBoundingBoxSideCenter(draggingHandleId)
+		local oppositeBoundingBoxSideCenterOffset = self:_getLocalOppositeBoundingBoxSideCenterOffset(draggingHandleId)
+		local oppositeBoundingBoxSideCenterFrame = self._originalBoundingBoxCFrame * oppositeBoundingBoxSideCenterOffset
+		return oppositeBoundingBoxSideCenterFrame.Position
+	end
+end
+
+if getFFlagFixScalingWithNonDefaultPivot() then
+	function ExtrudeHandle:_computeProjectionLineAndScaleCenter()
+		self._dragDirection = self._handleCFrame.LookVector
+
+		local draggedHandleProps = self._handles[self._draggingHandleId]
+		self._dragHandleCenter = (draggedHandleProps.HandleCFrame * ScaleHandleView.getLocalHandleOffset(draggedHandleProps)).Position
+
+		-- set the dragFrame to match the pivot
+		if self._lastResizeFromCenter then
+			-- Scaling centers about the pivot
+			local pivotFrame = self._originalBoundingBoxCFrame * CFrame.new(self._originalBasisOffset)
+			self._scaleCenter = pivotFrame.Position
+		else
+			-- Scaling centers about the projection of the handle onto the opposite boundingBox side's plane
+			local oppositeBoundingBoxSideCenter = self:_getWorldOppositeBoundingBoxSideCenter(self._draggingHandleId)
+			-- project the dragHandleCenter onto the plane of the opposite side of the boundingBox
+			self._scaleCenter = Math.intersectRayPlanePoint(self._dragHandleCenter, self._dragDirection, oppositeBoundingBoxSideCenter, self._dragDirection)
+		end
+		self._dragStartPosition = self._scaleCenter
+	end
+end
+
+function ExtrudeHandle:_getDistanceAlongAxis(mouseRay, computeProjectionLineAndScaleCenter)
 	local dragDirection = self._handleCFrame.LookVector
 	local dragFrame = self._originalBoundingBoxCFrame
 	if getEngineFeatureModelPivotVisual() then
 		dragFrame =  dragFrame * CFrame.new(self._originalBasisOffset)
 	end
 	local dragStartPosition = dragFrame.Position
+	if getFFlagFixScalingWithNonDefaultPivot() then
+		if computeProjectionLineAndScaleCenter then
+			self:_computeProjectionLineAndScaleCenter()
+		end
+		dragStartPosition = self._dragStartPosition
+		dragDirection = self._dragDirection
+	end
 	return computeDraggedDistance(dragStartPosition, dragDirection, mouseRay)
 end
 
@@ -564,6 +648,16 @@ function ExtrudeHandle:_updateHandles()
 				local localSize = inverseHandleCFrame:VectorToWorldSpace(self._boundingBox.Size)
 				local offsetDueToBoundingBox = 0.5 * math.abs(localSize.Z)
 				local offsetDueToBasisOffset = inverseHandleCFrame:VectorToWorldSpace(self:_getBasisOffset().Position)
+				if getFFlagFixScalingWithNonDefaultPivot() then
+					-- The basisOffset is the location of the pivot relative to the geometric center of the part/model.
+					-- The +Z direction of the basis offset if the direction from the boundingBox center toward the handle.
+					-- If the pivot is outside the boundingBox (basisOffset's z magnitude is greater than z halfsize aka offsetDuToBoundingBox), 
+					-- then do not move the handle that is farther from the boundingBox than the pivot in toward the boundingBox.
+					-- The farther handle is the one for whom basis offset is negative in local space.
+					if math.abs(offsetDueToBasisOffset.Z) > offsetDueToBoundingBox and offsetDueToBasisOffset.Z < 0 then
+						offsetDueToBoundingBox = math.abs(offsetDueToBasisOffset.Z)
+					end
+				end
 				local handleBaseCFrame =
 					self._boundingBox.CFrame *
 					offset *

@@ -75,6 +75,7 @@ local FFlagToolboxAssetGridRefactor5 = game:GetFastFlag("ToolboxAssetGridRefacto
 local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
 local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
 local FFlagPluginsSetAudioPreviewUsageContext = game:GetFastFlag("PluginsSetAudioPreviewUsageContext")
+local FFlagToolboxFixNonOwnedPluginInstallation = game:GetFastFlag("ToolboxFixNonOwnedPluginInstallation")
 
 local disableRatings = require(Plugin.Core.Util.ToolboxUtilities).disableRatings
 
@@ -371,18 +372,37 @@ function AssetPreviewWrapper:init(props)
 		local categoryName = self.props.categoryName
 
 		local owned = self.props.Owned
-		if not owned then
-			-- Prompt user to purchase plugin
-			local showInstallationBar = false
-			self:setState({
-				showPurchaseFlow = true,
-				showInstallationBar = showInstallationBar,
-			})
-			return false
+		
+		if FFlagToolboxFixNonOwnedPluginInstallation then
+			local price = assetData.Product and assetData.Product.Price or 0
+
+			if not owned and price > 0 then
+				-- Prompt user to purchase plugin
+				local showInstallationBar = false
+				self:setState({
+					showPurchaseFlow = true,
+					showInstallationBar = showInstallationBar,
+				})
+				return false
+			else
+				self:setState({
+					showPurchaseFlow = false,
+				})
+			end
 		else
-			self:setState({
-				showPurchaseFlow = false,
-			})
+			if not owned then
+				-- Prompt user to purchase plugin
+				local showInstallationBar = false
+				self:setState({
+					showPurchaseFlow = true,
+					showInstallationBar = showInstallationBar,
+				})
+				return false
+			else
+				self:setState({
+					showPurchaseFlow = false,
+				})
+			end
 		end
 
 		local currentCategoryName = categoryName

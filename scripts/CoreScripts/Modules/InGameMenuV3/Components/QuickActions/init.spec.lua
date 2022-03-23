@@ -30,4 +30,9 @@ return function()
 		local instance = Roact.mount(element)
 		Roact.unmount(instance)
 	end)
+
+	it("should require without errors", function()
+		local QuickActions = require(script.Parent)
+		expect(QuickActions).to.be.ok()
+	end)
 end

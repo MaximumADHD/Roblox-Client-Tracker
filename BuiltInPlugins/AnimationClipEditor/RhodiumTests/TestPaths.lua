@@ -1,5 +1,7 @@
+local Plugin = script.Parent.Parent
+
 local FFlagDevFrameworkScrollingFrameUsePane = game:GetFastFlag("DevFrameworkScrollingFrameUsePane")
-local FFlagCurveEditor = game:GetFastFlag("ACECurveEditorInternal")
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local TestPaths = {}
 
 local WAIT_TIMEOUT = 2
@@ -44,7 +46,7 @@ end
 
 function TestPaths.getTrackList(container)
 	local base = TestPaths.getEditorController(container)
-	if FFlagCurveEditor then
+	if GetFFlagCurveEditor() then
 		return TestPaths.waitForDescendant(base, {
 			"TrackListAndControlContainer", "EventsAndTracks", "TrackListAndScrollBar", "TrackList", "Canvas",
 		})

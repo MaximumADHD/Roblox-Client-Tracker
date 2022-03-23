@@ -17,6 +17,7 @@ local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag(
 )
 local FFlagToolboxAssetGridRefactor5 = game:GetFastFlag("ToolboxAssetGridRefactor5")
 local FFlagToolboxUpdateWindowMinSize = game:GetFastFlag("ToolboxUpdateWindowMinSize")
+local FFlagToolboxRefactorSearchOptions = game:GetFastFlag("ToolboxRefactorSearchOptions")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -28,6 +29,7 @@ local Framework = require(Packages.Framework)
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local getModal = ContextGetter.getModal
+local getNetwork = ContextGetter.getNetwork
 local withLocalization = ContextHelper.withLocalization
 local withModal = ContextHelper.withModal
 
@@ -36,6 +38,7 @@ local createFitToContent = require(Plugin.Core.Components.createFitToContent)
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+local Settings = require(Plugin.Core.ContextServices.Settings)
 
 local LiveSearchBar = require(Plugin.Core.Components.SearchOptions.LiveSearchBar)
 local RadioButtons
@@ -57,6 +60,12 @@ local FFlagToolboxFixCreatorSearchResults = game:GetFastFlag("ToolboxFixCreatorS
 local getShouldHideNonRelevanceSorts = require(Plugin.Core.Util.ToolboxUtilities).getShouldHideNonRelevanceSorts
 
 local Separator = Framework.UI.Separator
+
+local SearchWithOptions = require(Plugin.Core.Networking.Requests.SearchWithOptions)
+local UserSearchRequest = require(Plugin.Core.Networking.Requests.UserSearchRequest)
+local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
+
+local Category = require(Plugin.Core.Types.Category)
 
 local SearchOptions = Roact.PureComponent:extend("SearchOptions")
 
@@ -103,8 +112,16 @@ function SearchOptions:init(initialProps)
 		self.searchTerm = searchTerm
 		self.extraSearchDetails = extraDetails
 
-		if self.props.updateSearch then
-			self.props.updateSearch(searchTerm)
+		
+		if FFlagToolboxRefactorSearchOptions then
+			if not self.props.isSearching then
+				local networkInterface = getNetwork(self)
+				self.props.userSearch(networkInterface, searchTerm, extraDetails)
+			end
+		else
+			if self.props.updateSearch then
+				self.props.updateSearch(searchTerm)
+			end
 		end
 	end
 
@@ -129,14 +146,22 @@ function SearchOptions:init(initialProps)
 	end
 
 	self.apply = function(options)
-		if self.props.onClose then
-			self.props.onClose(options)
+		if FFlagToolboxRefactorSearchOptions then
+			self.onSearchOptionsClosed(options)
+		else
+			if self.props.onClose then
+				self.props.onClose(options)
+			end
 		end
 	end
 
 	self.cancel = function()
-		if self.props.onClose then
-			self.props.onClose()
+		if FFlagToolboxRefactorSearchOptions then
+			self.onSearchOptionsClosed(nil)
+		else
+			if self.props.onClose then
+				self.props.onClose()
+			end
 		end
 	end
 
@@ -198,6 +223,19 @@ function SearchOptions:init(initialProps)
 			})
 		end)
 	end
+
+	if FFlagToolboxRefactorSearchOptions then
+		self.onSearchOptionsClosed = function(options)
+			if options then
+				local networkInterface = getNetwork(self)
+				local settings = self.props.Settings:get("Plugin")
+				self.props.searchWithOptions(networkInterface, settings, options)
+			end
+			if self.props.onSearchOptionsToggled then
+				self.props.onSearchOptionsToggled()
+			end
+		end
+	end
 end
 
 function SearchOptions:createSeparator(color)
@@ -238,8 +276,20 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 
 	local audioSearchTitle = self.props.Localization:getText("General", "SearchOptionAudioLength")
 
-	local showAudioSearch = self.props.showAudioSearch
-	local showCreatorSearch = self.props.showCreatorSearch
+	local showAudioSearch
+	local showCreatorSearch
+	if FFlagToolboxRefactorSearchOptions then
+		local categoryName = self.props.categoryName
+		showAudioSearch = Category.categoryIsAudio(categoryName)
+
+		showCreatorSearch = true
+		if showRobloxCreatedAssets() then
+			showCreatorSearch = false
+		end
+	else
+		showAudioSearch = self.props.showAudioSearch
+		showCreatorSearch = self.props.showCreatorSearch
+	end
 
 	local sorts
 	if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
@@ -538,15 +588,45 @@ end
 
 SearchOptions = withContext({
 	Localization = ContextServices.Localization,
+	Settings = if FFlagToolboxRefactorSearchOptions then Settings else nil,
 	Stylizer = ContextServices.Stylizer,
 })(SearchOptions)
 
 local function mapStateToProps(state, props)
 	state = state or {}
 	local pageInfo = state.pageInfo or {}
+
+	local liveSearchData
+	if FFlagToolboxRefactorSearchOptions and state.liveSearch then
+		liveSearchData = {
+			searchTerm = state.liveSearch.searchTerm,
+			isSearching = state.liveSearch.isSearching,
+			results = state.liveSearch.results,
+		}
+	end
+
 	return {
 		audioSearchInfo = pageInfo.audioSearchInfo,
+		categoryName = if FFlagToolboxRefactorSearchOptions then pageInfo.categoryName or Category.DEFAULT.name else nil,
+		LiveSearchData = if FFlagToolboxRefactorSearchOptions then liveSearchData else nil,
+		SortIndex = if FFlagToolboxRefactorSearchOptions then pageInfo.sortIndex or 1 else nil,
 	}
 end
 
-return RoactRodux.connect(mapStateToProps, nil)(SearchOptions)
+local mapDispatchToProps
+if FFlagToolboxRefactorSearchOptions then
+	mapDispatchToProps = function(dispatch)
+		return {
+			-- User search (searching as the user types in the search bar)
+			userSearch = function(networkInterface, searchTerm)
+				dispatch(UserSearchRequest(networkInterface, searchTerm))
+			end,
+	
+			searchWithOptions = function(networkInterface, settings, options)
+				dispatch(SearchWithOptions(networkInterface, settings, options))
+			end,
+		}
+	end	
+end
+
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(SearchOptions)

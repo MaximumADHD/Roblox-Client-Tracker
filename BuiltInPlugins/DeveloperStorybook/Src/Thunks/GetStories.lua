@@ -2,8 +2,6 @@
 	Discover the storybooks & their corresponding stories in the data model.
 ]]
 
-local FFlagToolboxStorybook = game:GetFastFlag("ToolboxStorybook")
-
 local Main = script.Parent.Parent.Parent
 local Types = require(Main.Src.Types)
 local Framework = require(Main.Packages.Framework)
@@ -173,7 +171,8 @@ end
 local function visitInstance(
 	instance: Instance,
 	mut_foldersByPath: { [string]: Types.StoryItem },
-	mut_storybookItems: Types.Array<Types.StoryItem>
+	mut_storybookItems: Types.Array<Types.StoryItem>,
+	mut_missingItems: Types.Array<Types.StoryItem>
 )
 	local isStorybook = instance:IsA("ModuleScript") and endsWith(instance.Name, STORYBOOK_SUFFIX)
 	if not isStorybook then
@@ -184,7 +183,8 @@ local function visitInstance(
 		return ModuleLoader:load(instance :: ModuleScript)
 	end)
 	if not ok or typeof(storybook) ~= "table" then
-		warn("Bad storybook", instance, storybook)
+		local missingItem = createItem(instance.Name, "Storybook", {})
+		insert(mut_missingItems, missingItem)
 		return
 	end
 	-- Default name is script name with ".storybook" stripped off end
@@ -218,7 +218,7 @@ local function findStorybooks()
 	local foldersByPath: { [string]: Types.StoryItem } = {}
 	local storybookItems: Types.Array<Types.StoryItem> = {}
 
-	if FFlagToolboxStorybook and index then
+	if index then
 		local PluginDebugService = safeGetService(0, "PluginDebugService")
 		if PluginDebugService then
 			forEach(PluginDebugService:GetChildren(), function(source: Plugin)
@@ -231,15 +231,26 @@ local function findStorybooks()
 		end
 	end
 
+	local missingItems = {}
+
 	forEach(sources, function(source: Instance)
 		forEach(source:GetDescendants(), function(instance: Instance)
-			if FFlagToolboxStorybook and index and source:IsA("Plugin") and (instance:GetFullName():find(".Packages") or instance:GetFullName():find(".Libs")) then
+			if index and source:IsA("Plugin") and (instance:GetFullName():find(".Packages") or instance:GetFullName():find(".Libs")) then
 				-- Skip library folders for plugins
 				return
 			end
-			visitInstance(instance, foldersByPath, storybookItems)
+			visitInstance(instance, foldersByPath, storybookItems, missingItems)
 		end)
 	end)
+
+	if #missingItems > 0 then
+		insert(storybookItems, {
+			Name = "Unavailable Storybooks",
+			Icon = "Folder",
+			Children = missingItems,
+			GetChildren = getChildren,
+		})
+	end
 	return storybookItems
 end
 

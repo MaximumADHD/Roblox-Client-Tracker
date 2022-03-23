@@ -18,7 +18,6 @@ local Constants = require(Plugin.Src.Resources.Constants)
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
-local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
 
 local optInLocations
@@ -55,14 +54,11 @@ local initial = {
 		playableDevices = {Computer = true, Phone = true, Tablet = true,},
 		teamCreateEnabled = true,
 		OptInLocations = optInLocations,
+		isActive = false,
+		isFriendsOnly = false,
 	},
 	errors = {},
 }
-
-if FFlagStudioAllowRemoteSaveBeforePublish then
-	initial.changed.isActive = false
-	initial.changed.isFriendsOnly = false
-end
 
 return Rodux.createReducer(initial, {
 	AddChange = function(state, action)

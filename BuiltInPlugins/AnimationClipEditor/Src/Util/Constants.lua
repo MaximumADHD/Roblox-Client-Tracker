@@ -1,6 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 local FFlagStudioUseAnimationEditorAnalytics2 = game:DefineFastFlag("StudioUseAnimationEditorAnalytics2", false)
 
@@ -59,10 +60,12 @@ local Constants = {
 	NUMBERBOX_WIDTH = 70,
 	NUMBERBOX_PADDING = 4,
 	NUMBERBOX_DRAG_MULTIPLIER = 0.05,
-
+	NUMBERBOX_FACS_DRAG_MULTIPLIER = 0.01,
 	NUMBERTRACK_PADDING = 5,
 
 	KEYFRAME_WIDTH = 6,
+	KEYFRAME_BORDER_SIZE = 1,
+	KEYFRAME_BORDER_SIZE_SELECTED = 2,
 	SUMMARY_KEYFRAME_WIDTH = 8,
 
 	MAX_VISIBLE_KEYFRAMES = 1000,
@@ -361,6 +364,11 @@ local Constants = {
 		Left = "Left",
 	} or nil,
 
+	DRAG_MODE = GetFFlagCurveEditor() and {
+		Keyframe = "Keyframe",
+		Tangent = "Tangent"
+	} or nil,
+
 	PLAY_STATE = {
 		Reverse = "Reverse",
 		Pause = "Pause",
@@ -372,9 +380,20 @@ local Constants = {
 		CurveCanvas = "CurveCanvas",
 	},
 
-	CURVE_RESOLUTION = 25,       -- When rendering a curve, this is the max number of pixels one segment can be before being split
-	CURVE_REFINEMENT = 5,        -- When a curve reaches the RESOLUTION size, it is subdivided in REFINEMENT segments.
-	CURVE_CANVAS_PADDING = 0.10  -- Percentage kept blank above max/below min value in the curve canvas when completely zoomed out.
+	CURVE_WIDTH = 1,				-- Width (in pixels) of the curves in curve editor
+	CURVE_WIDTH_SELECTED = 2,		-- Width (in pixels) of the curves when selected
+	CURVE_RESOLUTION = 25,			-- When rendering a curve, this is the max number of pixels one segment can be before being split.
+	CURVE_REFINEMENT = 5,			-- When a curve reaches the RESOLUTION size, it is subdivided in REFINEMENT segments.
+	CURVE_INTERVAL = 5,				-- Horizontal size (in pixels) of each line segment when rendering a curve.
+	CURVE_CANVAS_PADDING = 0.10,	-- Percentage kept blank above max/below min value in the curve canvas when completely zoomed out.
+	CURVE_CANVAS_MIN_RANGE = 0.2,	-- Minimum range of values covered by the curve canvas when zoomed out.
+	TANGENT_CONTROL_LENGTH = 0.09,	-- Length of a tangent control. This is a percentage of the height of the canvas, and should be less
+									-- than CURVE_CANVAS_PADDING to ensure that the tangent is always entirely displayed
+	TANGENT_CONTROL_WIDTH = 1,		-- Width (in pixels) of the tangent controls
+	SCRUBBER_MARKER_WIDTH = 3,		-- Width (in pixels) of the scrubber markers following the curves (should be <= KEYFRAME_WIDTH)
+
+	NUMBER_PRECISION = 1000,		-- Default precision of numbers in textboxes (position, rotation)
+	NUMBER_FACS_PRECISION = 100,	-- Precision for FACS values
 }
 
 Constants.MAIN_MINIMUM_SIZE = Vector2.new(Constants.TRACK_LIST_MIN_WIDTH + Constants.TIMELINE_MIN_WIDTH, 200)
@@ -523,6 +542,21 @@ if GetFFlagChannelAnimations() then
 	-- Add style mapping to new enum
 	Constants.KEYFRAME_STYLE[Enum.KeyInterpolationMode.Constant] = "Constant"
 	Constants.KEYFRAME_STYLE[Enum.KeyInterpolationMode.Cubic] = "Cubic"
+end
+
+if GetFFlagCurveEditor() then
+	Constants.TRACK_THEME_MAPPING = {
+		[Constants.TRACK_TYPES.Number] = {
+			[Constants.PROPERTY_KEYS.X] = "positionX",
+			[Constants.PROPERTY_KEYS.Y] = "positionY",
+			[Constants.PROPERTY_KEYS.Z] = "positionZ",
+		},
+		[Constants.TRACK_TYPES.Angle] = {
+			[Constants.PROPERTY_KEYS.X] = "rotationX",
+			[Constants.PROPERTY_KEYS.Y] = "rotationY",
+			[Constants.PROPERTY_KEYS.Z] = "rotationZ",
+		}
+	}
 end
 
 Constants.DEFAULT_ROTATION_TYPE = GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.Quaternion or Constants.TRACK_TYPES.Rotation

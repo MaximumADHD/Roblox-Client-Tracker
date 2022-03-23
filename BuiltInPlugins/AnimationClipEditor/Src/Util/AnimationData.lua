@@ -190,8 +190,8 @@ function AnimationData.addTrack(tracks, trackName, trackType, isChannelAnimation
 			tracks[trackName].Keyframes = {}
 			tracks[trackName].Data = {}
 		end
-		return tracks[trackName]
 	end
+	return tracks[trackName]
 end
 
 -- Adds a new keyframe at the given tick with the given value.

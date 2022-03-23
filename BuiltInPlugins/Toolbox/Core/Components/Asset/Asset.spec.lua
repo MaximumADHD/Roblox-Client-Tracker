@@ -1,5 +1,6 @@
 return function()
 	local FFlagToolboxAssetGridRefactor5 = game:GetFastFlag("ToolboxAssetGridRefactor5")
+	local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
 
 	local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -18,6 +19,8 @@ return function()
 
 	local Asset = require(Plugin.Core.Components.Asset.Asset)
 
+	local GetAssets = require(Plugin.Core.Actions.GetAssets)
+
 	local function createTestAsset(container, name, asset, mockProps)
 		local myAsset = asset or MockItems.getSimpleAsset(123456)
 		local assetId = myAsset.Asset.Id
@@ -25,11 +28,9 @@ return function()
 		mockProps = mockProps or {}
 		if FFlagToolboxAssetGridRefactor5 then
 			mockProps = Cryo.Dictionary.join(mockProps, {
-				store = CoreTestUtils.storeWithData({
-					assets = {
-						idToAssetMap = { [assetId] = myAsset },
-					},
-				}),
+				storeSetup = function(store)
+					store:dispatch(GetAssets({ myAsset }, 1))
+				end,
 			})
 		end
 
@@ -37,6 +38,7 @@ return function()
 			Asset = Roact.createElement(Asset, {
 				asset = not FFlagToolboxAssetGridRefactor5 and myAsset or nil,
 				assetId = FFlagToolboxAssetGridRefactor5 and assetId or nil,
+				assetData = FFlagToolboxAssetCategorization and myAsset or nil,
 				LayoutOrder = 1,
 			}),
 		})
@@ -75,7 +77,7 @@ return function()
 		})
 
 		expect(#calls).to.equal(1)
-		expect(calls[1][2]).to.equal(asset)
+		expect(calls[1][2].Asset.Id).to.equal(asset.Asset.Id)
 
 		Roact.unmount(instance)
 	end)

@@ -25,7 +25,8 @@ local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 
 local withModal = ContextHelper.withModal
-local withTheme = ContextHelper.withTheme
+
+local ShowOnTop = Framework.UI.ShowOnTop
 
 local StyledScrollingFrame = require(Plugin.Core.Components.StyledScrollingFrame)
 local RoundFrame = require(Plugin.Core.Components.RoundFrame)
@@ -36,6 +37,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local FFlagToolboxFixCreatorSearchResults = game:GetFastFlag("ToolboxFixCreatorSearchResults")
+local FFlagToolboxAssetGridRefactor5 = game:GetFastFlag("ToolboxAssetGridRefactor5")
 
 local LiveSearchDropdown = Roact.PureComponent:extend("LiveSearchDropdown")
 
@@ -139,15 +141,27 @@ function LiveSearchDropdown:renderContent(modalTarget)
 		BorderColor3 = dropdownTheme.dropdownFrame.borderColor,
 	})
 
+	local elem
+	local elemProps
+	if FFlagToolboxAssetGridRefactor5 then
+		elem = ShowOnTop
+		elemProps = {
+			Priority = 3,
+		}
+	else
+		elem = Roact.Portal
+		elemProps = {
+			target = modalTarget,
+		}
+	end
+
 	return Roact.createElement("Frame", {
 		Position = position,
 		Size = size,
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
 	}, {
-		Portal = modalTarget and Roact.createElement(Roact.Portal, {
-			target = modalTarget,
-		}, {
+		Portal = modalTarget and Roact.createElement(elem, elemProps, {
 			ClickEventDetectFrame = Roact.createElement("ImageButton", {
 				ZIndex = 10,
 				Position = UDim2.new(0, 0, 0, 0),

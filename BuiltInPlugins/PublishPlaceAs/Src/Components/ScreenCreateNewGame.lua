@@ -41,7 +41,6 @@ local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtil
 local sendAnalyticsToKibana = require(Plugin.Src.Util.PublishPlaceAsUtilities).sendAnalyticsToKibana
 local Analytics = require(Plugin.Src.Util.Analytics)
 
-local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 
@@ -123,7 +122,7 @@ function ScreenCreateNewGame:render()
 
 	local selected = self.state.selected
 
-	local canScroll = not FFlagStudioAllowRemoteSaveBeforePublish and shouldShowDevPublishLocations()
+	local canScroll = false
 
 	local actionButtonLabel = "Create"
 	if FFlagStudioNewGamesInCloudUI and (isPublish == false) then
@@ -247,7 +246,7 @@ function ScreenCreateNewGame:render()
 			}),
 		}),
 	}
-	if FFlagStudioAllowRemoteSaveBeforePublish and isPublish then
+	if isPublish then
 		children.Page = Roact.createElement(StyledScrollingFrame, {
 			BackgroundTransparency = 1,
 			Position = UDim2.new(0, theme.MENU_BAR_WIDTH, 0, 0),

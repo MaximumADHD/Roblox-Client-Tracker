@@ -20,6 +20,8 @@ local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local Constants = require(Plugin.Src.Util.Constants)
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
+local Button = Framework.UI.Button
+
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -54,31 +56,31 @@ local function calculateIntervals(width, startTick, endTick)
 end
 
 function TimelineContainer:init()
-	self.moveToTick = function(tick)
+	self.moveToTick = function(tck)
 		local props = self.props
 
 		if props.SnapMode == Constants.SNAP_MODES.Keyframes then
-			props.SnapToNearestKeyframe(tick, props.ParentSize.X - props.TrackPadding)
+			props.SnapToNearestKeyframe(tck, props.ParentSize.X - props.TrackPadding)
 		elseif props.SnapMode == Constants.SNAP_MODES.Frames then
-			props.SnapToNearestFrame(tick)
+			props.SnapToNearestFrame(tck)
 		else
-			props.StepAnimation(tick)
+			props.StepAnimation(tck)
 		end
 	end
 
 	self.onScrubberMoved = function(input)
 		if self.props.StepAnimation then
-			local tick = TrackUtils.getKeyframeFromPosition(
+			local tck = TrackUtils.getKeyframeFromPosition(
 				input.Position,
 				self.props.StartTick,
 				self.props.EndTick,
 				self.props.ParentPosition.X + (self.props.TrackPadding / 2),
 				self.props.ParentSize.X - self.props.TrackPadding)
 
-			tick = math.clamp(tick,
+			tck = math.clamp(tck,
 				self.props.StartTick,
 				self.props.EndTick)
-			self.moveToTick(tick)
+			self.moveToTick(tck)
 		end
 	end
 
@@ -89,19 +91,19 @@ function TimelineContainer:init()
 	end
 
 	self.moveScrubberForward = function()
-		local tick = self.props.Playhead + 5
-		tick = math.clamp(tick,
+		local tck = self.props.Playhead + 5
+		tck = math.clamp(tck,
 			self.props.StartTick,
 			self.props.EndTick)
-		self.moveToTick(tick)
+		self.moveToTick(tck)
 	end
 
 	self.moveScrubberBackward= function()
-		local tick = self.props.Playhead - 5
-		tick = math.clamp(tick,
+		local tck = self.props.Playhead - 5
+		tck = math.clamp(tck,
 			self.props.StartTick,
 			self.props.EndTick)
-		self.moveToTick(tick)
+		self.moveToTick(tck)
 	end
 end
 
@@ -116,6 +118,9 @@ function TimelineContainer:render()
 	local layoutOrder = props.LayoutOrder
 	local parentSize = props.ParentSize
 	local animationData = props.AnimationData
+
+	local showToggleEditorButton = props.ShowToggleEditorButton
+	local toggleEditorButtonActive = props.EditorMode == Constants.EDITOR_MODE.CurveCanvas
 
 	startTick = startTick * frameRate / Constants.TICK_FREQUENCY
 	endTick = endTick * frameRate / Constants.TICK_FREQUENCY
@@ -150,7 +155,23 @@ function TimelineContainer:render()
 			OnDragMoved = self.onScrubberMoved,
 			AnimationData = animationData,
 			FrameRate = frameRate,
+			ZIndex = GetFFlagCurveEditor() and 2 or nil,
 		}),
+		ToggleEditorButton = GetFFlagCurveEditor() and showToggleEditorButton and Roact.createElement(Button, {
+			ZIndex = 1,
+			Size = UDim2.new(0, self.props.TrackPadding / 2, 0, Constants.TIMELINE_HEIGHT),
+			Style = toggleEditorButtonActive and theme.button.ActiveControl or theme.button.MediaControl,
+			OnClick = props.OnToggleEditorClicked,
+		}, {
+			Image = Roact.createElement("ImageLabel", {
+				BackgroundTransparency = 1,
+				Size = UDim2.new(0, Constants.TIMELINE_HEIGHT, 0, Constants.TIMELINE_HEIGHT),
+				Position = UDim2.new(.5, 0, 0, 0),
+				AnchorPoint = Vector2.new(.5, 0),
+				Image = theme.curveTheme.curveEditorButton,
+				ImageColor3 = toggleEditorButtonActive and theme.playbackTheme.iconHighlightColor or theme.playbackTheme.iconColor,
+			}),
+		}) or nil,
 		KeyboardListener = Roact.createElement(KeyboardListener, {
 			OnKeyPressed = function(input)
 				if Input.isLeftBracket(input.KeyCode) then

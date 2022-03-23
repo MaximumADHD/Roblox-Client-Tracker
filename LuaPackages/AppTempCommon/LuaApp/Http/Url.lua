@@ -87,6 +87,7 @@ local _baseEconomyCreatorStats = FFlagLuaFixEconomyCreatorStatsUrl
 local _baseUserModerationUrl = string.format("https://usermoderation.%s", _baseDomain)
 local _baseUrlSecure = string.gsub(_baseUrl, "http://", "https://")
 local _baseVoiceUrl = string.format("https://voice.%s", _baseDomain)
+local _baseTranslationsUrl = string.format("https://translations.%s", _baseDomain)
 local _baseTwoStepVerification = string.format("https://twostepverification.%s", _baseDomain)
 
 -- Version of the static farm URL that makes use of CDN on prod.
@@ -140,6 +141,7 @@ local Url = {
 	ECNOMY_CREATOR_STATS = _baseEconomyCreatorStats,
 	USER_MODERATION_URL = _baseUserModerationUrl,
 	VOICE_URL = _baseVoiceUrl,
+	TRANSLATIONS_URL = _baseTranslationsUrl,
 	TWOSTEPVERIFICATION_URL = _baseTwoStepVerification
 }
 

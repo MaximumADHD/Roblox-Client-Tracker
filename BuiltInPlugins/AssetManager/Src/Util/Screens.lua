@@ -3,11 +3,40 @@ local Plugin = script.Parent.Parent.Parent
 local Framework = Plugin.Packages.Framework
 local Util = require(Framework.Util)
 local LayoutOrderIterator = Util.LayoutOrderIterator
+local ModernIcons = require(Plugin.Src.Util.ModernIcons)
 
 local shouldEnableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).shouldEnableAudioImport
 
 local FFlagAssetManagerRefactorPath = game:GetFastFlag("AssetManagerRefactorPath")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
+
+local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and not game:GetService("StudioHighDpiService"):IsNotHighDPIAwareBuild()
+
+local PlacesIconPath
+local ImagesIconPath
+local MeshesIconPath
+local PackagesIconPath
+local ScriptsIconPath
+local AudioIconPath
+local ModelsIconPath
+if FFlagHighDpiIcons then
+    PlacesIconPath = ModernIcons.IconEnums.Places
+    ImagesIconPath = ModernIcons.IconEnums.Images
+    MeshesIconPath = ModernIcons.IconEnums.Meshes
+    PackagesIconPath = ModernIcons.IconEnums.Packages
+    ScriptsIconPath = ModernIcons.IconEnums.Scripts
+    AudioIconPath = ModernIcons.IconEnums.Audio
+    ModelsIconPath = ModernIcons.IconEnums.Models
+else
+    PlacesIconPath = "rbxasset://textures/StudioSharedUI/places.png"
+    ImagesIconPath = "rbxasset://textures/StudioSharedUI/images.png"
+    MeshesIconPath = "rbxasset://textures/StudioSharedUI/meshes.png"
+    PackagesIconPath = "rbxasset://textures/StudioSharedUI/packages.png"
+    ScriptsIconPath = "rbxasset://textures/StudioSharedUI/scripts.png"
+    AudioIconPath = "rbxasset://textures/StudioSharedUI/audio.png"
+    ModelsIconPath = "rbxasset://textures/StudioSharedUI/models.png"
+end
+
 
 if FFlagAssetManagerRefactorPath then
 	local MainPath = "MAIN"
@@ -19,49 +48,49 @@ if FFlagAssetManagerRefactorPath then
 		PLACES = {
 			Path = "PLACES",
 			AssetType = Enum.AssetType.Place,
-			Image = "rbxasset://textures/StudioSharedUI/places.png",
+			Image = PlacesIconPath,
 			Parent = MainPath,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 		},
 		IMAGES = {
 			Path = "IMAGES",
 			AssetType = Enum.AssetType.Image,
-			Image = "rbxasset://textures/StudioSharedUI/images.png",
+			Image = ImagesIconPath,
 			Parent = MainPath,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 		},
 		MESHES = {
 			Path = "MESHES",
 			AssetType = Enum.AssetType.Mesh,
-			Image = "rbxasset://textures/StudioSharedUI/meshes.png",
+			Image = MeshesIconPath,
 			Parent = MainPath,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 		},
 		PACKAGES = {
 			Path = "PACKAGES",
 			AssetType = Enum.AssetType.Package,
-			Image = "rbxasset://textures/StudioSharedUI/packages.png",
+			Image = PackagesIconPath,
 			Parent = MainPath,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 		},
 		SCRIPTS = {
 			Path = "SCRIPTS",
 			AssetType = Enum.AssetType.Lua,
-			Image = "rbxasset://textures/StudioSharedUI/scripts.png",
+			Image = ScriptsIconPath,
 			Parent = MainPath,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 		},
 		AUDIO = shouldEnableAudioImport() and {
 			Path = "AUDIO",
 			AssetType = Enum.AssetType.Audio,
-			Image = "rbxasset://textures/StudioSharedUI/audio.png",
+			Image = AudioIconPath,
 			Parent = MainPath,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 		} or nil,
 		MODELS = FFlagAssetManagerEnableModelAssets and {
 			Path = "MODELS",
 			AssetType = Enum.AssetType.Model,
-			Image = "rbxasset://textures/StudioSharedUI/models.png",
+			Image = ModelsIconPath,
 			Parent = MainPath,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 		} or nil,
@@ -95,7 +124,7 @@ else
 		Screens.AUDIO.Parent = Screens.MAIN.Path
 		Screens.AUDIO.AssetType = Enum.AssetType.Audio
 		Screens.AUDIO.LayoutOrder = 6
-		Screens.AUDIO.Image = "rbxasset://textures/StudioSharedUI/audio.png"
+		Screens.AUDIO.Image = AudioIconPath
 	end
 
 	if FFlagAssetManagerEnableModelAssets then
@@ -105,7 +134,7 @@ else
 		Screens.MODELS.Parent = Screens.MAIN.Path
 		Screens.MODELS.AssetType = Enum.AssetType.Model
 		Screens.MODELS.LayoutOrder = 7
-		Screens.MODELS.Image = "rbxasset://textures/StudioSharedUI/models.png"
+		Screens.MODELS.Image = ModelsIconPath
 	end
 
 	Screens.MESHES.Parent = Screens.MAIN.Path
@@ -126,11 +155,11 @@ else
 	Screens.PACKAGES.LayoutOrder = 4
 	Screens.SCRIPTS.LayoutOrder = 5
 
-	Screens.PLACES.Image = "rbxasset://textures/StudioSharedUI/places.png"
-	Screens.IMAGES.Image = "rbxasset://textures/StudioSharedUI/images.png"
-	Screens.MESHES.Image = "rbxasset://textures/StudioSharedUI/meshes.png"
-	Screens.PACKAGES.Image = "rbxasset://textures/StudioSharedUI/packages.png"
-	Screens.SCRIPTS.Image = "rbxasset://textures/StudioSharedUI/scripts.png"
+	Screens.PLACES.Image = PlacesIconPath
+	Screens.IMAGES.Image = ImagesIconPath
+	Screens.MESHES.Image = MeshesIconPath
+	Screens.PACKAGES.Image = PackagesIconPath
+	Screens.SCRIPTS.Image = ScriptsIconPath
 
 	return Screens
 end

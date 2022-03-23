@@ -3,6 +3,7 @@
 ]]
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 local FFlagToolboxAudioAssetConfigDisablePublicAudio = game:GetFastFlag("ToolboxAudioAssetConfigDisablePublicAudio")
+local FFlagToolboxAssetConfigUpdatePrivateAudioMessage = game:GetFastFlag("ToolboxAssetConfigUpdatePrivateAudioMessage")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -72,14 +73,12 @@ function ConfigSharing:render()
 	local onSelected = props.OnSelected
 
 	local localization = props.Localization
-	local privateText = localization:getText("AssetConfigSharing", "OnlyMe")
-	local publicText = localization:getText("AssetConfigSharing", "AnyoneOnRoblox")
 	local subTitleText = localization:getText("AssetConfigSharing", "SubTitle")
 	local termsOfUseText = localization:getText("General", "TermsOfUse")
-	local title = localization:getText("General", "Sharing")
 
 	local isIdVerificationRequired
 	local isVerified
+	local privateInformationText
 	local showVerificationNotice
 	local verificationActionButtonText
 	local verificationNoticeText
@@ -93,6 +92,20 @@ function ConfigSharing:render()
 		verificationRefreshText = localization:getText("AssetConfigSharing", "CheckStatus")
 
 		showVerificationNotice = isIdVerificationRequired and not isVerified
+	end
+
+	local privateText
+	local publicText
+	local title
+	if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then
+		privateText = localization:getText("AssetConfigSharing", "SpecificExperiences")
+		privateInformationText = localization:getText("AssetConfigSharing", "PrivateInformation")
+		publicText = localization:getText("AssetConfigSharing", "AllExperiences")
+		title = localization:getText("AssetConfigSharing", "ExperiencesWithAccess")
+	else
+		privateText = localization:getText("AssetConfigSharing", "OnlyMe")
+		publicText = localization:getText("AssetConfigSharing", "AnyoneOnRoblox")
+		title = localization:getText("General", "Sharing")
 	end
 
 	local informationText
@@ -167,15 +180,22 @@ function ConfigSharing:render()
 				}),
 
 				RadioButtonList = Roact.createElement(RadioButtonList, {
+					AutomaticSize = Enum.AutomaticSize.Y,
 					Buttons = {
 						{
 							Key = AssetConfigConstants.SHARING_KEYS.Private,
 							Text = privateText,
+							Description = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then privateInformationText else nil,
 							Disabled = not allowSelectPrivate,
 						},
 						{
 							Key = AssetConfigConstants.SHARING_KEYS.Public,
 							Text = publicText,
+							Description = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage
+								and (not FFlagToolboxAudioAssetConfigIdVerification or not showVerificationNotice)
+							then
+								informationText
+							else nil,
 							Disabled = not allowSelectPublic,
 						},
 					},
@@ -185,7 +205,9 @@ function ConfigSharing:render()
 					CurrentSelectedKey = selectedKey,
 					SelectedKey = selectedKey,
 					Style = "AssetConfigRadioButtonList",
-				}),
+					TextWrapped = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then true else nil,
+					TextXAlignment = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then Enum.TextXAlignment.Left else nil,
+					VerticalAlignment = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then Enum.VerticalAlignment.Top else nil,					}),
 			}),
 
 			VerificationNotice = if FFlagToolboxAudioAssetConfigIdVerification and showVerificationNotice
@@ -247,7 +269,7 @@ function ConfigSharing:render()
 					},
 					Size = UDim2.new(1, 0, 0, 0),
 				}, {
-					TipsLabel = Roact.createElement(TextLabel, {
+					TipsLabel = if not FFlagToolboxAssetConfigUpdatePrivateAudioMessage then Roact.createElement(TextLabel, {
 						AutomaticSize = Enum.AutomaticSize.Y,
 						Size = UDim2.new(1, 0, 0, 0),
 						Text = informationText,
@@ -255,7 +277,7 @@ function ConfigSharing:render()
 						TextSize = Constants.FONT_SIZE_LARGE,
 						TextWrapped = true,
 						TextXAlignment = Enum.TextXAlignment.Left,
-					}),
+					}) else nil,
 
 					LinkText = Roact.createElement(LinkText, {
 						LayoutOrder = orderIterator:getNextOrder(),

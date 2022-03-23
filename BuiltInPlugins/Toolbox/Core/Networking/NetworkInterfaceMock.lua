@@ -10,6 +10,8 @@ local Packages = Plugin.Packages
 
 local Promise = require(Packages.Framework).Util.Promise
 
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+
 -- public api
 local NetworkInterfaceMock = {}
 NetworkInterfaceMock.__index = NetworkInterfaceMock
@@ -55,6 +57,10 @@ local function getFakeAsset(fakeId)
 	}
 end
 
+function NetworkInterfaceMock:fakeAssetFactory(assetId)
+	return getFakeAsset(assetId)
+end
+
 local function getCreationsFakeAsset(fakeId)
 	return {
 		assetId = fakeId,
@@ -75,6 +81,10 @@ local function getFakeToolboxItems(fakeId)
 		id = fakeId,
 		itemType = "Asset",
 	}
+end
+
+function NetworkInterfaceMock:fakeToolboxItemFactory(assetId)
+	return getFakeToolboxItems(assetId)
 end
 
 local function getFakeCreationsItems(fakeId)
@@ -147,17 +157,38 @@ end
 
 -- Intentionally ignoring that the real method has parameters because they are not used in this mock
 function NetworkInterfaceMock:getToolboxItems(
-	category,
-	sortType,
-	creatorType,
-	minDuration,
-	maxDuration,
-	creatorTargetId,
-	keyword,
-	cursor,
-	limit
+	-- remove string from args union when removing FFlagToolboxAssetCategorization
+	args: string | {
+		categoryName: string,
+		sortType: string?,
+		keyword: string?,
+		cursor: string?,
+		limit: number?,
+		ownerId: number?,
+		creatorType: string?,
+		creatorTargetId: number?,
+		minDuration: number?,
+		maxDuration: number?,
+	},
+	sortType: string?,
+	creatorType: string?,
+	minDuration: number?,
+	maxDuration: number?,
+	creatorTargetId: number?,
+	ownerId: number?,
+	keyword: string?,
+	cursor: string?,
+	limit: number?
 )
-	createStringValueforVerification(category, sortType)
+	local categoryName: string
+	if FFlagToolboxAssetCategorization and type(args) ~= "string" then
+		categoryName = args.categoryName
+		sortType = args.sortType
+	else
+		categoryName = args :: string
+	end
+
+	createStringValueforVerification(categoryName, sortType)
 	local fakeItemListContent = {
 		responseBody = {
 			totalResults = ARBITRARY_LARGE_TOTAL_COUNT,

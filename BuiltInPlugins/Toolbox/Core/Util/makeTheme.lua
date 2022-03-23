@@ -1,4 +1,3 @@
-local FFlagToolboxStorybook = game:GetFastFlag("ToolboxStorybook")
 local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
 local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
 
@@ -27,11 +26,7 @@ local ui = FrameworkStyle.ComponentSymbols
 local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
 
 local makeTheme = function(themeExtension, themeClass)
-	if FFlagToolboxStorybook then
-		themeClass = themeClass or StudioTheme
-	else
-		themeClass = StudioTheme
-	end
+	themeClass = themeClass or StudioTheme
 
 	local styleRoot
 	local overridedDarkTheme = Cryo.Dictionary.join(DarkTheme, {

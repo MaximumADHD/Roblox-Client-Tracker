@@ -46,4 +46,16 @@ return function()
 		expect(state.ScriptInfo.ScriptInfo["testGuid"]).to.equal("testName.lua")
 		scriptChangeServiceListener:destroy()
 	end)
+
+	it("should send lineContentsChangeSignal", function()
+		local mainStore = Rodux.Store.new(MainReducer, {})
+		fakeDebuggerConnect(mainStore)
+		local mockCrossDMScriptChangeListenerService = MockCrossDMScriptChangeListenerService.new()
+		local scriptChangeServiceListener = CrossDMScriptChangeListener.new(mainStore, mockCrossDMScriptChangeListenerService)
+		
+		mockCrossDMScriptChangeListenerService.GuidLineContentsChanged:Fire("testGuid", 5, "scriptLine")
+		local state = mainStore:getState()
+		expect(state.ScriptInfo.ScriptLineContents["testGuid"][5]).to.equal("scriptLine")
+		scriptChangeServiceListener:destroy()
+	end)
 end

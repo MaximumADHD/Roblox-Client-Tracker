@@ -10,7 +10,6 @@ local getUserId = require(Plugin.Core.Util.getUserId)
 
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
 local FFlagToolboxAddAssetImpressionCounterAnalytics = game:GetFastFlag("ToolboxAddAssetImpressionCounterAnalytics")
-local FFlagToolboxWindowTelemetry = game:GetFastFlag("ToolboxWindowTelemetry")
 
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
 local function getStudioSessionId()
@@ -343,18 +342,16 @@ function Analytics.marketplaceSearch(
 	})
 end
 
-if FFlagToolboxWindowTelemetry then
-	function Analytics.onToolboxWidgetInteraction(widgetSize)
-		AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "ToolboxWidgetInteraction", {
-			clientId = getClientId(),
-			userId = getUserId(),
-			platformId = getPlatformId(),
-			studioSid = getStudioSessionId(),
-			isEditMode = getIsEditMode(),
-			widgetWidth = widgetSize.X,
-			widgetHeight = widgetSize.Y,
-		})
-	end
+function Analytics.onToolboxWidgetInteraction(widgetSize)
+	AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "ToolboxWidgetInteraction", {
+		clientId = getClientId(),
+		userId = getUserId(),
+		platformId = getPlatformId(),
+		studioSid = getStudioSessionId(),
+		isEditMode = getIsEditMode(),
+		widgetWidth = widgetSize.X,
+		widgetHeight = widgetSize.Y,
+	})
 end
 
 return Analytics

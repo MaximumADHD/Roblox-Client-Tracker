@@ -16,8 +16,6 @@ local Mouse = ContextServices.Mouse
 local Store = ContextServices.Store
 local StudioUI = Framework.StudioUI
 local DockWidget = StudioUI.DockWidget
-local PluginToolbar = StudioUI.PluginToolbar
-local PluginButton = StudioUI.PluginButton
 
 local AnalyticsContext = require(main.Src.ContextServices.AnalyticsContext)
 local MakeTheme = require(main.Src.Resources.MakeTheme)
@@ -30,12 +28,10 @@ local MainReducer = require(main.Src.Reducers.MainReducer)
 local LoadPluginMetadata = require(main.Src.Thunks.LoadPluginMetadata)
 local Analytics = require(main.Src.Util.Analytics)
 
-local FFlagImprovePluginSpeed_LocalizationTool = game:GetFastFlag("ImprovePluginSpeed_LocalizationTool")
 local FFlagFixToolbarButtonForFreshInstallation2 = game:GetFastFlag("FixToolbarButtonForFreshInstallation2")
 
 local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
-local PLUGIN_ICON = "rbxasset://textures/localizationTestingIcon.png"
 local WINDOW_SIZE = Vector2.new(300, 250)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
@@ -86,12 +82,12 @@ function MainPlugin:init()
 			enabled = enabled,
 		})
 
-		if not FFlagFixToolbarButtonForFreshInstallation2 and FFlagImprovePluginSpeed_LocalizationTool then
+		if not FFlagFixToolbarButtonForFreshInstallation2 then
 			self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleState)
 		end
 	end
 
-	if FFlagFixToolbarButtonForFreshInstallation2 and FFlagImprovePluginSpeed_LocalizationTool then
+	if FFlagFixToolbarButtonForFreshInstallation2 then
 		self.onDockWidgetCreated = function()
 			self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleState)
 		end
@@ -103,9 +99,7 @@ function MainPlugin:init()
 		})
 	end
 
-	if FFlagImprovePluginSpeed_LocalizationTool then
-		self.button = self.props.pluginLoaderContext.mainButton
-	end
+	self.button = self.props.pluginLoaderContext.mainButton
 end
 
 function MainPlugin:didMount()
@@ -121,32 +115,8 @@ function MainPlugin:didMount()
 	end)
 end
 
-if not FFlagImprovePluginSpeed_LocalizationTool then
-	function MainPlugin:renderButtons(toolbar, isEditMode)
-		local enabled = self.state.enabled
-		local theme
-		if (not THEME_REFACTOR) then
-			theme = self.theme:get("Plugin")
-		end
-
-		return {
-			Toggle = Roact.createElement(PluginButton, {
-				Toolbar = toolbar,
-				Active = enabled,
-				Enabled = isEditMode,
-				Title = self.localization:getText("Plugin", "RibbonBarButton"),
-				Tooltip = self.localization:getText("Plugin", "ToolTipMessage"),
-				Icon = THEME_REFACTOR and PLUGIN_ICON or theme.PluginIcon,
-				OnClick = self.toggleState,
-			}),
-		}
-	end
-end
-
-if FFlagImprovePluginSpeed_LocalizationTool then
-	function MainPlugin:didUpdate()
-		self.button:SetActive(self.state.enabled)
-	end
+function MainPlugin:didUpdate()
+	self.button:SetActive(self.state.enabled)
 end
 
 function MainPlugin:render()
@@ -164,16 +134,9 @@ function MainPlugin:render()
 	return ContextServices.provide({
 		Plugin.new(plugin),
 	}, {
-		Toolbar = not FFlagImprovePluginSpeed_LocalizationTool and Roact.createElement(PluginToolbar, {
-			Title = self.localization:getText("Plugin", "ToolbarLabel"),
-			RenderButtons = function(toolbar)
-				return self:renderButtons(toolbar, isEditMode)
-			end,
-		}),
-
 		MainWidget = isEditMode and Roact.createElement(DockWidget, {
 			Enabled = enabled,
-			Widget = FFlagImprovePluginSpeed_LocalizationTool and props.pluginLoaderContext.mainDockWidget or nil,
+			Widget = props.pluginLoaderContext.mainDockWidget or nil,
 			Title = self.localization:getText("Plugin", "WindowTitle"),
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			InitialDockState = Enum.InitialDockState.Left,
@@ -181,7 +144,7 @@ function MainPlugin:render()
 			OnClose = self.onClose,
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
-			OnWidgetCreated = FFlagFixToolbarButtonForFreshInstallation2 and FFlagImprovePluginSpeed_LocalizationTool and self.onDockWidgetCreated or nil,
+			OnWidgetCreated = FFlagFixToolbarButtonForFreshInstallation2 and self.onDockWidgetCreated or nil,
 		}, {
 			MainProvider = enabled and ContextServices.provide({
 				Mouse.new(plugin:getMouse()),

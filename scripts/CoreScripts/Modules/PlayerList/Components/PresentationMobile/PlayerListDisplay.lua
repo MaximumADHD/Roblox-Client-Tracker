@@ -31,8 +31,6 @@ local PlayerList = Presentation.Parent.Parent
 local FFlagPlayerListFixMobileScrolling = require(PlayerList.Flags.FFlagPlayerListFixMobileScrolling)
 local FAKE_NEUTRAL_TEAM = require(PlayerList.GetFakeNeutralTeam)
 
-local FFlagPlayerListHeaderVisibility = game:DefineFastFlag("PlayerListHeaderVisibility", false)
-
 local RENDER_OUTSIDE_WINDOW_ELEMENTS = 3
 
 local PlayerListDisplay = Roact.PureComponent:extend("PlayerListDisplay")
@@ -322,18 +320,10 @@ function PlayerListDisplay:didUpdate(prevProps)
 		end
 	end
 
-	if FFlagPlayerListHeaderVisibility then
-		if self.props.isMinimized ~= prevProps.isMinimized then
-			self:setState({
-				contentsVisible = not self.props.isMinimized,
-			})
-		end
-	else
-		if self.props.isMinimized ~= prevProps.isMinimized and self.props.isMinimized then
-			self:setState({
-				contentsVisible = false,
-			})
-		end
+	if self.props.isMinimized ~= prevProps.isMinimized then
+		self:setState({
+			contentsVisible = not self.props.isMinimized,
+		})
 	end
 end
 

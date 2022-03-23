@@ -9,6 +9,7 @@ local UIBlox = require(CorePackages.UIBlox)
 
 local withStyle = UIBlox.Core.Style.withStyle
 local Badge = UIBlox.App.Indicator.Badge
+local BadgeStates = UIBlox.App.Indicator.Enum.BadgeStates
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
@@ -19,6 +20,11 @@ local IconButton = require(script.Parent.IconButton)
 local GameSettings = UserSettings().GameSettings
 
 local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
+local FFlagEnableExperienceChat = require(RobloxGui.Modules.Common.Flags.FFlagEnableExperienceChat)
+
+local function shouldShowEmptyBadge()
+	return FFlagEnableExperienceChat and game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService
+end
 
 local ChatIcon = Roact.PureComponent:extend("ChatIcon")
 
@@ -27,6 +33,7 @@ local CHAT_ICON_AREA_WIDTH = 44
 local ICON_SIZE = 20
 local BADGE_OFFSET_X = 18
 local BADGE_OFFSET_Y = 2
+local EMPTY_BADGE_OFFSET_Y = 6
 
 ChatIcon.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
@@ -75,11 +82,11 @@ function ChatIcon:render()
 				ZIndex = 2,
 			}, {
 				Badge = self.props.unreadMessages > 0 and Roact.createElement(Badge, {
-					position = UDim2.fromOffset(BADGE_OFFSET_X, BADGE_OFFSET_Y),
+					position = UDim2.fromOffset(BADGE_OFFSET_X, shouldShowEmptyBadge() and EMPTY_BADGE_OFFSET_Y or BADGE_OFFSET_Y),
 					anchorPoint = Vector2.new(0, 0),
 
 					hasShadow = false,
-					value = self.props.unreadMessages,
+					value = shouldShowEmptyBadge() and BadgeStates.isEmpty or self.props.unreadMessages,
 				})
 			})
 		})

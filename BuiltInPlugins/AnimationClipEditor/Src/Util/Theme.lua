@@ -55,9 +55,12 @@ local overridedLightTheme = Cryo.Dictionary.join(LightTheme, {
 	[StyleKey.KeyframePrimaryErrorBackgroundColorSelected] = Color3.fromRGB(255, 161, 161),
 	[StyleKey.KeyframePrimaryErrorBorderColorSelected] = Colors.Red,
 	-- Curves
-	[StyleKey.CurveX] = Color3.fromRGB(255, 0, 0),
-	[StyleKey.CurveY] = Color3.fromRGB(0, 255, 0),
-	[StyleKey.CurveZ] = Color3.fromRGB(0, 0, 255),
+	[StyleKey.CurvePositionX] = Color3.fromRGB(255, 0, 0),
+	[StyleKey.CurvePositionY] = Color3.fromRGB(0, 255, 0),
+	[StyleKey.CurvePositionZ] = Color3.fromRGB(0, 0, 255),
+	[StyleKey.CurveRotationX] = Color3.fromRGB(0, 255, 255),
+	[StyleKey.CurveRotationY] = Color3.fromRGB(255, 0, 255),
+	[StyleKey.CurveRotationZ] = Color3.fromRGB(255, 255, 0),
 })
 
 local overridedDarkTheme = Cryo.Dictionary.join(DarkTheme, {
@@ -100,9 +103,12 @@ local overridedDarkTheme = Cryo.Dictionary.join(DarkTheme, {
 	[StyleKey.KeyframePrimaryErrorBackgroundColorSelected] = Colors.Gray_Light,
 	[StyleKey.KeyframePrimaryErrorBorderColorSelected] = Color3.fromRGB(255, 68, 68),
 	-- Curves
-	[StyleKey.CurveX] = Color3.fromRGB(255, 127, 127),
-	[StyleKey.CurveY] = Color3.fromRGB(127, 255, 127),
-	[StyleKey.CurveZ] = Color3.fromRGB(127, 127, 255),
+	[StyleKey.CurvePositionX] = Color3.fromRGB(255, 127, 127),
+	[StyleKey.CurvePositionY] = Color3.fromRGB(127, 255, 127),
+	[StyleKey.CurvePositionZ] = Color3.fromRGB(127, 127, 255),
+	[StyleKey.CurveRotationX] = Color3.fromRGB(127, 255, 255),
+	[StyleKey.CurveRotationY] = Color3.fromRGB(255, 127, 255),
+	[StyleKey.CurveRotationZ] = Color3.fromRGB(255, 255, 127),
 })
 
 local playbackTheme = {
@@ -423,11 +429,19 @@ local keyframe = {
 }
 
 local curveTheme = {
-	Default = StyleKey.MainText,
-	X = StyleKey.CurveX,
-	Y = StyleKey.CurveY,
-	Z = StyleKey.CurveZ,
-	XAxis = StyleKey.BrightText,
+	default = StyleKey.MainText,
+	positionX = StyleKey.CurvePositionX,
+	positionY = StyleKey.CurvePositionY,
+	positionZ = StyleKey.CurvePositionZ,
+	rotationX = StyleKey.CurveRotationX,
+	rotationY = StyleKey.CurveRotationY,
+	rotationZ = StyleKey.CurveRotationZ,
+	selected = StyleKey.DialogMainButton,
+	xAxis = StyleKey.BrightText,
+	curveEditorButton = "rbxasset://textures/AnimationEditor/button_curve_editor.png",
+	tangentControlColor = StyleKey.BrightText,
+	tangentAutoButton = "rbxasset://textures/AnimationEditor/TangentHandle_Automatic_9x9.png",
+	tangentDefinedButton = "rbxasset://textures/AnimationEditor/TangentHandle_SelfDefined_9x9.png",
 }
 
 local scrubberTheme = {

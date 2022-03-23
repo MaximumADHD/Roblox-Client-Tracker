@@ -10,6 +10,7 @@ local GetFFlagUIBloxUseNewGenericTextLabelProps =
 	require(CorePackages.UIBloxFlags.GetFFlagUIBloxUseNewGenericTextLabelProps)
 local FFlagImprovementsToGridView = require(CorePackages.UIBloxFlags.FFlagImprovementsToGridView)
 local FFlagFixThumbnailTileInconsistency = require(CorePackages.UIBloxFlags.FFlagFixThumbnailTileInconsistency)
+local GetFFlagUIBloxEnableRadioButtonGamepadSupport = require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableRadioButtonGamepadSupport)
 
 return {
 	improvementsToGridView = FFlagImprovementsToGridView,
@@ -22,5 +23,6 @@ return {
 	genericButtonInputChanges = GetFFlagUIBloxGenericButtonInputChangesInGame(),
 	enableGamepadKeyCodeSupportForKeyLabel = GetFFlagUIBloxEnableGamepadKeyCodeSupportForKeyLabel(),
 	enableAnimatedCursorForNonRoactGamepadComponent = game:DefineFastFlag("UIBloxEnableAnimatedCursorForNonRoactGamepad", false),
+	enableRadioButtonGamepadSupport = GetFFlagUIBloxEnableRadioButtonGamepadSupport(),
 	fixTileThumbnailColorInconsistency = FFlagFixThumbnailTileInconsistency,
 }

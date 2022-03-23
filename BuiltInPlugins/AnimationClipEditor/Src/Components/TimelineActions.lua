@@ -9,7 +9,7 @@
 	Props:
 		bool ShowMenu = Whether to show the context menu.
 		bool MultipleSelected = Whether multiple keyframes are selected.
-
+		bool IsCurveEditorEnabled = Whether the CurveEditor is currently displayed.
 		function OnMenuOpened() = A callback for when the context menu has successfully opened.
 		function OnItemSelected(key, item) = A callback for when the user selects an
 			item in one of the submenus to edit a key's Easing info.
@@ -76,6 +76,7 @@ local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAni
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 local GetFFlagKeyframeUtilsGetValueCleanup = require(Plugin.LuaFlags.GetFFlagKeyframeUtilsGetValueCleanup)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 local TimelineActions = Roact.PureComponent:extend("TimelineActions")
 
@@ -208,7 +209,11 @@ function TimelineActions:makeMenuActions(localization)
 		if GetFFlagChannelAnimations() and isChannelAnimation then
 			table.insert(actions, self:makeSelectionSubMenu("KeyInterpolationMode", "InterpolationMode",
 				localization:getText("ContextMenu", "InterpolationMode")))
-			table.insert(actions, pluginActions:get("ClearTangents"))
+			if GetFFlagCurveEditor() then
+				table.insert(actions, pluginActions:get("ClearBothTangents"))
+			else
+				table.insert(actions, pluginActions:get("ClearTangents"))
+			end
 			if GetFFlagQuaternionChannels() and self:multipleSelected() then
 				table.insert(actions, self:makeGenerateCurveMenu(localization))
 			end
@@ -377,14 +382,20 @@ function TimelineActions:didMount()
 		if selectedTracks then
 			for instanceName, instance in pairs(props.AnimationData.Instances) do
 				for _, selectedTrack in pairs(selectedTracks) do
-					local track = instance.Tracks[selectedTrack]
+					local track = if GetFFlagCurveEditor() then AnimationData.getTrack(props.AnimationData, instanceName, selectedTrack) else instance.Tracks[selectedTrack]
 					if GetFFlagChannelAnimations() then
-						if isChannelAnimation then
-							local rotationComponent = track.Components and track.Components[Constants.PROPERTY_KEYS.Rotation] or nil
-							local rotationType = rotationComponent and rotationComponent.Type or nil
+						local trackType = track and track.Type or (if GetFFlagCurveEditor() then TrackUtils.getComponentTypeFromPath(selectedTrack, tracks) else nil)
 
-							TrackUtils.traverseComponents(track.Type, function(componentType, relPath)
-								local componentPath = Cryo.List.join({selectedTrack}, relPath)
+						if isChannelAnimation then
+							local rotationType
+							if GetFFlagCurveEditor() then
+								rotationType = track and TrackUtils.getRotationType(track) or props.DefaultRotationType
+							else
+								local rotationComponent = track.Components and track.Components[Constants.PROPERTY_KEYS.Rotation] or nil
+								rotationType = rotationComponent and rotationComponent.Type or nil
+							end
+							TrackUtils.traverseComponents(if GetFFlagCurveEditor() then trackType else track.Type, function(componentType, relPath)
+								local componentPath = Cryo.List.join(if GetFFlagCurveEditor() then selectedTrack else {selectedTrack}, relPath)
 								if GetFFlagQuaternionChannels() then
 									props.SplitTrack(instanceName, componentPath, componentType, playhead, props.Analytics)
 								else
@@ -419,14 +430,14 @@ function TimelineActions:didMount()
 							if track and track.Keyframes then
 								value = KeyframeUtils.getValue(track, playhead)
 							else
-								value = KeyframeUtils.getDefaultValue(track.Type)
+								value = KeyframeUtils.getDefaultValue(if GetFFlagCurveEditor() then trackType else track.Type)
 							end
 							local keyframeData = {
 								Value = value,
 								EasingStyle = Enum.PoseEasingStyle.Linear,
 								EasingDirection = Enum.PoseEasingDirection.In
 							}
-							props.AddKeyframe(instanceName, {selectedTrack}, track.Type, playhead, keyframeData, props.Analytics)
+							props.AddKeyframe(instanceName, if GetFFlagCurveEditor() then selectedTrack else {selectedTrack}, if GetFFlagCurveEditor() then trackType else track.Type, playhead, keyframeData, props.Analytics)
 						end
 					else
 						local newValue
@@ -617,7 +628,11 @@ function TimelineActions:didMount()
 	self:addAction(actions:get("TogglePlay"), togglePlayWrapper)
 	self:addAction(actions:get("ToggleBoneVis"), self.props.ToggleBoneVisibility)
 	if GetFFlagChannelAnimations() then
-		self:addAction(actions:get("ClearTangents"), self.props.OnClearTangentsSelected)
+		if GetFFlagCurveEditor() then
+			self:addAction(actions:get("ClearBothTangents"), self.props.OnClearTangentsSelected)
+		else
+			self:addAction(actions:get("ClearTangents"), self.props.OnClearTangentsSelected)
+		end
 	end
 end
 
@@ -687,7 +702,11 @@ function TimelineActions:render()
 		end
 
 		if GetFFlagChannelAnimations() and isChannelAnimation then
-			pluginActions:get("ClearTangents").Enabled = true
+			if GetFFlagCurveEditor() then
+				pluginActions:get("ClearBothTangents").Enabled = true
+			else
+				pluginActions:get("ClearTangents").Enabled = true
+			end
 		end
 
 		if tool == Enum.RibbonTool.Rotate or tool == Enum.RibbonTool.Move then
@@ -752,6 +771,7 @@ local function mapStateToProps(state, props)
 		OnKeyframe = status.RightClickContextInfo.OnKeyframe,
 		Tool = status.Tool,
 		SelectedTracks = status.SelectedTracks,
+		DefaultRotationType = status.DefaultRotationType
 	}
 end
 

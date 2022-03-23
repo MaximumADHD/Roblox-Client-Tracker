@@ -13,14 +13,18 @@
 		callback OnMouseEnter: called on MouseEnter - useful to delegate mouse scroll input to this component.
 		callback OnMouseLeave: called on MouseLeave - useful to delegate mouse scroll input to this component.
 		boolean RecenterCameraOnUpdate: Whether to recenter the camera on update.
+		boolean RecenterModelOnUpdate: Whether to recenter the model on update.
 		any Camera: The camera instance used for the viewport frame - won't catch changes made by the parent component.
 		Vector3 FocusDirection: A vector representing the angle the camera should view the model at
 		boolean Static: A boolean value that freezes the element
 		number InitialDistance: A number value that specifies the initial distance from the camera
+		boolean DisableZoom: Disables the zoom functionality in the preview
 ]]
 local FFlagDevFrameworkExtractAssetRenderModelCamera = game:GetFastFlag("DevFrameworkExtractAssetRenderModelCamera")
 local FFlagDevFrameworkAssetRenderModelCustomCamDirection = game:GetFastFlag("DevFrameworkAssetRenderModelCustomCamDirection")
+local FFlagDevFrameworkSeparateCenterCameraCenterModel = game:DefineFastFlag("DevFrameworkSeparateCenterCameraCenterModel", false)
 local FFlagDevFrameworkAssetRenderModelStatic = game:GetFastFlag("DevFrameworkAssetRenderModelStatic")
+local FFlagDevFrameworkAssetRenderModelDisableZoom = game:GetFastFlag("DevFrameworkAssetRenderModelDisableZoom")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -41,6 +45,7 @@ local PAN_CAMERA_DIST_MULT = 0.1
 
 AssetRenderModel.defaultProps = {
 	RecenterCameraOnUpdate = true,
+	RecenterModelOnUpdate = true,
 	FocusDirection = Vector3.new(1, 1, 1),
 }
 
@@ -139,7 +144,8 @@ function AssetRenderModel:init()
 		self.zoomCamera(1)
 	end
 
-	self.centerCamera = function()
+	self.centerCamera_DEPRECATED = function()
+		assert(not FFlagDevFrameworkSeparateCenterCameraCenterModel, "centerCamera_DEPRECATED should not be used when FFlagFFlagDevFrameworkSeparateCenterCameraCenterModel is on")
 		local model = self.viewportFrameModel
 		local camera = self.camera
 
@@ -173,6 +179,40 @@ function AssetRenderModel:init()
 		camera.Focus = CFrame.new()
 		camera.CFrame = CFrame.new(cameraDistAway * dir, camera.Focus.p)
 	end
+
+	self.centerModel = function()
+		local viewObject = self.viewportFrameModel
+		local viewObjectCf
+		
+		-- Move the model/part to the origin
+		if viewObject:IsA("Model") then
+			viewObjectCf = viewObject:GetBoundingBox()
+			viewObject:TranslateBy(-viewObjectCf.Position)
+		else
+			viewObject.CFrame = viewObject.CFrame - viewObject.CFrame.Position
+		end
+	end
+
+	self.centerCamera = function()
+		local model = self.viewportFrameModel
+		local size
+		
+		if model:IsA("Model") then
+			size = model:GetExtentsSize()
+		else
+			size = model.Size
+		end
+		
+		local cameraDistAway = size.Magnitude * INSERT_CAMERA_DIST_MULT
+		local dir
+		if FFlagDevFrameworkAssetRenderModelCustomCamDirection then
+			dir = self.props.FocusDirection.Unit
+		else
+			dir = Vector3.new(1, 1, 1).Unit
+		end
+		camera.Focus = CFrame.new()
+		camera.CFrame = CFrame.new(cameraDistAway * dir, camera.Focus.Position)
+	end
 end
 
 function AssetRenderModel:updateViewportModel()
@@ -191,9 +231,24 @@ function AssetRenderModel:updateViewportModel()
 		viewportFrame:ClearAllChildren()
 		self.viewportFrameModel.Parent = viewportFrame
 
-		if not self.initialCenter or self.props.RecenterCameraOnUpdate then
-			self.centerCamera()
-			self.initialCenter = true
+		if FFlagDevFrameworkSeparateCenterCameraCenterModel then
+			if not self.initialCenter then
+				self.centerModel()
+				self.centerCamera()
+				self.initialCenter = true
+			else
+				if self.props.RecenterModelOnUpdate then
+					self.centerModel()
+				end
+				if self.props.RecenterCameraOnUpdate then
+					self.centerCamera()
+				end
+			end
+		else
+			if not self.initialCenter or self.props.RecenterCameraOnUpdate then
+				self.centerCamera_DEPRECATED()
+				self.initialCenter = true
+			end
 		end
 	end
 end
@@ -224,6 +279,7 @@ function AssetRenderModel:render()
 	local position = props.Position
 	local size = props.Size or UDim2.new(1, 0, 1, 0)
 	local static = FFlagDevFrameworkAssetRenderModelStatic and props.Static
+	local disableZoom = FFlagDevFrameworkAssetRenderModelDisableZoom and props.DisableZoom
 
 	local camera = self.camera
 
@@ -240,8 +296,8 @@ function AssetRenderModel:render()
 
 		[Roact.Event.MouseEnter] = props.OnMouseEnter,
 		[Roact.Event.MouseLeave] = props.OnMouseLeave,
-		[Roact.Event.MouseWheelForward] = if not static then self.onMouseWheelForward else nil,
-		[Roact.Event.MouseWheelBackward] = if not static then self.onMouseWheelBackward else nil,
+		[Roact.Event.MouseWheelForward] = if not static and not disableZoom then self.onMouseWheelForward else nil,
+		[Roact.Event.MouseWheelBackward] = if not static and not disableZoom then self.onMouseWheelBackward else nil,
 		[Roact.Event.InputBegan] = if not static then self.onInputBegan else nil,
 		[Roact.Event.InputEnded] = if not static then self.onInputEnded else nil,
 		[Roact.Event.InputChanged] = if not static then self.onInputChanged else nil,

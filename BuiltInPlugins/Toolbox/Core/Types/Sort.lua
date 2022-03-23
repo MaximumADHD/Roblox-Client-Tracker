@@ -1,3 +1,5 @@
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Category = require(Plugin.Core.Types.Category)
@@ -24,6 +26,10 @@ function Sort.getDefaultSortForCategory(categoryName)
 		return UPDATED_INDEX
 	end
 	return RELEVANCE_INDEX
+end
+
+function Sort.getDefaultSortNameForCategory(categoryName)
+	return Sort.SORT_OPTIONS[Sort.getDefaultSortForCategory(categoryName)]
 end
 
 --[[

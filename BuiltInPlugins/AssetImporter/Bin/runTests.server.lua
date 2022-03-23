@@ -4,22 +4,13 @@
 ]]
 local Plugin = script.Parent.Parent
 
-local FFlagImprovePluginSpeed_AssetImporter = game:GetFastFlag("ImprovePluginSpeed_AssetImporter")
-
 local DebugFlags = require(Plugin.Src.Utility.DebugFlags)
 local Framework
-if not FFlagImprovePluginSpeed_AssetImporter then
+
+if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
 	local commonInit = require(script.Parent.commonInit)
 	commonInit()
 	Framework = require(Plugin.Packages.Framework)
-end
-
-if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
-	if FFlagImprovePluginSpeed_AssetImporter then
-		local commonInit = require(script.Parent.commonInit)
-		commonInit()
-		Framework = require(Plugin.Packages.Framework)
-	end
 
 	-- Requiring TestEZ initialises TestService, so we require it under the condition
 	local TestEZ = require(Plugin.Packages.Dev.TestEZ)

@@ -24,6 +24,7 @@ local TopBarAppPolicy = require(script.TopBarAppPolicy)
 local SetSmallTouchDevice = require(script.Actions.SetSmallTouchDevice)
 local SetInspectMenuOpen = require(script.Actions.SetInspectMenuOpen)
 local SetGamepadMenuOpen = require(script.Actions.SetGamepadMenuOpen)
+local UpdateUnreadMessagesBadge = require(script.Actions.UpdateUnreadMessagesBadge)
 
 local GetCanChat = require(script.Thunks.GetCanChat)
 local GetGameName = require(script.Thunks.GetGameName)
@@ -33,6 +34,14 @@ local registerSetCores = require(script.registerSetCores)
 local GlobalConfig = require(script.GlobalConfig)
 
 local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
+local FFlagEnableExperienceChat = require(RobloxGui.Modules.Common.Flags.FFlagEnableExperienceChat)
+
+local ExperienceChat
+local MessageReceivedBindableEvent
+if FFlagEnableExperienceChat then
+	ExperienceChat = require(game:GetService("CorePackages").ExperienceChat)
+	MessageReceivedBindableEvent = ExperienceChat.MessageReceivedBindableEvent
+end
 
 local TopBar = {}
 TopBar.__index = TopBar
@@ -108,6 +117,14 @@ function TopBar.new()
 	})
 
 	self.element = Roact.mount(self.root, CoreGui, "TopBar")
+
+	-- add binding
+	if FFlagEnableExperienceChat then
+		MessageReceivedBindableEvent.Event:Connect(function()
+
+			self.store:dispatch(UpdateUnreadMessagesBadge(1))
+		end)
+	end
 
 	return self
 end

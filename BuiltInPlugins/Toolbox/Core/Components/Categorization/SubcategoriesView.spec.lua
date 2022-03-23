@@ -16,7 +16,7 @@ return function()
 			local element = Roact.createElement(MockWrapper, {}, {
 				IconTile = Roact.createElement(SubcategoriesView, {
 					Size = UDim2.new(1, 0, 0, 200),
-					SubcategoryList = {
+					SubcategoryDict = {
 						{
 							displayName = "Category",
 							children = {},
@@ -26,7 +26,7 @@ return function()
 							path = {},
 							thumbnail = {
 								assetId = 6002241241,
-								backgroundColor = "#32a852"
+								backgroundColor = "#32a852",
 							},
 						},
 						{
@@ -38,7 +38,7 @@ return function()
 							path = {},
 							thumbnail = {
 								assetId = 6002241241,
-								backgroundColor = "#32a852"
+								backgroundColor = "#32a852",
 							},
 						},
 					},

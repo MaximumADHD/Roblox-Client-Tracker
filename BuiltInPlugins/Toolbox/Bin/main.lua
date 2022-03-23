@@ -10,6 +10,7 @@ return function(plugin, pluginLoaderContext)
 	local FFlagDebugToolboxEnableRoactChecks = game:GetFastFlag("DebugToolboxEnableRoactChecks")
 	local FFlagUseNewAnimationClipProvider = game:GetFastFlag("UseNewAnimationClipProvider_4")
 	local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
+	local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
 
 	local isCli = require(Util.isCli)
 	if isCli() then
@@ -52,6 +53,8 @@ return function(plugin, pluginLoaderContext)
 	local AssetConfigConstants = require(Util.AssetConfigConstants)
 	local AssetConfigUtil = require(Util.AssetConfigUtil)
 	local makeToolboxAnalyticsContext = require(Util.Analytics.makeToolboxAnalyticsContext)
+
+	local IXPContext = if FFlagToolboxAssetCategorization then require(Plugin.Core.ContextServices.IXPContext) else nil
 
 	if DebugFlags.shouldDebugWarnings() then
 		local Promise = require(Packages.Framework).Util.Promise
@@ -337,6 +340,13 @@ return function(plugin, pluginLoaderContext)
 				end
 			end,
 		})
+
+		local ixpContext
+
+		if FFlagToolboxAssetCategorization then
+			ixpContext = IXPContext.new()
+		end
+
 		local toolboxWithServices
 		toolboxWithServices = Roact.createElement(ToolboxServiceWrapper, {
 			localization = devFrameworkLocalization,
@@ -346,6 +356,7 @@ return function(plugin, pluginLoaderContext)
 			settings = settings,
 			assetAnalytics = assetAnalyticsContextItem,
 			analytics = analyticsContextItem,
+			ixp = ixpContext,
 		}, {
 			toolboxComponent,
 		})

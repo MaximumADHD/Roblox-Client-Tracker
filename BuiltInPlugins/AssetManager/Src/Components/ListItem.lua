@@ -29,6 +29,9 @@ local OnRecentAssetRightClick = require(Plugin.Src.Thunks.OnRecentAssetRightClic
 
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 
+local ModernIcons = require(Plugin.Src.Util.ModernIcons)
+local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and not game:GetService("StudioHighDpiService"):IsNotHighDPIAwareBuild()
+
 local AssetManagerService = game:GetService("AssetManagerService")
 local ContentProvider = game:GetService("ContentProvider")
 local StudioService = game:GetService("StudioService")
@@ -258,7 +261,9 @@ function ListItem:render()
 
     local imageInfo = {}
     local isFolder = assetData.ClassName == "Folder"
-    if isFolder then
+    if isFolder and FFlagHighDpiIcons then
+        imageInfo.Image = ModernIcons.getIconForCurrentTheme(assetData.Screen.Image)
+    elseif isFolder then
         imageInfo.Image = assetData.Screen.Image
     else
         if self.state.assetFetchStatus == Enum.AssetFetchStatus.Success then

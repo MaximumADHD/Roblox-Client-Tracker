@@ -5,8 +5,6 @@ local Plugin = script.Parent.Parent.Parent
 local FFlagAudioAssetPrivacyForPreview1 = game:GetFastFlag("AudioAssetPrivacyForPreview1")
 local FFlagPluginsSetAudioPreviewUsageContext = game:GetFastFlag("PluginsSetAudioPreviewUsageContext")
 
-local FFlagToolboxNilDisconnectSignals = game:GetFastFlag("ToolboxNilDisconnectSignals")
-
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
@@ -95,9 +93,7 @@ end
 function SoundPreviewComponent:willUnmount()
 	if self.runServiceConnection then
 		self.runServiceConnection:Disconnect()
-		if FFlagToolboxNilDisconnectSignals then
-			self.runServiceConnection = nil
-		end
+		self.runServiceConnection = nil
 	end
 end
 

@@ -31,6 +31,7 @@ local PADDING = 12
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
+local Constants = require(Plugin.Src.Util.Constants)
 local DragListenerArea = require(Plugin.Src.Components.DragListenerArea)
 
 local Framework = require(Plugin.Packages.Framework)
@@ -45,6 +46,7 @@ local RoundFrame = require(UILibraryCompat.RoundFrame)
 local TextBox = require(Plugin.Src.Components.TextBox)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagFacsAsFloat = require(Plugin.LuaFlags.GetFFlagFacsAsFloat)
 
 local NumberBox = Roact.PureComponent:extend("NumberBox")
 
@@ -93,7 +95,12 @@ function NumberBox:init()
 end
 
 function NumberBox:formatNumber(number)
-	return math.floor(number * 1000) / 1000
+	if GetFFlagFacsAsFloat() then
+		local precision = self.props.Precision or Constants.NUMBER_PRECISION
+		return tostring(math.floor(.5 + number * precision) / precision)
+	else
+		return math.floor(number * 1000) / 1000
+	end
 end
 
 function NumberBox:render()
@@ -105,6 +112,7 @@ function NumberBox:render()
 		local state = self.state
 
 		local name = props.Name
+		local color = props.Color
 		local size = props.Size
 		local position = props.Position
 		local anchorPoint = props.AnchorPoint
@@ -145,7 +153,7 @@ function NumberBox:render()
 					Text = name,
 					Font = theme.font,
 					TextSize = trackTheme.textSize,
-					TextColor3 = trackTheme.textColor,
+					TextColor3 = color or trackTheme.textColor,
 					TextXAlignment = Enum.TextXAlignment.Center,
 				}),
 

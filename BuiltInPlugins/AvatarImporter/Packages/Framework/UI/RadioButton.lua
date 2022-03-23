@@ -6,15 +6,22 @@
 		string Text: The text to display.
 
 	Optional Props:
+		Enum.AutomaticSize AutomaticSize: Automatic sizing.
 		string Description: The text to display underneath the main text of the button.
 		boolean Disabled: Whether or not the radio button is disabled. OnClick will not work when disabled.
 		number LayoutOrder: The layout order of the frame.
 		callback OnClick: paramters(string key). Fires when the button is activated and returns back the Key.
 		boolean Selected: Whether or not the radio button is selected.
+		UDim2 Size: The size of the component.
 		Style Style: The style with which to render this component.
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		Enum.TextXAlignment TextXAlignment: The X alignment of the text.
+		boolean TextWrapped: Whether or not the text is wrapped.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		Enum.VerticalAlignment VerticalAlignment: The VerticalAlignment of the components.
 ]]
+local FFlagToolboxAssetConfigUpdatePrivateAudioMessage = game:GetFastFlag("ToolboxAssetConfigUpdatePrivateAudioMessage")
+
 local TextService = game:GetService("TextService")
 
 local Framework = script.Parent.Parent
@@ -41,6 +48,7 @@ RadioButton.defaultProps = {
 	Disabled = false,
 	Selected = false,
 	OnClick = function() end,
+	VerticalAlignment = Enum.VerticalAlignment.Center,
 }
 
 function RadioButton:init()
@@ -55,10 +63,12 @@ function RadioButton:init()
 end
 
 function RadioButton:render()
+	local automaticSize = self.props.AutomaticSize
 	local description = self.props.Description
 	local isSelected = self.props.Selected
 	local isDisabled = self.props.Disabled
 	local layoutOrder = self.props.LayoutOrder
+	local size = self.props.Size
 	local text = self.props.Text
 	local theme = self.props.Theme
 
@@ -67,6 +77,15 @@ function RadioButton:render()
 		style = self.props.Stylizer
 	else
 		style = theme:getStyle("Framework", self)
+	end
+
+	local textWrapped
+	local textXAlignment
+	local verticalAlignment
+	if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then
+		textWrapped = prioritize(self.props.TextWrapped, style.TextWrapped)
+		textXAlignment = prioritize(self.props.TextXAlignment, style.TextXAlignment)
+		verticalAlignment = prioritize(self.props.VerticalAlignment, style.VerticalAlignment)
 	end
 
 	local font = style.Font
@@ -113,7 +132,22 @@ function RadioButton:render()
 		buttonHeight = math.max(imageSize.Y.Offset, buttonHeight)
 	end
 
-	local buttonSize = UDim2.new(0, buttonWidth, 0, buttonHeight)
+	local buttonSize
+	local descriptionSize
+	local mainTextSize
+	if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then
+		if automaticSize ~= nil then
+			buttonSize = size
+			descriptionSize = size
+			mainTextSize = size
+		else
+			buttonSize = UDim2.new(0, buttonWidth, 0, buttonHeight)
+			descriptionSize = if descriptionTextDimensions then UDim2.new(0, descriptionTextDimensions.X, 0, descriptionTextDimensions.Y) else nil
+			mainTextSize = UDim2.new(0, textDimensions.X, 0, textDimensions.Y)
+		end
+	else
+		buttonSize = UDim2.new(0, buttonWidth, 0, buttonHeight)
+	end
 
 	local buttonStyleModifier
 	local textStyleModifier
@@ -130,6 +164,7 @@ function RadioButton:render()
 	end
 
 	return Roact.createElement("TextButton", {
+		AutomaticSize = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then automaticSize else nil,
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
 		Size = buttonSize,
@@ -140,7 +175,7 @@ function RadioButton:render()
 			FillDirection = Enum.FillDirection.Horizontal,
 			Padding = UDim.new(0, style.Padding),
 			SortOrder = Enum.SortOrder.LayoutOrder,
-			VerticalAlignment = Enum.VerticalAlignment.Center,
+			VerticalAlignment = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then verticalAlignment else Enum.VerticalAlignment.Center,
 		}),
 
 		RadioImage = Roact.createElement(Button, {
@@ -158,19 +193,25 @@ function RadioButton:render()
 			LayoutOrder = 2,
 		}, {
 			MainTextLabel = Roact.createElement(TextLabel, {
+				AutomaticSize = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then automaticSize else nil,
 				LayoutOrder = 1,
-				Size = UDim2.new(0, textDimensions.X, 0, textDimensions.Y),
+				Size = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then mainTextSize else UDim2.new(0, textDimensions.X, 0, textDimensions.Y),
 				StyleModifier = textStyleModifier,
 				Text = text,
 				TextSize = textSize,
+				TextWrapped = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then textWrapped else nil,
+				TextXAlignment = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then textXAlignment else nil,
 			}),
 
 			DescriptionTextLabel = description and Roact.createElement(TextLabel, {
+				AutomaticSize = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then automaticSize else nil,
 				LayoutOrder = 2,
-				Size = UDim2.new(0, descriptionTextDimensions.X, 0, descriptionTextDimensions.Y),
+				Size = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then descriptionSize else UDim2.new(0, descriptionTextDimensions.X, 0, descriptionTextDimensions.Y),
 				StyleModifier = StyleModifier.Disabled,
 				Text = description,
 				TextSize = descriptionTextSize or nil,
+				TextWrapped = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then textWrapped else nil,
+				TextXAlignment = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then textXAlignment else nil,
 			}),
 		}),
 	})

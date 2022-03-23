@@ -1,6 +1,7 @@
 local isCli = require(script.Parent.isCli)
 
 local FFlagToolboxDisableAutocompleteWithGuac = game:GetFastFlag("ToolboxDisableAutocompleteWithGuac")
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
 
 local ToolboxPolicy
 if isCli() then
@@ -10,6 +11,7 @@ if isCli() then
 		DisableMarketplaceAndRecents = false,
 		DisableRatings = false,
 		HideNonRelevanceSorts = false,
+		HomeViewEnabledAssetTypes = "Model;Audio",
 		MarketplaceDisabledCategories = "FreePlugins;PaidPlugins;Plugins;FreeVideo",
 		MarketplaceShouldUsePluginCreatorWhitelist = true,
 		DisableAutocomplete = false,
@@ -67,6 +69,12 @@ end
 if FFlagToolboxDisableAutocompleteWithGuac then
 	function ToolboxUtilities.getShouldDisableAutocomplete()
 		return ToolboxPolicy["DisableAutocomplete"]
+	end
+end
+
+if FFlagToolboxAssetCategorization then
+	function ToolboxUtilities.getHomeViewEnabledAssetTypes()
+		return ToolboxPolicy["HomeViewEnabledAssetTypes"]
 	end
 end
 

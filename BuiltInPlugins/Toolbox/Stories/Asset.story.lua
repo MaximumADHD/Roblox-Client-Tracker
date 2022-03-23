@@ -9,16 +9,14 @@ local Asset = require(Plugin.Core.Components.Asset.Asset)
 local ToolboxStoryWrapper = require(Plugin.Stories.ToolboxStoryWrapper)
 local CoreTestUtils = require(Plugin.TestUtils.CoreTestUtils)
 local MockItems = require(Plugin.TestUtils.MockItems)
+local GetAssets = require(Plugin.Core.Actions.GetAssets)
 
 local function AssetStory(props)
 	local fakeAsset = props.fakeAsset
-	local assetId = fakeAsset.Asset.Id
 
-	props.store = CoreTestUtils.storeWithData({
-		assets = {
-			idToAssetMap = { [assetId] = fakeAsset },
-		},
-	})
+	props.storeSetup = function(store)
+		store:dispatch(GetAssets({ fakeAsset }, 1))
+	end
 
 	return Roact.createElement(ToolboxStoryWrapper, props)
 end

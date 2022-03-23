@@ -255,6 +255,9 @@ function BoundingBoxUtils.computeInfo(draggerContext, selectedObjects)
 
 	-- Look for a pivot
 	if EngineFeatureModelPivotVisual and #selectedObjects == 1 then
+		-- note: we can remove the ScaleToolSpecialCaseIgnorePivotWithSinglePartSelected variable 
+		-- and the specialIgnore case entirely when we permanently turn on the flag
+		-- FFlagFixScalingWithNonDefaultPivot and remove its associated code.
 		local specialIgnore =
 			draggerContext.ScaleToolSpecialCaseIgnorePivotWithSinglePartSelected and
 			selectedObjects[1]:IsA("BasePart")

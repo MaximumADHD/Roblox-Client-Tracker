@@ -72,7 +72,7 @@ local function installStorybookEmbed(parent: Instance)
 	local root = Instance.new("LocalScript")
 	root.Name = "RunStorybook"
 	root.Source = Main.Src.Util.RunStorybook.Source
-
+	
 	installGui()
 	
 	Framework.Util.Embed.install(root, Main.Packages)
@@ -85,6 +85,7 @@ local function installStorybookEmbed(parent: Instance)
 	local SrcPackages = getDeepFolder({"Packages"}, StorybookFolder)
 	createPackageLink("Cryo", SrcPackages)
 	createPackageLink("Framework", SrcPackages)
+	createPackageLink("ReactIs", SrcPackages)
 	createPackageLink("Roact", SrcPackages)
 	createPackageLink("RoactRodux", SrcPackages)
 	createPackageLink("Rodux", SrcPackages)

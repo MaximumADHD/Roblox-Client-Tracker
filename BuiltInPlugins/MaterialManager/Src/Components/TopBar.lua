@@ -25,10 +25,10 @@ local SelectInput = UI.SelectInput
 local Tooltip = UI.Tooltip
 
 local Src = Plugin.Src
+local ClearMaterialVariant = require(Src.Actions.ClearMaterialVariant)
 local SetSearch = require(Src.Actions.SetSearch)
 local MainReducer = require(Src.Reducers.MainReducer)
-
-local Selection = game:GetService("Selection")
+local getFFlagMaterialServiceStringOverride = require(Src.Flags.getFFlagMaterialServiceStringOverride)
 
 local TopBar = Roact.PureComponent:extend("TopBar")
 
@@ -40,6 +40,7 @@ export type Props = {
 
 type _Props = Props & {
 	Analytics : any,
+	dispatchClearMaterialVariant : () -> (),
 	dispatchSetSearch : (string) -> (),
 	Localization : any,
 	Material : _Types.Material?,
@@ -72,6 +73,9 @@ type _ButtonProps = {
 	TooltipText : string,
 }
 
+local Selection = game:GetService("Selection")
+local ChangeHistoryService = game:GetService("ChangeHistoryService")
+
 function TopBar:init()
 	self.state = {
 		sortOrderIndex = 1,
@@ -80,8 +84,8 @@ function TopBar:init()
 	self.createMaterialVariant = function()
 		local props : _Props = self.props
 
-		local openPrompt = props.OpenPrompt
-		openPrompt("Create")
+		props.dispatchClearMaterialVariant()
+		props.OpenPrompt("Create")
 	end
 
 	self.showInExplorer = function()
@@ -95,7 +99,21 @@ function TopBar:init()
 	end
 
 	self.applyToSelection = function()
-		-- TODO : Actually set material when per-part is ready
+		local props : _Props = self.props
+
+		if Selection and props.Material then
+			local instances = Selection:Get()
+
+			for _, instance in ipairs(instances) do
+				if getFFlagMaterialServiceStringOverride() and instance:IsA("BasePart") then
+					ChangeHistoryService:SetWaypoint("Applied Material to Selection")
+					instance.Material = props.Material.MaterialVariant.BaseMaterial
+					if not props.Material.IsBuiltin then
+						instance.MaterialVariant = props.Material.MaterialVariant.Name
+					end
+				end
+			end
+		end
 	end
 
 	self.setSearch = function(search)
@@ -230,6 +248,9 @@ return RoactRodux.connect(
 	end,
 	function(dispatch)
 		return {
+			dispatchClearMaterialVariant = function()
+				dispatch(ClearMaterialVariant())
+			end,
 			dispatchSetSearch = function (search)
 				dispatch(SetSearch(search))
 			end,

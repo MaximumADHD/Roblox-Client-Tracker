@@ -32,19 +32,18 @@ local IMAGE_CONTAINER_SIZE = 75
 local IMAGE_SIZE = 63
 local IMAGE_PADDING = 6
 
-
 type _ExternalProps = {
-	BackgroundColor : Color3,
-	Image : string,
-	Key : string,
-	LayoutOrder : number?,
-	OnClick : ((key : string) -> ())?,
-	Size : UDim2?,
-	Title : string,
+	BackgroundColor: Color3,
+	Image: string,
+	Key: string,
+	LayoutOrder: number?,
+	OnClick: ((key: string) -> ())?,
+	Size: UDim2?,
+	Title: string,
 }
 
 type _InternalProps = {
-	Stylizer : any,
+	Stylizer: any,
 }
 
 export type IconTileProps = _ExternalProps & _InternalProps
@@ -76,7 +75,7 @@ function IconTile:init()
 	end
 
 	self.onClick = function()
-		local props : IconTileProps = self.props
+		local props: IconTileProps = self.props
 		if props.OnClick ~= nil then
 			(props.OnClick :: any)(props.Key) -- :: any is due to luau bug
 		end
@@ -84,7 +83,7 @@ function IconTile:init()
 end
 
 function IconTile:render()
-	local props : IconTileProps = self.props
+	local props: IconTileProps = self.props
 	local theme = props.Stylizer
 
 	local backgroundColor = props.BackgroundColor
@@ -111,7 +110,7 @@ function IconTile:render()
 	end
 
 	local titleText = title
- 	if utf8.len(title) == string.len(title) then
+	if utf8.len(title) == string.len(title) then
 		-- Only set ascii characters to uppercase.
 		titleText = string.upper(title)
 	end

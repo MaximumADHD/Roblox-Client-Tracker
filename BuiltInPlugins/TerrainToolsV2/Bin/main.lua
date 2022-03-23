@@ -3,20 +3,7 @@ return function(plugin, pluginLoaderContext)
 		return
 	end
 
-	local FFlagImprovePluginSpeed_TerrainTools = game:GetFastFlag("ImprovePluginSpeed_TerrainTools")
-
 	local Plugin = script.Parent.Parent
-
-	if not FFlagImprovePluginSpeed_TerrainTools then
-		-- Move to loader.server.lua
-		local DebugFlags = require(Plugin.Src.Util.DebugFlags)
-		if DebugFlags.RunningUnderCLI() then
-			return
-		end
-
-		-- Fast flags
-		require(script.Parent.defineLuaFlags)
-	end
 
 	game:DefineFastFlag("TerrainToolsRoactInspector", false)
 
@@ -92,7 +79,7 @@ return function(plugin, pluginLoaderContext)
 				text = localization:getText("EditPlaneAction", "Text"),
 			}
 		}
-	
+
 		local pluginActionsController = PluginActionsController.new(plugin, pluginActions)
 
 		local networking
@@ -175,9 +162,7 @@ return function(plugin, pluginLoaderContext)
 	local function main()
 		local contextItems = createTerrainContextItems()
 
-		if FFlagImprovePluginSpeed_TerrainTools then
-			contextItems.pluginLoaderContext = pluginLoaderContext
-		end
+		contextItems.pluginLoaderContext = pluginLoaderContext
 
 		local roactHandle = Roact.mount(Roact.createElement(TerrainTools, contextItems))
 

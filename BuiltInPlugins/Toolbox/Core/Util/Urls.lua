@@ -1,4 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
+local Packages = Plugin.Packages
+local Framework = require(Packages.Framework)
+local Dash = Framework.Dash
 
 local Category = require(Plugin.Core.Types.Category)
 local Url = require(Plugin.Libs.Http.Url)
@@ -6,6 +9,7 @@ local Url = require(Plugin.Libs.Http.Url)
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 local Rollouts = require(Plugin.Core.Rollouts)
 
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 
 local Urls = {}
@@ -123,59 +127,96 @@ function Urls.constructGetAssetsUrl(category, searchTerm, pageSize, page, sortTy
 end
 
 function Urls.constructGetToolboxItemsUrl(
-	category,
-	sortType,
-	creatorType,
-	minDuration,
-	maxDuration,
-	creatorTargetId,
-	ownerId,
-	keyword,
-	cursor,
-	limit,
-	useCreatorWhitelist
+	-- remove string from args union when removing FFlagToolboxAssetCategorization
+	args: string | {
+		categoryName: string,
+		sectionName: string?,
+		sortType: string?,
+		keyword: string?,
+		cursor: string?,
+		limit: number?,
+		ownerId: number?,
+		creatorType: string?,
+		creatorTargetId: number?,
+		minDuration: number?,
+		maxDuration: number?,
+		useCreatorWhitelist: boolean?,
+	},
+	sortType: string?,
+	creatorType: string?,
+	minDuration: number?,
+	maxDuration: number?,
+	creatorTargetId: number?,
+	ownerId: number?,
+	keyword: string?,
+	cursor: string?,
+	limit: number?,
+	useCreatorWhitelist: boolean?
 )
-	local query = {
-		creatorType = creatorType,
-		minDuration = minDuration,
-		maxDuration = maxDuration,
-		creatorTargetId = creatorTargetId,
-		keyword = keyword,
-		sortType = sortType,
-		cursor = cursor,
-		limit = limit,
-		useCreatorWhitelist = useCreatorWhitelist,
-	}
-
-	local categoryData = Category.getCategoryByName(category)
-
-	if not categoryData then
-		error(string.format("Could not find categoryData for %s", category))
+	local categoryName: string
+	if FFlagToolboxAssetCategorization and type(args) ~= "string" then
+		categoryName = args.categoryName
+		ownerId = args.ownerId
+	else
+		categoryName = args :: string
 	end
 
-	local apiName = Category.API_NAMES[category]
-	local isCreationsTab = Category.getTabForCategoryName(categoryData.name) == Category.CREATIONS
+	local query = if FFlagToolboxAssetCategorization
+		then Dash.omit(args, {
+			"categoryName",
+			"sectionName",
+			"ownerId",
+		})
+		else {
+			creatorType = creatorType,
+			minDuration = minDuration,
+			maxDuration = maxDuration,
+			creatorTargetId = creatorTargetId,
+			keyword = keyword,
+			sortType = sortType,
+			cursor = cursor,
+			limit = limit,
+			useCreatorWhitelist = useCreatorWhitelist,
+		}
 
-	if not apiName then
-		error(string.format("Could not find API_NAME for %s", category))
+	local categoryData = Category.getCategoryByName(categoryName)
+
+	if not categoryData then
+		error(string.format("Could not find categoryData for %s", categoryName))
 	end
 
 	local targetUrl
-	if categoryData.ownershipType == Category.OwnershipType.MY then
-		targetUrl = string.format("%s/inventory/user/%d/%s?", TOOLBOX_SERVICE_URL, ownerId, apiName)
-	elseif categoryData.ownershipType == Category.OwnershipType.GROUP then
-		if Rollouts:getToolboxGroupCreationsMigration() and isCreationsTab then
-			targetUrl = string.format("%s/creations/group/%d/%s?", TOOLBOX_SERVICE_URL, ownerId, apiName)
-		else
-			targetUrl = string.format("%s/inventory/group/%d/%s?", TOOLBOX_SERVICE_URL, ownerId, apiName)
-		end
-	elseif categoryData.ownershipType == Category.OwnershipType.RECENT then
-		targetUrl = string.format("%s/recent/user/%d/%s?", TOOLBOX_SERVICE_URL, ownerId, apiName)
+	if FFlagToolboxAssetCategorization and type(args) ~= "string" and args.sectionName then
+		local apiName = Category.ToolboxAssetTypeToEngine[categoryData.assetType].Value
+		targetUrl = string.format("%s/home/%s/section/%s/assets", TOOLBOX_SERVICE_URL, apiName, args.sectionName)
 	else
-		targetUrl = string.format("%s/%s?", TOOLBOX_SERVICE_URL, apiName)
+		local apiName = Category.API_NAMES[categoryName]
+		local isCreationsTab = Category.getTabForCategoryName(categoryData.name) == Category.CREATIONS
+
+		if not apiName then
+			error(string.format("Could not find API_NAME for %s", categoryName))
+		end
+
+		if categoryData.ownershipType == Category.OwnershipType.MY then
+			targetUrl = string.format("%s/inventory/user/%d/%s", TOOLBOX_SERVICE_URL, ownerId :: number, apiName)
+		elseif categoryData.ownershipType == Category.OwnershipType.GROUP then
+			if Rollouts:getToolboxGroupCreationsMigration() and isCreationsTab then
+				targetUrl = string.format("%s/creations/group/%d/%s", TOOLBOX_SERVICE_URL, ownerId :: number, apiName)
+			else
+				targetUrl = string.format("%s/inventory/group/%d/%s", TOOLBOX_SERVICE_URL, ownerId :: number, apiName)
+			end
+		elseif categoryData.ownershipType == Category.OwnershipType.RECENT then
+			targetUrl = string.format("%s/recent/user/%d/%s", TOOLBOX_SERVICE_URL, ownerId :: number, apiName)
+		else
+			targetUrl = string.format("%s/%s", TOOLBOX_SERVICE_URL, apiName)
+		end
 	end
 
-	return targetUrl .. Url.makeQueryString(query)
+	local queryParams = Url.makeQueryString(query)
+	if #queryParams > 0 then
+		targetUrl = targetUrl .. "?" .. queryParams
+	end
+	return targetUrl
 end
 
 -- category, string, neccesary parameter.
@@ -545,10 +586,16 @@ function Urls.constructToolboxAutocompleteUrl(categoryName, searchTerm, numberOf
 	return url
 end
 
+if FFlagToolboxAssetCategorization then
+	function Urls.constructGetHomeConfigurationUrl(assetType: Enum.AssetType)
+		return string.format("%s/home/%s/configuration", TOOLBOX_SERVICE_URL, assetType.Name)
+	end
+end
+
 if FFlagToolboxAudioAssetConfigIdVerification then
-	function Urls.constructUserAgeVerificationUrl(assetType: Enum.AssetType)
+	function Urls.constructUserAgeVerificationUrl()
 		return AGE_VERIFICATION_URL
 	end
 end
 
-return wrapStrictTable(Urls)
+return wrapStrictTable(Urls) :: typeof(Urls)

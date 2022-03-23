@@ -9,7 +9,6 @@ local StudioFrameworkStyles = Framework.StudioUI.StudioFrameworkStyles
 local StudioStyle = require(Plugin.Src.UILibraryCompat.StudioStyle)
 local ContextServicesTheme = require(Plugin.Packages.Framework).ContextServices.Theme
 
-
 local Cryo = require(Plugin.Packages.Cryo)
 
 local Theme = {}
@@ -334,16 +333,27 @@ function Theme.createValuesInternal(theme, getColor, c, m)
 	})
 
 	local curveTheme = defineTheme({
-		Default = getColor(c.MainText),
-		X = Color3.new(1, 0, 0),
-		Y = Color3.new(0, 1, 0),
-		Z = Color3.new(0, 0, 1),
+		default = getColor(c.MainText),
+		positionX = Color3.new(1, 0, 0),
+		positionY = Color3.new(0, 1, 0),
+		positionZ = Color3.new(0, 0, 1),
+		rotationX = Color3.new(0, 1, 1),
+		rotationY = Color3.new(1, 0, 1),
+		rotationZ = Color3.new(1, 1, 0),
+		selected = getColor(c.DialogButtonText, m.Disabled),
 		XAxis = getColor(c.BrightText),
+		curveEditorButton = "rbxasset://textures/AnimationEditor/button_curve_editor.png",
+		tangentControlColor = getColor(c.BrightText),
+		tangentAutoButton = "rbxasset://textures/AnimationEditor/TangentHandle_Automatic_9x9.png",
+		tangentDefinedButton = "rbxasset://textures/AnimationEditor/TangentHandle_SelfDefined_9x9.png",
 	}, {
 		Dark = {
-			X = Color3.new(1, 0.5, 0.5),
-			Y = Color3.new(0.5, 1, 0.5),
-			Z = Color3.new(0.5, 0.5, 1),
+			positionX = Color3.new(1, 0.5, 0.5),
+			positionY = Color3.new(0.5, 1, 0.5),
+			positionZ = Color3.new(0.5, 0.5, 1),
+			rotationX = Color3.new(0.5, 1, 1),
+			rotationY = Color3.new(1, 0.5, 1),
+			rotationZ = Color3.new(1, 1, 0.5),
 		},
 	})
 

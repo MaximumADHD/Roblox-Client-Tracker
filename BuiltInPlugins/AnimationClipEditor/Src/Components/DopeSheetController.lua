@@ -878,7 +878,11 @@ local function mapDispatchToProps(dispatch)
 		end,
 
 		MoveSelectedKeyframes = function(pivotTick, newTick, dragContext)
-			dispatch(MoveSelectedKeyframes(pivotTick, newTick, dragContext))
+			if GetFFlagCurveEditor() then
+				dispatch(MoveSelectedKeyframes(pivotTick, newTick, nil, nil, dragContext))
+			else
+				dispatch(MoveSelectedKeyframes(pivotTick, newTick, dragContext))
+			end
 		end,
 
 		ScaleSelectedKeyframes = function(pivotTick, scale, dragContext)

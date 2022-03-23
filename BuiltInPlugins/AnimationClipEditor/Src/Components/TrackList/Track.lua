@@ -39,6 +39,8 @@ local Constants = require(Plugin.Src.Util.Constants)
 
 local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagFacsAsFloat = require(Plugin.LuaFlags.GetFFlagFacsAsFloat)
 
 local Track = Roact.PureComponent:extend("Track")
 
@@ -112,6 +114,7 @@ function Track:render()
 	local dragMultiplier = props.DragMultiplier or Constants.NUMBERBOX_DRAG_MULTIPLIER
 
 	local trackTheme = theme.trackTheme
+	local curveTheme = not GetFFlagFacsAsFloat() and theme.curveTheme or nil  -- Unused
 	local arrowTheme = trackTheme.arrow
 	local expanded = props.Expanded or false
 	local selected = props.Selected or false
@@ -160,6 +163,20 @@ function Track:render()
 	}
 
 	for index, item in ipairs(items) do
+		local color
+		local precision
+
+		if GetFFlagCurveEditor() then
+			local colorName = Constants.TRACK_THEME_MAPPING[item.Type] and Constants.TRACK_THEME_MAPPING[item.Type][item.Name] or "Default"
+			color = theme.curveTheme[colorName]
+		end
+
+		if GetFFlagFacsAsFloat() and GetFFlagCurveEditor() then
+			precision = if item.Type == Constants.TRACK_TYPES.Facs then Constants.NUMBER_FACS_PRECISION else Constants.NUMBER_PRECISION
+		else
+			precision = Constants.NUMBER_PRECISION
+		end
+
 		children[item.Key .. "_Entry"] = Roact.createElement(NumberBox, {
 			Size = UDim2.new(0, Constants.NUMBERBOX_WIDTH, 1, -Constants.NUMBERBOX_PADDING),
 			Position = UDim2.new(1,
@@ -169,6 +186,8 @@ function Track:render()
 
 			Number = item.Value,
 			Name = item.Name,
+			Color = color,
+			Precision = precision,
 			SetNumber = function(number)
 				props.OnChangeBegan()
 				if not GetFFlagFacsUiChanges() then

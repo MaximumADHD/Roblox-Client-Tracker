@@ -33,14 +33,7 @@ local FFlagUserFlagEnableNewVRSystem do
 	FFlagUserFlagEnableNewVRSystem = success and result
 end
 
-local FFlagUserMakeThumbstickDynamic do
-	local success, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserMakeThumbstickDynamic")
-	end)
-	FFlagUserMakeThumbstickDynamic = success and value
-end
-
-local TouchThumbstick = FFlagUserMakeThumbstickDynamic and DynamicThumbstick or require(script:WaitForChild("TouchThumbstick"))
+local TouchThumbstick = require(script:WaitForChild("TouchThumbstick"))
 
 -- These controllers handle only walk/run movement, jumping is handled by the
 -- TouchJump controller if any of these are active

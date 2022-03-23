@@ -3,9 +3,12 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
+local Cryo = require(Plugin.Packages.Cryo)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local FFlagFixPathEvaluation = game:DefineFastFlag("ACEFixPathEvaluation", false)
+
+export type Path = { string }
 
 local PathUtils = {}
 
@@ -35,6 +38,46 @@ function PathUtils.getPathValue(path)
 		end
 	end
 	return value
+end
+
+function PathUtils.equals(pathA, pathB)
+	if not pathA or not pathB or #pathA ~= #pathB then
+		return false
+	end
+
+	for i, part in ipairs(pathA) do
+		if part ~= pathB[i] then
+			return false
+		end
+	end
+
+	return true
+end
+
+-- Returns the index of path if is in the list of paths, nil if not.
+function PathUtils.findPath(paths, path)
+	if not paths or not path then
+		return nil
+	end
+
+	for i, p in ipairs(paths) do
+		if PathUtils.equals(p, path) then
+			return i
+		end
+	end
+
+	return nil
+end
+
+-- Returns the index of path if is in the list of paths, nil if not.
+function PathUtils.removePath(paths, path)
+	local index = PathUtils.findPath(paths, path)
+
+	if index then
+		return Cryo.List.removeIndex(paths, index)
+	end
+
+	return paths
 end
 
 return PathUtils

@@ -11,6 +11,7 @@ local KeyframeUtil = require(Plugin.Src.Util.KeyframeUtils)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local SnapToNearestFrame = require(Plugin.Src.Thunks.SnapToNearestFrame)
+local AnimationData = require(Plugin.Src.Util.AnimationData)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
@@ -34,7 +35,15 @@ return function(tick, trackWidth)
 			return
 		end
 
-		local tracks = root.Tracks
+		local tracks
+		if GetFFlagCurveEditor() and state.Status.EditorMode == Constants.EDITOR_MODE.CurveCanvas then
+			tracks = {}
+			for _, selectedTrack in ipairs(state.Status.SelectedTracks or {}) do
+				table.insert(tracks, AnimationData.getTrack(animationData, "Root", selectedTrack))
+			end
+		else
+			tracks = root.Tracks
+		end
 
 		local snapped = false
 		local snapTick = tick

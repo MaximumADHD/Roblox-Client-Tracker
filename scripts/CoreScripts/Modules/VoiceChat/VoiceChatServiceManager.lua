@@ -1,5 +1,3 @@
---!nocheck
--- We're not checking this file because luau currently doesn't know about Enum.VoiceChatState
 local CorePackages = game:GetService("CorePackages")
 local Promise = require(CorePackages.Promise)
 local Roact = require(CorePackages.Roact)
@@ -34,9 +32,9 @@ local Constants = require(script.Parent.Constants)
 local GetFFlagModerationByProxyUserBanNotification = require(RobloxGui.Modules.Flags.GetFFlagModerationByProxyUserBanNotification)
 local VoiceChatPrompt = require(RobloxGui.Modules.VoiceChatPrompt.Components.VoiceChatPrompt)
 local VoiceChatPromptType = require(RobloxGui.Modules.VoiceChatPrompt.PromptType)
-local GetShowAgeVerificationOverlay = require(RobloxGui.Modules.VoiceChat.Requests.GetShowAgeVerificationOverlay)
-local GetInformedOfBan = require(RobloxGui.Modules.VoiceChat.Requests.GetInformedOfBan)
-local PostInformedOfBan = require(RobloxGui.Modules.VoiceChat.Requests.PostInformedOfBan)
+local GetShowAgeVerificationOverlay = require(CorePackages.AppTempCommon.VoiceChat.Requests.GetShowAgeVerificationOverlay)
+local GetInformedOfBan = require(CorePackages.AppTempCommon.VoiceChat.Requests.GetInformedOfBan)
+local PostInformedOfBan = require(CorePackages.AppTempCommon.VoiceChat.Requests.PostInformedOfBan)
 local HttpService = game:GetService("HttpService")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local isSubjectToDesktopPolicies = require(RobloxGui.Modules.InGameMenu.isSubjectToDesktopPolicies)
@@ -490,8 +488,8 @@ function VoiceChatServiceManager:VoiceStateToIcon(participantState, level)
 	return getIcon(voiceState, level)
 end
 
-function VoiceChatServiceManager:GetIcon(name, folder, scale)
-	return getIconSrc(name, folder, scale)
+function VoiceChatServiceManager:GetIcon(name, folder)
+	return getIconSrc(name, folder)
 end
 
 function VoiceChatServiceManager:SetupParticipantListeners()
@@ -519,7 +517,7 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 		end)
 
 		self.service.StateChanged:Connect(function(oldState, newState)
-			local inFailedState = newState == Enum.VoiceChatState.Failed
+			local inFailedState = newState == (Enum::any).VoiceChatState.Failed
 			local newMuted = self.service:IsPublishPaused()
 			if GetFFlagEnableErrorIconFix() then
 				if newMuted ~= self.localMuted and not inFailedState then
@@ -533,11 +531,11 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 				end
 			end
 			
-			if newState == Enum.VoiceChatState.Leaving then
+			if newState == (Enum::any).VoiceChatState.Leaving then
 				self.previousGroupId = self.service:GetGroupId()
 				self.previousMutedState = self.service:IsPublishPaused()
 			end
-			if newState == Enum.VoiceChatState.Ended or inFailedState then
+			if newState == (Enum::any).VoiceChatState.Ended or inFailedState then
 				self.participants = {}
 				self.localMuted = nil
 				self.participantsUpdate:Fire(self.participants)
@@ -545,10 +543,10 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 					log:debug("State Changed to Failed. Reason: {}", self.service:GetAndClearCallFailureMessage())
 
 				end
-				if (oldState == Enum.VoiceChatState.Joining or
-					oldState == Enum.VoiceChatState.JoiningRetry or
-					oldState == Enum.VoiceChatState.Joined) then
-					if newState == Enum.VoiceChatState.Ended then
+				if (oldState == (Enum::any).VoiceChatState.Joining or
+					oldState == (Enum::any).VoiceChatState.JoiningRetry or
+					oldState == (Enum::any).VoiceChatState.Joined) then
+					if newState == (Enum::any).VoiceChatState.Ended then
 						log:debug("State Changed to Ended from {}", oldState)
 					end
 					self:showPrompt(VoiceChatPromptType.Retry)
@@ -567,7 +565,7 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 
 		if GetFFlagEnableVoiceChatRejoinOnBlock() then
 			if GetFFlagLazyLoadPlayerBlockedEvent() then
-				self.BlockStatusChanged:Connect(function(userId: number, isBlocked: bool)
+				self.BlockStatusChanged:Connect(function(userId: number, isBlocked: boolean)
 					if isBlocked then
 						if self.participants[tostring(userId)] then
 							if GetFFlagEnableSessionCancelationOnBlock() then

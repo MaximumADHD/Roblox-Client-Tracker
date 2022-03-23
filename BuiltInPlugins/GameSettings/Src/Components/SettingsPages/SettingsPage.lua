@@ -133,17 +133,13 @@ function SettingsPage:render()
 	return nil
 end
 
-
 SettingsPage = withContext({
 	Theme = ContextServices.Theme,
 })(SettingsPage)
 
-
-
 SettingsPage = RoactRodux.connect(
 	function(state, props)
 		local pageId = props.PageId
-
 		return {
 			LoadState = state.PageLoadState[pageId] or LoadState.Unloaded,
 			SaveState = state.PageSaveState[pageId]

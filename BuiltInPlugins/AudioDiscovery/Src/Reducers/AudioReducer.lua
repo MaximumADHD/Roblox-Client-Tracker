@@ -1,4 +1,5 @@
 local FFlagStudioAudioDiscoveryPluginV2 = game:GetFastFlag("StudioAudioDiscoveryPluginV2")
+local FFlagStudioAudioDiscoveryPluginV3 = game:GetFastFlag("StudioAudioDiscoveryPluginV3")
 
 local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
@@ -26,6 +27,11 @@ local columns = {
 
 local function sanitize(columnName: string, row, locations)
 	local value = row[columnName]
+	if FFlagStudioAudioDiscoveryPluginV3 then
+		if columnName == "Id" then
+			return tonumber(value)
+		end
+	end
 	if FFlagStudioAudioDiscoveryPluginV2 and locations and columnName == "OK" then
 		if locations[row.Id] and #locations[row.Id] == 0 then
 			return "fixed"

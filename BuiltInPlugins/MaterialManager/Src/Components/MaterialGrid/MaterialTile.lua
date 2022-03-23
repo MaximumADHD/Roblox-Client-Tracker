@@ -1,6 +1,7 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local _Types = require(Plugin.Src.Types)
 local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
@@ -13,6 +14,7 @@ local Stylizer = Framework.Style.Stylizer
 local prioritize = Framework.Util.prioritize
 
 local UI = Framework.UI
+local Button = UI.Button
 local Pane = UI.Pane
 local TextLabel = UI.Decoration.TextLabel
 
@@ -35,6 +37,7 @@ export type Props = {
 type _Props = Props & {
 	Analytics : any,
 	Localization : any,
+	Material : _Types.Material,
 	MaterialController : any,
 	Stylizer : any,
 }
@@ -97,57 +100,63 @@ function MaterialTile:render()
 	local spacing = style.Spacing
 	local textSize = style.TextSize
 
-	return Roact.createElement(Pane, {
-		HorizontalAlignment = Enum.HorizontalAlignment.Left,
+	return Roact.createElement(Button, {
 		LayoutOrder = props.LayoutOrder,
-		Layout = Enum.FillDirection.Vertical,
 		OnClick = self.onClick,
-		Padding = padding * 2,
-		Spacing = padding,
+		Style = if props.Material == item
+			then "RoundActive"
+			else "Round",
 		Size = size,
-		Style = "RoundBox",
 	}, {
-		MaterialPreview = Roact.createElement(MaterialPreview, {
-			ColorMap = colorMap,
-			LayoutOrder = 1,
-			MetalnessMap = metalnessMap,
-			NormalMap = normalMap,
-			RoughnessMap = roughnessMap,
-			Size = UDim2.new(size.X.Scale, size.X.Offset - (2 * padding), size.Y.Scale,  size.Y.Offset - (2 * padding) - (3 * spacing) - (2 * textSize)),
-			Static = true,
-		}),
-		NameLabel = Roact.createElement(Pane, {
+		Content = Roact.createElement(Pane, {
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			Layout = Enum.FillDirection.Vertical,
-			LayoutOrder = 2,
-			Size = style.TextLabelSize,
+			Padding = padding * 2,
+			Spacing = padding,
+			Size = size,
 		}, {
-			Name = Roact.createElement(TextLabel, {
-				FitMaxWidth = style.MaxWidth,
-				Size = UDim2.fromScale(1, 1),
-				Text = name,
-				TextSize = textSize,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Top,
-				TextWrapped = false,
-			})
-		}),
-		TypeLabel = Roact.createElement(Pane, {
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			Layout = Enum.FillDirection.Vertical,
-			LayoutOrder = 3,
-			Size = style.TextLabelSize,
-		}, {
-			Name = Roact.createElement(TextLabel, {
-				FitMaxWidth = style.MaxWidth,
-				Size = UDim2.fromScale(1, 1),
-				Text = fullMaterialType,
-				TextSize = textSize,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Top,
-				TextWrapped = false,
+			MaterialPreview = Roact.createElement(MaterialPreview, {
+				ColorMap = colorMap,
+				LayoutOrder = 1,
+				MetalnessMap = metalnessMap,
+				NormalMap = normalMap,
+				RoughnessMap = roughnessMap,
+				Size = UDim2.new(size.X.Scale, size.X.Offset - (2 * padding), size.Y.Scale,  size.Y.Offset - (2 * padding) - (3 * spacing) - (2 * textSize)),
+				Static = true,
+			}),
+			NameLabel = Roact.createElement(Pane, {
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+				Layout = Enum.FillDirection.Vertical,
+				LayoutOrder = 2,
+				Size = style.TextLabelSize,
+			}, {
+				Name = Roact.createElement(TextLabel, {
+					FitMaxWidth = style.MaxWidth,
+					Size = UDim2.fromScale(1, 1),
+					Text = name,
+					TextSize = textSize,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextYAlignment = Enum.TextYAlignment.Top,
+					TextWrapped = false,
+				})
+			}),
+			TypeLabel = Roact.createElement(Pane, {
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+				Layout = Enum.FillDirection.Vertical,
+				LayoutOrder = 3,
+				Size = style.TextLabelSize,
+			}, {
+				Name = Roact.createElement(TextLabel, {
+					FitMaxWidth = style.MaxWidth,
+					Size = UDim2.fromScale(1, 1),
+					Text = fullMaterialType,
+					TextSize = textSize,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextYAlignment = Enum.TextYAlignment.Top,
+					TextWrapped = false,
+				})
 			})
 		})
 	})
@@ -160,4 +169,10 @@ MaterialTile = withContext({
 	Stylizer = Stylizer,
 })(MaterialTile)
 
-return MaterialTile
+return RoactRodux.connect(
+	function(state, props)
+		return {
+			Material = state.MaterialBrowserReducer.Material,
+		}
+	end
+)(MaterialTile)

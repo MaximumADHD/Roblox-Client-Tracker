@@ -5,10 +5,18 @@
 	equal to the label text from theme.
 
 	Required Props:
-		table Items: A list of items to display. Example: { Key = "", Text = "", Content = Roact.createElement(...) }.
+		callback GetText: ((key : string) -> string) gets the text for a label
+		table Items: A list of items to display , simply a list of strings
+		callback RenderContent: ((key : string) -> FrameworkTypes.RoactElement?) renders an element given a key
 
 	Optional Props:
-		number LayoutOrder: The layout order of the component.
+		number ColumnSpacing: The spacing between the columns of the list
+		UDim LabelColumnWidth : The width of the label column
+		number LayoutOrder: The layout order of the component
+		number Padding: The padding around the entire list
+		number Spacing: The spacing between elements in the list
+		Enum.TextXAlignment TextXAlignment: The X alignment of the text in the label
+		Enum.TextYAlignment TextYAlignment: The Y alignment of the text in the label
 ]]--
 
 local Plugin = script.Parent.Parent.Parent
@@ -18,8 +26,12 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local FrameworkTypes = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Types)
 
+local prioritize = Framework.Util.prioritize
+local join = Framework.Dash.join
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+local withAbsoluteSize = Framework.Wrappers.withAbsoluteSize
 
 local Stylizer = Framework.Style.Stylizer
 
@@ -27,18 +39,7 @@ local UI = Framework.UI
 local TextLabel = UI.Decoration.TextLabel
 local Pane = UI.Pane
 
-export type Item = {
-	Key : string,
-	Text : string,
-	Content : FrameworkTypes.RoactElement,
-}
-
-type _ExternalProps = {
-	Items : {Item},
-	LayoutOrder : number?,
-}
-
-type _InternalProps = {
+type ListItemProps = {
 	LabelColumnWidth : UDim?,
 	LayoutOrder : number?,
 	Spacing : number?,
@@ -47,11 +48,41 @@ type _InternalProps = {
 	TextYAlignment : Enum.TextYAlignment?,
 }
 
-export type Props = _ExternalProps & _InternalProps
+type _ListItemProps = {
+	AbsoluteSize : Vector2,
+	LabelColumnWidth : UDim,
+	LayoutOrder : number,
+	Spacing : number,
+	Text : string,
+	TextXAlignment : Enum.TextXAlignment,
+	TextYAlignment : Enum.TextYAlignment,
+	WrapperProps : any,
+}
 
-type _Props = Props & {
+type SharedProps = {
+	ColumnSpacing : number?,
+	GetText : (key : string) -> string,
+	Items : {string},
+	Padding : number?,
+	RenderContent : (key : string) -> FrameworkTypes.RoactElement?,
+	Spacing : number?,
+	TextXAlignment : Enum.TextXAlignment?,
+	TextYAlignment : Enum.TextYAlignment?,
+}
+
+type ExternalProps = {
+	LabelColumnWidth : UDim?,
+	LayoutOrder : number?,
+}
+
+type InternalProps = {
+	LabelColumnWidth : UDim,
+	LayoutOrder : number,
 	Stylizer : any,
 }
+
+export type Props = SharedProps & ExternalProps
+type _Props = SharedProps & InternalProps
 
 type _Style = {
 	ItemSpacing : number,
@@ -72,12 +103,12 @@ LabeledElementListItem.defaultProps = {
 }
 
 function LabeledElementListItem:render()
-	local props : _Props = self.props
+	local props : _ListItemProps = self.props
 
 	local fillDirection = Enum.FillDirection.Horizontal
 	local labelColumnWidth = props.LabelColumnWidth
 
-	local labelSize = UDim2.new(labelColumnWidth, UDim.new(0, 22))
+	local labelSize = UDim2.new(labelColumnWidth, UDim.new(0, props.AbsoluteSize.Y))
 
 	return Roact.createElement(Pane, {
 		AutomaticSize = Enum.AutomaticSize.Y,
@@ -95,34 +126,41 @@ function LabeledElementListItem:render()
 			TextYAlignment = props.TextYAlignment,
 		}),
 
-		Content = Roact.createElement(Pane, { 
+		Content = Roact.createElement(Pane, join({ 
 			AutomaticSize = Enum.AutomaticSize.XY,
 			LayoutOrder = 2,
-		}, (props :: any)[Roact.Children]),
+		}, props.WrapperProps), (props :: any)[Roact.Children]),
 	})
 end
+
+LabeledElementListItem = withAbsoluteSize(LabeledElementListItem)
 
 local LabeledElementList = Roact.PureComponent:extend("LabeledElementList")
 
 LabeledElementList.defaultProps = {
-	Items = {},
+	LabelColumnWidth = UDim.new(0, 80),
 	LayoutOrder = 1,
 }
 
 function LabeledElementList:render()
 	local props : _Props = self.props
+	local getText = props.GetText
 	local items = props.Items
+	local renderContent = props.RenderContent
+	local labelColumnWidth = props.LabelColumnWidth
 	local style : _Style = props.Stylizer.LabeledElementList
 
 	local children = {}
 	for index, item in ipairs(items) do
-		children[item.Key] = Roact.createElement(LabeledElementListItem, {
-			LabelColumnWidth = style.TextWidth,
+		children[item] = Roact.createElement(LabeledElementListItem, {
+			LabelColumnWidth = labelColumnWidth,
 			LayoutOrder = index,
-			Spacing = style.ItemPaddingHorizontal,
-			Text = item.Text,
+			Spacing = prioritize(props.ColumnSpacing, style.ItemPaddingHorizontal),
+			Text = getText(item),
+			TextXAlignment = props.TextXAlignment,
+			TextYAlignment = props.TextYAlignment,
 		}, {
-			Content = item.Content,
+			Content = renderContent(item),
 		})
 	end
 
@@ -130,10 +168,10 @@ function LabeledElementList:render()
 		AutomaticSize = Enum.AutomaticSize.XY,
 		Layout = Enum.FillDirection.Vertical,
 		LayoutOrder = props.LayoutOrder,
-		Spacing = style.ItemSpacing,		
+		Padding = props.Padding,
+		Spacing = prioritize(props.Spacing, style.ItemSpacing),
 	}, children)
 end
-
 
 LabeledElementList = withContext({
 	Stylizer = Stylizer,

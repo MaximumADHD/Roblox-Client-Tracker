@@ -17,7 +17,6 @@ return function(plugin, pluginLoaderContext)
 		-- Move to loader.server.lua
 		require(script.Parent.Parent.TestRunner.defineLuaFlags)
 	end
-	local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 	local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 
 	local FFlagPlacePublishManagementUI = game:GetFastFlag("PlacePublishManagementUI")
@@ -79,15 +78,10 @@ return function(plugin, pluginLoaderContext)
 		pluginGui.Enabled = false
 	end
 
-	local initialWindowHeight = 650
-	if FFlagStudioAllowRemoteSaveBeforePublish then
-		initialWindowHeight = 720
-	end
-
 	local function makePluginGui()
 		local pluginId = Plugin.Name
 		pluginGui = plugin:CreateQWidgetPluginGui(pluginId, {
-			Size = Vector2.new(960, initialWindowHeight),
+			Size = Vector2.new(960, 720),
 			MinSize = Vector2.new(890, 550),
 			MaxSize = Vector2.new(960, 750),
 			Resizable = true,
@@ -147,37 +141,8 @@ return function(plugin, pluginLoaderContext)
 		makePluginGui()
 
 		if FFlagImprovePluginSpeed_PublishPlaceAs then
-			if FFlagStudioAllowRemoteSaveBeforePublish or FFlagPlacePublishManagementUI then
-				pluginLoaderContext.signals["StudioService.OnSaveOrPublishPlaceToRoblox"]:Connect(
-					function(showGameSelect, isPublish, closeMode)
-						if FFlagStudioNewGamesInCloudUI then
-							if isPublish then
-								pluginGui.Title = localization:getText("General", "PublishGame")
-							else
-								pluginGui.Title = localization:getText("General", "SaveGame")
-							end
-						else
-							if isPublish then
-								pluginGui.Title = localization:getText("General", "PublishPlace")
-							else
-								pluginGui.Title = localization:getText("General", "SavePlace")
-							end
-						end
-						openPluginWindow(showGameSelect, isPublish, closeMode)
-					end
-				)
-			else
-				pluginLoaderContext.signals["StudioService.OnPublishPlaceToRoblox"]:Connect(function(isOverwritePublish)
-					openPluginWindow(isOverwritePublish)
-				end)
-			end
-
-			pluginLoaderContext.signals["StudioService.GamePublishFinished"]:Connect(function(success)
-				dataStore:dispatch(SetIsPublishing(false))
-			end)
-		else
-			if FFlagStudioAllowRemoteSaveBeforePublish or FFlagPlacePublishManagementUI then
-				StudioService.OnSaveOrPublishPlaceToRoblox:Connect(function(showGameSelect, isPublish, closeMode)
+			pluginLoaderContext.signals["StudioService.OnSaveOrPublishPlaceToRoblox"]:Connect(
+				function(showGameSelect, isPublish, closeMode)
 					if FFlagStudioNewGamesInCloudUI then
 						if isPublish then
 							pluginGui.Title = localization:getText("General", "PublishGame")
@@ -192,12 +157,29 @@ return function(plugin, pluginLoaderContext)
 						end
 					end
 					openPluginWindow(showGameSelect, isPublish, closeMode)
-				end)
-			else
-				StudioService.OnPublishPlaceToRoblox:Connect(function(isOverwritePublish)
-					openPluginWindow(isOverwritePublish)
-				end)
-			end
+				end
+			)
+
+			pluginLoaderContext.signals["StudioService.GamePublishFinished"]:Connect(function(success)
+				dataStore:dispatch(SetIsPublishing(false))
+			end)
+		else
+			StudioService.OnSaveOrPublishPlaceToRoblox:Connect(function(showGameSelect, isPublish, closeMode)
+				if FFlagStudioNewGamesInCloudUI then
+					if isPublish then
+						pluginGui.Title = localization:getText("General", "PublishGame")
+					else
+						pluginGui.Title = localization:getText("General", "SaveGame")
+					end
+				else
+					if isPublish then
+						pluginGui.Title = localization:getText("General", "PublishPlace")
+					else
+						pluginGui.Title = localization:getText("General", "SavePlace")
+					end
+				end
+				openPluginWindow(showGameSelect, isPublish, closeMode)
+			end)
 
 			StudioService.GamePublishFinished:connect(function(success)
 				dataStore:dispatch(SetIsPublishing(false))

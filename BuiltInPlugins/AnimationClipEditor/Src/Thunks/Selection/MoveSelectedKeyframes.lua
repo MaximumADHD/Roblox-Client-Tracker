@@ -23,8 +23,9 @@ local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local SelectionUtils = require(Plugin.Src.Util.SelectionUtils)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
-return function(pivotTick, newTick, dragContext)
+local wrappee = function(pivotTick, newTick, pivotValue, newValue, dragContext)
 	return function(store)
 		local state = store:getState()
 		local selectedKeyframes = dragContext and dragContext.selectedKeyframes or state.Status.SelectedKeyframes
@@ -88,8 +89,14 @@ return function(pivotTick, newTick, dragContext)
 							end
 							insertTick = math.clamp(insertTick, oldTick - earliestTick, Constants.MAX_ANIMATION_LENGTH - (latestTick - oldTick))
 							if dataTrack.Keyframes then
+
 								AnimationData.moveKeyframe(dataTrack, oldTick, insertTick)
 								AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
+								if GetFFlagCurveEditor() then
+									if dataTrack.Data and dataTrack.Data[insertTick] and pivotValue and newValue then
+										AnimationData.setKeyframeData(dataTrack, insertTick, { Value = dataTrack.Data[insertTick].Value - pivotValue + newValue })
+									end
+								end
 							end
 
 							selectionTrack.Selection[oldTick] = nil
@@ -132,5 +139,13 @@ return function(pivotTick, newTick, dragContext)
 
 		store:dispatch(UpdateAnimationData(newData))
 		store:dispatch(SetSelectedKeyframes(newSelectedKeyframes))
+	end
+end
+
+if GetFFlagCurveEditor() then
+	return wrappee
+else
+	return function(pivotTick, newTick, dragContext)
+		return wrappee(pivotTick, newTick, nil, nil, dragContext)
 	end
 end

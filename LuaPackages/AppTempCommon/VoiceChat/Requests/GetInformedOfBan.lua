@@ -1,7 +1,5 @@
-local Modules = game:getService("CoreGui").RobloxGui.Modules
 local CorePackages = game:GetService("CorePackages")
 local Url = require(CorePackages.AppTempCommon.LuaApp.Http.Url)
-local ArgCheck = require(CorePackages.ArgCheck)
 
 --[[
 	Documentation of endpoint:

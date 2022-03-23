@@ -11,6 +11,7 @@
 		UDim2 Size
 ]]
 local FFlagToolboxGetItemsDetailsUsesSingleApi = game:GetFastFlag("ToolboxGetItemsDetailsUsesSingleApi")
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -71,6 +72,7 @@ type _InternalProps = {
 	assetIds : any,
 	categoryName : string,
 	currentUserPackagePermissions : any,
+	idToAssetMap : any,
 	-- mapDispatchToProps
 	dispatchPostAssetCheckPermissions : (
 		(
@@ -132,11 +134,11 @@ function AssetGridContainer:render()
 	local position = props.Position
 	local renderTopContent = props.RenderTopContent
 	local size = props.Size
+	local parentAbsolutePosition = props.ParentAbsolutePosition
+	local parentSize = props.ParentSize
 
 	-- Props from AssetLogicWrapper
 	local canInsertAsset = props.CanInsertAsset
-	local parentAbsolutePosition = props.ParentAbsolutePosition
-	local parentSize = props.ParentSize
 	local tryInsert = props.TryInsert
 	local tryOpenAssetConfig = props.TryOpenAssetConfig
 
@@ -160,6 +162,7 @@ function AssetGridContainer:render()
 
 	return Roact.createElement(AssetGrid, {
 		AssetIds = assetIds,
+		AssetMap = if FFlagToolboxAssetCategorization then props.idToAssetMap else nil,
 		LayoutOrder = layoutOrder,
 		Position = position,
 		RenderTopContent = renderTopContent,
@@ -191,6 +194,7 @@ local function mapStateToProps(state, props)
 		assetIds = assets.idsToRender or {},
 		categoryName = categoryName,
 		currentUserPackagePermissions = state.packages.permissionsTable or {},
+		idToAssetMap = if FFlagToolboxAssetCategorization then assets.idToAssetMap else nil,
 	}
 end
 

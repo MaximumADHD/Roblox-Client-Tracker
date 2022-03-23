@@ -23,6 +23,7 @@ local ContextServices = Framework.ContextServices
 local Mouse = ContextServices.Mouse
 local Signal = Framework.Util.Signal
 local SettingsContext = require(Plugin.Core.ContextServices.Settings)
+local IXPContext = require(Plugin.Core.ContextServices.IXPContext)
 local getAssetConfigTheme = require(Plugin.Core.Themes.getAssetConfigTheme)
 
 local CoreTestUtils = require(Plugin.TestUtils.CoreTestUtils)
@@ -31,12 +32,16 @@ local function MockWrapper(props)
 	local middleware = CoreTestUtils.createThunkMiddleware()
 
 	local store = props.store or Rodux.Store.new(ToolboxReducer, nil, middleware)
+	if props.storeSetup then
+		props.storeSetup(store)
+	end
 	local plugin = props.plugin or nil
 	local pluginGui = props.pluginGui or nil
 	local settings = props.settings or Settings.new(plugin)
 	local theme = props.theme or ToolboxTheme.createDummyThemeManager()
 	local networkInterface = props.networkInterface or NetworkInterfaceMock.new()
 	local localization = props.localization or Localization.createDummyLocalization()
+	local ixpContext = props.ixpContext or IXPContext.createMock()
 
 	local mouse = Mouse.new({
 		Icon = "rbxasset://SystemCursors/Arrow",
@@ -66,7 +71,9 @@ local function MockWrapper(props)
 				translationResourceTable = Framework.Resources.TranslationReferenceTable,
 			},
 		},
-		overrideGetLocale = function() return "en-us" end,
+		overrideGetLocale = function()
+			return "en-us"
+		end,
 		overrideLocaleId = "en-us",
 		overrideLocaleChangedSignal = Signal.new(),
 	})
@@ -82,6 +89,7 @@ local function MockWrapper(props)
 		assetAnalytics,
 		analytics,
 		devFrameworkLocalization,
+		ixpContext,
 	}
 
 	return Roact.createElement(ExternalServicesWrapper, {

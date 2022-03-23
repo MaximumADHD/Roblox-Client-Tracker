@@ -19,6 +19,7 @@ local InstanceTypeToProps = {
 	ImporterMaterialSettings = MaterialProps,
 	ImporterGroupSettings = GroupProps,
 	ImporterJointSettings = JointProps,
+	ImporterAnimationSettings = BaseProps, -- TODO swap out with animation props when we have them
 }
 
 local function getPropertiesForInstance(instance)

@@ -15,6 +15,10 @@ return function(plugin, pluginLoaderContext)
 	local handle = nil
 
 	local function init()
+		-- Roact.setGlobalConfig({
+		-- 	elementTracing = true,
+		-- })
+
 		local mainPlugin = Roact.createElement(AnimationClipEditorPlugin, {
 			plugin = plugin,
 			pluginLoaderContext = pluginLoaderContext

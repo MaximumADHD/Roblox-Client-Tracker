@@ -7,7 +7,8 @@ local Cryo = require(Plugin.Packages.Cryo)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local Templates = require(Plugin.Src.Util.Templates)
 local Constants = require(Plugin.Src.Util.Constants)
-local isEmpty = require(Plugin.Src.Util.isEmpty)
+
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 local CurveUtils = {}
 
@@ -57,6 +58,7 @@ function CurveUtils.makeBounce(easingDirection, tickA, keyframeA, tickB, keyfram
 	local e = elSqrt
 	local slope = 2 * a
 	local root = 1
+	local lastSlope
 
 	for _ = 1, count do
 		local tick
@@ -72,9 +74,9 @@ function CurveUtils.makeBounce(easingDirection, tickA, keyframeA, tickB, keyfram
 		local reboundLeftSlope = isQuaternionTrack and (2 * a * elSqrt) / e or slope
 		local reboundRightSlope = isQuaternionTrack and (2 * a) / e or (-slope * elSqrt)
 
-		-- Add an apex
-		local apexX = reboundX + e / a
-		local apexY = 1 - e * e
+		-- Add an apex -- Not really needed, each bounce is a parabola and we can just rely on the tangents at the rebounds
+		local apexX = if GetFFlagCurveEditor() then nil else reboundX + e / a
+		local apexY = if GetFFlagCurveEditor() then nil else 1 - e * e
 
 		-- Invert position and slopes if we're dealing with EasingIn
 		if easingDirection == Enum.PoseEasingDirection.In then
@@ -83,11 +85,13 @@ function CurveUtils.makeBounce(easingDirection, tickA, keyframeA, tickB, keyfram
 			reboundLeftSlope = reboundRightSlope
 			reboundRightSlope = t
 
-			apexX = 1 - apexX
-			apexY = 1 - apexY
+			if not GetFFlagCurveEditor() then
+				apexX = 1 - apexX
+				apexY = 1 - apexY
+			end
 		end
 
-		-- Create a keyframe for the root
+		-- Create a keyframe for the rebound
 		tick = KeyframeUtils.getNearestTick(tickA + reboundX * dt)
 		keyframe = Templates.keyframe()
 		keyframe.InterpolationMode = Enum.KeyInterpolationMode.Cubic
@@ -96,18 +100,23 @@ function CurveUtils.makeBounce(easingDirection, tickA, keyframeA, tickB, keyfram
 		keyframe.Value = easingDirection == Enum.PoseEasingDirection.In and keyframeA.Value or keyframeB.Value
 		keyframes[tick] = keyframe
 
-		-- Create a keyframe for the apex
-		tick = KeyframeUtils.getNearestTick(tickA + apexX * dt)
-		keyframe = Templates.keyframe()
-		keyframe.InterpolationMode = Enum.KeyInterpolationMode.Cubic
-		keyframe.LeftSlope = 0
-		keyframe.RightSlope = 0
-		if isQuaternionTrack then
-			keyframe.Value = keyframeA.Value:lerp(keyframeB.Value, apexY)
-		else
-			keyframe.Value = keyframeA.Value + apexY * (keyframeB.Value - keyframeA.Value)
+		-- Keep the slope of the rebound, because we'll need it for the last keyframe
+		lastSlope = if easingDirection == Enum.PoseEasingDirection.Out then keyframe.RightSlope else keyframe.LeftSlope
+
+		if not GetFFlagCurveEditor() then
+			-- Create a keyframe for the apex
+			tick = KeyframeUtils.getNearestTick(tickA + apexX * dt)
+			keyframe = Templates.keyframe()
+			keyframe.InterpolationMode = Enum.KeyInterpolationMode.Cubic
+			keyframe.LeftSlope = 0
+			keyframe.RightSlope = 0
+			if isQuaternionTrack then
+				keyframe.Value = keyframeA.Value:lerp(keyframeB.Value, apexY)
+			else
+				keyframe.Value = keyframeA.Value + apexY * (keyframeB.Value - keyframeA.Value)
+			end
+			keyframes[tick] = keyframe
 		end
-		keyframes[tick] = keyframe
 
 		-- Prepare for next iteration
 		root = root + 2 * e
@@ -116,10 +125,23 @@ function CurveUtils.makeBounce(easingDirection, tickA, keyframeA, tickB, keyfram
 	end
 
 	-- Adjust the slopes at the ends of the segment
-	keyframeA.EasingStyle = Enum.KeyInterpolationMode.Cubic
-	keyframeA.EasingDirection = nil
-	keyframeA.RightSlope = 0
-	keyframeB.LeftSlope = 0
+	if not GetFFlagCurveEditor() then
+		keyframeA.EasingStyle = Enum.KeyInterpolationMode.Cubic
+		keyframeA.EasingDirection = nil
+	end
+
+	if GetFFlagCurveEditor() then
+		if easingDirection == Enum.PoseEasingDirection.In then
+			keyframeA.RightSlope = -lastSlope
+			keyframeB.LeftSlope = 0
+		else
+			keyframeA.RightSlope = 0
+			keyframeB.LeftSlope = -lastSlope
+		end
+	else
+		keyframeA.RightSlope = 0
+		keyframeB.LeftSlope = 0
+	end
 
 	return keyframes
 end

@@ -1,19 +1,20 @@
+--!strict
 --[[
 	Contains a series of buttons meant to control editing or playback.
 
 	Props:
-		string PlayState = One of Constants.PLAY_STATE (Reverse, Paused, Play).
-		bool IsLooping = Whether the animation is a looping animation.
-		int LayoutOrder = The display order of this component.
+		IsLooping: Whether the animation is a looping animation.
+		LayoutOrder: The display order of this component.
+		PlayState: One of Constants.PLAY_STATE (Reverse, Paused, Play).
 
-		function SetPlayState(playState) = A callback for when the user changes the playback state.
-		function ToggleLooping() = A callback for when the user wants to toggle the looping state.
-		function SkipBackward() = A callback for when the user wants to skip backward to the
+		GoToFirstFrame: A callback for when the user wants to go to the first frame.
+		GoToLastFrame: A callback for when the user wants to go to the last frame.
+		SetPlayState: A callback for when the user changes the playback state.
+		SkipBackward: A callback for when the user wants to skip backward to the
 			previous keyframe in the animation.
-		function SkipForward() = A callback for when the user wants to skip forward to the next
+		SkipForward: A callback for when the user wants to skip forward to the next
 			keyframe in the animation.
-		function GoToFirstFrame() = A callback for when the user wants to go to the first frame.
-		function GoToLastFrame() = A callback for when the user wants to go to the last frame.
+		ToggleLooping: A callback for when the user wants to toggle the looping state.
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -30,9 +31,29 @@ local LayoutOrderIterator = require(Plugin.Src.Util.LayoutOrderIterator)
 local Button = Framework.UI.Button
 local Tooltip = require(Plugin.Src.Components.Tooltip)
 
+local FFlagMergePlayPause = game:DefineFastFlag("ACEMergePlayPause", false)
+
 local MediaControls = Roact.PureComponent:extend("MediaControls")
 
-function MediaControls:makeButton(image, onClick, playbackTheme, tooltipKey)
+export type Props = {
+	-- State/Context
+	Stylizer: any,
+	Theme: any,
+
+	-- Properties
+	IsLooping: boolean,
+	LayoutOrder: number?,
+	PlayState: string,
+
+	GoToFirstFrame: () -> (),
+	GoToLastFrame: () -> (),
+	SetPlayState: (string) -> (),
+	SkipBackward: () -> (),
+	SkipForward: () -> (),
+	ToggleLooping: () -> (),
+}
+
+function MediaControls:makeButton(image: string, onClick: () -> (), playbackTheme: any, tooltipKey: string): (any)
 	local style = THEME_REFACTOR and self.props.Stylizer.PluginTheme.button or self.props.Theme:get("PluginTheme").button
 	return Roact.createElement("Frame", {
 		LayoutOrder = self.layoutOrderIterator:getNextOrder(),
@@ -58,7 +79,7 @@ function MediaControls:makeButton(image, onClick, playbackTheme, tooltipKey)
 	})
 end
 
-function MediaControls:makeToggle(active, activeImage, inactiveImage, onClick, playbackTheme, tooltipKey)
+function MediaControls:makeToggle(active: boolean, activeImage: string, inactiveImage: string, onClick: () -> (), playbackTheme: any, tooltipKey: string): (any)
 	local style = THEME_REFACTOR and self.props.Stylizer.PluginTheme.button or self.props.Theme:get("PluginTheme").button
 	return Roact.createElement("Frame", {
 		LayoutOrder = self.layoutOrderIterator:getNextOrder(),
@@ -84,7 +105,7 @@ function MediaControls:makeToggle(active, activeImage, inactiveImage, onClick, p
 	})
 end
 
-function MediaControls:makePlayToggle(active, image, playState, playbackTheme, tooltipKey)
+function MediaControls:makePlayToggle_deprecated(active: boolean, image: string, playState: string, playbackTheme: any, tooltipKey: string): (any)
 	local style = THEME_REFACTOR and self.props.Stylizer.PluginTheme.button or self.props.Theme:get("PluginTheme").button
 	return Roact.createElement("Frame", {
 		LayoutOrder = self.layoutOrderIterator:getNextOrder(),
@@ -114,7 +135,37 @@ function MediaControls:makePlayToggle(active, image, playState, playbackTheme, t
 	})
 end
 
-function MediaControls:render()
+function MediaControls:makePlayToggle(active: boolean, activeImage: string, inactiveImage: string, playState: string, playbackTheme: any, activeTooltipKey: string, inactiveTooltipKey): (any)
+	local style = THEME_REFACTOR and self.props.Stylizer.PluginTheme.button or self.props.Theme:get("PluginTheme").button
+	return Roact.createElement("Frame", {
+		LayoutOrder = self.layoutOrderIterator:getNextOrder(),
+		Size = UDim2.new(0, Constants.TIMELINE_HEIGHT, 0, Constants.TIMELINE_HEIGHT),
+		BackgroundTransparency = 1,
+	}, {
+		Button = Roact.createElement(Button, {
+			ZIndex = 1,
+			Size = UDim2.new(1, 0, 1, 0),
+			Style = active and style.ActiveControl or style.MediaControl,
+			OnClick = function()
+				if self.props.SetPlayState then
+					self.props.SetPlayState(if active then Constants.PLAY_STATE.Pause else playState)
+				end
+			end,
+		}, {
+			Image = Roact.createElement("ImageLabel", {
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 1, 0),
+				Image = if active then activeImage else inactiveImage,
+				ImageColor3 = active and playbackTheme.iconHighlightColor or playbackTheme.iconColor,
+			}),
+			Tooltip = Roact.createElement(Tooltip, {
+				TextKey = if active then activeTooltipKey else inactiveTooltipKey,
+			}),
+		}),
+	})
+end
+
+function MediaControls:render(): (any)
 		local props = self.props
 		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
 
@@ -125,7 +176,7 @@ function MediaControls:render()
 		local layoutOrder = props.LayoutOrder
 		local skipBackward = props.SkipBackward
 		local skipForward = props.SkipForward
-		local togglePlay = props.TogglePlay
+		local togglePlay = if not FFlagMergePlayPause then props.TogglePlay else nil  -- Unused
 		local toggleLooping = props.ToggleLooping
 		local goToFirstFrame = props.GoToFirstFrame
 		local goToLastFrame = props.GoToLastFrame
@@ -147,9 +198,19 @@ function MediaControls:render()
 			GoToFirstFrame = self:makeButton(playbackTheme.goToFirstFrame, goToFirstFrame, playbackTheme, "GoToFirstFrame"),
 			SkipBackward = self:makeButton(playbackTheme.skipBackward, skipBackward, playbackTheme, "SkipBackward"),
 
-			Reverse = self:makePlayToggle(isReverse, playbackTheme.reverse, Constants.PLAY_STATE.Reverse, playbackTheme, "Reverse"),
-			Pause = self:makePlayToggle(isPaused, playbackTheme.pause, Constants.PLAY_STATE.Pause, playbackTheme, "Pause"),
-			Play = self:makePlayToggle(isPlaying, playbackTheme.play, Constants.PLAY_STATE.Play, playbackTheme, "Play"),
+			Reverse = if not FFlagMergePlayPause then
+				self:makePlayToggle_deprecated(isReverse, playbackTheme.reverse, Constants.PLAY_STATE.Reverse, playbackTheme, "Reverse")
+			else
+				self:makePlayToggle(isReverse, playbackTheme.pause, playbackTheme.reverse, Constants.PLAY_STATE.Reverse, playbackTheme, "Pause", "Reverse"),
+
+			Pause = if not FFlagMergePlayPause then
+				self:makePlayToggle_deprecated(isPaused, playbackTheme.pause, Constants.PLAY_STATE.Pause, playbackTheme, "Pause")
+			else nil,
+
+			Play = if not FFlagMergePlayPause then
+				self:makePlayToggle_deprecated(isPlaying, playbackTheme.play, Constants.PLAY_STATE.Play, playbackTheme, "Play")
+			else
+				self:makePlayToggle(isPlaying, playbackTheme.pause, playbackTheme.play, Constants.PLAY_STATE.Play, playbackTheme, "Pause", "Play"),
 
 			SkipForward = self:makeButton(playbackTheme.skipForward, skipForward, playbackTheme, "SkipForward"),
 			GoToLastFrame = self:makeButton(playbackTheme.goToLastFrame, goToLastFrame, playbackTheme, "GoToLastFrame"),
@@ -158,13 +219,9 @@ function MediaControls:render()
 		})
 end
 
-
 MediaControls = withContext({
 	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(MediaControls)
-
-
-
 
 return MediaControls

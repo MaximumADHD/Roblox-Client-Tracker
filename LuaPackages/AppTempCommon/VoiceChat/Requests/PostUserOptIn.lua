@@ -1,10 +1,6 @@
-local Modules = game:getService("CoreGui").RobloxGui.Modules
 local CorePackages = game:GetService("CorePackages")
 local HttpService = game:GetService("HttpService")
 local Url = require(CorePackages.AppTempCommon.LuaApp.Http.Url)
-local ArgCheck = require(CorePackages.ArgCheck)
-
-local GetFFlagSendIsOptedInThroughUpsellParameter = require(Modules.Flags.GetFFlagSendIsOptedInThroughUpsellParameter)
 
 --[[
 	Documentation of endpoint:
@@ -16,12 +12,12 @@ local GetFFlagSendIsOptedInThroughUpsellParameter = require(Modules.Flags.GetFFl
 ]]
 
 return function(requestImpl, isUserOptIn, isOptedInThroughUpsell)
-	ArgCheck.isType(isUserOptIn, "boolean", "UserOptIn request expects isUserOptIn to be a boolean")
+	assert(type(isUserOptIn) == "boolean", "UserOptIn request expects isUserOptIn to be a boolean")
 
 	local url = string.format("%sv1/settings/user-opt-in/", Url.VOICE_URL)
 	local body
-	if GetFFlagSendIsOptedInThroughUpsellParameter() and isOptedInThroughUpsell ~= nil then
-		ArgCheck.isType(isOptedInThroughUpsell, "boolean", "UserOptIn request expects isOptedInThroughUpsell to be a boolean")
+	if isOptedInThroughUpsell ~= nil then
+		assert(type(isOptedInThroughUpsell) == "boolean", "UserOptIn request expects isOptedInThroughUpsell to be a boolean")
 		body = HttpService:JSONEncode({
 			isUserOptIn = isUserOptIn,
 			isOptedInThroughUpsell = isOptedInThroughUpsell,

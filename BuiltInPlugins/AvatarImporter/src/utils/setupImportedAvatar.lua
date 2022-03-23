@@ -5,9 +5,6 @@ local FastFlags = require(root.src.FastFlags)
 local Constants = require(root.src.Constants)
 local Globals = require(root.src.Globals)
 
--- fast flag
-game:DefineFastFlag("FacialAnimationDynamicHeadNoFaceDecal", false)
-
 -- configurer
 local configurer = nil
 if FastFlags:isBundleConfigurationEnabled() then
@@ -62,8 +59,7 @@ local function addFace(avatar)
 
 	-- Only add face object if the Head doesn't have built in texture
 	if head and head.TextureID == "" and
-		(not (FastFlags:isFacialAnimationBetaFeatureEnabled() and
-				game:GetFastFlag("FacialAnimationDynamicHeadNoFaceDecal"))
+		(not FastFlags:isFacialAnimationBetaFeatureEnabled()
 			or head:FindFirstChildWhichIsA("FaceControls") == nil) then
 		local face = Instance.new("Decal")
 		face.Name = "face"

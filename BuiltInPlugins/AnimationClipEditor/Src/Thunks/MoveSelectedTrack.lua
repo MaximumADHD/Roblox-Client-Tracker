@@ -9,14 +9,24 @@ local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
+local AnimationData = require(Plugin.Src.Util.AnimationData)
+
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 return function(movement)
 	return function(store)
+		-- TODO AVBURST-7265: `or store:getState()` is only necessary because of the test in Status.spec.lua. Can we do better?
 		local status = store:getState().Status or store:getState()
 		local tracks = status.Tracks
+		local animationData = store:getState().AnimationData
 		local selectedTracks = status.SelectedTracks
 
 		if not selectedTracks or isEmpty(selectedTracks) then
+			return
+		end
+
+		-- Disable moving the selection if the animation is Channel based and if more than one track is selected
+		if GetFFlagCurveEditor() and AnimationData.isChannelAnimation(animationData) and #selectedTracks > 1 then
 			return
 		end
 
@@ -31,7 +41,13 @@ return function(movement)
 
 		-- Find the biggest move we can make without getting out of bounds
 		local minIndex, maxIndex
-		for _, selectedTrackName in ipairs(selectedTracks) do
+		for _, selectedTrack in ipairs(selectedTracks) do
+			local selectedTrackName
+			if GetFFlagCurveEditor() then
+				selectedTrackName = selectedTrack[1]
+			else
+				selectedTrackName = selectedTrack
+			end
 			local selectedTrackIndex = trackMap[selectedTrackName]
 
 			minIndex = minIndex and math.min(minIndex, selectedTrackIndex) or selectedTrackIndex
@@ -45,8 +61,15 @@ return function(movement)
 
 		-- For each selected track, find its index, adjust it depending on movement,
 		-- and store it in newSelectedTracksMap.
-		for _, selectedTrackName in ipairs(selectedTracks) do
+		for _, selectedTrack in ipairs(selectedTracks) do
+			local selectedTrackName
+			if GetFFlagCurveEditor() then
+				selectedTrackName = selectedTrack[1]
+			else
+				selectedTrackName = selectedTrack
+			end
 			local selectedTrackIndex = trackMap[selectedTrackName]
+
 			if selectedTrackIndex then
 				selectedTrackIndex += movement
 				local trackName = tracks[selectedTrackIndex].Name
@@ -54,6 +77,14 @@ return function(movement)
 			end
 		end
 
-		store:dispatch(SetSelectedTracks(Cryo.Dictionary.keys(newSelectedTracksMap)))
+		if GetFFlagCurveEditor() then
+			local newSelectedTracks = {}
+			for selectedTrackName, _ in pairs(newSelectedTracksMap) do
+				table.insert(newSelectedTracks, {selectedTrackName})
+			end
+			store:dispatch(SetSelectedTracks(newSelectedTracks))
+		else
+			store:dispatch(SetSelectedTracks(Cryo.Dictionary.keys(newSelectedTracksMap)))
+		end
 	end
 end

@@ -9,8 +9,6 @@
 --]]
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
-local FFlagToolboxNilDisconnectSignals = game:GetFastFlag("ToolboxNilDisconnectSignals")
-
 local Packages = Plugin.Packages
 local Cryo = require(Packages.Cryo)
 local Roact = require(Packages.Roact)
@@ -50,9 +48,7 @@ function CollaboratorThumbnail:init()
 
 		if self.colorChanged then 
 			self.colorChanged:Disconnect()
-			if FFlagToolboxNilDisconnectSignals then
-				self.colorChanged = nil
-			end		
+			self.colorChanged = nil
 		end
 		if collaboratorThumbnail.Parent then
 			self.colorChanged = collaboratorThumbnail.Parent:GetPropertyChangedSignal("BackgroundColor3"):Connect(colorChanged)
@@ -74,19 +70,14 @@ function CollaboratorThumbnail:didMount()
 end
 
 function CollaboratorThumbnail:willUnmount()
-	if FFlagToolboxNilDisconnectSignals then
-		if self.parentChangedSignal then
-			self.parentChangedSignal:Disconnect()
-			self.parentChangedSignal = nil
-		end
-	else
+	if self.parentChangedSignal then
 		self.parentChangedSignal:Disconnect()
+		self.parentChangedSignal = nil
 	end
+
 	if self.colorChanged then
 		self.colorChanged:Disconnect()
-		if FFlagToolboxNilDisconnectSignals then
-			self.colorChanged = nil
-		end
+		self.colorChanged = nil
 	end
 end
 

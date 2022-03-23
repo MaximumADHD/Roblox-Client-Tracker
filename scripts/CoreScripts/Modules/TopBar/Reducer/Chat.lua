@@ -4,6 +4,7 @@ local Rodux = require(CorePackages.Rodux)
 
 local Actions = script.Parent.Parent.Actions
 local UpdateChatMessages = require(Actions.UpdateChatMessages)
+local UpdateUnreadMessagesBadge = require(Actions.UpdateUnreadMessagesBadge)
 local UpdateChatVisible = require(Actions.UpdateChatVisible)
 local SetCanChat = require(Actions.SetCanChat)
 
@@ -15,6 +16,24 @@ local initialChatState = {
 }
 
 local Chat = Rodux.createReducer(initialChatState, {
+	[UpdateUnreadMessagesBadge.name] = function(state, action)
+		if state.visible then
+			return {
+				canChat = state.canChat,
+				visible = true,
+				lastReadMessages = 0,
+				unreadMessages = 0,
+			}
+		else
+			return {
+				canChat = state.canChat,
+				visible = false,
+				lastReadMessages = 0,
+				unreadMessages = action.messages,
+			}
+		end
+	end,
+
 	[UpdateChatMessages.name] = function(state, action)
 		if state.visible then
 			return {

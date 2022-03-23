@@ -1,17 +1,15 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent.Parent
+	local _Types = require(Plugin.Src.Types)
 	local Roact = require(Plugin.Packages.Roact)
 	local mockContext = require(Plugin.Src.Util.mockContext)
 
 	local MaterialInformation = require(script.Parent.MaterialInformation)
 
-	local colorMap = "rbxassetid://6505035810"
-	local metalnessMap = "rbxassetid://6505037219"
-	local normalMap = "rbxassetid://6505043762"
-	local roughnessMap = "rbxassetid://6505049142"
-
 	local function createTestElement(props: MaterialInformation.Props?)
-		props = props or {}
+		props = props or {
+			OpenPrompt = function(type: _Types.MaterialPromptType) end
+		}
 
 		return mockContext({
 			MaterialInformation = Roact.createElement(MaterialInformation, props)
@@ -24,19 +22,18 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render material with color map correctly", function()
-		local TestMaterial = {
+	it("should render builtin material correctly", function()
+		local TestBuiltinMaterial = {
 			IsBuiltin = true,
 			MaterialPath = { "Plastic" },
 			MaterialType = "Base",
 			MaterialVariant = Instance.new("MaterialVariant")
 		}
 
-		TestMaterial.MaterialVariant.ColorMap = colorMap
-
 		local container = Instance.new("Folder")
 		local element = createTestElement({
-			MockMaterial = TestMaterial
+			MockMaterial = TestBuiltinMaterial,
+			OpenPrompt = function(type: _Types.MaterialPromptType) end,
 		})
 		local instance = Roact.mount(element, container)
 
@@ -44,25 +41,21 @@ return function()
 		expect(main).to.be.ok()
 		Roact.unmount(instance)
 
-		TestMaterial.MaterialVariant:Destroy()
+		TestBuiltinMaterial.MaterialVariant:Destroy()
 	end)
 
-	it("should render material with all maps correctly", function()
-		local TestMaterial = {
-			IsBuiltin = true,
+	it("should render variant material correctly", function()
+		local TestVariantMaterial = {
+			IsBuiltin = false,
 			MaterialPath = { "Plastic" },
 			MaterialType = "Base",
 			MaterialVariant = Instance.new("MaterialVariant")
 		}
 
-		TestMaterial.MaterialVariant.ColorMap = colorMap
-		TestMaterial.MaterialVariant.MetalnessMap = metalnessMap
-		TestMaterial.MaterialVariant.NormalMap = normalMap
-		TestMaterial.MaterialVariant.RoughnessMap = roughnessMap
-
 		local container = Instance.new("Folder")
 		local element = createTestElement({
-			MockMaterial = TestMaterial
+			MockMaterial = TestVariantMaterial,
+			OpenPrompt = function(type: _Types.MaterialPromptType) end,
 		})
 		local instance = Roact.mount(element, container)
 
@@ -70,6 +63,6 @@ return function()
 		expect(main).to.be.ok()
 		Roact.unmount(instance)
 
-		TestMaterial.MaterialVariant:Destroy()
+		TestVariantMaterial.MaterialVariant:Destroy()
 	end)
 end

@@ -8,9 +8,7 @@
 		SettingsImpl_mock, can be provided to allow testing.
 ]]
 
-local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage2")
-local FFlagStudioTCSaveAsStaysOldSession3 = game:GetFastFlag("StudioTCSaveAsStaysOldSession3")
 local FFlagStudioTcDialogShowPlaceName = game:GetFastFlag("StudioTcDialogShowPlaceName")
 local FFlagStudioEnableUploadNames = game:GetFastFlag("StudioEnableUploadNames")
 
@@ -39,11 +37,8 @@ local CONFIGURATION_ACCEPTED_KEYS = {
 	genre = true,
 	name = true,
 	playableDevices = true,
+	isFriendsOnly = true,
 }
-
-if FFlagStudioAllowRemoteSaveBeforePublish then
-	CONFIGURATION_ACCEPTED_KEYS.isFriendsOnly = true
-end
 
 if shouldShowDevPublishLocations() then
 	CONFIGURATION_ACCEPTED_KEYS.OptInLocations = true
@@ -140,28 +135,22 @@ local function saveAll(state, localization, apiImpl, email)
 	apiImpl.Develop.V2.Universes.configuration(gameId, configuration):makeRequest()
 	:andThen(function()
 		StudioService:SetUniverseDisplayName(configuration.name)
-		if FFlagStudioTCSaveAsStaysOldSession3 then
-			StudioService:RefreshDocumentDisplayName()
-		else
-			StudioService:DEPRECATED_SetDocumentDisplayName(configuration.name)
-		end
+		StudioService:RefreshDocumentDisplayName()
 		StudioService:EmitPlacePublishedSignal()
 	end, function(response)
 		parseErrorMessages(response, localization:getText("Error","SetConfiguration"))
 	end)
 
-	if FFlagStudioAllowRemoteSaveBeforePublish then
-		if universeActivate.isActive then
-			apiImpl.Develop.V1.Universes.activate(gameId):makeRequest()
-			:catch(function(response)
-				parseErrorMessages(response, localization:getText("Error","ActivatingUniverse"))
-			end)
-		else
-			apiImpl.Develop.V1.Universes.deactivate(gameId):makeRequest()
-			:catch(function(response)
-				parseErrorMessages(response, localization:getText("Error","DeactivatingUniverse"))
-			end)
-		end
+	if universeActivate.isActive then
+		apiImpl.Develop.V1.Universes.activate(gameId):makeRequest()
+		:catch(function(response)
+			parseErrorMessages(response, localization:getText("Error","ActivatingUniverse"))
+		end)
+	else
+		apiImpl.Develop.V1.Universes.deactivate(gameId):makeRequest()
+		:catch(function(response)
+			parseErrorMessages(response, localization:getText("Error","DeactivatingUniverse"))
+		end)
 	end
 end
 

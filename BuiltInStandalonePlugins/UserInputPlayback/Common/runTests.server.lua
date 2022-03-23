@@ -4,27 +4,15 @@
 ]]
 local Plugin = script.Parent.Parent
 
-local FFlagImprovePluginSpeed_UserInputPlayback = game:GetFastFlag("ImprovePluginSpeed_UserInputPlayback")
-
-if not FFlagImprovePluginSpeed_UserInputPlayback then
-	local commonInit = require(script.Parent.commonInit)
-	commonInit()
-end
-
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
 local Framework
-if not FFlagImprovePluginSpeed_UserInputPlayback then
-	Framework= require(Plugin.Packages.Framework)
-end
 
 if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
-	if FFlagImprovePluginSpeed_UserInputPlayback then
-		local commonInit = require(script.Parent.commonInit)
-		commonInit()
+	local commonInit = require(script.Parent.commonInit)
+	commonInit()
 
-		Framework = require(Plugin.Packages.Framework)
-	end
+	Framework = require(Plugin.Packages.Framework)
 	-- Requiring TestEZ initialises TestService, so we require it under the condition
 	local TestEZ = require(Plugin.Packages.Dev.TestEZ)
 	local TestBootstrap = TestEZ.TestBootstrap

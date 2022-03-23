@@ -3,20 +3,7 @@ return function(plugin, pluginLoaderContext)
 		return
 	end
 
-	local FFlagImprovePluginSpeed_TestHarness = game:GetFastFlag("ImprovePluginSpeed_TestHarness")
-
 	local hasInternalPermission = game:GetService("StudioService"):HasInternalPermission()
-	if not FFlagImprovePluginSpeed_TestHarness then
-		-- move this to loader.server.lua
-
-		-- TODO DEVTOOLS-4481: The DevFramework Flags util has a bug triggers the assert for missing
-		-- flags in NoOpt/Debug. When that is fixed this template should be updated to use it.
-		require(script.Parent.defineFlags)
-
-		if not game:GetFastFlag("EnableTestHarness") or not hasInternalPermission then
-			return
-		end
-	end
 
 	local commonInit = require(script.Parent.commonInit)
 	commonInit()
@@ -49,7 +36,7 @@ return function(plugin, pluginLoaderContext)
 
 		local mainPlugin = Roact.createElement(MainPlugin, {
 			Plugin = plugin,
-			pluginLoaderContext = FFlagImprovePluginSpeed_TestHarness and pluginLoaderContext or nil,
+			pluginLoaderContext = pluginLoaderContext,
 		})
 
 		handle = Roact.mount(mainPlugin)

@@ -6,6 +6,7 @@
 local HttpService = game:GetService("HttpService")
 
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 
 local Plugin = script.Parent.Parent.Parent
@@ -40,6 +41,28 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
+local FrameworkUtil = require(Libs.Framework).Util
+local deepEqual = FrameworkUtil.deepEqual
+
+export type AssetLogicWrapperProps = {
+	CanInsertAsset : (() -> boolean)?,
+	TryInsert : (
+		(
+			assetData : any,
+			assetWasDragged : boolean,
+			insertionMethod : string
+		) -> any
+	),
+	TryOpenAssetConfig : (
+		(
+			assetId : number?,
+			flowType : string,
+			instances : any,
+			assetTypeEnum : Enum.AssetType
+		) -> any
+	),
+}
+
 type _ExternalProps = {
 	AutomaticSize : Enum.AutomaticSize?,
 	Position : UDim2?,
@@ -70,8 +93,8 @@ type _InternalProps = {
 }
 
 type _State = {
-	absoluteSize : Vector2,
-	absolutePosition : Vector2,
+	absoluteSize : Vector2, -- TODO Remove with FFlagToolboxAssetCategorization
+	absolutePosition : Vector2, -- TODO Remove with FFlagToolboxAssetCategorization
 	hoveredAssetId : number,
 	isShowingToolMessageBox : boolean,
 	isShowingScriptWarningMessageBox : boolean,
@@ -93,8 +116,8 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 		self.ref = Roact.createRef()
 
 		self.state = {
-			absoluteSize = Vector2.new(Constants.TOOLBOX_MIN_WIDTH, 0),
-			absolutePosition = Vector2.new(),
+			absoluteSize = if not FFlagToolboxAssetCategorization then Vector2.new(Constants.TOOLBOX_MIN_WIDTH, 0) else nil,
+			absolutePosition = if not FFlagToolboxAssetCategorization then Vector2.new() else nil,
 			hoveredAssetId = 0,
 			isShowingToolMessageBox = false,
 			isShowingScriptWarningMessageBox = false,
@@ -247,26 +270,30 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			}, self.insertToolPromise, assetWasDragged)
 		end
 
-		self.updateBoundaryVariables = function()
-			local ref = self.ref.current
-			if not ref then
-				return
-			end
-			if self.state.absolutePosition ~= ref.AbsolutePosition or self.state.absoluteSize ~= ref.AbsoluteSize then
-				self:setState({
-					absoluteSize = ref.AbsoluteSize,
-					absolutePosition = ref.AbsolutePosition,
-				})
+		if not FFlagToolboxAssetCategorization then
+			self.updateBoundaryVariables = function()
+				local ref = self.ref.current
+				if not ref then
+					return
+				end
+				if self.state.absolutePosition ~= ref.AbsolutePosition or self.state.absoluteSize ~= ref.AbsoluteSize then
+					self:setState({
+						absoluteSize = ref.AbsoluteSize,
+						absolutePosition = ref.AbsolutePosition,
+					})
+				end
 			end
 		end
 	end
 
-	function AssetLogicWrapper:didMount()
-		self.updateBoundaryVariables()
-	end
-
 	function AssetLogicWrapper:willUnmount()
 		self.insertToolPromise:destroy()
+	end
+	
+	if not FFlagToolboxAssetCategorization then
+		function AssetLogicWrapper:didMount()
+			self.updateBoundaryVariables()
+		end
 	end
 
 	function AssetLogicWrapper:render()
@@ -290,14 +317,14 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 		local wrappedProps = Cryo.Dictionary.join(props, {
 			CanInsertAsset = self.canInsertAsset,
 			ClearHoveredAsset = self.clearHoveredAsset,
-			ParentAbsolutePosition = state.absolutePosition,
-			ParentSize = state.absoluteSize,
 			TryInsert = self.tryInsert,
 			TryOpenAssetConfig = tryOpenAssetConfig,
+			ParentAbsolutePosition = if not FFlagToolboxAssetCategorization then state.absolutePosition else nil,
+			ParentSize = if not FFlagToolboxAssetCategorization then state.absoluteSize else nil,
 		})
 
 		return Roact.createFragment({
-			Sizing = Roact.createElement("Frame", {
+			Sizing = if not FFlagToolboxAssetCategorization then Roact.createElement("Frame", {
 				AutomaticSize = automaticSize,
 				BackgroundTransparency = 1,
 				Position = position,
@@ -306,7 +333,7 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 				[Roact.Ref] = self.ref,
 				[Roact.Change.AbsolutePosition] = self.updateBoundaryVariables,
 				[Roact.Change.AbsoluteSize] = self.updateBoundaryVariables,
-			}),
+			}) else nil,
 
 			ToolScriptWarningMessageBox = isShowingScriptWarningMessageBox and Roact.createElement(
 				ScriptConfirmationDialog,

@@ -39,6 +39,7 @@ local FloorGrid = require(Plugin.Src.Components.FloorGrid)
 local ChangeFPSPrompt = require(Plugin.Src.Components.ChangeFPSPrompt)
 local ChangePlaybackSpeedPrompt = require(Plugin.Src.Components.ChangePlaybackSpeedPrompt)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
+local PathUtils = require(Plugin.Src.Util.PathUtils)
 
 local SettingsButton = require(Plugin.Src.Components.SettingsButton)
 
@@ -175,30 +176,48 @@ function EditorController:init()
 		})
 	end
 
-	self.controlSelectTrack = function(trackName)
+	self.controlSelectTrack = function(path)
 		local props = self.props
 		local selectedTracks = props.SelectedTracks
 		local setSelectedTracks = props.SetSelectedTracks
 
-		if selectedTracks and Cryo.List.find(selectedTracks, trackName) then
-			setSelectedTracks(Cryo.List.removeValue(selectedTracks, trackName))
+		if GetFFlagCurveEditor() then
+			if selectedTracks and PathUtils.findPath(selectedTracks, path) then
+				setSelectedTracks(PathUtils.removePath(selectedTracks, path))
+			else
+				self.lastSelected = path
+				setSelectedTracks(Cryo.List.join(selectedTracks or {}, {path}))
+			end
 		else
-			self.lastSelected = trackName
-			setSelectedTracks(Cryo.List.join(selectedTracks or {}, {trackName}))
+			local trackName = path
+			if selectedTracks and Cryo.List.find(selectedTracks, trackName) then
+				setSelectedTracks(Cryo.List.removeValue(selectedTracks, trackName))
+			else
+				self.lastSelected = trackName
+				setSelectedTracks(Cryo.List.join(selectedTracks or {}, {trackName}))
+			end
 		end
 	end
 
-	self.shiftSelectTrack = function(trackName)
+	self.shiftSelectTrack = function(path)
 		local props = self.props
 		local tracks = props.Tracks
 		local setSelectedTracks = props.SetSelectedTracks
-
+		local trackName = path
 		local currentSelectedIndex, lastSelectedIndex
 		for index, track in ipairs(tracks) do
-			if track.Name == self.lastSelected then
-				lastSelectedIndex = index
-			elseif track.Name == trackName then
-				currentSelectedIndex = index
+			if GetFFlagCurveEditor() then
+				if track.Name == self.lastSelected[1] then
+					lastSelectedIndex = index
+				elseif track.Name == path[1] then
+					currentSelectedIndex = index
+				end
+			else
+				if track.Name == self.lastSelected then
+					lastSelectedIndex = index
+				elseif track.Name == trackName then
+					currentSelectedIndex = index
+				end
 			end
 		end
 		if currentSelectedIndex ~= nil and lastSelectedIndex ~= nil then
@@ -206,12 +225,12 @@ function EditorController:init()
 			local endIndex = math.max(currentSelectedIndex, lastSelectedIndex)
 			local newSelectedTracks = {}
 			for i = startIndex, endIndex do
-				table.insert(newSelectedTracks, tracks[i].Name)
+				table.insert(newSelectedTracks, if GetFFlagCurveEditor() then {tracks[i].Name} else tracks[i].Name)
 			end
 			setSelectedTracks(newSelectedTracks)
 		else
-			self.lastSelected = trackName
-			setSelectedTracks({trackName})
+			self.lastSelected = if GetFFlagCurveEditor() then path else trackName
+			setSelectedTracks(if GetFFlagCurveEditor() then {path} else {trackName})
 		end
 	end
 
@@ -220,9 +239,11 @@ function EditorController:init()
 		if rootInstance == nil then
 			return
 		end
+
 		self.KinematicParts, self.PartsToMotors = RigUtils.getRigInfo(rootInstance)
 		if selectedTracks and rootInstance and self.KinematicParts and #self.KinematicParts > 0 then
-			for _, track in ipairs(selectedTracks) do
+			for _, path in ipairs(selectedTracks) do
+				local track = if GetFFlagCurveEditor() then path[1] else path
 				local bone = RigUtils.getBoneByName(rootInstance, track)
 				if bone then
 					table.insert(currentParts, bone)
@@ -239,35 +260,39 @@ function EditorController:init()
 		end
 	end
 
-	self.onTrackSelected = function(trackName)
+	self.onTrackSelected = function(path)
 		local props = self.props
 		local setSelectedTracks = props.SetSelectedTracks
-
+		local animationData = self.props.AnimationData
 		if self.controlDown then
-			self.controlSelectTrack(trackName)
-		elseif self.shiftDown then
-			self.shiftSelectTrack(trackName)
+			self.controlSelectTrack(path)
+		elseif (not GetFFlagCurveEditor() or not AnimationData.isChannelAnimation(animationData)) and self.shiftDown then
+			self.shiftSelectTrack(path)
 		else
-			self.lastSelected = trackName
-			setSelectedTracks({trackName})
+			self.lastSelected = path
+			setSelectedTracks({path})
 		end
-		self.findCurrentParts({trackName}, props.RootInstance)
-		props.Analytics:report("onTrackSelected", trackName, "TrackList")
+		self.findCurrentParts({path}, props.RootInstance)
+		if GetFFlagCurveEditor() then
+			props.Analytics:report("onTrackSelected", path[1], "TrackList")
+		else
+			props.Analytics:report("onTrackSelected", path, "TrackList")
+		end
 	end
 
-	self.onPartSelected = function(trackName)
+	self.onPartSelected = function(path)
 		local props = self.props
 		local setSelectedTracks = props.SetSelectedTracks
 		local inputObjects = UserInputService:GetKeysPressed()
 
 		for _, input in ipairs(inputObjects) do
 			if Input.isControl(input.KeyCode) then
-				self.controlSelectTrack(trackName)
+				self.controlSelectTrack(path)
 				return
 			end
 		end
-		self.lastSelected = trackName
-		setSelectedTracks({trackName})
+		self.lastSelected = path
+		setSelectedTracks({path})
 	end
 
 	self.addTrackWrapper = function(instanceName, trackName, trackType)
@@ -297,11 +322,10 @@ function EditorController:init()
 		else
 			local rotationType
 			if GetFFlagQuaternionChannels() then
-				rotationType = Constants.TRACK_TYPES.EulerAngles
-				-- We need to know if we're dealing with a quaternion rotation
+				rotationType = GetFFlagCurveEditor() and self.props.DefaultRotationType or Constants.TRACK_TYPES.EulerAngles
 				local trackName = path[1]
 				local track = AnimationData.getTrack(animationData, instanceName, {trackName})
-				if track and track.Components[Constants.PROPERTY_KEYS.Rotation] then
+				if track and track.Components and track.Components[Constants.PROPERTY_KEYS.Rotation] then
 					rotationType = track.Components[Constants.PROPERTY_KEYS.Rotation].Type
 				end
 			else
@@ -326,6 +350,7 @@ function EditorController:willUpdate(nextProps)
 			self.nameToPart[rootPart.Name] = rootPart
 		end
 	end
+
 	-- if the selected tracks has changed, update the selected track instances
 	if nextProps.SelectedTracks ~= self.props.SelectedTracks then
 		self.findCurrentParts(nextProps.SelectedTracks, nextProps.RootInstance)
@@ -353,8 +378,8 @@ function EditorController:render()
 	local tracks = props.Tracks
 	local unusedTracks = props.UnusedTracks
 	local unusedFacs = props.UnusedFacs
-	local scroll = props.Scroll  -- Deprecated with GetFFlagCurveEditor
-	local zoom = props.Zoom  -- Deprecated with GetFFlagCurveEditor
+	local scroll = not GetFFlagCurveEditor() and props.Scroll or nil
+	local zoom = not GetFFlagCurveEditor() and props.Zoom or nil
 	local horizontalScroll = props.HorizontalScroll
 	local horizontalZoom = props.HorizontalZoom
 	local verticalScroll = props.VerticalScroll
@@ -371,7 +396,7 @@ function EditorController:render()
 	local isChannelAnimation = AnimationData.isChannelAnimation(animationData)
 
 	local selectedPaths = {}
-	if GetFFlagChannelAnimations() and selectedTracks then
+	if not GetFFlagCurveEditor() and GetFFlagChannelAnimations() and selectedTracks then
 		for _, track in pairs(selectedTracks) do
 			table.insert(selectedPaths, {track})
 		end
@@ -526,7 +551,7 @@ function EditorController:render()
 					LayoutOrder = 1,
 					TopTrackIndex = topTrackIndex,
 					Tracks = tracks,
-					SelectedTracks = selectedTracks,
+					SelectedTracks = not GetFFlagCurveEditor() and selectedTracks or nil,
 					UnusedTracks = unusedTracks,
 					UnusedFacs = unusedFacs,
 					AnimationData = animationData,
@@ -553,14 +578,18 @@ function EditorController:render()
 						elseif Input.isDown(input.KeyCode) then
 							props.MoveSelectedTrack(1)
 						elseif Input.isLeft(input.KeyCode) then
-							if GetFFlagChannelAnimations() then
-								props.CloseSelectedTracks(selectedPaths)
+							if GetFFlagCurveEditor() then
+								props.CloseSelectedTracks(selectedTracks)
+							elseif GetFFlagChannelAnimations() then
+								props.CloseSelectedTracks_deprecated(selectedPaths)
 							else
 								props.CloseSelectedTracks_deprecated(selectedTracks)
 							end
 						elseif Input.isRight(input.KeyCode) then
-							if GetFFlagChannelAnimations() then
-								props.ExpandSelectedTracks(selectedPaths)
+							if GetFFlagCurveEditor() then
+								props.ExpandSelectedTracks(selectedTracks)
+							elseif GetFFlagChannelAnimations() then
+								props.ExpandSelectedTracks_deprecated(selectedPaths)
 							else
 								props.ExpandSelectedTracks_deprecated(selectedTracks)
 							end
@@ -609,8 +638,8 @@ function EditorController:render()
 			FrameRate = props.FrameRate,
 			ShowAsSeconds = showAsSeconds,
 			ShowEvents = showEvents,
-			Scroll = scroll,  -- Deprecated with GetFFlagCurveEditor()
-			Zoom = zoom,  -- Deprecated with GetFFlagCurveEditor()
+			Scroll = not GetFFlagCurveEditor() and scroll or nil,
+			Zoom = not GetFFlagCurveEditor() and zoom or nil,
 			HorizontalScroll = horizontalScroll,
 			HorizontalZoom = horizontalZoom,
 			VerticalScroll = verticalScroll,
@@ -713,8 +742,8 @@ local function mapStateToProps(state)
 		ShowAsSeconds = state.Status.ShowAsSeconds,
 		SnapMode = state.Status.SnapMode,
 		AnimationData = state.AnimationData,
-		Scroll = status.Scroll,  -- Deprecated with GetFFlagCurveEditor()
-		Zoom = status.Zoom,  -- Deprecated with GetFFlagCurveEditor()
+		Scroll = not GetFFlagCurveEditor() and status.Scroll or nil,
+		Zoom = not GetFFlagCurveEditor() and status.Zoom or nil,
 		HorizontalScroll = status.HorizontalScroll,
 		HorizontalZoom = status.HorizontalZoom,
 		VerticalScroll = status.VerticalScroll,
@@ -734,6 +763,7 @@ local function mapStateToProps(state)
 		Analytics = state.Analytics,
 		PlaybackSpeed = status.PlaybackSpeed,
 		EditorMode = status.EditorMode,
+		DefaultRotationType = status.DefaultRotationType,
 	}
 end
 

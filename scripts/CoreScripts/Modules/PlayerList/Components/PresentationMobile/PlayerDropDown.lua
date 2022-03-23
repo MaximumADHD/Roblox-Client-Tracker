@@ -39,8 +39,6 @@ local BlockPlayer = require(PlayerList.Thunks.BlockPlayer)
 local UnblockPlayer = require(PlayerList.Thunks.UnblockPlayer)
 local RequestFriendship = require(PlayerList.Thunks.RequestFriendship)
 
-local FFlagPlayerListLeakyMotors = game:DefineFastFlag("PlayerListLeakyMotors", false)
-
 local PlayerDropDown = Roact.PureComponent:extend("PlayerDropDown")
 
 PlayerDropDown.validateProps = t.strictInterface({
@@ -305,15 +303,13 @@ function PlayerDropDown:didMount()
 end
 
 function PlayerDropDown:willUnmount()
-	if FFlagPlayerListLeakyMotors then
-		self.transparencyMotor:destroy()
-		self.containerScaleMotor:destroy()
-		self.buttonTransparencyMotor:destroy()
+	self.transparencyMotor:destroy()
+	self.containerScaleMotor:destroy()
+	self.buttonTransparencyMotor:destroy()
 
-		self.transparencyMotor = nil
-		self.containerScaleMotor = nil
-		self.buttonTransparencyMotor = nil
-	end
+	self.transparencyMotor = nil
+	self.containerScaleMotor = nil
+	self.buttonTransparencyMotor = nil
 end
 
 local function mapStateToProps(state)

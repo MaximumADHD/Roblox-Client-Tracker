@@ -15,7 +15,6 @@ local ToolSelectionListener = require(Plugin.Src.Components.ToolSelectionListene
 
 local Constants = require(Plugin.Src.Util.Constants)
 
-local FFlagImprovePluginSpeed_TerrainTools = game:GetFastFlag("ImprovePluginSpeed_TerrainTools")
 local FFlagTerrainToolsPluginButtonRestore = game:GetFastFlag("TerrainToolsPluginButtonRestore")
 local FFlagFixToolbarButtonForFreshInstallation2 = game:GetFastFlag("FixToolbarButtonForFreshInstallation2")
 
@@ -52,7 +51,7 @@ function TerrainTools:init()
 		local initiatedByUser = false
 		self:setEnabled(enabled, initiatedByUser)
 
-		if not FFlagFixToolbarButtonForFreshInstallation2 and FFlagImprovePluginSpeed_TerrainTools then
+		if not FFlagFixToolbarButtonForFreshInstallation2 then
 			if FFlagTerrainToolsPluginButtonRestore then
 				self.props.pluginLoaderContext.mainButton:SetActive(enabled)
 			end
@@ -60,7 +59,7 @@ function TerrainTools:init()
 		end
 	end
 
-	if FFlagFixToolbarButtonForFreshInstallation2 and FFlagImprovePluginSpeed_TerrainTools then
+	if FFlagFixToolbarButtonForFreshInstallation2 then
 		self.onDockWidgetCreated = function(enabled)
 			if FFlagTerrainToolsPluginButtonRestore then
 				self.props.pluginLoaderContext.mainButton:SetActive(enabled)
@@ -78,26 +77,7 @@ function TerrainTools:init()
 		self.props.pluginActivationController:restoreSelectedTool()
 	end
 
-	if FFlagImprovePluginSpeed_TerrainTools then
-		self.button = self.props.pluginLoaderContext and self.props.pluginLoaderContext.mainButton or nil
-	else
-		self.renderButtons = function(toolbar)
-			local enabled = self.state.enabled
-
-			return {
-				Toggle = Roact.createElement(PluginButton, {
-					Toolbar = toolbar,
-					Active = enabled,
-
-					Title = EDITOR_META_NAME,
-					Tooltip = self.props.localization:get():getText("Main", "PluginButtonEditorTooltip"),
-					Icon = "rbxasset://textures/TerrainTools/icon_terrain_big.png",
-
-					OnClick = self.toggleEnabled,
-				}),
-			}
-		end
-	end
+	self.button = self.props.pluginLoaderContext and self.props.pluginLoaderContext.mainButton or nil
 end
 
 function TerrainTools:sendWindowEnabledAnalytics(enabled)
@@ -133,9 +113,7 @@ function TerrainTools:didUpdate(prevProps, prevState)
 		end
 	end
 
-	if FFlagImprovePluginSpeed_TerrainTools then
-		self.button:SetActive(self.state.enabled)
-	end
+	self.button:SetActive(self.state.enabled)
 end
 
 function TerrainTools:render()
@@ -180,16 +158,11 @@ function TerrainTools:render()
 		imageLoader,
 		calloutController,
 	}, {
-		Toolbar = not FFlagImprovePluginSpeed_TerrainTools and Roact.createElement(PluginToolbar, {
-			Title = TOOLBAR_NAME,
-			RenderButtons = self.renderButtons,
-		}) or nil,
-
 		TerrainTools = Roact.createElement(DockWidget, {
 			Title = localization:get():getText("Main", "Title"),
 			Enabled = enabled,
 
-			Widget = FFlagImprovePluginSpeed_TerrainTools and self.props.pluginLoaderContext and
+			Widget = self.props.pluginLoaderContext and
 				self.props.pluginLoaderContext.mainDockWidget or nil,
 
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
@@ -201,7 +174,7 @@ function TerrainTools:render()
 
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
-			OnWidgetCreated = FFlagFixToolbarButtonForFreshInstallation2 and FFlagImprovePluginSpeed_TerrainTools and self.onDockWidgetCreated or nil,
+			OnWidgetCreated = FFlagFixToolbarButtonForFreshInstallation2 and self.onDockWidgetCreated or nil,
 
 			OnWidgetFocused = self.onFocused,
 

@@ -5,15 +5,18 @@ return function()
 
 	local LabeledElementList = require(script.Parent.LabeledElementList)
 
-	local defaultItem = {
-		Key = "",
-		Text = "",
-		Content = Roact.createElement("Frame"),
-	}
+	local getText = function(key: string)
+		return key
+	end
+	local renderContent = function(key: string)
+		return nil
+	end
 
 	local function createTestElement(props: LabeledElementList.Props?)
 		props = props or {
-			Items = {defaultItem},
+			GetText = getText,
+			Items = { "Item" },
+			RenderContent = renderContent,
 		}
 
 		return mockContext({
@@ -30,8 +33,10 @@ return function()
 	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local element = createTestElement({
-			Items = {defaultItem},
+			GetText = getText,
+			Items = { "Item" },
 			LayoutOrder = 1,
+			RenderContent = renderContent,
 		})
 		local instance = Roact.mount(element, container)
 

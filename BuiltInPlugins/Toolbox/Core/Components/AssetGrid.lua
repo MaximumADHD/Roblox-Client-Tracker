@@ -5,8 +5,6 @@
 		table AssetIds: a table of assetIds to render.
 		callback CanInsertAsset: Function on whether or not an asset can be inserted.
 		callback TryInsert: attempt to insert asset.
-		Vector2 ParentSize: The X,Y size of the parent container. This is used for asset impression analytics.
-		Vector2 ParentAbsolutePosition: The X,Y position of the parent container. This is used for asset impression analytics.
 		callback TryOpenAssetConfig, invoke assetConfig page with an assetId.
 
 	Optional Props:
@@ -15,12 +13,18 @@
 		UDim2 Position: Overall position of the component.
 		UDim2 Size: Overall size of the component.
 ]]
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
+local Cryo = require(Packages.Cryo)
+local Framework = require(Packages.Framework)
 local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
-local Cryo = require(Packages.Cryo)
+
+local Dash = Framework.Dash
+local Pane = Framework.UI.Pane
 
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
@@ -37,8 +41,16 @@ local StyledScrollingFrame = require(Plugin.Core.Components.StyledScrollingFrame
 local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
+local withAbsoluteSizeAndPosition
+if FFlagToolboxAssetCategorization then
+	withAbsoluteSizeAndPosition = Framework.Wrappers.withAbsoluteSizeAndPosition
+end
+
+local TOP_CONTENT_SPACING = 10
+
 type _ExternalProps = {
 	AssetIds : { number },
+	AssetMap : { any }?,
 	LayoutOrder : number?,
 	Position : number?,
 	RequestNextPage : (() -> nil),
@@ -46,8 +58,8 @@ type _ExternalProps = {
 	Size : UDim2?,
 	-- Props available from AssetLogicWrapper
 	CanInsertAsset : (() -> boolean)?,
-	ParentAbsolutePosition : Vector2,
-	ParentSize : Vector2,
+	ParentAbsolutePosition : Vector2, -- TODO: Remove with FFlagToolboxAssetCategorization
+	ParentSize : Vector2, -- TODO: Remove with FFlagToolboxAssetCategorization
 	TryInsert : (
 		(
 			assetData : any,
@@ -66,9 +78,13 @@ type _ExternalProps = {
 }
 
 type _InternalProps = {
+	AbsoluteSize : Vector2?,
+	AbsolutePosition : Vector2?,
 	categoryName : string?,
 	isPreviewing : boolean,
 	networkErrors : any,
+	Stylizer : any?,
+	WrapperProps : any?, -- From withAbsoluteSizeAndPosition
 }
 
 type _State = {
@@ -146,8 +162,12 @@ function AssetGrid:init(props : AssetGridProps)
 				topHeight = 0
 			end
 
-			local lowerBound, upperBound = Layouter.calculateRenderBoundsForScrollingFrame(self.scrollingFrameRef.current,
-				containerWidth, topHeight, showPrices)
+			local lowerBound, upperBound = Layouter.calculateRenderBoundsForScrollingFrame(
+				self.scrollingFrameRef.current,
+				containerWidth,
+				topHeight,
+				showPrices
+			)
 
 			-- If either bound has changed then recalculate the assets
 			if forceUpdate
@@ -217,11 +237,20 @@ function AssetGrid:init(props : AssetGridProps)
 		local props : AssetGridProps = self.props
 		local state : _State = self.state
 
+		local absoluteSize = props.AbsoluteSize
+		local absolutePosition = props.AbsolutePosition
+		if FFlagToolboxAssetCategorization then
+			absoluteSize = props.AbsoluteSize
+			absolutePosition = props.AbsolutePosition
+		else
+			absoluteSize = props.ParentSize
+			absolutePosition = props.ParentAbsolutePosition
+		end
 		local canInsertAsset = props.CanInsertAsset
-		local parentSize = props.ParentSize
-		local parentAbsolutePosition = props.ParentAbsolutePosition
 		local tryOpenAssetConfig = props.TryOpenAssetConfig
 		local tryInsert = props.TryInsert
+
+		local assetMap = props.AssetMap
 
 		local showPrices = Category.shouldShowPrices(props.categoryName)
 		local cellSize
@@ -253,16 +282,21 @@ function AssetGrid:init(props : AssetGridProps)
 
 		for index, asset in ipairs(state.displayedAssetIds) do
 			local assetId = asset[1]
+			local resultAsset
+			if FFlagToolboxAssetCategorization and assetMap then
+				resultAsset = assetMap[assetId]
+			end
 
 			assetElements[tostring(assetId)] = Roact.createElement(Asset, {
 				assetId = assetId,
+				assetData = resultAsset,
 				canInsertAsset = canInsertAsset,
 				isHovered = assetId == self.state.hoveredAssetId,
 				LayoutOrder = index,
 				onAssetHovered = self.onAssetHovered,
 				onAssetHoverEnded = self.onAssetHoverEnded,
-				parentSize = parentSize,
-				parentAbsolutePosition = parentAbsolutePosition,
+				parentSize = absoluteSize,
+				parentAbsolutePosition = absolutePosition,
 				tryInsert = tryInsert,
 				tryOpenAssetConfig = tryOpenAssetConfig,
 			})
@@ -318,7 +352,7 @@ function AssetGrid:didUpdate(prevProps, prevState)
 	local networkErrors = props.networkErrors or {}
 	local networkError = networkErrors[#networkErrors]
 
-	if not networkError and displayed < spaceToDisplay and displayed ~= 0 then
+	if not networkError and displayed < spaceToDisplay and displayed ~= 0 and props.RequestNextPage then
 		props.RequestNextPage()
 	end
 
@@ -373,6 +407,7 @@ function AssetGrid:render()
 	local position = props.Position
 	local renderTopContent = props.RenderTopContent
 	local size = props.Size
+	local theme = props.Stylizer
 
 	local lowerIndexToRender = state.lowerIndexToRender
 	local topContentHeight = state.topContentHeight
@@ -393,8 +428,11 @@ function AssetGrid:render()
 	end
 
 	local topContent = renderTopContent and renderTopContent() or nil
+	if FFlagToolboxAssetCategorization and topContent then
+		gridContainerOffset += TOP_CONTENT_SPACING
+	end
 
-	return Roact.createElement(StyledScrollingFrame, {
+	local scrollingFrame = Roact.createElement(StyledScrollingFrame, {
 		CanvasSize = UDim2.new(0, 0, 0, canvasHeight),
 		LayoutOrder = layoutOrder,
 		onScroll = self.onScroll,
@@ -430,10 +468,24 @@ function AssetGrid:render()
 			[Roact.Event.InputEnded] = self.onFocusLost,
 		}, assetElements),
 	})
+
+	if FFlagToolboxAssetCategorization then
+		return Roact.createElement(Pane, Dash.join({
+			BackgroundColor = theme.backgroundColor,
+			LayoutOrder = layoutOrder,
+			Position = position,
+			Size = size,
+		}, props.WrapperProps), {
+			StyledScrollingFrame = scrollingFrame
+		})
+	else
+		return scrollingFrame
+	end
 end
 
 AssetGrid = withContext({
 	Settings = Settings,
+	Stylizer = if FFlagToolboxAssetCategorization then ContextServices.Stylizer else nil,
 })(AssetGrid)
 
 local function mapStateToProps(state, props)
@@ -442,7 +494,16 @@ local function mapStateToProps(state, props)
 	local pageInfo = state.pageInfo or {}
 	local categoryName = pageInfo.categoryName or Category.DEFAULT.name
 
+	local assetMap
+	if FFlagToolboxAssetCategorization then
+		assetMap = props.AssetMap
+	else
+		local idToAssetMap = assets.idToAssetMap or {}
+		assetMap = idToAssetMap
+	end
+
 	return {
+		assetMap = assetMap,
 		categoryName = categoryName,
 		isPreviewing = assets.isPreviewing or false,
 		networkErrors = state.networkErrors or {},
@@ -454,4 +515,9 @@ AssetGrid = RoactRodux.connect(mapStateToProps, nil)(AssetGrid)
 function TypedComponent(props: AssetGridProps, children: any)
 	return Roact.createElement(AssetGrid, props, children)
 end
-return TypedComponent
+
+if FFlagToolboxAssetCategorization then
+	return withAbsoluteSizeAndPosition(TypedComponent)
+else
+	return TypedComponent
+end

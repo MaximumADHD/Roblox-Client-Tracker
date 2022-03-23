@@ -89,10 +89,11 @@ local function getPluginTheme()
 				Color = _StyleKey.MainText,
 			},
 			HeaderBackground = _StyleKey.ScrollingFrameBackgroundColor,
+			HeaderFont = Enum.Font.SourceSansBold,
 			HeaderSize = UDim2.new(1, 0, 0, 300),
 			ImagePosition = UDim2.fromOffset(5, 5),
 			ImageSize = UDim2.fromOffset(20, 20),
-			LabelColumnWidth = UDim.new(0, 110),
+			LabelColumnWidth = UDim.new(0, 95),
 			MoreMenu = {
 				Image = "rbxasset://textures/MaterialManager/More_Menu.png",
 				Color = _StyleKey.MainText,
@@ -100,9 +101,11 @@ local function getPluginTheme()
 			NameLabelSize = UDim2.new(1, -2 * MaterialDetailsRowHeight, 1, 0),
 			LabelRowSize = UDim2.new(1, 0, 0, MaterialDetailsRowHeight),
 			Padding = 10,
+			SectionHeaderTextSize = 18,
 			TextureLabelSize = UDim2.new(1, -MaterialDetailsTextureHeight, 1, 0),
 			TextureRowSize = UDim2.new(1, 0, 0, MaterialDetailsTextureHeight),
 			TextureSize = UDim2.fromOffset(MaterialDetailsTextureHeight, MaterialDetailsTextureHeight),
+			TitleTextSize = 22,
 		},
 
 		SideBar = {

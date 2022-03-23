@@ -49,7 +49,6 @@ local function loadSettings(store, contextItems)
 	return {
 		function(loadedSettings)
 			local gravity = worldRootPhysicsController:getGravity(game)
-
 			loadedSettings["workspaceGravity"] = gravity
 		end,
 		function(loadedSettings)
@@ -169,7 +168,7 @@ function World:render()
 		local localization = props.Localization
 		local worldRootPhysicsController = props.WorldRootPhysics:get()
 
-		local gravity = props.WorkspaceGravity
+		local gravity = props.WorkspaceGravity or 0
 		local setGravity = props.WorkspaceGravityChanged
 		local useJumpPower = props.WorkspaceUseJumpPower
 		local setUseJumpPower = props.WorkspaceUseJumpPowerChanged
@@ -335,7 +334,6 @@ local settingFromState = require(Plugin.Src.Networking.settingFromState)
 World = RoactRodux.connect(
 	function(state, props)
 		if not state then return end
-
 		local getValue = function(propName)
 			return settingFromState(state.Settings, propName)
 		end

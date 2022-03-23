@@ -28,7 +28,6 @@ local MAX_NAME_LENGTH = 50
 local MAX_DESCRIPTION_LENGTH = 1000
 local TEAM_CREATE_ENABLED = "teamCreateEnabled"
 
-local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 local FStringTeamCreateLearnMoreLink = game:GetFastString("TeamCreateLink")
 local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage2")
@@ -353,151 +352,149 @@ local function displayContents(parent)
 			}) else nil,
 	}
 
-	if FFlagStudioAllowRemoteSaveBeforePublish then
-		if props.IsPublish then
-			if shouldShowDevPublishLocations() then
-				displayResult.Separator5 = Roact.createElement(Separator, {
-					LayoutOrder = layoutOrder:getNextOrder(),
-				})
+	if props.IsPublish then
+		if shouldShowDevPublishLocations() then
+			displayResult.Separator5 = Roact.createElement(Separator, {
+				LayoutOrder = layoutOrder:getNextOrder(),
+			})
 
-				displayResult.OptInLocations = Roact.createElement(CheckBoxSet, {
-					Title = localization:getText(optInLocationsKey, "TitleOptInLocations"),
-					LayoutOrder = layoutOrder:getNextOrder(),
-					MaxHeight = theme.optInLocations.height,
-					Boxes = {{
-						Id = chinaKey,
-						Title = localization:getText(optInLocationsKey, chinaKey),
-						Selected = optInLocations and optInLocations.China or false,
-						LinkTextFrame = Roact.createElement("Frame", {
-							BackgroundTransparency = 1,
-							Size = UDim2.new(0, theme.requirementsLink.length, 0, theme.requirementsLink.height),
-							Position = UDim2.new(0, 0, 0, theme.requirementsLink.paddingY),
-						}, {
-							LinkTextLabel = if FFlagRemoveUILibraryPartialHyperlink then Roact.createElement(TextLabel, {
-								Position = UDim2.new(0, hyperLinkTextSize.X, 0, 0),
-								Size = UDim2.new(1, -hyperLinkTextSize.X, 1, 0),
-								Style = "Body",
-								Text = localization:getText(optInLocationsKey, "ChinaRequirements"),
-								TextXAlignment = Enum.TextXAlignment.Left,
-								TextYAlignment = Enum.TextYAlignment.Top,
-							}) else nil,
-
-							LinkText = if FFlagRemoveUILibraryPartialHyperlink then Roact.createElement(LinkText, {
-								OnClick = function()
-									local url = getOptInLocationsRequirementsLink(chinaKey)
-									GuiService:OpenBrowserWindow(url)
-								end,
-								Size = UDim2.new(0, hyperLinkTextSize.X, 0, hyperLinkTextSize.Y),
-								Style = "Body",
-								Text = localization:getText(optInLocationsKey, "RequirementsLinkText"),
-							}) else nil,
-
-							DEPRECATED_LinkText = if not FFlagRemoveUILibraryPartialHyperlink then Roact.createElement(PartialHyperlink, {
-								HyperLinkText = localization:getText(optInLocationsKey, "RequirementsLinkText"),
-								NonHyperLinkText = localization:getText(optInLocationsKey, "ChinaRequirements"),
-								Style = "RequirementsLink",
-								Mouse = props.Mouse:get(),
-								OnClick = function()
-									local url = getOptInLocationsRequirementsLink(chinaKey)
-									GuiService:OpenBrowserWindow(url)
-								end,
-							}) else nil,
-						}),
-					}},
-					Enabled = optInLocations ~= nil,
-					EntryClicked = function(box)
-						if not playerAcceptance then
-							parent:setState({
-								showDialog = true,
-							})
-						else
-							local newLocations = Cryo.Dictionary.join(optInLocations, {
-								[box.Id] = (box.Selected) and Cryo.None or not box.Selected,
-							})
-							local points = {
-								[optInLocationsKey] = box.Id,
-								[selectedKey] = not box.Selected,
-							}
-							sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, checkboxToggleKey, points)
-							optInLocationsChanged(newLocations)
-						end
-					end,
-					Tooltip = Roact.createElement(Image, {
-						Size = UDim2.fromOffset(theme.tooltipIcon.size, theme.tooltipIcon.size),
-						Position = UDim2.new(0, 0, 0, theme.tooltipIcon.paddingY),
-						Style = "TooltipStyle",
-						StyleModifier = parent.state.StyleModifier,
-					}, {
-						Roact.createElement(Tooltip, {
-							Text = localization:getText(optInLocationsKey, "Tooltip"),
-						}),
-						Roact.createElement(HoverArea, {
-							Cursor = "PointingHand",
-							MouseEnter = parent.onMouseEnter,
-							MouseLeave = parent.onMouseLeave,
-						}),
-					}),
-				})
-
-				displayResult.Dialog = Roact.createElement(StyledDialog, {
-					Enabled = parent.state.showDialog,
-					Modal = true,
-					Title = "",
-					MinContentSize = Vector2.new(theme.dialog.minSize.width, theme.dialog.minSize.height),
-					Buttons = {
-						{ Key = "OK", Text = localization:getText("General", "ReplyOK") }
-					},
-					OnButtonPressed = function()
-						parent:setState({
-							showDialog = false,
-						})
-						local points = {
-							[buttonClickedKey] = "OK",
-						}
-						sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, termsOfUseDialogKey, points)
-					end,
-					OnClose = function()
-						parent:setState({
-							showDialog = false
-						})
-						local points = {
-							[buttonClickedKey] = "Close",
-						}
-						sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, termsOfUseDialogKey, points)
-					end,
-					ButtonHorizontalAlignment = Enum.HorizontalAlignment.Center,
-				}, {
-					Layout = Roact.createElement("UIListLayout", {
-						FillDirection = Enum.FillDirection.Vertical,
-						VerticalAlignment = Enum.VerticalAlignment.Center,
-						HorizontalAlignment = Enum.HorizontalAlignment.Center,
-						SortOrder = Enum.SortOrder.LayoutOrder,
-					}),
-
-					Header = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Title, {
-						Position = UDim2.new(0.5, 0, 0, 45),
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						Size = UDim2.new(1, 0, 0, 60),
+			displayResult.OptInLocations = Roact.createElement(CheckBoxSet, {
+				Title = localization:getText(optInLocationsKey, "TitleOptInLocations"),
+				LayoutOrder = layoutOrder:getNextOrder(),
+				MaxHeight = theme.optInLocations.height,
+				Boxes = {{
+					Id = chinaKey,
+					Title = localization:getText(optInLocationsKey, chinaKey),
+					Selected = optInLocations and optInLocations.China or false,
+					LinkTextFrame = Roact.createElement("Frame", {
 						BackgroundTransparency = 1,
-						Text = localization:getText("General", "TermsDialogHeader"),
-						TextWrapped = true,
-					})),
+						Size = UDim2.new(0, theme.requirementsLink.length, 0, theme.requirementsLink.height),
+						Position = UDim2.new(0, 0, 0, theme.requirementsLink.paddingY),
+					}, {
+						LinkTextLabel = if FFlagRemoveUILibraryPartialHyperlink then Roact.createElement(TextLabel, {
+							Position = UDim2.new(0, hyperLinkTextSize.X, 0, 0),
+							Size = UDim2.new(1, -hyperLinkTextSize.X, 1, 0),
+							Style = "Body",
+							Text = localization:getText(optInLocationsKey, "ChinaRequirements"),
+							TextXAlignment = Enum.TextXAlignment.Left,
+							TextYAlignment = Enum.TextYAlignment.Top,
+						}) else nil,
 
-					Body = Roact.createElement(TextWithInlineLink, {
-						OnLinkClicked = function()
-							local url = getPlayerAppDownloadLink("China")
-							GuiService:OpenBrowserWindow(url)
-						end,
-						Text = localization:getText("General", "TermsDialogBody"),
-						LinkText = localization:getText("General", "TermsDialogBodyLink"),
-						LinkPlaceholder = "[link]",
-						MaxWidth = theme.textWithInlineLink.maxWidth,
-						TextProps = Cryo.Dictionary.join(theme.fontStyle.Normal,{
-							BackgroundTransparency = 1,
-						}),
+						LinkText = if FFlagRemoveUILibraryPartialHyperlink then Roact.createElement(LinkText, {
+							OnClick = function()
+								local url = getOptInLocationsRequirementsLink(chinaKey)
+								GuiService:OpenBrowserWindow(url)
+							end,
+							Size = UDim2.new(0, hyperLinkTextSize.X, 0, hyperLinkTextSize.Y),
+							Style = "Body",
+							Text = localization:getText(optInLocationsKey, "RequirementsLinkText"),
+						}) else nil,
+
+						DEPRECATED_LinkText = if not FFlagRemoveUILibraryPartialHyperlink then Roact.createElement(PartialHyperlink, {
+							HyperLinkText = localization:getText(optInLocationsKey, "RequirementsLinkText"),
+							NonHyperLinkText = localization:getText(optInLocationsKey, "ChinaRequirements"),
+							Style = "RequirementsLink",
+							Mouse = props.Mouse:get(),
+							OnClick = function()
+								local url = getOptInLocationsRequirementsLink(chinaKey)
+								GuiService:OpenBrowserWindow(url)
+							end,
+						}) else nil,
+					}),
+				}},
+				Enabled = optInLocations ~= nil,
+				EntryClicked = function(box)
+					if not playerAcceptance then
+						parent:setState({
+							showDialog = true,
+						})
+					else
+						local newLocations = Cryo.Dictionary.join(optInLocations, {
+							[box.Id] = (box.Selected) and Cryo.None or not box.Selected,
+						})
+						local points = {
+							[optInLocationsKey] = box.Id,
+							[selectedKey] = not box.Selected,
+						}
+						sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, checkboxToggleKey, points)
+						optInLocationsChanged(newLocations)
+					end
+				end,
+				Tooltip = Roact.createElement(Image, {
+					Size = UDim2.fromOffset(theme.tooltipIcon.size, theme.tooltipIcon.size),
+					Position = UDim2.new(0, 0, 0, theme.tooltipIcon.paddingY),
+					Style = "TooltipStyle",
+					StyleModifier = parent.state.StyleModifier,
+				}, {
+					Roact.createElement(Tooltip, {
+						Text = localization:getText(optInLocationsKey, "Tooltip"),
+					}),
+					Roact.createElement(HoverArea, {
+						Cursor = "PointingHand",
+						MouseEnter = parent.onMouseEnter,
+						MouseLeave = parent.onMouseLeave,
+					}),
+				}),
+			})
+
+			displayResult.Dialog = Roact.createElement(StyledDialog, {
+				Enabled = parent.state.showDialog,
+				Modal = true,
+				Title = "",
+				MinContentSize = Vector2.new(theme.dialog.minSize.width, theme.dialog.minSize.height),
+				Buttons = {
+					{ Key = "OK", Text = localization:getText("General", "ReplyOK") }
+				},
+				OnButtonPressed = function()
+					parent:setState({
+						showDialog = false,
 					})
+					local points = {
+						[buttonClickedKey] = "OK",
+					}
+					sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, termsOfUseDialogKey, points)
+				end,
+				OnClose = function()
+					parent:setState({
+						showDialog = false
+					})
+					local points = {
+						[buttonClickedKey] = "Close",
+					}
+					sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, termsOfUseDialogKey, points)
+				end,
+				ButtonHorizontalAlignment = Enum.HorizontalAlignment.Center,
+			}, {
+				Layout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+				}),
+
+				Header = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Title, {
+					Position = UDim2.new(0.5, 0, 0, 45),
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Size = UDim2.new(1, 0, 0, 60),
+					BackgroundTransparency = 1,
+					Text = localization:getText("General", "TermsDialogHeader"),
+					TextWrapped = true,
+				})),
+
+				Body = Roact.createElement(TextWithInlineLink, {
+					OnLinkClicked = function()
+						local url = getPlayerAppDownloadLink("China")
+						GuiService:OpenBrowserWindow(url)
+					end,
+					Text = localization:getText("General", "TermsDialogBody"),
+					LinkText = localization:getText("General", "TermsDialogBodyLink"),
+					LinkPlaceholder = "[link]",
+					MaxWidth = theme.textWithInlineLink.maxWidth,
+					TextProps = Cryo.Dictionary.join(theme.fontStyle.Normal,{
+						BackgroundTransparency = 1,
+					}),
 				})
-			end
+			})
 		end
 	end
 

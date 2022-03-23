@@ -24,6 +24,15 @@ Constants.FONT_SIZE_LARGE = 18
 Constants.FONT_SIZE_TITLE = 22
 Constants.FONT_SIZE_ASSET_CONFIG_INPUT = 20
 
+if FFlagToolboxAssetCategorization then
+	Constants.NAVIGATION = {
+		HOME = "Home",
+		SUBCATEGORY = "Subategory",
+		ALL_SUBCATEGORIES = "All_Subcategories",
+		RESULTS = "Results",
+	}
+end
+
 function Constants.getTextSize(text, fontSize, font, frameSize)
 	fontSize = fontSize or Constants.FONT_SIZE_MEDIUM
 	font = font or Constants.FONT

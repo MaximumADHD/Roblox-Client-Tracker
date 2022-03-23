@@ -24,8 +24,8 @@ function BreakpointManagerListener:updateScriptWatcher(metaBreakpoint)
 		local connectionId = connectionIdAndBreakpoints.connectionId
 		local breakpoints = connectionIdAndBreakpoints.breakpoints
 		for _, breakpoint in ipairs(breakpoints) do
-			if not self._crossDmScriptChangeListenerService:IsWatchingScript(breakpoint.Script) then
-				self._crossDmScriptChangeListenerService:StartWatchingScript(breakpoint.Script, connectionId)
+			if not self._crossDmScriptChangeListenerService:IsWatchingScriptLine(breakpoint.Script, breakpoint.Line) then
+				self._crossDmScriptChangeListenerService:StartWatchingScriptLine(breakpoint.Script, connectionId, breakpoint.Line)
 			end
 		end
 	end

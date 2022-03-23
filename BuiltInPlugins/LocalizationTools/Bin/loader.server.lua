@@ -1,7 +1,3 @@
-if not game:GetFastFlag("ImprovePluginSpeed_LocalizationTool") then
-    return
-end
-
 local Plugin = script.Parent.Parent
 
 require(script.Parent.defineLuaFlags)

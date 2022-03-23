@@ -43,7 +43,7 @@ function BreakpointsTreeTableCell:init()
 end
 
 local function fetchDebugpointIcon(row)
-	if row.item.debugpointType == "Breakpoint" then	
+	if row.item.debugpointType == "Breakpoint" then
 		if not row.item.condition or row.item.condition == "" then
 			return (row.item.isEnabled and debugpointIconTable.breakpointEnabled) or debugpointIconTable.breakpointDisabled
 		else
@@ -80,7 +80,7 @@ function BreakpointsTreeTableCell:render()
 	local backgroundColor = ((props.RowIndex % 2) == 1) and style.BackgroundOdd or style.BackgroundEven
 	if props.HighlightCell then
 		if style[StyleModifier.Hover] then
-			backgroundColor = ((props.RowIndex % 2) == 1) and style[StyleModifier.Hover].BackgroundOdd or 
+			backgroundColor = ((props.RowIndex % 2) == 1) and style[StyleModifier.Hover].BackgroundOdd or
 				style[StyleModifier.Hover].BackgroundEven
 		end
 	end
@@ -102,7 +102,7 @@ function BreakpointsTreeTableCell:render()
 			Right = style.CellPadding.Right,
 			Bottom = style.CellPadding.Bottom,
 		} or style.CellPadding
-				
+
 		local debugpointIconPath = fetchDebugpointIcon(row)
 		return Roact.createElement(Pane, {
 			Style = "Box",
@@ -132,7 +132,7 @@ function BreakpointsTreeTableCell:render()
 				}) or nil,
 				EnabledCheckbox = hasChildren and Roact.createElement(Checkbox, {
 					Checked = value,
-					OnClick = function() 
+					OnClick = function()
 						local bpManager = game:GetService("BreakpointManager")
 						local bp = bpManager:GetBreakpointById(row.item.id)
 						bp:SetEnabled(not row.item.isEnabled)
@@ -198,12 +198,12 @@ function BreakpointsTreeTableCell:render()
 					Text = row.item.scriptName,
 					BackgroundTransparency = 1,
 					LayoutOrder = 1,
-					FitWidth = true,
+					AutomaticSize = Enum.AutomaticSize.XY,
 				}),
 			})
 		})
 	end
-	
+
 	return Roact.createElement(TreeTableCell, {
 		CellProps = props.CellProps,
 		Columns = props.Columns,

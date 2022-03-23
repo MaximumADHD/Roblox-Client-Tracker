@@ -17,9 +17,6 @@ local THUMBNAIL_SIZE = Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE
 local IMAGE = Urls.constructAssetThumbnailUrl(5657301130, THUMBNAIL_SIZE, THUMBNAIL_SIZE)
 
 local function ToolboxWrapper(props)
-	props.store = CoreTestUtils.storeWithData({
-		assets = {},
-	})
 	return Roact.createElement(ToolboxStoryWrapper, props)
 end
 

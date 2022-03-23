@@ -2,6 +2,7 @@
 	Scrolling frame component with a custom scrollbar that mimics the Studio start page
 
 	Props:
+		Enum.AutomaticSize AutomaticCanvasSize
 		UDim2 Position = UDim2.new(0, 0, 0, 0)
 		UDim2 Size = UDim2.new(1, 0, 1, 0)
 		UDim2 CanvasSize = UDim2.new(1, 0, 1, 0)
@@ -26,6 +27,7 @@ local withContext = ContextServices.withContext
 local function renderContent(props)
 	local theme = props.Stylizer
 
+	local automaticCanvasSize = props.AutomaticCanvasSize
 	local position = props.Position or UDim2.new(0, 0, 0, 0)
 	local size = props.Size or UDim2.new(1, 0, 1, 0)
 	local canvasSize = props.CanvasSize or UDim2.new(1, 0, 1, 0)
@@ -42,7 +44,7 @@ local function renderContent(props)
 
 	local scrollingFrameTheme = theme.scrollingFrame
 
-	return Roact.createElement("ImageButton" or "Frame", {
+	return Roact.createElement("ImageButton", {
 		Position = position,
 		Size = size,
 		BackgroundTransparency = 1,
@@ -51,7 +53,7 @@ local function renderContent(props)
 		ZIndex = zindex,
 		Visible = visible,
 
-		AutoButtonColor = false or nil,
+		AutoButtonColor = false,
 	}, {
 		ScrollBarBackground = Roact.createElement("Frame", {
 			AnchorPoint = Vector2.new(1, 0),

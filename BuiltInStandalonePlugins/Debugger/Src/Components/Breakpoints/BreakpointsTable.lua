@@ -401,6 +401,8 @@ BreakpointsTable = RoactRodux.connect(
 			local bpCopy = deepCopy(breakpoint)
 			bpCopy.scriptGUID = breakpoint.scriptName
 			bpCopy.scriptName = state.ScriptInfo.ScriptInfo[bpCopy.scriptName]
+			bpCopy.scriptLine = state.ScriptInfo.ScriptLineContents[bpCopy.scriptGUID] and 
+				state.ScriptInfo.ScriptLineContents[bpCopy.scriptGUID][bpCopy.lineNumber]
 			table.insert(breakpointsArray, bpCopy)
 			if breakpoint.isEnabled == false then
 				hasDisabledBreakpoints = true

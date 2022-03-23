@@ -33,7 +33,6 @@ local ListItem = require(Plugin.Src.Components.ListItem)
 local Tile = require(Plugin.Src.Components.Tile)
 
 local SetAssets = require(Plugin.Src.Actions.SetAssets)
-local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets) -- Remove with FFlagAssetManagerUseUpdateSelectedAssets
 
 local GetAssets = require(Plugin.Src.Thunks.GetAssets)
 local LoadAllAliases = require(Plugin.Src.Thunks.LoadAllAliases)
@@ -47,7 +46,6 @@ local BulkImportService = game:GetService("BulkImportService")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 local FFlagAssetManagerGeneralizeSignalAPI = game:GetFastFlag("AssetManagerGeneralizeSignalAPI")
 local FFlagAssetManagerRefactorPath = game:GetFastFlag("AssetManagerRefactorPath")
-local FFlagAssetManagerUseUpdateSelectedAssets = game:GetFastFlag("AssetManagerUseUpdateSelectedAssets")
 local FFlagAssetManagerForceRenderAfterItemsShown = game:GetFastFlag("AssetManagerForceRenderAfterItemsShown")
 
 local shouldEnableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).shouldEnableAudioImport
@@ -98,11 +96,7 @@ function AssetGridContainer:init()
         if not self.props.Enabled then
             return
         end
-		if FFlagAssetManagerUseUpdateSelectedAssets then
-			self.props.dispatchUpdateSelectedAssets({})
-		else
-			self.props.dispatchSetSelectedAssets({})
-		end
+		self.props.dispatchUpdateSelectedAssets({})
     end
 
     self.onMouseButton2Click = function()
@@ -110,11 +104,7 @@ function AssetGridContainer:init()
         if not props.Enabled then
             return
         end
-		if FFlagAssetManagerUseUpdateSelectedAssets then
-			self.props.dispatchUpdateSelectedAssets({})
-		else
-			self.props.dispatchSetSelectedAssets({})
-		end
+		self.props.dispatchUpdateSelectedAssets({})
         local screen = props.CurrentScreen
         if screen.Path == Screens.PLACES.Path then
             -- pretend we are right clicking on folder to show add new place context menu
@@ -127,10 +117,9 @@ function AssetGridContainer:init()
     end
 
     self.onOpenAssetPreview = function(assetData)
-		if FFlagAssetManagerUseUpdateSelectedAssets then
-			-- When opening asset preview, set selected assets to that asset only
-			self.props.dispatchUpdateSelectedAssets({ [assetData.key] = true })
-		end
+		-- When opening asset preview, set selected assets to that asset only
+		self.props.dispatchUpdateSelectedAssets({ [assetData.key] = true })
+
         local assetPreviewData = self.props.AssetsTable.assetPreviewData[assetData.id]
         self.props.OnOpenAssetPreview(assetData, assetPreviewData)
     end
@@ -490,12 +479,9 @@ local function mapDispatchToProps(dispatch)
         dispatchSetAssets = function(assets)
             dispatch(SetAssets(assets))
         end,
-		dispatchUpdateSelectedAssets = FFlagAssetManagerUseUpdateSelectedAssets and function(selectedAssets)
+		dispatchUpdateSelectedAssets = function(selectedAssets)
 			dispatch(UpdateSelectedAssets(selectedAssets))
-		end or nil,
-        dispatchSetSelectedAssets = not FFlagAssetManagerUseUpdateSelectedAssets and function(selectedAssets)
-            dispatch(SetSelectedAssets(selectedAssets))
-        end or nil,
+		end,
 	}
 end
 

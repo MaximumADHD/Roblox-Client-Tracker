@@ -6,6 +6,8 @@
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
+local PathUtils = require(Plugin.Src.Util.PathUtils)
+
 local Constants = require(Plugin.Src.Util.Constants)
 local Templates = require(Plugin.Src.Util.Templates)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
@@ -18,6 +20,7 @@ local GetFFlagFixClampValuesForFacs = require(Plugin.LuaFlags.GetFFlagFixClampVa
 local GetFFlagNilCheckAnimationDataInTrackUtils = require(Plugin.LuaFlags.GetFFlagNilCheckAnimationDataInTrackUtils)
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 local GetFFlagKeyframeUtilsGetValueCleanup = require(Plugin.LuaFlags.GetFFlagKeyframeUtilsGetValueCleanup)
+local GetFFlagFacsAsFloat = require(Plugin.LuaFlags.GetFFlagFacsAsFloat)
 
 local TrackUtils = {}
 
@@ -248,7 +251,7 @@ if not GetFFlagChannelAnimations() then
 	end
 end
 
-if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
+if GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
 	function TrackUtils.getDefaultValue(track)
 		if track and track.Type then
 			if GetFFlagChannelAnimations() then
@@ -277,6 +280,23 @@ function TrackUtils.getTrackTypeFromName(trackName, tracks)
 	for _, track in pairs(tracks) do
 		if track.Name == trackName then
 			return track.Type
+		end
+	end
+end
+
+-- Given a full path and a list of trackEntries, find the
+-- type of the corresponding component
+function TrackUtils.getComponentTypeFromPath(path, tracks)
+	for _, track in pairs(tracks) do
+		if track.Name == path[1] then
+			local relPath = PathUtils.getRelativePath(path)
+			local currentComponent = track
+			for _, pathPart in ipairs(relPath) do
+				if currentComponent.Components and currentComponent.Components[pathPart] then
+					currentComponent = currentComponent.Components[pathPart]
+				end
+			end
+			return currentComponent.Type
 		end
 	end
 end
@@ -417,7 +437,7 @@ function TrackUtils.getCurrentValue(track, tick, animationData)
 
 	local currentTrack = animationData.Instances[instance].Tracks[name]
 	if currentTrack then
-		if (GetFFlagChannelAnimations() or GetFFlagKeyframeUtilsGetValueCleanup()) then
+		if GetFFlagChannelAnimations() or GetFFlagKeyframeUtilsGetValueCleanup() then
 			currentValue = KeyframeUtils.getValue(currentTrack, tick)
 		else
 			currentValue = KeyframeUtils:getValue_deprecated(currentTrack, tick)
@@ -449,11 +469,11 @@ function TrackUtils.getItemsForProperty(track, value, name)
 	local properties = Constants.PROPERTY_KEYS
 	local items
 
-	local function makeVectorItems(x, y, z)
+	local function makeVectorItems(x, y, z, componentType)
 		return {
-			{ Name = Constants.PROPERTY_KEYS.X, Key = "X", Value = x },
-			{ Name = Constants.PROPERTY_KEYS.Y, Key = "Y", Value = y },
-			{ Name = Constants.PROPERTY_KEYS.Z, Key = "Z", Value = z },
+			{ Name = Constants.PROPERTY_KEYS.X, Key = "X", Value = x, Type = componentType },
+			{ Name = Constants.PROPERTY_KEYS.Y, Key = "Y", Value = y, Type = componentType },
+			{ Name = Constants.PROPERTY_KEYS.Z, Key = "Z", Value = z, Type = componentType },
 		}
 	end
 
@@ -467,55 +487,65 @@ function TrackUtils.getItemsForProperty(track, value, name)
 			zRot = removeNegativeZero(math.deg(zRot))
 		end
 		items = {
-			Position = GetFFlagChannelAnimations() and makeVectorItems(position.X, position.Y, position.Z) or {
+			Position = GetFFlagChannelAnimations() and makeVectorItems(position.X, position.Y, position.Z, Constants.TRACK_TYPES.Number) or {
 				{
 					Name = properties.X,
 					Key = "X",
 					Value = position.X,
+					Type = Constants.TRACK_TYPES.Number,
 				},
 				{
 					Name = properties.Y,
 					Key = "Y",
 					Value = position.Y,
+					Type = Constants.TRACK_TYPES.Number,
 				},
 				{
 					Name = properties.Z,
 					Key = "Z",
 					Value = position.Z,
+					Type = Constants.TRACK_TYPES.Number,
 				},
 			},
-			Rotation = GetFFlagChannelAnimations() and makeVectorItems(xRot, yRot, zRot) or {
+			Rotation = GetFFlagChannelAnimations() and makeVectorItems(xRot, yRot, zRot, Constants.TRACK_TYPES.Angle) or {
 				{
 					Name = properties.X,
 					Key = "X",
 					Value = removeNegativeZero(math.deg(xRot)),
+					Type = Constants.TRACK_TYPES.Angle,
 				},
 				{
 					Name = properties.Y,
 					Key = "Y",
 					Value = removeNegativeZero(math.deg(yRot)),
+					Type = Constants.TRACK_TYPES.Angle,
 				},
 				{
 					Name = properties.Z,
 					Key = "Z",
 					Value = removeNegativeZero(math.deg(zRot)),
+					Type = Constants.TRACK_TYPES.Angle,
 				},
 			},
 		}
 	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Position then
-		items = makeVectorItems(value.X, value.Y, value.Z)
+		items = makeVectorItems(value.X, value.Y, value.Z, Constants.TRACK_TYPES.Number)
 	elseif GetFFlagChannelAnimations() and trackType == (GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation) then
 		items = makeVectorItems(removeNegativeZero(math.deg(value.X)),
 			removeNegativeZero(math.deg(value.Y)),
-			removeNegativeZero(math.deg(value.Z)))
+			removeNegativeZero(math.deg(value.Z)),
+			Constants.TRACK_TYPES.Angle)
 	elseif GetFFlagQuaternionChannels() and trackType == Constants.TRACK_TYPES.Quaternion then
 		local xRot, yRot, zRot = value:ToEulerAnglesXYZ()
 		items = makeVectorItems(removeNegativeZero(math.deg(xRot)),
 			removeNegativeZero(math.deg(yRot)),
-			removeNegativeZero(math.deg(zRot)))
+			removeNegativeZero(math.deg(zRot)),
+			Constants.TRACK_TYPES.Angle)
 	elseif trackType == Constants.TRACK_TYPES.Facs then
 		if GetFFlagFacsUiChanges() and GetFFlagChannelAnimations() then
-			if GetFFlagFixClampValuesForFacs() then
+			if GetFFlagFacsAsFloat() then
+				value = math.clamp(value, 0, 1)
+			elseif GetFFlagFixClampValuesForFacs() then
 				value = math.floor(0.5 + math.clamp(value, 0, 1) * 100)
 			else
 				value = math.floor(0.5 + (value * 100))
@@ -526,6 +556,7 @@ function TrackUtils.getItemsForProperty(track, value, name)
 				Name = "V",
 				Key = "Value",
 				Value = value,
+				Type = Constants.TRACK_TYPES.Facs,
 			},
 		}
 	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Angle then
@@ -534,6 +565,7 @@ function TrackUtils.getItemsForProperty(track, value, name)
 				Name = name,
 				Key = name,
 				Value = removeNegativeZero(math.deg(value)),
+				Type = Constants.TRACK_TYPES.Angle,
 			},
 		}
 	else
@@ -542,6 +574,7 @@ function TrackUtils.getItemsForProperty(track, value, name)
 				Name = name,
 				Key = name,
 				Value = value,
+				Type = Constants.TRACK_TYPES.Number,
 			},
 		}
 	end
@@ -574,7 +607,11 @@ function TrackUtils.getPropertyForItems(track, items)
 	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Facs then
 		value = items[1].Value
 		if GetFFlagFacsUiChanges() then
-			value = math.clamp(value / 100, 0, 1)
+			if GetFFlagFacsAsFloat() then
+				value = math.clamp(value, 0, 1)
+			else
+				value = math.clamp(value / 100, 0, 1)
+			end
 		end
 	end
 

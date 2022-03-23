@@ -1,9 +1,9 @@
-
+--!strict
 --[[
 	A grid of Subcategory IconTiles with flexible widths.
 
 	Required Props:
-		table SubcategoryList: a table of Subcategories to render.
+		table SubcategoryDict: a table of Subcategories to render.
 
 	Optional Props:
 		integer LayoutOrder: The order this component will display in a UILayout.
@@ -44,14 +44,23 @@ local SPACING = Constants.MAIN_VIEW_PADDING
 local THUMBNAIL_SIZE = Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE
 
 type _ExternalProps = {
-	SubcategoryList : { HomeTypes.Subcategory },
-	LayoutOrder : number?,
-	Position : UDim2?,
-	Size : UDim2?,
+	CategoryName: string,
+	LayoutOrder: number?,
+	OnClickSubcategory: ((
+		subcategoryPath: { string },
+		subcategoryDict: { [string]: HomeTypes.Subcategory },
+		categoryName: string?,
+		sortName: string?
+	) -> ()),
+	Position: UDim2?,
+	Size: UDim2?,
+	SortName: string?,
+	SubcategoryDict: { [string]: HomeTypes.Subcategory },
 }
 
 type _InternalProps = {
-	Localization : any,
+	Localization: any,
+	Stylizer: any,
 }
 
 export type SubcategoriesViewProps = _ExternalProps & _InternalProps
@@ -63,20 +72,33 @@ SubcategoriesView.defaultProps = {
 }
 
 function SubcategoriesView:init(props: SubcategoriesViewProps)
-	self.onClickBack = function()
-		print("TODO: click back link navigation")
+	self.onClickBack = function(key)
+		local onClickBack = self.props.OnClickBack
+		if onClickBack then
+			onClickBack()
+		end
 	end
 
-	self.onClickCategory = function(key)
-		print("TODO: implement drill down ", key)
+	self.onClickSubcategory = function(subcategoryName: string)
+		local props: SubcategoriesViewProps = self.props
+		local categoryName = props.CategoryName
+		local onClickSubcategory = props.OnClickSubcategory
+		local sortName = props.SortName
+		local subcategoryDict = props.SubcategoryDict
+
+		local subcategoryDictSubset = subcategoryDict[subcategoryName].children
+
+		if onClickSubcategory then
+			onClickSubcategory({ subcategoryName }, subcategoryDictSubset, categoryName, sortName)
+		end
 	end
 
 	self.getSubcategoryElements = function()
-		local props : SubcategoriesViewProps = self.props
-		local subcategoryList = props.SubcategoryList
+		local props: SubcategoriesViewProps = self.props
+		local subcategoryDict = props.SubcategoryDict
 		local elements = {}
 
-		for index, subcategory:HomeTypes.Subcategory in ipairs(subcategoryList) do
+		for _, subcategory: HomeTypes.Subcategory in pairs(subcategoryDict) do
 			local color
 			local image
 			if subcategory.thumbnail then
@@ -89,8 +111,8 @@ function SubcategoriesView:init(props: SubcategoriesViewProps)
 				BackgroundColor = color,
 				Image = image,
 				Key = subcategory.name,
-				LayoutOrder = index,
-				OnClick = self.onClickCategory,
+				LayoutOrder = subcategory.index,
+				OnClick = self.onClickSubcategory,
 				Title = subcategory.displayName,
 			})
 		end
@@ -99,55 +121,62 @@ function SubcategoriesView:init(props: SubcategoriesViewProps)
 end
 
 function SubcategoriesView:render()
-	local props : SubcategoriesViewProps = self.props
+	local props: SubcategoriesViewProps = self.props
 
 	local localization = props.Localization
 	local layoutOrder = props.LayoutOrder
 	local position = props.Position
 	local size = props.Size
+	local theme = props.Stylizer
 
 	local subcategoryElements = self.getSubcategoryElements()
 	local backText = "< " .. localization:getText("General", "AllModels")
 
-	return Roact.createElement(ScrollingFrame, {
-		AutoSizeCanvas = true,
-		AutoSizeLayoutOptions = {
-			Padding = UDim.new(0, SPACING),
-			SortOrder = Enum.SortOrder.LayoutOrder,
-		},
-		CanvasSize = UDim2.new(1, 0, 0, 0),
-		EnableScrollBarBackground = true,
+	return Roact.createElement("Frame", {
+		BackgroundColor3 = theme.backgroundColor,
 		LayoutOrder = layoutOrder,
-		Padding = if FFlagDevFrameworkScrollingFrameAddPadding then Constants.MAIN_VIEW_PADDING else nil,
 		Position = position,
 		Size = size,
 	}, {
-		BackButton = Roact.createElement(LinkText, {
-			OnClick = self.onClickBack,
-			Style = if FFlagDevFrameworkAddUnobtrusiveLinkTextStyle then "Unobtrusive" else nil,
-			Text = backText,
-		}),
-
-		InnerGrid = Roact.createElement(ResponsiveGrid, {
-			AutomaticSize = Enum.AutomaticSize.Y,
-			CutOffs = {
-				{
-					ColumnCount = 2,
-					MinWidth = 0,
-				},
-				{
-					ColumnCount = 3,
-					MinWidth = ICON_TILE_LARGE_WIDTH * 3 + GRID_SPACING * 2,
-				},
+		ScrollingFrame = Roact.createElement(ScrollingFrame, {
+			AutoSizeCanvas = true,
+			AutoSizeLayoutOptions = {
+				Padding = UDim.new(0, SPACING),
+				SortOrder = Enum.SortOrder.LayoutOrder,
 			},
-			ItemHeight = UDim.new(0, ICON_TILE_HEIGHT),
-			Size = UDim2.new(1, 0, 0, 0),
-		}, subcategoryElements)
+			CanvasSize = UDim2.new(1, 0, 0, 0),
+			EnableScrollBarBackground = true,
+			Padding = if FFlagDevFrameworkScrollingFrameAddPadding then Constants.MAIN_VIEW_PADDING else nil,
+			Size = size,
+		}, {
+			BackButton = Roact.createElement(LinkText, {
+				OnClick = self.onClickBack,
+				Style = if FFlagDevFrameworkAddUnobtrusiveLinkTextStyle then "Unobtrusive" else nil,
+				Text = backText,
+			}),
+
+			InnerGrid = Roact.createElement(ResponsiveGrid, {
+				AutomaticSize = Enum.AutomaticSize.Y,
+				CutOffs = {
+					{
+						ColumnCount = 2,
+						MinWidth = 0,
+					},
+					{
+						ColumnCount = 3,
+						MinWidth = ICON_TILE_LARGE_WIDTH * 3 + GRID_SPACING * 2,
+					},
+				},
+				ItemHeight = UDim.new(0, ICON_TILE_HEIGHT),
+				Size = UDim2.new(1, 0, 0, 0),
+			}, subcategoryElements),
+		}),
 	})
 end
 
 SubcategoriesView = withContext({
 	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer,
 })(SubcategoriesView)
 
 return SubcategoriesView

@@ -13,6 +13,8 @@ local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+
 return function(trackName, analytics)
 	return function(store)
 		local state = store:getState()
@@ -34,8 +36,8 @@ return function(trackName, analytics)
 
 		-- Remove the track from the list of selected tracks
 		if selectedTracks then
-			for index, selectedName in ipairs(selectedTracks) do
-				if trackName == selectedName then
+			for index, selectedTrack in ipairs(selectedTracks) do
+				if trackName == (if GetFFlagCurveEditor() then selectedTrack[1] else selectedTrack) then
 					table.remove(selectedTracks, index)
 					break
 				end

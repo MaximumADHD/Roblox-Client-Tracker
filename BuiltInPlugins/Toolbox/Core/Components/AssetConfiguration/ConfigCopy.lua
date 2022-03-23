@@ -6,6 +6,9 @@
 ]]
 local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
 local FFlagToolboxAudioAssetConfigDisablePublicAudio = game:GetFastFlag("ToolboxAudioAssetConfigDisablePublicAudio")
+local FFlagToolboxUseFStringAssetConfigAudioCopyUrl = game:GetFastFlag("ToolboxUseFStringAssetConfigAudioCopyUrl")
+local FStringToolboxAssetConfigDisabledAudioSharingLearnMoreLink = game:GetFastString("ToolboxAssetConfigDisabledAudioSharingLearnMoreLink")
+local FStringToolboxAssetConfigEnabledAudioSharingLearnMoreLink = game:GetFastString("ToolboxAssetConfigEnabledAudioSharingLearnMoreLink")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -62,9 +65,17 @@ function ConfigCopy:init(props)
 
 	self.onLearnMoreActivated = function(rbx, inputObject)
 		if self.props.CopyEnabled then
-			GuiService:OpenBrowserWindow(AssetConfigConstants.TERM_OF_USE_URL)
+			if FFlagToolboxUseFStringAssetConfigAudioCopyUrl then
+				GuiService:OpenBrowserWindow(FStringToolboxAssetConfigEnabledAudioSharingLearnMoreLink)
+			else
+				GuiService:OpenBrowserWindow(AssetConfigConstants.TERM_OF_USE_URL)
+			end
 		else
-			GuiService:OpenBrowserWindow(AssetConfigConstants.ACCOUNT_SETTING_URL)
+			if FFlagToolboxUseFStringAssetConfigAudioCopyUrl then
+				GuiService:OpenBrowserWindow(FStringToolboxAssetConfigDisabledAudioSharingLearnMoreLink)
+			else
+				GuiService:OpenBrowserWindow(AssetConfigConstants.ACCOUNT_SETTING_URL)
+			end
 		end
 	end
 

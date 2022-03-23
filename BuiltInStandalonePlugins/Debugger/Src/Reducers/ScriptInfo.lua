@@ -4,18 +4,26 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local Actions = Plugin.Src.Actions
 local SetFilenameForGuidAction = require(Actions.Common.SetFilenameForGuid)
+local SetScriptSourceLineAction = require(Actions.Common.SetScriptSourceLine)
 
 type ScriptRefGuid = string
 type FileName = string
+type LineNumber = number
 
 type ScriptInfoStore = {
 	ScriptInfo : {
 		[ScriptRefGuid] : FileName,
 	},
+	ScriptLineContents : {
+		[ScriptRefGuid] : {
+			[LineNumber] : string,
+		}
+	},
 }
 
 local initialState : ScriptInfoStore = {
 	ScriptInfo = {},
+	ScriptLineContents = {},
 }
 
 return Rodux.createReducer(initialState, {
@@ -34,6 +42,17 @@ return Rodux.createReducer(initialState, {
 		})
 		return Cryo.Dictionary.join(
 			state, {ScriptInfo = updatedScriptInfo}
+		)
+	end,
+
+	[SetScriptSourceLineAction.name] = function(state: ScriptInfoStore, action : SetScriptSourceLineAction.Props)
+		local updatedScriptLineContents = Cryo.Dictionary.join(state.ScriptLineContents, {
+			[action.scriptRefGuid] = Cryo.Dictionary.join(state.ScriptLineContents[action.scriptRefGuid] or {}, {
+				[action.lineNumber] = action.source
+			})
+		})
+		return Cryo.Dictionary.join(
+			state, {ScriptLineContents = updatedScriptLineContents}
 		)
 	end,
 })

@@ -6,20 +6,35 @@ local Players = game:GetService("Players")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 
+local FFlagVoiceDefaultChannelUseNewName = game:DefineFastFlag("VoiceDefaultChannelUseNewName", false)
 local FFlagDebugDefaultChannelStartMuted = game:DefineFastFlag("DebugDefaultChannelStartMuted", true)
 
 local GenerateDefaultChannelAvailable = game:GetEngineFeature("VoiceServiceGenerateDefaultChannelAvailable")
+local EnableDefaultVoiceAvailable = game:GetEngineFeature("VoiceServiceEnableDefaultVoiceAvailable")
 
 local log = require(RobloxGui.Modules.InGameChat.BubbleChat.Logger)(script.Name)
 
-if GenerateDefaultChannelAvailable then
-	local VoiceChatService = game:FindService("VoiceChatService")
+if FFlagVoiceDefaultChannelUseNewName then
+	if EnableDefaultVoiceAvailable then
+		local VoiceChatService = game:FindService("VoiceChatService")
 
-	if not VoiceChatService then
-		log:info("VoiceChatService not found. Assuming default values.")
-	elseif not VoiceChatService.GenerateDefaultChannel then
-		log:debug("Default channel is disabled.")
-		return
+		if not VoiceChatService then
+			log:info("VoiceChatService not found. Assuming default values.")
+		elseif not VoiceChatService.EnableDefaultVoice then
+			log:debug("Default channel is disabled.")
+			return
+		end
+	end
+else
+	if GenerateDefaultChannelAvailable then
+		local VoiceChatService = game:FindService("VoiceChatService")
+	
+		if not VoiceChatService then
+			log:info("VoiceChatService not found. Assuming default values.")
+		elseif not VoiceChatService.GenerateDefaultChannel then
+			log:debug("Default channel is disabled.")
+			return
+		end
 	end
 end
 

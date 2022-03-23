@@ -24,6 +24,9 @@ local Button = UI.Button
 
 local FolderTreeItem = Roact.PureComponent:extend("FolderTreeItem")
 
+local ModernIcons = require(Plugin.Src.Util.ModernIcons)
+local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and not game:GetService("StudioHighDpiService"):IsNotHighDPIAwareBuild()
+
 function FolderTreeItem:init()
 	self.layoutRef = Roact.createRef()
 	self.parentContentRef = Roact.createRef()
@@ -85,6 +88,13 @@ function FolderTreeItem:render()
     local height = treeViewTheme.Height
 
     local arrowProps = expanded and treeViewTheme.Arrow.Expanded or treeViewTheme.Arrow.Collapsed
+    
+    local treeViewFolder = treeViewTheme.Folder
+    if FFlagHighDpiIcons then
+        treeViewFolder = ModernIcons.getIconForCurrentTheme(ModernIcons.IconEnums.BlankFolder)
+    end
+    
+
 
     local children = Roact.createElement("Frame", {
         Size = UDim2.new(1, 0, 0, treeViewTheme.Indent),
@@ -153,7 +163,7 @@ function FolderTreeItem:render()
                 Size = UDim2.new(0, height, 0, height),
                 Position = UDim2.new(0, -1 * height - treeViewTheme.Offset, 0, 0),
                 BackgroundTransparency = 1,
-                Image = treeViewTheme.Folder,
+                Image = treeViewFolder,
             }),
         }),
         Children = children,

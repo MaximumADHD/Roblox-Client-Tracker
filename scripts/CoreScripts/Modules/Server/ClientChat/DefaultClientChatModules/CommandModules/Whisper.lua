@@ -81,9 +81,12 @@ function whisperStateMethods:GetWhisperingPlayer(enteredText)
 
 		if ChatSettings.WhisperByDisplayName then
 			for player, playerName in pairs(possibleDisplayNameMatches) do
-				matchCount = matchCount + 1
-				lastMatch = player
-				lastMatchName = playerName
+				-- Ignore display name matches where players' Name and DisplayName are equal
+				if lastMatch ~= player then
+					matchCount = matchCount + 1
+					lastMatch = player
+					lastMatchName = playerName
+				end
 			end
 		end
 

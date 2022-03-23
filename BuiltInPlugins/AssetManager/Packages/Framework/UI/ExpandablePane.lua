@@ -16,6 +16,8 @@
 		any HeaderComponent: Extra component to render in the header.
 		table HeaderComponentProps: A table of props which are passed to the HeaderComponent.
 		Enum.FillDirection Layout: An optional Enum.FillDirection adding a UIListLayout instance.
+		Enum.HorizontalAlignment HorizontalAlignment: Property on UIListLayout
+		Enum.VerticalAlignment VerticalAlignment: Property on UIListLayout
 		number LayoutOrder: The layout order of this component in a list.
 		Style Style: The style with which to render this component.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
@@ -50,6 +52,7 @@ local StyleModifier = Util.StyleModifier
 local Typecheck = Util.Typecheck
 
 local FFlagDevFrameworkExpandablePaneAlwaysExpanded = game:DefineFastFlag("DevFrameworkExpandablePaneAlwaysExpanded", false)
+local FFlagDevFrameworkExpandablePaneLayoutProps = game:DefineFastFlag("DevFrameworkExpandablePaneLayoutProps", false)
 
 local Dash = require(Framework.packages.Dash)
 local join = Dash.join
@@ -66,6 +69,8 @@ ExpandablePane.defaultProps = {
 	Expanded = false,
 	HeaderComponentProps = {},
 	Layout = Enum.FillDirection.Vertical,
+	HorizontalAlignment = if FFlagDevFrameworkExpandablePaneLayoutProps then Enum.HorizontalAlignment.Center else nil,
+	VerticalAlignment = if FFlagDevFrameworkExpandablePaneLayoutProps then Enum.VerticalAlignment.Center else nil,
 }
 
 function ExpandablePane:init()
@@ -99,7 +104,18 @@ function ExpandablePane:render()
 		})
 	end
 
+	if FFlagDevFrameworkExpandablePaneLayoutProps then
+		componentProps = omit(componentProps, {
+			"ContentPadding",
+			"HorizontalAlignment",
+			"VerticalAlignment",
+		})
+	end
+
 	local contentPadding = style.Content.Padding
+	if FFlagDevFrameworkExpandablePaneLayoutProps and props.ContentPadding then
+		contentPadding = props.ContentPadding
+	end
 	local contentSpacing = style.Content.Spacing
 
 	if FFlagDevFrameworkExpandablePaneAlwaysExpanded then
@@ -112,6 +128,8 @@ function ExpandablePane:render()
 				LayoutOrder = 2,
 				Padding = contentPadding,
 				Spacing = contentSpacing,
+				HorizontalAlignment = if FFlagDevFrameworkExpandablePaneLayoutProps then props.HorizontalAlignment else nil,
+				VerticalAlignment = if FFlagDevFrameworkExpandablePaneLayoutProps then props.VerticalAlignment else nil,
 			}, props[Roact.Children]),
 		})
 	else
@@ -124,6 +142,8 @@ function ExpandablePane:render()
 				LayoutOrder = 2,
 				Padding = contentPadding,
 				Spacing = contentSpacing,
+				HorizontalAlignment = if FFlagDevFrameworkExpandablePaneLayoutProps then props.HorizontalAlignment else nil,
+				VerticalAlignment = if FFlagDevFrameworkExpandablePaneLayoutProps then props.VerticalAlignment else nil,
 			}, props[Roact.Children]),
 		})
 	end

@@ -43,6 +43,8 @@ local Constants = require(Plugin.Src.Util.Constants)
 local TimelineTick = require(Plugin.Src.Components.Timeline.TimelineTick)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
 
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+
 local Timeline = Roact.PureComponent:extend("Timeline")
 
 local MIN_INTERVAL = 1
@@ -123,6 +125,7 @@ function Timeline:render()
 		local minorInterval = math.clamp(props.MinorInterval, MIN_INTERVAL, MAX_INTERVAL)
 		local position = props.Position
 		local anchorPoint = props.AnchorPoint
+		local zIndex = props.ZIndex
 		local height = props.Height
 		local width = props.Width
 		local tickLabelSize = props.TickLabelSize
@@ -130,7 +133,6 @@ function Timeline:render()
 		local tickHeightScale = props.TickHeightScale
 		local smallTickHeightScale = props.SmallTickHeightScale
 		local showAsTime = props.ShowAsTime
-		local animationData = props.AnimationData
 		local frameRate = props.FrameRate or Constants.DEFAULT_FRAMERATE
 
 		endTick = math.max(endTick, startTick + majorInterval)
@@ -183,7 +185,7 @@ function Timeline:render()
 			AnchorPoint = anchorPoint,
 			Size = UDim2.new(0, width, 0, height),
 			BackgroundTransparency = 1,
-
+			ZIndex = GetFFlagCurveEditor() and zIndex or nil,
 			[Roact.Event.InputBegan] = self.onDragBegan,
 		}, {
 			Ticks = Roact.createElement("Frame", {

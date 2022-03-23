@@ -16,6 +16,7 @@
 		int DopeSheetWidth = width of the dope sheet - padding included
 		int ZIndex = display order of this frame
 		bool ShowSelectionArea = show a blue selection box covering the area of selected keys
+		bool FullHeight = Use the full height, rather than selected tracks. Used by the Curve Editor
 
 		function OnScaleHandleDragStart(tick) = callback for when user begins to drag a scale handle
 		function OnScaleHandleDragMoved(input) = callback for when user is actively dragging a scale handle
@@ -42,6 +43,7 @@ local ScaleHandle = require(Plugin.Src.Components.ScaleControls.ScaleHandle)
 local TimeTag = require(Plugin.Src.Components.ScaleControls.TimeTag)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 local ScaleControls = Roact.PureComponent:extend("PureComponent")
 
@@ -121,17 +123,24 @@ function ScaleControls:init()
 		local trackWidth = props.DopeSheetWidth
 
 		if GetFFlagChannelAnimations() then
-			local topLine, bottomLine = self.getSelectionChannelExtents(selectionData)
-
-			if topLine and bottomLine then
+			if GetFFlagCurveEditor() and props.UseFullHeight then
 				return {
-					top = Constants.SUMMARY_TRACK_HEIGHT + (topLine - 1) * Constants.TRACK_HEIGHT,
-					bottom = Constants.SUMMARY_TRACK_HEIGHT + bottomLine * Constants.TRACK_HEIGHT,
 					left = TrackUtils.getScaledKeyframePosition(selectionData.earliestKeyframe, startTick, endTick, trackWidth),
 					right = TrackUtils.getScaledKeyframePosition(selectionData.latestKeyframe, startTick, endTick, trackWidth),
 				}
 			else
-				return nil
+				local topLine, bottomLine = self.getSelectionChannelExtents(selectionData)
+
+				if topLine and bottomLine then
+					return {
+						top = Constants.SUMMARY_TRACK_HEIGHT + (topLine - 1) * Constants.TRACK_HEIGHT,
+						bottom = Constants.SUMMARY_TRACK_HEIGHT + bottomLine * Constants.TRACK_HEIGHT,
+						left = TrackUtils.getScaledKeyframePosition(selectionData.earliestKeyframe, startTick, endTick, trackWidth),
+						right = TrackUtils.getScaledKeyframePosition(selectionData.latestKeyframe, startTick, endTick, trackWidth),
+					}
+				else
+					return nil
+				end
 			end
 		else
 			table.sort(selectionData.trackIndices)
@@ -158,18 +167,20 @@ function ScaleControls:init()
 		if GetFFlagChannelAnimations() then
 			local function traverse(track, trackIndex, path)
 				if track.Selection then
-					-- This component has a selection. Calculate the path value, add it
-					-- to the trackIndex, and check if the result extends the current
-					-- trackRange
+					if not GetFFlagCurveEditor() or not self.props.UseFullHeight then
+						-- This component has a selection. Calculate the path value, add it
+						-- to the trackIndex, and check if the result extends the current
+						-- trackRange
 
-					local pathValue = PathUtils.getPathValue(path)
-					local componentIndex = trackIndex + pathValue
-					if topSelectedChannelIndex == nil then
-						topSelectedChannelIndex = componentIndex
-						bottomSelectedChannelIndex = componentIndex
-					else
-						topSelectedChannelIndex = math.min(topSelectedChannelIndex, componentIndex)
-						bottomSelectedChannelIndex = math.max(bottomSelectedChannelIndex, componentIndex)
+						local pathValue = PathUtils.getPathValue(path)
+						local componentIndex = trackIndex + pathValue
+						if topSelectedChannelIndex == nil then
+							topSelectedChannelIndex = componentIndex
+							bottomSelectedChannelIndex = componentIndex
+						else
+							topSelectedChannelIndex = math.min(topSelectedChannelIndex, componentIndex)
+							bottomSelectedChannelIndex = math.max(bottomSelectedChannelIndex, componentIndex)
+						end
 					end
 
 					-- Calculate the extents of the selection
@@ -186,9 +197,13 @@ function ScaleControls:init()
 
 			for _, instance in pairs(selectionData) do
 				for trackName, track in pairs(instance) do
-					local trackIndex = TrackUtils.getTrackIndex(self.props.Tracks, trackName)
-					if trackIndex then
-						traverse(track, trackIndex, {})
+					if not GetFFlagCurveEditor() or not self.props.UseFullHeight then
+						local trackIndex = TrackUtils.getTrackIndex(self.props.Tracks, trackName)
+						if trackIndex then
+							traverse(track, trackIndex, {})
+						end
+					else
+						traverse(track, nil, {})
 					end
 				end
 			end
@@ -224,6 +239,7 @@ function ScaleControls:render()
 	local frameRate = props.FrameRate
 	local dragging = props.Dragging
 	local frameRate = props.FrameRate
+	local useFullHeight = props.UseFullHeight
 
 	local zIndex = props.ZIndex
 
@@ -239,22 +255,39 @@ function ScaleControls:render()
 	local earliestKeyframe = selectionData.earliestKeyframe
 	local latestKeyframe = selectionData.latestKeyframe
 
-	local height = extents.bottom - extents.top
-	local width = extents.right - extents.left + PADDING
+	local height
+	local width
 
-	local timeTagYOffset = -extents.top - (Constants.SUMMARY_TRACK_HEIGHT - TIME_TAG_HEIGHT) / 2
-	timeTagYOffset = Constants.SUMMARY_TRACK_HEIGHT + timeTagYOffset or timeTagYOffset
+	if GetFFlagCurveEditor() then
+		width = UDim.new(0, extents.right - extents.left + PADDING)
+		height = UDim.new(if useFullHeight then 1 else 0, if useFullHeight then 0 else extents.bottom - extents.top)
+	else
+		height = extents.bottom - extents.top
+		width = extents.right - extents.left + PADDING
+	end
+
+	local timeTagYOffset
+	if GetFFlagCurveEditor() then
+		if useFullHeight then
+			timeTagYOffset = Constants.SUMMARY_TRACK_HEIGHT + (Constants.SUMMARY_TRACK_HEIGHT - TIME_TAG_HEIGHT) / 2
+		else
+			timeTagYOffset = Constants.SUMMARY_TRACK_HEIGHT - extents.top + (Constants.SUMMARY_TRACK_HEIGHT - TIME_TAG_HEIGHT) / 2
+		end
+	else
+		timeTagYOffset = -extents.top - (Constants.SUMMARY_TRACK_HEIGHT - TIME_TAG_HEIGHT) / 2
+		timeTagYOffset = Constants.SUMMARY_TRACK_HEIGHT + timeTagYOffset or timeTagYOffset
+	end
 
 	return Roact.createElement("Frame", {
 		BackgroundColor3 = theme.selectionBox,
 		BackgroundTransparency = showSelectionArea and 0.8 or 1,
-		Position = UDim2.new(0, (props.TrackPadding / 2) + extents.left - (PADDING / 2), 0, extents.top),
-		Size = UDim2.new(0, width, 0, height),
+		Position = UDim2.new(0, (props.TrackPadding / 2) + extents.left - (PADDING / 2), 0, if GetFFlagCurveEditor() and useFullHeight then 0 else extents.top),
+		Size = if GetFFlagCurveEditor() then UDim2.new(width, height) else UDim2.new(0, width, 0, height),
 		ZIndex = zIndex,
 	}, {
 		LeftHandle = Roact.createElement(ScaleHandle, {
 			Position = UDim2.new(0, (-HANDLE_WIDTH / 2), 0, 0),
-			Size = UDim2.new(0, HANDLE_WIDTH, 0, height),
+			Size = if GetFFlagCurveEditor() then UDim2.new(UDim.new(0, HANDLE_WIDTH), height) else UDim2.new(0, HANDLE_WIDTH, 0, height),
 			ZIndex = zIndex,
 			OnScaleHandleDragStart = self.leftScaleHandleDragStart,
 			OnScaleHandleDragMoved = onScaleHandleDragMoved,
@@ -263,7 +296,7 @@ function ScaleControls:render()
 
 		RightHandle = Roact.createElement(ScaleHandle, {
 			Position = UDim2.new(1, (-HANDLE_WIDTH / 2), 0, 0),
-			Size = UDim2.new(0, HANDLE_WIDTH, 0, height),
+			Size = if GetFFlagCurveEditor() then UDim2.new(UDim.new(0, HANDLE_WIDTH), height) else UDim2.new(0, HANDLE_WIDTH, 0, height),
 			ZIndex = zIndex,
 			OnScaleHandleDragStart = self.rightScaleHandleDragStart,
 			OnScaleHandleDragMoved = onScaleHandleDragMoved,
@@ -288,13 +321,9 @@ function ScaleControls:render()
 	})
 end
 
-
 ScaleControls = withContext({
 	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(ScaleControls)
-
-
-
 
 return ScaleControls

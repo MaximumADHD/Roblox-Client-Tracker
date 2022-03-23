@@ -11,8 +11,9 @@ return {
 	Images = {
 		RobloxLogo = Images["LuaApp/graphic/ic_logo"],
 		CloseButton = "rbxasset://textures/ui/TopBar/close.png",
-		RespawnIcon = Images["InGameMenu/Icons/RespawnIcon"],
-		ReportIcon = Images["LuaApp/icons/GameDetails/feedback"],
+		RespawnIcon = UIBloxImages["icons/actions/respawn"],
+		ReportIcon = UIBloxImages["icons/actions/feedback"],
+		ScreenshotIcon = UIBloxImages["icons/controls/screenshot"],
 
 		CloseModal = Images["LuaApp/icons/navigation/close"],
 		NavigateBack = Images["LuaApp/icons/navigation/pushBack"],

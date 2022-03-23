@@ -123,7 +123,7 @@ function MainPlugin:renderButtons(toolbar)
 			Active = enabled,
 			Title = self.localization:getText("Plugin", "Button"),
 			Tooltip = self.localization:getText("Plugin", "Description"),
-			Icon = "rbxasset://textures/GameSettings/ToolbarIcon.png",
+			Icon = "rbxasset://textures/MaterialManager/Material_Manager.png",
 			OnClick = self.toggleEnabled,
 			ClickableWhenViewportHidden = true,
 		}),

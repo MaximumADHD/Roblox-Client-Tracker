@@ -136,7 +136,7 @@ function PropertyListView:render()
 
 		-- Create property components
 		for propertyIndex, propertyMetadata: Types.PropDescriptor in pairs(sectionMetadata.Properties) do
-			if not propertyMetadata.ShouldHide or not propertyMetadata.ShouldHide() then
+			if not propertyMetadata.ShouldHide or not propertyMetadata.ShouldHide(props.Instance) then
 				local level, message = getHighestSeverityStatus(props.Instance, propertyMetadata.Name)
 
 				if level and not statusObject.GlobalStatus and statusObject.StatusLevel ~= StatusLevel.Error then

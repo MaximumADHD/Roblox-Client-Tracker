@@ -28,7 +28,8 @@ local VectorProperty = require(Properties.VectorProperty)
 
 local SetInstanceMap = require(Plugin.Src.Actions.SetInstanceMap)
 
-local FFlagAssetImporterPbrSupportInProg = game:GetFastFlag("AssetImporterPbrSupportInProg")
+local FFlagAssetImporterPbrSupport = game:GetFastFlag("AssetImporterPbrSupport")
+local FFlagPreventExtraModelUpdates2 = game:GetFastFlag("PreventExtraModelUpdates2")
 
 local ELEMENT_CLASSES = {
 	["boolean"] = BooleanProperty,
@@ -36,7 +37,7 @@ local ELEMENT_CLASSES = {
 	["number"] = NumberProperty,
 	["string"] = StringProperty,
 	["vector"] = VectorProperty,
-	["path"] = if FFlagAssetImporterPbrSupportInProg then PathProperty else StringProperty,
+	["path"] = if FFlagAssetImporterPbrSupport then PathProperty else StringProperty,
 }
 
 local function GetPropertyComponent(instance, valueType)
@@ -83,7 +84,9 @@ function PropertyView:init()
 	end
 	self.onSetItem = function(newText)
 		self.props.Instance[self.props.PropertyName] = newText
-		self.updateInstanceMap()
+		if not FFlagPreventExtraModelUpdates2 then
+			self.updateInstanceMap()
+		end
 	end
 	self.onSelectItem = function(itemName)
 		self.props.Instance[self.props.PropertyName] = self.props.Instance[self.props.PropertyName].EnumType[itemName]

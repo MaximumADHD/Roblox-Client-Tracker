@@ -8,8 +8,6 @@ local Framework = require(Packages.Framework)
 
 local ThunkWithArgsMiddleware = Framework.Util.ThunkWithArgsMiddleware
 
-local ToolboxReducer = require(Plugin.Core.Reducers.ToolboxReducer)
-
 local function mustSetFlag(flagName, value)
 	return Roact.createElement("TextLabel", {
 		Text = string.format("You must set %s to %s to view this story", flagName, tostring(value)),
@@ -44,12 +42,7 @@ local function createThunkMiddleware()
 	end
 end
 
-local function storeWithData(data)
-	return Rodux.Store.new(ToolboxReducer, data, createThunkMiddleware())
-end
-
 return {
 	createThunkMiddleware = createThunkMiddleware,
 	mustSetFlag = mustSetFlag,
-	storeWithData = storeWithData,
 }

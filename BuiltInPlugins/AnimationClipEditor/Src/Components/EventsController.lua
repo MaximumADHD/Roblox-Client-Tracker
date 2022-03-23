@@ -338,7 +338,7 @@ function EventsController:render()
 		end,
 	}, {
 		Track = Roact.createElement(EventTrack, {
-			Events = animationData.Events,
+			Events = animationData and animationData.Events or nil,
 			SelectedEvents = props.SelectedEvents,
 			EditingTick = editingTick,
 			Size = UDim2.new(1, 0, 0, Constants.TRACK_HEIGHT),

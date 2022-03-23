@@ -29,7 +29,7 @@ local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local Input = require(Plugin.Src.Util.Input)
 
 local DopeSheetController = require(Plugin.Src.Components.DopeSheetController)
-local CurveCanvasController = require(Plugin.Src.Components.Curves.CurveCanvasController)
+local CurveEditorController = require(Plugin.Src.Components.Curves.CurveEditorController)
 local TimelineContainer = require(Plugin.Src.Components.TimelineContainer)
 local ZoomBar_deprecated = require(Plugin.Src.Components.ZoomBar_deprecated)
 local ZoomBar = require(Plugin.Src.Components.ZoomBar)
@@ -41,6 +41,7 @@ local SetVerticalScrollZoom = require(Plugin.Src.Actions.SetVerticalScrollZoom)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local SnapToNearestKeyframe = require(Plugin.Src.Thunks.SnapToNearestKeyframe)
 local SnapToNearestFrame = require(Plugin.Src.Thunks.SnapToNearestFrame)
+local SetEditorMode = require(Plugin.Src.Actions.SetEditorMode)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
@@ -152,6 +153,14 @@ function TrackEditor:init()
 			return Constants.TRACK_PADDING_LARGE
 		end
 	end
+
+	self.toggleEditorClicked = function()
+		if self.props.EditorMode == Constants.EDITOR_MODE.CurveCanvas then
+			self.props.SetEditorMode(Constants.EDITOR_MODE.DopeSheet)
+		else
+			self.props.SetEditorMode(Constants.EDITOR_MODE.CurveCanvas)
+		end
+	end
 end
 
 function TrackEditor:render()
@@ -163,8 +172,8 @@ function TrackEditor:render()
 	local snapMode = props.SnapMode
 	local frameRate = props.FrameRate
 	local showAsSeconds = props.ShowAsSeconds
-	local scroll = props.Scroll  -- Deprecated with GetFFlagCurveEditor()
-	local zoom = props.Zoom  -- Deprecated with GetFFlagCurveEditor()
+	local scroll = not GetFFlagCurveEditor() and props.Scroll or nil
+	local zoom = not GetFFlagCurveEditor() and props.Zoom or nil
 	local horizontalScroll = props.HorizontalScroll
 	local horizontalZoom = props.HorizontalZoom
 	local verticalScroll = props.VerticalScroll
@@ -227,6 +236,9 @@ function TrackEditor:render()
 			AnimationData = props.AnimationData,
 			Playhead = playhead,
 			ZIndex = GetFFlagCurveEditor() and 2 or nil,
+			ShowToggleEditorButton = GetFFlagCurveEditor() and isChannelAnimation or nil,
+			EditorMode = GetFFlagCurveEditor() and props.EditorMode or nil,
+			OnToggleEditorClicked = GetFFlagCurveEditor() and self.toggleEditorClicked or nil,
 		}),
 
 		DopeSheetController = (not GetFFlagCurveEditor() or showDopeSheet) and Roact.createElement(DopeSheetController, {
@@ -243,17 +255,16 @@ function TrackEditor:render()
 			ZIndex = GetFFlagCurveEditor() and 1 or nil,
 		}) or nil,
 
-		CurveCanvasController = (GetFFlagCurveEditor() and showCurveCanvas) and Roact.createElement(CurveCanvasController, {
+		CurveEditorController = (GetFFlagCurveEditor() and showCurveCanvas) and Roact.createElement(CurveEditorController, {
 			ShowEvents = showEvents,
 			StartTick = startTick,
 			EndTick = endTick,
 			TrackPadding = trackPadding,
-			Tracks = tracks,
 			Size = UDim2.new(1, 0, 1, -Constants.TIMELINE_HEIGHT - Constants.SCROLL_BAR_SIZE),
 			VerticalScroll = verticalScroll,
 			VerticalZoom = verticalZoom,
 			ShowAsSeconds = showAsSeconds,
-			IsChannelAnimation = isChannelAnimation,
+			Playhead = playhead,
 			ZIndex = GetFFlagCurveEditor() and 1 or nil,
 		}) or nil,
 
@@ -342,10 +353,9 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		-- Deprecated with GetFFlagCurveEditor
-		SetScrollZoom = function(scroll, zoom)
+		SetScrollZoom = not GetFFlagCurveEditor() and function(scroll, zoom)
 			dispatch(SetScrollZoom(scroll, zoom))
-		end,
+		end or nil,
 
 		SetHorizontalScrollZoom = function(scroll, zoom)
 			dispatch(SetHorizontalScrollZoom(scroll, zoom))
@@ -355,16 +365,20 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetVerticalScrollZoom(scroll, zoom))
 		end,
 
-		StepAnimation = function(tick)
-			dispatch(StepAnimation(tick))
+		StepAnimation = function(tck)
+			dispatch(StepAnimation(tck))
 		end,
 
-		SnapToNearestKeyframe = function(tick, trackWidth)
-			dispatch(SnapToNearestKeyframe(tick, trackWidth))
+		SnapToNearestKeyframe = function(tck, trackWidth)
+			dispatch(SnapToNearestKeyframe(tck, trackWidth))
 		end,
 
-		SnapToNearestFrame = function(tick)
-			dispatch(SnapToNearestFrame(tick))
+		SnapToNearestFrame = function(tck)
+			dispatch(SnapToNearestFrame(tck))
+		end,
+
+		SetEditorMode = function(editorMode)
+			dispatch(SetEditorMode(editorMode))
 		end,
 	}
 end

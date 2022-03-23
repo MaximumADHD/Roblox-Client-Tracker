@@ -1,3 +1,4 @@
+--!nocheck
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local TextChatService = game:GetService("TextChatService")
@@ -11,39 +12,27 @@ end
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
-
-local Roact = require(CorePackages.Packages.Roact)
-local Rodux = require(CorePackages.Packages.Rodux)
-local UIBlox = require(CorePackages.UIBlox)
-
-local AppStyleProvider = UIBlox.App.Style.AppStyleProvider
-local StyleConstants = UIBlox.App.Style.Constants
-local DarkTheme = StyleConstants.ThemeName.Dark
-local Gotham = StyleConstants.FontName.Gotham
-
 local ExperienceChat = require(CorePackages.ExperienceChat)
-local App = ExperienceChat.mountClientApp()
-
-local themes = {
-	Dark = {
-		themeName = DarkTheme,
-		fontName = Gotham,
-	},
-}
-
-local root = Roact.createElement(AppStyleProvider, {
-	style = themes["Dark"],
-}, {
-	Child = Roact.createElement(App, {
-		translator = RobloxTranslator,
-		isChatWindowVisible = true,
-		isChatInputBarVisible = true,
-		isDefaultChatEnabled = true,
-	}),
-})
 
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "ExperienceChat"
+-- Set DisplayOrder to -1 to rest behind the SettingsHub
+screenGui.DisplayOrder = -1
 screenGui.Parent = CoreGui
 
-Roact.mount(root, screenGui, "ExperienceChat")
+local function findTextChannel(name: string): TextChannel
+	local textChannel = TextChatService:FindFirstChild(name, true)
+	while not textChannel do
+		wait()
+		textChannel = TextChatService:FindFirstChild(name, true)
+	end
+
+	return textChannel
+end
+
+ExperienceChat.mountClientApp({
+	defaultTargetTextChannel = findTextChannel("RBXGeneral"),
+	defaultSystemTextChannel = findTextChannel("RBXSystem"),
+	translator = RobloxTranslator,
+	parent = screenGui,
+})

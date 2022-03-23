@@ -10,6 +10,8 @@ return function()
 	local Element = Rhodium.Element
 	local TestHelpers = require(script.Parent.Util.TestHelpers)
 
+	local ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
+
 	local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag(
 		"ToolboxUseDevFrameworkLoadingBarAndRadioButton"
 	)
@@ -140,6 +142,10 @@ return function()
 				return
 			end
 
+			if ToolboxUtilities.getShouldHideNonRelevanceSorts() then
+				return
+			end
+
 			TestHelpers.clickInstanceWithXPath(SearchOptionButtonPath)
 
 			local relevanceRadioButtonInstance = Element.new(RelevanceRadioButtonPath)
@@ -215,6 +221,10 @@ return function()
 			it("Sort by " .. TestCases[i] .. " should be working", function()
 				if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
 					--TODO: enable the test after STM-821 gets fix
+					return
+				end
+
+				if ToolboxUtilities.getShouldHideNonRelevanceSorts() then
 					return
 				end
 

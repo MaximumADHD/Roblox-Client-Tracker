@@ -4,6 +4,8 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local Constants = require(Plugin.Src.Util.Constants)
 
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+
 return Rodux.createReducer({
 	Active = false,
 	SelectedKeyframes = {},
@@ -122,13 +124,12 @@ return Rodux.createReducer({
 		})
 	end,
 
-	-- Deprecated with GetFFlagCurveEditor
-	SetScrollZoom = function(state, action)
+	SetScrollZoom = not GetFFlagCurveEditor() and function(state, action)
 		return Cryo.Dictionary.join(state, {
 			Scroll = action.scroll,
 			Zoom = action.zoom,
 		})
-	end,
+	end or nil,
 
 	SetHorizontalScrollZoom = function(state, action)
 		return Cryo.Dictionary.join(state, {

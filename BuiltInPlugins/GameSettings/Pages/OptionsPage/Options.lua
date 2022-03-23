@@ -1,4 +1,3 @@
-local FFlagCollabEditingWarnBothWays2 = game:GetFastFlag("CollabEditingWarnBothWays2")
 
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
@@ -40,7 +39,7 @@ local GetVoiceChatEnabledKeyName = KeyProvider.getVoiceChatEnabledKeyName
 local voiceChatEnabledKey = FFlagGameSettingsEnableVoiceChat and GetVoiceChatEnabledKeyName() or nil
 
 local GetScriptCollaborationEnabledOnServerKeyName = KeyProvider.getScriptCollaborationEnabledOnServerKeyName
-local scriptCollaborationEnabledOnServerKey = FFlagCollabEditingWarnBothWays2 and GetScriptCollaborationEnabledOnServerKeyName() or nil
+local scriptCollaborationEnabledOnServerKey = GetScriptCollaborationEnabledOnServerKeyName()
 
 local LOCALIZATION_ID = script.Name
 
@@ -66,11 +65,9 @@ local function loadSettings(store, contextItems)
         end,
         
         function(loadedSettings)
-            if FFlagCollabEditingWarnBothWays2 then
-                local enabled = gameOptionsController:getScriptCollaborationEnabledOnServer(game)
+            local enabled = gameOptionsController:getScriptCollaborationEnabledOnServer(game)
                                 
-                loadedSettings[scriptCollaborationEnabledOnServerKey] = enabled
-            end
+            loadedSettings[scriptCollaborationEnabledOnServerKey] = enabled
         end,
     }
 end
@@ -103,12 +100,8 @@ end
 
 --Loads settings values into props by key
 local function loadValuesToProps(getValue, state)
-    local scriptCollabEnabledOnServer = nil
-    
-    if FFlagCollabEditingWarnBothWays2 then 
-        scriptCollabEnabledOnServer = state.Settings.Current.ScriptCollaborationEnabledOnServer
-    end
-    
+    local scriptCollabEnabledOnServer = state.Settings.Current.ScriptCollaborationEnabledOnServer
+        
     local loadedProps = {
         ScriptCollabEnabled = getValue("ScriptCollabEnabled"),
         CurrentScriptCollabEnabled = state.Settings.Current.ScriptCollabEnabled,
@@ -153,15 +146,8 @@ function Options:render()
 	local dispatchShutdownAllServers = props.dispatchShutdownAllServers
 
     -- Display warning to user that collab editing change will only take affect if the server restarts
-    local shouldDisplayScriptCollabWarning
-    local scriptCollabWarningText
-    if FFlagCollabEditingWarnBothWays2 then
-        shouldDisplayScriptCollabWarning = props.ScriptCollabEnabledOnServer ~= props.ScriptCollabEnabled
-        scriptCollabWarningText = localization:getText("General", "ServerRestartWarning")
-    else
-        shouldDisplayScriptCollabWarning = props.CurrentScriptCollabEnabled and (props.ScriptCollabEnabled == false)
-        scriptCollabWarningText = localization:getText("General", "DEPRECATED_ScriptCollabWarning")
-    end
+    local shouldDisplayScriptCollabWarning = props.ScriptCollabEnabledOnServer ~= props.ScriptCollabEnabled
+    local scriptCollabWarningText = localization:getText("General", "ServerRestartWarning")
     
     local layoutIndex = LayoutOrderIterator.new()
 

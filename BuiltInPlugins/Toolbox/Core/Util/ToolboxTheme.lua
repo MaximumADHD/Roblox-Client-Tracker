@@ -1,6 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxNilDisconnectSignals = game:GetFastFlag("ToolboxNilDisconnectSignals")
 local Packages = Plugin.Packages
 local Cryo = require(Packages.Cryo)
 
@@ -73,9 +72,7 @@ end
 function ToolboxTheme:destroy()
 	if self._externalThemeChangedConnection then
 		self._externalThemeChangedConnection:Disconnect()
-		if FFlagToolboxNilDisconnectSignals then
-			self._externalThemeChangedConnection = nil
-		end
+		self._externalThemeChangedConnection = nil
 	end
 end
 

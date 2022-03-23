@@ -118,59 +118,68 @@ function TextureSettings:init()
 	self.clearRoughnessMap = function()
 		self.props.dispatchSetRoughnessMap(nil)
 	end
-end
 
-function TextureSettings:render()
-	local props : _Props = self.props
-	local localization = props.Localization
+	self.renderContent = function(key: string)
+		local props : _Props = self.props
+		local localization = props.Localization
 
-	-- TODO: add texture map functionality
-	local items = {
-		{
-			Key = "ImportColorMap",
-			Text = localization:getText("CreateDialog", "ImportColorMap"),
-			Content = Roact.createElement(TextureMapSelector, {
+		if key == "ImportColorMap" then
+			return Roact.createElement(TextureMapSelector, {
 				CurrentTextureMap = props.colorMap,
 				SelectTextureMap = self.selectColorMap,
 				ClearSelection = self.clearColorMap,
 				PreviewTitle = localization:getText("Import", "ColorMapPreview"),
-			}),
-		},
-		{
-			Key = "ImportNormalMap",
-			Text = localization:getText("CreateDialog", "ImportNormalMap"),
-			Content = Roact.createElement(TextureMapSelector, {
+			})
+		elseif key == "ImportNormalMap" then
+			return Roact.createElement(TextureMapSelector, {
 				CurrentTextureMap = props.normalMap,
 				SelectTextureMap = self.selectNormalMap,
 				ClearSelection = self.clearNormalMap,
 				PreviewTitle = localization:getText("Import", "NormalMapPreview"),
-			}),
-		},
-		{
-			Key = "ImportMetalnessMap",
-			Text = localization:getText("CreateDialog", "ImportMetalnessMap"),
-			Content = Roact.createElement(TextureMapSelector, {
+			})
+		elseif key == "ImportMetalnessMap" then
+			return Roact.createElement(TextureMapSelector, {
 				CurrentTextureMap = props.metalnessMap,
 				SelectTextureMap = self.selectMetalnessMap,
 				ClearSelection = self.clearMetalnessMap,
 				PreviewTitle = localization:getText("Import", "MetalnessMapPreview"),
-			}),
-		},
-		{
-			Key = "ImportRoughnessMap",
-			Text = localization:getText("CreateDialog", "ImportRoughnessMap"),
-			Content = Roact.createElement(TextureMapSelector, {
+			})
+		elseif key == "ImportRoughnessMap" then
+			return Roact.createElement(TextureMapSelector, {
 				CurrentTextureMap = props.roughnessMap,
 				SelectTextureMap = self.selectRoughnessMap,
 				ClearSelection = self.clearRoughnessMap,
 				PreviewTitle = localization:getText("Import", "RoughnessMapPreview"),
-			}),
-		},
+			})
+		end
+
+		return nil
+	end
+
+	self.getText = function(key: string)
+		local props : _Props = self.props
+		local localization = props.Localization
+
+		return localization:getText("CreateDialog", key)
+	end
+end
+
+function TextureSettings:render()
+	local props : _Props = self.props
+
+	-- TODO: add texture map functionality
+	local items = {
+		"ImportColorMap",
+		"ImportNormalMap",
+		"ImportMetalnessMap",
+		"ImportRoughnessMap",
 	}
 
 	return Roact.createElement(LabeledElementList, {
+		GetText = self.getText,
 		Items = items,
 		LayoutOrder = props.LayoutOrder,
+		RenderContent = self.renderContent,
 	})
 end
 

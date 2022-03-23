@@ -27,8 +27,6 @@ local BUTTON_HEIGHT = 30
 
 local ScreenPublishSuccessful = Roact.PureComponent:extend("ScreenPublishSuccessful")
 
-local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
-
 function ScreenPublishSuccessful:init()
 	self.state = {
 		assetFetchStatus = nil,
@@ -61,9 +59,7 @@ end
 
 function ScreenPublishSuccessful:willUnmount()
 	self.isMounted = false
-	if FFlagStudioAllowRemoteSaveBeforePublish then
-		StudioService:requestClose(self.props.CloseMode)
-	end
+	StudioService:requestClose(self.props.CloseMode)
 end
 
 function ScreenPublishSuccessful:render()
@@ -79,7 +75,7 @@ function ScreenPublishSuccessful:render()
 	local findText = localization:getText("PublishSuccess", "FindInGame", { parentGameName })
 
 	local successText = localization:getText("PublishSuccess", "Success")
-	if FFlagStudioAllowRemoteSaveBeforePublish and props.IsPublish == false then
+	if props.IsPublish == false then
 		-- Save uses a different success message than publish
 		successText = localization:getText("PublishSuccess", "SaveSuccess")
 	end

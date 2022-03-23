@@ -4,6 +4,14 @@ local getFFlagDisableAvatarAnchoredSetting = require(Plugin.Src.Flags.getFFlagDi
 
 local AssetImportService = game:GetService("AssetImportService")
 
+local function hideIfAvatar()
+	return AssetImportService:IsAvatar() and getFFlagDisableAvatarAnchoredSetting()
+end
+
+local function hideIfNotAvatar()
+	return not AssetImportService:IsAvatar()
+end
+
 return {
 	{
 		Section = "FileGeneral",
@@ -11,13 +19,13 @@ return {
 			{Name = "ImportName", Editable = true},
 			{Name = "ImportAsModelAsset", Editable = true},
 			{Name = "InsertInWorkspace", Editable = true},
-			{Name = "Anchored", Editable = true, ShouldHide = function() return AssetImportService:IsAvatar() and getFFlagDisableAvatarAnchoredSetting() end},
+			{Name = "Anchored", Editable = true, ShouldHide = hideIfAvatar},
 		},
 	},
 	{
 		Section = "AvatarGeneral",
 		Properties = {
-			{Name = "RigType", Editable = true, ShouldHide = function() return not AssetImportService:IsAvatar() end},
+			{Name = "RigType", Editable = true, ShouldHide = hideIfNotAvatar},
 		},
 	},
 	{

@@ -1,3 +1,4 @@
+--!strict
 --[[
 	HttpResponse
 
@@ -6,7 +7,15 @@
 
 local HttpResponse = {}
 
-function HttpResponse.new(response, responseTime, statusCode, requestType, url)
+export type HttpResponse = {
+	responseTimeMs: number,
+	responseCode: number,
+	responseBody: any,
+	requestType: string,
+	url: string,
+}
+
+function HttpResponse.new(response, responseTime, statusCode, requestType, url): HttpResponse
 	return {
 		responseTimeMs = responseTime,
 		responseCode = statusCode,

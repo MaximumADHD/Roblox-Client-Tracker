@@ -1,55 +1,88 @@
+--!strict
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+
+export type AssetInfoDetails = {
+	Id: number, -- the asset id
+	Name: string, -- the asset name
+	TypeId: number, -- the assetType id
+	AssetGenres: any, -- a list of genres the asset belongs to
+	IsEndorsed: boolean, -- whether or not the asset is endorsed
+	Description: string, -- the asset description
+	Duration: string?, -- the duration of an audio asset. Only audio assets have this field.
+	Created: string?, -- the date in which the asset was created
+	Updated: string?, -- the date in which the asset was updated
+	HasScripts: boolean, -- whether or not the asset has scripts
+}
+
+export type NewAssetInfoDetails = {
+	Id: number, -- the asset id
+	Name: string, -- the asset name
+	TypeId: (boolean | number)?, -- the assetType id
+	AssetGenres: any, -- a list of genres the asset belongs to
+	Description: string, -- the asset description
+	Status: any,
+}
+
+export type AssetInfoContext = {
+	category: string,
+	currentCategory: string,
+	page: number,
+	pagePosition: number,
+	position: number,
+	searchId: string,
+	searchKeyword: string,
+	sort: string,
+	toolboxTab: string,
+}
+
+export type AssetInfoCreator = {
+	Id: number, -- the creator id
+	Name: string, -- the creator name
+	Type: string, -- the creator type, such as User or Group
+	IsVerifiedCreator: boolean?, -- whether the creator of the asset is verified
+}
+
+export type AssetInfoProduct = {
+	ProductId: number, -- the product id of the asset
+	Price: number, -- the price of the asset
+}
+
+export type AssetInfoThumbnail = {
+	Final: boolean, -- whether or not the thumbnail has been finalized for retry purposes
+	Url: string, -- the thumbnail url
+	RetryUrl: string, -- the url to call for a retry
+	UserId: number, -- the userId
+	EndpointType: string, -- the type of endpoint
+}
+
+export type AssetInfoVoting = {
+	ShowVotes: boolean, -- whether or not to show votes
+	UpVotes: number, -- the number of upvotes
+	DownVotes: number, -- the number of downVotes
+	CanVote: boolean, -- whether or not the user can vote
+	UserVote: string, -- the user's vote
+	HasVoted: boolean, -- whethr or not the user voted
+	ReasonForNotVoteable: string, -- the reason why the user cannot vote
+}
+
+export type AssetInfo = {
+	Asset: (AssetInfoDetails | NewAssetInfoDetails)?,
+	Context: AssetInfoContext?,
+	Creator: AssetInfoCreator?,
+	Product: AssetInfoProduct?,
+	Thumbnail: AssetInfoThumbnail?,
+	Voting: AssetInfoVoting?,
+}
+
 local AssetInfo = {}
---[[
-	Model for asset data.
 
-	Structure
-		Asset
-			number Id : the asset id
-			string Name : the asset name
-			number TypeId : the assetType id
-			table AssetGenres : a list of genres the asset belongs to
-			bool IsEndorsed : whether or not the asset is endorsed
-			string Description : the asset description
-			string Duration : the duration of an audio asset. Only audio assets have this field.
-			string Created : the date in which the asset was created
-			string Updated : the date in which the asset was updated
-			bool HasScripts : whether or not the asset has scripts
-
-		Creator
-			number Id : the creator id
-			string Name : the creator name
-			string Type : the creator type, such as User or Group
-			bool IsVerifiedCreator : whether the creator of the asset is verified
-
-		ProductId
-			number ProductId : the product id of the asset
-			number Price : the price of the asset
-
-		Thumbnail
-			bool Final : whether or not the thumbnail has been finalized for retry purposes
-			string Url : the thumbnail url
-			string RetryUrl : the url to call for a retry
-			number UserId : the userId
-			string EndpointType : the type of endpoint
-
-		Voting
-			bool ShowVotes : whether or not to show votes
-			number UpVotes : the number of upvotes
-			number DownVotes : the number of downVotes
-			bool CanVote : whether or not the user can vote
-			string UserVote : the user's vote
-			bool HasVoted : whethr or not the user voted
-			string ReasonForNotVoteable :the reason why the user cannot vote
-		}
-]]
-
-AssetInfo.new = function()
+AssetInfo.new = function(): AssetInfo
 	return {
-		Asset = {},
+		Asset = if FFlagToolboxAssetCategorization then nil else {} :: any,
 	}
 end
 
-function AssetInfo.fromItemDetailsRequest(data)
+function AssetInfo.fromItemDetailsRequest(data): AssetInfo
 	local result = AssetInfo.new()
 
 	if data.asset then
@@ -108,7 +141,7 @@ function AssetInfo.fromItemDetailsRequest(data)
 	return result
 end
 
-AssetInfo.fromCreationsDetails = function(data, assetType, creatorName, creatorType)
+AssetInfo.fromCreationsDetails = function(data, assetType, creatorName, creatorType): AssetInfo
 	local result = AssetInfo.new()
 
 	result.Asset = {

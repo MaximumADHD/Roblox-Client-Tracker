@@ -1,7 +1,5 @@
 -- Centralized Place for Keys used throughout the widget
 local FFlagGameSettingsEnableVoiceChat = game:GetFastFlag("GameSettingsEnableVoiceChat")
-local FFlagCollabEditingWarnBothWays2 = game:GetFastFlag("CollabEditingWarnBothWays2")
-
 local KeyProvider = {}
 
 function KeyProvider.getCopyIdKeyName()
@@ -102,9 +100,7 @@ function KeyProvider.getFooterKeyName()
 	return "Footer"
 end
 
-function KeyProvider.getScriptCollaborationEnabledOnServerKeyName()
-    assert(FFlagCollabEditingWarnBothWays2)
-    
+function KeyProvider.getScriptCollaborationEnabledOnServerKeyName()    
     return "ScriptCollaborationEnabledOnServer"
 end
 

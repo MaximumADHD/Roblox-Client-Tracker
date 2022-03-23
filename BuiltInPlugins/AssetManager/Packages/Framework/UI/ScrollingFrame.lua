@@ -40,6 +40,7 @@ local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
 local FFlagDevFrameworkScrollingFrameUsePane = game:GetFastFlag("DevFrameworkScrollingFrameUsePane")
 local FFlagDevFrameworkScrollingFrameFixUpdate = game:GetFastFlag("DevFrameworkScrollingFrameFixUpdate")
 local FFlagDevFrameworkScrollingFrameAddPadding = game:GetFastFlag("DevFrameworkScrollingFrameAddPadding")
+local FFlagDevFrameworkInfiniteScrollingGridImprovements = game:GetFastFlag("DevFrameworkInfiniteScrollingGridImprovements")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -253,6 +254,11 @@ function ScrollingFrame:render()
 				Children = Roact.createFragment(children),
 			}
 		end
+	elseif FFlagDevFrameworkInfiniteScrollingGridImprovements and FFlagDevFrameworkScrollingFrameAddPadding then
+		children = {
+			Padding = Roact.createElement("UIPadding", paddingProps),
+			Children = Roact.createFragment(children),
+		}
 	end
 
 	return Roact.createElement(FFlagDevFrameworkScrollingFrameUsePane and Pane or Container, {

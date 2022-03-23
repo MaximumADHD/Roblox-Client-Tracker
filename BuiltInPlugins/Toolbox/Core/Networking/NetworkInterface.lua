@@ -8,8 +8,9 @@
 local Plugin = script.Parent.Parent.Parent
 local Networking = require(Plugin.Libs.Http.Networking)
 local Packages = Plugin.Packages
-
-local Promise = require(Packages.Framework).Util.Promise
+local Framework = require(Packages.Framework)
+local Dash = Framework.Dash
+local Promise = Framework.Util.Promise
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
@@ -21,6 +22,7 @@ local Category = require(Plugin.Core.Types.Category)
 local ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
 local PermissionTypes = require(Plugin.Core.Types.PermissionTypes)
 
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 local FIntToolboxGrantUniverseAudioPermissionsTimeoutInMS = game:GetFastInt("ToolboxGrantUniverseAudioPermissionsTimeoutInMS")
 
@@ -94,39 +96,70 @@ function NetworkInterface:getAssets(pageInfo)
 end
 
 function NetworkInterface:getToolboxItems(
-	category,
-	sortType,
-	creatorType,
-	minDuration,
-	maxDuration,
-	creatorTargetId,
-	ownerId,
-	keyword,
-	cursor,
-	limit
+	-- remove string from args union when removing FFlagToolboxAssetCategorization
+	args: string | {
+		categoryName: string,
+		sectionName: string?,
+		sortType: string?,
+		keyword: string?,
+		cursor: string?,
+		limit: number?,
+		ownerId: number?,
+		creatorType: string?,
+		creatorTargetId: number?,
+		minDuration: number?,
+		maxDuration: number?,
+	},
+	sortType: string?,
+	creatorType: string?,
+	minDuration: number?,
+	maxDuration: number?,
+	creatorTargetId: number?,
+	ownerId: number?,
+	keyword: string?,
+	cursor: string?,
+	limit: number?
 )
+	local categoryName: string
+	if FFlagToolboxAssetCategorization and type(args) ~= "string" then
+		categoryName = args.categoryName
+	else
+		categoryName = args :: string
+	end
+
 	local useCreatorWhitelist = nil
 
-	if category == Category.WHITELISTED_PLUGINS.name then
+	if categoryName == Category.WHITELISTED_PLUGINS.name then
 		useCreatorWhitelist = ToolboxUtilities.getShouldUsePluginCreatorWhitelist()
 	end
 
-	local targetUrl = Urls.constructGetToolboxItemsUrl(
-		category,
-		sortType,
-		creatorType,
-		minDuration,
-		maxDuration,
-		creatorTargetId,
-		ownerId,
-		keyword,
-		cursor,
-		limit,
-		useCreatorWhitelist
-	)
+	local targetUrl = if FFlagToolboxAssetCategorization
+		then Urls.constructGetToolboxItemsUrl(Dash.join(args, { useCreatorWhitelist = useCreatorWhitelist }))
+		else Urls.constructGetToolboxItemsUrl(
+			categoryName,
+			sortType,
+			creatorType,
+			minDuration,
+			maxDuration,
+			creatorTargetId,
+			ownerId,
+			keyword,
+			cursor,
+			limit,
+			useCreatorWhitelist
+		)
 
 	return sendRequestAndRetry(function()
 		printUrl("getToolboxItems", "GET", targetUrl)
+		return self._networkImp:httpGetJson(targetUrl)
+	end)
+end
+
+function NetworkInterface:getItemDetailsAssetIds(assetIds)
+	local targetUrl = Urls.constructGetItemDetails(assetIds)
+
+	return sendRequestAndRetry(function()
+		printUrl("getItemDetails", "GET", targetUrl)
 		return self._networkImp:httpGetJson(targetUrl)
 	end)
 end
@@ -138,12 +171,16 @@ function NetworkInterface:getItemDetails(data)
 		table.insert(assetIds, assetInfo.id)
 	end
 
-	local targetUrl = Urls.constructGetItemDetails(assetIds)
+	if FFlagToolboxAssetCategorization then
+		return self:getItemDetailsAssetIds(assetIds)
+	else
+		local targetUrl = Urls.constructGetItemDetails(assetIds)
 
-	return sendRequestAndRetry(function()
-		printUrl("getItemDetails", "GET", targetUrl)
-		return self._networkImp:httpGetJson(targetUrl)
-	end)
+		return sendRequestAndRetry(function()
+			printUrl("getItemDetails", "GET", targetUrl)
+			return self._networkImp:httpGetJson(targetUrl)
+		end)
+	end
 end
 
 -- For now, only whitelistplugin uses this endpoint to fetch data.
@@ -863,6 +900,14 @@ function NetworkInterface:getAutocompleteResults(categoryName, searchTerm, numbe
 	local targetUrl = Urls.constructToolboxAutocompleteUrl(categoryName, searchTerm, numberOfResults)
 	printUrl("getAutocompleteResults", "GET", targetUrl)
 	return self._networkImp:httpGetJson(targetUrl)
+end
+
+if FFlagToolboxAssetCategorization then
+	function NetworkInterface:getHomeConfiguration(assetType: Enum.AssetType)
+		local targetUrl = Urls.constructGetHomeConfigurationUrl(assetType)
+		printUrl("getHomeConfiguration", "GET", targetUrl)
+		return self._networkImp:httpGetJson(targetUrl)
+	end
 end
 
 if FFlagToolboxAudioAssetConfigIdVerification then

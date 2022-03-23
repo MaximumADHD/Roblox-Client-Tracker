@@ -17,6 +17,8 @@ local Constants = require(Util.Constants)
 local CreatorInfoHelper = require(Util.CreatorInfoHelper)
 local PageInfoHelper = require(Util.PageInfoHelper)
 
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+
 return function(networkInterface, category, audioSearchInfo, pageInfo, settings, nextPageCursor)
 	return function(store)
 		store:dispatch(SetLoading(true))
@@ -68,18 +70,31 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 				ownerId = PageInfoHelper.getGroupIdForPageInfo(pageInfo)
 			end
 
-			local getRequest = networkInterface:getToolboxItems(
-				category,
-				sortName,
-				pageInfo.creatorType,
-				audioSearchInfo and audioSearchInfo.minDuration or nil,
-				audioSearchInfo and audioSearchInfo.maxDuration or nil,
-				creatorTargetId,
-				ownerId,
-				pageInfo.searchTerm or "",
-				nextPageCursor,
-				Constants.TOOLBOX_ITEM_SEARCH_LIMIT
-			)
+			local getRequest = if FFlagToolboxAssetCategorization
+				then networkInterface:getToolboxItems({
+					categoryName = category,
+					sortType = sortName,
+					keyword = pageInfo.searchTerm or "",
+					cursor = nextPageCursor,
+					limit = Constants.TOOLBOX_ITEM_SEARCH_LIMIT,
+					ownerId = ownerId,
+					creatorType = pageInfo.creatorType,
+					creatorTargetId = creatorTargetId,
+					minDuration = audioSearchInfo and audioSearchInfo.minDuration or nil,
+					maxDuration = audioSearchInfo and audioSearchInfo.maxDuration or nil,
+				})
+				else networkInterface:getToolboxItems(
+					category,
+					sortName,
+					pageInfo.creatorType,
+					audioSearchInfo and audioSearchInfo.minDuration or nil,
+					audioSearchInfo and audioSearchInfo.maxDuration or nil,
+					creatorTargetId,
+					ownerId,
+					pageInfo.searchTerm or "",
+					nextPageCursor,
+					Constants.TOOLBOX_ITEM_SEARCH_LIMIT
+				)
 
 			return getRequest:andThen(function(result)
 				if PageInfoHelper.isPageInfoStale(pageInfo, store) then

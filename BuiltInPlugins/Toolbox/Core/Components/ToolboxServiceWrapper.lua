@@ -23,6 +23,7 @@ function ToolboxServiceWrapper:render()
 	local store = props.store
 	local theme = props.theme
 	local analytics = props.analytics
+	local ixp = props.ixp
 
 	local mouse = plugin:GetMouse()
 
@@ -36,6 +37,7 @@ function ToolboxServiceWrapper:render()
 		ContextServices.Mouse.new(mouse),
 		analytics,
 		props.assetAnalytics,
+		props.ixp,
 	}, props[Roact.Children])
 end
 

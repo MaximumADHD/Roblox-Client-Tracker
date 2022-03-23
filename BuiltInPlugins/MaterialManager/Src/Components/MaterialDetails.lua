@@ -16,7 +16,6 @@ local Stylizer = Framework.Style.Stylizer
 local UI = Framework.UI
 local Pane = UI.Pane
 local ScrollingFrame = UI.ScrollingFrame
-local Separator = UI.Separator
 
 local Actions = Plugin.Src.Actions
 local ClearMaterial = require(Actions.ClearMaterial)
@@ -24,7 +23,8 @@ local ClearMaterial = require(Actions.ClearMaterial)
 local MaterialDetailsComponents = Plugin.Src.Components.MaterialDetails
 local MaterialHeader = require(MaterialDetailsComponents.MaterialHeader)
 local MaterialInformation = require(MaterialDetailsComponents.MaterialInformation)
-local MaterialOptions = require(MaterialDetailsComponents.MaterialOptions)
+local MaterialTextures = require(MaterialDetailsComponents.MaterialTextures)
+local MaterialOverrides = require(MaterialDetailsComponents.MaterialOverrides)
 
 local Util = Plugin.Src.Util
 local MaterialController = require(Util.MaterialController)
@@ -58,8 +58,12 @@ function MaterialDetails:didMount()
 	local props : _Props = self.props
 
 	if props.Material then
-		self.connection = props.Material.MaterialVariant.Destroying:Connect(function(_, materialVariant)
-			if materialVariant == self.props.Material.MaterialVariant then
+		if self.connection then
+			self.connection:Disconnect()
+		end
+
+		self.connection = props.MaterialController:getMaterialRemovedSignal():Connect(function(_, materialVariant, moving)
+			if not moving and materialVariant == self.props.Material.MaterialVariant then
 				props.dispatchClearMaterial()
 			end
 		end)
@@ -78,36 +82,40 @@ function MaterialDetails:render()
 			LayoutOrder = layoutOrder,
 			Size = size,
 		})
-	end
+	else
+		local isBuiltin = props.Material.IsBuiltin
 
-	local layoutOrderIterator = LayoutOrderIterator.new()
+		local layoutOrderIterator = LayoutOrderIterator.new()
 
-	return Roact.createElement(ScrollingFrame, {
-		Layout = Enum.FillDirection.Vertical,
-		LayoutOrder = layoutOrder,
-		Size = size,
-	}, {
-		Pane = Roact.createElement(Pane, {
-			AutomaticSize = Enum.AutomaticSize.Y,
+		return Roact.createElement(ScrollingFrame, {
 			Layout = Enum.FillDirection.Vertical,
-			VerticalAlignment = Enum.VerticalAlignment.Top,
+			LayoutOrder = layoutOrder,
+			Size = size,
 		}, {
-			MaterialHeader = Roact.createElement(MaterialHeader, {
-				LayoutOrder = layoutOrderIterator:getNextOrder(),
-			}),
-			MaterialOptions = Roact.createElement(MaterialOptions, {
-				LayoutOrder = layoutOrderIterator:getNextOrder(),
-				OpenPrompt = props.OpenPrompt,
-			}),
-			MaterialOptionsSeparator = Roact.createElement(Separator, {
-				DominantAxis = Enum.DominantAxis.Width,
-				LayoutOrder = layoutOrderIterator:getNextOrder(),
-			}),
-			MaterialInformation = Roact.createElement(MaterialInformation, {
-				LayoutOrder = layoutOrderIterator:getNextOrder(),
-			}),
+			Pane = Roact.createElement(Pane, {
+				AutomaticSize = Enum.AutomaticSize.Y,
+				Layout = Enum.FillDirection.Vertical,
+				VerticalAlignment = Enum.VerticalAlignment.Top,
+			}, {
+				MaterialHeader = Roact.createElement(MaterialHeader, {
+					LayoutOrder = layoutOrderIterator:getNextOrder(),
+				}),
+				MaterialInformation = Roact.createElement(MaterialInformation, {
+					LayoutOrder = layoutOrderIterator:getNextOrder(),
+					OpenPrompt = props.OpenPrompt,
+				}),
+				MaterialOverrides = if isBuiltin then
+					Roact.createElement(MaterialOverrides, {
+						LayoutOrder = layoutOrderIterator:getNextOrder(),
+						OpenPrompt = props.OpenPrompt
+					})
+					else nil,
+				MaterialTextures= Roact.createElement(MaterialTextures, {
+					LayoutOrder = layoutOrderIterator:getNextOrder(),
+				}),
+			})
 		})
-	})
+	end
 end
 
 MaterialDetails = withContext({

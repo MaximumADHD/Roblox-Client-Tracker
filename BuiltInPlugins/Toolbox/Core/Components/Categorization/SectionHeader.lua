@@ -16,23 +16,28 @@
 
 ]]
 
+local FFlagDevFrameworkAddUnobtrusiveLinkTextStyle = game:GetFastFlag("DevFrameworkAddUnobtrusiveLinkTextStyle")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
-local CategorizationFolder = Plugin.Core.Components.Categorization
 local Roact = require(Packages.Roact)
+local Layouter = require(Plugin.Core.Util.Layouter)
+local Constants = require(Plugin.Core.Util.Constants)
 local Framework = require(Packages.Framework)
+local LinkText = Framework.UI.LinkText
 
 local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
-local NavigationLink = require(CategorizationFolder.NavigationLink)
 
 export type SectionHeaderProps = {
-	OnClickSeeAll : (() -> ()),
-	Position : UDim2?,
-	SeeAllText : string?,
-	Title : string,
-	Stylizer : any,
-	Localization : any,
+	OnClickSeeAll: (() -> ()),
+	LayoutOrder: number?,
+	Position: UDim2?,
+	SeeAllText: string?,
+	Title: string,
+	Total: number?,
+	Stylizer: any,
+	Localization: any,
 }
 
 local SectionHeader = Roact.PureComponent:extend("SectionHeader")
@@ -44,17 +49,41 @@ SectionHeader.defaultProps = {
 function SectionHeader:init()
 	self.hostRef = Roact.createRef()
 	self.seeAllRef = Roact.createRef()
+	self.frameRef = Roact.createRef()
+
+	self.state = {
+		SeeAllPadding = 0,
+		DisplaySeeAllLink = true,
+	}
+
+	self.onAbsoluteSizeChange = function(rbx)
+		if self.frameRef.current then
+			local assetWidth = Constants.ASSET_WIDTH_NO_PADDING + Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING
+			local assetsPerRow = Layouter.getAssetsPerRow(rbx.AbsoluteSize.X)
+			self:setState({
+				SeeAllPadding = rbx.AbsoluteSize.X
+					- (assetsPerRow * assetWidth)
+					+ Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING,
+				DisplaySeeAllLink = if self.props.Total == nil then true else self.props.Total > assetsPerRow,
+			})
+		end
+	end
 end
 
 function SectionHeader:render()
-	local props : SectionHeaderProps = self.props
+	local props: SectionHeaderProps = self.props
 
+	local layoutOrder = props.LayoutOrder
 	local onClickSeeAll = props.OnClickSeeAll
 	local position = props.Position
-	local seeAllText = props.SeeAllText
+	local localization = props.Localization
+	local seeAllText = props.SeeAllText or (localization:getText("HomeView", "SeeAll") .. " >")
 	local theme = props.Stylizer.sectionHeader
 	local title = props.Title
 
+	local displaySeeAllLink = self.state.DisplaySeeAllLink
+
+	local seeAllPosition = UDim2.new(1, self.state.SeeAllPadding * -1, 0, 0)
 	local titleSize = if (self.seeAllRef.current and self.hostRef.current)
 		then UDim2.new(0, self.hostRef.current.AbsoluteSize.X - self.seeAllRef.current.AbsoluteSize.X, 1, 0)
 		else UDim2.new(0.6, 0, 1, 0)
@@ -62,10 +91,14 @@ function SectionHeader:render()
 	return Roact.createElement("Frame", {
 		AutomaticSize = Enum.AutomaticSize.Y,
 		BackgroundTransparency = 1,
+		LayoutOrder = layoutOrder,
 		Size = UDim2.new(1, 0, 0, 0),
 		Position = position,
+		[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChange,
+		[Roact.Ref] = self.frameRef,
 	}, {
 		Title = Roact.createElement("TextLabel", {
+			AutomaticSize = Enum.AutomaticSize.XY,
 			BackgroundTransparency = 1,
 			Font = theme.font,
 			Position = UDim2.new(0, 0, 0, 0),
@@ -77,15 +110,23 @@ function SectionHeader:render()
 			[Roact.Ref] = self.hostRef,
 		}),
 
-		SeeAll = Roact.createElement(NavigationLink, {
-			OnClickSeeAll = onClickSeeAll,
-			Text = seeAllText,
-			[Roact.Ref] = self.seeAllRef,
-		})
+		SeeAll = displaySeeAllLink and Roact.createElement("Frame", {
+			AnchorPoint = Vector2.new(1, 0),
+			AutomaticSize = Enum.AutomaticSize.XY,
+			BackgroundTransparency = 1,
+			Position = seeAllPosition,
+		}, {
+			SeeAllButton = Roact.createElement(LinkText, {
+				OnClick = onClickSeeAll,
+				Style = if FFlagDevFrameworkAddUnobtrusiveLinkTextStyle then "Unobtrusive" else nil,
+				Text = seeAllText,
+			}),
+		}),
 	})
 end
 
 SectionHeader = withContext({
+	Localization = ContextServices.Localization,
 	Stylizer = ContextServices.Stylizer,
 })(SectionHeader)
 

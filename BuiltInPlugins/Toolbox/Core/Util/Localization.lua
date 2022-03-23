@@ -4,7 +4,6 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxNilDisconnectSignals = game:GetFastFlag("ToolboxNilDisconnectSignals")
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
@@ -254,9 +253,7 @@ end
 function Localization:destroy()
 	if self._externalLocaleIdChangedConnection then
 		self._externalLocaleIdChangedConnection:Disconnect()
-		if FFlagToolboxNilDisconnectSignals then
-			self._externalLocaleIdChangedConnection = nil
-		end
+		self._externalLocaleIdChangedConnection = nil
 	end
 end
 

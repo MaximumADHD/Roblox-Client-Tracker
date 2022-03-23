@@ -21,6 +21,7 @@
 ]]
 local FFlagToolboxAssetGridRefactor5 = game:GetFastFlag("ToolboxAssetGridRefactor5")
 local FFlagToolboxShowHasScriptInfo = game:GetFastFlag("ToolboxShowHasScriptInfo")
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
@@ -562,7 +563,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 					BackgroundTransparency = 1,
 				}),
 
-				Text =  Roact.createElement("TextLabel", {
+				Text = Roact.createElement("TextLabel", {
 					LayoutOrder = 2,
 					BackgroundTransparency = 1,
 					Size = UDim2.new(1, -20, 0, Constants.PRICE_HEIGHT),
@@ -625,9 +626,16 @@ local function mapStateToProps(state, props)
 	end
 	local canManage = manageableAssets[tostring(assetId)]
 
+	local assetData
+	if FFlagToolboxAssetCategorization then
+		assetData = props.assetData
+	else
+		assetData = FFlagToolboxAssetGridRefactor5 and idToAssetMap[assetId] or nil
+	end
+
 	return {
-		asset = not FFlagToolboxAssetGridRefactor5 and idToAssetMap[assetId] or nil,
-		assetData = FFlagToolboxAssetGridRefactor5 and idToAssetMap[assetId] or nil,
+		asset = if not FFlagToolboxAssetGridRefactor5 then idToAssetMap[assetId] else nil,
+		assetData = assetData,
 		categoryName = categoryName,
 		currentSoundId = FFlagToolboxAssetGridRefactor5 and (sound.currentSoundId or 0) or props.currentSoundId,
 		currentUserPackagePermissions = FFlagToolboxAssetGridRefactor5 and (state.packages.permissionsTable or {})

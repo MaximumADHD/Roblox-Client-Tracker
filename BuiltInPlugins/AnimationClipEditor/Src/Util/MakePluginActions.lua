@@ -2,6 +2,9 @@
 	Creates the actions used by the plugin.
 ]]
 
+local Plugin = script.Parent.Parent.Parent
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+
 local ACTION_KEYS = {
 	-- Keyframe manipulation
 	"CopySelected",
@@ -17,7 +20,6 @@ local ACTION_KEYS = {
 	"DeselectAll",
 	"RenameKeyframe",
 	"ChangeDuration",
-	"ClearTangents",
 
 	-- Event Manipulation
 	"CopyEvents",
@@ -47,6 +49,17 @@ local ACTION_KEYS = {
 	-- Bones
 	"ToggleBoneVis",
 }
+
+-- Move that back to the ACTION_KEYS table when GetFFlagCurveEditor is retired
+if GetFFlagCurveEditor() then
+	table.insert(ACTION_KEYS, "ClearBothTangents")
+	table.insert(ACTION_KEYS, "ZeroBothTangents")
+	table.insert(ACTION_KEYS, "ClearTangent")
+	table.insert(ACTION_KEYS, "ZeroTangent")
+else
+	table.insert(ACTION_KEYS, "ClearTangents")
+end
+
 
 local function makeAction(plugin, localization, key)
 	return {

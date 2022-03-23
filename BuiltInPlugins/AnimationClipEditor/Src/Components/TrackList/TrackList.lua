@@ -20,7 +20,7 @@
 			next to a track to open a context menu for that track.
 		function OnTrackAdded(instanceName, trackName) = A callback for when the user
 			selects a track to add.
-		function OnTrackSelected(trackName) = A callback for when the user selects a track.
+		function OnTrackSelected(path) = A callback for when the user selects a track or a component.
 		function OnValueChanged(instanceName, path, trackType, tick, value) = A callback for when
 			the user changes a value by modifying properties.
 		function OnValueChangedDeprecated2(instanceName, trackName, trackType, tick, value) = A callback for
@@ -49,6 +49,8 @@ local withContext = ContextServices.withContext
 
 local Constants = require(Plugin.Src.Util.Constants)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
+local PathUtils = require(Plugin.Src.Util.PathUtils)
+
 local ExpandableTrack = require(Plugin.Src.Components.TrackList.ExpandableTrack)
 local SummaryTrack = require(Plugin.Src.Components.TrackList.SummaryTrack)
 local TrackListEntry = require(Plugin.Src.Components.TrackList.TrackListEntry)
@@ -61,6 +63,8 @@ local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimati
 local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
 local GetFFlagFixClampValuesForFacs = require(Plugin.LuaFlags.GetFFlagFixClampValuesForFacs)
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagFacsAsFloat = require(Plugin.LuaFlags.GetFFlagFacsAsFloat)
 
 local TrackList = Roact.PureComponent:extend("TrackList")
 
@@ -130,9 +134,9 @@ function TrackList:init()
 	end
 
 	if GetFFlagChannelAnimations() then
-		self.onTrackSelected = function(trackName)
+		self.onTrackSelected = function(path)
 			if self.props.OnTrackSelected then
-				self.props.OnTrackSelected(trackName)
+				self.props.OnTrackSelected(path)
 			end
 		end
 	else
@@ -208,7 +212,7 @@ function TrackList:renderExpandedCFrameTrack(track, children, theme)
 	local trackWidth = self.getTrackWidth(indent, nameWidth)
 
 	local currentValue = TrackUtils.getCurrentValue(track, playhead, animationData)
-	if GetFFlagFacsUiChanges() and not GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs then
+	if not GetFFlagFacsAsFloat() and GetFFlagFacsUiChanges() and not GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs then
 		currentValue = math.floor(0.5 + (currentValue * 100))
 	end
 	local items = TrackUtils.getItemsForProperty(track, currentValue)
@@ -217,8 +221,11 @@ function TrackList:renderExpandedCFrameTrack(track, children, theme)
 
 	self.maxTrackWidth = math.max(self.maxTrackWidth, trackWidth)
 
+	local dragMultiplier = if GetFFlagFacsUiChanges() and GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs then
+		Constants.NUMBERBOX_FACS_DRAG_MULTIPLIER else Constants.NUMBERBOX_DRAG_MULTIPLIER
+
 	local function makeNumberTrack(name, targetProperty)
-		if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
+		if GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
 			children[name .. "_" .. targetProperty] = Roact.createElement(Track, {
 				LayoutOrder = self.trackCount,
 				Name = targetProperty,
@@ -227,7 +234,7 @@ function TrackList:renderExpandedCFrameTrack(track, children, theme)
 				Height = Constants.TRACK_HEIGHT,
 				Indent = indent,
 				ReadOnly = isPlaying,
-				DragMultiplier = GetFFlagFacsUiChanges() and GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs and 1 or nil,
+				DragMultiplier = if GetFFlagFacsAsFloat() then dragMultiplier else (GetFFlagFacsUiChanges() and GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs and 1 or nil),
 				OnItemChanged = function(key, value)
 					for _, item in ipairs(items[targetProperty]) do
 						if item.Key == key then
@@ -236,7 +243,11 @@ function TrackList:renderExpandedCFrameTrack(track, children, theme)
 					end
 					local newValue = TrackUtils.getPropertyForItems(track, items)
 					if GetFFlagFacsUiChanges() and not GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs then
-						newValue = math.clamp(newValue / 100, 0, 1)
+						if GetFFlagFacsAsFloat() then
+							newValue = math.clamp(math.floor(.5 + newValue * 100) / 100, 0, 1)
+						else
+							newValue = math.clamp(newValue / 100, 0, 1)
+						end
 					end
 					if GetFFlagChannelAnimations() then
 						self.onValueChanged(instance, {name}, track.Type, playhead, newValue)
@@ -307,8 +318,9 @@ function TrackList:isSelected(name)
 	return false
 end
 
-function TrackList:renderTrack(track, children, theme, parentPath)
+function TrackList:renderTrack(track, children, theme, parentPath, parentType)
 	local props = self.props
+	local selectedTracks = props.SelectedTracks
 	local name = track.Name
 	local instance = track.Instance
 	local indent = track.Depth
@@ -318,7 +330,7 @@ function TrackList:renderTrack(track, children, theme, parentPath)
 
 	local playhead = props.Playhead
 	local animationData = props.AnimationData
-	local isPlaying = self.props.PlayState ~= Constants.PLAY_STATE.Pause
+	local isPlaying = props.PlayState ~= Constants.PLAY_STATE.Pause
 	local isChannelAnimation = animationData and animationData.Metadata and animationData.Metadata.IsChannelAnimation
 
 	local isExpandable
@@ -344,7 +356,9 @@ function TrackList:renderTrack(track, children, theme, parentPath)
 	if trackType ~= Constants.TRACK_TYPES.CFrame then
 		local currentValue = TrackUtils.getCurrentValueForPath(path, instance, playhead, animationData, trackType)
 		if GetFFlagFacsUiChanges() and not GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs then
-			if GetFFlagFixClampValuesForFacs() then
+			if GetFFlagFacsAsFloat() then
+				currentValue = math.clamp(currentValue, 0, 1)
+			elseif GetFFlagFixClampValuesForFacs() then
 				currentValue = math.floor(0.5 + math.clamp(currentValue, 0, 1) * 100)
 			else
 				currentValue = math.floor(0.5 + (currentValue * 100))
@@ -355,9 +369,12 @@ function TrackList:renderTrack(track, children, theme, parentPath)
 		items = {}
 	end
 
-	local selected = self:isSelected(path[1])
+	local selected = GetFFlagCurveEditor() and (PathUtils.findPath(selectedTracks, path) ~= nil) or self:isSelected(path[1])
 
 	self.maxTrackWidth = math.max(self.maxTrackWidth, trackWidth)
+
+	local dragMultiplier = if GetFFlagFacsUiChanges() and GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs then
+		Constants.NUMBERBOX_FACS_DRAG_MULTIPLIER else Constants.NUMBERBOX_DRAG_MULTIPLIER
 
 	children["Track_" .. pathName] = Roact.createElement(Track, {
 		LayoutOrder = self.trackCount,
@@ -369,7 +386,7 @@ function TrackList:renderTrack(track, children, theme, parentPath)
 		ReadOnly = isPlaying,
 		Expanded = expanded,
 		Selected = selected,
-		DragMultiplier = GetFFlagFacsUiChanges() and GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs and 1 or nil,
+		DragMultiplier = if GetFFlagFacsAsFloat() then dragMultiplier else (GetFFlagFacsUiChanges() and GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs and 1 or nil),
 		OnItemChanged = function(key, value)
 			for _, item in ipairs(items) do
 				if item.Key == key then
@@ -378,7 +395,11 @@ function TrackList:renderTrack(track, children, theme, parentPath)
 			end
 			local newValue = TrackUtils.getPropertyForItems(track, items)
 			if GetFFlagFacsUiChanges() and not GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs then
-				newValue = math.clamp(newValue / 100, 0, 1)
+				if GetFFlagFacsAsFloat() then
+					newValue = math.clamp(newValue, 0, 1)
+				else
+					newValue = math.clamp(newValue / 100, 0, 1)
+				end
 			end
 			self.onValueChanged(instance, path, trackType, playhead, newValue)
 		end,
@@ -395,8 +416,7 @@ function TrackList:renderTrack(track, children, theme, parentPath)
 			end
 		end or nil,
 		OnTrackSelected = function()
-			-- Always select the top level track, even when a component is selected
-			self.onTrackSelected(path[1])
+			self.onTrackSelected(GetFFlagCurveEditor() and path or path[1])
 		end,
 	})
 
@@ -405,7 +425,7 @@ function TrackList:renderTrack(track, children, theme, parentPath)
 	if expanded then
 		if GetFFlagChannelAnimations() and isChannelAnimation then
 			for _, componentName in ipairs(Constants.COMPONENT_TRACK_TYPES[track.Type]._Order) do
-				self:renderTrack(track.Components[componentName], children, theme, path)
+				self:renderTrack(track.Components[componentName], children, theme, path, track.Type)
 			end
 		else
 			self:renderExpandedTracks(track, children, theme)
@@ -465,7 +485,9 @@ function TrackList:renderTrack_deprecated(track, children, theme)
 
 		local currentValue = TrackUtils.getCurrentValue(track, playhead, animationData)
 		if GetFFlagFacsUiChanges() and track.Type == Constants.TRACK_TYPES.Facs then
-			if GetFFlagFixClampValuesForFacs() then
+			if GetFFlagFacsAsFloat() then
+				currentValue = math.clamp(currentValue, 0, 1)
+			elseif GetFFlagFixClampValuesForFacs() then
 				currentValue = math.floor(0.5 + math.clamp(currentValue, 0, 1) * 100)
 			else
 				currentValue = math.floor(0.5 + (currentValue * 100))
@@ -475,6 +497,9 @@ function TrackList:renderTrack_deprecated(track, children, theme)
 
 		self.maxTrackWidth = math.max(self.maxTrackWidth, trackWidth)
 
+		local dragMultiplier = if GetFFlagFacsUiChanges() and track.Type == Constants.TRACK_TYPES.Facs
+			then Constants.NUMBERBOX_FACS_DRAG_MULTIPLIER else Constants.NUMBERBOX_DRAG_MULTIPLIER
+
 		children["Facs_" .. name] = Roact.createElement(Track, {
 			LayoutOrder = self.trackCount,
 			Name = name,
@@ -483,10 +508,14 @@ function TrackList:renderTrack_deprecated(track, children, theme)
 			Height = Constants.TRACK_HEIGHT,
 			Indent = 0,
 			ReadOnly = isPlaying,
-			DragMultiplier = GetFFlagFacsUiChanges() and track.Type == Constants.TRACK_TYPES.Facs and 1 or nil,
+			DragMultiplier = if GetFFlagFacsAsFloat() then dragMultiplier else (GetFFlagFacsUiChanges() and track.Type == Constants.TRACK_TYPES.Facs and 1 or nil),
 			OnItemChanged = function(key, value)
 				if GetFFlagFacsUiChanges() and track.Type == Constants.TRACK_TYPES.Facs then
-					value = math.clamp(value / 100, 0, 1)
+					if GetFFlagFacsAsFloat() then
+						value = math.clamp(value, 0, 1)
+					else
+						value = math.clamp(value / 100, 0, 1)
+					end
 				end
 				self.onFacsChanged(instance, name, playhead, value, props.Analytics)
 			end,

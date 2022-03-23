@@ -1,7 +1,3 @@
-if not game:GetFastFlag("ImprovePluginSpeed_TestHarness") then
-	return
-end
-
 local DebugFlags = require(script.Parent.Parent.Src.Util.DebugFlags)
 if DebugFlags.RunningUnderCLI() then
 	return

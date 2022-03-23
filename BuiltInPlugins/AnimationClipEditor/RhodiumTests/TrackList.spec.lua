@@ -10,6 +10,7 @@ return function()
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+	local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 	local Templates = require(Plugin.Src.Util.Templates)
 
@@ -61,7 +62,11 @@ return function()
 			TestHelpers.delay()
 
 			TestHelpers.clickInstance(trackList:WaitForChild("Track_Head"))
-			expect(store:getState().Status.SelectedTracks[1]).to.equal("Head")
+			if GetFFlagCurveEditor() then
+				expect(store:getState().Status.SelectedTracks[1][1]).to.equal("Head")
+			else
+				expect(store:getState().Status.SelectedTracks[1]).to.equal("Head")
+			end
 		end)
 	end)
 
@@ -88,15 +93,27 @@ return function()
 			TestHelpers.delay()
 
 			TestHelpers.clickInstance(trackList:WaitForChild("Track_Head"))
-			expect(store:getState().Status.SelectedTracks[1]).to.equal("Head")
+			if GetFFlagCurveEditor() then
+				expect(store:getState().Status.SelectedTracks[1][1]).to.equal("Head")
+			else
+				expect(store:getState().Status.SelectedTracks[1]).to.equal("Head")
+			end
 
 			VirtualInput.hitKey(Enum.KeyCode.Up)
 			TestHelpers.delay()
-			expect(store:getState().Status.SelectedTracks[1]).to.equal("UpperTorso")
+			if GetFFlagCurveEditor() then
+				expect(store:getState().Status.SelectedTracks[1][1]).to.equal("UpperTorso")
+			else
+				expect(store:getState().Status.SelectedTracks[1]).to.equal("UpperTorso")
+			end
 
 			VirtualInput.hitKey(Enum.KeyCode.Down)
 			TestHelpers.delay()
-			expect(store:getState().Status.SelectedTracks[1]).to.equal("Head")
+			if GetFFlagCurveEditor() then
+				expect(store:getState().Status.SelectedTracks[1][1]).to.equal("Head")
+			else
+				expect(store:getState().Status.SelectedTracks[1]).to.equal("Head")
+			end
 		end)
 	end)
 

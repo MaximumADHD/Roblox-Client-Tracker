@@ -42,8 +42,6 @@ local SetTool = require(Plugin.Src.Actions.SetTool)
 
 local DraggerWrapper = require(Plugin.Src.Components.Draggers.DraggerWrapper)
 
-local FFlagImprovePluginSpeed_AnimationClipEditor = game:GetFastFlag("ImprovePluginSpeed_AnimationClipEditor")
-
 -- analytics
 local AnalyticsHandlers = require(Plugin.Src.Resources.AnalyticsHandlers)
 
@@ -66,14 +64,8 @@ function AnimationClipEditorPlugin:handleButtonClick(plugin)
 end
 
 function AnimationClipEditorPlugin:createPluginButton(plugin, localization)
-	if FFlagImprovePluginSpeed_AnimationClipEditor then
-		self.toolbar = self.props.pluginLoaderContext.toolbar
-		self.mainButton = self.props.pluginLoaderContext.mainButton
-	else
-		self.toolbar = plugin:CreateToolbar(localization:getText("Plugin", "Toolbar"))
-		self.mainButton = self.toolbar:CreateButton(localization:getText("Plugin", "Button"),
-			localization:getText("Plugin", "Description"), Constants.PLUGIN_BUTTON_IMAGE)
-	end
+	self.toolbar = self.props.pluginLoaderContext.toolbar
+	self.mainButton = self.props.pluginLoaderContext.mainButton
 end
 
 function AnimationClipEditorPlugin:init(initialProps)
@@ -94,7 +86,7 @@ function AnimationClipEditorPlugin:init(initialProps)
 	self.actions = ContextServices.PluginActions.new(initialProps.plugin, MakePluginActions(initialProps.plugin, self.localization))
 
 	self.state = {
-		enabled = not FFlagImprovePluginSpeed_AnimationClipEditor,
+		enabled = false,
 		pluginGui = nil,
 	}
 
@@ -110,27 +102,9 @@ function AnimationClipEditorPlugin:init(initialProps)
 
 	self.mainButton:SetActive(self.state.enabled)
 
-	if FFlagImprovePluginSpeed_AnimationClipEditor then
-		initialProps.pluginLoaderContext.mainButtonClickedSignal:Connect(function()
-			self:handleButtonClick(initialProps.plugin)
-		end)
-	else
-		self.mainButton.Click:connect(function()
-			if RunService:IsRunning() then
-				showBlockingDialog(initialProps.plugin, Roact.createElement(ErrorDialogContents, {
-					ErrorType = Constants.EDITOR_ERRORS.OpenedWhileRunning,
-					ErrorKey = Constants.EDITOR_ERRORS_KEY,
-					ErrorHeader = Constants.EDITOR_ERRORS_HEADER_KEY,
-				}))
-			else
-				self:setState(function(state)
-					return {
-						enabled = not state.enabled,
-					}
-				end)
-			end
-		end)
-	end
+	initialProps.pluginLoaderContext.mainButtonClickedSignal:Connect(function()
+		self:handleButtonClick(initialProps.plugin)
+	end)
 
 	self.onDockWidgetEnabledChanged = function(enabled)
 		if self.state.enabled == enabled then
@@ -255,67 +229,32 @@ function AnimationClipEditorPlugin:render()
 	local enabled = self.state.enabled
 	self.mainButton:SetActive(enabled)
 
-	if FFlagImprovePluginSpeed_AnimationClipEditor then
-		return Roact.createElement(DockWidget, {
-			Title = localization:getText("Plugin", "Name"),
-			Name = "AnimationClipEditor",
-			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-			Widget = props.pluginLoaderContext.mainDockWidget,
-			Enabled = enabled,
+	return Roact.createElement(DockWidget, {
+		Title = localization:getText("Plugin", "Name"),
+		Name = "AnimationClipEditor",
+		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+		Widget = props.pluginLoaderContext.mainDockWidget,
+		Enabled = enabled,
 
-			[Roact.Ref] = self.onDockWidgetLoaded,
-			[Roact.Change.Enabled] = self.onDockWidgetEnabledChanged,
-			OnClose = self.closeWidget,
+		[Roact.Ref] = self.onDockWidgetLoaded,
+		[Roact.Change.Enabled] = self.onDockWidgetEnabledChanged,
+		OnClose = self.closeWidget,
+	}, {
+		MainProvider = pluginGuiLoaded and enabled and Roact.createElement(MainProvider, {
+			theme = theme,
+			focusGui = pluginGui,
+			store = store,
+			plugin = plugin,
+			localization = localization,
+			pluginActions = actions,
+			mouse = mouse,
+			analytics = analytics,
+			signals = self.signals,
 		}, {
-			MainProvider = pluginGuiLoaded and enabled and Roact.createElement(MainProvider, {
-				theme = theme,
-				focusGui = pluginGui,
-				store = store,
-				plugin = plugin,
-				localization = localization,
-				pluginActions = actions,
-				mouse = mouse,
-				analytics = analytics,
-				signals = self.signals,
-			}, {
-				AnimationClipEditor = Roact.createElement(AnimationClipEditor),
-				Dragger = Roact.createElement(DraggerWrapper),
-			})
+			AnimationClipEditor = Roact.createElement(AnimationClipEditor),
+			Dragger = Roact.createElement(DraggerWrapper),
 		})
-	else
-		return Roact.createElement(DockWidget, {
-			Plugin = plugin,
-			Title = localization:getText("Plugin", "Name"),
-			Name = "AnimationClipEditor",
-			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-
-			InitialDockState = Enum.InitialDockState.Bottom,
-			InitialEnabled = false,
-			InitialEnabledShouldOverrideRestore = true,
-			Size = Constants.MAIN_FLOATING_SIZE,
-			MinSize = Constants.MAIN_MINIMUM_SIZE,
-			Enabled = enabled,
-
-			[Roact.Ref] = self.onDockWidgetLoaded,
-			[Roact.Change.Enabled] = self.onDockWidgetEnabledChanged,
-			OnClose = self.closeWidget,
-		}, {
-			MainProvider = pluginGuiLoaded and enabled and Roact.createElement(MainProvider, {
-				theme = theme,
-				focusGui = pluginGui,
-				store = store,
-				plugin = plugin,
-				localization = localization,
-				pluginActions = actions,
-				mouse = mouse,
-				analytics = analytics,
-				signals = self.signals,
-			}, {
-				AnimationClipEditor = Roact.createElement(AnimationClipEditor),
-				Dragger = Roact.createElement(DraggerWrapper),
-			})
-		})
-	end
+	})
 end
 
 

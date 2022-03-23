@@ -19,7 +19,7 @@ local ServiceList = {
 
 type AssetId = string
 type ClassName = string
-type HandlerFunc = (Instance) -> {AssetId}
+type HandlerFunc = (Instance) -> {AssetId}?
 
 -- A set of handler functions which return know how to find SoundIds contained
 -- in a given type of Instance
@@ -29,7 +29,7 @@ function Handlers.Sound(instance)
 
 	-- Filter out common non-valid contents that may be in the soundId prop
 	if soundId == "" or soundId == "0" or soundId == " " then
-		return
+		return nil
 	end
 
 	-- Normalize and record
@@ -37,26 +37,29 @@ function Handlers.Sound(instance)
 	if processedId then
 		return { processedId }
 	end
+	return nil
 end
-function Handlers.LuaSourceContainer(instance)
+function Handlers.LuaSourceContainer(instance: any)
 	-- Boomboxes have a sound blacklist in them, which
 	-- is full of false positives.
 	if instance.Parent.Name:lower() == "boombox" then
-		return
+		return nil
 	end
 	return findAssetIdsInSource(instance.Source)
 end
 function Handlers.StringValue(instance)
-	local value = normalizeAssetId(instance.Value)
+	local value = normalizeAssetId((instance :: StringValue).Value)
 	if value and isAssetIdLike(value) then
 		return { value }
 	end
+	return nil
 end
 function Handlers.IntValue(instance)
-	local value = tostring(instance.Value)
+	local value = tostring((instance :: IntValue).Value)
 	if isAssetIdLike(value) then
 		return { value }
 	end
+	return nil
 end
 
 -- Get the handler function for a given type

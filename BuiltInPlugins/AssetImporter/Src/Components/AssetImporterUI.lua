@@ -32,8 +32,6 @@ local ShowImportPrompt = require(Plugin.Src.Thunks.ShowImportPrompt)
 local Images = require(Plugin.Src.Utility.Images)
 local GetLocalizedString = require(Plugin.Src.Utility.GetLocalizedString)
 
-local FFlagPreventExtraModelUpdates = game:GetFastFlag("PreventExtraModelUpdates")
-
 local SEPARATOR_WEIGHT = 1
 local INSERT_CAMERA_DIST_MULT = 0.8
 local CAMERA_FOCUS_DIR = Vector3.new(-1, 1, -1)
@@ -42,7 +40,7 @@ local AssetImporterUI = Roact.PureComponent:extend("AssetImporterUI")
 
 local emptyModel = Instance.new("Model")
 
-local function getRenderModel_DEPRECATED(instanceMap, selectedInstance)
+local function getRenderModel(instanceMap, selectedInstance)
 	local object = nil
 	if instanceMap and selectedInstance then
 		object = instanceMap[selectedInstance.Id]
@@ -65,51 +63,14 @@ local function getResetCamImage()
 	end
 end
 
-function AssetImporterUI:updateRenderClone()
-	local props = self.props
-	local object = nil
-	if props.InstanceMap and props.SelectedSettingsItem then
-		object = props.InstanceMap[props.SelectedSettingsItem.Id]
-	end
-	if object == nil then
-		self.renderModel = emptyModel
-		self.renderClone = emptyModel
-		return
-	end
-	if self.renderModel == object then
-		return
-	end
-	self.renderModel = object
-	local wrapper = Instance.new("Model")
-	object:Clone().Parent = wrapper
-	self.renderClone = wrapper
-end
-
 function AssetImporterUI:init()
 	self.camera = Instance.new("Camera")
 	self.centerCamera = function()
-		local size
-		if FFlagPreventExtraModelUpdates then
-			size = self.renderClone:GetExtentsSize()
-		else
-			size = getRenderModel_DEPRECATED(self.props.InstanceMap, self.props.SelectedSettingsItem):GetExtentsSize()
-		end
+		local size = getRenderModel(self.props.InstanceMap, self.props.SelectedSettingsItem):GetExtentsSize()
 		local cameraDistAway = size.Magnitude * INSERT_CAMERA_DIST_MULT
 		local dir = CAMERA_FOCUS_DIR.Unit
 		self.camera.Focus = CFrame.new()
 		self.camera.CFrame = CFrame.new(cameraDistAway * dir, self.camera.Focus.Position)
-	end
-
-	self.renderModel = nil
-	self.renderClone = nil
-	if FFlagPreventExtraModelUpdates then
-		self:updateRenderClone()
-	end
-end
-
-function AssetImporterUI:willUpdate(nextProps, nextState)
-	if FFlagPreventExtraModelUpdates then
-		self:updateRenderClone()
 	end
 end
 
@@ -125,11 +86,6 @@ function AssetImporterUI:render()
 	if FFlagDevFrameworkSeparateCenterCameraCenterModel then
 		recenterCamera = false
 		recenterModel = true
-	end
-
-	local renderModel_DEPRECATED
-	if not FFlagPreventExtraModelUpdates then
-		renderModel_DEPRECATED = getRenderModel_DEPRECATED(props.InstanceMap, props.SelectedSettingsItem)
 	end
 
 	return Roact.createElement(Pane, {
@@ -164,7 +120,7 @@ function AssetImporterUI:render()
 					Size = UDim2.new(1, 0, sizes.PreviewRatio, 0),
 				}, {
 					PreviewRender = Roact.createElement(AssetRenderModel, {
-						Model = if FFlagPreventExtraModelUpdates then self.renderClone else renderModel_DEPRECATED,
+						Model = getRenderModel(props.InstanceMap, props.SelectedSettingsItem),
 						Camera = self.camera,
 						FocusDirection = CAMERA_FOCUS_DIR,
 						RecenterCameraOnUpdate = recenterCamera,

@@ -13,7 +13,6 @@ if not game:GetService("StudioService"):HasInternalPermission() then
 end
 
 local main = script.Parent.Parent
-local Roact = require(main.Packages.Roact)
 
 local DebugFlags = require(main.Src.Util.DebugFlags)
 if DebugFlags.RunningUnderCLI() then
@@ -25,6 +24,8 @@ commonInit()
 
 local MainPlugin = require(main.Src.MainPlugin)
 local handle
+
+local Roact = require(main.Packages.Roact)
 
 -- Better track errors in Roact components
 Roact.setGlobalConfig({
