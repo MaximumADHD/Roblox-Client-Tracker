@@ -179,7 +179,7 @@ function DetailsPageHeader:render()
 			}),
 			GradientBar = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, gradientHeight),
-				BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+				BackgroundColor3 = theme.BackgroundDefault.Color,
 				AnchorPoint = Vector2.new(0, 1),
 				BorderSizePixel = 0,
 				LayoutOrder = 1,

@@ -1,8 +1,9 @@
-local CoreGui = game:GetService("CoreGui")
-local ExperienceChat = CoreGui:FindFirstChild("ExperienceChat", true)
-local globals = require(ExperienceChat.Dev.Jest).Globals
+local ExperienceChat = script:FindFirstAncestor("ExperienceChat")
+local Packages = ExperienceChat.Parent
+local globals = require(Packages.Dev.Jest).Globals
 local expect = globals.expect
-local ChatVisibility = ExperienceChat.ExperienceChat.ChatVisibility
+
+local ChatVisibility = Packages.ExperienceChat.ChatVisibility
 local ChatTopBarButtonActivated = require(ChatVisibility.Actions.ChatTopBarButtonActivated)
 
 return function()
@@ -16,7 +17,7 @@ return function()
 			expect(action.type).toEqual(ChatTopBarButtonActivated.name)
 		end)
 
-		it("should return correct action isVisible for true", function()
+		it("should return correct action isVisible value", function()
 			local action = ChatTopBarButtonActivated(true)
 			expect(action.isVisible).toEqual(true)
 

@@ -1,10 +1,12 @@
-local CoreGui = game:GetService("CoreGui")
-local ExperienceChat = CoreGui:FindFirstChild("ExperienceChat", true)
-local globals = require(ExperienceChat.Dev.Jest).Globals
+local ExperienceChat = script:FindFirstAncestor("ExperienceChat")
+local Packages = ExperienceChat.Parent
+local globals = require(Packages.Dev.Jest).Globals
 local expect = globals.expect
-local ChatVisibility = ExperienceChat.ExperienceChat.ChatVisibility
+
+local ChatVisibility = ExperienceChat.ChatVisibility
 
 return function()
+	local ChatInputBarConfigurationEnabled = require(ChatVisibility.Actions.ChatInputBarConfigurationEnabled)
 	local ChatTopBarButtonActivated = require(ChatVisibility.Actions.ChatTopBarButtonActivated)
 	local isChatInputBarVisible = require(ChatVisibility.Reducers.isChatInputBarVisible)
 
@@ -29,6 +31,16 @@ return function()
 			expect(state).toEqual(true)
 
 			state = isChatInputBarVisible(state, ChatTopBarButtonActivated(false))
+			expect(state).toEqual(false)
+		end)
+
+		it("should be changed using ChatInputBarConfigurationEnabled", function()
+			local state = isChatInputBarVisible(nil, {})
+
+			state = isChatInputBarVisible(state, ChatInputBarConfigurationEnabled(true))
+			expect(state).toEqual(true)
+
+			state = isChatInputBarVisible(state, ChatInputBarConfigurationEnabled(false))
 			expect(state).toEqual(false)
 		end)
 	end)

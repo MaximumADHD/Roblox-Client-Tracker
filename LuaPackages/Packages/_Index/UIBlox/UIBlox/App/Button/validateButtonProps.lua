@@ -7,6 +7,7 @@ local Core = UIBlox.Core
 local t = require(Packages.t)
 
 local validateImage = require(Core.ImageSet.Validator.validateImage)
+local validateFontInfo = require(Core.Style.Validator.validateFontInfo)
 
 return t.strictInterface({
 	-- The automatic size of the button
@@ -32,6 +33,9 @@ return t.strictInterface({
 
 	--The icon of the controller input (A/B/X/Y button) needed to activate the button
 	inputIcon = t.optional(validateImage),
+
+	--The font style for the button text
+	fontStyle = t.optional(t.union(t.string, validateFontInfo)),
 
 	--Is the button disabled
 	isDisabled = t.optional(t.boolean),

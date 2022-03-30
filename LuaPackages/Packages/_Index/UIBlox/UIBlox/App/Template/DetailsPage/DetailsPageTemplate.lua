@@ -9,7 +9,12 @@ local t = require(Packages.t)
 
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local LoadableImage = require(App.Loading.LoadableImage)
-local VerticalScrollView = require(App.Container.VerticalScrollView)
+
+local Images = require(App.ImageSet.Images)
+local IconButton = require(App.Button.IconButton)
+local IconSize = require(App.ImageSet.Enum.IconSize)
+local getIconSizeUDim2 = require(App.ImageSet.getIconSizeUDim2)
+local VerticalScrollView = require(App.Container.VerticalScrollViewV2)
 
 local Constants = require(DetailsPage.Constants)
 local DetailsPageHeader = require(DetailsPage.DetailsPageHeader)
@@ -19,6 +24,8 @@ local validateDetailsPageComponentList = require(DetailsPage.validateDetailsPage
 local StyledTextLabel = require(App.Text.StyledTextLabel)
 
 local DetailsPageTemplate = Roact.PureComponent:extend("DetailsPageTemplate")
+
+local ICON_CLOSE = Images["icons/navigation/close"]
 
 local HEADER_MAX_PADDING = 500
 
@@ -44,6 +51,7 @@ DetailsPageTemplate.validateProps = t.strictInterface({
 	componentList = t.optional(validateDetailsPageComponentList),
 
 	--Template props
+	onClose = t.callback,
 	bannerPlaceholderGradient = t.optional(t.table),
 	bannerImageUrl = t.optional(t.string),
 	startingOffsetPosition = t.optional(t.number),
@@ -57,8 +65,9 @@ local function getHeaderPaddingHeight(props, backgroundHeight)
 end
 
 function DetailsPageTemplate:init()
+	self.containerRef = Roact.createRef()
 	self.scrollingFrameRef = Roact.createRef()
-	self.initialized = false
+	self.scrolled = false
 	self.state = {
 		showStickyActionTopBar = false,
 		backgroundHeight = HEADER_MAX_PADDING,
@@ -82,10 +91,10 @@ function DetailsPageTemplate:init()
 				backgroundComponentPosition = backgroundComponentPosition,
 			}
 		end)
-		self.initialized = true
 	end
 
 	self.canvasPositionChange = function(rbx)
+		self.scrolled = true
 		self:setState(function(prevState, props)
 			local headerPadding = getHeaderPaddingHeight(props, prevState.backgroundHeight)
 			local backgroundComponentPosition = math.max(0, headerPadding - rbx.CanvasPosition.Y) / 2
@@ -136,12 +145,30 @@ function DetailsPageTemplate:render()
 				}),
 			}
 
-		return Roact.createElement("Frame", {
+		return Roact.createElement("TextButton", {
+			Text = "",
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,
 			ClipsDescendants = true,
+			[Roact.Ref] = self.containerRef,
 			[Roact.Change.AbsoluteSize] = self.onContainerSizeChange,
 		}, {
+			OnCloseButtonFrame = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				Size = getIconSizeUDim2(IconSize.Large),
+				AnchorPoint = Vector2.new(0, 0.5),
+				Position = UDim2.new(0, 22, 0, headerHeight / 2),
+				ZIndex = 2,
+			}, {
+				OnCloseButton = Roact.createElement(IconButton, {
+					size = UDim2.fromScale(1, 1),
+					icon = ICON_CLOSE,
+					iconColor3 = style.Theme.IconEmphasis.Color,
+					iconSize = IconSize.Medium,
+					onActivated = self.props.onClose,
+					showBackground = self.state.showStickyActionTopBar == false,
+				}),
+			}),
 			BackgroundDetailsFrame = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				Size = UDim2.fromScale(1, 1),
@@ -189,7 +216,6 @@ function DetailsPageTemplate:render()
 				size = UDim2.fromScale(1, 1),
 				canvasSizeY = UDim.new(1, 0),
 				useAutomaticCanvasSize = true,
-				paddingHorizontal = 0,
 
 				[Roact.Change.CanvasPosition] = self.canvasPositionChange,
 				scrollingFrameRef = self.scrollingFrameRef,
@@ -288,8 +314,14 @@ function DetailsPageTemplate:render()
 	end)
 end
 
+function DetailsPageTemplate:didMount()
+	if self.containerRef.current then
+		self.onContainerSizeChange(self.containerRef.current)
+	end
+end
+
 function DetailsPageTemplate:didUpdate()
-	if self.initialized == false and self.scrollingFrameRef.current then
+	if self.scrolled == false and self.scrollingFrameRef.current then
 		local startingOffsetPosition = math.max(
 			0,
 			getHeaderPaddingHeight(self.props, self.state.backgroundHeight) - self.props.startingOffsetPosition

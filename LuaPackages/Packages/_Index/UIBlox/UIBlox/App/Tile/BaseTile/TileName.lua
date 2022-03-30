@@ -32,6 +32,7 @@ local validateProps = t.strictInterface({
 
 	-- Optional height of the title area is set to the max
 	useMaxHeight = t.optional(t.boolean),
+	fluidSizing = t.optional(t.boolean),
 })
 
 function ItemTileName:render()
@@ -43,6 +44,7 @@ function ItemTileName:render()
 	local name = self.props.name
 	local titleIcon = self.props.titleIcon
 	local useMaxHeight = self.props.useMaxHeight
+	local useFluidSizing = self.props.fluidSizing
 
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
@@ -64,6 +66,7 @@ function ItemTileName:render()
 				} or nil,
 
 				genericTextLabelProps = {
+					fluidSizing = useFluidSizing,
 					fontStyle = font.Header2,
 					colorStyle = theme.TextEmphasis,
 					Text = name,

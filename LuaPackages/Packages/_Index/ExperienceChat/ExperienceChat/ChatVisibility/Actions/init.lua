@@ -1,4 +1,5 @@
 return {
+	ChatInputBarConfigurationEnabled = require(script.ChatInputBarConfigurationEnabled),
 	ChatTopBarButtonActivated = require(script.ChatTopBarButtonActivated),
-	TextChatServiceChatWindowPropertyChanged = require(script.TextChatServiceChatWindowPropertyChanged),
+	ChatWindowConfigurationEnabled = require(script.ChatWindowConfigurationEnabled),
 }

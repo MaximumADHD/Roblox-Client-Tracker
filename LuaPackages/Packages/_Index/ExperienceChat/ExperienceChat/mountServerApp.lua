@@ -8,8 +8,17 @@ local CommandTypes = require(ExperienceChat.Commands.types)
 type Command = CommandTypes.Command
 local Commands = require(ExperienceChat.Commands)
 
+local Logger = require(ExperienceChat.Logger):new("ExpChat/" .. script.Name)
+
 return function()
+	Logger:trace("mountServerApp started")
 	if TextChatService.CreateDefaultTextChannels then
+		Logger:trace("Creating default TextChannels")
+
+		local textChannelsFolder = Instance.new("Folder")
+		textChannelsFolder.Name = "TextChannels"
+		textChannelsFolder.Parent = TextChatService
+
 		local function findChannel(channelName)
 			for _, descendant in pairs(TextChatService:GetDescendants()) do
 				if descendant:IsA("TextChannel") and descendant.Name == channelName then
@@ -26,7 +35,7 @@ return function()
 			if not channel then
 				channel = Instance.new("TextChannel")
 				channel.Name = channelName
-				channel.Parent = TextChatService
+				channel.Parent = textChannelsFolder
 			end
 
 			return channel
@@ -42,9 +51,11 @@ return function()
 
 		local function createTeamChannel(team)
 			local channel = addChannel("RBXTeam" .. tostring(team.TeamColor.Name))
+			Logger:debug("Creating team TextChannel: {}", channel.Name)
 
 			team.PlayerAdded:Connect(function(player)
-				channel:AddUserAsync(player.UserId)
+				local textSource = channel:AddUserAsync(player.UserId)
+				textSource.CanSend = true
 			end)
 
 			team.PlayerRemoved:Connect(function(player)
@@ -76,6 +87,7 @@ return function()
 			if child:IsA("Team") then
 				local textChannel = findChannel("RBXTeam" .. tostring(child.TeamColor.Name))
 				if textChannel then
+					Logger:debug("Destroying team TextChannel: {}", textChannel.Name)
 					textChannel:Destroy()
 				end
 			end
@@ -106,7 +118,12 @@ return function()
 		end)
 	end
 
-	if TextChatService.CreateDefaultTextChannels then
+	if TextChatService.CreateDefaultCommands then
+		Logger:trace("Creating default TextChatCommands")
+		local textChatCommandsFolder = Instance.new("Folder")
+		textChatCommandsFolder.Name = "TextChatCommands"
+		textChatCommandsFolder.Parent = TextChatService
+
 		for _, command in ipairs(Commands) do
 			local textChatCommand = Instance.new("TextChatCommand")
 			textChatCommand.Name = command.name
@@ -119,7 +136,7 @@ return function()
 				end)
 			end
 
-			textChatCommand.Parent = TextChatService
+			textChatCommand.Parent = textChatCommandsFolder
 		end
 	end
 end

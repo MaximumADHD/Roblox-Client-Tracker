@@ -40,6 +40,7 @@ DetailsPageBody.validateProps = t.strictInterface({
 })
 
 function DetailsPageBody:init()
+	self.containerFrameRef = Roact.createRef()
 	self.onContainerSizeChange = function(rbx)
 		self:setState(function(prevState, props)
 			if prevState.containerWidth ~= rbx.AbsoluteSize.x then
@@ -152,7 +153,7 @@ function DetailsPageBody:renderDualPanel()
 end
 
 function DetailsPageBody:renderBodyContent(style)
-	if self.state.containerWidth then
+	if self.state.containerWidth and self.props.componentList then
 		if self.state.containerWidth < WIDTH_BREAKPOINT or self.mobileMode then
 			return self:renderSinglePanel(style)
 		else
@@ -171,6 +172,7 @@ function DetailsPageBody:render()
 			BackgroundTransparency = 1,
 			ClipsDescendants = true,
 			AutomaticSize = Enum.AutomaticSize.Y,
+			[Roact.Ref] = self.containerFrameRef,
 			[Roact.Change.AbsoluteSize] = self.onContainerSizeChange,
 		}, {
 			Layout = Roact.createElement("UIListLayout", {
@@ -203,6 +205,12 @@ function DetailsPageBody:render()
 			}, self:renderBodyContent()),
 		})
 	end)
+end
+
+function DetailsPageBody:didMount()
+	if self.containerFrameRef.current then
+		self.onContainerSizeChange(self.containerFrameRef.current)
+	end
 end
 
 return DetailsPageBody

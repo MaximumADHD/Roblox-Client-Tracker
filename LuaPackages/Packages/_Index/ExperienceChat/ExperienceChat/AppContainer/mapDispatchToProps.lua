@@ -1,15 +1,12 @@
-local HttpService = game:GetService("HttpService")
-local Players = game:GetService("Players")
-
+--!strict
 local ExperienceChat = script:FindFirstAncestor("ExperienceChat")
 local Packages = ExperienceChat.Parent
 local Promise = require(Packages.Promise)
 
+local Logger = require(script.Parent.Logger)
+
 local ChatTopBarButtonActivated = require(ExperienceChat.ChatVisibility.Actions.ChatTopBarButtonActivated)
 local TargetTextChannelChanged = require(ExperienceChat.ChatInput.Actions.TargetTextChannelChanged)
-local TextChatServiceChatWindowPropertyChanged = require(
-	ExperienceChat.ChatVisibility.Actions.TextChatServiceChatWindowPropertyChanged
-)
 
 return function(dispatch)
 	return {
@@ -17,19 +14,15 @@ return function(dispatch)
 			dispatch(ChatTopBarButtonActivated)
 		end,
 
-		textChatServiceChatWindowPropertyChanged = function()
-			dispatch(TextChatServiceChatWindowPropertyChanged)
-		end,
-
-		onSendChat = function(message, targetTextChannel)
-			local messageId = tostring(Players.LocalPlayer.UserId) .. "-" .. HttpService:GenerateGUID(false)
+		onSendChat = function(message: string, targetTextChannel: TextChannel?)
+			Logger:debug("onSendChat: {} to {}", message, if targetTextChannel then targetTextChannel.Name else "nil")
 
 			if targetTextChannel then
 				Promise.try(function()
-					targetTextChannel:SendAsync(message, messageId)
+					targetTextChannel:SendAsync(message)
 				end)
 			else
-				warn("TargetTextChannel was nil!")
+				Logger:warning("TargetTextChannel was nil!")
 			end
 		end,
 

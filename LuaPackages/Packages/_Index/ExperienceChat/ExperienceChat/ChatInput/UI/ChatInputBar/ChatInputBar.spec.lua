@@ -1,6 +1,6 @@
-local CoreGui = game:GetService("CoreGui")
-local ExperienceChat = CoreGui:FindFirstChild("ExperienceChat", true)
-local globals = require(ExperienceChat.Dev.Jest).Globals
+local ExperienceChat = script:FindFirstAncestor("ExperienceChat")
+local Packages = ExperienceChat.Parent
+local globals = require(Packages.Dev.Jest).Globals
 local expect = globals.expect
 local jest = globals.jest
 

@@ -22,6 +22,7 @@ local IconSize = require(UIBlox.App.ImageSet.Enum.IconSize)
 local getIconSize = require(UIBlox.App.ImageSet.getIconSize)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 local withAnimation = require(UIBlox.Core.Animation.withAnimation)
+local validateFontInfo = require(Core.Style.Validator.validateFontInfo)
 
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
@@ -72,6 +73,9 @@ local validateProps = t.interface({
 	--The image being used as the background of the button
 	buttonImage = validateImage,
 
+	--The font style for the button text
+	fontStyle = t.optional(t.union(t.string, validateFontInfo)),
+
 	--The image used to indicate a loading bar for when isDelayedInput is set
 	delayedInputImage = t.optional(validateImage),
 
@@ -120,6 +124,7 @@ local validateProps = t.interface({
 })
 
 GenericButton.defaultProps = {
+	fontStyle = "Header2",
 	isDisabled = false,
 	isLoading = false,
 	isDelayedInput = false,
@@ -166,6 +171,7 @@ function GenericButton:renderButton(loadingProgress)
 		local userInteractionEnabled = self.props.userInteractionEnabled
 
 		local buttonImage = self.props.buttonImage
+		local fontStyle = self.props.fontStyle
 		local delayedInputImage = self.props.delayedInputImage
 		local buttonStateColorMap = self.props.buttonStateColorMap
 		local contentStateColorMap = self.props.contentStateColorMap
@@ -194,6 +200,10 @@ function GenericButton:renderButton(loadingProgress)
 			isDelayedInput = false
 		end
 
+		if type(fontStyle) == "string" then
+			fontStyle = style.Font[fontStyle]
+		end
+
 		-- Loading image has flat edge on left side for the animation
 		local loadingImage = nil
 		if UIBloxConfig.genericButtonInputChanges then
@@ -212,7 +222,6 @@ function GenericButton:renderButton(loadingProgress)
 		local textStyle = text and getContentStyle(textStateColorMap, currentState, style)
 		local iconStyle = icon and getContentStyle(iconStateColorMap, currentState, style)
 		local inputIconStyle = inputIcon and getContentStyle(inputIconStateColorMap, currentState, style)
-		local fontStyle = style.Font.Header2
 
 		local buttonContentLayer
 		if isLoading then
@@ -284,6 +293,7 @@ function GenericButton:renderButton(loadingProgress)
 			text = Cryo.None,
 			inputIcon = Cryo.None,
 			buttonImage = Cryo.None,
+			fontStyle = Cryo.None,
 			delayedInputImage = Cryo.None,
 			buttonStateColorMap = Cryo.None,
 			contentStateColorMap = Cryo.None,

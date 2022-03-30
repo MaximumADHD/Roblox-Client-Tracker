@@ -6,7 +6,7 @@ local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
-local VerticalScrollView = require(App.Container.VerticalScrollView)
+local VerticalScrollView = require(App.Container.VerticalScrollViewWithMargin)
 
 local ScrollingGridView = Roact.PureComponent:extend("ScrollingGridView")
 
@@ -37,10 +37,12 @@ function ScrollingGridView:init()
 	}
 
 	self.onGridResize = function()
-		local contentSize = self.gridRef.current.AbsoluteContentSize
-		self:setState({
-			contentSize = contentSize,
-		})
+		if self.gridRef.current then
+			local contentSize = self.gridRef.current.AbsoluteContentSize
+			self:setState({
+				contentSize = contentSize,
+			})
+		end
 	end
 end
 

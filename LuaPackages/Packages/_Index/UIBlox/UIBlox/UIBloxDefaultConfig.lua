@@ -1,28 +1,4 @@
 return {
-	-- improvementsToGridView: some improvements to GridView and DefaultMetricsGridView.
-	--   * DefaultMetricsGridView doesn't worry about containerWidth being zero, make a
-	--     placeholder Frame while waiting for non-zero width.
-	--   * GridView can gracefully handle itemWidth of zero.  Previously this could lead to
-	--     divide-by-zero errors.
-	--   * GridView doesn't do modding on the itemIndex to produce render key, just uses
-	--     raw render key.
-	-- Note this 'trumps' tempFixEmptyGridView and tempFixGridViewLayoutWithSpawn: the
-	-- code associated with these flags will not be run if improvementsToGridView
-	-- is true.
-	improvementsToGridView = false,
-
-	-- tempFixGridViewLayoutWithSpawn: A temp/hacky fix to a problem with GridView layout.
-	-- Somehow GridView doesn't get created until we do some kind of a read, and furthermore
-	-- this read can't happen right after component is mounted.
-	-- Temp fix: add a spawn in didMount around the hack 'read'.
-	-- Long term fix: C++ changes to UI code, and/or refactor of GridView code.
-	-- Note this only does anything if tempFixEmptyGridView is true.
-	tempFixGridViewLayoutWithSpawn = false,
-
-	-- tempFixEmptyGridView: This is a temp/hacky fix to a problem in UI layout code.  Real/better
-	-- fix is coming on C++ side, this is a stopgap measure to fix the problem ASAP in prod.
-	tempFixEmptyGridView = false,
-
 	-- styleRefactorConfig: DEPRECATED: this is a no-op, but is left in so that it's easier to upgrade consumers of
 	-- UIBlox that try to assign a value to it (the config layer will throw if assigning to a value that's not in the
 	-- default config)
@@ -87,6 +63,12 @@ return {
 	-- Fix a slight inconsistentcy of the tile thumbnail background color.
 	fixTileThumbnailColorInconsistency = false,
 
+	-- New version of vertical scroll view
+	useNewVerticalScrollView = false,
+
 	-- Adds roact-gamepad navigation support to RadioButtonList and RadioButton.
 	enableRadioButtonGamepadSupport = false,
+
+	-- enableActionBarLayoutFix : Indicate whether the fix to update the action bar layout is enabled
+	enableActionBarLayoutFix = false
 }

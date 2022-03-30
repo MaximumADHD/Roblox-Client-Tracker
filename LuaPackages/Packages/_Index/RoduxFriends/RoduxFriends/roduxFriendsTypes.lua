@@ -18,6 +18,7 @@ export type NextPageCursor = string?
 export type RecommendationModel = {
 	id: string,
 	mutualFriendsList: { string },
+	score: number,
 }
 
 -- Actions

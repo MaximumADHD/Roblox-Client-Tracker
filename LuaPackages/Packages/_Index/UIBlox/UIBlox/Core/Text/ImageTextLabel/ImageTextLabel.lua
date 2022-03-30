@@ -33,6 +33,8 @@ ImageTextLabel.validateProps = t.interface({
 	genericTextLabelProps = t.interface({
 		Text = t.string,
 		fontStyle = validateFontInfo,
+		-- fluidSizing is ignored if imageProps is non-nil
+		fluidSizing = t.optional(t.boolean),
 
 		AnchorPoint = t.None,
 		Position = t.None,
@@ -83,7 +85,7 @@ function ImageTextLabel:render()
 		return Roact.createElement("Frame", Cryo.Dictionary.join(frameProps, {
 			Size = UDim2.new(0, labelTextSize.X, 0, labelTextHeight)
 		}), {
-			Icon = self.props.imageProps and Roact.createElement(ImageSetComponent.Label, imageProps) or nil,
+			Icon = if imageProps then Roact.createElement(ImageSetComponent.Label, imageProps) else nil,
 			Name = Roact.createElement(GenericTextLabel, Cryo.Dictionary.join(genericTextLabelProps, {
 				Text = text,
 				AnchorPoint = Vector2.new(0, 0),
@@ -91,7 +93,7 @@ function ImageTextLabel:render()
 				Size = UDim2.new(1, 0, 1, 0),
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Top,
-				fluidSizing = false,
+				fluidSizing = if imageProps then false else self.props.fluidSizing,
 				maxSize = maxSize,
 			})),
 		})

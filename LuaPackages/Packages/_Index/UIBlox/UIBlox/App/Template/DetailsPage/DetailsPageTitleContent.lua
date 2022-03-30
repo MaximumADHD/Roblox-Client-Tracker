@@ -43,6 +43,7 @@ function DetailsPageTitleContent:render()
 				colorStyle = theme.TextEmphasis,
 				automaticSize = Enum.AutomaticSize.XY,
 				layoutOrder = 1,
+				richText = false,
 			}) or nil,
 			SubTitle = self.props.subTitleText and Roact.createElement(StyledTextLabel, {
 				text = self.props.subTitleText,
@@ -50,6 +51,7 @@ function DetailsPageTitleContent:render()
 				colorStyle = theme.TextMuted,
 				automaticSize = Enum.AutomaticSize.XY,
 				layoutOrder = 2,
+				richText = false,
 			}) or nil,
 			CustomContentComponentFrame = self.props.infoContentComponent and Roact.createElement("Frame", {
 				Size = UDim2.fromScale(1, 0),

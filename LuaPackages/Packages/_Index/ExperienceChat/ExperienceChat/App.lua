@@ -33,15 +33,6 @@ function App:isChatInputBarVisible()
 		return self.props.isChatInputBarVisible
 	end
 
-	-- @TODO clean up pcall https://jira.rbx.com/browse/EXPCHAT-91
-	pcall(function()
-		local TextChatService = game:GetService("TextChatService")
-
-		if TextChatService:FindFirstChild("ChatInputBarConfiguration") then
-			return TextChatService.ChatInputBarConfiguration.Enabled
-		end
-	end)
-
 	return true
 end
 
@@ -49,15 +40,6 @@ function App:isChatWindowVisible()
 	if self.props.isChatWindowVisible ~= nil then
 		return self.props.isChatWindowVisible
 	end
-
-	-- @TODO clean up pcall https://jira.rbx.com/browse/EXPCHAT-91
-	pcall(function()
-		local TextChatService = game:GetService("TextChatService")
-
-		if TextChatService:FindFirstChild("ChatWindowConfiguration") then
-			return TextChatService.ChatWindowConfiguration.Enabled
-		end
-	end)
 
 	return true
 end

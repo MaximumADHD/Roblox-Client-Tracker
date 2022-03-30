@@ -37,6 +37,7 @@ end
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local Typecheck = require(Framework.Util).Typecheck
+local Cryo = require(Framework.Util.Cryo)
 
 local Consumer = Roact.PureComponent:extend("Consumer")
 Typecheck.wrap(Consumer, script)
@@ -44,7 +45,9 @@ Typecheck.wrap(Consumer, script)
 function Consumer:init(props)
 	local contextMap = props.ContextMap
 
-	self.state = {}
+	self.state = {
+		counter = if FFlagDevFrameworkUseCreateContext then 0 else nil,
+	}
 	self.connections = {}
 
 	for target, contextItem in pairs(contextMap) do
@@ -61,9 +64,15 @@ function Consumer:init(props)
 		-- The Consumer will re-render when any of its consumed ContextItems change.
 		if item.updateSignal then
 			self.connections[target] = item.updateSignal:Connect(function(newValue)
-				self:setState({
-					[target] = newValue,
-				})
+				if FFlagDevFrameworkUseCreateContext then
+					self:setState({
+						counter = if self.state.counter == 0 then 1 else 0,
+					})
+				else
+					self:setState({
+						[target] = newValue,
+					})
+				end
 			end)
 		end
 	end
@@ -71,7 +80,14 @@ end
 
 function Consumer:render()
 	local renderFunc = self.props.Render
-	return renderFunc(self.state)
+	local renderState = self.state
+	if FFlagDevFrameworkUseCreateContext then
+		-- strip the counter out of the exposed state
+		renderState = Cryo.Dictionary.join(self.state, {
+			counter = Cryo.None,
+		})
+	end
+	return renderFunc(renderState)
 end
 
 function Consumer:willUnmount()

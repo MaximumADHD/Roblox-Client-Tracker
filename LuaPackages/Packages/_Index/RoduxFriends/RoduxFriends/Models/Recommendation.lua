@@ -14,6 +14,7 @@ function Recommendation.new(recommendation: roduxFriendsTypes.RecommendationMode
 	local self = {
 		id = recommendation.id,
 		mutualFriendsList = recommendation.mutualFriendsList,
+		score = recommendation.score,
 	}
 
 	setmetatable(self, Recommendation)
@@ -22,12 +23,13 @@ function Recommendation.new(recommendation: roduxFriendsTypes.RecommendationMode
 end
 
 function Recommendation.mock(mergeTable: { id: string?, mutualFriendsList: { string }? }?)
-	local defaultValues: roduxFriendsTypes.RecommendationModel = { id = mockId() }
+	local defaultValues: roduxFriendsTypes.RecommendationModel = { id = mockId(),  }
 	local mergedValues: roduxFriendsTypes.RecommendationModel = llama.Dictionary.join(defaultValues, mergeTable)
 
 	local self = Recommendation.new({
 		id = mergedValues.id,
 		mutualFriendsList = mergedValues.mutualFriendsList,
+		score = tonumber(mergedValues.id),
 	})
 
 	return self
@@ -38,6 +40,8 @@ function Recommendation.isValid(recommendation: any?)
 		return false, "Expected recommendation information to be given"
 	elseif not recommendation.id then
 		return false, "Expected user's id to be given"
+	elseif not recommendation.score then
+		return false, "Expected user's score to be given"
 	end
 
 	if recommendation.mutualFriendsList and type(recommendation.mutualFriendsList) ~= "table" then
@@ -53,6 +57,7 @@ function Recommendation.isEqual(
 )
 	return recommendation1.id == recommendation2.id
 		and llama.List.equals(recommendation1.mutualFriendsList, recommendation2.mutualFriendsList)
+		and recommendation1.score == recommendation2.score
 end
 
 return Recommendation

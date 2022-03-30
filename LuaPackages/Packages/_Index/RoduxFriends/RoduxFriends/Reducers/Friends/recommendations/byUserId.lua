@@ -68,13 +68,16 @@ return function(options: roduxFriendsTypes.RoduxFriendsOptions)
 
 		[FriendsNetworking.GetFriendRecommendationsFromUserId.Succeeded.name] = function(state: roduxFriendsTypes.RecommendationByUserId, action: roduxFriendsTypes.GetFriendRecommendationsFromUserId)
 			local baseFriendId = tostring(action.namedIds.users)
+			local responseData = action.responseBody.data
 
-			local recommendations = llama.Dictionary.map(action.responseBody.data, function(user)
+			local recommendations = llama.Dictionary.map(responseData, function(user, index)
 				local userId = tostring(user.id)
 
 				return Recommendation.new({
 					id = userId,
 					mutualFriendsList = user.mutualFriendsList,
+					-- TODO: SOCCONN-1559 Use score from BE instead of adding manually
+					score = #responseData - index,
 				}),
 					userId
 			end)
@@ -92,7 +95,6 @@ return function(options: roduxFriendsTypes.RoduxFriendsOptions)
 
 		[FriendsNetworking.GetFriendsFromUserId.Succeeded.name] = function(state: roduxFriendsTypes.RecommendationByUserId, action: roduxFriendsTypes.GetFriendsFromUserId)
 			return removeMultipleRecommendations(
-
 				{ baseFriendId = tostring(action.namedIds.users), users = action.responseBody.data },
 				state
 			)
@@ -100,17 +102,9 @@ return function(options: roduxFriendsTypes.RoduxFriendsOptions)
 
 		[FriendsNetworking.GetFriendRequests.Succeeded.name] = function(state: roduxFriendsTypes.RecommendationByUserId, action: roduxFriendsTypes.GetFriendRequestsSucceeded)
 			return removeMultipleRecommendations(
-
 				{ baseFriendId = tostring(action.additionalData.currentUserId), users = action.responseBody.data },
 				state
 			)
-		end,
-
-		[FriendsNetworking.RequestFriendshipFromUserId.Succeeded.name] = function(state: roduxFriendsTypes.RecommendationByUserId, action: roduxFriendsTypes.RequestFriendshipFromUserId)
-			return removeRecommendationBothWays({
-				userId1 = tostring(action.additionalData.currentUserId),
-				userId2 = tostring(action.namedIds.users),
-			}, state)
 		end,
 
 		[FriendshipCreated.name] = function(state: roduxFriendsTypes.RecommendationByUserId, action: roduxFriendsTypes.FriendshipCreated)

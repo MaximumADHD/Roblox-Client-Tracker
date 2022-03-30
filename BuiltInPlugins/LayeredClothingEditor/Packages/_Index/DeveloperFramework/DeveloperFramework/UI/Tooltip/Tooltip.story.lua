@@ -5,6 +5,7 @@ local Tooltip = UI.Tooltip
 local Button = UI.Button
 local Pane = UI.Pane
 local TextLabel = UI.Decoration.TextLabel
+local Slider = UI.Slider
 
 return {
 	stories = {
@@ -44,6 +45,18 @@ return {
 					})
 				})
 			}),
+		}, {
+			name = "Slider With Tooltip",
+			story = Roact.createElement(Tooltip, {
+				Text = "An example tooltip",
+				Child =  Roact.createElement(Slider, {
+					Size = UDim2.new(0, 200, 0, 20),
+					Min = 0,
+					Max = 10,
+					Value = 5,
+					OnValueChanged = function() end,
+				}),
+			})
 		}
 	}
 }

@@ -13,16 +13,26 @@ local RBXUnmuteCommand = require(script.Parent.RBXUnmuteCommand)
 return function()
 	beforeAll(function(c)
 		c.store = createStore()
-		c.store:dispatch(PlayerAdded("userId1", "Player1", "DisplayName"))
-		c.store:dispatch(PlayerAdded("userId2", "Player2", "DisplayName"))
-		c.store:dispatch(PlayerAdded("userId3-localUser", "Player3", "Myself"))
-		c.store:dispatch(PlayerAdded("userId4", "Player4", "Player4+DN"))
+		c.store:dispatch(PlayerAdded(1, "Player1", "DisplayName"))
+		c.store:dispatch(PlayerAdded(2, "Player2", "DisplayName"))
+		c.store:dispatch(PlayerAdded(3, "Player3", "Myself"))
+		c.store:dispatch(PlayerAdded(4, "Player4", "Player4+DN"))
 
 		c.textSource = {
-			UserId = "userId3-localUser",
+			UserId = 3,
 		}
 	end)
 
+	it("SHOULD return error when a name is not provided", function(c)
+		expect(RBXMuteCommand.clientRun(c.store, c.textSource, "/mute")).toHaveProperty(
+			"metadata",
+			"Roblox.Mute.Error.PlayerNotFound"
+		)
+		expect(RBXUnmuteCommand.clientRun(c.store, c.textSource, "/unmute")).toHaveProperty(
+			"metadata",
+			"Roblox.Unmute.Error.PlayerNotFound"
+		)
+	end)
 	it("SHOULD return error when string does not match any players", function(c)
 		expect(RBXMuteCommand.clientRun(c.store, c.textSource, "/mute someRandomName")).toHaveProperty(
 			"metadata",
@@ -76,10 +86,5 @@ return function()
 			"metadata",
 			"Roblox.Unmute.Info.Success"
 		)
-	end)
-
-	it("SHOULD return nil if not given another word after command", function(c)
-		expect(RBXMuteCommand.clientRun(c.store, c.textSource, "/mute")).toBeNil()
-		expect(RBXUnmuteCommand.clientRun(c.store, c.textSource, "/unmute")).toBeNil()
 	end)
 end

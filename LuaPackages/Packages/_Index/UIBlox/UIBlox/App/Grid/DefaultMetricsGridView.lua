@@ -2,7 +2,6 @@ local GridRoot = script.Parent
 local AppRoot = GridRoot.Parent
 local UIBloxRoot = AppRoot.Parent
 local Packages = UIBloxRoot.Parent
-local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 
 local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
@@ -79,16 +78,6 @@ function DefaultMetricsGridView:init()
 	}
 
 	self.initialSizeCheckerRef = Roact.createRef()
-
-	if not UIBloxConfig.improvementsToGridView then
-		self.checkSetInitialContainerWidth = function(rbx)
-			if rbx and self.isMounted and rbx:IsDescendantOf(game) then
-				self:setState({
-					containerWidth = rbx.AbsoluteSize.X,
-				})
-			end
-		end
-	end
 end
 
 function DefaultMetricsGridView:render()
@@ -98,19 +87,6 @@ function DefaultMetricsGridView:render()
 	local itemHeight = self.props.getItemHeight(itemMetrics.itemWidth)
 
 	local size = Vector2.new(math.max(0, itemMetrics.itemWidth), math.max(0, itemHeight))
-
-	if not UIBloxConfig.improvementsToGridView then
-		if self.state.containerWidth == 0 then
-			return Roact.createElement("Frame", {
-				Transparency = 1,
-				Size = UDim2.new(1, 0, 0, 0),
-
-				[Roact.Change.AbsoluteSize] = self.checkSetInitialContainerWidth,
-				[Roact.Event.AncestryChanged] = self.checkSetInitialContainerWidth,
-				[Roact.Ref] = UIBloxConfig.tempFixEmptyGridView and self.initialSizeCheckerRef or self.props.frameRef,
-			})
-		end
-	end
 
 	return Roact.createElement(GridView, {
 		renderItem = self.props.renderItem,
@@ -143,52 +119,8 @@ function DefaultMetricsGridView:render()
 	})
 end
 
-if not UIBloxConfig.improvementsToGridView then
-	function DefaultMetricsGridView:checkInitialSize()
-		if not UIBloxConfig.tempFixEmptyGridView then
-			return
-		end
-
-		local initialSizeFrame = self.initialSizeCheckerRef:getValue()
-		if initialSizeFrame then
-			-- There is a bug in the C++ code around resizing/notification that causes a
-			-- pretty serious issue in prod (you can get stuck in a state where all catalog
-			-- pages are empty).
-			-- In the short term we can fix the user-facing issue with this hack.
-			-- Reading the AbsolutePosition property here forces a relayout.
-			-- Over the long haul we expect the C++ code will be fixed and we can remove this
-			-- hack.
-			local _ = initialSizeFrame.AbsolutePosition
-
-			if initialSizeFrame.AbsoluteSize.X > 0 then
-				self.checkSetInitialContainerWidth(initialSizeFrame)
-			end
-		end
-	end
-end
-
 function DefaultMetricsGridView:didMount()
 	self.isMounted = true
-	if not UIBloxConfig.improvementsToGridView then
-		self:checkInitialSize()
-		if UIBloxConfig.tempFixEmptyGridView and UIBloxConfig.tempFixGridViewLayoutWithSpawn then
-			-- FIXME(dbanks)
-			-- 2021/10/08
-			-- We are observing problems with grid view not rendering properly until it is 'poked' with a read of
-			-- some kind.
-			-- Evidently reading right away doesn't fix the problem in every situation.
-			-- Tests suggest it helps to read an instant after everything is mounted, hence the spawn.
-			spawn(function()
-				self:checkInitialSize()
-			end)
-		end
-	end
-end
-
-if not UIBloxConfig.improvementsToGridView then
-	function DefaultMetricsGridView:didUpdate()
-		self:checkInitialSize()
-	end
 end
 
 function DefaultMetricsGridView:willUnmount()

@@ -10,7 +10,6 @@ local Roact = require(Packages.Roact)
 local InteractableList = require(Core.Control.InteractableList)
 local SelectionMode = require(Core.Control.Enum.SelectionMode)
 local validateImage = require(Core.ImageSet.Validator.validateImage)
-local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getIconSize = require(App.ImageSet.getIconSize)
 local IconButton = require(script.Parent.IconButton)
@@ -40,9 +39,6 @@ LogoTray.validateProps = t.strictInterface({
 		logo = validateImage
 	})),
 	layoutOrder = t.integer,
-	-- Size of each logo item defined by App.ImageSet.IconSize which could be used to measure the final size
-	-- with App.ImageSet.getIconSize
-	itemSize = t.optional(enumerateValidator(IconSize)),
 	-- Padding of the LogoTray
 	padding = t.optional(t.UDim),
 	-- A callback function for the click event on a Logo item.
@@ -50,7 +46,6 @@ LogoTray.validateProps = t.strictInterface({
 })
 
 LogoTray.defaultProps = {
-	itemSize = LOGO_SIZE_DEFAULT,
 	padding = UDim.new(0, LOGO_PADDING_DEFAULT),
 	handleItemClick = noOpt
 }
@@ -66,7 +61,7 @@ function LogoTray:init()
 	end
 
 	self.getMeasuredItemSize = function()
-		local measuredSize = getIconSize(self.props.itemSize)
+		local measuredSize = getIconSize(LOGO_SIZE_DEFAULT)
 		return UDim2.fromOffset(measuredSize, measuredSize)
 	end
 
@@ -79,7 +74,7 @@ function LogoTray:init()
 		local item = Roact.createElement(IconButton, {
 			icon = logoItem.logo,
 			size = self.getMeasuredItemSize(),
-			iconSize = self.props.itemSize,
+			iconSize = LOGO_SIZE_DEFAULT,
 			onActivated = function()
 				self.props.handleItemClick(logoItem.key)
 			end

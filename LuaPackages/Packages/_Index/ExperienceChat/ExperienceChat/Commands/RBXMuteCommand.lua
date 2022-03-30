@@ -13,7 +13,13 @@ local command: CommandTypes.Command = {
 		local words = string.split(rawString, " ")
 		local name = words[2]
 		if not name then
-			return nil
+			return {
+				key = "GameChat_MuteSpeaker_SpeakerDoesNotExist",
+				args = {
+					RBX_NAME = "",
+				},
+				metadata = "Roblox.Mute.Error.PlayerNotFound",
+			}
 		end
 
 		local targetPlayers = getPlayersFromString(store:getState().Players, name)
@@ -33,7 +39,7 @@ local command: CommandTypes.Command = {
 			}
 		else
 			local targetPlayer = targetPlayers[1]
-			if targetPlayer.userId == textSource.UserId then
+			if targetPlayer.userId == tostring(textSource.UserId) then
 				return {
 					key = "GameChat_DoMuteCommand_CannotMuteSelf",
 					args = {},

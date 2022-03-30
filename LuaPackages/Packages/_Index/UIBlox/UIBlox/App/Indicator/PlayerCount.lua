@@ -10,10 +10,12 @@ local withStyle = require(UIBlox.Core.Style.withStyle)
 local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local validateImage = require(UIBlox.Core.ImageSet.Validator.validateImage)
+local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
+local TEXT_MAX_BOUND = 10000
 
 local ICON_SIZE = getIconSize(IconSize.Large)
-local ICON_TEXT_PADDING = 10
-local PADDING_LEFT_RIGHT = 10
+local ICON_TEXT_PADDING = 12
+local PADDING_LEFT_RIGHT = 12
 
 local StatWidgetPropsInterface = t.strictInterface({
 	countText = t.string,
@@ -29,8 +31,26 @@ PlayerCount.validateProps = t.strictInterface({
 	countRight = StatWidgetPropsInterface
 })
 
+function PlayerCount:init()
+	self.getTextWidth = function(text, fontStyle, style)
+		local baseSize = style.Font.BaseSize
+		local fontSize = fontStyle.RelativeSize * baseSize
+		local bounds = Vector2.new(TEXT_MAX_BOUND, TEXT_MAX_BOUND)
+		return GetTextSize(text, fontSize, fontStyle.Font, bounds).X
+	end
+	self.getMeasuredSectionWidth = function(countInfo, style)
+		local countWidth = self.getTextWidth(countInfo.countText, style.Font.Title, style)
+		local labelWidth = self.getTextWidth(countInfo.labelText, style.Font.CaptionHeader, style)
+		return math.max(countWidth, labelWidth) + ICON_SIZE + ICON_TEXT_PADDING
+	end
+end
+
 function PlayerCount:render()
 	return withStyle(function(style)
+		local leftSectionWidth = self.getMeasuredSectionWidth(self.props.countLeft, style)
+		local rightSectionWidth = self.getMeasuredSectionWidth(self.props.countRight, style)
+		local leftSectionWeight = leftSectionWidth / (leftSectionWidth + rightSectionWidth)
+		local rightSectionWeight = 1.0 - leftSectionWeight
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundTransparency = 1,
@@ -42,7 +62,7 @@ function PlayerCount:render()
 				layoutOrder = 1,
 				position = UDim2.new(0, 0, 0, 0),
 				anchorPoint = Vector2.new(0, 0),
-				size = UDim2.new(0.5, 0, 1, 0),
+				size = UDim2.new(leftSectionWeight, 0, 1, 0),
 				horizontalAlignment = Enum.HorizontalAlignment.Left
 			}, style),
 			RightSection = self:renderStatWidget({
@@ -50,7 +70,7 @@ function PlayerCount:render()
 				layoutOrder = 2,
 				position = UDim2.new(1, 0, 0, 0),
 				anchorPoint = Vector2.new(1, 0),
-				size = UDim2.new(0.5, 0, 1, 0),
+				size = UDim2.new(rightSectionWeight, 0, 1, 0),
 				horizontalAlignment = Enum.HorizontalAlignment.Right
 			}, style)
 		})
@@ -78,7 +98,6 @@ function PlayerCount:renderStatWidget(widgetProps, style)
 			FillDirection = Enum.FillDirection.Horizontal,
 			HorizontalAlignment = horizontalAlignment,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
-			SortOrder = Enum.SortOrder.LayoutOrder,
 			Padding = UDim.new(0, ICON_TEXT_PADDING),
 		}),
 		Padding = Roact.createElement("UIPadding", {
@@ -89,14 +108,14 @@ function PlayerCount:renderStatWidget(widgetProps, style)
 			Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
 			Image = icon,
 			ImageColor3 = style.Theme.IconEmphasis.Color,
+			Position = UDim2.new(0, 0, 0, 0),
 			BackgroundTransparency = 1,
-			LayoutOrder = 1,
 		}),
 		TextSection = Roact.createElement("Frame", {
 			Size = UDim2.fromScale(0, 0),
 			AutomaticSize = Enum.AutomaticSize.XY,
 			BackgroundTransparency = 1,
-			LayoutOrder = 2,
+			Position = UDim2.new(0, ICON_SIZE + ICON_TEXT_PADDING, 0, 0),
 		}, {
 			ListLayout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
@@ -107,6 +126,7 @@ function PlayerCount:renderStatWidget(widgetProps, style)
 				AutomaticSize = Enum.AutomaticSize.XY,
 				LayoutOrder = 1,
 				Text = number,
+				fluidSizing = true,
 				TextWrapped = false,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				colorStyle = style.Theme.TextEmphasis,
@@ -119,6 +139,7 @@ function PlayerCount:renderStatWidget(widgetProps, style)
 				AutomaticSize = Enum.AutomaticSize.XY,
 				LayoutOrder = 2,
 				Text = label,
+				fluidSizing = true,
 				TextWrapped = false,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				colorStyle = style.Theme.TextEmphasis,

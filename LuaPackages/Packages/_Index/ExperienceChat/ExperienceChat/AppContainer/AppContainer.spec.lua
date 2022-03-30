@@ -7,9 +7,6 @@ local globals = require(Packages.Dev.Jest).Globals
 local expect = globals.expect
 local ChatVisibility = ExperienceChat.ChatVisibility
 local ChatTopBarButtonActivated = require(ChatVisibility.Actions.ChatTopBarButtonActivated)
-local TextChatServiceChatWindowPropertyChanged = require(
-	ChatVisibility.Actions.TextChatServiceChatWindowPropertyChanged
-)
 
 local Actions = ExperienceChat.Actions
 local IncomingMessageReceived = require(Actions.IncomingMessageReceived)
@@ -144,30 +141,6 @@ return function()
 			expect(c.findFirstInstance(mountResult.instance, { Name = "chatInputBar" })).never.toBeNil()
 		end
 	)
-
-	it("SHOULD render chatWindow and chatInputBar based on TextChatServiceChatWindowPropertyChanged action", function(c)
-		local mountResult = c.mount({}, c)
-		local store = mountResult.store
-
-		expect(c.findFirstInstance(mountResult.instance, { Name = "chatWindow" })).never.toBeNil()
-		expect(c.findFirstInstance(mountResult.instance, { Name = "chatInputBar" })).never.toBeNil()
-
-		c.Roact.act(function()
-			store:dispatch(TextChatServiceChatWindowPropertyChanged(false))
-			wait()
-		end)
-
-		expect(c.findFirstInstance(mountResult.instance, { Name = "chatWindow" })).toBeNil()
-		expect(c.findFirstInstance(mountResult.instance, { Name = "chatInputBar" })).toBeNil()
-
-		c.Roact.act(function()
-			store:dispatch(TextChatServiceChatWindowPropertyChanged(true))
-			wait()
-		end)
-
-		expect(c.findFirstInstance(mountResult.instance, { Name = "chatWindow" })).never.toBeNil()
-		expect(c.findFirstInstance(mountResult.instance, { Name = "chatInputBar" })).never.toBeNil()
-	end)
 
 	describe("WHEN chat privacy setting is fetched AND IncomingMessageReceived is dispatched", function()
 		beforeAll(function(c)

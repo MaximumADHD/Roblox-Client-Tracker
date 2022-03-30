@@ -136,7 +136,10 @@ local function initializeLibrary(configs)
 				]]
 				ScrollButton = require(script.App.Container.Carousel.ScrollButton),
 			}),
-			VerticalScrollView = require(script.App.Container.VerticalScrollView),
+			VerticalScrollView = configs.useNewVerticalScrollView and require(
+				script.App.Container.VerticalScrollViewV2
+			) or require(script.App.Container.VerticalScrollViewWithMargin),
+			VerticalScrollViewWithMargin = require(script.App.Container.VerticalScrollViewWithMargin),
 			getPageMargin = require(script.App.Container.getPageMargin),
 			LoadingStateContainer = require(script.App.Container.LoadingStateContainer),
 			HorizontalPageMargin = require(script.App.Container.HorizontalPageMargin),
@@ -176,6 +179,7 @@ local function initializeLibrary(configs)
 				BaseTile = require(script.App.Tile.BaseTile.Tile),
 			}),
 			PlayerTile = require(script.App.Tile.PlayerTile.PlayerTile),
+			ExperienceTile = require(script.App.Tile.ExperienceTile.ExperienceTile)
 		}),
 
 		Dialog = strict({
@@ -218,9 +222,11 @@ local function initializeLibrary(configs)
 			EmptyState = require(script.App.Indicator.EmptyState),
 			Enum = strict({
 				BadgeStates = require(script.App.Indicator.Enum.BadgeStates),
+				VoteStates = require(script.App.Indicator.Enum.VoteStates),
 			}),
 			PlayerContext = require(script.App.Indicator.PlayerContext),
 			PlayerCount = require(script.App.Indicator.PlayerCount),
+			RateCount = require(script.App.Indicator.RateCount),
 		}),
 
 		Menu = strict({
@@ -258,15 +264,12 @@ local function initializeLibrary(configs)
 		}),
 
 		Template = strict({
-			--Inital API for Details Page Template. The will be enabled when details page is ready for full release
-			--[[
 			DetailsPage = {
 				Enum = {
 					ContentPosition = require(script.App.Template.DetailsPage.Enum.ContentPosition),
 				},
 				DetailsPageTemplate = require(script.App.Template.DetailsPage.DetailsPageTemplate),
 			},
-			]]
 		}),
 	})
 

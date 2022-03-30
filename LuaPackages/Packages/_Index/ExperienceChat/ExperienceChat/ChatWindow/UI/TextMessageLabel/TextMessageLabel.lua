@@ -18,7 +18,7 @@ function TextMessageLabel:render()
 		Font = Config.ChatWindowFont,
 		RichText = true,
 		Size = UDim2.new(1, 0, 0, 0),
-		Text = prefixText .. ": " .. text,
+		Text = if string.len(prefixText) == 0 then text else prefixText .. ": " .. text,
 		TextColor3 = Config.ChatWindowTextColor3,
 		TextSize = Config.ChatWindowTextSize,
 		TextStrokeTransparency = self.props.textStrokeTransparency or 0.5,

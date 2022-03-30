@@ -26,7 +26,9 @@ end
 
 local TableStory
 
-if FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize then
+local hasTableColumnResizeFFlags = FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize
+
+if hasTableColumnResizeFFlags then
 	TableStory = Roact.PureComponent:extend("TableStory")
 
 	function TableStory:init()
@@ -88,14 +90,14 @@ return {
 	stories = {
 		{
 			name = "Fixed size",
-			story = Roact.createElement(FFlagDevFrameworkSplitPane and TableStory or Table, {
-				UseScale = FFlagDevFrameworkSplitPane and true or nil,
-				ClampSize = FFlagDevFrameworkSplitPane and true or nil,
-				InitialSizes = FFlagDevFrameworkSplitPane and {
+			story = Roact.createElement(if hasTableColumnResizeFFlags then TableStory else Table, {
+				UseScale = if hasTableColumnResizeFFlags then true else nil,
+				ClampSize = if hasTableColumnResizeFFlags then true else nil,
+				InitialSizes = if hasTableColumnResizeFFlags then {
 					UDim.new(1/3, 0),
 					UDim.new(1/3, 0),
 					UDim.new(1/3, 0),
-				} or nil,
+				} else nil,
 				Size = UDim2.new(1, 0, 0, 200),
 				Columns = columns,
 				Rows = rows,
@@ -103,15 +105,15 @@ return {
 		},
 		{
 			name = "With footer",
-			story = Roact.createElement(FFlagDevFrameworkSplitPane and TableStory or Table, {
-				UseScale = FFlagDevFrameworkSplitPane and true or nil,
-				ClampSize = FFlagDevFrameworkSplitPane and true or nil,
+			story = Roact.createElement(if hasTableColumnResizeFFlags then TableStory else Table, {
+				UseScale = if hasTableColumnResizeFFlags then true else nil,
+				ClampSize = if hasTableColumnResizeFFlags then true else nil,
 				Size = UDim2.new(1, 0, 0, 200),
-				InitialSizes = FFlagDevFrameworkSplitPane and {
+				InitialSizes = if hasTableColumnResizeFFlags then {
 					UDim.new(1/3, 0),
 					UDim.new(1/3, 0),
 					UDim.new(1/3, 0),
-				} or nil,
+				} else nil,
 				Footer = Roact.createElement(Pane, {
 					Padding = 5,
 					Layout = Enum.FillDirection.Horizontal,
@@ -128,14 +130,14 @@ return {
 		},
 		{
 			name = "With scroll",
-			story = Roact.createElement(FFlagDevFrameworkSplitPane and TableStory or Table, {
+			story = Roact.createElement(if hasTableColumnResizeFFlags then TableStory else Table, {
 				Scroll = true,
 				Size = UDim2.new(1, 0, 0, 200),
-				InitialSizes = FFlagDevFrameworkSplitPane and {
+				InitialSizes = if hasTableColumnResizeFFlags then {
 					UDim.new(1/3, 0),
 					UDim.new(1/3, 0),
 					UDim.new(1/3, 0),
-				} or nil,
+				} else nil,
 				Footer = Roact.createElement(Pane, {
 					Padding = 5,
 					Layout = Enum.FillDirection.Horizontal,

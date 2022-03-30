@@ -11,7 +11,7 @@
 		string Text: The text to display in the tooltip.
 
 	Optional Props:
-		table Child: An optional Roact element which should be displayed
+		table Child: A Roact element which should be displayed. Must not be wrapped in a table
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		boolean Enabled: Whether the tooltip will display on hover.

@@ -3,7 +3,6 @@ local AppRoot = GridRoot.Parent
 local UIBloxRoot = AppRoot.Parent
 local Packages = UIBloxRoot.Parent
 local RoactGamepad = require(Packages.RoactGamepad)
-local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 local isCallable = require(UIBloxRoot.Utility.isCallable)
 
 local Roact = require(Packages.Roact)
@@ -110,19 +109,14 @@ function GridView:render()
 	local endIndex = itemCount
 	local gridChildren = {}
 	local x, y = 0, 0
-	local maxPossibleVisibleItems = itemCount
 
 	local itemsPerRow
 	local maximumRenderableRows
-	if UIBloxConfig.improvementsToGridView then
-		local safeXDenominator = math.max(1, itemSize.X + itemPadding.X)
-		local safeYDenominator = math.max(1, itemSize.Y + itemPadding.Y)
-		itemsPerRow = math.floor((containerWidth + itemPadding.X) / safeXDenominator)
-		maximumRenderableRows = math.floor((maxHeight + itemPadding.Y) / safeYDenominator)
-	else
-		itemsPerRow = math.floor((containerWidth + itemPadding.X) / (itemSize.X + itemPadding.X))
-		maximumRenderableRows = math.floor((maxHeight + itemPadding.Y) / (itemSize.Y + itemPadding.Y))
-	end
+
+	local safeXDenominator = math.max(1, itemSize.X + itemPadding.X)
+	local safeYDenominator = math.max(1, itemSize.Y + itemPadding.Y)
+	itemsPerRow = math.floor((containerWidth + itemPadding.X) / safeXDenominator)
+	maximumRenderableRows = math.floor((maxHeight + itemPadding.Y) / safeYDenominator)
 
 	if itemsPerRow ~= self.currentItemsPerRow then
 		self.currentItemsPerRow = itemsPerRow
@@ -148,20 +142,6 @@ function GridView:render()
 		endIndex = math.min(itemCount, endingRow * itemsPerRow)
 
 		y = startingRow * itemSize.Y + startingRow * itemPadding.Y
-
-		local maxPossibleRowsDisplayed = math.min(maximumRenderableRows, visibleRows) + finalPadRows
-		maxPossibleVisibleItems = math.abs(maxPossibleRowsDisplayed * itemsPerRow)
-	end
-
-	-- using maxPossibleVisibleItems means the amount of render keys will not change between renders (assuming
-	-- positioning/size props don't change) this is important to ensure gamepad selection stability
-	local maxRenderKey = maxPossibleVisibleItems
-
-	-- FIXME(dbanks)
-	-- 2021/11/30
-	-- Remove with UIBloxConfig.improvementsToGridView
-	local function calculateRenderKey(index)
-		return index % maxRenderKey
 	end
 
 	local function getItemIndexRef(inputRow, inputCol)
@@ -169,9 +149,7 @@ function GridView:render()
 		local index = 1 + (((inputRow - 1) * itemsPerRow) + (inputCol - 1))
 		local isIndexInRange = index >= startIndex and index <= endIndex
 
-		local renderKey = UIBloxConfig.improvementsToGridView and
-			index or
-			calculateRenderKey(index)
+		local renderKey = index
 		return isIndexInRange and isRowAndColInRange and self.focusableRefs[renderKey] or nil
 	end
 
@@ -179,13 +157,10 @@ function GridView:render()
 		local currentRow = 1 + (math.floor((itemIndex - 1) / itemsPerRow))
 		local currentCol = 1 + ((itemIndex - 1) % itemsPerRow)
 
-		local isVisible = true
-		if UIBloxConfig.improvementsToGridView then
-			-- If we don't even know how big the grid is, we shouldn't be
-			-- rendering items: they will appear "squished".
-			-- Also shouldn't be rendering grid items if the item size is 0.
-			isVisible = self:itemsAreVisible()
-		end
+		-- If we don't even know how big the grid is, we shouldn't be
+		-- rendering items: they will appear "squished".
+		-- Also shouldn't be rendering grid items if the item size is 0.
+		local isVisible = self:itemsAreVisible()
 
 		return Roact.createElement(RoactGamepad.Focusable.Frame, {
 			BackgroundTransparency = 1,
@@ -195,7 +170,7 @@ function GridView:render()
 			NextSelectionRight = getItemIndexRef(currentRow, currentCol + 1),
 			NextSelectionUp = getItemIndexRef(currentRow - 1, currentCol),
 			NextSelectionDown = getItemIndexRef(currentRow + 1, currentCol),
-			[Roact.Ref] = UIBloxConfig.improvementsToGridView and self.focusableRefs[itemIndex] or getItemIndexRef(currentRow, currentCol),
+			[Roact.Ref] = self.focusableRefs[itemIndex],
 			-- Optional Gamepad prop callback which is called when a grid member is focused on
 			onFocusGained = self.props.onFocusGained,
 		}, {
@@ -213,7 +188,7 @@ function GridView:render()
 			if itemIndex == defaultChildIndex then
 				defaultChildRendered = true
 			end
-			local renderKey = UIBloxConfig.improvementsToGridView and itemIndex or calculateRenderKey(itemIndex)
+			local renderKey = itemIndex
 			gridChildren[renderKey] = renderItem(itemIndex)
 
 			x = math.floor(x + itemSize.X + itemPadding.X)
@@ -227,20 +202,18 @@ function GridView:render()
 			end
 		end
 
-		if UIBloxConfig.improvementsToGridView then
-			if defaultChildExists and not defaultChildRendered then
-				-- We could get into this situation in the following setup:
-				--   * GridView with props:
-				--     * defaultChildIndex = 1
-				--     * restorePreviousChildFocus = false
-				--   * You select the GridView. You navigate down several rows. You then navigate away
-				--     from the GridView. You then navigate back to the GridView.
-				-- The expected behavior of this would be that you select the first element.
-				-- So we need to make sure the defaultChild is rendered.
-				x = ((defaultChildIndex - 1) % itemsPerRow) * (itemSize.X + itemPadding.X)
-				y = math.floor((defaultChildIndex - 1) / itemsPerRow) * (itemPadding.Y + itemSize.Y)
-				gridChildren[defaultChildIndex] = renderItem(defaultChildIndex)
-			end
+		if defaultChildExists and not defaultChildRendered then
+			-- We could get into this situation in the following setup:
+			--   * GridView with props:
+			--     * defaultChildIndex = 1
+			--     * restorePreviousChildFocus = false
+			--   * You select the GridView. You navigate down several rows. You then navigate away
+			--     from the GridView. You then navigate back to the GridView.
+			-- The expected behavior of this would be that you select the first element.
+			-- So we need to make sure the defaultChild is rendered.
+			x = ((defaultChildIndex - 1) % itemsPerRow) * (itemSize.X + itemPadding.X)
+			y = math.floor((defaultChildIndex - 1) / itemsPerRow) * (itemPadding.Y + itemSize.Y)
+			gridChildren[defaultChildIndex] = renderItem(defaultChildIndex)
 		end
 	end
 
@@ -257,7 +230,7 @@ function GridView:render()
 		end or nil,
 		[Roact.Change.AbsoluteSize] = function(rbx)
 			if self.isMounted then
-				if not UIBloxConfig.improvementsToGridView or self.state.isInDataModel then
+				if self.state.isInDataModel then
 					self:setState({
 						containerWidth = rbx.AbsoluteSize.X,
 					})
@@ -268,7 +241,7 @@ function GridView:render()
 				end
 			end
 		end,
-		[Roact.Event.AncestryChanged] = UIBloxConfig.improvementsToGridView  and self.onAncestryChanged or nil,
+		[Roact.Event.AncestryChanged] = self.onAncestryChanged,
 
 		NextSelectionLeft = self.props.NextSelectionLeft,
 		NextSelectionRight = self.props.NextSelectionRight,
@@ -290,7 +263,7 @@ function GridView:didMount()
 	local ref = self.props.frameRef or self.frameRef
 
 	if ref.current and ref.current.AbsoluteSize.X ~= 0 then
-		if not UIBloxConfig.improvementsToGridView or ref.current:IsDescendantOf(game) then
+		if ref.current:IsDescendantOf(game) then
 			self:setState({
 				isInDataModel = true,
 				containerWidth = ref.current.AbsoluteSize.X,

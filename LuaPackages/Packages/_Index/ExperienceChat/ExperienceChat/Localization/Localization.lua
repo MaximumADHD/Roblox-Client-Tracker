@@ -1,6 +1,7 @@
-local ProjectRoot = script:FindFirstAncestor("ExperienceChat").Parent
-local Roact = require(ProjectRoot.Roact)
-local Dictionary = require(ProjectRoot.llama).Dictionary
+local ExperienceChat = script:FindFirstAncestor("ExperienceChat")
+local Packages = ExperienceChat.Parent
+local Roact = require(Packages.Roact)
+local Dictionary = require(Packages.llama).Dictionary
 
 local function getConnect(context)
 	return function(mapper)

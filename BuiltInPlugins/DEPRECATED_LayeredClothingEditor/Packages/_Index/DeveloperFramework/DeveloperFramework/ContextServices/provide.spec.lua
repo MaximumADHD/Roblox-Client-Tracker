@@ -5,6 +5,7 @@ return function()
 	local Framework = script.Parent.Parent
 	local Roact = require(Framework.Parent.Roact)
 	local provide = require(script.Parent.provide)
+	local withContext = require(script.Parent.withContext)
 	-- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
 	local Provider = require(script.Parent.Provider)
 	local ContextItem = require(script.Parent.ContextItem)
@@ -32,6 +33,35 @@ return function()
 			Roact.unmount(instance)
 		end).to.throw()
 	end)
+
+	if FFlagDevFrameworkUseCreateContext then
+		it("should allow holes in the input array", function()
+			local One = ContextItem:extend("One")
+			One.value = "one"
+			local Two = ContextItem:extend("Two")
+			Two.value = "two"
+
+			local Consumer = Roact.PureComponent:extend("Consumer")
+			local result = nil
+			function Consumer:render()
+				local props = self.props
+				result = ("%s,%s"):format(props.One.value, props.Two.value)
+			end
+			Consumer = withContext({
+				One = One,
+				Two = Two,
+			})(Consumer)
+
+			local element = provide({One, nil, Two}, {
+				Frame = Roact.createElement(Consumer),
+			})
+
+			local instance = Roact.mount(element)
+			Roact.unmount(instance)
+
+			expect(result).to.equal("one,two")
+		end)
+	end
 
 	it("should render the components in Children", function()
 		local container = Instance.new("Folder")

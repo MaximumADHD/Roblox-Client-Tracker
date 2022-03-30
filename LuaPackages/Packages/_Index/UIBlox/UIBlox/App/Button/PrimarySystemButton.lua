@@ -45,6 +45,7 @@ function PrimarySystemButton:render()
 			icon = self.props.icon,
 			text = self.props.text,
 			inputIcon = self.props.inputIcon,
+			fontStyle = self.props.fontStyle,
 			isDisabled = self.props.isDisabled,
 			isLoading = self.props.isLoading,
 			isDelayedInput = self.props.isDelayedInput,

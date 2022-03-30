@@ -1,6 +1,6 @@
-local CoreGui = game:GetService("CoreGui")
-local ExperienceChat = CoreGui:FindFirstChild("ExperienceChat", true)
-local globals = require(ExperienceChat.Dev.Jest).Globals
+local ExperienceChat = script:FindFirstAncestor("ExperienceChat")
+local Packages = ExperienceChat.Parent
+local globals = require(Packages.Dev.Jest).Globals
 local expect = globals.expect
 
 return function()
@@ -37,6 +37,23 @@ return function()
 				local messageText = c.message.prefixText .. ": " .. c.message.text
 
 				expect(instance.Text).toEqual(messageText)
+			end)
+		end)
+
+		describe("GIVEN message with no prefix text", function()
+			beforeAll(function(c)
+				c.message = {
+					text = 'This is <font size="50">big</font> and this is <font size="10">small</font>!',
+					prefixText = "",
+				}
+			end)
+
+			it("SHOULD NOT render colon", function(c)
+				local findFirstInstance = c.findFirstInstance
+				local instance = findFirstInstance(c:mount().instance, { ClassName = "TextLabel" })
+				expect(instance).never.toBeNil()
+
+				expect(instance).toHaveProperty("Text", expect.never.stringContaining(":"))
 			end)
 		end)
 	end)

@@ -1,14 +1,12 @@
-local CoreGui = game:GetService("CoreGui")
-local ExperienceChat = CoreGui:FindFirstChild("ExperienceChat", true)
+local ExperienceChat = script:FindFirstAncestor("ExperienceChat")
+local Packages = ExperienceChat.Parent
+local globals = require(Packages.Dev.Jest).Globals
+local expect = globals.expect
 
-local ProjectRoot = script:FindFirstAncestor("ExperienceChat").Parent
-local Roact = require(ProjectRoot.Roact)
-local llama = require(ProjectRoot.llama)
+local Roact = require(Packages.Roact)
+local llama = require(Packages.llama)
 local Set = llama.Set
 local List = llama.List
-
-local globals = require(ExperienceChat.Dev.Jest).Globals
-local expect = globals.expect
 
 return function()
 	beforeAll(function(rootContext)

@@ -30,10 +30,13 @@ local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local Context = require(Framework.ContextServices.Context)
 local Dash = require(Framework.packages.Dash)
+local iterable = Dash.iterable
 local join = Dash.join
 local collect = Dash.collect
 local filter = Dash.filter
 local forEach = Dash.forEach
+
+local insert = table.insert
 
 local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
@@ -41,16 +44,22 @@ local MultipleProvider = Roact.PureComponent:extend("MultipleProvider")
 
 if FFlagDevFrameworkUseCreateContext then
 	function MultipleProvider:init(props)
-		local items = props.ContextItems
+		local iterator = iterable(props.ContextItems)
+		local items = {}
+		local originalKeys = {}
+		for key, item in iterator do
+			insert(items, item)
+			originalKeys[#items] = key
+		end
 		self.state = {
 			count = 0
 		}
 		self.connections = {}
 		-- Deduplicate context items passed twice
 		-- e.g. provideMockContext merges the default items and additional items into a single list
-		local keyToItem = collect(items, function(index, item)
+		local keyToItem = collect(items, function(index: number, item)
 			assert(item.Key,
-				string.format("provide: item at %i was not a ContextItem.", index))
+				string.format("provide: item at %s was not a ContextItem.", tostring(originalKeys[index])))
 			return item.Key, item
 		end)
 		-- Filter out items which are later overwritten
@@ -88,9 +97,8 @@ if FFlagDevFrameworkUseCreateContext then
 	function MultipleProvider:addConnection(key, item)
 		local signal = item:getSignal()
 		if signal then
-			self.connections[key] = signal:Connect(function(newValue)
+			self.connections[key] = signal:Connect(function(_)
 				self:setState({
-					[key] = newValue,
 					count = self.state.count + 1
 				})
 			end)

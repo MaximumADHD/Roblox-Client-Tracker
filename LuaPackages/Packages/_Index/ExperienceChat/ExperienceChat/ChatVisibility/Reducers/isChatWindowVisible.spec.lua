@@ -1,13 +1,12 @@
-local CoreGui = game:GetService("CoreGui")
-local ExperienceChat = CoreGui:FindFirstChild("ExperienceChat", true)
-local globals = require(ExperienceChat.Dev.Jest).Globals
+local ExperienceChat = script:FindFirstAncestor("ExperienceChat")
+local Packages = ExperienceChat.Parent
+local globals = require(Packages.Dev.Jest).Globals
 local expect = globals.expect
-local ChatVisibility = ExperienceChat.ExperienceChat.ChatVisibility
+
+local ChatVisibility = ExperienceChat.ChatVisibility
 
 return function()
-	local TextChatServiceChatWindowPropertyChanged = require(
-		ChatVisibility.Actions.TextChatServiceChatWindowPropertyChanged
-	)
+	local ChatWindowConfigurationEnabled = require(ChatVisibility.Actions.ChatWindowConfigurationEnabled)
 	local isChatWindowVisible = require(ChatVisibility.Reducers.isChatWindowVisible)
 
 	describe("isChatWindowVisible", function()
@@ -24,13 +23,13 @@ return function()
 			expect(oldState).toEqual(newState)
 		end)
 
-		it("should be changed using TextChatServiceChatWindowPropertyChanged", function()
+		it("should be changed using ChatWindowConfigurationEnabled", function()
 			local state = isChatWindowVisible(nil, {})
 
-			state = isChatWindowVisible(state, TextChatServiceChatWindowPropertyChanged(true))
+			state = isChatWindowVisible(state, ChatWindowConfigurationEnabled(true))
 			expect(state).toEqual(true)
 
-			state = isChatWindowVisible(state, TextChatServiceChatWindowPropertyChanged(false))
+			state = isChatWindowVisible(state, ChatWindowConfigurationEnabled(false))
 			expect(state).toEqual(false)
 		end)
 	end)

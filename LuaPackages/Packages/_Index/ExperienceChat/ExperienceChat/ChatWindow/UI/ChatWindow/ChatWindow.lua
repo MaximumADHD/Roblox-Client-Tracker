@@ -88,7 +88,11 @@ end
 
 function ChatWindow.getDerivedStateFromProps(nextProps, lastState)
 	local newMessages = Dictionary.map(nextProps.messages, function(message, id)
-		if lastState.messages == nil or lastState.messages[id] == nil then
+		if
+			lastState.messages == nil
+			or lastState.messages[id] == nil
+			or message.status ~= lastState.messages[id].status
+		then
 			local isMuted = if message.userId then Set.has(nextProps.mutedUserIds, message.userId) else false
 			return Dictionary.join(message, { visible = not isMuted })
 		end

@@ -21,6 +21,7 @@ local NotifyReady = require(script.Parent.NotifyReady)
 
 local Scroller = Roact.Component:extend("Scroller")
 
+local GetFFlagFixLoadMoreScrollDebounce = require(script.Parent.Parent.Flags.GetFFlagFixLoadMoreScrollDebounce)
 Scroller.Orientation = require(script.Parent.Orientation)
 
 local MOTOR_OPTIONS = {
@@ -324,6 +325,9 @@ function Scroller:didUpdate(previousProps, previousState)
 	self.log:debug("didUpdate")
 
 	if Cryo.isEmpty(self.props.itemList) then
+		if GetFFlagFixLoadMoreScrollDebounce() then
+			self.scrollDebounce = false
+		end
 		return
 	end
 
@@ -649,7 +653,8 @@ function Scroller:init()
 			self:recalculateBounds(self.scrollingForward, self.scrollingBackward, newState)
 		)
 
-		if not Cryo.isEmpty(newState) then
+		local stateIsEmpty = Cryo.isEmpty(newState)
+		if not stateIsEmpty then
 			self:setState(newState)
 		end
 
@@ -659,6 +664,10 @@ function Scroller:init()
 		end
 
 		self.prevCycle.canvasPosition = Round.nearest(self:measure(rbx.CanvasPosition))
+
+		if stateIsEmpty and GetFFlagFixLoadMoreScrollDebounce() then
+			self.scrollDebounce = false
+		end
 	end
 
 	self.onResize = function(rbx)
@@ -887,7 +896,7 @@ function Scroller:recalculateBounds(trimTrailing, trimLeading, newState)
 end
 
 -- Find the index of the element that overlaps the given canvas-relative position.
--- If the current or next elements are not currently rendered, then it returns 
+-- If the current or next elements are not currently rendered, then it returns
 -- hintIndex.
 function Scroller:findIndexAt(targetPos, hintIndex, extrapolate)
 	self.log:trace("  findIndexAt")

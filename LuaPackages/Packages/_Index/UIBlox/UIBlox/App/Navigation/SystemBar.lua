@@ -292,8 +292,8 @@ function SystemBar:renderList(items, renderItem)
 			end
 		}, {
 			NavBar = self:renderBackground({
-				BackgroundColor3 = theme.BackgroundUIDefault.Color,
-				BackgroundTransparency = theme.BackgroundUIDefault.Transparency,
+				BackgroundColor3 = theme.NavigationBar.Color,
+				BackgroundTransparency = theme.NavigationBar.Transparency,
 				BorderSizePixel = 0,
 			}, renderedItems),
 			SafeArea = self:renderSafeArea(),
