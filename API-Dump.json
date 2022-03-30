@@ -46914,7 +46914,7 @@
         {
             "Members": [
                 {
-                    "Category": "Behavior",
+                    "Category": "Part",
                     "MemberType": "Property",
                     "Name": "Anchored",
                     "Security": {
@@ -47247,7 +47247,7 @@
                     }
                 },
                 {
-                    "Category": "Behavior",
+                    "Category": "Collision",
                     "MemberType": "Property",
                     "Name": "CanCollide",
                     "Security": {
@@ -47283,7 +47283,7 @@
                     }
                 },
                 {
-                    "Category": "Behavior",
+                    "Category": "Collision",
                     "MemberType": "Property",
                     "Name": "CanTouch",
                     "Security": {
@@ -47319,7 +47319,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Part",
                     "MemberType": "Property",
                     "Name": "CenterOfMass",
                     "Security": {
@@ -47341,7 +47341,7 @@
                     }
                 },
                 {
-                    "Category": "Behavior",
+                    "Category": "Collision",
                     "MemberType": "Property",
                     "Name": "CollisionGroupId",
                     "Security": {
@@ -47634,7 +47634,7 @@
                     }
                 },
                 {
-                    "Category": "Behavior",
+                    "Category": "Data",
                     "MemberType": "Property",
                     "Name": "Locked",
                     "Security": {
@@ -47652,7 +47652,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Part",
                     "MemberType": "Property",
                     "Name": "Mass",
                     "Security": {
@@ -47674,7 +47674,7 @@
                     }
                 },
                 {
-                    "Category": "Behavior",
+                    "Category": "Part",
                     "MemberType": "Property",
                     "Name": "Massless",
                     "Security": {
@@ -47832,7 +47832,7 @@
                     }
                 },
                 {
-                    "Category": "Behavior",
+                    "Category": "Data",
                     "MemberType": "Property",
                     "Name": "ResizeIncrement",
                     "Security": {
@@ -47854,7 +47854,7 @@
                     }
                 },
                 {
-                    "Category": "Behavior",
+                    "Category": "Data",
                     "MemberType": "Property",
                     "Name": "ResizeableFaces",
                     "Security": {
@@ -50338,7 +50338,7 @@
         {
             "Members": [
                 {
-                    "Category": "Behavior",
+                    "Category": "Collision",
                     "MemberType": "Property",
                     "Name": "CollisionFidelity",
                     "Security": {
@@ -65982,6 +65982,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetObjectsAllOrNone",
+                    "Parameters": [
+                        {
+                            "Name": "url",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Content"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Objects"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetObjectsList",
                     "Parameters": [
                         {
@@ -74099,25 +74118,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "ConvertToPackageUpload",
-                    "Parameters": [
-                        {
-                            "Name": "uploadUrl",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "CopyToClipboard",
                     "Parameters": [
                         {
@@ -74754,52 +74754,8 @@
                 },
                 {
                     "MemberType": "Event",
-                    "Name": "OnConvertToPackageResult",
-                    "Parameters": [
-                        {
-                            "Name": "isSuccessful",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        },
-                        {
-                            "Name": "errorMessage",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
                     "Name": "OnImportFromRoblox",
                     "Parameters": [
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "OnOpenConvertToPackagePlugin",
-                    "Parameters": [
-                        {
-                            "Name": "instances",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Objects"
-                            }
-                        },
-                        {
-                            "Name": "name",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
                     ],
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
@@ -75016,8 +74972,8 @@
                     "MemberType": "Property",
                     "Name": "AlphaMode",
                     "Security": {
-                        "Read": "LocalUserSecurity",
-                        "Write": "LocalUserSecurity"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -75034,8 +74990,8 @@
                     "MemberType": "Property",
                     "Name": "ColorMap",
                     "Security": {
-                        "Read": "LocalUserSecurity",
-                        "Write": "LocalUserSecurity"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -75052,8 +75008,8 @@
                     "MemberType": "Property",
                     "Name": "MetalnessMap",
                     "Security": {
-                        "Read": "LocalUserSecurity",
-                        "Write": "LocalUserSecurity"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -75070,8 +75026,8 @@
                     "MemberType": "Property",
                     "Name": "NormalMap",
                     "Security": {
-                        "Read": "LocalUserSecurity",
-                        "Write": "LocalUserSecurity"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -75088,8 +75044,8 @@
                     "MemberType": "Property",
                     "Name": "RoughnessMap",
                     "Security": {
-                        "Read": "LocalUserSecurity",
-                        "Write": "LocalUserSecurity"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -76106,6 +76062,139 @@
                 "Service",
                 "NotReplicated"
             ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "ColorMap",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Face",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "TerrainFace"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "MaterialPattern",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "MaterialPattern"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "MetalnessMap",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "NormalMap",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "RoughnessMap",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "StudsPerTile",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "TerrainDetail",
+            "Superclass": "Instance"
         },
         {
             "Members": [
@@ -82824,6 +82913,29 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "DidPointerHit",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "GuiInputUserCFrame",
                     "Security": {
                         "Read": "None",
@@ -82837,6 +82949,29 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "UserCFrame"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "PointerHitCFrame",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "CFrame"
                     }
                 },
                 {
@@ -85691,6 +85826,50 @@
                     },
                     "Tags": [
                         "NotBrowsable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "VoiceChatEnabledForPlaceOnRcc",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "VoiceChatEnabledForUniverseOnRcc",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -93149,16 +93328,12 @@
                     "Value": 2
                 },
                 {
-                    "Name": "RobloxPlugin",
+                    "Name": "Standalone",
                     "Value": 3
                 },
                 {
-                    "Name": "UserPlugin",
-                    "Value": 4
-                },
-                {
                     "Name": "None",
-                    "Value": 5
+                    "Value": 4
                 }
             ],
             "Name": "StudioDataModelType"
@@ -94168,6 +94343,23 @@
                 }
             ],
             "Name": "TerrainAcquisitionMethod"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Top",
+                    "Value": 0
+                },
+                {
+                    "Name": "Side",
+                    "Value": 1
+                },
+                {
+                    "Name": "Bottom",
+                    "Value": 2
+                }
+            ],
+            "Name": "TerrainFace"
         },
         {
             "Items": [

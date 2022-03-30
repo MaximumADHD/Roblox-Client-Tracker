@@ -36,3 +36,4 @@ Studio.App.BreakpointTooltip.BreakpointLocationFmt2,,"Location: %1, line %2","Lo
 Studio.App.BreakpointTooltip.ConditionText,,Condition,Condition
 Studio.App.BreakpointTooltip.LogExpressionText,,Log Expression,Log Expression
 Studio.App.BreakpointTooltip.ContinueExecutionText,,Continuing Execution,Continuing Execution
+Studio.App.BreakpointTooltip.DisabledForCurrentContext,,Disabled For Current Context,Disabled For Current Context

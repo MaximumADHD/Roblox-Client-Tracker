@@ -2490,28 +2490,28 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property Vector3 BasePart.AssemblyLinearVelocity [<📁> LoadOnly] [NotReplicated]
 	Property float BasePart.AssemblyMass [ReadOnly]
 	Property BasePart BasePart.AssemblyRootPart [ReadOnly]
-	Property bool BasePart.Anchored
 	Property bool BasePart.CanCollide
+	Property bool BasePart.CanQuery
 	Property bool BasePart.CanTouch
 	Property int BasePart.CollisionGroupId
-	Property bool BasePart.Locked
-	Property bool BasePart.Massless
-	Property int BasePart.ResizeIncrement [ReadOnly]
-	Property Faces BasePart.ResizeableFaces [ReadOnly]
-	Property bool BasePart.CanQuery
 	Property CFrame BasePart.CFrame
-	Property Vector3 BasePart.CenterOfMass [ReadOnly]
 	Property float BasePart.LocalTransparencyModifier [Hidden] [NotReplicated]
-	Property float BasePart.Mass [ReadOnly]
+	Property bool BasePart.Locked
 	Property Vector3 BasePart.Orientation [<📁> LoadOnly] [NotReplicated]
 	Property Vector3 BasePart.Position [<📁> LoadOnly] [NotReplicated]
+	Property int BasePart.ResizeIncrement [ReadOnly]
+	Property Faces BasePart.ResizeableFaces [ReadOnly]
 	Property Vector3 BasePart.RotVelocity [Hidden] [Deprecated]
 	Property Vector3 BasePart.Rotation [<📁> LoadOnly] [NotReplicated]
 	Property float BasePart.SpecificGravity [ReadOnly] [Deprecated]
 	Property Vector3 BasePart.Velocity [Hidden] [Deprecated]
+	Property bool BasePart.Anchored
+	Property Vector3 BasePart.CenterOfMass [ReadOnly]
 	Property PhysicalProperties BasePart.CustomPhysicalProperties
 	Property float BasePart.Elasticity [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property float BasePart.Friction [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
+	Property float BasePart.Mass [ReadOnly]
+	Property bool BasePart.Massless
 	Property float BasePart.ReceiveAge [Hidden] [ReadOnly]
 	Property int BasePart.RootPriority
 	Property Vector3 BasePart.Size [<📁> LoadOnly] [NotReplicated]
@@ -3453,6 +3453,7 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Function Array DataModel:GetJobsInfo() {PluginSecurity}
 	Function string DataModel:GetMessage() [Deprecated]
 	Function Objects DataModel:GetObjects(Content url) {PluginSecurity}
+	Function Objects DataModel:GetObjectsAllOrNone(Content url) {RobloxScriptSecurity}
 	Function Objects DataModel:GetObjectsAsync(Content url) {RobloxScriptSecurity} [Yields]
 	Function Array DataModel:GetObjectsList(Array urls) {RobloxScriptSecurity}
 	Function bool DataModel:GetRemoteBuildMode() [Deprecated]
@@ -3892,7 +3893,6 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Instance StudioService.ActiveScript [ReadOnly]
 	Property string StudioService.StudioLocaleId [ReadOnly]
 	Function void StudioService:AnimationIdSelected(int64 id) {RobloxScriptSecurity}
-	Function void StudioService:ConvertToPackageUpload(string uploadUrl) {RobloxScriptSecurity}
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
 	Function void StudioService:DEPRECATED_SetTurnOnTeamCreateOnPublish(bool turnOn) {RobloxScriptSecurity}
 	Function void StudioService:EmitPlacePublishedSignal() {RobloxScriptSecurity}
@@ -3927,9 +3927,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioService:UpdatePluginManagement() {RobloxScriptSecurity}
 	Event StudioService.GameNameUpdated(string name) {RobloxScriptSecurity}
 	Event StudioService.GamePublishFinished(bool success, int64 gameId) {RobloxScriptSecurity}
-	Event StudioService.OnConvertToPackageResult(bool isSuccessful, string errorMessage) {RobloxScriptSecurity}
 	Event StudioService.OnImportFromRoblox() {RobloxScriptSecurity}
-	Event StudioService.OnOpenConvertToPackagePlugin(Objects instances, string name) {RobloxScriptSecurity}
 	Event StudioService.OnOpenGameSettings(string pageIdentifier) {RobloxScriptSecurity}
 	Event StudioService.OnOpenManagePackagePlugin(int64 userId, int64 assetId) {RobloxScriptSecurity}
 	Event StudioService.OnPluginInstalledFromToolbox() {RobloxScriptSecurity}
@@ -3943,11 +3941,11 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 Class StudioTheme : Instance [NotCreatable] [NotReplicated]
 	Function Color3 StudioTheme:GetColor(Enum.StudioStyleGuideColor styleguideitem, Enum.StudioStyleGuideModifier modifier = "Default") {PluginSecurity}
 Class SurfaceAppearance : Instance
-	Property Enum.AlphaMode SurfaceAppearance.AlphaMode {LocalUserSecurity}
-	Property Content SurfaceAppearance.ColorMap {LocalUserSecurity}
-	Property Content SurfaceAppearance.MetalnessMap {LocalUserSecurity}
-	Property Content SurfaceAppearance.NormalMap {LocalUserSecurity}
-	Property Content SurfaceAppearance.RoughnessMap {LocalUserSecurity}
+	Property Enum.AlphaMode SurfaceAppearance.AlphaMode {PluginSecurity}
+	Property Content SurfaceAppearance.ColorMap {PluginSecurity}
+	Property Content SurfaceAppearance.MetalnessMap {PluginSecurity}
+	Property Content SurfaceAppearance.NormalMap {PluginSecurity}
+	Property Content SurfaceAppearance.RoughnessMap {PluginSecurity}
 	Property Content SurfaceAppearance.TexturePack {RobloxSecurity} [Hidden]
 Class TaskScheduler : Instance [NotCreatable] [Service]
 	Property Enum.ThreadPoolConfig TaskScheduler.ThreadPoolConfig
@@ -3995,6 +3993,14 @@ Class TeleportService : Instance [NotCreatable] [Service]
 	Event TeleportService.TeleportInitFailed(Instance player, Enum.TeleportResult teleportResult, string errorMessage, int64 placeId, Instance teleportOptions)
 Class TemporaryCageMeshProvider : Instance [NotCreatable] [Service] [NotReplicated]
 Class TemporaryScriptService : Instance [NotCreatable] [Service] [NotReplicated]
+Class TerrainDetail : Instance
+	Property Content TerrainDetail.ColorMap {PluginSecurity}
+	Property Enum.TerrainFace TerrainDetail.Face
+	Property Enum.MaterialPattern TerrainDetail.MaterialPattern
+	Property Content TerrainDetail.MetalnessMap {PluginSecurity}
+	Property Content TerrainDetail.NormalMap {PluginSecurity}
+	Property Content TerrainDetail.RoughnessMap {PluginSecurity}
+	Property float TerrainDetail.StudsPerTile
 Class TerrainRegion : Instance
 	Property bool TerrainRegion.IsSmooth [ReadOnly] [Deprecated]
 	Property Vector3 TerrainRegion.SizeInCells [ReadOnly]
@@ -4359,7 +4365,9 @@ Class UserInputService : Instance [NotCreatable] [Service] [NotReplicated]
 Class UserService : Instance [NotCreatable] [Service]
 	Function Array UserService:GetUserInfosByUserIdsAsync(Array userIds) [Yields]
 Class VRService : Instance [NotCreatable] [Service]
+	Property bool VRService.DidPointerHit {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property Enum.UserCFrame VRService.GuiInputUserCFrame
+	Property CFrame VRService.PointerHitCFrame {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool VRService.VRDeviceAvailable {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property string VRService.VRDeviceName {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool VRService.VREnabled [ReadOnly]
@@ -4500,6 +4508,8 @@ Class VoiceChatInternal : Instance [NotCreatable] [Service] [NotBrowsable]
 	Event VoiceChatInternal.StateChanged(Enum.VoiceChatState old, Enum.VoiceChatState new) {RobloxScriptSecurity} [Deprecated]
 Class VoiceChatService : Instance [NotCreatable] [Service]
 	Property bool VoiceChatService.EnableDefaultVoice {PluginSecurity} [NotBrowsable]
+	Property bool VoiceChatService.VoiceChatEnabledForPlaceOnRcc {RobloxScriptSecurity} [ReadOnly]
+	Property bool VoiceChatService.VoiceChatEnabledForUniverseOnRcc {RobloxScriptSecurity} [ReadOnly]
 	Function bool VoiceChatService:IsVoiceEnabledForUserIdAsync(int64 userId) [Yields]
 Class VoiceSource : Instance [NotCreatable] [Deprecated]
 	Property int64 VoiceSource.UserId [ReadOnly] [Deprecated]
@@ -6240,9 +6250,8 @@ Enum StudioDataModelType
 	EnumItem StudioDataModelType.Edit : 0
 	EnumItem StudioDataModelType.PlayClient : 1
 	EnumItem StudioDataModelType.PlayServer : 2
-	EnumItem StudioDataModelType.RobloxPlugin : 3
-	EnumItem StudioDataModelType.UserPlugin : 4
-	EnumItem StudioDataModelType.None : 5
+	EnumItem StudioDataModelType.Standalone : 3
+	EnumItem StudioDataModelType.None : 4
 Enum StudioScriptEditorColorCategories
 	EnumItem StudioScriptEditorColorCategories.Default : 0
 	EnumItem StudioScriptEditorColorCategories.Operator : 1
@@ -6489,6 +6498,10 @@ Enum TerrainAcquisitionMethod
 	EnumItem TerrainAcquisitionMethod.RegionFillTool : 9
 	EnumItem TerrainAcquisitionMethod.RegionPasteTool : 10
 	EnumItem TerrainAcquisitionMethod.Other : 11
+Enum TerrainFace
+	EnumItem TerrainFace.Top : 0
+	EnumItem TerrainFace.Side : 1
+	EnumItem TerrainFace.Bottom : 2
 Enum TextChatMessageStatus
 	EnumItem TextChatMessageStatus.Unknown : 1
 	EnumItem TextChatMessageStatus.Success : 2

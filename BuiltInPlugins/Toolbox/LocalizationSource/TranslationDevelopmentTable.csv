@@ -58,8 +58,7 @@ My Plugins,My Plugins,Studio.Toolbox.General.CategoryMyAnimations
 My Animations,My Animations,Studio.Toolbox.General.SortByText
 Sort by:,Sort by:,Studio.Toolbox.General.CategoryRecentModels
 Recent Models,Recent Models,Studio.Toolbox.General.CategoryRecentMeshes
-Recent Meshes,Recent Meshes,Studio.Toolbox.AssetConfigCopy.TemporarilyDisabledMessage
-Enabling Marketplace is unavailable at this time. Please check back later.,Enabling Marketplace is unavailable at this time. Please check back later.,Studio.Toolbox.General.CategoryRecentAnimations
+Recent Meshes,Recent Meshes,Studio.Toolbox.General.CategoryRecentAnimations
 Recent Animations,Recent Animations,Studio.Toolbox.General.CategoryCreationsRightShoeAccessory
 Right Shoe Accessories,Right Shoe Accessories,Studio.Toolbox.General.VerifiedCreatorBadgeTooltipText
 Creator is ID verified,Creator is ID verified,Studio.Toolbox.AssetConfigPackagePermissions.SearchByUser
@@ -130,7 +129,8 @@ Shoulder Accessories,Shoulder Accessories,Studio.Toolbox.General.CategoryCreatio
 Front Accessories,Front Accessories,Studio.Toolbox.General.CategoryCreationsBackAccessory
 Back Accessories,Back Accessories,Studio.Toolbox.General.CategoryCreationsTShirtAccessory
 T-Shirt Accessories,T-Shirt Accessories,Studio.Toolbox.General.CategoryCreationsShirtAccessory
-Shirt Accessories,Shirt Accessories,Studio.Toolbox.General.CategoryCreationsJacketAccessory
+Shirt Accessories,Shirt Accessories,Studio.Toolbox.AssetConfigSharing.PrivateDisabledInformation
+This option is not available since your asset is set to public.,This option is not available since your asset is set to public.,Studio.Toolbox.General.CategoryCreationsJacketAccessory
 Jacket Accessories,Jacket Accessories,Studio.Toolbox.General.CategoryCreationsSweaterAccessory
 Sweater Accessories,Sweater Accessories,Studio.Toolbox.AssetConfigPackagePermissions.UseViewDescription
 Can use and view this package,Can use and view this package,Studio.Toolbox.General.CategoryCreationsShortsAccessory
@@ -212,7 +212,8 @@ Learn more,Studio.Toolbox.General.Me,Me
 Me,Studio.Toolbox.General.Proceed,Proceed
 Proceed,Studio.Toolbox.General.AssetType,Asset type
 Asset type,Studio.Toolbox.General.SalesSale,Sale
-Sale,Studio.Toolbox.General.SalesOnsaleApplyToSave,Onsale (apply to save changes)
+Sale,Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaInfoLink,How many assets can I publish to the Creator Marketplace?
+How many assets can I publish to the Creator Marketplace?,Studio.Toolbox.General.SalesOnsaleApplyToSave,Onsale (apply to save changes)
 Onsale (apply to save changes),Studio.Toolbox.General.SalesOffsaleApplyToSave,Offsale (apply to save changes)
 Offsale (apply to save changes),Studio.Toolbox.General.SalesItemCannotBeSold,This item cannot be sold right now
 This item cannot be sold right now,Studio.Toolbox.General.SalesPrice,Price
@@ -238,22 +239,24 @@ Roblox Studio,Studio.Toolbox.AssetConfigFooter.OverrideTitle,Choose an existing 
 Choose an existing model to overwrite.,Studio.Toolbox.AssetConfigAnimation.AnimationID,Animation ID
 Animation ID,Studio.Toolbox.AssetConfigCopy.Terms,"By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use."
 "By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.",Studio.Toolbox.AssetConfigCopy.DistributeAgreement,"To maintain community safety, Roblox may terminate accounts that publish spam or assets with malicious or obfuscated code."
-"To maintain community safety, Roblox may terminate accounts that publish spam or assets with malicious or obfuscated code.",Studio.Toolbox.AssetConfigPreview.Preview,Preview
+"To maintain community safety, Roblox may terminate accounts that publish spam or assets with malicious or obfuscated code.",Studio.Toolbox.AssetConfigCopy.TemporarilyDisabledMessage,Marketplace publishing is unavailable at this time. Please check back later.
+Marketplace publishing is unavailable at this time. Please check back later.,Studio.Toolbox.AssetConfigPreview.Preview,Preview
 Preview,Studio.Toolbox.AssetConfigPreview.Change,Change
 Change,Studio.Toolbox.AssetConfigSharing.PublicDisabledInformation,Audio files cannot be made public at this time. Please check back at a later date.
 Audio files cannot be made public at this time. Please check back at a later date.,Studio.Toolbox.AssetConfigSharing.PublicInformation,I certify that I am the creator of this asset. I agree that the asset may be shared and used by others on Roblox. This cannot be undone.
-I certify that I am the creator of this asset. I agree that the asset may be shared and used by others on Roblox. This cannot be undone.,Studio.Toolbox.AssetConfigSharing.AllExperiences,All experiences
-All experiences,Studio.Toolbox.AssetConfigSharing.AnyoneOnRoblox,Anyone on Roblox
+I certify that I am the creator of this asset. I agree that the asset may be shared and used by others on Roblox. This cannot be undone.,Studio.Toolbox.AssetConfigSharing.AllExperiences,All Experiences
+All Experiences,Studio.Toolbox.AssetConfigSharing.AnyoneOnRoblox,Anyone on Roblox
 Anyone on Roblox,Studio.Toolbox.AssetConfigSharing.CheckStatus,Check Status
 Check Status,Studio.Toolbox.AssetConfigSharing.ExperiencesWithAccess,Experiences with access
 Experiences with access,Studio.Toolbox.AssetConfigSharing.PublicConfirmationTitle,Are you sure?
 Are you sure?,Studio.Toolbox.AssetConfigSharing.PublicConfirmationMessage,"Once shared with Anyone on Roblox, you cannot set it back to private."
 "Once shared with Anyone on Roblox, you cannot set it back to private.",Studio.Toolbox.AssetConfigSharing.PublicConfirmationHeading,You have allowed this asset to be shared with Anyone on Roblox
-You have allowed this asset to be shared with Anyone on Roblox,Studio.Toolbox.AssetConfigSharing.SpecificExperiences,Specific experiences
-Specific experiences,Studio.Toolbox.General.CategoryVideos,Videos
+You have allowed this asset to be shared with Anyone on Roblox,Studio.Toolbox.AssetConfigSharing.SpecificExperiences,Specific Experiences
+Specific Experiences,Studio.Toolbox.General.CategoryVideos,Videos
 Videos,Studio.Toolbox.AssetConfigSharing.VerificationNotice,"To make audio assets public, you must first verify your identity. Use the Refresh button to update your Verification status."
 "To make audio assets public, you must first verify your identity. Use the Refresh button to update your Verification status.",Studio.Toolbox.AssetConfigSharing.VerificationAction,ID Verify your account
-ID Verify your account,Studio.Toolbox.AssetConfigVersions.Current,Current published version
+ID Verify your account,Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaUnused2,Share up to {capacity} assets per {days} days.
+Share up to {capacity} assets per {days} days.,Studio.Toolbox.AssetConfigVersions.Current,Current published version
 Current published version,Studio.Toolbox.AssetConfigVersions.Restore,Restore previous version
 Restore previous version,Studio.Toolbox.AssetConfig.GetAssetFailed,There was an problem fetching asset data. We will be closing AssetConfig page.
 There was an problem fetching asset data. We will be closing AssetConfig page.,Studio.Toolbox.AssetConfigPackagePermissions.UserOwnedWarning, Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package.

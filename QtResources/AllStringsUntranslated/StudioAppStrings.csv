@@ -301,8 +301,9 @@ Studio.App.MainWindow.UnableToConnect,Main Window,Unable to Connect,Unable to Co
 Studio.App.MainWindow.UnableToFetchUniversePermissions1,Main Window,Unable to fetch universe permissions: %1,Unable to fetch universe permissions: %1
 Studio.App.MainWindow.UnableToOpenDeletedFile1,Main Window,"Could not open the file ""%1"" because it no longer exists.","Could not open the file ""%1"" because it no longer exists."
 Studio.App.MainWindow.UnableToOpenPlace2,Main Window,"Could not open the place ""%1"" with exception: ""%2"".","Could not open the place ""%1"" with exception: ""%2""."
-Studio.App.MainWindow.UnableToJoinTeamCreateSessionForPlaceName2,Main Window,"We could not join the Team Create session for place ""%1"". %2","We could not join the Team Create session for place ""%1"". %2"
-Studio.App.MainWindow.UnableToJoinTeamCreateSessionForPlaceId2,Main Window,We could not join the Team Create session for place [%1]. %2,We could not join the Team Create session for place [%1]. %2
+Studio.App.MainWindow.WeCouldNotJoinTeamCreatePlaceId2,Main Window,We could not join the Team Create session for place [%1]. %2,We could not join the Team Create session for place [%1]. %2
+Studio.App.MainWindow.WeCouldNotOpenPlaceName2,Main Window,"We could not open the place ""%1"". %2","We could not open the place ""%1"". %2"
+Studio.App.MainWindow.WeCouldNotOpenPlaceId2,Main Window,We could not open the place [%1]. %2,We could not open the place [%1]. %2
 Studio.App.MainWindow.UnableToLockFileForOpen,Main Window,This file is currently in use by another Studio instance or is read-only. You will need to pick a different name in order to save changes.,This file is currently in use by another Studio instance or is read-only. You will need to pick a different name in order to save changes.
 Studio.App.MainWindow.UnableToCreateAutoSaveFile1,Main Window,"Could not create an auto-recovery file. Please ensure that you have sufficient permissions to the path ""%1"".","Could not create an auto-recovery file. Please ensure that you have sufficient permissions to the path ""%1""."
 Studio.App.MainWindow.UploadingImageQuitAnyway,Main Window,Roblox is uploading an image. Quit anyway?,Roblox is uploading an image. Quit anyway?
@@ -319,7 +320,7 @@ Studio.App.AudioPrivacyPublishDialog.AssetTable.AssetIdColTitle,,Asset ID,Asset 
 Studio.App.AudioPrivacyPublishDialog.AssetTable.AssetCreatorColTitle,,Creator,Creator
 Studio.App.AudioPrivacyPublishDialog.PublishWithoutPermissionButton,warning modal button that publishes game without granting permission,Publish without Granting,Publish without Granting
 Studio.App.AudioPrivacyPublishDialog.PublishAndGrantPermissionButton,warning modal button that grants the universe permission to all assets in the game during publish,Grant Permissions,Grant Permissions
-Studio.App.AudioPrivacyCheck.GrantPermissionFailure,"Appears in output window when permission granting fails. %1 and %2 are replaced by assed ids, and %3 is replaced by an error code.",Failed to grant universe [%1] permission to asset [%2]: %3,Failed to grant universe [%1] permission to asset [%2]: %3
+Studio.App.AudioPrivacyCheck.GrantPermissionFailure3,"Appears in output window when permission granting fails. %1 and %2 are replaced by assed ids, and %3 is replaced by an error code.",Failed to grant universe [%1] permission to asset [%2]: %3,Failed to grant universe [%1] permission to asset [%2]: %3
 Studio.App.MainWindow.Version1,Main Window,Version %1,Version %1
 Studio.App.MainWindow.VersionLatest1,About Dialog,Latest version available %1,Latest version available %1
 Studio.App.MainWindow.WaitingForShutdown,Main Window,Waiting for Shutdown,Waiting for Shutdown
@@ -2866,7 +2867,7 @@ Studio.App.RobloxOutputRibbonDropdown.Edit,,Edit,Edit
 Studio.App.RobloxOutputRibbonDropdown.PlaySolo,,NonNetworked,NonNetworked
 Studio.App.RobloxOutputRibbonDropdown.Client,,Client,Client
 Studio.App.RobloxOutputRibbonDropdown.Server,,Server,Server
-Studio.App.RobloxOutputRibbonDropdown.RobloxPlugin,,Roblox Plugin,Roblox Plugin
+Studio.App.RobloxOutputRibbonDropdown.Standalone,,Standalone,Standalone
 Studio.App.RobloxOutputRibbonDropdown.UserPlugin,,User Plugin,User Plugin
 Studio.App.RobloxOutputRibbonDropdown.CoreScript,,CoreScript,CoreScript
 Studio.App.RobloxOutputRibbonDropdown.Studio,,Studio,Studio
@@ -3190,6 +3191,7 @@ Studio.App.FileSyncService.CanOnlyParentToFolder,,Can only parent to Folder.,Can
 Studio.App.FileSyncService.InstanceAlreadyExists,,Instance already exists.,Instance already exists.
 Studio.App.FileSyncService.FileNameIsInvalid,,File name is invalid.,File name is invalid.
 Studio.App.FileSyncService.CanOnlyAddFolderOrScript,,Can only add Folder or Script.,Can only add Folder or Script.
+Studio.App.FileSyncService.CanOnlyAddSupportedClass,,"Can only add Folder, Script, LocalScript, ModuleScript or StringValue.","Can only add Folder, Script, LocalScript, ModuleScript or StringValue."
 Studio.App.FileSyncService.UnknownError,,Unknown Error.,Unknown Error.
 Studio.App.FileSyncService.Info,,Info,Info
 Studio.App.RobloxMainWindow.DocHistoryForwards,,Step forwards through tab history,Step forwards through tab history

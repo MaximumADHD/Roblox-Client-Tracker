@@ -22,10 +22,14 @@ Studio.MaterialManager.MaterialTile.BaseMaterial,Base Material,Base Material
 Studio.MaterialManager.CreateDialog.PlaceholderBaseMaterial,Select base material,Select base material
 Studio.MaterialManager.Categories.Synthetic,Synthetic,Synthetic
 Studio.MaterialManager.CreateDialog.ImportColorMap,Color,Color
+Studio.MaterialManager.MaterialInformation.Color,Color,Color
 Studio.MaterialManager.Categories.Snow,Snow,Snow
 Studio.MaterialManager.CreateDialog.ImportNormalMap,Normal,Normal
+Studio.MaterialManager.MaterialInformation.Normal,Normal,Normal
 Studio.MaterialManager.CreateDialog.ImportMetalnessMap,Metalness,Metalness
+Studio.MaterialManager.MaterialInformation.Metalness,Metalness,Metalness
 Studio.MaterialManager.CreateDialog.ImportRoughnessMap,Roughness,Roughness
+Studio.MaterialManager.MaterialInformation.Roughness,Roughness,Roughness
 Studio.MaterialManager.TopBar.Create,Create Material Variant,Create Material Variant
 Studio.MaterialManager.TopBar.Search,Search Materials,Search Materials
 Studio.MaterialManager.TopBar.Show,Show in Explorer,Show in Explorer
@@ -97,3 +101,8 @@ Studio.MaterialManager.MaterialOptions.Edit,Edit,Edit
 Studio.MaterialManager.MaterialOptions.SetPartOverride,Set Part Override,Set Part Override
 Studio.MaterialManager.MaterialOptions.SetTerrainOverride,Set Terrain Override,Set Terrain Override
 Studio.MaterialManager.MaterialOptions.SetOverride,Set Override,Set Override
+Studio.MaterialManager.MaterialOverrides.PartOverride,Part Override,Part Override
+Studio.MaterialManager.MaterialOverrides.TerrainOverride,Terrain Override,Terrain Override
+Studio.MaterialManager.MaterialOverrides.MaterialOverride,Material Override,Material Override
+Studio.MaterialManager.MaterialOverrides.None,None,None
+Studio.MaterialManager.MaterialOverrides.CreateNew,Create New,Create New

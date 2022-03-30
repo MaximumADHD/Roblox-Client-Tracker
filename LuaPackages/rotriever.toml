@@ -18,8 +18,8 @@ LuaChatDeps = { git = "https://github.com/Roblox/lua-chat-deps" }
 LuaSocialLibrariesDeps = { git = "https://github.com/Roblox/lua-social-libraries-deps" }
 PremiumUpsellDeps = { git = "https://github.com/Roblox/premium-upsell-deps" }
 AvatarExperienceDeps = { git = "https://github.com/Roblox/avatar-experience-deps" }
-LuaProfileDeps = { git = "https://github.com/Roblox/lua-profile", rev = "v1.0.0" }
-LuaProfileDeps_v101 = { git = "https://github.com/Roblox/lua-profile", rev = "v1.0.1", package = "LuaProfileDeps" }
+LuaProfileDeps = { git = "https://github.com/Roblox/lua-profile", rev = "v1.0.1" }
+LuaProfileDeps_v121 = { git = "https://github.com/Roblox/lua-profile", rev = "v1.2.1", package = "LuaProfileDeps" }
 PurchasePromptDeps = { git = "https://github.com/Roblox/purchase-prompt-deps" }
 IAPExperience = { git = "https://github.com/Roblox/IAPExperience", rev = "master" }
 UIBlox = { git = "https://github.com/Roblox/uiblox", rev = "master" }
@@ -32,7 +32,7 @@ Lumberyak = { git = "https://github.com/Roblox/lumberyak" }
 StringUtilities = "github.com/Roblox/string-utilities@1.0.0"
 UrlBuilder = { git = "https://github.com/Roblox/url-builder", rev = "master" }
 FitFrame = "github.com/roblox/roact-fit-components@2.0.0"
-ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v0.0.8" }
+ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v1.0.0" }
 Roact17UpgradeFlag = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "Roact17UpgradeFlag" }
 RoactNavigationUpgradeFlag = { git = "https://github.com/Roblox/roact-navigation-upgrade", rev = "v0.0.6", package = "RoactNavigationUpgradeFlag" }
 RoduxGames = { git = "https://github.com/Roblox/rodux-games", rev = "master" }

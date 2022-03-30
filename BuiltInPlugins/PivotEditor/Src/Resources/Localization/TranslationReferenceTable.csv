@@ -1,4 +1,4 @@
 Key,Source,en-us,es-es,fr-fr,it-it,ja-jp,ko-kr,pt-br,zh-cjv,zh-cn,zh-tw
-Studio.PivotEditor.Notification.InvalidTarget,Object does not have a pivot,Object does not have a pivot,El objeto no tiene pivote, ,L'oggetto non ha un perno,オブジェクトにピボットがありません,개체에 피벗이 없습니다,O objeto não tem um pivô, , ,物件沒有軸點
+Studio.PivotEditor.Notification.InvalidTarget,Object does not have a pivot,Object does not have a pivot,El objeto no tiene pivote,L'objet n'a pas de pivot,L'oggetto non ha un perno,オブジェクトにピボットがありません,개체에 피벗이 없습니다,O objeto não tem um pivô, , ,物件沒有軸點
 Studio.PivotEditor.Notification.NoSelection,No objects selected,No objects selected,No hay objetos seleccionados,Aucun objet sélectionné, ,選択済みのオブジェクトなし,선택된 개체가 없습니다,Nenhum objeto selecionado,未选取对象,未选取对象,未選取物件
 Studio.PivotEditor.Notification.MultipleSelection,Multiple objects selected,Multiple objects selected,Múltiples objetos seleccionados,Plusieurs objets sélectionnés, ,複数のオブジェクトが選択済み,여러 개체가 선택되었습니다,Múltiplos objetos selecionados,已选取多个物件,已选取多个物件,已選取多個物件

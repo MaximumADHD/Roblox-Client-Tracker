@@ -134,6 +134,7 @@ Studio.AnimationClipEditor.Title.AddEvent, ,Add Event
 Studio.AnimationClipEditor.Title.AnimationEvents, ,Animation Events
 Studio.AnimationClipEditor.Title.ChangeDuration, ,Change Duration
 Studio.AnimationClipEditor.Title.ClickToContinue, ,Click here to continue using the Animation Editor
+Studio.AnimationClipEditor.Title.ClickToRevealInput, ,Click to reveal value input
 Studio.AnimationClipEditor.Title.ConfirmSave, ,Do you want to save this animation file?
 Studio.AnimationClipEditor.Title.CreateNew, ,Create New Animation
 Studio.AnimationClipEditor.Title.CreateToStart, ,Create an animation to start
@@ -144,6 +145,9 @@ Studio.AnimationClipEditor.Title.DefaultAnimationName, ,Untitled Animation Clip
 Studio.AnimationClipEditor.Title.EditEvents, ,Edit Animation Events
 Studio.AnimationClipEditor.Title.Error, ,Error
 Studio.AnimationClipEditor.Title.EventName, ,Event Name
+Studio.AnimationClipEditor.Title.FACE, ,Face
+Studio.AnimationClipEditor.Title.FaceControlsEditor, ,Face Editor
+Studio.AnimationClipEditor.Title.HoverOverNameDisplay, ,Hover-over name display
 Studio.AnimationClipEditor.Title.IK, ,IK
 Studio.AnimationClipEditor.Title.ManageIK, ,Manage IK
 Studio.AnimationClipEditor.Title.MaxFPS, ,Maximum frame rate is 120 fps
@@ -155,6 +159,8 @@ Studio.AnimationClipEditor.Title.NoAnimationExists_Migrated, ,"No animation exis
 Studio.AnimationClipEditor.Title.Parameter, ,Parameter
 Studio.AnimationClipEditor.Title.SaveAsNew, ,Save As New Animation
 Studio.AnimationClipEditor.Title.SelectARig, ,Select a rig to animate or create a new rig by selecting Build Rig under the Plugins tab
+Studio.AnimationClipEditor.Title.ShowValueInput, ,Show a value input for precise manipulation
+Studio.AnimationClipEditor.Title.Symmetry, ,Symmetry
 Studio.AnimationClipEditor.Toast.AlignNow, ,Align all keys now
 Studio.AnimationClipEditor.Toast.AnimationImportModelsDiffer, ,Model in FBX file differs from model selected in Editor. Import animation based on FBX model (recommended)?
 Studio.AnimationClipEditor.Toast.AnimationImportUseFBX, ,FBX

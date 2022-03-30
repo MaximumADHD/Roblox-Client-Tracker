@@ -36,6 +36,8 @@ Studio.GameSettings.General.TitleSlope,Slope, ,Slope
 Studio.GameSettings.General.ButtonPublish,Publish, ,Publish
 Studio.GameSettings.Monetization.EditDeveloperProduct,Edit Developer Product, ,Edit Developer Product
 Studio.GameSettings.General.ButtonSave,Save, ,Save
+Studio.GameSettings.General.DeleteDialogBody,Would you like to delete this thumbnail?, ,Would you like to delete this thumbnail?
+Studio.GameSettings.General.CategoryOther,Other, ,Other
 Studio.GameSettings.General.ButtonSaveToRoblox,Save to Roblox, ,Save to Roblox
 Studio.GameSettings.General.ButtonCancel,Cancel, ,Cancel
 Studio.GameSettings.General.CategoryOptions,Options, ,Options
@@ -183,7 +185,6 @@ Studio.GameSettings.General.AvatarDialogHeader,Warning, ,Warning
 Studio.GameSettings.OptInLocations.Rejected,Rejected. Please check your email., ,Rejected. Please check your email.
 Studio.GameSettings.General.AvatarDialogPrompt,Would you like to proceed?, ,Would you like to proceed?
 Studio.GameSettings.General.DeleteDialogHeader,Delete Thumbnail, ,Delete Thumbnail
-Studio.GameSettings.General.DeleteDialogBody,Would you like to delete this thumbnail?, ,Would you like to delete this thumbnail?
 Studio.GameSettings.General.ImageDialogHeader,No Image Loaded, ,No Image Loaded
 Studio.GameSettings.General.SingleImageDialogHeader,No Image Loaded, ,No Image Loaded
 Studio.GameSettings.General.UnitsMetersPerSecondSquared,({number} meters/second^2), ,({number} meters/second^2)
@@ -365,6 +366,7 @@ Studio.GameSettings.Monetization.PrivateServersActive,There are currently {total
 Studio.GameSettings.Monetization.OverVIPServerSubscriptions,There are currently over {numOfSubscriptions:int} VIP Server Subscriptions active for this place., ,There are currently over {numOfSubscriptions:int} VIP Server Subscriptions active for this place.
 Studio.GameSettings.Monetization.VIPServerSubscriptions,There are currently {numOfSubscriptions:int} VIP Server Subscriptions active for this place., ,There are currently {numOfSubscriptions:int} VIP Server Subscriptions active for this place.
 Studio.GameSettings.Security.EnableThirdPartyPurchasesDescription,"By enabling, players can purchase items provided by third parties.", ,"By enabling, players can purchase items provided by third parties."
+Studio.GameSettings.Security.InsecureWarning,Enabling security bypasses may make your experience vulnerable to third party attacks., ,Enabling security bypasses may make your experience vulnerable to third party attacks.
 Studio.GameSettings.Monetization.Badges,Badges, ,Badges
 Studio.GameSettings.Monetization.BadgeDescription,Badge Description, ,Badge Description
 Studio.GameSettings.OptInLocations.Tooltip,"Your creation will be published to all locations, including all the selected opt-in locations. See each location for specific requirements.", ,"Your creation will be published to all locations, including all the selected opt-in locations. See each location for specific requirements."
