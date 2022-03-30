@@ -8,8 +8,6 @@ local Main = script.Parent.Parent
 local Roact = require(Main.Packages.Roact)
 local Rodux = require(Main.Packages.Rodux)
 
-local Types = require(Main.Src.Types)
-
 local MainReducer = require(Main.Src.Reducers.MainReducer)
 
 local Framework = require(Main.Packages.Framework)
@@ -51,7 +49,7 @@ function MainPlugin:init(props)
 			UDim.new(0, 300),
 			UDim.new(1, -300),
 		}
-		self.onPaneSizesChange = function(paneSizes: Types.Array<UDim>)
+		self.onPaneSizesChange = function(paneSizes: {UDim})
 			self:setState({
 				paneSizes = paneSizes,
 			})

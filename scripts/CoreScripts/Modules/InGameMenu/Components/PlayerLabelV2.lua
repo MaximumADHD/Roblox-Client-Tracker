@@ -18,8 +18,6 @@ local InGameMenu = script.Parent.Parent
 local FFlagLuaMenuPerfImprovements = require(InGameMenu.Flags.FFlagLuaMenuPerfImprovements)
 local FFlagAlwaysShowDisplayNameInExpMenu = require(InGameMenu.Flags.FFlagAlwaysShowDisplayNameInExpMenu)
 
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
-
 local Modules = CoreGui.RobloxGui.Modules
 
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
@@ -128,7 +126,7 @@ function PlayerLabel:renderWithSelectionCursor(getSelectionCursor)
 			[Roact.Event.Activated] = activated,
 			[Roact.Change.AbsolutePosition] = self.props[Roact.Change.AbsolutePosition],
 			[Roact.Ref] = forwardRef,
-			SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly() and getSelectionCursor(CursorKind.Square) or nil,
+			SelectionImageObject = getSelectionCursor(CursorKind.Square),
 		}, {
 			PlayerIcon = Roact.createElement(ImageSetLabel, Cryo.Dictionary.join(iconPos, {
 				ImageColor3 = props.isOnline and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(115, 115, 115),
@@ -170,13 +168,9 @@ function PlayerLabel:renderWithSelectionCursor(getSelectionCursor)
 end
 
 function PlayerLabel:render()
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		return withSelectionCursorProvider(function(getSelectionCursor)
-			return self:renderWithSelectionCursor(getSelectionCursor)
-		end)
-	else
-		return self:renderWithSelectionCursor()
-	end
+	return withSelectionCursorProvider(function(getSelectionCursor)
+		return self:renderWithSelectionCursor(getSelectionCursor)
+	end)
 end
 
 return Roact.forwardRef(function(props, ref)

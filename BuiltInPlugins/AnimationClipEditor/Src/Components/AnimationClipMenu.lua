@@ -47,7 +47,6 @@ local SetEditorMode = require(Plugin.Src.Actions.SetEditorMode)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
-local FFlagAnimationClipProvider = game:GetFastFlag("UseNewAnimationClipProvider_4")
 local FFlagAnimationFromVideoCreatorServiceInAnimationEditor = game:DefineFastFlag("AnimationFromVideoCreatorServiceInAnimationEditor", false)
 
 local FFlagNewAnimationPriorities = game:DefineFastFlag("NewAnimationPriorities", false)
@@ -206,9 +205,7 @@ function AnimationClipMenu:makeMenuActions(localization)
 				props.ExportKeyframeSequence(plugin, props.Analytics)
 			end
 		end,
-		-- If the AnimationClipProvider flag is off, we have to make sure that the animation
-		-- we export is a KFS. If not, the exporter will save it as a mesh, which will be unusable.
-		Enabled = not isChannelAnimation or FFlagAnimationClipProvider,
+		Enabled = true,
 	})
 	table.insert(actions, Separator)
 	table.insert(actions, {

@@ -17,7 +17,6 @@ local log = require(RobloxGui.Modules.Logger):new(script.Name)
 local DeviceSelectionEntry = Roact.PureComponent:extend("DeviceSelectionEntry")
 
 local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 local GetFFlagTruncateDeviceSelection = require(Flags.GetFFlagTruncateDeviceSelection)
 
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
@@ -31,15 +30,13 @@ DeviceSelectionEntry.validateProps = t.strictInterface({
 	LayoutOrder = t.integer,
 	deviceType = t.string,
 	isMenuOpen = t.boolean,
-	canOpen = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
-	canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+	canOpen = t.optional(t.boolean),
+	canCaptureFocus = t.optional(t.boolean),
 })
 
-if GetFFlagInGameMenuControllerDevelopmentOnly() then
-	DeviceSelectionEntry.defaultProps = {
-		canOpen = true
-	}
-end
+DeviceSelectionEntry.defaultProps = {
+	canOpen = true
+}
 
 function DeviceSelectionEntry:init()
 	self:setState({
@@ -74,18 +71,6 @@ function DeviceSelectionEntry:render()
 		return nil
 	end
 
-	-- Can be inlined when GetFFlagInGameMenuControllerDevelopmentOnly is removed
-	local canOpen = nil
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		canOpen = self.props.canOpen
-	end
-
-	-- Can be inlined when GetFFlagInGameMenuControllerDevelopmentOnly is removed
-	local canCaptureFocus = nil
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		canCaptureFocus = self.props.canCaptureFocus
-	end
-
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, 44 + 56 + 20),
 		BackgroundTransparency = 1,
@@ -116,10 +101,9 @@ function DeviceSelectionEntry:render()
 			placeHolderText = "",
 			enabled = true,
 			localize = false,
-			selectionParentName = GetFFlagInGameMenuControllerDevelopmentOnly() and
-				self.props.deviceType.."DeviceSelectionEntryDropdown" or nil,
-			canOpen = canOpen,
-			canCaptureFocus = canCaptureFocus,
+			selectionParentName = self.props.deviceType.."DeviceSelectionEntryDropdown",
+			canOpen = self.props.canOpen,
+			canCaptureFocus = self.props.canCaptureFocus,
 			selectionChanged = function(newIndex)
 				VoiceChatServiceManager:SwitchDevice(
 					self.props.deviceType,

@@ -27,6 +27,7 @@ local FFSaveAnimationRigWithKeyframeSequence2 = game:DefineFastFlag("SaveAnimati
 local FFlagUseFilteredGetKeyframes = game:GetFastFlag("UseFilteredGetKeyframes")
 local FFlagFilterGetKeyframes = game:DefineFastFlag("ACEFilterGetKeyframes", false)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
+local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
 local GetFFlagFixRigInfoForFacs = require(Plugin.LuaFlags.GetFFlagFixRigInfoForFacs)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
@@ -515,6 +516,29 @@ function RigUtils.canUseIK(rig)
 
 	return true, true
 end
+
+
+function RigUtils.canUseFaceControlsEditor(rig)
+	if not rig then
+		return false
+	end
+	
+	if not GetFFlagFacialAnimationSupport() then
+		return false
+	end	
+	
+	if not GetFFlagFaceControlsEditorUI() then
+		return false
+	end		
+	
+	local faceControls = RigUtils.getFaceControls(rig)
+	if faceControls == nil then
+		return false
+	end
+	
+	return true
+end
+
 
 function RigUtils.getPartByName(rig, name)
 	local _, motorMap = RigUtils.getRigInfo(rig)

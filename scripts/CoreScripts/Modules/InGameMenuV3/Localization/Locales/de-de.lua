@@ -171,4 +171,6 @@ return{
 	["CoreScripts.InGameMenu.ControllerBar.Leave"] = [[Verlassen]],
 	["CoreScripts.InGameMenu.ControllerBar.RespawnCharacter"] = [[Charakter respawnen]],
 	["CoreScripts.InGameMenu.ControllerBar.Cancel"] = [[Abbrechen]],
+	["CoreScripts.InGameMenu.CoreScripts.InGameMenu.GameSettings.VignetteEnabled"] = [[VR-Vignette aktiviert]],
+	["CoreScripts.InGameMenu.GameSettings.VignetteEnabled"] = [[VR-Vignette aktiviert]],
 }

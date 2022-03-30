@@ -12,72 +12,80 @@ local SetNormalMap = require(Actions.SetNormalMap)
 local SetMetalnessMap = require(Actions.SetMetalnessMap)
 local SetRoughnessMap = require(Actions.SetRoughnessMap)
 local ClearMaterialVariant = require(Actions.ClearMaterialVariant)
+local SetMode = require(Actions.SetMode)
 
 export type State = {
-	name: string,
-	baseMaterial: Enum.Material,
-	colorMap: _Types.TextureMap?,
-	normalMap: _Types.TextureMap?,
-	metalnessMap: _Types.TextureMap?,
-	roughnessMap: _Types.TextureMap?,
+	Name : string,
+	BaseMaterial : Enum.Material,
+	ColorMap : _Types.TextureMap?,
+	NormalMap : _Types.TextureMap?,
+	MetalnessMap : _Types.TextureMap?,
+	RoughnessMap : _Types.TextureMap?,
+	Mode : string?
 }
 
 local MaterialPromptReducer = Rodux.createReducer({}, {
-	[SetName.name] = function(state: State, action : SetName.Payload)
+	[SetName.name] = function(state : State, action : SetName.Payload)
 		return Cryo.Dictionary.join(state, {
-			name = action.name,
+			Name = action.Name,
 		})
 	end,
 
-	[SetBaseMaterial.name] = function(state: State, action : SetBaseMaterial.Payload)
+	[SetBaseMaterial.name] = function(state : State, action : SetBaseMaterial.Payload)
 		return Cryo.Dictionary.join(state, {
-			baseMaterial = action.baseMaterial,
+			BaseMaterial = action.BaseMaterial,
 		})
 	end,
 
-	[SetColorMap.name] = function(state: State, action : SetColorMap.Payload)
+	[SetColorMap.name] = function(state : State, action : SetColorMap.Payload)
 		return Cryo.Dictionary.join(state, {
-			colorMap = action.colorMap or Cryo.None,
+			ColorMap = action.ColorMap or Cryo.None,
 		})
 	end,
 
-	[SetNormalMap.name] = function(state: State, action : SetNormalMap.Payload)
+	[SetNormalMap.name] = function(state : State, action : SetNormalMap.Payload)
 		return Cryo.Dictionary.join(state, {
-			normalMap = action.normalMap or Cryo.None,
+			NormalMap = action.NormalMap or Cryo.None,
 		})
 	end,
 
-	[SetMetalnessMap.name] = function(state: State, action : SetMetalnessMap.Payload)
+	[SetMetalnessMap.name] = function(state : State, action : SetMetalnessMap.Payload)
 		return Cryo.Dictionary.join(state, {
-			metalnessMap = action.metalnessMap or Cryo.None,
+			MetalnessMap = action.MetalnessMap or Cryo.None,
 		})
 	end,
 
-	[SetRoughnessMap.name] = function(state: State, action : SetRoughnessMap.Payload)
+	[SetRoughnessMap.name] = function(state : State, action : SetRoughnessMap.Payload)
 		return Cryo.Dictionary.join(state, {
-			roughnessMap = action.roughnessMap or Cryo.None,
+			RoughnessMap = action.RoughnessMap or Cryo.None,
 		})
 	end,
 
-	[ClearMaterialVariant.name] = function(state: State)
+	[ClearMaterialVariant.name] = function(state : State)
 		return Cryo.Dictionary.join(state, {
-			name = Cryo.None,
-			baseMaterial = Cryo.None,
-			colorMap = Cryo.None,
-			normalMap = Cryo.None,
-			metalnessMap = Cryo.None,
-			roughnessMap = Cryo.None,
+			Name = Cryo.None,
+			BaseMaterial = Cryo.None,
+			ColorMap = Cryo.None,
+			NormalMap = Cryo.None,
+			MetalnessMap = Cryo.None,
+			RoughnessMap = Cryo.None,
 		})
 	end,
 	
-	[SetFromVariantInstance.name] = function(state: State, action : SetFromVariantInstance.Payload)
+	[SetFromVariantInstance.name] = function(state : State, action : SetFromVariantInstance.Payload)
 		return Cryo.Dictionary.join(state, {
-			name = action.name,
-			baseMaterial = action.baseMaterial,
-			colorMap = action.colorMap and { assetId = action.colorMap } or Cryo.None,
-			metalnessMap = action.metalnessMap and { assetId = action.metalnessMap } or Cryo.None,
-			normalMap = action.normalMap and { assetId = action.normalMap } or Cryo.None,
-			roughnessMap = action.roughnessMap and { assetId = action.roughnessMap } or Cryo.None,
+			Name = action.Name,
+			BaseMaterial = action.BaseMaterial,
+			ColorMap = action.ColorMap ~= "" and { assetId = action.ColorMap } or Cryo.None,
+			MetalnessMap = action.MetalnessMap ~= "" and { assetId = action.MetalnessMap } or Cryo.None,
+			NormalMap = action.NormalMap ~= "" and { assetId = action.NormalMap } or Cryo.None,
+			RoughnessMap = action.RoughnessMap ~= "" and { assetId = action.RoughnessMap } or Cryo.None,
+		})
+	end,
+
+	[SetMode.name] = function(state : State, action : SetMode.Payload)
+		return Cryo.Dictionary.join(state, {
+			Mode = action.Mode or Cryo.None,
 		})
 	end,
 })

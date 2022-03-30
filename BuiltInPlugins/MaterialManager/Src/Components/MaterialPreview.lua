@@ -30,6 +30,10 @@ type _Props = Props & {
 
 local MaterialPreview = Roact.PureComponent:extend("MaterialPreview")
 
+MaterialPreview.defaultProps = {
+	InitialDistance = 6.3,
+}
+
 function MaterialPreview:render()
 	local props : _Props = self.props
 

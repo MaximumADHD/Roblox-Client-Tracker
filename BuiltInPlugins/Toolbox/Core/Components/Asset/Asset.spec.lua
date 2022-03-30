@@ -1,5 +1,5 @@
 return function()
-	local FFlagToolboxAssetGridRefactor5 = game:GetFastFlag("ToolboxAssetGridRefactor5")
+	local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
 	local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
 
 	local Plugin = script.Parent.Parent.Parent.Parent
@@ -26,7 +26,7 @@ return function()
 		local assetId = myAsset.Asset.Id
 
 		mockProps = mockProps or {}
-		if FFlagToolboxAssetGridRefactor5 then
+		if FFlagToolboxAssetGridRefactor then
 			mockProps = Cryo.Dictionary.join(mockProps, {
 				storeSetup = function(store)
 					store:dispatch(GetAssets({ myAsset }, 1))
@@ -36,8 +36,8 @@ return function()
 
 		local element = Roact.createElement(MockWrapper, mockProps, {
 			Asset = Roact.createElement(Asset, {
-				asset = not FFlagToolboxAssetGridRefactor5 and myAsset or nil,
-				assetId = FFlagToolboxAssetGridRefactor5 and assetId or nil,
+				asset = not FFlagToolboxAssetGridRefactor and myAsset or nil,
+				assetId = FFlagToolboxAssetGridRefactor and assetId or nil,
 				assetData = FFlagToolboxAssetCategorization and myAsset or nil,
 				LayoutOrder = 1,
 			}),

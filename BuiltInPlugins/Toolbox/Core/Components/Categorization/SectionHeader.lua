@@ -52,22 +52,8 @@ function SectionHeader:init()
 	self.frameRef = Roact.createRef()
 
 	self.state = {
-		SeeAllPadding = 0,
 		DisplaySeeAllLink = true,
 	}
-
-	self.onAbsoluteSizeChange = function(rbx)
-		if self.frameRef.current then
-			local assetWidth = Constants.ASSET_WIDTH_NO_PADDING + Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING
-			local assetsPerRow = Layouter.getAssetsPerRow(rbx.AbsoluteSize.X)
-			self:setState({
-				SeeAllPadding = rbx.AbsoluteSize.X
-					- (assetsPerRow * assetWidth)
-					+ Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING,
-				DisplaySeeAllLink = if self.props.Total == nil then true else self.props.Total > assetsPerRow,
-			})
-		end
-	end
 end
 
 function SectionHeader:render()
@@ -83,7 +69,6 @@ function SectionHeader:render()
 
 	local displaySeeAllLink = self.state.DisplaySeeAllLink
 
-	local seeAllPosition = UDim2.new(1, self.state.SeeAllPadding * -1, 0, 0)
 	local titleSize = if (self.seeAllRef.current and self.hostRef.current)
 		then UDim2.new(0, self.hostRef.current.AbsoluteSize.X - self.seeAllRef.current.AbsoluteSize.X, 1, 0)
 		else UDim2.new(0.6, 0, 1, 0)
@@ -114,7 +99,7 @@ function SectionHeader:render()
 			AnchorPoint = Vector2.new(1, 0),
 			AutomaticSize = Enum.AutomaticSize.XY,
 			BackgroundTransparency = 1,
-			Position = seeAllPosition,
+			Position = UDim2.new(1, 0, 0, 0),
 		}, {
 			SeeAllButton = Roact.createElement(LinkText, {
 				OnClick = onClickSeeAll,

@@ -38,6 +38,8 @@ export type AssetSwimlaneProps = Swimlane.SwimlaneProps & {
 	SectionName: string,
 	SearchTerm: string?,
 	SortName: string?,
+	SwimlaneWidth: number,
+	OnAssetPreviewButtonClicked: ((assetData: any) -> ()),
 	OnClickSeeAllAssets: ((
 		sectionName: string?,
 		categoryName: string,
@@ -69,12 +71,14 @@ function AssetSwimlane:render()
 	local localization = props.Localization
 	local networkInterface = getNetwork(self)
 	local onClickSeeAllAssets = props.OnClickSeeAllAssets
+	local onAssetPreviewButtonClicked = props.OnAssetPreviewButtonClicked
 	local searchTerm = props.SearchTerm
 	local sectionName = props.SectionName
 	local sortName = props.SortName
 	local title = props.Title
 	local tryInsert = props.TryInsert
 	local tryOpenAssetConfig = props.TryOpenAssetConfig
+	local swimlaneWidth = props.SwimlaneWidth
 
 	local onAssetHovered = function(assetId)
 		self:setState({ hoveredAssetId = assetId })
@@ -94,6 +98,7 @@ function AssetSwimlane:render()
 			LayoutOrder = layoutOrder,
 			onAssetHovered = onAssetHovered,
 			onAssetHoverEnded = onAssetHoverEnded,
+			onAssetPreviewButtonClicked = onAssetPreviewButtonClicked,
 			tryInsert = tryInsert,
 			tryOpenAssetConfig = tryOpenAssetConfig,
 		})
@@ -110,12 +115,13 @@ function AssetSwimlane:render()
 
 		return Roact.createElement(Swimlane, {
 			Data = resultsState.assets,
+			IsLoading = resultsState.loading,
 			LayoutOrder = layoutOrder,
 			OnClickSeeAll = function()
 				return onClickSeeAllAssets(sectionName, categoryName, sortName, searchTerm)
 			end,
 			OnRenderItem = onRenderItem,
-			Size = UDim2.new(1, 0, 0, assetHeight),
+			Size = UDim2.new(0, swimlaneWidth, 0, assetHeight),
 			Total = resultsState.total,
 			Title = title,
 		})

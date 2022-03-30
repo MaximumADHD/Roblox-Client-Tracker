@@ -5,7 +5,7 @@
 	Allow the user to pick a universe to overwrite a place in
 
 ]]
-local FFlagPlacePublishManagementUI = game:GetFastFlag("PlacePublishManagementUI")
+local FFlagPlacePublishManagementUI2 = game:GetFastFlag("PlacePublishManagementUI2")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -101,7 +101,7 @@ function ScreenChooseGame:render()
 					State = game.privacyType,
 					LayoutOrder = #components + 1,
 					OnActivated = function()
-						openChoosePlacePage(game, FFlagPlacePublishManagementUI and self.props.API:get() or nil)
+						openChoosePlacePage(game, FFlagPlacePublishManagementUI2 and self.props.API:get() or nil)
 					end,
 				})
 			end
@@ -319,7 +319,7 @@ local function useDispatchForProps(dispatch)
 		end,
 		OpenChoosePlacePage = function(parentGame, apiImpl)
 			dispatch(LoadExistingPlaces(parentGame))
-			if FFlagPlacePublishManagementUI then
+			if FFlagPlacePublishManagementUI2 then
 				dispatch(LoadGameConfiguration(parentGame.universeId, apiImpl))
             end
 			dispatch(SetScreen(Constants.SCREENS.CHOOSE_PLACE))

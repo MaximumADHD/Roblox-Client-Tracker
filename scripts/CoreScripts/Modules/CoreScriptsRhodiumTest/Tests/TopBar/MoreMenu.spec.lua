@@ -40,13 +40,7 @@ local appStyle = {
 
 return function()
 	describe("MoreMenu", function()
-		beforeAll(function(context)
-			context.oldFixEmotesFlag = game:SetFastFlagForTesting("FixEmotesMenuNotOpeningInPortrait", true)
-		end)
-
 		afterAll(function(context)
-			game:SetFastFlagForTesting("FixEmotesMenuNotOpeningInPortrait", context.oldFixEmotesFlag)
-
 			if EmotesMenuMaster:isOpen() then
 				EmotesMenuMaster:close()
 			end

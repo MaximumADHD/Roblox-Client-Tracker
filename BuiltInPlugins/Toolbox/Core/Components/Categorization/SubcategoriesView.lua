@@ -52,6 +52,12 @@ type _ExternalProps = {
 		categoryName: string?,
 		sortName: string?
 	) -> ()),
+	OnClickSeeAllAssets: ((
+		sectionName: string?,
+		categoryName: string,
+		sortName: string?,
+		searchTerm: string?
+	) -> ()),
 	Position: UDim2?,
 	Size: UDim2?,
 	SortName: string?,
@@ -83,13 +89,16 @@ function SubcategoriesView:init(props: SubcategoriesViewProps)
 		local props: SubcategoriesViewProps = self.props
 		local categoryName = props.CategoryName
 		local onClickSubcategory = props.OnClickSubcategory
+		local onClickSeeAllAssets = props.OnClickSeeAllAssets
 		local sortName = props.SortName
 		local subcategoryDict = props.SubcategoryDict
 
-		local subcategoryDictSubset = subcategoryDict[subcategoryName].children
+		local subcategoryData = subcategoryDict[subcategoryName]
 
-		if onClickSubcategory then
-			onClickSubcategory({ subcategoryName }, subcategoryDictSubset, categoryName, sortName)
+		if subcategoryData.childCount == 0 and onClickSeeAllAssets then
+			onClickSeeAllAssets(nil, categoryName, sortName, subcategoryData.searchKeywords)
+		elseif onClickSubcategory then
+			onClickSubcategory({ subcategoryName }, subcategoryData.children, categoryName, sortName)
 		end
 	end
 

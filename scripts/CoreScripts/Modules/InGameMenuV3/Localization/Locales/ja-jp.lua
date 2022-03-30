@@ -33,6 +33,7 @@ return{
 	["CoreScripts.InGameMenu.Report.AbuseExploiting"] = [[チート/悪用]],
 	["CoreScripts.InGameMenu.Report.AbusePersonalQuestion"] = [[プライベートな質問]],
 	["CoreScripts.InGameMenu.Report.AbuseOffsiteLink"] = [[外部リンク]],
+	["CoreScripts.InGameMenu.Ok"] = [[OK]],
 	["CoreScripts.InGameMenu.Report.ThanksForReport"] = [[ご報告ありがとうございました！]],
 	["CoreScripts.InGameMenu.Report.WillReviewBody"] = [[モデレータがレビュー後、判断いたします。]],
 	["CoreScripts.InGameMenu.Controls.CharacterMovementTitle"] = [[キャラクターの動作]],
@@ -170,4 +171,6 @@ return{
 	["CoreScripts.InGameMenu.ControllerBar.Leave"] = [[退出]],
 	["CoreScripts.InGameMenu.ControllerBar.RespawnCharacter"] = [[キャラクターをリスポーンする]],
 	["CoreScripts.InGameMenu.ControllerBar.Cancel"] = [[キャンセル]],
+	["CoreScripts.InGameMenu.CoreScripts.InGameMenu.GameSettings.VignetteEnabled"] = [[VR Vignetteを有効化済み]],
+	["CoreScripts.InGameMenu.GameSettings.VignetteEnabled"] = [[VR Vignetteを有効化済み]],
 }

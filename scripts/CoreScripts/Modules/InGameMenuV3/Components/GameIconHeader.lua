@@ -4,50 +4,59 @@ local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 
-local InGameMenu = script.Parent.Parent
-
-local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
-local GameIcon = require(InGameMenu.Components.GameIcon)
-
-local GAME_ICON_RENDER_SIZE = 100
+local UIBlox = InGameMenuDependencies.UIBlox
+local withStyle = UIBlox.Style.withStyle
+local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 
 local EXTERIOR_PADDING = 24
-local TEXT_ICON_PADDING = 12
+local TOP_PADDING = 12
+local HEIGHT = 72
 
 local function GameIconHeader(props)
-	return Roact.createElement("ImageLabel", {
-		BackgroundTransparency = 1,
-		Size = UDim2.new(1, 0, 0, GAME_ICON_RENDER_SIZE + EXTERIOR_PADDING * 2),
-	}, {
-		Padding = Roact.createElement("UIPadding", {
-			PaddingBottom = UDim.new(0, EXTERIOR_PADDING),
-			PaddingLeft = UDim.new(0, EXTERIOR_PADDING),
-			PaddingRight = UDim.new(0, EXTERIOR_PADDING),
-			PaddingTop = UDim.new(0, EXTERIOR_PADDING),
-		}),
-		GameIcon = Roact.createElement(GameIcon, {
-			gameId = game.GameId,
-			iconSize = 100,
-		}),
-		GameName = Roact.createElement(ThemedTextLabel, {
-			fontKey = "Title",
-			themeKey = "TextEmphasis",
-
-			Position = UDim2.new(0, GAME_ICON_RENDER_SIZE + TEXT_ICON_PADDING, 0, 0),
-			Size = UDim2.new(1, -(GAME_ICON_RENDER_SIZE + TEXT_ICON_PADDING), 1, 0),
-			Text = props.gameName,
-			TextTruncate = Enum.TextTruncate.AtEnd,
-			TextWrapped = true,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextYAlignment = Enum.TextYAlignment.Top,
-		}),
-	})
+	return withStyle(function(stylePalette)
+		local font = stylePalette.Font
+		local theme = stylePalette.Theme
+		return Roact.createElement("ImageLabel", {
+			BackgroundTransparency = 1,
+			Size = UDim2.new(1, 0, 0, HEIGHT),
+			LayoutOrder = props.LayoutOrder or 0,
+		}, {
+			Layout = Roact.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+			Padding = Roact.createElement("UIPadding", {
+				PaddingBottom = UDim.new(0, EXTERIOR_PADDING),
+				PaddingLeft = UDim.new(0, EXTERIOR_PADDING),
+				PaddingRight = UDim.new(0, EXTERIOR_PADDING),
+				PaddingTop = UDim.new(0, TOP_PADDING),
+			}),
+			Title = Roact.createElement(StyledTextLabel, {
+				layoutOrder = 1,
+				fontStyle = font.Header2,
+				colorStyle = theme.TextEmphasis,
+				size = UDim2.new(1, 0, 0, 20),
+				text = props.gameName,
+				textTruncate = Enum.TextTruncate.AtEnd,
+				textXAlignment = Enum.TextXAlignment.Left,
+				textYAlignment = Enum.TextYAlignment.Center,
+			}),
+			SubTitle = Roact.createElement(StyledTextLabel, {
+				layoutOrder = 2,
+				fontStyle = font.CaptionBody,
+				colorStyle = theme.TextDefault,
+				size = UDim2.new(1, 0, 0, 28),
+				text = props.gameCreator,
+				textTruncate = Enum.TextTruncate.AtEnd,
+				textXAlignment = Enum.TextXAlignment.Left,
+				textYAlignment = Enum.TextYAlignment.Center,
+			}),
+		})
+	end)
 end
 
-return RoactRodux.UNSTABLE_connect2(function(state)
-	local gameName = state.gameInfo.name
-
+return RoactRodux.connect(function(state)
 	return {
-		gameName = gameName,
+		gameName = state.gameInfo.name,
+		gameCreator = state.gameInfo.creator,
 	}
 end)(GameIconHeader)

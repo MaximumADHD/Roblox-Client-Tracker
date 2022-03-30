@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local VRService = game:GetService("VRService")
 
 local InGameMenu = script.Parent.Parent
 
@@ -8,6 +9,8 @@ local Images = UIBlox.App.ImageSet.Images
 local GameIconButton = require(InGameMenu.Components.SideNavigation.GameIconButton)
 
 local Constants = require(InGameMenu.Resources.Constants)
+
+local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
 
 local navigationBar = {
 	{
@@ -59,7 +62,27 @@ local pages = {
 		icon = Images["icons/actions/friends/friendInvite"],
 		component = script.Parent.InviteFriendsPage,
 		navigationDepth = 2,
+		parentPage = nil,
+	},
+	{
+		key = "Favorite",
+		title = "CoreScripts.InGameMenu.Action.Favorite",
+		titleOn = "CoreScripts.InGameMenu.Action.Favorited",
+		icon = Images["icons/actions/favoriteOff"],
+		iconOn = Images["icons/actions/favoriteOn"],
+		navigationDepth = 2,
 		parentPage = Constants.MainPagePageKey,
+		actionKey = "favorite",
+	},
+	{
+		key = "Follow",
+		title = "CoreScripts.InGameMenu.Action.Follow",
+		titleOn = "CoreScripts.InGameMenu.Action.Following",
+		icon = Images["icons/common/notificationOff"],
+		iconOn = Images["icons/common/notificationOn"],
+		navigationDepth = 2,
+		parentPage = Constants.MainPagePageKey,
+		actionKey = "follow",
 	},
 	{
 		key = "GameSettings",
@@ -82,7 +105,7 @@ local pages = {
 		title = "CoreScripts.InGameMenu.PageTitle.Controls",
 		icon = Images["icons/controls/controls"],
 		component = script.Parent.ControlsPage,
-		isModal = true,
+		isModal = not (EngineFeatureEnableVRUpdate2 and VRService.VREnabled),
 		navigationDepth = 2,
 		parentPage = Constants.MainPagePageKey,
 	},

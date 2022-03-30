@@ -27,6 +27,7 @@ local Tooltip = UI.Tooltip
 local Src = Plugin.Src
 local ClearMaterialVariant = require(Src.Actions.ClearMaterialVariant)
 local SetSearch = require(Src.Actions.SetSearch)
+local SetMode = require(Src.Actions.SetMode)
 local MainReducer = require(Src.Reducers.MainReducer)
 local getFFlagMaterialServiceStringOverride = require(Src.Flags.getFFlagMaterialServiceStringOverride)
 
@@ -42,6 +43,7 @@ type _Props = Props & {
 	Analytics : any,
 	dispatchClearMaterialVariant : () -> (),
 	dispatchSetSearch : (string) -> (),
+	dispatchSetMode : (mode : string) -> (),
 	Localization : any,
 	Material : _Types.Material?,
 	Stylizer : any,
@@ -253,6 +255,9 @@ return RoactRodux.connect(
 			end,
 			dispatchSetSearch = function (search)
 				dispatch(SetSearch(search))
+			end,
+			dispatchSetMode = function(mode : string)
+				dispatch(SetMode(mode))
 			end,
 		}
 	end

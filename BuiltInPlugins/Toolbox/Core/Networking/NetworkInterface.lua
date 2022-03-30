@@ -903,8 +903,8 @@ function NetworkInterface:getAutocompleteResults(categoryName, searchTerm, numbe
 end
 
 if FFlagToolboxAssetCategorization then
-	function NetworkInterface:getHomeConfiguration(assetType: Enum.AssetType)
-		local targetUrl = Urls.constructGetHomeConfigurationUrl(assetType)
+	function NetworkInterface:getHomeConfiguration(assetType: Enum.AssetType, locale: string?)
+		local targetUrl = Urls.constructGetHomeConfigurationUrl(assetType, locale)
 		printUrl("getHomeConfiguration", "GET", targetUrl)
 		return self._networkImp:httpGetJson(targetUrl)
 	end

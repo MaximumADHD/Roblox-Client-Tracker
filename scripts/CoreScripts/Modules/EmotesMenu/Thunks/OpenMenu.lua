@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
+local VRService = game:GetService("VRService")
 
 local Thunks = script.Parent
 local EmotesMenu = Thunks.Parent
@@ -15,10 +16,16 @@ local ShowMenu = require(Actions.ShowMenu)
 
 local EmotesAnalytics = Analytics.new():withEventStream(EventStream.new())
 
+local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
+
 local function OpenMenu(emoteName)
     return function(store)
-        if GuiService.MenuIsOpen then
-            return
+	if GuiService.MenuIsOpen then
+		if EngineFeatureEnableVRUpdate2 and VRService.VREnabled then
+			GuiService:SetMenuIsOpen(false, "VRMenu")
+		else
+			return
+		end
         end
 
         if Backpack.IsOpen then

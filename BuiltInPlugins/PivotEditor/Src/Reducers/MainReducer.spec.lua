@@ -1,57 +1,67 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent
 
-	local EditingMode = require(Plugin.Src.Utility.EditingMode)
-	local StatusMessage = require(Plugin.Src.Utility.StatusMessage)
+	local getFFlagPivotEditorFixTests = require(Plugin.Src.Flags.getFFlagPivotEditorFixTests)
+	if not getFFlagPivotEditorFixTests() then
+		return
+	end
 
-	local MainReducer = require(script.Parent.MainReducer)
-	local BeginSelectingPivot = require(Plugin.Src.Actions.BeginSelectingPivot)
-	local DoneSelectingPivot = require(Plugin.Src.Actions.DoneSelectingPivot)
+	local Framework = require(Plugin.Packages.Framework)
+
+	local TestHelpers = Framework.TestHelpers
+	local testImmutability = TestHelpers.testImmutability
+
+	local SelectInvalidSelection = require(Plugin.Src.Actions.SelectInvalidSelection)
 	local SelectObjectForEditing = require(Plugin.Src.Actions.SelectObjectForEditing)
 
-	describe("Initialization", function()
-		it("should have the right type of values", function()
-			local initial = MainReducer(nil, {})
+	local EditingMode = require(Plugin.Src.Utility.EditingMode)
+	local StatusMessage = require(Plugin.Src.Utility.StatusMessage)
+	local TestHelper = require(Plugin.Src.Utility.TestHelper)
 
-			expect(EditingMode.isEnumValue(initial.editingMode)).to.be.ok()
-			expect(type(initial.statusMessage)).to.equal("string")
+	local MainReducer = require(script.Parent.MainReducer)
+
+	it("should return its expected default state", function()
+		local store = TestHelper.createTestStore()
+		local state = store:getState()
+		expect(state).to.be.ok()
+		expect(state.targetObject).to.equal(nil)
+		expect(state.editingMode).to.equal(EditingMode.None)
+		expect(state.statusMessage).to.equal(StatusMessage.None)
+	end)
+
+	describe("SelectObjectForEditing", function()
+		it("should begin editing", function()
+			local targetObject = Instance.new("Part")
+			local state = MainReducer(nil, SelectObjectForEditing(targetObject))
+
+			expect(state).to.be.ok()
+			expect(state.targetObject).to.equal(targetObject)
+			expect(state.editingMode).to.equal(EditingMode.Transform)
+			expect(state.statusMessage).to.equal(StatusMessage.None)
+		end)
+
+		it("should preserve immutability", function()
+			local targetObject = Instance.new("Part")
+			local immutabilityPreserved = testImmutability(MainReducer, SelectObjectForEditing(targetObject))
+			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)
 
-	describe("Action handling", function()
-		it("should begin selecting a pivot", function()
-			local state = MainReducer(nil, BeginSelectingPivot(
-				EditingMode.SelectSurface, StatusMessage.TestMessage))
+	describe("SelectInvalidSelection", function()
+		it("should begin editing", function()
+			local invalidStatus = StatusMessage.NoSelection
+			local state = MainReducer(nil, SelectInvalidSelection(invalidStatus))
 
-			expect(state.editingMode).to.equal(EditingMode.SelectSurface)
-			expect(state.statusMessage).to.equal(StatusMessage.TestMessage)
+			expect(state).to.be.ok()
 			expect(state.targetObject).to.equal(nil)
+			expect(state.editingMode).to.equal(EditingMode.None)
+			expect(state.statusMessage).to.equal(invalidStatus)
 		end)
 
-		it("should have no message after selecting a pivot", function()
-			local state = MainReducer(nil, BeginSelectingPivot(
-				EditingMode.SelectSurface, StatusMessage.TestMessage))
-			state = MainReducer(state, DoneSelectingPivot())
-
-			expect(state.editingMode).to.equal(EditingMode.Transform)
-			expect(state.statusMessage).to.equal(StatusMessage.None)
-			expect(state.targetObject).to.equal(nil)
-		end)
-
-		it("should not be able to begin editing with Transform mode", function()
-			expect(function()
-				MainReducer(nil, BeginSelectingPivot(
-					EditingMode.Transform, StatusMessage.TestMessage))
-			end).to.throw()
-		end)
-
-		it("should be in transform mode after selecting an object", function()
-			local object = Instance.new("Part")
-			local state = MainReducer(nil, SelectObjectForEditing(object))
-
-			expect(state.editingMode).to.equal(EditingMode.Transform)
-			expect(state.statusMessage).to.equal(StatusMessage.None)
-			expect(state.targetObject).to.equal(object)
+		it("should preserve immutability", function()
+			local invalidStatus = StatusMessage.NoSelection
+			local immutabilityPreserved = testImmutability(MainReducer, SelectInvalidSelection(invalidStatus))
+			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)
 end

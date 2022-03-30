@@ -28,7 +28,7 @@ return function(threadState, debuggerConnection, debuggerStateToken, scriptChang
 					frameColumn = stackFrameId,
 					layerColumn = stackFrame.FrameType,
 					functionColumn = stackFrame.FrameName,
-					lineColumn = stackFrame.Line,
+					lineColumn = if stackFrame.Line < 0 then "" else stackFrame.Line,
 					sourceColumn = stackFrame.Script,
 				}
 				store:dispatch(SetFilenameForGuidAction(stackFrame.Script, ""))

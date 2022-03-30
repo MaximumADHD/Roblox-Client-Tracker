@@ -13,7 +13,6 @@ return function()
 	local Direction = require(InGameMenu.Enums.Direction)
 
 	local Flags = InGameMenu.Flags
-	local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 	beforeEach(function(c)
 		c.path, c.store, c.cleanup, c.gamepad = c.mountIGM({
@@ -31,23 +30,21 @@ return function()
 	end)
 
 	it("should set the target zone when selected", function(c)
-		if GetFFlagInGameMenuControllerDevelopmentOnly() then
-			local path = c.path
-			local store = c.store
+		local path = c.path
+		local store = c.store
 
-			expect(store:getState().currentZone).to.equal(nil)
+		expect(store:getState().currentZone).to.equal(nil)
 
-			local rootPath = XPath.new(path)
-			local zonePortalPath = rootPath:cat(XPath.new("ZonePortal"))
-			local zonePortal = Element.new(zonePortalPath)
+		local rootPath = XPath.new(path)
+		local zonePortalPath = rootPath:cat(XPath.new("ZonePortal"))
+		local zonePortal = Element.new(zonePortalPath)
 
-			expect(zonePortal:waitForRbxInstance(1)).to.be.ok()
+		expect(zonePortal:waitForRbxInstance(1)).to.be.ok()
 
-			GuiService.SelectedCoreObject = zonePortal:getRbxInstance()
+		GuiService.SelectedCoreObject = zonePortal:getRbxInstance()
 
-			wait()
+		wait()
 
-			expect(store:getState().currentZone).to.equal(999)
-		end
+		expect(store:getState().currentZone).to.equal(999)
 	end)
 end

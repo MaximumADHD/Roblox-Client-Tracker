@@ -181,6 +181,7 @@ function Theme.createValues(theme, getColor)
 
 			hyperlink = theme:getColor(StyleColor.LinkText),
 			warningColor = theme:getColor(StyleColor.WarningText),
+			warningIcon = "rbxasset://textures/GameSettings/Warning.png",
 
 			separator = isDark and theme:getColor(StyleColor.Border) or theme:getColor(StyleColor.Titlebar),
 

@@ -19,8 +19,6 @@ local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyFolder.Flags.
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
 local FFlagInspectAndBuyLayeredClothingR6Support =
 	require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyLayeredClothingR6Support)
-local GetFFlagInGameMenuControllerDevelopmentOnly = 
-	require(CoreGui.RobloxGui.Modules.InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 local CONTROLLER_BAR_HEIGHT = require(CoreGui.RobloxGui.Modules.InGameMenuConstants).ControllerBarHeight
 
@@ -90,11 +88,6 @@ function AssetDetails:render()
 	local localPlayerModel = self.props.localPlayerModel
 	local scrollingEnabled = self.state.scrollingEnabled
 
-	local isContainerSelectable -- can inline once GetFFlagInGameMenuControllerDevelopmentOnly is removed
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		isContainerSelectable = false
-	end
-
 	return Roact.createElement(InspectAndBuyContext.Consumer, {
 		render = function(views)
 			local viewMapping = views[view]
@@ -119,7 +112,7 @@ function AssetDetails:render()
 					ScrollBarThickness = 0,
 					Size = UDim2.new(1, 0, 1, -55),
 					ScrollingEnabled = scrollingEnabled,
-					Selectable = isContainerSelectable,
+					Selectable = false,
 				}, {
 					UIListLayout = Roact.createElement("UIListLayout", {
 						SortOrder = Enum.SortOrder.LayoutOrder,

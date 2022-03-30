@@ -26,6 +26,7 @@ local AssetGrid = require(Plugin.Core.Components.AssetGrid)
 local ResultsFetcher = require(Plugin.Core.Components.ResultsFetcher)
 local AssetSwimlane = require(Plugin.Core.Components.Categorization.AssetSwimlane)
 local HomeTypes = require(Plugin.Core.Types.HomeTypes)
+local Layouter = require(Plugin.Core.Util.Layouter)
 
 local ScrollingFrame = Framework.UI.ScrollingFrame
 
@@ -71,6 +72,12 @@ SubcategoriesSwimlaneView.defaultProps = {
 }
 
 function SubcategoriesSwimlaneView:init()
+	self.onAbsoluteSizeChange = function(rbx)
+		self:setState({
+			swimlaneWidth = Layouter.getSwimlaneWidth(rbx.AbsoluteSize.X),
+		})
+	end
+
 	self.onClickBack = function(key)
 		local props: SubcategoriesSwimlaneViewProps = self.props
 		local onClickBack = props.OnClickBack
@@ -93,6 +100,8 @@ function SubcategoriesSwimlaneView:init()
 
 	self.renderSwimlanes = function()
 		local props: SubcategoriesSwimlaneViewProps = self.props
+		local state = self.state
+
 		local categoryName = props.CategoryName
 		local layoutOrder = props.LayoutOrder
 		local localization = props.Localization
@@ -106,6 +115,8 @@ function SubcategoriesSwimlaneView:init()
 		local tryInsert = props.TryInsert
 		local tryOpenAssetConfig = props.TryOpenAssetConfig
 		local onClickSeeAllAssets = props.OnClickSeeAllAssets
+		local swimlaneWidth = state.swimlaneWidth
+		local onAssetPreviewButtonClicked = props.OnAssetPreviewButtonClicked
 
 		local assetSectionsElems = {}
 		-- Get asset sections
@@ -121,6 +132,8 @@ function SubcategoriesSwimlaneView:init()
 				SearchTerm = subcategory.searchKeywords,
 				InitialPageSize = INITIAL_PAGE_SIZE,
 				OnClickSeeAllAssets = onClickSeeAllAssets,
+				SwimlaneWidth = swimlaneWidth,
+				OnAssetPreviewButtonClicked = onAssetPreviewButtonClicked,
 				Title = subcategory.displayName,
 				TryInsert = tryInsert,
 				TryOpenAssetConfig = tryOpenAssetConfig,
@@ -155,9 +168,10 @@ function SubcategoriesSwimlaneView:render()
 		BackgroundColor3 = theme.backgroundColor,
 		LayoutOrder = layoutOrder,
 		Size = size,
+		[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChange,
 	}, {
 		ScrollingFrame = Roact.createElement(ScrollingFrame, {
-			AutomaticCanvasSize = Enum.AutomaticSize.Y,
+			AutoSizeCanvas = true,
 			EnableScrollBarBackground = true,
 			LayoutOrder = layoutOrder,
 			Padding = if FFlagDevFrameworkScrollingFrameAddPadding then Constants.MAIN_VIEW_PADDING else nil,
@@ -176,6 +190,12 @@ function SubcategoriesSwimlaneView:render()
 					VerticalAlignment = Enum.VerticalAlignment.Top,
 				},
 				Dash.join({
+					UIPadding = Roact.createElement("UIPadding", {
+						PaddingBottom = UDim.new(0, Constants.MAIN_VIEW_PADDING),
+						PaddingLeft = UDim.new(0, Constants.MAIN_VIEW_PADDING),
+						PaddingRight = UDim.new(0, Constants.MAIN_VIEW_PADDING),
+						PaddingTop = UDim.new(0, Constants.MAIN_VIEW_PADDING),
+					}),
 					BackButton = Roact.createElement(LinkText, {
 						LayoutOrder = -1,
 						OnClick = self.onClickBack,
@@ -188,9 +208,11 @@ function SubcategoriesSwimlaneView:render()
 	})
 end
 
+SubcategoriesSwimlaneView = AssetLogicWrapper(SubcategoriesSwimlaneView)
+
 SubcategoriesSwimlaneView = withContext({
 	Localization = ContextServices.Localization,
 	Stylizer = ContextServices.Stylizer,
 })(SubcategoriesSwimlaneView)
 
-return AssetLogicWrapper(SubcategoriesSwimlaneView)
+return SubcategoriesSwimlaneView

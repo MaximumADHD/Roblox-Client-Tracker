@@ -14,9 +14,6 @@ local DeveloperLockLabel = require(script.Parent.DeveloperLockLabel)
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
-local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
-
 local ToggleEntry = Roact.PureComponent:extend("ToggleEntry")
 ToggleEntry.validateProps = t.strictInterface({
 	LayoutOrder = t.integer,
@@ -27,33 +24,29 @@ ToggleEntry.validateProps = t.strictInterface({
 	checked = t.boolean,
 	onToggled = t.callback,
 	buttonRef = t.optional(t.table),
-	NextSelectionUp = t.optional(t.Instance),
+	NextSelectionUp = t.optional(t.union(t.Instance, t.table)),
 })
 
 function ToggleEntry:init()
 	self.state = {
-		isSelectable = GetFFlagInGameMenuControllerDevelopmentOnly() and true or nil,
+		isSelectable = true,
 	}
 end
 
 function ToggleEntry:render()
-	local buttonRef = self.props.buttonRef or (GetFFlagInGameMenuControllerDevelopmentOnly() and Roact.createRef() or nil)
-	local selectable = nil
-	if GetFFlagInGameMenuControllerDevelopmentOnly then
-		selectable = self.state.isSelectable
-	end
+	local buttonRef = self.props.buttonRef or Roact.createRef()
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
 		LayoutOrder = self.props.LayoutOrder,
 		Size = UDim2.new(1, 0, 0, 56),
-		Selectable = selectable,
-		[Roact.Event.SelectionGained] = GetFFlagInGameMenuControllerDevelopmentOnly() and function()
+		Selectable = self.state.isSelectable,
+		[Roact.Event.SelectionGained] = function()
 			GuiService.SelectedCoreObject = buttonRef:getValue()
 			self:setState({
 				isSelectable = false,
 			})
-		end or nil,
+		end,
 	}, {
 		Padding = Roact.createElement("UIPadding", {
 			PaddingRight = UDim.new(0, 30),
@@ -89,16 +82,16 @@ function ToggleEntry:render()
 			onToggled = self.props.onToggled,
 			disabled = self.props.lockedToOff,
 			buttonRef = buttonRef,
-			onSelectionLost = GetFFlagInGameMenuControllerDevelopmentOnly() and function()
+			onSelectionLost = function()
 				self:setState({
 					isSelectable = true
 				})
-			end or nil,
-			onSelectionGained = GetFFlagInGameMenuControllerDevelopmentOnly() and function()
+			end,
+			onSelectionGained = function()
 				self:setState({
 					isSelectable = false
 				})
-			end or nil,
+			end,
 			NextSelectionUp = self.props.NextSelectionUp,
 		}),
 	})

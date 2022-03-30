@@ -171,4 +171,6 @@ return{
 	["CoreScripts.InGameMenu.ControllerBar.Leave"] = [[Sair]],
 	["CoreScripts.InGameMenu.ControllerBar.RespawnCharacter"] = [[Regenerar personagem]],
 	["CoreScripts.InGameMenu.ControllerBar.Cancel"] = [[Cancelar]],
+	["CoreScripts.InGameMenu.CoreScripts.InGameMenu.GameSettings.VignetteEnabled"] = [[Vinheta VR ativada]],
+	["CoreScripts.InGameMenu.GameSettings.VignetteEnabled"] = [[Vinheta VR ativada]],
 }

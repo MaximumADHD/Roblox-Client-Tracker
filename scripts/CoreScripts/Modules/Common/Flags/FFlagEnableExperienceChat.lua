@@ -1,1 +1,1 @@
-return game:DefineFastFlag("EnableExperienceChat", false)
+return game:DefineFastFlag("EnableExperienceChatV1", false)

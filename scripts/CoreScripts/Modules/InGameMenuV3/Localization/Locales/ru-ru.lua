@@ -171,4 +171,6 @@ return{
 	["CoreScripts.InGameMenu.ControllerBar.Leave"] = [[Выйти]],
 	["CoreScripts.InGameMenu.ControllerBar.RespawnCharacter"] = [[Возродить персонажа]],
 	["CoreScripts.InGameMenu.ControllerBar.Cancel"] = [[Отмена]],
+	["CoreScripts.InGameMenu.CoreScripts.InGameMenu.GameSettings.VignetteEnabled"] = [[VR Vignette активирован]],
+	["CoreScripts.InGameMenu.GameSettings.VignetteEnabled"] = [[VR Vignette активирован]],
 }

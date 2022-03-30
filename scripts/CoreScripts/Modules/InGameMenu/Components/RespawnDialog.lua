@@ -9,7 +9,6 @@ local IGMRespawnControllerBar = require(script.Parent.IGMRespawnControllerBar)
 local InGameMenu = script.Parent.Parent
 local Flags = InGameMenu.Flags
 local GetFFlagIGMControllerBarRefactor = require(Flags.GetFFlagIGMControllerBarRefactor)
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
@@ -60,7 +59,7 @@ end
 return RoactRodux.UNSTABLE_connect2(function(state, props)
 	return {
 		isRespawning = state.respawn.dialogOpen,
-		inputType = GetFFlagInGameMenuControllerDevelopmentOnly() and state.displayOptions.inputType or nil,
+		inputType = state.displayOptions.inputType,
 	}
 end, function(dispatch)
 	return {

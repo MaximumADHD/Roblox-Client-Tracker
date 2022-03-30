@@ -39,7 +39,7 @@ HomeWrapper.defaultProps = {
 function HomeWrapper:init(props)
 	for _, assetType in ipairs(HomeTypes.ENABLED_ASSET_TYPES) do
 		if props.homeConfiguration[assetType.Name] == nil then
-			props.getHomeConfigurationRequest(getNetwork(self), assetType)
+			props.getHomeConfigurationRequest(getNetwork(self), assetType, props.Locale)
 		end
 	end
 end
@@ -113,8 +113,8 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		getHomeConfigurationRequest = function(networkInterface, assetType: Enum.AssetType)
-			dispatch(GetHomeConfigurationRequest(networkInterface, assetType))
+		getHomeConfigurationRequest = function(networkInterface, assetType: Enum.AssetType, locale: string?)
+			dispatch(GetHomeConfigurationRequest(networkInterface, assetType, locale))
 		end,
 	}
 end

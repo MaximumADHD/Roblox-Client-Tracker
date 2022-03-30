@@ -48,12 +48,16 @@ local function getPluginTheme()
 		},
 
 		MaterialVariantCreator = {
+			Background = _StyleKey.ScrollingFrameBackgroundColor,
 			ListItemPadding = UDim.new(0, 10),
-			Padding = 10,
+			Padding = 15,
+			PreviewSize = UDim2.new(0, 310, 1, 0),
+			TextFont = Enum.Font.SourceSansBold,
+			SettingsSize = UDim2.new(1, -310, 1, 0),
 		},
 
-		MaterialVariantSettings = {
-			DialogColumnSize = UDim2.new(0, 220, 0, 25),
+		GeneralSettings = {
+			DialogColumnSize = UDim2.new(0, 350, 0, 25),
 		},
 
 		LabeledElementList = {
@@ -156,7 +160,7 @@ local function getPluginTheme()
 			ToolbarButtonBackgroundColor = _StyleKey.ToolbarButtonBackgroundColor,
 			ToolbarHeight = 32,
 
-			ColumnWidth = 220,
+			ColumnWidth = 350,
 			PreviewSize = 88,
 
 			PaddingVertical = 4,

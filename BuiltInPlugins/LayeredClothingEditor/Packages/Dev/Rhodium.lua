@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent._Index
 
-local Package = require(PackageIndex["roblox_rhodium"]["rhodium"])
+local Package = require(PackageIndex["Rhodium"]["Rhodium"])
 
 return Package

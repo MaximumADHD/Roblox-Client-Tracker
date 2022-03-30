@@ -266,6 +266,18 @@ function MaterialController:getVariants(baseMaterial : Enum.Material)
 	return materials
 end
 
+function MaterialController:ifMaterialNameExists(name : string) : boolean
+	local category = self:findCategory({})
+	assert(category, "Tried to get materials for path which does not exist")
+
+	local materials = {}
+	recurseMaterials(category, materials, function(material)
+		return material.MaterialVariant.Name == name
+	end)
+
+	return #materials ~= 0
+end
+
 function MaterialController:getMaterialOverride(material : Enum.Material) : string
 	assert(getFFlagMaterialServiceStringOverride(), "Enable FFlagMaterialServiceStringOverride in order to use this functionality.")
 

@@ -34,7 +34,7 @@ local RemoveExpression = require(Actions.Watch.RemoveExpression)
 local SetWatchSortState = require(Actions.Watch.SetWatchSortState)
 
 local LazyLoadVariableChildren = require(PluginRoot.Src.Thunks.Watch.LazyLoadVariableChildren)
-local ExecuteExpression = require(PluginRoot.Src.Thunks.Watch.ExecuteExpressionThunk)
+local ExecuteExpressionForAllFrames = require(PluginRoot.Src.Thunks.Watch.ExecuteExpressionForAllFrames)
 
 local UtilFolder = PluginRoot.Src.Util
 local MakePluginActions = require(UtilFolder.MakePluginActions)
@@ -178,6 +178,15 @@ function DisplayTable:init()
 			end
 		end
 	end
+	
+	self.IsDuplicateWatchEntry = function(watchString)
+		for _, entry in ipairs(self.props.RootItems) do
+			if entry.expressionColumn == watchString then
+				return true
+			end
+		end
+		return false
+	end
 
 	self.OnFocusLost = function(enterPress, inputObj, row, col)
 		local oldExpression = row.item.expressionColumn
@@ -187,19 +196,36 @@ function DisplayTable:init()
 		local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
 
 		if col == 1 then
+			if self.IsDuplicateWatchEntry(newExpression) then
+				if oldExpression == "" then
+					-- if we have inputted a duplicate entry, clear the input row
+					inputObj.Text = ""
+				elseif oldExpression ~= newExpression then
+					-- remove the changed entry if it is the same as a previous entry
+					self.props.OnRemoveExpression(oldExpression)
+				end
+				return
+			end
+			
 			if oldExpression == "" and newExpression ~= "" then
 				self.props.OnAddExpression(newExpression)
 				if (currentStepStateBundle ~= nil) then
-					local debuggerConnection = debuggerConnectionManager:GetConnectionById(currentStepStateBundle.debuggerStateToken.debuggerConnectionId)
-					self.props.OnExecuteExpression(newExpression, self.props.CurrentStepStateBundle, debuggerConnection)
+					local dst = currentStepStateBundle.debuggerStateToken
+					if dst then
+						local debuggerConnection = debuggerConnectionManager:GetConnectionById(dst.debuggerConnectionId)
+						self.props.OnExecuteExpressionForAllFrames(newExpression, debuggerConnection, dst, currentStepStateBundle.threadId)
+					end
 				end
 			elseif newExpression == "" then
 				self.props.OnRemoveExpression(oldExpression)
 			elseif oldExpression ~= newExpression then
 				self.props.OnChangeExpression(oldExpression, newExpression)
 				if (currentStepStateBundle ~= nil) then
-					local debuggerConnection = debuggerConnectionManager:GetConnectionById(currentStepStateBundle.debuggerStateToken.debuggerConnectionId)
-					self.props.OnExecuteExpression(newExpression, self.props.CurrentStepStateBundle, debuggerConnection)
+					local dst = currentStepStateBundle.debuggerStateToken
+					if dst then
+						local debuggerConnection = debuggerConnectionManager:GetConnectionById(dst.debuggerConnectionId)
+						self.props.OnExecuteExpressionForAllFrames(newExpression, debuggerConnection, dst, currentStepStateBundle.threadId)
+					end					
 				end
 			end
 		end
@@ -298,59 +324,41 @@ DisplayTable = RoactRodux.connect(
 		local tabState = watch.currentTab
 		local isVariablesTab = (tabState == TableTab.Variables)
 
-		if common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId] == nil or 
-			common.currentFrameMap[common.currentDebuggerConnectionId] == nil or 
-			common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId] == nil
-		then
-			local rootItems = {}
-			if not isVariablesTab then
-				table.insert(rootItems, WatchRow.fromExpression(""))
-			end
+		local threadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
+		local frameNumber = threadId and common.currentFrameMap[common.currentDebuggerConnectionId][threadId] or nil
+		local token = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
+		local watchVars = token and watch.stateTokenToRoots[token] or nil
 
-			return {
-				SelectedTab = tabState,
-				RootItems = rootItems,
-				ExpansionTable = {},
-				SortIndex = watch.columnIndex,
-				SortOrder = watch.sortDirection
-			}
-		else
-			local threadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
-			local frameNumber = common.currentFrameMap[common.currentDebuggerConnectionId][threadId]
-			local token = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
-			local watchVars = watch.stateTokenToRoots[token]
+		local roots = watchVars and watchVars[threadId] and watchVars[threadId][frameNumber]
+		local treeKey = isVariablesTab and "Variables" or "Watches"
+		local rootsList = roots and (roots[treeKey] and deepCopy(roots[treeKey]) or {}) or {}
 
-			local roots = watchVars and watchVars[threadId] and watchVars[threadId][frameNumber]
-			local treeKey = isVariablesTab and "Variables" or "Watches"
-			local rootsList = roots and (roots[treeKey] and deepCopy(roots[treeKey]) or {}) or {}
+		local watchTree = watch.stateTokenToFlattenedTree[token]
+		local tree = watchTree and watchTree[threadId] and watchTree[threadId][frameNumber]
+		local flattenedTreeCopy = tree and (tree[treeKey] and deepCopy(tree[treeKey]) or {}) or {}
 
-			local watchTree = watch.stateTokenToFlattenedTree[token]
-			local tree = watchTree and watchTree[threadId] and watchTree[threadId][frameNumber]
-			local flattenedTreeCopy = tree and (tree[treeKey] and deepCopy(tree[treeKey]) or {}) or {}
-
-			if not isVariablesTab then
-				rootsList = useListOfExpressionsAsSOT(watch.listOfExpressions, rootsList, flattenedTreeCopy)
-			end
-
-			local rootItems = populateRootItems(rootsList, flattenedTreeCopy)
-			rootItems = applyFilters(rootItems, flattenedTreeCopy)
-			local expansionTable = {}
-			local storeExpansionTable = isVariablesTab and watch.pathToExpansionState or watch.expressionToExpansionState
-			populateExpansionTable(rootItems, expansionTable, storeExpansionTable)
-
-			if not isVariablesTab then
-				table.insert(rootItems, WatchRow.fromExpression(""))
-			end
-
-			return {
-				SelectedTab = tabState,
-				RootItems = rootItems or {},
-				ExpansionTable = expansionTable,
-				CurrentStepStateBundle = StepStateBundle.ctor(token,threadId,frameNumber),
-				SortIndex = watch.columnIndex,
-				SortOrder = watch.sortDirection
-			}
+		if not isVariablesTab then
+			rootsList = useListOfExpressionsAsSOT(watch.listOfExpressions, rootsList, flattenedTreeCopy)
 		end
+
+		local rootItems = populateRootItems(rootsList, flattenedTreeCopy)
+		rootItems = applyFilters(rootItems, flattenedTreeCopy)
+		local expansionTable = {}
+		local storeExpansionTable = isVariablesTab and watch.pathToExpansionState or watch.expressionToExpansionState
+		populateExpansionTable(rootItems, expansionTable, storeExpansionTable)
+
+		if not isVariablesTab then
+			table.insert(rootItems, WatchRow.fromExpression(""))
+		end
+
+		return {
+			SelectedTab = tabState,
+			RootItems = rootItems or {},
+			ExpansionTable = expansionTable,
+			CurrentStepStateBundle = StepStateBundle.ctor(token,threadId,frameNumber),
+			SortIndex = watch.columnIndex,
+			SortOrder = watch.sortDirection
+		}
 	end,
 	
 	function(dispatch)
@@ -370,8 +378,8 @@ DisplayTable = RoactRodux.connect(
 			OnLazyLoadChildren = function(path, stepStateBundle, isExpression, debuggerConnection)
 				return dispatch(LazyLoadVariableChildren(path, stepStateBundle, isExpression, debuggerConnection))
 			end,
-			OnExecuteExpression = function(expression, stepStateBundle, debuggerConnection)
-				return dispatch(ExecuteExpression(expression, stepStateBundle, debuggerConnection))
+			OnExecuteExpressionForAllFrames = function(expression, debuggerConnection, dst, threadId)
+				return dispatch(ExecuteExpressionForAllFrames(expression, debuggerConnection, dst, threadId))
 			end,
 			OnRemoveExpression = function(oldExpression)
 				return dispatch(RemoveExpression(oldExpression))

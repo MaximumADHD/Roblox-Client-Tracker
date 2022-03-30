@@ -95,9 +95,10 @@ function AnimationPlayback:render()
 	local props = self.props
 	local previewingAvatars = props.PreviewContext:getAvatars()
 	for _, avatar in ipairs(previewingAvatars) do
-		local animator = getAnimator(avatar)
-		if animator and self.tracks[avatar] then
-			self.tracks[avatar]:Play()
+		local instance = avatar.model
+		local animator = getAnimator(instance)
+		if animator and self.tracks[instance] then
+			self.tracks[instance]:Play()
 			animator:StepAnimations(0)
 			animator:StepAnimations(props.Playhead)
 		end
@@ -113,14 +114,15 @@ function AnimationPlayback:cleanOldAnims()
 
 	local previewingAvatars = self.props.PreviewContext:getAvatars()
 	for _, avatar in ipairs(previewingAvatars) do
-		local animator = getAnimator(avatar)
+		local instance = avatar.model
+		local animator = getAnimator(instance)
 		if animator then
 			animator:StepAnimations(0)
 		end
 
 		--reset the joints
 		if avatar then
-			for _, descendant in pairs(avatar:GetDescendants()) do
+			for _, descendant in pairs(instance:GetDescendants()) do
 				if descendant:IsA("Motor6D") then
 					local joint = descendant
 					joint.CurrentAngle = 0
@@ -156,11 +158,12 @@ function AnimationPlayback:willUpdate(incomingProps, incomingState)
 		if animChanged then
 			self:cleanOldAnims()
 			for _, avatar in ipairs(previewingAvatars) do
-				local humanoid = avatar:FindFirstChildOfClass("Humanoid")
+				local instance = avatar.model
+				local humanoid = instance:FindFirstChildOfClass("Humanoid")
 				if humanoid then
-					self.animations[avatar] = Instance.new("Animation")
-					self.animations[avatar].AnimationId = animationURL
-					self.tracks[avatar] = humanoid:LoadAnimation(self.animations[avatar])
+					self.animations[instance] = Instance.new("Animation")
+					self.animations[instance].AnimationId = animationURL
+					self.tracks[instance] = humanoid:LoadAnimation(self.animations[instance])
 					incomingProps.SetIsPlaying(true)
 					incomingProps.SetPlayhead(0)
 				end

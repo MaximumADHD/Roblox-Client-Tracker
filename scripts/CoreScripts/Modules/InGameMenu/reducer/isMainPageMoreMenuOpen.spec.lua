@@ -6,14 +6,13 @@ return function()
 	local SetRespawning = require(InGameMenu.Actions.SetRespawning)
 	local reducer = require(script.Parent)
 
-	local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 	local GetFFlagIGMControllerBarRefactor = require(InGameMenu.Flags.GetFFlagIGMControllerBarRefactor)
 
 
 
 
 	describe("isMainPageMoreMenuOpen", function()
-		if GetFFlagInGameMenuControllerDevelopmentOnly() and not GetFFlagIGMControllerBarRefactor() then
+		if not GetFFlagIGMControllerBarRefactor() then
 			it("should be closed by default", function()
 				local defaultState = reducer(nil, {})
 				expect(defaultState.isMainPageMoreMenuOpen).to.equal(false)

@@ -26,15 +26,27 @@ local divideTransparency = require(InGameMenu.Utility.divideTransparency)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
 
+local ApiFetchGameIsFavorite = require(InGameMenu.Thunks.ApiFetchGameIsFavorite)
+local SetGameFavorite = require(InGameMenu.Actions.SetGameFavorite)
+local GamePostFavorite = require(InGameMenu.Thunks.GamePostFavorite)
+
+local SetGameFollow = require(InGameMenu.Actions.SetGameFollow)
+local SendGameFollow = require(InGameMenu.Thunks.SendGameFollow)
+
+local HttpRbxApiService = game:GetService("HttpRbxApiService")
+local Network = InGameMenu.Network
+local httpRequest = require(Network.httpRequest)
+local networkImpl = httpRequest(HttpRbxApiService)
+
 local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
-local NAV_BUTTON_HEIGHT = 70
+local NAV_BUTTON_HEIGHT = 56
 -- The left indent on divider lines
-local DIVIDER_INDENT = 24
+local DIVIDER_INDENT = 0
 -- The size of a navigation button icon
 local NAV_ICON_SIZE = 36
 -- The left padding of a navigation button icon
-local NAV_ICON_LEFT_PADDING = 28
+local NAV_ICON_LEFT_PADDING = 20
 -- The padding between navigation button icon and text
 local NAV_ICON_TEXT_PADDING = 16
 -- The right padding of navigation button text
@@ -144,7 +156,7 @@ function NavigationButton:renderWithSelectionCursor(getSelectionCursor)
 						ZIndex = 3,
 					}),
 					Text = Roact.createElement(ThemedTextLabel, {
-						fontKey = "Header1",
+						fontKey = "Header2",
 						themeKey = "TextEmphasis",
 
 						AnchorPoint = Vector2.new(0, 0.5),
@@ -196,18 +208,42 @@ local function PageNavigation(props)
 		})
 	}
 
+	local favoriteSelected = props.isFavorited ~= nil and props.isFavorited or false
+	local followSelected = props.isFollowed ~= nil and props.isFollowed or false
+
+	local actions = {
+		favorite = {
+			selected = favoriteSelected,
+			onActivated = function()
+				props.setFavorite(not favoriteSelected)
+				props.postFavorite(networkImpl, not favoriteSelected)
+			end
+		},
+		follow = {
+			selected = followSelected,
+			onActivated = function()
+				props.setFollowing(not followSelected)
+				props.postFollowing(networkImpl, not followSelected)
+			end
+		}
+	}
+
 	local pageCount = #Pages.pagesByIndex
 
 	local layoutOrder = 1
 	for index, page in ipairs(Pages.pagesByIndex) do
 		if page.parentPage == Constants.MainPagePageKey then
 			frameChildren["Page" .. page.key] = Roact.createElement(NavigationButton, {
-				image = page.icon,
+				image = (page.actionKey and actions[page.actionKey].selected and page.iconOn) or page.icon,
 				LayoutOrder = layoutOrder,
 				selected = props.currentPage == page.key,
-				text = page.title,
+				text = (page.actionKey and actions[page.actionKey].selected and page.titleOn) or page.title,
 				onActivated = function()
-					props.setCurrentPage(page.key)
+					if page.actionKey and actions[page.actionKey] then
+						actions[page.actionKey].onActivated()
+					else
+						props.setCurrentPage(page.key)
+					end
 				end,
 				mainPageFirstButtonRef = (GetFFlagInGameMenuControllerDevelopmentOnly() and layoutOrder == 1 and props.mainPageFirstButtonRef) or nil,
 			})
@@ -225,22 +261,54 @@ local function PageNavigation(props)
 		end
 	end
 
-	return Roact.createElement("Frame", {
-		BackgroundTransparency = 1,
-		Position = props.Position,
-		-- pageCount nav buttons, plus pageCount - 1 dividers (which are 1px tall)
-		Size = GetFFlagInGameMenuControllerDevelopmentOnly()
-			and UDim2.new(1, -Constants.Zone.ContentOffset, 0, pageCount * NAV_BUTTON_HEIGHT + (pageCount - 1))
-			or UDim2.new(1, 0, 0, pageCount * NAV_BUTTON_HEIGHT + (pageCount - 1)),
-	}, frameChildren)
+	if props.autosize then
+		return Roact.createElement("Frame", {
+			LayoutOrder = props.LayoutOrder or 0,
+			BackgroundTransparency = 1,
+			Position = props.Position,
+			-- pageCount nav buttons, plus pageCount - 1 dividers (which are 1px tall)
+			Size = UDim2.new(1, 0, 0, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
+		}, frameChildren)
+	else
+		return Roact.createElement("Frame", {
+			LayoutOrder = props.LayoutOrder or 0,
+			BackgroundTransparency = 1,
+			Position = props.Position,
+			-- pageCount nav buttons, plus pageCount - 1 dividers (which are 1px tall)
+			Size = GetFFlagInGameMenuControllerDevelopmentOnly()
+				and UDim2.new(1, -Constants.Zone.ContentOffset, 0, pageCount * NAV_BUTTON_HEIGHT + (pageCount - 1))
+				or UDim2.new(1, 0, 0, pageCount * NAV_BUTTON_HEIGHT + (pageCount - 1)),
+		}, frameChildren)
+
+	end
 end
 
 return RoactRodux.UNSTABLE_connect2(function(state, props)
 	return {
+		isFavorited = state.gameInfo.isFavorited,
+		isFollowed = state.gameInfo.isFollowed,
 		currentPage = state.menuPage,
 	}
 end, function(dispatch)
+	local universeId = game.GameId
+
 	return {
+		fetchGameIsFavorite = function(networking)
+			return universeId > 0 and dispatch(ApiFetchGameIsFavorite(networking, tostring(universeId)))
+		end,
+		postFavorite = function(networking, isFavorite)
+			return dispatch(GamePostFavorite(networking, tostring(universeId), isFavorite))
+		end,
+		setFavorite = function(isFavorite)
+			return dispatch(SetGameFavorite(tostring(universeId), isFavorite))
+		end,
+		postFollowing = function(networking, isFollowed)
+			return dispatch(SendGameFollow(networking, tostring(universeId), isFollowed))
+		end,
+		setFollowing = function(isFollowed)
+			return dispatch(SetGameFollow(tostring(universeId), isFollowed))
+		end,
 		setCurrentPage = function(pageKey)
 			dispatch(SetCurrentPage(pageKey))
 			SendAnalytics( "open_" .. pageKey .. "_tab", Constants.AnalyticsMenuActionName, {})

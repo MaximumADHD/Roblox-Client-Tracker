@@ -1,6 +1,7 @@
 --Panel3D: 3D GUI panels for VR
 --written by 0xBAADF00D
 --revised/refactored 5/11/16
+--updated 2021/2022 by MetaVars for new VR system
 
 local UserInputService = game:GetService("UserInputService")
 local VRService = game:GetService("VRService")
@@ -13,6 +14,7 @@ local Utility = require(RobloxGui.Modules.Settings.Utility)
 local GamepadService = game:GetService("GamepadService")
 
 local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
+local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
 
 --Panel3D State variables
 local renderStepName = "Panel3DRenderStep-" .. game:GetService("HttpService"):GenerateGUID()
@@ -20,14 +22,13 @@ local defaultPixelsPerStud = 64
 local pointUpCF = CFrame.Angles(math.rad(-90), math.rad(180), 0)
 local zeroVector = Vector3.new(0, 0, 0)
 local zeroVector2 = Vector2.new(0, 0)
-local turnAroundCF = CFrame.Angles(0, math.rad(180), 0)
 local fullyOpaqueAtPixelsFromEdge = 10
-local fullyTransparentAtPixelsFromEdge = 80
+local fullyTransparentAtPixelsFromEdge = EngineFeatureEnableVRUpdate2 and 20 or 80
 local partThickness = 0.2
 
---The default origin CFrame for all Standard type panels
+--The default origin CFrame offset for new panels
 local standardOriginCF = CFrame.new(0, -0.5, -5.5)
-local newStandardOriginCF = CFrame.new(0, 0, -4.1)
+local newStandardOriginCF = EngineFeatureEnableVRUpdate2 and CFrame.new(0, 0, -3) or CFrame.new(0, 0, -4.1)
 
 --Compensates for the thickness of the panel part and rotates it so that
 --the front face is pointing back at the camera
@@ -35,6 +36,7 @@ local panelAdjustCF = CFrame.new(0, 0, -0.5 * partThickness) * CFrame.Angles(0, 
 
 local cursorHidden = false
 local cursorHideTime = 2.5
+local cursorSize = EngineFeatureEnableVRUpdate2 and 3 or 8
 
 local currentModal = nil
 local lastModal = nil
@@ -43,15 +45,20 @@ local currentClosest = nil
 local currentCursorParent = nil
 local currentCursorPos = zeroVector2
 local lastClosest = nil
-local currentHeadScale = 1
 local panels = {}
 local floorRotation = CFrame.new()
-local cursor = Utility:Create "ImageLabel" {
+local cursor = EngineFeatureEnableVRUpdate2 and Utility:Create "ImageLabel" {
+	Image = "rbxasset://textures/Cursors/Gamepad/Pointer.png",
+	ImageColor3 = Color3.new(0, 1, 0),
+	BackgroundTransparency = 1,
+	ZIndex = 1e9
+} or Utility:Create "ImageLabel" {
 	Image = "rbxasset://textures/Cursors/Gamepad/Pointer.png",
 	Size = UDim2.new(0, 8, 0, 8),
 	BackgroundTransparency = 1,
 	ZIndex = 1e9
 }
+
 local partFolder = Utility:Create "Folder" {
 	Name = "VRCorePanelParts",
 	Archivable = false
@@ -139,10 +146,14 @@ function Panel3D.RaycastOntoPanel(part, parentGui, gui, ray)
 		--now figure out where that intersection point was in the panel's local space
 		--and then flip the X axis because the plane is looking back at you (panel's local +X is to the left of the camera)
 		--and then offset it by half of the panel's size in X and -Y to move 0,0 to the upper-left of the panel.
-		local localIntersectPoint = planeCF:pointToObjectSpace(worldIntersectPoint) * Vector3.new(-1, 1, 1) + Vector3.new(partWidth / 2, -partHeight / 2, 0)
+		local localIntersectPoint = planeCF:pointToObjectSpace(worldIntersectPoint) * Vector3.new(-1, 1, 1)
+			+ Vector3.new(partWidth / 2, -partHeight / 2, 0)
 		--now scale it into the gui space on the panel's surface
-		local lookAtPixel = Vector2.new((localIntersectPoint.X / partWidth) * parentGuiWidth, (localIntersectPoint.Y / partHeight) * -parentGuiHeight)
-		
+		local lookAtPixel = Vector2.new(
+			(localIntersectPoint.X / partWidth) * parentGuiWidth,
+			(localIntersectPoint.Y / partHeight) * -parentGuiHeight
+		)
+
 		--fire mouse enter/leave events if necessary
 		local lookX, lookY = lookAtPixel.X, lookAtPixel.Y
 		local guiX, guiY = gui.AbsolutePosition.X, gui.AbsolutePosition.Y
@@ -150,9 +161,8 @@ function Panel3D.RaycastOntoPanel(part, parentGui, gui, ray)
 		local isOnGui = false
 
 		if parentGui.Enabled then
-			if lookX >= guiX and lookX <= guiX + guiWidth and
-			   lookY >= guiY and lookY <= guiY + guiHeight then
-			   	isOnGui = true
+			if lookX >= guiX and lookX <= guiX + guiWidth and lookY >= guiY and lookY <= guiY + guiHeight then
+				isOnGui = true
 			end
 		end
 
@@ -190,8 +200,13 @@ function Panel.new(name)
 
 	self.linkedTo = false
 	self.subpanels = {}
-
-	self.transparency = 1
+	
+	if EngineFeatureEnableVRUpdate2 then
+		self.transparency = 0
+	else
+		self.transparency = 1
+	end
+	
 	self.forceShowUntilLookedAt = false
 	self.forceShowUntilTick = 0
 	self.isLookedAt = false
@@ -218,7 +233,7 @@ end
 --Panel accessor methods
 function Panel:GetPart()
 	if not self.part then
-		self.part = Utility:Create "Part" {
+		self.part = Utility:Create("Part")({
 			Name = self.name,
 			Parent = partFolder,
 
@@ -227,8 +242,8 @@ function Panel:GetPart()
 			CanCollide = false,
 			Anchored = true,
 
-			Size = Vector3.new(1, 1, partThickness)
-		}
+			Size = Vector3.new(1, 1, partThickness),
+		})
 	end
 	return self.part
 end
@@ -236,17 +251,17 @@ end
 function Panel:GetGUI()
 	if not self.gui then
 		local part = self:GetPart()
-		self.gui = Utility:Create "SurfaceGui" {
+		self.gui = Utility:Create("SurfaceGui")({
 			Parent = CoreGui,
 			Name = self.name,
 			Archivable = false,
 			Adornee = part,
 			Active = true,
 			ToolPunchThroughDistance = 1000,
-			CanvasSize = self.CanvasSize or Vector2.new(0, 0),
+			CanvasSize = self.CanvasSize or (EngineFeatureEnableVRUpdate2 and Vector2.new(1000, 1000) or Vector2.new(0, 0)),
 			Enabled = self.isEnabled,
-			AlwaysOnTop = true
-		}
+			AlwaysOnTop = true,
+		})
 	end
 	return self.gui
 end
@@ -256,14 +271,12 @@ function Panel:FindHoveredGuiElement(elements)
 	for i, v in pairs(elements) do
 		local minPt = v.AbsolutePosition
 		local maxPt = v.AbsolutePosition + v.AbsoluteSize
-		if minPt.X <= x and maxPt.X >= x and
-		   minPt.Y <= y and maxPt.Y >= y then
+		if minPt.X <= x and maxPt.X >= x and minPt.Y <= y and maxPt.Y >= y then
 			return v, i
 		end
 	end
 end
 --End of panel accessor methods
-
 
 --Panel update methods
 function Panel:SetPartCFrame(cframe)
@@ -293,30 +306,36 @@ function Panel:SetEnabled(enabled)
 	self:OnEnabled(enabled)
 end
 
-function Panel:EvaluatePositioning(cameraCF, cameraRenderCF, userHeadCF)
+function Panel:EvaluatePositioning(cameraCF, cameraRenderCF, userHeadCF, dt)
 	if self.panelType == Panel3D.Type.Fixed then
 		--Places the panel in the camera's local space, but doesn't follow the user's head.
 		--Useful if you know what you're doing. localCF can be updated in PreUpdate for animation.
 		local cf = self.localCF - self.localCF.p
-		cf = cf + (self.localCF.p * currentHeadScale)
+		cf = cf + (self.localCF.p * workspace.CurrentCamera.HeadScale)
 		self:SetPartCFrame(cameraCF * cf)
 	elseif self.panelType == Panel3D.Type.HorizontalFollow then
 		local headLook = userHeadCF.lookVector
 		local headForwardCF = CFrame.new(userHeadCF.p, userHeadCF.p + (headLook * Vector3.new(1, 0, 1)))
 		local localCF = (headForwardCF * self.angleFromForward) * --Rotate about Y (left-right)
 						self.angleFromHorizon * --Rotate about X (up-down)
-						CFrame.new(0, 0, currentHeadScale * -self.distance)
+			CFrame.new(0, 0, workspace.CurrentCamera.HeadScale * -self.distance)
 		self:SetPartCFrame(cameraCF * localCF)
 	elseif self.panelType == Panel3D.Type.FixedToHead then
 		--Places the panel in the user's head local space. localCF can be updated in PreUpdate for animation.
 		local cf = self.localCF - self.localCF.p
-		cf = cf + (self.localCF.p * currentHeadScale)
+		cf = cf + (self.localCF.p * workspace.CurrentCamera.HeadScale)
 		self:SetPartCFrame(cameraRenderCF * cf)
 	elseif self.panelType == Panel3D.Type.Standard then
 		if self.needsPositionUpdate or self.alwaysUpdatePosition then
 			self.needsPositionUpdate = false
 			local headLookXZ = Panel3D.GetHeadLookXZ(true)
-			self.originCF = headLookXZ * standardOriginCF
+			if EngineFeatureEnableVRUpdate2 then
+				local offset = standardOriginCF.Position * workspace.CurrentCamera.HeadScale
+				self.originCF = headLookXZ * CFrame.new(offset)
+			else
+				self.originCF = headLookXZ * standardOriginCF
+			end
+
 		end
 
 		self:SetPartCFrame(cameraCF * self.originCF * self.localCF)
@@ -324,10 +343,15 @@ function Panel:EvaluatePositioning(cameraCF, cameraRenderCF, userHeadCF)
 		if self.needsPositionUpdate or self.alwaysUpdatePosition then
 			self.needsPositionUpdate = false
 			local userHeadCF = VRService:GetUserCFrame(Enum.UserCFrame.Head)
-			self.originCF = userHeadCF * newStandardOriginCF
+			if EngineFeatureEnableVRUpdate2 then
+				local screenOffset = newStandardOriginCF.Position * workspace.CurrentCamera.HeadScale
+				self.originCF = userHeadCF * CFrame.new(screenOffset)
+			else
+				self.originCF = userHeadCF * newStandardOriginCF
+			end
 		end
-
-		self:SetPartCFrame(cameraCF * self.originCF * self.localCF)	
+		
+		self:SetPartCFrame(cameraCF * self.originCF * self.localCF)
 	end
 end
 
@@ -356,9 +380,14 @@ function Panel:EvaluateGaze(cameraCF, cameraRenderCF, userHeadCF, lookRay, point
 	for guiElement, subpanel in pairs(self.subpanels) do
 		if subpanel.part and subpanel.guiElement then
 			--note that we're passing subpanel.guiElement and not subpanel.gui
-			--this is on purpose so we can fall through to the panels underneath since subpanels will rarely take up the whole 
+			--this is on purpose so we can fall through to the panels underneath since subpanels will rarely take up the whole
 			--panel size.
-			local worldIntersectPoint, localIntersectPoint, guiPixelHit, isOnGui = Panel3D.RaycastOntoPanel(subpanel.part, subpanel.gui, subpanel.guiElement, pointerRay)
+			local worldIntersectPoint, localIntersectPoint, guiPixelHit, isOnGui = Panel3D.RaycastOntoPanel(
+				subpanel.part,
+				subpanel.gui,
+				subpanel.guiElement,
+				pointerRay
+			)
 			if worldIntersectPoint then
 				subpanel.lookAtPixel = guiPixelHit
 				subpanel.cursorPos = guiPixelHit
@@ -385,14 +414,20 @@ function Panel:EvaluateGaze(cameraCF, cameraRenderCF, userHeadCF, lookRay, point
 	end
 
 	local gui = self:GetGUI()
-	local worldIntersectPoint, localIntersectPoint, guiPixelHit, isOnGui = Panel3D.RaycastOntoPanel(self:GetPart(), gui, gui, pointerRay)
+	local worldIntersectPoint, localIntersectPoint, guiPixelHit, isOnGui = Panel3D.RaycastOntoPanel(
+		self:GetPart(),
+		gui,
+		gui,
+		pointerRay
+	)
+	
 	if worldIntersectPoint then
 		self.isOffscreen = false
 
 		--transform worldIntersectPoint to gui space
 		self.lookAtPixel = guiPixelHit
 		self.cursorPos = guiPixelHit
-		
+
 		--fire mouse enter/leave events if necessary
 		self:SetLookedAt(isOnGui)
 
@@ -407,18 +442,26 @@ function Panel:EvaluateGaze(cameraCF, cameraRenderCF, userHeadCF, lookRay, point
 			end
 		end
 		
-		if VRService.VREnabled and FFlagEnableNewVrSystem then
-			local virtualCursorPos = Vector2.new(currentCursorPos.X * 1.4, currentCursorPos.Y * 1.4)
-			GamepadService:SetGamepadCursorPosition(virtualCursorPos)
+		if not EngineFeatureEnableVRUpdate2 then
+			if VRService.VREnabled and FFlagEnableNewVrSystem then
+				local virtualCursorPos = Vector2.new(currentCursorPos.X * 1.4, currentCursorPos.Y * 1.4)
+				GamepadService:SetGamepadCursorPosition(virtualCursorPos)
+			end
 		end
-		
 	else
 		self.isOffscreen = true
 
 		--Not looking at the plane at all, so fire off mouseleave if necessary.
-		if self.isLookedAt then
-			self.isLookedAt = false
-			self:OnMouseLeave(self.lookAtPixel.X, self.lookAtPixel.Y)
+		if EngineFeatureEnableVRUpdate2 then
+			if self.lookedAt then
+				self.lookedAt = false
+				self:OnMouseLeave(self.lookAtPixel.X, self.lookAtPixel.Y)
+			end
+		else
+			if self.isLookedAt then
+				self.isLookedAt = false
+				self:OnMouseLeave(self.lookAtPixel.X, self.lookAtPixel.Y)
+			end
 		end
 	end
 end
@@ -429,6 +472,7 @@ function Panel:EvaluateTransparency()
 		self.transparency = 0
 		return
 	end
+	
 	--Early exit if we're looking at the panel (no transparency!)
 	if self.isLookedAt then
 		self.transparency = 0
@@ -444,7 +488,7 @@ function Panel:EvaluateTransparency()
 end
 
 function Panel:Update(cameraCF, cameraRenderCF, userHeadCF, lookRay, pointerRay, dt)
-	if (self.forceShowUntilLookedAt or self.forceShowUntilTick >  tick()) and not self.part then
+	if (self.forceShowUntilLookedAt or self.forceShowUntilTick > tick()) and not self.part then
 		self:GetPart()
 		self:GetGUI()
 	end
@@ -463,16 +507,17 @@ function Panel:Update(cameraCF, cameraRenderCF, userHeadCF, lookRay, pointerRay,
 
 	self:PreUpdate(cameraCF, cameraRenderCF, userHeadCF, lookRay, dt)
 	if self.isVisible then
-		self:EvaluatePositioning(cameraCF, cameraRenderCF, userHeadCF)
+		self:EvaluatePositioning(cameraCF, cameraRenderCF, userHeadCF, dt)
 		for i, v in pairs(self.subpanels) do
 			v:Update()
 		end
+		
 		self:EvaluateGaze(cameraCF, cameraRenderCF, userHeadCF, lookRay, pointerRay)
 
 		self:EvaluateTransparency(cameraCF, cameraRenderCF)
 	else
 		if self.alwaysUpdatePosition then
-			self:EvaluatePositioning(cameraCF, cameraRenderCF, userHeadCF)
+			self:EvaluatePositioning(cameraCF, cameraRenderCF, userHeadCF, dt)
 		end
 	end
 end
@@ -508,7 +553,7 @@ function Panel:CalculateTransparency() --virtual
 	local guiWidth, guiHeight = self.gui.AbsoluteSize.X, self.gui.AbsoluteSize.Y
 	local lookX, lookY = self.lookAtPixel.X, self.lookAtPixel.Y
 
-	--Determine the distance from the edge; 
+	--Determine the distance from the edge;
 	--if x is negative it's on the left side, meaning the distance is just absolute value
 	--if x is positive it's on the right side, meaning the distance is x minus the width
 	local xEdgeDist = lookX < 0 and -lookX or (lookX - guiWidth)
@@ -529,7 +574,6 @@ function Panel:CalculateTransparency() --virtual
 end
 --End of Panel virtual methods
 
-
 --Panel configuration methods
 function Panel:ResizeStuds(width, height, pixelsPerStud)
 	pixelsPerStud = pixelsPerStud or defaultPixelsPerStud
@@ -540,7 +584,7 @@ function Panel:ResizeStuds(width, height, pixelsPerStud)
 	self.pixelScale = pixelsPerStud / defaultPixelsPerStud
 
 	local part = self:GetPart()
-	part.Size = Vector3.new(self.width * currentHeadScale, self.height * currentHeadScale, partThickness)
+	part.Size = Vector3.new(self.width * workspace.CurrentCamera.HeadScale, self.height * workspace.CurrentCamera.HeadScale, partThickness)
 	local gui = self:GetGUI()
 	gui.CanvasSize = Vector2.new(pixelsPerStud * self.width, pixelsPerStud * self.height)
 
@@ -562,7 +606,7 @@ function Panel:ResizePixels(width, height, pixelsPerStud)
 	self:ResizeStuds(widthInStuds, heightInStuds, pixelsPerStud)
 end
 
-function Panel:OnHeadScaleChanged(newHeadScale)
+function Panel:OnHeadScaleChanged()
 	local pixelsPerStud = self.pixelScale * defaultPixelsPerStud
 	self:ResizeStuds(self.width, self.height, pixelsPerStud)
 end
@@ -727,13 +771,12 @@ function Subpanel.new(parentPanel, guiElement)
 
 	setmetatable(self, Subpanel)
 
-
 	self:GetGUI()
 	self:UpdateSurrogate()
 	self:WatchParent(self.lastParent)
 
 	guiElement.Parent = self.guiSurrogate
-	
+
 	local function ancestryCallback(parent, child)
 		self:GetGUI().Enabled = self.parentPanel:GetGUI():IsAncestorOf(self.lastParent)
 		if not self:GetGUI().Enabled then
@@ -785,10 +828,8 @@ function Subpanel:Cleanup()
 	self.guiSurrogate = nil
 end
 
-function Subpanel:OnMouseEnter(x, y)
-end
-function Subpanel:OnMouseLeave(x, y)
-end
+function Subpanel:OnMouseEnter(x, y) end
+function Subpanel:OnMouseLeave(x, y) end
 
 function Subpanel:SetLookedAt(lookedAt)
 	if lookedAt and not self.lookedAt then
@@ -831,16 +872,16 @@ function Subpanel:GetGUI()
 		return self.gui
 	end
 
-	self.gui = Utility:Create "SurfaceGui" {
+	self.gui = Utility:Create("SurfaceGui")({
 		Parent = CoreGui,
 		Adornee = self:GetPart(),
 		Active = true,
 		ToolPunchThroughDistance = 1000,
 		CanvasSize = self.parentPanel:GetGUI().CanvasSize,
 		Enabled = self.parentPanel.isEnabled,
-		AlwaysOnTop = true
-	}
-	self.guiSurrogate = Utility:Create "Frame" {
+		AlwaysOnTop = true,
+	})
+	self.guiSurrogate = Utility:Create("Frame")({
 		Parent = self.gui,
 
 		Active = false,
@@ -848,8 +889,8 @@ function Subpanel:GetGUI()
 		Position = UDim2.new(0, 0, 0, 0),
 		Size = UDim2.new(1, 0, 1, 0),
 
-		BackgroundTransparency = 1
-	}
+		BackgroundTransparency = 1,
+	})
 	return self.gui
 end
 
@@ -925,10 +966,9 @@ end
 --End of Panel configuration methods
 --End of Panel class implementation
 
-
 --Panel3D API
 function Panel3D.Get(name)
-	local panel = panels[name] 
+	local panel = panels[name]
 	if not panels[name] then
 		panels[name] = Panel.new(name)
 		panel = panels[name]
@@ -936,7 +976,6 @@ function Panel3D.Get(name)
 	return panel
 end
 --End of Panel3D API
-
 
 --Panel3D Setup
 local frameStart = tick()
@@ -948,7 +987,6 @@ local function onRenderStep()
 	local now = tick()
 	local dt = now - frameStart
 	frameStart = now
-	
 
 	--reset distance info
 	currentClosest = nil
@@ -1009,19 +1047,19 @@ local function onRenderStep()
 			if not v.canFade and v.isVisible then
 				show = true
 			end
-			
+
 			v:SetEnabled(show)
 		end
 
 		v:OnUpdate(dt)
 	end
 
-	if currentClosest then
+	if currentClosest and not EngineFeatureEnableVRUpdate2 then
 		cursor.Parent = currentCursorParent
 
 		local x, y = currentCursorPos.X, currentCursorPos.Y
 		local pixelScale = currentClosest:GetPixelScale()
-		cursor.Size = UDim2.new(0, 8 * pixelScale, 0, 8 * pixelScale)
+		cursor.Size = UDim2.new(0, cursorSize * pixelScale, 0, cursorSize * pixelScale)
 		cursor.Position = UDim2.new(0, x - cursor.AbsoluteSize.x * 0.5, 0, y - cursor.AbsoluteSize.y * 0.5)
 	else
 		cursor.Parent = nil
@@ -1029,7 +1067,7 @@ local function onRenderStep()
 	lastClosest = currentClosest
 end
 
-local isCameraReady = false
+local isCameraReady = EngineFeatureEnableVRUpdate2
 local function putFoldersIn(parent)
 	partFolder.Parent = parent
 	effectFolder.Parent = parent
@@ -1037,9 +1075,8 @@ end
 
 local headscaleChangedConn = nil
 local function onHeadScaleChanged()
-	local currentHeadScale = workspace.CurrentCamera.HeadScale
 	for i, v in pairs(panels) do
-		v:OnHeadScaleChanged(currentHeadScale)
+		v:OnHeadScaleChanged()
 	end
 end
 
@@ -1069,7 +1106,7 @@ local function onVREnabledChanged()
 		currentCameraChangedConn = workspace:GetPropertyChangedSignal("CurrentCamera"):connect(onCurrentCameraChanged)
 
 		putFoldersIn(workspace.CurrentCamera)
-				
+
 		if not renderStepFuncBound then
 			RunService:BindToRenderStep(renderStepName, Enum.RenderPriority.Last.Value, onRenderStep)
 			renderStepFuncBound = true
@@ -1080,7 +1117,7 @@ local function onVREnabledChanged()
 			currentCameraChangedConn = nil
 		end
 		putFoldersIn(nil)
-		
+
 		if renderStepFuncBound then
 			RunService:UnbindFromRenderStep(renderStepName)
 			renderStepFuncBound = false

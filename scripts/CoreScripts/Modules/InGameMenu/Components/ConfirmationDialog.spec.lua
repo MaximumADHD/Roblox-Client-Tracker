@@ -13,7 +13,6 @@ return function()
 
 	local InGameMenu = script.Parent.Parent
 	local Flags = InGameMenu.Flags
-	local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 	local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 	local Constants = require(InGameMenu.Resources.Constants)
 	local FocusHandlerContextProvider = require(script.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
@@ -97,11 +96,7 @@ return function()
 				expect(GuiService.SelectedCoreObject).to.equal(nil)
 
 				Roact.update(tree, getMountableComponent({ visible = true, inputType = Constants.InputType.Gamepad }))
-				if GetFFlagInGameMenuControllerDevelopmentOnly() == false then
-					expect(GuiService.SelectedCoreObject).to.equal(nil)
-				elseif GetFFlagInGameMenuControllerDevelopmentOnly() == true then
-					expect(tostring(GuiService.SelectedCoreObject)).to.equal("ConfirmButton")
-				end
+				expect(tostring(GuiService.SelectedCoreObject)).to.equal("ConfirmButton")
 
 				Roact.unmount(tree)
 				GuiService.SelectedCoreObject = nil

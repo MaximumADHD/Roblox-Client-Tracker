@@ -24,10 +24,6 @@ local t = require(CorePackages.Packages.t)
 
 local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatLocalMuteUI)
 
-local InGameMenu = script.Parent.Parent.Parent.InGameMenu
-local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
-
 local Constants = require(RobloxGui.Modules.InGameChat.BubbleChat.Constants)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 
@@ -115,19 +111,15 @@ function VoiceIndicator:renderWithSelectionCursor(getSelectionCursor)
 		ImageTransparency = (self.props.voiceState == Constants.VOICE_STATE.LOCAL_MUTED and GetFFlagEnableVoiceChatLocalMuteUI())
 			and 0.5
 			or 0,
-		SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly() and getSelectionCursor(CursorKind.RoundedRectNoInset) or nil,
+		SelectionImageObject = getSelectionCursor(CursorKind.RoundedRectNoInset),
 		[Roact.Event.Activated] = self.props.onClicked,
 	})
 end
 
 function VoiceIndicator:render()
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		return withSelectionCursorProvider(function(getSelectionCursor)
-			return self:renderWithSelectionCursor(getSelectionCursor)
-		end)
-	else
-		return self:renderWithSelectionCursor()
-	end
+	return withSelectionCursorProvider(function(getSelectionCursor)
+		return self:renderWithSelectionCursor(getSelectionCursor)
+	end)
 end
 
 function VoiceIndicator:didUpdate(previousProps, previousState)

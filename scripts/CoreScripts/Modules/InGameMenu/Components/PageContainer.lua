@@ -14,7 +14,6 @@ local Pages = require(script.Parent.Pages)
 
 local FFlagFixMakeFriendsNavCrash = require(InGameMenu.Flags.FFlagFixMakeFriendsNavCrash)
 local FFlagIGMStopRenderingInactivePages = require(InGameMenu.Flags.FFlagIGMStopRenderingInactivePages)
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 local GetFFlagUseIGMControllerBar = require(InGameMenu.Flags.GetFFlagUseIGMControllerBar)
 local GetFFlagIGMControllerBarRefactor = require(InGameMenu.Flags.GetFFlagIGMControllerBarRefactor)
 
@@ -37,18 +36,16 @@ PageContainer.validateProps = t.strictInterface({
 })
 
 function PageContainer:init(props)
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		self.onContainerRendered = function(rbx, key)
-			if rbx then
-				local selectionParentName = self.getSelectionParentNameFromKey(key)
-				GuiService:RemoveSelectionGroup(selectionParentName)
-				GuiService:AddSelectionParent(selectionParentName, rbx)
-			end
+	self.onContainerRendered = function(rbx, key)
+		if rbx then
+			local selectionParentName = self.getSelectionParentNameFromKey(key)
+			GuiService:RemoveSelectionGroup(selectionParentName)
+			GuiService:AddSelectionParent(selectionParentName, rbx)
 		end
+	end
 
-		self.getSelectionParentNameFromKey = function(key)
-			return key .. "_IGMPageSelectionGroup"
-		end
+	self.getSelectionParentNameFromKey = function(key)
+		return key .. "_IGMPageSelectionGroup"
 	end
 
 	local pageBindings, pageBindingUpdaters, motorDefaults = {}, {}, {}
@@ -62,7 +59,7 @@ function PageContainer:init(props)
 		self.pagePositions[key] = pageBindings[key]:map(function(value)
 			return UDim2.new(value - 1, 0, 0, 0)
 		end)
-		if FFlagIGMStopRenderingInactivePages then 
+		if FFlagIGMStopRenderingInactivePages then
 			-- check the animation status for each page and toggles visible to false if it
 			-- is finished animating to the right (1.25) or to the left (0)
 			self.pageVisibilities[key] = pageBindings[key]:map(function(value)
@@ -102,9 +99,9 @@ function PageContainer:render()
 					BackgroundTransparency = 1,
 					ZIndex = pageInfo.navigationDepth,
 					Visible = pageVisible,
-					[Roact.Ref] = GetFFlagInGameMenuControllerDevelopmentOnly() and function(rbx)
+					[Roact.Ref] = function(rbx)
 						self.onContainerRendered(rbx, key)
-					end or nil,
+					end,
 				},{
 					Page = Roact.createElement(pageComponents[key], {
 						pageTitle = pageInfo.title and localized.title,
@@ -169,7 +166,7 @@ function PageContainer:didUpdate(oldProps, oldState)
 
 		elseif FFlagFixMakeFriendsNavCrash and Pages.pagesByKey[lastPage].navigationDepth == Pages.pagesByKey[currentPage].navigationDepth then
 
-			if FFlagIGMStopRenderingInactivePages then 
+			if FFlagIGMStopRenderingInactivePages then
 
 				-- this is added temporarily to fix crash that caused by nav from invite friends to players in "Make Friends"
 				self.pageMotor:setGoal({
@@ -210,13 +207,11 @@ function PageContainer:didUpdate(oldProps, oldState)
 	end
 end
 
-if GetFFlagInGameMenuControllerDevelopmentOnly() then
-	function PageContainer:willUnmount()
-		for key, pageInfo in pairs(Pages.pagesByKey) do
-			if not pageInfo.isModal then
-				local selectionParentName = self.getSelectionParentNameFromKey(key)
-				GuiService:RemoveSelectionGroup(selectionParentName)
-			end
+function PageContainer:willUnmount()
+	for key, pageInfo in pairs(Pages.pagesByKey) do
+		if not pageInfo.isModal then
+			local selectionParentName = self.getSelectionParentNameFromKey(key)
+			GuiService:RemoveSelectionGroup(selectionParentName)
 		end
 	end
 end

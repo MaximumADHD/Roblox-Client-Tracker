@@ -28,6 +28,7 @@ local invites = require(script.invites)
 local gameInfo = require(script.gameInfo)
 local report = require(script.report)
 local friends = require(script.friends)
+local quickActions = require(script.quickActions)
 local displayOptions = require(script.displayOptions)
 local nativeClosePrompt = require(script.nativeClosePrompt)
 local voiceStateReducer = require(InGameMenu.Parent.VoiceChat.Reducers.voiceState)
@@ -152,6 +153,7 @@ local function reducer(state, action)
 			respawn = respawn(nil, action),
 			gameInfo = gameInfo(nil, action),
 			friends = friends(nil, action),
+			quickActions = quickActions(nil, action),
 			displayOptions = displayOptions(nil, action),
 			screenSize = Vector2.new(0, 0),
 			recording = false,
@@ -179,6 +181,7 @@ local function reducer(state, action)
 	state.gameInfo = gameInfo(state.gameInfo, action)
 	state.report = report(state.report, action)
 	state.friends = friends(state.friends, action)
+	state.quickActions = quickActions(state.quickActions, action)
 	if GetFFlagFixDisplayOptionsReducer() then
 		state.displayOptions = displayOptions(state.displayOptions, action)
 	else

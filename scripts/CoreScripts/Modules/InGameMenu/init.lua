@@ -41,7 +41,6 @@ local InGameMenuPolicy = require(script.InGameMenuPolicy)
 local GlobalConfig = require(script.GlobalConfig)
 local Constants = require(script.Resources.Constants)
 
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(script.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 local GetFFlagIGMGamepadSelectionHistory = require(script.Flags.GetFFlagIGMGamepadSelectionHistory)
 
 
@@ -126,13 +125,12 @@ return {
 						LocalizationProvider = Roact.createElement(LocalizationProvider, {
 							localization = localization,
 						}, {
-							CursorProvider = GetFFlagInGameMenuControllerDevelopmentOnly() and Roact.createElement(SelectionCursorProvider, {}, {
+							CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
 								FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
 									InGameMenu = Roact.createElement(App),
 								}) or nil,
 								InGameMenu = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(App) or nil,
-							}) or nil,
-							InGameMenu = not GetFFlagInGameMenuControllerDevelopmentOnly() and Roact.createElement(App) or nil,
+							}),
 						}),
 					}),
 				}),

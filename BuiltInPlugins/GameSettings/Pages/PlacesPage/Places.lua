@@ -86,6 +86,7 @@ local nameErrors = {
 	Empty = "ErrorNameEmpty",
 }
 
+local FFlagStudioFixGameSettingsCopylock = game:DefineFastFlag("StudioFixGameSettingsCopylock", false)
 
 local function loadSettings(store, contextItems)
 	local state = store:getState()
@@ -127,8 +128,14 @@ local function saveSettings(store, contextItems)
 		function()
 			local changed = places[placeId]
 
-			if changed ~= nil and changed.allowCopying then
-				placesController:setAllowCopying(placeId, changed.allowCopying)
+			if FFlagStudioFixGameSettingsCopylock then
+				if changed ~= nil and changed.allowCopying ~= nil then
+					placesController:setAllowCopying(placeId, changed.allowCopying)
+				end
+			else
+				if changed ~= nil and changed.allowCopying then
+					placesController:setAllowCopying(placeId, changed.allowCopying)
+				end
 			end
 		end,
 		function()

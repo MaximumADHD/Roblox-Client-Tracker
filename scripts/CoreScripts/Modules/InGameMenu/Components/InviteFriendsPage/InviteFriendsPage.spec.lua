@@ -26,7 +26,6 @@ return function()
 
 	local FocusHandlerContextProvider = require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
 	local InviteFriendsPage = require(script.Parent)
-	local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 	local GuiService = game:GetService("GuiService")
 	local Players = game:GetService("Players")
@@ -105,7 +104,7 @@ return function()
 			Roact.unmount(instance)
 		end)
 
-		it("Should gain focus only when gamepad was used and FFlagInGameMenuController is enabled", function()
+		it("Should gain focus only when gamepad was used", function()
 			local store, instance = mountTreeWithGamepad()
 			act(function()
 				store:dispatch(SetInputType(Constants.InputType.Gamepad))
@@ -114,11 +113,7 @@ return function()
 				store:flush()
 			end)
 
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				expect(GuiService.SelectedCoreObject).to.be.ok()
-			else
-				expect(GuiService.SelectedCoreObject).to.never.be.ok()
-			end
+			expect(GuiService.SelectedCoreObject).to.be.ok()
 
 			Roact.unmount(instance)
 		end)

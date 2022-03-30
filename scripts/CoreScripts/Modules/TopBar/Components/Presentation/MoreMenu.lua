@@ -26,6 +26,7 @@ local IconButton = require(script.Parent.IconButton)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
+local VRHub = require(RobloxGui.Modules.VR.VRHub)
 
 local CaptureMaster = require(RobloxGui.Modules.CaptureMaster)
 local EmotesMenuMaster = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
@@ -41,7 +42,7 @@ local FFlagMobilePlayerList = require(RobloxGui.Modules.Flags.FFlagMobilePlayerL
 local GetFFlagNewEmotesInGame = require(RobloxGui.Modules.Flags.GetFFlagNewEmotesInGame)
 local GetFFlagEnableCaptureMode = require(RobloxGui.Modules.Flags.GetFFlagEnableCaptureMode)
 
-local GetFFlagFixEmotesMenuNotOpeningInPortrait = require(RobloxGui.Modules.Flags.GetFFlagFixEmotesMenuNotOpeningInPortrait)
+local ExternalEventConnection = require(CorePackages.RoactUtilities.ExternalEventConnection)
 
 local MORE_BUTTON_SIZE = 32
 local ICON_SIZE = 24
@@ -68,6 +69,7 @@ local MORE_ICON_OFF = "rbxasset://textures/ui/TopBar/moreOff.png"
 local MoreMenu = Roact.PureComponent:extend("MoreMenu")
 
 local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
+local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
 
 MoreMenu.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
@@ -90,6 +92,10 @@ MoreMenu.validateProps = t.strictInterface({
 })
 
 function MoreMenu:init()
+	self:setState({
+		vrShowMenuIcon = false,
+	})
+
 	self.chatWasHidden = false
 
 	self.boundAction = false
@@ -115,14 +121,18 @@ function MoreMenu:render()
 		if not self.props.leaderboardOpen then
 			leaderboardIcon = LEADERBOARD_ICON_OFF
 		end
-
 		table.insert(menuOptions, {
 			icon = leaderboardIcon,
 			text = RobloxTranslator:FormatByKey("CoreScripts.TopBar.Leaderboard"),
 			keyCodeLabel = isUsingKeyBoard and Enum.KeyCode.Tab or nil,
 			onActivated = function()
-				PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
-				self.props.setMoreMenuOpen(false)
+				if EngineFeatureEnableVRUpdate2 and VRService.VREnabled then
+					local InGameMenu = require(RobloxGui.Modules.InGameMenu)
+					InGameMenu.openPlayersPage()
+				else
+					PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
+					self.props.setMoreMenuOpen(false)
+				end
 			end,
 		})
 		hasOptions = true
@@ -146,7 +156,7 @@ function MoreMenu:render()
 				if EmotesMenuMaster:isOpen() then
 					EmotesMenuMaster:close()
 				else
-					if GetFFlagFixEmotesMenuNotOpeningInPortrait() and self.chatWasHidden then
+					if self.chatWasHidden then
 						ChatSelector:SetVisible(true)
 						self.chatWasHidden = false
 					end
@@ -200,10 +210,10 @@ function MoreMenu:render()
 		moreIcon = MORE_ICON_OFF
 	end
 
-	local moreButtonVisible = not TenFootInterface:IsEnabled() and self.props.topBarEnabled and hasOptions and (not FFlagEnableNewVrSystem or not VRService.VREnabled)
+	local moreButtonVisible = not TenFootInterface:IsEnabled() and self.props.topBarEnabled and hasOptions and not (FFlagEnableNewVrSystem and VRService.VREnabled)
 
 	return Roact.createElement("Frame", {
-		Visible = moreButtonVisible,
+		Visible = moreButtonVisible or (EngineFeatureEnableVRUpdate2 and self.state.vrShowMenuIcon),
 		BackgroundTransparency = 1,
 		Size = UDim2.new(0, MORE_BUTTON_SIZE, 1, 0),
 		LayoutOrder = self.props.layoutOrder,
@@ -239,6 +249,14 @@ function MoreMenu:render()
 				end,
 			}),
 		}),
+		ShowTopBarListener = EngineFeatureEnableVRUpdate2 and Roact.createElement(ExternalEventConnection, {
+			event = VRHub.ShowTopBarChanged.Event,
+			callback = function()
+				self:setState({
+					vrShowMenuIcon = VRService.VREnabled and VRHub.ShowTopBar and hasOptions,
+				})
+			end,
+		})
 	})
 end
 

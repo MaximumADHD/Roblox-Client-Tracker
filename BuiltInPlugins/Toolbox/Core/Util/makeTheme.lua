@@ -1,5 +1,6 @@
 local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
 local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
+local FFlagAssetConfigDistributionQuotas = game:GetFastFlag("AssetConfigDistributionQuotas")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -42,11 +43,16 @@ local makeTheme = function(themeExtension, themeClass)
 		[StyleKey.Toolbox_DropdownIconColor] = StyleColors.White,
 		[StyleKey.Toolbox_HorizontalLineColor] = Color3.fromRGB(34, 34, 34),
 		[StyleKey.Toolbox_NavigationLinkTextColor] = FFlagToolboxAssetCategorization and StyleColors.White or nil,
-		[StyleKey.Toolbox_NavigationLinkTextColorHover] = FFlagToolboxAssetCategorization and Color3.fromHex("#AAAAAA") or nil,
+		[StyleKey.Toolbox_NavigationLinkTextColorHover] = FFlagToolboxAssetCategorization and Color3.fromHex("#AAAAAA")
+			or nil,
 		[StyleKey.ScrollingFrameBackgroundColor] = Color3.fromRGB(41, 41, 41),
 		[StyleKey.ScrollingFrameImageColor] = Color3.fromRGB(85, 85, 85),
 		[StyleKey.Toolbox_SearchTagBackgroundColor] = Color3.fromRGB(56, 56, 56),
-		[StyleKey.Toolbox_TipsTextColor] = if FFlagToolboxPrivatePublicAudioAssetConfig3 then Color3.fromRGB(136, 136, 136) else Color3.fromRGB(136, 136, 136),
+		[StyleKey.Toolbox_TipsTextColor] = if FFlagAssetConfigDistributionQuotas
+			then nil
+			else (if FFlagToolboxPrivatePublicAudioAssetConfig3
+				then Color3.fromRGB(136, 136, 136)
+				else Color3.fromRGB(136, 136, 136)),
 		[StyleKey.Toolbox_TabTopBorderColor] = StyleColors.Blue,
 		[StyleKey.Toolbox_TabSelectedColor] = StyleColors.White,
 		[StyleKey.Toolbox_IconTileGradientColor] = FFlagToolboxAssetCategorization and StyleColors.Black or nil,
@@ -60,6 +66,9 @@ local makeTheme = function(themeExtension, themeClass)
 		[StyleKey.AssetConfig_SidetabSelectedIndicatorZindex] = 1,
 		[StyleKey.AssetConfig_UploadResultButtonColor] = Color3.fromRGB(136, 136, 136),
 		[StyleKey.AssetConfig_SubjectThumbnailDefaultImageColor] = Color3.fromRGB(102, 102, 102),
+		[StyleKey.AssetConfig_DistributionQuotaTextColor] = if FFlagAssetConfigDistributionQuotas
+			then StyleColors.White
+			else nil,
 	})
 	local overridedLightTheme = Cryo.Dictionary.join(LightTheme, {
 		[StyleKey.Toolbox_PublishAssetBackground] = StyleColors.Slate,
@@ -73,12 +82,14 @@ local makeTheme = function(themeExtension, themeClass)
 		[StyleKey.Toolbox_DropdownItemSelectedColor] = StyleColors.Blue_Light,
 		[StyleKey.Toolbox_DropdownIconColor] = Color3.fromRGB(25, 25, 25),
 		[StyleKey.Toolbox_HorizontalLineColor] = Color3.fromRGB(227, 227, 227),
-		[StyleKey.Toolbox_NavigationLinkTextColor] = FFlagToolboxAssetCategorization and Color3.fromHex("#121212") or nil,
-		[StyleKey.Toolbox_NavigationLinkTextColorHover] = FFlagToolboxAssetCategorization and Color3.fromHex("#666666") or nil,
+		[StyleKey.Toolbox_NavigationLinkTextColor] = FFlagToolboxAssetCategorization and Color3.fromHex("#121212")
+			or nil,
+		[StyleKey.Toolbox_NavigationLinkTextColorHover] = FFlagToolboxAssetCategorization and Color3.fromHex("#666666")
+			or nil,
 		[StyleKey.ScrollingFrameBackgroundColor] = Color3.fromRGB(245, 245, 245),
 		[StyleKey.ScrollingFrameImageColor] = Color3.fromRGB(245, 245, 245),
 		[StyleKey.Toolbox_SearchTagBackgroundColor] = StyleColors.Slate,
-		[StyleKey.Toolbox_TipsTextColor] = Colors.GRAY_3,
+		[StyleKey.Toolbox_TipsTextColor] = if FFlagAssetConfigDistributionQuotas then nil else Colors.GRAY_3,
 		[StyleKey.Toolbox_TabTopBorderColor] = Color3.fromRGB(182, 182, 182),
 		[StyleKey.Toolbox_TabSelectedColor] = StyleColors.Blue,
 		[StyleKey.Toolbox_IconTileGradientColor] = FFlagToolboxAssetCategorization and StyleColors.Gray_Light or nil,
@@ -92,6 +103,9 @@ local makeTheme = function(themeExtension, themeClass)
 		[StyleKey.AssetConfig_SidetabSelectedIndicatorZindex] = 0,
 		[StyleKey.AssetConfig_UploadResultButtonColor] = StyleColors.Black,
 		[StyleKey.AssetConfig_SubjectThumbnailDefaultImageColor] = Color3.fromRGB(151, 151, 151),
+		[StyleKey.AssetConfig_DistributionQuotaTextColor] = if FFlagAssetConfigDistributionQuotas
+			then StyleColors.Black
+			else nil,
 	})
 
 	if isCli() then
@@ -239,8 +253,11 @@ local makeTheme = function(themeExtension, themeClass)
 			backgroundColor = StyleKey.Toolbox_PublishAssetBackground,
 			titleTextColor = StyleKey.SubText,
 			textColor = StyleKey.MainText,
-			tipsTextColor = not isCli() and StyleKey.Toolbox_TipsTextColor or nil,
+			tipsTextColor = if FFlagAssetConfigDistributionQuotas then nil else not isCli() and StyleKey.Toolbox_TipsTextColor or nil,
 			warningIconColor = if FFlagToolboxPrivatePublicAudioAssetConfig3 then Color3.fromHex("#FFAA21") else nil,
+			distributionQuotaTextColor = if FFlagAssetConfigDistributionQuotas
+				then StyleKey.AssetConfig_DistributionQuotaTextColor
+				else nil,
 		},
 
 		searchBar = {

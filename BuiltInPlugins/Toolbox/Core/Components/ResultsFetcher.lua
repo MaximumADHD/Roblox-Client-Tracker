@@ -7,6 +7,7 @@ local Framework = require(Packages.Framework)
 local deepEqual = Framework.Util.deepEqual
 local Dash = Framework.Dash
 local Promise = Framework.Util.Promise
+local Math = Framework.Util.Math
 
 local NetworkInterface = require(Plugin.Core.Networking.NetworkInterface)
 local HttpResponse = require(Plugin.Libs.Http.HttpResponse)
@@ -173,12 +174,26 @@ function ResultsFetcher:fetchResults(args: { pageSize: number?, initialPage: boo
 
 			stateUpdate.assetIds = Dash.append({}, previousState.assetIds, assetIds)
 			stateUpdate.assetMap = Dash.join(previousState.assetMap, assetMap)
+			
+			local currTotal = #previousState.assets
+			local newAssets = {}
+			for index, assetId in ipairs(assetIds) do
+				local assetData = assetMap[assetId]
+				local position = currTotal + index
+				local page = Math.round(currTotal / pageSize) + 1
+
+				assetData.Context = {
+					page = page,
+					pagePosition = index,
+					position = position,
+				}
+				newAssets[index] = assetData
+			end
+
 			stateUpdate.assets = Dash.append(
 				{},
 				previousState.assets,
-				Dash.map(assetIds, function(assetId: number)
-					return assetMap[assetId]
-				end)
+				newAssets
 			)
 			stateUpdate.loading = false
 			stateUpdate.error = Roact.None

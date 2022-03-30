@@ -1,6 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 
-local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local Modules = script.Parent.Parent
 local MockRequest = require(Modules.LuaApp.TestHelpers.MockRequest)
 local HttpResponse = require(Modules.LuaApp.Http.HttpResponse)
 local StatusCodes = require(Modules.LuaApp.Http.StatusCodes)
@@ -8,9 +8,11 @@ local StatusCodes = require(Modules.LuaApp.Http.StatusCodes)
 local Promise = require(CorePackages.Promise)
 
 local GetGameNameAndDescription = require(script.Parent.GetGameNameAndDescription)
+local EnableInGameMenuV3 = require(Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 
 local testName = "Test Name"
 local testDescription = "Test Description"
+local testCreator = "Test Creator"
 
 return function()
 	describe("GetGameNameAndDescription", function()
@@ -18,12 +20,29 @@ return function()
 			data = {
 				[1] = {
 					name = testName,
-					description = testDescription
+					description = testDescription,
+					creator = {
+						name = testCreator,
+					}
 				}
 			}
 		}
 
 		local mockNetworking = MockRequest.simpleSuccessRequest(responseBody)
+
+		if EnableInGameMenuV3() then
+			it("should return a promise that resolves with the name, description and creator", function()
+				local testGameId = 1818
+				local resultPromise = GetGameNameAndDescription(mockNetworking, testGameId)
+
+				local success, result = resultPromise:timeout(5):await()
+
+				expect(success).to.equal(true)
+				expect(result.Name).to.equal(testName)
+				expect(result.Description).to.equal(testDescription)
+				expect(result.Creator).to.equal(testCreator)
+			end)
+		end
 
 		it("should return a promise that resolves with the name and description", function()
 			local testGameId = 1818

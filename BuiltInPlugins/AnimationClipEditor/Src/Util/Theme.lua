@@ -208,6 +208,53 @@ local checkBoxTheme = {
 	selectedImage = "rbxasset://textures/GameSettings/CheckedBoxLight.png",
 }
 
+
+
+local faceSliderBarHeight  = 1
+local faceSliderBarSliceCenter = Rect.new(3, 0, 4, 6)
+local faceSliderHandleSize = 6
+local faceSliderKnobColor = Colors.White
+
+local knobStyle = {
+	AnchorPoint = Vector2.new(0.5, 0.5),
+	Color = faceSliderKnobColor,
+	Image = StyleKey.SliderKnobImage,
+	Size = UDim2.new(0, faceSliderHandleSize, 0, faceSliderHandleSize),
+	[StyleModifier.Disabled] = {
+		Color = StyleKey.Button,
+	},
+}
+
+local faceSliderTheme = {
+		KnobSize = Vector2.new(18, 18),
+		Background = Decoration.Image,
+		BackgroundStyle = {
+			AnchorPoint = Vector2.new(0, 0.5),
+			Color = Color3.fromRGB(87, 87, 87),
+			Image = "rbxasset://textures/DeveloperFramework/slider_bg.png",
+			Position = UDim2.new(0, 0, 0.5, 0),
+			ScaleType = Enum.ScaleType.Slice,
+			Size = UDim2.new(UDim.new(1, 0), UDim.new(0, faceSliderBarHeight)),
+			SliceCenter = faceSliderBarSliceCenter,
+		},
+		Foreground = Decoration.Image,
+		ForegroundStyle = {
+			AnchorPoint = Vector2.new(0, 0.5),
+			Image = "rbxasset://textures/DeveloperFramework/slider_bg.png",
+			Color = StyleKey.DialogMainButton,
+			ScaleType = Enum.ScaleType.Slice,
+			Size = UDim2.new(UDim.new(1, 0), UDim.new(0, faceSliderBarHeight)),
+			SliceCenter = faceSliderBarSliceCenter,
+			[StyleModifier.Disabled] = {
+				Color = StyleKey.Button,
+			},
+		},
+		LowerKnobBackground = Decoration.Image,
+		LowerKnobBackgroundStyle = knobStyle,
+		UpperKnobBackground = Decoration.Image,
+		UpperKnobBackgroundStyle = knobStyle,	
+}
+
 -- Rest of the values come from UILibrary createTheme.lua and StudioStyle.lua
 local roundFrameTheme = {
 	slice = Rect.new(3, 3, 13, 13),
@@ -471,7 +518,8 @@ local PluginTheme = {
 	startScreenTheme = startScreenTheme,
 	gridTheme = gridTheme,
 	ikTheme = ikTheme,
-	checkBox =checkBoxTheme,
+	checkBox = checkBoxTheme,
+	faceSliderTheme = faceSliderTheme,
 	roundFrame = roundFrameTheme,
 	button = buttonTheme,
 	keyframe = keyframe,

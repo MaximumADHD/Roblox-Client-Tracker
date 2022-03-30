@@ -3,6 +3,9 @@ local CorePackages = game:GetService("CorePackages")
 local Promise = require(CorePackages.Promise)
 local Url = require(CorePackages.AppTempCommon.LuaApp.Http.Url)
 
+local Modules = script.Parent.Parent
+local EnableInGameMenuV3 = require(Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
+
 -- Cache of promises by gameId
 local cache = {}
 
@@ -23,11 +26,18 @@ return function(networkImpl, gameId)
 		if not (gameInfo and gameInfo.name) then
 			Promise.reject("Unexpected response when fetching game name, no game info")
 		end
-
-		return Promise.resolve({
-			Name = gameInfo.name,
-			Description = gameInfo.description or "",
-		})
+		if EnableInGameMenuV3() then
+			return Promise.resolve({
+				Name = gameInfo.name,
+				Description = gameInfo.description or "",
+				Creator = gameInfo.creator and gameInfo.creator.name or "",
+			})
+		else
+			return Promise.resolve({
+				Name = gameInfo.name,
+				Description = gameInfo.description or "",
+			})
+		end
 	end,
 	function(err)
 		return Promise.reject(err)

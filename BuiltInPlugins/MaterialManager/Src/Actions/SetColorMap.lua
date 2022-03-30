@@ -5,12 +5,12 @@ local Util = Framework.Util
 local Action = Util.Action
 
 export type Payload = {
-	colorMap : _Types.TextureMap?
+	ColorMap : _Types.TextureMap?
 }
 
 return Action(script.Name, function(colorMap : _Types.TextureMap?) : Payload
 	assert(not colorMap or type(colorMap) == "table", ("Expected colorMap to be nil or a table, received %s"):format(type(colorMap)))
 	return {
-		colorMap = colorMap,
+		ColorMap = colorMap,
 	}
 end)

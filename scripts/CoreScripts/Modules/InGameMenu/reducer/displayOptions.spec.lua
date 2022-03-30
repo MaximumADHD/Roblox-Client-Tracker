@@ -5,8 +5,6 @@ return function()
 	local displayOptions = require(script.Parent.displayOptions)
 	local Constants = require(InGameMenu.Resources.Constants)
 
-	local GetFFlagFixDisplayOptionsReducer = require(InGameMenu.Flags.GetFFlagFixDisplayOptionsReducer)
-
 	local function countValues(t)
 		local c = 0
 		for _, _ in pairs(t) do
@@ -54,17 +52,15 @@ return function()
 		end)
 
 		it("should not change any other values", function()
-			if GetFFlagFixDisplayOptionsReducer() then
-				local oldState = displayOptions({
-					inspectMenuEnabled = false,
-					inputType = Constants.InputType.Gamepad,
-				}, {})
-				local newState = displayOptions(oldState, SetInputType(Constants.InputType.Touch))
-				expect(countValues(newState)).to.equal(countValues(oldState))
-				for key, value in pairs(newState) do
-					if key ~= "inputType" then
-						expect(value).to.equal(oldState[key])
-					end
+			local oldState = displayOptions({
+				inspectMenuEnabled = false,
+				inputType = Constants.InputType.Gamepad,
+			}, {})
+			local newState = displayOptions(oldState, SetInputType(Constants.InputType.Touch))
+			expect(countValues(newState)).to.equal(countValues(oldState))
+			for key, value in pairs(newState) do
+				if key ~= "inputType" then
+					expect(value).to.equal(oldState[key])
 				end
 			end
 		end)

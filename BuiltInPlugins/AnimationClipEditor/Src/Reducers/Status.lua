@@ -32,8 +32,10 @@ return Rodux.createReducer({
 	ShowEvents = true,
 	IKEnabled = false,
 	IKOpenedTimestamp = nil,
+	FaceControlsEditorOpenedTimestamp = nil,
 	IKMode = Constants.IK_MODE.FullBody,
 	ShowTree = false,
+	ShowFaceControlsEditorPanel = false,
 
 	Tool = Enum.RibbonTool.Rotate,
 	WorldSpace = false,
@@ -50,6 +52,7 @@ return Rodux.createReducer({
 	FrameRate = Constants.DEFAULT_FRAMERATE,
 	DefaultRotationType = Constants.DEFAULT_ROTATION_TYPE,
 	EditorMode = Constants.EDITOR_MODE.DopeSheet,
+	SymmetryEnabled = false,
 }, {
 	SetActive = function(state, action)
 		return Cryo.Dictionary.join(state, {
@@ -227,6 +230,12 @@ return Rodux.createReducer({
 		})
 	end,
 
+	SetFaceControlsEditorOpenedTimestamp = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			FaceControlsEditorOpenedTimestamp = action.FaceControlsEditorOpenedTimestamp,
+		})
+	end,	
+
 	SetMotorData = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			MotorData = action.motorData,
@@ -263,6 +272,12 @@ return Rodux.createReducer({
 		})
 	end,
 
+	SetShowFaceControlsEditorPanel = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			ShowFaceControlsEditorPanel = action.showFaceControlsEditorPanel,
+		})
+	end,	
+
 	SetPinnedParts = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			PinnedParts = action.pinnedParts,
@@ -286,4 +301,10 @@ return Rodux.createReducer({
 			EditorMode = action.editorMode,
 		})
 	end,
+	
+	SetSymmetryEnabled = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			SymmetryEnabled = action.symmetryEnabled,
+		})
+	end,	
 })

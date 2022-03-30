@@ -14,8 +14,7 @@ return function()
 	local LayeredClothingEditorPreviewPath = XPath.new("game.Workspace.LayeredClothingEditorPreview")
 	local ScrollerPath = TestHelper.getEditScreenContainer()
 	local editSwizzlePath = ScrollerPath:cat(XPath.new("EditSwizzle.Header"))
-	local previewAvatarPath = LayeredClothingEditorPreviewPath:cat(XPath.new(PreviewConstants.PreviewAvatarName))
-	local previewClothesPath = previewAvatarPath:cat(XPath.new(TestHelper.DefaultClothesName))
+	local previewAvatarPath = LayeredClothingEditorPreviewPath:cat(XPath.new(TestHelper.DefaultAvatarName))
 
 	it("LayeredClothingEditorPreview folder should exist in Workspace", function()
 		runRhodiumTest(function()
@@ -46,6 +45,7 @@ return function()
 			expect(previewAvatar).to.be.ok()
 
 			-- avatar should be wearing a clone of the accessory
+			local previewClothesPath = previewAvatarPath:cat(XPath.new(editingItem.Name))
 			local itemClone = TestHelper.waitForXPathInstance(previewClothesPath)
 			expect(itemClone).to.be.ok()
 
@@ -154,8 +154,7 @@ return function()
 			end)).to.equal(true)
 
 			-- check the correct item exists as a child of the preview avatar
-			local clothesItemName = next(store:getState().previewStatus.selectedAssets[PreviewConstants.TABS_KEYS.Clothing])
-			local avatarClothesItemPath = XPath.new(PreviewConstants.PreviewAvatarName .. "." .. tostring(clothesItemName))
+			local avatarClothesItemPath = XPath.new(TestHelper.DefaultAvatarName .. "." .. TestHelper.DefaultClothesName)
 			local avatarClothesItem = LayeredClothingEditorPreviewPath:cat(avatarClothesItemPath)
 			expect(TestHelper.waitForXPathInstance(avatarClothesItem)).to.be.ok()
 		end)

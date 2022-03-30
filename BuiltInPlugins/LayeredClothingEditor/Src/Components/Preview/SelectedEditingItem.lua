@@ -6,8 +6,6 @@
 		table AccessoryTypeInfo: Accessory type name, attachment point, and bounds
 		table AttachmentPoint: table of CFrame's for attachment point and its MeshPart parent.
 		Vector3 ItemSize: Size/Scale of the MeshPart for the editingItem.
-		enum EditingCage: Cage type identifier, Inner/Outer, provided via mapStateToProps
-		table PointData: vertex data of item being edited, provided via mapStateToProps
 		callback SelectEditingItem: update store values when editing item is selected, provided via mapDispatchToProps
 		callback VerifyBounds: function to determine if item is within chosen accessory bounds.
 		table EditingItemContext: context item for the object the user selected to edit, provided via mapToProps.
@@ -21,6 +19,12 @@ local Workspace = game.Workspace
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+
+local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
+local Mannequin = AccessoryAndBodyToolSharedUtil.Mannequin
+local PreviewUtil = AccessoryAndBodyToolSharedUtil.PreviewUtil
+local AvatarUtil = AccessoryAndBodyToolSharedUtil.AvatarUtil
 
 local VerifyBounds = require(Plugin.Src.Thunks.VerifyBounds)
 local SelectEditingItem = require(Plugin.Src.Thunks.SelectEditingItem)
@@ -35,97 +39,58 @@ local Util = Framework.Util
 local Typecheck = Util.Typecheck
 
 local ModelUtil = require(Plugin.Src.Util.ModelUtil)
-local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
 
 local SelectedEditingItem = Roact.PureComponent:extend("SelectedEditingItem")
 Typecheck.wrap(SelectedEditingItem, script)
 
-local function terminateConnections(self)
-	if self.MannequinAncestryChangedHandle then
-		self.MannequinAncestryChangedHandle:Disconnect()
-		self.MannequinAncestryChangedHandle = nil
-	end
+local function onMannequinChanged(self, regenerated)
+	local props = self.props
 
-	if self.AncestryChangedHandle then
-		self.AncestryChangedHandle:Disconnect()
-		self.AncestryChangedHandle = nil
-	end
-end
+	local itemSize = props.ItemSize
+	local attachmentPoint = props.AttachmentPoint
+	local accessoryTypeInfo = props.AccessoryTypeInfo
+	local verifyBounds = props.VerifyBounds
+	local pointData = props.PointData
+	local editingCage = props.EditingCage
+	local editingItemContext = props.EditingItemContext
 
-local function destroyEditingItem(self)
-	self.props.EditingItemContext:setEditingItem(nil)
+	local mannequinInstance = self.mannequin.model
+	local sourceDisplayItem = self.mannequin.sourceDisplayItem
+	local displayItem = self.mannequin.displayItem
+	AvatarUtil:positionAvatarNextTo(mannequinInstance, sourceDisplayItem, false)
 
-	terminateConnections(self)
+	local size = if regenerated then itemSize else displayItem.Size
 
-	if self.mannequin then
-		self.mannequin:Destroy()
-		self.mannequin = nil
-	end
+	local attachmentName = if accessoryTypeInfo then accessoryTypeInfo.Name else ""
+	self.mannequin:transformLayer(
+		1,
+		size,
+		attachmentPoint.AttachmentCFrame,
+		attachmentPoint.ItemCFrame,
+		attachmentName)
 
-	if self.editingItem then
-		self.editingItem:Destroy()
-		self.editingItem = nil
-	end
-end
-
-local function setupEditingItem(self, regenerated, accessoryTypeChanged)
-	if not self.sourceItemWithUniqueDeformerNames then
-		return
-	end
-
-	self.editingItem = self.sourceItemWithUniqueDeformerNames:Clone()
-	self.editingItem.Archivable = true
-	self.editingItem.Name = HttpService:GenerateGUID()
-
-	terminateConnections(self)
-
-	local isClothing = ItemCharacteristics.isClothes(self.editingItem)
-	if isClothing then
-		local useCurrentAttachmentPointInfo = not accessoryTypeChanged and regenerated
-
-		self.mannequin = InsertService:LoadLocalAsset(Constants.MANNEQUIN_PATH)
-		self.mannequin.Parent = Workspace
-
-		if regenerated then
-			self.editingItem.Size = self.props.ItemSize
+	-- TODO: shouldn't have to do this once we refactor to use the vertex editing module
+	if pointData and pointData[editingCage] then
+		local verts = {}
+		local _, pointTable = next(pointData[editingCage])
+		for _, point in ipairs(pointTable) do
+			table.insert(verts, point.Position)
 		end
 
-		ModelUtil:positionAvatar(self.mannequin, self.editingItem, not regenerated)
-
-		local newAttachmentName = ""
-		if self.props.AccessoryTypeInfo and self.props.AttachmentPoint then
-			newAttachmentName = self.props.AccessoryTypeInfo.Name
-			useCurrentAttachmentPointInfo = useCurrentAttachmentPointInfo or
-				ModelUtil:getExistingAttachmentInstance(self.editingItem, newAttachmentName) ~= nil
-			ModelUtil:createOrReuseAttachmentInstance(
-				self.editingItem,
-				self.mannequin,
-				self.props.AccessoryTypeInfo,
-				useCurrentAttachmentPointInfo and self.props.AttachmentPoint or nil)
-		end
-
-		ModelUtil:attachClothingItem(self.mannequin, self.editingItem, newAttachmentName, useCurrentAttachmentPointInfo)
-
-		self.MannequinAncestryChangedHandle = self.mannequin.AncestryChanged:Connect(self.onEditingItemExternalChange)
-	else
-		self.editingItem.Parent = Workspace
-
-		ModelUtil:positionAvatar(self.editingItem, self.sourceItemWithUniqueDeformerNames, not regenerated)
+		self.mannequin:deformLayer(1, verts, editingCage)
 	end
 
-	self.AncestryChangedHandle = self.editingItem.AncestryChanged:Connect(self.onEditingItemExternalChange)
+	self.props.EditingItemContext:setEditingItem(displayItem)
 
-	self.props.EditingItemContext:setEditingItem(self.editingItem)
-
-	self.props.VerifyBounds(self.editingItem)
+	verifyBounds(displayItem)
 
 	if not regenerated then
-		self.props.SelectEditingItem(self.editingItem)
+		self.props.SelectEditingItem(displayItem)
 		spawn(function()
-			ModelUtil:focusCameraOnItem(self.editingItem)
+			ModelUtil:focusCameraOnItem(displayItem)
 		end)
 	else
-		ModelUtil:createModelInfo(self.editingItem, not isClothing)
+		ModelUtil:createModelInfo(displayItem, false)
 	end
 
 	ChangeHistoryService:ResetWaypoints()
@@ -136,49 +101,29 @@ function SelectedEditingItem:init()
 	self.editingItem = nil
 	self.sourceItemWithUniqueDeformerNames = nil
 
-	self.onEditingItemExternalChange = function()
-		destroyEditingItem(self)
-		setupEditingItem(self, true, false)
-	end
-
 	self.onSourceItemChanged = function(sourceItem)
-		destroyEditingItem(self)
-		if self.sourceItemWithUniqueDeformerNames then
-			self.sourceItemWithUniqueDeformerNames:Destroy()
-			self.sourceItemWithUniqueDeformerNames = nil
+		if sourceItem ~= self.sourceItem then
+			if self.mannequin then
+				self.mannequin:destroy()
+				self.mannequin = nil
+			end
 			self.props.EditingItemContext:setSourceItemWithUniqueDeformerNames(nil)
+			if sourceItem then
+				self.mannequin = Mannequin.new(sourceItem, nil, Workspace, function()
+					onMannequinChanged(self, true)
+				end)
+				self.props.EditingItemContext:setSourceItemWithUniqueDeformerNames(self.mannequin.sourceDisplayItem)
+				onMannequinChanged(self, false)
+			end
 		end
-		if sourceItem then
-			self.sourceItemWithUniqueDeformerNames = sourceItem:Clone()
-			ModelUtil:makeDeformerNamesUnique(self.sourceItemWithUniqueDeformerNames)
-			self.props.EditingItemContext:setSourceItemWithUniqueDeformerNames(self.sourceItemWithUniqueDeformerNames)
-		end
-		setupEditingItem(self, self.sourceItem == sourceItem, false)
+		self.sourceItem = sourceItem
 	end
 end
 
 -- We are not rendering the mannequin/editing item directly through Roact since we wonly want
--- it to be tied to mounting/unmounting of the component. Render will be responsible for re-triggering
--- deformation updates when pointData prop changes.
+-- it to be tied to mounting/unmounting of the component.
 function SelectedEditingItem:render()
-	local props = self.props
-
-	local pointData = props.PointData
-	local editingCage = props.EditingCage
-
-	if not self.editingItem or not ItemCharacteristics.hasAnyCage(self.editingItem) or not next(pointData) then
-		return nil
-	end
-
-	if editingCage == Constants.EDIT_MODE.Mesh then
-		return nil
-	end
-
-	if ItemCharacteristics.isClothes(self.editingItem) then
-		ModelUtil:deformClothing(self.editingItem, pointData, editingCage)
-	else
-		ModelUtil:updateWraps(pointData, editingCage)
-	end
+	return nil
 end
 
 function SelectedEditingItem:didMount()
@@ -187,25 +132,21 @@ function SelectedEditingItem:didMount()
 end
 
 function SelectedEditingItem:didUpdate(prevProps)
-	if prevProps.AccessoryTypeInfo ~= self.props.AccessoryTypeInfo then
-		destroyEditingItem(self)
-		setupEditingItem(self, true, true)
+	if prevProps.AccessoryTypeInfo ~= self.props.AccessoryTypeInfo and self.mannequin then
+		self.mannequin:reset()
 	end
 end
 
 function SelectedEditingItem:willUnmount()
-	destroyEditingItem(self)
-
-	if self.SourceItemChangedHandle then
-		self.SourceItemChangedHandle:Disconnect()
-		self.SourceItemChangedHandle = nil
+	if self.mannequin then
+		self.mannequin:destroy()
+		self.mannequin = nil
 	end
 
 	self.sourceItem = nil
-	if self.sourceItemWithUniqueDeformerNames then
-		self.sourceItemWithUniqueDeformerNames:Destroy()
-		self.sourceItemWithUniqueDeformerNames = nil
-		self.props.EditingItemContext:setSourceItemWithUniqueDeformerNames(nil)
+	if self.SourceItemChangedHandle then
+		self.SourceItemChangedHandle:Disconnect()
+		self.SourceItemChangedHandle = nil
 	end
 end
 
@@ -233,11 +174,8 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-
 SelectedEditingItem = withContext({
 	EditingItemContext = EditingItemContext,
 })(SelectedEditingItem)
-
-
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(SelectedEditingItem)

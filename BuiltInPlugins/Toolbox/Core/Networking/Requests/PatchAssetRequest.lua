@@ -1,4 +1,5 @@
 local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
+local FFlagToolboxAudioAssetConfigDisablePublicAudio = game:GetFastFlag("ToolboxAudioAssetConfigDisablePublicAudio")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
@@ -80,7 +81,7 @@ return function(patchInfo)
 				}
 			end
 
-			if permissionPatchData then
+			if permissionPatchData and not FFlagToolboxAudioAssetConfigDisablePublicAudio then
 				return patchInfo.networkInterface
 					:grantAssetPermissions(
 						patchInfo.assetId,

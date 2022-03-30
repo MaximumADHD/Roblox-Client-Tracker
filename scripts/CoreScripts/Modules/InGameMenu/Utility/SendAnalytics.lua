@@ -1,20 +1,13 @@
 local UserInputService = game:GetService("UserInputService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
-local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
 local InGameMenu = script.Parent.Parent
 local Constants = require(InGameMenu.Resources.Constants)
-local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 local InputTypeMap = Constants.InputTypeMap
 
 return function(eventContext, eventName, eventTable, replaceEventNameWithGameSettings, analyticsServiceImpl)
 	-- This parameter is only used to mock in testing
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		if analyticsServiceImpl == nil then
-			analyticsServiceImpl = AnalyticsService
-		end
-	else
+	if analyticsServiceImpl == nil then
 		analyticsServiceImpl = AnalyticsService
 	end
 
@@ -57,23 +50,19 @@ return function(eventContext, eventName, eventTable, replaceEventNameWithGameSet
 		return stringTable
 	end
 
-	if FFlagCollectAnalyticsForSystemMenu then
-		if replaceEventNameWithGameSettings == true then
-			eventTable = reportSettingsForAnalytics()
-			eventName = Constants.AnalyticsSettingsChangeName
-			eventContext = Constants.AnalyticsInGameMenuName
-		end
-
-		if not eventTable then
-			eventTable = {}
-		end
-		eventTable["universeid"] = tostring(game.GameId)
-
-		if GetFFlagInGameMenuControllerDevelopmentOnly() then
-			local lastUsedInputType = InputTypeMap[UserInputService:GetLastInputType()] or UserInputService:GetLastInputType()
-			eventTable["inputDevice"] = tostring(lastUsedInputType)
-		end
-
-		analyticsServiceImpl:SetRBXEventStream(Constants.AnalyticsTargetName, eventContext, eventName, eventTable)
+	if replaceEventNameWithGameSettings == true then
+		eventTable = reportSettingsForAnalytics()
+		eventName = Constants.AnalyticsSettingsChangeName
+		eventContext = Constants.AnalyticsInGameMenuName
 	end
+
+	if not eventTable then
+		eventTable = {}
+	end
+	eventTable["universeid"] = tostring(game.GameId)
+
+	local lastUsedInputType = InputTypeMap[UserInputService:GetLastInputType()] or UserInputService:GetLastInputType()
+	eventTable["inputDevice"] = tostring(lastUsedInputType)
+
+	analyticsServiceImpl:SetRBXEventStream(Constants.AnalyticsTargetName, eventContext, eventName, eventTable)
 end

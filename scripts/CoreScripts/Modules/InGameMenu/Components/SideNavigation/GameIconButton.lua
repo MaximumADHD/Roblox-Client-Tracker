@@ -14,8 +14,6 @@ local GameIcon = require(InGameMenu.Components.GameIcon)
 
 local CORNER_RADIUS = UDim.new(0, 8)
 
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
-
 local GameIconButton = Roact.PureComponent:extend("GameIconButton")
 
 GameIconButton.validateProps = t.strictInterface({
@@ -24,9 +22,9 @@ GameIconButton.validateProps = t.strictInterface({
 	layoutOrder = t.optional(t.integer),
 
 	onActivated = t.callback,
-	onSelectionGained = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.callback) or nil,
-	onSelectionLost = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.callback) or nil,
-	forwardRef = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.table) or nil,
+	onSelectionGained = t.optional(t.callback),
+	onSelectionLost = t.optional(t.callback),
+	forwardRef = t.optional(t.table),
 })
 
 function GameIconButton:renderWithSelectionCursor(getSelectionCursor)
@@ -37,7 +35,7 @@ function GameIconButton:renderWithSelectionCursor(getSelectionCursor)
 		Position = self.props.position,
 		Size = UDim2.fromOffset(32, 32),
 		LayoutOrder = self.props.layoutOrder,
-		SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly() and getSelectionCursor(CursorKind.RoundedRect) or nil,
+		SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
 
 		[Roact.Event.Activated] = self.props.onActivated,
 		[Roact.Event.SelectionGained] = self.props.onSelectionGained,
@@ -53,21 +51,13 @@ function GameIconButton:renderWithSelectionCursor(getSelectionCursor)
 end
 
 function GameIconButton:render()
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		return withSelectionCursorProvider(function(getSelectionCursor)
-			return self:renderWithSelectionCursor(getSelectionCursor)
-		end)
-	else
-		return self:renderWithSelectionCursor()
-	end
-end
-
-if GetFFlagInGameMenuControllerDevelopmentOnly() then
-	return Roact.forwardRef(function(props, ref)
-		return Roact.createElement(GameIconButton, Cryo.Dictionary.join(props, {
-			forwardRef = ref,
-		}))
+	return withSelectionCursorProvider(function(getSelectionCursor)
+		return self:renderWithSelectionCursor(getSelectionCursor)
 	end)
 end
 
-return GameIconButton
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(GameIconButton, Cryo.Dictionary.join(props, {
+		forwardRef = ref,
+	}))
+end)

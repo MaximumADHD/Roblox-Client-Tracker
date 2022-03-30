@@ -3,8 +3,6 @@ return function(plugin, pluginLoaderContext)
 		return
 	end
 
-	local FFlagPreventChangesWhenConvertingPackage = game:GetFastFlag("PreventChangesWhenConvertingPackage")
-
 	local Plugin = script.Parent.Parent
 	local Roact = require(Plugin.Packages.Roact)
 	local Rodux = require(Plugin.Packages.Rodux)
@@ -112,31 +110,11 @@ return function(plugin, pluginLoaderContext)
 	local function main()
 		plugin.Name = Plugin.Name
 		makePluginGui()
-		if FFlagPreventChangesWhenConvertingPackage then
-			pluginLoaderContext.signals["PackageUIService.OnOpenConvertToPackagePlugin"]:Connect(
-				function(instances, name, clonedInstances)
-					openAssetConfigWindow(instances, name, clonedInstances)
-				end
-			)
-		else
-			pluginLoaderContext.signals["StudioService.OnOpenConvertToPackagePlugin"]:Connect(
-				function(instances, name, clonedInstances)
-					-- clone instances so that user cannot edit them while validating/uploading
-					local clonedInstances = {}
-					for i = 1, #instances do
-						pcall(function()
-							clonedInstances[i] = instances[i]:Clone()
-						end)
-					end
-					if clonedInstances == {} then
-						print(localization:getText("General", "InstanceFail"))
-						return
-					end
-
-					openAssetConfigWindow(clonedInstances, name)
-				end
-			)
-		end
+		pluginLoaderContext.signals["PackageUIService.OnOpenConvertToPackagePlugin"]:Connect(
+			function(instances, name, clonedInstances)
+				openAssetConfigWindow(instances, name, clonedInstances)
+			end
+		)		
 	end
 
 	main()

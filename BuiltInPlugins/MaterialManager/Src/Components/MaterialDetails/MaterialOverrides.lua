@@ -31,7 +31,6 @@ local getFFlagMaterialServiceStringOverride = require(Flags.getFFlagMaterialServ
 export type Props = {
 	LayoutOrder : number?,
 	MockMaterial : _Types.Material?,
-	OpenPrompt : (type : string) -> (),
 }
 
 type _Props = Props & { 

@@ -45,7 +45,6 @@ local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
 
 local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
 local FFlagShowInGameReportingLuobu = require(RobloxGui.Modules.Flags.FFlagShowInGameReportingLuobu)
-local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 
@@ -103,10 +102,7 @@ local SettingsFullScreenTitleBar = require(RobloxGui.Modules.Settings.Components
 local ShareGameDirectory = CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame
 local InviteToGameAnalytics = require(ShareGameDirectory.Analytics.InviteToGameAnalytics)
 
-local Constants
-if FFlagCollectAnalyticsForSystemMenu then
-  Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
-end
+local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
 local shouldLocalize = PolicyService:IsSubjectToChinaPolicies()
 
@@ -1655,18 +1651,16 @@ local function CreateSettingsHub()
 			this.MenuStack[#this.MenuStack + 1] = this.Pages.CurrentPage
 		end
 
-		if FFlagCollectAnalyticsForSystemMenu then
-			local eventTable = {}
-			eventTable["universeid"] = tostring(game.GameId)
-			if pageToSwitchTo then
-				if this.GameSettingsPage == pageToSwitchTo then
-					AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, "open_GameSettings_tab", Constants.AnalyticsMenuActionName, eventTable)
-				else
-					AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, "open_" .. pageToSwitchTo.Page.Name .. "_tab", Constants.AnalyticsMenuActionName, eventTable)
-				end
+		local eventTable = {}
+		eventTable["universeid"] = tostring(game.GameId)
+		if pageToSwitchTo then
+			if this.GameSettingsPage == pageToSwitchTo then
+				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, "open_GameSettings_tab", Constants.AnalyticsMenuActionName, eventTable)
 			else
-				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, "open_unknown_tab", Constants.AnalyticsMenuActionName, eventTable)
+				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, "open_" .. pageToSwitchTo.Page.Name .. "_tab", Constants.AnalyticsMenuActionName, eventTable)
 			end
+		else
+			AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, "open_unknown_tab", Constants.AnalyticsMenuActionName, eventTable)
 		end
 	end
 
@@ -1825,17 +1819,15 @@ local function CreateSettingsHub()
 			this.GameSettingsPage:CloseSettingsPage()
 		end
 
-		if FFlagCollectAnalyticsForSystemMenu then
-			if visibilityChanged then
-				if visible then
-					AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuOpenName, Constants.AnalyticsMenuActionName, {
-						source = analyticsContext,
-					})
-				else
-					AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuCloseName, Constants.AnalyticsMenuActionName, {
-						source = analyticsContext,
-					})
-				end
+		if visibilityChanged then
+			if visible then
+				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuOpenName, Constants.AnalyticsMenuActionName, {
+					source = analyticsContext,
+				})
+			else
+				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsMenuCloseName, Constants.AnalyticsMenuActionName, {
+					source = analyticsContext,
+				})
 			end
 		end
 	end

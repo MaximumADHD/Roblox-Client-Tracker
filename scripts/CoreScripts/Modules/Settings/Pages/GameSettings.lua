@@ -61,7 +61,6 @@ local VOICE_CHAT_DEVICE_TYPE = {
 
 local FFlagGroupEditDevConsoleButton = settings():GetFFlag("GroupEditDevConsoleButton")
 local FFlagMicroProfilerSessionAnalytics = settings():GetFFlag("MicroProfilerSessionAnalytics")
-local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
 
 local MICROPROFILER_SETTINGS_PRESSED = "MicroprofilerSettingsPressed"
 
@@ -73,10 +72,7 @@ local MOVEMENT_MODE_THUMBSTICK_STRING = "Classic Thumbstick"
 
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
-local Constants
-if FFlagCollectAnalyticsForSystemMenu then
-	Constants = require(RobloxGui:WaitForChild("Modules"):WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
-end
+local Constants = require(RobloxGui:WaitForChild("Modules"):WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
 local CoreUtility = require(RobloxGui.Modules.CoreUtility)
 local IsDeveloperConsoleEnabled = require(RobloxGui.Modules.DevConsole.IsDeveloperConsoleEnabled)
@@ -126,8 +122,6 @@ local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFl
 local GetFFlagFixXboxAdjustSetting = require(RobloxGui.Modules.Flags.GetFFlagFixXboxAdjustSetting)
 
 local function reportSettingsForAnalytics()
-	if not FFlagCollectAnalyticsForSystemMenu then return end
-
 	local stringTable = {}
 	if UserInputService.TouchEnabled then
 		stringTable["camera_mode_touch"] = tostring(GameSettings.TouchCameraMovementMode)

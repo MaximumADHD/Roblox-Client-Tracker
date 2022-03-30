@@ -35,6 +35,7 @@
 local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 local FFlagToolboxAudioAssetConfigDisablePublicAudio = game:GetFastFlag("ToolboxAudioAssetConfigDisablePublicAudio")
+local FFlagToolboxEnablePublicAudioToggle = game:GetFastFlag("ToolboxEnablePublicAudioToggle")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -408,7 +409,7 @@ function PublishAsset:renderContent(theme, localizedContent)
 			AssetType = if FFlagToolboxPrivatePublicAudioAssetConfig3 or FFlagToolboxAudioAssetConfigDisablePublicAudio then assetTypeEnum else nil,
 			Title = if FFlagToolboxPrivatePublicAudioAssetConfig3 then publishAssetLocalized.DistributeOnMarketplace else publishAssetLocalized.Copy,
 
-			TotalHeight = configCopyHeight,
+			TotalHeight = if FFlagToolboxEnablePublicAudioToggle then nil else configCopyHeight,
 			CopyEnabled = allowCopy,
 			CopyOn = copyOn,
 			CopyWarning = copyWarning,

@@ -19,7 +19,7 @@ local function GamePostFavorite(networkImpl, universeId, isFavorited)
 
 	return PerformFetch.Single("GamePostFavorite" .. universeId, function(store)
 		return GamePostFavoriteRequest(networkImpl, universeId, isFavorited):andThen(function(result)
-			local currentIsFavorite = store:getState().GameFavorites[universeId]
+			local currentIsFavorite = store:getState().gameInfo.isFavorited
 			if currentIsFavorite ~= isFavorited then
 				return GamePostFavorite(networkImpl, universeId, currentIsFavorite)
 			else

@@ -52,12 +52,7 @@ local PageInstance = nil
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
-local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
-
-local Constants
-if FFlagCollectAnalyticsForSystemMenu then
-  Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
-end
+local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
 local MIN_GAME_REPORT_TEXT_LENGTH = 5
 
@@ -289,8 +284,6 @@ local function Initialize()
 		end
 
 		local function reportAnalytics(reportType, id)
-			if not FFlagCollectAnalyticsForSystemMenu then return end
-
 			local stringTable = {}
 			stringTable[#stringTable + 1] = "report_type=" .. tostring(reportType)
 			stringTable[#stringTable + 1] = "report_source=ingame"

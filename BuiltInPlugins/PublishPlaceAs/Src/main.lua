@@ -19,7 +19,7 @@ return function(plugin, pluginLoaderContext)
 	end
 	local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 
-	local FFlagPlacePublishManagementUI = game:GetFastFlag("PlacePublishManagementUI")
+	local FFlagPlacePublishManagementUI2 = game:GetFastFlag("PlacePublishManagementUI2")
 	local FFlagPlacePublishTcToggleCalloutEnabled = game:GetFastFlag("PlacePublishTcToggleCalloutEnabled")
 
 	--Turn this on when debugging the store and actions

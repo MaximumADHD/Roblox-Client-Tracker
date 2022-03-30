@@ -22,8 +22,6 @@ local RootedConnection = require(InGameMenu.Components.Connection.RootedConnecti
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local ControlState = UIBlox.Core.Control.Enum.ControlState
 
-local GetFFlagIGMRefactorInviteFriendsGamepadSupport = require(InGameMenu.Flags.GetFFlagIGMRefactorInviteFriendsGamepadSupport)
-
 local CONTAINER_WIDTH = 304
 local TEXT_PADDING_TOP = 10
 local TEXT_PADDING_BOTTOM = 26
@@ -32,17 +30,15 @@ local LoadingFriendsError = Roact.PureComponent:extend("LoadingFriendsError")
 
 LoadingFriendsError.validateProps = t.strictInterface({
 	onRetry = t.callback,
-	canCaptureFocus = GetFFlagIGMRefactorInviteFriendsGamepadSupport() and t.boolean or nil,
+	canCaptureFocus = t.boolean,
 })
 
-if GetFFlagIGMRefactorInviteFriendsGamepadSupport() then
-	function LoadingFriendsError:init()
-		self.buttonRef = Roact.createRef()
+function LoadingFriendsError:init()
+	self.buttonRef = Roact.createRef()
 
-		self.state = {
-			buttonIsInitialized = false,
-		}
-	end
+	self.state = {
+		buttonIsInitialized = false,
+	}
 end
 
 function LoadingFriendsError:render()
@@ -100,7 +96,7 @@ function LoadingFriendsError:render()
 					})
 				}),
 
-				RootedConnection = GetFFlagIGMRefactorInviteFriendsGamepadSupport() and Roact.createElement(RootedConnection, {
+				RootedConnection = Roact.createElement(RootedConnection, {
 					render = function(isRooted)
 						return Roact.createElement(FocusHandler, {
 							isFocused = props.canCaptureFocus
@@ -127,14 +123,7 @@ function LoadingFriendsError:render()
 							}) or nil,
 						})
 					end,
-				}) or nil,
-
-				MakeFriendsButton = not GetFFlagIGMRefactorInviteFriendsGamepadSupport() and Roact.createElement(UIBlox.App.Button.SecondaryButton, {
-					layoutOrder = 3,
-					size = UDim2.new(1, 0, 0, 48),
-					icon = Assets.Images.RetryIcon,
-					onActivated = props.onRetry,
-				}) or nil,
+				}),
 			})
 		end)
 	end)

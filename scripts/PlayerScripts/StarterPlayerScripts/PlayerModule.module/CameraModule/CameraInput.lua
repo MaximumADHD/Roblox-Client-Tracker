@@ -30,6 +30,13 @@ local FFlagUserFlagEnableNewVRSystem do
 	FFlagUserFlagEnableNewVRSystem = success and result
 end
 
+local FFlagUserFlagEnableVRUpdate2 do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFlagEnableVRUpdate2")
+	end)
+	FFlagUserFlagEnableVRUpdate2 = success and result
+end
+
 -- right mouse button up & down events
 local rmbDown, rmbUp do
 	local rmbDownBindable = Instance.new("BindableEvent")
@@ -206,6 +213,10 @@ do
 		local function thumbstick(action, state, input)
 			local position = input.Position
 			gamepadState[input.KeyCode.Name] = Vector2.new(thumbstickCurve(position.X), -thumbstickCurve(position.Y))
+			if FFlagUserFlagEnableVRUpdate2 then
+				return Enum.ContextActionResult.Pass
+			end
+			return
 		end
 
 		local function mouseMovement(input)

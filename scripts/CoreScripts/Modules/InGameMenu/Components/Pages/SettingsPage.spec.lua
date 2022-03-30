@@ -31,7 +31,6 @@ return function()
 	local BasicPage = require(script.Parent.Parent.GameSettingsPage.BasicPage)
 
 	local Flags = InGameMenu.Flags
-	local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 	local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 	local GetFFlagInGameMenuVRToggle = require(Flags.GetFFlagInGameMenuVRToggle)
 
@@ -125,12 +124,8 @@ return function()
 			local playerGui = Players.LocalPlayer.PlayerGui
 			expect(playerGui:FindFirstChild("CameraModeEntrySelector", true)).never.to.equal(nil)
 
-			if not GetFFlagInGameMenuControllerDevelopmentOnly() then
-				expect(GuiService.SelectedCoreObject).to.equal(nil)
-			else
-				expect(GuiService.SelectedCoreObject:IsA("Instance")).to.be.ok()
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("OpenDropDownButton")
-			end
+			expect(GuiService.SelectedCoreObject).to.be.ok()
+			expect(tostring(GuiService.SelectedCoreObject)).to.equal("OpenDropDownButton")
 
 			Roact.unmount(instance)
 			GuiService.SelectedCoreObject = nil
@@ -158,12 +153,8 @@ return function()
 					store:flush()
 				end)
 
-				if not GetFFlagInGameMenuControllerDevelopmentOnly() then
-					expect(GuiService.SelectedCoreObject).to.equal(nil)
-				else
-					expect(GuiService.SelectedCoreObject:IsA("Instance")).to.be.ok()
-					expect(tostring(GuiService.SelectedCoreObject)).to.equal("Dot")
-				end
+				expect(GuiService.SelectedCoreObject).to.be.ok()
+				expect(tostring(GuiService.SelectedCoreObject)).to.equal("Dot")
 
 				Roact.unmount(instance)
 				GuiService.SelectedCoreObject = nil

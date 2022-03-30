@@ -15,7 +15,9 @@ local RoactRodux = require(Libs.RoactRodux)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
+local Layouter = require(Plugin.Core.Util.Layouter)
 
+local LoadingIndicator = Framework.UI.LoadingIndicator
 local Pane = Framework.UI.Pane
 
 local Asset = require(Plugin.Core.Components.Asset.Asset)
@@ -111,17 +113,26 @@ function HomeView:didMount()
 end
 
 function HomeView:init()
+	self.onAbsoluteSizeChange = function(rbx)
+		self:setState({
+			swimlaneWidth = Layouter.getSwimlaneWidth(rbx.AbsoluteSize.X),
+		})
+	end
+
 	self.onClickSubcategory = function(subcategoryName)
 		local props: HomeViewProps = self.props
 		local categoryName = props.CategoryName
 		local onClickSubcategory = props.OnClickSubcategory
+		local onClickSeeAllAssets = props.OnClickSeeAllAssets
 		local sortName = props.SortName
 		local subcategoryDict = props.SubcategoryDict
+		
+		local subcategoryData = subcategoryDict[subcategoryName]
 
-		local subcategoryDictSubset = subcategoryDict[subcategoryName].children
-
-		if onClickSubcategory then
-			onClickSubcategory({ subcategoryName }, subcategoryDictSubset, categoryName, sortName)
+		if subcategoryData.childCount == 0 and onClickSeeAllAssets then
+			onClickSeeAllAssets(nil, categoryName, sortName, subcategoryData.searchKeywords)
+		elseif onClickSubcategory then
+			onClickSubcategory({ subcategoryName }, subcategoryData.children, categoryName, sortName)
 		end
 	end
 
@@ -157,6 +168,7 @@ function HomeView:init()
 	end
 
 	self.createTopContent = function()
+		local state = self.state
 		local props: HomeViewProps = self.props
 
 		local assetSections = props.AssetSections
@@ -164,9 +176,11 @@ function HomeView:init()
 		local categoryName = props.CategoryName
 		local localization = props.Localization
 		local onClickSeeAllAssets = props.OnClickSeeAllAssets
+		local onAssetPreviewButtonClicked = props.OnAssetPreviewButtonClicked
 		local sortName = props.SortName
 		local tryInsert = props.TryInsert
 		local tryOpenAssetConfig = props.TryOpenAssetConfig
+		local swimlaneWidth = state.swimlaneWidth
 
 		local subcategoryDict = props.SubcategoryDict
 		local subcategoryCount = 0
@@ -194,11 +208,13 @@ function HomeView:init()
 			assetSectionsElems["AssetSwimlane_" .. i] = Roact.createElement(AssetSwimlane, {
 				CanInsertAsset = canInsertAsset,
 				CategoryName = categoryName,
+				InitialPageSize = SWIMLANE_SIZE,
 				SortName = sortName,
 				SearchTerm = nil,
 				SectionName = section.name,
-				InitialPageSize = SWIMLANE_SIZE,
+				SwimlaneWidth = swimlaneWidth,
 				OnClickSeeAllAssets = onClickSeeAllAssets,
+				OnAssetPreviewButtonClicked = onAssetPreviewButtonClicked,
 				Title = localization:getText("HomeView", section.name),
 				TryInsert = tryInsert,
 				TryOpenAssetConfig = tryOpenAssetConfig,
@@ -210,13 +226,16 @@ function HomeView:init()
 			Layout = Enum.FillDirection.Vertical,
 			Size = UDim2.new(1, 0, 0, 0),
 			Spacing = SECTION_SPACING,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			VerticalAlignment = Enum.VerticalAlignment.Top,
+			[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChange,
 		}, {
 			SubcategorySwimlane = Roact.createElement(Swimlane, {
 				Data = subcategoryDict,
 				LayoutOrder = 1,
 				OnClickSeeAll = self.onClickSeeAllSubcategories,
 				OnRenderItem = self.renderSubcategory,
+				Size = UDim2.new(0, swimlaneWidth, 0, 0),
 				Title = categoriesHeaderText,
 				Total = subcategoryCount,
 			}),
@@ -251,9 +270,11 @@ function HomeView:render()
 	local position = props.Position
 	local sortName = props.SortName
 	local size = props.Size
+	local theme = props.Stylizer
 
 	-- Props from AssetLogicWrapper
 	local canInsertAsset = props.CanInsertAsset
+	local onAssetPreviewButtonClicked = props.OnAssetPreviewButtonClicked
 	local tryInsert = props.TryInsert
 	local tryOpenAssetConfig = props.TryOpenAssetConfig
 
@@ -271,30 +292,40 @@ function HomeView:render()
 		searchTerm = nil,
 		initialPageSize = INITIAL_PAGE_SIZE,
 		render = function(resultsState)
-			return AssetGrid({
-				AssetIds = resultsState.assetIds,
-				AssetMap = resultsState.assetMap,
-				LayoutOrder = layoutOrder,
-				Position = position,
-				RenderTopContent = renderTopContent,
-				RequestNextPage = resultsState.fetchNextPage,
-				Size = size,
-
-				-- Props from AssetLogicWrapper
-				CanInsertAsset = canInsertAsset,
-				TryInsert = tryInsert,
-				TryOpenAssetConfig = tryOpenAssetConfig,
-			})
-		end,
+			if resultsState.loading and #resultsState.assetIds == 0 then
+				return Roact.createElement("Frame", {
+					BackgroundColor3 = theme.backgroundColor,
+					LayoutOrder = layoutOrder,
+					Position = position,
+					Size = size,
+				}, {
+					LoadingIndicator = Roact.createElement(LoadingIndicator, {
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.new(0.5, 0, 0.5, 0),
+					})
+				})
+			else
+				return AssetGrid({
+					AssetIds = resultsState.assetIds,
+					AssetMap = resultsState.assetMap,
+					LayoutOrder = layoutOrder,
+					Position = position,
+					RenderTopContent = renderTopContent,
+					RequestNextPage = resultsState.fetchNextPage,
+					Size = size,
+	
+					-- Props from AssetLogicWrapper
+					CanInsertAsset = canInsertAsset,
+					OnAssetPreviewButtonClicked = onAssetPreviewButtonClicked,
+					TryInsert = tryInsert,
+					TryOpenAssetConfig = tryOpenAssetConfig,
+				})
+			end
+		end
 	})
 end
 
-HomeView = withContext({
-	API = if FFlagToolboxGetItemsDetailsUsesSingleApi then nil else ContextServices.API,
-	Localization = ContextServices.Localization,
-	Settings = Settings,
-	Stylizer = ContextServices.Stylizer,
-})(HomeView)
+HomeView = AssetLogicWrapper(HomeView)
 
 local function mapDispatchToProps(dispatch)
 	return {
@@ -305,6 +336,11 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-HomeView = AssetLogicWrapper(HomeView)
+HomeView = withContext({
+	API = if FFlagToolboxGetItemsDetailsUsesSingleApi then nil else ContextServices.API,
+	Localization = ContextServices.Localization,
+	Settings = Settings,
+	Stylizer = ContextServices.Stylizer,
+})(HomeView)
 
 return RoactRodux.connect(nil, mapDispatchToProps)(HomeView)

@@ -28,7 +28,6 @@ return function()
 	local FocusHandlerContextProvider = require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
 	local InviteFriendsList = require(script.Parent.InviteFriendsList)
 
-	local GetFFlagIGMRefactorInviteFriendsGamepadSupport = require(InGameMenu.Flags.GetFFlagIGMRefactorInviteFriendsGamepadSupport)
 	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 
 	it("should create and destroy without errors", function()
@@ -47,8 +46,8 @@ return function()
 					DisplayName = "TestDisplayName",
 				},
 			},
-			canCaptureFocus = GetFFlagIGMRefactorInviteFriendsGamepadSupport() or nil,
-			searchBoxRef = GetFFlagIGMRefactorInviteFriendsGamepadSupport() and Roact.createRef() or nil,
+			canCaptureFocus = true,
+			searchBoxRef = Roact.createRef(),
 		})
 
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
@@ -90,8 +89,8 @@ return function()
 					DisplayName = "TestDisplayName",
 				},
 			},
-			canCaptureFocus = GetFFlagIGMRefactorInviteFriendsGamepadSupport() or nil,
-			searchBoxRef = GetFFlagIGMRefactorInviteFriendsGamepadSupport() and Roact.createRef() or nil,
+			canCaptureFocus = true,
+			searchBoxRef = Roact.createRef(),
 		})
 
 		local element = Roact.createElement(RoactRodux.StoreProvider, {

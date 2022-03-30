@@ -4,9 +4,12 @@ local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
 local Layouter = require(Plugin.Core.Util.Layouter)
+local Util = Plugin.Core.Util
+local Constants = require(Util.Constants)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local LoadingIndicator = Framework.UI.LoadingIndicator
 local CategorizationFolder = Plugin.Core.Components.Categorization
 local SectionHeader = require(CategorizationFolder.SectionHeader)
 local HorizontalList = require(CategorizationFolder.HorizontalList)
@@ -17,15 +20,20 @@ type HoverState = {
 	onAssetHoverEnded: (() -> any),
 }
 
-export type SwimlaneProps = HorizontalList.HorizontalListProps & {
+type _InternalProps = {
+	Localization: any,
+}
+
+export type SwimlaneProps = HorizontalList.HorizontalListProps & _InternalProps & {
 	AutomaticSize: Enum.AutomaticSize?,
-	ShowTotal: boolean?,
+	IsLoading: boolean,
 	LayoutOrder: number?,
 	OnClickSeeAll: (() -> ()),
+	SwimlaneWidth: number,
+	ShowTotal: boolean?,
 	Size: UDim2?,
 	Title: string,
 	Total: number?,
-	Localization: any,
 }
 
 local SPACING = 10
@@ -71,8 +79,44 @@ function Swimlane:render()
 	local onClickSeeAll = props.OnClickSeeAll
 	local onRenderItem = props.OnRenderItem
 	local localization = props.Localization
+	local isLoading = props.IsLoading
 
 	local displayCount = self.state.DisplayCount
+
+	local content
+	if isLoading then
+		content = Roact.createElement("Frame", {
+			BackgroundColor3 = Color3.new(0, 0, 0),
+			BackgroundTransparency = 0.8,
+			LayoutOrder = 2,
+			Size = UDim2.new(1, 0, 0, 100),
+		}, {
+			UICorner = Roact.createElement("UICorner", {
+				CornerRadius = UDim.new(0, 5),
+			}),
+			Loading = Roact.createElement(LoadingIndicator, {
+				Size = UDim2.new(0, 90, 0, 30),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+			}),
+		})
+	else
+		content = Roact.createElement(
+			"Frame",
+			{
+				AutomaticSize = Enum.AutomaticSize.Y,
+				BackgroundTransparency = 1,
+				Position = UDim2.new(0, 0, 0, 0),
+				LayoutOrder = 2,
+				Size = UDim2.new(1, 0, 0, 0),
+			},
+			Roact.createElement(HorizontalList, {
+				Data = data,
+				DisplayCount = displayCount,
+				OnRenderItem = onRenderItem,
+			})
+		)
+	end
 
 	return Roact.createElement("Frame", {
 		AutomaticSize = automaticSize,
@@ -97,20 +141,7 @@ function Swimlane:render()
 			Total = total,
 		}),
 
-		SectionContents = Roact.createElement(
-			"Frame",
-			{
-				AutomaticSize = Enum.AutomaticSize.Y,
-				BackgroundTransparency = 1,
-				LayoutOrder = 2,
-				Size = UDim2.new(1, 0, 0, 0),
-			},
-			Roact.createElement(HorizontalList, {
-				Data = data,
-				DisplayCount = displayCount,
-				OnRenderItem = onRenderItem,
-			})
-		),
+		SectionContents = content,
 	})
 end
 

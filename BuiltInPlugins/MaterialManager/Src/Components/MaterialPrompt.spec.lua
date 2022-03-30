@@ -33,13 +33,13 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly with colorMap", function()
+	it("should render correctly with ColorMap", function()
 		local container = Instance.new("Folder")
 		local element = createTestElement({
 			PromptClosed = function() end,
-			name = "Default Variant",
-			baseMaterial = Enum.Material.Plastic,
-			colorMap = {
+			Name = "Default Variant",
+			BaseMaterial = Enum.Material.Plastic,
+			ColorMap = {
 				assetId = "rbxassetid://8706345277",
 			},
 		})

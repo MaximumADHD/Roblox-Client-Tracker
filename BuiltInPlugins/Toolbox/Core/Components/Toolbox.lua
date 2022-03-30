@@ -73,13 +73,13 @@ local IXPContext = require(Plugin.Core.ContextServices.IXPContext)
 local HomeTypes = require(Plugin.Core.Types.HomeTypes)
 
 local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
-local FFlagToolboxAssetGridRefactor5 = game:GetFastFlag("ToolboxAssetGridRefactor5")
+local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
 
 local Background = require(Plugin.Core.Types.Background)
 
 local Toolbox = Roact.PureComponent:extend("Toolbox")
 
-if FFlagToolboxAssetGridRefactor5 then
+if FFlagToolboxAssetGridRefactor then
 	Toolbox.defaultProps = {
 		Size = UDim2.new(1, 0, 1, 0),
 	}
@@ -131,7 +131,7 @@ function Toolbox:init(props)
 		showSearchOptions = false,
 		-- Keep track of the timestamp an asset was last inserted
 		-- Allows us to track an analytic if a search is made and no asset is chosen
-		mostRecentAssetInsertTime = not FFlagToolboxAssetGridRefactor5 and 0 or nil,
+		mostRecentAssetInsertTime = not FFlagToolboxAssetGridRefactor and 0 or nil,
 	}
 
 	self.toolboxRef = Roact.createRef()
@@ -208,7 +208,7 @@ function Toolbox:init(props)
 		Analytics.onCategorySelected(currentCategory, newCategory)
 	end
 
-	if not FFlagToolboxAssetGridRefactor5 then
+	if not FFlagToolboxAssetGridRefactor then
 		self.updateMostRecentAssetTime = function()
 			self:setState({
 				mostRecentAssetInsertTime = tick(),
@@ -258,6 +258,8 @@ function Toolbox:render()
 	local showSearchOptions = state.showSearchOptions
 
 	local backgrounds = props.backgrounds
+	local creator = props.creator
+	local searchTerm = props.searchTerm
 	local suggestions = props.suggestions or {}
 	local categoryName = props.categoryName
 	local currentTabKey = Category.getTabKeyForCategoryName(categoryName)
@@ -268,6 +270,7 @@ function Toolbox:render()
 	local size = self.props.Size
 	local toolboxTheme = self.props.Stylizer
 	local localizedContent = props.Localization
+	local locale = props.Localization.locale
 	local ixp = props.IXP
 
 	local onAbsoluteSizeChange = self.onAbsoluteSizeChange
@@ -275,7 +278,7 @@ function Toolbox:render()
 	local tabHeight = Constants.TAB_WIDGET_HEIGHT
 	local headerOffset = tabHeight
 
-	local inHomeViewExperiment
+	local inHomeViewExperiment = false
 	local selectedAssetType = if FFlagToolboxAssetCategorization
 		then Category.getEngineAssetType(Category.getCategoryByName(categoryName).assetType)
 		else nil
@@ -283,6 +286,9 @@ function Toolbox:render()
 		FFlagToolboxAssetCategorization
 		and currentTabKey == Category.MARKETPLACE_KEY
 		and table.find(HomeTypes.ENABLED_ASSET_TYPES, selectedAssetType) ~= nil
+		and not ixp:isError()
+		and (not creator or creator == "")
+		and searchTerm == ""
 	then
 		if not ixp:isReady() then
 			-- IXP state has not loaded yet, avoid a flash of (potentially) the wrong content
@@ -296,7 +302,7 @@ function Toolbox:render()
 
 	return Roact.createElement("Frame", {
 		Position = UDim2.new(0, 0, 0, 0),
-		Size = FFlagToolboxAssetGridRefactor5 and size or UDim2.new(1, 0, 1, 0),
+		Size = FFlagToolboxAssetGridRefactor and size or UDim2.new(1, 0, 1, 0),
 
 		BorderSizePixel = 0,
 		BackgroundColor3 = toolboxTheme.backgroundColor,
@@ -317,19 +323,18 @@ function Toolbox:render()
 			maxWidth = toolboxWidth,
 			onSearchOptionsToggled = self.toggleSearchOptions,
 			pluginGui = pluginGui,
-			mostRecentAssetInsertTime = not FFlagToolboxAssetGridRefactor5 and self.state.mostRecentAssetInsertTime
+			mostRecentAssetInsertTime = not FFlagToolboxAssetGridRefactor and self.state.mostRecentAssetInsertTime
 				or nil,
 		}),
-
-		SearchOptions = if FFlagToolboxRefactorSearchOptions and showSearchOptions then Roact.createElement(SearchOptions, {
-			onSearchOptionsToggled = self.toggleSearchOptions,
-		}) else nil,
 
 		MainView = if inHomeViewExperiment
 			then Roact.createElement(HomeWrapper, {
 				AssetType = selectedAssetType,
+				CategoryName = categoryName,
+				Locale = locale,
 				Position = UDim2.new(0, 0, 0, headerOffset + Constants.HEADER_HEIGHT + 1),
 				Size = UDim2.new(1, 0, 1, -(Constants.HEADER_HEIGHT + Constants.FOOTER_HEIGHT + headerOffset + 2)),
+				SortName = Sort.getDefaultSortNameForCategory(categoryName),
 				TryOpenAssetConfig = tryOpenAssetConfig,
 			})
 			else Roact.createElement(MainView, {
@@ -338,14 +343,22 @@ function Toolbox:render()
 
 				maxWidth = toolboxWidth,
 				suggestions = suggestions,
-				showSearchOptions = showSearchOptions,
-				onSearchOptionsToggled = self.toggleSearchOptions,
+				showSearchOptions = if not FFlagToolboxRefactorSearchOptions then showSearchOptions else nil,
+				onSearchOptionsToggled = if not FFlagToolboxRefactorSearchOptions
+					then self.toggleSearchOptions
+					else nil,
 				tryOpenAssetConfig = tryOpenAssetConfig,
-				mostRecentAssetInsertTime = not FFlagToolboxAssetGridRefactor5 and self.state.mostRecentAssetInsertTime
+				mostRecentAssetInsertTime = not FFlagToolboxAssetGridRefactor and self.state.mostRecentAssetInsertTime
 					or nil,
-				onAssetInsertionSuccesful = not FFlagToolboxAssetGridRefactor5 and self.updateMostRecentAssetTime
+				onAssetInsertionSuccesful = not FFlagToolboxAssetGridRefactor and self.updateMostRecentAssetTime
 					or nil,
 			}),
+
+		SearchOptions = if FFlagToolboxRefactorSearchOptions and showSearchOptions
+			then Roact.createElement(SearchOptions, {
+				onSearchOptionsToggled = self.toggleSearchOptions,
+			})
+			else nil,
 
 		Footer = Roact.createElement(Footer, {
 			backgrounds = backgrounds,
@@ -368,8 +381,10 @@ local function mapStateToProps(state, props)
 
 	return {
 		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
-		sorts = pageInfo.sorts or {},
+		creator = if FFlagToolboxAssetCategorization then pageInfo.creator else nil,
 		roles = state.roles or {},
+		searchTerm = if FFlagToolboxAssetCategorization then pageInfo.searchTerm or "" else nil,
+		sorts = pageInfo.sorts or {},
 	}
 end
 

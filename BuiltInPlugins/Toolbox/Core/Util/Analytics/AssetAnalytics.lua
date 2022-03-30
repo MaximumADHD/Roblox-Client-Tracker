@@ -3,6 +3,7 @@
 local FFlagToolboxAddAssetImpressionCounterAnalytics = game:GetFastFlag("ToolboxAddAssetImpressionCounterAnalytics")
 local FFlagToolboxTrackScriptIconShown = game:GetFastFlag("ToolboxTrackScriptIconShown")
 local FFlagToolboxShowHasScriptInfo = game:GetFastFlag("ToolboxShowHasScriptInfo")
+local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -88,28 +89,31 @@ function AssetAnalytics.schedule(delayS: number, callback: () -> any)
 	delay(delayS, callback)
 end
 
-function AssetAnalytics.addContextToAssetResults(assetResults: Array<Object<any>>, pageInfo: PageInfo)
-	local context = AssetAnalytics.pageInfoToContext(pageInfo)
-	for _, asset in ipairs(assetResults) do
-		local contextClone = Cryo.Dictionary.join(context)
-		asset.Context = contextClone
-	end
-end
 
-function AssetAnalytics.pageInfoToContext(pageInfo: PageInfo): AssetContext
-	if DebugFlags.shouldDebugWarnings() and not pageInfo.searchId then
-		warn("no searchId in pageInfo, analytics won't be tracked for asset")
+if not FFlagToolboxUsePageInfoInsteadOfAssetContext then
+	function AssetAnalytics.addContextToAssetResults(assetResults: Array<Object<any>>, pageInfo: PageInfo)
+		local context = AssetAnalytics.pageInfoToContext(pageInfo)
+		for _, asset in pairs(assetResults) do
+			local contextClone = Cryo.Dictionary.join(context)
+			asset.Context = contextClone
+		end
 	end
 
-	return {
-		category = "Studio",
-		currentCategory = PageInfoHelper.getCategoryForPageInfo(pageInfo),
-		toolboxTab = PageInfoHelper.getCurrentTab(pageInfo),
-		sort = PageInfoHelper.getSortTypeForPageInfo(pageInfo),
-		searchKeyword = pageInfo.searchTerm,
-		page = pageInfo.targetPage,
-		searchId = pageInfo.searchId,
-	}
+	function AssetAnalytics.pageInfoToContext(pageInfo: PageInfo): AssetContext
+		if DebugFlags.shouldDebugWarnings() and not pageInfo.searchId then
+			warn("no searchId in pageInfo, analytics won't be tracked for asset")
+		end
+
+		return {
+			category = "Studio",
+			currentCategory = PageInfoHelper.getCategoryForPageInfo(pageInfo),
+			toolboxTab = PageInfoHelper.getCurrentTab(pageInfo),
+			sort = PageInfoHelper.getSortTypeForPageInfo(pageInfo),
+			searchKeyword = pageInfo.searchTerm,
+			page = pageInfo.targetPage,
+			searchId = pageInfo.searchId,
+		}
+	end
 end
 
 function AssetAnalytics.getAssetCategoryName(assetTypeId: number)
@@ -121,12 +125,27 @@ function AssetAnalytics.getAssetCategoryName(assetTypeId: number)
 	return ""
 end
 
-function AssetAnalytics.isAssetTrackable(assetData: AssetData)
-	return assetData and assetData.Asset and assetData.Asset.Id and assetData.Context and assetData.Context.searchId
+function AssetAnalytics.isAssetTrackable(assetData: AssetData, assetAnalyticsContext)
+	if FFlagToolboxUsePageInfoInsteadOfAssetContext then
+		return assetData and assetData.Asset and assetData.Asset.Id and assetAnalyticsContext and assetAnalyticsContext.searchId
+	else
+		return assetData and assetData.Asset and assetData.Asset.Id and assetData.Context and assetData.Context.searchId
+	end
 end
 
-function AssetAnalytics.getTrackingAttributes(assetData: AssetData)
-	local attributes = Cryo.Dictionary.join(assetData.Context, {
+function AssetAnalytics.getTrackingAttributes(assetData: AssetData, assetAnalyticsContext)
+	local context
+	local searchId
+	if FFlagToolboxUsePageInfoInsteadOfAssetContext then
+		local assetContext = assetData.Context or {}
+		context = Cryo.Dictionary.join(assetAnalyticsContext, assetContext)
+		searchId = assetAnalyticsContext.searchId
+	else
+		context = assetData.Context
+		searchId = assetData.Context.searchId
+	end
+
+	local attributes = Cryo.Dictionary.join(context, {
 		assetID = assetData.Asset.Id,
 		assetType = AssetAnalytics.getAssetCategoryName(assetData.Asset.TypeId),
 		-- TODO STM-49: Do we get userId for free in EventIngest?
@@ -134,7 +153,7 @@ function AssetAnalytics.getTrackingAttributes(assetData: AssetData)
 		placeID = Analytics.getPlaceId(),
 		platformID = Analytics.getPlatformId(),
 		clientID = Analytics.getClientId(),
-		searchID = assetData.Context.searchId,
+		searchID = searchId,
 		studioSid = Analytics.getStudioSessionId(),
 		isEditMode = Analytics.getIsEditMode(),
 
@@ -162,14 +181,19 @@ end
     Log an impression of an asset, if the asset has not already been viewed in the current view context
     this will trigger the MarketplaceAssetImpression analytic.
 ]]
-function AssetAnalytics:logImpression(assetData: AssetData)
-	if not AssetAnalytics.isAssetTrackable(assetData) then
+function AssetAnalytics:logImpression(assetData: AssetData, assetAnalyticsContext)
+	if not AssetAnalytics.isAssetTrackable(assetData, assetAnalyticsContext) then
 		return
 	end
 
 	local assetId = assetData.Asset.Id
-	local context = assetData.Context
-	local searchId = context.searchId
+	local searchId
+	if FFlagToolboxUsePageInfoInsteadOfAssetContext then
+		searchId = assetAnalyticsContext.searchId
+	else
+		local context = assetData.Context
+		searchId = context.searchId
+	end
 
 	if not self._searches[searchId] then
 		self._searches[searchId] = {
@@ -179,12 +203,18 @@ function AssetAnalytics:logImpression(assetData: AssetData)
 
 	local search = self._searches[searchId]
 
+	local trackingAttributes
+	if FFlagToolboxUsePageInfoInsteadOfAssetContext then
+		trackingAttributes = AssetAnalytics.getTrackingAttributes(assetData, assetAnalyticsContext)
+	else
+		trackingAttributes = AssetAnalytics.getTrackingAttributes(assetData)
+	end
 	if not search.impressions[assetId] then
 		self.senders.sendEventDeferred(
 			EVENT_TARGET,
 			EVENT_CONTEXT,
 			"MarketplaceAssetImpression",
-			AssetAnalytics.getTrackingAttributes(assetData)
+			trackingAttributes
 		)
 		if FFlagToolboxAddAssetImpressionCounterAnalytics then
 			Analytics.incrementAssetImpressionCounter()
@@ -197,8 +227,8 @@ end
 --[[
     Log an opening of AssetPreview
 ]]
-function AssetAnalytics:logPreview(assetData: AssetData)
-	if not AssetAnalytics.isAssetTrackable(assetData) then
+function AssetAnalytics:logPreview(assetData: AssetData, assetAnalyticsContext)
+	if not AssetAnalytics.isAssetTrackable(assetData, assetAnalyticsContext) then
 		return
 	end
 
@@ -206,22 +236,23 @@ function AssetAnalytics:logPreview(assetData: AssetData)
 		EVENT_TARGET,
 		EVENT_CONTEXT,
 		"MarketplaceAssetPreview",
-		AssetAnalytics.getTrackingAttributes(assetData)
+		AssetAnalytics.getTrackingAttributes(assetData, assetAnalyticsContext)
 	)
 end
 
 function AssetAnalytics:logInsert(
 	assetData: AssetData,
 	insertionMethod: string,
-	insertedInstance: Instance? | Array<Instance>?
+	insertedInstance: Instance? | Array<Instance>?,
+	assetAnalyticsContext
 )
-	if not AssetAnalytics.isAssetTrackable(assetData) then
+	if not AssetAnalytics.isAssetTrackable(assetData, assetAnalyticsContext) then
 		return
 	end
 
 	local insertionAttributes = Cryo.Dictionary.join({
 		method = insertionMethod,
-	}, AssetAnalytics.getTrackingAttributes(assetData))
+	}, AssetAnalytics.getTrackingAttributes(assetData, assetAnalyticsContext))
 
 	self.senders.sendEventDeferred(EVENT_TARGET, EVENT_CONTEXT, "MarketplaceInsert", insertionAttributes)
 

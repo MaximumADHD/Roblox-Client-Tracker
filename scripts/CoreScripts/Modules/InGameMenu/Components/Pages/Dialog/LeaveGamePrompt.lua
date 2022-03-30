@@ -17,14 +17,12 @@ local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
-local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 local LeaveGamePrompt = Roact.PureComponent:extend("LeaveGamePrompt")
 
 LeaveGamePrompt.validateProps = t.strictInterface({
 	closeMenu = t.callback,
-	canGamepadCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+	canGamepadCaptureFocus = t.optional(t.boolean),
 	canKeyboardCaptureFocus = t.optional(t.boolean),
 	-- used only for unit testing until we can properly mock
 	onConfirm = t.optional(t.callback),
@@ -62,13 +60,10 @@ end
 
 return RoactRodux.UNSTABLE_connect2(
 	 function(state, props)
-		local canGamepadCaptureFocus = nil
-		if GetFFlagInGameMenuControllerDevelopmentOnly() then
-			canGamepadCaptureFocus = state.menuPage == Constants.LeaveGamePromptPageKey
-				and state.displayOptions.inputType == Constants.InputType.Gamepad
-				and not state.respawn.dialogOpen
-				and state.currentZone == 1
-		end
+		local canGamepadCaptureFocus = state.menuPage == Constants.LeaveGamePromptPageKey
+			and state.displayOptions.inputType == Constants.InputType.Gamepad
+			and not state.respawn.dialogOpen
+			and state.currentZone == 1
 
 		local canKeyboardCaptureFocus = state.menuPage == Constants.LeaveGamePromptPageKey
 			and state.displayOptions.inputType == Constants.InputType.MouseAndKeyboard

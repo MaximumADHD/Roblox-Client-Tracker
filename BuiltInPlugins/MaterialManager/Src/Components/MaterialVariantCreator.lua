@@ -1,5 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
+local _Types = require(Plugin.Src.Types)
 local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
 
@@ -18,18 +20,29 @@ local ScrollingFrame = UI.ScrollingFrame
 local Util = Framework.Util
 local LayoutOrderIterator = Util.LayoutOrderIterator
 
+local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+
 local GeneralSettings = require(Plugin.Src.Components.GeneralSettings)
+local MaterialPreview = require(Plugin.Src.Components.MaterialPreview)
 local TextureSettings = require(Plugin.Src.Components.TextureSettings)
 
 type _Props = {
+	ColorMap : _Types.TextureMap,
+	MetalnessMap : _Types.TextureMap,
+	NormalMap : _Types.TextureMap,
+	RoughnessMap : _Types.TextureMap,
 	Analytics : any,
 	Localization : any,
 	Stylizer : any,
 }
 
 type _Style = {
+	Background : Color3,
 	ListItemPadding : number,
 	Padding : number,
+	TextFont : Enum.Font,
+	SettingsSize : UDim2,
+	PreviewSize : UDim2,
 }
 
 local MaterialVariantCreator = Roact.PureComponent:extend("MaterialVariantCreator")
@@ -42,6 +55,24 @@ function MaterialVariantCreator:render()
 
 	local padding = UDim.new(0, style.Padding)
 
+	local colorMap = props.ColorMap
+	local metalnessMap = props.MetalnessMap
+	local normalMap = props.NormalMap
+	local roughnessMap = props.RoughnessMap
+
+	if colorMap then
+		colorMap = colorMap.assetId or colorMap.tempId
+	end
+	if metalnessMap then
+		metalnessMap = metalnessMap.assetId or metalnessMap.tempId
+	end
+	if normalMap then
+		normalMap = normalMap.assetId or normalMap.tempId
+	end
+	if roughnessMap then
+		roughnessMap = roughnessMap.assetId or roughnessMap.tempId
+	end
+
 	return Roact.createElement(Pane, {
 		Layout = Enum.FillDirection.Horizontal,
 	}, {
@@ -51,7 +82,8 @@ function MaterialVariantCreator:render()
 				Padding = style.ListItemPadding,
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			},
-			Size = UDim2.fromScale(0.5, 1)
+			LayoutOrder = 1,
+			Size = style.SettingsSize,
 		}, {
 			Padding = Roact.createElement("UIPadding", {
 				PaddingLeft = padding,
@@ -64,6 +96,7 @@ function MaterialVariantCreator:render()
 				Text = localization:getText("CreateDialog", "General"),
 				AutomaticSize = Enum.AutomaticSize.XY,
 				LayoutOrder = layoutOrderIterator:getNextOrder(),
+				Font = style.TextFont,
 			}),
 
 			GeneralSettings = Roact.createElement(GeneralSettings, {
@@ -74,12 +107,23 @@ function MaterialVariantCreator:render()
 				Text = localization:getText("CreateDialog", "TextureMaps"),
 				AutomaticSize = Enum.AutomaticSize.XY,
 				LayoutOrder = layoutOrderIterator:getNextOrder(),
+				Font = style.TextFont,
 			}),
 
 			TextureSettings = Roact.createElement(TextureSettings, {
 				LayoutOrder = layoutOrderIterator:getNextOrder(),
 			}),
 		}),
+
+		MaterialPreview = Roact.createElement(MaterialPreview, {
+			BackgroundColor = style.Background,
+			ColorMap = colorMap,
+			LayoutOrder = 2,
+			MetalnessMap = metalnessMap,
+			NormalMap = normalMap,
+			RoughnessMap = roughnessMap,
+			Size = style.PreviewSize,
+		})
 	})
 end
 
@@ -90,4 +134,15 @@ MaterialVariantCreator = withContext({
 	Stylizer = Stylizer,
 })(MaterialVariantCreator)
 
-return MaterialVariantCreator
+
+
+return RoactRodux.connect(
+	function(state : MainReducer.State, _)
+		return {
+			ColorMap = state.MaterialPromptReducer.ColorMap,
+			NormalMap = state.MaterialPromptReducer.NormalMap,
+			MetalnessMap = state.MaterialPromptReducer.MetalnessMap,
+			RoughnessMap = state.MaterialPromptReducer.RoughnessMap,
+		}
+	end
+)(MaterialVariantCreator)

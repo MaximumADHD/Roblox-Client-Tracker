@@ -121,7 +121,6 @@ function TopBar.new()
 	-- add binding
 	if FFlagEnableExperienceChat then
 		MessageReceivedBindableEvent.Event:Connect(function()
-
 			self.store:dispatch(UpdateUnreadMessagesBadge(1))
 		end)
 	end

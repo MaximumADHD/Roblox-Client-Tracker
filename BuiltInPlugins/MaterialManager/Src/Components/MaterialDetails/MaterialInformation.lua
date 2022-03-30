@@ -23,6 +23,7 @@ local ClearMaterialVariant = require(Actions.ClearMaterialVariant)
 local SetMaterial = require(Actions.SetMaterial)
 local SetBaseMaterial = require(Actions.SetBaseMaterial)
 local SetFromVariantInstance = require(Actions.SetFromVariantInstance)
+local SetMode = require(Actions.SetMode)
 
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialServiceStringOverride = require(Flags.getFFlagMaterialServiceStringOverride)
@@ -43,6 +44,7 @@ type _Props = Props & {
 	dispatchSetMaterial : (material : _Types.Material) -> (),
 	dispatchSetBaseMaterial : (baseMaterial : string) -> (),
 	dispatchSetFromVariantInstance : (materialVariant : MaterialVariant) -> (),
+	dispatchSetMode : (mode : string) -> (),
 	Localization : any,
 	Material : _Types.Material?,
 	MaterialController : any,
@@ -126,6 +128,7 @@ function MaterialOptions:init()
 				if value == createVariant then
 					props.dispatchClearMaterialVariant()
 					props.dispatchSetBaseMaterial(baseMaterial)
+					props.dispatchSetMode("Create")
 					props.OpenPrompt("Create")
 				elseif value == resetPartMaterial then
 					materialController:setPartOverride(baseMaterial)
@@ -195,6 +198,7 @@ function MaterialOptions:init()
 			local function onItemActivated(value, index)
 				if value == edit then
 					props.dispatchSetFromVariantInstance(material.MaterialVariant)
+					props.dispatchSetMode("Edit")
 					props.OpenPrompt("Edit")
 				elseif value == setPartOverride then
 					materialController:setPartOverride(baseMaterial, material.MaterialVariant)
@@ -375,6 +379,9 @@ return RoactRodux.connect(
 			end,
 			dispatchSetBaseMaterial = function(baseMaterial : Enum.Material)
 				dispatch(SetBaseMaterial(baseMaterial))
+			end,
+			dispatchSetMode = function(mode : string)
+				dispatch(SetMode(mode))
 			end,
 		}
 	end

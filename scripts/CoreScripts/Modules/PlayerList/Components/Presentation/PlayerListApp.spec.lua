@@ -53,13 +53,6 @@ return function()
 	end)
 
 	describe("PlayerListTenFoot", function()
-		beforeAll(function(context)
-			context.oldFlag = game:SetFastFlagForTesting("NewSidebarInitalizationLogic", true)
-		end)
-		afterAll(function(context)
-			game:SetFastFlagForTesting("NewSidebarInitalizationLogic", context.oldFlag)
-		end)
-
 		it("should create and destroy without errors tenfoot", function()
 			local store = Rodux.Store.new(Reducer, nil, {
 				Rodux.thunkMiddleware,

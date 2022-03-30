@@ -5,8 +5,6 @@ local Cryo = InGameMenuDependencies.Cryo
 local Rodux = InGameMenuDependencies.Rodux
 
 local InGameMenu = script.Parent.Parent
-local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 local SetRespawning = require(InGameMenu.Actions.SetRespawning)
 local SetRespawnBehavior = require(InGameMenu.Actions.SetRespawnBehavior)
@@ -24,7 +22,7 @@ return Rodux.createReducer({
 		})
 	end,
 	[SetMenuOpen.name] = function(state, action)
-		if GetFFlagInGameMenuControllerDevelopmentOnly() and not action.menuOpen then
+		if not action.menuOpen then
 			return Cryo.Dictionary.join(state, {
 				dialogOpen = false,
 			})
@@ -34,12 +32,9 @@ return Rodux.createReducer({
 	-- If you are changing page, show the new page by hiding the dialog.
 	-- This can happen when pressing X to leave.
 	[SetCurrentPage.name] = function(state, action)
-		if GetFFlagInGameMenuControllerDevelopmentOnly() then
-			return Cryo.Dictionary.join(state, {
-				dialogOpen = false,
-			})
-		end
-		return state
+		return Cryo.Dictionary.join(state, {
+			dialogOpen = false,
+		})
 	end,
 	[SetRespawnBehavior.name] = function(state, action)
 		local newDialogOpen = state.dialogOpen

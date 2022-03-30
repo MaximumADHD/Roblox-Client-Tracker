@@ -24,11 +24,7 @@ local PageInstance = nil
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
-local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
-local Constants
-if FFlagCollectAnalyticsForSystemMenu then
-  Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
-end
+local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
 ----------- CLASS DECLARATION --------------
 
@@ -37,10 +33,8 @@ local function Initialize()
 	local this = settingsPageFactory:CreateNewPage()
 
 	this.DontResetCharFunc = function(isUsingGamepad)
-		if FFlagCollectAnalyticsForSystemMenu then
-			AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName,
-												Constants.AnalyticsRespawnCharacterName, {confirmed = Constants.AnalyticsCancelledName, universeid = tostring(game.GameId)})
-		end
+		AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName,
+											Constants.AnalyticsRespawnCharacterName, {confirmed = Constants.AnalyticsCancelledName, universeid = tostring(game.GameId)})
 
 		if this.HubRef then
 			this.HubRef:PopMenu(isUsingGamepad, true)
@@ -57,7 +51,7 @@ local function Initialize()
 	this.DontResetCharFromButton = function(isUsingGamepad)
 		this.DontResetCharFunc(isUsingGamepad)
 	end
-	
+
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader = nil -- no tab for this page
 
@@ -65,7 +59,7 @@ local function Initialize()
 	this.Page.Name = "ResetCharacter"
 	this.ShouldShowBottomBar = false
 	this.ShouldShowHubBar = false
-	
+
 	local resetCharacterText =  utility:Create'TextLabel'
 	{
 		Name = "ResetCharacterText",
@@ -80,7 +74,7 @@ local function Initialize()
 		Parent = this.Page,
 		Position = isTenFootInterface and UDim2.new(0,0,0,100) or UDim2.new(0,0,0,0)
 	};
-	
+
 	local resetButtonContainer = utility:Create"Frame"
 	{
 		Name = "ResetButtonContainer",
@@ -89,7 +83,7 @@ local function Initialize()
 		BackgroundTransparency = 1,
 		Position = UDim2.new(0,0,1,0)
 	};
-	
+
 	local _resetButtonLayout = utility:Create'UIGridLayout'
 	{
 		Name = "ResetButtonsLayout",
@@ -101,7 +95,7 @@ local function Initialize()
 		VerticalAlignment = Enum.VerticalAlignment.Top,
 		Parent = resetButtonContainer
 	};
-	
+
 	if utility:IsSmallTouchScreen() then
 		resetCharacterText.FontSize = Enum.FontSize.Size24
 		resetCharacterText.Size = UDim2.new(1,0,0,100)
@@ -122,15 +116,13 @@ local function Initialize()
 			end
 		end
 
-		if FFlagCollectAnalyticsForSystemMenu then
-			AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName,
-												Constants.AnalyticsRespawnCharacterName, {confirmed = Constants.AnalyticsConfirmedName, universeid = tostring(game.GameId)})
-		end
+		AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName,
+											Constants.AnalyticsRespawnCharacterName, {confirmed = Constants.AnalyticsConfirmedName, universeid = tostring(game.GameId)})
 		AnalyticsService:ReportCounter("InGameMenu-ResetCharacter")
 	end
-	
+
 	this.ResetBindable = true
-	
+
 	local onResetFunction = function()
 		if this.ResetBindable == true then
 			resetCharFunc()
@@ -141,7 +133,7 @@ local function Initialize()
 			this.HubRef:SetVisibility(false, true)
 		end
 	end
-	
+
 	this.ResetCharacterButton = utility:MakeStyledButton("ResetCharacter", "Reset", nil, onResetFunction)
 	this.ResetCharacterButton.NextSelectionRight = nil
 	this.ResetCharacterButton.Parent = resetButtonContainer
@@ -152,7 +144,7 @@ local function Initialize()
 	dontResetCharacterButton.Parent = resetButtonContainer
 
 	this.Page.Size = UDim2.new(1,0,0,dontResetCharacterButton.AbsolutePosition.Y + dontResetCharacterButton.AbsoluteSize.Y)
-	
+
 	return this
 end
 

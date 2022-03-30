@@ -3,7 +3,7 @@
 ]]
 
 return function()
-	local FFlagToolboxAssetGridRefactor5 = game:GetFastFlag("ToolboxAssetGridRefactor5")
+	local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
 
 	local Plugin = script.Parent.Parent
 
@@ -52,7 +52,7 @@ return function()
 	describe("Asset Preview Test Suite", function()
 		-- TODO: Update the test when removing the flag (STM-679)
 
-		if FFlagToolboxAssetGridRefactor5 then
+		if FFlagToolboxAssetGridRefactor then
 			return
 		end
 

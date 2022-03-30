@@ -13,7 +13,6 @@ local withStyle = UIBlox.Core.Style.withStyle
 local InGameMenu = script.Parent.Parent
 
 local FFlagLuaMenuPerfImprovements = require(InGameMenu.Flags.FFlagLuaMenuPerfImprovements)
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 local Assets = require(InGameMenu.Resources.Assets)
 
@@ -123,7 +122,7 @@ function PlayerLabel:renderWithSelectionCursor(getSelectionCursor)
 			[Roact.Event.Activated] = activated,
 			[Roact.Change.AbsolutePosition] = self.props[Roact.Change.AbsolutePosition],
 			[Roact.Ref] = forwardRef,
-			SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly() and getSelectionCursor(CursorKind.Square) or nil,
+			SelectionImageObject = getSelectionCursor(CursorKind.Square),
 		}, {
 			PlayerCutout = Roact.createElement(ImageSetLabel, Cryo.Dictionary.join(iconPos, {
 				BackgroundTransparency = 1,
@@ -173,13 +172,9 @@ function PlayerLabel:renderWithSelectionCursor(getSelectionCursor)
 end
 
 function PlayerLabel:render()
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		return withSelectionCursorProvider(function(getSelectionCursor)
-			return self:renderWithSelectionCursor(getSelectionCursor)
-		end)
-	else
-		return self:renderWithSelectionCursor()
-	end
+	return withSelectionCursorProvider(function(getSelectionCursor)
+		return self:renderWithSelectionCursor(getSelectionCursor)
+	end)
 end
 
 return Roact.forwardRef(function(props, ref)

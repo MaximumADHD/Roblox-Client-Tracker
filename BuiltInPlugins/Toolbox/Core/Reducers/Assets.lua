@@ -1,4 +1,5 @@
-local FFlagToolboxAssetGridRefactor5 = game:GetFastFlag("ToolboxAssetGridRefactor5")
+local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext")
+local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -6,8 +7,13 @@ local Packages = Plugin.Packages
 local Cryo = require(Packages.Cryo)
 local Rodux = require(Packages.Rodux)
 
-local DebugFlags = require(Plugin.Core.Util.DebugFlags)
-local PagedRequestCursor = require(Plugin.Core.Util.PagedRequestCursor)
+local Util = Plugin.Core.Util
+local Constants = require(Util.Constants)
+local DebugFlags = require(Util.DebugFlags)
+local PagedRequestCursor = require(Util.PagedRequestCursor)
+
+local Framework = require(Packages.Framework)
+local Math = Framework.Util.Math
 
 local Actions = Plugin.Core.Actions
 local ClearAssets = require(Actions.ClearAssets)
@@ -44,9 +50,22 @@ local function handleAssetsAddedToState(state, assets, totalAssets, newCursor)
 			continue
 		end
 
-		if asset.Context then
-			asset.Context.pagePosition = index
-			asset.Context.position = (state.assetsReceived or 0) + index
+		if FFlagToolboxUsePageInfoInsteadOfAssetContext then
+			local currTotal = (state.assetsReceived or 0)
+			local position = currTotal + index
+			local page = Math.round(currTotal / Constants.TOOLBOX_ITEM_SEARCH_LIMIT, 0) + 1
+
+			local assetContext = asset.Context or {}
+			asset.Context = Cryo.Dictionary.join(assetContext, {
+				page = page,
+				pagePosition = index,
+				position = position,
+			})
+		else
+			if asset.Context then
+				asset.Context.pagePosition = index
+				asset.Context.position = (state.assetsReceived or 0) + index
+			end
 		end
 
 		newIdToAssetMap[id] = Cryo.Dictionary.join(asset, removeVoting)
@@ -90,7 +109,7 @@ return Rodux.createReducer({
 	previewAssetId = nil,
 	isPreviewing = false,
 
-	mostRecentAssetInsertTime = FFlagToolboxAssetGridRefactor5 and 0 or nil,
+	mostRecentAssetInsertTime = FFlagToolboxAssetGridRefactor and 0 or nil,
 	manageableAssets = {},
 	-- Will be used to fetch versionId to install the latest plugin.
 	previewPluginData = nil,
@@ -125,7 +144,7 @@ return Rodux.createReducer({
 	[SetAssetPreview.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			isPreviewing = action.isPreviewing,
-			previewAssetId = FFlagToolboxAssetGridRefactor5 and action.previewAssetId or nil,
+			previewAssetId = FFlagToolboxAssetGridRefactor and action.previewAssetId or nil,
 		})
 	end,
 

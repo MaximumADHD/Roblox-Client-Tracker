@@ -11,8 +11,6 @@ local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCurso
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
 local InGameMenu = script.Parent.Parent.Parent
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
-
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 local Assets = require(InGameMenu.Resources.Assets)
 
@@ -37,7 +35,7 @@ GameLabel.validateProps = t.strictInterface({
 	LayoutOrder = t.integer,
 	onActivated = t.optional(t.callback),
 	[Roact.Children] = t.optional(t.table),
-	buttonRef = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.table) or nil,
+	buttonRef = t.optional(t.table),
 })
 
 function GameLabel:renderButtons()
@@ -69,8 +67,8 @@ function GameLabel:renderWithSelectionCursor(getSelectionCursor)
 			Size = UDim2.new(1, 0, 0, CONTAINER_FRAME_HEIGHT),
 			Text = "",
 			AutoButtonColor = false,
-			SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly() and getSelectionCursor(CursorKind.Square) or nil,
-			[Roact.Ref] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.buttonRef or nil,
+			SelectionImageObject = getSelectionCursor(CursorKind.Square),
+			[Roact.Ref] = self.props.buttonRef,
 			[Roact.Event.Activated] = self.props.onActivated,
 		}, {
 			GameIcon = Roact.createElement(ImageSetLabel, {
@@ -104,21 +102,13 @@ function GameLabel:renderWithSelectionCursor(getSelectionCursor)
 end
 
 function GameLabel:render()
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		return withSelectionCursorProvider(function(getSelectionCursor)
-			return self:renderWithSelectionCursor(getSelectionCursor)
-		end)
-	else
-		return self:renderWithSelectionCursor()
-	end
+	return withSelectionCursorProvider(function(getSelectionCursor)
+		return self:renderWithSelectionCursor(getSelectionCursor)
+	end)
 end
 
-if GetFFlagInGameMenuControllerDevelopmentOnly() then
-	return Roact.forwardRef(function(props, ref)
-		return Roact.createElement(GameLabel, Cryo.Dictionary.join(props, {
-			buttonRef = ref
-		}))
-	end)
-else
-	return GameLabel
-end
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(GameLabel, Cryo.Dictionary.join(props, {
+		buttonRef = ref
+	}))
+end)

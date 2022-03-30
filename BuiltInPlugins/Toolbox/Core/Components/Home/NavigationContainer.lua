@@ -54,6 +54,7 @@ if FFlagToolboxAssetCategorization then
 							SortName = sortName,
 							SubcategoryPath = subcategoryPath,
 							SubcategoryDict = subcategoryDict,
+							TryOpenAssetConfig = viewProps.TryOpenAssetConfig,
 						})
 					)
 				end,
@@ -64,6 +65,7 @@ if FFlagToolboxAssetCategorization then
 							CategoryName = categoryName,
 							SortName = sortName,
 							SubcategoryDict = mySubcategoryDict,
+							TryOpenAssetConfig = viewProps.TryOpenAssetConfig,
 						})
 					)
 				end,
@@ -79,7 +81,6 @@ if FFlagToolboxAssetCategorization then
 						})
 					)
 				end,
-				Position = UDim2.new(0, 0, 0, 0),
 				SubcategoryDict = viewProps.SubcategoryDict,
 				SortName = viewProps.SortName,
 				Size = UDim2.new(1, 0, 1, 0),
@@ -91,6 +92,7 @@ if FFlagToolboxAssetCategorization then
 			local params = viewProps.params
 			local categoryName = params and params.CategoryName
 			local sortName = params and params.SortName
+			local subcategoryDict = params and params.SubcategoryDict
 			local tryOpenAssetConfig = params and params.TryOpenAssetConfig
 
 			return Roact.createElement(SubcategoriesView, {
@@ -98,20 +100,33 @@ if FFlagToolboxAssetCategorization then
 				OnClickBack = function()
 					viewProps.navigation.popToTop()
 				end,
-				OnClickSubcategory = function(subcategoryPath, subcategoryDict, myCategoryName, mySortName)
+				OnClickSubcategory = function(subcategoryPath, mySubcategoryDict, myCategoryName, mySortName)
 					viewProps.navigation.push(
 						Constants.NAVIGATION.SUBCATEGORY,
 						Dash.join(viewProps, {
 							CategoryName = myCategoryName,
 							SortName = mySortName,
 							SubcategoryPath = subcategoryPath,
-							SubcategoryDict = subcategoryDict,
+							SubcategoryDict = mySubcategoryDict,
+							TryOpenAssetConfig = tryOpenAssetConfig,
+						})
+					)
+				end,
+				OnClickSeeAllAssets = function(sectionName, myCategoryName, mySortName, searchTerm)
+					viewProps.navigation.push(
+						Constants.NAVIGATION.RESULTS,
+						Dash.join(viewProps, {
+							CategoryName = myCategoryName,
+							SearchTerm = searchTerm,
+							SectionName = sectionName,
+							SortName = mySortName,
+							TryOpenAssetConfig = viewProps.TryOpenAssetConfig,
 						})
 					)
 				end,
 				SortName = sortName,
 				Size = UDim2.new(1, 0, 1, 0),
-				SubcategoryDict = params and params.SubcategoryDict,
+				SubcategoryDict = subcategoryDict,
 				TryOpenAssetConfig = tryOpenAssetConfig,
 			})
 		end),

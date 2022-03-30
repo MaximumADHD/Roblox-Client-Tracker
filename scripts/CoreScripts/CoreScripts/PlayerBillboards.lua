@@ -43,6 +43,14 @@ local GetFFlagEnableVoiceChatVoiceUISync = require(RobloxGui.Modules.Flags.GetFF
 local GetFFlagBubbleChatDuplicateMessagesFix = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatDuplicateMessagesFix)
 local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatLocalMuteUI)
 local FFlagBubbleVoiceLocalErrorState = game:DefineFastFlag("BubbleVoiceLocalErrorStateV3", false)
+local FFlagEnableExperienceChat = require(RobloxGui.Modules.Common.Flags.FFlagEnableExperienceChat)
+
+local ExperienceChat
+local MessageReceivedBindableEvent
+if FFlagEnableExperienceChat then
+	ExperienceChat = require(CorePackages.ExperienceChat)
+	MessageReceivedBindableEvent = ExperienceChat.MessageReceivedBindableEvent
+end
 
 local log = require(RobloxGui.Modules.InGameChat.BubbleChat.Logger)(script.Name)
 
@@ -114,7 +122,7 @@ local function initBubbleChat()
 
 		messageDoneFilteringConn = chatEvents:WaitForChild("OnMessageDoneFiltering", math.huge).OnClientEvent:Connect(function(messageData)
 			if not validateMessageData("OnMessageDoneFiltering", messageData)
-				or not validateMessageWithWarning("OnMessageDoneFiltering", messageData.Message) 
+				or not validateMessageWithWarning("OnMessageDoneFiltering", messageData.Message)
 			then
 				return
 			end
@@ -137,7 +145,7 @@ local function initBubbleChat()
 		end)
 	end))
 
-	chattedConn = Chat.Chatted:Connect(function(partOrModel, message)
+	local function addMessage(partOrModel, message)
 		local part
 		if partOrModel:IsA("Model") then
 			if partOrModel.PrimaryPart then
@@ -180,7 +188,30 @@ local function initBubbleChat()
 		}
 
 		chatStore:dispatch(AddMessageWithTimeout(message))
-	end)
+	end
+
+	if FFlagEnableExperienceChat then
+		chattedConn = Chat.Chatted:Connect(addMessage)
+	else
+		chattedConn = Chat.Chatted:Connect(function(partOrModel, message)
+			addMessage(partOrModel, message)
+		end)
+	end
+
+	if MessageReceivedBindableEvent then
+		MessageReceivedBindableEvent.Event:Connect(function(textChatMessage)
+			local textSource = textChatMessage.TextSource
+			if textSource and textSource.UserId then
+				local player = Players:GetPlayerByUserId(textSource.UserId)
+				if player then
+					local character = player.Character
+					if character and character.PrimaryPart then
+						addMessage(character, textChatMessage.Text)
+					end
+				end
+			end
+		end)
+	end
 end
 
 local function destroyBubbleChat()

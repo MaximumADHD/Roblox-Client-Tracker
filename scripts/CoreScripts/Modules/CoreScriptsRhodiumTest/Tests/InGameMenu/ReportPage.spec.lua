@@ -16,8 +16,6 @@ local OpenReportDialog = require(InGameMenu.Actions.OpenReportDialog)
 local act = require(Modules.act)
 
 local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuCloseReportAbuseMenuOnEscape = require(Flags.GetFFlagInGameMenuCloseReportAbuseMenuOnEscape)
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 local TestConstants = require(script.Parent.TestConstants)
 
@@ -56,115 +54,109 @@ return function()
 	end)
 
 	it("should close the abuse type dropdown when you press escape", function(c)
-		if GetFFlagInGameMenuCloseReportAbuseMenuOnEscape() then
-			local path = XPath.new(c.path)
+		local path = XPath.new(c.path)
 
-			c.storeUpdate(SetMenuOpen(true))
-			c.storeUpdate(SetCurrentPage("Report"))
-			c.storeUpdate(OpenReportDialog(2359090420, "CosmicPulsar"))
+		c.storeUpdate(SetMenuOpen(true))
+		c.storeUpdate(SetCurrentPage("Report"))
+		c.storeUpdate(OpenReportDialog(2359090420, "CosmicPulsar"))
 
-			local reportDialogPath = path:cat(XPath.new("ReportDialog"))
-			local reportDialog = Element.new(reportDialogPath)
-			reportDialog:waitForRbxInstance()
+		local reportDialogPath = path:cat(XPath.new("ReportDialog"))
+		local reportDialog = Element.new(reportDialogPath)
+		reportDialog:waitForRbxInstance()
 
-			local openDropdownButtonPath = reportDialogPath:cat(XPath.new("DialogMainFrame.AbuseTypeDropDown.DropDown.OpenDropDownButton"))
-			local openDropdownButton = Element.new(openDropdownButtonPath)
-			openDropdownButton:waitForRbxInstance()
+		local openDropdownButtonPath = reportDialogPath:cat(XPath.new("DialogMainFrame.AbuseTypeDropDown.DropDown.OpenDropDownButton"))
+		local openDropdownButton = Element.new(openDropdownButtonPath)
+		openDropdownButton:waitForRbxInstance()
 
-			local dropdownMenuPath = reportDialogPath:cat(XPath.new("DialogMainFrame.AbuseTypeDropDown.DropDown.DropDownShadow"))
-			local dropdownMenu = Element.new(dropdownMenuPath)
-			dropdownMenu:waitForRbxInstance()
+		local dropdownMenuPath = reportDialogPath:cat(XPath.new("DialogMainFrame.AbuseTypeDropDown.DropDown.DropDownShadow"))
+		local dropdownMenu = Element.new(dropdownMenuPath)
+		dropdownMenu:waitForRbxInstance()
 
-			expect(reportDialog:isDisplayed()).to.equal(true)
-			expect(dropdownMenu:isDisplayed()).to.equal(false)
+		expect(reportDialog:isDisplayed()).to.equal(true)
+		expect(dropdownMenu:isDisplayed()).to.equal(false)
 
-			act(function()
-				openDropdownButton:click()
-				VirtualInput.waitForInputEventsProcessed()
-			end)
-			act(function()
-				wait()
-			end)
+		act(function()
+			openDropdownButton:click()
+			VirtualInput.waitForInputEventsProcessed()
+		end)
+		act(function()
+			wait()
+		end)
 
-			expect(dropdownMenu:isDisplayed()).to.equal(true)
+		expect(dropdownMenu:isDisplayed()).to.equal(true)
 
-			act(function()
-				VirtualInput.Keyboard.hitKey(Enum.KeyCode.Escape)
-				VirtualInput.waitForInputEventsProcessed()
-			end)
-			act(function()
-				wait()
-			end)
+		act(function()
+			VirtualInput.Keyboard.hitKey(Enum.KeyCode.Escape)
+			VirtualInput.waitForInputEventsProcessed()
+		end)
+		act(function()
+			wait()
+		end)
 
-			expect(reportDialog:isDisplayed()).to.equal(false)
-			expect(dropdownMenu:isDisplayed()).to.equal(false)
+		expect(reportDialog:isDisplayed()).to.equal(false)
+		expect(dropdownMenu:isDisplayed()).to.equal(false)
 
-			c.storeUpdate(OpenReportDialog(2230941297, "jkelaty"))
+		c.storeUpdate(OpenReportDialog(2230941297, "jkelaty"))
 
-			expect(reportDialog:isDisplayed()).to.equal(true)
-			expect(dropdownMenu:isDisplayed()).to.equal(false)
+		expect(reportDialog:isDisplayed()).to.equal(true)
+		expect(dropdownMenu:isDisplayed()).to.equal(false)
 
-			act(function()
-				openDropdownButton:click()
-				VirtualInput.waitForInputEventsProcessed()
-			end)
-			act(function()
-				wait()
-			end)
+		act(function()
+			openDropdownButton:click()
+			VirtualInput.waitForInputEventsProcessed()
+		end)
+		act(function()
+			wait()
+		end)
 
-			expect(dropdownMenu:isDisplayed()).to.equal(true)
+		expect(dropdownMenu:isDisplayed()).to.equal(true)
 
-			act(function()
-				VirtualInput.Keyboard.hitKey(Enum.KeyCode.Escape)
-				VirtualInput.waitForInputEventsProcessed()
-			end)
-			act(function()
-				wait()
-			end)
+		act(function()
+			VirtualInput.Keyboard.hitKey(Enum.KeyCode.Escape)
+			VirtualInput.waitForInputEventsProcessed()
+		end)
+		act(function()
+			wait()
+		end)
 
-			expect(reportDialog:isDisplayed()).to.equal(false)
-			expect(dropdownMenu:isDisplayed()).to.equal(false)
-		end
+		expect(reportDialog:isDisplayed()).to.equal(false)
+		expect(dropdownMenu:isDisplayed()).to.equal(false)
 	end)
 
 	it("should switch between the page and SideNavigation", function(c)
-		if GetFFlagInGameMenuControllerDevelopmentOnly() then
-			local store = c.store
+		local store = c.store
 
-			-- Send an input to update UserInputService.GamepadEnabled
-			c.gamepadInput(Enum.KeyCode.DPadDown)
+		-- Send an input to update UserInputService.GamepadEnabled
+		c.gamepadInput(Enum.KeyCode.DPadDown)
 
-			c.storeUpdate(SetMenuOpen(true))
-			c.storeUpdate(SetCurrentPage("Report"))
+		c.storeUpdate(SetMenuOpen(true))
+		c.storeUpdate(SetCurrentPage("Report"))
 
-			act(function()
-				wait(TestConstants.PageAnimationDuration) -- Wait for the page to finish animating in
-			end)
+		act(function()
+			wait(TestConstants.PageAnimationDuration) -- Wait for the page to finish animating in
+		end)
 
-			expect(store:getState().currentZone).to.equal(1)
+		expect(store:getState().currentZone).to.equal(1)
 
-			c.gamepadInput(Enum.KeyCode.DPadLeft)
-			expect(store:getState().currentZone).to.equal(0)
+		c.gamepadInput(Enum.KeyCode.DPadLeft)
+		expect(store:getState().currentZone).to.equal(0)
 
-			c.gamepadInput(Enum.KeyCode.DPadRight)
-			expect(store:getState().currentZone).to.equal(1)
-		end
+		c.gamepadInput(Enum.KeyCode.DPadRight)
+		expect(store:getState().currentZone).to.equal(1)
 	end)
 
 	it("Should bumper switch", function(c)
-		if GetFFlagInGameMenuControllerDevelopmentOnly() then
-			local store = c.store
+		local store = c.store
 
-			-- Send an input to update UserInputService.GamepadEnabled
-			c.gamepadInput(Enum.KeyCode.DPadDown)
+		-- Send an input to update UserInputService.GamepadEnabled
+		c.gamepadInput(Enum.KeyCode.DPadDown)
 
-			c.storeUpdate(SetMenuOpen(true))
-			c.storeUpdate(SetCurrentPage("Report"))
+		c.storeUpdate(SetMenuOpen(true))
+		c.storeUpdate(SetCurrentPage("Report"))
 
-			c.gamepadInput(Enum.KeyCode.ButtonL1)
-			expect(store:getState().currentZone).to.equal(0)
-			c.gamepadInput(Enum.KeyCode.ButtonR1)
-			expect(store:getState().currentZone).to.equal(1)
-		end
+		c.gamepadInput(Enum.KeyCode.ButtonL1)
+		expect(store:getState().currentZone).to.equal(0)
+		c.gamepadInput(Enum.KeyCode.ButtonR1)
+		expect(store:getState().currentZone).to.equal(1)
 	end)
 end

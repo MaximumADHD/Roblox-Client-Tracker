@@ -101,11 +101,11 @@ return function()
 
 			describe("WHEN EnableExperienceChat Flag is true", function()
 				beforeAll(function(context)
-					context.oldExperienceChatFlag = game:SetFastFlagForTesting("EnableExperienceChat", true)
+					context.oldExperienceChatFlag = game:SetFastFlagForTesting("EnableExperienceChatV1", true)
 				end)
 
 				afterAll(function(context)
-					game:SetFastFlagForTesting("EnableExperienceChat", context.oldExperienceChatFlag)
+					game:SetFastFlagForTesting("EnableExperienceChatV1", context.oldExperienceChatFlag)
 				end)
 
 				describe("WHEN TextChatService.ChatVersion is Legacy Chat", function()
@@ -138,11 +138,11 @@ return function()
 
 			describe("WHEN EnableExperienceChat Flag is false", function()
 				beforeAll(function(context)
-					context.oldExperienceChatFlag = game:SetFastFlagForTesting("EnableExperienceChat", false)
+					context.oldExperienceChatFlag = game:SetFastFlagForTesting("EnableExperienceChatV1", false)
 				end)
 
 				afterAll(function(context)
-					game:SetFastFlagForTesting("EnableExperienceChat", context.oldExperienceChatFlag)
+					game:SetFastFlagForTesting("EnableExperienceChatV1", context.oldExperienceChatFlag)
 				end)
 
 				describe("WHEN TextChatService.ChatVersion is Legacy Chat", function()

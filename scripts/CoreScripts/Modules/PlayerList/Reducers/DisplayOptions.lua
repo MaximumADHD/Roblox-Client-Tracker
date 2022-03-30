@@ -42,7 +42,7 @@ local initialDisplayOptions = {
 local function updateIsVisible(state)
 	state.isVisible = state.setVisible
 	-- Leaderboard visiblity is independent of coreGui options on console.
-	
+
 	if FFlagMobilePlayerList then
 		if not state.isTenFootInterface then
 			state.isVisible = state.isVisible and not state.vrEnabled

@@ -71,6 +71,7 @@ return Rodux.createReducer(productionStartStore, {
 
 	[ResumedAction.name] = function(state : CommonStore, action)
 		return Cryo.Dictionary.join(state, {
+			debuggerConnectionIdToDST = Cryo.Dictionary.join(state.debuggerConnectionIdToDST, {[action.debuggerStateToken.debuggerConnectionId] = Cryo.None}),
 			debuggerConnectionIdToCurrentThreadId = {},
 			currentFrameMap = {},
 			isPaused = false,

@@ -11,8 +11,10 @@ local Players = game:GetService("Players")
 local GuiService = game:GetService("GuiService")
 local VRService = game:GetService("VRService")
 local Utility = require(RobloxGui.Modules.Settings.Utility)
+require(RobloxGui.Modules.VR.Panel3D)
 
 local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
+local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
 
 local LocalPlayer = Players.LocalPlayer
 while not LocalPlayer do
@@ -39,12 +41,22 @@ local function addPartsToGame(...)
 			while GuiService.Changed:wait() ~= "CoreEffectFolder" and GuiService.CoreEffectFolder == nil do end
 			for _, part in pairs(parts) do
 				part.Parent = container
+				if EngineFeatureEnableVRUpdate2 then
+					part.CanTouch = false
+					part.CanCollide = false
+					part.CanQuery = false
+				end
 			end
 		end)()
 	else
 		--The container is ready, no waiting necessary.
 		for _, part in pairs(parts) do
 			part.Parent = container
+			if EngineFeatureEnableVRUpdate2 then
+				part.CanTouch = false
+				part.CanCollide = false
+				part.CanQuery = false
+			end
 		end
 	end
 end
@@ -94,7 +106,7 @@ local TELEPORT = {
 
 	ARC_COLOR_GOOD = fromLinearRGB(Color3.fromRGB(0, 162, 255)),
 	ARC_COLOR_BAD = fromLinearRGB(Color3.fromRGB(253, 68, 72)),
-	ARC_THICKNESS = 0.025,
+	ARC_THICKNESS = EngineFeatureEnableVRUpdate2 and 0.0125 or 0.025,
 
 	PLOP_GOOD = "rbxasset://textures/ui/VR/VRPointerDiscBlue.png",
 	PLOP_BAD = "rbxasset://textures/ui/VR/VRPointerDiscRed.png",
@@ -139,9 +151,10 @@ local LASER = {
 
 	ARC_COLOR_GOOD = TELEPORT.ARC_COLOR_GOOD,
 	ARC_COLOR_BAD = TELEPORT.ARC_COLOR_BAD,
-	ARC_THICKNESS = 0.02,
+	ARC_COLOR_HIT = fromLinearRGB(Color3.fromRGB(0, 255, 162)),
+	ARC_THICKNESS = EngineFeatureEnableVRUpdate2 and 0.01 or 0.02,
 
-	MAX_DISTANCE = 500,
+	MAX_DISTANCE = EngineFeatureEnableVRUpdate2 and 50 or 500,
 
 	G = 0, -- Gravity constant for parabola; in this case we want a laser/straight line
 
@@ -163,15 +176,21 @@ local identity = CFrame.new()
 local aimableStates = {
 	[Enum.HumanoidStateType.Running] = true,
 	[Enum.HumanoidStateType.RunningNoPhysics] = true,
-	[Enum.HumanoidStateType.None] = true
+	[Enum.HumanoidStateType.None] = true,
 }
 
 local LaserPointer = {}
 LaserPointer.__index = LaserPointer
 LaserPointer.Mode = LaserPointerMode
 
-function LaserPointer.new()
+function LaserPointer.new(laserDistance)
 	local self = setmetatable({}, LaserPointer)
+	
+	if laserDistance then
+		self.laserMaxDistance = laserDistance
+	else
+		self.laserMaxDistance = LASER.MAX_DISTANCE
+	end
 
 	self.mode = LaserPointerMode.Disabled
 	self.lastMode = self.mode
@@ -193,9 +212,10 @@ function LaserPointer.new()
 	self.plopBallBounceStart = tick()
 
 	self.buttonPressStart = 0
+	self.showPlopBallOnPointer = false
 
 	do --Create the instances that make up the Laser Pointer
-		self.parabola = Utility:Create("ParabolaAdornment") {
+		self.parabola = Utility:Create("ParabolaAdornment")({
 			Name = "LaserPointerParabola",
 			Parent = CoreGui,
 			A = -1,
@@ -203,10 +223,10 @@ function LaserPointer.new()
 			C = 0,
 			Color3 = TELEPORT.COLOR_GOOD,
 			Thickness = TELEPORT.ARC_THICKNESS,
-			Visible = false
-		}
+			Visible = false,
+		})
 
-		self.originPart = Utility:Create("Part") {
+		self.originPart = Utility:Create("Part")({
 			Name = "LaserPointerOrigin",
 			Anchored = true,
 			CanCollide = false,
@@ -214,18 +234,18 @@ function LaserPointer.new()
 			BottomSurface = Enum.SurfaceType.SmoothNoOutlines,
 			Material = Enum.Material.SmoothPlastic,
 			Size = minimumPartSize,
-			Transparency = 1
-		}
+			Transparency = 1,
+		})
 		self.parabola.Adornee = self.originPart
-		
-		self.plopPart = Utility:Create("Part") {
+
+		self.plopPart = Utility:Create("Part")({
 			Name = "LaserPointerTeleportPlop",
 			Anchored = true,
 			CanCollide = false,
 			Size = minimumPartSize,
-			Transparency = 1
-		}
-		self.plopBall = Utility:Create("Part") {
+			Transparency = 1,
+		})
+		self.plopBall = Utility:Create("Part")({
 			Name = "LaserPointerTeleportPlopBall",
 			Anchored = true,
 			CanCollide = false,
@@ -234,23 +254,49 @@ function LaserPointer.new()
 			Material = Enum.Material.Neon,
 			BrickColor = TELEPORT.PLOP_BALL_COLOR_GOOD,
 			Shape = Enum.PartType.Ball,
-			Size = identityVector3 * TELEPORT.PLOP_BALL_SIZE
-		}
-		self.plopAdorn = Utility:Create("ImageHandleAdornment") {
+			Size = identityVector3 * TELEPORT.PLOP_BALL_SIZE,
+		})
+		self.plopAdorn = Utility:Create("ImageHandleAdornment")({
 			Name = "LaserPointerTeleportPlopAdorn",
 			Parent = self.plopPart,
 			Adornee = self.plopPart,
 			Size = identityVector2 * TELEPORT.PLOP_SIZE,
-			Image = TELEPORT.PLOP_GOOD
-		}
-		self.plopAdornPulse = Utility:Create("ImageHandleAdornment") {
+			Image = TELEPORT.PLOP_GOOD,
+		})
+		self.plopAdornPulse = Utility:Create("ImageHandleAdornment")({
 			Name = "LaserPointerTeleportPlopAdornPulse",
 			Parent = self.plopPart,
 			Adornee = self.plopPart,
 			Size = zeroVector2,
 			Image = TELEPORT.PLOP_GOOD,
-			Transparency = 0.5
-		}
+			Transparency = 0.5,
+		})
+		if EngineFeatureEnableVRUpdate2 then
+			self.cursorPart = Utility:Create("Part")({
+				Name = "Cursor",
+				CanCollide = false,
+				CanQuery = false,
+				CanTouch = false,
+				Anchored = true,
+				Transparency = 1,
+			})
+			self.cursorSurfaceGui = Utility:Create("SurfaceGui")({
+				Name = "CursorSurfaceGui",
+				Active = false,
+				AlwaysOnTop = true,
+				Enabled = false,
+				Parent = self.cursorPart,
+			})
+			self.cursorImage = Utility:Create("ImageLabel")({
+				Image = "rbxasset://textures/Cursors/Gamepad/Pointer.png",
+				ImageColor3 = Color3.new(0, 1, 0),
+				BackgroundTransparency = 1,
+				Parent = self.cursorSurfaceGui,
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				Size = UDim2.new(1, 0, 1, 0),
+			})
+		end
 	end
 
 	do --Event connections and final setup
@@ -277,8 +323,8 @@ function LaserPointer.new()
 end
 
 function LaserPointer.hasAnyHandController()
-	return VRService:GetUserCFrameEnabled(Enum.UserCFrame.RightHand) or
-	       VRService:GetUserCFrameEnabled(Enum.UserCFrame.LeftHand)
+	return VRService:GetUserCFrameEnabled(Enum.UserCFrame.RightHand)
+		or VRService:GetUserCFrameEnabled(Enum.UserCFrame.LeftHand)
 end
 
 function LaserPointer.getModeName(mode)
@@ -306,18 +352,18 @@ function LaserPointer:onModeChanged(newMode)
 
 	--Disabled mode
 	if newMode == LaserPointerMode.Disabled or newMode == LaserPointerMode.Hidden then
-		removePartsFromGame(self.originPart, self.plopPart, self.plopBall)
+		removePartsFromGame(self.originPart, self.plopPart, self.plopBall, EngineFeatureEnableVRUpdate2 and self.cursorPart or nil)
 		self.parabola.Visible = false
 		self:setNavigationActionEnabled(false)
-	--Pointer mode
+		--Pointer mode
 	elseif newMode == LaserPointerMode.Pointer then
-		addPartsToGame(self.originPart)
+		addPartsToGame(self.originPart, EngineFeatureEnableVRUpdate2 and self.cursorPart or nil)
 		removePartsFromGame(self.plopPart, self.plopBall)
 		self.parabola.Visible = true
 		self:setNavigationActionEnabled(false)
-	--Navigation mode
+		--Navigation mode
 	elseif newMode == LaserPointerMode.Navigation then
-		addPartsToGame(self.originPart, self.plopPart, self.plopBall)
+		addPartsToGame(self.originPart, self.plopPart, self.plopBall, EngineFeatureEnableVRUpdate2 and self.cursorPart or nil)
 		self.parabola.Visible = true
 		self:setNavigationActionEnabled(true)
 	end
@@ -338,22 +384,22 @@ function LaserPointer:getMode()
 	return self.mode
 end
 
-local cosMax = math.cos(math.pi/4)
-local sinMax = math.sin(math.pi/4)
+local cosMax = math.cos(math.pi / 4)
+local sinMax = math.sin(math.pi / 4)
 function LaserPointer:calculateLaunchVelocity(gravity, desiredRange, height)
 	--return math.sqrt(desiredRange * gravity) / math.sqrt(math.sin(2*math.pi/4))
 	--This calculates a launch velocity for an imaginary projectile that will start at y=height, travel desiredRange
 	--in the x direction until it hits y=0. This is only reached when the projectile is launched at the optimal
 	--launch angle, 45 degrees elevation. Anything above or below that will fall short, which is desired.
 	--See https://en.wikipedia.org/wiki/Range_of_a_projectile for a breakdown of this function.
-	return -(math.sqrt(gravity / cosMax)*desiredRange) / (math.sqrt(2*height*cosMax+2*desiredRange*sinMax))
+	return -(math.sqrt(gravity / cosMax) * desiredRange) / (math.sqrt(2 * height * cosMax + 2 * desiredRange * sinMax))
 end
 
 function LaserPointer:isHeadMounted()
 	if FFlagEnableNewVrSystem then
 		return VRService.GuiInputUserCFrame == Enum.UserCFrame.Head
 	end
-	
+
 	return self.inputUserCFrame == Enum.UserCFrame.Head
 end
 
@@ -367,10 +413,14 @@ end
 
 function LaserPointer:getNavigationOrigin()
 	local humanoid = getLocalHumanoid()
-	if not humanoid then return end
+	if not humanoid then
+		return
+	end
 
 	local rootPart = humanoid.Torso
-	if not rootPart then return end
+	if not rootPart then
+		return
+	end
 
 	local hipHeight = humanoid.HipHeight
 	if humanoid.RigType == Enum.HumanoidRigType.R6 then
@@ -385,7 +435,7 @@ function LaserPointer:horzDistanceFromCharacter(point)
 	if not character then
 		return math.huge
 	end
-	local rootPart = character:FindFirstChild("HumanoidRootPart") 
+	local rootPart = character:FindFirstChild("HumanoidRootPart")
 	if not rootPart then
 		return math.huge
 	end
@@ -393,16 +443,20 @@ function LaserPointer:horzDistanceFromCharacter(point)
 	return ((rootPart:GetRenderCFrame().p - point) * flattenMask).magnitude
 end
 
-
 function LaserPointer:onNavigateAction(actionName, inputState, inputObj)
 	if inputState == Enum.UserInputState.Begin then
-		VRService:RequestNavigation(CFrame.new(self.navHitPoint, self.navHitPoint + self.navHitNormal) * CFrame.Angles(math.pi/2, 0, 0), self.inputUserCFrame)
+		VRService:RequestNavigation(
+			CFrame.new(self.navHitPoint, self.navHitPoint + self.navHitNormal) * CFrame.Angles(math.pi / 2, 0, 0),
+			self.inputUserCFrame
+		)
 	end
 end
 
 function LaserPointer:setNavigationActionEnabled(enabled)
 	if enabled then
-		ContextActionService:BindCoreAction("LaserPointerNavigate", function(...) self:onNavigateAction(...) end, false, Enum.KeyCode.ButtonA)
+		ContextActionService:BindCoreAction("LaserPointerNavigate", function(...)
+			self:onNavigateAction(...)
+		end, false, Enum.KeyCode.ButtonA)
 	else
 		ContextActionService:UnbindCoreAction("LaserPointerNavigate")
 	end
@@ -449,8 +503,11 @@ function LaserPointer:getArcHit(pos, look, ignore)
 end
 
 function LaserPointer:getLaserHit(pos, look, ignore)
-	local ray = Ray.new(pos, look * LASER.MAX_DISTANCE)
-	local laserHitPart, laserHitPoint, laserHitNormal, laserHitMaterial = workspace:FindPartOnRayWithIgnoreList(ray, ignore)
+	local ray = Ray.new(pos, (look * self.laserMaxDistance))
+	local laserHitPart, laserHitPoint, laserHitNormal, laserHitMaterial = workspace:FindPartOnRayWithIgnoreList(
+		ray,
+		ignore
+	)
 	local t = (laserHitPoint - pos).magnitude / LASER.MAX_DISTANCE
 	return laserHitPart, laserHitPoint, laserHitNormal, t
 end
@@ -510,7 +567,7 @@ function LaserPointer:checkMode(originPos, parabHitPart, parabHitPoint, laserHit
 	--todo: update this when we move the parts; also update it so that it can work with user surfaceguis
 	--we may need to be more creative about that since we can't easily tell if a part has a surfacegui from Lua
 	local coreGuiPartContainer = GuiService.CoreGuiFolder
-	local laserHitGui = laserHitPart and laserHitPart:IsDescendantOf(coreGuiPartContainer)
+	local laserHitGui = (EngineFeatureEnableVRUpdate2 and laserHitPart) or (laserHitPart and laserHitPart:IsDescendantOf(coreGuiPartContainer))
 	local parabHitGui = laserHitGui
 	--only check parab hit part if it's not the same as the laser hit part
 	if parabHitPart ~= laserHitPart then
@@ -532,7 +589,12 @@ function LaserPointer:checkMode(originPos, parabHitPart, parabHitPoint, laserHit
 	end
 
 	--If we are in laser pointer mode but neither the parabola nor the laser hit any gui parts, we switch back to navigation or hidden mode.
-	if self.mode == LaserPointerMode.Pointer and not laserHitGui and not parabHitGui and tick() - self.lastLaserModeHit > 0.2 then
+	if
+		self.mode == LaserPointerMode.Pointer
+		and not laserHitGui
+		and not parabHitGui
+		and tick() - self.lastLaserModeHit > 0.2
+	then
 		if self.lastMode == LaserPointerMode.Navigation or self.lastMode == LaserPointerMode.Hidden then
 			newMode = self.lastMode
 		end
@@ -542,7 +604,9 @@ function LaserPointer:checkMode(originPos, parabHitPart, parabHitPoint, laserHit
 end
 
 function LaserPointer:setNavigationValidState(valid)
-	if valid == self.navigationIsValid then return end
+	if valid == self.navigationIsValid then
+		return
+	end
 	self.navigationIsValid = valid
 	self.lastNavigationValidityChangeTime = tick()
 
@@ -571,7 +635,10 @@ function LaserPointer:updateNavPlop(parabHitPoint, parabHitNormal)
 
 	local ballHeight = 0
 	if self.navigationIsValid then
-		local ballWave = applyExpCurve(math.sin((now * 2 * math.pi) / TELEPORT.BALL_WAVE_PERIOD), TELEPORT.BALL_WAVE_EXP)
+		local ballWave = applyExpCurve(
+			math.sin((now * 2 * math.pi) / TELEPORT.BALL_WAVE_PERIOD),
+			TELEPORT.BALL_WAVE_EXP
+		)
 		ballHeight = TELEPORT.BALL_WAVE_START + (ballWave * TELEPORT.BALL_WAVE_AMPLITUDE)
 	end
 
@@ -587,7 +654,11 @@ function LaserPointer:updateNavPlop(parabHitPoint, parabHitNormal)
 		local pulseSize = timeSincePulseStart / TELEPORT.PULSE_DURATION
 		if pulseSize < 1 then
 			self.plopAdornPulse.Visible = true
-			self.plopAdornPulse.Size = identityVector2 * (TELEPORT.PULSE_SIZE_0 + applyExpCurve(pulseSize, TELEPORT.PULSE_EXP) * (TELEPORT.PULSE_SIZE_1 - TELEPORT.PULSE_SIZE_0))
+			self.plopAdornPulse.Size = identityVector2
+				* (
+					TELEPORT.PULSE_SIZE_0
+					+ applyExpCurve(pulseSize, TELEPORT.PULSE_EXP) * (TELEPORT.PULSE_SIZE_1 - TELEPORT.PULSE_SIZE_0)
+				)
 			self.plopAdornPulse.Transparency = 0.5 + (pulseSize * 0.5)
 		else
 			self.plopAdornPulse.Visible = false
@@ -606,6 +677,61 @@ function LaserPointer:updateNavigationMode(hitPoint, hitNormal, hitPart)
 	self:setNavigationValidState(self:canNavigateTo(self.navHitPart, self.navHitPoint, self.navHitNormal))
 end
 
+function LaserPointer:showHitBallOnLaserPointer(enable)
+	if enable then
+		if not self.showPlopBallOnPointer then
+			self.showPlopBallOnPointer = true
+			addPartsToGame(self.plopBall)
+		end
+	else
+		if self.showPlopBallOnPointer then
+			removePartsFromGame(self.plopBall)
+			self.showPlopBallOnPointer = false
+		end
+	end
+end
+
+function LaserPointer:updateCursor()
+	if VRService.DidPointerHit then
+		local hitCFrame = VRService.PointerHitCFrame
+		local cameraSpace = workspace.CurrentCamera.CFrame
+		local originCFrame = cameraSpace * VRService:GetUserCFrame(self.inputUserCFrame)
+		if self:isHeadMounted() then
+			originCFrame = cameraSpace * VRService:GetUserCFrame(Enum.UserCFrame.Head)
+		end
+
+		-- VRService.PointerHitCFrame is a frame behind.  To make the cursor appear at the most updated location,
+		-- See where the current pointer's ray hits the plane defined by VRService.PointerHitCFrame
+
+		local originPos, originLook = originCFrame.p, originCFrame.lookVector
+
+		local hitPosition = hitCFrame.Position
+		local hitNormal = hitCFrame.lookVector
+		local dot = hitNormal:Dot(originLook)
+		if math.abs(dot) > 0.001 then
+			local t = (hitPosition - originPos):Dot(hitNormal) / dot
+			hitPosition = originPos + t * originLook
+			hitCFrame = hitCFrame.Rotation + hitPosition
+		end
+
+		local cursorDistanceToCamera = (workspace.CurrentCamera.CFrame.Position - hitCFrame.Position).magnitude
+
+		local imageSize = 1
+		local cursorSize = cursorDistanceToCamera * 0.01
+		if cursorSize < 0.05 then
+			-- Roblox has a minimum part size of 0.05
+			-- When we need it smaller, keep the part at 0.05 and make cursorImage smaller
+			imageSize = cursorSize / 0.05
+			cursorSize = 0.05
+		end
+		self.cursorPart.Size = Vector3.new(cursorSize, cursorSize, cursorSize)
+		local offset = CFrame.new(0, 0, cursorSize * 0.5)
+		self.cursorPart.CFrame = hitCFrame * offset
+		self.cursorImage.Size = UDim2.new(imageSize, 0, imageSize, 0)
+	end
+	self.cursorSurfaceGui.Enabled = VRService.DidPointerHit
+end
+
 function LaserPointer:update(dt)
 	if self.mode == LaserPointerMode.Disabled then
 		return
@@ -613,10 +739,20 @@ function LaserPointer:update(dt)
 
 	local humanoid = getLocalHumanoid()
 
-	local ignore = { LocalPlayer.Character or LocalPlayer, self.originPart, self.plopPart, self.plopBall, GuiService.CoreEffectFolder }
+	local ignore = {
+		LocalPlayer.Character or LocalPlayer,
+		self.originPart,
+		self.plopPart,
+		self.plopBall,
+		GuiService.CoreEffectFolder,
+	}
 	local cameraSpace = workspace.CurrentCamera.CFrame
 	local thickness0, thickness1 = LASER.ARC_THICKNESS, TELEPORT.ARC_THICKNESS
 	local gravity0, gravity1 = LASER.G, TELEPORT.G
+	
+	if EngineFeatureEnableVRUpdate2 then
+		self:updateCursor()
+	end
 
 	if self:isHeadMounted() then
 		self.parabola.Thickness = LASER.ARC_THICKNESS * HEAD_MOUNT_THICKNESS_MULTIPLIER
@@ -632,10 +768,19 @@ function LaserPointer:update(dt)
 		local offsetPosition = originCFrame:pointToWorldSpace(HEAD_MOUNT_OFFSET * workspace.CurrentCamera.HeadScale)
 		self:renderAsLaser(offsetPosition, laserHitPoint)
 
+		if EngineFeatureEnableVRUpdate2 and self.showPlopBallOnPointer then
+			self:updateNavPlop(laserHitPoint, laserHitNormal)
+		end
+
 		if self.mode == LaserPointerMode.Navigation then
 			self:updateNavigationMode(laserHitPoint, laserHitNormal, laserHitPart, laserHitPoint)
 		else
-			self.parabola.Color3 = LASER.ARC_COLOR_GOOD
+			if EngineFeatureEnableVRUpdate2 then
+				self.parabola.Color3 = VRService.DidPointerHit and LASER.ARC_COLOR_HIT or LASER.ARC_COLOR_GOOD
+			else
+				self.parabola.Color3 = LASER.ARC_COLOR_GOOD
+			end
+			
 		end
 	else
 		local originCFrame = cameraSpace * VRService:GetUserCFrame(self.inputUserCFrame)
@@ -666,9 +811,17 @@ function LaserPointer:update(dt)
 			self.parabola.Thickness = TELEPORT.ARC_THICKNESS
 			self:updateNavigationMode(parabHitPoint, parabHitNormal, parabHitPart)
 		else
-			self.parabola.Color3 = LASER.ARC_COLOR_GOOD
+			if EngineFeatureEnableVRUpdate2 then
+				self.parabola.Color3 = VRService.DidPointerHit and LASER.ARC_COLOR_HIT or LASER.ARC_COLOR_GOOD
+			else
+				self.parabola.Color3 = LASER.ARC_COLOR_GOOD
+			end
 			self.parabola.Thickness = LASER.ARC_THICKNESS
 			self:renderAsLaser(originPos, laserHitPoint)
+
+			if EngineFeatureEnableVRUpdate2 and self.showPlopBallOnPointer then
+				self:updateNavPlop(laserHitPoint, laserHitNormal)
+			end
 		end
 	end
 end

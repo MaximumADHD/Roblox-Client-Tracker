@@ -42,5 +42,6 @@ return function()
 		expect(state.Watch.stateTokenToFlattenedTree).to.be.ok()
 		expect(state.Watch.stateTokenToFlattenedTree[dst][2][1]).to.be.ok()
 		expect(state.Watch.stateTokenToFlattenedTree[dst][2][1].Watches["1"].expressionColumn).to.be.equal(expressionString)
+		expect(state.Watch.stateTokenToFlattenedTree[dst][2][1].Watches["1"].valueColumn).to.be.equal("Instance")
 	end)
 end

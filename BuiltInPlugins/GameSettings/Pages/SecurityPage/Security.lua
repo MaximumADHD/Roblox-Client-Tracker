@@ -1,11 +1,15 @@
 local FFlagGameSettingsFixChangeAnalytics = game:GetFastFlag("GameSettingsFixChangeAnalytics")
+local FFlagGameSettingsShowScaryWarnings = game:GetFastFlag("GameSettingsShowScaryWarnings")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+local TextLabel = Framework.UI.Decoration.TextLabel
+local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 local ToggleButtonWithTitle = require(Plugin.Src.Components.ToggleButtonWithTitle)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
@@ -103,12 +107,15 @@ local function saveSettings(store, contextItems)
 end
 
 --Loads settings values into props by key
-local function loadValuesToProps(getValue)
+local function loadValuesToProps(getValue, isChanged)
 	local loadedProps = {
 		HttpEnabled = getValue("HttpEnabled"),
 		StudioAccessToApisAllowed = getValue("StudioAccessToApisAllowed"),
 		ThirdPartyPurchaseAllowed = getValue("ThirdPartyPurchaseAllowed"),
 		ThirdPartyTeleportAllowed = getValue("ThirdPartyTeleportAllowed"),
+		HttpEnabledValueChanged = if not FFlagGameSettingsShowScaryWarnings then nil else isChanged("HttpEnabled"),
+		ThirdPartyPurchaseAllowedValueChanged = if not FFlagGameSettingsShowScaryWarnings then nil else isChanged("ThirdPartyPurchaseAllowed"),
+		ThirdPartyTeleportAllowedValueChanged = if not FFlagGameSettingsShowScaryWarnings then nil else isChanged("ThirdPartyTeleportAllowed"),
 	}
 	return loadedProps
 end
@@ -132,12 +139,53 @@ function Security:render()
 	local function createChildren()
 		local props = self.props
 		local localization = props.Localization
+		local insecureSettings = if not FFlagGameSettingsShowScaryWarnings
+			then nil
+			else
+				(props.HttpEnabledValueChanged and props.HttpEnabled)
+				or (props.ThirdPartyPurchaseAllowedValueChanged and props.ThirdPartyPurchaseAllowed)
+				or (props.ThirdPartyTeleportAllowedValueChanged and props.ThirdPartyTeleportAllowed)
+
+		local theme = props.Theme:get("Plugin")
+
+		local layoutOrder = LayoutOrderIterator.new(1)
 
 		return {
+			InsecureWarning = insecureSettings and Roact.createElement("Frame", {
+				AutomaticSize = Enum.AutomaticSize.XY,
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				LayoutOrder = layoutOrder:getNextOrder(),
+			}, {
+				UILayout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Horizontal,
+					Padding = UDim.new(0, theme.dialog.spacing),
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+				}),
+	
+				Warning = Roact.createElement("ImageLabel", {
+					Image = theme.warningIcon,
+					LayoutOrder = layoutOrder:getNextOrder(),
+					BackgroundTransparency = 1,
+					Size = UDim2.new(0, theme.warningDialog.icon.size, 0, theme.warningDialog.icon.size),
+				}),
+	
+				Description = Roact.createElement(TextLabel, {
+					BackgroundTransparency = 1,
+					LayoutOrder = layoutOrder:getNextOrder(),
+					Style = "SubText",
+					Text = localization:getText("Security", "InsecureWarning"),
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextColor = theme.warningColor,
+					TextSize = theme.fontStyle.Subtitle.TextSize,
+				}),
+			}),			
+
 			HttpEnabled = Roact.createElement(ToggleButtonWithTitle, {
 				Description = localization:getText("General", "HttpDesc"),
 				Disabled = (props.HttpEnabled == nil),
-				LayoutOrder = 1,
+				LayoutOrder = layoutOrder:getNextOrder(),
 				OnClick = function()
 					props.HttpEnabledChanged(not props.HttpEnabled)
 				end,
@@ -148,7 +196,7 @@ function Security:render()
 			StudioApiServicesEnabled = Roact.createElement(ToggleButtonWithTitle, {
 				Description = localization:getText("General", "StudioApiServicesDesc"),
 				Disabled = (props.StudioAccessToApisAllowed == nil),
-				LayoutOrder = 2,
+				LayoutOrder = layoutOrder:getNextOrder(),
 				OnClick = function()
 					props.StudioApiServicesChanged(not props.StudioAccessToApisAllowed)
 				end,
@@ -159,7 +207,7 @@ function Security:render()
 			ThirdPartyPurchasesEnabled = Roact.createElement(ToggleButtonWithTitle, {
 				Description = localization:getText("Security", "EnableThirdPartyPurchasesDescription"),
 				Disabled = (props.ThirdPartyPurchaseAllowed == nil),
-				LayoutOrder = 3,
+				LayoutOrder = layoutOrder:getNextOrder(),
 				OnClick = function()
 					props.ThirdPartyPurchaseChanged(not props.ThirdPartyPurchaseAllowed)
 				end,
@@ -170,7 +218,7 @@ function Security:render()
 			ThirdPartyTeleportsEnabled = Roact.createElement(ToggleButtonWithTitle, {
 				Description = localization:getText("Security", "EnableThirdPartyTeleportsDescription"),
 				Disabled = (props.ThirdPartyTeleportAllowed == nil),
-				LayoutOrder = 4,
+				LayoutOrder = layoutOrder:getNextOrder(),
 				OnClick = function()
 					props.ThirdPartyTeleportAllowedChanged(not props.ThirdPartyTeleportAllowed)
 				end,
@@ -203,7 +251,11 @@ Security = RoactRodux.connect(
 			return settingFromState(state.Settings, propName)
 		end
 
-		return loadValuesToProps(getValue)
+		local isChanged = function(propName)
+			return state.Settings.Changed[propName] ~= nil
+		end
+
+		return loadValuesToProps(getValue, if not FFlagGameSettingsShowScaryWarnings then nil else isChanged)
 	end,
 
 	function(dispatch)

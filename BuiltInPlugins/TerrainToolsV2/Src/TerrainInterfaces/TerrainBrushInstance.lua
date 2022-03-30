@@ -1,7 +1,6 @@
 game:DefineFastFlag("TerrainToolsBrushUseIsKeyDown", false)
 
 local FFlagTerrainToolsBrushUseIsKeyDown = game:GetFastFlag("TerrainToolsBrushUseIsKeyDown")
-local EngineFeatureDraggerBruteForce = game:GetEngineFeature("DraggerBruteForceAll")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -173,9 +172,7 @@ function TerrainBrush.new(options)
 		"TerrainBrush needs a tool passed to constructor")
 
 	self._raycastParams = RaycastParams.new()
-	if EngineFeatureDraggerBruteForce then
-		self._raycastParams.BruteForceAllSlow = true
-	end
+	self._raycastParams.BruteForceAllSlow = true
 
 	return self
 end
@@ -456,10 +453,7 @@ function TerrainBrush:_run()
 		local rayHit, mainPoint, hitMaterial, hitNormal
 
 		self._raycastParams.IgnoreWater = ignoreWater
-
-		if EngineFeatureDraggerBruteForce then
-			self._raycastParams.BruteForceAllSlow = true
-		end
+		self._raycastParams.BruteForceAllSlow = true
 
 		local raycastResult = Workspace:Raycast(cameraPos, unitRay * 10000, self._raycastParams)
 

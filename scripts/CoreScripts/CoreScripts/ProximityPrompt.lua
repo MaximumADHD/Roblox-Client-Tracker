@@ -16,6 +16,8 @@ local FFlagProximityPromptsFadeIn = game:DefineFastFlag("ProximityPromptsFadeIn"
 local FFlagProximityPromptMoreKeyCodes2 = game:DefineFastFlag("ProximityPromptMoreKeyCodes2", false)
 local FFlagProximityPromptFixFade = game:DefineFastFlag("ProximityPromptFixFade", false)
 
+local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
+
 local PlayerGui
 
 if FFlagProximityPromptLocalization then
@@ -137,6 +139,10 @@ local function getScreenGui()
 		screenGui.Name = "ProximityPrompts"
 		screenGui.ResetOnSpawn = false
 		screenGui.Parent = PlayerGui
+		
+		if EngineFeatureEnableVRUpdate2 then
+			screenGui.IgnoreGuiInset = true
+		end
 	end
 	return screenGui
 end

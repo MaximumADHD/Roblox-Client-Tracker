@@ -17,23 +17,18 @@ local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
 local withStyle = UIBlox.Core.Style.withStyle
 local Images = UIBlox.App.ImageSet.Images
-local BaseMenu = UIBlox.App.Menu.BaseMenu
 
 local InGameMenu = script.Parent.Parent.Parent
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 local GetFFlagEnableVoiceChatSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatSpeakerIcons)
 local FocusHandler = require(script.Parent.Parent.Connection.FocusHandler)
 local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicator)
 
-local getFFlagUseNewPlayerLabelDesign = require(InGameMenu.Flags.GetFFlagUseNewPlayerLabelDesign)
-local fflagUseNewPlayerLabelDesign = getFFlagUseNewPlayerLabelDesign()
-local PlayerLabel = fflagUseNewPlayerLabelDesign and require(InGameMenu.Components.PlayerLabelV2)
-	or require(InGameMenu.Components.PlayerLabel)
+local PlayerLabel = require(InGameMenu.Components.PlayerLabelV2)
 local PlayerContextualMenu = require(InGameMenu.Components.PlayerContextualMenu)
 
 local FFlagFixMenuIcons = require(InGameMenu.Flags.FFlagFixMenuIcons)
@@ -42,8 +37,6 @@ local FFlagLuaMenuPerfImprovements = require(InGameMenu.Flags.FFlagLuaMenuPerfIm
 local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
 local Divider = require(InGameMenu.Components.Divider)
 
--- remove this when removing fflagUseNewPlayerLabelDesign
-local PlayerMoreButton = require(InGameMenu.Components.PlayerMoreButton)
 local BarOnTopScrollingFrame = require(InGameMenu.Components.BarOnTopScrollingFrame)
 local Page = require(InGameMenu.Components.Page)
 
@@ -66,8 +59,8 @@ local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
 local inGameGlobalGuiInset = settings():GetFVariable("InGameGlobalGuiInset")
 
-local DIVIDER_INDENT = fflagUseNewPlayerLabelDesign and 104 or 70
-local PLAYER_LABEL_HEIGHT = fflagUseNewPlayerLabelDesign and 71 or 70
+local DIVIDER_INDENT = 104
+local PLAYER_LABEL_HEIGHT = 71
 local PLAYER_LABEL_WIDTH = 400
 
 local ACTION_WIDTH = 352
@@ -94,13 +87,10 @@ PlayersPage.validateProps = t.strictInterface({
 	isRespawnDialogOpen = t.optional(t.boolean),
 	isReportDialogOpen = t.optional(t.boolean),
 	isGamepadLastInput = t.optional(t.boolean),
-	isCurrentZoneActive = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+	isCurrentZoneActive = t.optional(t.boolean),
 })
 
 function PlayersPage:init()
-	-- TODO: Remove with FFlagInGameMenuControllerDevelopmentOnly
-	self.selectedPlayerFrame = nil
-
 	self:setState({
 		players = Players:GetPlayers(),
 		selectedPlayer = nil,
@@ -112,25 +102,23 @@ function PlayersPage:init()
 		firstPlayerRef = nil,
 	})
 
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		self.setSelectedPlayerRef = function(rbx)
-			if GetFFlagIGMGamepadSelectionHistory() then
-				self:setState({
-					selectedPlayerRef = rbx,
-				})
-			else
-				self:setState({
-					selectedPlayerRef = rbx,
-					firstPlayerRef = Roact.None,
-				})
-			end
-		end
-
-		self.setFirstPlayerRef = function(rbx)
+	self.setSelectedPlayerRef = function(rbx)
+		if GetFFlagIGMGamepadSelectionHistory() then
 			self:setState({
-				firstPlayerRef = rbx,
+				selectedPlayerRef = rbx,
+			})
+		else
+			self:setState({
+				selectedPlayerRef = rbx,
+				firstPlayerRef = Roact.None,
 			})
 		end
+	end
+
+	self.setFirstPlayerRef = function(rbx)
+		self:setState({
+			firstPlayerRef = rbx,
+		})
 	end
 
 	if FFlagLuaMenuPerfImprovements then
@@ -178,19 +166,6 @@ function PlayersPage:renderListEntries(players)
 			})
 		end
 
-		--Done this way because of a bug with Roact Refs not being set correctly.
-		--See https://github.com/Roblox/roact/issues/228
-		-- TODO: Remove with FFlagInGameMenuControllerDevelopmentOnly
-		local function refUpdatedFunction(rbx)
-			if player == self.state.selectedPlayer then
-				self.selectedPlayerFrame = rbx
-			end
-		end
-
-		-- remove this when removing fflagUseNewPlayerLabelDesign
-		local displayMoreButton = player ~= Players.LocalPlayer or self.props.inspectMenuEnabled
-		displayMoreButton = not fflagUseNewPlayerLabelDesign and displayMoreButton
-
 		local toggleMoreActions = FFlagLuaMenuPerfImprovements and self.toggleMoreActions or function()
 			if self.state.selectedPlayer == player then
 				self:setState({
@@ -203,16 +178,11 @@ function PlayersPage:renderListEntries(players)
 			end
 		end
 
-		-- TODO: remove with FFlagInGameMenuController
 		local RoactRef
-		if GetFFlagInGameMenuControllerDevelopmentOnly() then
-			if index == 1 and not self.state.selectedPlayer then
-				RoactRef = self.setFirstPlayerRef
-			elseif self.state.selectedPlayer == player then
-				RoactRef = self.setSelectedPlayerRef
-			end
-		else
-			RoactRef = self.state.selectedPlayer == player and refUpdatedFunction or nil
+		if index == 1 and not self.state.selectedPlayer then
+			RoactRef = self.setFirstPlayerRef
+		elseif self.state.selectedPlayer == player then
+			RoactRef = self.setSelectedPlayerRef
 		end
 
 		local iconStyle = "MicLight"
@@ -223,7 +193,7 @@ function PlayersPage:renderListEntries(players)
 
 		listComponents["player_" .. id] = Roact.createElement(PlayerLabel, {
 			username = player.Name,
-			displayName = fflagUseNewPlayerLabelDesign and player.DisplayName or nil,
+			displayName = player.DisplayName,
 			userId = player.UserId,
 			isOnline = true,
 			isSelected = self.state.selectedPlayer == player,
@@ -234,12 +204,6 @@ function PlayersPage:renderListEntries(players)
 			[Roact.Change.AbsolutePosition] = self.state.selectedPlayer == player and positionChanged or nil,
 			[Roact.Ref] = RoactRef,
 		},{
-			-- remove this when removing fflagUseNewPlayerLabelDesign
-			MoreActions = displayMoreButton and Roact.createElement(PlayerMoreButton, {
-				onActivated = toggleMoreActions,
-				LayoutOrder = 1,
-				userId = FFlagLuaMenuPerfImprovements and player.UserId or nil
-			}),
 			Icon = self.props.voiceEnabled and player ~= Players.LocalPlayer and Roact.createElement(VoiceIndicator, {
 				userId = tostring(player.UserId),
 				hideOnError = true,
@@ -429,45 +393,20 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(localized, getSelecti
 	end
 
 	local moreActionsMenuPanel = nil
-	local canCaptureFocus = nil -- can be inlined when GetFFlagInGameMenuControllerDevelopmentOnly is removed
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		canCaptureFocus = self.props.isGamepadLastInput
-			and not self.props.isRespawnDialogOpen
-			and self.props.isCurrentZoneActive
+	local canCaptureFocus = self.props.isGamepadLastInput
+		and not self.props.isRespawnDialogOpen
+		and self.props.isCurrentZoneActive
 
-		moreActionsMenuPanel = self.state.selectedPlayer and Roact.createElement(PlayerContextualMenu, {
-			moreActions = moreActions,
-			actionWidth = ACTION_WIDTH,
-			xOffset = moreMenuPositionXOffset,
-			yOffset = moreMenuPositionYOffset,
-			canCaptureFocus = canCaptureFocus,
-			onClose = function()
-				self:setState({ selectedPlayer = Roact.None })
-			end
-		}) or nil
-	else
-		-- This will be created directed under another gui as it should not get clipped as other menus
-		moreActionsMenuPanel = Roact.createElement(Roact.Portal, {
-			target = CoreGui
-		}, {
-			InGameMenuContextGui = Roact.createElement("ScreenGui", {
-				DisplayOrder = 2,
-				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-			},{
-				MoreActionsMenu = self.state.selectedPlayer ~= nil and Roact.createElement("Frame", {
-					Size = UDim2.fromScale(1, 1),
-					BackgroundTransparency = 1,
-					Visible = self.state.selectedPlayer ~= nil,
-				}, {
-					BaseMenu = Roact.createElement(BaseMenu, {
-						buttonProps = moreActions,
-						width = UDim.new(0, ACTION_WIDTH),
-						position = UDim2.fromOffset(moreMenuPositionXOffset, moreMenuPositionYOffset),
-					})
-				}) or nil,
-			})
-		})
-	end
+	moreActionsMenuPanel = self.state.selectedPlayer and Roact.createElement(PlayerContextualMenu, {
+		moreActions = moreActions,
+		actionWidth = ACTION_WIDTH,
+		xOffset = moreMenuPositionXOffset,
+		yOffset = moreMenuPositionYOffset,
+		canCaptureFocus = canCaptureFocus,
+		onClose = function()
+			self:setState({ selectedPlayer = Roact.None })
+		end
+	}) or nil
 
 	return Roact.createElement(Page, {
 		pageTitle = self.props.pageTitle,
@@ -484,14 +423,13 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(localized, getSelecti
 					allMuted = not self.state.allMuted
 				})
 			end,
-			SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly() and getSelectionCursor(CursorKind.RoundedRect) or nil,
+			SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
 		})
 	}, {
 		PlayerListContent = withStyle(function(style)
 			return Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
-				Size = GetFFlagInGameMenuControllerDevelopmentOnly()
-					and UDim2.new(1, 0, 1, 0) or UDim2.new(0, 400, 1, 0),
+				Size = UDim2.new(1, 0, 1, 0),
 
 				[Roact.Change.AbsoluteSize] = function(rbx)
 					self:setState({
@@ -503,14 +441,13 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(localized, getSelecti
 					Position = UDim2.new(0, 0, 0, 0),
 					Size = UDim2.new(1, 0, 1, 0),
 					CanvasSize = UDim2.new(1, 0, 0, #self.state.players * (PLAYER_LABEL_HEIGHT + 1)),
-					scrollBarOffset = not GetFFlagInGameMenuControllerDevelopmentOnly() and 4 or nil,
 					ScrollingEnabled = self.state.selectedPlayer == nil,
 				}, self:renderListEntries(self.state.players)),
 
 				MoreActionsMenu = moreActionsMenuPanel,
 			})
 		end),
-		FocusHandler = GetFFlagInGameMenuControllerDevelopmentOnly() and self:renderFocusHandler(canCaptureFocus) or nil,
+		FocusHandler = self:renderFocusHandler(canCaptureFocus),
 		Watcher = Roact.createElement(PageNavigationWatcher, {
 			desiredPage = "Players",
 			onNavigateTo = function()
@@ -528,13 +465,9 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(localized, getSelecti
 end
 
 function PlayersPage:renderWithLocalized(localized)
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		return withSelectionCursorProvider(function(getSelectionCursor)
-			return self:renderWithLocalizedAndSelectionCursor(localized, getSelectionCursor)
-		end)
-	else
-		return self:renderWithLocalizedAndSelectionCursor(localized)
-	end
+	return withSelectionCursorProvider(function(getSelectionCursor)
+		return self:renderWithLocalizedAndSelectionCursor(localized, getSelectionCursor)
+	end)
 end
 
 function PlayersPage:render()
@@ -560,40 +493,18 @@ function PlayersPage:didUpdate(prevProps, prevState)
 		})
 	end
 
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		local selectedPlayerRef = self.state.selectedPlayerRef
-		if selectedPlayerRef then
-			if self.state.selectedPlayerPosition ~= selectedPlayerRef.AbsolutePosition then
-				self:setState({
-					selectedPlayerPosition = selectedPlayerRef.AbsolutePosition,
-				})
-			end
-		end
-	else
-		if self.selectedPlayerFrame then
-			if self.state.selectedPlayerPosition ~= self.selectedPlayerFrame.AbsolutePosition then
-				self:setState({
-					selectedPlayerPosition = self.selectedPlayerFrame.AbsolutePosition,
-				})
-			end
+	local selectedPlayerRef = self.state.selectedPlayerRef
+	if selectedPlayerRef then
+		if self.state.selectedPlayerPosition ~= selectedPlayerRef.AbsolutePosition then
+			self:setState({
+				selectedPlayerPosition = selectedPlayerRef.AbsolutePosition,
+			})
 		end
 	end
 end
 
 return RoactRodux.UNSTABLE_connect2(
 	function(state, props)
-		-- Can be inlined when GetFFlagInGameMenuControllerDevelopmentOnly is removed
-		local isRespawnDialogOpen = nil
-		local isReportDialogOpen = nil
-		local isGamepadLastInput = nil
-		local isCurrentZoneActive = nil
-		if GetFFlagInGameMenuControllerDevelopmentOnly() then
-			isRespawnDialogOpen = state.respawn.dialogOpen
-			isReportDialogOpen = state.report.dialogOpen or state.report.reportSentOpen
-			isGamepadLastInput = state.displayOptions.inputType == Constants.InputType.Gamepad
-			isCurrentZoneActive = state.currentZone == 1
-		end
-
 		local voiceEnabled = nil
 		if GetFFlagEnableVoiceChatNewPlayersList() then
 			voiceEnabled = state.voiceState.voiceEnabled
@@ -601,15 +512,16 @@ return RoactRodux.UNSTABLE_connect2(
 
 		return {
 			isMenuOpen = state.isMenuOpen,
-			isReportDialogOpen = isReportDialogOpen,
 			voiceEnabled = voiceEnabled,
 			friends = state.friends,
 			inspectMenuEnabled = state.displayOptions.inspectMenuEnabled,
 			screenSize = state.screenSize,
-			currentPage = GetFFlagInGameMenuControllerDevelopmentOnly() and state.menuPage or nil,
-			isRespawnDialogOpen = isRespawnDialogOpen,
-			isGamepadLastInput = isGamepadLastInput,
-			isCurrentZoneActive = isCurrentZoneActive,
+			currentPage = state.menuPage,
+			isRespawnDialogOpen = state.respawn.dialogOpen,
+			isReportDialogOpen = state.report.dialogOpen or state.report.reportSentOpen,
+			isGamepadLastInput = state.displayOptions.inputType == Constants.InputType.Gamepad,
+			isCurrentZoneActive = state.currentZone == 1,
+
 		}
 	end,
 	function(dispatch)

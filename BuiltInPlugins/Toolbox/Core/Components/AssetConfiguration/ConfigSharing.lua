@@ -4,6 +4,7 @@
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 local FFlagToolboxAudioAssetConfigDisablePublicAudio = game:GetFastFlag("ToolboxAudioAssetConfigDisablePublicAudio")
 local FFlagToolboxAssetConfigUpdatePrivateAudioMessage = game:GetFastFlag("ToolboxAssetConfigUpdatePrivateAudioMessage")
+local FFlagToolboxEnablePublicAudioToggle = game:GetFastFlag("ToolboxEnablePublicAudioToggle")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -99,9 +100,17 @@ function ConfigSharing:render()
 	local title
 	if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then
 		privateText = localization:getText("AssetConfigSharing", "SpecificExperiences")
-		privateInformationText = localization:getText("AssetConfigSharing", "PrivateInformation")
 		publicText = localization:getText("AssetConfigSharing", "AllExperiences")
 		title = localization:getText("AssetConfigSharing", "ExperiencesWithAccess")
+		if FFlagToolboxEnablePublicAudioToggle then
+			if allowSelectPrivate then
+				privateInformationText = localization:getText("AssetConfigSharing", "PrivateInformation")
+			else
+				privateInformationText = localization:getText("AssetConfigSharing", "PrivateDisabledInformation")
+			end
+		else
+			privateInformationText = localization:getText("AssetConfigSharing", "PrivateInformation")
+		end
 	else
 		privateText = localization:getText("AssetConfigSharing", "OnlyMe")
 		publicText = localization:getText("AssetConfigSharing", "AnyoneOnRoblox")
@@ -111,8 +120,12 @@ function ConfigSharing:render()
 	local informationText
 	local allowSelectPublic = true
 	if FFlagToolboxAudioAssetConfigDisablePublicAudio and assetType == Enum.AssetType.Audio then
-		informationText = localization:getText("AssetConfigSharing", "PublicDisabledInformation")
-		allowSelectPublic = false
+		if FFlagToolboxEnablePublicAudioToggle and isAssetPublic then
+			informationText = localization:getText("AssetConfigSharing", "PublicInformation")
+		else
+			informationText = localization:getText("AssetConfigSharing", "PublicDisabledInformation")
+			allowSelectPublic = false
+		end
 	else
 		-- NOTE for removing FFlagToolboxAudioAssetConfigDisablePublicAudio: We /MIGHT/ want to keep this else code for
 		-- audio too and instead enable FFlagToolboxAudioAssetConfigIdVerification in the future? TODO: Product decision needed.

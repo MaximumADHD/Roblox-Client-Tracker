@@ -1,6 +1,8 @@
-local InGameMenu = script.Parent.Parent
-local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
+local InputTypes = {
+	MouseAndKeyboard = "MouseAndKeyboard",
+	Touch = "Touch",
+	Gamepad = "Gamepad",
+}
 
 local Constants = {
 	InviteStatus = {
@@ -10,11 +12,7 @@ local Constants = {
 		Pending = "Pending",
 	},
 
-	InputType = {
-		MouseAndKeyboard = "MouseAndKeyboard",
-		Touch = "Touch",
-		Gamepad = "Gamepad",
-	},
+	InputType = InputTypes,
 
 	FallbackLocaleId = "UNKNOWN_FALLBACK",
 
@@ -70,28 +68,26 @@ local Constants = {
 		PortalSize = 1,
 		ContentOffset = 2, -- PortalSize + 1
 	},
-}
 
-if GetFFlagInGameMenuControllerDevelopmentOnly() then
-	Constants.InputTypeMap = {
-		[Enum.UserInputType.MouseButton1] = Constants.InputType.MouseAndKeyboard,
-		[Enum.UserInputType.MouseButton2] = Constants.InputType.MouseAndKeyboard,
-		[Enum.UserInputType.MouseButton3] = Constants.InputType.MouseAndKeyboard,
-		[Enum.UserInputType.MouseWheel] = Constants.InputType.MouseAndKeyboard,
-		[Enum.UserInputType.MouseMovement] = Constants.InputType.MouseAndKeyboard,
-		[Enum.UserInputType.Keyboard] = Constants.InputType.MouseAndKeyboard,
+	InputTypeMap = {
+		[Enum.UserInputType.MouseButton1] = InputTypes.MouseAndKeyboard,
+		[Enum.UserInputType.MouseButton2] = InputTypes.MouseAndKeyboard,
+		[Enum.UserInputType.MouseButton3] = InputTypes.MouseAndKeyboard,
+		[Enum.UserInputType.MouseWheel] = InputTypes.MouseAndKeyboard,
+		[Enum.UserInputType.MouseMovement] = InputTypes.MouseAndKeyboard,
+		[Enum.UserInputType.Keyboard] = InputTypes.MouseAndKeyboard,
 
-		[Enum.UserInputType.Gamepad1] = Constants.InputType.Gamepad,
-		[Enum.UserInputType.Gamepad2] = Constants.InputType.Gamepad,
-		[Enum.UserInputType.Gamepad3] = Constants.InputType.Gamepad,
-		[Enum.UserInputType.Gamepad4] = Constants.InputType.Gamepad,
-		[Enum.UserInputType.Gamepad5] = Constants.InputType.Gamepad,
-		[Enum.UserInputType.Gamepad6] = Constants.InputType.Gamepad,
-		[Enum.UserInputType.Gamepad7] = Constants.InputType.Gamepad,
-		[Enum.UserInputType.Gamepad8] = Constants.InputType.Gamepad,
+		[Enum.UserInputType.Gamepad1] = InputTypes.Gamepad,
+		[Enum.UserInputType.Gamepad2] = InputTypes.Gamepad,
+		[Enum.UserInputType.Gamepad3] = InputTypes.Gamepad,
+		[Enum.UserInputType.Gamepad4] = InputTypes.Gamepad,
+		[Enum.UserInputType.Gamepad5] = InputTypes.Gamepad,
+		[Enum.UserInputType.Gamepad6] = InputTypes.Gamepad,
+		[Enum.UserInputType.Gamepad7] = InputTypes.Gamepad,
+		[Enum.UserInputType.Gamepad8] = InputTypes.Gamepad,
 
-		[Enum.UserInputType.Touch] = Constants.InputType.Touch,
+		[Enum.UserInputType.Touch] = InputTypes.Touch,
 	}
-end
+}
 
 return Constants

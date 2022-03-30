@@ -5,22 +5,22 @@ local Util = Framework.Util
 local Action = Util.Action
 
 export type Payload = {
-	name : string,
-	baseMaterial : Enum.Material,
-	colorMap : _Types.TextureMap,
-	metalnessMap : _Types.TextureMap,
-	normalMap : _Types.TextureMap,
-	roughnessMap : _Types.TextureMap,
+	Name : string,
+	BaseMaterial : Enum.Material,
+	ColorMap : _Types.TextureMap,
+	MetalnessMap : _Types.TextureMap,
+	NormalMap : _Types.TextureMap,
+	RoughnessMap : _Types.TextureMap,
 }
 
 return Action(script.Name, function(materialVariant : MaterialVariant) : Payload
 	assert(type(materialVariant) == "userdata", ("Expected materialVariant to be userdata, received %s"):format(type(materialVariant)))
 	return {
-		name = materialVariant.Name,
-		baseMaterial = materialVariant.BaseMaterial,
-		colorMap = materialVariant.ColorMap,
-		metalnessMap = materialVariant.MetalnessMap,
-		normalMap = materialVariant.NormalMap,
-		roughnessMap = materialVariant.RoughnessMap,
+		Name = materialVariant.Name,
+		BaseMaterial = materialVariant.BaseMaterial,
+		ColorMap = materialVariant.ColorMap,
+		MetalnessMap = materialVariant.MetalnessMap,
+		NormalMap = materialVariant.NormalMap,
+		RoughnessMap = materialVariant.RoughnessMap,
 	}
 end)

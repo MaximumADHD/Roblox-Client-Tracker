@@ -25,7 +25,6 @@ local Constants = require(InGameMenu.Resources.Constants)
 local act = require(Modules.act)
 
 local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 local GetFFlagUseIGMControllerBar = require(Flags.GetFFlagUseIGMControllerBar)
 local GetFFlagSideNavControllerBar = require(Flags.GetFFlagSideNavControllerBar)
@@ -92,96 +91,92 @@ return function()
 	-- Test that focus is handed off correctly navigating between pages
 	describe("In-Game Menu main page focus handoffs", function()
 		it("Should select the Players menu item when main page is opened with gamepad", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				local path = c.path
+			local path = c.path
 
-				-- Input device is set to Gamepad when receiving its first gamepad input
-				c.gamepadInput(Enum.KeyCode.DPadDown)
+			-- Input device is set to Gamepad when receiving its first gamepad input
+			c.gamepadInput(Enum.KeyCode.DPadDown)
 
-				c.storeUpdate(SetMenuOpen(true))
-				c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
+			c.storeUpdate(SetMenuOpen(true))
+			c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
 
-				local rootPath = XPath.new(path)
-				local playersButtonPath = rootPath:cat(XPath.new(
-					"PageContainer.MainPage.Page" ..
-					".PageNavigation.PagePlayers"))
-				local playersButtonElement = Element.new(playersButtonPath)
+			local rootPath = XPath.new(path)
+			local playersButtonPath = rootPath:cat(XPath.new(
+				"PageContainer.MainPage.Page" ..
+				".PageNavigation.PagePlayers"))
+			local playersButtonElement = Element.new(playersButtonPath)
 
-				expect(playersButtonElement:waitForRbxInstance(1)).to.be.ok()
-				expect(GuiService.SelectedCoreObject).to.equal(playersButtonElement.rbxInstance)
-			end
+			expect(playersButtonElement:waitForRbxInstance(1)).to.be.ok()
+			expect(GuiService.SelectedCoreObject).to.equal(playersButtonElement.rbxInstance)
 		end)
 
 		it("Should gain and lose focus when user transitions between gamepad and keyboard", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				local path = c.path
+			local path = c.path
 
-				-- The last input device when getting to the page is MouseAndKeyboard
-				c.keyboardInput(Enum.KeyCode.Down)
+			-- The last input device when getting to the page is MouseAndKeyboard
+			c.keyboardInput(Enum.KeyCode.Down)
 
-				c.storeUpdate(SetMenuOpen(true))
-				c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
+			c.storeUpdate(SetMenuOpen(true))
+			c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
 
-				local rootPath = XPath.new(path)
-				local playersButtonPath = rootPath:cat(XPath.new(
-					"PageContainer.MainPage.Page" ..
-					".PageNavigation.PagePlayers"))
-				local playersButtonElement = Element.new(playersButtonPath)
+			local rootPath = XPath.new(path)
+			local playersButtonPath = rootPath:cat(XPath.new(
+				"PageContainer.MainPage.Page" ..
+				".PageNavigation.PagePlayers"))
+			local playersButtonElement = Element.new(playersButtonPath)
 
-				-- Nothing is selected as user gets to the page after using keyboard
-				expect(GuiService.SelectedCoreObject).to.equal(nil)
+			-- Nothing is selected as user gets to the page after using keyboard
+			expect(GuiService.SelectedCoreObject).to.equal(nil)
 
-				-- Input device is set to Gamepad and the menu item is focused
-				c.gamepadInput(Enum.KeyCode.DPadUp)
-				expect(playersButtonElement:waitForRbxInstance(1)).to.be.ok()
-				expect(GuiService.SelectedCoreObject).to.equal(playersButtonElement:getRbxInstance())
+			-- Input device is set to Gamepad and the menu item is focused
+			c.gamepadInput(Enum.KeyCode.DPadUp)
+			expect(playersButtonElement:waitForRbxInstance(1)).to.be.ok()
+			expect(GuiService.SelectedCoreObject).to.equal(playersButtonElement:getRbxInstance())
 
-				c.keyboardInput(Enum.KeyCode.Down)
-				-- Nothing is selected as user goes back to using keyboard
-				expect(GuiService.SelectedCoreObject).to.equal(nil)
-			end
+			c.keyboardInput(Enum.KeyCode.Down)
+			-- Nothing is selected as user goes back to using keyboard
+			expect(GuiService.SelectedCoreObject).to.equal(nil)
 		end)
 
 		it("Should select the first player when moving to the Players page", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				local path = c.path
+			local path = c.path
 
-				-- Make sure the last used input device is gamepad
-				c.gamepadInput(Enum.KeyCode.ButtonA)
+			-- Make sure the last used input device is gamepad
+			c.gamepadInput(Enum.KeyCode.ButtonA)
 
-				c.storeUpdate(SetMenuOpen(true))
-				c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
-				act(function()
-					wait()
-				end)
+			c.storeUpdate(SetMenuOpen(true))
+			c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
+			act(function()
+				wait()
+			end)
 
-				local originalPath = XPath.new(path)
-				local playersButtonPath = originalPath:cat(XPath.new(
-					"PageContainer.MainPage.Page" ..
-					".PageNavigation.PagePlayers"))
+			local originalPath = XPath.new(path)
+			local playersButtonPath = originalPath:cat(XPath.new(
+				"PageContainer.MainPage.Page" ..
+				".PageNavigation.PagePlayers"))
 
-				local playersButtonElement = Element.new(playersButtonPath)
-				expect(playersButtonElement:waitForRbxInstance(1)).to.be.ok()
+			local playersButtonElement = Element.new(playersButtonPath)
+			expect(playersButtonElement:waitForRbxInstance(1)).to.be.ok()
 
-				c.gamepadInput(Enum.KeyCode.ButtonA)
-				--[[
-					TODO APPFDN-693: when running in studio, different mock data is being
-					provided than when running in roblox-cli.
-				]]
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("player_12345678")
+			c.gamepadInput(Enum.KeyCode.ButtonA)
+			--[[
+				TODO APPFDN-693: when running in studio, different mock data is being
+				provided than when running in roblox-cli.
+			]]
+			local playerString = "player_1"
+			if game:GetFastFlag("LuaMenuPerfImprovements") then
+				playerString = "player_12345678"
 			end
+			expect(tostring(GuiService.SelectedCoreObject)).to.equal(playerString)
 		end)
 
 		it("Should select the Camera Mode dropdown when opening the settings page", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				-- Send an input to update currently used input device
-				c.gamepadInput(Enum.KeyCode.DPadDown)
+			-- Send an input to update currently used input device
+			c.gamepadInput(Enum.KeyCode.DPadDown)
 
-				c.storeUpdate(SetMenuOpen(true))
-				c.storeUpdate(SetCurrentPage("GameSettings"))
+			c.storeUpdate(SetMenuOpen(true))
+			c.storeUpdate(SetCurrentPage("GameSettings"))
 
-				expect(tostring(GuiService.SelectedCoreObject)).to.equal("OpenDropDownButton")
-			end
+			expect(tostring(GuiService.SelectedCoreObject)).to.equal("OpenDropDownButton")
 		end)
 
 		it("Should remember to select Settings option when navigating back from Settings page", function(c)
@@ -203,47 +198,43 @@ return function()
 		end)
 
 		it("Should move selection to Friends menu item when pushing lever down", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				local path = c.path
-				-- Make sure the last used input device is gamepad
-				c.gamepadInput(Enum.KeyCode.ButtonA)
+			local path = c.path
+			-- Make sure the last used input device is gamepad
+			c.gamepadInput(Enum.KeyCode.ButtonA)
 
-				c.storeUpdate(SetMenuOpen(true))
-				c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
+			c.storeUpdate(SetMenuOpen(true))
+			c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
 
-				local rootPath = XPath.new(path)
-				local friendsButtonPath = rootPath:cat(XPath.new(
-					"PageContainer.MainPage.Page" ..
-					".PageNavigation.PageInviteFriends"))
-				local friendsButtonElement = Element.new(friendsButtonPath)
+			local rootPath = XPath.new(path)
+			local friendsButtonPath = rootPath:cat(XPath.new(
+				"PageContainer.MainPage.Page" ..
+				".PageNavigation.PageInviteFriends"))
+			local friendsButtonElement = Element.new(friendsButtonPath)
 
-				c.gamepadInput(Enum.KeyCode.DPadDown)
-				expect(friendsButtonElement:waitForRbxInstance(1)).to.be.ok()
-				expect(GuiService.SelectedCoreObject).to.equal(friendsButtonElement.rbxInstance)
-			end
+			c.gamepadInput(Enum.KeyCode.DPadDown)
+			expect(friendsButtonElement:waitForRbxInstance(1)).to.be.ok()
+			expect(GuiService.SelectedCoreObject).to.equal(friendsButtonElement.rbxInstance)
 		end)
 
 		it("should switch between the page and SideNavigation", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				local store = c.store
-				-- Make sure the last used input device is gamepad
-				c.gamepadInput(Enum.KeyCode.ButtonA)
+			local store = c.store
+			-- Make sure the last used input device is gamepad
+			c.gamepadInput(Enum.KeyCode.ButtonA)
 
-				c.storeUpdate(SetMenuOpen(true))
-				c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
+			c.storeUpdate(SetMenuOpen(true))
+			c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
 
-				act(function()
-					wait(TestConstants.PageAnimationDuration) -- Wait for the page to finish animating in
-				end)
+			act(function()
+				wait(TestConstants.PageAnimationDuration) -- Wait for the page to finish animating in
+			end)
 
-				expect(store:getState().currentZone).to.equal(1)
+			expect(store:getState().currentZone).to.equal(1)
 
-				c.gamepadInput(Enum.KeyCode.DPadLeft)
-				expect(store:getState().currentZone).to.equal(0)
+			c.gamepadInput(Enum.KeyCode.DPadLeft)
+			expect(store:getState().currentZone).to.equal(0)
 
-				c.gamepadInput(Enum.KeyCode.DPadRight)
-				expect(store:getState().currentZone).to.equal(1)
-			end
+			c.gamepadInput(Enum.KeyCode.DPadRight)
+			expect(store:getState().currentZone).to.equal(1)
 		end)
 
 		it("Forgets previous selection when menu is closed", function(c)
@@ -267,182 +258,174 @@ return function()
 
 	describe("MainPage's 'more' menu", function(c)
 		it("Should open/close with mouse clicks", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				local store = c.store
-				local path = c.path
-				c.storeUpdate(SetMenuOpen(true))
-				c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
-				act(function()
-					wait(TestConstants.PageAnimationDuration)
-				end)
+			local store = c.store
+			local path = c.path
+			c.storeUpdate(SetMenuOpen(true))
+			c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
+			act(function()
+				wait(TestConstants.PageAnimationDuration)
+			end)
 
-				local originalPath = XPath.new(path)
-				local moreMenuButtonPath = originalPath:cat(XPath.new(
-					"PageContainer.MainPage.Page" ..
-					".BottomButtons.MoreButton"))
-				local moreMenuButtonElement = Element.new(moreMenuButtonPath)
-				local contextualMenuPath = originalPath:cat(XPath.new(
-					"PageContainer.MainPage.Page" ..
-					".ContextualMenu"))
-				local contextualMenuElement = Element.new(contextualMenuPath)
-				local contextualMenu = contextualMenuElement:waitForRbxInstance(1)
+			local originalPath = XPath.new(path)
+			local moreMenuButtonPath = originalPath:cat(XPath.new(
+				"PageContainer.MainPage.Page" ..
+				".BottomButtons.MoreButton"))
+			local moreMenuButtonElement = Element.new(moreMenuButtonPath)
+			local contextualMenuPath = originalPath:cat(XPath.new(
+				"PageContainer.MainPage.Page" ..
+				".ContextualMenu"))
+			local contextualMenuElement = Element.new(contextualMenuPath)
+			local contextualMenu = contextualMenuElement:waitForRbxInstance(1)
 
-				expect(contextualMenu.Visible).to.equal(false)
+			expect(contextualMenu.Visible).to.equal(false)
 
-				-- Open the menu
-				c.mouseClick(moreMenuButtonElement)
-				expect(contextualMenu.Visible).to.equal(true)
+			-- Open the menu
+			c.mouseClick(moreMenuButtonElement)
+			expect(contextualMenu.Visible).to.equal(true)
 
-				-- Close the menu
-				c.mouseClick(moreMenuButtonElement)
+			-- Close the menu
+			c.mouseClick(moreMenuButtonElement)
 
-				local DELAY_FOR_ANIMATION_AND_REFOCUS = 1 -- closing menu takes longer to animate
-				act(function()
-					wait(DELAY_FOR_ANIMATION_AND_REFOCUS)
-				end)
-				expect(contextualMenu.Visible).to.equal(false)
+			local DELAY_FOR_ANIMATION_AND_REFOCUS = 1 -- closing menu takes longer to animate
+			act(function()
+				wait(DELAY_FOR_ANIMATION_AND_REFOCUS)
+			end)
+			expect(contextualMenu.Visible).to.equal(false)
 
-				-- Reopen menu
-				c.mouseClick(moreMenuButtonElement)
-				expect(contextualMenu.Visible).to.equal(true)
-			end
+			-- Reopen menu
+			c.mouseClick(moreMenuButtonElement)
+			expect(contextualMenu.Visible).to.equal(true)
 		end)
 
 		it("Should open when clicking the ellipsis button, and close when pressing B", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				local store = c.store
-				local path = c.path
+			local store = c.store
+			local path = c.path
 
-				if GetFFlagIGMGamepadSelectionHistory() then
-					-- Make sure the last used input device is gamepad
-					c.gamepadInput(Enum.KeyCode.ButtonA)
-				end
-
-				c.storeUpdate(SetMenuOpen(true))
-				c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
-				act(function()
-					wait()
-				end)
-
-				local originalPath = XPath.new(path)
-				local moreMenuButtonPath = originalPath:cat(XPath.new(
-					"PageContainer.MainPage.Page" ..
-					".BottomButtons.MoreButton"))
-				local moreMenuButtonElement = Element.new(moreMenuButtonPath)
-				local moreMenuButton = moreMenuButtonElement:waitForRbxInstance(1)
-
-				local contextualMenuPath = originalPath:cat(XPath.new(
-					"PageContainer.MainPage.Page" ..
-					".ContextualMenu"))
-				local contextualMenuElement = Element.new(contextualMenuPath)
-				local firstMenuButton = contextualMenuElement:waitForRbxInstance(1)
-					:FindFirstChild("cell 1", true)
-					:FindFirstChildWhichIsA("ImageButton", true)
-
-				GuiService.SelectedCoreObject = moreMenuButton
-				act(function()
-					wait(0.2)
-				end)
-
-				-- Opening the menu
+			if GetFFlagIGMGamepadSelectionHistory() then
+				-- Make sure the last used input device is gamepad
 				c.gamepadInput(Enum.KeyCode.ButtonA)
-
-				expect(GuiService.SelectedCoreObject).to.never.equal(nil)
-				expect(GuiService.SelectedCoreObject).to.equal(firstMenuButton)
-
-				c.gamepadInput(Enum.KeyCode.ButtonB)
-
-				expect(GuiService.SelectedCoreObject).to.never.equal(nil)
-				expect(GuiService.SelectedCoreObject).to.equal(moreMenuButton)
 			end
+
+			c.storeUpdate(SetMenuOpen(true))
+			c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
+			act(function()
+				wait()
+			end)
+
+			local originalPath = XPath.new(path)
+			local moreMenuButtonPath = originalPath:cat(XPath.new(
+				"PageContainer.MainPage.Page" ..
+				".BottomButtons.MoreButton"))
+			local moreMenuButtonElement = Element.new(moreMenuButtonPath)
+			local moreMenuButton = moreMenuButtonElement:waitForRbxInstance(1)
+
+			local contextualMenuPath = originalPath:cat(XPath.new(
+				"PageContainer.MainPage.Page" ..
+				".ContextualMenu"))
+			local contextualMenuElement = Element.new(contextualMenuPath)
+			local firstMenuButton = contextualMenuElement:waitForRbxInstance(1)
+				:FindFirstChild("cell 1", true)
+				:FindFirstChildWhichIsA("ImageButton", true)
+
+			GuiService.SelectedCoreObject = moreMenuButton
+			act(function()
+				wait(0.2)
+			end)
+
+			-- Opening the menu
+			c.gamepadInput(Enum.KeyCode.ButtonA)
+
+			expect(GuiService.SelectedCoreObject).to.never.equal(nil)
+			expect(GuiService.SelectedCoreObject).to.equal(firstMenuButton)
+
+			c.gamepadInput(Enum.KeyCode.ButtonB)
+
+			expect(GuiService.SelectedCoreObject).to.never.equal(nil)
+			expect(GuiService.SelectedCoreObject).to.equal(moreMenuButton)
 		end)
 
 		it("Should close when navigating to another page", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				local store = c.store
-				local path = c.path
-				c.storeUpdate(SetMenuOpen(true))
-				c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
-				act(function()
-					wait()
-				end)
+			local store = c.store
+			local path = c.path
+			c.storeUpdate(SetMenuOpen(true))
+			c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
+			act(function()
+				wait()
+			end)
 
-				local originalPath = XPath.new(path)
-				local moreMenuButtonPath = originalPath:cat(XPath.new(
-					"PageContainer.MainPage.Page" ..
-					".BottomButtons.MoreButton"))
-				local moreMenuButtonElement = Element.new(moreMenuButtonPath)
-				local moreMenuButton = moreMenuButtonElement:waitForRbxInstance(1)
+			local originalPath = XPath.new(path)
+			local moreMenuButtonPath = originalPath:cat(XPath.new(
+				"PageContainer.MainPage.Page" ..
+				".BottomButtons.MoreButton"))
+			local moreMenuButtonElement = Element.new(moreMenuButtonPath)
+			local moreMenuButton = moreMenuButtonElement:waitForRbxInstance(1)
 
-				local contextualMenuPath = originalPath:cat(XPath.new(
-					"PageContainer.MainPage.Page" ..
-					".ContextualMenu"))
-				local contextualMenuElement = Element.new(contextualMenuPath)
-				local contextualMenu = contextualMenuElement:waitForRbxInstance(1)
+			local contextualMenuPath = originalPath:cat(XPath.new(
+				"PageContainer.MainPage.Page" ..
+				".ContextualMenu"))
+			local contextualMenuElement = Element.new(contextualMenuPath)
+			local contextualMenu = contextualMenuElement:waitForRbxInstance(1)
 
-				-- Menu starts off closed
-				expect(contextualMenu.Visible).to.equal(false)
-				-- Opening the menu
-				GuiService.SelectedCoreObject = moreMenuButton
-				act(function()
-					wait(0.2)
-				end)
-				c.gamepadInput(Enum.KeyCode.ButtonA)
+			-- Menu starts off closed
+			expect(contextualMenu.Visible).to.equal(false)
+			-- Opening the menu
+			GuiService.SelectedCoreObject = moreMenuButton
+			act(function()
+				wait(0.2)
+			end)
+			c.gamepadInput(Enum.KeyCode.ButtonA)
 
-				expect(contextualMenu.Visible).to.equal(true)
+			expect(contextualMenu.Visible).to.equal(true)
 
-				-- Switching page closes the menu
-				c.gamepadInput(Enum.KeyCode.ButtonX)
+			-- Switching page closes the menu
+			c.gamepadInput(Enum.KeyCode.ButtonX)
 
-				--  UI change is delayed by an animation
-				act(function()
-					wait(1)
-				end)
-				expect(contextualMenu.Visible).to.equal(false)
-			end
+			--  UI change is delayed by an animation
+			act(function()
+				wait(1)
+			end)
+			expect(contextualMenu.Visible).to.equal(false)
 		end)
 
 		it("Should close when Respawn opens", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				local store = c.store
-				local path = c.path
-				c.storeUpdate(SetMenuOpen(true))
-				c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
-				act(function()
-					wait()
-				end)
+			local store = c.store
+			local path = c.path
+			c.storeUpdate(SetMenuOpen(true))
+			c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
+			act(function()
+				wait()
+			end)
 
-				local originalPath = XPath.new(path)
-				local moreMenuButtonPath = originalPath:cat(XPath.new(
-					"PageContainer.MainPage.Page" ..
-					".BottomButtons.MoreButton"))
-				local moreMenuButtonElement = Element.new(moreMenuButtonPath)
-				local moreMenuButton = moreMenuButtonElement:waitForRbxInstance(1)
+			local originalPath = XPath.new(path)
+			local moreMenuButtonPath = originalPath:cat(XPath.new(
+				"PageContainer.MainPage.Page" ..
+				".BottomButtons.MoreButton"))
+			local moreMenuButtonElement = Element.new(moreMenuButtonPath)
+			local moreMenuButton = moreMenuButtonElement:waitForRbxInstance(1)
 
-				local contextualMenuPath = originalPath:cat(XPath.new(
-					"PageContainer.MainPage.Page" ..
-					".ContextualMenu"))
-				local contextualMenuElement = Element.new(contextualMenuPath)
-				local contextualMenu = contextualMenuElement:waitForRbxInstance(1)
+			local contextualMenuPath = originalPath:cat(XPath.new(
+				"PageContainer.MainPage.Page" ..
+				".ContextualMenu"))
+			local contextualMenuElement = Element.new(contextualMenuPath)
+			local contextualMenu = contextualMenuElement:waitForRbxInstance(1)
 
-				-- Opening the menu
-				GuiService.SelectedCoreObject = moreMenuButton
-				act(function()
-					wait(0.2)
-				end)
-				c.gamepadInput(Enum.KeyCode.ButtonA)
+			-- Opening the menu
+			GuiService.SelectedCoreObject = moreMenuButton
+			act(function()
+				wait(0.2)
+			end)
+			c.gamepadInput(Enum.KeyCode.ButtonA)
 
-				expect(contextualMenu.Visible).to.equal(true)
+			expect(contextualMenu.Visible).to.equal(true)
 
-				-- Switching page closes the menu
-				c.gamepadInput(Enum.KeyCode.ButtonY)
+			-- Switching page closes the menu
+			c.gamepadInput(Enum.KeyCode.ButtonY)
 
-				--  UI change is delayed by an animation
-				act(function()
-					wait(1)
-				end)
-				expect(contextualMenu.Visible).to.equal(false)
-			end
+			--  UI change is delayed by an animation
+			act(function()
+				wait(1)
+			end)
+			expect(contextualMenu.Visible).to.equal(false)
 		end)
 	end)
 
@@ -468,31 +451,27 @@ return function()
 		end)
 
 		it("Should not bumper switch if menu closed", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				local store = c.store
+			local store = c.store
 
-				c.storeUpdate(SetMenuOpen(true))
-				c.storeUpdate(SetMenuOpen(false))
+			c.storeUpdate(SetMenuOpen(true))
+			c.storeUpdate(SetMenuOpen(false))
 
-				c.gamepadInput(Enum.KeyCode.ButtonL1)
-				expect(store:getState().currentZone).to.equal(1)
-				c.gamepadInput(Enum.KeyCode.ButtonR1)
-				expect(store:getState().currentZone).to.equal(1)
-			end
+			c.gamepadInput(Enum.KeyCode.ButtonL1)
+			expect(store:getState().currentZone).to.equal(1)
+			c.gamepadInput(Enum.KeyCode.ButtonR1)
+			expect(store:getState().currentZone).to.equal(1)
 		end)
 
 		it("Should bumper switch", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				local store = c.store
+			local store = c.store
 
-				c.storeUpdate(SetMenuOpen(true))
-				c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
+			c.storeUpdate(SetMenuOpen(true))
+			c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
 
-				c.gamepadInput(Enum.KeyCode.ButtonL1)
-				expect(store:getState().currentZone).to.equal(0)
-				c.gamepadInput(Enum.KeyCode.ButtonR1)
-				expect(store:getState().currentZone).to.equal(1)
-			end
+			c.gamepadInput(Enum.KeyCode.ButtonL1)
+			expect(store:getState().currentZone).to.equal(0)
+			c.gamepadInput(Enum.KeyCode.ButtonR1)
+			expect(store:getState().currentZone).to.equal(1)
 		end)
 
 		if GetFFlagUseIGMControllerBar() then
@@ -737,21 +716,19 @@ return function()
 
 		c.gamepadInput(Enum.KeyCode.DPadDown)
 
-		if GetFFlagInGameMenuControllerDevelopmentOnly() then
-			local ButtonX = Images["icons/controls/keys/xboxX"]
-			local leaveGameKeyLabel = Element.new(leaveGameKeyLabelPath_Gamepad):getRbxInstance()
-			expect(leaveGameKeyLabel).to.be.ok()
-			expect(leaveGameKeyLabel.Image).to.equal(ButtonX.Image)
-			expect(leaveGameKeyLabel.ImageRectOffset).to.equal(ButtonX.ImageRectOffset)
-			expect(leaveGameKeyLabel.ImageRectSize).to.equal(ButtonX.ImageRectSize)
+		local ButtonX = Images["icons/controls/keys/xboxX"]
+		local leaveGameKeyLabel = Element.new(leaveGameKeyLabelPath_Gamepad):getRbxInstance()
+		expect(leaveGameKeyLabel).to.be.ok()
+		expect(leaveGameKeyLabel.Image).to.equal(ButtonX.Image)
+		expect(leaveGameKeyLabel.ImageRectOffset).to.equal(ButtonX.ImageRectOffset)
+		expect(leaveGameKeyLabel.ImageRectSize).to.equal(ButtonX.ImageRectSize)
 
-			local ButtonY = Images["icons/controls/keys/xboxY"]
-			local respawnKeyLabel = Element.new(respawnKeyLabelPath_Gamepad):getRbxInstance()
-			expect(respawnKeyLabel).to.be.ok()
-			expect(respawnKeyLabel.Image).to.equal(ButtonY.Image)
-			expect(respawnKeyLabel.ImageRectOffset).to.equal(ButtonY.ImageRectOffset)
-			expect(respawnKeyLabel.ImageRectSize).to.equal(ButtonY.ImageRectSize)
-		end
+		local ButtonY = Images["icons/controls/keys/xboxY"]
+		local respawnKeyLabel = Element.new(respawnKeyLabelPath_Gamepad):getRbxInstance()
+		expect(respawnKeyLabel).to.be.ok()
+		expect(respawnKeyLabel.Image).to.equal(ButtonY.Image)
+		expect(respawnKeyLabel.ImageRectOffset).to.equal(ButtonY.ImageRectOffset)
+		expect(respawnKeyLabel.ImageRectSize).to.equal(ButtonY.ImageRectSize)
 
 		c.keyboardInput(Enum.KeyCode.A)
 

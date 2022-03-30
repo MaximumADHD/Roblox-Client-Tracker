@@ -11,14 +11,17 @@
 		table EditingItemContext: An EditingItemContext, which is provided via withContext.
 		table PreviewContext: A PreviewContext item, which is provided via withContext.
 		table AssetServiceWrapper: An AssetServiceWrapper context item, provided via withContext.
-
 ]]
-
-local InsertService = game:GetService("InsertService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local Cryo = require(Plugin.Packages.Cryo)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+
+local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
+local PreviewUtil = AccessoryAndBodyToolSharedUtil.PreviewUtil
+local AvatarUtil = AccessoryAndBodyToolSharedUtil.AvatarUtil
 
 local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
 local PreviewContext = require(Plugin.Src.Context.PreviewContext)
@@ -31,17 +34,94 @@ local Util = Framework.Util
 local Typecheck = Util.Typecheck
 
 local Constants = require(Plugin.Src.Util.Constants)
-local ModelUtil = require(Plugin.Src.Util.ModelUtil)
-local BundleImporter = require(Plugin.Src.Util.BundleImporter)
 local PreviewConstants = require(Plugin.Src.Util.PreviewConstants)
-local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
+local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
 local ExplorerPreviewInstances = Roact.PureComponent:extend("ExplorerPreviewInstances")
 Typecheck.wrap(ExplorerPreviewInstances, script)
 
+local function onPreviewSelectionChanged(self)
+	local props = self.props
+	local selectedAssets = props.SelectedAssets
+	local userAddedAssets = props.UserAddedAssets
+	local assetService = props.AssetServiceWrapper:get()
+	local editingItemContext = props.EditingItemContext
+	local editingItem = editingItemContext:getItem()
+	local previewContext = props.PreviewContext
+
+	local avatarTabKey = PreviewConstants.TABS_KEYS.Avatars
+	local clothingTabKey = PreviewConstants.TABS_KEYS.Clothing
+
+	local selectedAvatarIds = Cryo.Dictionary.keys(selectedAssets[avatarTabKey] or {})
+	local selectedClothingIds = Cryo.Dictionary.keys(selectedAssets[clothingTabKey] or {})
+
+	local previewAvatars = PreviewUtil.createPreviewAvatars(selectedAvatarIds, userAddedAssets[avatarTabKey], self.folderRef.current, assetService)
+
+	for _, previewAvatar in ipairs(previewAvatars) do
+		AvatarUtil:positionAvatarNextTo(previewAvatar.model, editingItem.Parent, false)
+	end
+
+	-- this will be first layer on the preview avatar
+	editingItem.Archivable = true
+	local clone = editingItem:Clone()
+	editingItem.Archivable = false
+	PreviewUtil.addPreviewClothingFromInstances(previewAvatars, {clone})
+
+	PreviewUtil.addPreviewClothingFromIds(previewAvatars, selectedClothingIds, userAddedAssets[clothingTabKey], assetService)
+
+	previewContext:setAvatars(previewAvatars)
+end
+
+local function transformOrDeformPreviewLayers(self)
+	local props = self.props
+
+	local attachmentPoint = props.AttachmentPoint
+	local accessoryTypeInfo = props.AccessoryTypeInfo
+	local previewContext = props.PreviewContext
+	local editingCage = props.EditingCage
+	local pointData = props.PointData
+	local itemSize = props.ItemSize
+
+	local previewAvatars = previewContext:getAvatars()
+	for _, avatar in ipairs(previewAvatars) do
+		if editingCage == Constants.EDIT_MODE.Mesh then
+			avatar:transformLayer(1, itemSize, attachmentPoint.AttachmentCFrame, attachmentPoint.ItemCFrame, accessoryTypeInfo.Name)
+		else
+			-- TODO: shouldn't have to do this once we refactor to use the vertex editing module
+			if pointData and pointData[editingCage] then
+				local verts = {}
+				local _, pointTable = next(pointData[editingCage])
+				for _, point in ipairs(pointTable) do
+					table.insert(verts, point.Position)
+				end
+
+				avatar:deformLayer(1, verts, editingCage)
+			end
+		end
+	end
+end
+
+local function updatePreviewAssets(self, selectionChanged)
+	coroutine.wrap(function()
+		while self.isUpdateInProgress do
+			wait()
+		end
+
+		self.isUpdateInProgress = true
+
+		if selectionChanged then
+			onPreviewSelectionChanged(self)
+		end
+
+		transformOrDeformPreviewLayers(self)
+
+		self.isUpdateInProgress = false
+	end)()
+end
+
 function ExplorerPreviewInstances:init()
 	self.folderRef = Roact.createRef()
-	self.editingItemClones = {}
+	self.isUpdateInProgress = false
 end
 
 function ExplorerPreviewInstances:render()
@@ -55,211 +135,13 @@ function ExplorerPreviewInstances:render()
 	})
 end
 
-local function getModelFromBackend(assetService, assetId, isBundleId)
-	local containerModel = nil
-	local model = nil
-	local success, err = pcall(function()
-		if isBundleId then
-			model = BundleImporter.getAvatarFromBundleId(assetService, assetId)
-		else
-			containerModel = InsertService:LoadAsset(assetId)
-			model = containerModel:GetChildren()[1]
-		end
-	end)
-	if success then
-		model.Parent = nil
-		model.Archivable = false
-		if containerModel then
-			containerModel:Destroy()
-		end
-		return model
-	else
-		warn("unable to insert model because: " .. err)
-	end
-end
-
-local function getModelFromUserAddedAssets(self, uniqueId, tabKey)
-	local props = self.props
-	local userAddedAssets = props.UserAddedAssets
-
-	if not userAddedAssets or not userAddedAssets[tabKey] then
-		return
-	end
-
-	for _, asset in ipairs(userAddedAssets[tabKey]) do
-			if asset.uniqueId == uniqueId then
-				local result = asset.instance:Clone()
-				result.Archivable = false
-				return result
-			end
-		end
-	end
-
-local function getModel(self, uniqueId, tabKey)
-	local result = getModelFromUserAddedAssets(self, uniqueId, tabKey)
-	if result then
-		return result
-	end
-	local isInt = (type(uniqueId) == "number") and (math.floor(uniqueId) == uniqueId)
-	assert(isInt, "if the uniqueId does not refer to a user added asset it must be an integer referring to an assetId")
-
-	-- if we have an assetId for an avatar then it is a bundle
-	local isBundleId = isInt and tabKey == PreviewConstants.TABS_KEYS.Avatars
-
-	return isInt and getModelFromBackend(self.props.AssetServiceWrapper:get(), uniqueId, isBundleId) or nil
-end
-
-local function getSelectedUniqueIds(self, tabKey)
-	local props = self.props
-	local selectedAssets = props.SelectedAssets
-	return selectedAssets[tabKey] or {}
-end
-
-local function isPreviewClothingSelected(self)
-	local selectedClothingItems = getSelectedUniqueIds(self, PreviewConstants.TABS_KEYS.Clothing)
-	return next(selectedClothingItems) ~= nil
-end
-
-local function removePreviewAvatars(self)
-	self.props.PreviewContext:destroyAvatars()
-
-	for _, clothes in ipairs(self.editingItemClones) do
-		clothes:Destroy()
-	end
-
-	self.editingItemClones = {}
-end
-
-local function cloneEditingItem(editingItem)
-	local clone = editingItem:Clone()
-	clone.Archivable = false
-	return clone
-end
-
-local function addPreviewAvatar(self, previewAvatar)
-	local editingItem = self.props.EditingItemContext:getItem()
-	if ItemCharacteristics.isAvatar(editingItem) then
-		ModelUtil:positionAvatar(previewAvatar, editingItem)
-	else
-		ModelUtil:positionAvatar(previewAvatar, editingItem.Parent)
-	end
-	previewAvatar.Parent = self.folderRef.current
-	previewAvatar.Name = PreviewConstants.PreviewAvatarName
-	self.props.PreviewContext:addAvatar(previewAvatar)
-end
-
-local function fetchPreviewAvatar(self)
-	local requiredPreviewAvatarUniqueIds = getSelectedUniqueIds(self, PreviewConstants.TABS_KEYS.Avatars)
-	for uniqueId in pairs(requiredPreviewAvatarUniqueIds) do
-		local previewAvatar = getModel(self, uniqueId, PreviewConstants.TABS_KEYS.Avatars)
-		if previewAvatar then
-			addPreviewAvatar(self, previewAvatar)
-		end
-	end
-end
-
-local function removePreviewClothes(self)
-	self.props.PreviewContext:destroyItems()
-end
-
-local function applyAllSelectedClothing(self, avatar)
-	local requiredPreviewClothesUniqueIds = getSelectedUniqueIds(self, PreviewConstants.TABS_KEYS.Clothing)
-	for uniqueId in pairs(requiredPreviewClothesUniqueIds) do
-		local previewClothes = getModel(self, uniqueId, PreviewConstants.TABS_KEYS.Clothing)
-		if previewClothes then
-			previewClothes.Name = uniqueId
-			ModelUtil:attachClothingItem(avatar, previewClothes, self.props.AccessoryTypeInfo.Name)
-			self.props.PreviewContext:addItem(previewClothes)
-		end
-	end
-end
-
-local function fetchPreviewClothes(self)
-	local editingItem = self.props.EditingItemContext:getSourceItemWithUniqueDeformerNames()
-	if ItemCharacteristics.isAvatar(editingItem) then
-		if isPreviewClothingSelected(self) then
-			local avatarClone = cloneEditingItem(editingItem)
-			addPreviewAvatar(self, avatarClone)
-			applyAllSelectedClothing(self, avatarClone)
-		end
-	elseif ItemCharacteristics.isClothes(editingItem) then
-		for _, avatar in ipairs(self.props.PreviewContext:getAvatars()) do
-			local clothingClone = cloneEditingItem(editingItem)
-			ModelUtil:attachClothingItem(avatar, clothingClone, self.props.AccessoryTypeInfo.Name)
-			applyAllSelectedClothing(self, avatar)
-			table.insert(self.editingItemClones, clothingClone)
-		end
-	end
-end
-
-local function updatePreviewAttachments(self)
-	for _, clone in ipairs(self.editingItemClones) do
-		if self.props.AccessoryTypeInfo then
-			-- need to detach weld first
-			local weld = clone:FindFirstChildWhichIsA("WeldConstraint")
-			if weld then
-				weld:Destroy()
-			end
-			clone.Size = self.props.ItemSize
-			ModelUtil:createOrReuseAttachmentInstance(clone, clone.Parent, self.props.AccessoryTypeInfo, self.props.AttachmentPoint)
-			ModelUtil:attachClothingItem(clone.Parent, clone, self.props.AccessoryTypeInfo.Name, true, true)
-		end
-	end
-end
-
-local function updatePreviewDeformations(self)
-	if self.props.EditingCage == Constants.EDIT_MODE.Mesh then
-		return
-	end
-
-	for _, item in ipairs(self.editingItemClones) do
-		ModelUtil:deformClothing(item, self.props.PointData, self.props.EditingCage)
-	end
-	if ItemCharacteristics.isAvatar(self.props.EditingItemContext:getItem()) then
-		for _, avatar in ipairs(self.props.PreviewContext:getAvatars()) do
-			ModelUtil:deformAvatar(avatar, self.props.PointData, self.props.EditingCage)
-		end
-	end
-end
-
-local function updatePreviewAssets(self, removeOldAssets, fetchNewAsets)
-	coroutine.wrap(function()
-		while self.isUpdateInProgress do
-			wait()
-		end
-
-		self.isUpdateInProgress = true
-		if removeOldAssets then
-			removePreviewClothes(self)
-			removePreviewAvatars(self)
-		end
-
-		if fetchNewAsets then
-		fetchPreviewAvatar(self)
-		fetchPreviewClothes(self)
-		end
-
-		updatePreviewDeformations(self)
-		updatePreviewAttachments(self)
-		self.isUpdateInProgress = false
-	end)()
-end
-
-function ExplorerPreviewInstances:didMount()
-	updatePreviewAssets(self, false, true)
-end
-
 function ExplorerPreviewInstances:didUpdate(prevProps)
 	if prevProps.SelectedAssets[PreviewConstants.TABS_KEYS.Avatars] ~= self.props.SelectedAssets[PreviewConstants.TABS_KEYS.Avatars] or
 		prevProps.SelectedAssets[PreviewConstants.TABS_KEYS.Clothing] ~= self.props.SelectedAssets[PreviewConstants.TABS_KEYS.Clothing]then
-		updatePreviewAssets(self, true, true)
+		updatePreviewAssets(self, true)
 	else
-		updatePreviewAssets(self, false, false)
+		updatePreviewAssets(self, false)
 	end
-end
-
-function ExplorerPreviewInstances:willUnmount()
-	updatePreviewAssets(self, true, false)
 end
 
 local function mapStateToProps(state, props)
@@ -277,13 +159,10 @@ local function mapStateToProps(state, props)
 	}
 end
 
-
 ExplorerPreviewInstances = withContext({
 	EditingItemContext = EditingItemContext,
 	PreviewContext = PreviewContext,
 	AssetServiceWrapper = AssetServiceWrapper,
 })(ExplorerPreviewInstances)
-
-
 
 return RoactRodux.connect(mapStateToProps)(ExplorerPreviewInstances)

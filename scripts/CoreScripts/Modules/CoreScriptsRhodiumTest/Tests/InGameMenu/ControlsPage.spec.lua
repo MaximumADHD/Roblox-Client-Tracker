@@ -15,7 +15,6 @@ local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
 local Constants = require(InGameMenu.Resources.Constants)
 
 local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 return function()
 	beforeEach(function(c)
@@ -51,77 +50,71 @@ return function()
 
 	describe("ControlsPage gamepad focus management", function()
 		it("should select the close button when opened and navigate back when activated", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				local store = c.store
+			local store = c.store
 
-				local closeButtonPath = XPath.new("game.CoreGui.InGameMenuModalBlur.GamepadControls.HeaderContainer.CloseButton")
-				local closeButtonElement = Element.new(closeButtonPath)
+			local closeButtonPath = XPath.new("game.CoreGui.InGameMenuModalBlur.GamepadControls.HeaderContainer.CloseButton")
+			local closeButtonElement = Element.new(closeButtonPath)
 
-				-- Send an input to update currently used input device
-				c.gamepadInput(Enum.KeyCode.DPadDown)
+			-- Send an input to update currently used input device
+			c.gamepadInput(Enum.KeyCode.DPadDown)
 
-				c.storeUpdate(SetMenuOpen(true))
-				c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
+			c.storeUpdate(SetMenuOpen(true))
+			c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
 
-				expect(GuiService.SelectedCoreObject).to.be.ok()
+			expect(GuiService.SelectedCoreObject).to.be.ok()
 
-				c.gamepadInput(Enum.KeyCode.DPadDown)
-				c.gamepadInput(Enum.KeyCode.DPadDown)
-				c.gamepadInput(Enum.KeyCode.DPadDown)
-				c.gamepadInput(Enum.KeyCode.DPadDown)
-				expect(GuiService.SelectedCoreObject.ContentContainer.Text.Text).to.equal("Controls...")
+			c.gamepadInput(Enum.KeyCode.DPadDown)
+			c.gamepadInput(Enum.KeyCode.DPadDown)
+			c.gamepadInput(Enum.KeyCode.DPadDown)
+			c.gamepadInput(Enum.KeyCode.DPadDown)
+			expect(GuiService.SelectedCoreObject.ContentContainer.Text.Text).to.equal("Controls...")
 
-				c.gamepadInput(Enum.KeyCode.ButtonA)
-				expect(store:getState().menuPage).to.equal("Controls")
-				expect(GuiService.SelectedCoreObject).to.equal(closeButtonElement:waitForRbxInstance(1))
+			c.gamepadInput(Enum.KeyCode.ButtonA)
+			expect(store:getState().menuPage).to.equal("Controls")
+			expect(GuiService.SelectedCoreObject).to.equal(closeButtonElement:waitForRbxInstance(1))
 
-				c.gamepadInput(Enum.KeyCode.ButtonA)
-				expect(store:getState().menuPage).to.equal(Constants.MainPagePageKey)
-				expect(GuiService.SelectedCoreObject).never.to.equal(closeButtonElement:getRbxInstance())
-			end
+			c.gamepadInput(Enum.KeyCode.ButtonA)
+			expect(store:getState().menuPage).to.equal(Constants.MainPagePageKey)
+			expect(GuiService.SelectedCoreObject).never.to.equal(closeButtonElement:getRbxInstance())
 		end)
 
 		it("should navigate back when pressing B", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				local store = c.store
+			local store = c.store
 
-				-- Send an input to update currently used input device
-				c.gamepadInput(Enum.KeyCode.DPadDown)
+			-- Send an input to update currently used input device
+			c.gamepadInput(Enum.KeyCode.DPadDown)
 
-				c.storeUpdate(SetMenuOpen(true))
-				c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
+			c.storeUpdate(SetMenuOpen(true))
+			c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
 
-				expect(GuiService.SelectedCoreObject).to.be.ok()
+			expect(GuiService.SelectedCoreObject).to.be.ok()
 
-				c.gamepadInput(Enum.KeyCode.DPadDown)
-				c.gamepadInput(Enum.KeyCode.DPadDown)
-				c.gamepadInput(Enum.KeyCode.DPadDown)
-				c.gamepadInput(Enum.KeyCode.DPadDown)
-				expect(GuiService.SelectedCoreObject.ContentContainer.Text.Text).to.equal("Controls...")
+			c.gamepadInput(Enum.KeyCode.DPadDown)
+			c.gamepadInput(Enum.KeyCode.DPadDown)
+			c.gamepadInput(Enum.KeyCode.DPadDown)
+			c.gamepadInput(Enum.KeyCode.DPadDown)
+			expect(GuiService.SelectedCoreObject.ContentContainer.Text.Text).to.equal("Controls...")
 
-				c.gamepadInput(Enum.KeyCode.ButtonA)
-				expect(store:getState().menuPage).to.equal("Controls")
+			c.gamepadInput(Enum.KeyCode.ButtonA)
+			expect(store:getState().menuPage).to.equal("Controls")
 
-				c.gamepadInput(Enum.KeyCode.ButtonB)
-				expect(store:getState().menuPage).to.equal(Constants.MainPagePageKey)
-			end
+			c.gamepadInput(Enum.KeyCode.ButtonB)
+			expect(store:getState().menuPage).to.equal(Constants.MainPagePageKey)
 		end)
 
 		it("Should not bumper switch", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				local store = c.store
+			local store = c.store
 
-				-- Send an input to update UserInputService.GamepadEnabled
-				c.gamepadInput(Enum.KeyCode.DPadDown)
+			-- Send an input to update UserInputService.GamepadEnabled
+			c.gamepadInput(Enum.KeyCode.DPadDown)
 
-				c.storeUpdate(SetMenuOpen(true))
-				c.storeUpdate(SetCurrentPage("Controls"))
+			c.storeUpdate(SetMenuOpen(true))
+			c.storeUpdate(SetCurrentPage("Controls"))
 
-				c.gamepadInput(Enum.KeyCode.ButtonL1)
-				expect(store:getState().currentZone).to.equal(1)
-				c.gamepadInput(Enum.KeyCode.ButtonR1)
-				expect(store:getState().currentZone).to.equal(1)
-			end
+			c.gamepadInput(Enum.KeyCode.ButtonL1)
+			expect(store:getState().currentZone).to.equal(1)
+			c.gamepadInput(Enum.KeyCode.ButtonR1)
+			expect(store:getState().currentZone).to.equal(1)
 		end)
 	end)
 end

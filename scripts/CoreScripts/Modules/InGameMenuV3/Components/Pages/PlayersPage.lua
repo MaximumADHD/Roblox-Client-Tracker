@@ -152,7 +152,7 @@ local function sortPlayers(p1, p2)
 	return p1.Name:lower() < p2.Name:lower()
 end
 
-function PlayersPage:renderListEntries(players)
+function PlayersPage:renderListEntries(style, localized, players)
 	local sortedPlayers = Cryo.List.sort(players, sortPlayers)
 
 	local layoutOrder = 0
@@ -162,6 +162,29 @@ function PlayersPage:renderListEntries(players)
 		SortOrder = Enum.SortOrder.LayoutOrder,
 		HorizontalAlignment = Enum.HorizontalAlignment.Right,
 	})
+
+	-- players header section
+	listComponents["header_player"] = Roact.createElement("TextLabel", {
+		BackgroundTransparency = style.Theme.BackgroundContrast.Transparency,
+		BackgroundColor3 = style.Theme.BackgroundContrast.Color,
+		BorderSizePixel = 0,
+		Font = style.Font.Footer.Font,
+		Text = localized.headerPlayers,
+		TextColor3 = style.Theme.TextDefault.Color,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		TextTransparency = style.Theme.TextDefault.Transparency,
+		TextSize = style.Font.BaseSize * style.Font.Footer.RelativeSize,
+		Size = UDim2.new(1, 0, 0, 24),
+		LayoutOrder = layoutOrder
+	}, {
+		PaddingLeftadding = Roact.createElement("UIPadding", {
+			PaddingTop = UDim.new(0,6),
+			PaddingBottom = UDim.new(0, 6),
+			PaddingLeft = UDim.new(0, 24),
+		}),
+	})
+
+	layoutOrder = layoutOrder + 1
 
 	for index, player in pairs(sortedPlayers) do
 		local id = FFlagLuaMenuPerfImprovements and player.UserId or index
@@ -386,7 +409,7 @@ function PlayersPage:renderFocusHandler(canCaptureFocus)
 	})
 end
 
-function PlayersPage:renderWithLocalizedAndSelectionCursor(localized, getSelectionCursor)
+function PlayersPage:renderWithLocalizedAndSelectionCursor(style, localized, getSelectionCursor)
 	local moreMenuPositionYOffset = 0
 	local moreMenuPositionXOffset = 0
 	local moreActions = {}
@@ -474,6 +497,7 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(localized, getSelecti
 		PlayerListContent = withStyle(function(style)
 			return Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
 				Size = GetFFlagInGameMenuControllerDevelopmentOnly()
 					and UDim2.new(1, 0, 1, 0) or UDim2.new(0, 400, 1, 0),
 
@@ -489,7 +513,7 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(localized, getSelecti
 					CanvasSize = UDim2.new(1, 0, 0, #self.state.players * (PLAYER_LABEL_HEIGHT + 1)),
 					scrollBarOffset = not GetFFlagInGameMenuControllerDevelopmentOnly() and 4 or nil,
 					ScrollingEnabled = self.state.selectedPlayer == nil,
-				}, self:renderListEntries(self.state.players)),
+				}, self:renderListEntries(style, localized, self.state.players)),
 
 				MoreActionsMenu = moreActionsMenuPanel,
 			})
@@ -511,28 +535,32 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(localized, getSelecti
 	})
 end
 
-function PlayersPage:renderWithLocalized(localized)
+function PlayersPage:renderWithLocalized(style, localized)
 	if GetFFlagInGameMenuControllerDevelopmentOnly() then
 		return withSelectionCursorProvider(function(getSelectionCursor)
-			return self:renderWithLocalizedAndSelectionCursor(localized, getSelectionCursor)
+			return self:renderWithLocalizedAndSelectionCursor(style, localized, getSelectionCursor)
 		end)
 	else
-		return self:renderWithLocalizedAndSelectionCursor(localized)
+		return self:renderWithLocalizedAndSelectionCursor(style, localized)
 	end
 end
 
 function PlayersPage:render()
-	return withLocalization({
-		addFriend = "CoreScripts.InGameMenu.Actions.AddFriend",
-		acceptFriend = "CoreScripts.InGameMenu.Actions.AcceptFriend",
-		unfriend = "CoreScripts.InGameMenu.Actions.Unfriend",
-		cancelFriend = "CoreScripts.InGameMenu.Actions.CancelFriend",
-		viewAvatar = "CoreScripts.InGameMenu.Actions.ViewAvatar",
-		reportAbuse = "CoreScripts.InGameMenu.Actions.ReportAbuse",
-		blockPlayer = "CoreScripts.InGameMenu.Actions.BlockPlayer",
-		unblockPlayer = "CoreScripts.InGameMenu.Actions.UnblockPlayer",
-	})(function(localized)
-		return self:renderWithLocalized(localized)
+	return withStyle(function(style)
+		return withLocalization({
+			addFriend = "CoreScripts.InGameMenu.Actions.AddFriend",
+			acceptFriend = "CoreScripts.InGameMenu.Actions.AcceptFriend",
+			unfriend = "CoreScripts.InGameMenu.Actions.Unfriend",
+			cancelFriend = "CoreScripts.InGameMenu.Actions.CancelFriend",
+			viewAvatar = "CoreScripts.InGameMenu.Actions.ViewAvatar",
+			reportAbuse = "CoreScripts.InGameMenu.Actions.ReportAbuse",
+			blockPlayer = "CoreScripts.InGameMenu.Actions.BlockPlayer",
+			unblockPlayer = "CoreScripts.InGameMenu.Actions.UnblockPlayer",
+			headerPlayers = "CoreScripts.InGameMenu.Header.Players",
+			headerFriendRequests = "CoreScripts.InGameMenu.Header.FriendRequests",
+		})(function(localized)
+			return self:renderWithLocalized(style, localized)
+		end)
 	end)
 end
 

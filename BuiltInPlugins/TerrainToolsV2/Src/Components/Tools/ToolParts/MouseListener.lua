@@ -21,8 +21,6 @@ local Workspace = game:GetService("Workspace")
 
 local MouseListener = Roact.PureComponent:extend("MouseListener")
 
-local EngineFeatureDraggerBruteForce = game:GetEngineFeature("DraggerBruteForceAll")
-
 local function isAltKeyDown()
 	return UserInputService:IsKeyDown(Enum.KeyCode.LeftAlt) or UserInputService:IsKeyDown(Enum.KeyCode.RightAlt)
 end
@@ -75,9 +73,7 @@ end
 function MouseListener:didMount()
     self._raycastParams = RaycastParams.new()
     self._raycastParams.FilterType = Enum.RaycastFilterType.Whitelist
-    if EngineFeatureDraggerBruteForce then
-		self._raycastParams.BruteForceAllSlow = true
-	end
+    self._raycastParams.BruteForceAllSlow = true
     self._raycastParams.FilterDescendantsInstances = {self.props.Terrain:get()}
     self._onInputBeganConnection = UserInputService.InputBegan:Connect(self.onInputBegan)
 end

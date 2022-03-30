@@ -17,6 +17,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
 local Framework = require(Packages.Framework)
 local Roact = require(Packages.Roact)
+local multiLanguageUppercase = require(Plugin.Core.Util.multiLanguageUppercase)
 
 local ContextServices = Framework.ContextServices
 local HoverArea = Framework.UI.HoverArea
@@ -109,11 +110,7 @@ function IconTile:render()
 		textColor = iconTileTheme.textColor
 	end
 
-	local titleText = title
-	if utf8.len(title) == string.len(title) then
-		-- Only set ascii characters to uppercase.
-		titleText = string.upper(title)
-	end
+	local titleText = multiLanguageUppercase(title)
 
 	return Roact.createElement("TextButton", { -- TextButton used for Activated support
 		AutoButtonColor = false,
@@ -188,10 +185,12 @@ function IconTile:render()
 					NumberSequenceKeypoint.new(1, 1),
 				}),
 				Rotation = -90,
-				Color = ColorSequence.new({
-					ColorSequenceKeypoint.new(0, iconTileTheme.gradientColor),
-					ColorSequenceKeypoint.new(1, backgroundColor),
-				}),
+				Color = if backgroundColor
+					then ColorSequence.new({
+						ColorSequenceKeypoint.new(0, iconTileTheme.gradientColor),
+						ColorSequenceKeypoint.new(1, backgroundColor),
+					})
+					else nil,
 			}),
 		}),
 

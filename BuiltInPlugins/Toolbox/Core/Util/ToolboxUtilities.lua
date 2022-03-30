@@ -1,7 +1,11 @@
+local Plugin = script.Parent.Parent.Parent
 local isCli = require(script.Parent.isCli)
 
 local FFlagToolboxDisableAutocompleteWithGuac = game:GetFastFlag("ToolboxDisableAutocompleteWithGuac")
 local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+local FFlagAssetConfigDistributionQuotas = game:GetFastFlag("AssetConfigDistributionQuotas")
+
+local AssetQuotaTypes = require(Plugin.Core.Types.AssetQuotaTypes)
 
 local ToolboxPolicy
 if isCli() then
@@ -75,6 +79,38 @@ end
 if FFlagToolboxAssetCategorization then
 	function ToolboxUtilities.getHomeViewEnabledAssetTypes()
 		return ToolboxPolicy["HomeViewEnabledAssetTypes"]
+	end
+end
+
+if FFlagAssetConfigDistributionQuotas then
+	local assetTypeLookup = {}
+	for _, v in pairs(Enum.AssetType:GetEnumItems()) do
+		assetTypeLookup[v.Name] = v
+	end
+
+	function ToolboxUtilities.getAssetConfigDistributionQuotas(): AssetQuotaTypes.AssetQuotaPolicy
+		local policyName = "AssetConfigDistributionQuotas"
+		local policyValue = ToolboxPolicy[policyName]
+
+		if policyValue == nil then
+			return {}
+		end
+
+		if type(policyValue) ~= "table" then
+			warn(policyName .. " is expected to be a table if defined")
+			return {}
+		end
+
+		local results = {}
+		for key, value in pairs(policyValue) do
+			local assetType = assetTypeLookup[key]
+			if assetType ~= nil then
+				results[key] = value
+			else
+				warn("Invalid assetType name in getAssetConfigDistributionQuotasEnabledAssetTypes:", key)
+			end
+		end
+		return results
 	end
 end
 

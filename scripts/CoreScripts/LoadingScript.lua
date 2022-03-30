@@ -18,9 +18,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local create = require(RobloxGui:WaitForChild("Modules"):WaitForChild("Common"):WaitForChild("Create"))
 local PolicyService = require(RobloxGui.Modules.Common:WaitForChild("PolicyService"))
 
---FFlags
-local FFlagLoadTheLoadingScreenFasterSuccess, FFlagLoadTheLoadingScreenFasterValue = pcall(function() return settings():GetFFlag("LoadTheLoadingScreenFaster") end)
-local FFlagLoadTheLoadingScreenFaster = FFlagLoadTheLoadingScreenFasterSuccess and FFlagLoadTheLoadingScreenFasterValue
 local FFlagLoadingScreenShowBlankUntilPolicyServiceReturns = game:DefineFastFlag("LoadingScreenShowBlankUntilPolicyServiceReturns", false)
 local FFlagLoadingRemoveRemoteCallErrorPrint = game:DefineFastFlag("LoadingRemoveRemoteCallErrorPrint", false)
 
@@ -92,42 +89,27 @@ function InfoProvider:GetCreatorName()
 end
 
 function InfoProvider:LoadAssets()
-	if FFlagLoadTheLoadingScreenFaster then
-		coroutine.wrap(function()
-			local placeId = WaitForPlaceId()
+	spawn(function()
+		local PLACEID = game.PlaceId
+		if PLACEID <= 0 then
+			while game.PlaceId <= 0 do
+				wait()
+			end
+			PLACEID = game.PlaceId
+		end
+
+		-- load game asset info
+		coroutine.resume(coroutine.create(function()
 			local success, result = pcall(function()
-				GameAssetInfo = MarketplaceService:GetProductInfo(placeId)
+				GameAssetInfo = MarketplaceService:GetProductInfo(PLACEID)
 			end)
 			if not FFlagLoadingRemoveRemoteCallErrorPrint then
 				if not success then
 					print("LoadingScript->InfoProvider:LoadAssets:", result)
 				end
 			end
-		end)()
-	else
-		--spawn() == slowpoke.jpg
-		spawn(function()
-			local PLACEID = game.PlaceId
-			if PLACEID <= 0 then
-				while game.PlaceId <= 0 do
-					wait()
-				end
-				PLACEID = game.PlaceId
-			end
-
-			-- load game asset info
-			coroutine.resume(coroutine.create(function()
-				local success, result = pcall(function()
-					GameAssetInfo = MarketplaceService:GetProductInfo(PLACEID)
-				end)
-				if not FFlagLoadingRemoveRemoteCallErrorPrint then
-					if not success then
-						print("LoadingScript->InfoProvider:LoadAssets:", result)
-					end
-				end
-			end))
-		end)
-	end
+		end))
+	end)
 end
 
 -- create a cancel binding for console to be able to cancel anytime while loading
@@ -546,11 +528,7 @@ local function GenerateGui()
 	end
 
 	while not game:GetService("CoreGui") do
-		if FFlagLoadTheLoadingScreenFaster then
-			RunService.RenderStepped:wait()
-		else
-			wait()
-		end
+		wait()
 	end
 
 	screenGui.Parent = CoreGui

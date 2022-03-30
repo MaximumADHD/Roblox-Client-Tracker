@@ -7,9 +7,9 @@ export type Payload = {
 	Search : string
 }
 
-return Action(script.Name, function(Search : string) : Payload
-	assert(type(Search) == "string", ("Expected search to be a string, received %s"):format(type(Search)))
+return Action(script.Name, function(search : string) : Payload
+	assert(type(search) == "string", ("Expected search to be a string, received %s"):format(type(search)))
 	return {
-		Search = Search
+		Search = search
 	}
 end)

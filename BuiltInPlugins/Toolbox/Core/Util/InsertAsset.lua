@@ -11,7 +11,6 @@ local Category = require(Plugin.Core.Types.Category)
 
 local webKeys = require(Plugin.Core.Util.Permissions.Constants).webKeys
 
-local EngineFeatureDraggerBruteForce = game:GetEngineFeature("DraggerBruteForceAll")
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 local FFlagToolboxEnablePostDropScriptConfirmation = game:GetFastFlag("ToolboxEnablePostDropScriptConfirmation")
 local FFlagToolboxGrantUniverseAudioPermissions = game:GetFastFlag("ToolboxGrantUniverseAudioPermissions")
@@ -50,23 +49,13 @@ local function getInsertPosition()
 	local unitRay = camera:ViewportPointToRay(viewportPoint.X, viewportPoint.Y, 0)
 
 	local ray = Ray.new(unitRay.Origin, unitRay.Direction * INSERT_MAX_SEARCH_DEPTH)
-	if EngineFeatureDraggerBruteForce then
-		local params = RaycastParams.new()
-		params.BruteForceAllSlow = true
-		local result = Workspace:Raycast(ray.Origin, ray.Direction, params)
-		if result then
-			return result.Position
-		else
-			return camera.CFrame.p + unitRay.Direction * INSERT_MAX_DISTANCE_AWAY
-		end
+	local params = RaycastParams.new()
+	params.BruteForceAllSlow = true
+	local result = Workspace:Raycast(ray.Origin, ray.Direction, params)
+	if result then
+		return result.Position
 	else
-		local part, hitPosition = Workspace:FindPartOnRay(ray)
-
-		if not part then
-			hitPosition = camera.CFrame.p + unitRay.Direction * INSERT_MAX_DISTANCE_AWAY
-		end
-
-		return hitPosition
+		return camera.CFrame.p + unitRay.Direction * INSERT_MAX_DISTANCE_AWAY
 	end
 end
 

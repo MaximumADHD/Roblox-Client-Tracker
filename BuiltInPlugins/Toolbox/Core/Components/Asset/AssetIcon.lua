@@ -7,14 +7,15 @@
 		boolean isEndorsed
 		number LayoutOrder = 0
 		number curentSoundId
-		boolean isPlaying // remove with FFlagToolboxAssetGridRefactor5
+		boolean isPlaying // remove with FFlagToolboxAssetGridRefactor
 		AssetConfigConstants.ASSET_STATUS status
 
 		callback onMouseEnter()
 		callback onMouseLeave()
-		callback onPreviewAudioButtonClicked() // remove with FFlagToolboxAssetGridRefactor5
+		callback onPreviewAudioButtonClicked() // remove with FFlagToolboxAssetGridRefactor
 ]]
-local FFlagToolboxAssetGridRefactor5 = game:GetFastFlag("ToolboxAssetGridRefactor5")
+local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -74,9 +75,13 @@ function AssetIcon:init(props)
 		})
 	end
 
-	if FFlagToolboxAssetGridRefactor5 then
+	if FFlagToolboxAssetGridRefactor then
 		self.onAssetPreviewButtonClicked = function()
-			self.props.onPreviewToggled(true, self.props.assetId)
+			if FFlagToolboxAssetCategorization then
+				self.props.onAssetPreviewButtonClicked()
+			else
+				self.props.onPreviewToggled(true, self.props.assetId)
+			end
 		end
 	end
 end
@@ -94,12 +99,12 @@ function AssetIcon:render()
 		local typeId = props.typeId
 		local isPlugin = typeId == Enum.AssetType.Plugin.Value
 		local currentSoundId = props.currentSoundId
-		local isPlaying = not FFlagToolboxAssetGridRefactor5 and props.isPlaying or nil
+		local isPlaying = not FFlagToolboxAssetGridRefactor and props.isPlaying or nil
 		local isLoading = props.isLoading
 
 		local onMouseEnter = self.onMouseEnter
 		local onMouseLeave = self.onMouseLeave
-		local onPreviewAudioButtonClicked = not FFlagToolboxAssetGridRefactor5 and props.onPreviewAudioButtonClicked
+		local onPreviewAudioButtonClicked = not FFlagToolboxAssetGridRefactor and props.onPreviewAudioButtonClicked
 			or nil
 
 		local isHovered = self.state.isHovered
@@ -140,9 +145,9 @@ function AssetIcon:render()
 
 				assetId = assetId,
 				currentSoundId = currentSoundId,
-				isPlaying = not FFlagToolboxAssetGridRefactor5 and isPlaying or nil,
+				isPlaying = not FFlagToolboxAssetGridRefactor and isPlaying or nil,
 				isLoading = isLoading,
-				onClick = not FFlagToolboxAssetGridRefactor5 and onPreviewAudioButtonClicked or nil,
+				onClick = not FFlagToolboxAssetGridRefactor and onPreviewAudioButtonClicked or nil,
 			}),
 
 			AudioProgressBar = isAudioAsset and Roact.createElement(AudioProgressBar, {
@@ -157,7 +162,7 @@ function AssetIcon:render()
 			AssetPreviewTriggerButton = not isCurrentlyCreationsTab and Roact.createElement(PopUpWrapperButton, {
 				position = PREVIEW_POSITION,
 				ShowIcon = isAssetHovered,
-				onClick = FFlagToolboxAssetGridRefactor5 and self.onAssetPreviewButtonClicked
+				onClick = FFlagToolboxAssetGridRefactor and self.onAssetPreviewButtonClicked
 					or props.onAssetPreviewButtonClicked,
 			}),
 
@@ -212,7 +217,7 @@ local function mapStateToProps(state, props)
 end
 
 local mapDispatchToProps
-if FFlagToolboxAssetGridRefactor5 then
+if FFlagToolboxAssetGridRefactor then
 	mapDispatchToProps = function(dispatch)
 		return {
 			onPreviewToggled = function(isPreviewing, previewAssetId)

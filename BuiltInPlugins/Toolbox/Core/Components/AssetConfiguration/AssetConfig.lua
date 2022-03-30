@@ -11,6 +11,7 @@ local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFram
 local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 local FFlagToolboxAudioAssetConfigDisablePublicAudio = game:GetFastFlag("ToolboxAudioAssetConfigDisablePublicAudio")
+local FFlagToolboxEnablePublicAudioToggle = game:GetFastFlag("ToolboxEnablePublicAudioToggle")
 
 local StudioService = game:GetService("StudioService")
 
@@ -985,7 +986,11 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 	end
 	
 	if FFlagToolboxAudioAssetConfigDisablePublicAudio and isAudio then
-		allowCopy = false
+		if FFlagToolboxEnablePublicAudioToggle then
+			allowCopy = isAssetPublic
+		else
+			allowCopy = false
+		end
 	end
 
 	return Roact.createElement("Frame", {

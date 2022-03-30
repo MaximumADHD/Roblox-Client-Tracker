@@ -116,8 +116,8 @@ function PlayerCell:renderWithSelectionCursor(getSelectionCursor)
 		local forwardRef = self.props.forwardRef
 
 		return Roact.createElement("TextButton", {
-			BackgroundTransparency = backgroundStyle.Transparency,
-			BackgroundColor3 = backgroundStyle.Color,
+			BackgroundTransparency = style.Theme.BackgroundDefault.Transparency,
+			BackgroundColor3 = style.Theme.BackgroundDefault.Color,
 			BorderSizePixel = 0,
 			LayoutOrder = props.LayoutOrder,
 			Size = UDim2.new(1, 0, 0, CONTAINER_FRAME_HEIGHT),

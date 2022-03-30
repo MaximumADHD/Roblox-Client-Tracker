@@ -6,6 +6,7 @@ local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local DevConsoleMaster = require(Modules.DevConsoleMaster)
+local IsDeveloperConsoleEnabled = require(Modules.DevConsole.IsDeveloperConsoleEnabled)
 local act = require(Modules.act)
 
 local Rhodium = require(CorePackages.Rhodium)
@@ -20,7 +21,6 @@ local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
 local TestConstants = require(script.Parent.TestConstants)
 
 local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 return function()
 	beforeEach(function(c)
@@ -65,104 +65,92 @@ return function()
 
 	describe("In-Game Menu Advanced Settings page focus management", function()
 		it("should select the performance toggle ref by default", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				local path = XPath.new(c.path)
-				local perfStatsTogglePath = path:cat(XPath.new("PageContainer.AdvancedGameSettings.Page.PageContainer.PerformanceStats.Toggle"))
-				local perfStatsToggle = Element.new(perfStatsTogglePath)
+			local path = XPath.new(c.path)
+			local perfStatsTogglePath = path:cat(XPath.new("PageContainer.AdvancedGameSettings.Page.PageContainer.PerformanceStats.Toggle"))
+			local perfStatsToggle = Element.new(perfStatsTogglePath)
 
-				expect(GuiService.SelectedCoreObject).to.be.ok()
-				expect(GuiService.SelectedCoreObject).to.equal(perfStatsToggle:getRbxInstance())
-			end
+			expect(GuiService.SelectedCoreObject).to.be.ok()
+			expect(GuiService.SelectedCoreObject).to.equal(perfStatsToggle:getRbxInstance())
 		end)
 
 		it("should select page back button when moving selection up and perf stats toggle when moving selection down", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				local path = XPath.new(c.path)
-				act(function()
-					wait(0.2)
-				end)
+			local path = XPath.new(c.path)
+			act(function()
+				wait(0.2)
+			end)
 
-				local perfStatsTogglePath = path:cat(XPath.new("PageContainer.AdvancedGameSettings.Page.PageContainer.PerformanceStats.Toggle"))
-				local perfStatsToggle = Element.new(perfStatsTogglePath)
-				local backButtonPath = path:cat(XPath.new("PageContainer.AdvancedGameSettings.Page.PageTitle.BackButton"))
-				local backButton = Element.new(backButtonPath)
+			local perfStatsTogglePath = path:cat(XPath.new("PageContainer.AdvancedGameSettings.Page.PageContainer.PerformanceStats.Toggle"))
+			local perfStatsToggle = Element.new(perfStatsTogglePath)
+			local backButtonPath = path:cat(XPath.new("PageContainer.AdvancedGameSettings.Page.PageTitle.BackButton"))
+			local backButton = Element.new(backButtonPath)
 
-				expect(GuiService.SelectedCoreObject).to.be.ok()
-				expect(GuiService.SelectedCoreObject).to.equal(perfStatsToggle:getRbxInstance())
+			expect(GuiService.SelectedCoreObject).to.be.ok()
+			expect(GuiService.SelectedCoreObject).to.equal(perfStatsToggle:getRbxInstance())
 
-				c.gamepadInput(Enum.KeyCode.DPadUp)
+			c.gamepadInput(Enum.KeyCode.DPadUp)
 
-				expect(GuiService.SelectedCoreObject).to.be.ok()
-				expect(GuiService.SelectedCoreObject).to.equal(backButton:getRbxInstance())
+			expect(GuiService.SelectedCoreObject).to.be.ok()
+			expect(GuiService.SelectedCoreObject).to.equal(backButton:getRbxInstance())
 
-				c.gamepadInput(Enum.KeyCode.DPadDown)
+			c.gamepadInput(Enum.KeyCode.DPadDown)
 
-				expect(GuiService.SelectedCoreObject).to.be.ok()
-				expect(GuiService.SelectedCoreObject).to.equal(perfStatsToggle:getRbxInstance())
-			end
+			expect(GuiService.SelectedCoreObject).to.be.ok()
+			expect(GuiService.SelectedCoreObject).to.equal(perfStatsToggle:getRbxInstance())
 		end)
 
 		it("should navigate back to basic settings page when 'B' button is pressed", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				local store = c.store
+			local store = c.store
 
-				expect(store:getState().menuPage).to.equal("AdvancedGameSettings")
+			expect(store:getState().menuPage).to.equal("AdvancedGameSettings")
 
-				c.gamepadInput(Enum.KeyCode.ButtonB)
+			c.gamepadInput(Enum.KeyCode.ButtonB)
 
-				expect(store:getState().menuPage).to.equal("GameSettings")
-			end
+			expect(store:getState().menuPage).to.equal("GameSettings")
 		end)
 
 		it("should navigate back to basic settings page when back button is pressed", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				local store = c.store
-				act(function()
-					wait(0.2)
-				end)
+			local store = c.store
+			act(function()
+				wait(0.2)
+			end)
 
-				expect(store:getState().menuPage).to.equal("AdvancedGameSettings")
+			expect(store:getState().menuPage).to.equal("AdvancedGameSettings")
 
-				c.gamepadInput(Enum.KeyCode.DPadUp)
-				c.gamepadInput(Enum.KeyCode.ButtonA)
+			c.gamepadInput(Enum.KeyCode.DPadUp)
+			c.gamepadInput(Enum.KeyCode.ButtonA)
 
-				expect(store:getState().menuPage).to.equal("GameSettings")
-			end
+			expect(store:getState().menuPage).to.equal("GameSettings")
 		end)
 
 		it("should toggle perf stats", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				act(function()
-					wait(0.2)
-				end)
-				expect(UserGameSettings.PerformanceStatsVisible).to.equal(false)
+			act(function()
+				wait(0.2)
+			end)
+			expect(UserGameSettings.PerformanceStatsVisible).to.equal(false)
 
-				c.gamepadInput(Enum.KeyCode.ButtonA)
-				expect(UserGameSettings.PerformanceStatsVisible).to.equal(true)
+			c.gamepadInput(Enum.KeyCode.ButtonA)
+			expect(UserGameSettings.PerformanceStatsVisible).to.equal(true)
 
-				c.gamepadInput(Enum.KeyCode.ButtonA)
-				expect(UserGameSettings.PerformanceStatsVisible).to.equal(false)
-			end
+			c.gamepadInput(Enum.KeyCode.ButtonA)
+			expect(UserGameSettings.PerformanceStatsVisible).to.equal(false)
 		end)
 
 		it("should toggle micro profiler", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				act(function()
-					wait(0.2)
-				end)
-				c.gamepadInput(Enum.KeyCode.DPadDown)
-				expect(UserGameSettings.OnScreenProfilerEnabled).to.equal(false)
+			act(function()
+				wait(0.2)
+			end)
+			c.gamepadInput(Enum.KeyCode.DPadDown)
+			expect(UserGameSettings.OnScreenProfilerEnabled).to.equal(false)
 
-				c.gamepadInput(Enum.KeyCode.ButtonA)
-				expect(UserGameSettings.OnScreenProfilerEnabled).to.equal(true)
+			c.gamepadInput(Enum.KeyCode.ButtonA)
+			expect(UserGameSettings.OnScreenProfilerEnabled).to.equal(true)
 
-				c.gamepadInput(Enum.KeyCode.ButtonA)
-				expect(UserGameSettings.OnScreenProfilerEnabled).to.equal(false)
-			end
+			c.gamepadInput(Enum.KeyCode.ButtonA)
+			expect(UserGameSettings.OnScreenProfilerEnabled).to.equal(false)
 		end)
 
 		it("should open and close the dev console", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
+			if IsDeveloperConsoleEnabled() then
 				local function signalDummyUser()
 					-- The dev console waits for this event to be fired, so we need to
 					-- simulate it being fired on dummy user data for it to finish initializing
@@ -171,6 +159,7 @@ return function()
 				end
 
 				local store = c.store
+				act(wait)
 
 				expect(store:getState().isMenuOpen).to.equal(true)
 				expect(DevConsoleMaster:GetVisibility()).to.equal(false)
@@ -179,8 +168,9 @@ return function()
 				c.gamepadInput(Enum.KeyCode.DPadDown)
 				c.gamepadInput(Enum.KeyCode.ButtonA)
 
+				signalDummyUser()
 				act(function()
-					signalDummyUser()
+					VirtualInput.waitForInputEventsProcessed()
 					wait()
 				end)
 
@@ -195,21 +185,22 @@ return function()
 		end)
 
 		it("should switch between the page and SideNavigation", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				local store = c.store
+			local store = c.store
 
-				act(function()
-					wait(TestConstants.PageAnimationDuration) -- Wait for the page to finish animating in
-				end)
+			act(function()
+				wait(TestConstants.PageAnimationDuration) -- Wait for the page to finish animating in
+			end)
 
-				expect(store:getState().currentZone).to.equal(1)
+			expect(store:getState().currentZone).to.equal(1)
 
+			act(function()
 				c.gamepadInput(Enum.KeyCode.DPadLeft)
-				expect(store:getState().currentZone).to.equal(0)
+				VirtualInput.waitForInputEventsProcessed()
+			end)
+			expect(store:getState().currentZone).to.equal(0)
 
-				c.gamepadInput(Enum.KeyCode.DPadRight)
-				expect(store:getState().currentZone).to.equal(1)
-			end
+			c.gamepadInput(Enum.KeyCode.DPadRight)
+			expect(store:getState().currentZone).to.equal(1)
 		end)
 	end)
 end

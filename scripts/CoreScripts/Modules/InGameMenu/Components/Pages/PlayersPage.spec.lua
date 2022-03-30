@@ -30,7 +30,6 @@ return function()
 	local FocusHandlerContextProvider = require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
 	local PlayersPage = require(script.Parent.PlayersPage)
 
-	local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 	local GuiService = game:GetService("GuiService")
 
@@ -113,7 +112,7 @@ return function()
 			local playerCount = 0
 			for _, inst in pairs(renderedPlayers:GetChildren()) do
 				-- filter out non-player children (some children are layout related)
-				if inst:FindFirstChild("UsernameLabel") then
+				if inst:FindFirstChild("PlayerIcon") then
 					playerCount += 1
 				end
 			end
@@ -153,11 +152,7 @@ return function()
 				store:flush()
 			end)
 
-			if GetFFlagInGameMenuControllerDevelopmentOnly() == false then
-				jestExpect(GuiService.SelectedCoreObject).toBeNil()
-			elseif GetFFlagInGameMenuControllerDevelopmentOnly() == true then
-				jestExpect(GuiService.SelectedCoreObject:IsA("Instance")).toBeDefined()
-			end
+			jestExpect(GuiService.SelectedCoreObject).toBeDefined()
 
 			Roact.unmount(instance)
 		end)

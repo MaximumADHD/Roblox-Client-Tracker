@@ -6,8 +6,10 @@ local CreatorInfoHelper = require(Util.CreatorInfoHelper)
 
 local PermissionsConstants = require(Plugin.Core.Components.AssetConfiguration.Permissions.PermissionsConstants)
 local Category = require(Plugin.Core.Types.Category)
+local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
 
 local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
+local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext")
 
 local function nameForValueInEnum(enum, value)
 	local items = enum:GetEnumItems()
@@ -72,7 +74,13 @@ return function(assetData, localizedContent, plugin, tryOpenAssetConfig)
 		}
 
 		local creatorId = FFlagToolboxHideReportFlagForCreator and (assetData.Creator and assetData.Creator.Id) or nil
-		local currentCategory = assetData.Context.currentCategory
+
+		local currentCategory
+		if FFlagToolboxUsePageInfoInsteadOfAssetContext then
+			currentCategory = PageInfoHelper.getCategoryForPageInfo(pageInfo)
+		else
+			currentCategory = assetData.Context.currentCategory
+		end
 		ContextMenuHelper.tryCreateContextMenu(
 			plugin,
 			assetId,

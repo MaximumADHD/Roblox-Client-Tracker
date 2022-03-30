@@ -1,17 +1,24 @@
-
 return function()
 	local Plugin = script.Parent.Parent.Parent
 
+	local getFFlagPivotEditorFixTests = require(Plugin.Src.Flags.getFFlagPivotEditorFixTests)
+	if not getFFlagPivotEditorFixTests() then
+		return
+	end
+
 	local Roact = require(Plugin.Packages.Roact)
 
-	local MockWrapper = require(Plugin.Src.Utility.MockWrapper)
+	local TestHelper = require(Plugin.Src.Utility.TestHelper)
+	local TestRunner = require(Plugin.Src.Utility.TestRunner)
+	local runComponentTest = TestRunner.runComponentTest
+
 	local EditPivotSession = require(Plugin.Src.RoduxComponents.EditPivotSession)
 
-	describe("Lifecycle", function()
-		it("should mount", function()
-			local handle =
-				Roact.mount(MockWrapper({}, Roact.createElement(EditPivotSession)))
-			Roact.unmount(handle)
-		end)
+	it("should create and destroy without errors", function()
+		runComponentTest(
+			Roact.createElement(EditPivotSession, {
+				DraggerContext = TestHelper.createTestDraggerContext(),
+			})
+		)
 	end)
 end

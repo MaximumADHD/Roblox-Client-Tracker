@@ -1,13 +1,21 @@
 --[[
 	A wrapper that sets up full assets functionality, minus the get.
 	It sets up asset insertion, AssetPreview, asset hover, and messageBoxes.
-	Any view that renders Assets should be wrapped by this function.
+	Any view that renders Assets should be wrapped by this function.'
+	
+	(!) IMPORTANT
+	Make sure withContext is called AFTER wrapping the component with AssetLogicWrapper.
+	Ex: component = AssetLogicWrapper(component)
+	Otherwise the component will get AssetLogicWrapper's withContext items and BRIEFLY omit component's
+	ContextItems and cause unecessary re-renders. This can cause issues within prop comparisons on the
+	component's willUpdate/shouldUpdate.
 ]]
 local HttpService = game:GetService("HttpService")
 
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
+local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -35,6 +43,8 @@ local ScriptConfirmationDialog = require(Plugin.Core.Components.ScriptConfirmati
 local PostInsertAssetRequest = require(Plugin.Core.Networking.Requests.PostInsertAssetRequest)
 
 local SetMostRecentAssetInsertTime = require(Plugin.Core.Actions.SetMostRecentAssetInsertTime)
+local GetPageInfoAnalyticsContextInfo = require(Plugin.Core.Thunks.GetPageInfoAnalyticsContextInfo)
+local SetAssetPreview = require(Plugin.Core.Actions.SetAssetPreview)
 
 local Framework = require(Libs.Framework)
 local ContextServices = Framework.ContextServices
@@ -43,9 +53,11 @@ local Settings = require(Plugin.Core.ContextServices.Settings)
 
 local FrameworkUtil = require(Libs.Framework).Util
 local deepEqual = FrameworkUtil.deepEqual
+local Dash = Framework.Dash
 
 export type AssetLogicWrapperProps = {
 	CanInsertAsset : (() -> boolean)?,
+	OnAssetPreviewButtonClicked : ((assetData: any) -> ()),
 	TryInsert : (
 		(
 			assetData : any,
@@ -79,17 +91,18 @@ type _ExternalProps = {
 
 type _InternalProps = {
 	-- mapStateToProps
-	categoryName : string?,
-	isPreviewing : boolean,
-	searchTerm : string?,
+	_categoryName : string?,
+	_isPreviewing : boolean,
+	_searchTerm : string?,
 	-- mapDispatchToProps
-	postInsertAssetRequest : ((networkInterface: any, assetId: number)-> any),
-	setMostRecentAssetInsertTime : (()-> any),
+	_onPreviewToggled : ((isPreviewing: boolean, previewAssetId: number?)->any),
+	_postInsertAssetRequest : ((networkInterface: any, assetId: number)-> any),
+	_setMostRecentAssetInsertTime : (()-> any),
 	-- ContextItems
-	AssetAnalytics: any,
-	Plugin: any,
-	Settings: any,
-	Localization: any,
+	_AssetAnalytics: any,
+	_Plugin: any,
+	_Settings: any,
+	_Localization: any,
 }
 
 type _State = {
@@ -98,6 +111,7 @@ type _State = {
 	hoveredAssetId : number,
 	isShowingToolMessageBox : boolean,
 	isShowingScriptWarningMessageBox : boolean,
+	previewAssetData : any?,
 	isShowingGrantPermissionsMessageBox : boolean,
 	scriptWarningInfo : any?,
 	grantPermissionsInfo : any?,
@@ -121,6 +135,7 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			hoveredAssetId = 0,
 			isShowingToolMessageBox = false,
 			isShowingScriptWarningMessageBox = false,
+			previewAssetData = Roact.None,
 			isShowingGrantPermissionsMessageBox = false,
 			scriptWarningInfo = nil,
 			grantPermissionsInfo = nil,
@@ -181,7 +196,7 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			if not FFlagToolboxEnableScriptConfirmation then
 				return
 			end
-			local settings = self.props.Settings:get("Plugin")
+			local settings = self.props._Settings:get("Plugin")
 			if settings:getShowScriptWarning() then
 				self:setState({
 					isShowingScriptWarningMessageBox = true,
@@ -194,7 +209,7 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 		end
 
 		self.onScriptWarningBoxToggleShow = function(showState)
-			local settings = self.props.Settings:get("Plugin")
+			local settings = self.props._Settings:get("Plugin")
 			settings:setShowScriptWarning(showState)
 		end
 
@@ -245,23 +260,29 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			local assetTypeId = asset.TypeId
 
 			local currentProps = self.props
-			local categoryName = currentProps.categoryName
-			local searchTerm = currentProps.searchTerm or ""
+			local categoryName = currentProps._categoryName
+			local searchTerm = currentProps._searchTerm or ""
 			local assetIndex = currentProps.assetIndex
 
 			local currentCategoryName = categoryName
 
-			local plugin = self.props.Plugin:get()
+			local assetAnalyticsContext
+			if FFlagToolboxUsePageInfoInsteadOfAssetContext then
+				local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
+				assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
+			end
+
+			local plugin = self.props._Plugin:get()
 			InsertAsset.tryInsert({
 				plugin = plugin,
 				assetId = assetId,
 				assetName = assetName,
 				assetTypeId = assetTypeId,
 				onSuccess = function(assetId, insertedInstance)
-					self.props.postInsertAssetRequest(getNetwork(self), assetId)
-					self.props.setMostRecentAssetInsertTime()
+					self.props._postInsertAssetRequest(getNetwork(self), assetId)
+					self.props._setMostRecentAssetInsertTime()
 					insertionMethod = insertionMethod or (assetWasDragged and "DragInsert" or "ClickInsert")
-					self.props.AssetAnalytics:get():logInsert(assetData, insertionMethod, insertedInstance)
+					self.props._AssetAnalytics:get():logInsert(assetData, insertionMethod, insertedInstance, assetAnalyticsContext)
 				end,
 				currentCategoryName = currentCategoryName,
 				categoryName = categoryName,
@@ -284,6 +305,27 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 				end
 			end
 		end
+
+		if FFlagToolboxAssetCategorization then
+			self.openAssetPreview = function(assetData)
+				self:setState(function() 
+					return {
+						previewAssetData = assetData,
+					}
+				end)
+				local assetId = assetData.Asset.Id
+				self.props._onPreviewToggled(true, assetId)
+			end
+
+			self.closeAssetPreview = function(assetData)
+				self:setState(function() 
+					return {
+						previewAssetData = Roact.None,
+					}
+				end)
+				self.props._onPreviewToggled(false, Roact.None)
+			end
+		end
 	end
 
 	function AssetLogicWrapper:willUnmount()
@@ -301,18 +343,19 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 		local state : _State = self.state
 
 		local automaticSize = props.AutomaticSize
-		local isPreviewing = props.isPreviewing
+		local isPreviewing = props._isPreviewing
 		local position = props.Position
 		local size = props.Size
 		local tryOpenAssetConfig = props.TryOpenAssetConfig
 
 		local isShowingToolMessageBox = state.isShowingToolMessageBox
+		local previewAssetData = state.previewAssetData
 		local isShowingScriptWarningMessageBox = state.isShowingScriptWarningMessageBox
 		local isShowingGrantPermissionsMessageBox = state.isShowingGrantPermissionsMessageBox
 		local scriptWarningInfo = state.scriptWarningInfo
 		local grantPermissionsInfo = state.grantPermissionsInfo
 
-		local localization = self.props.Localization
+		local localization = self.props._Localization
 
 		local wrappedProps = Cryo.Dictionary.join(props, {
 			CanInsertAsset = self.canInsertAsset,
@@ -321,7 +364,32 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			TryOpenAssetConfig = tryOpenAssetConfig,
 			ParentAbsolutePosition = if not FFlagToolboxAssetCategorization then state.absolutePosition else nil,
 			ParentSize = if not FFlagToolboxAssetCategorization then state.absoluteSize else nil,
+
+			OnAssetPreviewButtonClicked = self.openAssetPreview,
 		})
+
+		local showAssetPreview
+		if FFlagToolboxAssetCategorization then
+			showAssetPreview = isPreviewing and previewAssetData ~= Roact.None
+			wrappedProps = Dash.omit(wrappedProps, {
+				-- mapStateToProps
+				"_categoryName",
+				"_isPreviewing",
+				"_previewAssetId",
+				"_searchTerm",
+				-- mapDispatchToProps
+				"_onPreviewToggled",
+				"_postInsertAssetRequest",
+				"_setMostRecentAssetInsertTime",
+				-- ContextItems
+				"_AssetAnalytics",
+				"_Localization",
+				"_Plugin",
+				"_Settings",
+			})
+		else
+			showAssetPreview = isPreviewing
+		end
 
 		return Roact.createFragment({
 			Sizing = if not FFlagToolboxAssetCategorization then Roact.createElement("Frame", {
@@ -399,7 +467,9 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 				},
 			}),
 
-			AssetPreview = isPreviewing and Roact.createElement(AssetPreviewWrapper, {
+			AssetPreview = showAssetPreview and Roact.createElement(AssetPreviewWrapper, {
+				assetData = if FFlagToolboxAssetCategorization then previewAssetData else nil,
+				onClose = if FFlagToolboxAssetCategorization then self.closeAssetPreview else nil,
 				tryInsert = self.tryInsert,
 				tryOpenAssetConfig = tryOpenAssetConfig,
 			}),
@@ -409,10 +479,10 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 	end
 
 	AssetLogicWrapper = withContext({
-		AssetAnalytics = AssetAnalyticsContextItem,
-		Plugin = ContextServices.Plugin,
-		Localization = ContextServices.Localization,
-		Settings = Settings,
+		_AssetAnalytics = AssetAnalyticsContextItem,
+		_Localization = ContextServices.Localization,
+		_Plugin = ContextServices.Plugin,
+		_Settings = Settings,
 	})(AssetLogicWrapper)
 
 	local function mapStateToProps(state, props)
@@ -422,20 +492,26 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 		local categoryName = pageInfo.categoryName or Category.DEFAULT.name
 
 		return {
-			categoryName = categoryName,
-			isPreviewing = assets.isPreviewing or false,
-			searchTerm = pageInfo.searchTerm or "",
+			_categoryName = categoryName,
+			_isPreviewing = assets.isPreviewing or false,
+			_searchTerm = pageInfo.searchTerm or "",
 		}
 	end
 
 	local function mapDispatchToProps(dispatch)
 		return {
-			postInsertAssetRequest = function(networkInterface: any, assetId: number)
+			_onPreviewToggled = if FFlagToolboxAssetCategorization then function(isPreviewing, previewAssetId)
+				dispatch(SetAssetPreview(isPreviewing, previewAssetId))
+			end else nil,
+			_postInsertAssetRequest = function(networkInterface: any, assetId: number)
 				dispatch(PostInsertAssetRequest(networkInterface, assetId))
 			end,
-			setMostRecentAssetInsertTime = function()
+			_setMostRecentAssetInsertTime = function()
 				dispatch(SetMostRecentAssetInsertTime())
 			end,
+			getPageInfoAnalyticsContextInfo = if FFlagToolboxUsePageInfoInsteadOfAssetContext then function()
+				return dispatch(GetPageInfoAnalyticsContextInfo())
+			end else nil,
 		}
 	end
 

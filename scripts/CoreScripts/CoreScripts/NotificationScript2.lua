@@ -34,8 +34,6 @@ local GameSettings = Settings.GameSettings
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
-local FFlagFixNotificationScriptError = game:DefineFastFlag("FixNotificationScriptError", false)
-
 local GetFixGraphicsQuality = require(RobloxGui.Modules.Flags.GetFixGraphicsQuality)
 
 local shouldSaveScreenshotToAlbum = require(RobloxGui.Modules.shouldSaveScreenshotToAlbum)
@@ -388,7 +386,7 @@ removeNotification = function(notification)
 
 			-- Tween out now, or set up to tween out immediately after current tween is finished, but don't interrupt.
 			local function doTweenOut()
-				if (not FFlagFixNotificationScriptError) or frame:IsDescendantOf(game) then
+				if frame:IsDescendantOf(game) then
 					return frame:TweenPosition(
 						UDim2.new(1, 0, 1, frame.Position.Y.Offset), EASE_DIR, EASE_STYLE, TWEEN_TIME, false,
 						function()

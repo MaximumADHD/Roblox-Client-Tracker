@@ -14,10 +14,6 @@ local Images = UIBlox.App.ImageSet.Images
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
-local InGameMenu = script.Parent.Parent.Parent
-local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
-
 local HOME_ICON_ON = Images["icons/menu/home_on"]
 local HOME_ICON_OFF = Images["icons/menu/home_off"]
 
@@ -50,20 +46,16 @@ function HomeButton:renderWithSelectionCursor(getSelectionCursor)
 			Image = icon,
 			Position = UDim2.fromScale(0.5, 0.5),
 			Size = UDim2.fromOffset(32, 32),
-			SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly() and getSelectionCursor(CursorKind.RoundedRect) or nil,
+			SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
 			[Roact.Event.Activated] = self.props.onActivated,
 		})
 	})
 end
 
 function HomeButton:render()
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		return withSelectionCursorProvider(function(getSelectionCursor)
-			return self:renderWithSelectionCursor(getSelectionCursor)
-		end)
-	else
-		return self:renderWithSelectionCursor()
-	end
+	return withSelectionCursorProvider(function(getSelectionCursor)
+		return self:renderWithSelectionCursor(getSelectionCursor)
+	end)
 end
 
 return HomeButton

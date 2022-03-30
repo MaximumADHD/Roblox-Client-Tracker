@@ -1,5 +1,6 @@
 local FFlagStudioAudioDiscoveryPluginV2 = game:GetFastFlag("StudioAudioDiscoveryPluginV2")
 local FFlagStudioAudioDiscoveryPluginV3 = game:GetFastFlag("StudioAudioDiscoveryPluginV3")
+local FFlagStudioAudioDiscoveryPluginV4 = game:GetFastFlag("StudioAudioDiscoveryPluginV4")
 
 local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
@@ -74,16 +75,30 @@ return Rodux.createReducer({
 		local columnName = columns.Left[state.Left.SortIndex]
 		local rows = append({}, state.Rows, action.Rows)
 		local selectedRow
-		if FFlagStudioAudioDiscoveryPluginV2 and state.SelectedRow then
-			local assetId = state.Rows[state.SelectedRow].Id
-			selectedRow = findIndex(rows, function(row)
-				return row.Id == assetId
-			end) or None
+		if FFlagStudioAudioDiscoveryPluginV4 then
+			local sortedRows = sortRows(rows, columnName, state.Left.SortOrder, state.Locations)
+			if state.SelectedRow then
+				local assetId = state.Rows[state.SelectedRow].Id
+				selectedRow = findIndex(sortedRows, function(row)
+					return row.Id == assetId
+				end) or None
+			end
+			return join(state, {
+				SelectedRow = selectedRow,
+				Rows = sortedRows,
+			})
+		else
+			if FFlagStudioAudioDiscoveryPluginV2 and state.SelectedRow then
+				local assetId = state.Rows[state.SelectedRow].Id
+				selectedRow = findIndex(rows, function(row)
+					return row.Id == assetId
+				end) or None
+			end
+			return join(state, {
+				SelectedRow = selectedRow,
+				Rows = sortRows(rows, columnName, state.Left.SortOrder, state.Locations),
+			})
 		end
-		return join(state, {
-			SelectedRow = selectedRow,
-			Rows = sortRows(rows, columnName, state.Left.SortOrder, state.Locations),
-		})
 	end,
 	[SelectRow.name] = function(state, action)
 		local locations = state.locations

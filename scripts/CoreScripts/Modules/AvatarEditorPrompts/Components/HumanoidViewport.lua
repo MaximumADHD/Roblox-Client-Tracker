@@ -20,8 +20,6 @@ local ZOOM_FACTOR = 1
 
 local CLUSTER_COMPOSITION_TIMEOUT_MS = game:DefineFastInt("AXClusterCompositionTimeoutMs", 3000)
 
-local FFlagFixAvatarPromptsLayeredClothingPopIn = game:DefineFastFlag("FixAvatarPromptsLayeredClothingPopIn", false)
-
 local HumanoidViewport = Roact.PureComponent:extend("HumanoidViewport")
 
 HumanoidViewport.validateProps = t.strictInterface({
@@ -174,16 +172,14 @@ function HumanoidViewport:loadHumanoidModel()
 			self.humanoidModel.Parent = self.worldModelRef:getValue()
 		end
 
-		if FFlagFixAvatarPromptsLayeredClothingPopIn then
-			local layeredAccessories = humanoidDescription:GetAccessories(--[[includeRigidAccessories = ]] false)
-			if #layeredAccessories > 0 then
-				-- If ClusterCompositionFinished is taking too long to fire or has failed to fire for some reason,
-				-- we want to just timeout and display the avatar before it has finished compositing.
-				Promise.race({
-					Promise.fromEvent(model.Humanoid.ClusterCompositionFinished),
-					Promise.delay(CLUSTER_COMPOSITION_TIMEOUT_MS * 0.001)
-				}):await()
-			end
+		local layeredAccessories = humanoidDescription:GetAccessories(--[[includeRigidAccessories = ]] false)
+		if #layeredAccessories > 0 then
+			-- If ClusterCompositionFinished is taking too long to fire or has failed to fire for some reason,
+			-- we want to just timeout and display the avatar before it has finished compositing.
+			Promise.race({
+				Promise.fromEvent(model.Humanoid.ClusterCompositionFinished),
+				Promise.delay(CLUSTER_COMPOSITION_TIMEOUT_MS * 0.001)
+			}):await()
 		end
 
 		self:positionCamera()

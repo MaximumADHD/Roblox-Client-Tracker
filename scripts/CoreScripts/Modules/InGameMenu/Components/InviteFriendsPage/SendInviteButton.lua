@@ -21,7 +21,6 @@ local Images = UIBlox.App.ImageSet.Images
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local FFlagFixMenuIcons = require(InGameMenu.Flags.FFlagFixMenuIcons)
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 local FFlagTurnOffSelectableSmallIGMButtons = require(InGameMenu.Flags.FFlagTurnOffSelectableSmallIGMButtons)
 
 local SendInviteButton = Roact.PureComponent:extend("SendInviteButton")
@@ -191,7 +190,7 @@ function SendInviteButton:renderWithSelectionCursor(getSelectionCursor)
 			Size = UDim2.new(0, 36, 0, 36),
 			BackgroundTransparency = 1,
 			Text = "",
-			SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly() and getSelectionCursor(CursorKind.InputFields) or nil,
+			SelectionImageObject = getSelectionCursor(CursorKind.InputFields),
 
 			[Roact.Event.Activated] = function()
 				local isPending = props.userInviteStatus == InviteStatus.Pending
@@ -233,13 +232,9 @@ function SendInviteButton:renderWithSelectionCursor(getSelectionCursor)
 end
 
 function SendInviteButton:render()
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		return withSelectionCursorProvider(function(getSelectionCursor)
-			return self:renderWithSelectionCursor(getSelectionCursor)
-		end)
-	else
-		return self:renderWithSelectionCursor()
-	end
+	return withSelectionCursorProvider(function(getSelectionCursor)
+		return self:renderWithSelectionCursor(getSelectionCursor)
+	end)
 end
 
 function SendInviteButton:didUpdate(previousProps)

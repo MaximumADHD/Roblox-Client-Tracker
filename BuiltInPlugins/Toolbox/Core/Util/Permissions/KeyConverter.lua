@@ -6,7 +6,7 @@ local webKeys = require(Plugin.Core.Util.Permissions.Constants).webKeys
 
 local KeyConverter = {}
 
-local FFlagToolboxAssetGridRefactor5 = game:GetFastFlag("ToolboxAssetGridRefactor5")
+local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
 
 function KeyConverter.getInternalSubjectType(webKey)
 	if webKey == webKeys.UserSubject then
@@ -97,7 +97,7 @@ function KeyConverter.resolveActionPermission(webKey, status, assetId)
 		error("Permissions Error: " .. tostring(status) .. ", assetId: " .. tostring(assetId))
 	else
 		-- "status == Unknown Error"
-		if FFlagToolboxAssetGridRefactor5 then
+		if FFlagToolboxAssetGridRefactor then
 			error("Permissions Error: " .. tostring(status) .. ", assetId: " .. tostring(assetId))
 		else
 			return PermissionsConstants.NoAccessKey

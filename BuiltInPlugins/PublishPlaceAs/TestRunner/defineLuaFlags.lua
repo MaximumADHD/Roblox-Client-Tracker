@@ -4,7 +4,6 @@
 game:DefineFastFlag("DebugFixPublishAsWhenQueryFails", false)
 game:DefineFastString("TeamCreateLink", "https://developer.roblox.com/articles/Team-Create")
 
-game:DefineFastFlag("PlacePublishManagementUI", false)
 game:DefineFastFlag("EnablePlacePublishManagementInTeamCreate", false)
 game:defineFastString("PlacePublishRollbackLearnMoreLink", "https://www.roblox.com")
 

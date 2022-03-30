@@ -14,7 +14,6 @@ local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
 
 local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 local TestConstants = require(script.Parent.TestConstants)
 
@@ -63,7 +62,7 @@ return function()
 
 	describe("In-Game Menu SideNavigation focus management", function()
 		it("should recapture focus on close button from game icon", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
+			if game:GetFastFlag("UseGUACforDUARPolicy", false) then
 				local path = c.path
 
 				local rootPath = XPath.new(path)
@@ -78,7 +77,6 @@ return function()
 				local gameIcon = Element.new(iconPath):getRbxInstance()
 				expect(gameIcon).to.be.ok()
 				expect(GuiService.SelectedCoreObject).to.equal(gameIcon)
-
 				c.gamepadInput(Enum.KeyCode.ButtonB)
 
 				local closeIcon = Element.new(iconPath):getRbxInstance()
@@ -89,7 +87,7 @@ return function()
 		end)
 
 		it("should not recapture focus on close button from home icon", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
+			if game:GetFastFlag("UseGUACforDUARPolicy", false) then
 				local path = c.path
 
 				act(function()

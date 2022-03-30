@@ -32,6 +32,11 @@ function MockDebuggerConnection.new(mockID)
 		[4] = rootVariable4,
 		[5] = rootVariable5
 	}
+	
+	self.watchMap = {
+		["Alex"] = rootVariable,
+		["UnitedStatesMockDebugger"] = rootVariable2
+	}
 	self.MockThreadMap = {}
 	self.MockThreadIdToCallstackMap = {}
 	self.MockCallstackFrameToDebuggerVariables ={}
@@ -66,7 +71,14 @@ function MockDebuggerConnection:EvaluateWatch(expression : string, frame : Stack
 	end)
 
 	promise:andThen(function(newCallback)
-		local luaResponse = DebuggerLuaResponse.new({VariableId = 1}, Constants.DebuggerStatus.Success)
+		local debuggerVar
+		if self.watchMap[expression] ~= nil then
+			debuggerVar = self.watchMap[expression]
+		else
+			debuggerVar = {VariableId = 1}
+		end
+		
+		local luaResponse = DebuggerLuaResponse.new(debuggerVar, Constants.DebuggerStatus.Success)
 		newCallback(luaResponse)
 	end)
 	return 0

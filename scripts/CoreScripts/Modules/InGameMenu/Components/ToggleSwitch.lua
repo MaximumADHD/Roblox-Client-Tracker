@@ -16,8 +16,6 @@ local divideTransparency = require(InGameMenu.Utility.divideTransparency)
 
 local AssetImage = require(script.Parent.AssetImage)
 
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
-
 local KNOB_SIZE = 42
 local KNOB_POSITION_OFF = UDim2.new(0, -3, 0.5, 0)
 local KNOB_POSITION_ON = UDim2.new(1, -39, 0.5, 0)
@@ -35,9 +33,9 @@ ToggleSwitch.validateProps = t.strictInterface({
 	AnchorPoint = t.optional(t.Vector2),
 	LayoutOrder = t.optional(t.integer),
 	Position = t.optional(t.UDim2),
-	NextSelectionUp = t.optional(t.Instance),
-	onSelectionLost = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.callback) or nil,
-	onSelectionGained = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.callback) or nil,
+	NextSelectionUp = t.optional(t.union(t.Instance, t.table)),
+	onSelectionLost = t.optional(t.callback),
+	onSelectionGained = t.optional(t.callback),
 })
 
 function ToggleSwitch:init()
@@ -70,10 +68,9 @@ function ToggleSwitch:renderWithSelectionCursor(getSelectionCursor)
 			NextSelectionUp = self.props.NextSelectionUp,
 			[Roact.Event.Activated] = self.props.onToggled,
 			[Roact.Ref] = self.props.buttonRef,
-			[Roact.Event.SelectionLost] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.onSelectionLost or nil,
-			[Roact.Event.SelectionGained] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.onSelectionGained or nil,
-			SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly()
-				and getSelectionCursor(CursorKind.Toggle) or nil,
+			[Roact.Event.SelectionLost] = self.props.onSelectionLost,
+			[Roact.Event.SelectionGained] = self.props.onSelectionGained,
+			SelectionImageObject = getSelectionCursor(CursorKind.Toggle),
 		}, {
 			Fill = Roact.createElement(AssetImage.Label, {
 				BackgroundTransparency = 1,
@@ -96,13 +93,9 @@ function ToggleSwitch:renderWithSelectionCursor(getSelectionCursor)
 end
 
 function ToggleSwitch:render()
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		return withSelectionCursorProvider(function(getSelectionCursor)
-			return self:renderWithSelectionCursor(getSelectionCursor)
-		end)
-	else
-		return self:renderWithSelectionCursor()
-	end
+	return withSelectionCursorProvider(function(getSelectionCursor)
+		return self:renderWithSelectionCursor(getSelectionCursor)
+	end)
 end
 
 function ToggleSwitch:didUpdate()

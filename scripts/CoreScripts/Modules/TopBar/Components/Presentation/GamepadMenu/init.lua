@@ -78,6 +78,8 @@ local GamepadMenu = Roact.PureComponent:extend("GamepadMenu")
 local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
 local GetFFlagQuickMenuControllerBarRefactor = require(RobloxGui.Modules.Flags.GetFFlagQuickMenuControllerBarRefactor)
 
+local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
+
 GamepadMenu.validateProps = t.strictInterface({
 	screenSize = t.Vector2,
 
@@ -561,8 +563,10 @@ function GamepadMenu:render()
 end
 
 function GamepadMenu:didMount()
-	ContextActionService:BindCoreAction(
-		TOGGLE_GAMEPAD_MENU_ACTION, self.toggleMenuVisibleAction, false, Enum.KeyCode.ButtonStart)
+	if not (EngineFeatureEnableVRUpdate2 and VRService.VREnabled) then
+		ContextActionService:BindCoreAction(
+			TOGGLE_GAMEPAD_MENU_ACTION, self.toggleMenuVisibleAction, false, Enum.KeyCode.ButtonStart)
+	end
 end
 
 function GamepadMenu:bindMenuOpenActions()

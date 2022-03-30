@@ -4,12 +4,12 @@ local Util = Framework.Util
 local Action = Util.Action
 
 export type Payload = {
-	name : string
+	Name : string
 }
 
 return Action(script.Name, function(name : string) : Payload
 	assert(type(name) == "string", ("Expected name to be a string, received %s"):format(type(name)))
 	return {
-		name = name,
+		Name = name,
 	}
 end)

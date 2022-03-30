@@ -45,9 +45,9 @@ type _Style = {
 
 local materials = getSupportedMaterials()
 
-local MaterialVariantSettings = Roact.PureComponent:extend("MaterialVariantSettings")
+local GeneralSettings = Roact.PureComponent:extend("GeneralSettings")
 
-function MaterialVariantSettings:init()
+function GeneralSettings:init()
 	self.state = {
 		currentIndex = nil,
 	}
@@ -76,15 +76,15 @@ function MaterialVariantSettings:init()
 	self.renderContent = function(key: string)
 		local props : _Props = self.props
 		local localization = props.Localization
-		local style : _Style = props.Stylizer.MaterialVariantSettings
+		local style : _Style = props.Stylizer.GeneralSettings
 
 		if key == "NameVariant" then
 			return Roact.createElement(TextInput, {
 				PlaceholderText = localization:getText("CreateDialog", "PlaceholderName"),
 				Style = "FilledRoundedBorder",
 				Size = style.DialogColumnSize,
-				OnTextChanged = self.onNameChanged,
 				Text = props.Name,
+				OnTextChanged = self.onNameChanged,
 			})
 		elseif key == "BaseMaterialVariant" then
 			return Roact.createElement(SelectInput, {
@@ -107,7 +107,7 @@ function MaterialVariantSettings:init()
 	end
 end
 
-function MaterialVariantSettings:didMount()
+function GeneralSettings:didMount()
 	local props : _Props = self.props
 
 	for index, material in ipairs(materials) do
@@ -121,7 +121,7 @@ function MaterialVariantSettings:didMount()
 	end 
 end
 
-function MaterialVariantSettings:render()
+function GeneralSettings:render()
 	local props : _Props = self.props
 
 	local items = {
@@ -138,16 +138,16 @@ function MaterialVariantSettings:render()
 end
 
 
-MaterialVariantSettings = withContext({
+GeneralSettings = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
 	Stylizer = Stylizer,
-})(MaterialVariantSettings)
+})(GeneralSettings)
 
 local function mapStateToProps(state : MainReducer.State, _)
 	return {
-		Name = state.MaterialPromptReducer.name,
-		BaseMaterial = state.MaterialPromptReducer.baseMaterial,
+		Name = state.MaterialPromptReducer.Name,
+		BaseMaterial = state.MaterialPromptReducer.BaseMaterial,
 	}
 end
 
@@ -162,4 +162,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(MaterialVariantSettings)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(GeneralSettings)

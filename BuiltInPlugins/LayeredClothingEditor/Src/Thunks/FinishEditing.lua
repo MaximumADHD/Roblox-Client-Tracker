@@ -2,6 +2,10 @@ local Workspace = game.Workspace
 local PublishService = game:GetService("PublishService")
 
 local Plugin = script.Parent.Parent.Parent
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+
+local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
+local AccessoryUtil = AccessoryAndBodyToolSharedUtil.AccessoryUtil
 
 local ModelUtil = require(Plugin.Src.Util.ModelUtil)
 local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
@@ -65,10 +69,14 @@ local function generateRigidAccessory(store, editingItem, sourceItem)
 	local attachmentPoint = state.selectItem.attachmentPoint
 	local itemSize = state.selectItem.size
 
+	local attachmentName = accessoryTypeInfo.Name
+	local attachmentCFrameLocal = attachmentPoint.AttachmentCFrame
+	local itemCFrameLocal = attachmentPoint.ItemCFrame
+
 	local clone = sourceItem:clone()
 	fixCFrame(clone, ModelUtil:getRootCFrame(editingItem))
 
-	ModelUtil:createOrReuseAttachmentInstance(clone, editingItem.Parent, accessoryTypeInfo, attachmentPoint)
+	AccessoryUtil:createOrReuseAttachmentInstance(clone, editingItem.Parent, attachmentName, attachmentCFrameLocal, itemCFrameLocal)
 	clone.Size = itemSize
 
 	parentToAccessory(clone)
@@ -80,11 +88,15 @@ local function generateCagedAccessory(store, editingItem, sourceItem)
 	local accessoryTypeInfo = state.selectItem.accessoryTypeInfo
 	local attachmentPoint = state.selectItem.attachmentPoint
 
+	local attachmentName = accessoryTypeInfo.Name
+	local attachmentCFrameLocal = attachmentPoint.AttachmentCFrame
+	local itemCFrameLocal = attachmentPoint.ItemCFrame
+
 	local clone = sourceItem:clone()
 	fixCFrame(clone, ModelUtil:getRootCFrame(editingItem))
 
-	ModelUtil:clearWelds(clone)
-	ModelUtil:createOrReuseAttachmentInstance(clone, editingItem.Parent, accessoryTypeInfo, attachmentPoint)
+	AccessoryUtil:clearWelds(clone)
+	AccessoryUtil:createOrReuseAttachmentInstance(clone, editingItem.Parent, attachmentName, attachmentCFrameLocal, itemCFrameLocal)
 
 	-- temporary bug workaround: LC item needs to be a child of a model in order for deformation API to work
 	local tempModel = parentToTempModel(clone)

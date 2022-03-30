@@ -16,7 +16,6 @@ local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 
 local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 
 return function()
@@ -53,37 +52,33 @@ return function()
 
 	describe("ReportDialog gamepad focus management", function()
 		it("Should not bumper switch on ReportDialog", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				local store = c.store
+			local store = c.store
 
-				-- Send an input to update UserInputService.GamepadEnabled
-				c.gamepadInput(Enum.KeyCode.DPadDown)
+			-- Send an input to update UserInputService.GamepadEnabled
+			c.gamepadInput(Enum.KeyCode.DPadDown)
 
-				c.storeUpdate(SetMenuOpen(true))
-				c.storeUpdate(OpenReportDialog(12, "mr f"))
+			c.storeUpdate(SetMenuOpen(true))
+			c.storeUpdate(OpenReportDialog(12, "mr f"))
 
-				c.gamepadInput(Enum.KeyCode.ButtonL1)
-				expect(store:getState().currentZone).to.equal(1)
-				c.gamepadInput(Enum.KeyCode.ButtonR1)
-				expect(store:getState().currentZone).to.equal(1)
-			end
+			c.gamepadInput(Enum.KeyCode.ButtonL1)
+			expect(store:getState().currentZone).to.equal(1)
+			c.gamepadInput(Enum.KeyCode.ButtonR1)
+			expect(store:getState().currentZone).to.equal(1)
 		end)
 
         it("Should not bumper switch on ReportSentDialog", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				local store = c.store
+			local store = c.store
 
-				-- Send an input to update UserInputService.GamepadEnabled
-				c.gamepadInput(Enum.KeyCode.DPadDown)
+			-- Send an input to update UserInputService.GamepadEnabled
+			c.gamepadInput(Enum.KeyCode.DPadDown)
 
-				c.storeUpdate(SetMenuOpen(true))
-				c.storeUpdate(OpenReportSentDialog(12, "mr f"))
+			c.storeUpdate(SetMenuOpen(true))
+			c.storeUpdate(OpenReportSentDialog(12, "mr f"))
 
-				c.gamepadInput(Enum.KeyCode.ButtonL1)
-				expect(store:getState().currentZone).to.equal(1)
-				c.gamepadInput(Enum.KeyCode.ButtonR1)
-				expect(store:getState().currentZone).to.equal(1)
-			end
+			c.gamepadInput(Enum.KeyCode.ButtonL1)
+			expect(store:getState().currentZone).to.equal(1)
+			c.gamepadInput(Enum.KeyCode.ButtonR1)
+			expect(store:getState().currentZone).to.equal(1)
 		end)
 
 		it("Should not remember the last highligted element when opened", function(c)

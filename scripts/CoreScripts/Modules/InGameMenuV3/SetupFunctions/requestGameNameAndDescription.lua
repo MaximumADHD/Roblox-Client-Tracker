@@ -9,17 +9,23 @@ local httpImpl = require(InGameMenu.Network.httpRequest)(HttpRbxApiService)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GetGameNameAndDescription = require(RobloxGui.Modules.Common.GetGameNameAndDescription)
+local ApiFetchGameIsFavorite = require(InGameMenu.Thunks.ApiFetchGameIsFavorite)
+local ApiFetchGameFollowingStatus = require(InGameMenu.Thunks.ApiFetchGameFollowingStatus)
 
 local function requestGameNameAndDescription(store)
-	if game.GameId == 0 then
+	local gameId = game.GameId;
+	if gameId == 0 then
 		return
 	end
 
-	GetGameNameAndDescription(httpImpl, game.GameId):andThen(function(result)
-		store:dispatch(SetGameNameAndDescription(result.Name, result.Description))
+	GetGameNameAndDescription(httpImpl, gameId):andThen(function(result)
+		store:dispatch(SetGameNameAndDescription(result.Name, result.Description, result.Creator))
 	end):catch(function()
 		warn("Unable to retrieve game name for in game menu")
 	end)
+
+	store:dispatch(ApiFetchGameIsFavorite(httpImpl, tostring(gameId)))
+	store:dispatch(ApiFetchGameFollowingStatus(httpImpl, tostring(gameId)))
 end
 
 return requestGameNameAndDescription

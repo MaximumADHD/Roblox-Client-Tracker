@@ -1,5 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
 
 local InspectAndBuyFolder = script.Parent.Parent
 local Roact = require(CorePackages.Roact)
@@ -9,9 +8,6 @@ local GetAssetFavoriteCount = require(InspectAndBuyFolder.Thunks.GetAssetFavorit
 local GetBundleFavoriteCount = require(InspectAndBuyFolder.Thunks.GetBundleFavoriteCount)
 local GotCurrentFavoriteCount = require(InspectAndBuyFolder.Selectors.GotCurrentFavoriteCount)
 local getSelectionImageObjectRegular = require(InspectAndBuyFolder.getSelectionImageObjectRegular)
-
-local GetFFlagInGameMenuControllerDevelopmentOnly = 
-	require(CoreGui.RobloxGui.Modules.InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 local FAVORITES_SIZE = 16
 local FAVORITE_IMAGE_FILLED = "rbxasset://textures/ui/InspectMenu/ico_favorite.png"
@@ -71,18 +67,13 @@ end
 function Favorites:render()
 	self:setText()
 
-	local isFavoriteStarSelectable -- can inline once GetFFlagInGameMenuControllerDevelopmentOnly is removed
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		isFavoriteStarSelectable = false
-	end
-
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, FAVORITES_SIZE),
 		BackgroundTransparency = 1,
 		LayoutOrder = 3,
 	}, {
 		FavoriteIcon = Roact.createElement("ImageButton", {
-			Selectable = isFavoriteStarSelectable,
+			Selectable = false,
 			Size = UDim2.new(0, FAVORITES_SIZE, 0, FAVORITES_SIZE),
 			BackgroundTransparency = 1,
 			Image = FAVORITE_IMAGE_FILLED,

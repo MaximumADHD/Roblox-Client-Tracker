@@ -151,7 +151,7 @@ function CallstackComponent:init()
 			local frameNumber = rowInfo.frameColumn
 			props.setCurrentFrameNumber(threadId, frameNumber)
 			
-			if rowInfo.sourceColumn and rowInfo.lineColumn then
+			if rowInfo.scriptGUID ~= "" and rowInfo.sourceColumn ~= "" and rowInfo.lineColumn ~= "" then
 				local DebuggerUIService = game:GetService("DebuggerUIService")
 				
 				-- If we click the top frame (the one with the yellow arrow), then we remove any curved blue arrows we are showing.

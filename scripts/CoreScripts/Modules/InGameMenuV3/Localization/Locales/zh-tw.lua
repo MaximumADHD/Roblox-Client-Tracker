@@ -171,4 +171,6 @@ return{
 	["CoreScripts.InGameMenu.ControllerBar.Leave"] = [[離開]],
 	["CoreScripts.InGameMenu.ControllerBar.RespawnCharacter"] = [[重生角色]],
 	["CoreScripts.InGameMenu.ControllerBar.Cancel"] = [[取消]],
+	["CoreScripts.InGameMenu.CoreScripts.InGameMenu.GameSettings.VignetteEnabled"] = [[已啟用 VR 暈影]],
+	["CoreScripts.InGameMenu.GameSettings.VignetteEnabled"] = [[已啟用 VR 暈影]],
 }

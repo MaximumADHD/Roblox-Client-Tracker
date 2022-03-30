@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local MemStorageService = game:GetService("MemStorageService")
 local Promise = require(CorePackages.Promise)
 local Roact = require(CorePackages.Roact)
 local PermissionsProtocol = require(CorePackages.UniversalApp.Permissions.PermissionsProtocol)
@@ -27,14 +28,19 @@ local GetFFlagDeferredBlockStatusChange = require(RobloxGui.Modules.Flags.GetFFl
 local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPlayerListAnimateMic)
 local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuUseSpeakerIcons)
 local GetFFlagClearVoiceStateOnRejoin = require(RobloxGui.Modules.Flags.GetFFlagClearVoiceStateOnRejoin)
+local GetFFlagSkipRedundantVoiceCheck = require(CorePackages.AppTempCommon.Flags.GetFFlagSkipRedundantVoiceCheck)
+local GetFFlagEnableVoiceRccCheck = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceRccCheck)
 
-local Constants = require(script.Parent.Constants)
+local Constants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
 local GetFFlagModerationByProxyUserBanNotification = require(RobloxGui.Modules.Flags.GetFFlagModerationByProxyUserBanNotification)
 local VoiceChatPrompt = require(RobloxGui.Modules.VoiceChatPrompt.Components.VoiceChatPrompt)
 local VoiceChatPromptType = require(RobloxGui.Modules.VoiceChatPrompt.PromptType)
 local GetShowAgeVerificationOverlay = require(CorePackages.AppTempCommon.VoiceChat.Requests.GetShowAgeVerificationOverlay)
 local GetInformedOfBan = require(CorePackages.AppTempCommon.VoiceChat.Requests.GetInformedOfBan)
 local PostInformedOfBan = require(CorePackages.AppTempCommon.VoiceChat.Requests.PostInformedOfBan)
+local SKIP_VOICE_CHECK_KEY = Constants.SKIP_VOICE_CHECK_KEY
+local SKIP_VOICE_CHECK_UNIVERSE_KEY = Constants.SKIP_VOICE_CHECK_UNIVERSE_KEY
+
 local HttpService = game:GetService("HttpService")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local isSubjectToDesktopPolicies = require(RobloxGui.Modules.InGameMenu.isSubjectToDesktopPolicies)
@@ -204,7 +210,16 @@ function VoiceChatServiceManager:PostRequest(url, method, postBody)
 	return success and result
 end
 
-function VoiceChatServiceManager:userAndPlaceCanUseVoice(universeId)
+function VoiceChatServiceManager:userAndPlaceCanUseVoice()
+	if GetFFlagSkipRedundantVoiceCheck()
+		and MemStorageService:GetItem(SKIP_VOICE_CHECK_UNIVERSE_KEY) == tostring(game.GameId)
+		and MemStorageService:GetItem(SKIP_VOICE_CHECK_KEY) == "true"
+	then
+		log:debug("Skipping Voice check due to cached value")
+		MemStorageService:RemoveItem(SKIP_VOICE_CHECK_KEY)
+		MemStorageService:RemoveItem(SKIP_VOICE_CHECK_UNIVERSE_KEY)
+		return false
+	end
 	local result = GetShowAgeVerificationOverlay(bind(self, 'GetRequest'), tostring(game.GameId), tostring(game.PlaceId))
 	if not result then
 		return false
@@ -319,6 +334,22 @@ function VoiceChatServiceManager:canUseServiceAsync()
 				self.available = VOICE_CHAT_AVAILABILITY.UserNotAvailable
 				reject()
 				return
+			end
+			if game:GetEngineFeature("VoiceChatEnabledRccProperties") and GetFFlagEnableVoiceRccCheck() then
+				if not game:IsLoaded() then
+					game.Loaded:Wait()
+				end
+				local VCS = game:GetService("VoiceChatService")
+				if not VCS.VoiceChatEnabledForUniverseOnRcc or not VCS.VoiceChatEnabledForPlaceOnRcc then
+					log:debug(
+						"Disabling voice chat due to RCC Response. Universe: {}, Place: {}",
+						VCS.VoiceChatEnabledForUniverseOnRcc,
+						VCS.VoiceChatEnabledForPlaceOnRcc
+					)
+					self.available = VOICE_CHAT_AVAILABILITY.PlaceNotAvailable
+					reject()
+					return
+				end
 			end
 			self.userEligible = true
 			resolve()

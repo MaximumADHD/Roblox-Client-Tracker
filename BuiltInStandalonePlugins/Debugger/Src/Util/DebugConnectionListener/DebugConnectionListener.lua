@@ -9,6 +9,7 @@ local SetFocusedDebuggerConnection = require(Actions.Common.SetFocusedDebuggerCo
 local ClearConnectionDataAction = require(Actions.Common.ClearConnectionData)
 local RequestCallstackThunk = require(Src.Thunks.Callstack.RequestCallstackThunk)
 local LoadStackFrameVariables = require(Src.Thunks.Callstack.LoadStackFrameVariables)
+local ExecuteExpressionForAllFrames = require(Src.Thunks.Watch.ExecuteExpressionForAllFrames)
 
 local Models = Src.Models
 local DebuggerStateToken = require(Models.DebuggerStateToken)
@@ -58,6 +59,12 @@ function DebugConnectionListener:onExecutionPaused(connection, pausedState, debu
 					local stepStateBundle = StepStateBundle.ctor(dst,threadState.ThreadId,stackFrameId)
 					self.store:dispatch(LoadStackFrameVariables(connection, stackFrame, stepStateBundle))
 				end
+
+				local listOfExpressions = self.store:getState().Watch.listOfExpressions	
+				for _, expression in ipairs(listOfExpressions) do
+					self.store:dispatch(ExecuteExpressionForAllFrames(expression, connection, dst, threadState.ThreadId))
+				end
+				
 				-- Open script at top of callstack
 				local topFrame = threadState:GetFrame(0)
 				debuggerUIService:SetScriptLineMarker(topFrame.Script, common.currentDebuggerConnectionId, topFrame.Line, true)

@@ -8,7 +8,6 @@ return function(plugin, pluginLoaderContext)
 	local Plugin = script.Parent.Parent
 	local Util = Plugin.Core.Util
 	local FFlagDebugToolboxEnableRoactChecks = game:GetFastFlag("DebugToolboxEnableRoactChecks")
-	local FFlagUseNewAnimationClipProvider = game:GetFastFlag("UseNewAnimationClipProvider_4")
 	local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
 	local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
 
@@ -369,28 +368,15 @@ return function(plugin, pluginLoaderContext)
 		pluginLoaderContext.signals["StudioService.OnSaveToRoblox"]:Connect(function(instances)
 			local function proceedToUpload()
 				local clonedInstances = AssetConfigUtil.getClonedInstances(instances)
-				if FFlagUseNewAnimationClipProvider then
-					if #clonedInstances == 1 and clonedInstances[1]:IsA("AnimationClip") then
-						createAssetConfig(
-							nil,
-							AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW,
-							clonedInstances,
-							Enum.AssetType.Animation
-						)
-					else
-						createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances)
-					end
+				if #clonedInstances == 1 and clonedInstances[1]:IsA("AnimationClip") then
+					createAssetConfig(
+						nil,
+						AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW,
+						clonedInstances,
+						Enum.AssetType.Animation
+					)
 				else
-					if #clonedInstances == 1 and clonedInstances[1]:IsA("KeyframeSequence") then
-						createAssetConfig(
-							nil,
-							AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW,
-							clonedInstances,
-							Enum.AssetType.Animation
-						)
-					else
-						createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances)
-					end
+					createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances)
 				end
 			end
 			if FFlagDebugToolboxGetRolesRequest then

@@ -23,12 +23,13 @@ local AssetGrid = require(Plugin.Core.Components.AssetGrid)
 local ResultsFetcher = require(Plugin.Core.Components.ResultsFetcher)
 
 local Util = Plugin.Core.Util
+local Constants = require(Util.Constants)
 local ContextGetter = require(Util.ContextGetter)
 local getNetwork = ContextGetter.getNetwork
 
 local Category = require(Plugin.Core.Types.Category)
 
-local INITIAL_PAGE_SIZE = 15
+local INITIAL_PAGE_SIZE = Constants.TOOLBOX_ITEM_SEARCH_LIMIT
 
 export type _ExternalProps = {
 	CategoryName: string,
@@ -43,6 +44,7 @@ export type _ExternalProps = {
 
 export type _InternalProps = {
 	Localization: any,
+	Stylizer: any,
 }
 
 type ResultsViewProps = _ExternalProps & _InternalProps & AssetLogicWrapper.AssetLogicWrapperProps
@@ -87,6 +89,7 @@ function ResultsView:render()
 	local layoutOrder = props.LayoutOrder
 	local position = props.Position
 	local size = props.Size
+	local theme = props.Stylizer
 
 	local categoryName = props.CategoryName
 	local searchTerm = props.SearchTerm
@@ -94,6 +97,7 @@ function ResultsView:render()
 	local sortName = props.SortName
 	-- Props from AssetLogicWrapper
 	local canInsertAsset = props.CanInsertAsset
+	local onAssetPreviewButtonClicked = props.OnAssetPreviewButtonClicked
 	local tryInsert = props.TryInsert
 	local tryOpenAssetConfig = props.TryOpenAssetConfig
 
@@ -112,26 +116,44 @@ function ResultsView:render()
 		searchTerm = searchTerm,
 		initialPageSize = INITIAL_PAGE_SIZE,
 		render = function(resultsState)
-			return AssetGrid({
-				AssetIds = resultsState.assetIds,
-				AssetMap = resultsState.assetMap,
-				LayoutOrder = layoutOrder,
-				Position = position,
-				RenderTopContent = renderTopContent,
-				RequestNextPage = resultsState.fetchNextPage,
-				Size = size,
-
-				-- Props from AssetLogicWrapper
-				CanInsertAsset = canInsertAsset,
-				TryInsert = tryInsert,
-				TryOpenAssetConfig = tryOpenAssetConfig,
-			})
-		end,
+			if resultsState.loading and #resultsState.assetIds == 0 then
+				return Roact.createElement("Frame", {
+					BackgroundColor3 = theme.backgroundColor,
+					LayoutOrder = layoutOrder,
+					Position = position,
+					Size = size,
+				}, {
+					LoadingIndicator = Roact.createElement(LoadingIndicator, {
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.new(0.5, 0, 0.5, 0),
+					})
+				})
+			else
+				return AssetGrid({
+					AssetIds = resultsState.assetIds,
+					AssetMap = resultsState.assetMap,
+					LayoutOrder = layoutOrder,
+					Position = position,
+					RenderTopContent = renderTopContent,
+					RequestNextPage = resultsState.fetchNextPage,
+					Size = size,
+			
+					-- Props from AssetLogicWrapper
+					CanInsertAsset = canInsertAsset,
+					OnAssetPreviewButtonClicked = onAssetPreviewButtonClicked,
+					TryInsert = tryInsert,
+					TryOpenAssetConfig = tryOpenAssetConfig,
+				})
+			end
+		end
 	})
 end
 
+ResultsView = AssetLogicWrapper(ResultsView)
+
 ResultsView = withContext({
 	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer,
 })(ResultsView)
 
-return AssetLogicWrapper(ResultsView)
+return ResultsView

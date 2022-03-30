@@ -1,6 +1,7 @@
 local Plugin = script.Parent.Parent
 
 local FFlagDevFrameworkScrollingFrameUsePane = game:GetFastFlag("DevFrameworkScrollingFrameUsePane")
+local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local TestPaths = {}
 
@@ -59,9 +60,15 @@ end
 
 function TestPaths.getIKButton(container)
 	local base = TestPaths.getTrackList(container)
-	return TestPaths.waitForDescendant(base, {
-		"SummaryTrack", "IKController", "IKButton",
-	})
+	if GetFFlagFaceControlsEditorUI() then
+		return TestPaths.waitForDescendant(base, {
+			"SummaryTrack", "LeftButtonsListContainer", "IKController", "IKButton",
+		})
+	else
+		return TestPaths.waitForDescendant(base, {
+			"SummaryTrack", "IKController", "IKButton",
+		})
+	end
 end
 
 function TestPaths.getIKWindow(ikWindow)

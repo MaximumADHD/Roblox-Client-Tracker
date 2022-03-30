@@ -1,3 +1,5 @@
+local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Actions = Plugin.Core.Actions
@@ -32,7 +34,9 @@ return function(networkInterface, items, totalResults, audioSearchInfo, targetPa
 				table.insert(assetsList, formattedAsset)
 			end
 
-			AssetAnalytics.addContextToAssetResults(assetsList, pageInfo)
+			if not FFlagToolboxUsePageInfoInsteadOfAssetContext then
+				AssetAnalytics.addContextToAssetResults(assetsList, pageInfo)
+			end
 
 			store:dispatch(GetAssets(assetsList, totalResults, cursor))
 			store:dispatch(SetCurrentPage(targetPage))

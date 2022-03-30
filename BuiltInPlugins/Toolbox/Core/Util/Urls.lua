@@ -587,8 +587,11 @@ function Urls.constructToolboxAutocompleteUrl(categoryName, searchTerm, numberOf
 end
 
 if FFlagToolboxAssetCategorization then
-	function Urls.constructGetHomeConfigurationUrl(assetType: Enum.AssetType)
-		return string.format("%s/home/%s/configuration", TOOLBOX_SERVICE_URL, assetType.Name)
+	function Urls.constructGetHomeConfigurationUrl(assetType: Enum.AssetType, locale: string?)
+		return string.format("%s/home/%s/configuration?", TOOLBOX_SERVICE_URL, assetType.Name)
+			.. Url.makeQueryString({
+				locale = locale,
+			})
 	end
 end
 

@@ -58,6 +58,7 @@ type _ExternalProps = {
 	Size : UDim2?,
 	-- Props available from AssetLogicWrapper
 	CanInsertAsset : (() -> boolean)?,
+	OnAssetPreviewButtonClicked : ((assetData: any) -> ()),
 	ParentAbsolutePosition : Vector2, -- TODO: Remove with FFlagToolboxAssetCategorization
 	ParentSize : Vector2, -- TODO: Remove with FFlagToolboxAssetCategorization
 	TryInsert : (
@@ -295,6 +296,7 @@ function AssetGrid:init(props : AssetGridProps)
 				LayoutOrder = index,
 				onAssetHovered = self.onAssetHovered,
 				onAssetHoverEnded = self.onAssetHoverEnded,
+				onAssetPreviewButtonClicked = if FFlagToolboxAssetCategorization then props.OnAssetPreviewButtonClicked else nil,
 				parentSize = absoluteSize,
 				parentAbsolutePosition = absolutePosition,
 				tryInsert = tryInsert,
@@ -436,9 +438,9 @@ function AssetGrid:render()
 		CanvasSize = UDim2.new(0, 0, 0, canvasHeight),
 		LayoutOrder = layoutOrder,
 		onScroll = self.onScroll,
-		Position = position,
+		Position = if not FFlagToolboxAssetCategorization then position else nil,
 		scrollingEnabled = not isPreviewing,
-		Size = size,
+		Size = if FFlagToolboxAssetCategorization then UDim2.new(1, 0, 1, 0) else nil,
 		[Roact.Ref] = self.scrollingFrameRef,
 		OnAbsoluteSizeChanged = self.getWidth,
 	}, {

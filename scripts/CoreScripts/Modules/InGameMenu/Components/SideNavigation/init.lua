@@ -28,7 +28,6 @@ local SystemMenuButton = require(script.SystemMenuButton)
 
 local InGameMenuPolicy = require(InGameMenu.InGameMenuPolicy)
 
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 
 local SELECTION_PARENT_NAME = "SideNavigation_IGMSelectionGroup"
@@ -42,7 +41,7 @@ SideNavigation.validateProps = t.strictInterface({
 	goToHomePage = t.callback,
 	goToSystemMenu = t.callback,
 	currentPage = t.string,
-	canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+	canCaptureFocus = t.optional(t.boolean),
 	currentZone = GetFFlagIGMGamepadSelectionHistory() and t.optional(t.number) or nil,
 
 	--policy
@@ -58,27 +57,17 @@ function SideNavigation:init()
 		end
 	end
 
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		self.firstItemRef = Roact.createRef()
+	self.firstItemRef = Roact.createRef()
 
-		self.onContainerRendered = function(rbx)
-			if rbx then
-				GuiService:RemoveSelectionGroup(SELECTION_PARENT_NAME)
-				GuiService:AddSelectionParent(SELECTION_PARENT_NAME, rbx)
-			end
+	self.onContainerRendered = function(rbx)
+		if rbx then
+			GuiService:RemoveSelectionGroup(SELECTION_PARENT_NAME)
+			GuiService:AddSelectionParent(SELECTION_PARENT_NAME, rbx)
 		end
 	end
 end
 
 function SideNavigation:oldRender()
-	-- Can inline when GetFFlagInGameMenuControllerDevelopmentOnly is removed
-	local selectable = nil
-	local shouldRenderZonePortal = nil
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		selectable = false
-		shouldRenderZonePortal = self.props.currentPage ~= Constants.InitalPageKey
-	end
-
 	local shouldForgetPreviousSelection = nil -- Can inline when flag is removed
 	if GetFFlagIGMGamepadSelectionHistory() then
 		shouldForgetPreviousSelection = self.props.currentZone ~= 0 or not self.props.open
@@ -93,9 +82,9 @@ function SideNavigation:oldRender()
 			BorderSizePixel = 0,
 			Size = UDim2.new(0, 64, 1, 0),
 			Visible = self.props.open,
-			Selectable = selectable,
+			Selectable = false,
 			[Roact.Ref] = self.onContainerRendered,
-		}, GetFFlagInGameMenuControllerDevelopmentOnly() and {
+		}, {
 			Padding = Roact.createElement("UIPadding", {
 				PaddingTop = UDim.new(0, PADDING_FROM_TOP),
 			}),
@@ -115,17 +104,10 @@ function SideNavigation:oldRender()
 					GuiService.SelectedCoreObject = self.firstItemRef:getValue()
 				end,
 			}),
-			ZonePortal = shouldRenderZonePortal and Roact.createElement(ZonePortal, {
+			ZonePortal = self.props.currentPage ~= Constants.InitalPageKey and Roact.createElement(ZonePortal, {
 				targetZone = 1,
 				direction = Direction.Right,
 			}) or nil,
-		} or {
-			CloseMenuButton = Roact.createElement(CloseMenuButton, {
-				onActivated = self.props.closeMenu,
-
-				AnchorPoint = Vector2.new(0.5, 0),
-				Position = UDim2.new(0.5, 0, 0, 4),
-			}),
 		})
 	end)
 end
@@ -161,28 +143,20 @@ function SideNavigation:newRender()
 		}),
 	}
 
-	-- Can inline when GetFFlagInGameMenuControllerDevelopmentOnly is removed
-	local selectable = nil
-	local shouldRenderZonePortal = nil
-	local newContent = nil
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		selectable = false
-		shouldRenderZonePortal = self.props.currentPage ~= Constants.InitalPageKey
-		newContent = {
-			Padding = Roact.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, PADDING_FROM_TOP),
-			}),
-			Content = Roact.createElement("Frame", {
-				Size = UDim2.fromScale(1, 1),
-				BackgroundTransparency = 1,
-				Selectable = false,
-			}, oldContent),
-			ZonePortal = shouldRenderZonePortal and Roact.createElement(ZonePortal, {
-				targetZone = 1,
-				direction = Direction.Right,
-			}) or nil,
-		}
-	end
+	local newContent = {
+		Padding = Roact.createElement("UIPadding", {
+			PaddingTop = UDim.new(0, PADDING_FROM_TOP),
+		}),
+		Content = Roact.createElement("Frame", {
+			Size = UDim2.fromScale(1, 1),
+			BackgroundTransparency = 1,
+			Selectable = false,
+		}, oldContent),
+		ZonePortal = self.props.currentPage ~= Constants.InitalPageKey and Roact.createElement(ZonePortal, {
+			targetZone = 1,
+			direction = Direction.Right,
+		}) or nil,
+	}
 
 	return withStyle(function(style)
 		return Roact.createElement(Interactable, {
@@ -194,9 +168,9 @@ function SideNavigation:newRender()
 			BorderSizePixel = 0,
 			Size = UDim2.new(0, 64, 1, 0),
 			Visible = self.props.open,
-			Selectable = selectable,
+			Selectable = false,
 			[Roact.Ref] = self.onContainerRendered,
-		}, GetFFlagInGameMenuControllerDevelopmentOnly() and newContent or oldContent)
+		}, newContent)
 	end)
 end
 
@@ -214,13 +188,10 @@ SideNavigation = InGameMenuPolicy.connect(function(appPolicy, props)
 end)(SideNavigation)
 
 return RoactRodux.UNSTABLE_connect2(function(state, props)
-	local canCaptureFocus = nil -- Can inline when GetFFlagInGameMenuControllerDevelopmentOnly is removed
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		canCaptureFocus = state.isMenuOpen
-			and not state.respawn.dialogOpen
-			and state.displayOptions.inputType == Constants.InputType.Gamepad
-			and state.currentZone == 0
-	end
+	local canCaptureFocus = state.isMenuOpen
+		and not state.respawn.dialogOpen
+		and state.displayOptions.inputType == Constants.InputType.Gamepad
+		and state.currentZone == 0
 
 	local currentZone = nil -- can inline when flag is removed
 	if GetFFlagIGMGamepadSelectionHistory() then

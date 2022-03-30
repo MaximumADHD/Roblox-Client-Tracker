@@ -28,14 +28,10 @@ RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
 local FFlagUpdateSettingsHubGameText = require(RobloxGui.Modules.Flags.FFlagUpdateSettingsHubGameText)
-local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
 
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
 
-local Constants
-if FFlagCollectAnalyticsForSystemMenu then
-  Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
-end
+local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
 ----------- CLASS DECLARATION --------------
 
@@ -46,10 +42,8 @@ local function Initialize()
 	this.LeaveFunc = function()
 		GuiService.SelectedCoreObject = nil -- deselects the button and prevents spamming the popup to save in studio when using gamepad
 
-		if FFlagCollectAnalyticsForSystemMenu then
-			AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName,
-												Constants.AnalyticsLeaveGameName, {confirmed = Constants.AnalyticsConfirmedName, universeid = tostring(game.GameId)})
-		end
+		AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName,
+											Constants.AnalyticsLeaveGameName, {confirmed = Constants.AnalyticsConfirmedName, universeid = tostring(game.GameId)})
 
 		-- need to wait for render frames so on slower devices the leave button highlight will update
 		-- otherwise, since on slow devices it takes so long to leave you are left wondering if you pressed the button
@@ -66,10 +60,8 @@ local function Initialize()
 			this.HubRef:PopMenu(isUsingGamepad, true)
 		end
 
-		if FFlagCollectAnalyticsForSystemMenu then
-			AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName,
-												Constants.AnalyticsLeaveGameName, {confirmed = Constants.AnalyticsCancelledName, universeid = tostring(game.GameId)})
-		end
+		AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName,
+											Constants.AnalyticsLeaveGameName, {confirmed = Constants.AnalyticsCancelledName, universeid = tostring(game.GameId)})
 	end
 	this.DontLeaveFromHotkey = function(name, state, input)
 		if state == Enum.UserInputState.Begin then

@@ -39,7 +39,6 @@ local RunService			= game:GetService("RunService")
 
 -- Flags
 local FFlagFixStarterGuiErrors = game:DefineFastFlag("FixStarterGuiErrors", false)
-local EngineFeatureDraggerBruteForce = game:GetEngineFeature("DraggerBruteForceAll")
 
 -- Variables
 local childAddedEvent = nil
@@ -157,30 +156,16 @@ local function onInputBegan(inputObject)
 		
 		if (not item) then
 			local ray = Camera:ScreenPointToRay(inputObject.Position.X, inputObject.Position.Y)	
-			
-			if EngineFeatureDraggerBruteForce then
-				local params = RaycastParams.new()
-				params.BruteForceAllSlow = true
-				local result = workspace:Raycast(ray.Origin, ray.Direction * 5000, params)
-				if result and not result.Instance.Locked then
-					local instances = {result.Instance}
-					SelectionService:Set(instances)
-					Off()
-				else
-					Off()
-				end
+			local params = RaycastParams.new()
+			params.BruteForceAllSlow = true
+			local result = workspace:Raycast(ray.Origin, ray.Direction * 5000, params)
+			if result and not result.Instance.Locked then
+				local instances = {result.Instance}
+				SelectionService:Set(instances)
+				Off()
 			else
-				ray = Ray.new(ray.Origin, ray.Direction * 5000)	
-				local part, position = workspace:FindPartOnRay(ray)
-				if (part and not part.Locked) then
-					local instances = {part}
-					SelectionService:Set(instances)
-					Off()
-				else
-						Off()
-				end
+				Off()
 			end
-
 		else
 			InstanceInfo:isVisible(item, true)
 		end

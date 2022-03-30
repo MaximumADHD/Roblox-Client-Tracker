@@ -1,6 +1,6 @@
-local HttpService = game:GetService("HttpService")
-
 local Plugin = script.Parent.Parent.Parent
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+local PreviewUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared.PreviewUtil
 
 local SetUserAddedAssets = require(Plugin.Src.Actions.SetUserAddedAssets)
 
@@ -16,12 +16,10 @@ return function(tab, asset)
 		if userAddedAssets[tab] then
 			index = #userAddedAssets[tab] + 1
 		end
+
 		local newAssets = deepJoin(userAddedAssets, {
 			[tab] = {
-				[index] = {
-					instance = asset,
-					uniqueId = HttpService:GenerateGUID()
-				}
+				[index] = PreviewUtil.createUserAddedAsset(asset)
 			}
 		})
 

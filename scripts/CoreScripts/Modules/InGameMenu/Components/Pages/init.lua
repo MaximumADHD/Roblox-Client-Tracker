@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local VRService = game:GetService("VRService")
 
 local InGameMenu = script.Parent.Parent
 
@@ -12,6 +13,8 @@ local Constants = require(InGameMenu.Resources.Constants)
 local Assets = require(InGameMenu.Resources.Assets)
 
 local FFlagFixMenuIcons = require(InGameMenu.Flags.FFlagFixMenuIcons)
+
+local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
 
 -- For root pages, the parentPage should be nil
 local pages = {
@@ -64,7 +67,7 @@ local pages = {
 		title = "CoreScripts.InGameMenu.PageTitle.Controls",
 		icon = FFlagFixMenuIcons and Images["icons/controls/controls"] or Assets.Images.ControlsMenu,
 		component = script.Parent.ControlsPage,
-		isModal = true,
+		isModal = not (EngineFeatureEnableVRUpdate2 and VRService.VREnabled),
 		navigationDepth = 2,
 		parentPage = Constants.MainPagePageKey,
 	},

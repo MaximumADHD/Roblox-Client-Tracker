@@ -72,6 +72,7 @@ local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimati
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 local GetFFlagRootMotionTrack = require(Plugin.LuaFlags.GetFFlagRootMotionTrack)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
 
 local EditorController = Roact.PureComponent:extend("EditorController")
 
@@ -319,6 +320,18 @@ function EditorController:init()
 		local animationData = self.props.AnimationData
 		if not AnimationData.isChannelAnimation(animationData) then
 			self.props.ValueChanged(instanceName, path, trackType, tick, value, self.props.Analytics)
+			if GetFFlagFaceControlsEditorUI() then
+				-- also apply value change to symmetry partner for facs values if symmetry setting is enabled
+				if trackType == Constants.TRACK_TYPES.Facs then					
+					if self.props.SymmetryEnabled then
+						local facsName = path[1]
+						local symmetryPartner = Constants.FacsCrossMappings[facsName].symmetryPartner
+						if symmetryPartner then
+							self.props.ValueChanged("Root", {symmetryPartner}, trackType, tick, value, self.props.Analytics)
+						end
+					end					
+				end
+			end
 		else
 			local rotationType
 			if GetFFlagQuaternionChannels() then
@@ -764,6 +777,7 @@ local function mapStateToProps(state)
 		PlaybackSpeed = status.PlaybackSpeed,
 		EditorMode = status.EditorMode,
 		DefaultRotationType = status.DefaultRotationType,
+		SymmetryEnabled = status.SymmetryEnabled,
 	}
 end
 

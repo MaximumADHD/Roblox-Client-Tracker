@@ -15,6 +15,7 @@ local t = InGameMenuDependencies.t
 
 local withStyle = UIBlox.Core.Style.withStyle
 local KeyLabel = UIBlox.App.Menu.KeyLabel
+local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 
 local InGameMenu = script.Parent.Parent
 
@@ -26,7 +27,6 @@ local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local Constants = require(InGameMenu.Resources.Constants)
 local Direction = require(InGameMenu.Enums.Direction)
 
-local KeyLabel_DEPRECATED = require(script.Parent.KeyLabel)
 local PageNavigation = require(script.Parent.PageNavigation)
 local GameIconHeader = require(script.Parent.GameIconHeader)
 local ZonePortal = require(script.Parent.ZonePortal)
@@ -34,6 +34,7 @@ local ZonePortal = require(script.Parent.ZonePortal)
 local ApiFetchGameIsFavorite = require(InGameMenu.Thunks.ApiFetchGameIsFavorite)
 local SetGameFavorite = require(InGameMenu.Actions.SetGameFavorite)
 local GamePostFavorite = require(InGameMenu.Thunks.GamePostFavorite)
+local Spacer = require(InGameMenu.Components.Spacer)
 
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local Network = InGameMenu.Network
@@ -82,6 +83,8 @@ function MainPage:init()
 	self.fetchGameIsFavorite = function()
 		return self.props.fetchGameIsFavorite(networkImpl)
 	end
+	self.pageSize, self.setPageSize = Roact.createBinding(UDim2.new(0, 0, 0, 0))
+
 end
 
 function MainPage:renderMainPageFocusHandler()
@@ -104,141 +107,126 @@ function MainPage:renderMainPageFocusHandler()
 end
 
 function MainPage:render()
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		local canCaptureFocus = nil
-		if GetFFlagSideNavControllerBar() then
-			canCaptureFocus = self.props.isMainPageInForeground and self.props.inputType == Constants.InputType.Gamepad
-		else
-			canCaptureFocus = self.canGamepadCaptureFocus(self.props)
-		end
+	local ControllerDevOnly = GetFFlagInGameMenuControllerDevelopmentOnly()
 
-		return withStyle(function(style)
-			return withLocalization({
-				leaveGame = "CoreScripts.InGameMenu.LeaveGame",
-			})(function(localized)
-
-				local inputType = self.props.inputType
-				local leaveGameKeyCode = LEAVE_GAME_KEY_CODE_LABEL[inputType]
-
-				local ControllerBar = Roact.createElement(IGMMainPageControllerBar, {
-					canCaptureFocus = canCaptureFocus,
-				})
-
-				return Roact.createElement("TextButton", {
-					Size = UDim2.new(0, MAIN_PAGE_WIDTH, 1, 0),
-					BackgroundColor3 = style.Theme.BackgroundDefault.Color,
-					BackgroundTransparency = style.Theme.BackgroundDefault.Transparency,
-					BorderSizePixel = 0,
-					Visible = self.props.open,
-					Text = "",
-					AutoButtonColor = false,
-					Selectable = false,
-				}, {
-					MainPageFocusHandler = GetFFlagUseIGMControllerBar() and not (VRService.VREnabled and FFlagEnableNewVrSystem) and self:renderMainPageFocusHandler() or nil,
-					ControllerBar = ControllerBar,
-					ZonePortal = Roact.createElement(ZonePortal, {
-						targetZone = 0,
-						direction = Direction.Left,
-					}),
-					GameIconHeader = Roact.createElement(GameIconHeader),
-					PageNavigation = Roact.createElement(PageNavigation, {
-						Position = UDim2.new(0, Constants.Zone.ContentOffset, 0, 148),
-						mainPageFirstButtonRef = self.mainPageFirstButtonRef,
-					}),
-					BottomButtons = Roact.createElement("Frame", {
-							Size = UDim2.new(1, 0, 0, 84),
-							Position = UDim2.new(0, 0, 1, 0),
-							AnchorPoint = Vector2.new(0, 1),
-							BackgroundTransparency = 1,
-						}, {
-						Padding = Roact.createElement("UIPadding", {
-							PaddingTop = UDim.new(0, 24),
-							PaddingBottom = UDim.new(0, 24),
-							PaddingLeft = UDim.new(0, 24),
-							PaddingRight = UDim.new(0, 24),
-						}),
-						LeaveGame = Roact.createElement("Frame", {
-							BackgroundTransparency = 1,
-							Size = UDim2.new(1, 0, 0, BOTTOM_MENU_ICON_SIZE),
-							Position = UDim2.fromScale(1, 0),
-							AnchorPoint = Vector2.new(1, 0),
-						}, {
-							Button = Roact.createElement(UIBlox.App.Button.PrimarySystemButton, {
-								size = UDim2.fromScale(1, 1),
-								onActivated = self.props.startLeavingGame,
-								text = localized.leaveGame,
-							}),
-							KeyLabel = leaveGameKeyCode and Roact.createElement(KeyLabel, {
-								keyCode = leaveGameKeyCode,
-								iconThemeKey = "UIDefault",
-								textThemeKey = "SystemPrimaryContent",
-								AnchorPoint = Vector2.new(1, 0.5),
-								Position = UDim2.new(1, -16, 0.5, 0),
-								LayoutOrder = 2,
-								ZIndex = 2,
-							}) or nil,
-						})
-					}),
-				})
-			end)
-		end)
-
+	local canCaptureFocus = nil
+	if GetFFlagSideNavControllerBar() then
+		canCaptureFocus = self.props.isMainPageInForeground and self.props.inputType == Constants.InputType.Gamepad
 	else
-		return withStyle(function(style)
-			return withLocalization({
-				leaveGame = "CoreScripts.InGameMenu.LeaveGame",
-			})(function(localized)
+		canCaptureFocus = self.canGamepadCaptureFocus(self.props)
+	end
 
-				return Roact.createElement("TextButton", {
-					Size = UDim2.new(0, MAIN_PAGE_WIDTH, 1, 0),
-					BackgroundColor3 = style.Theme.BackgroundDefault.Color,
-					BackgroundTransparency = style.Theme.BackgroundDefault.Transparency,
+	return withStyle(function(style)
+		return withLocalization({
+			leaveGame = "CoreScripts.InGameMenu.LeaveGame",
+		})(function(localized)
+
+			local inputType = self.props.inputType
+			local leaveGameKeyCode = ControllerDevOnly and LEAVE_GAME_KEY_CODE_LABEL[inputType]
+
+			local ControllerBar = ControllerDevOnly and Roact.createElement(IGMMainPageControllerBar, {
+				canCaptureFocus = canCaptureFocus,
+			})
+
+			return Roact.createElement("TextButton", {
+				Size = UDim2.new(0, MAIN_PAGE_WIDTH, 1, 0),
+				BackgroundColor3 = style.Theme.BackgroundDefault.Color,
+				BackgroundTransparency = style.Theme.BackgroundDefault.Transparency,
+				BorderSizePixel = 0,
+				Visible = self.props.open,
+				Text = "",
+				AutoButtonColor = false,
+				Selectable = false,
+			}, {
+				MainPageFocusHandler = ControllerDevOnly and GetFFlagUseIGMControllerBar() and not (VRService.VREnabled and FFlagEnableNewVrSystem) and self:renderMainPageFocusHandler() or nil,
+				ControllerBar = ControllerDevOnly and ControllerBar,
+				ZonePortal = ControllerDevOnly and Roact.createElement(ZonePortal, {
+					targetZone = 0,
+					direction = Direction.Left,
+				}),
+				PageContents = Roact.createElement("ScrollingFrame", {
+					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
-					Visible = self.props.open,
-					Text = "",
-					AutoButtonColor = false,
+					CanvasSize = self.pageSize,
+					Size = UDim2.new(1, 0, 1),
 				}, {
-					GameIconHeader = Roact.createElement(GameIconHeader),
-					PageNavigation = Roact.createElement(PageNavigation, {
-						Position = UDim2.new(0, 0, 0, 148),
+					Layout = Roact.createElement("UIListLayout", {
+						HorizontalAlignment = Enum.HorizontalAlignment.Right,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						VerticalAlignment = Enum.VerticalAlignment.Top,
+						[Roact.Change.AbsoluteContentSize] = function(rbx)
+							self.setPageSize(UDim2.new(0, 0, 0, rbx.AbsoluteContentSize.Y))
+						end,
 					}),
-					BottomButtons = Roact.createElement("Frame", {
-							Size = UDim2.new(1, 0, 0, 84),
-							Position = UDim2.new(0, 0, 1, 0),
-							AnchorPoint = Vector2.new(0, 1),
-							BackgroundTransparency = 1,
-						}, {
+					GameIconHeader = Roact.createElement(GameIconHeader, {LayoutOrder = 1}),
+					Spacer = Roact.createElement(Spacer, {
+						layoutOrder = 2,
+					}),
+					PageNavigation = Roact.createElement(PageNavigation, {
+						LayoutOrder = 3,
+						mainPageFirstButtonRef = self.mainPageFirstButtonRef,
+						autosize = true,
+					}),
+					Description = Roact.createElement("Frame", {
+						LayoutOrder = 4,
+						AutomaticSize = Enum.AutomaticSize.XY,
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, 0, 0, 0),
+					}, {
 						Padding = Roact.createElement("UIPadding", {
 							PaddingTop = UDim.new(0, 24),
 							PaddingBottom = UDim.new(0, 24),
 							PaddingLeft = UDim.new(0, 24),
 							PaddingRight = UDim.new(0, 24),
 						}),
-						LeaveGame = Roact.createElement("Frame", {
-							BackgroundTransparency = 1,
-							Size = UDim2.new(1, 0, 0, BOTTOM_MENU_ICON_SIZE),
-							Position = UDim2.fromScale(1, 0),
-							AnchorPoint = Vector2.new(1, 0),
-						}, {
-							Button = Roact.createElement(UIBlox.App.Button.PrimarySystemButton, {
-								size = UDim2.fromScale(1, 1),
-								onActivated = self.props.startLeavingGame,
-								text = localized.leaveGame,
-							}),
-							KeyLabel = Roact.createElement(KeyLabel_DEPRECATED, {
-								input = Enum.KeyCode.L,
-								borderThemeKey = "UIDefault",
-								textThemeKey = "SystemPrimaryContent",
-								AnchorPoint = Vector2.new(1, 0.5),
-								Position = UDim2.new(1, -16, 0.5, 0),
-								ZIndex = 2,
-							})
+						DescriptionText = Roact.createElement(StyledTextLabel, {
+							fontStyle = style.Font.Header2,
+							colorStyle = style.Theme.TextEmphasis,
+							size = UDim2.new(1, 0, 0, 59),
+							text = self.props.gameDescription,
+							textWrapped = true,
+							textXAlignment = Enum.TextXAlignment.Left,
+							textYAlignment = Enum.TextYAlignment.Top,
 						}),
+					})
+				}),
+				BottomButtons = Roact.createElement("Frame", {
+						Size = UDim2.new(1, 0, 0, 84),
+						Position = UDim2.new(0, 0, 1, 0),
+						AnchorPoint = Vector2.new(0, 1),
+						BackgroundTransparency = 1,
+					}, {
+					Padding = Roact.createElement("UIPadding", {
+						PaddingTop = UDim.new(0, 24),
+						PaddingBottom = UDim.new(0, 24),
+						PaddingLeft = UDim.new(0, 24),
+						PaddingRight = UDim.new(0, 24),
 					}),
-				})
-			end)
+					LeaveGame = Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, 0, 0, BOTTOM_MENU_ICON_SIZE),
+						Position = UDim2.fromScale(1, 0),
+						AnchorPoint = Vector2.new(1, 0),
+					}, {
+						Button = Roact.createElement(UIBlox.App.Button.PrimarySystemButton, {
+							size = UDim2.fromScale(1, 1),
+							onActivated = self.props.startLeavingGame,
+							text = localized.leaveGame,
+						}),
+						KeyLabel = leaveGameKeyCode and Roact.createElement(KeyLabel, {
+							keyCode = leaveGameKeyCode,
+							iconThemeKey = "UIDefault",
+							textThemeKey = "SystemPrimaryContent",
+							AnchorPoint = Vector2.new(1, 0.5),
+							Position = UDim2.new(1, -16, 0.5, 0),
+							LayoutOrder = 2,
+							ZIndex = 2,
+						}) or nil,
+					})
+				}),
+			})
 		end)
-	end
+	end)
 end
 
 function MainPage:didMount()
@@ -298,9 +286,10 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 		inputType = inputType,
 		isMainPageInForeground = isMainPageInForeground,
 		isFavorited = state.gameInfo.isFavorited,
+		gameDescription = state.gameInfo.description,
 	}
 end, function(dispatch)
-	-- 65241
+
 	local universeId = game.GameId
 
 	return {

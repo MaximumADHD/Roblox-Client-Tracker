@@ -111,7 +111,6 @@ function AssetPreviewWrapper:render()
     local theme = props.Theme:get("Plugin")
 
     local assetData = props.AssetPreviewData
-    local rootTreeViewInstance = assetData.rootTreeViewInstance
     local selectedInstance = self.state.selectedPreviewInstance or assetData.rootTreeViewInstance
 
     local maxPreviewWidth = math.min(state.maxPreviewWidth, MAX_PREVIEW_WIDTH)

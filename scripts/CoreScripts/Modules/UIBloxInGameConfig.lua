@@ -1,28 +1,22 @@
 local CorePackages = game:GetService("CorePackages")
 
-local FFlagTempFixEmptyGridView = require(CorePackages.UIBloxFlags.FFlagTempFixEmptyGridView)
-local FFlagTempFixGridViewLayoutWithSpawn = require(CorePackages.UIBloxFlags.FFlagTempFixGridViewLayoutWithSpawn)
 local GetFFlagUIBloxFixDropdownMenuListPositionAndSize = require(CorePackages.UIBloxFlags.GetFFlagUIBloxFixDropdownMenuListPositionAndSize)
 local GetFFlagUIBloxGenericButtonInputChangesInGame= require(CorePackages.UIBloxFlags.GetFFlagUIBloxGenericButtonInputChangesInGame)
-local GetFFlagUIBloxEnableGamepadKeyCodeSupportForKeyLabel =
-	require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableGamepadKeyCodeSupportForKeyLabel)
 local GetFFlagUIBloxUseNewGenericTextLabelProps =
 	require(CorePackages.UIBloxFlags.GetFFlagUIBloxUseNewGenericTextLabelProps)
-local FFlagImprovementsToGridView = require(CorePackages.UIBloxFlags.FFlagImprovementsToGridView)
 local FFlagFixThumbnailTileInconsistency = require(CorePackages.UIBloxFlags.FFlagFixThumbnailTileInconsistency)
 local GetFFlagUIBloxEnableRadioButtonGamepadSupport = require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableRadioButtonGamepadSupport)
 
 return {
-	improvementsToGridView = FFlagImprovementsToGridView,
-	tempFixEmptyGridView = FFlagTempFixEmptyGridView,
-	tempFixGridViewLayoutWithSpawn = FFlagTempFixGridViewLayoutWithSpawn,
 	useUpdatedCheckbox = true,
 	fixDropdownMenuListPositionAndSize = GetFFlagUIBloxFixDropdownMenuListPositionAndSize(),
 	useNewGenericTextLabelProps = GetFFlagUIBloxUseNewGenericTextLabelProps(),
 	useAnimatedXboxCursors = game:DefineFastFlag("GamepadAnimatedCursor", false),
 	genericButtonInputChanges = GetFFlagUIBloxGenericButtonInputChangesInGame(),
-	enableGamepadKeyCodeSupportForKeyLabel = GetFFlagUIBloxEnableGamepadKeyCodeSupportForKeyLabel(),
+	enableGamepadKeyCodeSupportForKeyLabel = true,
 	enableAnimatedCursorForNonRoactGamepadComponent = game:DefineFastFlag("UIBloxEnableAnimatedCursorForNonRoactGamepad", false),
 	enableRadioButtonGamepadSupport = GetFFlagUIBloxEnableRadioButtonGamepadSupport(),
 	fixTileThumbnailColorInconsistency = FFlagFixThumbnailTileInconsistency,
+
+	useNewVerticalScrollView = false, -- TODO: https://jira.rbx.com/browse/UIBLOX-225
 }

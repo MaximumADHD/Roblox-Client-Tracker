@@ -6,10 +6,7 @@ local PluginLoaderBuilder = require(Plugin.PluginLoader.PluginLoaderBuilder)
 local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
 local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
 
-local FFlagPreventChangesWhenConvertingPackage = game:GetFastFlag("PreventChangesWhenConvertingPackage")
-local PackageUIService = FFlagPreventChangesWhenConvertingPackage and game:GetService("PackageUIService") or nil
-
-local StudioService = game:GetService("StudioService")
+local PackageUIService = game:GetService("PackageUIService") or nil
 
 local args : PluginLoaderBuilder.Args = {
 	plugin = plugin,
@@ -20,11 +17,8 @@ local args : PluginLoaderBuilder.Args = {
 	localizationNamespace = nil,
 	noToolbar = true,
 	extraTriggers = {
-		["PackageUIService.OnOpenConvertToPackagePlugin"] = FFlagPreventChangesWhenConvertingPackage and function()
+		["PackageUIService.OnOpenConvertToPackagePlugin"] = function()
 			return PackageUIService.OnOpenConvertToPackagePlugin
-		end or nil,
-		["StudioService.OnOpenConvertToPackagePlugin"] = not FFlagPreventChangesWhenConvertingPackage and function()
-			return StudioService.OnOpenConvertToPackagePlugin
 		end or nil,
 	},
 }

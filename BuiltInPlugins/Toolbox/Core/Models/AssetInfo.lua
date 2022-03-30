@@ -24,15 +24,17 @@ export type NewAssetInfoDetails = {
 }
 
 export type AssetInfoContext = {
-	category: string,
-	currentCategory: string,
 	page: number,
 	pagePosition: number,
 	position: number,
-	searchId: string,
-	searchKeyword: string,
-	sort: string,
-	toolboxTab: string,
+
+	-- TODO: Remove the below when FFlagToolboxUsePageInfoInsteadOfAssetContext is enabled
+	category: string?,
+	currentCategory: string?,
+	searchId: string?,
+	searchKeyword: string?,
+	sort: string?,
+	toolboxTab: string?,
 }
 
 export type AssetInfoCreator = {

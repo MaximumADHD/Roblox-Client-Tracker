@@ -10,9 +10,6 @@ local InGameMenu = script.Parent.Parent.Parent
 local InputLabel = require(script.Parent.InputLabel)
 local SliderWithInput = require(InGameMenu.Components.SliderWithInput)
 
-local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
-
 local SliderEntry = Roact.PureComponent:extend("SliderEntry")
 SliderEntry.validateProps = t.strictInterface({
 	LayoutOrder = t.integer,
@@ -24,35 +21,19 @@ SliderEntry.validateProps = t.strictInterface({
 	value = t.number,
 	disabled = t.optional(t.boolean),
 	valueChanged = t.callback,
-	canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
-	isMenuOpen = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
-	buttonRef = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.table) or nil,
+	canCaptureFocus = t.optional(t.boolean),
+	isMenuOpen = t.optional(t.boolean),
+	buttonRef = t.optional(t.table),
 })
 
 function SliderEntry:init()
 	self.state = {
-		isFrameSelectable = GetFFlagInGameMenuControllerDevelopmentOnly() and true or nil,
+		isFrameSelectable = true,
 	}
 end
 
 function SliderEntry:render()
-	local selectable = nil
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		selectable = self.state.isFrameSelectable
-	end
-
-	local canCaptureFocus = nil
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		canCaptureFocus = self.props.canCaptureFocus
-	end
-
-	local isMenuOpen = nil
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		isMenuOpen = self.props.isMenuOpen
-	end
-
-	local sliderDotRef = self.props.buttonRef or
-		(GetFFlagInGameMenuControllerDevelopmentOnly() and Roact.createRef() or nil)
+	local sliderDotRef = self.props.buttonRef or Roact.createRef()
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1, 0, 0, 92),
@@ -60,13 +41,13 @@ function SliderEntry:render()
 
 		-- Captures focus gamepad focus when navigating to slider area and directs it
 		-- to the slider dot (as opposed to the slider text entry box)
-		Selectable = selectable,
-		[Roact.Event.SelectionGained] = GetFFlagInGameMenuControllerDevelopmentOnly() and function()
+		Selectable = self.state.isFrameSelectable,
+		[Roact.Event.SelectionGained] = function()
 			GuiService.SelectedCoreObject = sliderDotRef:getValue()
 			self:setState({
 				isFrameSelectable = false,
 			})
-		end or nil,
+		end,
 	}, {
 		Padding = Roact.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, 24),
@@ -89,24 +70,24 @@ function SliderEntry:render()
 			Position = UDim2.new(0, 0, 0, 32),
 			disabled = self.props.disabled,
 			valueChanged = self.props.valueChanged,
-			canCaptureFocus = canCaptureFocus,
-			isMenuOpen = isMenuOpen,
+			canCaptureFocus = self.props.canCaptureFocus,
+			isMenuOpen = self.props.isMenuOpen,
 			sliderDotRef = sliderDotRef,
 
 			-- Following two props are passed down to both slider dot and slider text box. The surrounding frame
 			-- rendered above, which is used to catch and direct focus to the slider dot, is made unselectable
 			-- when one of it's children is selected. When focus is lost from one of them, the bounding frame
 			-- becomes selectable again.
-			onSelectionLost = GetFFlagInGameMenuControllerDevelopmentOnly() and function()
+			onSelectionLost = function()
 				self:setState({
 					isFrameSelectable = true
 				})
-			end or nil,
-			onSelectionGained = GetFFlagInGameMenuControllerDevelopmentOnly() and function()
+			end,
+			onSelectionGained = function()
 				self:setState({
 					isFrameSelectable = false
 				})
-			end or nil,
+			end,
 		}),
 	})
 end

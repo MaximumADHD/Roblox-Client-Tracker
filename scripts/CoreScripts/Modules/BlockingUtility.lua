@@ -7,6 +7,7 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Url = require(RobloxGui.Modules.Common.Url)
 game:DefineFastFlag("EnableMigrateBlockingOffAPIProxy", false)
+game:DefineFastFlag("MigrateGetBlockedUsers", false)
 
 local BlockingUtility = {}
 BlockingUtility.__index = BlockingUtility
@@ -36,23 +37,45 @@ local BlockedList = {}
 local MutedList = {}
 
 local function GetBlockedPlayersAsync()
-	local userId = LocalPlayer.UserId
-	local apiPath = "userblock/getblockedusers" .. "?" .. "userId=" .. tostring(userId) .. "&" .. "page=" .. "1"
-	if userId > 0 then
+	if game:GetFastFlag("MigrateGetBlockedUsers") and
+	game:GetEngineFeature("EnableHttpRbxApiServiceWhiteListAccountSettings") then
+		local apiPath = Url.ACCOUNT_SETTINGS_URL.."v1/users/get-blocked-users"
+
 		local blockList = nil
 		local success = pcall(function()
 			local request = HttpRbxApiService:GetAsync(apiPath,
-                Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Players)
+				Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Players)
 			blockList = request and HttpService:JSONDecode(request)
 		end)
-		if success and blockList and blockList["success"] == true and blockList["userList"] then
+
+		if success and blockList then
 			local returnList = {}
-			for _, v in pairs(blockList["userList"]) do
+			for _, v in pairs(blockList["blockedUserIds"]) do
 				returnList[v] = true
 			end
 			return returnList
 		end
+	else
+		local userId = LocalPlayer.UserId
+		local apiPath = "userblock/getblockedusers" .. "?" .. "userId=" .. tostring(userId) .. "&" .. "page=" .. "1"
+
+		if userId > 0 then
+			local blockList = nil
+			local success = pcall(function()
+				local request = HttpRbxApiService:GetAsync(apiPath,
+					Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Players)
+				blockList = request and HttpService:JSONDecode(request)
+			end)
+			if success and blockList and blockList["success"] == true and blockList["userList"] then
+				local returnList = {}
+				for _, v in pairs(blockList["userList"]) do
+					returnList[v] = true
+				end
+				return returnList
+			end
+		end
 	end
+
 	return {}
 end
 

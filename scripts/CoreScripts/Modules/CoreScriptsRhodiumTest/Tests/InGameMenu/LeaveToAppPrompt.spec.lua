@@ -13,7 +13,6 @@ local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
 local Constants = require(InGameMenu.Resources.Constants)
 
 local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 local TestConstants = require(script.Parent.TestConstants)
 
@@ -60,21 +59,19 @@ return function()
 
 	describe("In-Game Menu LeaveToAppPrompt page focus management", function()
 		it("should switch between the page and SideNavigation", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				local store = c.store
+			local store = c.store
 
-				act(function()
-					wait(TestConstants.PageAnimationDuration) -- Wait for the page to finish animating in
-				end)
+			act(function()
+				wait(TestConstants.PageAnimationDuration) -- Wait for the page to finish animating in
+			end)
 
-				expect(store:getState().currentZone).to.equal(1)
+			expect(store:getState().currentZone).to.equal(1)
 
-				c.gamepadInput(Enum.KeyCode.DPadLeft)
-				expect(store:getState().currentZone).to.equal(0)
+			c.gamepadInput(Enum.KeyCode.DPadLeft)
+			expect(store:getState().currentZone).to.equal(0)
 
-				c.gamepadInput(Enum.KeyCode.DPadRight)
-				expect(store:getState().currentZone).to.equal(1)
-			end
+			c.gamepadInput(Enum.KeyCode.DPadRight)
+			expect(store:getState().currentZone).to.equal(1)
 		end)
 	end)
 end

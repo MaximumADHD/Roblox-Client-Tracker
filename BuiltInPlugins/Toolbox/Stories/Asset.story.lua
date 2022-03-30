@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent
 
-local FFlagToolboxAssetGridRefactor5 = game:GetFastFlag("ToolboxAssetGridRefactor5")
+local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 
@@ -26,12 +26,12 @@ local fakeAssetId = 123456
 return {
 	name = "Asset",
 	summary = "An asset used in the grid view.",
-	story = FFlagToolboxAssetGridRefactor5 and Roact.createElement(AssetStory, {
+	story = FFlagToolboxAssetGridRefactor and Roact.createElement(AssetStory, {
 		fakeAsset = MockItems.getSimpleAsset(fakeAssetId),
 	}, {
 		Asset = Roact.createElement(Asset, {
 			assetId = fakeAssetId,
 			LayoutOrder = 1,
 		}),
-	}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetGridRefactor5", true),
+	}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetGridRefactor", true),
 }

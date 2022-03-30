@@ -6,29 +6,23 @@ local GetFFlagLuaAppUseNewUIBloxRoundedCorners = require(
 	CorePackages.UIBloxFlags.GetFFlagLuaAppUseNewUIBloxRoundedCorners
 )
 local FFlagUIBloxUseTileThumbnailV2 = require(CorePackages.UIBloxFlags.FFlagUIBloxUseTileThumbnailV2)
-local FFlagTempFixEmptyGridView = require(CorePackages.UIBloxFlags.FFlagTempFixEmptyGridView)
-local FFlagTempFixGridViewLayoutWithSpawn = require(CorePackages.UIBloxFlags.FFlagTempFixGridViewLayoutWithSpawn)
 local GetFFlagUIBloxFixDropdownMenuListPositionAndSize = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxFixDropdownMenuListPositionAndSize
 )
 local GetFFlagUIBloxEnableSubtitleOnTile = require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableSubtitleOnTile)
-local GetFFlagUIBloxEnableGamepadKeyCodeSupportForKeyLabel = require(
-	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableGamepadKeyCodeSupportForKeyLabel
-)
 local GetFFlagUIBloxUseNewGenericTextLabelProps = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxUseNewGenericTextLabelProps
 )
-local FFlagImprovementsToGridView = require(CorePackages.UIBloxFlags.FFlagImprovementsToGridView)
-
 local FFlagFixThumbnailTileInconsistency = require(CorePackages.UIBloxFlags.FFlagFixThumbnailTileInconsistency)
 local GetFFlagUIBloxEnableRadioButtonGamepadSupport = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableRadioButtonGamepadSupport
 )
 
+local GetFFlagUIBloxEnableActionBarLayoutFix = require(
+	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableActionBarLayoutFix
+)
+
 return {
-	improvementsToGridView = FFlagImprovementsToGridView,
-	tempFixEmptyGridView = FFlagTempFixEmptyGridView,
-	tempFixGridViewLayoutWithSpawn = FFlagTempFixGridViewLayoutWithSpawn,
 	useNewUICornerRoundedCorners = GetFFlagLuaAppUseNewUIBloxRoundedCorners(),
 	genericSliderFilterOldTouchInputs = true,
 	allowSystemBarToAcceptString = game:DefineFastFlag("UIBloxAllowSystemBarToAcceptString", false),
@@ -38,9 +32,12 @@ return {
 	useUpdatedCheckbox = true,
 	fixDropdownMenuListPositionAndSize = GetFFlagUIBloxFixDropdownMenuListPositionAndSize(),
 	enableSubtitleOnTile = GetFFlagUIBloxEnableSubtitleOnTile(),
-	enableGamepadKeyCodeSupportForKeyLabel = GetFFlagUIBloxEnableGamepadKeyCodeSupportForKeyLabel(),
+	enableGamepadKeyCodeSupportForKeyLabel = true,
 	useNewGenericTextLabelProps = GetFFlagUIBloxUseNewGenericTextLabelProps(),
 	enableCustomMinPaddingForLinkButton = game:DefineFastFlag("UIBloxEnableCustomMinPaddingForLinkButton", false),
 	fixTileThumbnailColorInconsistency = FFlagFixThumbnailTileInconsistency,
 	enableRadioButtonGamepadSupport = GetFFlagUIBloxEnableRadioButtonGamepadSupport(),
+
+	useNewVerticalScrollView = false, -- TODO: https://jira.rbx.com/browse/UIBLOX-225
+	enableActionBarLayoutFix = GetFFlagUIBloxEnableActionBarLayoutFix(),
 }

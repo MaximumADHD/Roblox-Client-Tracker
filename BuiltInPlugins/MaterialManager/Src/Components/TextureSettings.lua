@@ -31,10 +31,10 @@ type _Props = Props & {
 	Localization : any,
 	Stylizer : any,
 
-	colorMap : _Types.TextureMap?,
-	normalMap : _Types.TextureMap?,
-	metalnessMap : _Types.TextureMap?,
-	roughnessMap : _Types.TextureMap?,
+	ColorMap : _Types.TextureMap?,
+	NormalMap : _Types.TextureMap?,
+	MetalnessMap : _Types.TextureMap?,
+	RoughnessMap : _Types.TextureMap?,
 
 	dispatchSetColorMap : (_Types.TextureMap?) -> (),
 	dispatchSetNormalMap : (_Types.TextureMap?) -> (),
@@ -125,28 +125,28 @@ function TextureSettings:init()
 
 		if key == "ImportColorMap" then
 			return Roact.createElement(TextureMapSelector, {
-				CurrentTextureMap = props.colorMap,
+				CurrentTextureMap = props.ColorMap,
 				SelectTextureMap = self.selectColorMap,
 				ClearSelection = self.clearColorMap,
 				PreviewTitle = localization:getText("Import", "ColorMapPreview"),
 			})
 		elseif key == "ImportNormalMap" then
 			return Roact.createElement(TextureMapSelector, {
-				CurrentTextureMap = props.normalMap,
+				CurrentTextureMap = props.NormalMap,
 				SelectTextureMap = self.selectNormalMap,
 				ClearSelection = self.clearNormalMap,
 				PreviewTitle = localization:getText("Import", "NormalMapPreview"),
 			})
 		elseif key == "ImportMetalnessMap" then
 			return Roact.createElement(TextureMapSelector, {
-				CurrentTextureMap = props.metalnessMap,
+				CurrentTextureMap = props.MetalnessMap,
 				SelectTextureMap = self.selectMetalnessMap,
 				ClearSelection = self.clearMetalnessMap,
 				PreviewTitle = localization:getText("Import", "MetalnessMapPreview"),
 			})
 		elseif key == "ImportRoughnessMap" then
 			return Roact.createElement(TextureMapSelector, {
-				CurrentTextureMap = props.roughnessMap,
+				CurrentTextureMap = props.RoughnessMap,
 				SelectTextureMap = self.selectRoughnessMap,
 				ClearSelection = self.clearRoughnessMap,
 				PreviewTitle = localization:getText("Import", "RoughnessMapPreview"),
@@ -194,10 +194,10 @@ TextureSettings = withContext({
 
 local function mapStateToProps(state : MainReducer.State, _)
 	return {
-		colorMap = state.MaterialPromptReducer.colorMap,
-		normalMap = state.MaterialPromptReducer.normalMap,
-		metalnessMap = state.MaterialPromptReducer.metalnessMap,
-		roughnessMap = state.MaterialPromptReducer.roughnessMap,
+		ColorMap = state.MaterialPromptReducer.ColorMap,
+		NormalMap = state.MaterialPromptReducer.NormalMap,
+		MetalnessMap = state.MaterialPromptReducer.MetalnessMap,
+		RoughnessMap = state.MaterialPromptReducer.RoughnessMap,
 	}
 end
 

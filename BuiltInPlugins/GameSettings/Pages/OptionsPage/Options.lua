@@ -41,7 +41,9 @@ local voiceChatEnabledKey = FFlagGameSettingsEnableVoiceChat and GetVoiceChatEna
 local GetScriptCollaborationEnabledOnServerKeyName = KeyProvider.getScriptCollaborationEnabledOnServerKeyName
 local scriptCollaborationEnabledOnServerKey = GetScriptCollaborationEnabledOnServerKeyName()
 
-local LOCALIZATION_ID = script.Name
+-- TODO: When removing FFlagGameSettingsRenameOptions, rename `OptionsPage` and `Options.lua` to `OtherPage` and `Other.lua`
+game:GetFastFlag("GameSettingsRenameOptions")
+local LOCALIZATION_ID = if game:GetFastFlag("GameSettingsRenameOptions") then "Other" else script.Name
 
 local function loadSettings(store, contextItems)
     local state = store:getState()

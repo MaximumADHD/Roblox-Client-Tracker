@@ -8,11 +8,14 @@ local HttpService = game:GetService("HttpService")
 local CoreGui = game:GetService("CoreGui")
 local StarterGui = game:GetService("StarterGui")
 local UserInputService = game:GetService("UserInputService")
+local ContextActionService = game:GetService("ContextActionService")
 
 local RobloxGui = CoreGui.RobloxGui
 local Util = require(RobloxGui.Modules.Settings.Utility)
 
+local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
 local LaserPointer = require(RobloxGui.Modules.VR.LaserPointer)
+
 local VRControllerModel = require(RobloxGui.Modules.VR.VRControllerModel)
 
 local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
@@ -109,10 +112,13 @@ local function onVREnabled(property)
 			enableControllerModels(true)
 		end
 		RunService:BindToRenderStep(vrUpdateRenderstepName, Enum.RenderPriority.Last.Value, onRenderSteppedLast)
-		
+
 		if FFlagEnableNewVrSystem then
 			if VRHub.LaserPointer then
-				VRHub.LaserPointer:setMode(LaserPointer.Mode.Disabled)
+				if not EngineFeatureEnableVRUpdate2 then
+					VRHub.LaserPointer:setMode(LaserPointer.Mode.Disabled)
+				end
+				
 				VRHub.LaserPointer:setForcePointer(true)
 			end
 			UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
@@ -187,6 +193,19 @@ function VRHub:KeepVRTopbarOpen()
 		end
 	end
 	return false
+end
+
+VRHub.ShowTopBar = true
+
+VRHub.ShowTopBarChanged = Util:Create "BindableEvent" {
+	Name = "ShowTopBarChanged"
+}
+
+function VRHub:SetShowTopBar(showTopBar)
+	if VRHub.ShowTopBar ~= showTopBar then
+		VRHub.ShowTopBar = showTopBar
+		VRHub.ShowTopBarChanged:Fire()
+	end
 end
 
 return VRHub

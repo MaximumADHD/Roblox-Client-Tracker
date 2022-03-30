@@ -11,17 +11,12 @@ local Controls = require(InGameMenu.Resources.Controls)
 
 local SetControlLayout = require(InGameMenu.Actions.SetControlLayout)
 
-local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
-
 local ControlLayoutSetter = Roact.PureComponent:extend("ControlLayoutSetter")
 
-if GetFFlagInGameMenuControllerDevelopmentOnly() then
-	function ControlLayoutSetter:init()
-		local controlLayout = Controls.inputToControlTypeMap[UserInputService:GetLastInputType()]
-		if controlLayout then
-			self.props.dispatchSetControlLayout(controlLayout)
-		end
+function ControlLayoutSetter:init()
+	local controlLayout = Controls.inputToControlTypeMap[UserInputService:GetLastInputType()]
+	if controlLayout then
+		self.props.dispatchSetControlLayout(controlLayout)
 	end
 end
 

@@ -8,7 +8,7 @@
 			the AssetPreview component, provided from Rodux
 
 		function onClose = A callback for when the user clicks outside of the
-			preview to close it. // remove with FFlagToolboxAssetGridRefactor5
+			preview to close it. // remove with FFlagToolboxAssetGridRefactor
 ]]
 
 local StudioService = game:GetService("StudioService")
@@ -65,17 +65,21 @@ local GetFavoriteCountsRequest = require(Requests.GetFavoriteCountsRequest)
 local GetFavoritedRequest = require(Requests.GetFavoritedRequest)
 local ToggleFavoriteStatusRequest = require(Requests.ToggleFavoriteStatusRequest)
 local TryCreateContextMenu = require(Plugin.Core.Thunks.TryCreateContextMenu)
+local GetPageInfoAnalyticsContextInfo = require(Plugin.Core.Thunks.GetPageInfoAnalyticsContextInfo)
 
 local Category = require(Plugin.Core.Types.Category)
 local PurchaseStatus = require(Plugin.Core.Types.PurchaseStatus)
 
 local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
-local FFlagToolboxAssetGridRefactor5 = game:GetFastFlag("ToolboxAssetGridRefactor5")
+local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
 local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
 local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
 local FFlagPluginsSetAudioPreviewUsageContext = game:GetFastFlag("PluginsSetAudioPreviewUsageContext")
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
 local FFlagToolboxFixNonOwnedPluginInstallation = game:GetFastFlag("ToolboxFixNonOwnedPluginInstallation")
+local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext")
+local FFlagToolboxAssetPreviewProtectAgainstNilAssetData = game:GetFastFlag("ToolboxAssetPreviewProtectAgainstNilAssetData")
 
 local disableRatings = require(Plugin.Core.Util.ToolboxUtilities).disableRatings
 
@@ -212,7 +216,7 @@ function AssetPreviewWrapper:init(props)
 
 	self.ClickDetectorRef = Roact.createRef()
 
-	if FFlagToolboxAssetGridRefactor5 then
+	if FFlagToolboxAssetGridRefactor then
 		self.openAssetPreview = function()
 			local assetData = self.props.assetData
 			local modal = getModal(self)
@@ -229,7 +233,12 @@ function AssetPreviewWrapper:init(props)
 			-- TODO STM-146: Remove this once we are happy with the new MarketplaceAssetPreview event
 			Analytics.onAssetPreviewSelected(assetData.Asset.Id)
 
-			self.props.AssetAnalytics:get():logPreview(assetData)
+			local assetAnalyticsContext
+			if FFlagToolboxUsePageInfoInsteadOfAssetContext then
+				local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
+				assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
+			end
+			self.props.AssetAnalytics:get():logPreview(assetData, assetAnalyticsContext)
 		end
 
 		self.closeAssetPreview = function(assetData)
@@ -251,7 +260,7 @@ function AssetPreviewWrapper:init(props)
 
 	self.onCloseButtonClicked = function()
 		local assetData = self.props.assetData
-		if FFlagToolboxAssetGridRefactor5 then
+		if FFlagToolboxAssetGridRefactor then
 			self.closeAssetPreview(assetData)
 		else
 			self.props.onClose(assetData)
@@ -275,7 +284,7 @@ function AssetPreviewWrapper:init(props)
 		})
 	end
 
-	if FFlagToolboxAssetGridRefactor5 then
+	if FFlagToolboxAssetGridRefactor then
 		self.tryCreateContextMenu = function(localization)
 			local props = self.props
 			local assetData = props.assetData
@@ -307,7 +316,7 @@ function AssetPreviewWrapper:init(props)
 			Creator = creatorName,
 		})
 		local assetData = self.props.assetData
-		if FFlagToolboxAssetGridRefactor5 then
+		if FFlagToolboxAssetGridRefactor then
 			self.closeAssetPreview(assetData)
 		else
 			self.props.onClose(assetData)
@@ -407,6 +416,12 @@ function AssetPreviewWrapper:init(props)
 
 		local currentCategoryName = categoryName
 
+		local assetAnalyticsContext
+		if FFlagToolboxUsePageInfoInsteadOfAssetContext then
+			local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
+			assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
+		end
+
 		local success = InsertAsset.tryInsert({
 			assetId = assetId,
 			assetVersionId = assetVersionId,
@@ -415,7 +430,12 @@ function AssetPreviewWrapper:init(props)
 			categoryName = categoryName,
 			currentCategoryName = currentCategoryName,
 			onSuccess = function()
-				self.props.AssetAnalytics:get():logInsert(assetData, "PreviewClickInsertButton")
+				self.props.AssetAnalytics:get():logInsert(
+					assetData,
+					"PreviewClickInsertButton",
+					nil,
+					assetAnalyticsContext
+				)
 			end,
 		})
 		if success then
@@ -482,7 +502,13 @@ function AssetPreviewWrapper:init(props)
 		self.props.toggleFavoriteStatus(networkInterface, getUserId(), assetId, favorited)
 	end
 
-	self.props.clearPurchaseFlow(props.assetData.Asset.Id)
+	if FFlagToolboxAssetPreviewProtectAgainstNilAssetData then
+		if props.assetData then
+			self.props.clearPurchaseFlow(props.assetData.Asset.Id)
+		end
+	else
+		self.props.clearPurchaseFlow(props.assetData.Asset.Id)
+	end
 
 	if FFlagToolboxRedirectToLibraryAbuseReport then
 		self.onClickReport = function()
@@ -507,7 +533,7 @@ function AssetPreviewWrapper:init(props)
 end
 
 function AssetPreviewWrapper:didMount()
-	if FFlagToolboxAssetGridRefactor5 then
+	if FFlagToolboxAssetGridRefactor then
 		self.openAssetPreview(self.props.assetData)
 	end
 
@@ -550,7 +576,7 @@ function AssetPreviewWrapper:renderContent(theme, modalTarget, localizedContent)
 	local actionEnabled = not purchaseFlow.InstallDisabled and not self.state.showInstallationBar
 
 	local tryCreateLocalizedContextMenu
-	if FFlagToolboxAssetGridRefactor5 then
+	if FFlagToolboxAssetGridRefactor then
 		tryCreateLocalizedContextMenu = function()
 			self.tryCreateContextMenu(localizedContent)
 		end
@@ -578,7 +604,7 @@ function AssetPreviewWrapper:renderContent(theme, modalTarget, localizedContent)
 
 		AssetData = assetData,
 		AssetInstance = previewModel,
-		OnClickContext = FFlagToolboxAssetGridRefactor5 and tryCreateLocalizedContextMenu or self.tryCreateContextMenu,
+		OnClickContext = FFlagToolboxAssetGridRefactor and tryCreateLocalizedContextMenu or self.tryCreateContextMenu,
 
 		-- TODO DEVTOOLS-4896: refactor the action bar out of AssetPreview and clean up the logic in this component, bring back loading bar for installs in a sensible place
 		ActionEnabled = actionEnabled,
@@ -638,7 +664,7 @@ local function mapStateToProps(state, props)
 	local idToAssetMap = assets.idToAssetMap or {}
 
 	local assetId
-	if FFlagToolboxAssetGridRefactor5 then
+	if FFlagToolboxAssetGridRefactor then
 		assetId = assets.previewAssetId
 	else
 		assetId = props.assetData.Asset.Id
@@ -661,12 +687,18 @@ local function mapStateToProps(state, props)
 
 	local categories = nil
 
+	local assetData
+	if FFlagToolboxAssetCategorization then
+		assetData = props.assetData
+	else
+		assetData = FFlagToolboxAssetGridRefactor and idToAssetMap[assetId] or nil
+	end
 	local stateToProps = {
-		assetData = FFlagToolboxAssetGridRefactor5 and idToAssetMap[assetId] or nil,
+		assetData = assetData,
 		categories = categories,
 		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
 		previewModel = previewModel or nil,
-		canManage = not FFlagToolboxAssetGridRefactor5 and canManage or nil,
+		canManage = not FFlagToolboxAssetGridRefactor and canManage or nil,
 		previewPluginData = assets.previewPluginData,
 		assetId = assetId,
 		favoriteCounts = assetIdToCountsMap[assetId] or 0,
@@ -714,7 +746,7 @@ local function mapDispatchToProps(dispatch)
 			dispatch(PausePreviewSound())
 		end,
 
-		tryCreateContextMenu = FFlagToolboxAssetGridRefactor5
+		tryCreateContextMenu = FFlagToolboxAssetGridRefactor
 				and function(assetData, localizedContent, plugin, tryOpenAssetConfig)
 					dispatch(TryCreateContextMenu(assetData, localizedContent, plugin, tryOpenAssetConfig))
 				end
@@ -741,13 +773,17 @@ local function mapDispatchToProps(dispatch)
 		toggleFavoriteStatus = function(networkInterface, userId, assetId, favorited)
 			dispatch(ToggleFavoriteStatusRequest(networkInterface, userId, assetId, favorited))
 		end,
+
+		getPageInfoAnalyticsContextInfo = if FFlagToolboxUsePageInfoInsteadOfAssetContext then function()
+			return dispatch(GetPageInfoAnalyticsContextInfo())
+		end else nil,
 	}
 end
 
 AssetPreviewWrapper = withContext({
 	Settings = Settings,
 	AssetAnalytics = AssetAnalyticsContextItem,
-	Plugin = FFlagToolboxAssetGridRefactor5 and ContextServices.Plugin or nil,
+	Plugin = FFlagToolboxAssetGridRefactor and ContextServices.Plugin or nil,
 	Stylizer = ContextServices.Stylizer,
 })(AssetPreviewWrapper)
 

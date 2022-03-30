@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local Package = require(PackageIndex["LuaProfileDeps-a941509c-539dcfbc"]["LuaProfileDeps"])
+local Package = require(PackageIndex["LuaProfileDeps-b7341c74-5977b047"]["LuaProfileDeps"])
 
 return Package

@@ -45,8 +45,6 @@ local DFFlagEnableRemoteProfilingForDevConsole = settings():GetFFlag("EnableRemo
 
 local FFlagAdminServerLogs = settings():GetFFlag("AdminServerLogs")
 
-local GetFFlagFixDevConsoleInitialization = require(CoreGui.RobloxGui.Modules.Flags.GetFFlagFixDevConsoleInitialization)
-
 local DEV_TAB_LIST = {
 	Log = {
 		tab = Log,
@@ -259,14 +257,12 @@ function DevConsoleMaster:ToggleVisibility()
 end
 
 function DevConsoleMaster:GetVisibility()
-	if GetFFlagFixDevConsoleInitialization() then
-		if not IsDeveloperConsoleEnabled() then
-			return false
-		end
+	if not IsDeveloperConsoleEnabled() then
+		return false
+	end
 
-		if not self.init then
-			return false
-		end
+	if not self.init then
+		return false
 	end
 
 	local state = self.store:getState()
@@ -276,16 +272,12 @@ function DevConsoleMaster:GetVisibility()
 		end
 	end
 
-	if GetFFlagFixDevConsoleInitialization() then
-		return false
-	end
+	return false
 end
 
 function DevConsoleMaster:SetVisibility(value)
-	if GetFFlagFixDevConsoleInitialization() then
-		if not IsDeveloperConsoleEnabled() then
-			return
-		end
+	if not IsDeveloperConsoleEnabled() then
+		return
 	end
 
 	if type(value) == "boolean" then
@@ -298,10 +290,8 @@ function DevConsoleMaster:SetVisibility(value)
 end
 
 StarterGui:RegisterGetCore("DevConsoleVisible", function()
-	if not GetFFlagFixDevConsoleInitialization() then
-		if not IsDeveloperConsoleEnabled() then
-			return false
-		end
+	if not IsDeveloperConsoleEnabled() then
+		return false
 	end
 
 	return master:GetVisibility()
@@ -312,10 +302,8 @@ StarterGui:RegisterSetCore("DevConsoleVisible", function(visible)
 		error("DevConsoleVisible must be given a boolean value.")
 	end
 
-	if not GetFFlagFixDevConsoleInitialization() then
-		if not IsDeveloperConsoleEnabled() then
-			return
-		end
+	if not IsDeveloperConsoleEnabled() then
+		return
 	end
 
 	master:SetVisibility(visible)

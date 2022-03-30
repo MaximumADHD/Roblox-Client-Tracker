@@ -37,7 +37,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local FFlagToolboxFixCreatorSearchResults = game:GetFastFlag("ToolboxFixCreatorSearchResults")
-local FFlagToolboxAssetGridRefactor5 = game:GetFastFlag("ToolboxAssetGridRefactor5")
+local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
 
 local LiveSearchDropdown = Roact.PureComponent:extend("LiveSearchDropdown")
 
@@ -143,7 +143,7 @@ function LiveSearchDropdown:renderContent(modalTarget)
 
 	local elem
 	local elemProps
-	if FFlagToolboxAssetGridRefactor5 then
+	if FFlagToolboxAssetGridRefactor then
 		elem = ShowOnTop
 		elemProps = {
 			Priority = 3,

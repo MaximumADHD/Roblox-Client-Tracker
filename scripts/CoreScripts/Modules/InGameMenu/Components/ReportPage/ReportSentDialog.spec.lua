@@ -21,7 +21,6 @@ return function()
 	local SetInputType = require(InGameMenu.Actions.SetInputType)
 	local Constants = require(InGameMenu.Resources.Constants)
 
-	local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
@@ -103,11 +102,7 @@ return function()
 				store:flush()
 			end)
 
-			if GetFFlagInGameMenuControllerDevelopmentOnly() == false then
-				jestExpect(GuiService.SelectedCoreObject).toBeNil()
-			elseif GetFFlagInGameMenuControllerDevelopmentOnly() == true then
-				jestExpect(tostring(GuiService.SelectedCoreObject)).toEqual("ConfirmButton")
-			end
+			jestExpect(tostring(GuiService.SelectedCoreObject)).toEqual("ConfirmButton")
 
 			Roact.unmount(instance)
 			GuiService.SelectedCoreObject = nil

@@ -1,9 +1,12 @@
 local Plugin = script.Parent.Parent.Parent
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
-local ContextItem = require(Packages.Framework).ContextServices.ContextItem
+local Framework = require(Packages.Framework)
+local ContextItem = Framework.ContextServices.ContextItem
+local Signal = Framework.Util.Signal
+
 -- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
-local Provider = require(Packages.Framework).ContextServices.Provider
+local Provider = Framework.ContextServices.Provider
 
 local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
@@ -17,6 +20,7 @@ function IXPContext.createMock(variables)
 		GetUserLayerVariables = function()
 			return variables or {}
 		end,
+		OnUserLayerLoadingStatusChanged = Signal.new(),
 	})
 end
 
@@ -40,12 +44,18 @@ else
 	function IXPContext:createProvider(root)
 		return Roact.createElement(Provider, {
 			ContextItem = self,
+			UpdateSignal = self.IXPService.OnUserLayerLoadingStatusChanged,
 		}, { root })
 	end
 end
 
 function IXPContext:isReady()
 	return self.IXPService:GetUserLayerLoadingStatus() == Enum.IXPLoadingStatus.Initialized
+end
+
+function IXPContext:isError()
+	local status = self.IXPService:GetUserLayerLoadingStatus()
+	return status ~= Enum.IXPLoadingStatus.Initialized and status ~= Enum.IXPLoadingStatus.Pending
 end
 
 function IXPContext:getVariables()

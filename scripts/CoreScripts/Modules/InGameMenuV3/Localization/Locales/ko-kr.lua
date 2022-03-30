@@ -171,4 +171,6 @@ return{
 	["CoreScripts.InGameMenu.ControllerBar.Leave"] = [[나가기]],
 	["CoreScripts.InGameMenu.ControllerBar.RespawnCharacter"] = [[캐릭터 리스폰]],
 	["CoreScripts.InGameMenu.ControllerBar.Cancel"] = [[취소]],
+	["CoreScripts.InGameMenu.CoreScripts.InGameMenu.GameSettings.VignetteEnabled"] = [[VR 비네트 활성화됨]],
+	["CoreScripts.InGameMenu.GameSettings.VignetteEnabled"] = [[VR 비네트 활성화됨]],
 }

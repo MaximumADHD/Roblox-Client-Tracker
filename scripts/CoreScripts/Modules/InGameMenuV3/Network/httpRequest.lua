@@ -36,6 +36,16 @@ return function(httpImpl)
 		end
 	end
 
+	local function doHttpDelete(url)
+		local options = {
+			Url = url,
+			Method = "DELETE",
+		}
+		return function()
+			return httpImpl:RequestAsync(options)
+		end
+	end
+
 	-- return the request function
 	-- url : (string)
 	-- requestMethod : (string) "GET", "POST"
@@ -55,6 +65,8 @@ return function(httpImpl)
 			httpFunction = doHttpPost(url, options)
 		elseif requestMethod == "GET" then
 			httpFunction = doHttpGet(url)
+		elseif requestMethod == "DELETE" then
+			httpFunction = doHttpDelete(url)
 		else
 			error(string.format("Unsupported requestMethod : %s", requestMethod or "nil"))
 		end

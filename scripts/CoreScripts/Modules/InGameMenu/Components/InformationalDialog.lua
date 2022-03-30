@@ -14,7 +14,6 @@ local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent
 local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 local Constants = require(InGameMenu.Resources.Constants)
 local Assets = require(InGameMenu.Resources.Assets)
@@ -62,22 +61,20 @@ InformationalDialog.defaultProps = {
 -- NOTE: This file is deprecated. Please do not use. PR to change the usage of it:
 -- https://jira.rbx.com/browse/SOCRTC-1779
 function InformationalDialog:init()
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		self.state = {
-			isRooted = false,
-			show = true,
-		}
+	self.state = {
+		isRooted = false,
+		show = true,
+	}
 
-		self.onAncestryChanged = function(instance)
-			if instance:IsDescendantOf(game) then
-				self:setState({
-					isRooted = true
-				})
-			end
+	self.onAncestryChanged = function(instance)
+		if instance:IsDescendantOf(game) then
+			self:setState({
+				isRooted = true
+			})
 		end
-		self.confirmButtonRef = Roact.createRef()
-		self.buttonContainerRef = Roact.createRef()
 	end
+	self.confirmButtonRef = Roact.createRef()
+	self.buttonContainerRef = Roact.createRef()
 end
 
 function InformationalDialog:render()
@@ -208,8 +205,8 @@ function InformationalDialog:render()
 						BackgroundTransparency = 1,
 						LayoutOrder = 8,
 						Size = UDim2.new(1, 0, 0, BUTTON_CONTAINER_SIZE),
-						[Roact.Ref] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.buttonContainerRef or nil,
-						[Roact.Event.AncestryChanged] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.onAncestryChanged or nil,
+						[Roact.Ref] = self.buttonContainerRef,
+						[Roact.Event.AncestryChanged] = self.onAncestryChanged,
 					}, {
 						Layout = Roact.createElement("UIListLayout", {
 							FillDirection = Enum.FillDirection.Horizontal,
@@ -231,12 +228,12 @@ function InformationalDialog:render()
 								end
 								RunService:SetRobloxGuiFocused(false)
 							end,
-							[Roact.Ref] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.confirmButtonRef or nil,
+							[Roact.Ref] = self.confirmButtonRef,
 						}),
 					}),
 				}),
 			}),
-			FocusHandler = GetFFlagInGameMenuControllerDevelopmentOnly() and Roact.createElement(FocusHandler, {
+			FocusHandler = Roact.createElement(FocusHandler, {
 				isFocused = self.state.isRooted
 					and self.props.visible
 					and self.props.inputType == Constants.InputType.Gamepad,
@@ -247,7 +244,7 @@ function InformationalDialog:render()
 
 					GuiService.SelectedCoreObject = self.confirmButtonRef:getValue()
 				end,
-			}) or nil
+			})
 		})
 	end)
 end

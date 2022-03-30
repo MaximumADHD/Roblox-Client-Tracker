@@ -1,4 +1,4 @@
-local FFlagToolboxAssetGridRefactor5 = game:GetFastFlag("ToolboxAssetGridRefactor5")
+local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
 local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
 
 local Plugin = script.Parent.Parent.Parent
@@ -47,7 +47,7 @@ function TestHelpers.createTestAsset(container, name, asset, mockProps)
 	local assetId = myAsset.Asset.Id
 
 	mockProps = mockProps or {}
-	if FFlagToolboxAssetGridRefactor5 then
+	if FFlagToolboxAssetGridRefactor then
 		mockProps = Cryo.Dictionary.join(mockProps, {
 			store = Rodux.Store.new(ToolboxReducer, {
 				assets = {
@@ -59,8 +59,8 @@ function TestHelpers.createTestAsset(container, name, asset, mockProps)
 
 	local element = Roact.createElement(MockWrapper, mockProps or {}, {
 		Asset = Roact.createElement(Asset, {
-			asset = not FFlagToolboxAssetGridRefactor5 and myAsset or nil,
-			assetId = FFlagToolboxAssetGridRefactor5 and assetId or nil,
+			asset = not FFlagToolboxAssetGridRefactor and myAsset or nil,
+			assetId = FFlagToolboxAssetGridRefactor and assetId or nil,
 			assetData = FFlagToolboxAssetCategorization and myAsset or nil,
 			LayoutOrder = 1,
 			Selected = false,

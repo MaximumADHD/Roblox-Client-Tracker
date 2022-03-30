@@ -59,19 +59,6 @@ function ModelUtil:clearAccessoryAssetAttachmentsWithFilter(item, filter)
 	end
 end
 
-function ModelUtil:makeDeformerNamesUnique(item)
-	if not item then
-		return
-	end
-	
-	local descendants = getDescendants({}, item)
-	for _, desc in ipairs(descendants) do
-		if desc:IsA("BaseWrap") then
-			desc.Name = HttpService:GenerateGUID()
-		end
-	end
-end
-
 function ModelUtil:cleanupDeformerNames(editingItem, sourceItem)
 	if not editingItem or not sourceItem then
 		return

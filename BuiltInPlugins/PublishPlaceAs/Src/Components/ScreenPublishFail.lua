@@ -3,7 +3,7 @@
 ]]
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagPlacePublishManagementUI = game:GetFastFlag("PlacePublishManagementUI")
+local FFlagPlacePublishManagementUI2 = game:GetFastFlag("PlacePublishManagementUI2")
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -30,7 +30,7 @@ local SettingsImpl = require(Plugin.Src.Network.Requests.SettingsImpl)
 local Analytics = require(Plugin.Src.Util.Analytics)
 
 local StudioService = game:GetService("StudioService")
-local StudioPublishService = FFlagPlacePublishManagementUI and game:GetService("StudioPublishService") or nil
+local StudioPublishService = FFlagPlacePublishManagementUI2 and game:GetService("StudioPublishService") or nil
 local ContentProvider = game:GetService("ContentProvider")
 
 local ICON_SIZE = 150
@@ -149,9 +149,9 @@ function ScreenPublishFail:render()
 					if parentGameId == 0 then
 						SettingsImpl.saveAll(settings, localization, apiImpl)
 					else
-						if FFlagPlacePublishManagementUI and publishParameters ~= nil and next(publishParameters) ~= nil then
+						if FFlagPlacePublishManagementUI2 and publishParameters ~= nil and next(publishParameters) ~= nil then
 							-- groupId is unused in existing game/place publish, only new game publish
-							StudioPublishService:publishAs(parentGameId, id, 0, publishParameters)
+							StudioPublishService:publishAs(parentGameId, id, 0, true, publishParameters)
 						else
 							-- groupId is unused in existing game/place publish, only new game publish
 							-- which is in the if block

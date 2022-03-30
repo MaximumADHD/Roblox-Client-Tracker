@@ -13,7 +13,6 @@ local SetRespawning = require(InGameMenu.Actions.SetRespawning)
 local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
 
 local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 return function()
 	beforeEach(function(c)
@@ -49,20 +48,18 @@ return function()
 
 	describe("RespawnDialog gamepad focus management", function()
 		it("Should not bumper switch on RespawnDialog", function(c)
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				local store = c.store
+			local store = c.store
 
-				-- Send an input to update UserInputService.GamepadEnabled
-				c.gamepadInput(Enum.KeyCode.DPadDown)
+			-- Send an input to update UserInputService.GamepadEnabled
+			c.gamepadInput(Enum.KeyCode.DPadDown)
 
-				c.storeUpdate(SetMenuOpen(true))
-				c.storeUpdate(SetRespawning(true))
+			c.storeUpdate(SetMenuOpen(true))
+			c.storeUpdate(SetRespawning(true))
 
-				c.gamepadInput(Enum.KeyCode.ButtonL1)
-				expect(store:getState().currentZone).to.equal(1)
-				c.gamepadInput(Enum.KeyCode.ButtonR1)
-				expect(store:getState().currentZone).to.equal(1)
-			end
+			c.gamepadInput(Enum.KeyCode.ButtonL1)
+			expect(store:getState().currentZone).to.equal(1)
+			c.gamepadInput(Enum.KeyCode.ButtonR1)
+			expect(store:getState().currentZone).to.equal(1)
 		end)
 	end)
 end

@@ -18,6 +18,7 @@ local timeoutSeconds = 5
 local TestHelper = {}
 
 TestHelper.DefaultClothesName = "clothes"
+TestHelper.DefaultAvatarName = "dummy"
 TestHelper.AttachmentCFrame = CFrame.new(10, 20, 10)
 TestHelper.DefaultAttachmentName = "WaistFrontAttachment"
 TestHelper.DefaultMeshId = "https://assetdelivery.roblox.com/v1/asset/?id=6799863967"
@@ -246,7 +247,7 @@ end
 
 function TestHelper.createNonAvatar(name)
 	local notAvatar = Instance.new("Model")
-	notAvatar.Name = name or "dummy"
+	notAvatar.Name = name or TestHelper.DefaultAvatarName
 	notAvatar.Parent = TestHelper.getTempInstancesFolder()
 	return notAvatar
 end
@@ -321,7 +322,7 @@ local function createAvatar(name)
 	RightUpperLeg.Name = "RightUpperLeg"
 	local RightLowerLeg = Instance.new("MeshPart", avatar)
 	RightLowerLeg.Name = "RightLowerLeg"
-	avatar.Name = name or "dummy"
+	avatar.Name = name or TestHelper.DefaultAvatarName
 	Instance.new("WrapTarget", UpperTorso)
 	return avatar
 end

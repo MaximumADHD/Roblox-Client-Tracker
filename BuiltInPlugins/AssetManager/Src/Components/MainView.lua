@@ -47,7 +47,6 @@ local MainView = Roact.PureComponent:extend("MainView")
 
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
-local FFlagStudioRenameSaveButtonToSaveToRoblox = game:GetFastFlag("StudioRenameSaveButtonToSaveToRoblox")
 local FFlagAssetManagerRefactorPath = game:GetFastFlag("AssetManagerRefactorPath")
 
 local universeNameSet = false
@@ -209,11 +208,7 @@ function MainView:render()
     local publishTextExtents = GetTextSize(publishText, theme.FontSizeLarge, theme.Font,
         Vector2.new(theme.MainView.PublishText.Width, math.huge))
     local buttonText = localization:getText("MainView", "ButtonText")
-    if FFlagStudioRenameSaveButtonToSaveToRoblox then
-        buttonText = localization:getText("MainView", "SaveToRobloxButtonText")
-    elseif FFlagStudioNewGamesInCloudUI then
-        buttonText = localization:getText("MainView", "SaveButtonText")
-    end
+    buttonText = localization:getText("MainView", "SaveToRobloxButtonText")
     local buttonTextExtents = GetTextSize(buttonText, theme.FontSizeLarge, theme.Font)
 
     local recentViewToggled = props.RecentViewToggled

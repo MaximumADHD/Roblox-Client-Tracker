@@ -14,13 +14,9 @@ local Urls = require(Plugin.Src.Util.Urls)
 
 local sendResultToKibana = require(Plugin.Packages.Framework).Util.sendResultToKibana
 
--- remove StudioServcie here when remove FFlagPreventChangesWhenConvertingPackage
-local StudioService = game:GetService("StudioService")
-
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
-local FFlagPreventChangesWhenConvertingPackage = game:GetFastFlag("PreventChangesWhenConvertingPackage")
 
-local PackageUIService = FFlagPreventChangesWhenConvertingPackage and game:GetService("PackageUIService") or nil
+local PackageUIService = game:GetService("PackageUIService") or nil
 
 -- assetId, number, default to 0 for new asset.
 -- name, string, need to be url encoded.
@@ -50,19 +46,11 @@ return function(assetid, name, description, genreTypeID, ispublic, allowComments
 			return
 		end
 
-		if FFlagPreventChangesWhenConvertingPackage then
-			local conn; conn = PackageUIService.OnConvertToPackageResult:Connect(function(result, errorMessage)
-				conn:Disconnect()
-				onConvertToPackageResult(result, errorMessage)
-			end)
-			PackageUIService:ConvertToPackageUpload(urlToUse, instances, clonedInstances)
-		else
-			local conn; conn = StudioService.OnConvertToPackageResult:Connect(function(result, errorMessage)
-				conn:Disconnect()
-				onConvertToPackageResult(result, errorMessage)
-			end)
-			StudioService:ConvertToPackageUpload(urlToUse, instances)
-		end
+		local conn; conn = PackageUIService.OnConvertToPackageResult:Connect(function(result, errorMessage)
+			conn:Disconnect()
+			onConvertToPackageResult(result, errorMessage)
+		end)
+		PackageUIService:ConvertToPackageUpload(urlToUse, instances, clonedInstances)
 		return
 	end
 end

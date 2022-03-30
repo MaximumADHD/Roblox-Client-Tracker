@@ -24,7 +24,6 @@ return function()
 
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
-	local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 
 
@@ -141,11 +140,7 @@ return function()
 				store:flush()
 			end)
 
-			if GetFFlagInGameMenuControllerDevelopmentOnly() == false then
-				jestExpect(GuiService.SelectedCoreObject).toBeNil()
-			elseif GetFFlagInGameMenuControllerDevelopmentOnly() == true then
-				jestExpect(GuiService.SelectedCoreObject:IsA("Instance")).toBeDefined()
-			end
+			jestExpect(GuiService.SelectedCoreObject).toBeDefined()
 
 			Roact.unmount(instance)
 			GuiService.SelectedCoreObject = nil

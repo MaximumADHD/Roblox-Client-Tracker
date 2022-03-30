@@ -20,7 +20,6 @@ local classifyInstancePivot = require(Plugin.Src.Utility.classifyInstancePivot)
 local getSelectableWithCache = require(Packages.DraggerSchemaCore.getSelectableWithCache)
 local shouldSelectSubPart = require(Packages.DraggerSchemaCore.shouldSelectSubPart)
 
-local getEngineFeatureDraggerBruteForceAll = require(DraggerFramework.Flags.getEngineFeatureDraggerBruteForceAll)
 local getFFlagPivotEditorAllowSnapToSubPart = require(Plugin.Src.Flags.getFFlagPivotEditorAllowSnapToSubPart)
 
 local ZERO_VECTOR = Vector3.new()
@@ -170,9 +169,7 @@ end
 function FreeformDragger:_recomputeSnapPoints()
 	local ray = self._draggerContext:getMouseRay()
 	local params = RaycastParams.new()
-	if getEngineFeatureDraggerBruteForceAll() then
-		params.BruteForceAllSlow = true
-	end
+	params.BruteForceAllSlow = true
 	local result = Workspace:Raycast(ray.Origin, ray.Direction, params)
 	if result then
 		local getMostNested = false

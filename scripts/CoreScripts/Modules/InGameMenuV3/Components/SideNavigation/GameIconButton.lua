@@ -9,6 +9,7 @@ local Placement = UIBlox.App.Navigation.Enum.Placement
 
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
+local withAnimation = UIBlox.Core.Animation.withAnimation
 
 local InGameMenu = script.Parent.Parent.Parent
 local GameIcon = require(InGameMenu.Components.GameIcon)
@@ -30,25 +31,41 @@ GameIconButton.validateProps = t.strictInterface({
 	badgeValue = t.optional(t.union(t.number, t.string)),
 })
 
-function GameIconButton:renderWithSelectionCursor(getSelectionCursor)
-	return Roact.createElement("Frame", {
-		AnchorPoint = self.props.anchorPoint,
-		BackgroundTransparency = 1,
-		Position = self.props.position,
-		Size = UDim2.new(1,0,1,0),
-		LayoutOrder = self.props.layoutOrder,
-		SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly() and getSelectionCursor(CursorKind.RoundedRect) or nil,
+local SPRING_OPTIONS = {
+	frequency = 3,
+}
 
-	}, {
-		Layout = Roact.createElement("UIListLayout", {
-			HorizontalAlignment = Enum.HorizontalAlignment.Center,
-		}),
-		GameIconButton = Roact.createElement(GameIcon, {
-			gameId = game.GameId,
-			iconSize = 32,
-			cornerRadius = CORNER_RADIUS,
+function GameIconButton:renderWithSelectionCursor(getSelectionCursor)
+
+	local position = self.props.position or UDim2.new()
+	local positionX = position.X.Offset;
+	if self.props.hovered then
+		positionX = positionX + 4;
+	end
+
+	return withAnimation({
+		positionX = positionX,
+	}, function(values)
+		return Roact.createElement("Frame", {
+			AnchorPoint = self.props.anchorPoint,
+			BackgroundTransparency = 1,
+			Position = UDim2.new(position.X.Scale, math.floor(values.positionX + 0.5),
+								 position.Y.Scale, position.Y.Offset),
+			Size = UDim2.new(1,0,1,0),
+			LayoutOrder = self.props.layoutOrder,
+			SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly() and getSelectionCursor(CursorKind.RoundedRect) or nil,
+
+		}, {
+			Layout = Roact.createElement("UIListLayout", {
+				HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			}),
+			GameIconButton = Roact.createElement(GameIcon, {
+				gameId = game.GameId,
+				iconSize = 32,
+				cornerRadius = CORNER_RADIUS,
+			})
 		})
-	})
+	end, SPRING_OPTIONS)
 end
 
 function GameIconButton:render()

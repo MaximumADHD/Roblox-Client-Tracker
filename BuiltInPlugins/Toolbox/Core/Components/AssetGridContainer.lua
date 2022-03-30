@@ -51,6 +51,7 @@ type _ExternalProps = {
 type _InternalProps = {
 	-- Props from AssetLogicWrapper
 	CanInsertAsset : (() -> boolean)?,
+	OnAssetPreviewButtonClicked : ((assetData: any) -> ()),
 	ParentAbsolutePosition : Vector2,
 	ParentSize : Vector2,
 	TryInsert : (
@@ -139,6 +140,7 @@ function AssetGridContainer:render()
 
 	-- Props from AssetLogicWrapper
 	local canInsertAsset = props.CanInsertAsset
+	local onAssetPreviewButtonClicked = props.OnAssetPreviewButtonClicked
 	local tryInsert = props.TryInsert
 	local tryOpenAssetConfig = props.TryOpenAssetConfig
 
@@ -171,12 +173,15 @@ function AssetGridContainer:render()
 
 		-- Props from AssetLogicWrapper
 		CanInsertAsset = canInsertAsset,
-		ParentAbsolutePosition = parentAbsolutePosition,
-		ParentSize = parentSize,
+		OnAssetPreviewButtonClicked = if FFlagToolboxAssetCategorization then onAssetPreviewButtonClicked else nil,
+		ParentAbsolutePosition = props.ParentAbsolutePosition,
+		ParentSize = props.ParentSize,
 		TryInsert = tryInsert,
 		TryOpenAssetConfig = tryOpenAssetConfig,
 	})
 end
+
+AssetGridContainer = AssetLogicWrapper(AssetGridContainer)
 
 AssetGridContainer = withContext({
 	API = if FFlagToolboxGetItemsDetailsUsesSingleApi then nil else ContextServices.API,
@@ -212,7 +217,5 @@ local function mapDispatchToProps(dispatch)
 		end,
 	}
 end
-
-AssetGridContainer = AssetLogicWrapper(AssetGridContainer)
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AssetGridContainer)

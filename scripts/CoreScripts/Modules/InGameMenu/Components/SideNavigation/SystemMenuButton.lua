@@ -8,9 +8,6 @@ local Roact = InGameMenuDependencies.Roact
 local CloseMenuButton = require(script.Parent.CloseMenuButton)
 local GameIconButton = require(script.Parent.GameIconButton)
 
-local InGameMenu = script.Parent.Parent.Parent
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
-
 local SystemMenuButton = Roact.PureComponent:extend("SystemMenuButton")
 
 SystemMenuButton.validateProps = t.strictInterface({
@@ -20,51 +17,49 @@ SystemMenuButton.validateProps = t.strictInterface({
 	layoutOrder = t.optional(t.integer),
 	onActivated = t.callback,
 	onClose = t.callback,
-	canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+	canCaptureFocus = t.optional(t.boolean),
 })
 
 SystemMenuButton.defaultProps = {
 	on = false,
-	canCaptureFocus = not GetFFlagInGameMenuControllerDevelopmentOnly() and nil, -- NOTE: Set to false when cleaning up flag
+	canCaptureFocus = false,
 }
 
-if GetFFlagInGameMenuControllerDevelopmentOnly() then
-	function SystemMenuButton:tryCaptureFocus(prevProps)
-		if (self.props.canCaptureFocus and not prevProps.canCaptureFocus)
-			or (self.props.canCaptureFocus and self.props.on ~= prevProps.on and self.state.isIconFocused)
-		then
-			GuiService.SelectedCoreObject = self.iconRef:getValue()
-		end
+function SystemMenuButton:tryCaptureFocus(prevProps)
+	if (self.props.canCaptureFocus and not prevProps.canCaptureFocus)
+		or (self.props.canCaptureFocus and self.props.on ~= prevProps.on and self.state.isIconFocused)
+	then
+		GuiService.SelectedCoreObject = self.iconRef:getValue()
+	end
+end
+
+function SystemMenuButton:init()
+	self.iconRef = Roact.createRef()
+
+	self:setState({
+		isIconFocused = false,
+	})
+
+	self.onIconSelectionGained = function()
+		self:setState({
+			isIconFocused = true,
+		})
 	end
 
-	function SystemMenuButton:init()
-		self.iconRef = Roact.createRef()
-
+	self.onIconSelectionLost = function()
 		self:setState({
 			isIconFocused = false,
 		})
-
-		self.onIconSelectionGained = function()
-			self:setState({
-				isIconFocused = true,
-			})
-		end
-
-		self.onIconSelectionLost = function()
-			self:setState({
-				isIconFocused = false,
-			})
-		end
 	end
+end
 
-	function SystemMenuButton:didMount()
-		local prevProps = { canCaptureFocus = false }
-		self:tryCaptureFocus(prevProps)
-	end
+function SystemMenuButton:didMount()
+	local prevProps = { canCaptureFocus = false }
+	self:tryCaptureFocus(prevProps)
+end
 
-	function SystemMenuButton:didUpdate(prevProps)
-		self:tryCaptureFocus(prevProps)
-	end
+function SystemMenuButton:didUpdate(prevProps)
+	self:tryCaptureFocus(prevProps)
 end
 
 function SystemMenuButton:render()

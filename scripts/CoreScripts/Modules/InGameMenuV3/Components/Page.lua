@@ -29,12 +29,7 @@ end
 
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 
-local TITLE_HEIGHT = 28
-local TITLE_TOP_PADDING = 28
-local TITLE_BOTTOM_PADDING = 12
-local TOTAL_TITLE_SPACE = TITLE_TOP_PADDING + TITLE_HEIGHT + TITLE_BOTTOM_PADDING
-
-local ThemedTextLabel = require(script.Parent.ThemedTextLabel)
+local TITLE_HEIGHT = 48
 
 local function renderWithSelectionCursor(props, getSelectionCursor)
 
@@ -69,14 +64,19 @@ local function renderWithSelectionCursor(props, getSelectionCursor)
 			ZIndex = props.zIndex,
 			Selectable = IS_PAGE_SELECTABLE,
 		}, {
-			PageTitle = Roact.createElement(ThemedTextLabel, {
-				fontKey = "Header1",
-				themeKey = "TextEmphasis",
-
-				AnchorPoint = Vector2.new(0.5, 0),
-				Position = UDim2.new(0.5, 0, 0, TITLE_TOP_PADDING),
-				Size = UDim2.new(1, -48, 0, TITLE_HEIGHT),
-				Text = props.pageTitle,
+			PageTitleContainer = Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, TITLE_HEIGHT),
+				BackgroundTransparency = style.Theme.BackgroundDefault.Transparency,
+				BackgroundColor3 = style.Theme.BackgroundDefault.Color,
+				BorderSizePixel = 0,
+			}, {
+				PageTitle = Roact.createElement(UIBlox.App.Text.StyledTextLabel, {
+					fontStyle = style.Font.Header1,
+					colorStyle = style.Theme.TextEmphasis,
+					textXAlignment = Enum.TextXAlignment.Center,
+					size = UDim2.new(1, 0, 1, 0),
+					text = props.pageTitle,
+				})
 			}, titleChildren),
 			PageContainer = Roact.createElement("Frame", {
 				AnchorPoint = Vector2.new(0, 1),
@@ -85,8 +85,8 @@ local function renderWithSelectionCursor(props, getSelectionCursor)
 					and UDim2.new(0, Constants.Zone.ContentOffset, 1, 0)
 					or UDim2.new(0, 0, 1, 0),
 				Size = GetFFlagInGameMenuControllerDevelopmentOnly()
-					and UDim2.new(1, -Constants.Zone.ContentOffset, 1, -TOTAL_TITLE_SPACE)
-					or UDim2.new(1, 0, 1, -TOTAL_TITLE_SPACE),
+					and UDim2.new(1, -Constants.Zone.ContentOffset, 1, -TITLE_HEIGHT)
+					or UDim2.new(1, 0, 1, -TITLE_HEIGHT),
 			}, props[Roact.Children]),
 			ZonePortal = GetFFlagInGameMenuControllerDevelopmentOnly() and Roact.createElement(ZonePortal, {
 				targetZone = 0,

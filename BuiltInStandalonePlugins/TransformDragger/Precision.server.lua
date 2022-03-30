@@ -9,7 +9,6 @@ local plugin, settings = plugin, settings
 --local Flags =  script.Parent.Parent.Flags
 local getFFlagFixTransformScalingSpheresAndCylinders =
 	require(script.Parent.Flags.getFFlagFixTransformScalingSpheresAndCylinders)
-local getEngineFeatureDraggerBruteForceAll = require(script.Parent.Flags.getEngineFeatureDraggerBruteForceAll)
 
 -----------------------------------
 -----------MODULE SCRIPTS----------
@@ -2338,18 +2337,12 @@ function planeDrag()
 
 	local part = nil
 	local ray = mouse.UnitRay
-	if getEngineFeatureDraggerBruteForceAll() then
-		local params = RaycastParams.new()
-		params.BruteForceAllSlow = true
-		local result = game:GetService("Workspace"):Raycast(ray.Origin, ray.Direction * 800, params)
-		if not result then return end
-		if result.Instance:IsA("Terrain") then return end
-		part = result.Instance
-	else
-		ray = Ray.new(ray.Origin, ray.Direction * 800)
-		part = game.Workspace:FindPartOnRay(ray)
-		if not part or part:IsA("Terrain") then return end
-	end
+	local params = RaycastParams.new()
+	params.BruteForceAllSlow = true
+	local result = game:GetService("Workspace"):Raycast(ray.Origin, ray.Direction * 800, params)
+	if not result then return end
+	if result.Instance:IsA("Terrain") then return end
+	part = result.Instance
 
 	holoBox.Visible = true
 
@@ -2503,19 +2496,15 @@ function freeDrag()
 
 	if dragFromToolbox then
 		colPoint = rayPlaneIntersection(currentRay, baseDragPlane)
-		local colPart, colLocation = nil -- remove colPart with EngineFeatureDraggerBruteForceAll
-		if getEngineFeatureDraggerBruteForceAll() then
-			local params = RaycastParams.new()
-			params.FilterDescendantsInstances = game.Selection:Get()
-			params.BruteForceAllSlow = true
-			local result = workspace:Raycast(currentRay.Origin, currentRay.Direction, params)
-			if result then
-				colLocation = result.Position
-			else
-				colLocation = (currentRay.Origin + currentRay.Direction)
-			end
+		local params = RaycastParams.new()
+		params.FilterDescendantsInstances = game.Selection:Get()
+		params.BruteForceAllSlow = true
+		local result = workspace:Raycast(currentRay.Origin, currentRay.Direction, params)
+		local colLocation = nil
+		if result then
+			colLocation = result.Position
 		else
-			colPart, colLocation = workspace:FindPartOnRayWithIgnoreList(currentRay, game.Selection:Get())
+			colLocation = (currentRay.Origin + currentRay.Direction)
 		end
 
 		local cameraPos = workspace.CurrentCamera.CoordinateFrame.p
@@ -2586,15 +2575,11 @@ function selectDragPlane(selectBase)
 		tmpLocation = Vector3.new(0,0,0)
 		tmpNormal = Vector3.new(0, 1, 0)
 	else
-		if getEngineFeatureDraggerBruteForceAll() then
-			local params = RaycastParams.new()
-			params.BruteForceAllSlow = true
-			local result = game.Workspace:Raycast(ray.Origin, ray.Direction, params)
-			if result then
-				tmpPart = result.Instance
-			end
-		else
-			tmpPart = game.Workspace:FindPartOnRay(ray)
+		local params = RaycastParams.new()
+		params.BruteForceAllSlow = true
+		local result = game.Workspace:Raycast(ray.Origin, ray.Direction, params)
+		if result then
+			tmpPart = result.Instance
 		end
 	end
 
@@ -3009,19 +2994,13 @@ function selectPart(instances)
 
 	castPlane = nil
 	local ray = mouse.UnitRay
+	local params = RaycastParams.new()
+	params.BruteForceAllSlow = true
+	local result = game:GetService("Workspace"):Raycast(ray.Origin, ray.Direction * 800, params)
 	local part, location
-
-	if getEngineFeatureDraggerBruteForceAll() then
-		local params = RaycastParams.new()
-		params.BruteForceAllSlow = true
-		local result = game:GetService("Workspace"):Raycast(ray.Origin, ray.Direction * 800, params)
-		if result then
-			part = result.Instance
-			location = result.Position
-		end
-	else
-		ray = Ray.new(ray.Origin, ray.Direction * 800)
-		part, location = game.Workspace:FindPartOnRay(ray)
+	if result then
+		part = result.Instance
+		location = result.Position
 	end
 
 	local alreadySelected = false

@@ -37,13 +37,12 @@ local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
 
 local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 
 local AdvancedPage = Roact.PureComponent:extend("AdvancedPage")
 
 AdvancedPage.validateProps = t.strictInterface({
-	canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.boolean or nil,
+	canCaptureFocus = t.boolean,
 	closeMenu = t.callback,
 	pageTitle = t.string,
 	currentPage = GetFFlagIGMGamepadSelectionHistory() and t.string or nil,
@@ -56,13 +55,11 @@ function AdvancedPage:init()
 		performanceStatsEnabled = UserGameSettings.PerformanceStatsVisible,
 	})
 
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		self.backButtonRef = Roact.createRef()
-		self.performanceToggleRef = Roact.createRef()
-	end
+	self.backButtonRef = Roact.createRef()
+	self.performanceToggleRef = Roact.createRef()
 end
 
-if GetFFlagInGameMenuControllerDevelopmentOnly() and not GetFFlagIGMGamepadSelectionHistory() then
+if not GetFFlagIGMGamepadSelectionHistory() then
 	function AdvancedPage:didUpdate(prevProps)
 		if self.props.canCaptureFocus
 			and not prevProps.canCaptureFocus
@@ -130,7 +127,7 @@ function AdvancedPage:renderWithSelectionCursor(getSelectionCursor)
 					TextSize = style.Font.Header2.RelativeSize * style.Font.BaseSize,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					LayoutOrder = 4,
-					SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly() and getSelectionCursor(CursorKind.Square) or nil,
+					SelectionImageObject = getSelectionCursor(CursorKind.Square),
 					[Roact.Event.Activated] = function()
 						DevConsoleMaster:SetVisibility(true)
 						self.props.closeMenu()
@@ -170,23 +167,16 @@ function AdvancedPage:renderWithSelectionCursor(getSelectionCursor)
 end
 
 function AdvancedPage:render()
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		return withSelectionCursorProvider(function(getSelectionCursor)
-			return self:renderWithSelectionCursor(getSelectionCursor)
-		end)
-	else
-		return self:renderWithSelectionCursor()
-	end
+	return withSelectionCursorProvider(function(getSelectionCursor)
+		return self:renderWithSelectionCursor(getSelectionCursor)
+	end)
 end
 
 return RoactRodux.UNSTABLE_connect2(function(state)
-	local canCaptureFocus = nil -- Can be inlined when FFlagInGameMenuControllerDevelopmentOnly is removed
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		canCaptureFocus = state.menuPage == "AdvancedGameSettings"
-			and state.displayOptions.inputType == Constants.InputType.Gamepad
-			and not state.respawn.dialogOpen
-			and state.currentZone == 1
-	end
+	local canCaptureFocus = state.menuPage == "AdvancedGameSettings"
+		and state.displayOptions.inputType == Constants.InputType.Gamepad
+		and not state.respawn.dialogOpen
+		and state.currentZone == 1
 
 	local currentZone = nil -- can inline when flag is removed
 	if GetFFlagIGMGamepadSelectionHistory() then

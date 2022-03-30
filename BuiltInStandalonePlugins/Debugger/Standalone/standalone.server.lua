@@ -16,6 +16,8 @@ if not plugin then
 	return
 end
 
+local main = script.Parent.Parent
+
 local Common = script.Parent.Parent.Common
 
 -- TODO DEVTOOLS-4481: The DevFramework Flags util has a bug triggers the assert for missing
@@ -41,7 +43,6 @@ commonInit()
 
 local hasInternalPermission = game:GetService("StudioService"):HasInternalPermission()
 
-local main = script.Parent.Parent
 local Roact = require(main.Packages.Roact)
 local Framework = require(main.Packages.Framework)
 

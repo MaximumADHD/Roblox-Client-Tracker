@@ -14,6 +14,7 @@ local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 local SetFrameRate = require(Plugin.Src.Actions.SetFrameRate)
 local SetNotification = require(Plugin.Src.Actions.SetNotification)
 
+local FFlagUserNotLoggedIn = game:DefineFastFlag("ACEUserNotLoggedIn", false)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 return function(plugin, analytics)
@@ -24,10 +25,24 @@ return function(plugin, analytics)
 			return
 		end
 
-		local id = plugin:get():PromptForExistingAssetId("Animation")
+		local status, id
+
+		if FFlagUserNotLoggedIn then
+			status, id = pcall(function()
+				return plugin:get():PromptForExistingAssetId("Animation")
+			end)
+			-- PromptForExistingAssetId will display a dialog box and an error in the Output window, no need to report
+			-- the error as an additional notification. Just bail out.
+			if not status then
+				return
+			end
+		else
+			id = plugin:get():PromptForExistingAssetId("Animation")
+		end
+
 		if id and tonumber(id) > 0 then
 			local anim
-			local status = pcall(function()
+			status = pcall(function()
 				if GetFFlagChannelAnimations() then
 					anim = AnimationClipProvider:GetAnimationClipById(id, false)
 				else

@@ -27,9 +27,12 @@ function PreviewContext.new()
 end
 
 function PreviewContext:addAvatar(avatar)
-	if avatar:IsA("Model") then
-		table.insert(self.previewAvatars, avatar)
-	end
+	table.insert(self.previewAvatars, avatar)
+end
+
+function PreviewContext:setAvatars(avatars)
+	self:destroyAvatars()
+	self.previewAvatars = avatars
 end
 
 function PreviewContext:getAvatars()
@@ -63,7 +66,7 @@ end
 
 function PreviewContext:destroyAvatars()
 	for _,instance in ipairs(self.previewAvatars) do
-		instance:Destroy()
+		instance:destroy()
 	end
 	self.previewAvatars = {}
 end

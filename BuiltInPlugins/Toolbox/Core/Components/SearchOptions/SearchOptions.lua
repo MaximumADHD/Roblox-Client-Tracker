@@ -15,7 +15,7 @@
 local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag(
 	"ToolboxUseDevFrameworkLoadingBarAndRadioButton"
 )
-local FFlagToolboxAssetGridRefactor5 = game:GetFastFlag("ToolboxAssetGridRefactor5")
+local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
 local FFlagToolboxUpdateWindowMinSize = game:GetFastFlag("ToolboxUpdateWindowMinSize")
 local FFlagToolboxRefactorSearchOptions = game:GetFastFlag("ToolboxRefactorSearchOptions")
 
@@ -255,7 +255,7 @@ end
 
 function SearchOptions:render()
 	return withLocalization(function(_, localizedContent)
-		if FFlagToolboxAssetGridRefactor5 then
+		if FFlagToolboxAssetGridRefactor then
 			return self:renderContent(nil, localizedContent)
 		else
 			return withModal(function(modalTarget)
@@ -557,7 +557,7 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 
 	local elem
 	local elemProps
-	if FFlagToolboxAssetGridRefactor5 then
+	if FFlagToolboxAssetGridRefactor then
 		elem = ShowOnTop
 		elemProps = {
 			Priority = 2,
@@ -572,7 +572,7 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
 	}, {
-		Portal = (FFlagToolboxAssetGridRefactor5 or modalTarget) and Roact.createElement(elem, elemProps, {
+		Portal = (FFlagToolboxAssetGridRefactor or modalTarget) and Roact.createElement(elem, elemProps, {
 			ClickEventDetectFrame = Roact.createElement("ImageButton", {
 				ZIndex = 10,
 				Position = UDim2.new(0, 0, 0, 0),

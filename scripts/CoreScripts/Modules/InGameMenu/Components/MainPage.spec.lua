@@ -29,7 +29,6 @@ return function()
 	local FocusHandlerContextProvider = require(script.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
 	local MainPage = require(script.Parent.MainPage)
 
-	local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 	local GuiService = game:GetService("GuiService")
 
@@ -139,11 +138,7 @@ return function()
 				store:flush()
 			end)
 
-			if GetFFlagInGameMenuControllerDevelopmentOnly() == false then
-				expect(GuiService.SelectedCoreObject).to.equal(nil)
-			elseif GetFFlagInGameMenuControllerDevelopmentOnly() == true then
-				expect(GuiService.SelectedCoreObject:IsA("Instance")).to.be.ok()
-			end
+			expect(GuiService.SelectedCoreObject).to.be.ok()
 
 			Roact.unmount(instance)
 			GuiService.SelectedCoreObject = nil

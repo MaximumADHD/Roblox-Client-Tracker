@@ -4,11 +4,11 @@ local Util = Framework.Util
 local Action = Util.Action
 
 export type Payload = {
-	baseMaterial : Enum.Material
+	BaseMaterial : Enum.Material
 }
 
 return Action(script.Name, function(baseMaterial : Enum.Material) : Payload
 	return {
-		baseMaterial = baseMaterial,
+		BaseMaterial = baseMaterial,
 	}
 end)

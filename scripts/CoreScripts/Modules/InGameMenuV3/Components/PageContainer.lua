@@ -21,7 +21,7 @@ local animateLeftGoal, animateRightGoal = 0, 1.25
 
 local pageComponents = {}
 for key, pageInfo in pairs(Pages.pagesByKey) do
-	pageComponents[key] = require(pageInfo.component)
+	pageComponents[key] = pageInfo.component and require(pageInfo.component)
 end
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
@@ -104,7 +104,7 @@ function PageContainer:render()
 						self.onContainerRendered(rbx, key)
 					end or nil,
 				},{
-					Page = Roact.createElement(pageComponents[key], {
+					Page = pageComponents[key] and Roact.createElement(pageComponents[key], {
 						pageTitle = pageInfo.title and localized.title,
 					}),
 				})
@@ -112,7 +112,7 @@ function PageContainer:render()
 				return Roact.createElement(BlurredModalPortal, {
 					Enabled = self.props.currentPage == key,
 				}, {
-					ModalPageContent = Roact.createElement(pageComponents[key], {
+					ModalPageContent = pageComponents[key] and Roact.createElement(pageComponents[key], {
 						pageTitle = localized.title,
 					}),
 				})

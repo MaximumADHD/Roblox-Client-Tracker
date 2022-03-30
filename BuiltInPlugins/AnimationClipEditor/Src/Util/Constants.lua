@@ -492,6 +492,120 @@ Constants.FacsControlToRegionMap = {
 	TongueUp = Constants.FACS_REGIONS.Tongue,
 }
 
+Constants.FacsNames = {
+	ChinRaiserUpperLip = "ChinRaiserUpperLip",
+	ChinRaiser = "ChinRaiser",
+	FlatPucker = "FlatPucker",
+	Funneler = "Funneler",
+	LowerLipSuck = "LowerLipSuck",
+	LipPresser = "LipPresser",
+	LipsTogether = "LipsTogether",
+	MouthLeft = "MouthLeft",
+	MouthRight = "MouthRight",
+	Pucker = "Pucker",
+	UpperLipSuck = "UpperLipSuck",
+	LeftCheekPuff = "LeftCheekPuff",
+	LeftDimpler = "LeftDimpler",
+	LeftLipCornerDown = "LeftLipCornerDown",
+	LeftLowerLipDepressor = "LeftLowerLipDepressor",
+	LeftLipCornerPuller = "LeftLipCornerPuller",
+	LeftLipStretcher = "LeftLipStretcher",
+	LeftUpperLipRaiser = "LeftUpperLipRaiser",
+	RightCheekPuff = "RightCheekPuff",
+	RightDimpler = "RightDimpler",
+	RightLipCornerDown = "RightLipCornerDown",
+	RightLowerLipDepressor = "RightLowerLipDepressor",
+	RightLipCornerPuller = "RightLipCornerPuller",
+	RightLipStretcher = "RightLipStretcher",
+	RightUpperLipRaiser = "RightUpperLipRaiser",
+
+	JawDrop = "JawDrop",
+	JawLeft = "JawLeft",
+	JawRight = "JawRight",
+
+	Corrugator = "Corrugator",
+	LeftBrowLowerer = "LeftBrowLowerer",
+	LeftOuterBrowRaiser = "LeftOuterBrowRaiser",
+	LeftNoseWrinkler = "LeftNoseWrinkler",
+	LeftInnerBrowRaiser = "LeftInnerBrowRaiser",
+	RightBrowLowerer = "RightBrowLowerer",
+	RightOuterBrowRaiser = "RightOuterBrowRaiser",
+	RightInnerBrowRaiser = "RightInnerBrowRaiser",
+	RightNoseWrinkler = "RightNoseWrinkler",
+
+	EyesLookDown = "EyesLookDown",
+	EyesLookLeft = "EyesLookLeft",
+	EyesLookUp = "EyesLookUp",
+	EyesLookRight = "EyesLookRight",
+	LeftCheekRaiser = "LeftCheekRaiser",
+	LeftEyeUpperLidRaiser = "LeftEyeUpperLidRaiser",
+	LeftEyeClosed = "LeftEyeClosed",
+	RightCheekRaiser = "RightCheekRaiser",
+	RightEyeUpperLidRaiser = "RightEyeUpperLidRaiser",
+	RightEyeClosed = "RightEyeClosed",
+
+	TongueDown = "TongueDown",
+	TongueOut = "TongueOut",
+	TongueUp = "TongueUp",
+}
+
+Constants.FacsCrossMappings = {
+	ChinRaiserUpperLip = {},
+	ChinRaiser = {},
+	FlatPucker = {},  --sideView
+	Funneler = {},  --sideView
+	LowerLipSuck = {},  --sideView
+	LipPresser = {},  --sideView
+	LipsTogether = {},
+	MouthLeft = {},
+	MouthRight = {},
+	Pucker = {},  --sideView
+	UpperLipSuck = {},  --sideView
+	LeftCheekPuff = {symmetryPartner = Constants.FacsNames.RightCheekPuff},
+	LeftDimpler = {symmetryPartner = Constants.FacsNames.RightDimpler},
+	LeftLipCornerDown = {symmetryPartner = Constants.FacsNames.RightLipCornerDown},
+	LeftLowerLipDepressor = {symmetryPartner = Constants.FacsNames.RightLowerLipDepressor},
+	LeftLipCornerPuller = {symmetryPartner = Constants.FacsNames.RightLipCornerPuller},
+	LeftLipStretcher = {symmetryPartner = Constants.FacsNames.RightLipStretcher},
+	LeftUpperLipRaiser = {symmetryPartner = Constants.FacsNames.RightUpperLipRaiser},
+	RightCheekPuff = {symmetryPartner = Constants.FacsNames.LeftCheekPuff},
+	RightDimpler = {symmetryPartner = Constants.FacsNames.LeftDimpler},
+	RightLipCornerDown = {symmetryPartner = Constants.FacsNames.LeftLipCornerDown},
+	RightLowerLipDepressor = {symmetryPartner = Constants.FacsNames.LeftLowerLipDepressor},
+	RightLipCornerPuller = {symmetryPartner = Constants.FacsNames.LeftLipCornerPuller},
+	RightLipStretcher = {symmetryPartner = Constants.FacsNames.LeftLipStretcher},
+	RightUpperLipRaiser = {symmetryPartner = Constants.FacsNames.LeftUpperLipRaiser},
+
+	JawDrop = {},  --sideView
+	JawLeft = {},  --sideView
+	JawRight = {},  --sideView
+
+	Corrugator = {},
+	LeftBrowLowerer = {symmetryPartner = Constants.FacsNames.RightBrowLowerer},
+	LeftOuterBrowRaiser = {symmetryPartner = Constants.FacsNames.RightOuterBrowRaiser},
+	LeftNoseWrinkler = {symmetryPartner = Constants.FacsNames.RightNoseWrinkler},
+	LeftInnerBrowRaiser = {symmetryPartner = Constants.FacsNames.RightInnerBrowRaiser},
+	RightBrowLowerer = {symmetryPartner = Constants.FacsNames.LeftBrowLowerer},
+	RightOuterBrowRaiser = {symmetryPartner = Constants.FacsNames.LeftOuterBrowRaiser},
+	RightInnerBrowRaiser = {symmetryPartner = Constants.FacsNames.LeftInnerBrowRaiser},
+	RightNoseWrinkler = {symmetryPartner = Constants.FacsNames.LeftNoseWrinkler},
+
+	EyesLookDown = {},
+	EyesLookLeft = {},
+	EyesLookUp = {},
+	EyesLookRight = {},
+	LeftCheekRaiser = {symmetryPartner = Constants.FacsNames.RightCheekRaiser},
+	LeftEyeUpperLidRaiser = {symmetryPartner = Constants.FacsNames.RightEyeUpperLidRaiser},
+	LeftEyeClosed = {symmetryPartner = Constants.FacsNames.RightEyeClosed},
+	RightCheekRaiser = {symmetryPartner = Constants.FacsNames.LeftCheekRaiser},
+	RightEyeUpperLidRaiser = {symmetryPartner = Constants.FacsNames.LeftEyeUpperLidRaiser},
+	RightEyeClosed = {symmetryPartner = Constants.FacsNames.LeftEyeClosed},
+
+	TongueDown = {},
+	TongueOut = {},
+	TongueUp = {},
+}	
+
 if GetFFlagChannelAnimations() then
 	Constants.COMPONENT_TRACK_TYPES = {
 		[Constants.TRACK_TYPES.CFrame] = {

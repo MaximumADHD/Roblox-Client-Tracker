@@ -1,3 +1,4 @@
+local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Players = game:GetService("Players")
@@ -13,7 +14,7 @@ local ParticipantRemoved = require(script.Parent.Actions.ParticipantRemoved)
 local PlayerRemoved = require(script.Parent.Actions.PlayerRemoved)
 
 local VoiceChatServiceManager = require(script.Parent.VoiceChatServiceManager).default
-local VoiceConstants = require(script.Parent.Constants)
+local VoiceConstants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
 local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 local log = require(RobloxGui.Modules.InGameChat.BubbleChat.Logger)(script.Name)
 

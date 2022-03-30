@@ -29,9 +29,6 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
 
-local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
-
 local MOVEMENT_MODE_LOCALIZATION_KEYS = {
 	[Enum.ComputerMovementMode.KeyboardMouse] = "CoreScripts.InGameMenu.GameSettings.ComputerMoveModeKeyboardMouse",
 	[Enum.ComputerMovementMode.ClickToMove] = "CoreScripts.InGameMenu.GameSettings.ComputerMoveModeClickToMove",
@@ -46,16 +43,13 @@ local DEV_MOVEMENT_MODE_LOCALIZATION_KEYS = {
 local MovementModeEntry = Roact.PureComponent:extend("MovementModeEntry")
 MovementModeEntry.validateProps = t.strictInterface({
 	LayoutOrder = t.integer,
-	canOpen = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
-	canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+	canOpen = t.optional(t.boolean),
+	canCaptureFocus = t.optional(t.boolean),
 })
 
-if GetFFlagInGameMenuControllerDevelopmentOnly() then
-	MovementModeEntry.defaultProps = {
-		canOpen = true
-	}
-end
-
+MovementModeEntry.defaultProps = {
+	canOpen = true
+}
 
 function MovementModeEntry:init()
 	self:setState({
@@ -114,18 +108,6 @@ function MovementModeEntry:render()
 		end
 	end
 
-	-- Can be inlined when GetFFlagInGameMenuControllerDevelopmentOnly is removed
-	local canOpen = nil
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		canOpen = self.props.canOpen
-	end
-
-	-- Can be inlined when GetFFlagInGameMenuControllerDevelopmentOnly is removed
-	local canCaptureFocus = nil
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		canCaptureFocus = self.props.canCaptureFocus
-	end
-
 	result.MovementModeEntrySelector = Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, 44 + 56 + 20),
 		BackgroundTransparency = 1,
@@ -153,9 +135,9 @@ function MovementModeEntry:render()
 				placeHolderText = localized.placeholder,
 				enabled = not disabled,
 				localize = true,
-				selectionParentName = GetFFlagInGameMenuControllerDevelopmentOnly() and "MovementModeEntryDropdown" or nil,
-				canOpen = canOpen,
-				canCaptureFocus = canCaptureFocus,
+				selectionParentName = "MovementModeEntryDropdown",
+				canOpen = self.props.canOpen,
+				canCaptureFocus = self.props.canCaptureFocus,
 				selectionChanged = function(newSelection)
 					UserGameSettings.ComputerMovementMode = self.state.computerOptions[newSelection]
 					SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)

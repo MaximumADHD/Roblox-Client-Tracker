@@ -27,6 +27,9 @@ local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 local Components = AvatarToolsShared.Components
 local FlowScreenLayout = Components.FlowScreenLayout
 
+local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
+local AssetTypeAttachmentInfo = AccessoryAndBodyToolSharedUtil.AssetTypeAttachmentInfo
+
 local Pane = Framework.UI.Pane
 
 local SetAccessoryTypeInfo = require(Plugin.Src.Actions.SetAccessoryTypeInfo)
@@ -36,7 +39,6 @@ local LCERadioButtonList = require(Plugin.Src.Components.LCERadioButtonList)
 
 local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
 
-local Constants = require(Plugin.Src.Util.Constants)
 local ModelUtil = require(Plugin.Src.Util.ModelUtil)
 
 local Util = Framework.Util
@@ -85,8 +87,8 @@ if GetFFlagAFTChooseAssetTypeFirst() then
 			return
 		end
 
-		local assetTypeAccessoryTable = Constants.ASSET_TYPE_ATTACHMENT.Accessory[assetType]
-		local assetTypeClothingTable = Constants.ASSET_TYPE_ATTACHMENT.Clothing[assetType]
+		local assetTypeAccessoryTable = AssetTypeAttachmentInfo.Accessory[assetType]
+		local assetTypeClothingTable = AssetTypeAttachmentInfo.Clothing[assetType]
 		if assetTypeAccessoryTable then
 			if hasMultipleAttachments(assetTypeAccessoryTable) then
 				self.multiAttachmentAsset = {
@@ -111,8 +113,8 @@ else
 	function AssetTypeScreen:initWithPreviousAssetTypeInfo()
 		local accessoryTypeInfo = self.props.AccessoryTypeInfo
 		if accessoryTypeInfo then
-			local assetTypeAccessoryTable = Constants.ASSET_TYPE_ATTACHMENT.Accessory[accessoryTypeInfo.AssetType]
-			local assetTypeClothingTable = Constants.ASSET_TYPE_ATTACHMENT.Clothing[accessoryTypeInfo.AssetType]
+			local assetTypeAccessoryTable = AssetTypeAttachmentInfo.Accessory[accessoryTypeInfo.AssetType]
+			local assetTypeClothingTable = AssetTypeAttachmentInfo.Clothing[accessoryTypeInfo.AssetType]
 			if assetTypeAccessoryTable then
 				if hasMultipleAttachments(assetTypeAccessoryTable) then
 					self.multiAttachmentAsset = {
@@ -208,14 +210,14 @@ function AssetTypeScreen:init()
 	end
 
 	self.onClickAccessoryType = function(key)
-		self.onClickAssetType(key, Constants.ASSET_TYPE_ATTACHMENT.Accessory[key])
+		self.onClickAssetType(key, AssetTypeAttachmentInfo.Accessory[key])
 		self:setState({
 			resetClothingList = true,
 		})
 	end
 
 	self.onClickClothingType = function(key)
-		self.onClickAssetType(key, Constants.ASSET_TYPE_ATTACHMENT.Clothing[key])
+		self.onClickAssetType(key, AssetTypeAttachmentInfo.Clothing[key])
 		self:setState({
 			resetAccessoryList = true,
 		})
@@ -262,7 +264,7 @@ function AssetTypeScreen:init()
 		}, {
 			AccessoryTypeList = accessoryListEnabled and Roact.createElement(LCERadioButtonList, {
 				Title = localization:getText("AssetType", "Accessory"),
-				Buttons = makeButtonList(localization, Constants.ASSET_TYPE_ATTACHMENT.Accessory),
+				Buttons = makeButtonList(localization, AssetTypeAttachmentInfo.Accessory),
 				OnClick = self.onClickAccessoryType,
 				LayoutOrder = order + orderIterator:getNextOrder(),
 				InitialSelectedKey = self.initialSelectedAccessoryType,
@@ -270,7 +272,7 @@ function AssetTypeScreen:init()
 
 			ClothingTypeList = clothingListEnabled and Roact.createElement(LCERadioButtonList, {
 				Title = localization:getText("AssetType", "Clothing"),
-				Buttons = makeButtonList(localization, Constants.ASSET_TYPE_ATTACHMENT.Clothing),
+				Buttons = makeButtonList(localization, AssetTypeAttachmentInfo.Clothing),
 				OnClick = self.onClickClothingType,
 				LayoutOrder = order + orderIterator:getNextOrder(),
 				InitialSelectedKey = self.initialSelectedClothingType,
