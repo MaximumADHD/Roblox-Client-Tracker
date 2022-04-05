@@ -34,6 +34,8 @@ local MarketplaceService = game:GetService("MarketplaceService")
 local LoadingImage = require(Plugin.Src.Util.LoadingImage)
 local PromptSelectorWithPreview = require(Plugin.Src.Util.PromptSelectorWithPreview)
 
+local TextureMapErrorTypes = require(Plugin.Src.Util.getTextureMapErrorTypes)
+
 local StudioService = game:GetService("StudioService")
 
 export type Props = {
@@ -53,31 +55,42 @@ type _Props = Props & {
 local TextureMapSelector = Roact.PureComponent:extend("TextureMapSelector")
 
 function TextureMapSelector:init()
+	self.state = {
+		searchUrl = "",
+	}
+
 	self.promptSelection = function()
 		local formats = {"png", "jpg", "jpeg"}
 		local file
-		local success, err = pcall(function()
+
+		local success, _err = pcall(function()
 			file = StudioService:PromptImportFile(formats)
 		end)
-		if success then
-			if file then
-				self.props.SelectTextureMap(file, nil)
-			end
-		-- TODO: warnings and errors
-		else
-			self.props.SelectTextureMap(nil, nil, err)
+		
+		if success and file then
+			self.props.SelectTextureMap(file, nil)
+		elseif not success then
+			self.props.SelectTextureMap(nil, nil, TextureMapErrorTypes.FailedToSelectFile)
 		end
 	end
 
 	self.urlSelection = function(searchUrl)
-		if not searchUrl then
-			self.props.ClearSelection()
+		self:setState({
+			searchUrl = searchUrl,
+		})
+	end
+
+	self.onFocusLost = function()
+		local state = self.state
+		local searchUrl = state.searchUrl
+
+		if searchUrl and searchUrl == "" then
 			return
 		end
 
 		local numericId = tonumber(searchUrl:match("://(%d+)"))
 		if not numericId then
-			-- TODO: warnings and errors + should it ClearSelection() anyway?
+			self.props.SelectTextureMap(nil, nil, TextureMapErrorTypes.FailedUrl)
 			return
 		end
 
@@ -95,7 +108,7 @@ function TextureMapSelector:init()
 
 			-- AssetTypeId = 1 is Image, AssetTypeId = 13 is Decal
 			if not assetInfo or (assetInfo.AssetTypeId ~= 1 and assetInfo.AssetTypeId ~= 13) then				
-				-- TODO: warnings and errors
+				self.props.SelectTextureMap(nil, nil, TextureMapErrorTypes.FailedUrl)
 				return
 			end
 
@@ -123,19 +136,15 @@ end
 
 function TextureMapSelector:render()
 	local props : _Props = self.props
-	local localization = props.Localization
 
 	local hasSelection = false
-	local filename
+	local filename = ""
 	if props.CurrentTextureMap and props.CurrentTextureMap.file then
 		hasSelection = true
 		filename = props.CurrentTextureMap.file.Name
-	-- TODO: warnings and errors
 	elseif props.CurrentTextureMap and props.CurrentTextureMap.assetId then
 		hasSelection = true
 		filename = props.CurrentTextureMap.assetId
-	else
-		filename = localization:getText("LocalImageSelector", "NoImageSelected")
 	end
 
 	local newProps = Dash.join(props, {
@@ -152,6 +161,8 @@ function TextureMapSelector:render()
 		UrlSelection = self.urlSelection,
 		SearchUrl = props.CurrentTextureMap and props.CurrentTextureMap.assetId or "",
 		ClearSelection = props.ClearSelection,
+
+		OnFocusLost = self.onFocusLost,
 	})
 
 	return Roact.createElement(PromptSelectorWithPreview, newProps)

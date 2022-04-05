@@ -1,3 +1,4 @@
+--!strict
 --[[
 	Handles track actions and the track menu.
 	When this component renders, it determines which actions should be enabled.
@@ -16,32 +17,72 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
 local withContext = ContextServices.withContext
+
 local ContextMenu = require(Plugin.Src.Components.ContextMenu)
 
-local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
-local TrackUtils = require(Plugin.Src.Util.TrackUtils)
-local AnimationData = require(Plugin.Src.Util.AnimationData)
-
-local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local AddKeyframe = require(Plugin.Src.Thunks.AddKeyframe)
-local SplitTrack = require(Plugin.Src.Thunks.SplitTrack)
-local DeleteTrack = require(Plugin.Src.Thunks.DeleteTrack)
+local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local ClearTrack = require(Plugin.Src.Thunks.ClearTrack)
+local ConvertTrack = require(Plugin.Src.Thunks.ConvertTrack)
+local DeleteTrack = require(Plugin.Src.Thunks.DeleteTrack)
 local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
+local SplitTrack = require(Plugin.Src.Thunks.SplitTrack)
 
-local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
+local AnimationData = require(Plugin.Src.Util.AnimationData)
+local Constants = require(Plugin.Src.Util.Constants)
+local isEmpty = require(Plugin.Src.Util.isEmpty)
+local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
+local PathUtils = require(Plugin.Src.Util.PathUtils)
+local TrackUtils = require(Plugin.Src.Util.TrackUtils)
+
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
+local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagKeyframeUtilsGetValueCleanup = require(Plugin.LuaFlags.GetFFlagKeyframeUtilsGetValueCleanup)
+local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
+local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
+
+export type Props = {
+	-- State/Context
+	Analytics: any,
+	AnimationData: AnimationData.AnimationData,
+	InstanceName: string,
+	Path: PathUtils.Path,
+	Playhead: number,
+	PluginActions: any,
+	RotationType: string,
+	TrackName: string,
+	TrackType: string,
+
+	-- Actions/Thunks
+	AddKeyframe: (string, PathUtils.Path, string, any, any, any) -> (),
+	AddKeyframe_deprecated2: (string, string, string, number, any, any) -> (),
+	AddKeyframe_deprecated: (string, string, number, any, any) -> (),
+	ClearTrack: (string, PathUtils.Path, any) -> (),
+	ConvertTrack: (string, PathUtils.Path, string, any) -> (),
+	DeleteTrack: (string, any) -> (),
+	SplitTrack: (string, PathUtils.Path, string, number, any) -> (),
+
+	-- Properties
+	ShowMenu: boolean,
+
+	OnMenuOpened: () -> (),
+}
 
 local TrackActions = Roact.PureComponent:extend("TrackActions")
 
-function TrackActions:makeMenuActions(isTopLevel)
+function TrackActions:makeMenuActions(isTopLevel: boolean): {PluginAction}
 	local pluginActions = self.props.PluginActions
+	local isChannelAnimation = self.props.IsChannelAnimation
+	local path = self.props.Path
+	local trackType = self.props.TrackType
+
+	if GetFFlagQuaternionsUI() then
+		isTopLevel = not isChannelAnimation or (path ~= nil and #path <= 1)
+	end
+
 	local deleteAction = isTopLevel and "DeleteTrack" or "ClearTrack"
 
 	local actions = {
@@ -49,10 +90,15 @@ function TrackActions:makeMenuActions(isTopLevel)
 		pluginActions:get(GetFFlagChannelAnimations() and deleteAction or "DeleteTrack"),
 	}
 
+	if GetFFlagQuaternionsUI() and isChannelAnimation and trackType == Constants.TRACK_TYPES.Quaternion then
+		table.insert(actions, Constants.MENU_SEPARATOR)
+		table.insert(actions, pluginActions:get("ConvertToEulerAngles"))
+	end
+
 	return actions
 end
 
-function TrackActions:addAction(action, func)
+function TrackActions:addAction(action: PluginAction?, func: () -> ()): ()
 	if action then
 		action.Enabled = false
 		table.insert(self.Actions, action)
@@ -61,12 +107,12 @@ function TrackActions:addAction(action, func)
 	end
 end
 
-function TrackActions:didMount()
+function TrackActions:didMount(): ()
 	local actions = self.props.PluginActions
 	self.Actions = {}
 	self.Connections = {}
 
-	self:addAction(actions:get("DeleteTrack"), function()
+	self:addAction(actions:get("DeleteTrack"), function(): ()
 		local props = self.props
 		local trackName
 		if GetFFlagChannelAnimations() then
@@ -77,14 +123,14 @@ function TrackActions:didMount()
 		props.DeleteTrack(trackName, props.Analytics)
 	end)
 
-	self:addAction(actions:get("ClearTrack"), function()
+	self:addAction(actions:get("ClearTrack"), function(): ()
 		local props = self.props
 		local path = props.Path
 		local instanceName = props.InstanceName
 		props.ClearTrack(instanceName, path, props.Analytics)
 	end)
 
-	self:addAction(actions:get("AddKeyframe"), function()
+	self:addAction(actions:get("AddKeyframe"), function(): ()
 		local props = self.props
 		local playhead = props.Playhead
 		local trackType = props.TrackType
@@ -174,9 +220,18 @@ function TrackActions:didMount()
 			end
 		end
 	end)
+
+	if GetFFlagQuaternionsUI() then
+		self:addAction(actions:get("ConvertToEulerAngles"), function()
+			local props = self.props
+			local path = props.Path
+			local instanceName = props.InstanceName
+			props.ConvertTrack(instanceName, path, Constants.TRACK_TYPES.EulerAngles, props.Analytics)
+		end)
+	end
 end
 
-function TrackActions:render()
+function TrackActions:render(): (any?)
 	local props = self.props
 	local showMenu = props.ShowMenu
 	local path = props.Path
@@ -224,8 +279,12 @@ function TrackActions:render()
 		if GetFFlagChannelAnimations() then
 			pluginActions:get("ClearTrack").Enabled = true
 		end
+		if isChannelAnimation and GetFFlagQuaternionsUI() then
+			pluginActions:get("ConvertToEulerAngles").Enabled = true
+		end
 	end
 
+	-- topLevelTrack is not needed anymore if GetFFlagQuaternionsUI is ON
 	local topLevelTrack = not isChannelAnimation or (path ~= nil and #path <= 1)
 	local menuActions = self:makeMenuActions(topLevelTrack)
 
@@ -273,32 +332,44 @@ function TrackActions:willUnmount()
 	end
 end
 
-
 TrackActions = withContext({
 	PluginActions = ContextServices.PluginActions,
 	Analytics = ContextServices.Analytics,
 })(TrackActions)
 
-
-local function mapStateToProps(state, props)
+local function mapStateToProps(state): {[string]: any}
 	local status = state.Status
 
 	return {
 		AnimationData = state.AnimationData,
-		TrackName = status.RightClickContextInfo.TrackName,
-		Path = status.RightClickContextInfo.Path,
-		TrackType = status.RightClickContextInfo.TrackType,
-		RotationType = status.RightClickContextInfo.RotationType,
 		InstanceName = status.RightClickContextInfo.InstanceName,
+		Path = status.RightClickContextInfo.Path,
 		Playhead = status.Playhead,
+		RotationType = status.RightClickContextInfo.RotationType,
+		TrackName = status.RightClickContextInfo.TrackName,
+		TrackType = status.RightClickContextInfo.TrackType,
 	}
 end
 
-local function mapDispatchToProps(dispatch)
+local function mapDispatchToProps(dispatch): {[string]: any}
 	return{
-		DeleteTrack = function(trackName, analytics)
+		AddKeyframe = function(instance, path, trackType, tck, keyframeData, analytics)
 			dispatch(AddWaypoint())
-			dispatch(DeleteTrack(trackName, analytics))
+			dispatch(AddKeyframe(instance, path, trackType, tck, keyframeData, analytics))
+			dispatch(SetRightClickContextInfo({}))
+		end,
+
+		-- Remove when GetFFlagChannelAnimations() is retired
+		AddKeyframe_deprecated2 = function(instance, trackName, trackType, tck, value, analytics)
+			dispatch(AddWaypoint())
+			dispatch(AddKeyframe(instance, trackName, trackType, tck, value, analytics))
+			dispatch(SetRightClickContextInfo({}))
+		end,
+
+		-- Remove when GetFFlagFacialAnimationSupport() is retired
+		AddKeyframe_deprecated = function(instance, trackName, tck, value, analytics)
+			dispatch(AddWaypoint())
+			dispatch(AddKeyframe(instance, trackName, tck, value, analytics))	-- Luau warning is fine since signature changes with flags
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
@@ -308,29 +379,21 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
+		ConvertTrack = function(instance, path, trackType, analytics)
+			dispatch(AddWaypoint())
+			dispatch(ConvertTrack(instance, path, trackType, analytics))
+			dispatch(SetRightClickContextInfo({}))
+		end,
+
+		DeleteTrack = function(trackName, analytics)
+			dispatch(AddWaypoint())
+			dispatch(DeleteTrack(trackName, analytics))
+			dispatch(SetRightClickContextInfo({}))
+		end,
+
 		SplitTrack = function(instance, path, trackType, tck, analytics)
 			dispatch(AddWaypoint())
 			dispatch(SplitTrack(instance, path, trackType, tck, analytics))
-			dispatch(SetRightClickContextInfo({}))
-		end,
-
-		AddKeyframe = function(instance, path, trackType, tick, keyframeData, analytics)
-			dispatch(AddWaypoint())
-			dispatch(AddKeyframe(instance, path, trackType, tick, keyframeData, analytics))
-			dispatch(SetRightClickContextInfo({}))
-		end,
-
-		-- Remove when GetFFlagChannelAnimations() is retired
-		AddKeyframe_deprecated2 = function(instance, trackName, trackType, tick, value, analytics)
-			dispatch(AddWaypoint())
-			dispatch(AddKeyframe(instance, trackName, trackType, tick, value, analytics))
-			dispatch(SetRightClickContextInfo({}))
-		end,
-
-		-- Remove when GetFFlagFacialAnimationSupport() is retired
-		AddKeyframe_deprecated = function(instance, trackName, tick, value, analytics)
-			dispatch(AddWaypoint())
-			dispatch(AddKeyframe(instance, trackName, tick, value, analytics))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 	}

@@ -23,6 +23,7 @@ local InGameMenu = script.Parent.Parent.Parent
 local Divider = require(InGameMenu.Components.Divider)
 local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
 local Page = require(InGameMenu.Components.Page)
+local PageUtils = require(InGameMenu.Components.Pages.PageUtils)
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
@@ -89,6 +90,7 @@ function BasicPage:init()
 		vrActive =  GetFFlagInGameMenuVRToggle() and self.props.vrService.VREnabled or nil,
 		vrEnabled = UserGameSettings.VREnabled,
 		voiceChatEnabled = false,
+		scrollingDown = false,
 	})
 
 	self.pageSize, self.setPageSize = Roact.createBinding(UDim2.new(0, 0, 0, 0))
@@ -97,6 +99,8 @@ function BasicPage:init()
 		self.cameraModeButton = Roact.createRef() -- reference to the cameramode button at the top of the page
 		self.volumeButton = Roact.createRef() -- reference to the slider button at the top of the page in vr
 	end
+
+	PageUtils.initOnScrollDownState(self)
 end
 
 function BasicPage:didUpdate(prevProps)
@@ -131,6 +135,8 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 	local dividerSize = UDim2.new(1, -24, 0, 1);
 
 	return Roact.createElement(Page, {
+		useLeaveButton = true,
+		scrollingDown = self.state.scrollingDown,
 		pageTitle = self.props.pageTitle,
 		position = self.props.position,
 	}, {
@@ -154,6 +160,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 			Position = self.props.position,
 			Size = UDim2.new(1, 0, 1, 0),
 			Selectable = selectable,
+			[Roact.Change.CanvasPosition] = self.onScroll,
 		}, {
 			Layout = Roact.createElement("UIListLayout", {
 				HorizontalAlignment = Enum.HorizontalAlignment.Right,
@@ -355,7 +362,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 					})
 				end,
 			}),
-		})
+		}),
 	})
 end
 

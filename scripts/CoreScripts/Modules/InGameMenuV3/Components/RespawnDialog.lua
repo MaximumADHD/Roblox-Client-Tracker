@@ -48,6 +48,12 @@ local function RespawnDialog(props)
 				onConfirm = props.onConfirm,
 
 				inputType = props.inputType,
+				frameWidth = 320,
+				framePadding = 24,
+				illustrationFrameHeight = 128,
+				illustrationIconHeight = 92,
+				illustrationIconWidth = 92,
+				showIllustration = true,
 			})
 		})
 	end)

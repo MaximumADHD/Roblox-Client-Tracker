@@ -26,8 +26,6 @@ local StringUtils = require(Plugin.Src.Util.StringUtils)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -77,72 +75,68 @@ function TimeDisplay:init()
 end
 
 function TimeDisplay:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
 
-		local showAsTime = props.ShowAsTime
-		local playhead = props.Playhead
-		local animationData = props.AnimationData
-		local editingLength = props.EditingLength
-		local frameRate = props.FrameRate
-		local textBoxTheme = theme.textBox
-		local playbackTheme = theme.playbackTheme
+	local showAsTime = props.ShowAsTime
+	local playhead = props.Playhead
+	local editingLength = props.EditingLength
+	local frameRate = props.FrameRate
+	local textBoxTheme = theme.textBox
+	local playbackTheme = theme.playbackTheme
 
-		return Roact.createElement("Frame", {
-			BackgroundTransparency = 1,
-			Size = UDim2.new(0, Constants.TIME_DISPLAY_WIDTH, 1, 0),
-			LayoutOrder = props.LayoutOrder,
+	return Roact.createElement("Frame", {
+		BackgroundTransparency = 1,
+		Size = UDim2.new(0, Constants.TIME_DISPLAY_WIDTH, 1, 0),
+		LayoutOrder = props.LayoutOrder,
+	}, {
+		Layout = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Horizontal,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+		}),
+
+		CurrentFrameBox = Roact.createElement(TextBox, {
+			Size = UDim2.new(0, 40, 1, -6),
+			Text = StringUtils.formatTime(playhead, frameRate, showAsTime),
+			TextXAlignment = Enum.TextXAlignment.Left,
+			LayoutOrder = 0,
+			ClearTextOnFocus = false,
+			FocusChanged = self.setCurrentTime,
 		}, {
-			Layout = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Horizontal,
-				HorizontalAlignment = Enum.HorizontalAlignment.Left,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				VerticalAlignment = Enum.VerticalAlignment.Center,
+			Tooltip = Roact.createElement(Tooltip, {
+				TextKey = "CurrentFrameBox",
 			}),
+		}),
 
-			CurrentFrameBox = Roact.createElement(TextBox, {
-				Size = UDim2.new(0, 40, 1, -6),
-				Text = StringUtils.formatTime(playhead, frameRate, showAsTime),
-				TextXAlignment = Enum.TextXAlignment.Left,
-				LayoutOrder = 0,
-				ClearTextOnFocus = false,
-				FocusChanged = self.setCurrentTime,
-			}, {
-				Tooltip = Roact.createElement(Tooltip, {
-					TextKey = "CurrentFrameBox",
-				}),
-			}),
+		DividerLabel = Roact.createElement("TextLabel", {
+			Text = "/",
+			TextSize = textBoxTheme.textSize,
+			Font = theme.font,
+			Size = UDim2.new(0, 12, 1, 0),
+			BackgroundTransparency = 1,
+			LayoutOrder = 1,
+			TextColor3 = playbackTheme.iconColor,
+		}),
 
-			DividerLabel = Roact.createElement("TextLabel", {
-				Text = "/",
-				TextSize = textBoxTheme.textSize,
-				Font = theme.font,
-				Size = UDim2.new(0, 12, 1, 0),
-				BackgroundTransparency = 1,
-				LayoutOrder = 1,
-				TextColor3 = playbackTheme.iconColor,
+		EndFrameBox = Roact.createElement(TextBox, {
+			Size = UDim2.new(0, 40, 1, -6),
+			Text = StringUtils.formatTime(editingLength, frameRate, showAsTime),
+			TextXAlignment = Enum.TextXAlignment.Left,
+			LayoutOrder = 2,
+			ClearTextOnFocus = false,
+			FocusChanged = self.setEndTime,
+		}, {
+			Tooltip = Roact.createElement(Tooltip, {
+				TextKey = "EndFrameBox",
 			}),
-
-			EndFrameBox = Roact.createElement(TextBox, {
-				Size = UDim2.new(0, 40, 1, -6),
-				Text = StringUtils.formatTime(editingLength, frameRate, showAsTime),
-				TextXAlignment = Enum.TextXAlignment.Left,
-				LayoutOrder = 2,
-				ClearTextOnFocus = false,
-				FocusChanged = self.setEndTime,
-			}, {
-				Tooltip = Roact.createElement(Tooltip, {
-					TextKey = "EndFrameBox",
-				}),
-			}),
-		})
+		}),
+	})
 end
 
-
 TimeDisplay = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(TimeDisplay)
-
 
 return TimeDisplay

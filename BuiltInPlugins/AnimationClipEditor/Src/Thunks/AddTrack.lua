@@ -17,8 +17,9 @@ local SortAndSetTracks = require(Plugin.Src.Thunks.SortAndSetTracks)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
 
-local function wrappee(instanceName, trackName, trackType, analytics)
+local function wrappee(instanceName, trackName, trackType, rotationType, analytics)
 	return function(store)
 		local state = store:getState()
 		local status = state.Status
@@ -28,7 +29,7 @@ local function wrappee(instanceName, trackName, trackType, analytics)
 		end
 
 		local tracks = status.Tracks
-		local rotationType = status.DefaultRotationType
+		rotationType = rotationType or status.DefaultRotationType
 
 		for _, track in ipairs(tracks) do
 			if track.Name == trackName then
@@ -61,12 +62,16 @@ local function wrappee(instanceName, trackName, trackType, analytics)
 	end
 end
 
-if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
+if GetFFlagQuaternionsUI() then
+	return function(instanceName, trackName, trackType, rotationType, analytics)
+		return wrappee(instanceName, trackName, trackType, rotationType, analytics)
+	end
+elseif GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
 	return function(instanceName, trackName, trackType, analytics)
-		return wrappee(instanceName, trackName, trackType, analytics)
+		return wrappee(instanceName, trackName, trackType, nil, analytics)
 	end
 else
 	return function(instanceName, trackName, analytics)
-		return wrappee(instanceName, trackName, nil, analytics)
+		return wrappee(instanceName, trackName, nil, nil, analytics)
 	end
 end

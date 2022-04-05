@@ -18,6 +18,7 @@ local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag(
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
 local FFlagToolboxUpdateWindowMinSize = game:GetFastFlag("ToolboxUpdateWindowMinSize")
 local FFlagToolboxRefactorSearchOptions = game:GetFastFlag("ToolboxRefactorSearchOptions")
+local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -50,7 +51,9 @@ else
 end
 local ShowOnTop = Framework.UI.ShowOnTop
 local ScrollingFrame = Framework.UI.ScrollingFrame
+local TextLabel = Framework.UI.Decoration.TextLabel
 local FitFrame = Framework.Util.FitFrame
+local Checkbox = Framework.UI.Checkbox
 
 local AudioSearch = require(Plugin.Core.Components.SearchOptions.AudioSearch)
 local SearchOptionsEntry = require(Plugin.Core.Components.SearchOptions.SearchOptionsEntry)
@@ -89,10 +92,12 @@ function SearchOptions:init(initialProps)
 	self.extraSearchDetails = {}
 
 	local audioSearchInfo = self.props.audioSearchInfo
+	local includeOnlyVerifiedCreators = self.props.includeOnlyVerifiedCreators
 	self.state = {
 		minDuration = audioSearchInfo and audioSearchInfo.minDuration or Constants.MIN_AUDIO_SEARCH_DURATION,
 		maxDuration = audioSearchInfo and audioSearchInfo.maxDuration or Constants.MAX_AUDIO_SEARCH_DURATION,
 		SortIndex = nil,
+		includeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
 	}
 
 	if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
@@ -190,6 +195,10 @@ function SearchOptions:init(initialProps)
 			end
 		end
 
+		if FFlagToolboxShowIdVerifiedFilter then
+			options.includeOnlyVerifiedCreators = self.state.includeOnlyVerifiedCreators
+		end
+
 		self:setState({
 			SortIndex = Roact.None,
 			Creator = Roact.None,
@@ -209,6 +218,14 @@ function SearchOptions:init(initialProps)
 				maxDuration = max,
 			})
 		end
+	end
+
+	self.onToggleIdVerified = function()
+		self:setState(function(prevState)
+			return {
+				includeOnlyVerifiedCreators = not prevState.includeOnlyVerifiedCreators,
+			}
+		end)
 	end
 
 	self.updateContainerSize = function(rbx)
@@ -318,6 +335,10 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 	self:resetLayout()
 
 	local showSortOptions = not getShouldHideNonRelevanceSorts()
+	local showIdVerified = if FFlagToolboxShowIdVerifiedFilter then true else false
+	local showSeparator1 = if FFlagToolboxShowIdVerifiedFilter
+		then showCreatorSearch and not showAudioSearch
+		else showCreatorSearch
 
 	local searchOptions
 	if FFlagToolboxUpdateWindowMinSize then
@@ -385,6 +406,22 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 							PaddingBottom = UDim.new(0, 10),
 						}),
 
+						AllViewsLabel = showIdVerified and Roact.createElement(TextLabel, {
+							AutomaticSize = Enum.AutomaticSize.XY,
+							LayoutOrder = self:nextLayout(),
+							Text = localizedContent.SearchOptions.AllViews,
+						}),
+
+						IdVerifiedToggle = showIdVerified and Roact.createElement(Checkbox, {
+							LayoutOrder = self:nextLayout(),
+							Text = localizedContent.SearchBarIdVerified,
+							OnClick = self.onToggleIdVerified,
+							Size = UDim2.new(1, 0, 0, 20),
+							Checked = state.includeOnlyVerifiedCreators,
+						}),
+
+						Separator = showIdVerified and self:createSeparator(optionsTheme.separator),
+
 						Creator = showCreatorSearch and Roact.createElement(SearchOptionsEntry, {
 							LayoutOrder = self:nextLayout(),
 							Header = localizedContent.SearchOptions.Creator,
@@ -398,7 +435,7 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 							}),
 						}),
 
-						Separator1 = showCreatorSearch and self:createSeparator(optionsTheme.separator),
+						Separator1 = showSeparator1 and self:createSeparator(optionsTheme.separator),
 
 						AudioSearchHeader = showAudioSearch and Roact.createElement(SearchOptionsEntry, {
 							LayoutOrder = self:nextLayout(),
@@ -495,6 +532,22 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 					[Roact.Event.MouseEnter] = self.mouseEnter,
 					[Roact.Event.MouseLeave] = self.mouseLeave,
 				}, {
+					AllViewsLabel = showIdVerified and Roact.createElement(TextLabel, {
+						AutomaticSize = Enum.AutomaticSize.XY,
+						LayoutOrder = self:nextLayout(),
+						Text = localizedContent.SearchOptions.AllViews,
+					}),
+
+					IdVerifiedToggle = showIdVerified and Roact.createElement(Checkbox, {
+						LayoutOrder = self:nextLayout(),
+						Text = localizedContent.SearchBarIdVerified,
+						OnClick = self.onToggleIdVerified,
+						Size = UDim2.new(1, 0, 0, 20),
+						Checked = state.includeOnlyVerifiedCreators,
+					}),
+
+					Separator = showIdVerified and self:createSeparator(optionsTheme.separator),
+
 					Creator = showCreatorSearch and Roact.createElement(SearchOptionsEntry, {
 						LayoutOrder = self:nextLayout(),
 						Header = localizedContent.SearchOptions.Creator,
@@ -509,7 +562,7 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 						}),
 					}),
 
-					Separator1 = showCreatorSearch and self:createSeparator(optionsTheme.separator),
+					Separator1 = showSeparator1 and self:createSeparator(optionsTheme.separator),
 
 					AudioSearchHeader = showAudioSearch and Roact.createElement(SearchOptionsEntry, {
 						LayoutOrder = self:nextLayout(),
@@ -607,6 +660,7 @@ local function mapStateToProps(state, props)
 
 	return {
 		audioSearchInfo = pageInfo.audioSearchInfo,
+		includeOnlyVerifiedCreators = pageInfo.includeOnlyVerifiedCreators,
 		categoryName = if FFlagToolboxRefactorSearchOptions then pageInfo.categoryName or Category.DEFAULT.name else nil,
 		LiveSearchData = if FFlagToolboxRefactorSearchOptions then liveSearchData else nil,
 		SortIndex = if FFlagToolboxRefactorSearchOptions then pageInfo.sortIndex or 1 else nil,

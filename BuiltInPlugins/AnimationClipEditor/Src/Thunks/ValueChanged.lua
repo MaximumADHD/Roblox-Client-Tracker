@@ -16,6 +16,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
 
 if GetFFlagChannelAnimations() then
 	return function(instanceName, path, trackType, tick, value, analytics)
@@ -27,9 +28,17 @@ if GetFFlagChannelAnimations() then
 			if track == nil then
 				local topTrackName = path[1]
 				if trackType == Constants.TRACK_TYPES.Facs then
-					store:dispatch(AddTrack(instanceName, topTrackName, trackType, analytics))
+					if GetFFlagQuaternionsUI() then
+						store:dispatch(AddTrack(instanceName, topTrackName, trackType, nil, analytics))
+					else
+						store:dispatch(AddTrack(instanceName, topTrackName, trackType, analytics))
+					end
 				else
-					store:dispatch(AddTrack(instanceName, topTrackName, Constants.TRACK_TYPES.CFrame, analytics))
+					if GetFFlagQuaternionsUI() then
+						store:dispatch(AddTrack(instanceName, topTrackName, Constants.TRACK_TYPES.CFrame, nil, analytics))
+					else
+						store:dispatch(AddTrack(instanceName, topTrackName, Constants.TRACK_TYPES.CFrame, analytics))
+					end
 				end
 				local keyframeData = {
 					Value = value

@@ -14,6 +14,7 @@ local Utility = require(RobloxGui.Modules.Settings.Utility)
 require(RobloxGui.Modules.VR.Panel3D)
 
 local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
+local FFlagRenderVRCursorOnTop = game:DefineFastFlag("RenderVRCursorOnTop", false)
 local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
 
 local LocalPlayer = Players.LocalPlayer
@@ -285,6 +286,7 @@ function LaserPointer.new(laserDistance)
 				Active = false,
 				AlwaysOnTop = true,
 				Enabled = false,
+				ZOffset = FFlagRenderVRCursorOnTop and 10 or 0,
 				Parent = self.cursorPart,
 			})
 			self.cursorImage = Utility:Create("ImageLabel")({

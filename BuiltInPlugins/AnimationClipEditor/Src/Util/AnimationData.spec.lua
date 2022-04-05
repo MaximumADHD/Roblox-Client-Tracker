@@ -4,6 +4,7 @@ return function()
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+	local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
 
 	local AnimationData = require(script.Parent.AnimationData)
 
@@ -772,6 +773,64 @@ return function()
 			expect(data.Events.NamedKeyframes[1]).never.to.be.ok()
 			expect(data.Events.NamedKeyframes[2]).never.to.be.ok()
 			expect(data.Events.NamedKeyframes[3]).never.to.be.ok()
+		end)
+	end)
+
+	describe("getTrack", function()
+		it("should find tracks", function()
+			local data = {
+				Instances = {
+					Root = {
+						Tracks = {
+							TestTrack1 = {
+								Keyframes = {1, 2, 3},
+							},
+							TestTrack2 = {
+								Components = {
+									Component = {
+										Keyframes = {1},
+									},
+								},
+							},
+						},
+					},
+				},
+			}
+			expect(AnimationData.getTrack(data, "Root", {"TestTrack1"})).to.be.ok()
+			expect(AnimationData.getTrack(data, "Root", {"TestTrack2"})).to.be.ok()
+			expect(AnimationData.getTrack(data, "Root", {"TestTrack2", "Component"})).to.be.ok()
+		end)
+
+		it("should handle non existing tracks", function()
+			local data = {
+				Instances = {
+					Root = {
+						Tracks = {
+							TestTrack1 = {
+								Keyframes = {1, 2, 3},
+							},
+							TestTrack2 = {
+								Components = {
+									Component = {
+										Keyframes = {1},
+									},
+								},
+							},
+						},
+					},
+				},
+			}
+
+			expect(AnimationData.getTrack(nil, "Root", {"TestTrack1"})).never.to.be.ok()
+			expect(AnimationData.getTrack(data, "Foo", {"TestTrack1"})).never.to.be.ok()
+			expect(AnimationData.getTrack(data, "Foo", {"TestTrack1", "Component"})).never.to.be.ok()
+			expect(AnimationData.getTrack(data, "Root", {})).never.to.be.ok()
+			expect(AnimationData.getTrack(data, "Root", {"TestTrack3"})).never.to.be.ok()
+			expect(AnimationData.getTrack(data, "Root", {"Component"})).never.to.be.ok()
+			expect(AnimationData.getTrack(data, "Root", {"TestTrack2", "Foo"})).never.to.be.ok()
+			if GetFFlagQuaternionsUI() then
+				expect(AnimationData.getTrack(data, "Root", {"TestTrack2", "Component", "Foo"})).never.to.be.ok()
+			end
 		end)
 	end)
 end

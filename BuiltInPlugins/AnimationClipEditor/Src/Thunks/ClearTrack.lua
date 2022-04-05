@@ -12,8 +12,6 @@ local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
 
-local FFlagACEFixClearTrack = game:DefineFastFlag("ACEFixClearTrack", false)
-
 return function(instanceName, path, analytics)
 	return function(store)
 		local state = store:getState()
@@ -35,11 +33,7 @@ return function(instanceName, path, analytics)
 				t.Data = {}
 			end)
 
-			if FFlagACEFixClearTrack then
-				store:dispatch(UpdateAnimationData(newData))
-			else
-				store:dispatch(SetAnimationData(newData))
-			end
+			store:dispatch(UpdateAnimationData(newData))
 		end
 	end
 end

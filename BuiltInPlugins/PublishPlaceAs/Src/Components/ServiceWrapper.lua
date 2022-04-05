@@ -1,7 +1,6 @@
 --[[
 	A centralized place for providers, and an entry point for the Roact trees of plugins
 ]]
-local FFlagPlacePublishTcToggleCalloutEnabled = game:GetFastFlag("PlacePublishTcToggleCalloutEnabled")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -36,7 +35,7 @@ function ServiceWrapper:render()
 	local store = self.props.store
 	local theme = self.props.theme
 	local mouse = self.props.mouse
-	local calloutController = if FFlagPlacePublishTcToggleCalloutEnabled then self.props.calloutController else nil
+	local calloutController = self.props.calloutController
 
 	if FFlagDevFrameworkUseCreateContext then
 		-- the order of these providers should be read as bottom up,

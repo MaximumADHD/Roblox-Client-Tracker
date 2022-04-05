@@ -1,6 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
 
@@ -124,6 +125,14 @@ local function run(testChildren, container, testRunner, draggerType)
 	local editingItemContext = EditingItemContext.new()
 	local assetServiceWrapper = AssetServiceWrapper.new(MockAssetService)
 	local theme = PluginTheme.mock()
+	local localization = ContextServices.Localization.mock({
+		libraries = {
+			[AvatarToolsShared.Resources.LOCALIZATION_PROJECT_NAME] = {
+				stringResourceTable = AvatarToolsShared.Resources.TranslationDevelopmentTable,
+				translationResourceTable = AvatarToolsShared.Resources.TranslationReferenceTable,
+			},
+		},
+	})
 
 	local previewContext
 	if not draggerType then
@@ -132,6 +141,7 @@ local function run(testChildren, container, testRunner, draggerType)
 
 	local element = provideMockContext({
 		theme,
+		localization,
 		ContextServices.Store.new(store),
 		ContextServices.API.new({
 			networking = Http.Networking.mock({
@@ -143,6 +153,7 @@ local function run(testChildren, container, testRunner, draggerType)
 		editingItemContext,
 		previewContext,
 		assetServiceWrapper,
+
 	}, testChildren)
 	local handle = Roact.mount(element, container)
 

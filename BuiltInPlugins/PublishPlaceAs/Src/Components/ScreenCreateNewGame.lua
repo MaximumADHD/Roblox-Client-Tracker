@@ -41,7 +41,6 @@ local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtil
 local sendAnalyticsToKibana = require(Plugin.Src.Util.PublishPlaceAsUtilities).sendAnalyticsToKibana
 local Analytics = require(Plugin.Src.Util.Analytics)
 
-local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 
 local TextInputDialog = Framework.UI.TextInputDialog
@@ -124,8 +123,10 @@ function ScreenCreateNewGame:render()
 
 	local canScroll = false
 
-	local actionButtonLabel = "Create"
-	if FFlagStudioNewGamesInCloudUI and (isPublish == false) then
+	local actionButtonLabel = nil
+	if isPublish then 
+		actionButtonLabel = "Create"
+	else
 		actionButtonLabel = "Save"
 	end
 

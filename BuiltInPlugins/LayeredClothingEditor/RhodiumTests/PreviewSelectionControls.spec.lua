@@ -13,8 +13,8 @@ return function()
 	local previewTabsFramePath = ScrollerPath:cat(XPath.new("PreviewSwizzle.Content.PreviewFrame"))
 	local previewAnimationTabPath =
 		previewTabsFramePath:cat(XPath.new("PreviewTabsRibbon.Tabs.3"))
-	local selectionControlsPath = previewTabsFramePath:cat(XPath.new("SelectionControls"))
-	local previewAnimationSliderPath = selectionControlsPath:cat(XPath.new("AnimPlaybackSlider"))
+	local sliderContainerPath = previewTabsFramePath:cat(XPath.new("AnimPlaybackSliderContainer"))
+	local previewAnimationSliderPath = sliderContainerPath:cat(XPath.new("AnimPlaybackSlider"))
 	local playPauseButtonPath = previewAnimationSliderPath:cat(XPath.new("PlayPauseButton"))
 	local playTimeLabelPath = previewAnimationSliderPath:cat(XPath.new("PlayTimeLabel"))
 	local GridPath = ScrollerPath:cat(XPath.new("PreviewSwizzle.Content.PreviewFrame.Grid"))
@@ -28,7 +28,7 @@ return function()
 
 	local gridSecondChildTextButtonPath = GridScrollerPath:cat(XPath.new("2.Contents.TextButton"))
 
-	local PlayImage = "rbxasset://textures/LayeredClothingEditor/Icon_Play_Dark.png"
+	local PlayImage = "rbxasset://textures/LayeredClothingEditor/Icon_Play_Light.png"
 	local PauseImage = "rbxasset://textures/LayeredClothingEditor/Icon_Pause.png"
 
 	-- todo: when change transparency slider, clothes' transparency would change too

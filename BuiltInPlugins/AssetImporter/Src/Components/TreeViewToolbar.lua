@@ -9,6 +9,8 @@
 ]]
 local Plugin = script.Parent.Parent.Parent
 
+local getFFlagRemoveExtraImportToolbarProps = require(Plugin.Src.Flags.getFFlagRemoveExtraImportToolbarProps)
+
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
@@ -35,6 +37,12 @@ function TreeViewToolbar:render()
 		return value == true
 	end)
 
+	local disabled
+
+	if not getFFlagRemoveExtraImportToolbarProps() then
+		disabled = not props.Expansion or #props.Expansion == 0
+	end
+
 	local function expandCollapseAll()
 		if props.OnExpansionChange then
 			props.OnExpansionChange(map(props.Expansion, function()
@@ -55,7 +63,7 @@ function TreeViewToolbar:render()
 		Spacing = style.Spacing,
 	}, {
 		ExpandCollapseAll = Roact.createElement(Button, {
-			Disabled = not props.Expansion or #props.Expansion == 0,
+			Disabled = disabled,
 			LayoutOrder = 1,
 			OnClick = expandCollapseAll,
 			-- TODO CIN-43: Use AutomaticSize.X once FFlagDevFrameworkAddContainerAutomaticSizing is enabled

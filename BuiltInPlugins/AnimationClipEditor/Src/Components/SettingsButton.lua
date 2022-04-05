@@ -7,8 +7,6 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -50,45 +48,39 @@ function SettingsButton:willUnmount()
 	self.props.Mouse:__resetCursor()
 end
 
-
 function SettingsButton:render()
-		local props = self.props
-		local state = self.state
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
+	local props = self.props
+	local state = self.state
+	local theme = props.Stylizer.PluginTheme
 
-		local onChangeFPS = props.OnChangeFPS
-		local onChangePlaybackSpeed = props.OnChangePlaybackSpeed
+	local onChangeFPS = props.OnChangeFPS
+	local onChangePlaybackSpeed = props.OnChangePlaybackSpeed
 
-		return Roact.createElement("ImageButton", {
-			BackgroundColor3 = theme.backgroundColor,
-			BorderColor3 = theme.borderColor,
-			Size = UDim2.new(0, Constants.SCROLL_BAR_SIZE, 0, Constants.TIMELINE_HEIGHT),
-			Image = theme.settingsButtonTheme.image,
-			ScaleType = Enum.ScaleType.Fit,
-			ImageColor3 = theme.settingsButtonTheme.imageColor,
-			AutoButtonColor = false,
+	return Roact.createElement("ImageButton", {
+		BackgroundColor3 = theme.backgroundColor,
+		BorderColor3 = theme.borderColor,
+		Size = UDim2.new(0, Constants.SCROLL_BAR_SIZE, 0, Constants.TIMELINE_HEIGHT),
+		Image = theme.settingsButtonTheme.image,
+		ScaleType = Enum.ScaleType.Fit,
+		ImageColor3 = theme.settingsButtonTheme.imageColor,
+		AutoButtonColor = false,
 
-			[Roact.Event.Activated] = self.showMenu,
-			[Roact.Event.MouseEnter] = self.mouseEnter,
-			[Roact.Event.MouseLeave] = self.mouseLeave,
-		}, {
-			SettingsMenu = Roact.createElement(SettingsMenu, {
-				ShowMenu = state.showMenu,
-				OnMenuOpened = self.hideMenu,
-				OnChangeFPS = onChangeFPS,
-				OnChangePlaybackSpeed = onChangePlaybackSpeed,
-			}),
-		})
+		[Roact.Event.Activated] = self.showMenu,
+		[Roact.Event.MouseEnter] = self.mouseEnter,
+		[Roact.Event.MouseLeave] = self.mouseLeave,
+	}, {
+		SettingsMenu = Roact.createElement(SettingsMenu, {
+			ShowMenu = state.showMenu,
+			OnMenuOpened = self.hideMenu,
+			OnChangeFPS = onChangeFPS,
+			OnChangePlaybackSpeed = onChangePlaybackSpeed,
+		}),
+	})
 end
-
 
 SettingsButton = withContext({
 	Mouse = ContextServices.Mouse,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(SettingsButton)
-
-
-
 
 return SettingsButton

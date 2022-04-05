@@ -15,8 +15,6 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Input = require(Plugin.Src.Util.Input)
@@ -73,6 +71,7 @@ local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionCha
 local GetFFlagRootMotionTrack = require(Plugin.LuaFlags.GetFFlagRootMotionTrack)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
+local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
 
 local EditorController = Roact.PureComponent:extend("EditorController")
 
@@ -297,8 +296,10 @@ function EditorController:init()
 	end
 
 	self.addTrackWrapper = function(instanceName, trackName, trackType)
-		if GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
-			self.props.AddTrack(instanceName, trackName, trackType, self.props.Analytics)
+		if GetFFlagQuaternionsUI() then
+			self.props.AddTrack(instanceName, trackName, trackType, nil, self.props.Analytics)
+		elseif GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
+			self.props.AddTrack_deprecated2(instanceName, trackName, trackType, self.props.Analytics)
 		elseif self.props.Analytics then
 			self.props.AddTrack_deprecated(instanceName, trackName, self.props.Analytics)
 		end
@@ -322,14 +323,14 @@ function EditorController:init()
 			self.props.ValueChanged(instanceName, path, trackType, tick, value, self.props.Analytics)
 			if GetFFlagFaceControlsEditorUI() then
 				-- also apply value change to symmetry partner for facs values if symmetry setting is enabled
-				if trackType == Constants.TRACK_TYPES.Facs then					
+				if trackType == Constants.TRACK_TYPES.Facs then
 					if self.props.SymmetryEnabled then
 						local facsName = path[1]
 						local symmetryPartner = Constants.FacsCrossMappings[facsName].symmetryPartner
 						if symmetryPartner then
 							self.props.ValueChanged("Root", {symmetryPartner}, trackType, tick, value, self.props.Analytics)
 						end
-					end					
+					end
 				end
 			end
 		else
@@ -377,7 +378,7 @@ end
 function EditorController:render()
 	local props = self.props
 	local state = self.state
-	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
+	local theme = props.Stylizer.PluginTheme
 	local startTick = 0
 	local endTick = 0
 	local lastTick = 0
@@ -640,7 +641,7 @@ function EditorController:render()
 		TrackEditor = showEditor and Roact.createElement(TrackEditor, {
 			ZIndex = zIndex,
 			TopTrackIndex = topTrackIndex,
-			Tracks = tracks,
+			Tracks = if GetFFlagQuaternionsUI() then nil else tracks,
 			LayoutOrder = 2,
 			Size = UDim2.new(1, -trackListWidth - Constants.SCROLL_BAR_SIZE
 				- Constants.SCROLL_BAR_PADDING, 1, 0),
@@ -819,7 +820,12 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetTracksExpanded_deprecated(tracks, false))
 		end,
 
-		AddTrack = function(instance, track, trackType, analytics)
+		AddTrack = function(instance, track, trackType, rotationType, analytics)
+			dispatch(AddWaypoint())
+			dispatch(AddTrack(instance, track, trackType, rotationType, analytics))
+		end,
+
+		AddTrack_deprecated2 = not GetFFlagQuaternionsUI() and function(instance, track, trackType, analytics)
 			dispatch(AddWaypoint())
 			dispatch(AddTrack(instance, track, trackType, analytics))
 		end,
@@ -893,8 +899,7 @@ end
 EditorController = withContext({
 	Analytics = ContextServices.Analytics,
 	Signals = SignalsContext,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(EditorController)
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(EditorController)

@@ -3,6 +3,16 @@
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
+local AtomicBinding = require(script:WaitForChild("AtomicBinding"))
+
+local FFlagUserAtomicCharacterSounds
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserAtomicCharacterSounds")
+	end)
+	FFlagUserAtomicCharacterSounds = success and result
+end
+
 local SOUND_DATA : { [string]: {[string]: any}} = {
 	Climbing = {
 		SoundId = "rbxasset://sounds/action_footsteps_plastic.mp3",
@@ -39,26 +49,6 @@ local SOUND_DATA : { [string]: {[string]: any}} = {
 	},
 }
 
--- wait for the first of the passed signals to fire
-local function waitForFirst(...) -- RBXScriptSignal
-	local shunt: BindableEvent = Instance.new("BindableEvent")
-	local slots = {...}
-
-	local function fire(...)
-		for i = 1, #slots do
-			slots[i]:Disconnect()
-		end
-
-		return shunt:Fire(...)
-	end
-
-	for i = 1, #slots do -- RBXScriptSignal
-		slots[i] = slots[i]:Connect(fire) -- Change to RBXScriptConnection
-	end
-
-	return shunt.Event:Wait()
-end
-
 -- map a value from one range to another
 local function map(x: number, inMin: number, inMax: number, outMin: number, outMax: number): number
 	return (x - inMin)*(outMax - outMin)/(inMax - inMin) + outMin
@@ -77,7 +67,11 @@ local function shallowCopy(t)
 	return out
 end
 
-local function initializeSoundSystem(player: Player, humanoid: Humanoid, rootPart: BasePart)
+local function initializeSoundSystem(instances)
+	local player = instances.player
+	local humanoid = instances.humanoid
+	local rootPart = instances.rootPart
+	
 	local sounds: {[string]: Sound} = {}
 
 	-- initialize sounds
@@ -87,8 +81,8 @@ local function initializeSoundSystem(player: Player, humanoid: Humanoid, rootPar
 
 		-- set default values
 		sound.Archivable = false
-		sound.EmitterSize = 5
-		sound.MaxDistance = 150
+		sound.RollOffMinDistance = 5
+		sound.RollOffMaxDistance = 150
 		sound.Volume = 0.65
 
 		for propName, propValue: any in pairs(props) do
@@ -127,7 +121,7 @@ local function initializeSoundSystem(player: Player, humanoid: Humanoid, rootPar
 		end,
 
 		[Enum.HumanoidStateType.Swimming] = function()
-			local verticalSpeed = math.abs(rootPart.Velocity.Y)
+			local verticalSpeed = math.abs(rootPart.AssemblyLinearVelocity.Y)
 			if verticalSpeed > 0.1 then
 				sounds.Splash.Volume = math.clamp(map(verticalSpeed, 100, 350, 0.28, 1), 0, 1)
 				playSound(sounds.Splash)
@@ -145,7 +139,7 @@ local function initializeSoundSystem(player: Player, humanoid: Humanoid, rootPar
 
 		[Enum.HumanoidStateType.Landed] = function()
 			stopPlayingLoopedSounds()
-			local verticalSpeed = math.abs(rootPart.Velocity.Y)
+			local verticalSpeed = math.abs(rootPart.AssemblyLinearVelocity.Y)
 			if verticalSpeed > 75 then
 				sounds.Landing.Volume = math.clamp(map(verticalSpeed, 50, 100, 0, 1), 0, 1)
 				playSound(sounds.Landing)
@@ -160,7 +154,7 @@ local function initializeSoundSystem(player: Player, humanoid: Humanoid, rootPar
 
 		[Enum.HumanoidStateType.Climbing] = function()
 			local sound = sounds.Climbing
-			if math.abs(rootPart.Velocity.Y) > 0.1 then
+			if math.abs(rootPart.AssemblyLinearVelocity.Y) > 0.1 then
 				sound.Playing = true
 				stopPlayingLoopedSounds(sound)
 			else
@@ -225,7 +219,7 @@ local function initializeSoundSystem(player: Player, humanoid: Humanoid, rootPar
 			local updater: (number, Sound, Vector3) -> () = loopedSoundUpdaters[sound]
 
 			if updater then
-				updater(worldDt, sound, rootPart.Velocity)
+				updater(worldDt, sound, rootPart.AssemblyLinearVelocity)
 			end
 		end
 	end)
@@ -237,74 +231,158 @@ local function initializeSoundSystem(player: Player, humanoid: Humanoid, rootPar
 	local function terminate()
 		stateChangedConn:Disconnect()
 		steppedConn:Disconnect()
-		humanoidAncestryChangedConn:Disconnect()
-		rootPartAncestryChangedConn:Disconnect()
-		characterAddedConn:Disconnect()
+		
+		if not FFlagUserAtomicCharacterSounds then
+			humanoidAncestryChangedConn:Disconnect()
+			rootPartAncestryChangedConn:Disconnect()
+			characterAddedConn:Disconnect()
+		end
 	end
+	
+	if not FFlagUserAtomicCharacterSounds then
+		humanoidAncestryChangedConn = humanoid.AncestryChanged:Connect(function(_, parent)
+			if not parent then
+				terminate()
+			end
+		end)
 
-	humanoidAncestryChangedConn = humanoid.AncestryChanged:Connect(function(_, parent)
-		if not parent then
-			terminate()
-		end
-	end)
+		rootPartAncestryChangedConn = rootPart.AncestryChanged:Connect(function(_, parent)
+			if not parent then
+				terminate()
+			end
+		end)
 
-	rootPartAncestryChangedConn = rootPart.AncestryChanged:Connect(function(_, parent)
-		if not parent then
-			terminate()
-		end
-	end)
-
-	characterAddedConn = player.CharacterAdded:Connect(terminate)
+		characterAddedConn = player.CharacterAdded:Connect(terminate)
+	end
+	
+	return terminate
 end
 
-local function playerAdded(player: Player)
+if FFlagUserAtomicCharacterSounds then
+	local binding = AtomicBinding.new({
+		humanoid = "Humanoid",
+		rootPart = "HumanoidRootPart",
+	}, initializeSoundSystem)
+
+	local playerConnections = {}
+	
 	local function characterAdded(character)
-		-- Avoiding memory leaks in the face of Character/Humanoid/RootPart lifetime has a few complications:
-		-- * character deparenting is a Remove instead of a Destroy, so signals are not cleaned up automatically.
-		-- ** must use a waitForFirst on everything and listen for hierarchy changes.
-		-- * the character might not be in the dm by the time CharacterAdded fires
-		-- ** constantly check consistency with player.Character and abort if CharacterAdded is fired again
-		-- * Humanoid may not exist immediately, and by the time it's inserted the character might be deparented.
-		-- * RootPart probably won't exist immediately.
-		-- ** by the time RootPart is inserted and Humanoid.RootPart is set, the character or the humanoid might be deparented.
-
-		if not character.Parent then
-			waitForFirst(character.AncestryChanged, player.CharacterAdded)
+		binding:bindRoot(character)
+	end
+	
+	local function characterRemoving(character)
+		binding:unbindRoot(character)
+	end
+	
+	local function playerAdded(player: Player)
+		local connections = playerConnections[player]
+		if not connections then
+			connections = {}
+			playerConnections[player] = connections
 		end
 
-		if player.Character ~= character or not character.Parent then
-			return
+		if player.Character then
+			characterAdded(player.Character)
 		end
-
-		local humanoid = character:FindFirstChildOfClass("Humanoid")
-		while character:IsDescendantOf(game) and not humanoid do
-			waitForFirst(character.ChildAdded, character.AncestryChanged, player.CharacterAdded)
-			humanoid = character:FindFirstChildOfClass("Humanoid")
+		table.insert(connections, player.CharacterAdded:Connect(characterAdded))
+		table.insert(connections, player.CharacterRemoving:Connect(characterRemoving))
+	end
+	
+	local function playerRemoving(player: Player)
+		local connections = playerConnections[player]
+		if connections then
+			for _, conn in ipairs(connections) do
+				conn:Disconnect()
+			end
+			playerConnections[player] = nil
 		end
-
-		if player.Character ~= character or not character:IsDescendantOf(game) then
-			return
-		end
-
-		-- must rely on HumanoidRootPart naming because Humanoid.RootPart does not fire changed signals
-		local rootPart = character:FindFirstChild("HumanoidRootPart")
-		while character:IsDescendantOf(game) and not rootPart do
-			waitForFirst(character.ChildAdded, character.AncestryChanged, humanoid.AncestryChanged, player.CharacterAdded)
-			rootPart = character:FindFirstChild("HumanoidRootPart")
-		end
-
-		if rootPart and humanoid:IsDescendantOf(game) and character:IsDescendantOf(game) and player.Character == character then
-			initializeSoundSystem(player, humanoid, rootPart)
+		
+		if player.Character then
+			characterRemoving(player.Character)
 		end
 	end
-
-	if player.Character then
-		characterAdded(player.Character)
+	
+	for _, player in ipairs(Players:GetPlayers()) do
+		task.spawn(playerAdded, player)
 	end
-	player.CharacterAdded:Connect(characterAdded)
-end
+	Players.PlayerAdded:Connect(playerAdded)
+	Players.PlayerRemoving:Connect(playerRemoving)
+	
+else
+	-- wait for the first of the passed signals to fire
+	local function waitForFirst(...) -- RBXScriptSignal
+		local shunt: BindableEvent = Instance.new("BindableEvent")
+		local slots = {...}
 
-Players.PlayerAdded:Connect(playerAdded)
-for _, player in ipairs(Players:GetPlayers()) do
-	playerAdded(player)
+		local function fire(...)
+			for i = 1, #slots do
+				slots[i]:Disconnect()
+			end
+
+			return shunt:Fire(...)
+		end
+
+		for i = 1, #slots do -- RBXScriptSignal
+			slots[i] = slots[i]:Connect(fire) -- Change to RBXScriptConnection
+		end
+
+		return shunt.Event:Wait()
+	end
+	
+	
+	local function playerAdded(player: Player)
+		local function characterAdded(character: Model)
+			-- Avoiding memory leaks in the face of Character/Humanoid/RootPart lifetime has a few complications:
+			-- * character deparenting is a Remove instead of a Destroy, so signals are not cleaned up automatically.
+			-- ** must use a waitForFirst on everything and listen for hierarchy changes.
+			-- * the character might not be in the dm by the time CharacterAdded fires
+			-- ** constantly check consistency with player.Character and abort if CharacterAdded is fired again
+			-- * Humanoid may not exist immediately, and by the time it's inserted the character might be deparented.
+			-- * RootPart probably won't exist immediately.
+			-- ** by the time RootPart is inserted and Humanoid.RootPart is set, the character or the humanoid might be deparented.
+
+			if not character.Parent then
+				waitForFirst(character.AncestryChanged, player.CharacterAdded)
+			end
+
+			if player.Character ~= character or not character.Parent then
+				return
+			end
+
+			local humanoid = character:FindFirstChildOfClass("Humanoid") :: Humanoid
+			while character:IsDescendantOf(game) and not humanoid do
+				waitForFirst(character.ChildAdded, character.AncestryChanged, player.CharacterAdded)
+				humanoid = character:FindFirstChildOfClass("Humanoid") :: Humanoid
+			end
+
+			if player.Character ~= character or not character:IsDescendantOf(game) then
+				return
+			end
+
+			-- must rely on HumanoidRootPart naming because Humanoid.RootPart does not fire changed signals
+			local rootPart = character:FindFirstChild("HumanoidRootPart")
+			while character:IsDescendantOf(game) and not rootPart do
+				waitForFirst(character.ChildAdded, character.AncestryChanged, humanoid.AncestryChanged, player.CharacterAdded)
+				rootPart = character:FindFirstChild("HumanoidRootPart")
+			end
+
+			if rootPart and humanoid:IsDescendantOf(game) and character:IsDescendantOf(game) and player.Character == character then
+				initializeSoundSystem({
+					player = player,
+					humanoid = humanoid,
+					rootPart = rootPart
+				})
+			end
+		end
+
+		if player.Character then
+			characterAdded(player.Character)
+		end
+		player.CharacterAdded:Connect(characterAdded)
+	end
+
+	Players.PlayerAdded:Connect(playerAdded)
+	for _, player in ipairs(Players:GetPlayers()) do
+		playerAdded(player)
+	end
 end

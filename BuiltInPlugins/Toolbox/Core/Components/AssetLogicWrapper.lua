@@ -13,7 +13,7 @@
 local HttpService = game:GetService("HttpService")
 
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext")
 
@@ -56,48 +56,38 @@ local deepEqual = FrameworkUtil.deepEqual
 local Dash = Framework.Dash
 
 export type AssetLogicWrapperProps = {
-	CanInsertAsset : (() -> boolean)?,
-	OnAssetPreviewButtonClicked : ((assetData: any) -> ()),
-	TryInsert : (
-		(
-			assetData : any,
-			assetWasDragged : boolean,
-			insertionMethod : string
-		) -> any
-	),
-	TryOpenAssetConfig : (
-		(
-			assetId : number?,
-			flowType : string,
-			instances : any,
-			assetTypeEnum : Enum.AssetType
-		) -> any
-	),
+	CanInsertAsset: (() -> boolean)?,
+	OnAssetPreviewButtonClicked: ((assetData: any) -> ()),
+	TryInsert: ((assetData: any, assetWasDragged: boolean, insertionMethod: string) -> any),
+	TryOpenAssetConfig: ((
+		assetId: number?,
+		flowType: string,
+		instances: any,
+		assetTypeEnum: Enum.AssetType
+	) -> any),
 }
 
 type _ExternalProps = {
-	AutomaticSize : Enum.AutomaticSize?,
-	Position : UDim2?,
-	Size : UDim2?,
-	TryOpenAssetConfig : (
-		(
-			assetId : number?,
-			flowType : string,
-			instances : any,
-			assetTypeEnum : Enum.AssetType
-		) -> any
-	),
+	AutomaticSize: Enum.AutomaticSize?,
+	Position: UDim2?,
+	Size: UDim2?,
+	TryOpenAssetConfig: ((
+		assetId: number?,
+		flowType: string,
+		instances: any,
+		assetTypeEnum: Enum.AssetType
+	) -> any),
 }
 
 type _InternalProps = {
 	-- mapStateToProps
-	_categoryName : string?,
-	_isPreviewing : boolean,
-	_searchTerm : string?,
+	_categoryName: string?,
+	_isPreviewing: boolean,
+	_searchTerm: string?,
 	-- mapDispatchToProps
-	_onPreviewToggled : ((isPreviewing: boolean, previewAssetId: number?)->any),
-	_postInsertAssetRequest : ((networkInterface: any, assetId: number)-> any),
-	_setMostRecentAssetInsertTime : (()-> any),
+	_onPreviewToggled: ((isPreviewing: boolean, previewAssetId: number?) -> any),
+	_postInsertAssetRequest: ((networkInterface: any, assetId: number) -> any),
+	_setMostRecentAssetInsertTime: (() -> any),
 	-- ContextItems
 	_AssetAnalytics: any,
 	_Plugin: any,
@@ -106,15 +96,15 @@ type _InternalProps = {
 }
 
 type _State = {
-	absoluteSize : Vector2, -- TODO Remove with FFlagToolboxAssetCategorization
-	absolutePosition : Vector2, -- TODO Remove with FFlagToolboxAssetCategorization
-	hoveredAssetId : number,
-	isShowingToolMessageBox : boolean,
-	isShowingScriptWarningMessageBox : boolean,
-	previewAssetData : any?,
-	isShowingGrantPermissionsMessageBox : boolean,
-	scriptWarningInfo : any?,
-	grantPermissionsInfo : any?,
+	absoluteSize: Vector2, -- TODO Remove with FFlagToolboxAssetCategorization2
+	absolutePosition: Vector2, -- TODO Remove with FFlagToolboxAssetCategorization2
+	hoveredAssetId: number,
+	isShowingToolMessageBox: boolean,
+	isShowingScriptWarningMessageBox: boolean,
+	previewAssetData: any?,
+	isShowingGrantPermissionsMessageBox: boolean,
+	scriptWarningInfo: any?,
+	grantPermissionsInfo: any?,
 }
 
 type _Props = _ExternalProps & _InternalProps
@@ -130,8 +120,10 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 		self.ref = Roact.createRef()
 
 		self.state = {
-			absoluteSize = if not FFlagToolboxAssetCategorization then Vector2.new(Constants.TOOLBOX_MIN_WIDTH, 0) else nil,
-			absolutePosition = if not FFlagToolboxAssetCategorization then Vector2.new() else nil,
+			absoluteSize = if not FFlagToolboxAssetCategorization2
+				then Vector2.new(Constants.TOOLBOX_MIN_WIDTH, 0)
+				else nil,
+			absolutePosition = if not FFlagToolboxAssetCategorization2 then Vector2.new() else nil,
 			hoveredAssetId = 0,
 			isShowingToolMessageBox = false,
 			isShowingScriptWarningMessageBox = false,
@@ -234,7 +226,7 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			local result = if action == "yes" then true else false
 			self.insertToolPromise:returnResult(result)
 		end
-		
+
 		self.onPermissionsGrantCallback = function(info)
 			if not FFlagToolboxEnableAudioGrantDialog then
 				return
@@ -282,7 +274,9 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 					self.props._postInsertAssetRequest(getNetwork(self), assetId)
 					self.props._setMostRecentAssetInsertTime()
 					insertionMethod = insertionMethod or (assetWasDragged and "DragInsert" or "ClickInsert")
-					self.props._AssetAnalytics:get():logInsert(assetData, insertionMethod, insertedInstance, assetAnalyticsContext)
+					self.props._AssetAnalytics
+						:get()
+						:logInsert(assetData, insertionMethod, insertedInstance, assetAnalyticsContext)
 				end,
 				currentCategoryName = currentCategoryName,
 				categoryName = categoryName,
@@ -291,13 +285,16 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			}, self.insertToolPromise, assetWasDragged)
 		end
 
-		if not FFlagToolboxAssetCategorization then
+		if not FFlagToolboxAssetCategorization2 then
 			self.updateBoundaryVariables = function()
 				local ref = self.ref.current
 				if not ref then
 					return
 				end
-				if self.state.absolutePosition ~= ref.AbsolutePosition or self.state.absoluteSize ~= ref.AbsoluteSize then
+				if
+					self.state.absolutePosition ~= ref.AbsolutePosition
+					or self.state.absoluteSize ~= ref.AbsoluteSize
+				then
 					self:setState({
 						absoluteSize = ref.AbsoluteSize,
 						absolutePosition = ref.AbsolutePosition,
@@ -306,9 +303,9 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			end
 		end
 
-		if FFlagToolboxAssetCategorization then
+		if FFlagToolboxAssetCategorization2 then
 			self.openAssetPreview = function(assetData)
-				self:setState(function() 
+				self:setState(function()
 					return {
 						previewAssetData = assetData,
 					}
@@ -318,7 +315,7 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			end
 
 			self.closeAssetPreview = function(assetData)
-				self:setState(function() 
+				self:setState(function()
 					return {
 						previewAssetData = Roact.None,
 					}
@@ -331,16 +328,16 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 	function AssetLogicWrapper:willUnmount()
 		self.insertToolPromise:destroy()
 	end
-	
-	if not FFlagToolboxAssetCategorization then
+
+	if not FFlagToolboxAssetCategorization2 then
 		function AssetLogicWrapper:didMount()
 			self.updateBoundaryVariables()
 		end
 	end
 
 	function AssetLogicWrapper:render()
-		local props : _Props = self.props
-		local state : _State = self.state
+		local props: _Props = self.props
+		local state: _State = self.state
 
 		local automaticSize = props.AutomaticSize
 		local isPreviewing = props._isPreviewing
@@ -362,14 +359,14 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			ClearHoveredAsset = self.clearHoveredAsset,
 			TryInsert = self.tryInsert,
 			TryOpenAssetConfig = tryOpenAssetConfig,
-			ParentAbsolutePosition = if not FFlagToolboxAssetCategorization then state.absolutePosition else nil,
-			ParentSize = if not FFlagToolboxAssetCategorization then state.absoluteSize else nil,
+			ParentAbsolutePosition = if not FFlagToolboxAssetCategorization2 then state.absolutePosition else nil,
+			ParentSize = if not FFlagToolboxAssetCategorization2 then state.absoluteSize else nil,
 
 			OnAssetPreviewButtonClicked = self.openAssetPreview,
 		})
 
 		local showAssetPreview
-		if FFlagToolboxAssetCategorization then
+		if FFlagToolboxAssetCategorization2 then
 			showAssetPreview = isPreviewing and previewAssetData ~= Roact.None
 			wrappedProps = Dash.omit(wrappedProps, {
 				-- mapStateToProps
@@ -392,16 +389,18 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 		end
 
 		return Roact.createFragment({
-			Sizing = if not FFlagToolboxAssetCategorization then Roact.createElement("Frame", {
-				AutomaticSize = automaticSize,
-				BackgroundTransparency = 1,
-				Position = position,
-				Size = size,
-				ZIndex = -1,
-				[Roact.Ref] = self.ref,
-				[Roact.Change.AbsolutePosition] = self.updateBoundaryVariables,
-				[Roact.Change.AbsoluteSize] = self.updateBoundaryVariables,
-			}) else nil,
+			Sizing = if not FFlagToolboxAssetCategorization2
+				then Roact.createElement("Frame", {
+					AutomaticSize = automaticSize,
+					BackgroundTransparency = 1,
+					Position = position,
+					Size = size,
+					ZIndex = -1,
+					[Roact.Ref] = self.ref,
+					[Roact.Change.AbsolutePosition] = self.updateBoundaryVariables,
+					[Roact.Change.AbsoluteSize] = self.updateBoundaryVariables,
+				})
+				else nil,
 
 			ToolScriptWarningMessageBox = isShowingScriptWarningMessageBox and Roact.createElement(
 				ScriptConfirmationDialog,
@@ -468,8 +467,8 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			}),
 
 			AssetPreview = showAssetPreview and Roact.createElement(AssetPreviewWrapper, {
-				assetData = if FFlagToolboxAssetCategorization then previewAssetData else nil,
-				onClose = if FFlagToolboxAssetCategorization then self.closeAssetPreview else nil,
+				assetData = if FFlagToolboxAssetCategorization2 then previewAssetData else nil,
+				onClose = if FFlagToolboxAssetCategorization2 then self.closeAssetPreview else nil,
 				tryInsert = self.tryInsert,
 				tryOpenAssetConfig = tryOpenAssetConfig,
 			}),
@@ -500,18 +499,22 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 
 	local function mapDispatchToProps(dispatch)
 		return {
-			_onPreviewToggled = if FFlagToolboxAssetCategorization then function(isPreviewing, previewAssetId)
-				dispatch(SetAssetPreview(isPreviewing, previewAssetId))
-			end else nil,
+			_onPreviewToggled = if FFlagToolboxAssetCategorization2
+				then function(isPreviewing, previewAssetId)
+					dispatch(SetAssetPreview(isPreviewing, previewAssetId))
+				end
+				else nil,
 			_postInsertAssetRequest = function(networkInterface: any, assetId: number)
 				dispatch(PostInsertAssetRequest(networkInterface, assetId))
 			end,
 			_setMostRecentAssetInsertTime = function()
 				dispatch(SetMostRecentAssetInsertTime())
 			end,
-			getPageInfoAnalyticsContextInfo = if FFlagToolboxUsePageInfoInsteadOfAssetContext then function()
-				return dispatch(GetPageInfoAnalyticsContextInfo())
-			end else nil,
+			getPageInfoAnalyticsContextInfo = if FFlagToolboxUsePageInfoInsteadOfAssetContext
+				then function()
+					return dispatch(GetPageInfoAnalyticsContextInfo())
+				end
+				else nil,
 		}
 	end
 

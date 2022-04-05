@@ -1,6 +1,6 @@
 return function()
 	local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
-	local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+	local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
 
 	local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -38,7 +38,7 @@ return function()
 			Asset = Roact.createElement(Asset, {
 				asset = not FFlagToolboxAssetGridRefactor and myAsset or nil,
 				assetId = FFlagToolboxAssetGridRefactor and assetId or nil,
-				assetData = FFlagToolboxAssetCategorization and myAsset or nil,
+				assetData = FFlagToolboxAssetCategorization2 and myAsset or nil,
 				LayoutOrder = 1,
 			}),
 		})

@@ -36,8 +36,6 @@ local AnimationData = require(Plugin.Src.Util.AnimationData)
 local deepCopy = require(Plugin.Src.Util.deepCopy)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local StyledDialog = Framework.StudioUI.StyledDialog
 
 local ContextServices = Framework.ContextServices
@@ -368,7 +366,7 @@ function EditEventsDialog:renderRenameAllPrompt(theme, localization)
 end
 
 function EditEventsDialog:render()
-	local theme = THEME_REFACTOR and self.props.Stylizer.PluginTheme or self.props.Theme:get("PluginTheme")
+	local theme = self.props.Stylizer.PluginTheme
 	local localization = self.props.Localization
 	self.layout = LayoutOrderIterator.new()
 	local props = self.props
@@ -426,13 +424,10 @@ function EditEventsDialog:render()
 	})
 end
 
-
 EditEventsDialog = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
 })(EditEventsDialog)
-
 
 return EditEventsDialog

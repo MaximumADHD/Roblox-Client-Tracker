@@ -19,10 +19,7 @@ local Roact = require(Plugin.Packages.Roact)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local Constants = require(Plugin.Src.Util.Constants)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 local Button = Framework.UI.Button
-
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local KeyboardListener = Framework.UI.KeyboardListener
@@ -109,7 +106,7 @@ end
 
 function TimelineContainer:render()
 	local props = self.props
-	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
+	local theme = props.Stylizer.PluginTheme
 	local startTick = props.StartTick
 	local endTick = props.EndTick
 	local lastTick = props.LastTick
@@ -186,8 +183,7 @@ function TimelineContainer:render()
 end
 
 TimelineContainer = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(TimelineContainer)
 
 return TimelineContainer

@@ -42,6 +42,7 @@ end
 
 function MuteAllButton:render()
 	return Roact.createElement(IconButton, {
+		showBackground = true,
 		layoutOrder = self.props.layoutOrder,
 		icon = VoiceChatServiceManager:GetIcon(self.state.allMuted and "MuteAll" or "UnmuteAll", "Misc"),
 		iconSize = self.props.iconSize,

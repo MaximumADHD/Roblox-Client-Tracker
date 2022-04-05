@@ -47,6 +47,7 @@ end
 
 function MuteSelfButton:render()
 	return Roact.createElement(IconButton, {
+		showBackground = true,
 		layoutOrder = self.props.layoutOrder,
 		icon = self.state.selfMuted and MUTED_ICON or UNMUTED_ICON,
 		iconSize = self.props.iconSize,

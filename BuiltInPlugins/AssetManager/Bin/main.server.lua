@@ -10,7 +10,6 @@ local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 local FFlagAssetManagerGeneralizeSignalAPI = game:GetFastFlag("AssetManagerGeneralizeSignalAPI")
-local FFlagStudioAssetManagerFixToolbarButtonScript = game:GetFastFlag("StudioAssetManagerFixToolbarButtonScript")
 
 local AssetManagerService = game:GetService("AssetManagerService")
 local BulkImportService = game:GetService("BulkImportService")
@@ -253,10 +252,7 @@ local function main()
 	)
 
 	toolbarButton.Click:connect(toggleWidget)
-
-	if FFlagStudioAssetManagerFixToolbarButtonScript then
-		toolbarButton.ClickableWhenViewportHidden = true
-	end
+	toolbarButton.ClickableWhenViewportHidden = true
 
 	local function showIfEnabled()
 		if pluginGui.Enabled then

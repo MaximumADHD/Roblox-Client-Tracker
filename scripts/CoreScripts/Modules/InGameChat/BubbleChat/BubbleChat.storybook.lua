@@ -3,6 +3,8 @@ local CorePackages = game:GetService("CorePackages")
 local Cryo = require(CorePackages.Packages.Cryo)
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
+local UIBlox = require(CorePackages.UIBlox)
+UIBlox.init(require(CorePackages.UIBloxUniversalAppConfig))
 
 local StoryStore = require(script.Parent.Helpers.StoryStore)
 local ChatSettings = require(script.Parent.ChatSettings)

@@ -149,8 +149,6 @@ function ResultsView:render()
 	})
 end
 
-ResultsView = AssetLogicWrapper(ResultsView)
-
 ResultsView = withContext({
 	Localization = ContextServices.Localization,
 	Stylizer = ContextServices.Stylizer,

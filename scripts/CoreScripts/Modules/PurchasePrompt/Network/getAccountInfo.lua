@@ -7,19 +7,6 @@ local Promise = require(Root.Promise)
 local MAX_ROBUX = 2147483647
 
 local function getAccountInfo(network, externalSettings)
-	if UserInputService:GetPlatform() == Enum.Platform.XBoxOne then
-		return Promise.all({
-			accountInfo = network.getAccountInfo(),
-			xboxBalance = network.getXboxRobuxBalance(),
-		}):andThen(function(results)
-			local accountInfo = results.accountInfo
-			-- Override balance with platform-specific balance
-			accountInfo.RobuxBalance = results.xboxBalance.Robux
-
-			return Promise.resolve(accountInfo)
-		end)
-	end
-
 	return network.getAccountInfo()
 		:andThen(function(result)
 			--[[

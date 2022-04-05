@@ -51,8 +51,6 @@ local StringUtils = require(Plugin.Src.Util.StringUtils)
 local LayoutOrderIterator = require(Plugin.Src.Util.LayoutOrderIterator)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -115,84 +113,79 @@ function NumberTrack.getDerivedStateFromProps(nextProps, lastState)
 end
 
 function NumberTrack:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
-		local state = self.state
-		local layoutOrder = props.LayoutOrder
-		local indent = props.Indent or 0
-		local name = props.Name
-		local items = props.Items
-		local readOnly = props.ReadOnly
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
+	local state = self.state
+	local layoutOrder = props.LayoutOrder
+	local indent = props.Indent or 0
+	local name = props.Name
+	local items = props.Items
+	local readOnly = props.ReadOnly
 
-		local values = state.values
+	local values = state.values
 
-		local trackTheme = theme.trackTheme
+	local trackTheme = theme.trackTheme
 
-		local nameWidth = props.NameWidth or self.getTextWidth(name, theme)
+	local nameWidth = props.NameWidth or self.getTextWidth(name, theme)
 
-		local layout = LayoutOrderIterator.new()
+	local layout = LayoutOrderIterator.new()
 
-		local children = {
-			Layout = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillDirection = Enum.FillDirection.Horizontal,
-				VerticalAlignment = Enum.VerticalAlignment.Center,
-				Padding = UDim.new(0, Constants.NUMBERTRACK_PADDING),
-			}),
+	local children = {
+		Layout = Roact.createElement("UIListLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			FillDirection = Enum.FillDirection.Horizontal,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+			Padding = UDim.new(0, Constants.NUMBERTRACK_PADDING),
+		}),
 
-			ArrowPadding = Roact.createElement("Frame", {
-				Size = UDim2.new(0, Constants.ARROW_SIZE * 2 - Constants.NUMBERTRACK_PADDING, 1, 0),
-				BackgroundTransparency = 1,
-				LayoutOrder = layout:getNextOrder(),
-			}),
+		ArrowPadding = Roact.createElement("Frame", {
+			Size = UDim2.new(0, Constants.ARROW_SIZE * 2 - Constants.NUMBERTRACK_PADDING, 1, 0),
+			BackgroundTransparency = 1,
+			LayoutOrder = layout:getNextOrder(),
+		}),
 
-			NameLabel = Roact.createElement("TextLabel", {
-				Size = UDim2.new(0, nameWidth, 1, 0),
-				BackgroundTransparency = 1,
-				LayoutOrder = layout:getNextOrder(),
+		NameLabel = Roact.createElement("TextLabel", {
+			Size = UDim2.new(0, nameWidth, 1, 0),
+			BackgroundTransparency = 1,
+			LayoutOrder = layout:getNextOrder(),
 
-				Text = name,
-				Font = theme.font,
-				TextSize = trackTheme.textSize,
-				TextColor3 = trackTheme.textColor,
-				TextXAlignment = Enum.TextXAlignment.Left,
-			}),
-		}
+			Text = name,
+			Font = theme.font,
+			TextSize = trackTheme.textSize,
+			TextColor3 = trackTheme.textColor,
+			TextXAlignment = Enum.TextXAlignment.Left,
+		}),
+	}
 
-		for index, item in ipairs(items) do
-			children[item.Key .. "_Entry"] = Roact.createElement(NumberBox, {
-				Size = UDim2.new(0, Constants.NUMBERBOX_WIDTH, 1, -NUMBERBOX_PADDING),
-				LayoutOrder = layout:getNextOrder(),
-				Number = values and values[index] or item.Value,
-				Name = item.Name,
-				ReadOnly = readOnly,
+	for index, item in ipairs(items) do
+		children[item.Key .. "_Entry"] = Roact.createElement(NumberBox, {
+			Size = UDim2.new(0, Constants.NUMBERBOX_WIDTH, 1, -NUMBERBOX_PADDING),
+			LayoutOrder = layout:getNextOrder(),
+			Number = values and values[index] or item.Value,
+			Name = item.Name,
+			ReadOnly = readOnly,
 
-				SetNumber = function(number)
-					props.OnChangeBegan()
-					self.onSetNumber(index, number)
-					self.onItemChanged(item.Key, number)
-				end,
-				OnDragMoved = function(input)
-					self.onItemChanged(item.Key, item.Value + input.Delta.X * DRAG_MULTIPLIER)
-				end,
-				OnDragBegan = props.OnChangeBegan,
-			})
-		end
+			SetNumber = function(number)
+				props.OnChangeBegan()
+				self.onSetNumber(index, number)
+				self.onItemChanged(item.Key, number)
+			end,
+			OnDragMoved = function(input)
+				self.onItemChanged(item.Key, item.Value + input.Delta.X * DRAG_MULTIPLIER)
+			end,
+			OnDragBegan = props.OnChangeBegan,
+		})
+	end
 
-		return Roact.createElement(TrackListEntry, {
-			Height = Constants.TRACK_HEIGHT,
-			Indent = indent,
-			LayoutOrder = layoutOrder,
-		}, children)
+	return Roact.createElement(TrackListEntry, {
+		Height = Constants.TRACK_HEIGHT,
+		Indent = indent,
+		LayoutOrder = layoutOrder,
+	}, children)
 end
 
-
 NumberTrack = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(NumberTrack)
-
-
-
 
 return NumberTrack

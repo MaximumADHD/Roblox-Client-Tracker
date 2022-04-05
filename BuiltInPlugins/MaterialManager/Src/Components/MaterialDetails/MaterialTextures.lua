@@ -105,7 +105,7 @@ function MaterialInformation:didMount()
 
 	self.connection = materialController:getMaterialChangedSignal():Connect(function(materialVariant : MaterialVariant)
 		if self.props.Material and self.props.Material.MaterialVariant == materialVariant then
-			props.dispatchSetMaterial(materialController:getMaterial(materialVariant))
+			self:setState({})
 		end
 	end)
 end

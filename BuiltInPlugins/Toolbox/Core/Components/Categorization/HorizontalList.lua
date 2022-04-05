@@ -47,14 +47,16 @@ function HorizontalList:render()
 		}),
 	}
 
-	local index = 0
+	local currentIndex = 0
 	for i, item in pairs(data) do
-		if index >= displayCount then
-			break
+		local index = currentIndex
+		if typeof(item) == "table" and item.index ~= nil then
+			index = item.index
 		end
-
-		index = index + 1
-		children[tostring(i)] = onRenderItem(i, item)
+		if index < displayCount then
+			currentIndex += 1
+			children[tostring(i)] = onRenderItem(i, item)
+		end
 	end
 
 	return Roact.createElement("Frame", {

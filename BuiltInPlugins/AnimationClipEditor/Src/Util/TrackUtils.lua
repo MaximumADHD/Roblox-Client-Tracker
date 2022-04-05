@@ -22,6 +22,8 @@ local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionCha
 local GetFFlagKeyframeUtilsGetValueCleanup = require(Plugin.LuaFlags.GetFFlagKeyframeUtilsGetValueCleanup)
 local GetFFlagFacsAsFloat = require(Plugin.LuaFlags.GetFFlagFacsAsFloat)
 
+export type Track = any
+
 local TrackUtils = {}
 
 local function removeNegativeZero(val)
@@ -773,7 +775,7 @@ end
 -- Complete: Whether all expected components are defined
 -- EasingStyle: The easing style shared by all components, or nil if there's a mismatch
 
-function TrackUtils.getComponentsInfo(track, startTick, endTick)
+function TrackUtils.getComponentsInfo(track: any, startTick: number, endTick: number?)
 	endTick = endTick or startTick
 
 	local info = {}
@@ -899,8 +901,8 @@ end
 
 -- Returns the previous keyframe. If exactMatch is set, and there is an existing keyframe at that tick,
 -- that keyframe is returned
-function TrackUtils.findPreviousKeyframe(track, tick, exactMatch)
-	local exactIndex, prevIndex, _ = KeyframeUtils.findNearestKeyframesProperly(track.Keyframes, tick)
+function TrackUtils.findPreviousKeyframe(track, tck, exactMatch: boolean?)
+	local exactIndex, prevIndex, _ = KeyframeUtils.findNearestKeyframesProperly(track.Keyframes, tck)
 	if exactMatch then
 		prevIndex = prevIndex or exactIndex
 	end

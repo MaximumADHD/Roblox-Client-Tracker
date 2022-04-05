@@ -37,8 +37,6 @@ local ICON_SIZE = 150
 local BUTTON_WIDTH = 150
 local BUTTON_HEIGHT = 40
 
-local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
-
 local ScreenPublishFail = Roact.PureComponent:extend("ScreenPublishFail")
 
 function ScreenPublishFail:init()
@@ -96,9 +94,10 @@ function ScreenPublishFail:render()
 
 	local dispatchSetIsPublishing = props.dispatchSetIsPublishing
 
-	local failureMessage = localization:getText("PublishFail", "Fail")
-	if FFlagStudioNewGamesInCloudUI and isPublishing == false then
-		-- Use a different error message for save failures
+	local failureMessage = nil
+	if isPublishing then
+		failureMessage = localization:getText("PublishFail", "Fail")
+	else
 		failureMessage = localization:getText("PublishFail", "SaveFail")
 	end
 

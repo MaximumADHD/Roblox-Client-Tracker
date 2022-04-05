@@ -17,6 +17,8 @@
 		number Spacing: The spacing between elements in the list
 		Enum.TextXAlignment TextXAlignment: The X alignment of the text in the label
 		Enum.TextYAlignment TextYAlignment: The Y alignment of the text in the label
+		callback GetWarning: ((key : string) -> (warning : string?)) The warning to show below
+		callback GetError: ((key : string) -> (error : string?)) The error to show below
 ]]--
 
 local Plugin = script.Parent.Parent.Parent
@@ -39,24 +41,20 @@ local UI = Framework.UI
 local TextLabel = UI.Decoration.TextLabel
 local Pane = UI.Pane
 
-type ListItemProps = {
-	LabelColumnWidth : UDim?,
-	LayoutOrder : number?,
-	Spacing : number?,
-	Text : string?,
-	TextXAlignment : Enum.TextXAlignment?,
-	TextYAlignment : Enum.TextYAlignment?,
-}
-
 type _ListItemProps = {
 	AbsoluteSize : Vector2,
 	LabelColumnWidth : UDim,
 	LayoutOrder : number,
 	Spacing : number,
 	Text : string,
+	TextSize : number,
 	TextXAlignment : Enum.TextXAlignment,
 	TextYAlignment : Enum.TextYAlignment,
+	VerticalSpacing : number,
+	TextErrorOrWarningColor : Color3,
 	WrapperProps : any,
+	ErrorText : string?,
+	WarningText : string?,
 }
 
 type SharedProps = {
@@ -68,6 +66,8 @@ type SharedProps = {
 	Spacing : number?,
 	TextXAlignment : Enum.TextXAlignment?,
 	TextYAlignment : Enum.TextYAlignment?,
+	GetWarning : ((key : string) -> string)?,
+	GetError : ((key : string) -> string)?,
 }
 
 type ExternalProps = {
@@ -86,8 +86,10 @@ type _Props = SharedProps & InternalProps
 
 type _Style = {
 	ItemSpacing : number,
+	VerticalSpacing : number,
 	ItemPaddingHorizontal : UDim,
-	TextWidth : UDim,
+	ErrorOrWarningTextSize : number,
+	ErrorOrWarningColor : Color3,
 }
 
 -- LabeledElementListItem is a helper compoment internal to this module.
@@ -97,7 +99,9 @@ LabeledElementListItem.defaultProps = {
 	LabelColumnWidth = UDim.new(0, 100),
 	LayoutOrder = 1,
 	Spacing = 0,
-	Text = "Label",
+	VerticalSpacing = 0,
+	Text = "",
+	TextSize = 16,
 	TextXAlignment = Enum.TextXAlignment.Left,
 	TextYAlignment = Enum.TextYAlignment.Top,
 }
@@ -107,8 +111,8 @@ function LabeledElementListItem:render()
 
 	local fillDirection = Enum.FillDirection.Horizontal
 	local labelColumnWidth = props.LabelColumnWidth
-
 	local labelSize = UDim2.new(labelColumnWidth, UDim.new(0, props.AbsoluteSize.Y))
+	local errorOrWarningText = if props.ErrorText and props.ErrorText ~= "" then props.ErrorText else props.WarningText
 
 	return Roact.createElement(Pane, {
 		AutomaticSize = Enum.AutomaticSize.Y,
@@ -126,10 +130,31 @@ function LabeledElementListItem:render()
 			TextYAlignment = props.TextYAlignment,
 		}),
 
-		Content = Roact.createElement(Pane, join({ 
+		Content = Roact.createElement(Pane, {
 			AutomaticSize = Enum.AutomaticSize.XY,
+			Spacing = props.VerticalSpacing,
 			LayoutOrder = 2,
-		}, props.WrapperProps), (props :: any)[Roact.Children]),
+			Layout = Enum.FillDirection.Vertical,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			VerticalAlignment = Enum.VerticalAlignment.Top,
+		}, {
+			Pane = Roact.createElement(Pane, join({
+				LayoutOrder = 3,
+				AutomaticSize = Enum.AutomaticSize.XY,
+			}, props.WrapperProps), (props :: any)[Roact.Children]),
+
+			ErrorOrWarning = Roact.createElement(Pane, {
+				Size = UDim2.new(1, 0, 0, props.TextSize),
+				LayoutOrder = 4,
+			}, {
+				TextErrorOrWarning = (errorOrWarningText and errorOrWarningText ~= "") and Roact.createElement(TextLabel, {
+					Text = errorOrWarningText,
+					TextSize = props.TextSize,
+					TextColor = props.TextErrorOrWarningColor,
+					AutomaticSize = Enum.AutomaticSize.XY,
+				}) or nil,
+			})
+		})
 	})
 end
 
@@ -152,6 +177,9 @@ function LabeledElementList:render()
 
 	local children = {}
 	for index, item in ipairs(items) do
+		local warning = if props.GetWarning then props.GetWarning(item) else nil
+		local error = if props.GetError then props.GetError(item) else nil
+
 		children[item] = Roact.createElement(LabeledElementListItem, {
 			LabelColumnWidth = labelColumnWidth,
 			LayoutOrder = index,
@@ -159,6 +187,11 @@ function LabeledElementList:render()
 			Text = getText(item),
 			TextXAlignment = props.TextXAlignment,
 			TextYAlignment = props.TextYAlignment,
+			WarningText = warning,
+			ErrorText = error,
+			TextSize = style.ErrorOrWarningTextSize,
+			TextErrorOrWarningColor = style.ErrorOrWarningColor,
+			VerticalSpacing = style.VerticalSpacing,
 		}, {
 			Content = renderContent(item),
 		})

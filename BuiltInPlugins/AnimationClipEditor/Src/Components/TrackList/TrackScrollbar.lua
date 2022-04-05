@@ -17,8 +17,6 @@ local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local DragTarget = Framework.UI.DragListener
@@ -72,105 +70,101 @@ function TrackScrollbar:init()
 end
 
 function TrackScrollbar:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
-		local state = self.state
-		local size = props.Size
-		local anchorPoint = props.AnchorPoint
-		local position = props.Position
-		local topTrackIndex = props.TopTrackIndex
-		local numTracks = props.NumTracks
-		local dragging = state.dragging
-		local hovering = state.hovering
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
+	local state = self.state
+	local size = props.Size
+	local anchorPoint = props.AnchorPoint
+	local position = props.Position
+	local topTrackIndex = props.TopTrackIndex
+	local numTracks = props.NumTracks
+	local dragging = state.dragging
+	local hovering = state.hovering
 
-		local scrollTheme = theme.scrollBarTheme
+	local scrollTheme = theme.scrollBarTheme
 
-		local scrollRange = numTracks
-		local canShowScrollbar = topTrackIndex and numTracks > 1
+	local scrollRange = numTracks
+	local canShowScrollbar = topTrackIndex and numTracks > 1
 
-		local scrollbarColor
-		if dragging then
-			scrollbarColor = scrollTheme.pressedColor
-		elseif hovering then
-			scrollbarColor = scrollTheme.hoverColor
-		else
-			scrollbarColor = scrollTheme.controlColor
-		end
+	local scrollbarColor
+	if dragging then
+		scrollbarColor = scrollTheme.pressedColor
+	elseif hovering then
+		scrollbarColor = scrollTheme.hoverColor
+	else
+		scrollbarColor = scrollTheme.controlColor
+	end
 
-		return Roact.createElement("Frame", {
-			Size = size,
-			Position = position,
-			AnchorPoint = anchorPoint,
-			BackgroundColor3 = scrollTheme.backgroundColor,
-			BorderColor3 = scrollTheme.borderColor,
-		}, {
-			ScrollArea = Roact.createElement("Frame", {
-				Position = UDim2.new(0, 0, 0.5, 0),
-				AnchorPoint = Vector2.new(0, 0.5),
-				Size = UDim2.new(1, 0, 1, -Constants.SCROLL_BAR_SIZE * 2 - Constants.SCROLL_BAR_PADDING),
-				BackgroundTransparency = 1,
+	return Roact.createElement("Frame", {
+		Size = size,
+		Position = position,
+		AnchorPoint = anchorPoint,
+		BackgroundColor3 = scrollTheme.backgroundColor,
+		BorderColor3 = scrollTheme.borderColor,
+	}, {
+		ScrollArea = Roact.createElement("Frame", {
+			Position = UDim2.new(0, 0, 0.5, 0),
+			AnchorPoint = Vector2.new(0, 0.5),
+			Size = UDim2.new(1, 0, 1, -Constants.SCROLL_BAR_SIZE * 2 - Constants.SCROLL_BAR_PADDING),
+			BackgroundTransparency = 1,
 
-				[Roact.Change.AbsoluteSize] = self.recalculateExtents,
-				[Roact.Ref] = self.scrollArea,
+			[Roact.Change.AbsoluteSize] = self.recalculateExtents,
+			[Roact.Ref] = self.scrollArea,
+			[Roact.Event.InputBegan] = function(_, input)
+				if input.UserInputType == Enum.UserInputType.MouseButton1 then
+					self.scroll(input)
+				elseif input.UserInputType == Enum.UserInputType.MouseWheel then
+					props.OnScroll(input.Position.Z)
+				end
+			end,
+			[Roact.Event.InputChanged] = function(_, input)
+				if input.UserInputType == Enum.UserInputType.MouseWheel then
+					props.OnScroll(input.Position.Z)
+				end
+			end,
+		},{
+			ScrollBar = canShowScrollbar and Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 1 / scrollRange, 0),
+				Position = UDim2.new(0, 0, (topTrackIndex - 1) / scrollRange, 0),
+				BorderSizePixel = 1,
+				BorderColor3 = scrollTheme.borderColor,
+				BackgroundColor3 = scrollbarColor,
+
+				[Roact.Event.MouseEnter] = self.mouseEnter,
+				[Roact.Event.mouseLeave] = self.mouseLeave,
 				[Roact.Event.InputBegan] = function(_, input)
 					if input.UserInputType == Enum.UserInputType.MouseButton1 then
-						self.scroll(input)
-					elseif input.UserInputType == Enum.UserInputType.MouseWheel then
-						props.OnScroll(input.Position.Z)
+						self.onDragStarted()
 					end
 				end,
-				[Roact.Event.InputChanged] = function(_, input)
-					if input.UserInputType == Enum.UserInputType.MouseWheel then
-						props.OnScroll(input.Position.Z)
-					end
-				end,
-			},{
-				ScrollBar = canShowScrollbar and Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 1 / scrollRange, 0),
-					Position = UDim2.new(0, 0, (topTrackIndex - 1) / scrollRange, 0),
-					BorderSizePixel = THEME_REFACTOR and 1 or 0,
-					BorderColor3 = THEME_REFACTOR and scrollTheme.borderColor or nil,
-					BackgroundColor3 = scrollbarColor,
+			})
+		}),
 
-					[Roact.Event.MouseEnter] = self.mouseEnter,
-					[Roact.Event.mouseLeave] = self.mouseLeave,
-					[Roact.Event.InputBegan] = function(_, input)
-						if input.UserInputType == Enum.UserInputType.MouseButton1 then
-							self.onDragStarted()
-						end
-					end,
-				})
-			}),
+		UpButton = canShowScrollbar and Roact.createElement(ArrowButton, {
+			Rotation = 0,
+			OnActivated = function()
+				props.SetTopTrackIndex(topTrackIndex - 1)
+			end,
+		}),
 
-			UpButton = canShowScrollbar and Roact.createElement(ArrowButton, {
-				Rotation = 0,
-				OnActivated = function()
-					props.SetTopTrackIndex(topTrackIndex - 1)
-				end,
-			}),
+		DownButton = canShowScrollbar and Roact.createElement(ArrowButton, {
+			Rotation = 180,
+			Position = UDim2.new(0, 0, 1, 0),
+			AnchorPoint = Vector2.new(0, 1),
+			OnActivated = function()
+				props.SetTopTrackIndex(topTrackIndex + 1)
+			end,
+		}),
 
-			DownButton = canShowScrollbar and Roact.createElement(ArrowButton, {
-				Rotation = 180,
-				Position = UDim2.new(0, 0, 1, 0),
-				AnchorPoint = Vector2.new(0, 1),
-				OnActivated = function()
-					props.SetTopTrackIndex(topTrackIndex + 1)
-				end,
-			}),
-
-			DragTarget = dragging and Roact.createElement(DragTarget, {
-				OnDragMoved = self.scroll,
-				OnDragEnded = self.onDragEnded,
-			}),
-		})
+		DragTarget = dragging and Roact.createElement(DragTarget, {
+			OnDragMoved = self.scroll,
+			OnDragEnded = self.onDragEnded,
+		}),
+	})
 end
 
-
 TrackScrollbar = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(TrackScrollbar)
-
-
 
 return TrackScrollbar

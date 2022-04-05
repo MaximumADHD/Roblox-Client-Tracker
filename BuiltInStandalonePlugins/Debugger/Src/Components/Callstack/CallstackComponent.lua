@@ -17,6 +17,10 @@ local Stylizer = Framework.Style.Stylizer
 local Util = Framework.Util
 local deepCopy = Util.deepCopy
 
+local Dash = Framework.Dash
+local map = Dash.map
+local join = Dash.join
+
 local UI = Framework.UI
 local Pane = UI.Pane
 local TreeTable = UI.TreeTable
@@ -39,6 +43,10 @@ local CallstackComponent = Roact.PureComponent:extend("CallstackComponent")
 local Constants = require(PluginFolder.Src.Util.Constants)
 
 local StudioService = game:GetService("StudioService")
+
+local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
+local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
+local hasTableColumnResizeFFlags = FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize
 
 local columnNameToKey = {
 	FrameColumn = "frameColumn",
@@ -125,10 +133,35 @@ end
 
 -- CallstackComponent
 function CallstackComponent:init()
+	
+	local initialSizes = nil
+	local numColumns = 6
+	if hasTableColumnResizeFFlags then 
+		initialSizes = {}
+		for i = 1,numColumns do
+			table.insert(initialSizes, UDim.new(1/numColumns, 0))
+		end
+	end
+	
 	self.state = {
 		selectedRows = {},
 		selectAll = false,
+		sizes = hasTableColumnResizeFFlags and {UDim.new(1, 0)},
+		savedWidths = hasTableColumnResizeFFlags and initialSizes
 	}
+	
+	self.OnSizesChange = function(newSizes : {UDim})
+		if hasTableColumnResizeFFlags then
+			self:setState(function(state)
+				return { 
+					sizes = newSizes,
+					-- if we have a new set of widths that isn't 1 big column, save them for 
+					-- the next time we have multiple columns
+					savedWidths = if #newSizes > 1 then newSizes else state.savedWidths
+				}
+			end)
+		end
+	end
 	
 	self.getTreeChildren = function(item)
 		return item.children or {}
@@ -285,6 +318,27 @@ function CallstackComponent:render()
 		}
 		table.insert(tableColumns, currCol)
 	end
+	
+	if hasTableColumnResizeFFlags then
+		local widthsToUse = self.state.sizes
+		if #tableColumns > #self.state.sizes then
+			-- If we are adding columns, use the saved previous widths
+			widthsToUse = self.state.savedWidths
+		elseif #tableColumns < #self.state.sizes then
+			-- If we are removing columns, reset the widths to 1 big column
+			widthsToUse = {UDim.new(1, 0)}
+		end
+		tableColumns = map(tableColumns, function(column, index: number)
+			return join(column, {
+				Width = widthsToUse[index]
+			})
+		end)
+	end
+	
+	local clampSize = if hasTableColumnResizeFFlags then true else nil
+	local useScale = if hasTableColumnResizeFFlags then true else nil
+	local useDeficit = if hasTableColumnResizeFFlags then true else nil
+	local onColumnSizesChange = if hasTableColumnResizeFFlags then self.OnSizesChange else nil
 
 	return Roact.createElement(Pane, {
 		Size = UDim2.fromScale(1, 1),
@@ -314,7 +368,7 @@ function CallstackComponent:render()
 			Style = "Box",
 		}, {
 			TableView = Roact.createElement(TreeTable, {
-				Scroll = false,  
+				Scroll = true,  
 				Size = UDim2.fromScale(1, 1),
 				Columns = tableColumns,
 				RootItems = props.RootItems,
@@ -327,6 +381,10 @@ function CallstackComponent:render()
 				OnExpansionChange = self.onExpansionChange,
 				FullSpan = true,
 				HighlightedRows = self.state.selectedRows,
+				OnColumnSizesChange = onColumnSizesChange,
+				UseScale = useScale,
+				UseDeficit = useDeficit,
+				ClampSize = clampSize
 			})
 		}),
 	})

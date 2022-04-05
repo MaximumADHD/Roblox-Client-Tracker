@@ -44,6 +44,7 @@ local SnapToNearestFrame = require(Plugin.Src.Thunks.SnapToNearestFrame)
 local SetEditorMode = require(Plugin.Src.Actions.SetEditorMode)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
 
 local TrackEditor = Roact.PureComponent:extend("TrackEditor")
 
@@ -182,7 +183,7 @@ function TrackEditor:render()
 	local zIndex = props.ZIndex
 	local size = props.Size
 	local topTrackIndex = props.TopTrackIndex
-	local tracks = props.Tracks or {}
+	local tracks = if GetFFlagQuaternionsUI() then nil else props.Tracks or {}
 	local showEvents = props.ShowEvents
 	local playhead = props.Playhead
 	local isChannelAnimation = props.IsChannelAnimation
@@ -247,7 +248,7 @@ function TrackEditor:render()
 			EndTick = endTick,
 			TrackPadding = trackPadding,
 			TopTrackIndex = topTrackIndex,
-			Tracks = tracks,
+			Tracks = if GetFFlagQuaternionsUI() then nil else tracks,
 			Size = UDim2.new(1, 0, 1, -Constants.TIMELINE_HEIGHT - Constants.SCROLL_BAR_SIZE),
 			ShowAsSeconds = showAsSeconds,
 			IsChannelAnimation = isChannelAnimation,

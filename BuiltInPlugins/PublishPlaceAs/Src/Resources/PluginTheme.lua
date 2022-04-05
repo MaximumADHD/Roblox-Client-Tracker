@@ -15,8 +15,6 @@ local FrameworkStyleModifier = Util.StyleModifier
 local UILibrary = require(Plugin.Packages.UILibrary)
 local createTheme = UILibrary.createTheme
 
-local FFlagRemoveUILibraryPartialHyperlink = game:GetFastFlag("RemoveUILibraryPartialHyperlink")
-
 -- getColor : function<Color3>(color enum)
 -- c = Enum.StudioStyleGuideColor
 -- m = Enum.StudioStyleGuideModifier
@@ -320,13 +318,6 @@ local function getUILibraryTheme()
 			selectedImage = isDark and "rbxasset://textures/GameSettings/CheckedBoxDark.png"
 				or "rbxasset://textures/GameSettings/CheckedBoxLight.png"
 		},
-		partialHyperlink = if not FFlagRemoveUILibraryPartialHyperlink then {
-			RequirementsLink = {
-				textSize = 16,
-				textColor = theme:GetColor(c.SubText),
-				font = Enum.Font.SourceSans,
-			},
-		} else nil,
 	}
 
 	return createTheme(UILibraryStylePalette, UILibraryOverrides)

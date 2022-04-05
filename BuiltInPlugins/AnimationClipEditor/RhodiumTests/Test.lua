@@ -21,13 +21,11 @@ local HttpService = game:GetService("HttpService")
 local Plugin = script.Parent.Parent
 local Framework = Plugin.Packages.Framework
 local Signal = require(Plugin.Packages.Framework).Util.Signal
-local MockPlugin = require(Plugin.Packages.Framework).TestHelpers.Instances.MockPlugin
 local Signals = require(Plugin.Src.Context.Signals)
 
 local ContextServices = require(Framework.ContextServices)
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
-local UILibrary = require(Plugin.UILibrary)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local Theme = require(Plugin.Src.Util.Theme)
@@ -39,7 +37,6 @@ local AnimationClipEditor = require(Plugin.Src.Components.AnimationClipEditor)
 local MainProvider = require(Plugin.Src.Context.MainProvider)
 local SetSnapMode = require(Plugin.Src.Actions.SetSnapMode)
 
-local THEME_REFACTOR = game:GetFastFlag("AnimationClipEditorStylizer")
 local Test = {}
 
 Test.__index = Test
@@ -146,7 +143,7 @@ end
 function Test.new(plugin)
 	local self = {
 		localization = Localization.mock(),
-		theme = THEME_REFACTOR and Theme(true) or Theme.mock(),
+		theme = Theme(true),
 		plugin = plugin,
 		subWindows = {},
 	}

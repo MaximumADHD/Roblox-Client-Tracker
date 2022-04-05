@@ -27,6 +27,8 @@ local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 export type Props = {
 	LayoutOrder : number?,
+	ErrorName : string?,
+	ErrorBaseMaterial : string?,
 }
 
 type _Props = Props & {
@@ -55,10 +57,10 @@ function GeneralSettings:init()
 	self.baseMaterials = {}
 
 	self.onNameChanged = function(name)
-		if name then
+		if name and name ~= "" then
 			self.props.dispatchSetName(name)
-		-- Handle error
-		-- else
+		else
+			self.props.dispatchSetName("")
 		end
 	end
 
@@ -68,8 +70,6 @@ function GeneralSettings:init()
 			self:setState({
 				currentIndex = index,
 			})
-		-- Handle error
-		-- else
 		end
 	end
 
@@ -78,6 +78,7 @@ function GeneralSettings:init()
 		local localization = props.Localization
 		local style : _Style = props.Stylizer.GeneralSettings
 
+		-- TODO: remove key strings
 		if key == "NameVariant" then
 			return Roact.createElement(TextInput, {
 				PlaceholderText = localization:getText("CreateDialog", "PlaceholderName"),
@@ -96,6 +97,19 @@ function GeneralSettings:init()
 			})
 		end
 
+		return nil
+	end
+
+	self.getError = function(key: string)
+		local props : _Props = self.props
+		
+		-- TODO: remove key strings
+		if key == "NameVariant" then
+			return props.ErrorName
+		elseif key == "BaseMaterialVariant" then
+			return props.ErrorBaseMaterial
+		end
+		
 		return nil
 	end
 
@@ -134,6 +148,7 @@ function GeneralSettings:render()
 		Items = items,
 		LayoutOrder = props.LayoutOrder,
 		RenderContent = self.renderContent,
+		GetError = self.getError,
 	})
 end
 

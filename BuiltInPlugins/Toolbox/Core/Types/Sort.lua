@@ -1,4 +1,4 @@
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
 
 local Plugin = script.Parent.Parent.Parent
 

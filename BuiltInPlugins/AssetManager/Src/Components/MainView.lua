@@ -46,7 +46,6 @@ local StudioService = game:GetService("StudioService")
 local MainView = Roact.PureComponent:extend("MainView")
 
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
-local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 local FFlagAssetManagerRefactorPath = game:GetFastFlag("AssetManagerRefactorPath")
 
 local universeNameSet = false
@@ -201,10 +200,8 @@ function MainView:render()
     end
 
     local isPublishedGame = game.GameId ~= 0
-    local publishText = localization:getText("MainView", "PublishText")
-    if FFlagStudioNewGamesInCloudUI then
-        publishText = localization:getText("MainView", "SaveText")
-    end
+    local publishText = localization:getText("MainView", "SaveText")
+
     local publishTextExtents = GetTextSize(publishText, theme.FontSizeLarge, theme.Font,
         Vector2.new(theme.MainView.PublishText.Width, math.huge))
     local buttonText = localization:getText("MainView", "ButtonText")
@@ -253,11 +250,7 @@ function MainView:render()
             LayoutOrder = layoutIndex:getNextOrder(),
 
             OnClick = function()
-                if FFlagStudioNewGamesInCloudUI then
-                    StudioService:ShowSaveOrPublishPlaceToRoblox(false, false, Enum.StudioCloseMode.None)
-                else
-                    StudioService:ShowPublishToRoblox()
-                end
+                StudioService:ShowSaveOrPublishPlaceToRoblox(false, false, Enum.StudioCloseMode.None)
             end,
         }, {
             Roact.createElement(HoverArea, {Cursor = "PointingHand"}),

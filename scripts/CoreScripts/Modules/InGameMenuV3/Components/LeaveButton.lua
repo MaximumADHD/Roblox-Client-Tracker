@@ -1,0 +1,117 @@
+local CorePackages = game:GetService("CorePackages")
+local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
+local Roact = InGameMenuDependencies.Roact
+local RoactRodux = InGameMenuDependencies.RoactRodux
+local UIBlox = InGameMenuDependencies.UIBlox
+local t = InGameMenuDependencies.t
+
+local InGameMenu = script.Parent.Parent
+local Constants = require(InGameMenu.Resources.Constants)
+local Assets = require(InGameMenu.Resources.Assets)
+local withLocalization = require(InGameMenu.Localization.withLocalization)
+local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
+
+local KeyLabel = UIBlox.App.Menu.KeyLabel
+local withStyle = UIBlox.Core.Style.withStyle
+local withAnimation = UIBlox.Core.Animation.withAnimation
+
+local Flags = InGameMenu.Flags
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
+
+local LeaveButton = Roact.PureComponent:extend("LeaveButton")
+
+local BOTTOM_MENU_ICON_SIZE = 44
+local HIDDEN_Y_OFFSET = 75
+local GRADIENT_HEIGHT = 24
+local LEAVE_GAME_KEY_CODE_LABEL = {
+	[Constants.InputType.MouseAndKeyboard] = Enum.KeyCode.L,
+	[Constants.InputType.Gamepad] = Enum.KeyCode.ButtonX,
+}
+
+local SPRING_OPTIONS = {
+	frequency = 3,
+	dampingRatio = 1,
+}
+
+LeaveButton.validateProps = t.strictInterface({
+	hidden = t.optional(t.boolean),
+	ZIndex = t.optional(t.integer),
+	onActivated = t.optional(t.callback),
+
+	-- rodux provided
+	inputType = t.optional(t.string),
+	startLeavingGame = t.optional(t.callback),
+})
+
+function LeaveButton:renderWithProviders(style, localized, aniValues)
+	local ControllerDevOnly = GetFFlagInGameMenuControllerDevelopmentOnly()
+	local inputType = self.props.inputType
+	local leaveGameKeyCode = ControllerDevOnly and LEAVE_GAME_KEY_CODE_LABEL[inputType]
+
+	return Roact.createElement("Frame", {
+		Size = UDim2.new(1, 0, 0, 84),
+		Position = UDim2.new(0, 0, 1, aniValues.offsetY),
+		AnchorPoint = Vector2.new(0, 1),
+		BackgroundTransparency = 1,
+		ZIndex = self.props.ZIndex or 1,
+	}, {
+		Gradient = Roact.createElement("ImageLabel", {
+			Size = UDim2.new(1, 0, 0, GRADIENT_HEIGHT),
+			Image = Assets.Images.ButtonStackGradient,
+			BackgroundTransparency = 1,
+		}),
+		LeaveGame = Roact.createElement("Frame", {
+			BackgroundColor3 = style.Theme.BackgroundDefault.Color,
+			Size = UDim2.new(1, 0, 0, BOTTOM_MENU_ICON_SIZE + 24),
+			Position = UDim2.new(1, 0, 0, GRADIENT_HEIGHT),
+			AnchorPoint = Vector2.new(1, 0),
+		}, {
+			Padding = Roact.createElement("UIPadding", {
+				PaddingTop = UDim.new(0, 0),
+				PaddingBottom = UDim.new(0, 24),
+				PaddingLeft = UDim.new(0, 24),
+				PaddingRight = UDim.new(0, 24),
+			}),
+			Button = Roact.createElement(UIBlox.App.Button.PrimarySystemButton, {
+				size = UDim2.fromScale(1, 1),
+				onActivated = self.props.onActivated or self.props.startLeavingGame,
+				text = localized.leaveGame,
+			}),
+			KeyLabel = leaveGameKeyCode and Roact.createElement(KeyLabel, {
+				keyCode = leaveGameKeyCode,
+				iconThemeKey = "UIDefault",
+				textThemeKey = "SystemPrimaryContent",
+				AnchorPoint = Vector2.new(1, 0.5),
+				Position = UDim2.new(1, -16, 0.5, 0),
+				LayoutOrder = 2,
+				ZIndex = (self.props.ZIndex or 1) + 1,
+			}) or nil,
+		}),
+	})
+end
+
+function LeaveButton:render()
+	return withStyle(function(style)
+		return withLocalization({
+			leaveGame = "CoreScripts.InGameMenu.LeaveGame",
+		})(function(localized)
+			return withAnimation({
+				offsetY = self.props.hidden and HIDDEN_Y_OFFSET or 0,
+			}, function(aniValues)
+				return self:renderWithProviders(style, localized, aniValues)
+			end, SPRING_OPTIONS)
+		end)
+	end)
+end
+
+return RoactRodux.connect(function(state, props)
+	return {
+		inputType = state.displayOptions.inputType,
+	}
+end, function(dispatch)
+	return {
+		startLeavingGame = function()
+			dispatch(SetCurrentPage(Constants.LeaveGamePromptPageKey))
+		end,
+	}
+end)(LeaveButton)

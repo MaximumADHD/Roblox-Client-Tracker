@@ -6,6 +6,7 @@ local Plugin = script.Parent.Parent.Parent
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local Constants = require(Plugin.Src.Util.Constants)
+local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
 local AddTrack = require(Plugin.Src.Thunks.AddTrack)
 local SortAndSetTracks = require(Plugin.Src.Thunks.SortAndSetTracks)
@@ -24,6 +25,7 @@ local SetPlaybackSpeed = require(Plugin.Src.Thunks.Playback.SetPlaybackSpeed)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
 
 return function(animationData, analytics)
 	return function(store)
@@ -51,7 +53,10 @@ return function(animationData, analytics)
 
 		for instanceName, instance in pairs(animationData.Instances) do
 			for trackName, track in pairs(instance.Tracks) do
-				if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
+				if GetFFlagQuaternionsUI() then
+					local rotationType = TrackUtils.getRotationType(track)
+					store:dispatch(AddTrack(instanceName, trackName, track.Type, rotationType, analytics))
+				elseif GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
 					store:dispatch(AddTrack(instanceName, trackName, track.Type, analytics))
 				else
 					store:dispatch(AddTrack(instanceName, trackName, analytics))

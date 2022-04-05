@@ -15,8 +15,6 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local Constants = require(Plugin.Src.Util.Constants)
 local Cryo = require(Plugin.Packages.Cryo)
 
@@ -175,7 +173,7 @@ end
 function AddTrackButton:render()
 	local localization = self.props.Localization
 	local props = self.props
-	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
+	local theme = props.Stylizer.PluginTheme
 	local state = self.state
 
 	local showMenu = state.showMenu
@@ -217,14 +215,10 @@ function AddTrackButton:render()
 	})
 end
 
-
 AddTrackButton = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
 })(AddTrackButton)
-
-
 
 return AddTrackButton

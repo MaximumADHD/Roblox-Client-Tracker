@@ -12,6 +12,10 @@ local Plugin = ContextServices.Plugin
 local StudioUI = Framework.StudioUI
 local showContextMenu = StudioUI.showContextMenu
 
+local Dash = Framework.Dash
+local map = Dash.map
+local join = Dash.join
+
 local UI = Framework.UI
 local TreeTable = UI.TreeTable
 local Stylizer = Framework.Style.Stylizer
@@ -41,6 +45,9 @@ local MakePluginActions = require(UtilFolder.MakePluginActions)
 local Constants = require(UtilFolder.Constants)
 
 local FFlagDevFrameworkDoubleClick = game:GetFastFlag("DevFrameworkDoubleClick")
+local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
+local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
+local hasTableColumnResizeFFlags = FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize
 
 local DisplayTable = Roact.PureComponent:extend("DisplayTable")
 
@@ -112,8 +119,6 @@ local function useListOfExpressionsAsSOT(listOfExpressions : {string}, rootsList
 	return toReturn
 end
 
-
--- DisplayTable
 function DisplayTable:init()
 	self.getTreeChildren = function(item)
 		return item.children or {}
@@ -155,6 +160,27 @@ function DisplayTable:init()
 				Key = "dataTypeColumn",
 			}, 
 		}
+	end
+	
+	local initialSizes = {}
+	if hasTableColumnResizeFFlags then 
+		local numColumns = 4
+		for i = 1, numColumns do
+			table.insert(initialSizes, UDim.new(1/(numColumns), 0))
+		end
+	end
+	self.state = {
+		Sizes = hasTableColumnResizeFFlags and initialSizes
+	}
+	
+	self.OnSizesChange = function(newSizes : {UDim})
+		if hasTableColumnResizeFFlags then
+			self:setState(function(state)
+				return { 
+					Sizes = newSizes
+				}
+			end)
+		end
 	end
 	
 	self.onExpansionChange = function(newExpansion)
@@ -284,14 +310,29 @@ function DisplayTable:render()
 	
 	local isVariablesTab = props.SelectedTab == TableTab.Variables
 	
+	local tableColumns = (isVariablesTab and self.getVariableTableColumns() or self.getWatchTableColumns())
+	
 	watchHelperFunctions.sortTableByColumnAndOrder(props.RootItems, props.SortIndex, props.SortOrder, 
-		(isVariablesTab and self.getVariableTableColumns() or self.getWatchTableColumns()), (not isVariablesTab))
+		tableColumns, (not isVariablesTab))
+	
+	if hasTableColumnResizeFFlags then
+		tableColumns = map(tableColumns, function(column, index: number)
+			return join(column, {
+				Width = self.state.Sizes[index]
+			})
+		end)
+	end
+	
+	local clampSize = if hasTableColumnResizeFFlags then true else nil
+	local useScale = if hasTableColumnResizeFFlags then true else nil
+	local useDeficit = if hasTableColumnResizeFFlags then true else nil
+	local onColumnSizesChange = if hasTableColumnResizeFFlags then self.OnSizesChange else nil
 	
 	local textInputCols = not isVariablesTab and {[1] = true} or nil
 	return Roact.createElement(TreeTable, {
-		Scroll = false,  
+		Scroll = true,  
 		Size = UDim2.fromScale(1, 1),
-		Columns = isVariablesTab and self.getVariableTableColumns() or self.getWatchTableColumns(),
+		Columns = tableColumns,
 		RootItems = props.RootItems,
 		Stylizer = style,
 		OnExpansionChange = self.onExpansionChange,
@@ -305,7 +346,11 @@ function DisplayTable:render()
 		SortIndex = props.SortIndex,
 		SortOrder = props.SortOrder,
 		OnSortChange = self.OnSortChange,
-		SortChildren = self.childSort
+		SortChildren = self.childSort,
+		OnColumnSizesChange = onColumnSizesChange,
+		UseScale = useScale,
+		UseDeficit = useDeficit,
+		ClampSize = clampSize,
 	})
 end
 

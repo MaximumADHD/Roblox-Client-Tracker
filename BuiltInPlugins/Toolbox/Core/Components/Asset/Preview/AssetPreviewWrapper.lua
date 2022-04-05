@@ -76,10 +76,12 @@ local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor
 local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
 local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
 local FFlagPluginsSetAudioPreviewUsageContext = game:GetFastFlag("PluginsSetAudioPreviewUsageContext")
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
 local FFlagToolboxFixNonOwnedPluginInstallation = game:GetFastFlag("ToolboxFixNonOwnedPluginInstallation")
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext")
-local FFlagToolboxAssetPreviewProtectAgainstNilAssetData = game:GetFastFlag("ToolboxAssetPreviewProtectAgainstNilAssetData")
+local FFlagToolboxAssetPreviewProtectAgainstNilAssetData = game:GetFastFlag(
+	"ToolboxAssetPreviewProtectAgainstNilAssetData"
+)
 
 local disableRatings = require(Plugin.Core.Util.ToolboxUtilities).disableRatings
 
@@ -381,7 +383,7 @@ function AssetPreviewWrapper:init(props)
 		local categoryName = self.props.categoryName
 
 		local owned = self.props.Owned
-		
+
 		if FFlagToolboxFixNonOwnedPluginInstallation then
 			local price = assetData.Product and assetData.Product.Price or 0
 
@@ -430,12 +432,9 @@ function AssetPreviewWrapper:init(props)
 			categoryName = categoryName,
 			currentCategoryName = currentCategoryName,
 			onSuccess = function()
-				self.props.AssetAnalytics:get():logInsert(
-					assetData,
-					"PreviewClickInsertButton",
-					nil,
-					assetAnalyticsContext
-				)
+				self.props.AssetAnalytics
+					:get()
+					:logInsert(assetData, "PreviewClickInsertButton", nil, assetAnalyticsContext)
 			end,
 		})
 		if success then
@@ -627,7 +626,7 @@ function AssetPreviewWrapper:renderContent(theme, modalTarget, localizedContent)
 		CanFlagAsset = FFlagToolboxHideReportFlagForCreator
 				and (assetData.Creator and assetData.Creator.Id ~= 1 and assetData.Creator.Id ~= getUserId())
 			or nil,
-		
+
 		UsageContext = if FFlagPluginsSetAudioPreviewUsageContext then Enum.UsageContext.Preview else nil,
 	})
 
@@ -688,7 +687,7 @@ local function mapStateToProps(state, props)
 	local categories = nil
 
 	local assetData
-	if FFlagToolboxAssetCategorization then
+	if FFlagToolboxAssetCategorization2 then
 		assetData = props.assetData
 	else
 		assetData = FFlagToolboxAssetGridRefactor and idToAssetMap[assetId] or nil
@@ -774,9 +773,11 @@ local function mapDispatchToProps(dispatch)
 			dispatch(ToggleFavoriteStatusRequest(networkInterface, userId, assetId, favorited))
 		end,
 
-		getPageInfoAnalyticsContextInfo = if FFlagToolboxUsePageInfoInsteadOfAssetContext then function()
-			return dispatch(GetPageInfoAnalyticsContextInfo())
-		end else nil,
+		getPageInfoAnalyticsContextInfo = if FFlagToolboxUsePageInfoInsteadOfAssetContext
+			then function()
+				return dispatch(GetPageInfoAnalyticsContextInfo())
+			end
+			else nil,
 	}
 end
 

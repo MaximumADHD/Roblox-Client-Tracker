@@ -6,12 +6,8 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Rodux = require(Plugin.Packages.Rodux)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local Localization = ContextServices.Localization
-local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 return function()
 	it("should create and destroy without errors", function()
@@ -81,15 +77,14 @@ return function()
 			local testThemedElement = Roact.PureComponent:extend("testThemedElement")
 
 			function testThemedElement:render()
-				local theme = THEME_REFACTOR and self.props.Stylizer.PluginTheme or self.props.Theme:get("PluginTheme")
+				local theme = self.props.Stylizer.PluginTheme
 				return Roact.createElement("Frame",{
 					BackgroundColor3 = theme.BackgroundColor
 				})
 			end
 
 			testThemedElement = withContext({
-				Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-				Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+				Stylizer = ContextServices.Stylizer,
 			})(testThemedElement)
 
 			return testThemedElement

@@ -22,6 +22,9 @@ local SetMetalnessMap = require(Actions.SetMetalnessMap)
 local SetRoughnessMap = require(Actions.SetRoughnessMap)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
+local TextureMapErrorTypes = require(Plugin.Src.Util.getTextureMapErrorTypes)
+local TextureMaps = require(Plugin.Src.Util.getTextureMapNames)
+
 export type Props = {
 	LayoutOrder : number?,
 }
@@ -45,84 +48,137 @@ type _Props = Props & {
 local TextureSettings = Roact.PureComponent:extend("TextureSettings")
 
 function TextureSettings:init()
-	local function textureMapFromFileImport(file : File?, errorMessage : string?) : _Types.TextureMap?
-		
+	self.state = {
+		errorColorMap = "",
+		errorNormalMap = "",
+		errorMetalnessMap = "",
+		errorRoughnessMap = "",
+	}
+
+	local function textureMapFromFileImport(file : File?) : _Types.TextureMap?
 		local id
 		if file then
 			id = file:GetTemporaryId()
-		-- TODO: warnings and errors
-		else
-			-- warn(("Failed to select map: %s"):format(tostring(errorMessage)))
-			-- self.setErrorMessage("FailedToLoadColormap", "FailedToSelectTextureMap")
-			return
+			return {
+				file = file,
+				tempId = id,
+			}
 		end
-
-		return {
-			file = file,
-			tempId = id,
-		}
+		
+		return nil
 	end
 
-	local function getNewState(file, assetId, errorMessage)
+	local function getNewState(file : File?, assetId : number?)
 		local newState
 		if assetId then
 			newState = {
 				assetId = assetId,
 			}
 		else
-			newState = textureMapFromFileImport(file, errorMessage)
+			newState = textureMapFromFileImport(file)
 		end
 		return newState
 	end
 
-	self.selectColorMap = function(file, assetId, errorMessage)
-		local newState = getNewState(file, assetId, errorMessage)
-		if newState then
-			self.props.dispatchSetColorMap(newState)
+	self.selectTextureMap = function(mapType : string, file : File?, assetId : number?, failedError : string?)
+		local props : _Props = self.props
+		local localization = props.Localization
+		local errorMessage = ""
+		local newState
+
+		if failedError then
+			if failedError == TextureMapErrorTypes.FailedToSelectFile then
+				errorMessage = localization:getText("CreateDialog", "ErrorSelectMap")
+			elseif failedError == TextureMapErrorTypes.FailedUrl then
+				errorMessage = localization:getText("CreateDialog", "ErrorFindUrl")
+			end
+		else
+			newState = getNewState(file, assetId)
+			if not newState then
+				errorMessage = localization:getText("CreateDialog", "ErrorImportMap")
+			end
+		end
+
+		if mapType == TextureMaps.ColorMap then
+			if (not errorMessage or errorMessage == "") and newState then
+				props.dispatchSetColorMap(newState)
+			end
+			self:setState({
+				errorColorMap = errorMessage,
+			})
+		elseif mapType == TextureMaps.NormalMap then
+			if (not errorMessage or errorMessage == "") and newState then
+				props.dispatchSetNormalMap(newState)
+			end
+			self:setState({
+				errorNormalMap = errorMessage,
+			})
+		elseif mapType == TextureMaps.MetalnessMap then
+			if (not errorMessage or errorMessage == "") and newState then
+				props.dispatchSetMetalnessMap(newState)
+			end
+			self:setState({
+				errorMetalnessMap = errorMessage,
+			})
+		elseif mapType == TextureMaps.RoughnessMap then
+			if (not errorMessage or errorMessage == "") and newState then
+				props.dispatchSetRoughnessMap(newState)
+			end
+			self:setState({
+				errorRoughnessMap = errorMessage,
+			})
 		end
 	end
 
-	self.selectNormalMap = function(file, assetId, errorMessage)
-		local newState = getNewState(file, assetId, errorMessage)
-		if newState then
-			self.props.dispatchSetNormalMap(newState)
-		end
+	self.selectColorMap = function(file : File?, assetId : number?, failedError : string?)
+		self.selectTextureMap(TextureMaps.ColorMap, file, assetId, failedError)
 	end
 
-	self.selectMetalnessMap = function(file, assetId, errorMessage)
-		local newState = getNewState(file, assetId, errorMessage)
-		if newState then
-			self.props.dispatchSetMetalnessMap(newState)
-		end
+	self.selectNormalMap = function(file : File?, assetId : number?, failedError : string?)
+		self.selectTextureMap(TextureMaps.NormalMap, file, assetId, failedError)
 	end
 
-	self.selectRoughnessMap = function(file, assetId, errorMessage)
-		local newState = getNewState(file, assetId, errorMessage)
-		if newState then
-			self.props.dispatchSetRoughnessMap(newState)
-		end
+	self.selectMetalnessMap = function(file : File?, assetId : number?, failedError : string?)
+		self.selectTextureMap(TextureMaps.MetalnessMap, file, assetId, failedError)
+	end
+
+	self.selectRoughnessMap = function(file : File?, assetId : number?, failedError : string?)
+		self.selectTextureMap(TextureMaps.RoughnessMap, file, assetId, failedError)
 	end
 
 	self.clearColorMap = function()
 		self.props.dispatchSetColorMap(nil)
+		self:setState({
+			errorColorMap = "",
+		})
 	end
 
 	self.clearNormalMap = function()
 		self.props.dispatchSetNormalMap(nil)
+		self:setState({
+			errorNormalMap = "",
+		})
 	end
 
 	self.clearMetalnessMap = function()
 		self.props.dispatchSetMetalnessMap(nil)
+		self:setState({
+			errorMetalnessMap = "",
+		})
 	end
 
 	self.clearRoughnessMap = function()
 		self.props.dispatchSetRoughnessMap(nil)
+		self:setState({
+			errorRoughnessMap = "",
+		})
 	end
 
 	self.renderContent = function(key: string)
 		local props : _Props = self.props
 		local localization = props.Localization
 
+		-- TODO: remove key strings
 		if key == "ImportColorMap" then
 			return Roact.createElement(TextureMapSelector, {
 				CurrentTextureMap = props.ColorMap,
@@ -156,6 +212,23 @@ function TextureSettings:init()
 		return nil
 	end
 
+	self.getError = function(key: string)
+		local state = self.state
+		
+		-- TODO: remove key strings
+		if key == "ImportColorMap" then
+			return state.errorColorMap
+		elseif key == "ImportNormalMap" then
+			return state.errorNormalMap
+		elseif key == "ImportMetalnessMap" then
+			return state.errorMetalnessMap
+		elseif key == "ImportRoughnessMap" then
+			return state.errorRoughnessMap
+		end
+		
+		return nil
+	end
+
 	self.getText = function(key: string)
 		local props : _Props = self.props
 		local localization = props.Localization
@@ -180,6 +253,7 @@ function TextureSettings:render()
 		Items = items,
 		LayoutOrder = props.LayoutOrder,
 		RenderContent = self.renderContent,
+		GetError = self.getError,
 	})
 end
 

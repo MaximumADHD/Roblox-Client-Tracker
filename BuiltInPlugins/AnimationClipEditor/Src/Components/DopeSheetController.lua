@@ -19,8 +19,6 @@ local deepCopy = require(Plugin.Src.Util.deepCopy)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local DragTarget = Framework.UI.DragListener
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -69,8 +67,7 @@ local SetNotification = require(Plugin.Src.Actions.SetNotification)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-
-local FFlagResizingToSingleFrame = game:DefineFastFlag("ACEFixResizingToSingleFrame", false)
+local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
 
 local DopeSheetController = Roact.Component:extend("DopeSheetController")
 
@@ -195,33 +192,21 @@ function DopeSheetController:init()
 	end
 
 	self.onKeyframeDragEnded = function()
-		if FFlagResizingToSingleFrame then
-			self.DragContext = nil
-		end
-
+		self.DragContext = nil
 		self:setState({
 			dragging = false,
 			dragTick = Roact.None,
 			hasDragWaypoint = false,
 		})
-		if not FFlagResizingToSingleFrame then
-			self.DragContext = nil
-		end
 	end
 
 	self.onScaleHandleDragEnded = function()
-		if FFlagResizingToSingleFrame then
-			self.DragContext = nil
-		end
-
+		self.DragContext = nil
 		self:setState({
 			draggingScale = false,
 			dragTick = Roact.None,
 			hasDragWaypoint = false,
 		})
-		if not FFlagResizingToSingleFrame then
-			self.DragContext = nil
-		end
 	end
 
 	self.onSelectDragStarted = function(input)
@@ -543,9 +528,11 @@ function DopeSheetController:makeTracks()
 		entry.IsCurveTrack = track.IsCurveTrack
 
 		for trackComponentName, trackComponent in pairs(track.Components or {}) do
-			local entryComponent = entry.Components[trackComponentName]
-			if entryComponent then
-				mergeTrackIntoTrackEntry(entryComponent, trackComponent)
+			if entry.Components then
+				local entryComponent = entry.Components[trackComponentName]
+				if entryComponent then
+					mergeTrackIntoTrackEntry(entryComponent, trackComponent)
+				end
 			end
 		end
 	end
@@ -841,15 +828,10 @@ function DopeSheetController:render()
 	end
 end
 
-
 DopeSheetController = withContext({
 	Localization = ContextServices.Localization,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Analytics = ContextServices.Analytics
 })(DopeSheetController)
-
-
 
 local function mapStateToProps(state, props)
 	local status = state.Status
@@ -865,7 +847,8 @@ local function mapStateToProps(state, props)
 		ClippedWarning = state.Notifications.ClippedWarning,
 		FrameRate = status.FrameRate,
 		SnapMode = status.SnapMode,
-		InvalidIdWarning = state.Notifications.InvalidAnimation
+		InvalidIdWarning = state.Notifications.InvalidAnimation,
+		Tracks = if GetFFlagQuaternionsUI() then status.Tracks else nil,
 	}
 
 	return stateToProps
@@ -975,5 +958,4 @@ local function mapDispatchToProps(dispatch)
 	return dispatchToProps
 end
 
-return RoactRodux.connect(mapStateToProps,
-	mapDispatchToProps)(DopeSheetController)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(DopeSheetController)

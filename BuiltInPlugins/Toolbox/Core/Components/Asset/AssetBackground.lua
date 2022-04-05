@@ -1,3 +1,5 @@
+local FFlagToolboxAssetStyleUpdate = game:GetFastFlag("ToolboxAssetStyleUpdate")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -19,22 +21,24 @@ local function renderContent(props, theme)
 	theme = props.Stylizer
 	local tileCount = 8
 
-	local isDarkerTheme = theme.isDarkerTheme
 	local iconTheme = theme.asset.icon
 
 	local backgroundColor = Color3.fromRGB(255, 255, 255)
 	local image = ""
-	local hasBorder = false
-
-	local backgroundIndex = props.backgroundIndex
 
 	local borderSize = 0
-	if backgroundIndex == Background.BLACK then
-		backgroundColor = Color3.fromRGB(0, 0, 0)
-	elseif backgroundIndex == Background.NONE then
+	if FFlagToolboxAssetStyleUpdate then
 		backgroundColor = theme.asset.background.color
 		borderSize = theme.asset.background.borderSize
-		image = theme.asset.background.image
+	else
+		local backgroundIndex = props.backgroundIndex
+		if backgroundIndex == Background.BLACK then
+			backgroundColor = Color3.fromRGB(0, 0, 0)
+		elseif backgroundIndex == Background.NONE then
+			backgroundColor = theme.asset.background.color
+			borderSize = theme.asset.background.borderSize
+			image = theme.asset.background.image
+		end
 	end
 
 	props = Cryo.Dictionary.join(props, {

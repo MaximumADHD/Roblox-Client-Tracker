@@ -1,6 +1,5 @@
 local FStringDevPublishChinaRequirementsLink = game:GetFastString("DevPublishChinaRequirementsLink")
 local FFlagPlacePublishManagementUI2 = game:GetFastFlag("PlacePublishManagementUI2")
-local FFlagRemoveUILibraryPartialHyperlink = game:GetFastFlag("RemoveUILibraryPartialHyperlink")
 
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local PublishPlaceAsPolicy = game:GetService("PluginPolicyService"):getPluginPolicy("PublishPlaceAs")
@@ -78,8 +77,6 @@ function PublishPlaceAsUtilities.sendAnalyticsToKibana(seriesName, throttlingPer
 end
 
 function PublishPlaceAsUtilities.calculateTextSize(text, textSize, font)
-	assert(FFlagRemoveUILibraryPartialHyperlink)
-
 	local hugeFrameSizeNoTextWrapping = Vector2.new(5000, 5000)
 	return game:GetService('TextService'):GetTextSize(text, textSize, font, hugeFrameSizeNoTextWrapping)
 end

@@ -16,8 +16,6 @@ local Localization = ContextServices.Localization
 local Signals = require(Plugin.Src.Context.Signals)
 local Constants = require(Plugin.Src.Util.Constants)
 
-local THEME_REFACTOR = game:GetFastFlag("AnimationClipEditorStylizer")
-
 local MockWrapper = Roact.Component:extend("MockWrapper")
 
 -- props : (table, optional)
@@ -56,7 +54,7 @@ function MockWrapper.getMockGlobals(props)
 
 	local theme = props.theme
 	if not theme then
-		theme = THEME_REFACTOR and PluginTheme(true) or PluginTheme.mock()
+		theme = PluginTheme(true)
 	end
 
 	local pluginActions = ContextServices.PluginActions.new(pluginInstance, {

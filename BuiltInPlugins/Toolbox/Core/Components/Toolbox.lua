@@ -19,8 +19,9 @@ local MemStorageService = game:GetService("MemStorageService")
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
 local FFlagToolboxRefactorSearchOptions = game:GetFastFlag("ToolboxRefactorSearchOptions")
+local FFlagToolboxAssetStyleUpdate = game:GetFastFlag("ToolboxAssetStyleUpdate")
 
 local Packages = Plugin.Packages
 local Cryo = require(Packages.Cryo)
@@ -54,7 +55,7 @@ local Footer = require(Components.Footer.Footer)
 local Header = require(Components.Header)
 local MainView = require(Components.MainView.MainView)
 local SoundPreviewComponent = require(Components.SoundPreviewComponent)
-local HomeWrapper = if FFlagToolboxAssetCategorization then require(Components.Home.HomeWrapper) else nil
+local HomeWrapper = if FFlagToolboxAssetCategorization2 then require(Components.Home.HomeWrapper) else nil
 local SearchOptions = require(Plugin.Core.Components.SearchOptions.SearchOptions)
 
 local Requests = Plugin.Core.Networking.Requests
@@ -279,11 +280,11 @@ function Toolbox:render()
 	local headerOffset = tabHeight
 
 	local inHomeViewExperiment = false
-	local selectedAssetType = if FFlagToolboxAssetCategorization
+	local selectedAssetType = if FFlagToolboxAssetCategorization2
 		then Category.getEngineAssetType(Category.getCategoryByName(categoryName).assetType)
 		else nil
 	if
-		FFlagToolboxAssetCategorization
+		FFlagToolboxAssetCategorization2
 		and currentTabKey == Category.MARKETPLACE_KEY
 		and table.find(HomeTypes.ENABLED_ASSET_TYPES, selectedAssetType) ~= nil
 		and not ixp:isError()
@@ -333,7 +334,17 @@ function Toolbox:render()
 				CategoryName = categoryName,
 				Locale = locale,
 				Position = UDim2.new(0, 0, 0, headerOffset + Constants.HEADER_HEIGHT + 1),
-				Size = UDim2.new(1, 0, 1, -(Constants.HEADER_HEIGHT + Constants.FOOTER_HEIGHT + headerOffset + 2)),
+				Size = UDim2.new(
+					1,
+					0,
+					1,
+					-(
+							Constants.HEADER_HEIGHT
+							+ (FFlagToolboxAssetStyleUpdate and 0 or Constants.FOOTER_HEIGHT)
+							+ headerOffset
+							+ 2
+						)
+				),
 				SortName = Sort.getDefaultSortNameForCategory(categoryName),
 				TryOpenAssetConfig = tryOpenAssetConfig,
 			})
@@ -350,8 +361,7 @@ function Toolbox:render()
 				tryOpenAssetConfig = tryOpenAssetConfig,
 				mostRecentAssetInsertTime = not FFlagToolboxAssetGridRefactor and self.state.mostRecentAssetInsertTime
 					or nil,
-				onAssetInsertionSuccesful = not FFlagToolboxAssetGridRefactor and self.updateMostRecentAssetTime
-					or nil,
+				onAssetInsertionSuccesful = not FFlagToolboxAssetGridRefactor and self.updateMostRecentAssetTime or nil,
 			}),
 
 		SearchOptions = if FFlagToolboxRefactorSearchOptions and showSearchOptions
@@ -360,16 +370,18 @@ function Toolbox:render()
 			})
 			else nil,
 
-		Footer = Roact.createElement(Footer, {
-			backgrounds = backgrounds,
-		}),
+		Footer = if not FFlagToolboxAssetStyleUpdate
+			then Roact.createElement(Footer, {
+				backgrounds = backgrounds,
+			})
+			else nil,
 
 		AudioPreview = Roact.createElement(SoundPreviewComponent),
 	})
 end
 
 Toolbox = withContext({
-	IXP = if FFlagToolboxAssetCategorization then IXPContext else nil,
+	IXP = if FFlagToolboxAssetCategorization2 then IXPContext else nil,
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Settings = Settings,
@@ -381,9 +393,9 @@ local function mapStateToProps(state, props)
 
 	return {
 		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
-		creator = if FFlagToolboxAssetCategorization then pageInfo.creator else nil,
+		creator = if FFlagToolboxAssetCategorization2 then pageInfo.creator else nil,
 		roles = state.roles or {},
-		searchTerm = if FFlagToolboxAssetCategorization then pageInfo.searchTerm or "" else nil,
+		searchTerm = if FFlagToolboxAssetCategorization2 then pageInfo.searchTerm or "" else nil,
 		sorts = pageInfo.sorts or {},
 	}
 end

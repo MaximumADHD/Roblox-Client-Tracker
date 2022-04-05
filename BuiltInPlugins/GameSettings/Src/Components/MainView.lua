@@ -35,8 +35,6 @@ local TextService = game:GetService("TextService")
 
 local MainView = Roact.PureComponent:extend("MainView")
 
-local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI");
-
 function MainView:init()
 	local selectedPage
 
@@ -139,11 +137,7 @@ function MainView:render()
             AnchorPoint = Vector2.new(0.5, 0.5),
 
             OnClick = function()
-                if FFlagStudioNewGamesInCloudUI then
-                    StudioService:ShowSaveOrPublishPlaceToRoblox(false, false, Enum.StudioCloseMode.None)
-                else
-                    StudioService:ShowPublishToRoblox()
-                end
+                StudioService:ShowSaveOrPublishPlaceToRoblox(false, false, Enum.StudioCloseMode.None)
                 self.props.OnClose(false)
             end,
         }, {

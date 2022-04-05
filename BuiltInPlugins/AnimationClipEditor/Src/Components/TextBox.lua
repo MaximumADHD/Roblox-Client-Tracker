@@ -21,8 +21,6 @@ local PADDING = UDim.new(0, 6)
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local UILibraryCompat = Plugin.Src.UILibraryCompat
@@ -30,7 +28,7 @@ local RoundFrame = require(UILibraryCompat.RoundFrame)
 
 local TextBox = Roact.PureComponent:extend("TextBox")
 
-function TextBox:init(initialProps)
+function TextBox:init()
 	self.state = {
 		Focused = false,
 	}
@@ -68,95 +66,94 @@ function TextBox:didMount()
 end
 
 function TextBox:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
-		local state = self.state
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
+	local state = self.state
 
-		local size = props.Size
-		local text = props.Text
-		local textXAlignment = props.TextXAlignment
-		local layoutOrder = props.LayoutOrder
+	local size = props.Size
+	local text = props.Text
+	local textXAlignment = props.TextXAlignment
+	local layoutOrder = props.LayoutOrder
 
-		local focused = state.Focused
-		local textBoxTheme = theme.textBox
+	local focused = state.Focused
+	local textBoxTheme = theme.textBox
 
-		local textChanged = props.TextChanged
-		local focusChanged = props.FocusChanged
-		local textEditable = not props.ReadOnly
+	local textChanged = props.TextChanged
+	local focusChanged = props.FocusChanged
+	local textEditable = not props.ReadOnly
 
-		local borderColor
-		if focused then
-			borderColor = textBoxTheme.focusedBorder
-		else
-			borderColor = textBoxTheme.defaultBorder
-		end
+	local borderColor
+	if focused then
+		borderColor = textBoxTheme.focusedBorder
+	else
+		borderColor = textBoxTheme.defaultBorder
+	end
 
-		local clearTextOnFocus
-		if props.ClearTextOnFocus ~= nil then
-			clearTextOnFocus = props.ClearTextOnFocus
-		else
-			clearTextOnFocus = true
-		end
+	local clearTextOnFocus
+	if props.ClearTextOnFocus ~= nil then
+		clearTextOnFocus = props.ClearTextOnFocus
+	else
+		clearTextOnFocus = true
+	end
 
-		return Roact.createElement(RoundFrame, {
-			Size = size,
-			BackgroundColor3 = textBoxTheme.backgroundColor,
-			BorderColor3 = borderColor,
-			LayoutOrder = layoutOrder,
-		}, {
-			Padding = Roact.createElement("UIPadding", {
-				PaddingLeft = PADDING,
-				PaddingRight = PADDING,
-			}),
+	return Roact.createElement(RoundFrame, {
+		Size = size,
+		BackgroundColor3 = textBoxTheme.backgroundColor,
+		BorderColor3 = borderColor,
+		LayoutOrder = layoutOrder,
+	}, {
+		Padding = Roact.createElement("UIPadding", {
+			PaddingLeft = PADDING,
+			PaddingRight = PADDING,
+		}),
 
-			Text = Roact.createElement("TextBox", {
-				Size = UDim2.new(1, 0, 1, 0),
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				ClipsDescendants = true,
+		Text = Roact.createElement("TextBox", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			ClipsDescendants = true,
 
-				ClearTextOnFocus = clearTextOnFocus,
-				Font = theme.font,
-				TextSize = textBoxTheme.textSize,
-				TextColor3 = textBoxTheme.textColor,
-				Text = text,
-				TextXAlignment = textXAlignment,
-				TextEditable = textEditable,
+			ClearTextOnFocus = clearTextOnFocus,
+			Font = theme.font,
+			TextSize = textBoxTheme.textSize,
+			TextColor3 = textBoxTheme.textColor,
+			Text = text,
+			TextXAlignment = textXAlignment,
+			TextEditable = textEditable,
 
-				[Roact.Ref] = self.textBoxRef,
+			[Roact.Ref] = self.textBoxRef,
 
-				[Roact.Change.Text] = textEditable and function(rbx)
-					if textChanged then
-						textChanged(rbx.Text)
-					end
-				end or nil,
+			[Roact.Change.Text] = textEditable and function(rbx)
+				if textChanged then
+					textChanged(rbx.Text)
+				end
+			end or nil,
 
-				[Roact.Event.Focused] = textEditable and function(rbx)
+			[Roact.Event.Focused] = textEditable and function(rbx)
+				self:setState({
+					Focused = true,
+				})
+				focusChanged(rbx, true)
+			end or nil,
+
+			[Roact.Event.FocusLost] = textEditable and function(rbx, submitted)
+				if not self.unmounting then
 					self:setState({
-						Focused = true,
+						Focused = false,
 					})
-					focusChanged(rbx, true)
-				end or nil,
+					focusChanged(rbx, false, submitted)
+				end
+			end or nil,
 
-				[Roact.Event.FocusLost] = textEditable and function(rbx, submitted)
-					if not self.unmounting then
-						self:setState({
-							Focused = false,
-						})
-						focusChanged(rbx, false, submitted)
-					end
-				end or nil,
-
-				[Roact.Event.MouseEnter] = textEditable and self.mouseEnter or nil,
-				[Roact.Event.MouseLeave] = textEditable and self.mouseLeave or nil,
-			}, props[Roact.Children]),
-		})
+			[Roact.Event.MouseEnter] = textEditable and self.mouseEnter or nil,
+			[Roact.Event.MouseLeave] = textEditable and self.mouseLeave or nil,
+		}, props[Roact.Children]),
+	})
 end
 
 
 TextBox = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Mouse = ContextServices.Mouse,
 })(TextBox)
 

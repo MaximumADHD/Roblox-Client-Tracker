@@ -29,8 +29,6 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -40,6 +38,8 @@ local Line = require(Plugin.Src.Components.Curves.Line)
 local Cubic = require(Plugin.Src.Components.Curves.Cubic)
 local Keyframe = require(Plugin.Src.Components.Curves.Keyframe)
 local TangentControl = require(Plugin.Src.Components.Curves.TangentControl)
+
+local GetFFlagQuaternionCurves = require(Plugin.LuaFlags.GetFFlagQuaternionCurves)
 
 local CurveCanvas = Roact.PureComponent:extend("CurveCanvas")
 
@@ -78,7 +78,7 @@ end
 
 function CurveCanvas:renderXAxis(): ()
 	local props = self.props
-	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
+	local theme = props.Stylizer.PluginTheme
 
 	local xAxis = self:toCanvasSpace(Vector2.new())
 
@@ -125,7 +125,7 @@ end
 
 function CurveCanvas:renderCurve(track: {any}): ()
 	local props = self.props
-	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
+	local theme = props.Stylizer.PluginTheme
 
 	if not track.Keyframes then
 		return
@@ -137,7 +137,7 @@ function CurveCanvas:renderCurve(track: {any}): ()
 	local colorName = Constants.TRACK_THEME_MAPPING[track.Type] and Constants.TRACK_THEME_MAPPING[track.Type][trackName] or "Default"
 	local color = theme.curveTheme[colorName]
 
-	local cur, prev
+	local cur, curB, prev
 	local prevTick, prevKeyframe, prevSelected
 
 	local tangentLength = props.AbsoluteSize.Y * Constants.TANGENT_CONTROL_LENGTH
@@ -175,7 +175,12 @@ function CurveCanvas:renderCurve(track: {any}): ()
 	for keyframeIndex, curTick in ipairs(track.Keyframes) do
 		local curKeyframe = track.Data[curTick]
 		local curSelected = selectionTrack and selectionTrack.Selection and selectionTrack.Selection[curTick]
-		cur = self:toCanvasSpace(Vector2.new(curTick, curKeyframe.Value))
+		if GetFFlagQuaternionCurves() and track.Type == Constants.TRACK_TYPES.Quaternion then
+			cur = self:toCanvasSpace(Vector2.new(curTick, 1))
+			curB = self:toCanvasSpace(Vector2.new(curTick, 0))
+		else
+			cur = self:toCanvasSpace(Vector2.new(curTick, curKeyframe.Value))
+		end
 
 		local curveSelected = prevSelected or (curSelected and prevKeyframe and prevKeyframe.InterpolationMode ~= Enum.KeyInterpolationMode.Constant)
 		local curveColor = curveSelected and theme.curveTheme.selected or color
@@ -246,6 +251,31 @@ function CurveCanvas:renderCurve(track: {any}): ()
 				end else nil,
 			})
 
+			-- Display the "other" keyframe of the quaternion track, at Y=0
+			if GetFFlagQuaternionCurves() and track.Type == Constants.TRACK_TYPES.Quaternion then
+				self.children[keyframeName .. "b"] = Roact.createElement(Keyframe, {
+					Position = curB,
+					TrackName = trackName,
+					InterpolationMode = curKeyframe.InterpolationMode,
+					PrevInterpolationMode = if prevKeyframe then prevKeyframe.InterpolationMode else nil,
+					LeftSlope = if keyframeIndex == 1 then nil else curKeyframe.LeftSlope,
+					RightSlope = if keyframeIndex == #track.Keyframes then nil else curKeyframe.RightSlope,
+					Color = color,
+					ShowSlopes = false,
+					Selected = curSelected,
+					ZIndex = 4,
+					OnRightClick = if props.OnKeyRightClick then function(_, input)
+						props.OnKeyRightClick(track.Instance, track.Path, curTick, curSelected)
+					end else nil,
+					OnInputBegan = if props.OnKeyInputBegan then function(_, input)
+						props.OnKeyInputBegan(track.Instance, track.Path, curTick, curSelected, input)
+					end else nil,
+					OnInputEnded = if props.OnKeyInputEnded then function(_, input)
+						props.OnKeyInputEnded(curTick, curKeyframe.Value, curSelected, input)
+					end else nil,
+				})
+			end
+
 			if curSelected then
 				if keyframeIndex > 1 then
 					local leftSlope = self:scaleSlope(KeyframeUtils.getSlope(track, curTick, Constants.SLOPES.Left))
@@ -271,9 +301,15 @@ function CurveCanvas:renderCurve(track: {any}): ()
 
 				if keyframeIndex < #track.Keyframes then
 					local rightSlope = self:scaleSlope(KeyframeUtils.getSlope(track, curTick, Constants.SLOPES.Right))
+					local position
+					if GetFFlagQuaternionCurves() and track.Type == Constants.TRACK_TYPES.Quaternion then
+						position = UDim2.new(0, curB.X, 0, curB.Y)
+					else
+						position = UDim2.new(0, cur.X, 0, cur.Y)
+					end
 					local tangentName = string.format("%s_RightTangent_%d", pathName, keyframeIndex)
 					self.children[tangentName] = Roact.createElement(TangentControl, {
-						Position = UDim2.new(0, cur.X, 0, cur.Y),
+						Position = position,
 						Slope = rightSlope,
 						Auto = curKeyframe.InterpolationMode ~= Enum.KeyInterpolationMode.Cubic or curKeyframe.RightSlope == nil,
 						Length = tangentLength,
@@ -293,7 +329,12 @@ function CurveCanvas:renderCurve(track: {any}): ()
 			end
 		end
 
-		prev = cur
+		if GetFFlagQuaternionCurves() and track.Type == Constants.TRACK_TYPES.Quaternion then
+			prev = curB
+		else
+			prev = cur
+		end
+
 		prevTick = curTick
 		prevKeyframe = curKeyframe
 		prevSelected = curSelected
@@ -323,8 +364,7 @@ function CurveCanvas:render(): (any)
 end
 
 CurveCanvas = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(CurveCanvas)
 
 return CurveCanvas

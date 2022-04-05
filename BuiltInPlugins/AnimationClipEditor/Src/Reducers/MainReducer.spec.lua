@@ -53,6 +53,7 @@ return function()
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+	local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
 
 	-- TODO: Ideally we want to write tests for number values and CFrame values
 	-- Right now, these tests only check number values if either FACS or channels are enabled.
@@ -1099,8 +1100,16 @@ return function()
 		it("should skip the playhead to the previous summary keyframe", function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
-			store:dispatch(AddTrack("Root", "TestTrack", analytics))
-			store:dispatch(AddTrack("Root", "OtherTrack", analytics))
+			if GetFFlagQuaternionsUI() then
+				store:dispatch(AddTrack("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, analytics))
+				store:dispatch(AddTrack("Root", "OtherTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, analytics))
+			elseif GetFFlagChannelAnimations() or GetFFlagFacialAnimationSupport() then
+				store:dispatch(AddTrack("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, analytics))
+				store:dispatch(AddTrack("Root", "OtherTrack", Constants.TRACK_TYPES.CFrame, analytics))
+			else
+				store:dispatch(AddTrack("Root", "TestTrack", analytics))
+				store:dispatch(AddTrack("Root", "OtherTrack", analytics))
+			end
 			store:dispatch(SetPlayhead(3))
 			store:dispatch(SetRootInstance({}))
 			store:dispatch(SkipAnimation(false, analytics))
@@ -1119,8 +1128,16 @@ return function()
 		it("should skip the playhead to the next summary keyframe", function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
-			store:dispatch(AddTrack("Root", "TestTrack", analytics))
-			store:dispatch(AddTrack("Root", "OtherTrack", analytics))
+			if GetFFlagQuaternionsUI() then
+				store:dispatch(AddTrack("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, analytics))
+				store:dispatch(AddTrack("Root", "OtherTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, analytics))
+			elseif GetFFlagChannelAnimations() or GetFFlagFacialAnimationSupport() then
+				store:dispatch(AddTrack("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, analytics))
+				store:dispatch(AddTrack("Root", "OtherTrack", Constants.TRACK_TYPES.CFrame, analytics))
+			else
+				store:dispatch(AddTrack("Root", "TestTrack", analytics))
+				store:dispatch(AddTrack("Root", "OtherTrack", analytics))
+			end
 			store:dispatch(SetPlayhead(3))
 			store:dispatch(SetRootInstance({}))
 			store:dispatch(SkipAnimation(true, analytics))

@@ -1,8 +1,19 @@
 local Plugin = script.Parent.Parent
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
 local themeRefactorFlags = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
 themeRefactorFlags.THEME_REFACTOR = true
+
+local function runAvatarToolsSharedTests()
+	local TestEZ = require(Plugin.Packages.Dev.TestEZ)
+	local TextReporter = TestEZ.Reporters.TextReporter -- Remove Quiet to see output
+	local TeamCityReporter = TestEZ.Reporters.TeamCityReporter
+
+	local reporter = _G["TEAMCITY"] and TeamCityReporter or TextReporter
+
+	AvatarToolsShared.Util.runAvatarToolsSharedTests(TestEZ, reporter)
+end
 
 local function runTests()
 	local TestEZ = require(Plugin.Packages.Dev.TestEZ)
@@ -38,6 +49,11 @@ end
 if SHOULD_RUN_TESTS then
 	print("----- All " ..script.Parent.Parent.Name.. " Tests ------")
 	runTests()
+	print("----------------------------------")
+
+	-- TODO: setup standalone testing suite for this
+	print("----- All AvatarToolsShared Tests ------")
+	runAvatarToolsSharedTests()
 	print("----------------------------------")
 end
 

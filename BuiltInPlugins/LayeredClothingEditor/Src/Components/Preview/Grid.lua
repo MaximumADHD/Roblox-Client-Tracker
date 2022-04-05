@@ -24,24 +24,27 @@
 		table EditingItemContext: An EditingItemContext, which is provided via withContext.
 		table AssetServiceWrapper: An AssetServiceWrapper context item, provided via withContext.
 ]]
-local FFlagDevFrameworkScrollingFrameUsePane = game:GetFastFlag("DevFrameworkScrollingFrameUsePane")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+local Cryo = require(Plugin.Packages.Cryo)
 local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 
 local Components = AvatarToolsShared.Components
 local ConfirmCancelDialog = Components.ConfirmCancelDialog
+local ConfirmDialog = Components.ConfirmDialog
+local ScrollableGrid = Components.ScrollableGrid
+local AssetThumbnailTiles = Components.AssetThumbnailTiles
+local InstanceSelectorTile = Components.InstanceSelectorTile
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local UI = Framework.UI
-local ScrollingFrame = UI.ScrollingFrame
+
 local Util = Framework.Util
 local LayoutOrderIterator = Util.LayoutOrderIterator
 local Typecheck = Util.Typecheck
+local deepCopy = Util.deepCopy
 
 local UpdatePreviewAssetsSelected = require(Plugin.Src.Thunks.UpdatePreviewAssetsSelected)
 local GetPrebuiltAssetsInfo = require(Plugin.Src.Thunks.GetPrebuiltAssetsInfo)
@@ -55,57 +58,32 @@ local Constants = require(Plugin.Src.Util.Constants)
 local PreviewConstantsInterface = require(Plugin.Src.Util.PreviewConstantsInterface)
 local ShowDialog = require(Plugin.Src.Util.ShowDialog)
 
-local Tile = require(Plugin.Src.Components.Preview.Tile)
-local InstanceSelector = require(Plugin.Src.Components.InstanceSelector)
-
 local Grid = Roact.PureComponent:extend("Grid")
 Typecheck.wrap(Grid, script)
 
-local function isAssetSelectedForPreviewing(self, uniqueId)
+local function getSelectedIds(self)
 	local props = self.props
 	local selectedAssets = props.SelectedAssets
 	local selectedTab = props.SelectedTab
 
 	local selectedAssetsforTab = selectedAssets[selectedTab] or {}
-	return selectedAssetsforTab[uniqueId] and true or false
-end
 
-local function createEquipTile(self, layoutOrder, zIndex, image, imageSize, uniqueId, name)
-	local isCurrentlySelected = isAssetSelectedForPreviewing(self, uniqueId)
-	return Roact.createElement(Tile, {
-		OnClick = function()
-			self.props.UpdatePreviewAssetsSelected(uniqueId, not isCurrentlySelected)
-		end,
-		Text = name,
-		ZIndex = zIndex + 1,
-		IsOn = isCurrentlySelected,
-		LayoutOrder = layoutOrder,
-		Image = image,
-		ImageSize = imageSize,
-	})
-end
-
-local function createSelectFromExplorerTile(self, layoutOrder, zIndex, panelBlockerLocalizationKey)
-	local props = self.props
-	local localization = props.Localization
-	local theme = props.Stylizer
-
-	return Roact.createElement(Tile, {
-		OnClick = function()
-			local localizedText = localization:getText(Constants.LOCALIZATION_KEYS.Preview, panelBlockerLocalizationKey)
-			props.StartSelectingFromExplorer(Constants.SELECTOR_MODE.Preview, localizedText)
-		end,
-		Text = localization:getText(Constants.LOCALIZATION_KEYS.Preview, "AddNew"),
-		ZIndex = zIndex + 1,
-		IsOn = false,
-		Image = theme.AddNewImage,
-		ImageSize = theme.SmallImageSize,
-		LayoutOrder = layoutOrder,
-	})
+	return Cryo.List.toSet(Cryo.Dictionary.keys(selectedAssetsforTab))
 end
 
 function Grid:init()
 	self.gridRef = Roact.createRef()
+
+	self.onClickAddNewInstance = function()
+		local props = self.props
+		local selectedTab = props.SelectedTab
+		local localization = props.Localization
+		local tabInfo = PreviewConstantsInterface.getTabInfo(selectedTab)
+		if tabInfo then
+			local localizedText = localization:getText(Constants.LOCALIZATION_KEYS.Preview, tabInfo.PanelBlockerLocalizationKey)
+			props.StartSelectingFromExplorer(Constants.SELECTOR_MODE.Preview, localizedText)
+		end
+	end
 
 	self.isSelectedInstanceValid = function(item)
 		local props = self.props
@@ -140,6 +118,19 @@ function Grid:init()
 			end,
 		})
 	end
+
+	self.onInstanceSelectorInvalidSelection = function(instance)
+		local props = self.props
+		local localization = props.Localization
+		local selectedTab = props.SelectedTab
+		local tabInfo = PreviewConstantsInterface.getTabInfo(selectedTab)
+
+		if tabInfo then
+			ShowDialog(props.Plugin, props.Localization, ConfirmDialog,{
+				Text = localization:getText(Constants.LOCALIZATION_KEYS.Preview, tabInfo.InvalidAddLocalizationKey),
+			})
+		end
+	end
 end
 
 local function getUserAddedAssets(self, selectedTab)
@@ -149,116 +140,100 @@ local function getUserAddedAssets(self, selectedTab)
 	return userAddedAssets and userAddedAssets[selectedTab] or {}
 end
 
-function Grid:createPrebuiltAssetTile(id, thumbnailType, order)
-	local props = self.props
-	local prebuiltAssetsInfo = props.PrebuiltAssetsInfo
-	local localization = props.Localization
-	local zIndex = props.zIndex or 1
+local function getUserAddedAssetIds(self, selectedTab)
+	local userAddedAssetsForTab = getUserAddedAssets(self, selectedTab)
 
-	local infoForAsset = prebuiltAssetsInfo[id] -- will only be available on production
-	if infoForAsset then
-		local image = "rbxthumb://type=" ..thumbnailType .."&id=" .. tostring(id) .. "&w=150&h=150"
-		local name = infoForAsset.Name or infoForAsset.name or localization:getText(Constants.LOCALIZATION_KEYS.Preview, "Asset")
-		return createEquipTile(self, order, zIndex, image, nil, id, name)
+	local ids = {}
+
+	for _, asset in ipairs(userAddedAssetsForTab) do
+		table.insert(ids, asset.uniqueId)
+	end
+
+	return ids
+end
+
+local function combineAssetInfo(self, selectedTab)
+	local props = self.props
+
+	local prebuiltAssetsInfo = deepCopy(props.PrebuiltAssetsInfo)
+	local userAddedAssetsForTab = getUserAddedAssets(self, selectedTab)
+	local tabInfo = PreviewConstantsInterface.getTabInfo(selectedTab)
+	if tabInfo then
+		local guids = getUserAddedAssetIds(self, selectedTab)
+		local assetIds = tabInfo.AssetIds or {}
+		local bundleIds = tabInfo.BundleIds or {}
+
+		for _, id in pairs(assetIds) do
+			local info = prebuiltAssetsInfo[id]
+			if info then
+				info.ThumbnailType = "Asset"
+			end
+		end
+
+		for _, id in pairs(bundleIds) do
+			local info = prebuiltAssetsInfo[id]
+			if info then
+				info.ThumbnailType = "BundleThumbnail"
+			end
+		end
+
+		local userAddedAssetsById = {}
+		for _, asset in ipairs(userAddedAssetsForTab) do
+			userAddedAssetsById[asset.uniqueId] = {
+				Name = asset.instance.Name,
+				ThumbnailType = "",
+			}
+		end
+
+		local combinedAssetInfo = Cryo.Dictionary.join(prebuiltAssetsInfo, userAddedAssetsById)
+		local combinedAssetIds = Cryo.List.join(guids, assetIds, bundleIds)
+
+		return combinedAssetIds, combinedAssetInfo
 	end
 end
 
 function Grid:render()
 	local props = self.props
 	local size = props.size
-	local layoutOrder = props.layoutOrder or 1
-	local zIndex = props.zIndex or 1
+	local layoutOrder = props.layoutOrder
 	local theme = props.Stylizer
 	local selectedTab = props.SelectedTab
-	local localization = props.Localization
-	local selectorMode = props.SelectorMode
 
-	local children = {
-		UIGridLayout = Roact.createElement("UIGridLayout", {
-			FillDirection = Enum.FillDirection.Horizontal,
-			HorizontalAlignment = Enum.HorizontalAlignment.Center,
-			VerticalAlignment = Enum.VerticalAlignment.Top,
-			SortOrder = Enum.SortOrder.LayoutOrder,
-			CellPadding = UDim2.new(0, 0, 0, 0),
-			CellSize = theme.TileSize,
-			FillDirectionMaxCells = 3,
+	local orderIterator = LayoutOrderIterator.new()
 
-			[Roact.Change.AbsoluteContentSize] = function(rbx)
-				if not self.gridRef.current then
-					return
-				end
-				if FFlagDevFrameworkScrollingFrameUsePane then
-					self.gridRef.current.ScrollingFrame.Scroller.CanvasSize =
-						UDim2.fromOffset(rbx.AbsoluteContentSize.X, rbx.AbsoluteContentSize.Y)
-				else
-					self.gridRef.current.ScrollingFrame.Contents.Scroller.CanvasSize =
-						UDim2.fromOffset(rbx.AbsoluteContentSize.X, rbx.AbsoluteContentSize.Y)
-				end
-			end,
-		}),
-	}
-
+	local children = {}
 	local tabInfo = PreviewConstantsInterface.getTabInfo(selectedTab)
 	if tabInfo then
-		local orderIterator = LayoutOrderIterator.new()
-		if tabInfo.CanAddNew then
-			children["AddNewTile"] =
-				createSelectFromExplorerTile(self, orderIterator:getNextOrder(), zIndex, tabInfo.PanelBlockerLocalizationKey)
-		end
+		children = Cryo.Dictionary.join(children, {
+			AddNewTile = Roact.createElement(InstanceSelectorTile, {
+				Image = theme.AddNewImage,
+				ImageSize = theme.SmallImageSize,
+				LayoutOrder = orderIterator:getNextOrder(),
+				IsSelectedInstanceValid = self.isSelectedInstanceValid,
+				OnClickAddNewInstance = self.onClickAddNewInstance,
+				OnInstanceSelectorValidSelection = self.onInstanceSelectorValidSelection,
+				OnInstanceSelectorInvalidSelection = self.onInstanceSelectorInvalidSelection
+			})
+		})
 
-		-- add tiles for assets selected from explorer
-		local userAddedAssetsForTab = getUserAddedAssets(self, selectedTab)
-		for _, asset in ipairs(userAddedAssetsForTab) do
-			local tileLayoutOrder = orderIterator:getNextOrder()
-			local image = theme.DefaultTileImages[selectedTab]
-			local name = asset.instance.Name
-			children[tileLayoutOrder] =
-				createEquipTile(self, tileLayoutOrder, zIndex, image, theme.SmallImageSize, asset.uniqueId, name)
-		end
-
-		-- add prebuilt asset tiles
-		if tabInfo.AssetIds then
-			for _, assetId in ipairs(tabInfo.AssetIds) do
-				local tileLayoutOrder = orderIterator:getNextOrder()
-				children[tileLayoutOrder] = self:createPrebuiltAssetTile(assetId, "Asset", tileLayoutOrder)
-			end
-		elseif tabInfo.BundleIds then
-			for _, bundleId in ipairs(tabInfo.BundleIds) do
-				local tileLayoutOrder = orderIterator:getNextOrder()
-				children[tileLayoutOrder] = self:createPrebuiltAssetTile(bundleId, "BundleThumbnail", tileLayoutOrder)
-			end
-		end
+		local ids, info = combineAssetInfo(self, selectedTab)
+		children = Cryo.Dictionary.join(children, AssetThumbnailTiles({
+			AssetIds = ids,
+			AssetsInfo = info,
+			LayoutOrder = orderIterator:getNextOrder(),
+			SelectedTiles = getSelectedIds(self),
+			DefaultThumbnail = theme.DefaultTileImages[selectedTab],
+			OnThumbnailClick = function(id, selected)
+				self.props.UpdatePreviewAssetsSelected(id, not selected)
+			end,
+		}))
 	end
 
-	local isSelectorActive = selectorMode == Constants.SELECTOR_MODE.Preview
-	assert((not isSelectorActive) or tabInfo, "tabInfo must be available if isSelectorActive is true")
-	return Roact.createElement("Frame", {
-		BackgroundTransparency = 1,
+	return Roact.createElement(ScrollableGrid, {
 		Size = size,
+		CellSize = theme.TileSize,
 		LayoutOrder = layoutOrder,
-
-		[Roact.Ref] = self.gridRef,
-	}, {
-		ScrollingFrame = Roact.createElement(ScrollingFrame, {
-			Style = {
-				BackgroundColor3 = theme.BackgroundColor,
-				BorderSizePixel = 0,
-				ZIndex = zIndex,
-				ScrollBarThickness = theme.ScrollbarSize,
-			},
-
-			LayoutOrder = layoutOrder,
-			Size = UDim2.new(1, 0, 1, 0),
-			AutoSizeCanvas = false,
-		}, children),
-		InstanceSelector = isSelectorActive and Roact.createElement(InstanceSelector,
-		{
-			IsSelectedInstanceValid = self.isSelectedInstanceValid,
-			OnValidSelection = self.onInstanceSelectorValidSelection,
-			InvalidSelectionWarningText =
-				localization:getText(Constants.LOCALIZATION_KEYS.Preview, tabInfo.InvalidAddLocalizationKey),
-		}),
-	})
+	}, children)
 end
 
 function Grid:didMount()
@@ -281,8 +256,6 @@ Grid = withContext({
 	EditingItemContext = EditingItemContext,
 	AssetServiceWrapper = AssetServiceWrapper,
 })(Grid)
-
-
 
 local function mapStateToProps(state, props)
 	local previewAssets = state.previewAssets

@@ -1,3 +1,5 @@
+local FFlagPivotEditorFixTests = game:GetFastFlag("PivotEditorFixTests")
+
 local DevFrameworkRoot = script.Parent.Parent.Parent
 local Signal = require(DevFrameworkRoot.Util.Signal)
 
@@ -14,7 +16,9 @@ function MockMouse.new()
 
 		WheelForward = Signal.new(),
 		WheelBackward = Signal.new(),
-		Button1Down = Signal.new()
+		Button1Down = Signal.new(),
+		Button1Up = if FFlagPivotEditorFixTests then Signal.new() else nil,
+		DragEnter = if FFlagPivotEditorFixTests then Signal.new() else nil,
 	}, MockMouse)
 end
 

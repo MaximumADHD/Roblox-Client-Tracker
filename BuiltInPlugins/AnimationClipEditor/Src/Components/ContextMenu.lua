@@ -14,6 +14,15 @@ local withContext = ContextServices.withContext
 
 local MakePluginMenu = require(Plugin.Src.Util.MakePluginMenu)
 
+export type MenuItem = {
+	Name: string,
+	Items: {MenuItem}?,
+	Value: any?,
+	CurrentValue: any?,
+	ItemSelected: ((MenuItem) -> ())?,
+	Checked: boolean?,
+}
+
 local ContextMenu = Roact.PureComponent:extend("ContextMenu")
 
 function ContextMenu:showMenu()

@@ -19,6 +19,7 @@ return function()
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+	local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
 
 	local mockSkeleton = {
 		ClassName = "MockSkeleton",
@@ -67,6 +68,13 @@ return function()
 		it("should add a track to Tracks", function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
+			if GetFFlagQuaternionsUI() then
+				store:dispatch(AddTrack("Root", "Neck", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, analytics))
+			elseif GetFFlagChannelAnimations() or GetFFlagFacialAnimationSupport() then
+				store:dispatch(AddTrack("Root", "Neck", Constants.TRACK_TYPES.CFrame, analytics))
+			else
+				store:dispatch(AddTrack("Root", "Neck", analytics))
+			end
 			store:dispatch(AddTrack("Root", "Neck", analytics))
 
 			local found = false
@@ -84,7 +92,13 @@ return function()
 		it("should do nothing if a track already exists", function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
-			store:dispatch(AddTrack("Root", "Hips", analytics))
+			if GetFFlagQuaternionsUI() then
+				store:dispatch(AddTrack("Root", "Hips", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, analytics))
+			elseif GetFFlagChannelAnimations() or GetFFlagFacialAnimationSupport() then
+				store:dispatch(AddTrack("Root", "Hips", Constants.TRACK_TYPES.CFrame, analytics))
+			else
+				store:dispatch(AddTrack("Root", "Hips", analytics))
+			end
 
 			local found = 0
 			local status = store:getState().Status

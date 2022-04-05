@@ -33,8 +33,6 @@ local Constants = require(Plugin.Src.Util.Constants)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -77,124 +75,119 @@ function TextEntryPrompt:init(initialProps)
 end
 
 function TextEntryPrompt:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
-		local dialogTheme = theme.dialogTheme
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
+	local dialogTheme = theme.dialogTheme
 
-		local state = self.state
-		local promptText = props.PromptText
-		local inputText = props.InputText
-		local noticeText = props.NoticeText
-		local hasError = props.HasError
-		local buttons = props.Buttons
-		local onButtonClicked = props.OnButtonClicked
-		local onTextSubmitted = props.OnTextSubmitted
+	local state = self.state
+	local promptText = props.PromptText
+	local inputText = props.InputText
+	local noticeText = props.NoticeText
+	local hasError = props.HasError
+	local buttons = props.Buttons
+	local onButtonClicked = props.OnButtonClicked
+	local onTextSubmitted = props.OnTextSubmitted
 
-		local currentText = state.currentText
+	local currentText = state.currentText
 
-		local inputTextWidth = inputText
-			and StringUtils.getTextWidth(inputText, dialogTheme.textSize, theme.font) or 0
-		local noticeTextHeight = noticeText
-			and TextService:GetTextSize(noticeText, dialogTheme.subTextSize, theme.font, WRAP_SIZE).Y or 0
+	local inputTextWidth = inputText
+		and StringUtils.getTextWidth(inputText, dialogTheme.textSize, theme.font) or 0
+	local noticeTextHeight = noticeText
+		and TextService:GetTextSize(noticeText, dialogTheme.subTextSize, theme.font, WRAP_SIZE).Y or 0
 
-		local maxHeight = Constants.PROMPT_VERTICAL_PADDING * 3
-			+ VERTICAL_PADDING * 2
-			+ Constants.TRACK_HEIGHT * 2
-			+ noticeTextHeight
-			+ Constants.PROMPT_BUTTON_SIZE.Y
+	local maxHeight = Constants.PROMPT_VERTICAL_PADDING * 3
+		+ VERTICAL_PADDING * 2
+		+ Constants.TRACK_HEIGHT * 2
+		+ noticeTextHeight
+		+ Constants.PROMPT_BUTTON_SIZE.Y
 
-		return Roact.createElement(FocusedPrompt, {
-			Size = UDim2.new(0, HORIZONTAL_SIZE, 0, maxHeight),
-			Buttons = buttons,
-			OnButtonClicked = function(button)
-				if type(button) == "string" and onButtonClicked then
-					onButtonClicked(button)
-				else
-					if button then
-						if currentText ~= "" then
-							local result = onTextSubmitted(currentText)
-							if result ~= false then
-								self.onClose()
-							end
+	return Roact.createElement(FocusedPrompt, {
+		Size = UDim2.new(0, HORIZONTAL_SIZE, 0, maxHeight),
+		Buttons = buttons,
+		OnButtonClicked = function(button)
+			if type(button) == "string" and onButtonClicked then
+				onButtonClicked(button)
+			else
+				if button then
+					if currentText ~= "" then
+						local result = onTextSubmitted(currentText)
+						if result ~= false then
+							self.onClose()
 						end
-					else
-						self.onClose()
 					end
+				else
+					self.onClose()
 				end
-			end,
-			OnClose = self.onClose,
+			end
+		end,
+		OnClose = self.onClose,
+	}, {
+		Layout = Roact.createElement("UIListLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			FillDirection = Enum.FillDirection.Vertical,
+			Padding = UDim.new(0, VERTICAL_PADDING),
+		}),
+
+		PromptText = promptText and Roact.createElement("TextLabel", {
+			Size = UDim2.new(1, 0, 0, Constants.TRACK_HEIGHT),
+			BackgroundTransparency = 1,
+			TextSize = dialogTheme.textSize,
+			TextColor3 = dialogTheme.textColor,
+			Font = theme.font,
+			Text = promptText,
+			TextTruncate = Enum.TextTruncate.AtEnd,
+			LayoutOrder = 1,
+		}),
+
+		Center = Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 0, Constants.TRACK_HEIGHT),
+			BackgroundTransparency = 1,
+			LayoutOrder = 2,
 		}, {
 			Layout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillDirection = Enum.FillDirection.Vertical,
-				Padding = UDim.new(0, VERTICAL_PADDING),
+				FillDirection = Enum.FillDirection.Horizontal,
+				Padding = UDim.new(0, HORIZONTAL_PADDING),
 			}),
 
-			PromptText = promptText and Roact.createElement("TextLabel", {
-				Size = UDim2.new(1, 0, 0, Constants.TRACK_HEIGHT),
+			InputText = inputText and Roact.createElement("TextLabel", {
+				LayoutOrder = -1,
+				Size = UDim2.new(0, inputTextWidth, 1, 0),
 				BackgroundTransparency = 1,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				Text = inputText,
 				TextSize = dialogTheme.textSize,
 				TextColor3 = dialogTheme.textColor,
 				Font = theme.font,
-				Text = promptText,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-				LayoutOrder = 1,
 			}),
 
-			Center = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, Constants.TRACK_HEIGHT),
-				BackgroundTransparency = 1,
-				LayoutOrder = 2,
-			}, {
-				Layout = Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					FillDirection = Enum.FillDirection.Horizontal,
-					Padding = UDim.new(0, HORIZONTAL_PADDING),
-				}),
-
-				InputText = inputText and Roact.createElement("TextLabel", {
-					LayoutOrder = -1,
-					Size = UDim2.new(0, inputTextWidth, 1, 0),
-					BackgroundTransparency = 1,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					Text = inputText,
-					TextSize = dialogTheme.textSize,
-					TextColor3 = dialogTheme.textColor,
-					Font = theme.font,
-				}),
-
-				TextBox = Roact.createElement(TextBox, {
-					Size = UDim2.new(1, (inputText and -inputTextWidth - HORIZONTAL_PADDING) or 0, 1, 0),
-					ClearTextOnFocus = false,
-					CaptureFocus = true,
-					FocusChanged = self.onFocusChanged,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					Text = currentText,
-				}),
-			}),
-
-			NoticeText = noticeText and Roact.createElement("TextLabel", {
-				Size = UDim2.new(1, 0, 0, noticeTextHeight),
-				BackgroundTransparency = 1,
-				LayoutOrder = 3,
+			TextBox = Roact.createElement(TextBox, {
+				Size = UDim2.new(1, (inputText and -inputTextWidth - HORIZONTAL_PADDING) or 0, 1, 0),
+				ClearTextOnFocus = false,
+				CaptureFocus = true,
+				FocusChanged = self.onFocusChanged,
 				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Top,
-				Text = noticeText,
-				TextSize = dialogTheme.subTextSize,
-				TextColor3 = hasError and dialogTheme.errorTextColor or dialogTheme.subTextColor,
-				TextWrapped = true,
-				Font = theme.font,
+				Text = currentText,
 			}),
-		})
+		}),
+
+		NoticeText = noticeText and Roact.createElement("TextLabel", {
+			Size = UDim2.new(1, 0, 0, noticeTextHeight),
+			BackgroundTransparency = 1,
+			LayoutOrder = 3,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Top,
+			Text = noticeText,
+			TextSize = dialogTheme.subTextSize,
+			TextColor3 = hasError and dialogTheme.errorTextColor or dialogTheme.subTextColor,
+			TextWrapped = true,
+			Font = theme.font,
+		}),
+	})
 end
 
-
 TextEntryPrompt = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(TextEntryPrompt)
-
-
-
 
 return TextEntryPrompt

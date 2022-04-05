@@ -21,8 +21,6 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local createTheme = UILibrary.createTheme
 local StudioStyle = UILibrary.Studio.Style
 
-local FFlagRemoveUILibraryPartialHyperlink = game:GetFastFlag("RemoveUILibraryPartialHyperlink")
-
 local Theme = {}
 
 function Theme.isDarkerTheme()
@@ -660,20 +658,6 @@ local function getUILibraryTheme()
 			textSize = 16,
 			font = Enum.Font.SourceSans,
 		},
-
-		partialHyperlink = if not FFlagRemoveUILibraryPartialHyperlink then {
-			RequirementsLink = {
-				textSize = 16,
-				textColor = theme:GetColor(StyleColor.SubText),
-				font = Enum.Font.SourceSans,
-			},
-			RequirementsLinkDisabled = {
-				textSize = 16,
-				textColor = theme:GetColor(StyleColor.BrightText),
-				font = Enum.Font.SourceSans,
-				transparency = 0.5,
-			},
-		} else nil,
 	}
 
 	return createTheme(styleGuide, UILibraryOverrides)

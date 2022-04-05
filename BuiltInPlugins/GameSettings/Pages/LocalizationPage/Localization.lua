@@ -16,8 +16,6 @@
 
 local StudioService = game:GetService("StudioService")
 
-local FFlagRemoveUILibraryPartialHyperlink = game:GetFastFlag("RemoveUILibraryPartialHyperlink")
-
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -32,8 +30,6 @@ local FrameworkUtil = Framework.Util
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
 
 local UILibrary = require(Plugin.Packages.UILibrary)
---TODO: jbousellam - remove with FFlagRemoveUILibraryPartialHyperlink
-local StudioWidgetPartialHyperlink = UILibrary.Studio.PartialHyperlink
 local TitledFrame = UILibrary.Component.TitledFrame
 local ToggleButton = UILibrary.Component.ToggleButton
 local createFitToContent = UILibrary.Component.createFitToContent
@@ -52,7 +48,7 @@ local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local ReloadAutoTranslationTargetLanguages = require(Page.Thunks.ReloadAutoTranslationTargetLanguages)
 
-local calculateTextSize = if FFlagRemoveUILibraryPartialHyperlink then require(Plugin.Src.Util.GameSettingsUtilities).calculateTextSize else nil
+local calculateTextSize = require(Plugin.Src.Util.GameSettingsUtilities).calculateTextSize
 local getAutoTranslationAllowed = require(Plugin.Src.Util.GameSettingsUtilities).getAutoTranslationAllowed
 local getAutoTranslatedLanguages = require(Plugin.Src.Util.GameSettingsUtilities).getAutoTranslatedLanguages
 local OpenLocalizationSettings = require(Plugin.Src.Util.BrowserUtils).OpenLocalizationSettings
@@ -208,7 +204,7 @@ local function displayLocalizationSettingsPage(props, localization, theme)
 	local gameId = props.GameId
 
 	-- Question: Is there a way for me to get the size and font type automagically from the LinkText Style "Body"?
-	local hyperLinkTextSize = if FFlagRemoveUILibraryPartialHyperlink then calculateTextSize(localization:getText("General", "LocalizationSettingsLinkText"), 14, "SourceSans") else nil
+	local hyperLinkTextSize = calculateTextSize(localization:getText("General", "LocalizationSettingsLinkText"), 14, "SourceSans")
 
 	return {
 		SourceLanguage = Roact.createElement(TitledFrame, {
@@ -334,28 +330,21 @@ local function displayLocalizationSettingsPage(props, localization, theme)
 			Size = UDim2.new(1, 0, 0, 20),
 			BackgroundTransparency = 1,
 		}, {
-			LinkTextLabel = if FFlagRemoveUILibraryPartialHyperlink then Roact.createElement(TextLabel, {
+			LinkTextLabel = Roact.createElement(TextLabel, {
 				Position = UDim2.new(0, hyperLinkTextSize.X, 0, 0),
 				Size = UDim2.new(1, -hyperLinkTextSize.X, 1, 0),
 				Style = "Body",
 				Text = localization:getText("General", "LocalizationSettingsNonLinkText"),
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Top,
-			}) else nil,
+			}),
 
-			LinkText = if FFlagRemoveUILibraryPartialHyperlink then Roact.createElement(LinkText, {
+			LinkText = Roact.createElement(LinkText, {
 				OnClick = OpenLocalizationSettings(gameId),
 				Size = UDim2.new(0, hyperLinkTextSize.X, 0, hyperLinkTextSize.Y),
 				Style = "Body",
 				Text = localization:getText("General", "LocalizationSettingsLinkText"),
-			}) else nil,
-
-			DEPRECATED_LinkText = if not FFlagRemoveUILibraryPartialHyperlink then Roact.createElement(StudioWidgetPartialHyperlink, {
-				HyperLinkText = localization:getText("General", "LocalizationSettingsLinkText"),
-				NonHyperLinkText = localization:getText("General", "LocalizationSettingsNonLinkText"),
-				Mouse = props.Mouse:get(),
-				OnClick = OpenLocalizationSettings(gameId),
-			}) else nil,
+			}),
 		})
 	}
 end

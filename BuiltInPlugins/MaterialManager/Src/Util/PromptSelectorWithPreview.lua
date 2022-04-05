@@ -49,9 +49,6 @@ local StudioUI = Framework.StudioUI
 local Dialog = StudioUI.Dialog
 
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
-local ellipsizeMiddle = Framework.Util.ellipsizeMiddle
-
-local TextService = game:GetService("TextService")
 
 type Array<T> = { [number]: T }
 
@@ -64,6 +61,7 @@ type _ExternalProps = {
 	UrlSelection : (string) -> (),
 	SearchUrl : string?,
 	ClearSelection : () -> (),
+	OnFocusLost : () -> (),
 }
 
 type _InternalProps = {
@@ -246,6 +244,7 @@ function PreviewDialog:render()
 	}, {
 		Background = Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundColor3 = style.PreviewBackgroundColor,
 		}, {
 			UIPadding = Roact.createElement("UIPadding", {
 				PaddingTop = style.ExpandedPreviewPadding,
@@ -297,48 +296,6 @@ function PromptSelectorWithPreview:init()
 			showingExpandedPreview = false,
 		})
 	end
-
-	self.selectionNameRef = Roact.createRef()
-
-	self.getSelectionNameWidth = function(text)
-		local selectionNameInstance = self.selectionNameRef.current
-		if not selectionNameInstance then
-			return 0
-		end
-
-		return TextService:GetTextSize(text, selectionNameInstance.TextSize, selectionNameInstance.Font,
-			Vector2.new(math.huge, math.huge)).x
-	end
-
-	self.lastSelectionName = ""
-	self.lastSelectionNameWidth = 0
-
-	self.updateSelectionNameText = function()
-		local selectionNameInstance = self.selectionNameRef.current
-		if not selectionNameInstance then
-			return
-		end
-
-		local maxWidth = selectionNameInstance.AbsoluteSize.x
-		local selectionName = self.props.SelectionName or ""
-
-		-- Only calculate the truncation if we need to
-		local filenameEllipsizeMiddleSuffixLength = 7
-		if selectionName ~= self.lastSelectionName or maxWidth ~= self.lastSelectionNameWidth then
-			selectionNameInstance.Text = ellipsizeMiddle(selectionName, maxWidth,
-				self.getSelectionNameWidth, filenameEllipsizeMiddleSuffixLength)
-			self.lastSelectionName = selectionName
-			self.lastSelectionNameWidth = maxWidth
-		end
-	end
-end
-
-function PromptSelectorWithPreview:didMount()
-	self.updateSelectionNameText()
-end
-
-function PromptSelectorWithPreview:didUpdate()
-	self.updateSelectionNameText()
 end
 
 function PromptSelectorWithPreview:render()
@@ -354,7 +311,7 @@ function PromptSelectorWithPreview:render()
 	local columnWidth = style.ColumnWidth
 	local previewSize = style.PreviewSize
 	local importWidth = columnWidth - previewSize - style.PaddingHorizontal
-	local height = previewSize + style.TextHeight
+	local height = previewSize
 
 	local hasSelection = props.HasSelection
 	local promptSelectionHovered = state.promptSelectionHovered
@@ -385,15 +342,11 @@ function PromptSelectorWithPreview:render()
 			}, {
 			PreviewColumn = Roact.createElement(Pane, {
 				LayoutOrder = 1,
-				Layout = Enum.FillDirection.Vertical,
 				Size = UDim2.new(0, previewSize, 1, 0),
 			}, {
-				-- Import new asset button goes underneath the preview+toolbar
-				-- If we have a preview, block clicking through to this button
-				-- To import something new, require users to click "clear" first
 				PreviewImage = Roact.createElement("ImageLabel", {
 					ZIndex = 1,
-					Size = UDim2.new(1, 0, 0, previewSize),
+					Size = UDim2.new(0, previewSize, 0, previewSize),
 					LayoutOrder = layoutOrderIterator:getNextOrder(),
 					Image = "",
 					BorderSizePixel = 1,
@@ -402,6 +355,21 @@ function PromptSelectorWithPreview:render()
 					[Roact.Event.MouseEnter] = self.onPromptSelectionHover,
 					[Roact.Event.MouseLeave] = self.onPromptSelectionHoverEnd,
 				}, {
+					PreviewNoImageSign = not hasSelection and Roact.createElement("Frame", {
+						ZIndex = 2,
+						Size = UDim2.new(1, 0, 1, 0),
+						BackgroundTransparency = 1,
+					}, {
+						NoImageText = Roact.createElement(TextLabel, {
+							Size = UDim2.new(1, 0, 1, 0),
+							TextXAlignment = Enum.TextXAlignment.Center,
+							TextSize = style.TextHeight,
+							Text = localization:getText("CreateDialog", "NoImageSelected"),
+							TextWrapped = true,
+							TextColor = style.ButtonIconColor,
+						}),
+					}),
+
 					PreviewContentContainer = hasSelection and Roact.createElement("Frame", {
 						ZIndex = 2,
 						Size = UDim2.new(1, 0, 1, 0),
@@ -433,17 +401,6 @@ function PromptSelectorWithPreview:render()
 					}),
 				}),
 
-				SelectionName = Roact.createElement(TextLabel, {
-					LayoutOrder = layoutOrderIterator:getNextOrder(),
-					Size = UDim2.new(1, 0, 0, style.TextHeight),
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextSize = style.TextHeight,
-					Text = selectionName,
-					-- Note that the text isn't set here, it's controlled by updateSelectionNameText as we need to handle truncation
-					[Roact.Ref] = self.selectionNameRef,
-					[Roact.Change.AbsoluteSize] = self.updateSelectionNameText,
-				}),
-
 				ExpandedPreview = showingExpandedPreview and Roact.createElement(PreviewDialog, {
 					LayoutOrder = layoutOrderIterator:getNextOrder(),
 					PreviewTitle = previewTitle,
@@ -465,14 +422,14 @@ function PromptSelectorWithPreview:render()
 					PlaceholderText = localization:getText("CreateDialog", "InsertAssetURL"),
 					Text = props.SearchUrl,
 					OnTextChanged = props.UrlSelection,
-					-- TODO: add error text
-					ErrorText = "",
 					Size = UDim2.new(0, importWidth, 0, 25),
+					OnFocusLost = props.OnFocusLost,
 				}),
 
 				IconImport = Roact.createElement(IconButton, {
 					Size = UDim2.new(0, importWidth, 0, 25),
-					Text = "Import",
+					Text = localization:getText("CreateDialog", "Import"),
+					TextXAlignment = Enum.TextXAlignment.Center,
 					LeftIcon = style.ImportIcon,
 					OnClick = props.PromptSelection,
 				}),

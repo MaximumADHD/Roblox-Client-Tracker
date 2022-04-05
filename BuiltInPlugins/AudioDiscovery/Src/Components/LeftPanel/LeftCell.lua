@@ -1,4 +1,5 @@
 local FFlagStudioAudioDiscoveryPluginV2 = game:GetFastFlag("StudioAudioDiscoveryPluginV2")
+local FFlagStudioAudioDiscoveryPluginV5 = game:GetFastFlag("StudioAudioDiscoveryPluginV5")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -22,10 +23,14 @@ local FIntSoundEffectMaxDuration = game:GetFastInt("SoundEffectMaxDuration")
 
 local LeftCell = Roact.PureComponent:extend("LeftCell")
 
-
 function LeftCell:getContent()
 	local props = self.props
-	local locations = props.CellProps.Locations[props.Row.Id]
+	local locations
+	if FFlagStudioAudioDiscoveryPluginV5 then
+		locations = props.CellProps.Locations[props.Row.Id] or {}
+	else
+		locations = props.CellProps.Locations[props.Row.Id]
+	end
 	if props.ColumnIndex > 1 then
 		local value = props.Value
 		if typeof(props.Value) == "number" then
@@ -72,7 +77,12 @@ function LeftCell:render()
 	local backgroundColor = if (props.RowIndex % 2) == 1 then style.BackgroundOdd else style.BackgroundEven
 	local width = props.Width or UDim.new(1 / #props.Columns, 0)
 	local tooltipText = if props.Value then tostring(props.Value) else nil
-	local locations = props.CellProps.Locations[props.Row.Id]
+	local locations
+	if FFlagStudioAudioDiscoveryPluginV5 then
+		locations = props.CellProps.Locations[props.Row.Id] or {}
+	else
+		locations = props.CellProps.Locations[props.Row.Id]
+	end
 	if props.ColumnIndex == ICON_INDEX then
 		if FFlagStudioAudioDiscoveryPluginV2 then
 			if #locations == 0 then

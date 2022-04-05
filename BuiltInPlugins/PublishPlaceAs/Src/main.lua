@@ -17,10 +17,7 @@ return function(plugin, pluginLoaderContext)
 		-- Move to loader.server.lua
 		require(script.Parent.Parent.TestRunner.defineLuaFlags)
 	end
-	local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
-
 	local FFlagPlacePublishManagementUI2 = game:GetFastFlag("PlacePublishManagementUI2")
-	local FFlagPlacePublishTcToggleCalloutEnabled = game:GetFastFlag("PlacePublishTcToggleCalloutEnabled")
 
 	--Turn this on when debugging the store and actions
 	local LOG_STORE_STATE_AND_EVENTS = false
@@ -98,7 +95,7 @@ return function(plugin, pluginLoaderContext)
 	end
 
 	local calloutController = nil
-	if teamCreateToggleEnabled and FFlagPlacePublishTcToggleCalloutEnabled then
+	if teamCreateToggleEnabled then
 		local CalloutController = require(Plugin.Src.Util.CalloutController)
 		calloutController = CalloutController.new()
 
@@ -143,18 +140,10 @@ return function(plugin, pluginLoaderContext)
 		if FFlagImprovePluginSpeed_PublishPlaceAs then
 			pluginLoaderContext.signals["StudioService.OnSaveOrPublishPlaceToRoblox"]:Connect(
 				function(showGameSelect, isPublish, closeMode)
-					if FFlagStudioNewGamesInCloudUI then
-						if isPublish then
-							pluginGui.Title = localization:getText("General", "PublishGame")
-						else
-							pluginGui.Title = localization:getText("General", "SaveGame")
-						end
+					if isPublish then
+						pluginGui.Title = localization:getText("General", "PublishGame")
 					else
-						if isPublish then
-							pluginGui.Title = localization:getText("General", "PublishPlace")
-						else
-							pluginGui.Title = localization:getText("General", "SavePlace")
-						end
+						pluginGui.Title = localization:getText("General", "SaveGame")
 					end
 					openPluginWindow(showGameSelect, isPublish, closeMode)
 				end
@@ -165,18 +154,10 @@ return function(plugin, pluginLoaderContext)
 			end)
 		else
 			StudioService.OnSaveOrPublishPlaceToRoblox:Connect(function(showGameSelect, isPublish, closeMode)
-				if FFlagStudioNewGamesInCloudUI then
-					if isPublish then
-						pluginGui.Title = localization:getText("General", "PublishGame")
-					else
-						pluginGui.Title = localization:getText("General", "SaveGame")
-					end
+				if isPublish then
+					pluginGui.Title = localization:getText("General", "PublishGame")
 				else
-					if isPublish then
-						pluginGui.Title = localization:getText("General", "PublishPlace")
-					else
-						pluginGui.Title = localization:getText("General", "SavePlace")
-					end
+					pluginGui.Title = localization:getText("General", "SaveGame")
 				end
 				openPluginWindow(showGameSelect, isPublish, closeMode)
 			end)

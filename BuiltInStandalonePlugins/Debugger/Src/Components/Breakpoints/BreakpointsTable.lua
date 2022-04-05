@@ -58,25 +58,26 @@ local tableColumnKeys = {
 }
 
 function BreakpointsTable:init()
-
-	local initialSizes = {}
-	if hasTableColumnResizeFFlags then
+	local initialSizes = nil
+	if hasTableColumnResizeFFlags then 
+		initialSizes = {}
 		for i = 1, #tableColumnKeys do
 			table.insert(initialSizes, UDim.new(1/(#tableColumnKeys), 0))
 		end
 	end
+	
 	self.state = {
 		selectedBreakpoints = {},
 		breakpointIdToExpansionState = {},
-		sizes = (hasTableColumnResizeFFlags and initialSizes)
+		sizes = initialSizes
 	}
 
 	self.OnDoubleClick = function(row)
 		local DebuggerUIService = game:GetService("DebuggerUIService")
 		DebuggerUIService:EditBreakpoint(row.item.id)
 	end
-
-	self.OnSizesChange = function(newSizes)
+	
+	self.OnSizesChange = function(newSizes : {UDim})
 		if hasTableColumnResizeFFlags then
 			self:setState(function(state)
 				return {
@@ -255,6 +256,8 @@ function BreakpointsTable:render()
 	local props = self.props
 	local localization = props.Localization
 	local style = props.Stylizer
+	local shouldFocusBreakpoint = props.IsPaused and props.CurrentBreakpoint and self.state.selectedBreakpoints[1] and
+		props.CurrentBreakpoint.id == self.state.selectedBreakpoints[1].id
 
 	local tableColumns = {
 		{
@@ -300,6 +303,11 @@ function BreakpointsTable:render()
 		end
 		expansionTable[bp] = self.state.breakpointIdToExpansionState[bp.id]
 	end
+	
+	local clampSize = if hasTableColumnResizeFFlags then true else nil
+	local useScale = if hasTableColumnResizeFFlags then true else nil
+	local useDeficit = if hasTableColumnResizeFFlags then true else nil
+	local onColumnSizesChange = if hasTableColumnResizeFFlags then self.OnSizesChange else nil
 
 	local toggleButtonText
 	if props.hasDisabledBreakpoints then
@@ -369,7 +377,8 @@ function BreakpointsTable:render()
 				LayoutOrder = 2,
 				OnSelectionChange = self.onSelectionChange,
 				HighlightedRows = self.state.selectedBreakpoints,
-				Scroll = false,
+				Scroll = true,
+				ScrollFocusIndex = shouldFocusBreakpoint and self.props.CurrentBreakpointIndex,
 				Expansion = expansionTable,
 				GetChildren = self.getTreeChildren,
 				TextInputCols = textInputCols,
@@ -378,9 +387,10 @@ function BreakpointsTable:render()
 				SortIndex = props.SortIndex,
 				SortOrder = props.SortOrder,
 				OnSortChange = self.OnSortChange,
-				OnColumnSizesChange = (hasTableColumnResizeFFlags and self.OnSizesChange),
-				UseScale = (hasTableColumnResizeFFlags and true),
-				ClampSize = (hasTableColumnResizeFFlags and true),
+				OnColumnSizesChange = onColumnSizesChange,
+				UseScale = useScale,
+				UseDeficit = useDeficit,
+				ClampSize = clampSize,
 			}),
 		})
 	})
@@ -396,6 +406,7 @@ BreakpointsTable = RoactRodux.connect(
 	function(state, props)
 		local breakpointsArray = {}
 		local currentBreakpoint = nil
+		local currentBreakpointIndex = nil
 		local hasDisabledBreakpoints = false
 		for breakpointId, breakpoint in pairs(state.Breakpoint.MetaBreakpoints) do
 			local bpCopy = deepCopy(breakpoint)
@@ -409,10 +420,13 @@ BreakpointsTable = RoactRodux.connect(
 			end
 		end
 
+		local i = 1
 		for _, breakpoint in ipairs(breakpointsArray) do
 			if breakpoint.id == state.Common.currentBreakpointId then
 				currentBreakpoint = breakpoint
+				currentBreakpointIndex = i
 			end
+			i = i + 1
 			breakpoint.children = {}
 
 			for context, connectionIdAndBreakpoints in pairs(breakpoint.contextBreakpoints) do
@@ -431,6 +445,7 @@ BreakpointsTable = RoactRodux.connect(
 			Breakpoints = breakpointsArray,
 			IsPaused = state.Common.isPaused,
 			CurrentBreakpoint = currentBreakpoint,
+			CurrentBreakpointIndex = currentBreakpointIndex,
 			CurrentDebuggerConnectionId = state.Common.currentDebuggerConnectionId,
 			SortIndex = state.Breakpoint.ColumnIndex,
 			SortOrder = state.Breakpoint.SortDirection,

@@ -1,9 +1,15 @@
 local Workspace = game:GetService("Workspace")
 
+local DraggerSchemaCore = script.Parent
+local Packages = DraggerSchemaCore.Parent
+local DraggerFramework = Packages.DraggerFramework
+
+local getFFlagSelectSubPartShouldFavorSelection = require(DraggerFramework.Flags.getFFlagSelectSubPartShouldFavorSelection)
+
 local getSelectableWithCache = require(script.Parent.getSelectableWithCache)
 local shouldSelectSubPart = require(script.Parent.shouldSelectSubPart)
 
-return function(draggerContext, mouseRay, currentSelection)
+return function(draggerContext, mouseRay, currentSelection, selectSubPartShouldFavorSelection)
 	local shouldDrillSelection = shouldSelectSubPart(draggerContext)
 	local hitItem, hitDistance = nil
 	local params = RaycastParams.new()
@@ -24,8 +30,17 @@ return function(draggerContext, mouseRay, currentSelection)
 		params.FilterType = Enum.RaycastFilterType.Whitelist
 		params.FilterDescendantsInstances = currentSelection
 		local selectedResult = Workspace:raycast(mouseRay.Origin, mouseRay.Direction, params)
-		if selectedResult and selectedResult.Position:FuzzyEq(result.Position) then
-			hitItem = selectedResult.Instance
+		if getFFlagSelectSubPartShouldFavorSelection() then
+			if selectedResult then
+				local shouldFavorSelection = selectSubPartShouldFavorSelection and shouldDrillSelection
+				if shouldFavorSelection or selectedResult.Position:FuzzyEq(result.Position) then
+					hitItem = selectedResult.Instance
+				end
+			end
+		else
+			if selectedResult and selectedResult.Position:FuzzyEq(result.Position) then
+				hitItem = selectedResult.Instance
+			end
 		end
 	end
 

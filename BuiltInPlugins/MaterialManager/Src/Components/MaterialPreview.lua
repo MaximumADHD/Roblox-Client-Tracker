@@ -13,6 +13,8 @@ local materialModel = InsertService:LoadLocalAsset("rbxasset://models/MaterialMa
 export type Props = {
 	BackgroundColor : Color3?,
 	ColorMap : string?,
+	DisableZoom : boolean?,
+	InitialDistance : number?,
 	LayoutOrder : number?,
 	Position : UDim2?,
 	MetalnessMap : string?,
@@ -63,11 +65,11 @@ function MaterialPreview:render()
 		LayoutOrder = props.LayoutOrder,
 	}, {
 		AssetRenderModel = Roact.createElement(AssetRenderModel, {
-			DisableZoom = true,
+			DisableZoom = props.DisableZoom,
 			Size = UDim2.fromScale(1, 1),
 			Model = model,
 			Static = props.Static,
-			InitialDistance = 5,
+			InitialDistance = props.InitialDistance,
 		})
 	})
 end

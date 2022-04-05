@@ -16,6 +16,7 @@
 		callback onSearchOptionsToggled()
 ]]
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
+local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -154,6 +155,7 @@ function Header:renderContent(theme, localization, localizedContent)
 	local onGroupSelected = self.onGroupSelected
 
 	local showSearchOptions = Category.getTabForCategoryName(props.categoryName) == Category.MARKETPLACE
+	local searchIsFiltered = props.searchIsFiltered
 
 	local dropdownWidth = showSearchOptions and Constants.HEADER_DROPDOWN_MIN_WIDTH
 		or Constants.HEADER_DROPDOWN_MAX_WIDTH
@@ -237,6 +239,7 @@ function Header:renderContent(theme, localization, localizedContent)
 		SearchOptionsButton = showSearchOptions and Roact.createElement(SearchOptionsButton, {
 			LayoutOrder = 2,
 			onClick = onSearchOptionsToggled,
+			searchIsFiltered = searchIsFiltered,
 		}),
 
 		GroupMenu = isGroupCategory and Roact.createElement(DropdownMenu, {
@@ -324,6 +327,12 @@ Header = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(Header)
 
+function isSearchFiltered(pageInfo)
+	-- FUTURE: We may add other filters in the future whose status we will
+	-- report in this way through the SearchOptionsButton selected color.
+	return if FFlagToolboxShowIdVerifiedFilter then pageInfo.includeOnlyVerifiedCreators else false
+end
+
 local function mapStateToProps(state, props)
 	state = state or {}
 
@@ -338,6 +347,7 @@ local function mapStateToProps(state, props)
 		groups = pageInfo.groups or {},
 		groupIndex = pageInfo.groupIndex or 0,
 		creatorFilter = pageInfo.creator or {},
+		searchIsFiltered = isSearchFiltered(pageInfo),
 		mostRecentAssetInsertTime = FFlagToolboxAssetGridRefactor and assets.mostRecentAssetInsertTime or nil,
 	}
 end

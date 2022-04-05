@@ -1,6 +1,4 @@
 local FStringDevPublishChinaRequirementsLink = game:GetFastString("DevPublishChinaRequirementsLink")
-local FFlagGsPermissionsUseCentralizedTcCheck = game:GetFastFlag("GsPermissionsUseCentralizedTcCheck")
-local FFlagRemoveUILibraryPartialHyperlink = game:GetFastFlag("RemoveUILibraryPartialHyperlink")
 
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local RunService = game:GetService("RunService")
@@ -70,8 +68,6 @@ function GameSettingsUtilities.isTeamCreateEnabled()
 end
 
 function GameSettingsUtilities.calculateTextSize(text, textSize, font)
-	assert(FFlagRemoveUILibraryPartialHyperlink)
-
 	local hugeFrameSizeNoTextWrapping = Vector2.new(5000, 5000)
 	return game:GetService('TextService'):GetTextSize(text, textSize, font, hugeFrameSizeNoTextWrapping)
 end

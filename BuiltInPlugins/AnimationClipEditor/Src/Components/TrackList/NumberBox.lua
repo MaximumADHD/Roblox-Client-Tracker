@@ -35,8 +35,6 @@ local Constants = require(Plugin.Src.Util.Constants)
 local DragListenerArea = require(Plugin.Src.Components.DragListenerArea)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -104,102 +102,97 @@ function NumberBox:formatNumber(number)
 end
 
 function NumberBox:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
 
-		local textBoxTheme = theme.textBox
-		local trackTheme = theme.trackTheme
-		local state = self.state
+	local textBoxTheme = theme.textBox
+	local trackTheme = theme.trackTheme
+	local state = self.state
 
-		local name = props.Name
-		local color = props.Color
-		local size = props.Size
-		local position = props.Position
-		local anchorPoint = props.AnchorPoint
-		local number = props.Number
-		local layoutOrder = props.LayoutOrder
-		local readOnly = props.ReadOnly
+	local name = props.Name
+	local color = props.Color
+	local size = props.Size
+	local position = props.Position
+	local anchorPoint = props.AnchorPoint
+	local number = props.Number
+	local layoutOrder = props.LayoutOrder
+	local readOnly = props.ReadOnly
 
-		local focused = state.focused
+	local focused = state.focused
 
-		local borderColor = focused and textBoxTheme.focusedBorder or textBoxTheme.defaultBorder
-		local nameWidth = self.getTextWidth(name, theme) + PADDING
+	local borderColor = focused and textBoxTheme.focusedBorder or textBoxTheme.defaultBorder
+	local nameWidth = self.getTextWidth(name, theme) + PADDING
 
-		return Roact.createElement(RoundFrame, {
-			Size = size,
-			Position = position,
-			ZIndex = GetFFlagChannelAnimations() and 2 or nil,
-			AnchorPoint = anchorPoint,
-			BackgroundColor3 = textBoxTheme.backgroundColor,
+	return Roact.createElement(RoundFrame, {
+		Size = size,
+		Position = position,
+		ZIndex = GetFFlagChannelAnimations() and 2 or nil,
+		AnchorPoint = anchorPoint,
+		BackgroundColor3 = textBoxTheme.backgroundColor,
+		BorderColor3 = borderColor,
+		LayoutOrder = layoutOrder,
+	}, {
+		Layout = Roact.createElement("UIListLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			FillDirection = Enum.FillDirection.Horizontal,
+		}),
+
+		LabelFrame = Roact.createElement(RoundFrame, {
+			Size = UDim2.new(0, nameWidth, 1, 0),
+			BackgroundColor3 = trackTheme.shadedBackgroundColor,
 			BorderColor3 = borderColor,
-			LayoutOrder = layoutOrder,
+			LayoutOrder = 1,
 		}, {
-			Layout = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillDirection = Enum.FillDirection.Horizontal,
+			NameLabel = Roact.createElement("TextLabel", {
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = 1,
+				ZIndex = 2,
+
+				Text = name,
+				Font = theme.font,
+				TextSize = trackTheme.textSize,
+				TextColor3 = color or trackTheme.textColor,
+				TextXAlignment = Enum.TextXAlignment.Center,
 			}),
 
-			LabelFrame = Roact.createElement(RoundFrame, {
-				Size = UDim2.new(0, nameWidth, 1, 0),
+			LeftBorderOverlay = Roact.createElement("Frame", {
+				Size = UDim2.new(0, 5, 1, -2),
+				Position = UDim2.new(1, 0, 0.5, 0),
+				AnchorPoint = Vector2.new(1, 0.5),
 				BackgroundColor3 = trackTheme.shadedBackgroundColor,
-				BorderColor3 = borderColor,
-				LayoutOrder = 1,
-			}, {
-				NameLabel = Roact.createElement("TextLabel", {
-					Size = UDim2.new(1, 0, 1, 0),
-					BackgroundTransparency = 1,
-					ZIndex = 2,
-
-					Text = name,
-					Font = theme.font,
-					TextSize = trackTheme.textSize,
-					TextColor3 = color or trackTheme.textColor,
-					TextXAlignment = Enum.TextXAlignment.Center,
-				}),
-
-				LeftBorderOverlay = Roact.createElement("Frame", {
-					Size = UDim2.new(0, 5, 1, -2),
-					Position = UDim2.new(1, 0, 0.5, 0),
-					AnchorPoint = Vector2.new(1, 0.5),
-					BackgroundColor3 = trackTheme.shadedBackgroundColor,
-					BorderSizePixel = 0,
-				}),
-
-				RightBorderOverlay = Roact.createElement("Frame", {
-					Size = UDim2.new(0, 5, 1, -2),
-					Position = UDim2.new(1, 0, 0.5, 0),
-					AnchorPoint = Vector2.new(0, 0.5),
-					BackgroundColor3 = textBoxTheme.backgroundColor,
-					BorderSizePixel = 0,
-				}),
-
-				DragArea = not readOnly and Roact.createElement(DragListenerArea, {
-					Size = UDim2.new(1, 0, 1, 0),
-					Cursor = "SizeEW",
-					OnDragMoved = self.onDragMoved,
-					OnDragBegan = self.onDragBegan,
-				}) or nil,
+				BorderSizePixel = 0,
 			}),
 
-			TextBox = Roact.createElement(TextBox, {
-				Size = UDim2.new(1, -nameWidth, 1, 0),
-				Text = self:formatNumber(number),
-				TextXAlignment = Enum.TextXAlignment.Left,
-				ReadOnly = readOnly,
-				LayoutOrder = 2,
-				ClearTextOnFocus = false,
-				FocusChanged = self.focusChanged,
-			})
+			RightBorderOverlay = Roact.createElement("Frame", {
+				Size = UDim2.new(0, 5, 1, -2),
+				Position = UDim2.new(1, 0, 0.5, 0),
+				AnchorPoint = Vector2.new(0, 0.5),
+				BackgroundColor3 = textBoxTheme.backgroundColor,
+				BorderSizePixel = 0,
+			}),
+
+			DragArea = not readOnly and Roact.createElement(DragListenerArea, {
+				Size = UDim2.new(1, 0, 1, 0),
+				Cursor = "SizeEW",
+				OnDragMoved = self.onDragMoved,
+				OnDragBegan = self.onDragBegan,
+			}) or nil,
+		}),
+
+		TextBox = Roact.createElement(TextBox, {
+			Size = UDim2.new(1, -nameWidth, 1, 0),
+			Text = self:formatNumber(number),
+			TextXAlignment = Enum.TextXAlignment.Left,
+			ReadOnly = readOnly,
+			LayoutOrder = 2,
+			ClearTextOnFocus = false,
+			FocusChanged = self.focusChanged,
 		})
+	})
 end
 
-
 NumberBox = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(NumberBox)
-
-
-
 
 return NumberBox

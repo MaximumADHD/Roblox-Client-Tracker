@@ -11,6 +11,7 @@
 local Plugin = script.Parent.Parent.Parent
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
+local PathUtils = require(Plugin.Src.Util.PathUtils)
 local Templates = require(Plugin.Src.Util.Templates)
 local Constants = require(Plugin.Src.Util.Constants)
 local deepCopy = require(Plugin.Src.Util.deepCopy)
@@ -19,6 +20,9 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagKeyframeUtilsGetValueCleanup = require(Plugin.LuaFlags.GetFFlagKeyframeUtilsGetValueCleanup)
+local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
+
+export type AnimationData = any
 
 local AnimationData = {}
 
@@ -544,26 +548,45 @@ function AnimationData.isChannelAnimation(data)
 	return data and data.Metadata and data.Metadata.IsChannelAnimation
 end
 
-function AnimationData.getTrack(data, instanceName, path)
-	if not data or not data.Instances[instanceName] then
-		return nil
-	end
-
-	local tracks = data.Instances[instanceName].Tracks
-	local track
-	for i, pathPart in ipairs(path) do
-		if i == 1 then
-			track = tracks[pathPart]
-		else
-			track = track.Components[pathPart]
-		end
-
-		if not track then
+function AnimationData.getTrack(data: AnimationData, instanceName: string, path: PathUtils.Path): (any?)
+	if not GetFFlagQuaternionsUI() then
+		if not data or not data.Instances[instanceName] then
 			return nil
 		end
-	end
 
-	return track
+		local tracks = data.Instances[instanceName].Tracks
+		local track
+		for i, pathPart in ipairs(path) do
+			if i == 1 then
+				track = tracks[pathPart]
+			else
+				track = track.Components[pathPart]
+			end
+
+			if not track then
+				return nil
+			end
+		end
+
+		return track
+	else
+		if not data or not data.Instances[instanceName] or not path or isEmpty(path) then
+			return nil
+		end
+
+		local tracks = data.Instances[instanceName].Tracks
+		local track = tracks[path[1]]
+		for i, pathPart in ipairs(path) do
+			if i > 1 then
+				if not track or track.Components == nil then
+					return nil
+				end
+				track = track.Components[pathPart]
+			end
+		end
+
+		return track
+	end
 end
 
 return AnimationData

@@ -21,8 +21,6 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local DropdownMenu = Framework.UI.DropdownMenu
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -71,91 +69,86 @@ function FilteringTextBox:init(initialProps)
 end
 
 function FilteringTextBox:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
-		local dropdownTheme = theme.dropdownTheme
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
+	local dropdownTheme = theme.dropdownTheme
 
-		local state = self.state
+	local state = self.state
 
-		local frameRef = self.frameRef and self.frameRef.current
-		local frameExtents
-		if frameRef then
-			local frameMin = frameRef.AbsolutePosition
-			local frameSize = frameRef.AbsoluteSize
-			local frameMax = frameMin + frameSize
-			frameExtents = Rect.new(frameMin.X, frameMin.Y, frameMax.X, frameMax.Y)
-		end
+	local frameRef = self.frameRef and self.frameRef.current
+	local frameExtents
+	if frameRef then
+		local frameMin = frameRef.AbsolutePosition
+		local frameSize = frameRef.AbsoluteSize
+		local frameMax = frameMin + frameSize
+		frameExtents = Rect.new(frameMin.X, frameMin.Y, frameMax.X, frameMax.Y)
+	end
 
-		local items = props.Items or {}
-		local size = props.Size
-		local position = props.Position
-		local maxItems = props.MaxItems
-		local currentText = state.currentText
-		local hoveredItem = state.hoveredItem
+	local items = props.Items or {}
+	local size = props.Size
+	local position = props.Position
+	local maxItems = props.MaxItems
+	local currentText = state.currentText
+	local hoveredItem = state.hoveredItem
 
-		local filteredItems = Cryo.List.filter(items, function(item)
-			return string.find(item, currentText) ~= nil
-		end)
+	local filteredItems = Cryo.List.filter(items, function(item)
+		return string.find(item, currentText) ~= nil
+	end)
 
-		return Roact.createElement("Frame", {
-			Size = size,
-			Position = position,
-			BackgroundTransparency = 1,
-			[Roact.Ref] = self.frameRef,
-		}, {
-			TextBox = Roact.createElement(TextBox, Cryo.Dictionary.join(props, {
-				Size = UDim2.new(1, 0, 1, 0),
-				FocusChanged = self.onFocusChanged,
-				TextChanged = self.updateText,
-			})),
+	return Roact.createElement("Frame", {
+		Size = size,
+		Position = position,
+		BackgroundTransparency = 1,
+		[Roact.Ref] = self.frameRef,
+	}, {
+		TextBox = Roact.createElement(TextBox, Cryo.Dictionary.join(props, {
+			Size = UDim2.new(1, 0, 1, 0),
+			FocusChanged = self.onFocusChanged,
+			TextChanged = self.updateText,
+		})),
 
-			Dropdown = #filteredItems > 0 and frameRef and Roact.createElement(DropdownMenu, {
-				OnItemClicked = self.onItemClicked,
-				OnFocusLost = self.hideDropdown,
-				SourceExtents = frameExtents,
-				MaxHeight = maxItems and dropdownTheme.itemHeight * maxItems or nil,
-				ShowBorder = true,
-				ScrollBarPadding = SCROLLBAR_PADDING,
-				ScrollBarThickness = SCROLLBAR_THICKNESS,
-				Items = filteredItems,
-				RenderItem = function(item, index, activated)
-					return Roact.createElement("TextButton", {
-						Size = UDim2.new(0, frameExtents.Width, 0, 22),
-						Font = theme.font,
-						TextSize = dropdownTheme.textSize,
-						Text = item,
-						TextTruncate = Enum.TextTruncate.AtEnd,
-						TextXAlignment = Enum.TextXAlignment.Left,
-						TextColor3 = dropdownTheme.textColor,
-						BackgroundColor3 = hoveredItem == item and dropdownTheme.hoveredItemColor
-							or dropdownTheme.itemColor,
-						BorderSizePixel = 0,
-						AutoButtonColor = false,
+		Dropdown = #filteredItems > 0 and frameRef and Roact.createElement(DropdownMenu, {
+			OnItemClicked = self.onItemClicked,
+			OnFocusLost = self.hideDropdown,
+			SourceExtents = frameExtents,
+			MaxHeight = maxItems and dropdownTheme.itemHeight * maxItems or nil,
+			ShowBorder = true,
+			ScrollBarPadding = SCROLLBAR_PADDING,
+			ScrollBarThickness = SCROLLBAR_THICKNESS,
+			Items = filteredItems,
+			RenderItem = function(item, index, activated)
+				return Roact.createElement("TextButton", {
+					Size = UDim2.new(0, frameExtents.Width, 0, 22),
+					Font = theme.font,
+					TextSize = dropdownTheme.textSize,
+					Text = item,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextColor3 = dropdownTheme.textColor,
+					BackgroundColor3 = hoveredItem == item and dropdownTheme.hoveredItemColor
+						or dropdownTheme.itemColor,
+					BorderSizePixel = 0,
+					AutoButtonColor = false,
 
-						[Roact.Event.Activated] = activated,
-						[Roact.Event.MouseEnter] = function()
-							self.onItemMouseEnter(item)
-						end,
-						[Roact.Event.MouseLeave] = function()
-							self.onItemMouseLeave(item)
-						end,
-					}, {
-						Padding = Roact.createElement("UIPadding", {
-							PaddingLeft = UDim.new(0, 5),
-						}),
-					})
-				end,
-			}),
-		})
+					[Roact.Event.Activated] = activated,
+					[Roact.Event.MouseEnter] = function()
+						self.onItemMouseEnter(item)
+					end,
+					[Roact.Event.MouseLeave] = function()
+						self.onItemMouseLeave(item)
+					end,
+				}, {
+					Padding = Roact.createElement("UIPadding", {
+						PaddingLeft = UDim.new(0, 5),
+					}),
+				})
+			end,
+		}),
+	})
 end
 
-
 FilteringTextBox = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(FilteringTextBox)
-
-
-
 
 return FilteringTextBox

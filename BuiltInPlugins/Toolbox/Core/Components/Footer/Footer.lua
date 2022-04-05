@@ -4,6 +4,9 @@
 	Props:
 		Backgrounds backgrounds
 ]]
+
+local FFlagToolboxAssetStyleUpdate = game:GetFastFlag("ToolboxAssetStyleUpdate")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -71,6 +74,11 @@ function Footer:willUnmount()
 end
 
 function Footer:render()
+	-- Delete component with removal of flag
+	if FFlagToolboxAssetStyleUpdate then
+		return nil
+	end
+
 	return withLocalization(function(localization, localizedContent)
 		return self:renderContent(nil, localization, localizedContent)
 	end)

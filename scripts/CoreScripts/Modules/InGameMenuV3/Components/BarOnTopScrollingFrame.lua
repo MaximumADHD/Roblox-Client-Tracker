@@ -25,6 +25,7 @@ BarOnTopScrollingFrame.validateProps = t.strictInterface({
 	ScrollingEnabled = t.optional(t.boolean),
 	scrollBarOffset = not GetFFlagInGameMenuControllerDevelopmentOnly() and t.integer or nil,
 	[Roact.Children] = t.table,
+	onCanvasPositionChanged = t.optional(t.callback),
 })
 
 BarOnTopScrollingFrame.defaultProps = {
@@ -60,6 +61,9 @@ function BarOnTopScrollingFrame:render()
 				self:setState({
 					CanvasPosition = rbx.CanvasPosition
 				})
+				if self.props.onCanvasPositionChanged then
+					self.props.onCanvasPositionChanged(rbx)
+				end
 			end,
 		}),
 

@@ -14,8 +14,6 @@ local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local AnimationClipEditor = require(Plugin.Src.Components.AnimationClipEditor)
 local DockWidget = require(Plugin.Src.Components.PluginWidget.DockWidget)
@@ -39,8 +37,11 @@ local ReleaseEditor = require(Plugin.Src.Thunks.ReleaseEditor)
 local SetShowAsSeconds = require(Plugin.Src.Actions.SetShowAsSeconds)
 local SetSnapMode = require(Plugin.Src.Actions.SetSnapMode)
 local SetTool = require(Plugin.Src.Actions.SetTool)
+local SetDefaultRotationType = require(Plugin.Src.Actions.SetDefaultRotationType)
 
 local DraggerWrapper = require(Plugin.Src.Components.Draggers.DraggerWrapper)
+
+local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
 
 -- analytics
 local AnalyticsHandlers = require(Plugin.Src.Resources.AnalyticsHandlers)
@@ -156,7 +157,7 @@ function AnimationClipEditorPlugin:init(initialProps)
 
 	self.mouse = self.props.plugin:GetMouse()
 
-	self.theme = THEME_REFACTOR and Theme() or Theme.new()
+	self.theme = Theme()
 	self.closeWidget = function()
 		if game:GetFastFlag("AnimationEditorDisableOnClosing") then
 			self:setState({
@@ -187,6 +188,11 @@ function AnimationClipEditorPlugin:getPluginSettings()
 	if showAsSeconds ~= nil then
 		self.store:dispatch(SetShowAsSeconds(showAsSeconds))
 	end
+
+	if GetFFlagQuaternionsUI() then
+		local rotationType = plugin:GetSetting("RotationType")
+		self.store:dispatch(SetDefaultRotationType(rotationType or Constants.TRACK_TYPES.Quaternion))
+	end
 end
 
 function AnimationClipEditorPlugin:setPluginSettings()
@@ -194,6 +200,9 @@ function AnimationClipEditorPlugin:setPluginSettings()
 	local status = self.store:getState().Status
 	plugin:SetSetting("ShowAsSeconds", status.ShowAsSeconds)
 	plugin:SetSetting("SnapMode", status.SnapMode)
+	if GetFFlagQuaternionsUI() then
+		plugin:SetSetting("RotationType", status.DefaultRotationType)
+	end
 end
 
 function AnimationClipEditorPlugin:didMount()
@@ -256,6 +265,5 @@ function AnimationClipEditorPlugin:render()
 		})
 	})
 end
-
 
 return AnimationClipEditorPlugin

@@ -9,7 +9,7 @@ local SetEnabled = require(root.src.Actions.SetEnabled)
 
 local ScreenSelect = require(root.src.Components.ScreenSelect)
 
-local DeveloperFramework = require(root.Packages.DeveloperFramework)
+local DeveloperFramework = require(root.Packages.Framework)
 
 local StudioUI = DeveloperFramework.StudioUI
 local DockWidget = StudioUI.DockWidget

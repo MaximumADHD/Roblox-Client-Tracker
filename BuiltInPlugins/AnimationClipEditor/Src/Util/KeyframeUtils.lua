@@ -253,7 +253,11 @@ function KeyframeUtils.getSlope(track, tck, side)
 				return 0
 			elseif keyframe.InterpolationMode == Enum.KeyInterpolationMode.Linear then
 				local nextTick, nextKeyframe = getNextKeyframe()
-				return nextKeyframe and ((nextKeyframe.Value - keyframe.Value) / (nextTick - tck)) or 0
+				if GetFFlagQuaternionChannels() and track.Type == Constants.TRACK_TYPES.Quaternion then
+					return nextKeyframe and (1 / (nextTick - tck)) or 0
+				else
+					return nextKeyframe and ((nextKeyframe.Value - keyframe.Value) / (nextTick - tck)) or 0
+				end
 			-- Cubic case
 			else
 				if keyframe.RightSlope then
@@ -277,7 +281,11 @@ function KeyframeUtils.getSlope(track, tck, side)
 			if prevKeyframe.InterpolationMode == Enum.KeyInterpolationMode.Constant then
 				return 0
 			elseif prevKeyframe.InterpolationMode == Enum.KeyInterpolationMode.Linear then
-				return (prevKeyframe.Value - keyframe.Value) / (prevTick - tck)
+				if GetFFlagQuaternionChannels() and track.Type == Constants.TRACK_TYPES.Quaternion then
+					return 1 / (tck - prevTick)
+				else
+					return (prevKeyframe.Value - keyframe.Value) / (prevTick - tck)
+				end
 			-- Cubic case
 			else
 				if keyframe.LeftSlope then

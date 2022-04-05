@@ -24,8 +24,6 @@ local Roact = require(Plugin.Packages.Roact)
 local DoubleClickDetector = require(Plugin.Src.Util.DoubleClickDetector)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -61,67 +59,62 @@ function ExpandableTrack:init()
 end
 
 function ExpandableTrack:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
-		local layoutOrder = props.LayoutOrder
-		local indent = props.Indent or 0
-		local name = props.Name
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
+	local layoutOrder = props.LayoutOrder
+	local indent = props.Indent or 0
+	local name = props.Name
 
-		local trackTheme = theme.trackTheme
-		local arrowTheme = trackTheme.arrow
-		local expanded = props.Expanded or false
-		local selected = props.Selected or false
+	local trackTheme = theme.trackTheme
+	local arrowTheme = trackTheme.arrow
+	local expanded = props.Expanded or false
+	local selected = props.Selected or false
 
-		return Roact.createElement(TrackListEntry, {
-			Selected = selected,
-			Height = Constants.TRACK_HEIGHT,
-			Indent = indent,
-			LayoutOrder = layoutOrder,
-		}, {
-			Arrow = Roact.createElement("ImageButton", {
-				Size = UDim2.new(0, Constants.ARROW_SIZE, 0, Constants.ARROW_SIZE),
-				AnchorPoint = Vector2.new(0, 0.5),
-				Position = UDim2.new(0, Constants.ARROW_SIZE / 2, 0.5, 0),
-				BackgroundTransparency = 1,
+	return Roact.createElement(TrackListEntry, {
+		Selected = selected,
+		Height = Constants.TRACK_HEIGHT,
+		Indent = indent,
+		LayoutOrder = layoutOrder,
+	}, {
+		Arrow = Roact.createElement("ImageButton", {
+			Size = UDim2.new(0, Constants.ARROW_SIZE, 0, Constants.ARROW_SIZE),
+			AnchorPoint = Vector2.new(0, 0.5),
+			Position = UDim2.new(0, Constants.ARROW_SIZE / 2, 0.5, 0),
+			BackgroundTransparency = 1,
 
-				Image = expanded and arrowTheme.expanded or arrowTheme.collapsed,
-				ImageColor3 = selected and trackTheme.selectedTextColor or trackTheme.textColor,
-				ScaleType = Enum.ScaleType.Fit,
+			Image = expanded and arrowTheme.expanded or arrowTheme.collapsed,
+			ImageColor3 = selected and trackTheme.selectedTextColor or trackTheme.textColor,
+			ScaleType = Enum.ScaleType.Fit,
 
-				[Roact.Event.Activated] = self.onExpandToggled,
-			}),
+			[Roact.Event.Activated] = self.onExpandToggled,
+		}),
 
-			NameLabel = Roact.createElement("TextButton", {
-				Size = UDim2.new(1, -Constants.TRACKLIST_BUTTON_SIZE - Constants.ARROW_SIZE * 2, 1, 0),
-				Position = UDim2.new(0, Constants.ARROW_SIZE * 2, 0, 0),
-				BackgroundTransparency = 1,
-				AutoButtonColor = false,
+		NameLabel = Roact.createElement("TextButton", {
+			Size = UDim2.new(1, -Constants.TRACKLIST_BUTTON_SIZE - Constants.ARROW_SIZE * 2, 1, 0),
+			Position = UDim2.new(0, Constants.ARROW_SIZE * 2, 0, 0),
+			BackgroundTransparency = 1,
+			AutoButtonColor = false,
 
-				Text = name,
-				Font = theme.font,
-				TextSize = trackTheme.textSize,
-				TextColor3 = selected and trackTheme.selectedTextColor or trackTheme.textColor,
-				TextXAlignment = Enum.TextXAlignment.Left,
+			Text = name,
+			Font = theme.font,
+			TextSize = trackTheme.textSize,
+			TextColor3 = selected and trackTheme.selectedTextColor or trackTheme.textColor,
+			TextXAlignment = Enum.TextXAlignment.Left,
 
-				[Roact.Event.Activated] = self.onTrackSelected,
-			}),
+			[Roact.Event.Activated] = self.onTrackSelected,
+		}),
 
-			ContextButton = Roact.createElement(ContextButton, {
-				AnchorPoint = Vector2.new(1, 0.5),
-				Position = UDim2.new(1, -Constants.TRACKLIST_RIGHT_PADDING, 0.5, 0),
-				TrackSelected = selected,
-				OnActivated = self.onContextButtonClick,
-			}),
-		})
+		ContextButton = Roact.createElement(ContextButton, {
+			AnchorPoint = Vector2.new(1, 0.5),
+			Position = UDim2.new(1, -Constants.TRACKLIST_RIGHT_PADDING, 0.5, 0),
+			TrackSelected = selected,
+			OnActivated = self.onContextButtonClick,
+		}),
+	})
 end
 
-
 ExpandableTrack = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(ExpandableTrack)
-
-
-
 
 return ExpandableTrack

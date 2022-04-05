@@ -15,7 +15,7 @@ RefactorFlags.THEME_REFACTOR = true
 local Roact = require(root.Packages.Roact)
 local Rodux = require(root.Packages.Rodux)
 
-local DeveloperFramework = require(root.Packages.DeveloperFramework)
+local DeveloperFramework = require(root.Packages.Framework)
 
 local ContextServices = DeveloperFramework.ContextServices
 local Plugin = ContextServices.Plugin

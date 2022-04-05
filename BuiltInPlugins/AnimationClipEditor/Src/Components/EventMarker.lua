@@ -16,8 +16,6 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -37,68 +35,63 @@ function EventMarker:getTooltip(names)
 end
 
 function EventMarker:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
 
-		local selected = props.Selected
-		local names = props.Names
+	local selected = props.Selected
+	local names = props.Names
 
-		local eventTheme = theme.eventMarker
-		local position = props.Position
-		local zindex = props.ZIndex
+	local eventTheme = theme.eventMarker
+	local position = props.Position
+	local zindex = props.ZIndex
 
-		local onRightClick = props.OnRightClick
-		local onInputBegan = props.OnInputBegan
-		local onInputEnded = props.OnInputEnded
+	local onRightClick = props.OnRightClick
+	local onInputBegan = props.OnInputBegan
+	local onInputEnded = props.OnInputEnded
 
-		return Roact.createElement("ImageButton", {
+	return Roact.createElement("ImageButton", {
+		Size = Constants.EVENT_MARKER_SIZE,
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = position,
+		ZIndex = zindex,
+
+		BackgroundTransparency = 1,
+		AutoButtonColor = false,
+
+		ImageColor3 = eventTheme.imageColor,
+		Image = eventTheme.mainImage,
+
+		[Roact.Event.MouseButton2Click] = onRightClick,
+		[Roact.Event.InputBegan] = onInputBegan,
+		[Roact.Event.InputEnded] = onInputEnded,
+	}, {
+		Tooltip = names and Roact.createElement(Tooltip, {
+			Text = self:getTooltip(names),
+			ShowDelay = 0,
+		}),
+
+		Border = Roact.createElement("ImageLabel", {
 			Size = Constants.EVENT_MARKER_SIZE,
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			Position = position,
-			ZIndex = zindex,
-
+			AnchorPoint = Vector2.new(0.5, 0),
+			Position = UDim2.new(0.5, 0, 0, 0),
 			BackgroundTransparency = 1,
-			AutoButtonColor = false,
+			ImageColor3 = selected and eventTheme.selectionBorderColor or eventTheme.borderColor,
+			Image = eventTheme.borderImage,
+		}),
 
-			ImageColor3 = eventTheme.imageColor,
-			Image = eventTheme.mainImage,
-
-			[Roact.Event.MouseButton2Click] = onRightClick,
-			[Roact.Event.InputBegan] = onInputBegan,
-			[Roact.Event.InputEnded] = onInputEnded,
-		}, {
-			Tooltip = names and Roact.createElement(Tooltip, {
-				Text = self:getTooltip(names),
-				ShowDelay = 0,
-			}),
-
-			Border = Roact.createElement("ImageLabel", {
-				Size = Constants.EVENT_MARKER_SIZE,
-				AnchorPoint = Vector2.new(0.5, 0),
-				Position = UDim2.new(0.5, 0, 0, 0),
-				BackgroundTransparency = 1,
-				ImageColor3 = selected and eventTheme.selectionBorderColor or eventTheme.borderColor,
-				Image = eventTheme.borderImage,
-			}),
-
-			SelectionBorder = selected and Roact.createElement("ImageLabel", {
-				Size = Constants.EVENT_MARKER_BORDER_SIZE,
-				AnchorPoint = Vector2.new(0.5, 0),
-				Position = UDim2.new(0.5, 0, 0, 0),
-				BackgroundTransparency = 1,
-				ImageColor3 = eventTheme.selectionBorderColor,
-				Image = eventTheme.selectionBorderImage,
-			}),
-		})
+		SelectionBorder = selected and Roact.createElement("ImageLabel", {
+			Size = Constants.EVENT_MARKER_BORDER_SIZE,
+			AnchorPoint = Vector2.new(0.5, 0),
+			Position = UDim2.new(0.5, 0, 0, 0),
+			BackgroundTransparency = 1,
+			ImageColor3 = eventTheme.selectionBorderColor,
+			Image = eventTheme.selectionBorderImage,
+		}),
+	})
 end
 
-
 EventMarker = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(EventMarker)
-
-
-
 
 return EventMarker

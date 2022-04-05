@@ -73,6 +73,12 @@ function LayeredClothingEditorPlugin:init()
 		pluginName = PLUGIN_NAME,
 		stringResourceTable = TranslationDevelopmentTable,
 		translationResourceTable = TranslationReferenceTable,
+		libraries = {
+			[AvatarToolsShared.Resources.LOCALIZATION_PROJECT_NAME] = {
+				stringResourceTable = AvatarToolsShared.Resources.TranslationDevelopmentTable,
+				translationResourceTable = AvatarToolsShared.Resources.TranslationReferenceTable,
+			},
+		},
 	})
 
 	local toolbar = plugin:CreateToolbar(self.localization:getText("Meta", "ToolbarName"))

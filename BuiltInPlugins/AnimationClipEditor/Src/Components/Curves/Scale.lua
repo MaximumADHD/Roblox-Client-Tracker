@@ -1,3 +1,4 @@
+--!strict
 --[[
 	An element made up of ScaleTick components.
 
@@ -23,23 +24,42 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
-
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local Constants = require(Plugin.Src.Util.Constants)
 local ScaleTick = require(Plugin.Src.Components.Curves.ScaleTick)
 
+local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
+
 local Scale = Roact.PureComponent:extend("Scale")
 
-function Scale:calculateIntervals(props)
+export type Props = {
+	-- State/Context
+	Stylizer: any,
+	Theme: any,
+
+	-- Properties
+	MaxValue: number,
+	MinValue: number,
+	ParentSize: Vector2,
+	Position: UDim2,
+	ScaleType: string,
+	Size: UDim2,
+	SmallTickWidthScale: number,
+	TickWidthScale: number,
+	VerticalScroll: number,
+	VerticalZoom: number,
+	Width: number,
+	ZIndex: number,
+}
+
+function Scale:calculateIntervals(props: Props): ()
 	local zoom = props.VerticalZoom
 	zoom = math.min(zoom, 0.99)
 
 	local range = (props.MaxValue - props.MinValue) * (1 - zoom)
-	local height = props.ParentSize.y
+	local height = props.ParentSize.Y
 
 	-- numTicks = height / Constants.TICK_SPACING = number of ticks we can display vertically
 	-- scale = range / numTicks = value difference between two consecutive ticks
@@ -58,7 +78,7 @@ function Scale:calculateIntervals(props)
 	end
 end
 
-function Scale:scale(y)
+function Scale:scale(y: number): (number)
 	local props = self.props
 
 	local minValue, maxValue = props.MinValue, props.MaxValue
@@ -76,7 +96,7 @@ end
 
 -- This is the inverse function of scale
 -- Given a screen coordinates, it returns the value of the curve.
-function Scale:inverseScale(y)
+function Scale:inverseScale(y: number): (number)
 	local props = self.props
 
 	local minValue, maxValue = props.MinValue, props.MaxValue
@@ -92,33 +112,43 @@ function Scale:inverseScale(y)
 	return y
 end
 
-function Scale:willUpdate(nextProps)
+function Scale:willUpdate(nextProps: Props): ()
 	local props = self.props
 	if nextProps.ParentSize.Y ~= props.ParentSize.Y
 		or nextProps.MinValue ~= props.MinValue or nextProps.MaxValue ~= props.MaxValue
 		or math.abs(nextProps.VerticalZoom - props.VerticalZoom) > 0.001 then
 		self:calculateIntervals(nextProps)
 	end
-
 end
 
-function Scale:renderTick(children, value, label, tickScale)
+function Scale:renderTick(children: {any}, value: number, label: string, tickScale: number): ()
 	local props = self.props
 	local width = props.Width
-	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
+	local scaleType = props.ScaleType
+	local theme = props.Stylizer.PluginTheme
 
 	table.insert(children, Roact.createElement(ScaleTick, {
 		Value = label or "",
 		Width = width,
 		Position = UDim2.new(0, 0, 0, self:scale(value)),
-		Font = theme.font,
+		Font = not GetFFlagQuaternionsUI() and theme.font or nil,  -- Unused
 		TickWidthScale = tickScale,
+		ScaleType = scaleType,
 	}))
 end
 
-function Scale:render()
+function Scale:formatLabel(value: number): (string)
 	local props = self.props
-	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
+	if props.ScaleType == Constants.SCALE_TYPE.Angle then
+		return string.format("%d°", math.floor(value))
+	else
+		return string.format("%0.3f", value)
+	end
+end
+
+function Scale:render(): (any)
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
 	local timelineTheme = theme.timelineTheme
 
 	local children = {}
@@ -131,7 +161,7 @@ function Scale:render()
 		maxValueDisplayed = math.ceil(maxValueDisplayed / self.majorInterval) * self.majorInterval
 
 		for i = minValueDisplayed, maxValueDisplayed, self.majorInterval do
-			self:renderTick(children, i, string.format("%0.3f", i), props.TickWidthScale)
+			self:renderTick(children, i, GetFFlagQuaternionsUI() and self:formatLabel(i) or string.format("%0.3f", i), props.TickWidthScale)
 			for j = 1, 4 do
 				self:renderTick(children, i + j * self.minorInterval, "", props.SmallTickWidthScale)
 			end
@@ -149,8 +179,7 @@ function Scale:render()
 end
 
 Scale = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(Scale)
 
 return Scale

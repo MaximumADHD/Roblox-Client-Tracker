@@ -26,7 +26,6 @@ local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
 local OnAssetSingleClick = require(Plugin.Src.Thunks.OnAssetSingleClick)
 
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
-local FFlagStudioAssetManagerFixAssetPreviewHover = game:GetFastFlag("StudioAssetManagerFixAssetPreviewHover")
 
 local ModernIcons = require(Plugin.Src.Util.ModernIcons)
 local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and not game:GetService("StudioHighDpiService"):IsNotHighDPIAwareBuild()
@@ -127,11 +126,9 @@ function Tile:init()
     end
 
     self.openAssetPreview = function()
-        if FFlagStudioAssetManagerFixAssetPreviewHover then
-            self:setState({
-                assetPreviewButtonHovered = false,
-            })
-        end
+        self:setState({
+            assetPreviewButtonHovered = false,
+        })
         local assetData = self.props.AssetData
         self.props.OnOpenAssetPreview(assetData)
     end

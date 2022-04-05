@@ -5,19 +5,26 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Constants = require(Plugin.Src.Util.Constants)
-
 local Cryo = require(Plugin.Packages.Cryo)
-local SetPast = require(Plugin.Src.Actions.SetPast)
+
 local SetFuture = require(Plugin.Src.Actions.SetFuture)
+local SetPast = require(Plugin.Src.Actions.SetPast)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
-local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
+local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
+
 local SortAndSetTracks = require(Plugin.Src.Thunks.SortAndSetTracks)
+local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
+
+local TrackSelectionUtils = require(Plugin.Src.Util.TrackSelectionUtils)
+
+local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
 
 return function(signals)
 	return function(store)
 		local state = store:getState()
 		local animationData = state.AnimationData
 		local tracks = state.Status.Tracks
+		local selectedTracks = state.Status.SelectedTracks
 		local history = state.History
 		local past = history.Past
 		local future = history.Future
@@ -39,8 +46,17 @@ return function(signals)
 			store:dispatch(SortAndSetTracks(newState.Tracks))
 			store:dispatch(SetSelectedKeyframes({}))
 
+			-- Prune selected tracks, as some tracks might have disappeared
+			-- (Undoing a conversion from Quaternions to Euler's angles, for instance)
+			if GetFFlagQuaternionsUI() then
+				local newSelectedTracks, changed = TrackSelectionUtils.PruneSelectedTracks(animationData, selectedTracks)
+				if changed then
+					store:dispatch(SetSelectedTracks(newSelectedTracks))
+				end
+			end
+
 			store:dispatch(SetPast(Cryo.List.removeIndex(past, 1)))
-			if signals then 
+			if signals then
 				local selectionSignal = signals:get(Constants.SIGNAL_KEYS.SelectionChanged)
 				selectionSignal:Fire()
 			end

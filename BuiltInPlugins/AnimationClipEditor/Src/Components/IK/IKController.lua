@@ -13,9 +13,6 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
-
 local Button = Framework.UI.Button
 
 local ContextServices = Framework.ContextServices
@@ -143,71 +140,67 @@ function IKController:didUpdate()
 end
 
 function IKController:render()
-		local localization = self.props.Localization
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
-		local selectedTrack = self.getLastSelectedTrack()
-		local style = THEME_REFACTOR and theme.button or props.Theme:get("PluginTheme").button
-		local state = self.state
+	local localization = self.props.Localization
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
+	local selectedTrack = self.getLastSelectedTrack()
+	local style = theme.button
+	local state = self.state
 
-		local toggleShowTree = props.ToggleShowTree
-		local canUseIK, emptyR15 = RigUtils.canUseIK(props.RootInstance)
+	local toggleShowTree = props.ToggleShowTree
+	local canUseIK, emptyR15 = RigUtils.canUseIK(props.RootInstance)
 
 
-		return self.props.RootInstance and Roact.createElement("Frame", {
-			Position = props.Position,
-			Size = UDim2.new(0, IK_BUTTON_WIDTH, 0, IK_BUTTON_HEIGHT),
-			BackgroundTransparency = 1,
-			AnchorPoint = Vector2.new(0, 0.5),
+	return self.props.RootInstance and Roact.createElement("Frame", {
+		Position = props.Position,
+		Size = UDim2.new(0, IK_BUTTON_WIDTH, 0, IK_BUTTON_HEIGHT),
+		BackgroundTransparency = 1,
+		AnchorPoint = Vector2.new(0, 0.5),
+	}, {
+		IKButton = props.RootInstance and canUseIK and Roact.createElement(Button, {
+			Style = state.showTree and style.IKActive or style.IKDefault,
+			Size = UDim2.new(1, 0, 1, 0),
+			OnClick = toggleShowTree,
 		}, {
-			IKButton = props.RootInstance and canUseIK and Roact.createElement(Button, {
-				Style = state.showTree and style.IKActive or style.IKDefault,
-				Size = UDim2.new(1, 0, 1, 0),
-				OnClick = toggleShowTree,
-			}, {
-				Label = Roact.createElement("TextLabel", {
-						BackgroundTransparency = 1,
-						Size = UDim2.new(1, 0, 1, 0),
-						TextYAlignment = Enum.TextYAlignment.Center,
-						TextSize = theme.ikTheme.textSize,
-						Text = localization:getText("Title", "IK"),
-						Font = theme.font,
-						TextColor3 = theme.ikTheme.textColor,
-					})
-			}),
+			Label = Roact.createElement("TextLabel", {
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, 0, 1, 0),
+					TextYAlignment = Enum.TextYAlignment.Center,
+					TextSize = theme.ikTheme.textSize,
+					Text = localization:getText("Title", "IK"),
+					Font = theme.font,
+					TextColor3 = theme.ikTheme.textColor,
+				})
+		}),
 
-			IKWindow = props.ShowTree and state.showTree and Roact.createElement(IKWindow, {
-				RootInstance = props.RootInstance,
-				PinnedParts = props.PinnedParts,
-				IKEnabled = props.IKEnabled,
-				ShowTree = props.ShowTree,
-				SelectedTrack = selectedTrack,
-				SetSelectedTracks = props.SetSelectedTracks,
-				ToggleIKEnabled = self.toggleIKEnabledHandler,
-				TogglePinnedPart = props.TogglePinnedPart,
-				SetShowTree = props.SetShowTree,
-				SetIKEnabled = props.SetIKEnabled,
-				SetIKMode = props.SetIKMode,
-				Chain = self.makeChains(),
-				IKMode = props.IKMode,
-				IsR15 = emptyR15,
-			}),
+		IKWindow = props.ShowTree and state.showTree and Roact.createElement(IKWindow, {
+			RootInstance = props.RootInstance,
+			PinnedParts = props.PinnedParts,
+			IKEnabled = props.IKEnabled,
+			ShowTree = props.ShowTree,
+			SelectedTrack = selectedTrack,
+			SetSelectedTracks = props.SetSelectedTracks,
+			ToggleIKEnabled = self.toggleIKEnabledHandler,
+			TogglePinnedPart = props.TogglePinnedPart,
+			SetShowTree = props.SetShowTree,
+			SetIKEnabled = props.SetIKEnabled,
+			SetIKMode = props.SetIKMode,
+			Chain = self.makeChains(),
+			IKMode = props.IKMode,
+			IsR15 = emptyR15,
+		}),
 
-			R15IKRig = props.IKEnabled and emptyR15 and Roact.createElement(R15IKRig, {
-				RootInstance = props.RootInstance,
-			})
+		R15IKRig = props.IKEnabled and emptyR15 and Roact.createElement(R15IKRig, {
+			RootInstance = props.RootInstance,
 		})
+	})
 end
 
-
 IKController = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Analytics = ContextServices.Analytics,
 })(IKController)
-
-
 
 local function mapStateToProps(state, props)
 	return {
@@ -251,6 +244,5 @@ local function mapDispatchToProps(dispatch)
 		end,
 	}
 end
-
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(IKController)

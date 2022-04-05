@@ -26,6 +26,7 @@
 		callback OnColumnSizesChange: An optional callback which allows columns to be resizable.
 		callback RowComponent: An optional component to render each row.
 		boolean UseScale: Whether to convert column widths to scales during resizing.
+		boolean UseDeficit: Whether to make the last pane stretch to fill remaining space.
 		boolean ClampSize: Whether to clamp column resizes to the width of the table.
 		any CellComponent: An optional component passed to the row component which renders individual cells.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
@@ -37,7 +38,6 @@
 ]]
 local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
-local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
 local FFlagDevFrameworkDoubleClick = game:GetFastFlag("DevFrameworkDoubleClick")
 
 local hasTableColumnResizeFFlags = FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize
@@ -192,6 +192,7 @@ function Table:renderResizableHeadings()
 	end)
 	return Roact.createElement(SplitPane, {
 		UseScale = props.UseScale,
+		UseDeficit = props.UseDeficit,
 		ClampSize = props.ClampSize,
 		Sizes = sizes,
 		MinSizes = minSizes,
@@ -253,7 +254,7 @@ function Table:renderScroll()
 		EstimatedItemSize = style.RowHeight,
 		Items = props.Rows,
 		RenderItem = self.onRenderRow,
-		ScrollFocusIndex = (FFlagDevFrameworkInfiniteScrollerIndex and props.ScrollFocusIndex) or nil,
+		ScrollFocusIndex = props.ScrollFocusIndex,
 	})
 end
 

@@ -4,19 +4,26 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
-
 local Cryo = require(Plugin.Packages.Cryo)
-local SetPast = require(Plugin.Src.Actions.SetPast)
+
 local SetFuture = require(Plugin.Src.Actions.SetFuture)
+local SetPast = require(Plugin.Src.Actions.SetPast)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
-local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
+local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
+
 local SortAndSetTracks = require(Plugin.Src.Thunks.SortAndSetTracks)
+local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
+
+local TrackSelectionUtils = require(Plugin.Src.Util.TrackSelectionUtils)
+
+local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
 
 return function()
 	return function(store)
 		local state = store:getState()
 		local animationData = state.AnimationData
 		local tracks = state.Status.Tracks
+		local selectedTracks = state.Status.SelectedTracks
 		local history = state.History
 		local past = history.Past
 		local future = history.Future
@@ -37,6 +44,16 @@ return function()
 			store:dispatch(UpdateAnimationData(newState.AnimationData))
 			store:dispatch(SortAndSetTracks(newState.Tracks))
 			store:dispatch(SetSelectedKeyframes({}))
+
+			-- Prune selected tracks, as some tracks might have disappeared
+			-- This use case does not happen for now, but it might in the future.
+			-- This is added to mirror the behavior of Undo
+			if GetFFlagQuaternionsUI() then
+				local newSelectedTracks, changed = TrackSelectionUtils.PruneSelectedTracks(animationData, selectedTracks)
+				if changed then
+					store:dispatch(SetSelectedTracks(newSelectedTracks))
+				end
+			end
 
 			store:dispatch(SetFuture(Cryo.List.removeIndex(future, 1)))
 		end

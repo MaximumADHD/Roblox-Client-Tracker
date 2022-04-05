@@ -59,10 +59,52 @@ type _Style = {
 
 local MaterialPrompt = Roact.PureComponent:extend("MaterialPrompt")
 
+function MaterialPrompt:hasValidName()
+	return if self.props.Name and self.props.Name ~= "" then true else false
+end
+
+function MaterialPrompt:getNameError()
+	local props : _Props = self.props
+	local localization = props.Localization
+	local materialController = props.MaterialController
+
+	if not self.state.saveAttempt then
+		return nil
+	end
+
+	if not self:hasValidName() then 
+		return localization:getText("CreateDialog", "ErrorNoName")
+	elseif materialController:ifMaterialNameExists(props.Name, props.BaseMaterial) then
+		return localization:getText("CreateDialog", "ErrorNameExists")
+	end
+	return nil
+end
+
+function MaterialPrompt:getBaseMaterialError()
+	local props : _Props = self.props
+	local localization = props.Localization
+
+	if not self.state.saveAttempt then
+		return nil
+	end
+
+	if not props.BaseMaterial then
+		return localization:getText("CreateDialog", "ErrorBaseMaterialNotSelected")
+	end
+	return nil
+end
+
 function MaterialPrompt:init()
-	-- TODO: Save -> upload texture maps if needed
+	self:setState({
+		saveAttempt = false,
+	})
+
 	self.onSave = function()
 		local props : _Props = self.props
+
+		self:setState({
+			saveAttempt = true,
+		})
 
 		local assetHandler = props.ImportAssetHandler
 
@@ -84,43 +126,40 @@ function MaterialPrompt:init()
 			end
 		end
 
-		if not (props.Name and props.BaseMaterial) then
-			-- TODO: Warnings and errors
+		local materialController = props.MaterialController
+		if self:getNameError() or self:getBaseMaterialError() then
 			return
 		end
 
-		if props.ColorMap or props.NormalMap or props.MetalnessMap or props.RoughnessMap then
-			local materialVariant
+		local materialVariant
 
-			if props.Mode == "Create" then
-				materialVariant = Instance.new("MaterialVariant")
-			elseif props.Mode == "Edit" then
-				local material : _Types.Material? = props.Material
-				if material then
-					materialVariant = material.MaterialVariant
-				end
+		if props.Mode == "Create" then
+			materialVariant = Instance.new("MaterialVariant")
+		elseif props.Mode == "Edit" then
+			local material = props.Material
+			if material then
+				materialVariant = material.MaterialVariant
 			end
-
-			materialVariant.Name = props.Name
-			materialVariant.BaseMaterial = props.BaseMaterial
-			materialVariant.Parent = game:GetService("MaterialService")
-
-			-- Set texture maps
-			local maps = {
-				ColorMap = props.ColorMap or "",
-				NormalMap = props.NormalMap or "",
-				MetalnessMap = props.MetalnessMap or "",
-				RoughnessMap = props.RoughnessMap or ""
-			}
-			handleMaps(maps, materialVariant)
-
-			local materialController = props.MaterialController
-			props.dispatchSetMaterial(materialController:getMaterial(materialVariant))
-			props.dispatchSetPath(getMaterialPath(materialVariant))
-
-		-- TODO: Warnings and errors
-		-- else
 		end
+
+		materialVariant.Name = props.Name
+		materialVariant.BaseMaterial = props.BaseMaterial
+		materialVariant.Parent = game:GetService("MaterialService")
+
+		-- Set texture maps
+		local maps = {
+			ColorMap = props.ColorMap or "",
+			NormalMap = props.NormalMap or "",
+			MetalnessMap = props.MetalnessMap or "",
+			RoughnessMap = props.RoughnessMap or ""
+		}
+		handleMaps(maps, materialVariant)
+
+		props.dispatchSetMaterial(materialController:getMaterial(materialVariant))
+		props.dispatchSetPath(getMaterialPath(materialVariant))
+
+		props.PromptClosed()
+		props.dispatchClearMaterialVariant()
 	end
 
 	self.onButtonPressed = function(key)
@@ -128,12 +167,10 @@ function MaterialPrompt:init()
 		
 		if key == "Cancel" then
 			props.PromptClosed()
+			props.dispatchClearMaterialVariant()
 		elseif key == "Save" then
 			self.onSave()
-			props.PromptClosed()
 		end
-
-		props.dispatchClearMaterialVariant()
 	end
 end
 
@@ -141,6 +178,8 @@ function MaterialPrompt:render()
 	local props : _Props = self.props
 	local localization = props.Localization
 	local style : _Style = props.Stylizer.MaterialPrompt
+
+	local mode = if props.Mode == "Create" then "CreateVariant" else "EditVariant"
 
 	local buttons = {
 		{ 
@@ -156,7 +195,7 @@ function MaterialPrompt:render()
 	}
 
 	return Roact.createElement(StyledDialog, {
-		Title = localization:getText("CreateDialog", "CreateVariant"),
+		Title = localization:getText("CreateDialog", mode),
 		MinContentSize = Vector2.new(style.DialogWidth, style.DialogHeight),
 		Resizable = false,
 		Modal = true,
@@ -165,7 +204,10 @@ function MaterialPrompt:render()
 		OnButtonPressed = self.onButtonPressed,
 		Style = "FullBleed",
 	}, {
-		MaterialVariantCreator = Roact.createElement(MaterialVariantCreator)
+		MaterialVariantCreator = Roact.createElement(MaterialVariantCreator, {
+			ErrorName = self:getNameError(),
+			ErrorBaseMaterial = self:getBaseMaterialError(),
+		})
 	})
 end
 

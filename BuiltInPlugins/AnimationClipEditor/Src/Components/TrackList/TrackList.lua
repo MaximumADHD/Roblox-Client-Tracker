@@ -42,8 +42,6 @@ local StringUtils = require(Plugin.Src.Util.StringUtils)
 local SignalsContext = require(Plugin.Src.Context.Signals)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -556,49 +554,45 @@ function TrackList:renderTracks(startIndex, endIndex, theme)
 end
 
 function TrackList:render()
-		self.resetTrackCount()
-		self.maxTrackWidth = 0
+	self.resetTrackCount()
+	self.maxTrackWidth = 0
 
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
-		local state = self.state
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
+	local state = self.state
 
-		local size = props.Size
-		local topTrackIndex = props.TopTrackIndex
-		local height = state.AbsoluteSize.Y
-		local width = state.AbsoluteSize.X
-		local layoutOrder = props.LayoutOrder
+	local size = props.Size
+	local topTrackIndex = props.TopTrackIndex
+	local height = state.AbsoluteSize.Y
+	local width = state.AbsoluteSize.X
+	local layoutOrder = props.LayoutOrder
 
-		local endIndex
-		if topTrackIndex == 0 then
-			endIndex = math.ceil((height - Constants.SUMMARY_TRACK_HEIGHT) / Constants.TRACK_HEIGHT) + 1
-		else
-			endIndex = topTrackIndex + math.ceil(height / Constants.TRACK_HEIGHT) - 1
-		end
+	local endIndex
+	if topTrackIndex == 0 then
+		endIndex = math.ceil((height - Constants.SUMMARY_TRACK_HEIGHT) / Constants.TRACK_HEIGHT) + 1
+	else
+		endIndex = topTrackIndex + math.ceil(height / Constants.TRACK_HEIGHT) - 1
+	end
 
-		local children = self:renderTracks(topTrackIndex, endIndex, theme)
-		return Roact.createElement(WideScrollingFrame, {
-			Size = size,
-			Width = width,
-			LayoutOrder = layoutOrder,
-			BackgroundTransparency = 1,
-			CanvasSize = UDim2.new(0, self.maxTrackWidth + Constants.TRACKLIST_RIGHT_PADDING, 0, 0),
-			ZIndex = 2,
+	local children = self:renderTracks(topTrackIndex, endIndex, theme)
+	return Roact.createElement(WideScrollingFrame, {
+		Size = size,
+		Width = width,
+		LayoutOrder = layoutOrder,
+		BackgroundTransparency = 1,
+		CanvasSize = UDim2.new(0, self.maxTrackWidth + Constants.TRACKLIST_RIGHT_PADDING, 0, 0),
+		ZIndex = 2,
 
-			OnInputChanged = self.inputChanged,
-			OnSizeChanged = self.sizeChanged,
-		}, children)
+		OnInputChanged = self.inputChanged,
+		OnSizeChanged = self.sizeChanged,
+	}, children)
 end
 
-
 TrackList = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Analytics = ContextServices.Analytics,
 	Signals = SignalsContext,
 })(TrackList)
-
-
 
 local function mapStateToProps(state, props)
 	local status = state.Status

@@ -23,7 +23,6 @@ local GetFFlagEnableVoicePromptReasonText = require(RobloxGui.Modules.Flags.GetF
 local GetFFlagEnableErrorIconFix = require(RobloxGui.Modules.Flags.GetFFlagEnableErrorIconFix)
 local GetFFlagVCPromptEarlyOut = require(RobloxGui.Modules.Flags.GetFFlagVCPromptEarlyOut)
 local GetFFlagEnableSessionCancelationOnBlock = require(RobloxGui.Modules.Flags.GetFFlagEnableSessionCancelationOnBlock)
-local GetFFlagLazyLoadPlayerBlockedEvent = require(RobloxGui.Modules.Flags.GetFFlagLazyLoadPlayerBlockedEvent)
 local GetFFlagDeferredBlockStatusChange = require(RobloxGui.Modules.Flags.GetFFlagDeferredBlockStatusChange)
 local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPlayerListAnimateMic)
 local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuUseSpeakerIcons)
@@ -595,70 +594,28 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 		end
 
 		if GetFFlagEnableVoiceChatRejoinOnBlock() then
-			if GetFFlagLazyLoadPlayerBlockedEvent() then
-				self.BlockStatusChanged:Connect(function(userId: number, isBlocked: boolean)
-					if isBlocked then
-						if self.participants[tostring(userId)] then
-							if GetFFlagEnableSessionCancelationOnBlock() then
-								log:debug("Blocking {}", shorten(userId))
-								self.service:SubscribeBlock(userId)
-							else
-								wait(GetFIntEnableVoiceChatRejoinOnBlockDelay())
-								self:RejoinCurrentChannel()
-							end
-						end
-					else
+			self.BlockStatusChanged:Connect(function(userId: number, isBlocked: boolean)
+				if isBlocked then
+					if self.participants[tostring(userId)] then
 						if GetFFlagEnableSessionCancelationOnBlock() then
-							-- There's no way of knowing if the unblocked player will be in the voice channel, so we always have to disconnect
-							log:debug("UnBlocking {}", shorten(userId))
-							self.service:SubscribeUnblock(userId)
+							log:debug("Blocking {}", shorten(userId))
+							self.service:SubscribeBlock(userId)
 						else
 							wait(GetFIntEnableVoiceChatRejoinOnBlockDelay())
 							self:RejoinCurrentChannel()
 						end
 					end
-				end)
-			else
-				local PlayerBlockedEvent, PlayerUnBlockedEvent
-				pcall(function()
-					PlayerBlockedEvent = StarterGui:GetCore("PlayerBlockedEvent")
-					PlayerUnBlockedEvent = StarterGui:GetCore("PlayerUnblockedEvent")	
-				end)
-				if not (PlayerUnBlockedEvent or PlayerBlockedEvent) then
-					return
-				end
-				PlayerBlockedEvent.Event:Connect(function(player)
-					if self.participants[tostring(player.UserId)] then
-						if GetFFlagEnableVoiceChatMuteOnBlock() then
-							self:ToggleMutePlayer(player.UserId)
-						end
-	
-						if GetFFlagEnableSessionCancelationOnBlock() then
-							log:debug("Blocking {}", shorten(player.UserId))
-							self.service:SubscribeBlock(player.UserId)
-						else
-							wait(GetFIntEnableVoiceChatRejoinOnBlockDelay())
-							self:RejoinCurrentChannel()
-						end
-					end
-				end)
-				PlayerUnBlockedEvent.Event:Connect(function(player)
+				else
 					if GetFFlagEnableSessionCancelationOnBlock() then
 						-- There's no way of knowing if the unblocked player will be in the voice channel, so we always have to disconnect
-						log:debug("UnBlocking {}", shorten(player.UserId))
-						self.service:SubscribeUnblock(player.UserId)
+						log:debug("UnBlocking {}", shorten(userId))
+						self.service:SubscribeUnblock(userId)
 					else
 						wait(GetFIntEnableVoiceChatRejoinOnBlockDelay())
 						self:RejoinCurrentChannel()
 					end
-					if GetFFlagEnableVoiceChatMuteOnBlock() then
-						self.service:SubscribePause(
-							player.UserId,
-							false
-						)
-					end
-				end)
-			end
+				end
+			end)
 		end
 	end
 end

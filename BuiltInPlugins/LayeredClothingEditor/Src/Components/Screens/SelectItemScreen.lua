@@ -23,6 +23,7 @@ local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 local Components = AvatarToolsShared.Components
 local ConfirmDialog = Components.ConfirmDialog
 local ConfirmCancelDialog = Components.ConfirmCancelDialog
+local InstanceSelector = Components.InstanceSelector
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -33,7 +34,6 @@ local ChangeTool = require(Plugin.Src.Thunks.ChangeTool)
 local AddUserAddedAssetForPreview = require(Plugin.Src.Thunks.AddUserAddedAssetForPreview)
 
 local SelectFrame = require(Plugin.Src.Components.SelectFrame)
-local InstanceSelector = require(Plugin.Src.Components.InstanceSelector)
 
 local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
 local ShowDialog = require(Plugin.Src.Util.ShowDialog)

@@ -6,7 +6,7 @@ local Plugin = script.Parent.Parent.Parent
 
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
 local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
 local Packages = Plugin.Packages
 local Cryo = require(Packages.Cryo)
@@ -395,7 +395,7 @@ function Localization:_recalculateContent()
 	self:_update({
 		ToolboxToolbarName = self:_safeLocalize("Studio.Toolbox.General.ToolboxToolbarName"),
 
-		Categorization = FFlagToolboxAssetCategorization and {
+		Categorization = FFlagToolboxAssetCategorization2 and {
 			AllModels = self:_safeLocalize("Studio.Toolbox.General.AllModels"),
 		} or nil,
 
@@ -560,6 +560,7 @@ function Localization:_recalculateContent()
 
 		SearchBarDefaultText = self:_safeLocalize("Studio.Toolbox.General.SearchBarDefaultText"),
 		SearchBarCreatorText = self:_safeLocalize("Studio.Toolbox.General.SearchBarCreatorText"),
+		SearchBarIdVerified = self:_safeLocalize("Studio.Toolbox.General.SearchBarIdVerified"),
 
 		EndorseBadgeTooltipText = self:_safeLocalize("Studio.Toolbox.General.EndorseBadgeTooltipText"),
 
@@ -582,6 +583,7 @@ function Localization:_recalculateContent()
 		},
 
 		SearchOptions = {
+			AllViews = self:_safeLocalize("Studio.Toolbox.General.SearchOptionsAllViews"),
 			Creator = self:_safeLocalize("Studio.Toolbox.General.SearchOptionCreator"),
 			Sort = self:_safeLocalize("Studio.Toolbox.General.SearchOptionSort"),
 			Apply = self:_safeLocalize("Studio.Toolbox.General.SearchOptionsApply"),
@@ -696,11 +698,15 @@ function Localization:_recalculateContent()
 				Genre = self:_safeLocalize("Studio.Toolbox.General.Genre"),
 				Copy = self:_safeLocalize("Studio.Toolbox.General.Copy"),
 				Comments = self:_safeLocalize("Studio.Toolbox.General.Comments"),
-				DistributeOnMarketplace = FFlagToolboxPrivatePublicAudioAssetConfig3 and self:_safeLocalize("Studio.Toolbox.General.DistributeOnMarketplace") or nil,
+				DistributeOnMarketplace = FFlagToolboxPrivatePublicAudioAssetConfig3 and self:_safeLocalize(
+					"Studio.Toolbox.General.DistributeOnMarketplace"
+				) or nil,
 				LearnMore = self:_safeLocalize("Studio.Toolbox.General.LearnMore"),
 				Me = self:_safeLocalize("Studio.Toolbox.General.Me"),
 				AssetType = self:_safeLocalize("Studio.Toolbox.General.AssetType"),
-				Sharing = FFlagToolboxPrivatePublicAudioAssetConfig3 and self:_safeLocalize("Studio.Toolbox.General.Sharing") or nil,
+				Sharing = FFlagToolboxPrivatePublicAudioAssetConfig3 and self:_safeLocalize(
+					"Studio.Toolbox.General.Sharing"
+				) or nil,
 				Tags = self:_safeLocalize("Studio.Toolbox.General.Tags"),
 				TermsOfUse = self:_safeLocalize("Studio.Toolbox.General.TermsOfUse"),
 
@@ -873,7 +879,10 @@ function Localization:_recalculateContent()
 			Success = self:_safeLocalize("Studio.Toolbox.GrantAssetPermission.Success", { assetId = 0 }),
 			Failure = self:_safeLocalize("Studio.Toolbox.GrantAssetPermission.Failure", { assetId = 0 }),
 			DialogText = self:_safeLocalize("Studio.Toolbox.GrantAssetPermission.DialogText"),
-			Information = self:_safeLocalize("Studio.Toolbox.GrantAssetPermission.Information", { assetName = "{assetName}", assetId = 0, assetType = "{assetType}" }),
+			Information = self:_safeLocalize(
+				"Studio.Toolbox.GrantAssetPermission.Information",
+				{ assetName = "{assetName}", assetId = 0, assetType = "{assetType}" }
+			),
 			CancelButton = self:_safeLocalize("Studio.Toolbox.GrantAssetPermission.CancelButton"),
 			GrantButton = self:_safeLocalize("Studio.Toolbox.GrantAssetPermission.GrantButton"),
 		},

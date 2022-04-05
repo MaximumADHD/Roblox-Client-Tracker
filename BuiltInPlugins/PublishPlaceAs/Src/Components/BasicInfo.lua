@@ -31,15 +31,12 @@ local TEAM_CREATE_ENABLED = "teamCreateEnabled"
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 local FStringTeamCreateLearnMoreLink = game:GetFastString("TeamCreateLink")
 local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage2")
-local FFlagRemoveUILibraryPartialHyperlink = game:GetFastFlag("RemoveUILibraryPartialHyperlink")
 
 local teamCreateToggleEnabled = false
 if FIntTeamCreateTogglePercentageRollout > 0 then
     local StudioService = game:GetService("StudioService")
     teamCreateToggleEnabled = StudioService:GetUserIsInTeamCreateToggleRamp()
 end
-
-local FFlagPlacePublishTcToggleCalloutEnabled = game:GetFastFlag("PlacePublishTcToggleCalloutEnabled")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -49,11 +46,8 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local TitledFrame = UILibrary.Component.TitledFrame
 local RoundTextBox = UILibrary.Component.RoundTextBox
 local Separator = UILibrary.Component.Separator
---TODO: jbousellam - remove with FFlagRemoveUILibraryPartialHyperlink
-local PartialHyperlink = UILibrary.Studio.PartialHyperlink
 
-local TeachingCallout = if teamCreateToggleEnabled and FFlagPlacePublishTcToggleCalloutEnabled then 
-	require(Plugin.Src.Components.TeachingCallout) else nil
+local TeachingCallout = teamCreateToggleEnabled and require(Plugin.Src.Components.TeachingCallout) or nil
 
 local Header = require(Plugin.Src.Components.Header)
 local PlatformSelect = require(Plugin.Src.Components.PlatformSelect)
@@ -74,7 +68,7 @@ local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtil
 local getOptInLocationsRequirementsLink = require(Plugin.Src.Util.PublishPlaceAsUtilities).getOptInLocationsRequirementsLink
 local sendAnalyticsToKibana = require(Plugin.Src.Util.PublishPlaceAsUtilities).sendAnalyticsToKibana
 local getPlayerAppDownloadLink = require(Plugin.Src.Util.PublishPlaceAsUtilities).getPlayerAppDownloadLink
-local calculateTextSize = if FFlagRemoveUILibraryPartialHyperlink then require(Plugin.Src.Util.PublishPlaceAsUtilities).calculateTextSize else nil
+local calculateTextSize = require(Plugin.Src.Util.PublishPlaceAsUtilities).calculateTextSize
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 local optInLocationsKey = KeyProvider.getOptInLocationsKeyName()
 local chinaKey = KeyProvider.getChinaKeyName()
@@ -176,7 +170,7 @@ local function displayContents(parent)
 	local layoutOrder = LayoutOrderIterator.new()
 
 	-- Question: Is there a way for me to get the size and font type automagically from the LinkText Style "Body"?
-	local hyperLinkTextSize = if FFlagRemoveUILibraryPartialHyperlink then calculateTextSize(localization:getText(optInLocationsKey, "RequirementsLinkText"), 14, "SourceSans") else nil
+	local hyperLinkTextSize = calculateTextSize(localization:getText(optInLocationsKey, "RequirementsLinkText"), 14, "SourceSans")
 
 	local displayResult = {
 		Header = Roact.createElement(Header, {
@@ -346,9 +340,9 @@ local function displayContents(parent)
 				props.TeamCreateEnabledChanged(not props.TeamCreateEnabled)
 			end,
 		}, {
-			TeachingCallout = if FFlagPlacePublishTcToggleCalloutEnabled then Roact.createElement(TeachingCallout, {
+			TeachingCallout = Roact.createElement(TeachingCallout, {
 				DefinitionId = "PublishPlaceAsTeamCreateToggleCallout",
-				LocationId = "TeamCreateToggle", }) else nil,
+				LocationId = "TeamCreateToggle", }),
 			}) else nil,
 	}
 
@@ -371,16 +365,16 @@ local function displayContents(parent)
 						Size = UDim2.new(0, theme.requirementsLink.length, 0, theme.requirementsLink.height),
 						Position = UDim2.new(0, 0, 0, theme.requirementsLink.paddingY),
 					}, {
-						LinkTextLabel = if FFlagRemoveUILibraryPartialHyperlink then Roact.createElement(TextLabel, {
+						LinkTextLabel = Roact.createElement(TextLabel, {
 							Position = UDim2.new(0, hyperLinkTextSize.X, 0, 0),
 							Size = UDim2.new(1, -hyperLinkTextSize.X, 1, 0),
 							Style = "Body",
 							Text = localization:getText(optInLocationsKey, "ChinaRequirements"),
 							TextXAlignment = Enum.TextXAlignment.Left,
 							TextYAlignment = Enum.TextYAlignment.Top,
-						}) else nil,
+						}),
 
-						LinkText = if FFlagRemoveUILibraryPartialHyperlink then Roact.createElement(LinkText, {
+						LinkText = Roact.createElement(LinkText, {
 							OnClick = function()
 								local url = getOptInLocationsRequirementsLink(chinaKey)
 								GuiService:OpenBrowserWindow(url)
@@ -388,18 +382,7 @@ local function displayContents(parent)
 							Size = UDim2.new(0, hyperLinkTextSize.X, 0, hyperLinkTextSize.Y),
 							Style = "Body",
 							Text = localization:getText(optInLocationsKey, "RequirementsLinkText"),
-						}) else nil,
-
-						DEPRECATED_LinkText = if not FFlagRemoveUILibraryPartialHyperlink then Roact.createElement(PartialHyperlink, {
-							HyperLinkText = localization:getText(optInLocationsKey, "RequirementsLinkText"),
-							NonHyperLinkText = localization:getText(optInLocationsKey, "ChinaRequirements"),
-							Style = "RequirementsLink",
-							Mouse = props.Mouse:get(),
-							OnClick = function()
-								local url = getOptInLocationsRequirementsLink(chinaKey)
-								GuiService:OpenBrowserWindow(url)
-							end,
-						}) else nil,
+						}),
 					}),
 				}},
 				Enabled = optInLocations ~= nil,

@@ -14,6 +14,7 @@ return {
 		RespawnIcon = UIBloxImages["icons/actions/respawn"],
 		ReportIcon = UIBloxImages["icons/actions/feedback"],
 		ScreenshotIcon = UIBloxImages["icons/controls/screenshot"],
+		SuccessXLarge = UIBloxImages["icons/graphic/success_xlarge"],
 
 		CloseModal = Images["LuaApp/icons/navigation/close"],
 		NavigateBack = Images["LuaApp/icons/navigation/pushBack"],

@@ -24,8 +24,6 @@ local Constants = require(Plugin.Src.Util.Constants)
 
 local FFlagFixDuplicateNamedRoot = game:DefineFastFlag("FixDuplicateNamedRoot", false)
 local FFSaveAnimationRigWithKeyframeSequence2 = game:DefineFastFlag("SaveAnimationRigWithKeyframeSequence2", false)
-local FFlagUseFilteredGetKeyframes = game:GetFastFlag("UseFilteredGetKeyframes")
-local FFlagFilterGetKeyframes = game:DefineFastFlag("ACEFilterGetKeyframes", false)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
 local GetFFlagFixRigInfoForFacs = require(Plugin.LuaFlags.GetFFlagFixRigInfoForFacs)
@@ -522,20 +520,20 @@ function RigUtils.canUseFaceControlsEditor(rig)
 	if not rig then
 		return false
 	end
-	
+
 	if not GetFFlagFacialAnimationSupport() then
 		return false
-	end	
-	
+	end
+
 	if not GetFFlagFaceControlsEditorUI() then
 		return false
-	end		
-	
+	end
+
 	local faceControls = RigUtils.getFaceControls(rig)
 	if faceControls == nil then
 		return false
 	end
-	
+
 	return true
 end
 
@@ -1507,7 +1505,7 @@ function RigUtils.fromCurveAnimation(curveAnimation)
 					if rotationCurve.ClassName == "RotationCurve" then
 						rotationType = Constants.TRACK_TYPES.Quaternion
 					elseif rotationCurve.ClassName == "EulerRotationCurve" then
-						rotationType = Constants.TRACK_TYPES.Rotation
+						rotationType = GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation
 					end
 				end
 				local track = AnimationData.addTrack(tracks, folder.Name, Constants.TRACK_TYPES.CFrame, true, rotationType)
@@ -1633,17 +1631,8 @@ function RigUtils.toRigAnimation(animationData, rig)
 		AddAnimationRigToAnimationClip(animationData, rig, keyframeSequence)
 	end
 
-	local numKeyframes
-	if FFlagFilterGetKeyframes then
-		local keyframes = keyframeSequence:GetKeyframes()
-		if not FFlagUseFilteredGetKeyframes then
-			keyframes = RigUtils.filterKeyframes(keyframes)
-		end
-		numKeyframes = #keyframes
-	else
-		numKeyframes = #keyframeSequence:GetKeyframes()
-	end
-	return keyframeSequence, numKeyframes, numPoses, numEvents
+	local keyframes = keyframeSequence:GetKeyframes()
+	return keyframeSequence, #keyframes, numPoses, numEvents
 end
 
 function RigUtils.filterKeyframes(keyframes)
@@ -1664,12 +1653,6 @@ function RigUtils.calculateFrameRate(keyframeSequence)
 	)
 
 	local keyframes = keyframeSequence:GetKeyframes()
-
-	-- KeyframeSequence:GetKeyframes returns all children (unless FFlagUseFilteredGetKeyframes is ON)
-	if FFlagFilterGetKeyframes and not FFlagUseFilteredGetKeyframes then
-		keyframes = RigUtils.filterKeyframes(keyframes)
-	end
-
 	table.sort(keyframes, function(a, b) return a.Time < b.Time end)
 
 	local minDelta
@@ -1715,11 +1698,6 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 
 	local keyframes = keyframeSequence:GetKeyframes()
 
-	-- KeyframeSequence:GetKeyframes returns all children (unless FFlagUseFilteredGetKeyframes is ON)
-	if FFlagFilterGetKeyframes and not FFlagUseFilteredGetKeyframes then
-		keyframes = RigUtils.filterKeyframes(keyframes)
-	end
-
 	local length = 0
 	local lastKeyframe
 	local animationData = AnimationData.new(keyframeSequence.Name, Constants.INSTANCE_TYPES.Rig)
@@ -1741,7 +1719,7 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 
 			if shouldAddTrackForPose and pose.Weight ~= 0 then
 				if tracks[poseName] == nil then
-					if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
+					if GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
 						AnimationData.addTrack(tracks, poseName, trackType)
 					else
 						AnimationData.addTrack(tracks, poseName)
@@ -1823,13 +1801,7 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 		end
 	end
 
-	local numKeyframes
-	if FFlagFilterGetKeyframes then
-		numKeyframes = #keyframes
-	else
-		numKeyframes = #keyframeSequence:GetKeyframes()
-	end
-	return animationData, frameRate, numKeyframes, numPoses, numEvents
+	return animationData, frameRate, #keyframes, numPoses, numEvents
 end
 
 function RigUtils.stepRigAnimation(rig, instance, tick)

@@ -83,18 +83,21 @@ function QuickActionsMenu:render()
 				layoutOrder = 2,
 			}) or nil,
 			ReportButton = Roact.createElement(IconButton, {
+				showBackground = true,
 				layoutOrder = 3,
 				icon = Assets.Images.ReportIcon,
 				iconSize = IconSize.Medium,
 				onActivated = self.openReportDialog,
 			}),
 			ScreenshotButton = Roact.createElement(IconButton, {
+				showBackground = true,
 				layoutOrder = 4,
 				iconSize = IconSize.Medium,
 				onActivated = self.screenshot,
 				icon = Assets.Images.ScreenshotIcon,
 			}),
 			RespawnButton = Roact.createElement(IconButton, {
+				showBackground = true,
 				layoutOrder = 5,
 				onActivated = self.props.startRespawning,
 				iconSize = IconSize.Medium,

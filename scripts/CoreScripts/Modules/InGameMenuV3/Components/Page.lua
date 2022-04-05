@@ -15,6 +15,8 @@ local Constants = require(InGameMenu.Resources.Constants)
 
 local ZonePortal = require(InGameMenu.Components.ZonePortal)
 local Pages = require(InGameMenu.Components.Pages)
+local Spacer = require(InGameMenu.Components.Spacer)
+local LeaveButton = require(InGameMenu.Components.LeaveButton)
 
 local Direction = require(InGameMenu.Enums.Direction)
 
@@ -30,6 +32,8 @@ end
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 
 local TITLE_HEIGHT = 48
+local SPACER_HEIGHT = 4
+local TOTAL_HEADER_HEIGHT = TITLE_HEIGHT + SPACER_HEIGHT
 
 local function renderWithSelectionCursor(props, getSelectionCursor)
 
@@ -55,8 +59,8 @@ local function renderWithSelectionCursor(props, getSelectionCursor)
 		return Roact.createElement("TextButton", {
 			AutoButtonColor = false,
 			Text = "",
-			BackgroundColor3 = style.Theme.BackgroundContrast.Color,
-			BackgroundTransparency = style.Theme.BackgroundContrast.Transparency,
+			BackgroundColor3 = style.Theme.BackgroundDefault.Color,
+			BackgroundTransparency = style.Theme.BackgroundDefault.Transparency,
 			BorderSizePixel = 0,
 			Position = props.position,
 			Size = UDim2.new(1, 0, 1, 0),
@@ -72,12 +76,15 @@ local function renderWithSelectionCursor(props, getSelectionCursor)
 			}, {
 				PageTitle = Roact.createElement(UIBlox.App.Text.StyledTextLabel, {
 					fontStyle = style.Font.Header1,
-					colorStyle = style.Theme.TextEmphasis,
+					colorStyle = style.Theme.ContextualPrimaryContent,
 					textXAlignment = Enum.TextXAlignment.Center,
 					size = UDim2.new(1, 0, 1, 0),
 					text = props.pageTitle,
 				})
 			}, titleChildren),
+			Spacer = Roact.createElement(Spacer, {
+				position = UDim2.new(0, 0, 0, TITLE_HEIGHT),
+			}),
 			PageContainer = Roact.createElement("Frame", {
 				AnchorPoint = Vector2.new(0, 1),
 				BackgroundTransparency = 1,
@@ -85,9 +92,13 @@ local function renderWithSelectionCursor(props, getSelectionCursor)
 					and UDim2.new(0, Constants.Zone.ContentOffset, 1, 0)
 					or UDim2.new(0, 0, 1, 0),
 				Size = GetFFlagInGameMenuControllerDevelopmentOnly()
-					and UDim2.new(1, -Constants.Zone.ContentOffset, 1, -TITLE_HEIGHT)
-					or UDim2.new(1, 0, 1, -TITLE_HEIGHT),
+					and UDim2.new(1, -Constants.Zone.ContentOffset, 1, -TOTAL_HEADER_HEIGHT)
+					or UDim2.new(1, 0, 1, -TOTAL_HEADER_HEIGHT),
 			}, props[Roact.Children]),
+			LeaveButton = props.useLeaveButton and Roact.createElement(LeaveButton, {
+				hidden = props.scrollingDown,
+				ZIndex = 2,
+			}) or nil,
 			ZonePortal = GetFFlagInGameMenuControllerDevelopmentOnly() and Roact.createElement(ZonePortal, {
 				targetZone = 0,
 				direction = Direction.Left,

@@ -20,8 +20,6 @@ local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local DragTarget = Framework.UI.DragListener
@@ -111,123 +109,119 @@ function WideScrollingFrame:init()
 end
 
 function WideScrollingFrame:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
-		local state = self.state
-		local size = props.Size
-		local anchorPoint = props.AnchorPoint
-		local position = props.Position
-		local canvasSize = props.CanvasSize
-		local layoutOrder = props.LayoutOrder
-		local zIndex = props.ZIndex
-		local width = props.Width
-		local backgroundTransparency = props.BackgroundTransparency or 0
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
+	local state = self.state
+	local size = props.Size
+	local anchorPoint = props.AnchorPoint
+	local position = props.Position
+	local canvasSize = props.CanvasSize
+	local layoutOrder = props.LayoutOrder
+	local zIndex = props.ZIndex
+	local width = props.Width
+	local backgroundTransparency = props.BackgroundTransparency or 0
 
-		local dragging = state.dragging
-		local hovering = state.hovering
-		local canvasPosition = state.CanvasPosition
+	local dragging = state.dragging
+	local hovering = state.hovering
+	local canvasPosition = state.CanvasPosition
 
-		local scrollTheme = theme.scrollBarTheme
+	local scrollTheme = theme.scrollBarTheme
 
-		local canvasWidth = canvasSize.X.Offset > 0 and canvasSize.X.Offset or 1
-		local showScrollbar = width < canvasWidth
-		local scrollPos = math.min(canvasPosition.X, canvasWidth - width)
+	local canvasWidth = canvasSize.X.Offset > 0 and canvasSize.X.Offset or 1
+	local showScrollbar = width < canvasWidth
+	local scrollPos = math.min(canvasPosition.X, canvasWidth - width)
 
-		local scrollbarColor
-		if dragging then
-			scrollbarColor = scrollTheme.pressedColor
-		elseif hovering then
-			scrollbarColor = scrollTheme.hoverColor
-		else
-			scrollbarColor = scrollTheme.controlColor
-		end
+	local scrollbarColor
+	if dragging then
+		scrollbarColor = scrollTheme.pressedColor
+	elseif hovering then
+		scrollbarColor = scrollTheme.hoverColor
+	else
+		scrollbarColor = scrollTheme.controlColor
+	end
 
-		return Roact.createElement("Frame", {
-			Size = size,
-			Position = position,
-			LayoutOrder = layoutOrder,
-			AnchorPoint = anchorPoint,
-			BackgroundColor3 = theme.backgroundColor,
-			BorderColor3 = theme.borderColor,
-			BackgroundTransparency = backgroundTransparency,
-			ZIndex = zIndex,
+	return Roact.createElement("Frame", {
+		Size = size,
+		Position = position,
+		LayoutOrder = layoutOrder,
+		AnchorPoint = anchorPoint,
+		BackgroundColor3 = theme.backgroundColor,
+		BorderColor3 = theme.borderColor,
+		BackgroundTransparency = backgroundTransparency,
+		ZIndex = zIndex,
+	}, {
+		Canvas = Roact.createElement("ScrollingFrame", {
+			Size = UDim2.new(1, 0, 1, -Constants.SCROLL_BAR_SIZE),
+			CanvasSize = canvasSize,
+			CanvasPosition = canvasPosition,
+			ScrollBarThickness = 0,
+			BackgroundTransparency = 1,
+
+			[Roact.Change.AbsoluteSize] = self.onSizeChanged,
+			[Roact.Change.CanvasPosition] = self.onCanvasPositionChanged,
+			[Roact.Event.InputBegan] = props.OnInputChanged,
+			[Roact.Event.InputChanged] = props.OnInputChanged,
+		}, props[Roact.Children]),
+
+		Footer = Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 0, Constants.SCROLL_BAR_SIZE),
+			Position = UDim2.new(0, 0, 1, 0),
+			AnchorPoint = Vector2.new(0, 1),
+			BackgroundColor3 = scrollTheme.backgroundColor,
+			BorderColor3 = scrollTheme.borderColor,
 		}, {
-			Canvas = Roact.createElement("ScrollingFrame", {
-				Size = UDim2.new(1, 0, 1, -Constants.SCROLL_BAR_SIZE),
-				CanvasSize = canvasSize,
-				CanvasPosition = canvasPosition,
-				ScrollBarThickness = 0,
+			ScrollArea = showScrollbar and Roact.createElement("Frame", {
+				Position = UDim2.new(0.5, 0, 0, 0),
+				AnchorPoint = Vector2.new(0.5, 0),
+				Size = UDim2.new(1, -Constants.SCROLL_BAR_SIZE * 2 - Constants.SCROLL_BAR_PADDING, 1, 0),
 				BackgroundTransparency = 1,
 
-				[Roact.Change.AbsoluteSize] = self.onSizeChanged,
-				[Roact.Change.CanvasPosition] = self.onCanvasPositionChanged,
-				[Roact.Event.InputBegan] = props.OnInputChanged,
-				[Roact.Event.InputChanged] = props.OnInputChanged,
-			}, props[Roact.Children]),
+				[Roact.Change.AbsoluteSize] = self.recalculateExtents,
+				[Roact.Ref] = self.scrollArea,
+				[Roact.Event.InputBegan] = function(rbx, input)
+					if not dragging and input.UserInputType == Enum.UserInputType.MouseButton1 then
+						self.scroll(rbx, input)
+					end
+				end,
+			},{
+				ScrollBar = Roact.createElement("Frame", {
+					Size = UDim2.new(width / canvasWidth, 0, 1, 0),
+					Position = UDim2.new(scrollPos / canvasWidth, 0, 0, 0),
+					BorderSizePixel = 0,
+					BackgroundColor3 = scrollbarColor,
 
-			Footer = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, Constants.SCROLL_BAR_SIZE),
-				Position = UDim2.new(0, 0, 1, 0),
-				AnchorPoint = Vector2.new(0, 1),
-				BackgroundColor3 = scrollTheme.backgroundColor,
-				BorderColor3 = scrollTheme.borderColor,
-			}, {
-				ScrollArea = showScrollbar and Roact.createElement("Frame", {
-					Position = UDim2.new(0.5, 0, 0, 0),
-					AnchorPoint = Vector2.new(0.5, 0),
-					Size = UDim2.new(1, -Constants.SCROLL_BAR_SIZE * 2 - Constants.SCROLL_BAR_PADDING, 1, 0),
-					BackgroundTransparency = 1,
-
-					[Roact.Change.AbsoluteSize] = self.recalculateExtents,
-					[Roact.Ref] = self.scrollArea,
-					[Roact.Event.InputBegan] = function(rbx, input)
-						if not dragging and input.UserInputType == Enum.UserInputType.MouseButton1 then
-							self.scroll(rbx, input)
-						end
-					end,
-				},{
-					ScrollBar = Roact.createElement("Frame", {
-						Size = UDim2.new(width / canvasWidth, 0, 1, 0),
-						Position = UDim2.new(scrollPos / canvasWidth, 0, 0, 0),
-						BorderSizePixel = 0,
-						BackgroundColor3 = scrollbarColor,
-
-						[Roact.Event.MouseEnter] = self.mouseEnter,
-						[Roact.Event.mouseLeave] = self.mouseLeave,
-						[Roact.Event.InputBegan] = self.onDragStarted,
-					}),
-				}),
-
-				LeftButton = showScrollbar and Roact.createElement(ArrowButton, {
-					Rotation = 270,
-					OnActivated = function()
-						self.setCanvasPosition(0)
-					end,
-				}),
-
-				RightButton = showScrollbar and Roact.createElement(ArrowButton, {
-					Rotation = 90,
-					Position = UDim2.new(1, 0, 0, 0),
-					AnchorPoint = Vector2.new(1, 0),
-					OnActivated = function()
-						self.setCanvasPosition(1)
-					end,
-				}),
-
-				DragTarget = dragging and Roact.createElement(DragTarget, {
-					OnDragMoved = self.onDragMoved,
-					OnDragEnded = self.onDragEnded,
+					[Roact.Event.MouseEnter] = self.mouseEnter,
+					[Roact.Event.mouseLeave] = self.mouseLeave,
+					[Roact.Event.InputBegan] = self.onDragStarted,
 				}),
 			}),
-		})
+
+			LeftButton = showScrollbar and Roact.createElement(ArrowButton, {
+				Rotation = 270,
+				OnActivated = function()
+					self.setCanvasPosition(0)
+				end,
+			}),
+
+			RightButton = showScrollbar and Roact.createElement(ArrowButton, {
+				Rotation = 90,
+				Position = UDim2.new(1, 0, 0, 0),
+				AnchorPoint = Vector2.new(1, 0),
+				OnActivated = function()
+					self.setCanvasPosition(1)
+				end,
+			}),
+
+			DragTarget = dragging and Roact.createElement(DragTarget, {
+				OnDragMoved = self.onDragMoved,
+				OnDragEnded = self.onDragEnded,
+			}),
+		}),
+	})
 end
 
-
 WideScrollingFrame = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(WideScrollingFrame)
-
-
 
 return WideScrollingFrame

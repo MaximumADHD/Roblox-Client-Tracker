@@ -25,8 +25,6 @@ local RigUtils = require(Plugin.Src.Util.RigUtils)
 
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local TreeView = Framework.UI.TreeView
 local Button = Framework.UI.Button
 
@@ -223,79 +221,74 @@ function IKTreeView:renderPadding()
 end
 
 function IKTreeView:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
-		local position = props.Position
-		local size = props.Size
-		local rootInstance = props.RootInstance
-		local ikMode = props.IKMode
-		local selectedTrack = props.SelectedTrack
-		local onTreeUpdated = props.onTreeUpdated
-		local iterator = LayoutOrderIterator.new()
-		local rootPart = RigUtils.findRootPart(rootInstance)
-		local rootItems = {}
-		table.insert(rootItems, rootPart.Name)
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
+	local position = props.Position
+	local size = props.Size
+	local rootInstance = props.RootInstance
+	local ikMode = props.IKMode
+	local selectedTrack = props.SelectedTrack
+	local onTreeUpdated = props.onTreeUpdated
+	local iterator = LayoutOrderIterator.new()
+	local rootPart = RigUtils.findRootPart(rootInstance)
+	local rootItems = {}
+	table.insert(rootItems, rootPart.Name)
 
-		return Roact.createElement("Frame", {
-			Position = position,
-			Size = size,
-			BackgroundTransparency = 1,
-		}, {
-			TreeView = Roact.createElement(TreeView, {
-				RootItems = rootItems,
-				GetChildren = self.getChildren,
-				Expansion = self.state.expandedItems,
-				RenderRow = function(elementProps)
-					-- exclude root
-					if elementProps.item == rootPart.Name then
-						return nil
-					end
+	return Roact.createElement("Frame", {
+		Position = position,
+		Size = size,
+		BackgroundTransparency = 1,
+	}, {
+		TreeView = Roact.createElement(TreeView, {
+			RootItems = rootItems,
+			GetChildren = self.getChildren,
+			Expansion = self.state.expandedItems,
+			RenderRow = function(elementProps)
+				-- exclude root
+				if elementProps.item == rootPart.Name then
+					return nil
+				end
 
-					local isSelected = selectedTrack == elementProps.item
+				local isSelected = selectedTrack == elementProps.item
 
-					return Roact.createElement("ImageButton", {
-						Size = UDim2.new(1, -8, 0, Constants.TRACK_HEIGHT),
-						ImageTransparency = 1,
-						AutoButtonColor = false,
-						BackgroundColor3 = isSelected and theme.ikTheme.selected or theme.backgroundColor,
-						BorderSizePixel = 0,
-						ZIndex = 1,
-						LayoutOrder = iterator:getNextOrder(),
-						[Roact.Event.InputBegan] = function(rbx, input)
-							self.onInputBegan(input, elementProps.item)
-						end,
+				return Roact.createElement("ImageButton", {
+					Size = UDim2.new(1, -8, 0, Constants.TRACK_HEIGHT),
+					ImageTransparency = 1,
+					AutoButtonColor = false,
+					BackgroundColor3 = isSelected and theme.ikTheme.selected or theme.backgroundColor,
+					BorderSizePixel = 0,
+					ZIndex = 1,
+					LayoutOrder = iterator:getNextOrder(),
+					[Roact.Event.InputBegan] = function(rbx, input)
+						self.onInputBegan(input, elementProps.item)
+					end,
+				}, {
+					Pin = ikMode == Constants.IK_MODE.FullBody and self:renderPinButton(theme, elementProps, isSelected),
+
+					Container = Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, 0, 1, 0),
 					}, {
-						Pin = ikMode == Constants.IK_MODE.FullBody and self:renderPinButton(theme, elementProps, isSelected),
+						Layout = Roact.createElement("UIListLayout", {
+							FillDirection = Enum.FillDirection.Horizontal,
+							HorizontalAlignment = Enum.HorizontalAlignment.Left,
+							SortOrder = Enum.SortOrder.LayoutOrder,
+							VerticalAlignment = Enum.VerticalAlignment.Center,
+						}),
 
-						Container = Roact.createElement("Frame", {
-							BackgroundTransparency = 1,
-							Size = UDim2.new(1, 0, 1, 0),
-						}, {
-							Layout = Roact.createElement("UIListLayout", {
-								FillDirection = Enum.FillDirection.Horizontal,
-								HorizontalAlignment = Enum.HorizontalAlignment.Left,
-								SortOrder = Enum.SortOrder.LayoutOrder,
-								VerticalAlignment = Enum.VerticalAlignment.Center,
-							}),
-
-							HierarchyLines = self:renderHierarchyLines(elementProps, isSelected),
-							Padding = self:renderPadding(),
-							TextLabel = self:renderJointLabel(theme, elementProps, isSelected),
-						})
+						HierarchyLines = self:renderHierarchyLines(elementProps, isSelected),
+						Padding = self:renderPadding(),
+						TextLabel = self:renderJointLabel(theme, elementProps, isSelected),
 					})
-				end,
-				Style = "BorderBox",
-			})
+				})
+			end,
+			Style = "BorderBox",
 		})
+	})
 end
 
-
 IKTreeView = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(IKTreeView)
-
-
-
 
 return IKTreeView

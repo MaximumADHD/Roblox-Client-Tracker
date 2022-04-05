@@ -26,6 +26,7 @@ local validateHandleSize = require(root.validation.validateHandleSize)
 local validateProperties = require(root.validation.validateProperties)
 local validateAttributes = require(root.validation.validateAttributes)
 local validateMeshVertColors = require(root.validation.validateMeshVertColors)
+local validateMeshPartAccessory = require(root.validation.validateMeshPartAccessory)
 
 local isLayeredClothing = require(root.util.isLayeredClothing)
 local validateLayeredClothingAccessory = require(root.validation.validateLayeredClothingAccessory)
@@ -131,6 +132,23 @@ function UGCValidation.validateAsync(instances, assetTypeEnum, callback, isServe
 	coroutine.wrap(function()
 		callback(validateInternal(--[[ isAsync = ]] true, instances, assetTypeEnum, isServer))
 	end)()
+end
+
+-- assumes specialMeshAccessory has already passed through UGCValidation.validate()
+function UGCValidation.validateMeshPartAssetFormat(specialMeshAccessory, meshPartAccessory, assetTypeEnum, isServer)
+	-- layered clothing assets should be the same binary for source and avatar_meshpart_accesory
+	if specialMeshAccessory and isLayeredClothing(specialMeshAccessory) then
+		return UGCValidation.validate({ specialMeshAccessory }, assetTypeEnum, isServer)
+	end
+
+	local success, reasons
+
+	success, reasons = validateMeshPartAccessory(specialMeshAccessory, meshPartAccessory)
+	if not success then
+		return false, reasons
+	end
+
+	return true
 end
 
 return UGCValidation

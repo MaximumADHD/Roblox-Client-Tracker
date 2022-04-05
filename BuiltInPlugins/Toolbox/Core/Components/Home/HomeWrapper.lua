@@ -94,6 +94,7 @@ function HomeWrapper:render()
 			-- HomeView props
 			AssetSections = assetSections,
 			SubcategoryDict = subcategoryDict,
+			TopKeywords = homeConfigurationForAssetType.topKeywords,
 			TryOpenAssetConfig = tryOpenAssetConfig,
 		}),
 	})

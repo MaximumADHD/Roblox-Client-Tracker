@@ -9,7 +9,7 @@ return function(plugin, pluginLoaderContext)
 	local Util = Plugin.Core.Util
 	local FFlagDebugToolboxEnableRoactChecks = game:GetFastFlag("DebugToolboxEnableRoactChecks")
 	local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
-	local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+	local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
 
 	local isCli = require(Util.isCli)
 	if isCli() then
@@ -53,7 +53,7 @@ return function(plugin, pluginLoaderContext)
 	local AssetConfigUtil = require(Util.AssetConfigUtil)
 	local makeToolboxAnalyticsContext = require(Util.Analytics.makeToolboxAnalyticsContext)
 
-	local IXPContext = if FFlagToolboxAssetCategorization then require(Plugin.Core.ContextServices.IXPContext) else nil
+	local IXPContext = if FFlagToolboxAssetCategorization2 then require(Plugin.Core.ContextServices.IXPContext) else nil
 
 	if DebugFlags.shouldDebugWarnings() then
 		local Promise = require(Packages.Framework).Util.Promise
@@ -342,7 +342,7 @@ return function(plugin, pluginLoaderContext)
 
 		local ixpContext
 
-		if FFlagToolboxAssetCategorization then
+		if FFlagToolboxAssetCategorization2 then
 			ixpContext = IXPContext.new()
 		end
 

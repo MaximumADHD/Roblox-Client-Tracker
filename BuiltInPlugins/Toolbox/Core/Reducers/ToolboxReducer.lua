@@ -1,5 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
 
 local Packages = Plugin.Packages
 local Rodux = require(Packages.Rodux)
@@ -20,7 +20,7 @@ local RolesReducer = require(Reducers.RolesReducer)
 local ItemTagsReducer = require(Reducers.ItemTagsReducer)
 local Purchase = require(Reducers.Purchase)
 local Packages = require(Reducers.Packages)
-local HomeConfiguration = if FFlagToolboxAssetCategorization then require(Reducers.HomeConfiguration) else nil
+local HomeConfiguration = if FFlagToolboxAssetCategorization2 then require(Reducers.HomeConfiguration) else nil
 
 -- TODO CLIDEVSRVS-1595: Error handling/promise rejections
 

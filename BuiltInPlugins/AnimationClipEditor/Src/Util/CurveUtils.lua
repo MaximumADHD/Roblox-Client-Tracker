@@ -9,6 +9,7 @@ local Templates = require(Plugin.Src.Util.Templates)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
 
 local CurveUtils = {}
 
@@ -74,9 +75,10 @@ function CurveUtils.makeBounce(easingDirection, tickA, keyframeA, tickB, keyfram
 		local reboundLeftSlope = isQuaternionTrack and (2 * a * elSqrt) / e or slope
 		local reboundRightSlope = isQuaternionTrack and (2 * a) / e or (-slope * elSqrt)
 
-		-- Add an apex -- Not really needed, each bounce is a parabola and we can just rely on the tangents at the rebounds
-		local apexX = if GetFFlagCurveEditor() then nil else reboundX + e / a
-		local apexY = if GetFFlagCurveEditor() then nil else 1 - e * e
+		-- Add an apex. Even though the curves are parabolas, the apex is required for quaternion tracks. Without the apex, the tracks
+		-- would interpolate between identical values.
+		local apexX = if GetFFlagQuaternionsUI() or not GetFFlagCurveEditor() then reboundX + e / a else nil
+		local apexY = if GetFFlagQuaternionsUI() or not GetFFlagCurveEditor() then 1 - e * e else nil
 
 		-- Invert position and slopes if we're dealing with EasingIn
 		if easingDirection == Enum.PoseEasingDirection.In then
@@ -85,7 +87,7 @@ function CurveUtils.makeBounce(easingDirection, tickA, keyframeA, tickB, keyfram
 			reboundLeftSlope = reboundRightSlope
 			reboundRightSlope = t
 
-			if not GetFFlagCurveEditor() then
+			if GetFFlagQuaternionsUI() or not GetFFlagCurveEditor() then
 				apexX = 1 - apexX
 				apexY = 1 - apexY
 			end
@@ -103,7 +105,7 @@ function CurveUtils.makeBounce(easingDirection, tickA, keyframeA, tickB, keyfram
 		-- Keep the slope of the rebound, because we'll need it for the last keyframe
 		lastSlope = if easingDirection == Enum.PoseEasingDirection.Out then keyframe.RightSlope else keyframe.LeftSlope
 
-		if not GetFFlagCurveEditor() then
+		if GetFFlagQuaternionsUI() or not GetFFlagCurveEditor() then
 			-- Create a keyframe for the apex
 			tick = KeyframeUtils.getNearestTick(tickA + apexX * dt)
 			keyframe = Templates.keyframe()

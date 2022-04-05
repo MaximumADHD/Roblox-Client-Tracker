@@ -26,13 +26,13 @@ return function()
 				local uiListLayout = frame.UIListLayout
 				local grid = frame.Grid
 				local PreviewTabsRibbon = frame.PreviewTabsRibbon
-				local selectionControls = frame.SelectionControls
+				local animPlaybackSliderContainer = frame.AnimPlaybackSliderContainer
 
 				expect(frame).to.be.ok()
 				expect(uiListLayout).to.be.ok()
 				expect(grid).to.be.ok()
 				expect(PreviewTabsRibbon).to.be.ok()
-				expect(selectionControls).to.be.ok()
+				expect(animPlaybackSliderContainer).to.be.ok()
 			end
 		)
 	end)

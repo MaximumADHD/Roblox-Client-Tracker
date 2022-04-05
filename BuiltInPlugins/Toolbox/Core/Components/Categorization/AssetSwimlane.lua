@@ -78,6 +78,7 @@ function AssetSwimlane:render()
 	local title = props.Title
 	local tryInsert = props.TryInsert
 	local tryOpenAssetConfig = props.TryOpenAssetConfig
+	local zIndex = props.ZIndex
 	local swimlaneWidth = props.SwimlaneWidth
 
 	local onAssetHovered = function(assetId)
@@ -95,7 +96,6 @@ function AssetSwimlane:render()
 			assetData = assetData,
 			canInsertAsset = canInsertAsset,
 			isHovered = state.hoveredAssetId == assetId,
-			LayoutOrder = layoutOrder,
 			onAssetHovered = onAssetHovered,
 			onAssetHoverEnded = onAssetHoverEnded,
 			onAssetPreviewButtonClicked = onAssetPreviewButtonClicked,
@@ -124,6 +124,7 @@ function AssetSwimlane:render()
 			Size = UDim2.new(0, swimlaneWidth, 0, assetHeight),
 			Total = resultsState.total,
 			Title = title,
+			ZIndex = zIndex,
 		})
 	end
 

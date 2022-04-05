@@ -44,6 +44,7 @@ local GetFFlagBubbleChatDuplicateMessagesFix = require(RobloxGui.Modules.Flags.G
 local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatLocalMuteUI)
 local FFlagBubbleVoiceLocalErrorState = game:DefineFastFlag("BubbleVoiceLocalErrorStateV3", false)
 local FFlagEnableExperienceChat = require(RobloxGui.Modules.Common.Flags.FFlagEnableExperienceChat)
+local FFlagExperienceChatFixBubbleChat = game:DefineFastFlag("ExperienceChatFixBubbleChat", false)
 
 local ExperienceChat
 local MessageReceivedBindableEvent
@@ -206,7 +207,13 @@ local function initBubbleChat()
 				if player then
 					local character = player.Character
 					if character and character.PrimaryPart then
-						addMessage(character, textChatMessage.Text)
+						if FFlagExperienceChatFixBubbleChat then
+							if textChatMessage.Status == Enum.TextChatMessageStatus.Success then
+								addMessage(character, textChatMessage.Text)
+							end
+						else
+							addMessage(character, textChatMessage.Text)
+						end
 					end
 				end
 			end

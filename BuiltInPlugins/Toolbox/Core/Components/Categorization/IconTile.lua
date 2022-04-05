@@ -78,7 +78,7 @@ function IconTile:init()
 	self.onClick = function()
 		local props: IconTileProps = self.props
 		if props.OnClick ~= nil then
-			(props.OnClick :: any)(props.Key) -- :: any is due to luau bug
+			props.OnClick(props.Key)
 		end
 	end
 end

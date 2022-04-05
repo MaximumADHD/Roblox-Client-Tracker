@@ -296,6 +296,12 @@ return Rodux.createReducer({
 		})
 	end,
 
+	SetDefaultRotationType = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			DefaultRotationType = action.defaultRotationType,
+		})
+	end,
+
 	SetEditorMode = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			EditorMode = action.editorMode,

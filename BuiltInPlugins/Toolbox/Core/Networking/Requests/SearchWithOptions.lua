@@ -65,6 +65,7 @@ return function(networkInterface, settings, options)
 		store:dispatch(ClearAssets())
 
 		local audioSearchInfo = options.AudioSearch or Cryo.None
+		local includeOnlyVerifiedCreators = options.includeOnlyVerifiedCreators
 
 		local sound = store:getState().sound
 		if sound ~= nil and sound.isPlaying then
@@ -76,6 +77,7 @@ return function(networkInterface, settings, options)
 				store:dispatch(SetLoading(false))
 				store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
 					audioSearchInfo = audioSearchInfo,
+					includeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
 					targetPage = 1,
 					currentPage = 0,
 					creator = creatorInfo,
@@ -122,6 +124,7 @@ return function(networkInterface, settings, options)
 			store:dispatch(SetLiveSearch("", {}))
 			store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
 				audioSearchInfo = audioSearchInfo,
+				includeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
 				targetPage = 1,
 				currentPage = 0,
 				sortIndex = options.SortIndex or 1, -- defualt to 1

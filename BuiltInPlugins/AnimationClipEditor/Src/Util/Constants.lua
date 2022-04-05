@@ -2,6 +2,7 @@ local Plugin = script.Parent.Parent.Parent
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
 
 local FFlagStudioUseAnimationEditorAnalytics2 = game:DefineFastFlag("StudioUseAnimationEditorAnalytics2", false)
 
@@ -394,6 +395,13 @@ local Constants = {
 
 	NUMBER_PRECISION = 1000,		-- Default precision of numbers in textboxes (position, rotation)
 	NUMBER_FACS_PRECISION = 100,	-- Precision for FACS values
+
+	SCALE_TYPE = {					-- Type of scale to display in the Curve Editor (Number will be on the left, Angle will be on the right)
+		Number = "Position",
+		Angle = "Angle",
+	},
+
+	TICK_LABEL_SIZE = UDim2.new(0, 25, 0, 15),
 }
 
 Constants.MAIN_MINIMUM_SIZE = Vector2.new(Constants.TRACK_LIST_MIN_WIDTH + Constants.TIMELINE_MIN_WIDTH, 200)
@@ -670,6 +678,13 @@ if GetFFlagCurveEditor() then
 			[Constants.PROPERTY_KEYS.Y] = "rotationY",
 			[Constants.PROPERTY_KEYS.Z] = "rotationZ",
 		}
+	}
+end
+
+if GetFFlagQuaternionsUI() then
+	Constants.TICK_LABEL_POSITION = {
+		[Constants.SCALE_TYPE.Number] = UDim2.new(.3, 0, .5, 0),
+		[Constants.SCALE_TYPE.Angle] = UDim2.new(.7, 0, .5, 0),
 	}
 end
 

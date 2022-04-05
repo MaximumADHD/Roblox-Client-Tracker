@@ -1,5 +1,4 @@
 local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
-local FFlagGsPermissionsUseCentralizedTcCheck = game:GetFastFlag("GsPermissionsUseCentralizedTcCheck")
 
 local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
@@ -33,7 +32,7 @@ local SetGroupOwnerId = require(Page.Actions.SetGroupOwnerId)
 local SetGroupOwnerName = require(Page.Actions.SetGroupOwnerName)
 local SetCreatorFriends = require(Plugin.Src.Actions.SetCreatorFriends)
 
-local isTeamCreateEnabled = FFlagGsPermissionsUseCentralizedTcCheck and require(Plugin.Src.Util.GameSettingsUtilities).isTeamCreateEnabled or nil
+local isTeamCreateEnabled = require(Plugin.Src.Util.GameSettingsUtilities).isTeamCreateEnabled
 
 
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
@@ -201,17 +200,6 @@ function Permissions:isGroupGame()
 	return ownerType == Enum.CreatorType.Group
 end
 
-function Permissions:isTeamCreate()
-	if FFlagGsPermissionsUseCentralizedTcCheck then
-		return isTeamCreateEnabled()
-	end
-	
-	-- The endpoint to check this fails a permission error if you do not have Manage, so we have
-	-- to check it with a hack. In non-TC games you are running both client/server in Edit, but in
-	-- TC you are only running the client. The server is run by RCC
-	return RunService:IsEdit() and not RunService:IsServer()
-end
-
 function Permissions:isLoggedInUserGameOwner()
 	local studioUserId = StudioService:GetUserId()
 
@@ -248,13 +236,13 @@ function Permissions:render()
 
 		-- here "Edit" refers to adding new collaborators, or changing the permission of collaborators
 		local canUserEditCollaborators = false
-		canUserEditCollaborators = self:isLoggedInUserGameOwner() and self:isTeamCreate()
+		canUserEditCollaborators = self:isLoggedInUserGameOwner() and isTeamCreateEnabled()
 
 		local DEPRECATED_canUserSeeCollaborators = false
 		if not FFlagUXImprovementsShowUserPermsWhenCollaborator2 then
 			DEPRECATED_canUserSeeCollaborators = canUserEditCollaborators
 			-- group games show existing individual collaborators; they can be removed but not edited
-			local DEPRECATED_canUserRemoveCollaborators = self:isLoggedInUserGameOwner() and self:isTeamCreate()
+			local DEPRECATED_canUserRemoveCollaborators = self:isLoggedInUserGameOwner() and isTeamCreateEnabled()
 			DEPRECATED_canUserSeeCollaborators = canUserEditCollaborators or DEPRECATED_canUserRemoveCollaborators
 		end
 
@@ -284,7 +272,7 @@ function Permissions:render()
 
 		local teamCreateWarningVisible
 		if FFlagUXImprovementsShowUserPermsWhenCollaborator2 then
-			teamCreateWarningVisible = self:isLoggedInUserGameOwner() and (not self:isTeamCreate()) and (not self:isGroupGame())
+			teamCreateWarningVisible = self:isLoggedInUserGameOwner() and (not isTeamCreateEnabled()) and (not self:isGroupGame())
 		else
 			teamCreateWarningVisible = (not canUserEditCollaborators) and (not self:isGroupGame())
 		end
@@ -394,7 +382,7 @@ function Permissions:render()
 				Writable = true,
 			}),
 
-			CollaboratorListWidget = FFlagUXImprovementsShowUserPermsWhenCollaborator2 and self:isTeamCreate() and Roact.createElement(CollaboratorsWidget, {
+			CollaboratorListWidget = FFlagUXImprovementsShowUserPermsWhenCollaborator2 and isTeamCreateEnabled() and Roact.createElement(CollaboratorsWidget, {
 				LayoutOrder = 60,
 				Writable = canUserEditCollaborators,
 				Editable = canUserEditCollaborators

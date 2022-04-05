@@ -18,19 +18,14 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
 local Constants = require(Plugin.Src.Util.Constants)
-local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local StyledDialog = Framework.StudioUI.StyledDialog
 
 local MainProvider = require(Plugin.Src.Context.MainProvider)
-local MakePluginActions = require(Plugin.Src.Util.MakePluginActions)
 local Theme = require(Plugin.Src.Util.Theme)
 local ContextServices = Framework.ContextServices
 local Localization = ContextServices.Localization
-local Mouse = ContextServices.Mouse
 local DevelopmentReferenceTable = Plugin.Src.Resources.DevelopmentReferenceTable
 local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
 
@@ -38,7 +33,7 @@ local BlockingDialog = Roact.PureComponent:extend("BlockingDialog")
 
 function BlockingDialog:init(initialProps)
 	assert(initialProps.plugin ~= nil, "BlockingDialog requires a Plugin.")
-	self.theme = THEME_REFACTOR and Theme() or Theme.new()
+	self.theme = Theme()
 	self.localization = Localization.new({
 		pluginName = Constants.PLUGIN_NAME,
 		stringResourceTable = DevelopmentReferenceTable,
@@ -60,7 +55,7 @@ function BlockingDialog:render()
 		ButtonPadding = Constants.PROMPT_BUTTON_PADDING,
 		ButtonHeight = Constants.PROMPT_BUTTON_SIZE.Y,
 		ButtonWidth = Constants.PROMPT_BUTTON_SIZE.X,
-		TextSize = THEME_REFACTOR and theme.__calculatedStyle.PluginTheme.dialogTheme.textSize or theme.values.PluginTheme.dialogTheme.textSize,
+		TextSize = theme.__calculatedStyle.PluginTheme.dialogTheme.textSize,
 		Title = localization:getText("Title", titleKey),
 		OnClose = props.OnClose,
 		OnButtonPressed = props.OnButtonClicked,

@@ -40,6 +40,7 @@ local Divider = require(InGameMenu.Components.Divider)
 
 local BarOnTopScrollingFrame = require(InGameMenu.Components.BarOnTopScrollingFrame)
 local Page = require(InGameMenu.Components.Page)
+local PageUtils = require(InGameMenu.Components.Pages.PageUtils)
 
 local OpenReportDialog = require(InGameMenu.Actions.OpenReportDialog)
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
@@ -146,6 +147,8 @@ function PlayersPage:init()
 			end
 		end
 	end
+
+	PageUtils.initOnScrollDownState(self)
 end
 
 local function sortPlayers(p1, p2)
@@ -477,6 +480,8 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(style, localized, get
 	end
 
 	return Roact.createElement(Page, {
+		useLeaveButton = true,
+		scrollingDown = self.state.scrollingDown,
 		pageTitle = self.props.pageTitle,
 		titleChildren = GetFFlagEnableVoiceChatNewMuteAll() and self.props.voiceEnabled and Roact.createElement("ImageButton", {
 			Size = UDim2.fromOffset(36, 36),
@@ -513,6 +518,7 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(style, localized, get
 					CanvasSize = UDim2.new(1, 0, 0, #self.state.players * (PLAYER_LABEL_HEIGHT + 1)),
 					scrollBarOffset = not GetFFlagInGameMenuControllerDevelopmentOnly() and 4 or nil,
 					ScrollingEnabled = self.state.selectedPlayer == nil,
+					onCanvasPositionChanged = self.onScroll,
 				}, self:renderListEntries(style, localized, self.state.players)),
 
 				MoreActionsMenu = moreActionsMenuPanel,

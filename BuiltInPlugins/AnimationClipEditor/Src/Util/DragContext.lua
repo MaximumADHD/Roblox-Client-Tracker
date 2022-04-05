@@ -71,6 +71,7 @@ function DragContext.newTangentContext(animationData, instance, path, tck, side)
 		value = keyframe.Value,
 		side = side,
 		dragMode = Constants.DRAG_MODE.Tangent,
+		trackType = track.Type,
 	}
 
 	setmetatable(self, DragContext)

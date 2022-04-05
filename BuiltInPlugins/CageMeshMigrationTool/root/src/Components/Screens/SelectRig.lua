@@ -6,7 +6,7 @@ local Selection = game:GetService("Selection")
 local Roact = require(root.Packages.Roact)
 local RoactRodux = require(root.Packages.RoactRodux)
 
-local DeveloperFramework = require(root.Packages.DeveloperFramework)
+local DeveloperFramework = require(root.Packages.Framework)
 
 local ContextServices = DeveloperFramework.ContextServices
 

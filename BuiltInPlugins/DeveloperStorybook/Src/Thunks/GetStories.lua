@@ -183,7 +183,14 @@ local function visitInstance(
 		return ModuleLoader:load(instance :: ModuleScript)
 	end)
 	if not ok or typeof(storybook) ~= "table" then
-		local missingItem = createItem(instance.Name, "Storybook", {})
+		local storybookLoadError: string = tostring(storybook)
+		local missingItem: Types.StoryItem = {
+			Name = instance.Name,
+			Icon = "Storybook",
+			Children = {},
+			GetChildren = function() return {} end,
+			StorybookLoadError = storybookLoadError,
+		}
 		insert(mut_missingItems, missingItem)
 		return
 	end

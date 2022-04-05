@@ -26,7 +26,6 @@
 ]]
 
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
-local FFlagRemoveUILibraryPartialHyperlink = game:GetFastFlag("RemoveUILibraryPartialHyperlink")
 
 local StudioService = game:GetService("StudioService")
 local GuiService = game:GetService("GuiService")
@@ -85,7 +84,7 @@ local shouldShowDevPublishLocations = require(Plugin.Src.Util.GameSettingsUtilit
 local getPlayerAppDownloadLink = require(Plugin.Src.Util.GameSettingsUtilities).getPlayerAppDownloadLink
 local getOptInLocationsRequirementsLink = require(Plugin.Src.Util.GameSettingsUtilities).getOptInLocationsRequirementsLink
 local sendAnalyticsToKibana = require(Plugin.Src.Util.GameSettingsUtilities).sendAnalyticsToKibana
-local calculateTextSize = if FFlagRemoveUILibraryPartialHyperlink then require(Plugin.Src.Util.GameSettingsUtilities).calculateTextSize else nil
+local calculateTextSize = require(Plugin.Src.Util.GameSettingsUtilities).calculateTextSize
 
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 
@@ -113,8 +112,6 @@ local Util = Framework.Util
 local StyleModifier = Util.StyleModifier
 local LayoutOrderIterator = Util.LayoutOrderIterator
 local deepJoin = Util.deepJoin
---TODO: jbousellam - remove with FFlagRemoveUILibraryPartialHyperlink
-local PartialHyperlink = UILibrary.Studio.PartialHyperlink
 
 local function loadSettings(store, contextItems)
 	local state = store:getState()
@@ -501,12 +498,6 @@ function BasicInfo:hasPermissionToEdit()
 	return ownerType == Enum.CreatorType.Group or ownerId == StudioService:GetUserId()
 end
 
---TODO: jbousellam - remove with FFlagRemoveUILibraryPartialHyperlink
-local function DEPRECATED_calculateTextSize(text, textSize, font)
-	local hugeFrameSizeNoTextWrapping = Vector2.new(5000, 5000)
-	return game:GetService('TextService'):GetTextSize(text, textSize, font, hugeFrameSizeNoTextWrapping)
-end
-
 local function publishedVersionExists(publishedVersions)
 	if not publishedVersions.data or next(publishedVersions.data) == nil then
 		return false
@@ -596,18 +587,10 @@ function BasicInfo:init()
 
 		local optInLocations = props[optInLocationsKey]
 
-		local requirementsLinkStyle
 		local publishExists = publishedVersionExists(props.PublishedVersions)
-		if not FFlagRemoveUILibraryPartialHyperlink then
-			if publishExists then
-				requirementsLinkStyle = "RequirementsLink"
-			else
-				requirementsLinkStyle = "RequirementsLinkDisabled"
-			end
-		end
 
 		-- Question: Is there a way for me to get the size and font type automagically from the LinkText Style "Body"?
-		local hyperLinkTextSize = if FFlagRemoveUILibraryPartialHyperlink then calculateTextSize(localization:getText(optInLocationsKey, "RequirementsLinkText"), 14, "SourceSans") else nil
+		local hyperLinkTextSize = calculateTextSize(localization:getText(optInLocationsKey, "RequirementsLinkText"), 14, "SourceSans")
 
 		local boxes = {}
 
@@ -650,7 +633,7 @@ function BasicInfo:init()
 							BackgroundTransparency = 1,
 							Font = theme.fontStyle.Subtext.Font,
 							LayoutOrder = -1,
-							Size = UDim2.new(0, if not FFlagRemoveUILibraryPartialHyperlink then DEPRECATED_calculateTextSize(moderationStatus.statusText, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font).X else calculateTextSize(moderationStatus.statusText, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font).X, 0, theme.fontStyle.Subtext.TextSize),
+							Size = UDim2.new(0, calculateTextSize(moderationStatus.statusText, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font).X, 0, theme.fontStyle.Subtext.TextSize),
 							Text = moderationStatus.statusText,
 							TextColor3 = moderationStatus.textColor,
 							TextSize = theme.fontStyle.Subtext.TextSize,
@@ -662,7 +645,7 @@ function BasicInfo:init()
 							LayoutOrder = layoutOrder:getNextOrder(),
 							Size = UDim2.new(0, theme.requirementsLink.length, 0, theme.requirementsLink.height),
 						}, {
-							LinkTextLabel = if FFlagRemoveUILibraryPartialHyperlink then Roact.createElement(TextLabel, {
+							LinkTextLabel = Roact.createElement(TextLabel, {
 								Position = UDim2.new(0, hyperLinkTextSize.X, 0, 0),
 								Size = UDim2.new(1, -hyperLinkTextSize.X, 1, 0),
 								Style = "Body",
@@ -670,22 +653,14 @@ function BasicInfo:init()
 								TextTransparency = if not publishExists then 0.5 else nil,
 								TextXAlignment = Enum.TextXAlignment.Left,
 								TextYAlignment = Enum.TextYAlignment.Top,
-							}) else nil,
+							}),
 				
-							RequirementsLinkText = if FFlagRemoveUILibraryPartialHyperlink then Roact.createElement(LinkText, {
+							RequirementsLinkText = Roact.createElement(LinkText, {
 								OnClick = self.getOptInLocationsRequirementsLink,
 								Size = UDim2.new(0, hyperLinkTextSize.X, 0, hyperLinkTextSize.Y),
 								Style = "Body",
 								Text = localization:getText(optInLocationsKey, "RequirementsLinkText"),
-							}) else nil,
-
-							DEPRECATED_RequirementsText = if not FFlagRemoveUILibraryPartialHyperlink then Roact.createElement(PartialHyperlink, {
-								HyperLinkText = localization:getText(optInLocationsKey, "RequirementsLinkText"),
-								Mouse = props.Mouse:get(),
-								NonHyperLinkText = localization:getText(optInLocationsKey, "ChinaRequirements"),
-								OnClick = self.getOptInLocationsRequirementsLink,
-								Style = requirementsLinkStyle,
-							}) else nil,
+							}),
 						}),
 					}),
 					Warning = showWarning and Roact.createElement("Frame", {
@@ -707,7 +682,7 @@ function BasicInfo:init()
 							BackgroundTransparency = 1,
 							Font = theme.fontStyle.Smaller.Font,
 							LayoutOrder = layoutOrder3:getNextOrder(),
-							Size = UDim2.new(0, if not FFlagRemoveUILibraryPartialHyperlink then DEPRECATED_calculateTextSize(localization:getText(optInLocationsKey, "SavedGameWarning"), theme.fontStyle.Smaller.TextSize, theme.fontStyle.Smaller.Font).X else calculateTextSize(localization:getText(optInLocationsKey, "SavedGameWarning"), theme.fontStyle.Smaller.TextSize, theme.fontStyle.Smaller.Font).X, 0, theme.fontStyle.Smaller.TextSize),
+							Size = UDim2.new(0, calculateTextSize(localization:getText(optInLocationsKey, "SavedGameWarning"), theme.fontStyle.Smaller.TextSize, theme.fontStyle.Smaller.Font).X, 0, theme.fontStyle.Smaller.TextSize),
 							Text = localization:getText(optInLocationsKey, "SavedGameWarning"),
 							TextColor3 = theme.fontStyle.Header.TextColor3,
 							TextTransparency = theme.optInWarning.transparency,

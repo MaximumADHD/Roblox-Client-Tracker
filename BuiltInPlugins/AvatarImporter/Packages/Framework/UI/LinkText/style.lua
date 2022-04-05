@@ -9,7 +9,6 @@ local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local StudioFrameworkStyles = Framework.StudioUI.StudioFrameworkStyles
 local Common = require(StudioFrameworkStyles.Common)
 
-local FFlagRemoveUILibraryPartialHyperlink = game:GetFastFlag("RemoveUILibraryPartialHyperlink")
 local FFlagDevFrameworkAddUnobtrusiveLinkTextStyle = game:GetFastFlag("DevFrameworkAddUnobtrusiveLinkTextStyle")
 
 if THEME_REFACTOR then
@@ -18,9 +17,9 @@ if THEME_REFACTOR then
 		TextSize = 18,
 		TextColor = StyleKey.LinkText,
 
-		["&Body"] = if FFlagRemoveUILibraryPartialHyperlink then {
+		["&Body"] = {
 			TextSize = 14,
-		} else nil,
+		},
 
 		["&Unobtrusive"] = FFlagDevFrameworkAddUnobtrusiveLinkTextStyle and {
 			ShowUnderline = false,
@@ -37,9 +36,9 @@ else
 			TextColor = theme:GetColor("LinkText"),
 		})
 
-		local Body = if FFlagRemoveUILibraryPartialHyperlink then Style.extend(Default, {
+		local Body = Style.extend(Default, {
 			TextSize = 14,
-		}) else nil
+		})
 
 		local Unobtrusive = FFlagDevFrameworkAddUnobtrusiveLinkTextStyle and Style.extend(Default, {
 			ShowUnderline = false,

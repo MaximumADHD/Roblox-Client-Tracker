@@ -42,7 +42,7 @@ local EditAndPreviewFrame = require(Plugin.Src.Components.EditAndPreviewFrame)
 local EditorFrame = require(Plugin.Src.Components.EditorFrame)
 local PreviewFrame = require(Plugin.Src.Components.PreviewFrame)
 local ExplorerPreviewInstances = require(Plugin.Src.Components.Preview.ExplorerPreviewInstances)
-local AnimationPlayback = require(Plugin.Src.Components.AnimationPlayback.AnimationPlayback)
+local AnimationPlaybackWrapper = require(Plugin.Src.Components.AnimationPlayback.AnimationPlaybackWrapper)
 
 local FinishSelectingFromExplorer = require(Plugin.Src.Thunks.FinishSelectingFromExplorer)
 local AddUserAddedAssetForPreview = require(Plugin.Src.Thunks.AddUserAddedAssetForPreview)
@@ -153,7 +153,7 @@ function EditorScreen:render()
 				OnFocused = props.FinishSelectingFromExplorer,
 				Text = props.ControlsPanelBlockerMessage,
 			}),
-			AnimationPlayback = Roact.createElement(AnimationPlayback),
+			AnimationPlaybackWrapper = Roact.createElement(AnimationPlaybackWrapper),
 			ExplorerPreviewInstances = Roact.createElement(ExplorerPreviewInstances, {
 				UserAddedAssets = userAddedAssets,
 			}),

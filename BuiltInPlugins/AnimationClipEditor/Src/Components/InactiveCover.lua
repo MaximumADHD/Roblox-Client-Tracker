@@ -11,20 +11,16 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local Localization = ContextServices.Localization
 local CaptureFocus = Framework.UI.CaptureFocus
 
 local InactiveCover = Roact.PureComponent:extend("InactiveCover")
 
 function InactiveCover:render()
 	local onFocused = self.props.OnFocused
-	local theme = THEME_REFACTOR and self.props.Stylizer.PluginTheme or self.props.Theme:get("PluginTheme")
+	local theme = self.props.Stylizer.PluginTheme
 	local localization = self.props.Localization
-
 
 	return Roact.createElement(CaptureFocus, {
 		Priority = 100,
@@ -45,14 +41,9 @@ function InactiveCover:render()
 	})
 end
 
-
 InactiveCover = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 })(InactiveCover)
-
-
-
 
 return InactiveCover

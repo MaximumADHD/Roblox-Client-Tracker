@@ -21,7 +21,7 @@
 ]]
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
 local FFlagToolboxShowHasScriptInfo = game:GetFastFlag("ToolboxShowHasScriptInfo")
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -162,7 +162,7 @@ function Asset:init(props)
 		end
 
 		if asset.TypeId == Enum.AssetType.Plugin.Value then
-			if FFlagToolboxAssetCategorization then
+			if FFlagToolboxAssetCategorization2 then
 				self.onAssetPreviewButtonClicked()
 			else
 				if FFlagToolboxAssetGridRefactor then
@@ -178,7 +178,7 @@ function Asset:init(props)
 	end
 
 	self.onAssetPreviewButtonClicked = function()
-		if FFlagToolboxAssetCategorization then
+		if FFlagToolboxAssetCategorization2 then
 			local assetData = self.props.assetData
 			self.props.onAssetPreviewButtonClicked(assetData)
 		else
@@ -645,7 +645,7 @@ local function mapStateToProps(state, props)
 	local canManage = manageableAssets[tostring(assetId)]
 
 	local assetData
-	if FFlagToolboxAssetCategorization and not props.assetData then
+	if FFlagToolboxAssetCategorization2 and not props.assetData then
 		assetData = props.assetData
 	else
 		assetData = FFlagToolboxAssetGridRefactor and idToAssetMap[assetId] or nil
@@ -685,10 +685,12 @@ local function mapDispatchToProps(dispatch)
 					dispatch(TryCreateContextMenu(assetData, localizedContent, plugin, tryOpenAssetConfig))
 				end
 			or nil,
-		
-		getPageInfoAnalyticsContextInfo = if FFlagToolboxUsePageInfoInsteadOfAssetContext then function()
-			return dispatch(GetPageInfoAnalyticsContextInfo())
-		end else nil,
+
+		getPageInfoAnalyticsContextInfo = if FFlagToolboxUsePageInfoInsteadOfAssetContext
+			then function()
+				return dispatch(GetPageInfoAnalyticsContextInfo())
+			end
+			else nil,
 	}
 end
 

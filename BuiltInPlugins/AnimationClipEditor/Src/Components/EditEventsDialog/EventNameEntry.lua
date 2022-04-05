@@ -27,8 +27,6 @@ local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -38,7 +36,7 @@ local ContextButton = require(Plugin.Src.Components.ContextButton)
 
 local EventNameEntry = Roact.PureComponent:extend("EventNameEntry")
 
-function EventNameEntry:init(initialProps)
+function EventNameEntry:init()
 	self.state = {
 		editing = false,
 		showContextMenu = false,
@@ -123,93 +121,87 @@ function EventNameEntry:willUnmount()
 	self.props.Mouse:__resetCursor()
 end
 
-
 function EventNameEntry:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
-		local state = self.state
-		local size = props.Size
-		local name = props.Name
-		local paddingLeft = props.PaddingLeft
-		local paddingRight = props.PaddingRight
-		local unusedEvents = props.UnusedEvents
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
+	local state = self.state
+	local size = props.Size
+	local name = props.Name
+	local paddingLeft = props.PaddingLeft
+	local paddingRight = props.PaddingRight
+	local unusedEvents = props.UnusedEvents
 
-		local editing = state.editing
-		local trackTheme = theme.trackTheme
-		local dialogTheme = theme.dialogTheme
+	local editing = state.editing
+	local trackTheme = theme.trackTheme
+	local dialogTheme = theme.dialogTheme
 
-		return Roact.createElement("Frame", {
-			Size = size,
-			BackgroundColor3 = trackTheme.shadedBackgroundColor,
-			BorderColor3 = theme.borderColor,
-		}, {
-			Padding = Roact.createElement("UIPadding", {
-				PaddingLeft = paddingLeft,
-				PaddingRight = paddingRight,
-				PaddingTop = UDim.new(0, 2),
-				PaddingBottom = UDim.new(0, 2),
-			}),
+	return Roact.createElement("Frame", {
+		Size = size,
+		BackgroundColor3 = trackTheme.shadedBackgroundColor,
+		BorderColor3 = theme.borderColor,
+	}, {
+		Padding = Roact.createElement("UIPadding", {
+			PaddingLeft = paddingLeft,
+			PaddingRight = paddingRight,
+			PaddingTop = UDim.new(0, 2),
+			PaddingBottom = UDim.new(0, 2),
+		}),
 
-			Label = not editing and Roact.createElement("TextLabel", {
-				Size = UDim2.new(1, -Constants.TRACKLIST_BUTTON_SIZE, 1, 0),
-				Text = name,
-				TextColor3 = dialogTheme.textColor,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-				Font = theme.font,
-				TextSize = dialogTheme.textSize,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				BackgroundTransparency = 1,
-			}),
+		Label = not editing and Roact.createElement("TextLabel", {
+			Size = UDim2.new(1, -Constants.TRACKLIST_BUTTON_SIZE, 1, 0),
+			Text = name,
+			TextColor3 = dialogTheme.textColor,
+			TextTruncate = Enum.TextTruncate.AtEnd,
+			Font = theme.font,
+			TextSize = dialogTheme.textSize,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			BackgroundTransparency = 1,
+		}),
 
-			TextBox = editing and Roact.createElement(FilteringTextBox, {
-				Size = UDim2.new(1, -Constants.TRACKLIST_BUTTON_SIZE - TEXTBOX_PADDING, 1, 0),
-				TextXAlignment = Enum.TextXAlignment.Left,
-				CaptureFocus = true,
-				Text = name,
-				ClearTextOnFocus = false,
-				FocusChanged = self.focusChanged,
-				OnItemClicked = self.onItemClicked,
-				Items = unusedEvents,
-				MaxItems = MAX_EVENT_ITEMS,
-			}),
+		TextBox = editing and Roact.createElement(FilteringTextBox, {
+			Size = UDim2.new(1, -Constants.TRACKLIST_BUTTON_SIZE - TEXTBOX_PADDING, 1, 0),
+			TextXAlignment = Enum.TextXAlignment.Left,
+			CaptureFocus = true,
+			Text = name,
+			ClearTextOnFocus = false,
+			FocusChanged = self.focusChanged,
+			OnItemClicked = self.onItemClicked,
+			Items = unusedEvents,
+			MaxItems = MAX_EVENT_ITEMS,
+		}),
 
-			DeleteButton = Roact.createElement("ImageButton", {
-				Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Position = UDim2.new(0, -paddingLeft.Offset / 2, 0.5, 0),
-				BackgroundTransparency = 1,
+		DeleteButton = Roact.createElement("ImageButton", {
+			Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.new(0, -paddingLeft.Offset / 2, 0.5, 0),
+			BackgroundTransparency = 1,
 
-				Image = dialogTheme.deleteImage,
-				ImageColor3 = dialogTheme.subTextColor,
-				ScaleType = Enum.ScaleType.Fit,
+			Image = dialogTheme.deleteImage,
+			ImageColor3 = dialogTheme.subTextColor,
+			ScaleType = Enum.ScaleType.Fit,
 
-				[Roact.Event.Activated] = self.onDeleteEvent,
-				[Roact.Event.MouseEnter] = self.mouseEnter,
-				[Roact.Event.MouseLeave] = self.mouseLeave,
-			}),
+			[Roact.Event.Activated] = self.onDeleteEvent,
+			[Roact.Event.MouseEnter] = self.mouseEnter,
+			[Roact.Event.MouseLeave] = self.mouseLeave,
+		}),
 
-			ContextButton = Roact.createElement(ContextButton, {
-				AnchorPoint = Vector2.new(1, 0.5),
-				Position = UDim2.new(1, 0, 0.5, 0),
-				OnActivated = self.showMenu,
-			}),
+		ContextButton = Roact.createElement(ContextButton, {
+			AnchorPoint = Vector2.new(1, 0.5),
+			Position = UDim2.new(1, 0, 0.5, 0),
+			OnActivated = self.showMenu,
+		}),
 
-			EditEventMenu = Roact.createElement(EditEventMenu, {
-				ShowMenu = state.showContextMenu,
-				OnMenuOpened = self.hideMenu,
-				OnMenuItemClicked = self.onMenuItemClicked,
-			}),
-		})
+		EditEventMenu = Roact.createElement(EditEventMenu, {
+			ShowMenu = state.showContextMenu,
+			OnMenuOpened = self.hideMenu,
+			OnMenuItemClicked = self.onMenuItemClicked,
+		}),
+	})
 end
 
-
 EventNameEntry = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Mouse = ContextServices.Mouse,
 })(EventNameEntry)
-
-
-
 
 return EventNameEntry

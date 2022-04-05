@@ -1,6 +1,6 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
 
 local ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
 
@@ -42,7 +42,7 @@ function AddEnabledAssetByName(assetName: string)
 	end
 end
 
-if FFlagToolboxAssetCategorization then
+if FFlagToolboxAssetCategorization2 then
 	local HomeViewAssetTypeString = ToolboxUtilities.getHomeViewEnabledAssetTypes()
 
 	if HomeViewAssetTypeString ~= nil then

@@ -2,10 +2,10 @@
 	Window that displays facs sliders on face for FaceControlsEditor.
 
 	Props:
-		Instance RootInstance = instance currently being animated in the editor.	
+		Instance RootInstance = instance currently being animated in the editor.
 		bool faceControlsEditorEnabled = whether or not animation editor is currently using FaceControlsEditor to manipulate the rig
 		bool ShowFaceControlsEditorPanel = whether or not the FaceControlsEditor editor window is visible
-		string SelectedTrack = name of the track/joint currently selected in the editor		
+		string SelectedTrack = name of the track/joint currently selected in the editor
 		function ToggleFaceControlsEditorEnabled = toggles if FaceControlsEditor is on or off in animation editor
 		function SetFaceControlsEditorEnabled(bool) = sets if FaceControlsEditor is on or off
 		function SetShowFaceControlsEditorPanel = sets if the FaceControlsEditor window is visible
@@ -16,12 +16,9 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 local FacsUtils = require(Plugin.Src.Util.FacsUtils)
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local Button = Framework.UI.Button
 
 local ScrollingFrame = Framework.UI.ScrollingFrame
@@ -87,7 +84,7 @@ function FaceControlsEditorWindow:init()
 			currentMax = upperValue,
 			currentMin = lowerValue,
 		})
-	end	
+	end
 
 	self.hideFaceControlsEditor = function()
 		local props = self.props
@@ -157,19 +154,19 @@ function getFacsListData()
 end
 
 function makeFacsOnFaceDiagramSliderUIItems (self, style, localization)
-	local children = {}		
+	local children = {}
 
-	local theme = THEME_REFACTOR and self.props.Stylizer.PluginTheme or self.props.Theme:get("PluginTheme")
+	local theme = self.props.Stylizer.PluginTheme
 
-	local Facs = getFacsListData()		
-	for _, facs in ipairs(Facs) do			
+	local Facs = getFacsListData()
+	for _, facs in ipairs(Facs) do
 		local name = "Facs_" .. facs.Name
 
 		local facsSliderProps = faceControlsMapping.FacsControlToFaceSliderInfoMap[facs.Name]
 
 		local symmetryPartnerProps = nil
 		local symmetryPartner = nil
-		if self.props.SymmetryEnabled then			
+		if self.props.SymmetryEnabled then
 			symmetryPartner = Constants.FacsCrossMappings[facs.Name].symmetryPartner
 			if symmetryPartner then
 				symmetryPartnerProps = faceControlsMapping.FacsControlToFaceSliderInfoMap[symmetryPartner]
@@ -179,9 +176,9 @@ function makeFacsOnFaceDiagramSliderUIItems (self, style, localization)
 		local itemWidth = 43
 		if facsSliderProps.customWidth then
 			itemWidth = facsSliderProps.customWidth
-		end				
+		end
 
-		children[name.."_rotatedSliderContainer"] = Roact.createElement("Frame", {				
+		children[name.."_rotatedSliderContainer"] = Roact.createElement("Frame", {
 			BorderSizePixel = 0,
 			BackgroundTransparency = 1,
 			Position = facsSliderProps.position,
@@ -189,52 +186,52 @@ function makeFacsOnFaceDiagramSliderUIItems (self, style, localization)
 			Rotation = facsSliderProps.rotation,
 			LayoutOrder = 2,
 			ZIndex = 100,
-		},	
+		},
 
-		{				
-			Scrubber = Roact.createElement(Slider, {	
+		{
+			Scrubber = Roact.createElement(Slider, {
 				Style = theme.faceSliderTheme,
 				Disabled = false,
 				Min = 0,
 				Max = 1,
 
-				Value = math.clamp(facsSliderProps.currentValue, 0, 1),	
-				OnValueChanged = function(value)						
+				Value = math.clamp(facsSliderProps.currentValue, 0, 1),
+				OnValueChanged = function(value)
 
 					facsSliderProps.currentValue = value
-					self:setState({									
+					self:setState({
 						Value = math.clamp(facsSliderProps.currentValue, 0, 1)
 					})
 					local instanceName = instanceForFacs
 					local trackName = facs.Name
 					local props = self.props
 
-					if GetFFlagChannelAnimations() then							
+					if GetFFlagChannelAnimations() then
 						props.ValueChanged(instanceName, {trackName}, Constants.TRACK_TYPES.Facs, props.Playhead, value, props.Analytics)
-					else						
+					else
 						props.ValueChanged_deprecated2(instanceName, trackName, Constants.TRACK_TYPES.Facs, props.Playhead, value, props.Analytics)
-					end	
+					end
 
 					if self.props.SymmetryEnabled then
 						if symmetryPartnerProps then
 							symmetryPartnerProps.currentValue = value
 
-							if GetFFlagChannelAnimations() then							
+							if GetFFlagChannelAnimations() then
 								props.ValueChanged(instanceName, {symmetryPartner}, Constants.TRACK_TYPES.Facs, props.Playhead, value, props.Analytics)
-							else						
+							else
 								props.ValueChanged_deprecated2(instanceName, symmetryPartner, Constants.TRACK_TYPES.Facs, props.Playhead, value, props.Analytics)
-							end							
+							end
 
-						end		
+						end
 					end
 
 				end,
 				Position = UDim2.new(0.5, 0, 0.5, 0),
 				Size = UDim2.new(1, 0, 0, 8),
 				AnchorPoint = Vector2.new(0.5,0.5),
-			}),					
-		})								
-	end					
+			}),
+		})
+	end
 	return Roact.createFragment(children)
 end
 
@@ -243,7 +240,7 @@ function FaceControlsEditorWindow:render()
 	local localization = self.props.Localization
 	local props = self.props
 	local canUseFaceControlsEditor = RigUtils.canUseFaceControlsEditor(props.RootInstance)
-	--this if is to catch the case where a user had a compatible avatar selected for animating the face 
+	--this if is to catch the case where a user had a compatible avatar selected for animating the face
 	--but then selects an incompatible avatar like an R6 so then we want to close the facs editor
 	if not canUseFaceControlsEditor  then
 		self.hideFaceControlsEditor()
@@ -251,19 +248,14 @@ function FaceControlsEditorWindow:render()
 	end
 
 
-	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
+	local theme = props.Stylizer.PluginTheme
 	local rootInstance = props.RootInstance
 	local faceControlsEditorEnabled = props.FaceControlsEditorEnabled
 	local selectedTrack = props.SelectedTrack
 	local SetSelectedTracks = props.SetSelectedTracks
 	local toggleFaceControlsEditorEnabled = props.ToggleFaceControlsEditorEnabled
 
-	local style
-	if THEME_REFACTOR then
-		style = self.props.Stylizer
-	else
-		style = theme:getStyle("Framework", self)
-	end		
+	local style = self.props.Stylizer
 
 	local animationData = props.AnimationData
 	local playhead = props.Playhead
@@ -278,7 +270,7 @@ function FaceControlsEditorWindow:render()
 
 				if sliderProps then
 
-					local currentTrack = track 
+					local currentTrack = track
 					track.Instance = instanceForFacs
 
 					local currentValue = nil
@@ -288,15 +280,15 @@ function FaceControlsEditorWindow:render()
 						currentValue = KeyframeUtils.getValue(currentTrack, playhead)
 					else
 						currentValue = KeyframeUtils:getValue_deprecated(currentTrack, playhead)
-					end			
+					end
 
 					if currentValue then
 						sliderProps.currentValue = currentValue
 					end
 				end
-			end	
+			end
 
-		end	
+		end
 	end
 
 	-- create ui elements
@@ -320,7 +312,7 @@ function FaceControlsEditorWindow:render()
 			BackgroundColor3 = theme.backgroundColor,
 			Size = UDim2.new(1, 0, 1, 0),
 		},
-		{			
+		{
 
 			--face front panel container
 			FaceFrontContainer = Roact.createElement("Frame", {
@@ -328,7 +320,7 @@ function FaceControlsEditorWindow:render()
 				BackgroundColor3 = theme.backgroundColor,
 				Size = UDim2.new(1, 0, 0, 213),
 				Position = UDim2.new(0, -25, 0, 32),
-			},			
+			},
 			{
 
 				FaceFrontViewImage = Roact.createElement("ImageLabel", {
@@ -336,12 +328,12 @@ function FaceControlsEditorWindow:render()
 					Size = UDim2.new(0, 220, 0, 310),
 					Position = UDim2.new(0, 35, 0, 6),
 					Image = "rbxasset://textures/FaceControlsEditor/face_frontView.png",
-					BackgroundTransparency = 1,											
-				}),				
+					BackgroundTransparency = 1,
+				}),
 
 				makeFacsOnFaceDiagramSliderUIItems(self, style, localization),
-				--face front container close	
-			}),		
+				--face front container close
+			}),
 
 			--face side panel container
 			FaceSideContainer = Roact.createElement("Frame", {
@@ -349,66 +341,41 @@ function FaceControlsEditorWindow:render()
 				BackgroundColor3 = theme.backgroundColor,
 				Size = UDim2.new(1, 0, 0, 213),
 				Position = UDim2.new(0, 0, 0, 412),
-			},	{			
+			},	{
 
 				SideviewImage = Roact.createElement("ImageLabel", {
 					AnchorPoint = Vector2.new(0, 0),
-					Size = UDim2.new(0, 90, 0, 273),					
+					Size = UDim2.new(0, 90, 0, 273),
 					Position = UDim2.new(0, 83, 0, 1),
 					Image = "rbxasset://textures/FaceControlsEditor/face_sideView.png",
-					BackgroundTransparency = 1,	
-					LayoutOrder = 1,								
-				}),					
+					BackgroundTransparency = 1,
+					LayoutOrder = 1,
+				}),
 			}),
-			--face side container end					
+			--face side container end
 
 			AdditionalTogglesContainer = Roact.createElement("Frame", {
 				AnchorPoint = Vector2.new(0,0),
-				BorderSizePixel = 0,				
+				BorderSizePixel = 0,
 				BackgroundTransparency = 1,
 				Position = UDim2.new(0, 10, 0, 745),
 				Size = UDim2.new(0, 200, 0, 90),
-			},	
+			},
 			{
 				CheckboxesList = Roact.createElement("UIListLayout", {
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					Padding = UDim.new(0, 5),
-				}),						
-				CheckboxSymmetry = Roact.createElement(Checkbox, {					
+				}),
+				CheckboxSymmetry = Roact.createElement(Checkbox, {
 					Text = localization:getText("Title", "Symmetry"),
 					Checked = self.props.SymmetryEnabled,
-					size = self.props.elementSize,				
+					size = self.props.elementSize,
 					OnClick = function(key)
 						self.props.SymmetryEnabled = not self.props.SymmetryEnabled
 						self.props.SetSymmetryEnabled(self.props.SymmetryEnabled)
-						self:setState({
-							Checked = self.props.SymmetryEnabled,
-						})
-
 					end,	
 					LayoutOrder = 1,					
-				}),	
-				CheckboxTooltip = Roact.createElement(Checkbox, {
-					Text = localization:getText("Title", "HoverOverNameDisplay"),
-					onActivated = noop,
-					size = self.props.elementSize,
-					OnClick = noop,					
-					LayoutOrder = 2,
-				}),		
-				CheckboxValueInput = Roact.createElement(Checkbox, {
-					Text = localization:getText("Title", "ClickToRevealInput"),
-					onActivated = noop,
-					size = self.props.elementSize,
-					OnClick = noop,					
-					LayoutOrder = 3,
-				}				
-				,{
-					Tooltip = Roact.createElement(Tooltip, {
-						Text = localization:getText("Title", "ShowValueInput"),
-						ShowDelay = 0,
-						Priority = 100,
-					}),
-				})				
+				}),				
 			})			
 		})		
 	})	
@@ -449,16 +416,15 @@ local function mapDispatchToProps(dispatch)
 		AddWaypoint = function()
 			dispatch(AddWaypoint())
 		end,
-		
+
 		SetSymmetryEnabled = function(symmetryEnabled)
 			dispatch(SetSymmetryEnabled(symmetryEnabled))
-		end,	
+		end,
 	}
 end
 
-
 FaceControlsEditorWindow = withContext({
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Plugin = ContextServices.Plugin,
 })(FaceControlsEditorWindow)

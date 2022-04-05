@@ -1,3 +1,5 @@
+local FFlagToolboxAssetStyleUpdate = game:GetFastFlag("ToolboxAssetStyleUpdate")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -33,6 +35,11 @@ function FooterButton:init(props)
 end
 
 function FooterButton:render()
+	-- Delete component with removal of flag
+	if FFlagToolboxAssetStyleUpdate then
+		return nil
+	end
+
 	local props = self.props
 	local theme = props.Stylizer
 

@@ -11,8 +11,6 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -90,13 +88,8 @@ function ChangeFPSPrompt:render()
 	})
 end
 
-
 ChangeFPSPrompt = withContext({
 	Localization = ContextServices.Localization,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(ChangeFPSPrompt)
-
-
 
 return ChangeFPSPrompt

@@ -11,7 +11,7 @@
 		UDim2 Size
 ]]
 local FFlagToolboxGetItemsDetailsUsesSingleApi = game:GetFastFlag("ToolboxGetItemsDetailsUsesSingleApi")
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -42,59 +42,34 @@ local NextPageRequest = require(Plugin.Core.Networking.Requests.NextPageRequest)
 local PostAssetCheckPermissions = require(Plugin.Core.Networking.Requests.PostAssetCheckPermissions)
 
 type _ExternalProps = {
-	LayoutOrder : number?,
-	Position : number?,
-	RenderTopContent : (() -> any)?,
-	Size : UDim2?,
+	LayoutOrder: number?,
+	Position: number?,
+	RenderTopContent: (() -> any)?,
+	Size: UDim2?,
 }
 
 type _InternalProps = {
 	-- Props from AssetLogicWrapper
-	CanInsertAsset : (() -> boolean)?,
-	OnAssetPreviewButtonClicked : ((assetData: any) -> ()),
-	ParentAbsolutePosition : Vector2,
-	ParentSize : Vector2,
-	TryInsert : (
-		(
-			assetData : any,
-			assetWasDragged : boolean,
-			insertionMethod : string
-		) -> any
-	),
-	TryOpenAssetConfig : (
-		(
-			assetId : number?,
-			flowType : string,
-			instances : any,
-			assetTypeEnum : Enum.AssetType
-		) -> any
-	),
+	CanInsertAsset: (() -> boolean)?,
+	OnAssetPreviewButtonClicked: ((assetData: any) -> ()),
+	ParentAbsolutePosition: Vector2,
+	ParentSize: Vector2,
+	TryInsert: ((assetData: any, assetWasDragged: boolean, insertionMethod: string) -> any),
+	TryOpenAssetConfig: ((
+		assetId: number?,
+		flowType: string,
+		instances: any,
+		assetTypeEnum: Enum.AssetType
+	) -> any),
 	-- mapStateToProps
-	assetIds : any,
-	categoryName : string,
-	currentUserPackagePermissions : any,
-	idToAssetMap : any,
+	assetIds: any,
+	categoryName: string,
+	currentUserPackagePermissions: any,
+	idToAssetMap: any,
 	-- mapDispatchToProps
-	dispatchPostAssetCheckPermissions : (
-		(
-			networkInterface: any,
-			assetIds: { number }
-		) -> any
-	),
-	getAssetPreviewDataForStartup : (
-		(
-			assetId: number,
-			tryInsert: any,
-			localization: any,
-			api: any
-		) -> any
-	),
-	nextPage : (
-		(
-			networkInterface: any,
-			settings: any
-		) -> any
-	),
+	dispatchPostAssetCheckPermissions: ((networkInterface: any, assetIds: { number }) -> any),
+	getAssetPreviewDataForStartup: ((assetId: number, tryInsert: any, localization: any, api: any) -> any),
+	nextPage: ((networkInterface: any, settings: any) -> any),
 }
 
 export type AssetGridContainerProps = _ExternalProps & _InternalProps
@@ -128,7 +103,7 @@ function AssetGridContainer:didMount()
 end
 
 function AssetGridContainer:render()
-	local props : AssetGridContainerProps = self.props
+	local props: AssetGridContainerProps = self.props
 
 	local assetIds = props.assetIds
 	local layoutOrder = props.LayoutOrder
@@ -164,7 +139,7 @@ function AssetGridContainer:render()
 
 	return Roact.createElement(AssetGrid, {
 		AssetIds = assetIds,
-		AssetMap = if FFlagToolboxAssetCategorization then props.idToAssetMap else nil,
+		AssetMap = if FFlagToolboxAssetCategorization2 then props.idToAssetMap else nil,
 		LayoutOrder = layoutOrder,
 		Position = position,
 		RenderTopContent = renderTopContent,
@@ -173,7 +148,7 @@ function AssetGridContainer:render()
 
 		-- Props from AssetLogicWrapper
 		CanInsertAsset = canInsertAsset,
-		OnAssetPreviewButtonClicked = if FFlagToolboxAssetCategorization then onAssetPreviewButtonClicked else nil,
+		OnAssetPreviewButtonClicked = if FFlagToolboxAssetCategorization2 then onAssetPreviewButtonClicked else nil,
 		ParentAbsolutePosition = props.ParentAbsolutePosition,
 		ParentSize = props.ParentSize,
 		TryInsert = tryInsert,
@@ -199,7 +174,7 @@ local function mapStateToProps(state, props)
 		assetIds = assets.idsToRender or {},
 		categoryName = categoryName,
 		currentUserPackagePermissions = state.packages.permissionsTable or {},
-		idToAssetMap = if FFlagToolboxAssetCategorization then assets.idToAssetMap else nil,
+		idToAssetMap = if FFlagToolboxAssetCategorization2 then assets.idToAssetMap else nil,
 	}
 end
 

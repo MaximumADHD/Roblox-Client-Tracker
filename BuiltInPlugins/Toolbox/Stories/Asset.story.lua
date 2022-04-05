@@ -1,6 +1,5 @@
 local Plugin = script.Parent.Parent
 
-local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 
@@ -22,16 +21,47 @@ local function AssetStory(props)
 end
 
 local fakeAssetId = 123456
+local fakeAsset = MockItems.getSimpleAsset(fakeAssetId)
 
 return {
 	name = "Asset",
 	summary = "An asset used in the grid view.",
-	story = FFlagToolboxAssetGridRefactor and Roact.createElement(AssetStory, {
-		fakeAsset = MockItems.getSimpleAsset(fakeAssetId),
-	}, {
-		Asset = Roact.createElement(Asset, {
-			assetId = fakeAssetId,
-			LayoutOrder = 1,
-		}),
-	}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetGridRefactor", true),
+	stories = {
+		{
+			name = "Asset",
+			story = Roact.createElement(AssetStory, {
+				fakeAsset = fakeAsset,
+			}, {
+				Asset = Roact.createElement(Asset, {
+					asset = fakeAsset,
+					assetData = fakeAsset,
+					assetId = fakeAssetId,
+					LayoutOrder = 1,
+				}),
+			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetGridRefactor", true),
+		},
+		{
+			name = "Asset hovered",
+			story = Roact.createElement(AssetStory, {
+				fakeAsset = fakeAsset,
+			}, {
+				Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, 250),
+					BackgroundTransparency = 1,
+				}, {
+					Layout = Roact.createElement("UIListLayout", {
+						VerticalAlignment = Enum.VerticalAlignment.Center,
+						HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					}),
+					Asset = Roact.createElement(Asset, {
+						asset = fakeAsset,
+						assetData = fakeAsset,
+						assetId = fakeAssetId,
+						isHovered = true,
+						LayoutOrder = 1,
+					}),
+				}),
+			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetGridRefactor", true),
+		},
+	},
 }

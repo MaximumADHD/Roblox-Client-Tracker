@@ -16,8 +16,6 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Constants = require(Plugin.Src.Util.Constants)
@@ -40,7 +38,7 @@ export type Props = {
 
 function TangentControl:render(): (any)
 	local props = self.props
-	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
+	local theme = props.Stylizer.PluginTheme
 
 	local position = props.Position
 	local slope = props.Slope
@@ -98,8 +96,7 @@ function TangentControl:render(): (any)
 end
 
 TangentControl = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(TangentControl)
 
 return TangentControl

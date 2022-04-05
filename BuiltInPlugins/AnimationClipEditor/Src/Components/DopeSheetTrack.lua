@@ -31,9 +31,6 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local BaseTrack = require(Plugin.Src.Components.BaseTrack)
 
@@ -65,7 +62,6 @@ function DopeSheetTrack:renderKeyframe(selected, xOffset, track, tick, override,
 		ZIndex = props.ZIndex,
 		Width = Constants.KEYFRAME_WIDTH,
 		BorderSizePixel = selected and 2 or 1,
-		Style = not THEME_REFACTOR and Constants.KEYFRAME_STYLE[override] or nil,
 		KeyframeStyle = Constants.KEYFRAME_STYLE[override] or nil,
 		Filled = filled,
 

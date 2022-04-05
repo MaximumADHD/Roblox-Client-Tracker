@@ -26,7 +26,12 @@ local GeneralSettings = require(Plugin.Src.Components.GeneralSettings)
 local MaterialPreview = require(Plugin.Src.Components.MaterialPreview)
 local TextureSettings = require(Plugin.Src.Components.TextureSettings)
 
-type _Props = {
+export type Props = {
+	ErrorName : string?,
+	ErrorBaseMaterial : string?,
+}
+
+type _Props = Props & {
 	ColorMap : _Types.TextureMap,
 	MetalnessMap : _Types.TextureMap,
 	NormalMap : _Types.TextureMap,
@@ -101,6 +106,8 @@ function MaterialVariantCreator:render()
 
 			GeneralSettings = Roact.createElement(GeneralSettings, {
 				LayoutOrder = layoutOrderIterator:getNextOrder(),
+				ErrorName = props.ErrorName,
+				ErrorBaseMaterial = props.ErrorBaseMaterial,
 			}),
 
 			TextMaps = Roact.createElement(TextLabel, {
@@ -118,6 +125,8 @@ function MaterialVariantCreator:render()
 		MaterialPreview = Roact.createElement(MaterialPreview, {
 			BackgroundColor = style.Background,
 			ColorMap = colorMap,
+			DisableZoom = true,
+			InitialDistance = 10,
 			LayoutOrder = 2,
 			MetalnessMap = metalnessMap,
 			NormalMap = normalMap,

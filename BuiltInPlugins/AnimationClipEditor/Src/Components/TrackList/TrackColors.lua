@@ -15,8 +15,6 @@ local Roact = require(Plugin.Packages.Roact)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -74,26 +72,22 @@ function TrackColors:renderTracks(theme)
 end
 
 function TrackColors:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
-		local children = self:renderTracks(theme)
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
+	local children = self:renderTracks(theme)
 
-		local position = props.Position
+	local position = props.Position
 
-		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, GetFFlagCurveEditor() and 0 or -Constants.SCROLL_BAR_SIZE, 1, 0),
-			Position = position,
-			BackgroundTransparency = 1,
-			ZIndex = 0,
-		}, children)
+	return Roact.createElement("Frame", {
+		Size = UDim2.new(1, GetFFlagCurveEditor() and 0 or -Constants.SCROLL_BAR_SIZE, 1, 0),
+		Position = position,
+		BackgroundTransparency = 1,
+		ZIndex = 0,
+	}, children)
 end
 
-
 TrackColors = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(TrackColors)
-
-
 
 return TrackColors

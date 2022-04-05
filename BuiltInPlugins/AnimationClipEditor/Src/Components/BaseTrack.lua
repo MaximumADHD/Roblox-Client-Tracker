@@ -15,8 +15,6 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Roact = require(Plugin.Packages.Roact)
@@ -24,48 +22,43 @@ local Roact = require(Plugin.Packages.Roact)
 local BaseTrack = Roact.PureComponent:extend("BaseTrack")
 
 function BaseTrack:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
-		local trackTheme = theme.trackTheme
-		local size = props.Size
-		local width = props.Width
-		local layoutOrder = props.LayoutOrder
-		local zIndex = props.ZIndex
-		local primary = props.Primary
-		local showBackground = props.ShowBackground
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
+	local trackTheme = theme.trackTheme
+	local size = props.Size
+	local width = props.Width
+	local layoutOrder = props.LayoutOrder
+	local zIndex = props.ZIndex
+	local primary = props.Primary
+	local showBackground = props.ShowBackground
 
-		local backgroundColor
-		if primary then
-			backgroundColor = trackTheme.primaryBackgroundColor
-		elseif showBackground then
-			backgroundColor = trackTheme.titleBackgroundColor
-		end
+	local backgroundColor
+	if primary then
+		backgroundColor = trackTheme.primaryBackgroundColor
+	elseif showBackground then
+		backgroundColor = trackTheme.titleBackgroundColor
+	end
 
-		return Roact.createElement("Frame", {
-			Size = size,
-			BackgroundColor3 = backgroundColor,
-			BackgroundTransparency = backgroundColor and 0 or 1,
-			BorderSizePixel = 0,
+	return Roact.createElement("Frame", {
+		Size = size,
+		BackgroundColor3 = backgroundColor,
+		BackgroundTransparency = backgroundColor and 0 or 1,
+		BorderSizePixel = 0,
+		ZIndex = zIndex,
+		LayoutOrder = layoutOrder,
+	}, {
+		KeyframeDisplayArea = Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			AnchorPoint = Vector2.new(0.5, 0),
+			Position = UDim2.new(0.5, 0, 0, 0),
+			Size = UDim2.new(0, width, 1, 0),
 			ZIndex = zIndex,
-			LayoutOrder = layoutOrder,
-		}, {
-			KeyframeDisplayArea = Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
-				AnchorPoint = Vector2.new(0.5, 0),
-				Position = UDim2.new(0.5, 0, 0, 0),
-				Size = UDim2.new(0, width, 1, 0),
-				ZIndex = zIndex,
-			}, self.props[Roact.Children])
-		})
+		}, self.props[Roact.Children])
+	})
 end
 
-
 BaseTrack = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(BaseTrack)
-
-
-
 
 return BaseTrack

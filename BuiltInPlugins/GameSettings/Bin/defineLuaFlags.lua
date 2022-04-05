@@ -3,6 +3,5 @@
 -- And then error when trying to use flags that aren't yet defined
 game:DefineFastFlag("GameSettingsDeduplicatePackages", false)
 game:DefineFastFlag("UXImprovementsShowUserPermsWhenCollaborator2", false)
-game:DefineFastFlag("GsPermissionsUseCentralizedTcCheck", false)
 
 return nil

@@ -25,8 +25,6 @@ local Framework = require(Plugin.Packages.Framework)
 local Tooltip = Framework.UI.Tooltip
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local Constants = require(Plugin.Src.Util.Constants)
 
 local Keyframe = Roact.PureComponent:extend("Keyframe")
@@ -85,7 +83,7 @@ end
 
 function Keyframe:render(): ()
 	local props = self.props
-	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
+	local theme = props.Stylizer.PluginTheme
 	local width = props.Width or Constants.KEYFRAME_WIDTH
 	local color = props.Color
 	local selected = props.Selected
@@ -124,8 +122,7 @@ function Keyframe:render(): ()
 end
 
 Keyframe = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 })(Keyframe)
 

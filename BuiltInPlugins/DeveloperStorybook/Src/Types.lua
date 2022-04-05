@@ -25,7 +25,7 @@ export type Storybook = {
 	roact: Roact?,
 	definition: StoryDefinition?,
 	mapDefinition: MapStoryDefinition?,
-	mapStory: MapStory?,	
+	mapStory: MapStory?,
 	exclude: Array<string>?,
 }
 
@@ -66,6 +66,7 @@ export type StoryItem = {
 	GetChildren: (StoryItem) -> Array<StoryItem>,
 	Storybook: Storybook?,
 	Script: ModuleScript?,
+	StorybookLoadError: string?
 }
 
 -- The story props are passed to any ReactComponent stories

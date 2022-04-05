@@ -9,7 +9,6 @@
 ]]
 
 local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage2")
-local FFlagStudioTcDialogShowPlaceName = game:GetFastFlag("StudioTcDialogShowPlaceName")
 local FFlagStudioEnableUploadNames = game:GetFastFlag("StudioEnableUploadNames")
 
 local StudioService = game:GetService("StudioService")
@@ -82,11 +81,7 @@ local function saveAll(state, localization, apiImpl, email)
 	end
 
 	if teamCreateToggleEnabled then
-		if FFlagStudioTcDialogShowPlaceName then
-			game:GetService("StudioPublishService"):SetTeamCreateOnPublishInfo(state.teamCreateEnabled, configuration.name)
-		else
-			StudioService:DEPRECATED_SetTurnOnTeamCreateOnPublish(state.teamCreateEnabled)
-		end
+		game:GetService("StudioPublishService"):SetTeamCreateOnPublishInfo(state.teamCreateEnabled, configuration.name)
 	end
 
 	if FFlagStudioEnableUploadNames then

@@ -87,6 +87,7 @@ function TopBar:init()
 		local props : _Props = self.props
 
 		props.dispatchClearMaterialVariant()
+		props.dispatchSetMode("Create")
 		props.OpenPrompt("Create")
 	end
 

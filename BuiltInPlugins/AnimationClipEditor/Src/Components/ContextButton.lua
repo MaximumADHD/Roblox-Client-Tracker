@@ -15,8 +15,6 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -59,51 +57,46 @@ function ContextButton:willUnmount()
 end
 
 function ContextButton:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
-		local state = self.state
-		local trackTheme = theme.trackTheme
-		local anchorPoint = props.AnchorPoint
-		local position = props.Position
-		local zIndex = GetFFlagChannelAnimations() and props.ZIndex or nil
-		local trackSelected = props.TrackSelected
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
+	local state = self.state
+	local trackTheme = theme.trackTheme
+	local anchorPoint = props.AnchorPoint
+	local position = props.Position
+	local zIndex = GetFFlagChannelAnimations() and props.ZIndex or nil
+	local trackSelected = props.TrackSelected
 
-		local hovered = state.hovered
+	local hovered = state.hovered
 
-		local imageColor
-		if trackSelected then
-			imageColor = trackTheme.selectedTextColor
-		elseif hovered then
-			imageColor = trackTheme.hoveredButtonColor
-		else
-			imageColor = trackTheme.buttonColor
-		end
+	local imageColor
+	if trackSelected then
+		imageColor = trackTheme.selectedTextColor
+	elseif hovered then
+		imageColor = trackTheme.hoveredButtonColor
+	else
+		imageColor = trackTheme.buttonColor
+	end
 
-		return Roact.createElement("ImageButton", {
-			Size = UDim2.new(0, Constants.TRACKLIST_BUTTON_SIZE, 0, Constants.TRACKLIST_BUTTON_SIZE),
-			AnchorPoint = anchorPoint,
-			Position = position,
-			BackgroundTransparency = 1,
-			ZIndex = zIndex,
+	return Roact.createElement("ImageButton", {
+		Size = UDim2.new(0, Constants.TRACKLIST_BUTTON_SIZE, 0, Constants.TRACKLIST_BUTTON_SIZE),
+		AnchorPoint = anchorPoint,
+		Position = position,
+		BackgroundTransparency = 1,
+		ZIndex = zIndex,
 
-			Image = trackTheme.contextMenu,
-			ImageColor3 = imageColor,
-			ScaleType = Enum.ScaleType.Fit,
+		Image = trackTheme.contextMenu,
+		ImageColor3 = imageColor,
+		ScaleType = Enum.ScaleType.Fit,
 
-			[Roact.Event.Activated] = self.onActivated,
-			[Roact.Event.MouseEnter] = self.mouseEnter,
-			[Roact.Event.MouseLeave] = self.mouseLeave,
-		})
+		[Roact.Event.Activated] = self.onActivated,
+		[Roact.Event.MouseEnter] = self.mouseEnter,
+		[Roact.Event.MouseLeave] = self.mouseLeave,
+	})
 end
 
-
 ContextButton = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Mouse = ContextServices.Mouse,
 })(ContextButton)
-
-
-
 
 return ContextButton

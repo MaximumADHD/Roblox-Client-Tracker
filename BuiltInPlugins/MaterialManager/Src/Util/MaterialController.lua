@@ -266,13 +266,13 @@ function MaterialController:getVariants(baseMaterial : Enum.Material)
 	return materials
 end
 
-function MaterialController:ifMaterialNameExists(name : string) : boolean
+function MaterialController:ifMaterialNameExists(name : string, baseMaterial : Enum.Material) : boolean
 	local category = self:findCategory({})
 	assert(category, "Tried to get materials for path which does not exist")
 
 	local materials = {}
 	recurseMaterials(category, materials, function(material)
-		return material.MaterialVariant.Name == name
+		return material.MaterialVariant.Name == name and material.MaterialVariant.BaseMaterial == baseMaterial
 	end)
 
 	return #materials ~= 0

@@ -2,7 +2,6 @@
 	Mostly the same as UILibrary RadioButtons component, but modified to use dev framework context
 ]]
 
-
 local NO_WRAP = Vector2.new(1000000, 50)
 local BUTTON_HEIGHT_SCALE = 0.4
 
@@ -10,18 +9,13 @@ local TextService = game:GetService("TextService")
 
 local Plugin = script.Parent.Parent.Parent
 
-local Library = require(Plugin.Packages.Framework)
-
 local Roact = require(Plugin.Packages.Roact)
 
 local createFitToContent = require(script.Parent.createFitToContent)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-
 
 local RadioButtons = Roact.PureComponent:extend("RadioButtons")
 
@@ -105,40 +99,36 @@ function RadioButtons:nextLayout()
 end
 
 function RadioButtons:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.UILibraryOverrides or props.Theme:get("UILibraryOverrides")
+	local props = self.props
+	local theme = props.Stylizer.UILibraryOverrides
 
-		local buttons = props.Buttons
-		local layoutOrder = props.LayoutOrder
-		local selected = props.Selected
-		local fillDirection = props.FillDirection
+	local buttons = props.Buttons
+	local layoutOrder = props.LayoutOrder
+	local selected = props.Selected
+	local fillDirection = props.FillDirection
 
-		local fitToContent = createFitToContent("Frame", "UIListLayout", {
-			FillDirection = fillDirection or Enum.FillDirection.Vertical,
-			Padding = UDim.new(0, theme.radioButton.contentPadding),
-			SortOrder = Enum.SortOrder.LayoutOrder,
-		})
+	local fitToContent = createFitToContent("Frame", "UIListLayout", {
+		FillDirection = fillDirection or Enum.FillDirection.Vertical,
+		Padding = UDim.new(0, theme.radioButton.contentPadding),
+		SortOrder = Enum.SortOrder.LayoutOrder,
+	})
 
-		self:resetLayout()
+	self:resetLayout()
 
-		local children = {}
-		for index, button in ipairs(buttons) do
-			children[button.Key] = self:createButton(button.Key, button.Text, index,
-				selected == button.Key, theme)
-		end
+	local children = {}
+	for index, button in ipairs(buttons) do
+		children[button.Key] = self:createButton(button.Key, button.Text, index,
+			selected == button.Key, theme)
+	end
 
-		return Roact.createElement(fitToContent, {
-			BackgroundTransparency = 1,
-			LayoutOrder = layoutOrder
-		}, children)
+	return Roact.createElement(fitToContent, {
+		BackgroundTransparency = 1,
+		LayoutOrder = layoutOrder
+	}, children)
 end
 
-
 RadioButtons = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(RadioButtons)
-
-
 
 return RadioButtons

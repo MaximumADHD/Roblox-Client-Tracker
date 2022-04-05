@@ -23,8 +23,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -35,99 +33,94 @@ local TOGGLE_SIZE = 12
 local WIDTH = 20
 
 function HierarchyLines:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
-		local isLeafNode = props.IsLeafNode
-		local inActiveChain = props.InActiveChain
-		local isChildNode = props.IsChildNode
-		local isExpanded = props.IsExpanded
-		local indent = props.Indent
-		local height = props.Height
-		local ikHeight = props.IKHeight
-		local layoutOrder = props.LayoutOrder
-		local highlight = props.Highlight
-		local isSelected = props.IsSelected
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
+	local isLeafNode = props.IsLeafNode
+	local inActiveChain = props.InActiveChain
+	local isChildNode = props.IsChildNode
+	local isExpanded = props.IsExpanded
+	local indent = props.Indent
+	local height = props.Height
+	local ikHeight = props.IKHeight
+	local layoutOrder = props.LayoutOrder
+	local highlight = props.Highlight
+	local isSelected = props.IsSelected
 
-		local width = indent > 0 and WIDTH or 0
-		local leafNodeOffset = LEAF_NODE_SIZE / 2
-		local toggleOffset = TOGGLE_SIZE / 2
-		local offset = isLeafNode and leafNodeOffset or toggleOffset
+	local width = indent > 0 and WIDTH or 0
+	local leafNodeOffset = LEAF_NODE_SIZE / 2
+	local toggleOffset = TOGGLE_SIZE / 2
+	local offset = isLeafNode and leafNodeOffset or toggleOffset
 
-		local indentSize = indent > 1 and (indent - 1) * WIDTH or 0
+	local indentSize = indent > 1 and (indent - 1) * WIDTH or 0
 
-		return Roact.createElement("Frame", {
+	return Roact.createElement("Frame", {
+		BackgroundTransparency = 1,
+		Size = UDim2.new(0, indentSize + width, 0, 0),
+		LayoutOrder = layoutOrder,
+	}, {
+		Indent = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
-			Size = UDim2.new(0, indentSize + width, 0, 0),
-			LayoutOrder = layoutOrder,
-		}, {
-			Indent = Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
-				LayoutOrder = 0,
-				Size = UDim2.new(0, indentSize, 1, 0),
-			}),
+			LayoutOrder = 0,
+			Size = UDim2.new(0, indentSize, 1, 0),
+		}),
 
-			VerticalLine = not isLeafNode and isExpanded and Roact.createElement("Frame", {
-				Size = UDim2.new(0, 1, 0, height - toggleOffset),
-				BorderSizePixel = 0,
-				BackgroundTransparency = theme.ikTheme.transparency,
-				Position = UDim2.new(0, indentSize + width + toggleOffset, 0, toggleOffset),
-				BackgroundColor3 = highlight and theme.ikTheme.ikLineColor or theme.ikTheme.lineColor,
-				ZIndex = 2,
-			}),
+		VerticalLine = not isLeafNode and isExpanded and Roact.createElement("Frame", {
+			Size = UDim2.new(0, 1, 0, height - toggleOffset),
+			BorderSizePixel = 0,
+			BackgroundTransparency = theme.ikTheme.transparency,
+			Position = UDim2.new(0, indentSize + width + toggleOffset, 0, toggleOffset),
+			BackgroundColor3 = highlight and theme.ikTheme.ikLineColor or theme.ikTheme.lineColor,
+			ZIndex = 2,
+		}),
 
-			IKVerticalLine = not isLeafNode and isExpanded and inActiveChain and Roact.createElement("Frame", {
-				Size = UDim2.new(0, 1, 0, math.max(ikHeight - toggleOffset, 0)),
-				BorderSizePixel = 0,
-				Position = UDim2.new(0, indentSize + width + toggleOffset, 0, toggleOffset),
-				BackgroundColor3 = theme.ikTheme.ikLineColor,
-				BorderColor3 = theme.ikTheme.ikLineColor,
-				ZIndex = 3,
-			}),
+		IKVerticalLine = not isLeafNode and isExpanded and inActiveChain and Roact.createElement("Frame", {
+			Size = UDim2.new(0, 1, 0, math.max(ikHeight - toggleOffset, 0)),
+			BorderSizePixel = 0,
+			Position = UDim2.new(0, indentSize + width + toggleOffset, 0, toggleOffset),
+			BackgroundColor3 = theme.ikTheme.ikLineColor,
+			BorderColor3 = theme.ikTheme.ikLineColor,
+			ZIndex = 3,
+		}),
 
-			HorizontalLine = isChildNode and Roact.createElement("Frame", {
-				Size = UDim2.new(0, width - offset, 0, 1),
-				BorderSizePixel = 0,
-				BackgroundTransparency = (not highlight or not inActiveChain) and theme.ikTheme.transparency or 0,
-				BackgroundColor3 = highlight and theme.ikTheme.ikLineColor or theme.ikTheme.lineColor,
-				Position = UDim2.new(0, indentSize + toggleOffset, 0, 0),
-				ZIndex = 2,
-			}),
+		HorizontalLine = isChildNode and Roact.createElement("Frame", {
+			Size = UDim2.new(0, width - offset, 0, 1),
+			BorderSizePixel = 0,
+			BackgroundTransparency = (not highlight or not inActiveChain) and theme.ikTheme.transparency or 0,
+			BackgroundColor3 = highlight and theme.ikTheme.ikLineColor or theme.ikTheme.lineColor,
+			Position = UDim2.new(0, indentSize + toggleOffset, 0, 0),
+			ZIndex = 2,
+		}),
 
-			LeafNode = isLeafNode and Roact.createElement("ImageLabel", {
-				Size = UDim2.new(0, LEAF_NODE_SIZE, 0, LEAF_NODE_SIZE),
-				BorderSizePixel = 0,
-				BackgroundTransparency = 1,
-				Image = theme.ikTheme.leafNodeImage,
-				ImageColor3 = isSelected and theme.ikTheme.primaryTextColor or theme.ikTheme.lineColor,
-				Position = UDim2.new(0, indentSize + width, 0.5, 0),
-				AnchorPoint = Vector2.new(0, 0.5),
-				ZIndex = 4,
-			}),
+		LeafNode = isLeafNode and Roact.createElement("ImageLabel", {
+			Size = UDim2.new(0, LEAF_NODE_SIZE, 0, LEAF_NODE_SIZE),
+			BorderSizePixel = 0,
+			BackgroundTransparency = 1,
+			Image = theme.ikTheme.leafNodeImage,
+			ImageColor3 = isSelected and theme.ikTheme.primaryTextColor or theme.ikTheme.lineColor,
+			Position = UDim2.new(0, indentSize + width, 0.5, 0),
+			AnchorPoint = Vector2.new(0, 0.5),
+			ZIndex = 4,
+		}),
 
-			Toggle = not isLeafNode and Roact.createElement("ImageButton", {
-				Size = UDim2.new(0, TOGGLE_SIZE, 0, TOGGLE_SIZE),
-				BorderSizePixel = 0,
-				BackgroundTransparency = 1,
-				Image = isExpanded and theme.ikTheme.collapseImage or theme.ikTheme.expandImage,
-				ImageColor3 = isSelected and theme.ikTheme.primaryTextColor or theme.ikTheme.lineColor,
-				Position = UDim2.new(0, indentSize + width, 0.5, 0),
-				AnchorPoint = Vector2.new(0, 0.5),
-				AutoButtonColor = false,
-				ZIndex = 4,
-				[Roact.Event.MouseButton1Click] = function ()
-					props.ToggleExpanded(props.Element)
-				end
-			}),
-		})
+		Toggle = not isLeafNode and Roact.createElement("ImageButton", {
+			Size = UDim2.new(0, TOGGLE_SIZE, 0, TOGGLE_SIZE),
+			BorderSizePixel = 0,
+			BackgroundTransparency = 1,
+			Image = isExpanded and theme.ikTheme.collapseImage or theme.ikTheme.expandImage,
+			ImageColor3 = isSelected and theme.ikTheme.primaryTextColor or theme.ikTheme.lineColor,
+			Position = UDim2.new(0, indentSize + width, 0.5, 0),
+			AnchorPoint = Vector2.new(0, 0.5),
+			AutoButtonColor = false,
+			ZIndex = 4,
+			[Roact.Event.MouseButton1Click] = function ()
+				props.ToggleExpanded(props.Element)
+			end
+		}),
+	})
 end
 
-
 HierarchyLines = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(HierarchyLines)
-
-
-
 
 return HierarchyLines

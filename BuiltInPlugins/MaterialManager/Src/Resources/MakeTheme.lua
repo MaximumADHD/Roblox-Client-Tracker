@@ -31,6 +31,7 @@ local function getPluginTheme()
 	local TopBarDropdownWidth = 150
 	local MaterialDetailsRowHeight = 30
 	local MaterialDetailsTextureHeight = 60
+	local ColumnWidth = 236
 
 	return {
 		MaterialManagerView = {
@@ -43,27 +44,29 @@ local function getPluginTheme()
 		},
 
 		MaterialPrompt = {
-			DialogWidth = 800,
-			DialogHeight = 600,
+			DialogWidth = 720,
+			DialogHeight = 720,
 		},
 
 		MaterialVariantCreator = {
 			Background = _StyleKey.ScrollingFrameBackgroundColor,
-			ListItemPadding = UDim.new(0, 10),
-			Padding = 15,
-			PreviewSize = UDim2.new(0, 310, 1, 0),
+			ListItemPadding = UDim.new(0, 20),
+			Padding = 20,
+			PreviewSize = UDim2.new(0, 300, 1, 0),
 			TextFont = Enum.Font.SourceSansBold,
-			SettingsSize = UDim2.new(1, -310, 1, 0),
+			SettingsSize = UDim2.new(1, -300, 1, 0),
 		},
 
 		GeneralSettings = {
-			DialogColumnSize = UDim2.new(0, 350, 0, 25),
+			DialogColumnSize = UDim2.new(0, ColumnWidth, 0, 25),
 		},
 
 		LabeledElementList = {
-			ItemSpacing = 10,
-			ItemPaddingHorizontal = UDim.new(0, 15),
-			TextWidth = UDim.new(0, 80),
+			ItemSpacing = 5,
+			VerticalSpacing = 4,
+			ItemPaddingHorizontal = UDim.new(0, 45),
+			ErrorOrWarningTextSize = 16,
+			ErrorOrWarningColor = Color3.fromRGB(255, 0, 0),			
 		},
 
 		MaterialGrid = {
@@ -149,7 +152,7 @@ local function getPluginTheme()
 			ClearIcon = "rbxasset://textures/StudioSharedUI/preview_clear.png",
 			ImportIcon = "rbxasset://textures/StudioSharedUI/import@2x.png",
 
-			PreviewBackgroundColor = _StyleKey.Button,
+			PreviewBackgroundColor = _StyleKey.Border,
 			PreviewBorderColor = _StyleKey.Border,
 
 			ButtonIconColor = _StyleKey.Icon,
@@ -160,7 +163,7 @@ local function getPluginTheme()
 			ToolbarButtonBackgroundColor = _StyleKey.ToolbarButtonBackgroundColor,
 			ToolbarHeight = 32,
 
-			ColumnWidth = 350,
+			ColumnWidth = ColumnWidth,
 			PreviewSize = 88,
 
 			PaddingVertical = 4,

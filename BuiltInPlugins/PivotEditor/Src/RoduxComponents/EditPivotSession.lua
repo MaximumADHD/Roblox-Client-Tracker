@@ -20,6 +20,7 @@ local DoneSelectingPivot = require(Plugin.Src.Actions.DoneSelectingPivot)
 
 local getFFlagStudioToastNotificationsInLua = require(Plugin.Src.Flags.getFFlagStudioToastNotificationsInLua)
 local getFFlagPivotEditorFixTests = require(Plugin.Src.Flags.getFFlagPivotEditorFixTests)
+local getFFlagStudioBoundingBoxMoveHandlesSetting = require(DraggerFramework.Flags.getFFlagStudioBoundingBoxMoveHandlesSetting)
 
 local EditingMode = require(Plugin.Src.Utility.EditingMode)
 local StatusMessage = require(Plugin.Src.Utility.StatusMessage)
@@ -52,6 +53,7 @@ function EditPivotSession:_getCurrentDraggerHandles()
 				Outset = 0.5,
 				ShowBoundingBox = false,
 				Summonable = false,
+				MustPositionAtPivot = getFFlagStudioBoundingBoxMoveHandlesSetting() and true or nil,
 			}, DraggerSchema.MoveHandlesImplementation.new(self._draggerContext, ANALYTICS_NAME)),
 			RotateHandles.new(self._draggerContext, {
 				ShowBoundingBox = false,

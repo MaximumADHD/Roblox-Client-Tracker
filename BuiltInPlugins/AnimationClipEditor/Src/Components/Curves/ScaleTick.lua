@@ -1,41 +1,60 @@
+--!strict
 --[[
 	An element meant to represent a single tick on a vertical scale.
 
 	Props:
-		float Value = The value that this tick falls on the scale. Used for display purposes only.
-		float Width = Width of the containing frame of this component
-		UDim2 Position = The position of the frame.
-		UDim2 LabelSize = Size of the text label displaying the time.
-		UDim2 LabelPosition = Position of time label relative to tick line
-		float TickWidthScale = Width of the tick line in proportion to the containing frame
+		Position: The position of the frame
+		ScaleType: Whether the scale shows numbers (left side) or angles (right side)
+		TickWidthScale: Width of the tick line in proportion to the containing frame
+		Value: The value that this tick falls on the scale. Used for display purposes only.
+		Width: Width of the containing frame of this component
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+local Constants = require(Plugin.Src.Util.Constants)
+
+local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
 
 local ScaleTick = Roact.PureComponent:extend("TimelineTick")
 
-local LABEL_SIZE = UDim2.new(0, 25, 0, 15)
-local LABEL_POSITION = UDim2.new(.3, 0, .5, 0)
-local TICK_WIDTH_SCALE = 0.7
+local LABEL_SIZE = not GetFFlagQuaternionsUI() and UDim2.new(0, 25, 0, 15) or nil  -- Replaced with Constant
+local LABEL_POSITION = not GetFFlagQuaternionsUI() and UDim2.new(.3, 0, .5, 0) or nil  -- Replaced with Constant
+local TICK_WIDTH_SCALE = not GetFFlagQuaternionsUI() and 0.7 or nil  -- Unused
 
-function ScaleTick:render()
+export type Props = {
+	-- State/Context
+	Stylizer: any,
+	Theme: any,
+
+	-- Properties
+	Position: UDim2,
+	ScaleType: string,
+	TickWidthScale: number,
+	Value: string,
+	Width: number?,
+}
+
+function ScaleTick:render(): (any)
 	local props = self.props
-	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
+	local theme = props.Stylizer.PluginTheme
 	local timelineTheme = theme.timelineTheme
 
 	local value = props.Value
 	local width = props.Width
 	local position = props.Position
-	local labelSize = props.LabelSize or LABEL_SIZE
-	local labelPosition = props.LabelPosition or LABEL_POSITION
-	local tickWidthScale = props.TickWidthScale or TICK_WIDTH_SCALE
-	local showValue = props.ShowValue
+	local scaleType = props.ScaleType
+	local leftScale = scaleType == Constants.SCALE_TYPE.Number
+
+	local labelSize = if GetFFlagQuaternionsUI() then Constants.TICK_LABEL_SIZE else LABEL_SIZE
+	local tickWidthScale = if GetFFlagQuaternionsUI() then props.TickWidthScale else props.TickWidthScale or TICK_WIDTH_SCALE
+
+	local showValue = not GetFFlagQuaternionsUI() and props.ShowValue or nil  -- Unused, rely on value == ""
+	local labelPosition = if GetFFlagQuaternionsUI() then Constants.TICK_LABEL_POSITION[scaleType] else (props.LabelPosition or LABEL_POSITION)
+
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(0, width, 0, width),
@@ -44,7 +63,7 @@ function ScaleTick:render()
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 	}, {
-		TimeLabel = Roact.createElement("TextLabel", {
+		TimeLabel = if not GetFFlagQuaternionsUI() or value ~= "" then Roact.createElement("TextLabel", {
 			Position = labelPosition,
 			Size = labelSize,
 			AnchorPoint = Vector2.new(.5, .5),
@@ -52,36 +71,35 @@ function ScaleTick:render()
 			BorderSizePixel = 0,
 			BackgroundTransparency = 1,
 			TextSize = timelineTheme.textSize,
-			TextXAlignment = Enum.TextXAlignment.Center,
+			TextXAlignment = GetFFlagQuaternionsUI() and Enum.TextXAlignment.Left or Enum.TextXAlignment.Center,
 			TextYAlignment = Enum.TextYAlignment.Center,
 			Font = theme.font,
 			Text = value,
-			Visible = showValue,
+			Visible = not GetFFlagQuaternionsUI() and showValue or nil,
 			Rotation = -90,
-		}),
+		}) else nil,
 
-		TickLine = Roact.createElement("Frame", {
-			AnchorPoint = Vector2.new(1, 0),
-			Position = UDim2.new(1, 0, 1, 0),
+		Tick = Roact.createElement("Frame", {
+			AnchorPoint = Vector2.new(leftScale and 1 or 0, 0),
+			Position = UDim2.new(leftScale and 1 or 0, 0, 1, 0),
 			Size = UDim2.new(tickWidthScale, 0, 0, 1),
 			BorderSizePixel = 0,
 			BackgroundColor3 = timelineTheme.lineColor,
-		}),
+		}) or nil,
 
-		LowerTick = Roact.createElement("Frame", {
+		Line = leftScale and Roact.createElement("Frame", {
 			Position = UDim2.new(1, 0, 1, 0),
 			Size = UDim2.new(50, 0, 0, 1),
 			AnchorPoint = Vector2.new(0, 0),
 			BorderSizePixel = 0,
 			BackgroundColor3 = timelineTheme.lineColor,
 			BackgroundTransparency = timelineTheme.lowerTransparency
-		}),
+		}) or nil,
 	})
 end
 
 ScaleTick = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(ScaleTick)
 
 return ScaleTick

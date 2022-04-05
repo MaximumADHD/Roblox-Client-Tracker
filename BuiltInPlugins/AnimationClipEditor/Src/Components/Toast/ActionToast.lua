@@ -25,8 +25,6 @@ local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local Button = Framework.UI.Button
 
 local ContextServices = Framework.ContextServices
@@ -53,69 +51,64 @@ function ActionToast:renderButton(index, button, textSize)
 end
 
 function ActionToast:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
-		local toastTheme = theme.toastTheme
-		local buttonPadding = Constants.PROMPT_BUTTON_PADDING
-		local buttonHeight = Constants.PROMPT_BUTTON_SIZE.Y
-		local text = props.Text
-		local buttons = props.Buttons
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
+	local toastTheme = theme.toastTheme
+	local buttonPadding = Constants.PROMPT_BUTTON_PADDING
+	local buttonHeight = Constants.PROMPT_BUTTON_SIZE.Y
+	local text = props.Text
+	local buttons = props.Buttons
 
-		local textSize = TextService:GetTextSize(text, toastTheme.textSize, theme.font, TEXT_FIT)
-		local height = textSize.Y + Constants.PROMPT_VERTICAL_PADDING * 3 + buttonHeight
+	local textSize = TextService:GetTextSize(text, toastTheme.textSize, theme.font, TEXT_FIT)
+	local height = textSize.Y + Constants.PROMPT_VERTICAL_PADDING * 3 + buttonHeight
 
-		local buttonComponents = {
-			Layout = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillDirection = Enum.FillDirection.Horizontal,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				Padding = UDim.new(0, buttonPadding),
-			}),
-		}
+	local buttonComponents = {
+		Layout = Roact.createElement("UIListLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			FillDirection = Enum.FillDirection.Horizontal,
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			Padding = UDim.new(0, buttonPadding),
+		}),
+	}
 
-		for index, button in ipairs(buttons) do
-			table.insert(buttonComponents, self:renderButton(index, button, toastTheme.textSize))
-		end
+	for index, button in ipairs(buttons) do
+		table.insert(buttonComponents, self:renderButton(index, button, toastTheme.textSize))
+	end
 
-		return Roact.createElement(BaseToast, {
-			AnchorPoint = Vector2.new(1, 1),
-			Size = UDim2.new(0, DEFAULT_WIDTH, 0, height),
-		}, {
-			Padding = Roact.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, Constants.PROMPT_VERTICAL_PADDING),
-				PaddingBottom = UDim.new(0, Constants.PROMPT_VERTICAL_PADDING),
-				PaddingLeft = UDim.new(0, Constants.PROMPT_HORIZONTAL_PADDING),
-				PaddingRight = UDim.new(0, Constants.PROMPT_HORIZONTAL_PADDING),
-			}),
+	return Roact.createElement(BaseToast, {
+		AnchorPoint = Vector2.new(1, 1),
+		Size = UDim2.new(0, DEFAULT_WIDTH, 0, height),
+	}, {
+		Padding = Roact.createElement("UIPadding", {
+			PaddingTop = UDim.new(0, Constants.PROMPT_VERTICAL_PADDING),
+			PaddingBottom = UDim.new(0, Constants.PROMPT_VERTICAL_PADDING),
+			PaddingLeft = UDim.new(0, Constants.PROMPT_HORIZONTAL_PADDING),
+			PaddingRight = UDim.new(0, Constants.PROMPT_HORIZONTAL_PADDING),
+		}),
 
-			Text = Roact.createElement("TextLabel", {
-				Size = UDim2.new(1, 0, 1, 0),
-				BackgroundTransparency = 1,
-				Text = text,
-				TextWrapped = true,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Top,
-				TextSize = toastTheme.textSize,
-				TextColor3 = toastTheme.textColor,
-				Font = theme.font,
-			}),
+		Text = Roact.createElement("TextLabel", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			Text = text,
+			TextWrapped = true,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Top,
+			TextSize = toastTheme.textSize,
+			TextColor3 = toastTheme.textColor,
+			Font = theme.font,
+		}),
 
-			Buttons = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, buttonHeight),
-				AnchorPoint = Vector2.new(0.5, 1),
-				Position = UDim2.new(0.5, 0, 1, 0),
-				BackgroundTransparency = 1,
-			}, buttonComponents),
-		})
+		Buttons = Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 0, buttonHeight),
+			AnchorPoint = Vector2.new(0.5, 1),
+			Position = UDim2.new(0.5, 0, 1, 0),
+			BackgroundTransparency = 1,
+		}, buttonComponents),
+	})
 end
 
-
 ActionToast = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(ActionToast)
-
-
-
 
 return ActionToast

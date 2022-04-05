@@ -13,6 +13,8 @@ function Spacer:render()
 			BackgroundColor3 = style.Theme.BackgroundContrast.Color,
 			Size = UDim2.new(1, 0, 0, DEFAULT_HEIGHT),
 			LayoutOrder = self.props.layoutOrder or 0,
+			AnchorPoint = self.props.anchorPoint,
+			Position = self.props.position,
 		})
 	end)
 end

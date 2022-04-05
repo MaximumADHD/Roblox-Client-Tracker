@@ -6,7 +6,6 @@ local FFlagDebugFixPublishAsWhenQueryFails = game:GetFastFlag("DebugFixPublishAs
 local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage2")
 local FFlagPlacePublishManagementUI2 = game:GetFastFlag("PlacePublishManagementUI2")
 local FFlagEnablePlacePublishManagementInTeamCreate = game:GetFastFlag("EnablePlacePublishManagementInTeamCreate")
-local FFlagStudioTcDialogShowPlaceName = game:GetFastFlag("StudioTcDialogShowPlaceName")
 local FFlagStudioEnableUploadNames = game:GetFastFlag("StudioEnableUploadNames")
 local FFlagStudioUpdatePublishText = game:GetFastFlag("StudioUpdatePublishText")
 
@@ -344,11 +343,7 @@ function ScreenChoosePlace:render()
 				OnActivated = function()
 					-- groupId is unused
 					if teamCreateToggleEnabled then
-						if FFlagStudioTcDialogShowPlaceName then
-							game:GetService("StudioPublishService"):SetTeamCreateOnPublishInfo(false, "")
-						else
-							StudioService:DEPRECATED_SetTurnOnTeamCreateOnPublish(false)
-						end
+						game:GetService("StudioPublishService"):SetTeamCreateOnPublishInfo(false, "")
 					end
 					if FFlagPlacePublishManagementUI2 and showNextPublishManagemnt then
 						-- open place publish screen

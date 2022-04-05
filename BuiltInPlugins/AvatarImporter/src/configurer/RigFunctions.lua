@@ -500,8 +500,17 @@ function RigFunctions.Export(plugin)
             PublishService:PublishDescendantAssets(folder)
         end
 
-        game.Selection:Set(folder:GetChildren())
         local outputFileName = folder.Name
+
+		-- for MeshPart Heads, we only want the single MeshPart instead of the full folder structure
+		if folder.Name == "Head" then
+			local r15ArtistIntent = folder:FindFirstChild("R15ArtistIntent")
+			if r15ArtistIntent then
+				folder = r15ArtistIntent
+			end
+		end
+
+        game.Selection:Set(folder:GetChildren())
         plugin:PromptSaveSelection(outputFileName)
     end
 end

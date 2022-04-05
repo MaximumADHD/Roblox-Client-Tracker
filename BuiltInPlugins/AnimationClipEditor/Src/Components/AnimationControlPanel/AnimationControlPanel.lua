@@ -16,8 +16,6 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Constants = require(Plugin.Src.Util.Constants)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -72,7 +70,7 @@ end
 
 function AnimationControlPanel:render()
 	local props = self.props
-	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
+	local theme = props.Stylizer.PluginTheme
 
 	local animationData = props.AnimationData
 	local playState = props.PlayState
@@ -140,8 +138,7 @@ function AnimationControlPanel:render()
 end
 
 AnimationControlPanel = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Analytics = ContextServices.Analytics
 })(AnimationControlPanel)
 
@@ -188,6 +185,5 @@ local function mapDispatchToProps(dispatch)
 		end,
 	}
 end
-
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AnimationControlPanel)

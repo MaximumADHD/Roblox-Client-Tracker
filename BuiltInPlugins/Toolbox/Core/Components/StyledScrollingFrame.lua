@@ -43,6 +43,7 @@ local function renderContent(props)
 	local scrollingEnabled = props.scrollingEnabled
 
 	local scrollingFrameTheme = theme.scrollingFrame
+	local backgroundColor = props.BackgroundColor or scrollingFrameTheme.scrollbarBackgroundColor
 
 	return Roact.createElement("ImageButton", {
 		Position = position,
@@ -60,7 +61,7 @@ local function renderContent(props)
 			Position = UDim2.new(1, 0, 0, 0),
 			Size = UDim2.new(0, Constants.SCROLLBAR_BACKGROUND_THICKNESS, 1, 0),
 			BorderSizePixel = 0,
-			BackgroundColor3 = scrollingFrameTheme.scrollbarBackgroundColor,
+			BackgroundColor3 = backgroundColor,
 		}),
 
 		ScrollingFrame = Roact.createElement("ScrollingFrame", {

@@ -42,9 +42,14 @@ ConfirmationDialog.validateProps = t.strictInterface({
 	onConfirm = t.callback,
 
 	blurBackground = t.boolean,
-
 	visible = t.boolean,
 	inputType = t.optional(t.string),
+	frameWidth = t.number,
+	framePadding = t.number,
+	illustrationIconHeight = t.optional(t.number),
+	illustrationIconWidth = t.optional(t.number),
+	illustrationFrameHeight = t.optional(t.number),
+	showIllustration = t.boolean,
 })
 
 ConfirmationDialog.defaultProps = {
@@ -53,6 +58,9 @@ ConfirmationDialog.defaultProps = {
 	confirmText = "Confirm",
 	titleText = "Dialog Title",
 	blurBackground = false,
+	showIllustration = false,
+	frameWidth = 335,
+	framePadding = 20,
 }
 
 if GetFFlagInGameMenuControllerDevelopmentOnly() then
@@ -85,13 +93,21 @@ function ConfirmationDialog:render()
 			bodyFontSize,
 			bodyFont,
 			-- 335 (width) - 20px padding on left and right
-			Vector2.new(335 - 20 - 20, math.huge)
+			Vector2.new(props.frameWidth - props.framePadding - props.framePadding, math.huge)
 		).Y
 
 		-- 20px padding top, 20px padding bottom
 		-- Minimum height of two lines of text.
 		-- TODO: Line height!
-		local bodyTextContainerHeight = 20 + math.max(textHeight, bodyFontSize * 2) + 20
+		local bodyTextHeight = math.max(textHeight, bodyFontSize * 2)
+		local bodyTextContainerHeight = 20 + bodyTextHeight + 20
+		local dialogMainFrameHeight = 48 + 1 + bodyTextContainerHeight + 36 + 20
+
+		if props.showIllustration then
+			-- 25px padding bottom of Text, IllustrationFrame Height is 128
+			bodyTextContainerHeight = bodyTextHeight + 25
+			dialogMainFrameHeight = 48 + 1 + bodyTextContainerHeight + 36 + 20 + props.illustrationFrameHeight
+		end
 
 		return Roact.createElement(Roact.Portal, {
 			target = CoreGui,
@@ -121,13 +137,13 @@ function ConfirmationDialog:render()
 					ScaleType = Assets.Images.RoundedRect.ScaleType,
 					-- button container (36px), bottom padding (20px)
 					-- height: title bar (48px), divider (1px), body text height,
-					Size = UDim2.new(0, 335, 0, 48 + 1 + bodyTextContainerHeight + 36 + 20),
+					Size = UDim2.new(0, props.frameWidth, 0, dialogMainFrameHeight),
 					SliceCenter = Assets.Images.RoundedRect.SliceCenter,
 				}, {
 					Padding = Roact.createElement("UIPadding", {
-						PaddingBottom = UDim.new(0, 20),
-						PaddingLeft = UDim.new(0, 20),
-						PaddingRight = UDim.new(0, 20),
+						PaddingBottom = UDim.new(0, props.framePadding),
+						PaddingLeft = UDim.new(0, props.framePadding),
+						PaddingRight = UDim.new(0, props.framePadding),
 					}),
 					Layout = Roact.createElement("UIListLayout", {
 						FillDirection = Enum.FillDirection.Vertical,
@@ -147,22 +163,35 @@ function ConfirmationDialog:render()
 						BackgroundTransparency = style.Theme.Divider.Transparency,
 						BorderSizePixel = 0,
 						LayoutOrder = 3,
-						Size = UDim2.new(0.8, 0, 0, 1),
+						Size = props.showIllustration and UDim2.new(1, 0, 0, 1) or UDim2.new(0.8, 0, 0, 1),
 					}),
-					BodyTextContainer = Roact.createElement("Frame", {
+					Illustration = props.showIllustration and Roact.createElement("Frame", {
 						BackgroundTransparency = 1,
 						LayoutOrder = 4,
+						Size = UDim2.new(1, 0, 0, props.illustrationFrameHeight),
+					}, {
+						Image = Roact.createElement(ImageSetLabel, {
+							BackgroundTransparency = 1,
+							Image = Assets.Images.SuccessXLarge,
+							Size = UDim2.new(0, props.illustrationIconWidth, 0, props.illustrationIconHeight),
+							Position = UDim2.new(0.5, 0, 0.5, 0),
+							AnchorPoint = Vector2.new(0.5, 0.5),
+						})
+					}) or nil,
+					BodyTextContainer = Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						LayoutOrder = 5,
 						Size = UDim2.new(1, 0, 0, bodyTextContainerHeight),
 					}, {
 						BodyText = Roact.createElement(ThemedTextLabel, {
-							Size = UDim2.new(1, 0, 1, 0),
+							Size = props.showIllustration and UDim2.new(1, 0, 0, bodyTextHeight) or UDim2.new(1, 0, 1, 0),
 							Text = props.bodyText,
 							TextWrapped = true,
 						})
 					}),
 					ButtonContainer = Roact.createElement("Frame", {
 						BackgroundTransparency = 1,
-						LayoutOrder = 5,
+						LayoutOrder = 6,
 						Size = UDim2.new(1, 0, 0, 36),
 						[Roact.Ref] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.buttonContainerRef or nil,
 						[Roact.Event.AncestryChanged] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.onAncestryChanged or nil,

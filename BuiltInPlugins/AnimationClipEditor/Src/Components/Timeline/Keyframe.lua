@@ -20,8 +20,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -33,55 +31,50 @@ local DEFAULT_BORDER_SIZE = 2
 local Keyframe = Roact.PureComponent:extend("Keyframe")
 
 function Keyframe:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
-		local style = THEME_REFACTOR and props.KeyframeStyle or props.Style
-		local selected = props.Selected
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
+	local style = props.KeyframeStyle
+	local selected = props.Selected
 
-		local themeBase = style and theme.keyframe[style] or theme.keyframe.Default
-		local keyframeTheme = selected and themeBase.selected or themeBase
-		local position = props.Position
-		local borderSize = props.BorderSizePixel or DEFAULT_BORDER_SIZE
-		local width = props.Width or DEFAULT_WIDTH
-		local zindex = props.ZIndex
+	local themeBase = style and theme.keyframe[style] or theme.keyframe.Default
+	local keyframeTheme = selected and themeBase.selected or themeBase
+	local position = props.Position
+	local borderSize = props.BorderSizePixel or DEFAULT_BORDER_SIZE
+	local width = props.Width or DEFAULT_WIDTH
+	local zindex = props.ZIndex
 
-		local onActivated = props.OnActivated
-		local onRightClick = props.OnRightClick
-		local onInputBegan = props.OnInputBegan
-		local onInputEnded = props.OnInputEnded
+	local onActivated = props.OnActivated
+	local onRightClick = props.OnRightClick
+	local onInputBegan = props.OnInputBegan
+	local onInputEnded = props.OnInputEnded
 
-		local backgroundColor = props.Filled and keyframeTheme.backgroundColor or theme.backgroundColor
+	local backgroundColor = props.Filled and keyframeTheme.backgroundColor or theme.backgroundColor
 
-		return Roact.createElement("ImageButton", {
-			Size = UDim2.new(0, width, 0, width),
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			Position = position,
-			Rotation = 45,
-			ZIndex = zindex,
+	return Roact.createElement("ImageButton", {
+		Size = UDim2.new(0, width, 0, width),
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = position,
+		Rotation = 45,
+		ZIndex = zindex,
 
-			ImageTransparency = 1,
-			BackgroundTransparency = 0,
-			AutoButtonColor = false,
+		ImageTransparency = 1,
+		BackgroundTransparency = 0,
+		AutoButtonColor = false,
 
-			BorderSizePixel = borderSize,
-			BorderColor3 = keyframeTheme.borderColor,
-			BackgroundColor3 = GetFFlagChannelAnimations() and backgroundColor or keyframeTheme.backgroundColor,
+		BorderSizePixel = borderSize,
+		BorderColor3 = keyframeTheme.borderColor,
+		BackgroundColor3 = GetFFlagChannelAnimations() and backgroundColor or keyframeTheme.backgroundColor,
 
-			[Roact.Event.Activated] = onActivated,
-			[Roact.Event.MouseButton2Click] = onRightClick,
+		[Roact.Event.Activated] = onActivated,
+		[Roact.Event.MouseButton2Click] = onRightClick,
 
-			[Roact.Event.InputBegan] = onInputBegan,
-			[Roact.Event.InputEnded] = onInputEnded,
-		}, props[Roact.Children])
+		[Roact.Event.InputBegan] = onInputBegan,
+		[Roact.Event.InputEnded] = onInputEnded,
+	}, props[Roact.Children])
 end
 
-
 Keyframe = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(Keyframe)
-
-
-
 
 return Keyframe

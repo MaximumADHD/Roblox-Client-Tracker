@@ -23,8 +23,6 @@ local Roact = require(Plugin.Packages.Roact)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -96,46 +94,41 @@ function NoticeToast:willUnmount()
 end
 
 function NoticeToast:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
-		local toastTheme = theme.toastTheme
-		local state = self.state
-		local text = props.Text
-		local showingToast = state.showingToast
-		local fadeAmount = state.fadeAmount
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
+	local toastTheme = theme.toastTheme
+	local state = self.state
+	local text = props.Text
+	local showingToast = state.showingToast
+	local fadeAmount = state.fadeAmount
 
-		local textWidth = StringUtils.getTextWidth(text, toastTheme.textSize, theme.font)
-			 + TEXT_PADDING * 2
+	local textWidth = StringUtils.getTextWidth(text, toastTheme.textSize, theme.font)
+			+ TEXT_PADDING * 2
 
-		return showingToast and Roact.createElement(BaseToast, {
-			AnchorPoint = Vector2.new(0.5, 1),
-			Size = UDim2.new(0, textWidth, 0, TOAST_HEIGHT),
-			Transparency = fadeAmount,
+	return showingToast and Roact.createElement(BaseToast, {
+		AnchorPoint = Vector2.new(0.5, 1),
+		Size = UDim2.new(0, textWidth, 0, TOAST_HEIGHT),
+		Transparency = fadeAmount,
+	}, {
+		Text = Roact.createElement("TextLabel", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			Text = text,
+			TextSize = toastTheme.textSize,
+			TextColor3 = toastTheme.textColor,
+			TextTransparency = fadeAmount,
+			Font = theme.font,
 		}, {
-			Text = Roact.createElement("TextLabel", {
-				Size = UDim2.new(1, 0, 1, 0),
-				BackgroundTransparency = 1,
-				Text = text,
-				TextSize = toastTheme.textSize,
-				TextColor3 = toastTheme.textColor,
-				TextTransparency = fadeAmount,
-				Font = theme.font,
-			}, {
-				Padding = Roact.createElement("UIPadding", {
-					PaddingLeft = UDim.new(0, TEXT_PADDING),
-					PaddingRight = UDim.new(0, TEXT_PADDING),
-				})
-			}),
-		})
+			Padding = Roact.createElement("UIPadding", {
+				PaddingLeft = UDim.new(0, TEXT_PADDING),
+				PaddingRight = UDim.new(0, TEXT_PADDING),
+			})
+		}),
+	})
 end
 
-
 NoticeToast = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(NoticeToast)
-
-
-
 
 return NoticeToast

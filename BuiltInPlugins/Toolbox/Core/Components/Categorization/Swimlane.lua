@@ -34,6 +34,8 @@ export type SwimlaneProps = HorizontalList.HorizontalListProps & _InternalProps 
 	Size: UDim2?,
 	Title: string,
 	Total: number?,
+	Localization: any,
+	ZIndex: number?,
 }
 
 local SPACING = 10
@@ -79,6 +81,7 @@ function Swimlane:render()
 	local onClickSeeAll = props.OnClickSeeAll
 	local onRenderItem = props.OnRenderItem
 	local localization = props.Localization
+	local zIndex = props.ZIndex
 	local isLoading = props.IsLoading
 
 	local displayCount = self.state.DisplayCount
@@ -123,6 +126,7 @@ function Swimlane:render()
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
 		Size = size,
+		ZIndex = zIndex,
 		[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChange,
 		[Roact.Ref] = self.ref,
 	}, {

@@ -114,7 +114,24 @@ end
 
 -- Asynchronously load the next story and update our state with the result
 function InfoPanel:updateStory(storyItem: Types.StoryItem)
-	if not storyItem or not storyItem.Script then
+	if not storyItem then
+		self:setState({
+			storyError = Roact.None,
+			storyProps = Roact.None,
+		})
+		return
+	end
+
+	if storyItem.StorybookLoadError then
+		warn("Storybook load failed", storyItem.StorybookLoadError)
+		self:setState({
+			storyError = storyItem.StorybookLoadError,
+			storyProps = Roact.None,
+		})
+		return
+	end
+
+	if not storyItem.Script then
 		self:setState({
 			storyError = Roact.None,
 			storyProps = Roact.None,
@@ -330,7 +347,7 @@ function InfoPanel:render()
 	end
 
 	local storyProps: Types.StoryProps? = state.storyProps
-	
+
 	if not storyProps then
 		return Roact.createElement(Pane, {
 			Style = "BorderBox",
@@ -441,7 +458,7 @@ function InfoPanel:render()
 	})
 
 	local main
-	
+
 	if definitelyStoryProps.storybook.fixedSize then
 		main = Roact.createElement(Pane, {
 			Layout = Enum.FillDirection.Vertical,
@@ -450,7 +467,7 @@ function InfoPanel:render()
 			Spacing = sizes.InnerPadding,
 			[Roact.Ref] = self.storyRef,
 		}, children)
-	else 
+	else
 		main = Roact.createElement(ScrollingFrame, {
 			LayoutOrder = 1,
 			Size = UDim2.new(1, 0, 1, -sizes.TopBar),
@@ -527,7 +544,7 @@ InfoPanel = RoactRodux.connect(
 			Live = state.Stories.live,
 		}
 	end,
-	function(dispatch) 
+	function(dispatch)
 		return {
 			disableLive = function()
 				dispatch(SetLive(false))

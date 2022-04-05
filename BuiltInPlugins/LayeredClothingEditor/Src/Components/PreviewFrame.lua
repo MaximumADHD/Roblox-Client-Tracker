@@ -13,6 +13,11 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+
+local Components = AvatarToolsShared.Components
+local AnimationPlaybackSlider = Components.AnimationPlaybackSlider
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -21,9 +26,16 @@ local Util = Framework.Util
 local LayoutOrderIterator = Util.LayoutOrderIterator
 local Typecheck = Util.Typecheck
 
+local UI = Framework.UI
+local Pane = UI.Pane
+
 local PreviewTabsRibbon = require(Plugin.Src.Components.Preview.PreviewTabsRibbon)
 local Grid = require(Plugin.Src.Components.Preview.Grid)
-local SelectionControls = require(Plugin.Src.Components.Preview.SelectionControls)
+
+local SetSliderPlayhead = require(Plugin.Src.Actions.SetSliderPlayhead)
+local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
+
+local PreviewConstantsInterface = require(Plugin.Src.Util.PreviewConstantsInterface)
 
 local PreviewFrame = Roact.PureComponent:extend("PreviewFrame")
 Typecheck.wrap(PreviewFrame, script)
@@ -38,6 +50,12 @@ function PreviewFrame:render()
 	local layoutOrder = props.LayoutOrder
 	local theme = props.Stylizer
 	local userAddedAssets = props.UserAddedAssets
+	local selectedTab = props.SelectedTab
+	local isPlaying = props.IsPlaying
+	local playhead = props.Playhead
+	local trackLength = props.TrackLength
+	local setIsPlaying = props.SetIsPlaying
+	local setSliderPlayhead = props.SetSliderPlayhead
 
 	local orderIterator = LayoutOrderIterator.new()
 
@@ -69,7 +87,7 @@ function PreviewFrame:render()
 				end
 				local totalFixedHeight =
 					self.previewFrameRef.current.PreviewTabsRibbon.AbsoluteSize.Y +
-					self.previewFrameRef.current.SelectionControls.AbsoluteSize.Y
+					self.previewFrameRef.current.AnimPlaybackSliderContainer.AbsoluteSize.Y
 				self.previewFrameRef.current.Grid.Size = UDim2.new(1, 0, 1, -totalFixedHeight)
 			end,
 		}),
@@ -81,19 +99,47 @@ function PreviewFrame:render()
 			UpdateUserAddedAssets = props.UpdateUserAddedAssets,
 			UserAddedAssets = userAddedAssets
 		}),
-		SelectionControls = Roact.createElement(SelectionControls, {
+		AnimPlaybackSliderContainer = Roact.createElement(Pane, {
 			Size = UDim2.new(1, -theme.MainPadding, 0, theme.SliderHeight),
 			LayoutOrder = orderIterator:getNextOrder(),
-			ZIndex = zIndex,
+		},{
+			AnimPlaybackSlider = PreviewConstantsInterface.shouldTabShowPlaybackSlider(selectedTab) and Roact.createElement(AnimationPlaybackSlider, {
+				IsPlaying = isPlaying,
+				Playhead = playhead,
+				OnSliderPlayheadChanged = setSliderPlayhead,
+				OnPlayPauseClicked = setIsPlaying,
+				Size = UDim2.new(1, 0, 0, theme.SliderHeight),
+				TrackLength = trackLength,
+			}),
 		}),
 	})
 end
-
 
 PreviewFrame = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(PreviewFrame)
 
+local function mapStateToProps(state, props)
+	local previewStatus = state.previewStatus
+	local animation = state.animation
 
+	return {
+		SelectedTab = previewStatus.selectedTab,
+		IsPlaying = animation.IsPlaying,
+		Playhead = animation.Playhead,
+		TrackLength = animation.TrackLength,
+	}
+end
 
-return PreviewFrame
+local function mapDispatchToProps(dispatch)
+	return {
+		SetIsPlaying = function(isPlaying)
+			dispatch(SetIsPlaying(isPlaying))
+		end,
+		SetSliderPlayhead = function(sliderPlayhead)
+			dispatch(SetSliderPlayhead(sliderPlayhead))
+		end,
+	}
+end
+
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PreviewFrame)

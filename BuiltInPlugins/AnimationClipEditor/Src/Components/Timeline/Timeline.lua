@@ -32,8 +32,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local DragTarget = Framework.UI.DragListener
 local ContextServices = Framework.ContextServices
@@ -112,96 +110,95 @@ function Timeline:renderLastTick(timelineTheme)
 end
 
 function Timeline:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
-		local timelineTheme = theme.timelineTheme
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
+	local timelineTheme = theme.timelineTheme
 
-		local state = self.state
+	local state = self.state
 
-		local startTick = math.max(props.StartTick, 0)
-		local endTick = math.max(props.EndTick, 0)
-		local lastTick = props.LastTick or endTick
-		local majorInterval = math.clamp(props.MajorInterval, MIN_INTERVAL, MAX_INTERVAL)
-		local minorInterval = math.clamp(props.MinorInterval, MIN_INTERVAL, MAX_INTERVAL)
-		local position = props.Position
-		local anchorPoint = props.AnchorPoint
-		local zIndex = props.ZIndex
-		local height = props.Height
-		local width = props.Width
-		local tickLabelSize = props.TickLabelSize
-		local tickLabelPosition = props.TickLabelPosition
-		local tickHeightScale = props.TickHeightScale
-		local smallTickHeightScale = props.SmallTickHeightScale
-		local showAsTime = props.ShowAsTime
-		local frameRate = props.FrameRate or Constants.DEFAULT_FRAMERATE
+	local startTick = math.max(props.StartTick, 0)
+	local endTick = math.max(props.EndTick, 0)
+	local lastTick = props.LastTick or endTick
+	local majorInterval = math.clamp(props.MajorInterval, MIN_INTERVAL, MAX_INTERVAL)
+	local minorInterval = math.clamp(props.MinorInterval, MIN_INTERVAL, MAX_INTERVAL)
+	local position = props.Position
+	local anchorPoint = props.AnchorPoint
+	local zIndex = props.ZIndex
+	local height = props.Height
+	local width = props.Width
+	local tickLabelSize = props.TickLabelSize
+	local tickLabelPosition = props.TickLabelPosition
+	local tickHeightScale = props.TickHeightScale
+	local smallTickHeightScale = props.SmallTickHeightScale
+	local showAsTime = props.ShowAsTime
+	local frameRate = props.FrameRate or Constants.DEFAULT_FRAMERATE
 
-		endTick = math.max(endTick, startTick + majorInterval)
+	endTick = math.max(endTick, startTick + majorInterval)
 
-		local children = props[Roact.Children]
-		if not children then
-			children = {}
-		end
-		local offset = 0
-		if startTick > 0 and startTick % minorInterval ~= 0 then
-			offset = minorInterval - (startTick % minorInterval)
-		end
+	local children = props[Roact.Children]
+	if not children then
+		children = {}
+	end
+	local offset = 0
+	if startTick > 0 and startTick % minorInterval ~= 0 then
+		offset = minorInterval - (startTick % minorInterval)
+	end
 
-		for frameNo = startTick + offset, endTick, minorInterval do
-			local xScale = (frameNo - startTick) / (endTick - startTick)
-			local onInterval = frameNo % majorInterval == 0
-			local seconds = math.floor(frameNo / frameRate)
-			local frames = frameNo - (seconds * frameRate)
-			local time = tostring(seconds ..":" ..string.format("%02d", frames))
+	for frameNo = startTick + offset, endTick, minorInterval do
+		local xScale = (frameNo - startTick) / (endTick - startTick)
+		local onInterval = frameNo % majorInterval == 0
+		local seconds = math.floor(frameNo / frameRate)
+		local frames = frameNo - (seconds * frameRate)
+		local time = tostring(seconds ..":" ..string.format("%02d", frames))
 
-			children[frameNo] = Roact.createElement(TimelineTick, {
-				Time = showAsTime and time or frameNo,
-				Highlight = frames == 0,
-				Height = height,
-				Position = UDim2.new(0, math.floor(xScale * width), 0, 0),
-				Font = theme.font,
-				LabelSize = tickLabelSize,
-				LabelPosition = tickLabelPosition,
-				TickHeightScale = onInterval and tickHeightScale or smallTickHeightScale,
-				ShowTime = onInterval,
-				PastEnd = frameNo > lastTick,
-				TimeInSeconds = StringUtils.formatTimeInSeconds(frames, frameRate)
-			})
-		end
-
-		children.DragTarget = state.Dragging and Roact.createElement(DragTarget, {
-			OnDragMoved = self.onDragMoved,
-			OnDragEnded = self.onDragEnded,
+		children[frameNo] = Roact.createElement(TimelineTick, {
+			Time = showAsTime and time or frameNo,
+			Highlight = frames == 0,
+			Height = height,
+			Position = UDim2.new(0, math.floor(xScale * width), 0, 0),
+			Font = theme.font,
+			LabelSize = tickLabelSize,
+			LabelPosition = tickLabelPosition,
+			TickHeightScale = onInterval and tickHeightScale or smallTickHeightScale,
+			ShowTime = onInterval,
+			PastEnd = frameNo > lastTick,
+			TimeInSeconds = StringUtils.formatTimeInSeconds(frames, frameRate)
 		})
+	end
 
-		local innerWidth
-		if lastTick then
-			innerWidth = math.max(0, width * (lastTick - startTick) / (endTick - startTick))
-		else
-			innerWidth = width
-		end
+	children.DragTarget = state.Dragging and Roact.createElement(DragTarget, {
+		OnDragMoved = self.onDragMoved,
+		OnDragEnded = self.onDragEnded,
+	})
 
-		return Roact.createElement("Frame", {
-			Position = position,
-			AnchorPoint = anchorPoint,
-			Size = UDim2.new(0, width, 0, height),
-			BackgroundTransparency = 1,
-			ZIndex = GetFFlagCurveEditor() and zIndex or nil,
-			[Roact.Event.InputBegan] = self.onDragBegan,
-		}, {
-			Ticks = Roact.createElement("Frame", {
-				Size = UDim2.new(0, math.min(innerWidth, width), 1, 0),
-				BackgroundColor3 = timelineTheme.barColor,
-				BorderSizePixel = 0,
-			}, children),
+	local innerWidth
+	if lastTick then
+		innerWidth = math.max(0, width * (lastTick - startTick) / (endTick - startTick))
+	else
+		innerWidth = width
+	end
 
-			FirstTick = self:renderFirstTick(timelineTheme),
-			LastTick = self:renderLastTick(timelineTheme),
-		})
+	return Roact.createElement("Frame", {
+		Position = position,
+		AnchorPoint = anchorPoint,
+		Size = UDim2.new(0, width, 0, height),
+		BackgroundTransparency = 1,
+		ZIndex = GetFFlagCurveEditor() and zIndex or nil,
+		[Roact.Event.InputBegan] = self.onDragBegan,
+	}, {
+		Ticks = Roact.createElement("Frame", {
+			Size = UDim2.new(0, math.min(innerWidth, width), 1, 0),
+			BackgroundColor3 = timelineTheme.barColor,
+			BorderSizePixel = 0,
+		}, children),
+
+		FirstTick = self:renderFirstTick(timelineTheme),
+		LastTick = self:renderLastTick(timelineTheme),
+	})
 end
 
 Timeline = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(Timeline)
 
 return Timeline

@@ -12,14 +12,10 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local StringUtils = require(Plugin.Src.Util.StringUtils)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local Localization = ContextServices.Localization
-
 local TrackListEntry = require(Plugin.Src.Components.TrackList.TrackListEntry)
 local Constants = require(Plugin.Src.Util.Constants)
 
@@ -66,74 +62,69 @@ function AnimationEventsTrack:willUnmount()
 end
 
 function AnimationEventsTrack:render()
-		local localization = self.props.Localization
-			local props = self.props
-			local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
-			local state = self.state
-			local layoutOrder = props.LayoutOrder
-			local indent = props.Indent or 0
-			local hovering = state.hovering
+	local localization = self.props.Localization
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
+	local state = self.state
+	local layoutOrder = props.LayoutOrder
+	local indent = props.Indent or 0
+	local hovering = state.hovering
 
-			local trackTheme = theme.trackTheme
-			local eventMarker = theme.eventMarker
+	local trackTheme = theme.trackTheme
+	local eventMarker = theme.eventMarker
 
-			return Roact.createElement(TrackListEntry, {
-				Height = Constants.TRACK_HEIGHT,
-				Indent = indent,
-				ShowBackground = true,
-				LayoutOrder = layoutOrder,
-			}, {
-				TitleLabel = Roact.createElement("TextLabel", {
-					Size = UDim2.new(1, 0, 1, 0),
-					BackgroundTransparency = 1,
+	return Roact.createElement(TrackListEntry, {
+		Height = Constants.TRACK_HEIGHT,
+		Indent = indent,
+		ShowBackground = true,
+		LayoutOrder = layoutOrder,
+	}, {
+		TitleLabel = Roact.createElement("TextLabel", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
 
-					Text = localization:getText("Title", "AnimationEvents"),
-					Font = theme.font,
-					TextSize = trackTheme.textSize,
-					TextColor3 = trackTheme.textColor,
-					TextXAlignment = Enum.TextXAlignment.Left,
-				}),
+			Text = localization:getText("Title", "AnimationEvents"),
+			Font = theme.font,
+			TextSize = trackTheme.textSize,
+			TextColor3 = trackTheme.textColor,
+			TextXAlignment = Enum.TextXAlignment.Left,
+		}),
 
-				AddEvent = Roact.createElement("ImageButton", {
-					Size = UDim2.new(0, Constants.TRACKLIST_BUTTON_SIZE, 0, Constants.TRACKLIST_BUTTON_SIZE),
-					AnchorPoint = Vector2.new(1, 0.5),
-					Position = UDim2.new(1, -Constants.TRACKLIST_RIGHT_PADDING, 0.5, 0),
-					BackgroundTransparency = 1,
-					ImageTransparency = 1,
+		AddEvent = Roact.createElement("ImageButton", {
+			Size = UDim2.new(0, Constants.TRACKLIST_BUTTON_SIZE, 0, Constants.TRACKLIST_BUTTON_SIZE),
+			AnchorPoint = Vector2.new(1, 0.5),
+			Position = UDim2.new(1, -Constants.TRACKLIST_RIGHT_PADDING, 0.5, 0),
+			BackgroundTransparency = 1,
+			ImageTransparency = 1,
 
-					[Roact.Event.Activated] = self.onButtonClick,
-					[Roact.Event.MouseEnter] = self.mouseEnter,
-					[Roact.Event.MouseLeave] = self.mouseLeave,
-				}, {
-					EventMarker = Roact.createElement("ImageLabel", {
-						Size = UDim2.new(0, 5, 0, 15),
-						Position = UDim2.new(0, 1, 0, 1),
-						Image = trackTheme.addEventBackground,
-						ImageColor3 = eventMarker.imageColor,
-						BackgroundTransparency = 1,
-					}),
+			[Roact.Event.Activated] = self.onButtonClick,
+			[Roact.Event.MouseEnter] = self.mouseEnter,
+			[Roact.Event.MouseLeave] = self.mouseLeave,
+		}, {
+			EventMarker = Roact.createElement("ImageLabel", {
+				Size = UDim2.new(0, 5, 0, 15),
+				Position = UDim2.new(0, 1, 0, 1),
+				Image = trackTheme.addEventBackground,
+				ImageColor3 = eventMarker.imageColor,
+				BackgroundTransparency = 1,
+			}),
 
-					EventBorder = Roact.createElement("ImageLabel", {
-						Size = UDim2.new(0, 15, 0, 15),
-						Position = UDim2.new(0.5, 0, 0.5, 0),
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						Image = trackTheme.addEventBorder,
-						ImageColor3 = trackTheme.plusIconColor,
-						BackgroundTransparency = 1,
-					}),
-				}),
-			})
+			EventBorder = Roact.createElement("ImageLabel", {
+				Size = UDim2.new(0, 15, 0, 15),
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Image = trackTheme.addEventBorder,
+				ImageColor3 = trackTheme.plusIconColor,
+				BackgroundTransparency = 1,
+			}),
+		}),
+	})
 end
 
-
 AnimationEventsTrack = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse
 })(AnimationEventsTrack)
-
-
-
 
 return AnimationEventsTrack

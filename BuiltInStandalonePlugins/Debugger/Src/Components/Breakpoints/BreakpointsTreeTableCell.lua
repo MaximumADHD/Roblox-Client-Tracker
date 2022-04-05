@@ -68,7 +68,7 @@ function BreakpointsTreeTableCell:render()
 	local props = self.props
 	local column = props.Columns[props.ColumnIndex]
 	local key = column.Key
-	local width = UDim.new(1 / #props.Columns, 0)
+	local width = props.Width or UDim.new(1 / #props.Columns, 0)
 	local row = props.Row
 	local cellProps = props.CellProps
 	local value = row.item[key]
@@ -209,6 +209,7 @@ function BreakpointsTreeTableCell:render()
 		Columns = props.Columns,
 		ColumnIndex = props.ColumnIndex,
 		Row = props.Row,
+		Width = props.Width,
 		Style = props.Style,
 		RowIndex = props.RowIndex,
 		HighlightCell = props.HighlightCell,

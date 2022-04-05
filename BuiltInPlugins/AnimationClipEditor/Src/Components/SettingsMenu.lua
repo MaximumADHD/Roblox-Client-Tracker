@@ -1,3 +1,4 @@
+--!strict
 --[[
 	Handles the settings menu which appears when the user clicks the SettingsButton.
 
@@ -13,19 +14,54 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local Constants = require(Plugin.Src.Util.Constants)
+local SetDefaultRotationType = require(Plugin.Src.Actions.SetDefaultRotationType)
+local SetFrameRate = require(Plugin.Src.Actions.SetFrameRate)
+local SetShowAsSeconds = require(Plugin.Src.Actions.SetShowAsSeconds)
+local SetShowEvents = require(Plugin.Src.Actions.SetShowEvents)
+local SetSnapMode = require(Plugin.Src.Actions.SetSnapMode)
 
 local ContextMenu = require(Plugin.Src.Components.ContextMenu)
-local SetShowAsSeconds = require(Plugin.Src.Actions.SetShowAsSeconds)
-local SetSnapMode = require(Plugin.Src.Actions.SetSnapMode)
-local SetFrameRate = require(Plugin.Src.Actions.SetFrameRate)
-local SetShowEvents = require(Plugin.Src.Actions.SetShowEvents)
+
 local SetPlaybackSpeed = require(Plugin.Src.Thunks.Playback.SetPlaybackSpeed)
+
+local AnimationData = require(Plugin.Src.Util.AnimationData)
+local Constants = require(Plugin.Src.Util.Constants)
+
+local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
 
 local SettingsMenu = Roact.PureComponent:extend("SettingsMenu")
 
-function SettingsMenu:makeTimelineUnitMenu(localization)
+export type Props = {
+	-- State/Context
+	Analytics: any,
+	AnimationData: AnimationData.AnimationData,
+	DefaultRotationType: string,
+	FrameRate: number,
+	Localization: any,
+	PlaybackSpeed: number,
+	Plugin: any,
+	ShowAsSeconds: boolean,
+	ShowEvents: boolean,
+	SnapMode: string,
+
+	-- Actions/Thunks
+	SetDefaultRotationType: (string) -> (),
+	SetFrameRate: (number) -> (),
+	SetPlaybackSpeed: (number) -> (),
+	SetShowAsSeconds: (boolean) -> (),
+	SetShowEvents: (boolean) -> (),
+	SetSnapMode: (string) -> (),
+
+	-- Properties
+	ShowMenu: boolean,
+
+	OnMenuOpened: () -> (),
+}
+
+function SettingsMenu:makeTimelineUnitMenu(): (ContextMenu.MenuItem)
 	local props = self.props
+	local localization = props.Localization
+	local plugin = props.Plugin:get()
 
 	return {
 		Name = localization:getText("Settings", "TimelineUnit"),
@@ -34,15 +70,22 @@ function SettingsMenu:makeTimelineUnitMenu(localization)
 			{Name = localization:getText("Settings", "Frames"), Value = Constants.TIMELINE_UNITS.Frames},
 		},
 		CurrentValue = props.ShowAsSeconds and Constants.TIMELINE_UNITS.Seconds or Constants.TIMELINE_UNITS.Frames,
-		ItemSelected = function(item)
-			props.SetShowAsSeconds(item.Value == Constants.TIMELINE_UNITS.Seconds)
+		ItemSelected = function(item: ContextMenu.MenuItem): ()
+			if GetFFlagQuaternionsUI() then
+				local showAsSeconds = item.Value == Constants.TIMELINE_UNITS.Seconds
+				plugin:SetSetting("ShowAsSeconds", showAsSeconds)
+				props.SetShowAsSeconds(showAsSeconds)
+			else
+				props.SetShowAsSeconds(item.Value == Constants.TIMELINE_UNITS.Seconds)
+			end
 			props.Analytics:report("onTimeUnitChanged", item.Value)
 		end,
 	}
 end
 
-function SettingsMenu:makePlaybackSpeedMenu(localization)
+function SettingsMenu:makePlaybackSpeedMenu(): (ContextMenu.MenuItem)
 	local props = self.props
+	local localization = props.Localization
 	local playbackSpeed = props.PlaybackSpeed
 
 	local isPresetPlaybackSpeed = false
@@ -65,7 +108,7 @@ function SettingsMenu:makePlaybackSpeedMenu(localization)
 		},
 
 		CurrentValue = isPresetPlaybackSpeed and playbackSpeed or Constants.PLAYBACK_SPEEDS.CUSTOM,
-		ItemSelected = function(item)
+		ItemSelected = function(item: ContextMenu.MenuItem): ()
 			if item.Value ~= Constants.PLAYBACK_SPEEDS.CUSTOM then
 				props.SetPlaybackSpeed(item.Value)
 			else
@@ -77,11 +120,12 @@ function SettingsMenu:makePlaybackSpeedMenu(localization)
 	}
 end
 
-function SettingsMenu:makeFrameRateMenu(localization)
+function SettingsMenu:makeFrameRateMenu(): (ContextMenu.MenuItem)?
 	local props = self.props
+	local localization = props.Localization
 	local animationData = props.AnimationData
 	if not animationData or not animationData.Metadata then
-		return
+		return nil
 	end
 
 	local currentFPS = props.FrameRate
@@ -105,7 +149,7 @@ function SettingsMenu:makeFrameRateMenu(localization)
 		},
 
 		CurrentValue = isPresetFrameRate and currentFPS or Constants.FRAMERATES.CUSTOM,
-		ItemSelected = function(item)
+		ItemSelected = function(item: ContextMenu.MenuItem): ()
 			if item.Value ~= Constants.FRAMERATES.CUSTOM then
 				props.SetFrameRate(item.Value)
 			else
@@ -117,8 +161,10 @@ function SettingsMenu:makeFrameRateMenu(localization)
 	}
 end
 
-function SettingsMenu:makeSnapMenu(localization)
+function SettingsMenu:makeSnapMenu(): (ContextMenu.MenuItem)
 	local props = self.props
+	local localization = props.Localization
+	local plugin = props.Plugin:get()
 	local snapMode = props.SnapMode
 
 	return {
@@ -130,93 +176,142 @@ function SettingsMenu:makeSnapMenu(localization)
 		},
 
 		CurrentValue = snapMode,
-		ItemSelected = function(item)
+		ItemSelected = function(item: ContextMenu.MenuItem): ()
+			if GetFFlagQuaternionsUI() then
+				plugin:SetSetting("SnapMode", item.Value)
+			end
 			props.SetSnapMode(item.Value)
 		end,
 	}
 end
 
-function SettingsMenu:makeMenuActions(localization)
+function SettingsMenu:makeDefaultRotationTypeMenu(): (ContextMenu.MenuItem)
 	local props = self.props
-	local actions = {}
+	local localization = props.Localization
+	local plugin = props.Plugin:get()
+	local rotationType = props.DefaultRotationType
 
-	table.insert(actions, self:makeTimelineUnitMenu(localization))
-	table.insert(actions, Constants.MENU_SEPARATOR)
+	return {
+		Name = localization:getText("Settings", "DefaultRotationType"),
+		Items = {
+			{Name = localization:getText("Settings", "Quaternions"), Value = Constants.TRACK_TYPES.Quaternion},
+			{Name = localization:getText("Settings", "EulerAngles"), Value = Constants.TRACK_TYPES.EulerAngles},
+		},
+		CurrentValue = rotationType,
+		ItemSelected = function(item: ContextMenu.MenuItem): ()
+			plugin:SetSetting("RotationType", item.Value)
+			props.SetDefaultRotationType(item.Value)
+		end,
+	}
+end
 
-	table.insert(actions, self:makeFrameRateMenu(localization))
-	table.insert(actions, self:makePlaybackSpeedMenu(localization))
-	table.insert(actions, Constants.MENU_SEPARATOR)
+function SettingsMenu:makeShowEvents(): (ContextMenu.MenuItem)
+	local props = self.props
+	local localization = props.Localization
 
-	table.insert(actions, {
+	return {
 		Name = localization:getText("Settings", "ShowEvents"),
 		Checked = props.ShowEvents,
-		ItemSelected = function()
+		ItemSelected = function(): ()
 			props.SetShowEvents(not props.ShowEvents)
 		end,
-	})
-	table.insert(actions, self:makeSnapMenu(localization))
+	}
+end
+
+function SettingsMenu:makeMenuActions(): ({string | ContextMenu.MenuItem})
+	local props = self.props
+	local localization = props.Localization
+	local actions = {}
+
+	table.insert(actions, self:makeTimelineUnitMenu())
+	table.insert(actions, Constants.MENU_SEPARATOR)
+
+	table.insert(actions, self:makeFrameRateMenu())
+	table.insert(actions, self:makePlaybackSpeedMenu())
+	table.insert(actions, Constants.MENU_SEPARATOR)
+
+	if GetFFlagQuaternionsUI() then
+		table.insert(actions, self:makeShowEvents())
+	else
+		table.insert(actions, {
+			Name = localization:getText("Settings", "ShowEvents"),
+			Checked = props.ShowEvents,
+			ItemSelected = function()
+				props.SetShowEvents(not props.ShowEvents)
+			end,
+		})
+	end
+	table.insert(actions, self:makeSnapMenu())
+
+	if GetFFlagQuaternionsUI() then
+		table.insert(actions, Constants.MENU_SEPARATOR)
+		table.insert(actions, self:makeDefaultRotationTypeMenu())
+	end
+
 	return actions
 end
 
-function SettingsMenu:render()
-	local localization = self.props.Localization
-		local props = self.props
-		local showMenu = props.ShowMenu
+function SettingsMenu:render(): (any?)
+	local props = self.props
+	local showMenu = props.ShowMenu
 
-		return showMenu and Roact.createElement(ContextMenu, {
-			Actions = self:makeMenuActions(localization),
-			OnMenuOpened = props.OnMenuOpened,
-		}) or nil
+	return showMenu and Roact.createElement(ContextMenu, {
+		Actions = self:makeMenuActions(),
+		OnMenuOpened = props.OnMenuOpened,
+	}) or nil
 end
 
-local function mapStateToProps(state, props)
+local function mapStateToProps(state): {[string]: any}
 	local status = state.Status
 
 	local stateToProps = {
+		Analytics = if GetFFlagQuaternionsUI() then state.Analytics else nil,
+		AnimationData = state.AnimationData,
+		DefaultRotationType = status.DefaultRotationType,
+		FrameRate = status.FrameRate,
+		PlaybackSpeed = status.PlaybackSpeed,
 		ShowAsSeconds = status.ShowAsSeconds,
 		ShowEvents = status.ShowEvents,
-		Analytics = state.Analytics,
-		AnimationData = state.AnimationData,
-		FrameRate = status.FrameRate,
 		SnapMode = status.SnapMode,
-		PlaybackSpeed = status.PlaybackSpeed,
 	}
 
 	return stateToProps
 end
 
-local function mapDispatchToProps(dispatch)
+local function mapDispatchToProps(dispatch): {[string]: any}
 	local dispatchToProps = {
-		SetShowAsSeconds = function(showAsSeconds)
-			dispatch(SetShowAsSeconds(showAsSeconds))
+		SetDefaultRotationType = function(rotationType: string): ()
+			dispatch(SetDefaultRotationType(rotationType))
 		end,
 
-		SetFrameRate = function(frameRate)
+		SetFrameRate = function(frameRate: number): ()
 			dispatch(SetFrameRate(frameRate))
 		end,
 
-		SetPlaybackSpeed = function(playbackSpeed)
+		SetPlaybackSpeed = function(playbackSpeed: number): ()
 			dispatch(SetPlaybackSpeed(playbackSpeed))
 		end,
 
-		SetSnapMode = function(snapMode)
-			dispatch(SetSnapMode(snapMode))
+		SetShowAsSeconds = function(showAsSeconds: boolean): ()
+			dispatch(SetShowAsSeconds(showAsSeconds))
 		end,
 
-		SetShowEvents = function(showEvents)
+		SetShowEvents = function(showEvents: boolean): ()
 			dispatch(SetShowEvents(showEvents))
+		end,
+
+		SetSnapMode = function(snapMode: string): ()
+			dispatch(SetSnapMode(snapMode))
 		end,
 	}
 
 	return dispatchToProps
 end
 
-
 SettingsMenu = withContext({
 	Localization = ContextServices.Localization,
-	Analytics = ContextServices.Analytics
+	Analytics = ContextServices.Analytics,
+	Plugin = ContextServices.Plugin,
 })(SettingsMenu)
-
-
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(SettingsMenu)

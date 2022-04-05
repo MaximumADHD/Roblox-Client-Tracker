@@ -78,7 +78,7 @@ return function()
 		local marker = Instance.new("KeyframeMarker", keyframe)
 		marker.Name = "TestEvent"
 		marker.Value = "TestValue"
-		if game:GetFastFlag("UseFilteredGetKeyframes") and game:GetFastFlag("SaveAnimationRigWithKeyframeSequence2") then
+		if game:GetFastFlag("SaveAnimationRigWithKeyframeSequence2") then
 			local animationRig = Instance.new("AnimationRigData", keyframeSequence)
 			animationRig.Name = "KFSAnimationRig"
 		end
@@ -137,7 +137,7 @@ return function()
 		mb.Name = "BarEvent"
 		mb:InsertMarkerAtTime(0, "BarValue")
 
-		if game:GetFastFlag("UseFilteredGetKeyframes") and game:GetFastFlag("SaveAnimationRigWithKeyframeSequence2") then
+		if game:GetFastFlag("SaveAnimationRigWithKeyframeSequence2") then
 			local animationRig = Instance.new("AnimationRigData", curveAnimation)
 			animationRig.Name = "CurveAnimationRig"
 		end
@@ -372,7 +372,7 @@ return function()
 			expect(metadata.Name).to.equal("KeyframeSequence")
 			expect(metadata.Looping).to.equal(false)
 			expect(metadata.Priority).to.equal(Enum.AnimationPriority.Idle)
-			if game:GetFastFlag("UseFilteredGetKeyframes") and game:GetFastFlag("SaveAnimationRigWithKeyframeSequence2") then
+			if game:GetFastFlag("SaveAnimationRigWithKeyframeSequence2") then
 				expect(metadata.AnimationRig).to.be.ok()
 				expect(metadata.AnimationRig.Name).to.equal("KFSAnimationRig")
 			end
@@ -437,7 +437,7 @@ return function()
 			local animationRig = Instance.new("AnimationRigData", keyframeSequence)
 			expect(#keyframeSequence:GetChildren()).to.equal(2)
 			if game:GetFastFlag("UseFilteredGetKeyframes") then
-				expect(#keyframeSequence:GetKeyframes()).to.equal(1)
+			expect(#keyframeSequence:GetKeyframes()).to.equal(1)
 			else
 				expect(#keyframeSequence:GetKeyframes()).to.equal(2)
 			end
@@ -666,7 +666,7 @@ return function()
 				expect(metadata.Name).to.equal("CurveAnimation")
 				expect(metadata.Looping).to.equal(true)
 				expect(metadata.Priority).to.equal(Enum.AnimationPriority.Idle)
-				if game:GetFastFlag("UseFilteredGetKeyframes") and game:GetFastFlag("SaveAnimationRigWithKeyframeSequence2") then
+				if game:GetFastFlag("SaveAnimationRigWithKeyframeSequence2") then
 					expect(metadata.AnimationRig).to.be.ok()
 					expect(metadata.AnimationRig.Name).to.equal("CurveAnimationRig")
 				end

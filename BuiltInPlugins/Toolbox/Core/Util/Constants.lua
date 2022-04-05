@@ -8,7 +8,8 @@ local TextService = game:GetService("TextService")
 local StudioService = game:GetService("StudioService")
 
 local FFlagToolboxUpdateWindowMinSize = game:GetFastFlag("ToolboxUpdateWindowMinSize")
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
+local FFlagToolboxAssetStyleUpdate = game:GetFastFlag("ToolboxAssetStyleUpdate")
 
 local Constants = {}
 
@@ -24,7 +25,7 @@ Constants.FONT_SIZE_LARGE = 18
 Constants.FONT_SIZE_TITLE = 22
 Constants.FONT_SIZE_ASSET_CONFIG_INPUT = 20
 
-if FFlagToolboxAssetCategorization then
+if FFlagToolboxAssetCategorization2 then
 	Constants.NAVIGATION = {
 		HOME = "Home",
 		SUBCATEGORY = "Subategory",
@@ -95,7 +96,7 @@ Constants.FOOTER_HEIGHT = 35
 Constants.BACKGROUND_BUTTON_ICON_SIZE = 10
 Constants.BACKGROUND_BUTTON_FONT_SIZE = Constants.FONT_SIZE_SMALL
 
-if FFlagToolboxAssetCategorization then
+if FFlagToolboxAssetCategorization2 then
 	Constants.MAIN_VIEW_PADDING = 10
 else
 	Constants.MAIN_VIEW_PADDING = 8
@@ -144,6 +145,10 @@ Constants.ASSET_VOTE_BAR_OUTER_HEIGHT = 13
 Constants.ASSET_VOTE_COUNT_FONT_SIZE = Constants.FONT_SIZE_SMALL
 Constants.ASSET_VOTE_COUNT_HEIGHT = Constants.ASSET_VOTE_COUNT_FONT_SIZE
 Constants.ASSET_VOTING_HEIGHT = Constants.ASSET_VOTE_BAR_OUTER_HEIGHT + Constants.ASSET_VOTE_COUNT_HEIGHT
+
+if FFlagToolboxAssetStyleUpdate then
+	Constants.ASSET_CORNER_RADIUS = 5
+end
 
 Constants.ASSET_HEIGHT = Constants.ASSET_THUMBNAIL_SIZE + Constants.ASSET_INNER_PADDING + Constants.ASSET_NAME_HEIGHT
 

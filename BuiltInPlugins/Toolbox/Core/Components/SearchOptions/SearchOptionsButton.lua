@@ -5,6 +5,7 @@
 		int LayoutOrder = The order in which this button appears in a layout.
 		function onClick = A callback for when the user clicks this button.
 ]]
+local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -48,12 +49,26 @@ function SearchOptionsButton:render()
 	local layoutOrder = self.props.LayoutOrder
 	local hovered = self.state.hovered
 
+	-- Change color of search option dialog launching button depending on state
+	local imageColor
+	if FFlagToolboxShowIdVerifiedFilter then
+		-- If the search is filtered (to id verified assets), we use the selected blue color
+		-- to indicate that when the mouse is off of the button.
+		imageColor = if hovered
+			then theme.searchOptions.imageHoveredColor
+			else if self.props.searchIsFiltered
+				then theme.searchOptions.imageSelectedColor
+				else theme.searchOptions.imageColor
+	else
+		imageColor = hovered and theme.searchOptions.imageSelectedColor or theme.searchOptions.imageColor
+	end
+
 	return Roact.createElement("ImageButton", {
 		Size = UDim2.new(0, Constants.HEADER_OPTIONSBUTTON_WIDTH, 0, Constants.HEADER_OPTIONSBUTTON_HEIGHT),
 		LayoutOrder = layoutOrder,
 		BackgroundTransparency = 1,
 		Image = Images.SEARCH_OPTIONS,
-		ImageColor3 = hovered and theme.searchOptions.imageSelectedColor or theme.searchOptions.imageColor,
+		ImageColor3 = imageColor,
 		ScaleType = Enum.ScaleType.Fit,
 		ZIndex = 2,
 

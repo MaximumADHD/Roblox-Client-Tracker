@@ -5,8 +5,6 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
@@ -24,7 +22,7 @@ function RoundFrame:init(initialProps)
 end
 
 function RoundFrame:render()
-	local theme = THEME_REFACTOR and self.props.Stylizer.PluginTheme or self.props.Theme:get("PluginTheme")
+	local theme = self.props.Stylizer.PluginTheme
 
 	local props = self.props
 	local roundFrameTheme = theme.roundFrame
@@ -86,13 +84,8 @@ function RoundFrame:render()
 	})
 end
 
-
 RoundFrame = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(RoundFrame)
-
-
-
 
 return RoundFrame

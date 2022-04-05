@@ -15,8 +15,6 @@ local Roact = require(Plugin.Packages.Roact)
 local DragListenerArea = require(Plugin.Src.Components.DragListenerArea)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -25,33 +23,29 @@ local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local TrackListBorder = Roact.PureComponent:extend("TrackListBorder")
 
 function TrackListBorder:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
 
-		return Roact.createElement("Frame", {
-			Size = UDim2.new(0, 2, 1, 0),
-			LayoutOrder = 1,
-			BackgroundColor3 = theme.borderColor,
-			BorderSizePixel = 0,
-			ZIndex = GetFFlagCurveEditor() and props.ZIndex or 2,
-		}, {
-			DragArea = Roact.createElement(DragListenerArea, {
-				AnchorPoint = Vector2.new(1, 0),
-				Size = UDim2.new(0, HITBOX_WIDTH, 1, 0),
-				ZIndex = 2,
-				Cursor = "SplitEW",
+	return Roact.createElement("Frame", {
+		Size = UDim2.new(0, 2, 1, 0),
+		LayoutOrder = 1,
+		BackgroundColor3 = theme.borderColor,
+		BorderSizePixel = 0,
+		ZIndex = GetFFlagCurveEditor() and props.ZIndex or 2,
+	}, {
+		DragArea = Roact.createElement(DragListenerArea, {
+			AnchorPoint = Vector2.new(1, 0),
+			Size = UDim2.new(0, HITBOX_WIDTH, 1, 0),
+			ZIndex = 2,
+			Cursor = "SplitEW",
 
-				OnDragMoved = props.OnDragMoved,
-			}),
-		})
+			OnDragMoved = props.OnDragMoved,
+		}),
+	})
 end
 
-
 TrackListBorder = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(TrackListBorder)
-
-
 
 return TrackListBorder

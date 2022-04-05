@@ -15,8 +15,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -47,7 +45,7 @@ end
 
 function SummaryTrack:render()
 	local props = self.props
-	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
+	local theme = props.Stylizer.PluginTheme
 	local name = props.Name
 	local layoutOrder = props.LayoutOrder
 	local tracks = props.UnusedTracks
@@ -79,7 +77,7 @@ function SummaryTrack:render()
 		--new multi buttons in list layout for when FaceControlsEditorUI is enabled
 		LeftButtonsListContainer = GetFFlagFaceControlsEditorUI() and Roact.createElement("Frame", {
 			AnchorPoint = Vector2.new(0, 0.5),
-			BorderSizePixel = 0,				
+			BorderSizePixel = 0,
 			BackgroundTransparency = 0,
 			Position = UDim2.new(0, textWidth + PADDING, 0.5, 0),
 		},	{
@@ -88,17 +86,17 @@ function SummaryTrack:render()
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				Padding = UDim.new(0, PADDING),
-			}),	
+			}),
 			IKController = Roact.createElement(IKController, {
 			}),
 			FaceControlsEditorController = Roact.createElement(FaceControlsEditorController, {
-			}),			
+			}),
 		}),
 
 		--old single button layout for when FaceControlsEditorUI is not enabled
 		IKController = not GetFFlagFaceControlsEditorUI() and Roact.createElement(IKController, {
 			Position = UDim2.new(0, textWidth + PADDING, 0.5, 0),
-		}),		
+		}),
 
 		AddTrackButton = (GetFFlagFacialAnimationSupport() and showTrackButton or (tracks and not isEmpty(tracks))) and Roact.createElement(AddTrackButton, {
 			Size = UDim2.new(0, Constants.TRACKLIST_BUTTON_SIZE, 0, Constants.TRACKLIST_BUTTON_SIZE),
@@ -110,13 +108,8 @@ function SummaryTrack:render()
 	})
 end
 
-
 SummaryTrack = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(SummaryTrack)
-
-
-
 
 return SummaryTrack

@@ -28,7 +28,6 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local KeyboardListener = Framework.UI.KeyboardListener
 local DragTarget = Framework.UI.DragListener
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local Constants = require(Plugin.Src.Util.Constants)
@@ -62,6 +61,9 @@ local ScaleSelectedKeyframes = require(Plugin.Src.Thunks.Selection.ScaleSelected
 local SelectKeyframeRange = require(Plugin.Src.Thunks.Selection.SelectKeyframeRange)
 local SetKeyframeTangent = require(Plugin.Src.Thunks.SetKeyframeTangent)
 local SetSelectedKeyframeData = require(Plugin.Src.Thunks.Selection.SetSelectedKeyframeData)
+
+local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
+local GetFFlagQuaternionCurves = require(Plugin.LuaFlags.GetFFlagQuaternionCurves)
 
 local CurveEditorController = Roact.Component:extend("CurveEditorController")
 
@@ -298,6 +300,7 @@ function CurveEditorController:init()
 	end
 
 	self.onSetTangent = function(instanceName: string, path: {string}, tck: number, side: string, slope: number): ()
+		self.props.AddWaypoint()
 		self.props.SetKeyframeTangent(instanceName, path, tck, side, slope or Cryo.None)
 	end
 
@@ -320,8 +323,13 @@ function CurveEditorController:init()
 		for _, track in ipairs(self.tracks) do
 			local instance = track.Instance
 			for tck, data in pairs(track.Data) do
-				local value = data.Value
-				if tck >= minPos.X and tck <= maxPos.X and value >= minPos.Y and value <= maxPos.Y then
+				local valueInRange = false
+				if GetFFlagQuaternionCurves() and track.Type == Constants.TRACK_TYPES.Quaternion then
+					valueInRange = (minPos.Y <= 1 and 1 <= maxPos.Y) or (minPos.Y <= 0 and 0 <= maxPos.Y)
+				else
+					valueInRange = data.Value >= minPos.Y and data.Value <= maxPos.Y
+				end
+				if tck >= minPos.X and tck <= maxPos.X and valueInRange then
 					if not selection[instance] then
 						selection[instance] = {}
 					end
@@ -413,11 +421,37 @@ function CurveEditorController:init()
 				})
 			end
 		elseif dragContext.dragMode == Constants.DRAG_MODE.Tangent then
-			if (dragContext.side == Constants.SLOPES.Left and tck < dragContext.tck) or
-				(dragContext.side == Constants.SLOPES.Right and tck > dragContext.tck) then
-				local slope = (value - dragContext.value) / (tck - dragContext.tck)
+			if GetFFlagQuaternionCurves() then
+				local refValue = dragContext.value
+				if dragContext.side == Constants.SLOPES.Left then
+					if tck >= dragContext.tck then
+						return
+					end
+
+					-- Use 1 as refValue.Y when dragging the left tangent
+					if dragContext.trackType == Constants.TRACK_TYPES.Quaternion then
+						refValue = 1
+					end
+				elseif dragContext.side == Constants.SLOPES.Right then
+					if tck <= dragContext.tck then
+						return
+					end
+					-- Use 0 as refValue.Y when dragging the right tangent
+					if dragContext.trackType == Constants.TRACK_TYPES.Quaternion then
+						refValue = 0
+					end
+				end
+
+				local slope = (value - refValue) / (tck - dragContext.tck)
 				self.addDragWaypoint()
 				self.props.SetKeyframeTangent(dragContext.instance, dragContext.path, dragContext.tck, dragContext.side, slope)
+			else
+				if (dragContext.side == Constants.SLOPES.Left and tck < dragContext.tck) or
+					(dragContext.side == Constants.SLOPES.Right and tck > dragContext.tck) then
+					local slope = (value - dragContext.value) / (tck - dragContext.tck)
+					self.addDragWaypoint()
+					self.props.SetKeyframeTangent(dragContext.instance, dragContext.path, dragContext.tck, dragContext.side, slope)
+				end
 			end
 		end
 	end
@@ -513,6 +547,9 @@ function CurveEditorController:updateCanvasExtents(): ()
 					self.minValue = self.minValue and math.min(self.minValue, keyframe.Value) or keyframe.Value
 					self.maxValue = self.maxValue and math.max(self.maxValue, keyframe.Value) or keyframe.Value
 				end
+			elseif GetFFlagQuaternionCurves() then
+				self.minValue = self.minValue and math.min(self.minValue, 0) or 0
+				self.maxValue = self.maxValue and math.max(self.maxValue, 1) or 1
 			end
 		end, true)
 	end
@@ -542,7 +579,7 @@ function CurveEditorController:updateTracks(nextProps: Props): ()
 			TrackUtils.traverseTracks(nil, track, function(t, _, path)
 				local fullPath = Cryo.List.join(selectedTrack, path)
 				local fullPathName = table.concat(fullPath, ".")
-				if t.Type ~= Constants.TRACK_TYPES.Quaternion and not addedTracks[fullPathName] then
+				if (GetFFlagQuaternionCurves() or t.Type ~= Constants.TRACK_TYPES.Quaternion) and not addedTracks[fullPathName] then
 					table.insert(self.tracks, Cryo.Dictionary.join(t, {Path = fullPath, Instance = "Root"}))
 					addedTracks[fullPathName] = true
 				end
@@ -608,30 +645,6 @@ function CurveEditorController:handleCanvasInputEnded(input: any): ()
 	elseif input.UserInputType == Enum.UserInputType.MouseButton1 then
 		self.mouseDownInCanvas = false
 	elseif input.UserInputType == Enum.UserInputType.MouseButton2 then
-		-- local path
-		-- local track, trackIndex, trackType, rotationType
-		-- local isChannelAnimation = self.props.IsChannelAnimation
-
-		-- if isChannelAnimation then
-		-- 	trackIndex, path, trackType, rotationType = self.getTrackInfoFromPosition(input.Position)
-		-- 	track = self.tracks[trackIndex]
-		-- else
-		-- 	trackIndex = self.getTrackFromPosition(input.Position)
-		-- 	track = self.tracks[trackIndex]
-		-- 	if track then
-		-- 		path = {track.Name}
-		-- 		trackType = track.Type
-		-- 		rotationType = TrackUtils.getRotationType(track)
-		-- 	end
-		-- end
-
-		-- self.props.SetRightClickContextInfo({
-		-- 	Tick = self.getTickFromPosition(input.Position, true),
-		-- 	Path = path,
-		-- 	TrackType = trackType,
-		-- 	RotationType = rotationType,
-		-- 	InstanceName = track and track.Instance or nil,
-		-- })
 		self.showKeyframeMenu()
 	end
 end
@@ -639,7 +652,7 @@ end
 function CurveEditorController:render(): (any)
 	local props = self.props
 	local state = self.state
-	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or self.props.Theme:get("PluginTheme")
+	local theme = props.Stylizer.PluginTheme
 
 	local animationData = props.AnimationData
 	local isMounted = self.isMounted
@@ -734,7 +747,7 @@ function CurveEditorController:render(): (any)
 				OnMenuOpened = self.hideTangentMenu,
 				OnSetTangent = self.onSetTangent,
 			}) or nil,
-			VerticalScale = Roact.createElement(Scale, {
+			PositionScale = Roact.createElement(Scale, {
 				Size = UDim2.new(0, props.TrackPadding / 2, 1, 0),
 				Width = props.TrackPadding / 2,
 				ParentSize = canvasSize,
@@ -745,6 +758,7 @@ function CurveEditorController:render(): (any)
 				MaxValue = maxValue,
 				VerticalScroll = props.VerticalScroll,
 				VerticalZoom = props.VerticalZoom,
+				ScaleType = Constants.SCALE_TYPE.Number,
 				ZIndex = 3,
 			}),
 			-- We want to wait for the component to be mounted before rendering the CurveCanvas. If we don't, the first
@@ -774,7 +788,7 @@ function CurveEditorController:render(): (any)
 				OnTangentInputEnded = self.handleTangentInputEnded,
 			}) or nil,
 
-			RightMask = Roact.createElement("Frame", {
+			RightMask = not GetFFlagQuaternionsUI() and Roact.createElement("Frame", {
 				AnchorPoint = Vector2.new(0, 0),
 				Size = UDim2.new(0, props.TrackPadding / 2 + Constants.SCROLL_BAR_SIZE - 1, 1, Constants.SCROLL_BAR_SIZE),
 				Position = UDim2.new(1, -props.TrackPadding / 2, 0, 0),
@@ -782,7 +796,22 @@ function CurveEditorController:render(): (any)
 				BorderColor3 = theme.borderColor,
 				BorderSizePixel = 1,
 				ZIndex = 3,
-			}),
+			}) or nil,
+
+			RotationScale = GetFFlagQuaternionsUI() and Roact.createElement(Scale, {
+				Size = UDim2.new(0, props.TrackPadding / 2, 1, 0),
+				Width = props.TrackPadding / 2,
+				ParentSize = canvasSize,
+				Position = UDim2.new(1, -props.TrackPadding / 2, 0, 0),
+				TickWidthScale = 0.7,
+				SmallTickWidthScale = 0.3,
+				MinValue = math.deg(minValue),
+				MaxValue = math.deg(maxValue),
+				VerticalScroll = props.VerticalScroll,
+				VerticalZoom = props.VerticalZoom,
+				ScaleType = Constants.SCALE_TYPE.Angle,
+				ZIndex = 4,
+			}) or nil,
 
 			ScaleControls = multipleSelected and not draggingSelection and Roact.createElement(ScaleControls, {
 				SelectedKeyframes = selectedKeyframes,
@@ -834,8 +863,7 @@ end
 CurveEditorController = withContext({
 	Localization = ContextServices.Localization,
 	Analytics = ContextServices.Analytics,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(CurveEditorController)
 
 local function mapStateToProps(state): ({[string]: any})

@@ -1,4 +1,9 @@
 return function()
+	local FFlagToolboxAssetStyleUpdate = game:GetFastFlag("ToolboxAssetStyleUpdate")
+	if FFlagToolboxAssetStyleUpdate then
+		return
+	end
+
 	local Plugin = script.Parent.Parent.Parent.Parent
 
 	local Packages = Plugin.Packages

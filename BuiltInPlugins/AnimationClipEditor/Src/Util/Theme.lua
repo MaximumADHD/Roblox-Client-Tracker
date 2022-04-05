@@ -2,9 +2,7 @@ local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local StyleModifier = Util.StyleModifier
-local StyleTable = Util.StyleTable
 local Style = Framework.Style
 local StudioTheme = Style.Themes.StudioTheme
 local StyleKey = Style.StyleKey
@@ -252,7 +250,7 @@ local faceSliderTheme = {
 		LowerKnobBackground = Decoration.Image,
 		LowerKnobBackgroundStyle = knobStyle,
 		UpperKnobBackground = Decoration.Image,
-		UpperKnobBackgroundStyle = knobStyle,	
+		UpperKnobBackgroundStyle = knobStyle,
 }
 
 -- Rest of the values come from UILibrary createTheme.lua and StudioStyle.lua
@@ -260,10 +258,6 @@ local roundFrameTheme = {
 	slice = Rect.new(3, 3, 13, 13),
 	backgroundImage = "rbxasset://textures/StudioToolbox/RoundedBackground.png",
 	borderImage = "rbxasset://textures/StudioToolbox/RoundedBorder.png",
-}
-
-local textButtonTheme = {
-	font = Enum.Font.SourceSans,
 }
 
 local buttonTheme = {
@@ -540,20 +534,16 @@ local UILibraryOverrides = {
 	},
 }
 
-if THEME_REFACTOR then
-	return function(createMock: boolean?)
-		local styleRoot
-		if createMock then
-			styleRoot = StudioTheme.mock(overridedDarkTheme)
-		else
-			styleRoot = StudioTheme.new(overridedDarkTheme, overridedLightTheme)
-		end
-
-		return styleRoot:extend({
-			PluginTheme = PluginTheme,
-			UILibraryOverrides = UILibraryOverrides,
-		})
+return function(createMock: boolean?)
+	local styleRoot
+	if createMock then
+		styleRoot = StudioTheme.mock(overridedDarkTheme)
+	else
+		styleRoot = StudioTheme.new(overridedDarkTheme, overridedLightTheme)
 	end
-else
-	return require(script.Parent.Theme_deprecated)
+
+	return styleRoot:extend({
+		PluginTheme = PluginTheme,
+		UILibraryOverrides = UILibraryOverrides,
+	})
 end

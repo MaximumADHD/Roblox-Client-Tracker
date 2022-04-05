@@ -14,7 +14,7 @@ local Test = require(root.src.Thunks.Test)
 local Clean = require(root.src.Thunks.Clean)
 local FixStiffness = require(root.src.Thunks.FixStiffness)
 
-local DeveloperFramework = require(root.Packages.DeveloperFramework)
+local DeveloperFramework = require(root.Packages.Framework)
 
 local ContextServices = DeveloperFramework.ContextServices
 local Plugin = ContextServices.Plugin

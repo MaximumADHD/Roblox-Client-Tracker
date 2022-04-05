@@ -34,6 +34,7 @@ local ACTION_KEYS = {
 	"DeleteTrack",
 	"ClearTrack",
 	"AddKeyframe",
+	"ConvertToEulerAngles",
 
 	-- History
 	"Undo",

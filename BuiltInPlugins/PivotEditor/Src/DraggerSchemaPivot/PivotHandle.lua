@@ -1,4 +1,5 @@
--- Libraries
+local FFlagPivotEditorUpdateSnapPointsOnAltKey =  game:GetFastFlag("PivotEditorUpdateSnapPointsOnAltKey")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -32,7 +33,7 @@ function PivotHandle:shouldBiasTowardsObjects()
 end
 
 function PivotHandle:hitTest(mouseRay, ignoreExtraThreshold)
-	local screenPoint, onScreen = 
+	local screenPoint, onScreen =
 		self._draggerContext:worldToViewportPoint(self._originalPivot.Position)
 	if onScreen then
 		local mouseLocation = self._draggerContext:getMouseLocation()
@@ -94,6 +95,13 @@ function PivotHandle:mouseDown(mouseRay, handleId)
 	end
 end
 
+local isAlt
+if FFlagPivotEditorUpdateSnapPointsOnAltKey then
+	function isAlt(keyCode)
+		return keyCode == Enum.KeyCode.LeftAlt or keyCode == Enum.KeyCode.RightAlt
+	end
+end
+
 function PivotHandle:keyDown(keyCode)
 	if self._freeformDrag then
 		if keyCode == Enum.KeyCode.R then
@@ -102,9 +110,24 @@ function PivotHandle:keyDown(keyCode)
 		elseif keyCode == Enum.KeyCode.T then
 			self._freeformDrag:rotate(Vector3.new(1, 0, 0))
 			return true
+		elseif FFlagPivotEditorUpdateSnapPointsOnAltKey and isAlt(keyCode) then
+			self._freeformDrag:update()
+			return true
 		end
 	end
 	return false
+end
+
+if FFlagPivotEditorUpdateSnapPointsOnAltKey then
+	function PivotHandle:keyUp(keyCode)
+		if self._freeformDrag then
+			if FFlagPivotEditorUpdateSnapPointsOnAltKey and isAlt(keyCode) then
+				self._freeformDrag:update()
+				return true
+			end
+		end
+		return false
+	end
 end
 
 function PivotHandle:mouseDrag(mouseRay)

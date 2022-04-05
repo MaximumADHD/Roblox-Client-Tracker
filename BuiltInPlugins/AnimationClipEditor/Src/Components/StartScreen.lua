@@ -13,21 +13,16 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local Constants = require(Plugin.Src.Util.Constants)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local TextEntryPrompt = require(Plugin.Src.Components.TextEntryPrompt)
-
 local CaptureFocus = Framework.UI.CaptureFocus
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local Localization = ContextServices.Localization
 
 local StartScreen = Roact.PureComponent:extend("StartScreen")
 
 function StartScreen:render()
-	local theme = THEME_REFACTOR and self.props.Stylizer.PluginTheme or self.props.Theme:get("PluginTheme")
+	local theme = self.props.Stylizer.PluginTheme
 	local localization = self.props.Localization
 	local startScreenTheme = theme.startScreenTheme
 	local props = self.props
@@ -68,13 +63,9 @@ function StartScreen:render()
 	})
 end
 
-
 StartScreen = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 })(StartScreen)
-
-
 
 return StartScreen

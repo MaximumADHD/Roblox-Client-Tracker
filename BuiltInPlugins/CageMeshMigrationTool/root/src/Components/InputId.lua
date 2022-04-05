@@ -2,7 +2,7 @@ local root = script:FindFirstAncestor("root")
 
 local Roact = require(root.Packages.Roact)
 
-local DeveloperFramework = require(root.Packages.DeveloperFramework)
+local DeveloperFramework = require(root.Packages.Framework)
 
 local ContextServices = DeveloperFramework.ContextServices
 

@@ -5,6 +5,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 
 local join = Framework.Dash.join
+local deepEqual = Framework.Util.deepEqual
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -32,6 +33,7 @@ export type Props = {
 
 type _Props = Props & {
 	Analytics : any,
+	Path : _Types.Path,
 	dispatchSetPath : (path : _Types.Path) -> (),
 	Localization : any,
 	MaterialController : any,
@@ -47,9 +49,64 @@ type _Style = {
 type _state = {
 	Expansion : _Types.Map<any, boolean>,
 	Selection : _Types.Map<any, boolean>,
+	lastPath : _Types.Path,
 }
 
+function SideBar:updateSelection()
+	local props : _Props = self.props
+
+	if #props.Path ~= 0 and self.state.lastPath ~= props.Path then
+		local parentCategories = {}
+
+		local function recurseCategoriesByChildren(category, parent, path)
+			table.insert(parentCategories, parent)
+
+			for key, value in pairs(category) do
+				if value.path and deepEqual(value.path, path) then
+					self.currentCategory = value
+				elseif value.children and next(self.currentCategory) == nil then
+					recurseCategoriesByChildren(value.children, value, path)
+				end
+			end
+
+			if next(self.currentCategory) == nil then
+				table.remove(parentCategories, #parentCategories)
+			end
+		end
+
+		recurseCategoriesByChildren(self.categories, {}, props.Path)
+
+		if next(parentCategories) and self.currentCategory.path and not deepEqual(self.categories, parentCategories) then
+			local newSelection = {}
+			local newExpansion = {}
+
+			for _, subCategory in ipairs(parentCategories) do
+				newExpansion[subCategory] = true
+			end
+
+			newSelection[self.currentCategory] = true
+
+			-- Update only if new
+			if not deepEqual(self.state.Selection, newSelection) then
+				self:setState(function(state)
+					return {
+						Expansion = join(state.Expansion, newExpansion),
+						Selection = newSelection,
+					}
+				end)
+			end
+		end
+
+		self.currentCategory = {}
+		self:setState({
+			lastPath = props.Path,
+		})
+	end
+end
+
 function SideBar:init()
+	self.currentCategory = {}
+
 	self.onExpansionChange = function(newExpansion)
 		self:setState(function(state)
 			return {
@@ -73,6 +130,7 @@ function SideBar:init()
 	self.state = {
 		Expansion = {},
 		Selection = {},
+		lastPath = {},
 	}
 end
 
@@ -100,6 +158,12 @@ function SideBar:didMount()
 			}
 		})
 	end
+
+	self:updateSelection()
+end
+
+function SideBar:didUpdate()
+	self:updateSelection()
 end
 
 function SideBar:render()
@@ -128,7 +192,11 @@ SideBar = withContext({
 })(SideBar)
 
 return RoactRodux.connect(
-	nil,
+	function(state, props)
+		return {
+			Path = state.MaterialBrowserReducer.Path,
+		}
+	end,
 	function(dispatch)
 		return {
 			dispatchSetPath = function(path)

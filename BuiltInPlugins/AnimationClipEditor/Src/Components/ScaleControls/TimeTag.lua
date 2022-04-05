@@ -14,8 +14,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -25,44 +23,39 @@ local RoundFrame = require(UILibraryCompat.RoundFrame)
 local TimeTag = Roact.PureComponent:extend("TimeTag")
 
 function TimeTag:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
-		local position = props.Position
-		local size = props.Size
-		local anchorPoint = props.AnchorPoint
-		local time = props.Time
-		local zIndex = props.ZIndex
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
+	local position = props.Position
+	local size = props.Size
+	local anchorPoint = props.AnchorPoint
+	local time = props.Time
+	local zIndex = props.ZIndex
 
-		return Roact.createElement(RoundFrame, {
-			BackgroundColor3 = theme.scaleControlsTheme.mainColor,
-			BorderSizePixel = 0,
-			AnchorPoint = anchorPoint,
-			Size = size,
-			Position = position,
-			ZIndex = zIndex,
-		}, {
-			Time = Roact.createElement("TextLabel", {
-				BackgroundTransparency = 1,
-				Position = UDim2.new(0.5, 0, 0.5, 0),
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Size = UDim2.new(1, -4, 1, -2),
-				TextXAlignment = Enum.TextXAlignment.Center,
-				TextYAlignment = Enum.TextYAlignment.Center,
-				Text = time,
-				TextColor3 = theme.scaleControlsTheme.textColor,
-				TextSize = theme.scaleControlsTheme.textSize,
-				Font = theme.font,
-			})
+	return Roact.createElement(RoundFrame, {
+		BackgroundColor3 = theme.scaleControlsTheme.mainColor,
+		BorderSizePixel = 0,
+		AnchorPoint = anchorPoint,
+		Size = size,
+		Position = position,
+		ZIndex = zIndex,
+	}, {
+		Time = Roact.createElement("TextLabel", {
+			BackgroundTransparency = 1,
+			Position = UDim2.new(0.5, 0, 0.5, 0),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Size = UDim2.new(1, -4, 1, -2),
+			TextXAlignment = Enum.TextXAlignment.Center,
+			TextYAlignment = Enum.TextYAlignment.Center,
+			Text = time,
+			TextColor3 = theme.scaleControlsTheme.textColor,
+			TextSize = theme.scaleControlsTheme.textSize,
+			Font = theme.font,
 		})
+	})
 end
 
-
 TimeTag = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(TimeTag)
-
-
-
 
 return TimeTag

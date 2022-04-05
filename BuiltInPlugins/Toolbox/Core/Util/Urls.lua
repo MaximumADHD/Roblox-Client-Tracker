@@ -9,7 +9,7 @@ local Url = require(Plugin.Libs.Http.Url)
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 local Rollouts = require(Plugin.Core.Rollouts)
 
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 
 local Urls = {}
@@ -127,7 +127,7 @@ function Urls.constructGetAssetsUrl(category, searchTerm, pageSize, page, sortTy
 end
 
 function Urls.constructGetToolboxItemsUrl(
-	-- remove string from args union when removing FFlagToolboxAssetCategorization
+	-- remove string from args union when removing FFlagToolboxAssetCategorization2
 	args: string | {
 		categoryName: string,
 		sectionName: string?,
@@ -140,12 +140,14 @@ function Urls.constructGetToolboxItemsUrl(
 		creatorTargetId: number?,
 		minDuration: number?,
 		maxDuration: number?,
+		includeOnlyVerifiedCreators: boolean?,
 		useCreatorWhitelist: boolean?,
 	},
 	sortType: string?,
 	creatorType: string?,
 	minDuration: number?,
 	maxDuration: number?,
+	includeOnlyVerifiedCreators: boolean?,
 	creatorTargetId: number?,
 	ownerId: number?,
 	keyword: string?,
@@ -154,14 +156,14 @@ function Urls.constructGetToolboxItemsUrl(
 	useCreatorWhitelist: boolean?
 )
 	local categoryName: string
-	if FFlagToolboxAssetCategorization and type(args) ~= "string" then
+	if FFlagToolboxAssetCategorization2 and type(args) ~= "string" then
 		categoryName = args.categoryName
 		ownerId = args.ownerId
 	else
 		categoryName = args :: string
 	end
 
-	local query = if FFlagToolboxAssetCategorization
+	local query = if FFlagToolboxAssetCategorization2
 		then Dash.omit(args, {
 			"categoryName",
 			"sectionName",
@@ -171,6 +173,7 @@ function Urls.constructGetToolboxItemsUrl(
 			creatorType = creatorType,
 			minDuration = minDuration,
 			maxDuration = maxDuration,
+			includeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
 			creatorTargetId = creatorTargetId,
 			keyword = keyword,
 			sortType = sortType,
@@ -186,7 +189,7 @@ function Urls.constructGetToolboxItemsUrl(
 	end
 
 	local targetUrl
-	if FFlagToolboxAssetCategorization and type(args) ~= "string" and args.sectionName then
+	if FFlagToolboxAssetCategorization2 and type(args) ~= "string" and args.sectionName then
 		local apiName = Category.ToolboxAssetTypeToEngine[categoryData.assetType].Value
 		targetUrl = string.format("%s/home/%s/section/%s/assets", TOOLBOX_SERVICE_URL, apiName, args.sectionName)
 	else
@@ -586,7 +589,7 @@ function Urls.constructToolboxAutocompleteUrl(categoryName, searchTerm, numberOf
 	return url
 end
 
-if FFlagToolboxAssetCategorization then
+if FFlagToolboxAssetCategorization2 then
 	function Urls.constructGetHomeConfigurationUrl(assetType: Enum.AssetType, locale: string?)
 		return string.format("%s/home/%s/configuration?", TOOLBOX_SERVICE_URL, assetType.Name)
 			.. Url.makeQueryString({

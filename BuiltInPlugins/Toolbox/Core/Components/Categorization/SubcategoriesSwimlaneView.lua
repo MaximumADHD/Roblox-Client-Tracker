@@ -120,6 +120,10 @@ function SubcategoriesSwimlaneView:init()
 
 		local assetSectionsElems = {}
 		-- Get asset sections
+
+		local assetSectionCount = Dash.reduce(subcategoryDict, function(current: number)
+			return current + 1
+		end, 1)
 		for i, subcategory in pairs(subcategoryDict) do
 			assetSectionsElems["AssetSwimlane_" .. i] = Roact.createElement(AssetSwimlane, {
 				CanInsertAsset = canInsertAsset,
@@ -131,12 +135,14 @@ function SubcategoriesSwimlaneView:init()
 				SortName = sortName,
 				SearchTerm = subcategory.searchKeywords,
 				InitialPageSize = INITIAL_PAGE_SIZE,
+				LayoutOrder = subcategory.index,
 				OnClickSeeAllAssets = onClickSeeAllAssets,
 				SwimlaneWidth = swimlaneWidth,
 				OnAssetPreviewButtonClicked = onAssetPreviewButtonClicked,
 				Title = subcategory.displayName,
 				TryInsert = tryInsert,
 				TryOpenAssetConfig = tryOpenAssetConfig,
+				ZIndex = assetSectionCount - subcategory.index,
 			})
 		end
 		return assetSectionsElems
@@ -190,12 +196,6 @@ function SubcategoriesSwimlaneView:render()
 					VerticalAlignment = Enum.VerticalAlignment.Top,
 				},
 				Dash.join({
-					UIPadding = Roact.createElement("UIPadding", {
-						PaddingBottom = UDim.new(0, Constants.MAIN_VIEW_PADDING),
-						PaddingLeft = UDim.new(0, Constants.MAIN_VIEW_PADDING),
-						PaddingRight = UDim.new(0, Constants.MAIN_VIEW_PADDING),
-						PaddingTop = UDim.new(0, Constants.MAIN_VIEW_PADDING),
-					}),
 					BackButton = Roact.createElement(LinkText, {
 						LayoutOrder = -1,
 						OnClick = self.onClickBack,
@@ -207,8 +207,6 @@ function SubcategoriesSwimlaneView:render()
 		}),
 	})
 end
-
-SubcategoriesSwimlaneView = AssetLogicWrapper(SubcategoriesSwimlaneView)
 
 SubcategoriesSwimlaneView = withContext({
 	Localization = ContextServices.Localization,

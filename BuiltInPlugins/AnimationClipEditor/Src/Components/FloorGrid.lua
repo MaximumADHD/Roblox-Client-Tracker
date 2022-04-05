@@ -20,8 +20,6 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -61,31 +59,26 @@ function FloorGrid:renderLines(gridTheme, rootInstance, adornee)
 end
 
 function FloorGrid:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
-		local gridTheme = theme.gridTheme
-		local container = props.Container or CoreGui
-		local rootInstance = props.RootInstance
-		local adornee = rootInstance and RigUtils.findRootPart(rootInstance)
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
+	local gridTheme = theme.gridTheme
+	local container = props.Container or CoreGui
+	local rootInstance = props.RootInstance
+	local adornee = rootInstance and RigUtils.findRootPart(rootInstance)
 
-		if adornee then
-			local gridLines = self:renderLines(gridTheme, rootInstance, adornee)
+	if adornee then
+		local gridLines = self:renderLines(gridTheme, rootInstance, adornee)
 
-			return Roact.createElement(Roact.Portal, {
-				target = container,
-			}, {
-				GridLines = Roact.createElement("Folder", {}, gridLines)
-			})
-		end
+		return Roact.createElement(Roact.Portal, {
+			target = container,
+		}, {
+			GridLines = Roact.createElement("Folder", {}, gridLines)
+		})
+	end
 end
 
-
 FloorGrid = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(FloorGrid)
-
-
-
 
 return FloorGrid

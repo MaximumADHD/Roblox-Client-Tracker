@@ -87,8 +87,7 @@ return function()
 			Roact.unmount(instance)
 		end)
 
-		-- TODO(dgriffin): Re-enable this test when SFFlagNewCharacterLoadingSignalOrdering is removed
-		itSKIP("should update the health when character updates", function()
+		it("should update the health when character updates", function()
 			local store = Rodux.Store.new(Reducer, nil, {
 				Rodux.thunkMiddleware,
 			})

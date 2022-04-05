@@ -15,8 +15,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -25,46 +23,42 @@ local Constants = require(Plugin.Src.Util.Constants)
 local TrackListEntry = Roact.PureComponent:extend("TrackListEntry")
 
 function TrackListEntry:render()
-		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
-		local layoutOrder = props.LayoutOrder
-		local indent = props.Indent or 0
-		local height = props.Height
-		local primary = props.Primary
-		local showBackground = props.ShowBackground
-		local selected = props.Selected
+	local props = self.props
+	local theme = props.Stylizer.PluginTheme
+	local layoutOrder = props.LayoutOrder
+	local indent = props.Indent or 0
+	local height = props.Height
+	local primary = props.Primary
+	local showBackground = props.ShowBackground
+	local selected = props.Selected
 
-		local trackTheme = theme.trackTheme
+	local trackTheme = theme.trackTheme
 
-		local backgroundColor
-		if primary then
-			backgroundColor = trackTheme.primaryBackgroundColor
-		elseif showBackground then
-			backgroundColor = trackTheme.titleBackgroundColor
-		elseif selected then
-			backgroundColor = trackTheme.selectedBackgroundColor
-		end
+	local backgroundColor
+	if primary then
+		backgroundColor = trackTheme.primaryBackgroundColor
+	elseif showBackground then
+		backgroundColor = trackTheme.titleBackgroundColor
+	elseif selected then
+		backgroundColor = trackTheme.selectedBackgroundColor
+	end
 
-		local children = props[Roact.Children] or {}
-		children.Padding = Roact.createElement("UIPadding", {
-			PaddingLeft = UDim.new(0, Constants.INDENT_PADDING * indent)
-		})
+	local children = props[Roact.Children] or {}
+	children.Padding = Roact.createElement("UIPadding", {
+		PaddingLeft = UDim.new(0, Constants.INDENT_PADDING * indent)
+	})
 
-		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, height),
-			BorderSizePixel = 0,
-			BackgroundColor3 = backgroundColor,
-			BackgroundTransparency = backgroundColor and 0 or 1,
-			LayoutOrder = layoutOrder,
-		}, children)
+	return Roact.createElement("Frame", {
+		Size = UDim2.new(1, 0, 0, height),
+		BorderSizePixel = 0,
+		BackgroundColor3 = backgroundColor,
+		BackgroundTransparency = backgroundColor and 0 or 1,
+		LayoutOrder = layoutOrder,
+	}, children)
 end
 
-
 TrackListEntry = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(TrackListEntry)
-
-
 
 return TrackListEntry

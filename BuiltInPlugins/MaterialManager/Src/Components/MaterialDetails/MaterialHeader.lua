@@ -114,6 +114,7 @@ function MaterialHeader:render()
 		Preview = Roact.createElement(MaterialPreview, {
 			BackgroundColor = style.HeaderBackground,
 			ColorMap = colorMap,
+			DisableZoom = true,
 			LayoutOrder = 1,
 			MetalnessMap = metalnessMap,
 			Name = name,

@@ -2,6 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 
 local Roact = require(CorePackages.Roact)
 local UIBlox = require(CorePackages.UIBlox)
+UIBlox.init(require(CorePackages.UIBloxUniversalAppConfig))
 
 local AppStyleProvider = UIBlox.App.Style.AppStyleProvider
 

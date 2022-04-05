@@ -16,8 +16,6 @@ local IMPORT_FBX_KEY = newproxy(true)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -224,7 +222,7 @@ function AnimationClipDropdown:render()
 	local localization = self.props.Localization
 	local props = self.props
 	local state = self.state
-	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
+	local theme = props.Stylizer.PluginTheme
 
 	local animationName = props.AnimationName
 	local layoutOrder = props.LayoutOrder
@@ -401,17 +399,12 @@ function AnimationClipDropdown:render()
 	})
 end
 
-
 AnimationClipDropdown = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Plugin = ContextServices.Plugin,
 	Analytics = ContextServices.Analytics,
 })(AnimationClipDropdown)
-
-
-
 
 local function mapStateToProps(state, props)
 	return {

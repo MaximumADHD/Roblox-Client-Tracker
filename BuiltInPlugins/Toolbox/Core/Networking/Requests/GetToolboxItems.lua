@@ -17,7 +17,8 @@ local Constants = require(Util.Constants)
 local CreatorInfoHelper = require(Util.CreatorInfoHelper)
 local PageInfoHelper = require(Util.PageInfoHelper)
 
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
+local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
 
 return function(networkInterface, category, audioSearchInfo, pageInfo, settings, nextPageCursor)
 	return function(store)
@@ -70,7 +71,11 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 				ownerId = PageInfoHelper.getGroupIdForPageInfo(pageInfo)
 			end
 
-			local getRequest = if FFlagToolboxAssetCategorization
+			local includeOnlyVerifiedCreators = if FFlagToolboxShowIdVerifiedFilter
+				then pageInfo.includeOnlyVerifiedCreators
+				else nil
+
+			local getRequest = if FFlagToolboxAssetCategorization2
 				then networkInterface:getToolboxItems({
 					categoryName = category,
 					sortType = sortName,
@@ -82,6 +87,7 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 					creatorTargetId = creatorTargetId,
 					minDuration = audioSearchInfo and audioSearchInfo.minDuration or nil,
 					maxDuration = audioSearchInfo and audioSearchInfo.maxDuration or nil,
+					includeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
 				})
 				else networkInterface:getToolboxItems(
 					category,
@@ -89,6 +95,7 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 					pageInfo.creatorType,
 					audioSearchInfo and audioSearchInfo.minDuration or nil,
 					audioSearchInfo and audioSearchInfo.maxDuration or nil,
+					includeOnlyVerifiedCreators,
 					creatorTargetId,
 					ownerId,
 					pageInfo.searchTerm or "",

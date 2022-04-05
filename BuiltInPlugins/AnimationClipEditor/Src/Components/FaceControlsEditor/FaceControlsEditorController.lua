@@ -11,17 +11,11 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
-
 local Button = Framework.UI.Button
-
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local Localization = ContextServices.Localization
 
 local RigUtils = require(Plugin.Src.Util.RigUtils)
-local Constants = require(Plugin.Src.Util.Constants)
 
 local FaceControlsEditorWindow = require(Plugin.Src.Components.FaceControlsEditor.FaceControlsEditorWindow)
 
@@ -98,9 +92,9 @@ end
 function FaceControlsEditorController:render()
 	local localization = self.props.Localization
 	local props = self.props
-	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
+	local theme = props.Stylizer.PluginTheme
 	local selectedTrack = self.getLastSelectedTrack()
-	local style = THEME_REFACTOR and theme.button or props.Theme:get("PluginTheme").button
+	local style = theme.button
 	local state = self.state
 
 	local toggleShowFaceControlsEditorPanel = props.ToggleShowFaceControlsEditorPanel
@@ -129,27 +123,23 @@ function FaceControlsEditorController:render()
 		}),
 
 		FaceControlsEditorWindow = props.ShowFaceControlsEditorPanel and state.showFaceControlsEditorPanel and Roact.createElement(FaceControlsEditorWindow, {
-			RootInstance = props.RootInstance,				
+			RootInstance = props.RootInstance,
 			FaceControlsEditorEnabled = props.FaceControlsEditorEnabled,
 			ShowFaceControlsEditorPanel = props.ShowFaceControlsEditorPanel,
 			SelectedTrack = selectedTrack,
 			SetSelectedTracks = props.SetSelectedTracks,
 			ToggleFaceControlsEditorEnabled = self.toggleFaceControlsEditorEnabledHandler,
 			SetShowFaceControlsEditorPanel = props.SetShowFaceControlsEditorPanel,
-			SetFaceControlsEditorEnabled = props.SetFaceControlsEditorEnabled,						
+			SetFaceControlsEditorEnabled = props.SetFaceControlsEditorEnabled,
 		}),
 	})
 end
 
-
 FaceControlsEditorController = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Analytics = ContextServices.Analytics,
 })(FaceControlsEditorController)
-
-
 
 local function mapStateToProps(state, props)
 	return {
