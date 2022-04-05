@@ -22,14 +22,23 @@ Studio.MaterialManager.Categories.Wood,Wood
 Studio.MaterialManager.CreateDialog.BaseMaterialVariant,Base Material
 Studio.MaterialManager.CreateDialog.CancelVariant,Cancel
 Studio.MaterialManager.CreateDialog.CreateVariant,Create Variant
+Studio.MaterialManager.CreateDialog.EditVariant,Edit Variant
+Studio.MaterialManager.CreateDialog.ErrorBaseMaterialNotSelected,No Base Material selected
+Studio.MaterialManager.CreateDialog.ErrorFindUrl,Failed to find URL
+Studio.MaterialManager.CreateDialog.ErrorImportMap,Failed to import Texture Map
+Studio.MaterialManager.CreateDialog.ErrorNameExists,Name already exists
+Studio.MaterialManager.CreateDialog.ErrorNoName,Name required
+Studio.MaterialManager.CreateDialog.ErrorSelectMap,Failed to select Texture Map
 Studio.MaterialManager.CreateDialog.General,General
+Studio.MaterialManager.CreateDialog.Import,Import
 Studio.MaterialManager.CreateDialog.ImportColorMap,Color
 Studio.MaterialManager.CreateDialog.ImportMetalnessMap,Metalness
 Studio.MaterialManager.CreateDialog.ImportNormalMap,Normal
 Studio.MaterialManager.CreateDialog.ImportRoughnessMap,Roughness
-Studio.MaterialManager.CreateDialog.InsertAssetURL,Insert asset URL
+Studio.MaterialManager.CreateDialog.InsertAssetURL,URL/Asset name
 Studio.MaterialManager.CreateDialog.NameVariant,Name
-Studio.MaterialManager.CreateDialog.PlaceholderBaseMaterial,Select base material
+Studio.MaterialManager.CreateDialog.NoImageSelected,No Image Selected
+Studio.MaterialManager.CreateDialog.PlaceholderBaseMaterial,Select
 Studio.MaterialManager.CreateDialog.PlaceholderName,Material Variant name
 Studio.MaterialManager.CreateDialog.SaveVariant,Save
 Studio.MaterialManager.CreateDialog.TextureMaps,Texture Maps
@@ -37,7 +46,6 @@ Studio.MaterialManager.Import.ColorMapPreview,Color Map Preview
 Studio.MaterialManager.Import.MetalnessMapPreview,Metalness Map Preview
 Studio.MaterialManager.Import.NormalMapPreview,Normal Map Preview
 Studio.MaterialManager.Import.RoughnessMapPreview,Roughness Map Preview
-Studio.MaterialManager.LocalImageSelector.NoImageSelected,No image
 Studio.MaterialManager.MaterialInformation.ClearOverride,Clear Override
 Studio.MaterialManager.MaterialInformation.ClearPartOverride,Clear Part Override
 Studio.MaterialManager.MaterialInformation.ClearTerrainOverride,Clear Terrain Override

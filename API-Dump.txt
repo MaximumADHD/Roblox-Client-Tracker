@@ -2320,6 +2320,7 @@ Class MaterialService : Instance [NotCreatable] [Service] [NotBrowsable]
 	Function void MaterialService:ClearOverridePartMaterial(Enum.Material material)
 	Function void MaterialService:ClearOverrideTerrainMaterial(Enum.Material material)
 	Function string MaterialService:GetBaseMaterialOverride(Enum.Material material)
+	Function MaterialVariant MaterialService:GetMaterialVariant(Enum.Material material, string name)
 	Function MaterialVariant MaterialService:GetOverridePartMaterial(Enum.Material material)
 	Function MaterialVariant MaterialService:GetOverrideTerrainMaterial(Enum.Material material)
 	Function void MaterialService:SetBaseMaterialOverride(Enum.Material material, string name)
@@ -3894,7 +3895,6 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property string StudioService.StudioLocaleId [ReadOnly]
 	Function void StudioService:AnimationIdSelected(int64 id) {RobloxScriptSecurity}
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
-	Function void StudioService:DEPRECATED_SetTurnOnTeamCreateOnPublish(bool turnOn) {RobloxScriptSecurity}
 	Function void StudioService:EmitPlacePublishedSignal() {RobloxScriptSecurity}
 	Function string StudioService:GetBadgeConfigureUrl(int64 badgeId) {RobloxScriptSecurity}
 	Function string StudioService:GetBadgeUploadUrl() {RobloxScriptSecurity}
@@ -3993,7 +3993,7 @@ Class TeleportService : Instance [NotCreatable] [Service]
 	Event TeleportService.TeleportInitFailed(Instance player, Enum.TeleportResult teleportResult, string errorMessage, int64 placeId, Instance teleportOptions)
 Class TemporaryCageMeshProvider : Instance [NotCreatable] [Service] [NotReplicated]
 Class TemporaryScriptService : Instance [NotCreatable] [Service] [NotReplicated]
-Class TerrainDetail : Instance
+Class TerrainDetail : Instance [NotBrowsable]
 	Property Content TerrainDetail.ColorMap {PluginSecurity}
 	Property Enum.TerrainFace TerrainDetail.Face
 	Property Enum.MaterialPattern TerrainDetail.MaterialPattern
@@ -4508,8 +4508,8 @@ Class VoiceChatInternal : Instance [NotCreatable] [Service] [NotBrowsable]
 	Event VoiceChatInternal.StateChanged(Enum.VoiceChatState old, Enum.VoiceChatState new) {RobloxScriptSecurity} [Deprecated]
 Class VoiceChatService : Instance [NotCreatable] [Service]
 	Property bool VoiceChatService.EnableDefaultVoice {PluginSecurity} [NotBrowsable]
-	Property bool VoiceChatService.VoiceChatEnabledForPlaceOnRcc {RobloxScriptSecurity} [ReadOnly]
-	Property bool VoiceChatService.VoiceChatEnabledForUniverseOnRcc {RobloxScriptSecurity} [ReadOnly]
+	Property bool VoiceChatService.VoiceChatEnabledForPlaceOnRcc {RobloxScriptSecurity} [Hidden]
+	Property bool VoiceChatService.VoiceChatEnabledForUniverseOnRcc {RobloxScriptSecurity} [Hidden]
 	Function bool VoiceChatService:IsVoiceEnabledForUserIdAsync(int64 userId) [Yields]
 Class VoiceSource : Instance [NotCreatable] [Deprecated]
 	Property int64 VoiceSource.UserId [ReadOnly] [Deprecated]
@@ -4956,6 +4956,7 @@ Enum ConnectionError
 	EnumItem ConnectionError.DisconnectClientFailure : 284
 	EnumItem ConnectionError.DisconnectClientRequest : 285
 	EnumItem ConnectionError.DisconnectOutOfMemory : 286
+	EnumItem ConnectionError.DisconnectModeratedGame : 287
 	EnumItem ConnectionError.PlacelaunchErrors : 512
 	EnumItem ConnectionError.PlacelaunchDisabled : 515
 	EnumItem ConnectionError.PlacelaunchError : 516
@@ -6702,6 +6703,11 @@ Enum WrapLayerDebugMode
 	EnumItem WrapLayerDebugMode.Reference : 4
 	EnumItem WrapLayerDebugMode.Rbf : 5
 	EnumItem WrapLayerDebugMode.OuterCage : 6
+	EnumItem WrapLayerDebugMode.ReferenceMeshAfterMorph : 7
+	EnumItem WrapLayerDebugMode.HSROuterDetail : 8
+	EnumItem WrapLayerDebugMode.HSROuter : 9
+	EnumItem WrapLayerDebugMode.HSRInner : 10
+	EnumItem WrapLayerDebugMode.HSRInnerReverse : 11
 Enum WrapTargetDebugMode
 	EnumItem WrapTargetDebugMode.None : 0
 	EnumItem WrapTargetDebugMode.TargetCageOriginal : 1
@@ -6711,6 +6717,7 @@ Enum WrapTargetDebugMode
 	EnumItem WrapTargetDebugMode.TargetLayerCageCompressed : 5
 	EnumItem WrapTargetDebugMode.TargetLayerInterface : 6
 	EnumItem WrapTargetDebugMode.Rbf : 7
+	EnumItem WrapTargetDebugMode.OuterCageDetail : 8
 Enum ZIndexBehavior
 	EnumItem ZIndexBehavior.Global : 0
 	EnumItem ZIndexBehavior.Sibling : 1

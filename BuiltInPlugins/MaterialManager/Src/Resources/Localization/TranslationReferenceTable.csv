@@ -42,8 +42,6 @@ Studio.MaterialManager.MaterialTile.BaseVariant,Base Variant,Base Variant
 Studio.MaterialManager.Materials.Granite,Granite,Granite
 Studio.MaterialManager.MaterialTile.PartVariant,Part Variant,Part Variant
 Studio.MaterialManager.MaterialTile.TerrainVariant,Terrain Variant,Terrain Variant
-Studio.MaterialManager.Materials.DiamondPlate,Diamond Plate,Diamond Plate
-Studio.MaterialManager.LocalImageSelector.NoImageSelected,No image,No image
 Studio.MaterialManager.Import.ColorMapPreview,Color Map Preview,Color Map Preview
 Studio.MaterialManager.Materials.LeafyGrass,Leafy Grass,Leafy Grass
 Studio.MaterialManager.Materials.CrackedLava,Cracked Lava,Cracked Lava
@@ -78,6 +76,7 @@ Studio.MaterialManager.Materials.Air,Air,Air
 Studio.MaterialManager.Materials.Cobblestone,Cobblestone,Cobblestone
 Studio.MaterialManager.Materials.Concrete,Concrete,Concrete
 Studio.MaterialManager.Materials.CorrodedMetal,Corroded Metal,Corroded Metal
+Studio.MaterialManager.Materials.DiamondPlate,Diamond Plate,Diamond Plate
 Studio.MaterialManager.Materials.Foil,Foil,Foil
 Studio.MaterialManager.Materials.Forcefield,Force Field,Force Field
 Studio.MaterialManager.Materials.Ice,Ice,Ice
@@ -93,7 +92,7 @@ Studio.MaterialManager.Materials.Sandstone,Sandstone,Sandstone
 Studio.MaterialManager.Materials.SmoothPlastic,Smooth Plastic,Smooth Plastic
 Studio.MaterialManager.Materials.Water,Water,Water
 Studio.MaterialManager.Materials.WoodPlanks,Wood Planks,Wood Planks
-Studio.MaterialManager.CreateDialog.InsertAssetURL,Insert asset URL,Insert asset URL
+Studio.MaterialManager.CreateDialog.InsertAssetURL,URL/Asset name,URL/Asset name
 Studio.MaterialManager.MaterialOptions.ResetPartMaterial,Reset Part Material,Reset Part Material
 Studio.MaterialManager.MaterialOptions.ResetTerrainMaterial,Reset Terrain Material,Reset Terrain Material
 Studio.MaterialManager.MaterialOptions.ResetMaterial,Reset Material,Reset Material

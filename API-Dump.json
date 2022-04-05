@@ -43746,6 +43746,32 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetMaterialVariant",
+                    "Parameters": [
+                        {
+                            "Name": "material",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "Material"
+                            }
+                        },
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetOverridePartMaterial",
                     "Parameters": [
                         {
@@ -74137,25 +74163,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "DEPRECATED_SetTurnOnTeamCreateOnPublish",
-                    "Parameters": [
-                        {
-                            "Name": "turnOn",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "EmitPlacePublishedSignal",
                     "Parameters": [
                     ],
@@ -76194,7 +76201,10 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "TerrainDetail",
-            "Superclass": "Instance"
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
         },
         {
             "Members": [
@@ -85843,11 +85853,10 @@
                     },
                     "Serialization": {
                         "CanLoad": false,
-                        "CanSave": true
+                        "CanSave": false
                     },
                     "Tags": [
-                        "ReadOnly",
-                        "NotReplicated"
+                        "Hidden"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -85865,11 +85874,10 @@
                     },
                     "Serialization": {
                         "CanLoad": false,
-                        "CanSave": true
+                        "CanSave": false
                     },
                     "Tags": [
-                        "ReadOnly",
-                        "NotReplicated"
+                        "Hidden"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -87843,6 +87851,10 @@
                 {
                     "Name": "DisconnectOutOfMemory",
                     "Value": 286
+                },
+                {
+                    "Name": "DisconnectModeratedGame",
+                    "Value": 287
                 },
                 {
                     "Name": "PlacelaunchErrors",
@@ -95199,6 +95211,26 @@
                 {
                     "Name": "OuterCage",
                     "Value": 6
+                },
+                {
+                    "Name": "ReferenceMeshAfterMorph",
+                    "Value": 7
+                },
+                {
+                    "Name": "HSROuterDetail",
+                    "Value": 8
+                },
+                {
+                    "Name": "HSROuter",
+                    "Value": 9
+                },
+                {
+                    "Name": "HSRInner",
+                    "Value": 10
+                },
+                {
+                    "Name": "HSRInnerReverse",
+                    "Value": 11
                 }
             ],
             "Name": "WrapLayerDebugMode"
@@ -95236,6 +95268,10 @@
                 {
                     "Name": "Rbf",
                     "Value": 7
+                },
+                {
+                    "Name": "OuterCageDetail",
+                    "Value": 8
                 }
             ],
             "Name": "WrapTargetDebugMode"

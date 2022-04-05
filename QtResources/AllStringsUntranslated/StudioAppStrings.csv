@@ -1530,6 +1530,9 @@ Studio.App.DocumentationView.LearnMore,,Learn more,Learn more
 Studio.App.DocumentationView.Overload,,+1 overload,+1 overload
 Studio.App.DocumentationView.Overload.Plural1,%1 is an integer. example '+2 overloads',+%1 overloads,+%1 overloads
 Studio.App.DocumentationView.Overloads,,overloads,overloads
+Studio.App.DocumentationView.Copied,,Copied!,Copied!
+Studio.App.DocumentationView.ShowCodeSample,,Show code example,Show code example
+Studio.App.DocumentationView.HideCodeSample,,Hide code example,Hide code example
 Studio.App.ScriptRecoveryWidget.OpenFile,,Open file,Open file
 Studio.App.ScriptRecoveryWidget.SelectAndOpenScript,,Select and open script,Select and open script
 Studio.App.ScriptRecoveryWidget.ViewDiff,,View Diff,View Diff
@@ -3037,7 +3040,7 @@ Studio.App.Updates.BetaFeatureName,,Safe Studio Updates,Safe Studio Updates
 Studio.App.Updates.BetaFeatureDescription,,"Instead of blocking the opening of new Studio windows and test sessions when an update is available, cancellable prompts will periodically appear offering to update Studio","Instead of blocking the opening of new Studio windows and test sessions when an update is available, cancellable prompts will periodically appear offering to update Studio"
 Studio.App.Updates.UpdateAvailableButton,,Update Available,Update Available
 Studio.App.Updates.UpdateAvailableTitle,,Update Available,Update Available
-Studio.App.Updates.UpdateAvailableMessage,,Do you want to restart Studio and update now or later?,Do you want to restart Studio and update now or later?
+Studio.App.Updates.UpdateAvailableMessage,,Do you want to restart Studio and update now?,Do you want to restart Studio and update now?
 Studio.App.Updates.UpdateNowButton,,Update Now,Update Now
 Studio.App.Updates.SnoozeButton,,Snooze,Snooze
 Studio.App.Tooltip.GoToSource,,Go to source,Go to source

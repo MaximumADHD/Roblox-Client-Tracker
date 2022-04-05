@@ -8,6 +8,7 @@ Studio.AnimationClipEditor.ContextMenu.ClearBothTangents, ,Use Auto-Tangent
 Studio.AnimationClipEditor.ContextMenu.ClearTangent, ,Use Auto-Tangent
 Studio.AnimationClipEditor.ContextMenu.ClearTangents, ,Use Auto-Tangent
 Studio.AnimationClipEditor.ContextMenu.ClearTrack, ,Clear Track
+Studio.AnimationClipEditor.ContextMenu.ConvertToEulerAngles, ,Convert to Euler Angles
 Studio.AnimationClipEditor.ContextMenu.CopyEvents, ,Copy Selected
 Studio.AnimationClipEditor.ContextMenu.CopySelected, ,Copy Selected
 Studio.AnimationClipEditor.ContextMenu.CutEvents, ,Cut Selected
@@ -118,10 +119,13 @@ Studio.AnimationClipEditor.Settings.4x, ,4x
 Studio.AnimationClipEditor.Settings.60FPS, ,60 fps
 Studio.AnimationClipEditor.Settings.CustomFPS, ,Custom
 Studio.AnimationClipEditor.Settings.CustomPlaybackSpeed, ,Custom
+Studio.AnimationClipEditor.Settings.DefaultRotationType, ,Default Rotation Type
+Studio.AnimationClipEditor.Settings.EulerAngles, ,Euler Angles
 Studio.AnimationClipEditor.Settings.FrameRate, ,Frame Rate
 Studio.AnimationClipEditor.Settings.Frames, ,Frames
 Studio.AnimationClipEditor.Settings.PlaybackSpeed, ,Playback Speed
 Studio.AnimationClipEditor.Settings.QuantizeKeyframes, ,Quantize Keyframes
+Studio.AnimationClipEditor.Settings.Quaternions, ,Quaternions
 Studio.AnimationClipEditor.Settings.Seconds, ,Seconds:Frames
 Studio.AnimationClipEditor.Settings.ShowEvents, ,Show Animation Events
 Studio.AnimationClipEditor.Settings.SnapFrames, ,Frames

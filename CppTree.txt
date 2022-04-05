@@ -1868,7 +1868,6 @@ RBX::ContextActionService
 RBX::Controller
 RBX::ControllerService
 RBX::CookiesService
-RBX::CookieStorage
 RBX::CoreGuiService
 RBX::CorePackages
 RBX::CoreScript
@@ -3529,8 +3528,9 @@ RBX::FileMesh
 RBX::FileSyncItem
 RBX::FileSyncService
 RBX::FillTool
+RBX::FilterDescendantsList
+RBX::FilterDescendantsListLegacy
 RBX::FilterDescendents
-RBX::FilterDescendentsList
 RBX::FilteredSelection<class RBX::Attachment>
 RBX::FilteredSelection<class RBX::Constraints::Constraint>
 RBX::FilteredSelection<class RBX::Constraints::WeldConstraint>
@@ -4676,6 +4676,7 @@ RBX::Reflection::BoundFuncDesc<class RBX::MarketplaceService,void __cdecl(class 
 RBX::Reflection::BoundFuncDesc<class RBX::MarketplaceService,void __cdecl(class std::string,int),2>
 RBX::Reflection::BoundFuncDesc<class RBX::MarketplaceService,void __cdecl(void),0>
 RBX::Reflection::BoundFuncDesc<class RBX::MaterialService,class std::shared_ptr<class RBX::MaterialVariant> __cdecl(enum RBX::MaterialType),1>
+RBX::Reflection::BoundFuncDesc<class RBX::MaterialService,class std::shared_ptr<class RBX::MaterialVariant> __cdecl(enum RBX::MaterialType,class std::string const & __ptr64),2>
 RBX::Reflection::BoundFuncDesc<class RBX::MaterialService,class std::string __cdecl(enum RBX::MaterialType),1>
 RBX::Reflection::BoundFuncDesc<class RBX::MaterialService,void __cdecl(class std::shared_ptr<class RBX::MaterialVariant>),1>
 RBX::Reflection::BoundFuncDesc<class RBX::MaterialService,void __cdecl(enum RBX::MaterialType),1>
@@ -4889,7 +4890,6 @@ RBX::Reflection::BoundFuncDesc<class RBX::RESTRICTED_StudioService,void __cdecl(
 RBX::Reflection::BoundFuncDesc<class RBX::RESTRICTED_StudioService,void __cdecl(__int64),1>
 RBX::Reflection::BoundFuncDesc<class RBX::RESTRICTED_StudioService,void __cdecl(__int64,__int64,__int64),3>
 RBX::Reflection::BoundFuncDesc<class RBX::RESTRICTED_StudioService,void __cdecl(__int64,bool),2>
-RBX::Reflection::BoundFuncDesc<class RBX::RESTRICTED_StudioService,void __cdecl(bool),1>
 RBX::Reflection::BoundFuncDesc<class RBX::RESTRICTED_StudioService,void __cdecl(bool,bool,enum RBX::StudioCloseMode),3>
 RBX::Reflection::BoundFuncDesc<class RBX::RESTRICTED_StudioService,void __cdecl(class std::string const & __ptr64),1>
 RBX::Reflection::BoundFuncDesc<class RBX::RESTRICTED_StudioService,void __cdecl(class std::string),1>
@@ -6979,6 +6979,8 @@ RBX::Reflection::PropDescriptor<class RBX::BaseScript,bool>
 RBX::Reflection::PropDescriptor<class RBX::BaseScript,bool>::GetSetImpl<bool (__cdecl RBX::BaseScript::*)(void)const __ptr64,void (__cdecl RBX::BaseScript::*)(bool) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::BaseScript,class RBX::ContentId>
 RBX::Reflection::PropDescriptor<class RBX::BaseScript,class RBX::ContentId>::GetSetImpl<class RBX::ContentId const & __ptr64 (__cdecl RBX::LuaSourceContainer::*)(void)const __ptr64,void (__cdecl RBX::LuaSourceContainer::*)(class RBX::ContentId const & __ptr64) __ptr64>
+RBX::Reflection::PropDescriptor<class RBX::BaseWrap,bool>
+RBX::Reflection::PropDescriptor<class RBX::BaseWrap,bool>::GetSetImpl<bool const (__cdecl RBX::BaseWrap::*)(void)const __ptr64,void (__cdecl RBX::BaseWrap::*)(bool) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::BaseWrap,class RBX::ContentId>
 RBX::Reflection::PropDescriptor<class RBX::BaseWrap,class RBX::ContentId>::GetSetImpl<class RBX::ContentId const & __ptr64 (__cdecl RBX::BaseWrap::*)(void)const __ptr64,void (__cdecl RBX::BaseWrap::*)(class RBX::ContentId const & __ptr64) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::BaseWrap,class RBX::ContentId>::GetSetImpl<class RBX::ContentId const & __ptr64 (__cdecl RBX::BaseWrap::*)(void)const __ptr64,void (__cdecl RBX::BaseWrap::*)(class RBX::ContentId) __ptr64>
@@ -8532,7 +8534,7 @@ RBX::Reflection::PropDescriptor<class RBX::VoiceChannel,class std::string >
 RBX::Reflection::PropDescriptor<class RBX::VoiceChannel,class std::string >::GetImpl<class std::string (__cdecl RBX::VoiceChannel::*)(void)const __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::VoiceChatInternal,enum RBX::VoiceChatState>::GetImpl<enum RBX::VoiceChatState (__cdecl RBX::VoiceChatInternal::*)(void)const __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::VoiceChatService,bool>
-RBX::Reflection::PropDescriptor<class RBX::VoiceChatService,bool>::GetImpl<bool (__cdecl RBX::VoiceChatService::*)(void)const __ptr64>
+RBX::Reflection::PropDescriptor<class RBX::VoiceChatService,bool>::GetSetImpl<bool (__cdecl RBX::VoiceChatService::*)(void)const __ptr64,void (__cdecl RBX::VoiceChatService::*)(bool) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::VRService,bool>
 RBX::Reflection::PropDescriptor<class RBX::VRService,bool>::GetImpl<bool (__cdecl RBX::VRService::*)(void)const __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::VRService,class RBX::CoordinateFrame>
@@ -9364,6 +9366,7 @@ RBX::ScriptEditor::CmdUnfoldBlock
 RBX::ScriptEditor::CmdUnindentSelection
 RBX::ScriptEditor::CodeSampleView
 RBX::ScriptEditor::CodeSampleViewContainer
+RBX::ScriptEditor::CodeSampleViewSideWidget
 RBX::ScriptEditor::ColorPreviewWidget
 RBX::ScriptEditor::CursorFollowingWidget
 RBX::ScriptEditor::DebuggerClientView
@@ -9847,7 +9850,17 @@ RBX::TaskScheduler::Job
 RBX::TaskSchedulerSettings
 RBX::Team
 RBX::Teams
+RBX::Telemetry::EphemeralCounterBatch
+RBX::Telemetry::GenericBatch<class RBX::Telemetry::EphemeralStatBatchEvent>
+RBX::Telemetry::GenericBatch<class RBX::Telemetry::EventIngestBatchEvent>
+RBX::Telemetry::IBatchSender
+RBX::Telemetry::IRobloxTelemetryImpl
 RBX::Telemetry::ISessionManagerTelemetryAccessor
+RBX::Telemetry::RobloxTelemetryCommon
+RBX::Telemetry::RobloxTelemetryEphemeralCounter
+RBX::Telemetry::RobloxTelemetryEphemeralStat
+RBX::Telemetry::RobloxTelemetryEvent
+RBX::Telemetry::RobloxTelemetryImpl
 RBX::TeleportAsyncResult
 RBX::TeleportCallback
 RBX::TeleportOptions
@@ -10182,8 +10195,8 @@ rtc::RefCountedObject<class webrtc::`anonymous namespace'::CreateSessionDescript
 rtc::RefCountedObject<class webrtc::`anonymous namespace'::IdWithDirection>
 rtc::RefCountedObject<class webrtc::`anonymous namespace'::TypedId>
 rtc::RefCountedObject<class webrtc::`anonymous namespace'::TypedIntId>
-rtc::RefCountedObject<class webrtc::audio_decoder_factory_template_impl::AudioDecoderFactoryT<struct webrtc::AudioDecoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioDecoderMultiChannelOpus>,struct webrtc::AudioDecoderIsacFix,struct webrtc::AudioDecoderG722,struct webrtc::AudioDecoderIlbc,struct webrtc::AudioDecoderG711,struct webrtc::A0x8d06c547::NotAdvertised<struct webrtc::AudioDecoderL16> > >
-rtc::RefCountedObject<class webrtc::audio_encoder_factory_template_impl::AudioEncoderFactoryT<struct webrtc::AudioEncoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioEncoderMultiChannelOpus>,struct webrtc::AudioEncoderIsacFix,struct webrtc::AudioEncoderG722,struct webrtc::AudioEncoderIlbc,struct webrtc::AudioEncoderG711,struct webrtc::A0xa7333671::NotAdvertised<struct webrtc::AudioEncoderL16> > >
+rtc::RefCountedObject<class webrtc::audio_decoder_factory_template_impl::AudioDecoderFactoryT<struct webrtc::AudioDecoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioDecoderMultiChannelOpus>,struct webrtc::AudioDecoderIsacFix,struct webrtc::AudioDecoderG722,struct webrtc::AudioDecoderIlbc,struct webrtc::AudioDecoderG711,struct webrtc::A0x6d7074ff::NotAdvertised<struct webrtc::AudioDecoderL16> > >
+rtc::RefCountedObject<class webrtc::audio_encoder_factory_template_impl::AudioEncoderFactoryT<struct webrtc::AudioEncoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioEncoderMultiChannelOpus>,struct webrtc::AudioEncoderIsacFix,struct webrtc::AudioEncoderG722,struct webrtc::AudioEncoderIlbc,struct webrtc::AudioEncoderG711,struct webrtc::A0x474587c9::NotAdvertised<struct webrtc::AudioEncoderL16> > >
 rtc::RefCountedObject<class webrtc::AudioDeviceModuleImpl>
 rtc::RefCountedObject<class webrtc::AudioMixerImpl>
 rtc::RefCountedObject<class webrtc::AudioProcessingImpl>
@@ -10813,6 +10826,7 @@ std::_Func_base<void,class std::shared_ptr<class RBX::Descriptors::IPropertyDesc
 std::_Func_base<void,class std::shared_ptr<class RBX::DockWidgetPluginGui> >
 std::_Func_base<void,class std::shared_ptr<class RBX::FriendPages> >
 std::_Func_base<void,class std::shared_ptr<class RBX::GImage> >
+std::_Func_base<void,class std::shared_ptr<class RBX::HttpRequest> >
 std::_Func_base<void,class std::shared_ptr<class RBX::HumanoidDescription> >
 std::_Func_base<void,class std::shared_ptr<class RBX::Instance> >
 std::_Func_base<void,class std::shared_ptr<class RBX::Instance>,class RBX::Part,float,class RBX::Adorn * __ptr64>
@@ -10956,6 +10970,8 @@ std::_Func_base<void,struct lua_State * __ptr64>
 std::_Func_base<void,struct Luau::TypeChecker & __ptr64,class std::shared_ptr<struct Luau::Scope> >
 std::_Func_base<void,struct PlaceLauncher::PlaceLauncherRequestInfo const & __ptr64>
 std::_Func_base<void,struct PlaceVersionHistoryDetailsFetcher::PlaceVersionHistoryItem const & __ptr64>
+std::_Func_base<void,struct RBX::aprt::Session::Dependency * __ptr64>
+std::_Func_base<void,struct RBX::aprt::Session::Processor * __ptr64>
 std::_Func_base<void,struct RBX::AssetImport::Errors::CouldNotReadDiffuseError * __ptr64>
 std::_Func_base<void,struct RBX::AssetImport::Errors::CouldNotReadMetalnessError * __ptr64>
 std::_Func_base<void,struct RBX::AssetImport::Errors::CouldNotReadNormalError * __ptr64>
@@ -10977,6 +10993,7 @@ std::_Func_base<void,struct RBX::AssetImport::Warnings::MeshSizeWarning * __ptr6
 std::_Func_base<void,struct RBX::BulkAudioLoader * __ptr64>
 std::_Func_base<void,struct RBX::Collision::ChunkClumpCollectionPair * __ptr64>
 std::_Func_base<void,struct RBX::ContentTracker::Asset const & __ptr64>
+std::_Func_base<void,struct RBX::InferredCrash::ResultCallbackParams & __ptr64>
 std::_Func_base<void,struct RBX::LSP::CompletionItem const & __ptr64>
 std::_Func_base<void,struct RBX::LSP::DocumentSymbol const & __ptr64>
 std::_Func_base<void,struct RBX::LSP::HoverRequest const & __ptr64>
@@ -11416,6 +11433,7 @@ std::_Func_impl_no_alloc<void (__cdecl*)(class std::string),void,class std::stri
 std::_Func_impl_no_alloc<void (__cdecl*)(class TeleportSucceededInfo const & __ptr64),void,class TeleportSucceededInfo const & __ptr64>
 std::_Func_impl_no_alloc<void (__cdecl*)(enum AppBridge::PlaceLauncherState),void,enum AppBridge::PlaceLauncherState>
 std::_Func_impl_no_alloc<void (__cdecl*)(struct Luau::TypeChecker & __ptr64,class std::shared_ptr<struct Luau::Scope>),void,struct Luau::TypeChecker & __ptr64,class std::shared_ptr<struct Luau::Scope> >
+std::_Func_impl_no_alloc<void (__cdecl*)(struct RBX::InferredCrash::ResultCallbackParams & __ptr64),void,struct RBX::InferredCrash::ResultCallbackParams & __ptr64>
 std::_Func_impl_no_alloc<void (__cdecl*)(void),void>
 std::_Func_impl_no_alloc<void * __ptr64 (__cdecl*)(unsigned __int64),void * __ptr64,unsigned __int64>
 std::_Future_error_category2
@@ -11572,11 +11590,11 @@ std::_Ref_count_obj2<class RBX::CloudLocalization::AssetFetcher>
 std::_Ref_count_obj2<class RBX::CloudLocalizationManager>
 std::_Ref_count_obj2<class RBX::ContentProvider>
 std::_Ref_count_obj2<class RBX::ControlsToJointDriver>
-std::_Ref_count_obj2<class RBX::CookieStorage>
 std::_Ref_count_obj2<class RBX::CorescriptConfigurer>
 std::_Ref_count_obj2<class RBX::CSG3::CSGOperations3>
 std::_Ref_count_obj2<class RBX::CSG3AssetFetchContinuator>
 std::_Ref_count_obj2<class RBX::CSGOperations2>
+std::_Ref_count_obj2<class RBX::Cursor>
 std::_Ref_count_obj2<class RBX::CurveAnimationAccelerator::Schema>
 std::_Ref_count_obj2<class RBX::DataModel::GenericJob>
 std::_Ref_count_obj2<class RBX::DataModelPatchAnalytics>
@@ -11595,6 +11613,7 @@ std::_Ref_count_obj2<class RBX::DenseHashMap<struct RBX::SignalPair,struct RBX::
 std::_Ref_count_obj2<class RBX::DEPRECATEDAnalyticsReporter>
 std::_Ref_count_obj2<class RBX::EquationDisplay>
 std::_Ref_count_obj2<class RBX::FACSRigCFrameProvider>
+std::_Ref_count_obj2<class RBX::FilterDescendantsList>
 std::_Ref_count_obj2<class RBX::FixedHandler>
 std::_Ref_count_obj2<class RBX::FocusedPromptData>
 std::_Ref_count_obj2<class RBX::GcJob>
@@ -11676,6 +11695,7 @@ std::_Ref_count_obj2<class RBX::MkvStreamWriter>
 std::_Ref_count_obj2<class RBX::MockMarketplaceApiClient>
 std::_Ref_count_obj2<class RBX::ModelMeshJob>
 std::_Ref_count_obj2<class RBX::Motion::ModelSkinning>
+std::_Ref_count_obj2<class RBX::MouseService::CursorCache>
 std::_Ref_count_obj2<class RBX::NavigationAreasVector>
 std::_Ref_count_obj2<class RBX::NavigationContext>
 std::_Ref_count_obj2<class RBX::NavigationPath>
@@ -11993,7 +12013,6 @@ std::_Ref_count_obj2<struct RBX::LSP::HoverRequest>
 std::_Ref_count_obj2<struct RBX::LSP::HoverResponse>
 std::_Ref_count_obj2<struct RBX::LSP::InitializeResponse>
 std::_Ref_count_obj2<struct RBX::LSP::PublishDiagnosticsNotification>
-std::_Ref_count_obj2<struct RBX::LSP::ResponseError>
 std::_Ref_count_obj2<struct RBX::LSP::RobloxFindColor3ConstructorRequest>
 std::_Ref_count_obj2<struct RBX::LSP::RobloxFindColor3ConstructorResponse>
 std::_Ref_count_obj2<struct RBX::LSP::RobloxFindExecutablePositionRequest>
@@ -12654,7 +12673,6 @@ std::_Ref_count_resource<struct RBX::LSP::HoverResponse * __ptr64,struct std::de
 std::_Ref_count_resource<struct RBX::LSP::InitializeRequest * __ptr64,struct std::default_delete<struct RBX::LSP::InitializeRequest> >
 std::_Ref_count_resource<struct RBX::LSP::InitializeResponse * __ptr64,struct std::default_delete<struct RBX::LSP::InitializeResponse> >
 std::_Ref_count_resource<struct RBX::LSP::PublishDiagnosticsNotification * __ptr64,struct std::default_delete<struct RBX::LSP::PublishDiagnosticsNotification> >
-std::_Ref_count_resource<struct RBX::LSP::ResponseError * __ptr64,struct std::default_delete<struct RBX::LSP::ResponseError> >
 std::_Ref_count_resource<struct RBX::LSP::RobloxFindColor3ConstructorRequest * __ptr64,struct std::default_delete<struct RBX::LSP::RobloxFindColor3ConstructorRequest> >
 std::_Ref_count_resource<struct RBX::LSP::RobloxFindColor3ConstructorResponse * __ptr64,struct std::default_delete<struct RBX::LSP::RobloxFindColor3ConstructorResponse> >
 std::_Ref_count_resource<struct RBX::LSP::RobloxFindExecutablePositionRequest * __ptr64,struct std::default_delete<struct RBX::LSP::RobloxFindExecutablePositionRequest> >
@@ -12886,6 +12904,7 @@ std::_Ref_count<class RBX::Studio::DataModelHandles>
 std::_Ref_count<class RBX::Studio::ExportSelectionForUploadVerbHelper>
 std::_Ref_count<class RBX::TaskQueue>
 std::_Ref_count<class RBX::TaskQueueJob>
+std::_Ref_count<class RBX::Telemetry::BatchedReporterManager>
 std::_Ref_count<class RBX::ThreadPool>
 std::_Ref_count<class RBX::TimeCurve>
 std::_Ref_count<class RBX::Tracing::Tracer>
@@ -13052,6 +13071,9 @@ std::enable_shared_from_this<class RBX::Soundscape::IAudioDevice>
 std::enable_shared_from_this<class RBX::Soundscape::IAudioNode>
 std::enable_shared_from_this<class RBX::Soundscape::SoundObject>
 std::enable_shared_from_this<class RBX::TaskScheduler::Job>
+std::enable_shared_from_this<class RBX::Telemetry::EphemeralCounterBatch>
+std::enable_shared_from_this<class RBX::Telemetry::GenericBatch<class RBX::Telemetry::EphemeralStatBatchEvent> >
+std::enable_shared_from_this<class RBX::Telemetry::GenericBatch<class RBX::Telemetry::EventIngestBatchEvent> >
 std::enable_shared_from_this<class RBX::Text::FontProvider>
 std::enable_shared_from_this<class RBX::Typesetter>
 std::enable_shared_from_this<class RBX::VideoStream>
@@ -13333,8 +13355,8 @@ webrtc::AcknowledgedBitrateEstimatorInterface
 webrtc::AdaptiveModeLevelEstimatorAgc
 webrtc::Agc
 webrtc::AsyncResolverFactory
-webrtc::audio_decoder_factory_template_impl::AudioDecoderFactoryT<struct webrtc::AudioDecoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioDecoderMultiChannelOpus>,struct webrtc::AudioDecoderIsacFix,struct webrtc::AudioDecoderG722,struct webrtc::AudioDecoderIlbc,struct webrtc::AudioDecoderG711,struct webrtc::A0x8d06c547::NotAdvertised<struct webrtc::AudioDecoderL16> >
-webrtc::audio_encoder_factory_template_impl::AudioEncoderFactoryT<struct webrtc::AudioEncoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioEncoderMultiChannelOpus>,struct webrtc::AudioEncoderIsacFix,struct webrtc::AudioEncoderG722,struct webrtc::AudioEncoderIlbc,struct webrtc::AudioEncoderG711,struct webrtc::A0xa7333671::NotAdvertised<struct webrtc::AudioEncoderL16> >
+webrtc::audio_decoder_factory_template_impl::AudioDecoderFactoryT<struct webrtc::AudioDecoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioDecoderMultiChannelOpus>,struct webrtc::AudioDecoderIsacFix,struct webrtc::AudioDecoderG722,struct webrtc::AudioDecoderIlbc,struct webrtc::AudioDecoderG711,struct webrtc::A0x6d7074ff::NotAdvertised<struct webrtc::AudioDecoderL16> >
+webrtc::audio_encoder_factory_template_impl::AudioEncoderFactoryT<struct webrtc::AudioEncoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioEncoderMultiChannelOpus>,struct webrtc::AudioEncoderIsacFix,struct webrtc::AudioEncoderG722,struct webrtc::AudioEncoderIlbc,struct webrtc::AudioEncoderG711,struct webrtc::A0x474587c9::NotAdvertised<struct webrtc::AudioEncoderL16> >
 webrtc::AudioBuffer
 webrtc::AudioCodingModule
 webrtc::AudioConverter

@@ -9,6 +9,7 @@ Studio.Toolbox.General.CategoryEndorsedPlugins,EndorsedPlugins,EndorsedPlugins
 Studio.Toolbox.Common.Close,Close,Close
 Studio.Toolbox.Common.Install,Install,Install
 Studio.Toolbox.AssetConfigCopy.MustShare,Must share with anyone on Roblox,Must share with anyone on Roblox
+Studio.Toolbox.General.SearchTagIdVerified,Showing ID Verified assets,Showing ID Verified assets
 Studio.Toolbox.Common.Insert,Insert,Insert
 Studio.Toolbox.General.CategoryRecentVideos,Recent Videos,Recent Videos
 Studio.Toolbox.AssetConfigFooter.UploadWithFee,Submit for,{price:int} Robux
@@ -16,9 +17,7 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName
 White,White,Studio.Toolbox.General.CategoryGroupDecals
 Group Images,Group Images,Studio.Toolbox.Common.InsertAborted
 Not inserting asset {assetId} because it is invalid.,Not inserting asset {assetId} because it is invalid.,Studio.Toolbox.General.AllModels
-AllModels,All Models,Studio.Toolbox.General.Ownership
-Creator,Creator,Studio.Toolbox.General.SearchOptionCreator
-Creator,Creator,Studio.Toolbox.General.CategoryMyModels
+AllModels,All Models,Studio.Toolbox.General.CategoryMyModels
 My Models,My Models,Studio.Toolbox.AssetConfigSharing.OnlyMe
 Only me,Only me,Studio.Toolbox.Common.Loading
 Loading,Loading,Studio.Toolbox.General.DistributeOnMarketplace
@@ -66,8 +65,7 @@ Search by username,Search by username,Studio.Toolbox.General.CategoryCreationsFa
 Face Accessories,Face Accessories,Studio.Toolbox.General.CategoryGroupModels
 Group Models,Group Models,Studio.Toolbox.General.SuggestionsBuilding
 Building,Building,Studio.Toolbox.General.CategoryGroupMeshes
-Group Meshes,Group Meshes,Studio.Toolbox.General.SearchOptionSort
-Sort By,Sort By,Studio.Toolbox.General.CategoryGroupAudio
+Group Meshes,Group Meshes,Studio.Toolbox.General.CategoryGroupAudio
 Group Audio,Group Audio,Studio.Toolbox.AssetConfigFooter.ImportTitle
 Choose an asset to import.,Choose an asset to import.,Studio.Toolbox.General.SortByMostTaken
 Most Taken,Most Taken,Studio.Toolbox.HomeView.Results
@@ -75,7 +73,10 @@ Most Taken,Most Taken,Studio.Toolbox.HomeView.Results
 Search,Search,Studio.Toolbox.General.AssetTypePlugin
 Plugin,Plugin,Studio.Toolbox.General.SortByFavorites
 Favorites,Favorites,Studio.Toolbox.General.SearchBarCreatorText
-Search for users,Search for users,Studio.Toolbox.General.SuggestionsIntroText
+Search for users,Search for users,Studio.Toolbox.General.SearchBarIdVerified
+Show ID verified creators only,Show ID verified creators only,Studio.Toolbox.General.ShowMore
+Show more,Show more,Studio.Toolbox.General.ShowLess
+Show less,Show less,Studio.Toolbox.General.SuggestionsIntroText
 Try searching for:,Try searching for:,Studio.Toolbox.General.AssetTypeTShirtAccessory
 T-Shirt Accessory,T-Shirt Accessory,Studio.Toolbox.General.CategoryCreationsGroupHair
 Group Hair,Group Hair,Studio.Toolbox.General.SuggestionsNPC
@@ -87,18 +88,22 @@ Waist Accessories,Waist Accessories,Studio.Toolbox.General.SortByRatings
 Ratings,Ratings,Studio.Toolbox.General.VotingVoteText
 vote,vote,Studio.Toolbox.General.VotingVotesText
 votes,votes,Studio.Toolbox.General.FooterButtonBlackName
-Black,Black,Studio.Toolbox.HomeView.essential
+Black,Black,Studio.Toolbox.General.FooterButtonNoneName
+None,None,Studio.Toolbox.General.SearchResultsKeyword
+Search Results for,Search Results for,Studio.Toolbox.General.SearchOptionsAllViews
+All Views,All Views,Studio.Toolbox.General.SearchResultsClearAll
+Clear,Clear,Studio.Toolbox.General.Ownership
+Creator,Creator,Studio.Toolbox.General.SearchOptionCreator
+Creator,Creator,Studio.Toolbox.General.SearchOptionSort
+Sort By,Sort By,Studio.Toolbox.Purchase.FailedDetails
+Purchase of "{name}" failed.,Purchase of "{name}" failed.,Studio.Toolbox.General.CategoryCreationsPantsAccessory
+Pants Accessories,Pants Accessories,Studio.Toolbox.General.SearchOptionsApply
+Apply,Apply,Studio.Toolbox.HomeView.essential
 Essential,Essential,Studio.Toolbox.General.Cancel
 Cancel,Cancel,Studio.Toolbox.General.SearchOptionsCancel
 Cancel,Cancel,Studio.Toolbox.GrantAssetPermission.CancelButton
 Cancel,Cancel,Studio.Toolbox.Purchase.Cancel
-Cancel,Cancel,Studio.Toolbox.Purchase.FailedDetails
-Purchase of "{name}" failed.,Purchase of "{name}" failed.,Studio.Toolbox.General.CategoryCreationsPantsAccessory
-Pants Accessories,Pants Accessories,Studio.Toolbox.General.SearchOptionsApply
-Apply,Apply,Studio.Toolbox.General.FooterButtonNoneName
-None,None,Studio.Toolbox.General.SearchResultsKeyword
-Search Results for,Search Results for,Studio.Toolbox.General.SearchResultsClearAll
-Clear,Clear,Studio.Toolbox.General.SearchTagCreator
+Cancel,Cancel,Studio.Toolbox.General.SearchTagCreator
 by:,by:,Studio.Toolbox.General.RightClickMenuCopyTextureID
 Copy Texture ID,Copy Texture ID,Studio.Toolbox.General.TabMarketplace
 Marketplace,Marketplace,Studio.Toolbox.General.TabInventory
@@ -319,7 +324,8 @@ This plugin was created by a third party. Roblox does not guarantee its safety o
 Please review the scripts to prevent unwanted changes to your experience.,Studio.Toolbox.HomeView.SeeAll,See All
 See All,Studio.Toolbox.HomeView.TheEssentials,The Essentials
 The Essentials,Studio.Toolbox.HomeView.trending,Trending
-Trending,Studio.Toolbox.GrantAssetPermission.Failure,Failed to grant Universe permission to use asset {assetId:int}
+Trending,Studio.Toolbox.HomeView.TopSearches,Top Searches
+Top Searches,Studio.Toolbox.GrantAssetPermission.Failure,Failed to grant Universe permission to use asset {assetId:int}
 Failed to grant Universe permission to use asset {assetId:int},Studio.Toolbox.GrantAssetPermission.Information,Name: {assetName}
 ID: {assetId:int},Type: {assetType},Name: {assetName}
 ID: {assetId:int},Type: {assetType},Studio.Toolbox.GrantAssetPermission.GrantButton
