@@ -1,0 +1,171 @@
+local Table = script.Parent
+local App = Table.Parent
+local UIBlox = App.Parent
+local Core = UIBlox.Core
+local Packages = UIBlox.Parent
+
+local t = require(Packages.t)
+local Roact = require(Packages.Roact)
+local enumerate = require(Packages.enumerate)
+
+local withStyle = require(Core.Style.withStyle)
+local Interactable = require(Core.Control.Interactable)
+local ControlState = require(Core.Control.Enum.ControlState)
+local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
+
+local PADDING_HEAD = 24
+local PADDING_TAIL = 24
+local DISABLED_TRANSPARENCY = 0.5
+
+local Cell = Roact.PureComponent:extend("Cell")
+Cell.debugProps = enumerate("debugProps", {
+	"controlState",
+})
+
+Cell.validateProps = t.strictInterface({
+	layoutOrder = t.optional(t.integer),
+	size = t.optional(t.UDim2),
+	anchorPoint = t.optional(t.Vector2),
+	position = t.optional(t.UDim2),
+
+	isDisabled = t.optional(t.boolean),
+	userInteractionEnabled = t.optional(t.boolean),
+
+	onStateChanged = t.optional(t.callback),
+	onActivated = t.optional(t.callback),
+
+	head = t.table,
+	tail = t.optional(t.table),
+	background = t.optional(t.table),
+
+	-- Override the default controlState
+	[Cell.debugProps.controlState] = t.optional(enumerateValidator(ControlState)),
+})
+
+Cell.defaultProps = {
+	isDisabled = false,
+	userInteractionEnabled = true,
+}
+
+function Cell:init()
+	self:setState({
+		controlState = ControlState.Initialize
+	})
+
+	self.stateStyleMap = {
+		[ControlState.Default] = "BackgroundDefault",
+		[ControlState.Hover] = "BackgroundOnHover",
+		[ControlState.Pressed] = "BackgroundOnPress",
+	}
+
+	self.getBackgroundStyle = function(controlState, style)
+		local contentThemeClass = self.stateStyleMap[controlState]
+			or self.stateStyleMap[ControlState.Default]
+
+		local contentStyle = {
+			Color = style.Theme[contentThemeClass].Color,
+			Transparency = style.Theme[contentThemeClass].Transparency,
+		}
+
+		if controlState == ControlState.Disabled then
+			-- make CellBackground transparent to let the whole component
+			-- have the right color and transparency with DisabledMask
+			contentStyle.Transparency = 1
+		end
+		return contentStyle
+	end
+
+	self.onStateChanged = function(oldState, newState)
+		self:setState({
+			controlState = newState,
+		})
+		if self.props.onStateChanged then
+			self.props.onStateChanged(oldState, newState)
+		end
+	end
+end
+
+function Cell:render()
+	return withStyle(function(style)
+		local anchorPoint = self.props.anchorPoint
+		local layoutOrder = self.props.layoutOrder
+		local position = self.props.position
+		local size = self.props.size
+		if not size then
+			size = UDim2.fromScale(1, 1)
+		end
+
+		local head = self.props.head
+		local tail = self.props.tail
+		local background = self.props.background
+
+		local userInteractionEnabled = self.props.userInteractionEnabled
+		local interactionEnabled = (tail and userInteractionEnabled) and true or false
+		local isDisabled = self.props.isDisabled
+		local onActivated = self.props.onActivated
+
+		local currentState = self.props[Cell.debugProps.controlState] or self.state.controlState
+		local backgroundStyle = self.getBackgroundStyle(currentState, style)
+
+		return Roact.createElement(Interactable, {
+			AnchorPoint = anchorPoint,
+			LayoutOrder = layoutOrder,
+			Position = position,
+			Size = size,
+			BackgroundTransparency = 1,
+			AutoButtonColor = false,
+
+			isDisabled = isDisabled,
+			onStateChanged = self.onStateChanged,
+			userInteractionEnabled = interactionEnabled,
+			[Roact.Event.Activated] = onActivated,
+		}, {
+			CellBackground = Roact.createElement("Frame", {
+				Size = UDim2.fromScale(1, 1),
+				BackgroundColor3 = backgroundStyle.Color,
+				BackgroundTransparency = backgroundStyle.Transparency,
+				BorderSizePixel = 0,
+				ZIndex = -1,
+			}, {
+				Background = background,
+			}),
+			CellContent = Roact.createElement("Frame", {
+				Size = UDim2.fromScale(1, 1),
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+			}, {
+				Padding = Roact.createElement("UIPadding", {
+					PaddingLeft = UDim.new(0, PADDING_HEAD),
+					PaddingRight = UDim.new(0, PADDING_TAIL),
+				}),
+				CellHead = Roact.createElement("Frame", {
+					AnchorPoint = Vector2.new(0, 0.5),
+					Position = UDim2.fromScale(0, 0.5),
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					AutomaticSize = Enum.AutomaticSize.XY,
+				}, {
+					Head = head,
+				}),
+				CellTail = tail and Roact.createElement("Frame", {
+					AnchorPoint = Vector2.new(1, 0.5),
+					Position = UDim2.fromScale(1, 0.5),
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					AutomaticSize = Enum.AutomaticSize.XY,
+				}, {
+					Tail = tail,
+				}) or nil,
+			}),
+			DisabledMask = currentState == ControlState.Disabled and Roact.createElement("Frame", {
+				Size = UDim2.fromScale(1, 1),
+				BorderSizePixel = 0,
+				BackgroundColor3 = backgroundStyle.Color,
+				BackgroundTransparency = DISABLED_TRANSPARENCY,
+				ZIndex = 100,
+			}) or nil,
+		})
+	end)
+end
+
+return Cell

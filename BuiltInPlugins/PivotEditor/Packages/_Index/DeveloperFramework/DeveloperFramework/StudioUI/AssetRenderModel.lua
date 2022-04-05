@@ -24,6 +24,7 @@ local FFlagDevFrameworkExtractAssetRenderModelCamera = game:GetFastFlag("DevFram
 local FFlagDevFrameworkAssetRenderModelCustomCamDirection = game:GetFastFlag("DevFrameworkAssetRenderModelCustomCamDirection")
 local FFlagDevFrameworkSeparateCenterCameraCenterModel = game:DefineFastFlag("DevFrameworkSeparateCenterCameraCenterModel", false)
 local FFlagDevFrameworkAssetRenderModelStatic = game:GetFastFlag("DevFrameworkAssetRenderModelStatic")
+local FFlagDevFrameworkAssetRenderModelStatic2 = game:GetFastFlag("DevFrameworkAssetRenderModelStatic2")
 local FFlagDevFrameworkAssetRenderModelDisableZoom = game:GetFastFlag("DevFrameworkAssetRenderModelDisableZoom")
 
 local Framework = script.Parent.Parent
@@ -195,6 +196,7 @@ function AssetRenderModel:init()
 
 	self.centerCamera = function()
 		local model = self.viewportFrameModel
+		local initialDistance = self.props.InitialDistance
 		local size
 		
 		if model:IsA("Model") then
@@ -203,7 +205,13 @@ function AssetRenderModel:init()
 			size = model.Size
 		end
 		
-		local cameraDistAway = size.Magnitude * INSERT_CAMERA_DIST_MULT
+		local cameraDistAway
+		if FFlagDevFrameworkAssetRenderModelStatic2 then
+			cameraDistAway = (initialDistance or size.magnitude) * INSERT_CAMERA_DIST_MULT
+		else
+			cameraDistAway = size.magnitude * INSERT_CAMERA_DIST_MULT
+		end
+
 		local dir
 		if FFlagDevFrameworkAssetRenderModelCustomCamDirection then
 			dir = self.props.FocusDirection.Unit

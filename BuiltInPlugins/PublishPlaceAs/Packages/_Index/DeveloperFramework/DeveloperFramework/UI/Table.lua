@@ -38,7 +38,6 @@
 ]]
 local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
-local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
 local FFlagDevFrameworkDoubleClick = game:GetFastFlag("DevFrameworkDoubleClick")
 
 local hasTableColumnResizeFFlags = FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize
@@ -255,7 +254,7 @@ function Table:renderScroll()
 		EstimatedItemSize = style.RowHeight,
 		Items = props.Rows,
 		RenderItem = self.onRenderRow,
-		ScrollFocusIndex = (FFlagDevFrameworkInfiniteScrollerIndex and props.ScrollFocusIndex) or nil,
+		ScrollFocusIndex = props.ScrollFocusIndex,
 	})
 end
 

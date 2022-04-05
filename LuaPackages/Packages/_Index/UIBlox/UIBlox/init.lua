@@ -271,6 +271,13 @@ local function initializeLibrary(configs)
 				DetailsPageTemplate = require(script.App.Template.DetailsPage.DetailsPageTemplate),
 			},
 		}),
+
+		Table = strict({
+			ListTable = require(script.App.Table.ListTable),
+			Cell = require(script.App.Table.Cell),
+			CellHeadDetail = require(script.App.Table.CellHeadDetail),
+			CellTailDescription = require(script.App.Table.CellTailDescription),
+		}),
 	})
 
 	UIBlox.Style = {

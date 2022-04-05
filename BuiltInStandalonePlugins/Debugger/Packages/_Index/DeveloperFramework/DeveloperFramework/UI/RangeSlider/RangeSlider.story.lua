@@ -73,6 +73,27 @@ function ExampleRangeSlider:render()
 			SnapIncrement = 1,
 			VerticalDragTolerance = 300,
 		}),
+		RotatedSliderContainer = Roact.createElement("Frame", {				
+			Rotation = 25,
+			BackgroundTransparency = 1,	
+			Size = UDim2.new(0, 150, 0, 20),
+		},	
+		{				
+			Slider = Roact.createElement(RangeSlider, {	
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Disabled = false,
+				HideLowerKnob = true,
+				LowerRangeValue = self.state.currentMin,
+				UpperRangeValue = self.state.currentMax,
+				Min = MIN_VALUE,
+				Max = MAX_VALUE,
+				OnValuesChanged = self.setValues,
+				Size = UDim2.new(0, 100, 0, 20),
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				SnapIncrement = 1,
+				VerticalDragTolerance = 300,
+			}),					
+		})	
 	})
 end
 

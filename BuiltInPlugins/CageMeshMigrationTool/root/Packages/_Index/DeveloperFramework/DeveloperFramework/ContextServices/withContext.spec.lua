@@ -79,7 +79,7 @@ return function()
 		local otherItem = ContextItem:extend("OtherItem")
 		otherItem.update = Signal.new()
 		function otherItem:fireUpdate()
-			self.update:Fire(self)
+			self.update:Fire()
 		end
 		function otherItem:getSignal()
 			return self.update
@@ -108,6 +108,39 @@ return function()
 			otherItem:fireUpdate()
 		end)
 		expect(renders).to.equal(3)
+		Roact.unmount(instance)
+	end)
+
+	it("should re-render the component when updated by any signal", function()
+		local valueOnRender = {}
+
+		local testItem = ContextItem:extend("TestItem")
+		local updateSignal = Signal.new()
+		function testItem:getSignal()
+			return updateSignal
+		end
+
+		local Component = Roact.PureComponent:extend("TestComponent")
+		function Component:render()
+			table.insert(valueOnRender, self.props.Test)
+		end
+		local ComponentWithContext = withContext({
+			Test = testItem,
+		})(Component)
+
+		local tree = provide({testItem}, {
+			Component = Roact.createElement(ComponentWithContext),
+		})
+		local instance = Roact.mount(tree)
+
+		expect(#valueOnRender).to.equal(1)
+		expect(valueOnRender[1]).to.equal(testItem)
+		act(function()
+			updateSignal:Fire()
+		end)
+
+		expect(#valueOnRender).to.equal(2)
+		expect(valueOnRender[2]).to.equal(testItem)
 		Roact.unmount(instance)
 	end)
 end

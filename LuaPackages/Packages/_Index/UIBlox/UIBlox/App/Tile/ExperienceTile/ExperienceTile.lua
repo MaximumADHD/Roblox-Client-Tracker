@@ -32,7 +32,7 @@ ExperienceTile.validateProps = t.strictInterface({
 	-- The experience's name that will show a loading state if nil
 	experienceName = t.optional(t.string),
 
-	-- The width of the tile, which text sizing is based upon
+	-- The width which text sizing within the tile is based upon
 	textWidth = t.intersection(t.integer, t.numberMin(0)),
 
 	-- Whether the tile should use a background or not

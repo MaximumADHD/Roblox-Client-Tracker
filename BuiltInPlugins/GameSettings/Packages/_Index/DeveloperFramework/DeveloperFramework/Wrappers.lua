@@ -3,7 +3,7 @@
 	between components.
 ]]
 local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization2")
 
 local strict = require(script.Parent.Util.strict)
 

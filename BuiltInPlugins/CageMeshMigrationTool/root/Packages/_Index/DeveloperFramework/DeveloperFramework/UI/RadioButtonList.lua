@@ -6,6 +6,7 @@
 		table Buttons: A list of buttons to display. Example: { Key = "", Text = "", Description = "", Disabled = false }.
 
 	Optional Props:
+		Enum.AutomaticSize AutomaticSize: Automatic sizing.
 		string CurrentSelectedKey: The current selected key if any. Otherwise we'll use the component's state value. Keep this nil if you only care for the component's state value.
 		string SelectedKey: The initially selected key.
 		number LayoutOrder: The layout order of the frame.
@@ -13,9 +14,11 @@
 		callback OnClick: paramters(string key). Fires when the button is activated and returns back the Key.
 		table TextSize: A list of text sizes to display. Example: { MainText = 22, Description = 16, }.
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		boolean TextWrapped: Whether or not the description is text wrapped.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 ]]
-local FFlagToolboxPrivatePublicAudioAssetConfig = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig")
+local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
+local FFlagToolboxAssetConfigUpdatePrivateAudioMessage = game:GetFastFlag("ToolboxAssetConfigUpdatePrivateAudioMessage")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -56,7 +59,7 @@ function RadioButtonList:init()
 		end
 
 		local prioritySelectedKey
-		if FFlagToolboxPrivatePublicAudioAssetConfig then
+		if FFlagToolboxPrivatePublicAudioAssetConfig3 then
 			prioritySelectedKey = prioritize(currentSelectedKey, state.selectedKey)
 		else
 			prioritySelectedKey = state.selectedKey
@@ -74,6 +77,7 @@ function RadioButtonList:render()
 	local props = self.props
 	local state = self.state
 
+	local automaticSize = self.props.AutomaticSize
 	local buttons = props.Buttons
 	local currentSelectedKey = props.CurrentSelectedKey
 	local fillDirection = props.FillDirection
@@ -92,25 +96,44 @@ function RadioButtonList:render()
 
 	local children = {}
 
+	local textWrapped
+	local textXAlignment
+	local verticalAlignment
+	if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then
+		textWrapped = prioritize(self.props.TextWrapped, style.TextWrapped)
+		textXAlignment = prioritize(self.props.TextXAlignment, style.TextXAlignment)
+		verticalAlignment = prioritize(self.props.VerticalAlignment, style.VerticalAlignment)
+	end
+
 	for index, button in ipairs(buttons) do
 		local isSelected
-		if FFlagToolboxPrivatePublicAudioAssetConfig then
+		if FFlagToolboxPrivatePublicAudioAssetConfig3 then
 			local prioritySelectedKey = prioritize(currentSelectedKey, state.selectedKey)
 			isSelected = (prioritySelectedKey == button.Key)
 		else
 			isSelected = (state.selectedKey == button.Key)
 		end
 
+		local size
+		if FFlagToolboxAssetConfigUpdatePrivateAudioMessage and automaticSize == Enum.AutomaticSize.Y then
+			size = UDim2.new(1, 0, 0, 0)
+		end
+
 		children[button.Key] = Roact.createElement(RadioButton, {
+			AutomaticSize = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then automaticSize else nil,
 			Description = button.Description,
 			Disabled = button.Disabled,
 			Key = button.Key,
 			LayoutOrder = index,
 			OnClick = function() self.onClick(button.Key, button.Disabled) end,
-			Style = if FFlagToolboxPrivatePublicAudioAssetConfig then radioButtonStyle else nil,
+			Size = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then size else nil,
+			Style = if FFlagToolboxPrivatePublicAudioAssetConfig3 then radioButtonStyle else nil,
 			Selected = isSelected,
 			Text = button.Text,
 			TextSize = textSize,
+			TextWrapped = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then textWrapped else nil,
+			TextXAlignment = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then textXAlignment else nil,
+			VerticalAlignment = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then verticalAlignment else nil,
 		})
 	end
 
@@ -122,7 +145,6 @@ function RadioButtonList:render()
 		width = UDim.new(1, 0),
 	}, children)
 end
-
 
 RadioButtonList = withContext({
 	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,

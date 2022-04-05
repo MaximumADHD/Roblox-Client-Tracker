@@ -16,7 +16,7 @@ return function()
 
 	local testSymbols = {}
 
-	local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
+	local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
 	local function createTestThemedComponent(render)
 		local TestThemedComponent = Roact.PureComponent:extend("TestThemedComponent")
@@ -28,7 +28,7 @@ return function()
 			end
 		end
 
-		if FFlagRefactorDevFrameworkContextItems2 then
+		if FFlagDevFrameworkUseCreateContext then
 			TestThemedComponent = withContext({
 				Theme = Stylizer,
 			})(TestThemedComponent)

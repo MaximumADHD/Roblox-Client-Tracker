@@ -38,8 +38,6 @@
 		boolean ScrollingEnabled: Whether scrolling in this frame will change the CanvasPosition.
 ]]
 
-local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
-
 local Framework = script.Parent.Parent
 local Util = require(Framework.Util)
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
@@ -112,7 +110,7 @@ function InfiniteScrollingFrame:init()
 		end
 
 		local currFocusIndex = self.state.focusLockToken
-		if (FFlagDevFrameworkInfiniteScrollerIndex and props.ScrollFocusIndex) then
+		if props.ScrollFocusIndex then
 			currFocusIndex = props.ScrollFocusIndex
 		end
 

@@ -43,6 +43,11 @@ local HoverArea = require(UI.HoverArea)
 local RangeSlider = Roact.PureComponent:extend("RangeSlider")
 Typecheck.wrap(RangeSlider, script)
 
+
+local GetFFlagFaceControlsEditorUI = function()
+	return game:GetFastFlag("FaceControlsEditorUI")
+end
+
 RangeSlider.defaultProps = {
 	Disabled = false,
 	SnapIncrement = 0,
@@ -63,6 +68,11 @@ function RangeSlider:init()
 
 	self.state = {
 		pressed = false,
+		--internal props for caching calculation results for rotated sliders:
+		rotation = nil,
+		width = nil,
+		centerPoint = nil,		
+		unit = nil	
 	}
 
 	self.isSwitchingKnob = function(newKnobType)
@@ -89,11 +99,49 @@ function RangeSlider:init()
 		return math.clamp(value, min, max)
 	end
 
+	--used for getting the percentage of a point pos (mouse pos in our case) along our slider
+	self.GetPercentage = function(sliderFrameRef, pos)		
+		--do heavier calc less frequently
+		if not self.state.width or self.state.width ~= sliderFrameRef.AbsoluteSize.X or not self.state.rotation or self.state.rotation ~= sliderFrameRef.AbsoluteRotation then
+			local half = 0.5
+			local rotation = sliderFrameRef.AbsoluteRotation
+			local rotationRad = math.rad(rotation)
+			local centerPoint = sliderFrameRef.AbsolutePosition + half * sliderFrameRef.AbsoluteSize
+			local width = sliderFrameRef.AbsoluteSize.X
+			self:setState({
+				rotation = rotation,
+				width = width,
+				centerPoint = centerPoint,		
+				unit = Vector2.new(math.cos(rotationRad), math.sin(rotationRad))
+			})			
+			
+		end
+		return (pos-self.state.centerPoint):Dot(self.state.unit) / self.state.width + 0.5			
+	end	
+
 	self.getMouseClickValue = function(input)
 		local sliderFrameRef = self.sliderFrameRef.current
-		local inputHorizontalOffsetNormalized = (input.Position.X - sliderFrameRef.AbsolutePosition.X) / sliderFrameRef.AbsoluteSize.X
-		inputHorizontalOffsetNormalized = math.clamp(inputHorizontalOffsetNormalized, 0, 1)
-		local valueBeforeSnapping = self.props.Min + (inputHorizontalOffsetNormalized * self.getTotalRange())
+
+		local valueBeforeSnapping = 0	
+
+		-- handling for rotated sliders
+		--[[
+		The slider/rangeslider (before the addition below) only worked well when used horizontally (not rotated), 
+		both because it only checks for horizontal input dir and also because AbsolutePosition returns a wrong value 
+		for the container when rotated
+		]]
+
+		if GetFFlagFaceControlsEditorUI() and sliderFrameRef.AbsoluteRotation ~= 0 then
+			local pos = Vector2.new( input.Position.X,  input.Position.Y)
+
+			local percentage = self.GetPercentage(sliderFrameRef, pos)
+			valueBeforeSnapping = math.clamp(percentage, 0, 1 ) * self.getTotalRange()
+		else	
+			-- existing handling for not rotated sliders
+			local inputHorizontalOffsetNormalized = (input.Position.X - sliderFrameRef.AbsolutePosition.X) / sliderFrameRef.AbsoluteSize.X
+			inputHorizontalOffsetNormalized = math.clamp(inputHorizontalOffsetNormalized, 0, 1)
+			valueBeforeSnapping = self.props.Min + (inputHorizontalOffsetNormalized * self.getTotalRange())
+		end
 
 		return self.getSnappedValue(valueBeforeSnapping)
 	end
