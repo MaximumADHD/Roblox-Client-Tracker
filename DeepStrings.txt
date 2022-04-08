@@ -407,7 +407,6 @@ AddTransportOffer
 AddUnder13Field
 AddUserAsync
 AddWaypointSpacingPathParameter
-ADebugSSAOForce
 Adicionando
 Adieresissmall
 Adjuntados
@@ -709,7 +708,6 @@ AgeBracket
 AgentCanJump
 AgentHeight
 AgentRadius
-AGetRenderCFrame
 AgeUnder13
 Aggiornamenti
 Aggregate[
@@ -1056,6 +1054,7 @@ AndShowIDEDocFromPlaceSessionConfigSuccess
 AndUpdateResultsCount
 AndValidateScript
 AndVerifyCertificateChain
+ANewSettingsEndpointExceptionInfluxPermyriad
 Anforderung.
 Angeforderter
 AngleSnapEnabled
@@ -1378,6 +1377,7 @@ ArrowRight
 ArrowRightIcon
 ArrowToolAction
 ArtistIntent
+ARwsVsco6fPW
 Ascii_helper
 AScriptService
 ASIdentifierChoice
@@ -6463,6 +6463,7 @@ BCFB4827B1F11E4A86BBBBE005A3BAD
 BCIDistributionTBS
 BCryptGenRandom
 BD67FE0E20681192B0EC12CE5A0D3C
+BdeltaTime
 BE20681180838E23F0DC6224
 BE42889BE20681180838E23F0DC6224
 BEA91211E2B410EF351327957B
@@ -6615,7 +6616,6 @@ BIO_sock_init
 BIO_socket
 BIO_socket_nbio
 BIO_write_ex
-BirqYlR8G77Ao
 BitArrayToObject
 BitrateAllocator
 BitsPerSample
@@ -6623,7 +6623,6 @@ BitstreamList
 BjDjFjHjJjLjNjPjRjTjVjXjZj\j^j`jbjdjfjhjjjljnjpjrjtjvjxjzj
 BjDjFjHjJjLjNjPjRjTjVjXjZj\j^j`jbjdRf
 BjDjFjHVJ6
-BJGKUhjlQ94a3Il
 Bkg_round.png
 Bkg_square.png
 BL17qL9koPpyChCHbWVgSXbfxynzBupojeOEiuqDuGX0BFl
@@ -6855,6 +6854,7 @@ BreakpointsWidget
 BreakpointToolTip
 BreakpointUpdatedInternal
 BreakReason
+BRenderLightGrid
 Brevesmall
 BrickColor
 BrickColorChanged
@@ -6865,7 +6865,6 @@ BridgeStyleSupports
 Briefumschlag
 Brightness
 BrightText
-BRiseVelocity
 BroadcastNotification
 Broadphase
 BroadPhase
@@ -7001,13 +7000,11 @@ BulletContactBreakOrthogonalThresholdActivatePercent
 BulletContactBreakOrthogonalThresholdPercent
 BulletContactBreakThresholdPercent
 BulletInitialContactDivideByAxisLength
-BUnbindFromRenderStep
 BundlePolicyMaxBundle
 BundleThumbnail
 BundleType
 BundleTypes
 BuoyancyAccumulator
-BUSGSOPGferp
 BusyStatesShifted
 Buttermilk
 Button1Down
@@ -7034,6 +7031,7 @@ ButtonsUpdated
 ButtonText
 BuyDeveloperProduct
 BuyDeveloperProduct_AutoAccepted
+Bv4kcofCPRJUHwMrgxgaDPQECAwEAAQ
 BVBinaryString
 BvBvBvBvBvBvBvBv
 BVCoordinateFrame
@@ -10936,7 +10934,6 @@ DebugShowFlagState
 DebugShowHSRAssetId
 DebugShowRccLoadErrors
 DebugShowStudioDisplayModerationPendingStatus
-DebugShowTextBounds
 DebugSimForceUnthrottledSteps
 DebugSimForceWorldStepCount
 DebugSimLDLProgramPrintBuildStats
@@ -10949,6 +10946,7 @@ DebugSimulateHangAtShutdown
 DebugSimulateHangAtStartup
 DebugSkipMeshVoxelizer
 DebugSkyGray
+DebugSSAOForce
 DebugStartMicroProfilerWebServer
 DebugStartPageRefreshOnF5
 DebugStaticFilteredValue
@@ -11906,7 +11904,6 @@ DistributionPoints
 DistToShowBufferCountSqr
 DIv2BytesByInstanceTypeCount
 DJOTX\_cfiloruwz
-DJPgK851eoFcnF3v7
 DKECCAK1600_ASM
 DlcVersion
 DListenerAttributes
@@ -12767,6 +12764,7 @@ EnableClicked
 EnableClientAnimatorThrottlingMode
 EnableCloseFmodLogs
 EnableCoarseShading
+EnableCodeSampleWidget
 EnableCopyPasteUWP
 EnableCoreGuiButtonsInPanel3D
 EnableCustomTelemetryInfo2
@@ -13059,8 +13057,8 @@ EphemeralCounterInfluxReportingThrottleHundredthsPercent
 EphemeralStatsInfluxReportingEnabled
 EphemeralStatsInfluxReportingPriorityHundredthsPercent
 EphemeralStatsInfluxReportingThrottleHundredthsPercent
-EpxXpqcDELGfdMofqaU
 EqDelayHistogramWebRTC
+EQTkyz7jwYk4u3LmXtOSJ2GKvT
 EqualizerSoundEffect
 Equipamento
 EquippedEmotes
@@ -14479,7 +14477,6 @@ FrustumEnvMap
 FrustumLodOptional
 FrustumOrdered
 FrustumRenderQueue
-FStudio.App.ScriptingCmd.RELOADSCRIPT
 FtHpJpLpNpPbR
 FullBandHpfKillSwitch
 FullCompleteness
@@ -15392,6 +15389,7 @@ GetRemoteBuildMode
 GetRemoteSSLCertChain
 GetRenderAreaGranularity
 GetRenderbufferParameteriv
+GetRenderCFrame
 GetRenderDesc2
 GetRequestBudgetForRequestType
 GetResolutionScale
@@ -15745,7 +15743,6 @@ GoToSourceCodeTB
 GotoTargetsRequest
 GoToVersionFailed
 GpuVariance
-GqctUXUGzb
 GrabCursor.png
 GrabRotateCursor
 GrabRotateCursor.png
@@ -16005,6 +16002,7 @@ HA^A]A\_^]
 HA_A]A\_][
 HA_A]A\_^[
 HA_A^A\_][
+HA_A^A]A\][
 HA_A^A]A\^]
 HA_A^A]A\_
 HA_A^A]A\_[
@@ -16123,7 +16121,6 @@ HbaoCompositOldFadeFS
 HBAODepthDownFS
 HbaoRenderCompute
 Hbbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaaaaaaaaaa
-HBL.PXRrPfH
 Hcircumflex
 HdAvailables
 HDCacheLock
@@ -16186,8 +16183,8 @@ Herramienta
 Herramientas
 Herunterfahren
 HeuristicMask
+HFYyQPNDlI
 HHAEBVQModelIndex
-HHge97AoIrgzji5FNQS3RAdPevMVgfri
 HHHHHAEBVQString
 HHPEAVQObject
 HHTT\AKKKKTYWAH
@@ -16807,7 +16804,7 @@ HW4Orientation
 HW4PacketPriority
 HW4TransformationMode
 HwatfCnkndvyKCMPSa0VAl2M2c0GQv9
-HwngSmldAskhBcraMaweNegsOgnaT
+HwngSmldAskhBcraMaweNegsOgnaTDebugShowTextBounds
 HwngSmldAskhBcraMegsOgnaTaweNmnoGuhsNoyoSbnaZrgoDgnoGghoRakaMfdeMogoSdgoSmylEdnaNpnmHohcWsrhCkaiDstiKizeY
 HWYGOTH.ttf
 HybridEvent
@@ -16906,8 +16903,6 @@ IEBAPEAVQTreeWidgetItem
 IEBAXPEAVQStyleOptionComboBox
 IEBAXPEAVQStyleOptionSlider
 IEBAXPEAVQStyleOptionTab
-IeEjM5HwpOTpQb8ZstfAcTdvDFIs74J9gPOyX6bwZjA4Ypr6PAIK0jbh78Df
-IEnableCodeSampleWidget
 Ierusalimschy
 IfE9Z0uBfE9Z
 IFindListener
@@ -17909,6 +17904,7 @@ Iterations
 IteratorFlag
 ITRedirect
 ITriedReplicatingNonReplicatableAndAllIGotWasThisLousyCrashDump
+IU2YqszHHZfDV2OT6
 IUniverseController
 IUpdateUIManager
 IUserDataStoreServiceBase
@@ -18087,7 +18083,6 @@ JW4InfoType
 JW4TextChatMessageStatus
 JW4TextFilterContext
 JW4ThumbnailType
-Jx0TBfnnRMKeTGhohBFfDCttw2YidS7twGHppLNdXYg8E7jmww1cCAwEAAQ
 K\7IxU..UxI7\K
 K]dkqtTKS.
 K_Key_dn.png
@@ -18096,7 +18091,6 @@ Kameraempfindlichkeit
 Kamerageschwindigkeit
 Kamerazoom
 KBytesPerSec
-KCkMeFLwzaJ2
 KeepAliveTimeout
 KeepLastSignatureIfNoneViable
 KeepPositionOnInsert
@@ -18193,6 +18187,7 @@ Koordinatenachse
 Kopplungen
 Kopplungsbeschr
 Korrodiertes
+KosbUNF9zK7s7dPzl2oJj6H93FvGPC
 KPEAVICHull
 Kugelverbindung
 Kundendienst.
@@ -18540,7 +18535,6 @@ ListWidgetScrollingPastBottom
 LiveCoding
 LivingRoom
 LLEo6Soxvx2
-LLJxquX3zthFzn7bOPCzlcGjmIz8QP6hbbnIOuLl6mYUo
 LLLLLLLLLLLLLLLL]]]]]]]]]]]]]]]]]]]]
 LLRlVtZl^tblftjlntrpvxzt
 LmsClient]
@@ -18553,6 +18547,7 @@ LmsPingExpBackoffMaxElapsedTimeSeconds
 LmsPingExponentialBackoff
 LmsRecipeEndpoint
 LmsReportEndpoint
+LMThrZkki5B9qqDJYIhZyUgBID76eoOfo
 LOAD_CERT_CTRL
 Load_Package
 LoadAnimation
@@ -18887,6 +18882,7 @@ LowQMaterialFS_
 LowQMaterialWangFallbackFS
 LowQMaterialWangFS
 LRakRecvToAppPop
+LS5FxHsGwdH4Gu6v2hc
 LSCReplacer
 LSCReplacerLog
 LSCReplacerReportPercentage
@@ -19978,14 +19974,13 @@ MiddleboxCompat
 MidPhaseParallelPairsBatchSize
 MidPhaseParallelPairsSerialCutoff
 MidPhaseStepResults
-Mignos1MM8PqKrvuiwGo7ilKiyk
 MigrateTriangleMeshData_COUNT_
 MigrateTriangleMeshData_PLACE
 MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEAvUayKZ3HnEZtOGXfGdTpt
+MIICCgKCAgEA199bRmwf2dWTKxycEcLAJ1XuW9fqTRLFXM
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -20348,6 +20343,7 @@ MQStandardItem
 MQTableWidgetItem
 MQTreeWidgetItem
 MrdInCachePendingList
+MRdS3bLVPRXuqBSv6jN8xxV586R5
 MRSMessageSize
 MRSTopicNameLength
 MRULocalFileStore
@@ -20776,7 +20772,6 @@ NewScriptEditAverageDelayOfAutoComplete
 NewScriptEditAverageHandlingTimeOfTyping
 NewSecurityKeyMismatch
 Newsession
-NewSettingsEndpointExceptionInfluxPermyriad
 NewTemplate
 NewTimerIndex
 NewTimers.findIndex
@@ -20807,6 +20802,7 @@ NfAddActVs
 NfAddReport
 NfPfRpPtL.T6VJZ
 NfXf`fhfzf
+NHuUzxwwUBe8
 NHVVariant
 NineSliceEditor
 NineSliceEditorBetaFeature
@@ -21032,7 +21028,6 @@ NVStringView
 NvttAllowedCorePercentage
 NW4PenStyle
 NW4UserInputType
-Nzn9i6wJ2ofJ3Yj9s4GX
 Oacutesmall
 OAEPEncryptionSET
 OAUTHBEARER
@@ -21184,6 +21179,7 @@ OfTruthFindItemFound
 OfUnsplitMessages
 OfVisibleResultsInScripts
 OfVisibleScripts
+OGoKgvKAr963UfzEKb3xFwdCEcHVXPetZwdRi0yJTJrrJEzAhZMfnzYMl
 Ogoneksmall
 Ogravesmall
 OGRE_VIEW_UPDATE
@@ -24148,6 +24144,7 @@ PVAdornment
 PVInstance
 PVK_header
 PxnhPiraCmahCilaKcpeLicyLidyLkclOgnjRruaSdnuSiiaVtsvAumaBpygEimrAilhPitrPavaJihtKusiLietMbraShkrOrmaSanaLtvaTktaBharBdnaMmkaCcreMoreMdrlPdrhSaroSrkaTssaBbhgAlpuDablEnarGjohKdniSaniLjhaMinaMdneMidoMoorMtabNbraNmrePgnmHmlaPcuaPplhPddiShriTaraWmohAwulHrtaHtluMgn
+Py6wkFqUJgWSmxM
 PyJlf7IHZQpFHohBe
 QAbstractAnimation
 QAbstractButton
@@ -24724,6 +24721,7 @@ QRegularExpressionMatch
 QRegularExpressionMatchIterator
 QResizeEvent
 QRubberBand
+QrYeGAsLTpzNSjiSoKRqQHY
 QScrollArea
 QScrollBar
 QSemaphore
@@ -26495,6 +26493,7 @@ RevokeFriendship
 Revolution
 RFormatTrace]
 RhodiumHelpers
+RhWTnl2Os8HgW5xXmtUkmo6FSDtiV
 RibbonBarFrameThemeEnabled
 RibbonBarGallery
 RibbonBarGalleryBetaFeature
@@ -26622,6 +26621,7 @@ RigidConstraint
 RigidConstraintAction
 RigidityEnabled
 RigImporter
+RiseVelocity
 Risoluzione
 Rj0isQcnqX
 ROBLOSECURITY
@@ -27011,6 +27011,7 @@ RvWebmFormat
 RxIgnoredBytes
 RxIgnoredPackets
 RxRlReport
+RYSBQWUs47mfBajkmYxwcaU7jS
 S_Key_dn.png
 SA_KPEAPEBVfacet
 SA_NAEBVConnection
@@ -27074,7 +27075,6 @@ SAPEAVQDesktopWidget
 SAPEAVQScreen
 SAPEAVQStyle
 SAPEAVQWidget
-SaSmVQoOfQcUc6NIxLKW60dc6lNEkn0vHZqAZa
 SATAUAVAWH
 Satisfiable
 Saturation
@@ -29156,6 +29156,7 @@ SRTP_AEAD_AES_128_GCM
 SRTP_AEAD_AES_256_GCM
 SRTP_AES128_CM_SHA1_32
 SRTP_AES128_CM_SHA1_80
+SrzYaPxw6fO4t09olXZdqzA5SHY5MHtrrSxePxZX2AQNDOQsZorsJjDvHafH
 SS2OSD.dll
 SSAOBlurXFS
 SSAOBlurYFS
@@ -33765,6 +33766,7 @@ StudioRecentFilesToRecentGames2
 StudioRemoveGetSelfAsWidget
 StudioRemovePluginSettingsFileAnalytics
 StudioRemoveQtAnglePlatformEnvVar
+StudioRemoveRBXIDCookieCheckForLuobu
 StudioReportActionsAsTool
 StudioReportActionsAsToolHundredths
 StudioReportBugUrlPath
@@ -34055,7 +34057,6 @@ Sugerencia
 SuggestedRefresh
 SUITEB128C2
 SUITEB128ONLY
-SujskDhB85m0mxyZ0Km
 SummarySff
 SummaryStats
 SummaryStatsAction
@@ -37029,6 +37030,7 @@ Utimer_thread_function
 UTimerData
 UTimeSlice
 UTmpVertex
+UTNj6O5ZbKqiSZrRRj4cv56cDoW6vlcFyHEIaWYs8s4ybSl6KGlYkm1WGClpA
 UTokenInternal
 UTokenInternalData
 UTouchStateManager
@@ -39021,7 +39023,6 @@ VWrapLayeredDeformerImpl
 VWrapTarget
 VWSUATAUAVAW
 VWXYZ[\]^_`a
-VXikfisNo2FJ
 VXmlElement
 VYieldFunctions
 VYieldFunctionState
@@ -39741,6 +39742,7 @@ XInputGetState
 XInputSetState
 Xinvalid_argument
 Xlength_error
+XlhtuvjAaW
 XNTNPNLNH9
 Xout_of_range
 XP6AXAEBVQString
@@ -39921,8 +39923,6 @@ Ycircumflex
 Ydieresissmall
 YDYHYQYTYbYsY
 YffYZefYDNNDCOO
-YgtLooOZupdIlPECbKIxodETDVx3AzSBeH8CZhcGruZ9QTOnHgvOQ2E23sxTsWh5
-YhkRIWgORFUQE2YXR8XDgL
 YieldEvent
 YieldFuncDesc
 YieldFunction
@@ -39937,7 +39937,6 @@ Zcaronsmall
 Zdotaccent
 Zeichenfolgefarbe
 Zeilennummer
-ZeNdnfenFuYnIpvKoPRTj7pn0rUg6h0YDZp9vFiR8q6PlT
 ZeroTargetSpeedStartTimeCountToTotalCount
 ZgnhKhWhci
 ZhniZzzzZbarAnmrAgneBlryCaveDroeGkerGrjuGuruGgnaHinaHrbeHariHadnKanaKooaLntaLmylMayrOlmaTuleTiahTtbiTopoBiarBsnaCrehCihtErmhKgnoMrmyMmagOrnuRhniScrySaahTiiiYtrsDhtoGlatIdhuBonaHglgTbgaTtrpCbmiLbniLamsOwahSelaTragUiguBtpoCgalGrahKulaToepXolySgnfTilaBxusXookNga
