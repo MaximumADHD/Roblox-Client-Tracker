@@ -1,0 +1,5 @@
+Key,Context,Example,Source,en-us,de-de,es-es,fr-fr,id-id,it-it,ja-jp,ko-kr,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
+Studio.GlobalWind.Plugin.Name,,,GlobalWind,GlobalWind,,,,,,,,,,,,,,,
+Studio.GlobalWind.Plugin.Toolbar,,,GlobalWind,GlobalWind,,,,,,,,,,,,,,,
+Studio.GlobalWind.Plugin.Button,,,Toggle,Toggle,,,,,,,,,,,,,,,
+Studio.GlobalWind.Plugin.Description,,,Toggles the Template plugin window.,Toggles the Template plugin window.,,,,,,,,,,,,,,,

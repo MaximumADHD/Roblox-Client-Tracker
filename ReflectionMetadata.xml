@@ -612,17 +612,17 @@
             <string name="Name">Thickness</string>
           </Properties>
         </Item>
-		<Item class="ReflectionMetadataMember">
+        <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">LimitAngle0</string>
           </Properties>
         </Item>
-		<Item class="ReflectionMetadataMember">
+        <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">LimitAngle1</string>
           </Properties>
         </Item>
-		<Item class="ReflectionMetadataMember">
+        <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">LimitsEnabled</string>
           </Properties>
@@ -1187,62 +1187,62 @@
         <string name="ExplorerImageIndex">132</string>
         <string name="PreferredParent">BasePart</string>
       </Properties>
-		<Item class="ReflectionMetadataProperties">
-			<Item class="ReflectionMetadataMember">
-				<Properties>
-					<string name="Name">Mode</string>
-					<string name="summary">Selects the mode of the velocity constraint.  Options Line, Plane, Vector</string>
-				</Properties>
-			</Item>
-			<Item class="ReflectionMetadataMember">
-				<Properties>
-					<string name="Name">LineDirection</string>
-					<string name="summary">Direction of the line used to contraint the velocity to a line.</string>
-				</Properties>
-			</Item>
-			<Item class="ReflectionMetadataMember">
-				<Properties>
-					<string name="Name">LineVelocity</string>
-					<string name="summary">The value of the constraint velocity along a line.</string>
-				</Properties>
-			</Item>
-			<Item class="ReflectionMetadataMember">
-				<Properties>
-					<string name="Name">PlanePrimaryTangent</string>
-					<string name="summary">The primary axis in the plane.</string>
-				</Properties>
-			</Item>
-			<Item class="ReflectionMetadataMember">
-				<Properties>
-					<string name="Name">PlaneSecondaryTangent</string>
-					<string name="summary">The secondary axis in the plane.</string>
-				</Properties>
-			</Item>
-			<Item class="ReflectionMetadataMember">
-				<Properties>
-					<string name="Name">PlaneVelocity</string>
-					<string name="summary">Velocity coefficients in the constraint plane.</string>
-				</Properties>
-			</Item>
-			<Item class="ReflectionMetadataMember">
-				<Properties>
-					<string name="Name">Velocity</string>
-					<string name="summary">Constraint velocity for the Vector mode.</string>
-				</Properties>
-			</Item>
-			<Item class="ReflectionMetadataMember">
-				<Properties>
-					<string name="Name">MaxForce</string>
-					<string name="summary">Maximum force magnitude that is applied to satisfy the constraint. </string>
-				</Properties>
-			</Item>
-			<Item class="ReflectionMetadataMember">
-				<Properties>
-					<string name="Name">RelativeTo</string>
-					<string name="summary">Selects whether the velocity orientation is relative to attachment0, attachment1 or the world. </string>
-				</Properties>
-			</Item>
-		</Item>
+        <Item class="ReflectionMetadataProperties">
+            <Item class="ReflectionMetadataMember">
+                <Properties>
+                    <string name="Name">Mode</string>
+                    <string name="summary">Selects the mode of the velocity constraint.  Options Line, Plane, Vector</string>
+                </Properties>
+            </Item>
+            <Item class="ReflectionMetadataMember">
+                <Properties>
+                    <string name="Name">LineDirection</string>
+                    <string name="summary">Direction of the line used to contraint the velocity to a line.</string>
+                </Properties>
+            </Item>
+            <Item class="ReflectionMetadataMember">
+                <Properties>
+                    <string name="Name">LineVelocity</string>
+                    <string name="summary">The value of the constraint velocity along a line.</string>
+                </Properties>
+            </Item>
+            <Item class="ReflectionMetadataMember">
+                <Properties>
+                    <string name="Name">PlanePrimaryTangent</string>
+                    <string name="summary">The primary axis in the plane.</string>
+                </Properties>
+            </Item>
+            <Item class="ReflectionMetadataMember">
+                <Properties>
+                    <string name="Name">PlaneSecondaryTangent</string>
+                    <string name="summary">The secondary axis in the plane.</string>
+                </Properties>
+            </Item>
+            <Item class="ReflectionMetadataMember">
+                <Properties>
+                    <string name="Name">PlaneVelocity</string>
+                    <string name="summary">Velocity coefficients in the constraint plane.</string>
+                </Properties>
+            </Item>
+            <Item class="ReflectionMetadataMember">
+                <Properties>
+                    <string name="Name">Velocity</string>
+                    <string name="summary">Constraint velocity for the Vector mode.</string>
+                </Properties>
+            </Item>
+            <Item class="ReflectionMetadataMember">
+                <Properties>
+                    <string name="Name">MaxForce</string>
+                    <string name="summary">Maximum force magnitude that is applied to satisfy the constraint. </string>
+                </Properties>
+            </Item>
+            <Item class="ReflectionMetadataMember">
+                <Properties>
+                    <string name="Name">RelativeTo</string>
+                    <string name="summary">Selects whether the velocity orientation is relative to attachment0, attachment1 or the world. </string>
+                </Properties>
+            </Item>
+        </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -4073,16 +4073,16 @@
         <string name="PreferredParent">Workspace</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
-	    <Item class="ReflectionMetadataMember">
+        <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Enabled</string>
           </Properties>
         </Item>
-		<Item class="ReflectionMetadataMember">
-		  <Properties>
-			<string name="Name">Color</string>
-		  </Properties>
-		</Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Color</string>
+          </Properties>
+        </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Cover</string>
@@ -4113,6 +4113,36 @@
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
           <Properties>
+            <string name="Name">BaseMaterial</string>
+            <string name="PropertyOrder">0</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ColorMap</string>
+            <string name="PropertyOrder">1</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MetalnessMap</string>
+            <string name="PropertyOrder">2</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">NormalMap</string>
+            <string name="PropertyOrder">3</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RoughnessMap</string>
+            <string name="PropertyOrder">4</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
             <string name="Name">StudsPerTile</string>
             <double name="UIMinimum">0.1</double>
             <double name="UIMaximum">20</double>
@@ -4131,6 +4161,36 @@
         <string name="FFlag">UGCTerrainDetail</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Face</string>
+            <string name="PropertyOrder">0</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ColorMap</string>
+            <string name="PropertyOrder">1</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">MetalnessMap</string>
+            <string name="PropertyOrder">2</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">NormalMap</string>
+            <string name="PropertyOrder">3</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">RoughnessMap</string>
+            <string name="PropertyOrder">4</string>
+          </Properties>
+        </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">StudsPerTile</string>
@@ -4245,29 +4305,29 @@
     </Item>
 
     <Item class="ReflectionMetadataClass">
-	    <Properties>
-		    <string name="Name">Highlight</string>
-		    <string name="ClassCategory">Effects</string>
-		    <string name="ExplorerOrder">20</string>
-		    <string name="ExplorerImageIndex">133</string>
-	    </Properties>
-	    <Item class="ReflectionMetadataProperties">
-			<Item class="ReflectionMetadataMember">
-				<Properties>
-					<string name="Name">FillTransparency</string>
-					<double name="UIMinimum">0</double>
-					<double name="UIMaximum">1</double>
-				</Properties>
-			</Item>
-			<Item class="ReflectionMetadataMember">
-				<Properties>
-					<string name="Name">OutlineTransparency</string>
-					<double name="UIMinimum">0</double>
-					<double name="UIMaximum">1</double>
-				</Properties>
-			</Item>
+        <Properties>
+            <string name="Name">Highlight</string>
+            <string name="ClassCategory">Effects</string>
+            <string name="ExplorerOrder">20</string>
+            <string name="ExplorerImageIndex">133</string>
+        </Properties>
+        <Item class="ReflectionMetadataProperties">
+            <Item class="ReflectionMetadataMember">
+                <Properties>
+                    <string name="Name">FillTransparency</string>
+                    <double name="UIMinimum">0</double>
+                    <double name="UIMaximum">1</double>
+                </Properties>
+            </Item>
+            <Item class="ReflectionMetadataMember">
+                <Properties>
+                    <string name="Name">OutlineTransparency</string>
+                    <double name="UIMinimum">0</double>
+                    <double name="UIMaximum">1</double>
+                </Properties>
+            </Item>
 
-	    </Item>
+        </Item>
     </Item>
 
     <Item class="ReflectionMetadataClass">
@@ -4284,7 +4344,7 @@
               <double name="UIMinimum">0</double>
               <double name="UIMaximum">200.0</double>
               <double name="UINumTicks">10000</double>
-			            </Properties>
+                        </Properties>
           </Item>
           <Item class="ReflectionMetadataMember">
             <Properties>
@@ -4292,7 +4352,7 @@
               <double name="UIMinimum">0</double>
               <double name="UIMaximum">50.0</double>
               <double name="UINumTicks">10000</double>
-			            </Properties>
+                        </Properties>
           </Item>
           <Item class="ReflectionMetadataMember">
             <Properties>
@@ -4300,7 +4360,7 @@
               <double name="UIMinimum">0</double>
               <double name="UIMaximum">1</double>
               <double name="UINumTicks">10000</double>
-			            </Properties>
+                        </Properties>
           </Item>
         <Item class="ReflectionMetadataMember">
             <Properties>
@@ -5619,7 +5679,7 @@
       </Properties>
     </Item>
 
-	<Item class="ReflectionMetadataClass">
+    <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">ReplicatedScriptService</string>
         <string name="ExplorerOrder">30</string>
@@ -6569,6 +6629,36 @@
             <string name="Name">AbsoluteSize</string>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">SelectionGroup</string>
+            <string name="FFlag">GamepadUISelectionGroup</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">SelectionBehaviorUp</string>
+            <string name="FFlag">GamepadUISelectionGroup</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">SelectionBehaviorDown</string>
+            <string name="FFlag">GamepadUISelectionGroup</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">SelectionBehaviorLeft</string>
+            <string name="FFlag">GamepadUISelectionGroup</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">SelectionBehaviorRight</string>
+            <string name="FFlag">GamepadUISelectionGroup</string>
+          </Properties>
+        </Item>
       </Item>
     </Item>
 
@@ -7272,6 +7362,7 @@
         <string name="ClassCategory">Adornments</string>
         <string name="ExplorerOrder">210</string>
         <string name="ExplorerImageIndex">137</string>
+        <string name="FFlag">NavigationPathfindingLink2</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -7303,13 +7394,13 @@
         <string name="ExplorerImageIndex">58</string>
       </Properties>
     </Item>
-		<Item class="ReflectionMetadataClass">
-			<Properties>
-				<string name="Name">HumanoidDescription</string>
-				<string name="ExplorerOrder">22</string>
-				<string name="ExplorerImageIndex">104</string>
-			</Properties>
-		</Item>
+        <Item class="ReflectionMetadataClass">
+            <Properties>
+                <string name="Name">HumanoidDescription</string>
+                <string name="ExplorerOrder">22</string>
+                <string name="ExplorerImageIndex">104</string>
+            </Properties>
+        </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Folder</string>
@@ -7468,12 +7559,12 @@
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
-	    <Properties>
-		    <string name="Name">Animator</string>
-		    <string name="ClassCategory">Animations</string>
-		    <string name="ExplorerOrder">220</string>
-		    <string name="ExplorerImageIndex">60</string>
-	    </Properties>
+        <Properties>
+            <string name="Name">Animator</string>
+            <string name="ClassCategory">Animations</string>
+            <string name="ExplorerOrder">220</string>
+            <string name="ExplorerImageIndex">60</string>
+        </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>

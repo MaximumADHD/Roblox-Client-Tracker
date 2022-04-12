@@ -108,6 +108,29 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "PropertyStatusStudio",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "PropertyStatus"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "RobloxLocked",
                     "Security": {
                         "Read": "PluginSecurity",
@@ -23910,6 +23933,121 @@
                     }
                 },
                 {
+                    "Category": "Selection",
+                    "MemberType": "Property",
+                    "Name": "SelectionBehaviorDown",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated",
+                        "NotBrowsable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "SelectionBehavior"
+                    }
+                },
+                {
+                    "Category": "Selection",
+                    "MemberType": "Property",
+                    "Name": "SelectionBehaviorLeft",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated",
+                        "NotBrowsable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "SelectionBehavior"
+                    }
+                },
+                {
+                    "Category": "Selection",
+                    "MemberType": "Property",
+                    "Name": "SelectionBehaviorRight",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated",
+                        "NotBrowsable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "SelectionBehavior"
+                    }
+                },
+                {
+                    "Category": "Selection",
+                    "MemberType": "Property",
+                    "Name": "SelectionBehaviorUp",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated",
+                        "NotBrowsable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "SelectionBehavior"
+                    }
+                },
+                {
+                    "Category": "Selection",
+                    "MemberType": "Property",
+                    "Name": "SelectionGroup",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated",
+                        "NotBrowsable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Debugging",
                     "MemberType": "Property",
                     "Name": "TotalGroupScale",
@@ -43921,7 +44059,7 @@
                     }
                 },
                 {
-                    "Category": "Appearance For Terrain",
+                    "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "MaterialPattern",
                     "Security": {
@@ -54095,7 +54233,10 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "PathfindingLink",
-            "Superclass": "Instance"
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
         },
         {
             "Members": [
@@ -80528,6 +80669,27 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "DefaultCameraID",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "Fullscreen",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
@@ -84214,6 +84376,73 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "VersionControlService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Active",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "CameraID",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetCameraDevices",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Map"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "VideoCaptureService",
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
@@ -92433,6 +92662,23 @@
         {
             "Items": [
                 {
+                    "Name": "Ok",
+                    "Value": 0
+                },
+                {
+                    "Name": "Warning",
+                    "Value": 1
+                },
+                {
+                    "Name": "Error",
+                    "Value": 2
+                }
+            ],
+            "Name": "PropertyStatus"
+        },
+        {
+            "Items": [
+                {
                     "Name": "OnePerButton",
                     "Value": 0
                 },
@@ -93113,6 +93359,19 @@
                 }
             ],
             "Name": "ScrollingDirection"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Escape",
+                    "Value": 0
+                },
+                {
+                    "Name": "Stop",
+                    "Value": 1
+                }
+            ],
+            "Name": "SelectionBehavior"
         },
         {
             "Items": [

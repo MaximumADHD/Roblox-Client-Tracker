@@ -1202,6 +1202,7 @@ Luau::LintUnknownType
 Luau::LintUnreachableCode
 Luau::LintUnusedFunction
 Luau::ParseError
+Luau::TimeLimitError
 LuaWidgetUISink
 MainCrashLogManager
 ManageEmulationDeviceDialog
@@ -1374,6 +1375,7 @@ PropertiesWidget::InstanceSelectionEditor
 PropertiesWidget::InstanceSelectionTool
 PropertiesWidget::IntPropertyItem
 PropertiesWidget::MaterialOverridePropertyItem
+PropertiesWidget::MaterialVariantPropertyItem
 PropertiesWidget::MeshIdPropertyItem
 PropertiesWidget::MultipleTypesPropertyItem
 PropertiesWidget::NoAttributesLabelItem
@@ -2392,6 +2394,7 @@ RBX::Creatable<class RBX::Instance>::Deleter<class RBX::VehicleController>
 RBX::Creatable<class RBX::Instance>::Deleter<class RBX::VehicleSeat>
 RBX::Creatable<class RBX::Instance>::Deleter<class RBX::VelocityMotor>
 RBX::Creatable<class RBX::Instance>::Deleter<class RBX::VersionControlService>
+RBX::Creatable<class RBX::Instance>::Deleter<class RBX::VideoCaptureService>
 RBX::Creatable<class RBX::Instance>::Deleter<class RBX::VideoFrame>
 RBX::Creatable<class RBX::Instance>::Deleter<class RBX::ViewportFrame>
 RBX::Creatable<class RBX::Instance>::Deleter<class RBX::VirtualInputManager>
@@ -2794,6 +2797,7 @@ RBX::Creator<class RBX::VehicleController>
 RBX::Creator<class RBX::VehicleSeat>
 RBX::Creator<class RBX::VelocityMotor>
 RBX::Creator<class RBX::VersionControlService>
+RBX::Creator<class RBX::VideoCaptureService>
 RBX::Creator<class RBX::VideoFrame>
 RBX::Creator<class RBX::ViewportFrame>
 RBX::Creator<class RBX::VirtualInputManager>
@@ -3426,6 +3430,7 @@ RBX::DescribedCreatable<class RBX::VehicleController,class RBX::Controller>
 RBX::DescribedCreatable<class RBX::VehicleSeat,class RBX::SeatImpl<class RBX::PartInstance> >
 RBX::DescribedCreatable<class RBX::VelocityMotor,class RBX::JointInstance>
 RBX::DescribedCreatable<class RBX::VersionControlService,class RBX::ServiceInstance>
+RBX::DescribedCreatable<class RBX::VideoCaptureService,class RBX::ServiceInstance>
 RBX::DescribedCreatable<class RBX::VideoFrame,class RBX::GuiObject>
 RBX::DescribedCreatable<class RBX::ViewportFrame,class RBX::GuiObject>
 RBX::DescribedCreatable<class RBX::VirtualInputManager,class RBX::ServiceInstance>
@@ -3912,6 +3917,7 @@ RBX::ITypesetter
 RBX::IValue
 RBX::IVersionControlService
 RBX::IVideoCapture
+RBX::IVideoStream
 RBX::IVisuallyMovingManager
 RBX::IWorldStage
 RBX::IXP::LayerGroupController::ChangedListener
@@ -4215,6 +4221,7 @@ RBX::NoCollisionConstraintTool
 RBX::NonReplicatedCSGDictionaryService
 RBX::NotificationService
 RBX::NullVerb
+RBX::NullVideoCapture
 RBX::NumberHandler
 RBX::NumericValue<__int64>
 RBX::NumericValue<double>
@@ -5081,6 +5088,7 @@ RBX::Reflection::BoundFuncDesc<class RBX::UserInputService,void __cdecl(void),0>
 RBX::Reflection::BoundFuncDesc<class RBX::Vector3Curve,class std::shared_ptr<class RBX::FloatCurve> __cdecl(void),0>
 RBX::Reflection::BoundFuncDesc<class RBX::Vector3Curve,class std::shared_ptr<class std::vector<class RBX::Reflection::Variant,class std::allocator<class RBX::Reflection::Variant> > const > __cdecl(float)const __ptr64,1>
 RBX::Reflection::BoundFuncDesc<class RBX::VehicleSeat,void __cdecl(class std::shared_ptr<class RBX::Instance>),1>
+RBX::Reflection::BoundFuncDesc<class RBX::VideoCaptureService,class std::shared_ptr<class std::map<class std::string,class RBX::Reflection::Variant,struct std::less<class std::string >,class std::allocator<struct std::pair<class std::string const ,class RBX::Reflection::Variant> > > const > __cdecl(void),0>
 RBX::Reflection::BoundFuncDesc<class RBX::VideoFrame,void __cdecl(void),0>
 RBX::Reflection::BoundFuncDesc<class RBX::VirtualInputManager,void __cdecl(__int64,int,float,float),4>
 RBX::Reflection::BoundFuncDesc<class RBX::VirtualInputManager,void __cdecl(bool,enum RBX::KeyCode,bool,class std::shared_ptr<class RBX::Instance>),4>
@@ -5558,6 +5566,7 @@ RBX::Reflection::EnumDesc<enum RBX::GameBasicSettings::RenderQualitySetting>
 RBX::Reflection::EnumDesc<enum RBX::GameBasicSettings::RotationType>
 RBX::Reflection::EnumDesc<enum RBX::GameBasicSettings::TouchCameraMovementMode>
 RBX::Reflection::EnumDesc<enum RBX::GameBasicSettings::TouchMovementMode>
+RBX::Reflection::EnumDesc<enum RBX::GamepadService::SelectionBehavior>
 RBX::Reflection::EnumDesc<enum RBX::GuiButton::Style>
 RBX::Reflection::EnumDesc<enum RBX::GuiLayerCollector::ZIndexBehavior>
 RBX::Reflection::EnumDesc<enum RBX::GuiObject::AutomaticSize>
@@ -5591,6 +5600,7 @@ RBX::Reflection::EnumDesc<enum RBX::IkDragCollisionsMode>
 RBX::Reflection::EnumDesc<enum RBX::InputObject::ModifierKey>
 RBX::Reflection::EnumDesc<enum RBX::InputObject::UserInputState>
 RBX::Reflection::EnumDesc<enum RBX::InputObject::UserInputType>
+RBX::Reflection::EnumDesc<enum RBX::Instance::PropertyStatus>
 RBX::Reflection::EnumDesc<enum RBX::Instance::SaveFilter_DEPRECATED>
 RBX::Reflection::EnumDesc<enum RBX::IXPLoadingStatus>
 RBX::Reflection::EnumDesc<enum RBX::KeyCode>
@@ -5819,6 +5829,7 @@ RBX::Reflection::EnumPropDescriptor<class RBX::GameBasicSettings,enum RBX::GameB
 RBX::Reflection::EnumPropDescriptor<class RBX::GameBasicSettings,enum RBX::GameBasicSettings::RotationType>
 RBX::Reflection::EnumPropDescriptor<class RBX::GameBasicSettings,enum RBX::GameBasicSettings::TouchCameraMovementMode>
 RBX::Reflection::EnumPropDescriptor<class RBX::GameBasicSettings,enum RBX::GameBasicSettings::TouchMovementMode>
+RBX::Reflection::EnumPropDescriptor<class RBX::GuiBase2d,enum RBX::GamepadService::SelectionBehavior>
 RBX::Reflection::EnumPropDescriptor<class RBX::GuiButton,enum RBX::GuiButton::Style>
 RBX::Reflection::EnumPropDescriptor<class RBX::GuiImageButton,enum RBX::GuiObject::ImageResampleMode>
 RBX::Reflection::EnumPropDescriptor<class RBX::GuiImageButton,enum RBX::GuiObject::ImageScale>
@@ -5848,6 +5859,7 @@ RBX::Reflection::EnumPropDescriptor<class RBX::ImageLabel,enum RBX::GuiObject::I
 RBX::Reflection::EnumPropDescriptor<class RBX::InputObject,enum RBX::InputObject::UserInputState>
 RBX::Reflection::EnumPropDescriptor<class RBX::InputObject,enum RBX::InputObject::UserInputType>
 RBX::Reflection::EnumPropDescriptor<class RBX::InputObject,enum RBX::KeyCode>
+RBX::Reflection::EnumPropDescriptor<class RBX::Instance,enum RBX::Instance::PropertyStatus>
 RBX::Reflection::EnumPropDescriptor<class RBX::Lighting,enum RBX::LightingTechnology>
 RBX::Reflection::EnumPropDescriptor<class RBX::MaterialVariant,enum RBX::MaterialPattern>
 RBX::Reflection::EnumPropDescriptor<class RBX::MaterialVariant,enum RBX::MaterialType>
@@ -6862,6 +6874,7 @@ RBX::Reflection::FuncDesc<class RBX::UnvalidatedAssetService>
 RBX::Reflection::FuncDesc<class RBX::UserInputService>
 RBX::Reflection::FuncDesc<class RBX::Vector3Curve>
 RBX::Reflection::FuncDesc<class RBX::VehicleSeat>
+RBX::Reflection::FuncDesc<class RBX::VideoCaptureService>
 RBX::Reflection::FuncDesc<class RBX::VideoFrame>
 RBX::Reflection::FuncDesc<class RBX::VirtualInputManager>
 RBX::Reflection::FuncDesc<class RBX::VirtualUser>
@@ -7431,6 +7444,7 @@ RBX::Reflection::PropDescriptor<class RBX::GuiBase2d,class RBX::Rect2D>
 RBX::Reflection::PropDescriptor<class RBX::GuiBase2d,class RBX::Rect2D>::GetImpl<class RBX::Rect2D (__cdecl RBX::GuiBase2d::*)(void)const __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::GuiBase2d,class RBX::Vector2>
 RBX::Reflection::PropDescriptor<class RBX::GuiBase2d,class RBX::Vector2>::GetImpl<class RBX::Vector2 (__cdecl RBX::GuiBase2d::*)(void)const __ptr64>
+RBX::Reflection::PropDescriptor<class RBX::GuiBase2d,enum RBX::GamepadService::SelectionBehavior>::GetSetImpl<enum RBX::GamepadService::SelectionBehavior (__cdecl RBX::GuiBase2d::*)(void)const __ptr64,void (__cdecl RBX::GuiBase2d::*)(enum RBX::GamepadService::SelectionBehavior) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::GuiBase2d,float>
 RBX::Reflection::PropDescriptor<class RBX::GuiBase2d,float>::GetImpl<float (__cdecl RBX::GuiBase2d::*)(void)const __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::GuiBase2d,int>
@@ -7615,6 +7629,7 @@ RBX::Reflection::PropDescriptor<class RBX::Instance,class std::string >::GetImpl
 RBX::Reflection::PropDescriptor<class RBX::Instance,class std::string >::GetImpl<class std::string const & __ptr64 (__cdecl RBX::Instance::*)(void)const __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::Instance,class std::string >::GetSetImpl<class std::string (__cdecl RBX::Instance::*)(void)const __ptr64,void (__cdecl RBX::Instance::*)(class std::string const & __ptr64) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::Instance,class std::string >::GetSetImpl<class std::string const & __ptr64 (__cdecl RBX::Instance::*)(void)const __ptr64,void (__cdecl RBX::Instance::*)(class std::string const & __ptr64) __ptr64>
+RBX::Reflection::PropDescriptor<class RBX::Instance,enum RBX::Instance::PropertyStatus>::GetImpl<enum RBX::Instance::PropertyStatus (__cdecl RBX::Instance::*)(void)const __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::Instance,int>
 RBX::Reflection::PropDescriptor<class RBX::Instance,int>::GetImpl<int (__cdecl RBX::Instance::*)(void)const __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::Instance,int>::GetSetImpl<int (__cdecl RBX::Instance::*)(void)const __ptr64,void (__cdecl RBX::Instance::*)(int) __ptr64>
@@ -8507,6 +8522,10 @@ RBX::Reflection::PropDescriptor<class RBX::VelocityMotor,float>
 RBX::Reflection::PropDescriptor<class RBX::VelocityMotor,float>::GetSetImpl<float (__cdecl RBX::VelocityMotor::*)(void)const __ptr64,void (__cdecl RBX::VelocityMotor::*)(float) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::VersionControlService,bool>
 RBX::Reflection::PropDescriptor<class RBX::VersionControlService,bool>::GetSetImpl<bool (__cdecl RBX::VersionControlService::*)(void)const __ptr64,void (__cdecl RBX::VersionControlService::*)(bool) __ptr64>
+RBX::Reflection::PropDescriptor<class RBX::VideoCaptureService,bool>
+RBX::Reflection::PropDescriptor<class RBX::VideoCaptureService,bool>::GetSetImpl<bool (__cdecl RBX::VideoCaptureService::*)(void)const __ptr64,void (__cdecl RBX::VideoCaptureService::*)(bool) __ptr64>
+RBX::Reflection::PropDescriptor<class RBX::VideoCaptureService,class std::string >
+RBX::Reflection::PropDescriptor<class RBX::VideoCaptureService,class std::string >::GetSetImpl<class std::string (__cdecl RBX::VideoCaptureService::*)(void)const __ptr64,void (__cdecl RBX::VideoCaptureService::*)(class std::string) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::VideoFrame,bool>
 RBX::Reflection::PropDescriptor<class RBX::VideoFrame,bool>::GetImpl<bool (__cdecl RBX::VideoFrame::*)(void)const __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::VideoFrame,bool>::GetSetImpl<bool (__cdecl RBX::VideoFrame::*)(void)const __ptr64,void (__cdecl RBX::VideoFrame::*)(bool) __ptr64>
@@ -9063,6 +9082,7 @@ RBX::Reflection::TypedPropertyDescriptor<enum RBX::GameBasicSettings::RenderQual
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::GameBasicSettings::RotationType>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::GameBasicSettings::TouchCameraMovementMode>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::GameBasicSettings::TouchMovementMode>::GetSet
+RBX::Reflection::TypedPropertyDescriptor<enum RBX::GamepadService::SelectionBehavior>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::GuiButton::Style>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::GuiLayerCollector::ZIndexBehavior>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::GuiObject::AutomaticSize>::GetSet
@@ -9081,6 +9101,7 @@ RBX::Reflection::TypedPropertyDescriptor<enum RBX::Humanoid::NameOcclusion>::Get
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::HumanoidRigType>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::InputObject::UserInputState>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::InputObject::UserInputType>::GetSet
+RBX::Reflection::TypedPropertyDescriptor<enum RBX::Instance::PropertyStatus>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::KeyCode>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::LegacyController::InputType>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::LightingTechnology>::GetSet
@@ -9967,6 +9988,7 @@ RBX::VelocityMotor
 RBX::Verb
 RBX::VerbContainer
 RBX::VersionControlService
+RBX::VideoCaptureService
 RBX::VideoClock
 RBX::VideoFrame
 RBX::VideoJob
@@ -10195,8 +10217,8 @@ rtc::RefCountedObject<class webrtc::`anonymous namespace'::CreateSessionDescript
 rtc::RefCountedObject<class webrtc::`anonymous namespace'::IdWithDirection>
 rtc::RefCountedObject<class webrtc::`anonymous namespace'::TypedId>
 rtc::RefCountedObject<class webrtc::`anonymous namespace'::TypedIntId>
-rtc::RefCountedObject<class webrtc::audio_decoder_factory_template_impl::AudioDecoderFactoryT<struct webrtc::AudioDecoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioDecoderMultiChannelOpus>,struct webrtc::AudioDecoderIsacFix,struct webrtc::AudioDecoderG722,struct webrtc::AudioDecoderIlbc,struct webrtc::AudioDecoderG711,struct webrtc::A0x5f263c34::NotAdvertised<struct webrtc::AudioDecoderL16> > >
-rtc::RefCountedObject<class webrtc::audio_encoder_factory_template_impl::AudioEncoderFactoryT<struct webrtc::AudioEncoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioEncoderMultiChannelOpus>,struct webrtc::AudioEncoderIsacFix,struct webrtc::AudioEncoderG722,struct webrtc::AudioEncoderIlbc,struct webrtc::AudioEncoderG711,struct webrtc::A0x7513cf02::NotAdvertised<struct webrtc::AudioEncoderL16> > >
+rtc::RefCountedObject<class webrtc::audio_decoder_factory_template_impl::AudioDecoderFactoryT<struct webrtc::AudioDecoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioDecoderMultiChannelOpus>,struct webrtc::AudioDecoderIsacFix,struct webrtc::AudioDecoderG722,struct webrtc::AudioDecoderIlbc,struct webrtc::AudioDecoderG711,struct webrtc::A0x3bcb4416::NotAdvertised<struct webrtc::AudioDecoderL16> > >
+rtc::RefCountedObject<class webrtc::audio_encoder_factory_template_impl::AudioEncoderFactoryT<struct webrtc::AudioEncoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioEncoderMultiChannelOpus>,struct webrtc::AudioEncoderIsacFix,struct webrtc::AudioEncoderG722,struct webrtc::AudioEncoderIlbc,struct webrtc::AudioEncoderG711,struct webrtc::A0x11feb720::NotAdvertised<struct webrtc::AudioEncoderL16> > >
 rtc::RefCountedObject<class webrtc::AudioDeviceModuleImpl>
 rtc::RefCountedObject<class webrtc::AudioMixerImpl>
 rtc::RefCountedObject<class webrtc::AudioProcessingImpl>
@@ -11818,6 +11840,7 @@ std::_Ref_count_obj2<class RBX::Studio::ClientDataModel>
 std::_Ref_count_obj2<class RBX::Studio::DAPClient>
 std::_Ref_count_obj2<class RBX::Studio::DebuggerConnectionJob>
 std::_Ref_count_obj2<class RBX::Studio::EditDataModel>
+std::_Ref_count_obj2<class RBX::Studio::GrantAssetPermissionToUniverseVerb>
 std::_Ref_count_obj2<class RBX::Studio::ServerDataModel>
 std::_Ref_count_obj2<class RBX::Studio::ToolTipDelegate>
 std::_Ref_count_obj2<class RBX::Studio::ToolTipRequest>
@@ -12302,6 +12325,7 @@ std::_Ref_count_resource<class RBX::IncrementalPatchBuilder * __ptr64,class RBX:
 std::_Ref_count_resource<class RBX::InputObject * __ptr64,class RBX::Creatable<class RBX::Instance>::Deleter<class RBX::InputObject> >
 std::_Ref_count_resource<class RBX::InsertService * __ptr64,class RBX::Creatable<class RBX::Instance>::Deleter<class RBX::InsertService> >
 std::_Ref_count_resource<class RBX::InventoryPages * __ptr64,class RBX::Creatable<class RBX::Instance>::Deleter<class RBX::InventoryPages> >
+std::_Ref_count_resource<class RBX::IVideoStream * __ptr64,struct std::default_delete<class RBX::IVideoStream> >
 std::_Ref_count_resource<class RBX::IXPService * __ptr64,class RBX::Creatable<class RBX::Instance>::Deleter<class RBX::IXPService> >
 std::_Ref_count_resource<class RBX::JointsService * __ptr64,class RBX::Creatable<class RBX::Instance>::Deleter<class RBX::JointsService> >
 std::_Ref_count_resource<class RBX::KeyboardService * __ptr64,class RBX::Creatable<class RBX::Instance>::Deleter<class RBX::KeyboardService> >
@@ -12625,6 +12649,7 @@ std::_Ref_count_resource<class RBX::VehicleController * __ptr64,class RBX::Creat
 std::_Ref_count_resource<class RBX::VehicleSeat * __ptr64,class RBX::Creatable<class RBX::Instance>::Deleter<class RBX::VehicleSeat> >
 std::_Ref_count_resource<class RBX::VelocityMotor * __ptr64,class RBX::Creatable<class RBX::Instance>::Deleter<class RBX::VelocityMotor> >
 std::_Ref_count_resource<class RBX::VersionControlService * __ptr64,class RBX::Creatable<class RBX::Instance>::Deleter<class RBX::VersionControlService> >
+std::_Ref_count_resource<class RBX::VideoCaptureService * __ptr64,class RBX::Creatable<class RBX::Instance>::Deleter<class RBX::VideoCaptureService> >
 std::_Ref_count_resource<class RBX::VideoFrame * __ptr64,class RBX::Creatable<class RBX::Instance>::Deleter<class RBX::VideoFrame> >
 std::_Ref_count_resource<class RBX::ViewportFrame * __ptr64,class RBX::Creatable<class RBX::Instance>::Deleter<class RBX::ViewportFrame> >
 std::_Ref_count_resource<class RBX::VirtualInputManager * __ptr64,class RBX::Creatable<class RBX::Instance>::Deleter<class RBX::VirtualInputManager> >
@@ -12726,6 +12751,8 @@ std::_Ref_count<class GameExplorer::PlaceResourceController>
 std::_Ref_count<class GameExplorer::ScriptResourceController>
 std::_Ref_count<class InternalPermissionController>
 std::_Ref_count<class LocalPlacePublishRequestMediator>
+std::_Ref_count<class Luau::Allocator>
+std::_Ref_count<class Luau::AstNameTable>
 std::_Ref_count<class MDIManagerHost>
 std::_Ref_count<class MemStorage>
 std::_Ref_count<class MockGestureGenerator>
@@ -12765,6 +12792,7 @@ std::_Ref_count<class RBX::Descriptors::AttributePropertyDescriptor>
 std::_Ref_count<class RBX::Descriptors::StandardEnumPropertyDescriptor>
 std::_Ref_count<class RBX::Descriptors::StandardPropertyDescriptor>
 std::_Ref_count<class RBX::Descriptors::StandardRefPropertyDescriptor>
+std::_Ref_count<class RBX::DownloadBandwidthTracker>
 std::_Ref_count<class RBX::FloatCurveStorage>
 std::_Ref_count<class RBX::FontData>
 std::_Ref_count<class RBX::GamePerfMonitor>
@@ -12910,7 +12938,7 @@ std::_Ref_count<class RBX::TimeCurve>
 std::_Ref_count<class RBX::Tracing::Tracer>
 std::_Ref_count<class RBX::Tween>
 std::_Ref_count<class RBX::Typesetter>
-std::_Ref_count<class RBX::VideoProtocol>
+std::_Ref_count<class RBX::VideoProtocolCore>
 std::_Ref_count<class RBX::ViewBase>
 std::_Ref_count<class RBX::VoiceChatManager>
 std::_Ref_count<class RBX::Voxel2::Grid>
@@ -13355,8 +13383,8 @@ webrtc::AcknowledgedBitrateEstimatorInterface
 webrtc::AdaptiveModeLevelEstimatorAgc
 webrtc::Agc
 webrtc::AsyncResolverFactory
-webrtc::audio_decoder_factory_template_impl::AudioDecoderFactoryT<struct webrtc::AudioDecoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioDecoderMultiChannelOpus>,struct webrtc::AudioDecoderIsacFix,struct webrtc::AudioDecoderG722,struct webrtc::AudioDecoderIlbc,struct webrtc::AudioDecoderG711,struct webrtc::A0x5f263c34::NotAdvertised<struct webrtc::AudioDecoderL16> >
-webrtc::audio_encoder_factory_template_impl::AudioEncoderFactoryT<struct webrtc::AudioEncoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioEncoderMultiChannelOpus>,struct webrtc::AudioEncoderIsacFix,struct webrtc::AudioEncoderG722,struct webrtc::AudioEncoderIlbc,struct webrtc::AudioEncoderG711,struct webrtc::A0x7513cf02::NotAdvertised<struct webrtc::AudioEncoderL16> >
+webrtc::audio_decoder_factory_template_impl::AudioDecoderFactoryT<struct webrtc::AudioDecoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioDecoderMultiChannelOpus>,struct webrtc::AudioDecoderIsacFix,struct webrtc::AudioDecoderG722,struct webrtc::AudioDecoderIlbc,struct webrtc::AudioDecoderG711,struct webrtc::A0x3bcb4416::NotAdvertised<struct webrtc::AudioDecoderL16> >
+webrtc::audio_encoder_factory_template_impl::AudioEncoderFactoryT<struct webrtc::AudioEncoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioEncoderMultiChannelOpus>,struct webrtc::AudioEncoderIsacFix,struct webrtc::AudioEncoderG722,struct webrtc::AudioEncoderIlbc,struct webrtc::AudioEncoderG711,struct webrtc::A0x11feb720::NotAdvertised<struct webrtc::AudioEncoderL16> >
 webrtc::AudioBuffer
 webrtc::AudioCodingModule
 webrtc::AudioConverter

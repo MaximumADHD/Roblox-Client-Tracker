@@ -249,7 +249,6 @@ Studio.App.MainWindow.DebugOnlyWithBrs,Main Window,<br><hr><br><br>DEBUG ONLY<br
 Studio.App.MainWindow.FailedConnectRemoteServers,Main Window,"Failed to connect to remote servers, please make sure the device is connected to the Internet. Studio will be running in offline mode.","Failed to connect to remote servers, please make sure the device is connected to the Internet. Studio will be running in offline mode."
 Studio.App.MainWindow.FailedToAutoSave,Main Window,Failed to AutoSave,Failed to AutoSave
 Studio.App.MainWindow.FailedToAutoSaveTemporarilyDisable,Main Window,Failed to AutoSave.  Do you want to temporarily disable AutoSave?,Failed to AutoSave.  Do you want to temporarily disable AutoSave?
-Studio.App.GUAC.FailedToFetch,,Web request to load GUAC policies failed. The backend UniversalAppConfiguration service may be down.,Web request to load GUAC policies failed. The backend UniversalAppConfiguration service may be down.
 Studio.App.GUAC.UserFriendlyFailedToFetch1,main,Failed to load settings with %s. Please restart Studio or contact support if the problem persists.,Failed to load settings with %s. Please restart Studio or contact support if the problem persists.
 Studio.App.MainWindow.FailedToLoadSettings,Main Window,Failed to load settings,Failed to load settings
 Studio.App.MainWindow.FailedToOpenObjectBrowser,Main Window,"Failed to open Object Browser. Please restart your application and try again. If you continue to encounter this error, please contact customer service.","Failed to open Object Browser. Please restart your application and try again. If you continue to encounter this error, please contact customer service."
@@ -1271,7 +1270,6 @@ Studio.App.RobloxRibbonMainWindow.Plugins,,Plugins,Plugins
 Studio.App.RobloxRibbonMainWindow.PreciselyManipulateAnObject,,Precisely manipulate an object,Precisely manipulate an object
 Studio.App.RobloxRibbonMainWindow.Prismatic,,Prismatic,Prismatic
 Studio.App.RobloxRibbonMainWindow.PushScriptTCServer,,Push the current edits to a script to the Team Create server,Push the current edits to a script to the Team Create server
-Studio.App.RobloxRibbonMainWindow.RecentFiles,,Recent Files,Recent Files
 Studio.App.RobloxRibbonMainWindow.RecentGames,,Recent Games,Recent Games
 Studio.App.RobloxRibbonMainWindow.RecordAVideo,,Record a video,Record a video
 Studio.App.RobloxRibbonMainWindow.Render,,Render,Render
@@ -1531,8 +1529,8 @@ Studio.App.DocumentationView.Overload,,+1 overload,+1 overload
 Studio.App.DocumentationView.Overload.Plural1,%1 is an integer. example '+2 overloads',+%1 overloads,+%1 overloads
 Studio.App.DocumentationView.Overloads,,overloads,overloads
 Studio.App.DocumentationView.Copied,,Copied!,Copied!
-Studio.App.DocumentationView.ShowCodeSample,,Show code example,Show code example
-Studio.App.DocumentationView.HideCodeSample,,Hide code example,Hide code example
+Studio.App.DocumentationView.ShowCodeSample,,Show Code Example,Show Code Example
+Studio.App.DocumentationView.HideCodeSample,,Hide Code Example,Hide Code Example
 Studio.App.ScriptRecoveryWidget.OpenFile,,Open file,Open file
 Studio.App.ScriptRecoveryWidget.SelectAndOpenScript,,Select and open script,Select and open script
 Studio.App.ScriptRecoveryWidget.ViewDiff,,View Diff,View Diff
@@ -2469,6 +2467,10 @@ Studio.App.PropertyItems.MaterialOverride.Disabled,"Note to localization: Make s
 Studio.App.PropertyItems.MaterialOverride.Invalid,"Note to localization: Make sure <font></font> remain unchanged, they are needed for text wrapping with rtf. Tooltip that displays if a MaterialOverride is set to a MaterialVariant whose BaseMaterial does not equal to the Material it is supposed to be overriding.",<font>The Base Material for the MaterialVariant does not match the Override material. Select matching materials for the variant to function.</font>,<font>The Base Material for the MaterialVariant does not match the Override material. Select matching materials for the variant to function.</font>
 Studio.App.PropertyItems.MaterialOverride.Missing,"Note to localization: Make sure <font></font> remain unchanged, they are needed for text wrapping with rtf. Tooltip that displays if a MaterialOverride is set to a MaterialVariant that has been deleted.",<font>The Override will not be functional because the MaterialVariant no longer exists. Apply a new variant or set the Override to None.</font>,<font>The Override will not be functional because the MaterialVariant no longer exists. Apply a new variant or set the Override to None.</font>
 Studio.App.PropertyItems.MaterialOverride.None,Item text for the default value of the combobox created by MaterialOverridePropertyItem.,<None>,<None>
+Studio.App.PropertyItems.MaterialVariant.InvalidOverride,No material was found for the override.,Unable to find a MaterialVariant matching the name and override material in MaterialService.,Unable to find a MaterialVariant matching the name and override material in MaterialService.
+Studio.App.PropertyItems.MaterialVariant.InvalidVariant,No material was found as a variant.,Unable to find a MaterialVariant matching the name and base material in MaterialService.,Unable to find a MaterialVariant matching the name and base material in MaterialService.
+Studio.App.PropertyItems.MaterialVariant.DuplicateOverride,Multiple MaterialVariants match the given name and override.,"Found multiple MaterialVariants matching the name and override material in MaterialService, this may cause unexpected behavior at runtime.","Found multiple MaterialVariants matching the name and override material in MaterialService, this may cause unexpected behavior at runtime."
+Studio.App.PropertyItems.MaterialVariant.DuplicateVariant,Multiple MaterialVariants match the given name and variant.,"Found multiple MaterialVariants matching the name and base material in MaterialService, this may cause unexpected behavior at runtime.","Found multiple MaterialVariants matching the name and base material in MaterialService, this may cause unexpected behavior at runtime."
 Studio.App.RobloxScriptDoc.MultipleScriptLocks,,Multiple script locks were taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.,Multiple script locks were taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.
 Studio.App.RobloxScriptDoc.CantAccessRevertingChange,,"Cannot gain write access to script, reverting your change","Cannot gain write access to script, reverting your change"
 Studio.App.RobloxScriptDoc.LockTakenInactivity,,A script lock was taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.,A script lock was taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.

@@ -228,8 +228,8 @@ Studio.TerrainToolsV2.SeaLevel.SeaLevelProgressTitle,Sea Level,Sea Level,Niv. de
 Colormap 预览,Colormap 預覽,Studio.TerrainToolsV2.Warning.UnknownAssetStatusError,Unable to verify asset.,Unable to verify asset.,No se puede verificar recurso.,Impossible de vérifier l'élément.,アセットを認証できません。,애셋을 확인할 수 없습니다.,Não foi possível verificar o recurso., ,无法验证素材。
 无法验证素材。,無法驗證素材。,Studio.TerrainToolsV2.Warning.UnknownShape,Instance shape is unknown,Instance shape is unknown,Forma de la instancia desconocida,La forme de l'instance est inconnue,インスタンスの形状が不明です,인스턴스 형태를 알 수 없습니다,A forma da instância é desconhecida, ,实例形状未知
 实例形状未知,個體形狀未知,Studio.TerrainToolsV2.Warning.RequireEditModeForImport,Terrain importer only works in edit mode.,Terrain importer only works in edit mode.,El importador de Terreno funciona solamente en modo de edición.,L'importateur de terrain ne fonctionne qu'en mode édition.,地形インポーターは、編集モードでのみ機能します。,지형 가져오기는 편집 모드에서만 실행할 수 있습니다.,O importador de terreno só funciona em modo de edição., ,地形导入器只能在编辑模式中运行。
-地形导入器只能在编辑模式中运行。,地形匯入器只能在編輯模式中使用。,Studio.TerrainToolsV2.BrushSettings.EditPlaneTooltip,Ctrl+Shift+Space,Ctrl+Shift+Space,Ctrl+Shift+Space, ,Ctrl+Shift+Space,Ctrl+Shift+Space,Ctrl+Shift+Space, ,Ctrl+Shift+Space
-Ctrl+Shift+Space,Ctrl + Shift + 空白鍵,Studio.TerrainToolsV2.ReplaceMode.Box,Box,Box,Caja,Boîte,ボックス,상자,Caixa, ,盒状模式
+地形导入器只能在编辑模式中运行。,地形匯入器只能在編輯模式中使用。,Studio.TerrainToolsV2.BrushSettings.EditPlaneTooltip,Ctrl+Shift+Space,Ctrl+Shift+Space,Ctrl+Shift+Space, ,Ctrl+Shift+Space,Ctrl+Shift+Space,Ctrl+Shift+Space, ,Ctrl+Shift+空格键
+Ctrl+Shift+空格键,Ctrl + Shift + 空白鍵,Studio.TerrainToolsV2.ReplaceMode.Box,Box,Box,Caja,Boîte,ボックス,상자,Caixa, ,盒状模式
 盒状模式,方塊,Studio.TerrainToolsV2.ReplaceMode.Brush,Brush,Brush,Pincel,Brosse,ブラシ,브러시,Pincel, ,笔刷模式
 笔刷模式,筆刷,Studio.TerrainToolsV2.Replace.SourceMaterial,Source material,Source material,Material de origen,Matériel source,原材料,소스 재질,Material de origem, ,源材质
 源材质,來源材質,Studio.TerrainToolsV2.Import.Colormap,Colormap,Colormap,Colormap,Colormap,Colormap,Colormap,Colormap, ,Colormap

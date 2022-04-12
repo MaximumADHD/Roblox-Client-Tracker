@@ -9,9 +9,9 @@ Studio.AlignmentTool.Plugin.Description,Align selected objects.,Align selected o
 Studio.AlignmentTool.ModeSection.Min,Min,Min,Mín.,Min,最小,최소,Mín.,最小,最小,最小
 Studio.AlignmentTool.ModeSection.Max,Max,Max,Máx.,Max,最大,최대,Máx.,最大,最大,最大
 Studio.AlignmentTool.AxesSection.Title,Align In,Align In,Alinear en,Aligner sur,以下に整列配置,축 정렬,Alinhar em,对齐轴,对齐轴,對齊軸
-Studio.AlignmentTool.AxesSection.WorldX,World X,World X,X del mundo,World X,X世界,월드 X축,X do Mundo,世界 X 轴,世界 X 轴,世界 X 軸
-Studio.AlignmentTool.AxesSection.WorldY,World Y,World Y,Y del mundo,World Y,Y世界,월드 Y축,Y do Mundo,世界 Y 轴,世界 Y 轴,世界 Y 軸
-Studio.AlignmentTool.AxesSection.WorldZ,World Z,World Z,Z del mundo,World Z,Z世界,월드 Z축,Z do Mundo,世界 Z 轴,世界 Z 轴,世界 Z 軸
+Studio.AlignmentTool.AxesSection.WorldX,World X,World X,X del mundo,Monde X,X世界,월드 X축,X do Mundo,世界 X 轴,世界 X 轴,世界 X 軸
+Studio.AlignmentTool.AxesSection.WorldY,World Y,World Y,Y del mundo,Monde Y,Y世界,월드 Y축,Y do Mundo,世界 Y 轴,世界 Y 轴,世界 Y 軸
+Studio.AlignmentTool.AxesSection.WorldZ,World Z,World Z,Z del mundo,Monde Z,Z世界,월드 Z축,Z do Mundo,世界 Z 轴,世界 Z 轴,世界 Z 軸
 Studio.AlignmentTool.RelativeToSection.Title,Relative To,Relative To,Relativo a,En relation avec,以下に相対,기준,Relativo a,相对于,相对于,相對於
 Studio.AlignmentTool.RelativeToSection.Selection,Selection Bounds,Selection Bounds,Límites de la selección,Limites de la sélection,選択範囲,선택 범위,Limites da seleção,选择范围,选择范围,選取內容範圍
 Studio.AlignmentTool.ModeSection.Title,Mode,Mode,Modo,Mode,モード,모드,Modo,模式,模式,模式

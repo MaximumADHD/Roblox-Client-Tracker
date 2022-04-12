@@ -1,17 +1,19 @@
 Key,en-us
-Studio.MaterialManager.Categories.All,All
 Studio.MaterialManager.Categories.Asphalt,Asphalt
+Studio.MaterialManager.Categories.Concrete,Concrete
 Studio.MaterialManager.Categories.Dirt,Dirt
 Studio.MaterialManager.Categories.Fabric,Fabric
 Studio.MaterialManager.Categories.FinishedWood,Finished Wood
 Studio.MaterialManager.Categories.Glacier,Glacier
 Studio.MaterialManager.Categories.Grass,Grass
 Studio.MaterialManager.Categories.Ground,Ground
-Studio.MaterialManager.Categories.HumanMade,Human-Made
-Studio.MaterialManager.Categories.Metal,Metallic
+Studio.MaterialManager.Categories.Materials,Materials
+Studio.MaterialManager.Categories.Metal,Metal
 Studio.MaterialManager.Categories.Mineral,Mineral
 Studio.MaterialManager.Categories.Mud,Mud
 Studio.MaterialManager.Categories.Natural,Natural
+Studio.MaterialManager.Categories.Organic,Organic
+Studio.MaterialManager.Categories.Plastic,Plastic
 Studio.MaterialManager.Categories.Rock,Rock
 Studio.MaterialManager.Categories.Salt,Salt
 Studio.MaterialManager.Categories.Snow,Snow
@@ -39,7 +41,6 @@ Studio.MaterialManager.CreateDialog.InsertAssetURL,URL/Asset name
 Studio.MaterialManager.CreateDialog.NameVariant,Name
 Studio.MaterialManager.CreateDialog.NoImageSelected,No Image Selected
 Studio.MaterialManager.CreateDialog.PlaceholderBaseMaterial,Select
-Studio.MaterialManager.CreateDialog.PlaceholderName,Material Variant name
 Studio.MaterialManager.CreateDialog.SaveVariant,Save
 Studio.MaterialManager.CreateDialog.TextureMaps,Texture Maps
 Studio.MaterialManager.Import.ColorMapPreview,Color Map Preview

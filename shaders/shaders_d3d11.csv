@@ -457,7 +457,11 @@ ImGuiFS,Fragment
 ImGuiTexVS,Vertex
 ImGuiVS,Vertex
 InversePremultipliedFS,Fragment
+LightGridCullAccumAndCreateMaskCS,Compute
+LightGridCullClearCS,Compute
+LightGridCullCountOffsetCS,Compute
 LightGridCullCS,Compute
+LightGridCullGatherCS,Compute
 LightGridDebugFS,Fragment
 LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex

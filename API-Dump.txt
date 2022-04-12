@@ -4,6 +4,7 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Property int Instance.DataCost {LocalUserSecurity} [Hidden] [ReadOnly] [Deprecated]
 	Property string Instance.Name
 	Property Instance Instance.Parent [<📁> LoadOnly] [NotReplicated]
+	Property Enum.PropertyStatus Instance.PropertyStatusStudio {RobloxSecurity} [ReadOnly] [NotScriptable]
 	Property bool Instance.RobloxLocked {PluginSecurity} [Hidden]
 	Property int64 Instance.SourceAssetId {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function void Instance:ClearAllChildren()
@@ -1259,6 +1260,11 @@ Class GuiBase2d : GuiBase [NotCreatable] [NotBrowsable]
 	Property bool GuiBase2d.AutoLocalize
 	Property bool GuiBase2d.Localize [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property LocalizationTable GuiBase2d.RootLocalizationTable
+	Property Enum.SelectionBehavior GuiBase2d.SelectionBehaviorDown {RobloxScriptSecurity} [Hidden] [NotReplicated] [NotBrowsable]
+	Property Enum.SelectionBehavior GuiBase2d.SelectionBehaviorLeft {RobloxScriptSecurity} [Hidden] [NotReplicated] [NotBrowsable]
+	Property Enum.SelectionBehavior GuiBase2d.SelectionBehaviorRight {RobloxScriptSecurity} [Hidden] [NotReplicated] [NotBrowsable]
+	Property Enum.SelectionBehavior GuiBase2d.SelectionBehaviorUp {RobloxScriptSecurity} [Hidden] [NotReplicated] [NotBrowsable]
+	Property bool GuiBase2d.SelectionGroup {RobloxScriptSecurity} [Hidden] [NotReplicated] [NotBrowsable]
 Class GuiObject : GuiBase2d [NotCreatable] [NotBrowsable]
 	Property GuiObject GuiObject.SelectionImageObject
 	Property bool GuiObject.ClipsDescendants
@@ -2329,11 +2335,11 @@ Class MaterialService : Instance [NotCreatable] [Service] [NotBrowsable]
 Class MaterialVariant : Instance [NotBrowsable]
 	Property Enum.Material MaterialVariant.BaseMaterial {PluginSecurity}
 	Property Content MaterialVariant.ColorMap {PluginSecurity}
+	Property Enum.MaterialPattern MaterialVariant.MaterialPattern
 	Property Content MaterialVariant.MetalnessMap {PluginSecurity}
 	Property Content MaterialVariant.NormalMap {PluginSecurity}
 	Property Content MaterialVariant.RoughnessMap {PluginSecurity}
 	Property float MaterialVariant.StudsPerTile
-	Property Enum.MaterialPattern MaterialVariant.MaterialPattern
 Class MemStorageConnection : Instance [NotCreatable] [NotReplicated]
 	Function void MemStorageConnection:Disconnect() {PluginSecurity}
 Class MemStorageService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -2823,7 +2829,7 @@ Class Path : Instance [NotCreatable] [NotReplicated]
 	Function Array Path:GetWaypoints()
 	Event Path.Blocked(int blockedWaypointIdx)
 	Event Path.Unblocked(int unblockedWaypointIdx)
-Class PathfindingLink : Instance
+Class PathfindingLink : Instance [NotBrowsable]
 	Property Attachment PathfindingLink.Attachment0
 	Property Attachment PathfindingLink.Attachment1
 	Property bool PathfindingLink.IsBidirectional
@@ -4246,6 +4252,7 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Property bool UserGameSettings.AllTutorialsDisabled {RobloxScriptSecurity}
 	Property bool UserGameSettings.CameraYInverted {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool UserGameSettings.ChatVisible {RobloxScriptSecurity}
+	Property string UserGameSettings.DefaultCameraID {RobloxScriptSecurity} [Hidden]
 	Property bool UserGameSettings.Fullscreen {RobloxScriptSecurity}
 	Property float UserGameSettings.GamepadCameraSensitivity
 	Property bool UserGameSettings.HasEverUsedVR {RobloxScriptSecurity}
@@ -4433,6 +4440,10 @@ Class Vector3Curve : Instance
 	Function FloatCurve Vector3Curve:Z()
 Class VersionControlService : Instance [NotCreatable] [Service]
 	Property bool VersionControlService.ScriptCollabEnabled {RobloxScriptSecurity} [Hidden]
+Class VideoCaptureService : Instance [NotCreatable] [Service]
+	Property bool VideoCaptureService.Active {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property string VideoCaptureService.CameraID {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Function Map VideoCaptureService:GetCameraDevices() {RobloxScriptSecurity}
 Class VirtualInputManager : Instance [Service]
 	Property string VirtualInputManager.AdditionalLuaState {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function void VirtualInputManager:Dump() {RobloxScriptSecurity}
@@ -6036,6 +6047,10 @@ Enum ProductLocationRestriction
 Enum ProductPurchaseDecision
 	EnumItem ProductPurchaseDecision.NotProcessedYet : 0
 	EnumItem ProductPurchaseDecision.PurchaseGranted : 1
+Enum PropertyStatus
+	EnumItem PropertyStatus.Ok : 0
+	EnumItem PropertyStatus.Warning : 1
+	EnumItem PropertyStatus.Error : 2
 Enum ProximityPromptExclusivity
 	EnumItem ProximityPromptExclusivity.OnePerButton : 0
 	EnumItem ProximityPromptExclusivity.OneGlobally : 1
@@ -6200,6 +6215,9 @@ Enum ScrollingDirection
 	EnumItem ScrollingDirection.X : 1
 	EnumItem ScrollingDirection.Y : 2
 	EnumItem ScrollingDirection.XY : 4
+Enum SelectionBehavior
+	EnumItem SelectionBehavior.Escape : 0
+	EnumItem SelectionBehavior.Stop : 1
 Enum ServerAudioBehavior
 	EnumItem ServerAudioBehavior.Enabled : 0
 	EnumItem ServerAudioBehavior.Muted : 1

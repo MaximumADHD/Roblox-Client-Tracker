@@ -32,8 +32,8 @@ Lumberyak = { git = "https://github.com/Roblox/lumberyak" }
 StringUtilities = "github.com/Roblox/string-utilities@1.0.0"
 UrlBuilder = { git = "https://github.com/Roblox/url-builder", rev = "master" }
 FitFrame = "github.com/roblox/roact-fit-components@2.0.0"
-ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v1.0.0" }
-Roact17UpgradeFlag = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "Roact17UpgradeFlag" }
+ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v1.0.1" }
+ExperienceChat_New = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v1.2.1" }
 RoactNavigationUpgradeFlag = { git = "https://github.com/Roblox/roact-navigation-upgrade", rev = "v0.0.6", package = "RoactNavigationUpgradeFlag" }
 RoduxGames = { git = "https://github.com/Roblox/rodux-games", rev = "master" }
 
@@ -51,7 +51,7 @@ JestGlobals = { git = "https://github.com/roblox/jest-roblox", rev = "v2.3.1" }
 Rhodium = "github.com/roblox/rhodium@0.2.8"
 
 # Dependencies for the Roact17 inspector
-ReactDevtoolsExtensions = { git = "https://github.com/roblox/roact-alignment", package = "ReactDevtoolsExtensions", rev="v17.0.1-rc.10" }
+ReactDevtoolsExtensions = { git = "https://github.com/roblox/roact-alignment", package = "ReactDevtoolsExtensions", rev="v17.0.1-rc.11" }
 DeveloperTools = "github.com/Roblox/developer-tools@0.2.2"
 
 # Patch all dependencies upon rodux to the flagged indireciton package, which
@@ -73,10 +73,10 @@ RoactNavigation = { git = "https://github.com/roblox/roact-navigation-upgrade", 
 Roact = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "RoactProxy" }
 
 [config.patch."github.com/roblox/roact-rodux"]
-RoactRodux = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "RoactRoduxProxy" }
+RoactRodux = "github.com/Roblox/roact-rodux@0.5.0"
 
 [config.patch."github.com/roblox/infinite-scroller"]
-InfiniteScroller = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "InfiniteScrollerProxy" }
+InfiniteScroller = "github.com/Roblox/infinite-scroller@0.9.5"
 
 [config.patch."github.com/roblox/roact-gamepad"]
-RoactGamepad = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "RoactGamepadProxy" }
+RoactGamepad = "github.com/Roblox/roact-gamepad@0.5.2"
