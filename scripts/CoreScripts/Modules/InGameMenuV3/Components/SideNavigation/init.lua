@@ -21,7 +21,6 @@ local Constants = require(InGameMenu.Resources.Constants)
 local Pages = require(InGameMenu.Components.Pages)
 local InGameMenuPolicy = require(InGameMenu.InGameMenuPolicy)
 
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 
 local SELECTION_PARENT_NAME = "SideNavigation_IGMSelectionGroup"
@@ -33,7 +32,7 @@ SideNavigation.validateProps = t.strictInterface({
 	closeMenu = t.callback,
 	navigateTo = t.callback,
 	currentPage = t.string,
-	canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+	canCaptureFocus = t.optional(t.boolean),
 	currentZone = GetFFlagIGMGamepadSelectionHistory() and t.optional(t.number) or nil,
 
 	--policy
@@ -49,14 +48,12 @@ function SideNavigation:init()
 		end
 	end
 
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		self.firstItemRef = Roact.createRef()
+	self.firstItemRef = Roact.createRef()
 
-		self.onContainerRendered = function(rbx)
-			if rbx then
-				GuiService:RemoveSelectionGroup(SELECTION_PARENT_NAME)
-				GuiService:AddSelectionParent(SELECTION_PARENT_NAME, rbx)
-			end
+	self.onContainerRendered = function(rbx)
+		if rbx then
+			GuiService:RemoveSelectionGroup(SELECTION_PARENT_NAME)
+			GuiService:AddSelectionParent(SELECTION_PARENT_NAME, rbx)
 		end
 	end
 end
@@ -105,13 +102,10 @@ SideNavigation = InGameMenuPolicy.connect(function(appPolicy, props)
 end)(SideNavigation)
 
 return RoactRodux.UNSTABLE_connect2(function(state, props)
-	local canCaptureFocus = nil -- Can inline when GetFFlagInGameMenuControllerDevelopmentOnly is removed
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		canCaptureFocus = state.isMenuOpen
-			and not state.respawn.dialogOpen
-			and state.displayOptions.inputType == Constants.InputType.Gamepad
-			and state.currentZone == 0
-	end
+	local canCaptureFocus = state.isMenuOpen
+		and not state.respawn.dialogOpen
+		and state.displayOptions.inputType == Constants.InputType.Gamepad
+		and state.currentZone == 0
 
 	local currentZone = nil -- can inline when flag is removed
 	if GetFFlagIGMGamepadSelectionHistory() then

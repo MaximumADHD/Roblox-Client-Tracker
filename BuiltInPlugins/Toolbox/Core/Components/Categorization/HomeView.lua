@@ -5,9 +5,8 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxUseExpandableTopSearch = game:GetFastFlag("ToolboxUseExpandableTopSearch") -- TODO: Flip when UISYS-1334 is ready
-local FFlagToolboxGetItemsDetailsUsesSingleApi = game:GetFastFlag("ToolboxGetItemsDetailsUsesSingleApi")
 local FintToolboxHomeViewInitialPageSize = game:GetFastInt("ToolboxHomeViewInitialPageSize")
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization2")
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization3")
 
 local Libs = Plugin.Packages
 
@@ -70,21 +69,24 @@ type _ExternalProps = {
 	CategoryName: string,
 	LayoutOrder: number?,
 	OnClickSubcategory: ((
-		subcategoryPath: { string },
-		subcategoryDict: { [string]: HomeTypes.Subcategory },
+		subcategoryName: string,
+		subcategoryDict: HomeTypes.Subcategory,
 		categoryName: string?,
-		sortName: string?
+		sortName: string?,
+		navigation: any
 	) -> ()),
 	OnClickSeeAllAssets: ((
 		sectionName: string?,
 		categoryName: string,
 		sortName: string?,
-		searchTerm: string?
+		searchTerm: string?,
+		navigation: any
 	) -> ()),
 	OnClickSeeAllSubcategories: ((
 		subcategoryDict: { [string]: HomeTypes.Subcategory },
 		categoryName: string,
-		sortName: string?
+		sortName: string?,
+		navigation: any
 	) -> ()),
 	Position: number?,
 	Size: UDim2?,
@@ -120,14 +122,10 @@ function HomeView:didMount()
 	local assetId = tonumber(assetIdStr)
 
 	if assetId then
-		if FFlagToolboxGetItemsDetailsUsesSingleApi then
-			props.getAssetPreviewDataForStartup(assetId, self.tryInsert, props.Localization, getNetwork(self))
-		else
-			if props.API ~= nil then
-				props.getAssetPreviewDataForStartup(assetId, self.tryInsert, props.Localization, props.API:get())
-			end
-		end
+		props.getAssetPreviewDataForStartup(assetId, self.tryInsert, props.Localization, getNetwork(self))
 	end
+
+	self.onOverallAbsoluteSizeChange()
 end
 
 function HomeView:init()
@@ -138,26 +136,21 @@ function HomeView:init()
 		swimlaneWidth = 0,
 	}
 
-	self.onAbsoluteSizeChange = function(rbx)
+	self.onOverallAbsoluteSizeChange = function()
 		self:setState(function(prevState: HomeViewState)
+			local rbx = self.sizerRef.current
 			if not rbx then
 				return
 			end
-			return {
-				swimlaneWidth = Layouter.getSwimlaneWidth(rbx.AbsoluteSize.X),
-			}
-		end)
-	end
-
-	self.onOverallAbsoluteSizeChange = function(rbx)
-		self:setState(function(prevState: HomeViewState)
-			if not rbx then
-				return
-			end
+			local swimlaneWidth = Layouter.getSwimlaneWidth(rbx.AbsoluteSize.X)
 			local showTopSearchesFullHeight = rbx.AbsoluteSize.Y > TOP_SEARCHES_FULL_HEIGHT_CUT_OFF
-			if showTopSearchesFullHeight ~= prevState.showTopSearchesFullHeight then
+			if
+				showTopSearchesFullHeight ~= prevState.showTopSearchesFullHeight
+				or swimlaneWidth ~= prevState.swimlaneWidth
+			then
 				return {
 					showTopSearchesFullHeight = showTopSearchesFullHeight,
+					swimlaneWidth = swimlaneWidth,
 				}
 			else
 				return
@@ -174,20 +167,15 @@ function HomeView:init()
 		local subcategoryDict = props.SubcategoryDict
 
 		local subcategoryData = subcategoryDict[subcategoryName]
-
-		if subcategoryData.childCount == 0 and onClickSeeAllAssets then
-			onClickSeeAllAssets(nil, categoryName, sortName, subcategoryData.searchKeywords)
-		elseif onClickSubcategory then
-			onClickSubcategory({ subcategoryName }, subcategoryData.children, categoryName, sortName)
-		end
+		onClickSubcategory(subcategoryName, subcategoryData, subcategoryData.searchKeywords, categoryName, sortName)
 	end
 
 	self.onClickSeeAllSubcategories = function()
 		local props: HomeViewProps = self.props
 		local categoryName = props.CategoryName
-		local onClickSeeAllSubcategories = props.OnClickSeeAllSubcategories
 		local sortName = props.SortName
 		local subcategoryDict = props.SubcategoryDict
+		local onClickSeeAllSubcategories = props.OnClickSeeAllSubcategories
 
 		if onClickSeeAllSubcategories then
 			onClickSeeAllSubcategories(subcategoryDict, categoryName, sortName)
@@ -199,6 +187,7 @@ function HomeView:init()
 		local categoryName = props.CategoryName
 		local onClickSeeAllAssets = props.OnClickSeeAllAssets
 		local sortName = props.SortName
+
 		onClickSeeAllAssets(nil, categoryName, sortName, searchText)
 	end
 
@@ -247,6 +236,7 @@ function HomeView:init()
 			end
 		end
 		local theme = props.Stylizer
+		local searchListTheme = theme.searchList
 		local searchPillTheme = theme.searchPill
 
 		local sectionHeaderTheme = theme.sectionHeader
@@ -288,11 +278,23 @@ function HomeView:init()
 
 		local showTopKeywords = topKeywords and #topKeywords > 0
 
-		local searchPillRowHeight = searchPillTheme.textSize + searchPillTheme.padding.Y * 2
+		local searchPillRowHeight = searchPillTheme.textSize
+			+ searchPillTheme.padding.left
+			+ searchPillTheme.padding.right
 		local topSearchesRowCount = 1
 		if state.showTopSearchesFullHeight then
 			topSearchesRowCount = TOP_SEARCH_MAX_ROW_COUNT
 		end
+
+		-- HACK: Add a minTopKeywordSize because a race condition is causing the resizing of the AssetGrid's
+		-- topContents to sometimes be inaccurrate due to the resizing of the SearchList.
+		local minTopKeywordsHeight = (
+					searchPillTheme.textSize
+					+ searchPillTheme.padding.top
+					+ searchPillTheme.padding.bottom
+				)
+				* topSearchesRowCount
+			+ searchListTheme.buttonSpacing
 
 		return Roact.createElement(Pane, {
 			AutomaticSize = Enum.AutomaticSize.Y,
@@ -301,7 +303,6 @@ function HomeView:init()
 			Spacing = SECTION_SPACING,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			VerticalAlignment = Enum.VerticalAlignment.Top,
-			[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChange,
 		}, {
 			SubcategorySwimlane = Roact.createElement(Swimlane, {
 				Data = subcategoryDict,
@@ -313,7 +314,9 @@ function HomeView:init()
 				Total = subcategoryCount,
 			}),
 
-			TopKeywords = if FFlagToolboxAssetCategorization and not FFlagToolboxUseExpandableTopSearch and showTopKeywords
+			TopKeywords = if FFlagToolboxAssetCategorization
+					and not FFlagToolboxUseExpandableTopSearch
+					and showTopKeywords
 				then Roact.createElement(Pane, {
 					AutomaticSize = Enum.AutomaticSize.Y,
 					Layout = Enum.FillDirection.Vertical,
@@ -321,7 +324,7 @@ function HomeView:init()
 					Padding = {
 						Bottom = TOP_KEYWORDS_BOTTOM_PADDING,
 					},
-					Size = UDim2.new(0, swimlaneWidth, 0, 0),
+					Size = UDim2.new(0, swimlaneWidth, 0, minTopKeywordsHeight),
 					Spacing = TOP_KEYWORDS_SECTION_SPACING,
 					HorizontalAlignment = Enum.HorizontalAlignment.Left,
 					VerticalAlignment = Enum.VerticalAlignment.Top,
@@ -335,7 +338,7 @@ function HomeView:init()
 
 					SearchList = Roact.createElement(SearchList, {
 						Items = topKeywords,
-						ItemMinWidth = searchPillTheme.padding.X * 2,
+						ItemMinWidth = searchPillTheme.padding.left + searchPillTheme.padding.right,
 						LayoutOrder = orderIterator:getNextOrder(),
 						MaxRowCount = topSearchesRowCount,
 						OnClick = self.onClickSearchPill,
@@ -343,17 +346,20 @@ function HomeView:init()
 				})
 				else nil,
 
-			TopKeywordsExpandable = if FFlagToolboxAssetCategorization and FFlagToolboxUseExpandableTopSearch and showTopKeywords
+			TopKeywordsExpandable = if FFlagToolboxAssetCategorization
+					and FFlagToolboxUseExpandableTopSearch
+					and showTopKeywords
 				then Roact.createElement(ExpandableTeaser, {
 					LayoutOrder = orderIterator:getNextOrder(),
-					Size = UDim2.new(0, swimlaneWidth, 0, 0),
+					Size = UDim2.new(0, swimlaneWidth, 0, minTopKeywordsHeight),
 					Title = topKeywordsText,
 					TeaserSize = Vector2.new(0, searchPillRowHeight),
 				}, {
 					SearchList = Roact.createElement(SearchList, {
 						Items = topKeywords,
-						ItemMinWidth = searchPillTheme.padding.X * 2,
+						ItemMinWidth = searchPillTheme.padding.left + searchPillTheme.padding.left,
 						MaxRowCount = topSearchesRowCount,
+						OnClick = self.onClickSearchPill,
 					}),
 				})
 				else nil,
@@ -405,36 +411,34 @@ function HomeView:render()
 		return topContentElems
 	end
 
-	return ResultsFetcher.Generator({
-		networkInterface = getNetwork(self),
-		categoryName = categoryName,
-		sortName = sortName,
-		searchTerm = nil,
-		sectionName = sectionName,
-		initialPageSize = INITIAL_PAGE_SIZE,
-		render = function(resultsState)
-			if resultsState.loading and #resultsState.assetIds == 0 then
-				return Roact.createElement("Frame", {
-					BackgroundColor3 = theme.backgroundColor,
-					LayoutOrder = layoutOrder,
-					Position = position,
-					Size = size,
-				}, {
-					LoadingIndicator = Roact.createElement(LoadingIndicator, {
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						Position = UDim2.new(0.5, 0, 0.5, 0),
-					}),
-				})
-			else
-				return Roact.createFragment({
-					HomeViewHeightSizer = Roact.createElement("Frame", {
-						BackgroundTransparency = 0,
-						Size = UDim2.new(1, 0, 1, 0),
-						[Roact.Ref] = self.sizerRef,
-						[Roact.Change.AbsoluteSize] = self.onOverallAbsoluteSizeChange,
-					}),
-
-					AssetGrid = AssetGrid({
+	return Roact.createElement("Frame", {
+		BackgroundTransparency = 0,
+		Size = UDim2.new(1, 0, 1, 0),
+		[Roact.Ref] = self.sizerRef,
+		[Roact.Change.AbsoluteSize] = self.onOverallAbsoluteSizeChange,
+	}, {
+		ResultsFetcher.Generator({
+			networkInterface = getNetwork(self),
+			categoryName = categoryName,
+			sortName = sortName,
+			searchTerm = nil,
+			sectionName = sectionName,
+			initialPageSize = INITIAL_PAGE_SIZE,
+			render = function(resultsState)
+				if resultsState.loading and #resultsState.assetIds == 0 then
+					return Roact.createElement("Frame", {
+						BackgroundColor3 = theme.backgroundColor,
+						LayoutOrder = layoutOrder,
+						Position = position,
+						Size = size,
+					}, {
+						LoadingIndicator = Roact.createElement(LoadingIndicator, {
+							AnchorPoint = Vector2.new(0.5, 0.5),
+							Position = UDim2.new(0.5, 0, 0.5, 0),
+						}),
+					})
+				else
+					return AssetGrid({
 						AssetIds = resultsState.assetIds,
 						AssetMap = resultsState.assetMap,
 						LayoutOrder = layoutOrder,
@@ -442,30 +446,28 @@ function HomeView:render()
 						RenderTopContent = renderTopContent,
 						RequestNextPage = resultsState.fetchNextPage,
 						Size = size,
-	
+
 						-- Props from AssetLogicWrapper
 						CanInsertAsset = canInsertAsset,
 						OnAssetPreviewButtonClicked = onAssetPreviewButtonClicked,
 						TryInsert = tryInsert,
 						TryOpenAssetConfig = tryOpenAssetConfig,
-					}),
-				})
-			end
-		end,
+					})
+				end
+			end,
+		}),
 	})
 end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		getAssetPreviewDataForStartup = function(assetId, tryInsert, localization, api)
-			-- TODO when removing FFlagToolboxGetItemsDetailsUsesSingleApi: rename api to networkInterface
-			dispatch(GetAssetPreviewDataForStartup(assetId, tryInsert, localization, api))
+		getAssetPreviewDataForStartup = function(assetId, tryInsert, localization, networkInterface)
+			dispatch(GetAssetPreviewDataForStartup(assetId, tryInsert, localization, networkInterface))
 		end,
 	}
 end
 
 HomeView = withContext({
-	API = if FFlagToolboxGetItemsDetailsUsesSingleApi then nil else ContextServices.API,
 	Localization = ContextServices.Localization,
 	Settings = Settings,
 	Stylizer = ContextServices.Stylizer,

@@ -316,23 +316,72 @@ function EditorController:init()
 			self.props.AttachEditor(self.props.Analytics)
 		end
 	end
+	
+	self.applyValueToFacsSliderPartners = function(instanceName, path, trackType, tck, value)
+		local facsName = path[1]
+		local crossMapping = Constants.FacsCrossMappings[facsName]
 
-	self.onValueChanged = function(instanceName, path, trackType, tick, value)
+		--for eyesdragbox we set the counter direction to 0
+		if value ~= 0 then
+			if facsName == Constants.FacsNames.EyesLookLeft then
+				self.props.ValueChanged(instanceName, {Constants.FacsNames.EyesLookRight}, trackType, tck, 0, self.props.Analytics)
+			elseif facsName == Constants.FacsNames.EyesLookRight then
+				self.props.ValueChanged(instanceName, {Constants.FacsNames.EyesLookLeft}, trackType, tck, 0, self.props.Analytics)
+			elseif facsName == Constants.FacsNames.EyesLookUp then
+				self.props.ValueChanged(instanceName, {Constants.FacsNames.EyesLookDown}, trackType, tck, 0, self.props.Analytics)
+			elseif facsName == Constants.FacsNames.EyesLookDown then
+				self.props.ValueChanged(instanceName, {Constants.FacsNames.EyesLookUp}, trackType, tck, 0, self.props.Analytics)
+			end
+		end
+
+		--in the face controls editor some sliders control 2 facs properties, 
+		--for those also when the value is increased to one side, 
+		--the other side gets set to 0
+		local sliderGroup = crossMapping.sliderGroup
+		if sliderGroup then
+			if value >0 then
+				local groupPartnerName = nil
+				if crossMapping.indexInGroup == 1 then
+					groupPartnerName = sliderGroup[2]
+				else
+					groupPartnerName = sliderGroup[1]
+				end	
+
+				self.props.ValueChanged(instanceName, {groupPartnerName}, trackType, tck, 0, self.props.Analytics)
+			end			
+		end
+
+		-- also apply value change to symmetry partner for facs values if symmetry setting is enabled
+		if self.props.SymmetryEnabled then						
+			local symmetryPartner = crossMapping.symmetryPartner
+			if symmetryPartner then
+				self.applyValueToSymmetryPartner(instanceName, symmetryPartner, trackType, tck, value)		
+			end													
+		end		
+	end
+	
+	self.applyValueToSymmetryPartner = function(instanceName, symmetryPartner, trackType, tck, value)
+		self.props.ValueChanged(instanceName, {symmetryPartner}, trackType, tck, value, self.props.Analytics)
+		--if the symmetry partner controls multiple facs, too, 
+		--if value >0 for the symmetry partner set the value of the group partner to 0
+		if value == nil or value <= 0 then return end
+		local crossMappingSymmetryPartner = Constants.FacsCrossMappings[symmetryPartner]
+		local sliderGroup = crossMappingSymmetryPartner.sliderGroup
+		if not sliderGroup then return end		
+		local groupPartnerName = nil
+		if crossMappingSymmetryPartner.indexInGroup == 1 then
+			groupPartnerName = sliderGroup[2]
+		else
+			groupPartnerName = sliderGroup[1]
+		end	
+
+		self.props.ValueChanged(instanceName, {groupPartnerName}, trackType, tck, 0, self.props.Analytics)											
+	end
+
+	self.onValueChanged = function(instanceName, path, trackType, tck, value)
 		local animationData = self.props.AnimationData
 		if not AnimationData.isChannelAnimation(animationData) then
-			self.props.ValueChanged(instanceName, path, trackType, tick, value, self.props.Analytics)
-			if GetFFlagFaceControlsEditorUI() then
-				-- also apply value change to symmetry partner for facs values if symmetry setting is enabled
-				if trackType == Constants.TRACK_TYPES.Facs then
-					if self.props.SymmetryEnabled then
-						local facsName = path[1]
-						local symmetryPartner = Constants.FacsCrossMappings[facsName].symmetryPartner
-						if symmetryPartner then
-							self.props.ValueChanged("Root", {symmetryPartner}, trackType, tick, value, self.props.Analytics)
-						end
-					end
-				end
-			end
+			self.props.ValueChanged(instanceName, path, trackType, tck, value, self.props.Analytics)
 		else
 			local rotationType
 			if GetFFlagQuaternionChannels() then
@@ -347,9 +396,14 @@ function EditorController:init()
 			end
 			-- Change the value of all tracks
 			TrackUtils.traverseValue(trackType, value, function(_trackType, relPath, _value)
-				self.props.ValueChanged(instanceName, Cryo.List.join(path, relPath), _trackType, tick, _value, self.props.Analytics)
+				self.props.ValueChanged(instanceName, Cryo.List.join(path, relPath), _trackType, tck, _value, self.props.Analytics)
 			end, rotationType)
 		end
+		if GetFFlagFaceControlsEditorUI() then				
+			if trackType == Constants.TRACK_TYPES.Facs then	
+				self.applyValueToFacsSliderPartners(instanceName, path, trackType, tck, value)					
+			end
+		end		
 	end
 end
 
@@ -516,9 +570,9 @@ function EditorController:render()
 
 				TrackListAndScrollBar = GetFFlagCurveEditor() and Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 1, showEvents and -Constants.TRACK_HEIGHT or 0),
-						LayoutOrder = 1,
-						BackgroundTransparency = 1,
-						BorderSizePixel = 0,
+					LayoutOrder = 1,
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
 				}, {
 					TrackList = Roact.createElement(TrackList, {
 						Size = UDim2.new(1, showCurveCanvas and (-Constants.SCROLL_BAR_SIZE - 1) or 0, 1, 0),
@@ -840,18 +894,18 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetRightClickContextInfo(info))
 		end,
 
-		ValueChanged = function(instanceName, path, trackType, tick, value, analytics)
-			dispatch(ValueChanged(instanceName, path, trackType, tick, value, analytics))
+		ValueChanged = function(instanceName, path, trackType, tck, value, analytics)
+			dispatch(ValueChanged(instanceName, path, trackType, tck, value, analytics))
 		end,
 
 		-- Remove when GetFFlagChannelAnimations() is retired
-		ValueChanged_deprecated2 = function(instanceName, trackName, trackType, tick, value, analytics)
-			dispatch(ValueChanged(instanceName, trackName, trackType, tick, value, analytics))
+		ValueChanged_deprecated2 = function(instanceName, trackName, trackType, tck, value, analytics)
+			dispatch(ValueChanged(instanceName, trackName, trackType, tck, value, analytics))
 		end,
 
 		-- Remove when GetFFlagFacialAnimationSupport() is retired
-		ValueChanged_deprecated = function(instanceName, trackName, tick, value, analytics)
-			dispatch(ValueChanged(instanceName, trackName, tick, value, analytics))
+		ValueChanged_deprecated = function(instanceName, trackName, tck, value, analytics)
+			dispatch(ValueChanged(instanceName, trackName, tck, value, analytics))
 		end,
 
 		AddWaypoint = function()
@@ -866,8 +920,8 @@ local function mapDispatchToProps(dispatch)
 			dispatch(ReleaseEditor(analytics))
 		end,
 
-		SetEventEditingTick = function(tick)
-			dispatch(SetEventEditingTick(tick))
+		SetEventEditingTick = function(tck)
+			dispatch(SetEventEditingTick(tck))
 		end,
 
 		SetMotorData = function(motorData)

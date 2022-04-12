@@ -16,8 +16,6 @@ local GameIcon = require(InGameMenu.Components.GameIcon)
 
 local CORNER_RADIUS = UDim.new(0, 8)
 
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
-
 local GameIconButton = Roact.PureComponent:extend("GameIconButton")
 
 GameIconButton.validateProps = t.strictInterface({
@@ -53,7 +51,7 @@ function GameIconButton:renderWithSelectionCursor(getSelectionCursor)
 								 position.Y.Scale, position.Y.Offset),
 			Size = UDim2.new(1,0,1,0),
 			LayoutOrder = self.props.layoutOrder,
-			SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly() and getSelectionCursor(CursorKind.RoundedRect) or nil,
+			SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect) or nil,
 
 		}, {
 			Layout = Roact.createElement("UIListLayout", {
@@ -69,21 +67,13 @@ function GameIconButton:renderWithSelectionCursor(getSelectionCursor)
 end
 
 function GameIconButton:render()
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		return withSelectionCursorProvider(function(getSelectionCursor)
-			return self:renderWithSelectionCursor(getSelectionCursor)
-		end)
-	else
-		return self:renderWithSelectionCursor()
-	end
-end
-
-if GetFFlagInGameMenuControllerDevelopmentOnly() then
-	return Roact.forwardRef(function(props, ref)
-		return Roact.createElement(GameIconButton, Cryo.Dictionary.join(props, {
-			forwardRef = ref,
-		}))
+	return withSelectionCursorProvider(function(getSelectionCursor)
+		return self:renderWithSelectionCursor(getSelectionCursor)
 	end)
 end
 
-return GameIconButton
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(GameIconButton, Cryo.Dictionary.join(props, {
+		forwardRef = ref,
+	}))
+end)

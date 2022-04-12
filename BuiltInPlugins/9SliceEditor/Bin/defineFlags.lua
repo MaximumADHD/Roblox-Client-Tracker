@@ -13,5 +13,6 @@ game:DefineFastFlag("9SliceEditorSaveSliceOffsets", false)
 game:DefineFastFlag("9SliceEditorDontRestoreOnDMLoad", false)
 game:DefineFastFlag("9SliceEditorRespectImageRectSize", false)
 game:DefineFastFlag("9SliceEditorResizableImagePreviewWindow", false)
+game:DefineFastFlag("9SliceEditorLeftAlignOffsetTextInputs", false)
 
 return nil

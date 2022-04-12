@@ -126,7 +126,7 @@ function MaterialVariantCreator:render()
 			BackgroundColor = style.Background,
 			ColorMap = colorMap,
 			DisableZoom = true,
-			InitialDistance = 10,
+			InitialDistance = 12,
 			LayoutOrder = 2,
 			MetalnessMap = metalnessMap,
 			NormalMap = normalMap,
@@ -149,8 +149,8 @@ return RoactRodux.connect(
 	function(state : MainReducer.State, _)
 		return {
 			ColorMap = state.MaterialPromptReducer.ColorMap,
-			NormalMap = state.MaterialPromptReducer.NormalMap,
 			MetalnessMap = state.MaterialPromptReducer.MetalnessMap,
+			NormalMap = state.MaterialPromptReducer.NormalMap,
 			RoughnessMap = state.MaterialPromptReducer.RoughnessMap,
 		}
 	end

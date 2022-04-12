@@ -253,6 +253,26 @@ local faceSliderTheme = {
 		UpperKnobBackgroundStyle = knobStyle,
 }
 
+local faceDragBoxTheme = {
+	KnobSize = Vector2.new(18, 18),
+	Background = Decoration.Image,
+	BackgroundStyle = {
+		AnchorPoint = Vector2.new(0, 0.5),
+		Color = Color3.fromRGB(87, 87, 87),
+		Position = UDim2.new(0, 0, 0.5, 0),
+		ScaleType = Enum.ScaleType.Slice,
+		Size = UDim2.new(UDim.new(1, 0), UDim.new(1, 0)),
+		SliceCenter = faceSliderBarSliceCenter,
+		BackgroundTransparency = 1,
+		ImageTransparency = 1,
+	},
+	OutlineStyle = {
+		Color = Color3.fromRGB(87, 87, 87),
+	},	
+	KnobBackground = Decoration.Image,
+	KnobBackgroundStyle = knobStyle,	
+}
+
 -- Rest of the values come from UILibrary createTheme.lua and StudioStyle.lua
 local roundFrameTheme = {
 	slice = Rect.new(3, 3, 13, 13),
@@ -514,6 +534,7 @@ local PluginTheme = {
 	ikTheme = ikTheme,
 	checkBox = checkBoxTheme,
 	faceSliderTheme = faceSliderTheme,
+	faceDragBoxTheme = faceDragBoxTheme,
 	roundFrame = roundFrameTheme,
 	button = buttonTheme,
 	keyframe = keyframe,

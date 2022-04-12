@@ -106,18 +106,22 @@ function Analytics.new()
 	end
 
 	function service.signalPremiumUpsellConfirmed()
+		AnalyticsService:SetRBXEvent("client", "InGamePrompt", "PremiumUpsellConfirmed", { gameID = game.GameId })
 		ReportPlatformCounter("PremiumUpsellConfirmed")
 	end
 
 	function service.signalPremiumUpsellPrecheckFail()
+		AnalyticsService:SetRBXEvent("client", "InGamePrompt", "PremiumUpsellPrecheckFail", { gameID = game.GameId })
 		ReportPlatformCounter("PremiumUpsellPrecheckFail")
 	end
 
 	function service.signalPremiumUpsellInvalidProducts()
+		AnalyticsService:SetRBXEvent("client", "InGamePrompt", "PremiumUpsellInvalidProducts", { gameID = game.GameId })
 		ReportPlatformCounter("PremiumUpsellInvalidProducts")
 	end
 
 	function service.signalPremiumUpsellInvalidPlatform()
+		AnalyticsService:SetRBXEvent("client", "InGamePrompt", "PremiumUpsellInvalidPlatform", { gameID = game.GameId })
 		ReportPlatformCounter("PremiumUpsellInvalidPlatform")
 	end
 

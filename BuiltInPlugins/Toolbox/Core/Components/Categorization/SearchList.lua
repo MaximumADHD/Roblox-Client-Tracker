@@ -2,7 +2,7 @@
 --[[
 	A container with rows of content and that resizes each text item each row to fill the entire width.
 ]]
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization2")
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization3")
 if not FFlagToolboxAssetCategorization then
 	-- needed for withAbsoluteSizeAndPosition
 	return {}
@@ -22,11 +22,11 @@ local HoverArea = Framework.UI.HoverArea
 local Pane = Framework.UI.Pane
 local withAbsoluteSizeAndPosition = Framework.Wrappers.withAbsoluteSizeAndPosition
 
+local multiLanguageUtils = require(Plugin.Core.Util.multiLanguageUtils)
+
 local SearchPill = require(Plugin.Core.Components.Categorization.SearchPill)
 
 local withContext = ContextServices.withContext
-
-local BUTTON_SPACING = 3
 
 type _ExternalProps = {
 	Items: { any },
@@ -66,7 +66,9 @@ function SearchList:init()
 		local onClick = props.OnClick
 
 		local searchPillTheme = theme.searchPill
-	
+
+		local text = multiLanguageUtils.lower(text)
+
 		return Roact.createElement(SearchPill, {
 			AutomaticSize = Enum.AutomaticSize.Y,
 			LayoutOrder = index,
@@ -105,6 +107,7 @@ function SearchList:init()
 		local currentRowItemList: { SearchListRenderItem } = {}
 		local currentRowWidth = 0
 
+		local searchListTheme = theme.searchList
 		local searchPillTheme = theme.searchPill
 
 		for i, text in ipairs(items) do
@@ -126,7 +129,7 @@ function SearchList:init()
 			local oldPixelWidth = currentRowWidth
 			currentRowWidth += itemWidth
 			if i ~= 1 then
-				currentRowWidth += BUTTON_SPACING
+				currentRowWidth += searchListTheme.buttonSpacing
 			end
 
 			if currentRowWidth > maxRowWidth then
@@ -179,7 +182,7 @@ function SearchList:render()
 			Layout = Enum.FillDirection.Horizontal,
 			LayoutOrder = i,
 			Size = UDim2.new(1, 0, 0, 0),
-			Spacing = BUTTON_SPACING,
+			Spacing = searchListTheme.buttonSpacing,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			VerticalAlignment = Enum.VerticalAlignment.Top,
 		}, rowChildren)
@@ -195,7 +198,7 @@ function SearchList:render()
 			LayoutOrder = layoutOrder,
 			Position = position,
 			Size = size,
-			Spacing = BUTTON_SPACING,
+			Spacing = searchListTheme.buttonSpacing,
 		}, props.WrapperProps),
 		children
 	)

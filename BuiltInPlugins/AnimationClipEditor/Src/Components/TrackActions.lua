@@ -40,9 +40,9 @@ local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-local GetFFlagKeyframeUtilsGetValueCleanup = require(Plugin.LuaFlags.GetFFlagKeyframeUtilsGetValueCleanup)
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
+local GetFFlagEulerFromPartTrack = require(Plugin.LuaFlags.GetFFlagEulerFromPartTrack)
 
 export type Props = {
 	-- State/Context
@@ -73,7 +73,7 @@ export type Props = {
 
 local TrackActions = Roact.PureComponent:extend("TrackActions")
 
-function TrackActions:makeMenuActions(isTopLevel: boolean): {PluginAction}
+function TrackActions:makeMenuActions(isTopLevel: boolean, showEulerConversion: boolean): {PluginAction}
 	local pluginActions = self.props.PluginActions
 	local isChannelAnimation = self.props.IsChannelAnimation
 	local path = self.props.Path
@@ -90,9 +90,12 @@ function TrackActions:makeMenuActions(isTopLevel: boolean): {PluginAction}
 		pluginActions:get(GetFFlagChannelAnimations() and deleteAction or "DeleteTrack"),
 	}
 
-	if GetFFlagQuaternionsUI() and isChannelAnimation and trackType == Constants.TRACK_TYPES.Quaternion then
-		table.insert(actions, Constants.MENU_SEPARATOR)
-		table.insert(actions, pluginActions:get("ConvertToEulerAngles"))
+	if GetFFlagQuaternionsUI() and isChannelAnimation then
+		if (not GetFFlagEulerFromPartTrack() and trackType == Constants.TRACK_TYPES.Quaternion) or
+			(GetFFlagEulerFromPartTrack() and showEulerConversion) then
+			table.insert(actions, Constants.MENU_SEPARATOR)
+			table.insert(actions, pluginActions:get("ConvertToEulerAngles"))
+		end
 	end
 
 	return actions
@@ -200,11 +203,7 @@ function TrackActions:didMount(): ()
 				local track = instance.Tracks[trackName]
 				local newValue
 				if track and track.Keyframes then
-					if GetFFlagKeyframeUtilsGetValueCleanup() then
-						newValue = KeyframeUtils.getValue(track, playhead)
-					else
-						newValue = KeyframeUtils:getValue_deprecated(track, playhead)
-					end
+					newValue = KeyframeUtils.getValue(track, playhead)
 				else
 					if GetFFlagFacialAnimationSupport() then
 						newValue = TrackUtils.getDefaultValueByType(trackType)
@@ -226,6 +225,19 @@ function TrackActions:didMount(): ()
 			local props = self.props
 			local path = props.Path
 			local instanceName = props.InstanceName
+			local trackType = props.TrackType
+			local animationData = props.AnimationData
+
+			if GetFFlagEulerFromPartTrack() then
+				-- If the track is not a quaternion track, try to find a quaternion descendant.
+				if trackType == Constants.TRACK_TYPES.CFrame then
+					table.insert(path, Constants.PROPERTY_KEYS.Rotation)
+					local track = AnimationData.getTrack(animationData, instanceName, path)
+					if track.Type ~= Constants.TRACK_TYPES.Quaternion then
+						return
+					end
+				end
+			end
 			props.ConvertTrack(instanceName, path, Constants.TRACK_TYPES.EulerAngles, props.Analytics)
 		end)
 	end
@@ -243,6 +255,7 @@ function TrackActions:render(): (any?)
 	local actions = self.Actions
 	local pluginActions = self.props.PluginActions
 	local isChannelAnimation = self.props.IsChannelAnimation
+	local showEulerConversion = false
 
 	if not isEmpty(pluginActions) and actions ~= nil then
 		for _, action in ipairs(actions) do
@@ -252,6 +265,9 @@ function TrackActions:render(): (any?)
 		if GetFFlagChannelAnimations() then
 			if path and instanceName then
 				local track = AnimationData.getTrack(animationData, instanceName, path)
+				showEulerConversion = track.Type == Constants.TRACK_TYPES.Quaternion or
+					(track.Type == Constants.TRACK_TYPES.CFrame and TrackUtils.getRotationType(track) == Constants.TRACK_TYPES.Quaternion)
+
 				local enabled
 
 				if not isChannelAnimation then
@@ -286,7 +302,7 @@ function TrackActions:render(): (any?)
 
 	-- topLevelTrack is not needed anymore if GetFFlagQuaternionsUI is ON
 	local topLevelTrack = not isChannelAnimation or (path ~= nil and #path <= 1)
-	local menuActions = self:makeMenuActions(topLevelTrack)
+	local menuActions = self:makeMenuActions(topLevelTrack, showEulerConversion)
 
 	if FFlagDumpTrackMenu then
 		table.insert(menuActions, {

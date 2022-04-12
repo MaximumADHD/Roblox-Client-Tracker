@@ -9,12 +9,16 @@ local withContext = ContextServices.withContext
 
 local Stylizer = Framework.Style.Stylizer
 
+local Flags = Plugin.Src.Flags
+local getFFlagDevFrameworkSplitPane = require(Flags.getFFlagDevFrameworkSplitPane)
+
 local UI = Framework.UI
 local Pane = UI.Pane
+local SplitPane = getFFlagDevFrameworkSplitPane() and UI.SplitPane or nil
 
 local Components = Plugin.Src.Components
 
-local MaterialGrid = require(Components.MaterialGrid)
+local MaterialGridWrapper = require(Components.MaterialGridWrapper)
 local SideBar = require(Components.SideBar)
 local TopBar = require(Components.TopBar)
 local MaterialDetails = require(Components.MaterialDetails)
@@ -37,7 +41,15 @@ type _Style = {
 	MaterialDetailsSize : UDim2,
 }
 
+local FFlagDevFrameworkSplitPane = getFFlagDevFrameworkSplitPane()
+
 local MaterialManagerView = Roact.PureComponent:extend("MaterialManagerView")
+
+function MaterialManagerView:init()
+	self.state = {
+		sizes = {UDim.new(0, 300),UDim.new(1,-300)},
+	}
+end
 
 function MaterialManagerView:render()
 	local props : _Props = self.props
@@ -45,19 +57,15 @@ function MaterialManagerView:render()
 
 	local material : _Types.Material = props.Material
 
-	return Roact.createElement(Pane, {
-		Style = "Box",
-		Layout = Enum.FillDirection.Horizontal,
-		Size = UDim2.fromScale(1, 1),
-	}, {
-		SideBar = Roact.createElement(SideBar, {
+	local content = {
+		Roact.createElement(SideBar, {
 			LayoutOrder = 1,
-			Size = style.SideBarSize,
+			Size = FFlagDevFrameworkSplitPane and UDim2.fromScale(1, 1) or style.SideBarSize,
 		}),
-		MainView = Roact.createElement(Pane, {
+		Roact.createElement(Pane, {
 			Layout = Enum.FillDirection.Vertical,
 			LayoutOrder = 2,
-			Size = style.MainViewSize,
+			Size = FFlagDevFrameworkSplitPane and UDim2.fromScale(1, 1) or style.MainViewSize,
 		}, {
 			TopBar = Roact.createElement(TopBar, {
 				LayoutOrder = 1,
@@ -69,7 +77,7 @@ function MaterialManagerView:render()
 				Layout = Enum.FillDirection.Horizontal,
 				LayoutOrder = 2,
 			}, {
-				MaterialGrid = Roact.createElement(MaterialGrid, {
+				MaterialGridWrapper = Roact.createElement(MaterialGridWrapper, {
 					LayoutOrder = 1,
 					Size = if material then style.MaterialGridSize else UDim2.fromScale(1, 1),
 				}),
@@ -82,7 +90,30 @@ function MaterialManagerView:render()
 					else nil,
 			})
 		})
-	})
+	}
+
+	if FFlagDevFrameworkSplitPane then
+		return Roact.createElement(SplitPane, {
+			ClampSize = true,
+			Sizes = self.state.sizes,
+			Layout = Enum.FillDirection.Horizontal,
+			MinSizes = {UDim.new(0, 0), UDim.new(0.5, 0)},
+			OnSizesChange = function(sizes)
+				self:setState({
+					sizes = sizes,
+				})
+			end,
+			Size = UDim2.fromScale(1, 1), 
+			UseScale = true,		
+		}, content)
+	else
+		return Roact.createElement(Pane, {
+			Style = "Box",
+			Layout = Enum.FillDirection.Horizontal,
+			Size = UDim2.fromScale(1, 1),
+		}, content)
+	end
+
 end
 
 MaterialManagerView = withContext({
@@ -96,4 +127,3 @@ return RoactRodux.connect(
 		}
 	end
 )(MaterialManagerView)
-

@@ -42,6 +42,7 @@ local SetDefaultRotationType = require(Plugin.Src.Actions.SetDefaultRotationType
 local DraggerWrapper = require(Plugin.Src.Components.Draggers.DraggerWrapper)
 
 local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
+local GetFFlagRenameSettings = require(Plugin.LuaFlags.GetFFlagRenameSettings)
 
 -- analytics
 local AnalyticsHandlers = require(Plugin.Src.Resources.AnalyticsHandlers)
@@ -172,36 +173,87 @@ end
 
 function AnimationClipEditorPlugin:getPluginSettings()
 	local plugin = self.props.plugin
-	local snapMode = plugin:GetSetting("SnapMode")
-	-- Legacy snap preference
-	local snapToKeys = plugin:GetSetting("SnapToKeys")
-	local showAsSeconds = plugin:GetSetting("ShowAsSeconds")
 
-	if snapMode ~= nil then
-		self.store:dispatch(SetSnapMode(snapMode))
-	elseif snapToKeys ~= nil then
-		self.store:dispatch(SetSnapMode(snapToKeys and Constants.SNAP_MODES.Keyframes or Constants.SNAP_MODES.Frames))
+	if not GetFFlagRenameSettings() then
+		local snapMode = plugin:GetSetting("SnapMode")
+		-- Legacy snap preference
+		local snapToKeys = plugin:GetSetting("SnapToKeys")
+		local showAsSeconds = plugin:GetSetting("ShowAsSeconds")
+
+		if snapMode ~= nil then
+			self.store:dispatch(SetSnapMode(snapMode))
+		elseif snapToKeys ~= nil then
+			self.store:dispatch(SetSnapMode(snapToKeys and Constants.SNAP_MODES.Keyframes or Constants.SNAP_MODES.Frames))
+		else
+			self.store:dispatch(SetSnapMode(Constants.SNAP_MODES.Keyframes))
+		end
+
+		if showAsSeconds ~= nil then
+			self.store:dispatch(SetShowAsSeconds(showAsSeconds))
+		end
+
+		if GetFFlagQuaternionsUI() then
+			local rotationType = plugin:GetSetting("RotationType")
+			self.store:dispatch(SetDefaultRotationType(rotationType or Constants.TRACK_TYPES.Quaternion))
+		end
 	else
-		self.store:dispatch(SetSnapMode(Constants.SNAP_MODES.Keyframes))
-	end
+		local snapMode = plugin:GetSetting(Constants.SETTINGS.SnapMode)
+		local showAsSeconds = plugin:GetSetting(Constants.SETTINGS.ShowAsSeconds)
 
-	if showAsSeconds ~= nil then
-		self.store:dispatch(SetShowAsSeconds(showAsSeconds))
-	end
+		-- TODO: This will progressively (and silently) convert old user preferences to their new names (prefixed with ACE_)
+		-- We can freely remove the deprecated code after a few months. Only inactive users (who haven't opened the ACE once)
+		-- will lose their settings. Chances are they won't remember those settings anyway :-]
+		if snapMode ~= nil then
+			self.store:dispatch(SetSnapMode(snapMode))
+		else
+			snapMode = plugin:GetSetting("SnapMode")
+			if snapMode ~= nil then
+				self.store:dispatch(SetSnapMode(snapMode))
+			else
+				self.store:dispatch(SetSnapMode(Constants.SNAP_MODES.Keyframes))
+			end
+		end
 
-	if GetFFlagQuaternionsUI() then
-		local rotationType = plugin:GetSetting("RotationType")
-		self.store:dispatch(SetDefaultRotationType(rotationType or Constants.TRACK_TYPES.Quaternion))
+		if showAsSeconds ~= nil then
+			self.store:dispatch(SetShowAsSeconds(showAsSeconds))
+		else
+			showAsSeconds = plugin:GetSetting("ShowAsSeconds")
+			if showAsSeconds ~= nil then
+				self.store:dispatch(SetShowAsSeconds(showAsSeconds))
+			end
+		end
+
+		if GetFFlagQuaternionsUI() then
+			local rotationType = plugin:GetSetting(Constants.SETTINGS.RotationType)
+			if rotationType then
+				self.store:dispatch(SetDefaultRotationType(rotationType))
+			else
+				rotationType = plugin:GetSetting("RotationType")
+				if rotationType then
+					self.store:dispatch(SetDefaultRotationType(rotationType))
+				else
+					self.store:dispatch(SetDefaultRotationType(Constants.TRACK_TYPES.Quaternion))
+				end
+			end
+		end
 	end
 end
 
 function AnimationClipEditorPlugin:setPluginSettings()
 	local plugin = self.props.plugin
 	local status = self.store:getState().Status
-	plugin:SetSetting("ShowAsSeconds", status.ShowAsSeconds)
-	plugin:SetSetting("SnapMode", status.SnapMode)
-	if GetFFlagQuaternionsUI() then
-		plugin:SetSetting("RotationType", status.DefaultRotationType)
+	if not GetFFlagRenameSettings() then
+		plugin:SetSetting("ShowAsSeconds", status.ShowAsSeconds)
+		plugin:SetSetting("SnapMode", status.SnapMode)
+		if GetFFlagQuaternionsUI() then
+			plugin:SetSetting("RotationType", status.DefaultRotationType)
+		end
+	else
+		plugin:SetSetting(Constants.SETTINGS.ShowAsSeconds, status.ShowAsSeconds)
+		plugin:SetSetting(Constants.SETTINGS.SnapMode, status.SnapMode)
+		if GetFFlagQuaternionsUI() then
+			plugin:SetSetting(Constants.SETTINGS.RotationType, status.DefaultRotationType)
+		end
 	end
 end
 

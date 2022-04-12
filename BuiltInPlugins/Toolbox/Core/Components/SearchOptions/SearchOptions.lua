@@ -59,7 +59,6 @@ local AudioSearch = require(Plugin.Core.Components.SearchOptions.AudioSearch)
 local SearchOptionsEntry = require(Plugin.Core.Components.SearchOptions.SearchOptionsEntry)
 local SearchOptionsFooter = require(Plugin.Core.Components.SearchOptions.SearchOptionsFooter)
 
-local FFlagToolboxFixCreatorSearchResults = game:GetFastFlag("ToolboxFixCreatorSearchResults")
 local getShouldHideNonRelevanceSorts = require(Plugin.Core.Util.ToolboxUtilities).getShouldHideNonRelevanceSorts
 
 local Separator = Framework.UI.Separator
@@ -186,13 +185,11 @@ function SearchOptions:init(initialProps)
 			}
 		end
 
-		if FFlagToolboxFixCreatorSearchResults then
-			if self.extraSearchDetails and next(self.extraSearchDetails) ~= nil then
-				options.Creator = {
-					Name = self.extraSearchDetails.Name,
-					Id = self.extraSearchDetails.Id,
-				}
-			end
+		if self.extraSearchDetails and next(self.extraSearchDetails) ~= nil then
+			options.Creator = {
+				Name = self.extraSearchDetails.Name,
+				Id = self.extraSearchDetails.Id,
+			}
 		end
 
 		if FFlagToolboxShowIdVerifiedFilter then

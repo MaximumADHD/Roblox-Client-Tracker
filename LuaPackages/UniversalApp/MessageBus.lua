@@ -34,13 +34,7 @@ export type FunctionDescriptor = {
 	validateParams: (any) -> (boolean, string?)
 }
 
-local function shouldUsePublishWithProtocolMethod()
-	return game:GetEngineFeature("EnableNewMessageBusServicePublishMethods")
-end
-
-local HttpService = game:GetService("HttpService")
-local MemStorageService = game:GetService("MemStorageService")
-local MessageBusService = game:GetService("MessageBusService") or nil
+local MessageBusService = game:GetService("MessageBusService")
 
 local MessageBus = {}
 MessageBus.__index = MessageBus
@@ -66,23 +60,13 @@ function MessageBus.publish(desc: MessageDescriptor, params: Table): ()
 end
 
 function MessageBus.publishProtocolMethodRequest(desc: ProtocolMethodDescriptor, params: Table, customTelemetryData: Table): ()
-	local useMessageBusService = shouldUsePublishWithProtocolMethod()
-	assert(useMessageBusService, "publishProtocolMethodRequest not available wihout MessageBusService support")
-	if useMessageBusService then
-		assert(desc.validateParams(params))
-		MessageBusService:PublishProtocolMethodRequest(desc.protocolName, desc.methodName, params, customTelemetryData)
-	end 
-	-- not supported without MessageBusService --
+	assert(desc.validateParams(params))
+	MessageBusService:PublishProtocolMethodRequest(desc.protocolName, desc.methodName, params, customTelemetryData)
 end
 
 function MessageBus.publishProtocolMethodResponse(desc: ProtocolMethodDescriptor, params: Table, responseCode: number, customTelemetryData: Table): ()
-	local useMessageBusService = shouldUsePublishWithProtocolMethod()
-	assert(useMessageBusService, "publishProtocolMethodRequest not available wihout MessageBusService support")
-	if useMessageBusService then
-		assert(desc.validateParams(params))
-		MessageBusService:publishProtocolMethodResponse(desc.protocolName, desc.methodName, params, responseCode, customTelemetryData)
-	end 
-	-- not supported without MessageBusService --
+	assert(desc.validateParams(params))
+	MessageBusService:publishProtocolMethodResponse(desc.protocolName, desc.methodName, params, responseCode, customTelemetryData)
 end
 
 function MessageBus.getLast(desc: MessageDescriptor): Table?
@@ -101,25 +85,11 @@ function MessageBus.getMessageId(domainName: string, messageName: string): strin
 end
 
 function MessageBus.getProtocolMethodRequestMessageId(protocolName: string, methodName: string): string
-	local useMessageBusService = shouldUsePublishWithProtocolMethod()
-	assert(useMessageBusService, "publishProtocolMethodRequest not available wihout MessageBusService support")
-	if useMessageBusService then
-		return MessageBusService:GetProtocolMethodRequestMessageId(protocolName, methodName)
-	else
-		return ""
-	end
-	-- not supported without MessageBusService --
+	return MessageBusService:GetProtocolMethodRequestMessageId(protocolName, methodName)
 end
 
 function MessageBus.getProtocolMethodResponseMessageId(protocolName: string, methodName: string): string
-	local useMessageBusService = shouldUsePublishWithProtocolMethod()
-	assert(useMessageBusService, "publishProtocolMethodRequest not available wihout MessageBusService support")
-	if useMessageBusService then
-		return MessageBusService:GetProtocolMethodResponseMessageId(protocolName, methodName)
-	else
-		return ""
-	end
-	-- not supported without MessageBusService --
+	return MessageBusService:GetProtocolMethodResponseMessageId(protocolName, methodName)
 end
 
 function MessageBus.call(desc: FunctionDescriptor, params: any): any
@@ -175,61 +145,41 @@ function Subscriber:subscribe(desc: MessageDescriptor, callback: (Table?) -> (),
 end
 
 function Subscriber:subscribeProtocolMethodRequest(desc: ProtocolMethodDescriptor, callback: (Table?) -> (), sticky: boolean?, once: boolean?)
-	local useMessageBusService = shouldUsePublishWithProtocolMethod()
-	assert(useMessageBusService, "publishProtocolMethodRequest not available wihout MessageBusService support")
-	if useMessageBusService then
-		-- subscriptions are sticky by default
-		sticky = sticky == nil or sticky
-		once = once ~= nil and once
-		local protocolName = desc.protocolName
-		local methodName = desc.methodName
-		local requestMid = MessageBus.getProtocolMethodRequestMessageId(protocolName, methodName) 
-		local existingConnection = self.connections[requestMid]
-		if existingConnection ~= nil then
-			self:unsubscribe(requestMid)
-		end
-		local conn = MessageBusService:SubscribeToProtocolMethodRequest(protocolName, methodName, callback, once, sticky)
-		self.connections[requestMid] = conn
+	-- subscriptions are sticky by default
+	sticky = sticky == nil or sticky
+	once = once ~= nil and once
+	local protocolName = desc.protocolName
+	local methodName = desc.methodName
+	local requestMid = MessageBus.getProtocolMethodRequestMessageId(protocolName, methodName) 
+	local existingConnection = self.connections[requestMid]
+	if existingConnection ~= nil then
+		self:unsubscribe(requestMid)
 	end
-	-- not supported without MessageBusService --
+	local conn = MessageBusService:SubscribeToProtocolMethodRequest(protocolName, methodName, callback, once, sticky)
+	self.connections[requestMid] = conn
 end
 
 function Subscriber:subscribeProtocolMethodResponse(desc: ProtocolMethodDescriptor, callback: (Table?) -> (), sticky: boolean?, once: boolean?)
-	local useMessageBusService = shouldUsePublishWithProtocolMethod()
-	assert(useMessageBusService, "publishProtocolMethodRequest not available wihout MessageBusService support")
-	if useMessageBusService then
-		-- subscriptions are sticky by default
-		sticky = sticky == nil or sticky
-		once = once ~= nil and once
-		local protocolName = desc.protocolName
-		local methodName = desc.methodName
-		local responseMid = MessageBus.getProtocolMethodResponseMessageId(protocolName, methodName) 
-		local existingConnection = self.connections[responseMid]
-		if existingConnection ~= nil then
-			self:unsubscribe(responseMid)
-		end
-		local conn = MessageBusService:SubscribeToProtocolMethodResponse(protocolName, methodName, callback, once, sticky)
-		self.connections[responseMid] = conn
+	-- subscriptions are sticky by default
+	sticky = sticky == nil or sticky
+	once = once ~= nil and once
+	local protocolName = desc.protocolName
+	local methodName = desc.methodName
+	local responseMid = MessageBus.getProtocolMethodResponseMessageId(protocolName, methodName) 
+	local existingConnection = self.connections[responseMid]
+	if existingConnection ~= nil then
+		self:unsubscribe(responseMid)
 	end
-	-- not supported without MessageBusService --
+	local conn = MessageBusService:SubscribeToProtocolMethodResponse(protocolName, methodName, callback, once, sticky)
+	self.connections[responseMid] = conn
 end
 
 function Subscriber:unsubscribeToProtocolMethodRequest(desc: ProtocolMethodDescriptor): ()
-	local useMessageBusService = shouldUsePublishWithProtocolMethod()
-	assert(useMessageBusService, "publishProtocolMethodRequest not available wihout MessageBusService support")
-	if useMessageBusService then
-		self:unsubscribeWithMsgId(MessageBusService:GetProtocolMethodRequestMessageId(desc.protocolName, desc.methodName)) 
-	end
-	-- not supported without MessageBusService --
+	self:unsubscribeWithMsgId(MessageBusService:GetProtocolMethodRequestMessageId(desc.protocolName, desc.methodName)) 
 end
 
 function Subscriber:unsubscribeToProtocolMethodResponse(desc: ProtocolMethodDescriptor): ()
-	local useMessageBusService = shouldUsePublishWithProtocolMethod()
-	assert(useMessageBusService, "publishProtocolMethodRequest not available wihout MessageBusService support")
-	if useMessageBusService then
-		self:unsubscribeWithMsgId(MessageBusService:GetProtocolMethodResponseMessageId(desc.protocolName, desc.methodName)) 
-	end
-	-- not supported without MessageBusService --
+	self:unsubscribeWithMsgId(MessageBusService:GetProtocolMethodResponseMessageId(desc.protocolName, desc.methodName))
 end
 
 function Subscriber:unsubscribe(desc: MessageDescriptor): ()

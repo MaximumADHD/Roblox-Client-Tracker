@@ -1,6 +1,11 @@
 local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local Packages = script:FindFirstAncestor("Packages")
 
+if not Packages then
+	-- The embedded storybook should only load in Studio if it has been included as a library
+	return nil
+end
+
 local RefactorFlags = require(Packages.Framework.Util.RefactorFlags)
 RefactorFlags.THEME_REFACTOR = true
 

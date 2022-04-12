@@ -28,7 +28,6 @@ local runService = game:GetService("RunService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local FFlagEnableVoiceChatStorybookFix = require(RobloxGui.Modules.Flags.FFlagEnableVoiceChatStorybookFix)
 local GetFFlagVoiceChatStudioErrorToasts = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatStudioErrorToasts)
-local GetFFlagModerationByProxyUserBanNotification = require(RobloxGui.Modules.Flags.GetFFlagModerationByProxyUserBanNotification)
 local GetFFlagEnableVoicePromptReasonText = require(RobloxGui.Modules.Flags.GetFFlagEnableVoicePromptReasonText)
 
 local RobloxTranslator
@@ -129,7 +128,7 @@ function VoiceChatPromptFrame:init()
 					onDismissed = function() end,
 				},
 			})
-			if GetFFlagModerationByProxyUserBanNotification() and promptType == PromptType.VoiceChatSuspendedTemporary then
+			if promptType == PromptType.VoiceChatSuspendedTemporary then
 				self:setState({
 					banEnd = " "..self.props.bannedUntil.."."
 				})
@@ -161,9 +160,8 @@ end
 
 function VoiceChatPromptFrame:render()
 	local errorText = GetFFlagEnableVoicePromptReasonText() and self.props.errorText or nil
-	if GetFFlagModerationByProxyUserBanNotification() and
-		(self.state.promptType == PromptType.VoiceChatSuspendedTemporary or 
-		self.state.promptType == PromptType.VoiceChatSuspendedPermanent) then
+	if self.state.promptType == PromptType.VoiceChatSuspendedTemporary or 
+		self.state.promptType == PromptType.VoiceChatSuspendedPermanent then
 
 		local titleText = self.state.toastContent.toastTitle
 		local titleFont = self.promptStyle.Font.Header1.Font
@@ -358,10 +356,8 @@ function VoiceChatPromptFrame:didMount()
 	if self.props.onReadyForSignal then
 		self.props.onReadyForSignal()
 	end
-	if GetFFlagModerationByProxyUserBanNotification() then
-		ContextActionService:BindCoreAction(CLOSE_VOICE_BAN_PROMPT, self.checkInputStateForClosePrompt, false, Enum.KeyCode.ButtonA)
-		ContextActionService:BindCoreAction(CLOSE_VOICE_BAN_PROMPT, self.checkInputStateForClosePrompt, false, Enum.KeyCode.ButtonB)
-	end
+	ContextActionService:BindCoreAction(CLOSE_VOICE_BAN_PROMPT, self.checkInputStateForClosePrompt, false, Enum.KeyCode.ButtonA)
+	ContextActionService:BindCoreAction(CLOSE_VOICE_BAN_PROMPT, self.checkInputStateForClosePrompt, false, Enum.KeyCode.ButtonB)
 end
 
 return VoiceChatPromptFrame

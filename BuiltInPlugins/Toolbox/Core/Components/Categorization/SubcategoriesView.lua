@@ -50,13 +50,15 @@ type _ExternalProps = {
 		subcategoryPath: { string },
 		subcategoryDict: { [string]: HomeTypes.Subcategory },
 		categoryName: string?,
-		sortName: string?
+		sortName: string?,
+		navigation: any
 	) -> ()),
 	OnClickSeeAllAssets: ((
 		sectionName: string?,
 		categoryName: string,
 		sortName: string?,
-		searchTerm: string?
+		searchTerm: string?,
+		navigation: any
 	) -> ()),
 	Position: UDim2?,
 	Size: UDim2?,
@@ -79,9 +81,10 @@ SubcategoriesView.defaultProps = {
 
 function SubcategoriesView:init(props: SubcategoriesViewProps)
 	self.onClickBack = function(key)
+		local navigation = self.props.NavigationContext:get()
 		local onClickBack = self.props.OnClickBack
 		if onClickBack then
-			onClickBack()
+			onClickBack(navigation)
 		end
 	end
 

@@ -64,7 +64,6 @@ local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local TreeTable = Roact.PureComponent:extend("TreeTable")
 Typecheck.wrap(TreeTable, script)
 
-local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
 local FFlagDevFrameworkDoubleClick = game:GetFastFlag("DevFrameworkDoubleClick")
 local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
@@ -223,7 +222,7 @@ function TreeTable:render()
 		CellComponent = cellComponent,
 		FullSpan = props.FullSpan,
 		HighlightedRows = props.HighlightedRows,
-		ScrollFocusIndex = if FFlagDevFrameworkInfiniteScrollerIndex then props.ScrollFocusIndex else nil,
+		ScrollFocusIndex = props.ScrollFocusIndex,
 	})
 end
 

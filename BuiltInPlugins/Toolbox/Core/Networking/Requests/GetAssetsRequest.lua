@@ -1,4 +1,3 @@
-local FFlagToolboxLegacyFetchGroupModelsAndPackages = game:GetFastFlag("ToolboxLegacyFetchGroupModelsAndPackages")
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -10,7 +9,6 @@ local SetLoading = require(Actions.SetLoading)
 local SetCachedCreatorInfo = require(Actions.SetCachedCreatorInfo)
 local SetCurrentPage = require(Actions.SetCurrentPage)
 
-local Rollouts = require(Plugin.Core.Rollouts)
 local Category = require(Plugin.Core.Types.Category)
 
 local Util = Plugin.Core.Util
@@ -102,24 +100,8 @@ return function(networkInterface, pageInfoOnStart)
 		store:dispatch(SetLoading(true))
 		local isCreatorSearchEmpty = pageInfoOnStart.creator and pageInfoOnStart.creator.Id == -1
 		local isCreationSearch = Category.getTabForCategoryName(pageInfoOnStart.categoryName) == Category.CREATIONS
-		local isGroupCreation
-		if Rollouts:getToolboxGroupCreationsMigration() then
-			isGroupCreation = Category.categoryIsGroupAsset(pageInfoOnStart.categoryName)
+		local isGroupCreation = Category.categoryIsGroupAsset(pageInfoOnStart.categoryName)
 				and not Category.categoryIsAvatarAssetByCategoryName(pageInfoOnStart.categoryName)
-		else
-			isGroupCreation = Category.categoryIsGroupAsset(pageInfoOnStart.categoryName)
-		end
-		if FFlagToolboxLegacyFetchGroupModelsAndPackages and not Rollouts:getToolboxGroupCreationsMigration() then
-			-- special case : temporarily pull Group Creations Models and Packages from the develop API
-			local categoryName = pageInfoOnStart.categoryName
-
-			if
-				categoryName == Category.CREATIONS_GROUP_MODELS.name
-				or categoryName == Category.CREATIONS_GROUP_PACKAGES.name
-			then
-				isCreationSearch = false
-			end
-		end
 
 		local errorFunc = function(result)
 			if PageInfoHelper.isPageInfoStale(pageInfoOnStart, store) then
@@ -188,12 +170,8 @@ return function(networkInterface, pageInfoOnStart)
 			-- Creations search
 			local currentCursor = store:getState().assets.currentCursor
 			if PagedRequestCursor.isNextPageAvailable(currentCursor) then
-				local getAssetIds
-				if Rollouts:getToolboxGroupCreationsMigration() and isGroupCreation then
-					getAssetIds = getAssetGroupCreationIds
-				else
-					getAssetIds = getAssetCreationIds
-				end
+				local getAssetIds = if isGroupCreation then getAssetGroupCreationIds else getAssetCreationIds
+
 				return getAssetIds(PagedRequestCursor.getNextPageCursor(currentCursor)):andThen(
 					function(assetIds, creationsResult)
 						local nextCursor = PagedRequestCursor.createCursor(creationsResult.responseBody)
@@ -270,17 +248,6 @@ return function(networkInterface, pageInfoOnStart)
 			local isAudio = Category.categoryIsAudio(pageInfoOnStart.categoryName)
 			local isVideo = Category.categoryIsVideo(pageInfoOnStart.categoryName)
 			local isSpecialCase = false
-
-			if FFlagToolboxLegacyFetchGroupModelsAndPackages and not Rollouts:getToolboxGroupCreationsMigration() then
-				-- special case : temporarily pull Group Creations Models and Packages from the develop API
-				local categoryName = pageInfoOnStart.categoryName
-				if
-					categoryName == Category.CREATIONS_GROUP_MODELS.name
-					or categoryName == Category.CREATIONS_GROUP_PACKAGES.name
-				then
-					isSpecialCase = true
-				end
-			end
 
 			if
 				PageInfoHelper.isDeveloperCategory(pageInfoOnStart)

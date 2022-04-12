@@ -5,8 +5,6 @@ return function()
 	local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 	local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
 	local Constants = require(InGameMenu.Resources.Constants)
-	local Flags = InGameMenu.Flags
-	local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 	local respawn = require(script.Parent.respawn)
 
 	it("should have respawning enabled by default", function()
@@ -83,12 +81,8 @@ return function()
 				enabled = true,
 			})
 			local newState = respawn(oldState, SetMenuOpen(false))
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				expect(oldState).to.never.equal(newState)
-				expect(newState.dialogOpen).to.equal(false)
-			else
-				expect(oldState).to.equal(newState)
-			end
+			expect(oldState).to.never.equal(newState)
+			expect(newState.dialogOpen).to.equal(false)
 		end)
 		it("should close the dialog when changing page", function()
 			local oldState = respawn(nil, {
@@ -96,12 +90,8 @@ return function()
 				enabled = true,
 			})
 			local newState = respawn(oldState, SetCurrentPage(Constants.LeaveGamePromptPageKey))
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				expect(oldState).to.never.equal(newState)
-				expect(newState.dialogOpen).to.equal(false)
-			else
-				expect(oldState).to.equal(newState)
-			end
+			expect(oldState).to.never.equal(newState)
+			expect(newState.dialogOpen).to.equal(false)
 		end)
 	end)
 end

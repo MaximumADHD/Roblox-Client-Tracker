@@ -147,14 +147,14 @@ function MaterialInformation:render()
 			colorMap,
 			layoutOrderIterator:getNextOrder()
 		),
-		NormalMap = self.createTextureElement(
-			localization:getText("MaterialTextures", "Normal"),
-			normalMap,
-			layoutOrderIterator:getNextOrder()
-		),
 		MetalnessMap = self.createTextureElement(
 			localization:getText("MaterialTextures", "Metalness"),
 			metalnessMap,
+			layoutOrderIterator:getNextOrder()
+		),
+		NormalMap = self.createTextureElement(
+			localization:getText("MaterialTextures", "Normal"),
+			normalMap,
 			layoutOrderIterator:getNextOrder()
 		),
 		RoughnessMap = self.createTextureElement(

@@ -8,8 +8,8 @@ local SetName = require(Actions.SetName)
 local SetBaseMaterial = require(Actions.SetBaseMaterial)
 local SetColorMap = require(Actions.SetColorMap)
 local SetFromVariantInstance = require(Actions.SetFromVariantInstance)
-local SetNormalMap = require(Actions.SetNormalMap)
 local SetMetalnessMap = require(Actions.SetMetalnessMap)
+local SetNormalMap = require(Actions.SetNormalMap)
 local SetRoughnessMap = require(Actions.SetRoughnessMap)
 local ClearMaterialVariant = require(Actions.ClearMaterialVariant)
 local SetMode = require(Actions.SetMode)
@@ -18,8 +18,8 @@ export type State = {
 	Name : string,
 	BaseMaterial : Enum.Material,
 	ColorMap : _Types.TextureMap?,
-	NormalMap : _Types.TextureMap?,
 	MetalnessMap : _Types.TextureMap?,
+	NormalMap : _Types.TextureMap?,
 	RoughnessMap : _Types.TextureMap?,
 	Mode : string?
 }
@@ -43,15 +43,15 @@ local MaterialPromptReducer = Rodux.createReducer({}, {
 		})
 	end,
 
-	[SetNormalMap.name] = function(state : State, action : SetNormalMap.Payload)
-		return Cryo.Dictionary.join(state, {
-			NormalMap = action.NormalMap or Cryo.None,
-		})
-	end,
-
 	[SetMetalnessMap.name] = function(state : State, action : SetMetalnessMap.Payload)
 		return Cryo.Dictionary.join(state, {
 			MetalnessMap = action.MetalnessMap or Cryo.None,
+		})
+	end,
+
+	[SetNormalMap.name] = function(state : State, action : SetNormalMap.Payload)
+		return Cryo.Dictionary.join(state, {
+			NormalMap = action.NormalMap or Cryo.None,
 		})
 	end,
 
@@ -66,8 +66,8 @@ local MaterialPromptReducer = Rodux.createReducer({}, {
 			Name = Cryo.None,
 			BaseMaterial = Cryo.None,
 			ColorMap = Cryo.None,
-			NormalMap = Cryo.None,
 			MetalnessMap = Cryo.None,
+			NormalMap = Cryo.None,
 			RoughnessMap = Cryo.None,
 		})
 	end,

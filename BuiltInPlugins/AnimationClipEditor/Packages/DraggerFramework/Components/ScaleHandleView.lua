@@ -15,6 +15,7 @@ local CULLING_MODE = Enum.AdornCullingMode.Never
 
 local ScaleHandleView = Roact.PureComponent:extend("ScaleHandleView")
 
+local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
 local getFFlagFixScalingWithNonDefaultPivot = require(DraggerFramework.Flags.getFFlagFixScalingWithNonDefaultPivot)
 
 local HANDLE_RADIUS = 0.5
@@ -32,7 +33,7 @@ local function getDebugSettingValue(name, defaultValue)
 	return setting and setting.Value * defaultValue or defaultValue
 end
 
-if getFFlagFixScalingWithNonDefaultPivot() then
+if getEngineFeatureModelPivotVisual() and getFFlagFixScalingWithNonDefaultPivot() then
 	function ScaleHandleView.getLocalHandleOffset(props)
 		return CFrame.new(0, 0, -HANDLE_OFFSET * props.Scale)
 	end

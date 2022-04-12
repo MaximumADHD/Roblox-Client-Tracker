@@ -3,136 +3,136 @@ local _Types = require(Plugin.Src.Types)
 
 local enumToPath = {
 	[Enum.Material.Aluminum] = {
-		"HumanMade",
+		"Materials",
 		"Metal",
 	},
 	[Enum.Material.Asphalt] = {
-		"Natural",
-		"Asphalt",
+		"Materials",
+		"Concrete",
 	},
 	[Enum.Material.Basalt] = {
-		"Natural",
+		"Materials",
 		"Rock",
 	},
 	[Enum.Material.Brick] = {
-		"HumanMade",
+		"Materials",
 		"Stone",
 	},
 	[Enum.Material.Cobblestone] = {
-		"HumanMade",
+		"Materials",
 		"Stone",
 	},
 	[Enum.Material.Concrete] = {
-		"HumanMade",
-		"Stone",
+		"Materials",
+		"Concrete",
 	},
 	[Enum.Material.CorrodedMetal] = {
-		"HumanMade",
+		"Materials",
 		"Metal",
 	},
 	[Enum.Material.CrackedLava] = {
-		"Natural",
+		"Materials",
 		"Rock",
 	},
 	[Enum.Material.DiamondPlate] = {
-		"HumanMade",
+		"Materials",
 		"Metal",
 	},
 	[Enum.Material.Fabric] = {
-		"HumanMade",
+		"Materials",
 		"Fabric",
 	},
 	[Enum.Material.Glacier] = {
-		"Natural",
-		"Glacier",
+		"Materials",
+		"Organic",
 	},
 	[Enum.Material.Glass] = {
-		"HumanMade",
+		"Materials",
 		"Translucent",
 	},
 	[Enum.Material.Granite] = {
-		"Natural",
+		"Materials",
 		"Rock",
 	},
 	[Enum.Material.Grass] = {
+		"Materials",
 		"Ground",
-		"Grass",
 	},
 	[Enum.Material.Ground] = {
+		"Materials",
 		"Ground",
-		"Dirt",
 	},
 	[Enum.Material.Ice] = {
-		"Natural",
-		"Mineral",
+		"Materials",
+		"Organic",
 	},
 	[Enum.Material.LeafyGrass] = {
-		"HumanMade",
-		"Metal",
+		"Materials",
+		"Ground",
 	},
 	[Enum.Material.Limestone] = {
-		"Ground",
-		"Grass",
+		"Materials",
+		"Rock",
 	},
 	[Enum.Material.Marble] = {
-		"HumanMade",
-		"Stone",
+		"Materials",
+		"Rock",
 	},
 	[Enum.Material.Metal] = {
-		"HumanMade",
+		"Materials",
 		"Metal",
 	},
 	[Enum.Material.Mud] = {
+		"Materials",
 		"Ground",
-		"Mud",
 	},
 	[Enum.Material.Pavement] = {
-		"HumanMade",
-		"Stone",
+		"Materials",
+		"Concrete",
 	},
 	[Enum.Material.Pebble] = {
-		"Natural",
+		"Materials",
 		"Rock",
 	},
 	[Enum.Material.Plastic] = {
-		"HumanMade",
-		"Synthetic",
+		"Materials",
+		"Plastic",
 	},
 	[Enum.Material.Rock] = {
-		"Natural",
+		"Materials",
 		"Rock",
 	},
 	[Enum.Material.Salt] = {
-		"Natural",
-		"Mineral",
+		"Materials",
+		"Organic",
 	},
 	[Enum.Material.Sand] = {
+		"Materials",
 		"Ground",
-		"Salt",
 	},
 	[Enum.Material.Sandstone] = {
-		"Natural",
+		"Materials",
 		"Rock",
 	},
 	[Enum.Material.Slate] = {
-		"Natural",
+		"Materials",
 		"Rock",
 	},
 	[Enum.Material.SmoothPlastic] = {
-		"HumanMade",
-		"Synthetic",
+		"Materials",
+		"Plastic",
 	},
 	[Enum.Material.Snow] = {
+		"Materials",
 		"Ground",
-		"Snow",
 	},
 	[Enum.Material.Wood] = {
-		"Natural",
+		"Materials",
 		"Wood",
 	},
 	[Enum.Material.WoodPlanks] = {
-		"HumanMade",
-		"FinishedWood",
+		"Materials",
+		"Wood",
 	},
 }
 

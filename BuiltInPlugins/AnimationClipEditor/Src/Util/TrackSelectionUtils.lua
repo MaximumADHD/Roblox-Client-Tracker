@@ -31,7 +31,7 @@ function TrackSelectionUtils.PruneSelectedTracks(animationData: AnimationData.An
 				changed = true
 			end
 		end
-		if isEmpty(newSelectedTracks) then
+		if newSelectedTracks ~= nil and isEmpty(newSelectedTracks) then
 			newSelectedTracks = nil
 		end
 	end

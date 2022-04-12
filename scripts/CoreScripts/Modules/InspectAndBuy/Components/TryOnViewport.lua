@@ -8,6 +8,7 @@ local AvatarViewport = require(InspectAndBuyFolder.Components.AvatarViewport)
 local GetHumanoidDescriptionFromCostumeId = require(InspectAndBuyFolder.Thunks.GetHumanoidDescriptionFromCostumeId)
 
 local FFlagInspectAndBuyLayeredClothingSupport = require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyLayeredClothingSupport)
+local FFlagInspectAndBuyLCShoeFix = require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyLCShoeFix)
 
 local TryOnViewport = Roact.PureComponent:extend("TryOnViewport")
 
@@ -49,16 +50,88 @@ function TryOnViewport:didUpdate(prevProps)
 		local bundleId = assetInfo.bundlesAssetIsIn[1]
 		local costumeId = bundles[bundleId].costumeId
 
-		-- Get the humanoid description of this bundle's costume.
-		self.props.getHumanoidDescriptionFromCostumeId(costumeId, function(humanoidDescription)
-			if self and self.isMounted then
-				self.humanoidDescriptions[costumeId] = humanoidDescription
-				self:setState({
-					obtainedHumanoidDescriptions = Cryo.Dictionary.join(self.state.obtainedHumanoidDescriptions, {[costumeId] = true})
-				})
+		if FFlagInspectAndBuyLCShoeFix then
+			if costumeId then
+				-- Get the humanoid description of this bundle's costume.
+				self.props.getHumanoidDescriptionFromCostumeId(costumeId, function(humanoidDescription)
+					if self and self.isMounted then
+						self.humanoidDescriptions[costumeId] = humanoidDescription
+						self:setState({
+							obtainedHumanoidDescriptions = Cryo.Dictionary.join(self.state.obtainedHumanoidDescriptions, {[costumeId] = true})
+						})
+					end
+				end)
 			end
-		end)
+		else
+			-- Get the humanoid description of this bundle's costume.
+			self.props.getHumanoidDescriptionFromCostumeId(costumeId, function(humanoidDescription)
+				if self and self.isMounted then
+					self.humanoidDescriptions[costumeId] = humanoidDescription
+					self:setState({
+						obtainedHumanoidDescriptions = Cryo.Dictionary.join(self.state.obtainedHumanoidDescriptions, {[costumeId] = true})
+					})
+				end
+			end)
+		end
 	end
+end
+
+--[[
+	If a bundle contains no costumeId, the humanoidDescription must be
+	updated via interating through the bundles assets individually.
+]]
+function TryOnViewport:tryOnBundleWithoutCostumeId(bundleId, humanoidDescription)
+	local includedTryOnAccessoryMap = {}
+	local includedTryOnCategoryMap = {}
+	local bundleHasLC = false
+	-- First, construct mappings so we know which currently equipped accessories
+	-- must be removed to make way for the try on accessories
+	for _, assetId in pairs(self.props.bundles[bundleId].assetIds) do
+		local assetInfo = self.props.assets[assetId]
+		local accessoryType = Constants.AssetTypeIdToAccessoryTypeEnum[assetInfo.assetTypeId]
+		if accessoryType then
+			includedTryOnAccessoryMap[accessoryType] = true
+			local category = Constants.AssetTypeToAssetCategory[assetInfo.assetTypeId]
+			if category then
+				includedTryOnCategoryMap[category] = true
+			end
+			bundleHasLC = true
+		end
+	end
+
+	local accessories = humanoidDescription:GetAccessories(--[[includeRigidAccessories =]] true)
+	local tryOnAccessories = {}
+	-- If any of the try on assets in the bundle are LC, reconstruct the accessories table for
+	-- SetAccessories with the currently equipped accessories. Don't include any that
+	-- match accessory type or category type of the new accessories wanting to be tried on
+	if bundleHasLC then
+		for _, accessory in pairs(accessories) do
+			local accessoryAssetType = Constants.AccessoryTypeEnumToAssetTypeId[accessory.AccessoryType]
+			local accessoryCategory = Constants.AssetTypeToAssetCategory[accessoryAssetType]
+			local ofDifferentCategory = not accessoryCategory or not includedTryOnCategoryMap[accessoryCategory]
+
+			if not includedTryOnAccessoryMap[accessory.AccessoryType] and ofDifferentCategory then
+				table.insert(tryOnAccessories, accessory)
+			end
+		end
+	end
+
+	-- Finally, iterate through the assets and include them in the humanoid description 
+	for _, assetId in pairs(self.props.bundles[bundleId].assetIds) do
+		local assetInfo = self.props.assets[assetId]
+		if Constants.AssetTypeIdToAccessoryTypeEnum[assetInfo.assetTypeId] then
+			local tryOnAccessoryInfo = createDefaultHumanoidDescriptionAccessoryInfo(assetInfo.assetTypeId, assetId)
+			table.insert(tryOnAccessories, tryOnAccessoryInfo)
+		else
+			humanoidDescription[Constants.HumanoidDescriptionIdToName[assetInfo.assetTypeId]] = assetId
+		end
+	end
+
+	if bundleHasLC then
+		humanoidDescription:SetAccessories(tryOnAccessories, --[[includeRigidAccessories =]] true)
+	end
+
+	return humanoidDescription
 end
 
 function TryOnViewport:render()
@@ -73,24 +146,56 @@ function TryOnViewport:render()
 		if isPartOfBundleAndOffsale(assetInfo) then
 			local bundleId = assetInfo.bundlesAssetIsIn[1]
 			local costumeId = bundles[bundleId].costumeId
-			local costumeHumanoidDescription = self.humanoidDescriptions[costumeId]
-			visible = self.state.obtainedHumanoidDescriptions[costumeId] == true
-			if costumeHumanoidDescription then
-				-- Overwrite the inspecter's assets with any asset from the costume.
-				if FFlagInspectAndBuyLayeredClothingSupport then
-					for assetTypeId, name in pairs(Constants.HumanoidDescriptionIdToName) do
-						if Constants.AssetTypeIdToAccessoryTypeEnum[assetTypeId] == nil
-							and tonumber(costumeHumanoidDescription[name]) and tostring(costumeHumanoidDescription[name]) ~= "0" then
-							humanoidDescription[name] = costumeHumanoidDescription[name]
+
+			if FFlagInspectAndBuyLCShoeFix then
+				if costumeId then
+					-- if the bundle includes a costumeId, the try on can be
+					-- done via the costumeHumanoidDescription
+					local costumeHumanoidDescription = self.humanoidDescriptions[costumeId]
+					visible = self.state.obtainedHumanoidDescriptions[costumeId] == true
+					if costumeHumanoidDescription then
+						-- Overwrite the inspecter's assets with any asset from the costume.
+						if FFlagInspectAndBuyLayeredClothingSupport then
+							for assetTypeId, name in pairs(Constants.HumanoidDescriptionIdToName) do
+								if Constants.AssetTypeIdToAccessoryTypeEnum[assetTypeId] == nil
+									and tonumber(costumeHumanoidDescription[name]) and tostring(costumeHumanoidDescription[name]) ~= "0" then
+									humanoidDescription[name] = costumeHumanoidDescription[name]
+								end
+							end
+
+							local costumeAccessories = costumeHumanoidDescription:GetAccessories(--[[includeRigidAccessories =]] true)
+							humanoidDescription:SetAccessories(costumeAccessories, --[[includeRigidAccessories =]] true)
+						else
+							for _, value in pairs(Constants.HumanoidDescriptionAssetNames) do
+								if tonumber(costumeHumanoidDescription[value]) and tostring(costumeHumanoidDescription[value]) ~= "0" then
+									humanoidDescription[value] = costumeHumanoidDescription[value]
+								end
+							end
 						end
 					end
-
-					local costumeAccessories = costumeHumanoidDescription:GetAccessories(--[[includeRigidAccessories =]] true)
-					humanoidDescription:SetAccessories(costumeAccessories, --[[includeRigidAccessories =]] true)
 				else
-					for _, value in pairs(Constants.HumanoidDescriptionAssetNames) do
-						if tonumber(costumeHumanoidDescription[value]) and tostring(costumeHumanoidDescription[value]) ~= "0" then
-							humanoidDescription[value] = costumeHumanoidDescription[value]
+					humanoidDescription = self:tryOnBundleWithoutCostumeId(bundleId, humanoidDescription)
+				end
+			else
+				local costumeHumanoidDescription = self.humanoidDescriptions[costumeId]
+				visible = self.state.obtainedHumanoidDescriptions[costumeId] == true
+				if costumeHumanoidDescription then
+					-- Overwrite the inspecter's assets with any asset from the costume.
+					if FFlagInspectAndBuyLayeredClothingSupport then
+						for assetTypeId, name in pairs(Constants.HumanoidDescriptionIdToName) do
+							if Constants.AssetTypeIdToAccessoryTypeEnum[assetTypeId] == nil
+								and tonumber(costumeHumanoidDescription[name]) and tostring(costumeHumanoidDescription[name]) ~= "0" then
+								humanoidDescription[name] = costumeHumanoidDescription[name]
+							end
+						end
+
+						local costumeAccessories = costumeHumanoidDescription:GetAccessories(--[[includeRigidAccessories =]] true)
+						humanoidDescription:SetAccessories(costumeAccessories, --[[includeRigidAccessories =]] true)
+					else
+						for _, value in pairs(Constants.HumanoidDescriptionAssetNames) do
+							if tonumber(costumeHumanoidDescription[value]) and tostring(costumeHumanoidDescription[value]) ~= "0" then
+								humanoidDescription[value] = costumeHumanoidDescription[value]
+							end
 						end
 					end
 				end
@@ -156,6 +261,7 @@ return RoactRodux.UNSTABLE_connect2(
 		local assetId = state.detailsInformation.assetId
 
 		return {
+			assets = state.assets,
 			assetInfo = state.assets[assetId],
 			bundles = state.bundles,
 			tryingOnInfo = state.tryingOnInfo,

@@ -6,7 +6,10 @@ local Network = require(InspectAndBuyFolder.Services.Network)
 local BundleInfo = require(InspectAndBuyFolder.Models.BundleInfo)
 local SetBundles = require(InspectAndBuyFolder.Actions.SetBundles)
 local SetBundlesAssetIsPartOf = require(InspectAndBuyFolder.Actions.SetBundlesAssetIsPartOf)
+local GetProductInfo = require(InspectAndBuyFolder.Thunks.GetProductInfo)
 local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
+
+local FFlagInspectAndBuyLCShoeFix = require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyLCShoeFix)
 
 local requiredServices = {
 	Network,
@@ -32,6 +35,30 @@ local function GetAssetBundles(assetId)
 						local newBundle = BundleInfo.fromGetAssetBundles(bundleInfo)
 						table.insert(newBundles, newBundle)
 						table.insert(bundleIdsAssetIsIn, tostring(newBundle.bundleId))
+						
+						if FFlagInspectAndBuyLCShoeFix then
+							-- determine if the bundle has a UserOutfit
+							local hasUserOutfit = false
+							for _, asset in pairs(bundleInfo.items) do
+								if asset.type == "UserOutfit" then
+									hasUserOutfit = true
+									break
+								end
+							end
+
+							-- Get asset info for other assets found in relevant bundles.
+							-- This is useful in the case where the bundle has no costumeId
+							-- and it must be tried on via the individual assets in TryOnViewport
+							if not hasUserOutfit then
+								for _, asset in pairs(bundleInfo.items) do
+									if not store:getState().assets[asset.id] then
+										coroutine.wrap(function()
+											store:dispatch(GetProductInfo(asset.id))
+										end)()
+									end
+								end
+							end
+						end
 					end
 
 					store:dispatch(SetBundles(newBundles))

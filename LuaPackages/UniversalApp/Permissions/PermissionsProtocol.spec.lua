@@ -14,11 +14,6 @@ return function()
 		"INVALID_PERMISSIONS",
 	}
 
-	local function shouldPublishPermissionProtocolMsgWithTelem()
-		return game:GetEngineFeature("PublishPermissionProtocolMsgWithTelem")
-			and game:GetEngineFeature("EnableNewMessageBusServicePublishMethods")
-	end
-
 	describe("PermissionsProtocol", function()
 		beforeAll(function(context)
 			context.PermissionsProtocol = PermissionsProtocol.new()
@@ -39,29 +34,20 @@ return function()
 				expect(status).to.equal(PermissionsProtocol.Status.AUTHORIZED)
 			end)
 
-			if shouldPublishPermissionProtocolMsgWithTelem() then
-				context.subscriber:subscribeProtocolMethodRequest(
-					PermissionsProtocol.PERMISSION_REQUEST_PROTOCOL_METHOD_REQUEST_DESCRIPTOR,
-					function(params)
-						MessageBus.publishProtocolMethodResponse(
-							PermissionsProtocol.PERMISSION_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR,
-							{
-								status = PermissionsProtocol.Status.AUTHORIZED,
-								missingPermissions = {},
-							},
-							0,
-							{}
-						)
-					end
-				)
-			else
-				context.subscriber:subscribe(PermissionsProtocol.PERMISSION_REQUEST_DESCRIPTOR, function(params)
-					MessageBus.publish(PermissionsProtocol.PERMISSION_RESPONSE_DESCRIPTOR, {
-						status = PermissionsProtocol.Status.AUTHORIZED,
-						missingPermissions = {},
-					})
-				end)
-			end
+			context.subscriber:subscribeProtocolMethodRequest(
+				PermissionsProtocol.PERMISSION_REQUEST_PROTOCOL_METHOD_REQUEST_DESCRIPTOR,
+				function(params)
+					MessageBus.publishProtocolMethodResponse(
+						PermissionsProtocol.PERMISSION_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR,
+						{
+							status = PermissionsProtocol.Status.AUTHORIZED,
+							missingPermissions = {},
+						},
+						0,
+						{}
+					)
+				end
+			)
 			wait()
 			expect(status).to.equal(PermissionsProtocol.Status.AUTHORIZED)
 		end)
@@ -73,29 +59,20 @@ return function()
 				expect(status).to.equal(PermissionsProtocol.Status.AUTHORIZED)
 			end)
 
-			if shouldPublishPermissionProtocolMsgWithTelem() then
-				context.subscriber:subscribeProtocolMethodRequest(
-					PermissionsProtocol.HAS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR,
-					function(params)
-						MessageBus.publishProtocolMethodResponse(
-							PermissionsProtocol.HAS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR,
-							{
-								status = PermissionsProtocol.Status.AUTHORIZED,
-								missingPermissions = {},
-							},
-							0,
-							{}
-						)
-					end
-				)
-			else
-				context.subscriber:subscribe(PermissionsProtocol.HAS_PERMISSION_REQUEST_DESCRIPTOR, function(params)
-					MessageBus.publish(PermissionsProtocol.HAS_PERMISSION_RESPONSE_DESCRIPTOR, {
-						status = PermissionsProtocol.Status.AUTHORIZED,
-						missingPermissions = {},
-					})
-				end)
-			end
+			context.subscriber:subscribeProtocolMethodRequest(
+				PermissionsProtocol.HAS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR,
+				function(params)
+					MessageBus.publishProtocolMethodResponse(
+						PermissionsProtocol.HAS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR,
+						{
+							status = PermissionsProtocol.Status.AUTHORIZED,
+							missingPermissions = {},
+						},
+						0,
+						{}
+					)
+				end
+			)
 			wait()
 			expect(status).to.equal(PermissionsProtocol.Status.AUTHORIZED)
 		end)
@@ -111,30 +88,19 @@ return function()
 				expect(didSucceed).to.equal(true)
 			end)
 
-			if shouldPublishPermissionProtocolMsgWithTelem() then
-				context.subscriber:subscribeProtocolMethodRequest(
-					PermissionsProtocol.SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR,
-					function(params)
-						MessageBus.publishProtocolMethodResponse(
-							PermissionsProtocol.SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR,
-							{
-								permissions = TestPermissions,
-							},
-							0,
-							{}
-						)
-					end
-				)
-			else
-				context.subscriber:subscribe(
-					PermissionsProtocol.SUPPORTS_PERMISSIONS_REQUEST_DESCRIPTOR,
-					function(params)
-						MessageBus.publish(PermissionsProtocol.SUPPORTS_PERMISSIONS_RESPONSE_DESCRIPTOR, {
+			context.subscriber:subscribeProtocolMethodRequest(
+				PermissionsProtocol.SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR,
+				function(params)
+					MessageBus.publishProtocolMethodResponse(
+						PermissionsProtocol.SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR,
+						{
 							permissions = TestPermissions,
-						})
-					end
-				)
-			end
+						},
+						0,
+						{}
+					)
+				end
+			)
 			wait()
 			expect(didSucceed).to.equal(true)
 		end)
@@ -146,32 +112,21 @@ return function()
 				expect(didSucceed).to.equal(true)
 			end)
 
-			if shouldPublishPermissionProtocolMsgWithTelem() then
-				context.subscriber:subscribeProtocolMethodRequest(
-					PermissionsProtocol.SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR,
-					function(params)
-						MessageBus.publishProtocolMethodResponse(
-							PermissionsProtocol.SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR,
-							{
-								permissions = TestPermissions,
-							},
-							0,
-							{
-								status = "0"
-							}
-						)
-					end
-				)
-			else
-				context.subscriber:subscribe(
-					PermissionsProtocol.SUPPORTS_PERMISSIONS_REQUEST_DESCRIPTOR,
-					function(params)
-						MessageBus.publish(PermissionsProtocol.SUPPORTS_PERMISSIONS_RESPONSE_DESCRIPTOR, {
+			context.subscriber:subscribeProtocolMethodRequest(
+				PermissionsProtocol.SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR,
+				function(params)
+					MessageBus.publishProtocolMethodResponse(
+						PermissionsProtocol.SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR,
+						{
 							permissions = TestPermissions,
-						})
-					end
-				)
-			end
+						},
+						0,
+						{
+							status = "0"
+						}
+					)
+				end
+			)
 			wait()
 			expect(didSucceed).to.equal(true)
 		end)
@@ -183,30 +138,19 @@ return function()
 				expect(didSucceed).to.equal(true)
 			end)
 
-			if shouldPublishPermissionProtocolMsgWithTelem() then
-				context.subscriber:subscribeProtocolMethodRequest(
-					PermissionsProtocol.SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR,
-					function(params)
-						MessageBus.publishProtocolMethodResponse(
-							PermissionsProtocol.SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR,
-							{
-								permissions = {},
-							},
-							0,
-							{}
-						)
-					end
-				)
-			else
-				context.subscriber:subscribe(
-					PermissionsProtocol.SUPPORTS_PERMISSIONS_REQUEST_DESCRIPTOR,
-					function(params)
-						MessageBus.publish(PermissionsProtocol.SUPPORTS_PERMISSIONS_RESPONSE_DESCRIPTOR, {
+			context.subscriber:subscribeProtocolMethodRequest(
+				PermissionsProtocol.SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR,
+				function(params)
+					MessageBus.publishProtocolMethodResponse(
+						PermissionsProtocol.SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR,
+						{
 							permissions = {},
-						})
-					end
-				)
-			end
+						},
+						0,
+						{}
+					)
+				end
+			)
 			wait()
 			expect(didSucceed).to.equal(true)
 		end)

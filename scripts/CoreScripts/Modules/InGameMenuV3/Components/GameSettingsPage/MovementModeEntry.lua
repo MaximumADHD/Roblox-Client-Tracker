@@ -29,9 +29,6 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
 
-local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
-
 local MOVEMENT_MODE_LOCALIZATION_KEYS = {
 	[Enum.ComputerMovementMode.KeyboardMouse] = "CoreScripts.InGameMenu.GameSettings.ComputerMoveModeKeyboardMouse",
 	[Enum.ComputerMovementMode.ClickToMove] = "CoreScripts.InGameMenu.GameSettings.ComputerMoveModeClickToMove",
@@ -41,16 +38,13 @@ local MOVEMENT_MODE_LOCALIZATION_KEYS = {
 local MovementModeEntry = Roact.PureComponent:extend("MovementModeEntry")
 MovementModeEntry.validateProps = t.strictInterface({
 	LayoutOrder = t.integer,
-	canOpen = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
-	canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+	canOpen = t.optional(t.boolean),
+	canCaptureFocus = t.optional(t.boolean),
 })
 
-if GetFFlagInGameMenuControllerDevelopmentOnly() then
-	MovementModeEntry.defaultProps = {
-		canOpen = true
-	}
-end
-
+MovementModeEntry.defaultProps = {
+	canOpen = true
+}
 
 function MovementModeEntry:init()
 	self:setState({

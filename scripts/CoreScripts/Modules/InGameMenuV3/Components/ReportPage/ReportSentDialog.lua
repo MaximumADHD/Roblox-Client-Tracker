@@ -8,15 +8,11 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 local t = InGameMenuDependencies.t
 
 local InGameMenu = script.Parent.Parent.Parent
-local Flags = InGameMenu.Flags
 local Assets = require(InGameMenu.Resources.Assets)
 local CloseReportSentDialog = require(InGameMenu.Actions.CloseReportSentDialog)
 local Constants = require(InGameMenu.Resources.Constants)
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
-
-local GlobalConfig = require(InGameMenu.GlobalConfig)
 
 local InfoDialog = require(InGameMenu.Components.InfoDialog)
 
@@ -31,78 +27,52 @@ local validateProps = t.strictInterface({
 	inputType = t.optional(t.string),
 })
 
-local ReportSentDialog
+local ReportSentDialog = Roact.PureComponent:extend("ReportSentDialog")
 
-if not GetFFlagInGameMenuControllerDevelopmentOnly() then
-	ReportSentDialog = function(props)
-		if GlobalConfig.propValidation then
-			assert(validateProps(props))
+ReportSentDialog.validateProps = validateProps
+
+function ReportSentDialog:init()
+	self.buttonRef = Roact.createRef()
+end
+
+function ReportSentDialog:renderFocusHandler()
+	return Roact.createElement(FocusHandler, {
+		isFocused = self.props.inputType == Constants.InputType.Gamepad and self.props.isReportSentOpen,
+		didFocus = function()
+			GuiService:RemoveSelectionGroup(REPORT_SENT_DIALOG_SELECTION_GROUP_NAME)
+			GuiService:AddSelectionParent(REPORT_SENT_DIALOG_SELECTION_GROUP_NAME, self.buttonRef:getValue())
+			GuiService.SelectedCoreObject = self.buttonRef:getValue()
+
+			ContextActionService:BindCoreAction(REPORT_SENT_DIALOG_SINK_ACTION, function(actionName, inputState)
+				return Enum.ContextActionResult.Sink
+			end, false, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonY, Enum.KeyCode.ButtonX)
+		end,
+		didBlur = function()
+			ContextActionService:UnbindCoreAction(REPORT_SENT_DIALOG_SINK_ACTION)
+			GuiService:RemoveSelectionGroup(REPORT_SENT_DIALOG_SELECTION_GROUP_NAME)
 		end
+	})
+end
 
-		return withLocalization({
-			titleText = "CoreScripts.InGameMenu.Report.ThanksForReport",
-			bodyText = "CoreScripts.InGameMenu.Report.WillReviewBody",
-			dismissText = "CoreScripts.InGameMenu.Ok",
-		})(function(localized)
-			return Roact.createElement(InfoDialog, {
+function ReportSentDialog:render()
+	return withLocalization({
+		titleText = "CoreScripts.InGameMenu.Report.ThanksForReport",
+		bodyText = "CoreScripts.InGameMenu.Report.WillReviewBody",
+		dismissText = "CoreScripts.InGameMenu.Ok",
+	})(function(localized)
+		return Roact.createFragment({
+			Dialog = Roact.createElement(InfoDialog, {
 				titleText = localized.titleText,
 				bodyText = localized.bodyText,
 				dismissText = localized.dismissText,
 				iconImage = Assets.Images.SuccessTick,
-
-				onDismiss = props.onDismiss,
-				visible = props.isReportSentOpen,
-			})
-		end)
-	end
-else
-	ReportSentDialog = Roact.PureComponent:extend("ReportSentDialog")
-
-	ReportSentDialog.validateProps = validateProps
-
-	function ReportSentDialog:init()
-		self.buttonRef = Roact.createRef()
-	end
-
-	function ReportSentDialog:renderFocusHandler()
-		return Roact.createElement(FocusHandler, {
-			isFocused = self.props.inputType == Constants.InputType.Gamepad and self.props.isReportSentOpen,
-			didFocus = function()
-				GuiService:RemoveSelectionGroup(REPORT_SENT_DIALOG_SELECTION_GROUP_NAME)
-				GuiService:AddSelectionParent(REPORT_SENT_DIALOG_SELECTION_GROUP_NAME, self.buttonRef:getValue())
-				GuiService.SelectedCoreObject = self.buttonRef:getValue()
-
-				ContextActionService:BindCoreAction(REPORT_SENT_DIALOG_SINK_ACTION, function(actionName, inputState)
-					return Enum.ContextActionResult.Sink
-				end, false, Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonY, Enum.KeyCode.ButtonX)
-			end,
-			didBlur = function()
-				ContextActionService:UnbindCoreAction(REPORT_SENT_DIALOG_SINK_ACTION)
-				GuiService:RemoveSelectionGroup(REPORT_SENT_DIALOG_SELECTION_GROUP_NAME)
-			end
+				buttonRef = self.buttonRef,
+				onDismiss = self.props.onDismiss,
+				visible = self.props.isReportSentOpen,
+			}),
+			FocusHandler = self:renderFocusHandler()
 		})
-	end
-
-	function ReportSentDialog:render()
-		return withLocalization({
-			titleText = "CoreScripts.InGameMenu.Report.ThanksForReport",
-			bodyText = "CoreScripts.InGameMenu.Report.WillReviewBody",
-			dismissText = "CoreScripts.InGameMenu.Ok",
-		})(function(localized)
-			return Roact.createFragment({
-				Dialog = Roact.createElement(InfoDialog, {
-					titleText = localized.titleText,
-					bodyText = localized.bodyText,
-					dismissText = localized.dismissText,
-					iconImage = Assets.Images.SuccessTick,
-					buttonRef = self.buttonRef,
-					onDismiss = self.props.onDismiss,
-					visible = self.props.isReportSentOpen,
-				}),
-				FocusHandler = self:renderFocusHandler()
-			})
-		end)
-	end
+	end)
 end
 
 return RoactRodux.UNSTABLE_connect2(function(state, props)

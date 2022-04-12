@@ -4,14 +4,20 @@ local FFlagToolboxAddAssetImpressionCounterAnalytics = game:GetFastFlag("Toolbox
 local FFlagToolboxTrackScriptIconShown = game:GetFastFlag("ToolboxTrackScriptIconShown")
 local FFlagToolboxShowHasScriptInfo = game:GetFastFlag("ToolboxShowHasScriptInfo")
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext")
+local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
+
+local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
 local Cryo = require(Packages.Cryo)
+local Framework = require(Packages.Framework)
+local Dash = Framework.Dash
 
 local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
 local getUserId = require(Plugin.Core.Util.getUserId)
+local Constants = require(Plugin.Core.Util.Constants)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 
 local Analytics = require(script.Parent.Analytics)
@@ -50,6 +56,13 @@ type TSenders = {
 	sendEventDeferred: (string, string, string, Object<string>) -> any,
 }
 
+export type NavigationData = {
+	navBreadcrumbs: string?,
+	navSwimlane: string?,
+	navSeeAll: boolean?,
+	navSeeAllCategories: boolean?,
+}
+
 local AssetAnalytics = {}
 AssetAnalytics.__index = AssetAnalytics
 
@@ -85,10 +98,47 @@ function AssetAnalytics.mock()
 	return AssetAnalytics.new(stubSenders)
 end
 
+if FFlagToolboxAssetCategorization3 then
+	function AssetAnalytics.getNavigationContext(navigation: any, swimlaneCategory: string): NavigationData
+		local function stackContainsView(viewName, successCallback)
+			return function(view)
+				if view == viewName then
+					successCallback()
+					return
+				end
+			end
+		end
+
+		local navBreadcrumbs = navigation:getBreadcrumbRoute()
+
+		local containSeeAll = false
+		table.foreach(
+			navBreadcrumbs,
+			stackContainsView(Constants.NAVIGATION.RESULTS, function()
+				containSeeAll = true
+			end)
+		)
+
+		local containSeeAllSubcategory = false
+		table.foreach(
+			navBreadcrumbs,
+			stackContainsView(Constants.NAVIGATION.ALL_SUBCATEGORIES, function()
+				containSeeAllSubcategory = true
+			end)
+		)
+
+		return {
+			navBreadcrumbs = HttpService:JSONEncode(navBreadcrumbs),
+			navSwimlane = swimlaneCategory,
+			navSeeAll = containSeeAll,
+			navSeeAllSubcategory = containSeeAllSubcategory,
+		}
+	end
+end
+
 function AssetAnalytics.schedule(delayS: number, callback: () -> any)
 	delay(delayS, callback)
 end
-
 
 if not FFlagToolboxUsePageInfoInsteadOfAssetContext then
 	function AssetAnalytics.addContextToAssetResults(assetResults: Array<Object<any>>, pageInfo: PageInfo)
@@ -127,7 +177,11 @@ end
 
 function AssetAnalytics.isAssetTrackable(assetData: AssetData, assetAnalyticsContext)
 	if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-		return assetData and assetData.Asset and assetData.Asset.Id and assetAnalyticsContext and assetAnalyticsContext.searchId
+		return assetData
+			and assetData.Asset
+			and assetData.Asset.Id
+			and assetAnalyticsContext
+			and assetAnalyticsContext.searchId
 	else
 		return assetData and assetData.Asset and assetData.Asset.Id and assetData.Context and assetData.Context.searchId
 	end
@@ -163,7 +217,9 @@ function AssetAnalytics.getTrackingAttributes(assetData: AssetData, assetAnalyti
 
 		isVerifiedCreator = assetData.Creator.IsVerifiedCreator,
 		isEndorsed = assetData.Asset.IsEndorsed,
-		hasScripts = if FFlagToolboxShowHasScriptInfo and FFlagToolboxTrackScriptIconShown then assetData.Asset.HasScripts else nil,
+		hasScripts = if FFlagToolboxShowHasScriptInfo and FFlagToolboxTrackScriptIconShown
+			then assetData.Asset.HasScripts
+			else nil,
 	})
 
 	-- We track "ID" as standard
@@ -181,7 +237,7 @@ end
     Log an impression of an asset, if the asset has not already been viewed in the current view context
     this will trigger the MarketplaceAssetImpression analytic.
 ]]
-function AssetAnalytics:logImpression(assetData: AssetData, assetAnalyticsContext)
+function AssetAnalytics:logImpression(assetData: AssetData, assetAnalyticsContext: any, navigationData: NavigationData?)
 	if not AssetAnalytics.isAssetTrackable(assetData, assetAnalyticsContext) then
 		return
 	end
@@ -209,13 +265,13 @@ function AssetAnalytics:logImpression(assetData: AssetData, assetAnalyticsContex
 	else
 		trackingAttributes = AssetAnalytics.getTrackingAttributes(assetData)
 	end
+
+	if FFlagToolboxAssetCategorization3 then
+		trackingAttributes = Dash.join(trackingAttributes, navigationData or {})
+	end
+
 	if not search.impressions[assetId] then
-		self.senders.sendEventDeferred(
-			EVENT_TARGET,
-			EVENT_CONTEXT,
-			"MarketplaceAssetImpression",
-			trackingAttributes
-		)
+		self.senders.sendEventDeferred(EVENT_TARGET, EVENT_CONTEXT, "MarketplaceAssetImpression", trackingAttributes)
 		if FFlagToolboxAddAssetImpressionCounterAnalytics then
 			Analytics.incrementAssetImpressionCounter()
 		end
@@ -244,15 +300,23 @@ function AssetAnalytics:logInsert(
 	assetData: AssetData,
 	insertionMethod: string,
 	insertedInstance: Instance? | Array<Instance>?,
-	assetAnalyticsContext
+	assetAnalyticsContext,
+	navigationData: NavigationData?
 )
 	if not AssetAnalytics.isAssetTrackable(assetData, assetAnalyticsContext) then
 		return
 	end
 
-	local insertionAttributes = Cryo.Dictionary.join({
-		method = insertionMethod,
-	}, AssetAnalytics.getTrackingAttributes(assetData, assetAnalyticsContext))
+	local insertionAttributes
+	if FFlagToolboxAssetCategorization3 then
+		insertionAttributes = Cryo.Dictionary.join({
+			method = insertionMethod,
+		}, AssetAnalytics.getTrackingAttributes(assetData, assetAnalyticsContext), navigationData or {})
+	else
+		insertionAttributes = Cryo.Dictionary.join({
+			method = insertionMethod,
+		}, AssetAnalytics.getTrackingAttributes(assetData, assetAnalyticsContext))
+	end
 
 	self.senders.sendEventDeferred(EVENT_TARGET, EVENT_CONTEXT, "MarketplaceInsert", insertionAttributes)
 
@@ -279,6 +343,63 @@ function AssetAnalytics:logRemainsOrDeleted(delay: number, insertionAttributes: 
 	local eventNameStem = (insertedInstance and insertedInstance.Parent) and "InsertRemains" or "InsertDeleted"
 
 	self.senders.sendEventDeferred(EVENT_TARGET, EVENT_CONTEXT, eventNameStem .. tostring(delay), insertionAttributes)
+end
+
+function AssetAnalytics:logNavigationButtonInteraction(
+	eventName: string,
+	searchID: string,
+	searchCategory: string,
+	subcategoryName: string?,
+	navBreadcrumbs: table?,
+	toolboxTab: string,
+	assetType: number
+)
+	self.senders.sendEventDeferred(EVENT_TARGET, EVENT_CONTEXT, eventName, {
+		searchID = searchID,
+		searchCategory = searchCategory,
+		subcategoryName = subcategoryName,
+		navBreadcrumbs = navBreadcrumbs and HttpService:JSONEncode(navBreadcrumbs) or nil,
+		toolboxTab = toolboxTab,
+		assetType = assetType,
+	})
+end
+
+function AssetAnalytics:logPageView(
+	searchID: string,
+	searchCategory: string,
+	subcategoryName: string?,
+	navBreadcrumbs: table,
+	toolboxTab: string,
+	assetType: number
+)
+	self:logNavigationButtonInteraction(
+		"MarketplaceNavigatePageView",
+		searchID,
+		searchCategory,
+		subcategoryName,
+		navBreadcrumbs,
+		toolboxTab,
+		assetType
+	)
+end
+
+function AssetAnalytics:logGoBack(
+	searchID: string,
+	searchCategory: string,
+	subcategoryName: string?,
+	navBreadcrumbs: table,
+	toolboxTab: string,
+	assetType: number
+)
+	self:logNavigationButtonInteraction(
+		"MarketplaceNavigateViewBack",
+		searchID,
+		searchCategory,
+		subcategoryName,
+		navBreadcrumbs,
+		toolboxTab,
+		assetType
+	)
 end
 
 return AssetAnalytics

@@ -15,8 +15,11 @@ local prioritize = Framework.Util.prioritize
 
 local UI = Framework.UI
 local Button = UI.Button
+local Container = UI.Container
+local Image = UI.Decoration.Image
 local Pane = UI.Pane
 local TextLabel = UI.Decoration.TextLabel
+local Tooltip = UI.Tooltip
 
 local Components = Plugin.Src.Components
 local MaterialPreview = require(Components.MaterialPreview)
@@ -43,6 +46,9 @@ type _Props = Props & {
 }
 
 type _Style = {
+	ButtonPosition : UDim2,
+	ButtonSize : UDim2,
+	MaterialVariant : _Types.Image,
 	MaxWidth : number,
 	Padding : number,
 	Size : UDim2,
@@ -116,12 +122,15 @@ function MaterialTile:render()
 			Size = size,
 		}, {
 			MaterialPreview = Roact.createElement(MaterialPreview, {
+				Clone = false,
 				ColorMap = colorMap,
 				LayoutOrder = 1,
+				Material = materialVariant.BaseMaterial,
+				MaterialVariant = if not item.IsBuiltin then materialVariant.Name else nil,
 				MetalnessMap = metalnessMap,
 				NormalMap = normalMap,
 				RoughnessMap = roughnessMap,
-				Size = UDim2.new(size.X.Scale, size.X.Offset - (2 * padding), size.Y.Scale,  size.Y.Offset - (2 * padding) - (3 * spacing) - (2 * textSize)),
+				Size = UDim2.new(size.X.Scale, size.X.Offset - (2 * padding), size.Y.Scale,  size.Y.Offset - (2 * padding) - spacing - textSize),
 				Static = true,
 			}),
 			NameLabel = Roact.createElement(Pane, {
@@ -140,25 +149,23 @@ function MaterialTile:render()
 					TextYAlignment = Enum.TextYAlignment.Top,
 					TextWrapped = false,
 				})
-			}),
-			TypeLabel = Roact.createElement(Pane, {
-				HorizontalAlignment = Enum.HorizontalAlignment.Left,
-				Layout = Enum.FillDirection.Vertical,
-				LayoutOrder = 3,
-				Size = style.TextLabelSize,
+			})
+		}),
+		Icon = if not item.IsBuiltin then
+			Roact.createElement(Container, {
+				LayoutOrder = 2,
+				Position = style.ButtonPosition,
+				Size = style.ButtonSize,
+				ZIndex = 2,
 			}, {
-				Name = Roact.createElement(TextLabel, {
-					FitMaxWidth = style.MaxWidth,
-					Size = UDim2.fromScale(1, 1),
+				Image = Roact.createElement(Image, {
+					Style = style.MaterialVariant,
+				}),
+				Tooltip = Roact.createElement(Tooltip, {
 					Text = fullMaterialType,
-					TextSize = textSize,
-					TextTruncate = Enum.TextTruncate.AtEnd,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment = Enum.TextYAlignment.Top,
-					TextWrapped = false,
 				})
 			})
-		})
+			else nil,
 	})
 end
 

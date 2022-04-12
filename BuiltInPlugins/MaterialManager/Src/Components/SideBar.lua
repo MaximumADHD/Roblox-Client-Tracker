@@ -12,8 +12,6 @@ local withContext = ContextServices.withContext
 local Analytics = ContextServices.Analytics
 local Localization = ContextServices.Localization
 
-local Stylizer = Framework.Style.Stylizer
-
 local UI = Framework.UI
 local TreeView = UI.TreeView
 
@@ -38,12 +36,6 @@ type _Props = Props & {
 	Localization : any,
 	MaterialController : any,
 	Stylizer : any,
-}
-
-type _Style = {
-	AllIconImage : string,
-	IconColor : Color3,
-	IconSize : UDim2,
 }
 
 type _state = {
@@ -136,22 +128,12 @@ end
 
 function SideBar:didMount()
 	local props : _Props = self.props
-	local style : _Style = props.Stylizer.SideBar
 	local localization = props.Localization
 	local rootCategory = props.MaterialController:getRootCategory()
 
 	if not self.categories then
 		self.categories = getCategories(rootCategory, localization)
-		local allCategory = {
-			icon = {
-				ImageColor3 = style.IconColor,
-				Image = style.AllIconImage,
-				Size = style.IconSize,
-			},
-			path = {},
-			text = localization:getText("Categories", "All"),
-		}
-		table.insert(self.categories, 1, allCategory)
+		local allCategory = self.categories[1]
 		self:setState({
 			Selection = {
 				[allCategory] = true,
@@ -188,7 +170,6 @@ SideBar = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
 	MaterialController = MaterialController,
-	Stylizer = Stylizer,
 })(SideBar)
 
 return RoactRodux.connect(

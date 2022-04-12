@@ -20,8 +20,6 @@ local FocusHandler = require(script.Parent.Parent.Connection.FocusHandler)
 local OpenReportDialog = require(InGameMenu.Actions.OpenReportDialog)
 
 local ReportList = Roact.PureComponent:extend("ReportList")
-
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 
 game:DefineFastFlag("IGMReportListMissingBottomEntry", false)
@@ -40,7 +38,7 @@ ReportList.validateProps = t.strictInterface({
 		Username = t.string
 	})),
 	dispatchOpenReportDialog = t.callback,
-	canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+	canCaptureFocus = t.optional(t.boolean),
 	currentPage = GetFFlagIGMGamepadSelectionHistory() and t.optional(t.string) or nil,
 	currentZone = GetFFlagIGMGamepadSelectionHistory() and t.optional(t.number) or nil,
 })
@@ -50,9 +48,7 @@ local function sortPlayers(p1, p2)
 end
 
 function ReportList:init()
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		self.reportGameRef = Roact.createRef()
-	end
+	self.reportGameRef = Roact.createRef()
 end
 
 function ReportList:renderListEntries()
@@ -82,7 +78,7 @@ function ReportList:renderListEntries()
 		gameId = game.GameId,
 		gameName = self.props.placeName,
 		LayoutOrder = 1,
-		[Roact.Ref] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.reportGameRef or nil,
+		[Roact.Ref] = self.reportGameRef,
 		onActivated = function()
 			self.props.dispatchOpenReportDialog()
 		end
@@ -134,7 +130,7 @@ function ReportList:renderListEntries()
 end
 
 function ReportList:didUpdate(prevProps, prevState)
-	if GetFFlagInGameMenuControllerDevelopmentOnly() and not GetFFlagIGMGamepadSelectionHistory() then
+	if not GetFFlagIGMGamepadSelectionHistory() then
 		-- Only highlight buttons when Gamepad connected
 		if self.props.canCaptureFocus and not prevProps.canCaptureFocus then
 			GuiService.SelectedCoreObject = self.reportGameRef:getValue()
@@ -155,7 +151,6 @@ function ReportList:render()
 		Position = UDim2.new(0, 0, 0, 0),
 		Size = UDim2.new(1, 0, 1, 0),
 		CanvasSize = UDim2.new(1, 0, 0, canvasSize),
-		scrollBarOffset = not GetFFlagInGameMenuControllerDevelopmentOnly() and 4 or nil,
 	}, self:renderListEntries())
 end
 
@@ -163,19 +158,16 @@ return RoactRodux.UNSTABLE_connect2(
 	function(state, props)
 		local placeName = state.gameInfo.name
 
-		local canCaptureFocus = nil -- Can inline when flag is removed
-		if GetFFlagInGameMenuControllerDevelopmentOnly() then
-			canCaptureFocus = state.menuPage == "Report"
-				and state.displayOptions.inputType == Constants.InputType.Gamepad
-				and not (state.report.dialogOpen
-					or state.report.reportSentOpen
-					or state.respawn.dialogOpen)
-				and state.currentZone == 1
-		end
+		local canCaptureFocus = state.menuPage == "Report"
+			and state.displayOptions.inputType == Constants.InputType.Gamepad
+			and not (state.report.dialogOpen
+				or state.report.reportSentOpen
+				or state.respawn.dialogOpen)
+			and state.currentZone == 1
 
 		return {
 			placeName = placeName,
-			canCaptureFocus = (GetFFlagInGameMenuControllerDevelopmentOnly() or nil) and canCaptureFocus,
+			canCaptureFocus = canCaptureFocus,
 			currentPage = (GetFFlagIGMGamepadSelectionHistory() or nil) and state.menuPage,
 			currentZone = (GetFFlagIGMGamepadSelectionHistory() or nil) and state.currentZone,
 		}

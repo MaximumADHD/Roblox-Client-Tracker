@@ -13,8 +13,6 @@ local t = InGameMenuDependencies.t
 local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent
-local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 local Constants = require(InGameMenu.Resources.Constants)
 local Assets = require(InGameMenu.Resources.Assets)
 
@@ -63,22 +61,20 @@ ConfirmationDialog.defaultProps = {
 	framePadding = 20,
 }
 
-if GetFFlagInGameMenuControllerDevelopmentOnly() then
-	function ConfirmationDialog:init()
-		self.state = {
-			isRooted = false
-		}
+function ConfirmationDialog:init()
+	self.state = {
+		isRooted = false
+	}
 
-		self.onAncestryChanged = function(instance)
-			if instance:IsDescendantOf(game) then
-				self:setState({
-					isRooted = true
-				})
-			end
+	self.onAncestryChanged = function(instance)
+		if instance:IsDescendantOf(game) then
+			self:setState({
+				isRooted = true
+			})
 		end
-		self.confirmButtonRef = Roact.createRef()
-		self.buttonContainerRef = Roact.createRef()
 	end
+	self.confirmButtonRef = Roact.createRef()
+	self.buttonContainerRef = Roact.createRef()
 end
 
 function ConfirmationDialog:render()
@@ -193,8 +189,8 @@ function ConfirmationDialog:render()
 						BackgroundTransparency = 1,
 						LayoutOrder = 6,
 						Size = UDim2.new(1, 0, 0, 36),
-						[Roact.Ref] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.buttonContainerRef or nil,
-						[Roact.Event.AncestryChanged] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.onAncestryChanged or nil,
+						[Roact.Ref] = self.buttonContainerRef,
+						[Roact.Event.AncestryChanged] = self.onAncestryChanged,
 					}, {
 						Layout = Roact.createElement("UIListLayout", {
 							FillDirection = Enum.FillDirection.Horizontal,
@@ -214,12 +210,12 @@ function ConfirmationDialog:render()
 							size = UDim2.new(0.5, -5, 1, 0),
 							text = props.confirmText,
 							onActivated = props.onConfirm,
-							[Roact.Ref] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.confirmButtonRef or nil,
+							[Roact.Ref] = self.confirmButtonRef,
 						}),
 					}),
 				}),
 			}),
-			FocusHandler = GetFFlagInGameMenuControllerDevelopmentOnly() and Roact.createElement(FocusHandler, {
+			FocusHandler = Roact.createElement(FocusHandler, {
 				isFocused = self.state.isRooted
 					and self.props.visible
 					and self.props.inputType == Constants.InputType.Gamepad,
@@ -229,7 +225,7 @@ function ConfirmationDialog:render()
 
 					GuiService.SelectedCoreObject = self.confirmButtonRef:getValue()
 				end,
-			}) or nil
+			})
 		})
 	end)
 end

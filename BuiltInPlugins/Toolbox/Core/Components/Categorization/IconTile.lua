@@ -17,7 +17,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
 local Framework = require(Packages.Framework)
 local Roact = require(Packages.Roact)
-local multiLanguageUppercase = require(Plugin.Core.Util.multiLanguageUppercase)
+local multiLanguageUtils = require(Plugin.Core.Util.multiLanguageUtils)
 
 local ContextServices = Framework.ContextServices
 local HoverArea = Framework.UI.HoverArea
@@ -110,7 +110,7 @@ function IconTile:render()
 		textColor = iconTileTheme.textColor
 	end
 
-	local titleText = multiLanguageUppercase(title)
+	local titleText = multiLanguageUtils.upper(title)
 
 	return Roact.createElement("TextButton", { -- TextButton used for Activated support
 		AutoButtonColor = false,

@@ -15,7 +15,7 @@
 		callback onPreviewAudioButtonClicked() // remove with FFlagToolboxAssetGridRefactor
 ]]
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
-local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
+local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
 local FFlagToolboxAssetStyleUpdate = game:GetFastFlag("ToolboxAssetStyleUpdate")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -78,7 +78,7 @@ function AssetIcon:init(props)
 
 	if FFlagToolboxAssetGridRefactor then
 		self.onAssetPreviewButtonClicked = function()
-			if FFlagToolboxAssetCategorization2 then
+			if FFlagToolboxAssetCategorization3 then
 				self.props.onAssetPreviewButtonClicked()
 			else
 				self.props.onPreviewToggled(true, self.props.assetId)

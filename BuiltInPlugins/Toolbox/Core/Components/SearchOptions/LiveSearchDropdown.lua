@@ -36,7 +36,6 @@ local LiveSearchEntry = require(Plugin.Core.Components.SearchOptions.LiveSearchE
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local FFlagToolboxFixCreatorSearchResults = game:GetFastFlag("ToolboxFixCreatorSearchResults")
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
 
 local LiveSearchDropdown = Roact.PureComponent:extend("LiveSearchDropdown")
@@ -68,11 +67,7 @@ function LiveSearchDropdown:addEntry(entries, index, data, height)
 		LayoutOrder = index,
 		closeDropdown = self.closeDropdown,
 		onClick = function()
-			if FFlagToolboxFixCreatorSearchResults then
-				self.onItemClicked(data)
-			else
-				self.onItemClicked(itemName)
-			end
+			self.onItemClicked(data)
 		end,
 	})
 

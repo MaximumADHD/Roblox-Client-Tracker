@@ -26,10 +26,6 @@ local ZonePortal = require(Components.ZonePortal)
 
 local Direction = require(InGameMenu.Enums.Direction)
 
-local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
-local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
-
 local LEAVE_CONFIRM_ACTION = "LeavePromptConfirm"
 
 local ITEM_PADDING = 24
@@ -58,18 +54,11 @@ LeavePrompt.defaultProps = {
 	canKeyboardCaptureFocus = false,
 }
 
-if GetFFlagInGameMenuControllerDevelopmentOnly() then
-	function LeavePrompt:init()
-		self.leaveButtonRef = Roact.createRef()
-	end
+function LeavePrompt:init()
+	self.leaveButtonRef = Roact.createRef()
 end
 
 function LeavePrompt:render()
-	-- Can be inlined when GetFFlagInGameMenuControllerDevelopmentOnly is removed
-	local isContainerSelectable = nil
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		isContainerSelectable = false
-	end
 
 	local returnHomeMode = self.props.homeView
 
@@ -173,7 +162,7 @@ function LeavePrompt:render()
 						size = UDim2.fromOffset(BUTTON_WIDTH, BUTTON_HEIGHT),
 						onActivated = self.props.onConfirm,
 						text = self.props.confirmText,
-						buttonRef = GetFFlagInGameMenuControllerDevelopmentOnly() and self.leaveButtonRef or nil,
+						buttonRef = self.leaveButtonRef,
 					}),
 					CancelButton = Roact.createElement(SecondaryButton, {
 						layoutOrder = 5,
@@ -183,31 +172,10 @@ function LeavePrompt:render()
 						text = self.props.cancelText,
 					}),
 				}),
-				-- this keyboard focus handler is used to bind keyboard Return key to exit
-				KeyboardFocusHandler = not GetFFlagInGameMenuControllerDevelopmentOnly()
-					and Roact.createElement(FocusHandler,
-				{
-					isFocused = self.props.canKeyboardCaptureFocus,
-					shouldForgetPreviousSelection = GetFFlagIGMGamepadSelectionHistory() and true or nil,
-					didFocus = function()
-						ContextActionService:BindCoreAction(
-							LEAVE_CONFIRM_ACTION, function(actionName, inputState)
-								if inputState == Enum.UserInputState.End then
-									self.props.onConfirm()
-									return Enum.ContextActionResult.Sink
-								end
-								return Enum.ContextActionResult.Pass
-							end, false, Enum.KeyCode.Return)
-					end,
-
-					didBlur = function()
-						ContextActionService:UnbindCoreAction(LEAVE_CONFIRM_ACTION)
-					end,
-				}) or nil,
 			})
 		}
 
-		local newContent = GetFFlagInGameMenuControllerDevelopmentOnly() and {
+		local newContent = {
 			Content = Roact.createElement("Frame", {
 				Size = UDim2.fromScale(1, 1),
 				BackgroundTransparency = 1,
@@ -242,15 +210,15 @@ function LeavePrompt:render()
 					ContextActionService:UnbindCoreAction(LEAVE_CONFIRM_ACTION)
 				end,
 			}) or nil,
-		} or nil
+		}
 
 		return Roact.createElement("ImageButton", {
 			Size = UDim2.fromScale(1, 1),
 			AutoButtonColor = false,
 			BackgroundColor3 = style.Theme.BackgroundDefault.Color,
 			BackgroundTransparency = style.Theme.BackgroundDefault.Transparency,
-			Selectable = isContainerSelectable,
-		}, GetFFlagInGameMenuControllerDevelopmentOnly() and newContent or oldContent)
+			Selectable = false,
+		}, newContent)
 	end)
 end
 

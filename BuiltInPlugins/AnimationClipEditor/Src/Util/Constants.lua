@@ -3,6 +3,7 @@ local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimati
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
+local GetFFlagEulerFromPartTrack = require(Plugin.LuaFlags.GetFFlagEulerFromPartTrack)
 
 local FFlagStudioUseAnimationEditorAnalytics2 = game:DefineFastFlag("StudioUseAnimationEditorAnalytics2", false)
 
@@ -13,6 +14,12 @@ local Constants = {
 	CHECK_IMAGE = "rbxasset://textures/ui/LuaChat/icons/ic-check@2x.png",
 
 	USE_MOCK_ANALYTICS = not FFlagStudioUseAnimationEditorAnalytics2,
+
+	SETTINGS = {
+		RotationType = "ACE_RotationType",
+		ShowAsSeconds = "ACE_ShowAsSeconds",
+		SnapMode = "ACE_SnapMode",
+	},
 
 	ZOOM_INCREMENT = 0.04,
 
@@ -138,7 +145,7 @@ local Constants = {
 	PROPERTY_KEYS = {
 		Position = "Position",
 		Rotation = "Rotation",
-		Quaternion = GetFFlagQuaternionChannels() and "Quaternion" or nil,
+		Quaternion = if GetFFlagEulerFromPartTrack() then nil else (if GetFFlagQuaternionChannels() then "Quaternion" else nil),  -- Unused
 		X = "X",
 		Y = "Y",
 		Z = "Z",
@@ -565,8 +572,8 @@ Constants.FacsCrossMappings = {
 	LowerLipSuck = {},  --sideView
 	LipPresser = {},  --sideView
 	LipsTogether = {},
-	MouthLeft = {},
-	MouthRight = {},
+	MouthLeft = {sliderGroup = {Constants.FacsNames.MouthRight, Constants.FacsNames.MouthLeft}, indexInGroup = 2},
+	MouthRight = {sliderGroup = {Constants.FacsNames.MouthRight, Constants.FacsNames.MouthLeft}, indexInGroup = 1},
 	Pucker = {},  --sideView
 	UpperLipSuck = {},  --sideView
 	LeftCheekPuff = {symmetryPartner = Constants.FacsNames.RightCheekPuff},
@@ -585,8 +592,8 @@ Constants.FacsCrossMappings = {
 	RightUpperLipRaiser = {symmetryPartner = Constants.FacsNames.LeftUpperLipRaiser},
 
 	JawDrop = {},  --sideView
-	JawLeft = {},  --sideView
-	JawRight = {},  --sideView
+	JawLeft = {sliderGroup = {Constants.FacsNames.JawRight, Constants.FacsNames.JawLeft}, indexInGroup = 2},  --sideView
+	JawRight = {sliderGroup = {Constants.FacsNames.JawRight, Constants.FacsNames.JawLeft}, indexInGroup = 1},  --sideView
 
 	Corrugator = {},
 	LeftBrowLowerer = {symmetryPartner = Constants.FacsNames.RightBrowLowerer},
@@ -603,16 +610,16 @@ Constants.FacsCrossMappings = {
 	EyesLookUp = {},
 	EyesLookRight = {},
 	LeftCheekRaiser = {symmetryPartner = Constants.FacsNames.RightCheekRaiser},
-	LeftEyeUpperLidRaiser = {symmetryPartner = Constants.FacsNames.RightEyeUpperLidRaiser},
-	LeftEyeClosed = {symmetryPartner = Constants.FacsNames.RightEyeClosed},
+	LeftEyeUpperLidRaiser = {sliderGroup = {Constants.FacsNames.LeftEyeClosed, Constants.FacsNames.LeftEyeUpperLidRaiser}, indexInGroup = 2, symmetryPartner = Constants.FacsNames.RightEyeUpperLidRaiser},
+	LeftEyeClosed = {sliderGroup = {Constants.FacsNames.LeftEyeClosed, Constants.FacsNames.LeftEyeUpperLidRaiser}, indexInGroup = 1, symmetryPartner = Constants.FacsNames.RightEyeClosed},
 	RightCheekRaiser = {symmetryPartner = Constants.FacsNames.LeftCheekRaiser},
-	RightEyeUpperLidRaiser = {symmetryPartner = Constants.FacsNames.LeftEyeUpperLidRaiser},
-	RightEyeClosed = {symmetryPartner = Constants.FacsNames.LeftEyeClosed},
+	RightEyeUpperLidRaiser = {sliderGroup = {Constants.FacsNames.RightEyeClosed, Constants.FacsNames.RightEyeUpperLidRaiser}, indexInGroup = 2, symmetryPartner = Constants.FacsNames.LeftEyeUpperLidRaiser},
+	RightEyeClosed = {sliderGroup = {Constants.FacsNames.RightEyeClosed, Constants.FacsNames.RightEyeUpperLidRaiser}, indexInGroup = 1, symmetryPartner = Constants.FacsNames.LeftEyeClosed},
 
-	TongueDown = {},
+	TongueDown = {sliderGroup = {Constants.FacsNames.TongueUp, Constants.FacsNames.TongueDown}, indexInGroup = 2},
+	TongueUp = {sliderGroup = {Constants.FacsNames.TongueUp, Constants.FacsNames.TongueDown}, indexInGroup = 1},	
 	TongueOut = {},
-	TongueUp = {},
-}	
+}
 
 if GetFFlagChannelAnimations() then
 	Constants.COMPONENT_TRACK_TYPES = {

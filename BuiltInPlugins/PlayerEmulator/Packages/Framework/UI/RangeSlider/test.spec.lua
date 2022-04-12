@@ -1,3 +1,14 @@
+local FFlagFaceControlsEditorUI = game:GetFastFlag("FaceControlsEditorUI")
+
+function getMidPoint(lower, upper)
+	return (lower + upper) * 0.5
+end
+
+function getTotalRange(min, max)
+	local range = max - min
+	return range
+end
+
 return function()
 	local Framework = script.Parent.Parent.Parent
 	local Util = require(Framework.Util)
@@ -89,7 +100,39 @@ return function()
 		expect(button.UpperKnob.Position.X.Scale).to.equal(upperValue/max)
 		Roact.unmount(instance)
 	end)
+	
+	if FFlagFaceControlsEditorUI then
+		it("should fill from center correctly", function()
+			local folder = Instance.new("Folder")
+			local min = 0
+			local max = 5
+			local upperValue = 5
+			local element = createTestRangeSlider({
+				FillFromCenter = true,
+				HideLowerKnob = true,
+				LowerRangeValue = min,
+				UpperRangeValue = upperValue,
+				Min = min,
+				Max = max,
+			})
+			local instance = Roact.mount(element, folder)
 
+			local button = folder:FindFirstChildOfClass("Frame")
+			expect(button).to.be.ok()
+			expect(button.Background).to.be.ok()
+			expect(button.Background.Contents).to.be.ok()
+			expect(button.Background.Contents.Foreground).to.be.ok()
+			
+			local upperFillPercent = (upperValue - min) / getTotalRange(min, max)
+			local center = getMidPoint(min, max)
+			local centerFillPercent = (center - min) / getTotalRange(min, max)
+			local targetSize =  (upperFillPercent - centerFillPercent) * -1			
+			
+			expect(button.Background.Contents.Foreground.Size.X.Scale).to.equal(targetSize)
+			Roact.unmount(instance)
+		end)
+	end
+	
 	it("should throw if range is < 0", function()
 		local element = createTestRangeSlider({
 			Min = 0,

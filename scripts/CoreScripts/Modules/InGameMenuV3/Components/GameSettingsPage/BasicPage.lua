@@ -49,7 +49,6 @@ local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 local GetFFlagInGameMenuVRToggle = require(Flags.GetFFlagInGameMenuVRToggle)
 local FFlagShowVRVignetteToggle = require(Flags.FFlagShowVRVignetteToggle)
@@ -60,7 +59,7 @@ local success, result = pcall(function()
 	FFlagUserVRVignetteToggle = success and result
 end
 local canUseVignette = FFlagShowVRVignetteToggle and FFlagUserVRVignetteToggle
-	 
+
 local VREnabledChanged = UserGameSettings:GetPropertyChangedSignal("VREnabled")
 
 local BasicPage = Roact.PureComponent:extend("BasicPage")
@@ -68,9 +67,9 @@ BasicPage.validateProps = t.strictInterface({
 	switchToAdvancedPage = t.callback,
 	pageTitle = t.string,
 	isMenuOpen = t.boolean,
-	currentPage = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.string) or nil,
-	canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
-	canGamepadCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+	currentPage = t.optional(t.string),
+	canCaptureFocus = t.optional(t.boolean),
+	canGamepadCaptureFocus = t.optional(t.boolean),
 	vrService = GetFFlagInGameMenuVRToggle() and t.optional(t.union(t.Instance, t.table)) or nil,
 	currentZone = GetFFlagIGMGamepadSelectionHistory() and t.optional(t.number) or nil,
 })
@@ -94,43 +93,33 @@ function BasicPage:init()
 	})
 
 	self.pageSize, self.setPageSize = Roact.createBinding(UDim2.new(0, 0, 0, 0))
-
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		self.cameraModeButton = Roact.createRef() -- reference to the cameramode button at the top of the page
-		self.volumeButton = Roact.createRef() -- reference to the slider button at the top of the page in vr
-	end
+	self.cameraModeButton = Roact.createRef() -- reference to the cameramode button at the top of the page
+	self.volumeButton = Roact.createRef() -- reference to the slider button at the top of the page in vr
 
 	PageUtils.initOnScrollDownState(self)
 end
 
 function BasicPage:didUpdate(prevProps)
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		local shouldSettingsDisabledInVRBeShown = not (GetFFlagInGameMenuVRToggle() and self.state.vrActive)
+	local shouldSettingsDisabledInVRBeShown = not (GetFFlagInGameMenuVRToggle() and self.state.vrActive)
 
-		if not GetFFlagIGMGamepadSelectionHistory() then
-			-- Gamepad navigation
-			-- if there is nothing selected on page open, select the first button in the menu
-			if (self.props.canCaptureFocus and self.props.canGamepadCaptureFocus)
-				and not (prevProps.canCaptureFocus and prevProps.canGamepadCaptureFocus)
-			then
-				if shouldSettingsDisabledInVRBeShown then
-					GuiService.SelectedCoreObject = self.cameraModeButton:getValue()
-				else
-					GuiService.SelectedCoreObject = self.volumeButton:getValue()
+	if not GetFFlagIGMGamepadSelectionHistory() then
+		-- Gamepad navigation
+		-- if there is nothing selected on page open, select the first button in the menu
+		if (self.props.canCaptureFocus and self.props.canGamepadCaptureFocus)
+			and not (prevProps.canCaptureFocus and prevProps.canGamepadCaptureFocus)
+		then
+			if shouldSettingsDisabledInVRBeShown then
+				GuiService.SelectedCoreObject = self.cameraModeButton:getValue()
+			else
+				GuiService.SelectedCoreObject = self.volumeButton:getValue()
 				end
 			end
 		end
-	end
 end
 
 function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 	local shouldSettingsDisabledInVRBeShown = not (GetFFlagInGameMenuVRToggle() and self.state.vrActive)
 	local showVoiceChatOptions = self.state.voiceChatEnabled
-
-	local selectable = nil
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		selectable = false
-	end
 
 	local dividerSize = UDim2.new(1, -24, 0, 1);
 
@@ -159,7 +148,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 			CanvasSize = self.pageSize,
 			Position = self.props.position,
 			Size = UDim2.new(1, 0, 1, 0),
-			Selectable = selectable,
+			Selectable = false,
 			[Roact.Change.CanvasPosition] = self.onScroll,
 		}, {
 			Layout = Roact.createElement("UIListLayout", {
@@ -177,7 +166,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 			}),
 			CameraMode = shouldSettingsDisabledInVRBeShown and Roact.createElement(CameraModeEntry, {
 				LayoutOrder = 2,
-				ButtonRef = GetFFlagInGameMenuControllerDevelopmentOnly() and self.cameraModeButton or nil,
+				ButtonRef = self.cameraModeButton,
 				canOpen = self.props.canCaptureFocus,
 				canCaptureFocus = self.props.canGamepadCaptureFocus,
 				screenSize = self.props.screenSize,
@@ -192,7 +181,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 			CameraSensitivity = shouldSettingsDisabledInVRBeShown and Roact.createElement(CameraSensitivityEntry, {
 				LayoutOrder = 4,
 				canCaptureFocus = self.props.canCaptureFocus and self.props.canGamepadCaptureFocus,
-				isMenuOpen = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.isMenuOpen or nil,
+				isMenuOpen = self.props.isMenuOpen,
 			}),
 			CameraDivider = Roact.createElement(Divider, {
 				LayoutOrder = 5,
@@ -220,9 +209,9 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 			}),
 			VolumeEntry = Roact.createElement(VolumeEntry, {
 				LayoutOrder = 9,
-				buttonRef = GetFFlagInGameMenuControllerDevelopmentOnly() and self.volumeButton or self.props.volumeButton,
+				buttonRef = self.volumeButton,
 				canCaptureFocus = self.props.canCaptureFocus and self.props.canGamepadCaptureFocus,
-				isMenuOpen = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.isMenuOpen or nil,
+				isMenuOpen = self.props.isMenuOpen,
 			}),
 			InputDevice = showVoiceChatOptions and Roact.createElement(DeviceSelectionEntry, {
 				LayoutOrder = 10,
@@ -252,7 +241,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 			GraphicsQualityEntry = Roact.createElement(GraphicsQualityEntry, {
 				LayoutOrder = 14,
 				canCaptureFocus = self.props.canCaptureFocus and self.props.canGamepadCaptureFocus,
-				isMenuOpen = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.isMenuOpen or nil,
+				isMenuOpen = self.props.isMenuOpen,
 			}),
 			FullScreen = shouldSettingsDisabledInVRBeShown and Roact.createElement(ToggleEntry, {
 				LayoutOrder = 15,
@@ -286,7 +275,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 0, 54),
 				Text = "",
-				SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly() and getSelectionCursor(CursorKind.Square) or nil,
+				SelectionImageObject = getSelectionCursor(CursorKind.Square),
 				[Roact.Event.Activated] = self.props.switchToAdvancedPage,
 			}, {
 				Text = withLocalization({
@@ -367,13 +356,9 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 end
 
 function BasicPage:render()
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		return withSelectionCursorProvider(function(getSelectionCursor)
-			return self:renderWithSelectionCursor(getSelectionCursor)
-		end)
-	else
-		return self:renderWithSelectionCursor()
-	end
+	return withSelectionCursorProvider(function(getSelectionCursor)
+		return self:renderWithSelectionCursor(getSelectionCursor)
+	end)
 end
 
 function BasicPage:didMount()
@@ -391,18 +376,12 @@ function BasicPage:didMount()
 end
 
 return RoactRodux.UNSTABLE_connect2(function(state)
-	local canCaptureFocus = nil -- Can inline when GetFFlagInGameMenuControllerDevelopmentOnly is removed
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		canCaptureFocus = state.menuPage == "GameSettings"
-			and state.isMenuOpen
-			and not state.respawn.dialogOpen
-	end
+	local canCaptureFocus = state.menuPage == "GameSettings"
+		and state.isMenuOpen
+		and not state.respawn.dialogOpen
 
-	local canGamepadCaptureFocus = nil -- Can inline when GetFFlagInGameMenuControllerDevelopmentOnly is removed
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		canGamepadCaptureFocus = state.displayOptions.inputType == Constants.InputType.Gamepad
-			and state.currentZone == 1
-	end
+	local canGamepadCaptureFocus = state.displayOptions.inputType == Constants.InputType.Gamepad
+		and state.currentZone == 1
 
 	local currentZone = nil -- can inline when flag is removed
 	if GetFFlagIGMGamepadSelectionHistory() then
@@ -411,7 +390,7 @@ return RoactRodux.UNSTABLE_connect2(function(state)
 
 	return {
 		isMenuOpen = state.isMenuOpen,
-		currentPage = GetFFlagInGameMenuControllerDevelopmentOnly() and state.menuPage or nil,
+		currentPage = state.menuPage,
 		currentZone = currentZone,
 		canCaptureFocus = canCaptureFocus,
 		canGamepadCaptureFocus = canGamepadCaptureFocus,

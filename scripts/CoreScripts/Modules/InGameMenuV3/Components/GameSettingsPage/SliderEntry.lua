@@ -3,10 +3,7 @@ local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
-local InGameMenu = script.Parent.Parent.Parent
 local InputLabel = require(script.Parent.InputLabel)
-local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 local SliderEntry = Roact.PureComponent:extend("SliderEntry")
 SliderEntry.validateProps = t.strictInterface({
@@ -19,14 +16,14 @@ SliderEntry.validateProps = t.strictInterface({
 	value = t.number,
 	disabled = t.optional(t.boolean),
 	valueChanged = t.callback,
-	canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
-	isMenuOpen = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
-	buttonRef = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.table) or nil,
+	canCaptureFocus = t.optional(t.boolean),
+	isMenuOpen = t.optional(t.boolean),
+	buttonRef = t.optional(t.table),
 })
 
 function SliderEntry:init()
 	self.state = {
-		isFrameSelectable = GetFFlagInGameMenuControllerDevelopmentOnly() and true or nil,
+		isFrameSelectable = true,
 	}
 end
 

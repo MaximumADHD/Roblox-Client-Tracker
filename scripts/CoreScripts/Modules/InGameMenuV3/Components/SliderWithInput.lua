@@ -16,7 +16,6 @@ local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local InGameMenu = script.Parent.Parent
 
 local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 local FocusHandler = require(script.Parent.Connection.FocusHandler)
 local Slider = require(script.Parent.Slider)
 local AssetImage = require(script.Parent.AssetImage)
@@ -54,15 +53,15 @@ SliderWithInput.validateProps = t.intersection(t.strictInterface({
 	-- The position of the slider.
 	Position = t.optional(t.UDim2),
 	-- can capture focus when other dialogs are up
-	canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+	canCaptureFocus = t.optional(t.boolean),
 	-- Whether IGM is open or not
-	isMenuOpen = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+	isMenuOpen = t.optional(t.boolean),
 	-- Ref to the sliderDot
-	sliderDotRef = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.table) or nil,
+	sliderDotRef = t.optional(t.table),
 	-- Callback for when selection of text box / slider dot is lost
-	onSelectionLost = GetFFlagInGameMenuControllerDevelopmentOnly() and t.callback or nil,
+	onSelectionLost = t.callback,
 	-- Callback for when selection of text box / slider dot is gained
-	onSelectionGained = GetFFlagInGameMenuControllerDevelopmentOnly() and t.callback or nil,
+	onSelectionGained = t.callback,
 }), function(props)
 	if props.min > props.max then
 		return false, "min must be less than or equal to max"
@@ -78,11 +77,9 @@ end)
 function SliderWithInput:init()
 	self.textBoxRef = Roact.createRef()
 
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		self.state = {
-			textEntryMode = false
-		}
-	end
+	self.state = {
+		textEntryMode = false
+	}
 end
 
 function SliderWithInput:renderFocusHandler()
@@ -125,7 +122,7 @@ function SliderWithInput:renderWithSelectionCursor(getSelectionCursor)
 		Position = Cryo.None,
 		AnchorPoint = Cryo.None,
 		keyboardInputStepInterval = Cryo.None,
-		NextSelectionRight = GetFFlagInGameMenuControllerDevelopmentOnly() and self.textBoxRef or nil,
+		NextSelectionRight = self.textBoxRef,
 	})
 
 	return Roact.createElement("Frame", {
@@ -147,7 +144,7 @@ function SliderWithInput:renderWithSelectionCursor(getSelectionCursor)
 				Position = UDim2.new(1, 0, 0.5, 0),
 				AnchorPoint = Vector2.new(1, 0.5),
 			}, {
-				FocusHandler = GetFFlagInGameMenuControllerDevelopmentOnly() and self:renderFocusHandler() or nil,
+				FocusHandler = self:renderFocusHandler(),
 				Box = Roact.createElement("TextBox", {
 					BackgroundTransparency = 1,
 					Size = UDim2.new(1, 0, 1, 0),
@@ -160,22 +157,18 @@ function SliderWithInput:renderWithSelectionCursor(getSelectionCursor)
 					TextColor3 = textTheme.Color,
 					TextTransparency = textTheme.Transparency,
 					Text = tostring(props.value),
-					NextSelectionLeft = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.sliderDotRef or nil,
-					SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly() and getSelectionCursor(CursorKind.InputFields) or nil,
-					[Roact.Event.SelectionLost] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.onSelectionLost or nil,
-					[Roact.Event.SelectionGained] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.onSelectionGained or nil,
+					NextSelectionLeft = self.props.sliderDotRef,
+					SelectionImageObject = getSelectionCursor(CursorKind.InputFields),
+					[Roact.Event.SelectionLost] = self.props.onSelectionLost,
+					[Roact.Event.SelectionGained] = self.props.onSelectionGained,
 					[Roact.Ref] = self.textBoxRef,
 					[Roact.Event.Focused] = props.disabled and function(rbx)
 						rbx:ReleaseFocus(false)
 					end or function()
-						if GetFFlagInGameMenuControllerDevelopmentOnly() then
-							self:setState({textEntryMode = true})
-						end
+						self:setState({textEntryMode = true})
 					end,
 					[Roact.Event.FocusLost] = function(rbx, enterPressed)
-						if GetFFlagInGameMenuControllerDevelopmentOnly() then
-							self:setState({textEntryMode = false})
-						end
+						self:setState({textEntryMode = false})
 
 						local textValue = tonumber(rbx.Text)
 						if textValue ~= props.value then
@@ -249,13 +242,9 @@ function SliderWithInput:renderWithSelectionCursor(getSelectionCursor)
 end
 
 function SliderWithInput:render()
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		return withSelectionCursorProvider(function(getSelectionCursor)
-			return self:renderWithSelectionCursor(getSelectionCursor)
-		end)
-	else
-		return self:renderWithSelectionCursor()
-	end
+	return withSelectionCursorProvider(function(getSelectionCursor)
+		return self:renderWithSelectionCursor(getSelectionCursor)
+	end)
 end
 
 return SliderWithInput

@@ -20,15 +20,6 @@ local LeaveButton = require(InGameMenu.Components.LeaveButton)
 
 local Direction = require(InGameMenu.Enums.Direction)
 
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
-
-local IS_PAGE_SELECTABLE
-if GetFFlagInGameMenuControllerDevelopmentOnly() then
-	IS_PAGE_SELECTABLE = false
-else
-	IS_PAGE_SELECTABLE = nil
-end
-
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 
 local TITLE_HEIGHT = 48
@@ -51,8 +42,7 @@ local function renderWithSelectionCursor(props, getSelectionCursor)
 				NextSelectionDown = props.NextSelectionDown,
 				[Roact.Event.Activated] = props.navigateUp,
 				[Roact.Ref] = props.buttonRef,
-				SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly()
-					and getSelectionCursor(CursorKind.RoundedRect) or nil,
+				SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
 			}) or nil,
 		}
 
@@ -66,7 +56,7 @@ local function renderWithSelectionCursor(props, getSelectionCursor)
 			Size = UDim2.new(1, 0, 1, 0),
 			Visible = props.visible and not props.pageIsModal,
 			ZIndex = props.zIndex,
-			Selectable = IS_PAGE_SELECTABLE,
+			Selectable = false,
 		}, {
 			PageTitleContainer = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, TITLE_HEIGHT),
@@ -88,18 +78,14 @@ local function renderWithSelectionCursor(props, getSelectionCursor)
 			PageContainer = Roact.createElement("Frame", {
 				AnchorPoint = Vector2.new(0, 1),
 				BackgroundTransparency = 1,
-				Position = GetFFlagInGameMenuControllerDevelopmentOnly()
-					and UDim2.new(0, Constants.Zone.ContentOffset, 1, 0)
-					or UDim2.new(0, 0, 1, 0),
-				Size = GetFFlagInGameMenuControllerDevelopmentOnly()
-					and UDim2.new(1, -Constants.Zone.ContentOffset, 1, -TOTAL_HEADER_HEIGHT)
-					or UDim2.new(1, 0, 1, -TOTAL_HEADER_HEIGHT),
+				Position = UDim2.new(0, Constants.Zone.ContentOffset, 1, 0),
+				Size = UDim2.new(1, -Constants.Zone.ContentOffset, 1, -TOTAL_HEADER_HEIGHT),
 			}, props[Roact.Children]),
 			LeaveButton = props.useLeaveButton and Roact.createElement(LeaveButton, {
 				hidden = props.scrollingDown,
 				ZIndex = 2,
 			}) or nil,
-			ZonePortal = GetFFlagInGameMenuControllerDevelopmentOnly() and Roact.createElement(ZonePortal, {
+			ZonePortal = Roact.createElement(ZonePortal, {
 				targetZone = 0,
 				direction = Direction.Left,
 			}) or nil,
@@ -108,13 +94,9 @@ local function renderWithSelectionCursor(props, getSelectionCursor)
 end
 
 local function Page(props)
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		return withSelectionCursorProvider(function(getSelectionCursor)
-			return renderWithSelectionCursor(props, getSelectionCursor)
-		end)
-	else
-		return renderWithSelectionCursor(props)
-	end
+	return withSelectionCursorProvider(function(getSelectionCursor)
+		return renderWithSelectionCursor(props, getSelectionCursor)
+	end)
 end
 
 return RoactRodux.UNSTABLE_connect2(function(state)

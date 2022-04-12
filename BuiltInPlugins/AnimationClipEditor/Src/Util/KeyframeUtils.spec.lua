@@ -5,7 +5,6 @@ return function()
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-	local GetFFlagKeyframeUtilsGetValueCleanup = require(Plugin.LuaFlags.GetFFlagKeyframeUtilsGetValueCleanup)
 
 	local testTrackData = {
 		Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
@@ -115,37 +114,33 @@ return function()
 
 	describe("getValue", function()
 		it("should return the value if using exact keyframes", function()
-			local value = (GetFFlagChannelAnimations() or GetFFlagKeyframeUtilsGetValueCleanup()) and KeyframeUtils.getValue(testTrackData, 4) or KeyframeUtils:getValue_deprecated(testTrackData, 4)
+			local value = KeyframeUtils.getValue(testTrackData, 4)
 			expect(value).to.equal(CFrame.new(0, 1, 0))
 		end)
 
 		it("should return an interpolated value if not on a keyframe", function()
-			local value = (GetFFlagChannelAnimations() or GetFFlagKeyframeUtilsGetValueCleanup()) and KeyframeUtils.getValue(testTrackData, 3) or KeyframeUtils:getValue_deprecated(testTrackData, 3)
+			local value = KeyframeUtils.getValue(testTrackData, 3)
 			expect(value).to.equal(CFrame.new(0, 0.5, 0))
 		end)
 
 		it("should return the first keyframe value if before all keyframes", function()
-			local value = (GetFFlagChannelAnimations() or GetFFlagKeyframeUtilsGetValueCleanup()) and KeyframeUtils.getValue(testTrackData, 1) or KeyframeUtils:getValue_deprecated(testTrackData, 1)
+			local value = KeyframeUtils.getValue(testTrackData, 1)
 			expect(value).to.equal(CFrame.new(0, 0, 0))
 		end)
 
 		it("should return the last keyframe value if after all keyframes", function()
-			local value = (GetFFlagChannelAnimations() or GetFFlagKeyframeUtilsGetValueCleanup()) and KeyframeUtils.getValue(testTrackData, 6) or KeyframeUtils:getValue_deprecated(testTrackData, 6)
+			local value = KeyframeUtils.getValue(testTrackData, 6)
 			expect(value).to.equal(CFrame.new(0, 2, 0))
 		end)
 
 		it("should be able to get values between discrete keyframes", function()
-			local value = (GetFFlagChannelAnimations() or GetFFlagKeyframeUtilsGetValueCleanup()) and KeyframeUtils.getValue(testTrackData, 4.5) or KeyframeUtils:getValue_deprecated(testTrackData, 4.5)
+			local value = KeyframeUtils.getValue(testTrackData, 4.5)
 			expect(value).to.equal(CFrame.new(0, 1.5, 0))
 		end)
 
 		it("should throw if the track has empty keyframes", function()
 			expect(function()
-				if (GetFFlagChannelAnimations() or GetFFlagKeyframeUtilsGetValueCleanup()) then
-					KeyframeUtils.getValue(testEmptyTrackData, 1)
-				else
-					KeyframeUtils:getValue_deprecated(testEmptyTrackData, 1)
-				end
+				KeyframeUtils.getValue(testEmptyTrackData, 1)
 			end).to.throw()
 		end)
 	end)

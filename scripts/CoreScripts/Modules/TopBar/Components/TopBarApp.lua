@@ -19,6 +19,7 @@ local HealthBar = require(Presentation.HealthBar)
 local HurtOverlay = require(Presentation.HurtOverlay)
 local GamepadMenu = require(Presentation.GamepadMenu)
 local HeadsetMenu = require(Presentation.HeadsetMenu)
+local VoiceBetaBadge = require(Presentation.VoiceBetaBadge)
 
 local Connection = require(script.Parent.Connection)
 
@@ -29,6 +30,7 @@ local SetScreenSize = require(TopBar.Actions.SetScreenSize)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
+local GetFFlagEnableVoiceBetaBadge = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceBetaBadge)
 
 local CLOSE_MENU_ICON_SIZE = 30
 
@@ -160,7 +162,9 @@ function TopBarApp:render()
 					Padding = UDim.new(0, Constants.Padding),
 					FillDirection = Enum.FillDirection.Horizontal,
 					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
+					VerticalAlignment = if GetFFlagEnableVoiceBetaBadge()
+						then Enum.VerticalAlignment.Top
+						else Enum.VerticalAlignment.Center,
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
 
@@ -170,6 +174,10 @@ function TopBarApp:render()
 
 				ChatIcon = Roact.createElement(ChatIcon, {
 					layoutOrder = 2,
+				}),
+
+				VoiceBetaBadge = GetFFlagEnableVoiceBetaBadge() and Roact.createElement(VoiceBetaBadge, {
+					layoutOrder = 3,
 				}),
 			}),
 

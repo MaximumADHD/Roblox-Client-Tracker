@@ -5,6 +5,8 @@ local MemStorageService = game:GetService("MemStorageService")
 local Plugin = script.Parent.Parent.Parent
 
 local FFlagToolboxUpdateWindowMinSize = game:GetFastFlag("ToolboxUpdateWindowMinSize")
+local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
+
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
@@ -27,6 +29,7 @@ local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 local FrameworkUtil = require(Packages.Framework).Util
 local getTestVariation = FrameworkUtil.getTestVariation
+local NavigationContext = require(Plugin.Core.ContextServices.NavigationContext)
 
 local Analytics = require(Util.Analytics.Analytics)
 
@@ -174,27 +177,36 @@ function ToolboxPlugin:render()
 		[Roact.Change.Enabled] = self.onDockWidgetEnabledChanged,
 		[Roact.Event.AncestryChanged] = self.onAncestryChanged,
 	}, {
-		Toolbox = pluginGuiLoaded and ContextServices.provide({
-			ContextServices.Focus.new(self.state.pluginGui),
-		}, {
-			Roact.createElement(ExternalServicesWrapper, {
-				plugin = plugin,
-				pluginGui = pluginGui,
-				theme = theme,
-				networkInterface = networkInterface,
-				localization = localization,
-			}, {
-				Roact.createElement(Toolbox, {
-					initialWidth = initialWidth,
-					backgrounds = backgrounds,
-					suggestions = suggestions,
-					tryOpenAssetConfig = tryOpenAssetConfig,
+		Toolbox = pluginGuiLoaded and ContextServices.provide(
+			if FFlagToolboxAssetCategorization3
+				then
+					{
+						ContextServices.Focus.new(self.state.pluginGui),
+						NavigationContext.new(), -- create a no-op version of navigation
+					}
+				else {
+					ContextServices.Focus.new(self.state.pluginGui),
+				},
+			{
+				Roact.createElement(ExternalServicesWrapper, {
+					plugin = plugin,
 					pluginGui = pluginGui,
-					pluginLoaderContext = props.pluginLoaderContext,
-					onMouseEnter = self.onDockWidgetInteraction,
+					theme = theme,
+					networkInterface = networkInterface,
+					localization = localization,
+				}, {
+					Roact.createElement(Toolbox, {
+						initialWidth = initialWidth,
+						backgrounds = backgrounds,
+						suggestions = suggestions,
+						tryOpenAssetConfig = tryOpenAssetConfig,
+						pluginGui = pluginGui,
+						pluginLoaderContext = props.pluginLoaderContext,
+						onMouseEnter = self.onDockWidgetInteraction,
+					}),
 				}),
-			}),
-		}),
+			}
+		),
 	})
 end
 

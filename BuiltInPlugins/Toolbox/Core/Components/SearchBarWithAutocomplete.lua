@@ -12,7 +12,6 @@
 ]]
 local FIntToolboxAutocompleteDropdownSize = game:GetFastInt("ToolboxAutocompleteDropdownSize")
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
-local FFlagToolboxDisableAutocompleteWithGuac = game:GetFastFlag("ToolboxDisableAutocompleteWithGuac")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -126,7 +125,7 @@ function SearchBarWithAutocomplete:init()
 end
 
 function SearchBarWithAutocomplete:didMount()
-	if FFlagToolboxDisableAutocompleteWithGuac and ToolboxUtilities.getShouldDisableAutocomplete() then
+	if ToolboxUtilities.getShouldDisableAutocomplete() then
 		-- Do not watch the search bar or fetch autocomplete results if the policy disables autocomplete
 		return
 	end

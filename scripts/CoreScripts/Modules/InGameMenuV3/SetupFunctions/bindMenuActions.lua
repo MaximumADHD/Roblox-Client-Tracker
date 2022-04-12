@@ -18,9 +18,6 @@ local SetCurrentZone = require(InGameMenu.Actions.SetCurrentZone)
 local Pages = require(InGameMenu.Components.Pages)
 local Constants = require(InGameMenu.Resources.Constants)
 
-local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
-
 local TOGGLE_DEVELOPER_CONSOLE_ACTION_NAME = "ToggleDeveloperConsole"
 local TOGGLE_PERFORMANCE_STATS_ACTION_NAME = "TogglePerformanceStats"
 local TOGGLE_MENU_ACTION_NAME = "ToggleInGameMenu"
@@ -131,63 +128,61 @@ local function bindMenuActions(store)
 
 	ContextActionService:BindCoreAction(RESET_ACTION_NAME, resetCharacterFunc, false, Enum.KeyCode.R, Enum.KeyCode.ButtonY)
 
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		local function navigateBackFunc(actionName, inputState, input)
-			local state = store:getState()
-			local parentPage = Pages.pagesByKey[state.menuPage].parentPage
-			local devConsoleVisible = DevConsoleMaster:GetVisibility()
+	local function navigateBackFunc(actionName, inputState, input)
+		local state = store:getState()
+		local parentPage = Pages.pagesByKey[state.menuPage].parentPage
+		local devConsoleVisible = DevConsoleMaster:GetVisibility()
 
-			if inputState ~= Enum.UserInputState.End
-				or (not state.isMenuOpen and not devConsoleVisible)
-			then
-				return Enum.ContextActionResult.Pass
-			end
-
-			if devConsoleVisible then
-				DevConsoleMaster:SetVisibility(false)
-			elseif parentPage == nil and
-				not state.respawn.dialogOpen then -- B Button might exit the menu
-					store:dispatch(CloseMenu)
-			else
-				store:dispatch(NavigateBack())
-			end
-
-			return Enum.ContextActionResult.Sink
+		if inputState ~= Enum.UserInputState.End
+			or (not state.isMenuOpen and not devConsoleVisible)
+		then
+			return Enum.ContextActionResult.Pass
 		end
 
-		-- The obvious choice for a keyboard button would be backspace,
-		-- but that would cause problems if Input fields don't rebind it
-		ContextActionService:BindCoreAction(NAVIGATE_BACK_ACTION_NAME, navigateBackFunc, false, Enum.KeyCode.ButtonB)
-
-		local function canBumperSwitch()
-			local state = store:getState()
-			return (state.menuPage ~= "Controls"
-				and state.isMenuOpen
-				and not state.respawn.dialogOpen
-				and not state.report.dialogOpen
-				and not state.report.reportSentOpen)
+		if devConsoleVisible then
+			DevConsoleMaster:SetVisibility(false)
+		elseif parentPage == nil and
+			not state.respawn.dialogOpen then -- B Button might exit the menu
+				store:dispatch(CloseMenu)
+		else
+			store:dispatch(NavigateBack())
 		end
 
-		ContextActionService:BindCoreAction(LEFT_BUMPER_SWITCH_ZONE,
-			function(actionName, inputState, inputObject)
-				if inputState == Enum.UserInputState.Begin and canBumperSwitch() then
-					store:dispatch(SetCurrentZone(0))
-					return Enum.ContextActionResult.Sink
-				end
-				return Enum.ContextActionResult.Pass
-			end,
-			false, Enum.KeyCode.ButtonL1)
-
-		ContextActionService:BindCoreAction(RIGHT_BUMPER_SWITCH_ZONE,
-			function(actionName, inputState, inputObject)
-				if inputState == Enum.UserInputState.Begin and canBumperSwitch() then
-					store:dispatch(SetCurrentZone(1))
-					return Enum.ContextActionResult.Sink
-				end
-				return Enum.ContextActionResult.Pass
-			end,
-			false, Enum.KeyCode.ButtonR1)
+		return Enum.ContextActionResult.Sink
 	end
+
+	-- The obvious choice for a keyboard button would be backspace,
+	-- but that would cause problems if Input fields don't rebind it
+	ContextActionService:BindCoreAction(NAVIGATE_BACK_ACTION_NAME, navigateBackFunc, false, Enum.KeyCode.ButtonB)
+
+	local function canBumperSwitch()
+		local state = store:getState()
+		return (state.menuPage ~= "Controls"
+			and state.isMenuOpen
+			and not state.respawn.dialogOpen
+			and not state.report.dialogOpen
+			and not state.report.reportSentOpen)
+	end
+
+	ContextActionService:BindCoreAction(LEFT_BUMPER_SWITCH_ZONE,
+		function(actionName, inputState, inputObject)
+			if inputState == Enum.UserInputState.Begin and canBumperSwitch() then
+				store:dispatch(SetCurrentZone(0))
+				return Enum.ContextActionResult.Sink
+			end
+			return Enum.ContextActionResult.Pass
+		end,
+		false, Enum.KeyCode.ButtonL1)
+
+	ContextActionService:BindCoreAction(RIGHT_BUMPER_SWITCH_ZONE,
+		function(actionName, inputState, inputObject)
+			if inputState == Enum.UserInputState.Begin and canBumperSwitch() then
+				store:dispatch(SetCurrentZone(1))
+				return Enum.ContextActionResult.Sink
+			end
+			return Enum.ContextActionResult.Pass
+		end,
+		false, Enum.KeyCode.ButtonR1)
 end
 
 return bindMenuActions

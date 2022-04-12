@@ -144,6 +144,10 @@ function DraggerContext:getSelectionBoxColor(isActive)
 	return Color3.new()
 end
 
+function DraggerContext:useBoundingBoxMoveHandles()
+	return false
+end
+
 function DraggerContext:getGeometrySnapColor()
 	return Color3.new()
 end

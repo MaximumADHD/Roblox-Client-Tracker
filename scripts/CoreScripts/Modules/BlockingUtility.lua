@@ -7,7 +7,7 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Url = require(RobloxGui.Modules.Common.Url)
 game:DefineFastFlag("EnableMigrateBlockingOffAPIProxy", false)
-game:DefineFastFlag("MigrateGetBlockedUsers", false)
+game:DefineFastFlag("MigrateGetBlockedUsers2", false)
 
 local BlockingUtility = {}
 BlockingUtility.__index = BlockingUtility
@@ -37,13 +37,13 @@ local BlockedList = {}
 local MutedList = {}
 
 local function GetBlockedPlayersAsync()
-	if game:GetFastFlag("MigrateGetBlockedUsers") and
+	if game:GetFastFlag("MigrateGetBlockedUsers2") and
 	game:GetEngineFeature("EnableHttpRbxApiServiceWhiteListAccountSettings") then
 		local apiPath = Url.ACCOUNT_SETTINGS_URL.."v1/users/get-blocked-users"
 
 		local blockList = nil
 		local success = pcall(function()
-			local request = HttpRbxApiService:GetAsync(apiPath,
+			local request = HttpRbxApiService:GetAsyncFullUrl(apiPath,
 				Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Players)
 			blockList = request and HttpService:JSONDecode(request)
 		end)

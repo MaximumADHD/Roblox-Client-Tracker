@@ -3,12 +3,14 @@
 	between components.
 ]]
 local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
 
 local strict = require(script.Parent.Util.strict)
 
 return strict({
-	withAbsoluteSizeAndPosition = if FFlagToolboxAssetCategorization then require(script.withAbsoluteSizeAndPosition) else nil,
+	withAbsoluteSizeAndPosition = if FFlagToolboxAssetCategorization3
+		then require(script.withAbsoluteSizeAndPosition)
+		else nil,
 	withAbsoluteSize = require(script.withAbsoluteSize),
 	withControl = require(script.withControl),
 	withForwardRef = if FFlagDevFrameworkForwardRef then require(script.withForwardRef) else nil,

@@ -9,6 +9,8 @@ local Url = require(CorePackages.AppTempCommon.LuaApp.Http.Url)
     	"placeId": 0,
 		"name": "string",
 		"description": "string",
+		"sourceName": "string",
+		"sourceDescription": "string",
 		"url": "string",
 		"builder": "string",
 		"builderId": 0,

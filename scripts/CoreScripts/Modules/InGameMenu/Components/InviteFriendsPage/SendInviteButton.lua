@@ -21,7 +21,6 @@ local Images = UIBlox.App.ImageSet.Images
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local FFlagFixMenuIcons = require(InGameMenu.Flags.FFlagFixMenuIcons)
-local FFlagTurnOffSelectableSmallIGMButtons = require(InGameMenu.Flags.FFlagTurnOffSelectableSmallIGMButtons)
 
 local SendInviteButton = Roact.PureComponent:extend("SendInviteButton")
 
@@ -179,14 +178,9 @@ end
 function SendInviteButton:renderWithSelectionCursor(getSelectionCursor)
 	local props = self.props
 
-	local selectable = nil -- inline with FFlagTurnOffSelectableSmallIGMButtons
-	if FFlagTurnOffSelectableSmallIGMButtons then
-		selectable = false
-	end
-
 	return withStyle(function(style)
 		return Roact.createElement("TextButton", {
-			Selectable = selectable,
+			Selectable = false,
 			Size = UDim2.new(0, 36, 0, 36),
 			BackgroundTransparency = 1,
 			Text = "",

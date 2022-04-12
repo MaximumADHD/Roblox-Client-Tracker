@@ -2,7 +2,7 @@
 --[[
 	A generic clickable Search Pill.
 ]]
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization2")
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization3")
 if not FFlagToolboxAssetCategorization then
 	-- needed for withAbsoluteSizeAndPosition
 	return {}
@@ -96,7 +96,7 @@ function SearchPill:render()
 		backgroundColor = searchPillTheme.backgroundColor
 	end
 
-	local paddingHorizontal = if size then 0 else searchPillTheme.padding.X
+	local paddingHorizontal = if size then 0 else searchPillTheme.padding.left + searchPillTheme.padding.right
 
 	return Roact.createElement("TextButton", { -- TextButton used for Activated support
 		AutomaticSize = automaticSize,
@@ -118,10 +118,10 @@ function SearchPill:render()
 		}),
 
 		UIPadding = Roact.createElement("UIPadding", {
-			PaddingBottom = UDim.new(0, searchPillTheme.padding.Y),
+			PaddingBottom = UDim.new(0, searchPillTheme.padding.top),
 			PaddingLeft = UDim.new(0, paddingHorizontal),
 			PaddingRight = UDim.new(0, paddingHorizontal),
-			PaddingTop = UDim.new(0, searchPillTheme.padding.Y),
+			PaddingTop = UDim.new(0, searchPillTheme.padding.top),
 		}),
 
 		HoverArea = onClick and Roact.createElement(HoverArea, {

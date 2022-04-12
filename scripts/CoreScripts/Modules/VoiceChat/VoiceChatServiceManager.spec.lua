@@ -266,14 +266,12 @@ return function()
 		end)
 
 		describe("permission prompt", function()
-			local moderationOld, errorToasts
+			local errorToasts
 			beforeEach(function()
-				moderationOld = game:SetFastFlagForTesting("ModerationByProxyUserBanNotificationV4", true)
 				errorToasts = game:SetFastFlagForTesting("VoiceChatStudioErrorToasts2", true)
 
 			end)
 			afterEach(function()
-				game:SetFastFlagForTesting("ModerationByProxyUserBanNotificationV4", moderationOld)
 				game:SetFastFlagForTesting("VoiceChatStudioErrorToasts2", errorToasts)
 			end)
 

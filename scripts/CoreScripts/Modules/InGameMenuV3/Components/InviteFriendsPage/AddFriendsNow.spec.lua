@@ -24,8 +24,6 @@ return function()
 	local FocusHandlerContextProvider = require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
 	local AddFriendsNow = require(script.Parent.AddFriendsNow)
 
-	local GetFFlagIGMRefactorInviteFriendsGamepadSupport = require(InGameMenu.Flags.GetFFlagIGMRefactorInviteFriendsGamepadSupport)
-
 	it("should create and destroy without errors", function()
 
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
@@ -39,11 +37,11 @@ return function()
 				}, {
 					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
 						AddFriendsNow = Roact.createElement(AddFriendsNow, {
-							canCaptureFocus = GetFFlagIGMRefactorInviteFriendsGamepadSupport() or nil,
+							canCaptureFocus = true,
 						}),
 					}) or nil,
 					AddFriendsNow = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(AddFriendsNow, {
-						canCaptureFocus = GetFFlagIGMRefactorInviteFriendsGamepadSupport() or nil,
+						canCaptureFocus = true,
 					}) or nil,
 				}),
 			}),

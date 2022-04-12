@@ -18,8 +18,6 @@ local log = require(RobloxGui.Modules.Logger):new(script.Name)
 -- This is a temporary component, will iterate when there's final design
 local DeviceSelectionEntry = Roact.PureComponent:extend("DeviceSelectionEntry")
 
-local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
 
 DeviceSelectionEntry.DeviceType = {
@@ -32,15 +30,13 @@ DeviceSelectionEntry.validateProps = t.strictInterface({
 	deviceType = t.string,
 	isMenuOpen = t.boolean,
 	screenSize = t.Vector2,
-	canOpen = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
-	canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+	canOpen = t.optional(t.boolean),
+	canCaptureFocus = t.optional(t.boolean),
 })
 
-if GetFFlagInGameMenuControllerDevelopmentOnly() then
-	DeviceSelectionEntry.defaultProps = {
-		canOpen = true
-	}
-end
+DeviceSelectionEntry.defaultProps = {
+	canOpen = true
+}
 
 function DeviceSelectionEntry:init()
 	self:setState({

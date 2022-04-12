@@ -31,9 +31,6 @@ local FFlagCameraSensitivityAllowGranularKeyboardInput  = game:DefineFastFlag(
 	false
 )
 
-local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
-
 -- remove with FFlagCameraSensitivityAllowGranularKeyboardInput
 local function guiToEngineSensitivity_DEPRECATED(guiSensitivity)
 	local engineSensitivity
@@ -104,8 +101,8 @@ end
 local CameraSensitivityEntry = Roact.PureComponent:extend("CameraSensitivityEntry")
 CameraSensitivityEntry.validateProps = t.strictInterface({
 	LayoutOrder = t.integer,
-	canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
-	isMenuOpen = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+	canCaptureFocus = t.optional(t.boolean),
+	isMenuOpen = t.optional(t.boolean),
 })
 
 function CameraSensitivityEntry:init()
@@ -142,8 +139,8 @@ function CameraSensitivityEntry:render()
 				UserGameSettings.MouseSensitivityThirdPerson = engineSensitivityVector
 				SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 			end,
-			canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.canCaptureFocus or nil,
-			isMenuOpen = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.isMenuOpen or nil,
+			canCaptureFocus = self.props.canCaptureFocus,
+			isMenuOpen = self.props.isMenuOpen,
 		})
 	}
 

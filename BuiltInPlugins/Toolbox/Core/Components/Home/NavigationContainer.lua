@@ -1,13 +1,17 @@
 --!strict
-local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
+local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
+local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext")
+
 local Plugin = script:FindFirstAncestor("Toolbox")
 
 local Packages = Plugin.Packages
 local Framework = require(Packages.Framework)
 local Roact = require(Packages.Roact)
+local RoactRodux = require(Packages.RoactRodux)
 
 local RoactNavigation = require(Plugin.Packages.RoactNavigation)
 local Constants = require(Plugin.Core.Util.Constants)
+local ContextServices = Framework.ContextServices
 
 local Dash = Framework.Dash
 
@@ -16,30 +20,98 @@ local HomeView = require(Plugin.Core.Components.Categorization.HomeView)
 local ResultsView = require(Plugin.Core.Components.Categorization.ResultsView)
 local SubcategoriesView = require(Plugin.Core.Components.Categorization.SubcategoriesView)
 local SubcategoriesSwimlaneView = require(Plugin.Core.Components.Categorization.SubcategoriesSwimlaneView)
+local NavigationContext = require(Plugin.Core.ContextServices.NavigationContext)
+local AssetAnalyticsContextItem = require(Plugin.Core.Util.Analytics.AssetAnalyticsContextItem)
+local GetPageInfoAnalyticsContextInfo = require(Plugin.Core.Thunks.GetPageInfoAnalyticsContextInfo)
 
 local function wrapViewForRoactNavigation(pageConstructor)
 	return function(props)
-		-- TODO : Decide whether to push navigation args into a DevFramework ContextItem
-		return RoactNavigation.withNavigation(function(navigation, focused)
-			local viewProps = Dash.join(
-				{
-					navigation = navigation,
-					focused = focused,
-				},
-				props or {},
+		local NavWrapper = Roact.PureComponent:extend("NavWrapper")
+		function NavWrapper:init(navProps)
+			self.navigateTo = function(routeName: string, searchCategory: string, pathName: string?, props: any)
+				local navContext = navProps.NavigationContext
+				local analytics = navProps.AssetAnalytics:get()
+				local getPageInfoAnalyticsContextInfo = navProps.getPageInfoAnalyticsContextInfo
 
-				-- pull out any initial props stored in state, provide them as props
-				Dash.join(navigation.state, {
-					key = Dash.None,
-					routeName = Dash.None,
-				})
-			)
-			return pageConstructor(viewProps)
-		end)
+				if getPageInfoAnalyticsContextInfo then
+					local analyticsContext = getPageInfoAnalyticsContextInfo()
+					local searchID = analyticsContext.searchId
+					local navBreadcrumbs = navContext:getBreadcrumbRoute()
+					local toolboxTab = analyticsContext.toolboxTab
+					local assetType = analyticsContext.currentCategory
+
+					analytics:logPageView(searchID, searchCategory, pathName, navBreadcrumbs, toolboxTab, assetType)
+				end
+
+				navContext:push(routeName, pathName, props)
+			end
+
+			self.navigateGoBack = function()
+				local navContext = navProps.NavigationContext
+				local analytics = navProps.AssetAnalytics:get()
+				local getPageInfoAnalyticsContextInfo = navProps.getPageInfoAnalyticsContextInfo
+
+				if getPageInfoAnalyticsContextInfo then
+					local analyticsContext = getPageInfoAnalyticsContextInfo()
+					local searchID = analyticsContext.searchId
+					local navBreadcrumbs = navContext:getBreadcrumbRoute()
+					local searchCategory = navBreadcrumbs[2]
+					local pathName = navContext:getCurrentPath()
+					local toolboxTab = analyticsContext.toolboxTab
+					local assetType = analyticsContext.currentCategory
+					analytics:logGoBack(searchID, searchCategory, pathName, navBreadcrumbs, toolboxTab, assetType)
+				end
+
+				navContext:popToTop()
+			end
+		end
+
+		function NavWrapper:render()
+			return RoactNavigation.withNavigation(function(navigation, focused)
+				-- update the unified navigation
+				local navContext = self.props.NavigationContext
+				navContext:updateNavigation(navigation)
+
+				local viewProps = Dash.join(
+					{
+						focused = focused,
+						navigateTo = self.navigateTo,
+						navigateGoBack = self.navigateGoBack,
+					},
+					props or {},
+
+					-- pull out any initial props stored in state, provide them as props
+					Dash.join(navigation.state, {
+						key = Dash.None,
+						routeName = Dash.None,
+					})
+				)
+				return pageConstructor(viewProps)
+			end)
+		end
+
+		local function mapDispatchToProps(dispatch)
+			return {
+				getPageInfoAnalyticsContextInfo = if FFlagToolboxUsePageInfoInsteadOfAssetContext
+					then function()
+						return dispatch(GetPageInfoAnalyticsContextInfo())
+					end
+					else nil,
+			}
+		end
+
+		NavWrapper = ContextServices.withContext({
+			AssetAnalytics = AssetAnalyticsContextItem,
+			NavigationContext = NavigationContext,
+		})(NavWrapper)
+
+		NavWrapper = RoactRodux.connect(nil, mapDispatchToProps)(NavWrapper)
+		return Roact.createElement(NavWrapper, props)
 	end
 end
 
-local function getAssetLogicWrapperProps(props)
+local function getAssetLogicWrapperProps(viewProps)
+	local props = viewProps.params or viewProps
 	return {
 		CanInsertAsset = props.CanInsertAsset,
 		OnAssetPreviewButtonClicked = props.OnAssetPreviewButtonClicked,
@@ -50,7 +122,7 @@ end
 
 -- A list of views we can route to. Add any new navigatable pages here.
 local navigationRoutes
-if FFlagToolboxAssetCategorization2 then
+if FFlagToolboxAssetCategorization3 then
 	navigationRoutes = {
 		[Constants.NAVIGATION.HOME] = wrapViewForRoactNavigation(function(viewProps)
 			return Roact.createElement(
@@ -58,21 +130,37 @@ if FFlagToolboxAssetCategorization2 then
 				Dash.join(getAssetLogicWrapperProps(viewProps), {
 					AssetSections = viewProps.AssetSections,
 					CategoryName = viewProps.CategoryName,
-					TopKeywords = viewProps.TopKeywords,
-					OnClickSubcategory = function(subcategoryPath, subcategoryDict, categoryName, sortName)
-						viewProps.navigation.push(
-							Constants.NAVIGATION.SUBCATEGORY,
-							Dash.join(viewProps, getAssetLogicWrapperProps(viewProps), {
-								CategoryName = categoryName,
-								SortName = sortName,
-								SubcategoryPath = subcategoryPath,
-								SubcategoryDict = subcategoryDict,
-								TopKeywords = viewProps.TopKeywords,
-							})
-						)
+					OnClickSubcategory = function(subcategoryName, subcategoryDict, searchTerm, categoryName, sortName)
+						if subcategoryDict.childCount == 0 then
+							viewProps.navigateTo(
+								Constants.NAVIGATION.RESULTS,
+								Constants.HOMEVIEW_SEARCH_CATEGORY,
+								subcategoryName,
+								Dash.join(viewProps, getAssetLogicWrapperProps(viewProps), {
+									CategoryName = categoryName,
+									SearchTerm = searchTerm,
+									SortName = sortName,
+								})
+							)
+						else
+							viewProps.navigateTo(
+								Constants.NAVIGATION.SUBCATEGORY,
+								Constants.HOMEVIEW_SEARCH_CATEGORY,
+								subcategoryName,
+								Dash.join(viewProps, getAssetLogicWrapperProps(viewProps), {
+									CategoryName = categoryName,
+									SortName = sortName,
+									SubcategoryPath = { subcategoryName },
+									SubcategoryDict = subcategoryDict.children,
+									TopKeywords = viewProps.TopKeywords,
+								})
+							)
+						end
 					end,
 					OnClickSeeAllSubcategories = function(mySubcategoryDict, categoryName, sortName)
-						viewProps.navigation.push(
+						viewProps.navigateTo(
+							Constants.NAVIGATION.ALL_SUBCATEGORIES,
+							Constants.HOMEVIEW_SEARCH_CATEGORY,
 							Constants.NAVIGATION.ALL_SUBCATEGORIES,
 							Dash.join(viewProps, getAssetLogicWrapperProps(viewProps), {
 								CategoryName = categoryName,
@@ -81,9 +169,11 @@ if FFlagToolboxAssetCategorization2 then
 							})
 						)
 					end,
-					OnClickSeeAllAssets = function(sectionName, categoryName, sortName, searchTerm)
-						viewProps.navigation.push(
+					OnClickSeeAllAssets = function(sectionName, categoryName, sortName, searchTerm, navigation)
+						viewProps.navigateTo(
 							Constants.NAVIGATION.RESULTS,
+							sectionName,
+							sectionName,
 							Dash.join(viewProps, getAssetLogicWrapperProps(viewProps), {
 								CategoryName = categoryName,
 								SearchTerm = searchTerm,
@@ -95,6 +185,7 @@ if FFlagToolboxAssetCategorization2 then
 					SubcategoryDict = viewProps.SubcategoryDict,
 					SortName = viewProps.SortName,
 					Size = UDim2.new(1, 0, 1, 0),
+					TopKeywords = viewProps.TopKeywords,
 					MaxWidth = viewProps.MaxWidth,
 				})
 			)
@@ -107,15 +198,17 @@ if FFlagToolboxAssetCategorization2 then
 
 			return Roact.createElement(
 				SubcategoriesView,
-				Dash.join(getAssetLogicWrapperProps(params), {
+				Dash.join(getAssetLogicWrapperProps(viewProps), {
 					CategoryName = categoryName,
 					OnClickBack = function()
-						viewProps.navigation.popToTop()
+						viewProps:navigateGoBack()
 					end,
 					OnClickSubcategory = function(subcategoryPath, mySubcategoryDict, myCategoryName, mySortName)
-						viewProps.navigation.push(
+						viewProps.navigateTo(
 							Constants.NAVIGATION.SUBCATEGORY,
-							Dash.join(viewProps, getAssetLogicWrapperProps(params), {
+							Constants.HOMEVIEW_SEARCH_CATEGORY,
+							subcategoryPath[#subcategoryPath],
+							Dash.join(viewProps, getAssetLogicWrapperProps(viewProps), {
 								CategoryName = myCategoryName,
 								SortName = mySortName,
 								SubcategoryPath = subcategoryPath,
@@ -124,9 +217,11 @@ if FFlagToolboxAssetCategorization2 then
 						)
 					end,
 					OnClickSeeAllAssets = function(sectionName, myCategoryName, mySortName, searchTerm)
-						viewProps.navigation.push(
+						viewProps.navigateTo(
 							Constants.NAVIGATION.RESULTS,
-							Dash.join(viewProps, getAssetLogicWrapperProps(params), {
+							Constants.HOMEVIEW_SEARCH_CATEGORY,
+							sectionName,
+							Dash.join(viewProps, getAssetLogicWrapperProps(viewProps), {
 								CategoryName = myCategoryName,
 								SearchTerm = searchTerm,
 								SectionName = sectionName,
@@ -149,19 +244,20 @@ if FFlagToolboxAssetCategorization2 then
 
 			return Roact.createElement(
 				SubcategoriesSwimlaneView,
-				Dash.join(getAssetLogicWrapperProps(params), {
+				Dash.join(getAssetLogicWrapperProps(viewProps), {
 					CategoryName = categoryName,
 					MaxWidth = viewProps.MaxWidth,
 					OnClickBack = function()
-						viewProps.navigation.popToTop()
+						viewProps:navigateGoBack()
 					end,
 					OnClickSeeAllAssets = function(sectionName, myCategoryName, mySortName, searchTerm)
-						viewProps.navigation.push(
+						viewProps.navigateTo(
 							Constants.NAVIGATION.RESULTS,
-							Dash.join(viewProps, getAssetLogicWrapperProps(params), {
+							Constants.HOMEVIEW_SEARCH_CATEGORY,
+							sectionName,
+							Dash.join(viewProps, getAssetLogicWrapperProps(viewProps), {
 								CategoryName = myCategoryName,
 								SearchTerm = searchTerm,
-								SectionName = sectionName,
 								SortName = mySortName,
 							})
 						)
@@ -182,10 +278,10 @@ if FFlagToolboxAssetCategorization2 then
 
 			return Roact.createElement(
 				ResultsView,
-				Dash.join(getAssetLogicWrapperProps(params), {
+				Dash.join(getAssetLogicWrapperProps(viewProps), {
 					CategoryName = categoryName,
 					OnClickBack = function()
-						viewProps.navigation.popToTop()
+						viewProps:navigateGoBack()
 					end,
 					SearchTerm = searchTerm,
 					SectionName = sectionName,
@@ -208,14 +304,17 @@ local NavigationContainer = Roact.PureComponent:extend("NavigationContainer")
 
 function NavigationContainer:render()
 	local homeProps = self.props
+	local initialRoute = Constants.NAVIGATION.HOME
 
 	local rootNavigator = RoactNavigation.createStackNavigator({
-		initialRouteName = Constants.NAVIGATION.HOME,
+		initialRouteName = initialRoute,
 		initialRouteParams = homeProps,
 		routes = navigationRoutes,
 	})
 
-	return Roact.createElement(RoactNavigation.createAppContainer(rootNavigator))
+	return ContextServices.provide({
+		NavigationContext.new(initialRoute),
+	}, Roact.createElement(RoactNavigation.createAppContainer(rootNavigator)))
 end
 
 return AssetLogicWrapper(NavigationContainer)

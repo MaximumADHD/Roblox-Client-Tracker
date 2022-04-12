@@ -7,9 +7,8 @@ local Category = require(Plugin.Core.Types.Category)
 local Url = require(Plugin.Libs.Http.Url)
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
-local Rollouts = require(Plugin.Core.Rollouts)
 
-local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
+local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 
 local Urls = {}
@@ -127,7 +126,7 @@ function Urls.constructGetAssetsUrl(category, searchTerm, pageSize, page, sortTy
 end
 
 function Urls.constructGetToolboxItemsUrl(
-	-- remove string from args union when removing FFlagToolboxAssetCategorization2
+	-- remove string from args union when removing FFlagToolboxAssetCategorization3
 	args: string | {
 		categoryName: string,
 		sectionName: string?,
@@ -156,14 +155,14 @@ function Urls.constructGetToolboxItemsUrl(
 	useCreatorWhitelist: boolean?
 )
 	local categoryName: string
-	if FFlagToolboxAssetCategorization2 and type(args) ~= "string" then
+	if FFlagToolboxAssetCategorization3 and type(args) ~= "string" then
 		categoryName = args.categoryName
 		ownerId = args.ownerId
 	else
 		categoryName = args :: string
 	end
 
-	local query = if FFlagToolboxAssetCategorization2
+	local query = if FFlagToolboxAssetCategorization3
 		then Dash.omit(args, {
 			"categoryName",
 			"sectionName",
@@ -189,7 +188,7 @@ function Urls.constructGetToolboxItemsUrl(
 	end
 
 	local targetUrl
-	if FFlagToolboxAssetCategorization2 and type(args) ~= "string" and args.sectionName then
+	if FFlagToolboxAssetCategorization3 and type(args) ~= "string" and args.sectionName then
 		local apiName = Category.ToolboxAssetTypeToEngine[categoryData.assetType].Value
 		targetUrl = string.format("%s/home/%s/section/%s/assets", TOOLBOX_SERVICE_URL, apiName, args.sectionName)
 	else
@@ -203,7 +202,7 @@ function Urls.constructGetToolboxItemsUrl(
 		if categoryData.ownershipType == Category.OwnershipType.MY then
 			targetUrl = string.format("%s/inventory/user/%d/%s", TOOLBOX_SERVICE_URL, ownerId :: number, apiName)
 		elseif categoryData.ownershipType == Category.OwnershipType.GROUP then
-			if Rollouts:getToolboxGroupCreationsMigration() and isCreationsTab then
+			if isCreationsTab then
 				targetUrl = string.format("%s/creations/group/%d/%s", TOOLBOX_SERVICE_URL, ownerId :: number, apiName)
 			else
 				targetUrl = string.format("%s/inventory/group/%d/%s", TOOLBOX_SERVICE_URL, ownerId :: number, apiName)
@@ -589,7 +588,7 @@ function Urls.constructToolboxAutocompleteUrl(categoryName, searchTerm, numberOf
 	return url
 end
 
-if FFlagToolboxAssetCategorization2 then
+if FFlagToolboxAssetCategorization3 then
 	function Urls.constructGetHomeConfigurationUrl(assetType: Enum.AssetType, locale: string?)
 		return string.format("%s/home/%s/configuration?", TOOLBOX_SERVICE_URL, assetType.Name)
 			.. Url.makeQueryString({

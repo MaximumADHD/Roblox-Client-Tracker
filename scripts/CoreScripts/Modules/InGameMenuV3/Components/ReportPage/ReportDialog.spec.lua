@@ -24,7 +24,6 @@ return function()
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
 
-	local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 
 	local appStyle = {
@@ -124,11 +123,7 @@ return function()
 				store:flush()
 			end)
 
-			if GetFFlagInGameMenuControllerDevelopmentOnly() == false then
-				jestExpect(GuiService.SelectedCoreObject).toBeNil()
-			elseif GetFFlagInGameMenuControllerDevelopmentOnly() == true then
-				jestExpect(tostring(GuiService.SelectedCoreObject)).toEqual("OpenDropDownButton")
-			end
+			jestExpect(tostring(GuiService.SelectedCoreObject)).toEqual("OpenDropDownButton")
 
 			Roact.unmount(instance)
 			GuiService.SelectedCoreObject = nil
@@ -144,11 +139,7 @@ return function()
 				store:flush()
 			end)
 
-			if GetFFlagInGameMenuControllerDevelopmentOnly() == false then
-				jestExpect(GuiService.SelectedCoreObject).toBeNil()
-			elseif GetFFlagInGameMenuControllerDevelopmentOnly() == true then
-				jestExpect(tostring(GuiService.SelectedCoreObject)).toEqual("TextBox")
-			end
+			jestExpect(tostring(GuiService.SelectedCoreObject)).toEqual("TextBox")
 
 			Roact.unmount(instance)
 			GuiService.SelectedCoreObject = nil

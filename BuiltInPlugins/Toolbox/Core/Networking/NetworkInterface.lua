@@ -22,7 +22,7 @@ local Category = require(Plugin.Core.Types.Category)
 local ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
 local PermissionTypes = require(Plugin.Core.Types.PermissionTypes)
 
-local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
+local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 local FIntToolboxGrantUniverseAudioPermissionsTimeoutInMS = game:GetFastInt(
 	"ToolboxGrantUniverseAudioPermissionsTimeoutInMS"
@@ -98,7 +98,7 @@ function NetworkInterface:getAssets(pageInfo)
 end
 
 function NetworkInterface:getToolboxItems(
-	-- remove string from args union when removing FFlagToolboxAssetCategorization2
+	-- remove string from args union when removing FFlagToolboxAssetCategorization3
 	args: string | {
 		categoryName: string,
 		sectionName: string?,
@@ -125,7 +125,7 @@ function NetworkInterface:getToolboxItems(
 	limit: number?
 )
 	local categoryName: string
-	if FFlagToolboxAssetCategorization2 and type(args) ~= "string" then
+	if FFlagToolboxAssetCategorization3 and type(args) ~= "string" then
 		categoryName = args.categoryName
 	else
 		categoryName = args :: string
@@ -137,7 +137,7 @@ function NetworkInterface:getToolboxItems(
 		useCreatorWhitelist = ToolboxUtilities.getShouldUsePluginCreatorWhitelist()
 	end
 
-	local targetUrl = if FFlagToolboxAssetCategorization2
+	local targetUrl = if FFlagToolboxAssetCategorization3
 		then Urls.constructGetToolboxItemsUrl(Dash.join(args, { useCreatorWhitelist = useCreatorWhitelist }))
 		else Urls.constructGetToolboxItemsUrl(
 			categoryName,
@@ -176,7 +176,7 @@ function NetworkInterface:getItemDetails(data)
 		table.insert(assetIds, assetInfo.id)
 	end
 
-	if FFlagToolboxAssetCategorization2 then
+	if FFlagToolboxAssetCategorization3 then
 		return self:getItemDetailsAssetIds(assetIds)
 	else
 		local targetUrl = Urls.constructGetItemDetails(assetIds)
@@ -907,7 +907,7 @@ function NetworkInterface:getAutocompleteResults(categoryName, searchTerm, numbe
 	return self._networkImp:httpGetJson(targetUrl)
 end
 
-if FFlagToolboxAssetCategorization2 then
+if FFlagToolboxAssetCategorization3 then
 	function NetworkInterface:getHomeConfiguration(assetType: Enum.AssetType, locale: string?)
 		local targetUrl = Urls.constructGetHomeConfigurationUrl(assetType, locale)
 		printUrl("getHomeConfiguration", "GET", targetUrl)

@@ -1,8 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 local isCli = require(script.Parent.isCli)
 
-local FFlagToolboxDisableAutocompleteWithGuac = game:GetFastFlag("ToolboxDisableAutocompleteWithGuac")
-local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
+local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
 local FFlagAssetConfigDistributionQuotas = game:GetFastFlag("AssetConfigDistributionQuotas")
 
 local AssetQuotaTypes = require(Plugin.Core.Types.AssetQuotaTypes)
@@ -70,13 +69,11 @@ function ToolboxUtilities.getShouldHideVerifiedCreatorBadges()
 	return ToolboxPolicy["HideVerifiedCreatorBadges"]
 end
 
-if FFlagToolboxDisableAutocompleteWithGuac then
-	function ToolboxUtilities.getShouldDisableAutocomplete()
-		return ToolboxPolicy["DisableAutocomplete"]
-	end
+function ToolboxUtilities.getShouldDisableAutocomplete()
+	return ToolboxPolicy["DisableAutocomplete"]
 end
 
-if FFlagToolboxAssetCategorization2 then
+if FFlagToolboxAssetCategorization3 then
 	function ToolboxUtilities.getHomeViewEnabledAssetTypes()
 		return ToolboxPolicy["HomeViewEnabledAssetTypes"]
 	end

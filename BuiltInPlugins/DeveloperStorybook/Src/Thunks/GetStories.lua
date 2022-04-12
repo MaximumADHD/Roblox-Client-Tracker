@@ -23,7 +23,9 @@ local sort = table.sort
 local split = string.split
 
 local SetStories = require(Main.Src.Actions.SetStories)
-local ModuleLoader = require(Main.Src.Util.ModuleLoader)
+
+local TestLoader = require(Main.Packages.TestLoader)
+local ModuleLoader = TestLoader.ModuleLoader
 
 -- Services to search for .storybook files
 local STORYBOOK_SOURCES = {

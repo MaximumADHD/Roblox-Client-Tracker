@@ -9,6 +9,7 @@
 
 local Plugin = script.Parent.Parent.Parent
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
+local FFlagDevFrameworkTooltipCustomContent = game:GetFastFlag("DevFrameworkTooltipCustomContent")
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -20,6 +21,8 @@ local UI = require(Framework.UI)
 local Button = UI.Button
 local HoverArea = UI.HoverArea
 local LinkText = UI.LinkText
+local Pane = UI.Pane
+local TextLabel = UI.Decoration.TextLabel
 local Tooltip = UI.Tooltip
 
 local Util = require(Framework.Util)
@@ -28,7 +31,7 @@ local StyleModifier = Util.StyleModifier
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local SearchBar = UILibrary.Component.SearchBar
-local StyledTooltip = UILibrary.Component.StyledTooltip
+local DEPRECATED_StyledTooltip = UILibrary.Component.StyledTooltip -- Remove with FFlagDevFrameworkTooltipCustomContent
 local GetTextSize = UILibrary.Util.GetTextSize
 
 local SetRecentViewToggled = require(Plugin.Src.Actions.SetRecentViewToggled)
@@ -93,7 +96,12 @@ function TopBar:render()
         theme.Font, Vector2.new(topBarTheme.Tooltip.Width, math.huge))
     local linkTextExtents = GetTextSize(bulkImporterLinkText, topBarTheme.Tooltip.TextSize,
         theme.Font, Vector2.new(topBarTheme.Tooltip.Width, math.huge))
-    local tooltipHeight = tooltipTextExtents.Y + 3 * topBarTheme.Tooltip.Padding + linkTextExtents.Y
+    local tooltipHeight
+	if FFlagDevFrameworkTooltipCustomContent then
+		tooltipHeight = tooltipTextExtents.Y + topBarTheme.Tooltip.Padding + linkTextExtents.Y
+	else
+		tooltipHeight = tooltipTextExtents.Y + 3 * topBarTheme.Tooltip.Padding + linkTextExtents.Y
+	end
 
     local view = props.View
     local dispatchSetView = props.dispatchSetView
@@ -252,7 +260,7 @@ function TopBar:render()
                 end
             end,
         }, {
-            OpenBulkImporterTooltip = Roact.createElement(StyledTooltip, {
+            DEPRECATED_OpenBulkImporterTooltip = if not FFlagDevFrameworkTooltipCustomContent then Roact.createElement(DEPRECATED_StyledTooltip, {
                 Elements = {
                     Roact.createElement("UIListLayout", {
                         Padding = UDim.new(0, topBarTheme.Tooltip.Padding),
@@ -295,7 +303,38 @@ function TopBar:render()
 
                 TooltipExtents = Vector2.new(topBarTheme.Tooltip.Width, tooltipHeight),
                 Enabled = bulkImporterRunning,
-            }),
+            }) else nil,
+
+            OpenBulkImporterTooltip = if FFlagDevFrameworkTooltipCustomContent then Roact.createElement(Tooltip, {
+                Content = Roact.createElement(Pane, {
+                    Layout = Enum.FillDirection.Vertical,
+                    Spacing = topBarTheme.Tooltip.Padding,
+                    Style = "Box",
+                }, {
+                    TextLabel = Roact.createElement(TextLabel, {
+                        AutomaticSize = Enum.AutomaticSize.Y,
+                        Font = theme.Font,
+                        LayoutOrder = 1,
+                        Size = UDim2.fromScale(1, 0),
+                        Text = bulkImporterTooltipText,
+                        TextSize = topBarTheme.Tooltip.TextSize,
+                        TextWrapped = true,
+                        TextXAlignment = Enum.TextXAlignment.Left,
+                    }),
+
+                    LinkText = Roact.createElement(LinkText, {
+                        LayoutOrder = 2,
+                        Style = "BulkImporterTooltip",
+                        Text = bulkImporterLinkText,
+
+                        OnClick = function()
+                            BulkImportService:ShowBulkImportView()
+                        end,
+                    }),
+                }),
+                ContentExtents = Vector2.new(topBarTheme.Tooltip.Width, tooltipHeight),
+                Enabled = bulkImporterRunning,
+            }) else nil,
 
             HoverArea = not bulkImporterRunning and enabled and Roact.createElement(HoverArea, {
                 Cursor = "PointingHand",

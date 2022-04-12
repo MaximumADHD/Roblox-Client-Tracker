@@ -41,6 +41,8 @@ local TangentControl = require(Plugin.Src.Components.Curves.TangentControl)
 
 local GetFFlagQuaternionCurves = require(Plugin.LuaFlags.GetFFlagQuaternionCurves)
 
+local FFlagFirstLastQuaternionKeys = game:DefineFastFlag("ACEFirstLastQuaternionKeys", false)
+
 local CurveCanvas = Roact.PureComponent:extend("CurveCanvas")
 
 export type Props = {
@@ -146,7 +148,7 @@ function CurveCanvas:renderCurve(track: {any}): ()
 
 	-- Display a small dot on the scrubber
 	local playhead = self.props.Playhead
-	local scrubberPosition = self:toCanvasSpace(Vector2.new(playhead, KeyframeUtils.getValue(track, playhead)))
+	local scrubberPosition = self:toCanvasSpace(Vector2.new(playhead, KeyframeUtils.getValue(track, playhead)::number))
 	local scrubberName = string.format("%s_Scrubber", pathName)
 
 	self.children[scrubberName] = Roact.createElement(Keyframe, {
@@ -222,39 +224,15 @@ function CurveCanvas:renderCurve(track: {any}): ()
 						Color = curveColor,
 						Width = if curveSelected then Constants.CURVE_WIDTH_SELECTED else Constants.CURVE_WIDTH,
 						FrameWidth = props.AbsoluteSize.X,
-						Transparency = 0.5,
 						ZIndex = 2,
 					})
 				end
 			end
 
 			local keyframeName = string.format("%s_Keyframe_%d", pathName, keyframeIndex)
-			self.children[keyframeName] = Roact.createElement(Keyframe, {
-				Position = cur,
-				TrackName = trackName,
-				InterpolationMode = curKeyframe.InterpolationMode,
-				PrevInterpolationMode = if prevKeyframe then prevKeyframe.InterpolationMode else nil,
-				LeftSlope = if keyframeIndex == 1 then nil else curKeyframe.LeftSlope,
-				RightSlope = if keyframeIndex == #track.Keyframes then nil else curKeyframe.RightSlope,
-				Color = color,
-				ShowSlopes = false,
-				Selected = curSelected,
-				ZIndex = 4,
-				OnRightClick = if props.OnKeyRightClick then function(_, input)
-					props.OnKeyRightClick(track.Instance, track.Path, curTick, curSelected)
-				end else nil,
-				OnInputBegan = if props.OnKeyInputBegan then function(_, input)
-					props.OnKeyInputBegan(track.Instance, track.Path, curTick, curSelected, input)
-				end else nil,
-				OnInputEnded = if props.OnKeyInputEnded then function(_, input)
-					props.OnKeyInputEnded(curTick, curKeyframe.Value, curSelected, input)
-				end else nil,
-			})
-
-			-- Display the "other" keyframe of the quaternion track, at Y=0
-			if GetFFlagQuaternionCurves() and track.Type == Constants.TRACK_TYPES.Quaternion then
-				self.children[keyframeName .. "b"] = Roact.createElement(Keyframe, {
-					Position = curB,
+			if not FFlagFirstLastQuaternionKeys or track.Type ~= Constants.TRACK_TYPES.Quaternion or keyframeIndex > 1 then
+				self.children[keyframeName] = Roact.createElement(Keyframe, {
+					Position = cur,
 					TrackName = trackName,
 					InterpolationMode = curKeyframe.InterpolationMode,
 					PrevInterpolationMode = if prevKeyframe then prevKeyframe.InterpolationMode else nil,
@@ -274,6 +252,33 @@ function CurveCanvas:renderCurve(track: {any}): ()
 						props.OnKeyInputEnded(curTick, curKeyframe.Value, curSelected, input)
 					end else nil,
 				})
+			end
+
+			-- Display the "other" keyframe of the quaternion track, at Y=0
+			if not FFlagFirstLastQuaternionKeys or keyframeIndex < #track.Keyframes then
+				if GetFFlagQuaternionCurves() and track.Type == Constants.TRACK_TYPES.Quaternion then
+					self.children[keyframeName .. "b"] = Roact.createElement(Keyframe, {
+						Position = curB,
+						TrackName = trackName,
+						InterpolationMode = curKeyframe.InterpolationMode,
+						PrevInterpolationMode = if prevKeyframe then prevKeyframe.InterpolationMode else nil,
+						LeftSlope = if keyframeIndex == 1 then nil else curKeyframe.LeftSlope,
+						RightSlope = if keyframeIndex == #track.Keyframes then nil else curKeyframe.RightSlope,
+						Color = color,
+						ShowSlopes = false,
+						Selected = curSelected,
+						ZIndex = 4,
+						OnRightClick = if props.OnKeyRightClick then function(_, input)
+							props.OnKeyRightClick(track.Instance, track.Path, curTick, curSelected)
+						end else nil,
+						OnInputBegan = if props.OnKeyInputBegan then function(_, input)
+							props.OnKeyInputBegan(track.Instance, track.Path, curTick, curSelected, input)
+						end else nil,
+						OnInputEnded = if props.OnKeyInputEnded then function(_, input)
+							props.OnKeyInputEnded(curTick, curKeyframe.Value, curSelected, input)
+						end else nil,
+					})
+				end
 			end
 
 			if curSelected then

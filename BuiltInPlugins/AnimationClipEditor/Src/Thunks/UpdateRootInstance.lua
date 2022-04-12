@@ -25,7 +25,6 @@ local SetFuture = require(Plugin.Src.Actions.SetFuture)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local FFlagClearDataOnRootInstanceChange = game:DefineFastFlag("ACEClearDataOnRootInstanceChange", false)
 
 return function(rootInstance, analytics)
 	return function(store)
@@ -73,13 +72,10 @@ return function(rootInstance, analytics)
 				store:dispatch(LoadKeyframeSequence(animSaves[1].Name, analytics))
 			end
 		else
-			if GetFFlagChannelAnimations() or FFlagClearDataOnRootInstanceChange then
-				-- We actually need to reset much more than the animation data here
-				store:dispatch(SetPast({}))
-				store:dispatch(SetFuture({}))
-				store:dispatch(SetSelectedKeyframes({}))
-				store:dispatch(SortAndSetTracks({}))
-			end
+			store:dispatch(SetPast({}))
+			store:dispatch(SetFuture({}))
+			store:dispatch(SetSelectedKeyframes({}))
+			store:dispatch(SortAndSetTracks({}))
 			store:dispatch(SetAnimationData(nil))
 		end
 

@@ -1,3 +1,13 @@
+local RunService = game:GetService("RunService")
+local isCli = pcall(function()
+	return game:GetService("ProcessService")
+end)
+local isRunning = RunService:IsRunning()
+-- The embedded storybook should only be run inside Studio
+if isCli or not isRunning then
+	return nil
+end
+
 local StarterGui = game:GetService("StarterGui")
 StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, false)
 

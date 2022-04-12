@@ -19,12 +19,10 @@ local CreatorInfoHelper = require(Plugin.Core.Util.CreatorInfoHelper)
 
 local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 
-local FFlagToolboxFixCreatorSearchResults = game:GetFastFlag("ToolboxFixCreatorSearchResults")
-
 local function searchUsers(networkInterface, searchTerm, store)
 	-- For some usernames, other accounts might appear above them in the search results, so fetch more results to be safe.
 	-- 3 results corresponds with the number of results returned from the LiveSearchDropdown.
-	local totalToFetch = FFlagToolboxFixCreatorSearchResults and 3 or 1
+	local totalToFetch = 3
 
 	return networkInterface:getUsers(searchTerm, totalToFetch):andThen(function(result)
 		local data = result.responseBody
@@ -32,13 +30,11 @@ local function searchUsers(networkInterface, searchTerm, store)
 			local userSearchResults = data.UserSearchResults
 			if userSearchResults and #userSearchResults > 0 then
 				local index = 1
-				if FFlagToolboxFixCreatorSearchResults then
-					local lcaseSearch = string.lower(searchTerm)
-					for i, userInfo in ipairs(userSearchResults) do
-						if string.lower(userInfo.Name) == lcaseSearch then
-							index = i
-							break
-						end
+				local lcaseSearch = string.lower(searchTerm)
+				for i, userInfo in ipairs(userSearchResults) do
+					if string.lower(userInfo.Name) == lcaseSearch then
+						index = i
+						break
 					end
 				end
 
@@ -88,28 +84,22 @@ return function(networkInterface, settings, options)
 				Analytics.onCreatorSearched(creatorInfo.Name, creatorInfo.Id)
 			end
 
-			if FFlagToolboxFixCreatorSearchResults then
-				if type(options.Creator) == "string" then
-					-- we don't really know who the creator is, so fetch the first result based on their name
-					searchUsers(networkInterface, options.Creator, store):andThen(
-						updateSearchResultsHandler,
-						function(err)
-							-- We should still handle the error if searchUser fails.
-						end
-					)
-				elseif type(options.Creator == "table") then
-					-- assume we've gotten the creator details from the dropdown already
-					local details = {
-						Name = options.Creator.Name,
-						Id = options.Creator.Id,
-						Type = CreatorInfoHelper.clientToBackend(Enum.CreatorType.User.Value),
-					}
-					updateSearchResultsHandler(details)
-				end
-			else
-				searchUsers(networkInterface, options.Creator, store):andThen(updateSearchResultsHandler, function(err)
-					-- We should still handle the error if searchUser fails.
-				end)
+			if type(options.Creator) == "string" then
+				-- we don't really know who the creator is, so fetch the first result based on their name
+				searchUsers(networkInterface, options.Creator, store):andThen(
+					updateSearchResultsHandler,
+					function(err)
+						-- We should still handle the error if searchUser fails.
+					end
+				)
+			elseif type(options.Creator == "table") then
+				-- assume we've gotten the creator details from the dropdown already
+				local details = {
+					Name = options.Creator.Name,
+					Id = options.Creator.Id,
+					Type = CreatorInfoHelper.clientToBackend(Enum.CreatorType.User.Value),
+				}
+				updateSearchResultsHandler(details)
 			end
 		else
 			local creator = Cryo.None

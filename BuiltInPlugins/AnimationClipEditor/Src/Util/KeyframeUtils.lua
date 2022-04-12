@@ -7,15 +7,16 @@ local Plugin = script.Parent.Parent.Parent
 local Constants = require(Plugin.Src.Util.Constants)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 
+local Types = require(Plugin.Src.Types)
+
 local TweenService = game:GetService("TweenService")
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
-local GetFFlagKeyframeUtilsGetValueCleanup = require(Plugin.LuaFlags.GetFFlagKeyframeUtilsGetValueCleanup)
 
 local KeyframeUtils = {}
 
-function KeyframeUtils.getDefaultValue(trackType)
+function KeyframeUtils.getDefaultValue(trackType: string) : (CFrame | Vector3 | number)
 	if trackType == Constants.TRACK_TYPES.CFrame then
 		return CFrame.new()
 	elseif GetFFlagChannelAnimations() and (trackType == Constants.TRACK_TYPES.Position or
@@ -28,6 +29,9 @@ function KeyframeUtils.getDefaultValue(trackType)
 	elseif GetFFlagQuaternionChannels() and trackType == Constants.TRACK_TYPES.Quaternion then
 		return CFrame.new()
 	end
+
+	assert(false, "Unknown track type")
+	return 0
 end
 
 -- TODO: This is awful design
@@ -444,32 +448,10 @@ function KeyframeUtils.blendKeyframes(dataTable, tck, low, high)
 	return KeyframeUtils.interpolate(lowEntry.Value, highEntry.Value, alpha)
 end
 
--- Blends the values of two keyframes based on the current tick position
--- Deprecated with GetFFlagKeyframeUtilsGetValueCleanup()
-function KeyframeUtils:blendKeyframes_deprecated(dataTable, tck, low, high)
-	assert(low < high, "Low keyframe must be less than high keyframe.")
-	local lowEntry = dataTable[low]
-	local highEntry = dataTable[high]
-	local distance = (tck - low) / (high - low)
-
-	local alpha
-	if lowEntry.EasingStyle == Enum.PoseEasingStyle.Constant then
-		return lowEntry.Value
-	elseif lowEntry.EasingStyle == Enum.PoseEasingStyle.Linear then
-		alpha = distance
-	else
-		alpha = TweenService:GetValue(distance,
-			Enum.EasingStyle[lowEntry.EasingStyle.Name],
-			Enum.EasingDirection[lowEntry.EasingDirection.Name])
-	end
-
-	return self.interpolate(lowEntry.Value, highEntry.Value, alpha)
-end
-
 if GetFFlagChannelAnimations() then
 	-- Gets the value of the given track at the given tick.
 	-- Can also receive values between frames, for exporting at higher framerates.
-	KeyframeUtils.getValue = function(track, tck)
+	KeyframeUtils.getValue = function(track: Types.Track, tck: number) : (CFrame | Vector3 | number)?
 		if track.Keyframes and not isEmpty(track.Keyframes) then
 			local keyframes = track.Keyframes
 			local lowIndex, highIndex = KeyframeUtils.findNearestKeyframes(keyframes, tck)
@@ -480,45 +462,42 @@ if GetFFlagChannelAnimations() then
 			elseif track.IsCurveTrack then
 				return KeyframeUtils.blendCurveKeyframes(track, tck, lowKeyframe, highKeyframe)
 			else
-				if GetFFlagKeyframeUtilsGetValueCleanup() then
-					return KeyframeUtils.blendKeyframes(track.Data, tck, lowKeyframe, highKeyframe)
-				else
-					return KeyframeUtils:blendKeyframes_deprecated(track.Data, tck, lowKeyframe, highKeyframe)
-				end
+				return KeyframeUtils.blendKeyframes(track.Data, tck, lowKeyframe, highKeyframe)
 			end
 		end
+
 		if not GetFFlagChannelAnimations() then
 			assert(track.Components and not isEmpty(track.Components), "Keyframes and Components arrays cannot be empty.")
-		else
-			if track.Type == Constants.TRACK_TYPES.CFrame then
-				local positionTrack = track.Components[Constants.PROPERTY_KEYS.Position]
-				local rotationTrack = track.Components[Constants.PROPERTY_KEYS.Rotation]
+		end
 
-				local position = positionTrack and KeyframeUtils.getValue(positionTrack, tck) or Vector3.new()
+		if track.Type == Constants.TRACK_TYPES.CFrame then
+			local positionTrack = track.Components[Constants.PROPERTY_KEYS.Position]
+			local rotationTrack = track.Components[Constants.PROPERTY_KEYS.Rotation]
 
-				if rotationTrack.Type == (GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation) then
-					local rotation = rotationTrack and KeyframeUtils.getValue(rotationTrack, tck) or Vector3.new()
-					return CFrame.new(position) * CFrame.fromEulerAnglesXYZ(rotation.X, rotation.Y, rotation.Z)
-				else
-					local rotation = rotationTrack and KeyframeUtils.getValue(rotationTrack, tck) or CFrame.new()
-					return CFrame.new(position) * rotation
-				end
-			elseif track.Type == Constants.TRACK_TYPES.Position or track.Type == (GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation) then
-				local XTrack = track.Components[Constants.PROPERTY_KEYS.X]
-				local YTrack = track.Components[Constants.PROPERTY_KEYS.Y]
-				local ZTrack = track.Components[Constants.PROPERTY_KEYS.Z]
+			local position = positionTrack and KeyframeUtils.getValue(positionTrack, tck)::Vector3 or Vector3.new()
 
-				local x = XTrack and KeyframeUtils.getValue(XTrack, tck) or 0
-				local y = YTrack and KeyframeUtils.getValue(YTrack, tck) or 0
-				local z = ZTrack and KeyframeUtils.getValue(ZTrack, tck) or 0
-
-				return Vector3.new(x, y, z)
+			if rotationTrack.Type == (GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation) then
+				local rotation = rotationTrack and KeyframeUtils.getValue(rotationTrack, tck)::Vector3 or Vector3.new()
+				return CFrame.new(position) * CFrame.fromEulerAnglesXYZ(rotation.X, rotation.Y, rotation.Z)
+			else
+				local rotation = rotationTrack and KeyframeUtils.getValue(rotationTrack, tck)::CFrame or CFrame.new()
+				return CFrame.new(position) * rotation
 			end
+		elseif track.Type == Constants.TRACK_TYPES.Position or track.Type == (GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation) then
+			local XTrack = track.Components[Constants.PROPERTY_KEYS.X]
+			local YTrack = track.Components[Constants.PROPERTY_KEYS.Y]
+			local ZTrack = track.Components[Constants.PROPERTY_KEYS.Z]
 
+			local x = XTrack and KeyframeUtils.getValue(XTrack, tck)::number or 0
+			local y = YTrack and KeyframeUtils.getValue(YTrack, tck)::number or 0
+			local z = ZTrack and KeyframeUtils.getValue(ZTrack, tck)::number or 0
+
+			return Vector3.new(x, y, z)
+		else
 			return KeyframeUtils.getDefaultValue(track.Type)
 		end
 	end
-elseif GetFFlagKeyframeUtilsGetValueCleanup() then
+else
 	KeyframeUtils.getValue = function(track, tck)
 		local keyframes = track.Keyframes
 		local lowIndex, highIndex = KeyframeUtils.findNearestKeyframes(keyframes, tck)
@@ -529,21 +508,6 @@ elseif GetFFlagKeyframeUtilsGetValueCleanup() then
 		else
 			return KeyframeUtils.blendKeyframes(track.Data, tck, lowKeyframe, highKeyframe)
 		end
-	end
-end
-
--- Gets the value of the given track at the given tick.
--- Can also receive values between ticks, for exporting at higher framerates.
--- Deprecated when GetFFlagKeyframeUtilsGetValueCleanup() is ON
-function KeyframeUtils:getValue_deprecated(track, tck)
-	local keyframes = track.Keyframes
-	local lowIndex, highIndex = self.findNearestKeyframes(keyframes, tck)
-	local lowKeyframe = keyframes[lowIndex]
-	local highKeyframe = highIndex and keyframes[highIndex]
-	if highIndex == nil then
-		return track.Data[lowKeyframe].Value
-	else
-		return self:blendKeyframes_deprecated(track.Data, tck, lowKeyframe, highKeyframe)
 	end
 end
 

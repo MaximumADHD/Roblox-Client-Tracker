@@ -24,9 +24,7 @@ local InviteFriendsList = require(script.InviteFriendsList)
 local AddFriendsNow = require(script.AddFriendsNow)
 local LoadingFriendsError = require(script.LoadingFriendsError)
 
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
-local GetFFlagIGMRefactorInviteFriendsGamepadSupport = require(InGameMenu.Flags.GetFFlagIGMRefactorInviteFriendsGamepadSupport)
 
 local InviteFriendsPage = Roact.PureComponent:extend("InviteFriendsPage")
 
@@ -42,12 +40,8 @@ InviteFriendsPage.defaultProps = {
 }
 
 function InviteFriendsPage:init()
-	if GetFFlagIGMRefactorInviteFriendsGamepadSupport() then
-		self.backButtonRef = Roact.createRef()
-		self.searchBoxRef = Roact.createRef()
-	elseif GetFFlagInGameMenuControllerDevelopmentOnly() then
-		self.firstPlayerRef = Roact.createRef()
-	end
+	self.backButtonRef = Roact.createRef()
+	self.searchBoxRef = Roact.createRef()
 
 	self.state = {
 		loadingFriends = true,
@@ -71,11 +65,6 @@ function InviteFriendsPage:renderLoadingPage()
 end
 
 function InviteFriendsPage:renderError()
-	local canCaptureFocus = nil
-	if GetFFlagIGMRefactorInviteFriendsGamepadSupport() then
-		canCaptureFocus = self.props.canCaptureFocus
-	end
-
 	return Roact.createElement(LoadingFriendsError, {
 		onRetry = function()
 			self:setState({
@@ -84,18 +73,13 @@ function InviteFriendsPage:renderError()
 			})
 			self:loadFriends()
 		end,
-		canCaptureFocus = canCaptureFocus,
+		canCaptureFocus = self.props.canCaptureFocus,
 	})
 end
 
 function InviteFriendsPage:renderNoFriends()
-	local canCaptureFocus = nil
-	if GetFFlagIGMRefactorInviteFriendsGamepadSupport() then
-		canCaptureFocus = self.props.canCaptureFocus
-	end
-
 	return Roact.createElement(AddFriendsNow, {
-		canCaptureFocus = canCaptureFocus,
+		canCaptureFocus = self.props.canCaptureFocus,
 	})
 end
 
@@ -108,15 +92,10 @@ local function sortFriends(f1, f2)
 end
 
 function InviteFriendsPage:renderFriends()
-	local canCaptureFocus = nil
-	if GetFFlagIGMRefactorInviteFriendsGamepadSupport() then
-		canCaptureFocus = self.props.canCaptureFocus
-	end
-
 	return Roact.createElement(InviteFriendsList, {
 		friends = self.state.friends,
-		canCaptureFocus = canCaptureFocus,
-		searchBoxRef = GetFFlagIGMRefactorInviteFriendsGamepadSupport() and self.searchBoxRef or nil,
+		canCaptureFocus = self.props.canCaptureFocus,
+		searchBoxRef = self.searchBoxRef,
 	})
 end
 
@@ -141,34 +120,28 @@ function InviteFriendsPage:render()
 		children.FriendsList = self:renderFriends()
 	end
 
-	if GetFFlagIGMRefactorInviteFriendsGamepadSupport() then
-		return Roact.createElement(RootedConnection, {
-			render = function(isRooted)
-				return Roact.createElement(FocusHandler, {
-					shouldForgetPreviousSelection = GetFFlagIGMGamepadSelectionHistory()
-						and self.props.menuPage ~= "InviteFriends"
-						or nil,
-					isFocused = self.props.canCaptureFocus
-						and state.loadingFriends
-						and isRooted,
+	return Roact.createElement(RootedConnection, {
+		render = function(isRooted)
+			return Roact.createElement(FocusHandler, {
+				shouldForgetPreviousSelection = GetFFlagIGMGamepadSelectionHistory()
+					and self.props.menuPage ~= "InviteFriends"
+					or nil,
+				isFocused = self.props.canCaptureFocus
+					and state.loadingFriends
+					and isRooted,
 
-					didFocus = function()
-						GuiService.SelectedCoreObject = self.backButtonRef:getValue()
-					end,
-				}, {
-					Page = Roact.createElement(Page, {
-						pageTitle = self.props.pageTitle,
-						buttonRef = self.backButtonRef,
-						NextSelectionDown = self.searchBoxRef,
-					}, children),
-				})
-			end,
-		})
-	else
-		return Roact.createElement(Page, {
-			pageTitle = self.props.pageTitle,
-		}, children)
-	end
+				didFocus = function()
+					GuiService.SelectedCoreObject = self.backButtonRef:getValue()
+				end,
+			}, {
+				Page = Roact.createElement(Page, {
+					pageTitle = self.props.pageTitle,
+					buttonRef = self.backButtonRef,
+					NextSelectionDown = self.searchBoxRef,
+				}, children),
+			})
+		end,
+	})
 end
 
 function InviteFriendsPage:didMount()
@@ -176,24 +149,12 @@ function InviteFriendsPage:didMount()
 	self:loadFriends()
 end
 
-function InviteFriendsPage:didUpdate(prevProps)
-	if not GetFFlagIGMRefactorInviteFriendsGamepadSupport() then
-		if GetFFlagInGameMenuControllerDevelopmentOnly() then
-			if self.props.canCaptureFocus and not prevProps.canCaptureFocus then
-				GuiService.SelectedCoreObject = self.firstPlayerRef:getValue()
-			end
-		end
-	end
-end
-
 function InviteFriendsPage:loadFriends()
 	Promise.new(function(resolve, reject)
 		coroutine.wrap(function()
-			local localPlayer = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.PlayersService.LocalPlayer
-				or Players.LocalPlayer
+			local localPlayer = self.props.PlayersService.LocalPlayer
 			local success, friendsPages = pcall(function()
-				return GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.PlayersService:GetFriendsAsync(localPlayer.UserId)
-					or Players:GetFriendsAsync(localPlayer.UserId)
+				return self.props.PlayersService:GetFriendsAsync(localPlayer.UserId)
 			end)
 
 			if not success then
@@ -227,20 +188,11 @@ function InviteFriendsPage:loadFriends()
 				end
 			end
 
-			if GetFFlagIGMRefactorInviteFriendsGamepadSupport() then
-				friends = Cryo.List.sort(friends, sortFriends)
-			end
-
+			friends = Cryo.List.sort(friends, sortFriends)
 			resolve(friends)
 		end)()
 	end):andThen(function(friends)
 		if self.mounted then
-			if not GetFFlagIGMRefactorInviteFriendsGamepadSupport() then
-				if GetFFlagInGameMenuControllerDevelopmentOnly() and friends and #friends ~= 0 then
-					friends = Cryo.List.sort(friends, sortFriends)
-					friends[1].itemRef = self.firstPlayerRef
-				end
-			end
 			self:setState({
 				loadingFriends = false,
 				friends = friends,
@@ -260,23 +212,17 @@ function InviteFriendsPage:willUnmount()
 	self.mounted = false
 end
 
-if GetFFlagInGameMenuControllerDevelopmentOnly() then
-	InviteFriendsPage = RoactRodux.connect(
-		function(state, props)
-			local canCaptureFocus = nil -- Can inline when GetFFlagInGameMenuControllerDevelopmentOnly is removed
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				canCaptureFocus = state.menuPage == "InviteFriends"
-					and state.isMenuOpen
-					and state.displayOptions.inputType == Constants.InputType.Gamepad
-					and not state.respawn.dialogOpen
-					and state.currentZone == 1
-			end
-			return {
-				canCaptureFocus = canCaptureFocus,
-				menuPage = GetFFlagIGMGamepadSelectionHistory() and state.menuPage or nil
-			}
-		end
-	)(InviteFriendsPage)
-end
+return RoactRodux.connect(
+	function(state, props)
+		local canCaptureFocus = state.menuPage == "InviteFriends"
+			and state.isMenuOpen
+			and state.displayOptions.inputType == Constants.InputType.Gamepad
+			and not state.respawn.dialogOpen
+			and state.currentZone == 1
 
-return InviteFriendsPage
+		return {
+			canCaptureFocus = canCaptureFocus,
+			menuPage = GetFFlagIGMGamepadSelectionHistory() and state.menuPage or nil
+		}
+	end
+)(InviteFriendsPage)

@@ -49,7 +49,8 @@ export type _ExternalProps = {
 		sectionName: string?,
 		categoryName: string,
 		sortName: string?,
-		searchTerm: string?
+		searchTerm: string?,
+		navigation: any
 	) -> ()),
 	Position: UDim2?,
 	SectionName: string?,
@@ -137,8 +138,9 @@ function SubcategoriesSwimlaneView:init()
 				InitialPageSize = INITIAL_PAGE_SIZE,
 				LayoutOrder = subcategory.index,
 				OnClickSeeAllAssets = onClickSeeAllAssets,
-				SwimlaneWidth = swimlaneWidth,
 				OnAssetPreviewButtonClicked = onAssetPreviewButtonClicked,
+				PathName = subcategory.name,
+				SwimlaneWidth = swimlaneWidth,
 				Title = subcategory.displayName,
 				TryInsert = tryInsert,
 				TryOpenAssetConfig = tryOpenAssetConfig,

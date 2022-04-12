@@ -43,29 +43,28 @@ function SizeAndPosition:init()
 end
 
 function SizeAndPosition:reposition()
-	local state = self.state
 	local pane = self.ref.current
 	if pane and pane.AbsolutePosition then
-		self:setSizeAndPosition(pane.AbsolutePosition, state.absoluteSize)
+		self:setSizeAndPosition()
 	end
 end
 
 function SizeAndPosition:resize()
-	local state = self.state
 	local pane = self.ref.current
 	if pane and pane.AbsoluteSize then
-		self:setSizeAndPosition(state.absolutePosition, pane.AbsoluteSize)
+		self:setSizeAndPosition()
 	end
 end
 
-function SizeAndPosition:setSizeAndPosition(absolutePosition: Vector2, absoluteSize: Vector2)
+function SizeAndPosition:setSizeAndPosition()
 	self:setState(function(prevState)
-		if prevState.absolutePosition ~= absolutePosition
-			or prevState.absoluteSize ~= absoluteSize
+		local pane = self.ref.current
+		if prevState.absolutePosition ~= pane.AbsolutePosition
+			or prevState.absoluteSize ~= pane.AbsoluteSize
 		then
 			return {
-				absolutePosition = Vector2.new(absolutePosition.X, absolutePosition.Y),
-				absoluteSize = Vector2.new(absoluteSize.X, absoluteSize.Y),
+				absolutePosition = Vector2.new(pane.AbsolutePosition.X, pane.AbsolutePosition.Y),
+				absoluteSize = Vector2.new(pane.AbsoluteSize.X, pane.AbsoluteSize.Y),
 			}
 		else
 			return nil
@@ -75,6 +74,7 @@ end
 
 function SizeAndPosition:didMount()
 	self:reposition()
+	self:resize()
 end
 
 function SizeAndPosition:render()

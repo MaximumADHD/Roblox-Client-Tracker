@@ -19,7 +19,6 @@ local FFlagToolboxFixTryInStudioContextMenu = game:GetFastFlag("ToolboxFixTryInS
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
-local FFlagToolboxGetItemsDetailsUsesSingleApi = game:GetFastFlag("ToolboxGetItemsDetailsUsesSingleApi")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -389,26 +388,13 @@ function AssetGridContainer:didMount()
 		local ok, result = pcall(function()
 			local props = self.props
 			local localization = props.Localization
-			local api = props.API:get()
 
-			local requestPromise
-			if FFlagToolboxGetItemsDetailsUsesSingleApi then
-				requestPromise = getNetwork(self):getItemDetails({
-					{
-						id = assetId,
-						itemType = "Asset",
-					},
-				})
-			else
-				requestPromise = api.ToolboxService.V1.Items.details({
-					items = {
-						{
-							id = assetId,
-							itemType = "Asset",
-						},
-					},
-				}):makeRequest()
-			end
+			local requestPromise = getNetwork(self):getItemDetails({
+				{
+					id = assetId,
+					itemType = "Asset",
+				},
+			})
 
 			requestPromise:andThen(function(response)
 				local responseItem = response.responseBody.data[1]
@@ -695,7 +681,6 @@ function AssetGridContainer:render()
 end
 
 AssetGridContainer = withContext({
-	API = ContextServices.API,
 	Localization = ContextServices.Localization,
 	Plugin = ContextServices.Plugin,
 	AssetAnalytics = AssetAnalyticsContextItem,

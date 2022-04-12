@@ -1,5 +1,5 @@
 --!strict
-local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
+local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
 local Packages = Plugin.Packages
@@ -17,9 +17,22 @@ return function()
 		local EXPECTED_BASE_URL = "https://apis.roblox.com/toolbox-service/v1"
 
 		local function urlForCategory(category)
-			return if FFlagToolboxAssetCategorization2
+			return if FFlagToolboxAssetCategorization3
 				then Urls.constructGetToolboxItemsUrl({ categoryName = category, ownerId = OWNER_ID })
-				else Urls.constructGetToolboxItemsUrl(category, nil, nil, nil, nil, nil, nil, OWNER_ID, nil, nil, nil, nil)
+				else Urls.constructGetToolboxItemsUrl(
+					category,
+					nil,
+					nil,
+					nil,
+					nil,
+					nil,
+					nil,
+					OWNER_ID,
+					nil,
+					nil,
+					nil,
+					nil
+				)
 		end
 
 		local EXPECTED = {
@@ -61,7 +74,7 @@ return function()
 			expect(Urls.constructInsertAssetUrl(123)).toBe(string.format("%s/insert/asset/123", EXPECTED_BASE_URL))
 		end)
 
-		if FFlagToolboxAssetCategorization2 then
+		if FFlagToolboxAssetCategorization3 then
 			it("should generate section asset urls", function()
 				expect(Urls.constructGetToolboxItemsUrl({
 					categoryName = Category.FREE_MODELS.name,

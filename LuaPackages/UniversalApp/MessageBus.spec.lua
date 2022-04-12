@@ -29,15 +29,11 @@ return function()
 		end)
 
 		it("should construct valid protocol method request message ids", function()
-			if game:GetEngineFeature("EnableNewMessageBusServicePublishMethods") then
-				expect(MessageBus.getProtocolMethodRequestMessageId("protocol", "method")).to.equal("protocol.method.Request")
-			end
+			expect(MessageBus.getProtocolMethodRequestMessageId("protocol", "method")).to.equal("protocol.method.Request")
 		end)
 
 		it("should construct valid protocol method response message ids", function()
-			if game:GetEngineFeature("EnableNewMessageBusServicePublishMethods") then
-				expect(MessageBus.getProtocolMethodResponseMessageId("protocol", "method")).to.equal("protocol.method.Response")
-			end
+			expect(MessageBus.getProtocolMethodResponseMessageId("protocol", "method")).to.equal("protocol.method.Response")
 		end)
 
 		it("should receive messages from subscriptions", function(context)
@@ -66,57 +62,53 @@ return function()
 		end)
 
 		it("should receive messages from method request subscriptions", function(context)
-			if game:GetEngineFeature("EnableNewMessageBusServicePublishMethods") then
-				local subscriber = MessageBus.Subscriber.new()
+			local subscriber = MessageBus.Subscriber.new()
 
-				local originalParams = HttpService:JSONDecode(kTestJSON)
-				local receivedMessage = false;
+			local originalParams = HttpService:JSONDecode(kTestJSON)
+			local receivedMessage = false;
 
-				subscriber:subscribeProtocolMethodRequest(kTestProtocolMethodMetadata, function(params)
-					receivedMessage = true
-					expect(tutils.deepEqual(params, originalParams)).to.equal(true)
-				end)
+			subscriber:subscribeProtocolMethodRequest(kTestProtocolMethodMetadata, function(params)
+				receivedMessage = true
+				expect(tutils.deepEqual(params, originalParams)).to.equal(true)
+			end)
 
-				expect(subscriber:getSubscriptionCount()).to.equal(1)
-				expect(receivedMessage).to.equal(false)
+			expect(subscriber:getSubscriptionCount()).to.equal(1)
+			expect(receivedMessage).to.equal(false)
 
-				MessageBus.publishProtocolMethodRequest(kTestProtocolMethodMetadata, originalParams, {})
+			MessageBus.publishProtocolMethodRequest(kTestProtocolMethodMetadata, originalParams, {})
 
-				wait()
+			wait()
 
-				expect(receivedMessage).to.equal(true)
+			expect(receivedMessage).to.equal(true)
 
-				subscriber:unsubscribeToProtocolMethodRequest(kTestProtocolMethodMetadata)
+			subscriber:unsubscribeToProtocolMethodRequest(kTestProtocolMethodMetadata)
 
-				expect(subscriber:getSubscriptionCount()).to.equal(0)
-			end
+			expect(subscriber:getSubscriptionCount()).to.equal(0)
 		end)
 
 		it("should receive messages from method response subscriptions", function(context)
-			if game:GetEngineFeature("EnableNewMessageBusServicePublishMethods") then
-				local subscriber = MessageBus.Subscriber.new()
+			local subscriber = MessageBus.Subscriber.new()
 
-				local originalParams = HttpService:JSONDecode(kTestJSON)
-				local receivedMessage = false;
+			local originalParams = HttpService:JSONDecode(kTestJSON)
+			local receivedMessage = false;
 
-				subscriber:subscribeProtocolMethodResponse(kTestProtocolMethodMetadata, function(params)
-					receivedMessage = true
-					expect(tutils.deepEqual(params, originalParams)).to.equal(true)
-				end)
+			subscriber:subscribeProtocolMethodResponse(kTestProtocolMethodMetadata, function(params)
+				receivedMessage = true
+				expect(tutils.deepEqual(params, originalParams)).to.equal(true)
+			end)
 
-				expect(subscriber:getSubscriptionCount()).to.equal(1)
-				expect(receivedMessage).to.equal(false)
+			expect(subscriber:getSubscriptionCount()).to.equal(1)
+			expect(receivedMessage).to.equal(false)
 
-				MessageBus.publishProtocolMethodResponse(kTestProtocolMethodMetadata, originalParams, 0, {})
+			MessageBus.publishProtocolMethodResponse(kTestProtocolMethodMetadata, originalParams, 0, {})
 
-				wait()
+			wait()
 
-				expect(receivedMessage).to.equal(true)
+			expect(receivedMessage).to.equal(true)
 
-				subscriber:unsubscribeToProtocolMethodResponse(kTestProtocolMethodMetadata)
+			subscriber:unsubscribeToProtocolMethodResponse(kTestProtocolMethodMetadata)
 
-				expect(subscriber:getSubscriptionCount()).to.equal(0)
-			end
+			expect(subscriber:getSubscriptionCount()).to.equal(0)
 		end)
 
 		it("should receive the last message when sticky is true or not specified", function(context)

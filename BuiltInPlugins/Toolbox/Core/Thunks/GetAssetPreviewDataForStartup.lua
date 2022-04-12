@@ -12,30 +12,16 @@ local SetAssetPreview = require(Actions.SetAssetPreview)
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 
 local FFlagToolboxFixTryInStudioContextMenu = game:GetFastFlag("ToolboxFixTryInStudioContextMenu")
-local FFlagToolboxGetItemsDetailsUsesSingleApi = game:GetFastFlag("ToolboxGetItemsDetailsUsesSingleApi")
 
--- TODO when removing FFlagToolboxGetItemsDetailsUsesSingleApi: rename api to networkInterface
-return function(assetId, tryInsert, localization, api)
+return function(assetId, tryInsert, localization, networkInterface)
 	return function(store)
 		local ok, result = pcall(function()
-			local requestPromise
-			if FFlagToolboxGetItemsDetailsUsesSingleApi then
-				requestPromise = api:getItemDetails({
-					{
-						id = assetId,
-						itemType = "Asset",
-					},
-				})
-			else
-				requestPromise = api.ToolboxService.V1.Items.details({
-					items = {
-						{
-							id = assetId,
-							itemType = "Asset",
-						},
-					},
-				}):makeRequest()
-			end
+			local requestPromise = networkInterface:getItemDetails({
+				{
+					id = assetId,
+					itemType = "Asset",
+				},
+			})
 
 			requestPromise:andThen(function(response)
 				local responseItem = response.responseBody.data[1]

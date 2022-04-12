@@ -2,8 +2,8 @@ type TextureMaps = string
 
 local TextureMaps : {[string] : TextureMaps} = {
 	ColorMap = "ColorMap",
-	NormalMap = "NormalMap",
 	MetalnessMap = "MetalnessMap",
+	NormalMap = "NormalMap",
 	RoughnessMap = "RoughnessMap",
 }
 

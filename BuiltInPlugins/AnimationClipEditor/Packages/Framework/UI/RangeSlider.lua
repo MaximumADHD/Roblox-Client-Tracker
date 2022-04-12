@@ -10,10 +10,15 @@
 		Mouse Mouse: A Mouse ContextItem, which is provided via withContext.
 
 	Optional Props:
+		callback OnChangeBegan: A function that is called when the user starts interacting
+			with a slider before changing properties. Used to dispatch AddWaypoint for History.
+		callback OnRightClick: A callback for when the user right-clicks on this ui element.
+		string Tooltip: A text string which when passed in is displayed as tooltip when hovering over the ui element
 		Vector2 AnchorPoint: The anchorPoint of the component
 		boolean Disabled: Whether to render in the enabled/disabled state
 		boolean HideLowerKnob: Whether to hide the lower range knob.
 			It is recommended to use the Slider component if you need a one-knob slider. It wraps this component with a clearer API for that use-case,
+		boolean FillFromCenter: Whether to fill the bar from center to either side instead of from one end to the other
 		number LayoutOrder: The layoutOrder of the component
 		UDim2 Position: The position of the component
 		UDim2 Size: The size of the component
@@ -39,6 +44,7 @@ local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local UI = Framework.UI
 local Container = require(UI.Container)
 local HoverArea = require(UI.HoverArea)
+local Tooltip = require(UI.Tooltip)
 
 local RangeSlider = Roact.PureComponent:extend("RangeSlider")
 Typecheck.wrap(RangeSlider, script)
@@ -74,11 +80,11 @@ function RangeSlider:init()
 		centerPoint = nil,		
 		unit = nil	
 	}
-
+	
 	self.isSwitchingKnob = function(newKnobType)
 		return self.currentlySelectedKnob ~= nil and self.currentlySelectedKnob ~= newKnobType
 	end
-
+	
 	self.getTotalRange = function()
 		local range = self.props.Max - self.props.Min
 		assert(range >= 0, "Range must be >= 0")
@@ -113,8 +119,7 @@ function RangeSlider:init()
 				width = width,
 				centerPoint = centerPoint,		
 				unit = Vector2.new(math.cos(rotationRad), math.sin(rotationRad))
-			})			
-			
+			})
 		end
 		return (pos-self.state.centerPoint):Dot(self.state.unit) / self.state.width + 0.5			
 	end	
@@ -203,6 +208,9 @@ function RangeSlider:init()
 			self:setState({
 				pressed = true,
 			})
+			if self.props.OnChangeBegan then
+				self.props.OnChangeBegan()
+			end
 			self.setValuesFromInput(input)
 		end
 	end
@@ -227,6 +235,10 @@ function RangeSlider:init()
 	end
 end
 
+function getMidPoint(lower, upper)
+	return (lower + upper) * 0.5
+end
+
 function RangeSlider:render()
 	local props = self.props
 	local theme = props.Theme
@@ -236,7 +248,9 @@ function RangeSlider:render()
 	else
 		style = theme:getStyle("Framework", self)
 	end
-
+	
+	local tooltipText = props.Tooltip or nil
+	local hasTooltip = tooltipText ~= nil and tooltipText ~= ""
 	local anchorPoint = props.AnchorPoint
 	local isDisabled = props.Disabled
 	local min = props.Min
@@ -244,9 +258,10 @@ function RangeSlider:render()
 	local lowerRangeValue = props.LowerRangeValue
 	local position = props.Position
 	local upperRangeValue = props.UpperRangeValue
-	local size = prioritize(props.Size, style.Size, UDim2.new(1, 0, 1, 0))
+	local size = prioritize(props.Size, style.Size, UDim2.fromScale(1, 1))
 	local verticalDragBuffer = props.VerticalDragTolerance
 	local hideLowerKnob = props.HideLowerKnob
+	local fillFromCenter = props.FillFromCenter
 
 	local background = style.Background
 	local backgroundStyle = style.BackgroundStyle
@@ -261,11 +276,17 @@ function RangeSlider:render()
 	local lowerFillPercent = (lowerRangeValue - min) / self.getTotalRange()
 	local upperFillPercent = (upperRangeValue - min) / self.getTotalRange()
 	local foregroundHorizontalSize = upperFillPercent - lowerFillPercent
+	if GetFFlagFaceControlsEditorUI() and fillFromCenter then
+		local center = getMidPoint(self.props.Min, self.props.Max)
+		local centerFillPercent = (center - min) / self.getTotalRange()
+		foregroundHorizontalSize =  (upperFillPercent - centerFillPercent) * -1
+	end
 
 	local styleModifier
 	if isDisabled then
 		styleModifier = StyleModifier.Disabled
 	end
+	local onRightClick = props.OnRightClick
 
 	return Roact.createElement("Frame", {
 		AnchorPoint = anchorPoint,
@@ -279,14 +300,14 @@ function RangeSlider:render()
 			Background = background,
 			BackgroundStyle = backgroundStyle,
 			BackgroundStyleModifier = styleModifier,
-			Size = UDim2.new(1, 0, 1, 0),
+			Size = UDim2.fromScale(1, 1),
 		}, {
 			Foreground = Roact.createElement(Container, {
 				Background = foreground,
 				BackgroundStyle = foregroundStyle,
 				BackgroundStyleModifier = styleModifier,
 				Size = UDim2.new(foregroundHorizontalSize, 0, 1, 0),
-				Position = UDim2.new(lowerFillPercent, 0, 0.5, 0),
+				Position = GetFFlagFaceControlsEditorUI() and fillFromCenter and UDim2.new(upperFillPercent, 0, 0.5, 0) or UDim2.new(lowerFillPercent, 0, 0.5, 0),
 			}),
 		}),
 
@@ -307,7 +328,6 @@ function RangeSlider:render()
 			Size = UDim2.new(0, knobSize.X, 0, knobSize.Y),
 			ZIndex = 3,
 		}),
-
 		ClickHandler = (not isDisabled) and Roact.createElement("ImageButton", {
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			BackgroundTransparency = 1,
@@ -318,8 +338,13 @@ function RangeSlider:render()
 			[Roact.Event.InputBegan] = self.onInputBegan,
 			[Roact.Event.InputChanged] = self.onInputChanged,
 			[Roact.Event.InputEnded] =  self.onInputEnded,
+			[Roact.Event.MouseButton2Click] = onRightClick,
 		}),
-
+		Tooltip = hasTooltip and Roact.createElement(Tooltip, {
+			MaxWidth = 1000,
+			Text = tooltipText,
+			TextXAlignment = Enum.TextXAlignment.Left,
+		}),		
 		HoverArea = (not isDisabled) and Roact.createElement(HoverArea, {
 			Cursor = "PointingHand"
 		}),

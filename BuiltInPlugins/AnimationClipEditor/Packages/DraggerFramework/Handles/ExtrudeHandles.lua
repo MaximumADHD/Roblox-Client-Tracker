@@ -577,7 +577,7 @@ function ExtrudeHandle:mouseUp(mouseRay)
 	self._schema.addUndoWaypoint(self._draggerContext, "Scale Selection")
 end
 
-if getFFlagFixScalingWithNonDefaultPivot() then
+if getEngineFeatureModelPivotVisual() and getFFlagFixScalingWithNonDefaultPivot() then
 	function ExtrudeHandle:_getLocalOppositeBoundingBoxSideCenterOffset(draggingHandleId)
 		local offset = ScaleHandleDefinitions[draggingHandleId].Offset
 		local inverseHandleCFrame = offset:Inverse()
@@ -587,7 +587,7 @@ if getFFlagFixScalingWithNonDefaultPivot() then
 	end
 end
 
-if getFFlagFixScalingWithNonDefaultPivot() then
+if getEngineFeatureModelPivotVisual() and getFFlagFixScalingWithNonDefaultPivot() then
 	function ExtrudeHandle:_getWorldOppositeBoundingBoxSideCenter(draggingHandleId)
 		local oppositeBoundingBoxSideCenterOffset = self:_getLocalOppositeBoundingBoxSideCenterOffset(draggingHandleId)
 		local oppositeBoundingBoxSideCenterFrame = self._originalBoundingBoxCFrame * oppositeBoundingBoxSideCenterOffset
@@ -595,7 +595,7 @@ if getFFlagFixScalingWithNonDefaultPivot() then
 	end
 end
 
-if getFFlagFixScalingWithNonDefaultPivot() then
+if getEngineFeatureModelPivotVisual() and getFFlagFixScalingWithNonDefaultPivot() then
 	function ExtrudeHandle:_computeProjectionLineAndScaleCenter()
 		self._dragDirection = self._handleCFrame.LookVector
 
@@ -624,7 +624,7 @@ function ExtrudeHandle:_getDistanceAlongAxis(mouseRay, computeProjectionLineAndS
 		dragFrame =  dragFrame * CFrame.new(self._originalBasisOffset)
 	end
 	local dragStartPosition = dragFrame.Position
-	if getFFlagFixScalingWithNonDefaultPivot() then
+	if getEngineFeatureModelPivotVisual() and getFFlagFixScalingWithNonDefaultPivot() then
 		if computeProjectionLineAndScaleCenter then
 			self:_computeProjectionLineAndScaleCenter()
 		end

@@ -20,9 +20,6 @@ return function()
 	local Localization = require(InGameMenu.Localization.Localization)
 	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 
-	local Flags = InGameMenu.Flags
-	local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
-
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
 
@@ -59,34 +56,32 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		it("shows KeyLabel is input type is keyboard", function()
-			expect(LeaveButton).to.be.ok()
-			local element, store = getMountableTreeAndStore({
-				LeaveButton = Roact.createElement(LeaveButton, {}),
-			})
-			expect(element).to.be.ok()
+	it("shows KeyLabel is input type is keyboard", function()
+		expect(LeaveButton).to.be.ok()
+		local element, store = getMountableTreeAndStore({
+			LeaveButton = Roact.createElement(LeaveButton, {}),
+		})
+		expect(element).to.be.ok()
 
-			local frame = Instance.new("Frame")
+		local frame = Instance.new("Frame")
 
-			local instance = Roact.mount(element, frame)
-			act(function()
-				store:dispatch(SetInputType(Constants.InputType.MouseAndKeyboard))
-				store:flush()
-			end)
-
-			expect(frame:FindFirstChild("KeyLabel", true)).to.never.equal(nil)
-
-			act(function()
-				store:dispatch(SetInputType(Constants.InputType.Touch))
-				store:flush()
-			end)
-
-			expect(frame:FindFirstChild("KeyLabel", true)).to.equal(nil)
-
-			Roact.unmount(instance)
+		local instance = Roact.mount(element, frame)
+		act(function()
+			store:dispatch(SetInputType(Constants.InputType.MouseAndKeyboard))
+			store:flush()
 		end)
-	end
+
+		expect(frame:FindFirstChild("KeyLabel", true)).to.never.equal(nil)
+
+		act(function()
+			store:dispatch(SetInputType(Constants.InputType.Touch))
+			store:flush()
+		end)
+
+		expect(frame:FindFirstChild("KeyLabel", true)).to.equal(nil)
+
+		Roact.unmount(instance)
+	end)
 
 	it("tracks scroll frame position to decide to show/hide leave button", function()
 		local scrollEvent = function(pos)

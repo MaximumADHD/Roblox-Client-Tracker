@@ -7,6 +7,7 @@ local deepCopy = require(Plugin.Src.Util.deepCopy)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local SetTracks = require(Plugin.Src.Actions.SetTracks)
+local SortAndSetTracks = require(Plugin.Src.Thunks.SortAndSetTracks)
 
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
@@ -15,6 +16,8 @@ local Constants = require(Plugin.Src.Util.Constants)
 local PathUtils = require(Plugin.Src.Util.PathUtils)
 local Templates = require(Plugin.Src.Util.Templates)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
+
+local FFlagFixEulerAnglesIndent = game:DefineFastFlag("ACEFixEulerAnglesIndent", false)
 
 return function(instanceName: string, path: PathUtils.Path, newType: string, analytics: any): ({[string]: any}) -> ()
 	return function(store: {[string]: any})
@@ -106,7 +109,11 @@ return function(instanceName: string, path: PathUtils.Path, newType: string, ana
 				trackEntry.Type = Constants.TRACK_TYPES.EulerAngles
 				TrackUtils.createTrackListEntryComponents(trackEntry, trackEntry.Instance, Constants.TRACK_TYPES.EulerAngles)
 				store:dispatch(UpdateAnimationData(newData))
-				store:dispatch(SetTracks(newTracks))
+				if not FFlagFixEulerAnglesIndent then
+					store:dispatch(SetTracks(newTracks))
+				else
+					store:dispatch(SortAndSetTracks(newTracks))
+				end
 			end
 		end
 	end

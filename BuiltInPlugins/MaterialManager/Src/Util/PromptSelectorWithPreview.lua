@@ -85,6 +85,13 @@ type _Style = {
 	PreviewBackgroundColor : Color3,
 	PreviewBorderColor : Color3,
 
+	ButtonColor : Color3,
+	ButtonHeight : number,
+	IconImportPaddingLeft : number,
+	IconImportPaddingRight : number,
+
+	ImportIconColor : Color3,
+	ImportImageBackground : Color3,
 	ButtonIconColor : Color3,
 	ButtonIconHoveredColor : Color3,
 
@@ -312,6 +319,7 @@ function PromptSelectorWithPreview:render()
 	local previewSize = style.PreviewSize
 	local importWidth = columnWidth - previewSize - style.PaddingHorizontal
 	local height = previewSize
+	local buttonHeight = style.ButtonHeight
 
 	local hasSelection = props.HasSelection
 	local promptSelectionHovered = state.promptSelectionHovered
@@ -351,7 +359,7 @@ function PromptSelectorWithPreview:render()
 					Image = "",
 					BorderSizePixel = 1,
 					BorderColor3 = style.PreviewBorderColor,
-					BackgroundColor3 = style.PreviewBackgroundColor,
+					BackgroundColor3 = style.ImportImageBackground,
 					[Roact.Event.MouseEnter] = self.onPromptSelectionHover,
 					[Roact.Event.MouseLeave] = self.onPromptSelectionHoverEnd,
 				}, {
@@ -422,16 +430,22 @@ function PromptSelectorWithPreview:render()
 					PlaceholderText = localization:getText("CreateDialog", "InsertAssetURL"),
 					Text = props.SearchUrl,
 					OnTextChanged = props.UrlSelection,
-					Size = UDim2.new(0, importWidth, 0, 25),
+					Size = UDim2.new(0, importWidth, 0, buttonHeight),
 					OnFocusLost = props.OnFocusLost,
 				}),
 
 				IconImport = Roact.createElement(IconButton, {
-					Size = UDim2.new(0, importWidth, 0, 25),
+					Size = UDim2.new(0, importWidth, 0, buttonHeight),
 					Text = localization:getText("CreateDialog", "Import"),
-					TextXAlignment = Enum.TextXAlignment.Center,
+					TextXAlignment = Enum.TextXAlignment.Left,
 					LeftIcon = style.ImportIcon,
+					IconColor = style.ImportIconColor,
+					BackgroundColor = style.ButtonColor,
 					OnClick = props.PromptSelection,
+					Padding = {
+						Left = style.IconImportPaddingLeft,
+						Right = style.IconImportPaddingRight,
+					},
 				}),
 			}),
 		}),

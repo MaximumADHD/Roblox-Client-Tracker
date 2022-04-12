@@ -44,8 +44,10 @@ local StylesList = require(Main.Src.Components.StylesList)
 local Controls = require(Main.Src.Components.Controls)
 local makeInstanceHost = require(Main.Src.Components.InstanceHost)
 local StoryHost = require(Main.Src.Components.StoryHost)
-local ModuleLoader = require(Main.Src.Util.ModuleLoader)
 local ThemeSwitcher = Framework.Style.ThemeSwitcher
+
+local TestLoader = require(Main.Packages.TestLoader)
+local ModuleLoader = TestLoader.ModuleLoader
 
 local STYLE_DESCRIPTION = [[These values make up the component's Style table, which can be extended:]]
 

@@ -15,9 +15,6 @@ local KeyLabel = UIBlox.App.Menu.KeyLabel
 local withStyle = UIBlox.Core.Style.withStyle
 local withAnimation = UIBlox.Core.Animation.withAnimation
 
-local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
-
 local LeaveButton = Roact.PureComponent:extend("LeaveButton")
 
 local BOTTOM_MENU_ICON_SIZE = 44
@@ -44,9 +41,8 @@ LeaveButton.validateProps = t.strictInterface({
 })
 
 function LeaveButton:renderWithProviders(style, localized, aniValues)
-	local ControllerDevOnly = GetFFlagInGameMenuControllerDevelopmentOnly()
 	local inputType = self.props.inputType
-	local leaveGameKeyCode = ControllerDevOnly and LEAVE_GAME_KEY_CODE_LABEL[inputType]
+	local leaveGameKeyCode = LEAVE_GAME_KEY_CODE_LABEL[inputType]
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, 84),

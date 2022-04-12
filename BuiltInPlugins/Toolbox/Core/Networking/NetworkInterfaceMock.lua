@@ -10,7 +10,7 @@ local Packages = Plugin.Packages
 
 local Promise = require(Packages.Framework).Util.Promise
 
-local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
+local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
 
 -- public api
 local NetworkInterfaceMock = {}
@@ -157,7 +157,7 @@ end
 
 -- Intentionally ignoring that the real method has parameters because they are not used in this mock
 function NetworkInterfaceMock:getToolboxItems(
-	-- remove string from args union when removing FFlagToolboxAssetCategorization2
+	-- remove string from args union when removing FFlagToolboxAssetCategorization3
 	args: string | {
 		categoryName: string,
 		sortType: string?,
@@ -183,7 +183,7 @@ function NetworkInterfaceMock:getToolboxItems(
 	limit: number?
 )
 	local categoryName: string
-	if FFlagToolboxAssetCategorization2 and type(args) ~= "string" then
+	if FFlagToolboxAssetCategorization3 and type(args) ~= "string" then
 		categoryName = args.categoryName
 		sortType = args.sortType
 	else
@@ -236,7 +236,7 @@ function NetworkInterfaceMock:getDevelopAsset(pageInfo)
 	return Promise.resolve(fakeItemListContent)
 end
 
-function NetworkInterfaceMock:getAssetCreations(items)
+local function getFakeCreations()
 	local fakeItemListContent = {
 		responseBody = {},
 	}
@@ -247,6 +247,14 @@ function NetworkInterfaceMock:getAssetCreations(items)
 	fakeItemListContent.responseBody.data = data
 
 	return Promise.resolve(fakeItemListContent)
+end
+
+function NetworkInterfaceMock:getAssetCreations(items)
+	return getFakeCreations()
+end
+
+function NetworkInterfaceMock:getAssetGroupCreations(items)
+	return getFakeCreations()
 end
 
 function NetworkInterfaceMock:getGroupAnimations(cursor, groupId)

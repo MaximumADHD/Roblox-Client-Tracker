@@ -25,8 +25,6 @@ local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local ControlState = UIBlox.Core.Control.Enum.ControlState
 
-local GetFFlagIGMRefactorInviteFriendsGamepadSupport = require(InGameMenu.Flags.GetFFlagIGMRefactorInviteFriendsGamepadSupport)
-
 local CONTAINER_WIDTH = 304
 local TEXT_PADDING_TOP = 4
 local TEXT_PADDING_BOTTOM = 16
@@ -35,17 +33,15 @@ local AddFriendsNow = Roact.PureComponent:extend("AddFriendsNow")
 
 AddFriendsNow.validateProps = t.strictInterface({
 	switchToPlayers = t.callback,
-	canCaptureFocus = GetFFlagIGMRefactorInviteFriendsGamepadSupport() and t.boolean or nil,
+	canCaptureFocus = t.boolean,
 })
 
-if GetFFlagIGMRefactorInviteFriendsGamepadSupport() then
-	function AddFriendsNow:init()
-		self.buttonRef = Roact.createRef()
+function AddFriendsNow:init()
+	self.buttonRef = Roact.createRef()
 
-		self.state = {
-			buttonIsInitialized = false,
-		}
-	end
+	self.state = {
+		buttonIsInitialized = false,
+	}
 end
 
 function AddFriendsNow:render()
@@ -104,7 +100,7 @@ function AddFriendsNow:render()
 					})
 				}),
 
-				RootedConnection = GetFFlagIGMRefactorInviteFriendsGamepadSupport() and Roact.createElement(RootedConnection, {
+				RootedConnection = Roact.createElement(RootedConnection, {
 					render = function(isRooted)
 						return Roact.createElement(FocusHandler, {
 							isFocused = props.canCaptureFocus
@@ -131,14 +127,14 @@ function AddFriendsNow:render()
 							}) or nil,
 						})
 					end,
-				}) or nil,
+				}),
 
-				MakeFriendsButton = not GetFFlagIGMRefactorInviteFriendsGamepadSupport() and Roact.createElement(UIBlox.App.Button.SecondaryButton, {
+				MakeFriendsButton = Roact.createElement(UIBlox.App.Button.SecondaryButton, {
 					layoutOrder = 3,
 					size = UDim2.new(1, 0, 0, 48),
 					text = localized.makeFriendsNow,
 					onActivated = props.switchToPlayers,
-				}) or nil,
+				}),
 			})
 		end)
 	end)

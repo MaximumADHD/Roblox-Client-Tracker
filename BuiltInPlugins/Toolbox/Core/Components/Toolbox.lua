@@ -19,7 +19,7 @@ local MemStorageService = game:GetService("MemStorageService")
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
+local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
 local FFlagToolboxRefactorSearchOptions = game:GetFastFlag("ToolboxRefactorSearchOptions")
 local FFlagToolboxAssetStyleUpdate = game:GetFastFlag("ToolboxAssetStyleUpdate")
 
@@ -55,7 +55,7 @@ local Footer = require(Components.Footer.Footer)
 local Header = require(Components.Header)
 local MainView = require(Components.MainView.MainView)
 local SoundPreviewComponent = require(Components.SoundPreviewComponent)
-local HomeWrapper = if FFlagToolboxAssetCategorization2 then require(Components.Home.HomeWrapper) else nil
+local HomeWrapper = if FFlagToolboxAssetCategorization3 then require(Components.Home.HomeWrapper) else nil
 local SearchOptions = require(Plugin.Core.Components.SearchOptions.SearchOptions)
 
 local Requests = Plugin.Core.Networking.Requests
@@ -280,11 +280,11 @@ function Toolbox:render()
 	local headerOffset = tabHeight
 
 	local inHomeViewExperiment = false
-	local selectedAssetType = if FFlagToolboxAssetCategorization2
+	local selectedAssetType = if FFlagToolboxAssetCategorization3
 		then Category.getEngineAssetType(Category.getCategoryByName(categoryName).assetType)
 		else nil
 	if
-		FFlagToolboxAssetCategorization2
+		FFlagToolboxAssetCategorization3
 		and currentTabKey == Category.MARKETPLACE_KEY
 		and table.find(HomeTypes.ENABLED_ASSET_TYPES, selectedAssetType) ~= nil
 		and not ixp:isError()
@@ -381,7 +381,7 @@ function Toolbox:render()
 end
 
 Toolbox = withContext({
-	IXP = if FFlagToolboxAssetCategorization2 then IXPContext else nil,
+	IXP = if FFlagToolboxAssetCategorization3 then IXPContext else nil,
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Settings = Settings,
@@ -393,9 +393,9 @@ local function mapStateToProps(state, props)
 
 	return {
 		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
-		creator = if FFlagToolboxAssetCategorization2 then pageInfo.creator else nil,
+		creator = if FFlagToolboxAssetCategorization3 then pageInfo.creator else nil,
 		roles = state.roles or {},
-		searchTerm = if FFlagToolboxAssetCategorization2 then pageInfo.searchTerm or "" else nil,
+		searchTerm = if FFlagToolboxAssetCategorization3 then pageInfo.searchTerm or "" else nil,
 		sorts = pageInfo.sorts or {},
 	}
 end

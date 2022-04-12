@@ -35,8 +35,6 @@ local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCurso
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
 local ThemedButton = Roact.PureComponent:extend("ThemedButton")
-local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 ThemedButton.validateProps = t.strictInterface({
 	normalThemeKey = t.string,
@@ -57,7 +55,7 @@ ThemedButton.validateProps = t.strictInterface({
 	Position = t.optional(t.UDim2),
 	Size = t.optional(t.UDim2),
 	Visible = t.optional(t.boolean),
-	ButtonRef = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.union(t.callback, t.table)) or nil,
+	ButtonRef = t.optional(t.union(t.callback, t.table)),
 })
 
 ThemedButton.defaultProps = {
@@ -100,7 +98,7 @@ function ThemedButton:renderWithSelectionCursor(getSelectionCursor)
 			ScaleType = props.imageProps.ScaleType,
 			SliceCenter = props.imageProps.SliceCenter,
 			Image = props.imageProps.Image,
-			SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly() and getSelectionCursor(CursorKind.RoundedRectNoInset) or nil,
+			SelectionImageObject = getSelectionCursor(CursorKind.RoundedRectNoInset),
 			[Roact.Event.Activated] = function()
 				if props.enabled then
 					props.onActivated()
@@ -131,7 +129,7 @@ function ThemedButton:renderWithSelectionCursor(getSelectionCursor)
 					})
 				end
 			end,
-			[Roact.Ref] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.ButtonRef or nil
+			[Roact.Ref] = self.props.ButtonRef
 		}, props.renderChildren(
 			transparency,
 			props.enabled and self.state.hover,
@@ -141,13 +139,9 @@ function ThemedButton:renderWithSelectionCursor(getSelectionCursor)
 end
 
 function ThemedButton:render()
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		return withSelectionCursorProvider(function(getSelectionCursor)
-			return self:renderWithSelectionCursor(getSelectionCursor)
-		end)
-	else
-		return self:renderWithSelectionCursor()
-	end
+	return withSelectionCursorProvider(function(getSelectionCursor)
+		return self:renderWithSelectionCursor(getSelectionCursor)
+	end)
 end
 
 return ThemedButton

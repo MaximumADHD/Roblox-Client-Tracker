@@ -33,8 +33,8 @@ export type Props = {
 	Name: string?,
 	BaseMaterial: Enum.Material?,
 	ColorMap : _Types.TextureMap?,
-	NormalMap : _Types.TextureMap?,
 	MetalnessMap : _Types.TextureMap?,
+	NormalMap : _Types.TextureMap?,	
 	RoughnessMap : _Types.TextureMap?,
 	MaterialMock : _Types.Material?,
 	Mode : string?,
@@ -74,6 +74,8 @@ function MaterialPrompt:getNameError()
 
 	if not self:hasValidName() then 
 		return localization:getText("CreateDialog", "ErrorNoName")
+	elseif self.lastName and self.lastName == props.Name and self.lastBaseMaterial and self.lastBaseMaterial == props.BaseMaterial then
+		return nil
 	elseif materialController:ifMaterialNameExists(props.Name, props.BaseMaterial) then
 		return localization:getText("CreateDialog", "ErrorNameExists")
 	end
@@ -98,6 +100,8 @@ function MaterialPrompt:init()
 	self:setState({
 		saveAttempt = false,
 	})
+	self.lastName = nil
+	self.lastBaseMaterial = nil
 
 	self.onSave = function()
 		local props : _Props = self.props
@@ -126,7 +130,14 @@ function MaterialPrompt:init()
 			end
 		end
 
-		local materialController = props.MaterialController
+		if props.Mode == "Edit" then
+			local material = props.Material
+			if material then
+				self.lastName = material.MaterialVariant.Name
+				self.lastBaseMaterial = material.MaterialVariant.BaseMaterial
+			end
+		end
+
 		if self:getNameError() or self:getBaseMaterialError() then
 			return
 		end
@@ -149,12 +160,13 @@ function MaterialPrompt:init()
 		-- Set texture maps
 		local maps = {
 			ColorMap = props.ColorMap or "",
-			NormalMap = props.NormalMap or "",
 			MetalnessMap = props.MetalnessMap or "",
+			NormalMap = props.NormalMap or "",
 			RoughnessMap = props.RoughnessMap or ""
 		}
 		handleMaps(maps, materialVariant)
 
+		local materialController = props.MaterialController
 		props.dispatchSetMaterial(materialController:getMaterial(materialVariant))
 		props.dispatchSetPath(getMaterialPath(materialVariant))
 
@@ -185,7 +197,7 @@ function MaterialPrompt:render()
 		{ 
 			Key = "Cancel", 
 			Text = localization:getText("CreateDialog", "CancelVariant"),
-			Style = "RoundPrimary",
+			Style = "Round",
 		},
 		{
 			Key = "Save", 
@@ -227,8 +239,8 @@ local function mapStateToProps(state : MainReducer.State, props : _Props)
 		Name = state.MaterialPromptReducer.Name,
 		BaseMaterial = state.MaterialPromptReducer.BaseMaterial,
 		ColorMap = state.MaterialPromptReducer.ColorMap,
-		NormalMap = state.MaterialPromptReducer.NormalMap,
 		MetalnessMap = state.MaterialPromptReducer.MetalnessMap,
+		NormalMap = state.MaterialPromptReducer.NormalMap,
 		RoughnessMap = state.MaterialPromptReducer.RoughnessMap,
 		Material = props.MaterialMock or state.MaterialBrowserReducer.Material,
 		Mode = state.MaterialPromptReducer.Mode,

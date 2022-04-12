@@ -43,6 +43,7 @@ type _Props = Props & {
 
 type _Style = {
 	DialogColumnSize : UDim2,
+	CustomSelectInput : any,
 }
 
 local materials = getSupportedMaterials()
@@ -81,7 +82,6 @@ function GeneralSettings:init()
 		-- TODO: remove key strings
 		if key == "NameVariant" then
 			return Roact.createElement(TextInput, {
-				PlaceholderText = localization:getText("CreateDialog", "PlaceholderName"),
 				Style = "FilledRoundedBorder",
 				Size = style.DialogColumnSize,
 				Text = props.Name,
@@ -89,6 +89,7 @@ function GeneralSettings:init()
 			})
 		elseif key == "BaseMaterialVariant" then
 			return Roact.createElement(SelectInput, {
+				Style = style.CustomSelectInput,
 				Items = self.baseMaterials,
 				Size = style.DialogColumnSize,
 				OnItemActivated = self.onBaseMaterialSelected,

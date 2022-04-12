@@ -1,5 +1,5 @@
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
-local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
+local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
 
 local Plugin = script.Parent.Parent.Parent
 local Packages = Plugin.Packages
@@ -61,7 +61,7 @@ function TestHelpers.createTestAsset(container, name, asset, mockProps)
 		Asset = Roact.createElement(Asset, {
 			asset = not FFlagToolboxAssetGridRefactor and myAsset or nil,
 			assetId = FFlagToolboxAssetGridRefactor and assetId or nil,
-			assetData = FFlagToolboxAssetCategorization2 and myAsset or nil,
+			assetData = FFlagToolboxAssetCategorization3 and myAsset or nil,
 			LayoutOrder = 1,
 			Selected = false,
 		}),

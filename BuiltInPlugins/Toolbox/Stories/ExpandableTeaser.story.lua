@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent
 
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization2")
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization3")
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local ToolboxStoryWrapper = require(Plugin.Stories.ToolboxStoryWrapper)
@@ -19,7 +19,7 @@ local function makeChildren()
 		Roact.createElement("Frame", {
 			BackgroundColor3 = Color3.new(1, 0, 0),
 			Size = UDim2.new(1, 0, 0, 100),
-		})
+		}),
 	}
 end
 local function makeSearchListChildren()
@@ -49,7 +49,7 @@ local function makeSearchListChildren()
 end
 
 local function onExpand(isExpanded)
-	print("isExpanded: ",isExpanded)
+	print("isExpanded: ", isExpanded)
 end
 
 return {
@@ -68,8 +68,8 @@ return {
 						Title = "Expandable",
 						TeaserSize = Vector2.new(0, 10),
 					}, makeChildren()),
-				})
-			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization2", true),
+				}),
+			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization3", true),
 		},
 		{
 			name = "Search Pills",
@@ -84,8 +84,8 @@ return {
 						Title = "Top Searches",
 						TeaserSize = Vector2.new(0, 28),
 					}, makeSearchListChildren()),
-				})
-			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization2", true),
+				}),
+			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization3", true),
 		},
 	},
 }

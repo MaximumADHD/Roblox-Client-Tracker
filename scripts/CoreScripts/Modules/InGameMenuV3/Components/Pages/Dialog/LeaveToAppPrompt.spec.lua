@@ -29,8 +29,6 @@ return function()
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jest = JestGlobals.jest
 
-	local Flags = InGameMenu.Flags
-	local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
@@ -111,11 +109,7 @@ return function()
 				store:flush()
 			end)
 
-			if GetFFlagInGameMenuControllerDevelopmentOnly() == false then
-				expect(GuiService.SelectedCoreObject).to.equal(nil)
-			elseif GetFFlagInGameMenuControllerDevelopmentOnly() == true then
-				expect(GuiService.SelectedCoreObject:IsA("Instance")).to.be.ok()
-			end
+			expect(GuiService.SelectedCoreObject).to.be.ok()
 
 			Roact.unmount(instance)
 		end)
@@ -123,30 +117,28 @@ return function()
 
 	describe("Keyboard support", function()
 		it("Pressing keyboard return should exit leave prompt", function()
-			if game:GetEngineFeature("VirtualInputEventsProcessed") then
-				local onConfirmSpy, onConfirm = jest.fn()
-				local element, store = getMountableTreeAndStore({onConfirm = onConfirm})
+			local onConfirmSpy, onConfirm = jest.fn()
+			local element, store = getMountableTreeAndStore({onConfirm = onConfirm})
 
-				act(function()
-					store:dispatch(SetInputType(Constants.InputType.MouseAndKeyboard))
-					store:dispatch(SetMenuOpen(true))
-					store:dispatch(SetCurrentPage(Constants.LeaveToAppPromptPageKey))
-					store:flush()
-				end)
+			act(function()
+				store:dispatch(SetInputType(Constants.InputType.MouseAndKeyboard))
+				store:dispatch(SetMenuOpen(true))
+				store:dispatch(SetCurrentPage(Constants.LeaveToAppPromptPageKey))
+				store:flush()
+			end)
 
-				local folder = Instance.new("Folder")
-				local instance = Roact.mount(element, folder)
+			local folder = Instance.new("Folder")
+			local instance = Roact.mount(element, folder)
 
-				act(function()
-					VirtualInput.Keyboard.hitKey(Enum.KeyCode.Return)
-					VirtualInput.waitForInputEventsProcessed()
-					wait()
-				end)
+			act(function()
+				VirtualInput.Keyboard.hitKey(Enum.KeyCode.Return)
+				VirtualInput.waitForInputEventsProcessed()
+				wait()
+			end)
 
-				expect(#onConfirmSpy.mock.calls).to.equal(1)
+			expect(#onConfirmSpy.mock.calls).to.equal(1)
 
-				Roact.unmount(instance)
-			end
+			Roact.unmount(instance)
 		end)
 	end)
 

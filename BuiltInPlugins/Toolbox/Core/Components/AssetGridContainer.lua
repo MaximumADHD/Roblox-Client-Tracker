@@ -10,8 +10,7 @@
 		function renderTopContent: function that returns a roact element which is the content located above the infinite grid.
 		UDim2 Size
 ]]
-local FFlagToolboxGetItemsDetailsUsesSingleApi = game:GetFastFlag("ToolboxGetItemsDetailsUsesSingleApi")
-local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
+local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -94,11 +93,7 @@ function AssetGridContainer:didMount()
 
 	if assetId then
 		local props = self.props
-		if FFlagToolboxGetItemsDetailsUsesSingleApi then
-			props.getAssetPreviewDataForStartup(assetId, props.TryInsert, props.Localization, getNetwork(self))
-		else
-			props.getAssetPreviewDataForStartup(assetId, props.TryInsert, props.Localization, props.API:get())
-		end
+		props.getAssetPreviewDataForStartup(assetId, props.TryInsert, props.Localization, getNetwork(self))
 	end
 end
 
@@ -139,7 +134,7 @@ function AssetGridContainer:render()
 
 	return Roact.createElement(AssetGrid, {
 		AssetIds = assetIds,
-		AssetMap = if FFlagToolboxAssetCategorization2 then props.idToAssetMap else nil,
+		AssetMap = if FFlagToolboxAssetCategorization3 then props.idToAssetMap else nil,
 		LayoutOrder = layoutOrder,
 		Position = position,
 		RenderTopContent = renderTopContent,
@@ -148,7 +143,7 @@ function AssetGridContainer:render()
 
 		-- Props from AssetLogicWrapper
 		CanInsertAsset = canInsertAsset,
-		OnAssetPreviewButtonClicked = if FFlagToolboxAssetCategorization2 then onAssetPreviewButtonClicked else nil,
+		OnAssetPreviewButtonClicked = if FFlagToolboxAssetCategorization3 then onAssetPreviewButtonClicked else nil,
 		ParentAbsolutePosition = props.ParentAbsolutePosition,
 		ParentSize = props.ParentSize,
 		TryInsert = tryInsert,
@@ -159,7 +154,6 @@ end
 AssetGridContainer = AssetLogicWrapper(AssetGridContainer)
 
 AssetGridContainer = withContext({
-	API = if FFlagToolboxGetItemsDetailsUsesSingleApi then nil else ContextServices.API,
 	Localization = ContextServices.Localization,
 	Settings = Settings,
 })(AssetGridContainer)
@@ -174,7 +168,7 @@ local function mapStateToProps(state, props)
 		assetIds = assets.idsToRender or {},
 		categoryName = categoryName,
 		currentUserPackagePermissions = state.packages.permissionsTable or {},
-		idToAssetMap = if FFlagToolboxAssetCategorization2 then assets.idToAssetMap else nil,
+		idToAssetMap = if FFlagToolboxAssetCategorization3 then assets.idToAssetMap else nil,
 	}
 end
 
@@ -183,9 +177,8 @@ local function mapDispatchToProps(dispatch)
 		dispatchPostAssetCheckPermissions = function(networkInterface, assetIds)
 			dispatch(PostAssetCheckPermissions(networkInterface, assetIds))
 		end,
-		getAssetPreviewDataForStartup = function(assetId, tryInsert, localization, api)
-			-- TODO when removing FFlagToolboxGetItemsDetailsUsesSingleApi: rename api to networkInterface
-			dispatch(GetAssetPreviewDataForStartup(assetId, tryInsert, localization, api))
+		getAssetPreviewDataForStartup = function(assetId, tryInsert, localization, networkInterface)
+			dispatch(GetAssetPreviewDataForStartup(assetId, tryInsert, localization, networkInterface))
 		end,
 		nextPage = function(networkInterface, settings)
 			dispatch(NextPageRequest(networkInterface, settings))

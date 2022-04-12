@@ -11,7 +11,9 @@ local Framework = require(Main.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local InspectorContext = require(Main.Src.Util.InspectorContext)
-local ModuleLoader = require(Main.Src.Util.ModuleLoader)
+
+local TestLoader = require(Main.Packages.TestLoader)
+local ModuleLoader = TestLoader.ModuleLoader
 
 local UI = Framework.UI
 local Button = UI.Button

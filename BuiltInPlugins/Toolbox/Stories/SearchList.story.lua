@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent
 
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization2")
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization3")
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
@@ -60,7 +60,7 @@ return {
 						ItemMinWidth = 2 * PADDING_HORIZONTAL,
 					}),
 				}),
-			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization2", true),
+			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization3", true),
 		},
 		{
 			name = "Max row count of 2",
@@ -76,7 +76,7 @@ return {
 						MaxRowCount = 2,
 					}),
 				}),
-			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization2", true),
+			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization3", true),
 		},
 	},
 }

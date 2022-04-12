@@ -13,7 +13,6 @@ local BlurredModalPortal = require(script.Parent.BlurredModalPortal)
 local Pages = require(script.Parent.Pages)
 
 local FFlagIGMStopRenderingInactivePages = require(InGameMenu.Flags.FFlagIGMStopRenderingInactivePages)
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 local GetFFlagUseIGMControllerBar = require(InGameMenu.Flags.GetFFlagUseIGMControllerBar)
 
 local Constants = require(script.Parent.Parent.Resources.Constants)
@@ -35,18 +34,16 @@ PageContainer.validateProps = t.strictInterface({
 })
 
 function PageContainer:init(props)
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		self.onContainerRendered = function(rbx, key)
-			if rbx then
-				local selectionParentName = self.getSelectionParentNameFromKey(key)
-				GuiService:RemoveSelectionGroup(selectionParentName)
-				GuiService:AddSelectionParent(selectionParentName, rbx)
-			end
+	self.onContainerRendered = function(rbx, key)
+		if rbx then
+			local selectionParentName = self.getSelectionParentNameFromKey(key)
+			GuiService:RemoveSelectionGroup(selectionParentName)
+			GuiService:AddSelectionParent(selectionParentName, rbx)
 		end
+	end
 
-		self.getSelectionParentNameFromKey = function(key)
-			return key .. "_IGMPageSelectionGroup"
-		end
+	self.getSelectionParentNameFromKey = function(key)
+		return key .. "_IGMPageSelectionGroup"
 	end
 
 	local pageBindings, pageBindingUpdaters, motorDefaults = {}, {}, {}
@@ -100,9 +97,9 @@ function PageContainer:render()
 					BackgroundTransparency = 1,
 					ZIndex = pageInfo.navigationDepth,
 					Visible = pageVisible,
-					[Roact.Ref] = GetFFlagInGameMenuControllerDevelopmentOnly() and function(rbx)
+					[Roact.Ref] = function(rbx)
 						self.onContainerRendered(rbx, key)
-					end or nil,
+					end,
 				},{
 					Page = pageComponents[key] and Roact.createElement(pageComponents[key], {
 						pageTitle = pageInfo.title and localized.title,
@@ -203,13 +200,11 @@ function PageContainer:didUpdate(oldProps, oldState)
 	end
 end
 
-if GetFFlagInGameMenuControllerDevelopmentOnly() then
-	function PageContainer:willUnmount()
-		for key, pageInfo in pairs(Pages.pagesByKey) do
-			if not pageInfo.isModal then
-				local selectionParentName = self.getSelectionParentNameFromKey(key)
-				GuiService:RemoveSelectionGroup(selectionParentName)
-			end
+function PageContainer:willUnmount()
+	for key, pageInfo in pairs(Pages.pagesByKey) do
+		if not pageInfo.isModal then
+			local selectionParentName = self.getSelectionParentNameFromKey(key)
+			GuiService:RemoveSelectionGroup(selectionParentName)
 		end
 	end
 end

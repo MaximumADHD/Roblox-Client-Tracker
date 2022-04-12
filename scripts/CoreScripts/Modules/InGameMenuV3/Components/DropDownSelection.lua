@@ -8,9 +8,6 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 
 local InGameMenu = script.Parent.Parent
-local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
-local GetFFlagInGameMenuCloseReportAbuseMenuOnEscape = require(Flags.GetFFlagInGameMenuCloseReportAbuseMenuOnEscape)
 
 local withStyle = UIBlox.Core.Style.withStyle
 
@@ -48,10 +45,10 @@ DropDownSelection.validateProps = t.intersection(
 		enabled = t.boolean,
 		truncate = t.optional(t.boolean),
 		selectionChanged = t.callback,
-		canOpen = GetFFlagInGameMenuCloseReportAbuseMenuOnEscape() and t.optional(t.boolean) or nil,
-		canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
-		selectionParentName = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.string) or nil,
-		ButtonRef = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.table) or nil
+		canOpen = t.optional(t.boolean),
+		canCaptureFocus = t.optional(t.boolean),
+		selectionParentName = t.optional(t.string),
+		ButtonRef = t.optional(t.table)
 	}),
 	function(props)
 		if props.selectedIndex > #props.selections then
@@ -62,7 +59,7 @@ DropDownSelection.validateProps = t.intersection(
 	end)
 
 DropDownSelection.defaultProps = {
-	canOpen = GetFFlagInGameMenuCloseReportAbuseMenuOnEscape() and true or nil,
+	canOpen = true,
 }
 
 function DropDownSelection:init()
@@ -84,15 +81,13 @@ function DropDownSelection:init()
 	self.sizeConnection = nil
 end
 
-if GetFFlagInGameMenuCloseReportAbuseMenuOnEscape() then
-	function DropDownSelection.getDerivedStateFromProps(nextProps)
-		if not nextProps.canOpen then
-			return {
-				isOpen = false,
-			}
-		end
-		return nil
+function DropDownSelection.getDerivedStateFromProps(nextProps)
+	if not nextProps.canOpen then
+		return {
+			isOpen = false,
+		}
 	end
+	return nil
 end
 
 function DropDownSelection:renderDropDownList(style, localized)
@@ -127,7 +122,7 @@ function DropDownSelection:renderDropDownList(style, localized)
 			end,
 			normalThemeKey = "BackgroundUIDefault",
 			hoverThemeKey = "BackgroundOnHover",
-			ButtonRef = GetFFlagInGameMenuControllerDevelopmentOnly() and index == 1 and self.firstOptionRef or nil,
+			ButtonRef = index == 1 and self.firstOptionRef or nil,
 			imageProps = Assets.Images.WhiteSquare,
 
 			renderChildren = function(transparency, isHovered, isPressed)
@@ -219,12 +214,6 @@ function DropDownSelection:render()
 			local itemSize = math.min(#self.props.selections, MAX_ITEMS_DISPLAYED) * ITEM_HEIGHT
 			local dropDownList = self:renderDropDownList(style, localized)
 
-			-- Can inline when GetFFlagInGameMenuControllerDevelopmentOnly is removed
-			local isCloseDropDownAreaSelectable = nil
-			if GetFFlagInGameMenuControllerDevelopmentOnly() then
-				isCloseDropDownAreaSelectable = false
-			end
-
 			return Roact.createElement("Frame", {
 				Size = self.props.Size,
 				Position = self.props.Position,
@@ -285,7 +274,7 @@ function DropDownSelection:render()
 							}),
 						}
 					end,
-					ButtonRef = GetFFlagInGameMenuControllerDevelopmentOnly() and self.openDropDownButtonRef or nil,
+					ButtonRef = self.openDropDownButtonRef,
 				}),
 
 				CloseDropDownArea = Roact.createElement("TextButton", {
@@ -294,7 +283,7 @@ function DropDownSelection:render()
 					Position = UDim2.new(0, -self.state.absolutePositionX, 0, -self.state.absolutePositionY),
 					Size = UDim2.new(0, self.state.screenSizeX, 0, self.state.screenSizeY),
 					Visible = self.state.isOpen,
-					Selectable = isCloseDropDownAreaSelectable,
+					Selectable = false,
 					[Roact.Event.Activated] = function()
 						self:setState({
 							isOpen = false,
@@ -313,7 +302,7 @@ function DropDownSelection:render()
 					Visible = self.state.isOpen,
 					ZIndex = 3,
 				}, {
-					FocusHandler = GetFFlagInGameMenuControllerDevelopmentOnly() and self:renderFocusHandler() or nil,
+					FocusHandler = self:renderFocusHandler(),
 					DropDownBackground = Roact.createElement(ImageSetLabel, {
 						BackgroundTransparency = 1,
 						Image = Assets.Images.RoundedRect.Image,
@@ -330,7 +319,6 @@ function DropDownSelection:render()
 							Position = UDim2.new(0, 0, 0, DROP_DOWN_BORDER_SIZE),
 							Size = UDim2.new(1, 0, 1, -DROP_DOWN_BORDER_SIZE * 2),
 							CanvasSize = UDim2.new(1, 0, 0, #self.props.selections * self.state.dropDownItemHeight),
-							scrollBarOffset = not GetFFlagInGameMenuControllerDevelopmentOnly() and 4 or nil
 						}, dropDownList),
 					}),
 				}),

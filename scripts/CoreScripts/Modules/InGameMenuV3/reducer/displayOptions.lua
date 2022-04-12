@@ -12,8 +12,6 @@ local SetInputType = require(InGameMenu.Actions.SetInputType)
 
 local InputType = Constants.InputType
 
-local GetFFlagFixDisplayOptionsReducer = require(InGameMenu.Flags.GetFFlagFixDisplayOptionsReducer)
-
 return Rodux.createReducer({
 	inspectMenuEnabled = true,
 	inputType = InputType.MouseAndKeyboard,
@@ -26,16 +24,9 @@ return Rodux.createReducer({
 	end,
 
 	[SetInputType.name] = function(state, action)
-		if GetFFlagFixDisplayOptionsReducer() then
-			return {
-				inspectMenuEnabled = state.inspectMenuEnabled,
-				inputType = action.inputType,
-			}
-		else
-			return {
-				inspectMenuEnabled = state.enabled,
-				inputType = action.inputType,
-			}
-		end
+		return {
+			inspectMenuEnabled = state.inspectMenuEnabled,
+			inputType = action.inputType,
+		}
 	end,
 })

@@ -12,6 +12,8 @@
 		function SetSelectedTracks(string) = sets currently selected joint to given string
 ]]
 
+local FFlagFaceControlsEditorUI = game:GetFastFlag("FaceControlsEditorUI")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -42,6 +44,10 @@ local PADDING = 8
 
 local Slider = Framework.UI.Slider
 
+--this window is never opened in actual usage when FFlagFaceControlsEditorUI is false, 
+--but we need this FFlagFaceControlsEditorUI check here to not make the all flags off test fail
+local DragBox = FFlagFaceControlsEditorUI and Framework.UI.DragBox or nil
+
 local Checkbox = Framework.UI.Checkbox
 
 local Pane = Framework.UI.Pane
@@ -61,10 +67,11 @@ local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local SetSymmetryEnabled = require(Plugin.Src.Actions.SetSymmetryEnabled)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local GetFFlagKeyframeUtilsGetValueCleanup = require(Plugin.LuaFlags.GetFFlagKeyframeUtilsGetValueCleanup)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 
 local Tooltip = require(Plugin.Src.Components.Tooltip)
+
+local ContextMenu = require(Plugin.Src.Components.ContextMenu)
 
 local Cryo = require(Plugin.Packages.Cryo)
 
@@ -74,10 +81,29 @@ local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAni
 
 local faceControlsMapping = require(script:WaitForChild("FaceControlsMapping"))
 
+local eyesDragBoxControlName = "EyesDragBox"
+
+local eyesDragBoxTooltipText = "EyesLook"
+
 function FaceControlsEditorWindow:init()
 	self.state = {
+		Tooltip = nil,
 		treeArray = {},
+		showContextMenu = false,
+		currentlyEditedFacsProperties = {}
 	}
+
+	self.showContextMenu = function()
+		self:setState({
+			showContextMenu = true,
+		})
+	end
+
+	self.hideContextMenu = function()
+		self:setState({
+			showContextMenu = false,
+		})
+	end	
 
 	self.setValues = function(lowerValue, upperValue)
 		self:setState({
@@ -153,88 +179,382 @@ function getFacsListData()
 	return facsListData
 end
 
+function formatNumber(number)
+	local precision = Constants.NUMBER_FACS_PRECISION
+	return tostring(math.floor(.5 + number * precision) / precision)
+end
+
+--prep right click reset value(s) context menu
+function prepAndTriggerSliderContextMenu(self, facs, props, crossMapping, symmetryPartner, sliderGroup)
+	local editedItemsTable = {facs.Name}								
+	if sliderGroup then
+		table.insert(editedItemsTable, sliderGroup[1])
+		table.insert(editedItemsTable, sliderGroup[2])
+
+		if props.SymmetryEnabled then			
+			local groupPartnerSymmetryPartner = Constants.FacsCrossMappings[sliderGroup[1]].symmetryPartner
+			if groupPartnerSymmetryPartner then
+				table.insert(editedItemsTable, groupPartnerSymmetryPartner)
+			end
+			groupPartnerSymmetryPartner = Constants.FacsCrossMappings[sliderGroup[2]].symmetryPartner
+			if groupPartnerSymmetryPartner then
+				table.insert(editedItemsTable, groupPartnerSymmetryPartner)
+			end
+		end		
+
+	end
+	if props.SymmetryEnabled then			
+		symmetryPartner = crossMapping.symmetryPartner
+		if symmetryPartner then
+			table.insert(editedItemsTable, symmetryPartner)
+		end
+	end		
+
+	self.state.currentlyEditedFacsProperties = editedItemsTable
+
+	self.state.showContextMenu = true
+	self:showContextMenu()	
+end
+
+function handleSliderOnValueChanged(self, facs, value, minValue, maxValue, sliderProps, crossMapping, sliderGroup, symmetryPartner, symmetryPartnerProps)
+	sliderProps.currentValue = value
+	self:setState(							
+		{	
+			Tooltip =  facs.Name..": "..formatNumber(sliderProps.currentValue),
+			Value = math.clamp(sliderProps.currentValue, minValue, maxValue)
+		})
+	local instanceName = instanceForFacs
+	local trackName = facs.Name
+	local props = self.props
+
+	local targetFacsValue = value
+
+	--for sliders which control multiple facs properties handle setting value in second controlled facs prop
+	if sliderGroup and crossMapping.indexInGroup == 1 then
+
+		local groupPartnerName = nil
+		if crossMapping.indexInGroup == 1 then
+			groupPartnerName = sliderGroup[2]
+		else
+			groupPartnerName = sliderGroup[1]
+		end		
+
+		local sliderPropsGroupPartner = faceControlsMapping.FacsControlToFaceSliderInfoMap[groupPartnerName]
+
+		local targetFacsValueGroupPartner = 0
+
+		if value <= 0.5 then
+			--sliding leftwards from slider center -->affecting first facs property ++ and second is 0								
+			targetFacsValue = math.clamp(1- (value * 2), 0, 1)
+			targetFacsValueGroupPartner = 0
+		else
+			--sliding rightwards from slider center -->affecting second facs property ++ and first is 0
+			targetFacsValue = 0
+			targetFacsValueGroupPartner =  (value-0.5) * 2
+		end
+
+		local sliderTargetValue = 0.5 + (targetFacsValueGroupPartner*0.5)
+		sliderPropsGroupPartner.currentValue = sliderTargetValue
+
+		triggerValueChanged(props, groupPartnerName, targetFacsValueGroupPartner)							
+
+		--handle also setting value for symmetry partner of slider group partner
+		if self.props.SymmetryEnabled then
+			local groupPartnerSymmetryPartnerProps = nil
+			local groupPartnerSymmetryPartner = nil
+
+			groupPartnerSymmetryPartner = Constants.FacsCrossMappings[groupPartnerName].symmetryPartner
+			if groupPartnerSymmetryPartner then
+				groupPartnerSymmetryPartnerProps = faceControlsMapping.FacsControlToFaceSliderInfoMap[groupPartnerSymmetryPartner]
+			end
+			if groupPartnerSymmetryPartnerProps then
+				groupPartnerSymmetryPartnerProps.currentValue = sliderTargetValue									
+			end
+			if groupPartnerSymmetryPartner then
+				triggerValueChanged(props, groupPartnerSymmetryPartner, targetFacsValueGroupPartner)
+			end
+		end
+	end					
+	--set value in single prop slider or first item in group slider
+	if not sliderGroup or (sliderGroup and (crossMapping.indexInGroup == 1 )) then 
+		triggerValueChanged(props, trackName, targetFacsValue)								
+	end
+	--and also in its symmetry partner
+	if self.props.SymmetryEnabled then
+		if symmetryPartnerProps then
+			symmetryPartnerProps.currentValue = value
+			triggerValueChanged(props, symmetryPartner, targetFacsValue)									
+		end		
+	end	
+end
+
 function makeFacsOnFaceDiagramSliderUIItems (self, style, localization)
+	local children = {}		
+
+	local theme = self.props.Stylizer.PluginTheme
+
+	local Facs = getFacsListData()		
+	for _, facs in ipairs(Facs) do			
+		local name = "Facs_" .. facs.Name
+
+		local crossMapping = Constants.FacsCrossMappings[facs.Name]
+		local sliderProps = faceControlsMapping.FacsControlToFaceSliderInfoMap[facs.Name]
+
+		local sliderGroup = crossMapping.sliderGroup
+
+		if sliderProps then
+
+			--a group slider controls multiple facs properties, for those we only create an own slider for the first item in the group
+			if not sliderGroup or (sliderGroup and crossMapping.indexInGroup == 1) then
+				local symmetryPartnerProps = nil
+				local symmetryPartner = nil
+				if self.props.SymmetryEnabled then			
+					symmetryPartner = crossMapping.symmetryPartner
+					if symmetryPartner then
+						symmetryPartnerProps = faceControlsMapping.FacsControlToFaceSliderInfoMap[symmetryPartner]
+					end
+				end
+
+				local itemWidth = 43
+				if sliderProps.customWidth then
+					itemWidth = sliderProps.customWidth
+				end		
+
+				local minValue = 0
+				local maxValue = 1
+
+				children[name.."_rotatedSliderContainer"] = Roact.createElement("Frame", {				
+					BorderSizePixel = 0,
+					BackgroundTransparency = 1,
+					Position = sliderProps.position,
+					Size = UDim2.new(0, itemWidth, 0, 2),
+					Rotation = sliderProps.rotation,
+					LayoutOrder = 2,
+					ZIndex = 100,
+				},	
+
+				{				
+					Scrubber = Roact.createElement(Slider, {	
+						Style = theme.faceSliderTheme,
+						Disabled = false,
+						Min = minValue,
+						Max = maxValue,
+						Tooltip = facs.Name..": "..formatNumber(sliderProps.currentValue),
+						Value = math.clamp(sliderProps.currentValue, minValue, maxValue),
+						--for sliders which control multiple facs properties 
+						--the slider fill should go from center towards both ends of slider
+						FillFromCenter = (sliderGroup~=nil),
+
+						OnRightClick = function()							
+							prepAndTriggerSliderContextMenu(self, facs, self.props, crossMapping, symmetryPartner, sliderGroup)
+						end,
+						OnChangeBegan = function()
+							local props = self.props
+							props.AddWaypoint()
+						end,						
+						OnValueChanged = function(value)						
+							handleSliderOnValueChanged(self, facs, value, minValue, maxValue, sliderProps, crossMapping, sliderGroup, symmetryPartner, symmetryPartnerProps)
+						end,
+						Position = UDim2.new(0.5, 0, 0.5, 0),
+						Size = UDim2.new(1, 0, 0, 8),
+						AnchorPoint = Vector2.new(0.5,0.5),
+					}),					
+				})	
+			end
+		end
+	end					
+	return Roact.createFragment(children)
+end
+
+function triggerValueChanged(props, trackName, value)
+	if GetFFlagChannelAnimations() then							
+		props.ValueChanged(instanceForFacs, {trackName}, Constants.TRACK_TYPES.Facs, props.Playhead, value, props.Analytics)
+	else						
+		props.ValueChanged_deprecated2(instanceForFacs, trackName, Constants.TRACK_TYPES.Facs, props.Playhead, value, props.Analytics)
+	end	
+end	
+
+function makeEyesControlDragBox (self, style, localization)
+
 	local children = {}
 
 	local theme = self.props.Stylizer.PluginTheme
 
-	local Facs = getFacsListData()
-	for _, facs in ipairs(Facs) do
-		local name = "Facs_" .. facs.Name
+	local sliderProps = faceControlsMapping.FacsControlToFaceSliderInfoMap[eyesDragBoxControlName]
 
-		local facsSliderProps = faceControlsMapping.FacsControlToFaceSliderInfoMap[facs.Name]
+	local minXValue = -1
+	local maxXValue = 1
+	local minYValue = -1
+	local maxYValue = 1	
 
-		local symmetryPartnerProps = nil
-		local symmetryPartner = nil
-		if self.props.SymmetryEnabled then
-			symmetryPartner = Constants.FacsCrossMappings[facs.Name].symmetryPartner
-			if symmetryPartner then
-				symmetryPartnerProps = faceControlsMapping.FacsControlToFaceSliderInfoMap[symmetryPartner]
-			end
-		end
+	--this window is never opened in actual usage when FFlagFaceControlsEditorUI is false, 
+	--but we need this FFlagFaceControlsEditorUI check here to not make the all flags off test fail		
+	children[eyesDragBoxControlName] = FFlagFaceControlsEditorUI and Roact.createElement(DragBox, {					
+		Style = theme.faceDragBoxTheme,
+		Disabled = false,
+		MinX = minXValue,
+		MaxX = maxXValue,
+		MinY = minYValue,
+		MaxY = maxYValue,		
+		Tooltip = eyesDragBoxTooltipText,
+		Value = Vector2.new( math.clamp(sliderProps.currentValue.X, minXValue, maxXValue), math.clamp(sliderProps.currentValue.Y, minYValue, maxYValue)),		
+		OnRightClick = function()
+			local editedItemsTable = {}			
+			table.insert(editedItemsTable, Constants.FacsNames.EyesLookLeft)
+			table.insert(editedItemsTable, Constants.FacsNames.EyesLookRight)
+			table.insert(editedItemsTable, Constants.FacsNames.EyesLookUp)
+			table.insert(editedItemsTable, Constants.FacsNames.EyesLookDown)
+			self.state.currentlyEditedFacsProperties = editedItemsTable
+			self.state.showContextMenu = true
+			self:showContextMenu()
+		end,
+		OnChangeBegan = function()
+			local props = self.props
+			props.AddWaypoint()
+		end,
+		OnValueChanged = function(value)						
+			sliderProps.currentValue = value
+			self:setState(							
+				{		
+					Tooltip = eyesDragBoxTooltipText,
+					Value = Vector2.new( math.clamp(sliderProps.currentValue.X, minXValue, maxXValue), math.clamp(sliderProps.currentValue.Y, minYValue, maxYValue))
+				})
+			local props = self.props
 
-		local itemWidth = 43
-		if facsSliderProps.customWidth then
-			itemWidth = facsSliderProps.customWidth
-		end
+			local eyesLookRightValue = value.X <= 0 and -value.X or 0
+			local eyesLookLeftValue = value.X >= 0 and value.X or 0
 
-		children[name.."_rotatedSliderContainer"] = Roact.createElement("Frame", {
-			BorderSizePixel = 0,
-			BackgroundTransparency = 1,
-			Position = facsSliderProps.position,
-			Size = UDim2.new(0, itemWidth, 0, 2),
-			Rotation = facsSliderProps.rotation,
-			LayoutOrder = 2,
-			ZIndex = 100,
-		},
+			local eyesLookUpValue = value.Y <= 0 and -value.Y or 0
+			local eyesLookDownValue = value.Y >= 0 and value.Y or 0			
 
-		{
-			Scrubber = Roact.createElement(Slider, {
-				Style = theme.faceSliderTheme,
-				Disabled = false,
-				Min = 0,
-				Max = 1,
+			triggerValueChanged(props, Constants.FacsNames.EyesLookRight, eyesLookRightValue)
+			triggerValueChanged(props, Constants.FacsNames.EyesLookLeft, eyesLookLeftValue)
+			triggerValueChanged(props, Constants.FacsNames.EyesLookUp, eyesLookUpValue)
+			triggerValueChanged(props, Constants.FacsNames.EyesLookDown, eyesLookDownValue)
+		end,	
 
-				Value = math.clamp(facsSliderProps.currentValue, 0, 1),
-				OnValueChanged = function(value)
+		Position = UDim2.new(0, 146, 0, 145),
+		Size = UDim2.new(0, 36, 0, 28),
+		AnchorPoint = Vector2.new(0.5,0.5),					
+	})
 
-					facsSliderProps.currentValue = value
-					self:setState({
-						Value = math.clamp(facsSliderProps.currentValue, 0, 1)
-					})
-					local instanceName = instanceForFacs
-					local trackName = facs.Name
-					local props = self.props
-
-					if GetFFlagChannelAnimations() then
-						props.ValueChanged(instanceName, {trackName}, Constants.TRACK_TYPES.Facs, props.Playhead, value, props.Analytics)
-					else
-						props.ValueChanged_deprecated2(instanceName, trackName, Constants.TRACK_TYPES.Facs, props.Playhead, value, props.Analytics)
-					end
-
-					if self.props.SymmetryEnabled then
-						if symmetryPartnerProps then
-							symmetryPartnerProps.currentValue = value
-
-							if GetFFlagChannelAnimations() then
-								props.ValueChanged(instanceName, {symmetryPartner}, Constants.TRACK_TYPES.Facs, props.Playhead, value, props.Analytics)
-							else
-								props.ValueChanged_deprecated2(instanceName, symmetryPartner, Constants.TRACK_TYPES.Facs, props.Playhead, value, props.Analytics)
-							end
-
-						end
-					end
-
-				end,
-				Position = UDim2.new(0.5, 0, 0.5, 0),
-				Size = UDim2.new(1, 0, 0, 8),
-				AnchorPoint = Vector2.new(0.5,0.5),
-			}),
-		})
-	end
 	return Roact.createFragment(children)
 end
 
+function getTrackValuesForEyeDragBox(instance, playhead)
+	if not instance then return end
+
+	local trackEyesLookLeft = instance.Tracks[Constants.FacsNames.EyesLookLeft]
+	local trackEyesLookRight = instance.Tracks[Constants.FacsNames.EyesLookRight]
+	local trackEyesLookUp = instance.Tracks[Constants.FacsNames.EyesLookUp]
+	local trackEyesLookDown = instance.Tracks[Constants.FacsNames.EyesLookDown]
+
+	if trackEyesLookLeft or trackEyesLookRight or trackEyesLookUp or trackEyesLookDown then
+		local sliderProps = faceControlsMapping.FacsControlToFaceSliderInfoMap[eyesDragBoxControlName]
+
+		local currentValueEyesLookLeft = trackEyesLookLeft and KeyframeUtils.getValue(trackEyesLookLeft, playhead) or 0
+		local currentValueEyesLookRight = trackEyesLookRight and KeyframeUtils.getValue(trackEyesLookRight, playhead) or 0
+		local currentValueEyesLookUp = trackEyesLookUp and KeyframeUtils.getValue(trackEyesLookUp, playhead) or 0
+		local currentValueEyesLookDown = trackEyesLookDown and KeyframeUtils.getValue(trackEyesLookDown, playhead) or 0
+
+		local targetValueX = currentValueEyesLookLeft ~=0 and currentValueEyesLookLeft or -currentValueEyesLookRight
+		local targetValueY = currentValueEyesLookUp ~=0 and -currentValueEyesLookUp or currentValueEyesLookDown						
+
+		sliderProps.currentValue = Vector2.new(targetValueX, targetValueY)
+	end	
+end
+
+function FaceControlsEditorWindow:makeContextMenuActions(localization)
+	local props = self.props
+	local actions = {}
+	table.insert(actions, {
+		Name = localization:getText("ContextMenu", "ResetSelected"),
+		ItemSelected = function()
+			if self.state.currentlyEditedFacsProperties then
+				for i, v in ipairs(self.state.currentlyEditedFacsProperties) do
+					triggerValueChanged(props, v, 0)
+				end				
+			end
+		end,
+	})	
+	return actions
+end
+
+-- get current value of facs to apply on sliders and dragbox:
+function getCurrentValues(instance, playhead)
+	if instance == nil then return end
+
+	local tracks = instance.Tracks
+
+	if tracks == nil then return end
+
+	--handle values coming in for eyesdragbox special case (4 facs controlled by one control)
+	getTrackValuesForEyeDragBox(instance, playhead)
+
+	--handle values coming in for sliders
+	for trackName, track in pairs(instance.Tracks) do
+		local sliderProps = faceControlsMapping.FacsControlToFaceSliderInfoMap[trackName]
+
+		local currentTrack = track 
+		track.Instance = instanceForFacs
+		local currentValue = nil					
+
+		if sliderProps == nil then continue end
+
+		local crossMapping = Constants.FacsCrossMappings[trackName]
+
+		local sliderGroup = crossMapping.sliderGroup
+
+		sliderProps.currentValue = 0			
+		currentValue = KeyframeUtils.getValue(currentTrack, playhead)					
+
+		if currentValue == nil then continue end
+
+		if sliderGroup then
+			--we have a slider which controls multiple facs properties, we have to map the value
+
+			local groupPartnerName = nil
+			if crossMapping.indexInGroup == 1 then
+				groupPartnerName = sliderGroup[2]
+			else
+				groupPartnerName = sliderGroup[1]
+			end									
+
+			if crossMapping.indexInGroup == 1 then
+
+				sliderProps.currentValue =  math.clamp(0.5 - (currentValue * 0.5) , 0, 1)
+
+				local sliderPropsGroupPartner = faceControlsMapping.FacsControlToFaceSliderInfoMap[groupPartnerName]
+
+				--apply slider pos from group facs2
+				if  sliderPropsGroupPartner.currentValue>0.5 then
+
+					local currentFacsValueGroupPartner = 0
+					local currentTrackGroupPartner = instance.Tracks[groupPartnerName]
+
+					currentFacsValueGroupPartner = KeyframeUtils.getValue(currentTrackGroupPartner, playhead)
+
+					local targetValue = 0.5+  (currentFacsValueGroupPartner * 0.5)
+					if currentFacsValueGroupPartner >0 then
+						sliderProps.currentValue = targetValue
+					end
+				end
+
+			else
+				--value applied from num input for facs prop 2 in group to group slider							
+
+				local sliderPropsGroupPartner = faceControlsMapping.FacsControlToFaceSliderInfoMap[groupPartnerName]								
+				local targetValue = 0.5 +   (currentValue  * 0.5)
+
+				if currentValue >0 then
+					sliderProps.currentValue = targetValue
+				end								
+			end
+		else
+			sliderProps.currentValue = currentValue	
+		end												
+	end			
+end
 
 function FaceControlsEditorWindow:render()
 	local localization = self.props.Localization
@@ -247,6 +567,9 @@ function FaceControlsEditorWindow:render()
 		return
 	end
 
+	local state = self.state
+
+	local showContextMenu = state.showContextMenu	
 
 	local theme = props.Stylizer.PluginTheme
 	local rootInstance = props.RootInstance
@@ -261,35 +584,8 @@ function FaceControlsEditorWindow:render()
 	local playhead = props.Playhead
 
 	local instance = animationData.Instances[instanceForFacs]
-	if instance ~= nil then
-		local tracks = instance.Tracks
-		if tracks ~= nil then
-			-- get current value of facs to apply on sliders:
-			for trackName, track in pairs(instance.Tracks) do
-				local sliderProps = faceControlsMapping.FacsControlToFaceSliderInfoMap[trackName]
 
-				if sliderProps then
-
-					local currentTrack = track
-					track.Instance = instanceForFacs
-
-					local currentValue = nil
-					sliderProps.currentValue = 0
-
-					if (GetFFlagChannelAnimations() or GetFFlagKeyframeUtilsGetValueCleanup()) then
-						currentValue = KeyframeUtils.getValue(currentTrack, playhead)
-					else
-						currentValue = KeyframeUtils:getValue_deprecated(currentTrack, playhead)
-					end
-
-					if currentValue then
-						sliderProps.currentValue = currentValue
-					end
-				end
-			end
-
-		end
-	end
+	getCurrentValues(instance, playhead)
 
 	-- create ui elements
 	return Roact.createElement(DockWidget, {
@@ -311,29 +607,34 @@ function FaceControlsEditorWindow:render()
 			BorderSizePixel = 0,
 			BackgroundColor3 = theme.backgroundColor,
 			Size = UDim2.new(1, 0, 1, 0),
+			ZIndex = -2,
 		},
-		{
-
+		{			
 			--face front panel container
 			FaceFrontContainer = Roact.createElement("Frame", {
 				BorderSizePixel = 0,
 				BackgroundColor3 = theme.backgroundColor,
 				Size = UDim2.new(1, 0, 0, 213),
 				Position = UDim2.new(0, -25, 0, 32),
-			},
+				ZIndex = -1,
+			},			
 			{
-
 				FaceFrontViewImage = Roact.createElement("ImageLabel", {
 					AnchorPoint = Vector2.new(0, 0),
 					Size = UDim2.new(0, 220, 0, 310),
 					Position = UDim2.new(0, 35, 0, 6),
 					Image = "rbxasset://textures/FaceControlsEditor/face_frontView.png",
-					BackgroundTransparency = 1,
-				}),
+					BackgroundTransparency = 1,	
+					ImageTransparency = 0,
+					ZIndex = 0,
+				}),				
 
 				makeFacsOnFaceDiagramSliderUIItems(self, style, localization),
-				--face front container close
-			}),
+
+				makeEyesControlDragBox(self, style, localization),
+
+				--face front container close	
+			}),		
 
 			--face side panel container
 			FaceSideContainer = Roact.createElement("Frame", {
@@ -341,35 +642,41 @@ function FaceControlsEditorWindow:render()
 				BackgroundColor3 = theme.backgroundColor,
 				Size = UDim2.new(1, 0, 0, 213),
 				Position = UDim2.new(0, 0, 0, 412),
-			},	{
+			},	{			
 
 				SideviewImage = Roact.createElement("ImageLabel", {
 					AnchorPoint = Vector2.new(0, 0),
-					Size = UDim2.new(0, 90, 0, 273),
+					Size = UDim2.new(0, 90, 0, 273),					
 					Position = UDim2.new(0, 83, 0, 1),
 					Image = "rbxasset://textures/FaceControlsEditor/face_sideView.png",
-					BackgroundTransparency = 1,
-					LayoutOrder = 1,
-				}),
+					BackgroundTransparency = 1,	
+					LayoutOrder = 1,								
+				}),					
 			}),
-			--face side container end
+			--face side container end		
+
+			ContextMenu = showContextMenu and Roact.createElement(ContextMenu, {
+				Actions = self:makeContextMenuActions(localization),
+				OnMenuOpened = self.hideContextMenu,
+			}),			
+
 
 			AdditionalTogglesContainer = Roact.createElement("Frame", {
 				AnchorPoint = Vector2.new(0,0),
-				BorderSizePixel = 0,
+				BorderSizePixel = 0,				
 				BackgroundTransparency = 1,
 				Position = UDim2.new(0, 10, 0, 745),
 				Size = UDim2.new(0, 200, 0, 90),
-			},
+			},	
 			{
 				CheckboxesList = Roact.createElement("UIListLayout", {
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					Padding = UDim.new(0, 5),
-				}),
-				CheckboxSymmetry = Roact.createElement(Checkbox, {
+				}),						
+				CheckboxSymmetry = Roact.createElement(Checkbox, {					
 					Text = localization:getText("Title", "Symmetry"),
 					Checked = self.props.SymmetryEnabled,
-					size = self.props.elementSize,
+					size = self.props.elementSize,				
 					OnClick = function(key)
 						self.props.SymmetryEnabled = not self.props.SymmetryEnabled
 						self.props.SetSymmetryEnabled(self.props.SymmetryEnabled)
@@ -404,13 +711,13 @@ local function mapDispatchToProps(dispatch)
 			dispatch(ValueChanged(instanceName, path, trackType, tck, value, analytics))
 		end,
 
-		ValueChanged_deprecated2 = function(instanceName, trackName, trackType, tick, value, analytics)
-			dispatch(ValueChanged(instanceName, trackName, trackType, tick, value, analytics))
+		ValueChanged_deprecated2 = function(instanceName, trackName, trackType, tck, value, analytics)
+			dispatch(ValueChanged(instanceName, trackName, trackType, tck, value, analytics))
 		end,
 
 		-- Remove when GetFFlagFacialAnimationSupport() and GetFFlagChannelAnimations() are retired
-		ValueChanged_deprecated = function(instanceName, trackName, tick, value, analytics)
-			dispatch(ValueChanged(instanceName, trackName, tick, value, analytics))
+		ValueChanged_deprecated = function(instanceName, trackName, tck, value, analytics)
+			dispatch(ValueChanged(instanceName, trackName, tck, value, analytics))
 		end,
 
 		AddWaypoint = function()

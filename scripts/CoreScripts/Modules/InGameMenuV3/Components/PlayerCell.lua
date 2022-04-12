@@ -16,7 +16,6 @@ local InGameMenu = script.Parent.Parent
 local Assets = require(InGameMenu.Resources.Assets)
 
 local FFlagLuaMenuPerfImprovements = require(InGameMenu.Flags.FFlagLuaMenuPerfImprovements)
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 local Modules = CoreGui.RobloxGui.Modules
 
@@ -128,7 +127,7 @@ function PlayerCell:renderWithSelectionCursor(getSelectionCursor)
 			[Roact.Event.Activated] = activated,
 			[Roact.Change.AbsolutePosition] = self.props[Roact.Change.AbsolutePosition],
 			[Roact.Ref] = forwardRef,
-			SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly() and getSelectionCursor(CursorKind.Square) or nil,
+			SelectionImageObject = getSelectionCursor(CursorKind.Square),
 		}, {
 			PlayerIcon = Roact.createElement(ImageSetLabel, {
 				AnchorPoint = Vector2.new(0, 0.5),
@@ -196,13 +195,9 @@ function PlayerCell:renderWithSelectionCursor(getSelectionCursor)
 end
 
 function PlayerCell:render()
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		return withSelectionCursorProvider(function(getSelectionCursor)
-			return self:renderWithSelectionCursor(getSelectionCursor)
-		end)
-	else
-		return self:renderWithSelectionCursor()
-	end
+	return withSelectionCursorProvider(function(getSelectionCursor)
+		return self:renderWithSelectionCursor(getSelectionCursor)
+	end)
 end
 
 return Roact.forwardRef(function(props, ref)

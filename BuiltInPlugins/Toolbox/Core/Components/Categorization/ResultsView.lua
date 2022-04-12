@@ -2,6 +2,7 @@
 	A view wrapper dispalying a back button and a grid of assets based on prop filters.
 ]]
 local FFlagDevFrameworkAddUnobtrusiveLinkTextStyle = game:GetFastFlag("DevFrameworkAddUnobtrusiveLinkTextStyle")
+local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
 local Packages = Plugin.Packages
@@ -126,7 +127,7 @@ function ResultsView:render()
 					LoadingIndicator = Roact.createElement(LoadingIndicator, {
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						Position = UDim2.new(0.5, 0, 0.5, 0),
-					})
+					}),
 				})
 			else
 				return AssetGrid({
@@ -137,7 +138,7 @@ function ResultsView:render()
 					RenderTopContent = renderTopContent,
 					RequestNextPage = resultsState.fetchNextPage,
 					Size = size,
-			
+
 					-- Props from AssetLogicWrapper
 					CanInsertAsset = canInsertAsset,
 					OnAssetPreviewButtonClicked = onAssetPreviewButtonClicked,
@@ -145,7 +146,7 @@ function ResultsView:render()
 					TryOpenAssetConfig = tryOpenAssetConfig,
 				})
 			end
-		end
+		end,
 	})
 end
 

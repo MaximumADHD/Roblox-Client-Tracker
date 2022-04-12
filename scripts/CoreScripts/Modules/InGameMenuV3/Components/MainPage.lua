@@ -40,7 +40,6 @@ local httpRequest = require(Network.httpRequest)
 local networkImpl = httpRequest(HttpRbxApiService)
 
 local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 local GetFFlagUseIGMControllerBar = require(Flags.GetFFlagUseIGMControllerBar)
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 local GetFFlagSideNavControllerBar = require(Flags.GetFFlagSideNavControllerBar)
@@ -68,9 +67,7 @@ MainPage.validateProps = t.strictInterface({
 })
 
 function MainPage:init()
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		self.mainPageFirstButtonRef = Roact.createRef()
-	end
+	self.mainPageFirstButtonRef = Roact.createRef()
 
 	self.fetchGameIsFavorite = function()
 		return self.props.fetchGameIsFavorite(networkImpl)
@@ -100,7 +97,6 @@ function MainPage:renderMainPageFocusHandler()
 end
 
 function MainPage:render()
-	local ControllerDevOnly = GetFFlagInGameMenuControllerDevelopmentOnly()
 
 	local canCaptureFocus = nil
 	if GetFFlagSideNavControllerBar() then
@@ -110,10 +106,6 @@ function MainPage:render()
 	end
 
 	return withStyle(function(style)
-
-		local ControllerBar = ControllerDevOnly and Roact.createElement(IGMMainPageControllerBar, {
-			canCaptureFocus = canCaptureFocus,
-		})
 
 		return Roact.createElement("TextButton", {
 			Size = UDim2.new(0, MAIN_PAGE_WIDTH, 1, 0),
@@ -125,9 +117,11 @@ function MainPage:render()
 			AutoButtonColor = false,
 			Selectable = false,
 		}, {
-			MainPageFocusHandler = ControllerDevOnly and GetFFlagUseIGMControllerBar() and not (VRService.VREnabled and FFlagEnableNewVrSystem) and self:renderMainPageFocusHandler() or nil,
-			ControllerBar = ControllerDevOnly and ControllerBar,
-			ZonePortal = ControllerDevOnly and Roact.createElement(ZonePortal, {
+			MainPageFocusHandler = GetFFlagUseIGMControllerBar() and not (VRService.VREnabled and FFlagEnableNewVrSystem) and self:renderMainPageFocusHandler() or nil,
+			ControllerBar = Roact.createElement(IGMMainPageControllerBar, {
+				canCaptureFocus = canCaptureFocus,
+			}),
+			ZonePortal = Roact.createElement(ZonePortal, {
 				targetZone = 0,
 				direction = Direction.Left,
 			}),
@@ -189,19 +183,15 @@ function MainPage:didMount()
 	self.fetchGameIsFavorite()
 end
 
-if GetFFlagInGameMenuControllerDevelopmentOnly() then
-	function MainPage.canGamepadCaptureFocus(props)
-		return props.canCaptureFocus
-			and props.inputType == Constants.InputType.Gamepad
-	end
+function MainPage.canGamepadCaptureFocus(props)
+	return props.canCaptureFocus
+		and props.inputType == Constants.InputType.Gamepad
 end
 
 function MainPage:didUpdate(prevProps, prevState)
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		if not GetFFlagIGMGamepadSelectionHistory() then
-			if self.canGamepadCaptureFocus(self.props) then
-				GuiService.SelectedCoreObject = self.mainPageFirstButtonRef:getValue()
-			end
+	if not GetFFlagIGMGamepadSelectionHistory() then
+		if self.canGamepadCaptureFocus(self.props) then
+			GuiService.SelectedCoreObject = self.mainPageFirstButtonRef:getValue()
 		end
 	end
 
@@ -211,22 +201,9 @@ function MainPage:didUpdate(prevProps, prevState)
 end
 
 return RoactRodux.UNSTABLE_connect2(function(state, props)
-	local canCaptureFocus = nil -- Can inline when GetFFlagInGameMenuControllerDevelopmentOnly is removed
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		canCaptureFocus = state.menuPage == Constants.MainPagePageKey
-			and state.isMenuOpen
-			and not state.respawn.dialogOpen
-			and state.currentZone == 1
-	end
-
 	local isMainPageInForeground = nil
 	if GetFFlagSideNavControllerBar() then
 		isMainPageInForeground = state.isMenuOpen and not state.respawn.dialogOpen and state.menuPage == Constants.MainPagePageKey
-	end
-
-	local inputType = nil -- Can inline when GetFFlagInGameMenuControllerDevelopmentOnly is removed
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		inputType = state.displayOptions.inputType
 	end
 
 	local currentZone = nil -- can inline when flag is removed
@@ -234,12 +211,17 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 		currentZone = state.currentZone
 	end
 
+	local canCaptureFocus = state.menuPage == Constants.MainPagePageKey
+		and state.isMenuOpen
+		and not state.respawn.dialogOpen
+		and state.currentZone == 1
+
 	return {
 		open = state.isMenuOpen,
 		screenSize = state.screenSize,
 		canCaptureFocus = canCaptureFocus,
 		currentZone = currentZone,
-		inputType = inputType,
+		inputType = state.displayOptions.inputType,
 		isMainPageInForeground = isMainPageInForeground,
 		isFavorited = state.gameInfo.isFavorited,
 		gameDescription = state.gameInfo.description,

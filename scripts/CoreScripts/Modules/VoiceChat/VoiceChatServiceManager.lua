@@ -31,7 +31,6 @@ local GetFFlagSkipRedundantVoiceCheck = require(CorePackages.AppTempCommon.Flags
 local GetFFlagEnableVoiceRccCheck = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceRccCheck)
 
 local Constants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
-local GetFFlagModerationByProxyUserBanNotification = require(RobloxGui.Modules.Flags.GetFFlagModerationByProxyUserBanNotification)
 local VoiceChatPrompt = require(RobloxGui.Modules.VoiceChatPrompt.Components.VoiceChatPrompt)
 local VoiceChatPromptType = require(RobloxGui.Modules.VoiceChatPrompt.PromptType)
 local GetShowAgeVerificationOverlay = require(CorePackages.AppTempCommon.VoiceChat.Requests.GetShowAgeVerificationOverlay)
@@ -233,7 +232,7 @@ function VoiceChatServiceManager:userAndPlaceCanUseVoice()
 	end
 
 	self.bannedUntil = nil
-	if GetFFlagModerationByProxyUserBanNotification() and userSettings and userSettings.isBanned then
+	if userSettings and userSettings.isBanned then
 		local informedOfBanResult = GetInformedOfBan(bind(self, 'GetRequest'))
 		if informedOfBanResult and not informedOfBanResult.informedOfBan then
 			if userSettings.bannedUntil == nil then
@@ -394,25 +393,17 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal)
 			errorText = self.errorText
 		end
 
-		if GetFFlagModerationByProxyUserBanNotification() then
-			local banEnd = ""
-			if self.bannedUntil ~= nil then
-				banEnd = os.date("%x", self.bannedUntil.Seconds)
-			end
-			self.voiceChatPromptInstance = Roact.mount(Roact.createElement(VoiceChatPrompt, {
-				promptSignal = self.promptSignal.Event,
-				bannedUntil = banEnd,
-				errorText = errorText,
-				onReadyForSignal = onReadyForSignal,
-				onContinueFunc = function() PostInformedOfBan(bind(self, 'PostRequest'), true) end
-			}), CoreGui, "RobloxVoiceChatPromptGui")
-		else
-			self.voiceChatPromptInstance = Roact.mount(Roact.createElement(VoiceChatPrompt, {
-				promptSignal = self.promptSignal.Event,
-				errorText = errorText,
-				onReadyForSignal = onReadyForSignal,
-			}), CoreGui, "RobloxVoiceChatPromptGui")
+		local banEnd = ""
+		if self.bannedUntil ~= nil then
+			banEnd = os.date("%x", self.bannedUntil.Seconds)
 		end
+		self.voiceChatPromptInstance = Roact.mount(Roact.createElement(VoiceChatPrompt, {
+			promptSignal = self.promptSignal.Event,
+			bannedUntil = banEnd,
+			errorText = errorText,
+			onReadyForSignal = onReadyForSignal,
+			onContinueFunc = function() PostInformedOfBan(bind(self, 'PostRequest'), true) end
+		}), CoreGui, "RobloxVoiceChatPromptGui")
 	end
 end
 

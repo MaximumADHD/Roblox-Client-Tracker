@@ -30,9 +30,6 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
 
-local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
-
 local CAMERA_MODE_LOCALIZATION_KEYS = {
 	[Enum.ComputerCameraMovementMode.Classic] = "CoreScripts.InGameMenu.GameSettings.CameraModeClassic",
 	[Enum.ComputerCameraMovementMode.Follow] = "CoreScripts.InGameMenu.GameSettings.CameraModeFollow",
@@ -43,16 +40,14 @@ local CAMERA_MODE_LOCALIZATION_KEYS = {
 local CameraModeEntry = Roact.PureComponent:extend("CameraModeEntry")
 CameraModeEntry.validateProps = t.strictInterface({
 	LayoutOrder = t.integer,
-	canOpen = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
-	canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
-	ButtonRef = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.union(t.callback, t.table)) or nil,
+	canOpen = t.optional(t.boolean),
+	canCaptureFocus = t.optional(t.boolean),
+	ButtonRef = t.optional(t.union(t.callback, t.table)),
 })
 
-if GetFFlagInGameMenuControllerDevelopmentOnly() then
-	CameraModeEntry.defaultProps = {
-		canOpen = true
-	}
-end
+CameraModeEntry.defaultProps = {
+	canOpen = true
+}
 
 function CameraModeEntry:init()
 	self:setState({

@@ -38,8 +38,6 @@ local Network = InGameMenu.Network
 local httpRequest = require(Network.httpRequest)
 local networkImpl = httpRequest(HttpRbxApiService)
 
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
-
 local NAV_BUTTON_HEIGHT = 56
 -- The left indent on divider lines
 local DIVIDER_INDENT = 0
@@ -109,9 +107,9 @@ function NavigationButton:renderWithSelectionCursor(getSelectionCursor)
 				LayoutOrder = props.LayoutOrder,
 				Size = UDim2.new(1, 0, 0, NAV_BUTTON_HEIGHT),
 				Text = "",
-				SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly() and getSelectionCursor(CursorKind.Square) or nil,
+				SelectionImageObject = getSelectionCursor(CursorKind.Square),
 				[Roact.Event.Activated] = props.onActivated,
-				[Roact.Ref] = (GetFFlagInGameMenuControllerDevelopmentOnly() and props.LayoutOrder == 1 and props.mainPageFirstButtonRef) or nil,
+				[Roact.Ref] = props.LayoutOrder == 1 and props.mainPageFirstButtonRef or nil,
 				[Roact.Event.MouseEnter] = function()
 					self:setState({
 						hovering = true,
@@ -180,13 +178,9 @@ function NavigationButton:renderWithSelectionCursor(getSelectionCursor)
 end
 
 function NavigationButton:render()
-	if GetFFlagInGameMenuControllerDevelopmentOnly() then
-		return withSelectionCursorProvider(function(getSelectionCursor)
-			return self:renderWithSelectionCursor(getSelectionCursor)
-		end)
-	else
-		return self:renderWithSelectionCursor()
-	end
+	return withSelectionCursorProvider(function(getSelectionCursor)
+		return self:renderWithSelectionCursor(getSelectionCursor)
+	end)
 end
 
 function NavigationButton:didUpdate()
@@ -245,7 +239,7 @@ local function PageNavigation(props)
 						props.setCurrentPage(page.key)
 					end
 				end,
-				mainPageFirstButtonRef = (GetFFlagInGameMenuControllerDevelopmentOnly() and layoutOrder == 1 and props.mainPageFirstButtonRef) or nil,
+				mainPageFirstButtonRef = layoutOrder == 1 and props.mainPageFirstButtonRef or nil,
 			})
 
 			layoutOrder = layoutOrder + 1
@@ -276,9 +270,7 @@ local function PageNavigation(props)
 			BackgroundTransparency = 1,
 			Position = props.Position,
 			-- pageCount nav buttons, plus pageCount - 1 dividers (which are 1px tall)
-			Size = GetFFlagInGameMenuControllerDevelopmentOnly()
-				and UDim2.new(1, -Constants.Zone.ContentOffset, 0, pageCount * NAV_BUTTON_HEIGHT + (pageCount - 1))
-				or UDim2.new(1, 0, 0, pageCount * NAV_BUTTON_HEIGHT + (pageCount - 1)),
+			Size = UDim2.new(1, -Constants.Zone.ContentOffset, 0, pageCount * NAV_BUTTON_HEIGHT + (pageCount - 1)),
 		}, frameChildren)
 
 	end

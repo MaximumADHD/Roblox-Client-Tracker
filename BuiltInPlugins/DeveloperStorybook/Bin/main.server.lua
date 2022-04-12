@@ -6,17 +6,14 @@ local Main = script.Parent.Parent
 
 require(script.Parent.defineLuaFlags)
 
-local DebugFlags = require(Main.Src.Util.DebugFlags)
-if DebugFlags.RunningUnderCLI() then
-	return
-end
-
-if not game:GetService("StudioService"):HasInternalPermission() then
-	return
-end
-
 local commonInit = require(Main.Src.Util.commonInit)
 commonInit()
+
+local TestLoader = require(Main.Packages.TestLoader)
+TestLoader.launch("DeveloperStorybook", Main.Src)
+if TestLoader.isCli() or not TestLoader.hasInternalPermission() then
+	return
+end
 
 local Roact = require(Main.Packages.Roact)
 local MainPlugin = require(Main.Src.MainPlugin)

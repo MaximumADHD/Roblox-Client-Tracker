@@ -17,8 +17,8 @@ local TextureMapSelector = require(Plugin.Src.Components.TextureMapSelector)
 
 local Actions = Plugin.Src.Actions
 local SetColorMap = require(Actions.SetColorMap)
-local SetNormalMap = require(Actions.SetNormalMap)
 local SetMetalnessMap = require(Actions.SetMetalnessMap)
+local SetNormalMap = require(Actions.SetNormalMap)
 local SetRoughnessMap = require(Actions.SetRoughnessMap)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
@@ -35,13 +35,13 @@ type _Props = Props & {
 	Stylizer : any,
 
 	ColorMap : _Types.TextureMap?,
-	NormalMap : _Types.TextureMap?,
 	MetalnessMap : _Types.TextureMap?,
+	NormalMap : _Types.TextureMap?,
 	RoughnessMap : _Types.TextureMap?,
 
 	dispatchSetColorMap : (_Types.TextureMap?) -> (),
-	dispatchSetNormalMap : (_Types.TextureMap?) -> (),
 	dispatchSetMetalnessMap : (_Types.TextureMap?) -> (),
+	dispatchSetNormalMap : (_Types.TextureMap?) -> (),
 	dispatchSetRoughnessMap : (_Types.TextureMap?) -> (),
 }
 
@@ -50,8 +50,8 @@ local TextureSettings = Roact.PureComponent:extend("TextureSettings")
 function TextureSettings:init()
 	self.state = {
 		errorColorMap = "",
-		errorNormalMap = "",
 		errorMetalnessMap = "",
+		errorNormalMap = "",
 		errorRoughnessMap = "",
 	}
 
@@ -106,19 +106,19 @@ function TextureSettings:init()
 			self:setState({
 				errorColorMap = errorMessage,
 			})
-		elseif mapType == TextureMaps.NormalMap then
-			if (not errorMessage or errorMessage == "") and newState then
-				props.dispatchSetNormalMap(newState)
-			end
-			self:setState({
-				errorNormalMap = errorMessage,
-			})
 		elseif mapType == TextureMaps.MetalnessMap then
 			if (not errorMessage or errorMessage == "") and newState then
 				props.dispatchSetMetalnessMap(newState)
 			end
 			self:setState({
 				errorMetalnessMap = errorMessage,
+			})
+		elseif mapType == TextureMaps.NormalMap then
+			if (not errorMessage or errorMessage == "") and newState then
+				props.dispatchSetNormalMap(newState)
+			end
+			self:setState({
+				errorNormalMap = errorMessage,
 			})
 		elseif mapType == TextureMaps.RoughnessMap then
 			if (not errorMessage or errorMessage == "") and newState then
@@ -153,17 +153,17 @@ function TextureSettings:init()
 		})
 	end
 
-	self.clearNormalMap = function()
-		self.props.dispatchSetNormalMap(nil)
-		self:setState({
-			errorNormalMap = "",
-		})
-	end
-
 	self.clearMetalnessMap = function()
 		self.props.dispatchSetMetalnessMap(nil)
 		self:setState({
 			errorMetalnessMap = "",
+		})
+	end
+
+	self.clearNormalMap = function()
+		self.props.dispatchSetNormalMap(nil)
+		self:setState({
+			errorNormalMap = "",
 		})
 	end
 
@@ -186,19 +186,19 @@ function TextureSettings:init()
 				ClearSelection = self.clearColorMap,
 				PreviewTitle = localization:getText("Import", "ColorMapPreview"),
 			})
-		elseif key == "ImportNormalMap" then
-			return Roact.createElement(TextureMapSelector, {
-				CurrentTextureMap = props.NormalMap,
-				SelectTextureMap = self.selectNormalMap,
-				ClearSelection = self.clearNormalMap,
-				PreviewTitle = localization:getText("Import", "NormalMapPreview"),
-			})
 		elseif key == "ImportMetalnessMap" then
 			return Roact.createElement(TextureMapSelector, {
 				CurrentTextureMap = props.MetalnessMap,
 				SelectTextureMap = self.selectMetalnessMap,
 				ClearSelection = self.clearMetalnessMap,
 				PreviewTitle = localization:getText("Import", "MetalnessMapPreview"),
+			})
+		elseif key == "ImportNormalMap" then
+			return Roact.createElement(TextureMapSelector, {
+				CurrentTextureMap = props.NormalMap,
+				SelectTextureMap = self.selectNormalMap,
+				ClearSelection = self.clearNormalMap,
+				PreviewTitle = localization:getText("Import", "NormalMapPreview"),
 			})
 		elseif key == "ImportRoughnessMap" then
 			return Roact.createElement(TextureMapSelector, {
@@ -243,8 +243,8 @@ function TextureSettings:render()
 	-- TODO: add texture map functionality
 	local items = {
 		"ImportColorMap",
-		"ImportNormalMap",
 		"ImportMetalnessMap",
+		"ImportNormalMap",
 		"ImportRoughnessMap",
 	}
 
@@ -269,8 +269,8 @@ TextureSettings = withContext({
 local function mapStateToProps(state : MainReducer.State, _)
 	return {
 		ColorMap = state.MaterialPromptReducer.ColorMap,
-		NormalMap = state.MaterialPromptReducer.NormalMap,
 		MetalnessMap = state.MaterialPromptReducer.MetalnessMap,
+		NormalMap = state.MaterialPromptReducer.NormalMap,
 		RoughnessMap = state.MaterialPromptReducer.RoughnessMap,
 	}
 end
@@ -280,11 +280,11 @@ local function mapDispatchToProps(dispatch)
 		dispatchSetColorMap = function (colorMap)
 			dispatch(SetColorMap(colorMap))
 		end,
-		dispatchSetNormalMap = function (normalMap)
-			dispatch(SetNormalMap(normalMap))
-		end,
 		dispatchSetMetalnessMap = function (metalnessMap)
 			dispatch(SetMetalnessMap(metalnessMap))
+		end,
+		dispatchSetNormalMap = function (normalMap)
+			dispatch(SetNormalMap(normalMap))
 		end,
 		dispatchSetRoughnessMap = function (roughnessMap)
 			dispatch(SetRoughnessMap(roughnessMap))

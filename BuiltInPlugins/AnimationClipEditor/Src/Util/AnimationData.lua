@@ -19,7 +19,6 @@ local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local GetFFlagKeyframeUtilsGetValueCleanup = require(Plugin.LuaFlags.GetFFlagKeyframeUtilsGetValueCleanup)
 local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
 
 export type AnimationData = any
@@ -66,13 +65,7 @@ function AnimationData.toCFrameArray(bones, data, frameRate)
 		local keyframes = {}
 		if tracks[boneName] then
 			for tick = 1, outputLength do
-				local value
-				if GetFFlagChannelAnimations() or GetFFlagKeyframeUtilsGetValueCleanup() then
-					value = KeyframeUtils.getValue(tracks[boneName], tick * rateConversion)
-				else
-					value = KeyframeUtils:getValue_deprecated(tracks[boneName], tick * rateConversion)
-				end
-				keyframes[tick] = value
+				keyframes[tick] = KeyframeUtils.getValue(tracks[boneName], tick * rateConversion)
 			end
 		end
 		poses[boneIndex] = keyframes

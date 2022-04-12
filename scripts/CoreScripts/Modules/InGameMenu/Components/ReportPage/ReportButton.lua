@@ -18,8 +18,6 @@ local ImageSetButton = UIBlox.Core.ImageSet.Button
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
-local FFlagTurnOffSelectableSmallIGMButtons = require(InGameMenu.Flags.FFlagTurnOffSelectableSmallIGMButtons)
-
 local validateProps = t.strictInterface({
 	userId = t.optional(t.integer),
 	userName = t.optional(t.string),
@@ -32,14 +30,9 @@ local function ReportButton(props)
 		assert(validateProps(props))
 	end
 
-	local ReportButtonSelectable = nil -- inline with FFlagTurnOffSelectableSmallIGMButtons
-	if FFlagTurnOffSelectableSmallIGMButtons then
-		ReportButtonSelectable = false
-	end
-
 	return withSelectionCursorProvider(function(getSelectionCursor)
 		return Roact.createElement(ImageSetButton, {
-			Selectable = ReportButtonSelectable,
+			Selectable = false,
 			Image = Assets.Images.ReportIcon,
 			Size = UDim2.new(0, 36, 0, 36),
 			ImageColor3 = Color3.fromRGB(255, 255, 255),

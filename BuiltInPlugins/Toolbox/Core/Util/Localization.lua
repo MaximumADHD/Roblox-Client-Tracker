@@ -6,7 +6,7 @@ local Plugin = script.Parent.Parent.Parent
 
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
-local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
+local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
 local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
 local Packages = Plugin.Packages
 local Cryo = require(Packages.Cryo)
@@ -395,7 +395,7 @@ function Localization:_recalculateContent()
 	self:_update({
 		ToolboxToolbarName = self:_safeLocalize("Studio.Toolbox.General.ToolboxToolbarName"),
 
-		Categorization = FFlagToolboxAssetCategorization2 and {
+		Categorization = FFlagToolboxAssetCategorization3 and {
 			AllModels = self:_safeLocalize("Studio.Toolbox.General.AllModels"),
 		} or nil,
 

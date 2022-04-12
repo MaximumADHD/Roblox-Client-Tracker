@@ -1,3 +1,4 @@
+--!strict
 --[[
 	Removes a single keyframe from the current selection.
 
@@ -11,15 +12,17 @@ local Cryo = require(Plugin.Packages.Cryo)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local deepCopy = require(Plugin.Src.Util.deepCopy)
 local SelectionUtils = require(Plugin.Src.Util.SelectionUtils)
+local PathUtils = require(Plugin.Src.Util.PathUtils)
 
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagFixDeselectCrash = require(Plugin.LuaFlags.GetFFlagFixDeselectCrash)
 
 if GetFFlagChannelAnimations() then
 	-- Recursively traverse the selectedInstance to find the track corresponding to the path
-	local function findTrack(selectedInstance, path)
-		local track = selectedInstance
+	local function findTrack_deprecated(selectedInstance: SelectionUtils.SelectedComponents, path: PathUtils.Path): (SelectionUtils.SelectedTrack?)
+		local track:any = selectedInstance
 		for index, pathPart in ipairs(path) do
 			track = track[pathPart]
 			if not track then
@@ -29,28 +32,52 @@ if GetFFlagChannelAnimations() then
 			end
 		end
 
-		return track
+		return track::SelectionUtils.SelectedTrack
 	end
 
-	local function isTrackEmpty(track)
+	local function findTrack(selectedInstance: SelectionUtils.SelectedComponents, path: PathUtils.Path): (SelectionUtils.SelectedTrack?)
+		local tracks = selectedInstance
+		local currentTrack
+
+		for index, pathPart in ipairs(path) do
+			currentTrack = tracks[pathPart]
+
+			if not currentTrack then
+				return nil
+			elseif index < #path then
+				if currentTrack.Components then
+					tracks = currentTrack.Components
+				else
+					return nil
+				end
+			end
+		end
+
+		return currentTrack
+	end
+
+	local function isTrackEmpty(track: SelectionUtils.SelectedTrack): (boolean)
 		return (track.Components == nil or isEmpty(track.Components)) and
 			(track.Selection == nil or isEmpty(track.Selection))
 	end
 
-	return function(instanceName, path, tick)
-		return function(store)
+	return function(instanceName: string, path: PathUtils.Path, tck: number): ((any) -> ())
+		return function(store: any): ()
 			local state = store:getState()
+			local animationData = state.AnimationData
 
 			-- Before we start deepcopying selection data, we need to make sure that
 			-- we are have something to deselect
-			local status = state.Status or {}
-			local selectedKeyframes = status.SelectedKeyframes or {}
-			local selectedInstance = selectedKeyframes[instanceName] ~= nil and selectedKeyframes[instanceName] or {}
+			local status: {SelectedKeyframes: SelectionUtils.Selection?} = state.Status or {}
+			local selectedKeyframes: SelectionUtils.Selection = status.SelectedKeyframes or {}
+			local selectedInstance = selectedKeyframes[instanceName] or {}
 
-			local selectedTrack = findTrack(selectedInstance, path)
+			local selectedTrack = if GetFFlagFixDeselectCrash()
+				then findTrack(selectedInstance, path)
+				else findTrack_deprecated(selectedInstance, path)
 
 			-- There is no tick here that we can deselect. Bail out.
-			if not (selectedTrack and selectedTrack.Selection[tick]) then
+			if not (selectedTrack and (not selectedTrack.Selection or selectedTrack.Selection[tck])) then
 				return
 			end
 
@@ -60,49 +87,91 @@ if GetFFlagChannelAnimations() then
 			local newSelectedKeyframes = Cryo.Dictionary.join(selectedKeyframes, {})
 			newSelectedKeyframes[instanceName] = Cryo.Dictionary.join(newSelectedKeyframes[instanceName], {})
 			newSelectedKeyframes[instanceName][path[1]] = deepCopy(newSelectedKeyframes[instanceName][path[1]])
-			selectedTrack = findTrack(newSelectedKeyframes[instanceName], path)
 
 			-- Traverse the selectedTrack components to delete the tick in all components
-			SelectionUtils.traverse(selectedTrack, nil, function(selectedTrack)
-				if not selectedTrack.Selection then
-					return
+			if not GetFFlagFixDeselectCrash() then
+				selectedTrack = findTrack_deprecated(newSelectedKeyframes[instanceName], path)
+				if selectedTrack then
+					SelectionUtils.traverse(selectedTrack, nil, function(track:any)
+						if not track.Selection then
+							return
+						end
+						track.Selection[tck] = nil
+						if isEmpty(track.Selection) then
+							track.Selection = nil
+							end
+					end)
 				end
-				selectedTrack.Selection[tick] = nil
-				if isEmpty(selectedTrack.Selection) then
-					selectedTrack.Selection = nil
+			else
+				selectedTrack = findTrack(newSelectedKeyframes[instanceName], path)
+				if selectedTrack then
+					SelectionUtils.traverse(selectedTrack, nil, function(track: SelectionUtils.SelectedTrack): ()
+						if track.Selection then
+							track.Selection[tck] = nil
+							if isEmpty(track.Selection) then
+								track.Selection = nil
+							end
+						end
+					end)
 				end
-			end)
+			end
 
-			-- Traverse the entire track hierarchy post-order to deselect composite tracks if at least one of their
+			-- Traverse the entire track hierarchy to deselect composite tracks if at least one of their
 			-- components is deselected
 			local topTrack = newSelectedKeyframes[instanceName][path[1]]
-			SelectionUtils.traverse(topTrack, nil, nil, function(track)
-				local hasSelectedComponent = true
-				if track.Components then
-					for _, component in pairs(track.Components) do
-						if component.Selection then
-							hasSelectedComponent = component.Selection and component.Selection[tick] and hasSelectedComponent
+
+			if GetFFlagFixDeselectCrash() then
+				local topDataTrack = animationData.Instances[instanceName].Tracks[path[1]]
+				SelectionUtils.traverse(topTrack, topDataTrack, function(track: SelectionUtils.SelectedTrack, dataTrack: any, relPath): ()
+					-- If the datatrack has a keyframe for the tick, but the selectedTrack has no selection, or at least not for that tick
+					if dataTrack and dataTrack.Data and dataTrack.Data[tck] and (not track.Selection or not track.Selection[tck]) then
+						local currentTrack = topTrack
+						for _, pathPart in ipairs(relPath) do
+							if currentTrack then
+								if currentTrack.Selection then
+									currentTrack.Selection[tck] = nil
+								end
+								currentTrack = currentTrack.Components[pathPart]
+							end
 						end
 					end
-				end
-
-				if not hasSelectedComponent then
-					track.Selection[tick] = nil
-					if isEmpty(track.Selection) then
+				end, function(track: SelectionUtils.SelectedTrack): ()
+					if track.Selection and isEmpty(track.Selection) then
 						track.Selection = nil
 					end
-				end
-			end)
+				end)
+			else
+				SelectionUtils.traverse(topTrack, nil, nil, function(track: SelectionUtils.SelectedTrack): ()
+					local hasSelectedComponent = true
+					if track.Components then
+						for _, component in pairs(track.Components) do
+							if component.Selection then
+								hasSelectedComponent = component.Selection[tck] and hasSelectedComponent
+							end
+						end
+					end
+
+					if not hasSelectedComponent and track.Selection then
+						track.Selection[tck] = nil
+						if isEmpty(track.Selection) then
+							track.Selection = nil
+						end
+					end
+				end)
+			end
 
 			-- Traverse it again to prune components that have no selection or components of their own.
 			-- Prune the top level track.
-			SelectionUtils.traverse(topTrack, nil, nil, function(track)
-				for componentName, component in pairs(track.Components or {}) do
-					if isTrackEmpty(component) then
-						track.Components[componentName] = nil
+			SelectionUtils.traverse(topTrack, nil, nil, function(track: SelectionUtils.SelectedTrack): ()
+				if track.Components then
+					for componentName, component in pairs(track.Components or {}) do
+						if isTrackEmpty(component) then
+							track.Components[componentName] = nil
+						end
 					end
 				end
 			end)
+
 			if isTrackEmpty(topTrack) then
 				newSelectedKeyframes[instanceName][path[1]] = nil
 				if isEmpty(newSelectedKeyframes[instanceName]) then
@@ -114,7 +183,7 @@ if GetFFlagChannelAnimations() then
 		end
 	end
 else
-	return function(instanceName, trackName, tick)
+	return function(instanceName, trackName, tck)
 		return function(store)
 			local state = store:getState()
 			local status = state.Status
@@ -130,9 +199,9 @@ else
 			local newInstance = selectedKeyframes[instanceName] ~= nil and selectedKeyframes[instanceName] or {}
 			local newTrack = newInstance[trackName] ~= nil and newInstance[trackName] or {}
 
-			if newTrack[tick] then
+			if newTrack[tck] then
 				local newKeyframes = Cryo.Dictionary.join(newTrack, {
-					[tick] = Cryo.None,
+					[tck] = Cryo.None,
 				})
 
 				if isEmpty(newKeyframes) then

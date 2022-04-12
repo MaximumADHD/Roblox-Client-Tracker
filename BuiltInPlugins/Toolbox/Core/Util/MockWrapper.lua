@@ -24,6 +24,7 @@ local Mouse = ContextServices.Mouse
 local Signal = Framework.Util.Signal
 local SettingsContext = require(Plugin.Core.ContextServices.Settings)
 local IXPContext = require(Plugin.Core.ContextServices.IXPContext)
+local NavigationContext = require(Plugin.Core.ContextServices.NavigationContext)
 local getAssetConfigTheme = require(Plugin.Core.Themes.getAssetConfigTheme)
 
 local CoreTestUtils = require(Plugin.TestUtils.CoreTestUtils)
@@ -78,6 +79,8 @@ local function MockWrapper(props)
 		overrideLocaleChangedSignal = Signal.new(),
 	})
 
+	local navigationContext = NavigationContext.new()
+
 	local context = {
 		storeContext,
 		focus,
@@ -90,6 +93,7 @@ local function MockWrapper(props)
 		analytics,
 		devFrameworkLocalization,
 		ixpContext,
+		navigationContext,
 	}
 
 	return Roact.createElement(ExternalServicesWrapper, {

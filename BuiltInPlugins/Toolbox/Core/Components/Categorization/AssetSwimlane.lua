@@ -3,6 +3,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
 local Framework = require(Packages.Framework)
 local Roact = require(Packages.Roact)
+local RoactRodux = require(Packages.RoactRodux)
 local Dash = Framework.Dash
 
 local CategorizationFolder = Plugin.Core.Components.Categorization
@@ -14,8 +15,6 @@ local Util = Plugin.Core.Util
 local ContextGetter = require(Util.ContextGetter)
 local Constants = require(Util.Constants)
 local HomeTypes = require(Plugin.Core.Types.HomeTypes)
-local ContextServices = Framework.ContextServices
-local withContext = ContextServices.withContext
 local Category = require(Plugin.Core.Types.Category)
 
 local getNetwork = ContextGetter.getNetwork
@@ -44,11 +43,14 @@ export type AssetSwimlaneProps = Swimlane.SwimlaneProps & {
 		sectionName: string?,
 		categoryName: string,
 		sortName: string?,
-		searchTerm: string?
+		searchTerm: string?,
+		navigation: any
 	) -> ()),
+	PathName: string,
 	Title: string?,
 	TryInsert: () -> (),
 	TryOpenAssetConfig: () -> (),
+	ZIndex: number?,
 }
 
 local AssetSwimlane = Roact.PureComponent:extend("AssetSwimlane")
@@ -58,6 +60,19 @@ function AssetSwimlane:init()
 	self.state = {
 		hoveredAssetId = 0,
 	}
+
+	self.onClickSeeAllAssets = function()
+		local props = self.props
+		local sectionName = self.props.SectionName
+		local categoryName = self.props.CategoryName
+		local sortName = self.props.SortName
+		local searchTerm = self.props.SearchTerm
+		local pathName = self.props.PathName
+
+		local onClickSeeAllAssets = props.OnClickSeeAllAssets
+
+		onClickSeeAllAssets(sectionName or pathName, categoryName, sortName, searchTerm)
+	end
 end
 
 function AssetSwimlane:render()
@@ -68,9 +83,8 @@ function AssetSwimlane:render()
 	local categoryName = props.CategoryName
 	local initialPageSize = props.InitialPageSize
 	local layoutOrder = props.LayoutOrder
-	local localization = props.Localization
 	local networkInterface = getNetwork(self)
-	local onClickSeeAllAssets = props.OnClickSeeAllAssets
+
 	local onAssetPreviewButtonClicked = props.OnAssetPreviewButtonClicked
 	local searchTerm = props.SearchTerm
 	local sectionName = props.SectionName
@@ -99,6 +113,7 @@ function AssetSwimlane:render()
 			onAssetHovered = onAssetHovered,
 			onAssetHoverEnded = onAssetHoverEnded,
 			onAssetPreviewButtonClicked = onAssetPreviewButtonClicked,
+			swimlaneCategory = title,
 			tryInsert = tryInsert,
 			tryOpenAssetConfig = tryOpenAssetConfig,
 		})
@@ -117,9 +132,7 @@ function AssetSwimlane:render()
 			Data = resultsState.assets,
 			IsLoading = resultsState.loading,
 			LayoutOrder = layoutOrder,
-			OnClickSeeAll = function()
-				return onClickSeeAllAssets(sectionName, categoryName, sortName, searchTerm)
-			end,
+			OnClickSeeAll = self.onClickSeeAllAssets,
 			OnRenderItem = onRenderItem,
 			Size = UDim2.new(0, swimlaneWidth, 0, assetHeight),
 			Total = resultsState.total,
@@ -138,9 +151,5 @@ function AssetSwimlane:render()
 		render = renderSwimlane,
 	})
 end
-
-withContext({
-	Localization = ContextServices.Localization,
-})(AssetSwimlane)
 
 return AssetSwimlane

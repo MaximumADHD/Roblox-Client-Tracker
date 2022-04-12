@@ -13,7 +13,7 @@
 		UDim2 Position: Overall position of the component.
 		UDim2 Size: Overall size of the component.
 ]]
-local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
+local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -42,7 +42,7 @@ local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local withAbsoluteSizeAndPosition
-if FFlagToolboxAssetCategorization2 then
+if FFlagToolboxAssetCategorization3 then
 	withAbsoluteSizeAndPosition = Framework.Wrappers.withAbsoluteSizeAndPosition
 end
 
@@ -59,8 +59,8 @@ type _ExternalProps = {
 	-- Props available from AssetLogicWrapper
 	CanInsertAsset: (() -> boolean)?,
 	OnAssetPreviewButtonClicked: ((assetData: any) -> ()),
-	ParentAbsolutePosition: Vector2, -- TODO: Remove with FFlagToolboxAssetCategorization2
-	ParentSize: Vector2, -- TODO: Remove with FFlagToolboxAssetCategorization2
+	ParentAbsolutePosition: Vector2, -- TODO: Remove with FFlagToolboxAssetCategorization3
+	ParentSize: Vector2, -- TODO: Remove with FFlagToolboxAssetCategorization3
 	TryInsert: ((assetData: any, assetWasDragged: boolean, insertionMethod: string) -> any),
 	TryOpenAssetConfig: ((
 		assetId: number?,
@@ -230,7 +230,7 @@ function AssetGrid:init(props: AssetGridProps)
 
 		local absoluteSize = props.AbsoluteSize
 		local absolutePosition = props.AbsolutePosition
-		if FFlagToolboxAssetCategorization2 then
+		if FFlagToolboxAssetCategorization3 then
 			absoluteSize = props.AbsoluteSize
 			absolutePosition = props.AbsolutePosition
 		else
@@ -274,7 +274,7 @@ function AssetGrid:init(props: AssetGridProps)
 		for index, asset in ipairs(state.displayedAssetIds) do
 			local assetId = asset[1]
 			local resultAsset
-			if FFlagToolboxAssetCategorization2 and assetMap then
+			if FFlagToolboxAssetCategorization3 and assetMap then
 				resultAsset = assetMap[assetId]
 			end
 
@@ -286,7 +286,7 @@ function AssetGrid:init(props: AssetGridProps)
 				LayoutOrder = index,
 				onAssetHovered = self.onAssetHovered,
 				onAssetHoverEnded = self.onAssetHoverEnded,
-				onAssetPreviewButtonClicked = if FFlagToolboxAssetCategorization2
+				onAssetPreviewButtonClicked = if FFlagToolboxAssetCategorization3
 					then props.OnAssetPreviewButtonClicked
 					else nil,
 				parentSize = absoluteSize,
@@ -420,7 +420,7 @@ function AssetGrid:render()
 	end
 
 	local topContent = renderTopContent and renderTopContent() or nil
-	if FFlagToolboxAssetCategorization2 and topContent then
+	if FFlagToolboxAssetCategorization3 and topContent then
 		gridContainerOffset += TOP_CONTENT_SPACING
 	end
 
@@ -428,10 +428,10 @@ function AssetGrid:render()
 		CanvasSize = UDim2.new(0, 0, 0, canvasHeight),
 		LayoutOrder = layoutOrder,
 		onScroll = self.onScroll,
-		Position = if not FFlagToolboxAssetCategorization2 then position else nil,
+		Position = if not FFlagToolboxAssetCategorization3 then position else nil,
 		scrollingEnabled = not isPreviewing,
-		Size = if FFlagToolboxAssetCategorization2 then UDim2.new(1, 0, 1, 0) else nil,
-		BackgroundColor = if FFlagToolboxAssetCategorization2 then theme.homeView.backgroundColor else nil,
+		Size = if FFlagToolboxAssetCategorization3 then UDim2.new(1, 0, 1, 0) else nil,
+		BackgroundColor = if FFlagToolboxAssetCategorization3 then theme.homeView.backgroundColor else nil,
 		[Roact.Ref] = self.scrollingFrameRef,
 		OnAbsoluteSizeChanged = self.getWidth,
 	}, {
@@ -449,7 +449,7 @@ function AssetGrid:render()
 				Size = UDim2.new(1, 0, 0, 0),
 				[Roact.Change.AbsoluteSize] = self.updateTopContentHeight,
 				[Roact.Ref] = self.topContentRef,
-				ZIndex = FFlagToolboxAssetCategorization2 and 2 or nil,
+				ZIndex = FFlagToolboxAssetCategorization3 and 2 or nil,
 			}, {
 				topContent,
 			})
@@ -463,7 +463,7 @@ function AssetGrid:render()
 		}, assetElements),
 	})
 
-	if FFlagToolboxAssetCategorization2 then
+	if FFlagToolboxAssetCategorization3 then
 		return Roact.createElement(
 			Pane,
 			Dash.join({
@@ -483,7 +483,7 @@ end
 
 AssetGrid = withContext({
 	Settings = Settings,
-	Stylizer = if FFlagToolboxAssetCategorization2 then ContextServices.Stylizer else nil,
+	Stylizer = if FFlagToolboxAssetCategorization3 then ContextServices.Stylizer else nil,
 })(AssetGrid)
 
 local function mapStateToProps(state, props)
@@ -493,7 +493,7 @@ local function mapStateToProps(state, props)
 	local categoryName = pageInfo.categoryName or Category.DEFAULT.name
 
 	local assetMap
-	if FFlagToolboxAssetCategorization2 then
+	if FFlagToolboxAssetCategorization3 then
 		assetMap = props.AssetMap
 	else
 		local idToAssetMap = assets.idToAssetMap or {}
@@ -514,7 +514,7 @@ function TypedComponent(props: AssetGridProps, children: any)
 	return Roact.createElement(AssetGrid, props, children)
 end
 
-if FFlagToolboxAssetCategorization2 then
+if FFlagToolboxAssetCategorization3 then
 	return withAbsoluteSizeAndPosition(TypedComponent)
 else
 	return TypedComponent

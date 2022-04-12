@@ -66,6 +66,7 @@ local GetFavoritedRequest = require(Requests.GetFavoritedRequest)
 local ToggleFavoriteStatusRequest = require(Requests.ToggleFavoriteStatusRequest)
 local TryCreateContextMenu = require(Plugin.Core.Thunks.TryCreateContextMenu)
 local GetPageInfoAnalyticsContextInfo = require(Plugin.Core.Thunks.GetPageInfoAnalyticsContextInfo)
+local NavigationContext = require(Plugin.Core.ContextServices.NavigationContext)
 
 local Category = require(Plugin.Core.Types.Category)
 local PurchaseStatus = require(Plugin.Core.Types.PurchaseStatus)
@@ -76,7 +77,7 @@ local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor
 local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
 local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
 local FFlagPluginsSetAudioPreviewUsageContext = game:GetFastFlag("PluginsSetAudioPreviewUsageContext")
-local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
+local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
 local FFlagToolboxFixNonOwnedPluginInstallation = game:GetFastFlag("ToolboxFixNonOwnedPluginInstallation")
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext")
 local FFlagToolboxAssetPreviewProtectAgainstNilAssetData = game:GetFastFlag(
@@ -432,9 +433,17 @@ function AssetPreviewWrapper:init(props)
 			categoryName = categoryName,
 			currentCategoryName = currentCategoryName,
 			onSuccess = function()
+				local navData
+				if FFlagToolboxAssetCategorization3 then
+					local analytics = self.props.AssetAnalytics:get()
+					local navigation = self.props.NavigationContext:get()
+					local swimlaneName = self.props.swimlane
+					navData = analytics.getNavigationContext(navigation, swimlaneName)
+				end
+
 				self.props.AssetAnalytics
 					:get()
-					:logInsert(assetData, "PreviewClickInsertButton", nil, assetAnalyticsContext)
+					:logInsert(assetData, "PreviewClickInsertButton", nil, assetAnalyticsContext, navData)
 			end,
 		})
 		if success then
@@ -687,7 +696,7 @@ local function mapStateToProps(state, props)
 	local categories = nil
 
 	local assetData
-	if FFlagToolboxAssetCategorization2 then
+	if FFlagToolboxAssetCategorization3 then
 		assetData = props.assetData
 	else
 		assetData = FFlagToolboxAssetGridRefactor and idToAssetMap[assetId] or nil
@@ -784,6 +793,7 @@ end
 AssetPreviewWrapper = withContext({
 	Settings = Settings,
 	AssetAnalytics = AssetAnalyticsContextItem,
+	NavigationContext = FFlagToolboxAssetCategorization3 and NavigationContext or nil,
 	Plugin = FFlagToolboxAssetGridRefactor and ContextServices.Plugin or nil,
 	Stylizer = ContextServices.Stylizer,
 })(AssetPreviewWrapper)

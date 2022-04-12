@@ -36,6 +36,8 @@ local RIGHT = Orientation.Right.rawValue()
 local TOP = Orientation.Top.rawValue()
 local BOTTOM = Orientation.Bottom.rawValue()
 
+local FFlag9SliceEditorLeftAlignOffsetTextInputs = game:GetFastFlag("9SliceEditorLeftAlignOffsetTextInputs")
+
 local function SliceToOffset (slice, pixelSize)
 	--[[
 		given the pixelDimensions of the image and a slice = {X0, Y0, X1, Y1}
@@ -174,7 +176,7 @@ function TextOffset:render()
 			Position = UDim2.fromOffset(TextInputStyle.LabelXWidth + TextInputStyle.LabelTextBoxSpacing, 0),
 			Style = TextInputStyle.Style,
 			Text = ("%d"):format(offsetValue),
-			TextXAlignment = Enum.TextXAlignment.Center,
+			TextXAlignment = if FFlag9SliceEditorLeftAlignOffsetTextInputs then Enum.TextXAlignment.Left else Enum.TextXAlignment.Center,
 			OnFocusLost = onFocusLost,
 		}),
 	})

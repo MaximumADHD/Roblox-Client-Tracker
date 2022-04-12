@@ -5,8 +5,6 @@ local Rodux = InGameMenuDependencies.Rodux
 local Cryo = InGameMenuDependencies.Cryo
 
 local InGameMenu = script.Parent.Parent
-local Flags = InGameMenu.Flags
-local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 local OpenReportDialog = require(InGameMenu.Actions.OpenReportDialog)
 local CloseReportDialog = require(InGameMenu.Actions.CloseReportDialog)
@@ -31,12 +29,9 @@ return Rodux.createReducer({
 	-- If you are changing page, show the new page by hiding the dialog.
 	-- This can happen when pressing X to leave.
 	[SetCurrentPage.name] = function(state, action)
-		if GetFFlagInGameMenuControllerDevelopmentOnly() then
-			return Cryo.Dictionary.join(state, {
-				dialogOpen = false,
-			})
-		end
-		return state
+		return Cryo.Dictionary.join(state, {
+			dialogOpen = false,
+		})
 	end,
 	[CloseReportDialog.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {

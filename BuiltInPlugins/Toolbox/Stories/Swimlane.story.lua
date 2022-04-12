@@ -1,5 +1,5 @@
 --!strict
-local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
+local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
 
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -10,11 +10,11 @@ local IconTile = require(Plugin.Core.Components.Categorization.IconTile)
 local CoreTestUtils = require(Plugin.TestUtils.CoreTestUtils)
 
 local function createSwimlaneWrapper(props)
-	return FFlagToolboxAssetCategorization2
+	return FFlagToolboxAssetCategorization3
 			and Roact.createElement(ToolboxStoryWrapper, {}, {
 				Example = Roact.createElement(Swimlane, props),
 			})
-		or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization2", true)
+		or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization3", true)
 end
 
 local function createIconTileData(key, caption)

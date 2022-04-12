@@ -32,10 +32,8 @@ local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
 
 local Category = require(Plugin.Core.Types.Category)
-local Rollouts = require(Plugin.Core.Rollouts)
 
 local getNetwork = ContextGetter.getNetwork
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
 local ContextServices = require(Packages.Framework).ContextServices

@@ -35,6 +35,7 @@ local DragContext = require(Plugin.Src.Util.DragContext)
 local Input = require(Plugin.Src.Util.Input)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
+local PathUtils = require(Plugin.Src.Util.PathUtils)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
@@ -84,12 +85,12 @@ export type Props = {
 	AddWaypoint: () -> (),
 	DeleteSelectedKeyframes: (any) -> (),
 	DeselectAllKeyframes: () -> (),
-	DeselectKeyframe: (string, string, number) -> (),
+	DeselectKeyframe: (string, PathUtils.Path, number) -> (),
 	GenerateCurve: (Enum.KeyInterpolationMode, Enum.KeyInterpolationMode) -> (),
 	Pause: () -> (),
 	ScaleSelectedKeyframes: (number, number, any) -> (),
-	SelectKeyframeRange: (string, {string}, number, number, boolean) -> (),
-	SetKeyframeTangent: (string, {string}, number, string, number) -> (),
+	SelectKeyframeRange: (string, PathUtils.Path, number, number, boolean) -> (),
+	SetKeyframeTangent: (string, PathUtils.Path, number, string, number) -> (),
 	SetSelectedKeyframes: (any) -> (),
 	SetSelectedKeyframeData: (any) -> (),
 
@@ -299,7 +300,7 @@ function CurveEditorController:init()
 		end
 	end
 
-	self.onSetTangent = function(instanceName: string, path: {string}, tck: number, side: string, slope: number): ()
+	self.onSetTangent = function(instanceName: string, path: PathUtils.Path, tck: number, side: string, slope: number): ()
 		self.props.AddWaypoint()
 		self.props.SetKeyframeTangent(instanceName, path, tck, side, slope or Cryo.None)
 	end
@@ -384,7 +385,7 @@ function CurveEditorController:init()
 		})
 	end
 
-	self.onTangentDragStarted = function(instanceName: string, path: {string}, tck: number, side: string): ()
+	self.onTangentDragStarted = function(instanceName: string, path: PathUtils.Path, tck: number, side: string): ()
 		local animationData = self.props.AnimationData
 
 		self.dragContext = DragContext.newTangentContext(animationData, instanceName, path, tck, side)
@@ -466,14 +467,14 @@ function CurveEditorController:init()
 		})
 	end
 
-	self.handleKeyframeRightClick = function(instanceName: string, path: {string}, tck: number): ()
+	self.handleKeyframeRightClick = function(instanceName: string, path: PathUtils.Path, tck: number): ()
 		if isEmpty(self.props.SelectedKeyframes) then
 			self.props.SelectKeyframeRange(instanceName, path, tck, tck, false)
 		end
 		self.showKeyframeMenu()
 	end
 
-	self.handleKeyframeInputBegan = function(instanceName: string, path: {string}, tck: number, selected: boolean, input: any): ()
+	self.handleKeyframeInputBegan = function(instanceName: string, path: PathUtils.Path, tck: number, selected: boolean, input: any): ()
 		-- Select keyframe if not selected
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			self.mouseDown = true
@@ -504,7 +505,7 @@ function CurveEditorController:init()
 		end
 	end
 
-	self.handleTangentRightClick = function(instanceName: string, path: {string}, tck: number, side: string): ()
+	self.handleTangentRightClick = function(instanceName: string, path: PathUtils.Path, tck: number, side: string): ()
 		self.props.SetRightClickContextInfo({
 			InstanceName = instanceName,
 			Path = path,
@@ -520,7 +521,7 @@ function CurveEditorController:init()
 		end
 	end
 
-	self.handleTangentInputEnded = function(instanceName: string, path: {string}, tck: number, side: string, input: any): ()
+	self.handleTangentInputEnded = function(instanceName: string, path: PathUtils.Path, tck: number, side: string, input: any): ()
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			if self.mouseDown then
 				self.onTangentDragStarted(instanceName, path, tck, side)
@@ -898,9 +899,9 @@ local function mapDispatchToProps(dispatch): ({[string]: any})
 			dispatch(SetSelectedEvents({}))
 		end,
 
-		DeselectKeyframe = function(instanceName: string, trackName: string, tck: number): ()
+		DeselectKeyframe = function(instanceName: string, path: PathUtils.Path, tck: number): ()
 			dispatch(AddWaypoint())
-			dispatch(DeselectKeyframe(instanceName, trackName, tck))
+			dispatch(DeselectKeyframe(instanceName, path, tck))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
@@ -921,12 +922,12 @@ local function mapDispatchToProps(dispatch): ({[string]: any})
 			dispatch(ScaleSelectedKeyframes(pivotTick, scale, dragContext))
 		end,
 
-		SelectKeyframeRange = function(instanceName: string, componentPath: {string}, minTick: number, maxTick: number, multiSelect: boolean): ()
+		SelectKeyframeRange = function(instanceName: string, componentPath: PathUtils.Path, minTick: number, maxTick: number, multiSelect: boolean): ()
 			dispatch(SetSelectedEvents({}))
 			dispatch(SelectKeyframeRange(instanceName, componentPath, minTick, maxTick, multiSelect))
 		end,
 
-		SetKeyframeTangent = function(instanceName: string, path: {string}, tck: number, side: string, slope: number): ()
+		SetKeyframeTangent = function(instanceName: string, path: PathUtils.Path, tck: number, side: string, slope: number): ()
 			dispatch(SetKeyframeTangent(instanceName, path, tck, side, slope))
 		end,
 

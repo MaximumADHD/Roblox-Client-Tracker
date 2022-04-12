@@ -21,7 +21,7 @@
 ]]
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
 local FFlagToolboxShowHasScriptInfo = game:GetFastFlag("ToolboxShowHasScriptInfo")
-local FFlagToolboxAssetCategorization2 = game:GetFastFlag("ToolboxAssetCategorization2")
+local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -57,6 +57,7 @@ local GetOwnsAssetRequest = require(Plugin.Core.Networking.Requests.GetOwnsAsset
 local GetCanManageAssetRequest = require(Plugin.Core.Networking.Requests.GetCanManageAssetRequest)
 
 local SetAssetPreview = require(Plugin.Core.Actions.SetAssetPreview)
+local NavigationContext = require(Plugin.Core.ContextServices.NavigationContext)
 
 local Framework = require(Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -162,7 +163,7 @@ function Asset:init(props)
 		end
 
 		if asset.TypeId == Enum.AssetType.Plugin.Value then
-			if FFlagToolboxAssetCategorization2 then
+			if FFlagToolboxAssetCategorization3 then
 				self.onAssetPreviewButtonClicked()
 			else
 				if FFlagToolboxAssetGridRefactor then
@@ -178,7 +179,7 @@ function Asset:init(props)
 	end
 
 	self.onAssetPreviewButtonClicked = function()
-		if FFlagToolboxAssetCategorization2 then
+		if FFlagToolboxAssetCategorization3 then
 			local assetData = self.props.assetData
 			self.props.onAssetPreviewButtonClicked(assetData)
 		else
@@ -243,7 +244,15 @@ function Asset:init(props)
 					local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
 					assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
 				end
-				self.props.AssetAnalytics:get():logImpression(assetData, assetAnalyticsContext)
+				if FFlagToolboxAssetCategorization3 then
+					local swimlaneName = self.props.swimlaneCategory
+					local nav = self.props.NavigationContext:get()
+					local analytics = self.props.AssetAnalytics:get()
+					local navData = analytics.getNavigationContext(nav, swimlaneName)
+					self.props.AssetAnalytics:get():logImpression(assetData, assetAnalyticsContext, navData)
+				else
+					self.props.AssetAnalytics:get():logImpression(assetData, assetAnalyticsContext)
+				end
 			end
 			self.wasAssetBoundsWithinScrollingBounds = wasAssetBoundsWithinScrollingBounds
 		end
@@ -272,7 +281,15 @@ function Asset:didMount()
 			local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
 			assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
 		end
-		self.props.AssetAnalytics:get():logImpression(assetData, assetAnalyticsContext)
+		if FFlagToolboxAssetCategorization3 then
+			local swimlaneName = self.props.swimlaneCategory
+			local nav = self.props.NavigationContext:get()
+			local analytics = self.props.AssetAnalytics:get()
+			local navData = analytics.getNavigationContext(nav, swimlaneName)
+			self.props.AssetAnalytics:get():logImpression(assetData, assetAnalyticsContext, navData)
+		else
+			self.props.AssetAnalytics:get():logImpression(assetData, assetAnalyticsContext)
+		end
 	end
 end
 
@@ -296,9 +313,9 @@ function Asset:renderContent(theme, localization, localizedContent)
 
 		local isGroupPackageAsset = Category.categoryIsGroupPackages(categoryName)
 		local canEditPackage = (
-				currentUserPackagePermissions[assetId] == PermissionsConstants.EditKey
-				or currentUserPackagePermissions[assetId] == PermissionsConstants.OwnKey
-			)
+			currentUserPackagePermissions[assetId] == PermissionsConstants.EditKey
+			or currentUserPackagePermissions[assetId] == PermissionsConstants.OwnKey
+		)
 
 		local showAsset
 		if isGroupPackageAsset then
@@ -615,6 +632,7 @@ end
 Asset = withContext({
 	AssetAnalytics = AssetAnalyticsContextItem,
 	Plugin = FFlagToolboxAssetGridRefactor and ContextServices.Plugin or nil,
+	NavigationContext = FFlagToolboxAssetCategorization3 and NavigationContext or nil,
 	Stylizer = ContextServices.Stylizer,
 })(Asset)
 
@@ -645,7 +663,7 @@ local function mapStateToProps(state, props)
 	local canManage = manageableAssets[tostring(assetId)]
 
 	local assetData
-	if FFlagToolboxAssetCategorization2 and not props.assetData then
+	if FFlagToolboxAssetCategorization3 and not props.assetData then
 		assetData = props.assetData
 	else
 		assetData = FFlagToolboxAssetGridRefactor and idToAssetMap[assetId] or nil

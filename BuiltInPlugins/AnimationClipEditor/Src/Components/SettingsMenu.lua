@@ -28,6 +28,7 @@ local AnimationData = require(Plugin.Src.Util.AnimationData)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
+local GetFFlagRenameSettings = require(Plugin.LuaFlags.GetFFlagRenameSettings)
 
 local SettingsMenu = Roact.PureComponent:extend("SettingsMenu")
 
@@ -73,7 +74,7 @@ function SettingsMenu:makeTimelineUnitMenu(): (ContextMenu.MenuItem)
 		ItemSelected = function(item: ContextMenu.MenuItem): ()
 			if GetFFlagQuaternionsUI() then
 				local showAsSeconds = item.Value == Constants.TIMELINE_UNITS.Seconds
-				plugin:SetSetting("ShowAsSeconds", showAsSeconds)
+				plugin:SetSetting(if GetFFlagRenameSettings() then Constants.SETTINGS.ShowAsSeconds else "ShowAsSeconds", showAsSeconds)
 				props.SetShowAsSeconds(showAsSeconds)
 			else
 				props.SetShowAsSeconds(item.Value == Constants.TIMELINE_UNITS.Seconds)
@@ -178,7 +179,7 @@ function SettingsMenu:makeSnapMenu(): (ContextMenu.MenuItem)
 		CurrentValue = snapMode,
 		ItemSelected = function(item: ContextMenu.MenuItem): ()
 			if GetFFlagQuaternionsUI() then
-				plugin:SetSetting("SnapMode", item.Value)
+				plugin:SetSetting(if GetFFlagRenameSettings() then Constants.SETTINGS.SnapMode else "SnapMode", item.Value)
 			end
 			props.SetSnapMode(item.Value)
 		end,
@@ -199,7 +200,7 @@ function SettingsMenu:makeDefaultRotationTypeMenu(): (ContextMenu.MenuItem)
 		},
 		CurrentValue = rotationType,
 		ItemSelected = function(item: ContextMenu.MenuItem): ()
-			plugin:SetSetting("RotationType", item.Value)
+			plugin:SetSetting(if GetFFlagRenameSettings() then Constants.SETTINGS.RotationType else "RotationType", item.Value)
 			props.SetDefaultRotationType(item.Value)
 		end,
 	}

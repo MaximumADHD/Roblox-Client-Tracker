@@ -39,6 +39,7 @@ type _Props = Props & {
 	MaterialController : any,
 	Path : _Types.Path,
 	Stylizer : any,
+	Search : string,
 }
 
 type _Style = {
@@ -51,6 +52,25 @@ type _MaterialTileStyle = {
 	Spacing : number,
 	TextSize : number,
 }
+
+function MaterialGrid.getDerivedStateFromProps(nextProps, lastState)
+	local materialController = nextProps.MaterialController
+	if not materialController then
+		return {}
+	end
+
+	if nextProps.Search ~= "" and (lastState.Search ~= nextProps.Search or nextProps.Path ~= lastState.Path) then
+		return {
+			materials = materialController:getMaterialsOnSearch(nextProps.Search, nextProps.Path),
+		}
+	elseif nextProps.Search == "" and lastState.Search ~= "" then
+		return {
+			materials = materialController:getMaterials(nextProps.Path),
+		}
+	end
+
+	return {}
+end
 
 function MaterialGrid:init()
 	self.onClick = function(item)
@@ -88,7 +108,9 @@ function MaterialGrid:init()
 
 
 	self.state = {
-		materials = {}
+		materials = {},
+		lastSearchItem = nil,
+		lastPath = nil,
 	}
 end
 
@@ -164,6 +186,7 @@ return RoactRodux.connect(
 	function(state, props)
 		return {
 			Path = state.MaterialBrowserReducer.Path,
+			Search = state.MaterialBrowserReducer.Search,
 		}
 	end,
 	function(dispatch)
