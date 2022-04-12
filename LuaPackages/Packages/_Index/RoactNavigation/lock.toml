@@ -8,5 +8,5 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill",
     "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
     "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
-    "Roact <patched> RoactProxy 80d0273e git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactProxy 09efdd63 git+https://github.com/roblox/roact-17-upgrade#main",
 ]

@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["RoactGamepadProxy"]["RoactGamepadProxy"])
+local Package = require(PackageIndex["RoactGamepad"]["RoactGamepad"])
 
 return Package

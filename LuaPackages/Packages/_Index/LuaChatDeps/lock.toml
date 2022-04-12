@@ -5,7 +5,7 @@ commit = "bab8104994d869a3dcf10b11d21410a09132b3a7"
 source = "git+https://github.com/roblox/lua-chat-deps#master"
 dependencies = [
     "AssetCard roblox/asset-card 103b2a57 git+https://github.com/roblox/asset-card#v1.0.3",
-    "InfiniteScroller <patched> InfiniteScrollerProxy 80d0273e git+https://github.com/roblox/roact-17-upgrade#main",
+    "InfiniteScroller <patched> InfiniteScroller 0.9.5 url+https://github.com/roblox/infinite-scroller",
     "RoduxNetworking rodux-networking 4a963dc9 git+https://github.com/roblox/rodux-networking#v2.0.0",
-    "UIBlox UIBlox 7c27d65f git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 83569430 git+https://github.com/roblox/uiblox#master",
 ]

@@ -56,6 +56,7 @@ function FrameworkStyles.new()
 		SplitPane = newDefaults(),
 		TableRow = newDefaults(),
 		Slider = newDefaults(),
+		DragBox = newDefaults(),
 		Table = newDefaults(),
 		Tabs = newDefaults(),
 		TextInput = newDefaults(),

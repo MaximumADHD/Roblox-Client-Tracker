@@ -9,8 +9,8 @@ local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
 
 local Images = require(UIBlox.App.ImageSet.Images)
 local LoadableImage = require(App.Loading.LoadableImage)
-local StyledTextLabel = require(App.Text.StyledTextLabel)
---local ActionBar = require(App.Button.ActionBar)
+local validateActionBarContentProps = require(App.Button.Validator.validateActionBarContentProps)
+local ActionBar = require(App.Button.ActionBar)
 
 local Constants = require(DetailsPage.Constants)
 
@@ -20,19 +20,20 @@ local t = require(Packages.t)
 local DetailsPageTitleContent = require(DetailsPage.DetailsPageTitleContent)
 
 local DROP_SHADOW_IMAGE = "component_assets/dropshadow_thumbnail_28"
+local DROP_SHADOW_HEIGHT = 28
 
 local DetailsPageHeader = Roact.PureComponent:extend("DetailsPageHeader")
 
 local BOTTOM_MARGIN = 16
 local INNER_PADDING = 16
+local ITEM_PADDING = 24
 local ImageHeight = {
 	Desktop = 200,
 	Mobile = 100,
 }
 
---DEV
-local imageWidth = 200
-local imageWidthMobile = 100
+local ACTIONBAR_WIDTH = 380
+local ACTION_BAR_HEIGHT = 48
 
 DetailsPageHeader.defaultProps = {
 	thumbnailAspectRatio = Vector2.new(1, 1),
@@ -45,7 +46,8 @@ DetailsPageHeader.validateProps = t.strictInterface({
 	titleText = t.optional(t.string),
 	subTitleText = t.optional(t.string),
 	infoContentComponent = t.optional(t.table),
-	actionBarProps = t.optional(t.table),
+
+	actionBarProps = t.optional(validateActionBarContentProps),
 
 	mobileMode = t.optional(t.boolean),
 })
@@ -64,7 +66,7 @@ function DetailsPageHeader:renderThumbnail(style, thumbnailWidth, thumbnailHeigh
 			Image = self.props.thumbnailImageUrl,
 		}),
 		DropShadow = Roact.createElement(ImageSetLabel, {
-			Size = UDim2.new(1, 0, 0, 28),
+			Size = UDim2.new(1, 0, 0, DROP_SHADOW_HEIGHT),
 			Position = UDim2.fromScale(0, 1),
 			BackgroundTransparency = 1,
 			Image = Images[DROP_SHADOW_IMAGE],
@@ -89,24 +91,25 @@ function DetailsPageHeader:renderDesktopMode(style)
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Horizontal,
 			VerticalAlignment = Enum.VerticalAlignment.Bottom,
-			Padding = UDim.new(0, 24),
+			Padding = UDim.new(0, ITEM_PADDING),
 		}),
 		ThumbnailTileFrame = self:renderThumbnail(style, thumbnailWidth, thumbnailHeight),
 		InfoFrame = Roact.createElement("Frame", {
 			Size = UDim2.new(1, -(thumbnailWidth + Constants.SideMargin.Desktop * 2), 1, 0),
 			BackgroundTransparency = 1,
+			AutomaticSize = Enum.AutomaticSize.Y,
 			LayoutOrder = 2,
 		}, {
 			Layout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				FillDirection = Enum.FillDirection.Vertical,
-				VerticalAlignment = Enum.VerticalAlignment.Bottom,
+				VerticalAlignment = Enum.VerticalAlignment.Top,
 			}),
 			TitleInfo = Roact.createElement(DetailsPageTitleContent, {
 				titleText = self.props.titleText,
 				subTitleText = self.props.subTitleText,
 				infoContentComponent = self.props.infoContentComponent,
-				verticalAlignment = Enum.VerticalAlignment.Bottom,
+				verticalAlignment = Enum.VerticalAlignment.Top,
 				layoutOrder = 1,
 			}),
 			Padding = Roact.createElement("Frame", {
@@ -115,45 +118,37 @@ function DetailsPageHeader:renderDesktopMode(style)
 				LayoutOrder = 2,
 			}),
 			ActonBarFrame = Roact.createElement("Frame", {
-				Size = UDim2.fromScale(1, 0),
-				AutomaticSize = Enum.AutomaticSize.Y,
+				Size = UDim2.fromOffset(ACTIONBAR_WIDTH, ACTION_BAR_HEIGHT),
 				BackgroundTransparency = 1,
 				LayoutOrder = 3,
 			}, {
-				--Place holder for action bar TODO: https://jira.rbx.com/browse/APPEXP-132
-				Placeholder = Roact.createElement("Frame", {
-					Size = UDim2.new(0, 300, 0, 48),
-					BackgroundColor3 = style.Theme.BackgroundUIDefault.Color,
-					BackgroundTransparency = style.Theme.BackgroundUIDefault.Transparency,
-					BorderColor3 = style.Theme.TextDefault.Color,
-					BorderSizePixel = 1,
-				}, {
-					Layout = Roact.createElement("UIListLayout", {
-						FillDirection = Enum.FillDirection.Vertical,
-						VerticalAlignment = Enum.VerticalAlignment.Center,
-						HorizontalAlignment = Enum.HorizontalAlignment.Center,
-					}),
-					Label = Roact.createElement(StyledTextLabel, {
-						text = "Placeholder for action bar",
-						fontStyle = style.Font.Body,
-						colorStyle = style.Theme.TextDefault,
-						automaticSize = Enum.AutomaticSize.XY,
-					}),
-				}),
-				--
+				ActionBar = self.props.actionBarProps and Roact.createElement(ActionBar, {
+					button = self.props.actionBarProps.button,
+					icons = self.props.actionBarProps.icons,
+					enableButtonAtStart = true,
+					marginOverride = {
+						left = 0,
+						right = 0,
+						top = 0,
+						bottom = 0,
+					},
+					horizontalAlignment = Enum.HorizontalAlignment.Left,
+				}) or nil,
 			}),
 		}),
 	}
 end
 
 function DetailsPageHeader:renderMobileMode(style)
+	local thumbnailHeight = ImageHeight.Mobile
+	local thumbnailWidth = thumbnailHeight * (self.props.thumbnailAspectRatio.X / self.props.thumbnailAspectRatio.Y)
 	return {
 		Padding = Roact.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, Constants.SideMargin.Mobile),
 			PaddingRight = UDim.new(0, Constants.SideMargin.Mobile),
 			PaddingBottom = UDim.new(0, BOTTOM_MARGIN),
 		}),
-		ThumbnailTileFrame = self:renderThumbnail(style, imageWidthMobile, imageWidthMobile),
+		ThumbnailTileFrame = self:renderThumbnail(style, thumbnailWidth, thumbnailHeight),
 	}
 end
 
@@ -162,7 +157,7 @@ function DetailsPageHeader:render()
 	local displayMode = mobileMode and "Mobile" or "Desktop"
 
 	local backgroundBarHeight = Constants.HeaderBarBackgroundHeight[displayMode]
-	local gradientHeight = (imageWidth + BOTTOM_MARGIN) - backgroundBarHeight
+	local gradientHeight = (ImageHeight[displayMode] + BOTTOM_MARGIN) - backgroundBarHeight
 
 	return withStyle(function(style)
 		local theme = style.Theme

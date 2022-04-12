@@ -1,16 +1,16 @@
 local AppStorageService = game:GetService("AppStorageService")
 
-game:DefineFastInt("Roact17Rollout7", 100)
-game:DefineFastFlag("Roact17RolloutEnabledForAll7", false)
+game:DefineFastInt("Roact17Rollout8", 0)
+game:DefineFastFlag("Roact17RolloutEnabledForAll8", false)
 
 -- Helper function to throttle based on a unique id:
 return function()
-	local rolloutEnabledForAll = game:GetFastFlag("Roact17RolloutEnabledForAll7")
+	local rolloutEnabledForAll = game:GetFastFlag("Roact17RolloutEnabledForAll8")
 	if rolloutEnabledForAll then
 		return true
 	end
 
-	local rolloutPercent = game:GetFastInt("Roact17Rollout7")
+	local rolloutPercent = game:GetFastInt("Roact17Rollout8")
 	local installationId = AppStorageService:GetItem("AppInstallationId")
 
 	local installationIdType = typeof(installationId)

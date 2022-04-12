@@ -2,9 +2,12 @@ local AvatarToolsShared = script.Parent.Parent
 local Packages = AvatarToolsShared.Parent
 local Roact = require(Packages.Roact)
 
+local Resources = require(AvatarToolsShared.Resources)
+
 local StyleRoot = AvatarToolsShared.Components
 
 local Framework = require(Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local FrameworkStyle = Framework.Style
 local makeTheme = FrameworkStyle.makeTheme
@@ -18,9 +21,19 @@ local TestRunner = {}
 local function run(testChildren, container, testRunner)
 	local frameworkStyleRoot = StudioTheme.mock({}, {})
 	local theme = makeTheme(StyleRoot, {}, frameworkStyleRoot)()
+	-- Localization
+	local localization = ContextServices.Localization.mock({
+		libraries = {
+			[Resources.LOCALIZATION_PROJECT_NAME] = {
+				stringResourceTable = Resources.TranslationDevelopmentTable,
+				translationResourceTable = Resources.TranslationReferenceTable,
+			},
+		},
+	})
 
 	local element = provideMockContext({
 		theme,
+		localization,
 	}, testChildren)
 	local handle = Roact.mount(element, container)
 

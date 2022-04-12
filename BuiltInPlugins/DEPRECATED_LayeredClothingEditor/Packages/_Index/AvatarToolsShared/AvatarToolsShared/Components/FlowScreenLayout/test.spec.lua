@@ -1,6 +1,7 @@
 return function()
-	local Packages = script.Parent.Parent.Parent.Parent
-	local Roact = require(Framework.Parent.Roact)
+	local AvatarToolsShared = script.Parent.Parent.Parent
+	local Packages = AvatarToolsShared.Parent
+	local Roact = require(Packages.Roact)
 	local Framework = require(Packages.Framework)
 
 	local TestHelpers = Framework.TestHelpers
@@ -78,7 +79,7 @@ return function()
 		local content = frame.Content
 
 		local prompt = content.Prompt
-		local flowScreenContent = content.Content
+		local flowScreenContent = content:FindFirstChild("Content")
 		local nextAndBackButtonContainer = content.NextAndBackButtonContainer
 		local layout = nextAndBackButtonContainer.Layout
 		local nextButton = nextAndBackButtonContainer.NextButton

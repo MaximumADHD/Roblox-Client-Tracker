@@ -32,7 +32,7 @@ function ActionBar:init()
 	self.buttonRefs = RoactGamepad.createRefCache()
 
 	self.state = {
-		frameWidth = 0
+		frameWidth = 0,
 	}
 
 	self.frameRef = self.props.frameRef or Roact.createRef()
@@ -71,8 +71,19 @@ ActionBar.validateProps = t.strictInterface({
 
 	-- icons: A table of button tables that contain props that IconButton allow.
 	icons = t.optional(t.array(t.strictInterface({
-		props = validateIconButtonProps
+		props = validateIconButtonProps,
 	}))),
+
+	-- Override the internal margins
+	marginOverride = t.optional(t.strictInterface({
+		left = t.number,
+		right = t.number,
+		top = t.number,
+		bottom = t.number,
+	})),
+
+	-- override horizontal alignment
+	horizontalAlignment = t.optional(t.enum(Enum.HorizontalAlignment)),
 
 	onAbsoluteSizeChanged = t.optional(t.callback),
 
@@ -87,6 +98,10 @@ ActionBar.validateProps = t.strictInterface({
 	frameRef = t.optional(t.table),
 })
 
+ActionBar.defaultProps = {
+	horizontalAlignment = Enum.HorizontalAlignment.Center,
+}
+
 function ActionBar:render()
 	if UIBloxConfig.enableActionBarLayoutFix then
 		return self:renderWithLayoutFix()
@@ -96,11 +111,21 @@ function ActionBar:render()
 end
 
 function ActionBar:renderWithLayoutFix()
-
 	return withStyle(function(stylePalette)
 		local margin = getPageMargin(self.state.frameWidth)
 		local contentWidth = self.state.frameWidth - margin * 2
 		local iconSize = IconSize.Medium
+		local innerMargin
+		if self.props.marginOverride then
+			innerMargin = self.props.marginOverride
+		else
+			innerMargin = {
+				left = margin,
+				right = margin,
+				top = 0,
+				bottom = StyleConstants.Layout.ActionBar.PositionOffset,
+			}
+		end
 
 		local iconNumber = 0
 		if self.props.icons and #self.props.icons then
@@ -129,15 +154,19 @@ function ActionBar:renderWithLayoutFix()
 					NextSelectionLeft = self.getGamepadNextSelectionLeft(iconButtonIndex, buttonRefNumber),
 					NextSelectionRight = self.getGamepadNextSelectionRight(iconButtonIndex, buttonRefNumber),
 					inputBindings = {
-						Activated = iconButtonProps.onActivated
-							and RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, iconButtonProps.onActivated) or nil
+						Activated = iconButtonProps.onActivated and RoactGamepad.Input.onBegin(
+							Enum.KeyCode.ButtonA,
+							iconButtonProps.onActivated
+						) or nil,
 					},
 				}
 
-				table.insert(buttonTable, Roact.createElement(RoactGamepad.Focusable.Frame, gamepadFrameProps, {
-					Roact.createElement(IconButton, iconButtonProps)
-				}))
-
+				table.insert(
+					buttonTable,
+					Roact.createElement(RoactGamepad.Focusable.Frame, gamepadFrameProps, {
+						Roact.createElement(IconButton, iconButtonProps),
+					})
+				)
 			end
 		end
 
@@ -163,9 +192,16 @@ function ActionBar:renderWithLayoutFix()
 					Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, buttonProps.onActivated),
 				},
 			}
-			table.insert(buttonTable, isButtonAtStart and 1 or buttonRefNumber, Roact.createElement(RoactGamepad.Focusable.Frame, gamepadFrameProps, {
-				Roact.createElement(iconNumber == 0 and PrimarySystemButton or PrimaryContextualButton, buttonProps)
-			}))
+			table.insert(
+				buttonTable,
+				isButtonAtStart and 1 or buttonRefNumber,
+				Roact.createElement(RoactGamepad.Focusable.Frame, gamepadFrameProps, {
+					Roact.createElement(
+						iconNumber == 0 and PrimarySystemButton or PrimaryContextualButton,
+						buttonProps
+					),
+				})
+			)
 		end
 
 		if self.props[Roact.Children] then
@@ -176,32 +212,24 @@ function ActionBar:renderWithLayoutFix()
 			BackgroundTransparency = 1,
 			minimumSize = UDim2.new(1, 0, 0, BUTTON_HEIGHT),
 			FillDirection = Enum.FillDirection.Horizontal,
-			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			HorizontalAlignment = self.props.horizontalAlignment,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 			Position = UDim2.new(0, 0, 1, 0),
 			AnchorPoint = Vector2.new(0, 1),
 			contentPadding = UDim.new(0, BUTTON_PADDING),
 			[Roact.Ref] = self.frameRef,
 			[Roact.Change.AbsoluteSize] = self.updateFrameSize,
-			margin = {
-				left = margin,
-				right = margin,
-				top = 0,
-				bottom = StyleConstants.Layout.ActionBar.PositionOffset
-			},
+			margin = innerMargin,
 
 			NextSelectionLeft = self.props.NextSelectionLeft,
 			NextSelectionRight = self.props.NextSelectionRight,
 			NextSelectionUp = self.props.NextSelectionUp,
 			NextSelectionDown = self.props.NextSelectionDown,
-		},
-			buttonTable
-		)
+		}, buttonTable)
 	end)
 end
 
 function ActionBar:renderLegacy()
-
 	return withStyle(function(stylePalette)
 		local margin = getPageMargin(self.state.frameWidth)
 		local contentWidth = self.state.frameWidth - margin * 2
@@ -223,7 +251,7 @@ function ActionBar:renderLegacy()
 				local iconButtonProps = Cryo.Dictionary.join(newProps, iconButton.props)
 
 				local gamepadFrameProps = {
-					Size = UDim2.fromOffset(ICON_SIZE,ICON_SIZE),
+					Size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
 					BackgroundTransparency = 1,
 					[Roact.Ref] = self.buttonRefs[iconButtonIndex],
 					NextSelectionUp = nil,
@@ -231,15 +259,19 @@ function ActionBar:renderLegacy()
 					NextSelectionLeft = iconButtonIndex > 1 and self.buttonRefs[iconButtonIndex - 1] or nil,
 					NextSelectionRight = iconButtonIndex < iconNumber and self.buttonRefs[iconButtonIndex + 1] or nil,
 					inputBindings = {
-						Activated = iconButtonProps.onActivated
-							and RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, iconButtonProps.onActivated) or nil
+						Activated = iconButtonProps.onActivated and RoactGamepad.Input.onBegin(
+							Enum.KeyCode.ButtonA,
+							iconButtonProps.onActivated
+						) or nil,
 					},
 				}
 
-				table.insert(buttonTable, Roact.createElement(RoactGamepad.Focusable.Frame, gamepadFrameProps, {
-					Roact.createElement(IconButton, iconButtonProps)
-				}))
-
+				table.insert(
+					buttonTable,
+					Roact.createElement(RoactGamepad.Focusable.Frame, gamepadFrameProps, {
+						Roact.createElement(IconButton, iconButtonProps),
+					})
+				)
 			end
 		end
 
@@ -267,9 +299,15 @@ function ActionBar:renderLegacy()
 				},
 			}
 
-			table.insert(buttonTable, Roact.createElement(RoactGamepad.Focusable.Frame, gamepadFrameProps, {
-				Roact.createElement(iconNumber == 0 and PrimarySystemButton or PrimaryContextualButton, buttonProps)
-			}))
+			table.insert(
+				buttonTable,
+				Roact.createElement(RoactGamepad.Focusable.Frame, gamepadFrameProps, {
+					Roact.createElement(
+						iconNumber == 0 and PrimarySystemButton or PrimaryContextualButton,
+						buttonProps
+					),
+				})
+			)
 		end
 
 		if self.props[Roact.Children] then
@@ -291,16 +329,14 @@ function ActionBar:renderLegacy()
 				left = margin,
 				right = margin,
 				top = 0,
-				bottom = StyleConstants.Layout.ActionBar.PositionOffset
+				bottom = StyleConstants.Layout.ActionBar.PositionOffset,
 			},
 
 			NextSelectionLeft = self.props.NextSelectionLeft,
 			NextSelectionRight = self.props.NextSelectionRight,
 			NextSelectionUp = self.props.NextSelectionUp,
 			NextSelectionDown = self.props.NextSelectionDown,
-		},
-			buttonTable
-		)
+		}, buttonTable)
 	end)
 end
 
@@ -311,8 +347,10 @@ function ActionBar:didMount()
 end
 
 return Roact.forwardRef(function(props, ref)
-	return Roact.createElement(ActionBar, Cryo.Dictionary.join(props, {
-		frameRef=ref
-	}))
+	return Roact.createElement(
+		ActionBar,
+		Cryo.Dictionary.join(props, {
+			frameRef = ref,
+		})
+	)
 end)
-

@@ -91,6 +91,7 @@ local function initializeLibrary(configs)
 			LinkButton = require(script.App.Button.LinkButton),
 			IconButton = require(script.App.Button.IconButton),
 			ActionBar = require(script.App.Button.ActionBar),
+			StickyActionBar = require(script.App.Button.StickyActionBar),
 			LogoTray = require(script.App.Button.LogoTray),
 		}),
 

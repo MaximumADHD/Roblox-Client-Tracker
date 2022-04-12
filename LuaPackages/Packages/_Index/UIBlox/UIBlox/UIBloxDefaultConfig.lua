@@ -69,6 +69,9 @@ return {
 	-- Adds roact-gamepad navigation support to RadioButtonList and RadioButton.
 	enableRadioButtonGamepadSupport = false,
 
+	-- Config to enable new icon sizes
+	enableNewIconSizes = false,
+
 	-- enableActionBarLayoutFix : Indicate whether the fix to update the action bar layout is enabled
-	enableActionBarLayoutFix = false
+	enableActionBarLayoutFix = false,
 }

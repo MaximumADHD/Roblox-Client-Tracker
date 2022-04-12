@@ -13,15 +13,17 @@ local LoadableImage = require(App.Loading.LoadableImage)
 local Images = require(App.ImageSet.Images)
 local IconButton = require(App.Button.IconButton)
 local IconSize = require(App.ImageSet.Enum.IconSize)
+local getIconSize = require(App.ImageSet.getIconSize)
 local getIconSizeUDim2 = require(App.ImageSet.getIconSizeUDim2)
 local VerticalScrollView = require(App.Container.VerticalScrollViewV2)
+local validateActionBarContentProps = require(App.Button.Validator.validateActionBarContentProps)
+local ActionBar = require(App.Button.ActionBar)
+local StickyActionBar = require(App.Button.StickyActionBar)
 
 local Constants = require(DetailsPage.Constants)
 local DetailsPageHeader = require(DetailsPage.DetailsPageHeader)
 local DetailsPageBody = require(DetailsPage.DetailsPageBody)
 local validateDetailsPageComponentList = require(DetailsPage.validateDetailsPageComponentList)
-
-local StyledTextLabel = require(App.Text.StyledTextLabel)
 
 local DetailsPageTemplate = Roact.PureComponent:extend("DetailsPageTemplate")
 
@@ -30,6 +32,10 @@ local ICON_CLOSE = Images["icons/navigation/close"]
 local HEADER_MAX_PADDING = 500
 
 local DISPLAY_ASPECT_RATIO = 16 / 9
+
+local CLOSE_BUTTON_OFFSET = 22
+
+local MOBILE_ACTION_BAR_GRADIENT = 24
 
 local MOBILE_ACTION_BAR_HEIGHT = 72
 
@@ -45,7 +51,7 @@ DetailsPageTemplate.validateProps = t.strictInterface({
 	titleText = t.optional(t.string),
 	subTitleText = t.optional(t.string),
 	infoContentComponent = t.optional(t.table),
-	actionBarProps = t.optional(t.table),
+	actionBarProps = t.optional(validateActionBarContentProps),
 
 	--Body props
 	componentList = t.optional(validateDetailsPageComponentList),
@@ -82,6 +88,7 @@ function DetailsPageTemplate:init()
 	end
 
 	self.onBackgroundComponentFrameSizeChange = function(rbx)
+		-- Track changes to the size of the background frame
 		self:setState(function(prevState, props)
 			local backgroundHeight = rbx.AbsoluteSize.Y
 			local headerPadding = getHeaderPaddingHeight(props, backgroundHeight)
@@ -94,12 +101,16 @@ function DetailsPageTemplate:init()
 	end
 
 	self.canvasPositionChange = function(rbx)
+		-- Track the position and scrolling of the page
 		self.scrolled = true
 		self:setState(function(prevState, props)
 			local headerPadding = getHeaderPaddingHeight(props, prevState.backgroundHeight)
+
+			--Position of the background to create the parallax effect
 			local backgroundComponentPosition = math.max(0, headerPadding - rbx.CanvasPosition.Y) / 2
 
 			if rbx.CanvasPosition.Y > headerPadding then
+				-- Show the sticky action bar when the user scrolls past the header
 				if prevState.showStickyActionTopBar == false and props.mobileMode == false then
 					return {
 						showStickyActionTopBar = true,
@@ -108,12 +119,14 @@ function DetailsPageTemplate:init()
 					return nil
 				end
 			else
+				-- Hide the sticky action when the header is in view
 				if prevState.showStickyActionTopBar == true then
 					return {
 						showStickyActionTopBar = false,
 						backgroundComponentPosition = backgroundComponentPosition,
 					}
 				else
+					-- Update the position to create the parallax effect when the background is in view
 					return {
 						backgroundComponentPosition = backgroundComponentPosition,
 					}
@@ -134,7 +147,6 @@ function DetailsPageTemplate:render()
 
 	return withStyle(function(style)
 		local theme = style.Theme
-		local font = style.Font
 		local showPlaceholderBanner = self.props.bannerImageUrl == nil
 		local bannerPlaceholderGradient = self.props.bannerPlaceholderGradient
 			or {
@@ -145,8 +157,12 @@ function DetailsPageTemplate:render()
 				}),
 			}
 
+		local closeButtonPosY = mobileMode and ((getIconSize(IconSize.Large) + CLOSE_BUTTON_OFFSET) / 2)
+			or (headerHeight / 2)
+
 		return Roact.createElement("TextButton", {
 			Text = "",
+			AutoButtonColor = false,
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,
 			ClipsDescendants = true,
@@ -157,7 +173,7 @@ function DetailsPageTemplate:render()
 				BackgroundTransparency = 1,
 				Size = getIconSizeUDim2(IconSize.Large),
 				AnchorPoint = Vector2.new(0, 0.5),
-				Position = UDim2.new(0, 22, 0, headerHeight / 2),
+				Position = UDim2.new(0, CLOSE_BUTTON_OFFSET, 0, closeButtonPosY),
 				ZIndex = 2,
 			}, {
 				OnCloseButton = Roact.createElement(IconButton, {
@@ -191,26 +207,24 @@ function DetailsPageTemplate:render()
 					ScaleType = Enum.ScaleType.Crop,
 				}) or nil,
 			}),
-			StickyActionBarFrame = self.state.showStickyActionTopBar and Roact.createElement("Frame", {
+			StickyActionBarFrame = self.state.showStickyActionTopBar and Roact.createElement("TextButton", {
+				Text = "",
+				AutoButtonColor = false,
 				Size = UDim2.new(1, 0, 0, headerHeight),
 				BackgroundColor3 = theme.BackgroundUIDefault.Color,
 				BackgroundTransparency = theme.BackgroundUIDefault.Transparency,
 				BorderSizePixel = 0,
 			}, {
-				--TODO: replace placeholer https://jira.rbx.com/browse/APPEXP-133
-				Layout = Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					FillDirection = Enum.FillDirection.Vertical,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+				StickyActionBar = Roact.createElement(StickyActionBar, {
+					actionBarProps = {
+						button = self.props.actionBarProps.button,
+						icons = self.props.actionBarProps.icons,
+					},
+					infoProps = {
+						icon = self.props.thumbnailImageUrl,
+						title = self.props.titleText,
+					},
 				}),
-				Placeholder = Roact.createElement(StyledTextLabel, {
-					text = "Placeholder for Sticky Action Bar",
-					fontStyle = font.Body,
-					colorStyle = theme.TextDefault,
-					automaticSize = Enum.AutomaticSize.XY,
-				}),
-				--
 			}) or nil,
 			ContentScrollingFrame = Roact.createElement(VerticalScrollView, {
 				size = UDim2.fromScale(1, 1),
@@ -286,29 +300,41 @@ function DetailsPageTemplate:render()
 						}),
 					}),
 				}),
+				MobileActionViewPadding = mobileMode and Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, MOBILE_ACTION_BAR_HEIGHT),
+					BackgroundTransparency = 1,
+					LayoutOrder = 3,
+				}),
 			}),
-			MobileActionBar = mobileMode and Roact.createElement("Frame", {
+			MobileActionBarFrame = mobileMode and Roact.createElement("TextButton", {
+				Text = "",
+				AutoButtonColor = false,
 				AnchorPoint = Vector2.new(0, 1),
 				Position = UDim2.fromScale(0, 1),
 				Size = UDim2.new(1, 0, 0, MOBILE_ACTION_BAR_HEIGHT),
-				BackgroundColor3 = theme.BackgroundUIDefault.Color,
-				BackgroundTransparency = theme.BackgroundUIDefault.Transparency,
+				BackgroundColor3 = theme.BackgroundDefault.Color,
+				BackgroundTransparency = theme.BackgroundDefault.Transparency,
 				BorderSizePixel = 0,
 			}, {
-				--TODO: replace placeholer https://jira.rbx.com/browse/APPEXP-132
-				Layout = Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					FillDirection = Enum.FillDirection.Vertical,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+				GradientBar = Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, MOBILE_ACTION_BAR_GRADIENT),
+					BackgroundColor3 = theme.BackgroundDefault.Color,
+					AnchorPoint = Vector2.new(0, 1),
+					BorderSizePixel = 0,
+					LayoutOrder = 1,
+				}, {
+					Gradient = Roact.createElement("UIGradient", {
+						Rotation = 270,
+						Transparency = NumberSequence.new({
+							NumberSequenceKeypoint.new(0, 0.25),
+							NumberSequenceKeypoint.new(1, 0.9999),
+						}),
+					}),
 				}),
-				Placeholder = Roact.createElement(StyledTextLabel, {
-					text = "Placeholder for Action Bar",
-					fontStyle = font.Body,
-					colorStyle = theme.TextDefault,
-					automaticSize = Enum.AutomaticSize.XY,
+				ActionBar = self.props.actionBarProps and Roact.createElement(ActionBar, {
+					button = self.props.actionBarProps.button,
+					icons = self.props.actionBarProps.icons,
 				}),
-				--
 			}),
 		})
 	end)
@@ -321,6 +347,7 @@ function DetailsPageTemplate:didMount()
 end
 
 function DetailsPageTemplate:didUpdate()
+	-- When the user haven't scroll the details page yet, set the inital starting position of the page
 	if self.scrolled == false and self.scrollingFrameRef.current then
 		local startingOffsetPosition = math.max(
 			0,

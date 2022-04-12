@@ -51,6 +51,7 @@ IconButton.validateProps = t.strictInterface({
 	iconColor3 = t.optional(t.Color3),
 	iconTransparency = t.optional(t.union(t.number, bindingValidator(t.number))),
 	showBackground = t.optional(t.boolean),
+	backgroundColorStyle = t.optional(t.string),
 
 	[Roact.Children] = t.optional(t.table),
 
@@ -71,6 +72,7 @@ IconButton.defaultProps = {
 	iconColor3 = nil,
 	iconTransparency = nil,
 	showBackground = false,
+	backgroundColorStyle = "UIMuted",
 
 	isDisabled = false,
 	userInteractionEnabled = true,
@@ -123,6 +125,7 @@ function IconButton:render()
 		}
 
 		local iconStyle = getContentStyle(iconStateColorMap, currentState, style)
+		local backgroundColorStyle = self.props.backgroundColorStyle
 
 		return Roact.createElement(Interactable, {
 			AnchorPoint = self.props.anchorPoint,
@@ -155,8 +158,8 @@ function IconButton:render()
 			hoverBackground = currentState == ControlState.Hover and Roact.createElement(HoverButtonBackground) or nil,
 			background = showBackground and Roact.createElement("Frame", {
 				Size = UDim2.fromScale(1, 1),
-				BackgroundColor3 = style.Theme.UIMuted.Color,
-				BackgroundTransparency = style.Theme.UIMuted.Transparency,
+				BackgroundColor3 = style.Theme[backgroundColorStyle].Color,
+				BackgroundTransparency = style.Theme[backgroundColorStyle].Transparency,
 				ZIndex = 0,
 			}, {
 				corner = Roact.createElement("UICorner", {

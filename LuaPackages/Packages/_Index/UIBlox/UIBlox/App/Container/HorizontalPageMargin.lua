@@ -15,14 +15,16 @@ PageMargin.defaultProps = {
 	size = UDim2.fromScale(1, 1),
 	backgroundTransparency = 0,
 	layoutOrder = 0,
+	useAutomaticSizing = false,
 }
 PageMargin.validateProps = t.interface({
 	anchorPoint = t.optional(t.Vector2),
 	position = t.optional(t.UDim2),
-	backgroundColor3 = t.Color3,
+	backgroundColor3 = t.optional(t.Color3),
 	backgroundTransparency = t.optional(t.number),
 	layoutOrder = t.optional(t.number),
 	size = t.optional(t.UDim2),
+	useAutomaticSizing = t.optional(t.boolean)
 })
 
 function PageMargin:init()
@@ -48,6 +50,7 @@ end
 function PageMargin:render()
 	return Roact.createElement("Frame", {
 		AnchorPoint = self.props.anchorPoint,
+		AutomaticSize = self.props.useAutomaticSizing and Enum.AutomaticSize.Y or Enum.AutomaticSize.None,
 		BackgroundColor3 = self.props.backgroundColor3,
 		BackgroundTransparency = self.props.backgroundTransparency,
 		BorderSizePixel = 0,

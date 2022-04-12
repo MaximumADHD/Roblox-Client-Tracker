@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["InfiniteScrollerProxy"]["InfiniteScrollerProxy"])
+local Package = require(PackageIndex["InfiniteScroller"]["InfiniteScroller"])
 
 return Package

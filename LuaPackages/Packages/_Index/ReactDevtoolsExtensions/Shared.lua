@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["Shared"]["Shared"])
+local Package = require(PackageIndex["Shared-85154ff2-6c194edd"]["Shared"])
 
 export type ReactEmpty = Package.ReactEmpty
 export type ReactFragment = Package.ReactFragment
@@ -13,9 +13,6 @@ export type ReactConsumer<T> = Package.ReactConsumer<T>
 export type ReactProvider<T> = Package.ReactProvider<T> 
 export type ReactContext<T> = Package.ReactContext<T> 
 export type ReactPortal = Package.ReactPortal
-export type React_Node = Package.React_Node
-export type React_Element<ElementType> = Package.React_Element<ElementType> 
-export type React_Portal = Package.React_Portal
 export type RefObject = Package.RefObject
 export type EventPriority = Package.EventPriority
 export type ReactFundamentalComponentInstance<C, H> =
@@ -28,16 +25,31 @@ export type ReactScopeInstance = Package.ReactScopeInstance
 export type MutableSourceVersion = Package.MutableSourceVersion
 export type MutableSourceGetSnapshotFn<Source, Snapshot> =
 Package.MutableSourceGetSnapshotFn<Source, Snapshot> 
-export type MutableSourceSubscribeFn<Source, Snapshot> =
-Package.MutableSourceSubscribeFn<Source, Snapshot> 
+export type MutableSourceSubscribeFn<Source, Snapshot> = Package.MutableSourceSubscribeFn<Source, Snapshot> 
 export type MutableSourceGetVersionFn = Package.MutableSourceGetVersionFn
 export type MutableSource<Source> = Package.MutableSource<Source> 
 export type Wakeable = Package.Wakeable
 export type Thenable<R> = Package.Thenable<R> 
 export type Source = Package.Source
-export type ReactElement = Package.ReactElement
+export type ReactElement<P = Object, T = any> = Package.ReactElement<P , T > 
 export type OpaqueIDType = Package.OpaqueIDType
 export type Dispatcher = Package.Dispatcher
+export type React_Ref<ElementType> = Package.React_Ref<ElementType> 
+export type React_Context<T> = Package.React_Context<T> 
+export type React_AbstractComponent<Config, Instance> = Package.React_AbstractComponent<Config, Instance> 
+export type React_ComponentType<Config> = Package.React_ComponentType<Config> 
+export type React_PureComponent<Props, State = nil> = Package.React_PureComponent<Props, State > 
+export type React_Component<Props, State> = Package.React_Component<Props, State> 
+export type React_ElementProps<ElementType> = Package.React_ElementProps<ElementType> 
+export type React_StatelessFunctionalComponent<Props> =
+Package.React_StatelessFunctionalComponent<Props> 
+export type React_Node = Package.React_Node
+export type React_Element<ElementType> = Package.React_Element<ElementType> 
+export type React_ElementType = Package.React_ElementType
+export type React_ElementConfig<C> = Package.React_ElementConfig<C> 
+export type React_ElementRef<C> = Package.React_ElementRef<C> 
+export type React_Portal = Package.React_Portal
+export type React_Key = Package.React_Key
 
 
 return Package

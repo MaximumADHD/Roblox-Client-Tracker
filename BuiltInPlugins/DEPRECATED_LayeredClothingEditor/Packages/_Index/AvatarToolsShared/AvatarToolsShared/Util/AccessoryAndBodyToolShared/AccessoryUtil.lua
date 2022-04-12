@@ -25,6 +25,17 @@ function AccessoryUtil:getHandle(instance)
 	end
 end
 
+function AccessoryUtil:findMatchingAccessoryAndAvatarAttachments(handle, avatar)
+	for _, child in ipairs(handle:GetChildren()) do
+		if child:IsA("Attachment") then
+			local avatarAttachment = self:findAvatarAttachmentByName(avatar, child.Name)
+			if avatarAttachment then
+				return child, avatarAttachment 
+			end
+		end
+	end
+end
+
 function AccessoryUtil:findAvatarAttachmentByName(model, name)
 	if name == "" or name == nil then
 		return nil
@@ -106,7 +117,7 @@ local function isAccessoryOrClothingAttachment(att)
 	for category, types in pairs(AssetTypeAttachmentInfo) do
 		for assetType, info in pairs(types) do
 			for attTypeName, attInfo in pairs(info.Attachments) do
-				if attInfo.Name == att.Name then
+				if attInfo.Name == att.Name or attInfo.Name == (att.Name .."Attachment") then
 					return true
 				end
 			end 
@@ -251,6 +262,11 @@ function AccessoryUtil:attachClothingItem(avatar, item, attachmentName, applyAut
 		self:clearWelds(cm.mesh)
 	end
 
+	local handleAttachment, avatarAttachment = self:findMatchingAccessoryAndAvatarAttachments(item, avatar)
+	if attachmentName then
+		avatarAttachment = self:findAvatarAttachmentByName(avatar, attachmentName)
+	end
+
 	-- align using wrap origin and re-parent/weld
 	local anchorWrap = bodyWrapTarget
 	local worldaFromWrap = anchorWrap.ImportOriginWorld
@@ -269,9 +285,8 @@ function AccessoryUtil:attachClothingItem(avatar, item, attachmentName, applyAut
 		local part0 = cm.mesh
 		local part1 = characterRoot
 
-		local att = self:findAvatarAttachmentByName(avatar, attachmentName)
-		if att then
-			part1 = att.Parent
+		if avatarAttachment then
+			part1 = avatarAttachment.Parent
 		end
 
 		self:addWeld(nil, part0, part1, cm.mesh)

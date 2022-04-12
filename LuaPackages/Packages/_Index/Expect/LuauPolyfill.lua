@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["LuauPolyfill"]["LuauPolyfill"])
+local Package = require(PackageIndex["LuauPolyfill-2fca3173-0.2.6"]["LuauPolyfill"])
 
 export type Array<T> = Package.Array<T> 
 export type Error = Package.Error

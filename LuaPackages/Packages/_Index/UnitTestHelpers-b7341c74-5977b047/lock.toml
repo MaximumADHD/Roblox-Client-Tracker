@@ -6,10 +6,10 @@ source = "git+https://github.com/roblox/lua-profile#v1.0.1"
 dependencies = [
     "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
     "DebugUtils DebugUtils 5977b047 git+https://github.com/roblox/lua-profile#v1.0.1",
-    "Roact <patched> RoactProxy 80d0273e git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactProxy 09efdd63 git+https://github.com/roblox/roact-17-upgrade#main",
     "RoactNavigation <patched> RoactNavigationProxy f5e9abce git+https://github.com/roblox/roact-navigation-upgrade#v0.0.6",
-    "RoactRodux <patched> RoactRoduxProxy 80d0273e git+https://github.com/roblox/roact-17-upgrade#main",
+    "RoactRodux <patched> RoactRodux 0.5.0 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox 7c27d65f git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 83569430 git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]

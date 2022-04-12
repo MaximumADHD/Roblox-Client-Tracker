@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["ReactReconciler"]["ReactReconciler"])
+local Package = require(PackageIndex["ReactReconciler-85154ff2-6c194edd"]["ReactReconciler"])
 
 export type Dispatcher = Package.Dispatcher
 export type Fiber = Package.Fiber
