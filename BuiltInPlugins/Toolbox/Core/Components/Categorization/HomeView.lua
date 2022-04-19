@@ -6,7 +6,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxUseExpandableTopSearch = game:GetFastFlag("ToolboxUseExpandableTopSearch") -- TODO: Flip when UISYS-1334 is ready
 local FintToolboxHomeViewInitialPageSize = game:GetFastInt("ToolboxHomeViewInitialPageSize")
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization3")
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization4")
 
 local Libs = Plugin.Packages
 
@@ -47,6 +47,7 @@ local Urls = require(Util.Urls)
 local getNetwork = ContextGetter.getNetwork
 
 local GetAssetPreviewDataForStartup = require(Plugin.Core.Thunks.GetAssetPreviewDataForStartup)
+local RequestSearchRequest = require(Plugin.Core.Networking.Requests.RequestSearchRequest)
 
 local HomeTypes = require(Plugin.Core.Types.HomeTypes)
 
@@ -58,7 +59,6 @@ local SWIMLANE_SIZE = 20
 local SUBCATEGORY_SIZE = Vector2.new(75, 90)
 local THUMBNAIL_SIZE = Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE
 local TOP_KEYWORDS_SECTION_SPACING = 10
-local TOP_KEYWORDS_BOTTOM_PADDING = 10
 local TOP_SEARCHES_FULL_HEIGHT_CUT_OFF = 475
 local TOP_SEARCH_MAX_ROW_COUNT = 2
 
@@ -98,6 +98,7 @@ type _ExternalProps = {
 type _InternalProps = {
 	-- mapDispatchToProps
 	getAssetPreviewDataForStartup: any,
+	requestSearchRequest: any,
 	-- withContext
 	API: any?,
 	Localization: any,
@@ -162,7 +163,6 @@ function HomeView:init()
 		local props: HomeViewProps = self.props
 		local categoryName = props.CategoryName
 		local onClickSubcategory = props.OnClickSubcategory
-		local onClickSeeAllAssets = props.OnClickSeeAllAssets
 		local sortName = props.SortName
 		local subcategoryDict = props.SubcategoryDict
 
@@ -185,10 +185,12 @@ function HomeView:init()
 	self.onClickSearchPill = function(searchText: string)
 		local props: HomeViewProps = self.props
 		local categoryName = props.CategoryName
-		local onClickSeeAllAssets = props.OnClickSeeAllAssets
 		local sortName = props.SortName
+		local requestSearchRequest = props.requestSearchRequest
 
-		onClickSeeAllAssets(nil, categoryName, sortName, searchText)
+		local networkInterface = getNetwork(self)
+		local settings = self.props.Settings:get("Plugin")
+		requestSearchRequest(networkInterface, settings, searchText, categoryName)
 	end
 
 	self.renderSubcategory = function(index, subcategory)
@@ -321,9 +323,6 @@ function HomeView:init()
 					AutomaticSize = Enum.AutomaticSize.Y,
 					Layout = Enum.FillDirection.Vertical,
 					LayoutOrder = orderIterator:getNextOrder(),
-					Padding = {
-						Bottom = TOP_KEYWORDS_BOTTOM_PADDING,
-					},
 					Size = UDim2.new(0, swimlaneWidth, 0, minTopKeywordsHeight),
 					Spacing = TOP_KEYWORDS_SECTION_SPACING,
 					HorizontalAlignment = Enum.HorizontalAlignment.Left,
@@ -463,6 +462,9 @@ local function mapDispatchToProps(dispatch)
 	return {
 		getAssetPreviewDataForStartup = function(assetId, tryInsert, localization, networkInterface)
 			dispatch(GetAssetPreviewDataForStartup(assetId, tryInsert, localization, networkInterface))
+		end,
+		requestSearchRequest = function(networkInterface, settings, searchTerm, categoryName)
+			dispatch(RequestSearchRequest(networkInterface, settings, searchTerm, categoryName))
 		end,
 	}
 end

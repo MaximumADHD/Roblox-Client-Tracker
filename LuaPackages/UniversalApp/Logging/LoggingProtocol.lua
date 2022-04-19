@@ -9,6 +9,7 @@ type MessageDescriptor = MessageBus.MessageDescriptor
 type Table = MessageBus.Table
 
 local NAME = "Logging"
+local loggedOnce = {}
 
 local paramsValidator = t.strictInterface({
 	eventName = t.string,
@@ -63,6 +64,14 @@ end
 function LoggingProtocol:logEvent(eventName: string, metadata: Table?): ()
 	ArgCheck.isType(eventName, "string", "eventName")
 	self:logEventWithTimestamp(eventName, 0, metadata)
+end
+
+function LoggingProtocol:logEventOnce(eventName: string, metadata: Table?): ()
+	ArgCheck.isType(eventName, "string", "eventName")
+	if loggedOnce[eventName] == nil then
+		loggedOnce[eventName] = true
+		self:logEvent(eventName, metadata)
+	end
 end
 
 -- timestamp is ms

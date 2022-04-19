@@ -3,11 +3,6 @@ return function()
 
 	local Plugin = script.Parent.Parent.Parent
 
-	local getFFlagPivotEditorFixTests = require(Plugin.Src.Flags.getFFlagPivotEditorFixTests)
-	if not getFFlagPivotEditorFixTests() then
-		return
-	end
-
 	local Roact = require(Plugin.Packages.Roact)
 
 	local TestHelper = require(Plugin.Src.Utility.TestHelper)

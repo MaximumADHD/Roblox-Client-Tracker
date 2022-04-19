@@ -6,13 +6,32 @@ local Players = game:GetService("Players")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 
-local FFlagVoiceDefaultChannelUseNewName = game:DefineFastFlag("VoiceDefaultChannelUseNewName", false)
+local FFlagVoiceDefaultChannelUseNewName = game:DefineFastFlag("VoiceDefaultChannelUseNewName2", false)
 local FFlagDebugDefaultChannelStartMuted = game:DefineFastFlag("DebugDefaultChannelStartMuted", true)
 
 local GenerateDefaultChannelAvailable = game:GetEngineFeature("VoiceServiceGenerateDefaultChannelAvailable")
 local EnableDefaultVoiceAvailable = game:GetEngineFeature("VoiceServiceEnableDefaultVoiceAvailable")
 
 local log = require(RobloxGui.Modules.InGameChat.BubbleChat.Logger)(script.Name)
+
+local function initializeDefaultChannel()
+	local VoiceChatService = VoiceChatServiceManager:getService()
+
+	if not VoiceChatService then
+		return nil
+	end
+
+	log:info("Joining default channel")
+
+	return VoiceChatService:JoinByGroupIdToken("default", FFlagDebugDefaultChannelStartMuted)
+end
+
+if not Players.LocalPlayer.Character then
+	Players.LocalPlayer.CharacterAdded:Wait()
+	log:debug("Player character loaded")
+else
+	log:debug("Player character already loaded")
+end
 
 if FFlagVoiceDefaultChannelUseNewName then
 	if EnableDefaultVoiceAvailable then
@@ -36,25 +55,6 @@ else
 			return
 		end
 	end
-end
-
-local function initializeDefaultChannel()
-	local VoiceChatService = VoiceChatServiceManager:getService()
-
-	if not VoiceChatService then
-		return nil
-	end
-
-	log:info("Joining default channel")
-
-	return VoiceChatService:JoinByGroupIdToken("default", FFlagDebugDefaultChannelStartMuted)
-end
-
-if not Players.LocalPlayer.Character then
-	Players.LocalPlayer.CharacterAdded:Wait()
-	log:debug("Player character loaded")
-else
-	log:debug("Player character already loaded")
 end
 
 VoiceChatServiceManager:asyncInit():andThen(function()

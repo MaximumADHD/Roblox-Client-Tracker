@@ -2,7 +2,6 @@
 	Public interface for UI
 ]]
 local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
-local FFlagDevFrameworkTextInput2 = game:GetFastFlag("DevFrameworkTextInput2")
 local FFlagDevFrameworkTimeProgressBar = game:GetFastFlag("DevFrameworkTimeProgressBar")
 local FFlagDevFrameworkInfiniteScrollingGrid = game:GetFastFlag("DevFrameworkInfiniteScrollingGrid")
 local FFlagDevFrameworkResponsiveGrid2 = game:GetFastFlag("DevFrameworkResponsiveGrid2")
@@ -124,7 +123,7 @@ local UI = strict({
 	TableRow = TableRow,
 	Tabs = Tabs,
 	TextInput = TextInput,
-	TextInput2 = FFlagDevFrameworkTextInput2 and TextInput2 or nil,
+	TextInput2 = TextInput2,
 	TextInputDialog = TextInputDialog,
 	TextWithInlineLink = TextWithInlineLink,
 	ToggleButton = ToggleButton,

@@ -28,6 +28,7 @@ local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local ClearTrack = require(Plugin.Src.Thunks.ClearTrack)
 local ConvertTrack = require(Plugin.Src.Thunks.ConvertTrack)
 local DeleteTrack = require(Plugin.Src.Thunks.DeleteTrack)
+local SetTrackEulerAnglesOrder = require(Plugin.Src.Thunks.SetTrackEulerAnglesOrder)
 local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
 local SplitTrack = require(Plugin.Src.Thunks.SplitTrack)
 
@@ -43,11 +44,13 @@ local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAni
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
 local GetFFlagEulerFromPartTrack = require(Plugin.LuaFlags.GetFFlagEulerFromPartTrack)
+local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
 
 export type Props = {
 	-- State/Context
 	Analytics: any,
 	AnimationData: AnimationData.AnimationData,
+	DefaultEulerAnglesOrder: string,
 	InstanceName: string,
 	Path: PathUtils.Path,
 	Playhead: number,
@@ -63,6 +66,7 @@ export type Props = {
 	ClearTrack: (string, PathUtils.Path, any) -> (),
 	ConvertTrack: (string, PathUtils.Path, string, any) -> (),
 	DeleteTrack: (string, any) -> (),
+	SetTrackEulerAnglesOrder: (string, PathUtils.Path, Enum.RotationOrder) -> (),
 	SplitTrack: (string, PathUtils.Path, string, number, any) -> (),
 
 	-- Properties
@@ -71,13 +75,52 @@ export type Props = {
 	OnMenuOpened: () -> (),
 }
 
+local EULER_ANGLES_ORDER: {EnumItem} = {
+	Enum.RotationOrder.XYZ,
+	Enum.RotationOrder.XZY,
+	Enum.RotationOrder.YXZ,
+	Enum.RotationOrder.YZX,
+	Enum.RotationOrder.ZXY,
+	Enum.RotationOrder.ZYX,
+}
+
 local TrackActions = Roact.PureComponent:extend("TrackActions")
 
-function TrackActions:makeMenuActions(isTopLevel: boolean, showEulerConversion: boolean): {PluginAction}
-	local pluginActions = self.props.PluginActions
-	local isChannelAnimation = self.props.IsChannelAnimation
+function TrackActions:makeEulerAnglesOrderSubMenu(): ContextMenu.MenuItem
+	local localization = self.props.Localization
+	local animationData = self.props.AnimationData
+	local instanceName = self.props.InstanceName
 	local path = self.props.Path
-	local trackType = self.props.TrackType
+
+	local track = AnimationData.getTrack(animationData, instanceName, path)
+	return {
+		Name = localization:getText("ContextMenu", "EulerAnglesOrder"),
+		Items = EULER_ANGLES_ORDER,
+		CurrentValue = track.EulerAnglesOrder.Value,
+		ItemSelected = function(eulerAngleOrder)
+			self.props.SetTrackEulerAnglesOrder(
+				instanceName, path, eulerAngleOrder
+			)
+		end,
+	}
+end
+
+function TrackActions:makeMenuActions(isTopLevel: boolean, showEulerConversion: boolean): {PluginAction}
+	local props = self.props
+	local pluginActions = props.PluginActions
+	local isChannelAnimation = props.IsChannelAnimation
+	local path = props.Path
+	local trackType = props.TrackType
+	local animationData = props.AnimationData
+	local instanceName = props.InstanceName
+
+	if GetFFlagEulerAnglesOrder() then
+		local track = AnimationData.getTrack(animationData, instanceName, path)
+		if track then
+			showEulerConversion = track.Type == Constants.TRACK_TYPES.Quaternion or
+				(track.Type == Constants.TRACK_TYPES.CFrame and TrackUtils.getRotationType(track) == Constants.TRACK_TYPES.Quaternion)
+		end
+	end
 
 	if GetFFlagQuaternionsUI() then
 		isTopLevel = not isChannelAnimation or (path ~= nil and #path <= 1)
@@ -90,14 +133,31 @@ function TrackActions:makeMenuActions(isTopLevel: boolean, showEulerConversion: 
 		pluginActions:get(GetFFlagChannelAnimations() and deleteAction or "DeleteTrack"),
 	}
 
-	if GetFFlagQuaternionsUI() and isChannelAnimation then
-		if (not GetFFlagEulerFromPartTrack() and trackType == Constants.TRACK_TYPES.Quaternion) or
-			(GetFFlagEulerFromPartTrack() and showEulerConversion) then
-			table.insert(actions, Constants.MENU_SEPARATOR)
-			table.insert(actions, pluginActions:get("ConvertToEulerAngles"))
+	if not GetFFlagEulerAnglesOrder() then
+		if GetFFlagQuaternionsUI() and isChannelAnimation then
+			if (not GetFFlagEulerFromPartTrack() and trackType == Constants.TRACK_TYPES.Quaternion) or
+				(GetFFlagEulerFromPartTrack() and showEulerConversion) then
+				table.insert(actions, Constants.MENU_SEPARATOR)
+				table.insert(actions, pluginActions:get("ConvertToEulerAngles"))
+			end
+		end
+	else
+		local separator = false
+		if GetFFlagQuaternionsUI() and isChannelAnimation then
+			if (not GetFFlagEulerFromPartTrack() and trackType == Constants.TRACK_TYPES.Quaternion) or
+				(GetFFlagEulerFromPartTrack() and showEulerConversion) then
+				table.insert(actions, Constants.MENU_SEPARATOR)
+				table.insert(actions, pluginActions:get("ConvertToEulerAngles"))
+				separator = true
+			end
+		end
+		if trackType == Constants.TRACK_TYPES.EulerAngles then
+			if not separator then
+				table.insert(actions, Constants.MENU_SEPARATOR)
+			end
+			table.insert(actions, self:makeEulerAnglesOrderSubMenu())
 		end
 	end
-
 	return actions
 end
 
@@ -265,9 +325,10 @@ function TrackActions:render(): (any?)
 		if GetFFlagChannelAnimations() then
 			if path and instanceName then
 				local track = AnimationData.getTrack(animationData, instanceName, path)
-				showEulerConversion = track.Type == Constants.TRACK_TYPES.Quaternion or
-					(track.Type == Constants.TRACK_TYPES.CFrame and TrackUtils.getRotationType(track) == Constants.TRACK_TYPES.Quaternion)
-
+				if not GetFFlagEulerAnglesOrder() then
+					showEulerConversion = track.Type == Constants.TRACK_TYPES.Quaternion or
+						(track.Type == Constants.TRACK_TYPES.CFrame and TrackUtils.getRotationType(track) == Constants.TRACK_TYPES.Quaternion)
+				end
 				local enabled
 
 				if not isChannelAnimation then
@@ -302,7 +363,12 @@ function TrackActions:render(): (any?)
 
 	-- topLevelTrack is not needed anymore if GetFFlagQuaternionsUI is ON
 	local topLevelTrack = not isChannelAnimation or (path ~= nil and #path <= 1)
-	local menuActions = self:makeMenuActions(topLevelTrack, showEulerConversion)
+	local menuActions
+	if GetFFlagEulerAnglesOrder() then
+		menuActions = self:makeMenuActions()
+	else
+	 	menuActions = self:makeMenuActions(topLevelTrack, showEulerConversion)
+	end
 
 	if FFlagDumpTrackMenu then
 		table.insert(menuActions, {
@@ -323,7 +389,14 @@ function TrackActions:render(): (any?)
 				local instance = animationData.Instances[instanceName]
 				trackName = trackName or path[1]
 				local track = instance.Tracks[trackName]
-				dumpTrack(track, trackName)
+
+				if GetFFlagEulerAnglesOrder() then
+					local eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track)
+					dumpTrack(track, trackName,
+						eulerAnglesOrder or props.DefaultEulerAnglesOrder)
+				else
+					dumpTrack(track, trackName, props.DefaultEulerAnglesOrder)
+				end
 			end
 		})
 	end
@@ -349,6 +422,7 @@ function TrackActions:willUnmount()
 end
 
 TrackActions = withContext({
+	Localization = ContextServices.Localization,
 	PluginActions = ContextServices.PluginActions,
 	Analytics = ContextServices.Analytics,
 })(TrackActions)
@@ -358,6 +432,7 @@ local function mapStateToProps(state): {[string]: any}
 
 	return {
 		AnimationData = state.AnimationData,
+		DefaultEulerAnglesOrder = status.DefaultEulerAnglesOrder,
 		InstanceName = status.RightClickContextInfo.InstanceName,
 		Path = status.RightClickContextInfo.Path,
 		Playhead = status.Playhead,
@@ -404,6 +479,12 @@ local function mapDispatchToProps(dispatch): {[string]: any}
 		DeleteTrack = function(trackName, analytics)
 			dispatch(AddWaypoint())
 			dispatch(DeleteTrack(trackName, analytics))
+			dispatch(SetRightClickContextInfo({}))
+		end,
+
+		SetTrackEulerAnglesOrder = function(instanceName: string, path: PathUtils.Path, eulerAnglesOrder: Enum.RotationOrder): ()
+			dispatch(AddWaypoint())
+			dispatch(SetTrackEulerAnglesOrder(instanceName, path, eulerAnglesOrder))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 

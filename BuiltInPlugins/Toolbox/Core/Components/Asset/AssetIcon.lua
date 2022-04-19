@@ -15,8 +15,8 @@
 		callback onPreviewAudioButtonClicked() // remove with FFlagToolboxAssetGridRefactor
 ]]
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
-local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
-local FFlagToolboxAssetStyleUpdate = game:GetFastFlag("ToolboxAssetStyleUpdate")
+local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
+local FFlagToolboxAssetStyleUpdate2 = game:GetFastFlag("ToolboxAssetStyleUpdate2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -78,7 +78,7 @@ function AssetIcon:init(props)
 
 	if FFlagToolboxAssetGridRefactor then
 		self.onAssetPreviewButtonClicked = function()
-			if FFlagToolboxAssetCategorization3 then
+			if FFlagToolboxAssetCategorization4 then
 				self.props.onAssetPreviewButtonClicked()
 			else
 				self.props.onPreviewToggled(true, self.props.assetId)
@@ -128,7 +128,7 @@ function AssetIcon:render()
 		local isCurrentlyCreationsTab = Category.getTabForCategoryName(props.categoryName) == Category.CREATIONS
 
 		local children = {
-			UICorner = FFlagToolboxAssetStyleUpdate and Roact.createElement("UICorner", {
+			UICorner = FFlagToolboxAssetStyleUpdate2 and Roact.createElement("UICorner", {
 				CornerRadius = UDim.new(0, Constants.ASSET_CORNER_RADIUS),
 			}),
 
@@ -139,7 +139,7 @@ function AssetIcon:render()
 				Image = thumbnailUrl,
 				defaultImage = "",
 			}, {
-				UICorner = FFlagToolboxAssetStyleUpdate and Roact.createElement("UICorner", {
+				UICorner = FFlagToolboxAssetStyleUpdate2 and Roact.createElement("UICorner", {
 					CornerRadius = UDim.new(0, Constants.ASSET_CORNER_RADIUS),
 				}),
 			}),

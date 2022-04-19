@@ -47,6 +47,7 @@ local MainView = require(Plugin.Src.Components.MainView)
 
 local AssetManagerUtilities = require(Plugin.Src.Util.AssetManagerUtilities)
 local enableAudioImport = AssetManagerUtilities.enableAudioImport
+local enableVideoImport = AssetManagerUtilities.enableVideoImport
 local enableBadgesCallout = AssetManagerUtilities.enableBadgesCallout
 
 local SetBulkImporterRunning = require(Plugin.Src.Actions.SetBulkImporterRunning)
@@ -222,6 +223,8 @@ local function connectBulkImporterSignals()
 				strippedName = string.gsub(name, "Scripts/", "")
 			elseif enableAudioImport() and assetType == Enum.AssetType.Audio and string.find(name, "Audio/") then
 				strippedName = string.gsub(name, "Audio/", "")
+			elseif enableVideoImport() and assetType == Enum.AssetType.Video and string.find(name, "Video/") then
+				strippedName = string.gsub(name, "Video/", "")
 			elseif FFlagAssetManagerEnableModelAssets and assetType == Enum.AssetType.Model and string.find(name, "Models/") then
 				strippedName = string.gsub(name, "Models/", "")
 			end

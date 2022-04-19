@@ -53,6 +53,7 @@ return Rodux.createReducer({
 	DefaultRotationType = Constants.DEFAULT_ROTATION_TYPE,
 	EditorMode = Constants.EDITOR_MODE.DopeSheet,
 	SymmetryEnabled = false,
+	DefaultEulerAnglesOrder = Enum.RotationOrder.XYZ,
 }, {
 	SetActive = function(state, action)
 		return Cryo.Dictionary.join(state, {
@@ -234,7 +235,7 @@ return Rodux.createReducer({
 		return Cryo.Dictionary.join(state, {
 			FaceControlsEditorOpenedTimestamp = action.FaceControlsEditorOpenedTimestamp,
 		})
-	end,	
+	end,
 
 	SetMotorData = function(state, action)
 		return Cryo.Dictionary.join(state, {
@@ -276,7 +277,7 @@ return Rodux.createReducer({
 		return Cryo.Dictionary.join(state, {
 			ShowFaceControlsEditorPanel = action.showFaceControlsEditorPanel,
 		})
-	end,	
+	end,
 
 	SetPinnedParts = function(state, action)
 		return Cryo.Dictionary.join(state, {
@@ -302,15 +303,21 @@ return Rodux.createReducer({
 		})
 	end,
 
+	SetDefaultEulerAnglesOrder = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			DefaultEulerAnglesOrder = action.defaultEulerAnglesOrder,
+		})
+	end,
+
 	SetEditorMode = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			EditorMode = action.editorMode,
 		})
 	end,
-	
+
 	SetSymmetryEnabled = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			SymmetryEnabled = action.symmetryEnabled,
 		})
-	end,	
+	end,
 })

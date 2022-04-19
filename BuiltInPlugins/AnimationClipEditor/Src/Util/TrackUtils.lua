@@ -9,17 +9,19 @@ local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local PathUtils = require(Plugin.Src.Util.PathUtils)
 
 local Constants = require(Plugin.Src.Util.Constants)
-local Templates = require(Plugin.Src.Util.Templates)
-local isEmpty = require(Plugin.Src.Util.isEmpty)
+local CFrameUtils = require(Plugin.Src.Util.CFrameUtils)
 local CurveUtils = require(Plugin.Src.Util.CurveUtils)
+local isEmpty = require(Plugin.Src.Util.isEmpty)
+local Templates = require(Plugin.Src.Util.Templates)
+local Types = require(Plugin.Src.Types)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
 local GetFFlagFixClampValuesForFacs = require(Plugin.LuaFlags.GetFFlagFixClampValuesForFacs)
-local GetFFlagNilCheckAnimationDataInTrackUtils = require(Plugin.LuaFlags.GetFFlagNilCheckAnimationDataInTrackUtils)
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 local GetFFlagFacsAsFloat = require(Plugin.LuaFlags.GetFFlagFacsAsFloat)
+local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
 
 local TrackUtils = {}
 
@@ -300,6 +302,27 @@ function TrackUtils.getComponentTypeFromPath(path, tracks)
 	end
 end
 
+function TrackUtils.getEulerAnglesOrder(track: Types.Track): (string?)
+	if track == nil then
+		return nil
+	end
+
+	if track.Type == Constants.TRACK_TYPES.CFrame then
+		if not track.Components then
+			return nil
+		end
+
+		return TrackUtils.getEulerAnglesOrder(
+			track.Components[Constants.PROPERTY_KEYS.Rotation])
+	end
+
+	if track.Type == Constants.TRACK_TYPES.EulerAngles then
+		return track.EulerAnglesOrder
+	end
+
+	return nil
+end
+
 -- Given a track, return the type of rotation used (if relevant)
 function TrackUtils.getRotationType(track)
 	local rotationTrack = track.Components and track.Components[Constants.PROPERTY_KEYS.Rotation]
@@ -424,28 +447,39 @@ function TrackUtils.getTrackYPosition(tracks, topTrackIndex, trackIndex)
 	return yPos
 end
 
-function TrackUtils.getCurrentValue(track, tick, animationData)
+function TrackUtils.getCurrentValue(
+	track: Types.Track,
+	tck: number,
+	animationData: Types.AnimationData,
+	defaultEulerAnglesOrder: Enum.RotationOrder)
+	: (CFrame | Vector3 | number)?
+
 	local name = track.Name
 	local instance = track.Instance
 
-	local currentValue
-	if GetFFlagNilCheckAnimationDataInTrackUtils() and animationData == nil then
-		currentValue = TrackUtils.getDefaultValue(track)
-		return currentValue
+	if animationData == nil then
+		return TrackUtils.getDefaultValue(track)
 	end
 
 	local currentTrack = animationData.Instances[instance].Tracks[name]
 	if currentTrack then
-		currentValue = KeyframeUtils.getValue(currentTrack, tick)
+		return KeyframeUtils.getValue(currentTrack, tck, defaultEulerAnglesOrder)
 	else
-		currentValue = TrackUtils.getDefaultValue(track)
+		return TrackUtils.getDefaultValue(track)
 	end
-	return currentValue
 end
 
 -- Return the value of the track identified by path, at the specified tick. If the track is not
 -- found, return the default value based on trackType
-function TrackUtils.getCurrentValueForPath(path, instance, tick, animationData, trackType)
+function TrackUtils.getCurrentValueForPath(
+	path: PathUtils.Path,
+	instance: string,
+	tck: number,
+	animationData: any,
+	trackType: string,
+	defaultEulerAnglesOrder: Enum.RotationOrder)
+	: ()
+
 	local currentTrack = animationData.Instances[instance]
 
 	-- Follow the path, through Tracks for the first part, or through Components for the next parts
@@ -456,11 +490,12 @@ function TrackUtils.getCurrentValueForPath(path, instance, tick, animationData, 
 		end
 	end
 
-	return KeyframeUtils.getValue(currentTrack, tick)
+	return KeyframeUtils.getValue(currentTrack, tck, defaultEulerAnglesOrder)
 end
 
-function TrackUtils.getItemsForProperty(track, value, name)
+function TrackUtils.getItemsForProperty(track, value, name, defaultEAO)
 	local trackType = track.Type
+	local eulerAnglesOrder = track.EulerAnglesOrder or defaultEAO
 	local properties = Constants.PROPERTY_KEYS
 	local items
 
@@ -474,8 +509,15 @@ function TrackUtils.getItemsForProperty(track, value, name)
 
 	if trackType == Constants.TRACK_TYPES.CFrame then
 		-- This is only used for animations that have not been promoted to channels
+		-- This is also the only reason we need to pass down a default EAO, as curve tracks
+		-- will have that information embedded.
 		local position = value.Position
-		local xRot, yRot, zRot = value:ToEulerAnglesXYZ()
+		local xRot, yRot, zRot
+		if GetFFlagEulerAnglesOrder() then
+			xRot, yRot, zRot = CFrameUtils.ToEulerAngles(value, eulerAnglesOrder)
+		else
+			xRot, yRot, zRot = value:ToEulerAnglesXYZ()
+		end
 		if GetFFlagChannelAnimations() then
 			xRot = removeNegativeZero(math.deg(xRot))
 			yRot = removeNegativeZero(math.deg(yRot))
@@ -531,7 +573,12 @@ function TrackUtils.getItemsForProperty(track, value, name)
 			removeNegativeZero(math.deg(value.Z)),
 			Constants.TRACK_TYPES.Angle)
 	elseif GetFFlagQuaternionChannels() and trackType == Constants.TRACK_TYPES.Quaternion then
-		local xRot, yRot, zRot = value:ToEulerAnglesXYZ()
+		local xRot, yRot, zRot
+		if GetFFlagEulerAnglesOrder() then
+			xRot, yRot, zRot = CFrameUtils.ToEulerAngles(value, eulerAnglesOrder)
+		else
+			xRot, yRot, zRot = value:ToEulerAnglesXYZ()
+		end
 		items = makeVectorItems(removeNegativeZero(math.deg(xRot)),
 			removeNegativeZero(math.deg(yRot)),
 			removeNegativeZero(math.deg(zRot)),
@@ -664,7 +711,7 @@ function TrackUtils.adjustCurves(track)
 	track.IsCurveTrack = true
 end
 
-function TrackUtils.splitTrackComponents(track, rotationType)
+function TrackUtils.splitTrackComponents(track, rotationType, eulerAnglesOrder)
 	if track.Type == Constants.TRACK_TYPES.CFrame then
 		-- Creates the components hierarchy for a track
 		local function createTrackComponents(_track)
@@ -680,6 +727,13 @@ function TrackUtils.splitTrackComponents(track, rotationType)
 					end
 
 					_track.Components[componentName] = Templates.track(componentType)
+					if
+						GetFFlagEulerAnglesOrder()
+						and componentName == Constants.PROPERTY_KEYS.Rotation
+						and componentType == Constants.TRACK_TYPES.EulerAngles
+					then
+						_track.Components[componentName].EulerAnglesOrder = eulerAnglesOrder
+					end
 					createTrackComponents(_track.Components[componentName])
 				end
 			else
@@ -709,7 +763,12 @@ function TrackUtils.splitTrackComponents(track, rotationType)
 			else
 				-- Decompose the CFrame into two Vectors so they can both be accessed by .X, .Y, .Z
 				local position = cFrame.Position
-				local rotation = Vector3.new(cFrame:ToEulerAnglesXYZ())
+				local rotation
+				if GetFFlagEulerAnglesOrder() then
+					rotation = Vector3.new(CFrameUtils.ToEulerAngles(cFrame, eulerAnglesOrder))
+				else
+					rotation = Vector3.new(cFrame:ToEulerAnglesXYZ())
+				end
 
 				for componentName, componentTrack in pairs(track.Components) do
 					local values = componentName == Constants.PROPERTY_KEYS.Position and position or rotation
@@ -743,7 +802,13 @@ function TrackUtils.splitTrackComponents(track, rotationType)
 	end
 end
 
-function TrackUtils.createTrackListEntryComponents(track, instanceName, rotationType)
+function TrackUtils.createTrackListEntryComponents(
+	track: Track,
+	instanceName: string,
+	rotationType: string,
+	eulerAnglesOrder: string)
+	: ()
+
 	local componentTypes = Constants.COMPONENT_TRACK_TYPES[track.Type]
 	track.Instance = instanceName
 
@@ -752,13 +817,34 @@ function TrackUtils.createTrackListEntryComponents(track, instanceName, rotation
 		track.Components = {}
 		for _, componentName in ipairs(componentTypes._Order) do
 			local componentType = componentTypes[componentName]
-			if componentName == Constants.PROPERTY_KEYS.Rotation then
-				componentType = rotationType
+
+			if not GetFFlagEulerAnglesOrder() then
+				if componentName == Constants.PROPERTY_KEYS.Rotation then
+					componentType = rotationType
+				end
+
+				track.Components[componentName] = Templates.trackListEntry(componentType)
+				track.Components[componentName].Name = componentName
+			else
+				local newTrack
+
+				if componentName == Constants.PROPERTY_KEYS.Rotation then
+					newTrack = Templates.trackListEntry(rotationType)
+					if rotationType == Constants.TRACK_TYPES.EulerAngles then
+						newTrack.EulerAnglesOrder = eulerAnglesOrder
+					end
+				else
+					newTrack = Templates.trackListEntry(componentType)
+				end
+				newTrack.Name = componentName
+				track.Components[componentName] = newTrack
 			end
 
-			track.Components[componentName] = Templates.trackListEntry(componentType)
-			track.Components[componentName].Name = componentName
-			TrackUtils.createTrackListEntryComponents(track.Components[componentName], instanceName, rotationType)
+			TrackUtils.createTrackListEntryComponents(
+				track.Components[componentName],
+				instanceName,
+				rotationType,
+				eulerAnglesOrder)
 		end
 	end
 end
@@ -863,7 +949,7 @@ end
 -- func is called with the leaf relative path (to the initial track type), and the value.
 -- This relies on paths only, tracks don't have to exist.
 -- rotationType determines if we want to follow the Quaternion hierarchy, or the Euler angles hierarchy.
-function TrackUtils.traverseValue(trackType, value, func, rotationType)
+function TrackUtils.traverseValue(trackType, value, func, rotationType, eulerAnglesOrder)
 	local function recurse(_trackType, relPath, _value)
 		if _trackType == Constants.TRACK_TYPES.CFrame then
 			local position = _value.Position
@@ -873,7 +959,11 @@ function TrackUtils.traverseValue(trackType, value, func, rotationType)
 			if rotationType == Constants.TRACK_TYPES.Quaternion then
 				rotation = _value - position
 			else
-				rotation = Vector3.new(_value:ToEulerAnglesXYZ())
+				if GetFFlagEulerAnglesOrder() then
+					rotation = Vector3.new(CFrameUtils.ToEulerAngles(_value, eulerAnglesOrder))
+				else
+					rotation = Vector3.new(_value:ToEulerAnglesXYZ())
+				end
 			end
 			recurse(rotationType, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Rotation}), rotation)
 		elseif _trackType == Constants.TRACK_TYPES.Position then
@@ -901,6 +991,147 @@ function TrackUtils.findPreviousKeyframe(track, tck, exactMatch: boolean?)
 	end
 	local prevTick = prevIndex and track.Keyframes[prevIndex] or nil
 	return prevTick and track.Data[prevTick] or nil
+end
+
+function TrackUtils.convertTrackToEulerAngles(track: Track, eulerAnglesOrder: Enum.RotationOrder): ()
+	-- This abstracts the euler angles order.
+	local toAngles: {[Enum.RotationOrder]: (Vector3) -> (number, number, number)} = {
+		[Enum.RotationOrder.XYZ] = function(v) return v.Z, v.Y, v.X end,
+		[Enum.RotationOrder.XZY] = function(v) return v.Y, v.Z, v.X end,
+		[Enum.RotationOrder.YXZ] = function(v) return v.Z, v.X, v.Y end,
+		[Enum.RotationOrder.YZX] = function(v) return v.X, v.Z, v.Y end,
+		[Enum.RotationOrder.ZXY] = function(v) return v.Y, v.X, v.Z end,
+		[Enum.RotationOrder.ZYX] = function(v) return v.X, v.Y, v.Z end,
+	}
+
+	local fromAngles: {[Enum.RotationOrder]: (number, number, number) -> (Vector3)} = {
+		[Enum.RotationOrder.XYZ] = function(a, b, c) return Vector3.new(c, b, a) end,
+		[Enum.RotationOrder.XZY] = function(a, b, c) return Vector3.new(c, a, b) end,
+		[Enum.RotationOrder.YXZ] = function(a, b, c) return Vector3.new(b, c, a) end,
+		[Enum.RotationOrder.YZX] = function(a, b, c) return Vector3.new(a, c, b) end,
+		[Enum.RotationOrder.ZXY] = function(a, b, c) return Vector3.new(b, a, c) end,
+		[Enum.RotationOrder.ZYX] = function(a, b, c) return Vector3.new(a, b, c) end,
+	}
+
+	-- Given a set of three previous angles and a new CFrame, find the Euler
+	-- decomposition that best fits the previous angles.
+	local function findClosestAngles(prevAngles: Vector3, value:CFrame): Vector3
+		local angles = Vector3.new(CFrameUtils.ToEulerAngles(value, eulerAnglesOrder))
+
+		if not prevAngles then
+			return angles
+		end
+
+		local alpha, beta, gamma = toAngles[eulerAnglesOrder](angles)
+		local prevAlpha, prevBeta, prevGamma = toAngles[eulerAnglesOrder](prevAngles)
+
+		-- From now on, beta is always the second angle that is applied. It is also
+		-- the one that is calculated by an asin, and therefore the only one that
+		-- can accept a "mirrored" solution beta2 = PI - beta + 2kPI, on top of the
+		-- generic beta + 2kPI solution.
+		-- Alpha and gamma can only accept the generic solutions
+		-- [alpha|gamma] + 2kPI. However, if beta is mirrored, then alpha and gamma
+		-- must also be shifted by PI radians.
+		local alpha2 = alpha + math.pi
+		local beta2 = math.pi - beta
+		local gamma2 = gamma + math.pi
+
+		-- Since each angle accepts a generic solution a+2kPI,
+		-- let's start by moving each angle within PI radians of the previous angle.
+		local function reduceFullCircles(last: number, now: number): (number)
+			local nCircles = math.floor((last - now) / (math.pi * 2) + 0.5)
+			return now + nCircles * math.pi * 2
+		end
+		alpha = reduceFullCircles(prevAlpha, alpha)
+		alpha2 = reduceFullCircles(prevAlpha, alpha2)
+		beta = reduceFullCircles(prevBeta, beta)
+		beta2 = reduceFullCircles(prevBeta, beta2)
+		gamma = reduceFullCircles(prevGamma, gamma)
+		gamma2 = reduceFullCircles(prevGamma, gamma2)
+
+		local dist = ((prevAlpha-alpha) * (prevAlpha-alpha))
+			+ ((prevBeta-beta) * (prevBeta-beta))
+			+ ((prevGamma-gamma) * (prevGamma-gamma))
+
+		local dist2 = ((prevAlpha-alpha2) * (prevAlpha-alpha2))
+			+ ((prevBeta-beta2) * (prevBeta-beta2))
+			+ ((prevGamma-gamma2) * (prevGamma-gamma2))
+
+		-- Pick the best option
+		if dist <= dist2 then
+			return fromAngles[eulerAnglesOrder](alpha, beta, gamma)
+		else
+			return fromAngles[eulerAnglesOrder](alpha2, beta2, gamma2)
+		end
+	end
+
+	local componentNames = Constants.COMPONENT_TRACK_TYPES[Constants.TRACK_TYPES.EulerAngles]._Order
+
+	-- First pass. Create components and copy the ticks.
+	track.Components = {}
+	track.EulerAnglesOrder = eulerAnglesOrder
+	for _, componentName in ipairs(componentNames) do
+		local componentType = Constants.COMPONENT_TRACK_TYPES[Constants.TRACK_TYPES.EulerAngles][componentName]
+		local componentTrack = Templates.track(componentType)
+
+		componentTrack.Keyframes = Cryo.List.join(track.Keyframes)
+		componentTrack.Data = {}
+		componentTrack.IsCurveTrack = true
+		track.Components[componentName] = componentTrack
+	end
+
+	-- Find the Euler Angles and create the keyframes in the 3
+	-- components
+	local angles = nil
+	for _, tck in ipairs(track.Keyframes) do
+		local keyframe = track.Data[tck]
+		angles = findClosestAngles(angles, keyframe.Value)
+
+		for _, componentName in ipairs(componentNames) do
+			local newKeyframe = Templates.keyframe()
+			newKeyframe.Value = angles[componentName]
+			newKeyframe.InterpolationMode = track.Data[tck].InterpolationMode
+			track.Components[componentName].Data[tck] = newKeyframe
+		end
+	end
+
+	-- Calculate the slopes
+	for _, componentName in ipairs(componentNames) do
+		local componentTrack = track.Components[componentName]
+
+		for index, tck in ipairs(track.Keyframes) do
+			local prevTick = track.Keyframes[index-1]
+			local nextTick = track.Keyframes[index+1]
+			local parentKeyframe = track.Data[tck]
+
+			local keyframe = componentTrack.Data[tck]
+
+			-- Adjust the slopes by multiplying them by the value difference
+			-- with the previous (left) or the next (right) key. For quaternion
+			-- rotations, the slope is calculated to go from 0 to 1. For Euler
+			-- angles, we need to adjust them to go from vl to v (left) or v to
+			-- vr (right)
+			if parentKeyframe.LeftSlope ~= nil and prevTick then
+				local prevValue = componentTrack.Data[prevTick].Value
+				local delta = angles[componentName] - prevValue
+				keyframe.LeftSlope = parentKeyframe.LeftSlope * delta
+			else
+				keyframe.LeftSlope = nil
+			end
+			if parentKeyframe.RightSlope ~= nil and nextTick then
+				local nextValue = componentTrack.Data[nextTick].Value
+				local delta = nextValue - angles[componentName]
+				keyframe.RightSlope = parentKeyframe.RightSlope * delta
+			else
+				keyframe.RightSlope = nil
+			end
+		end
+	end
+
+	-- Delete data from the parent
+	track.Keyframes = nil
+	track.Data = nil
+	track.Type = Constants.TRACK_TYPES.EulerAngles
 end
 
 return TrackUtils

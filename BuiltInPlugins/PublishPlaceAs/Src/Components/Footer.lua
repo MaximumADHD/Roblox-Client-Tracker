@@ -17,8 +17,6 @@ local FOOTER_GRADIENT_TRANSPARENCY = 0.9
 local FOOTER_GRADIENT_IMAGE = "rbxasset://textures/gradient.png"
 local FOOTER_GRADIENT_RECT_SIZE = Vector2.new(512, 256)
 
-local StudioService = game:GetService("StudioService")
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -33,11 +31,13 @@ local ButtonBar = require(Plugin.Src.Components.ButtonBar)
 
 local Analytics = require(Plugin.Src.Util.Analytics)
 
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+
 local Footer = Roact.PureComponent:extend("Footer")
 
 function Footer:render()
 	local props = self.props
-	local theme = props.Theme:get("Plugin")
+	local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
 	local localization = props.Localization
 
 	local onClose = props.OnClose
@@ -106,13 +106,11 @@ function Footer:render()
 	})
 end
 
-
 Footer = withContext({
-	Theme = ContextServices.Theme,
+	Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
+	Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
 	Localization = ContextServices.Localization,
 })(Footer)
-
-
 
 local function useDispatchForProps(dispatch)
 	return {

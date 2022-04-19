@@ -27,8 +27,6 @@ local RoundTextButton = UILibrary.Component.RoundTextButton
 
 local SettingsImpl = require(Plugin.Src.Network.Requests.SettingsImpl)
 
-local Analytics = require(Plugin.Src.Util.Analytics)
-
 local StudioService = game:GetService("StudioService")
 local StudioPublishService = FFlagPlacePublishManagementUI2 and game:GetService("StudioPublishService") or nil
 local ContentProvider = game:GetService("ContentProvider")
@@ -36,6 +34,8 @@ local ContentProvider = game:GetService("ContentProvider")
 local ICON_SIZE = 150
 local BUTTON_WIDTH = 150
 local BUTTON_HEIGHT = 40
+
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local ScreenPublishFail = Roact.PureComponent:extend("ScreenPublishFail")
 
@@ -81,7 +81,7 @@ end
 
 function ScreenPublishFail:render()
 	local props = self.props
-	local theme = props.Theme:get("Plugin")
+	local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
 	local localization = props.Localization
 	local apiImpl = API
 
@@ -134,7 +134,6 @@ function ScreenPublishFail:render()
 			Font = theme.failText.font,
 		}),
 
-
 		Retry = Roact.createElement(RoundTextButton, {
 			Position = UDim2.new(0.5, 0, 0.8, 0),
 			AnchorPoint = Vector2.new(0.5, 0.5),
@@ -164,13 +163,12 @@ function ScreenPublishFail:render()
 	})
 end
 
-
 ScreenPublishFail = withContext({
-	Theme = ContextServices.Theme,
+	Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
+	Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
 	Localization = ContextServices.Localization,
 	API = ContextServices.API,
 })(ScreenPublishFail)
-
 
 local function mapStateToProps(state, props)
 	local publishInfo = state.PublishedPlace.publishInfo

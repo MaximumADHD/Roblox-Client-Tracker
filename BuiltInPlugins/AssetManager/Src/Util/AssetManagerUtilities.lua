@@ -1,4 +1,5 @@
 local AssetManagerPolicy = game:GetService("PluginPolicyService"):getPluginPolicy("AssetManager")
+local hasInternalPermission = require(script.Parent.hasInternalPermission)
 
 local AssetManagerUtilities =  {}
 
@@ -19,6 +20,16 @@ end
 
 function AssetManagerUtilities.enableAudioImport()
     return AssetManagerUtilities.shouldEnableAudioImport()
+end
+
+function AssetManagerUtilities.shouldEnableVideoImport()
+    -- TODO: Use policy when roll out to public.
+    -- return AssetManagerPolicy["EnableVideoImport"]
+    return hasInternalPermission()
+end
+
+function AssetManagerUtilities.enableVideoImport()
+    return AssetManagerUtilities.shouldEnableVideoImport()
 end
 
 --[[

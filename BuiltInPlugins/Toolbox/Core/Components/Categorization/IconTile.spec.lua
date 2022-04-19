@@ -1,6 +1,6 @@
 return function()
-	local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
-	if not FFlagToolboxAssetCategorization3 then
+	local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
+	if not FFlagToolboxAssetCategorization4 then
 		return
 	end
 

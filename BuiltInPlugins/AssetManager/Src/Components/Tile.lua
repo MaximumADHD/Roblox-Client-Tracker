@@ -17,6 +17,7 @@ local GetTextSize = UILibrary.Util.GetTextSize
 
 local PopUpButton = require(Plugin.Src.Components.PopUpButton)
 local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableAudioImport
+local enableVideoImport = require(Plugin.Src.Util.AssetManagerUtilities).enableVideoImport
 
 local SetEditingAssets = require(Plugin.Src.Actions.SetEditingAssets)
 
@@ -153,6 +154,7 @@ function Tile:init()
             or assetData.assetType == Enum.AssetType.MeshPart
             or assetData.assetType == Enum.AssetType.Lua
             or (enableAudioImport() and assetData.assetType == Enum.AssetType.Audio)
+            or (enableVideoImport() and assetData.assetType == Enum.AssetType.Video)
             then
                 local prefix
                 -- Setting asset type to same value as Enum.AssetType since it cannot be passed into function
@@ -164,6 +166,8 @@ function Tile:init()
                     prefix = "Scripts/"
                 elseif (enableAudioImport() and assetData.assetType == Enum.AssetType.Audio) then
                     prefix = "Audio/"
+                elseif (enableVideoImport() and assetData.assetType == Enum.AssetType.Video) then
+                    prefix = "Video/"
                 elseif FFlagAssetManagerEnableModelAssets and assetData.assetType == Enum.AssetType.Model then
                     prefix = "Models/"
                 end

@@ -1,12 +1,9 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local getFFlagDevFrameworkTextInput2 = require(Plugin.Src.Flags.getFFlagDevFrameworkTextInput2)
-
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
 local UI = Framework.UI
-local TextInput = UI.TextInput -- Remove with FFlagDevFrameworkTextInput2
 local TextInput2 = UI.TextInput2
 local Tooltip = UI.Tooltip
 local TruncatedTextLabel = UI.TruncatedTextLabel
@@ -26,7 +23,7 @@ local function PathProperty(props)
 			})
 		})
 	else
-		return Roact.createElement(getFFlagDevFrameworkTextInput2() and TextInput2 or TextInput, {
+		return Roact.createElement(TextInput2, {
 			LayoutOrder = props.LayoutOrder,
 			OnTextChanged = props.OnSetItem,
 			Size = props.Size,

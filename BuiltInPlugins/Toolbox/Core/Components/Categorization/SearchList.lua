@@ -2,7 +2,7 @@
 --[[
 	A container with rows of content and that resizes each text item each row to fill the entire width.
 ]]
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization3")
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization4")
 if not FFlagToolboxAssetCategorization then
 	-- needed for withAbsoluteSizeAndPosition
 	return {}

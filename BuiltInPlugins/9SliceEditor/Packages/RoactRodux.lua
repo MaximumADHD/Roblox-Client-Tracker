@@ -3,11 +3,6 @@
 ]]
 
 local PackageIndex = script.Parent._Index
+local Package = require(PackageIndex["RoactRodux"]["RoactRodux"])
+return Package
 
-local package = PackageIndex["roblox_roact-rodux"]["roact-rodux"]
-
-if package.ClassName == "ModuleScript" then
-	return require(package)
-end
-
-return package

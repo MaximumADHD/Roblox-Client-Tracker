@@ -126,6 +126,7 @@ function MaterialVariantCreator:render()
 			BackgroundColor = style.Background,
 			ColorMap = colorMap,
 			DisableZoom = true,
+			ForceSurfaceAppearance = true,
 			InitialDistance = 12,
 			LayoutOrder = 2,
 			MetalnessMap = metalnessMap,

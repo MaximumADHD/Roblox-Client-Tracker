@@ -3,6 +3,7 @@ local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 
 local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableAudioImport
+local enableVideoImport = require(Plugin.Src.Util.AssetManagerUtilities).enableVideoImport
 
 local GetAssetResponse = require(Plugin.Src.Thunks.GetAssetResponse)
 
@@ -21,6 +22,7 @@ return function(apiImpl, path, page, state)
         local isMesh = path == Screens.MESHES.Path
         local isScript = path == Screens.SCRIPTS.Path
         local isAudio = enableAudioImport() and path == Screens.AUDIO.Path
+        local isVideo = enableVideoImport() and path == Screens.VIDEO.Path
         local isModel = FFlagAssetManagerEnableModelAssets and path == Screens.MODELS.Path
 
         local aliases = {
@@ -28,6 +30,7 @@ return function(apiImpl, path, page, state)
             ["Meshes/"] = isMesh,
             ["Scripts/"] = isScript,
             ["Audio/"] = isAudio,
+            ["Video/"] = isVideo,
             ["Models/"] = isModel,
         }
 

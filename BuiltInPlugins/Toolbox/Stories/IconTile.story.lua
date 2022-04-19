@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent
 
-local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
+local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local ToolboxStoryWrapper = require(Plugin.Stories.ToolboxStoryWrapper)
@@ -26,7 +26,7 @@ return {
 		{
 			name = "Clickable",
 			summary = "Sends a key on click and has a pointer cursor.",
-			story = FFlagToolboxAssetCategorization3 and Roact.createElement(ToolboxWrapper, {}, {
+			story = FFlagToolboxAssetCategorization4 and Roact.createElement(ToolboxWrapper, {}, {
 				IconTile = Roact.createElement(IconTile, {
 					BackgroundColor = Color3.fromRGB(50, 168, 82),
 					Image = IMAGE,
@@ -37,31 +37,31 @@ return {
 					Size = UDim2.new(0, 75, 0, 90),
 					Title = "Category",
 				}),
-			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization3", true),
+			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization4", true),
 		},
 		{
 			name = "Multi-Lined text",
 			summary = "Multiple lines of category text.",
-			story = FFlagToolboxAssetCategorization3 and Roact.createElement(ToolboxWrapper, {}, {
+			story = FFlagToolboxAssetCategorization4 and Roact.createElement(ToolboxWrapper, {}, {
 				IconTile = Roact.createElement(IconTile, {
 					BackgroundColor = Color3.fromRGB(50, 168, 82),
 					Image = IMAGE,
 					Size = UDim2.new(0, 75, 0, 90),
 					Title = "Category 2 Lines",
 				}),
-			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization3", true),
+			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization4", true),
 		},
 		{
 			name = "Flexible width",
 			summary = "Respects Size.X.Scale.",
-			story = FFlagToolboxAssetCategorization3 and Roact.createElement(ToolboxWrapper, {}, {
+			story = FFlagToolboxAssetCategorization4 and Roact.createElement(ToolboxWrapper, {}, {
 				IconTile = Roact.createElement(IconTile, {
 					BackgroundColor = Color3.fromRGB(50, 168, 82),
 					Image = IMAGE,
 					Size = UDim2.new(0.5, 0, 0, 90),
 					Title = "Flexible",
 				}),
-			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization3", true),
+			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization4", true),
 		},
 	},
 }

@@ -20,6 +20,8 @@ local ERROR_IMAGE = "rbxasset://textures/GameSettings/ErrorIcon.png"
 local WARNING_IMAGE = "rbxasset://textures/GameSettings/Warning.png"
 local MENU_ENTRY_HEIGHT = 42
 
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+
 local MenuEntry = Roact.PureComponent:extend("MenuEntry")
 
 function MenuEntry:mouseHoverChanged(hovering)
@@ -30,7 +32,7 @@ function MenuEntry:mouseHoverChanged(hovering)
 end
 
 function MenuEntry:render()
-	local theme = self.props.Theme:get("Plugin")
+	local theme = if THEME_REFACTOR then self.props.Stylizer else self.props.Theme:get("Plugin")
 
 	local hovering = self.state.hovering
 
@@ -94,10 +96,9 @@ function MenuEntry:render()
 	})
 end
 
-
 MenuEntry = withContext({
-	Theme = ContextServices.Theme,
+	Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
+	Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
 })(MenuEntry)
-
 
 return MenuEntry

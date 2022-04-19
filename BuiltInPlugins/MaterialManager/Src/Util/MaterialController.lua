@@ -11,8 +11,11 @@ local Signal = FrameworkUtil.Signal
 
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialServiceStringOverride = require(Flags.getFFlagMaterialServiceStringOverride)
+local getFFlagMaterialPack2022Update = require(Flags.getFFlagMaterialPack2022Update)
+local getFFlagMaterialServiceOverrideChangedSignal = require(Flags.getFFlagMaterialServiceOverrideChangedSignal)
 
 local Util = Plugin.Src.Util
+local damerauLevenshteinDistance = require(Util.DamerauLevenshteinDistance)
 local getMaterialPath = require(Util.getMaterialPath)
 local getMaterialType = require(Util.getMaterialType)
 local getMaterialName = require(Util.getMaterialName)
@@ -245,12 +248,31 @@ function MaterialController:getMaterial(material : MaterialVariant)
 	return self._materialWrappers[material]
 end
 
-function MaterialController:getMaterials(path : _Types.Path) : _Types.Array<_Types.Material>
+function MaterialController:getMaterials(path : _Types.Path, search : string?) : _Types.Array<_Types.Material>
 	local category = self:findCategory(path)
 	assert(category, "Tried to get materials for path which does not exist")
 
 	local materials = {}
-	recurseMaterials(category, materials)
+
+	if not search or search == "" then
+		recurseMaterials(category, materials)
+	else
+		local tolerance = 0
+		search = string.lower(search)
+
+		local function searchFilter(material)
+			local name = string.lower(material.MaterialVariant.Name)
+			local findName = string.find(name, search) or damerauLevenshteinDistance(name, search) == tolerance
+			return findName and (#path == 0 or containsPath(path, getMaterialPath(material.MaterialVariant)))
+		end
+
+		recurseMaterials(category, materials, searchFilter)
+
+		if #materials == 0 then
+			tolerance = 1
+			recurseMaterials(category, materials, searchFilter)
+		end
+	end
 
 	return materials
 end
@@ -267,85 +289,6 @@ function MaterialController:getVariants(baseMaterial : Enum.Material)
 	return materials
 end
 
-function damerauLevenshteinDistance(token1 : string, token2 : string)
-	
-	local lenToken1 = utf8.len(token1)
-	local lenToken2 = utf8.len(token2)
-	local distances = {}
-	
-	for i = 1, lenToken1 + 1 do
-		distances[i] = table.create(lenToken2 + 1, 0)
-	end
-	
-	for i = 1, lenToken1 + 1 do
-		distances[i][1] = i - 1
-	end
-	for j = 1, lenToken2 + 1 do
-		distances[1][j] = j - 1
-	end
-	
-	local cost
-	local token1Table = {}
-	local token2Table = {}
-
-	for first1, last1 in utf8.graphemes(token1) do
-		table.insert(token1Table, token1:sub(first1, last1))
-	end
-
-	for first2, last2 in utf8.graphemes(token2) do
-		table.insert(token2Table, token2:sub(first2, last2))
-	end
-
-	for i = 2, #token1Table + 1 do
-		for j = 2, #token2Table + 1 do
-			if token1Table[i - 1] == token2Table[j - 1] then
-				cost = 0
-			else
-				cost = 1
-			end
-			
-			distances[i][j] = math.min(
-				distances[i - 1][j] + 1, -- deletion
-				distances[i][j - 1] + 1, -- insertion
-				distances[i - 1][j - 1] + cost -- substitution
-			)
-
-			if i > 2 and j > 2 and token1Table[i - 1] == token2Table[j - 2] and token1Table[i - 2] == token2Table[j - 1] then
-				distances[i][j] = math.min(
-					distances[i][j],
-					distances[i - 2][j - 2] + 1
-				) -- transposition
-			end
-		end
-	end
-
-	return distances[lenToken1 + 1][lenToken2 + 1]
-end
-
-function MaterialController:getMaterialsOnSearch(search : string, path : _Types.Path) : _Types.Array<_Types.Material>
-	local category = self:findCategory({})
-	assert(category, "Tried to get materials for path which does not exist")
-	
-	local materials = {}
-	local tolerance = 0
-	search = string.lower(search)
-	
-	local function searchFilter(material)
-		local name = string.lower(material.MaterialVariant.Name)
-		local findName = string.find(name, search) or damerauLevenshteinDistance(name, search) == tolerance
-		return findName and (#path == 0 or containsPath(path, getMaterialPath(material.MaterialVariant)))
-	end
-
-	recurseMaterials(category, materials, searchFilter)
-
-	if #materials == 0 then
-		tolerance = 1
-		recurseMaterials(category, materials, searchFilter)
-	end
-
-	return materials
-end
-
 function MaterialController:ifMaterialNameExists(name : string, baseMaterial : Enum.Material) : boolean
 	local category = self:findCategory({})
 	assert(category, "Tried to get materials for path which does not exist")
@@ -356,6 +299,26 @@ function MaterialController:ifMaterialNameExists(name : string, baseMaterial : E
 	end)
 
 	return #materials ~= 0
+end
+
+function MaterialController:getUses2022Materials() : boolean
+	if getFFlagMaterialServiceStringOverride() then
+		return self._materialServiceWrapper:asMaterialService().Use2022Materials
+	end
+
+	return false
+end
+
+function MaterialController:getMaterialOverrideChangedSignal(material : Enum.Material)
+	assert(getFFlagMaterialServiceOverrideChangedSignal(), "Enable FFlagMaterialServiceStringOverride in order to use this functionality.")
+
+	return self._materialServiceWrapper:asMaterialService():GetMaterialOverrideChanged(material)
+end
+
+function MaterialController:getBuiltInMaterialsChangedSignal(material : Enum.Material)
+	assert(getFFlagMaterialPack2022Update(), "Enable FFlagMaterialServiceStringOverride in order to use this functionality.")
+
+	return self._materialServiceWrapper:asMaterialService():GetPropertyChangedSignal("Use2022Materials")
 end
 
 function MaterialController:getMaterialOverride(material : Enum.Material) : string
@@ -370,36 +333,26 @@ function MaterialController:setMaterialOverride(material : Enum.Material, materi
 	self._materialServiceWrapper:asMaterialService():SetBaseMaterialOverride(material, materialVariant or "")
 end
 
-function MaterialController:getPartOverride(material : Enum.Material) : MaterialVariant
-	assert(not getFFlagMaterialServiceStringOverride(), "getPartOverride is deprecated, please use getMaterialOverride.")
+function MaterialController:getMaterialOverrides(material : Enum.Material) : (_Types.Array<_Types.Material>, number)
+	local currentOverride = self:getMaterialOverride(material)
 
-	return self._materialServiceWrapper:asMaterialService():GetOverridePartMaterial(material)
-end
+	local materialIndex = 0
+	local materials = {}
+	for index, variant in ipairs(self:getVariants(material)) do
+		table.insert(materials, variant.MaterialVariant.Name)
 
-function MaterialController:getTerrainOverride(material : Enum.Material) : MaterialVariant
-	assert(not getFFlagMaterialServiceStringOverride(), "getTerrainOverride is deprecated, please use getMaterialOverride.")
-
-	return self._materialServiceWrapper:asMaterialService():GetOverrideTerrainMaterial(material)
-end
-
-function MaterialController:setPartOverride(material : Enum.Material, materialVariant : MaterialVariant?)
-	assert(not getFFlagMaterialServiceStringOverride(), "setPartOverride is deprecated, please use setMaterialOverride.")
-
-	if materialVariant then
-		self._materialServiceWrapper:asMaterialService():SetOverridePartMaterial(materialVariant)
-	else
-		self._materialServiceWrapper:asMaterialService():ClearOverridePartMaterial(material)
+		if variant.MaterialVariant.Name == currentOverride then
+			materialIndex = index
+		end
 	end
+
+	return materials, materialIndex
 end
 
-function MaterialController:setTerrainOverride(material : Enum.Material, materialVariant : MaterialVariant?)
-	assert(not getFFlagMaterialServiceStringOverride(), "setTerrainOverride is deprecated, please use setMaterialOverride.")
+function MaterialController:getMaterialVariant(material : Enum.Material, name : string) : MaterialVariant
+	assert(getFFlagMaterialServiceStringOverride(), "Enable FFlagMaterialServiceStringOverride in order to use this functionality.")
 
-	if materialVariant then
-		self._materialServiceWrapper:asMaterialService():SetOverrideTerrainMaterial(materialVariant)
-	else
-		self._materialServiceWrapper:asMaterialService():ClearOverrideTerrainMaterial(material)
-	end
+	return self._materialServiceWrapper:asMaterialService():GetMaterialVariant(material, name)
 end
 
 function MaterialController:getMaterialAddedSignal() : RBXScriptSignal

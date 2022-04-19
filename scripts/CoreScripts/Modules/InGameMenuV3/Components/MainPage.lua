@@ -48,7 +48,7 @@ local IGMMainPageControllerBar = require(script.Parent.IGMMainPageControllerBar)
 
 local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
 
-local MAIN_PAGE_WIDTH = 400
+local MAIN_PAGE_WIDTH = Constants.PageWidth
 
 local MainPage = Roact.PureComponent:extend("MainPage")
 

@@ -1,6 +1,9 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local Constants = require(Plugin.Src.Util.Constants)
+local CFrameUtils = require(Plugin.Src.Util.CFrameUtils)
+
+local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
 
 -- Traverses a track, calling a func on each of its leaf components
 local function traverseComponents(track, func)
@@ -35,13 +38,18 @@ local function format(v)
 end
 
 -- Creates a map of values (as strings so that they can be concatenated later)
-local function getValues(track, timestamp)
+local function getValues(track, timestamp, defaultEAO)
 	local values = {}
 	if track.Type == Constants.TRACK_TYPES.Facs then
-		values = {format(KeyframeUtils.getValue(track, timestamp))}
+		values = {format(KeyframeUtils.getValue(track, timestamp, defaultEAO))}
 	elseif track.Type == Constants.TRACK_TYPES.CFrame then
-		local cFrame = KeyframeUtils.getValue(track, timestamp)
-		local rX, rY, rZ = cFrame:ToEulerAnglesXYZ()
+		local cFrame = KeyframeUtils.getValue(track, timestamp, defaultEAO)
+		local rX, rY, rZ
+		if not GetFFlagEulerAnglesOrder() then
+			rX, rY, rZ = CFrameUtils.ToEulerAngles(cFrame, defaultEAO)
+		else
+			rX, rY, rZ = cFrame:ToEulerAnglesXYZ()
+		end
 		values = {format(cFrame.X), format(cFrame.Y), format(cFrame.Z),
 			format(math.deg(rX)), format(math.deg(rY)), format(math.deg(rZ))}
 	end
@@ -54,7 +62,7 @@ local function makeRow(tick, values)
 end
 
 -- Dumps the value of a track as CSV by sampling the curve
-local function dump(track, trackName)
+local function dump(track, trackName, defaultEulerAnglesOrder)
 	local samplingRate = 20
 	local maxTick = getTrackExtents(track)
 
@@ -68,7 +76,7 @@ local function dump(track, trackName)
 	local s = "\n" .. table.concat(headers, ",") .. "\n"
 
 	for t = 0, maxTick, samplingRate do
-		local values = getValues(track, t)
+		local values = getValues(track, t, defaultEulerAnglesOrder)
 		s = s .. makeRow(t, values)
 	end
 

@@ -1,4 +1,3 @@
-
 local FStringPlacePublishRollbackLearnMoreLink = game:GetFastString("PlacePublishRollbackLearnMoreLink")
 local FFlagStudioEnableUploadNames = game:GetFastFlag("StudioEnableUploadNames")
 
@@ -9,8 +8,8 @@ local Framework = require(Plugin.Packages.Framework)
 local LoadExistingPlaces = require(Plugin.Src.Thunks.LoadExistingPlaces)
 local LoadGameConfiguration = require(Plugin.Src.Thunks.LoadGameConfiguration)
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
-local ContextService = Framework.ContextServices
-local withContext = ContextService.withContext
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local Constants = require(Plugin.Src.Resources.Constants)
 local Separator = Framework.UI.Separator
@@ -34,6 +33,8 @@ local ScreenPublishManagement = Roact.PureComponent:extend("ScreenPublishManagem
 
 local ROLLOUT_OPTION_DEFAULT = "Default"
 local ROLLOUT_OPTION_FORCE = "Forced"
+
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 function ScreenPublishManagement:init()
 	self.state = {
@@ -81,7 +82,7 @@ end
 function ScreenPublishManagement:render()
 	local props = self.props
 	local onClose = props.OnClose
-	local theme = props.Theme:get("Plugin")
+	local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
 	local localization = props.Localization
 
 	local name = props.Name
@@ -149,12 +150,12 @@ function ScreenPublishManagement:render()
 					end,
 				})
 			}),
-	
+
 			Separator1 = Roact.createElement(Separator, {
 				LayoutOrder = 2,
 				Size = UDim2.new(1, 0, 0, 1),
 			}),
-	
+
 			Header = Roact.createElement(Pane, {
 				Padding = 10,
 				AutomaticSize = Enum.AutomaticSize.Y,
@@ -171,7 +172,7 @@ function ScreenPublishManagement:render()
 					TextColor3 = theme.textColor,
 				}),
 			}),
-	
+
 			RolloutOptions = showRolloutOption and Roact.createElement(Pane, {
 				Padding = 10,
 				AutomaticSize = Enum.AutomaticSize.Y,
@@ -219,7 +220,7 @@ function ScreenPublishManagement:render()
 						SortOrder = Enum.SortOrder.LayoutOrder,
 						Padding = UDim.new(0, 10),
 					}),
-	
+
 					ToggleButton = Roact.createElement(ToggleButton, {
 						Size = UDim2.new(0, theme.toggleButton.width, 0, theme.toggleButton.height),
 						Selected = self.state.isRollBackAllowed,
@@ -291,9 +292,10 @@ function ScreenPublishManagement:render()
 end
 
 ScreenPublishManagement = withContext({
-	Theme = ContextService.Theme, 
-	Localization = ContextService.Localization,
-	API = ContextService.API,
+	Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
+	Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
+	Localization = ContextServices.Localization,
+	API = ContextServices.API,
 })(ScreenPublishManagement)
 
 local function mapStateToProps(state, props)

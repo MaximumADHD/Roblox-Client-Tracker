@@ -7,17 +7,9 @@
 ]]
 local Plugin = script.Parent.Parent.Parent
 
-local deepCopy = require(Plugin.Src.Util.deepCopy)
-local Constants = require(Plugin.Src.Util.Constants)
-local Cryo = require(Plugin.Packages.Cryo)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
-local AddTrack = require(Plugin.Src.Thunks.AddTrack)
 local AddKeyframe = require(Plugin.Src.Thunks.AddKeyframe)
-local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
-
-local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 return function(instanceName, path, trackType, tck, analytics)
 	return function(store)

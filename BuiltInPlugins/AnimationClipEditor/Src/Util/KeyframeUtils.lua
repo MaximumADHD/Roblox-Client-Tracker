@@ -6,6 +6,7 @@
 local Plugin = script.Parent.Parent.Parent
 local Constants = require(Plugin.Src.Util.Constants)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
+local CFrameUtils = require(Plugin.Src.Util.CFrameUtils)
 
 local Types = require(Plugin.Src.Types)
 
@@ -13,6 +14,7 @@ local TweenService = game:GetService("TweenService")
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
+local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
 
 local KeyframeUtils = {}
 
@@ -451,7 +453,12 @@ end
 if GetFFlagChannelAnimations() then
 	-- Gets the value of the given track at the given tick.
 	-- Can also receive values between frames, for exporting at higher framerates.
-	KeyframeUtils.getValue = function(track: Types.Track, tck: number) : (CFrame | Vector3 | number)?
+	KeyframeUtils.getValue = function(
+		track: Types.Track,
+		tck: number,
+		defaultEulerAnglesOrder: Enum.RotationOrder?)
+		: (CFrame | Vector3 | number)?
+
 		if track.Keyframes and not isEmpty(track.Keyframes) then
 			local keyframes = track.Keyframes
 			local lowIndex, highIndex = KeyframeUtils.findNearestKeyframes(keyframes, tck)
@@ -474,13 +481,17 @@ if GetFFlagChannelAnimations() then
 			local positionTrack = track.Components[Constants.PROPERTY_KEYS.Position]
 			local rotationTrack = track.Components[Constants.PROPERTY_KEYS.Rotation]
 
-			local position = positionTrack and KeyframeUtils.getValue(positionTrack, tck)::Vector3 or Vector3.new()
+			local position = positionTrack and KeyframeUtils.getValue(positionTrack, tck, defaultEulerAnglesOrder)::Vector3? or Vector3.new()
 
 			if rotationTrack.Type == (GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation) then
-				local rotation = rotationTrack and KeyframeUtils.getValue(rotationTrack, tck)::Vector3 or Vector3.new()
-				return CFrame.new(position) * CFrame.fromEulerAnglesXYZ(rotation.X, rotation.Y, rotation.Z)
+				local rotation = rotationTrack and KeyframeUtils.getValue(rotationTrack, tck, defaultEulerAnglesOrder)::Vector3? or Vector3.new()
+				if GetFFlagEulerAnglesOrder() then
+					return CFrame.new(position) * CFrameUtils.FromEulerAngles(rotation.X, rotation.Y, rotation.Z, rotationTrack.EulerAnglesOrder or defaultEulerAnglesOrder)
+				else
+					return CFrame.new(position) * CFrame.fromEulerAnglesXYZ(rotation.X, rotation.Y, rotation.Z)
+				end
 			else
-				local rotation = rotationTrack and KeyframeUtils.getValue(rotationTrack, tck)::CFrame or CFrame.new()
+				local rotation = rotationTrack and KeyframeUtils.getValue(rotationTrack, tck, defaultEulerAnglesOrder)::CFrame? or CFrame.new()
 				return CFrame.new(position) * rotation
 			end
 		elseif track.Type == Constants.TRACK_TYPES.Position or track.Type == (GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation) then
@@ -488,9 +499,9 @@ if GetFFlagChannelAnimations() then
 			local YTrack = track.Components[Constants.PROPERTY_KEYS.Y]
 			local ZTrack = track.Components[Constants.PROPERTY_KEYS.Z]
 
-			local x = XTrack and KeyframeUtils.getValue(XTrack, tck)::number or 0
-			local y = YTrack and KeyframeUtils.getValue(YTrack, tck)::number or 0
-			local z = ZTrack and KeyframeUtils.getValue(ZTrack, tck)::number or 0
+			local x = XTrack and KeyframeUtils.getValue(XTrack, tck, defaultEulerAnglesOrder)::number? or 0
+			local y = YTrack and KeyframeUtils.getValue(YTrack, tck, defaultEulerAnglesOrder)::number? or 0
+			local z = ZTrack and KeyframeUtils.getValue(ZTrack, tck, defaultEulerAnglesOrder)::number? or 0
 
 			return Vector3.new(x, y, z)
 		else

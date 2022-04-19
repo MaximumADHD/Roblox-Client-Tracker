@@ -1,8 +1,6 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local getFFlagPivotEditorFixTests = require(Plugin.Src.Flags.getFFlagPivotEditorFixTests)
-
 local Selection = game:GetService("Selection")
 
 local Roact = require(Plugin.Packages.Roact)
@@ -19,9 +17,6 @@ local SelectionUpdater = Roact.PureComponent:extend("SelectionUpdater")
 function SelectionUpdater:init()
 	assert(self.props.selectObjectForEditing, "selectObjectForEditing is required")
 	assert(self.props.selectInvalidSelection, "selectInvalidSelection is required")
-	if not getFFlagPivotEditorFixTests() then
-		self:_update()
-	end
 end
 
 function SelectionUpdater:didMount()

@@ -3,6 +3,7 @@ local Plugin = script.Parent.Parent.Parent
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
 
 local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableAudioImport
+local enableVideoImport = require(Plugin.Src.Util.AssetManagerUtilities).enableVideoImport
 
 local AssetManagerService = game:GetService("AssetManagerService")
 
@@ -32,6 +33,8 @@ return function(analytics, assetData, isAssetPreviewInsertButton)
                 end
             elseif enableAudioImport() and assetType == Enum.AssetType.Audio then
                 AssetManagerService:InsertAudio(assetData.id, assetData.name)
+            elseif enableVideoImport() and assetType == Enum.AssetType.Video then
+                AssetManagerService:InsertVideo(assetData.id, assetData.name)
             elseif FFlagAssetManagerEnableModelAssets and assetType == Enum.AssetType.Model then
                 AssetManagerService:InsertModel(assetData.id)
             end

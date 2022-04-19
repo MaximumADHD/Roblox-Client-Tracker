@@ -1,6 +1,6 @@
 --!strict
 type Array<T> = { [number]: T }
-local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext")
+local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
 
 return function()
 	local AssetAnalytics = require(script.Parent.AssetAnalytics) :: any

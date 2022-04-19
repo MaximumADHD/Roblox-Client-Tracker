@@ -3,16 +3,38 @@ local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local GameSettings = UserSettings():GetService("UserGameSettings")
 
-local LocalPlayer = Players.LocalPlayer
-if not LocalPlayer then
-	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
-	LocalPlayer = Players.LocalPlayer
+local FFlagUserCameraToggleDontSetMouseIconEveryFrame
+do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserCameraToggleDontSetMouseIconEveryFrame")
+	end)
+	FFlagUserCameraToggleDontSetMouseIconEveryFrame = success and value
 end
 
-local Mouse = LocalPlayer:GetMouse()
+local FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame
+do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame")
+	end)
+	FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame = success and value
+end
+
+local Mouse
+if not FFlagUserCameraToggleDontSetMouseIconEveryFrame then
+	local LocalPlayer = Players.LocalPlayer
+	if not LocalPlayer then
+		Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
+		LocalPlayer = Players.LocalPlayer
+	end
+
+	Mouse = LocalPlayer:GetMouse()
+end
 
 local Input = require(script.Parent:WaitForChild("CameraInput"))
 local CameraUI = require(script.Parent:WaitForChild("CameraUI"))
+local CameraUtils: any = if FFlagUserCameraToggleDontSetMouseIconEveryFrame or FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame
+	then require(script.Parent:WaitForChild("CameraUtils"))
+	else nil
 
 local lastTogglePan = false
 local lastTogglePanChange = tick()
@@ -56,29 +78,74 @@ return function(isFirstPerson: boolean)
 
 	if isFirstPerson then
 		if Input.getTogglePan() then
-			Mouse.Icon = CROSS_MOUSE_ICON
-			UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
-			GameSettings.RotationType = Enum.RotationType.CameraRelative
+			if FFlagUserCameraToggleDontSetMouseIconEveryFrame then
+				CameraUtils.setMouseIconOverride(CROSS_MOUSE_ICON)
+			else
+				Mouse.Icon = CROSS_MOUSE_ICON
+			end
+			if FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame then
+				CameraUtils.setMouseBehaviorOverride(Enum.MouseBehavior.LockCenter)
+				CameraUtils.setRotationTypeOverride(Enum.RotationType.CameraRelative)
+			else
+				UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
+				GameSettings.RotationType = Enum.RotationType.CameraRelative
+			end
 		else
-			Mouse.Icon = ""
-			UserInputService.MouseBehavior = Enum.MouseBehavior.Default
-			GameSettings.RotationType = Enum.RotationType.CameraRelative
+			if FFlagUserCameraToggleDontSetMouseIconEveryFrame then
+				CameraUtils.restoreMouseIcon()
+			else
+				Mouse.Icon = ""
+			end
+			if FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame then
+				CameraUtils.restoreMouseBehavior()
+				CameraUtils.setRotationTypeOverride(Enum.RotationType.CameraRelative)
+			else
+				UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+				GameSettings.RotationType = Enum.RotationType.CameraRelative
+			end
 		end
 
 	elseif Input.getTogglePan() then
-		Mouse.Icon = CROSS_MOUSE_ICON
-		UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
-		GameSettings.RotationType = Enum.RotationType.MovementRelative
+		if FFlagUserCameraToggleDontSetMouseIconEveryFrame then
+			CameraUtils.setMouseIconOverride(CROSS_MOUSE_ICON)
+		else
+			Mouse.Icon = CROSS_MOUSE_ICON
+		end
+		if FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame then
+			CameraUtils.setMouseBehaviorOverride(Enum.MouseBehavior.LockCenter)
+			CameraUtils.setRotationTypeOverride(Enum.RotationType.MovementRelative)
+		else
+			UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
+			GameSettings.RotationType = Enum.RotationType.MovementRelative
+		end
 
 	elseif Input.getHoldPan() then
-		Mouse.Icon = ""
-		UserInputService.MouseBehavior = Enum.MouseBehavior.LockCurrentPosition
-		GameSettings.RotationType = Enum.RotationType.MovementRelative
+		if FFlagUserCameraToggleDontSetMouseIconEveryFrame then
+			CameraUtils.restoreMouseIcon()
+		else
+			Mouse.Icon = ""
+		end
+		if FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame then
+			CameraUtils.setMouseBehaviorOverride(Enum.MouseBehavior.LockCurrentPosition)
+			CameraUtils.setRotationTypeOverride(Enum.RotationType.MovementRelative)
+		else
+			UserInputService.MouseBehavior = Enum.MouseBehavior.LockCurrentPosition
+			GameSettings.RotationType = Enum.RotationType.MovementRelative
+		end
 
 	else
-		Mouse.Icon = ""
-		UserInputService.MouseBehavior = Enum.MouseBehavior.Default
-		GameSettings.RotationType = Enum.RotationType.MovementRelative
+		if FFlagUserCameraToggleDontSetMouseIconEveryFrame then
+			CameraUtils.restoreMouseIcon()
+		else
+			Mouse.Icon = ""
+		end
+		if FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame then
+			CameraUtils.restoreMouseBehavior()
+			CameraUtils.restoreRotationType()
+		else
+			UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+			GameSettings.RotationType = Enum.RotationType.MovementRelative
+		end
 	end
 
 	lastFirstPerson = isFirstPerson

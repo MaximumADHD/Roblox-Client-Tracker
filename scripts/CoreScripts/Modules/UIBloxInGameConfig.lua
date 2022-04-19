@@ -6,8 +6,10 @@ local GetFFlagUIBloxUseNewGenericTextLabelProps =
 	require(CorePackages.UIBloxFlags.GetFFlagUIBloxUseNewGenericTextLabelProps)
 local FFlagFixThumbnailTileInconsistency = require(CorePackages.UIBloxFlags.FFlagFixThumbnailTileInconsistency)
 local GetFFlagUIBloxEnableRadioButtonGamepadSupport = require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableRadioButtonGamepadSupport)
+local FFlagGridViewUseFunctionalSetStateInDidMount = require(CorePackages.UIBloxFlags.FFlagGridViewUseFunctionalSetStateInDidMount)
 
 return {
+	gridViewUseFunctionalSetStateInDidMount = FFlagGridViewUseFunctionalSetStateInDidMount,
 	useUpdatedCheckbox = true,
 	fixDropdownMenuListPositionAndSize = GetFFlagUIBloxFixDropdownMenuListPositionAndSize(),
 	useNewGenericTextLabelProps = GetFFlagUIBloxUseNewGenericTextLabelProps(),

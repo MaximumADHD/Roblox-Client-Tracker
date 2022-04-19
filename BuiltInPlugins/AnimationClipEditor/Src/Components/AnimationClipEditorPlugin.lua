@@ -34,15 +34,18 @@ local MakePluginActions = require(Plugin.Src.Util.MakePluginActions)
 local showBlockingDialog = require(Plugin.Src.Util.showBlockingDialog)
 
 local ReleaseEditor = require(Plugin.Src.Thunks.ReleaseEditor)
+local SetDefaultEulerAnglesOrder = require(Plugin.Src.Actions.SetDefaultEulerAnglesOrder)
+local SetDefaultRotationType = require(Plugin.Src.Actions.SetDefaultRotationType)
 local SetShowAsSeconds = require(Plugin.Src.Actions.SetShowAsSeconds)
 local SetSnapMode = require(Plugin.Src.Actions.SetSnapMode)
 local SetTool = require(Plugin.Src.Actions.SetTool)
-local SetDefaultRotationType = require(Plugin.Src.Actions.SetDefaultRotationType)
 
 local DraggerWrapper = require(Plugin.Src.Components.Draggers.DraggerWrapper)
 
 local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
 local GetFFlagRenameSettings = require(Plugin.LuaFlags.GetFFlagRenameSettings)
+local GetFFlagEulerByDefault = require(Plugin.LuaFlags.GetFFlagEulerByDefault)
+local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
 
 -- analytics
 local AnalyticsHandlers = require(Plugin.Src.Resources.AnalyticsHandlers)
@@ -194,7 +197,7 @@ function AnimationClipEditorPlugin:getPluginSettings()
 
 		if GetFFlagQuaternionsUI() then
 			local rotationType = plugin:GetSetting("RotationType")
-			self.store:dispatch(SetDefaultRotationType(rotationType or Constants.TRACK_TYPES.Quaternion))
+			self.store:dispatch(SetDefaultRotationType(rotationType or (if GetFFlagEulerByDefault() then Constants.TRACK_TYPES.EulerAngles else Constants.TRACK_TYPES.Quaternion)))
 		end
 	else
 		local snapMode = plugin:GetSetting(Constants.SETTINGS.SnapMode)
@@ -232,10 +235,17 @@ function AnimationClipEditorPlugin:getPluginSettings()
 				if rotationType then
 					self.store:dispatch(SetDefaultRotationType(rotationType))
 				else
-					self.store:dispatch(SetDefaultRotationType(Constants.TRACK_TYPES.Quaternion))
+					self.store:dispatch(SetDefaultRotationType(if GetFFlagEulerByDefault() then Constants.TRACK_TYPES.EulerAngles else Constants.TRACK_TYPES.Quaternion))
 				end
 			end
 		end
+	end
+	if GetFFlagEulerAnglesOrder() then
+		local eulerAnglesOrder = plugin:GetSetting(Constants.SETTINGS.EulerAnglesOrder)
+		self.store:dispatch(SetDefaultEulerAnglesOrder(if eulerAnglesOrder
+			then Enum.RotationOrder[eulerAnglesOrder]
+			else Enum.RotationOrder.XYZ)
+		)
 	end
 end
 
@@ -254,6 +264,9 @@ function AnimationClipEditorPlugin:setPluginSettings()
 		if GetFFlagQuaternionsUI() then
 			plugin:SetSetting(Constants.SETTINGS.RotationType, status.DefaultRotationType)
 		end
+	end
+	if GetFFlagEulerAnglesOrder() then
+		plugin:SetSetting(Constants.SETTINGS.EulerAnglesOrder, status.DefaultEulerAnglesOrder)
 	end
 end
 

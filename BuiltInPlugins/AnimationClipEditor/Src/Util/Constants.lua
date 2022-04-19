@@ -4,6 +4,8 @@ local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionCha
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
 local GetFFlagEulerFromPartTrack = require(Plugin.LuaFlags.GetFFlagEulerFromPartTrack)
+local GetFFlagEulerByDefault = require(Plugin.LuaFlags.GetFFlagEulerByDefault)
+local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
 
 local FFlagStudioUseAnimationEditorAnalytics2 = game:DefineFastFlag("StudioUseAnimationEditorAnalytics2", false)
 
@@ -16,6 +18,7 @@ local Constants = {
 	USE_MOCK_ANALYTICS = not FFlagStudioUseAnimationEditorAnalytics2,
 
 	SETTINGS = {
+		EulerAnglesOrder = "ACE_EulerAnglesOrder",
 		RotationType = "ACE_RotationType",
 		ShowAsSeconds = "ACE_ShowAsSeconds",
 		SnapMode = "ACE_SnapMode",
@@ -65,7 +68,7 @@ local Constants = {
 	TRACKLIST_BUTTON_SIZE = 16,
 	TRACKLIST_RIGHT_PADDING = 8,
 
-	NUMBERBOX_WIDTH = 70,
+	NUMBERBOX_WIDTH = if GetFFlagEulerAnglesOrder() then 80 else 70,
 	NUMBERBOX_PADDING = 4,
 	NUMBERBOX_DRAG_MULTIPLIER = 0.05,
 	NUMBERBOX_FACS_DRAG_MULTIPLIER = 0.01,
@@ -409,6 +412,8 @@ local Constants = {
 	},
 
 	TICK_LABEL_SIZE = UDim2.new(0, 25, 0, 15),
+	TOGGLE_EDITOR_BUTTON_WIDTH = 17,
+	TOGGLE_EDITOR_BUTTON_HEIGHT = 16,
 }
 
 Constants.MAIN_MINIMUM_SIZE = Vector2.new(Constants.TRACK_LIST_MIN_WIDTH + Constants.TIMELINE_MIN_WIDTH, 200)
@@ -617,9 +622,16 @@ Constants.FacsCrossMappings = {
 	RightEyeClosed = {sliderGroup = {Constants.FacsNames.RightEyeClosed, Constants.FacsNames.RightEyeUpperLidRaiser}, indexInGroup = 1, symmetryPartner = Constants.FacsNames.LeftEyeClosed},
 
 	TongueDown = {sliderGroup = {Constants.FacsNames.TongueUp, Constants.FacsNames.TongueDown}, indexInGroup = 2},
-	TongueUp = {sliderGroup = {Constants.FacsNames.TongueUp, Constants.FacsNames.TongueDown}, indexInGroup = 1},	
+	TongueUp = {sliderGroup = {Constants.FacsNames.TongueUp, Constants.FacsNames.TongueDown}, indexInGroup = 1},
 	TongueOut = {},
 }
+
+Constants.faceControlsEditorOriginalWidth = 240
+Constants.faceControlsEditorDiagramWidth = 220
+Constants.faceControlsEditorDiagramHeight = 310
+Constants.faceControlsEditorDiagramPadding = 10
+Constants.faceControlsEditoSpacingBetweenDiagrams = 30
+Constants.faceControlsEditorTogglesContainerHeight = 30
 
 if GetFFlagChannelAnimations() then
 	Constants.COMPONENT_TRACK_TYPES = {
@@ -695,6 +707,12 @@ if GetFFlagQuaternionsUI() then
 	}
 end
 
-Constants.DEFAULT_ROTATION_TYPE = GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.Quaternion or Constants.TRACK_TYPES.Rotation
+if GetFFlagEulerByDefault() then
+	Constants.DEFAULT_ROTATION_TYPE = Constants.TRACK_TYPES.EulerAngles
+elseif GetFFlagQuaternionChannels() then
+	Constants.DEFAULT_ROTATION_TYPE = Constants.TRACK_TYPES.Quaternion
+else
+	Constants.DEFAULT_ROTATION_TYPE = Constants.TRACK_TYPES.Rotation
+end
 
 return Constants

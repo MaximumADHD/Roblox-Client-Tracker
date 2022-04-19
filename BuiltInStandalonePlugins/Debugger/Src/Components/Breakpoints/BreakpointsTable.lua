@@ -305,7 +305,6 @@ function BreakpointsTable:render()
 	end
 	
 	local clampSize = if hasTableColumnResizeFFlags then true else nil
-	local useScale = if hasTableColumnResizeFFlags then true else nil
 	local useDeficit = if hasTableColumnResizeFFlags then true else nil
 	local onColumnSizesChange = if hasTableColumnResizeFFlags then self.OnSizesChange else nil
 
@@ -388,7 +387,6 @@ function BreakpointsTable:render()
 				SortOrder = props.SortOrder,
 				OnSortChange = self.OnSortChange,
 				OnColumnSizesChange = onColumnSizesChange,
-				UseScale = useScale,
 				UseDeficit = useDeficit,
 				ClampSize = clampSize,
 			}),

@@ -19,6 +19,7 @@ local FFlagToolboxFixTryInStudioContextMenu = game:GetFastFlag("ToolboxFixTryInS
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
+local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -60,6 +61,7 @@ local ResumePreviewSound = require(Plugin.Core.Actions.ResumePreviewSound)
 local PostInsertAssetRequest = require(Plugin.Core.Networking.Requests.PostInsertAssetRequest)
 local SetAssetPreview = require(Plugin.Core.Actions.SetAssetPreview)
 local PostAssetCheckPermissions = require(Plugin.Core.Networking.Requests.PostAssetCheckPermissions)
+local GetPageInfoAnalyticsContextInfo = require(Plugin.Core.Thunks.GetPageInfoAnalyticsContextInfo)
 
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 
@@ -290,7 +292,7 @@ function AssetGridContainer:init(props)
 		self.props.onAssetInsertionSuccesful()
 	end
 
-	self.tryCreateContextMenu = function(assetData, showEditOption, localizedContent)
+	self.tryCreateContextMenu = function(assetData, showEditOption, localizedContent, assetAnalyticsContext)
 		local asset = assetData.Asset
 		local assetId = asset.Id
 		local assetTypeId = asset.TypeId
@@ -305,7 +307,15 @@ function AssetGridContainer:init(props)
 			showEditOption = canEditPackage
 		end
 
-		local context = assetData.Context
+		local context
+		local position
+		if FFlagToolboxUsePageInfoInsteadOfAssetContext then
+			context = assetAnalyticsContext
+			position = assetData.Context.position
+		else
+			context = assetData.Context
+			position = context.position
+		end
 		local creatorTypeEnumValue
 
 		-- TODO STM-406: Refactor creator types to be stored as Enum.CreatorType in Toolbox Rodux
@@ -325,7 +335,7 @@ function AssetGridContainer:init(props)
 			CreatorId = assetData.Creator.Id,
 			CreatorType = nameForValueInEnum(Enum.CreatorType, creatorTypeEnumValue),
 			SearchKeyword = context.searchKeyword,
-			Position = context.position,
+			Position = position,
 			SearchId = context.searchId,
 			ViewInBrowser = true,
 		}
@@ -546,7 +556,13 @@ function AssetGridContainer:render()
 			end
 
 			local function tryCreateLocalizedContextMenu(assetData, showEditOption)
-				self.tryCreateContextMenu(assetData, showEditOption, localizedContent)
+				if FFlagToolboxUsePageInfoInsteadOfAssetContext then
+					local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
+					local assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
+					self.tryCreateContextMenu(assetData, showEditOption, localizedContent, assetAnalyticsContext)
+				else
+					self.tryCreateContextMenu(assetData, showEditOption, localizedContent)
+				end
 			end
 
 			local isGroupPackageAsset = Category.categoryIsGroupPackages(props.categoryName)
@@ -732,6 +748,12 @@ local function mapDispatchToProps(dispatch)
 		dispatchPostAssetCheckPermissions = function(networkInterface, assetIds)
 			dispatch(PostAssetCheckPermissions(networkInterface, assetIds))
 		end,
+
+		getPageInfoAnalyticsContextInfo = if FFlagToolboxUsePageInfoInsteadOfAssetContext
+			then function()
+				return dispatch(GetPageInfoAnalyticsContextInfo())
+			end
+			else nil,
 	}
 end
 

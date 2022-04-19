@@ -18,8 +18,9 @@ local SortAndSetTracks = require(Plugin.Src.Thunks.SortAndSetTracks)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
+local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
 
-local function wrappee(instanceName, trackName, trackType, rotationType, analytics)
+local function wrappee(instanceName, trackName, trackType, rotationType, eulerAnglesOrder, analytics)
 	return function(store)
 		local state = store:getState()
 		local status = state.Status
@@ -40,12 +41,13 @@ local function wrappee(instanceName, trackName, trackType, rotationType, analyti
 		local newTrack = Templates.trackListEntry(GetFFlagChannelAnimations() and (trackType or Constants.TRACK_TYPES.CFrame) or nil)
 		newTrack.Name = trackName
 		newTrack.Instance = instanceName
+		newTrack.EulerAnglesOrder = eulerAnglesOrder
 
 		if GetFFlagChannelAnimations() then
 			local data = state.AnimationData
 
 			if AnimationData.isChannelAnimation(data) then
-				TrackUtils.createTrackListEntryComponents(newTrack, instanceName, rotationType)
+				TrackUtils.createTrackListEntryComponents(newTrack, instanceName, rotationType, eulerAnglesOrder)
 			end
 		else
 			if GetFFlagFacialAnimationSupport() then
@@ -62,16 +64,20 @@ local function wrappee(instanceName, trackName, trackType, rotationType, analyti
 	end
 end
 
-if GetFFlagQuaternionsUI() then
+if GetFFlagEulerAnglesOrder() then
+	return function(instanceName, trackName, trackType, rotationType, eulerAnglesOrder, analytics)
+		return wrappee(instanceName, trackName, trackType, rotationType, eulerAnglesOrder, analytics)
+	end
+elseif GetFFlagQuaternionsUI() then
 	return function(instanceName, trackName, trackType, rotationType, analytics)
-		return wrappee(instanceName, trackName, trackType, rotationType, analytics)
+		return wrappee(instanceName, trackName, trackType, rotationType, nil, analytics)
 	end
 elseif GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
 	return function(instanceName, trackName, trackType, analytics)
-		return wrappee(instanceName, trackName, trackType, nil, analytics)
+		return wrappee(instanceName, trackName, trackType, nil, nil, analytics)
 	end
 else
 	return function(instanceName, trackName, analytics)
-		return wrappee(instanceName, trackName, nil, nil, analytics)
+		return wrappee(instanceName, trackName, nil, nil, nil, analytics)
 	end
 end

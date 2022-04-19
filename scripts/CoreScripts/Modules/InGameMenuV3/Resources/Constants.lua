@@ -23,6 +23,8 @@ local Constants = {
 	MainPagePageKey = "MainPage",
 	InitalPageKey = "InitalPage",
 	ReportDialogKey = "ReportDialog",
+	PlayersPageKey = "Players",
+	GameSettingsPageKey = "GameSettings",
 
 	AnalyticsTargetName = "client",
 	AnalyticsInGameMenuName = "ingame_menu",
@@ -54,6 +56,7 @@ local Constants = {
 	AnalyticsExamineAvatarName = "examine_avatar",
 
 	ControllerBarHeight = 72,
+	PageWidth = 320,
 
 	DisplayOrder = {
 		-- Fullscreen Title Bar should be on top of Topbar (DisplayOrder = 6)
@@ -61,7 +64,7 @@ local Constants = {
 		ConfirmationDialog = 8,
 		EducationalPopup = 9,
 		HeadsetDisconnectedDialog = 100,
-		ControllerBar = 9
+		ControllerBar = 9,
 	},
 
 	Zone = {
@@ -87,7 +90,7 @@ local Constants = {
 		[Enum.UserInputType.Gamepad8] = InputTypes.Gamepad,
 
 		[Enum.UserInputType.Touch] = InputTypes.Touch,
-	}
+	},
 }
 
 return Constants

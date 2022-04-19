@@ -1,11 +1,10 @@
-local ABTestService = game:GetService("ABTestService")
 local StudioService = game:GetService("StudioService")
 local MemStorageService = game:GetService("MemStorageService")
 
 local Plugin = script.Parent.Parent.Parent
 
 local FFlagToolboxUpdateWindowMinSize = game:GetFastFlag("ToolboxUpdateWindowMinSize")
-local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
+local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
@@ -28,7 +27,6 @@ local makeTheme = require(Util.makeTheme)
 local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 local FrameworkUtil = require(Packages.Framework).Util
-local getTestVariation = FrameworkUtil.getTestVariation
 local NavigationContext = require(Plugin.Core.ContextServices.NavigationContext)
 
 local Analytics = require(Util.Analytics.Analytics)
@@ -178,7 +176,7 @@ function ToolboxPlugin:render()
 		[Roact.Event.AncestryChanged] = self.onAncestryChanged,
 	}, {
 		Toolbox = pluginGuiLoaded and ContextServices.provide(
-			if FFlagToolboxAssetCategorization3
+			if FFlagToolboxAssetCategorization4
 				then
 					{
 						ContextServices.Focus.new(self.state.pluginGui),

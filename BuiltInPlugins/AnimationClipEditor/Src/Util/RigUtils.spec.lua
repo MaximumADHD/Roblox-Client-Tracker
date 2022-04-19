@@ -107,8 +107,9 @@ return function()
 
 		local ut = Instance.new("Folder", hrp)
 		ut.Name = "UpperTorso"
-		local utr = Instance.new("Vector3Curve", ut)
+		local utr = Instance.new("EulerRotationCurve", ut)
 		utr.Name = "Rotation"
+		utr.RotationOrder = Enum.RotationOrder.XYZ
 		insertKey(utr:X(), 0, 1.5, Enum.KeyInterpolationMode.Constant)
 
 		local h = Instance.new("Folder", ut)
@@ -214,7 +215,7 @@ return function()
 												InterpolationMode = Enum.KeyInterpolationMode.Cubic,
 												RightSlope = 1/2400,
 											},
-											[1] = {
+											[2400] = {
 												Value = 1,
 												LeftSlope = 0,
 											},
@@ -229,6 +230,7 @@ return function()
 						Components = {
 							Rotation = {
 								Type = GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation,
+								EulerAnglesOrder = GetFFlagQuaternionChannels() and Enum.RotationOrder.XYZ,
 								Components = {
 									X = {
 										Type = Constants.TRACK_TYPES.Angle,

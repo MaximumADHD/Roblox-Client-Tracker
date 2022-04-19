@@ -9,6 +9,7 @@ local SetAssetPreviewData = require(Plugin.Src.Actions.SetAssetPreviewData)
 local SetAssetOwnerName = require(Plugin.Src.Actions.SetAssetOwnerName)
 
 local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableAudioImport
+local enableVideoImport = require(Plugin.Src.Util.AssetManagerUtilities).enableVideoImport
 
 local sendResultToKibana = require(Plugin.Packages.Framework).Util.sendResultToKibana
 
@@ -49,6 +50,8 @@ return function(apiImpl, assetIds)
                     assetName = string.gsub(assetData.name, "Scripts/", "")
                 elseif enableAudioImport() and assetTypeId == Enum.AssetType.Audio.Value and string.find(assetData.name, "Audio/") then
                     assetName = string.gsub(assetData.name, "Audio/", "")
+                elseif enableVideoImport() and assetTypeId == Enum.AssetType.Video.Value and string.find(assetData.name, "Video/") then
+                    assetName = string.gsub(assetData.name, "Video/", "")
                 elseif (FFlagAssetManagerEnableModelAssets and assetTypeId == Enum.AssetType.Model.Value and string.find(assetData.Name, "Models/")) then
                     assetName = string.gsub(assetData.Name, "Models/", "")
                 end

@@ -54,6 +54,8 @@ local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
 local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuUseSpeakerIcons)
 
+local GetFFlagRemoveAssetVersionEndpoint = require(RobloxGui.Modules.Flags.GetFFlagRemoveAssetVersionEndpoint)
+
 local GetFFlagInGameMenuV1LeaveToHome = require(RobloxGui.Modules.Flags.GetFFlagInGameMenuV1LeaveToHome)
 local FFlagInGameMenuV1FullScreenTitleBar = game:DefineFastFlag("InGameMenuV1FullScreenTitleBar", false)
 local FFlagInGameMenuHomeButton = game:DefineFastFlag("InGameMenuHomeButton", false)
@@ -178,6 +180,10 @@ local function GetServerVersionBlocking()
 end
 
 local function GetPlaceVersionText()
+	if GetFFlagRemoveAssetVersionEndpoint() then
+		return game.PlaceVersion
+	end
+
 	local text = game.PlaceVersion
 
 	pcall(function()

@@ -10,6 +10,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
+local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
 
 local CurveUtils = {}
 
@@ -134,11 +135,19 @@ function CurveUtils.makeBounce(easingDirection, tickA, keyframeA, tickB, keyfram
 
 	if GetFFlagCurveEditor() then
 		if easingDirection == Enum.PoseEasingDirection.In then
-			keyframeA.RightSlope = -lastSlope
+			if GetFFlagEulerAnglesOrder() and isQuaternionTrack then
+				keyframeA.RightSlope = lastSlope
+			else
+				keyframeA.RightSlope = -lastSlope
+			end
 			keyframeB.LeftSlope = 0
 		else
 			keyframeA.RightSlope = 0
-			keyframeB.LeftSlope = -lastSlope
+			if GetFFlagEulerAnglesOrder() and isQuaternionTrack then
+				keyframeB.LeftSlope = lastSlope
+			else
+				keyframeB.LeftSlope = -lastSlope
+			end
 		end
 	else
 		keyframeA.RightSlope = 0

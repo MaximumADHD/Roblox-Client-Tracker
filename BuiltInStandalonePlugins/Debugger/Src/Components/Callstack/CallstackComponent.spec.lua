@@ -7,9 +7,11 @@ local Components = src.Components
 local CallstackComponent = require(Components.Callstack.CallstackComponent)
 
 local mockContext = require(src.Util.mockContext)
---local TestStore = require(src.Util.TestStore)
+local TestStore = require(src.Util.TestStore)
 local MainReducer = require(src.Reducers.MainReducer)
 local MainMiddleware = require(src.Middleware.MainMiddleware)
+
+local FFlagDevFrameworkRemoveInfiniteScroller = game:GetFastFlag("DevFrameworkRemoveInfiniteScroller")
 
 return function()
 	local function createCallstack(initalState)
@@ -31,11 +33,11 @@ return function()
 		expect(tableView.Contents.List:FindFirstChild("1")).to.equal(nil)
 		Roact.unmount(folderInstance)
 	end)
-	
-	-- Commenting out these unit tests as they are blocked by the infinite scrollbar. Turn Scroll = false for
-	-- the Table to run these unit tests.
 
-	--[[it("should populate based on actions", function()
+	it("should populate based on actions", function()
+		if not FFlagDevFrameworkRemoveInfiniteScroller then
+			return
+		end
 		local defaultStore = Rodux.Store.new(MainReducer, nil, MainMiddleware)
 
 		local mockContext = createCallstack(defaultStore:getState())
@@ -48,11 +50,22 @@ return function()
 		local folderInstance = Roact.mount(mockContext.getChildrenWithMockContext(), folder)
 
 		local tableView = folder:FindFirstChild("TableView", true)
-		local list = tableView.Contents.List
-
-		expect(list["1"].Row[1].Left.Text.Text).to.equal("TestThread2")
-		expect(list["2"].Row[1].Left.Text.Text).to.equal("Workspace.NewFolder.SomeFolder.AbsurdlyLongPath.script")
+		local list = tableView.Contents.List.Child.Scroller
+		
+		local state = store:getState()
+		local currDST = state.Common.debuggerConnectionIdToDST[state.Common.currentDebuggerConnectionId]
+		expect(list["1"].Row[1].Left.Text.Text).to.equal(state.Callstack.stateTokenToCallstackVars[currDST].threadList[1].displayString)
+		
+		expect(list["2"].Row[2].Left.Text.Text).to.equal("1")
+		expect(list["2"].Row[3].Left.Text.Text).to.equal("C")
+		expect(list["2"].Row[5].Left.Text.Text).to.equal("TestFrame1")
+		expect(list["2"].Row[6].Left.Text.Text).to.equal("10")
+		
+		expect(list["3"].Row[2].Left.Text.Text).to.equal("2")
+		expect(list["3"].Row[3].Left.Text.Text).to.equal("C")
+		expect(list["3"].Row[5].Left.Text.Text).to.equal("TestFrame2")
+		expect(list["3"].Row[6].Left.Text.Text).to.equal("20")
 
 		Roact.unmount(folderInstance)
-	end)]]
+	end)
 end

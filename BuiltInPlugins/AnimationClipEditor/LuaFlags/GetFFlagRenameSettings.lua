@@ -1,5 +1,3 @@
-game:DefineFastFlag("ACERenameSettings", false)
-
-return function()
-	return game:GetFastFlag("ACERenameSettings")
-end
+local GetFFlagCurveEditor = require(script.Parent.GetFFlagCurveEditor)
+-- Regroup this flag under the generic CurveEditor flag
+return GetFFlagCurveEditor

@@ -16,11 +16,13 @@ local withContext = ContextServices.withContext
 
 local MenuEntry = require(Plugin.Src.Components.Menu.MenuEntry)
 
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+
 local MenuBar = Roact.PureComponent:extend("MenuBar")
 
 function MenuBar:render()
 	local props = self.props
-	local theme = props.Theme:get("Plugin")
+	local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
 	local localization = props.Localization
 
 	local selected = props.Selected
@@ -57,12 +59,10 @@ function MenuBar:render()
 	}, menuEntries)
 end
 
-
 MenuBar = withContext({
-	Theme = ContextServices.Theme,
+	Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
+	Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
 	Localization = ContextServices.Localization,
 })(MenuBar)
-
-
 
 return MenuBar

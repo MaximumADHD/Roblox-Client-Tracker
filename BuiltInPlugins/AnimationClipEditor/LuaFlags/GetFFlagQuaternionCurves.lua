@@ -1,7 +1,3 @@
 local GetFFlagCurveEditor = require(script.Parent.GetFFlagCurveEditor)
-
-game:DefineFastFlag("ACEQuaternionCurves", false)
-
-return function()
-	return GetFFlagCurveEditor() and game:GetFastFlag("ACEQuaternionCurves")
-end
+-- Regroup this flag under the generic CurveEditor flag
+return GetFFlagCurveEditor

@@ -14,6 +14,7 @@ local Stylizer = Framework.Style.Stylizer
 local UI = Framework.UI
 local Pane = UI.Pane
 local SelectInput = UI.SelectInput
+local ToggleButton = UI.ToggleButton
 local TruncatedTextLabel = UI.TruncatedTextLabel
 
 local Actions = Plugin.Src.Actions
@@ -24,9 +25,6 @@ local MaterialController = require(Util.MaterialController)
 
 local Components = Plugin.Src.Components
 local LabeledElementList = require(Components.LabeledElementList)
-
-local Flags = Plugin.Src.Flags
-local getFFlagMaterialServiceStringOverride = require(Flags.getFFlagMaterialServiceStringOverride)
 
 export type Props = {
 	LayoutOrder : number?,
@@ -47,20 +45,25 @@ type _Style = {
 	ButtonSize : UDim2,
 	ButtonStyle : string,
 	Close : _Types.Image,
+	CreateVariant : _Types.Image,
+	Delete : _Types.Image,
 	DropdownSize : UDim2,
-	Favorite : _Types.Image,
+	Edit : _Types.Image,
 	HeaderBackground : Color3,
+	HeaderFont : Enum.Font,
 	HeaderSize : UDim2,
 	ImagePosition : UDim2,
 	ImageSize : UDim2,
 	LabelColumnWidth : UDim,
-	MoreMenu : _Types.Image,
-	NameLabelSize : UDim2,
+	NameLabelSizeBuiltIn : UDim2,
+	NameLabelSizeVariant : UDim2,
 	LabelRowSize : UDim2,
 	Padding : number,
+	SectionHeaderTextSize : number,
 	TextureLabelSize : UDim2,
 	TextureRowSize : UDim2,
 	TextureSize : UDim2,
+	TitleTextSize : number,
 }
 
 local MaterialOverrides = Roact.PureComponent:extend("MaterialOverrides")
@@ -95,34 +98,6 @@ function MaterialOverrides:init()
 		end
 	end
 
-	self.onPartItemActivated = function(value, index)
-		local props : _Props = self.props
-		local material = props.Material
-		local baseMaterial = material.MaterialVariant.BaseMaterial
-
-		if index == 1 then
-			props.MaterialController:setPartOverride(baseMaterial)
-		else
-			props.MaterialController:setPartOverride(baseMaterial, self.variants[index - 1].MaterialVariant)
-		end
-
-		self:setState({})
-	end
-
-	self.onTerrainItemActivated = function(value, index)
-		local props : _Props = self.props
-		local material = props.Material
-		local baseMaterial = material.MaterialVariant.BaseMaterial
-
-		if index == 1 then
-			props.MaterialController:setTerrainOverride(baseMaterial)
-		else
-			props.MaterialController:setTerrainOverride(baseMaterial, self.variants[index - 1].MaterialVariant)
-		end
-
-		self:setState({})
-	end
-
 	self.onMaterialItemActivated = function(value, index)
 		local props : _Props = self.props
 		local material = props.Material
@@ -131,36 +106,55 @@ function MaterialOverrides:init()
 		if index == 1 then
 			props.MaterialController:setMaterialOverride(baseMaterial)
 		else
-			props.MaterialController:setMaterialOverride(baseMaterial, self.variants[index - 1].MaterialVariant.Name)
+			props.MaterialController:setMaterialOverride(baseMaterial, self.state.items[index])
 		end
 
-		self:setState({})
+		self:setState({
+			materialIndex = index
+		})
+	end
+
+	self.onOverrideToggled = function()
+		local props : _Props = self.props
+		local material = props.Material 
+		local materialType = material.MaterialVariant.BaseMaterial
+		local materialName = material.MaterialVariant.Name
+
+		local materialIndex = 1
+		if self.state.index ~= 1 then
+			props.MaterialController:setMaterialOverride(materialType)
+		else
+			props.MaterialController:setMaterialOverride(materialType, materialName)
+
+			for index, name in ipairs(self.state.items) do
+				if materialName == name then
+					materialIndex = index + 1
+				end
+			end
+		end
+
+		self:setState({
+			index = materialIndex
+		})
 	end
 
 	self.renderContent = function(key : string)
 		local props : _Props = self.props
 		local style = props.Stylizer.MaterialDetails
 
-		if key == "PartOverride" then
+		if key == "MaterialOverride" then
 			return Roact.createElement(SelectInput, {
-				Items = self.items,
-				OnItemActivated = self.onPartItemActivated,
-				SelectedIndex = self.partIndex,
-				Size = style.DropdownSize,
-			})
-		elseif key == "TerrainOverride" then
-			return Roact.createElement(SelectInput, {
-				Items = self.items,
-				OnItemActivated = self.onTerrainItemActivated,
-				SelectedIndex = self.terrainIndex,
-				Size = style.DropdownSize,
-			})
-		elseif key == "MaterialOverride" then
-			return Roact.createElement(SelectInput, {
-				Items = self.items,
+				Items = self.state.items,
 				OnItemActivated = self.onMaterialItemActivated,
-				SelectedIndex = self.materialIndex,
+				SelectedIndex = self.state.index,
 				Size = style.DropdownSize,
+			})
+		elseif key == "SetOverride" then
+			return Roact.createElement(ToggleButton, {
+				Selected = self.state.index ~= 1,
+				LayoutOrder = 1,
+				OnClick = self.onOverrideToggled,
+				Size = UDim2.fromOffset(40, 24),
 			})
 		end
 
@@ -175,6 +169,9 @@ function MaterialOverrides:init()
 	end
 
 	self.variants = {}
+	self.state = {
+		items = {}
+	}
 end
 
 function MaterialOverrides:willUnmount()
@@ -191,9 +188,39 @@ end
 
 function MaterialOverrides:didMount()
 	local props : _Props = self.props
+	local localization = props.Localization
+	local materialController = props.MaterialController
 
-	self.connection = props.MaterialController:getMaterialChangedSignal():Connect(self.onMaterialVariantChanged)
-	self.overrideChanged = props.MaterialController:getOverrideChangedSignal():Connect(self.onOverrideChanged)
+	self.connection = materialController:getMaterialChangedSignal():Connect(self.onMaterialVariantChanged)
+	self.overrideChanged = materialController:getOverrideChangedSignal():Connect(self.onOverrideChanged)
+
+	if props.Material then
+		local items, index = props.MaterialController:getMaterialOverrides(props.Material.MaterialVariant.BaseMaterial)
+		table.insert(items, 1, localization:getText("MaterialOverrides", "None"))
+
+		self:setState({
+			items = items,
+			index = index + 1
+		})
+	end
+end
+
+function MaterialOverrides:didUpdate(prevProps : _Props)
+	local props : _Props = self.props
+	local localization = props.Localization
+	local materialController = props.MaterialController
+
+	if prevProps.Material ~= props.Material then
+		if props.Material then
+			local items, index = materialController:getMaterialOverrides(props.Material.MaterialVariant.BaseMaterial)
+			table.insert(items, 1, localization:getText("MaterialOverrides", "None"))
+
+			self:setState({
+				items = items,
+				index = index + 1
+			})
+		end
+	end
 end
 
 function MaterialOverrides:render()
@@ -206,64 +233,12 @@ function MaterialOverrides:render()
 		return Roact.createElement(Pane)
 	end
 
-	local materialVariant = material.MaterialVariant
-	local baseMaterial = materialVariant.BaseMaterial
-
-	local base = material.MaterialType == "Base"
-	local isPart = not getFFlagMaterialServiceStringOverride() and (material.MaterialType == "Part" or base)
-	local isTerrain = not getFFlagMaterialServiceStringOverride() and (material.MaterialType == "Terrain" or base)
-	local isMaterial = getFFlagMaterialServiceStringOverride()
-
-	local currentPartOverride
-	local currentTerrainOverride
-	local currentMaterialOverride
-	if isPart then
-		currentPartOverride = props.MaterialController:getPartOverride(baseMaterial)
-	end
-	if isTerrain then
-		currentTerrainOverride = props.MaterialController:getTerrainOverride(baseMaterial)
-	end
-	if isMaterial then
-		currentMaterialOverride = props.MaterialController:getMaterialOverride(baseMaterial)
-	end
-
-	self.variants = props.MaterialController:getVariants(baseMaterial)
-
-	self.items = {
-		localization:getText("MaterialOverrides", "None")
-	}
-
-	self.partIndex = 1
-	self.terrainIndex = 1
-	self.materialIndex = 1
-	for index, variant in ipairs(self.variants) do
-		table.insert(self.items, variant.MaterialVariant.Name)
-
-		if isPart and variant.MaterialVariant == currentPartOverride then
-			self.partIndex = index + 1
-		end
-
-		if isTerrain and variant.MaterialVariant == currentTerrainOverride then
-			self.terrainIndex = index + 1
-		end
-
-		if isMaterial and variant.MaterialVariant.Name == currentMaterialOverride then
-			self.materialIndex = index + 1
-		end
-	end
-
 	local labeledElements = {}
 
-	if isPart then
-		table.insert(labeledElements, "PartOverride")
-	end
-
-	if isTerrain then
-		table.insert(labeledElements, "TerrainOverride")
-	end
-
-	if isMaterial then
+	if material.IsBuiltin then
 		table.insert(labeledElements, "MaterialOverride")
+	else
+		table.insert(labeledElements, "SetOverride")
 	end
 
 	return Roact.createElement(Pane, {

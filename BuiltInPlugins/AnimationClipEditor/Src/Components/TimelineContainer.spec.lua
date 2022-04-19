@@ -17,6 +17,7 @@ return function()
 				Playhead = 0,
 				TrackPadding = Constants.TRACK_PADDING_SMALL,
 				FrameRate = Constants.DEFAULT_FRAMERATE,
+				OnToggleEditorClicked = function() end,
 			})
 		})
 	end

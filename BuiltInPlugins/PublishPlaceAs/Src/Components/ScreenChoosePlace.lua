@@ -48,6 +48,8 @@ local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtil
 local getIsOptInChina = require(Plugin.Src.Util.PublishPlaceAsUtilities).getIsOptInChina
 local isTeamCreateEnabled = require(Plugin.Src.Util.PublishPlaceAsUtilities).isTeamCreateEnabled
 
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+
 local ScreenChoosePlace = Roact.PureComponent:extend("ScreenChoosePlace")
 
 local LoadingIndicator = UILibrary.Component.LoadingIndicator
@@ -107,7 +109,7 @@ end
 
 function ScreenChoosePlace:render()
 	local props = self.props
-	local theme = props.Theme:get("Plugin")
+	local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
 	local localization = props.Localization
 
 	local onClose = props.OnClose
@@ -131,7 +133,6 @@ function ScreenChoosePlace:render()
 
 	local gameText = parentGame and parentGame.name or ""
 	local headerText = localization:getText("ScreenHeader", "ChoosePlace", { gameText })
-	local buttonText = localization:getText("General", "ButtonRetry")
 	local untitledGameText = localization:getText("General", "UntitledGame")
 
 	local components = {
@@ -261,7 +262,6 @@ function ScreenChoosePlace:render()
 			}),
 		}),
 
-
 		MainContentsSuccess = (FFlagDebugFixPublishAsWhenQueryFails and props.PlacesQueryState == Constants.QUERY_STATE.QUERY_STATE_SUCCESS)
 			and Roact.createElement(InfiniteScrollingFrame, {
 				Size = UDim2.new(1, 0, 0.5, theme.FOOTER_HEIGHT * 2),
@@ -370,10 +370,10 @@ function ScreenChoosePlace:render()
 end
 
 ScreenChoosePlace = withContext({
-	Theme = ContextServices.Theme,
+	Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
+	Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
 	Localization = ContextServices.Localization,
 })(ScreenChoosePlace)
-
 
 local function mapStateToProps(state, props)
 	local placeInfo = state.ExistingGame.placeInfo

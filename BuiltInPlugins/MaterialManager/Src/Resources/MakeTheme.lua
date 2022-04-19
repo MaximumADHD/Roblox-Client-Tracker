@@ -17,6 +17,7 @@ local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
 local join = Framework.Dash.join
 
 local Util = Framework.Util
+local StyleModifier = Util.StyleModifier
 local deepCopy = Util.deepCopy
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
@@ -36,10 +37,12 @@ local function getPluginTheme()
 	local TopBarHeight = 36
 	local MaterialDetailsWidth = 300
 	local TopBarButtonWidth = 28
-	local TopBarDropdownWidth = 150
+	-- local TopBarDropdownWidth = 150
 	local MaterialDetailsRowHeight = 30
 	local MaterialDetailsTextureHeight = 60
 	local ColumnWidth = 270
+	local DialogSize = 720
+	local SearchBarMaxWidth = 600
 
 	return {
 		MaterialManagerView = {
@@ -47,15 +50,15 @@ local function getPluginTheme()
 			SideBarSize = UDim2.new(0, SideBarWidth, 1, 0),
 			TopBarSize = UDim2.new(1, 0, 0, TopBarHeight),
 			-- Remove with FFlagDevFrameworkSplitPane
-			MainViewSize = UDim2.new(1, -SideBarWidth, 1, 0),
-			MaterialViewSize = UDim2.new(1, 0, 1, -TopBarHeight),
+			MaterialViewSize = UDim2.new(1, -SideBarWidth, 1, 0),
+			MainViewSize = UDim2.new(1, 0, 1, -TopBarHeight),
 			MaterialGridSize = UDim2.new(1, -MaterialDetailsWidth, 1, 0),
 			MaterialDetailsSize = UDim2.new(0, MaterialDetailsWidth, 1, 0),
 		},
 
 		MaterialPrompt = {
-			DialogWidth = 720,
-			DialogHeight = 720,
+			DialogWidth = DialogSize,
+			DialogHeight = DialogSize,
 		},
 
 		MaterialVariantCreator = {
@@ -112,9 +115,17 @@ local function getPluginTheme()
 				Image = "rbxasset://textures/ui/TopBar/close.png",
 				Color = StyleKey.MainText,
 			},
+			CreateVariant = {
+				Image = "rbxasset://textures/MaterialManager/Create_New_Variant.png",
+				Color = StyleKey.MainText,
+			},
+			Delete = {
+				Image = "rbxasset://textures/MaterialManager/Delete.png",
+				Color = StyleKey.MainText,
+			},
 			DropdownSize = UDim2.fromOffset(160, 30),
-			Favorite = {
-				Image = "rbxasset://textures/MaterialManager/Favorite.png",
+			Edit = {
+				Image = "rbxasset://textures/MaterialManager/Edit.png",
 				Color = StyleKey.MainText,
 			},
 			HeaderBackground = StyleKey.ScrollingFrameBackgroundColor,
@@ -122,12 +133,9 @@ local function getPluginTheme()
 			HeaderSize = UDim2.new(1, 0, 0, 300),
 			ImagePosition = UDim2.fromOffset(5, 5),
 			ImageSize = UDim2.fromOffset(20, 20),
-			LabelColumnWidth = UDim.new(0, 95),
-			MoreMenu = {
-				Image = "rbxasset://textures/MaterialManager/More_Menu.png",
-				Color = StyleKey.MainText,
-			},
-			NameLabelSize = UDim2.new(1, -2 * MaterialDetailsRowHeight, 1, 0),
+			NameLabelSizeVariant = UDim2.new(1, -2 * MaterialDetailsRowHeight, 1, 0),
+			NameLabelSizeBuiltIn = UDim2.new(1, -MaterialDetailsRowHeight, 1, 0),
+			LabelColumnWidth = UDim.new(0, 65),
 			LabelRowSize = UDim2.new(1, 0, 0, MaterialDetailsRowHeight),
 			Padding = 10,
 			SectionHeaderTextSize = 18,
@@ -140,27 +148,36 @@ local function getPluginTheme()
 		TopBar = {
 			CreateNewVariant = {
 				Image = "rbxasset://textures/MaterialManager/Create_New_Variant.png",
-				Color = StyleKey.MainText,
+				Color = StyleKey.BrightText,
 			},
 			ShowInExplorer = {
 				Image = "rbxasset://textures/MaterialManager/Show_In_Explorer.png",
-				Color = StyleKey.MainText,
+				Color = StyleKey.BrightText,
+				[StyleModifier.Disabled] = {
+					Transparency = 0.5,
+				},
 			},
 			ApplyToSelection = {
 				Image = "rbxasset://textures/MaterialManager/Apply_To_Selection.png",
-				Color = StyleKey.MainText,
+				Color = StyleKey.BrightText,
+				[StyleModifier.Disabled] = {
+					Transparency = 0.5,
+				},
 			},
-			Filter = {
-				Image = "rbxasset://textures/MaterialManager/Filter.png",
-				Color = StyleKey.MainText,
-			},
+			-- TODO: return when Filter is on
+			-- Filter = {
+			-- 	Image = "rbxasset://textures/MaterialManager/Filter.png",
+			-- 	Color = StyleKey.MainText,
+			-- },
+			-- DropdownSize = UDim2.fromOffset(TopBarDropdownWidth, TopBarButtonWidth),
+			TopBarButtonWidth = TopBarButtonWidth,
 			BackgroundColor = StyleKey.Titlebar,
 			ButtonSize = UDim2.fromOffset(TopBarButtonWidth, TopBarButtonWidth),
-			DropdownSize = UDim2.fromOffset(TopBarDropdownWidth, TopBarButtonWidth),
 			ImagePosition = UDim2.fromOffset(6, 6),
 			ImageSize = UDim2.fromOffset(16, 16),
 			Padding = (TopBarHeight - TopBarButtonWidth) / 2,
-			SearchBarSize = UDim2.new(1, -(TopBarButtonWidth * 4 + ((TopBarHeight - TopBarButtonWidth) / 2 * 5) + TopBarDropdownWidth), 0, TopBarButtonWidth),
+			SearchBarMaxWidth = 600,
+			SpacerWidth = (DialogSize - 3 * (TopBarButtonWidth + (TopBarHeight - TopBarButtonWidth) / 2) - SearchBarMaxWidth) / 2,
 		},
 
 		PromptSelectorWithPreview = {

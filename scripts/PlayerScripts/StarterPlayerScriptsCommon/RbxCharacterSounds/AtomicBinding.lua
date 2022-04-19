@@ -200,7 +200,7 @@ function AtomicBinding:bindRoot(root)
 					return -- A child was removed with the same name as a node instance, ignore
 				end
 
-				self:stopBoundFn(root) -- Happens before the tree is unbound so the manifest is still valid in the destructor.
+				self:_stopBoundFn(root) -- Happens before the tree is unbound so the manifest is still valid in the destructor.
 				unbindNodeDescend(childNode, resolvedManifest) -- Unbind the tree
 
 				assert(childNode.instance == nil) -- If this triggers, unbindNodeDescend failed

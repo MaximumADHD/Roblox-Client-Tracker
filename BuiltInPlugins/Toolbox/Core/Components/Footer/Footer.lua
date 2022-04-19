@@ -5,7 +5,7 @@
 		Backgrounds backgrounds
 ]]
 
-local FFlagToolboxAssetStyleUpdate = game:GetFastFlag("ToolboxAssetStyleUpdate")
+local FFlagToolboxAssetStyleUpdate2 = game:GetFastFlag("ToolboxAssetStyleUpdate2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -75,7 +75,7 @@ end
 
 function Footer:render()
 	-- Delete component with removal of flag
-	if FFlagToolboxAssetStyleUpdate then
+	if FFlagToolboxAssetStyleUpdate2 then
 		return nil
 	end
 

@@ -45,6 +45,7 @@ local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 local Pause = require(Plugin.Src.Actions.Pause)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagEasierCurveWorkflow = require(Plugin.LuaFlags.GetFFlagEasierCurveWorkflow)
 
 local AnimationClipDropdown = Roact.PureComponent:extend("AnimationClipDropdown")
 
@@ -461,7 +462,7 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetIsDirty(isDirty))
 		end,
 
-		PromoteKeyframeSequence = function()
+		PromoteKeyframeSequence = if GetFFlagEasierCurveWorkflow() then nil else function()
 			dispatch(PromoteKeyframeSequence())
 		end,
 	}

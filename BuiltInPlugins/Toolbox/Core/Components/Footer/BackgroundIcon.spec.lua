@@ -1,6 +1,6 @@
 return function()
-	local FFlagToolboxAssetStyleUpdate = game:GetFastFlag("ToolboxAssetStyleUpdate")
-	if FFlagToolboxAssetStyleUpdate then
+	local FFlagToolboxAssetStyleUpdate2 = game:GetFastFlag("ToolboxAssetStyleUpdate2")
+	if FFlagToolboxAssetStyleUpdate2 then
 		return
 	end
 

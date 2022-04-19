@@ -19,7 +19,6 @@ local BeginSelectingPivot = require(Plugin.Src.Actions.BeginSelectingPivot)
 local DoneSelectingPivot = require(Plugin.Src.Actions.DoneSelectingPivot)
 
 local getFFlagStudioToastNotificationsInLua = require(Plugin.Src.Flags.getFFlagStudioToastNotificationsInLua)
-local getFFlagPivotEditorFixTests = require(Plugin.Src.Flags.getFFlagPivotEditorFixTests)
 local getFFlagStudioBoundingBoxMoveHandlesSetting = require(DraggerFramework.Flags.getFFlagStudioBoundingBoxMoveHandlesSetting)
 
 local EditingMode = require(Plugin.Src.Utility.EditingMode)
@@ -73,16 +72,9 @@ function EditPivotSession:render()
 	local elements = {}
 
 	local pluginInstance = self.props.Plugin:get()
-	local mouse
-	if getFFlagPivotEditorFixTests() then
-		mouse = pluginInstance:GetMouse()
-		self._draggerContext = self.props.DraggerContext
-		if not self._draggerContext then
-			self._draggerContext = DraggerContext_Pivot.new(
-				pluginInstance, game, settings(), DraggerSchema.Selection.new())
-		end
-	elseif not self._draggerContext then
-		self._mouse = pluginInstance:GetMouse()
+	local mouse = pluginInstance:GetMouse()
+	self._draggerContext = self.props.DraggerContext
+	if not self._draggerContext then
 		self._draggerContext = DraggerContext_Pivot.new(
 			pluginInstance, game, settings(), DraggerSchema.Selection.new())
 	end
@@ -91,7 +83,7 @@ function EditPivotSession:render()
 		local allowFreeformDrag = editingMode == EditingMode.Transform
 
 		elements.DraggerToolComponent = Roact.createElement(DraggerToolComponent, {
-			Mouse = if getFFlagPivotEditorFixTests() then mouse else self._mouse,
+			Mouse = mouse,
 			DraggerContext = self._draggerContext,
 			DraggerSchema = DraggerSchema,
 			DraggerSettings = {

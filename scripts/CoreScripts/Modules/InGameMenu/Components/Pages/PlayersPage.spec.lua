@@ -27,7 +27,9 @@ return function()
 	local RoactRodux = InGameMenuDependencies.RoactRodux
 	local Roact = InGameMenuDependencies.Roact
 	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
-	local FocusHandlerContextProvider = require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
+	local FocusHandlerContextProvider = require(
+		script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider
+	)
 	local PlayersPage = require(script.Parent.PlayersPage)
 
 	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
@@ -49,9 +51,13 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
-						PlayersPage = playersPage,
-					}) or nil,
+					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(
+						FocusHandlerContextProvider,
+						{},
+						{
+							PlayersPage = playersPage,
+						}
+					) or nil,
 					PlayersPage = not GetFFlagIGMGamepadSelectionHistory() and playersPage or nil,
 				}),
 			}),
@@ -102,7 +108,10 @@ return function()
 			local renderedPlayerListContent = renderedPlayersPage:FindFirstChild("PlayerListContent", true)
 			jestExpect(renderedPlayerListContent).toBeDefined()
 
-			local renderedContentScrollingFrame = renderedPlayerListContent:FindFirstChild("ContentsScrollingFrame", true)
+			local renderedContentScrollingFrame = renderedPlayerListContent:FindFirstChild(
+				"ContentsScrollingFrame",
+				true
+			)
 			jestExpect(renderedContentScrollingFrame).toBeDefined()
 			jestExpect(#renderedContentScrollingFrame:GetChildren()).toEqual(1)
 

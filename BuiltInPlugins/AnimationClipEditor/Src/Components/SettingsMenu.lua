@@ -14,6 +14,7 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local SetDefaultEulerAnglesOrder = require(Plugin.Src.Actions.SetDefaultEulerAnglesOrder)
 local SetDefaultRotationType = require(Plugin.Src.Actions.SetDefaultRotationType)
 local SetFrameRate = require(Plugin.Src.Actions.SetFrameRate)
 local SetShowAsSeconds = require(Plugin.Src.Actions.SetShowAsSeconds)
@@ -26,9 +27,11 @@ local SetPlaybackSpeed = require(Plugin.Src.Thunks.Playback.SetPlaybackSpeed)
 
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local Constants = require(Plugin.Src.Util.Constants)
+local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 
 local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
 local GetFFlagRenameSettings = require(Plugin.LuaFlags.GetFFlagRenameSettings)
+local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
 
 local SettingsMenu = Roact.PureComponent:extend("SettingsMenu")
 
@@ -36,6 +39,7 @@ export type Props = {
 	-- State/Context
 	Analytics: any,
 	AnimationData: AnimationData.AnimationData,
+	DefaultEulerAnglesOrder: string,
 	DefaultRotationType: string,
 	FrameRate: number,
 	Localization: any,
@@ -46,6 +50,7 @@ export type Props = {
 	SnapMode: string,
 
 	-- Actions/Thunks
+	SetDefaultEulerAnglesOrder: (string) -> (),
 	SetDefaultRotationType: (string) -> (),
 	SetFrameRate: (number) -> (),
 	SetPlaybackSpeed: (number) -> (),
@@ -195,13 +200,37 @@ function SettingsMenu:makeDefaultRotationTypeMenu(): (ContextMenu.MenuItem)
 	return {
 		Name = localization:getText("Settings", "DefaultRotationType"),
 		Items = {
-			{Name = localization:getText("Settings", "Quaternions"), Value = Constants.TRACK_TYPES.Quaternion},
 			{Name = localization:getText("Settings", "EulerAngles"), Value = Constants.TRACK_TYPES.EulerAngles},
+			{Name = localization:getText("Settings", "Quaternions"), Value = Constants.TRACK_TYPES.Quaternion},
 		},
 		CurrentValue = rotationType,
 		ItemSelected = function(item: ContextMenu.MenuItem): ()
 			plugin:SetSetting(if GetFFlagRenameSettings() then Constants.SETTINGS.RotationType else "RotationType", item.Value)
 			props.SetDefaultRotationType(item.Value)
+		end,
+	}
+end
+
+function SettingsMenu:makeEulerAnglesOrderMenu(): (ContextMenu.MenuItem)
+	local props = self.props
+	local localization = props.Localization
+	local plugin = props.Plugin:get()
+	local eulerAnglesOrder = props.DefaultEulerAnglesOrder
+
+	return {
+		Name = localization:getText("Settings", "DefaultEulerAnglesOrder"),
+		Items = {
+			{Name = localization:getText("Settings", "XYZ"), Value = Enum.RotationOrder.XYZ},
+			{Name = localization:getText("Settings", "XZY"), Value = Enum.RotationOrder.XZY},
+			{Name = localization:getText("Settings", "YXZ"), Value = Enum.RotationOrder.YXZ},
+			{Name = localization:getText("Settings", "YZX"), Value = Enum.RotationOrder.YZX},
+			{Name = localization:getText("Settings", "ZXY"), Value = Enum.RotationOrder.ZXY},
+			{Name = localization:getText("Settings", "ZYX"), Value = Enum.RotationOrder.ZYX},
+		},
+		CurrentValue = eulerAnglesOrder,
+		ItemSelected = function(item: ContextMenu.MenuItem): ()
+			plugin:SetSetting(Constants.SETTINGS.EulerAnglesOrder, item.Value)
+			props.SetDefaultEulerAnglesOrder(item.Value)
 		end,
 	}
 end
@@ -247,6 +276,9 @@ function SettingsMenu:makeMenuActions(): ({string | ContextMenu.MenuItem})
 	if GetFFlagQuaternionsUI() then
 		table.insert(actions, Constants.MENU_SEPARATOR)
 		table.insert(actions, self:makeDefaultRotationTypeMenu())
+		if GetFFlagEulerAnglesOrder() then
+			table.insert(actions, self:makeEulerAnglesOrderMenu())
+		end
 	end
 
 	return actions
@@ -268,6 +300,7 @@ local function mapStateToProps(state): {[string]: any}
 	local stateToProps = {
 		Analytics = if GetFFlagQuaternionsUI() then state.Analytics else nil,
 		AnimationData = state.AnimationData,
+		DefaultEulerAnglesOrder = status.DefaultEulerAnglesOrder,
 		DefaultRotationType = status.DefaultRotationType,
 		FrameRate = status.FrameRate,
 		PlaybackSpeed = status.PlaybackSpeed,
@@ -281,6 +314,10 @@ end
 
 local function mapDispatchToProps(dispatch): {[string]: any}
 	local dispatchToProps = {
+		SetDefaultEulerAnglesOrder = function(eulerAnglesOrder: string): ()
+			dispatch(SetDefaultEulerAnglesOrder(eulerAnglesOrder))
+		end,
+
 		SetDefaultRotationType = function(rotationType: string): ()
 			dispatch(SetDefaultRotationType(rotationType))
 		end,

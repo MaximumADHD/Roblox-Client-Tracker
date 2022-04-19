@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local Package = require(PackageIndex["Roact17UpgradeFlag"]["Roact17UpgradeFlag"])
+local Package = require(PackageIndex["ReactIsProxy"]["ReactIsProxy"])
 
 return Package

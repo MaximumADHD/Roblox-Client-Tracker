@@ -27,17 +27,23 @@ return function()
 	local RoactRodux = InGameMenuDependencies.RoactRodux
 	local Roact = InGameMenuDependencies.Roact
 	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
-	local FocusHandlerContextProvider = require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
+	local FocusHandlerContextProvider = require(
+		InGameMenu.Components.Connection.FocusHandlerUtils.FocusHandlerContextProvider
+	)
 	local PlayersPage = require(script.Parent.PlayersPage)
 
 	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 	local GuiService = game:GetService("GuiService")
 
 	local function getMountableTreeAndStore(props)
-		local store = Rodux.Store.new(reducer)
+		local store = Rodux.Store.new(reducer, {}, { Rodux.thunkMiddleware })
 		local playersPage = Roact.createElement(
 			PlayersPage,
-			Cryo.Dictionary.join({ pageTitle = "People" }, props or {})
+			Cryo.Dictionary.join({
+				pageTitle = "People",
+				screenSize = Vector2.new(800, 600),
+				isMenuOpen = true,
+			}, props or {})
 		)
 
 		return Roact.createElement(RoactRodux.StoreProvider, {
@@ -49,9 +55,13 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
-						PlayersPage = playersPage,
-					}) or nil,
+					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(
+						FocusHandlerContextProvider,
+						{},
+						{
+							PlayersPage = playersPage,
+						}
+					) or nil,
 					PlayersPage = not GetFFlagIGMGamepadSelectionHistory() and playersPage or nil,
 				}),
 			}),
@@ -68,7 +78,7 @@ return function()
 		GuiService.SelectedCoreObject = nil
 	end)
 
-	describeSKIP("PlayersPage rendering", function()
+	describe("PlayersPage rendering", function()
 		it("mounts and unmounts with rendered children", function()
 			local element = getMountableTreeAndStore()
 
@@ -95,14 +105,17 @@ return function()
 			local renderedPlayersPage = Players.LocalPlayer.PlayerGui:GetChildren()[1]
 			jestExpect(renderedPlayersPage).toBeDefined()
 
-			local renderedTitle = renderedPlayersPage:FindFirstChild("PageTitle")
+			local renderedTitle = renderedPlayersPage:FindFirstChild("PageTitle", true)
 			jestExpect(renderedTitle).toBeDefined()
 			jestExpect(renderedTitle.text).toEqual("People")
 
 			local renderedPlayerListContent = renderedPlayersPage:FindFirstChild("PlayerListContent", true)
 			jestExpect(renderedPlayerListContent).toBeDefined()
 
-			local renderedContentScrollingFrame = renderedPlayerListContent:FindFirstChild("ContentsScrollingFrame", true)
+			local renderedContentScrollingFrame = renderedPlayerListContent:FindFirstChild(
+				"ContentsScrollingFrame",
+				true
+			)
 			jestExpect(renderedContentScrollingFrame).toBeDefined()
 			jestExpect(#renderedContentScrollingFrame:GetChildren()).toEqual(1)
 

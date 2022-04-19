@@ -39,6 +39,7 @@ local StudioService = game:GetService("StudioService")
 local ListItem = Roact.PureComponent:extend("ListItem")
 
 local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableAudioImport
+local enableVideoImport = require(Plugin.Src.Util.AssetManagerUtilities).enableVideoImport
 
 local ICON_SIZE = 150
 
@@ -65,6 +66,8 @@ local function getClassIcon(assetData)
         return StudioService:GetClassIcon("MeshPart")
     elseif enableAudioImport() and assetType == Enum.AssetType.Audio then
         return StudioService:GetClassIcon("Sound")
+    elseif enableVideoImport() and assetType == Enum.AssetType.Video then
+        return StudioService:GetClassIcon("VideoFrame")
     elseif assetType == Enum.AssetType.Lua then
         return StudioService:GetClassIcon("Script")
     elseif FFlagAssetManagerEnableModelAssets and assetType == Enum.AssetType.Model then
@@ -170,6 +173,7 @@ function ListItem:init()
             or assetData.assetType == Enum.AssetType.MeshPart
             or assetData.assetType == Enum.AssetType.Lua
             or (enableAudioImport() and assetData.assetType == Enum.AssetType.Audio)
+            or (enableVideoImport() and assetData.assetType == Enum.AssetType.Video)
             then
                 local prefix
                 -- Setting asset type to same value as Enum.AssetType since it cannot be passed into function
@@ -181,6 +185,8 @@ function ListItem:init()
                     prefix = "Scripts/"
                 elseif enableAudioImport() and assetData.assetType == Enum.AssetType.Audio then
                     prefix = "Audio/"
+                elseif enableVideoImport() and assetData.assetType == Enum.AssetType.Video then
+                    prefix = "Video/"
                 elseif FFlagAssetManagerEnableModelAssets and assetData.assetType == Enum.AssetType.Model then
                     prefix = "Models/"
                 end

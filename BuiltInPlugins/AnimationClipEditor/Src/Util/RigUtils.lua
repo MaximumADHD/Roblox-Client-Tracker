@@ -22,7 +22,6 @@ local Workspace = game:GetService("Workspace")
 
 local Constants = require(Plugin.Src.Util.Constants)
 
-local FFlagFixDuplicateNamedRoot = game:DefineFastFlag("FixDuplicateNamedRoot", false)
 local FFSaveAnimationRigWithKeyframeSequence2 = game:DefineFastFlag("SaveAnimationRigWithKeyframeSequence2", false)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
@@ -31,6 +30,10 @@ local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimati
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 local GetFFlagMarkerCurves = require(Plugin.LuaFlags.GetFFlagMarkerCurves)
 local GetFFlagRootMotionTrack = require(Plugin.LuaFlags.GetFFlagRootMotionTrack)
+local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+
+local FFlagACEFixTangentsSerialization = GetFFlagCurveEditor()
 
 local RigUtils = {}
 
@@ -1211,28 +1214,68 @@ end
 
 function RigUtils.fillFloatCurve(track, curve)
 	if track then
-		for tick, keyframe in pairs(track.Data) do
-			local time = tick / Constants.TICK_FREQUENCY
-			local key = FloatCurveKey.new(time, keyframe.Value, keyframe.InterpolationMode or Enum.KeyInterpolationMode.Cubic)
-			key.LeftTangent = keyframe.LeftSlope and (keyframe.LeftSlope * Constants.TICK_FREQUENCY) or nil
-			if keyframe.InterpolationMode == Enum.KeyInterpolationMode.Cubic then
-				key.RightTangent = keyframe.RightSlope and (keyframe.RightSlope * Constants.TICK_FREQUENCY) or nil
+		if not FFlagACEFixTangentsSerialization then
+			for tick, keyframe in pairs(track.Data) do
+				local time = tick / Constants.TICK_FREQUENCY
+				local key = FloatCurveKey.new(time, keyframe.Value, keyframe.InterpolationMode or Enum.KeyInterpolationMode.Cubic)
+				key.LeftTangent = keyframe.LeftSlope and (keyframe.LeftSlope * Constants.TICK_FREQUENCY) or nil
+				if keyframe.InterpolationMode == Enum.KeyInterpolationMode.Cubic then
+					key.RightTangent = keyframe.RightSlope and (keyframe.RightSlope * Constants.TICK_FREQUENCY) or nil
+				end
+				curve:InsertKey(key)
 			end
-			curve:InsertKey(key)
+		else
+			local prevKeyframe = nil
+			for _, tck in ipairs(track.Keyframes) do
+				local keyframe = track.Data[tck]
+				local time = tck / Constants.TICK_FREQUENCY
+				local key = FloatCurveKey.new(time, keyframe.Value, keyframe.InterpolationMode or Enum.KeyInterpolationMode.Cubic)
+				if prevKeyframe and prevKeyframe.InterpolationMode == Enum.KeyInterpolationMode.Cubic and keyframe.LeftSlope then
+					key.LeftTangent = keyframe.LeftSlope * Constants.TICK_FREQUENCY
+				else
+					key.LeftTangent = nil
+				end
+				if keyframe.InterpolationMode == Enum.KeyInterpolationMode.Cubic then
+					key.RightTangent = keyframe.RightSlope and (keyframe.RightSlope * Constants.TICK_FREQUENCY) or nil
+				end
+				curve:InsertKey(key)
+
+				prevKeyframe = keyframe
+			end
 		end
 	end
 end
 
 function RigUtils.fillQuaternionCurve(track, curve)
-	for tick, keyframe in pairs(track.Data) do
-		local time = tick / Constants.TICK_FREQUENCY
-		local key = RotationCurveKey.new(time, keyframe.Value, keyframe.InterpolationMode)
-		if keyframe.InterpolationMode == Enum.KeyInterpolationMode.Cubic then
-			key.LeftTangent = keyframe.LeftSlope and (keyframe.LeftSlope * Constants.TICK_FREQUENCY) or nil
-			key.RightTangent = keyframe.RightSlope and (keyframe.RightSlope * Constants.TICK_FREQUENCY) or nil
-		end
+	if not FFlagACEFixTangentsSerialization then
+		for tick, keyframe in pairs(track.Data) do
+			local time = tick / Constants.TICK_FREQUENCY
+			local key = RotationCurveKey.new(time, keyframe.Value, keyframe.InterpolationMode)
+			if keyframe.InterpolationMode == Enum.KeyInterpolationMode.Cubic then
+				key.LeftTangent = keyframe.LeftSlope and (keyframe.LeftSlope * Constants.TICK_FREQUENCY) or nil
+				key.RightTangent = keyframe.RightSlope and (keyframe.RightSlope * Constants.TICK_FREQUENCY) or nil
+			end
 
-		curve:InsertKey(key)
+			curve:InsertKey(key)
+		end
+	else
+		local prevKeyframe = nil
+		for index, tck in ipairs(track.Keyframes) do
+			local keyframe = track.Data[tck]
+			local time = tck / Constants.TICK_FREQUENCY
+			local key = RotationCurveKey.new(time, keyframe.Value, keyframe.InterpolationMode)
+			if prevKeyframe and prevKeyframe.InterpolationMode == Enum.KeyInterpolationMode.Cubic and keyframe.LeftSlope then
+				key.LeftTangent = keyframe.LeftSlope * Constants.TICK_FREQUENCY
+			else
+				key.LeftTangent = nil
+			end
+			if keyframe.InterpolationMode == Enum.KeyInterpolationMode.Cubic then
+				key.RightTangent = keyframe.RightSlope and (keyframe.RightSlope * Constants.TICK_FREQUENCY) or nil
+			end
+			curve:InsertKey(key)
+
+			prevKeyframe = keyframe
+		end
 	end
 end
 
@@ -1250,7 +1293,7 @@ end
 function RigUtils.makeEulerCurve(track)
 	if track then
 		local eulerCurve = Instance.new("EulerRotationCurve")
-		eulerCurve.RotationOrder = Enum.RotationOrder.XYZ
+		eulerCurve.RotationOrder = if GetFFlagEulerAnglesOrder() then track.EulerAnglesOrder else Enum.RotationOrder.XYZ
 		RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.X], eulerCurve:X())
 		RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.Y], eulerCurve:Y())
 		RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.Z], eulerCurve:Z())
@@ -1446,6 +1489,10 @@ function RigUtils.readCurve(track, curve, trackType)
 			if lastTick > endTick then
 				endTick = lastTick
 			end
+		end
+
+		if GetFFlagEulerAnglesOrder() and trackType == Constants.TRACK_TYPES.EulerAngles then
+			track.EulerAnglesOrder = curve.RotationOrder
 		end
 	end
 
@@ -1718,7 +1765,9 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 
 			if shouldAddTrackForPose and pose.Weight ~= 0 then
 				if tracks[poseName] == nil then
-					if GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
+					if GetFFlagEulerAnglesOrder() then
+						AnimationData.addTrack(tracks, poseName, trackType, false, Constants.TRACK_TYPES.Quaternion, nil)
+					elseif GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
 						AnimationData.addTrack(tracks, poseName, trackType)
 					else
 						AnimationData.addTrack(tracks, poseName)
@@ -1803,7 +1852,18 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 	return animationData, frameRate, #keyframes, numPoses, numEvents
 end
 
-function RigUtils.stepRigAnimation(rig, instance, tick)
+function RigUtils.resetAllFacsValuesInFaceControls(rig)
+	if not RigUtils.canUseFaceControlsEditor(rig) then return end
+
+	local faceControls = RigUtils.getFaceControls(rig)
+	if faceControls ~= nil then
+		for i, facsName in pairs(Constants.FacsNames) do
+			faceControls[facsName] = 0
+		end
+	end
+end
+
+function RigUtils.stepRigAnimation(rig, instance, tck)
 	local animator = getAnimator(rig)
 	local parts, partsToMotors = RigUtils.getRigInfo(rig)
 	local boneMap = RigUtils.getBoneMap(rig)
@@ -1813,7 +1873,7 @@ function RigUtils.stepRigAnimation(rig, instance, tick)
 			local joint = partsToMotors[part.Name] or boneMap[part.Name]
 			local track = instance.Tracks[part.Name]
 			if track then
-				joint.Transform = KeyframeUtils.getValue(track, tick)
+				joint.Transform = KeyframeUtils.getValue(track, tck)
 			else
 				joint.Transform = CFrame.new()
 			end
@@ -1824,7 +1884,7 @@ function RigUtils.stepRigAnimation(rig, instance, tick)
 			if joint then
 				local track = instance.Tracks[part.Name]
 				if track then
-					joint.Transform = KeyframeUtils.getValue(track, tick)
+					joint.Transform = KeyframeUtils.getValue(track, tck)
 				else
 					joint.Transform = CFrame.new()
 				end
@@ -1832,10 +1892,31 @@ function RigUtils.stepRigAnimation(rig, instance, tick)
 		end
 
 		local faceControls = RigUtils.getFaceControls(rig)
-		if faceControls ~= nil then
-			for trackName, track in pairs(instance.Tracks) do
-				if track.Type == Constants.TRACK_TYPES.Facs and Constants.FacsControlToRegionMap[trackName] ~= nil then
-					faceControls[trackName] = KeyframeUtils.getValue(track, tick)
+		if  GetFFlagFaceControlsEditorUI() then
+			if faceControls ~= nil then
+				--looping through the facs instead of looping through tracks
+				--so we also handle cases like a track was deleted
+				for i, facsName in pairs(Constants.FacsNames) do
+					if instance and instance.Tracks ~= nil then
+						local track = instance.Tracks[facsName]
+						if track and track.Type == Constants.TRACK_TYPES.Facs then
+							faceControls[facsName] = KeyframeUtils.getValue(track, tck)
+						else
+							faceControls[facsName] = 0
+						end
+					else
+						faceControls[facsName] = 0
+					end
+				end
+			end
+		else
+			--old implementation, was not reseting the values in facecontrols when facs key deleted
+			--so the avatar would have a wrong face expression then
+			if faceControls ~= nil then
+				for trackName, track in pairs(instance.Tracks) do
+					if track.Type == Constants.TRACK_TYPES.Facs and Constants.FacsControlToRegionMap[trackName] ~= nil then
+						faceControls[trackName] = KeyframeUtils.getValue(track, tck)
+					end
 				end
 			end
 		end

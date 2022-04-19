@@ -24,8 +24,6 @@
 		soundAssetChecker:destroy()
 ]]
 
-game:DefineFastFlag("StudioAudioDiscoveryFixBaseUrl", false)
-
 local FIntStudioAudioDiscoveryMaxAssetIdsPerRequest = game:GetFastInt("StudioAudioDiscoveryMaxAssetIdsPerRequest")
 local FIntStudioAudioDiscoveryPerRequestCooldown = game:GetFastInt("StudioAudioDiscoveryPerRequestCooldown")
 local FIntStudioAudioDiscoveryCooldownAfterHttp429 = game:GetFastInt("StudioAudioDiscoveryCooldownAfterHttp429")
@@ -33,13 +31,11 @@ local FIntStudioAudioDiscoveryMaxRecentRequests = game:GetFastInt("StudioAudioDi
 
 local FIntSoundEffectMaxDuration = game:GetFastInt("SoundEffectMaxDuration")
 
-local FFlagStudioAudioDiscoveryFixBaseUrl = game:GetFastFlag("StudioAudioDiscoveryFixBaseUrl")
-
 local Plugin = script.Parent.Parent.Parent
 local Framework = require(Plugin.Packages.Framework)
 
 local Url = Framework.RobloxAPI.Url
-local BaseUrl = if FFlagStudioAudioDiscoveryFixBaseUrl then Url.new() else nil
+local BaseUrl = Url.new()
 
 local Signal = Framework.Util.Signal
 
@@ -241,14 +237,9 @@ end
 
 function SoundAssetChecker:_sendBatch(batch : {number})
 	local assetIdsString = table.concat(batch, ",")
-	local url
-	if FFlagStudioAudioDiscoveryFixBaseUrl then
-		url = BaseUrl.composeUrl(BaseUrl.APIS_URL, "toolbox-service/v1/items/details", {
-			assetIds = assetIdsString,
-		})
-	else
-		url = "https://apis.roblox.com/toolbox-service/v1/items/details?assetIds=" .. assetIdsString
-	end
+	local url = BaseUrl.composeUrl(BaseUrl.APIS_URL, "toolbox-service/v1/items/details", {
+		assetIds = assetIdsString,
+	})
 
 	table.insert(self._lastSentRequests, self._perRequestCooldown)
 

@@ -28,6 +28,7 @@ local invites = require(script.invites)
 local gameInfo = require(script.gameInfo)
 local report = require(script.report)
 local friends = require(script.friends)
+local inviteFriends = require(script.inviteFriends)
 local quickActions = require(script.quickActions)
 local displayOptions = require(script.displayOptions)
 local nativeClosePrompt = require(script.nativeClosePrompt)
@@ -90,12 +91,12 @@ local topLevelReducers = {
 			screenSize = action.newScreenSize,
 		})
 	end,
-	[SetVideoRecording.name] = FFlagRecordRecording and function (state, action)
+	[SetVideoRecording.name] = FFlagRecordRecording and function(state, action)
 		return Cryo.Dictionary.join(state, {
 			recording = action.recording,
 		})
 	end or nil,
-	[SetRespawning.name] = function (state, action)
+	[SetRespawning.name] = function(state, action)
 		local isMainPageMoreMenuOpen
 		if action.respawning then
 			isMainPageMoreMenuOpen = false
@@ -130,7 +131,6 @@ local topLevelReducers = {
 }
 
 local function reducer(state, action)
-
 	-- TODO: refactor to use combineReducers and have a root reducer provide the initial state
 	if state == nil then
 		state = {
@@ -144,6 +144,7 @@ local function reducer(state, action)
 			respawn = respawn(nil, action),
 			gameInfo = gameInfo(nil, action),
 			friends = friends(nil, action),
+			inviteFriends = inviteFriends(nil, action),
 			quickActions = quickActions(nil, action),
 			displayOptions = displayOptions(nil, action),
 			screenSize = Vector2.new(0, 0),
@@ -170,6 +171,7 @@ local function reducer(state, action)
 	state.gameInfo = gameInfo(state.gameInfo, action)
 	state.report = report(state.report, action)
 	state.friends = friends(state.friends, action)
+	state.inviteFriends = inviteFriends(state.friends, action)
 	state.quickActions = quickActions(state.quickActions, action)
 	state.displayOptions = displayOptions(state.displayOptions, action)
 	state.nativeClosePrompt = nativeClosePrompt(state.nativeClosePrompt, action)

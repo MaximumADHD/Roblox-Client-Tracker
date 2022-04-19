@@ -91,6 +91,8 @@ local Tooltip = Framework.UI.Tooltip
 
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+
 local function PaddedTextLabel(props)
 	return Roact.createElement(TextLabel, {
 		BackgroundTransparency = 1,
@@ -114,7 +116,7 @@ local groupsLoaded = false
 local function displayContents(parent)
 	local props = parent.props
 
-	local theme = props.Theme:get("Plugin")
+	local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
 	local localization = props.Localization
 	local description = props.Description
 	local descriptionChanged = props.DescriptionChanged
@@ -130,8 +132,6 @@ local function displayContents(parent)
 	local creatorId = props.CreatorId
 	local groups = props.Groups
 	local creatorChanged = props.CreatorChanged
-	local isFriendsOnlyChanged = props.IsFriendsOnlyChanged
-	local isActiveChanged = props.IsActiveChanged
 	local optInLocations = props.OptInLocations
 	local optInLocationsChanged = props.OptInLocationsChanged
 	local playerAcceptance = props.PlayerAcceptance
@@ -230,7 +230,6 @@ local function displayContents(parent)
 				end,
 				OnRenderItem = function(item, index, activated)
 					local mainText = item.Text
-					local theme = props.Theme:get("Plugin")
 
 					return Roact.createElement(Button, {
 						OnClick = activated,
@@ -276,7 +275,6 @@ local function displayContents(parent)
 				end,
 				OnRenderItem = function(item, index, activated)
 					local mainText = item.Text
-					local theme = props.Theme:get("Plugin")
 
 					return Roact.createElement(Button, {
 						OnClick = activated,

@@ -21,8 +21,10 @@ local GetFFlagUIBloxEnableRadioButtonGamepadSupport = require(
 local GetFFlagUIBloxEnableActionBarLayoutFix = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableActionBarLayoutFix
 )
+local FFlagGridViewUseFunctionalSetStateInDidMount = require(CorePackages.UIBloxFlags.FFlagGridViewUseFunctionalSetStateInDidMount)
 
 return {
+	gridViewUseFunctionalSetStateInDidMount = FFlagGridViewUseFunctionalSetStateInDidMount,
 	useNewUICornerRoundedCorners = GetFFlagLuaAppUseNewUIBloxRoundedCorners(),
 	genericSliderFilterOldTouchInputs = true,
 	allowSystemBarToAcceptString = game:DefineFastFlag("UIBloxAllowSystemBarToAcceptString", false),
@@ -40,4 +42,7 @@ return {
 
 	useNewVerticalScrollView = false, -- TODO: https://jira.rbx.com/browse/UIBLOX-225
 	enableActionBarLayoutFix = GetFFlagUIBloxEnableActionBarLayoutFix(),
+
+	-- Config to enable new icon sizes
+	enableNewIconSizes = game:DefineFastFlag("UIBloxUseNewIconSizes", false),
 }

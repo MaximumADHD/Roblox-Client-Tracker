@@ -6,11 +6,15 @@ local Framework = require(Plugin.Packages.Framework)
 
 local Util = Framework.Util
 local LayoutOrderIterator = Util.LayoutOrderIterator
+local StyleModifier = Util.StyleModifier
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Analytics = ContextServices.Analytics
 local Localization = ContextServices.Localization
+local withAbsoluteSize = Framework.Wrappers.withAbsoluteSize
+
+local join = Framework.Dash.join
 
 local Stylizer = Framework.Style.Stylizer
 
@@ -21,7 +25,7 @@ local UI = Framework.UI
 local Button = UI.Button
 local Image = UI.Decoration.Image
 local Pane = UI.Pane
-local SelectInput = UI.SelectInput
+-- local SelectInput = UI.SelectInput
 local Tooltip = UI.Tooltip
 
 local Src = Plugin.Src
@@ -47,6 +51,8 @@ type _Props = Props & {
 	Localization : any,
 	Material : _Types.Material?,
 	Stylizer : any,
+	WrapperProps : any,
+	AbsoluteSize : Vector2,
 }
 
 type _Image = {
@@ -59,13 +65,16 @@ type _Style = {
 	BackgroundColor : Color3,
 	ButtonSize : UDim2,
 	CreateNewVariant : _Image,
-	DropdownSize : UDim2,
-	Filter : _Image,
+	-- TODO : Uncomment when adding sortOrder functionality
+	-- DropdownSize : UDim2,
+	-- Filter : _Image,
 	ImagePosition : UDim2,
 	ImageSize : UDim2,
 	Padding : number,
-	SearchBarSize : UDim2,
+	SearchBarMaxWidth : number,
+	SpacerWidth : number,
 	ShowInExplorer : _Image,
+	TopBarButtonWidth : number,
 }
 
 type _ButtonProps = {
@@ -73,14 +82,22 @@ type _ButtonProps = {
 	LayoutOrder : number,
 	OnClick : () -> (),
 	TooltipText : string,
+	IsDisabled : boolean,
+	Style : _Style,
 }
 
 local Selection = game:GetService("Selection")
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 
+local BUTTON_COUNT = 3
+local SPACER_COUNT = 2
+
 function TopBar:init()
 	self.state = {
-		sortOrderIndex = 1,
+		-- TODO : Uncomment when adding sortOrder functionality
+		-- sortOrderIndex = 1,
+		isDisabledShowInExplorer = true,
+		isDisabledApplyToSelection = true,
 	}
 
 	self.createMaterialVariant = function()
@@ -126,19 +143,19 @@ function TopBar:init()
 		dispatchSetSearch(search)
 	end
 
-	self.selectSortOrder = function(_, index)
-		self:setState({
-			sortOrderIndex = index,
-		})
-	end
+	-- TODO : Uncomment when adding sortOrder functionality
+	-- self.selectSortOrder = function(_, index)
+	-- 	self:setState({
+	-- 		sortOrderIndex = index,
+	-- 	})
+	-- end
 
-	self.showFilters = function()
-		-- TODO : Add filtering functionality
-	end
+	-- TODO : Uncomment when adding filtering functionality
+	-- self.showFilters = function()
+	-- end
 
 	self.renderButton = function(buttonProps : _ButtonProps)
-		local props : _Props = self.props
-		local style : _Style = props.Stylizer.TopBar
+		local style = buttonProps.Style
 
 		local buttonSize = style.ButtonSize
 		local imagePosition = style.ImagePosition
@@ -149,11 +166,13 @@ function TopBar:init()
 			OnClick = buttonProps.OnClick,
 			Size = buttonSize,
 			Style = "Round",
+			StyleModifier = buttonProps.IsDisabled and StyleModifier.Disabled or nil,
 		}, {
 			Image = Roact.createElement(Image, {
 				Position = imagePosition,
 				Size = imageSize,
 				Style = buttonProps.ImageStyle,
+				StyleModifier = buttonProps.IsDisabled and StyleModifier.Disabled or nil,
 			}),
 			Tooltip = Roact.createElement(Tooltip, {
 				Text = buttonProps.TooltipText
@@ -162,9 +181,93 @@ function TopBar:init()
 	end
 end
 
+function TopBar:didMount()
+	local props : _Props = self.props
+
+	if props.Material and not props.Material.IsBuiltin then
+		self:setState{
+			isDisabledShowInExplorer = false,
+		}
+	end
+
+	-- TODO: remove it when/if Selection will be optimized
+	if props.Material then
+		self:setState{
+			isDisabledApplyToSelection = false,
+		}		
+	end
+
+	-- TODO : re-consider uncomment when/if Selection will be optimized
+	-- self.SelectionChangedHandle = Selection.SelectionChanged:Connect(function()
+	-- 	local isDisabled = true
+	-- 	if self.props.Material then
+	-- 		local instances = Selection:Get()
+	-- 		for _, instance in ipairs(instances) do
+	-- 			if getFFlagMaterialServiceStringOverride() and instance:IsA("BasePart") then
+	-- 				self:setState{
+	-- 					isDisabledApplyToSelection = false,
+	-- 				}
+	-- 				isDisabled = false
+	-- 				break
+	-- 			end
+	-- 		end
+	-- 	end
+	-- 	if isDisabled then
+	-- 		self:setState{
+	-- 			isDisabledApplyToSelection = true,
+	-- 		}
+	-- 	end
+	-- end)
+end
+
+function TopBar:didUpdate(prevProps)
+	local props : _Props = self.props
+	
+	if props.Material and prevProps.Material ~= props.Material and not props.Material.IsBuiltin then
+		self:setState{
+			isDisabledShowInExplorer = false,
+		}
+	elseif (not props.Material and prevProps.Material) or (props.Material and prevProps.Material ~= props.Material and props.Material.IsBuiltin) then
+		self:setState{
+			isDisabledShowInExplorer = true,
+		}
+	end
+
+	-- TODO : re-consider uncomment when/if Selection will be optimized
+	-- if Selection then
+	if props.Material and prevProps.Material ~= props.Material then
+		-- remove it when/if Selection will be optimized
+		self:setState{
+			isDisabledApplyToSelection = false,
+		}
+		-- local isDisabled = true
+		-- local instances = Selection:Get()
+		-- for _, instance in ipairs(instances) do
+		-- 	if getFFlagMaterialServiceStringOverride() and instance:IsA("BasePart") then
+		-- 		self:setState{
+		-- 			isDisabledApplyToSelection = false,
+		-- 		}
+		-- 		isDisabled = false
+		-- 		break
+		-- 	end
+		-- end
+		-- if isDisabled then
+		-- 	self:setState{
+		-- 		isDisabledApplyToSelection = true,
+		-- 	}
+		-- end 
+	elseif (not props.Material and prevProps.Material) then
+		self:setState{
+			isDisabledApplyToSelection = true,
+		}
+	end
+	-- end
+end
+
 function TopBar:render()
 	local props : _Props = self.props
 	local style : _Style = props.Stylizer.TopBar
+	local state = self.state
 	local layoutOrder = props.LayoutOrder
 	local size = props.Size
 
@@ -174,67 +277,93 @@ function TopBar:render()
 
 	local applyToSelection = style.ApplyToSelection
 	local createNewVariant = style.CreateNewVariant
-	local filter = style.Filter
+	-- local filter = style.Filter
+	-- local dropdownSize = style.DropdownSize
 	local showInExplorer = style.ShowInExplorer
 
 	local backgroundColor = style.BackgroundColor
-	local dropdownSize = style.DropdownSize
+	local buttonWidth = style.ButtonSize.X.Offset
 	local padding = style.Padding
-	local searchBarSize = style.SearchBarSize
+	local spacerWidth = style.SpacerWidth
+	local searchBarMaxWidth = style.SearchBarMaxWidth
+	local topBarButtonWidth = style.TopBarButtonWidth
 
-	return Roact.createElement(Pane, {
+	local restWidth = props.AbsoluteSize.X - BUTTON_COUNT * (buttonWidth + padding)
+	local percentage = math.min(1, restWidth / (SPACER_COUNT * spacerWidth + searchBarMaxWidth))
+
+	return Roact.createElement(Pane, join({
 		BackgroundColor = backgroundColor,
 		Layout = Enum.FillDirection.Horizontal,
+		HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		LayoutOrder = layoutOrder,
 		Padding = padding,
 		Size = size,
 		Spacing = padding,
-	}, {
-		CreateMaterialVariant = self.renderButton({
+	}, props.WrapperProps), {
+		CreateMaterialVariant = Roact.createElement(self.renderButton, {
+			Style = style,
 			ImageStyle = createNewVariant,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			OnClick = self.createMaterialVariant,
 			TooltipText = localization:getText("TopBar", "Create"),
+			IsDisabled = false,
 		}),
-		ShowInExplorer = self.renderButton({
+		ShowInExplorer = Roact.createElement(self.renderButton, {
+			Style = style,
 			ImageStyle = showInExplorer,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			OnClick = self.showInExplorer,
 			TooltipText = localization:getText("TopBar", "Show"),
+			IsDisabled = state.isDisabledShowInExplorer,
 		}),
-		ApplyToSelection = self.renderButton({
+		ApplyToSelection = Roact.createElement(self.renderButton, {
+			Style = style,
 			ImageStyle = applyToSelection,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			OnClick = self.applyToSelection,
 			TooltipText = localization:getText("TopBar", "Apply"),
+			IsDisabled = state.isDisabledApplyToSelection,
 		}),
-		SearchBar = Roact.createElement(SearchBar, {
+		RestPane = Roact.createElement(Pane, {
+			Size = UDim2.new(1, - BUTTON_COUNT * (buttonWidth + padding), 1, 0),
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
-			OnSearchRequested = self.setSearch,
-			PlaceholderText = localization:getText("TopBar", "Search"),
-			ShowSearchButton = false,
-			ShowSearchIcon = true,
-			Size = searchBarSize,
+		}, {
+			SearchBar = Roact.createElement(SearchBar, {
+				Position = UDim2.new(0.5, 0, 0, 0),
+				AnchorPoint = Vector2.new(0.5, 0),
+				OnSearchRequested = self.setSearch,
+				PlaceholderText = localization:getText("TopBar", "Search"),
+				ShowSearchButton = false,
+				ShowSearchIcon = true,
+				Size = UDim2.new(0, searchBarMaxWidth * percentage, 0, topBarButtonWidth),
+			}),
 		}),
 		-- TODO : Update sort order values when functionality is added
-		SortOrder = Roact.createElement(Pane, {
-			LayoutOrder = layoutOrderIterator:getNextOrder(),
-			Size = dropdownSize,
-		}, {
-			SelectInput = Roact.createElement(SelectInput, {
-				Items = { "Sort Order "},
-				OnItemActivated = self.selectSortOrder,
-				SelectedIndex = self.state.sortOrderIndex,
-				Size = UDim2.fromScale(1, 1),
-			})
-		}),
-		Filters = self.renderButton({
-			ImageStyle = filter,
-			LayoutOrder = layoutOrderIterator:getNextOrder(),
-			OnClick = self.showFilters,
-			TooltipText = localization:getText("TopBar", "Filters"),
-		}),
+		-- SortOrder = Roact.createElement(Pane, {
+		-- 	LayoutOrder = layoutOrderIterator:getNextOrder(),
+		-- 	Size = dropdownSize,
+		-- }, {
+		-- 	SelectInput = Roact.createElement(SelectInput, {
+		-- 		Items = { "Sort Order "},
+		-- 		OnItemActivated = self.selectSortOrder,
+		-- 		SelectedIndex = self.state.sortOrderIndex,
+		-- 		Size = UDim2.fromScale(1, 1),
+		-- 	})
+		-- }),
+		-- TODO: Uncomment when adding filter functionality
+		-- Filters = self.renderButton({
+		-- 	ImageStyle = filter,
+		-- 	LayoutOrder = layoutOrderIterator:getNextOrder(),
+		-- 	OnClick = self.showFilters,
+		-- 	TooltipText = localization:getText("TopBar", "Filters"),
+		-- }),
 	})
+end
+
+function TopBar:willUnmount()
+	if self.SelectionChangedHandle then
+		self.SelectionChangedHandle:Disconnect()
+	end
 end
 
 TopBar = withContext({
@@ -262,4 +391,4 @@ return RoactRodux.connect(
 			end,
 		}
 	end
-)(TopBar)
+)(withAbsoluteSize(TopBar))

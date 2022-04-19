@@ -38,6 +38,8 @@ local StyleModifier = Util.StyleModifier
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
 
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+
 local ELEMENT_PADDING = 15
 
 return function(loadValuesToProps, dispatchForProps)
@@ -104,15 +106,13 @@ return function(loadValuesToProps, dispatchForProps)
 		}))
 	end
 
-	
-Page = withContext({
-	Theme = ContextServices.Theme,
-	Localization = ContextServices.Localization,
-	Mouse = ContextServices.Mouse,
-	API = ContextServices.API,
-})(Page)
-
-
+	Page = withContext({
+		Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
+		Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+		API = ContextServices.API,
+	})(Page)
 
 	local function mapStateToProps(state, props)
 		if not loadValuesToProps then

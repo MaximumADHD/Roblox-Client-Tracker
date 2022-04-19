@@ -54,6 +54,7 @@ return function()
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 	local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
+	local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
 
 	-- TODO: Ideally we want to write tests for number values and CFrame values
 	-- Right now, these tests only check number values if either FACS or channels are enabled.
@@ -1100,7 +1101,10 @@ return function()
 		it("should skip the playhead to the previous summary keyframe", function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
-			if GetFFlagQuaternionsUI() then
+			if GetFFlagEulerAnglesOrder() then
+				store:dispatch(AddTrack("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, Enum.RotationOrder.XYZ, analytics))
+				store:dispatch(AddTrack("Root", "OtherTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, Enum.RotationOrder.XYZ, analytics))
+			elseif GetFFlagQuaternionsUI() then
 				store:dispatch(AddTrack("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, analytics))
 				store:dispatch(AddTrack("Root", "OtherTrack", Constants.TRACK_TYPES.CFrame, Constants.TRACK_TYPES.Quaternion, analytics))
 			elseif GetFFlagChannelAnimations() or GetFFlagFacialAnimationSupport() then

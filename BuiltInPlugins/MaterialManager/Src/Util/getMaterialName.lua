@@ -32,6 +32,7 @@ local enumToName = {
 	[Enum.Material.Slate] = "Slate",
 	[Enum.Material.Sandstone] = "Sandstone",
 	[Enum.Material.SmoothPlastic] = "SmoothPlastic",
+	[Enum.Material.Snow] = "Snow",
 	[Enum.Material.Water] = "Water",
 	[Enum.Material.Wood] = "Wood",
 	[Enum.Material.WoodPlanks] = "WoodPlanks",

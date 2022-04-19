@@ -63,6 +63,7 @@ local FFlagEnableLuobuWarningToast = require(RobloxGui.Modules.Flags.FFlagEnable
 -- point, so we can't check enrollment status.
 initify(CoreGuiModules.InGameMenu)
 initify(CoreGuiModules.InGameMenuV3)
+initify(CoreGuiModules.TrustAndSafety)
 
 
 local UIBlox = require(CorePackages.UIBlox)

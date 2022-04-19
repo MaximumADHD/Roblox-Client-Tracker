@@ -7,7 +7,7 @@ local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
-local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
+local MakeTheme = require(Plugin.Src.Resources.MakeTheme)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local MainMiddleware = require(Plugin.Src.Middleware.MainMiddleware)
 local Localization = UILibrary.Studio.Localization
@@ -29,7 +29,7 @@ function MockServiceWrapper:render()
 
 	local theme = self.props.theme
 	if not theme then
-		theme = PluginTheme.mock()
+		theme = MakeTheme(true)
 	end
 
 	return Roact.createElement(ServiceWrapper, {

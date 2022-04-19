@@ -38,11 +38,13 @@ local BUTTON_PADDING = 30
 local BUTTON_HEIGHT = 36
 local BUTTON_WIDTH = 150
 
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+
 local ListDialog = Roact.PureComponent:extend("ListDialog")
 
 function ListDialog:render()
 	local props = self.props
-	local theme = props.Theme:get("Plugin")
+	local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
 
 	local title = props.Title
 	local header = props.Header
@@ -102,10 +104,9 @@ function ListDialog:render()
 	})
 end
 
-
 ListDialog = withContext({
-	Theme = ContextServices.Theme,
+	Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
+	Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
 })(ListDialog)
-
 
 return ListDialog

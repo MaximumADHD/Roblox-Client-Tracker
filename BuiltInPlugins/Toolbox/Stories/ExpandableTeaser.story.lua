@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent
 
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization3")
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization4")
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local ToolboxStoryWrapper = require(Plugin.Stories.ToolboxStoryWrapper)
@@ -69,7 +69,7 @@ return {
 						TeaserSize = Vector2.new(0, 10),
 					}, makeChildren()),
 				}),
-			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization3", true),
+			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization4", true),
 		},
 		{
 			name = "Search Pills",
@@ -85,7 +85,7 @@ return {
 						TeaserSize = Vector2.new(0, 28),
 					}, makeSearchListChildren()),
 				}),
-			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization3", true),
+			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization4", true),
 		},
 	},
 }

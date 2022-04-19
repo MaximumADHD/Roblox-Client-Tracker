@@ -59,11 +59,14 @@ local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 local SetFrameRate = require(Plugin.Src.Actions.SetFrameRate)
 local SetPlaybackSpeed = require(Plugin.Src.Thunks.Playback.SetPlaybackSpeed)
 local Pause = require(Plugin.Src.Actions.Pause)
+local PromoteKeyframeSequence = require(Plugin.Src.Thunks.PromoteKeyframeSequence)
+local SetEditorMode = require(Plugin.Src.Actions.SetEditorMode)
 
 local Playback = require(Plugin.Src.Components.Playback)
 local InstanceSelector = require(Plugin.Src.Components.InstanceSelector)
 local AnimationControlPanel = require(Plugin.Src.Components.AnimationControlPanel.AnimationControlPanel)
 local TrackColors = require(Plugin.Src.Components.TrackList.TrackColors)
+local PromoteToCurvesPrompt = require(Plugin.Src.Components.PromoteToCurvesPrompt)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
@@ -72,6 +75,8 @@ local GetFFlagRootMotionTrack = require(Plugin.LuaFlags.GetFFlagRootMotionTrack)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
 local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
+local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
+local GetFFlagEasierCurveWorkflow = require(Plugin.LuaFlags.GetFFlagEasierCurveWorkflow)
 
 local EditorController = Roact.PureComponent:extend("EditorController")
 
@@ -83,6 +88,7 @@ function EditorController:init()
 		showContextMenu = false,
 		showChangeFPSPrompt = false,
 		showChangePlaybackSpeedPrompt = false,
+		showPromotePrompt = false,
 	}
 
 	self.nameToPart = {}
@@ -164,6 +170,18 @@ function EditorController:init()
 	self.hideMenu = function()
 		self:setState({
 			showContextMenu = false,
+		})
+	end
+
+	self.showPromotePrompt = function(): ()
+		self:setState({
+			showPromotePrompt = true,
+		})
+	end
+
+	self.hidePromotePrompt = function(): ()
+		self:setState({
+			showPromotePrompt = false,
 		})
 	end
 
@@ -296,8 +314,10 @@ function EditorController:init()
 	end
 
 	self.addTrackWrapper = function(instanceName, trackName, trackType)
-		if GetFFlagQuaternionsUI() then
-			self.props.AddTrack(instanceName, trackName, trackType, nil, self.props.Analytics)
+		if GetFFlagEulerAnglesOrder() then
+			self.props.AddTrack(instanceName, trackName, trackType, nil, nil, self.props.Analytics)
+		elseif GetFFlagQuaternionsUI() then
+			self.props.AddTrack_deprecated3(instanceName, trackName, trackType, nil, self.props.Analytics)
 		elseif GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
 			self.props.AddTrack_deprecated2(instanceName, trackName, trackType, self.props.Analytics)
 		elseif self.props.Analytics then
@@ -316,8 +336,12 @@ function EditorController:init()
 			self.props.AttachEditor(self.props.Analytics)
 		end
 	end
-	
+
 	self.applyValueToFacsSliderPartners = function(instanceName, path, trackType, tck, value)
+		
+		if not GetFFlagFaceControlsEditorUI() then return end				
+		if not trackType == Constants.TRACK_TYPES.Facs then return end	
+		
 		local facsName = path[1]
 		local crossMapping = Constants.FacsCrossMappings[facsName]
 
@@ -334,6 +358,77 @@ function EditorController:init()
 			end
 		end
 
+		--in the face controls editor some sliders control 2 facs properties,
+		--for those also when the value is increased to one side,
+		--the other side gets set to 0
+		local sliderGroup = crossMapping.sliderGroup
+		if sliderGroup then
+			if value >0 then
+				local groupPartnerName = nil
+				if crossMapping.indexInGroup == 1 then
+					groupPartnerName = sliderGroup[2]
+				else
+					groupPartnerName = sliderGroup[1]
+				end
+
+				self.props.ValueChanged(instanceName, {groupPartnerName}, trackType, tck, 0, self.props.Analytics)
+			end
+		end
+
+		-- also apply value change to symmetry partner for facs values if symmetry setting is enabled
+		if self.props.SymmetryEnabled then
+			local symmetryPartner = crossMapping.symmetryPartner
+			if symmetryPartner then
+				self.applyValueToSymmetryPartner(instanceName, symmetryPartner, trackType, tck, value)
+			end
+		end
+	end
+
+	self.applyValueToSymmetryPartner = function(instanceName, symmetryPartner, trackType, tck, value)
+		self.props.ValueChanged(instanceName, {symmetryPartner}, trackType, tck, value, self.props.Analytics)
+		--if the symmetry partner controls multiple facs, too,
+		--if value >0 for the symmetry partner set the value of the group partner to 0
+		if value == nil or value <= 0 then return end
+		local crossMappingSymmetryPartner = Constants.FacsCrossMappings[symmetryPartner]
+		local sliderGroup = crossMappingSymmetryPartner.sliderGroup
+		if not sliderGroup then return end
+		local groupPartnerName = nil
+		if crossMappingSymmetryPartner.indexInGroup == 1 then
+			groupPartnerName = sliderGroup[2]
+		else
+			groupPartnerName = sliderGroup[1]
+		end
+
+		self.props.ValueChanged(instanceName, {groupPartnerName}, trackType, tck, 0, self.props.Analytics)
+	end
+	
+	-- Remove deprecated 2 functions when GetFFlagChannelAnimations() is retired
+	self.triggerValueChangedDeprecated2ForFaceControls = function(instanceName, path, trackType, tck, value)
+		self.applyValueToFacsSliderPartners_deprecated2(instanceName, path, trackType, tck, value)
+		self.props.ValueChanged_deprecated2(instanceName, path, trackType, tck, value)
+	end
+		
+	self.applyValueToFacsSliderPartners_deprecated2 = function(instanceName, path, trackType, tck, value)
+
+		if not GetFFlagFaceControlsEditorUI() then return end				
+		if not trackType == Constants.TRACK_TYPES.Facs then return end	
+
+		local facsName = path
+		local crossMapping = Constants.FacsCrossMappings[facsName]
+
+		--for eyesdragbox we set the counter direction to 0
+		if value ~= 0 then
+			if facsName == Constants.FacsNames.EyesLookLeft then
+				self.props.ValueChanged_deprecated2(instanceName, Constants.FacsNames.EyesLookRight, trackType, tck, 0, self.props.Analytics)
+			elseif facsName == Constants.FacsNames.EyesLookRight then
+				self.props.ValueChanged_deprecated2(instanceName, Constants.FacsNames.EyesLookLeft, trackType, tck, 0, self.props.Analytics)
+			elseif facsName == Constants.FacsNames.EyesLookUp then
+				self.props.ValueChanged_deprecated2(instanceName, Constants.FacsNames.EyesLookDown, trackType, tck, 0, self.props.Analytics)
+			elseif facsName == Constants.FacsNames.EyesLookDown then
+				self.props.ValueChanged_deprecated2(instanceName, Constants.FacsNames.EyesLookUp, trackType, tck, 0, self.props.Analytics)
+			end
+		end
+
 		--in the face controls editor some sliders control 2 facs properties, 
 		--for those also when the value is increased to one side, 
 		--the other side gets set to 0
@@ -347,7 +442,7 @@ function EditorController:init()
 					groupPartnerName = sliderGroup[1]
 				end	
 
-				self.props.ValueChanged(instanceName, {groupPartnerName}, trackType, tck, 0, self.props.Analytics)
+				self.props.ValueChanged_deprecated2(instanceName, groupPartnerName, trackType, tck, 0, self.props.Analytics)
 			end			
 		end
 
@@ -355,13 +450,13 @@ function EditorController:init()
 		if self.props.SymmetryEnabled then						
 			local symmetryPartner = crossMapping.symmetryPartner
 			if symmetryPartner then
-				self.applyValueToSymmetryPartner(instanceName, symmetryPartner, trackType, tck, value)		
+				self.applyValueToSymmetryPartner_deprecated2(instanceName, symmetryPartner, trackType, tck, value)		
 			end													
 		end		
 	end
-	
-	self.applyValueToSymmetryPartner = function(instanceName, symmetryPartner, trackType, tck, value)
-		self.props.ValueChanged(instanceName, {symmetryPartner}, trackType, tck, value, self.props.Analytics)
+
+	self.applyValueToSymmetryPartner_deprecated2 = function(instanceName, symmetryPartner, trackType, tck, value)
+		self.props.ValueChanged_deprecated2(instanceName, symmetryPartner, trackType, tck, value, self.props.Analytics)
 		--if the symmetry partner controls multiple facs, too, 
 		--if value >0 for the symmetry partner set the value of the group partner to 0
 		if value == nil or value <= 0 then return end
@@ -375,8 +470,8 @@ function EditorController:init()
 			groupPartnerName = sliderGroup[1]
 		end	
 
-		self.props.ValueChanged(instanceName, {groupPartnerName}, trackType, tck, 0, self.props.Analytics)											
-	end
+		self.props.ValueChanged_deprecated2(instanceName, groupPartnerName, trackType, tck, 0, self.props.Analytics)											
+	end		
 
 	self.onValueChanged = function(instanceName, path, trackType, tck, value)
 		local animationData = self.props.AnimationData
@@ -384,12 +479,16 @@ function EditorController:init()
 			self.props.ValueChanged(instanceName, path, trackType, tck, value, self.props.Analytics)
 		else
 			local rotationType
+			local eulerAnglesOrder = self.props.DefaultEulerAnglesOrder
 			if GetFFlagQuaternionChannels() then
 				rotationType = GetFFlagCurveEditor() and self.props.DefaultRotationType or Constants.TRACK_TYPES.EulerAngles
 				local trackName = path[1]
 				local track = AnimationData.getTrack(animationData, instanceName, {trackName})
 				if track and track.Components and track.Components[Constants.PROPERTY_KEYS.Rotation] then
 					rotationType = track.Components[Constants.PROPERTY_KEYS.Rotation].Type
+					if GetFFlagEulerAnglesOrder() and rotationType == Constants.TRACK_TYPES.EulerAngles then
+						eulerAnglesOrder = track.EulerAnglesOrder
+					end
 				end
 			else
 				rotationType = Constants.TRACK_TYPES.Rotation
@@ -397,13 +496,18 @@ function EditorController:init()
 			-- Change the value of all tracks
 			TrackUtils.traverseValue(trackType, value, function(_trackType, relPath, _value)
 				self.props.ValueChanged(instanceName, Cryo.List.join(path, relPath), _trackType, tck, _value, self.props.Analytics)
-			end, rotationType)
+			end, rotationType, eulerAnglesOrder)
 		end
-		if GetFFlagFaceControlsEditorUI() then				
-			if trackType == Constants.TRACK_TYPES.Facs then	
-				self.applyValueToFacsSliderPartners(instanceName, path, trackType, tck, value)					
+		if GetFFlagFaceControlsEditorUI() then
+			if trackType == Constants.TRACK_TYPES.Facs then
+				self.applyValueToFacsSliderPartners(instanceName, path, trackType, tck, value)
 			end
-		end		
+		end
+	end
+
+	self.promoteKeyframeSequence = function()
+		self.props.PromoteKeyframeSequence()
+		self.props.SetEditorMode(Constants.EDITOR_MODE.CurveCanvas)
 	end
 end
 
@@ -461,6 +565,7 @@ function EditorController:render()
 	local showChangeFPSPrompt = state.showChangeFPSPrompt
 	local showChangePlaybackSpeedPrompt = state.showChangePlaybackSpeedPrompt
 	local showEditor = animationData ~= nil
+	local showPromotePrompt = state.showPromotePrompt
 	local isChannelAnimation = AnimationData.isChannelAnimation(animationData)
 
 	local selectedPaths = {}
@@ -632,7 +737,7 @@ function EditorController:render()
 					OnTrackAdded = self.addTrackWrapper,
 					OnValueChanged = GetFFlagChannelAnimations() and self.onValueChanged or props.ValueChanged,
 					-- Remove when GetFFlagChannelAnimations() is retired
-					OnValueChangedDeprecated2 = props.ValueChanged_deprecated2,
+					OnValueChangedDeprecated2 = GetFFlagFaceControlsEditorUI() and self.triggerValueChangedDeprecated2ForFaceControls or props.ValueChanged_deprecated2,
 					-- Remove when GetFFlagFacialAnimationSupport() is retired
 					OnValueChangedDeprecated = props.ValueChanged_deprecated,
 					OnChangeBegan = props.AddWaypoint,
@@ -715,6 +820,7 @@ function EditorController:render()
 			OnScroll = self.onScroll,
 			IsChannelAnimation = isChannelAnimation,
 			ColorsPosition = GetFFlagCurveEditor() and colorsPosition or nil,
+			OnPromoteRequested = self.showPromotePrompt,
 		}),
 
 		SettingsAndVerticalScrollBar = showEditor and Roact.createElement("Frame", {
@@ -781,6 +887,16 @@ function EditorController:render()
 			SetPlaybackSpeed = props.SetPlaybackSpeed,
 			OnClose = self.hideChangePlaybackSpeedPrompt,
 		}),
+
+		PromotePrompt = if
+			GetFFlagEasierCurveWorkflow() and showPromotePrompt
+		then
+			Roact.createElement(PromoteToCurvesPrompt, {
+				OnPromote = self.promoteKeyframeSequence,
+				OnClose = self.hidePromotePrompt
+			})
+		else
+			 nil,
 	})
 end
 
@@ -796,6 +912,9 @@ end
 
 function EditorController:willUnmount()
 	local props = self.props
+	if GetFFlagFaceControlsEditorUI() then	
+		RigUtils.resetAllFacsValuesInFaceControls(props.RootInstance)	
+	end
 	props.ReleaseEditor(props.Analytics)
 	props.Analytics:report("onEditorClosed", os.time() - self.openedTimestamp)
 end
@@ -832,6 +951,7 @@ local function mapStateToProps(state)
 		PlaybackSpeed = status.PlaybackSpeed,
 		EditorMode = status.EditorMode,
 		DefaultRotationType = status.DefaultRotationType,
+		DefaultEulerAnglesOrder = status.DefaultEulerAnglesOrder,
 		SymmetryEnabled = status.SymmetryEnabled,
 	}
 end
@@ -874,10 +994,15 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetTracksExpanded_deprecated(tracks, false))
 		end,
 
-		AddTrack = function(instance, track, trackType, rotationType, analytics)
+		AddTrack = function(instance, track, trackType, rotationType, EulerAnglesOrder, analytics)
+			dispatch(AddWaypoint())
+			dispatch(AddTrack(instance, track, trackType, rotationType, EulerAnglesOrder, analytics))
+		end,
+
+		AddTrack_deprecated3 = not GetFFlagEulerAnglesOrder() and function(instance, track, trackType, rotationType, analytics)
 			dispatch(AddWaypoint())
 			dispatch(AddTrack(instance, track, trackType, rotationType, analytics))
-		end,
+		end or nil,
 
 		AddTrack_deprecated2 = not GetFFlagQuaternionsUI() and function(instance, track, trackType, analytics)
 			dispatch(AddWaypoint())
@@ -944,6 +1069,14 @@ local function mapDispatchToProps(dispatch)
 
 		SetPlaybackSpeed = function(playbackSpeed)
 			dispatch(SetPlaybackSpeed(playbackSpeed))
+		end,
+
+		PromoteKeyframeSequence = function()
+			dispatch(PromoteKeyframeSequence())
+		end,
+
+		SetEditorMode = function(editorMode)
+			dispatch(SetEditorMode(editorMode))
 		end,
 	}
 

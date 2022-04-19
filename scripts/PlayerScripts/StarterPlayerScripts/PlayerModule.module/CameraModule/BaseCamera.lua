@@ -39,7 +39,7 @@ local GAMEPAD_ZOOM_STEP_3 = 20
 local ZOOM_SENSITIVITY_CURVATURE = 0.5
 local FIRST_PERSON_DISTANCE_MIN = 0.5
 
-local Util = require(script.Parent:WaitForChild("CameraUtils"))
+local CameraUtils = require(script.Parent:WaitForChild("CameraUtils"))
 local ZoomController = require(script.Parent:WaitForChild("ZoomController"))
 local CameraToggleStateController = require(script.Parent:WaitForChild("CameraToggleStateController"))
 local CameraInput = require(script.Parent:WaitForChild("CameraInput"))
@@ -59,6 +59,14 @@ local FFlagUserFlagEnableNewVRSystem do
 		return UserSettings():IsUserFeatureEnabled("UserFlagEnableNewVRSystem")
 	end)
 	FFlagUserFlagEnableNewVRSystem = success and result
+end
+
+local FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame
+do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame")
+	end)
+	FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame = success and value
 end
 
 --[[ The Module ]]--
@@ -621,8 +629,12 @@ function BaseCamera:Cleanup()
 	self.lastSubjectCFrame = nil
 
 	-- Unlock mouse for example if right mouse button was being held down
-	if UserInputService.MouseBehavior ~= Enum.MouseBehavior.LockCenter then
-		UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+	if FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame then
+		CameraUtils.restoreMouseBehavior()
+	else
+		if UserInputService.MouseBehavior ~= Enum.MouseBehavior.LockCenter then
+			UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+		end
 	end
 end
 
@@ -639,11 +651,21 @@ function BaseCamera:UpdateMouseBehavior()
 
 		-- first time transition to first person mode or mouse-locked third person
 		if self.inFirstPerson or self.inMouseLockedMode then
-			UserGameSettings.RotationType = Enum.RotationType.CameraRelative
-			UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
+			if FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame then
+				CameraUtils.setRotationTypeOverride(Enum.RotationType.CameraRelative)
+				CameraUtils.setMouseBehaviorOverride(Enum.MouseBehavior.LockCenter)
+			else
+				UserGameSettings.RotationType = Enum.RotationType.CameraRelative
+				UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
+			end
 		else
-			UserGameSettings.RotationType = Enum.RotationType.MovementRelative
-			UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+			if FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame then
+				CameraUtils.restoreRotationType()
+				CameraUtils.restoreMouseBehavior()
+			else
+				UserGameSettings.RotationType = Enum.RotationType.MovementRelative
+				UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+			end
 		end
 	end
 end

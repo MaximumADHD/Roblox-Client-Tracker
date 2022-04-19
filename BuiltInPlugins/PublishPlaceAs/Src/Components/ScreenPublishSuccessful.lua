@@ -15,8 +15,6 @@ local withContext = ContextServices.withContext
 
 local Constants = require(Plugin.Src.Resources.Constants)
 
-local Analytics = require(Plugin.Src.Util.Analytics)
-
 local RoundTextButton = UILibrary.Component.RoundTextButton
 
 local ContentProvider = game:GetService("ContentProvider")
@@ -24,6 +22,8 @@ local ContentProvider = game:GetService("ContentProvider")
 local ICON_SIZE = 150
 local BUTTON_WIDTH = 150
 local BUTTON_HEIGHT = 30
+
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local ScreenPublishSuccessful = Roact.PureComponent:extend("ScreenPublishSuccessful")
 
@@ -64,7 +64,7 @@ end
 
 function ScreenPublishSuccessful:render()
 	local props = self.props
-	local theme = props.Theme:get("Plugin")
+	local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
 	local localization = props.Localization
 
 	local onClose = props.OnClose
@@ -141,12 +141,11 @@ function ScreenPublishSuccessful:render()
 	})
 end
 
-
 ScreenPublishSuccessful = withContext({
-	Theme = ContextServices.Theme,
+	Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
+	Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
 	Localization = ContextServices.Localization,
 })(ScreenPublishSuccessful)
-
 
 local function mapStateToProps(state, props)
 	local publishInfo = state.PublishedPlace.publishInfo

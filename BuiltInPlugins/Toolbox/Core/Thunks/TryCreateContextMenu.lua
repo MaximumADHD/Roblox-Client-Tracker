@@ -9,7 +9,7 @@ local Category = require(Plugin.Core.Types.Category)
 local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
 
 local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
-local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext")
+local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
 
 local function nameForValueInEnum(enum, value)
 	local items = enum:GetEnumItems()
@@ -23,7 +23,7 @@ local function nameForValueInEnum(enum, value)
 end
 
 -- TODO: Call tryOpenAssetConfig as a function instead of as parameter (involves refactoring main.server.lua)
-return function(assetData, localizedContent, plugin, tryOpenAssetConfig)
+return function(assetData, localizedContent, plugin, tryOpenAssetConfig, assetAnalyticsContext)
 	return function(store)
 		local asset = assetData.Asset
 		local assetId = asset.Id
@@ -48,7 +48,15 @@ return function(assetData, localizedContent, plugin, tryOpenAssetConfig)
 			showEditOption = canEditPackage
 		end
 
-		local context = assetData.Context
+		local context
+		local position
+		if FFlagToolboxUsePageInfoInsteadOfAssetContext then
+			context = assetAnalyticsContext
+			position = assetData.Context.position
+		else
+			context = assetData.Context
+			position = context.position
+		end
 		local creatorTypeEnumValue
 
 		-- TODO STM-406: Refactor creator types to be stored as Enum.CreatorType in Toolbox Rodux
@@ -68,7 +76,7 @@ return function(assetData, localizedContent, plugin, tryOpenAssetConfig)
 			CreatorId = assetData.Creator.Id,
 			CreatorType = nameForValueInEnum(Enum.CreatorType, creatorTypeEnumValue),
 			SearchKeyword = context.searchKeyword,
-			Position = context.position,
+			Position = position,
 			SearchId = context.searchId,
 			ViewInBrowser = true,
 		}

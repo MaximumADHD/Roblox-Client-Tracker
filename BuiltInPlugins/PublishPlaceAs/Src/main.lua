@@ -11,14 +11,6 @@ return function(plugin, pluginLoaderContext)
 		return
 	end
 
-	local FFlagImprovePluginSpeed_PublishPlaceAs = game:GetFastFlag("ImprovePluginSpeed_PublishPlaceAs")
-	-- Fast flags
-	if not FFlagImprovePluginSpeed_PublishPlaceAs then
-		-- Move to loader.server.lua
-		require(script.Parent.Parent.TestRunner.defineLuaFlags)
-	end
-	local FFlagPlacePublishManagementUI2 = game:GetFastFlag("PlacePublishManagementUI2")
-
 	--Turn this on when debugging the store and actions
 	local LOG_STORE_STATE_AND_EVENTS = false
 
@@ -26,6 +18,11 @@ return function(plugin, pluginLoaderContext)
 	local Plugin = script.Parent.Parent
 	local Roact = require(Plugin.Packages.Roact)
 	local Rodux = require(Plugin.Packages.Rodux)
+
+	local FFlagEnablePublishPlaceAsStylizer = game:GetFastFlag("EnablePublishPlaceAsStylizer")
+	local RefactorFlags = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
+	RefactorFlags.THEME_REFACTOR = FFlagEnablePublishPlaceAsStylizer
+
 	local Framework = require(Plugin.Packages.Framework)
 
 	-- context services
@@ -46,7 +43,7 @@ return function(plugin, pluginLoaderContext)
 	end
 
 	-- theme
-	local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
+	local MakeTheme = require(Plugin.Src.Resources.MakeTheme)
 
 	-- localization
 	local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
@@ -55,7 +52,6 @@ return function(plugin, pluginLoaderContext)
 	-- Plugin Specific Globals
 	local StudioService = game:GetService("StudioService")
 	local dataStore = Rodux.Store.new(MainReducer, {}, MainMiddleware)
-	local theme = PluginTheme.new()
 	local localization = ContextServices.Localization.new({
 		pluginName = Plugin.Name,
 		stringResourceTable = TranslationDevelopmentTable,
@@ -115,7 +111,7 @@ return function(plugin, pluginLoaderContext)
 			mouse = plugin:getMouse(),
 			plugin = plugin,
 			store = dataStore,
-			theme = theme,
+			theme = MakeTheme(),
 			uiLibraryWrapper = UILibraryWrapper.new(),
 			calloutController = calloutController,
 		}, {
@@ -136,37 +132,20 @@ return function(plugin, pluginLoaderContext)
 	local function main()
 		plugin.Name = Plugin.Name
 		makePluginGui()
-
-		if FFlagImprovePluginSpeed_PublishPlaceAs then
 			pluginLoaderContext.signals["StudioService.OnSaveOrPublishPlaceToRoblox"]:Connect(
 				function(showGameSelect, isPublish, closeMode)
-					if isPublish then
-						pluginGui.Title = localization:getText("General", "PublishGame")
-					else
-						pluginGui.Title = localization:getText("General", "SaveGame")
-					end
+						if isPublish then
+							pluginGui.Title = localization:getText("General", "PublishGame")
+						else
+							pluginGui.Title = localization:getText("General", "SaveGame")
+						end
 					openPluginWindow(showGameSelect, isPublish, closeMode)
 				end
 			)
 
-			pluginLoaderContext.signals["StudioService.GamePublishFinished"]:Connect(function(success)
-				dataStore:dispatch(SetIsPublishing(false))
-			end)
-		else
-			StudioService.OnSaveOrPublishPlaceToRoblox:Connect(function(showGameSelect, isPublish, closeMode)
-				if isPublish then
-					pluginGui.Title = localization:getText("General", "PublishGame")
-				else
-					pluginGui.Title = localization:getText("General", "SaveGame")
-				end
-				openPluginWindow(showGameSelect, isPublish, closeMode)
-			end)
-
-			StudioService.GamePublishFinished:connect(function(success)
-				dataStore:dispatch(SetIsPublishing(false))
-			end)
-		end
+		pluginLoaderContext.signals["StudioService.GamePublishFinished"]:Connect(function(success)
+			dataStore:dispatch(SetIsPublishing(false))
+		end)
 	end
-
 	main()
 end

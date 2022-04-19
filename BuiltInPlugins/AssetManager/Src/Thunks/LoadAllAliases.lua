@@ -5,6 +5,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Promise = require(Plugin.Packages.Framework).Util.Promise
 
 local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableAudioImport
+local enableVideoImport = require(Plugin.Src.Util.AssetManagerUtilities).enableVideoImport
 
 local SetAssets = require(Plugin.Src.Actions.SetAssets)
 local SetIsFetchingAssets = require(Plugin.Src.Actions.SetIsFetchingAssets)
@@ -25,6 +26,7 @@ local function DEPRECATED_GetAliases(apiImpl, assetType, state)
         or assetType == Enum.AssetType.MeshPart
         or assetType == Enum.AssetType.Lua
         or (enableAudioImport() and assetType == Enum.AssetType.Audio)
+        or (enableVideoImport() and assetType == Enum.AssetType.Video)
         or (FFlagAssetManagerEnableModelAssets and assetType == Enum.AssetType.Model) then
             return apiImpl.API.Universes.getAliases(game.GameId, page):makeRequest()
             :andThen(function(response)
@@ -39,6 +41,7 @@ local function DEPRECATED_GetAliases(apiImpl, assetType, state)
                     or (assetType == Enum.AssetType.MeshPart and string.find(alias.Name, "Meshes/"))
                     or (assetType == Enum.AssetType.Lua and string.find(alias.Name, "Scripts/"))
                     or (enableAudioImport() and assetType == Enum.AssetType.Audio and string.find(alias.Name, "Audio/"))
+                    or (enableVideoImport() and assetType == Enum.AssetType.Video and string.find(alias.Name, "Video/"))
                     or (FFlagAssetManagerEnableModelAssets and (assetType == Enum.AssetType.Model and string.find(alias.Name, "Models/")))
                     then
                         -- creating new table so keys across all assets are consistent
@@ -56,6 +59,8 @@ local function DEPRECATED_GetAliases(apiImpl, assetType, state)
                             assetAlias.name = string.gsub(alias.Name, "Scripts/", "")
                         elseif enableAudioImport() and assetType == Enum.AssetType.Audio and string.find(alias.Name, "Audio/") then
                             assetAlias.name = string.gsub(alias.Name, "Audio/", "")
+                        elseif enableVideoImport() and assetType == Enum.AssetType.Video and string.find(alias.Name, "Video/") then
+                            assetAlias.name = string.gsub(alias.Name, "Video/", "")
                         elseif FFlagAssetManagerEnableModelAssets and assetType == Enum.AssetType.Model and string.find(alias.Name, "Models/") then
                             assetAlias.name = string.gsub(alias.Name, "Models/", "")
                         end

@@ -172,19 +172,19 @@ function World:render()
 		local setGravity = props.WorkspaceGravityChanged
 		local useJumpPower = props.WorkspaceUseJumpPower
 		local setUseJumpPower = props.WorkspaceUseJumpPowerChanged
-		local walkspeed = props.WorkspaceWalkSpeed
+		local walkspeed = props.WorkspaceWalkSpeed or 0
 		local setWalkspeed = props.WorkspaceWalkSpeedChanged
-		local maxSlopeAngle = props.WorkspaceMaxSlopeAngle
+		local maxSlopeAngle = props.WorkspaceMaxSlopeAngle or 0
 		local setMaxSlopeAngle = props.WorkspaceMaxSlopeAngleChanged
 
 		local jumpHeight, jumpPower
 		local setJumpPower = props.WorkspaceJumpPowerChanged
 		local setJumpHeight = props.WorkspaceJumpHeightChanged
 		if useJumpPower then
-			jumpPower = props.WorkspaceJumpPower
+			jumpPower = props.WorkspaceJumpPower or 0
 			jumpHeight = worldRootPhysicsController.calculateJumpHeight(gravity, jumpPower)
 		else
-			jumpHeight = props.WorkspaceJumpHeight
+			jumpHeight = props.WorkspaceJumpHeight or 0
 			jumpPower = worldRootPhysicsController.calculateJumpPower(gravity, jumpHeight)
 		end
 

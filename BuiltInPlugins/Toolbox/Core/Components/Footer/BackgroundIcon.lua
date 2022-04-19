@@ -1,4 +1,4 @@
-local FFlagToolboxAssetStyleUpdate = game:GetFastFlag("ToolboxAssetStyleUpdate")
+local FFlagToolboxAssetStyleUpdate2 = game:GetFastFlag("ToolboxAssetStyleUpdate2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -15,7 +15,7 @@ local Images = require(Plugin.Core.Util.Images)
 
 local function BackgroundIcon(props)
 	-- Delete component with removal of flag
-	if FFlagToolboxAssetStyleUpdate then
+	if FFlagToolboxAssetStyleUpdate2 then
 		return nil
 	end
 	local backgroundIndex = props.backgroundIndex

@@ -1,4 +1,4 @@
-local FFlagToolboxAssetStyleUpdate = game:GetFastFlag("ToolboxAssetStyleUpdate")
+local FFlagToolboxAssetStyleUpdate2 = game:GetFastFlag("ToolboxAssetStyleUpdate2")
 
 local HttpService = game:GetService("HttpService")
 
@@ -138,7 +138,7 @@ return Rodux.createReducer({
 		})
 	end,
 
-	[ChangeBackground.name] = if not FFlagToolboxAssetStyleUpdate
+	[ChangeBackground.name] = if not FFlagToolboxAssetStyleUpdate2
 		then function(state, action)
 			if action.selected == nil then
 				if DebugFlags.shouldDebugWarnings() then

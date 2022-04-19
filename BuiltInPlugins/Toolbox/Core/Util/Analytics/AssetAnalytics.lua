@@ -1,10 +1,8 @@
 --!nocheck
 -- TODO STM-151: Re-enable Luau Type Checks when Luau bugs are fixed
 local FFlagToolboxAddAssetImpressionCounterAnalytics = game:GetFastFlag("ToolboxAddAssetImpressionCounterAnalytics")
-local FFlagToolboxTrackScriptIconShown = game:GetFastFlag("ToolboxTrackScriptIconShown")
-local FFlagToolboxShowHasScriptInfo = game:GetFastFlag("ToolboxShowHasScriptInfo")
-local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext")
-local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
+local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
+local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 
 local HttpService = game:GetService("HttpService")
 
@@ -98,7 +96,7 @@ function AssetAnalytics.mock()
 	return AssetAnalytics.new(stubSenders)
 end
 
-if FFlagToolboxAssetCategorization3 then
+if FFlagToolboxAssetCategorization4 then
 	function AssetAnalytics.getNavigationContext(navigation: any, swimlaneCategory: string): NavigationData
 		local function stackContainsView(viewName, successCallback)
 			return function(view)
@@ -217,9 +215,7 @@ function AssetAnalytics.getTrackingAttributes(assetData: AssetData, assetAnalyti
 
 		isVerifiedCreator = assetData.Creator.IsVerifiedCreator,
 		isEndorsed = assetData.Asset.IsEndorsed,
-		hasScripts = if FFlagToolboxShowHasScriptInfo and FFlagToolboxTrackScriptIconShown
-			then assetData.Asset.HasScripts
-			else nil,
+		hasScripts = assetData.Asset.HasScripts,
 	})
 
 	-- We track "ID" as standard
@@ -266,7 +262,7 @@ function AssetAnalytics:logImpression(assetData: AssetData, assetAnalyticsContex
 		trackingAttributes = AssetAnalytics.getTrackingAttributes(assetData)
 	end
 
-	if FFlagToolboxAssetCategorization3 then
+	if FFlagToolboxAssetCategorization4 then
 		trackingAttributes = Dash.join(trackingAttributes, navigationData or {})
 	end
 
@@ -308,7 +304,7 @@ function AssetAnalytics:logInsert(
 	end
 
 	local insertionAttributes
-	if FFlagToolboxAssetCategorization3 then
+	if FFlagToolboxAssetCategorization4 then
 		insertionAttributes = Cryo.Dictionary.join({
 			method = insertionMethod,
 		}, AssetAnalytics.getTrackingAttributes(assetData, assetAnalyticsContext), navigationData or {})

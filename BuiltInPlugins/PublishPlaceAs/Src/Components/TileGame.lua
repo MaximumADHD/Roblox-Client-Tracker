@@ -1,4 +1,3 @@
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
@@ -15,6 +14,8 @@ local ICON_SIZE = 150
 local TILE_FOOTER_SIZE = 35
 local NAME_SIZE = 70
 local PADDING = 5
+
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local TileGame = Roact.PureComponent:extend("TileGame")
 
@@ -47,7 +48,7 @@ end
 
 function TileGame:render()
 	local props = self.props
-	local theme = props.Theme:get("Plugin")
+	local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
 	local localization = props.Localization
 
 	local name = props.Name
@@ -111,11 +112,10 @@ function TileGame:render()
 	})
 end
 
-
 TileGame = withContext({
-	Theme = ContextServices.Theme,
+	Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
+	Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
 	Localization = ContextServices.Localization,
 })(TileGame)
-
 
 return TileGame

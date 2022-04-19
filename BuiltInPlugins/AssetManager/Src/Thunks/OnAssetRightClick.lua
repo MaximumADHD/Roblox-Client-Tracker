@@ -9,6 +9,7 @@ local GetAssets = require(Plugin.Src.Thunks.GetAssets)
 local LaunchBulkImport = require(Plugin.Src.Thunks.LaunchBulkImport)
 
 local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableAudioImport
+local enableVideoImport = require(Plugin.Src.Util.AssetManagerUtilities).enableVideoImport
 
 local Screens = require(Plugin.Src.Util.Screens)
 local View = require(Plugin.Src.Util.View)
@@ -40,6 +41,8 @@ local function removeAssets(apiImpl, assetData, assets, selectedAssets, store)
                 AssetManagerService:DeleteAlias("Scripts/".. asset.name)
             elseif enableAudioImport() and asset.assetType == Enum.AssetType.Audio then
                 AssetManagerService:DeleteAlias("Audio/".. asset.name)
+            elseif enableVideoImport() and asset.assetType == Enum.AssetType.Video then
+                AssetManagerService:DeleteAlias("Video/".. asset.name)
             end
         end
     end
@@ -97,6 +100,11 @@ local function createFolderContextMenu(analytics, apiImpl, assetData, contextMen
     elseif enableAudioImport() and assetData.Screen.Path == Screens.AUDIO.Path then
         contextMenu:AddNewAction("AddAudio", localization:getText("ContextMenu", "AddAudio")).Triggered:connect(function()
             store:dispatch(LaunchBulkImport(Enum.AssetType.Audio.Value))
+            analytics:report("clickContextMenuItem")
+        end)
+    elseif enableVideoImport() and assetData.Screen.Path == Screens.VIDEO.Path then
+        contextMenu:AddNewAction("AddVideo", localization:getText("ContextMenu", "AddVideo")).Triggered:connect(function()
+            store:dispatch(LaunchBulkImport(Enum.AssetType.Video.Value))
             analytics:report("clickContextMenuItem")
         end)
     elseif assetData.Screen.Path == Screens.MESHES.Path then
@@ -256,6 +264,33 @@ local function createAudioContextMenu(analytics, apiImpl, assetData, contextMenu
     addRenameAliasContextItem(contextMenu, analytics, assetData, localization, onAssetPreviewClose, store)
     contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
         AssetManagerService:InsertAudio(assetData.id, assetData.name)
+        analytics:report("clickContextMenuItem")
+        local searchTerm = state.AssetManagerReducer.searchTerm
+        if utf8.len(searchTerm) ~= 0 then
+            analytics:report("insertAfterSearch")
+        end
+    end)
+    contextMenu:AddNewAction("CopyIdToClipboard", localization:getText("ContextMenu", "CopyIdToClipboard")).Triggered:connect(function()
+        StudioService:CopyToClipboard("rbxassetid://" .. assetData.id)
+        analytics:report("clickContextMenuItem")
+    end)
+    addRemoveFromGameContextItem(contextMenu, apiImpl, analytics, assetData, localization, onAssetPreviewClose, store, state)
+    contextMenu:ShowAsync()
+    contextMenu:Destroy()
+end
+
+local function createVideoContextMenu(analytics, apiImpl, assetData, contextMenu, isAssetPreviewMenu, localization, onOpenAssetPreview, onAssetPreviewClose, store)
+    local state = store:getState()
+    local view = state.AssetManagerReducer.view
+    if view.Key == View.LIST.Key and not isAssetPreviewMenu then
+        contextMenu:AddNewAction("AssetPreview", localization:getText("ContextMenu", "AssetPreview")).Triggered:connect(function()
+            onOpenAssetPreview(assetData)
+        end)
+    end
+    addEditAssetContextItem(contextMenu, analytics, assetData, localization, Enum.AssetType.Video.Value)
+    addRenameAliasContextItem(contextMenu, analytics, assetData, localization, onAssetPreviewClose, store)
+    contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
+        AssetManagerService:InsertVideo(assetData.id, assetData.name)
         analytics:report("clickContextMenuItem")
         local searchTerm = state.AssetManagerReducer.searchTerm
         if utf8.len(searchTerm) ~= 0 then
@@ -449,6 +484,8 @@ local function createAssetContextMenu(analytics, apiImpl, assetData, contextMenu
         createLinkedScriptContextMenu(analytics, apiImpl, assetData, contextMenu, isAssetPreviewMenu, localization, onOpenAssetPreview, onAssetPreviewClose, store)
     elseif enableAudioImport() and assetType == Enum.AssetType.Audio then
         createAudioContextMenu(analytics, apiImpl, assetData, contextMenu, isAssetPreviewMenu, localization, onOpenAssetPreview, onAssetPreviewClose, store)
+    elseif enableVideoImport() and assetType == Enum.AssetType.Video then
+        createVideoContextMenu(analytics, apiImpl, assetData, contextMenu, isAssetPreviewMenu, localization, onOpenAssetPreview, onAssetPreviewClose, store)
     elseif FFlagAssetManagerEnableModelAssets and assetType == Enum.AssetType.Model then
         createModelContextMenu(analytics, apiImpl, assetData, contextMenu, isAssetPreviewMenu, localization, onOpenAssetPreview, onAssetPreviewClose, store)
     end

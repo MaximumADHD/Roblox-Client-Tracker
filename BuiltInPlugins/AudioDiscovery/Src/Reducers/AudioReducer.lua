@@ -17,6 +17,7 @@ local sort = table.sort
 local Actions = Plugin.Src.Actions
 local SetDialog = require(Actions.SetDialog)
 local SelectRow = require(Actions.SelectRow)
+local Unpause = require(Actions.Unpause)
 local UpdateRows = require(Actions.UpdateRows)
 local UpdateLocations = require(Actions.UpdateLocations)
 local SortTable = require(Actions.SortTable)
@@ -58,6 +59,7 @@ end
 
 return Rodux.createReducer({
 	Dialog = false,
+	Paused = true,
 	Rows = {},
 	SelectedRow = nil,
 	Left = {
@@ -99,6 +101,11 @@ return Rodux.createReducer({
 				Rows = sortRows(rows, columnName, state.Left.SortOrder, state.Locations),
 			})
 		end
+	end,
+	[Unpause.name] = function(state)
+		return join(state, {
+			Paused = false
+		})
 	end,
 	[SelectRow.name] = function(state, action)
 		local locations = state.locations

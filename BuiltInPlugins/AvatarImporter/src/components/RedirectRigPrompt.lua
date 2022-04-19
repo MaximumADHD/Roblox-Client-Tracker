@@ -21,15 +21,11 @@ local RedirectRigPrompt = Roact.Component:extend("RedirectRigPrompt")
 function RedirectRigPrompt:render()
 	local function importAsR15()
 		-- if the user is importing through Rthro or Rthro Narrow, set the rig type to those. Otherwise default to R15.
-		if game:GetFastFlag("ImportAsCorrectTypeAfterDetectionPrompt") then 
-			if self.props.avatarType == Constants.AVATAR_TYPE.RTHRO_SLENDER then
-				self.props.doImportWithoutSceneLoad(Constants.AVATAR_TYPE.RTHRO_SLENDER)
-			elseif self.props.avatarType == Constants.AVATAR_TYPE.RTHRO then
-				self.props.doImportWithoutSceneLoad(Constants.AVATAR_TYPE.RTHRO)
-			else
-				self.props.doImportWithoutSceneLoad(Constants.AVATAR_TYPE.R15)
-			end
-		else 
+		if self.props.avatarType == Constants.AVATAR_TYPE.RTHRO_SLENDER then
+			self.props.doImportWithoutSceneLoad(Constants.AVATAR_TYPE.RTHRO_SLENDER)
+		elseif self.props.avatarType == Constants.AVATAR_TYPE.RTHRO then
+			self.props.doImportWithoutSceneLoad(Constants.AVATAR_TYPE.RTHRO)
+		else
 			self.props.doImportWithoutSceneLoad(Constants.AVATAR_TYPE.R15)
 		end
 	end

@@ -8,7 +8,7 @@ local AtomicBinding = require(script:WaitForChild("AtomicBinding"))
 local FFlagUserAtomicCharacterSounds
 do
 	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserAtomicCharacterSounds")
+		return UserSettings():IsUserFeatureEnabled("UserAtomicCharacterSounds2")
 	end)
 	FFlagUserAtomicCharacterSounds = success and result
 end

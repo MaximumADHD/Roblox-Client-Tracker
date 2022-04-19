@@ -34,6 +34,7 @@ export type SectionHeaderProps = {
 	LayoutOrder: number?,
 	Position: UDim2?,
 	SeeAllText: string?,
+	ShowSeeAllText: boolean?,
 	Title: string,
 	Total: number?,
 	Stylizer: any,
@@ -44,16 +45,13 @@ local SectionHeader = Roact.PureComponent:extend("SectionHeader")
 
 SectionHeader.defaultProps = {
 	Title = "",
+	ShowSeeAllText = true,
 }
 
 function SectionHeader:init()
 	self.hostRef = Roact.createRef()
 	self.seeAllRef = Roact.createRef()
 	self.frameRef = Roact.createRef()
-
-	self.state = {
-		DisplaySeeAllLink = true,
-	}
 end
 
 function SectionHeader:render()
@@ -64,10 +62,9 @@ function SectionHeader:render()
 	local position = props.Position
 	local localization = props.Localization
 	local seeAllText = props.SeeAllText or (localization:getText("HomeView", "SeeAll") .. " >")
+	local showSeeAllText = props.ShowSeeAllText
 	local theme = props.Stylizer.sectionHeader
 	local title = props.Title
-
-	local displaySeeAllLink = self.state.DisplaySeeAllLink
 
 	local titleSize = if (self.seeAllRef.current and self.hostRef.current)
 		then UDim2.new(0, self.hostRef.current.AbsoluteSize.X - self.seeAllRef.current.AbsoluteSize.X, 1, 0)
@@ -95,7 +92,7 @@ function SectionHeader:render()
 			[Roact.Ref] = self.hostRef,
 		}),
 
-		SeeAll = displaySeeAllLink and Roact.createElement("Frame", {
+		SeeAll = showSeeAllText and Roact.createElement("Frame", {
 			AnchorPoint = Vector2.new(1, 0),
 			AutomaticSize = Enum.AutomaticSize.XY,
 			BackgroundTransparency = 1,

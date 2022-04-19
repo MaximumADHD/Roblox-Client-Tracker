@@ -36,6 +36,14 @@ local FFlagUserFlagEnableNewVRSystem do
 	FFlagUserFlagEnableNewVRSystem = success and result
 end
 
+local FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame
+do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame")
+	end)
+	FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame = success and value
+end
+
 -- NOTICE: Player property names do not all match their StarterPlayer equivalents,
 -- with the differences noted in the comments on the right
 local PLAYER_CAMERA_PROPERTIES =
@@ -432,7 +440,11 @@ end
 function CameraModule:OnCameraTypeChanged(newCameraType: Enum.CameraType)
 	if newCameraType == Enum.CameraType.Scriptable then
 		if UserInputService.MouseBehavior == Enum.MouseBehavior.LockCenter then
-			UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+			if FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame then
+				CameraUtils.restoreMouseBehavior()
+			else
+				UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+			end
 		end
 	end
 

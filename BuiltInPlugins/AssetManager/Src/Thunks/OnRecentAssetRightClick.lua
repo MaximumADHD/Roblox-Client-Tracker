@@ -1,6 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 
 local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableAudioImport
+local enableVideoImport = require(Plugin.Src.Util.AssetManagerUtilities).enableVideoImport
 
 local AssetManagerService = game:GetService("AssetManagerService")
 local StudioService = game:GetService("StudioService")
@@ -50,6 +51,33 @@ local function createAudioContextMenu(analytics, assetData, contextMenu, localiz
             AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
         end
         AssetManagerService:InsertAudio(assetData.id, assetData.name)
+        analytics:report("clickContextMenuItem")
+    end)
+    contextMenu:AddNewAction("CopyIdToClipboard", localization:getText("ContextMenu", "CopyIdToClipboard")).Triggered:connect(function()
+        StudioService:CopyToClipboard("rbxassetid://" .. assetData.id)
+        analytics:report("clickContextMenuItem")
+    end)
+
+    contextMenu:ShowAsync()
+    contextMenu:Destroy()
+end
+
+local function createVideoContextMenu(analytics, assetData, contextMenu, localization, store)
+    contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
+        local state = store:getState()
+        local recentAssets = state.AssetManagerReducer.recentAssets
+        local selectedAssets = state.AssetManagerReducer.selectedAssets
+        local selectedMeshes = {}
+        for _, asset in pairs(recentAssets) do
+            local key = asset.key
+            if selectedAssets[key] and asset.assetType == Enum.AssetType.MeshPart then
+                table.insert(selectedMeshes, "Meshes/".. asset.name)
+            end
+        end
+        if next(selectedMeshes) ~= nil then
+            AssetManagerService:InsertMeshesWithLocation(selectedMeshes)
+        end
+        AssetManagerService:InsertVideo(assetData.id, assetData.name)
         analytics:report("clickContextMenuItem")
     end)
     contextMenu:AddNewAction("CopyIdToClipboard", localization:getText("ContextMenu", "CopyIdToClipboard")).Triggered:connect(function()
@@ -158,6 +186,8 @@ local function createAssetContextMenu(analytics, apiImpl, assetData, contextMenu
         createMeshPartContextMenu(analytics, apiImpl, assetData, contextMenu, localization, store)
     elseif enableAudioImport() and assetType == Enum.AssetType.Audio then
         createAudioContextMenu(analytics, assetData, contextMenu, localization, store)
+    elseif enableVideoImport() and assetType == Enum.AssetType.Video then
+        createVideoContextMenu(analytics, assetData, contextMenu, localization, store)
     elseif FFlagAssetManagerEnableModelAssets and assetType == Enum.AssetType.Model then
         createModelContextMenu(analytics, apiImpl, assetData, contextMenu, localization, store)
     end

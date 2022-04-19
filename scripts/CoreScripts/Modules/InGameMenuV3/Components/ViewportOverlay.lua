@@ -58,7 +58,7 @@ local function ViewportOverlay(props)
 end
 
 return RoactRodux.UNSTABLE_connect2(function(state, props)
-	local occupiedWidth = sideBarWidth + 400
+	local occupiedWidth = sideBarWidth + Constants.PageWidth
 
 	return {
 		currentPage = state.menuPage,

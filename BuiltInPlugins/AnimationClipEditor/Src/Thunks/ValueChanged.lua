@@ -17,6 +17,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
+local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
 
 if GetFFlagChannelAnimations() then
 	return function(instanceName, path, trackType, tick, value, analytics)
@@ -27,17 +28,24 @@ if GetFFlagChannelAnimations() then
 
 			if track == nil then
 				local topTrackName = path[1]
-				if trackType == Constants.TRACK_TYPES.Facs then
-					if GetFFlagQuaternionsUI() then
-						store:dispatch(AddTrack(instanceName, topTrackName, trackType, nil, analytics))
-					else
-						store:dispatch(AddTrack(instanceName, topTrackName, trackType, analytics))
-					end
+				if GetFFlagEulerAnglesOrder() then
+					local newTrackType = if trackType == Constants.TRACK_TYPES.Facs
+						then Constants.TRACK_TYPES.Facs
+						else Constants.TRACK_TYPES.CFrame
+					store:dispatch(AddTrack(instanceName, topTrackName, newTrackType, nil, nil, analytics))
 				else
-					if GetFFlagQuaternionsUI() then
-						store:dispatch(AddTrack(instanceName, topTrackName, Constants.TRACK_TYPES.CFrame, nil, analytics))
+					if trackType == Constants.TRACK_TYPES.Facs then
+						if GetFFlagQuaternionsUI() then
+							store:dispatch(AddTrack(instanceName, topTrackName, trackType, nil, analytics))
+						else
+							store:dispatch(AddTrack(instanceName, topTrackName, trackType, analytics))
+						end
 					else
-						store:dispatch(AddTrack(instanceName, topTrackName, Constants.TRACK_TYPES.CFrame, analytics))
+						if GetFFlagQuaternionsUI() then
+							store:dispatch(AddTrack(instanceName, topTrackName, Constants.TRACK_TYPES.CFrame, nil, analytics))
+						else
+							store:dispatch(AddTrack(instanceName, topTrackName, Constants.TRACK_TYPES.CFrame, analytics))
+						end
 					end
 				end
 				local keyframeData = {

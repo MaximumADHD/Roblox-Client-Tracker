@@ -28,8 +28,6 @@ local MainReducer = require(main.Src.Reducers.MainReducer)
 local LoadPluginMetadata = require(main.Src.Thunks.LoadPluginMetadata)
 local Analytics = require(main.Src.Util.Analytics)
 
-local FFlagFixToolbarButtonForFreshInstallation2 = game:GetFastFlag("FixToolbarButtonForFreshInstallation2")
-
 local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local WINDOW_SIZE = Vector2.new(300, 250)
@@ -81,16 +79,10 @@ function MainPlugin:init()
 		self:setState({
 			enabled = enabled,
 		})
-
-		if not FFlagFixToolbarButtonForFreshInstallation2 then
-			self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleState)
-		end
 	end
 
-	if FFlagFixToolbarButtonForFreshInstallation2 then
-		self.onDockWidgetCreated = function()
-			self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleState)
-		end
+	self.onDockWidgetCreated = function()
+		self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleState)
 	end
 
 	self.onClose = function()
@@ -136,7 +128,7 @@ function MainPlugin:render()
 	}, {
 		MainWidget = isEditMode and Roact.createElement(DockWidget, {
 			Enabled = enabled,
-			Widget = props.pluginLoaderContext.mainDockWidget or nil,
+			Widget = props.pluginLoaderContext.mainDockWidget,
 			Title = self.localization:getText("Plugin", "WindowTitle"),
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			InitialDockState = Enum.InitialDockState.Left,
@@ -144,7 +136,7 @@ function MainPlugin:render()
 			OnClose = self.onClose,
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
-			OnWidgetCreated = FFlagFixToolbarButtonForFreshInstallation2 and self.onDockWidgetCreated or nil,
+			OnWidgetCreated = self.onDockWidgetCreated,
 		}, {
 			MainProvider = enabled and ContextServices.provide({
 				Mouse.new(plugin:getMouse()),

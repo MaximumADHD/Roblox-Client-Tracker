@@ -52,15 +52,28 @@ function GameIconButton:renderWithSelectionCursor(getSelectionCursor)
 			Size = UDim2.new(1,0,1,0),
 			LayoutOrder = self.props.layoutOrder,
 			SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect) or nil,
-
 		}, {
-			Layout = Roact.createElement("UIListLayout", {
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			Highlight = Roact.createElement("Frame", {
+				Size = UDim2.new(0,29,0,29),
+				Position = UDim2.new(0.5,0,0.5,0),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Visible = self.props.selected,
+				BackgroundTransparency = 1,
+			}, {
+				UICorner = Roact.createElement("UICorner", {
+					CornerRadius = CORNER_RADIUS,
+				}),
+				UIStroke = Roact.createElement("UIStroke", {
+					Thickness = 1,
+					Color = Color3.new(1, 1, 1),
+				}) or nil,
 			}),
 			GameIconButton = Roact.createElement(GameIcon, {
 				gameId = game.GameId,
-				iconSize = 32,
+				iconSize = 24,
 				cornerRadius = CORNER_RADIUS,
+				Position = UDim2.new(0.5,0,0.5,0),
+				AnchorPoint = Vector2.new(0.5, 0.5),
 			})
 		})
 	end, SPRING_OPTIONS)

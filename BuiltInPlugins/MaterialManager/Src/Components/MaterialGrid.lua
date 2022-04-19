@@ -53,25 +53,6 @@ type _MaterialTileStyle = {
 	TextSize : number,
 }
 
-function MaterialGrid.getDerivedStateFromProps(nextProps, lastState)
-	local materialController = nextProps.MaterialController
-	if not materialController then
-		return {}
-	end
-
-	if nextProps.Search ~= "" and (lastState.Search ~= nextProps.Search or nextProps.Path ~= lastState.Path) then
-		return {
-			materials = materialController:getMaterialsOnSearch(nextProps.Search, nextProps.Path),
-		}
-	elseif nextProps.Search == "" and lastState.Search ~= "" then
-		return {
-			materials = materialController:getMaterials(nextProps.Path),
-		}
-	end
-
-	return {}
-end
-
 function MaterialGrid:init()
 	self.onClick = function(item)
 		self.props.dispatchSetMaterial(item)
@@ -92,7 +73,7 @@ function MaterialGrid:init()
 		self.materialAddedConnection = props.MaterialController:getMaterialAddedSignal():Connect(function(materialPath)
 			if (ContainsPath(self.props.Path, materialPath)) then
 				self:setState({
-					materials = props.MaterialController:getMaterials(self.props.Path)
+					materials = props.MaterialController:getMaterials(self.props.Path, self.props.Search)
 				})
 			end
 		end)
@@ -100,7 +81,7 @@ function MaterialGrid:init()
 		self.materialRemovedConnection = props.MaterialController:getMaterialRemovedSignal():Connect(function(materialPath)
 			if (ContainsPath(self.props.Path, materialPath)) then
 				self:setState({
-					materials = props.MaterialController:getMaterials(self.props.Path)
+					materials = props.MaterialController:getMaterials(self.props.Path, self.props.Search)
 				})
 			end
 		end)
@@ -131,7 +112,7 @@ function MaterialGrid:didMount()
 
 	if #self.state.materials == 0 then
 		self:setState({
-			materials = props.MaterialController:getMaterials(props.Path)
+			materials = props.MaterialController:getMaterials(props.Path, props.Search)
 		})
 	end
 
@@ -141,9 +122,9 @@ end
 function MaterialGrid:didUpdate(prevProps)
 	local props : _Props = self.props
 
-	if prevProps.Path ~= props.Path then
+	if prevProps.Path ~= props.Path or prevProps.Search ~= props.Search then
 		self:setState({
-			materials = props.MaterialController:getMaterials(props.Path)
+			materials = props.MaterialController:getMaterials(props.Path, props.Search)
 		})
 	end
 end

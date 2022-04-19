@@ -1,5 +1,5 @@
 --!strict
-local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
+local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 
 export type AssetInfoDetails = {
 	Id: number, -- the asset id
@@ -80,7 +80,7 @@ local AssetInfo = {}
 
 AssetInfo.new = function(): AssetInfo
 	return {
-		Asset = if FFlagToolboxAssetCategorization3 then nil else {} :: any,
+		Asset = if FFlagToolboxAssetCategorization4 then nil else {} :: any,
 	}
 end
 

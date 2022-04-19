@@ -11,18 +11,12 @@ end
 -- flags in NoOpt/Debug. When that is fixed this template should be updated to use it.
 require(script.Parent.defineFlags)
 
-local FFlagEnable9SliceEditor = game:GetFastFlag("Enable9SliceEditor")
-
 local ok, hasInternalPermission = pcall(function()
 	return game:GetService("StudioService"):HasInternalPermission()
 end)
 
 if not ok then
 	hasInternalPermission = false
-end
-
-if not FFlagEnable9SliceEditor then
-	return
 end
 
 local main = script.Parent.Parent

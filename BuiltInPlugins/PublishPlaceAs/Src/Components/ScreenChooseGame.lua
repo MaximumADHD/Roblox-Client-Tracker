@@ -44,6 +44,8 @@ local SelectedItemKey = 0
 local SelectedItemType = Constants.SUBJECT_TYPE.USER
 local SelectedItemText = nil
 
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+
 function ScreenChooseGame:init()
 	self.state = {
 		searchTerm = ""
@@ -55,7 +57,7 @@ end
 
 function ScreenChooseGame:render()
 	local props = self.props
-	local theme = props.Theme:get("Plugin")
+	local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
 	local localization = props.Localization
 
 	local onClose = props.OnClose
@@ -281,13 +283,12 @@ function ScreenChooseGame:willUnmount()
 	for key, _ in pairs(self.props.Games) do self.props.Games[key] = nil end
 end
 
-
 ScreenChooseGame = withContext({
-	Theme = ContextServices.Theme,
+	Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
+	Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
 	Localization = ContextServices.Localization,
 	API = ContextServices.API,
 })(ScreenChooseGame)
-
 
 local function mapStateToProps(state, props)
 	local gameInfo = state.ExistingGame.gameInfo

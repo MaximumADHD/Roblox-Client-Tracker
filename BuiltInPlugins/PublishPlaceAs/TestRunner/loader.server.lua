@@ -1,7 +1,3 @@
-if not game:GetFastFlag("ImprovePluginSpeed_PublishPlaceAs") then
-	return
-end
-
 require(script.Parent.Parent.TestRunner.defineLuaFlags)
 
 local Plugin = script.Parent.Parent

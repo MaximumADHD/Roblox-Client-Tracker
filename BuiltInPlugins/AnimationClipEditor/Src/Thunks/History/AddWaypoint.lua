@@ -10,7 +10,6 @@ local Cryo = require(Plugin.Packages.Cryo)
 local SetPast = require(Plugin.Src.Actions.SetPast)
 local SetFuture = require(Plugin.Src.Actions.SetFuture)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
-local GetFFlagNilCheckAnimationData = require(Plugin.LuaFlags.GetFFlagNilCheckAnimationData)
 
 return function()
 	return function(store)
@@ -20,7 +19,7 @@ return function()
 		local history = state.History
 		local past = history.Past
 
-		if GetFFlagNilCheckAnimationData() and (animationData == nil or tracks == nil) then
+		if animationData == nil or tracks == nil then
 			return
 		end
 

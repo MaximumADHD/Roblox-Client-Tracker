@@ -9,172 +9,80 @@ local _Types = require(Plugin.Src.Types)
 
 local enumToTexture = {
 	[Enum.Material.Asphalt] = {
-		ColorMap = "rbxassetid://8699720861",
-		NormalMap = "rbxassetid://8699721717",
-		RoughnessMap = "rbxassetid://8699722514",
+		ColorMap = "rbxassetid://7547349715",
+		NormalMap = "rbxassetid://7547350415",
+		RoughnessMap = "rbxassetid://7551984908",
 	},
 	[Enum.Material.Basalt] = {
-		ColorMap = "rbxassetid://8706345277",
-		MetalnessMap = "rbxassetid://8207243574",
-		NormalMap = "rbxassetid://8706416568",
-		RoughnessMap = "rbxassetid://8706417425",
-	},
-	[Enum.Material.Brick] = {
-		ColorMap = "rbxassetid://8706292927",
-		MetalnessMap = "rbxassetid://8207243574",
-		NormalMap = "rbxassetid://8706295234",
-		RoughnessMap = "rbxassetid://8706296565",
-	},
-	[Enum.Material.Cobblestone] = {
-		ColorMap = "rbxassetid://8699695299",
-		MetalnessMap = "rbxassetid://8207243574",
-		NormalMap = "rbxassetid://8699696047",
-		RoughnessMap = "rbxassetid://8699697002",
+		ColorMap = "rbxassetid://7551975939",
+		NormalMap = "rbxassetid://7547348152",
+		RoughnessMap = "rbxassetid://7551977581",
 	},
 	[Enum.Material.Concrete] = {
-		ColorMap = "rbxassetid://8699698151",
-		NormalMap = "rbxassetid://8699698794",
-		RoughnessMap = "rbxassetid://8699699735",
-	},
-	[Enum.Material.CorrodedMetal] = {
-		ColorMap = "rbxassetid://8207284135",
-		MetalnessMap = "rbxassetid://8207411794",
-		NormalMap = "rbxassetid://8207285294",
-		RoughnessMap = "rbxassetid://8207286421",
+		ColorMap = "rbxassetid://7547196561",
+		NormalMap = "rbxassetid://7547337919",
+		RoughnessMap = "rbxassetid://7547197958",
 	},
 	[Enum.Material.CrackedLava] = {
-		ColorMap = "rbxassetid://8699750558",
-		NormalMap = "rbxassetid://8699751425",
-		RoughnessMap = "rbxassetid://8699752050",
-	},
-	[Enum.Material.DiamondPlate] = {
-		ColorMap = "rbxassetid://8207254706",
-		MetalnessMap = "rbxassetid://8207256697",
-		NormalMap = "rbxassetid://8207255545",
-		RoughnessMap = "rbxassetid://8207257588",
-	},
-	[Enum.Material.Fabric] = {
-		ColorMap = "rbxassetid://8207250638",
-		NormalMap = "rbxassetid://8207251739",
-		RoughnessMap = "rbxassetid://8207252770",
-	},
-	[Enum.Material.Foil] = {
-		ColorMap = "rbxassetid://8699691494",
-		MetalnessMap = "rbxassetid://7546644642",
-		NormalMap = "rbxassetid://8207233270",
-		RoughnessMap = "rbxassetid://8207234486",
+		ColorMap = "rbxassetid://7551980711",
+		NormalMap = "rbxassetid://7547320674",
+		RoughnessMap = "rbxassetid://7551982079",
 	},
 	[Enum.Material.Glacier] = {
-		ColorMap = "rbxassetid://8699753804",
-		NormalMap = "rbxassetid://8699754512",
-		RoughnessMap = "rbxassetid://8699755232",
-	},
-	[Enum.Material.Glass] = {
-		ColorMap = "rbxassetid://7547304577",
-		NormalMap = "rbxassetid://7547304785",
-		RoughnessMap = "rbxassetid://7547304892",
-	},
-	[Enum.Material.Granite] = {
-		ColorMap = "rbxassetid://8207259439",
-		NormalMap = "rbxassetid://8207260094",
-		RoughnessMap = "rbxassetid://8207260803",
-	},
-	[Enum.Material.Grass] = {
-		ColorMap = "rbxassetid://8699701024",
-		NormalMap = "rbxassetid://8699701641",
-		RoughnessMap = "rbxassetid://8699702370",
+		ColorMap = "rbxassetid://7547646888",
+		NormalMap = "rbxassetid://7551930815",
+		RoughnessMap = "rbxassetid://7551932698",
 	},
 	[Enum.Material.Ground] = {
-		ColorMap = "rbxassetid://8699756357",
-		NormalMap = "rbxassetid://8699757147",
-		RoughnessMap = "rbxassetid://8699758000",
-	},
-	[Enum.Material.Ice] = {
-		ColorMap = "rbxassetid://8699703879",
-		NormalMap = "rbxassetid://8699704767",
-		RoughnessMap = "rbxassetid://8699705798",
+		ColorMap = "rbxassetid://7547348623",
+		NormalMap = "rbxassetid://7547348887",
+		RoughnessMap = "rbxassetid://7547349016",
 	},
 	[Enum.Material.LeafyGrass] = {
-		ColorMap = "rbxassetid://8699726195",
-		NormalMap = "rbxassetid://8699726972",
-		RoughnessMap = "rbxassetid://8699727667",
+		ColorMap = "rbxassetid://7546663659",
+		NormalMap = "rbxassetid://7546664288",
+		RoughnessMap = "rbxassetid://7546664614",
 	},
 	[Enum.Material.Limestone] = {
-		ColorMap = "rbxassetid://8699746900",
-		NormalMap = "rbxassetid://8699747906",
-		RoughnessMap = "rbxassetid://8699748930",
-	},
-	[Enum.Material.Marble] = {
-		ColorMap = "rbxassetid://8207270978",
-		NormalMap = "rbxassetid://8207272151",
-		RoughnessMap = "rbxassetid://8207272864",
-	},
-	[Enum.Material.Metal] = {
-		ColorMap = "rbxassetid://8207274836",
-		MetalnessMap = "rbxassetid://8207277076",
-		NormalMap = "rbxassetid://8207275930",
-		RoughnessMap = "rbxassetid://8207278264",
+		ColorMap = "rbxassetid://7547206319",
+		NormalMap = "rbxassetid://7547670319",
+		RoughnessMap = "rbxassetid://7547671387",
 	},
 	[Enum.Material.Mud] = {
-		ColorMap = "rbxassetid://8699744005",
-		NormalMap = "rbxassetid://8699744717",
-		RoughnessMap = "rbxassetid://8699745519",
+		ColorMap = "rbxassetid://7551972606",
+		NormalMap = "rbxassetid://7552022188",
+		RoughnessMap = "rbxassetid://7552023936",
 	},
 	[Enum.Material.Pavement] = {
-		ColorMap = "rbxassetid://8699741126",
-		NormalMap = "rbxassetid://8699741792",
-		RoughnessMap = "rbxassetid://8699742402",
+		ColorMap = "rbxassetid://7547678151",
+		NormalMap = "rbxassetid://7547207799",
+		RoughnessMap = "rbxassetid://7547207869",
 	},
-	[Enum.Material.Pebble] = {
-		ColorMap = "rbxassetid://8699707421",
-		NormalMap = "rbxassetid://8699708413",
-		RoughnessMap = "rbxassetid://8699709345",
-	},
-	[Enum.Material.Plastic] = {},
 	[Enum.Material.Rock] = {
-		ColorMap = "rbxassetid://8699729048",
-		MetalnessMap = "rbxassetid://8207321622",
-		NormalMap = "rbxassetid://8699729960",
-		RoughnessMap = "rbxassetid://8699730636",
+		ColorMap = "rbxassetid://7546659890",
+		NormalMap = "rbxassetid://7546660701",
+		RoughnessMap = "rbxassetid://7547643804",
 	},
 	[Enum.Material.Salt] = {
-		ColorMap = "rbxassetid://8699732244",
-		NormalMap = "rbxassetid://8699733025",
-		RoughnessMap = "rbxassetid://8699733755",
-	},
-	[Enum.Material.Sand] = {
-		ColorMap = "rbxassetid://8699711248",
-		NormalMap = "rbxassetid://8699712047",
-		RoughnessMap = "rbxassetid://8699712757",
+		ColorMap = "rbxassetid://7546666647",
+		NormalMap = "rbxassetid://7547660879",
+		RoughnessMap = "rbxassetid://7547661939",
 	},
 	[Enum.Material.Sandstone] = {
-		ColorMap = "rbxassetid://8699738611",
-		NormalMap = "rbxassetid://8699739273",
-		RoughnessMap = "rbxassetid://8699739720",
+		ColorMap = "rbxassetid://7547202858",
+		NormalMap = "rbxassetid://7547204511",
+		RoughnessMap = "rbxassetid://7551954003",
 	},
 	[Enum.Material.Slate] = {
-		ColorMap = "rbxassetid://8699714522",
-		NormalMap = "rbxassetid://8699715379",
-		RoughnessMap = "rbxassetid://8699716497",
+		ColorMap = "rbxassetid://7547309616",
+		NormalMap = "rbxassetid://7546656859",
+		RoughnessMap = "rbxassetid://7547626537",
 	},
-	[Enum.Material.SmoothPlastic] = {},
 	[Enum.Material.Snow] = {
-		ColorMap = "rbxassetid://8699735283",
-		NormalMap = "rbxassetid://8699736036",
-		RoughnessMap = "rbxassetid://8699736853",
-	},
-	[Enum.Material.Wood] = {
-		ColorMap = "rbxassetid://8207298915",
-		MetalnessMap = "rbxassetid://7547190619",
-		NormalMap = "rbxassetid://8207300071",
-		RoughnessMap = "rbxassetid://8207300845",
-	},
-	[Enum.Material.WoodPlanks] = {
-		ColorMap = "rbxassetid://8699718193",
-		MetalnessMap = "rbxassetid://8207238349",
-		NormalMap = "rbxassetid://8699718923",
-		RoughnessMap = "rbxassetid://8699719485",
-	},
+		ColorMap = "rbxassetid://7547315875",
+		NormalMap = "rbxassetid://7547201338",
+		RoughnessMap = "rbxassetid://7547316776",
+	}
 }
 
 local builtInMaterialVariants : _Types.Array<MaterialVariant> = {}
@@ -186,20 +94,23 @@ for _, material in ipairs(getSupportedMaterials()) do
 	materialVariant.BaseMaterial = material
 
 	local textures = enumToTexture[material]
-	if textures.ColorMap then
-		materialVariant.ColorMap = textures.ColorMap
-	end
 
-	if textures.MetalnessMap then
-		materialVariant.MetalnessMap = textures.MetalnessMap
-	end
+	if textures then
+		if textures.ColorMap then
+			materialVariant.ColorMap = textures.ColorMap
+		end
 
-	if textures.NormalMap then
-		materialVariant.NormalMap = textures.NormalMap
-	end
+		if textures.MetalnessMap then
+			materialVariant.MetalnessMap = textures.MetalnessMap
+		end
 
-	if textures.RoughnessMap then
-		materialVariant.RoughnessMap = textures.RoughnessMap
+		if textures.NormalMap then
+			materialVariant.NormalMap = textures.NormalMap
+		end
+
+		if textures.RoughnessMap then
+			materialVariant.RoughnessMap = textures.RoughnessMap
+		end
 	end
 
 	table.insert(builtInMaterialVariants, materialVariant)

@@ -1,5 +1,5 @@
 local FFlagToolboxRemoveUnusedSuggestionsFeature = game:GetFastFlag("ToolboxRemoveUnusedSuggestionsFeature")
-local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
+local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -24,10 +24,11 @@ function Layouter.getAssetsPerRow(width)
 	)
 end
 
-if FFlagToolboxAssetCategorization3 then
+if FFlagToolboxAssetCategorization4 then
 	function Layouter.getSwimlaneWidth(width)
+		local containerWidth = width - (2 * Constants.MAIN_VIEW_PADDING) - Constants.SCROLLBAR_PADDING
 		local assetWidth = Constants.ASSET_WIDTH_NO_PADDING + Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING
-		local assetPerRow = Layouter.getAssetsPerRow(width)
+		local assetPerRow = Layouter.getAssetsPerRow(containerWidth)
 		return assetPerRow * assetWidth - Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING
 	end
 end

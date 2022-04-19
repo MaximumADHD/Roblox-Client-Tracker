@@ -30,6 +30,8 @@ local FitTextLabel = FrameworkUtil.FitFrame.FitTextLabel
 
 local LayoutOrderIterator =  Framework.Util.LayoutOrderIterator
 
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+
 local ToggleButtonWithTitle = Roact.PureComponent:extend("ToggleButtonWithTitle")
 
 function ToggleButtonWithTitle:init()
@@ -53,7 +55,7 @@ end
 
 function ToggleButtonWithTitle:render()
     local props = self.props
-    local theme = props.Theme:get("Plugin")  
+    local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
 
     local callout = props[Roact.Children].TeachingCallout
 
@@ -65,7 +67,6 @@ function ToggleButtonWithTitle:render()
     local selected = props.Selected
     local title = props.Title
     local onClick = props.OnClick
-    local showWarning = props.ShowWarning
     local linkProps = props.LinkProps
 
     local layoutIndex = LayoutOrderIterator.new()
@@ -117,13 +118,13 @@ function ToggleButtonWithTitle:render()
             Size = UDim2.new(1,0,0,0),
             [Roact.Ref] = self.descriptionRef,
             [Roact.Change.AbsoluteSize] = self.onResize,
-        }),	
+        }),
     })
 end
 
-
 ToggleButtonWithTitle = withContext({
-    Theme = ContextServices.Theme,
+    Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
+    Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
 })(ToggleButtonWithTitle)
 
 return ToggleButtonWithTitle

@@ -1,6 +1,6 @@
 --!strict
-local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
-local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext")
+local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
+local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
 
@@ -122,7 +122,7 @@ end
 
 -- A list of views we can route to. Add any new navigatable pages here.
 local navigationRoutes
-if FFlagToolboxAssetCategorization3 then
+if FFlagToolboxAssetCategorization4 then
 	navigationRoutes = {
 		[Constants.NAVIGATION.HOME] = wrapViewForRoactNavigation(function(viewProps)
 			return Roact.createElement(

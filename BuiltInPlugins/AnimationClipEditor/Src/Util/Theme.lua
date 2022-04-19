@@ -12,6 +12,8 @@ local Decoration = UI.Decoration
 local LightTheme = Style.Themes.LightTheme
 local DarkTheme = Style.Themes.DarkTheme
 
+local GetFFlagEasierCurveWorkflow = require(Plugin.LuaFlags.GetFFlagEasierCurveWorkflow)
+
 -- Add new entries to both themes
 local overridedLightTheme = Cryo.Dictionary.join(LightTheme, {
 	[StyleKey.DialogButtonTextDisabled] = Color3.fromRGB(184, 184, 184),
@@ -54,11 +56,13 @@ local overridedLightTheme = Cryo.Dictionary.join(LightTheme, {
 	[StyleKey.KeyframePrimaryErrorBorderColorSelected] = Colors.Red,
 	-- Curves
 	[StyleKey.CurvePositionX] = Color3.fromRGB(255, 0, 0),
-	[StyleKey.CurvePositionY] = Color3.fromRGB(0, 255, 0),
+	[StyleKey.CurvePositionY] = Color3.fromRGB(3, 201, 3),
 	[StyleKey.CurvePositionZ] = Color3.fromRGB(0, 0, 255),
-	[StyleKey.CurveRotationX] = Color3.fromRGB(0, 255, 255),
+	[StyleKey.CurveRotationX] = Color3.fromRGB(0, 191, 255),
 	[StyleKey.CurveRotationY] = Color3.fromRGB(255, 0, 255),
-	[StyleKey.CurveRotationZ] = Color3.fromRGB(255, 255, 0),
+	[StyleKey.CurveRotationZ] = Color3.fromRGB(255, 165, 0),
+	[StyleKey.CurveEditorButton] = "rbxasset://textures/AnimationEditor/Button_Curve_Lightmode.png",
+	[StyleKey.DopeSheetButton] = "rbxasset://textures/AnimationEditor/Button_Dopesheet_Lightmode.png"
 })
 
 local overridedDarkTheme = Cryo.Dictionary.join(DarkTheme, {
@@ -101,12 +105,14 @@ local overridedDarkTheme = Cryo.Dictionary.join(DarkTheme, {
 	[StyleKey.KeyframePrimaryErrorBackgroundColorSelected] = Colors.Gray_Light,
 	[StyleKey.KeyframePrimaryErrorBorderColorSelected] = Color3.fromRGB(255, 68, 68),
 	-- Curves
-	[StyleKey.CurvePositionX] = Color3.fromRGB(255, 127, 127),
-	[StyleKey.CurvePositionY] = Color3.fromRGB(127, 255, 127),
-	[StyleKey.CurvePositionZ] = Color3.fromRGB(127, 127, 255),
-	[StyleKey.CurveRotationX] = Color3.fromRGB(127, 255, 255),
-	[StyleKey.CurveRotationY] = Color3.fromRGB(255, 127, 255),
-	[StyleKey.CurveRotationZ] = Color3.fromRGB(255, 255, 127),
+	[StyleKey.CurvePositionX] = Color3.fromRGB(255, 0, 0),
+	[StyleKey.CurvePositionY] = Color3.fromRGB(3, 201, 3),
+	[StyleKey.CurvePositionZ] = Color3.fromRGB(0, 0, 255),
+	[StyleKey.CurveRotationX] = Color3.fromRGB(0, 191, 255),
+	[StyleKey.CurveRotationY] = Color3.fromRGB(255, 0, 255),
+	[StyleKey.CurveRotationZ] = Color3.fromRGB(255, 165, 0),
+	[StyleKey.CurveEditorButton] = "rbxasset://textures/AnimationEditor/Button_Curve_Darkmode.png",
+	[StyleKey.DopeSheetButton] = "rbxasset://textures/AnimationEditor/Button_Dopesheet_Darkmode.png"
 })
 
 local playbackTheme = {
@@ -268,9 +274,9 @@ local faceDragBoxTheme = {
 	},
 	OutlineStyle = {
 		Color = Color3.fromRGB(87, 87, 87),
-	},	
+	},
 	KnobBackground = Decoration.Image,
-	KnobBackgroundStyle = knobStyle,	
+	KnobBackgroundStyle = knobStyle,
 }
 
 -- Rest of the values come from UILibrary createTheme.lua and StudioStyle.lua
@@ -499,7 +505,10 @@ local curveTheme = {
 	rotationZ = StyleKey.CurveRotationZ,
 	selected = StyleKey.DialogMainButton,
 	xAxis = StyleKey.BrightText,
-	curveEditorButton = "rbxasset://textures/AnimationEditor/button_curve_editor.png",
+	curveEditorButton = if GetFFlagEasierCurveWorkflow()
+		then StyleKey.CurveEditorButton
+		else "rbxasset://textures/AnimationEditor/button_curve_editor.png",
+	dopesheetButton = StyleKey.DopeSheetButton,
 	tangentControlColor = StyleKey.BrightText,
 	tangentAutoButton = "rbxasset://textures/AnimationEditor/TangentHandle_Automatic_9x9.png",
 	tangentDefinedButton = "rbxasset://textures/AnimationEditor/TangentHandle_SelfDefined_9x9.png",

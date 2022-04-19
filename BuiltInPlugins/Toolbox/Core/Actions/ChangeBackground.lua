@@ -1,4 +1,4 @@
-local FFlagToolboxAssetStyleUpdate = game:GetFastFlag("ToolboxAssetStyleUpdate")
+local FFlagToolboxAssetStyleUpdate2 = game:GetFastFlag("ToolboxAssetStyleUpdate2")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -8,7 +8,7 @@ local Action = Util.Action
 
 return Action(script.Name, function(settings, index, selected)
 	-- Delete action with removal of flag
-	if FFlagToolboxAssetStyleUpdate then
+	if FFlagToolboxAssetStyleUpdate2 then
 		return nil
 	end
 	return {

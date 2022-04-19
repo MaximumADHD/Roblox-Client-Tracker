@@ -46,15 +46,16 @@ local BulkImportService = game:GetService("BulkImportService")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 local FFlagAssetManagerGeneralizeSignalAPI = game:GetFastFlag("AssetManagerGeneralizeSignalAPI")
 local FFlagAssetManagerRefactorPath = game:GetFastFlag("AssetManagerRefactorPath")
-local FFlagAssetManagerForceRenderAfterItemsShown = game:GetFastFlag("AssetManagerForceRenderAfterItemsShown")
 
 local shouldEnableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).shouldEnableAudioImport
+local shouldEnableVideoImport = require(Plugin.Src.Util.AssetManagerUtilities).shouldEnableVideoImport
 
 local AssetGridContainer = Roact.Component:extend("AssetGridContainer")
 
 local function isSupportedBulkImportAssetScreen(screen)
     return screen.Path == Screens.IMAGES.Path or screen.Path == Screens.MESHES.Path
         or (shouldEnableAudioImport() and screen.Path == Screens.AUDIO.Path)
+        or (shouldEnableVideoImport() and screen.Path == Screens.VIDEO.Path)
         or (FFlagAssetManagerEnableModelAssets and screen.Path == Screens.MODELS.Path)
 end
 
@@ -293,18 +294,16 @@ function AssetGridContainer:didUpdate()
         })
     end
 
-	if FFlagAssetManagerForceRenderAfterItemsShown then
-		local assets = props.AssetsTable.assets
-		local currentScreen = props.CurrentScreen
-		local hasLinkedScripts = props.HasLinkedScripts
-		local searchTerm = props.SearchTerm
+	local assets = props.AssetsTable.assets
+	local currentScreen = props.CurrentScreen
+	local hasLinkedScripts = props.HasLinkedScripts
+	local searchTerm = props.SearchTerm
 
-		local result = hasItemsToDisplay(assets, currentScreen, hasLinkedScripts, searchTerm)
-		if result ~= self.hasItemsToDisplay then
-			self.hasItemsToDisplay = result
-			if result then
-				self:setState({})
-			end
+	local result = hasItemsToDisplay(assets, currentScreen, hasLinkedScripts, searchTerm)
+	if result ~= self.hasItemsToDisplay then
+		self.hasItemsToDisplay = result
+		if result then
+			self:setState({})
 		end
 	end
 end

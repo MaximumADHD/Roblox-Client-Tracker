@@ -25,6 +25,7 @@ local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
+local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
 
 local DraggerWrapper = Roact.PureComponent:extend("DraggerWrapper")
 
@@ -66,15 +67,20 @@ local function mapDraggerContextToProps(draggerContext, props)
 						props.ValueChanged(instanceName, path, Constants.TRACK_TYPES.CFrame, props.Playhead, value, props.Analytics)
 					else
 						local rotationType
+						local eulerAnglesOrder = props.DefaultEulerAnglesOrder
 						if GetFFlagQuaternionChannels() then
 							rotationType = TrackUtils.getRotationTypeFromName(trackName, props.Tracks) or props.DefaultRotationType
+							if GetFFlagEulerAnglesOrder() and rotationType == Constants.TRACK_TYPES.EulerAngles then
+								local track = AnimationData.getTrack(props.AnimationData, "Root", path)
+								eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track)
+							end
 						else
 							rotationType = Constants.TRACK_TYPES.Rotation
 						end
 						-- Change the value of all tracks
 						TrackUtils.traverseValue(Constants.TRACK_TYPES.CFrame, value, function(_trackType, relPath, _value)
 							props.ValueChanged(instanceName, Cryo.List.join(path, relPath), _trackType, props.Playhead, _value, props.Analytics)
-						end, rotationType)
+						end, rotationType, eulerAnglesOrder)
 					end
 				else
 					props.ValueChanged(instanceName, {trackName}, Constants.TRACK_TYPES.CFrame, props.Playhead, value, props.Analytics)
@@ -145,6 +151,7 @@ local function mapStateToProps(state, props)
 		PlayState = status.PlayState,
 		AnimationData = state.AnimationData,
 		DefaultRotationType = status.DefaultRotationType,
+		DefaultEulerAnglesOrder = status.DefaultEulerAnglesOrder,
 	}
 end
 

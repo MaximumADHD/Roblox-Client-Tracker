@@ -10,6 +10,7 @@ local t = require(CorePackages.Packages.t)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
+local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 
 local InGameMenuConstants = require(RobloxGui.Modules.InGameMenu.Resources.Constants)
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
@@ -46,20 +47,28 @@ function MenuIcon:init()
 	self:setState({
 		vrShowMenuIcon = FFlagEnableNewVrSystem and VRService.VREnabled and ((EngineFeatureEnableVRUpdate2 and VRHub.ShowTopBar) or GamepadService.GamepadCursorEnabled),
 	})
-	
+
 	self.menuIconActivated = function()
 
 		if FFlagEnableNewVrSystem and VRService.VREnabled and ((EngineFeatureEnableVRUpdate2 and VRHub.ShowTopBar) or GamepadService.GamepadCursorEnabled) then
 			-- in the new VR System, the menu icon opens the gamepad menu instead
 			if EngineFeatureEnableVRUpdate2 then
-				InGameMenu.openInGameMenu(InGameMenuConstants.MainPagePageKey)
+				if EnableInGameMenuV3() then
+					InGameMenu.openInGameMenu("Players")
+				else
+					InGameMenu.openInGameMenu(InGameMenuConstants.MainPagePageKey)
+				end
 			else
 				self.props.setGamepadMenuOpen(true)
 			end
-			
+
 		else
 			if isNewInGameMenuEnabled() then
-				InGameMenu.openInGameMenu(InGameMenuConstants.MainPagePageKey)
+				if EnableInGameMenuV3() then
+					InGameMenu.openInGameMenu("Players")
+				else
+					InGameMenu.openInGameMenu(InGameMenuConstants.MainPagePageKey)
+				end
 			else
 				local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 				SettingsHub:ToggleVisibility(InGameMenuConstants.AnalyticsMenuOpenTypes.TopbarButton)
@@ -67,7 +76,7 @@ function MenuIcon:init()
 		end
 	end
 	self.menuIconOnHover = function()
-		if isNewInGameMenuEnabled() then
+		if isNewInGameMenuEnabled() and not EnableInGameMenuV3()  then
 			-- Disable Menu Icon hovering if not on DUA
 			if not isSubjectToDesktopPolicies() then
 				return

@@ -8,6 +8,7 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 local Components = script.Parent.Parent.Parent
 local InGameMenu = Components.Parent
+local Constants = require(InGameMenu.Resources.Constants)
 
 local GameIcon = require(Components.GameIcon)
 local FavoriteButton = require(Components.FavoriteButton)
@@ -31,7 +32,7 @@ local LEAVE_CONFIRM_ACTION = "LeavePromptConfirm"
 local ITEM_PADDING = 24
 
 local BUTTON_PADDING = 12
-local BUTTON_WIDTH = 353
+local BUTTON_WIDTH = Constants.PageWidth - 48
 local BUTTON_HEIGHT = 36
 
 local LeavePrompt = Roact.PureComponent:extend("LeavePrompt")
@@ -68,7 +69,7 @@ function LeavePrompt:render()
 		local oldContent = {
 			Background = Roact.createElement("ImageLabel", {
 				Visible = returnHomeMode,
-				Size = UDim2.new(1,0, 0,400),
+				Size = UDim2.new(1,0, 0, Constants.PageWidth),
 				Image = Images.LeaveGameTilesBackground,
 				BackgroundTransparency = 1,
 				ZIndex = 0,

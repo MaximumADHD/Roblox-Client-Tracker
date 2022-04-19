@@ -2,7 +2,7 @@
 --[[
 	A generic clickable Search Pill.
 ]]
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization3")
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization4")
 if not FFlagToolboxAssetCategorization then
 	-- needed for withAbsoluteSizeAndPosition
 	return {}
@@ -118,7 +118,7 @@ function SearchPill:render()
 		}),
 
 		UIPadding = Roact.createElement("UIPadding", {
-			PaddingBottom = UDim.new(0, searchPillTheme.padding.top),
+			PaddingBottom = UDim.new(0, searchPillTheme.padding.bottom),
 			PaddingLeft = UDim.new(0, paddingHorizontal),
 			PaddingRight = UDim.new(0, paddingHorizontal),
 			PaddingTop = UDim.new(0, searchPillTheme.padding.top),

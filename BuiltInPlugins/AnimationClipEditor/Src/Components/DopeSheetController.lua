@@ -526,6 +526,7 @@ function DopeSheetController:makeTracks()
 		entry.Keyframes = track.Keyframes
 		entry.Data = track.Data
 		entry.IsCurveTrack = track.IsCurveTrack
+		entry.EulerAnglesOrder = track.EulerAnglesOrder
 
 		for trackComponentName, trackComponent in pairs(track.Components or {}) do
 			if entry.Components then

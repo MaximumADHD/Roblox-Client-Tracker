@@ -11,6 +11,8 @@ local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local RunService = game:GetService("RunService")
 local StarterPlayer = game:GetService("StarterPlayer")
 
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local t = InGameMenuDependencies.t
@@ -25,6 +27,8 @@ local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
+
+local GetFFlagRemoveAssetVersionEndpoint = require(RobloxGui.Modules.Flags.GetFFlagRemoveAssetVersionEndpoint)
 
 local FFlagShowGitHashInNewExperienceMenu = game:DefineFastFlag("ShowGitHashInNewExperienceMenu", false)
 
@@ -217,19 +221,22 @@ function VersionReporter:didMount()
 		end
 	end)()
 
-	coroutine.wrap(function()
-		pcall(function()
-			local json = HttpRbxApiService:GetAsync(string.format("assets/%d/versions", game.PlaceId))
-			local versionData = HttpService:JSONDecode(json)
-			local latestVersion = versionData[1].VersionNumber
-
-			if self.mounted then
-				self:setState({
-					latestPlaceVersion = latestVersion,
-				})
-			end
-		end)
-	end)()
+	-- Remove all logic associated with latestPlaceVersion along with this flag
+	if not GetFFlagRemoveAssetVersionEndpoint() then
+		coroutine.wrap(function()
+			pcall(function()
+				local json = HttpRbxApiService:GetAsync(string.format("assets/%d/versions", game.PlaceId))
+				local versionData = HttpService:JSONDecode(json)
+				local latestVersion = versionData[1].VersionNumber
+	
+				if self.mounted then
+					self:setState({
+						latestPlaceVersion = latestVersion,
+					})
+				end
+			end)
+		end)()
+	end
 
 	coroutine.wrap(function()
 		local isAdmin = PlayerPermissions.IsPlayerAdminAsync(Players.LocalPlayer)

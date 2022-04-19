@@ -209,11 +209,11 @@ function TrackList:renderExpandedCFrameTrack(track, children, theme)
 		self.getTextWidth(properties.Rotation, theme))
 	local trackWidth = self.getTrackWidth(indent, nameWidth)
 
-	local currentValue = TrackUtils.getCurrentValue(track, playhead, animationData)
+	local currentValue = TrackUtils.getCurrentValue(track, playhead, animationData, props.DefaultEulerAnglesOrder)
 	if not GetFFlagFacsAsFloat() and GetFFlagFacsUiChanges() and not GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs then
 		currentValue = math.floor(0.5 + (currentValue * 100))
 	end
-	local items = TrackUtils.getItemsForProperty(track, currentValue)
+	local items = TrackUtils.getItemsForProperty(track, currentValue, nil, props.DefaultEulerAnglesOrder)
 	trackWidth = trackWidth + #items.Position
 		* (Constants.NUMBERBOX_WIDTH + Constants.NUMBERTRACK_PADDING * 2)
 
@@ -352,7 +352,7 @@ function TrackList:renderTrack(track, children, theme, parentPath, parentType)
 	local items
 	-- CFrame tracks never show a value. Don't spend time evaluating it
 	if trackType ~= Constants.TRACK_TYPES.CFrame then
-		local currentValue = TrackUtils.getCurrentValueForPath(path, instance, playhead, animationData, trackType)
+		local currentValue = TrackUtils.getCurrentValueForPath(path, instance, playhead, animationData, trackType, props.DefaultEulerAnglesOrder)
 		if GetFFlagFacsUiChanges() and not GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs then
 			if GetFFlagFacsAsFloat() then
 				currentValue = math.clamp(currentValue, 0, 1)
@@ -362,7 +362,7 @@ function TrackList:renderTrack(track, children, theme, parentPath, parentType)
 				currentValue = math.floor(0.5 + (currentValue * 100))
 			end
 		end
-		items = (isChannelAnimation and expanded) and {} or TrackUtils.getItemsForProperty(track, currentValue, name)
+		items = (isChannelAnimation and expanded) and {} or TrackUtils.getItemsForProperty(track, currentValue, name, props.DefaultEulerAnglesOrder)
 	else
 		items = {}
 	end
@@ -481,7 +481,7 @@ function TrackList:renderTrack_deprecated(track, children, theme)
 		local nameWidth = self.getTextWidth(name, theme)
 		local trackWidth = self.getTrackWidth(0, nameWidth) + (Constants.NUMBERBOX_WIDTH + Constants.NUMBERTRACK_PADDING * 2)
 
-		local currentValue = TrackUtils.getCurrentValue(track, playhead, animationData)
+		local currentValue = TrackUtils.getCurrentValue(track, playhead, animationData, props.DefaultEulerAnglesOrder)
 		if GetFFlagFacsUiChanges() and track.Type == Constants.TRACK_TYPES.Facs then
 			if GetFFlagFacsAsFloat() then
 				currentValue = math.clamp(currentValue, 0, 1)
@@ -491,7 +491,7 @@ function TrackList:renderTrack_deprecated(track, children, theme)
 				currentValue = math.floor(0.5 + (currentValue * 100))
 			end
 		end
-		local items = TrackUtils.getItemsForProperty(track, currentValue)
+		local items = TrackUtils.getItemsForProperty(track, currentValue, nil, props.DefaultEulerAnglesOrder)
 
 		self.maxTrackWidth = math.max(self.maxTrackWidth, trackWidth)
 
@@ -597,6 +597,7 @@ TrackList = withContext({
 local function mapStateToProps(state, props)
 	local status = state.Status
 	return {
+		DefaultEulerAnglesOrder = status.DefaultEulerAnglesOrder,
 		IsPlaying = status.IsPlaying,
 		PlayState = status.PlayState,
 	}

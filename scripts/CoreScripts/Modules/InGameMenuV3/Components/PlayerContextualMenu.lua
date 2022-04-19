@@ -14,6 +14,7 @@ local InGameMenu = script.Parent.Parent
 
 local FocusHandler = require(script.Parent.Connection.FocusHandler)
 local RootedConnection = require(script.Parent.Connection.RootedConnection)
+local PlayerContextHeader = require(InGameMenu.Components.PlayerContextHeader)
 
 local Flags = InGameMenu.Flags
 local GetFFlagIGMRefactorPlayerContextualMenuGamepadSupport = require(Flags.GetFFlagIGMRefactorPlayerContextualMenuGamepadSupport)
@@ -31,6 +32,7 @@ PlayerContextualMenu.validateProps = t.strictInterface({
 	yOffset = t.number,
 	onClose = t.callback,
 	canCaptureFocus = t.boolean,
+	player = t.table,
 })
 
 function PlayerContextualMenu:init()
@@ -132,11 +134,19 @@ function PlayerContextualMenu:render()
 				BackgroundTransparency = 1,
 				[Roact.Ref] = self.setContainerRef,
 			}, {
-				BaseMenu = Roact.createElement(BaseMenu, {
-					buttonProps = self.props.moreActions,
-					setFirstItemRef = self.setFirstOptionRef,
-					width = UDim.new(0, self.props.actionWidth),
-					position = UDim2.fromOffset(self.props.xOffset, self.props.yOffset),
+				MenuFrame = Roact.createElement("Frame", {
+					Size = UDim2.new(0, self.props.actionWidth, 1, 0),
+					BackgroundTransparency = 1,
+					Position = UDim2.fromOffset(self.props.xOffset, self.props.yOffset),
+				}, {
+					PlayerContextHeader = Roact.createElement(PlayerContextHeader, {player = self.props.player}),
+					BaseMenu = Roact.createElement(BaseMenu, {
+						topElementRounded = false,
+						buttonProps = self.props.moreActions,
+						setFirstItemRef = self.setFirstOptionRef,
+						width = UDim.new(0, self.props.actionWidth),
+						position = UDim2.fromOffset(0,0),
+					}),
 				}),
 			}) or nil,
 
@@ -148,11 +158,19 @@ function PlayerContextualMenu:render()
 							BackgroundTransparency = 1,
 							[Roact.Ref] = self.containerRef,
 						}, {
-							BaseMenu = Roact.createElement(BaseMenu, {
-								buttonProps = self.props.moreActions,
-								setFirstItemRef = self.firstOptionRef,
-								width = UDim.new(0, self.props.actionWidth),
-								position = UDim2.fromOffset(self.props.xOffset, self.props.yOffset),
+							MenuFrame = Roact.createElement("Frame", {
+								Size = UDim2.new(0, self.props.actionWidth, 1, 0),
+								BackgroundTransparency = 1,
+								Position = UDim2.fromOffset(self.props.xOffset, self.props.yOffset),
+							}, {
+								PlayerContextHeader = Roact.createElement(PlayerContextHeader, {player = self.props.player}),
+								BaseMenu = Roact.createElement(BaseMenu, {
+									topElementRounded = false,
+									buttonProps = self.props.moreActions,
+									setFirstItemRef = self.firstOptionRef,
+									width = UDim.new(0, self.props.actionWidth),
+									position = UDim2.fromOffset(0,92),
+								}),
 							}),
 						}),
 					})

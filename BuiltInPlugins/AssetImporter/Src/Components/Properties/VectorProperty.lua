@@ -1,12 +1,9 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local getFFlagDevFrameworkTextInput2 = require(Plugin.Src.Flags.getFFlagDevFrameworkTextInput2)
-
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
 local UI = Framework.UI
-local TextInput = UI.TextInput -- Remove with FFlagDevFrameworkTextInput2
 local TextInput2 = UI.TextInput2
 local TextLabel = UI.Decoration.TextLabel
 
@@ -22,8 +19,8 @@ local function VectorProperty(props)
 			TextXAlignment = Enum.TextXAlignment.Left,
 		})
 	else
-		return Roact.createElement(getFFlagDevFrameworkTextInput2() and TextInput2 or TextInput, {
-			Disabled = getFFlagDevFrameworkTextInput2() and true or nil,
+		return Roact.createElement(TextInput2, {
+			Disabled = true,
 			LayoutOrder = props.LayoutOrder,
 			Size = props.Size,
 			Text = text,

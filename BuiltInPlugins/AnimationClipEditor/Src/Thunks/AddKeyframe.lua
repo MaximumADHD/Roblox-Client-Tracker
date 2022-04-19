@@ -14,6 +14,7 @@ local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
+local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
 
 if GetFFlagChannelAnimations() then
 	return function(instanceName, path, trackType, tick, keyframeData, analytics)
@@ -34,19 +35,22 @@ if GetFFlagChannelAnimations() then
 			local track = AnimationData.getTrack(newData, instanceName, path)
 			if track == nil then
 				local rotationType = state.Status and state.Status.DefaultRotationType or Constants.DEFAULT_ROTATION_TYPE
+				local eulerAnglesOrder = state.Status and state.Status.DefaultEulerAnglesOrder or Enum.RotationOrder.XYZ
 
 				local topTrackType = Constants.TRACK_TYPES.CFrame
 				if trackType == Constants.TRACK_TYPES.Facs then
 					topTrackType = Constants.TRACK_TYPES.Facs
 				end
 
-				if GetFFlagQuaternionsUI() then
+				if GetFFlagEulerAnglesOrder() then
+					store:dispatch(AddTrack(instanceName, path[1], topTrackType, rotationType, eulerAnglesOrder, analytics))
+				elseif GetFFlagQuaternionsUI() then
 					store:dispatch(AddTrack(instanceName, path[1], topTrackType, rotationType, analytics))
 				else
 					store:dispatch(AddTrack(instanceName, path[1], topTrackType, analytics))
 				end
 
-				AnimationData.addTrack(tracks, path[1], topTrackType, AnimationData.isChannelAnimation(newData), rotationType)
+				AnimationData.addTrack(tracks, path[1], topTrackType, AnimationData.isChannelAnimation(newData), rotationType, eulerAnglesOrder)
 				track = AnimationData.getTrack(newData, instanceName, path)
 			end
 

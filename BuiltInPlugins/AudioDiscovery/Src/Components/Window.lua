@@ -1,13 +1,15 @@
 local FFlagStudioAudioDiscoveryPluginV2 = game:GetFastFlag("StudioAudioDiscoveryPluginV2")
+local FFlagStudioAudioDiscoveryPluginV6 = game:GetFastFlag("StudioAudioDiscoveryPluginV6")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
-local Framework = require(Plugin.Packages.Framework)
-local SetDialog = require(Plugin.Src.Actions.SetDialog)
 local DiscoverAudio = require(Plugin.Src.Thunks.DiscoverAudio)
+local SetDialog = require(Plugin.Src.Actions.SetDialog)
+local Unpause = require(Plugin.Src.Actions.Unpause)
 
+local Framework = require(Plugin.Packages.Framework)
 local UI = Framework.UI
 local DropShadow = UI.DropShadow
 local Button = UI.Button
@@ -101,7 +103,62 @@ function Window:render()
 		}),
 	})
 
-	if FFlagStudioAudioDiscoveryPluginV2 and props.Dialog then
+	if FFlagStudioAudioDiscoveryPluginV6 and props.Paused then
+		return Roact.createElement(Pane, {
+			Style = "Box",
+		}, {
+			Pane = pane,
+			Overlay = Roact.createElement(Pane, {
+				Active = true,
+				Style = "Box",
+				BackgroundTransparency = 0.2,
+				ZIndex = 2,
+			}, {
+				Dialog = Roact.createElement(Pane, {
+					Position = UDim2.fromScale(0.5, 0.5),
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Size = UDim2.fromOffset(400, 150),
+				}, {
+					DropShadow = Roact.createElement(DropShadow, {}, {
+						Child = Roact.createElement(Pane, {
+							Style = "Box",
+							Layout = Enum.FillDirection.Vertical,
+							HorizontalAlignment = Enum.HorizontalAlignment.Right,
+							Padding = 20,
+							Spacing = 5,
+						}, {
+							Title = Roact.createElement(TextLabel, {
+								TextSize = 24,
+								TextXAlignment = Enum.TextXAlignment.Left,
+								Text = localization:getText("PausedDialog", "Title"),
+								AutomaticSize = Enum.AutomaticSize.Y,
+								Size = UDim2.fromScale(1, 0),
+								LayoutOrder = 1,
+							}),
+							Text = Roact.createElement(TextLabel, {
+								TextSize = 17,
+								TextXAlignment = Enum.TextXAlignment.Left,
+								Text = localization:getText("PausedDialog", "Text"),
+								RichText = true,
+								AutomaticSize = Enum.AutomaticSize.Y,
+								Size = UDim2.fromScale(1, 0),
+								TextWrapped = true,
+								LayoutOrder = 2,
+							}),
+							Close = Roact.createElement(Button, {
+								Text = localization:getText("PausedDialog", "Close"),
+								OnClick = self.props.Unpause,
+								Size = UDim2.fromOffset(120, 32),
+								LayoutOrder = 3,
+								Style = "Round",
+							}),
+						}),
+					})
+				})
+			}),
+		})
+
+	elseif FFlagStudioAudioDiscoveryPluginV2 and props.Dialog then
 		return Roact.createElement(Pane, {
 			Style = "Box",
 		}, {
@@ -167,6 +224,7 @@ Window = withContext({
 return RoactRodux.connect(
 	function(state, props)
 		return {
+			Paused = state.Audio.Paused,
 			Dialog = state.Audio.Dialog,
 			Rows = state.Audio.Rows,
 		}
@@ -179,6 +237,10 @@ return RoactRodux.connect(
 			CloseDialog = function()
 				dispatch(SetDialog(false))
 			end,
+			Unpause = function()
+				dispatch(Unpause())
+				dispatch(DiscoverAudio())
+			end
 		}
 	end
 )(Window)

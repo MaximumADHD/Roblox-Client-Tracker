@@ -1,7 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 local isCli = require(script.Parent.isCli)
 
-local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
+local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 local FFlagAssetConfigDistributionQuotas = game:GetFastFlag("AssetConfigDistributionQuotas")
 
 local AssetQuotaTypes = require(Plugin.Core.Types.AssetQuotaTypes)
@@ -73,7 +73,7 @@ function ToolboxUtilities.getShouldDisableAutocomplete()
 	return ToolboxPolicy["DisableAutocomplete"]
 end
 
-if FFlagToolboxAssetCategorization3 then
+if FFlagToolboxAssetCategorization4 then
 	function ToolboxUtilities.getHomeViewEnabledAssetTypes()
 		return ToolboxPolicy["HomeViewEnabledAssetTypes"]
 	end

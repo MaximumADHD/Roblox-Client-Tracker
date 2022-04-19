@@ -11,6 +11,7 @@ local GetAssetResponse = require(Plugin.Src.Thunks.GetAssetResponse)
 local Screens = require(Plugin.Src.Util.Screens)
 
 local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableAudioImport
+local enableVideoImport = require(Plugin.Src.Util.AssetManagerUtilities).enableVideoImport
 
 local sendResultToKibana = require(Plugin.Packages.Framework).Util.sendResultToKibana
 local FIntStudioAssetManagerAssetFetchNumber = game:GetFastInt("StudioAssetManagerAssetFetchNumber")
@@ -50,6 +51,7 @@ if FFlagAssetManagerRefactorPath then
             local isMesh = path == Screens.MESHES.Path
             local isScript = path == Screens.SCRIPTS.Path
             local isAudio = enableAudioImport() and path == Screens.AUDIO.Path
+            local isVideo = enableVideoImport() and path == Screens.VIDEO.Path
             local isModel = FFlagAssetManagerEnableModelAssets and path == Screens.MODELS.Path
             local isAlias = isImage or isMesh or isScript or isAudio or isModel
 
@@ -165,6 +167,7 @@ else
             or assetType == Enum.AssetType.MeshPart
             or assetType == Enum.AssetType.Lua
             or (enableAudioImport() and assetType == Enum.AssetType.Audio)
+            or (enableVideoImport() and assetType == Enum.AssetType.Video)
             or (FFlagAssetManagerEnableModelAssets and assetType == Enum.AssetType.Model)
             then
                 local page
@@ -192,6 +195,7 @@ else
                         or (assetType == Enum.AssetType.MeshPart and string.find(alias.Name, "Meshes/"))
                         or (assetType == Enum.AssetType.Lua and string.find(alias.Name, "Scripts/"))
                         or (enableAudioImport() and (assetType == Enum.AssetType.Audio and string.find(alias.Name, "Audio/")))
+                        or (enableVideoImport() and (assetType == Enum.AssetType.Video and string.find(alias.Name, "Video/")))
                         or (FFlagAssetManagerEnableModelAssets and (assetType == Enum.AssetType.Model and string.find(alias.Name, "Models/")))
                         then
                             -- creating new table so keys across all assets are consistent
@@ -209,6 +213,8 @@ else
                                 assetAlias.name = string.gsub(alias.Name, "Scripts/", "")
                             elseif (enableAudioImport() and assetType == Enum.AssetType.Audio and string.find(alias.Name, "Audio/")) then
                                 assetAlias.name = string.gsub(alias.Name, "Audio/", "")
+                            elseif (enableVideoImport() and assetType == Enum.AssetType.Video and string.find(alias.Name, "Video/")) then
+                                assetAlias.name = string.gsub(alias.Name, "Video/", "")
                             elseif (FFlagAssetManagerEnableModelAssets and assetType == Enum.AssetType.Model and string.find(alias.Name, "Models/")) then
                                 assetAlias.name = string.gsub(alias.Name, "Models/", "")
                             end

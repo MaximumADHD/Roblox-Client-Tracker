@@ -32,13 +32,16 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
 
+local Constants = require(Plugin.Src.Util.Constants)
+
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 
 local Input = require(Plugin.Src.Util.Input)
 
 local FaceControlsEditorWindow = Roact.PureComponent:extend("FaceControlsEditorWindow")
 
-local SIZE = Vector2.new(240, 440)
+local SIZE = Vector2.new(Constants.faceControlsEditorOriginalWidth, 310)
+local MINSIZE = Vector2.new(200, 310)
 local RADIO_BUTTON_GROUP_HEIGHT = 32
 local PADDING = 8
 
@@ -61,7 +64,6 @@ local RangeSlider = Framework.UI.RangeSlider
 local MAX_VALUE = 5
 local MIN_VALUE = 0
 
-local Constants = require(Plugin.Src.Util.Constants)
 local ValueChanged = require(Plugin.Src.Thunks.ValueChanged)
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local SetSymmetryEnabled = require(Plugin.Src.Actions.SetSymmetryEnabled)
@@ -90,8 +92,27 @@ function FaceControlsEditorWindow:init()
 		Tooltip = nil,
 		treeArray = {},
 		showContextMenu = false,
-		currentlyEditedFacsProperties = {}
+		currentlyEditedFacsProperties = {},
+		scaleFactor = 1
 	}
+	
+	self.onAbsoluteSizeChange = function(rbx)
+		local panelWidth = rbx.AbsoluteSize.X
+		local panelHeight = rbx.AbsoluteSize.Y
+		--min and max clamped values are to not allow scaling the diagrams so small that one can't use the
+		--sliders well anymore, nor so big that the diagram images would become pixelated
+		local scaleFactor = math.clamp(panelWidth / Constants.faceControlsEditorOriginalWidth , 0.3, 1.55)
+		local defaultContentHeight = (Constants.faceControlsEditorDiagramPadding * 2) + (Constants.faceControlsEditorDiagramHeight * 2) + Constants.faceControlsEditoSpacingBetweenDiagrams + Constants.faceControlsEditorTogglesContainerHeight
+		
+		local maxYScaleFactorAllowed = panelHeight / defaultContentHeight
+		scaleFactor = math.min(scaleFactor, maxYScaleFactorAllowed)
+		self:setState({
+			panelWidth = panelWidth,
+			panelHeight = panelHeight,
+			scaleFactor = scaleFactor 
+		})
+	end	
+	
 
 	self.showContextMenu = function()
 		self:setState({
@@ -114,6 +135,7 @@ function FaceControlsEditorWindow:init()
 
 	self.hideFaceControlsEditor = function()
 		local props = self.props
+		
 		if props.ShowFaceControlsEditorPanel then
 			props.SetShowFaceControlsEditorPanel(false)
 		end
@@ -325,9 +347,9 @@ function makeFacsOnFaceDiagramSliderUIItems (self, style, localization)
 
 				children[name.."_rotatedSliderContainer"] = Roact.createElement("Frame", {				
 					BorderSizePixel = 0,
-					BackgroundTransparency = 1,
-					Position = sliderProps.position,
-					Size = UDim2.new(0, itemWidth, 0, 2),
+					BackgroundTransparency = 1,					
+					Position = UDim2.new(sliderProps.position.X.Scale, sliderProps.position.X.Offset * self.state.scaleFactor, sliderProps.position.Y.Scale, sliderProps.position.Y.Offset * self.state.scaleFactor),
+					Size = UDim2.new(0, itemWidth * self.state.scaleFactor, 0, 2 * self.state.scaleFactor),
 					Rotation = sliderProps.rotation,
 					LayoutOrder = 2,
 					ZIndex = 100,
@@ -431,10 +453,10 @@ function makeEyesControlDragBox (self, style, localization)
 			triggerValueChanged(props, Constants.FacsNames.EyesLookLeft, eyesLookLeftValue)
 			triggerValueChanged(props, Constants.FacsNames.EyesLookUp, eyesLookUpValue)
 			triggerValueChanged(props, Constants.FacsNames.EyesLookDown, eyesLookDownValue)
-		end,	
-
-		Position = UDim2.new(0, 146, 0, 145),
-		Size = UDim2.new(0, 36, 0, 28),
+		end,
+		
+		Position = UDim2.new(sliderProps.position.X.Scale, sliderProps.position.X.Offset * self.state.scaleFactor, sliderProps.position.Y.Scale, sliderProps.position.Y.Offset * self.state.scaleFactor),
+		Size = UDim2.new(0, 36 * self.state.scaleFactor, 0, 28 * self.state.scaleFactor),
 		AnchorPoint = Vector2.new(0.5,0.5),					
 	})
 
@@ -448,10 +470,9 @@ function getTrackValuesForEyeDragBox(instance, playhead)
 	local trackEyesLookRight = instance.Tracks[Constants.FacsNames.EyesLookRight]
 	local trackEyesLookUp = instance.Tracks[Constants.FacsNames.EyesLookUp]
 	local trackEyesLookDown = instance.Tracks[Constants.FacsNames.EyesLookDown]
-
+	
+	local sliderProps = faceControlsMapping.FacsControlToFaceSliderInfoMap[eyesDragBoxControlName]
 	if trackEyesLookLeft or trackEyesLookRight or trackEyesLookUp or trackEyesLookDown then
-		local sliderProps = faceControlsMapping.FacsControlToFaceSliderInfoMap[eyesDragBoxControlName]
-
 		local currentValueEyesLookLeft = trackEyesLookLeft and KeyframeUtils.getValue(trackEyesLookLeft, playhead) or 0
 		local currentValueEyesLookRight = trackEyesLookRight and KeyframeUtils.getValue(trackEyesLookRight, playhead) or 0
 		local currentValueEyesLookUp = trackEyesLookUp and KeyframeUtils.getValue(trackEyesLookUp, playhead) or 0
@@ -461,7 +482,9 @@ function getTrackValuesForEyeDragBox(instance, playhead)
 		local targetValueY = currentValueEyesLookUp ~=0 and -currentValueEyesLookUp or currentValueEyesLookDown						
 
 		sliderProps.currentValue = Vector2.new(targetValueX, targetValueY)
-	end	
+	else
+		sliderProps.currentValue = sliderProps.defaultValue
+	end
 end
 
 function FaceControlsEditorWindow:makeContextMenuActions(localization)
@@ -481,8 +504,33 @@ function FaceControlsEditorWindow:makeContextMenuActions(localization)
 end
 
 -- get current value of facs to apply on sliders and dragbox:
-function getCurrentValues(instance, playhead)
+function FaceControlsEditorWindow:getCurrentValues()
+	local props = self.props
+	local animationData = props.AnimationData
+	local instance = animationData.Instances[instanceForFacs]
+	
 	if instance == nil then return end
+	
+	local playhead = props.Playhead
+	
+	--get zero/ deleted values
+	local faceControls = RigUtils.getFaceControls(props.RootInstance)
+	if faceControls ~= nil then
+		for i, facsName in pairs(Constants.FacsNames) do
+			local sliderProps = faceControlsMapping.FacsControlToFaceSliderInfoMap[facsName]
+			
+			if instance and instance.Tracks ~= nil then
+				local track = instance.Tracks[facsName]
+				if track == nil or track.Type ~= Constants.TRACK_TYPES.Facs then					 
+					faceControls[facsName] = 0
+					if sliderProps then sliderProps.currentValue = sliderProps.defaultValue end
+				end
+			else
+				faceControls[facsName] = 0
+			end
+		end					
+	end	
+	
 
 	local tracks = instance.Tracks
 
@@ -505,7 +553,7 @@ function getCurrentValues(instance, playhead)
 
 		local sliderGroup = crossMapping.sliderGroup
 
-		sliderProps.currentValue = 0			
+		sliderProps.currentValue = sliderProps.defaultValue			
 		currentValue = KeyframeUtils.getValue(currentTrack, playhead)					
 
 		if currentValue == nil then continue end
@@ -532,7 +580,9 @@ function getCurrentValues(instance, playhead)
 					local currentFacsValueGroupPartner = 0
 					local currentTrackGroupPartner = instance.Tracks[groupPartnerName]
 
-					currentFacsValueGroupPartner = KeyframeUtils.getValue(currentTrackGroupPartner, playhead)
+					if currentTrackGroupPartner then 
+						currentFacsValueGroupPartner = KeyframeUtils.getValue(currentTrackGroupPartner, playhead) 
+					end
 
 					local targetValue = 0.5+  (currentFacsValueGroupPartner * 0.5)
 					if currentFacsValueGroupPartner >0 then
@@ -554,6 +604,28 @@ function getCurrentValues(instance, playhead)
 			sliderProps.currentValue = currentValue	
 		end												
 	end			
+end
+
+function resetAllValuesInMapping()
+	local Facs = getFacsListData()		
+	for _, facs in ipairs(Facs) do			
+		local sliderProps = faceControlsMapping.FacsControlToFaceSliderInfoMap[facs.Name]
+		if sliderProps then sliderProps.currentValue = sliderProps.defaultValue end
+	end
+	local eyesDragBoxProps = faceControlsMapping.FacsControlToFaceSliderInfoMap[eyesDragBoxControlName]
+	eyesDragBoxProps.currentValue = eyesDragBoxProps.defaultValue
+end
+
+function FaceControlsEditorWindow:willUpdate(nextProps)
+	--reset values on switch rig 
+	--(user selected a different avatar while ACE and face controls editor open)
+	if nextProps.RootInstance ~= self.props.RootInstance then
+		local lastEditedRig = self.props.RootInstance
+		if lastEditedRig ~= nil then 
+			RigUtils.resetAllFacsValuesInFaceControls(lastEditedRig)
+		end
+		resetAllValuesInMapping()
+	end		
 end
 
 function FaceControlsEditorWindow:render()
@@ -582,10 +654,12 @@ function FaceControlsEditorWindow:render()
 
 	local animationData = props.AnimationData
 	local playhead = props.Playhead
-
-	local instance = animationData.Instances[instanceForFacs]
-
-	getCurrentValues(instance, playhead)
+	
+	--if animationData ~= nil check is to avoid nil when the user animated one avatar, 
+	--then selects another avatar (while ACE open) which had no anim yet
+	if animationData ~= nil then
+		self:getCurrentValues()		
+	end
 
 	-- create ui elements
 	return Roact.createElement(DockWidget, {
@@ -597,7 +671,7 @@ function FaceControlsEditorWindow:render()
 		InitialEnabled = true,
 		InitialEnabledShouldOverrideRestore = true,
 		Size = SIZE,
-		MinSize = SIZE,
+		MinSize = MINSIZE,
 		OnClose = self.hideFaceControlsEditor,
 		Enabled = true,
 		[Roact.Ref] = self.onDockWidgetLoaded,
@@ -608,6 +682,7 @@ function FaceControlsEditorWindow:render()
 			BackgroundColor3 = theme.backgroundColor,
 			Size = UDim2.new(1, 0, 1, 0),
 			ZIndex = -2,
+			[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChange
 		},
 		{			
 			--face front panel container
@@ -615,14 +690,15 @@ function FaceControlsEditorWindow:render()
 				BorderSizePixel = 0,
 				BackgroundColor3 = theme.backgroundColor,
 				Size = UDim2.new(1, 0, 0, 213),
-				Position = UDim2.new(0, -25, 0, 32),
+				Position = UDim2.new(0, Constants.faceControlsEditorDiagramPadding, 0, Constants.faceControlsEditorDiagramPadding),
 				ZIndex = -1,
 			},			
 			{
 				FaceFrontViewImage = Roact.createElement("ImageLabel", {
 					AnchorPoint = Vector2.new(0, 0),
-					Size = UDim2.new(0, 220, 0, 310),
-					Position = UDim2.new(0, 35, 0, 6),
+					
+					Size = UDim2.new(0, Constants.faceControlsEditorDiagramWidth * self.state.scaleFactor, 0, Constants.faceControlsEditorDiagramHeight * self.state.scaleFactor),
+					Position = UDim2.new(0, 0, 0, 6),
 					Image = "rbxasset://textures/FaceControlsEditor/face_frontView.png",
 					BackgroundTransparency = 1,	
 					ImageTransparency = 0,
@@ -641,13 +717,14 @@ function FaceControlsEditorWindow:render()
 				BorderSizePixel = 0,
 				BackgroundColor3 = theme.backgroundColor,
 				Size = UDim2.new(1, 0, 0, 213),
-				Position = UDim2.new(0, 0, 0, 412),
+				Position = UDim2.new(0, Constants.faceControlsEditorDiagramPadding, 0,  Constants.faceControlsEditoSpacingBetweenDiagrams + (Constants.faceControlsEditorDiagramHeight * self.state.scaleFactor)),
+				BackgroundTransparency = 1,
 			},	{			
 
 				SideviewImage = Roact.createElement("ImageLabel", {
 					AnchorPoint = Vector2.new(0, 0),
-					Size = UDim2.new(0, 90, 0, 273),					
-					Position = UDim2.new(0, 83, 0, 1),
+					Size = UDim2.new(0, Constants.faceControlsEditorDiagramWidth * self.state.scaleFactor, 0, Constants.faceControlsEditorDiagramHeight * self.state.scaleFactor),
+					Position = UDim2.new(0, 0, 0, 0),
 					Image = "rbxasset://textures/FaceControlsEditor/face_sideView.png",
 					BackgroundTransparency = 1,	
 					LayoutOrder = 1,								
@@ -665,8 +742,9 @@ function FaceControlsEditorWindow:render()
 				AnchorPoint = Vector2.new(0,0),
 				BorderSizePixel = 0,				
 				BackgroundTransparency = 1,
-				Position = UDim2.new(0, 10, 0, 745),
-				Size = UDim2.new(0, 200, 0, 90),
+				Position = UDim2.new(0, 10, 1, -Constants.faceControlsEditorTogglesContainerHeight),
+				Size = UDim2.new(0, 200, 0, Constants.faceControlsEditorTogglesContainerHeight),
+				ZIndex = 400,
 			},	
 			{
 				CheckboxesList = Roact.createElement("UIListLayout", {
@@ -681,7 +759,8 @@ function FaceControlsEditorWindow:render()
 						self.props.SymmetryEnabled = not self.props.SymmetryEnabled
 						self.props.SetSymmetryEnabled(self.props.SymmetryEnabled)
 					end,	
-					LayoutOrder = 1,					
+					LayoutOrder = 2,	
+					ZIndex = 401,
 				}),				
 			})			
 		})		

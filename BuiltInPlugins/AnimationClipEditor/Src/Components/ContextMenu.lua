@@ -16,7 +16,7 @@ local MakePluginMenu = require(Plugin.Src.Util.MakePluginMenu)
 
 export type MenuItem = {
 	Name: string,
-	Items: {MenuItem}?,
+	Items: ({EnumItem} | {MenuItem})?,
 	Value: any?,
 	CurrentValue: any?,
 	ItemSelected: ((MenuItem) -> ())?,

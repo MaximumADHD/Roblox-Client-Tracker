@@ -39,7 +39,6 @@ local LoadGroups = require(Plugin.Src.Thunks.LoadGroups)
 
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
 local sendAnalyticsToKibana = require(Plugin.Src.Util.PublishPlaceAsUtilities).sendAnalyticsToKibana
-local Analytics = require(Plugin.Src.Util.Analytics)
 
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 
@@ -54,6 +53,8 @@ local createNewGameKey = KeyProvider.getCreateNewGameKeyName()
 local MENU_ENTRIES = {
 	"BasicInfo",
 }
+
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local ScreenCreateNewGame = Roact.PureComponent:extend("ScreenCreateNewGame")
 
@@ -107,7 +108,7 @@ end
 
 function ScreenCreateNewGame:render()
 	local props = self.props
-	local theme = props.Theme:get("Plugin")
+	local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
 	local localization = props.Localization
 	local apiImpl = props.API:get()
 
@@ -268,13 +269,12 @@ function ScreenCreateNewGame:render()
 	}, children)
 end
 
-
 ScreenCreateNewGame = withContext({
-	Theme = ContextServices.Theme,
+	Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
+	Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
 	Localization = ContextServices.Localization,
 	API = ContextServices.API,
 })(ScreenCreateNewGame)
-
 
 local function mapStateToProps(state, props)
 	local settings = state.NewGameSettings
@@ -285,7 +285,6 @@ local function mapStateToProps(state, props)
 		ChangedOptInLocations = settings.changed.OptInLocations,
 	}
 end
-
 
 local function useDispatchForProps(dispatch)
 	return {

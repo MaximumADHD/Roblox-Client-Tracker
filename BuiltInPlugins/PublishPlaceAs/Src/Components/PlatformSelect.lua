@@ -30,6 +30,8 @@ local withContext = ContextServices.withContext
 local CheckBoxSet = require(Plugin.Src.Components.CheckBoxSet)
 local ListDialog = require(Plugin.Src.Components.ListDialog)
 
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+
 local PlatformSelect = Roact.PureComponent:extend("PlatformSelect")
 
 function PlatformSelect:init()
@@ -57,8 +59,13 @@ end
 function PlatformSelect:render()
 	local props = self.props
 	local localization = props.Localization
-	
-	local theme = teamCreateToggleEnabled and props.Theme:get("Plugin") or nil
+
+	local theme
+	if THEME_REFACTOR and teamCreateToggleEnabled then
+		theme = props.Stylizer
+	elseif teamCreateToggleEnabled then
+		theme = props.Theme:get("Plugin")
+	end
 
 	local layoutOrder = props.LayoutOrder or 0
 	local devicesError = props.DevicesError
@@ -126,11 +133,10 @@ function PlatformSelect:render()
 	})
 end
 
-
 PlatformSelect = withContext({
 	Localization = ContextServices.Localization,
-	Theme = teamCreateToggleEnabled and ContextServices.Theme or nil
+	Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
+	Theme = if (not THEME_REFACTOR and teamCreateToggleEnabled) then ContextServices.Theme else nil,
 })(PlatformSelect)
-
 
 return PlatformSelect

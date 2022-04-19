@@ -4,7 +4,6 @@
 
 local Plugin = script.Parent.Parent.Parent
 local isEmpty = require(Plugin.Src.Util.isEmpty)
-local AnimationData = require(Plugin.Src.Util.AnimationData)
 local Constants = require(Plugin.Src.Util.Constants)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
@@ -16,16 +15,19 @@ local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
-local SetNotification = require(Plugin.Src.Actions.SetNotification)
 local UpdateEditingLength = require(Plugin.Src.Thunks.UpdateEditingLength)
 local SetShowEvents = require(Plugin.Src.Actions.SetShowEvents)
 local SetEditorMode = require(Plugin.Src.Actions.SetEditorMode)
+local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
+local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
 
-local SetPlaybackSpeed = require(Plugin.Src.Thunks.Playback.SetPlaybackSpeed)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
+local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
+
+local FFlagResetTrackSelectionOnLoad = game:DefineFastFlag("ACEResetTrackSelectionOnLoad", false)
 
 return function(animationData, analytics)
 	return function(store)
@@ -34,6 +36,10 @@ return function(animationData, analytics)
 		store:dispatch(SetFuture({}))
 
 		-- Reset all hanging data
+		if FFlagResetTrackSelectionOnLoad then
+			store:dispatch(SetSelectedTracks({}))
+			store:dispatch(SetRightClickContextInfo({}))
+		end
 		store:dispatch(SetSelectedKeyframes({}))
 		store:dispatch(SortAndSetTracks({}))
 
@@ -53,7 +59,11 @@ return function(animationData, analytics)
 
 		for instanceName, instance in pairs(animationData.Instances) do
 			for trackName, track in pairs(instance.Tracks) do
-				if GetFFlagQuaternionsUI() then
+				if GetFFlagEulerAnglesOrder() then
+					local rotationType = TrackUtils.getRotationType(track)
+					local eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track)
+					store:dispatch(AddTrack(instanceName, trackName, track.Type, rotationType, eulerAnglesOrder, analytics))
+				elseif GetFFlagQuaternionsUI() then
 					local rotationType = TrackUtils.getRotationType(track)
 					store:dispatch(AddTrack(instanceName, trackName, track.Type, rotationType, analytics))
 				elseif GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then

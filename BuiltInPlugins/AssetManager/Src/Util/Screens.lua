@@ -6,6 +6,7 @@ local LayoutOrderIterator = Util.LayoutOrderIterator
 local ModernIcons = require(Plugin.Src.Util.ModernIcons)
 
 local shouldEnableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).shouldEnableAudioImport
+local shouldEnableVideoImport = require(Plugin.Src.Util.AssetManagerUtilities).shouldEnableVideoImport
 
 local FFlagAssetManagerRefactorPath = game:GetFastFlag("AssetManagerRefactorPath")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
@@ -34,6 +35,7 @@ else
     PackagesIconPath = "rbxasset://textures/StudioSharedUI/packages.png"
     ScriptsIconPath = "rbxasset://textures/StudioSharedUI/scripts.png"
     AudioIconPath = "rbxasset://textures/StudioSharedUI/audio.png"
+    VideoIconPath = "rbxasset://textures/StudioSharedUI/videos.png"
     ModelsIconPath = "rbxasset://textures/StudioSharedUI/models.png"
 end
 
@@ -87,6 +89,13 @@ if FFlagAssetManagerRefactorPath then
 			Parent = MainPath,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 		} or nil,
+		VIDEO = shouldEnableVideoImport() and {
+			Path = "VIDEO",
+			AssetType = Enum.AssetType.Video,
+			Image = VideoIconPath,
+			Parent = MainPath,
+			LayoutOrder = layoutOrderIterator:getNextOrder(),
+		} or nil,
 		MODELS = FFlagAssetManagerEnableModelAssets and {
 			Path = "MODELS",
 			AssetType = Enum.AssetType.Model,
@@ -127,13 +136,23 @@ else
 		Screens.AUDIO.Image = AudioIconPath
 	end
 
+	if shouldEnableVideoImport() then
+		Screens["VIDEO"] = {
+			Path = "VIDEO",
+		}
+		Screens.VIDEO.Parent = Screens.MAIN.Path
+		Screens.VIDEO.AssetType = Enum.AssetType.Video
+		Screens.VIDEO.LayoutOrder = 7
+		Screens.VIDEO.Image = VideoIconPath
+	end
+
 	if FFlagAssetManagerEnableModelAssets then
 		Screens["MODELS"] = {
 			Path = "MODELS",
 		}
 		Screens.MODELS.Parent = Screens.MAIN.Path
 		Screens.MODELS.AssetType = Enum.AssetType.Model
-		Screens.MODELS.LayoutOrder = 7
+		Screens.MODELS.LayoutOrder = shouldEnableVideoImport() and 8 or 7
 		Screens.MODELS.Image = ModelsIconPath
 	end
 

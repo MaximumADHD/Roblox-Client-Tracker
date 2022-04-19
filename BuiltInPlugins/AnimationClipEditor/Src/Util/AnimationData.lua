@@ -20,6 +20,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
+local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
 
 export type AnimationData = any
 
@@ -178,14 +179,17 @@ function AnimationData.removeEvent(events, tick, name)
 end
 
 -- Adds a new track at trackName to the given track.
-function AnimationData.addTrack(tracks, trackName, trackType, isChannelAnimation, rotationType)
+function AnimationData.addTrack(tracks, trackName, trackType, isChannelAnimation, rotationType, eulerAnglesOrder)
 	tracks[trackName] = Templates.track(trackType)
 	if GetFFlagChannelAnimations() then
 		if isChannelAnimation then
-			TrackUtils.splitTrackComponents(tracks[trackName], rotationType)
+			TrackUtils.splitTrackComponents(tracks[trackName], rotationType, eulerAnglesOrder)
 		else
 			tracks[trackName].Keyframes = {}
 			tracks[trackName].Data = {}
+			if GetFFlagEulerAnglesOrder() then
+				tracks[trackName].EulerAnglesOrder = eulerAnglesOrder
+			end
 		end
 	end
 	return tracks[trackName]
@@ -522,14 +526,27 @@ function AnimationData.getEventBounds(animationData, selectedEvents)
 	return earliest, latest
 end
 
-function AnimationData.promoteToChannels(data, rotationType)
+function AnimationData.promoteToChannels(data, rotationType, eulerAnglesOrder)
 	if not data or (data.Metadata and data.Metadata.IsChannelAnimation) then
 		return
 	end
 
-	for _, instance in pairs(data.Instances) do
-		for _, track in pairs(instance.Tracks) do
-			TrackUtils.splitTrackComponents(track, rotationType)
+	if GetFFlagEulerAnglesOrder() then
+		-- When promoting a KFS animation, we always promote to Quaternions,
+		-- and only when that's done we promote to Euler Angles if necessary
+		for _, instance in pairs(data.Instances) do
+			for _, track in pairs(instance.Tracks) do
+				TrackUtils.splitTrackComponents(track, Constants.TRACK_TYPES.Quaternion)
+				if rotationType == Constants.TRACK_TYPES.EulerAngles then
+					TrackUtils.convertTrackToEulerAngles(track.Components[Constants.PROPERTY_KEYS.Rotation], eulerAnglesOrder)
+				end
+			end
+		end
+	else
+		for _, instance in pairs(data.Instances) do
+			for _, track in pairs(instance.Tracks) do
+				TrackUtils.splitTrackComponents(track, rotationType, eulerAnglesOrder)
+			end
 		end
 	end
 

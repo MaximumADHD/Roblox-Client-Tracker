@@ -8,8 +8,6 @@ local TestHelpers = Framework.TestHelpers
 local MockToastNotificationService = TestHelpers.Instances.MockToastNotificationService
 local provideMockContext = TestHelpers.provideMockContext
 
-local getFFlagPivotEditorFixTests = require(Plugin.Src.Flags.getFFlagPivotEditorFixTests)
-
 local TestHelper = require(Plugin.Src.Utility.TestHelper)
 local ToastNotification = require(Plugin.Src.Utility.ToastNotification)
 
@@ -24,8 +22,6 @@ local function createContextItems(store)
 end
 
 function TestRunner.runComponentTest(component, testRunner, store)
-	assert(getFFlagPivotEditorFixTests(), "Requires FFlagPivotEditorFixTests")
-
 	local container = TestHelper.getTempScreenGui()
 	local contextItems, storeObject = createContextItems(store)
 	local element = provideMockContext(contextItems, {

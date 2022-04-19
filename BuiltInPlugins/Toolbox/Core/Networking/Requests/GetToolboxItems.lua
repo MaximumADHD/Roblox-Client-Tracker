@@ -17,7 +17,7 @@ local Constants = require(Util.Constants)
 local CreatorInfoHelper = require(Util.CreatorInfoHelper)
 local PageInfoHelper = require(Util.PageInfoHelper)
 
-local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
+local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
 
 return function(networkInterface, category, audioSearchInfo, pageInfo, settings, nextPageCursor)
@@ -75,7 +75,7 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 				then pageInfo.includeOnlyVerifiedCreators
 				else nil
 
-			local getRequest = if FFlagToolboxAssetCategorization3
+			local getRequest = if FFlagToolboxAssetCategorization4
 				then networkInterface:getToolboxItems({
 					categoryName = category,
 					sortType = sortName,

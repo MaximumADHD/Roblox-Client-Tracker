@@ -40,8 +40,9 @@ local Keyframe = require(Plugin.Src.Components.Curves.Keyframe)
 local TangentControl = require(Plugin.Src.Components.Curves.TangentControl)
 
 local GetFFlagQuaternionCurves = require(Plugin.LuaFlags.GetFFlagQuaternionCurves)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
-local FFlagFirstLastQuaternionKeys = game:DefineFastFlag("ACEFirstLastQuaternionKeys", false)
+local FFlagFirstLastQuaternionKeys = GetFFlagCurveEditor()
 
 local CurveCanvas = Roact.PureComponent:extend("CurveCanvas")
 

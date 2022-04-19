@@ -1,19 +1,27 @@
+--!strict
 --[[
 	Promotes a Keyframe animation to Channels.
 ]]
 local Plugin = script.Parent.Parent.Parent
 
-local deepCopy = require(Plugin.Src.Util.deepCopy)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
-local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
+local Constants = require(Plugin.Src.Util.Constants)
+local deepCopy = require(Plugin.Src.Util.deepCopy)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
-local SortAndSetTracks = require(Plugin.Src.Thunks.SortAndSetTracks)
-local SetPast = require(Plugin.Src.Actions.SetPast)
-local SetFuture = require(Plugin.Src.Actions.SetFuture)
-local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 
-return function()
-	return function(store)
+local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
+local SetFuture = require(Plugin.Src.Actions.SetFuture)
+local SetPast = require(Plugin.Src.Actions.SetPast)
+local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
+local SortAndSetTracks = require(Plugin.Src.Thunks.SortAndSetTracks)
+local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
+
+local Types = require(Plugin.Src.Types)
+
+local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
+
+return function(): (Types.Store) -> ()
+	return function(store: Types.Store): ()
 		local state = store:getState()
 		local animationData = state.AnimationData
 
@@ -22,6 +30,7 @@ return function()
 		end
 
 		local rotationType = state.Status.DefaultRotationType
+		local eulerAnglesOrder = state.Status.DefaultEulerAnglesOrder
 
 		-- Remove potential change history waypoints
 		store:dispatch(SetPast({}))
@@ -31,12 +40,13 @@ return function()
 		store:dispatch(SetSelectedKeyframes({}))
 
 		local newData = deepCopy(animationData)
-		AnimationData.promoteToChannels(newData, rotationType)
+		AnimationData.promoteToChannels(newData, rotationType, eulerAnglesOrder)
 
 		local tracks = state.Status.Tracks
 
 		for _, track in ipairs(tracks) do
-			TrackUtils.createTrackListEntryComponents(track, track.Instance, rotationType)
+			TrackUtils.createTrackListEntryComponents(track, track.Instance, rotationType, eulerAnglesOrder)
+			track.EulerAnglesOrder = nil
 		end
 
 		store:dispatch(SortAndSetTracks(tracks))

@@ -5,6 +5,7 @@
 
 local FFlagStudioAudioDiscoveryPluginV2 = game:GetFastFlag("StudioAudioDiscoveryPluginV2")
 local FFlagStudioAudioDiscoveryPluginV3 = game:GetFastFlag("StudioAudioDiscoveryPluginV3")
+local FFlagStudioAudioDiscoveryPluginV6 = game:GetFastFlag("StudioAudioDiscoveryPluginV6")
 local FFlagStudioDevFrameworkPluginButtonId = game:GetFastFlag("StudioDevFrameworkPluginButtonId")
 
 local main = script.Parent.Parent
@@ -40,6 +41,7 @@ local Components = main.Src.Components
 local Window = require(Components.Window)
  
 local SetDialog = require(main.Src.Actions.SetDialog)
+local Unpause = require(main.Src.Actions.Unpause)
 local DiscoverAudio = require(main.Src.Thunks.DiscoverAudio)
 local Analytics = require(main.Src.Util.Analytics)
 
@@ -50,7 +52,12 @@ function MainPlugin:init(props)
 		enabled = false,
 	}
 	self.toggleEnabled = function()
-		self.setEnabled(not self.state.enabled)
+		local enable = not self.state.enabled
+		self.setEnabled(enable)
+		if FFlagStudioAudioDiscoveryPluginV6 and enable then
+			self.store:dispatch(Unpause())
+			self.store:dispatch(DiscoverAudio())
+		end
 	end
 
 	self.onClose = function()
@@ -91,7 +98,9 @@ end
 
 function MainPlugin:didUpdate()
 	if self.state.enabled then
-		self.store:dispatch(DiscoverAudio())
+		if not FFlagStudioAudioDiscoveryPluginV6 then
+			self.store:dispatch(DiscoverAudio())
+		end
 		if FFlagStudioAudioDiscoveryPluginV2 and game.CreatorId == 0 then
 			self.store:dispatch(SetDialog(true))
 		end

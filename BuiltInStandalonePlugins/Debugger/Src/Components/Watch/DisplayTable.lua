@@ -324,7 +324,6 @@ function DisplayTable:render()
 	end
 	
 	local clampSize = if hasTableColumnResizeFFlags then true else nil
-	local useScale = if hasTableColumnResizeFFlags then true else nil
 	local useDeficit = if hasTableColumnResizeFFlags then true else nil
 	local onColumnSizesChange = if hasTableColumnResizeFFlags then self.OnSizesChange else nil
 	
@@ -348,7 +347,6 @@ function DisplayTable:render()
 		OnSortChange = self.OnSortChange,
 		SortChildren = self.childSort,
 		OnColumnSizesChange = onColumnSizesChange,
-		UseScale = useScale,
 		UseDeficit = useDeficit,
 		ClampSize = clampSize,
 	})

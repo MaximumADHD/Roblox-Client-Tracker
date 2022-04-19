@@ -1,6 +1,6 @@
 return function()
 	local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
-	local FFlagToolboxAssetStyleUpdate = game:GetFastFlag("ToolboxAssetStyleUpdate")
+	local FFlagToolboxAssetStyleUpdate2 = game:GetFastFlag("ToolboxAssetStyleUpdate2")
 
 	local Plugin = script.Parent.Parent.Parent
 
@@ -42,7 +42,7 @@ return function()
 
 		expect(container:FindFirstChild("Header", true)).to.be.ok()
 		expect(container:FindFirstChild("MainView", true)).to.be.ok()
-		if not FFlagToolboxAssetStyleUpdate then
+		if not FFlagToolboxAssetStyleUpdate2 then
 			expect(container:FindFirstChild("Footer", true)).to.be.ok()
 		end
 

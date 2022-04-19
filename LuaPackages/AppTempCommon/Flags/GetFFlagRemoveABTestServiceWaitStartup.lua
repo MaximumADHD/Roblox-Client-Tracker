@@ -1,5 +1,5 @@
-game:DefineFastFlag("RemoveABTestServiceWaitStartup", false)
+game:DefineFastFlag("RemoveABTestServiceWaitStartup2", false)
 
 return function()
-	return game:GetFastFlag("RemoveABTestServiceWaitStartup")
+	return game:GetFastFlag("RemoveABTestServiceWaitStartup2")
 end

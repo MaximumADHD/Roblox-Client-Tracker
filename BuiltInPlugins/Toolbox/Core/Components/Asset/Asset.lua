@@ -20,9 +20,8 @@
 		callback onPreviewAudioButtonClicked	 // remove with FFlagToolboxAssetGridRefactor
 ]]
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
-local FFlagToolboxShowHasScriptInfo = game:GetFastFlag("ToolboxShowHasScriptInfo")
-local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
-local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext")
+local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
+local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
@@ -135,7 +134,15 @@ function Asset:init(props)
 	if not FFlagToolboxAssetGridRefactor then
 		self.onMouseButton2Click = function(rbx, x, y)
 			local showEditOption = self.props.canManage
-			self.props.tryCreateContextMenu(assetData, showEditOption)
+			
+			local assetAnalyticsContext
+			if FFlagToolboxUsePageInfoInsteadOfAssetContext then
+				local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
+				assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
+				self.props.tryCreateContextMenu(assetData, showEditOption, nil, nil, assetAnalyticsContext)
+			else
+				self.props.tryCreateContextMenu(assetData, showEditOption)
+			end
 		end
 	end
 
@@ -163,7 +170,7 @@ function Asset:init(props)
 		end
 
 		if asset.TypeId == Enum.AssetType.Plugin.Value then
-			if FFlagToolboxAssetCategorization3 then
+			if FFlagToolboxAssetCategorization4 then
 				self.onAssetPreviewButtonClicked()
 			else
 				if FFlagToolboxAssetGridRefactor then
@@ -179,7 +186,7 @@ function Asset:init(props)
 	end
 
 	self.onAssetPreviewButtonClicked = function()
-		if FFlagToolboxAssetCategorization3 then
+		if FFlagToolboxAssetCategorization4 then
 			local assetData = self.props.assetData
 			self.props.onAssetPreviewButtonClicked(assetData)
 		else
@@ -193,7 +200,14 @@ function Asset:init(props)
 			local assetData = props.assetData
 			local plugin = props.Plugin:get()
 			local tryOpenAssetConfig = props.tryOpenAssetConfig
-			self.props.tryCreateContextMenu(assetData, localization, plugin, tryOpenAssetConfig)
+			
+			local assetAnalyticsContext
+			if FFlagToolboxUsePageInfoInsteadOfAssetContext then
+				local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
+				assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
+			end
+
+			self.props.tryCreateContextMenu(assetData, localization, plugin, tryOpenAssetConfig, assetAnalyticsContext)
 		end
 
 		self.getAssetSize = function()
@@ -244,7 +258,7 @@ function Asset:init(props)
 					local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
 					assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
 				end
-				if FFlagToolboxAssetCategorization3 then
+				if FFlagToolboxAssetCategorization4 then
 					local swimlaneName = self.props.swimlaneCategory
 					local nav = self.props.NavigationContext:get()
 					local analytics = self.props.AssetAnalytics:get()
@@ -281,7 +295,7 @@ function Asset:didMount()
 			local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
 			assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
 		end
-		if FFlagToolboxAssetCategorization3 then
+		if FFlagToolboxAssetCategorization4 then
 			local swimlaneName = self.props.swimlaneCategory
 			local nav = self.props.NavigationContext:get()
 			local analytics = self.props.AssetAnalytics:get()
@@ -342,7 +356,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 	local assetTypeId = asset.TypeId
 	local isEndorsed = asset.IsEndorsed
 	local isVerifiedCreator = assetData.Creator.IsVerifiedCreator
-	local hasScripts = if FFlagToolboxShowHasScriptInfo then asset.HasScripts else false
+	local hasScripts = asset.HasScripts
 
 	local showAudioLength = false
 	if assetTypeId == Enum.AssetType.Audio.Value then
@@ -632,7 +646,7 @@ end
 Asset = withContext({
 	AssetAnalytics = AssetAnalyticsContextItem,
 	Plugin = FFlagToolboxAssetGridRefactor and ContextServices.Plugin or nil,
-	NavigationContext = FFlagToolboxAssetCategorization3 and NavigationContext or nil,
+	NavigationContext = FFlagToolboxAssetCategorization4 and NavigationContext or nil,
 	Stylizer = ContextServices.Stylizer,
 })(Asset)
 
@@ -663,7 +677,7 @@ local function mapStateToProps(state, props)
 	local canManage = manageableAssets[tostring(assetId)]
 
 	local assetData
-	if FFlagToolboxAssetCategorization3 and not props.assetData then
+	if FFlagToolboxAssetCategorization4 and not props.assetData then
 		assetData = props.assetData
 	else
 		assetData = FFlagToolboxAssetGridRefactor and idToAssetMap[assetId] or nil
@@ -699,8 +713,8 @@ local function mapDispatchToProps(dispatch)
 		end,
 
 		tryCreateContextMenu = FFlagToolboxAssetGridRefactor
-				and function(assetData, localizedContent, plugin, tryOpenAssetConfig)
-					dispatch(TryCreateContextMenu(assetData, localizedContent, plugin, tryOpenAssetConfig))
+				and function(assetData, localizedContent, plugin, tryOpenAssetConfig, assetAnalyticsContext)
+					dispatch(TryCreateContextMenu(assetData, localizedContent, plugin, tryOpenAssetConfig, assetAnalyticsContext))
 				end
 			or nil,
 

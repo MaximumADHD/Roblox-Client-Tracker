@@ -37,6 +37,7 @@ end
 
 if SHOULD_RUN_TESTS then
 	print("----- All " ..script.Parent.Parent.Name.. " Tests ------")
+	require(script.Parent.defineLuaFlags)
 	runTests()
 	print("----------------------------------")
 end

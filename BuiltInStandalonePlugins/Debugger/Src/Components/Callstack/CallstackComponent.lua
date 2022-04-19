@@ -336,7 +336,6 @@ function CallstackComponent:render()
 	end
 	
 	local clampSize = if hasTableColumnResizeFFlags then true else nil
-	local useScale = if hasTableColumnResizeFFlags then true else nil
 	local useDeficit = if hasTableColumnResizeFFlags then true else nil
 	local onColumnSizesChange = if hasTableColumnResizeFFlags then self.OnSizesChange else nil
 
@@ -382,7 +381,6 @@ function CallstackComponent:render()
 				FullSpan = true,
 				HighlightedRows = self.state.selectedRows,
 				OnColumnSizesChange = onColumnSizesChange,
-				UseScale = useScale,
 				UseDeficit = useDeficit,
 				ClampSize = clampSize
 			})

@@ -11,6 +11,7 @@ if SHOULD_RUN_TESTS then
 	local TextReporter = TestEZ.Reporters.TextReporter
 
 	print("----- All Event Emulator Tests ------")
+	require(script.Parent.defineLuaFlags)
 	TestBootstrap:run(TestsFolderPlugin, TextReporter)
 	print("----------------------------------")
 end

@@ -1,4 +1,4 @@
-local FFlagToolboxAssetStyleUpdate = game:GetFastFlag("ToolboxAssetStyleUpdate")
+local FFlagToolboxAssetStyleUpdate2 = game:GetFastFlag("ToolboxAssetStyleUpdate2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -27,7 +27,7 @@ local function renderContent(props, theme)
 	local image = ""
 
 	local borderSize = 0
-	if FFlagToolboxAssetStyleUpdate then
+	if FFlagToolboxAssetStyleUpdate2 then
 		backgroundColor = theme.asset.background.color
 		borderSize = theme.asset.background.borderSize
 	else

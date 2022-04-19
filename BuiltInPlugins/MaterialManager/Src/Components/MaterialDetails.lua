@@ -104,15 +104,15 @@ function MaterialDetails:render()
 					LayoutOrder = layoutOrderIterator:getNextOrder(),
 					OpenPrompt = props.OpenPrompt,
 				}),
-				MaterialOverrides = if isBuiltin then
-					Roact.createElement(MaterialOverrides, {
+				MaterialOverrides = Roact.createElement(MaterialOverrides, {
+					LayoutOrder = layoutOrderIterator:getNextOrder(),
+					OpenPrompt = props.OpenPrompt
+				}),
+				MaterialTextures= if not isBuiltin then
+					Roact.createElement(MaterialTextures, {
 						LayoutOrder = layoutOrderIterator:getNextOrder(),
-						OpenPrompt = props.OpenPrompt
 					})
 					else nil,
-				MaterialTextures= Roact.createElement(MaterialTextures, {
-					LayoutOrder = layoutOrderIterator:getNextOrder(),
-				}),
 			})
 		})
 	end

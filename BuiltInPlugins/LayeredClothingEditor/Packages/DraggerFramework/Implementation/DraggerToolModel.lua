@@ -11,8 +11,6 @@ local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
 local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
 local classifyPivot = require(DraggerFramework.Utility.classifyPivot)
 
-local getFFlagCheckAllowFreeformDrag = require(DraggerFramework.Flags.getFFlagCheckAllowFreeformDrag)
-
 local DraggerToolModel = {}
 DraggerToolModel.__index = DraggerToolModel
 
@@ -390,7 +388,7 @@ end
 
 function DraggerToolModel:_processToolboxInitiatedFreeformSelectionDrag()
 	-- Check if we allow freeform drag
-	if getFFlagCheckAllowFreeformDrag() and not self:doesAllowFreeformDrag() then 
+	if not self:doesAllowFreeformDrag() then 
 		return
 	end
 	-- We didn't get an associated mouse down, so we have to set the mouse

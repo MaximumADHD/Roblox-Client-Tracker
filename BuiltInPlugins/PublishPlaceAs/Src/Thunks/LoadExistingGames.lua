@@ -16,7 +16,10 @@ return function(type, id, pageCursor)
 		if pageCursor ~= prevPageCursor or not pageCursor then
 
 			if FFlagDebugFixPublishAsWhenQueryFails then
-				store:dispatch(SetChooseGameQueryState(Constants.QUERY_STATE.QUERY_STATE_QUERYING))
+				-- only display the loading screen if we are loading for the first time
+				if not pageCursor then
+					store:dispatch(SetChooseGameQueryState(Constants.QUERY_STATE.QUERY_STATE_QUERYING))
+				end
 			end
 
 			prevPageCursor = pageCursor

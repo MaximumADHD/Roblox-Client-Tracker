@@ -10,7 +10,7 @@ local Packages = Plugin.Packages
 
 local Promise = require(Packages.Framework).Util.Promise
 
-local FFlagToolboxAssetCategorization3 = game:GetFastFlag("ToolboxAssetCategorization3")
+local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 
 -- public api
 local NetworkInterfaceMock = {}
@@ -157,7 +157,7 @@ end
 
 -- Intentionally ignoring that the real method has parameters because they are not used in this mock
 function NetworkInterfaceMock:getToolboxItems(
-	-- remove string from args union when removing FFlagToolboxAssetCategorization3
+	-- remove string from args union when removing FFlagToolboxAssetCategorization4
 	args: string | {
 		categoryName: string,
 		sortType: string?,
@@ -183,7 +183,7 @@ function NetworkInterfaceMock:getToolboxItems(
 	limit: number?
 )
 	local categoryName: string
-	if FFlagToolboxAssetCategorization3 and type(args) ~= "string" then
+	if FFlagToolboxAssetCategorization4 and type(args) ~= "string" then
 		categoryName = args.categoryName
 		sortType = args.sortType
 	else

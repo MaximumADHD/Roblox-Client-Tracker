@@ -16,29 +16,29 @@ local navigationBar = {
 	{
 		page = Constants.LeaveToAppPromptPageKey,
 		iconOn = Images["icons/menu/home_on"],
-		iconOff = Images["icons/menu/home_off"]
+		iconOff = Images["icons/menu/home_off"],
 	},
 	{
-		page = "Players",
-		iconOn = Images["icons/menu/friends"],
-		iconOff = Images["icons/menu/friends"]
+		page = Constants.PlayersPageKey,
+		iconOn = Images["icons/menu/friendsOn"],
+		iconOff = Images["icons/menu/friends"],
 	},
 	{
 		page = Constants.MainPagePageKey,
 		iconComponent = GameIconButton,
 	},
 	{
-		page = "GameSettings",
-		iconOn = Images["icons/common/settings"],
-		iconOff = Images["icons/common/settings"]
-	}
+		page = Constants.GameSettingsPageKey,
+		iconOn = Images["icons/common/settingsOn"],
+		iconOff = Images["icons/common/settings"],
+	},
 }
 
 -- For root pages, the parentPage should be nil
 local pages = {
 	{
 		key = Constants.InitalPageKey,
-		navigationDepth = 1,
+		navigationDepth = 0,
 		component = script.InitalPage,
 		parentPage = nil,
 	},
@@ -49,7 +49,7 @@ local pages = {
 		parentPage = nil,
 	},
 	{
-		key = "Players",
+		key = Constants.PlayersPageKey,
 		title = "CoreScripts.InGameMenu.PageTitle.Players",
 		icon = Images["icons/controls/players"],
 		component = script.PlayersPage,
@@ -62,7 +62,7 @@ local pages = {
 		icon = Images["icons/actions/friends/friendInvite"],
 		component = script.Parent.InviteFriendsPage,
 		navigationDepth = 2,
-		parentPage = nil,
+		parentPage = Constants.PlayersPageKey,
 	},
 	{
 		key = "Favorite",
@@ -85,7 +85,7 @@ local pages = {
 		actionKey = "follow",
 	},
 	{
-		key = "GameSettings",
+		key = Constants.GameSettingsPageKey,
 		title = "CoreScripts.InGameMenu.PageTitle.GameSettings",
 		icon = Images["icons/common/settings"],
 		component = script.Parent.GameSettingsPage.BasicPage,
@@ -116,17 +116,17 @@ local pages = {
 		component = script.Parent.GameSettingsPage.AdvancedPage,
 		isSecondaryPage = true,
 		navigationDepth = 2,
-		parentPage = "GameSettings",
+		parentPage = Constants.GameSettingsPageKey,
 	},
 	{
 		key = Constants.LeaveToAppPromptPageKey,
-		navigationDepth = 1,
+		navigationDepth = 10,
 		component = script.Dialog.LeaveToAppPrompt,
 		parentPage = nil,
 	},
 	{
 		key = Constants.LeaveGamePromptPageKey,
-		navigationDepth = 1,
+		navigationDepth = 10,
 		component = script.Dialog.LeaveGamePrompt,
 		parentPage = nil,
 	},
@@ -142,25 +142,25 @@ end
 
 for index, page in ipairs(pages) do
 	page.index = index
-	page.navigationBar = navigationBarByPageKey[page.key];
+	page.navigationBar = navigationBarByPageKey[page.key]
 	assert(pagesByKey[page.key] == nil, ("page key %s is duplicated"):format(page.key))
 	pagesByKey[page.key] = page
 end
 
 local function getBaseNavigationBarItemForPage(pageKey)
-	if (pageKey ~= nil and pagesByKey[pageKey].navigationBar == nil and pagesByKey[pageKey].parentPage ~= nil) then
-		pagesByKey[pageKey].navigationBar = getBaseNavigationBarItemForPage(pagesByKey[pageKey].parentPage);
+	if pageKey ~= nil and pagesByKey[pageKey].navigationBar == nil and pagesByKey[pageKey].parentPage ~= nil then
+		pagesByKey[pageKey].navigationBar = getBaseNavigationBarItemForPage(pagesByKey[pageKey].parentPage)
 	end
-	return pagesByKey[pageKey].navigationBar;
+	return pagesByKey[pageKey].navigationBar
 end
 
 local function navigationBarSelectedIndexForPage(pageKey)
-	local navigationBarSelectedIndex = 1;
-	local page  = pagesByKey[pageKey];
-	if (page and page.navigationBar ~= nil) then
+	local navigationBarSelectedIndex = 1
+	local page = pagesByKey[pageKey]
+	if page and page.navigationBar ~= nil then
 		navigationBarSelectedIndex = page.navigationBar.index
 	end
-	return navigationBarSelectedIndex;
+	return navigationBarSelectedIndex
 end
 
 for index, page in ipairs(pages) do
@@ -172,5 +172,5 @@ return {
 	pagesByKey = pagesByKey,
 	navigationBarByIndex = navigationBar,
 	navigationBarByPageKey = navigationBarByPageKey,
-	navigationBarSelectedIndexForPage = navigationBarSelectedIndexForPage
+	navigationBarSelectedIndexForPage = navigationBarSelectedIndexForPage,
 }

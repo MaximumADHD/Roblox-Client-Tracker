@@ -18,8 +18,8 @@ PageNavigationWatcher.validateProps = t.strictInterface({
 	onNavigateAway = t.optional(t.callback),
 
 	-- RoactRodux bound props
-	currentPage = t.string,
-	menuOpen = t.boolean,
+	currentPage = t.optional(t.string),
+	menuOpen = t.optional(t.boolean),
 })
 
 function PageNavigationWatcher:init(props)

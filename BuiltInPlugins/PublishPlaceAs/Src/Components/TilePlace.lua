@@ -13,6 +13,8 @@ local ContentProvider = game:GetService("ContentProvider")
 
 local ASSET_SIZE = 150
 
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
+
 local TilePlace = Roact.PureComponent:extend("TilePlace")
 
 function TilePlace:init()
@@ -50,7 +52,7 @@ end
 
 function TilePlace:render()
 	local props = self.props
-	local theme = props.Theme:get("Plugin")
+	local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
 
 	local name = props.Name
 	local selected = props.Selected
@@ -123,11 +125,10 @@ function TilePlace:render()
 	})
 end
 
-
 TilePlace = withContext({
-	Theme = ContextServices.Theme,
+	Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
+	Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
 	Localization = ContextServices.Localization,
 })(TilePlace)
-
 
 return TilePlace

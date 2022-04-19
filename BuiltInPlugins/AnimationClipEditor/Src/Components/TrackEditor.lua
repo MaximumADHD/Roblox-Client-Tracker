@@ -45,6 +45,7 @@ local SetEditorMode = require(Plugin.Src.Actions.SetEditorMode)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
+local GetFFlagEasierCurveWorkflow = require(Plugin.LuaFlags.GetFFlagEasierCurveWorkflow)
 
 local TrackEditor = Roact.PureComponent:extend("TrackEditor")
 
@@ -155,13 +156,27 @@ function TrackEditor:init()
 		end
 	end
 
-	self.toggleEditorClicked = function()
-		if self.props.EditorMode == Constants.EDITOR_MODE.CurveCanvas then
-			self.props.SetEditorMode(Constants.EDITOR_MODE.DopeSheet)
-		else
-			self.props.SetEditorMode(Constants.EDITOR_MODE.CurveCanvas)
+	self.toggleEditorClicked = if GetFFlagEasierCurveWorkflow()
+	then
+		function()
+			if self.props.IsChannelAnimation then
+				if self.props.EditorMode == Constants.EDITOR_MODE.CurveCanvas then
+					self.props.SetEditorMode(Constants.EDITOR_MODE.DopeSheet)
+				else
+					self.props.SetEditorMode(Constants.EDITOR_MODE.CurveCanvas)
+				end
+			else
+				self.props.OnPromoteRequested()
+			end
 		end
-	end
+	else
+		function()
+			if self.props.EditorMode == Constants.EDITOR_MODE.CurveCanvas then
+				self.props.SetEditorMode(Constants.EDITOR_MODE.DopeSheet)
+			else
+				self.props.SetEditorMode(Constants.EDITOR_MODE.CurveCanvas)
+			end
+		end
 end
 
 function TrackEditor:render()
@@ -237,7 +252,7 @@ function TrackEditor:render()
 			AnimationData = props.AnimationData,
 			Playhead = playhead,
 			ZIndex = GetFFlagCurveEditor() and 2 or nil,
-			ShowToggleEditorButton = GetFFlagCurveEditor() and isChannelAnimation or nil,
+			ShowToggleEditorButton = if GetFFlagEasierCurveWorkflow() then nil else (GetFFlagCurveEditor() and isChannelAnimation or nil),
 			EditorMode = GetFFlagCurveEditor() and props.EditorMode or nil,
 			OnToggleEditorClicked = GetFFlagCurveEditor() and self.toggleEditorClicked or nil,
 		}),

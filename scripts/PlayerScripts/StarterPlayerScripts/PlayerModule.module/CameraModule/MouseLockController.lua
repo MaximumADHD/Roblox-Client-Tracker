@@ -9,12 +9,25 @@ local DEFAULT_MOUSE_LOCK_CURSOR = "rbxasset://textures/MouseLockedCursor.png"
 local CONTEXT_ACTION_NAME = "MouseLockSwitchAction"
 local MOUSELOCK_ACTION_PRIORITY = Enum.ContextActionPriority.Default.Value
 
+local FFlagUserCameraToggleDontSetMouseIconEveryFrame
+do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserCameraToggleDontSetMouseIconEveryFrame")
+	end)
+	FFlagUserCameraToggleDontSetMouseIconEveryFrame = success and value
+end
+
 --[[ Services ]]--
 local PlayersService = game:GetService("Players")
 local ContextActionService = game:GetService("ContextActionService")
 local Settings = UserSettings()	-- ignore warning
 local GameSettings = Settings.GameSettings
-local Mouse = PlayersService.LocalPlayer:GetMouse()
+local Mouse = if FFlagUserCameraToggleDontSetMouseIconEveryFrame then nil else PlayersService.LocalPlayer:GetMouse()
+
+--[[ Imports ]]
+local CameraUtils = if FFlagUserCameraToggleDontSetMouseIconEveryFrame
+	then require(script.Parent:WaitForChild("CameraUtils"))
+	else nil
 
 --[[ The Module ]]--
 local MouseLockController = {}
@@ -134,8 +147,12 @@ function MouseLockController:OnMouseLockToggled()
 	if self.isMouseLocked then
 		local cursorImageValueObj: StringValue = script:FindFirstChild("CursorImage") :: StringValue
 		if cursorImageValueObj and cursorImageValueObj:IsA("StringValue") and cursorImageValueObj.Value then
-			self.savedMouseCursor = Mouse.Icon
-			Mouse.Icon = cursorImageValueObj.Value
+			if FFlagUserCameraToggleDontSetMouseIconEveryFrame then
+				CameraUtils.setMouseIconOverride(cursorImageValueObj.Value)
+			else
+				self.savedMouseCursor = Mouse.Icon
+				Mouse.Icon = cursorImageValueObj.Value
+			end
 		else
 			if cursorImageValueObj then
 				cursorImageValueObj:Destroy()
@@ -144,13 +161,21 @@ function MouseLockController:OnMouseLockToggled()
 			cursorImageValueObj.Name = "CursorImage"
 			cursorImageValueObj.Value = DEFAULT_MOUSE_LOCK_CURSOR
 			cursorImageValueObj.Parent = script
-			self.savedMouseCursor = Mouse.Icon
-			Mouse.Icon = DEFAULT_MOUSE_LOCK_CURSOR
+			if FFlagUserCameraToggleDontSetMouseIconEveryFrame then
+				CameraUtils.setMouseIconOverride(DEFAULT_MOUSE_LOCK_CURSOR)
+			else
+				self.savedMouseCursor = Mouse.Icon
+				Mouse.Icon = DEFAULT_MOUSE_LOCK_CURSOR
+			end
 		end
 	else
-		if self.savedMouseCursor then
-			Mouse.Icon = self.savedMouseCursor
-			self.savedMouseCursor = nil
+		if FFlagUserCameraToggleDontSetMouseIconEveryFrame then
+			CameraUtils.restoreMouseIcon()
+		else
+			if self.savedMouseCursor then
+				Mouse.Icon = self.savedMouseCursor
+				self.savedMouseCursor = nil
+			end
 		end
 	end
 
@@ -190,8 +215,12 @@ function MouseLockController:EnableMouseLock(enable: boolean)
 		else
 			-- Disabling
 			-- Restore mouse cursor
-			if Mouse.Icon~="" then
-				Mouse.Icon = ""
+			if FFlagUserCameraToggleDontSetMouseIconEveryFrame then
+				CameraUtils.restoreMouseIcon()
+			else
+				if Mouse.Icon ~= "" then
+					Mouse.Icon = ""
+				end
 			end
 
 			self:UnbindContextActions()

@@ -6,6 +6,7 @@ local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local UIBlox = InGameMenuDependencies.UIBlox
 local Cryo = InGameMenuDependencies.Cryo
+local Otter = InGameMenuDependencies.Otter
 
 local t = InGameMenuDependencies.t
 
@@ -26,6 +27,11 @@ local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMG
 local SELECTION_PARENT_NAME = "SideNavigation_IGMSelectionGroup"
 
 local SideNavigation = Roact.PureComponent:extend("SideNavigation")
+
+local POSITION_MOTOR_OPTIONS = {
+    dampingRatio = 1,
+    frequency = 4,
+}
 
 SideNavigation.validateProps = t.strictInterface({
 	open = t.boolean,
@@ -56,6 +62,16 @@ function SideNavigation:init()
 			GuiService:AddSelectionParent(SELECTION_PARENT_NAME, rbx)
 		end
 	end
+
+	self.positionMotor = Otter.createSingleMotor(-65)
+	self.containerPosition, self.setContainerPosition = Roact.createBinding(UDim2.new(0, -65, 0, 0))
+	self.positionMotor:onStep(function(position)
+		self.setContainerPosition(UDim2.new(0, position, 0, 0))
+	end)
+end
+
+function SideNavigation:didUpdate(_, _)
+	self.positionMotor:setGoal(Otter.spring(self.props.open and 0 or -65, POSITION_MOTOR_OPTIONS))
 end
 
 function SideNavigation:render()
@@ -78,6 +94,7 @@ function SideNavigation:render()
 	return withStyle(function(style)
 		return Roact.createElement("Frame",  {
 			Size = UDim2.new(0, 64, 1, 0),
+			Position = self.containerPosition,
 			Visible = self.props.open
 		}, {
 			SystemBar = Roact.createElement(SystemBar, {

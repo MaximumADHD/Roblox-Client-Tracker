@@ -27,6 +27,7 @@ local Input = require(Plugin.Src.Util.Input)
 local Timeline = require(Plugin.Src.Components.Timeline.Timeline)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagEasierCurveWorkflow = require(Plugin.LuaFlags.GetFFlagEasierCurveWorkflow)
 
 local TimelineContainer = Roact.PureComponent:extend("TimelineContainer")
 
@@ -117,7 +118,8 @@ function TimelineContainer:render()
 	local animationData = props.AnimationData
 
 	local showToggleEditorButton = props.ShowToggleEditorButton
-	local toggleEditorButtonActive = props.EditorMode == Constants.EDITOR_MODE.CurveCanvas
+	local toggleEditorButtonActive = if not GetFFlagEasierCurveWorkflow() then props.EditorMode == Constants.EDITOR_MODE.CurveCanvas else nil
+	local isCurveCanvas = props.EditorMode == Constants.EDITOR_MODE.CurveCanvas
 
 	startTick = startTick * frameRate / Constants.TICK_FREQUENCY
 	endTick = endTick * frameRate / Constants.TICK_FREQUENCY
@@ -154,21 +156,33 @@ function TimelineContainer:render()
 			FrameRate = frameRate,
 			ZIndex = GetFFlagCurveEditor() and 2 or nil,
 		}),
-		ToggleEditorButton = GetFFlagCurveEditor() and showToggleEditorButton and Roact.createElement(Button, {
+		ToggleEditorButton = if GetFFlagEasierCurveWorkflow()
+				or (GetFFlagCurveEditor() and showToggleEditorButton)
+				then Roact.createElement(Button, {
 			ZIndex = 1,
 			Size = UDim2.new(0, self.props.TrackPadding / 2, 0, Constants.TIMELINE_HEIGHT),
 			Style = toggleEditorButtonActive and theme.button.ActiveControl or theme.button.MediaControl,
-			OnClick = props.OnToggleEditorClicked,
+				OnClick = props.OnToggleEditorClicked,
 		}, {
-			Image = Roact.createElement("ImageLabel", {
-				BackgroundTransparency = 1,
-				Size = UDim2.new(0, Constants.TIMELINE_HEIGHT, 0, Constants.TIMELINE_HEIGHT),
-				Position = UDim2.new(.5, 0, 0, 0),
-				AnchorPoint = Vector2.new(.5, 0),
-				Image = theme.curveTheme.curveEditorButton,
-				ImageColor3 = toggleEditorButtonActive and theme.playbackTheme.iconHighlightColor or theme.playbackTheme.iconColor,
-			}),
-		}) or nil,
+			Image = if GetFFlagEasierCurveWorkflow()
+				then
+					Roact.createElement("ImageLabel", {
+					BackgroundTransparency = 1,
+					Size = UDim2.new(0, Constants.TOGGLE_EDITOR_BUTTON_WIDTH, 0, Constants.TOGGLE_EDITOR_BUTTON_HEIGHT),
+					Position = UDim2.new(.5, 0, .5, 0),
+					AnchorPoint = Vector2.new(.5, .5),
+					Image = if isCurveCanvas then theme.curveTheme.dopesheetButton else theme.curveTheme.curveEditorButton,
+					ImageColor3 = theme.playbackTheme.iconColor,
+				})
+				else Roact.createElement("ImageLabel", {
+					BackgroundTransparency = 1,
+					Size = UDim2.new(0, Constants.TIMELINE_HEIGHT, 0, Constants.TIMELINE_HEIGHT),
+					Position = UDim2.new(.5, 0, 0, 0),
+					AnchorPoint = Vector2.new(.5, 0),
+					Image = theme.curveTheme.curveEditorButton,
+					ImageColor3 = toggleEditorButtonActive and theme.playbackTheme.iconHighlightColor or theme.playbackTheme.iconColor,
+				}),
+		}) else nil,
 		KeyboardListener = Roact.createElement(KeyboardListener, {
 			OnKeyPressed = function(input)
 				if Input.isLeftBracket(input.KeyCode) then

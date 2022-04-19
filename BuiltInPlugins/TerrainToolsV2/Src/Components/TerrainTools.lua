@@ -16,7 +16,6 @@ local ToolSelectionListener = require(Plugin.Src.Components.ToolSelectionListene
 local Constants = require(Plugin.Src.Util.Constants)
 
 local FFlagTerrainToolsPluginButtonRestore = game:GetFastFlag("TerrainToolsPluginButtonRestore")
-local FFlagFixToolbarButtonForFreshInstallation2 = game:GetFastFlag("FixToolbarButtonForFreshInstallation2")
 
 local EDITOR_META_NAME = "Editor"
 local TOOLBAR_NAME = "TerrainToolsLuaToolbarName"
@@ -50,22 +49,13 @@ function TerrainTools:init()
 	self.onRestore = function(enabled)
 		local initiatedByUser = false
 		self:setEnabled(enabled, initiatedByUser)
-
-		if not FFlagFixToolbarButtonForFreshInstallation2 then
-			if FFlagTerrainToolsPluginButtonRestore then
-				self.props.pluginLoaderContext.mainButton:SetActive(enabled)
-			end
-			self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleEnabled)
-		end
 	end
 
-	if FFlagFixToolbarButtonForFreshInstallation2 then
-		self.onDockWidgetCreated = function(enabled)
-			if FFlagTerrainToolsPluginButtonRestore then
-				self.props.pluginLoaderContext.mainButton:SetActive(enabled)
-			end
-			self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleEnabled)
+	self.onDockWidgetCreated = function(enabled)
+		if FFlagTerrainToolsPluginButtonRestore then
+			self.props.pluginLoaderContext.mainButton:SetActive(enabled)
 		end
+		self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleEnabled)
 	end
 
 	self.onWidgetEnabledChanged = function(widget)
@@ -174,7 +164,7 @@ function TerrainTools:render()
 
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
-			OnWidgetCreated = FFlagFixToolbarButtonForFreshInstallation2 and self.onDockWidgetCreated or nil,
+			OnWidgetCreated = self.onDockWidgetCreated,
 
 			OnWidgetFocused = self.onFocused,
 

@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent
 
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization3")
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization4")
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local ToolboxStoryWrapper = require(Plugin.Stories.ToolboxStoryWrapper)
@@ -26,7 +26,7 @@ return {
 						print("Clicked")
 					end,
 				}),
-			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization3", true),
+			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization4", true),
 		},
 		{
 			name = "Constant Size",
@@ -35,7 +35,7 @@ return {
 					Text = "Size 100x50",
 					Size = UDim2.new(0, 100, 0, 50),
 				}),
-			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization3", true),
+			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization4", true),
 		},
 	},
 }

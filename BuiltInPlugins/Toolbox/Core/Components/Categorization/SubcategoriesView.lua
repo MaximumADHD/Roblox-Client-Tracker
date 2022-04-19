@@ -81,10 +81,9 @@ SubcategoriesView.defaultProps = {
 
 function SubcategoriesView:init(props: SubcategoriesViewProps)
 	self.onClickBack = function(key)
-		local navigation = self.props.NavigationContext:get()
 		local onClickBack = self.props.OnClickBack
 		if onClickBack then
-			onClickBack(navigation)
+			onClickBack()
 		end
 	end
 

@@ -17,6 +17,7 @@ local AddTrack = require(Plugin.Src.Thunks.AddTrack)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
+local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
 
 return function(tick, analytics)
 	return function(store)
@@ -49,8 +50,10 @@ return function(tick, analytics)
 					-- Create the track if necessary
 					if dataTrack == nil then
 						-- TODO: Use Clipboard quaternion info (Part of AVBURST-6647)
-						AnimationData.addTrack(dataInstance.Tracks, track.TopTrackName, track.TopTrackType, isChannelAnimation, true)
-						if GetFFlagQuaternionsUI() then
+						AnimationData.addTrack(dataInstance.Tracks, track.TopTrackName, track.TopTrackType, isChannelAnimation)
+						if GetFFlagEulerAnglesOrder() then
+							store:dispatch(AddTrack(instanceName, track.TopTrackName, track.TopTrackType, nil, nil, analytics))
+						elseif GetFFlagQuaternionsUI() then
 							store:dispatch(AddTrack(instanceName, track.TopTrackName, track.TopTrackType, nil, analytics))
 						else
 							store:dispatch(AddTrack(instanceName, track.TopTrackName, track.TopTrackType, analytics))

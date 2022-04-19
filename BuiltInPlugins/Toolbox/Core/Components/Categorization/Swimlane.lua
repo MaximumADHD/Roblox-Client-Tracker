@@ -85,6 +85,7 @@ function Swimlane:render()
 	local isLoading = props.IsLoading
 
 	local displayCount = self.state.DisplayCount
+	local showSeeAll = if total then total > displayCount else true
 
 	local content
 	if isLoading then
@@ -141,6 +142,7 @@ function Swimlane:render()
 			SeeAllText = if total and showTotal
 				then localization:getText("HomeView", "Results", { total = tostring(total) })
 				else nil,
+			ShowSeeAllText = showSeeAll,
 			Title = title,
 			Total = total,
 		}),

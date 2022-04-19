@@ -1,7 +1,7 @@
 local GetFFlagChannelAnimations = require(script.Parent.GetFFlagChannelAnimations)
 
-game:DefineFastFlag("ACECurveEditor", false)
+game:DefineFastFlag("ACECurveEditorRelease", false)
 
 return function()
-	return GetFFlagChannelAnimations() and game:GetFastFlag("ACECurveEditor")
+	return GetFFlagChannelAnimations() and game:GetFastFlag("ACECurveEditorRelease")
 end

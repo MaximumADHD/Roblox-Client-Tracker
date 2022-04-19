@@ -1,7 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
 
-local getFFlagDevFrameworkTextInput2 = require(Plugin.Src.Flags.getFFlagDevFrameworkTextInput2)
-
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 
@@ -13,7 +11,6 @@ local Stylizer = Framework.Style.Stylizer
 local UI = Framework.UI
 local Button = UI.Button
 local Pane = UI.Pane
-local TextInput = UI.TextInput -- Remove with FFlagDevFrameworkTextInput2
 local TextInput2 = UI.TextInput2
 
 local TopBar = Roact.PureComponent:extend("TopBar")
@@ -39,11 +36,10 @@ function TopBar:render()
 			Text = localization:getText("Plugin", "Browse"),
 			OnClick = self.props.OnBrowse,
 		}),
-		TextInput = Roact.createElement(getFFlagDevFrameworkTextInput2() and TextInput2 or TextInput, {
-			Disabled = getFFlagDevFrameworkTextInput2() and true or nil,
+		TextInput = Roact.createElement(TextInput2, {
+			Disabled = true,
 			LayoutOrder = 2,
 			Size = UDim2.new(1, -offset, 1, 0),
-			Style = not getFFlagDevFrameworkTextInput2() and "RoundedBorder" or nil,
 			Text = props.FileName,
 		}),
 	})

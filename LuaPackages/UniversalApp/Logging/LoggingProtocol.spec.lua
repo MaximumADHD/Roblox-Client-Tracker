@@ -82,6 +82,26 @@ return function()
 			end)
 		end)
 
+		describe("logEventOnce", function()
+			it("should log same event only once", function(context)
+				local success, result = pcall(function()
+					return context.LoggingProtocol:logEventOnce("event1")
+				end)
+
+				expect(success).to.equal(true)
+				expect(MockMessageBus.spy.eventName).to.equal("event1")
+				expect(MockMessageBus.spy.timestamp).to.equal(0)
+
+				MockMessageBus.spy = {}
+				local success, result = pcall(function()
+					return context.LoggingProtocol:logEventOnce("event1")
+				end)
+				
+				expect(success).to.equal(true)
+				expect(MockMessageBus.spy["eventName"]).to.equal(nil)
+			end)
+		end)
+
 		describe("getTimestamp", function()
 			it("should return a number for `getTimestamp()`", function(context)
 				local success, result = pcall(function()

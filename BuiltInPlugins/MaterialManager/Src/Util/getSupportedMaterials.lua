@@ -29,6 +29,7 @@ local supportedMaterials = {
 	Enum.Material.Sandstone,
 	Enum.Material.Slate,
 	Enum.Material.SmoothPlastic,
+	Enum.Material.Snow,
 	Enum.Material.Wood,
 	Enum.Material.WoodPlanks,
 }
