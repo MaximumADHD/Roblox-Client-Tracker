@@ -179,10 +179,11 @@ function DetailsPageTemplate:render()
 				OnCloseButton = Roact.createElement(IconButton, {
 					size = UDim2.fromScale(1, 1),
 					icon = ICON_CLOSE,
-					iconColor3 = style.Theme.IconEmphasis.Color,
+					iconColor3 = style.Theme.SystemPrimaryContent.Color,
 					iconSize = IconSize.Medium,
 					onActivated = self.props.onClose,
 					showBackground = self.state.showStickyActionTopBar == false,
+					backgroundColorStyle = "SystemPrimaryDefault",
 				}),
 			}),
 			BackgroundDetailsFrame = Roact.createElement("Frame", {
@@ -216,10 +217,7 @@ function DetailsPageTemplate:render()
 				BorderSizePixel = 0,
 			}, {
 				StickyActionBar = Roact.createElement(StickyActionBar, {
-					actionBarProps = {
-						button = self.props.actionBarProps.button,
-						icons = self.props.actionBarProps.icons,
-					},
+					actionBarProps = self.props.actionBarProps,
 					infoProps = {
 						icon = self.props.thumbnailImageUrl,
 						title = self.props.titleText,

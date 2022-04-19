@@ -55,10 +55,11 @@ return function(options: roduxFriendsTypes.RoduxFriendsOptions)
 	return Rodux.createReducer(DEFAULT_STATE, {
 		[RecommendationCreated.name] = function(state: roduxFriendsTypes.RecommendationByUserId, action: roduxFriendsTypes.RecommendationCreated)
 			local existingState = state[action.payload.baseUserId] or {}
+
 			return llama.Dictionary.join(state, {
 				[action.payload.baseUserId] = llama.Dictionary.join(
 					existingState,
-					{ [action.payload.recommendedUser.id] = Recommendation.new(action.payload.recommendedUser) }
+					{ [action.payload.recommendedUser.id] = Recommendation.format(action.payload.recommendedUser) }
 				),
 			})
 		end :: (
@@ -70,14 +71,14 @@ return function(options: roduxFriendsTypes.RoduxFriendsOptions)
 			local baseFriendId = tostring(action.namedIds.users)
 			local responseData = action.responseBody.data
 
-			local recommendations = llama.Dictionary.map(responseData, function(user, index)
+			local recommendations = llama.Dictionary.map(responseData, function(user, _)
 				local userId = tostring(user.id)
 
-				return Recommendation.new({
+				return Recommendation.format({
 					id = userId,
 					mutualFriendsList = user.mutualFriendsList,
-					-- TODO: SOCCONN-1559 Use score from BE instead of adding manually
-					score = #responseData - index,
+					rank = user.rank,
+					contextType = user.contextType,
 				}),
 					userId
 			end)

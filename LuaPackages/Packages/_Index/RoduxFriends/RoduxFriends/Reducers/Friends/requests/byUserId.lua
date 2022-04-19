@@ -10,7 +10,7 @@ local FriendRequestDeclined = require(Actions.FriendRequestDeclined)
 local removeIdsFromRequestsStore: any = require(FriendsReducer.Reducers.Friends.utils.removeIdsFromRequestsStore)
 local roduxFriendsTypes = require(FriendsReducer.roduxFriendsTypes)
 
-local Cryo = require(Root.Cryo) :: any
+local llama = require(Root.llama) :: any
 
 type ByUserId = { [string]: boolean }
 
@@ -38,14 +38,14 @@ return function(options: any)
 			table.foreach(friendRequests, function(_, request: any)
 				newIds[tostring(request.id)] = true
 			end)
-			local newState = Cryo.Dictionary.join(state, newIds)
+			local newState = llama.Dictionary.join(state, newIds)
 
 			return newState
 		end,
 		[FriendRequestCreated.name] = function(state: ByUserId, action: any)
 			local userId: string = action.requesteeId
 
-			return Cryo.Dictionary.join(state, {
+			return llama.Dictionary.join(state, {
 				[tostring(userId)] = true,
 			})
 		end,

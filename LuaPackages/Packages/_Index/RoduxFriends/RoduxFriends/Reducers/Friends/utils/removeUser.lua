@@ -1,7 +1,7 @@
 local FriendsReducer = script:FindFirstAncestor("RoduxFriends")
 local Root = FriendsReducer.Parent
-local Cryo = require(Root.Cryo)
+local llama = require(Root.llama)
 
 return function(list, user)
-	return Cryo.List.removeValue(list or {}, user)
+	return llama.List.removeValue(list or {}, user)
 end

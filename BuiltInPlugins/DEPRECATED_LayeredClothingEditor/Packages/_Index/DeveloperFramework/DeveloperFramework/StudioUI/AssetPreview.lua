@@ -37,7 +37,6 @@
 ]]
 local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
 local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
-local FFlagToolboxShowHasScriptInfo = game:GetFastFlag("ToolboxShowHasScriptInfo")
 local FFlagPluginsSetAudioPreviewUsageContext = game:GetFastFlag("PluginsSetAudioPreviewUsageContext")
 
 local TextService = game:GetService("TextService")
@@ -283,7 +282,7 @@ function AssetPreview:render()
 	local assetData = props.AssetData
 	local assetId = assetData.Asset.Id
 	local assetGenres = assetData.Asset.AssetGenres
-	local hasScripts = FFlagToolboxShowHasScriptInfo and assetData.Asset.HasScripts
+	local hasScripts = assetData.Asset.HasScripts
 	local assetDescription = assetData.Asset.Description or ""
 
 	local localization = props.Localization

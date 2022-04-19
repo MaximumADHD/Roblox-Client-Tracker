@@ -3,6 +3,21 @@ local RunService = game:GetService("RunService")
 local Signal = require(script.Parent.Signal)
 local NoYield = require(script.Parent.NoYield)
 
+local ACTION_LOG_LENGTH = 3
+
+local rethrowErrorReporter = {
+	reportReducerError = function(prevState, action, errorResult)
+		error(string.format("Received error: %s\n\n%s", errorResult.message, errorResult.thrownValue))
+	end,
+	reportUpdateError = function(prevState, currentState, lastActions, errorResult)
+		error(string.format("Received error: %s\n\n%s", errorResult.message, errorResult.thrownValue))
+	end,
+}
+
+local function tracebackReporter(message)
+	return debug.traceback(tostring(message))
+end
+
 local Store = {}
 
 -- This value is exposed as a private value so that the test code can stay in
@@ -23,22 +38,43 @@ Store.__index = Store
 	Reducers do not mutate the state object, so the original state is still
 	valid.
 ]]
-function Store.new(reducer, initialState, middlewares)
+function Store.new(reducer, initialState, middlewares, errorReporter)
 	assert(typeof(reducer) == "function", "Bad argument #1 to Store.new, expected function.")
 	assert(middlewares == nil or typeof(middlewares) == "table", "Bad argument #3 to Store.new, expected nil or table.")
+	if middlewares ~= nil then
+		for i=1, #middlewares, 1 do
+			assert(
+				typeof(middlewares[i]) == "function",
+				("Expected the middleware ('%s') at index %d to be a function."):format(tostring(middlewares[i]), i)
+			)
+		end
+	end
 
 	local self = {}
 
+	self._errorReporter = errorReporter or rethrowErrorReporter
+	self._isDispatching = false
 	self._reducer = reducer
-	self._state = reducer(initialState, {
+	local initAction = {
 		type = "@@INIT",
-	})
+	}
+	self._actionLog = { initAction }
+	local ok, result = xpcall(function()
+		self._state = reducer(initialState, initAction)
+	end, tracebackReporter)
+	if not ok then
+		self._errorReporter.reportReducerError(initialState, initAction, {
+			message = "Caught error in reducer with init",
+			thrownValue = result,
+		})
+		self._state = initialState
+	end
 	self._lastState = self._state
 
 	self._mutatedSinceFlush = false
 	self._connections = {}
 
-	self.changed = Signal.new()
+	self.changed = Signal.new(self)
 
 	setmetatable(self, Store)
 
@@ -58,7 +94,7 @@ function Store.new(reducer, initialState, middlewares)
 			dispatch = middleware(dispatch, self)
 		end
 
-		self.dispatch = function(self, ...)
+		self.dispatch = function(_self, ...)
 			return dispatch(...)
 		end
 	end
@@ -70,6 +106,12 @@ end
 	Get the current state of the Store. Do not mutate this!
 ]]
 function Store:getState()
+	if self._isDispatching then
+		error(("You may not call store:getState() while the reducer is executing. " ..
+			"The reducer (%s) has already received the state as an argument. " ..
+			"Pass it down from the top reducer instead of reading it from the store."):format(tostring(self._reducer)))
+	end
+
 	return self._state
 end
 
@@ -81,16 +123,46 @@ end
 	changes, but not necessarily on every Dispatch.
 ]]
 function Store:dispatch(action)
-	if typeof(action) == "table" then
-		if action.type == nil then
-			error("action does not have a type field", 2)
-		end
+	if typeof(action) ~= "table" then
+		error(("Actions must be tables. " ..
+			"Use custom middleware for %q actions."):format(typeof(action)),
+			2
+		)
+	end
 
+	if action.type == nil then
+		error("Actions may not have an undefined 'type' property. " ..
+			"Have you misspelled a constant? \n" ..
+			tostring(action), 2)
+	end
+
+	if self._isDispatching then
+		error("Reducers may not dispatch actions.")
+	end
+
+	local ok, result = pcall(function()
+		self._isDispatching = true
 		self._state = self._reducer(self._state, action)
 		self._mutatedSinceFlush = true
-	else
-		error(("actions of type %q are not permitted"):format(typeof(action)), 2)
+	end)
+
+	self._isDispatching = false
+
+	if not ok then
+		self._errorReporter.reportReducerError(
+			self._state,
+			action,
+			{
+				message = "Caught error in reducer",
+				thrownValue = result,
+			}
+		)
 	end
+
+	if #self._actionLog == ACTION_LOG_LENGTH then
+		table.remove(self._actionLog, 1)
+	end
+	table.insert(self._actionLog, action)
 end
 
 --[[
@@ -119,11 +191,25 @@ function Store:flush()
 	-- unless we cache this value first
 	local state = self._state
 
-	-- If a changed listener yields, *very* surprising bugs can ensue.
-	-- Because of that, changed listeners cannot yield.
-	NoYield(function()
-		self.changed:fire(state, self._lastState)
-	end)
+	local ok, errorResult = xpcall(function()
+		-- If a changed listener yields, *very* surprising bugs can ensue.
+		-- Because of that, changed listeners cannot yield.
+		NoYield(function()
+			self.changed:fire(state, self._lastState)
+		end)
+	end, tracebackReporter)
+
+	if not ok then
+		self._errorReporter.reportUpdateError(
+			self._lastState,
+			state,
+			self._actionLog,
+			{
+				message = "Caught error flushing store updates",
+				thrownValue = errorResult,
+			}
+		)
+	end
 
 	self._lastState = state
 end

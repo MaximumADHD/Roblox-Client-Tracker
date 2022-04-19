@@ -2,6 +2,8 @@ local Framework = script.Parent.Parent.Parent
 local Colors = require(Framework.Style.Colors)
 local StyleKey = require(Framework.Style.StyleKey)
 
+local FFlagEnablePublishPlaceAsStylizer = game:GetFastFlag("EnablePublishPlaceAsStylizer")
+
 return {
 	[StyleKey.Border] = Colors.Carbon,
 	[StyleKey.BrightText] = Colors.White,
@@ -16,6 +18,8 @@ return {
 	[StyleKey.ImageButtonHover] = Colors.lighter(Colors.Gray_Mid, 0.26),
 
 	[StyleKey.Icon] = Color3.fromRGB(128, 128, 128),
+	[StyleKey.IconBackgroundColor] = if FFlagEnablePublishPlaceAsStylizer then Color3.fromRGB(37, 37, 37) else nil,
+	[StyleKey.IconImageColor] = if FFlagEnablePublishPlaceAsStylizer then Color3.fromRGB(102, 102, 102) else nil,
 
 	[StyleKey.ToolbarBackgroundColor] = Color3.fromRGB(0, 0, 0),
 	[StyleKey.ToolbarButtonBackgroundColor] = Color3.fromRGB(39, 39, 39),
@@ -50,6 +54,7 @@ return {
 	[StyleKey.ItemHovered] = Colors.Gray,
 	[StyleKey.ItemSelected] = Colors.Blue_Dark,
 
+	[StyleKey.Light] = if FFlagEnablePublishPlaceAsStylizer then Color3.fromRGB(243, 243, 243) else nil,
 	[StyleKey.LinkText] = Color3.fromRGB(60, 180, 255),
 
 	[StyleKey.MainBackground] = Colors.Slate,
@@ -58,6 +63,9 @@ return {
 	[StyleKey.MainTextDisabled] = Color3.fromRGB(85, 85, 85),
 	[StyleKey.MainTextHover] = Color3.fromRGB(66, 66, 66),
 	[StyleKey.MainTextSelected] = Colors.White,
+	[StyleKey.MenuBarBackground] = if FFlagEnablePublishPlaceAsStylizer then Color3.fromRGB(41, 41, 41) else nil,
+	[StyleKey.MenuEntryHighlight] = if FFlagEnablePublishPlaceAsStylizer then Color3.fromRGB(11, 90, 175) else nil,
+	[StyleKey.MenuEntryHover] = if FFlagEnablePublishPlaceAsStylizer then Colors.Gray else nil,
 	[StyleKey.Mid] = Color3.fromRGB(34, 34, 34),
 	[StyleKey.SubBackground] = Colors.Gray,
 	[StyleKey.SubBackground2] = Colors.Carbon,
@@ -72,7 +80,12 @@ return {
 	[StyleKey.SliderBackground] = Color3.fromRGB(37, 37, 37),
 	[StyleKey.SubText] = Color3.fromRGB(170, 170, 170),
 
+	[StyleKey.Tab] = if FFlagEnablePublishPlaceAsStylizer then Color3.fromRGB(53, 53, 53) else nil,
+	[StyleKey.TabHovered] = if FFlagEnablePublishPlaceAsStylizer then Color3.fromRGB(37, 37, 37) else nil,
+	[StyleKey.TabSelected] = if FFlagEnablePublishPlaceAsStylizer then Color3.fromRGB(42, 42, 42) else nil,
+
 	[StyleKey.TableItem] = Colors.Slate,
+	[StyleKey.TableItemSelected] = if FFlagEnablePublishPlaceAsStylizer then Color3.fromRGB(11, 90, 175) else nil,
 	[StyleKey.Titlebar] = Color3.fromRGB(53, 53, 53),
 	[StyleKey.TitlebarText] = Color3.fromRGB(204, 204, 204),
 	[StyleKey.ToggleOnImage] = "rbxasset://textures/RoactStudioWidgets/toggle_on_dark.png",

@@ -10,6 +10,11 @@ local TreeTable = UI.TreeTable
 
 local ExampleTreeTable = Roact.PureComponent:extend(script.Parent.Name .. "ExampleTreeTable")
 
+local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
+local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
+
+local hasTableColumnResizeFFlags = FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize
+
 local DEFAULT_COLUMNS = {
 	{
 		Name = "Name",
@@ -114,17 +119,22 @@ function ExampleTreeTable:render()
 			Width = self.state.Sizes[index]
 		})
 	end)
+	
+	local clampSize = if hasTableColumnResizeFFlags then true else nil
+	local useScale = if hasTableColumnResizeFFlags then true else nil
+	local onColumnSizesChange = if hasTableColumnResizeFFlags then self.onSizesChange else nil
+	
 	return Roact.createElement(TreeTable, {
 		Size = UDim2.new(1, 0, 0, 240),
-		ClampSize = true,
-		UseDeficit = true,
+		ClampSize = clampSize,
+		UseScale = useScale,
 		Columns = columns,
 		OnExpansionChange = function(newExpansion)
 			self:setState({
 				Expansion = join(self.state.Expansion, newExpansion)
 			})
 		end,
-		OnColumnSizesChange = self.onSizesChange,
+		OnColumnSizesChange = onColumnSizesChange,
 		Expansion = self.state.Expansion,
 		RootItems = self.state.Items,
 		GetChildren = function(item)

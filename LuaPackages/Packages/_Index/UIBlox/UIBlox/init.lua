@@ -298,6 +298,8 @@ local function initializeLibrary(configs)
 		-- Used for updating the style in consumer who would have previously
 		-- used `_context` to access the style object
 		Consumer = require(script.Style.StyleConsumer),
+		-- Used for useContext hook
+		Context = require(script.Style.StyleContext),
 	}
 
 	-- DEPRECATED SECTION

@@ -27,7 +27,6 @@ return strict({
 	formatDuration = require(script.formatDuration),
 	formatLocalDateTime = require(script.formatLocalDateTime),
 	Flags = require(script.Flags),
-	getTestVariation = require(script.getTestVariation),
 	Immutable = require(script.Immutable),
 	isInputMainPress = require(script.isInputMainPress),
 	LayoutOrderIterator = require(script.LayoutOrderIterator),

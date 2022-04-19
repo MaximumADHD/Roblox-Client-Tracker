@@ -183,7 +183,6 @@ function StickyActionBar:render()
 					LayoutOrder = 1,
 					Position = UDim2.new(0, 0, 0, 0),
 					Image = self.props.infoProps.icon,
-					ImageColor3 = style.Theme.IconEmphasis.Color,
 					BackgroundTransparency = 1,
 					ScaleType = Enum.ScaleType.Crop,
 				}, {

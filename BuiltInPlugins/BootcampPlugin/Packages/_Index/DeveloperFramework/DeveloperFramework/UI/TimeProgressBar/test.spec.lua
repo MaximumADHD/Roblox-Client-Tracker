@@ -1,6 +1,6 @@
-local FFlagDevFrameworkTextInput2 = game:GetFastFlag("DevFrameworkTimeProgressBar")
+local FFlagDevFrameworkTimeProgressBar = game:GetFastFlag("DevFrameworkTimeProgressBar")
 
-if FFlagDevFrameworkTextInput2 then
+if FFlagDevFrameworkTimeProgressBar then
 	return function()
 		local Framework = script.Parent.Parent.Parent
 		local Roact = require(Framework.Parent.Roact)

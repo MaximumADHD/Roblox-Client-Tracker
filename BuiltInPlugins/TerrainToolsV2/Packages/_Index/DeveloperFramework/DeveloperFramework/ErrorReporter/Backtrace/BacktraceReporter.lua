@@ -31,8 +31,6 @@
 
 ]]
 
-local FFlagDevFrameworkBacktraceReportFirstInSession = game:GetFastFlag("DevFrameworkBacktraceReportFirstInSession")
-
 local RunService = game:GetService("RunService")
 local HttpService = game:GetService("HttpService")
 
@@ -204,13 +202,8 @@ function BacktraceReporter:reportErrorDeferred(errorMessage, errorStack, details
 		return
 	end
 
-	local errorKey
-	if FFlagDevFrameworkBacktraceReportFirstInSession then
-		-- In order to avoid aggregation, attach a unique key
-		errorKey = string.format("%s | %s | %s", errorMessage, errorStack, flagAsUnique and HttpService:GenerateGUID(false) or "")
-	else
-		errorKey = string.format("%s | %s", errorMessage, errorStack)
-	end
+	-- In order to avoid aggregation, attach a unique key
+	local errorKey = string.format("%s | %s | %s", errorMessage, errorStack, flagAsUnique and HttpService:GenerateGUID(false) or "")
 	local errorData = {}
 
 	-- If this error is a new one, we want a full report on it.

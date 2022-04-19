@@ -1,6 +1,6 @@
 local FriendsReducer = script:FindFirstAncestor("RoduxFriends")
 local Root = FriendsReducer.Parent
-local Cryo = require(Root.Cryo)
+local llama = require(Root.llama)
 local removeUser = require(script.Parent.removeUser)
 
 -- @param state - "byUserId" field
@@ -10,7 +10,7 @@ return function(state, action)
 	local currentUser = tostring(action.additionalData.currentUserId)
 	local removedUser = tostring(action.namedIds.users)
 
-	local newState = Cryo.Dictionary.join(state, {
+	local newState = llama.Dictionary.join(state, {
 		[currentUser] = removeUser(state[currentUser], removedUser),
 		[removedUser] = removeUser(state[removedUser], currentUser),
 	})

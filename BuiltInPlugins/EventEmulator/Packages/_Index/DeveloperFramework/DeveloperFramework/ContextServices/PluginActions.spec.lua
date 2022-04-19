@@ -13,7 +13,7 @@ return function()
 		mock = require(Framework.packages.Dev.mock)
 	end
 
-	local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
+	local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
 	local Spy = mock.Spy
 	local getCalls = mock.getCalls
@@ -61,7 +61,7 @@ return function()
 			return Roact.createElement("Frame")
 		end
 
-		if FFlagRefactorDevFrameworkContextItems2 then
+		if FFlagDevFrameworkUseCreateContext then
 			TestElement = withContext({
 				PluginActions = PluginActions,
 			})(TestElement)

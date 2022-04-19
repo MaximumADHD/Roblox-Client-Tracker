@@ -11,7 +11,7 @@ local FriendRequestDeclined: any = require(Actions.FriendRequestDeclined)
 
 local removeIdsFromRequestsStore: any = require(FriendsReducer.Reducers.Friends.utils.removeIdsFromRequestsStore)
 
-local Cryo: any = require(Root.Cryo) :: any
+local llama: any = require(Root.llama) :: any
 type SentAt = { [string]: DateTime? }
 
 local DEFAULT_STATE: SentAt = {}
@@ -39,13 +39,13 @@ return function(options: any)
 				newTimestamps[tostring(request.id)] = DateTime.fromIsoDate(request.friendRequest.sentAt)
 			end)
 
-			return Cryo.Dictionary.join(state, newTimestamps)
+			return llama.Dictionary.join(state, newTimestamps)
 		end,
 		[FriendRequestCreated.name] = function(state: SentAt, action: any)
 			local userId: string = tostring(action.requesteeId)
 			local sentAt: string = action.sentAt
 
-			return Cryo.Dictionary.join(state, {
+			return llama.Dictionary.join(state, {
 				[userId] = DateTime.fromIsoDate(sentAt),
 			})
 		end,

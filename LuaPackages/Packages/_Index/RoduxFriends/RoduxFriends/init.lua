@@ -1,5 +1,5 @@
 local Packages = script.Parent
-local Cryo = require(Packages.Cryo)
+local llama = require(Packages.llama)
 local RoduxNetworking = require(Packages.RoduxNetworking)
 local FriendsNetworking = require(Packages.FriendsNetworking)
 
@@ -7,11 +7,11 @@ local Friends = require(script.Reducers.FriendsReducer)
 local Actions = require(script.Actions)
 local Selectors = require(script.Selectors)
 local Models = require(script.Models)
-local roduxFriendsTypes = require(script.roduxFriendsTypes)
+local Enums = require(script.Enums)
 
 return {
 	config = function(options)
-		options = Cryo.Dictionary.join(options, {
+		options = llama.Dictionary.join(options, {
 			friendsNetworking = FriendsNetworking.config({
 				roduxNetworking = RoduxNetworking.mock(),
 			}),
@@ -24,7 +24,7 @@ return {
 			Actions = Actions(options),
 			Selectors = Selectors(options),
 			Models = Models,
-			roduxFriendsTypes = roduxFriendsTypes,
+			Enums = Enums,
 		}
 	end
 }

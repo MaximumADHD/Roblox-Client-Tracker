@@ -14,11 +14,25 @@ type UserIds = { string }
 
 export type NextPageCursor = string?
 
+type Enumerate = {
+	getValue: () -> string,
+	isEnumValue: (enum: any) -> boolean,
+	fromRawValue: (enum: string) -> Enumerate,
+}
+
 -- Models
 export type RecommendationModel = {
 	id: string,
 	mutualFriendsList: { string },
-	score: number,
+	rank: number,
+	contextType: Enumerate,
+}
+
+export type RecommendationResponse = {
+	id: string,
+	mutualFriendsList: { string },
+	rank: number,
+	contextType: string?,
 }
 
 -- Actions
@@ -69,7 +83,7 @@ export type FriendRequestCreated = {
 }
 
 export type RecommendationCreated = {
-	payload: { baseUserId: string, recommendedUser: RecommendationModel },
+	payload: { baseUserId: string, recommendedUser: RecommendationResponse },
 }
 
 export type RecommendationDestroyed = {

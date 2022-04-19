@@ -1,5 +1,3 @@
-local FFlagDevFrameworkTextInput2 = game:GetFastFlag("DevFrameworkTextInput2")
-
 local Framework = script.Parent.Parent.Parent
 
 local StyleKey = require(Framework.Style.StyleKey)
@@ -18,13 +16,7 @@ local Pane = require(UIFolderData.Pane.style)
 local Dash = require(Framework.packages.Dash)
 local join = Dash.join
 
-if not FFlagDevFrameworkTextInput2 then
-	if THEME_REFACTOR then
-		return {}
-	else
-		return function() end
-	end
-elseif THEME_REFACTOR then
+if THEME_REFACTOR then
 	local common = deepCopy(Common)
 	local pane = deepCopy(Pane)
 

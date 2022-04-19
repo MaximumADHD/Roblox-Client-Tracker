@@ -1,6 +1,6 @@
 local FriendsReducer = script:FindFirstAncestor("RoduxFriends")
 local Root = FriendsReducer.Parent
-local Cryo = require(Root.Cryo)
+local llama = require(Root.llama)
 local addUser = require(script.Parent.addUser)
 local removeUser = require(script.Parent.removeUser)
 
@@ -34,7 +34,7 @@ return function(state, action)
 	local baseFriendId = tostring(action.namedIds.users)
 	local stateBaseFriends = state[baseFriendId] or {}
 
-	local requestFriends = Cryo.List.map(Cryo.Dictionary.values(action.responseBody.data), function(friend)
+	local requestFriends = llama.List.map(llama.Dictionary.values(action.responseBody.data), function(friend)
 		return tostring(friend.id)
 	end)
 
@@ -44,7 +44,7 @@ return function(state, action)
 
 	-- update state to take into account of created friendships
 	for k, addedFriend in pairs(addedFriends) do
-		state = Cryo.Dictionary.join(state, {
+		state = llama.Dictionary.join(state, {
 			[baseFriendId] = addUser(state[baseFriendId], addedFriend),
 			[addedFriend] = addUser(state[addedFriend], baseFriendId),
 		})
@@ -52,7 +52,7 @@ return function(state, action)
 
 	-- update state to take into account of destroyed friendships
 	for k, removedFriend in pairs(removedFriends) do
-		state = Cryo.Dictionary.join(state, {
+		state = llama.Dictionary.join(state, {
 			[baseFriendId] = removeUser(state[baseFriendId], removedFriend),
 			[removedFriend] = removeUser(state[removedFriend], baseFriendId),
 		})
@@ -60,7 +60,7 @@ return function(state, action)
 
 	-- update state to take into account of empty friend lists
 	for k, v in pairs(state) do
-		if Cryo.isEmpty(v) then
+		if llama.isEmpty(v) then
 			state[k] = nil
 		end
 	end

@@ -3,5 +3,9 @@
 ]]
 
 local PackageIndex = script.Parent.Parent.Parent._Index
-local Package = require(PackageIndex["roblox_developer-tools"]["developer-tools"])
+local Package = require(PackageIndex["DeveloperTools"]["DeveloperTools"])
+
+export type GuiOptions = Package.GuiOptions
+
 return Package
+

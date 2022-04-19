@@ -1,4 +1,9 @@
 return {
+	-- gridViewUseFunctionalSetStateInDidMount: in GridView's didMount function use functional set state
+	-- to make sure that when state is actually applied we are getting fresh/correct values for
+	-- containerWidth
+	gridViewUseFunctionalSetStateInDidMount = false,
+
 	-- styleRefactorConfig: DEPRECATED: this is a no-op, but is left in so that it's easier to upgrade consumers of
 	-- UIBlox that try to assign a value to it (the config layer will throw if assigning to a value that's not in the
 	-- default config)

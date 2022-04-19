@@ -10,7 +10,7 @@ local FriendRequestDeclined: any = require(Actions.FriendRequestDeclined)
 local removeIdsFromRequestsStore: any = require(FriendsReducer.Reducers.Friends.utils.removeIdsFromRequestsStore)
 local roduxFriendsTypes = require(FriendsReducer.roduxFriendsTypes)
 
-local Cryo = require(Root.Cryo) :: any
+local llama = require(Root.llama) :: any
 
 type MutualFriends = { [string]: { number }? }
 
@@ -37,12 +37,12 @@ return function(options: any)
 			local newIds: { [string]: string } = {}
 			table.foreach(friendRequests, function(_, request: any)
 				if request.mutualFriendsList then
-					newIds[tostring(request.id)] = Cryo.List.map(request.mutualFriendsList, function(id)
+					newIds[tostring(request.id)] = llama.List.map(request.mutualFriendsList, function(id)
 						return tostring(id)
 					end)
 				end
 			end)
-			local newState = Cryo.Dictionary.join(state, newIds)
+			local newState = llama.Dictionary.join(state, newIds)
 
 			return newState
 		end,
@@ -50,8 +50,8 @@ return function(options: any)
 			local userId: string = action.requesteeId
 			local mutualFriends: { number }? = action.mutualFriends
 
-			return Cryo.Dictionary.join(state, {
-				[tostring(userId)] = Cryo.List.map(mutualFriends, function(id)
+			return llama.Dictionary.join(state, {
+				[tostring(userId)] = llama.List.map(mutualFriends, function(id)
 					return tostring(id)
 				end),
 			})

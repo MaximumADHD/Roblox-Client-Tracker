@@ -206,7 +206,6 @@ function EmbedFramework.rewriteFlagsForScript(script: ModuleScript)
 		:gsub([[settings%(%):GetFVariable%(%s*"([^"]+)"%)]], rewriteSetting)
 		:gsub([[settings%(%):GetFVariable%(%s*"([^"]+)"%)]], rewriteSetting)
 		:gsub([[game:GetService%("StudioService"%)]], [[({StudioLocaleId = "en-us", GetPropertyChangedSignal = function() return {Connect = function() return {Disconnect = function() end} end} end, HasInternalPermission = function() return true end})]])
-		:gsub([[game:GetService%("ABTestService"%)]], [[({GetVariant = function() return "Control" end})]])
 		:gsub([[settings%(%)%.Studio]], [[({Theme = {Name = "Light", GetColor = function(_, color) return color == Enum.StudioStyleGuideColor.MainBackground and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(0, 0, 0) end}, ThemeChanged = {Connect = function() return {Disconnect = function() end} end}})]])
 		
 end

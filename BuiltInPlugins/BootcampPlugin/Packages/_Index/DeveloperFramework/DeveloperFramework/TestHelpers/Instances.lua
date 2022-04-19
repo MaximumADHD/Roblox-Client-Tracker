@@ -7,4 +7,5 @@ return strict({
 	MockPluginToolbar = require(script.MockPluginToolbar),
 	MockPluginToolbarButton = require(script.MockPluginToolbarButton),
 	MockSelectionService = require(script.MockSelectionService),
+	MockToastNotificationService = require(script.MockToastNotificationService),
 })

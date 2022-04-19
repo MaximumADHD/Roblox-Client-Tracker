@@ -20,8 +20,6 @@
 	end
 ]]
 
-local FFlagDevFrameworkBacktraceReportFirstInSession = game:GetFastFlag("DevFrameworkBacktraceReportFirstInSession")
-
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local ContentProvider = game:GetService("ContentProvider")
 local HttpService = game:GetService("HttpService")
@@ -133,32 +131,11 @@ function StudioPluginErrorReporter.new(args)
 			end
 
 			-- report detailed information about the error
-			if FFlagDevFrameworkBacktraceReportFirstInSession then
-				self:_reportError(pluginName, errorMessage, errorStack, details)
-			else
-				-- report detailed information about the error
-				self.reporter:updateSharedAttributes({
-					PluginName = pluginName,
-				})
-				self.reporter:reportErrorDeferred(errorMessage, errorStack, details)
-			
-				self:_reportCounts(pluginName)
-			end
+			self:_reportError(pluginName, errorMessage, errorStack, details)
 		end)
 	end
 
 	return self
-end
-
---remove with FFlagDevFrameworkBacktraceReportFirstInSession
-function StudioPluginErrorReporter:_reportCounts(pluginName)
-	self.analyticsService:ReportCounter(createCollectorName(STUDIO_PLUGIN_ERRORS_DIAG_COLLECTOR, pluginName), 1)
-	
-	if not self._hasReported[pluginName] then
-		self._hasReported[pluginName] = true
-		-- This counter is only reported once per (plugin, session) to allow us to determine how many sessions are being impacted
-		self.analyticsService:ReportCounter(createCollectorName(STUDIO_PLUGIN_ERRORS_BY_SESSION_DIAG_COLLECTOR, pluginName), 1)
-	end
 end
 
 function StudioPluginErrorReporter:_reportError(pluginName, errorMessage, errorStack, details)
@@ -180,15 +157,7 @@ end
 function StudioPluginErrorReporter:report(pluginName, errorMessage)
 	assert(type(pluginName) == "string", "Expected pluginName to be a string")
 	assert(type(errorMessage) == "string", "Expected errorMessage to be a string")
-	if FFlagDevFrameworkBacktraceReportFirstInSession then
-		self:_reportError(pluginName, errorMessage, debug.traceback(), nil)
-	else
-		self.reporter:updateSharedAttributes({
-			PluginName = pluginName,
-		})
-		self.reporter:reportErrorDeferred(errorMessage, debug.traceback())
-		self:_reportCounts(pluginName)
-	end
+	self:_reportError(pluginName, errorMessage, debug.traceback(), nil)
 end
 
 function StudioPluginErrorReporter:stop()

@@ -4,6 +4,7 @@ local UIBloxRoot = AppRoot.Parent
 local Packages = UIBloxRoot.Parent
 local RoactGamepad = require(Packages.RoactGamepad)
 local isCallable = require(UIBloxRoot.Utility.isCallable)
+local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 
 local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
@@ -262,18 +263,34 @@ function GridView:didMount()
 
 	local ref = self.props.frameRef or self.frameRef
 
-	if ref.current and ref.current.AbsoluteSize.X ~= 0 then
-		if ref.current:IsDescendantOf(game) then
-			self:setState({
-				isInDataModel = true,
-				containerWidth = ref.current.AbsoluteSize.X,
-			})
+	if ref:getValue() and ref:getValue().AbsoluteSize.X ~= 0 then
+		if ref:getValue():IsDescendantOf(game) then
+			if UIBloxConfig.gridViewUseFunctionalSetStateInDidMount then
+				-- We use a functional set state here because experience shows that at call-time
+				-- we may have wrong/bad values in ref:getValue().AbsoluteSize.X, but at resolve-state
+				-- time we have correct values.
+				self:setState(function(oldState)
+					if ref:getValue() then
+						return {
+							isInDataModel = true,
+							containerWidth = ref:getValue().AbsoluteSize.X,
+						}
+					else
+						return nil
+					end
+				end)
+			else
+				self:setState({
+					isInDataModel = true,
+					containerWidth = ref:getValue().AbsoluteSize.X,
+				})
+			end
 		end
 
 		if self.props.onWidthChanged ~= nil then
 			delay(0, function()
-				if ref.current then
-					self.props.onWidthChanged(ref.current.AbsoluteSize.X)
+				if ref:getValue() then
+					self.props.onWidthChanged(ref:getValue().AbsoluteSize.X)
 				end
 			end)
 		end

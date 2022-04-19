@@ -15,7 +15,6 @@ local withContext = ContextServices.withContext
 local Focus = ContextServices.Focus
 
 local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
-local FFlagFixToolbarButtonForFreshInstallation2 = game:GetFastFlag("FixToolbarButtonForFreshInstallation2")
 
 local function createPluginWidget(componentName, createWidgetFunc)
 	local PluginWidget = Roact.PureComponent:extend(componentName)
@@ -63,7 +62,7 @@ local function createPluginWidget(componentName, createWidgetFunc)
 				props.OnWidgetRestored(widget.Enabled)
 			end
 
-			if FFlagFixToolbarButtonForFreshInstallation2 and widget:IsA("DockWidgetPluginGui") and
+			if widget:IsA("DockWidgetPluginGui") and
 				props.OnWidgetCreated then
 				props.OnWidgetCreated(widget.Enabled, widget.HostWidgetWasRestored)
 			end

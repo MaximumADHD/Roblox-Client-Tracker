@@ -1,6 +1,6 @@
 local FriendsReducer = script:FindFirstAncestor("RoduxFriends")
 local Root = FriendsReducer.Parent
-local Cryo = require(Root.Cryo)
+local llama = require(Root.llama)
 
 local Actions = FriendsReducer.Actions
 local FriendshipCreated = require(Actions.FriendshipCreated)
@@ -27,7 +27,7 @@ return function(options)
 			assert(type(action.payload.userId1) == "string", "Expected userId1 to be a string")
 			assert(type(action.payload.userId2) == "string", "Expected userId2 to be a string")
 
-			return Cryo.Dictionary.join(currentState.countsByUserId, {
+			return llama.Dictionary.join(currentState.countsByUserId, {
 				[action.payload.userId1] = #(addUser(currentState.byUserId[action.payload.userId1], action.payload.userId2)),
 				[action.payload.userId2] =  #(addUser(currentState.byUserId[action.payload.userId2], action.payload.userId1)),
 			})
@@ -37,7 +37,7 @@ return function(options)
 			assert(type(action.payload.userId1) == "string", "Expected userId1 to be a string")
 			assert(type(action.payload.userId2) == "string", "Expected userId2 to be a string")
 
-			return Cryo.Dictionary.join(currentState.countsByUserId, {
+			return llama.Dictionary.join(currentState.countsByUserId, {
 				[action.payload.userId1] = #(removeUser(currentState.byUserId[action.payload.userId1], action.payload.userId2)),
 				[action.payload.userId2] =  #(removeUser(currentState.byUserId[action.payload.userId2], action.payload.userId1)),
 			})

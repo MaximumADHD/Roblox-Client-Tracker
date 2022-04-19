@@ -1,12 +1,12 @@
 local FriendsReducer: any = script:FindFirstAncestor("RoduxFriends")
 local Root: any = FriendsReducer.Parent
-local Cryo: any = require(Root.Cryo)
+local llama: any = require(Root.llama)
 
 return function(state: any, ids: {string})
 	local idsToDelete: table = {}
 	table.foreach(ids, function(_, id: string)
-		idsToDelete[id] = Cryo.None
+		idsToDelete[id] = llama.None
 	end)
 
-	return Cryo.Dictionary.join(state, idsToDelete)
+	return llama.Dictionary.join(state, idsToDelete)
 end

@@ -3,5 +3,6 @@
 ]]
 
 local PackageIndex = script.Parent.Parent.Parent._Index
-local Package = require(PackageIndex["roblox_infinite-scroller"]["infinite-scroller"])
+local Package = require(PackageIndex["InfiniteScroller"]["InfiniteScroller"])
 return Package
+
