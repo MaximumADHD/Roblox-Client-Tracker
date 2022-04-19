@@ -2809,21 +2809,6 @@
                 },
                 {
                     "MemberType": "Event",
-                    "Name": "SettingsChanged",
-                    "Parameters": [
-                        {
-                            "Name": "property",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "Security": "None",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
                     "Name": "UploadFinished",
                     "Parameters": [
                         {
@@ -3126,6 +3111,32 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "InsertVideo",
+                    "Parameters": [
+                        {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "assetName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
                             }
                         }
                     ],
@@ -23937,16 +23948,14 @@
                     "MemberType": "Property",
                     "Name": "SelectionBehaviorDown",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "None",
+                        "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
+                        "CanLoad": true,
+                        "CanSave": true
                     },
                     "Tags": [
-                        "Hidden",
-                        "NotReplicated",
                         "NotBrowsable"
                     ],
                     "ThreadSafety": "ReadSafe",
@@ -23960,16 +23969,14 @@
                     "MemberType": "Property",
                     "Name": "SelectionBehaviorLeft",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "None",
+                        "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
+                        "CanLoad": true,
+                        "CanSave": true
                     },
                     "Tags": [
-                        "Hidden",
-                        "NotReplicated",
                         "NotBrowsable"
                     ],
                     "ThreadSafety": "ReadSafe",
@@ -23983,16 +23990,14 @@
                     "MemberType": "Property",
                     "Name": "SelectionBehaviorRight",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "None",
+                        "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
+                        "CanLoad": true,
+                        "CanSave": true
                     },
                     "Tags": [
-                        "Hidden",
-                        "NotReplicated",
                         "NotBrowsable"
                     ],
                     "ThreadSafety": "ReadSafe",
@@ -24006,16 +24011,14 @@
                     "MemberType": "Property",
                     "Name": "SelectionBehaviorUp",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "None",
+                        "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
+                        "CanLoad": true,
+                        "CanSave": true
                     },
                     "Tags": [
-                        "Hidden",
-                        "NotReplicated",
                         "NotBrowsable"
                     ],
                     "ThreadSafety": "ReadSafe",
@@ -24029,16 +24032,14 @@
                     "MemberType": "Property",
                     "Name": "SelectionGroup",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "None",
+                        "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
+                        "CanLoad": true,
+                        "CanSave": true
                     },
                     "Tags": [
-                        "Hidden",
-                        "NotReplicated",
                         "NotBrowsable"
                     ],
                     "ThreadSafety": "ReadSafe",
@@ -31656,7 +31657,7 @@
                         "Category": "Primitive",
                         "Name": "void"
                     },
-                    "Security": "RobloxScriptSecurity",
+                    "Security": "None",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -43880,6 +43881,25 @@
                         "Name": "string"
                     },
                     "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetMaterialOverrideChanged",
+                    "Parameters": [
+                        {
+                            "Name": "material",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "Material"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "RBXScriptSignal"
+                    },
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {

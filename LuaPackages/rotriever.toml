@@ -36,6 +36,9 @@ ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = 
 ExperienceChat_New = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v1.2.1" }
 RoactNavigationUpgradeFlag = { git = "https://github.com/Roblox/roact-navigation-upgrade", rev = "v0.0.6", package = "RoactNavigationUpgradeFlag" }
 RoduxGames = { git = "https://github.com/Roblox/rodux-games", rev = "master" }
+React = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactProxy" }
+ReactIs = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactIsProxy" }
+ReactRoblox = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactRobloxProxy" }
 
 # The following packages were ported from AppTempCommon
 Promise = { git = "https://github.com/Roblox/lua-promise" }
@@ -51,7 +54,7 @@ JestGlobals = { git = "https://github.com/roblox/jest-roblox", rev = "v2.3.1" }
 Rhodium = "github.com/roblox/rhodium@0.2.8"
 
 # Dependencies for the Roact17 inspector
-ReactDevtoolsExtensions = { git = "https://github.com/roblox/roact-alignment", package = "ReactDevtoolsExtensions", rev="v17.0.1-rc.11" }
+ReactDevtoolsExtensions = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactDevtoolsExtensionsProxy" }
 DeveloperTools = "github.com/Roblox/developer-tools@0.2.2"
 
 # Patch all dependencies upon rodux to the flagged indireciton package, which

@@ -47,7 +47,6 @@ CloudsWideSunCoverFS,Fragment
 CloudsWind2dFS,Fragment
 CloudsWindFS,Fragment
 CopyGuiVS,Vertex
-CopyUIRTVS,Vertex
 DefaultDepthFS,Fragment
 DefaultDepthVS_Level0,Vertex
 DefaultDepthVS_Level1,Vertex
@@ -445,7 +444,6 @@ ImGuiCubeFS,Fragment
 ImGuiFS,Fragment
 ImGuiTexVS,Vertex
 ImGuiVS,Vertex
-InversePremultipliedFS,Fragment
 LightGridDebugFS,Fragment
 LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex

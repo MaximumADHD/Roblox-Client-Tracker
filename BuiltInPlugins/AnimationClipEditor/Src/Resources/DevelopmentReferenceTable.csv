@@ -22,6 +22,7 @@ Studio.AnimationClipEditor.ContextMenu.EasingDirection, ,Easing Direction
 Studio.AnimationClipEditor.ContextMenu.EasingStyle, ,Easing Style
 Studio.AnimationClipEditor.ContextMenu.EditEventName, ,Edit Event Name
 Studio.AnimationClipEditor.ContextMenu.EditEvents, ,Edit Animation Event
+Studio.AnimationClipEditor.ContextMenu.EulerAnglesOrder, ,Euler Angles Order
 Studio.AnimationClipEditor.ContextMenu.GenerateCurve, ,Generate Curve
 Studio.AnimationClipEditor.ContextMenu.InterpolationMode, ,Interpolation Mode
 Studio.AnimationClipEditor.ContextMenu.PasteEvents, ,Paste Events
@@ -119,6 +120,7 @@ Studio.AnimationClipEditor.Settings.4x, ,4x
 Studio.AnimationClipEditor.Settings.60FPS, ,60 fps
 Studio.AnimationClipEditor.Settings.CustomFPS, ,Custom
 Studio.AnimationClipEditor.Settings.CustomPlaybackSpeed, ,Custom
+Studio.AnimationClipEditor.Settings.DefaultEulerAnglesOrder, ,Default Euler's Angles Order
 Studio.AnimationClipEditor.Settings.DefaultRotationType, ,Default Rotation Type
 Studio.AnimationClipEditor.Settings.EulerAngles, ,Euler Angles
 Studio.AnimationClipEditor.Settings.FrameRate, ,Frame Rate
@@ -134,6 +136,12 @@ Studio.AnimationClipEditor.Settings.SnapMode, ,Snap Mode
 Studio.AnimationClipEditor.Settings.SnapNone, ,None
 Studio.AnimationClipEditor.Settings.SnapToKeys, ,Snap To Keys
 Studio.AnimationClipEditor.Settings.TimelineUnit, ,Timeline Unit
+Studio.AnimationClipEditor.Settings.XYZ, ,XYZ
+Studio.AnimationClipEditor.Settings.XZY, ,XZY
+Studio.AnimationClipEditor.Settings.YXZ, ,YXZ
+Studio.AnimationClipEditor.Settings.YZX, ,YZX
+Studio.AnimationClipEditor.Settings.ZXY, ,ZXY
+Studio.AnimationClipEditor.Settings.ZYX, ,ZYX
 Studio.AnimationClipEditor.Title.AddEvent, ,Add Event
 Studio.AnimationClipEditor.Title.AnimationEvents, ,Animation Events
 Studio.AnimationClipEditor.Title.ChangeDuration, ,Change Duration

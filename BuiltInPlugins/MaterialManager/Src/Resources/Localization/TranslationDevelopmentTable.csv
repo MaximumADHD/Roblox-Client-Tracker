@@ -15,7 +15,7 @@ Studio.MaterialManager.Categories.Natural,Natural
 Studio.MaterialManager.Categories.Organic,Organic
 Studio.MaterialManager.Categories.Plastic,Plastic
 Studio.MaterialManager.Categories.Rock,Rock
-Studio.MaterialManager.Categories.Salt,Salt
+Studio.MaterialManager.Categories.Sand,Sand
 Studio.MaterialManager.Categories.Snow,Snow
 Studio.MaterialManager.Categories.Stone,Stone
 Studio.MaterialManager.Categories.Synthetic,Synthetic
@@ -62,6 +62,7 @@ Studio.MaterialManager.MaterialOverrides.MaterialOverride,Material Override
 Studio.MaterialManager.MaterialOverrides.MaterialOverrides,Material Overrides
 Studio.MaterialManager.MaterialOverrides.None,None
 Studio.MaterialManager.MaterialOverrides.PartOverride,Part Override
+Studio.MaterialManager.MaterialOverrides.SetOverride,SetOverride
 Studio.MaterialManager.MaterialOverrides.TerrainOverride,Terrain Override
 Studio.MaterialManager.MaterialTextures.Color,Color
 Studio.MaterialManager.MaterialTextures.Metalness,Metalness
@@ -173,6 +174,7 @@ Studio.MaterialManager.Materials.SlateVariant,Slate Variant
 Studio.MaterialManager.Materials.SmoothPlastic,Smooth Plastic
 Studio.MaterialManager.Materials.SmoothPlasticMaterial,Smooth Plastic Material
 Studio.MaterialManager.Materials.SmoothPlasticVariant,Smooth Plastic Variant
+Studio.MaterialManager.Materials.Snow,Snow
 Studio.MaterialManager.Materials.Water,Water
 Studio.MaterialManager.Materials.WaterMaterial,Water Material
 Studio.MaterialManager.Materials.WaterVariant,Water Variant

@@ -52,7 +52,6 @@ CloudsWideSunCoverFS,Fragment,✔,✔,✔,❌,✔,✔
 CloudsWind2dFS,Fragment,✔,✔,✔,✔,✔,✔
 CloudsWindFS,Fragment,✔,✔,✔,✔,✔,✔
 CopyGuiVS,Vertex,✔,✔,✔,✔,✔,✔
-CopyUIRTVS,Vertex,✔,✔,✔,✔,✔,✔
 DefaultDepthFS,Fragment,✔,✔,✔,✔,✔,✔
 DefaultDepthVS_Level0,Vertex,✔,✔,✔,✔,✔,✔
 DefaultDepthVS_Level1,Vertex,✔,✔,✔,❌,✔,✔
@@ -470,7 +469,6 @@ ImGuiCubeFS,Fragment,✔,✔,✔,✔,✔,✔
 ImGuiFS,Fragment,✔,✔,✔,✔,✔,✔
 ImGuiTexVS,Vertex,✔,✔,✔,✔,✔,✔
 ImGuiVS,Vertex,✔,✔,✔,✔,✔,✔
-InversePremultipliedFS,Fragment,✔,✔,✔,✔,✔,✔
 LightGridCullAccumAndCreateMaskCS,Compute,❌,❌,✔,❌,❌,✔
 LightGridCullClearCS,Compute,❌,❌,✔,❌,❌,✔
 LightGridCullCountOffsetCS,Compute,❌,❌,✔,❌,❌,✔

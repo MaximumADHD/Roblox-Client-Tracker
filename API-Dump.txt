@@ -144,7 +144,6 @@ Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool AssetImportService:IsAvatar() {RobloxScriptSecurity}
 	Function void AssetImportService:Upload() {RobloxScriptSecurity}
 	Event AssetImportService.ProgressUpdate(float progressRatio)
-	Event AssetImportService.SettingsChanged(string property)
 	Event AssetImportService.UploadFinished(bool succeeded, Dictionary errorMap)
 Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function int64 AssetManagerService:AddNewPlace() {RobloxScriptSecurity} [Yields]
@@ -164,6 +163,7 @@ Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void AssetManagerService:InsertMeshesWithLocation(Array aliasNames) {RobloxScriptSecurity}
 	Function void AssetManagerService:InsertModel(int64 modelId) {RobloxScriptSecurity}
 	Function void AssetManagerService:InsertPackage(int64 packageId) {RobloxScriptSecurity}
+	Function void AssetManagerService:InsertVideo(int64 assetId, string assetName) {RobloxScriptSecurity}
 	Function void AssetManagerService:OpenLinkedSource(string aliasName) {RobloxScriptSecurity}
 	Function void AssetManagerService:OpenPlace(int64 placeId) {RobloxScriptSecurity}
 	Function void AssetManagerService:PublishLinkedSource(int64 assetId, string aliasName) {RobloxScriptSecurity} [Yields]
@@ -1260,11 +1260,11 @@ Class GuiBase2d : GuiBase [NotCreatable] [NotBrowsable]
 	Property bool GuiBase2d.AutoLocalize
 	Property bool GuiBase2d.Localize [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property LocalizationTable GuiBase2d.RootLocalizationTable
-	Property Enum.SelectionBehavior GuiBase2d.SelectionBehaviorDown {RobloxScriptSecurity} [Hidden] [NotReplicated] [NotBrowsable]
-	Property Enum.SelectionBehavior GuiBase2d.SelectionBehaviorLeft {RobloxScriptSecurity} [Hidden] [NotReplicated] [NotBrowsable]
-	Property Enum.SelectionBehavior GuiBase2d.SelectionBehaviorRight {RobloxScriptSecurity} [Hidden] [NotReplicated] [NotBrowsable]
-	Property Enum.SelectionBehavior GuiBase2d.SelectionBehaviorUp {RobloxScriptSecurity} [Hidden] [NotReplicated] [NotBrowsable]
-	Property bool GuiBase2d.SelectionGroup {RobloxScriptSecurity} [Hidden] [NotReplicated] [NotBrowsable]
+	Property Enum.SelectionBehavior GuiBase2d.SelectionBehaviorDown [NotBrowsable]
+	Property Enum.SelectionBehavior GuiBase2d.SelectionBehaviorLeft [NotBrowsable]
+	Property Enum.SelectionBehavior GuiBase2d.SelectionBehaviorRight [NotBrowsable]
+	Property Enum.SelectionBehavior GuiBase2d.SelectionBehaviorUp [NotBrowsable]
+	Property bool GuiBase2d.SelectionGroup [NotBrowsable]
 Class GuiObject : GuiBase2d [NotCreatable] [NotBrowsable]
 	Property GuiObject GuiObject.SelectionImageObject
 	Property bool GuiObject.ClipsDescendants
@@ -1695,7 +1695,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void GuiService:RemoveKey(string key) {RobloxScriptSecurity}
 	Function void GuiService:RemoveSelectionGroup(string selectionName)
 	Function void GuiService:RemoveSpecialKey(Enum.SpecialKey key) {RobloxScriptSecurity}
-	Function void GuiService:Select(Instance selectionParent) {RobloxScriptSecurity}
+	Function void GuiService:Select(Instance selectionParent)
 	Function void GuiService:SetEmotesMenuOpen(bool isOpen)
 	Function void GuiService:SetGameplayPausedNotificationEnabled(bool enabled)
 	Function void GuiService:SetGlobalGuiInset(int x1, int y1, int x2, int y2) {RobloxScriptSecurity}
@@ -2326,6 +2326,7 @@ Class MaterialService : Instance [NotCreatable] [Service] [NotBrowsable]
 	Function void MaterialService:ClearOverridePartMaterial(Enum.Material material)
 	Function void MaterialService:ClearOverrideTerrainMaterial(Enum.Material material)
 	Function string MaterialService:GetBaseMaterialOverride(Enum.Material material)
+	Function RBXScriptSignal MaterialService:GetMaterialOverrideChanged(Enum.Material material) {RobloxScriptSecurity}
 	Function MaterialVariant MaterialService:GetMaterialVariant(Enum.Material material, string name)
 	Function MaterialVariant MaterialService:GetOverridePartMaterial(Enum.Material material)
 	Function MaterialVariant MaterialService:GetOverrideTerrainMaterial(Enum.Material material)

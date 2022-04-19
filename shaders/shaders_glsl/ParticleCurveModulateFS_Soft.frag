@@ -18,41 +18,55 @@ void main()
 {
     vec4 f0 = texture2D(texTexture, VARYING0.xy);
     vec4 f1 = VARYING1 * CB1[0];
-    vec3 f2 = f0.xyz * f1.xyz;
-    vec4 f3 = vec4(0.0);
-    f3.x = f2.x;
-    vec4 f4 = f3;
-    f4.y = f2.y;
+    float f2;
+    do
+    {
+        if (0.0 == CB1[3].x)
+        {
+            f2 = clamp(VARYING3.w * abs((texture2D(depthTexTexture, VARYING3.xy).x * 500.0) - VARYING3.z), 0.0, 1.0);
+            break;
+        }
+        else
+        {
+            f2 = 1.0;
+            break;
+        }
+    } while(false);
+    vec3 f3 = f0.xyz * f1.xyz;
+    vec4 f4 = vec4(0.0);
+    f4.x = f3.x;
     vec4 f5 = f4;
-    f5.z = f2.z;
-    float f6 = (f0.w * f1.w) * (clamp(VARYING3.w * abs((texture2D(depthTexTexture, gl_FragCoord.xy * CB0[45].xy).x * 500.0) - gl_FragCoord.w), 0.0, 1.0) * clamp(exp2((CB0[13].z * VARYING0.z) + CB0[13].x) - CB0[13].w, 0.0, 1.0));
-    vec4 f7 = f5;
-    f7.w = f6;
-    vec4 f8 = f7;
-    f8.w = f6;
-    vec3 f9 = f8.xyz * f8.xyz;
-    vec4 f10 = f8;
-    f10.x = f9.x;
-    vec4 f11 = f10;
-    f11.y = f9.y;
+    f5.y = f3.y;
+    vec4 f6 = f5;
+    f6.z = f3.z;
+    float f7 = (f0.w * f1.w) * (f2 * clamp(exp2((CB0[13].z * VARYING0.z) + CB0[13].x) - CB0[13].w, 0.0, 1.0));
+    vec4 f8 = f6;
+    f8.w = f7;
+    vec4 f9 = f8;
+    f9.w = f7;
+    vec3 f10 = f9.xyz * f9.xyz;
+    vec4 f11 = f9;
+    f11.x = f10.x;
     vec4 f12 = f11;
-    f12.z = f9.z;
-    vec4 f13 = texture2D(LightingAtlasTexture, VARYING2);
-    vec3 f14 = mix(f12.xyz, (f13.xyz * (f13.w * 120.0)) * f12.xyz, vec3(CB1[2].w));
-    vec4 f15 = f12;
-    f15.x = f14.x;
-    vec4 f16 = f15;
-    f16.y = f14.y;
+    f12.y = f10.y;
+    vec4 f13 = f12;
+    f13.z = f10.z;
+    vec4 f14 = texture2D(LightingAtlasTexture, VARYING2);
+    vec3 f15 = mix(f13.xyz, (f14.xyz * (f14.w * 120.0)) * f13.xyz, vec3(CB1[2].w));
+    vec4 f16 = f13;
+    f16.x = f15.x;
     vec4 f17 = f16;
-    f17.z = f14.z;
-    vec3 f18 = sqrt(clamp(f17.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
-    vec4 f19 = f17;
-    f19.x = f18.x;
-    vec4 f20 = f19;
-    f20.y = f18.y;
+    f17.y = f15.y;
+    vec4 f18 = f17;
+    f18.z = f15.z;
+    vec3 f19 = sqrt(clamp(f18.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    vec4 f20 = f18;
+    f20.x = f19.x;
     vec4 f21 = f20;
-    f21.z = f18.z;
-    gl_FragData[0] = f21;
+    f21.y = f19.y;
+    vec4 f22 = f21;
+    f22.z = f19.z;
+    gl_FragData[0] = f22;
 }
 
 //$$LightingAtlasTexture=s2

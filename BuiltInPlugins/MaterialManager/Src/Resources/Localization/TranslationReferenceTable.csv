@@ -10,7 +10,6 @@ Studio.MaterialManager.Materials.Wood,Wood,Wood
 Studio.MaterialManager.Categories.HumanMade,Human-Made,Human-Made
 Studio.MaterialManager.Materials.GrassVariant,Grass Variant,Grass Variant
 Studio.MaterialManager.CreateDialog.SaveVariant,Save,Save
-Studio.MaterialManager.Categories.Metal,Metallic,Metallic
 Studio.MaterialManager.CreateDialog.CreateVariant,Create Variant,Create Variant
 Studio.MaterialManager.MaterialInformation.CreateVariant,Create Variant,Create Variant
 Studio.MaterialManager.MaterialOptions.CreateVariant,Create Variant,Create Variant
@@ -19,6 +18,7 @@ Studio.MaterialManager.CreateDialog.TextureMaps,Texture Maps,Texture Maps
 Studio.MaterialManager.MaterialTextures.TextureMaps,Texture Maps,Texture Maps
 Studio.MaterialManager.Materials.GroundVariant,Ground Variant,Ground Variant
 Studio.MaterialManager.Materials.Glass,Glass,Glass
+Studio.MaterialManager.MaterialOverrides.SetOverride,SetOverride,SetOverride
 Studio.MaterialManager.CreateDialog.General,General,General
 Studio.MaterialManager.CreateDialog.CancelVariant,Cancel,Cancel
 Studio.MaterialManager.CreateDialog.NameVariant,Name,Name
@@ -30,6 +30,7 @@ Studio.MaterialManager.CreateDialog.ImportColorMap,Color,Color
 Studio.MaterialManager.MaterialInformation.Color,Color,Color
 Studio.MaterialManager.MaterialTextures.Color,Color,Color
 Studio.MaterialManager.Categories.Snow,Snow,Snow
+Studio.MaterialManager.Materials.Snow,Snow,Snow
 Studio.MaterialManager.Materials.WoodPlanksMaterial,Wood Planks Material,Wood Planks Material
 Studio.MaterialManager.CreateDialog.ImportNormalMap,Normal,Normal
 Studio.MaterialManager.MaterialInformation.Normal,Normal,Normal
@@ -61,6 +62,9 @@ Studio.MaterialManager.Materials.CrackedLava,Cracked Lava,Cracked Lava
 Studio.MaterialManager.Import.NormalMapPreview,Normal Map Preview,Normal Map Preview
 Studio.MaterialManager.Materials.Basalt,Basalt,Basalt
 Studio.MaterialManager.Categories.All,All,All
+Studio.MaterialManager.Categories.Metal,Metal,Metal
+Studio.MaterialManager.Materials.Metal,Metal,Metal
+Studio.MaterialManager.Categories.FinishedWood,Finished Wood,Finished Wood
 Studio.MaterialManager.Categories.Natural,Natural,Natural
 Studio.MaterialManager.Categories.Rock,Rock,Rock
 Studio.MaterialManager.Materials.Rock,Rock,Rock
@@ -85,10 +89,9 @@ Studio.MaterialManager.Categories.Salt,Salt,Salt
 Studio.MaterialManager.Materials.Salt,Salt,Salt
 Studio.MaterialManager.Categories.Mud,Mud,Mud
 Studio.MaterialManager.Materials.Mud,Mud,Mud
-Studio.MaterialManager.Materials.Metal,Metal,Metal
-Studio.MaterialManager.Categories.FinishedWood,Finished Wood,Finished Wood
 Studio.MaterialManager.Materials.Air,Air,Air
 Studio.MaterialManager.Materials.Cobblestone,Cobblestone,Cobblestone
+Studio.MaterialManager.Categories.Concrete,Concrete,Concrete
 Studio.MaterialManager.Materials.Concrete,Concrete,Concrete
 Studio.MaterialManager.Materials.CorrodedMetal,Corroded Metal,Corroded Metal
 Studio.MaterialManager.Materials.Foil,Foil,Foil
@@ -99,7 +102,9 @@ Studio.MaterialManager.Materials.Marble,Marble,Marble
 Studio.MaterialManager.Materials.Neon,Neon,Neon
 Studio.MaterialManager.Materials.Pavement,Pavement,Pavement
 Studio.MaterialManager.Materials.Pebble,Pebble,Pebble
+Studio.MaterialManager.Categories.Plastic,Plastic,Plastic
 Studio.MaterialManager.Materials.Plastic,Plastic,Plastic
+Studio.MaterialManager.Categories.Sand,Sand,Sand
 Studio.MaterialManager.Materials.Sand,Sand,Sand
 Studio.MaterialManager.Materials.Slate,Slate,Slate
 Studio.MaterialManager.Materials.Sandstone,Sandstone,Sandstone
@@ -162,6 +167,7 @@ Studio.MaterialManager.Materials.MarbleVariant,Marble Variant,Marble Variant
 Studio.MaterialManager.Materials.MetalVariant,Metal Variant,Metal Variant
 Studio.MaterialManager.Materials.MudVariant,Mud Variant,Mud Variant
 Studio.MaterialManager.Materials.NeonVariant,Neon Variant,Neon Variant
+Studio.MaterialManager.Categories.Organic,Organic,Organic
 Studio.MaterialManager.Materials.NeonMaterial,Neon Material,Neon Material
 Studio.MaterialManager.Materials.PavementVariant,Pavement Variant,Pavement Variant
 Studio.MaterialManager.Materials.PebbleVariant,Pebble Variant,Pebble Variant
@@ -204,3 +210,4 @@ Studio.MaterialManager.Materials.WoodMaterial,Wood Material,Wood Material
 Studio.MaterialManager.MaterialInformation.ClearPartOverride,Clear Part Override,Clear Part Override
 Studio.MaterialManager.MaterialInformation.ClearTerrainOverride,Clear Terrain Override,Clear Terrain Override
 Studio.MaterialManager.MaterialInformation.ClearOverride,Clear Override,Clear Override
+Studio.MaterialManager.Categories.Materials,Materials,Materials

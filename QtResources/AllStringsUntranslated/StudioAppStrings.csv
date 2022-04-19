@@ -3038,8 +3038,6 @@ Studio.App.ImageResourceController.ImagesReferencedByName,,"Images are reference
 Studio.App.Updates.ShutdownPromptButton,Button name in 'Are you sure you want to shut down Studio for update? [Shutdown] [Cancel]',Shutdown,Shutdown
 Studio.App.Updates.ShutdownConfirmationText,,There is a new Studio update available. Shutdown to update?,There is a new Studio update available. Shutdown to update?
 Studio.App.Updates.UpdateAvailableToast,,A new version of Studio is available,A new version of Studio is available
-Studio.App.Updates.BetaFeatureName,,Safe Studio Updates,Safe Studio Updates
-Studio.App.Updates.BetaFeatureDescription,,"Instead of blocking the opening of new Studio windows and test sessions when an update is available, cancellable prompts will periodically appear offering to update Studio","Instead of blocking the opening of new Studio windows and test sessions when an update is available, cancellable prompts will periodically appear offering to update Studio"
 Studio.App.Updates.UpdateAvailableButton,,Update Available,Update Available
 Studio.App.Updates.UpdateAvailableTitle,,Update Available,Update Available
 Studio.App.Updates.UpdateAvailableMessage,,Do you want to restart Studio and update now?,Do you want to restart Studio and update now?
@@ -3195,7 +3193,6 @@ Studio.App.RobloxMainWindow.InternalFeaturesRestartDetails,,Roblox Studio need t
 Studio.App.FileSyncService.CanOnlyParentToFolder,,Can only parent to Folder.,Can only parent to Folder.
 Studio.App.FileSyncService.InstanceAlreadyExists,,Instance already exists.,Instance already exists.
 Studio.App.FileSyncService.FileNameIsInvalid,,File name is invalid.,File name is invalid.
-Studio.App.FileSyncService.CanOnlyAddFolderOrScript,,Can only add Folder or Script.,Can only add Folder or Script.
 Studio.App.FileSyncService.CanOnlyAddSupportedClass,,"Can only add Folder, Script, LocalScript, ModuleScript or StringValue.","Can only add Folder, Script, LocalScript, ModuleScript or StringValue."
 Studio.App.FileSyncService.UnknownError,,Unknown Error.,Unknown Error.
 Studio.App.FileSyncService.Info,,Info,Info
@@ -3265,8 +3262,6 @@ Studio.App.StudioDeviceEmulatorService.NonExistantDeviceId1,,Device ID '%1' does
 Studio.App.ToastNotificationService.NotAvailable,,ToastNotificationService is not available when FFlagStudioToastNotificationsInLua is false,ToastNotificationService is not available when FFlagStudioToastNotificationsInLua is false
 Studio.App.DataModelLifeCycle.CannotOpenFileForRead,Failed to open file during open place process,Cannot open place file for reading.,Cannot open place file for reading.
 Studio.App.DataModelLifeCycle.GameIsGoneWhileLoadingDM,Game has disappeared during the dm loading process,Game has disappeared while loading dm (client).,Game has disappeared while loading dm (client).
-Studio.App.BetaFeatures.NineSliceEditorTitle,,9-Slice Editor,9-Slice Editor
-Studio.App.BetaFeatures.NineSliceEditorDescription,,A visual editor for the SliceCenter property of ImageLabels and ImageButtons.,A visual editor for the SliceCenter property of ImageLabels and ImageButtons.
 Studio.App.BetaFeatures.CanvasGroupTitle,,Canvas Group,Canvas Group
 Studio.App.BetaFeatures.CanvasGroupDescription,,A new UI object that renders descendants as a single layer that can be tinted and made transparent.,A new UI object that renders descendants as a single layer that can be tinted and made transparent.
 Studio.App.BetaFeatures.PathfindingLinksTitle,,Pathfinding Links,Pathfinding Links
