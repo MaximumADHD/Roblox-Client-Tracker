@@ -4519,7 +4519,7 @@ Class VoiceChatInternal : Instance [NotCreatable] [Service] [NotBrowsable]
 	Event VoiceChatInternal.PlayerMicActivitySignalChange(Dictionary activityInfo) {RobloxScriptSecurity} [Deprecated]
 	Event VoiceChatInternal.StateChanged(Enum.VoiceChatState old, Enum.VoiceChatState new) {RobloxScriptSecurity} [Deprecated]
 Class VoiceChatService : Instance [NotCreatable] [Service]
-	Property bool VoiceChatService.EnableDefaultVoice {PluginSecurity} [NotBrowsable]
+	Property bool VoiceChatService.EnableDefaultVoice {PluginSecurity}
 	Property bool VoiceChatService.VoiceChatEnabledForPlaceOnRcc {RobloxScriptSecurity} [Hidden]
 	Property bool VoiceChatService.VoiceChatEnabledForUniverseOnRcc {RobloxScriptSecurity} [Hidden]
 	Function bool VoiceChatService:IsVoiceEnabledForUserIdAsync(int64 userId) [Yields]
