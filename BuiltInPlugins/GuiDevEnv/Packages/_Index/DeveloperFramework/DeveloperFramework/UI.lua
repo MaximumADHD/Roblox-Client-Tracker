@@ -2,10 +2,10 @@
 	Public interface for UI
 ]]
 local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
-local FFlagDevFrameworkTextInput2 = game:GetFastFlag("DevFrameworkTextInput2")
 local FFlagDevFrameworkTimeProgressBar = game:GetFastFlag("DevFrameworkTimeProgressBar")
 local FFlagDevFrameworkInfiniteScrollingGrid = game:GetFastFlag("DevFrameworkInfiniteScrollingGrid")
 local FFlagDevFrameworkResponsiveGrid2 = game:GetFastFlag("DevFrameworkResponsiveGrid2")
+local FFlagFaceControlsEditorUI = game:GetFastFlag("FaceControlsEditorUI")
 
 local Src = script
 
@@ -27,6 +27,7 @@ local HoverArea = require(Src.HoverArea)
 local CaptureFocus = require(Src.CaptureFocus)
 local ShowOnTop = require(Src.ShowOnTop)
 local DragBar = require(Src.DragBar)
+local DragBox = require(Src.DragBox)
 local DragListener = require(Src.DragListener)
 local DropShadow = require(Src.DropShadow)
 local KeyboardListener = require(Src.KeyboardListener)
@@ -85,6 +86,7 @@ local UI = strict({
 	CheckboxTreeView = CheckboxTreeView,
 	Container = Container,
 	DragBar = FFlagDevFrameworkSplitPane and DragBar or nil,
+	DragBox = FFlagFaceControlsEditorUI and DragBox or nil,
 	DragListener = DragListener,
 	DropdownMenu = DropdownMenu,
 	DropShadow = DropShadow,
@@ -121,7 +123,7 @@ local UI = strict({
 	TableRow = TableRow,
 	Tabs = Tabs,
 	TextInput = TextInput,
-	TextInput2 = FFlagDevFrameworkTextInput2 and TextInput2 or nil,
+	TextInput2 = TextInput2,
 	TextInputDialog = TextInputDialog,
 	TextWithInlineLink = TextWithInlineLink,
 	ToggleButton = ToggleButton,

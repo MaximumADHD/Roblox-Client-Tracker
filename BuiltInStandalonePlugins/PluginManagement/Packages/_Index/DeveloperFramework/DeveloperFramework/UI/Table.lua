@@ -38,8 +38,8 @@
 ]]
 local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
-local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
 local FFlagDevFrameworkDoubleClick = game:GetFastFlag("DevFrameworkDoubleClick")
+local FFlagDevFrameworkRemoveInfiniteScroller = game:GetFastFlag("DevFrameworkRemoveInfiniteScroller")
 
 local hasTableColumnResizeFFlags = FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize
 
@@ -58,7 +58,7 @@ local reduce = Dash.reduce
 local some = Dash.some
 
 local Pane = require(Framework.UI.Pane)
-local InfiniteScrollingFrame = require(Framework.UI.InfiniteScrollingFrame)
+local InfiniteScrollingFrame = require(Framework.UI.InfiniteScrollingFrame) -- remove with FFlagDevFrameworkRemoveInfiniteScroller
 local ScrollingFrame = require(Framework.UI.ScrollingFrame)
 local SplitPane = require(Framework.UI.SplitPane)
 local TableHeaderCell = require(script.TableHeaderCell)
@@ -182,7 +182,6 @@ function Table:calculateRowIndices(rows)
 end
 
 function Table:renderResizableHeadings()
-	
 	local props = self.props
 	local style = props.Stylizer
 	local sizes = map(props.Columns, function(column: Column)
@@ -246,17 +245,30 @@ function Table:renderHeadings()
 end
 
 function Table:renderScroll()
-	local props = self.props
-	local style = props.Stylizer
-	local getItemKey = props.GetRowKey or self.getDefaultRowKey
-	return Roact.createElement(InfiniteScrollingFrame, {
-		AnchorLocation = UDim.new(1, 0),
-		ItemIdentifier = getItemKey,
-		EstimatedItemSize = style.RowHeight,
-		Items = props.Rows,
-		RenderItem = self.onRenderRow,
-		ScrollFocusIndex = (FFlagDevFrameworkInfiniteScrollerIndex and props.ScrollFocusIndex) or nil,
-	})
+	if FFlagDevFrameworkRemoveInfiniteScroller then
+		local rows = self:renderRows()
+		return Roact.createElement(ScrollingFrame, {
+			ScrollingDirection = Enum.ScrollingDirection.Y,
+			AutoSizeLayoutOptions = {
+				Padding = UDim.new(0,0)
+			}
+		}, {
+			Child = rows
+		})
+	else
+		local props = self.props
+		local style = props.Stylizer
+		local getItemKey = props.GetRowKey or self.getDefaultRowKey
+		return Roact.createElement(InfiniteScrollingFrame, {
+			AnchorLocation = UDim.new(1, 0),
+			ItemIdentifier = getItemKey,
+			EstimatedItemSize = style.RowHeight,
+			Items = props.Rows,
+			RenderItem = self.onRenderRow,
+			ScrollFocusIndex = props.ScrollFocusIndex,
+		})
+	end
+	
 end
 
 function Table:renderRows()

@@ -7,8 +7,6 @@ return function()
 	local Signal = require(Framework.Util.Signal)
 	local StudioPluginErrorReporter = require(script.Parent.StudioPluginErrorReporter)
 
-	local FFlagDevFrameworkBacktraceReportFirstInSession = game:GetFastFlag("DevFrameworkBacktraceReportFirstInSession")
-
 	local DUMMY_STUDIO_VERSION = "1.2.3.4"
 
 	it("should construct properly with only the minimum set of arguments", function()
@@ -43,9 +41,7 @@ return function()
 			expect(attributes.StudioVersion).to.equal(DUMMY_STUDIO_VERSION)
 			expect(attributes.PluginName).to.equal(testPlugin.Name)
 			expect(attributes.ErrorCount).to.equal(1)
-			if FFlagDevFrameworkBacktraceReportFirstInSession then
-				expect(attributes.FirstErrorInSession).to.equal("true")
-			end
+			expect(attributes.FirstErrorInSession).to.equal("true")
 			expect(attributes.UserAgent).to.equal("RobloxStudio/WinInet")
 			expect(attributes.BaseUrl).to.equal("https://www.roblox.com")
 			expect(attributes["error.message"]).to.equal(testError.msg)
@@ -174,14 +170,8 @@ return function()
 		expect(analyticsCallParams[5]).to.equal("StudioPluginErrorsBySession.builtin_DifferentTest.rbxm")
 		expect(#analyticsCallParams).to.equal(5)
 
-		
-		if FFlagDevFrameworkBacktraceReportFirstInSession then
-			-- Normally, similar errors are combined, but when reporting the first error in the session, it should send a distinct report for the first error
-			expect(numCalls).to.equal(3)
-		else
-			-- The first two errors should have been combined
-			expect(numCalls).to.equal(2)
-		end
+		-- Normally, similar errors are combined, but when reporting the first error in the session, it should send a distinct report for the first error
+		expect(numCalls).to.equal(3)
 	end)
 
 	it("should allow you to manually report a one-off error", function()

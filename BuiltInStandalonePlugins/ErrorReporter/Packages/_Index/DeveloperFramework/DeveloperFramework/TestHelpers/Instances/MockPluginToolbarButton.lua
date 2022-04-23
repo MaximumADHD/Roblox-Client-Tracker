@@ -25,6 +25,10 @@ function MockPluginToolbarButton.new(plugin, toolbar, id)
 	return self
 end
 
+function MockPluginToolbarButton:getId()
+	return self._id
+end
+
 function MockPluginToolbarButton:Destroy()
 	self._toolbar = nil
 	self._plugin = nil

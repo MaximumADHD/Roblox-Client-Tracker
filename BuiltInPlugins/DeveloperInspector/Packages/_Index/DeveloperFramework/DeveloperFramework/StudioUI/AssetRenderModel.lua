@@ -19,12 +19,15 @@
 		boolean Static: A boolean value that freezes the element
 		number InitialDistance: A number value that specifies the initial distance from the camera
 		boolean DisableZoom: Disables the zoom functionality in the preview
+		boolean DisablePan: Disables the panning functionality in the preview
 ]]
 local FFlagDevFrameworkExtractAssetRenderModelCamera = game:GetFastFlag("DevFrameworkExtractAssetRenderModelCamera")
 local FFlagDevFrameworkAssetRenderModelCustomCamDirection = game:GetFastFlag("DevFrameworkAssetRenderModelCustomCamDirection")
 local FFlagDevFrameworkSeparateCenterCameraCenterModel = game:DefineFastFlag("DevFrameworkSeparateCenterCameraCenterModel", false)
 local FFlagDevFrameworkAssetRenderModelStatic = game:GetFastFlag("DevFrameworkAssetRenderModelStatic")
+local FFlagDevFrameworkAssetRenderModelStatic2 = game:GetFastFlag("DevFrameworkAssetRenderModelStatic2")
 local FFlagDevFrameworkAssetRenderModelDisableZoom = game:GetFastFlag("DevFrameworkAssetRenderModelDisableZoom")
+local FFlagDevFrameworkAssetRenderModelDisablePan = game:GetFastFlag("DevFrameworkAssetRenderModelDisablePan")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -77,7 +80,7 @@ function AssetRenderModel:init()
 
 		if input.UserInputType == Enum.UserInputType.MouseButton3 or
 			input.UserInputType == Enum.UserInputType.MouseButton2 then
-			self.isPanDragging = true
+			self.isPanDragging = if FFlagDevFrameworkAssetRenderModelDisablePan then not self.props.DisablePan else true
 		end
 	end
 
@@ -195,6 +198,7 @@ function AssetRenderModel:init()
 
 	self.centerCamera = function()
 		local model = self.viewportFrameModel
+		local initialDistance = self.props.InitialDistance
 		local size
 		
 		if model:IsA("Model") then
@@ -203,7 +207,13 @@ function AssetRenderModel:init()
 			size = model.Size
 		end
 		
-		local cameraDistAway = size.Magnitude * INSERT_CAMERA_DIST_MULT
+		local cameraDistAway
+		if FFlagDevFrameworkAssetRenderModelStatic2 then
+			cameraDistAway = (initialDistance or size.magnitude) * INSERT_CAMERA_DIST_MULT
+		else
+			cameraDistAway = size.magnitude * INSERT_CAMERA_DIST_MULT
+		end
+
 		local dir
 		if FFlagDevFrameworkAssetRenderModelCustomCamDirection then
 			dir = self.props.FocusDirection.Unit

@@ -6,7 +6,6 @@
 	StudioFrameworkStyles extends this style table to implement
 	default values for Studio plugins.
 ]]
-local FFlagDevFrameworkTextInput2 = game:GetFastFlag("DevFrameworkTextInput2")
 local FFlagDevFrameworkTimeProgressBar = game:GetFastFlag("DevFrameworkTimeProgressBar")
 local FFlagDevFrameworkInfiniteScrollingGrid = game:GetFastFlag("DevFrameworkInfiniteScrollingGrid")
 local FFlagDevFrameworkResponsiveGrid2 = game:GetFastFlag("DevFrameworkResponsiveGrid2")
@@ -56,10 +55,11 @@ function FrameworkStyles.new()
 		SplitPane = newDefaults(),
 		TableRow = newDefaults(),
 		Slider = newDefaults(),
+		DragBox = newDefaults(),
 		Table = newDefaults(),
 		Tabs = newDefaults(),
 		TextInput = newDefaults(),
-		TextInput2 = FFlagDevFrameworkTextInput2 and newDefaults() or nil,
+		TextInput2 = newDefaults(),
 		TextInputDialog = newDefaults(),
 		TextInputWithBottomText = newDefaults(),
 		TextLabel = newDefaults(),

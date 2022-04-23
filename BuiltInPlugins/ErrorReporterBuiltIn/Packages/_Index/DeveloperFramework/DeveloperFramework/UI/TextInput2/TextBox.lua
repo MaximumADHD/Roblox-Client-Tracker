@@ -28,7 +28,6 @@
 		Enum.TextYAlignment TextYAlignment: The Y alignment of the text.
 ]]
 local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
-local FFlagDevFrameworkTextInput2 = game:GetFastFlag("DevFrameworkTextInput2")
 
 local TextService = game:GetService("TextService")
 
@@ -57,8 +56,6 @@ TextBox.defaultProps = {
 }
 
 function TextBox:init(initialProps)
-	assert(FFlagDevFrameworkTextInput2, "TextBox requires FFlagDevFrameworkTextInput2")
-
 	self.clipBoxRef = Roact.createRef()
 	self.textBoxRef = (if FFlagDevFrameworkForwardRef then initialProps.ForwardRef else initialProps[Roact.Ref]) or Roact.createRef()
 

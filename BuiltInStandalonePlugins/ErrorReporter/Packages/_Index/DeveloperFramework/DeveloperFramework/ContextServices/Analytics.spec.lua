@@ -5,7 +5,7 @@ return function()
 	local provide = require(Framework.ContextServices.provide)
 	local withContext = require(Framework.ContextServices.withContext)
 
-	local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
+	local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
 	local testEvent = "testEvent"
 
@@ -24,7 +24,7 @@ return function()
 			return Roact.createElement("Frame")
 		end
 
-		if FFlagRefactorDevFrameworkContextItems2 then
+		if FFlagDevFrameworkUseCreateContext then
 			TestElement = withContext({
 				Analytics = Analytics,
 			})(TestElement)

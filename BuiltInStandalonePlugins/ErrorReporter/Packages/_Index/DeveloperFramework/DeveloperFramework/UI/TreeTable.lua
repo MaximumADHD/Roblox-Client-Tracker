@@ -30,6 +30,7 @@
 		callback OnSortChange: An optional callback called when the user sorts a column.
 		callback OnColumnSizesChange: An optional callback which allows columns to be resizable.
 		callback RowComponent: An optional component to render each row.
+		boolean UseDeficit: Whether to make the last pane stretch to fill remaining space.
 		boolean UseScale: Whether to convert column widths to scales during resizing.
 		boolean ClampSize: Whether to clamp column resizes to the width of the table.
 		callback RightClick: An optional callback called when a row is right-clicked. (item: Item)->()
@@ -63,7 +64,6 @@ local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local TreeTable = Roact.PureComponent:extend("TreeTable")
 Typecheck.wrap(TreeTable, script)
 
-local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
 local FFlagDevFrameworkDoubleClick = game:GetFastFlag("DevFrameworkDoubleClick")
 local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
@@ -209,6 +209,7 @@ function TreeTable:render()
 		ShowHeader = props.ShowHeader,
 		ClampSize = if hasTableColumnResizeFFlags then props.ClampSize else nil,
 		UseScale = if hasTableColumnResizeFFlags then props.UseScale else nil,
+		UseDeficit = if hasTableColumnResizeFFlags then props.UseDeficit else nil,
 		OnHoverRow = props.OnHoverRow,
 		OnMouseLeave = props.OnMouseLeave,
 		OnSelectRow = self.onSelectRow,
@@ -221,7 +222,7 @@ function TreeTable:render()
 		CellComponent = cellComponent,
 		FullSpan = props.FullSpan,
 		HighlightedRows = props.HighlightedRows,
-		ScrollFocusIndex = if FFlagDevFrameworkInfiniteScrollerIndex then props.ScrollFocusIndex else nil,
+		ScrollFocusIndex = props.ScrollFocusIndex,
 	})
 end
 

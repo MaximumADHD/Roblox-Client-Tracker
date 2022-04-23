@@ -1,5 +1,4 @@
 local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
-local FFlagToolboxShowHasScriptInfo = game:GetFastFlag("ToolboxShowHasScriptInfo")
 local Framework = script.Parent.Parent.Parent
 
 local StyleKey = require(Framework.Style.StyleKey)
@@ -79,7 +78,7 @@ if THEME_REFACTOR then
 					TextXAlignment = Enum.TextXAlignment.Right,
 				}),
 			},
-			ScriptArea = FFlagToolboxShowHasScriptInfo and {
+			ScriptArea = {
 				ElementPadding = UDim.new(0, 4),
 				Size = UDim2.new(1, 0, 0, 12),
 
@@ -218,7 +217,7 @@ else
 						TextXAlignment = Enum.TextXAlignment.Right,
 					}),
 				},
-				ScriptArea = FFlagToolboxShowHasScriptInfo and {
+				ScriptArea = {
 					ElementPadding = UDim.new(0, 4),
 					Size = UDim2.new(1, 0, 0, 12),
 	
