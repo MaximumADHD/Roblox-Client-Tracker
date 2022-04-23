@@ -9,6 +9,7 @@ local TemporaryTransparency = require(DraggerFramework.Utility.TemporaryTranspar
 local Math = require(DraggerFramework.Utility.Math)
 
 local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
+local getFFlagFixScalingWithNonDefaultPivot = require(DraggerFramework.Flags.getFFlagFixScalingWithNonDefaultPivot)
 
 local EMPTY_CFRAME = CFrame.new()
 local ZERO_VECTOR = Vector3.new()
@@ -48,7 +49,7 @@ function ExtrudeHandlesImplementation:getBoundingBox(selection, selectionInfo)
 	if #partsToResize == 1 then
 		return selectionInfo:getLocalBoundingBox()
 	else
-		if getEngineFeatureModelPivotVisual() then
+		if getEngineFeatureModelPivotVisual() and not getFFlagFixScalingWithNonDefaultPivot() then
 			local cframe, offset, size = selectionInfo:getBoundingBox()
 			-- Modify the bounds to include the basis point ((0, 0, 0) in the
 			-- space of the basis is the basis point)

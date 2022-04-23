@@ -121,6 +121,11 @@ function DraggerContext:getSelectionBoxColor(isActive)
 	end
 end
 
+function DraggerContext:useBoundingBoxMoveHandles()
+	return self._studioSettings["Use Bounding Box Move Handles"]
+end
+
+
 function DraggerContext:getGeometrySnapColor()
 	return self._draggerService.GeometrySnapColor
 end

@@ -16,6 +16,8 @@
 		boolean ShowSearchButton: Whether to show the search button at the right of the bar (default true).
 		boolean ShowSearchIcon: Whether to show an in-line search icon at the left of the Search text (default false).
 		UDim2 Size: The size of the searchbar as a custom definition
+		Vector2 AnchorPoint: The pivot point of this component's Position prop
+		UDim2 Position: The position of this component
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
@@ -49,6 +51,7 @@ local Pane = UI.Pane
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local FFlagDevFrameworkSearchBarSize = game:GetFastFlag("DevFrameworkSearchBarSize")
+local FFlagDevFrameworkSearchBarPosition = game:GetFastFlag("DevFrameworkSearchBarPosition")
 
 local SearchBar = Roact.PureComponent:extend("SearchBar")
 Typecheck.wrap(SearchBar, script)
@@ -325,6 +328,8 @@ function SearchBar:render()
 		LayoutOrder = layoutOrder,
 		BorderColor = borderColor,
 		Style = "BorderBox",
+		Position = FFlagDevFrameworkSearchBarPosition and props.Position or nil,
+		AnchorPoint = FFlagDevFrameworkSearchBarPosition and props.AnchorPoint or nil,
 		[Roact.Event.MouseEnter] = self.mouseEnter,
 		[Roact.Event.MouseLeave] = self.mouseLeave,
 		[Roact.Event.InputBegan] = self.onBackgroundInputBegan,

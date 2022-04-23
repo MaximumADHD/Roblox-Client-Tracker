@@ -7,7 +7,7 @@
 	Optional Props:
 		Signal UpdateSignal: A signal that is fired when the context item
 			is updated. This component listens to the signal to know when
-			to update itself. When the signal fires, it should pass `self`.
+			to update itself.
 			The Signal class can be found in Util.
 ]]
 
@@ -41,6 +41,7 @@ function Provider:init(props)
 
 	self.state = {
 		value = value,
+		counter = 0,
 	}
 
 	self._context[key] = {
@@ -51,7 +52,8 @@ function Provider:init(props)
 	if updateSignal then
 		self.connection = updateSignal:Connect(function(newValue)
 			self:setState({
-				value = newValue,
+				value = if not FFlagDevFrameworkUseCreateContext then newValue else nil,
+				counter = if self.state.counter == 0 then 1 else 0
 			})
 		end)
 	end

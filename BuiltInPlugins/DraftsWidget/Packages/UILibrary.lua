@@ -98,7 +98,6 @@ local UILibrary = createStrictTable({
 		Analytics = require(Src.Studio.Analytics),
 		Style = require(Src.Studio.StudioStyle),
 		Theme = require(Src.Studio.StudioTheme),
-		PartialHyperlink = require(Src.Studio.PartialHyperLink),
 		Hyperlink = require(Src.Studio.Hyperlink),
 	}),
 

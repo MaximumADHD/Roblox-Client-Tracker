@@ -25,6 +25,7 @@
 		callback OnValidateText: Callback fired when text changes to validate the text.
 		string PlaceholderText: Placeholder text to show when the input is empty.
 		UDim2 Position: The position of the component.
+		boolean ShouldFocus: Whether the component is initially focused.
 		UDim2 Size: The size of the component.
 		Style Style: The style with which to render the component.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
@@ -48,7 +49,7 @@
 		any Width: The width of the component. This can be a number or UDim.
 ]]
 local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
-local FFlagDevFrameworkTextInput2 = game:GetFastFlag("DevFrameworkTextInput2")
+local FFlagDevFrameworkTextInput2Fixes = game:GetFastFlag("DevFrameworkTextInput2Fixes")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -88,6 +89,7 @@ TextInput2.defaultProps = {
 	ClearTextOnFocus = false,
 	LeadingComponentProps = {},
 	PlaceholderText = "",
+	ShouldFocus = if FFlagDevFrameworkTextInput2Fixes then false else nil,
 	Style = "BorderBox",
 	Text = "",
 	TextWrapped = false,
@@ -95,8 +97,6 @@ TextInput2.defaultProps = {
 }
 
 function TextInput2:init()
-	assert(FFlagDevFrameworkTextInput2, "TextInput2 requires FFlagDevFrameworkTextInput2")
-	
 	local props = self.props
 	self.textBoxRef = (if FFlagDevFrameworkForwardRef then props.ForwardRef else props[Roact.Ref]) or Roact.createRef()
 	self.restoreCursorPosition = nil
@@ -144,10 +144,17 @@ function TextInput2:init()
 		end
 
 		if self.props.OnFormatText then
-			local original = text
-			text = self.props.OnFormatText(text)
-			if original ~= text then
-				textBox.Text = text
+			if FFlagDevFrameworkTextInput2Fixes then
+				local formatted = self.props.OnFormatText(text)
+				if formatted ~= nil and formatted ~= text then
+					textBox.Text = formatted
+				end
+			else
+				local original = text
+				text = self.props.OnFormatText(text)
+				if original ~= text then
+					textBox.Text = text
+				end
 			end
 		end
 
@@ -177,13 +184,17 @@ function TextInput2:willUpdate(nextProps, nextState)
 end
 
 function TextInput2:didUpdate(previousProps, previousState)
-	if self.restoreCursorPosition ~= nil then
-		local textBox = self.textBoxRef.current
-		if textBox then
-			textBox:CaptureFocus()
-			textBox.CursorPosition = self.restoreCursorPosition
-			self.restoreCursorPosition = nil
-		end
+	local textBox = self.textBoxRef.current
+	if not textBox then
+		return
+	end
+
+	if FFlagDevFrameworkTextInput2Fixes and self.props.ShouldFocus and not previousProps.ShouldFocus then
+		textBox:CaptureFocus()
+	elseif self.restoreCursorPosition ~= nil then
+		textBox:CaptureFocus()
+		textBox.CursorPosition = self.restoreCursorPosition
+		self.restoreCursorPosition = nil
 	end
 end
 
@@ -220,8 +231,20 @@ function TextInput2:render()
 	return textInput
 end
 
+if FFlagDevFrameworkTextInput2Fixes then
+	function TextInput2:_getText()
+		local textBox = self.textBoxRef.current
+		if textBox then
+			return textBox.Text
+		else
+			return self.props.Text
+		end
+	end
+end
+
 function TextInput2:_renderTextInput(hasBottomText)
 	local props = self.props
+	local state = self.state
 	local style = props.Stylizer
 
 	local backgroundColor = prioritize(props.BackgroundColor, style.BackgroundColor)
@@ -241,6 +264,7 @@ function TextInput2:_renderTextInput(hasBottomText)
 		if component then
 			return Roact.createElement(component, join(props, {
 				LayoutOrder = layoutOrderIterator:getNextOrder(),
+				StyleModifier = if FFlagDevFrameworkTextInput2Fixes then state.StyleModifier else nil,
 			}))
 		end
 		return nil
@@ -295,7 +319,7 @@ function TextInput2:_renderTextInput(hasBottomText)
 			PlaceholderText = props.PlaceholderText,
 			PlaceholderTextColor = style.PlaceholderTextColor,
 			Size = textBoxSize,
-			Text = props.Text,
+			Text = if FFlagDevFrameworkTextInput2Fixes then self:_getText() else props.Text,
 			TextColor = style.TextColor,
 			TextSize = style.TextSize,
 			TextWrapped = false,
@@ -316,10 +340,20 @@ end
 function TextInput2:_validateText(text: string)
 	if self.props.OnValidateText then
 		local isValid, errorText = self.props.OnValidateText(text)
-		self:setState({
-			isError = not isValid,
-			errorText = errorText or Roact.None,
-		})
+		if FFlagDevFrameworkTextInput2Fixes then
+			local isError = not isValid
+			if self.state.isError ~= isError or self.state.errorText ~= errorText then
+				self:setState({
+					isError = isError,
+					errorText = errorText or Roact.None,
+				})
+			end
+		else
+			self:setState({
+				isError = not isValid,
+				errorText = errorText or Roact.None,
+			})
+		end
 		return isValid
 	end
 	return true

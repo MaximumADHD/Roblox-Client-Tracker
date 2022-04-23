@@ -19,6 +19,7 @@
 		boolean Static: A boolean value that freezes the element
 		number InitialDistance: A number value that specifies the initial distance from the camera
 		boolean DisableZoom: Disables the zoom functionality in the preview
+		boolean DisablePan: Disables the panning functionality in the preview
 ]]
 local FFlagDevFrameworkExtractAssetRenderModelCamera = game:GetFastFlag("DevFrameworkExtractAssetRenderModelCamera")
 local FFlagDevFrameworkAssetRenderModelCustomCamDirection = game:GetFastFlag("DevFrameworkAssetRenderModelCustomCamDirection")
@@ -26,6 +27,7 @@ local FFlagDevFrameworkSeparateCenterCameraCenterModel = game:DefineFastFlag("De
 local FFlagDevFrameworkAssetRenderModelStatic = game:GetFastFlag("DevFrameworkAssetRenderModelStatic")
 local FFlagDevFrameworkAssetRenderModelStatic2 = game:GetFastFlag("DevFrameworkAssetRenderModelStatic2")
 local FFlagDevFrameworkAssetRenderModelDisableZoom = game:GetFastFlag("DevFrameworkAssetRenderModelDisableZoom")
+local FFlagDevFrameworkAssetRenderModelDisablePan = game:GetFastFlag("DevFrameworkAssetRenderModelDisablePan")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -78,7 +80,7 @@ function AssetRenderModel:init()
 
 		if input.UserInputType == Enum.UserInputType.MouseButton3 or
 			input.UserInputType == Enum.UserInputType.MouseButton2 then
-			self.isPanDragging = true
+			self.isPanDragging = if FFlagDevFrameworkAssetRenderModelDisablePan then not self.props.DisablePan else true
 		end
 	end
 

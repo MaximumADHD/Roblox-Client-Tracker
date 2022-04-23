@@ -275,6 +275,9 @@ local function computeInfo(draggerContext, selectedObjects)
 	local isMultiSelection
 	local basisCFrame = nil
 	if basisObject then
+		-- note: we can remove the ScaleToolSpecialCaseIgnorePivotWithSinglePartSelected variable 
+		-- and the specialIgnore case entirely when we permanently turn on the flag
+		-- FFlagFixScalingWithNonDefaultPivot and remove its associated code.
 		local specialIgnore =
 			draggerContext.ScaleToolSpecialCaseIgnorePivotWithSinglePartSelected and
 			#selectedObjects == 1 and

@@ -15,6 +15,9 @@ local CULLING_MODE = Enum.AdornCullingMode.Never
 
 local ScaleHandleView = Roact.PureComponent:extend("ScaleHandleView")
 
+local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
+local getFFlagFixScalingWithNonDefaultPivot = require(DraggerFramework.Flags.getFFlagFixScalingWithNonDefaultPivot)
+
 local HANDLE_RADIUS = 0.5
 local HANDLE_RADIUS_HOVERED_SCALE = 1.15 -- Radius scale when handle is hovered
 local HANDLE_HITTEST_RADIUS_SCALE = 2.5 -- Radius scale for hit testing
@@ -28,6 +31,12 @@ local HANDLE_THIN_BY_FRAC = 0.34
 local function getDebugSettingValue(name, defaultValue)
 	local setting = Workspace:FindFirstChild(name)
 	return setting and setting.Value * defaultValue or defaultValue
+end
+
+if getEngineFeatureModelPivotVisual() and getFFlagFixScalingWithNonDefaultPivot() then
+	function ScaleHandleView.getLocalHandleOffset(props)
+		return CFrame.new(0, 0, -HANDLE_OFFSET * props.Scale)
+	end
 end
 
 function ScaleHandleView:render()
