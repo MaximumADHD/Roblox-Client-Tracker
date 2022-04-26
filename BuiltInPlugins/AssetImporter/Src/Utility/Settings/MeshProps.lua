@@ -8,6 +8,14 @@ local function hideIfAvatar()
 	return AssetImportService:IsAvatar() and getFFlagDisableAvatarAnchoredSetting()
 end
 
+local function hideIfNotCage(meshSettings)
+	if meshSettings.importName:match("_OuterCage") or meshSettings.importName:match("_InnerCage") then
+		return false
+	else
+		return true
+	end
+end
+
 return {
 	{
 		Section = "ObjectGeneral",
@@ -23,6 +31,7 @@ return {
 			{Name = "PolygonCount", Editable = false},
 			{Name = "DoubleSided", Editable = true},
 			{Name = "IgnoreVertexColors", Editable = true},
+			{Name = "Manifold", Editable = false, ShouldHide = hideIfNotCage},
 		},
 	},
 }

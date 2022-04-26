@@ -15,6 +15,7 @@ local UI = Framework.UI
 local Pane = UI.Pane
 local SelectInput = UI.SelectInput
 local ToggleButton = UI.ToggleButton
+local TextLabel = UI.Decoration.TextLabel
 local TruncatedTextLabel = UI.TruncatedTextLabel
 
 local Actions = Plugin.Src.Actions
@@ -24,7 +25,7 @@ local Util = Plugin.Src.Util
 local MaterialController = require(Util.MaterialController)
 
 local Components = Plugin.Src.Components
-local LabeledElementList = require(Components.LabeledElementList)
+local StatusIcon = require(Components.StatusIcon)
 
 export type Props = {
 	LayoutOrder : number?,
@@ -54,10 +55,10 @@ type _Style = {
 	HeaderSize : UDim2,
 	ImagePosition : UDim2,
 	ImageSize : UDim2,
-	LabelColumnWidth : UDim,
 	NameLabelSizeBuiltIn : UDim2,
 	NameLabelSizeVariant : UDim2,
 	LabelRowSize : UDim2,
+	OverrideSize : UDim2,
 	Padding : number,
 	SectionHeaderTextSize : number,
 	TextureLabelSize : UDim2,
@@ -88,6 +89,18 @@ function MaterialOverrides:init()
 		end
 	end
 
+	self.onMaterialAddedRemoved = function(_, materialVariant : MaterialVariant)
+		local props : _Props = self.props
+		local material = props.Material
+		local baseMaterial = material.MaterialVariant.BaseMaterial
+
+		if materialVariant.BaseMaterial == baseMaterial then
+			self:setState({
+				variantsListChanged = true
+			})
+		end
+	end
+
 	self.onOverrideChanged = function(materialEnum : Enum.Material)
 		local props : _Props = self.props
 		local material = props.Material
@@ -110,7 +123,7 @@ function MaterialOverrides:init()
 		end
 
 		self:setState({
-			materialIndex = index
+			index = index
 		})
 	end
 
@@ -121,16 +134,17 @@ function MaterialOverrides:init()
 		local materialName = material.MaterialVariant.Name
 
 		local materialIndex = 1
-		if self.state.index ~= 1 then
-			props.MaterialController:setMaterialOverride(materialType)
-		else
-			props.MaterialController:setMaterialOverride(materialType, materialName)
-
-			for index, name in ipairs(self.state.items) do
-				if materialName == name then
-					materialIndex = index + 1
-				end
+		for index, name in ipairs(self.state.items) do
+			if materialName == name then
+				materialIndex = index
 			end
+		end
+
+		if self.state.index ~= materialIndex then
+			props.MaterialController:setMaterialOverride(materialType, materialName)
+		else
+			materialIndex = 1
+			props.MaterialController:setMaterialOverride(materialType)
 		end
 
 		self:setState({
@@ -138,51 +152,37 @@ function MaterialOverrides:init()
 		})
 	end
 
-	self.renderContent = function(key : string)
-		local props : _Props = self.props
-		local style = props.Stylizer.MaterialDetails
-
-		if key == "MaterialOverride" then
-			return Roact.createElement(SelectInput, {
-				Items = self.state.items,
-				OnItemActivated = self.onMaterialItemActivated,
-				SelectedIndex = self.state.index,
-				Size = style.DropdownSize,
-			})
-		elseif key == "SetOverride" then
-			return Roact.createElement(ToggleButton, {
-				Selected = self.state.index ~= 1,
-				LayoutOrder = 1,
-				OnClick = self.onOverrideToggled,
-				Size = UDim2.fromOffset(40, 24),
-			})
-		end
-
-		return nil
-	end
-
-	self.getText = function(key: string)
-		local props : _Props = self.props
-		local localization = props.Localization
-
-		return localization:getText("MaterialOverrides", key)
-	end
-
 	self.variants = {}
 	self.state = {
-		items = {}
+		index = -1,
+		items = {},
 	}
 end
 
 function MaterialOverrides:willUnmount()
-	if self.connection then
-		self.connection:Disconnect()
-		self.connection = nil
+	if self.materialChangedConnection then
+		self.materialChangedConnection:Disconnect()
+		self.materialChangedConnection = nil
 	end
 
-	if self.overrideChanged then
-		self.overrideChanged:Disconnect()
-		self.overrideChanged = nil
+	if self.materialAddedConnection then
+		self.materialAddedConnection:Disconnect()
+		self.materialAddedConnection = nil
+	end
+
+	if self.materialRemovedConnection then
+		self.materialRemovedConnection:Disconnect()
+		self.materialRemovedConnection = nil
+	end
+
+	if self.overrideChangedConnection then
+		self.overrideChangedConnection:Disconnect()
+		self.overrideChangedConnection = nil
+	end
+
+	if self.overrideStatusChangedConnection then
+		self.overrideStatusChangedConnection:Disconnect()
+		self.overrideStatusChangedConnection = nil
 	end
 end
 
@@ -191,11 +191,14 @@ function MaterialOverrides:didMount()
 	local localization = props.Localization
 	local materialController = props.MaterialController
 
-	self.connection = materialController:getMaterialChangedSignal():Connect(self.onMaterialVariantChanged)
-	self.overrideChanged = materialController:getOverrideChangedSignal():Connect(self.onOverrideChanged)
+	self.materialChangedConnection = materialController:getMaterialChangedSignal():Connect(self.onMaterialVariantChanged)
+	self.materialAddedConnection = materialController:getMaterialAddedSignal():Connect(self.onMaterialAddedRemoved)
+	self.materialRemovedConnection = materialController:getMaterialRemovedSignal():Connect(self.onMaterialAddedRemoved)
+	self.overrideChangedConnection = materialController:getOverrideChangedSignal():Connect(self.onOverrideChanged)
+	self.overrideStatusChangedConnection = materialController:getOverrideStatusChangedSignal():Connect(self.onOverrideChanged)
 
 	if props.Material then
-		local items, index = props.MaterialController:getMaterialOverrides(props.Material.MaterialVariant.BaseMaterial)
+		local items, index = materialController:getMaterialOverrides(props.Material.MaterialVariant.BaseMaterial)
 		table.insert(items, 1, localization:getText("MaterialOverrides", "None"))
 
 		self:setState({
@@ -210,14 +213,15 @@ function MaterialOverrides:didUpdate(prevProps : _Props)
 	local localization = props.Localization
 	local materialController = props.MaterialController
 
-	if prevProps.Material ~= props.Material then
+	if prevProps.Material ~= props.Material or self.state.variantsListChanged then
 		if props.Material then
 			local items, index = materialController:getMaterialOverrides(props.Material.MaterialVariant.BaseMaterial)
 			table.insert(items, 1, localization:getText("MaterialOverrides", "None"))
 
 			self:setState({
 				items = items,
-				index = index + 1
+				index = index + 1,
+				variantsListChanged = false,
 			})
 		end
 	end
@@ -228,17 +232,73 @@ function MaterialOverrides:render()
 	local style = props.Stylizer.MaterialDetails
 	local localization = props.Localization
 	local material = props.Material
+	local materialController = props.MaterialController
+
+	local override = materialController:getMaterialOverride(material.MaterialVariant.BaseMaterial)
 
 	if not material then
 		return Roact.createElement(Pane)
 	end
 
-	local labeledElements = {}
+	local contents = {}
 
 	if material.IsBuiltin then
-		table.insert(labeledElements, "MaterialOverride")
+		contents = {
+			Label = Roact.createElement(Pane, {
+				LayoutOrder = 1,
+				Layout = Enum.FillDirection.Horizontal,
+				Size = style.OverrideSize,
+				Spacing = 5,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			}, {
+				Status = Roact.createElement(StatusIcon, {
+					LayoutOrder = 1,
+					Material = material,
+					Size = style.ImageSize,
+				}),
+				Label = Roact.createElement(TextLabel, {
+					FitWidth = true,
+					LayoutOrder = 2,
+					Text = localization:getText("MaterialOverrides", "MaterialOverride"),
+				}),
+			}),
+			SelectInputWrapper = Roact.createElement(Pane, {
+				AutomaticSize = Enum.AutomaticSize.XY,
+				LayoutOrder = 2,
+				Size = style.OverrideSize,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+			}, {
+				SelectInput = Roact.createElement(SelectInput, {
+					Items = self.state.items,
+					OnItemActivated = self.onMaterialItemActivated,
+					PlaceholderText = override,
+					SelectedIndex = self.state.index,
+					Width = style.OverrideSize.X.Offset,
+				})
+			})
+		}
 	else
-		table.insert(labeledElements, "SetOverride")
+		contents = {
+			Label = Roact.createElement(TextLabel, {
+				LayoutOrder = 1,
+				Text = localization:getText("MaterialOverrides", "SetOverride"),
+				TextXAlignment = Enum.TextXAlignment.Left,
+				Size = UDim2.new(0, 80, 0, 20),
+			}),
+			Button = Roact.createElement(Pane, {
+				AutomaticSize = Enum.AutomaticSize.XY,
+				LayoutOrder = 2,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+				Size = UDim2.new(0, 195, 0, 20),
+			}, {
+				ToggleButton = Roact.createElement(ToggleButton, {
+					OnClick = self.onOverrideToggled,
+					Selected = self.state.index > 1 and self.state.items[self.state.index] == material.MaterialVariant.Name,
+					Size = UDim2.fromOffset(40, 24),
+				})
+			})
+		}
 	end
 
 	return Roact.createElement(Pane, {
@@ -256,14 +316,11 @@ function MaterialOverrides:render()
 			TextSize = style.SectionHeaderTextSize,
 			TextXAlignment = Enum.TextXAlignment.Left,
 		}),
-		Overrides = Roact.createElement(LabeledElementList, {
-			GetText = self.getText,
-			Items = labeledElements,
-			LabelColumnWidth = style.LabelColumnWidth,
+		OverridesNew = Roact.createElement(Pane, {
+			AutomaticSize = Enum.AutomaticSize.Y,
+			Layout = Enum.FillDirection.Horizontal,
 			LayoutOrder = 2,
-			RenderContent = self.renderContent,
-			TextYAlignment = Enum.TextYAlignment.Center,
-		})
+		}, contents)
 	})
 end
 

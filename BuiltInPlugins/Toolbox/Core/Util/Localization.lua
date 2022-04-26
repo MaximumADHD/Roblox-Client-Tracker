@@ -4,7 +4,6 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
@@ -227,11 +226,10 @@ function Localization:getPurchaseSuccessDetails(name)
 end
 
 function Localization:getScriptConfirmation(assetName, numScripts)
-	return FFlagToolboxEnableScriptConfirmation
-		and self:_safeLocalize("Studio.Toolbox.ScriptWarning.DetailText", {
-			assetName = assetName,
-			numScripts = numScripts,
-		})
+	return self:_safeLocalize("Studio.Toolbox.ScriptWarning.DetailText", {
+		assetName = assetName,
+		numScripts = numScripts,
+	})
 end
 
 function Localization:getMaxTags(max)
@@ -869,7 +867,7 @@ function Localization:_recalculateContent()
 			OK = self:_safeLocalize("Studio.Toolbox.Common.OK"),
 		},
 
-		ScriptWarning = FFlagToolboxEnableScriptConfirmation and {
+		ScriptWarning = {
 			DontShowAgain = self:_safeLocalize("Studio.Toolbox.ScriptWarning.DontShowAgain"),
 			InstructionText = self:_safeLocalize("Studio.Toolbox.ScriptWarning.InstructionText"),
 			InstructionText2 = self:_safeLocalize("Studio.Toolbox.ScriptWarning.InstructionText2"),

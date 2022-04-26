@@ -19,6 +19,9 @@
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
@@ -28,7 +31,7 @@ local GroupIconThumbnail = Roact.Component:extend(script.Name)
 
 function GroupIconThumbnail:getThumbnail(contentId, status)
 	local props = self.props
-	local theme = props.Theme:get("Plugin")
+	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
 
 	if status == Enum.AssetFetchStatus.Success then
 		return contentId
@@ -76,7 +79,8 @@ end
 
 
 GroupIconThumbnail = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(GroupIconThumbnail)
 
 

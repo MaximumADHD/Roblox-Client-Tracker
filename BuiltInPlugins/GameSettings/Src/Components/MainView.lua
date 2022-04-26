@@ -13,15 +13,17 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local FrameworkUI = require(Plugin.Packages.Framework).UI
+local FrameworkUI = Framework.UI
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Button = FrameworkUI.Button
 local HoverArea = FrameworkUI.HoverArea
 
-local FrameworkUtil = require(Plugin.Packages.Framework).Util
-local FitTextLabel = FrameworkUtil.FitFrame.FitTextLabel
+local FitTextLabel = Util.FitFrame.FitTextLabel
 
 local Container = FrameworkUI.Container
 local MenuBar = require(Plugin.Src.Components.MenuBar)
@@ -82,7 +84,7 @@ end
 function MainView:render()
 	local props = self.props
 	local Selected = self.state.Selected
-	local theme = props.Theme:get("Plugin")
+	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
 	local localization = props.Localization
 
 	local isPublishedGame = props.GameId ~= 0
@@ -205,13 +207,11 @@ function MainView:render()
 	})
 end
 
-
 MainView = withContext({
 	Localization = ContextServices.Localization,
-	Theme = ContextServices.Theme
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(MainView)
-
-
 
 MainView = RoactRodux.connect(
 	function(state, props)

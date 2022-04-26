@@ -22,12 +22,13 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local GetTextSize = UILibrary.Util.GetTextSize
 
-local Framework = Plugin.Packages.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local LinkText = require(Framework.UI).LinkText
+local LinkText = Framework.UI.LinkText
 
-local Util = require(Framework.Util)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local LayoutOrderIterator = Util.LayoutOrderIterator
 local StyleModifier = Util.StyleModifier
 
@@ -192,7 +193,7 @@ end
 function NavBar:render()
     local props = self.props
     local localization = self.props.Localization
-    local theme = props.Theme:get("Plugin")
+    local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
 
     local size = props.Size
     local layoutOrder = props.LayoutOrder
@@ -238,7 +239,8 @@ function NavBar:render()
 end
 
 NavBar = withContext({
-    Theme = ContextServices.Theme,
+    Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+    Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
     Localization = ContextServices.Localization,
 })(NavBar)
 

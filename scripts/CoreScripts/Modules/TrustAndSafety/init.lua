@@ -59,8 +59,8 @@ function TrustAndSafety.new()
 	return self
 end
 
-function TrustAndSafety:openReportDialog(placeName, userId, userName)
-	self.store:dispatch(OpenReportDialog(placeName, userId, userName))
+function TrustAndSafety:openReportDialog(userId, userName)
+	self.store:dispatch(OpenReportDialog(userId, userName))
 end
 
 return TrustAndSafety.new()

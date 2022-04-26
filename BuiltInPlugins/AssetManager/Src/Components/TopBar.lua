@@ -13,11 +13,11 @@ local FFlagDevFrameworkTooltipCustomContent = game:GetFastFlag("DevFrameworkTool
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local Framework = Plugin.Packages.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local UI = require(Framework.UI)
+local UI = Framework.UI
 local Button = UI.Button
 local HoverArea = UI.HoverArea
 local LinkText = UI.LinkText
@@ -25,7 +25,8 @@ local Pane = UI.Pane
 local TextLabel = UI.Decoration.TextLabel
 local Tooltip = UI.Tooltip
 
-local Util = require(Framework.Util)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local LayoutOrderIterator = Util.LayoutOrderIterator
 local StyleModifier = Util.StyleModifier
 
@@ -68,7 +69,7 @@ end
 function TopBar:render()
     local props = self.props
     local analytics = props.Analytics
-    local theme = props.Theme:get("Plugin")
+    local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
     local topBarTheme = theme.TopBar
     local localization = props.Localization
 
@@ -398,7 +399,8 @@ end
 TopBar = withContext({
     Analytics = ContextServices.Analytics,
     Localization = ContextServices.Localization,
-    Theme = ContextServices.Theme,
+    Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+    Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(TopBar)
 
 local function mapStateToProps(state, props)

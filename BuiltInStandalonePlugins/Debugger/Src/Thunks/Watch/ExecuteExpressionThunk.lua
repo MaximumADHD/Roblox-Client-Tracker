@@ -65,6 +65,11 @@ return function(expressionString : string, stepStateBundle : StepStateBundle.Ste
 		end
 
 		debuggerConnection:EvaluateWatch(expressionString, currentFrame, function(data)
+			local dst = stepStateBundle.debuggerStateToken
+			if dst ~= store:getState().Common.debuggerConnectionIdToDST[dst.debuggerConnectionId] then
+				return
+			end
+
 			if tostring(data.Status) ~= Constants.DebuggerStatus.Success then
 				-- todo need to report failure of requests RIDE-6369
 				return

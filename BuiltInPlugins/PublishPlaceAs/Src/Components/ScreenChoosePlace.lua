@@ -7,7 +7,6 @@ local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamC
 local FFlagPlacePublishManagementUI2 = game:GetFastFlag("PlacePublishManagementUI2")
 local FFlagEnablePlacePublishManagementInTeamCreate = game:GetFastFlag("EnablePlacePublishManagementInTeamCreate")
 local FFlagStudioEnableUploadNames = game:GetFastFlag("StudioEnableUploadNames")
-local FFlagStudioUpdatePublishText = game:GetFastFlag("StudioUpdatePublishText")
 
 local StudioService = game:GetService("StudioService")
 local StudioPublishService = game:GetService("StudioPublishService")
@@ -166,7 +165,7 @@ function ScreenChoosePlace:render()
 		end
 
 		components[0] = Roact.createElement(TilePlace, {
-			Name = localization:getText("Button", if FFlagStudioUpdatePublishText then "AddNewPlaceToGame" else "AddNewPlace"),
+			Name = localization:getText("Button", "AddNewPlaceToGame"),
 			LayoutOrder = 1,
 			Selected = newPlaceSelected,
 			OnActivated = function()

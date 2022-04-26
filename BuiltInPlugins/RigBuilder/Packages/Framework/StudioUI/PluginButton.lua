@@ -20,8 +20,6 @@
 			when the main window is not active
 ]]
 
-local FFlagStudioDevFrameworkPluginButtonId = game:GetFastFlag("StudioDevFrameworkPluginButtonId")
-
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local Typecheck = require(Framework.Util).Typecheck
@@ -33,18 +31,14 @@ function PluginButton:createButton()
 	local props = self.props
 	local toolbar = props.Toolbar
 	local title = props.Title
-	local id = if FFlagStudioDevFrameworkPluginButtonId then (props.Id or title) else nil
+	local id = props.Id or title
 	local tooltip = props.Tooltip or ""
 	local icon = props.Icon or ""
 	local onClick = props.OnClick
 
 	assert(typeof(title) == "string", string.format("PluginButton requires Title to be of type string not %s", typeof(title)))
 
-	if FFlagStudioDevFrameworkPluginButtonId then
-		self.button = toolbar:CreateButton(id, tooltip, icon, title)
-	else
-		self.button = toolbar:CreateButton(title, tooltip, icon)
-	end
+	self.button = toolbar:CreateButton(id, tooltip, icon, title)
 
 	self.button.ClickableWhenViewportHidden = (props.ClickableWhenViewportHidden == nil) and true or props.ClickableWhenViewportHidden
 

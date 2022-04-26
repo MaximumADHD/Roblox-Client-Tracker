@@ -2,6 +2,9 @@ local MockServiceWrapper = require(script.Parent.MockServiceWrapper)
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Rodux = require(Plugin.Packages.Rodux)
 
@@ -113,14 +116,15 @@ return function()
 			local testThemedElement = Roact.PureComponent:extend("testThemedElement")
 
 			function testThemedElement:render()
-				local theme = self.props.Theme:get("Plugin")
+				local theme = THEME_REFACTOR and self.props.Stylizer or self.props.Theme:get("Plugin")
 				return Roact.createElement("Frame",{
 					BackgroundColor3 = theme.BackgroundColor
 				})
 			end
 
 			testThemedElement = withContext({
-				Theme = ContextServices.Theme,
+				Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+				Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 			})(testThemedElement)
 
 			return testThemedElement

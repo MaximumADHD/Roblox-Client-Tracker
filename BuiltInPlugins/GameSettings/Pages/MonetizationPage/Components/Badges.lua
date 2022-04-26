@@ -4,6 +4,8 @@ local Roact = require(Plugin.Packages.Roact)
 local Badges = Roact.PureComponent:extend(script.Name)
 
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local UILibrary = require(Plugin.Packages.UILibrary)
 local TitledFrame = UILibrary.Component.TitledFrame
 
@@ -31,7 +33,7 @@ function Badges:render()
     end
     
     local props = self.props
-    local theme = props.Theme:get("Plugin")
+    local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
     local localization = props.Localization
 
     local badgeList = props.BadgeList
@@ -141,7 +143,8 @@ end
 
 Badges = withContext({
     Localization = ContextServices.Localization,
-    Theme = ContextServices.Theme,
+    Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(Badges)
 
 

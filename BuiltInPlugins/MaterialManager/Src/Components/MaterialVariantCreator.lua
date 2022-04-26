@@ -22,9 +22,9 @@ local LayoutOrderIterator = Util.LayoutOrderIterator
 
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
-local GeneralSettings = require(Plugin.Src.Components.GeneralSettings)
+local GeneralSettings = require(Plugin.Src.Components.MaterialVariantCreator.GeneralSettings)
+local TextureSettings = require(Plugin.Src.Components.MaterialVariantCreator.TextureSettings)
 local MaterialPreview = require(Plugin.Src.Components.MaterialPreview)
-local TextureSettings = require(Plugin.Src.Components.TextureSettings)
 
 export type Props = {
 	ErrorName : string?,

@@ -18,8 +18,8 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Constants = require(Plugin.Src.Util.Constants)
-local Framework = Plugin.Packages.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local ContextMenu = require(Plugin.Src.Components.ContextMenu)

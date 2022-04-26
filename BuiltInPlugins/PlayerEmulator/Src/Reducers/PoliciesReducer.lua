@@ -1,7 +1,8 @@
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local Rodux = require(Plugin.Packages.Rodux)
-local deepJoin = require(Plugin.Src.Util.deepJoin)
+local FFlagRemoveUILibraryDeepJoin = game:GetFastFlag("RemoveUILibraryDeepJoin")
+local deepJoin = if FFlagRemoveUILibraryDeepJoin then require(Plugin.Packages.Framework).Util.deepJoin else require(Plugin.Src.Util.deepJoin)
 
 return Rodux.createReducer({
 	allPolicies = {},

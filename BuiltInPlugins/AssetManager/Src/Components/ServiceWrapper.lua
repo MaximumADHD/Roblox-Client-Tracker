@@ -4,7 +4,8 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
 -- props.localization : (UILibary.Localization) an object for fetching translated strings

@@ -15,8 +15,6 @@ local ToolSelectionListener = require(Plugin.Src.Components.ToolSelectionListene
 
 local Constants = require(Plugin.Src.Util.Constants)
 
-local FFlagTerrainToolsPluginButtonRestore = game:GetFastFlag("TerrainToolsPluginButtonRestore")
-
 local EDITOR_META_NAME = "Editor"
 local TOOLBAR_NAME = "TerrainToolsLuaToolbarName"
 
@@ -52,9 +50,7 @@ function TerrainTools:init()
 	end
 
 	self.onDockWidgetCreated = function(enabled)
-		if FFlagTerrainToolsPluginButtonRestore then
-			self.props.pluginLoaderContext.mainButton:SetActive(enabled)
-		end
+		self.props.pluginLoaderContext.mainButton:SetActive(enabled)
 		self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleEnabled)
 	end
 

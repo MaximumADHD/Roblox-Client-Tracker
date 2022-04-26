@@ -1,4 +1,4 @@
-local Roact = require(script.Parent.Parent.Parent.modules.Roact)
+local Roact = require(script.Parent.Parent.Parent.Packages.Roact)
 
 local HeaderRow = require(script.Parent.HeaderRow)
 local AddGroup = require(script.Parent.AddGroup)

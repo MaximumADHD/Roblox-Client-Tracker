@@ -6,7 +6,7 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local Networking = require(Plugin.Packages.Http).Networking
+local Networking = require(Plugin.DEPRECATED_modules.Http).Networking
 
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 local Urls = require(Plugin.Src.Util.Urls)

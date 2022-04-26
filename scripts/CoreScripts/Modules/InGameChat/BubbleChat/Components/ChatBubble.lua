@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local TextService = game:GetService("TextService")
+local TextChatService = game:GetService("TextChatService")
 
 local Otter = require(CorePackages.Packages.Otter)
 local Roact = require(CorePackages.Packages.Roact)
@@ -12,8 +13,10 @@ local Types = require(root.Types)
 local getSizeSpringFromSettings = require(root.Helpers.getSizeSpringFromSettings)
 local getTransparencySpringFromSettings = require(root.Helpers.getTransparencySpringFromSettings)
 
-local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GetFFlagBubbleVoiceIndicator = require(RobloxGui.Modules.Flags.GetFFlagBubbleVoiceIndicator)
+local FFlagEnableRichTextForBubbleChat = require(RobloxGui.Modules.Flags.FFlagEnableRichTextForBubbleChat)
 
 local ChatBubble = Roact.PureComponent:extend("ChatBubble")
 
@@ -38,6 +41,18 @@ ChatBubble.defaultProps = {
 	isMostRecent = true,
 }
 
+local function initMockSizingLabel()
+	local SizingGui = Instance.new("ScreenGui")
+	SizingGui.Enabled = false
+	SizingGui.Name = "RichTextSizingLabel"
+	local SizingLabel = Instance.new("TextLabel")
+	SizingLabel.TextWrapped = true
+	SizingLabel.RichText = true
+	SizingLabel.Parent = SizingGui
+	SizingGui.Parent = CoreGui
+	return SizingLabel
+end
+
 function ChatBubble:init()
 	self.width, self.updateWidth = Roact.createBinding(0)
 	self.widthMotor = Otter.createSingleMotor(0)
@@ -58,18 +73,48 @@ function ChatBubble:init()
 	self.size = Roact.joinBindings({ self.width, self.height }):map(function(sizes)
 		return UDim2.fromOffset(sizes[1], sizes[2])
 	end)
+
+	self.mockSizingLabel = initMockSizingLabel()
+
+	self.isRichTextEnabled = (TextChatService.ChatVersion == Enum.ChatVersion.TextChatService and FFlagEnableRichTextForBubbleChat and true) or false
+	self.text = self.props.text
+	if self.isRichTextEnabled then
+		self.text = string.gsub(self.props.text, "&[%l]+[;]?", {
+			["&lt;"] = "<",
+			["&gt;"] = ">",
+			["&amp"] = "&",
+		})
+	end
+end
+
+function ChatBubble:getBoundsFromSizingLabel(Text, TextSize, Font, Size)
+	self.mockSizingLabel.Text = Text
+	self.mockSizingLabel.TextSize = TextSize
+	self.mockSizingLabel.Font = Font
+	self.mockSizingLabel.Size = UDim2.fromOffset(Size.X, Size.Y)
+	return self.mockSizingLabel.TextBounds
 end
 
 function ChatBubble:getTextBounds()
 	local chatSettings = self.props.chatSettings
 	local padding = Vector2.new(chatSettings.Padding * 4, chatSettings.Padding * 2)
 
-	local bounds = TextService:GetTextSize(
-		self.props.text,
-		chatSettings.TextSize,
-		chatSettings.Font,
-		Vector2.new(chatSettings.MaxWidth, 10000)
-	)
+	local bounds = Vector2.new(0, 0)
+	if self.isRichTextEnabled then
+		bounds = self:getBoundsFromSizingLabel(
+			self.text,
+			chatSettings.TextSize,
+			chatSettings.Font,
+			Vector2.new(chatSettings.MaxWidth, 10000)
+		)
+	else
+		bounds = TextService:GetTextSize(
+			self.props.text,
+			chatSettings.TextSize,
+			chatSettings.Font,
+			Vector2.new(chatSettings.MaxWidth, 10000)
+		)
+	end
 
 	return bounds + padding
 end
@@ -144,7 +189,6 @@ function ChatBubble:renderOld()
 end
 
 function ChatBubble:renderNew()
-	local bounds = self:getTextBounds()
 	local chatSettings = self.props.chatSettings
 	local backgroundImageSettings = chatSettings.BackgroundImage
 	local backgroundGradientSettings = chatSettings.BackgroundGradient
@@ -178,14 +222,14 @@ function ChatBubble:renderNew()
 			UICorner = chatSettings.CornerEnabled and Roact.createElement("UICorner", {
 				CornerRadius = chatSettings.CornerRadius,
 			}),
-			
+
 			UIListLayout = Roact.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Horizontal,
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				VerticalAlignment = Enum.VerticalAlignment.Bottom,
 				Padding = UDim.new(0, chatSettings.Padding),
 			}),
-			
+
 			Padding = Roact.createElement("UIPadding", {
 				PaddingTop = UDim.new(0, chatSettings.Padding),
 				PaddingRight = UDim.new(0, chatSettings.Padding),
@@ -194,9 +238,9 @@ function ChatBubble:renderNew()
 			}),
 
 			Insert = self.props.renderInsert and self.props.renderInsert(),
-			
+
 			Text = Roact.createElement("TextLabel", {
-				Text = self.props.text,
+				Text = self.text,
 				Size = UDim2.new(1, -extraWidth, 1, 0),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.fromScale(0.5, 0.5),
@@ -208,12 +252,13 @@ function ChatBubble:renderNew()
 				TextWrapped = true,
 				AutoLocalize = false,
 				LayoutOrder = 2,
+				RichText = self.isRichTextEnabled,
 			}),
 
 			Gradient = backgroundGradientSettings.Enabled and Roact.createElement("UIGradient", backgroundGradientSettings)
 		}),
 
-		Carat = self.props.isMostRecent and chatSettings.TailVisible and Roact.createElement("ImageLabel", {
+		Carat = self.props.isMostRecent and 	chatSettings.TailVisible and Roact.createElement("ImageLabel", {
 			LayoutOrder = 2,
 			BackgroundTransparency = 1,
 			Size = UDim2.fromOffset(9, 6),
@@ -254,7 +299,7 @@ function ChatBubble:didUpdate(previousProps)
 	-- Update the size of the bubble to accommodate changes to the text's size (for instance: when the text changes due
 	-- to filtering, or when new customization settings are applied)
 	if GetFFlagBubbleVoiceIndicator() then
-		if previousProps.text ~= self.props.text 
+		if previousProps.text ~= self.props.text
 			or previousProps.chatSettings ~= self.props.chatSettings
 			or previousProps.renderInsert ~= self.props.renderInsert
 			or previousProps.insertSize ~= self.props.insertSize
@@ -279,7 +324,7 @@ function ChatBubble:didUpdate(previousProps)
 			self.heightMotor:setGoal(sizeSpring(bounds.Y))
 			self.widthMotor:setGoal(sizeSpring(bounds.X))
 		end
-	end		
+	end
 end
 
 function ChatBubble:didMount()

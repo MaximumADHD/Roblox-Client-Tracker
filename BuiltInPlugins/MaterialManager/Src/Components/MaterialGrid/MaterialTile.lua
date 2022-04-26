@@ -23,6 +23,7 @@ local Tooltip = UI.Tooltip
 
 local Components = Plugin.Src.Components
 local MaterialPreview = require(Components.MaterialPreview)
+local StatusIcon = require(Components.StatusIcon)
 
 local Util = Plugin.Src.Util
 local getFullMaterialType = require(Util.getFullMaterialType)
@@ -46,13 +47,14 @@ type _Props = Props & {
 }
 
 type _Style = {
-	ButtonPosition : UDim2,
-	ButtonSize : UDim2,
+	IconSize : UDim2,
 	MaterialVariant : _Types.Image,
+	MaterialVariantIconPosition : UDim2,
 	MaxWidth : number,
 	Padding : number,
 	Size : UDim2,
 	Spacing : number,
+	StatusIconPosition : UDim2,
 	TextLabelSize : UDim2,
 	TextSize : number,
 }
@@ -68,19 +70,32 @@ function MaterialTile:init()
 end
 
 function MaterialTile:willUnmount()
-	if self.connection then
-		self.connection:Disconnect()
-		self.connection = nil
+	if self.changedConnection then
+		self.changedConnection:Disconnect()
+		self.changedConnection = nil
+	end
+
+	if self.overrideStatusChangedConnection then
+		self.overrideStatusChangedConnection:Disconnect()
+		self.overrideStatusChangedConnection = nil
 	end
 end
 
 function MaterialTile:didMount()
 	local props : _Props = self.props
 
-	self.connection = props.MaterialController:getMaterialChangedSignal():Connect(function(changedMaterialVariant)
+	self.changedConnection = props.MaterialController:getMaterialChangedSignal():Connect(function(materialVariant)
 		local props : _Props = self.props
 
-		if changedMaterialVariant == props.Item.MaterialVariant then
+		if materialVariant == props.Item.MaterialVariant then
+			self:setState({})
+		end
+	end)
+
+	self.overrideStatusChangedConnection = props.MaterialController:getOverrideStatusChangedSignal():Connect(function(materialType)
+		local props : _Props = self.props
+
+		if props.Item.IsBuiltin and materialType == props.Item.MaterialVariant.BaseMaterial then
 			self:setState({})
 		end
 	end)
@@ -151,11 +166,11 @@ function MaterialTile:render()
 				})
 			})
 		}),
-		Icon = if not item.IsBuiltin then
+		MaterialVariantIcon = if not item.IsBuiltin then
 			Roact.createElement(Container, {
 				LayoutOrder = 2,
-				Position = style.ButtonPosition,
-				Size = style.ButtonSize,
+				Position = style.MaterialVariantIconPosition,
+				Size = style.IconSize,
 				ZIndex = 2,
 			}, {
 				Image = Roact.createElement(Image, {
@@ -166,6 +181,15 @@ function MaterialTile:render()
 				})
 			})
 			else nil,
+		StatusIcon = if item.IsBuiltin then
+			Roact.createElement(StatusIcon, {
+				LayoutOrder = 3,
+				Material = item,
+				Position = style.StatusIconPosition,
+				Size = style.IconSize,
+				ZIndex = 2,
+			})
+			else nil
 	})
 end
 

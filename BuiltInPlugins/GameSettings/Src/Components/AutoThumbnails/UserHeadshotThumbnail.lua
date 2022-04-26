@@ -19,6 +19,9 @@
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
@@ -28,7 +31,7 @@ local UserHeadshotThumbnail = Roact.Component:extend(script.Name)
 
 function UserHeadshotThumbnail:getThumbnail(contentId, status)
 	local props = self.props
-	local theme = props.Theme:get("Plugin")
+	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
 
 	if status == Enum.AssetFetchStatus.Success then
 		return contentId
@@ -123,7 +126,7 @@ function UserHeadshotThumbnail:render()
 				local thumbnail = self:getThumbnail(contentId, status)
 
 				local props = self.props
-				local theme = props.Theme:get("Plugin")
+				local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
 
 				return Roact.createElement("ImageLabel", {
 					Size = UDim2.fromScale(1, 1),
@@ -148,7 +151,8 @@ end
 
 
 UserHeadshotThumbnail = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(UserHeadshotThumbnail)
 
 

@@ -35,10 +35,7 @@ return function()
 		expect(list:FindFirstChild("1", false)).to.equal(nil)
 		Roact.unmount(folderInstance)
 	end)
-	
-	-- Commenting out these unit tests as they are blocked by the infinite scrollbar. Turn Scroll = false for
-	-- the Table to run these unit tests.
-	
+
 	it("should populate and sort breakpoints table through actions", function()
 		if not FFlagDevFrameworkRemoveInfiniteScroller then
 			return
@@ -51,7 +48,7 @@ return function()
 			store:dispatch(AddBreakpoint(123, MetaBreakpointModel.mockMetaBreakpoint({}, uniqueId)))
 		end
 		
-		store:dispatch(SetBreakpointSortState(Enum.SortDirection.Descending, 5))
+		store:dispatch(SetBreakpointSortState(Enum.SortDirection.Descending, 3))
 		store:flush()
 
 		local folder = Instance.new("Folder")
@@ -59,18 +56,15 @@ return function()
 		local breakpointsTable = folder:FindFirstChild("BreakpointsTable",true)
 		local treeTable = breakpointsTable:FindFirstChild("TablePane"):FindFirstChild("BreakpointsTable")
 		local list = treeTable.Contents.List.Child.Scroller
-		
+
 		expect(list:FindFirstChild("1", false)).to.be.ok()
-		expect(list["1"].Row[5].Left.Text.Contents.TextBox.Text).to.equal("varNum10 == 0")
-		expect(list["1"].Row[6].Left.Text.Contents.TextBox.Text).to.equal("varNum10")
+		expect(list["1"].Row[3].Left.Text.Text).to.equal("8")
 
 		expect(list:FindFirstChild("2", false)).to.be.ok()
-		expect(list["2"].Row[5].Left.Text.Contents.TextBox.Text).to.equal("varNum8 == 0")
-		expect(list["2"].Row[6].Left.Text.Contents.TextBox.Text).to.equal("varNum8")
+		expect(list["2"].Row[3].Left.Text.Text).to.equal("9")
 
 		expect(list:FindFirstChild("3", false)).to.be.ok()
-		expect(list["3"].Row[5].Left.Text.Contents.TextBox.Text).to.equal("varNum9 == 0")
-		expect(list["3"].Row[6].Left.Text.Contents.TextBox.Text).to.equal("varNum9")
+		expect(list["3"].Row[3].Left.Text.Text).to.equal("10")
 
 		expect(list:FindFirstChild("4", false)).to.equal(nil)
 
@@ -98,7 +92,7 @@ return function()
 		local folder = Instance.new("Folder")
 		local folderInstance = Roact.mount(breakpointsTableElement.getChildrenWithMockContext(), folder)
 		local store = breakpointsTableElement.getStore()
-		store:dispatch(SetBreakpointSortState(Enum.SortDirection.Descending, 5))
+		store:dispatch(SetBreakpointSortState(Enum.SortDirection.Descending, 3))
 		store:flush()
 		
 		local breakpointsTable = folder:FindFirstChild("BreakpointsTable",true)
@@ -106,16 +100,13 @@ return function()
 		local list = treeTable.Contents.List.Child.Scroller
 	
 		expect(list:FindFirstChild("1", false)).to.be.ok()
-		expect(list["1"].Row[5].Left.Text.Contents.TextBox.Text).to.equal("varNum10 == 0")
-		expect(list["1"].Row[6].Left.Text.Contents.TextBox.Text).to.equal("varNum10")
+		expect(list["1"].Row[3].Left.Text.Text).to.equal("8")
 
 		expect(list:FindFirstChild("2", false)).to.be.ok()
-		expect(list["2"].Row[5].Left.Text.Contents.TextBox.Text).to.equal("varNum8 == 0")
-		expect(list["2"].Row[6].Left.Text.Contents.TextBox.Text).to.equal("varNum8")
+		expect(list["2"].Row[3].Left.Text.Text).to.equal("9")
 
 		expect(list:FindFirstChild("3", false)).to.be.ok()
-		expect(list["3"].Row[5].Left.Text.Contents.TextBox.Text).to.equal("varNum9 == 0")
-		expect(list["3"].Row[6].Left.Text.Contents.TextBox.Text).to.equal("varNum9")
+		expect(list["3"].Row[3].Left.Text.Text).to.equal("10")
 
 		expect(list:FindFirstChild("4", false)).to.equal(nil)
 

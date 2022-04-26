@@ -7,7 +7,6 @@
 local ContentProvider = game:GetService("ContentProvider")
 
 local FFlagLuaFixEconomyCreatorStatsUrl = game:DefineFastFlag("LuaFixEconomyCreatorStatsUrl", false)
-local FFlagLuaAppBaseUrlUseHttps = game:DefineFastFlag("LuaAppBaseUrlUseHttps", false)
 
 -- helper functions
 local function parseBaseUrlInformation()
@@ -100,7 +99,7 @@ end
 local Url = {
 	DOMAIN = _baseDomain,
 	PREFIX = _basePrefix,
-	BASE_URL = if FFlagLuaAppBaseUrlUseHttps then _baseUrlSecure else _baseUrl,
+	BASE_URL = _baseUrlSecure,
 	BASE_URL_SECURE = _baseUrlSecure,
 	API_URL = _baseApiUrl,
 	APIS_URL = _baseApisUrl,

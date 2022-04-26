@@ -33,6 +33,8 @@ local SetIKMode = require(Plugin.Src.Actions.SetIKMode)
 local SetShowTree = require(Plugin.Src.Actions.SetShowTree)
 local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+
 local IKController = Roact.PureComponent:extend("IKController")
 
 local IK_BUTTON_WIDTH = 40
@@ -81,7 +83,11 @@ function IKController:init()
 	end
 
 	self.makeChains = function()
-		local selectedTrack = self.getLastSelectedTrack()
+		local selectedPath = self.getLastSelectedTrack()
+		local selectedTrack = if GetFFlagCurveEditor()
+			then (selectedPath and selectedPath[1] or nil)
+			else selectedPath
+
 		local parts, motorMap = RigUtils.getRigInfo(self.props.RootInstance)
 		local chain = {}
 

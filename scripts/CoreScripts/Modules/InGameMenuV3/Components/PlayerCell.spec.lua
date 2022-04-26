@@ -24,15 +24,14 @@ return function()
 
 	local function getMountableTreeAndStore(props)
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = Rodux.Store.new(reducer)
+			store = Rodux.Store.new(reducer),
 		}, {
 			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 				style = appStyle,
 			}, {
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
-				}, props or {})
-
+				}, props or {}),
 			}),
 		})
 		return element
@@ -52,7 +51,7 @@ return function()
 				onActivated = function()
 					print("clicked")
 				end,
-			})
+			}),
 		})
 
 		local instance = Roact.mount(element)
@@ -60,7 +59,6 @@ return function()
 	end)
 
 	it("should always create and display username and displayname", function()
-
 		local PLAYER1_USERNAME = "TheGamer101"
 		local PLAYER1_DISPLAYNAME = "TheGamer101"
 		local PLAYER2_USERNAME = "mcfly1985"
@@ -84,18 +82,18 @@ return function()
 				isSelected = false,
 				LayoutOrder = 1,
 				Visible = true,
-			})
+			}),
 		})
 
-		local instance = Instance.new("Frame");
+		local instance = Instance.new("Frame")
 		local players = Roact.mount(element, instance)
 
 		local validatePlayer = function(playerName, userName, displayName)
-			local label = instance:FindFirstChild(playerName)
+			local label = instance:FindFirstChild(playerName, true)
 			expect(label).never.to.equal(nil)
 
-			local displayNameLabel = label:FindFirstChild("DisplayNameLabel")
-			local usernameLabel = label:FindFirstChild("UsernameLabel")
+			local displayNameLabel = label:FindFirstChild("DisplayNameLabel", true)
+			local usernameLabel = label:FindFirstChild("UsernameLabel", true)
 			expect(displayNameLabel).never.to.equal(nil)
 			expect(usernameLabel).never.to.equal(nil)
 			expect(usernameLabel.Visible).to.equal(true)
@@ -163,14 +161,14 @@ return function()
 				isSelected = false,
 				LayoutOrder = 1,
 				Visible = true,
-			})
+			}),
 		})
 
-		local instance = Instance.new("Frame");
+		local instance = Instance.new("Frame")
 		local players = Roact.mount(element, instance)
 
 		local validatePlayer = function(playerName, expectedOnlineStatus)
-			local cell = instance:FindFirstChild(playerName)
+			local cell = instance:FindFirstChild(playerName, true)
 			local onlinePresenseIndicator = cell:FindFirstChild("OnlineIndicator", true)
 			if expectedOnlineStatus then
 				expect(onlinePresenseIndicator).never.to.equal(nil)

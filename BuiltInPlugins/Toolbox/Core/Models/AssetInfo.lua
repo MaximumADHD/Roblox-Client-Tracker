@@ -1,6 +1,15 @@
 --!strict
 local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 
+export type AudioDetails = {
+	Type: string?,
+	Artist: string?,
+	MusicAlbum: string?,
+	MusicGenre: string?,
+	SoundEffectCategory: string?,
+	SoundEffectSubcategory: string?,
+}
+
 export type AssetInfoDetails = {
 	Id: number, -- the asset id
 	Name: string, -- the asset name
@@ -12,6 +21,7 @@ export type AssetInfoDetails = {
 	Created: string?, -- the date in which the asset was created
 	Updated: string?, -- the date in which the asset was updated
 	HasScripts: boolean, -- whether or not the asset has scripts
+	AudioDetails: AudioDetails?, -- Audio metadata
 }
 
 export type NewAssetInfoDetails = {
@@ -21,6 +31,7 @@ export type NewAssetInfoDetails = {
 	AssetGenres: any, -- a list of genres the asset belongs to
 	Description: string, -- the asset description
 	Status: any,
+	AudioDetails: nil,
 }
 
 export type AssetInfoContext = {

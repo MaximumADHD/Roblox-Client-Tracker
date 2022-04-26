@@ -1,9 +1,11 @@
 local Plugin = script.parent.parent.parent
 
+local FFlagRemoveUILibraryDeepJoin = game:GetFastFlag("RemoveUILibraryDeepJoin")
+
 local UILibrary = require(Plugin.Packages.UILibrary)
 local StudioTheme = UILibrary.Studio.Theme
 local StudioStyle = UILibrary.Studio.Style
-local deepJoin = require(Plugin.Src.Util.deepJoin)
+local deepJoin = if FFlagRemoveUILibraryDeepJoin then require(Plugin.Packages.Framework).Util.deepJoin else require(Plugin.Src.Util.deepJoin)
 
 local Theme = {}
 

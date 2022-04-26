@@ -23,13 +23,16 @@ local numberWithCommas = require(Page.Util.numberWithCommas)
 
 local DevSubListItemText = require(script.Parent.DevSubListItemText)
 
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local FrameworkUtil = require(Plugin.Packages.Framework).Util
+local FrameworkUtil = Framework.Util
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FitTextLabel = FrameworkUtil.FitFrame.FitTextLabel
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
-local UI = require(Plugin.Packages.Framework).UI
+local UI = Framework.UI
 local HoverArea = UI.HoverArea
 
 local DeveloperSubscriptionListItem = Roact.Component:extend("DeveloperSubscriptionListItem")
@@ -45,7 +48,7 @@ function DeveloperSubscriptionListItem:render()
 
 	local onEditButtonActivated = self.props.OnEditButtonActivated
 
-	local theme = self.props.Theme:get("Plugin")
+	local theme = THEME_REFACTOR and self.props.Stylizer or self.props.Theme:get("Plugin")
 	local localization = self.props.Localization
 
 	local layoutIndex = LayoutOrderIterator.new()
@@ -146,7 +149,8 @@ end
 
 
 DeveloperSubscriptionListItem = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Localization = ContextServices.Localization,
 })(DeveloperSubscriptionListItem)
 

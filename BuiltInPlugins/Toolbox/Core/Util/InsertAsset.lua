@@ -11,8 +11,6 @@ local Category = require(Plugin.Core.Types.Category)
 
 local webKeys = require(Plugin.Core.Util.Permissions.Constants).webKeys
 
-local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
-local FFlagToolboxEnablePostDropScriptConfirmation = game:GetFastFlag("ToolboxEnablePostDropScriptConfirmation")
 local FFlagToolboxGrantUniverseAudioPermissions = game:GetFastFlag("ToolboxGrantUniverseAudioPermissions")
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 
@@ -175,16 +173,11 @@ local function sanitizeMeshAsset(assetId, instances, localization)
 end
 
 local function doScriptConfirmationIfContainsScripts(assetName, instances, insertToolPromise)
-	if not FFlagToolboxEnableScriptConfirmation then
+	if not instances then
 		return
 	end
-	if FFlagToolboxEnablePostDropScriptConfirmation then
-		if not instances then
-			return
-		end
-		if not insertToolPromise then
-			return
-		end
+	if not insertToolPromise then
+		return
 	end
 
 	-- Note: instance:IsA("Script") covers both LocalScript and Script types.
@@ -464,15 +457,13 @@ function InsertAsset.tryInsert(options, insertToolPromise, assetWasDragged)
 		if not RIBBON_DRAGGER_TOOLS[selectedRibbonTool] then
 			options.plugin:SelectRibbonTool(Enum.RibbonTool.Select, UDim2.new())
 		end
-		if FFlagToolboxEnablePostDropScriptConfirmation then
-			activeDraggingState = {
-				assetName = options.assetName,
-				assetId = if FFlagToolboxEnableAudioGrantDialog then options.assetId else nil,
-				assetTypeId = if FFlagToolboxEnableAudioGrantDialog then options.assetTypeId else nil,
-				localization = if FFlagToolboxEnableAudioGrantDialog then InsertAsset._localization else nil,
-				insertToolPromise = insertToolPromise,
-			}
-		end
+		activeDraggingState = {
+			assetName = options.assetName,
+			assetId = if FFlagToolboxEnableAudioGrantDialog then options.assetId else nil,
+			assetTypeId = if FFlagToolboxEnableAudioGrantDialog then options.assetTypeId else nil,
+			localization = if FFlagToolboxEnableAudioGrantDialog then InsertAsset._localization else nil,
+			insertToolPromise = insertToolPromise,
+		}
 		InsertAsset.doDragInsertAsset(options)
 	else
 		local value = InsertAsset.doInsertAsset(options, insertToolPromise)
@@ -584,41 +575,37 @@ function InsertAsset.registerProcessDragHandler()
 			return sanitizeMeshAsset(assetId, instances, InsertAsset._localization)
 		end
 
-		if FFlagToolboxEnablePostDropScriptConfirmation then
-			-- We'll need this to scan the remaining instances for scripts for the warning dialog
-			activeDraggingState.instances = instances
-		end
+		-- We'll need this to scan the remaining instances for scripts for the warning dialog
+		activeDraggingState.instances = instances
 		return instances
 	end
 
-	if FFlagToolboxEnablePostDropScriptConfirmation then
-		-- This fires when the drag within the 3D Model finishes
-		ToolboxService.ProcessAssetInsertionDrop = function()
-			-- We can't yield within the drop, so spawn this work to pick it up after the drop event finishes.
-			spawn(function()
-				if activeDraggingState then
-					if FFlagToolboxEnableAudioGrantDialog then
-						if activeDraggingState.assetTypeId == Enum.AssetType.Audio.Value then
-							doPermissionGrantDialogForAsset(
-								activeDraggingState.assetName,
-								activeDraggingState.assetId,
-								activeDraggingState.assetTypeId,
-								activeDraggingState.insertToolPromise,
-								activeDraggingState.localization
-							)
-						end
+	-- This fires when the drag within the 3D Model finishes
+	ToolboxService.ProcessAssetInsertionDrop = function()
+		-- We can't yield within the drop, so spawn this work to pick it up after the drop event finishes.
+		spawn(function()
+			if activeDraggingState then
+				if FFlagToolboxEnableAudioGrantDialog then
+					if activeDraggingState.assetTypeId == Enum.AssetType.Audio.Value then
+						doPermissionGrantDialogForAsset(
+							activeDraggingState.assetName,
+							activeDraggingState.assetId,
+							activeDraggingState.assetTypeId,
+							activeDraggingState.insertToolPromise,
+							activeDraggingState.localization
+						)
 					end
-
-					-- Popup the script warning dialog if necessary
-					doScriptConfirmationIfContainsScripts(
-						activeDraggingState.assetName,
-						activeDraggingState.instances,
-						activeDraggingState.insertToolPromise
-					)
-					activeDraggingState = nil
 				end
-			end)
-		end
+
+				-- Popup the script warning dialog if necessary
+				doScriptConfirmationIfContainsScripts(
+					activeDraggingState.assetName,
+					activeDraggingState.instances,
+					activeDraggingState.insertToolPromise
+				)
+				activeDraggingState = nil
+			end
+		end)
 	end
 end
 

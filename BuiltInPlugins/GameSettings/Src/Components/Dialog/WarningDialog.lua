@@ -13,6 +13,8 @@ local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
@@ -27,7 +29,7 @@ local WarningDialog = Roact.PureComponent:extend("WarningDialog")
 function WarningDialog:render()
 	local props = self.props
 
-	local theme = props.Theme:get("Plugin")
+	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
 
 	local buttons = props.Buttons
 	local header = props.Header
@@ -83,7 +85,8 @@ end
 
 
 WarningDialog = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(WarningDialog)
 
 

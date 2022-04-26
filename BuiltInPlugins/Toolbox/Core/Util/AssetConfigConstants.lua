@@ -1,4 +1,3 @@
-local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
 local FFlagUGCLCAssetTypes2 = game:GetFastFlag("UGCLCAssetTypes2")
 local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
 
@@ -200,12 +199,10 @@ AssetConfigConstants.MULTIPART_FORM_BOUNDARY = "EA0A21C3-8388-4038-9BD5-92C8B1B7
 
 AssetConfigConstants.OVERRIDE_ASSET_ID = "OverrideAssetId"
 
-if FFlagToolboxRedirectToLibraryAbuseReport then
-	AssetConfigConstants.LIBRARY_REPORT_ASSET_TYPES = {
-		[Enum.AssetType.Model] = true,
-		[Enum.AssetType.Plugin] = true,
-	}
-end
+AssetConfigConstants.LIBRARY_REPORT_ASSET_TYPES = {
+	[Enum.AssetType.Model] = true,
+	[Enum.AssetType.Plugin] = true,
+}
 
 if FFlagToolboxPrivatePublicAudioAssetConfig3 then
 	AssetConfigConstants.SHARING_KEYS = {

@@ -1,7 +1,10 @@
+--!strict
 local Plugin = script.Parent.Parent.Parent
 local Packages = Plugin.Packages
 local Framework = require(Packages.Framework)
 local Dash = Framework.Dash
+local LuauPolyfill = require(Packages.LuauPolyfill)
+local Set = LuauPolyfill.Set
 
 local Category = require(Plugin.Core.Types.Category)
 local Url = require(Plugin.Libs.Http.Url)
@@ -125,6 +128,14 @@ function Urls.constructGetAssetsUrl(category, searchTerm, pageSize, page, sortTy
 		})
 end
 
+local MIGRATED_ASSET_TYPES
+if game:GetFastFlag("ToolboxAudioDiscovery") then
+	MIGRATED_ASSET_TYPES = Set.new({ Category.MUSIC.name, Category.SOUND_EFFECTS.name, Category.UNKNOWN_AUDIO.name })
+	function Urls.usesMarketplaceRoute(category: string): boolean
+		return MIGRATED_ASSET_TYPES:has(category)
+	end
+end
+
 function Urls.constructGetToolboxItemsUrl(
 	-- remove string from args union when removing FFlagToolboxAssetCategorization4
 	args: string | {
@@ -191,6 +202,8 @@ function Urls.constructGetToolboxItemsUrl(
 	if FFlagToolboxAssetCategorization4 and type(args) ~= "string" and args.sectionName then
 		local apiName = Category.ToolboxAssetTypeToEngine[categoryData.assetType].Value
 		targetUrl = string.format("%s/home/%s/section/%s/assets", TOOLBOX_SERVICE_URL, apiName, args.sectionName)
+	elseif game:GetFastFlag("ToolboxAudioDiscovery") and Urls.usesMarketplaceRoute(categoryData.name) then
+		targetUrl = string.format("%s/marketplace/%d", TOOLBOX_SERVICE_URL, categoryData.assetType)
 	else
 		local apiName = Category.API_NAMES[categoryName]
 		local isCreationsTab = Category.getTabForCategoryName(categoryData.name) == Category.CREATIONS
@@ -368,7 +381,7 @@ function Urls.constructAssetGameAssetIdUrl(assetId, assetTypeId, isPackage, asse
 		})
 end
 
-function Urls.constructAssetThumbnailUrl(assetId, width, height)
+function Urls.constructAssetThumbnailUrl(assetId: number, width: number, height: number): string
 	return RBXTHUMB_BASE_URL:format("Asset", tonumber(assetId) or 0, width, height)
 end
 
@@ -384,7 +397,7 @@ function Urls.constructUserSearchUrl(searchTerm, numResults)
 		})
 end
 
-function Urls.constructUserThumbnailUrl(userId, width)
+function Urls.constructUserThumbnailUrl(userId: number, width: number?): string
 	-- The URL only accepts certain sizes for thumbnails. This includes 50, 75, 100, 150, 250, 420 etc.
 	width = width or DEFAULT_ASSET_SIZE
 

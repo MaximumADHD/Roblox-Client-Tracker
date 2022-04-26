@@ -57,14 +57,12 @@ return function()
 		expect(list["1"].Row[1].Left.Text.Text).to.equal(state.Callstack.stateTokenToCallstackVars[currDST].threadList[1].displayString)
 		
 		expect(list["2"].Row[2].Left.Text.Text).to.equal("1")
-		expect(list["2"].Row[3].Left.Text.Text).to.equal("C")
-		expect(list["2"].Row[5].Left.Text.Text).to.equal("TestFrame1")
-		expect(list["2"].Row[6].Left.Text.Text).to.equal("10")
+		expect(list["2"].Row[4].Left.Text.Text).to.equal("TestFrame1")
+		expect(list["2"].Row[5].Left.Text.Text).to.equal("10")
 		
 		expect(list["3"].Row[2].Left.Text.Text).to.equal("2")
-		expect(list["3"].Row[3].Left.Text.Text).to.equal("C")
-		expect(list["3"].Row[5].Left.Text.Text).to.equal("TestFrame2")
-		expect(list["3"].Row[6].Left.Text.Text).to.equal("20")
+		expect(list["3"].Row[4].Left.Text.Text).to.equal("TestFrame2")
+		expect(list["3"].Row[5].Left.Text.Text).to.equal("20")
 
 		Roact.unmount(folderInstance)
 	end)

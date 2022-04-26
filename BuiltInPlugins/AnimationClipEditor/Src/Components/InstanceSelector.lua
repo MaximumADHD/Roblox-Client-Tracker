@@ -26,6 +26,8 @@ local SignalsContext = require(Plugin.Src.Context.Signals)
 local SetSelectedTrackInstances = require(Plugin.Src.Actions.SetSelectedTrackInstances)
 local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+
 local InstanceSelector = Roact.PureComponent:extend("InstanceSelector")
 
 local function getModel(instance)
@@ -237,7 +239,7 @@ local function mapDispatchToProps(dispatch)
 		SetSelectedTrackInstances = function(tracks)
 			local trackNames = {}
 			for index, track in pairs(tracks) do
-				trackNames[index] = track.Name
+				trackNames[index] = if GetFFlagCurveEditor() then {track.Name} else track.Name
 			end
 			dispatch(SetSelectedTrackInstances(tracks))
 			dispatch(SetSelectedTracks(trackNames))

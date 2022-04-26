@@ -5,8 +5,8 @@ local Rodux = require(Plugin.Packages.Rodux)
 
 local View = require(Plugin.Src.Util.View)
 
-local Framework = Plugin.Packages.Framework
-local Util = require(Framework.Util)
+local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
 local deepJoin = Util.deepJoin
 
 local FFlagStudioAssetManagerAssetModeration = game:GetFastFlag("StudioAssetManagerAssetModeration")

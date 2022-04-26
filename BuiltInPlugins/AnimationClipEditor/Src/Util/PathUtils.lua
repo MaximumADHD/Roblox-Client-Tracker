@@ -6,8 +6,6 @@ local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local Constants = require(Plugin.Src.Util.Constants)
 
-local FFlagFixPathEvaluation = game:DefineFastFlag("ACEFixPathEvaluation", false)
-
 export type Path = { string }
 
 local PathUtils = {}
@@ -26,7 +24,7 @@ end
 -- This value typically is added to the track index to get a unique value for each
 -- component track
 function PathUtils.getPathValue(path)
-	local scale = FFlagFixPathEvaluation and Constants.COMPONENT_PATH_BASE_SCALE or 0.1
+	local scale = Constants.COMPONENT_PATH_BASE_SCALE
 
 	local value = 0
 	for _, pathPart in ipairs(path) do
@@ -34,7 +32,7 @@ function PathUtils.getPathValue(path)
 		-- Ignore path parts that are not found (if the path is absolute, and not relative to a track)
 		if componentPathValue then
 			value = value + scale * componentPathValue
-			scale = scale * (FFlagFixPathEvaluation and Constants.COMPONENT_PATH_BASE_SCALE or scale)
+			scale = scale * Constants.COMPONENT_PATH_BASE_SCALE
 		end
 	end
 	return value

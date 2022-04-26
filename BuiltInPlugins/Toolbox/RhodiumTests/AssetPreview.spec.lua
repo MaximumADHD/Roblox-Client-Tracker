@@ -40,11 +40,11 @@ return function()
 	)
 	local AssetPreviewWindowPath = "game.CoreGui.ScreenGui.AssetPreview"
 	local VotePath = AssetPreviewWindowPath
-		.. ".Contents.Contents.Contents.ScrollingFrame.Contents.Scroller.VoteBar.Contents"
+		.. ".Contents.Contents.Contents.ScrollingFrame.Scroller.VoteBar.Contents"
 	local FavoritePath = AssetPreviewWindowPath
-		.. ".Contents.Contents.Contents.ScrollingFrame.Contents.Scroller.Favorites.Contents"
+		.. ".Contents.Contents.Contents.ScrollingFrame.Scroller.Favorites.Contents"
 	local BottomBarPath = AssetPreviewWindowPath .. ".Contents.Contents.Contents.ButtonArea.Contents"
-	local PreviewInfoPath = AssetPreviewWindowPath .. ".Contents.Contents.Contents.ScrollingFrame.Contents.Scroller"
+	local PreviewInfoPath = AssetPreviewWindowPath .. ".Contents.Contents.Contents.ScrollingFrame.Scroller"
 
 	--local JestRoblox = require(Plugin.Packages.Dev.JestRoblox)
 	--local expect = JestRoblox.Globals.expect

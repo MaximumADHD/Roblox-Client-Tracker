@@ -18,11 +18,14 @@ local input = require(VirtualCursorFolder:WaitForChild("Input"))
 local interface = require(VirtualCursorFolder:WaitForChild("Interface"))
 local onRenderStep = require(VirtualCursorFolder:WaitForChild("OnRenderStep"))
 
+local FFlagVirtualCursorReEnableAfterOtherInput = game:DefineFastFlag("VirtualCursorReEnableAfterOtherInput", false)
+
 -- There should only be one instance of virtual cursor.
 -- This will allow it to stay a class, while also still being able to rely on guiservice enabling/disabling
 local VirtualCursorSingleton = nil
 local lastInputTypeChangedEventConnection = nil
 local menuOpenedEventConnection = nil
+local wasDisabledFromOtherInput = false
 
 local bindToRenderStepName = "VirtualCursorStepped"
 
@@ -38,12 +41,14 @@ local function enableVirtualCursor(position)
 	input:EnableInput()
 
 	RunService:BindToRenderStep(bindToRenderStepName, Enum.RenderPriority.Input.Value + 1, VirtualCursorSingleton.OnRenderStep)
-
-	lastInputTypeChangedEventConnection = UserInputService.LastInputTypeChanged:Connect(function(inputType)
-		if inputType ~= Enum.UserInputType.Gamepad1 and inputType ~= Enum.UserInputType.Focus then
-			GamepadService.GamepadCursorEnabled = false
-		end
-	end)
+	
+	if not FFlagVirtualCursorReEnableAfterOtherInput then
+		lastInputTypeChangedEventConnection = UserInputService.LastInputTypeChanged:Connect(function(inputType)
+			if inputType ~= Enum.UserInputType.Gamepad1 and inputType ~= Enum.UserInputType.Focus then
+				GamepadService.GamepadCursorEnabled = false
+			end
+		end)
+	end
 	menuOpenedEventConnection = GuiService.MenuOpened:Connect(function()
 		GamepadService.GamepadCursorEnabled = false
 	end)
@@ -51,8 +56,10 @@ end
 
 local function disableVirtualCursor()
 	-- disconnect events
-	lastInputTypeChangedEventConnection:Disconnect()
-	lastInputTypeChangedEventConnection = nil
+	if not FFlagVirtualCursorReEnableAfterOtherInput then
+		lastInputTypeChangedEventConnection:Disconnect()
+		lastInputTypeChangedEventConnection = nil
+	end
 
 	menuOpenedEventConnection:Disconnect()
 	menuOpenedEventConnection = nil
@@ -90,6 +97,18 @@ function VirtualCursor.new()
 
 	self.OnRenderStep = function(delta)
 		onRenderStep(self, delta)
+	end
+
+	if FFlagVirtualCursorReEnableAfterOtherInput then
+		lastInputTypeChangedEventConnection = UserInputService.LastInputTypeChanged:Connect(function(inputType)
+			if inputType ~= Enum.UserInputType.Gamepad1 and inputType ~= Enum.UserInputType.Focus and GamepadService.GamepadCursorEnabled then
+				GamepadService.GamepadCursorEnabled = false
+				wasDisabledFromOtherInput = true
+			elseif inputType == Enum.UserInputType.Gamepad1 and wasDisabledFromOtherInput then
+				GamepadService.GamepadCursorEnabled = true
+				wasDisabledFromOtherInput = false
+			end
+		end)
 	end
 
 	setmetatable(self, VirtualCursor)

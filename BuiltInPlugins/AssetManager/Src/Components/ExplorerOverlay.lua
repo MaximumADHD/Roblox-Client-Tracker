@@ -14,11 +14,13 @@ local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local Framework = Plugin.Packages.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local UI = require(Framework.UI)
+local UI = Framework.UI
 local Pane = UI.Pane
 local ShowOnTop = UI.ShowOnTop
 
@@ -35,7 +37,7 @@ local ExplorerOverlay = Roact.PureComponent:extend("ExplorerOverlay")
 
 function ExplorerOverlay:render()
     local props = self.props
-    local theme = props.Theme:get("Plugin")
+    local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
     local overlayTheme = theme.Overlay
 
     local dispatchSetScreen = props.dispatchSetScreen
@@ -110,7 +112,8 @@ function ExplorerOverlay:render()
 end
 
 ExplorerOverlay = withContext({
-    Theme = ContextServices.Theme,
+    Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
     Localization = ContextServices.Localization,
 })(ExplorerOverlay)
 

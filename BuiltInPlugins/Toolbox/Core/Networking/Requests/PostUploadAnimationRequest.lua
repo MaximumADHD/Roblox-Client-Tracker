@@ -7,7 +7,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Util = Plugin.Core.Util
 local DebugFlags = require(Util.DebugFlags)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
-local SerializeInstances_Deprecated = require(Util.SerializeInstances_Deprecated)
 local SerializeInstances = require(Util.SerializeInstances)
 local Analytics = require(Util.Analytics.Analytics)
 
@@ -16,8 +15,6 @@ local NetworkError = require(Actions.NetworkError)
 local SetCurrentScreen = require(Actions.SetCurrentScreen)
 local UploadResult = require(Actions.UploadResult)
 local SetAssetId = require(Actions.SetAssetId)
-
-local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread3")
 
 -- publishInfo is a table contains the following:
 -- assetId, number, defualt to 0 for new asset.
@@ -66,33 +63,19 @@ return function(publishInfo)
 			Analytics.incrementUploadAssetFailure(publishInfo.assetType)
 		end
 
-		if FFlagStudioSerializeInstancesOffUIThread then
-			return SerializeInstances(publishInfo.instance, services.StudioAssetService):andThen(
-				function(fileDataString)
-					return publishInfo.networkInterface
-						:postUploadAnimation(
-							publishInfo.assetId,
-							publishInfo.name,
-							publishInfo.description,
-							publishInfo.groupId,
-							fileDataString
-						)
-						:andThen(onSuccess, onFail)
-				end,
-				onSerializeFail
-			)
-		else
-			local fileDataString = SerializeInstances_Deprecated(publishInfo.instance)
-
-			return publishInfo.networkInterface
-				:postUploadAnimation(
-					publishInfo.assetId,
-					publishInfo.name,
-					publishInfo.description,
-					publishInfo.groupId,
-					fileDataString
-				)
-				:andThen(onSuccess, onFail)
-		end
+		return SerializeInstances(publishInfo.instance, services.StudioAssetService):andThen(
+			function(fileDataString)
+				return publishInfo.networkInterface
+					:postUploadAnimation(
+						publishInfo.assetId,
+						publishInfo.name,
+						publishInfo.description,
+						publishInfo.groupId,
+						fileDataString
+					)
+					:andThen(onSuccess, onFail)
+			end,
+			onSerializeFail
+		)
 	end
 end

@@ -13,16 +13,17 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
-local Framework = Plugin.Packages.Framework
+local Framework = require(Plugin.Packages.Framework)
 
-local ContextServices = require(Framework.ContextServices)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local UI = require(Framework.UI)
+local UI = Framework.UI
 local Button = UI.Button
 local HoverArea = UI.HoverArea
 
-local Util = require(Framework.Util)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local LayoutOrderIterator = Util.LayoutOrderIterator
 
 local UILibrary = require(Plugin.Packages.UILibrary)
@@ -186,7 +187,7 @@ end
 
 function MainView:render()
     local props = self.props
-    local theme = props.Theme:get("Plugin")
+    local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
 
     local localization = props.Localization
 
@@ -316,7 +317,8 @@ end
 
 MainView = withContext({
     API = ContextServices.API,
-    Theme = ContextServices.Theme,
+    Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+    Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
     Localization = ContextServices.Localization,
 })(MainView)
 

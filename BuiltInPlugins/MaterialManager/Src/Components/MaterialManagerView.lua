@@ -3,6 +3,9 @@ local _Types = require(Plugin.Src.Types)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
+local withAbsoluteSize = Framework.Wrappers.withAbsoluteSize
+
+local join = Framework.Dash.join
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -28,8 +31,10 @@ export type Props = {
 }
 
 type _Props = Props & {
+	AbsoluteSize : Vector2,
 	Material : _Types.Material,
 	Stylizer : any,
+	WrapperProps : any,
 }
 
 type _Style = {
@@ -47,7 +52,7 @@ local MaterialManagerView = Roact.PureComponent:extend("MaterialManagerView")
 
 function MaterialManagerView:init()
 	self.state = {
-		sizes = {UDim.new(0, 300), UDim.new(1, -300)},
+		sideBarSize = UDim.new(0, 300),
 	}
 end
 
@@ -58,7 +63,18 @@ function MaterialManagerView:render()
 	local material : _Types.Material = props.Material
 	local content = {}
 
+	local sideBarSize = self.state.sideBarSize
+	local canHideGrid = false
+	if props.AbsoluteSize.X - self.state.sideBarSize.Offset < 300 then
+		sideBarSize = UDim.new(0, props.AbsoluteSize.X - 300)
+		canHideGrid = true
+	end
+	local sizes = {sideBarSize,UDim.new(0, props.AbsoluteSize.X - sideBarSize.Offset)}
+
 	if FFlagDevFrameworkSplitPane then
+		local showMaterialGrid = not material or not canHideGrid
+		local showMaterialDetails = material
+
 		content = {
 			TopBar = Roact.createElement(TopBar, {
 				OpenPrompt = props.OpenPrompt,
@@ -67,16 +83,15 @@ function MaterialManagerView:render()
 			}),
 			Pane = Roact.createElement(SplitPane, {
 				ClampSize = true,
-				Sizes = self.state.sizes,
+				Sizes = sizes,
 				Layout = Enum.FillDirection.Horizontal,
-				MinSizes = {UDim.new(0, 0), UDim.new(0.5, 0)},
+				MinSizes = {UDim.new(0, 100), UDim.new(0, 300)},
 				OnSizesChange = function(sizes)
 					self:setState({
-						sizes = sizes,
+						sideBarSize = sizes[1],
 					})
 				end,
 				Size = style.MainViewSize,
-				UseScale = true,
 				BackgroundColor3 = Color3.new(0, 0, 255),		
 			}, {
 				Roact.createElement(SideBar, {
@@ -88,15 +103,17 @@ function MaterialManagerView:render()
 					Layout = Enum.FillDirection.Horizontal,
 					LayoutOrder = 2,
 				}, {
-					MaterialGrid = Roact.createElement(MaterialGrid, {
-						LayoutOrder = 1,
-						Size = if material then style.MaterialGridSize else UDim2.fromScale(1, 1),
-					}),
-					MaterialDetails = if material then
+					MaterialGrid = if showMaterialGrid then
+						Roact.createElement(MaterialGrid, {
+							LayoutOrder = 1,
+							Size = if showMaterialDetails then style.MaterialGridSize else UDim2.fromScale(1, 1),
+						})
+						else nil,
+					MaterialDetails = if showMaterialDetails then
 						Roact.createElement(MaterialDetails, {
 							LayoutOrder = 2,
 							OpenPrompt = props.OpenPrompt,
-							Size = style.MaterialDetailsSize,
+							Size = if showMaterialGrid then style.MaterialDetailsSize else UDim2.fromScale(1, 1),
 						})
 						else nil,
 				})
@@ -139,13 +156,13 @@ function MaterialManagerView:render()
 		}
 	end
 
-	return Roact.createElement(Pane, {
+	return Roact.createElement(Pane, join({
 		Style = "Box",
 		Layout = Enum.FillDirection.Vertical,
 		VerticalAlignment = Enum.VerticalAlignment.Top,
 		Size = UDim2.fromScale(1, 1),
 		BackgroundColor = Color3.new(0, 255, 0),
-	}, content)
+	}, props.WrapperProps), content)
 end
 
 MaterialManagerView = withContext({
@@ -158,4 +175,4 @@ return RoactRodux.connect(
 			Material = state.MaterialBrowserReducer.Material,
 		}
 	end
-)(MaterialManagerView)
+)(withAbsoluteSize(MaterialManagerView))

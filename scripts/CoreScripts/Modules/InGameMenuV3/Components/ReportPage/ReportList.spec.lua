@@ -26,13 +26,14 @@ return function()
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
 	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 
-
 	local appStyle = {
 		Theme = AppDarkTheme,
 		Font = AppFont,
 	}
 
-	local FocusHandlerContextProvider = require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
+	local FocusHandlerContextProvider = require(
+		script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider
+	)
 	local ReportList = require(script.Parent.ReportList)
 
 	local function getMountableTreeAndStore(props)
@@ -40,31 +41,34 @@ return function()
 			currentZone = 1,
 		})
 
-		local reportList = Roact.createElement(ReportList, Cryo.Dictionary.join(props or {}, {
-			placeName = "Crossroads",
-			players = {
-				{
-					Id = 2231221,
-					Username = "TheGamer101"
+		local reportList = Roact.createElement(
+			ReportList,
+			Cryo.Dictionary.join(props or {}, {
+				placeName = "Crossroads",
+				players = {
+					{
+						Id = 2231221,
+						Username = "TheGamer101",
+					},
+					{
+						Id = 1,
+						Username = "Roblox",
+					},
+					{
+						Id = 2,
+						Username = "Jonah",
+					},
+					{
+						Id = 3,
+						Username = "Simeon",
+					},
+					{
+						Id = 4,
+						Username = "Elias",
+					},
 				},
-				{
-					Id = 1,
-					Username = "Roblox",
-				},
-				{
-					Id = 2,
-					Username = "Jonah",
-				},
-				{
-					Id = 3,
-					Username = "Simeon",
-				},
-				{
-					Id = 4,
-					Username = "Elias",
-				}
-			},
-		}))
+			})
+		)
 
 		return Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
@@ -75,9 +79,13 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
-						ReportList = reportList,
-					}) or nil,
+					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(
+						FocusHandlerContextProvider,
+						{},
+						{
+							ReportList = reportList,
+						}
+					) or nil,
 					ReportList = not GetFFlagIGMGamepadSelectionHistory() and reportList or nil,
 				}),
 			}),
@@ -97,10 +105,11 @@ return function()
 			jestExpect(Players.LocalPlayer.PlayerGui:FindFirstChild("PlayerIcon", true)).toBeDefined()
 			jestExpect(Players.LocalPlayer.PlayerGui:FindFirstChild("ContentsScrollingFrame", true)).toBeDefined()
 
-
 			local count = 0
-			for _, inst in pairs(Players.LocalPlayer.PlayerGui:FindFirstChild("ContentsScrollingFrame", true)[1]:GetChildren()) do
-				if inst.ClassName == "TextButton" then
+			for _, inst in
+				pairs(Players.LocalPlayer.PlayerGui:FindFirstChild("ContentsScrollingFrame", true)[1]:GetChildren())
+			do
+				if inst.ClassName == "ImageButton" or inst.ClassName == "TextButton" then
 					count += 1
 				end
 			end

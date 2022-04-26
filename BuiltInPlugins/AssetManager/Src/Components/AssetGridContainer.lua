@@ -11,13 +11,15 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
-local Framework = Plugin.Packages.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local Util = require(Framework.Util)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local StyleModifier = Util.StyleModifier
+local ui = Framework.Style.ComponentSymbols
 
-local UI = require(Framework.UI)
+local UI = Framework.UI
 local Button = UI.Button
 local HoverArea = UI.HoverArea
 local LoadingIndicator = UI.LoadingIndicator
@@ -179,7 +181,7 @@ function AssetGridContainer:createTiles(apiImpl, localization, theme,
     local numberAssets = 0
     local assetsToDisplay = {
         GridLayout = Roact.createElement("UIGridLayout", {
-            CellSize = theme.Tile.Default.Size,
+            CellSize = if THEME_REFACTOR then theme[ui.Tile].Size else theme.Tile.Default.Size,
             CellPadding = theme.AssetGridContainer.CellPadding,
             SortOrder = Enum.SortOrder.LayoutOrder,
 
@@ -311,7 +313,7 @@ end
 function AssetGridContainer:render()
     local props = self.props
     local apiImpl = props.API:get()
-    local theme = props.Theme:get("Plugin")
+    local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
     local localization = props.Localization
 
     local size = props.Size
@@ -443,7 +445,8 @@ AssetGridContainer = withContext({
     API = ContextServices.API,
     Localization = ContextServices.Localization,
     Plugin = ContextServices.Plugin,
-    Theme = ContextServices.Theme,
+    Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+    Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(AssetGridContainer)
 
 local function mapStateToProps(state, props)

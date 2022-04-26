@@ -1,6 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
-local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 
 local InsertToolPromise = {}
 InsertToolPromise.__index = InsertToolPromise
@@ -62,10 +61,6 @@ function InsertToolPromise:promptPermissionsGrantAndWait(message)
 end
 
 function InsertToolPromise:promptScriptWarningAndWait(message)
-	if not FFlagToolboxEnableScriptConfirmation then
-		return
-	end
-
 	self._waiting = true
 	if self._onScriptWarningCallback(message) then
 		self._bindable.Event:Wait()

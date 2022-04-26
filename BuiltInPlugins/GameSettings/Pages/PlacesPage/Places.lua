@@ -17,6 +17,8 @@
 ]]
 local Plugin = script.Parent.Parent.Parent
 
+local FFlagRemoveUILibraryDeepJoin = game:GetFastFlag("RemoveUILibraryDeepJoin")
+
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 local GetEditKeyName = KeyProvider.getEditKeyName
 local GetVersionHistoryKeyName = KeyProvider.getVersionHistoryKeyName
@@ -27,6 +29,8 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -42,7 +46,7 @@ local FitFrameOnAxis = FrameworkUtil.FitFrame.FitFrameOnAxis
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local GetTextSize = UILibrary.Util.GetTextSize
-local deepJoin = UILibrary.Util.deepJoin
+local deepJoin = if FFlagRemoveUILibraryDeepJoin then FrameworkUtil.deepJoin else UILibrary.Util.deepJoin
 local TitledFrame = UILibrary.Component.TitledFrame
 local RoundTextBox = UILibrary.Component.RoundTextBox
 
@@ -284,7 +288,7 @@ local function createPlaceTableData(places)
 end
 
 local function displayPlaceListPage(props, localization)
-	local theme = props.Theme:get("Plugin")
+	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
 
 	local layoutIndex = LayoutOrderIterator.new()
 
@@ -344,7 +348,7 @@ local function displayPlaceListPage(props, localization)
 end
 
 local function displayEditPlacePage(props, localization)
-	local theme = props.Theme:get("Plugin")
+	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
 
 	local layoutIndex = LayoutOrderIterator.new()
 
@@ -584,7 +588,8 @@ end
 
 Places = withContext({
 	Localization = ContextServices.Localization,
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(Places)
 
 

@@ -8,7 +8,6 @@ local PermissionsConstants = require(Plugin.Core.Components.AssetConfiguration.P
 local Category = require(Plugin.Core.Types.Category)
 local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
 
-local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
 
 local function nameForValueInEnum(enum, value)
@@ -81,7 +80,7 @@ return function(assetData, localizedContent, plugin, tryOpenAssetConfig, assetAn
 			ViewInBrowser = true,
 		}
 
-		local creatorId = FFlagToolboxHideReportFlagForCreator and (assetData.Creator and assetData.Creator.Id) or nil
+		local creatorId = (assetData.Creator and assetData.Creator.Id) or nil
 
 		local currentCategory
 		if FFlagToolboxUsePageInfoInsteadOfAssetContext then

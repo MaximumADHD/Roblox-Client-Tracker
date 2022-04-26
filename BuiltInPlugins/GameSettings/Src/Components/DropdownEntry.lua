@@ -15,10 +15,15 @@ local DEFAULT_SIZE = UDim2.new(0, 220, 0, 38)
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local Cryo = require(Plugin.Packages.Cryo)
 
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
+
+local FFlagEnableGameSettingsStylizer = game:GetFastFlag("EnableGameSettingsStylizer")
 
 local DropdownEntry = Roact.PureComponent:extend("DropdownEntry")
 
@@ -45,7 +50,7 @@ end
 
 function DropdownEntry:render()
 	local props = self.props
-	local theme = props.Theme:get("Plugin")
+	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
 
 	local title = self.props.Title or self.props.Id
 	local layoutOrder = self.props.LayoutOrder
@@ -56,7 +61,7 @@ function DropdownEntry:render()
 	local currentFont = current and Enum.Font.SourceSansSemibold or Enum.Font.SourceSans
 
 	local highlightVisible
-	if theme.isDarkerTheme then
+	if FFlagEnableGameSettingsStylizer or theme.isDarkerTheme then
 		highlightVisible = current
 	else
 		highlightVisible = hover
@@ -87,7 +92,7 @@ function DropdownEntry:render()
 			Highlight = Roact.createElement("Frame", {
 				Visible = highlightVisible,
 				ZIndex = 5,
-				Size = theme.isDarkerTheme and UDim2.new(1, 0, 1, 0) or UDim2.new(0, 4, 1, 0),
+				Size = if FFlagEnableGameSettingsStylizer or theme.isDarkerTheme then UDim2.new(1, 0, 1, 0) else UDim2.new(0, 4, 1, 0),
 				BackgroundTransparency = 0,
 				BorderSizePixel = 0,
 				BackgroundColor3 = theme.dropDownEntry.highlight,
@@ -109,7 +114,8 @@ end
 
 
 DropdownEntry = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Mouse = ContextServices.Mouse,
 })(DropdownEntry)
 

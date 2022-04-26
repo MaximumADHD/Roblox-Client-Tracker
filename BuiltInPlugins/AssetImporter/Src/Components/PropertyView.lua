@@ -28,15 +28,13 @@ local VectorProperty = require(Properties.VectorProperty)
 
 local SetInstanceMap = require(Plugin.Src.Actions.SetInstanceMap)
 
-local FFlagAssetImporterPbrSupport = game:GetFastFlag("AssetImporterPbrSupport")
-
 local ELEMENT_CLASSES = {
 	["boolean"] = BooleanProperty,
 	["userdata"] = EnumProperty,
 	["number"] = NumberProperty,
 	["string"] = StringProperty,
 	["vector"] = VectorProperty,
-	["path"] = if FFlagAssetImporterPbrSupport then PathProperty else StringProperty,
+	["path"] = PathProperty,
 }
 
 local function GetPropertyComponent(instance, valueType)

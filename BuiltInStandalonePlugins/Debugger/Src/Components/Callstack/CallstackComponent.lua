@@ -429,7 +429,7 @@ CallstackComponent = RoactRodux.connect(
 				RootItems = rootList,
 				CurrentThreadId = currentThreadId,
 				ExpansionTable = expansionTable,
-				ColumnFilter = callstack.listOfEnabledColumns,
+				ColumnFilter = deepCopy(callstack.listOfEnabledColumns),
 				CurrentDebuggerConnectionId = common.currentDebuggerConnectionId,
 			}
 		end

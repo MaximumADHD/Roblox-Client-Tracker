@@ -46,6 +46,8 @@ local PlayerToCanManageMap = {}
 
 game:DefineFastFlag("RemoveInGameFollowingServer", false)
 game:DefineFastFlag("PackInGameJoinDataEnabledServer", false) --FFlagPackInGameJoinDataEnabledClient must be turned on first
+game:DefineFastFlag("VerifyBlockListContentsV2", false)
+game:DefineFastInt("MaxBlockListSize", 500)
 
 --[[ Remotes ]]--
 local RemoteEvent_FollowRelationshipChanged
@@ -214,6 +216,23 @@ local FollowNotificationsBetweenMap = {}
 
 local function isPlayer(value)
 	return typeof(value) == "Instance" and value:IsA("Player")
+end
+
+local function verifyUserId(userId)
+	return type(userId) == "number"
+end
+
+local function verifyBlockList(blockList)
+	if #blockList == 0 or #blockList > game:GetFastInt("MaxBlockListSize") then
+		return false
+	end
+
+	for _, userId in pairs(blockList) do
+		if not verifyUserId(userId) then
+			return false
+		end
+	end
+	return true
 end
 
 -- client fires event to server on new follow
@@ -396,11 +415,19 @@ local function onPlayerAdded(newPlayer)
 end
 
 RemoteEvent_SetPlayerBlockList.OnServerEvent:Connect(function(player, blockList)
-	player:AddToBlockList(blockList)
+	if not game:GetFastFlag("VerifyBlockListContentsV2") or type(blockList) == "table" then
+		if not game:GetFastFlag("VerifyBlockListContentsV2") or verifyBlockList(blockList) then
+			player:AddToBlockList(blockList)
+		end
+	end
 end)
 
 RemoteEvent_UpdatePlayerBlockList.OnServerEvent:Connect(function(player, userId, block)
-	player:UpdatePlayerBlocked(userId, block)
+	if not game:GetFastFlag("VerifyBlockListContentsV2") or type(block) == "boolean" then
+		if not game:GetFastFlag("VerifyBlockListContentsV2") or verifyUserId(userId) then
+			player:UpdatePlayerBlocked(userId, block)
+		end
+	end
 end)
 
 Players.PlayerAdded:connect(onPlayerAdded)

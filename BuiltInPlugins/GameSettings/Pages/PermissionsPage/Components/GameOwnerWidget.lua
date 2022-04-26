@@ -1,6 +1,9 @@
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
@@ -29,7 +32,7 @@ function GameOwnerWidget:render()
 	local ownerType = props.OwnerType
 	local ownerId = props.OwnerId
 
-	local theme = props.Theme:get("Plugin")
+	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
 	local localization = props.Localization
 
 	return Roact.createElement(FitToContent, {
@@ -63,7 +66,8 @@ end
 
 
 GameOwnerWidget = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Localization = ContextServices.Localization,
 })(GameOwnerWidget)
 

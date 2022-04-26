@@ -8,6 +8,7 @@ local ScreenSetup = {}
 
 local FFlagSupportUploadGroupAnimations = game:GetFastFlag("StudioSupportUploadGroupAnimations")
 local FFlagUGCGroupUploads2 = game:GetFastFlag("UGCGroupUploads2")
+local FFlagToolboxAssetConfigurationMatchPluginFlow = game:GetFastFlag("ToolboxAssetConfigurationMatchPluginFlow")
 
 ScreenSetup.keys = convertArrayToTable({
 	"SHOW_SALES_TAB",
@@ -92,10 +93,17 @@ params[AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW] = {
 -- Some assets need to override the default setting for publishing and editing asset. In this case, plugin need to
 -- override those.
 -- We will first check if we have defined override behavior in this table. If it's defined here, we will be using those value first.
--- everything else falls into default behavoir.
+-- everything else falls into default behavior.
 local assetTypeOverride = {
 	[Enum.AssetType.Plugin] = {
-		[AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW] = {
+		[AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW] = FFlagToolboxAssetConfigurationMatchPluginFlow and {
+			[keys.SHOW_ASSET_TYPE] = true,
+			[keys.SHOW_COMMENT] = false,
+			[keys.SHOW_COPY] = true,
+			[keys.SHOW_GENRE] = false,
+			[keys.SHOW_OVERRIDE_BUTTON] = true,
+			[keys.SHOW_PRICE] = false, -- Only show price when sales has been set to OnSale.
+		} or {
 			[keys.SHOW_ASSET_TYPE] = true,
 			[keys.SHOW_COMMENT] = false,
 			[keys.SHOW_COPY] = false, -- For plugin, sales will be acting as allow copy when user is not whitelisted.
@@ -104,7 +112,16 @@ local assetTypeOverride = {
 			[keys.SHOW_PRICE] = false, -- Only show price when sales has been set to OnSale.
 			[keys.SHOW_SALES_TAB] = true,
 		},
-		[AssetConfigConstants.FLOW_TYPE.EDIT_FLOW] = {
+		[AssetConfigConstants.FLOW_TYPE.EDIT_FLOW] = FFlagToolboxAssetConfigurationMatchPluginFlow and {
+			[keys.SHOW_ASSET_TYPE] = true,
+			[keys.SHOW_COMMENT] = false,
+			[keys.SHOW_COPY] = true,
+			[keys.SHOW_GENRE] = false,
+			[keys.SHOW_OWNERSHIP] = true,
+			[keys.SHOW_PRICE] = false,
+			[keys.SHOW_SALE] = false,
+			[keys.SHOW_VERSIONS_TAB] = true,
+		} or {
 			[keys.SHOW_ASSET_TYPE] = true,
 			[keys.SHOW_COMMENT] = false,
 			[keys.SHOW_COPY] = false,

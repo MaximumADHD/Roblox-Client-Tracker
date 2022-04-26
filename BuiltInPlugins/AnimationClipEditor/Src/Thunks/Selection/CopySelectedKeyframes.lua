@@ -7,6 +7,8 @@
 			{
 				TopTrackName = "Head",
 				TopTrackType = Constants.TRACK_TYPES.CFrame | Constants.TRACK_TYPES.Facs,
+				RotationType = Constants.TRACK_TYPES.Quaternions | Constants.TRACK_TYPES.EulerAngles,
+				EulerAnglesOrder = Constants.EULER_ANGLES_ORDER.{XYZ}
 				RelPath = {"Position", "X"},
 				Data = {
 					[tick] = {
@@ -33,9 +35,11 @@ local SetClipboard = require(Plugin.Src.Actions.SetClipboard)
 local Constants = require(Plugin.Src.Util.Constants)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local SelectionUtils = require(Plugin.Src.Util.SelectionUtils)
+local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 return function()
 	return function(store)
@@ -54,32 +58,63 @@ return function()
 
 				local instanceClipboard = {}
 
-				for trackName, selectionTrack in pairs(instance) do
-					local dataTrack = dataInstance.Tracks[trackName]
-					SelectionUtils.traverse(selectionTrack, dataTrack, function(selectionTrack, dataTrack, relPath)
-						-- If the dataTrack does not have Data, then the selected track is not a leaf.
-						if not selectionTrack.Selection or not dataTrack.Data then
-							return
-						end
-
-						local trackClipboard = {
-							TopTrackName = trackName,
-							TopTrackType = dataTrack.Type,
-							RelPath = relPath,
-							Data = {}
-						}
-
-						for tick, _ in pairs(selectionTrack.Selection) do
-							local keyframe = dataTrack.Data[tick]
-							if keyframe then
-								trackClipboard.Data[tick] = deepCopy(keyframe)
+				if not GetFFlagCurveEditor() then
+					for trackName, selectionTrack in pairs(instance) do
+						local dataTrack = dataInstance.Tracks[trackName]
+						SelectionUtils.traverse(selectionTrack, dataTrack, function(selectionTrack, dataTrack, relPath)
+							-- If the dataTrack does not have Data, then the selected track is not a leaf.
+							if not selectionTrack.Selection or not dataTrack.Data then
+								return
 							end
-						end
 
-						table.insert(instanceClipboard, trackClipboard)
-					end)
+							local trackClipboard = {
+								TopTrackName = trackName,
+								TopTrackType = dataTrack.Type,
+								RelPath = relPath,
+								Data = {}
+							}
+
+							for tick, _ in pairs(selectionTrack.Selection) do
+								local keyframe = dataTrack.Data[tick]
+								if keyframe then
+									trackClipboard.Data[tick] = deepCopy(keyframe)
+								end
+							end
+
+							table.insert(instanceClipboard, trackClipboard)
+						end)
+					end
+				else
+					for topTrackName, topSelectionTrack in pairs(instance) do
+						local topTrack = dataInstance.Tracks[topTrackName]
+
+						SelectionUtils.traverse(topSelectionTrack, topTrack, function(selectionTrack, dataTrack, relPath)
+							-- If the dataTrack does not have Data, then the selected track is not a leaf.
+							if not selectionTrack.Selection or not dataTrack.Data then
+								return
+							end
+
+							local trackClipboard = {
+								TopTrackName = topTrackName,
+								TopTrackType = topTrack.Type,
+								RelPath = relPath,
+								Type = dataTrack.Type,
+								RotationType = TrackUtils.getRotationType(topTrack),
+								EulerAnglesOrder = TrackUtils.getEulerAnglesOrder(topTrack),
+								Data = {}
+							}
+
+							for tck, _ in pairs(selectionTrack.Selection) do
+								local keyframe = dataTrack.Data[tck]
+								if keyframe then
+									trackClipboard.Data[tck] = deepCopy(keyframe)
+								end
+							end
+
+							table.insert(instanceClipboard, trackClipboard)
+						end)
+					end
 				end
-
 				clipboard[instanceName] = instanceClipboard
 			end
 

@@ -27,23 +27,24 @@ local Assets = require(InGameMenu.Resources.Assets)
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
-local HEADER_HEIGHT = 132
-
 local HEADER_SIDE_PADDING = 95
-
-local HEADER_CONTENT_Y_CENTER = 100
 
 local validateProps = t.strictInterface({
 	titleText = t.string,
 	[Roact.Children] = t.optional(t.table),
 	onClosed = t.callback,
 	closeButtonRef = t.optional(t.table),
+	headerHeight = t.optional(t.number),
+	headerContentYCenter = t.optional(t.number),
 })
 
 local function ControlLayoutContainerWithSelectionCursor(props, getSelectionCursor)
 	if GlobalConfig.propValidation then
 		assert(validateProps(props))
 	end
+
+	local headerHeight = props.headerHeight or 132
+	local headerContentYCenter = props.headerContentYCenter or 100
 
 	return withLocalization({
 		titleText = props.titleText,
@@ -58,13 +59,13 @@ local function ControlLayoutContainerWithSelectionCursor(props, getSelectionCurs
 
 				PageContent = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
-					Size = UDim2.new(1, 0, 1, -HEADER_HEIGHT),
-					Position = UDim2.new(0, 0, 0, HEADER_HEIGHT),
+					Size = UDim2.new(1, 0, 1, -headerHeight),
+					Position = UDim2.new(0, 0, 0, headerHeight),
 					ClipsDescendants = true
 				}, props[Roact.Children]),
 
 				HeaderContainer = Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
+					Size = UDim2.new(1, 0, 0, headerHeight),
 					BackgroundTransparency = 1,
 				}, {
 					Padding = Roact.createElement("UIPadding", {
@@ -73,7 +74,7 @@ local function ControlLayoutContainerWithSelectionCursor(props, getSelectionCurs
 					}),
 					CloseButton = Roact.createElement(ImageSetButton, {
 						AnchorPoint = Vector2.new(0, 0.5),
-						Position = UDim2.new(0, 0, 0, HEADER_CONTENT_Y_CENTER),
+						Position = UDim2.new(0, 0, 0, headerContentYCenter),
 
 						Size = UDim2.new(0, 36, 0, 36),
 						Image = Assets.Images.CloseModal,
@@ -89,7 +90,7 @@ local function ControlLayoutContainerWithSelectionCursor(props, getSelectionCurs
 						themeKey = "TextEmphasis",
 						Size = UDim2.new(0, 250, 0, 28),
 						AnchorPoint = Vector2.new(0.5, 0.5),
-						Position = UDim2.new(0.5, 0, 0, HEADER_CONTENT_Y_CENTER),
+						Position = UDim2.new(0.5, 0, 0, headerContentYCenter),
 						Text = localized.titleText,
 					}),
 					HeaderDivider = Roact.createElement(Divider, {

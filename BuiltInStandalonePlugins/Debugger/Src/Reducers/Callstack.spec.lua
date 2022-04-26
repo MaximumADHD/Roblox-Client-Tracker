@@ -24,7 +24,7 @@ return function()
 		local callstackReducer = Rodux.Store.new(CallstackReducer)
 		expect(callstackReducer:getState()).to.be.ok()
 		expect(callstackReducer:getState().listOfEnabledColumns).to.be.ok()
-		expect(#callstackReducer:getState().listOfEnabledColumns).to.equal(5)
+		expect(#callstackReducer:getState().listOfEnabledColumns).to.equal(4)
 		expect(callstackReducer:getState().stateTokenToCallstackVars).to.be.ok()
 	end)
 

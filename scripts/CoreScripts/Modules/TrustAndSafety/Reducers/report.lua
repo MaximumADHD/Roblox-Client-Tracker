@@ -16,7 +16,6 @@ return Rodux.createReducer({
 	reportSentOpen = false,
 	userId = nil, --Nil if reporting the game
 	userName = nil,
-	placeName = nil,
 }, {
 	[OpenReportDialog.name] = function(state, action)
 		return {
@@ -24,7 +23,6 @@ return Rodux.createReducer({
 			reportSentOpen = state.reportSentOpen,
 			userId = action.userId,
 			userName = action.userName,
-			placeName = action.placeName,
 		}
 	end,
 	[CloseReportDialog.name] = function(state, action)

@@ -24,7 +24,6 @@
 		table EditingItemContext: An EditingItemContext, which is provided via withContext.
 		table AssetServiceWrapper: An AssetServiceWrapper context item, provided via withContext.
 ]]
-local FFlagDevFrameworkScrollingFrameUsePane = game:GetFastFlag("DevFrameworkScrollingFrameUsePane")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -184,13 +183,8 @@ function Grid:render()
 				if not self.gridRef.current then
 					return
 				end
-				if FFlagDevFrameworkScrollingFrameUsePane then
-					self.gridRef.current.ScrollingFrame.Scroller.CanvasSize =
-						UDim2.fromOffset(rbx.AbsoluteContentSize.X, rbx.AbsoluteContentSize.Y)
-				else
-					self.gridRef.current.ScrollingFrame.Contents.Scroller.CanvasSize =
-						UDim2.fromOffset(rbx.AbsoluteContentSize.X, rbx.AbsoluteContentSize.Y)
-				end
+				self.gridRef.current.ScrollingFrame.Scroller.CanvasSize =
+					UDim2.fromOffset(rbx.AbsoluteContentSize.X, rbx.AbsoluteContentSize.Y)
 			end,
 		}),
 	}

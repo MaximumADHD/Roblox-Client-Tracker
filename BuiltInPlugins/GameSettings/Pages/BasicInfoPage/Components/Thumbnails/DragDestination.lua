@@ -13,6 +13,9 @@ local BORDER = "rbxasset://textures/GameSettings/DottedBorder.png"
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
@@ -21,7 +24,7 @@ local DragDestination = Roact.PureComponent:extend("DragDestination")
 
 function DragDestination:render()
 	local props = self.props
-	local theme = props.Theme:get("Plugin")
+	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
 
 	local index = props.LayoutOrder or 1
 
@@ -37,7 +40,8 @@ end
 
 
 DragDestination = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(DragDestination)
 
 

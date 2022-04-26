@@ -19,6 +19,9 @@ local NOTES_SIZE = UDim2.new(1, -180, 0, 100)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local Cryo = require(Plugin.Packages.Cryo)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
@@ -68,7 +71,7 @@ function UploadableIconWidget:render()
 	local title = self.props.Title
 	local tutorialEnabled = self.props.TutorialEnabled
 
-	local theme = self.props.Theme:get("Plugin")
+	local theme = THEME_REFACTOR and self.props.Stylizer or self.props.Theme:get("Plugin")
 	local localization = self.props.Localization
 
 	local preview
@@ -151,7 +154,8 @@ end
 
 
 UploadableIconWidget = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
 })(UploadableIconWidget)

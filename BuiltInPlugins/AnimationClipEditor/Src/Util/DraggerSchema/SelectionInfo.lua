@@ -1,9 +1,6 @@
 local BoundingBoxUtils = require(script.Parent.BoundingBoxUtils)
 local Plugin = script.Parent.Parent.Parent.Parent
 local RigUtils = require(Plugin.Src.Util.RigUtils)
-local Constants = require(Plugin.Src.Util.Constants)
-
-local FFlagFixNilPartInSelectionInfo = game:DefineFastFlag("ACEFixNilPartInSelectionInfo", false)
 
 local SelectionInfo = {}
 SelectionInfo.__index = SelectionInfo
@@ -32,7 +29,7 @@ function SelectionInfo:getBoundingBox()
 			else
 				return CFrame.new((lastSelection.TransformedWorldCFrame).Position), Vector3.new(), Vector3.new()
 			end
-		elseif not FFlagFixNilPartInSelectionInfo or lastSelection.Part1 ~= nil then
+		elseif lastSelection.Part1 ~= nil then
 			if useLocalSpace then
 				return (lastSelection.Part1.CFrame * lastSelection.C1), Vector3.new(), Vector3.new()
 			else

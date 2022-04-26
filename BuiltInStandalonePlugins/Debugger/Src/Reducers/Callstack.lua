@@ -29,7 +29,7 @@ type CallstackStore = {
 
 local productionStartStore = {
 	stateTokenToCallstackVars = {},
-	listOfEnabledColumns = {Columns.Frame, Columns.Layer, Columns.Source, Columns.Function, Columns.Line},
+	listOfEnabledColumns = {Columns.Frame, Columns.Source, Columns.Function, Columns.Line},
 }
 
 return Rodux.createReducer(productionStartStore, {

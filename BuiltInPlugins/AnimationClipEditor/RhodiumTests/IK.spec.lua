@@ -19,10 +19,13 @@ return function()
 	local Constants = require(Plugin.Src.Util.Constants)
 	local SetMotorData = require(Plugin.Src.Actions.SetMotorData)
 	local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
-	local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 	local SetIKMode = require(Plugin.Src.Actions.SetIKMode)
 
-	local MathUtil = UILibrary.Util.MathUtils
+	local FFlagRemoveUILibraryComponentsPart1 = game:GetFastFlag("RemoveUILibraryComponentsPart1")
+
+	local MathUtil = if FFlagRemoveUILibraryComponentsPart1 then Framework.Util.Math else UILibrary.Util.MathUtils
+
+	local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 	local function setupInstance(store, instance)
 		expect(instance).to.be.ok()
@@ -160,7 +163,11 @@ return function()
 			TestHelpers.clickInstance(lowerTorsoJoint)
 
 			local status = store:getState().Status
-			expect(status.SelectedTracks[1]).to.equal("LowerTorso")
+			if GetFFlagCurveEditor() then
+				expect(status.SelectedTracks[1][1]).to.equal("LowerTorso")
+			else
+				expect(status.SelectedTracks[1]).to.equal("LowerTorso")
+			end
 		end)
 	end)
 
@@ -253,8 +260,13 @@ return function()
 			TestHelpers.delay()
 
 			local newAxis = dummy.LeftHand.LeftWristRigAttachment.Axis
-			expect(MathUtil:fuzzyEq(oldAxis.X, newAxis.X)).to.equal(false)
-			expect(MathUtil:fuzzyEq(oldAxis.Y, newAxis.Y)).to.equal(false)
+			if FFlagRemoveUILibraryComponentsPart1 then
+				expect(MathUtil.fuzzyEq(oldAxis.X, newAxis.X)).to.equal(false)
+				expect(MathUtil.fuzzyEq(oldAxis.Y, newAxis.Y)).to.equal(false)
+			else
+				expect(MathUtil:fuzzyEq(oldAxis.X, newAxis.X)).to.equal(false)
+				expect(MathUtil:fuzzyEq(oldAxis.Y, newAxis.Y)).to.equal(false)
+			end
 
 			local status = store:getState().Status
 			local motorData = status.MotorData
@@ -263,9 +275,15 @@ return function()
 			TestHelpers.delay()
 
 			local originalAxis = dummy.LeftHand.LeftWristRigAttachment.Axis
-			expect(MathUtil:fuzzyEq(oldAxis.X, originalAxis.X)).to.equal(true)
-			expect(MathUtil:fuzzyEq(oldAxis.Y, originalAxis.Y)).to.equal(true)
-			expect(MathUtil:fuzzyEq(oldAxis.Z, originalAxis.Z)).to.equal(true)
+			if FFlagRemoveUILibraryComponentsPart1 then
+				expect(MathUtil.fuzzyEq(oldAxis.X, originalAxis.X)).to.equal(true)
+				expect(MathUtil.fuzzyEq(oldAxis.Y, originalAxis.Y)).to.equal(true)
+				expect(MathUtil.fuzzyEq(oldAxis.Z, originalAxis.Z)).to.equal(true)
+			else
+				expect(MathUtil:fuzzyEq(oldAxis.X, originalAxis.X)).to.equal(true)
+				expect(MathUtil:fuzzyEq(oldAxis.Y, originalAxis.Y)).to.equal(true)
+				expect(MathUtil:fuzzyEq(oldAxis.Z, originalAxis.Z)).to.equal(true)
+			end
 		end)
 	end)
 

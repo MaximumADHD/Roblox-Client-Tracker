@@ -23,7 +23,7 @@ local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local Util = Plugin.Src.Util
 local getMaterialPath = require(Util.getMaterialPath)
 
-local ImportAssetHandler = require(Plugin.Src.Util.ImportAssetHandler)
+local ImportAssetHandler = require(Plugin.Src.Components.ImportAssetHandler)
 local MaterialVariantCreator = require(Plugin.Src.Components.MaterialVariantCreator)
 
 local MaterialController = require(Plugin.Src.Util.MaterialController)

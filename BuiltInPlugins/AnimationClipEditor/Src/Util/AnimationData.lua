@@ -537,7 +537,7 @@ function AnimationData.promoteToChannels(data, rotationType, eulerAnglesOrder)
 		for _, instance in pairs(data.Instances) do
 			for _, track in pairs(instance.Tracks) do
 				TrackUtils.splitTrackComponents(track, Constants.TRACK_TYPES.Quaternion)
-				if rotationType == Constants.TRACK_TYPES.EulerAngles then
+				if track.Type == Constants.TRACK_TYPES.CFrame and rotationType == Constants.TRACK_TYPES.EulerAngles then
 					TrackUtils.convertTrackToEulerAngles(track.Components[Constants.PROPERTY_KEYS.Rotation], eulerAnglesOrder)
 				end
 			end

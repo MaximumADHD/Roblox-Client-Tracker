@@ -1,5 +1,5 @@
 local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
-local FFlagStudioExplainFriendCollaboratorPermission2 = game:GetFastFlag("StudioExplainFriendCollaboratorPermission2")
+local FFlagStudioExplainFriendCollaboratorPermission3 = game:GetFastFlag("StudioExplainFriendCollaboratorPermission3")
 
 local ITEM_HEIGHT = 60
 local PADDING_Y = 20
@@ -18,6 +18,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local UI = Framework.UI
 local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local StyleModifier = Util.StyleModifier
 local SelectInput = UI.SelectInput
 local Button = UI.Button
@@ -39,7 +40,7 @@ function DeleteButton:render()
 	local enabled = props.Enabled
 	local onClicked = props.OnClicked
 
-	local theme = props.Theme:get("Plugin")
+	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
 
 	return Roact.createElement(UILibraryButton, {
 		Size = UDim2.new(0, CONTENT_HEIGHT, 0, CONTENT_HEIGHT),
@@ -75,7 +76,8 @@ end
 
 
 DeleteButton = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(DeleteButton)
 
 
@@ -127,7 +129,7 @@ function CollaboratorItem:createTextLabel(text, style, height, padding, layoutOr
 	})
 end
 
--- remove with FFlagStudioExplainFriendCollaboratorPermission2
+-- remove with FFlagStudioExplainFriendCollaboratorPermission3
 function CollaboratorItem:DEPRECATED_createTextLabel(text, style, height, padding, layoutOrder)
 	return Roact.createElement(TextLabel, {
 		BackgroundTransparency = 1,
@@ -154,11 +156,11 @@ function CollaboratorItem:init()
 	end
 
 	self.onRenderItem = function(item, index, activated)
-		local theme = self.props.Theme:get("Plugin")
+		local theme = THEME_REFACTOR and self.props.Stylizer or self.props.Theme:get("Plugin")
 		local mainText = item.Display
 		local description = item.Description
 
-		if FFlagStudioExplainFriendCollaboratorPermission2 then
+		if FFlagStudioExplainFriendCollaboratorPermission3 then
 			local isEnabled = item.IsEnabled == nil or item.IsEnabled
 
 			return Roact.createElement(Button, {
@@ -215,7 +217,7 @@ function CollaboratorItem:render()
 	local availablePermissions = props.AvailablePermissions
 	local onPermissionChanged = props.OnPermissionChanged
 
-	local theme = props.Theme:get("Plugin")
+	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, ITEM_HEIGHT),
@@ -254,7 +256,7 @@ function CollaboratorItem:render()
 			LayoutOrder = 2,
 			BackgroundTransparency = 1,
 
-			Size = UDim2.new(0, DROPDOWN_WIDTH, 0, CONTENT_HEIGHT),
+			Size = UDim2.new(0, FFlagStudioExplainFriendCollaboratorPermission3 and theme.selectInput.width or DROPDOWN_WIDTH, 0, CONTENT_HEIGHT),
 			Position = UDim2.new(1, -(CONTENT_HEIGHT+LIST_PADDING), 0, 0),
 			AnchorPoint = Vector2.new(1, 0),
 		}, {
@@ -268,7 +270,7 @@ function CollaboratorItem:render()
 				OnItemActivated = self.onItemActivated,
 				OnRenderItem = self.onRenderItem,
 				PlaceholderText = self:getCurrentPermissionLabel(),
-				Width = FFlagStudioExplainFriendCollaboratorPermission2 and theme.selectInput.width or theme.selectInput.DEPRECATED_width,
+				Width = FFlagStudioExplainFriendCollaboratorPermission3 and theme.selectInput.width or theme.selectInput.DEPRECATED_width,
 			}) or nil,
 		}),
 
@@ -289,7 +291,8 @@ function CollaboratorItem:render()
 end
 
 CollaboratorItem = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Localization = ContextServices.Localization,
 })(CollaboratorItem)
 

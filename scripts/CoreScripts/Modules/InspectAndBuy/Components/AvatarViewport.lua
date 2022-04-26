@@ -9,9 +9,11 @@ local Cryo = require(CorePackages.Cryo)
 local Colors = require(InspectAndBuyFolder.Colors)
 local rebuildJoints = require(InspectAndBuyFolder.rebuildJoints)
 local CharacterModelPool = require(InspectAndBuyFolder.CharacterModelPool)
+local CharacterModelPoolV2 = require(InspectAndBuyFolder.CharacterModelPoolV2)
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
 
 local FFlagInspectAndBuyLayeredClothingSupport = require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyLayeredClothingSupport)
+local FFlagInspectAndBuyCharacterModelPoolUsePromises = require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyCharacterModelPoolUsePromises)
 local FFlagInspectAndBuyLCPopInFix = game:DefineFastFlag("InspectAndBuyLCPopInFix", false)
 
 local CHARACTER_ROTATION_SPEED = .0065
@@ -51,8 +53,13 @@ function AvatarViewport:didMount()
 		if FFlagInspectAndBuyLayeredClothingSupport then
 			if FFlagInspectAndBuyLCPopInFix then
 				local rigType = self.model.Humanoid.RigType
-				self.characterModelPool =
-					CharacterModelPool.new(self.worldModelRef, self.initialHrpPosition, rigType)
+				if FFlagInspectAndBuyCharacterModelPoolUsePromises then
+					self.characterModelPool =
+						CharacterModelPoolV2.new(self.worldModelRef, self.initialHrpPosition, rigType)
+				else
+					self.characterModelPool =
+						CharacterModelPool.new(self.worldModelRef, self.initialHrpPosition, rigType)
+				end
 			else
 				self.model.Parent = self.worldModelRef:getValue()
 			end
@@ -262,6 +269,10 @@ end
 
 function AvatarViewport:willUnmount()
 	self.isMounted = false
+
+	if FFlagInspectAndBuyCharacterModelPoolUsePromises and self.characterModelPool then
+		self.characterModelPool:onDestroy()
+	end
 	self:unbindActions()
 	self:removeConnections()
 end

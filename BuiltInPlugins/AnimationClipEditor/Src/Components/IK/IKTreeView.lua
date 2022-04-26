@@ -34,6 +34,8 @@ local withContext = ContextServices.withContext
 local HierarchyLines = require(Plugin.Src.Components.IK.HierarchyLines)
 local LayoutOrderIterator = require(Plugin.Src.Util.LayoutOrderIterator)
 
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+
 local IKTreeView = Roact.PureComponent:extend("IKTreeView")
 
 local PADDING = 14
@@ -67,7 +69,11 @@ function IKTreeView:init()
 
 	self.onInputBegan = function(input, element)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			self.props.SetSelectedTracks({element})
+			if GetFFlagCurveEditor() then
+				self.props.SetSelectedTracks({{element}})
+			else
+				self.props.SetSelectedTracks({element})
+			end
 		end
 	end
 
@@ -249,7 +255,9 @@ function IKTreeView:render()
 					return nil
 				end
 
-				local isSelected = selectedTrack == elementProps.item
+				local isSelected = if GetFFlagCurveEditor()
+					then (selectedTrack and selectedTrack[1] == elementProps.item)
+					else selectedTrack == elementProps.item
 
 				return Roact.createElement("ImageButton", {
 					Size = UDim2.new(1, -8, 0, Constants.TRACK_HEIGHT),

@@ -12,6 +12,9 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local Cryo = require(Plugin.Packages.Cryo)
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
@@ -23,7 +26,7 @@ function DeveloperSubscriptionListItemText:render()
 	local text = self.props.Text
 	local layoutOrder = self.props.LayoutOrder
 	local alignment = self.props.Alignment
-	local theme = self.props.Theme:get("Plugin")
+	local theme = THEME_REFACTOR and self.props.Stylizer or self.props.Theme:get("Plugin")
 
 	return Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
 		Size = size,
@@ -39,7 +42,8 @@ end
 
 
 DeveloperSubscriptionListItemText = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(DeveloperSubscriptionListItemText)
 
 

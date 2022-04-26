@@ -14,9 +14,9 @@ local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 
-local Framework = Plugin.Packages.Framework
+local Framework = require(Plugin.Packages.Framework)
 
-local UI = require(Framework.UI)
+local UI = Framework.UI
 local HoverArea = UI.HoverArea
 
 local PopUpButton = Roact.PureComponent:extend("PopUpButton")

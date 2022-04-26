@@ -4,14 +4,15 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
-local Framework = Plugin.Packages.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local UI = require(Framework.UI)
+local UI = Framework.UI
 local Tooltip = UI.Tooltip
 
-local Util = require(Framework.Util)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local StyleModifier = Util.StyleModifier
 local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
 local LayoutOrderIterator = Util.LayoutOrderIterator
@@ -248,11 +249,11 @@ end
 
 function ListItem:render()
     local props = self.props
-    local pluginStyle = props.Theme:get("Plugin")
-
+    local pluginStyle = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
+    
     -- Must use getStyle(namespace, component) for StyleModifiers to work
     -- otherwise functionality equivalent to prop.Theme:get("Plugin").Tile.Default
-    local listItemStyle= props.Theme:getStyle("Plugin", self)
+    local listItemStyle = if THEME_REFACTOR then props.Stylizer else props.Theme:getStyle("Plugin", self)
 
     local enabled = props.Enabled
 
@@ -411,7 +412,8 @@ ListItem = withContext({
     Localization = ContextServices.Localization,
     Mouse = ContextServices.Mouse,
     Plugin = ContextServices.Plugin,
-    Theme = ContextServices.Theme,
+    Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+    Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(ListItem)
 
 local function mapStateToProps(state, props)

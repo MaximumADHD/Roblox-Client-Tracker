@@ -2,6 +2,7 @@
 	The top level container of the Player Emulator window.
 	Contains MainSwitchSection, LanuageSection, CountryRegionSection, CustomPolicySwitchSection, and PolicySection
 ]]
+local FFlagRemoveUILibraryComponentsPart1 = game:GetFastFlag("RemoveUILibraryComponentsPart1")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -10,7 +11,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Separator = UILibrary.Component.Separator
-local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
+local LayoutOrderIterator = if FFlagRemoveUILibraryComponentsPart1 then Framework.Util.LayoutOrderIterator else UILibrary.Util.LayoutOrderIterator
 
 local MainSwitchSection = require(Plugin.Src.Components.MainSwitchSection)
 local CustomPolicySwitchSection = require(Plugin.Src.Components.CustomPolicySwitchSection)

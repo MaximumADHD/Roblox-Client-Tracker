@@ -17,8 +17,8 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local Framework = Plugin.Packages.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local ContextMenu = require(Plugin.Src.Components.ContextMenu)
@@ -45,6 +45,7 @@ local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionCha
 local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
 local GetFFlagEulerFromPartTrack = require(Plugin.LuaFlags.GetFFlagEulerFromPartTrack)
 local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
+local GetFFlagACEFixTrackOptionsClickPostDeleteKey = require(Plugin.LuaFlags.GetFFlagACEFixTrackOptionsClickPostDeleteKey)
 
 export type Props = {
 	-- State/Context
@@ -325,10 +326,19 @@ function TrackActions:render(): (any?)
 		if GetFFlagChannelAnimations() then
 			if path and instanceName then
 				local track = AnimationData.getTrack(animationData, instanceName, path)
-				if not GetFFlagEulerAnglesOrder() then
-					showEulerConversion = track.Type == Constants.TRACK_TYPES.Quaternion or
-						(track.Type == Constants.TRACK_TYPES.CFrame and TrackUtils.getRotationType(track) == Constants.TRACK_TYPES.Quaternion)
-				end
+				if not GetFFlagEulerAnglesOrder() then					
+					if GetFFlagACEFixTrackOptionsClickPostDeleteKey() then
+						--nil check to not get error when clicking dots after deleting key
+						if track then
+						showEulerConversion = track.Type == Constants.TRACK_TYPES.Quaternion or
+							(track.Type == Constants.TRACK_TYPES.CFrame and TrackUtils.getRotationType(track) == Constants.TRACK_TYPES.Quaternion)						
+						end
+					else
+						--old implementation, throws an error when clicking 3 dots on track after deleting key
+						showEulerConversion = track.Type == Constants.TRACK_TYPES.Quaternion or
+							(track.Type == Constants.TRACK_TYPES.CFrame and TrackUtils.getRotationType(track) == Constants.TRACK_TYPES.Quaternion)							
+					end
+				end	
 				local enabled
 
 				if not isChannelAnimation then

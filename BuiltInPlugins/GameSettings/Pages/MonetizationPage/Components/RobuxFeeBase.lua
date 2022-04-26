@@ -23,6 +23,8 @@ local Roact = require(Plugin.Packages.Roact)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FrameworkUtil = Framework.Util
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
 local FitFrameOnAxis = FrameworkUtil.FitFrame.FitFrameOnAxis
@@ -38,7 +40,7 @@ local RobuxFeeBase = Roact.PureComponent:extend("RobuxFeeBase")
 
 function RobuxFeeBase:render()
     local props = self.props
-    local theme = props.Theme:get("Plugin")
+    local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
     local localization = props.Localization
 
     local layoutIndex = LayoutOrderIterator.new()
@@ -314,7 +316,8 @@ end
 
 RobuxFeeBase = withContext({
     Localization = ContextServices.Localization,
-    Theme = ContextServices.Theme,
+    Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(RobuxFeeBase)
 
 

@@ -7,6 +7,7 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
 local ExternalEventConnection = require(CorePackages.RoactUtilities.ExternalEventConnection)
+local Analytics = require(CorePackages.Analytics.Analytics)
 
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 local Images = UIBlox.App.ImageSet.Images
@@ -178,6 +179,7 @@ function TopBarApp:render()
 
 				VoiceBetaBadge = GetFFlagEnableVoiceBetaBadge() and Roact.createElement(VoiceBetaBadge, {
 					layoutOrder = 3,
+					Analytics = Analytics.new()
 				}),
 			}),
 

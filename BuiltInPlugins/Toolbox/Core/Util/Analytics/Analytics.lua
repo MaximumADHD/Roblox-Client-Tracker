@@ -9,7 +9,6 @@ local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local getUserId = require(Plugin.Core.Util.getUserId)
 
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
-local FFlagToolboxAddAssetImpressionCounterAnalytics = game:GetFastFlag("ToolboxAddAssetImpressionCounterAnalytics")
 
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
 local function getStudioSessionId()
@@ -199,7 +198,6 @@ function Analytics.sendResultToKibana(result)
 end
 
 function Analytics.incrementAssetImpressionCounter()
-	assert(FFlagToolboxAddAssetImpressionCounterAnalytics)
 	AnalyticsSenders.reportCounter("Studio.ToolboxAsset.Impression")
 end
 

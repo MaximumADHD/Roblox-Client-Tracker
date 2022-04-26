@@ -21,16 +21,21 @@ local ExternalEventConnection = require(CorePackages.RoactUtilities.ExternalEven
 local VoiceBetaBadge = Roact.PureComponent:extend("MenuIcon")
 
 local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
+local GetFStringVoiceBetaBadgeLearnMore = require(RobloxGui.Modules.Flags.GetFStringVoiceBetaBadgeLearnMore)
 
 VoiceBetaBadge.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
+	Analytics = t.table
 })
 
 local BadgeSize = UDim2.fromOffset(31, 11)
 local PopupPadding = UDim.new(0, 12)
-local PopupSize = UDim2.fromOffset(330, 180)
+local PopupSize = UDim2.fromOffset(330, 165)
+
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local noop = function() end
+local eventContext = "voiceChat"
 
 function VoiceBetaBadge:init()
 	self:setState({
@@ -51,12 +56,14 @@ function VoiceBetaBadge:init()
 		self:setState({
 			showPopup = not self.state.showPopup
 		})
+		self.props.Analytics.EventStream:setRBXEvent(eventContext, if not self.state.showPopup then "openBetaBadge" else "closeBetaBadge")
 	end
 
 	self.learnMore = function()
-		local url = ("https://en.help.roblox.com/hc/en-us/articles/203313410-Roblox-Community-Standards")
+		local url = GetFStringVoiceBetaBadgeLearnMore()
 
 		GuiService:OpenBrowserWindow(url)
+		self.props.Analytics.EventStream:setRBXEvent(eventContext, "clickBetaBadgeLearnMore")
 	end
 end
 
@@ -105,7 +112,7 @@ function VoiceBetaBadge:render()
 							SortOrder = Enum.SortOrder.LayoutOrder,
 						}),
 						Starter = Roact.createElement("TextLabel", {
-							Text = "You have opted in to one or more of our beta features:",
+							Text = RobloxTranslator:FormatByKey("InGame.CommonUI.Badge.Popup.HeaderList"),
 							TextSize = popupTextSize,
 							Font = font,
 							LayoutOrder = 0,
@@ -115,17 +122,7 @@ function VoiceBetaBadge:render()
 							BackgroundTransparency = 1,
 						}),
 						FirstBullet = Roact.createElement("TextLabel", {
-							Text = "• Open text chat",
-							TextSize = popupTextSize,
-							Font = font,
-							LayoutOrder = 1,
-							TextXAlignment = Enum.TextXAlignment.Left,
-							TextColor3 = textTheme.Color,
-							AutomaticSize = Enum.AutomaticSize.XY,
-							BackgroundTransparency = 1,
-						}),
-						SecondBullet = Roact.createElement("TextLabel", {
-							Text = "• Voice chat",
+							Text = "• ".. RobloxTranslator:FormatByKey("InGame.CommonUI.Badge.Popup.VoiceChatBullet"),
 							TextSize = popupTextSize,
 							Font = font,
 							LayoutOrder = 2,
@@ -136,7 +133,7 @@ function VoiceBetaBadge:render()
 						}),
 					}),
 					Text = Roact.createElement("TextLabel", {
-						Text = "Please report abuse if you encounter people breaking our Community Guidelines. If you have opted-in to voice chat, Roblox may record voice audio anywhere on the platform for moderation and safety purposes. By continuing to use the voice chat feature, you consent to Roblox's collection, use, and storage of your voice recording for moderation and safety purposes.  You can opt-out of spatial voice at any time. ",
+						Text = RobloxTranslator:FormatByKey("InGame.CommonUI.Badge.Popup.DisclaimerText"),
 						TextSize = popupTextSize,
 						Font = font,
 						LayoutOrder = 0,
@@ -147,7 +144,7 @@ function VoiceBetaBadge:render()
 						BackgroundTransparency = 1,
 					}),
 					TextLink = Roact.createElement("TextButton", {
-						Text = "Learn More",
+						Text = RobloxTranslator:FormatByKey("InGame.CommonUI.Badge.Popup.LearnMoreLink"),
 						TextSize = popupTextSize,
 						Font = font,
 						LayoutOrder = 1,
@@ -187,7 +184,7 @@ function VoiceBetaBadge:render()
 					BackgroundColor3 = Yellow,
 				}, {
 					Button = Roact.createElement("TextButton", {
-						Text = "BETA",
+						Text = RobloxTranslator:FormatByKey("InGame.CommonUI.Badge.BadgeText"),
 						Font = Enum.Font.GothamBold,
 						TextSize = 8,
 						BackgroundTransparency = 1,

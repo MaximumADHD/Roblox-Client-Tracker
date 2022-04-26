@@ -184,4 +184,12 @@ return{
 	["CoreScripts.InGameMenu.QuickActions.MuteSelf"] = [[]],
 	["CoreScripts.InGameMenu.QuickActions.UnmuteAll"] = [[]],
 	["CoreScripts.InGameMenu.QuickActions.UnmuteSelf"] = [[]],
+	["CoreScripts.InGameMenu.BetaBadge.BadgeText"] = [[]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.HeaderList"] = [[]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.VoiceChatBullet"] = [[]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.DisclaimerText"] = [[]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.LearnMoreLink"] = [[]],
+	["CoreScripts.InGameMenu.Controls.DynamicThumbstick"] = [[]],
+	["CoreScripts.InGameMenu.Controls.ClassicThumbstick"] = [[]],
+	["CoreScripts.InGameMenu.Controls.TapToMove"] = [[]],
 }

@@ -1,21 +1,26 @@
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local FFlagRemoveUILibraryComponentsPart1 = game:GetFastFlag("RemoveUILibraryComponentsPart1")
+
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local createFitToContent = UILibrary.Component.createFitToContent
 local ExpandableList = UILibrary.Component.ExpandableList
-local Spritesheet = UILibrary.Util.Spritesheet
+local Spritesheet = if FFlagRemoveUILibraryComponentsPart1 then Framework.Util.Spritesheet else UILibrary.Util.Spritesheet
 
 local PermissionsConstants = require(Page.Util.PermissionsConstants)
 local CollaboratorItem = require(Page.Components.CollaboratorItem)
 local RolesetCollaboratorItem = require(Page.Components.RolesetCollaboratorItem)
-local Separator = require(Plugin.Packages.Framework).UI.Separator
+local Separator = Framework.UI.Separator
 local GroupIconThumbnail = require(Plugin.Src.Components.AutoThumbnails.GroupIconThumbnail)
 
 local IsGroupOwner = require(Page.Selectors.IsGroupOwner)
@@ -98,7 +103,7 @@ function GroupCollaboratorItem:render()
 	local writable = props.Writable
 	local id = props.Id
 
-	local theme = props.Theme:get("Plugin")
+	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
 
 	local isOwner = props.IsOwner
 	local groupRolesets = props.GroupRolesets
@@ -202,7 +207,8 @@ end
 
 
 GroupCollaboratorItem = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Localization = ContextServices.Localization,
 })(GroupCollaboratorItem)
 

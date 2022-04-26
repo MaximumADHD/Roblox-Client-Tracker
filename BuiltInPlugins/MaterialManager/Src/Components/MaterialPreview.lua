@@ -134,8 +134,22 @@ function MaterialPreview:render()
 	local normalMap = props.NormalMap
 	local roughnessMap = props.RoughnessMap
 
-	local isNotTerrain = if props.Material then getMaterialType(props.Material) ~= "Terrain" else false
+	local isTerrain = getMaterialType(material) == "Terrain"
+	local isNotTerrain = not isTerrain
 	local uses2022Materials = props.MaterialController:getUses2022Materials()
+
+	if isTerrain and not uses2022Materials then
+		local override = materialController:getMaterialOverride(material)
+		local materialVariantOverride = materialController:getMaterialVariant(material, override)
+
+		if materialVariantOverride then
+			colorMap = materialVariantOverride.ColorMap
+			metalnessMap = materialVariantOverride.MetalnessMap
+			normalMap = materialVariantOverride.NormalMap
+			roughnessMap = materialVariantOverride.RoughnessMap
+		end
+	end
+
 
 	if (uses2022Materials or isNotTerrain) and not forceSurfaceAppearance then
 		-- If a re-render has been triggered, the model needs to be regenerated
@@ -149,7 +163,7 @@ function MaterialPreview:render()
 		else
 			local override = materialController:getMaterialOverride(material)
 
-			if override == "" or override == getMaterialName(material) then
+			if override == "" or (override == getMaterialName(material) and not materialController:getMaterialVariant(material, override)) then
 				self.model.MeshPart.Color = getMaterialColor(material, uses2022Materials) or Color3.new(163, 162, 165)
 			end
 		end

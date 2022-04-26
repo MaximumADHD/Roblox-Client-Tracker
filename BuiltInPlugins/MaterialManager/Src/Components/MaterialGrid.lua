@@ -23,6 +23,7 @@ local Components = Plugin.Src.Components
 local MaterialTile = require(Components.MaterialGrid.MaterialTile)
 
 local Util = Plugin.Src.Util
+local getMaterialPath = require(Util.getMaterialPath)
 local ContainsPath = require(Util.ContainsPath)
 local MaterialController = require(Util.MaterialController)
 
@@ -78,6 +79,14 @@ function MaterialGrid:init()
 			end
 		end)
 
+		self.materialNameChangedConnection = props.MaterialController:getMaterialNameChangedSignal():Connect(function(materialVariant)
+			if (ContainsPath(self.props.Path, getMaterialPath(materialVariant))) then
+				self:setState({
+					materials = props.MaterialController:getMaterials(self.props.Path, self.props.Search)
+				})
+			end
+		end)
+
 		self.materialRemovedConnection = props.MaterialController:getMaterialRemovedSignal():Connect(function(materialPath)
 			if (ContainsPath(self.props.Path, materialPath)) then
 				self:setState({
@@ -99,6 +108,11 @@ function MaterialGrid:willUnmount()
 	if self.materialAddedConnection then
 		self.materialAddedConnection:Disconnect()
 		self.materialAddedConnection = nil
+	end
+
+	if self.materialNameChangedConnection then
+		self.materialNameChangedConnection:Disconnect()
+		self.materialNameChangedConnection = nil
 	end
 
 	if self.materialRemovedConnection then

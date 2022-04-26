@@ -125,7 +125,7 @@ return function()
 			local playerCount = 0
 			for _, inst in pairs(renderedPlayers:GetChildren()) do
 				-- filter out non-player children (some children are layout related)
-				if inst:FindFirstChild("PlayerIcon") then
+				if inst:FindFirstChild("PlayerIcon", true) then
 					playerCount += 1
 				end
 			end

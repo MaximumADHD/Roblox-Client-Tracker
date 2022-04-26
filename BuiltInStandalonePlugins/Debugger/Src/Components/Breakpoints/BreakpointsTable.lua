@@ -7,7 +7,6 @@ local Cryo = require(PluginFolder.Packages.Cryo)
 local ContextServices = Framework.ContextServices
 local Plugin = ContextServices.Plugin
 local Localization = ContextServices.Localization
-local BreakpointRow = require(PluginFolder.Src.Models.BreakpointRow)
 
 local Stylizer = Framework.Style.Stylizer
 local Dash = Framework.Dash
@@ -24,9 +23,9 @@ local TreeTable = UI.TreeTable
 local StudioUI = Framework.StudioUI
 local showContextMenu = StudioUI.showContextMenu
 
-local BreakpointsTreeTableCell = require(PluginFolder.Src.Components.Breakpoints.BreakpointsTreeTableCell)
-
+local BreakpointRow = require(PluginFolder.Src.Models.BreakpointRow)
 local Constants = require(PluginFolder.Src.Util.Constants)
+local BreakpointsTreeTableCell = require(PluginFolder.Src.Components.Breakpoints.BreakpointsTreeTableCell)
 
 local BreakpointsTable = Roact.PureComponent:extend("BreakpointsTable")
 local FFlagDevFrameworkDoubleClick = game:GetFastFlag("DevFrameworkDoubleClick")
@@ -51,11 +50,17 @@ local tableColumnKeys = {
 	[1] = "isEnabled",
 	[2] = "scriptName",
 	[3] = "lineNumber",
-	[4] = "scriptLine",
-	[5] = "condition",
-	[6] = "logMessage",
-	[7] = "continueExecution",
+	[4] = "scriptLine"
 }
+
+local function fetchContextIcon(context)
+	if context == Constants.GameStateTypes.Client then
+		return Constants.DebugpointIconTable.client
+	elseif context == Constants.GameStateTypes.Server then
+		return Constants.DebugpointIconTable.server
+	end
+	return nil
+end
 
 function BreakpointsTable:init()
 	local initialSizes = nil
@@ -110,15 +115,18 @@ function BreakpointsTable:init()
 		elseif actionId == Constants.BreakpointActions.EditBreakpoint or actionId == Constants.LogpointActions.EditLogpoint then
 			local DebuggerUIService = game:GetService("DebuggerUIService")
 			DebuggerUIService:EditBreakpoint(row.item.id)
-			--TODO: RIDE-6048 will hook up EditBreakpointDialog with DebuggerV2, and we should make an appropriate thunk/action in listener after.
 
 		elseif actionId == Constants.BreakpointActions.EnableBreakpoint or actionId == Constants.LogpointActions.EnableLogpoint or
 			actionId == Constants.BreakpointActions.DisableBreakpoint or actionId == Constants.LogpointActions.DisableLogpoint then
 			local bpManager = game:GetService("BreakpointManager")
 			local bp = bpManager:GetBreakpointById(row.item.id)
 			bp:SetEnabled(not row.item.isEnabled)
+
+		elseif actionId == Constants.CommonActions.GoToScript then
+			self.goToScript()
 		end
 	end
+
 	self.OnSortChange = function(index, sortOrder)
 		local props = self.props
 		local defaultSortOrder = props.SortOrder or sortOrder
@@ -135,20 +143,9 @@ function BreakpointsTable:init()
 		local localization = props.Localization
 		local plugin = props.Plugin:get()
 
-		if row.item.debugpointType == Constants.DebugpointType.Breakpoint then
-			local actions = MakePluginActions.getBreakpointActions(localization, row.item.isEnabled)
-			showContextMenu(plugin, "Breakpoint", actions, self.onMenuActionSelected, {row = row})
-		elseif row.item.debugpointType == Constants.DebugpointType.Logpoint then
-			local actions = MakePluginActions.getLogpointActions(localization, row.item.isEnabled)
-			showContextMenu(plugin, "Logpoint", actions, self.onMenuActionSelected, {row = row})
-		end
-	end
-
-	self.deleteBreakpoint = function()
-		if #self.state.selectedBreakpoints ~= 0 then
-			local BreakpointManager = game:GetService("BreakpointManager")
-			BreakpointManager:RemoveBreakpointById(self.state.selectedBreakpoints[1].id)
-		end
+		local isLogpoint = row.item.debugpointType == Constants.DebugpointType.Logpoint
+		local actions = MakePluginActions.getBreakpointActions(localization, row.item.isEnabled, isLogpoint)
+		showContextMenu(plugin, "Breakpoint", actions, self.onMenuActionSelected, {row = row})
 	end
 
 	self.deleteAllBreakpoints = function()
@@ -272,15 +269,6 @@ function BreakpointsTable:render()
 		}, {
 			Name = localization:getText("BreakpointsWindow", "SourceLineColumn"),
 			Key = tableColumnKeys[4],
-		}, {
-			Name = localization:getText("BreakpointsWindow", "ConditionColumn"),
-			Key = tableColumnKeys[5],
-		}, {
-			Name = localization:getText("BreakpointsWindow", "LogMessageColumn"),
-			Key = tableColumnKeys[6],
-		}, {
-			Name = localization:getText("BreakpointsWindow", "ContinueExecutionColumn"),
-			Key = tableColumnKeys[7],
 		}
 	}
 
@@ -332,30 +320,16 @@ function BreakpointsTable:render()
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		},{
-			GoToScriptButton = Roact.createElement(IconButton, {
-				Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
-				LayoutOrder = 1,
-				LeftIcon = "rbxasset://textures/Debugger/Breakpoints/go_to_script@2x.png",
-				TooltipText = localization:getText("BreakpointsWindow", "GoToScript"),
-				OnClick = self.goToScript,
-			}),
 			DisableAllBreakpointButton = Roact.createElement(IconButton, {
 				Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
-				LayoutOrder = 2,
+				LayoutOrder = 1,
 				LeftIcon = "rbxasset://textures/Debugger/Breakpoints/disable_all@2x.png",
 				TooltipText = toggleButtonText,
 				OnClick = self.toggleEnabledAll
 			}),
-			DeleteBreakpointButton = Roact.createElement(IconButton, {
-				Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
-				LayoutOrder = 3,
-				LeftIcon = "rbxasset://textures/Debugger/Breakpoints/delete@2x.png",
-				TooltipText = localization:getText("Common", "DeleteBreakpoint"),
-				OnClick = self.deleteBreakpoint,
-			}),
 			DeleteAllBreakpointButton = Roact.createElement(IconButton, {
 				Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
-				LayoutOrder = 4,
+				LayoutOrder = 2,
 				LeftIcon = "rbxasset://textures/Debugger/Breakpoints/delete_all@2x.png",
 				TooltipText = localization:getText("BreakpointsWindow", "DeleteAll"),
 				OnClick = self.deleteAllBreakpoints,
@@ -434,7 +408,13 @@ BreakpointsTable = RoactRodux.connect(
 					bpRow.lineNumber = ""
 					bpRow.isEnabled = individualBreakpoint.Enabled
 					bpRow.scriptGUID = bpRow.scriptName
-					bpRow.scriptName = state.ScriptInfo.ScriptInfo[bpRow.scriptName]
+					bpRow.scriptName = {
+						Value = state.ScriptInfo.ScriptInfo[bpRow.scriptName],
+						LeftIcon = {
+							Image = fetchContextIcon(context),
+							Size = UDim2.new(0, Constants.ICON_SIZE, 0, Constants.ICON_SIZE),
+						}
+					}
 					table.insert(breakpoint.children, bpRow)
 				end
 			end

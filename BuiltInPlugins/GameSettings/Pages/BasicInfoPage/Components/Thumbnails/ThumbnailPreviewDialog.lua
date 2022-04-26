@@ -15,11 +15,16 @@ local BUTTON_PADDING = UDim.new(0, 20)
 
 local Page = script.Parent.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
+
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local FrameworkUI = require(Plugin.Packages.Framework).UI
+local FrameworkUI = Framework.UI
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local HoverArea = FrameworkUI.HoverArea
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
@@ -83,7 +88,7 @@ function ThumbnailPreviewDialog:render()
 		fullImageId = "rbxassetid://" .. imageId
 	end
 
-	local theme = self.props.Theme:get("Plugin")
+	local theme = THEME_REFACTOR and self.props.Stylizer or self.props.Theme:get("Plugin")
 	local localization = self.props.Localization
 
 	return Roact.createElement("Frame", {
@@ -190,7 +195,8 @@ end
 
 
 ThumbnailPreviewDialog = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
 })(ThumbnailPreviewDialog)

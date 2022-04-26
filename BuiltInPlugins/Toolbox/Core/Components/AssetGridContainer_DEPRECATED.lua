@@ -15,10 +15,7 @@
 ]]
 local HttpService = game:GetService("HttpService")
 
-local FFlagToolboxFixTryInStudioContextMenu = game:GetFastFlag("ToolboxFixTryInStudioContextMenu")
-local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
-local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
 
 local Plugin = script.Parent.Parent.Parent
@@ -213,9 +210,6 @@ function AssetGridContainer:init(props)
 	end
 
 	self.onScriptWarningBoxClosed = function()
-		if not FFlagToolboxEnableScriptConfirmation then
-			return
-		end
 		self:setState({
 			isShowingScriptWarningMessageBox = false,
 		})
@@ -223,9 +217,6 @@ function AssetGridContainer:init(props)
 	end
 
 	self.onInsertScriptWarningPrompt = function(info)
-		if not FFlagToolboxEnableScriptConfirmation then
-			return
-		end
 		local settings = self.props.Settings:get("Plugin")
 		if settings:getShowScriptWarning() then
 			self:setState({
@@ -270,7 +261,7 @@ function AssetGridContainer:init(props)
 		local result = if action == "yes" then true else false
 		self.insertToolPromise:returnResult(result)
 	end
-	
+
 	self.onPermissionsGrantCallback = function(info)
 		if not FFlagToolboxEnableAudioGrantDialog then
 			return
@@ -301,9 +292,9 @@ function AssetGridContainer:init(props)
 		local isPackageAsset = Category.categoryIsPackage(self.props.categoryName)
 		if isPackageAsset then
 			local canEditPackage = (
-					self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.EditKey
-					or self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.OwnKey
-				)
+				self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.EditKey
+				or self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.OwnKey
+			)
 			showEditOption = canEditPackage
 		end
 
@@ -340,7 +331,7 @@ function AssetGridContainer:init(props)
 			ViewInBrowser = true,
 		}
 
-		local creatorId = FFlagToolboxHideReportFlagForCreator and (assetData.Creator and assetData.Creator.Id) or nil
+		local creatorId = (assetData.Creator and assetData.Creator.Id) or nil
 		local currentCategory = assetData.Context.currentCategory
 		ContextMenuHelper.tryCreateContextMenu(
 			plugin,
@@ -427,12 +418,11 @@ function AssetGridContainer:didMount()
 						Created = responseItem.asset.createdUtc,
 						Updated = responseItem.asset.updatedUtc,
 					},
-					Context = FFlagToolboxFixTryInStudioContextMenu and {} or nil, -- TODO: STM-828 Add currentCategory and other context item Analytics
+					Context = {}, -- TODO: STM-828 Add currentCategory and other context item Analytics
 					Creator = {
 						Name = responseItem.creator.name,
 						Id = responseItem.creator.id,
-						TypeId = not FFlagToolboxFixTryInStudioContextMenu and responseItem.creator.type or nil,
-						Type = FFlagToolboxFixTryInStudioContextMenu and responseItem.creator.type or nil,
+						Type = responseItem.creator.type,
 					},
 				}
 
@@ -572,9 +562,9 @@ function AssetGridContainer:render()
 				local assetIndex = asset[2]
 
 				local canEditPackage = (
-						self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.EditKey
-						or self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.OwnKey
-					)
+					self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.EditKey
+					or self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.OwnKey
+				)
 
 				-- If the asset is a group packages, then we want to check only want to show it if we have permission.
 				-- if the category is not group packages, then we always want to show.

@@ -1,8 +1,6 @@
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
-local UILibrary = require(Plugin.Packages.UILibrary)
 
-local deepJoin = UILibrary.Util.deepJoin
 local Cryo = require(Plugin.Packages.Cryo)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
@@ -16,7 +14,7 @@ return function(groupId)
 		local newGroupMetadata = Cryo.Dictionary.join(oldGroupMetadata, {
 			[groupId] = Cryo.None,
 		})
-		
+
 		local oldPermissions = state.Settings.Changed.permissions or state.Settings.Current.permissions
 		local newPermissions = oldPermissions
 		for roleId, roleData in pairs(newPermissions[PermissionsConstants.RoleSubjectKey]) do

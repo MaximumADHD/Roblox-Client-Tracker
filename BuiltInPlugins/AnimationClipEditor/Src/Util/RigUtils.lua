@@ -34,6 +34,7 @@ local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrde
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 local FFlagACEFixTangentsSerialization = GetFFlagCurveEditor()
+local FFlagFixGetBoneFromBoneNode = game:DefineFastFlag("ACEFixGetBoneFromBoneNode", false)
 
 local RigUtils = {}
 
@@ -148,7 +149,11 @@ local function createBoneNode(bone, folder, visualizeBones)
 end
 
 function RigUtils.getBoneFromBoneNode(boneNode)
-	return boneNode:gsub("Node", "")
+	if FFlagFixGetBoneFromBoneNode then
+		return boneNode:gsub("(.*)Node$", "%1")
+	else
+		return boneNode:gsub("Node", "")
+	end
 end
 
 function RigUtils.updateMicrobones(rig, visualizeBones)

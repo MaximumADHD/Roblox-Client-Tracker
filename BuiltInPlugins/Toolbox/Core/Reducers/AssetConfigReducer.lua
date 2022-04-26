@@ -10,9 +10,6 @@ local Util = Plugin.Core.Util
 local PagedRequestCursor = require(Util.PagedRequestCursor)
 local LOADING_IN_BACKGROUND = require(Util.Keys).LoadingInProgress
 
-local FrameworkUtil = require(Packages.Framework).Util
-local deepJoin = FrameworkUtil.deepJoin
-
 local Actions = Plugin.Core.Actions
 local SetAssetId = require(Actions.SetAssetId)
 local SetUploadAssetType = require(Actions.SetUploadAssetType)
@@ -50,8 +47,6 @@ local SetUploadFee = require(Actions.SetUploadFee)
 local SetAssetConfigAssetTypeAgents = require(Actions.SetAssetConfigAssetTypeAgents)
 local SetDescendantPermissions = require(Actions.SetDescendantPermissions)
 local SetAgeVerificationData = require(Actions.SetAgeVerificationData)
-
-local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 
 return Rodux.createReducer({
 	-- Empty table means publish new asset

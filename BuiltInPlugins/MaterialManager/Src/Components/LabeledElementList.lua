@@ -130,30 +130,29 @@ function LabeledElementListItem:render()
 			TextYAlignment = props.TextYAlignment,
 		}),
 
-		Content = Roact.createElement(Pane, join({
+		Content = Roact.createElement(Pane, {
 			AutomaticSize = Enum.AutomaticSize.XY,
 			Spacing = props.VerticalSpacing,
 			LayoutOrder = 2,
 			Layout = Enum.FillDirection.Vertical,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			VerticalAlignment = Enum.VerticalAlignment.Top,
-		}, props.WrapperProps), {
-			Pane = Roact.createElement(Pane, {
+		}, {
+			Pane = Roact.createElement(Pane, join({
 				LayoutOrder = 3,
 				AutomaticSize = Enum.AutomaticSize.XY,
-			}, (props :: any)[Roact.Children]),
-
-			ErrorOrWarning = errorOrWarningText and Roact.createElement(Pane, {
+			}, props.WrapperProps), (props :: any)[Roact.Children]),
+			ErrorOrWarning = Roact.createElement(Pane, {
 				Size = UDim2.new(1, 0, 0, props.TextSize),
 				LayoutOrder = 4,
 			}, {
-				TextErrorOrWarning = errorOrWarningText ~= "" and Roact.createElement(TextLabel, {
+				TextErrorOrWarning = (errorOrWarningText and errorOrWarningText ~= "") and Roact.createElement(TextLabel, {
 					Text = errorOrWarningText,
 					TextSize = props.TextSize,
 					TextColor = props.TextErrorOrWarningColor,
 					AutomaticSize = Enum.AutomaticSize.XY,
 				}) or nil,
-			}) or nil
+			})
 		})
 	})
 end

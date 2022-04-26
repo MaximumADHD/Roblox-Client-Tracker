@@ -9,13 +9,8 @@ local Analytics = require(Util.Analytics.Analytics)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local EnumConvert = require(Util.EnumConvert)
 
-local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
-local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
 
-local getReportUrl
-if FFlagToolboxRedirectToLibraryAbuseReport then
-	getReportUrl = require(Util.getReportUrl)
-end
+local getReportUrl = require(Util.getReportUrl)
 
 local StudioService = game:GetService("StudioService")
 local GuiService = game:GetService("GuiService")
@@ -90,7 +85,7 @@ function ContextMenuHelper.tryCreateContextMenu(
 			GuiService:OpenBrowserWindow(targetUrl)
 		end)
 
-	if not showEditOption and (not FFlagToolboxHideReportFlagForCreator or creatorId ~= 1) then
+	if not showEditOption and creatorId ~= 1 then
 		-- User should only be able to report assets they can't edit
 		menu
 			:AddNewAction(string.format("Report-%s", instanceGuid), localize.RightClickMenu.Report).Triggered
@@ -98,12 +93,7 @@ function ContextMenuHelper.tryCreateContextMenu(
 				Analytics.reportAssetClicked(assetId, assetTypeId)
 
 				local baseUrl = ContentProvider.BaseUrl
-				local targetUrl
-				if FFlagToolboxRedirectToLibraryAbuseReport then
-					targetUrl = getReportUrl(assetId, assetTypeId)
-				else
-					targetUrl = string.format("%s/abusereport/asset?id=%s", baseUrl, HttpService:urlEncode(assetId))
-				end
+				local targetUrl = getReportUrl(assetId, assetTypeId)
 				GuiService:OpenBrowserWindow(targetUrl)
 			end)
 	end

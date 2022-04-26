@@ -1,5 +1,6 @@
 game:DefineFastFlag("RigBuilderNoTwoFace", false)
 game:DefineFastFlag("RigBuilderFixR6HRPTransparency", false)
+game:DefineFastFlag("RigBuilderMeshPartHeads", false)
 
 local RigCreator = {}
 
@@ -236,7 +237,7 @@ function RigCreator.CreateR6MeshGirlRig()
 	return rig
 end
 
-local r15DefaultRigId = 1664543044
+local r15DefaultRigId = game:GetFastFlag("RigBuilderMeshPartHeads") and 9425124156 or 1664543044
 
 local function r15RigImported(rig)
 	-- Not all packages have all their parts, we load MrGreyR15 first then substitute the parts we did load

@@ -25,13 +25,13 @@ local TranslationReferenceTable = main.Src.Resources.Localization.TranslationRef
 local Components = main.Src.Components
 local MaterialManagerView = require(Components.MaterialManagerView)
 local MaterialPrompt = require(Components.MaterialPrompt)
+local ImageUploader = require(Components.ImageUploader)
+local ImportAssetHandler = require(Components.ImportAssetHandler)
+local ImageLoader = require(Components.ImageLoader)
 
 local Utils = main.Src.Util
 local MaterialController = require(Utils.MaterialController)
 local getBuiltInMaterialVariants = require(Utils.getBuiltInMaterialVariants)
-local ImageUploader = require(main.Src.Util.ImageUploader)
-local ImportAssetHandler = require(main.Src.Util.ImportAssetHandler)
-local ImageLoader = require(Utils.ImageLoader)
 local MaterialServiceWrapper = require(Utils.MaterialServiceWrapper)
 
 
@@ -166,7 +166,7 @@ function MainPlugin:render()
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			InitialDockState = Enum.InitialDockState.Bottom,
 			Size = Vector2.new(640, 480),
-			MinSize = Vector2.new(250, 200),
+			MinSize = Vector2.new(400, 200),
 			OnClose = self.onClose,
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,

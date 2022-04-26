@@ -3,8 +3,6 @@
 
 	Consists of the PluginToolbar, DockWidget, and MainView.
 ]]
-local FFlagImprovePluginSpeed_AlignmentTool = game:GetFastFlag("ImprovePluginSpeed_AlignmentTool")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -49,29 +47,9 @@ function AlignmentToolPlugin:init()
 		self.setToolEnabled(enabled, initiatedByUser)
 	end
 
-	if FFlagImprovePluginSpeed_AlignmentTool then
 		self.onDockWidgetCreated = function()
 			self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleState)
 		end
-	end
-
-	if not FFlagImprovePluginSpeed_AlignmentTool then
-		self.renderButtons = function(toolbar)
-			local props = self.props
-			local enabled = props.toolEnabled
-
-			return {
-				Toggle = Roact.createElement(PluginButton, {
-					Toolbar = toolbar,
-					Active = enabled,
-					Title = STUDIO_RELAY_PLUGIN_BUTTON,
-					Tooltip = "",
-					Icon = "", -- C++ code is source of truth for Tooltip & Icon
-					OnClick = self.toggleState,
-				})
-			}
-		end
-	end
 
 	self.setToolEnabled = function(enabled, initiatedByUser)
 		local props = self.props
@@ -104,10 +82,8 @@ function AlignmentToolPlugin:_renderDockWidgetContents(enabled)
 	end
 end
 
-if FFlagImprovePluginSpeed_AlignmentTool then
-	function AlignmentToolPlugin:didUpdate()
+function AlignmentToolPlugin:didUpdate()
 		self.props.pluginLoaderContext.mainButton:SetActive(self.props.toolEnabled)
-	end
 end
 
 function AlignmentToolPlugin:render()
@@ -117,14 +93,9 @@ function AlignmentToolPlugin:render()
 	local enabled = props.toolEnabled
 
 	return Roact.createFragment({
-		Toolbar = not FFlagImprovePluginSpeed_AlignmentTool and Roact.createElement(PluginToolbar, {
-			Title = STUDIO_RELAY_PLUGIN_TOOLBAR,
-			RenderButtons = self.renderButtons,
-		}) or nil,
-
 		MainWidget = Roact.createElement(DockWidget, {
 			Enabled = enabled,
-			Widget = FFlagImprovePluginSpeed_AlignmentTool and props.pluginLoaderContext.mainDockWidget,
+			Widget = props.pluginLoaderContext.mainDockWidget,
 			Title = localization:getText("Plugin", "WindowTitle"),
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			InitialDockState = Enum.InitialDockState.Left,
@@ -133,7 +104,7 @@ function AlignmentToolPlugin:render()
 			OnClose = self.onClose,
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
-			OnWidgetCreated = FFlagImprovePluginSpeed_AlignmentTool and self.onDockWidgetCreated or nil,
+			OnWidgetCreated = self.onDockWidgetCreated,
 		}, {
 			DockWidgetContent = self:_renderDockWidgetContents(enabled),
 		})

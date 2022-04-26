@@ -1,7 +1,6 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
-	local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
 	local Packages = Plugin.Packages
 	local Roact = require(Packages.Roact)
 
@@ -16,9 +15,9 @@ return function()
 				assetData = {
 					Asset = {
 						Id = 1,
-						Creator = FFlagToolboxHideReportFlagForCreator and {
+						Creator = {
 							Id = 1,
-						} or nil,
+						},
 					},
 				},
 				previewFuncs = {},

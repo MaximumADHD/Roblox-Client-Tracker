@@ -21,6 +21,8 @@ local Cryo = require(Plugin.Packages.Cryo)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -225,7 +227,7 @@ end
 function TableWithMenuItem:render()
 	local props = self.props
 	local state = self.state
-	local theme = props.Theme:get("Plugin")
+	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
 
 	local rowData = props.RowData
 	local layoutOrder = props.LayoutOrder
@@ -313,7 +315,8 @@ end
 
 
 TableWithMenuItem = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Mouse = ContextServices.Mouse,
 })(TableWithMenuItem)
 

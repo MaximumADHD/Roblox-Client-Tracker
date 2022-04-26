@@ -150,9 +150,6 @@ function DisplayTable:init()
 				Name = localization:getText("Watch", "ExpressionColumn"),
 				Key = "expressionColumn",
 			}, {
-				Name = localization:getText("Watch", "ScopeColumn"),
-				Key = "scopeColumn",
-			}, {
 				Name = localization:getText("Watch", "ValueColumn"),
 				Key = "valueColumn",
 			}, {
@@ -162,24 +159,44 @@ function DisplayTable:init()
 		}
 	end
 	
-	local initialSizes = {}
+	local variableInitialSizes = {}
 	if hasTableColumnResizeFFlags then 
 		local numColumns = 4
 		for i = 1, numColumns do
-			table.insert(initialSizes, UDim.new(1/(numColumns), 0))
+			table.insert(variableInitialSizes, UDim.new(1/(numColumns), 0))
 		end
 	end
+	
+	local myWatchInitialSizes = {}
+	if hasTableColumnResizeFFlags then 
+		local numColumns = 3
+		for i = 1, numColumns do
+			table.insert(myWatchInitialSizes, UDim.new(1/(numColumns), 0))
+		end
+	end
+	
 	self.state = {
-		Sizes = hasTableColumnResizeFFlags and initialSizes
+		VariableColumnSizes = hasTableColumnResizeFFlags and variableInitialSizes,
+		MyWatchColumnSizes = hasTableColumnResizeFFlags and myWatchInitialSizes,
 	}
 	
 	self.OnSizesChange = function(newSizes : {UDim})
 		if hasTableColumnResizeFFlags then
-			self:setState(function(state)
-				return { 
-					Sizes = newSizes
-				}
-			end)
+			local props = self.props
+			local isVariablesTab = props.SelectedTab == TableTab.Variables
+			if isVariablesTab then
+				self:setState(function(state)
+					return { 
+						VariableColumnSizes = newSizes
+					}
+				end)
+			else
+				self:setState(function(state)
+					return { 
+						MyWatchColumnSizes = newSizes
+					}
+				end)
+			end
 		end
 	end
 	
@@ -317,9 +334,15 @@ function DisplayTable:render()
 	
 	if hasTableColumnResizeFFlags then
 		tableColumns = map(tableColumns, function(column, index: number)
-			return join(column, {
-				Width = self.state.Sizes[index]
-			})
+			if isVariablesTab then
+				return join(column, {
+					Width = self.state.VariableColumnSizes[index]
+				})
+			else
+				return join(column, {
+					Width = self.state.MyWatchColumnSizes[index]
+				})
+			end
 		end)
 	end
 	
@@ -341,7 +364,7 @@ function DisplayTable:render()
 		TextInputCols = textInputCols,
 		RightClick = self.onRightClick,
 		OnDoubleClick = FFlagDevFrameworkDoubleClick and self.OnDoubleClick,
-		DisableTooltip = true,
+		DisableTooltip = false,
 		SortIndex = props.SortIndex,
 		SortOrder = props.SortOrder,
 		OnSortChange = self.OnSortChange,

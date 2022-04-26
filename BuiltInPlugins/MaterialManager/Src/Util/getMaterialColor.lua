@@ -123,11 +123,7 @@ local enumToColor = {
 
 return function(material : Enum.Material, uses2022Materials : boolean) : Color3?
 	if enumToColor[material] then
-		if uses2022Materials then
-			return enumToColor[material].Color
-		else
-			return enumToColor[material].OldColor
-		end
+		return enumToColor[material].Color
 	else
 		return nil
 	end

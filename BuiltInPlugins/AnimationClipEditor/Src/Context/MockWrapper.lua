@@ -5,10 +5,10 @@ local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
-local Framework = Plugin.Packages.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
-local MockPlugin = require(Plugin.Packages.Framework).TestHelpers.Instances.MockPlugin
+local MockPlugin = Framework.TestHelpers.Instances.MockPlugin
 local MainProvider = require(Plugin.Src.Context.MainProvider)
 local PluginTheme = require(Plugin.Src.Util.Theme)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)

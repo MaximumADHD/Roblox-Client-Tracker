@@ -5,7 +5,6 @@
 game:DefineFastFlag("TerrainOpenCloseMetrics", false)
 game:DefineFastFlag("TerrainToolsImportUploadAssets", false)
 game:DefineFastFlag("TerrainToolsGlobalState", false)
-game:DefineFastFlag("TerrainToolsPluginButtonRestore", false)
 
 local Plugin = script.Parent.Parent
 local RefactorFlags = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)

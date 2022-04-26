@@ -23,8 +23,6 @@ local ASSET_URLS = {
     "rbxassetid://"
 }
 
-local FFlagHSRMoveToCDN5 = game:GetFastFlag("HSRMoveToCDN5")
-
 local function idToContentUrl(id)
     if tonumber(id) then
         return ContentProvider.BaseUrl .."asset/?id=" ..id
@@ -496,9 +494,7 @@ function RigFunctions.Export(plugin)
     end
 
     for _, folder in pairs(exportModel:GetChildren()) do
-        if FFlagHSRMoveToCDN5 then
-            PublishService:PublishDescendantAssets(folder)
-        end
+        PublishService:PublishDescendantAssets(folder)
 
         local outputFileName = folder.Name
 

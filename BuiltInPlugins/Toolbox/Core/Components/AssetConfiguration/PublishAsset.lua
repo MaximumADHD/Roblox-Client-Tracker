@@ -1,6 +1,6 @@
 --[[
 	This component holds all the detail page we want to show to the user. The content being displayed here should be
-	determined by the parent. And each time the componnet changes, it needs to noticfy the parent about the change.
+	determined by the parent. And each time the component changes, it needs to notify the parent about the change.
 
 	Necessary Props:
 		Size, UDim2, used to set the size for the whole page.
@@ -29,6 +29,15 @@
 		displayAssetType, bool, assetType.
 		displayTags, bool, tags.
 
+		newAssetStatus, string, from AssetConfigConstants.ASSET_STATUS (what the status for the asset will be in the back-end after we save the changes on this widget)
+		currentAssetStatus, string, from AssetConfigConstants.ASSET_STATUS (what the current status for the asset is in the back-end)
+		price, number, price of asset
+		minPrice, number, minimum price
+		maxPrice, number, max price
+		feeRate, number, fee rate
+		isPriceValid, bool, changes the behavior of the component
+		onPriceChange, function, price has changed
+
 	Optional Props:
 		LayoutOrder, number, used by the layouter to set the position of the component.
 ]]
@@ -36,6 +45,7 @@ local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPriv
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 local FFlagToolboxAudioAssetConfigDisablePublicAudio = game:GetFastFlag("ToolboxAudioAssetConfigDisablePublicAudio")
 local FFlagToolboxEnablePublicAudioToggle = game:GetFastFlag("ToolboxEnablePublicAudioToggle")
+local FFlagToolboxAssetConfigurationMatchPluginFlow = game:GetFastFlag("ToolboxAssetConfigurationMatchPluginFlow")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -56,6 +66,7 @@ local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
 local LayoutOrderIterator = require(Util.LayoutOrderIterator)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
+local AssetConfigUtil = FFlagToolboxAssetConfigurationMatchPluginFlow and require(Util.AssetConfigUtil) or nil
 local Constants = require(Util.Constants)
 local Images = require(Plugin.Core.Util.Images)
 
@@ -69,6 +80,8 @@ local ConfigCopy = require(AssetConfiguration.ConfigCopy)
 local ConfigComment = require(AssetConfiguration.ConfigComment)
 local ConfigSharing = require(AssetConfiguration.ConfigSharing)
 local TagsComponent = require(AssetConfiguration.CatalogTags.TagsComponent)
+local Header = require(AssetConfiguration.Header)
+local PriceComponent = FFlagToolboxAssetConfigurationMatchPluginFlow and require(AssetConfiguration.PriceComponent) or nil
 
 local SetFieldError = require(Plugin.Core.Actions.SetFieldError)
 
@@ -77,7 +90,7 @@ local PublishAsset = Roact.PureComponent:extend("PublishAsset")
 local NAME_HEIGHT = 100
 local DESC_HEIGHT = 180
 local ACCESS_HEIGHT = 70
-local ASSET_TYPE_HEIGHT = 60
+local ASSET_TYPE_HEIGHT = not FFlagToolboxAssetConfigurationMatchPluginFlow and 60 or nil -- unused variable, remove with FFlagToolboxAssetConfigurationMatchPluginFlow
 local GENRE_HEIGHT = 70
 local COPY_HEIGHT = 80
 local COMMENT_HEIGHT = 80
@@ -174,6 +187,10 @@ function PublishAsset:renderContent(theme, localizedContent)
 	local assetTypeEnum = props.assetTypeEnum
 	local isAssetPublic = props.isAssetPublic
 
+	local isAudio = assetTypeEnum == Enum.AssetType.Audio
+	local isModel = assetTypeEnum == Enum.AssetType.Model
+	local isPlugin = FFlagToolboxAssetConfigurationMatchPluginFlow and assetTypeEnum == Enum.AssetType.Plugin
+
 	local onNameChange = props.onNameChange
 	local onDescChange = props.onDescChange
 	local onTagsChange = props.onTagsChange
@@ -187,9 +204,21 @@ function PublishAsset:renderContent(theme, localizedContent)
 	local displayGenre = props.displayGenre
 	local displayCopy = props.displayCopy
 	local displayComment = props.displayComment
-	local displayAssetType = props.displayAssetType
+	local displayAssetType = props.displayAssetType and not isPlugin
 	local displayTags = props.displayTags
 	local displaySharing = props.displaySharing
+
+	local allowedAssetTypesForRelease = if isPlugin then props.allowedAssetTypesForRelease else nil
+	local newAssetStatus = if isPlugin then props.newAssetStatus else nil
+	local currentAssetStatus = if isPlugin then props.currentAssetStatus else nil
+	local onStatusChange = if isPlugin then props.onStatusChange else nil
+	local price = if isPlugin then props.price else nil
+	local minPrice = if isPlugin then props.minPrice else nil
+	local maxPrice = if isPlugin then props.maxPrice else nil
+	local feeRate = if isPlugin then props.feeRate else nil
+	local isPriceValid = if isPlugin then props.isPriceValid else nil
+	local onPriceChange = if isPlugin then props.onPriceChange else nil
+	local canChangeSalesStatus = if isPlugin and (AssetConfigUtil.isReadyForSale(newAssetStatus) or AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum)) then true else nil
 
 	local maximumItemTagsPerItem = props.maximumItemTagsPerItem
 
@@ -200,13 +229,10 @@ function PublishAsset:renderContent(theme, localizedContent)
 		onClickRefreshVerficationStatus = props.onClickRefreshVerficationStatus
 	end
 
-	local isAudio = assetTypeEnum == Enum.AssetType.Audio
-	local isModel = assetTypeEnum == Enum.AssetType.Model
-
 	local copyWarning
 	local modelPublishWarningText
+	local localization = if FFlagToolboxPrivatePublicAudioAssetConfig3 or FFlagToolboxAssetConfigurationMatchPluginFlow then props.Localization else nil
 	if FFlagToolboxPrivatePublicAudioAssetConfig3 then
-		local localization = props.Localization
 
 		if isAudio and not isAssetPublic and copyOn then
 			copyWarning = localization:getText("AssetConfigCopy", "MustShare")
@@ -232,6 +258,10 @@ function PublishAsset:renderContent(theme, localizedContent)
 		LayoutOrder = LayoutOrder,
 		[Roact.Ref] = self.baseFrameRef,
 	}
+
+	-- If the asset is a plugin, buyable on the marketplace, and the user is not whitelisted, we hide the price.
+	-- The copy option will only be able to toggle between Free and OffSale.
+	local showPrice = isPlugin and allowedAssetTypesForRelease[assetTypeEnum.Name] or false
 
 	return Roact.createElement(StyledScrollingFrame,
 		scrollingFrameProps,
@@ -292,6 +322,11 @@ function PublishAsset:renderContent(theme, localizedContent)
 				TextSize = Constants.FONT_SIZE_TITLE,
 			}),
 		}) else nil,
+
+		Header = isPlugin and Roact.createElement(Header, {
+			LayoutOrder = orderIterator:getNextOrder(),
+			Title = localization:getText("AssetConfig", "PublishPluginHeader"),
+		}),
 
 		Title = Roact.createElement(ConfigTextField, {
 			Title = publishAssetLocalized.Title,
@@ -410,7 +445,7 @@ function PublishAsset:renderContent(theme, localizedContent)
 			Title = if FFlagToolboxPrivatePublicAudioAssetConfig3 then publishAssetLocalized.DistributeOnMarketplace else publishAssetLocalized.Copy,
 
 			TotalHeight = if FFlagToolboxEnablePublicAudioToggle then nil else configCopyHeight,
-			CopyEnabled = allowCopy,
+			CopyEnabled = if isPlugin then canChangeSalesStatus else allowCopy,
 			CopyOn = copyOn,
 			CopyWarning = copyWarning,
 
@@ -420,6 +455,26 @@ function PublishAsset:renderContent(theme, localizedContent)
 
 			IsAssetPublic = if FFlagToolboxPrivatePublicAudioAssetConfig3 then isAssetPublic else nil,
 			IsAudio = if FFlagToolboxPrivatePublicAudioAssetConfig3 then isAudio else nil,
+
+			canChangeSalesStatus = canChangeSalesStatus,
+			currentAssetStatus = currentAssetStatus,
+			onStatusChange = onStatusChange,
+		}),
+
+		PriceComponent = showPrice and Roact.createElement(PriceComponent, {
+			AssetTypeEnum = assetTypeEnum,
+			AllowedAssetTypesForRelease = allowedAssetTypesForRelease,
+			NewAssetStatus = newAssetStatus,
+
+			Price = price,
+			MinPrice = minPrice,
+			MaxPrice = maxPrice,
+			FeeRate = feeRate,
+			IsPriceValid = isPriceValid,
+
+			OnPriceChange = onPriceChange,
+
+			LayoutOrder = orderIterator:getNextOrder(),
 		}),
 
 		Comment = displayComment and Roact.createElement(ConfigComment, {
@@ -456,7 +511,7 @@ local function mapDispatchToProps(dispatch)
 end
 
 PublishAsset = withContext({
-	Localization = if FFlagToolboxPrivatePublicAudioAssetConfig3 then ContextServices.Localization else nil,
+	Localization = if FFlagToolboxPrivatePublicAudioAssetConfig3 or FFlagToolboxAssetConfigurationMatchPluginFlow then ContextServices.Localization else nil,
 	Stylizer = ContextServices.Stylizer,
 })(PublishAsset)
 

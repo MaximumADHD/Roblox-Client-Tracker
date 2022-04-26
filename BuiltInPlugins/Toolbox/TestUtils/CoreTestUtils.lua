@@ -1,9 +1,7 @@
 local Plugin = script.Parent.Parent
 
-local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread3")
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
-local Rodux = require(Packages.Rodux)
 local Framework = require(Packages.Framework)
 
 local ThunkWithArgsMiddleware = Framework.Util.ThunkWithArgsMiddleware
@@ -19,27 +17,21 @@ local function mustSetFlag(flagName, value)
 end
 
 local function createThunkMiddleware()
-	if FFlagStudioSerializeInstancesOffUIThread then
-		local mockStudioAssetService = {}
-		function mockStudioAssetService:SerializeInstances(instances)
-			assert(typeof(instances) == "table", "Instances must be a table")
-			for _, instance in ipairs(instances) do
-				assert(instance:IsA("Instance"))
-			end
-
-			return "TEST"
+	local mockStudioAssetService = {}
+	function mockStudioAssetService:SerializeInstances(instances)
+		assert(typeof(instances) == "table", "Instances must be a table")
+		for _, instance in ipairs(instances) do
+			assert(instance:IsA("Instance"))
 		end
 
-		return {
-			ThunkWithArgsMiddleware({
-				StudioAssetService = mockStudioAssetService,
-			}),
-		}
-	else
-		return {
-			Rodux.thunkMiddleware,
-		}
+		return "TEST"
 	end
+
+	return {
+		ThunkWithArgsMiddleware({
+			StudioAssetService = mockStudioAssetService,
+		}),
+	}
 end
 
 return {

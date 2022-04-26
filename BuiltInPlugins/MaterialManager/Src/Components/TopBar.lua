@@ -28,12 +28,18 @@ local Pane = UI.Pane
 -- local SelectInput = UI.SelectInput
 local Tooltip = UI.Tooltip
 
-local Src = Plugin.Src
-local ClearMaterialVariant = require(Src.Actions.ClearMaterialVariant)
-local SetSearch = require(Src.Actions.SetSearch)
-local SetMode = require(Src.Actions.SetMode)
-local MainReducer = require(Src.Reducers.MainReducer)
-local getFFlagMaterialServiceStringOverride = require(Src.Flags.getFFlagMaterialServiceStringOverride)
+local Actions = Plugin.Src.Actions
+local ClearMaterialVariant = require(Actions.ClearMaterialVariant)
+local SetSearch = require(Actions.SetSearch)
+local SetMode = require(Actions.SetMode)
+
+local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+
+local Flags = Plugin.Src.Flags
+local getFFlagMaterialServiceStringOverride = require(Flags.getFFlagMaterialServiceStringOverride)
+local getFFlagMaterialPack2022Update = require(Flags.getFFlagMaterialPack2022Update)
+
+local MaterialController = require(Plugin.Src.Util.MaterialController)
 
 local TopBar = Roact.PureComponent:extend("TopBar")
 
@@ -50,6 +56,7 @@ type _Props = Props & {
 	dispatchSetMode : (mode : string) -> (),
 	Localization : any,
 	Material : _Types.Material?,
+	MaterialController : any,
 	Stylizer : any,
 	WrapperProps : any,
 	AbsoluteSize : Vector2,
@@ -123,10 +130,10 @@ function TopBar:init()
 
 		if Selection and props.Material then
 			local instances = Selection:Get()
+			ChangeHistoryService:SetWaypoint("Applied Material to Selection")
 
 			for _, instance in ipairs(instances) do
 				if getFFlagMaterialServiceStringOverride() and instance:IsA("BasePart") then
-					ChangeHistoryService:SetWaypoint("Applied Material to Selection")
 					instance.Material = props.Material.MaterialVariant.BaseMaterial
 					if not props.Material.IsBuiltin then
 						instance.MaterialVariant = props.Material.MaterialVariant.Name
@@ -184,21 +191,25 @@ end
 function TopBar:didMount()
 	local props : _Props = self.props
 
-	if props.Material and not props.Material.IsBuiltin then
-		self:setState{
-			isDisabledShowInExplorer = false,
-		}
+	local uses2022Materials = false
+	if getFFlagMaterialPack2022Update() then
+		uses2022Materials = props.MaterialController:getUses2022Materials()
+
+		self.builtinMaterialsChangedConnection = props.MaterialController:getBuiltInMaterialsChangedSignal():Connect(function()
+			self:setState({})
+		end)
 	end
 
-	-- TODO: remove it when/if Selection will be optimized
-	if props.Material then
-		self:setState{
-			isDisabledApplyToSelection = false,
-		}		
-	end
+	local isDisabledShowInExplorer = not props.Material or props.Material.IsBuiltin
+	local isDisablesApplyToSelection = not props.Material or (not uses2022Materials and props.Material.MaterialType == "Terrain")
+
+	self:setState({
+		isDisabledShowInExplorer = isDisabledShowInExplorer,
+		isDisablesApplyToSelection = isDisablesApplyToSelection,
+	})
 
 	-- TODO : re-consider uncomment when/if Selection will be optimized
-	-- self.SelectionChangedHandle = Selection.SelectionChanged:Connect(function()
+	-- self.selectionChangedConnection = Selection.SelectionChanged:Connect(function()
 	-- 	local isDisabled = true
 	-- 	if self.props.Material then
 	-- 		local instances = Selection:Get()
@@ -220,47 +231,64 @@ function TopBar:didMount()
 	-- end)
 end
 
-function TopBar:didUpdate(prevProps)
-	local props : _Props = self.props
-	
-	if props.Material and prevProps.Material ~= props.Material and not props.Material.IsBuiltin then
-		self:setState{
-			isDisabledShowInExplorer = false,
-		}
-	elseif (not props.Material and prevProps.Material) or (props.Material and prevProps.Material ~= props.Material and props.Material.IsBuiltin) then
-		self:setState{
-			isDisabledShowInExplorer = true,
-		}
+function TopBar:willUnmount()
+	if self.builtinMaterialsChangedConnection then
+		self.builtinMaterialsChangedConnection:Disconnect()
+		self.builtinMaterialsChangedConnection = nil
 	end
 
-	-- TODO : re-consider uncomment when/if Selection will be optimized
-	-- if Selection then
-	if props.Material and prevProps.Material ~= props.Material then
-		-- remove it when/if Selection will be optimized
-		self:setState{
-			isDisabledApplyToSelection = false,
-		}
-		-- local isDisabled = true
-		-- local instances = Selection:Get()
-		-- for _, instance in ipairs(instances) do
-		-- 	if getFFlagMaterialServiceStringOverride() and instance:IsA("BasePart") then
-		-- 		self:setState{
-		-- 			isDisabledApplyToSelection = false,
-		-- 		}
-		-- 		isDisabled = false
-		-- 		break
-		-- 	end
-		-- end
-		-- if isDisabled then
-		-- 	self:setState{
-		-- 		isDisabledApplyToSelection = true,
-		-- 	}
-		-- end 
-	elseif (not props.Material and prevProps.Material) then
-		self:setState{
-			isDisabledApplyToSelection = true,
-		}
+	if self.selectionChangedConnection then
+		self.selectionChangedConnection:Disconnect()
+		self.selectionChangedConnection = nil
 	end
+end
+
+function TopBar:didUpdate(prevProps, prevState)
+	local props : _Props = self.props
+
+	local uses2022Materials = false
+	if getFFlagMaterialPack2022Update() then
+		uses2022Materials = props.MaterialController:getUses2022Materials()
+	end
+
+	local isDisabledShowInExplorer = not props.Material or props.Material.IsBuiltin
+	local isDisabledApplyToSelection = not props.Material or (not uses2022Materials and props.Material.MaterialType == "Terrain")
+
+	if prevState.isDisabledShowInExplorer ~= isDisabledShowInExplorer or prevState.isDisabledApplyToSelection ~= isDisabledApplyToSelection then
+		self:setState({
+			isDisabledShowInExplorer = isDisabledShowInExplorer,
+			isDisabledApplyToSelection = isDisabledApplyToSelection,
+		})
+	end
+
+	-- -- TODO : re-consider uncomment when/if Selection will be optimized
+	-- -- if Selection then
+	-- if props.Material and prevProps.Material ~= props.Material then
+	-- 	-- remove it when/if Selection will be optimized
+	-- 	self:setState{
+	-- 		isDisabledApplyToSelection = false,
+	-- 	}
+	-- 	-- local isDisabled = true
+	-- 	-- local instances = Selection:Get()
+	-- 	-- for _, instance in ipairs(instances) do
+	-- 	-- 	if getFFlagMaterialServiceStringOverride() and instance:IsA("BasePart") then
+	-- 	-- 		self:setState{
+	-- 	-- 			isDisabledApplyToSelection = false,
+	-- 	-- 		}
+	-- 	-- 		isDisabled = false
+	-- 	-- 		break
+	-- 	-- 	end
+	-- 	-- end
+	-- 	-- if isDisabled then
+	-- 	-- 	self:setState{
+	-- 	-- 		isDisabledApplyToSelection = true,
+	-- 	-- 	}
+	-- 	-- end 
+	-- elseif (not props.Material and prevProps.Material) then
+	-- 	self:setState{
+	-- 		isDisabledApplyToSelection = true,
+	-- 	}
+	-- end
 	-- end
 end
 
@@ -360,15 +388,10 @@ function TopBar:render()
 	})
 end
 
-function TopBar:willUnmount()
-	if self.SelectionChangedHandle then
-		self.SelectionChangedHandle:Disconnect()
-	end
-end
-
 TopBar = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
+	MaterialController = MaterialController,
 	Stylizer = Stylizer,
 })(TopBar)
 

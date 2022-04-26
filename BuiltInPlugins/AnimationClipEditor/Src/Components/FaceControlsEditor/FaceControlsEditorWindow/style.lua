@@ -2,25 +2,20 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 
-local UI = require(Framework.UI)
+local UI = Framework.UI
 local Decoration = UI.Decoration
 
-local Util = require(Framework.Util)
+local Util = Framework.Util
 local Cryo = Util.Cryo
-local Style = Util.Style
 local StyleModifier = Util.StyleModifier
 local deepCopy = Util.deepCopy
 
-local StyleKey = require(Framework.Style.StyleKey)
+local StyleKey = Framework.Style.StyleKey
 
-local Common = require(Framework.StudioUI.StudioFrameworkStyles.Common)
-
-local UIFolderData = require(Framework.UI.UIFolderData)
-local RoundBox = require(UIFolderData.RoundBox.style)
-local Slider = require(UIFolderData.Slider.style)
+local UIFolderData = UI.UIFolderData
+local RoundBox = UIFolderData.RoundBox.style
 
 local roundBox = deepCopy(RoundBox)
-local slider = deepCopy(Slider)
 local function buttonStyle(image)
 	return {
 		Size = UDim2.fromOffset(28, 28),

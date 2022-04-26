@@ -30,7 +30,7 @@ return function(plugin, pluginLoaderContext)
 	local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
 	local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 	local ExternalServicesWrapper = require(Plugin.Src.Components.ExternalServicesWrapper)
-	local Theme = require(Plugin.Src.Util.Theme)
+	local MakeTheme = require(Plugin.Src.Util.MakeTheme)
 	local Networking = require(Plugin.Src.ContextServices.Networking)
 	local WorldRootPhysics = require(Plugin.Pages.WorldPage.ContextServices.WorldRootPhysics)
 	local GameInfoController = require(Plugin.Src.Controllers.GameInfoController)
@@ -141,7 +141,7 @@ return function(plugin, pluginLoaderContext)
 				dialog.Enabled = true
 				dialog.Title = props.Title
 				local dialogContents = Roact.createElement(ExternalServicesWrapper, {
-					theme = Theme.new(),
+					theme = MakeTheme(),
 					mouse = plugin:GetMouse(),
 					localization = localization,
 					pluginGui = pluginGui,
@@ -308,7 +308,7 @@ return function(plugin, pluginLoaderContext)
 		local servicesProvider = Roact.createElement(ExternalServicesWrapper, {
 			store = settingsStore,
 			showDialog = showDialog,
-			theme = Theme.new(),
+			theme = MakeTheme(),
 			mouse = plugin:GetMouse(),
 			localization = localization,
 			pluginGui = pluginGui,

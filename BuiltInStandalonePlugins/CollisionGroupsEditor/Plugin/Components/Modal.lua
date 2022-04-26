@@ -1,5 +1,5 @@
-local Roact = require(script.Parent.Parent.Parent.modules.Roact)
-local UILibrary = require(script.Parent.Parent.Parent.modules.UILibrary)
+local Roact = require(script.Parent.Parent.Parent.Packages.Roact)
+local UILibrary = require(script.Parent.Parent.Parent.Packages.UILibrary)
 local withLocalization = UILibrary.Localizing.withLocalization
 
 local Padding = require(script.Parent.Padding)

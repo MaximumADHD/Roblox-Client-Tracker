@@ -22,12 +22,11 @@ local ok, isEdit = pcall(function()
 end)
 
 local FFlagStudioAudioDiscoveryPluginV3 = game:GetFastFlag("StudioAudioDiscoveryPluginV3")
-local FFlagStudioDevFrameworkPluginButtonId = game:GetFastFlag("StudioDevFrameworkPluginButtonId")
 
 if not ok or not isEdit then
 	if FFlagStudioAudioDiscoveryPluginV3 then
 		local toolbar = plugin:CreateToolbar("Audio Discovery")
-		local buttonId = if FFlagStudioDevFrameworkPluginButtonId then "ViewSounds" else "View Sounds"
+		local buttonId = "ViewSounds"
 		local button = toolbar:CreateButton(buttonId, "View Sounds", "rbxasset://textures/AudioDiscovery/icon.png")
 		button.Enabled = false
 	end

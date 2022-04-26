@@ -23,6 +23,10 @@ local BreakpointActions : {[string]: ActionId} = {
 	DeleteBreakpoint = "DeleteBreakpoint",
 }
 
+local CommonActions : {[string]: ActionId} = {
+	GoToScript = "GoToScript",
+}
+
 local StepActionIds : {[string]: ActionId} = {
 	simulationResumeActionV2 = "simulationResumeActionV2",
 	simulationPauseActionV2 = "simulationPauseActionV2",
@@ -59,8 +63,22 @@ local DebuggerStatus : {[string] : string} = {
 };
 
 local HEADER_HEIGHT = 40
+local ICON_SIZE = 16
 
 local BreakpointIconDirectoryFilePath = "rbxasset://textures/Debugger/Breakpoints/"
+
+local DebugpointIconTable = {
+	breakpointDisabled = BreakpointIconDirectoryFilePath .. "breakpoint_disabled@2x.png",
+	breakpointEnabled = BreakpointIconDirectoryFilePath .. "breakpoint_enabled@2x.png",
+	conditionalDisabled = BreakpointIconDirectoryFilePath .. "conditional_disabled@2x.png",
+	conditionalEnabled = BreakpointIconDirectoryFilePath .. "conditional_enabled@2x.png",
+	invalidBreakpoint = BreakpointIconDirectoryFilePath .. "invalid_breakpoint@2x.png",
+	invalidLogpoint = BreakpointIconDirectoryFilePath .. "invalid_logpoint@2x.png",
+	logpointDisabled = BreakpointIconDirectoryFilePath .. "logpoint_disabled@2x.png",
+	logpointEnabled = BreakpointIconDirectoryFilePath .. "logpoint_enabled@2x.png",
+	client = BreakpointIconDirectoryFilePath .. "client@2x.png",
+	server = BreakpointIconDirectoryFilePath .. "server@2x.png",
+}
 
 local SeparationToken = "_"
 
@@ -75,9 +93,11 @@ return {
 	WatchActionIds = WatchActionIds,
 	LogpointActions = LogpointActions,
 	BreakpointActions = BreakpointActions,
+	CommonActions = CommonActions,
 	StepActionIds = StepActionIds,
 	HEADER_HEIGHT = HEADER_HEIGHT,
-	BreakpointIconDirectoryFilePath = BreakpointIconDirectoryFilePath,
+	ICON_SIZE = ICON_SIZE,
+	DebugpointIconTable = DebugpointIconTable,
 	SeparationToken = SeparationToken,
 	GameStateTypes = GameStateTypes,
 	DebugpointType = DebugpointType,

@@ -7,7 +7,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Util = Plugin.Core.Util
 local DebugFlags = require(Util.DebugFlags)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
-local SerializeInstances_Deprecated = require(Util.SerializeInstances_Deprecated)
 local SerializeInstances = require(Util.SerializeInstances)
 local Analytics = require(Util.Analytics.Analytics)
 
@@ -20,7 +19,7 @@ local SetAssetId = require(Actions.SetAssetId)
 local TrySaveSalesAndThumbnailRequest = require(Plugin.Core.Networking.Requests.TrySaveSalesAndThumbnailRequest)
 
 local FFlagDebugAssetConfigNetworkError = game:GetFastFlag("DebugAssetConfigNetworkError")
-local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread3")
+local FFlagToolboxAssetConfigurationMatchPluginFlow = game:GetFastFlag("ToolboxAssetConfigurationMatchPluginFlow")
 
 -- publishInfo is a table contains the following:
 -- assetId, number, defualt to 0 for new asset.
@@ -93,51 +92,23 @@ return function(publishInfo)
 			Analytics.incrementUploadAssetFailure(publishInfo.assetType)
 		end
 
-		if FFlagStudioSerializeInstancesOffUIThread then
-			return SerializeInstances(publishInfo.instances, services.StudioAssetService):andThen(
-				function(fileDataString)
-					local isPublicOverride = publishInfo.copyOn
-					if publishInfo.assetType == Enum.AssetType.Plugin.Name then
-						isPublicOverride = true
-					end
-
-					return publishInfo.networkInterface
-						:postUploadAsset(
-							publishInfo.assetId,
-							publishInfo.assetType,
-							publishInfo.name,
-							publishInfo.description,
-							publishInfo.genreTypeID,
-							isPublicOverride,
-							publishInfo.commentOn,
-							publishInfo.groupId,
-							fileDataString
-						)
-						:andThen(onSuccess, onFail)
-				end,
-				onSerializeFail
-			)
-		else
-			local fileDataString = SerializeInstances_Deprecated(publishInfo.instances)
-
-			local ispublicOverride = publishInfo.copyOn
-			if publishInfo.assetType == Enum.AssetType.Plugin.Name then
-				ispublicOverride = true
+		return SerializeInstances(publishInfo.instances, services.StudioAssetService):andThen(function(fileDataString)
+			local isPublicOverride = publishInfo.copyOn
+			if not FFlagToolboxAssetConfigurationMatchPluginFlow and publishInfo.assetType == Enum.AssetType.Plugin.Name then
+				isPublicOverride = true
 			end
-
-			return publishInfo.networkInterface
-				:postUploadAsset(
-					publishInfo.assetId,
-					publishInfo.assetType,
-					publishInfo.name,
-					publishInfo.description,
-					publishInfo.genreTypeID,
-					ispublicOverride,
-					publishInfo.commentOn,
-					publishInfo.groupId,
-					fileDataString
-				)
-				:andThen(onSuccess, onFail)
-		end
+				
+			return publishInfo.networkInterface:postUploadAsset(
+				publishInfo.assetId,
+				publishInfo.assetType,
+				publishInfo.name,
+				publishInfo.description,
+				publishInfo.genreTypeID,
+				isPublicOverride,
+				publishInfo.commentOn,
+				publishInfo.groupId,
+				fileDataString
+			):andThen(onSuccess, onFail)
+		end, onSerializeFail)
 	end
 end

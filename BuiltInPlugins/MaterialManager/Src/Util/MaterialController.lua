@@ -56,6 +56,8 @@ function MaterialController.new(initialMaterialVariants : _Types.Array<MaterialV
 		_materialAddedSignal = Signal.new(),
 		_materialRemovedSignal = Signal.new(),
 		_materialChangedSignal = Signal.new(),
+		_materialNameChangedSignal = Signal.new(),
+		_materialStatusChangedSignal = Signal.new(),
 		_overrideChangedSignal = Signal.new(),
 		_materialChangedListeners = {},
 
@@ -66,6 +68,7 @@ function MaterialController.new(initialMaterialVariants : _Types.Array<MaterialV
 		},
 		_materialPaths = {},
 		_materialWrappers = {},
+		_materialStatuses = {},
 		_materialServiceWrapper = materialServiceWrapper,
 		_nameToEnum = {},
 	}, MaterialController)
@@ -189,6 +192,10 @@ function MaterialController:getCategoriesChangedSignal() : RBXScriptSignal
 	return self._categoryChangedSignal
 end
 
+function MaterialController:getOverrideStatus(materialType : Enum.Material) : Enum.PropertyStatus
+	return self._materialServiceWrapper:asMaterialService():GetOverrideStatus(materialType)
+end
+
 function MaterialController:addMaterial(material : MaterialVariant, moving : boolean)
 	local path = getMaterialPath(material)
 	local materialWrapper = self:getMaterialWrapper(material)
@@ -208,7 +215,8 @@ function MaterialController:addMaterial(material : MaterialVariant, moving : boo
 			self:moveMaterial(material)
 			self._materialChangedSignal:Fire(material)
 		elseif property == "Name" then
-			self._materialChangedSignal:Fire(material)		
+			self._materialChangedSignal:Fire(material)
+			self._materialNameChangedSignal:Fire(material)
 		end
 	end)
 
@@ -295,14 +303,14 @@ function MaterialController:ifMaterialNameExists(name : string, baseMaterial : E
 
 	local materials = {}
 	recurseMaterials(category, materials, function(material)
-		return material.MaterialVariant.Name == name and material.MaterialVariant.BaseMaterial == baseMaterial
+		return material.MaterialVariant.Name == name and material.MaterialVariant.BaseMaterial == baseMaterial and not material.IsBuiltin
 	end)
 
 	return #materials ~= 0
 end
 
 function MaterialController:getUses2022Materials() : boolean
-	if getFFlagMaterialServiceStringOverride() then
+	if getFFlagMaterialPack2022Update() then
 		return self._materialServiceWrapper:asMaterialService().Use2022Materials
 	end
 
@@ -336,14 +344,36 @@ end
 function MaterialController:getMaterialOverrides(material : Enum.Material) : (_Types.Array<_Types.Material>, number)
 	local currentOverride = self:getMaterialOverride(material)
 
-	local materialIndex = 0
+	local materialIndex = -1
 	local materials = {}
-	for index, variant in ipairs(self:getVariants(material)) do
-		table.insert(materials, variant.MaterialVariant.Name)
+	local materialNames = {}
 
-		if variant.MaterialVariant.Name == currentOverride then
+	local options = self:getVariants(material)
+	table.insert(options, {
+		MaterialVariant = {
+			Name = getMaterialName(material)
+		}
+	})
+	table.sort(options, function(a, b) return a.MaterialVariant.Name:upper() < b.MaterialVariant.Name:upper() end)
+
+	for index, variant in ipairs(options) do
+		local name = variant.MaterialVariant.Name
+		if materialNames[name] then
+			continue
+		end
+
+		table.insert(materials, name)
+		materialNames[name] = true
+
+		if name == currentOverride then
 			materialIndex = index
 		end
+	end
+
+	table.sort(materials)
+
+	if currentOverride == "" then
+		return materials, 0
 	end
 
 	return materials, materialIndex
@@ -367,8 +397,16 @@ function MaterialController:getMaterialChangedSignal() : RBXScriptSignal
 	return self._materialChangedSignal
 end
 
+function MaterialController:getMaterialNameChangedSignal() : RBXScriptSignal
+	return self._materialNameChangedSignal
+end
+
 function MaterialController:getOverrideChangedSignal() : RBXScriptSignal
 	return self._overrideChangedSignal
+end
+
+function MaterialController:getOverrideStatusChangedSignal() : RBXScriptSignal
+	return self._materialServiceWrapper:asMaterialService().OverrideStatusChanged
 end
 
 return MaterialController

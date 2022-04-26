@@ -1,6 +1,8 @@
 local Plugin = script.Parent.Parent.Parent
+local FFlagRemoveUILibraryComponentsPart1 = game:GetFastFlag("RemoveUILibraryComponentsPart1")
+local Framework = require(Plugin.Packages.Framework)
 local UILibrary = require(Plugin.Packages.UILibrary)
-local Signal = UILibrary.Util.Signal
+local Signal = if FFlagRemoveUILibraryComponentsPart1 then Framework.Util.Signal else UILibrary.Util.Signal
 
 local MockMouse = {}
 MockMouse.__index = MockMouse

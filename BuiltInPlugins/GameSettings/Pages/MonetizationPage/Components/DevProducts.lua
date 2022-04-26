@@ -37,6 +37,8 @@ local GetTextSize = UILibrary.Util.GetTextSize
 local TitledFrame = UILibrary.Component.TitledFrame
 
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FrameworkUI = Framework.UI
 local Button = FrameworkUI.Button
 local HoverArea = FrameworkUI.HoverArea
@@ -51,7 +53,7 @@ local DevProducts = Roact.PureComponent:extend(script.Name)
 
 function DevProducts:render()
     local props = self.props
-    local theme = props.Theme:get("Plugin")
+    local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
     local localization = props.Localization
 
     local productsList = props.ProductList
@@ -155,7 +157,8 @@ end
 
 DevProducts = withContext({
     Localization = ContextServices.Localization,
-    Theme = ContextServices.Theme,
+    Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(DevProducts)
 
 

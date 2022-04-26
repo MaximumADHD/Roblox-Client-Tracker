@@ -12,6 +12,7 @@ local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPriv
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 local FFlagToolboxAudioAssetConfigDisablePublicAudio = game:GetFastFlag("ToolboxAudioAssetConfigDisablePublicAudio")
 local FFlagToolboxEnablePublicAudioToggle = game:GetFastFlag("ToolboxEnablePublicAudioToggle")
+local FFlagToolboxAssetConfigurationMatchPluginFlow = game:GetFastFlag("ToolboxAssetConfigurationMatchPluginFlow")
 
 local StudioService = game:GetService("StudioService")
 
@@ -118,7 +119,7 @@ function AssetConfig:init(props)
 		genres = {
 			DEFAULT_GENRE
 		},
-		allowCopy = true, -- Enable the copy toggle if the flag to modify copy behavoir is off or user is verified.
+		allowCopy = true, -- Enable the copy toggle if the flag to modify copy behavior is off or user is verified.
 		copyOn = false,
 		copyChanged = false, -- If the user has changed the copy status
 		allowComment = true,  -- Default to allow comment, but off.
@@ -768,14 +769,28 @@ local function validatePrice(text, minPrice, maxPrice, assetStatus)
 
 	local shouldValidate = AssetConfigConstants.ASSET_STATUS.OnSale == assetStatus and text ~= nil
 
-	if shouldValidate and AssetConfigConstants.ASSET_STATUS.OnSale == assetStatus then
-		result = false
-		text = tostring(text)
-		local isInt = text and text:match("%d+") == text
-		if isInt then
-			local num = tonumber(text)
-			if num then
-				result = num >= minPrice and num <= maxPrice
+	if FFlagToolboxAssetConfigurationMatchPluginFlow then
+		if shouldValidate then
+			result = false
+			text = tostring(text)
+			local isInt = text and text:match("%d+") == text
+			if isInt then
+				local num = tonumber(text)
+				if num then
+					result = num >= minPrice and num <= maxPrice
+				end
+			end
+		end
+	else
+		if shouldValidate and AssetConfigConstants.ASSET_STATUS.OnSale == assetStatus then
+			result = false
+			text = tostring(text)
+			local isInt = text and text:match("%d+") == text
+			if isInt then
+				local num = tonumber(text)
+				if num then
+					result = num >= minPrice and num <= maxPrice
+				end
 			end
 		end
 	end
@@ -921,14 +936,26 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 	local showTags = TagsUtil.areTagsEnabled(props.isItemTagsFeatureEnabled, props.enabledAssetTypesForItemTags, assetTypeEnum)
 
 	local isPriceValid = validatePrice(price, minPrice, maxPrice, newAssetStatus)
-	local isMarketBuyAndNonWhiteList = AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) and (not allowedAssetTypesForRelease[assetTypeEnum.Name])
-	local tabItems = ConfigTypes:getAssetconfigContent(
-		screenFlowType,
-		assetTypeEnum,
-		isMarketBuyAndNonWhiteList,
-		self.props.isPackageAsset,
-		owner
-	)
+	local isMarketBuyAndNonWhiteList
+	local tabItems
+	if FFlagToolboxAssetConfigurationMatchPluginFlow then
+		isMarketBuyAndNonWhiteList = nil
+		tabItems = ConfigTypes:getAssetconfigContent(
+			screenFlowType,
+			assetTypeEnum,
+			self.props.isPackageAsset,
+			owner
+		)
+	else
+		isMarketBuyAndNonWhiteList = AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) and (not allowedAssetTypesForRelease[assetTypeEnum.Name])
+		tabItems = ConfigTypes:getAssetconfigContent(
+			screenFlowType,
+			assetTypeEnum,
+			isMarketBuyAndNonWhiteList,
+			self.props.isPackageAsset,
+			owner
+		)
+	end
 
 	local isLoading = self:isLoading()
 
@@ -939,6 +966,7 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 
 	local isAudio = props.assetTypeEnum == Enum.AssetType.Audio
 	local isModel = props.assetTypeEnum == Enum.AssetType.Model
+	local isPlugin = FFlagToolboxAssetConfigurationMatchPluginFlow and props.assetTypeEnum == Enum.AssetType.Plugin
 
 	local publicConfirmationAcceptText
 	local publicConfirmationCancelText
@@ -1128,6 +1156,18 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 					displaySharing = showSharing,
 
 					maximumItemTagsPerItem = props.maximumItemTagsPerItem,
+
+					allowedAssetTypesForRelease = isPlugin and allowedAssetTypesForRelease or nil,
+					newAssetStatus = isPlugin and newAssetStatus or nil,
+					currentAssetStatus = isPlugin and currentAssetStatus or nil,
+
+					onStatusChange = isPlugin and self.onStatusChange or nil,
+					onPriceChange = isPlugin and self.onPriceChange or nil,
+					price = isPlugin and price or nil,
+					minPrice = isPlugin and minPrice or nil,
+					maxPrice = isPlugin and maxPrice or nil,
+					feeRate = isPlugin and feeRate or nil,
+					isPriceValid = isPlugin and isPriceValid or nil,
 
 					LayoutOrder = 3,
 				})),

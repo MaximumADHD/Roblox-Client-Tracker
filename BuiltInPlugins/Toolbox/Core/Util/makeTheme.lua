@@ -2,6 +2,7 @@ local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategoriz
 local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
 local FFlagToolboxAssetStyleUpdate2 = game:GetFastFlag("ToolboxAssetStyleUpdate2")
 local FFlagAssetConfigDistributionQuotas = game:GetFastFlag("AssetConfigDistributionQuotas")
+local FFlagToolboxAudioDiscovery = game:GetFastFlag("ToolboxAudioDiscovery")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -42,6 +43,19 @@ local makeTheme = function(themeExtension, themeClass)
 		[StyleKey.Toolbox_AssetBackgroundImage] = "",
 		[StyleKey.Toolbox_AssetNameColor] = FFlagToolboxAssetStyleUpdate2 and Color3.fromRGB(60, 180, 255),
 		[StyleKey.Toolbox_AssetIconColor] = Color3.fromRGB(178, 178, 178),
+		[StyleKey.Toolbox_AudioRowBackgroundColorEven] = FFlagToolboxAudioDiscovery and Color3.fromHex("#222222")
+			or nil,
+		[StyleKey.Toolbox_AudioRowBackgroundColorOdd] = FFlagToolboxAudioDiscovery and Color3.fromHex("#2C2C2C") or nil,
+		[StyleKey.Toolbox_AudioRowBorderColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#024897") or nil,
+		[StyleKey.Toolbox_AudioRowHeaderTextColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#989898"),
+		[StyleKey.Toolbox_AudioRowTitleTextColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#52ADF4"),
+		[StyleKey.Toolbox_AudioRowTextColor] = FFlagToolboxAudioDiscovery and StyleColors.White or nil,
+		[StyleKey.Toolbox_AudioPlayerBackgroundColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#171717") or nil,
+		[StyleKey.Toolbox_AudioPlayerProgressBarColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#0077D6")
+			or nil,
+		[StyleKey.Toolbox_AudioPlayerIndicatorColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#555555") or nil,
+		[StyleKey.Toolbox_AudioPlayerIndicatorBorderColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#555555")
+			or nil,
 		[StyleKey.Toolbox_DeleteIconColor] = Color3.fromRGB(136, 136, 136),
 		[StyleKey.Toolbox_DropdownItemSelectedColor] = StyleColors.Blue_Dark,
 		[StyleKey.Toolbox_DropdownIconColor] = StyleColors.White,
@@ -98,6 +112,19 @@ local makeTheme = function(themeExtension, themeClass)
 		[StyleKey.Toolbox_AssetBackgroundImage] = Images.NO_BACKGROUND_ICON,
 		[StyleKey.Toolbox_AssetNameColor] = FFlagToolboxAssetStyleUpdate2 and Color3.fromHex("#0B5AAF"),
 		[StyleKey.Toolbox_AssetIconColor] = Color3.fromRGB(170, 170, 170),
+		[StyleKey.Toolbox_AudioPlayerBackgroundColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#E1E1E1") or nil,
+		[StyleKey.Toolbox_AudioPlayerProgressBarColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#0077D6")
+			or nil,
+		[StyleKey.Toolbox_AudioPlayerIndicatorColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#CBCBCB") or nil,
+		[StyleKey.Toolbox_AudioPlayerIndicatorBorderColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#222222")
+			or nil,
+		[StyleKey.Toolbox_AudioRowBackgroundColorEven] = FFlagToolboxAudioDiscovery and Color3.fromHex("#EDEDED")
+			or nil,
+		[StyleKey.Toolbox_AudioRowBackgroundColorOdd] = FFlagToolboxAudioDiscovery and Color3.fromHex("#FAFAFA") or nil,
+		[StyleKey.Toolbox_AudioRowBorderColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#3DB3FF") or nil,
+		[StyleKey.Toolbox_AudioRowHeaderTextColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#3B3B3B"),
+		[StyleKey.Toolbox_AudioRowTitleTextColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#0055AC"),
+		[StyleKey.Toolbox_AudioRowTextColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#171717") or nil,
 		[StyleKey.Toolbox_DeleteIconColor] = Color3.fromRGB(184, 184, 184),
 		[StyleKey.Toolbox_DropdownItemSelectedColor] = StyleColors.Blue_Light,
 		[StyleKey.Toolbox_DropdownIconColor] = Color3.fromRGB(25, 25, 25),
@@ -196,6 +223,27 @@ local makeTheme = function(themeExtension, themeClass)
 		assetConfig = {
 			labelTextColor = StyleKey.DimmedText,
 		},
+
+		audioPlayer = FFlagToolboxAudioDiscovery and {
+			backgroundColor = StyleKey.Toolbox_AudioPlayerBackgroundColor,
+			progressBarColor = StyleKey.Toolbox_AudioPlayerProgressBarColor,
+			indicatorColor = StyleKey.Toolbox_AudioPlayerIndicatorColor,
+			indicatorBorderColor = StyleKey.Toolbox_AudioPlayerIndicatorBorderColor,
+		} or nil,
+
+		audioRow = FFlagToolboxAudioDiscovery and {
+			backgroundColorEven = StyleKey.Toolbox_AudioRowBackgroundColorEven,
+			backgroundColorOdd = StyleKey.Toolbox_AudioRowBackgroundColorOdd,
+			borderColor = StyleKey.Toolbox_AudioRowBorderColor,
+			headerTextColor = StyleKey.Toolbox_AudioRowHeaderTextColor,
+			titleTextColor = StyleKey.Toolbox_AudioRowTitleTextColor,
+			primaryIconColor = Color3.fromHex("#DF9251"),
+			textColor = StyleKey.Toolbox_AudioRowTextColor,
+			playButtonColor = Colors.BLACK,
+			pauseButtonColor = Colors.BLUE_PRIMARY,
+			insertButtonColor = Color3.fromHex("#0077D6"),
+			insertButtonTextColor = Colors.WHITE,
+		} or nil,
 
 		creatorName = {
 			textColor = StyleKey.SubText,

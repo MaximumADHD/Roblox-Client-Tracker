@@ -15,6 +15,8 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FrameworkUI = Framework.UI
 local Button = FrameworkUI.Button
 
@@ -42,7 +44,7 @@ function DeveloperSubscriptionList:render()
     local onDeveloperSubscriptionEdited = self.props.OnDeveloperSubscriptionEdited
     local onDeveloperSubscriptionCreated = self.props.OnDeveloperSubscriptionCreated
     local listItemHeight = self.props.ListItemHeight or 32
-    local theme = self.props.Theme:get("Plugin")
+    local theme = THEME_REFACTOR and self.props.Stylizer or self.props.Theme:get("Plugin")
     local localization = self.props.Localization
     local layoutOrder = self.props.LayoutOrder
 
@@ -179,7 +181,8 @@ end
 
 
 DeveloperSubscriptionList = withContext({
-    Theme = ContextServices.Theme,
+    Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
     Localization = ContextServices.Localization,
 })(DeveloperSubscriptionList)
 

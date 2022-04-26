@@ -307,9 +307,17 @@ return function()
 	describe("SetSelectedTracks", function()
 		it("should set selectedTracks", function()
 			local store = createTestStore()
-			store:dispatch(SetSelectedTracks({"TestTrack"}))
+			if GetFFlagCurveEditor() then
+				store:dispatch(SetSelectedTracks({{"TestTrack"}}))
+			else
+				store:dispatch(SetSelectedTracks({"TestTrack"}))
+			end
 			local state = store:getState()
-			expect(state.SelectedTracks[1]).to.equal("TestTrack")
+			if GetFFlagCurveEditor() then
+				expect(state.SelectedTracks[1][1]).to.equal("TestTrack")
+			else
+				expect(state.SelectedTracks[1]).to.equal("TestTrack")
+			end
 
 			store:dispatch(SetSelectedTracks())
 			state = store:getState()
@@ -425,7 +433,7 @@ return function()
 			expect(state.ShowTree).to.equal(true)
 		end)
 	end)
-	
+
 	if GetFFlagFaceControlsEditorUI() then
 		describe("SetShowFaceControlsEditorPanel", function()
 			it("should set ShowFaceControlsEditorPanel", function()
@@ -434,7 +442,7 @@ return function()
 				local state = store:getState()
 				expect(state.ShowFaceControlsEditorPanel).to.equal(true)
 			end)
-		end)	
+		end)
 	end
 	describe("SetActive", function()
 		it("should set Active", function()

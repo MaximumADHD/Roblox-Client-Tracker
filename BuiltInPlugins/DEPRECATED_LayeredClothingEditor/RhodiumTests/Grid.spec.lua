@@ -18,12 +18,7 @@ return function()
 	local ScrollerPath = TestHelper.getEditScreenContainer()
 	local editSwizzlePath = ScrollerPath:cat(XPath.new("EditSwizzle.TopBar.DoubleClickDetector.Swizzle"))
 	local GridPath = ScrollerPath:cat(XPath.new("PreviewSwizzle.ViewArea.PreviewFrame.Grid"))
-	local GridScrollerPath
-	if game:GetFastFlag("DevFrameworkScrollingFrameUsePane") then
-		GridScrollerPath = GridPath:cat(XPath.new("ScrollingFrame.Scroller"))
-	else
-		GridScrollerPath =GridPath:cat(XPath.new("ScrollingFrame.Contents.Scroller"))
-	end
+	local GridScrollerPath = GridPath:cat(XPath.new("ScrollingFrame.Scroller"))
 
 	local function isSelected(instance)
 		return 0 == instance.Decoration.BackgroundTransparency

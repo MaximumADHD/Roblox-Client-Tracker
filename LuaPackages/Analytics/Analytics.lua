@@ -49,6 +49,7 @@ function Analytics.mock()
 	function fakeReportingService.SetRBXEventStream() end
 	function fakeReportingService.TrackEvent() end
 	function fakeReportingService.UpdateHeartbeatObject() end
+	function fakeReportingService.SendEventDeferred() end
 
 	return Analytics.new(fakeReportingService)
 end

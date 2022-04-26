@@ -1,4 +1,4 @@
-local Roact = require(script.Parent.Parent.Parent.modules.Roact)
+local Roact = require(script.Parent.Parent.Parent.Packages.Roact)
 
 return function(props)
 	return Roact.createElement("UIPadding", {

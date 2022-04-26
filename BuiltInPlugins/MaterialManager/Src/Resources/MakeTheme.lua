@@ -43,6 +43,7 @@ local function getPluginTheme()
 	local ColumnWidth = 270
 	local DialogSize = 720
 	local SearchBarMaxWidth = 600
+	local IconSize = UDim2.fromOffset(20, 20)
 
 	return {
 		MaterialManagerView = {
@@ -94,9 +95,10 @@ local function getPluginTheme()
 		},
 
 		MaterialTile = {
-			ButtonPosition = UDim2.new(1, -26, 0, 10),
-			ButtonSize = UDim2.fromOffset(16, 16),
+			MaterialVariantIconPosition = UDim2.new(1, -26, 0, 10),
+			StatusIconPosition = UDim2.new(0, 10, 0, 10),
 			Padding = 5,
+			IconSize = IconSize,
 			MaterialVariant = {
 				Image = "rbxasset://textures/MaterialManager/Material_Variant.png",
 			},
@@ -135,14 +137,24 @@ local function getPluginTheme()
 			ImageSize = UDim2.fromOffset(20, 20),
 			NameLabelSizeVariant = UDim2.new(1, -2 * MaterialDetailsRowHeight, 1, 0),
 			NameLabelSizeBuiltIn = UDim2.new(1, -MaterialDetailsRowHeight, 1, 0),
-			LabelColumnWidth = UDim.new(0, 65),
 			LabelRowSize = UDim2.new(1, 0, 0, MaterialDetailsRowHeight),
+			OverrideSize = UDim2.fromOffset(140, 20),
 			Padding = 10,
 			SectionHeaderTextSize = 18,
 			TextureLabelSize = UDim2.new(1, -MaterialDetailsTextureHeight, 1, 0),
 			TextureRowSize = UDim2.new(1, 0, 0, MaterialDetailsTextureHeight),
 			TextureSize = UDim2.fromOffset(MaterialDetailsTextureHeight, MaterialDetailsTextureHeight),
 			TitleTextSize = 22,
+		},
+
+		StatusIcon = {
+			Error = {
+				Image = "rbxasset://textures/StudioSharedUI/alert_error@2x.png",
+			},
+			IconSize = IconSize,
+			Warning = {
+				Image = "rbxasset://textures/StudioSharedUI/alert_warning@2x.png",
+			},
 		},
 
 		TopBar = {

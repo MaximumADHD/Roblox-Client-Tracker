@@ -19,12 +19,7 @@ return function()
 	local playTimeLabelPath = previewAnimationSliderPath:cat(XPath.new("PlayTimeLabel"))
 	local GridPath = ScrollerPath:cat(XPath.new("PreviewSwizzle.Content.PreviewFrame.Grid"))
 
-	local GridScrollerPath
-	if game:GetFastFlag("DevFrameworkScrollingFrameUsePane") then
-		GridScrollerPath = GridPath:cat(XPath.new("ScrollingFrame.Scroller"))
-	else
-		GridScrollerPath =GridPath:cat(XPath.new("ScrollingFrame.Contents.Scroller"))
-	end
+	local GridScrollerPath = GridPath:cat(XPath.new("ScrollingFrame.Scroller"))
 
 	local gridSecondChildTextButtonPath = GridScrollerPath:cat(XPath.new("2.Contents.TextButton"))
 

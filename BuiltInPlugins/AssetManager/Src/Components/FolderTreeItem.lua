@@ -14,12 +14,14 @@ local Plugin = script.Parent.Parent.Parent
 
 local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
-local UILibrary = require(Plugin.Packages.UILibrary)
-local Framework = Plugin.Packages.Framework
-local ContextServices = require(Framework.ContextServices)
+
+local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local UI = require(Framework.UI)
+local UI = Framework.UI
 local Button = UI.Button
 
 local FolderTreeItem = Roact.PureComponent:extend("FolderTreeItem")
@@ -60,7 +62,7 @@ function FolderTreeItem:init()
 
     self.resizeFrameHeight = function()
         local props = self.props
-        local theme = props.Theme:get("Plugin")
+        local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
         local themeHeight = theme.TreeViewItem.Height
         local height
         if self.layoutRef.current then
@@ -75,7 +77,7 @@ end
 
 function FolderTreeItem:render()
     local props = self.props
-    local theme = props.Theme:get("Plugin")
+    local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
 
     local treeViewTheme = theme.TreeViewItem
     local instance = props.element
@@ -171,7 +173,8 @@ function FolderTreeItem:render()
 end
 
 FolderTreeItem = withContext({
-    Theme = ContextServices.Theme,
+    Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+    Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
     Mouse = ContextServices.Mouse,
 })(FolderTreeItem)
 

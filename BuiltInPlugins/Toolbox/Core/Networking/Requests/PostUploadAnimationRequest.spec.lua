@@ -4,8 +4,6 @@ return function()
 
 	local Packages = Plugin.Packages
 
-	local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread3")
-
 	local Rodux = require(Packages.Rodux)
 	local Framework = require(Packages.Framework)
 
@@ -17,10 +15,6 @@ return function()
 	local Promise = Framework.Util.Promise
 
 	it("should successfully upload an animation", function()
-		if not FFlagStudioSerializeInstancesOffUIThread then
-			return
-		end
-
 		local networkInterfaceMock = NetworkInterfaceMock.new()
 
 		local middleware = CoreTestUtils.createThunkMiddleware()

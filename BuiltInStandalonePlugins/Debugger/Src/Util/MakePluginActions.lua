@@ -57,31 +57,33 @@ local function getWatchActions(localization)
 	return actions
 end
 
-local function getBreakpointActions(localization, rowEnabled)
+local function getBreakpointActions(localization, rowEnabled, isLogpoint)
 	local actions = {}
-	for key, value in pairs(Constants.BreakpointActions) do
+	local actionTypes = Constants.BreakpointActions
+	if isLogpoint then
+		actionTypes = Constants.LogpointActions
+	end
+
+	for key, value in pairs(actionTypes) do
+		actions[value] = makeAction(localization, value)
+	end
+
+	for key, value in pairs(Constants.CommonActions) do
 		actions[value] = makeAction(localization, value)
 	end
 
 	if rowEnabled then
-		actions[Constants.BreakpointActions.EnableBreakpoint] = nil
+		if isLogpoint then 
+			actions[Constants.LogpointActions.EnableLogpoint] = nil 
+		else 
+			actions[Constants.BreakpointActions.EnableBreakpoint] = nil
+		end
 	else
-		actions[Constants.BreakpointActions.DisableBreakpoint] = nil
-	end
-
-	return actions
-end
-
-local function getLogpointActions(localization, rowEnabled)
-	local actions = {}
-	for key, value in pairs(Constants.LogpointActions) do
-		actions[value] = makeAction(localization, value)
-	end
-
-	if rowEnabled then
-		actions[Constants.LogpointActions.EnableLogpoint] = nil
-	else
-		actions[Constants.LogpointActions.DisableLogpoint] = nil
+		if isLogpoint then 
+			actions[Constants.LogpointActions.DisableLogpoint] = nil
+		else
+			actions[Constants.BreakpointActions.DisableBreakpoint] = nil
+		end
 	end
 
 	return actions
@@ -100,6 +102,5 @@ return {
 	getCallstackActions = getCallstackActions,
 	getWatchActions = getWatchActions,
 	getBreakpointActions = getBreakpointActions,
-	getLogpointActions = getLogpointActions,
 	getActionsWithShortcuts = getActionsWithShortcuts,
 }

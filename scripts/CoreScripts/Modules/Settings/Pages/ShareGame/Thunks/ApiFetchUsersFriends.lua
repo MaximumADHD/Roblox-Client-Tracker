@@ -14,13 +14,9 @@ local FetchUserFriendsCompleted = require(CorePackages.AppTempCommon.LuaApp.Acti
 local UserModel = require(CorePackages.AppTempCommon.LuaApp.Models.User)
 local UpdateUsers = require(CorePackages.AppTempCommon.LuaApp.Thunks.UpdateUsers)
 
-return function(requestImpl, userId, thumbnailRequest, checkPoints)
+return function(requestImpl, userId, thumbnailRequest)
 	return function(store)
 		store:dispatch(FetchUserFriendsStarted(userId))
-
-		if checkPoints ~= nil and checkPoints.startFetchUserFriends ~= nil then
-			checkPoints:startFetchUserFriends()
-		end
 
 		return UsersGetFriends(requestImpl, userId):andThen(function(response)
 			local responseBody = response.responseBody
@@ -37,15 +33,8 @@ return function(requestImpl, userId, thumbnailRequest, checkPoints)
 			end
 			store:dispatch(UpdateUsers(newUsers))
 
-			if checkPoints ~= nil and checkPoints.finishFetchUserFriends ~= nil then
-				checkPoints:finishFetchUserFriends()
-			end
-
 			return userIds
 		end):andThen(function(userIds)
-			if checkPoints ~= nil and checkPoints.startFetchUsersPresences ~= nil then
-				checkPoints:startFetchUsersPresences()
-			end
 			-- Asynchronously fetch friend thumbnails so we don't block display of UI
 			store:dispatch(ApiFetchUsersThumbnail(requestImpl, userIds, thumbnailRequest))
 
@@ -53,10 +42,6 @@ return function(requestImpl, userId, thumbnailRequest, checkPoints)
 		end):andThen(
 			function(result)
 				store:dispatch(FetchUserFriendsCompleted(userId))
-
-				if checkPoints ~= nil and checkPoints.finishFetchUsersPresences ~= nil then
-					checkPoints:finishFetchUsersPresences()
-				end
 
 				return Promise.resolve(result)
 			end,

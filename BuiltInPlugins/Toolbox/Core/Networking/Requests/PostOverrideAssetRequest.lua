@@ -10,10 +10,7 @@ local UploadResult = require(Actions.UploadResult)
 local SetAssetId = require(Actions.SetAssetId)
 
 local Util = Plugin.Core.Util
-local SerializeInstances_Deprecated = require(Util.SerializeInstances_Deprecated)
 local SerializeInstances = require(Util.SerializeInstances)
-
-local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread3")
 
 -- assetId, number, defualt to 0 for new asset.
 -- type, string, the asset type of the asset.
@@ -49,13 +46,8 @@ return function(networkInterface, assetid, type, instances)
 			store:dispatch(UploadResult(false))
 		end
 
-		if FFlagStudioSerializeInstancesOffUIThread then
-			return SerializeInstances(instances, services.StudioAssetService):andThen(function(fileDataString)
-				return networkInterface:postOverrideAsset(assetid, type, fileDataString):andThen(onSuccess, onFail)
-			end, onSerializeFail)
-		else
-			local fileDataString = SerializeInstances_Deprecated(instances)
+		return SerializeInstances(instances, services.StudioAssetService):andThen(function(fileDataString)
 			return networkInterface:postOverrideAsset(assetid, type, fileDataString):andThen(onSuccess, onFail)
-		end
+		end, onSerializeFail)
 	end
 end

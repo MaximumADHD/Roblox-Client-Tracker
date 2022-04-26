@@ -13,6 +13,7 @@ local initialState = {
 	Loaded = false,
 	ClippedWarning = false,
 	InvalidAnimation = false,
+	CannotPasteError = false,
 }
 
 return Rodux.createReducer(initialState, {

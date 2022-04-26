@@ -12,14 +12,17 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local FrameworkUI = require(Plugin.Packages.Framework).UI
-local FrameworkUtil = require(Plugin.Packages.Framework).Util
+local FrameworkUI = Framework.UI
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local UILibrary = require(Plugin.Packages.UILibrary)
 
 local Container = FrameworkUI.Container
-local FitFrameOnAxis = FrameworkUtil.FitFrame.FitFrameOnAxis
+local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
 local Header = require(Plugin.Src.Components.Header)
 local LoadingIndicator = UILibrary.Component.LoadingIndicator
 local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
@@ -39,7 +42,7 @@ function SettingsPage:init()
 	self.contentHeightChanged = function(rbx)
 		local scrollingFrame = self.scrollingFrameRef.current
 		if scrollingFrame then
-			local theme = self.props.Theme:get("Plugin")
+			local theme = THEME_REFACTOR and self.props.Stylizer or self.props.Theme:get("Plugin")
 			-- TODO remove the + settingPadding and replace with UIPadding once UISYS-469 is fixed
 			scrollingFrame.CanvasSize = UDim2.new(1, 0, 0, rbx.AbsoluteContentSize.Y + theme.settingsPage.settingPadding)
 		end
@@ -77,7 +80,7 @@ end
 
 function SettingsPage:render()
 	local props = self.props
-	local theme = props.Theme:get("Plugin")
+	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
 
 	local title = props.Title
 	local loadState = props.LoadState
@@ -134,7 +137,8 @@ function SettingsPage:render()
 end
 
 SettingsPage = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(SettingsPage)
 
 SettingsPage = RoactRodux.connect(

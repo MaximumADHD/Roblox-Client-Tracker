@@ -12,7 +12,6 @@
 ]]
 local HttpService = game:GetService("HttpService")
 
-local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
@@ -176,9 +175,6 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 		end
 
 		self.onScriptWarningBoxClosed = function()
-			if not FFlagToolboxEnableScriptConfirmation then
-				return
-			end
 			self:setState({
 				isShowingScriptWarningMessageBox = false,
 			})
@@ -186,9 +182,6 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 		end
 
 		self.onInsertScriptWarningPrompt = function(info)
-			if not FFlagToolboxEnableScriptConfirmation then
-				return
-			end
 			local settings = self.props._Settings:get("Plugin")
 			if settings:getShowScriptWarning() then
 				self:setState({

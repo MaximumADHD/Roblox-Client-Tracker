@@ -4,8 +4,6 @@ local PublishService = game:GetService("PublishService")
 
 local root = script:FindFirstAncestor("root")
 
-local FFlagHSRMoveToCDN5 = game:GetFastFlag("HSRMoveToCDN5")
-
 local constants = require(root.src.constants)
 
 local function getSuffix(name)
@@ -18,9 +16,7 @@ end
 return function(plugin)
 	return function(store)
 		for _, folder in ipairs(CollectionService:GetTagged(constants.TAG)) do
-			if FFlagHSRMoveToCDN5 then
-				PublishService:PublishDescendantAssets(folder)
-			end
+			PublishService:PublishDescendantAssets(folder)
 
 			Selection:Set(folder:GetChildren())
 

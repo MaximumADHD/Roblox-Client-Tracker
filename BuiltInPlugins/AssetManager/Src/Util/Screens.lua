@@ -1,7 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 
-local Framework = Plugin.Packages.Framework
-local Util = require(Framework.Util)
+local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
 local LayoutOrderIterator = Util.LayoutOrderIterator
 local ModernIcons = require(Plugin.Src.Util.ModernIcons)
 

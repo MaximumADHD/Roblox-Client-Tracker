@@ -4,6 +4,8 @@ end
 
 -- Fast flags
 require(script.Parent.defineLuaFlags)
+local commonInit = require(script.Parent.commonInit)
+commonInit()
 
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 
@@ -26,6 +28,7 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
 local UILibraryWrapper = ContextServices.UILibraryWrapper
+local UILibrary = require(Plugin.Packages.UILibrary)
 
 -- data
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
@@ -37,7 +40,7 @@ local MainMiddleware = require(Plugin.Src.Middleware.MainMiddleware)
 local AnalyticsHandlers = require(Plugin.Src.Resources.AnalyticsHandlers)
 
 -- theme
-local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 -- localization
 local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
@@ -64,7 +67,14 @@ local ABTEST_SHOWHIDEV2_NAME = "AllUsers.RobloxStudio.ShowHideV2"
 
 -- Plugin Specific Globals
 local store = Rodux.Store.new(MainReducer, {}, MainMiddleware)
-local theme = PluginTheme.makePluginTheme()
+local theme
+if THEME_REFACTOR then
+	local Theme = require(Plugin.Src.Resources.Theme)
+	theme = Theme()
+else
+	local DEPRECATED_PluginTheme = require(Plugin.Src.Resources.DEPRECATED_PluginTheme)
+	theme = DEPRECATED_PluginTheme.makePluginTheme()
+end
 local analytics = ContextServices.Analytics.new(AnalyticsHandlers)
 local localization = ContextServices.Localization.new({
 	pluginName = PLUGIN_NAME,
@@ -116,7 +126,7 @@ local function openPluginWindow()
 		focusGui = pluginGui,
 		localization = localization,
 		theme = theme,
-		uiLibWrapper = UILibraryWrapper.new(),
+		uiLibWrapper = UILibraryWrapper.new(UILibrary),
 		store = store,
 		mouse = plugin:getMouse(),
 		calloutController = calloutController,

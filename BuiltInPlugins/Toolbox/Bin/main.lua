@@ -89,8 +89,6 @@ return function(plugin, pluginLoaderContext)
 	local RobloxPluginGuiService = game:GetService("RobloxPluginGuiService")
 	local StudioAssetService = game:GetService("StudioAssetService")
 
-	local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread3")
-
 	if not getToolboxEnabled() then
 		return
 	end
@@ -205,18 +203,11 @@ return function(plugin, pluginLoaderContext)
 			defaultTab = ConfigTypes:getOverrideTab()
 		end
 
-		local middleware
-		if FFlagStudioSerializeInstancesOffUIThread then
-			middleware = {
-				ThunkWithArgsMiddleware({
-					StudioAssetService = StudioAssetService,
-				}),
-			}
-		else
-			middleware = {
-				Rodux.thunkMiddleware,
-			}
-		end
+		local middleware = {
+			ThunkWithArgsMiddleware({
+				StudioAssetService = StudioAssetService,
+			}),
+		}
 
 		-- If we don't have asset id, we will be publish an new asset.
 		-- Otherwise, we will be editing an asset.

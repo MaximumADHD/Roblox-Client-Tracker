@@ -35,8 +35,6 @@
 		boolean CanFlagAsset: Whether or not the user can flag/report the asset.
 		Enum.UsageContext UsageContext: The UsageContext for previewed assets.
 ]]
-local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
-local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
 local FFlagPluginsSetAudioPreviewUsageContext = game:GetFastFlag("PluginsSetAudioPreviewUsageContext")
 
 local TextService = game:GetService("TextService")
@@ -320,18 +318,11 @@ function AssetPreview:render()
 	local scrollingFramePadding = style.ScrollingFrame.Padding
 	local textMaxWidth = size.X.Offset - scrollingFramePadding.PaddingLeft.Offset - scrollingFramePadding.PaddingRight.Offset
 
-	local canFlagAsset
 	local assetHeaderSpacing
 	local reportButtonWidth
-	if FFlagToolboxRedirectToLibraryAbuseReport then
-		if FFlagToolboxHideReportFlagForCreator then
-			canFlagAsset = props.CanFlagAsset
-		else
-			canFlagAsset = (assetData.Creator.Id ~= 1)
-		end
-		assetHeaderSpacing = style.ScrollingFrame.AssetHeader.Spacing
-		reportButtonWidth = canFlagAsset and style.ScrollingFrame.FlagAsset.Size.X.Offset or 0
-	end
+	local canFlagAsset = props.CanFlagAsset
+	assetHeaderSpacing = style.ScrollingFrame.AssetHeader.Spacing
+	reportButtonWidth = canFlagAsset and style.ScrollingFrame.FlagAsset.Size.X.Offset or 0
 
 	return Roact.createElement(Container, {
 		AnchorPoint = anchorPoint,
@@ -373,7 +364,7 @@ function AssetPreview:render()
 			}, {
 				Padding = Roact.createElement("UIPadding", scrollingFramePadding),
 
-				AssetNameHeader = FFlagToolboxRedirectToLibraryAbuseReport and Roact.createElement(Pane, {
+				AssetNameHeader = Roact.createElement(Pane, {
 					AutomaticSize = Enum.AutomaticSize.Y,
 					Padding = 5,
 					Size = UDim2.new(1, 0, 0, 0),
@@ -433,28 +424,6 @@ function AssetPreview:render()
 						}),
 					}),
 				}),
-
-				AssetName = (not FFlagToolboxRedirectToLibraryAbuseReport) and Roact.createElement(TextLabel, {
-					AutomaticSize = Enum.AutomaticSize.Y,
-					TextWrapped = true,
-					Size = UDim2.new(1, 0, 0, 0),
-					Style = style.ScrollingFrame.AssetName,
-					LayoutOrder = layoutOrderIterator:getNextOrder(),
-					Text = assetData.Asset.Name,
-				}),
-
-				CreatorName = (not FFlagToolboxRedirectToLibraryAbuseReport) and Roact.createElement(TextLabel, {
-					AutomaticSize = Enum.AutomaticSize.Y,
-					LayoutOrder = layoutOrderIterator:getNextOrder(),
-					RichText = true,
-					Size = UDim2.new(1, 0, 0, 0),
-					Style = style.ScrollingFrame.CreatorName,
-					Text = self.props.Localization:getProjectText(LOCALIZATION_PROJECT_NAME, COMPONENT_NAME, "ByUsername", {
-						username = "<b>" .. assetData.Creator.Name .. "</b>",
-					}),
-					TextWrapped = true,
-				}) or nil,
-
 
 				AssetRender = Roact.createElement(AssetRender, {
 					LayoutOrder = layoutOrderIterator:getNextOrder(),

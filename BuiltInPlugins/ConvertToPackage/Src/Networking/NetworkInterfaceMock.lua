@@ -6,7 +6,7 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local Promise = require(Plugin.Packages.Http.Promise)
+local Promise = require(Plugin.DEPRECATED_modules.Http.Promise)
 
 -- public api
 local NetworkingMock = {}

@@ -31,6 +31,8 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
 
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -128,7 +130,7 @@ end
 
 function TableWithMenu:render()
 	local props = self.props
-    local theme = props.Theme:get("Plugin")
+    local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
 
     local headers = props.Headers
     local data = props.Data
@@ -205,7 +207,8 @@ end
 
 
 TableWithMenu = withContext({
-    Theme = ContextServices.Theme,
+    Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(TableWithMenu)
 
 

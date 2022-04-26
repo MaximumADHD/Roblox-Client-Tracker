@@ -10,14 +10,11 @@ local StatusCodes = require(Plugin.Libs.Http.StatusCodes)
 
 local Util = Plugin.Core.Util
 local AssetConfigConstants = require(Util.AssetConfigConstants)
-local SerializeInstances_Deprecated = require(Util.SerializeInstances_Deprecated)
 local SerializeInstances = require(Util.SerializeInstances)
 
 local DebugFlags = require(Util.DebugFlags)
 
 local createMultipartFormDataBody = require(Util.createMultipartFormDataBody)
-
-local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread3")
 
 local function createConfigDataTable()
 	return {
@@ -60,35 +57,7 @@ return function(networkInterface, assetTypeId, instances)
 			end
 		end
 
-		if FFlagStudioSerializeInstancesOffUIThread then
-			return SerializeInstances(instances, services.StudioAssetService):andThen(function(fileDataBlob)
-				local configDataBlob = networkInterface:jsonEncode(createConfigDataTable())
-
-				local formBodyData = createMultipartFormDataBody({
-					{
-						type = "application/json",
-						disposition = {
-							name = "config",
-							filename = "config.json",
-						},
-						value = configDataBlob,
-					},
-					{
-						type = "application/octet-stream",
-						disposition = {
-							name = "accessory",
-							filename = "accessory.rbxm",
-						},
-						value = fileDataBlob,
-					},
-				})
-
-				return networkInterface
-					:avatarAssetsGetUploadFee(assetTypeId, formBodyData, AssetConfigConstants.MULTIPART_FORM_BOUNDARY)
-					:andThen(handlerFunc, errorFunc)
-			end, onSerializeFail)
-		else
-			local fileDataBlob = SerializeInstances_Deprecated(instances)
+		return SerializeInstances(instances, services.StudioAssetService):andThen(function(fileDataBlob)
 			local configDataBlob = networkInterface:jsonEncode(createConfigDataTable())
 
 			local formBodyData = createMultipartFormDataBody({
@@ -110,9 +79,9 @@ return function(networkInterface, assetTypeId, instances)
 				},
 			})
 
-			networkInterface
+			return networkInterface
 				:avatarAssetsGetUploadFee(assetTypeId, formBodyData, AssetConfigConstants.MULTIPART_FORM_BOUNDARY)
 				:andThen(handlerFunc, errorFunc)
-		end
+		end, onSerializeFail)
 	end
 end

@@ -13,7 +13,6 @@ local UploadResult = require(Plugin.Core.Actions.UploadResult)
 local Util = Plugin.Core.Util
 local DebugFlags = require(Util.DebugFlags)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
-local SerializeInstances_Deprecated = require(Util.SerializeInstances_Deprecated)
 local SerializeInstances = require(Util.SerializeInstances)
 local Analytics = require(Util.Analytics.Analytics)
 
@@ -23,8 +22,6 @@ local ConfigureItemTagsRequest = require(Plugin.Core.Networking.Requests.Configu
 local UploadCatalogItemMeshPartFormatRequest = require(
 	Plugin.Core.Networking.Requests.UploadCatalogItemMeshPartFormatRequest
 )
-
-local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread3")
 
 local function createConfigDataTable(nameWithoutExtension, assetTypeId, description)
 	return {
@@ -134,49 +131,7 @@ return function(networkInterface, nameWithoutExtension, extension, description, 
 			Analytics.incrementUploadAssetFailure(assetTypeId)
 		end
 
-		if FFlagStudioSerializeInstancesOffUIThread then
-			return SerializeInstances(instances, services.StudioAssetService):andThen(function(fileDataString)
-				local configDataBlob = networkInterface:jsonEncode(
-					createConfigDataTable(nameWithoutExtension, assetTypeId, description)
-				)
-
-				if FFlagCMSUploadFees then
-					local formBodyData = createMultipartFormDataBody({
-						{
-							type = "application/json",
-							disposition = {
-								name = "config",
-								filename = "config.json",
-							},
-							value = configDataBlob,
-						},
-						{
-							type = "application/octet-stream",
-							disposition = {
-								name = nameWithoutExtension,
-								filename = nameWithoutExtension .. "." .. extension,
-							},
-							value = fileDataString,
-						},
-					})
-					return networkInterface
-						:uploadCatalogItem(formBodyData, AssetConfigConstants.MULTIPART_FORM_BOUNDARY)
-						:andThen(handlerFunc, errorFunc)
-				else
-					local boundary = "EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E"
-					local formBodyData = createFormDataBody(
-						configDataBlob,
-						nameWithoutExtension,
-						extension,
-						fileDataString,
-						boundary
-					)
-					return networkInterface:uploadCatalogItem(formBodyData, boundary):andThen(handlerFunc, errorFunc)
-				end
-			end, serializeErrorFunc)
-		else
-			local fileDataString = SerializeInstances_Deprecated(instances)
-
+		return SerializeInstances(instances, services.StudioAssetService):andThen(function(fileDataString)
 			local configDataBlob = networkInterface:jsonEncode(
 				createConfigDataTable(nameWithoutExtension, assetTypeId, description)
 			)
@@ -200,7 +155,7 @@ return function(networkInterface, nameWithoutExtension, extension, description, 
 						value = fileDataString,
 					},
 				})
-				networkInterface
+				return networkInterface
 					:uploadCatalogItem(formBodyData, AssetConfigConstants.MULTIPART_FORM_BOUNDARY)
 					:andThen(handlerFunc, errorFunc)
 			else
@@ -212,8 +167,8 @@ return function(networkInterface, nameWithoutExtension, extension, description, 
 					fileDataString,
 					boundary
 				)
-				networkInterface:uploadCatalogItem(formBodyData, boundary):andThen(handlerFunc, errorFunc)
+				return networkInterface:uploadCatalogItem(formBodyData, boundary):andThen(handlerFunc, errorFunc)
 			end
-		end
+		end, serializeErrorFunc)
 	end
 end

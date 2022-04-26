@@ -11,6 +11,9 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local Cryo = require(Plugin.Packages.Cryo)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
@@ -28,7 +31,7 @@ local CheckBoxSet = Roact.PureComponent:extend("CheckBoxSet")
 
 function CheckBoxSet:render()
 	local props = self.props
-	local theme = props.Theme:get("Plugin")
+	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
 
 	local boxes = props.Boxes
 	local numBoxes = #boxes
@@ -88,7 +91,8 @@ end
 
 
 CheckBoxSet = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(CheckBoxSet)
 
 

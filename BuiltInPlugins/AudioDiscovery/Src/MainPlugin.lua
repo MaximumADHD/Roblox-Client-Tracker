@@ -6,7 +6,6 @@
 local FFlagStudioAudioDiscoveryPluginV2 = game:GetFastFlag("StudioAudioDiscoveryPluginV2")
 local FFlagStudioAudioDiscoveryPluginV3 = game:GetFastFlag("StudioAudioDiscoveryPluginV3")
 local FFlagStudioAudioDiscoveryPluginV6 = game:GetFastFlag("StudioAudioDiscoveryPluginV6")
-local FFlagStudioDevFrameworkPluginButtonId = game:GetFastFlag("StudioDevFrameworkPluginButtonId")
 
 local main = script.Parent.Parent
 local Roact = require(main.Packages.Roact)
@@ -122,7 +121,7 @@ function MainPlugin:renderButtons(toolbar)
 	local enabled = self.state.enabled
 	return {
 		Toggle = Roact.createElement(PluginButton, {
-			Id = if FFlagStudioAudioDiscoveryPluginV3 and FFlagStudioDevFrameworkPluginButtonId then "ViewSounds" else nil,
+			Id = if FFlagStudioAudioDiscoveryPluginV3 then "ViewSounds" else nil,
 			Toolbar = toolbar,
 			Active = enabled,
 			Title = self.localization:getText("Plugin", "Button"),

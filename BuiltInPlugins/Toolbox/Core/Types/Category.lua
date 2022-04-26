@@ -46,6 +46,33 @@ Category.AssetType = {
 	ANIMATION = 19,
 }
 
+if game:GetFastFlag("ToolboxAudioDiscovery") then
+	Category.AssetType.MUSIC = 300
+	Category.AssetType.SOUND_EFFECT = 301
+	Category.AssetType.UNKNOWN_AUDIO = 302
+
+	Category.MUSIC = {
+		name = "Music",
+		category = "Music",
+		ownershipType = Category.OwnershipType.FREE,
+		assetType = Category.AssetType.MUSIC,
+	}
+
+	Category.SOUND_EFFECTS = {
+		name = "Sound Effects",
+		category = "Sound Effects",
+		ownershipType = Category.OwnershipType.FREE,
+		assetType = Category.AssetType.SOUND_EFFECT,
+	}
+
+	Category.UNKNOWN_AUDIO = {
+		name = "Unknown Audio",
+		category = "Unknown Audio",
+		ownershipType = Category.OwnershipType.FREE,
+		assetType = Category.AssetType.UNKNOWN_AUDIO,
+	}
+end
+
 if FFlagUGCLCAssetTypes2 then
 	Category.AssetType.TSHIRT_ACCESSORY = 19
 	Category.AssetType.SHIRT_ACCESSORY = 20
@@ -631,8 +658,6 @@ else
 		Category.RECENT_ANIMATIONS,
 	}
 end
-
-
 
 Category.DEFAULT = nil
 if disableMarketplaceAndRecents() then

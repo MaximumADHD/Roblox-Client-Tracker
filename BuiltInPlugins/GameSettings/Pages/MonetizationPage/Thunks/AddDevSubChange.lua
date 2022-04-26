@@ -1,7 +1,9 @@
 local Plugin = script.Parent.Parent.Parent.Parent
+local FFlagRemoveUILibraryDeepJoin = game:GetFastFlag("RemoveUILibraryDeepJoin")
+-- TODO: jbousellam - remove with FFlagRemoveUILibraryDeepJoin
 local UILibrary = require(Plugin.Packages.UILibrary)
 
-local deepJoin = UILibrary.Util.deepJoin
+local deepJoin = if FFlagRemoveUILibraryDeepJoin then require(Plugin.Packages.Framework).Util.deepJoin else UILibrary.Util.deepJoin
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
 

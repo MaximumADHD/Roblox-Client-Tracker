@@ -19,11 +19,11 @@
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent
-local Framework = Plugin.Packages.Framework
-local Signal = require(Plugin.Packages.Framework).Util.Signal
+local Framework = require(Plugin.Packages.Framework)
+local Signal = Framework.Util.Signal
 local Signals = require(Plugin.Src.Context.Signals)
 
-local ContextServices = require(Framework.ContextServices)
+local ContextServices = Framework.ContextServices
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 local Constants = require(Plugin.Src.Util.Constants)

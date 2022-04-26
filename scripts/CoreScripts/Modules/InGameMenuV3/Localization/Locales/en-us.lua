@@ -184,4 +184,12 @@ return{
 	["CoreScripts.InGameMenu.QuickActions.MuteSelf"] = [[Mute Self]],
 	["CoreScripts.InGameMenu.QuickActions.UnmuteAll"] = [[Unmute All]],
 	["CoreScripts.InGameMenu.QuickActions.UnmuteSelf"] = [[Unmute Self]],
+	["CoreScripts.InGameMenu.BetaBadge.BadgeText"] = [[Beta]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.HeaderList"] = [[You have opted in to one or more of our beta features:]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.VoiceChatBullet"] = [[Voice chat]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.DisclaimerText"] = [[Please report abuse if you encounter people breaking our Community Guidelines. If you have opted-in to voice chat, Roblox may record voice audio anywhere on the platform for moderation and safety purposes. By continuing to use the voice chat feature, you consent to Roblox's collection, use, and storage of your voice recording for moderation and safety purposes. You can opt-out of spatial voice at any time. ]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.LearnMoreLink"] = [[Learn More]],
+	["CoreScripts.InGameMenu.Controls.DynamicThumbstick"] = [[Dynamic Thumbstick]],
+	["CoreScripts.InGameMenu.Controls.ClassicThumbstick"] = [[Classic Thumbstick]],
+	["CoreScripts.InGameMenu.Controls.TapToMove"] = [[Tap to Move]],
 }

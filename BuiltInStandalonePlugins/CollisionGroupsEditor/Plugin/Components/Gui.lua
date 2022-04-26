@@ -1,7 +1,7 @@
 local FFlagCGELocalizeWindowTitle = game:GetFastFlag("CGELocalizeWindowTitle")
 
-local Roact = require(script.Parent.Parent.Parent.modules.Roact)
-local UILibrary = require(script.Parent.Parent.Parent.modules.UILibrary)
+local Roact = require(script.Parent.Parent.Parent.Packages.Roact)
+local UILibrary = require(script.Parent.Parent.Parent.Packages.UILibrary)
 local Resources = script.Parent.Parent.Parent.Resources
 
 local HttpService = game:GetService("HttpService")

@@ -5,14 +5,18 @@ local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
-local Framework = Plugin.Packages.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local UILibrary = require(Plugin.Packages.UILibrary)
+
+local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local MockPlugin = require(Plugin.Src.TestHelpers.MockPlugin)
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
-local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-local UILibraryWrapper = require(Plugin.Packages.Framework).ContextServices.UILibraryWrapper
+local UILibraryWrapper = ContextServices.UILibraryWrapper
 local Localization = ContextServices.Localization
 
 local MockServiceWrapper = Roact.Component:extend("MockServiceWrapper")
@@ -48,7 +52,13 @@ function MockServiceWrapper.getMockGlobals(props)
 
 	local theme = props.theme
 	if not theme then
-		theme = PluginTheme.mock()
+		if THEME_REFACTOR then
+			local Theme = require(Plugin.Src.Resources.Theme)
+			theme = Theme(true)
+		else
+			local PluginTheme = require(Plugin.Src.Resources.DEPRECATED_PluginTheme)
+			theme = PluginTheme.mock()
+		end
 	end
 
 	return {
@@ -56,7 +66,7 @@ function MockServiceWrapper.getMockGlobals(props)
 		plugin = pluginInstance,
 		localization = localization,
 		theme = theme,
-		uiLibWrapper = UILibraryWrapper.new(),
+		uiLibWrapper = UILibraryWrapper.new(UILibrary),
 		mouse = mouse,
 		store = store,
 	}
@@ -65,7 +75,7 @@ end
 -- props.localization : (optional, UILibrary.Localization)
 -- props.plugin : (optional, plugin)
 -- props.storeState : (optional, table) a default state for the MainReducer
--- props.theme : (optional, Resources.PluginTheme)
+-- props.theme : (optional, Resources.Theme)
 -- props.api : (optional, Http.API)
 function MockServiceWrapper:render()
 	local globals = MockServiceWrapper.getMockGlobals(self.props)

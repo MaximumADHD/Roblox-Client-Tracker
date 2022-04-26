@@ -15,10 +15,6 @@ local ok, hasInternalPermission = pcall(function()
 	return game:GetService("StudioService"):HasInternalPermission()
 end)
 
-if not ok or not hasInternalPermission then
-	return
-end
-
 local getFFlagEnableMaterialManager = require(script.Parent.Parent.Src.Flags.getFFlagEnableMaterialManager)
 if not getFFlagEnableMaterialManager() then
 	return
@@ -36,7 +32,7 @@ local handle
 
 -- Allows connecton to the Developer Inspector for internal engineers
 local inspector
-if hasInternalPermission then
+if ok and hasInternalPermission then
 	inspector = Framework.DeveloperTools.forPlugin(main.Name, plugin)
 end
 

@@ -16,7 +16,7 @@ local UILibraryWrapper = ContextServices.UILibraryWrapper :: any
 local provideMockContext = Framework.TestHelpers.provideMockContext
 local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
-local Theme = require(Plugin.Src.Util.Theme)
+local MakeTheme = require(Plugin.Src.Util.MakeTheme)
 
 local middlewares = {
     Rodux.thunkMiddleware,
@@ -49,7 +49,7 @@ return function(props, children)
 
     local themeContext = props.Theme
     if not themeContext then
-        themeContext = Theme.newDummyTheme()
+        themeContext = MakeTheme(true)
         table.insert(contextItems, themeContext)
     end
 

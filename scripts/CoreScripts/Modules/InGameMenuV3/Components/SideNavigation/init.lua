@@ -106,6 +106,8 @@ function SideNavigation:render()
 				size = UDim2.new(1, 0, 1, 0),
 				position = UDim2.new(),
 				layoutOrder = 1,
+				layoutPaddingOffset = UDim.new(0, -8),
+				firstItemPaddingOffset = UDim.new(0, -7),
 			})
 		})
 	end)

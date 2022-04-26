@@ -1,5 +1,6 @@
 local Plugin = script.Parent.Parent
 local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+local LuaMeshEditingModule = require(Plugin.Packages.LuaMeshEditingModule)
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
 local themeRefactorFlags = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
@@ -15,6 +16,17 @@ local function runAvatarToolsSharedTests()
 	AvatarToolsShared.Util.runAvatarToolsSharedTests(TestEZ, reporter)
 end
 
+local function runLuaMeshEditingModuleTests()
+	local TestEZ = require(Plugin.Packages.Dev.TestEZ)
+	local TextReporter = TestEZ.Reporters.TextReporter -- Remove Quiet to see output
+	local TeamCityReporter = TestEZ.Reporters.TeamCityReporter
+
+	local reporter = _G["TEAMCITY"] and TeamCityReporter or TextReporter
+	local runModuleTest = require(LuaMeshEditingModule.Src.Util.runLuaMeshEditingModuleTests)
+
+	runModuleTest(TestEZ, reporter)
+end
+
 local function runTests()
 	local TestEZ = require(Plugin.Packages.Dev.TestEZ)
 	local tests = Plugin.Src -- Where stores the package's unit tests
@@ -22,9 +34,8 @@ local function runTests()
 	local TestBootstrap = TestEZ.TestBootstrap
 	local TextReporter = TestEZ.Reporters.TextReporter -- Remove Quiet to see output
 
-	TestBootstrap:run({tests}, TextReporter)
+	TestBootstrap:run({ tests }, TextReporter)
 end
-
 
 local function runRhodiumTests()
 	local TestEZ = require(Plugin.Packages.Dev.TestEZ)
@@ -33,9 +44,8 @@ local function runRhodiumTests()
 	local TestBootstrap = TestEZ.TestBootstrap
 	local TextReporter = TestEZ.Reporters.TextReporter -- Remove Quiet to see output
 
-	TestBootstrap:run({tests}, TextReporter, false, true)
+	TestBootstrap:run({ tests }, TextReporter, false, true)
 end
-
 
 -- Do not check in as true!
 local SHOULD_RUN_TESTS = DebugFlags.RunTests()
@@ -47,7 +57,7 @@ if not game:GetFastFlag("AccessoryToolRefactor") and (SHOULD_RUN_TESTS or SHOULD
 end
 
 if SHOULD_RUN_TESTS then
-	print("----- All " ..script.Parent.Parent.Name.. " Tests ------")
+	print("----- All " .. script.Parent.Parent.Name .. " Tests ------")
 	require(script.Parent.defineLuaFlags)
 	runTests()
 	print("----------------------------------")
@@ -55,6 +65,10 @@ if SHOULD_RUN_TESTS then
 	-- TODO: setup standalone testing suite for this
 	print("----- All AvatarToolsShared Tests ------")
 	runAvatarToolsSharedTests()
+	print("----------------------------------")
+
+	print("----- All LuaMeshEditingModule Tests ------")
+	runLuaMeshEditingModuleTests()
 	print("----------------------------------")
 end
 

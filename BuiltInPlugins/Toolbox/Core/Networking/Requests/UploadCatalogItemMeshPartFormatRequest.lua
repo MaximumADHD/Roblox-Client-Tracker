@@ -6,13 +6,10 @@ local UploadResult = require(Plugin.Core.Actions.UploadResult)
 local Util = Plugin.Core.Util
 local DebugFlags = require(Util.DebugFlags)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
-local SerializeInstances_Deprecated = require(Util.SerializeInstances_Deprecated)
 local SerializeInstances = require(Util.SerializeInstances)
 local convertSpecialMeshAccessory = require(Util.convertSpecialMeshAccessory)
 
 local ConfigureItemTagsRequest = require(Plugin.Core.Networking.Requests.ConfigureItemTagsRequest)
-
-local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread3")
 
 return function(networkInterface, assetId, assetTypeEnum, name, description, instances, tags)
 	return function(store, services)
@@ -36,24 +33,8 @@ return function(networkInterface, assetId, assetTypeEnum, name, description, ins
 
 		local meshPartAccessory = convertSpecialMeshAccessory(instances[1])
 
-		if FFlagStudioSerializeInstancesOffUIThread then
-			return SerializeInstances({ meshPartAccessory }, services.StudioAssetService):andThen(function(instanceData)
-				return networkInterface
-					:uploadCatalogItemFormat(
-						assetId,
-						assetTypeEnum.Name,
-						name,
-						description,
-						true,
-						AssetConfigConstants.AVATAR_MESHPART_ACCESSORY_FORMAT,
-						instanceData
-					)
-					:andThen(handlerFunc, errorFunc)
-			end, serializeFailedFunc)
-		else
-			local instanceData = SerializeInstances_Deprecated({ meshPartAccessory })
-
-			networkInterface
+		return SerializeInstances({ meshPartAccessory }, services.StudioAssetService):andThen(function(instanceData)
+			return networkInterface
 				:uploadCatalogItemFormat(
 					assetId,
 					assetTypeEnum.Name,
@@ -64,6 +45,6 @@ return function(networkInterface, assetId, assetTypeEnum, name, description, ins
 					instanceData
 				)
 				:andThen(handlerFunc, errorFunc)
-		end
+		end, serializeFailedFunc)
 	end
 end

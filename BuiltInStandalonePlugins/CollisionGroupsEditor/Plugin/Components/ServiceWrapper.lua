@@ -3,8 +3,8 @@
 ]]
 local Plugin = script.Parent.Parent.Parent
 
-local Roact = require(Plugin.modules.Roact)
-local UILibrary = require(Plugin.modules.UILibrary)
+local Roact = require(Plugin.Packages.Roact)
+local UILibrary = require(Plugin.Packages.UILibrary)
 local StudioPlugin = require(script.Parent.Parent.ContextServices.StudioPlugin)
 local Localizing = UILibrary.Localizing
 

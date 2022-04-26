@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 
-local Url = require(Plugin.Packages.Http.Url)
+local Url = require(Plugin.DEPRECATED_modules.Http.Url)
 
 local wrapStrictTable = require(Plugin.Src.Util.wrapStrictTable)
 local Urls = {}

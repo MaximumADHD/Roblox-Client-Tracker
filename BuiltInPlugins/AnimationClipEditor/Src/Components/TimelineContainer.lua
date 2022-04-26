@@ -25,6 +25,7 @@ local withContext = ContextServices.withContext
 local KeyboardListener = Framework.UI.KeyboardListener
 local Input = require(Plugin.Src.Util.Input)
 local Timeline = require(Plugin.Src.Components.Timeline.Timeline)
+local Tooltip = require(Plugin.Src.Components.Tooltip)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagEasierCurveWorkflow = require(Plugin.LuaFlags.GetFFlagEasierCurveWorkflow)
@@ -182,6 +183,9 @@ function TimelineContainer:render()
 					Image = theme.curveTheme.curveEditorButton,
 					ImageColor3 = toggleEditorButtonActive and theme.playbackTheme.iconHighlightColor or theme.playbackTheme.iconColor,
 				}),
+			Tooltip = Roact.createElement(Tooltip, {
+				TextKey = if isCurveCanvas then "GoToDopesheetEditor" else "GoToCurveEditor",
+			}),
 		}) else nil,
 		KeyboardListener = Roact.createElement(KeyboardListener, {
 			OnKeyPressed = function(input)

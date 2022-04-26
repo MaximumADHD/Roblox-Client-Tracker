@@ -1,7 +1,3 @@
-if not game:GetFastFlag("ImprovePluginSpeed_AlignmentTool") then
-	return
-end
-
 require(script.Parent.defineLuaFlags)
 
 local Plugin = script.Parent.Parent

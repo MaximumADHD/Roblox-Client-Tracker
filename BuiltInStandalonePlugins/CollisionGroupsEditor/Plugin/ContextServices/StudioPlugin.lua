@@ -5,7 +5,7 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local Roact = require(Plugin.modules.Roact)
+local Roact = require(Plugin.Packages.Roact)
 local Symbol = require(script.Parent.Parent.Util.Symbol)
 
 local pluginKey = Symbol.named("StudioPlugin")

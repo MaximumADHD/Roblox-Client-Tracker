@@ -33,6 +33,10 @@ export type HomeConfiguration = {
 }
 
 local HomeTypes = {}
+HomeTypes.AUDIO_TYPES = {
+	MUSIC = "music",
+	SOUND_EFFECT = "soundEffect",
+}
 HomeTypes.ENABLED_ASSET_TYPES = {}
 
 function AddEnabledAssetByName(assetName: string)

@@ -34,14 +34,16 @@ local TimelineContainer = require(Plugin.Src.Components.TimelineContainer)
 local ZoomBar_deprecated = require(Plugin.Src.Components.ZoomBar_deprecated)
 local ZoomBar = require(Plugin.Src.Components.ZoomBar)
 local Scrubber = require(Plugin.Src.Components.Timeline.Scrubber)
+local NoticeToast = require(Plugin.Src.Components.Toast.NoticeToast)
 
-local SetScrollZoom = require(Plugin.Src.Actions.SetScrollZoom)
-local SetHorizontalScrollZoom = require(Plugin.Src.Actions.SetHorizontalScrollZoom)
-local SetVerticalScrollZoom = require(Plugin.Src.Actions.SetVerticalScrollZoom)
-local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
-local SnapToNearestKeyframe = require(Plugin.Src.Thunks.SnapToNearestKeyframe)
-local SnapToNearestFrame = require(Plugin.Src.Thunks.SnapToNearestFrame)
 local SetEditorMode = require(Plugin.Src.Actions.SetEditorMode)
+local SetHorizontalScrollZoom = require(Plugin.Src.Actions.SetHorizontalScrollZoom)
+local SetNotification = require(Plugin.Src.Actions.SetNotification)
+local SetScrollZoom = require(Plugin.Src.Actions.SetScrollZoom)
+local SetVerticalScrollZoom = require(Plugin.Src.Actions.SetVerticalScrollZoom)
+local SnapToNearestFrame = require(Plugin.Src.Thunks.SnapToNearestFrame)
+local SnapToNearestKeyframe = require(Plugin.Src.Thunks.SnapToNearestKeyframe)
+local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
@@ -203,6 +205,7 @@ function TrackEditor:render()
 	local playhead = props.Playhead
 	local isChannelAnimation = props.IsChannelAnimation
 	local colorsPosition = props.ColorsPosition
+	local localization = props.Localization
 
 	local snapToNearestKeyframe = props.SnapToNearestKeyframe
 	local snapToNearestFrame = props.SnapToNearestFrame
@@ -215,6 +218,7 @@ function TrackEditor:render()
 	local showPlayhead = playhead >= startTick and playhead <= endTick
 	local showDopeSheet = props.EditorMode == Constants.EDITOR_MODE.DopeSheet
 	local showCurveCanvas = props.EditorMode == Constants.EDITOR_MODE.CurveCanvas
+	local showCannotPasteError = props.CannotPasteError
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -295,6 +299,11 @@ function TrackEditor:render()
 			LeftX = absolutePosition.X,
 		}),
 
+		CannotPasteToast = GetFFlagCurveEditor() and showCannotPasteError and Roact.createElement(NoticeToast, {
+			Text = localization:getText("Toast", "CannotPasteError"),
+			OnClose = props.CloseCannotPasteToast,
+		}) or nil,
+
 		IgnoreLayout = Roact.createElement("Folder", {}, {
 			TimelineBorder = Roact.createElement(Separator, {
 				Position = UDim2.new(0.5, 0, 0, Constants.TIMELINE_HEIGHT),
@@ -364,11 +373,16 @@ local function mapStateToProps(state)
 		SnapMode = state.Status.SnapMode,
 		AnimationData = state.AnimationData,
 		EditorMode = state.Status.EditorMode,
+		CannotPasteError = state.Notifications.CannotPasteError,
 	}
 end
 
 local function mapDispatchToProps(dispatch)
 	return {
+		CloseCannotPasteToast = function()
+			dispatch(SetNotification("CannotPasteError", false))
+		end,
+
 		SetScrollZoom = not GetFFlagCurveEditor() and function(scroll, zoom)
 			dispatch(SetScrollZoom(scroll, zoom))
 		end or nil,
@@ -401,6 +415,7 @@ end
 
 TrackEditor = withContext({
 	Mouse = ContextServices.Mouse,
+	Localization = ContextServices.Localization,
 })(TrackEditor)
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(TrackEditor)

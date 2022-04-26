@@ -3,14 +3,18 @@ local ServiceWrapper = require(script.Parent.ServiceWrapper)
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
+local UILibrary = require(Plugin.Packages.UILibrary)
 
-local ContextServices = Plugin.Packages.Framework.ContextServices
+local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
+
+local ContextServices = Framework.ContextServices
 local UILibraryWrapper = require(ContextServices.UILibraryWrapper :: any)
 local Analytics = require(ContextServices).Analytics
 local Localization = require(ContextServices).Localization
 
 local MockPlugin = require(Plugin.Src.TestHelpers.MockPlugin)
-local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 return function()
@@ -21,8 +25,15 @@ return function()
 		local pluginInstance = MockPlugin.new()
 		local mouse = pluginInstance:GetMouse()
 		local store = Rodux.Store.new(MainReducer, {}, { Rodux.thunkMiddleware })
-		local theme = PluginTheme.mock()
-		local uiLibWrapper = UILibraryWrapper.new()
+		local theme
+		if THEME_REFACTOR then
+			local Theme = require(Plugin.Src.Resources.Theme)
+			theme = Theme(true)
+		else
+			local PluginTheme = require(Plugin.Src.Resources.DEPRECATED_PluginTheme)
+			theme = PluginTheme.mock()
+		end
+		local uiLibWrapper = UILibraryWrapper.new(UILibrary)
 
 		local element = Roact.createElement(ServiceWrapper, {
 			analytics = analytics,

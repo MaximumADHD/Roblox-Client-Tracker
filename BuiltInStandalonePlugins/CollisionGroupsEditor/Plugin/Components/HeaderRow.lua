@@ -1,7 +1,7 @@
-local Roact = require(script.Parent.Parent.Parent.modules.Roact)
+local Roact = require(script.Parent.Parent.Parent.Packages.Roact)
 
 local choose = require(script.Parent.Parent.choose)
-local UILibrary = require(script.Parent.Parent.Parent.modules.UILibrary)
+local UILibrary = require(script.Parent.Parent.Parent.Packages.UILibrary)
 local withLocalization = UILibrary.Localizing.withLocalization
 
 local Constants = require(script.Parent.Parent.Constants)

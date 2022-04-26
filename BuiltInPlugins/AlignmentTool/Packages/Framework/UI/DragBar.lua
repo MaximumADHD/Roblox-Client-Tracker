@@ -6,6 +6,7 @@
 		table WrapperProps: Interaction props passed by withControl
 		
 	Optional Props:
+		boolean Hide: Whether the bar should be hidden, but still interactable with
 		number Index: The index of the drag bar in a split pane
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		number LayoutOrder: The layout order of the bar
@@ -35,6 +36,7 @@ local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 export type Props = {
 	FillDirection: Enum.FillDirection,
 	Index: number?,
+	Hide: boolean?,
 	LayoutOrder: number?,
 	Position: UDim2?,
 	BarStyle: string?
@@ -69,6 +71,7 @@ function DragBar:render()
 	local style = props.Stylizer
 	
 	local weight = style.Weight
+	local hide = props.Hide
 
 	assert(t.numberMin(0)(weight), "Weight style must be a number >= 0")
 
@@ -84,6 +87,7 @@ function DragBar:render()
 		Style = props.BarStyle,
 		LayoutOrder = props.LayoutOrder,
 		BackgroundColor = style.Background,
+		BackgroundTransparency = if hide then 1 else 0,
 	}, props.WrapperProps))
 end
 

@@ -14,6 +14,8 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -628,7 +630,7 @@ end
 --Uses props to display current settings values
 local function displayMonetizationPage(props)
     local localization = props.Localization
-    local theme = props.Theme:get("Plugin")
+    local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
     
     local taxRate = props.TaxRate
     local minimumFee = props.MinimumFee
@@ -769,7 +771,7 @@ local function displayMonetizationPage(props)
 end
 
 local function displayEditDevProductsPage(props)
-    local theme = props.Theme:get("Plugin")
+    local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
     local localization = props.Localization
 
     local layoutIndex = LayoutOrderIterator.new()
@@ -1049,7 +1051,8 @@ end
 
 Monetization = withContext({
     Localization = ContextServices.Localization,
-    Theme = ContextServices.Theme,
+    Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(Monetization)
 
 

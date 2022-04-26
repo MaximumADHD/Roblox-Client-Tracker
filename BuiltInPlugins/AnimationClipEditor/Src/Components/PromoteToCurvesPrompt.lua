@@ -13,7 +13,10 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local Constants = require(Plugin.Src.Util.Constants)
 local FocusedPrompt = require(Plugin.Src.Components.EditEventsDialog.FocusedPrompt)
+
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 local PromoteToCurvesPrompt = Roact.PureComponent:extend("PromoteToCurvesPrompt")
 
@@ -35,7 +38,8 @@ function PromoteToCurvesPrompt:render(): (any)
 	local localization = self.props.Localization
 
 	return Roact.createElement(FocusedPrompt, {
-		PromptText = localization:getText("Dialog", "PromotePrompt"),
+		PromptText = localization:getText("Dialog", GetFFlagCurveEditor() and "PromotePrompt1" or "PromotePrompt"),
+		Size = GetFFlagCurveEditor() and UDim2.new(0, Constants.PROMPT_SIZE.Width.Offset, 0, 180) or nil,
 		Buttons = {
 			{Key = false, Text = localization:getText("Dialog", "Cancel")},
 			{Key = true, Text = localization:getText("Dialog", "Confirm"), Style = "Primary"},

@@ -12,11 +12,17 @@ local PlayersService = game:GetService("Players")
 local MarketplaceService = game:GetService("MarketplaceService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 
+local log = require(RobloxGui.Modules.Logger):new(script.Name)
+
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
+local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+
 local FFlagFixUsernamesAutoLocalizeIssue = require(RobloxGui.Modules.Flags.FFlagFixUsernamesAutoLocalizeIssue)
 local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.GetFFlagAbuseReportEnableReportSentPage)
+local GetFFlagVoiceAbuseReportsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceAbuseReportsEnabled)
+
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 
 local ABUSE_TYPES_PLAYER = {
@@ -65,6 +71,8 @@ local function Initialize()
 	local nameToRbxPlayer = {}
 	local nextPlayerToReport = nil
 
+	local voiceChatEnabled = false
+
 	function this:GetPlayerNameText(player)
 		return player.DisplayName .. " [@" .. player.Name .. "]"
 	end
@@ -82,12 +90,27 @@ local function Initialize()
 		nextPlayerToReport = player
 	end
 
+	function this:updateVoiceLayout()
+		if GetFFlagVoiceAbuseReportsEnabled() and voiceChatEnabled then
+			this.MethodOfAbuseFrame, this.MethodOfAbuseLabel, this.MethodOfAbuseMode =
+				utility:AddNewRow(this, "Type Of Abuse?", "DropDown", {"Voice Chat", "Text Chat", "Other"})
+			this.MethodOfAbuseMode:SetInteractable(false)
+			this.MethodOfAbuseLabel.ZIndex = 1
+			this.MethodOfAbuseFrame.LayoutOrder = 2
+
+			this.WhichPlayerFrame.LayoutOrder = 3
+			this.TypeOfAbuseFrame.LayoutOrder = 4
+			this.AbuseDescriptionFrame.LayoutOrder = 5
+		end
+	end
+
 	function this:UpdatePlayerDropDown()
 		playerNames = {}
-	    nameToRbxPlayer = {}
+		nameToRbxPlayer = {}
 
 		local players = PlayersService:GetPlayers()
 		local index = 1
+
 		for i = 1, #players do
 			local player = players[i]
 			if player ~= PlayersService.LocalPlayer and player.UserId > 0 then
@@ -102,10 +125,10 @@ local function Initialize()
 			return a:lower() < b:lower()
 		end)
 
-        this.WhichPlayerMode:UpdateDropDownList(playerNames)
+		this.WhichPlayerMode:UpdateDropDownList(playerNames)
 
-        --Reset GameOrPlayerMode to Game if no other players
-        if index == 1 then
+		--Reset GameOrPlayerMode to Game if no other players
+		if index == 1 then
 			this.GameOrPlayerMode:SetSelectionIndex(1)
 		end
 
@@ -118,6 +141,11 @@ local function Initialize()
 		else
 			this.WhichPlayerLabel.ZIndex = 2
 			this.WhichPlayerMode:SetInteractable(index > 1)
+
+			if this.MethodOfAbuseMode then
+				this.MethodOfAbuseMode:SetInteractable(index > 1)
+			end
+
 			this.TypeOfAbuseMode:UpdateDropDownList(ABUSE_TYPES_PLAYER)
 			this.TypeOfAbuseMode:SetInteractable(#ABUSE_TYPES_PLAYER > 1)
 		end
@@ -179,9 +207,15 @@ local function Initialize()
 		this.WhichPlayerLabel.ZIndex = 1
 		this.WhichPlayerFrame.LayoutOrder = 2
 
+		local typeOfAbuseText = "Type Of Abuse"
+
+		if GetFFlagVoiceAbuseReportsEnabled() then
+			typeOfAbuseText = "Reason for Abuse?"
+		end
+
 		this.TypeOfAbuseFrame,
 		this.TypeOfAbuseLabel,
-		this.TypeOfAbuseMode = utility:AddNewRow(this, "Type Of Abuse", "DropDown", ABUSE_TYPES_GAME, 1)
+		this.TypeOfAbuseMode = utility:AddNewRow(this, typeOfAbuseText, "DropDown", ABUSE_TYPES_GAME, 1)
 		this.TypeOfAbuseFrame.LayoutOrder = 3
 
 		if utility:IsSmallTouchScreen() then
@@ -206,6 +240,16 @@ local function Initialize()
 				this.AbuseDescription.Selection.Text = DEFAULT_ABUSE_DESC_TEXT
 			end
 		end)
+
+		if GetFFlagVoiceAbuseReportsEnabled() then
+			VoiceChatServiceManager:asyncInit():andThen(function()
+				voiceChatEnabled = true
+				this:updateVoiceLayout()
+			end):catch(function()
+				voiceChatEnabled = false
+				log:warning("ReportAbuseMenu: Failed to init VoiceChatServiceManager")
+			end)
+		end
 
 		local _SelectionOverrideObject = utility:Create'ImageLabel'
 		{

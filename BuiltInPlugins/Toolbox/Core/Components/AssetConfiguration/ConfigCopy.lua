@@ -16,6 +16,7 @@ local FStringToolboxAssetConfigEnabledAudioSharingLearnMoreLink = game:GetFastSt
 	"ToolboxAssetConfigEnabledAudioSharingLearnMoreLink"
 )
 local FFlagToolboxEnablePublicAudioToggle = game:GetFastFlag("ToolboxEnablePublicAudioToggle")
+local FFlagToolboxAssetConfigurationMatchPluginFlow = game:GetFastFlag("ToolboxAssetConfigurationMatchPluginFlow")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -31,6 +32,7 @@ local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
+local AssetConfigUtil = FFlagToolboxAssetConfigurationMatchPluginFlow and require(Util.AssetConfigUtil) or nil
 local ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
 local LayoutOrderIterator = require(Util.LayoutOrderIterator)
 
@@ -106,6 +108,19 @@ function ConfigCopy:init(props)
 			end
 		else
 			props.ToggleCallback(not copyOn)
+		end
+
+		if FFlagToolboxAssetConfigurationMatchPluginFlow and assetType == Enum.AssetType.Plugin then
+			local canChangeSalesStatus = props.canChangeSalesStatus
+			local currentAssetStatus = props.currentAssetStatus
+			local onStatusChange = props.onStatusChange
+
+			if canChangeSalesStatus then
+				local newStatus = AssetConfigUtil.isOnSale(currentAssetStatus) and
+					AssetConfigConstants.ASSET_STATUS.OffSale or
+					AssetConfigConstants.ASSET_STATUS.OnSale
+				onStatusChange(newStatus)
+			end
 		end
 	end
 

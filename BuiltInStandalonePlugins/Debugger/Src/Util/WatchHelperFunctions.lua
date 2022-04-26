@@ -18,27 +18,28 @@ module.getDebuggerVariableFromSplitPath = function(path, debuggerConnection)
 end
 
 module.textMatchRow = function(filterText, rowData)
+	local lowercaseFilter = filterText:lower()
 	if (rowData.nameColumn ~= nil) then
-		if (string.find(rowData.nameColumn, filterText) ~= nil) then
+		if (string.find(rowData.nameColumn:lower(), lowercaseFilter) ~= nil) then
 			return true
 		end
 	end
 	
 	if (rowData.expressionColumn ~= nil) then
-		if (string.find(rowData.expressionColumn, filterText) ~= nil) then
+		if (string.find(rowData.expressionColumn:lower(), lowercaseFilter) ~= nil) then
 			return true
 		end
 	end
 
-	if (string.find(rowData.scopeColumn, filterText) ~= nil) then
+	if (string.find(rowData.scopeColumn:lower(), lowercaseFilter) ~= nil) then
 		return true
 	end
 
-	if (string.find(rowData.valueColumn, filterText) ~= nil) then
+	if (string.find(rowData.valueColumn:lower(), lowercaseFilter) ~= nil) then
 		return true
 	end
 
-	if (string.find(rowData.dataTypeColumn, filterText) ~= nil) then
+	if (string.find(rowData.dataTypeColumn:lower(), lowercaseFilter) ~= nil) then
 		return true
 	end
 
@@ -58,7 +59,7 @@ end
 
 module.sortTableByColumnAndOrder = function (mainTable, column, order, tableColumns, skipLastRow)
 	local currentOrder = order or Enum.SortDirection.Descending
-	local currentColumn = column or 1
+	local currentColumn = tableColumns[column] and column or 1
 	local sortValue = (tableColumns[column] and tableColumns[column]["Key"]) or tableColumns[currentColumn]["Key"]
 	local basedOnOrder = function(a, b, mainOrder)
 		local sort1 = a

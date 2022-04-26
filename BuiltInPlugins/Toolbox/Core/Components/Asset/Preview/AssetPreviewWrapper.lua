@@ -74,8 +74,6 @@ local PurchaseStatus = require(Plugin.Core.Types.PurchaseStatus)
 local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
-local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
-local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
 local FFlagPluginsSetAudioPreviewUsageContext = game:GetFastFlag("PluginsSetAudioPreviewUsageContext")
 local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 local FFlagToolboxFixNonOwnedPluginInstallation = game:GetFastFlag("ToolboxFixNonOwnedPluginInstallation")
@@ -86,10 +84,8 @@ local FFlagToolboxAssetPreviewProtectAgainstNilAssetData = game:GetFastFlag(
 
 local disableRatings = require(Plugin.Core.Util.ToolboxUtilities).disableRatings
 
-local getReportUrl
-if FFlagToolboxRedirectToLibraryAbuseReport then
-	getReportUrl = require(Util.getReportUrl)
-end
+local getReportUrl = require(Util.getReportUrl)
+
 local PADDING = 32
 local INSTALLATION_ANIMATION_TIME = 1.0 --seconds
 local DETECTOR_BACKGROUND_COLOR = Color3.fromRGB(0, 0, 0)
@@ -532,16 +528,14 @@ function AssetPreviewWrapper:init(props)
 		self.props.clearPurchaseFlow(props.assetData.Asset.Id)
 	end
 
-	if FFlagToolboxRedirectToLibraryAbuseReport then
-		self.onClickReport = function()
-			local assetData = self.props.assetData
-			local assetId = self.props.assetId
-			local asset = assetData.Asset
-			local assetTypeId = asset.TypeId
-			local targetUrl = getReportUrl(assetId, assetTypeId)
-			Analytics.reportAssetClicked(assetId, assetTypeId)
-			GuiService:OpenBrowserWindow(targetUrl)
-		end
+	self.onClickReport = function()
+		local assetData = self.props.assetData
+		local assetId = self.props.assetId
+		local asset = assetData.Asset
+		local assetTypeId = asset.TypeId
+		local targetUrl = getReportUrl(assetId, assetTypeId)
+		Analytics.reportAssetClicked(assetId, assetTypeId)
+		GuiService:OpenBrowserWindow(targetUrl)
 	end
 
 	self.renderFooter = function(footerProps)
@@ -642,13 +636,11 @@ function AssetPreviewWrapper:renderContent(theme, modalTarget, localizedContent)
 		OnVoteUp = self.onVoteUpButtonActivated,
 		OnVoteDown = self.onVoteDownButtonActivated,
 		OnClickCreator = self.searchByCreator,
-		OnClickReport = FFlagToolboxRedirectToLibraryAbuseReport and self.onClickReport or nil,
+		OnClickReport = self.onClickReport,
 
 		RenderFooter = self.renderFooter,
 
-		CanFlagAsset = FFlagToolboxHideReportFlagForCreator
-				and (assetData.Creator and assetData.Creator.Id ~= 1 and assetData.Creator.Id ~= getUserId())
-			or nil,
+		CanFlagAsset = assetData.Creator and assetData.Creator.Id ~= 1 and assetData.Creator.Id ~= getUserId(),
 
 		UsageContext = if FFlagPluginsSetAudioPreviewUsageContext then Enum.UsageContext.Preview else nil,
 	})

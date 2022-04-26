@@ -9,7 +9,7 @@
 		price, number
 		minPrice, number
 		maxPrice, number
-		isPriceValid, bool, changes the behavoir of the component.
+		isPriceValid, bool, changes the behavior of the component.
 
 		onStatusChange, function, sales status has changed
 		onPriceChange, function, price has changed
@@ -95,9 +95,9 @@ function SalesPage:renderContent(theme, localization, localizedContent)
 		canChangeSalesStatus = true
 	end
 
-	-- When we are in this page, sales and price are default to available.
-	-- Only when for marketplace buyable, and none whitelist user, we hide the price.
-	-- And the sales will only be toggle between Free and OffSale.
+	-- When we are on this page, sales and price default to available.
+	-- If the asset is buyable on the marketplace and the user is not whitelisted, we hide the price.
+	-- The sales option will only be able to toggle between Free and OffSale.
 	local showPrice = allowedAssetTypesForRelease[assetTypeEnum.Name]
 
 	local premiumBenefitsLink

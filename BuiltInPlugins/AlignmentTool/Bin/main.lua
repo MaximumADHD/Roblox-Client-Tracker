@@ -1,12 +1,6 @@
 return function(plugin, pluginLoaderContext)
 	local Plugin = script.Parent.Parent
 
-	local FFlagImprovePluginSpeed_AlignmentTool = game:GetFastFlag("ImprovePluginSpeed_AlignmentTool")
-
-	if not FFlagImprovePluginSpeed_AlignmentTool then
-		require(script.Parent.defineLuaFlags)
-	end
-
 	local getFFlagAlignToolRoactInspector = require(Plugin.Src.Flags.getFFlagAlignToolRoactInspector)
 
 	local Roact = require(Plugin.Packages.Roact)
@@ -88,7 +82,7 @@ return function(plugin, pluginLoaderContext)
 			calloutController, -- nil if FFlagAlignToolTeachingCallout is false
 		}, {
 			AlignTool = Roact.createElement(AlignmentToolPlugin, {
-				pluginLoaderContext = FFlagImprovePluginSpeed_AlignmentTool and pluginLoaderContext or nil
+				pluginLoaderContext = pluginLoaderContext
 			}),
 		})
 

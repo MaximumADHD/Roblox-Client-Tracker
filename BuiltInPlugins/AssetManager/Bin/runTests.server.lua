@@ -1,6 +1,11 @@
 local SHOULD_RUN_TESTS = false -- Do not check in as true!
 
 if SHOULD_RUN_TESTS then
+
+	require(script.Parent.defineLuaFlags)
+	local commonInit = require(script.Parent.commonInit)
+	commonInit()
+
 	local Plugin = script.Parent.Parent
 	local TestsFolderPlugin = Plugin.Src
 	local TestsFolderPackages = Plugin.Packages -- Can be used to run package's unit tests

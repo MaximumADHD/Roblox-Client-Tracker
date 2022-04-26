@@ -11,9 +11,12 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local FrameworkUI = require(Plugin.Packages.Framework).UI
+local FrameworkUI = Framework.UI
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Button = FrameworkUI.Button
 local Container = FrameworkUI.Container
@@ -27,7 +30,7 @@ end
 
 function LoadFailedPage:render()
 	local props = self.props
-	local theme = props.Theme:get("Plugin")
+	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
 	local localization = props.Localization
 
 	local onRetry = props.OnRetry
@@ -86,7 +89,8 @@ end
 
 
 LoadFailedPage = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Localization = ContextServices.Localization,
 })(LoadFailedPage)
 
