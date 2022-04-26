@@ -6715,6 +6715,14 @@
       </Item>
 
       <Item class="ReflectionMetadataProperties">
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">SelectionOrder</string>
+            <string name="FFlag">GamepadUISelectionOrder</string>
+          </Properties>
+        </Item>
+
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Active</string>

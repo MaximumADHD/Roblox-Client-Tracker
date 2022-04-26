@@ -24330,7 +24330,7 @@
                     }
                 },
                 {
-                    "Category": "Behavior",
+                    "Category": "Selection",
                     "MemberType": "Property",
                     "Name": "NextSelectionDown",
                     "Security": {
@@ -24348,7 +24348,7 @@
                     }
                 },
                 {
-                    "Category": "Behavior",
+                    "Category": "Selection",
                     "MemberType": "Property",
                     "Name": "NextSelectionLeft",
                     "Security": {
@@ -24366,7 +24366,7 @@
                     }
                 },
                 {
-                    "Category": "Behavior",
+                    "Category": "Selection",
                     "MemberType": "Property",
                     "Name": "NextSelectionRight",
                     "Security": {
@@ -24384,7 +24384,7 @@
                     }
                 },
                 {
-                    "Category": "Behavior",
+                    "Category": "Selection",
                     "MemberType": "Property",
                     "Name": "NextSelectionUp",
                     "Security": {
@@ -24438,7 +24438,7 @@
                     }
                 },
                 {
-                    "Category": "Data",
+                    "Category": "Selection",
                     "MemberType": "Property",
                     "Name": "Selectable",
                     "Security": {
@@ -24471,6 +24471,27 @@
                     "ValueType": {
                         "Category": "Class",
                         "Name": "GuiObject"
+                    }
+                },
+                {
+                    "Category": "Selection",
+                    "MemberType": "Property",
+                    "Name": "SelectionOrder",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
                     }
                 },
                 {
@@ -34633,6 +34654,36 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "ApplyDescriptionReset",
+                    "Parameters": [
+                        {
+                            "Name": "humanoidDescription",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "HumanoidDescription"
+                            }
+                        },
+                        {
+                            "Default": "Default",
+                            "Name": "assetTypeVerification",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "AssetTypeVerification"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PlayEmote",
                     "Parameters": [
                         {
@@ -36527,6 +36578,28 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Manifold",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -43711,8 +43784,11 @@
                     },
                     "Serialization": {
                         "CanLoad": true,
-                        "CanSave": true
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -43949,6 +44025,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetOverrideStatus",
+                    "Parameters": [
+                        {
+                            "Name": "material",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "Material"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Enum",
+                        "Name": "PropertyStatus"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetOverrideTerrainMaterial",
                     "Parameters": [
                         {
@@ -44028,6 +44123,21 @@
                         "Name": "void"
                     },
                     "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "OverrideStatusChanged",
+                    "Parameters": [
+                        {
+                            "Name": "material",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "Material"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 }
             ],
@@ -63223,7 +63333,7 @@
                             "Name": "player",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         },
                         {
@@ -74645,25 +74755,6 @@
                     "ReturnType": {
                         "Category": "Primitive",
                         "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "SerializeInstances",
-                    "Parameters": [
-                        {
-                            "Name": "instances",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Objects"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "string"
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
@@ -86391,6 +86482,14 @@
                 {
                     "Name": "DressSkirt",
                     "Value": 17
+                },
+                {
+                    "Name": "Eyebrow",
+                    "Value": 18
+                },
+                {
+                    "Name": "Eyelash",
+                    "Value": 19
                 }
             ],
             "Name": "AccessoryType"
@@ -86977,6 +87076,14 @@
                 {
                     "Name": "DressSkirtAccessory",
                     "Value": 72
+                },
+                {
+                    "Name": "EyebrowAccessory",
+                    "Value": 76
+                },
+                {
+                    "Name": "EyelashAccessory",
+                    "Value": 77
                 }
             ],
             "Name": "AssetType"
@@ -87181,6 +87288,14 @@
                 {
                     "Name": "DressSkirtAccessory",
                     "Value": 72
+                },
+                {
+                    "Name": "EyebrowAccessory",
+                    "Value": 76
+                },
+                {
+                    "Name": "EyelashAccessory",
+                    "Value": 77
                 }
             ],
             "Name": "AvatarAssetType"
@@ -87457,6 +87572,10 @@
                 {
                     "Name": "Animations",
                     "Value": 2
+                },
+                {
+                    "Name": "Shoes",
+                    "Value": 3
                 }
             ],
             "Name": "BundleType"
@@ -94467,9 +94586,6 @@
                 },
                 {
                     "Name": "Future",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "Value": 4
                 }
             ],

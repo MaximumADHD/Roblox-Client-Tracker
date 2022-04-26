@@ -1269,10 +1269,6 @@ Class GuiObject : GuiBase2d [NotCreatable] [NotBrowsable]
 	Property GuiObject GuiObject.SelectionImageObject
 	Property bool GuiObject.ClipsDescendants
 	Property bool GuiObject.Draggable [Deprecated]
-	Property GuiObject GuiObject.NextSelectionDown
-	Property GuiObject GuiObject.NextSelectionLeft
-	Property GuiObject GuiObject.NextSelectionRight
-	Property GuiObject GuiObject.NextSelectionUp
 	Property bool GuiObject.Active
 	Property Vector2 GuiObject.AnchorPoint
 	Property Enum.AutomaticSize GuiObject.AutomaticSize
@@ -1286,12 +1282,17 @@ Class GuiObject : GuiBase2d [NotCreatable] [NotBrowsable]
 	Property int GuiObject.LayoutOrder
 	Property UDim2 GuiObject.Position
 	Property float GuiObject.Rotation
-	Property bool GuiObject.Selectable
 	Property UDim2 GuiObject.Size
 	Property Enum.SizeConstraint GuiObject.SizeConstraint
 	Property float GuiObject.Transparency [<📁> LoadOnly] [Hidden] [NotReplicated]
 	Property bool GuiObject.Visible
 	Property int GuiObject.ZIndex
+	Property GuiObject GuiObject.NextSelectionDown
+	Property GuiObject GuiObject.NextSelectionLeft
+	Property GuiObject GuiObject.NextSelectionRight
+	Property GuiObject GuiObject.NextSelectionUp
+	Property bool GuiObject.Selectable
+	Property int GuiObject.SelectionOrder [NotBrowsable]
 	Function bool GuiObject:TweenPosition(UDim2 endPosition, Enum.EasingDirection easingDirection = "Out", Enum.EasingStyle easingStyle = "Quad", float time = 1, bool override = false, Function callback = nil)
 	Function bool GuiObject:TweenSize(UDim2 endSize, Enum.EasingDirection easingDirection = "Out", Enum.EasingStyle easingStyle = "Quad", float time = 1, bool override = false, Function callback = nil)
 	Function bool GuiObject:TweenSizeAndPosition(UDim2 endSize, UDim2 endPosition, Enum.EasingDirection easingDirection = "Out", Enum.EasingStyle easingStyle = "Quad", float time = 1, bool override = false, Function callback = nil)
@@ -1815,6 +1816,7 @@ Class Humanoid : Instance
 	Function void Humanoid:ApplyDescription(HumanoidDescription humanoidDescription, Enum.AssetTypeVerification assetTypeVerification = "Default") [Yields]
 	Function void Humanoid:ApplyDescriptionBlocking(HumanoidDescription humanoidDescription) {RobloxScriptSecurity}
 	Function void Humanoid:ApplyDescriptionClientServer(HumanoidDescription humanoidDescription) {RobloxScriptSecurity} [Yields]
+	Function void Humanoid:ApplyDescriptionReset(HumanoidDescription humanoidDescription, Enum.AssetTypeVerification assetTypeVerification = "Default") [Yields]
 	Function void Humanoid:BuildRigFromAttachments()
 	Function void Humanoid:CacheDefaults() {RobloxScriptSecurity}
 	Function void Humanoid:ChangeState(Enum.HumanoidStateType state = "None")
@@ -1952,6 +1954,7 @@ Class ImporterMeshSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property Vector3 ImporterMeshSettings.Dimensions [ReadOnly]
 	Property bool ImporterMeshSettings.DoubleSided
 	Property bool ImporterMeshSettings.IgnoreVertexColors
+	Property bool ImporterMeshSettings.Manifold [ReadOnly]
 	Property float ImporterMeshSettings.PolygonCount [ReadOnly]
 Class ImporterRootSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property bool ImporterRootSettings.Anchored
@@ -2300,7 +2303,7 @@ Class MaterialService : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property string MaterialService.WoodName {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.WoodPlanks {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.WoodPlanksName {RobloxSecurity} [NotScriptable]
-	Property bool MaterialService.Use2022Materials {RobloxScriptSecurity}
+	Property bool MaterialService.Use2022Materials {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property MaterialVariant MaterialService.TerrainAsphalt {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.TerrainBasalt {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.TerrainBrick {RobloxSecurity} [NotScriptable]
@@ -2329,10 +2332,12 @@ Class MaterialService : Instance [NotCreatable] [Service] [NotBrowsable]
 	Function RBXScriptSignal MaterialService:GetMaterialOverrideChanged(Enum.Material material) {RobloxScriptSecurity}
 	Function MaterialVariant MaterialService:GetMaterialVariant(Enum.Material material, string name)
 	Function MaterialVariant MaterialService:GetOverridePartMaterial(Enum.Material material)
+	Function Enum.PropertyStatus MaterialService:GetOverrideStatus(Enum.Material material) {RobloxScriptSecurity}
 	Function MaterialVariant MaterialService:GetOverrideTerrainMaterial(Enum.Material material)
 	Function void MaterialService:SetBaseMaterialOverride(Enum.Material material, string name)
 	Function void MaterialService:SetOverridePartMaterial(MaterialVariant materialVariant)
 	Function void MaterialService:SetOverrideTerrainMaterial(MaterialVariant materialVariant)
+	Event MaterialService.OverrideStatusChanged(Enum.Material material) {RobloxScriptSecurity}
 Class MaterialVariant : Instance [NotBrowsable]
 	Property Enum.Material MaterialVariant.BaseMaterial {PluginSecurity}
 	Property Content MaterialVariant.ColorMap {PluginSecurity}
@@ -3294,7 +3299,7 @@ Class RemoteFunction : Instance
 	Function Tuple RemoteFunction:InvokeClient(Player player, Tuple arguments) [Yields]
 	Function Tuple RemoteFunction:InvokeServer(Tuple arguments) [Yields]
 	Callback Tuple RemoteFunction.OnClientInvoke(Tuple arguments)
-	Callback Tuple RemoteFunction.OnServerInvoke(Instance player, Tuple arguments)
+	Callback Tuple RemoteFunction.OnServerInvoke(Player player, Tuple arguments)
 Class RenderSettings : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property int RenderSettings.MeshCacheSize
 	Property int RenderSettings.AutoFRMLevel
@@ -3923,7 +3928,6 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioService:PublishAs(int64 universeId, int64 placeId, int64 groupId) {RobloxScriptSecurity}
 	Function void StudioService:RefreshDocumentDisplayName() {RobloxScriptSecurity}
 	Function void StudioService:RequestClose(Enum.StudioCloseMode closeMode) {RobloxScriptSecurity}
-	Function string StudioService:SerializeInstances(Objects instances) {RobloxScriptSecurity}
 	Function void StudioService:SetPluginEnabled(int64 assetId, bool state) {RobloxScriptSecurity}
 	Function void StudioService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
 	Function void StudioService:ShowPlaceVersionHistoryDialog(int64 placeId) {RobloxScriptSecurity}
@@ -4556,6 +4560,8 @@ Enum AccessoryType
 	EnumItem AccessoryType.LeftShoe : 15
 	EnumItem AccessoryType.RightShoe : 16
 	EnumItem AccessoryType.DressSkirt : 17
+	EnumItem AccessoryType.Eyebrow : 18
+	EnumItem AccessoryType.Eyelash : 19
 Enum ActionType
 	EnumItem ActionType.Nothing : 0
 	EnumItem ActionType.Pause : 1
@@ -4698,6 +4704,8 @@ Enum AssetType
 	EnumItem AssetType.LeftShoeAccessory : 70
 	EnumItem AssetType.RightShoeAccessory : 71
 	EnumItem AssetType.DressSkirtAccessory : 72
+	EnumItem AssetType.EyebrowAccessory : 76
+	EnumItem AssetType.EyelashAccessory : 77
 Enum AssetTypeVerification
 	EnumItem AssetTypeVerification.Default : 1
 	EnumItem AssetTypeVerification.ClientOnly : 2
@@ -4748,6 +4756,8 @@ Enum AvatarAssetType
 	EnumItem AvatarAssetType.LeftShoeAccessory : 70
 	EnumItem AvatarAssetType.RightShoeAccessory : 71
 	EnumItem AvatarAssetType.DressSkirtAccessory : 72
+	EnumItem AvatarAssetType.EyebrowAccessory : 76
+	EnumItem AvatarAssetType.EyelashAccessory : 77
 Enum AvatarContextMenuOption
 	EnumItem AvatarContextMenuOption.Friend : 0
 	EnumItem AvatarContextMenuOption.Chat : 1
@@ -4814,6 +4824,7 @@ Enum BulkMoveMode
 Enum BundleType
 	EnumItem BundleType.BodyParts : 1
 	EnumItem BundleType.Animations : 2
+	EnumItem BundleType.Shoes : 3
 Enum Button
 	EnumItem Button.Dismount : 8
 	EnumItem Button.Jump : 32
@@ -6479,7 +6490,7 @@ Enum Technology
 	EnumItem Technology.Voxel : 1
 	EnumItem Technology.Compatibility : 2
 	EnumItem Technology.ShadowMap : 3
-	EnumItem Technology.Future : 4 [Deprecated]
+	EnumItem Technology.Future : 4
 Enum TeleportMethod
 	EnumItem TeleportMethod.TeleportToSpawnByName : 0
 	EnumItem TeleportMethod.TeleportToPlaceInstance : 1

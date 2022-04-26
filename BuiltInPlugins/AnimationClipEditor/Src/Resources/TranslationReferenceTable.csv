@@ -186,7 +186,7 @@ Studio.AnimationClipEditor.ContextMenu.InterpolationMode,Interpolation Mode, ,In
 Studio.AnimationClipEditor.Title.MaxPBSParam,Maximum playback speed is {speed}x, ,Maximum playback speed is {speed}x,La velocidad máxima de reproducción es {speed}x,La vitesse maximale de lecture est de {speed}x, ,最大プレイバック速度は {speed}x,최고 재생 속도는 {speed}x입니다,A velocidade máxima de execução é {speed}x, ,最快播放速度为 {speed}x,最快播放速度为 {speed}x,最快播放速讀為 {speed}x
 Studio.AnimationClipEditor.Tooltip.Reverse,Preview the animation in reverse, ,Preview the animation in reverse,Previsualiza la animación al revés,Prévisualiser l'animation à l'envers, ,アニメーションを逆方向にプレビュー,애니메이션 거꾸로 미리 보기,Pré-visualizar a animação em reverso, ,倒带预览动画,倒带预览动画,倒帶預覽動畫
 Studio.AnimationClipEditor.Tooltip.GoToFirstFrame,Move the scrubber to the first frame, ,Move the scrubber to the first frame,Mueve la barra de tiempo al primer fotograma,Déplacer la barre de temps à la première image, ,スクラバーを最初のフレームに移動,스크러버를 첫 번째 프레임으로 이동,Mover a barra de tempo para o primeiro quadro, ,将进度条移动至第一帧,将进度条移动至第一帧,將進度條移到第一個影格
-Studio.AnimationClipEditor.Settings.EulerAngles,Euler Angles, ,Euler Angles,Ángulos Euler, , ,オイラー角度,오일러 각도,Ângulos de Euler, , , ,歐拉角
+Studio.AnimationClipEditor.Settings.EulerAngles,Euler Angles, ,Euler Angles,Ángulos Euler, , ,オイラー角度,오일러 각도,Ângulos de Euler, ,欧拉角,欧拉角,歐拉角
 Studio.AnimationClipEditor.Tooltip.GoToLastFrame,Move the scrubber to the last frame, ,Move the scrubber to the last frame,Mueve la barra de tiempo al último fotograma,Déplacer la barre de temps à la dernière image, ,スクラバーを最後のフレームに移動,스크러버를 마지막 프레임으로 이동,Mover a barra de tempo para o último quadro, ,将进度条移动至最后一帧,将进度条移动至最后一帧,將進度條移到最後一個影格
 Studio.AnimationClipEditor.Menu.Action2,Action2, ,Action2,Action2,Action2, ,Action2,Action2,Action2, ,Action2,Action2,Action2
 Studio.AnimationClipEditor.Menu.Action3,Action3, ,Action3,Action3,Action3, ,Action3,Action3,Action3, ,Action3,Action3,Action3
@@ -199,6 +199,6 @@ Studio.AnimationClipEditor.Curves.RightTangentValuePerSecond,Right tangent: {val
 Studio.AnimationClipEditor.ContextMenu.ConvertToEulerAngles,Convert to Euler Angles, ,Convert to Euler Angles,Convertir a ángulos Euler, , ,オイラー角度に変換,오일러 각도로 변환,Converter para ângulos de Euler, ,转换成欧拉角,转换成欧拉角,轉換成歐拉角
 Studio.AnimationClipEditor.Title.FaceControlsEditor,Face Editor, ,Face Editor,Editor de caras, , ,顔エディタ,얼굴 편집기,Editor de rosto, ,脸部编辑器,脸部编辑器,臉部編輯器
 Studio.AnimationClipEditor.Title.Symmetry,Symmetry, ,Symmetry,Simetría, , ,対称性,대칭,Simetria, ,对称度,对称度,對稱
-Studio.AnimationClipEditor.Title.ShowValueInput,Show a value input for precise manipulation, ,Show a value input for precise manipulation,Mostrar una entrada de valor para la manipulación precisa, , ,正確な動作のために値入力を表示,정밀 조작을 위해 입력 값 표시,Mostrar uma entrada de valor para manipulação precisa, , , ,顯示輸入值進行精準操作
-Studio.AnimationClipEditor.Settings.DefaultRotationType,Default Rotation Type, ,Default Rotation Type,Tipo de rotación predeterminado, , ,デフォルト回転タイプ,기본 회전 유형,Tipo de rotação padrão, , , ,預設旋轉類型
-Studio.AnimationClipEditor.Settings.Quaternions,Quaternions, ,Quaternions,Cuaterniones, , ,四元数,사원수,Quatérnios, , , ,四元數
+Studio.AnimationClipEditor.Title.ShowValueInput,Show a value input for precise manipulation, ,Show a value input for precise manipulation,Mostrar una entrada de valor para la manipulación precisa, , ,正確な動作のために値入力を表示,정밀 조작을 위해 입력 값 표시,Mostrar uma entrada de valor para manipulação precisa, ,显示输入值进行精确操作,显示输入值进行精确操作,顯示輸入值進行精準操作
+Studio.AnimationClipEditor.Settings.DefaultRotationType,Default Rotation Type, ,Default Rotation Type,Tipo de rotación predeterminado, , ,デフォルト回転タイプ,기본 회전 유형,Tipo de rotação padrão, ,默认旋转类型,默认旋转类型,預設旋轉類型
+Studio.AnimationClipEditor.Settings.Quaternions,Quaternions, ,Quaternions,Cuaterniones, , ,四元数,사원수,Quatérnios, ,四元数,四元数,四元數

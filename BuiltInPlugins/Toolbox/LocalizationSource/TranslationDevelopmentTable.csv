@@ -14,7 +14,8 @@ Studio.Toolbox.Common.Insert,Insert,Insert
 Studio.Toolbox.General.CategoryRecentVideos,Recent Videos,Recent Videos
 Studio.Toolbox.AssetConfigFooter.UploadWithFee,Submit for,{price:int} Robux
 Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName
-White,White,Studio.Toolbox.General.CategoryGroupDecals
+White,White,Studio.Toolbox.AudioView.Name
+Name,Name,Studio.Toolbox.General.CategoryGroupDecals
 Group Images,Group Images,Studio.Toolbox.Common.InsertAborted
 Not inserting asset {assetId} because it is invalid.,Not inserting asset {assetId} because it is invalid.,Studio.Toolbox.General.AllModels
 AllModels,All Models,Studio.Toolbox.General.CategoryMyModels
@@ -25,7 +26,8 @@ Distribute on Marketplace,Distribute on Marketplace,Studio.Toolbox.General.Categ
 Recent Audio,Recent Audio,Studio.Toolbox.Common.Update
 Update,Update,Studio.Toolbox.General.CategoryRecentDecals
 Recent Images,Recent Images,Studio.Toolbox.General.SuggestionsWeapon
-Weapon,Weapon,Studio.Toolbox.Common.Installed
+Weapon,Weapon,Studio.Toolbox.AudioView.Subcategory
+Subcategory,Subcategory,Studio.Toolbox.Common.Installed
 Installed,Installed,Studio.Toolbox.Purchase.BuyPrompt
 Would you like to buy "{name}" from {creator} for {robux:int} Robux?,Would you like to buy "{name}" from {creator} for {robux:int} Robux?,Studio.Toolbox.Common.OK
 OK,OK,Studio.Toolbox.General.SuggestionsLight
@@ -75,7 +77,8 @@ Plugin,Plugin,Studio.Toolbox.General.SortByFavorites
 Favorites,Favorites,Studio.Toolbox.General.SearchBarCreatorText
 Search for users,Search for users,Studio.Toolbox.General.SearchBarIdVerified
 Show ID verified creators only,Show ID verified creators only,Studio.Toolbox.General.ShowMore
-Show more,Show more,Studio.Toolbox.General.ShowLess
+Show more,Show more,Studio.Toolbox.AudioView.Type
+Type,Type,Studio.Toolbox.General.ShowLess
 Show less,Show less,Studio.Toolbox.General.SuggestionsIntroText
 Try searching for:,Try searching for:,Studio.Toolbox.General.AssetTypeTShirtAccessory
 T-Shirt Accessory,T-Shirt Accessory,Studio.Toolbox.General.CategoryCreationsGroupHair
@@ -255,7 +258,8 @@ Anyone on Roblox,Studio.Toolbox.AssetConfigSharing.CheckStatus,Check Status
 Check Status,Studio.Toolbox.AssetConfigSharing.ExperiencesWithAccess,Experiences with access
 Experiences with access,Studio.Toolbox.AssetConfigSharing.PublicConfirmationTitle,Are you sure?
 Are you sure?,Studio.Toolbox.AssetConfigSharing.PublicConfirmationMessage,"Once shared with Anyone on Roblox, you cannot set it back to private."
-"Once shared with Anyone on Roblox, you cannot set it back to private.",Studio.Toolbox.AssetConfigSharing.PublicConfirmationHeading,You have allowed this asset to be shared with Anyone on Roblox
+"Once shared with Anyone on Roblox, you cannot set it back to private.",Studio.Toolbox.AudioView.UploadedBy,Uploaded By
+Uploaded By,Studio.Toolbox.AssetConfigSharing.PublicConfirmationHeading,You have allowed this asset to be shared with Anyone on Roblox
 You have allowed this asset to be shared with Anyone on Roblox,Studio.Toolbox.AssetConfigSharing.SpecificExperiences,Specific Experiences
 Specific Experiences,Studio.Toolbox.General.CategoryVideos,Videos
 Videos,Studio.Toolbox.AssetConfigSharing.VerificationNotice,"To make audio assets public, you must first verify your identity. Use the Refresh button to update your Verification status."
@@ -290,13 +294,15 @@ My Friends,Studio.Toolbox.AssetConfigPackagePermissions.TooManyCollaboratorsText
 You cannot add more than {maxNumCollaborators:int} collaborators,Studio.Toolbox.AssetConfig.PublishAssetDialogHeading,This model contains private assets
 This model contains private assets,Studio.Toolbox.AssetConfig.PublishAssetDialogDescription,"On Publish, all private assets will be made public. If you do not wish to do so, do not proceed with Publish."
 "On Publish, all private assets will be made public. If you do not wish to do so, do not proceed with Publish.",Studio.Toolbox.AssetConfig.PublishAssetDialogPublish,Publish
-Publish,Studio.Toolbox.AssetConfig.ModelPublishWarning,Any private audio in your model will not be playable.
+Publish,Studio.Toolbox.AssetConfig.PublishPluginHeader,Publish as Plugin
+ Publish as Plugin,Studio.Toolbox.AssetConfig.ModelPublishWarning,Any private audio in your model will not be playable.
  Any private audio in your model will not be playable.,Studio.Toolbox.Purchase.RobuxBalance,Your current balance:
 Your current balance:,Studio.Toolbox.Purchase.InsufficientPrompt,You need {robux:int} more Robux to buy "{name}" from {creator}.
 You need {robux:int} more Robux to buy "{name}" from {creator}.,Studio.Toolbox.Purchase.Retry,Retry
 Retry,Studio.Toolbox.Purchase.Buy,Buy
 Buy,Studio.Toolbox.Purchase.BuyTitle,Buy & Install Plugin
-Buy & Install Plugin,Studio.Toolbox.Purchase.InsufficientTitle,Insufficient Robux
+Buy & Install Plugin,Studio.Toolbox.AudioView.Album,Album
+Album,Studio.Toolbox.Purchase.InsufficientTitle,Insufficient Robux
 Insufficient Robux,Studio.Toolbox.Purchase.FailedHeader,Purchase failed
 Purchase failed,Studio.Toolbox.Purchase.Free,FREE
 FREE,Studio.Toolbox.General.Fee,After {percent}% fee:
@@ -325,7 +331,10 @@ Please review the scripts to prevent unwanted changes to your experience.,Studio
 See All,Studio.Toolbox.HomeView.TheEssentials,The Essentials
 The Essentials,Studio.Toolbox.HomeView.trending,Trending
 Trending,Studio.Toolbox.HomeView.TopSearches,Top Searches
-Top Searches,Studio.Toolbox.GrantAssetPermission.Failure,Failed to grant Universe permission to use asset {assetId:int}
+Top Searches,Studio.Toolbox.AudioView.Artist,Artist
+Artist,Studio.Toolbox.AudioView.Length,Length
+Length,Studio.Toolbox.AudioView.Duration,Duration
+Duration,Studio.Toolbox.GrantAssetPermission.Failure,Failed to grant Universe permission to use asset {assetId:int}
 Failed to grant Universe permission to use asset {assetId:int},Studio.Toolbox.GrantAssetPermission.Information,Name: {assetName}
 ID: {assetId:int},Type: {assetType},Name: {assetName}
 ID: {assetId:int},Type: {assetType},Studio.Toolbox.GrantAssetPermission.GrantButton

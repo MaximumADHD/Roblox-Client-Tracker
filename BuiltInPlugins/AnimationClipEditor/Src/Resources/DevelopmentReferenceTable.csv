@@ -54,6 +54,7 @@ Studio.AnimationClipEditor.Dialog.ErrorsHeader, ,Rig Error(s) Detected
 Studio.AnimationClipEditor.Dialog.No, ,No
 Studio.AnimationClipEditor.Dialog.Ok, ,OK
 Studio.AnimationClipEditor.Dialog.PromotePrompt, ,This operation cannot be reverted and might cause issues with third party animation editors. Are you sure you want to proceed?
+Studio.AnimationClipEditor.Dialog.PromotePrompt1, ,This will copy your KeyframeSequence clip and convert it to a new CurveAnimation clip. CurveAnimation clips cannot be converted back and may not work with third party Studio Plugins. Would you like to continue?
 Studio.AnimationClipEditor.Dialog.RenameAllPrompt_Migrated, ,Do you want to change all {name} to {newName}?
 Studio.AnimationClipEditor.Dialog.Save, ,Save
 Studio.AnimationClipEditor.Dialog.SaveLocation, ,Animation will be saved to Rig > AnimSaves in Explorer
@@ -177,6 +178,7 @@ Studio.AnimationClipEditor.Toast.AlignNow, ,Align all keys now
 Studio.AnimationClipEditor.Toast.AnimationImportModelsDiffer, ,Model in FBX file differs from model selected in Editor. Import animation based on FBX model (recommended)?
 Studio.AnimationClipEditor.Toast.AnimationImportUseFBX, ,FBX
 Studio.AnimationClipEditor.Toast.AnimationImportUseSelected, ,Selected
+Studio.AnimationClipEditor.Toast.CannotPasteError, ,Cannot paste keyframes into the track
 Studio.AnimationClipEditor.Toast.ClippedWarning, ,Warning: An animation cannot exceed 30 seconds in length. Excess keyframes have been removed.
 Studio.AnimationClipEditor.Toast.IgnoreWarning, ,Ignore warning
 Studio.AnimationClipEditor.Toast.InvalidAnimation, ,Animation was not imported. You do not have ownership of animation with the selected ID.
@@ -187,6 +189,8 @@ Studio.AnimationClipEditor.Toast.Saved_Migrated, ,Saved animation {savedAnimName
 Studio.AnimationClipEditor.Tooltip.AddTrackButton, ,Add a new animation track
 Studio.AnimationClipEditor.Tooltip.CurrentFrameBox, ,Change scrubber time
 Studio.AnimationClipEditor.Tooltip.EndFrameBox, ,Change timeline length
+Studio.AnimationClipEditor.Tooltip.GoToCurveEditor, ,Go to the Curve Editor
+Studio.AnimationClipEditor.Tooltip.GoToDopesheetEditor, ,Go to the Dopesheet Editor
 Studio.AnimationClipEditor.Tooltip.GoToFirstFrame, ,Move the scrubber to the first frame
 Studio.AnimationClipEditor.Tooltip.GoToLastFrame, ,Move the scrubber to the last frame
 Studio.AnimationClipEditor.Tooltip.Pause, ,Pause the animation [Space]

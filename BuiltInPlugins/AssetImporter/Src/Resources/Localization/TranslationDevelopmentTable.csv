@@ -51,6 +51,7 @@ Studio.AssetImporter.Properties.ImportAsModelAsset,Import Only as a Model
 Studio.AssetImporter.Properties.ImportName,Name
 Studio.AssetImporter.Properties.InsertInWorkspace,Insert In Workspace
 Studio.AssetImporter.Properties.InvertNegativeFaces,Invert Negative Faces
+Studio.AssetImporter.Properties.Manifold,Manifold
 Studio.AssetImporter.Properties.MergeMeshes,Merge Meshes
 Studio.AssetImporter.Properties.MetalnessFilePath,Metalness File Path
 Studio.AssetImporter.Properties.NoFilePath,No file provided

@@ -55,10 +55,11 @@ Studio.Debugger.BreakpointsWindow.EnableAll,Enable All Breakpoints,Enable All Br
 Studio.Debugger.Common.DeleteBreakpoint,Delete Breakpoint,Delete Breakpoint
 Studio.Debugger.Common.EditLogpoint,Edit Logpoint,Edit Logpoint
 Studio.Debugger.Common.DisableLogpoint,Disable Logpoint,Disable Logpoint
+Studio.Debugger.BreakpointsWindow.GoToScript,Go To Script,Go To Script
+Studio.Debugger.Common.GoToScript,Go To Script,Go To Script
 Studio.Debugger.BreakpointsWindow.WindowName,Breakponts Window,Breakpoints Window
 Studio.Debugger.BreakpointsWindow.SourceLineColumn,Source Line,Source Line
 Studio.Debugger.BreakpointsWindow.ContinueExecutionColumn,Continue Execution,Continue Execution
-Studio.Debugger.BreakpointsWindow.GoToScript,Go To Script,Go To Script
 Studio.Debugger.BreakpointsWindow.DisableAll,Disable All Breakpoints,Disable All Breakpoints
 Studio.Debugger.BreakpointsWindow.DeleteAll,Delete All Breakpoints,Delete All Breakpoints
 Studio.Debugger.Watch.AllScopes,All Scopes,All Scopes

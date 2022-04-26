@@ -62,8 +62,10 @@ Studio.MaterialManager.MaterialOverrides.MaterialOverride,Material Override
 Studio.MaterialManager.MaterialOverrides.MaterialOverrides,Material Overrides
 Studio.MaterialManager.MaterialOverrides.None,None
 Studio.MaterialManager.MaterialOverrides.PartOverride,Part Override
-Studio.MaterialManager.MaterialOverrides.SetOverride,SetOverride
+Studio.MaterialManager.MaterialOverrides.SetOverride,Set Override
 Studio.MaterialManager.MaterialOverrides.TerrainOverride,Terrain Override
+Studio.MaterialManager.MaterialStatus.DuplicateMaterial,"Found multiple MaterialVariants matching the name and override material in MaterialService, this may cause unexpected behavior at runtime."
+Studio.MaterialManager.MaterialStatus.MissingMaterial,Unable to find a MaterialVariant matching the name and override material in MaterialService.
 Studio.MaterialManager.MaterialTextures.Color,Color
 Studio.MaterialManager.MaterialTextures.Metalness,Metalness
 Studio.MaterialManager.MaterialTextures.Normal,Normal
@@ -175,6 +177,8 @@ Studio.MaterialManager.Materials.SmoothPlastic,Smooth Plastic
 Studio.MaterialManager.Materials.SmoothPlasticMaterial,Smooth Plastic Material
 Studio.MaterialManager.Materials.SmoothPlasticVariant,Smooth Plastic Variant
 Studio.MaterialManager.Materials.Snow,Snow
+Studio.MaterialManager.Materials.SnowMaterial,Snow Material
+Studio.MaterialManager.Materials.SnowVariant,Snow Variant
 Studio.MaterialManager.Materials.Water,Water
 Studio.MaterialManager.Materials.WaterMaterial,Water Material
 Studio.MaterialManager.Materials.WaterVariant,Water Variant
@@ -188,7 +192,7 @@ Studio.MaterialManager.Plugin.Button,Material Manager
 Studio.MaterialManager.Plugin.Description,Toggles the Material Manager window.
 Studio.MaterialManager.Plugin.Name,Material Manager
 Studio.MaterialManager.Plugin.Toolbar,Material Manager
-Studio.MaterialManager.TopBar.Apply,Apply to Selection
+Studio.MaterialManager.TopBar.Apply,Apply to Selected Parts
 Studio.MaterialManager.TopBar.Create,Create Material Variant
 Studio.MaterialManager.TopBar.Filters,Filters
 Studio.MaterialManager.TopBar.Search,Search Materials
