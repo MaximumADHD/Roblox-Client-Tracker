@@ -16,7 +16,7 @@ local DetailsPageTitleContent = Roact.PureComponent:extend("DetailsPageTitleCont
 DetailsPageTitleContent.validateProps = t.strictInterface({
 	titleText = t.optional(t.string),
 	subTitleText = t.optional(t.string),
-	infoContentComponent = t.optional(t.table),
+	renderInfoContent = t.optional(t.callback),
 	layoutOrder = t.optional(t.number),
 	verticalAlignment = t.optional(t.enum(Enum.VerticalAlignment)),
 })
@@ -53,13 +53,13 @@ function DetailsPageTitleContent:render()
 				layoutOrder = 2,
 				richText = false,
 			}) or nil,
-			CustomContentComponentFrame = self.props.infoContentComponent and Roact.createElement("Frame", {
+			CustomContentComponentFrame = self.props.renderInfoContent and Roact.createElement("Frame", {
 				Size = UDim2.fromScale(1, 0),
 				AutomaticSize = Enum.AutomaticSize.Y,
 				BackgroundTransparency = 1,
 				LayoutOrder = 3,
 			}, {
-				CustomContent = self.props.infoContentComponent,
+				CustomContent = self.props.renderInfoContent(),
 			}) or nil,
 		})
 	end)

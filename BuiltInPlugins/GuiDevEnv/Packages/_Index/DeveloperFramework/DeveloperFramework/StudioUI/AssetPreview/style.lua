@@ -1,4 +1,3 @@
-local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
 local Framework = script.Parent.Parent.Parent
 
 local StyleKey = require(Framework.Style.StyleKey)
@@ -46,9 +45,9 @@ if THEME_REFACTOR then
 				PaddingBottom = UDim.new(0, 25),
 				PaddingLeft = UDim.new(0, 10),
 			},
-			AssetHeader = FFlagToolboxRedirectToLibraryAbuseReport and {
+			AssetHeader = {
 				Spacing = 5,
-			} or nil,
+			},
 			AssetName = Cryo.Dictionary.join(common.MainText, {
 				Font = Enum.Font.SourceSansBold,
 				TextSize = 24,
@@ -62,11 +61,11 @@ if THEME_REFACTOR then
 				TextSize = 18,
 				TextXAlignment = Enum.TextXAlignment.Left,
 			}),
-			FlagAsset = FFlagToolboxRedirectToLibraryAbuseReport and {
+			FlagAsset = {
 				Image = "rbxasset://textures/DeveloperFramework/AssetPreview/Flag.png",
 				ImageColor3 = StyleKey.Icon,
 				Size = UDim2.fromOffset(20, 20),
-			} or nil,
+			},
 			InfoRow = {
 				Text = infoRowText,
 				LeftText = Cryo.Dictionary.join(common.MainText, {
@@ -185,9 +184,9 @@ else
 					PaddingBottom = UDim.new(0, 25),
 					PaddingLeft = UDim.new(0, 10),
 				},
-				AssetHeader = FFlagToolboxRedirectToLibraryAbuseReport and {
+				AssetHeader = {
 					Spacing = 5,
-				} or nil,
+				},
 				AssetName = Style.extend(common.MainText, {
 					Font = Enum.Font.SourceSansBold,
 					TextSize = 24,
@@ -196,16 +195,16 @@ else
 				AssetDescription = Style.extend(common.MainText, {
 					TextXAlignment = Enum.TextXAlignment.Left,
 				}),
-				CreatorName = FFlagToolboxRedirectToLibraryAbuseReport and Style.extend(common.MainText, {
+				CreatorName = Style.extend(common.MainText, {
 					Font = Enum.Font.SourceSans,
 					TextSize = 18,
 					TextXAlignment = Enum.TextXAlignment.Left,
-				}) or nil,
-				FlagAsset = FFlagToolboxRedirectToLibraryAbuseReport and {
+				}),
+				FlagAsset = {
 					Image = "rbxasset://textures/DevFramework/AssetPreview/Flag.png",
 					ImageColor3 = StyleKey.Icon,
 					Size = UDim2.fromOffset(20, 20),
-				} or nil,
+				},
 				InfoRow = {
 					Text = infoRowText,
 					LeftText = Style.extend(infoRowText, {

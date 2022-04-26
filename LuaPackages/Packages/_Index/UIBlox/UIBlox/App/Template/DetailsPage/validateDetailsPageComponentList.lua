@@ -13,10 +13,8 @@ return t.map(
 	t.string,
 	t.strictInterface({
 		portraitLayoutOrder = t.integer,
-		landscapeLayoutOrder = t.strictInterface({
-			position = enumerateValidator(ContentPositionEnum),
-			layoutOrder = t.integer,
-		}),
-		component = t.table,
+		landscapeLayoutOrder = t.integer,
+		landscapePosition = enumerateValidator(ContentPositionEnum),
+		renderComponent = t.callback,
 	})
 )

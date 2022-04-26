@@ -3,6 +3,7 @@ local Colors = require(Framework.Style.Colors)
 local StyleKey = require(Framework.Style.StyleKey)
 
 local FFlagEnablePublishPlaceAsStylizer = game:GetFastFlag("EnablePublishPlaceAsStylizer")
+local FFlagEnableGameSettingsStylizer = game:GetFastFlag("EnableGameSettingsStylizer")
 
 return {
 	[StyleKey.Border] = Colors.Carbon,
@@ -26,6 +27,7 @@ return {
 
 	[StyleKey.CategoryItem] = Color3.fromRGB(53, 53, 53),
 	[StyleKey.CurrentMarker] = Colors.Gray,
+	[StyleKey.CurrentMarkerSelected] = Color3.fromRGB(10, 90, 175),
 
 	[StyleKey.DialogButton] = Colors.Gray,
 	[StyleKey.DialogButtonBorder] = Colors.Gray,
@@ -63,9 +65,9 @@ return {
 	[StyleKey.MainTextDisabled] = Color3.fromRGB(85, 85, 85),
 	[StyleKey.MainTextHover] = Color3.fromRGB(66, 66, 66),
 	[StyleKey.MainTextSelected] = Colors.White,
-	[StyleKey.MenuBarBackground] = if FFlagEnablePublishPlaceAsStylizer then Color3.fromRGB(41, 41, 41) else nil,
-	[StyleKey.MenuEntryHighlight] = if FFlagEnablePublishPlaceAsStylizer then Color3.fromRGB(11, 90, 175) else nil,
-	[StyleKey.MenuEntryHover] = if FFlagEnablePublishPlaceAsStylizer then Colors.Gray else nil,
+	[StyleKey.MenuBarBackground] = if FFlagEnablePublishPlaceAsStylizer or FFlagEnableGameSettingsStylizer then Color3.fromRGB(41, 41, 41) else nil,
+	[StyleKey.MenuEntryHighlight] = if FFlagEnablePublishPlaceAsStylizer or FFlagEnableGameSettingsStylizer then Color3.fromRGB(11, 90, 175) else nil,
+	[StyleKey.MenuEntryHover] = if FFlagEnablePublishPlaceAsStylizer or FFlagEnableGameSettingsStylizer then Colors.Gray else nil,
 	[StyleKey.Mid] = Color3.fromRGB(34, 34, 34),
 	[StyleKey.SubBackground] = Colors.Gray,
 	[StyleKey.SubBackground2] = Colors.Carbon,
@@ -96,6 +98,8 @@ return {
 	[StyleKey.CheckboxCheckedImage] = "rbxasset://textures/DeveloperFramework/checkbox_checked_dark.png",
 	[StyleKey.CheckboxIndeterminateImage] = "rbxasset://textures/DeveloperFramework/checkbox_indeterminate_dark.png",
 	[StyleKey.CheckboxDisabledImage] = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_disabled_dark.png",
+
+	[StyleKey.CheckedFieldBackgroundHover] = Color3.fromRGB(15, 15, 15),
 
 	[StyleKey.WarningText] = Color3.fromRGB(255, 141, 60),
 

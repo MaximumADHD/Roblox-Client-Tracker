@@ -6,6 +6,7 @@
 		table Sizes: An array of UDims which are used to size the pane in the fill direction.
 		callback OnSizesChange: Called with the new sizes when dragging occurs.
 	Optional Props:
+		boolean HideBars: Whether to hide the bars between elements.
 		boolean UseScale: Whether to use scale rather than offset.
 		boolean UseDeficit: Whether to make the last pane stretch to fill remaining space.
 		boolean ClampSize: Whether to clamp the sizes of the children to the size of the component.
@@ -36,12 +37,15 @@ local Pane = require(Framework.UI.Pane)
 
 local getNextSizes = require(script.getNextSizes)
 
+local FFlagDevFrameworkFixSplitPaneAlignment = game:GetFastFlag("DevFrameworkFixSplitPaneAlignment")
+
 export type Props = {
 	MinSizes: Types.Array<UDim>,
 	Sizes: Types.Array<UDim>,
 	OnSizesChange: () -> (),
 	UseScale: boolean?,
 	UseDeficit: boolean?,
+	HideBars: boolean?,
 	ClampSize: boolean?,
 	Layout: Enum.FillDirection,
 	AutomaticSize: Enum.AutomaticSize,
@@ -55,7 +59,8 @@ type _Props = Props & {
 	Stylizer: {[string]: any}
 }
 
-local BAR_WEIGHT = 5
+local BAR_WEIGHT = if FFlagDevFrameworkFixSplitPaneAlignment then 6 else 5
+local BAR_Z_INDEX = 10
 
 local SplitPane = Roact.PureComponent:extend("SplitPane")
 
@@ -64,7 +69,7 @@ function SplitPane:init()
 
 	self.prevOffset = 0
 	self.ref = Roact.createRef()
-
+	
 	self.onMove = function(_, x: number, y: number)
 		local props = self.props
 		if not self.currentDragIndex or not self.ref.current then
@@ -119,33 +124,80 @@ function SplitPane:render()
 	local children = {}
 	local count = #props.Sizes
 	local barFillDirection = isVertical and Enum.FillDirection.Horizontal or Enum.FillDirection.Vertical
-	local barSize = BAR_WEIGHT / (count + 1) * count 
 
-	for i = 1, count do
-		local size = props.Sizes[i]
-		if i > 1 then
-			children["Drag " .. (i - 1)] = Roact.createElement(DragBar, {
-				Index = i - 1,
-				FillDirection = barFillDirection,
-				BarStyle = props.BarStyle,
-				LayoutOrder = i * 2,
-				OnPress = self.onStartDrag,
-				OnPressEnd = self.onEndDrag,
+	local layout = props.Layout or Enum.FillDirection.Horizontal
+
+	if FFlagDevFrameworkFixSplitPaneAlignment then 
+		local hideBars = props.HideBars
+		local position = UDim.new(0, 0)
+		for i = 1, count do
+			local size = props.Sizes[i]
+			local paneSizeOffset = size.Offset
+			if i > 1 then
+				local barOffset = position.Offset
+				if hideBars then
+					-- Bar is centered between both panes if hidden
+					barOffset -= BAR_WEIGHT / 2
+				else
+					-- Bar width eats into the next pane if it is visible
+					paneSizeOffset -= BAR_WEIGHT
+					position += UDim.new(0, BAR_WEIGHT)
+				end
+				children["Drag " .. (i - 1)] = Roact.createElement(DragBar, {
+					Index = i - 1,
+					Hide = hideBars,
+					FillDirection = barFillDirection,
+					BarStyle = props.BarStyle,
+					Position = if isVertical then UDim2.new(0, 0, position.Scale, barOffset) else UDim2.new(position.Scale, barOffset, 0, 0),
+					ZIndex = BAR_Z_INDEX,
+					OnPress = self.onStartDrag,
+					OnPressEnd = self.onEndDrag,
+				})
+			end
+			children["Pane " .. i] = Roact.createElement(Pane, {
+				Size = isVertical and UDim2.new(1, 0, size.Scale, paneSizeOffset) or UDim2.new(size.Scale, paneSizeOffset, 1, 0),
+				Position = if isVertical then UDim2.new(0, 0, position.Scale, position.Offset) else UDim2.new(position.Scale, position.Offset, 0, 0),
+				LayoutOrder = i * 2 + 1,
+			}, {
+				Child = paneChildren and paneChildren[i] or nil,
+			})
+			if props.UseScale then
+				position += UDim.new(size.Scale, 0)
+			else
+				position += UDim.new(0, paneSizeOffset)
+			end
+		end
+
+	else
+		local barSize = BAR_WEIGHT / (count + 1) * count
+
+		for i = 1, count do
+			local size = props.Sizes[i]
+			if i > 1 then
+				children["Drag " .. (i - 1)] = Roact.createElement(DragBar, {
+					Index = i - 1,
+					FillDirection = barFillDirection,
+					BarStyle = props.BarStyle,
+					LayoutOrder = i * 2,
+					OnPress = self.onStartDrag,
+					OnPressEnd = self.onEndDrag,
+				})
+			end
+			local offset = size.Offset - barSize
+			children["Pane " .. i] = Roact.createElement(Pane, {
+				Size = isVertical and UDim2.new(1, 0, size.Scale, offset) or UDim2.new(size.Scale, offset, 1, 0),
+				LayoutOrder = i * 2 + 1,
+			}, {
+				Child = paneChildren and paneChildren[i] or nil,
 			})
 		end
-		children["Pane " .. i] = Roact.createElement(Pane, {
-			Size = isVertical and UDim2.new(1, 0, size.Scale, size.Offset - barSize) or UDim2.new(size.Scale, size.Offset - barSize, 1, 0),
-			LayoutOrder = i * 2 + 1,
-		}, {
-			Child = paneChildren and paneChildren[i] or nil,
-		})
+
 	end
-	
 	return Roact.createElement(Pane, {
 		AutomaticSize = props.AutomaticSize,
-		Layout = props.Layout or Enum.FillDirection.Horizontal,
-		HorizontalAlignment = Enum.HorizontalAlignment.Left,
-		VerticalAlignment = Enum.VerticalAlignment.Top,
+		Layout = if FFlagDevFrameworkFixSplitPaneAlignment then nil else layout,
+		HorizontalAlignment = if FFlagDevFrameworkFixSplitPaneAlignment then nil else Enum.HorizontalAlignment.Left,
+		VerticalAlignment = if FFlagDevFrameworkFixSplitPaneAlignment then nil else Enum.VerticalAlignment.Top,
 		Style = props.PaneStyle or "Box",
 		Size = props.Size,
 		Position = props.Position,

@@ -96,6 +96,10 @@ function FilteredScrollingList:shouldUpdate(newProps, newState)
 	return false
 end
 
+function FilteredScrollingList:init()
+	self:setState({})
+end
+
 function FilteredScrollingList:render()
 	local filterPredicate = self.props.filterPredicate
 	local filterText = self.state.filterText

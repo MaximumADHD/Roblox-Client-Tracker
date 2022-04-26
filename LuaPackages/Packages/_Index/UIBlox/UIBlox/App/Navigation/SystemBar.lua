@@ -94,12 +94,17 @@ SystemBar.validateProps = t.strictInterface({
 	size = t.optional(t.UDim2),
 	position = t.optional(t.UDim2),
 	layoutOrder = t.optional(t.integer),
+	-- offset icon layout positions
+	layoutPaddingOffset = t.optional(t.UDim),
+	firstItemPaddingOffset = t.optional(t.UDim),
 	-- children are placed in a Frame occupying the safe area
 	[Roact.Children] = t.optional(t.any),
 })
 
 SystemBar.defaultProps = {
 	placement = Placement.Auto,
+	layoutPaddingOffset = UDim.new(0, 0),
+	firstItemPaddingOffset = UDim.new(0, 0),
 }
 
 function SystemBar:isPortrait()
@@ -211,7 +216,7 @@ function SystemBar:renderPortrait(frameProps, contents)
 					FillDirection = Enum.FillDirection.Horizontal,
 					HorizontalAlignment = Enum.HorizontalAlignment.Center,
 					VerticalAlignment = Enum.VerticalAlignment.Center,
-					Padding = UDim.new(1 / #self.props.itemList, -ITEM_SIZE_X),
+					Padding = self.props.layoutPaddingOffset + UDim.new(1 / #self.props.itemList, -ITEM_SIZE_X),
 				}, {})
 			}, contents))
 		})
@@ -228,12 +233,12 @@ function SystemBar:renderLandscape(frameProps, contents)
 			ZIndex = 99,
 		}), Cryo.Dictionary.join({
 			Padding = Roact.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, FIRST_ITEM_PADDING_LANDSCAPE_Y),
+				PaddingTop = self.props.firstItemPaddingOffset + UDim.new(0, FIRST_ITEM_PADDING_LANDSCAPE_Y),
 			}),
 			Layout = Roact.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Vertical,
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				Padding = UDim.new(0, ITEM_PADDING_LANDSCAPE_Y),
+				Padding = self.props.layoutPaddingOffset + UDim.new(0, ITEM_PADDING_LANDSCAPE_Y),
 			}),
 		}, contents))
 	end, SPRING_OPTIONS)

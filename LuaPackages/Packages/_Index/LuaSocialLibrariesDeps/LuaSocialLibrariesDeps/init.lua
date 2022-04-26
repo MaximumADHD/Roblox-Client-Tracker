@@ -7,6 +7,7 @@ return {
 	RoduxNetworking = require(LuaSocialLibrariesDeps.RoduxNetworking),
 	llama = require(LuaSocialLibrariesDeps.llama),
 	RoduxAliases = require(LuaSocialLibrariesDeps.RoduxAliases),
+	RoduxAliases_v2 = require(LuaSocialLibrariesDeps.RoduxAliases_v2),
 	RoduxUsers = require(LuaSocialLibrariesDeps.RoduxUsers),
 	RoduxUsers_v13 = require(LuaSocialLibrariesDeps.RoduxUsers_v13),
 	RoduxFriends = require(LuaSocialLibrariesDeps.RoduxFriends),

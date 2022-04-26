@@ -1,6 +1,5 @@
 local ExperienceTileRoot = script.Parent
 local TileRoot = ExperienceTileRoot.Parent
-local BaseTile = TileRoot.BaseTile
 local App = TileRoot.Parent
 local UIBlox = App.Parent
 local Core = UIBlox.Core
@@ -14,8 +13,6 @@ local t = require(Packages.t)
 local withStyle = require(Core.Style.withStyle)
 local Interactable = require(Core.Control.Interactable)
 local ControlState = require(Core.Control.Enum.ControlState)
-
-local TileName = require(BaseTile.TileName)
 local LoadableImage = require(UIBlox.App.Loading.LoadableImage)
 
 -- Some constants may be abstracted as props later on in subsequent designs
@@ -31,9 +28,6 @@ local ExperienceTile = Roact.PureComponent:extend("ExperienceTile")
 ExperienceTile.validateProps = t.strictInterface({
 	-- The experience's name that will show a loading state if nil
 	experienceName = t.optional(t.string),
-
-	-- The width which text sizing within the tile is based upon
-	textWidth = t.intersection(t.integer, t.numberMin(0)),
 
 	-- Whether the tile should use a background or not
 	hasBackground = t.optional(t.boolean),
@@ -122,12 +116,10 @@ end
 
 function ExperienceTile:renderBottomContent(stylePalette)
 	local experienceName = self.props.experienceName
-	local textWidth = self.props.textWidth
 	local hasBackground = self.props.hasBackground
 	local titleTextLineCount = TEXT_LINE_COUNT
 	local font = stylePalette.Font
-
-	local maxTitleTextHeight = math.ceil(font.BaseSize * font.Header2.RelativeSize * titleTextLineCount)
+	local theme = stylePalette.Theme
 
 	local bottomContentHeight = BOTTOM_CONTENT_HEIGHT
 	if self.props.experienceName then
@@ -148,11 +140,20 @@ function ExperienceTile:renderBottomContent(stylePalette)
 			PaddingBottom = UDim.new(0, TITLE_PADDING),
 		}),
 		Name = if titleTextLineCount > 0
-			then Roact.createElement(TileName, {
-				name = experienceName,
-				maxHeight = maxTitleTextHeight,
-				maxWidth = if hasBackground then textWidth - (2 * TITLE_PADDING) else textWidth,
-				fluidSizing = true,
+				and experienceName
+				and string.len(experienceName) > 0
+			then Roact.createElement("TextLabel", {
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = 1,
+				Text = experienceName,
+				Font = font.Header2.Font,
+				TextSize = font.BaseSize * font.Header2.RelativeSize,
+				TextTransparency = theme.TextEmphasis.Transparency,
+				TextColor3 = theme.TextEmphasis.Color,
+				TextWrapped = true,
+				TextTruncate = Enum.TextTruncate.AtEnd,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Top,
 			})
 			else nil,
 	})

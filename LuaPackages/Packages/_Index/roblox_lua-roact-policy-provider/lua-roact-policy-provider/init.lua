@@ -6,6 +6,7 @@ local GetPolicyImplementations = script.getPolicyImplementations
 local fromMemStorageService = require(GetPolicyImplementations.fromMemStorageService)
 local fromPolicyService = require(GetPolicyImplementations.fromPolicyService)
 local fromStaticSource = require(GetPolicyImplementations.fromStaticSource)
+local AppPolicyContext = require(script.AppPolicyContext)
 
 return {
 	withGetPolicyImplementation = function(getPolicyImpl)
@@ -25,4 +26,6 @@ return {
 	},
 
 	Logger = Logger,
+
+	AppPolicyContext = AppPolicyContext,
 }

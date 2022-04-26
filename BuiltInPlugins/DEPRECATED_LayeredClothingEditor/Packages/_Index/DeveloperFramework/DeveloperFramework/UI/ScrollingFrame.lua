@@ -37,7 +37,6 @@
 		integer ZIndex: The draw index of the frame.
 ]]
 local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
-local FFlagDevFrameworkScrollingFrameUsePane = game:GetFastFlag("DevFrameworkScrollingFrameUsePane")
 local FFlagDevFrameworkScrollingFrameFixUpdate = game:GetFastFlag("DevFrameworkScrollingFrameFixUpdate")
 local FFlagDevFrameworkScrollingFrameAddPadding = game:GetFastFlag("DevFrameworkScrollingFrameAddPadding")
 local FFlagDevFrameworkInfiniteScrollingGridImprovements = game:GetFastFlag("DevFrameworkInfiniteScrollingGridImprovements")
@@ -60,7 +59,6 @@ end
 
 local ContextServices = require(Framework.ContextServices)
 local withContext = ContextServices.withContext
-local Container = require(script.Parent.Container)
 local Pane = require(script.Parent.Pane)
 local prioritize = Util.prioritize
 local Typecheck = Util.Typecheck
@@ -261,7 +259,7 @@ function ScrollingFrame:render()
 		}
 	end
 
-	return Roact.createElement(FFlagDevFrameworkScrollingFrameUsePane and Pane or Container, {
+	return Roact.createElement(Pane, {
 		LayoutOrder = layoutOrder,
 		Position = position,
 		Size = size,

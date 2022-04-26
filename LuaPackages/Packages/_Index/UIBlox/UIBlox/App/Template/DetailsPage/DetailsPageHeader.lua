@@ -37,7 +37,7 @@ local ACTION_BAR_HEIGHT = 48
 
 DetailsPageHeader.defaultProps = {
 	thumbnailAspectRatio = Vector2.new(1, 1),
-	mobileMode = false,
+	isMobile = false,
 }
 
 DetailsPageHeader.validateProps = t.strictInterface({
@@ -45,11 +45,11 @@ DetailsPageHeader.validateProps = t.strictInterface({
 	thumbnailAspectRatio = t.optional(t.Vector2),
 	titleText = t.optional(t.string),
 	subTitleText = t.optional(t.string),
-	infoContentComponent = t.optional(t.table),
+	renderInfoContent = t.optional(t.callback),
 
 	actionBarProps = t.optional(validateActionBarContentProps),
 
-	mobileMode = t.optional(t.boolean),
+	isMobile = t.optional(t.boolean),
 })
 
 function DetailsPageHeader:renderThumbnail(style, thumbnailWidth, thumbnailHeight)
@@ -108,7 +108,7 @@ function DetailsPageHeader:renderDesktopMode(style)
 			TitleInfo = Roact.createElement(DetailsPageTitleContent, {
 				titleText = self.props.titleText,
 				subTitleText = self.props.subTitleText,
-				infoContentComponent = self.props.infoContentComponent,
+				renderInfoContent = self.props.renderInfoContent,
 				verticalAlignment = Enum.VerticalAlignment.Top,
 				layoutOrder = 1,
 			}),
@@ -139,7 +139,7 @@ function DetailsPageHeader:renderDesktopMode(style)
 	}
 end
 
-function DetailsPageHeader:renderMobileMode(style)
+function DetailsPageHeader:renderisMobile(style)
 	local thumbnailHeight = ImageHeight.Mobile
 	local thumbnailWidth = thumbnailHeight * (self.props.thumbnailAspectRatio.X / self.props.thumbnailAspectRatio.Y)
 	return {
@@ -153,8 +153,8 @@ function DetailsPageHeader:renderMobileMode(style)
 end
 
 function DetailsPageHeader:render()
-	local mobileMode = self.props.mobileMode
-	local displayMode = mobileMode and "Mobile" or "Desktop"
+	local isMobile = self.props.isMobile
+	local displayMode = isMobile and "Mobile" or "Desktop"
 
 	local backgroundBarHeight = Constants.HeaderBarBackgroundHeight[displayMode]
 	local gradientHeight = (ImageHeight[displayMode] + BOTTOM_MARGIN) - backgroundBarHeight
@@ -195,7 +195,7 @@ function DetailsPageHeader:render()
 				BackgroundTransparency = theme.BackgroundDefault.Transparency,
 				BorderSizePixel = 0,
 				LayoutOrder = 2,
-			}, mobileMode and self:renderMobileMode(style) or self:renderDesktopMode(style)),
+			}, isMobile and self:renderisMobile(style) or self:renderDesktopMode(style)),
 		})
 	end)
 end

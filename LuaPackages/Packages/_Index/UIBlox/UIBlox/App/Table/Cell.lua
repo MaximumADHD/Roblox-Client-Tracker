@@ -4,6 +4,7 @@ local UIBlox = App.Parent
 local Core = UIBlox.Core
 local Packages = UIBlox.Parent
 
+local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 local Roact = require(Packages.Roact)
 local enumerate = require(Packages.enumerate)
@@ -40,6 +41,10 @@ Cell.validateProps = t.strictInterface({
 
 	-- Override the default controlState
 	[Cell.debugProps.controlState] = t.optional(enumerateValidator(ControlState)),
+
+	[Roact.Change.AbsolutePosition] = t.optional(t.callback),
+	[Roact.Ref] = t.optional(t.union(t.callback, t.table)),
+	forwardRef = t.optional(t.union(t.callback, t.table)),
 })
 
 Cell.defaultProps = {
@@ -49,7 +54,7 @@ Cell.defaultProps = {
 
 function Cell:init()
 	self:setState({
-		controlState = ControlState.Initialize
+		controlState = ControlState.Initialize,
 	})
 
 	self.stateStyleMap = {
@@ -59,8 +64,7 @@ function Cell:init()
 	}
 
 	self.getBackgroundStyle = function(controlState, style)
-		local contentThemeClass = self.stateStyleMap[controlState]
-			or self.stateStyleMap[ControlState.Default]
+		local contentThemeClass = self.stateStyleMap[controlState] or self.stateStyleMap[ControlState.Default]
 
 		local contentStyle = {
 			Color = style.Theme[contentThemeClass].Color,
@@ -119,6 +123,9 @@ function Cell:render()
 			onStateChanged = self.onStateChanged,
 			userInteractionEnabled = interactionEnabled,
 			[Roact.Event.Activated] = onActivated,
+
+			[Roact.Change.AbsolutePosition] = self.props[Roact.Change.AbsolutePosition],
+			[Roact.Ref] = self.props.forwardRef,
 		}, {
 			CellBackground = Roact.createElement("Frame", {
 				Size = UDim2.fromScale(1, 1),
@@ -168,4 +175,11 @@ function Cell:render()
 	end)
 end
 
-return Cell
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(
+		Cell,
+		Cryo.Dictionary.join(props, {
+			forwardRef = ref,
+		})
+	)
+end)

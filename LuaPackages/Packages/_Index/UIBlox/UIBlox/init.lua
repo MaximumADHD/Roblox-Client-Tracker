@@ -8,6 +8,16 @@ local function initializeLibrary(configs)
 	local UIBlox = {}
 
 	UIBlox.Core = strict({
+		Layout = strict({
+			Grid = strict({
+				GridContainer = require(script.Core.Layout.Grid.GridContainer),
+				GridBasicRow = require(script.Core.Layout.Grid.GridBasicRow),
+				GridCell = require(script.Core.Layout.Grid.GridCell),
+				GridRow = require(script.Core.Layout.Grid.GridRow),
+				withGridConfig = require(script.Core.Layout.Grid.withGridConfig),
+			}),
+		}),
+
 		Animation = strict({
 			SpringAnimatedItem = require(script.Utility.SpringAnimatedItem),
 			withAnimation = require(script.Core.Animation.withAnimation),
@@ -129,6 +139,7 @@ local function initializeLibrary(configs)
 
 		Container = strict({
 			Carousel = strict({
+				GridCarousel = require(script.App.Container.Carousel.GridCarousel),
 				FreeFlowCarousel = require(script.App.Container.Carousel.FreeFlowCarousel),
 				--[[
 					TODO: Remove ScrollButton when we switch the new carouels without infinite scroller
@@ -180,7 +191,8 @@ local function initializeLibrary(configs)
 				BaseTile = require(script.App.Tile.BaseTile.Tile),
 			}),
 			PlayerTile = require(script.App.Tile.PlayerTile.PlayerTile),
-			ExperienceTile = require(script.App.Tile.ExperienceTile.ExperienceTile)
+			ExperienceTile = require(script.App.Tile.ExperienceTile.ExperienceTile),
+			ExperienceHoverTile = require(script.App.Tile.ExperienceTile.ExperienceHoverTile),
 		}),
 
 		Dialog = strict({

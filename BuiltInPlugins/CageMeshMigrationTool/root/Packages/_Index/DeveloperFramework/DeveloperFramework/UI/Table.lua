@@ -191,6 +191,7 @@ function Table:renderResizableHeadings()
 		return column.MinWidth or DEFAULT_COLUMN_MIN_WIDTH
 	end)
 	return Roact.createElement(SplitPane, {
+		HideBars = true,
 		UseScale = props.UseScale,
 		UseDeficit = props.UseDeficit,
 		ClampSize = props.ClampSize,

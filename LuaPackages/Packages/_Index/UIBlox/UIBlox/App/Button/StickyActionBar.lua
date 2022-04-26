@@ -21,12 +21,7 @@ local PADDING_LEFT = 56
 local PADDING_RIGHT = 24
 -- ActionBar section layout parameters
 local ACTIONBAR_WIDTH = 380
-local ACTIONBAR_OFFSET_TOP = {
-	-- Offset fix for PrimaryContextualButton
-	BUTTON_WITH_ICON = 9,
-	-- Offset fix for PrimarySystemButton
-	BUTTON_WITHOUT_ICON = 24,
-}
+local ACTIONBAR_HEIGHT = 48
 -- Info section layout parameters
 local INFO_SPACING_ICON_TEXT = 12
 local INFO_PADDING_LEFT = 24
@@ -90,26 +85,17 @@ function StickyActionBar:init()
 		end
 	end
 
-	local getActionBarSectionWidth = function()
-		return ACTIONBAR_WIDTH
+	local getActionBarSectionSize = function()
+		return UDim2.fromOffset(ACTIONBAR_WIDTH, ACTIONBAR_HEIGHT)
 	end
 
-	local getActionBarSectionMarginOverride = function(actionBarProps)
-		if actionBarProps.button and actionBarProps.button.props.icon then
-			return {
-				left = 0,
-				right = 0,
-				top = ACTIONBAR_OFFSET_TOP.BUTTON_WITH_ICON,
-				bottom = 0,
-			}
-		else
-			return {
-				left = 0,
-				right = 0,
-				top = ACTIONBAR_OFFSET_TOP.BUTTON_WITHOUT_ICON,
-				bottom = 0,
-			}
-		end
+	local getActionBarSectionMarginOverride = function()
+		return {
+			left = 0,
+			right = 0,
+			top = 0,
+			bottom = 0,
+		}
 	end
 
 	self.getLayoutConfig = function()
@@ -121,7 +107,7 @@ function StickyActionBar:init()
 				},
 				infoHorizontalAlignment = Enum.HorizontalAlignment.Left,
 				getInfoSectionWidth = getInfoSectionWidth,
-				getActionBarSectionWidth = getActionBarSectionWidth,
+				getActionBarSectionSize = getActionBarSectionSize,
 				getActionBarSectionMarginOverride = getActionBarSectionMarginOverride
 			}
 		else
@@ -132,7 +118,7 @@ function StickyActionBar:init()
 				},
 				infoHorizontalAlignment = Enum.HorizontalAlignment.Center,
 				getInfoSectionWidth = getInfoSectionWidth,
-				getActionBarSectionWidth = getActionBarSectionWidth,
+				getActionBarSectionSize = getActionBarSectionSize,
 				getActionBarSectionMarginOverride = getActionBarSectionMarginOverride
 			}
 		end
@@ -158,7 +144,7 @@ function StickyActionBar:render()
 		}, {
 			ActionBarSection = hasActionBar and self:renderHorizontalLayout({
 				layoutOrder = layoutConfig.layoutOrder.actionBarSection,
-				width = layoutConfig.getActionBarSectionWidth(),
+				size = layoutConfig.getActionBarSectionSize(),
 				horizontalAlignment = Enum.HorizontalAlignment.Left,
 			}, {
 				ActionBar = Roact.createElement(ActionBar, {

@@ -26,17 +26,17 @@ local PADDING_NARROW = 48
 local PADDING_WIDE = 96
 
 DetailsPageBody.defaultProps = {
-	mobileMode = false,
+	isMobile = false,
 }
 
 DetailsPageBody.validateProps = t.strictInterface({
 	-- Header for the mobile mode
 	titleText = t.optional(t.string),
 	subTitleText = t.optional(t.string),
-	infoContentComponent = t.optional(t.table),
+	renderInfoContent = t.optional(t.callback),
 
 	componentList = t.optional(validateDetailsPageComponentList),
-	mobileMode = t.optional(t.boolean),
+	isMobile = t.optional(t.boolean),
 })
 
 function DetailsPageBody:init()
@@ -71,7 +71,7 @@ function DetailsPageBody:renderSinglePanel()
 			BackgroundTransparency = 1,
 			LayoutOrder = v.portraitLayoutOrder,
 		}, {
-			[k] = v.component,
+			[k] = v.renderComponent(),
 		})
 	end
 
@@ -110,16 +110,16 @@ function DetailsPageBody:renderDualPanel()
 
 	for k, v in pairs(self.props.componentList) do
 		local positionList = leftItemList
-		if v.landscapeLayoutOrder.position == ContentPositionEnum.Right then
+		if v.landscapePosition == ContentPositionEnum.Right then
 			positionList = rightItemList
 		end
 		positionList[k .. "Container"] = Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, 0),
 			AutomaticSize = Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
-			LayoutOrder = v.landscapeLayoutOrder.layoutOrder,
+			LayoutOrder = v.landscapeLayoutOrder,
 		}, {
-			[k] = v.component,
+			[k] = v.renderComponent(),
 		})
 	end
 
@@ -154,7 +154,7 @@ end
 
 function DetailsPageBody:renderBodyContent(style)
 	if self.state.containerWidth and self.props.componentList then
-		if self.state.containerWidth < WIDTH_BREAKPOINT or self.mobileMode then
+		if self.state.containerWidth < WIDTH_BREAKPOINT or self.isMobile then
 			return self:renderSinglePanel(style)
 		else
 			return self:renderDualPanel(style)
@@ -164,7 +164,7 @@ function DetailsPageBody:renderBodyContent(style)
 end
 
 function DetailsPageBody:render()
-	local padding = self.props.mobileMode and Constants.SideMargin.Mobile or Constants.SideMargin.Desktop
+	local padding = self.props.isMobile and Constants.SideMargin.Mobile or Constants.SideMargin.Desktop
 
 	return withStyle(function(style)
 		return Roact.createElement("Frame", {
@@ -185,10 +185,10 @@ function DetailsPageBody:render()
 				PaddingLeft = UDim.new(0, padding),
 				PaddingRight = UDim.new(0, padding),
 			}),
-			TitleInfo = self.props.mobileMode and Roact.createElement(DetailsPageTitleContent, {
+			TitleInfo = self.props.isMobile and Roact.createElement(DetailsPageTitleContent, {
 				titleText = self.props.titleText,
 				subTitleText = self.props.subTitleText,
-				infoContentComponent = self.props.infoContentComponent,
+				renderInfoContent = self.props.renderInfoContent,
 				verticalAlignment = Enum.VerticalAlignment.Top,
 				layoutOrder = 1,
 			} or nil),

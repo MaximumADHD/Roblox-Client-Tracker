@@ -3,7 +3,6 @@
 ]]
 local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTimeProgressBar = game:GetFastFlag("DevFrameworkTimeProgressBar")
-local FFlagDevFrameworkInfiniteScrollingGrid = game:GetFastFlag("DevFrameworkInfiniteScrollingGrid")
 local FFlagDevFrameworkResponsiveGrid2 = game:GetFastFlag("DevFrameworkResponsiveGrid2")
 local FFlagFaceControlsEditorUI = game:GetFastFlag("FaceControlsEditorUI")
 
@@ -96,7 +95,7 @@ local UI = strict({
 	HoverArea = HoverArea,
 	IconButton = IconButton,
 	InfiniteScrollingFrame = InfiniteScrollingFrame,
-	InfiniteScrollingGrid = if FFlagDevFrameworkInfiniteScrollingGrid then InfiniteScrollingGrid else nil,
+	InfiniteScrollingGrid = InfiniteScrollingGrid,
 	InstanceTreeView = InstanceTreeView,
 	KeyboardListener = KeyboardListener,
 	LinkText = LinkText,

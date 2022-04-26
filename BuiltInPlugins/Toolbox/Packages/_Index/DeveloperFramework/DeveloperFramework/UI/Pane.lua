@@ -215,10 +215,6 @@ function Pane:render()
 		FFlagDevFrameworkForwardRef and "ForwardRef" or nil,
 	})
 
-	if componentProps.Transparency ~= nil then
-		print(className .. " has Transparency prop with value " .. tostring(componentProps.Transparency))
-	end
-
 	return Roact.createElement(className, componentProps, children)
 end
 

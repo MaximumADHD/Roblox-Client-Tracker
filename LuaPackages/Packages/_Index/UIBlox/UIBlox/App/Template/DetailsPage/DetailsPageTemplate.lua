@@ -41,7 +41,7 @@ local MOBILE_ACTION_BAR_HEIGHT = 72
 
 DetailsPageTemplate.defaultProps = {
 	startingOffsetPosition = HEADER_MAX_PADDING,
-	mobileMode = false,
+	isMobile = false,
 }
 
 DetailsPageTemplate.validateProps = t.strictInterface({
@@ -50,7 +50,7 @@ DetailsPageTemplate.validateProps = t.strictInterface({
 	thumbnailAspectRatio = t.optional(t.Vector2),
 	titleText = t.optional(t.string),
 	subTitleText = t.optional(t.string),
-	infoContentComponent = t.optional(t.table),
+	renderInfoContent = t.optional(t.callback),
 	actionBarProps = t.optional(validateActionBarContentProps),
 
 	--Body props
@@ -61,11 +61,11 @@ DetailsPageTemplate.validateProps = t.strictInterface({
 	bannerPlaceholderGradient = t.optional(t.table),
 	bannerImageUrl = t.optional(t.string),
 	startingOffsetPosition = t.optional(t.number),
-	mobileMode = t.optional(t.boolean),
+	isMobile = t.optional(t.boolean),
 })
 
 local function getHeaderPaddingHeight(props, backgroundHeight)
-	local headerHeight = props.mobileMode and Constants.HeaderBarBackgroundHeight.Mobile
+	local headerHeight = props.isMobile and Constants.HeaderBarBackgroundHeight.Mobile
 		or Constants.HeaderBarBackgroundHeight.Desktop
 	return backgroundHeight - headerHeight
 end
@@ -111,7 +111,7 @@ function DetailsPageTemplate:init()
 
 			if rbx.CanvasPosition.Y > headerPadding then
 				-- Show the sticky action bar when the user scrolls past the header
-				if prevState.showStickyActionTopBar == false and props.mobileMode == false then
+				if prevState.showStickyActionTopBar == false and props.isMobile == false then
 					return {
 						showStickyActionTopBar = true,
 					}
@@ -137,8 +137,8 @@ function DetailsPageTemplate:init()
 end
 
 function DetailsPageTemplate:render()
-	local mobileMode = self.props.mobileMode
-	local headerHeight = self.props.mobileMode and Constants.HeaderBarBackgroundHeight.Mobile
+	local isMobile = self.props.isMobile
+	local headerHeight = self.props.isMobile and Constants.HeaderBarBackgroundHeight.Mobile
 		or Constants.HeaderBarBackgroundHeight.Desktop
 
 	local headerPadding = getHeaderPaddingHeight(self.props, self.state.backgroundHeight)
@@ -157,7 +157,7 @@ function DetailsPageTemplate:render()
 				}),
 			}
 
-		local closeButtonPosY = mobileMode and ((getIconSize(IconSize.Large) + CLOSE_BUTTON_OFFSET) / 2)
+		local closeButtonPosY = isMobile and ((getIconSize(IconSize.Large) + CLOSE_BUTTON_OFFSET) / 2)
 			or (headerHeight / 2)
 
 		return Roact.createElement("TextButton", {
@@ -263,10 +263,10 @@ function DetailsPageTemplate:render()
 							thumbnailAspectRatio = self.props.thumbnailAspectRatio,
 							titleText = self.props.titleText,
 							subTitleText = self.props.subTitleText,
-							infoContentComponent = self.props.infoContentComponent,
+							renderInfoContent = self.props.renderInfoContent,
 							actionBarProps = self.props.actionBarProps,
 
-							mobileMode = mobileMode,
+							isMobile = isMobile,
 						}),
 					}),
 					BodyContainer = Roact.createElement("Frame", {
@@ -290,21 +290,21 @@ function DetailsPageTemplate:render()
 							DetailsPageBody = Roact.createElement(DetailsPageBody, {
 								titleText = self.props.titleText,
 								subTitleText = self.props.subTitleText,
-								infoContentComponent = self.props.infoContentComponent,
+								renderInfoContent = self.props.renderInfoContent,
 
 								componentList = self.props.componentList,
-								mobileMode = mobileMode,
+								isMobile = isMobile,
 							}),
 						}),
 					}),
 				}),
-				MobileActionViewPadding = mobileMode and Roact.createElement("Frame", {
+				MobileActionViewPadding = isMobile and Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 0, MOBILE_ACTION_BAR_HEIGHT),
 					BackgroundTransparency = 1,
 					LayoutOrder = 3,
 				}),
 			}),
-			MobileActionBarFrame = mobileMode and Roact.createElement("TextButton", {
+			MobileActionBarFrame = isMobile and Roact.createElement("TextButton", {
 				Text = "",
 				AutoButtonColor = false,
 				AnchorPoint = Vector2.new(0, 1),

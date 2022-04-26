@@ -41,7 +41,7 @@ local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
 local prioritize = Util.prioritize
 local Typecheck = Util.Typecheck
-local FFlagStudioExplainFriendCollaboratorPermission2 = game:GetFastFlag("StudioExplainFriendCollaboratorPermission2")
+local FFlagStudioExplainFriendCollaboratorPermission3 = game:GetFastFlag("StudioExplainFriendCollaboratorPermission3")
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
@@ -89,7 +89,7 @@ function Button:render()
 	local foreground = style.Foreground
 	local foregroundStyle = style.ForegroundStyle
 	local padding = style.Padding
-
+	
 	local automaticSize = props.AutomaticSize
 	local text = props.Text or ""
 	local onClick = props.OnClick
@@ -141,7 +141,7 @@ function Button:render()
 			Text = text,
 			ZIndex = 2,
 
-			[Roact.Event.Activated] = FFlagStudioExplainFriendCollaboratorPermission2 and self.onClick or onClick,
+			[Roact.Event.Activated] = FFlagStudioExplainFriendCollaboratorPermission3 and self.onClick or onClick,
 			[Roact.Event.MouseEnter] = self.mouseEnter,
 			[Roact.Event.MouseLeave] = self.mouseLeave,
 		}, props[Roact.Children]),

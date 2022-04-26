@@ -18,6 +18,7 @@
 ]]
 local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
+local FFlagDevFrameworkTablePassNilForTooltipText = game:GetFastFlag("DevFrameworkTablePassNilForTooltipText")
 
 local hasTableColumnResizeFFlags = FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize
 
@@ -83,7 +84,10 @@ function TableRow:render()
 		cells = map(columns, function(column, index: number)
 			local key = column.Key or column.Name
 			local value: any = row[key] or ""
-			local tooltip: string = row[column.TooltipKey] or ""
+			local tooltip: string = row[column.TooltipKey]
+			if not FFlagDevFrameworkTablePassNilForTooltipText then
+				tooltip = tooltip or ""
+			end
 			return Roact.createElement(CellComponent, {
 				CellProps = props.CellProps,
 				Value = value,

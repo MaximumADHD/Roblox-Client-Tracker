@@ -21,10 +21,10 @@ dependencies = [
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
     "RoduxFriends roblox/rodux-friends e7dec272 git+https://github.com/roblox/rodux-friends#master",
     "RoduxGames RoduxGames 1b7ccfde git+https://github.com/roblox/rodux-games#master",
-    "RoduxNetworking RoduxNetworking 3.0.0 url+https://github.com/roblox/rodux-networking",
+    "RoduxNetworking RoduxNetworking 3.0.1 url+https://github.com/roblox/rodux-networking",
     "RoduxPresence roblox/rodux-presence d060d8dd git+https://github.com/roblox/rodux-presence#master",
     "RoduxProfile RoduxProfile caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
-    "UIBlox UIBlox 0d8a007e git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox ea27a613 git+https://github.com/roblox/uiblox#master",
     "UnitTestHelpers UnitTestHelpers caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]

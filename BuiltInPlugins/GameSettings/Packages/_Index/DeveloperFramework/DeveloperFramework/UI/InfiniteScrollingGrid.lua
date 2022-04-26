@@ -60,6 +60,7 @@ Typecheck.wrap(InfiniteScrollingGrid, script)
 
 local FFlagDevFrameworkInfiniteScrollingGridImprovements = game:GetFastFlag("DevFrameworkInfiniteScrollingGridImprovements")
 local FFlagDevFrameworkScrollingFrameAddPadding = game:GetFastFlag("DevFrameworkScrollingFrameAddPadding")
+local FFlagDevFrameworkInfiniteScrollingGridFixRange = game:GetFastFlag("DevFrameworkInfiniteScrollingGridFixRange")
 
 export type Item = any
 
@@ -245,7 +246,13 @@ function InfiniteScrollingGrid:init()
 		local maxItemIndex = state.maxItemIndex
 		local targetMinItemIndex = state.targetMinItemIndex
 		local targetMaxItemIndex = state.targetMaxItemIndex
-		local absoluteTargetMinItemIndex = math.min(targetMinItemIndex, absoluteMax - (targetMaxItemIndex - targetMinItemIndex))
+
+		local absoluteTargetMinItemIndex 
+		if FFlagDevFrameworkInfiniteScrollingGridFixRange then
+			absoluteTargetMinItemIndex = math.min(targetMinItemIndex, absoluteMax - absoluteMax % state.cellsPerRow - (targetMaxItemIndex - targetMinItemIndex))
+		else
+			absoluteTargetMinItemIndex = math.min(targetMinItemIndex, absoluteMax - (targetMaxItemIndex - targetMinItemIndex))
+		end
 		local absoluteTargetMaxItemIndex = math.min(targetMaxItemIndex, absoluteMax)
 
 		for i = minItemIndex, absoluteTargetMinItemIndex, -1 do

@@ -24,7 +24,6 @@
 local FFlagDevFrameworkExtractAssetRenderModelCamera = game:GetFastFlag("DevFrameworkExtractAssetRenderModelCamera")
 local FFlagDevFrameworkAssetRenderModelCustomCamDirection = game:GetFastFlag("DevFrameworkAssetRenderModelCustomCamDirection")
 local FFlagDevFrameworkSeparateCenterCameraCenterModel = game:DefineFastFlag("DevFrameworkSeparateCenterCameraCenterModel", false)
-local FFlagDevFrameworkAssetRenderModelStatic = game:GetFastFlag("DevFrameworkAssetRenderModelStatic")
 local FFlagDevFrameworkAssetRenderModelStatic2 = game:GetFastFlag("DevFrameworkAssetRenderModelStatic2")
 local FFlagDevFrameworkAssetRenderModelDisableZoom = game:GetFastFlag("DevFrameworkAssetRenderModelDisableZoom")
 local FFlagDevFrameworkAssetRenderModelDisablePan = game:GetFastFlag("DevFrameworkAssetRenderModelDisablePan")
@@ -167,7 +166,7 @@ function AssetRenderModel:init()
 		end
 
 		local cameraDistAway
-		if FFlagDevFrameworkAssetRenderModelStatic and initialDistance then
+		if initialDistance then
 			cameraDistAway = initialDistance * INSERT_CAMERA_DIST_MULT
 		else
 			cameraDistAway = size.magnitude * INSERT_CAMERA_DIST_MULT
@@ -288,7 +287,7 @@ function AssetRenderModel:render()
 	local layoutOrder = props.LayoutOrder
 	local position = props.Position
 	local size = props.Size or UDim2.new(1, 0, 1, 0)
-	local static = FFlagDevFrameworkAssetRenderModelStatic and props.Static
+	local static = props.Static
 	local disableZoom = FFlagDevFrameworkAssetRenderModelDisableZoom and props.DisableZoom
 
 	local camera = self.camera

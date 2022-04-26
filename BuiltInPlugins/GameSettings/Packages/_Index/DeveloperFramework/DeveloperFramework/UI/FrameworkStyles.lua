@@ -7,7 +7,6 @@
 	default values for Studio plugins.
 ]]
 local FFlagDevFrameworkTimeProgressBar = game:GetFastFlag("DevFrameworkTimeProgressBar")
-local FFlagDevFrameworkInfiniteScrollingGrid = game:GetFastFlag("DevFrameworkInfiniteScrollingGrid")
 local FFlagDevFrameworkResponsiveGrid2 = game:GetFastFlag("DevFrameworkResponsiveGrid2")
 
 local function newDefaults()
@@ -34,7 +33,7 @@ function FrameworkStyles.new()
 		IconButton = newDefaults(),
 		Image = newDefaults(),
 		InfiniteScrollingFrame = newDefaults(),
-		InfiniteScrollingGrid = if FFlagDevFrameworkInfiniteScrollingGrid then newDefaults() else nil,
+		InfiniteScrollingGrid = newDefaults(),
 		InstanceTreeView = newDefaults(),
 		LinkText = newDefaults(),
 		LoadingBar = newDefaults(),

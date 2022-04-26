@@ -44,11 +44,6 @@ return function()
 	end)
 
 	describe("Id and Title props", function()
-		local FFlagStudioDevFrameworkPluginButtonId = game:GetFastFlag("StudioDevFrameworkPluginButtonId")
-		if not FFlagStudioDevFrameworkPluginButtonId then
-			return
-		end
-
 		it("should handle just Title", function()
 			local toolbar = mockToolbar()
 

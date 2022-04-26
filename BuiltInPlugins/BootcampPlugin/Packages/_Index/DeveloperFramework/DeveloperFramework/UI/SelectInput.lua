@@ -25,7 +25,7 @@
 		Color3 ArrowColor: The color of the dropdown arrow image.
 		Color3 PlaceholderTextColor: The color of the dropdown placeholder text.
 ]]
-local FFlagStudioExplainFriendCollaboratorPermission2 = game:GetFastFlag("StudioExplainFriendCollaboratorPermission2")
+local FFlagStudioExplainFriendCollaboratorPermission3 = game:GetFastFlag("StudioExplainFriendCollaboratorPermission3")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -110,7 +110,7 @@ function SelectInput:render()
 	local backgroundStyle = style.BackgroundStyle
 	local selectedIndex = props.SelectedIndex
 	local itemText
-	if FFlagStudioExplainFriendCollaboratorPermission2 then
+	if FFlagStudioExplainFriendCollaboratorPermission3 then
 		local item = if selectedIndex then items[selectedIndex] else nil
 		itemText = if item then (if type(item) == "table" then item.Label else item) else props.PlaceholderText
 	else
