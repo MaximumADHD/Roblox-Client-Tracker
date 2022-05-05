@@ -58,7 +58,7 @@ local function onPreviewSelectionChanged(self)
 	local previewAvatars = PreviewUtil.createPreviewAvatars(selectedAvatarIds, userAddedAssets[avatarTabKey], self.folderRef.current, assetService)
 
 	for _, previewAvatar in ipairs(previewAvatars) do
-		AvatarUtil:positionAvatarNextTo(previewAvatar.model, editingItem.Parent, false)
+		AvatarUtil:positionAvatarNextTo(previewAvatar.model, editingItem.Parent, true)
 	end
 
 	-- this will be first layer on the preview avatar

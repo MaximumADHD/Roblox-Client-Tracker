@@ -1,6 +1,7 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
 local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
+local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 
 local ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
 
@@ -20,6 +21,7 @@ export type Subcategory = {
 	path: { string },
 	searchKeywords: string?,
 	thumbnail: SubcategoryThumbnail?,
+	hidden: boolean?,
 }
 
 export type HomeConfigurationSection = {
@@ -33,28 +35,25 @@ export type HomeConfiguration = {
 }
 
 local HomeTypes = {}
-HomeTypes.AUDIO_TYPES = {
-	MUSIC = "music",
-	SOUND_EFFECT = "soundEffect",
-}
-HomeTypes.ENABLED_ASSET_TYPES = {}
+if not FFlagToolboxAudioDiscovery then
+	HomeTypes.ENABLED_ASSET_TYPES = {}
 
-function AddEnabledAssetByName(assetName: string)
-	local assetEnum = Enum.AssetType[assetName]
-	if assetEnum ~= nil then
-		table.insert(HomeTypes.ENABLED_ASSET_TYPES, assetEnum)
+	function AddEnabledAssetByName(assetName: string)
+		local assetEnum = Enum.AssetType[assetName]
+		if assetEnum ~= nil then
+			table.insert(HomeTypes.ENABLED_ASSET_TYPES, assetEnum)
+		end
 	end
-end
 
-if FFlagToolboxAssetCategorization4 then
-	local HomeViewAssetTypeString = ToolboxUtilities.getHomeViewEnabledAssetTypes()
-
-	if HomeViewAssetTypeString ~= nil then
-		local HomeViewAssetTypes = string.split(HomeViewAssetTypeString, ";")
-		for i, assetName in pairs(HomeViewAssetTypes) do
-			local success = pcall(AddEnabledAssetByName, assetName)
-			if not success then
-				warn(assetName .. " is not a valid asset name")
+	if FFlagToolboxAssetCategorization4 then
+		local HomeViewAssetTypeString = ToolboxUtilities.getHomeViewEnabledAssetTypes()
+		if HomeViewAssetTypeString ~= nil then
+			local HomeViewAssetTypes = string.split(HomeViewAssetTypeString, ";")
+			for i, assetName in pairs(HomeViewAssetTypes) do
+				local success = pcall(AddEnabledAssetByName, assetName)
+				if not success then
+					warn(assetName .. " is not a valid asset name")
+				end
 			end
 		end
 	end

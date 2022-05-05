@@ -7,8 +7,13 @@
 
 local Plugin = script.Parent.Parent.Parent
 
+local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
+
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
+local Framework = require(Packages.Framework)
+
+local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Framework.Util.GetTextSize else nil
 
 local Colors = require(Plugin.Core.Util.Colors)
 local Constants = require(Plugin.Core.Util.Constants)
@@ -22,7 +27,10 @@ local function Toast(props)
 	local fontSize = Constants.FONT_SIZE_SMALL
 	local font = Constants.FONT
 
-	local textBounds = Constants.getTextSize(text, fontSize, font)
+	local textBounds = if FFlagRemoveUILibraryGetTextSize then
+		GetTextSize(text, fontSize, font, Vector2.new(0, 0))
+	else
+		Constants.getTextSize(text, fontSize, font)
 
 	local horizontalPadding = 12
 	local verticalPadding = 8

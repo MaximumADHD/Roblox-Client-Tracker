@@ -257,10 +257,10 @@ end
 
 if FFlagUserCameraToggleDontSetMouseIconEveryFrame then
 	local function getMouse()
-		local localPlayer = Players.localPlayer
+		local localPlayer = Players.LocalPlayer
 		if not localPlayer then
 			Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
-			localPlayer = Players.localPlayer
+			localPlayer = Players.LocalPlayer
 		end
 		return localPlayer:GetMouse()
 	end

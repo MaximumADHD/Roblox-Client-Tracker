@@ -5,7 +5,8 @@ local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local t = InGameMenuDependencies.t
 local UIBlox = InGameMenuDependencies.UIBlox
-
+local getIconSize = UIBlox.App.ImageSet.getIconSize
+local ICON_SIZE = getIconSize(UIBlox.App.ImageSet.Enum.IconSize.Medium)
 local InGameMenu = script.Parent.Parent.Parent
 
 local GlobalConfig = require(InGameMenu.GlobalConfig)
@@ -34,7 +35,7 @@ local function ReportButton(props)
 		return Roact.createElement(ImageSetButton, {
 			Selectable = false,
 			Image = Assets.Images.ReportIcon,
-			Size = UDim2.new(0, 36, 0, 36),
+			Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
 			ImageColor3 = Color3.fromRGB(255, 255, 255),
 			BackgroundTransparency = 1,
 			LayoutOrder = props.LayoutOrder,

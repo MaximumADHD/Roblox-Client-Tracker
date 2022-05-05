@@ -6,6 +6,7 @@
 ]]
 
 local FFlagToolboxAssetStyleUpdate2 = game:GetFastFlag("ToolboxAssetStyleUpdate2")
+local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -19,10 +20,11 @@ local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local isCli = require(Plugin.Core.Util.isCli)
 local Background = require(Plugin.Core.Types.Background)
 
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
-local ContextServices = require(Packages.Framework).ContextServices
+local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Framework.Util.GetTextSize else nil
+
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
@@ -96,7 +98,10 @@ function Footer:renderContent(theme, localization, localizedContent)
 	local footerBgText = localizedContent.Footer.BGText
 	local footerBgTextFont = Constants.FONT
 	local footerBgTextSize = Constants.FONT_SIZE_SMALL
-	local footerBgTextWidth = Constants.getTextSize(footerBgText, footerBgTextSize, footerBgTextFont).x
+	local footerBgTextWidth = if FFlagRemoveUILibraryGetTextSize then
+		GetTextSize(footerBgText, footerBgTextSize, footerBgTextFont, Vector2.new(0, 0)).x
+	else
+		Constants.getTextSize(footerBgText, footerBgTextSize, footerBgTextFont).x
 
 	local backgroundComponents = {
 		UIListLayout = Roact.createElement("UIListLayout", {
@@ -127,7 +132,10 @@ function Footer:renderContent(theme, localization, localizedContent)
 	for _, background in ipairs(translatedBackgrounds) do
 		backgroundButtonTextWidth = math.max(
 			backgroundButtonTextWidth,
-			Constants.getTextSize(background.name, backgroundButtonTextSize, backgroundButtonTextFont).x
+			if FFlagRemoveUILibraryGetTextSize then
+				GetTextSize(background.name, backgroundButtonTextSize, backgroundButtonTextFont, Vector2.new(0, 0)).x
+			else
+				Constants.getTextSize(background.name, backgroundButtonTextSize, backgroundButtonTextFont).x
 		)
 	end
 

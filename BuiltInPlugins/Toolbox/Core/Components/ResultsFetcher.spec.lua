@@ -1,5 +1,6 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
+local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 local Packages = Plugin.Packages
 local Framework = require(Packages.Framework)
 local Sort = require(Plugin.Core.Types.Sort)
@@ -344,4 +345,16 @@ return function()
 			expect.never.objectContaining({ sortName = expect.anything() })
 		)
 	end)
+
+	if FFlagToolboxAudioDiscovery then
+		it("should send tags", function()
+			local networkInterfaceMock = buildNetworkInterfaceMock()
+			local roactState = renderResultsFetcher(networkInterfaceMock, { tags = { "whooshes", "bys " } })
+			wait()
+			expect(networkInterfaceMock.getToolboxItems).toHaveBeenCalledWith(
+				networkInterfaceMock, -- because we're calling it as an instance method
+				expect.objectContaining({ tags = { "whooshes", "bys " } })
+			)
+		end)
+	end
 end

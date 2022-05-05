@@ -16,6 +16,8 @@ local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimati
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
 
+local FFlagUseClampedAutoTangents = game:DefineFastFlag("ACEUseClampedAutoTangents", false)
+
 local KeyframeUtils = {}
 
 function KeyframeUtils.getDefaultValue(trackType: string) : (CFrame | Vector3 | number)
@@ -245,8 +247,18 @@ function KeyframeUtils.getSlope(track, tck, side)
 				if GetFFlagQuaternionChannels() and track.Type == Constants.TRACK_TYPES.Quaternion then
 					return .5 * ((1 / (nextTick - tck)) + (1 / (tck - prevTick)))
 				else
-					return .5 * (((nextKeyframe.Value - keyframe.Value) / (nextTick - tck)) +
-								((prevKeyframe.Value - keyframe.Value) / (prevTick - tck)))
+					local function clamp(x)
+						local factor = Constants.CLAMPED_AUTO_TANGENT_THRESHOLD
+						return math.max(0, math.min(x / factor, (1 - x) / factor, 1))
+					end
+
+					local fd = .5 * (((nextKeyframe.Value - keyframe.Value) / (nextTick - tck)) +
+									((prevKeyframe.Value - keyframe.Value) / (prevTick - tck)))
+					if FFlagUseClampedAutoTangents then
+						fd *= clamp((keyframe.Value - prevKeyframe.Value) / (nextKeyframe.Value - prevKeyframe.Value))
+					end
+					
+					return fd
 				end
 			else
 				return 0

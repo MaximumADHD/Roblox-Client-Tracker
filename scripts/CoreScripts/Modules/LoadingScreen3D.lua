@@ -287,7 +287,7 @@ local function OnReplicatingFinishedAsync()
 	if game:IsLoaded() then
 		OnGameLoaded()
 	else
-		game.Loaded:wait()
+		game.Loaded:Wait()
 		OnGameLoaded()
 	end
 end
@@ -330,12 +330,12 @@ do
 			if CameraChangedConn then
 				CameraChangedConn:disconnect()
 			end
-			CameraChangedConn = workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):connect(function()
+			CameraChangedConn = workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function()
 				UpdateSurfaceGuiPosition()
 			end)
 		end
 	end
-	WorkspaceChangedConn = workspace.Changed:connect(function(prop)
+	WorkspaceChangedConn = workspace.Changed:Connect(function(prop)
 		if prop == 'CurrentCamera' then
 			connectCameraEvent()
 		end
@@ -348,7 +348,7 @@ GameInfoProvider:LoadAssetsAsync()
 if GameInfoProvider:IsReady() then
 	OnGameInfoLoaded()
 end
-GameInfoProvider.LoadingFinishedEvent:connect(OnGameInfoLoaded)
+GameInfoProvider.LoadingFinishedEvent:Connect(OnGameInfoLoaded)
 
 
 if ReplicatedFirst:IsFinishedReplicating() then

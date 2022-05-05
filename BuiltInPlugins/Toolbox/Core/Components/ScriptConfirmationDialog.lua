@@ -6,7 +6,7 @@
     with a checkbox to toggle not showing the dialog in the future which
     is bound to the setting.
 ]]
-
+local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
 local Plugin = script.Parent.Parent.Parent
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
@@ -20,6 +20,7 @@ local withModal = ContextHelper.withModal
 local withLocalization = ContextHelper.withLocalization
 local UI = Framework.UI
 local Checkbox = UI.Checkbox
+local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Framework.Util.GetTextSize else nil
 local Dialog = require(Plugin.Core.Components.PluginWidget.Dialog)
 local MessageBoxButton = require(Plugin.Core.Components.MessageBox.MessageBoxButton)
 local ScriptConfirmationDialog = Roact.PureComponent:extend("ScriptConfirmationDialog")
@@ -103,7 +104,6 @@ function ScriptConfirmationDialog:renderContent(modalTarget, localization, local
 	local okText = localizedContent.PurchaseFlow.OK
 	local titleText = localizedContent.ToolboxToolbarName
 
-	local buttonsHeight = 23
 	local buttonWidth = Constants.MESSAGE_BOX_BUTTON_WIDTH
 	local buttonPadding = 8
 
@@ -111,13 +111,35 @@ function ScriptConfirmationDialog:renderContent(modalTarget, localization, local
 	-- Wrap the texts at the same point
 	local wrapTextWidth = 424
 
-	local detailTextOneLineSize = Constants.getTextSize(detailText, detailTextFontSize, detailTextFont)
-	local instructionOneLineTextSize = Constants.getTextSize(
+	local detailTextOneLineSize = if FFlagRemoveUILibraryGetTextSize then GetTextSize(
+		detailText,
+		detailTextFontSize,
+		detailTextFont,
+		Vector2.new(0, 0)
+	)
+	else Constants.getTextSize(
+		detailText,
+		detailTextFontSize,
+		detailTextFont
+	)
+	local instructionOneLineTextSize = if FFlagRemoveUILibraryGetTextSize then GetTextSize(
+		instructionText,
+		instructionTextFontSize,
+		instructionTextFont,
+		Vector2.new(0, 0)
+	)
+	else Constants.getTextSize(
 		instructionText,
 		instructionTextFontSize,
 		instructionTextFont
 	)
-	local dontShowAgainTextOneLineSize = Constants.getTextSize(
+	local dontShowAgainTextOneLineSize = if FFlagRemoveUILibraryGetTextSize then GetTextSize(
+		dontShowAgainText,
+		dontShowAgainTextFontSize,
+		dontShowAgainTextFont,
+		Vector2.new(0, 0)
+	)
+	else Constants.getTextSize(
 		dontShowAgainText,
 		dontShowAgainTextFontSize,
 		dontShowAgainTextFont
@@ -146,19 +168,37 @@ function ScriptConfirmationDialog:renderContent(modalTarget, localization, local
 
 	local maxTextWidth = innerMaxWidth - fullIconWidth
 
-	local detailTextSize = Constants.getTextSize(
+	local detailTextSize = if FFlagRemoveUILibraryGetTextSize then GetTextSize(
 		detailText,
 		detailTextFontSize,
 		detailTextFont,
 		Vector2.new(maxTextWidth, 1000)
 	)
-	local instructionTextSize = Constants.getTextSize(
+	else Constants.getTextSize(
+		detailText,
+		detailTextFontSize,
+		detailTextFont,
+		Vector2.new(maxTextWidth, 1000)
+	)
+	local instructionTextSize = if FFlagRemoveUILibraryGetTextSize then GetTextSize(
 		instructionText,
 		instructionTextFontSize,
 		instructionTextFont,
 		Vector2.new(maxTextWidth, 1000)
 	)
-	local dontShowAgainTextSize = Constants.getTextSize(
+	else Constants.getTextSize(
+		instructionText,
+		instructionTextFontSize,
+		instructionTextFont,
+		Vector2.new(maxTextWidth, 1000)
+	)
+	local dontShowAgainTextSize = if FFlagRemoveUILibraryGetTextSize then GetTextSize(
+		dontShowAgainText,
+		dontShowAgainTextFontSize,
+		dontShowAgainTextFont,
+		Vector2.new(maxTextWidth - checkboxIconPadding, 1000)
+	)
+	else Constants.getTextSize(
 		dontShowAgainText,
 		dontShowAgainTextFontSize,
 		dontShowAgainTextFont,

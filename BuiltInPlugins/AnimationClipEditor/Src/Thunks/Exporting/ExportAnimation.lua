@@ -9,6 +9,9 @@ local Selection = game:GetService("Selection")
 local Plugin = script.Parent.Parent.Parent.Parent
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local SaveAnimation = require(Plugin.Src.Thunks.Exporting.SaveAnimation)
+local AnimationData = require(Plugin.Src.Util.AnimationData)
+
+local GetFFlagFacsAnimationExportAnalytics = require(Plugin.LuaFlags.GetFFlagFacsAnimationExportAnalytics)
 
 return function(plugin, analytics)
 	return function(store)
@@ -32,7 +35,11 @@ return function(plugin, analytics)
 
 			Selection:Set({exported})
 
-			analytics:report("onExportAnimation")
+			local hasFacs = false
+			if GetFFlagFacsAnimationExportAnalytics() then
+				hasFacs = AnimationData.hasFacsData(animationData)
+			end
+			analytics:report("onExportAnimation", hasFacs)
 		end
 	end
 end

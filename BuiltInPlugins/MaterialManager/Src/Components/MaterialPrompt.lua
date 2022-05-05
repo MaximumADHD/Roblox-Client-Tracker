@@ -36,6 +36,8 @@ export type Props = {
 	MetalnessMap : _Types.TextureMap?,
 	NormalMap : _Types.TextureMap?,	
 	RoughnessMap : _Types.TextureMap?,
+	StudsPerTile : number?,
+	MaterialPattern : Enum.MaterialPattern,
 	MaterialMock : _Types.Material?,
 	Mode : string?,
 	Material : _Types.Material?,
@@ -99,9 +101,16 @@ end
 function MaterialPrompt:init()
 	self:setState({
 		saveAttempt = false,
+		ErrorStudsPerTile = nil,
 	})
 	self.lastName = nil
 	self.lastBaseMaterial = nil
+
+	self.setStudsPerTileError = function(error)
+		self:setState({
+			ErrorStudsPerTile = error or Roact.None,
+		})
+	end
 
 	self.onSave = function()
 		local props : _Props = self.props
@@ -138,7 +147,7 @@ function MaterialPrompt:init()
 			end
 		end
 
-		if self:getNameError() or self:getBaseMaterialError() then
+		if self:getNameError() or self:getBaseMaterialError() or self.state.ErrorStudsPerTile then
 			return
 		end
 
@@ -155,6 +164,8 @@ function MaterialPrompt:init()
 
 		materialVariant.Name = props.Name
 		materialVariant.BaseMaterial = props.BaseMaterial
+		materialVariant.StudsPerTile = props.StudsPerTile
+		materialVariant.MaterialPattern = props.MaterialPattern
 		materialVariant.Parent = game:GetService("MaterialService")
 
 		-- Set texture maps
@@ -219,6 +230,8 @@ function MaterialPrompt:render()
 		MaterialVariantCreator = Roact.createElement(MaterialVariantCreator, {
 			ErrorName = self:getNameError(),
 			ErrorBaseMaterial = self:getBaseMaterialError(),
+			ErrorStudsPerTile = self.state.ErrorStudsPerTile,
+			SetStudsPerTileError = self.setStudsPerTileError,
 		})
 	})
 end
@@ -242,6 +255,8 @@ local function mapStateToProps(state : MainReducer.State, props : _Props)
 		MetalnessMap = state.MaterialPromptReducer.MetalnessMap,
 		NormalMap = state.MaterialPromptReducer.NormalMap,
 		RoughnessMap = state.MaterialPromptReducer.RoughnessMap,
+		StudsPerTile = state.MaterialPromptReducer.StudsPerTile,
+		MaterialPattern = state.MaterialPromptReducer.MaterialPattern,
 		Material = props.MaterialMock or state.MaterialBrowserReducer.Material,
 		Mode = state.MaterialPromptReducer.Mode,
 	}

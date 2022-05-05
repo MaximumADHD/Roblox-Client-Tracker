@@ -16,7 +16,6 @@ local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag(
 	"ToolboxUseDevFrameworkLoadingBarAndRadioButton"
 )
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
-local FFlagToolboxUpdateWindowMinSize = game:GetFastFlag("ToolboxUpdateWindowMinSize")
 local FFlagToolboxRefactorSearchOptions = game:GetFastFlag("ToolboxRefactorSearchOptions")
 local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
 
@@ -52,7 +51,6 @@ end
 local ShowOnTop = Framework.UI.ShowOnTop
 local ScrollingFrame = Framework.UI.ScrollingFrame
 local TextLabel = Framework.UI.Decoration.TextLabel
-local FitFrame = Framework.Util.FitFrame
 local Checkbox = Framework.UI.Checkbox
 
 local AudioSearch = require(Plugin.Core.Components.SearchOptions.AudioSearch)
@@ -74,13 +72,6 @@ local SearchOptions = Roact.PureComponent:extend("SearchOptions")
 SearchOptions.defaultProps = {
 	showCreatorSearch = true,
 }
-
-local FitToContent = createFitToContent("ImageButton", "UIListLayout", {
-	FillDirection = Enum.FillDirection.Vertical,
-	Padding = UDim.new(0, 10),
-	BorderSize = Constants.MAIN_VIEW_PADDING,
-	SortOrder = Enum.SortOrder.LayoutOrder,
-})
 
 function SearchOptions:init(initialProps)
 	self.layoutRef = Roact.createRef()
@@ -337,198 +328,70 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 		then showCreatorSearch and not showAudioSearch
 		else showCreatorSearch
 
-	local searchOptions
-	if FFlagToolboxUpdateWindowMinSize then
-		local scrollbarThickness = 8
-		local bottomButtonHeight = 42
-		local backgroundButtonHeight = 40
-		local headerHeight = tabHeight + Constants.HEADER_HEIGHT
-		local edgeMargin = 4
+	local scrollbarThickness = 8
+	local bottomButtonHeight = 42
+	local backgroundButtonHeight = 40
+	local headerHeight = tabHeight + Constants.HEADER_HEIGHT
+	local edgeMargin = 4
 
-		local layoutSize
-		if self.state.contentSize then
-			layoutSize = UDim2.new(0, self.state.contentSize.X, 0, self.state.contentSize.Y)
-		else
-			layoutSize = UDim2.new(0, 0, 0, 0)
-		end
-
-		local showFade = true
-		local containerSize = UDim2.new(1, 0, 1, 0)
-		if self.containerRef.current then
-			local windowHeight = self.containerRef.current.AbsoluteSize.Y - (headerHeight + backgroundButtonHeight)
-			local cutoffHeight = layoutSize.Y.Offset + bottomButtonHeight
-			if windowHeight > cutoffHeight then
-				containerSize = UDim2.new(1, 0, 0, cutoffHeight)
-				showFade = false
-			end
-		end
-
-		searchOptions = {
-			Main = Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
-				AnchorPoint = Vector2.new(1, 0),
-				Position = UDim2.new(1, -edgeMargin, 0, headerHeight + edgeMargin),
-				Size = UDim2.new(
-					0,
-					Constants.TOOLBOX_MIN_WIDTH,
-					1,
-					-(headerHeight + (2 * edgeMargin) + bottomButtonHeight)
-				),
-				[Roact.Ref] = self.containerRef,
-				[Roact.Change.AbsoluteSize] = self.updateContainerSize,
-			}, {
-				Contents = Roact.createElement("Frame", {
-					BackgroundColor3 = optionsTheme.background,
-					BorderColor3 = optionsTheme.border,
-					BackgroundTransparency = 0,
-					Size = containerSize,
-					[Roact.Event.MouseEnter] = self.mouseEnter,
-					[Roact.Event.MouseLeave] = self.mouseLeave,
-				}, {
-					Container = Roact.createElement(ScrollingFrame, {
-						Position = UDim2.new(0, 0, 0, 0),
-						Size = UDim2.new(1, 0, 1, -bottomButtonHeight),
-						OnCanvasResize = self.updateContentsSize,
-						Layout = Enum.FillDirection.Vertical,
-						AutoSizeCanvas = true,
-						AutoSizeLayoutOptions = {
-							SortOrder = Enum.SortOrder.LayoutOrder,
-							Padding = UDim.new(0, 10),
-						},
-					}, {
-						Padding = Roact.createElement("UIPadding", {
-							PaddingLeft = UDim.new(0, 10),
-							PaddingRight = UDim.new(0, 10),
-							PaddingTop = UDim.new(0, 10),
-							PaddingBottom = UDim.new(0, 10),
-						}),
-
-						AllViewsLabel = showIdVerified and Roact.createElement(TextLabel, {
-							AutomaticSize = Enum.AutomaticSize.XY,
-							LayoutOrder = self:nextLayout(),
-							Text = localizedContent.SearchOptions.AllViews,
-						}),
-
-						IdVerifiedToggle = showIdVerified and Roact.createElement(Checkbox, {
-							LayoutOrder = self:nextLayout(),
-							Text = localizedContent.SearchBarIdVerified,
-							OnClick = self.onToggleIdVerified,
-							Size = UDim2.new(1, 0, 0, 20),
-							Checked = state.includeOnlyVerifiedCreators,
-						}),
-
-						Separator = showIdVerified and self:createSeparator(optionsTheme.separator),
-
-						Creator = showCreatorSearch and Roact.createElement(SearchOptionsEntry, {
-							LayoutOrder = self:nextLayout(),
-							Header = localizedContent.SearchOptions.Creator,
-						}, {
-							SearchBar = Roact.createElement(LiveSearchBar, {
-								defaultTextKey = "SearchBarCreatorText",
-								searchTerm = liveSearchData.searchTerm,
-								results = liveSearchData.results,
-								updateSearch = self.updateSearch,
-								width = Constants.SEARCH_BAR_WIDTH,
-							}),
-						}),
-
-						Separator1 = showSeparator1 and self:createSeparator(optionsTheme.separator),
-
-						AudioSearchHeader = showAudioSearch and Roact.createElement(SearchOptionsEntry, {
-							LayoutOrder = self:nextLayout(),
-							Header = audioSearchTitle,
-						}, {
-							AudioSearch = Roact.createElement(AudioSearch, {
-								minDuration = minDuration,
-								maxDuration = maxDuration,
-								onDurationChange = self.onDurationChange,
-							}),
-						}),
-
-						Separator2 = showAudioSearch and self:createSeparator(optionsTheme.separator),
-
-						SortBy = showSortOptions and Roact.createElement(SearchOptionsEntry, {
-							LayoutOrder = self:nextLayout(),
-							Header = localizedContent.SearchOptions.Sort,
-						}, {
-							RadioButtons = Roact.createElement(
-								FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton and RadioButtonList or RadioButtons,
-								FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton
-										and {
-											Buttons = self.sortsList,
-											SelectedKey = selectedSort,
-											OnClick = self.selectSort,
-										}
-									or {
-										Buttons = sorts,
-										Selected = selectedSort,
-										onButtonClicked = self.selectSort,
-									}
-							),
-						}),
-
-						ViewPadding = showSortOptions and Roact.createElement("Frame", {
-							BackgroundTransparency = 1,
-							Size = UDim2.new(1, 0, 0, 10),
-							LayoutOrder = self:nextLayout(),
-						}),
-					}),
-
-					BottomButtonsContainer = Roact.createElement("Frame", {
-						BackgroundTransparency = 1,
-						Size = UDim2.new(1, 0, 0, bottomButtonHeight),
-						Position = UDim2.new(0, 0, 1, -bottomButtonHeight),
-						ZIndex = 3,
-					}, {
-						Padding = Roact.createElement("UIPadding", {
-							PaddingLeft = UDim.new(0, 10),
-							PaddingRight = UDim.new(0, 10),
-						}),
-						GradientOverlay = showFade and Roact.createElement("Frame", {
-							LayoutOrder = self:nextLayout(),
-							Size = UDim2.new(1, -scrollbarThickness, 0, 20),
-							Position = UDim2.new(0, 0, 0, -20),
-							BackgroundColor3 = Color3.new(1, 1, 1),
-							BorderColor3 = Color3.new(1, 1, 1),
-						}, {
-							Gradient = Roact.createElement("UIGradient", {
-								Color = ColorSequence.new(optionsTheme.background),
-								Rotation = 90,
-								Transparency = NumberSequence.new({
-									NumberSequenceKeypoint.new(0.0, 1.0),
-									NumberSequenceKeypoint.new(1.0, 0.25),
-								}),
-							}),
-						}),
-						Separator = Roact.createElement(Separator, {
-							Position = UDim2.new(0.5, 0, 0, 0),
-							ZIndex = 2,
-						}),
-						Footer = Roact.createElement(SearchOptionsFooter, {
-							AnchorPoint = Vector2.new(0, 1),
-							Position = UDim2.new(0, 0, 1, -8),
-							onButtonClicked = self.footerButtonClicked,
-						}),
-					}),
-				}),
-			}),
-		}
+	local layoutSize
+	if self.state.contentSize then
+		layoutSize = UDim2.new(0, self.state.contentSize.X, 0, self.state.contentSize.Y)
 	else
-		searchOptions = {
-			Main = Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
-				AnchorPoint = Vector2.new(1, 0),
-				Position = UDim2.new(1, 0, 0, tabHeight + Constants.HEADER_HEIGHT),
-				Size = UDim2.new(0, Constants.TOOLBOX_MIN_WIDTH, 1, 0),
-			}, {
-				Container = Roact.createElement(FitToContent, {
-					BackgroundColor3 = optionsTheme.background,
-					BorderColor3 = optionsTheme.border,
-					AutoButtonColor = false,
+		layoutSize = UDim2.new(0, 0, 0, 0)
+	end
 
-					[Roact.Event.MouseEnter] = self.mouseEnter,
-					[Roact.Event.MouseLeave] = self.mouseLeave,
+	local showFade = true
+	local containerSize = UDim2.new(1, 0, 1, 0)
+	if self.containerRef.current then
+		local windowHeight = self.containerRef.current.AbsoluteSize.Y - (headerHeight + backgroundButtonHeight)
+		local cutoffHeight = layoutSize.Y.Offset + bottomButtonHeight
+		if windowHeight > cutoffHeight then
+			containerSize = UDim2.new(1, 0, 0, cutoffHeight)
+			showFade = false
+		end
+	end
+
+	local searchOptions = {
+		Main = Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			AnchorPoint = Vector2.new(1, 0),
+			Position = UDim2.new(1, -edgeMargin, 0, headerHeight + edgeMargin),
+			Size = UDim2.new(
+				0,
+				Constants.TOOLBOX_MIN_WIDTH,
+				1,
+				-(headerHeight + (2 * edgeMargin) + bottomButtonHeight)
+			),
+			[Roact.Ref] = self.containerRef,
+			[Roact.Change.AbsoluteSize] = self.updateContainerSize,
+		}, {
+			Contents = Roact.createElement("Frame", {
+				BackgroundColor3 = optionsTheme.background,
+				BorderColor3 = optionsTheme.border,
+				BackgroundTransparency = 0,
+				Size = containerSize,
+				[Roact.Event.MouseEnter] = self.mouseEnter,
+				[Roact.Event.MouseLeave] = self.mouseLeave,
+			}, {
+				Container = Roact.createElement(ScrollingFrame, {
+					Position = UDim2.new(0, 0, 0, 0),
+					Size = UDim2.new(1, 0, 1, -bottomButtonHeight),
+					OnCanvasResize = self.updateContentsSize,
+					Layout = Enum.FillDirection.Vertical,
+					AutoSizeCanvas = true,
+					AutoSizeLayoutOptions = {
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						Padding = UDim.new(0, 10),
+					},
 				}, {
+					Padding = Roact.createElement("UIPadding", {
+						PaddingLeft = UDim.new(0, 10),
+						PaddingRight = UDim.new(0, 10),
+						PaddingTop = UDim.new(0, 10),
+						PaddingBottom = UDim.new(0, 10),
+					}),
+
 					AllViewsLabel = showIdVerified and Roact.createElement(TextLabel, {
 						AutomaticSize = Enum.AutomaticSize.XY,
 						LayoutOrder = self:nextLayout(),
@@ -548,7 +411,6 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 					Creator = showCreatorSearch and Roact.createElement(SearchOptionsEntry, {
 						LayoutOrder = self:nextLayout(),
 						Header = localizedContent.SearchOptions.Creator,
-						ZIndex = 2,
 					}, {
 						SearchBar = Roact.createElement(LiveSearchBar, {
 							defaultTextKey = "SearchBarCreatorText",
@@ -594,16 +456,52 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 						),
 					}),
 
-					Separator3 = showSortOptions and self:createSeparator(optionsTheme.separator),
-
-					Footer = Roact.createElement(SearchOptionsFooter, {
+					ViewPadding = showSortOptions and Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, 0, 0, 10),
 						LayoutOrder = self:nextLayout(),
+					}),
+				}),
+
+				BottomButtonsContainer = Roact.createElement("Frame", {
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, 0, 0, bottomButtonHeight),
+					Position = UDim2.new(0, 0, 1, -bottomButtonHeight),
+					ZIndex = 3,
+				}, {
+					Padding = Roact.createElement("UIPadding", {
+						PaddingLeft = UDim.new(0, 10),
+						PaddingRight = UDim.new(0, 10),
+					}),
+					GradientOverlay = showFade and Roact.createElement("Frame", {
+						LayoutOrder = self:nextLayout(),
+						Size = UDim2.new(1, -scrollbarThickness, 0, 20),
+						Position = UDim2.new(0, 0, 0, -20),
+						BackgroundColor3 = Color3.new(1, 1, 1),
+						BorderColor3 = Color3.new(1, 1, 1),
+					}, {
+						Gradient = Roact.createElement("UIGradient", {
+							Color = ColorSequence.new(optionsTheme.background),
+							Rotation = 90,
+							Transparency = NumberSequence.new({
+								NumberSequenceKeypoint.new(0.0, 1.0),
+								NumberSequenceKeypoint.new(1.0, 0.25),
+							}),
+						}),
+					}),
+					Separator = Roact.createElement(Separator, {
+						Position = UDim2.new(0.5, 0, 0, 0),
+						ZIndex = 2,
+					}),
+					Footer = Roact.createElement(SearchOptionsFooter, {
+						AnchorPoint = Vector2.new(0, 1),
+						Position = UDim2.new(0, 0, 1, -8),
 						onButtonClicked = self.footerButtonClicked,
 					}),
 				}),
 			}),
-		}
-	end
+		}),
+	}
 
 	local elem
 	local elemProps

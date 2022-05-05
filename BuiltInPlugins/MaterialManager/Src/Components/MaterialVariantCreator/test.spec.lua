@@ -6,7 +6,9 @@ return function()
 	local MaterialVariantCreator = require(script.Parent)
 
 	local function createTestElement(props: MaterialVariantCreator.Props?)
-		props = props or {}
+		props = props or {
+			SetStudsPerTileError = function() end,
+		}
 
 		return mockContext({
 			MaterialVariantCreator = Roact.createElement(MaterialVariantCreator, nil)
@@ -24,6 +26,7 @@ return function()
 		local element = createTestElement({
 			ErrorName = "ErrorName",
 			ErrorBaseMaterial = "ErrorBaseMaterial",
+			SetStudsPerTileError = function() end,
 		})
 		local instance = Roact.mount(element, container)
 

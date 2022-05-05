@@ -13,6 +13,8 @@
 
 local StudioService = game:GetService("StudioService")
 
+local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
+
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local FileUtils = require(Plugin.Src.Util.FileUtils)
@@ -35,7 +37,6 @@ local AddDevSubKeyChange = require(Page.Thunks.AddDevSubKeyChange)
 local DevSubModeration = require(Page.Thunks.DevSubModeration)
 
 local RoundTextButton = UILibrary.Component.RoundTextButton
-local GetTextSize = UILibrary.Util.GetTextSize
 local TitledFrame = UILibrary.Component.TitledFrame
 local createFitToContent = UILibrary.Component.createFitToContent
 
@@ -43,6 +44,7 @@ local RoundTextBox = require(Plugin.Packages.RoactStudioWidgets.RoundTextBox)
 
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
+local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Util.GetTextSize else UILibrary.Util.GetTextSize
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext

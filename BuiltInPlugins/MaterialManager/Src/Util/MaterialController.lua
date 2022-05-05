@@ -211,6 +211,10 @@ function MaterialController:addMaterial(material : MaterialVariant, moving : boo
 	self._materialChangedListeners[material] = material.Changed:Connect(function(property)
 		if property == "ColorMap" or property == "MetalnessMap" or property == "NormalMap" or property == "RoughnessMap" then
 			self._materialChangedSignal:Fire(material)
+		elseif property == "StudsPerTile" then
+			self._materialChangedSignal:Fire(material)
+		elseif property == "MaterialPattern" then
+			self._materialChangedSignal:Fire(material)
 		elseif property == "BaseMaterial" then
 			self:moveMaterial(material)
 			self._materialChangedSignal:Fire(material)

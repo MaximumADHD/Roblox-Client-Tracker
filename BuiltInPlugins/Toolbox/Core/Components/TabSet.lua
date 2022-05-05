@@ -10,18 +10,20 @@
 
 		function onTabSelected = A callback for when a Tab is selected.
 ]]
+local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
 
 local Plugin = script.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
+local Framework = require(Packages.Framework)
 
 local Constants = require(Plugin.Core.Util.Constants)
-local ContextHelper = require(Plugin.Core.Util.ContextHelper)
-local withTheme = ContextHelper.withTheme
 
-local ContextServices = require(Packages.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+
+local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Framework.Util.GetTextSize else nil
 
 local Tab = require(Plugin.Core.Components.Tab)
 local TabSet = Roact.PureComponent:extend("TabSet")
@@ -76,10 +78,16 @@ local function calculateTabWidth(tabs, currentWidth)
 	return #tabs > 0 and currentWidth / #tabs or 0
 end
 
+local function calculateTabHeaderWidth(text)
+	assert(FFlagRemoveUILibraryGetTextSize)
+	local textWidth = GetTextSize(text, nil, Constants.FONT_BOLD, Vector2.new(0, 0)).X
+	return textWidth + Constants.TAB_ICON_SIZE + Constants.TAB_INNER_PADDING + Constants.TAB_OUTER_PADDING * 2
+end
+
 local function canTextBeDisplayed(tabs, maxWidth)
 	if #tabs > 0 then
 		for _, tab in ipairs(tabs) do
-			local tabWidth = Constants.CalculateTabHeaderWidth(tab.Text)
+			local tabWidth = if FFlagRemoveUILibraryGetTextSize then calculateTabHeaderWidth(tab.Text) else Constants.DEPRECATED_CalculateTabHeaderWidth(tab.Text)
 			if tabWidth > maxWidth then
 				return false
 			end

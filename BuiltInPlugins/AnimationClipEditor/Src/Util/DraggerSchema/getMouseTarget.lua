@@ -2,6 +2,9 @@ local Workspace = game:GetService("Workspace")
 local Plugin = script.Parent.Parent.Parent.Parent
 local DraggerFramework = Plugin.Packages.DraggerFramework
 local RigUtils = require(Plugin.Src.Util.RigUtils)
+local Math = require(DraggerFramework.Utility.Math)
+local Constants = require(Plugin.Src.Util.Constants)
+local GetFFlagBoneAdornmentSelection = require(Plugin.LuaFlags.GetFFlagBoneAdornmentSelection)
 
 local function isValidJoint(rootInstance, joint, partsToMotors)
 	return joint:IsDescendantOf(rootInstance) and joint:IsA("BasePart") and partsToMotors[joint.Name] ~= nil
@@ -22,6 +25,58 @@ end
 
 local function isValidBone(rootInstance, bone, boneMap)
 	return bone:IsDescendantOf(rootInstance) and boneMap[bone.Name] ~= nil
+end
+
+local function hitTestEachBoneLink(boneLinkInstance, mouseRay)
+	if boneLinkInstance:FindFirstChild("Cone") then 
+		local hasIntersection, hitDistance = Math.intersectRayRay(boneLinkInstance.CFrame.Position, boneLinkInstance.CFrame.LookVector, mouseRay.Origin, mouseRay.Direction.Unit)
+
+		if not hasIntersection then
+			return nil
+		end
+		-- Must have an intersection if the above intersect did
+		local _, distAlongMouseRay = Math.intersectRayRay(mouseRay.Origin, mouseRay.Direction.Unit, boneLinkInstance.CFrame.Position, boneLinkInstance.CFrame.LookVector)
+
+		local hitRadius =
+			((boneLinkInstance.CFrame.Position + boneLinkInstance.CFrame.LookVector * hitDistance) -
+			(mouseRay.Origin + mouseRay.Direction.Unit * distAlongMouseRay)).Magnitude
+
+		if boneLinkInstance:FindFirstChild("Cone") and hitRadius < boneLinkInstance.Cone.Radius and hitDistance > 0 and hitDistance < boneLinkInstance.Cone.Height then
+			return distAlongMouseRay
+		else 
+			return nil
+		end
+	elseif boneLinkInstance:FindFirstChild("Sphere") then 
+		local hasIntersection, hitDistance = Math.intersectRaySphere(mouseRay.Origin, mouseRay.Direction.Unit, boneLinkInstance.CFrame.Position, boneLinkInstance.Sphere.Radius)
+		if hasIntersection then 
+			return hitDistance
+		else 
+			return nil
+		end
+	else
+		return nil
+	end
+end
+
+local function hitTestAllBoneLinks(mouseRay, folder)
+	local closestBoneLink, closestBoneDistance = nil, math.huge
+	local boneLinks = folder:GetChildren()
+	for _, boneLink in pairs(boneLinks) do
+		if boneLink:FindFirstChild("Cone") and boneLink.Cone.Color3 ~= Constants.BONE_COLOR_SELECTED then 
+			boneLink.Cone.Color3 = Constants.BONE_COLOR_DEFAULT
+			boneLink.Cone.Transparency = Constants.BONE_TRANSPARENCY_DEFAULT
+		end
+		if boneLink:FindFirstChild("Sphere") and boneLink.Sphere.Color3 ~= Constants.BONE_COLOR_SELECTED then 
+			boneLink.Sphere.Color3 = Constants.BONE_COLOR_DEFAULT
+			boneLink.Sphere.Transparency = Constants.BONE_TRANSPARENCY_DEFAULT
+		end
+		local distance = hitTestEachBoneLink(boneLink, mouseRay)
+		if distance and distance < closestBoneDistance then
+			closestBoneDistance = distance
+			closestBoneLink = boneLink
+		end
+	end
+	return closestBoneLink, closestBoneDistance
 end
 
 return function(draggerContext, mouseRay, currentSelection)
@@ -63,18 +118,31 @@ return function(draggerContext, mouseRay, currentSelection)
 		hitDistance = gizmoResult.Distance
 	end
 
+	if GetFFlagBoneAdornmentSelection() then 
+		local _, partNameToMotorMap, _, boneMap = RigUtils.getRigInfo(draggerContext.RootInstance)
+		local folder = RigUtils.getOrCreateMicroboneFolder()
+		local boneLink, boneDistance = hitTestAllBoneLinks(mouseRay, folder)
+
+		if boneLink then 
+			return boneLink, boneLink, boneDistance
+		end
+	end
+
+
 	if hitItem then -- raycasts have hit any part or gizmo
 		local hitSelectable = hitItem
 		local _, partNameToMotorMap, _, boneMap = RigUtils.getRigInfo(draggerContext.RootInstance)
 		-- prioritize joints
 		local isValidSelectable = isValidJoint(draggerContext.RootInstance, hitSelectable, partNameToMotorMap)
-		if not isValidSelectable then
-			local bone = getBone(draggerContext.RootInstance, hitSelectable)
-			if bone then 
-				isValidSelectable = isValidBone(draggerContext.RootInstance, bone, boneMap)
-				if isValidSelectable then
-					hitSelectable = bone
-					hitItem = bone
+		if not GetFFlagBoneAdornmentSelection() then 
+			if not isValidSelectable then
+				local bone = getBone(draggerContext.RootInstance, hitSelectable)
+				if bone then 
+					isValidSelectable = isValidBone(draggerContext.RootInstance, bone, boneMap)
+					if isValidSelectable then
+						hitSelectable = bone
+						hitItem = bone
+					end
 				end
 			end
 		end

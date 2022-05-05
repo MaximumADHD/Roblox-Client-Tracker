@@ -2,6 +2,7 @@
 	This component is responsible for configuring the asset's access field.
 
 	Props:
+	owner.creatorId, number, id of currently selected owner for asset
 	onDropDownSelect, function, will return current selected item if selected.
 ]]
 
@@ -48,36 +49,19 @@ function ConfigAccess:render()
 
 		self.dropdownContent = Constants.getOwnerDropDownContent(props.groupsArray, localization)
 
-		-- We have a bug, on here: https://developer.roblox.com/api-reference/enum/CreatorType
-		-- User is 0, however in source code, User is 1.
-		-- TODO: Notice UX to change the website.
 		local ownerIndex;
 		if game:GetFastFlag("FixPackageOwnerDefault") then
-			-- if owner is not set, default to type of game creator
-			local ownerType = owner.typeId or Constants.CREATOR_ENUM_TO_OWNER_TYPE[game.CreatorType]
-			if ownerType == Constants.OWNER_TYPES.User then
-				-- if the owner selected is a user, it must be the current user
-				ownerIndex = CURRENT_USER_DROPDOWN_INDEX
-			else
-				assert(ownerType == Constants.OWNER_TYPES.Group)
-				-- if owner id is not set, default to owner of game
-				local ownerGroupId = owner.groupId or game.CreatorId
-
-				-- find index of group in dropdown that corresponds to selected owner id
-				for index, creator in pairs(self.dropdownContent) do
-					if creator.creatorId == ownerGroupId then
-						ownerIndex = index
-						-- dropdown uses strings for creator types for some reason
-						assert(creator.creatorType == "Group")
-					end
+			-- find index of item in dropdown that corresponds to selected owner id
+			for index, creator in pairs(self.dropdownContent) do
+				if creator.creatorId == owner.creatorId then
+					ownerIndex = index
 				end
 			end
 			assert(ownerIndex)
-			if next(owner) == nil then
-				-- owner has not been set, so select current ownerIndex
-				onDropDownSelect(self.dropdownContent[ownerIndex])
-			end
 		else
+			-- We have a bug, on here: https://developer.roblox.com/api-reference/enum/CreatorType
+			-- User is 0, however in source code, User is 1.
+			-- TODO: Notice UX to change the website.
 			ownerIndex = (owner.typeId or 1)
 			if game.CreatorType == Enum.CreatorType.Group and ownerIndex == 1 then
 				for pos, group in pairs(self.dropdownContent) do

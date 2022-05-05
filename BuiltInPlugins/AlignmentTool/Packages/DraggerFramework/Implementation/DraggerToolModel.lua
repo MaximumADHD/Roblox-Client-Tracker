@@ -11,6 +11,8 @@ local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
 local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
 local classifyPivot = require(DraggerFramework.Utility.classifyPivot)
 
+local getFFlagDraggerHandlesIsEnabledFunction = require(DraggerFramework.Flags.getFFlagDraggerHandlesIsEnabledFunction)
+
 local DraggerToolModel = {}
 DraggerToolModel.__index = DraggerToolModel
 
@@ -75,7 +77,10 @@ function DraggerToolModel.new(draggerContext, draggerSchema, draggerSettings,
 	return setmetatable({
 		_lastMouseClickTime = 0,
 		_lastMouseClickLocation = Vector2.new(-1, -1),
-		_handlesList = draggerSettingsOrDefault.HandlesList,
+		-- deprecated/remove with getFFlagDraggerHandlesIsEnabledFunction()
+		_handlesList = if not getFFlagDraggerHandlesIsEnabledFunction() then draggerSettingsOrDefault.HandlesList else nil,
+		_allHandlesList = if getFFlagDraggerHandlesIsEnabledFunction() then draggerSettingsOrDefault.HandlesList else nil,
+		_enabledHandlesList = if getFFlagDraggerHandlesIsEnabledFunction() then draggerSettingsOrDefault.HandlesList else nil,
 		_draggerContext = draggerContext,
 		_draggerSchema = draggerSchema,
 		_modelProps = draggerSettingsOrDefault,
@@ -165,7 +170,7 @@ function DraggerToolModel:getSchema()
 end
 
 function DraggerToolModel:getHandlesList()
-	return self._handlesList
+	return if getFFlagDraggerHandlesIsEnabledFunction() then self._enabledHandlesList else self._handlesList
 end
 
 function DraggerToolModel:doesAllowDragSelect()
@@ -261,7 +266,9 @@ function DraggerToolModel:_processSelected()
 		end)
 
 	self:_updateSelectionInfo()
-
+	if getFFlagDraggerHandlesIsEnabledFunction() then
+		self:_updateEnabledHandlesList()
+	end
 	self._stateObject:enter()
 
 	self:_analyticsSessionBegin()
@@ -291,9 +298,29 @@ function DraggerToolModel:_processDeselected()
 	self:_analyticsSendSession()
 end
 
+if getFFlagDraggerHandlesIsEnabledFunction() then
+	function DraggerToolModel:_updateEnabledHandlesList()
+		self._enabledHandlesList = {}
+		if self._allHandlesList then
+			for _, handle in pairs(self._allHandlesList) do
+				if not handle._props or not handle._props.IsEnabledFunction then
+					-- if there is no test function, it is always enabled
+					table.insert(self._enabledHandlesList, handle)
+				elseif handle._props.IsEnabledFunction(self._selectionInfo) then
+					table.insert(self._enabledHandlesList, handle)
+				end
+			end
+		end
+	end
+end
+
 function DraggerToolModel:_processSelectionChanged()
 	self:_updateSelectionInfo()
 	self._stateObject:processSelectionChanged()
+	if getFFlagDraggerHandlesIsEnabledFunction() then
+		self:_updateEnabledHandlesList()
+	end
+
 	self:_scheduleRender()
 end
 
@@ -355,7 +382,7 @@ function DraggerToolModel:_processViewChanged()
 end
 
 function DraggerToolModel:_updateHandles()
-	for _, handle in pairs(self._handlesList) do
+	for _, handle in pairs(if getFFlagDraggerHandlesIsEnabledFunction() then self._enabledHandlesList else self._handlesList) do
 		if handle.update then
 			handle:update(self, self._selectionInfo)
 		end

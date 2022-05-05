@@ -2,6 +2,10 @@ local Workspace = game:GetService("Workspace")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local DraggerFramework = Plugin.Packages.DraggerFramework
+local RigUtils = require(Plugin.Src.Util.RigUtils)
+
+local GetFFlagBoneAdornmentSelection = require(Plugin.LuaFlags.GetFFlagBoneAdornmentSelection)
+
 local shouldDragAsFace = require(DraggerFramework.Utility.shouldDragAsFace)
 
 local EngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)()
@@ -220,6 +224,19 @@ function BoundingBoxUtils.computeInfo(draggerContext, selectedObjects)
 				table.insert(allParts, instance)
 				allPartSet[instance] = true
 				basisCFrame = instance.CFrame
+				if GetFFlagBoneAdornmentSelection() then 
+					local strippedBone = RigUtils.getBoneFromBoneNode(instance.Name)
+					local bone = RigUtils.getBoneByName(draggerContext.RootInstance, strippedBone)
+					if bone then 
+						table.insert(allBones, bone)
+					else
+						local boneName = draggerContext.BoneLinksToBone[instance.Name]
+						bone = RigUtils.getBoneByName(draggerContext.RootInstance, boneName)
+						if bone then
+							table.insert(allBones, bone)
+						end
+					end
+				end
 			end
 		elseif shouldDragAsFace(instance) then
 			table.insert(allInstancesWithConfigurableFace, instance)

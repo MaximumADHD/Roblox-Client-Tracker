@@ -1,8 +1,10 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Rodux = require(Plugin.Packages.Rodux)
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
-local UILibraryWrapper = require(Plugin.Packages.Framework).ContextServices.UILibraryWrapper
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local UILibraryWrapper = ContextServices.UILibraryWrapper
+local UILibrary = require(Plugin.Packages.UILibrary)
 local Http = require(Plugin.Packages.Http)
 
 local NetworkingContext = require(Plugin.Src.ContextServices.NetworkingContext)
@@ -29,5 +31,5 @@ return {
 	localization = localization,
 	store = ContextServices.Store.new(store),
 	networking = NetworkingContext.new(networkingImpl),
-	uiLibraryWrapper = UILibraryWrapper.new(),
+	uiLibraryWrapper = UILibraryWrapper.new(UILibrary),
 }

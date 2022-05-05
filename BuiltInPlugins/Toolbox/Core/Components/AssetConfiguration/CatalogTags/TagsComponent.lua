@@ -19,6 +19,8 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
+local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
+
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
@@ -35,10 +37,10 @@ local TagsUtil = require(Util.TagsUtil)
 local Framework = require(Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local StyleModifier = require(Packages.Framework).Util.StyleModifier
+local StyleModifier = Framework.Util.StyleModifier
+local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Framework.Util.GetTextSize else nil
 
 local RoundBox = Framework.UI.Decoration.RoundBox
-local Pane = Framework.UI.Pane
 
 local Components = Plugin.Core.Components
 local DropdownItemsList = require(Components.DropdownItemsList)
@@ -245,7 +247,13 @@ function TagsComponent:renderContents(theme, localization, localizedContent)
 	for i = 1, #props.tags do
 		local tag = props.tags[i]
 
-		local textSize = Constants.getTextSize(
+		local textSize = if FFlagRemoveUILibraryGetTextSize then GetTextSize(
+			tag.localizedDisplayName,
+			Constants.FONT_SIZE_TITLE,
+			Constants.FONT,
+			Vector2.new(0, 0)
+		)
+		else Constants.getTextSize(
 			tag.localizedDisplayName,
 			Constants.FONT_SIZE_TITLE,
 			Constants.FONT

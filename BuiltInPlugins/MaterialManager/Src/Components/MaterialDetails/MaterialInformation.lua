@@ -75,9 +75,9 @@ type _Style = {
 
 local changeHistoryService = game:GetService("ChangeHistoryService")
 
-local MaterialOptions = Roact.PureComponent:extend("MaterialInformation")
+local MaterialInformation = Roact.PureComponent:extend("MaterialInformation")
 
-function MaterialOptions:init()
+function MaterialInformation:init()
 	self.edit = function()
 		local props : _Props = self.props
 		local material : _Types.Material? = props.Material
@@ -112,14 +112,14 @@ function MaterialOptions:init()
 	end
 end
 
-function MaterialOptions:willUnmount()
+function MaterialInformation:willUnmount()
 	if self.materialChangedConnection then
 		self.materialChangedConnection:Disconnect()
 		self.materialChangedConnection = nil
 	end
 end
 
-function MaterialOptions:didMount()
+function MaterialInformation:didMount()
 	local props : _Props = self.props
 	local materialController = props.MaterialController
 	local dispatchSetMaterial = props.dispatchSetMaterial
@@ -131,7 +131,7 @@ function MaterialOptions:didMount()
 	end)
 end
 
-function MaterialOptions:render()
+function MaterialInformation:render()
 	local props : _Props = self.props
 	local style : _Style = props.Stylizer.MaterialDetails
 	local localization = props.Localization
@@ -227,12 +227,12 @@ function MaterialOptions:render()
 	})
 end
 
-MaterialOptions = withContext({
+MaterialInformation = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
 	MaterialController = MaterialController,
 	Stylizer = Stylizer,
-})(MaterialOptions)
+})(MaterialInformation)
 
 return RoactRodux.connect(
 	function(state, props)
@@ -259,4 +259,4 @@ return RoactRodux.connect(
 			end,
 		}
 	end
-)(MaterialOptions)
+)(MaterialInformation)

@@ -1,5 +1,5 @@
-game:DefineFastFlag("EnableVoiceBetaBadgeV2", false)
+game:DefineFastFlag("EnableVoiceBetaBadgeV3", false)
 
 return function()
-    return game:GetFastFlag("EnableVoiceBetaBadgeV2")
+    return game:GetFastFlag("EnableVoiceBetaBadgeV3")
 end

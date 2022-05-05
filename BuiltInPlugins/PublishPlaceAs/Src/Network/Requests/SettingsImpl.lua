@@ -9,7 +9,6 @@
 ]]
 
 local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage2")
-local FFlagStudioEnableUploadNames = game:GetFastFlag("StudioEnableUploadNames")
 
 local StudioService = game:GetService("StudioService")
 local StudioPublishService = game:GetService("StudioPublishService")
@@ -84,10 +83,7 @@ local function saveAll(state, localization, apiImpl, email)
 		game:GetService("StudioPublishService"):SetTeamCreateOnPublishInfo(state.teamCreateEnabled, configuration.name)
 	end
 
-	if FFlagStudioEnableUploadNames then
-		StudioPublishService:setUploadNames(configuration.name, configuration.name)
-	end
-
+	StudioPublishService:setUploadNames(configuration.name, configuration.name)
 	StudioService:publishAs(0, 0, state.creatorId)
 
 	local success, gameId = StudioService.GamePublishFinished:wait()

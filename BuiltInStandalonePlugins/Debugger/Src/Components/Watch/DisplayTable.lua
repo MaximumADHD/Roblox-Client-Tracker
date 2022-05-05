@@ -44,7 +44,6 @@ local UtilFolder = PluginRoot.Src.Util
 local MakePluginActions = require(UtilFolder.MakePluginActions)
 local Constants = require(UtilFolder.Constants)
 
-local FFlagDevFrameworkDoubleClick = game:GetFastFlag("DevFrameworkDoubleClick")
 local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
 local hasTableColumnResizeFFlags = FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize
@@ -363,7 +362,7 @@ function DisplayTable:render()
 		OnFocusLost = self.OnFocusLost,
 		TextInputCols = textInputCols,
 		RightClick = self.onRightClick,
-		OnDoubleClick = FFlagDevFrameworkDoubleClick and self.OnDoubleClick,
+		OnDoubleClick = self.OnDoubleClick,
 		DisableTooltip = false,
 		SortIndex = props.SortIndex,
 		SortOrder = props.SortOrder,

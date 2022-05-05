@@ -9,6 +9,7 @@ local DraggerSchema = require(DraggerSchemaCore.DraggerSchema)
 -- Dragger component
 local DraggerContext_PluginImpl = require(DraggerFramework.Implementation.DraggerContext_PluginImpl)
 local DraggerToolComponent = require(DraggerFramework.DraggerTools.DraggerToolComponent)
+local getFFlagDraggerHandlesIsEnabledFunction = require(DraggerFramework.Flags.getFFlagDraggerHandlesIsEnabledFunction)
 local MoveHandles = require(DraggerFramework.Handles.MoveHandles)
 
 local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
@@ -38,6 +39,17 @@ local function openPlugin()
 		return partMover:moveToWithIk(transform, collisionsMode)
 	end
 
+	local moveHandlesEnabledFunction
+	if getFFlagDraggerHandlesIsEnabledFunction() then
+		moveHandlesEnabledFunction = function (selectionInfo)
+			if selectionInfo and selectionInfo.basisObject then
+				return true
+			else 
+				return false
+			end
+		end
+	end
+
 	pluginHandle = Roact.mount(Roact.createElement(DraggerToolComponent, {
 		Mouse = plugin:GetMouse(),
 
@@ -61,6 +73,7 @@ local function openPlugin()
 					ShowBoundingBox = false,
 					Summonable = true,
 					Outset = getEngineFeatureModelPivotVisual() and 0.3 or nil,
+					IsEnabledFunction = getFFlagDraggerHandlesIsEnabledFunction() and moveHandlesEnabledFunction or nil,
 				}, DraggerSchema.TransformHandlesImplementation.new(
 					draggerContext, ikTransformMoveHandler)),
 			},

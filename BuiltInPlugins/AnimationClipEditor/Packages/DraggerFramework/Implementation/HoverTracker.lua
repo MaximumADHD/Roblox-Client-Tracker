@@ -3,6 +3,7 @@ local Workspace = game:GetService("Workspace")
 
 local DraggerFramework = script.Parent.Parent
 local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
+local getFFlagDraggerHandlesIsEnabledFunction = require(DraggerFramework.Flags.getFFlagDraggerHandlesIsEnabledFunction)
 
 --[[
 	Ignored handle hits: When the ToolImplementation's shouldBiasTowardsObject
@@ -50,7 +51,7 @@ local function isCloser(distance, isOnTop, currentDistance, currentIsOnTop)
 	end
 end
 
-function HoverTracker:update(draggerContext, currentSelection, selectionInfo)
+function HoverTracker:update(draggerContext, currentSelection, selectionInfo, handlesList)
 	assert(currentSelection ~= nil)
 	local oldHoverSelectable = self._hoverSelectable
 
@@ -68,6 +69,10 @@ function HoverTracker:update(draggerContext, currentSelection, selectionInfo)
 		distanceToHover = math.huge
 		self._hoverDistance = math.huge
 		self._hoverPosition = nil
+	end
+
+	if getFFlagDraggerHandlesIsEnabledFunction() then
+		self._handlesList = handlesList
 	end
 
 	self._hoverHandles = nil

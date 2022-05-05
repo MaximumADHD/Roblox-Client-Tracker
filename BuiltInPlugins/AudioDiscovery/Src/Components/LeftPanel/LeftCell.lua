@@ -1,6 +1,3 @@
-local FFlagStudioAudioDiscoveryPluginV2 = game:GetFastFlag("StudioAudioDiscoveryPluginV2")
-local FFlagStudioAudioDiscoveryPluginV5 = game:GetFastFlag("StudioAudioDiscoveryPluginV5")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
@@ -25,12 +22,7 @@ local LeftCell = Roact.PureComponent:extend("LeftCell")
 
 function LeftCell:getContent()
 	local props = self.props
-	local locations
-	if FFlagStudioAudioDiscoveryPluginV5 then
-		locations = props.CellProps.Locations[props.Row.Id] or {}
-	else
-		locations = props.CellProps.Locations[props.Row.Id]
-	end
+	local locations = props.CellProps.Locations[props.Row.Id] or {}
 	if props.ColumnIndex > 1 then
 		local value = props.Value
 		if typeof(props.Value) == "number" then
@@ -77,45 +69,22 @@ function LeftCell:render()
 	local backgroundColor = if (props.RowIndex % 2) == 1 then style.BackgroundOdd else style.BackgroundEven
 	local width = props.Width or UDim.new(1 / #props.Columns, 0)
 	local tooltipText = if props.Value then tostring(props.Value) else nil
-	local locations
-	if FFlagStudioAudioDiscoveryPluginV5 then
-		locations = props.CellProps.Locations[props.Row.Id] or {}
-	else
-		locations = props.CellProps.Locations[props.Row.Id]
-	end
+	local locations = props.CellProps.Locations[props.Row.Id] or {}
 	if props.ColumnIndex == ICON_INDEX then
-		if FFlagStudioAudioDiscoveryPluginV2 then
-			if #locations == 0 then
-				tooltipText = localization:getText("Reason", "Done")
-			elseif props.Value == "ok" then
-				if props.Row.Creator == "Roblox" then
-					tooltipText = localization:getText("Reason", "Roblox")
-				elseif props.Row.Creator == "Monstercat" then
-					tooltipText = localization:getText("Reason", "Monstercat")
-				elseif props.Row.Time < FIntSoundEffectMaxDuration then
-					tooltipText = localization:getText("Reason", "Effect")
-				else
-					tooltipText = localization:getText("Reason", "OK")
-				end
+		if #locations == 0 then
+			tooltipText = localization:getText("Reason", "Done")
+		elseif props.Value == "ok" then
+			if props.Row.Creator == "Roblox" then
+				tooltipText = localization:getText("Reason", "Roblox")
+			elseif props.Row.Creator == "Monstercat" then
+				tooltipText = localization:getText("Reason", "Monstercat")
+			elseif props.Row.Time < FIntSoundEffectMaxDuration then
+				tooltipText = localization:getText("Reason", "Effect")
 			else
-				tooltipText = localization:getText("Reason", "Error")
+				tooltipText = localization:getText("Reason", "OK")
 			end
 		else
-			if props.Value == "ok" then
-				if props.Row.Creator == "Roblox" then
-					tooltipText = localization:getText("Reason", "Roblox")
-				elseif props.Row.Creator == "Monstercat" then
-					tooltipText = localization:getText("Reason", "Monstercat")
-				elseif props.Row.Time < FIntSoundEffectMaxDuration then
-					tooltipText = localization:getText("Reason", "Effect")
-				else
-					tooltipText = localization:getText("Reason", "OK")
-				end
-			elseif #locations == 0 then
-				tooltipText = localization:getText("Reason", "Done")
-			else
-				tooltipText = localization:getText("Reason", "Error")
-			end
+			tooltipText = localization:getText("Reason", "Error")
 		end
 	elseif props.ColumnIndex == CREATOR_INDEX then
 		tooltipText = ("%s %s"):format(props.Row.CreatorType, props.Row.CreatorId)

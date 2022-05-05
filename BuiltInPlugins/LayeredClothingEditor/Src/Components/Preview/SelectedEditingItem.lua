@@ -57,7 +57,7 @@ local function onMannequinChanged(self, regenerated)
 	local mannequinInstance = self.mannequin.model
 	local sourceDisplayItem = self.mannequin.sourceDisplayItem
 	local displayItem = self.mannequin.displayItem
-	AvatarUtil:positionAvatarNextTo(mannequinInstance, sourceDisplayItem, false)
+	AvatarUtil:positionAvatarNextTo(mannequinInstance, sourceDisplayItem, true)
 
 	local size = if regenerated then itemSize else displayItem.Size
 

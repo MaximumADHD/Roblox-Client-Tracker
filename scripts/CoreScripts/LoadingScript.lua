@@ -66,7 +66,7 @@ local InfoProvider = {}
 local function WaitForPlaceId()
 	local placeId = game.PlaceId
 	if placeId == 0 then
-		game:GetPropertyChangedSignal("PlaceId"):wait()
+		game:GetPropertyChangedSignal("PlaceId"):Wait()
 		placeId = game.PlaceId
 	end
 	return placeId
@@ -809,7 +809,7 @@ local function fadeAndDestroyBlackFrame(blackFrame)
 
 		if connectionHealthShown then
 			if UserInputService.TouchEnabled == true and UserInputService.MouseEnabled == false then
-				connectionHealthCon = game:GetService("UserInputService").InputBegan:connect(function()
+				connectionHealthCon = game:GetService("UserInputService").InputBegan:Connect(function()
 					disconnectAndCloseHealthStat()
 				end)
 			else
@@ -867,7 +867,7 @@ local function handleFinishedReplicating()
 			handleRemoveDefaultLoadingGui()
 		else
 			local gameLoadedCon = nil
-			gameLoadedCon = game.Loaded:connect(function()
+			gameLoadedCon = game.Loaded:Connect(function()
 				gameLoadedCon:disconnect()
 				gameLoadedCon = nil
 				waitForCharacterLoaded()

@@ -184,4 +184,12 @@ return{
 	["CoreScripts.InGameMenu.QuickActions.MuteSelf"] = [[Selbst stummschalten]],
 	["CoreScripts.InGameMenu.QuickActions.UnmuteAll"] = [[Alle nicht mehr stummschalten]],
 	["CoreScripts.InGameMenu.QuickActions.UnmuteSelf"] = [[Selbst nicht mehr stummschalten]],
+	["CoreScripts.InGameMenu.BetaBadge.BadgeText"] = [[Beta]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.HeaderList"] = [[Du hast dich für eine oder mehrere unserer Beta-Funktionen entschieden:]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.VoiceChatBullet"] = [[Sprachchat]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.DisclaimerText"] = [[Bitte den melde Missbrauch, wenn jemand unsere Community-Regeln verletzt. Wenn du dich für den Sprachchat entschieden hast, kann Roblox zu Moderations- und Sicherheitszwecken überall auf der Plattform Sprach-Audio aufnehmen. Indem du weiterhin die Sprachchat-Funktion nutzt, stimmst du Roblox' Sammlung, Nutzung und Speicherung deiner Sprachaufzeichnung zu Moderations- und Sicherheitszwecken zu. Du kannst dich jederzeit vom räumlichen Sprachchat abmelden. ]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.LearnMoreLink"] = [[Mehr erfahren]],
+	["CoreScripts.InGameMenu.Controls.DynamicThumbstick"] = [[Dynamischer Thumbstick]],
+	["CoreScripts.InGameMenu.Controls.ClassicThumbstick"] = [[Klassischer Thumbstick]],
+	["CoreScripts.InGameMenu.Controls.TapToMove"] = [[Zum Bewegen tippen]],
 }

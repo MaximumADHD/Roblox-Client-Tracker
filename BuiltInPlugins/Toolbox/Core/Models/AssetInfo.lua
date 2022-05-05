@@ -1,6 +1,9 @@
 --!strict
 local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 
+local Plugin = script:FindFirstAncestor("Toolbox")
+local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
+
 export type AudioDetails = {
 	Type: string?,
 	Artist: string?,
@@ -21,7 +24,6 @@ export type AssetInfoDetails = {
 	Created: string?, -- the date in which the asset was created
 	Updated: string?, -- the date in which the asset was updated
 	HasScripts: boolean, -- whether or not the asset has scripts
-	AudioDetails: AudioDetails?, -- Audio metadata
 }
 
 export type NewAssetInfoDetails = {
@@ -31,7 +33,6 @@ export type NewAssetInfoDetails = {
 	AssetGenres: any, -- a list of genres the asset belongs to
 	Description: string, -- the asset description
 	Status: any,
-	AudioDetails: nil,
 }
 
 export type AssetInfoContext = {
@@ -85,6 +86,7 @@ export type AssetInfo = {
 	Product: AssetInfoProduct?,
 	Thumbnail: AssetInfoThumbnail?,
 	Voting: AssetInfoVoting?,
+	AudioDetails: AudioDetails?,
 }
 
 local AssetInfo = {}
@@ -97,7 +99,6 @@ end
 
 function AssetInfo.fromItemDetailsRequest(data): AssetInfo
 	local result = AssetInfo.new()
-
 	if data.asset then
 		result.Asset = {
 			Id = data.asset.id,
@@ -111,6 +112,17 @@ function AssetInfo.fromItemDetailsRequest(data): AssetInfo
 			Updated = data.asset.updatedUtc,
 			HasScripts = data.asset.hasScripts,
 		}
+
+		if FFlagToolboxAudioDiscovery and data.asset.audioDetails then
+			result.AudioDetails = {
+				Type = data.asset.audioDetails.audioType,
+				Artist = data.asset.audioDetails.artist,
+				MusicAlbum = data.asset.audioDetails.musicAlbum,
+				MusicGenre = data.asset.audioDetails.musicGenre,
+				SoundEffectCategory = data.asset.audioDetails.soundEffectCategory,
+				SoundEffectSubcategory = data.asset.audioDetails.soundEffectSubcategory,
+			}
+		end
 	end
 
 	if data.creator then

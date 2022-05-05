@@ -17,6 +17,7 @@ local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
 local withStyle = UIBlox.Core.Style.withStyle
 local Images = UIBlox.App.ImageSet.Images
+local getIconSize = UIBlox.App.ImageSet.getIconSize
 
 local InGameMenu = script.Parent.Parent.Parent
 
@@ -74,6 +75,8 @@ local CONTEXT_SIDE_PADDING = 24 -- context menu should keep 24 px away from bott
 local CONTEXT_PADDING_TOP = inGameGlobalGuiInset + CONTEXT_SIDE_PADDING -- context side padding + in-game inset
 -- context menu is 20 px away from right bound of player list if there are available space
 local CONTEXT_LEFT_PADDING = 20
+
+local ICON_SIZE = getIconSize(UIBlox.App.ImageSet.Enum.IconSize.Medium)
 
 local PlayersPage = Roact.PureComponent:extend("PlayersPage")
 
@@ -494,7 +497,7 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(style, localized, get
 		titleChildren = GetFFlagEnableVoiceChatNewMuteAll() and self.props.voiceEnabled and Roact.createElement(
 			"ImageButton",
 			{
-				Size = UDim2.fromOffset(36, 36),
+				Size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
 				BackgroundTransparency = 1,
 				AnchorPoint = Vector2.new(1, 0.5),
 				BorderSizePixel = 0,

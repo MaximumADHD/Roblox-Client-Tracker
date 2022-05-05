@@ -9,7 +9,7 @@ game:DefineFastFlag("ImageLocalizationFeatureEnabled", false)
 
 -- Overrides THEME_REFACTOR before require
 local main = script.Parent.Parent
-local RefactorFlags = require(main.Packages.Framework.Util.RefactorFlags)
+local RefactorFlags = require(main.Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
 RefactorFlags.THEME_REFACTOR = game:GetFastFlag("EnableLocalizationToolsStylizer2")
 
 return nil

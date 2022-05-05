@@ -112,6 +112,7 @@ function NetworkInterface:getToolboxItems(
 		minDuration: number?,
 		maxDuration: number?,
 		includeOnlyVerifiedCreators: boolean?,
+		tags: { string }?,
 	},
 	sortType: string?,
 	creatorType: string?,

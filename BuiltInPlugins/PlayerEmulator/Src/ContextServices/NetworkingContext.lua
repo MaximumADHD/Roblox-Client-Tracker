@@ -4,9 +4,10 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local ContextItem = require(Plugin.Packages.Framework).ContextServices.ContextItem
+local Framework = require(Plugin.Packages.Framework)
+local ContextItem = Framework.ContextServices.ContextItem
 -- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
-local Provider = require(Plugin.Packages.Framework).ContextServices.Provider
+local Provider = Framework.ContextServices.Provider
 
 local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 

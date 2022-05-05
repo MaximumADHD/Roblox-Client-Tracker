@@ -151,11 +151,11 @@ function InspectAndBuy:didMount()
 		self:configureInputType(lastInputType)
 	end)
 
-	local viewportSizeListener = workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):connect(function()
+	local viewportSizeListener = workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
 		self:updateView()
 	end)
 
-	local localeListener = LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):connect(function()
+	local localeListener = LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):Connect(function()
 		self.state.store:dispatch(SetLocale(LocalizationService.RobloxLocaleId))
 	end)
 

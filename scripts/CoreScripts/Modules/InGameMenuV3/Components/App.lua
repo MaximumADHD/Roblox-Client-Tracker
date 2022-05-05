@@ -24,6 +24,7 @@ local EducationalPopup = require(script.Parent.EducationalPopup)
 local MenuIconTooltip = require(script.Parent.MenuIconTooltip)
 local FullscreenTitleBar = require(script.Parent.FullscreenTitleBar)
 local QuickActions = require(script.Parent.QuickActions)
+local ScreenOrientationSwitcher = require(script.Parent.ScreenOrientationSwitcher)
 
 local Flags = InGameMenu.Flags
 local FFlagLuaMenuPerfImprovements = require(Flags.FFlagLuaMenuPerfImprovements)
@@ -55,6 +56,7 @@ local function App(props)
 			EducationalPopup = props.isEducationalPopupEnabled and Roact.createElement(EducationalPopup) or nil,
 			MenuIconTooltip = props.isEducationalPopupEnabled and Roact.createElement(MenuIconTooltip) or nil,
 			FullscreenTitleBar = fullscreenTitleBar,
+			ScreenOrientationSwitcher =  Roact.createElement(ScreenOrientationSwitcher),
 		})
 	else
 		return Roact.createFragment({
@@ -71,6 +73,7 @@ local function App(props)
 			MenuIconTooltip = props.isEducationalPopupEnabled and Roact.createElement(MenuIconTooltip) or nil,
 			FullscreenTitleBar = fullscreenTitleBar,
 			QuickActions = Roact.createElement(QuickActions),
+			ScreenOrientationSwitcher =  Roact.createElement(ScreenOrientationSwitcher),
 		})
 	end
 end

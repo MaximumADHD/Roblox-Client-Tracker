@@ -12,7 +12,7 @@
 		function SetSelectedTracks(string) = sets currently selected joint to given string
 ]]
 
-local FFlagFaceControlsEditorUI = game:GetFastFlag("FaceControlsEditorUI")
+local FFlagFaceControlsEditorUI = game:GetFastFlag("FaceControlsEditorUI2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -38,7 +38,7 @@ local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local FaceControlsEditorWindow = Roact.PureComponent:extend("FaceControlsEditorWindow")
 
 local SIZE = Vector2.new(Constants.faceControlsEditorOriginalWidth, 310)
-local MINSIZE = Vector2.new(200, 310)
+local MINSIZE = Vector2.new(185, 110)
 
 local Slider = Framework.UI.Slider
 
@@ -50,9 +50,12 @@ local Checkbox = Framework.UI.Checkbox
 
 local Pane = Framework.UI.Pane
 
+local Button = Framework.UI.Button
+
 local ValueChanged = require(Plugin.Src.Thunks.ValueChanged)
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local SetSymmetryEnabled = require(Plugin.Src.Actions.SetSymmetryEnabled)
+local SetAutoFocusFaceEnabled = require(Plugin.Src.Actions.SetAutoFocusFaceEnabled)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
@@ -69,6 +72,12 @@ local eyesDragBoxControlName = "EyesDragBox"
 
 local eyesDragBoxTooltipText = "EyesLook"
 
+local Util = Framework.Util
+
+local StyleModifier = Util.StyleModifier
+
+local GetFFlagFaceControlsEditorSelectTracks = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorSelectTracks)
+
 function FaceControlsEditorWindow:init()
 	self.state = {
 		Tooltip = nil,
@@ -80,13 +89,16 @@ function FaceControlsEditorWindow:init()
 
 	self.onAbsoluteSizeChange = function(rbx)
 		local panelWidth = rbx.AbsoluteSize.X
-		local panelHeight = rbx.AbsoluteSize.Y
+		local panelHeight = rbx.AbsoluteSize.Y		
 		--min and max clamped values are to not allow scaling the diagrams so small that one can't use the
 		--sliders well anymore, nor so big that the diagram images would become pixelated
-		local scaleFactor = math.clamp(panelWidth / Constants.faceControlsEditorOriginalWidth , 0.3, 1.55)
-		local defaultContentHeight = (Constants.faceControlsEditorDiagramPadding * 2) + (Constants.faceControlsEditorDiagramHeight * 2) + Constants.faceControlsEditoSpacingBetweenDiagrams + Constants.faceControlsEditorTogglesContainerHeight
+		local scaleFactor = math.clamp(panelWidth / Constants.faceControlsEditorOriginalWidth , 0.05, 1.65)
+		local defaultContentHeight = (Constants.faceControlsEditorDiagramPadding) 
+			+ (Constants.faceControlsEditorFaceFrontDiagramHeight + Constants.faceControlsEditorFaceSideDiagramHeight) + Constants.faceControlsEditoSpacingBetweenDiagrams	
 
-		local maxYScaleFactorAllowed = panelHeight / defaultContentHeight
+		local maxYScaleFactorAllowed = (panelHeight - (Constants.faceControlsEditorTogglesContainerHeight 
+			+ (Constants.faceControlsEditorDiagramPadding * 2) ) ) / defaultContentHeight
+
 		scaleFactor = math.min(scaleFactor, maxYScaleFactorAllowed)
 		self:setState({
 			panelWidth = panelWidth,
@@ -196,7 +208,7 @@ function getFacsListData()
 end
 
 function formatNumber(number)
-	local precision = Constants.NUMBER_FACS_PRECISION
+	local precision = Constants.NUMBER_PRECISION
 	return tostring(math.floor(.5 + number * precision) / precision)
 end
 
@@ -232,11 +244,33 @@ function prepAndTriggerSliderContextMenu(self, facs, props, crossMapping, symmet
 	self:showContextMenu()
 end
 
+function getSliderTooltipText(facs, sliderProps)
+	local sliderNameLabel = facs.Name
+	local crossMapping = Constants.FacsCrossMappings[facs.Name]
+	local sliderGroup = crossMapping.sliderGroup
+	local displayValue = formatNumber(sliderProps.currentValue)
+	if sliderGroup then
+		if sliderProps.Tooltip and sliderProps.currentValue == sliderProps.defaultValue then
+			sliderNameLabel = sliderProps.Tooltip
+			displayValue = 0
+		elseif
+			sliderProps.currentValue < 0.5 then
+			sliderNameLabel = sliderGroup[1]
+			displayValue = formatNumber(math.clamp(1- (sliderProps.currentValue * 2), 0, 1))
+		else
+			sliderNameLabel = sliderGroup[2]
+			displayValue = formatNumber( (sliderProps.currentValue - 0.5) * 2) 
+		end
+	end
+
+	return sliderNameLabel..": "..displayValue
+end
+
 function handleSliderOnValueChanged(self, facs, value, minValue, maxValue, sliderProps, crossMapping, sliderGroup, symmetryPartner, symmetryPartnerProps)
 	sliderProps.currentValue = value
 	self:setState(
-		{
-			Tooltip =  facs.Name..": "..formatNumber(sliderProps.currentValue),
+		{						
+			Tooltip =  getSliderTooltipText(facs, sliderProps),
 			Value = math.clamp(sliderProps.currentValue, minValue, maxValue)
 		})
 	local trackName = facs.Name
@@ -354,7 +388,7 @@ function makeFacsOnFaceDiagramSliderUIItems (self, style, localization)
 						Disabled = false,
 						Min = minValue,
 						Max = maxValue,
-						Tooltip = facs.Name..": "..formatNumber(sliderProps.currentValue),
+						Tooltip = getSliderTooltipText(facs, sliderProps),
 						Value = math.clamp(sliderProps.currentValue, minValue, maxValue),
 						--for sliders which control multiple facs properties
 						--the slider fill should go from center towards both ends of slider
@@ -366,6 +400,36 @@ function makeFacsOnFaceDiagramSliderUIItems (self, style, localization)
 						OnChangeBegan = function()
 							local props = self.props
 							props.AddWaypoint()
+							
+							if GetFFlagFaceControlsEditorSelectTracks() then
+								if GetFFlagCurveEditor() then
+									local list = {{facs.Name}}
+									if symmetryPartner then
+										table.insert(list, {symmetryPartner})
+									end
+									if sliderGroup then
+										local groupPartnerName = sliderGroup[2]
+										table.insert(list, {groupPartnerName})
+										if symmetryPartner then
+											table.insert(list, {Constants.FacsCrossMappings[groupPartnerName].symmetryPartner})
+										end																		
+									end
+									self.props.SetSelectedTracks(list)
+								else
+									local list = {facs.Name}
+									if symmetryPartner then
+										table.insert(list, symmetryPartner)
+									end		
+									if sliderGroup then
+										local groupPartnerName = sliderGroup[2]
+										table.insert(list, groupPartnerName)
+										if symmetryPartner then
+											table.insert(list, Constants.FacsCrossMappings[groupPartnerName].symmetryPartner)
+										end		
+									end								
+									self.props.SetSelectedTracks(list)
+								end
+							end
 						end,
 						OnValueChanged = function(value)
 							handleSliderOnValueChanged(self, facs, value, minValue, maxValue, sliderProps, crossMapping, sliderGroup, symmetryPartner, symmetryPartnerProps)
@@ -425,7 +489,14 @@ function makeEyesControlDragBox (self, style, localization)
 		end,
 		OnChangeBegan = function()
 			local props = self.props
-			props.AddWaypoint()
+			props.AddWaypoint()	
+			if GetFFlagFaceControlsEditorSelectTracks() then
+				if GetFFlagCurveEditor() then
+					self.props.SetSelectedTracks({{Constants.FacsNames.EyesLookLeft}, {Constants.FacsNames.EyesLookRight}, {Constants.FacsNames.EyesLookUp}, {Constants.FacsNames.EyesLookDown}})
+				else
+					self.props.SetSelectedTracks({Constants.FacsNames.EyesLookLeft, Constants.FacsNames.EyesLookRight, Constants.FacsNames.EyesLookUp, Constants.FacsNames.EyesLookDown})
+				end	
+			end
 		end,
 		OnValueChanged = function(value)
 			sliderProps.currentValue = value
@@ -616,7 +687,47 @@ function FaceControlsEditorWindow:willUpdate(nextProps)
 			RigUtils.resetAllFacsValuesInFaceControls(lastEditedRig)
 		end
 		resetAllValuesInMapping()
+		handleFocusFace(nextProps)
 	end
+	if nextProps.ShowFaceControlsEditorPanel  ~= self.ShowFaceControlsEditorPanel then
+		if nextProps.ShowFaceControlsEditorPanel == true then
+			handleFocusFace(nextProps)
+		end
+	end
+end
+
+function getFacsKeysWithNonZerovalueCount(animationData, playhead)
+	local count = 0
+
+	if not animationData then return count end
+
+	local instance = animationData.Instances[instanceForFacs]
+	if not instance then return count end
+
+	for i, facsName in pairs(Constants.FacsNames) do
+		local track = instance.Tracks[facsName]
+		if track then
+			local value = KeyframeUtils.getValue(track, playhead)
+			if value and value ~= 0 then
+				count = count + 1
+			end
+		end
+	end		
+	return count
+end
+
+function handleFocusFace(props)
+	if props.AutoFocusFaceEnabled then
+		local currentCamera = game.Workspace.CurrentCamera
+		local faceControls = RigUtils.getFaceControls(props.RootInstance)
+		if faceControls ~= nil then
+			local head = faceControls.Parent
+			local width = 0.75
+			local center = head.Position + head.CFrame.LookVector * (width * 2)
+			currentCamera.CFrame = CFrame.new(center, head.CFrame.Position)
+			currentCamera.Focus = head.CFrame						
+		end
+	end	
 end
 
 function FaceControlsEditorWindow:render()
@@ -647,6 +758,11 @@ function FaceControlsEditorWindow:render()
 		self:getCurrentValues()
 	end
 
+	local facsKeysWithNonZerovalueCount = getFacsKeysWithNonZerovalueCount(animationData, playhead)
+	local resetAllButtonStyleModifier = nil
+	if facsKeysWithNonZerovalueCount == 0 then
+		resetAllButtonStyleModifier = StyleModifier.Disabled-- and  facsKeysCount == 0 or nil
+	end
 	-- create ui elements
 	return Roact.createElement(DockWidget, {
 		Title = localization:getText("Title", "FaceControlsEditor"),
@@ -682,7 +798,7 @@ function FaceControlsEditorWindow:render()
 			{
 				FaceFrontViewImage = Roact.createElement("ImageLabel", {
 					AnchorPoint = Vector2.new(0, 0),
-					Size = UDim2.new(0, Constants.faceControlsEditorDiagramWidth * self.state.scaleFactor, 0, Constants.faceControlsEditorDiagramHeight * self.state.scaleFactor),
+					Size = UDim2.new(0, Constants.faceControlsEditorFaceFrontDiagramWidth * self.state.scaleFactor, 0, Constants.faceControlsEditorFaceFrontDiagramHeight * self.state.scaleFactor),
 					Position = UDim2.new(0, 0, 0, 6),
 					Image = "rbxasset://textures/FaceControlsEditor/face_frontView.png",
 					BackgroundTransparency = 1,
@@ -702,13 +818,13 @@ function FaceControlsEditorWindow:render()
 				BorderSizePixel = 0,
 				BackgroundColor3 = theme.backgroundColor,
 				Size = UDim2.new(1, 0, 0, 213),
-				Position = UDim2.new(0, Constants.faceControlsEditorDiagramPadding, 0,  Constants.faceControlsEditoSpacingBetweenDiagrams + (Constants.faceControlsEditorDiagramHeight * self.state.scaleFactor)),
+				Position = UDim2.new(0, Constants.faceControlsEditorDiagramPadding, 0,  (Constants.faceControlsEditoSpacingBetweenDiagrams + Constants.faceControlsEditorFaceFrontDiagramHeight) * self.state.scaleFactor),
 				BackgroundTransparency = 1,
 			},	{
 
 				SideviewImage = Roact.createElement("ImageLabel", {
 					AnchorPoint = Vector2.new(0, 0),
-					Size = UDim2.new(0, Constants.faceControlsEditorDiagramWidth * self.state.scaleFactor, 0, Constants.faceControlsEditorDiagramHeight * self.state.scaleFactor),
+					Size = UDim2.new(0, Constants.faceControlsEditorFaceSideDiagramWidth * self.state.scaleFactor, 0, Constants.faceControlsEditorFaceSideDiagramHeight * self.state.scaleFactor),
 					Position = UDim2.new(0, 0, 0, 0),
 					Image = "rbxasset://textures/FaceControlsEditor/face_sideView.png",
 					BackgroundTransparency = 1,
@@ -723,7 +839,7 @@ function FaceControlsEditorWindow:render()
 			}),
 
 
-			AdditionalTogglesContainer = Roact.createElement("Frame", {
+			AdditionalControlsContainer = Roact.createElement("Frame", {
 				AnchorPoint = Vector2.new(0,0),
 				BorderSizePixel = 0,
 				BackgroundTransparency = 1,
@@ -744,9 +860,41 @@ function FaceControlsEditorWindow:render()
 						self.props.SymmetryEnabled = not self.props.SymmetryEnabled
 						self.props.SetSymmetryEnabled(self.props.SymmetryEnabled)
 					end,
-					LayoutOrder = 2,
+					LayoutOrder = 1,
 					ZIndex = 401,
 				}),
+				CheckboxAutoFocusFace = Roact.createElement(Checkbox, {
+					Text = localization:getText("Title", "AutoFocusFace"),
+					Checked = self.props.AutoFocusFaceEnabled,
+					size = self.props.elementSize,
+					LayoutOrder = 2,
+					OnClick = function(key)
+						self.props.AutoFocusFaceEnabled = not self.props.AutoFocusFaceEnabled
+						self.props.SetAutoFocusFaceEnabled(self.props.AutoFocusFaceEnabled)
+						handleFocusFace(self.props)
+					end,
+				}),					
+				ResetAllButton = Roact.createElement(Button, {
+					Text = localization:getText("Title", "ResetAll"),
+					Size = UDim2.new(0, 100, 0, 24),
+					Style = "RoundPrimary",
+					StyleModifier = resetAllButtonStyleModifier,
+					LayoutOrder = 3,
+					OnClick = function() 
+						props.AddWaypoint()
+						RigUtils.resetAllFacsValuesInFaceControls(props.RootInstance)
+						local instance = animationData.Instances[instanceForFacs]
+						resetAllValuesInMapping()
+						for i, facsName in pairs(Constants.FacsNames) do
+							local track = instance.Tracks[facsName]
+							if track then
+								if KeyframeUtils.getValue(track, props.Playhead) then
+									triggerValueChanged(props, facsName, 0)
+								end
+							end
+						end												
+					end,
+				}),							
 			})
 		})
 	})
@@ -766,6 +914,7 @@ local function mapStateToProps(state, props)
 		AnimationData = state.AnimationData,
 		DefaultRotationType = status.DefaultRotationType,
 		SymmetryEnabled = status.SymmetryEnabled,
+		AutoFocusFaceEnabled = status.AutoFocusFaceEnabled,
 	}
 end
 
@@ -787,10 +936,14 @@ local function mapDispatchToProps(dispatch)
 		AddWaypoint = function()
 			dispatch(AddWaypoint())
 		end,
-
+		
 		SetSymmetryEnabled = function(symmetryEnabled)
 			dispatch(SetSymmetryEnabled(symmetryEnabled))
-		end,
+		end,			
+
+		SetAutoFocusFaceEnabled = function(autoFocusFaceEnabled)
+			dispatch(SetAutoFocusFaceEnabled(autoFocusFaceEnabled))
+		end,		
 	}
 end
 

@@ -77,6 +77,8 @@ local Constants = require(RobloxGui:WaitForChild("Modules"):WaitForChild("InGame
 local CoreUtility = require(RobloxGui.Modules.CoreUtility)
 local IsDeveloperConsoleEnabled = require(RobloxGui.Modules.DevConsole.IsDeveloperConsoleEnabled)
 
+local PlayerPermissionsModule = require(RobloxGui.Modules.PlayerPermissionsModule)
+
 ------------ Variables -------------------
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 RobloxGui:WaitForChild("Modules"):WaitForChild("Settings"):WaitForChild("SettingsHub")
@@ -163,6 +165,7 @@ local function reportSettingsForAnalytics()
 end
 
 --------------- FLAGS ----------------
+local FIntCanManageLuaRolloutPercentage = game:DefineFastInt("CanManageLuaRolloutPercentage", 0)
 
 ----------- CLASS DECLARATION --------------
 
@@ -1583,20 +1586,26 @@ local function Initialize()
 		else
 			spawn(function()
 				--only show option if player has edit access
-				local canManageSuccess, canManageResult = pcall(function()
-				local url = string.format("/users/%d/canmanage/%d", game:GetService("Players").LocalPlayer.UserId, game.PlaceId)
-					return HttpRbxApiService:GetAsync(url, Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Default, true)
-				end)
-				if canManageSuccess and type(canManageResult) == "string" then
-					-- API returns: {"Success":BOOLEAN,"CanManage":BOOLEAN}
-					-- Convert from JSON to a table
-					-- pcall in case of invalid JSON
-					local success, result = pcall(function()
-						return HttpService:JSONDecode(canManageResult)
-					end)
-
-					if success and result.CanManage == true then
+				if (Players.LocalPlayer.UserId % 100) + 1 <= FIntCanManageLuaRolloutPercentage then
+					if PlayerPermissionsModule.CanPlayerManagePlaceAsync(Players.LocalPlayer) then
 						makeDevConsoleOption()
+					end
+				else
+					local canManageSuccess, canManageResult = pcall(function()
+						local url = string.format("/users/%d/canmanage/%d", game:GetService("Players").LocalPlayer.UserId, game.PlaceId)
+						return HttpRbxApiService:GetAsync(url, Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Default, true)
+					end)
+					if canManageSuccess and type(canManageResult) == "string" then
+						-- API returns: {"Success":BOOLEAN,"CanManage":BOOLEAN}
+						-- Convert from JSON to a table
+						-- pcall in case of invalid JSON
+						local success, result = pcall(function()
+							return HttpService:JSONDecode(canManageResult)
+						end)
+	
+						if success and result.CanManage == true then
+							makeDevConsoleOption()
+						end
 					end
 				end
 			end)

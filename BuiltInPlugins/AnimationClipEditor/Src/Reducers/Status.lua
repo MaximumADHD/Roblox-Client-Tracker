@@ -46,13 +46,14 @@ return Rodux.createReducer({
 	UnusedFacs = {},
 	IsDirty = false,
 	PinnedParts = {},
-
+	BoneLinksToBone = {},
 	EventEditingTick = nil,
 	VisualizeBones = true,
 	FrameRate = Constants.DEFAULT_FRAMERATE,
 	DefaultRotationType = Constants.DEFAULT_ROTATION_TYPE,
 	EditorMode = Constants.EDITOR_MODE.DopeSheet,
 	SymmetryEnabled = false,
+	AutoFocusFaceEnabled = false,
 	DefaultEulerAnglesOrder = Enum.RotationOrder.XYZ,
 }, {
 	SetActive = function(state, action)
@@ -285,6 +286,12 @@ return Rodux.createReducer({
 		})
 	end,
 
+	SetBoneLinksToBone = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			BoneLinksToBone = action.boneLinksToBone,
+		})
+	end,
+
 	SetStartingPose = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			StartingPose = action.startingPose,
@@ -320,4 +327,10 @@ return Rodux.createReducer({
 			SymmetryEnabled = action.symmetryEnabled,
 		})
 	end,
+	
+	SetAutoFocusFaceEnabled = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			AutoFocusFaceEnabled = action.autoFocusFaceEnabled,
+		})
+	end,	
 })

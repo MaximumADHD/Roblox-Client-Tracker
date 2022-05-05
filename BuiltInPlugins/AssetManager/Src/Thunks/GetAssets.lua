@@ -3,6 +3,7 @@ local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 
 local SetAssets = require(Plugin.Src.Actions.SetAssets)
+local SetAssetsModerationData = require(Plugin.Src.Actions.SetAssetsModerationData)
 local SetIsFetchingAssets = require(Plugin.Src.Actions.SetIsFetchingAssets)
 local SetHasLinkedScripts = require(Plugin.Src.Actions.SetHasLinkedScripts)
 
@@ -19,6 +20,7 @@ local FIntStudioAssetManagerAssetFetchNumber = game:GetFastInt("StudioAssetManag
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 local FFlagAssetManagerRefactorPath = game:GetFastFlag("AssetManagerRefactorPath")
+local FFlagStudioAssetManagerAssetModeration = game:GetFastFlag("StudioAssetManagerAssetModeration")
 
 local numberOfAssetsToFetch = FIntStudioAssetManagerAssetFetchNumber
 
@@ -37,6 +39,7 @@ if FFlagAssetManagerRefactorPath then
             }
 
             loadedAssets.assets = {}
+            loadedAssets.assetsModerationData = {}
             if pageCursor or (pageNumber and pageNumber ~= 1) then
                 loadedAssets = state.AssetManagerReducer.assetsTable
             end
@@ -92,6 +95,7 @@ if FFlagAssetManagerRefactorPath then
                     ["Meshes/"] = isMesh,
                     ["Scripts/"] = isScript,
                     ["Audio/"] = isAudio,
+                    ["Video/"] = isVideo,
                     ["Models/"] = isModel,
                 }
 
@@ -106,12 +110,37 @@ if FFlagAssetManagerRefactorPath then
 
             if requestPromise then
                 requestPromise:andThen(GetAssetResponse(loadedAssets, path, state, page, aliases))
-                :andThen(function(assets, index, hasLinkedScripts)
+                :andThen(function(apiImpl, assets, index, hasLinkedScripts)
                     if isAlias then
                         store:dispatch(SetHasLinkedScripts(hasLinkedScripts))
                     end
                     store:dispatch(SetIsFetchingAssets(false))
                     store:dispatch(SetAssets(assets, index))
+
+                    if FFlagStudioAssetManagerAssetModeration then
+                        local assetIds = {}
+                        for _, asset in pairs(assets) do
+                            table.insert(assetIds, asset.id)
+                        end
+
+                        requestPromise = apiImpl.Develop.V1.Assets.assets(assetIds):makeRequest()
+                        :andThen(function(response)
+                            local body = response.responseBody
+                            for _, asset in pairs(body.data) do
+                                    assetModerationData = {
+                                        reviewStatus = asset.reviewStatus,
+                                        isModerated = asset.isModerated,
+                                        moderationStatus = asset.moderationStatus
+                                    }
+                                    assets.assetsModerationData = Cryo.Dictionary.join(assets.assetsModerationData, {
+                                        [asset.id] = assetModerationData,
+                                    })
+                            end
+                            store:dispatch(SetAssetsModerationData(assets.assetsModerationData))
+                        end, function()
+                            error("Failed to load asset information")
+                        end)
+                    end
                 end)
             end
         end
@@ -132,6 +161,8 @@ else
             }
 
             newAssets.assets = {}
+            newAssets.assetsModerationData = {}
+            local assetIds = {}
             local index = 1
             if pageCursor or (pageNumber and pageNumber ~= 1) then
                 newAssets = state.AssetManagerReducer.assetsTable
@@ -223,11 +254,34 @@ else
                                 [sAssetAliasId] = assetAlias,
                             })
                             index = index + 1
+                            if FFlagStudioAssetManagerAssetModeration then
+                                table.insert(assetIds, assetAlias.id)
+                            end
                         end
                     end
                     store:dispatch(SetHasLinkedScripts(hasLinkedScripts))
                     store:dispatch(SetIsFetchingAssets(false))
                     store:dispatch(SetAssets(newAssets, index))
+
+                    if FFlagStudioAssetManagerAssetModeration then
+                        requestPromise = apiImpl.Develop.V1.Assets.assets(assetIds):makeRequest()
+                        :andThen(function(response)
+                            local body = response.responseBody
+                            for _, asset in pairs(body.data) do
+                                    assetModerationData = {
+                                        reviewStatus = asset.reviewStatus,
+                                        isModerated = asset.isModerated,
+                                        moderationStatus = asset.moderationStatus
+                                    }
+                                    newAssets.assetsModerationData = Cryo.Dictionary.join(newAssets.assetsModerationData, {
+                                        [asset.id] = assetModerationData,
+                                    })
+                            end
+                            store:dispatch(SetAssetsModerationData(newAssets.assetsModerationData))
+                        end, function()
+                            error("Failed to load asset information")
+                        end)
+                    end
                 end, function()
                     store:dispatch(SetIsFetchingAssets(false))
                     error("Failed to load aliases")
@@ -254,10 +308,33 @@ else
                             [sAssetId] = newAsset,
                         })
                         index = index + 1
+                        if FFlagStudioAssetManagerAssetModeration then
+                            table.insert(assetIds, newAsset.id)
+                        end
                     end
 
                     store:dispatch(SetIsFetchingAssets(false))
                     store:dispatch(SetAssets(newAssets, index))
+
+                    if FFlagStudioAssetManagerAssetModeration then
+                        requestPromise = apiImpl.Develop.V1.Assets.assets(assetIds):makeRequest()
+                        :andThen(function(response)
+                            local body = response.responseBody
+                            for _, asset in pairs(body.data) do
+                                    assetModerationData = {
+                                        reviewStatus = asset.reviewStatus,
+                                        isModerated = asset.isModerated,
+                                        moderationStatus = asset.moderationStatus
+                                    }
+                                    newAssets.assetsModerationData = Cryo.Dictionary.join(newAssets.assetsModerationData, {
+                                        [asset.id] = assetModerationData,
+                                    })
+                            end
+                            store:dispatch(SetAssetsModerationData(newAssets.assetsModerationData))
+                        end, function()
+                            error("Failed to load asset information")
+                        end)
+                    end
                 end)
             end
         end

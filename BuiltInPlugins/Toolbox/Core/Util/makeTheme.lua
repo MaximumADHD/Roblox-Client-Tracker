@@ -2,9 +2,9 @@ local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategoriz
 local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
 local FFlagToolboxAssetStyleUpdate2 = game:GetFastFlag("ToolboxAssetStyleUpdate2")
 local FFlagAssetConfigDistributionQuotas = game:GetFastFlag("AssetConfigDistributionQuotas")
-local FFlagToolboxAudioDiscovery = game:GetFastFlag("ToolboxAudioDiscovery")
 
-local Plugin = script.Parent.Parent.Parent
+local Plugin = script:FindFirstAncestor("Toolbox")
+local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 
 local Images = require(Plugin.Core.Util.Images)
 
@@ -56,6 +56,8 @@ local makeTheme = function(themeExtension, themeClass)
 		[StyleKey.Toolbox_AudioPlayerIndicatorColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#555555") or nil,
 		[StyleKey.Toolbox_AudioPlayerIndicatorBorderColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#555555")
 			or nil,
+		[StyleKey.Toolbox_AudioTabTextColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#3B3B3B") or nil,
+		[StyleKey.Toolbox_AudioTabSelectedTextColor] = FFlagToolboxAudioDiscovery and StyleColors.White or nil,
 		[StyleKey.Toolbox_DeleteIconColor] = Color3.fromRGB(136, 136, 136),
 		[StyleKey.Toolbox_DropdownItemSelectedColor] = StyleColors.Blue_Dark,
 		[StyleKey.Toolbox_DropdownIconColor] = StyleColors.White,
@@ -125,6 +127,8 @@ local makeTheme = function(themeExtension, themeClass)
 		[StyleKey.Toolbox_AudioRowHeaderTextColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#3B3B3B"),
 		[StyleKey.Toolbox_AudioRowTitleTextColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#0055AC"),
 		[StyleKey.Toolbox_AudioRowTextColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#171717") or nil,
+		[StyleKey.Toolbox_AudioTabTextColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#3B3B3B") or nil,
+		[StyleKey.Toolbox_AudioTabSelectedTextColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#FAFAFA") or nil,
 		[StyleKey.Toolbox_DeleteIconColor] = Color3.fromRGB(184, 184, 184),
 		[StyleKey.Toolbox_DropdownItemSelectedColor] = StyleColors.Blue_Light,
 		[StyleKey.Toolbox_DropdownIconColor] = Color3.fromRGB(25, 25, 25),
@@ -244,6 +248,13 @@ local makeTheme = function(themeExtension, themeClass)
 			insertButtonColor = Color3.fromHex("#0077D6"),
 			insertButtonTextColor = Colors.WHITE,
 		} or nil,
+
+		audioTabs = FFlagToolboxAudioDiscovery and {
+			backgroundButtonColor = StyleKey.Toolbox_AudioPlayerBackgroundColor,
+			selectedButtonColor = Color3.fromHex("#0077D6"),
+			selectedTextColor = StyleKey.Toolbox_AudioTabSelectedTextColor,
+			textColor = StyleKey.Toolbox_AudioTabTextColor,
+		},
 
 		creatorName = {
 			textColor = StyleKey.SubText,

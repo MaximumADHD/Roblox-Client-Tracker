@@ -17,6 +17,8 @@
 ]]
 local PLACEHOLDER_TAX_RATE = 0.90
 
+local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
@@ -34,7 +36,7 @@ local withContext = ContextServices.withContext
 
 local RoundFrame = UILibrary.Component.RoundFrame
 local TextEntry = UILibrary.Component.TextEntry
-local GetTextSize = UILibrary.Util.GetTextSize
+local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Util.GetTextSize else UILibrary.Util.GetTextSize
 
 local RobuxFeeBase = Roact.PureComponent:extend("RobuxFeeBase")
 

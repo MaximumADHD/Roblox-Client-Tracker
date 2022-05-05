@@ -6,25 +6,25 @@
 	determined by the content.
 
 	Necessary props:
-		Size UDim2, used to determin how big the button should be.
-		Text String,  the text content of the button.
+		Size UDim2, used to determine how big the button should be.
+		Text String, the text content of the button.
 
 	Optional pros:
-		LayoutOrder number, will be used by the parent layouter to change this componnet's position.
+		LayoutOrder number, will be used by the parent layouter to change this component's position.
 		onActivated function, the function that will be called when this button is clicked
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent
+
+local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
 
 local Util = Plugin.Core.Util
-local ContextHelper = require(Util.ContextHelper)
-local getTextSize = require(Util.getTextSize)
+local getTextSize = if FFlagRemoveUILibraryGetTextSize then Framework.Util.GetTextSize else require(Util.getTextSize)
 local Constants = require(Util.Constants)
 
-local withTheme = ContextHelper.withTheme
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 

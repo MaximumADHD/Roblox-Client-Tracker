@@ -11,8 +11,15 @@ local SetFromVariantInstance = require(Actions.SetFromVariantInstance)
 local SetMetalnessMap = require(Actions.SetMetalnessMap)
 local SetNormalMap = require(Actions.SetNormalMap)
 local SetRoughnessMap = require(Actions.SetRoughnessMap)
+local SetStudsPerTile = require(Actions.SetStudsPerTile)
+local SetMaterialPattern = require(Actions.SetMaterialPattern)
 local ClearMaterialVariant = require(Actions.ClearMaterialVariant)
 local SetMode = require(Actions.SetMode)
+local getMaterialPatterns = require(Plugin.Src.Util.getMaterialPatterns)
+
+local DEFAULT_STUDS_PER_TILE = 10
+local materialPatterns = getMaterialPatterns()
+local DEFAULT_MATERIAL_PATTERN = materialPatterns[1]
 
 export type State = {
 	Name : string,
@@ -21,10 +28,17 @@ export type State = {
 	MetalnessMap : _Types.TextureMap?,
 	NormalMap : _Types.TextureMap?,
 	RoughnessMap : _Types.TextureMap?,
-	Mode : string?
+	Mode : string?,
+	StudsPerTile : number,
+	MaterialPattern : Enum.MaterialPattern,
 }
 
-local MaterialPromptReducer = Rodux.createReducer({}, {
+local initialState = {
+	StudsPerTile = DEFAULT_STUDS_PER_TILE,
+	MaterialPattern = DEFAULT_MATERIAL_PATTERN,
+}
+
+local MaterialPromptReducer = Rodux.createReducer(initialState, {
 	[SetName.name] = function(state : State, action : SetName.Payload)
 		return Cryo.Dictionary.join(state, {
 			Name = action.Name,
@@ -61,6 +75,18 @@ local MaterialPromptReducer = Rodux.createReducer({}, {
 		})
 	end,
 
+	[SetStudsPerTile.name] = function(state : State, action : SetStudsPerTile.Payload)
+		return Cryo.Dictionary.join(state, {
+			StudsPerTile = action.StudsPerTile,
+		})
+	end,
+	
+	[SetMaterialPattern.name] = function(state : State, action : SetMaterialPattern.Payload)
+		return Cryo.Dictionary.join(state, {
+			MaterialPattern = action.MaterialPattern,
+		})
+	end,
+
 	[ClearMaterialVariant.name] = function(state : State)
 		return Cryo.Dictionary.join(state, {
 			Name = Cryo.None,
@@ -69,6 +95,8 @@ local MaterialPromptReducer = Rodux.createReducer({}, {
 			MetalnessMap = Cryo.None,
 			NormalMap = Cryo.None,
 			RoughnessMap = Cryo.None,
+			StudsPerTile = initialState.StudsPerTile,
+			MaterialPattern = initialState.MaterialPattern,
 		})
 	end,
 	
@@ -80,6 +108,8 @@ local MaterialPromptReducer = Rodux.createReducer({}, {
 			MetalnessMap = action.MetalnessMap ~= "" and { assetId = action.MetalnessMap } or Cryo.None,
 			NormalMap = action.NormalMap ~= "" and { assetId = action.NormalMap } or Cryo.None,
 			RoughnessMap = action.RoughnessMap ~= "" and { assetId = action.RoughnessMap } or Cryo.None,
+			StudsPerTile = action.StudsPerTile,
+			MaterialPattern = action.MaterialPattern,
 		})
 	end,
 

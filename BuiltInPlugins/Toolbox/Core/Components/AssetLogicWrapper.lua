@@ -2,7 +2,7 @@
 	A wrapper that sets up full assets functionality, minus the get.
 	It sets up asset insertion, AssetPreview, asset hover, and messageBoxes.
 	Any view that renders Assets should be wrapped by this function.'
-	
+
 	(!) IMPORTANT
 	Make sure withContext is called AFTER wrapping the component with AssetLogicWrapper.
 	Ex: component = AssetLogicWrapper(component)

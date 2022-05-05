@@ -9,7 +9,7 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local UI = require(Plugin.Packages.Framework).UI
+local UI = Framework.UI
 local HoverArea = UI.HoverArea
 
 local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR

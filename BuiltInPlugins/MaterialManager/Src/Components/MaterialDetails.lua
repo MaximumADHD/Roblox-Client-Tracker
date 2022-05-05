@@ -24,6 +24,7 @@ local MaterialDetailsComponents = Plugin.Src.Components.MaterialDetails
 local MaterialHeader = require(MaterialDetailsComponents.MaterialHeader)
 local MaterialInformation = require(MaterialDetailsComponents.MaterialInformation)
 local MaterialTextures = require(MaterialDetailsComponents.MaterialTextures)
+local MaterialAdditional = require(MaterialDetailsComponents.MaterialAdditional)
 local MaterialOverrides = require(MaterialDetailsComponents.MaterialOverrides)
 
 local Util = Plugin.Src.Util
@@ -108,8 +109,13 @@ function MaterialDetails:render()
 					LayoutOrder = layoutOrderIterator:getNextOrder(),
 					OpenPrompt = props.OpenPrompt
 				}),
-				MaterialTextures= if not isBuiltin then
+				MaterialTextures = if not isBuiltin then
 					Roact.createElement(MaterialTextures, {
+						LayoutOrder = layoutOrderIterator:getNextOrder(),
+					})
+					else nil,
+				MaterialAdditional = if not isBuiltin then
+					Roact.createElement(MaterialAdditional, {
 						LayoutOrder = layoutOrderIterator:getNextOrder(),
 					})
 					else nil,

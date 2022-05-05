@@ -16,6 +16,7 @@ local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local AddTrack = require(Plugin.Src.Thunks.AddTrack)
 local SortAndSetTracks = require(Plugin.Src.Thunks.SortAndSetTracks)
 local SetActive = require(Plugin.Src.Actions.SetActive)
+local SetBoneLinksToBone = require(Plugin.Src.Actions.SetBoneLinksToBone)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
@@ -23,6 +24,7 @@ local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAni
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
 local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
+local GetFFlagBoneAdornmentSelection = require(Plugin.LuaFlags.GetFFlagBoneAdornmentSelection)
 
 return function(analytics)
 	return function(store)
@@ -74,7 +76,11 @@ return function(analytics)
 
 		RigUtils.clearMicrobones()
 		if rootInstance and not animationData then
-			RigUtils.updateMicrobones(rootInstance, visualizeBones)
+			if GetFFlagBoneAdornmentSelection() then 
+				store:dispatch(SetBoneLinksToBone(RigUtils.updateMicrobones(rootInstance, visualizeBones)))
+			else 
+				RigUtils.updateMicrobones(rootInstance, visualizeBones)
+			end
 		end
 		store:dispatch(StepAnimation(playhead))
 	end

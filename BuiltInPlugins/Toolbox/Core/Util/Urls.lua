@@ -1,10 +1,14 @@
 --!strict
-local Plugin = script.Parent.Parent.Parent
+local Plugin = script:FindFirstAncestor("Toolbox")
+local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
+
 local Packages = Plugin.Packages
 local Framework = require(Packages.Framework)
 local Dash = Framework.Dash
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Set = LuauPolyfill.Set
+local Object = LuauPolyfill.Object
+local Array = LuauPolyfill.Array
 
 local Category = require(Plugin.Core.Types.Category)
 local Url = require(Plugin.Libs.Http.Url)
@@ -13,6 +17,7 @@ local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
 local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
+local FIntCanManageLuaRolloutPercentage = game:DefineFastInt("CanManageLuaRolloutPercentage", 0)
 
 local Urls = {}
 
@@ -75,6 +80,7 @@ local ROBUX_PURCHASE_URL = Url.BASE_URL .. "upgrades/robux"
 local ROBUX_BALANCE_URL = Url.ECONOMY_URL .. "v1/users/%d/currency"
 
 local CAN_MANAGE_ASSET_URL = Url.API_URL .. "users/%d/canmanage/%d"
+local CAN_MANAGE_ASSET_DEVELOP_URL = Url.DEVELOP_URL .. "v1/user/%d/canmanage/%d"
 local ASSET_PURCHASE_URLV2 = Url.ECONOMY_URL .. "/v2/user-products/%d/purchase"
 
 -- Package Permissions URLs
@@ -129,7 +135,7 @@ function Urls.constructGetAssetsUrl(category, searchTerm, pageSize, page, sortTy
 end
 
 local MIGRATED_ASSET_TYPES
-if game:GetFastFlag("ToolboxAudioDiscovery") then
+if FFlagToolboxAudioDiscovery then
 	MIGRATED_ASSET_TYPES = Set.new({ Category.MUSIC.name, Category.SOUND_EFFECTS.name, Category.UNKNOWN_AUDIO.name })
 	function Urls.usesMarketplaceRoute(category: string): boolean
 		return MIGRATED_ASSET_TYPES:has(category)
@@ -138,6 +144,7 @@ end
 
 function Urls.constructGetToolboxItemsUrl(
 	-- remove string from args union when removing FFlagToolboxAssetCategorization4
+	-- and also remove all the type(args) ~= "string" conditionals
 	args: string | {
 		categoryName: string,
 		sectionName: string?,
@@ -152,6 +159,7 @@ function Urls.constructGetToolboxItemsUrl(
 		maxDuration: number?,
 		includeOnlyVerifiedCreators: boolean?,
 		useCreatorWhitelist: boolean?,
+		tags: { string }?,
 	},
 	sortType: string?,
 	creatorType: string?,
@@ -173,12 +181,17 @@ function Urls.constructGetToolboxItemsUrl(
 		categoryName = args :: string
 	end
 
-	local query = if FFlagToolboxAssetCategorization4
-		then Dash.omit(args, {
-			"categoryName",
-			"sectionName",
-			"ownerId",
-		})
+	local query = if FFlagToolboxAssetCategorization4 and type(args) ~= "string"
+		then Object.assign(
+			{},
+			Dash.omit(args, {
+				"categoryName",
+				"sectionName",
+				"ownerId",
+				"tags",
+			}),
+			{ tags = if FFlagToolboxAudioDiscovery and args.tags then Array.join(args.tags, ",") else nil }
+		)
 		else {
 			creatorType = creatorType,
 			minDuration = minDuration,
@@ -202,7 +215,7 @@ function Urls.constructGetToolboxItemsUrl(
 	if FFlagToolboxAssetCategorization4 and type(args) ~= "string" and args.sectionName then
 		local apiName = Category.ToolboxAssetTypeToEngine[categoryData.assetType].Value
 		targetUrl = string.format("%s/home/%s/section/%s/assets", TOOLBOX_SERVICE_URL, apiName, args.sectionName)
-	elseif game:GetFastFlag("ToolboxAudioDiscovery") and Urls.usesMarketplaceRoute(categoryData.name) then
+	elseif FFlagToolboxAudioDiscovery and Urls.usesMarketplaceRoute(categoryData.name) then
 		targetUrl = string.format("%s/marketplace/%d", TOOLBOX_SERVICE_URL, categoryData.assetType)
 	else
 		local apiName = Category.API_NAMES[categoryName]
@@ -530,8 +543,12 @@ function Urls.constructGetGroupRoleInfoUrl(groupId)
 	return GET_GROUP_ROLE_INFO:format(groupId)
 end
 
-function Urls.constructCanManageAssetUrl(assetId, userId)
-	return CAN_MANAGE_ASSET_URL:format(userId, assetId)
+function Urls.constructCanManageAssetUrl(assetId: number, userId: number)
+	if (userId % 100) + 1 <= FIntCanManageLuaRolloutPercentage then
+		return CAN_MANAGE_ASSET_DEVELOP_URL:format(userId, assetId)
+	else
+		return CAN_MANAGE_ASSET_URL:format(userId, assetId)
+	end
 end
 
 function Urls.constructAssetPurchaseUrl(productId)

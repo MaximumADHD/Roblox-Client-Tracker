@@ -134,7 +134,7 @@ function contextActionButtonCancel(button, inputObject, actionName)
 end
 
 function isSmallScreenDevice()
-	return game:GetService("GuiService"):GetScreenResolution().y <= 320
+	return game:GetService("GuiService"):GetScreenResolution().Y <= 320
 end
 
 

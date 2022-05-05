@@ -1,3 +1,4 @@
+-- TODO: jbousellam - Remove file with FFlagRemoveUILibraryGetTextSize
 --[[
 	Used to calculate the absolute bounds of a string of text.
 	Defaults to medium default font, but can be overridden.

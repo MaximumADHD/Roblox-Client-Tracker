@@ -5,8 +5,9 @@ local FIntPrivateServersMinPrice = game:DefineFastInt("PrivateServersMinPrice", 
 local FIntDevProductsMinPrice = game:DefineFastInt("DevProductsMinPrice", 1)
 local FIntDevProductsMaxPrice = game:DefineFastInt("DevProductsMaxPrice", 1000000000)
 
-local FFlagDeveloperSubscriptionsEnabled = game:GetFastFlag("DeveloperSubscriptionsEnabled")
 local FVariableMaxRobuxPrice = game:DefineFastInt("DeveloperSubscriptionsMaxRobuxPrice", 2000)
+
+local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
 
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
@@ -32,16 +33,15 @@ local FrameworkUI = Framework.UI
 local HoverArea = FrameworkUI.HoverArea
 local Separator = FrameworkUI.Separator
 
-local FrameworkUtil = Framework.Util
-local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
-local FitFrameOnAxis = FrameworkUtil.FitFrame.FitFrameOnAxis
+local LayoutOrderIterator = Util.LayoutOrderIterator
+local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local TitledFrame = UILibrary.Component.TitledFrame
 local RoundTextBox = UILibrary.Component.RoundTextBox
 local RoundFrame = UILibrary.Component.RoundFrame
 local TextEntry = UILibrary.Component.TextEntry
-local GetTextSize = UILibrary.Util.GetTextSize
+local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Util.GetTextSize else UILibrary.Util.GetTextSize
 local BadgeIconThumbnail = require(Plugin.Src.Components.AutoThumbnails.BadgeIconThumbnail)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
@@ -63,6 +63,8 @@ local LoadState = require(Plugin.Src.Util.LoadState)
 local ShouldAllowBadges = require(Plugin.Src.Util.GameSettingsUtilities).shouldAllowBadges
 
 local HttpService = game:GetService("HttpService")
+
+local FFlagDeveloperSubscriptionsEnabled = require(Page.FFlagDeveloperSubscriptionsEnabled)
 
 local Monetization = Roact.PureComponent:extend(script.name)
 

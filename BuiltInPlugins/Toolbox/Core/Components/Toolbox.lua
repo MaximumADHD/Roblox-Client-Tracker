@@ -29,7 +29,6 @@ local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
 local Framework = require(Packages.Framework)
 
-local disableMarketplaceAndRecents = require(Plugin.Core.Util.ToolboxUtilities).disableMarketplaceAndRecents
 local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 
 local SharedPluginConstants = require(Plugin.SharedPluginConstants)
@@ -73,6 +72,7 @@ local IXPContext = require(Plugin.Core.ContextServices.IXPContext)
 
 local HomeTypes = require(Plugin.Core.Types.HomeTypes)
 
+local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
 
@@ -280,24 +280,54 @@ function Toolbox:render()
 	local headerOffset = tabHeight
 
 	local inHomeViewExperiment = false
+	local homeViewAssetTypes : { Enum.AssetType } = {}
 	local selectedAssetType = if FFlagToolboxAssetCategorization4
 		then Category.getEngineAssetType(Category.getCategoryByName(categoryName).assetType)
 		else nil
-	if
-		FFlagToolboxAssetCategorization4
-		and currentTabKey == Category.MARKETPLACE_KEY
-		and table.find(HomeTypes.ENABLED_ASSET_TYPES, selectedAssetType) ~= nil
-		and not ixp:isError()
-		and (not creator or creator == "")
-		and searchTerm == ""
-	then
-		if not ixp:isReady() then
-			-- IXP state has not loaded yet, avoid a flash of (potentially) the wrong content
-			return nil
+
+	if FFlagToolboxAudioDiscovery and FFlagToolboxAssetCategorization4 then
+		if
+			currentTabKey == Category.MARKETPLACE_KEY
+			and not ixp:isError()
+			and (not creator or creator == "")
+			and searchTerm == ""
+		then
+			if not ixp:isReady() then
+				-- IXP state has not loaded yet, avoid a flash of (potentially) the wrong content
+				return nil
+			end
+
+			local ixpVariables = ixp:getVariables()["MarketplaceHomeView"]
+
+			if ixpVariables then
+				if ixpVariables["HomeViewEnabled"] then
+					table.insert(homeViewAssetTypes, Enum.AssetType.Model)
+				end
+				
+				if ixpVariables["2022Q2AudioDiscoveryEnabled"] then
+					table.insert(homeViewAssetTypes, Enum.AssetType.Audio)
+				end
+
+				inHomeViewExperiment = table.find(homeViewAssetTypes, selectedAssetType)
+			end
 		end
-		local ixpVariables = ixp:getVariables()["MarketplaceHomeView"]
-		if ixpVariables then
-			inHomeViewExperiment = ixpVariables["HomeViewEnabled"]
+	else
+		if
+			FFlagToolboxAssetCategorization4
+			and currentTabKey == Category.MARKETPLACE_KEY
+			and table.find(HomeTypes.ENABLED_ASSET_TYPES, selectedAssetType) ~= nil
+			and not ixp:isError()
+			and (not creator or creator == "")
+			and searchTerm == ""
+		then
+			if not ixp:isReady() then
+				-- IXP state has not loaded yet, avoid a flash of (potentially) the wrong content
+				return nil
+			end
+			local ixpVariables = ixp:getVariables()["MarketplaceHomeView"]
+			if ixpVariables then
+				inHomeViewExperiment = ixpVariables["HomeViewEnabled"]
+			end
 		end
 	end
 
@@ -347,6 +377,7 @@ function Toolbox:render()
 				),
 				SortName = Sort.getDefaultSortNameForCategory(categoryName),
 				TryOpenAssetConfig = tryOpenAssetConfig,
+				EnabledAssetTypes = if FFlagToolboxAudioDiscovery then homeViewAssetTypes else nil,
 			})
 			else Roact.createElement(MainView, {
 				Position = UDim2.new(0, 0, 0, headerOffset + Constants.HEADER_HEIGHT + 1),

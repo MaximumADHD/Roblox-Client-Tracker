@@ -68,7 +68,7 @@ local initVoice = function(chatStore)
 		[(Enum::any).VoiceChatState.Failed] = VOICE_STATE.ERROR,
 	}
 
-	local voiceService = VoiceChatServiceManager:getService()
+	local voiceService = VoiceChatServiceManager:GetService()
 	if not voiceService then
 		log:debug("VoiceChatService is not available")
 		return

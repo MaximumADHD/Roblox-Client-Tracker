@@ -92,8 +92,8 @@ return function()
 			local currentSelection = Element.new(XPath.new(CurrentSelectionTextPath))
 
 			local _dropdown = TestHelpers.clickInstanceWithXPath(DropdownIconPath)
-			local dropdownPluginsPath = DropdownScrollingFramePath .. Category.FREE_AUDIO.category
-			TestHelpers.clickInstanceWithXPath(dropdownPluginsPath)
+			local dropdownDecalsPath = DropdownScrollingFramePath .. Category.FREE_DECALS.category
+			TestHelpers.clickInstanceWithXPath(dropdownDecalsPath)
 
 			local _dropdown = TestHelpers.clickInstanceWithXPath(DropdownIconPath)
 			local dropdownModelsPath = DropdownScrollingFramePath .. Category.FREE_MODELS.category

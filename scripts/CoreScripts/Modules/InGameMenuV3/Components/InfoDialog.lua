@@ -16,7 +16,9 @@ local ThemedTextLabel = require(script.Parent.ThemedTextLabel)
 local Divider = require(script.Parent.Divider)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local getIconSize = UIBlox.App.ImageSet.getIconSize
 
+local ICON_SIZE = getIconSize(UIBlox.App.ImageSet.Enum.IconSize.Medium)
 local DIALOG_WIDTH = 312
 local DIALOG_PADDING = 24
 
@@ -93,7 +95,7 @@ function InfoDialog:render()
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
 				Icon = Roact.createElement(ImageSetLabel, {
-					Size = UDim2.new(0, 36, 0, 36),
+					Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
 					BackgroundTransparency = 1,
 					Image = self.props.iconImage,
 					LayoutOrder = 1,

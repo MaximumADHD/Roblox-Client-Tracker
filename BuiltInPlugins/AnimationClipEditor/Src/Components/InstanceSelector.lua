@@ -27,6 +27,7 @@ local SetSelectedTrackInstances = require(Plugin.Src.Actions.SetSelectedTrackIns
 local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagBoneAdornmentSelection = require(Plugin.LuaFlags.GetFFlagBoneAdornmentSelection)
 
 local InstanceSelector = Roact.PureComponent:extend("InstanceSelector")
 
@@ -171,15 +172,70 @@ function InstanceSelector:render()
 	local hoverPart = state.HoverPart
 	local container = props.Container or CoreGui
 	local children = {}
+	local folder = RigUtils.getOrCreateMicroboneFolder()
+
+	if GetFFlagBoneAdornmentSelection() then 
+		local boneLinks = folder:GetChildren()
+		for _, boneLink in pairs(boneLinks) do
+			if boneLink:FindFirstChild("Cone") and boneLink.Cone.Color3 == Constants.BONE_COLOR_SELECTED then 
+				boneLink.Cone.Color3 = Constants.BONE_COLOR_DEFAULT
+				boneLink.Cone.Transparency = Constants.BONE_TRANSPARENCY_DEFAULT
+			end
+			if boneLink:FindFirstChild("Sphere") and boneLink.Sphere.Color3 == Constants.BONE_COLOR_SELECTED then 
+				boneLink.Sphere.Color3 = Constants.BONE_COLOR_DEFAULT
+				boneLink.Sphere.Transparency = Constants.BONE_TRANSPARENCY_DEFAULT
+
+			end
+		end
+	end
 	if props.SelectedTrackInstances then
 		for index, part in ipairs(props.SelectedTrackInstances) do
-			children["SelectionBox" ..index] = Roact.createElement("SelectionBox", {
-				Archivable = false,
-				Adornee = part,
-				LineThickness = 0.01,
-				Transparency = 0.5,
-				SurfaceTransparency = 0.8,
-			})
+			if GetFFlagBoneAdornmentSelection() then 
+				if part.Parent.Name ~=  "RBX_MICROBONE_NODES" then 
+					children["SelectionBox" ..index] = Roact.createElement("SelectionBox", {
+						Archivable = false,
+						Adornee = part,
+						LineThickness = 0.01,
+						Transparency = 0.5,
+						SurfaceTransparency = 0.8,
+					})
+				else 
+					if part and part:FindFirstChild("Cone") then 
+						part.Cone.Color3 = Constants.BONE_COLOR_SELECTED
+					end
+				
+					if part and part:FindFirstChild("Sphere") then 
+						part.Sphere.Color3 = Constants.BONE_COLOR_SELECTED
+					end
+
+					local boneName = props.BoneLinksToBone[part.Name]
+					--if this is a bone link highlight bonenode
+					if boneName then 
+						local boneNameNode = folder:FindFirstChild(boneName .. "Node")
+						if boneNameNode then 
+							boneNameNode.Sphere.Color3 = Constants.BONE_COLOR_SELECTED
+						end
+					-- next check if this is a bone node and then highlight the respective bone links
+					else 				
+						local bone = RigUtils.getBoneFromBoneNode(part.Name)
+						for boneLinkName, correspondingBone in pairs(props.BoneLinksToBone) do
+							if correspondingBone == bone then 
+								local boneLink = folder:FindFirstChild(boneLinkName)
+								boneLink.Cone.Color3 = Constants.BONE_COLOR_SELECTED
+							end
+						end
+						
+					end
+				end
+			else 
+				children["SelectionBox" ..index] = Roact.createElement("SelectionBox", {
+					Archivable = false,
+					Adornee = part,
+					LineThickness = 0.01,
+					Transparency = 0.5,
+					SurfaceTransparency = 0.8,
+				})
+			end
 		end
 	end
 
@@ -231,6 +287,7 @@ local function mapStateToProps(state, props)
 	return {
 		RootInstance = state.Status.RootInstance,
 		SelectedTrackInstances = state.Status.SelectedTrackInstances,
+		BoneLinksToBone = state.Status.BoneLinksToBone,
 	}
 end
 

@@ -3,6 +3,7 @@ local isCli = require(script.Parent.isCli)
 
 local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 local FFlagAssetConfigDistributionQuotas = game:GetFastFlag("AssetConfigDistributionQuotas")
+local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 
 local AssetQuotaTypes = require(Plugin.Core.Types.AssetQuotaTypes)
 
@@ -14,7 +15,7 @@ if isCli() then
 		DisableMarketplaceAndRecents = false,
 		DisableRatings = false,
 		HideNonRelevanceSorts = false,
-		HomeViewEnabledAssetTypes = "Model;Audio",
+		HomeViewEnabledAssetTypes = if FFlagToolboxAudioDiscovery then nil else "Model;Audio",
 		MarketplaceDisabledCategories = "FreePlugins;PaidPlugins;Plugins;FreeVideo",
 		MarketplaceShouldUsePluginCreatorWhitelist = true,
 		DisableAutocomplete = false,
@@ -73,7 +74,7 @@ function ToolboxUtilities.getShouldDisableAutocomplete()
 	return ToolboxPolicy["DisableAutocomplete"]
 end
 
-if FFlagToolboxAssetCategorization4 then
+if FFlagToolboxAssetCategorization4 and not FFlagToolboxAudioDiscovery then
 	function ToolboxUtilities.getHomeViewEnabledAssetTypes()
 		return ToolboxPolicy["HomeViewEnabledAssetTypes"]
 	end

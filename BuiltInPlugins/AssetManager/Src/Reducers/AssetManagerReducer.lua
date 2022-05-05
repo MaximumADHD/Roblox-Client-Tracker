@@ -16,7 +16,7 @@ return Rodux.createReducer({
 	assetsTable = {
 		assets = {},
 		assetPreviewData = {},
-		assetModerationData = {},
+		assetsModerationData = {},
 		index = 0,
 	},
 	bulkImporterRunning = false,
@@ -192,11 +192,11 @@ return Rodux.createReducer({
 		return newState
 	end,
 
-	SetAssetModerationData = FFlagStudioAssetManagerAssetModeration and function(state, action)
+	SetAssetsModerationData = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			assetsTable = Cryo.Dictionary.join(state.assetsTable, {
-				assetModerationData = Cryo.Dictionary.join(state.assetsTable.assetModerationData, action.assetModerationData)
+				assetsModerationData = Cryo.Dictionary.join(state.assetsTable.assetsModerationData, action.assetsModerationData)
 			})
 		})
-	end or nil,
+	end,
 })

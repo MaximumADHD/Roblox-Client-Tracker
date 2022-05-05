@@ -1,5 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 
+local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
+
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
@@ -13,8 +15,9 @@ local StyleModifier = Util.StyleModifier
 local UI = Framework.UI
 local Tooltip = UI.Tooltip
 
+-- TODO: Remove with FFlagRemoveUILibraryGetTextSize
 local UILibrary = require(Plugin.Packages.UILibrary)
-local GetTextSize = UILibrary.Util.GetTextSize
+local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Util.GetTextSize else UILibrary.Util.GetTextSize
 
 local PopUpButton = require(Plugin.Src.Components.PopUpButton)
 local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableAudioImport

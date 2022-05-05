@@ -171,7 +171,7 @@ end
 
 function Invisicam:CornerBehavior(castPoints)
 	local cframe: CFrame = self.humanoidRootPart.CFrame
-	local centerPoint: Vector3 = cframe.p
+	local centerPoint: Vector3 = cframe.Position
 	local rotation = cframe - centerPoint
 	local halfSize = self.char:GetExtentsSize() / 2 --NOTE: Doesn't update w/ limb animations
 	castPoints[#castPoints + 1] = centerPoint
@@ -186,9 +186,9 @@ function Invisicam:CircleBehavior(castPoints)
 		cframe = self.humanoidRootPart.CFrame
 	else
 		local camCFrame: CFrame = self.camera.CoordinateFrame
-		cframe = camCFrame - camCFrame.p + self.humanoidRootPart.Position
+		cframe = camCFrame - camCFrame.Position + self.humanoidRootPart.Position
 	end
-	castPoints[#castPoints + 1] = cframe.p
+	castPoints[#castPoints + 1] = cframe.Position
 	for i = 0, CIRCLE_CASTS - 1 do
 		local angle = (2 * math.pi / CIRCLE_CASTS) * i
 		local offset = 3 * Vector3.new(math.cos(angle), math.sin(angle), 0)

@@ -11,6 +11,8 @@ export type Payload = {
 	MetalnessMap : _Types.TextureMap,
 	NormalMap : _Types.TextureMap,
 	RoughnessMap : _Types.TextureMap,
+	StudsPerTile : number,
+	MaterialPattern : Enum.MaterialPattern,
 }
 
 return Action(script.Name, function(materialVariant : MaterialVariant) : Payload
@@ -22,5 +24,7 @@ return Action(script.Name, function(materialVariant : MaterialVariant) : Payload
 		MetalnessMap = materialVariant.MetalnessMap,
 		NormalMap = materialVariant.NormalMap,
 		RoughnessMap = materialVariant.RoughnessMap,
+		StudsPerTile = materialVariant.StudsPerTile,
+		MaterialPattern = materialVariant.MaterialPattern,
 	}
 end)

@@ -1,5 +1,4 @@
 local FStringPlacePublishRollbackLearnMoreLink = game:GetFastString("PlacePublishRollbackLearnMoreLink")
-local FFlagStudioEnableUploadNames = game:GetFastFlag("StudioEnableUploadNames")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -279,9 +278,7 @@ function ScreenPublishManagement:render()
 					end
 					self.publishParameters = publishParameters
 					self.props.DispatchSetIsPublishing(true)
-					if FFlagStudioEnableUploadNames then
-						StudioPublishService:setUploadNames(name, parentGameName)
-					end
+					StudioPublishService:setUploadNames(name, parentGameName)
 					StudioPublishService:publishAs(parentGame.universeId, placeId, 0, true, publishParameters)
 				end,
 			},

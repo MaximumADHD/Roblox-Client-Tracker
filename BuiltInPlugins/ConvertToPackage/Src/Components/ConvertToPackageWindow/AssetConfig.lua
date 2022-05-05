@@ -43,7 +43,7 @@ function AssetConfig:init(props)
 		-- Those states should be managed by the most common parent. In this case, assetConfig.
 		name = nil,
 		description = nil,
-		owner = nil,
+		owner = game:GetFastFlag("FixPackageOwnerDefault") and {creatorId = game.CreatorId} or nil, -- default owner is game owner
 		genres = {
 			DEFAULT_GENRE
 		},
@@ -52,9 +52,8 @@ function AssetConfig:init(props)
 		allowComment = true,  -- Default to allow comment, but off.
 		commentOn = nil,
 		status = nil,
-
 		isShowChangeDiscardMessageBox = false,
-		groupId = nil,
+		groupId =  (game:GetFastFlag("FixPackageOwnerDefault") and game.CreatorType == Enum.CreatorType.Group and game.CreatorId) or nil, -- if game owner is group, then set groupId
 	}
 		-- Used to fetching name before publish
 	self.tryPublish = function()
@@ -141,13 +140,20 @@ function AssetConfig:init(props)
 			groupId = item.creatorId
 		end
 
-		self:setState({
-			owner =	Cryo.Dictionary.join(self.state.owner or {}, {
-				typeId = item.Key,
-			}),
+		if game:GetFastFlag("FixPackageOwnerDefault") then
+			self:setState({
+				owner =	{creatorId = item.creatorId},
+				groupId = (groupId or "")
+			})
+		else
+			self:setState({
+				owner =	Cryo.Dictionary.join(self.state.owner or {}, {
+					typeId = item.Key,
+				}),
 
-			groupId = (groupId or "")
-		})
+				groupId = (groupId or "")
+			})
+		end
 	end
 
 	self.toggleComment = function(newCommentStatus)

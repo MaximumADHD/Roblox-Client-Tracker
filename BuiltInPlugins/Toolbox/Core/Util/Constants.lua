@@ -7,9 +7,12 @@ local getMaxAudioLength = require(Plugin.Core.Util.ToolboxUtilities).getMaxAudio
 local TextService = game:GetService("TextService")
 local StudioService = game:GetService("StudioService")
 
-local FFlagToolboxUpdateWindowMinSize = game:GetFastFlag("ToolboxUpdateWindowMinSize")
 local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 local FFlagToolboxAssetStyleUpdate2 = game:GetFastFlag("ToolboxAssetStyleUpdate2")
+local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
+local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
+
+local Category = require(Plugin.Core.Types.Category)
 
 local Constants = {}
 
@@ -36,7 +39,9 @@ if FFlagToolboxAssetCategorization4 then
 	Constants.HOMEVIEW_SEARCH_CATEGORY = "Category"
 end
 
+-- TODO: jbousellam - remove with FFlagRemoveUILibraryGetTextSize
 function Constants.getTextSize(text, fontSize, font, frameSize)
+	assert(not FFlagRemoveUILibraryGetTextSize)
 	fontSize = fontSize or Constants.FONT_SIZE_MEDIUM
 	font = font or Constants.FONT
 	frameSize = frameSize or Vector2.new(0, 0)
@@ -173,21 +178,21 @@ local staticPadding = (Constants.MAIN_VIEW_PADDING * 2)
 	+ Constants.SCROLLBAR_PADDING
 local perAssetPadding = Constants.ASSET_WIDTH_NO_PADDING + Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING
 local calculatedMinWidth = staticPadding + (perAssetPadding * Constants.MIN_ASSETS_PER_ROW)
-Constants.TOOLBOX_MIN_WIDTH = if FFlagToolboxUpdateWindowMinSize
-	then math.max(calculatedMinWidth, 270)
-	else calculatedMinWidth
+Constants.TOOLBOX_MIN_WIDTH = math.max(calculatedMinWidth, 270)
 Constants.SEARCH_BAR_WIDTH = Constants.TOOLBOX_MIN_WIDTH - Constants.MAIN_VIEW_PADDING * 2
 
 Constants.TAB_ICON_SIZE = 16
 Constants.TAB_INNER_PADDING = 3
 Constants.TAB_OUTER_PADDING = 8
 
-function Constants.CalculateTabHeaderWidth(text)
+-- TODO: jbousellam - remove with FFlagRemoveUILibraryGetTextSize
+function Constants.DEPRECATED_CalculateTabHeaderWidth(text)
+	assert(not FFlagRemoveUILibraryGetTextSize)
 	local textWidth = Constants.getTextSize(text, nil, Constants.FONT_BOLD).X
 	return textWidth + Constants.TAB_ICON_SIZE + Constants.TAB_INNER_PADDING + Constants.TAB_OUTER_PADDING * 2
 end
 
-Constants.TOOLBOX_MIN_HEIGHT = if FFlagToolboxUpdateWindowMinSize then 380 else 200
+Constants.TOOLBOX_MIN_HEIGHT = 380
 
 Constants.DIST_FROM_BOTTOM_BEFORE_NEXT_PAGE = Constants.ASSET_HEIGHT * 1.2
 
@@ -283,5 +288,61 @@ end
 Constants.TOOLBOX_ITEM_SEARCH_LIMIT = 30
 Constants.PLUGIN_LIBRARY_URL =
 	"https://www.roblox.com/develop/library?CatalogContext=2&SortAggregation=5&LegendExpanded=true&Category=7"
+
+if FFlagToolboxAudioDiscovery then
+	Constants.AUDIO_TABS_HEIGHT = 30
+	Constants.AUDIO_CATEGORY_HEIGHT = 40
+	Constants.AUDIO_PADDING = 11
+	Constants.AUDIO_ROW = {
+		COLUMNS = {
+			ICON = 0,
+			NAME = 1,
+			CATEGORY = 2,
+			GENRE = 3,
+			ARTIST = 4,
+			DURATION = 5,
+		},
+		ICON_SIZE = 18,
+		ROW_HEIGHT = 30,
+		EXPANDED_MUSIC_ROW_HEIGHT = 121,
+		EXPANDED_SOUND_EFFECT_ROW_HEIGHT = 108,
+		EXPANDED_UNCATEGORIZED_ROW_HEIGHT = 56,
+		LEFT_RIGHT_PADDING = 10,
+		TOP_BUTTON_PADDING = 6,
+		BORDER_SIZE = 2,
+	}
+
+	Constants.CalculateAudioColumnSize =
+		function(audioType: string?, column: number, yScale: number?, yOffset: number?): UDim2
+			local yScale = (yScale or 1) :: number
+			local yOffset = (yOffset or 0) :: number
+			local isSoundEffectType = audioType == Category.SOUND_EFFECTS.name
+			local isMusicType = audioType == Category.MUSIC.name
+			local isUncategorized = not isMusicType and not isSoundEffectType
+			local columns = Constants.AUDIO_ROW.COLUMNS
+			local iconColumnWidth = Constants.AUDIO_ROW.ICON_SIZE + (Constants.AUDIO_ROW.LEFT_RIGHT_PADDING * 2)
+			local durationWidth = 50
+
+			if column == columns.ICON then
+				return UDim2.new(0, iconColumnWidth, yScale, yOffset)
+			elseif column == columns.NAME then
+				if isUncategorized then
+					return UDim2.new(1, -iconColumnWidth - durationWidth, yScale, yOffset)
+				else
+					return UDim2.new(0.6, -iconColumnWidth - durationWidth, yScale, yOffset)
+				end
+			elseif column == columns.CATEGORY then
+				return UDim2.new(0.4, 0, yScale, yOffset)
+			elseif column == columns.GENRE then
+				return UDim2.new(0.2, 0, yScale, yOffset)
+			elseif column == columns.ARTIST then
+				return UDim2.new(0.2, 0, yScale, yOffset)
+			elseif column == columns.DURATION then
+				return UDim2.new(0, durationWidth, yScale, yOffset)
+			end
+
+			return UDim2.new(0, 0, 0, 0)
+		end
+end
 
 return wrapStrictTable(Constants, "Constants")

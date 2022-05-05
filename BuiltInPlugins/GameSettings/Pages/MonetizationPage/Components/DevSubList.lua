@@ -8,6 +8,8 @@
         int ListItemHeight = the height in pixels of the list items
 ]]
 
+local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
@@ -30,7 +32,7 @@ local withContext = ContextServices.withContext
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
 
-local GetTextSize = UILibrary.Util.GetTextSize
+local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Util.GetTextSize else UILibrary.Util.GetTextSize
 local createFitToContent = UILibrary.Component.createFitToContent
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
     SortOrder = Enum.SortOrder.LayoutOrder,

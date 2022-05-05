@@ -2,6 +2,7 @@
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local TextChatService = game:GetService("TextChatService")
+local StarterGui = game:GetService("StarterGui")
 
 -- Wait for the game to be Loaded before checking ChatVersion
 -- Otherwise it will always return its default value.
@@ -13,6 +14,7 @@ end
 local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local ExperienceChat = require(CorePackages.ExperienceChat)
+local FFlagEnableSetCoreGuiEnabledExpChat = game:DefineFastFlag("FFlagEnableSetCoreGuiEnabledExpChat", false)
 
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "ExperienceChat"
@@ -28,6 +30,17 @@ local function findTextChannel(name: string): TextChannel
 	end
 
 	return textChannel
+end
+
+if FFlagEnableSetCoreGuiEnabledExpChat then
+	local SetCoreGuiEnabledChanged = ExperienceChat.ChatVisibility.Actions.SetCoreGuiEnabledChanged
+	if SetCoreGuiEnabledChanged then
+		StarterGui.CoreGuiChangedSignal:Connect(function(coreGuiType, enabled)
+			if coreGuiType == Enum.CoreGuiType.All or coreGuiType == Enum.CoreGuiType.Chat then
+				ExperienceChat.DispatchBindableEvent:Fire(SetCoreGuiEnabledChanged(enabled))
+			end
+		end)
+	end
 end
 
 ExperienceChat.mountClientApp({

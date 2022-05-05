@@ -27,6 +27,8 @@ local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimati
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
 
+local FFlagFixEulerAnglesOrder = game:DefineFastFlag("ACEFixEulerAnglesOrder", false)
+
 local DraggerWrapper = Roact.PureComponent:extend("DraggerWrapper")
 
 function DraggerWrapper:init()
@@ -52,6 +54,7 @@ local function mapDraggerContextToProps(draggerContext, props)
 	draggerContext.IKEnabled = props.IKEnabled
 	draggerContext.Tool = props.Tool
 	draggerContext.IsPlaying = props.PlayState ~= Constants.PLAY_STATE.Pause
+	draggerContext.BoneLinksToBone = props.BoneLinksToBone
 
 	draggerContext.ScrubberSignal = props.Signals:get(Constants.SIGNAL_KEYS.ScrubberChanged)
 	draggerContext.OnManipulateJoints = function(instanceName, values)
@@ -72,7 +75,11 @@ local function mapDraggerContextToProps(draggerContext, props)
 							rotationType = TrackUtils.getRotationTypeFromName(trackName, props.Tracks) or props.DefaultRotationType
 							if GetFFlagEulerAnglesOrder() and rotationType == Constants.TRACK_TYPES.EulerAngles then
 								local track = AnimationData.getTrack(props.AnimationData, "Root", path)
-								eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track)
+								if not FFlagFixEulerAnglesOrder then
+									eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track)
+								else
+									eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track) or eulerAnglesOrder
+								end
 							end
 						else
 							rotationType = Constants.TRACK_TYPES.Rotation
@@ -152,6 +159,7 @@ local function mapStateToProps(state, props)
 		AnimationData = state.AnimationData,
 		DefaultRotationType = status.DefaultRotationType,
 		DefaultEulerAnglesOrder = status.DefaultEulerAnglesOrder,
+		BoneLinksToBone = state.Status.BoneLinksToBone
 	}
 end
 

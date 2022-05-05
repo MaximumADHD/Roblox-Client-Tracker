@@ -7,7 +7,6 @@ local Framework = require(Packages.Framework)
 
 local Util = Plugin.Core.Util
 local ContextGetter = require(Util.ContextGetter)
-local Constants = require(Util.Constants)
 
 local getNetwork = ContextGetter.getNetwork
 
@@ -27,6 +26,8 @@ local NavigationContainer = require(Plugin.Core.Components.Home.NavigationContai
 local FrameworkUtil = require(Packages.Framework).Util
 local deepEqual = FrameworkUtil.deepEqual
 
+local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
+
 local HOME_CONFIG_CATEGORIES_SECTION_NAME = "categories"
 
 local HomeWrapper = Roact.PureComponent:extend("HomeWrapper")
@@ -37,7 +38,7 @@ HomeWrapper.defaultProps = {
 }
 
 function HomeWrapper:init(props)
-	for _, assetType in ipairs(HomeTypes.ENABLED_ASSET_TYPES) do
+	for _, assetType in ipairs(if FFlagToolboxAudioDiscovery then props.EnabledAssetTypes else HomeTypes.ENABLED_ASSET_TYPES) do
 		if props.homeConfiguration[assetType.Name] == nil then
 			props.getHomeConfigurationRequest(getNetwork(self), assetType, props.Locale)
 		end

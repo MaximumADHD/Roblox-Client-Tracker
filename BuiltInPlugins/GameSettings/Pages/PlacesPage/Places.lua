@@ -18,6 +18,7 @@
 local Plugin = script.Parent.Parent.Parent
 
 local FFlagRemoveUILibraryDeepJoin = game:GetFastFlag("RemoveUILibraryDeepJoin")
+local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
 
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 local GetEditKeyName = KeyProvider.getEditKeyName
@@ -40,13 +41,12 @@ local HoverArea = FrameworkUI.HoverArea
 local Separator = FrameworkUI.Separator
 local LinkText = FrameworkUI.LinkText
 
-local FrameworkUtil = Framework.Util
-local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
-local FitFrameOnAxis = FrameworkUtil.FitFrame.FitFrameOnAxis
+local LayoutOrderIterator = Util.LayoutOrderIterator
+local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
 
 local UILibrary = require(Plugin.Packages.UILibrary)
-local GetTextSize = UILibrary.Util.GetTextSize
-local deepJoin = if FFlagRemoveUILibraryDeepJoin then FrameworkUtil.deepJoin else UILibrary.Util.deepJoin
+local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Util.GetTextSize else UILibrary.Util.GetTextSize
+local deepJoin = if FFlagRemoveUILibraryDeepJoin then Util.deepJoin else UILibrary.Util.deepJoin
 local TitledFrame = UILibrary.Component.TitledFrame
 local RoundTextBox = UILibrary.Component.RoundTextBox
 

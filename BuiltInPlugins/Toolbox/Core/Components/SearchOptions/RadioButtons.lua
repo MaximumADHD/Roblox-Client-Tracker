@@ -9,6 +9,7 @@
 
 		function onButtonClicked(string key) = A callback for when a user selects a button.
 ]]
+local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
 
 local ENTRY_HEIGHT = 20
 
@@ -16,6 +17,9 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
+local Framework = require(Packages.Framework)
+
+local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Framework.Util.GetTextSize else nil
 
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local createFitToContent = require(Plugin.Core.Components.createFitToContent)
@@ -51,7 +55,7 @@ function RadioButtons:init()
 end
 
 function RadioButtons:createButton(key, text, index, selected, theme)
-	local textWidth = Constants.getTextSize(text).X
+	local textWidth = if FFlagRemoveUILibraryGetTextSize then GetTextSize(text, nil, nil, Vector2.new(0, 0)).X else Constants.getTextSize(text).X
 
 	return Roact.createElement("Frame", {
 		LayoutOrder = self:nextLayout(),

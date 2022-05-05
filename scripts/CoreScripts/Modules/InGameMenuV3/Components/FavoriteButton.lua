@@ -17,10 +17,12 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local Images = UIBlox.App.ImageSet.Images
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local ImageSetButton = UIBlox.Core.ImageSet.Button
+local getIconSize = UIBlox.App.ImageSet.getIconSize
 
 local FAVORITE_IMAGE_FILLED = Images["icons/actions/favoriteOn"]
 local FAVORITE_IMAGE_NOT_FILLED = Images["icons/actions/favoriteOff"]
 local FAVORITE_IMAGE_BOX = Images["squircles/hollow"]
+local ICON_SIZE = getIconSize(UIBlox.App.ImageSet.Enum.IconSize.Medium)
 
 local FavoriteButton = Roact.PureComponent:extend("FavoriteButton")
 
@@ -82,7 +84,7 @@ function FavoriteButton:render()
 		FavoriteIcon = Roact.createElement(ImageSetLabel, {
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			BackgroundTransparency = 1,
-			Size = UDim2.new(0, 36, 0, 36),
+			Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
 			Position = UDim2.new(0, 22, 0, 22),
 			Image = favoriteChecked and FAVORITE_IMAGE_FILLED or FAVORITE_IMAGE_NOT_FILLED,
 		}),

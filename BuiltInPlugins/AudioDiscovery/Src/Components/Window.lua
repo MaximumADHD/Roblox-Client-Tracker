@@ -1,6 +1,3 @@
-local FFlagStudioAudioDiscoveryPluginV2 = game:GetFastFlag("StudioAudioDiscoveryPluginV2")
-local FFlagStudioAudioDiscoveryPluginV6 = game:GetFastFlag("StudioAudioDiscoveryPluginV6")
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -103,7 +100,7 @@ function Window:render()
 		}),
 	})
 
-	if FFlagStudioAudioDiscoveryPluginV6 and props.Paused then
+	if props.Paused then
 		return Roact.createElement(Pane, {
 			Style = "Box",
 		}, {
@@ -158,7 +155,7 @@ function Window:render()
 			}),
 		})
 
-	elseif FFlagStudioAudioDiscoveryPluginV2 and props.Dialog then
+	elseif props.Dialog then
 		return Roact.createElement(Pane, {
 			Style = "Box",
 		}, {

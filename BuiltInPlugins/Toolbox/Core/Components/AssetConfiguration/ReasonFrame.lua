@@ -14,6 +14,8 @@
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent
 
+local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
+
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 
@@ -22,9 +24,10 @@ local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
 local Framework = require(Packages.Framework)
 
+local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Framework.Util.GetTextSize else nil
+
 local StyledScrollingFrame = require(Plugin.Core.Components.StyledScrollingFrame)
 
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -59,7 +62,10 @@ function ReasonFrame:init(props)
 				frameSize = DEFAULT_FRAME_SIZE
 			end
 
-			local newTextSize = Constants.getTextSize(reasonText, Constants.FONT_SIZE_LARGE, Constants.FONT, frameSize)
+			local newTextSize = if FFlagRemoveUILibraryGetTextSize then
+				GetTextSize(reasonText, Constants.FONT_SIZE_LARGE, Constants.FONT, frameSize)
+			else
+				Constants.getTextSize(reasonText, Constants.FONT_SIZE_LARGE, Constants.FONT, frameSize)
 			table.insert(sizeArray, newTextSize)
 			if newTextSize then
 				canvasHeight = canvasHeight + newTextSize.Y

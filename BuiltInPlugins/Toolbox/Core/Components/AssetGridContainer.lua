@@ -1,3 +1,4 @@
+--!strict
 --[[
 	A container that sets up full assets functionality. It sets up asset insertion, AssetPreview, and messageBoxes.
 
@@ -13,10 +14,12 @@
 local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 
 local Plugin = script.Parent.Parent.Parent
+local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
+local map = require(Packages.LuauPolyfill).Array.map
 
 local Util = Plugin.Core.Util
 local ContextGetter = require(Util.ContextGetter)
@@ -29,6 +32,8 @@ local getNetwork = ContextGetter.getNetwork
 local AssetGrid = require(Plugin.Core.Components.AssetGrid)
 local PermissionsConstants = require(Plugin.Core.Components.AssetConfiguration.Permissions.PermissionsConstants)
 local AssetLogicWrapper = require(Plugin.Core.Components.AssetLogicWrapper)
+local AudioScroller = require(Plugin.Core.Components.AudioHomeView.AudioScroller)
+local AssetInfo = require(Plugin.Core.Models.AssetInfo)
 
 local GetAssetPreviewDataForStartup = require(Plugin.Core.Thunks.GetAssetPreviewDataForStartup)
 
@@ -36,6 +41,7 @@ local Framework = require(Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
+local IXPContext = require(Plugin.Core.ContextServices.IXPContext)
 
 local NextPageRequest = require(Plugin.Core.Networking.Requests.NextPageRequest)
 local PostAssetCheckPermissions = require(Plugin.Core.Networking.Requests.PostAssetCheckPermissions)
@@ -49,7 +55,7 @@ type _ExternalProps = {
 
 type _InternalProps = {
 	-- Props from AssetLogicWrapper
-	CanInsertAsset: (() -> boolean)?,
+	CanInsertAsset: () -> boolean,
 	OnAssetPreviewButtonClicked: ((assetData: any) -> ()),
 	ParentAbsolutePosition: Vector2,
 	ParentSize: Vector2,
@@ -61,14 +67,16 @@ type _InternalProps = {
 		assetTypeEnum: Enum.AssetType
 	) -> any),
 	-- mapStateToProps
-	assetIds: any,
+	assetIds: { number },
 	categoryName: string,
 	currentUserPackagePermissions: any,
-	idToAssetMap: any,
+	idToAssetMap: { [number]: AssetInfo.AssetInfo },
 	-- mapDispatchToProps
 	dispatchPostAssetCheckPermissions: ((networkInterface: any, assetIds: { number }) -> any),
 	getAssetPreviewDataForStartup: ((assetId: number, tryInsert: any, localization: any, api: any) -> any),
 	nextPage: ((networkInterface: any, settings: any) -> any),
+	-- Context
+	IXP: any,
 }
 
 export type AssetGridContainerProps = _ExternalProps & _InternalProps
@@ -100,13 +108,12 @@ end
 function AssetGridContainer:render()
 	local props: AssetGridContainerProps = self.props
 
+	local ixp = if FFlagToolboxAudioDiscovery then props.IXP else nil
 	local assetIds = props.assetIds
 	local layoutOrder = props.LayoutOrder
 	local position = props.Position
 	local renderTopContent = props.RenderTopContent
 	local size = props.Size
-	local parentAbsolutePosition = props.ParentAbsolutePosition
-	local parentSize = props.ParentSize
 
 	-- Props from AssetLogicWrapper
 	local canInsertAsset = props.CanInsertAsset
@@ -132,6 +139,33 @@ function AssetGridContainer:render()
 		end
 	end
 
+	if FFlagToolboxAudioDiscovery and Category.categoryIsAudio(props.categoryName) and not ixp:isError() then
+		if not ixp:isReady() then
+			-- IXP state has not loaded yet, avoid a flash of (potentially) the wrong content
+			return nil
+		end
+
+		local ixpVariables = ixp:getVariables()["MarketplaceHomeView"]
+
+		if ixpVariables then
+			if ixpVariables["2022Q2AudioDiscoveryEnabled"] then
+				local assets: { AssetInfo.AssetInfo } = map(props.assetIds, function(assetId)
+					return props.idToAssetMap[assetId]
+				end)
+
+				return AudioScroller.Generator({
+					Assets = assets,
+					Loading = false,
+					CanInsertAsset = canInsertAsset,
+					TryInsert = tryInsert,
+					Position = position,
+					FetchNextPage = self.requestNextPage,
+					Size = size,
+				})
+			end
+		end
+	end
+
 	return Roact.createElement(AssetGrid, {
 		AssetIds = assetIds,
 		AssetMap = if FFlagToolboxAssetCategorization4 then props.idToAssetMap else nil,
@@ -154,11 +188,12 @@ end
 AssetGridContainer = AssetLogicWrapper(AssetGridContainer)
 
 AssetGridContainer = withContext({
+	IXP = if FFlagToolboxAudioDiscovery then IXPContext else nil,
 	Localization = ContextServices.Localization,
 	Settings = Settings,
 })(AssetGridContainer)
 
-local function mapStateToProps(state, props)
+local function mapStateToProps(state: any, props)
 	state = state or {}
 	local assets = state.assets or {}
 	local pageInfo = state.pageInfo or {}

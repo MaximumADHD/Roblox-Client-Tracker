@@ -107,6 +107,11 @@ local Constants = {
 	BONE_CONE_COLOR = Color3.fromRGB(207, 88, 224),
 	BONE_NODE_TRANSPARENCY = 0.15,
 	BONE_LINK_TRANSPARENCY = 0.45,
+	BONE_TRANSPARENCY_DEFAULT = 0.3,
+	BONE_TRANSPARENCY_HOVER = 0,
+	BONE_COLOR_DEFAULT = Color3.fromRGB(207, 88, 224),
+	BONE_COLOR_HOVER = Color3.fromRGB(300, 88, 224),
+	BONE_COLOR_SELECTED = Color3.fromRGB(13, 105, 172),
 	LENGTH_TO_RADIUS_RATIO = 15,
 
 	SNAP_TO_KEYFRAME_THRESHOLD = 30, --in pixels
@@ -414,6 +419,8 @@ local Constants = {
 	TICK_LABEL_SIZE = UDim2.new(0, 25, 0, 15),
 	TOGGLE_EDITOR_BUTTON_WIDTH = 17,
 	TOGGLE_EDITOR_BUTTON_HEIGHT = 16,
+
+	CLAMPED_AUTO_TANGENT_THRESHOLD = 0.25,
 }
 
 Constants.MAIN_MINIMUM_SIZE = Vector2.new(Constants.TRACK_LIST_MIN_WIDTH + Constants.TIMELINE_MIN_WIDTH, 200)
@@ -627,11 +634,13 @@ Constants.FacsCrossMappings = {
 }
 
 Constants.faceControlsEditorOriginalWidth = 240
-Constants.faceControlsEditorDiagramWidth = 220
-Constants.faceControlsEditorDiagramHeight = 310
+Constants.faceControlsEditorFaceFrontDiagramWidth = 220
+Constants.faceControlsEditorFaceFrontDiagramHeight = 310
+Constants.faceControlsEditorFaceSideDiagramWidth = 220
+Constants.faceControlsEditorFaceSideDiagramHeight = 190
 Constants.faceControlsEditorDiagramPadding = 10
-Constants.faceControlsEditoSpacingBetweenDiagrams = 30
-Constants.faceControlsEditorTogglesContainerHeight = 30
+Constants.faceControlsEditoSpacingBetweenDiagrams = 80
+Constants.faceControlsEditorTogglesContainerHeight = 80
 
 if GetFFlagChannelAnimations() then
 	Constants.COMPONENT_TRACK_TYPES = {

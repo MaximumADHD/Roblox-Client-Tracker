@@ -250,7 +250,7 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath: boolean?)
 	local rootPart: BasePart = this.Humanoid and this.Humanoid.RootPart
 	if rootPart then
 		-- Setup origin
-		this.OriginPoint = rootPart.CFrame.p
+		this.OriginPoint = rootPart.CFrame.Position
 
 		-- Setup agent
 		local agentRadius = 2

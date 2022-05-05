@@ -3,6 +3,7 @@ local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategoriz
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
+local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 
 local Packages = Plugin.Packages
 local Framework = require(Packages.Framework)
@@ -12,11 +13,13 @@ local RoactRodux = require(Packages.RoactRodux)
 local RoactNavigation = require(Plugin.Packages.RoactNavigation)
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextServices = Framework.ContextServices
+local Category = require(Plugin.Core.Types.Category)
 
 local Dash = Framework.Dash
 
 local AssetLogicWrapper = require(Plugin.Core.Components.AssetLogicWrapper)
 local HomeView = require(Plugin.Core.Components.Categorization.HomeView)
+local AudioHomeView = require(Plugin.Core.Components.AudioHomeView.AudioWrapper)
 local ResultsView = require(Plugin.Core.Components.Categorization.ResultsView)
 local SubcategoriesView = require(Plugin.Core.Components.Categorization.SubcategoriesView)
 local SubcategoriesSwimlaneView = require(Plugin.Core.Components.Categorization.SubcategoriesSwimlaneView)
@@ -28,7 +31,7 @@ local function wrapViewForRoactNavigation(pageConstructor)
 	return function(props)
 		local NavWrapper = Roact.PureComponent:extend("NavWrapper")
 		function NavWrapper:init(navProps)
-			self.navigateTo = function(routeName: string, searchCategory: string, pathName: string?, props: any)
+			self.logPageView = function(searchCategory: string, pathName: string?)
 				local navContext = navProps.NavigationContext
 				local analytics = navProps.AssetAnalytics:get()
 				local getPageInfoAnalyticsContextInfo = navProps.getPageInfoAnalyticsContextInfo
@@ -42,7 +45,11 @@ local function wrapViewForRoactNavigation(pageConstructor)
 
 					analytics:logPageView(searchID, searchCategory, pathName, navBreadcrumbs, toolboxTab, assetType)
 				end
+			end
 
+			self.navigateTo = function(routeName: string, searchCategory: string, pathName: string?, props: any)
+				local navContext = navProps.NavigationContext
+				self.logPageView(searchCategory, pathName)
 				navContext:push(routeName, pathName, props)
 			end
 
@@ -77,6 +84,7 @@ local function wrapViewForRoactNavigation(pageConstructor)
 						focused = focused,
 						navigateTo = self.navigateTo,
 						navigateGoBack = self.navigateGoBack,
+						logPageView = if FFlagToolboxAudioDiscovery then self.logPageView else nil,
 					},
 					props or {},
 
@@ -125,8 +133,12 @@ local navigationRoutes
 if FFlagToolboxAssetCategorization4 then
 	navigationRoutes = {
 		[Constants.NAVIGATION.HOME] = wrapViewForRoactNavigation(function(viewProps)
+			local component = if FFlagToolboxAudioDiscovery and viewProps.AssetType == Enum.AssetType.Audio
+				then AudioHomeView
+				else HomeView
+
 			return Roact.createElement(
-				HomeView,
+				component,
 				Dash.join(getAssetLogicWrapperProps(viewProps), {
 					AssetSections = viewProps.AssetSections,
 					CategoryName = viewProps.CategoryName,
@@ -187,6 +199,7 @@ if FFlagToolboxAssetCategorization4 then
 					Size = UDim2.new(1, 0, 1, 0),
 					TopKeywords = viewProps.TopKeywords,
 					MaxWidth = viewProps.MaxWidth,
+					LogPageView = if FFlagToolboxAudioDiscovery then viewProps.logPageView else nil,
 				})
 			)
 		end),

@@ -63,9 +63,9 @@ type _Style = {
 	TitleTextSize : number,
 }
 
-local MaterialInformation = Roact.PureComponent:extend("MaterialInformation")
+local MaterialTextures = Roact.PureComponent:extend("MaterialTextures")
 
-function MaterialInformation:init()
+function MaterialTextures:init()
 	self.createTextureElement = function(name : string, image : string, layoutOrder : number)
 		local props : _Props = self.props
 		local style : _Style = props.Stylizer.MaterialDetails
@@ -94,14 +94,14 @@ function MaterialInformation:init()
 	end
 end
 
-function MaterialInformation:willUnmount()
+function MaterialTextures:willUnmount()
 	if self.connection then
 		self.connection:Disconnect()
 		self.connection = nil
 	end
 end
 
-function MaterialInformation:didMount()
+function MaterialTextures:didMount()
 	local props : _Props = self.props
 	local materialController = props.MaterialController
 
@@ -112,7 +112,7 @@ function MaterialInformation:didMount()
 	end)
 end
 
-function MaterialInformation:render()
+function MaterialTextures:render()
 	local props : _Props = self.props
 	local style : _Style = props.Stylizer.MaterialDetails
 	local localization = props.Localization
@@ -167,12 +167,12 @@ function MaterialInformation:render()
 	})
 end
 
-MaterialInformation = withContext({
+MaterialTextures = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
 	MaterialController = MaterialController,
 	Stylizer = Stylizer,
-})(MaterialInformation)
+})(MaterialTextures)
 
 return RoactRodux.connect(
 	function(state, props)
@@ -187,4 +187,4 @@ return RoactRodux.connect(
 			end,
 		}
 	end
-)(MaterialInformation)
+)(MaterialTextures)

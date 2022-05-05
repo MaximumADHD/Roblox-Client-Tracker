@@ -1,7 +1,8 @@
 --!strict
+local Plugin = script:FindFirstAncestor("Toolbox")
+local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 
-local Plugin = script:FindFirstAncestor("Toolbox")
 local Packages = Plugin.Packages
 
 local JestGlobals = require(Packages.Dev.JestGlobals)
@@ -85,7 +86,7 @@ return function()
 		end)
 	end
 
-	if game:GetFastFlag("ToolboxAudioDiscovery") then
+	if FFlagToolboxAudioDiscovery then
 		describe("Audio Subtypes", function()
 			it("should use new marketplace url when category is music", function()
 				expect(Urls.constructGetToolboxItemsUrl({
@@ -109,6 +110,20 @@ return function()
 					limit = 10,
 				})).toBe(
 					string.format("%s/marketplace/%d?limit=10", EXPECTED_BASE_URL, Category.AssetType.UNKNOWN_AUDIO)
+				)
+			end)
+
+			it("should add tags to url", function()
+				expect(Urls.constructGetToolboxItemsUrl({
+					categoryName = Category.SOUND_EFFECTS.name,
+					limit = 10,
+					tags = { "fight", "hits" },
+				})).toBe(
+					string.format(
+						"%s/marketplace/%d?limit=10&tags=fight%%2Chits",
+						EXPECTED_BASE_URL,
+						Category.AssetType.SOUND_EFFECT
+					)
 				)
 			end)
 		end)

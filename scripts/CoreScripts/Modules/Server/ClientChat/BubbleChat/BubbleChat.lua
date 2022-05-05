@@ -371,7 +371,7 @@ end
 local function distanceToBubbleOrigin(origin)
 	if not origin then return 100000 end
 
-	return (origin.Position - game.Workspace.CurrentCamera.CoordinateFrame.p).magnitude
+	return (origin.Position - game.Workspace.CurrentCamera.CoordinateFrame.Position).magnitude
 end
 
 local function isPartOfLocalPlayer(adornee)
@@ -704,14 +704,14 @@ ChatService.Chatted:connect(function(origin, message, color) this:OnGameChatMess
 
 local cameraChangedCon = nil
 if game.Workspace.CurrentCamera then
-	cameraChangedCon = game.Workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):connect(function(prop) this:CameraCFrameChanged() end)
+	cameraChangedCon = game.Workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function(prop) this:CameraCFrameChanged() end)
 end
 
-game.Workspace.Changed:connect(function(prop)
+game.Workspace.Changed:Connect(function(prop)
 	if prop == "CurrentCamera" then
 		if cameraChangedCon then cameraChangedCon:disconnect() end
 		if game.Workspace.CurrentCamera then
-			cameraChangedCon = game.Workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):connect(function(prop) this:CameraCFrameChanged() end)
+			cameraChangedCon = game.Workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function(prop) this:CameraCFrameChanged() end)
 		end
 	end
 end)

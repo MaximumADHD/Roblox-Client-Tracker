@@ -28,7 +28,6 @@ local Constants = require(PluginFolder.Src.Util.Constants)
 local BreakpointsTreeTableCell = require(PluginFolder.Src.Components.Breakpoints.BreakpointsTreeTableCell)
 
 local BreakpointsTable = Roact.PureComponent:extend("BreakpointsTable")
-local FFlagDevFrameworkDoubleClick = game:GetFastFlag("DevFrameworkDoubleClick")
 local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
 local hasTableColumnResizeFFlags = FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize
@@ -356,7 +355,7 @@ function BreakpointsTable:render()
 				GetChildren = self.getTreeChildren,
 				TextInputCols = textInputCols,
 				OnFocusLost = self.OnFocusLost,
-				OnDoubleClick = FFlagDevFrameworkDoubleClick and self.OnDoubleClick,
+				OnDoubleClick = self.OnDoubleClick,
 				SortIndex = props.SortIndex,
 				SortOrder = props.SortOrder,
 				OnSortChange = self.OnSortChange,

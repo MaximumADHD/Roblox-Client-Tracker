@@ -37,7 +37,7 @@ local TransformExtrapolator = {} do
 		local lastCFrame = self.lastCFrame or currentCFrame
 		self.lastCFrame = currentCFrame
 
-		local currentPos = currentCFrame.p
+		local currentPos = currentCFrame.Position
 		local currentRot = extractRotation(currentCFrame)
 
 		local lastPos = lastCFrame.p

@@ -1,17 +1,17 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
+local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
+
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
 
 local Constants = require(Plugin.Core.Util.Constants)
-local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 
-local ContextServices = require(Packages.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local withTheme = ContextHelper.withTheme
-local ContextServices = Framework.ContextServices
+local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Framework.Util.GetTextSize else nil
 
 local Dialog = require(Plugin.Core.Components.PluginWidget.Dialog)
 local MessageBoxButton = require(Plugin.Core.Components.MessageBox.MessageBoxButton)
@@ -111,8 +111,17 @@ function MessageBox:render()
 	local wrapTextWidth = 424
 	local wrapInformativeTextWidth = 192
 
-	local textOneLineSize = Constants.getTextSize(text, textFontSize, textFont)
-	local informativeOneLineTextSize = Constants.getTextSize(
+	local textOneLineSize = if FFlagRemoveUILibraryGetTextSize then
+		GetTextSize(text, textFontSize, textFont, Vector2.new(0, 0))
+	else
+		Constants.getTextSize(text, textFontSize, textFont)
+	local informativeOneLineTextSize = if FFlagRemoveUILibraryGetTextSize then GetTextSize(
+		informativeText,
+		informativeTextFontSize,
+		informativeTextFont,
+		Vector2.new(0, 0)
+	)
+	else Constants.getTextSize(
 		informativeText,
 		informativeTextFontSize,
 		informativeTextFont
@@ -140,8 +149,21 @@ function MessageBox:render()
 
 	local maxTextWidth = innerMaxWidth - fullIconWidth
 
-	local textSize = Constants.getTextSize(text, textFontSize, textFont, Vector2.new(maxTextWidth, 1000))
-	local informativeTextSize = Constants.getTextSize(
+	local textSize = if FFlagRemoveUILibraryGetTextSize then GetTextSize(
+		text,
+		textFontSize,
+		textFont,
+		Vector2.new(maxTextWidth, 1000)
+	)
+	else
+		Constants.getTextSize(text, textFontSize, textFont, Vector2.new(maxTextWidth, 1000))
+	local informativeTextSize = if FFlagRemoveUILibraryGetTextSize then GetTextSize(
+		informativeText,
+		informativeTextFontSize,
+		informativeTextFont,
+		Vector2.new(maxTextWidth, 1000)
+	)
+	else Constants.getTextSize(
 		informativeText,
 		informativeTextFontSize,
 		informativeTextFont,

@@ -24,6 +24,8 @@
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent
 
+local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
+
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 local GetCopyIdKeyName = KeyProvider.getCopyIdKeyName
 local GetEditKeyName = KeyProvider.getEditKeyName
@@ -33,11 +35,11 @@ local StudioService = game:GetService("StudioService")
 local Roact = require(Plugin.Packages.Roact)
 
 local UILibrary = require(Plugin.Packages.UILibrary)
-local GetTextSize = UILibrary.Util.GetTextSize
 local TitledFrame = UILibrary.Component.TitledFrame
 
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
+local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Util.GetTextSize else UILibrary.Util.GetTextSize
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FrameworkUI = Framework.UI
 local Button = FrameworkUI.Button

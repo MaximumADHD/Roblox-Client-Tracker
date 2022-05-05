@@ -259,27 +259,25 @@ function DropdownMenu:render()
 				BackgroundTransparency = 1,
 			}),
 		}),
-		DropdownItemsWrapper = FFlagToolboxAssetGridRefactor
-			and isShowingDropdown
-			and Roact.createElement(ShowOnTop, {
-				Priority = 2,
-			}, {
-				DropdownItemsList = Roact.createElement(DropdownItemsList, {
-					key = key,
-					items = items,
-					visibleDropDownCount = visibleDropDownCount,
-					rowHeight = rowHeight,
-					fontSize = fontSize,
-					onItemClicked = self.onItemClicked,
+		DropdownItemsWrapper = FFlagToolboxAssetGridRefactor and isShowingDropdown and Roact.createElement(ShowOnTop, {
+			Priority = 2,
+		}, {
+			DropdownItemsList = Roact.createElement(DropdownItemsList, {
+				key = key,
+				items = items,
+				visibleDropDownCount = visibleDropDownCount,
+				rowHeight = rowHeight,
+				fontSize = fontSize,
+				onItemClicked = self.onItemClicked,
 
-					closeDropdown = self.closeDropdown,
-					setDropdownHeight = setDropdownHeight,
+				closeDropdown = self.closeDropdown,
+				setDropdownHeight = setDropdownHeight,
 
-					dropDownWidth = state.dropDownWidth,
-					top = state.dropDownTop,
-					left = state.dropDownLeft,
-				}),
+				dropDownWidth = state.dropDownWidth,
+				top = state.dropDownTop,
+				left = state.dropDownLeft,
 			}),
+		}),
 		DropdownItemsList = not FFlagToolboxAssetGridRefactor and isShowingDropdown and Roact.createElement(
 			DropdownItemsList,
 			{

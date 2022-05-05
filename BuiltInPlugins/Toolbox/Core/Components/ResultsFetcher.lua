@@ -2,6 +2,8 @@
 local Plugin = script:FindFirstAncestor("Toolbox")
 local Packages = Plugin.Packages
 
+local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
+
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
 local deepEqual = Framework.Util.deepEqual
@@ -44,6 +46,7 @@ export type ResultsFetcherProps = {
 	sortName: string?,
 	searchTerm: string?,
 	initialPageSize: number,
+	tags: { string }?,
 }
 
 function ResultsFetcher:init(props: ResultsFetcherProps)
@@ -115,6 +118,7 @@ function ResultsFetcher:fetchResults(args: { pageSize: number?, initialPage: boo
 				sectionName = props.sectionName,
 				sortType = props.sortName,
 				keyword = props.searchTerm,
+				tags = if FFlagToolboxAudioDiscovery then props.tags else nil,
 				cursor = nextPageCursor,
 				limit = pageSize,
 			})
@@ -174,7 +178,7 @@ function ResultsFetcher:fetchResults(args: { pageSize: number?, initialPage: boo
 
 			stateUpdate.assetIds = Dash.append({}, previousState.assetIds, assetIds)
 			stateUpdate.assetMap = Dash.join(previousState.assetMap, assetMap)
-			
+
 			local currTotal = #previousState.assets
 			local newAssets = {}
 			for index, assetId in ipairs(assetIds) do
@@ -190,11 +194,7 @@ function ResultsFetcher:fetchResults(args: { pageSize: number?, initialPage: boo
 				newAssets[index] = assetData
 			end
 
-			stateUpdate.assets = Dash.append(
-				{},
-				previousState.assets,
-				newAssets
-			)
+			stateUpdate.assets = Dash.append({}, previousState.assets, newAssets)
 			stateUpdate.loading = false
 			stateUpdate.error = Roact.None
 			stateUpdate.total = args.initialPage and assetIdsResponse.responseBody.totalResults or nil

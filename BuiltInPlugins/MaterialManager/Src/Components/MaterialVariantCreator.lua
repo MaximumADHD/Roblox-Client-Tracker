@@ -24,11 +24,14 @@ local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local GeneralSettings = require(Plugin.Src.Components.MaterialVariantCreator.GeneralSettings)
 local TextureSettings = require(Plugin.Src.Components.MaterialVariantCreator.TextureSettings)
+local AdditionalPropertiesSettings = require(Plugin.Src.Components.MaterialVariantCreator.AdditionalPropertiesSettings)
 local MaterialPreview = require(Plugin.Src.Components.MaterialPreview)
 
 export type Props = {
 	ErrorName : string?,
 	ErrorBaseMaterial : string?,
+	ErrorStudsPerTile : string?,
+	SetStudsPerTileError : (string?) -> (),
 }
 
 type _Props = Props & {
@@ -119,6 +122,19 @@ function MaterialVariantCreator:render()
 
 			TextureSettings = Roact.createElement(TextureSettings, {
 				LayoutOrder = layoutOrderIterator:getNextOrder(),
+			}),
+
+			TextAdditional = Roact.createElement(TextLabel, {
+				Text = localization:getText("CreateDialog", "AdditionalProperties"),
+				AutomaticSize = Enum.AutomaticSize.XY,
+				LayoutOrder = layoutOrderIterator:getNextOrder(),
+				Font = style.TextFont,
+			}),
+
+			AdditionalPropertiesSettings = Roact.createElement(AdditionalPropertiesSettings, {
+				LayoutOrder = layoutOrderIterator:getNextOrder(),
+				ErrorStudsPerTile = props.ErrorStudsPerTile,
+				setStudsPerTileError = props.SetStudsPerTileError,
 			}),
 		}),
 

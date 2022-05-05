@@ -4,6 +4,7 @@
 --  The code is kept on the server and only replicated to the client to minimize security problems.
 
 local FFlagAllowLuobuFreecamGroup = game:DefineFastFlag("AllowLuobuFreecamGroup", false)
+local FIntCanManageLuaRolloutPercentage = game:DefineFastInt("CanManageLuaRolloutPercentage", 0)
 
 -- Users in the following groups have global Freecam permissions:
 local FREECAM_GROUP_IDS = {
@@ -20,6 +21,9 @@ local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 local PolicyService = game:GetService("PolicyService")
 local RunService = game:GetService("RunService")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local Url = require(RobloxGui.Modules.Common.Url)
 
 local function Install()
 	local function WaitForChildOfClass(parent, class)
@@ -56,10 +60,18 @@ local function Install()
 		end
 
 		local success, result = pcall(function()
-			local url = string.format("/users/%d/canmanage/%d", player.UserId, game.PlaceId)
-			-- API returns: {"Success":BOOLEAN,"CanManage":BOOLEAN}
-			local response = HttpRbxApiService:GetAsync(url, Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Default, true)
-			return HttpService:JSONDecode(response)
+			if (player.UserId % 100) + 1 <= FIntCanManageLuaRolloutPercentage then
+				local apiPath = "v1/user/%d/canmanage/%d"
+				local url = string.format(Url.DEVELOP_URL..apiPath, player.UserId, game.PlaceId)
+				-- API returns: {"Success":BOOLEAN,"CanManage":BOOLEAN}
+				local response = HttpRbxApiService:GetAsyncFullUrl(url)
+				return HttpService:JSONDecode(response)
+			else
+				local url = string.format("/users/%d/canmanage/%d", player.UserId, game.PlaceId)
+				-- API returns: {"Success":BOOLEAN,"CanManage":BOOLEAN}
+				local response = HttpRbxApiService:GetAsync(url, Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Default, true)
+				return HttpService:JSONDecode(response)
+			end
 		end)
 
 		if success and result.CanManage == true then

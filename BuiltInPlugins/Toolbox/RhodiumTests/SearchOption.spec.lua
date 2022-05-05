@@ -28,9 +28,9 @@ return function()
 
 	local SearchOptionButtonPath = TestHelpers.getPathInTestToolbox("Toolbox.Header.SearchOptionsButton")
 	local SearchOptionWindowPath = "game.CoreGui.ScreenGui.ClickEventDetectFrame"
-	local CancelButtonPath = SearchOptionWindowPath .. ".Main.Container.Footer.CancelButton"
-	local ApplyButtonPath = SearchOptionWindowPath .. ".Main.Container.Footer.ApplyButton"
-	local RadioButtonPath = SearchOptionWindowPath .. ".Main.Container.SortBy.RadioButtons"
+	local CancelButtonPath = SearchOptionWindowPath .. ".Main.Contents.Container.Footer.CancelButton"
+	local ApplyButtonPath = SearchOptionWindowPath .. ".Main.Contents.BottomButtonsContainer.Footer.ApplyButton"
+	local RadioButtonPath = SearchOptionWindowPath .. ".Main.Contents.Container.Scroller.SortBy.RadioButtons"
 	local FavoritesRadioButtonPath = RadioButtonPath .. ".Favorites.Background"
 	local MostTakenRadioButtonPath = RadioButtonPath .. ".MostTaken.Background"
 	local RatingsRadioButtonPath = RadioButtonPath .. ".Ratings.Background"
@@ -41,7 +41,7 @@ return function()
 	local RatingsRadioButtonTextPath = RadioButtonPath .. ".Ratings.Text"
 	local RelevanceRadioButtonTextPath = RadioButtonPath .. ".Relevance.Text"
 	local UpdatedRadioButtonTextPath = RadioButtonPath .. ".Updated.Text"
-	local CreatorPath = SearchOptionWindowPath .. ".Main.Container.Creator"
+	local CreatorPath = SearchOptionWindowPath .. ".Main.Contents.Container.Creator"
 	local CreatorHeaderPath = CreatorPath .. ".Header"
 	local CreatorSearchBarTextBoxPath = CreatorPath .. ".SearchBar.SearchBar.Background.Border.TextContainer.TextBox"
 	local DeleteButton = CreatorPath .. ".SearchBar.SearchBar.Background.Border.Buttons.ClearButton"

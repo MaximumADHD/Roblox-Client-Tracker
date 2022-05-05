@@ -35,7 +35,6 @@
 ]]
 local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
-local FFlagDevFrameworkDoubleClick = game:GetFastFlag("DevFrameworkDoubleClick")
 
 local hasTableColumnResizeFFlags = FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize
 
@@ -134,7 +133,7 @@ function AudioTable:_flushRenderRow()
 			OnHover = self.props.OnHoverRow and self.onHoverRow,
 			OnHoverEnd = self.props.OnHoverRowEnd and self.onHoverRowEnd,
 			OnPress = self.props.OnSelectRow and self.onSelectRow,
-			OnDoubleClick = (FFlagDevFrameworkDoubleClick and self.props.OnDoubleClick and self.onDoubleClick) or nil,
+			OnDoubleClick = self.props.OnDoubleClick and self.onDoubleClick,
 			OnRightClick = self.onRightClickRow,
 		})
 	end

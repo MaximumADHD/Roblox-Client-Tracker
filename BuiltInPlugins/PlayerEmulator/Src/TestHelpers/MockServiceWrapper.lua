@@ -15,6 +15,7 @@ local MakeTheme = require(Plugin.Src.Resources.MakeTheme)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local UILibraryWrapper = ContextServices.UILibraryWrapper
+local UILibrary = require(Plugin.Packages.UILibrary)
 
 local MockServiceWrapper = Roact.Component:extend("MockServiceWrapper")
 
@@ -55,7 +56,7 @@ function MockServiceWrapper:render()
 			NetworkingContext.new(networkingImpl),
 		}, {
 			UILibraryProvider = ContextServices.provide({
-				UILibraryWrapper.new(),
+				UILibraryWrapper.new(UILibrary),
 			}, self.props[Roact.Children])
 		})
 	else
@@ -66,7 +67,7 @@ function MockServiceWrapper:render()
 			localization,
 			ContextServices.Store.new(store),
 			NetworkingContext.new(networkingImpl),
-			UILibraryWrapper.new(),
+			UILibraryWrapper.new(UILibrary),
 		}, self.props[Roact.Children])
 	end
 end

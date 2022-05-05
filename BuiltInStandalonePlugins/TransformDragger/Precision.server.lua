@@ -6,9 +6,8 @@ local plugin, settings = plugin, settings
 -----------------------------------
 -------------FAST FLAGS------------
 -----------------------------------
---local Flags =  script.Parent.Parent.Flags
-local getFFlagFixTransformScalingSpheresAndCylinders =
-	require(script.Parent.Flags.getFFlagFixTransformScalingSpheresAndCylinders)
+
+-- None :)
 
 -----------------------------------
 -----------MODULE SCRIPTS----------
@@ -1112,12 +1111,9 @@ function updatePart()
 		invisiblePart.Parent = nil
 	end
 
-	-- Fast Flag for MOD-652
-	if (getFFlagFixTransformScalingSpheresAndCylinders()) then
-		-- prevents attmpets to scale cylinders and spheres unevenly by adjusting currentDist
-		-- to force uniform scaling on 2 or 3 axes
-		currentDist = adjustScalingInCaseOfSpecialParts(selectedPart, currentDist, currentHandle)
-	end
+	-- prevents attmpets to scale cylinders and spheres unevenly by adjusting currentDist
+	-- to force uniform scaling on 2 or 3 axes
+	currentDist = adjustScalingInCaseOfSpecialParts(selectedPart, currentDist, currentHandle)
 
 	if currentHandle == S_Y_POS then
 		local yScale = -Adorn.getYScale()

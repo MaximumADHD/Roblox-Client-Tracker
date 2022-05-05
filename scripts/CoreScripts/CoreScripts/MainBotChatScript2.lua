@@ -47,8 +47,8 @@ function setUsingGamepad(input, processed)
 	end
 end
 
-game:GetService("UserInputService").InputBegan:connect(setUsingGamepad)
-game:GetService("UserInputService").InputChanged:connect(setUsingGamepad)
+game:GetService("UserInputService").InputBegan:Connect(setUsingGamepad)
+game:GetService("UserInputService").InputChanged:Connect(setUsingGamepad)
 
 function waitForProperty(instance, name)
 	while not instance[name] do
@@ -673,12 +673,12 @@ function onLoad()
 	end
 	initialize(frame)
 
-	game:GetService("CollectionService").ItemAdded:connect(function(obj)
+	game:GetService("CollectionService").ItemAdded:Connect(function(obj)
 		if obj:IsA("Dialog") then
 			addDialog(obj)
 		end
 	end)
-	game:GetService("CollectionService").ItemRemoved:connect(function(obj)
+	game:GetService("CollectionService").ItemRemoved:Connect(function(obj)
 		if obj:IsA("Dialog") then
 			removeDialog(obj)
 		end
@@ -703,7 +703,7 @@ end
 local lastClosestDialog = nil
 local getClosestDialogToPosition = guiService.GetClosestDialogToPosition
 
-game:GetService("RunService").Heartbeat:connect(function()
+game:GetService("RunService").Heartbeat:Connect(function()
 	local closestDistance = math.huge
 	local closestDialog = nil
 

@@ -42,6 +42,7 @@ local TimelineTick = require(Plugin.Src.Components.Timeline.TimelineTick)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local FFlagFixExtremeZoomOnTick = game:DefineFastFlag("ACEFixExtremeZoomOnTick", false)
 
 local Timeline = Roact.PureComponent:extend("Timeline")
 
@@ -133,7 +134,9 @@ function Timeline:render()
 	local showAsTime = props.ShowAsTime
 	local frameRate = props.FrameRate or Constants.DEFAULT_FRAMERATE
 
-	endTick = math.max(endTick, startTick + majorInterval)
+	if not FFlagFixExtremeZoomOnTick then
+		endTick = math.max(endTick, startTick + majorInterval)
+	end
 
 	local children = props[Roact.Children]
 	if not children then

@@ -15,6 +15,9 @@ local Players = game:GetService('Players')
 local RobloxReplicatedStorage = game:GetService('RobloxReplicatedStorage')
 local RunService = game:GetService('RunService')
 local Chat = game:GetService("Chat")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local Url = require(RobloxGui.Modules.Common.Url)
 
 local GET_MULTI_FOLLOW = "user/multi-following-exists"
 
@@ -44,6 +47,7 @@ local PlayerToGroupDetailsMap = {}
 -- Map of player to if they can manage the current place.
 local PlayerToCanManageMap = {}
 
+local FIntCanManageLuaRolloutPercentage = game:DefineFastInt("CanManageLuaRolloutPercentage", 0)
 game:DefineFastFlag("RemoveInGameFollowingServer", false)
 game:DefineFastFlag("PackInGameJoinDataEnabledServer", false) --FFlagPackInGameJoinDataEnabledClient must be turned on first
 game:DefineFastFlag("VerifyBlockListContentsV2", false)
@@ -365,8 +369,14 @@ local function getPlayerCanManage(player)
 	local canManage = false
 	if player.UserId > 0 then
 		local canManageSuccess, canManageResult = pcall(function()
-			local url = string.format("/users/%d/canmanage/%d", player.UserId, game.PlaceId)
-			return HttpRbxApiService:GetAsync(url, Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Default, true)
+			if (player.UserId % 100) + 1 <= FIntCanManageLuaRolloutPercentage then
+				local apiPath = "v1/user/%d/canmanage/%d"
+				local url = string.format(Url.DEVELOP_URL..apiPath, player.UserId, game.PlaceId)
+				return HttpRbxApiService:GetAsyncFullUrl(url)
+			else
+				local url = string.format("/users/%d/canmanage/%d", player.UserId, game.PlaceId)
+				return HttpRbxApiService:GetAsync(url, Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Default, true)
+			end
 		end)
 		if canManageSuccess and type(canManageResult) == "string" then
 			-- API returns: {"Success":BOOLEAN,"CanManage":BOOLEAN}

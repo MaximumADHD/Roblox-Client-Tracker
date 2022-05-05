@@ -10,6 +10,8 @@
 ]]
 local Plugin = script.Parent.Parent.Parent
 
+local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
+
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
@@ -26,8 +28,9 @@ local Util = Framework.Util
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local LayoutOrderIterator = Util.LayoutOrderIterator
 
+-- TODO: jbousellam - remove with FFlagRemoveUILibraryGetTextSize
 local UILibrary = require(Plugin.Packages.UILibrary)
-local GetTextSize = UILibrary.Util.GetTextSize
+local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Util.GetTextSize else UILibrary.Util.GetTextSize
 
 local AssetGridContainer = require(Plugin.Src.Components.AssetGridContainer)
 local AssetPreviewWrapper = require(Plugin.Src.Components.AssetPreviewWrapper)

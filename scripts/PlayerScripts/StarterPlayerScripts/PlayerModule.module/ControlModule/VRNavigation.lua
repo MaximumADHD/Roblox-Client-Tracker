@@ -205,7 +205,7 @@ function VRNavigation:TryComputePath(startPos: Vector3, destination: Vector3)
 end
 
 function VRNavigation:OnNavigationRequest(destinationCFrame: CFrame, inputUserCFrame: CFrame)
-	local destinationPosition = destinationCFrame.p
+	local destinationPosition = destinationCFrame.Position
 	local lastDestination = self.currentDestination
 
 	if not IsFiniteVector3(destinationPosition) then

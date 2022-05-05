@@ -40,6 +40,9 @@ local getFFlagMaterialServiceStringOverride = require(Flags.getFFlagMaterialServ
 local getFFlagMaterialPack2022Update = require(Flags.getFFlagMaterialPack2022Update)
 
 local MaterialController = require(Plugin.Src.Util.MaterialController)
+local TeachingCallout = require(Plugin.Src.Components.TeachingCallout)
+
+local getFFlagMaterialManagerTeachingCallout = require(Flags.getFFlagMaterialManagerTeachingCallout)
 
 local TopBar = Roact.PureComponent:extend("TopBar")
 
@@ -91,6 +94,7 @@ type _ButtonProps = {
 	TooltipText : string,
 	IsDisabled : boolean,
 	Style : _Style,
+	TeachingCallout : any,
 }
 
 local Selection = game:GetService("Selection")
@@ -184,6 +188,7 @@ function TopBar:init()
 			Tooltip = Roact.createElement(Tooltip, {
 				Text = buttonProps.TooltipText
 			}),
+			TeachingCallout = buttonProps.TeachingCallout,
 		})
 	end
 end
@@ -191,17 +196,14 @@ end
 function TopBar:didMount()
 	local props : _Props = self.props
 
-	local uses2022Materials = false
 	if getFFlagMaterialPack2022Update() then
-		uses2022Materials = props.MaterialController:getUses2022Materials()
-
 		self.builtinMaterialsChangedConnection = props.MaterialController:getBuiltInMaterialsChangedSignal():Connect(function()
 			self:setState({})
 		end)
 	end
 
 	local isDisabledShowInExplorer = not props.Material or props.Material.IsBuiltin
-	local isDisablesApplyToSelection = not props.Material or (not uses2022Materials and props.Material.MaterialType == "Terrain")
+	local isDisablesApplyToSelection = not props.Material or (not getFFlagMaterialPack2022Update() and props.Material.MaterialType == "Terrain")
 
 	self:setState({
 		isDisabledShowInExplorer = isDisabledShowInExplorer,
@@ -246,13 +248,8 @@ end
 function TopBar:didUpdate(prevProps, prevState)
 	local props : _Props = self.props
 
-	local uses2022Materials = false
-	if getFFlagMaterialPack2022Update() then
-		uses2022Materials = props.MaterialController:getUses2022Materials()
-	end
-
 	local isDisabledShowInExplorer = not props.Material or props.Material.IsBuiltin
-	local isDisabledApplyToSelection = not props.Material or (not uses2022Materials and props.Material.MaterialType == "Terrain")
+	local isDisabledApplyToSelection = not props.Material or (not getFFlagMaterialPack2022Update() and props.Material.MaterialType == "Terrain")
 
 	if prevState.isDisabledShowInExplorer ~= isDisabledShowInExplorer or prevState.isDisabledApplyToSelection ~= isDisabledApplyToSelection then
 		self:setState({
@@ -335,22 +332,29 @@ function TopBar:render()
 			OnClick = self.createMaterialVariant,
 			TooltipText = localization:getText("TopBar", "Create"),
 			IsDisabled = false,
+			TeachingCallout = nil,
 		}),
 		ShowInExplorer = Roact.createElement(self.renderButton, {
 			Style = style,
 			ImageStyle = showInExplorer,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
-			OnClick = self.showInExplorer,
+			OnClick = if not state.isDisabledShowInExplorer then self.showInExplorer else function() end,
 			TooltipText = localization:getText("TopBar", "Show"),
 			IsDisabled = state.isDisabledShowInExplorer,
+			TeachingCallout = nil,
 		}),
 		ApplyToSelection = Roact.createElement(self.renderButton, {
 			Style = style,
 			ImageStyle = applyToSelection,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
-			OnClick = self.applyToSelection,
+			OnClick = if not state.isDisabledApplyToSelection then self.applyToSelection else function() end,
 			TooltipText = localization:getText("TopBar", "Apply"),
 			IsDisabled = state.isDisabledApplyToSelection,
+			TeachingCallout = if getFFlagMaterialManagerTeachingCallout() then Roact.createElement(TeachingCallout, {
+				Offset = Vector2.new(0, 6),
+				DefinitionId = "MaterialManagerApplyCallout",
+				LocationId = "MaterialManagerApplyButton",
+			}) else nil,
 		}),
 		RestPane = Roact.createElement(Pane, {
 			Size = UDim2.new(1, - BUTTON_COUNT * (buttonWidth + padding), 1, 0),

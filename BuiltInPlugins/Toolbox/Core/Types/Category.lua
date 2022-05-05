@@ -2,7 +2,9 @@ local FFlagUGCGroupUploads2 = game:GetFastFlag("UGCGroupUploads2")
 local FFlagUGCLCAssetTypes2 = game:GetFastFlag("UGCLCAssetTypes2")
 local FFlagToolboxReorderAssetTypes = game:GetFastFlag("ToolboxReorderAssetTypes")
 
-local Plugin = script.Parent.Parent.Parent
+local Plugin = script:FindFirstAncestor("Toolbox")
+local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
+
 local CreatorInfoHelper = require(Plugin.Core.Util.CreatorInfoHelper)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local getAllowedAssetTypeEnums = require(Plugin.Core.Util.getAllowedAssetTypeEnums)
@@ -46,7 +48,7 @@ Category.AssetType = {
 	ANIMATION = 19,
 }
 
-if game:GetFastFlag("ToolboxAudioDiscovery") then
+if FFlagToolboxAudioDiscovery then
 	Category.AssetType.MUSIC = 300
 	Category.AssetType.SOUND_EFFECT = 301
 	Category.AssetType.UNKNOWN_AUDIO = 302
@@ -59,15 +61,15 @@ if game:GetFastFlag("ToolboxAudioDiscovery") then
 	}
 
 	Category.SOUND_EFFECTS = {
-		name = "Sound Effects",
-		category = "Sound Effects",
+		name = "SoundEffect",
+		category = "SoundEffect",
 		ownershipType = Category.OwnershipType.FREE,
 		assetType = Category.AssetType.SOUND_EFFECT,
 	}
 
 	Category.UNKNOWN_AUDIO = {
-		name = "Unknown Audio",
-		category = "Unknown Audio",
+		name = "UnknownAudio",
+		category = "UnknownAudio",
 		ownershipType = Category.OwnershipType.FREE,
 		assetType = Category.AssetType.UNKNOWN_AUDIO,
 	}

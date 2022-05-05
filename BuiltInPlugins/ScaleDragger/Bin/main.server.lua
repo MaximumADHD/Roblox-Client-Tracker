@@ -6,6 +6,7 @@ local Roact = require(Plugin.Packages.Roact)
 -- Dragger component
 local DraggerContext_PluginImpl = require(DraggerFramework.Implementation.DraggerContext_PluginImpl)
 local DraggerToolComponent = require(DraggerFramework.DraggerTools.DraggerToolComponent)
+local getFFlagDraggerHandlesIsEnabledFunction = require(DraggerFramework.Flags.getFFlagDraggerHandlesIsEnabledFunction)
 local ExtrudeHandles = require(DraggerFramework.Handles.ExtrudeHandles)
 
 local DraggerSchemaCore = Plugin.Packages.DraggerSchemaCore
@@ -35,6 +36,17 @@ local function openPlugin()
 
 	toolButton:SetActive(true)
 
+	local scaleHandlesEnabledFunction
+	if getFFlagDraggerHandlesIsEnabledFunction() then
+		scaleHandlesEnabledFunction = function (selectionInfo)  
+			if selectionInfo and selectionInfo.basisObject then
+				return true
+			else 
+				return false
+			end
+		end
+	end
+
 	pluginHandle = Roact.mount(Roact.createElement(DraggerToolComponent, {
 		Mouse = plugin:GetMouse(),
 
@@ -50,6 +62,7 @@ local function openPlugin()
 				ExtrudeHandles.new(draggerContext, {
 					ShowBoundingBox = true,
 					Summonable = true,
+					IsEnabledFunction = getFFlagDraggerHandlesIsEnabledFunction() and scaleHandlesEnabledFunction or nil,
 				}, DraggerSchema.ExtrudeHandlesImplementation.new(draggerContext)),
 			},
 		},

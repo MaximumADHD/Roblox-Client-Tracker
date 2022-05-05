@@ -3,7 +3,7 @@ local Plugin = script.Parent.Parent
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
 if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
-	local TestEZ = require(Plugin.Packages.TestEZ)
+	local TestEZ = require(Plugin.Packages._Index.TestEZ.TestEZ)
 	local TestBootstrap = TestEZ.TestBootstrap
 
 	local TeamCityReporter = TestEZ.Reporters.TeamCityReporter

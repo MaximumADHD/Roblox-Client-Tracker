@@ -1,0 +1,48 @@
+local Plugin = script.Parent.Parent.Parent
+
+local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+
+local ContextServices = Framework.ContextServices
+local ContextItem = ContextServices.ContextItem
+-- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
+local Provider = ContextServices.Provider
+
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
+
+local CalloutController = ContextItem:extend("CalloutController")
+
+function CalloutController.new(overrideCalloutService)
+	local self = {}
+
+	self._calloutService = overrideCalloutService or game:GetService("CalloutService")
+	assert(self._calloutService, "CalloutController requires a CalloutService")
+
+	return setmetatable(self, CalloutController)
+end
+
+function CalloutController:destroy()
+	self._calloutService = nil
+end
+
+if not FFlagDevFrameworkUseCreateContext then
+	function CalloutController:createProvider(root)
+		return Roact.createElement(Provider, {
+			ContextItem = self,
+		}, {root})
+	end
+end
+
+function CalloutController:defineCallout(definitionId, title, description, learnMoreUrl)
+	self._calloutService:DefineCallout(definitionId, title, description, learnMoreUrl)
+end
+
+function CalloutController:attachCallout(definitionId, locationId, targetInstance)
+	self._calloutService:AttachCallout(definitionId, locationId, targetInstance)
+end
+
+function CalloutController:detachCalloutsByDefinitionId(definitionId)
+	self._calloutService:DetachCalloutsByDefinitionId(definitionId)
+end
+
+return CalloutController

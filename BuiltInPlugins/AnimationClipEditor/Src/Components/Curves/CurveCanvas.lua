@@ -11,6 +11,7 @@
 		Playhead: Position (in ticks) of the scrubber
 		Position: Position of this component
 		SelectedKeyframes: Information on what keyframes are selected for each track/instance,
+		ShowTooltips: Whether we want to display keyframe tooltips (Disabled when dragging a keyframe)
 		Size: Size of this component
 		StartTick: Beginning tick of the timeline range (TODO: Pass HorizontalScroll/HorizontalZoom instead)
 		Tracks: Information on the tracks being displayed
@@ -60,6 +61,7 @@ export type Props = {
 	Playhead: number,
 	Position: UDim2?,
 	SelectedKeyframes: any,
+	ShowTooltips: boolean,
 	Size: UDim2?,
 	StartTick: number,
 	Tracks: {any},
@@ -146,6 +148,7 @@ function CurveCanvas:renderCurve(track: {any}): ()
 	local tangentLength = props.AbsoluteSize.Y * Constants.TANGENT_CONTROL_LENGTH
 
 	local selectedKeyframes = props.SelectedKeyframes
+	local showTooltips = props.ShowTooltips
 
 	-- Display a small dot on the scrubber
 	local playhead = self.props.Playhead
@@ -241,6 +244,7 @@ function CurveCanvas:renderCurve(track: {any}): ()
 					RightSlope = if keyframeIndex == #track.Keyframes then nil else curKeyframe.RightSlope,
 					Color = color,
 					ShowSlopes = false,
+					ShowTooltip = showTooltips,
 					Selected = curSelected,
 					ZIndex = 4,
 					OnRightClick = if props.OnKeyRightClick then function(_, input)
@@ -267,6 +271,7 @@ function CurveCanvas:renderCurve(track: {any}): ()
 						RightSlope = if keyframeIndex == #track.Keyframes then nil else curKeyframe.RightSlope,
 						Color = color,
 						ShowSlopes = false,
+						ShowTooltip = showTooltips,
 						Selected = curSelected,
 						ZIndex = 4,
 						OnRightClick = if props.OnKeyRightClick then function(_, input)

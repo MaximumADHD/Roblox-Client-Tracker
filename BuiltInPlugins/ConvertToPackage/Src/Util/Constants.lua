@@ -4,6 +4,7 @@ local convertArrayToTable = require(Plugin.Src.Util.convertArrayToTable)
 local getUserId = require(Plugin.Src.Util.getUserId)
 
 local TextService = game:GetService("TextService")
+local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
 
 local Constants = {}
 
@@ -14,8 +15,9 @@ Constants.FONT_SIZE_MEDIUM = 16
 Constants.FONT_SIZE_LARGE = 18
 Constants.FONT_SIZE_TITLE = 22
 
-
+-- TODO: jbousellam - Remove with FFlagRemoveUILibraryGetTextSize
 function Constants.getTextSize(text, fontSize, font, frameSize)
+	assert(not FFlagRemoveUILibraryGetTextSize)
 	fontSize = fontSize or Constants.FONT_SIZE_MEDIUM
 	font = font or Constants.FONT
 	frameSize = frameSize or Vector2.new(0, 0)

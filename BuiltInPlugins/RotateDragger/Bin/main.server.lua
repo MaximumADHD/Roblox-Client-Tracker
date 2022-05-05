@@ -9,6 +9,7 @@ local DraggerSchema = require(DraggerSchemaCore.DraggerSchema)
 -- Dragger component
 local DraggerContext_PluginImpl = require(DraggerFramework.Implementation.DraggerContext_PluginImpl)
 local DraggerToolComponent = require(DraggerFramework.DraggerTools.DraggerToolComponent)
+local getFFlagDraggerHandlesIsEnabledFunction = require(DraggerFramework.Flags.getFFlagDraggerHandlesIsEnabledFunction)
 local RotateHandles = require(DraggerFramework.Handles.RotateHandles)
 
 local PLUGIN_NAME = "RotateDragger"
@@ -36,6 +37,17 @@ local function openPlugin()
 		return partMover:rotateToWithIk(transform, collisionsMode)
 	end
 
+	local rotateHandlesEnabledFunction
+	if getFFlagDraggerHandlesIsEnabledFunction() then
+		rotateHandlesEnabledFunction = function (selectionInfo)
+			if selectionInfo and selectionInfo.basisObject then
+				return true
+			else 
+				return false
+			end
+		end
+	end
+
 	pluginHandle = Roact.mount(Roact.createElement(DraggerToolComponent, {
 		Mouse = plugin:GetMouse(),
 
@@ -51,9 +63,10 @@ local function openPlugin()
 				RotateHandles.new(draggerContext, {
 					ShowBoundingBox = true,
 					Summonable = true,
+					IsEnabledFunction = getFFlagDraggerHandlesIsEnabledFunction() and rotateHandlesEnabledFunction or nil,
 				}, DraggerSchema.TransformHandlesImplementation.new(
 					draggerContext, ikTransformRotateHandler)),
-			}
+			},
 		},
 	}))
 end

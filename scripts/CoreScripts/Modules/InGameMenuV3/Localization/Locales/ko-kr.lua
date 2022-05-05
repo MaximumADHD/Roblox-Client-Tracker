@@ -184,4 +184,12 @@ return{
 	["CoreScripts.InGameMenu.QuickActions.MuteSelf"] = [[나를 음소거]],
 	["CoreScripts.InGameMenu.QuickActions.UnmuteAll"] = [[음소거 모두 해제]],
 	["CoreScripts.InGameMenu.QuickActions.UnmuteSelf"] = [[나를 음소거 해제]],
+	["CoreScripts.InGameMenu.BetaBadge.BadgeText"] = [[베타]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.HeaderList"] = [[베타 기능 중 한 가지 이상 사용에 옵트인했습니다:]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.VoiceChatBullet"] = [[음성 채팅]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.DisclaimerText"] = [[커뮤니티 가이드라인을 위반하는 사람들을 만나게 될 경우 신고해 주세요. 음성 채팅 사용에 옵트인한 경우, Roblox는 검열 및 안전을 위해 플랫폼 어느 위치에서든 음성을 녹음할 수 있습니다. 음성 채팅 기능을 계속해서 사용하면 Roblox가 검열 및 안전을 위해 내 음성 녹음 내용을 수집, 사용 및 저장하는 데 동의하게 됩니다. 공간 음성 기능은 언제든지 옵트아웃할 수 있습니다.]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.LearnMoreLink"] = [[더 알아보기]],
+	["CoreScripts.InGameMenu.Controls.DynamicThumbstick"] = [[다이내믹 엄지스틱]],
+	["CoreScripts.InGameMenu.Controls.ClassicThumbstick"] = [[클래식 엄지스틱]],
+	["CoreScripts.InGameMenu.Controls.TapToMove"] = [[눌러서 이동]],
 }

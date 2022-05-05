@@ -6,7 +6,6 @@ local FFlagDebugFixPublishAsWhenQueryFails = game:GetFastFlag("DebugFixPublishAs
 local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage2")
 local FFlagPlacePublishManagementUI2 = game:GetFastFlag("PlacePublishManagementUI2")
 local FFlagEnablePlacePublishManagementInTeamCreate = game:GetFastFlag("EnablePlacePublishManagementInTeamCreate")
-local FFlagStudioEnableUploadNames = game:GetFastFlag("StudioEnableUploadNames")
 
 local StudioService = game:GetService("StudioService")
 local StudioPublishService = game:GetService("StudioPublishService")
@@ -349,13 +348,11 @@ function ScreenChoosePlace:render()
 						OpenPublishManagement(self.state.selectedPlace, self.props.ParentGame)
 					else
 						-- groupId is unused
-						if FFlagStudioEnableUploadNames then
-							if self.state.selectedPlace.placeId == 0 then
-								-- 0 indicates uploading to a new slot
-								StudioPublishService:setUploadNames("New Place", parentGame.name)
-							else
-								StudioPublishService:setUploadNames(self.state.selectedPlace.name, parentGame.name)
-							end
+						if self.state.selectedPlace.placeId == 0 then
+							-- 0 indicates uploading to a new slot
+							StudioPublishService:setUploadNames("New Place", parentGame.name)
+						else
+							StudioPublishService:setUploadNames(self.state.selectedPlace.name, parentGame.name)
 						end
 						StudioService:publishAs(parentGame.universeId, self.state.selectedPlace.placeId, 0)
 						dispatchSetIsPublishing(true)

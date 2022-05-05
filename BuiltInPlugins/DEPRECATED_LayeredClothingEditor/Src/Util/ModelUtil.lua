@@ -10,6 +10,8 @@ local HttpService = game:GetService("HttpService")
 local FFlagHumanoidGetAccessoryScale = game:GetFastFlag("HumanoidGetAccessoryScale")
 local GetFFlagFixNoCageMeshIdCrash = require(Plugin.Src.Flags.GetFFlagFixNoCageMeshIdCrash)
 
+game:DefineFastFlag("MannequinFallingBugFix", false)
+
 local ModelUtil = {}
 
 local function getDescendants(descendants, model)
@@ -228,6 +230,9 @@ function ModelUtil:findAvatarAttachmentByName(model, name)
 end
 
 function ModelUtil:positionAvatar(avatar, editingItem, avoidCollisions)
+	if game:getFastFlag("MannequinFallingBugFix") then
+		avoidCollisions = true
+	end
 	if editingItem and avatar then
 		local extentsEditingItem = getExents(editingItem)
 		local extentsAvatar = avatar:GetExtentsSize()
@@ -237,7 +242,7 @@ function ModelUtil:positionAvatar(avatar, editingItem, avoidCollisions)
 		startPos = startPos - Vector3.new(extentsEditingItem.X, 0, 0) - Vector3.new(extentsAvatar.X, 0, 0)
 		startPos = rotationOnly * startPos
 		if avoidCollisions then
-			spawn(function()
+			task.spawn(function()
 				avatar:MoveTo(startPos)
 			end)
 		else

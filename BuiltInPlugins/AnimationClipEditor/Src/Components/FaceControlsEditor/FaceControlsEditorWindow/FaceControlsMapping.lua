@@ -6,15 +6,15 @@ local FaceControlsMapping = {}
 FaceControlsMapping.FacsControlToFaceSliderInfoMap = {
 	ChinRaiserUpperLip = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 96, 0, 283), rotation = -90},
 	ChinRaiser = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 80, 0, 289), rotation = -90},
-	FlatPucker = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 0, 0, 615), rotation = 180, customWidth = 60},  --sideView
-	Funneler = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 0, 0, 573), rotation = 180, customWidth = 60},  --sideView
-	LowerLipSuck = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 103, 0, 610), rotation = -16},  --sideView
-	LipPresser = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 91, 0, 587), rotation = 90},  --sideView
+	FlatPucker = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 0, 0, 545), rotation = 180, customWidth = 50},  --sideView
+	Funneler = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 0, 0, 503), rotation = 180, customWidth = 50},  --sideView
+	LowerLipSuck = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 48, 0, 560), rotation = -25},  --sideView
+	LipPresser = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 51, 0, 525), rotation = 90},  --sideView
 	LipsTogether = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 91, 0, 220), rotation = 90, customWidth = 35},
-	MouthLeft = {currentValue = 0.5, defaultValue = 0.5, position = UDim2.new(0, 106, 0, 240), rotation = 0, customWidth = 80},
-	MouthRight = {currentValue = 0.5, defaultValue = 0.5, position = UDim2.new(0, 68, 0, 240), rotation = 0, customWidth = 80},
-	Pucker = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 0, 0, 593), rotation = 180, customWidth = 60},  --sideView
-	UpperLipSuck = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 101, 0, 557), rotation = 36},  --sideView
+	MouthLeft = {currentValue = 0.5, defaultValue = 0.5, position = UDim2.new(0, 106, 0, 240), rotation = 0, customWidth = 80, Tooltip = "Mouth"},
+	MouthRight = {currentValue = 0.5, defaultValue = 0.5, position = UDim2.new(0, 68, 0, 240), rotation = 0, customWidth = 80, Tooltip = "Mouth"},
+	Pucker = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 0, 0, 523), rotation = 180, customWidth = 50},  --sideView
+	UpperLipSuck = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 46, 0, 487), rotation = 36},  --sideView
 	LeftCheekPuff = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 175, 0, 213), rotation = 0},
 	LeftDimpler = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 171, 0, 232), rotation = 0},
 	LeftLipCornerDown = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 146, 0, 280), rotation = 55},
@@ -30,9 +30,9 @@ FaceControlsMapping.FacsControlToFaceSliderInfoMap = {
 	RightLipStretcher = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 24, 0, 251), rotation = -180},
 	RightUpperLipRaiser = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 58, 0, 204), rotation = -110},
 
-	JawDrop = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 158, 0, 598), rotation = 90},  --sideView
-	JawLeft = {currentValue = 0.5, defaultValue = 0.5, position = UDim2.new(0, 64, 0, 754), rotation = 0, customWidth = 60},  --sideView
-	JawRight = {currentValue = 0.5, defaultValue = 0.5, position = UDim2.new(0, 150, 0, 637), rotation = 0, customWidth = 60},  --sideView
+	JawDrop = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 87, 0, 358), rotation = 90, customWidth = 40},  --sideView
+	JawLeft = {currentValue = 0.5, defaultValue = 0.5, position = UDim2.new(0, 64, 0, 554), rotation = 0, customWidth = 60, Tooltip = "Jaw"},  --sideView
+	JawRight = {currentValue = 0.5, defaultValue = 0.5, position = UDim2.new(0, 78, 0, 328), rotation = 0, customWidth = 60, Tooltip = "Jaw"},  --sideView
 
 	Corrugator = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 94, 0, 100), rotation = 0, customWidth = 36},
 	LeftBrowLowerer = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 122, 0, 100), rotation = 100, customWidth = 36},
@@ -45,17 +45,17 @@ FaceControlsMapping.FacsControlToFaceSliderInfoMap = {
 	RightNoseWrinkler = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 75, 0, 181), rotation = -90},
 
 	LeftCheekRaiser = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 169, 0, 171), rotation = -115},
-	LeftEyeUpperLidRaiser = {currentValue = 0.5, defaultValue = 0.5, position = UDim2.new(0, 111, 0, 125), rotation = -90},
-	LeftEyeClosed = {currentValue = 0.5, defaultValue = 0.5, position = UDim2.new(0, 111, 0, 143), rotation = -90, customWidth = 44},
+	LeftEyeUpperLidRaiser = {currentValue = 0.5, defaultValue = 0.5, position = UDim2.new(0, 111, 0, 125), rotation = -90, Tooltip = "LeftEye"},
+	LeftEyeClosed = {currentValue = 0.5, defaultValue = 0.5, position = UDim2.new(0, 111, 0, 143), rotation = -90, customWidth = 44, Tooltip = "LeftEye"},
 	RightCheekRaiser = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 5, 0, 171), rotation = -62},
-	RightEyeUpperLidRaiser = {currentValue = 0.5, defaultValue = 0.5, position = UDim2.new(0, 67, 0, 125), rotation = -90},
-	RightEyeClosed = {currentValue = 0.5, defaultValue = 0.5, position = UDim2.new(0, 67, 0, 143), rotation = -90, customWidth = 44},
+	RightEyeUpperLidRaiser = {currentValue = 0.5, defaultValue = 0.5, position = UDim2.new(0, 67, 0, 125), rotation = -90, Tooltip = "RightEye"},
+	RightEyeClosed = {currentValue = 0.5, defaultValue = 0.5, position = UDim2.new(0, 67, 0, 143), rotation = -90, customWidth = 44, Tooltip = "RightEye"},
 
-	TongueDown = {currentValue = 0.5, defaultValue = 0.5, position = UDim2.new(0, 158, 0, 560), rotation = 90, customWidth = 50}, -- 270, 90
-	TongueUp = {currentValue = 0.5, defaultValue = 0.5, position = UDim2.new(0, 154, 0, 508), rotation = 90, customWidth = 50},
-	TongueOut = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 160, 0, 553), rotation = 180},
-	
+	TongueDown = {currentValue = 0.5, defaultValue = 0.5, position = UDim2.new(0, 148, 0, 515), rotation = 90, customWidth = 50, Tooltip = "Tongue"}, -- 270, 90
+	TongueUp = {currentValue = 0.5, defaultValue = 0.5, position = UDim2.new(0, 144, 0, 515), rotation = 90, customWidth = 50, Tooltip = "Tongue"},
+	TongueOut = {currentValue = 0, defaultValue = 0, position = UDim2.new(0, 110, 0, 515), rotation = 180},
+
 	EyesDragBox = {currentValue = Vector2.new(0, 0), defaultValue = Vector2.new(0, 0), position = UDim2.new(0, 111, 0, 145), customWidth = 30},
-}	
+}
 
 return FaceControlsMapping

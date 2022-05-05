@@ -779,6 +779,7 @@ function CurveEditorController:render(): (any)
 				SelectedKeyframes = selectedKeyframes,
 				NamedKeyframes = namedKeyframes,
 				Playhead = props.Playhead,
+				ShowTooltips = not dragging,
 				ZIndex = 1,
 
 				OnKeyRightClick = self.handleKeyframeRightClick,

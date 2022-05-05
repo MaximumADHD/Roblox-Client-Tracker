@@ -5,6 +5,8 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
+local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
+
 local Framework = require(Plugin.Packages.Framework)
 local FrameworkUI = Framework.UI
 local Util = Framework.Util
@@ -19,7 +21,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.Packages.UILibrary)
-local GetTextSize = UILibrary.Util.GetTextSize
+local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Util.GetTextSize else UILibrary.Util.GetTextSize
 local TitledFrame = UILibrary.Component.TitledFrame
 
 local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)

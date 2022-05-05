@@ -410,14 +410,16 @@ function MainView:render()
 				TryOpenAssetConfig = tryOpenAssetConfig,
 			}),
 
-			SearchOptions = if not FFlagToolboxRefactorSearchOptions and showSearchOptions then Roact.createElement(SearchOptions, {
-				LiveSearchData = props.liveSearchData,
-				SortIndex = props.sortIndex,
-				updateSearch = self.updateSearch,
-				onClose = self.onSearchOptionsClosed,
-				showAudioSearch = isCategoryAudio,
-				showCreatorSearch = showCreatorSearch,
-			}) else nil,
+			SearchOptions = if not FFlagToolboxRefactorSearchOptions and showSearchOptions
+				then Roact.createElement(SearchOptions, {
+					LiveSearchData = props.liveSearchData,
+					SortIndex = props.sortIndex,
+					updateSearch = self.updateSearch,
+					onClose = self.onSearchOptionsClosed,
+					showAudioSearch = isCategoryAudio,
+					showCreatorSearch = showCreatorSearch,
+				})
+				else nil,
 
 			InfoBanner = showInfoBanner and Roact.createElement(InfoBanner, {
 				Position = UDim2.new(0, 0, 0, 16 + headerHeight),
@@ -491,13 +493,17 @@ local function mapDispatchToProps(dispatch)
 		end,
 
 		-- User search (searching as the user types in the search bar)
-		userSearch = if not FFlagToolboxRefactorSearchOptions then function(networkInterface, searchTerm)
-			dispatch(UserSearchRequest(networkInterface, searchTerm))
-		end else nil,
+		userSearch = if not FFlagToolboxRefactorSearchOptions
+			then function(networkInterface, searchTerm)
+				dispatch(UserSearchRequest(networkInterface, searchTerm))
+			end
+			else nil,
 
-		searchWithOptions = if not FFlagToolboxRefactorSearchOptions then function(networkInterface, settings, options)
-			dispatch(SearchWithOptions(networkInterface, settings, options))
-		end else nil,
+		searchWithOptions = if not FFlagToolboxRefactorSearchOptions
+			then function(networkInterface, settings, options)
+				dispatch(SearchWithOptions(networkInterface, settings, options))
+			end
+			else nil,
 	}
 end
 

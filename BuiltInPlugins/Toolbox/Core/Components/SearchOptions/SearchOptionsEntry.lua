@@ -7,18 +7,20 @@
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent
 
+local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
+
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
 local Framework = require(Packages.Framework)
 
 local Constants = require(Plugin.Core.Util.Constants)
-local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local createFitToContent = require(Plugin.Core.Components.createFitToContent)
-local withTheme = ContextHelper.withTheme
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+
+local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Framework.Util.GetTextSize else nil
 
 local SearchOptionsEntry = Roact.PureComponent:extend("SearchOptionsEntry")
 
@@ -36,7 +38,7 @@ function SearchOptionsEntry:render()
 	local children = self.props[Roact.Children] or {}
 	local searchTheme = theme.searchOptions
 
-	local textSize = Constants.getTextSize(header)
+	local textSize = if FFlagRemoveUILibraryGetTextSize then GetTextSize(header, nil, nil, Vector2.new(0, 0)) else Constants.getTextSize(header)
 
 	return Roact.createElement(
 		FitToContent,

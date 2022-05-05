@@ -184,4 +184,11 @@ return{
 	["CoreScripts.InGameMenu.QuickActions.MuteSelf"] = [[自分をミュート]],
 	["CoreScripts.InGameMenu.QuickActions.UnmuteAll"] = [[すべてミュート解除]],
 	["CoreScripts.InGameMenu.QuickActions.UnmuteSelf"] = [[自分をミュートを解除]],
+	["CoreScripts.InGameMenu.BetaBadge.BadgeText"] = [[ベータ版]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.HeaderList"] = [[ベータ版の機能を1つ以上選択しました。]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.VoiceChatBullet"] = [[ボイスチャット]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.LearnMoreLink"] = [[もっと詳しく]],
+	["CoreScripts.InGameMenu.Controls.DynamicThumbstick"] = [[ダイナミックサムスティック]],
+	["CoreScripts.InGameMenu.Controls.ClassicThumbstick"] = [[定番サムスティック]],
+	["CoreScripts.InGameMenu.Controls.TapToMove"] = [[タップして移動]],
 }

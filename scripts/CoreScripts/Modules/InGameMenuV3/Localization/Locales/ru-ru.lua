@@ -184,4 +184,12 @@ return{
 	["CoreScripts.InGameMenu.QuickActions.MuteSelf"] = [[Отключить звук у себя]],
 	["CoreScripts.InGameMenu.QuickActions.UnmuteAll"] = [[Включить звук у всех]],
 	["CoreScripts.InGameMenu.QuickActions.UnmuteSelf"] = [[Включить звук у себя]],
+	["CoreScripts.InGameMenu.BetaBadge.BadgeText"] = [[Бета]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.HeaderList"] = [[Ты соглашаешься использовать одну или несколько бета-функций:]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.VoiceChatBullet"] = [[Голосовой чат]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.DisclaimerText"] = [[Если ты видишь, что кто-то нарушает наши Правила сообщества, пожалуйста, сообщи нам об этом. При использовании голосового чата Roblox может записывать звук в любом месте на платформе в целях модерации и безопасности. Продолжая использовать функцию голосового чата, ты соглашаешься на сбор, использование и хранение Roblox голосовых записей в целях модерации и безопасности. Ты можешь отказаться от использования функции трёхмерного звучания в любой момент. ]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.LearnMoreLink"] = [[Подробнее]],
+	["CoreScripts.InGameMenu.Controls.DynamicThumbstick"] = [[Динамический джойстик]],
+	["CoreScripts.InGameMenu.Controls.ClassicThumbstick"] = [[Классический джойстик]],
+	["CoreScripts.InGameMenu.Controls.TapToMove"] = [[Система управления tap-to-move]],
 }

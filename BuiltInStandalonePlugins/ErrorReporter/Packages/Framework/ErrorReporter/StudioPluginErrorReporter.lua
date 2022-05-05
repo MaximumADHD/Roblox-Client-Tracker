@@ -20,6 +20,8 @@
 	end
 ]]
 
+local FFlagStudioErrorReporterFilterJunkCallstacks = game:GetFastFlag("StudioErrorReporterFilterJunkCallstacks")
+
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local ContentProvider = game:GetService("ContentProvider")
 local HttpService = game:GetService("HttpService")
@@ -35,6 +37,7 @@ local FStringStudioPluginsBacktraceToken = settings():GetFVariable("StudioPlugin
 local STUDIO_DEVELOPMENT_VERSION = "0.0.0.1"
 local STUDIO_PLUGIN_ERRORS_DIAG_COLLECTOR = "StudioPluginErrors"
 local STUDIO_PLUGIN_ERRORS_BY_SESSION_DIAG_COLLECTOR = "StudioPluginErrorsBySession"
+local MODULE_ERROR_STRING = "Requested module experienced an error while loading"
 
 local IStudioPluginErrorReporterArgs = t.strictInterface({
 	expectedSecurityLevel = t.integer,
@@ -88,7 +91,7 @@ function StudioPluginErrorReporter.new(args)
 	local self = setmetatable({
 		_hasReported = {},
 	}, StudioPluginErrorReporter)
-	
+
 	self.errorSignal = errorSignal
 	self.analyticsService = analyticsService
 	self.staticAttributes = {
@@ -124,6 +127,17 @@ function StudioPluginErrorReporter.new(args)
 				return
 			end
 
+			-- CLI-52354: Luau will signal multiple times for the same error
+			-- if that error happens when a module is loading. The linked ticket
+			-- is a long term fix, and we can delete this block when it's in
+			if FFlagStudioErrorReporterFilterJunkCallstacks then
+				local moduleError = string.match(errorMessage, MODULE_ERROR_STRING)
+
+				if moduleError then
+					return
+				end
+			end
+
 			local expectedPluginPattern = string.format("^(%s_%%a+%%.rbxm)", expectedPrefix) -- ex) ^builtin_%a+%.rbxm
 			local pluginName = string.match(errorStack, expectedPluginPattern)
 			if pluginName == nil then
@@ -146,7 +160,7 @@ function StudioPluginErrorReporter:_reportError(pluginName, errorMessage, errorS
 	})
 	self.reporter:reportErrorDeferred(errorMessage, errorStack, details, isFirstError)
 	self.analyticsService:ReportCounter(createCollectorName(STUDIO_PLUGIN_ERRORS_DIAG_COLLECTOR, pluginName), 1)
-	
+
 	if not self._hasReported[pluginName] then
 		self._hasReported[pluginName] = true
 		-- This counter is only reported once per (plugin, session) to allow us to determine how many sessions are being impacted

@@ -4,7 +4,7 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
-local StudioUI = require(Plugin.Packages.Framework).StudioUI
+local StudioUI = Framework.StudioUI
 local DockWidget = StudioUI.DockWidget
 
 local MainView = require(Plugin.Src.Components.MainView)

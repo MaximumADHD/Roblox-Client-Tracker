@@ -10,6 +10,7 @@ local withStyle = UIBlox.Core.Style.withStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
+local getIconSize = UIBlox.App.ImageSet.getIconSize
 
 local InGameMenu = script.Parent.Parent
 
@@ -42,7 +43,8 @@ local NAV_BUTTON_HEIGHT = 56
 -- The left indent on divider lines
 local DIVIDER_INDENT = 0
 -- The size of a navigation button icon
-local NAV_ICON_SIZE = 36
+local NAV_ICON_SIZE = getIconSize(UIBlox.App.ImageSet.Enum.IconSize.Medium)
+
 -- The left padding of a navigation button icon
 local NAV_ICON_LEFT_PADDING = 20
 -- The padding between navigation button icon and text

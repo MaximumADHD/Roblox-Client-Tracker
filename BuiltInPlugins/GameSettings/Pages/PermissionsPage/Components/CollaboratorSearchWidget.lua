@@ -1,4 +1,3 @@
-local FFlagFriendEditByDefault = game:GetFastFlag("FriendEditByDefault")
 
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -61,7 +60,6 @@ function CollaboratorSearchWidget:isLoading()
 end
 
 function CollaboratorSearchWidget:isFriend(userId)
-	assert(FFlagFriendEditByDefault)
 	local props = self.props
 	local ownerType = props.ownerType
 	local ownerFriends = props.ownerFriends
@@ -280,12 +278,8 @@ function CollaboratorSearchWidget:render()
 			OnItemClicked = function(key)
 				-- More info on adding collaborators and access level: https://confluence.rbx.com/pages/viewpage.action?spaceKey=CD&title=Place+Permissions+inside+Studio
 				if key.Type == PermissionsConstants.UserSubjectKey then
-					if FFlagFriendEditByDefault then
-						if self:isFriend(key.Id) then
-							addUserCollaborator(key.Id, key.Name, EDIT_KEY)
-						else
-							addUserCollaborator(key.Id, key.Name, PLAY_KEY)
-						end
+					if self:isFriend(key.Id) then
+						addUserCollaborator(key.Id, key.Name, EDIT_KEY)
 					else
 						addUserCollaborator(key.Id, key.Name, PLAY_KEY)
 					end

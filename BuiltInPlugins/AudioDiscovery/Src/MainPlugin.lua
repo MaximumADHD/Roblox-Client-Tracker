@@ -3,10 +3,6 @@
 	Consists of the PluginWidget, Toolbar, Button, and Roact tree.
 ]]
 
-local FFlagStudioAudioDiscoveryPluginV2 = game:GetFastFlag("StudioAudioDiscoveryPluginV2")
-local FFlagStudioAudioDiscoveryPluginV3 = game:GetFastFlag("StudioAudioDiscoveryPluginV3")
-local FFlagStudioAudioDiscoveryPluginV6 = game:GetFastFlag("StudioAudioDiscoveryPluginV6")
-
 local main = script.Parent.Parent
 local Roact = require(main.Packages.Roact)
 local Rodux = require(main.Packages.Rodux)
@@ -53,7 +49,7 @@ function MainPlugin:init(props)
 	self.toggleEnabled = function()
 		local enable = not self.state.enabled
 		self.setEnabled(enable)
-		if FFlagStudioAudioDiscoveryPluginV6 and enable then
+		if enable then
 			self.store:dispatch(Unpause())
 			self.store:dispatch(DiscoverAudio())
 		end
@@ -97,10 +93,7 @@ end
 
 function MainPlugin:didUpdate()
 	if self.state.enabled then
-		if not FFlagStudioAudioDiscoveryPluginV6 then
-			self.store:dispatch(DiscoverAudio())
-		end
-		if FFlagStudioAudioDiscoveryPluginV2 and game.CreatorId == 0 then
+		if game.CreatorId == 0 then
 			self.store:dispatch(SetDialog(true))
 		end
 	end
@@ -121,7 +114,7 @@ function MainPlugin:renderButtons(toolbar)
 	local enabled = self.state.enabled
 	return {
 		Toggle = Roact.createElement(PluginButton, {
-			Id = if FFlagStudioAudioDiscoveryPluginV3 then "ViewSounds" else nil,
+			Id = "ViewSounds",
 			Toolbar = toolbar,
 			Active = enabled,
 			Title = self.localization:getText("Plugin", "Button"),
@@ -164,7 +157,7 @@ function MainPlugin:render()
 			OnClose = self.onClose,
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
-			[Roact.Change.Enabled] = if FFlagStudioAudioDiscoveryPluginV2 then self.onWidgetEnabledChanged else nil,
+			[Roact.Change.Enabled] = self.onWidgetEnabledChanged,
 		}, {
 			Window = Roact.createElement(Window),
 		}),

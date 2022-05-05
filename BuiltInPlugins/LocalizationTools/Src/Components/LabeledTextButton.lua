@@ -8,7 +8,7 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local UI = require(Plugin.Packages.Framework).UI
+local UI = Framework.UI
 local Button = UI.Button
 local HoverArea = UI.HoverArea
 

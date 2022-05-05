@@ -599,4 +599,20 @@ function AnimationData.getTrack(data: AnimationData, instanceName: string, path:
 	end
 end
 
+function AnimationData.hasFacsData(data)
+	if not data then
+		return false
+	end
+
+	for _, instance in pairs(data.Instances) do
+		for _, track in pairs(instance.Tracks) do
+			if track.Type == Constants.TRACK_TYPES.Facs then
+				return true
+			end
+		end
+	end
+
+	return false
+end
+
 return AnimationData

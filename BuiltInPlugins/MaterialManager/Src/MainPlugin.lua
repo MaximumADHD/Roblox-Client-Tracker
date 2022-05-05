@@ -33,6 +33,7 @@ local Utils = main.Src.Util
 local MaterialController = require(Utils.MaterialController)
 local getBuiltInMaterialVariants = require(Utils.getBuiltInMaterialVariants)
 local MaterialServiceWrapper = require(Utils.MaterialServiceWrapper)
+local CalloutController = require(Utils.CalloutController)
 
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
@@ -106,6 +107,12 @@ function MainPlugin:init(props)
 		getBuiltInMaterialVariants(),
 		MaterialServiceWrapper.new()
 	)
+
+	-- Remove with FFlagMaterialManagerTeachingCallout, also CalloutController and TeachingCallout
+	self.calloutController = CalloutController.new()
+	local definitionId = "MaterialManagerApplyCallout"
+	local description = self.localization:getText("Callout", "MaterialManagerApplyDescription")
+	self.calloutController:defineCallout(definitionId, "", description, "")
 end
 
 function MainPlugin:willUnmount()
@@ -121,9 +128,9 @@ function MainPlugin:renderButtons(toolbar)
 		Toggle = Roact.createElement(PluginButton, {
 			Toolbar = toolbar,
 			Active = enabled,
-			Title = self.localization:getText("Plugin", "Button"),
-			Tooltip = self.localization:getText("Plugin", "Description"),
-			Icon = "rbxasset://textures/MaterialManager/Material_Manager.png",
+			Title = "MaterialManager", -- not user visible, no localization
+			Tooltip = "",
+			Icon = "", -- C++ code is source of truth for Tooltip & Icon
 			OnClick = self.toggleEnabled,
 			ClickableWhenViewportHidden = true,
 		}),
@@ -147,9 +154,10 @@ function MainPlugin:render()
 		self.materialController,
 		self.imageLoader,
 		self.assetHandler,
+		self.calloutController,
 	}, {
 		Toolbar = Roact.createElement(PluginToolbar, {
-			Title = self.localization:getText("Plugin", "Toolbar"),
+			Title = "Edit",
 			RenderButtons = function(toolbar)
 				return self:renderButtons(toolbar)
 			end,

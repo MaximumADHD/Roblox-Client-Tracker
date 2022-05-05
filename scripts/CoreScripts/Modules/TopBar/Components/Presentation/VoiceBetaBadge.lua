@@ -3,6 +3,7 @@ local CoreGui = game:GetService("CoreGui")
 local VRService = game:GetService("VRService")
 local GamepadService = game:GetService("GamepadService")
 local GuiService = game:GetService("GuiService")
+local HttpService = game:GetService("HttpService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -15,6 +16,7 @@ local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
 local ExternalEventConnection = require(CorePackages.RoactUtilities.ExternalEventConnection)
 
@@ -22,6 +24,7 @@ local VoiceBetaBadge = Roact.PureComponent:extend("MenuIcon")
 
 local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
 local GetFStringVoiceBetaBadgeLearnMore = require(RobloxGui.Modules.Flags.GetFStringVoiceBetaBadgeLearnMore)
+local GetFFlagEnableBetaBadgeLearnMore = require(RobloxGui.Modules.Flags.GetFFlagEnableBetaBadgeLearnMore)
 
 VoiceBetaBadge.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
@@ -30,12 +33,26 @@ VoiceBetaBadge.validateProps = t.strictInterface({
 
 local BadgeSize = UDim2.fromOffset(31, 11)
 local PopupPadding = UDim.new(0, 12)
-local PopupSize = UDim2.fromOffset(330, 165)
+local PopupSize = UDim2.fromOffset(330, if GetFFlagEnableBetaBadgeLearnMore() then 165 else 180)
 
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local noop = function() end
 local eventContext = "voiceChat"
+
+-- This isn't imported because the definitions are located in LuaApp
+local OPEN_CUSTOM_WEBVIEW = 20
+function openWebview(url)
+	local notificationData = HttpService:JSONEncode({
+		title = if game:GetEngineFeature("SetWebViewTitle") then 'Help Center' else nil,
+		visible = true,
+		url = url,
+	})
+
+	log:debug('Opening Webview with payload {}', notificationData)
+
+	GuiService:BroadcastNotification(notificationData, OPEN_CUSTOM_WEBVIEW)
+end
 
 function VoiceBetaBadge:init()
 	self:setState({
@@ -62,7 +79,7 @@ function VoiceBetaBadge:init()
 	self.learnMore = function()
 		local url = GetFStringVoiceBetaBadgeLearnMore()
 
-		GuiService:OpenBrowserWindow(url)
+		openWebview(url)
 		self.props.Analytics.EventStream:setRBXEvent(eventContext, "clickBetaBadgeLearnMore")
 	end
 end
@@ -143,7 +160,7 @@ function VoiceBetaBadge:render()
 						TextWrapped = true,
 						BackgroundTransparency = 1,
 					}),
-					TextLink = Roact.createElement("TextButton", {
+					LearnMoreLink = GetFFlagEnableBetaBadgeLearnMore() and Roact.createElement("TextButton", {
 						Text = RobloxTranslator:FormatByKey("InGame.CommonUI.Badge.Popup.LearnMoreLink"),
 						TextSize = popupTextSize,
 						Font = font,
@@ -153,6 +170,17 @@ function VoiceBetaBadge:render()
 						AutomaticSize = Enum.AutomaticSize.XY,
 						BackgroundTransparency = 1,
 						[Roact.Event.Activated] = self.learnMore,
+					}),
+					LearnMoreText = not GetFFlagEnableBetaBadgeLearnMore() and Roact.createElement("TextLabel", {
+						Text = RobloxTranslator:FormatByKey("InGame.CommonUI.Badge.Popup.LearnMoreText"),
+						TextSize = popupTextSize,
+						Font = font,
+						LayoutOrder = 2,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextColor3 = textTheme.Color,
+						AutomaticSize = Enum.AutomaticSize.XY,
+						TextWrapped = true,
+						BackgroundTransparency = 1,
 					}),
 					UICorner = Roact.createElement("UICorner", {
 						CornerRadius = UDim.new(0, 8)

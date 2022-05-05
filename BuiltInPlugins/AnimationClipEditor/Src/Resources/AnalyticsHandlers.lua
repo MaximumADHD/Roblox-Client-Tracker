@@ -4,6 +4,8 @@ local Cryo = require(Plugin.Packages.Cryo)
 local TARGET = "studio"
 local CONTEXT = "animationEditor"
 
+local GetFFlagFacsAnimationExportAnalytics = require(Plugin.LuaFlags.GetFFlagFacsAnimationExportAnalytics)
+
 return function(analyticsService)
 	local function sendEvent(eventName, additionalArgs)
         additionalArgs = additionalArgs or {}
@@ -31,7 +33,7 @@ return function(analyticsService)
     end
 
     return {
-        onEditorOpened = function (timelineUnit, keyframeSnap, snapMode)
+        onEditorOpened = function (_, timelineUnit, keyframeSnap, snapMode)
             sendEvent("toolOpened", {
                 method = 1,
                 timelineUnit = timelineUnit,
@@ -42,40 +44,46 @@ return function(analyticsService)
             sendEvent("EditorOpened")
         end,
 
-        onEditorClosed = function(timeOpen)
+        onEditorClosed = function(_, timeOpen)
             sendEvent("toolClosed", {
                 timeOpen = timeOpen,
                 method = 1,
             })
         end,
 
-        onImportAnimation = function(animationId)
+        onImportAnimation = function(_, animationId)
             sendEvent("importAnimation", {
                 animationId = animationId,
             })
         end,
 
-        onImportFbxAnimation = function()
+        onImportFbxAnimation = function(_)
             sendEvent("importFbxAnimation", {})
             reportCounter(makeStatName("FBXAnimationImported"))
             sendEvent("FBXAnimationImported")
         end,
 
-        onUserChoseFBXModelForAnimImport = function()
+        onUserChoseFBXModelForAnimImport = function(_)
             reportCounter(makeStatName("UserChoseFBXModelForAnimImport"))
             sendEvent("userChoseFBXModelForAnimImport")
         end,
 
-        onUserChoseSelectedModelForAnimImport = function()
+        onUserChoseSelectedModelForAnimImport = function(_)
             reportCounter(makeStatName("UserChoseSelectedModelForAnimImport"))
             sendEvent("userChoseSelectedModelForAnimImport")
         end,
 
-        onExportAnimation = function()
-            sendEvent("exportAnimation", {})
+        onExportAnimation = function(_, hasFacs)
+            if GetFFlagFacsAnimationExportAnalytics() then
+                sendEvent("exportAnimation", {
+                    hasFacs = hasFacs,
+                })
+            else
+                sendEvent("exportAnimation", {})
+            end
         end,
 
-        onLoadAnimation = function(name, numKeyframes, numPoses, numEvents)
+        onLoadAnimation = function(_, name, numKeyframes, numPoses, numEvents)
             sendEvent("loadAnimation", {
                 name = name,
                 numKeyframes = numKeyframes,
@@ -84,7 +92,7 @@ return function(analyticsService)
             })
         end,
 
-        onSaveAnimation = function(name, numKeyframes, numPoses, numEvents)
+        onSaveAnimation = function(_, name, numKeyframes, numPoses, numEvents)
             sendEvent("saveAnimation", {
                 name = name,
                 numKeyframes = numKeyframes,
@@ -96,81 +104,81 @@ return function(analyticsService)
             reportStats(makeStatName("ExportedEvents"), numEvents)
         end,
 
-        onCreateNewAnimation = function(name)
+        onCreateNewAnimation = function(_, name)
             sendEvent("createNewAnimation", {
                 name = name,
             })
         end,
 
-        onQuantizeSelection = function(didQuantize)
+        onQuantizeSelection = function(_, didQuantize)
             sendEvent("quantizeSelection", {
                 didQuantize = didQuantize,
             })
         end,
 
-        onTimeUnitChanged = function(timeUnit)
+        onTimeUnitChanged = function(_, timeUnit)
             sendEvent("timeUnitChanged", {
                 timeUnit = timeUnit,
             })
         end,
 
-        onKeyframeSnapChanged = function(keyframeSnap)
+        onKeyframeSnapChanged = function(_, keyframeSnap)
             sendEvent("keyframeSnapChanged", {
                 keyframeSnap = keyframeSnap,
             })
         end,
 
-        onToolChanged = function(tool)
+        onToolChanged = function(_, tool)
             sendEvent("toolChanged", {
                 tool = tool,
             })
         end,
 
-        onIkEnabled = function()
+        onIkEnabled = function(_)
             sendEvent("ikEnabled", {})
             reportCounter(makeStatName("IKEnabled"))
             sendEvent("IKEnabled")
         end,
 
-        onIkDisabled = function(timeOpen)
+        onIkDisabled = function(_, timeOpen)
             sendEvent("ikDisabled", {
                 timeOpen = timeOpen,
             })
         end,
 
-        onControlPressed = function(control)
+        onControlPressed = function(_, control)
             sendEvent("controlPressed", {
                 control = control,
             })
         end,
 
-        onTrackAdded = function(trackName, wasManual)
+        onTrackAdded = function(_, trackName, wasManual)
             sendEvent("trackAdded", {
                 trackName = trackName,
             })
         end,
 
-        onTrackDeleted = function(trackName, hadKeyframes)
+        onTrackDeleted = function(_, trackName, hadKeyframes)
             sendEvent("trackDeleted", {
                 trackName = trackName,
                 hadKeyframes = hadKeyframes,
             })
         end,
 
-        onTrackSelected = function(trackName, source)
+        onTrackSelected = function(_, trackName, source)
             sendEvent("trackSelected", {
                 trackName = trackName,
                 source = source,
             })
         end,
 
-        onRenameKeyframe = function(name)
+        onRenameKeyframe = function(_, name)
             sendEvent("renameKeyframe", {
                 name = name,
             })
         end,
 
-        onAddEvent = function(name, parameter)
+        onAddEvent = function(_, name, parameter)
             sendEvent("addEvent", {
                 name = name,
                 parameter = parameter,
@@ -179,7 +187,7 @@ return function(analyticsService)
             sendEvent("EventAdded")
         end,
 
-        onAddKeyframe = function(trackName, tick)
+        onAddKeyframe = function(_, trackName, tick)
             sendEvent("addKeyframe", {
                 trackName = trackName,
                 frame = tick,  -- TODO: Check with analytics when to rename this parameter to Tick
@@ -188,7 +196,7 @@ return function(analyticsService)
             sendEvent("KeyframeAdded")
         end,
 
-        onDeleteKeyframe = function(trackName, tick)
+        onDeleteKeyframe = function(_, trackName, tick)
             sendEvent("deleteKeyframe", {
                 trackName = trackName,
                 frame = tick,  -- TODO: Check with analytics when to rename this parameter to Tick

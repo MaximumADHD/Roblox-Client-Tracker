@@ -184,4 +184,12 @@ return{
 	["CoreScripts.InGameMenu.QuickActions.MuteSelf"] = [[Mutati]],
 	["CoreScripts.InGameMenu.QuickActions.UnmuteAll"] = [[Riattiva tutti]],
 	["CoreScripts.InGameMenu.QuickActions.UnmuteSelf"] = [[Mutati]],
+	["CoreScripts.InGameMenu.BetaBadge.BadgeText"] = [[Beta]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.HeaderList"] = [[Hai optato per una o più delle nostre funzionalità beta:]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.VoiceChatBullet"] = [[Chat vocale]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.DisclaimerText"] = [[Si prega di segnalare abusi se si incontrano persone che infrangono le nostre linee guida comunitarie. Se hai optato per la chat vocale, Roblox può registrare l'audio vocale ovunque sulla piattaforma per motivi di moderazione e sicurezza. Continuando a utilizzare la funzione di chat vocale, acconsenti alla raccolta, all'uso e all'archiviazione della registrazione vocale per motivi di moderazione e sicurezza. Puoi rinunciare alla voce spaziale in qualsiasi momento. ]],
+	["CoreScripts.InGameMenu.BetaBadge.Popup.LearnMoreLink"] = [[Scopri di più]],
+	["CoreScripts.InGameMenu.Controls.DynamicThumbstick"] = [[Dynamic Thumbstick]],
+	["CoreScripts.InGameMenu.Controls.ClassicThumbstick"] = [[Thumbstick Classic]],
+	["CoreScripts.InGameMenu.Controls.TapToMove"] = [[Tocca per muovere]],
 }

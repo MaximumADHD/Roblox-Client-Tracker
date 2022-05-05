@@ -32,6 +32,7 @@ local GetFFlagMarkerCurves = require(Plugin.LuaFlags.GetFFlagMarkerCurves)
 local GetFFlagRootMotionTrack = require(Plugin.LuaFlags.GetFFlagRootMotionTrack)
 local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagBoneAdornmentSelection = require(Plugin.LuaFlags.GetFFlagBoneAdornmentSelection)
 
 local FFlagACEFixTangentsSerialization = GetFFlagCurveEditor()
 local FFlagFixGetBoneFromBoneNode = game:DefineFastFlag("ACEFixGetBoneFromBoneNode", false)
@@ -105,7 +106,7 @@ local function alignBoneLink(parentPos, childPos)
 	return CFrame.fromMatrix(parentPos, rightVector, upVector2)
 end
 
-local function createBoneLink(bone, folder, visualizeBones)
+local function createBoneLink(bone, folder, visualizeBones, boneLinks)
 	for _, child in ipairs(bone:GetChildren()) do
 		if child:IsA(Constants.BONE_CLASS_NAME) then
 			local nodePosition = RigUtils.getBoneCFrame(bone).p
@@ -121,17 +122,20 @@ local function createBoneLink(bone, folder, visualizeBones)
 				Adorn:Cone("Cone", boneLink, Constants.BONE_LINK_TRANSPARENCY, Constants.BONE_CONE_COLOR, 0)
 				Adorn:Line("Line", boneLink, 1, Constants.BONE_LINK_COLOR, 0, 0)
 			end
-			boneLink.Cone.Transparency = not visualizeBones and 1 or 0
-			boneLink.Line.Transparency = not visualizeBones and 1 or 0
+			boneLink.Cone.Transparency = not visualizeBones and 1 or (GetFFlagBoneAdornmentSelection() and Constants.BONE_TRANSPARENCY_DEFAULT or 0)
+			boneLink.Line.Transparency = not visualizeBones and 1 or (GetFFlagBoneAdornmentSelection() and Constants.BONE_TRANSPARENCY_DEFAULT or 0)
 			boneLink.Cone.Radius = length / Constants.LENGTH_TO_RADIUS_RATIO
 			boneLink.Cone.Height = length
 			boneLink.Line.Length = length
 			boneLink.CFrame = alignBoneLink(nodePosition, nextNodePosition)
+			if GetFFlagBoneAdornmentSelection() then 
+				boneLinks[boneLink.Name] = bone.Name
+			end
 		end
 	end
 end
 
-local function createBoneNode(bone, folder, visualizeBones)
+local function createBoneNode(bone, folder, visualizeBones, boneLinks)
 	local nodePosition = RigUtils.getBoneCFrame(bone).p
 	local nodeName = bone.Name .."Node"
 	local boneNode = folder:FindFirstChild(nodeName)
@@ -145,7 +149,7 @@ local function createBoneNode(bone, folder, visualizeBones)
 	boneNode.Sphere.Radius = getLinkLength(bone) / Constants.LENGTH_TO_RADIUS_RATIO
 	boneNode.Sphere.Transparency = not visualizeBones and 1 or 0
 	boneNode.CFrame = CFrame.new(nodePosition)
-	createBoneLink(bone, folder, visualizeBones)
+	createBoneLink(bone, folder, visualizeBones, boneLinks)
 end
 
 function RigUtils.getBoneFromBoneNode(boneNode)
@@ -163,8 +167,12 @@ function RigUtils.updateMicrobones(rig, visualizeBones)
 	local folder = RigUtils.getOrCreateMicroboneFolder()
 
 	local bones = RigUtils.getBones(rig)
+	local boneLinks = {}
 	for _, bone in ipairs(bones) do
-		createBoneNode(bone, folder, visualizeBones)
+		createBoneNode(bone, folder, visualizeBones, boneLinks)
+	end
+	if GetFFlagBoneAdornmentSelection() then 
+		return boneLinks
 	end
 end
 

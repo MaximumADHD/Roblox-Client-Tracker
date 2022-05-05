@@ -3,7 +3,6 @@ local MemStorageService = game:GetService("MemStorageService")
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxUpdateWindowMinSize = game:GetFastFlag("ToolboxUpdateWindowMinSize")
 local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 
 local Packages = Plugin.Packages
@@ -168,8 +167,8 @@ function ToolboxPlugin:render()
 		Name = "Toolbox",
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 		Widget = props.pluginLoaderContext.mainDockWidget,
-		MinWidth = if FFlagToolboxUpdateWindowMinSize then Constants.TOOLBOX_MIN_WIDTH else nil,
-		MinHeight = if FFlagToolboxUpdateWindowMinSize then Constants.TOOLBOX_MIN_HEIGHT else nil,
+		MinWidth = Constants.TOOLBOX_MIN_WIDTH,
+		MinHeight = Constants.TOOLBOX_MIN_HEIGHT,
 
 		[Roact.Ref] = self.dockWidgetRefFunc,
 		[Roact.Change.Enabled] = self.onDockWidgetEnabledChanged,

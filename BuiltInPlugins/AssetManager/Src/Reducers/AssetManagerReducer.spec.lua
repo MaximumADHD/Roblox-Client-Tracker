@@ -9,7 +9,7 @@ local View = require(Plugin.Src.Util.View)
 local SetAssets = require(Plugin.Src.Actions.SetAssets)
 local SetAssetFavoriteCount = require(Plugin.Src.Actions.SetAssetFavoriteCount)
 local SetAssetFavorited = require(Plugin.Src.Actions.SetAssetFavorited)
-local SetAssetModerationData = require(Plugin.Src.Actions.SetAssetModerationData)
+local SetAssetsModerationData = require(Plugin.Src.Actions.SetAssetsModerationData)
 local SetAssetOwnerName = require(Plugin.Src.Actions.SetAssetOwnerName)
 local SetAssetPreviewData = require(Plugin.Src.Actions.SetAssetPreviewData)
 local SetBulkImporterRunning = require(Plugin.Src.Actions.SetBulkImporterRunning)
@@ -774,41 +774,41 @@ return function()
 	describe("SetAssetModeration action", function()
 		it("should validate its inputs", function()
 			expect(function()
-				SetAssetModerationData(nil)
+				SetAssetsModerationData(nil)
 			end).to.throw()
 
 			expect(function()
-				SetAssetModerationData("fruit")
+				SetAssetsModerationData("fruit")
 			end).to.throw()
 
 			expect(function()
-				SetAssetModerationData(100)
+				SetAssetsModerationData(100)
 			end).to.throw()
 
 			expect(function()
-				SetAssetModerationData({ key = "value"})
+				SetAssetsModerationData({ key = "value"})
 			end).to.be.ok()
 		end)
 
 		it("should preserve immutability", function()
-			local immutabilityPreserved = testImmutability(AssetManagerReducer, SetAssetModerationData({
+			local immutabilityPreserved = testImmutability(AssetManagerReducer, SetAssetsModerationData({
 				key = "value",
 			}))
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 
-		it("should set asset preview data", function()
+		it("should set assets moderation data", function()
 			local r = Rodux.Store.new(AssetManagerReducer)
 			local state = r:getState()
-			expect(#state.assetsTable.assetModerationData).to.equal(0)
+			expect(#state.assetsTable.assetsModerationData).to.equal(0)
 
 			local assetId = 1234567890
 
-			state = AssetManagerReducer(state, SetAssetModerationData({
+			state = AssetManagerReducer(state, SetAssetsModerationData({
 				[assetId] = "Moderated"
 			}))
 
-			expect(state.assetsTable.assetModerationData[assetId]).to.equal("Moderated")
+			expect(state.assetsTable.assetsModerationData[assetId]).to.equal("Moderated")
 		end)
 	end)
 end

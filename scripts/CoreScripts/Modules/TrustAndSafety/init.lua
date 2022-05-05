@@ -63,4 +63,4 @@ function TrustAndSafety:openReportDialog(userId, userName)
 	self.store:dispatch(OpenReportDialog(userId, userName))
 end
 
-return TrustAndSafety.new()
+return {}

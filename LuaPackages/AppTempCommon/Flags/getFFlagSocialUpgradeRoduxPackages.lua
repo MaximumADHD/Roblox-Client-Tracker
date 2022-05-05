@@ -1,5 +1,5 @@
-game:DefineFastFlag("SocialUpgradeRoduxPackages_v1", false)
+game:DefineFastFlag("SocialUpgradeRoduxPackages_v3", false)
 
 return function()
-	return game:GetFastFlag("SocialUpgradeRoduxPackages_v1")
+	return game:GetFastFlag("SocialUpgradeRoduxPackages_v3")
 end

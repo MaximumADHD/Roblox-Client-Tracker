@@ -8,7 +8,7 @@ local React = require(CorePackages.Packages.React)
 
 type Signal = typeof(Signal.new())
 
-local function useSignal(signal: Signal, callback: () -> any?)
+local function useSignal(signal: Signal, callback: (...any) -> ())
 	React.useEffect(function()
 		local connection = signal:connect(callback)
 		return function()

@@ -37,11 +37,12 @@ local function getPluginTheme()
 	local TopBarHeight = 36
 	local MaterialDetailsWidth = 300
 	local TopBarButtonWidth = 28
-	-- local TopBarDropdownWidth = 150
 	local MaterialDetailsRowHeight = 30
 	local MaterialDetailsTextureHeight = 60
+	local MaterialDetaulsLabelWidth = 108
 	local ColumnWidth = 270
-	local DialogSize = 720
+	local DialogWidth = 720
+	local DialogHeight = 770
 	local SearchBarMaxWidth = 600
 	local IconSize = UDim2.fromOffset(20, 20)
 
@@ -58,13 +59,13 @@ local function getPluginTheme()
 		},
 
 		MaterialPrompt = {
-			DialogWidth = DialogSize,
-			DialogHeight = DialogSize,
+			DialogWidth = DialogWidth,
+			DialogHeight = DialogHeight,
 		},
 
 		MaterialVariantCreator = {
 			Background = StyleKey.ScrollingFrameBackgroundColor,
-			ListItemPadding = UDim.new(0, 20),
+			ListItemPadding = UDim.new(0, 12),
 			Padding = 20,
 			PreviewSize = UDim2.new(0, 300, 1, 0),
 			TextFont = Enum.Font.SourceSansBold,
@@ -72,6 +73,10 @@ local function getPluginTheme()
 		},
 
 		GeneralSettings = {
+			DialogColumnSize = UDim2.new(0, ColumnWidth, 0, 25),
+		},
+
+		AdditionalPropertiesSettings = {
 			DialogColumnSize = UDim2.new(0, ColumnWidth, 0, 25),
 		},
 
@@ -142,6 +147,8 @@ local function getPluginTheme()
 			Padding = 10,
 			SectionHeaderTextSize = 18,
 			TextureLabelSize = UDim2.new(1, -MaterialDetailsTextureHeight, 1, 0),
+			AdditionalLabelSize = UDim2.new(0, MaterialDetaulsLabelWidth, 1, 0),
+			AdditionalTextSize = UDim2.new(1, -MaterialDetaulsLabelWidth, 1, 0),
 			TextureRowSize = UDim2.new(1, 0, 0, MaterialDetailsTextureHeight),
 			TextureSize = UDim2.fromOffset(MaterialDetailsTextureHeight, MaterialDetailsTextureHeight),
 			TitleTextSize = 22,
@@ -189,7 +196,7 @@ local function getPluginTheme()
 			ImageSize = UDim2.fromOffset(16, 16),
 			Padding = (TopBarHeight - TopBarButtonWidth) / 2,
 			SearchBarMaxWidth = 600,
-			SpacerWidth = (DialogSize - 3 * (TopBarButtonWidth + (TopBarHeight - TopBarButtonWidth) / 2) - SearchBarMaxWidth) / 2,
+			SpacerWidth = (DialogWidth - 3 * (TopBarButtonWidth + (TopBarHeight - TopBarButtonWidth) / 2) - SearchBarMaxWidth) / 2,
 		},
 
 		PromptSelectorWithPreview = {

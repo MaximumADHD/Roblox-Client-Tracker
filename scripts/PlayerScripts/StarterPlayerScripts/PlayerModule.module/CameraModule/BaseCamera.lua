@@ -1,3 +1,4 @@
+--!nolint DeprecatedApi
 --[[
 	BaseCamera - Abstract base class for camera control modules
 	2018 Camera Update - AllYourBlox

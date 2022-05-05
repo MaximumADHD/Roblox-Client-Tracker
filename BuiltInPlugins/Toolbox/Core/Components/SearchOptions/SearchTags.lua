@@ -12,17 +12,20 @@
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent
 
+local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
+
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
 
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Constants = require(Plugin.Core.Util.Constants)
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+
+local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Framework.Util.GetTextSize else nil
 
 local SearchTag = require(Plugin.Core.Components.SearchOptions.SearchTag)
 
@@ -82,7 +85,7 @@ function SearchTags:createPrompt(searchTerm, theme, localizedContent)
 		})
 	else
 		local prompt = localizedContent.SearchResults.SearchResultsKeyword
-		local promptWidth = Constants.getTextSize(prompt, nil, Constants.FONT_BOLD).X
+		local promptWidth = if FFlagRemoveUILibraryGetTextSize then GetTextSize(prompt, nil, Constants.FONT_BOLD, Vector2.new(0, 0)).X else Constants.getTextSize(prompt, nil, Constants.FONT_BOLD).X
 		local searchTermSize = UDim2.new(1, -promptWidth, 0, ITEM_HEIGHT)
 
 		return Roact.createElement("Frame", {
@@ -133,7 +136,7 @@ function SearchTags:renderContent(theme, localization, localizedContent)
 	local searchTerm = self.props.searchTerm
 	local onClearTags = self.props.onClearTags
 	local clearAll = localizedContent.SearchResults.ClearAll
-	local clearAllWidth = Constants.getTextSize(clearAll).x
+	local clearAllWidth = if FFlagRemoveUILibraryGetTextSize then GetTextSize(clearAll, nil, nil, Vector2.new(0, 0)).x else Constants.getTextSize(clearAll).x
 	local promptName = searchTerm or "Prompt"
 
 	local hasTags = tags and #tags > 0

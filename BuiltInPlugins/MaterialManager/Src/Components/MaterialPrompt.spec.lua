@@ -7,7 +7,8 @@ return function()
 
 	local function createTestElement(props: MaterialPrompt.Props?)
 		props = props or {
-			PromptClosed = function() end
+			PromptClosed = function() end,
+			MaterialPattern = Enum.MaterialPattern.Regular,
 		}
 
 		return mockContext({
@@ -25,6 +26,7 @@ return function()
 		local container = Instance.new("Folder")
 		local element = createTestElement({
 			PromptClosed = function() end,
+			MaterialPattern = Enum.MaterialPattern.Regular,
 		})
 		local instance = Roact.mount(element, container)
 
@@ -42,6 +44,7 @@ return function()
 			ColorMap = {
 				assetId = "rbxassetid://8706345277",
 			},
+			MaterialPattern = Enum.MaterialPattern.Regular,
 		})
 		local instance = Roact.mount(element, container)
 

@@ -10,6 +10,7 @@ local getGeometry = require(DraggerFramework.Utility.getGeometry)
 local getFaceInstance = require(DraggerFramework.Utility.getFaceInstance)
 local HoverTracker = require(DraggerFramework.Implementation.HoverTracker)
 local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
+local getFFlagDraggerHandlesIsEnabledFunction = require(DraggerFramework.Flags.getFFlagDraggerHandlesIsEnabledFunction)
 
 local Ready = {}
 Ready.__index = Ready
@@ -182,7 +183,8 @@ function Ready:_updateHoverTracker()
 	self._hoverTracker:update(
 		self._draggerToolModel._draggerContext,
 		self._draggerToolModel:getSelectionWrapper():get(),
-		self._draggerToolModel._selectionInfo)
+		self._draggerToolModel._selectionInfo,
+		if getFFlagDraggerHandlesIsEnabledFunction() then self._draggerToolModel:getHandlesList() else nil)
 end
 
 local function contains(list, targetItem)

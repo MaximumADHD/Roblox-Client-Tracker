@@ -1,7 +1,3 @@
-local FFlagStudioAudioDiscoveryPluginV2 = game:GetFastFlag("StudioAudioDiscoveryPluginV2")
-local FFlagStudioAudioDiscoveryPluginV3 = game:GetFastFlag("StudioAudioDiscoveryPluginV3")
-local FFlagStudioAudioDiscoveryPluginV4 = game:GetFastFlag("StudioAudioDiscoveryPluginV4")
-
 local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 local Framework = require(Plugin.Packages.Framework)
@@ -29,12 +25,10 @@ local columns = {
 
 local function sanitize(columnName: string, row, locations)
 	local value = row[columnName]
-	if FFlagStudioAudioDiscoveryPluginV3 then
-		if columnName == "Id" then
-			return tonumber(value)
-		end
+	if columnName == "Id" then
+		return tonumber(value)
 	end
-	if FFlagStudioAudioDiscoveryPluginV2 and locations and columnName == "OK" then
+	if locations and columnName == "OK" then
 		if locations[row.Id] and #locations[row.Id] == 0 then
 			return "fixed"
 		else
@@ -77,30 +71,17 @@ return Rodux.createReducer({
 		local columnName = columns.Left[state.Left.SortIndex]
 		local rows = append({}, state.Rows, action.Rows)
 		local selectedRow
-		if FFlagStudioAudioDiscoveryPluginV4 then
-			local sortedRows = sortRows(rows, columnName, state.Left.SortOrder, state.Locations)
-			if state.SelectedRow then
-				local assetId = state.Rows[state.SelectedRow].Id
-				selectedRow = findIndex(sortedRows, function(row)
-					return row.Id == assetId
-				end) or None
-			end
-			return join(state, {
-				SelectedRow = selectedRow,
-				Rows = sortedRows,
-			})
-		else
-			if FFlagStudioAudioDiscoveryPluginV2 and state.SelectedRow then
-				local assetId = state.Rows[state.SelectedRow].Id
-				selectedRow = findIndex(rows, function(row)
-					return row.Id == assetId
-				end) or None
-			end
-			return join(state, {
-				SelectedRow = selectedRow,
-				Rows = sortRows(rows, columnName, state.Left.SortOrder, state.Locations),
-			})
+		local sortedRows = sortRows(rows, columnName, state.Left.SortOrder, state.Locations)
+		if state.SelectedRow then
+			local assetId = state.Rows[state.SelectedRow].Id
+			selectedRow = findIndex(sortedRows, function(row)
+				return row.Id == assetId
+			end) or None
 		end
+		return join(state, {
+			SelectedRow = selectedRow,
+			Rows = sortedRows,
+		})
 	end,
 	[Unpause.name] = function(state)
 		return join(state, {
@@ -124,10 +105,8 @@ return Rodux.createReducer({
 	[UpdateLocations.name] = function(state, action)
 		local rows
 		local locations = join({}, state.Locations, action.Locations)
-		if FFlagStudioAudioDiscoveryPluginV2 then
-			local columnName = columns.Left[state.Left.SortIndex]
-			rows = sortRows(state.Rows, columnName, state.Left.SortOrder, locations)
-		end
+		local columnName = columns.Left[state.Left.SortIndex]
+		rows = sortRows(state.Rows, columnName, state.Left.SortOrder, locations)
 		return join(state, {
 			Rows = rows,
 			Locations = locations,
@@ -145,7 +124,7 @@ return Rodux.createReducer({
 				selectedRow = findIndex(rows, function(row)
 					return row.Id == assetId
 				end)
-				if FFlagStudioAudioDiscoveryPluginV2 and not selectedRow then
+				if not selectedRow then
 					selectedRow = None
 				end
 			end
