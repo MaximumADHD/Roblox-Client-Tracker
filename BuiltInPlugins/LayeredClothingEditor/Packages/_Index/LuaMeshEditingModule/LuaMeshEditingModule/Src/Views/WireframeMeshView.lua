@@ -19,6 +19,7 @@ function WireframeMeshView.new()
 		local transparency = props.Transparency
 		local wireColor = props.WireColor
 		local toolAdornees = props.ToolAdornees
+		local visible = props.Visible
 		assert(toolAdornees ~= nil, "ToolAdornees cannot be nil!")
 		assert(context ~= nil, "Context cannot be nil!")
 
@@ -49,6 +50,7 @@ function WireframeMeshView.new()
 							EndPoint = vertexData[meshName][higherPointIndex],
 							Transparency = transparency,
 							Color = wireColor,
+							Visible = visible,
 							Parent = self.folder,
 						})
 					end

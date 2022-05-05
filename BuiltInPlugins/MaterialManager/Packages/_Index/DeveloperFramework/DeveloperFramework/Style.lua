@@ -16,5 +16,8 @@ return strict({
 		DarkTheme = require(script.Themes.DarkTheme),
 		LightTheme = require(script.Themes.LightTheme),
 		StudioTheme = require(script.Themes.StudioTheme),
-	})
+	}),
+
+	ColorSystem = require(script.ColorSystem),
+	StudioColorClasses = require(script.ColorSystem.StudioColorClasses),
 })

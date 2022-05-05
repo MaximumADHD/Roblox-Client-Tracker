@@ -9,11 +9,14 @@ local t = require(Packages.t)
 
 --[[
 	A convenient animation wrapper
-	provides the same features as SpringAnimatedItem, with a simpler API
+	provides more features than SpringAnimatedItem, with a simpler API
+	animated bindings can update without requiring a re-render
 
+	local binding, setBinding = Roact.createBinding()
 	withAnimation({
 		option1 = targetValue,
 		option2 = target2,
+		[setBinding] = target3,
 	}, function(values)
 		local currentOption = values.option1
 		return Roact.createComponent(.....)
@@ -31,15 +34,30 @@ AnimatedComponent.validateProps = t.strictInterface({
 	options = t.optional(t.table),
 })
 
+function AnimatedComponent:update(newValues)
+	local stateValues = {}
+	for key, value in pairs(newValues) do
+		if type(key) == "function" then
+			key(value)
+		else
+			stateValues[key] = value
+		end
+	end
+	for key, _ in pairs(self.state) do
+		if not newValues[key] then
+			stateValues[key] = Roact.None
+		end
+	end
+	if next(stateValues) ~= nil then
+		self:setState(stateValues)
+	end
+end
+
 function AnimatedComponent:init()
-	self:setState({
-		values = self.props.values,
-	})
+	self:update(self.props.values)
 	self.motor = Otter.createGroupMotor(self.props.values)
 	self.motor:onStep(function(values)
-		self:setState({
-			values = values,
-		})
+		self:update(values)
 	end)
 end
 
@@ -60,7 +78,7 @@ function AnimatedComponent:willUpdate(nextProps)
 end
 
 function AnimatedComponent:render()
-	local values = self.state.values
+	local values = self.state
 	return self.props.render(values)
 end
 

@@ -19,6 +19,7 @@ return function()
 			Transparency = 0.7,
 			Color = Color3.new(1, 1, 0),
 			Thickness = 0.2,
+			Visible = true,
 		})
 		expect(edge.edge).to.be.ok()
 		expect(edge.edge.Length).to.equal(1)

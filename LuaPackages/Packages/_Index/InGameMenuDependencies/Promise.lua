@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["evaera_roblox-lua-promise"]["roblox-lua-promise"])
+local Package = require(PackageIndex["Promise"]["Promise"])
 
 return Package

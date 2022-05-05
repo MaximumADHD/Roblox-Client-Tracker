@@ -64,7 +64,6 @@ local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local TreeTable = Roact.PureComponent:extend("TreeTable")
 Typecheck.wrap(TreeTable, script)
 
-local FFlagDevFrameworkDoubleClick = game:GetFastFlag("DevFrameworkDoubleClick")
 local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
 
@@ -213,7 +212,7 @@ function TreeTable:render()
 		OnHoverRow = props.OnHoverRow,
 		OnMouseLeave = props.OnMouseLeave,
 		OnSelectRow = self.onSelectRow,
-		OnDoubleClick = if FFlagDevFrameworkDoubleClick then props.OnDoubleClick else nil,
+		OnDoubleClick = props.OnDoubleClick,
 		OnRightClickRow = self.onRightClickRow,
 		OnSizeChange = self.onSizeChange,
 		OnSortChange = props.OnSortChange,

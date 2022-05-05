@@ -4,7 +4,7 @@
 local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTimeProgressBar = game:GetFastFlag("DevFrameworkTimeProgressBar")
 local FFlagDevFrameworkResponsiveGrid2 = game:GetFastFlag("DevFrameworkResponsiveGrid2")
-local FFlagFaceControlsEditorUI = game:GetFastFlag("FaceControlsEditorUI")
+local FFlagFaceControlsEditorUI = game:GetFastFlag("FaceControlsEditorUI2")
 
 local Src = script
 

@@ -10,6 +10,12 @@ local Constants = {
 	ControlEdge = {
 		DefaultThickness = 2,
 	},
+
+	ControlPointsFolderName = "MeshEditingModuleControlPoints",
+
+	VertexToolBase = {
+		DefaultWireframeColor = Color3.fromRGB(140, 65, 168),
+	},
 }
 
 return Constants

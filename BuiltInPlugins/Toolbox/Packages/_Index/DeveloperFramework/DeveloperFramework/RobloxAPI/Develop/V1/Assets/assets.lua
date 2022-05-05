@@ -30,6 +30,7 @@
       "isPublicDomainEnabled": false,
       "moderationStatus": "Green",
       "isModerated": true,
+      "reviewStatus" : "DoesNotRequire"
       "isVersioningEnabled": true,
       "isArchivable": false,
       "canHaveThumbnail": false

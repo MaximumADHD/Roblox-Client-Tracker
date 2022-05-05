@@ -1,5 +1,5 @@
 local RemoteRhodium = {}
-local HttpService = game:getService("HttpService")
+local HttpService = game:GetService("HttpService")
 
 local rootPath = nil
 
@@ -66,7 +66,7 @@ function RemoteRhodium.setCommandPath(p)
 end
 
 local success, RhodiumService = pcall(function()
-		return game:getService("RhodiumService")
+		return game:GetService("RhodiumService")
 	end)
 
 if success then

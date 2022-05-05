@@ -18,6 +18,7 @@ function ControlEdgeView.new()
 		local transparency = props.Transparency
 		local color = props.Color
 		local thickness = props.Thickness or DEFAULT_THICKNESS
+		local visible = props.Visible
 
 		local length = (startPoint - endPoint).Magnitude
 		local cframe = CFrame.new(Vector3.new(0, 0, 0), (endPoint - startPoint).Unit)
@@ -37,6 +38,7 @@ function ControlEdgeView.new()
 		self.edge.Color3 = color
 		self.edge.Adornee = adornee
 		self.edge.Parent = parent
+		self.edge.Visible = visible
 	end
 
 	function controlEdgeViewObject:cleanup()

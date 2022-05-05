@@ -155,6 +155,8 @@ local function initializeLibrary(configs)
 			getPageMargin = require(script.App.Container.getPageMargin),
 			LoadingStateContainer = require(script.App.Container.LoadingStateContainer),
 			HorizontalPageMargin = require(script.App.Container.HorizontalPageMargin),
+			MediaGalleryPreview = require(script.App.Container.MediaGallery.Preview),
+			MediaGalleryFullScreen = require(script.App.Container.MediaGallery.FullScreen),
 		}),
 
 		Slider = strict({

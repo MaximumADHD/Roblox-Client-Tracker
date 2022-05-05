@@ -66,11 +66,15 @@ local function makeContextualMenu(baseMenuComponent, backgroundThemeKey)
 			open = validateMotorOptionProps,
 			close = validateMotorOptionProps,
 		})),
+		horizontalAlignment = t.optional(t.enum(Enum.HorizontalAlignment)),
+		openPositionX = t.optional(t.UDim),
 	})
 
 	contextualMenuComponent.defaultProps = {
 		zIndex = 2,
 		closeBackgroundVisible = true,
+		horizontalAlignment = Enum.HorizontalAlignment.Center,
+		openPositionX = UDim.new(0, 0),
 	}
 
 	function contextualMenuComponent:init()
@@ -118,6 +122,15 @@ local function makeContextualMenu(baseMenuComponent, backgroundThemeKey)
 			local contextMenuWidth = UDim.new(1, -CONTEXT_MENU_PADDING * 2)
 			if self.state.absoluteSize.X > LARGE_WIDTH_THRESHOLD then
 				contextMenuWidth = UDim.new(0, LARGE_WIDTH_SIZE)
+			end
+
+			local anchorPointX
+			if self.props.horizontalAlignment == Enum.HorizontalAlignment.Left then
+				anchorPointX = 1
+			elseif self.props.horizontalAlignment == Enum.HorizontalAlignment.Right then
+				anchorPointX = 0
+			else
+				anchorPointX = 0.5
 			end
 
 			local anchorPointY = 0
@@ -178,7 +191,7 @@ local function makeContextualMenu(baseMenuComponent, backgroundThemeKey)
 				PositionFrame = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
 					Size = UDim2.fromScale(1, 1),
-					Position = UDim2.new(0, 0, self.props.openPositionY.Scale, self.props.openPositionY.Offset),
+					Position = UDim2.new(self.props.openPositionX.Scale, self.props.openPositionX.Offset, self.props.openPositionY.Scale, self.props.openPositionY.Offset),
 					ZIndex = 2,
 				}, {
 					BaseMenu = Roact.createElement(baseMenuComponent, {
@@ -188,7 +201,7 @@ local function makeContextualMenu(baseMenuComponent, backgroundThemeKey)
 
 						width = contextMenuWidth,
 						position = self.positionBinding,
-						anchorPoint = Vector2.new(0.5, anchorPointY),
+						anchorPoint = Vector2.new(anchorPointX, anchorPointY),
 					}),
 				}),
 			})

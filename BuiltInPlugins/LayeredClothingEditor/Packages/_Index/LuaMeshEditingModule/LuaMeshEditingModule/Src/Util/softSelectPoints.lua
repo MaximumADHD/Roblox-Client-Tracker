@@ -12,8 +12,8 @@ local deepCopy = require(Util.deepCopy)
 local function weightPreSelectedPoints(selectedPoints)
 	local pointWeights = {}
 	for _, clickedPoint in ipairs(selectedPoints) do
-		if not pointWeights[selectedPoints.MeshName] then
-			pointWeights[selectedPoints.MeshName] = {}
+		if not pointWeights[clickedPoint.MeshName] then
+			pointWeights[clickedPoint.MeshName] = {}
 		end
 		pointWeights[clickedPoint.MeshName][clickedPoint.Index] = 1
 	end
@@ -134,10 +134,10 @@ return function(context, selectedPoints, falloff)
 	-- Cache the context data we need into a table before we start looping.
 	-- This avoids a bunch of unnecessary deepCopy calls.
 	local contextInfo = {
-		VertexData = context.GetVertexData(),
-		SeamData = context.GetSeamData(),
-		VertexTriangleIndexData = context.GetVertexTriangleIndexData(),
-		TriangleIndexData = context.GetTriangleIndexData(),
+		VertexData = context:getVertexData(),
+		SeamData = context:getSeamData(),
+		VertexTriangleIndexData = context:getVertexTriangleIndexData(),
+		TriangleIndexData = context:getTriangleIndexData(),
 	}
 	local pointWeights = weightPreSelectedPoints(selectedPoints)
 	softSelect(contextInfo, pointWeights, selectedPoints, falloff)

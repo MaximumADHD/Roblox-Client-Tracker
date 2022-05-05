@@ -17,8 +17,8 @@ export type ControlEdgeViewsProps = {
 export type ControlPointViewsProps = {
 	ControlPointPositions: {[string]: Vector3Array},
 	Transparency: number,
-	IsSelected: (meshName : string, id : string) -> boolean,
-	isHovered: (meshName : string, id : string) -> boolean,
+	IsSelected: (meshName : string, id : string) -> any,
+	IsHovered: (meshName : string, id : string) -> boolean,
 	SelectedMesh: string,
 }
 
@@ -43,6 +43,7 @@ export type ControlEdgeViewProps = {
 	Transparency: number,
 	Color: Color3,
 	Thickness: number,
+	Visible: boolean,
 }
 
 return {}

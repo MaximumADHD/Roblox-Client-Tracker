@@ -12,11 +12,15 @@ local deepCopy = require(Util.deepCopy)
 local Signal = require(Util.Signal)
 local softSelectPoints = require(Util.softSelectPoints)
 local TransformPointsHelpers = require(Util.TransformPointsHelpers)
+local Constants = require(Util.Constants)
 
 local Views = LuaMeshEditingModule.Src.Views
 local ControlEdgeViews = require(Views.ControlEdgeViews)
 local ControlPointViews = require(Views.ControlPointViews)
 local ToolAdornees = require(Views.ToolAdornees)
+local WireframeMeshView = require(Views.WireframeMeshView)
+
+local DEFAULT_WIREFRAME_COLOR = Constants.VertexToolBase.DefaultWireframeColor
 
 local VertexToolBase = {}
 VertexToolBase.__index = VertexToolBase
@@ -30,12 +34,14 @@ function VertexToolBase.new()
 	local _adornees
 	local _controlPointLocationData = {}
 	local _currentContext
+	local _currentHandle = Enum.RibbonTool.Select
 	local _edgeViews
 	local _falloff = 0
 	local _futureStack = {}
 	local _hoveredControlPoint
 	local _pastStack = {}
 	local _pointViews
+	local _savedState = nil
 	local _selectedControlPoints = {}
 	local _selectedControlPointWeights = {}
 	local _selectedMesh = nil
@@ -44,19 +50,18 @@ function VertexToolBase.new()
 	local _toolStates = {}
 	local _transparency = 0
 	local _wireframeOn = true
+	local _wireframeMeshView
 
 	-- private functions
 	local function _isHovered(meshName, id)
-		return _hoveredControlPoint ~= nil and _hoveredControlPoint.MeshName == meshName and _hoveredControlPoint.ID == id
+		return _hoveredControlPoint ~= nil and _hoveredControlPoint.MeshName == meshName and _hoveredControlPoint.Index == id
 	end
 
 	local function _isSelected(meshName, id)
 		if _selectedControlPointWeights[meshName] then
-			if _selectedControlPointWeights[meshName][id] then
-				return true
-			end
+			return _selectedControlPointWeights[meshName][id]
 		end
-		return false
+		return nil
 	end
 
 	local function _transformHelper(transformPointFunc)
@@ -66,7 +71,11 @@ function VertexToolBase.new()
 			_selectedControlPointWeights,
 			transformPointFunc
 		)
-		TransformPointsHelpers.transformVertices(_currentContext, vertexToolBaseObject:getVertexWeights(), transformPointFunc)
+		TransformPointsHelpers.transformVertices(
+			_currentContext,
+			vertexToolBaseObject:getVertexWeights(),
+			transformPointFunc
+		)
 		vertexToolBaseObject:render()
 	end
 
@@ -89,6 +98,10 @@ function VertexToolBase.new()
 			_adornees:cleanup()
 			_adornees = nil
 		end
+		if _wireframeMeshView then
+			_wireframeMeshView:cleanup()
+			_wireframeMeshView = nil
+		end
 	end
 
 	local function _onContextChanged(context, controlPointLocationData)
@@ -100,6 +113,7 @@ function VertexToolBase.new()
 
 		_futureStack = {}
 		_pastStack = {}
+		_savedState = nil
 
 		_currentContext = context
 		_controlPointLocationData = controlPointLocationData
@@ -142,6 +156,10 @@ function VertexToolBase.new()
 		return deepCopy(currentState)
 	end
 
+	function vertexToolBaseObject:_getSelectedControlWeights()
+		return deepCopy(_selectedControlPointWeights)
+	end
+
 	-- public functions
 	function vertexToolBaseObject:addContext(context, controlPointLocationData)
 		if not context then
@@ -158,7 +176,7 @@ function VertexToolBase.new()
 		end
 
 		_toolStates[context] = {
-			[CONTROL_POINT_DATA_KEY] = controlPointLocationData
+			[CONTROL_POINT_DATA_KEY] = controlPointLocationData,
 		}
 	end
 
@@ -174,16 +192,21 @@ function VertexToolBase.new()
 
 		local nextToolState = _toolStates[context]
 		if not nextToolState then
-			error("No tool state found for this context. Context was not changed. "..
-				"Try calling AddContext(context, controlPointLocationData) before invoking this method.")
+			error(
+				"No tool state found for this context. Context was not changed. "
+					.. "Try calling AddContext(context, controlPointLocationData) before invoking this method."
+			)
 			return
 		end
 		if context ~= _currentContext then
 			_onContextChanged(context, nextToolState[CONTROL_POINT_DATA_KEY])
 
+			self:saveState()
+
 			_adornees = ToolAdornees.new(_currentContext)
 			_pointViews = ControlPointViews.new(_currentContext)
 			_edgeViews = ControlEdgeViews.new(_currentContext)
+			_wireframeMeshView = WireframeMeshView.new()
 
 			self:render()
 		end
@@ -207,6 +230,14 @@ function VertexToolBase.new()
 		_toolStates[context] = nil
 	end
 
+	function vertexToolBaseObject:getCurrentHandle()
+		return _currentHandle
+	end
+
+	function vertexToolBaseObject:setCurrentHandle(handle)
+		_currentHandle = handle
+	end
+
 	function vertexToolBaseObject:render()
 		if not _currentContext then
 			return
@@ -228,6 +259,13 @@ function VertexToolBase.new()
 			Transparency =_transparency,
 			SelectedMesh = _selectedMesh,
 		})
+		_wireframeMeshView:render({
+			Context = _currentContext,
+			Transparency = _transparency,
+			WireColor = DEFAULT_WIREFRAME_COLOR,
+			ToolAdornees = _adornees,
+			Visible = _wireframeOn,
+		})
 	end
 
 	function vertexToolBaseObject:getSelectedMesh()
@@ -243,9 +281,7 @@ function VertexToolBase.new()
 	end
 
 	function vertexToolBaseObject:cleanup()
-		_edgeViews:cleanup()
-		_pointViews:cleanup()
-		_adornees:cleanup()
+		_cleanupViews()
 	end
 
 	function vertexToolBaseObject:getWireframeEnabled()
@@ -300,13 +336,21 @@ function VertexToolBase.new()
 		-- todo AVBURST-7427
 	end
 
-	function vertexToolBaseObject:addWaypoint()
-		table.insert(_pastStack, {
+	function vertexToolBaseObject:saveState()
+		_savedState = {
 			ToolStateData = self:_getCurrentToolStateData(),
 			VertexData = _currentContext:getVertexData(),
-		})
+		}
+	end
+
+	function vertexToolBaseObject:addWaypoint()
+		assert(_savedState ~= nil, "Saved State cannot be nil. Is there an active context?")
+
+		table.insert(_pastStack, _savedState)
 
 		_futureStack = {}
+
+		self:saveState()
 	end
 
 	function vertexToolBaseObject:undo()
@@ -362,6 +406,14 @@ function VertexToolBase.new()
 		_softSelect()
 	end
 
+	function vertexToolBaseObject:getSelectablesForMesh(meshName)
+		local selectables = {}
+		if _pointViews then
+			_pointViews:getSelectablesForMesh(meshName)
+		end
+		return selectables
+	end
+
 	function vertexToolBaseObject:getSelectables()
 		if _pointViews then
 			return _pointViews:getSelectables()
@@ -375,20 +427,16 @@ function VertexToolBase.new()
 		_hoveredControlPoint = hovered
 	end
 
-	function vertexToolBaseObject:getSelectionBoundingBox()
-		-- todo AVBURST-7429
-	end
-
-	function vertexToolBaseObject:translateSelected(transform)
-		_transformHelper(function(meshOrigin, position, weight)
-			return TransformPointsHelpers.translatePoint(position, transform, meshOrigin, weight)
-		end)
-	end
-
-	function vertexToolBaseObject:rotateSelected(pivot, transform)
-		_transformHelper(function(meshOrigin, position, weight)
-			return TransformPointsHelpers.rotatePoint(position, transform, pivot, meshOrigin, weight)
-		end)
+	function vertexToolBaseObject:transformSelected(transform, pivot, axis, angle)
+		if _currentHandle == Enum.RibbonTool.Move then
+			_transformHelper(function(meshOrigin, position, weight)
+				return TransformPointsHelpers.translatePoint(position, transform, meshOrigin, weight)
+			end)
+		elseif _currentHandle == Enum.RibbonTool.Rotate then
+			_transformHelper(function(meshOrigin, position, weight)
+				return TransformPointsHelpers.rotatePoint(position, axis, angle, pivot, meshOrigin, weight)
+			end)
+		end
 	end
 
 	function vertexToolBaseObject:scaleSelected(pivot, scale)

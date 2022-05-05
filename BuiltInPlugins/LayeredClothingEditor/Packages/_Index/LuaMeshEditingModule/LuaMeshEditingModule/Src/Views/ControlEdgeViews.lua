@@ -12,6 +12,7 @@ local Util = LuaMeshEditingModule.Src.Util
 local ControlEdgeView = require(ViewsFolder.ControlEdgeView)
 local types = require(ViewsFolder.types)
 
+local Constants = require(Util.Constants)
 local cleanupUnusedViews = require(Util.cleanupUnusedViews)
 
 local ControlEdgeViews = {}
@@ -45,7 +46,7 @@ function ControlEdgeViews.new(context)
 
 			for index in pairs(controlPointsForMesh) do
 				local adornee = adornees:getAdornee(meshName)
-				assert(adornee, "Adornee part should exist for: " ..meshName .." in game.Workspace.ControlPoints")
+				assert(adornee, "Adornee part should exist for: " ..meshName .." in game.Workspace." ..Constants.ControlPointsFolderName)
 				if not _views[meshName] then
 					_views[meshName] = {}
 				end

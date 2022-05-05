@@ -2,7 +2,7 @@
 name = "RoactNavigation"
 version = "0.5.1"
 commit = "3983d040271e6ffe931dcff9283c6854349f8e51"
-source = "git+https://github.com/roblox/roact-navigation#v0.5.1"
+source = "url+https://github.com/roblox/roact-navigation"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
     "LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill",

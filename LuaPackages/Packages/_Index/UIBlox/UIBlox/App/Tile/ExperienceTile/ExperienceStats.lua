@@ -15,10 +15,12 @@ local IconSize = require(App.ImageSet.Enum.IconSize)
 local getIconSizeUDim2 = require(App.ImageSet.getIconSizeUDim2)
 
 local RATING_ICON = "icons/status/games/rating_small"
-local PLAYERS_ICON = "icons/controls/players"
+local PLAYERS_ICON = "icons/status/games/people-playing_small"
 
+local RATING_ITEM_WIDTH = 68
 local RATING_ICON_SIZE = getIconSizeUDim2(IconSize.Small)
 local PLAYING_ICON_SIZE = getIconSizeUDim2(IconSize.Small)
+local ITEM_PADDING = 12
 local STAT_PADDING = 5
 
 local ExperienceStats = Roact.PureComponent:extend("ExperienceStats")
@@ -43,6 +45,7 @@ function ExperienceStats:renderStatItem(containerProps, icon, iconSize, text, st
 		UIListLayout = Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Horizontal,
 			SortOrder = Enum.SortOrder.LayoutOrder,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
 			Padding = UDim.new(0, STAT_PADDING),
 		}),
 		Icon = Roact.createElement(ImageSetComponent.Label, {
@@ -52,6 +55,7 @@ function ExperienceStats:renderStatItem(containerProps, icon, iconSize, text, st
 			ImageTransparency = theme.IconDefault.Transparency,
 			ImageColor3 = theme.IconDefault.Color,
 			LayoutOrder = 1,
+			AnchorPoint = Vector2.new(0, 0.5),
 		}),
 		Label = Roact.createElement("TextLabel", {
 			Size = UDim2.new(1, 0, 1, 0),
@@ -75,14 +79,13 @@ function ExperienceStats:render()
 			BackgroundTransparency = 1,
 		}, {
 			RatingStats = self:renderStatItem({
-				Size = UDim2.new(0.5, 0, 1, 0),
+				Size = UDim2.new(0, RATING_ITEM_WIDTH, 1, 0),
 				BackgroundTransparency = 1,
 			}, RATING_ICON, RATING_ICON_SIZE, self.props.ratingText, stylePalette),
 
 			PlayingStats = self:renderStatItem({
-				Size = UDim2.new(0.5, 0, 1, 0),
-				Position = UDim2.new(1, 0, 0, 0),
-				AnchorPoint = Vector2.new(1, 0),
+				Size = UDim2.new(1, -RATING_ITEM_WIDTH, 1, 0),
+				Position = UDim2.new(0, RATING_ITEM_WIDTH + ITEM_PADDING, 0, 0),
 				BackgroundTransparency = 1,
 			}, PLAYERS_ICON, PLAYING_ICON_SIZE, self.props.playingText, stylePalette),
 		})

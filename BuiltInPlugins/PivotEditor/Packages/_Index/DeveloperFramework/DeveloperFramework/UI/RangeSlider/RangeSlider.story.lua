@@ -3,7 +3,7 @@ local Roact = require(Framework.Parent.Roact)
 local RangeSlider = require(Framework.UI.RangeSlider)
 
 local GetFFlagFaceControlsEditorUI = function()
-	return game:GetFastFlag("FaceControlsEditorUI")
+	return game:GetFastFlag("FaceControlsEditorUI2")
 end
 
 local UI = require(Framework.UI)

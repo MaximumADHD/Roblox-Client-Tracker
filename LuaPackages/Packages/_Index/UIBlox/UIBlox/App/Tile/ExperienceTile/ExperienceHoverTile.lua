@@ -17,7 +17,9 @@ local IconButton = require(App.Button.IconButton)
 local Images = require(App.ImageSet.Images)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local ControlState = require(Core.Control.Enum.ControlState)
+local TileMenuState = require(TileRoot.Enum.TileMenuState)
 
+local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local LoadableImage = require(UIBlox.App.Loading.LoadableImage)
 local BaseMenu = require(UIBlox.App.Menu.BaseMenu)
 local ExperienceStats = require(ExperienceTileRoot.ExperienceStats)
@@ -96,8 +98,11 @@ ExperienceHoverTile.validateProps = t.strictInterface({
 	onShare = t.callback,
 	onReport = t.callback,
 
-	-- Callback to inform parent component of menu open state; should accept current isOpen state as a prop
+	-- Callback which returns TileMenuState enum representing which menu was toggled
 	onToggleMenu = t.optional(t.callback),
+
+	-- Enum of TileMenu which is currently open; no menu will be shown if nil
+	openedMenu = t.optional(enumerateValidator(TileMenuState)),
 
 	-- The image to represent the tile's experience; will show a loading state if nil
 	thumbnail = t.optional(t.string),
@@ -111,6 +116,7 @@ ExperienceHoverTile.validateProps = t.strictInterface({
 
 ExperienceHoverTile.defaultProps = {
 	isPlayable = true,
+	openedMenu = TileMenuState.None,
 
 	onPanelClick = NOOP,
 	onThumbnailClick = NOOP,
@@ -122,9 +128,6 @@ function ExperienceHoverTile:init()
 		panelControlState = ControlState.Initialize,
 		thumbnailControlState = ControlState.Initialize,
 		hidePanelOverlay = false,
-
-		moreMenuOpen = false,
-		friendsMenuOpen = false,
 	})
 
 	self.onPanelStateChanged = function(oldState, newState)
@@ -148,12 +151,8 @@ function ExperienceHoverTile:init()
 	end
 
 	self.closeMenus = function()
-		self:setState({
-			moreMenuOpen = false,
-			friendsMenuOpen = false,
-		})
 		if self.props.onToggleMenu then
-			self.props.onToggleMenu(false)
+			self.props.onToggleMenu(TileMenuState.None)
 		end
 	end
 
@@ -161,29 +160,27 @@ function ExperienceHoverTile:init()
 		self.closeMenus()
 
 		if self.props.onToggleFavorite then
-			self.props.onToggleFavorite(self.props.isFavorite)
+			self.props.onToggleFavorite()
 		end
 	end
 
 	self.toggleFriendsMenu = function()
-		local isOpen = self.state.friendsMenuOpen
-		self:setState({
-			moreMenuOpen = false,
-			friendsMenuOpen = not isOpen,
-		})
 		if self.props.onToggleMenu then
-			self.props.onToggleMenu(not isOpen)
+			if self.props.openedMenu == TileMenuState.Friends then
+				self.props.onToggleMenu(TileMenuState.None)
+			else
+				self.props.onToggleMenu(TileMenuState.Friends)
+			end
 		end
 	end
 
 	self.toggleMoreMenu = function()
-		local isOpen = self.state.moreMenuOpen
-		self:setState({
-			friendsMenuOpen = false,
-			moreMenuOpen = not isOpen,
-		})
 		if self.props.onToggleMenu then
-			self.props.onToggleMenu(not isOpen)
+			if self.props.openedMenu == TileMenuState.More then
+				self.props.onToggleMenu(TileMenuState.None)
+			else
+				self.props.onToggleMenu(TileMenuState.More)
+			end
 		end
 	end
 
@@ -330,6 +327,7 @@ end
 
 function ExperienceHoverTile:renderMenu(stylePalette)
 	local theme = stylePalette.Theme
+	local openedMenu = self.props.openedMenu
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
@@ -351,9 +349,9 @@ function ExperienceHoverTile:renderMenu(stylePalette)
 			ZIndex = 3,
 			[Roact.Event.Activated] = self.closeMenus,
 		}, {
-			Items = if self.state.moreMenuOpen
+			Items = if openedMenu == TileMenuState.More
 				then self:renderMoreMenu()
-				elseif self.state.friendsMenuOpen then self:renderFriendsMenu()
+				elseif openedMenu == TileMenuState.Friends then self:renderFriendsMenu()
 				else nil,
 			Filler = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, -ACTION_MENU_HEIGHT),
@@ -420,7 +418,8 @@ function ExperienceHoverTile:renderMoreMenu()
 end
 
 function ExperienceHoverTile:renderActionRow(stylePalette)
-	local theme = stylePalette.Theme
+	local friendsMenuOpen = self.props.openedMenu == TileMenuState.Friends
+	local moreMenuOpen = self.props.openedMenu == TileMenuState.More
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, ACTION_ROW_HEIGHT),
@@ -449,15 +448,16 @@ function ExperienceHoverTile:renderActionRow(stylePalette)
 				layoutOrder = 2,
 				icon = Images[FRIENDS_PLAYING_ICON],
 				onActivated = self.toggleFriendsMenu,
-				iconColor3 = if self.state.friendsMenuOpen then theme.System else nil,
-				[IconButton.debugProps.controlState] = if self.state.friendsMenuOpen then ControlState.Pressed else nil,
+				-- APPFDN-1343: debugProps.controlState should be replaced with a "sticky" IconButton prop
+				[IconButton.debugProps.controlState] = if friendsMenuOpen then ControlState.Pressed else nil,
 			})
 			else nil,
 		MoreIcon = Roact.createElement(IconButton, {
 			layoutOrder = 3,
 			icon = Images[MORE_ICON],
 			onActivated = self.toggleMoreMenu,
-			[IconButton.debugProps.controlState] = if self.state.moreMenuOpen then ControlState.Pressed else nil,
+			-- APPFDN-1343: debugProps.controlState should be replaced with a "sticky" IconButton prop
+			[IconButton.debugProps.controlState] = if moreMenuOpen then ControlState.Pressed else nil,
 		}),
 	})
 end
@@ -467,7 +467,7 @@ function ExperienceHoverTile:render()
 		local theme = stylePalette.Theme
 		local tileBackgroundColor = theme.BackgroundUIDefault.Color
 		local tileBackgroundTransparency = theme.BackgroundUIDefault.Transparency
-		local isMenuOpen = self.state.moreMenuOpen or self.state.friendsMenuOpen
+		local isMenuOpen = self.props.openedMenu == TileMenuState.More or self.props.openedMenu == TileMenuState.Friends
 		local isPlayable = self.props.isPlayable
 
 		local panelBackgroundColor, panelBackgroundTransparency = mapBackgroundState(

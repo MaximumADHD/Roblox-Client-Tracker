@@ -54,14 +54,12 @@ function TransformPointsHelpers.scalePoint(position, scale, pivot, meshOrigin, w
 	return meshOrigin:inverse() * pivot * (weightedScale * relativeToScaleCenter)
 end
 
-function TransformPointsHelpers.rotatePoint(position, transform, pivot, meshOrigin, weight)
-	-- TODO AVBURST-7429: change this so that we decompose transform into axis/angle and then weight the angle
-	local rotOnly = transform - transform.p
+function TransformPointsHelpers.rotatePoint(position, axis, angle, pivot, meshOrigin, weight)
+	angle = angle * weight
+	local weighted = CFrame.fromAxisAngle(axis, angle)
 	local relativeToRotCenter = (meshOrigin * position) - pivot
 
-	local newPos = meshOrigin:inverse() * ((rotOnly * relativeToRotCenter) + pivot)
-	local weighted = position:Lerp(newPos, weight)
-	return weighted
+	return meshOrigin:inverse() * ((weighted * relativeToRotCenter) + pivot)
 end
 
 return TransformPointsHelpers

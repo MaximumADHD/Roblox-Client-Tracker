@@ -15,11 +15,14 @@ local getIconSize = require(App.ImageSet.getIconSize)
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local bindingValidator = require(Core.Utility.bindingValidator)
 local validateImage = require(Core.ImageSet.Validator.validateImage)
+local validateColorInfo = require(Core.Style.Validator.validateColorInfo)
 
 local withStyle = require(Core.Style.withStyle)
 local HoverButtonBackground = require(Core.Button.HoverButtonBackground)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local IconSize = require(App.ImageSet.Enum.IconSize)
+
+local DEFAULT_BACKGROUND = "UIMuted"
 
 local IconButton = Roact.PureComponent:extend("IconButton")
 IconButton.debugProps = enumerate("debugProps", {
@@ -36,6 +39,11 @@ IconButton.validateProps = t.strictInterface({
 	colorStyleDefault = t.optional(t.string),
 	colorStyleHover = t.optional(t.string),
 
+	-- color overrides for the icon default
+	colorDefault = t.optional(validateColorInfo),
+	-- color overrides for the icon hover
+	colorHover = t.optional(validateColorInfo),
+
 	--A Boolean value that determines whether user events are ignored and sink input
 	userInteractionEnabled = t.optional(t.boolean),
 
@@ -51,7 +59,7 @@ IconButton.validateProps = t.strictInterface({
 	iconColor3 = t.optional(t.Color3),
 	iconTransparency = t.optional(t.union(t.number, bindingValidator(t.number))),
 	showBackground = t.optional(t.boolean),
-	backgroundColorStyle = t.optional(t.string),
+	backgroundColor = t.optional(validateColorInfo),
 
 	[Roact.Children] = t.optional(t.table),
 
@@ -69,10 +77,11 @@ IconButton.defaultProps = {
 
 	colorStyleDefault = "SystemPrimaryDefault",
 	colorStyleHover = "SystemPrimaryDefault",
+
 	iconColor3 = nil,
 	iconTransparency = nil,
 	showBackground = false,
-	backgroundColorStyle = "UIMuted",
+	backgroundColor = nil,
 
 	isDisabled = false,
 	userInteractionEnabled = true,
@@ -82,7 +91,7 @@ IconButton.defaultProps = {
 
 function IconButton:init()
 	self:setState({
-		controlState = ControlState.Initialize
+		controlState = ControlState.Initialize,
 	})
 
 	self.onStateChanged = function(oldState, newState)
@@ -125,7 +134,12 @@ function IconButton:render()
 		}
 
 		local iconStyle = getContentStyle(iconStateColorMap, currentState, style)
-		local backgroundColorStyle = self.props.backgroundColorStyle
+		local backgroundColor
+		if self.props.backgroundColor == nil then
+			backgroundColor = style.Theme[DEFAULT_BACKGROUND]
+		else
+			backgroundColor = self.props.backgroundColor
+		end
 
 		return Roact.createElement(Interactable, {
 			AnchorPoint = self.props.anchorPoint,
@@ -152,14 +166,12 @@ function IconButton:render()
 				Image = self.props.icon,
 				ImageColor3 = self.props.iconColor3 or iconStyle.Color,
 				ImageTransparency = self.props.iconTransparency or iconStyle.Transparency,
-			},
-				self.props[Roact.Children]
-			),
+			}, self.props[Roact.Children]),
 			hoverBackground = currentState == ControlState.Hover and Roact.createElement(HoverButtonBackground) or nil,
 			background = showBackground and Roact.createElement("Frame", {
 				Size = UDim2.fromScale(1, 1),
-				BackgroundColor3 = style.Theme[backgroundColorStyle].Color,
-				BackgroundTransparency = style.Theme[backgroundColorStyle].Transparency,
+				BackgroundColor3 = backgroundColor.Color,
+				BackgroundTransparency = backgroundColor.Transparency,
 				ZIndex = 0,
 			}, {
 				corner = Roact.createElement("UICorner", {

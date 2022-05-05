@@ -45,6 +45,21 @@ export type GetFriendRecommendationsFromUserId = {
 	namedIds: NamedIds,
 }
 
+export type UnfriendTargetUserId = {
+	namedIds: NamedIds,
+}
+
+export type GetFriendshipStatusSucceeded = {
+	responseBody: {
+		data: {
+			[string]: {
+				id: number, 
+				status: string
+			}
+		}
+	},
+}
+
 export type GetFriendsFromUserId = {
 	responseBody: {
 		data: {
@@ -67,7 +82,22 @@ export type RequestFriendshipFromUserId = {
 	namedIds: NamedIds,
 }
 
+export type AcceptFriendRequestFromUserId = {
+	ids: {string}
+}
+
+export type DeclineFriendRequestFromUserId = {
+	ids: {string}
+}
+
 export type FriendshipCreated = {
+	payload: {
+		userId1: string,
+		userId2: string,
+	},
+}
+
+export type FriendshipDestroyed = {
 	payload: {
 		userId1: string,
 		userId2: string,
@@ -82,6 +112,10 @@ export type FriendRequestCreated = {
 	sentAt: string,
 }
 
+export type FriendRequestDeclined = {
+	ids: {string}
+}
+
 export type RecommendationCreated = {
 	payload: { baseUserId: string, recommendedUser: RecommendationResponse },
 }
@@ -92,6 +126,8 @@ export type RecommendationDestroyed = {
 
 -- Reducers
 export type RecommendationByUserId = { [string]: RecommendationModel }
+
+export type FriendshipStatus = { [string]: Enum.FriendStatus }
 
 export type Reducer = {
 	byUserId: { [string]: UserIds },
@@ -105,6 +141,7 @@ export type Reducer = {
 		sentAt: { [string]: DateTime },
 	},
 	recommendations: RecommendationByUserId,
+	friendshipStatus: FriendshipStatus,
 }
 
 return {}

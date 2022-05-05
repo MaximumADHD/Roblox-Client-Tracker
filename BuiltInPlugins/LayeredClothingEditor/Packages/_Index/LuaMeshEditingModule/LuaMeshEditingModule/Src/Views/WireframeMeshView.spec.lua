@@ -61,6 +61,7 @@ return function()
 			Transparency = 0,
 			WireColor = Color3.new(0, 0, 0),
 			ToolAdornees = toolAdornees,
+			Visible = true,
 		})
 
 		expect(wireframe.adorns).to.be.ok()

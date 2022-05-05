@@ -51,7 +51,7 @@ Typecheck.wrap(RangeSlider, script)
 
 
 local GetFFlagFaceControlsEditorUI = function()
-	return game:GetFastFlag("FaceControlsEditorUI")
+	return game:GetFastFlag("FaceControlsEditorUI2")
 end
 
 RangeSlider.defaultProps = {

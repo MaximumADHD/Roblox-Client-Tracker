@@ -14,6 +14,7 @@ local types = require(ViewsFolder.types)
 
 local Constants = require(Util.Constants)
 local cleanupUnusedViews = require(Util.cleanupUnusedViews)
+local Selectable = require(Util.Selectable)
 
 local ControlPointViews = {}
 ControlPointViews.__index = ControlPointViews
@@ -41,11 +42,11 @@ function ControlPointViews.new(context)
 			if selectedMesh and meshName ~= selectedMesh then
 				continue
 			end
-			local meshOrigin = _meshEditingContext.GetMeshOrigin(meshName)
+			local meshOrigin = _meshEditingContext:getMeshOrigin(meshName)
 
 			for index in pairs(controlPointsForMesh) do
 				local parent = adornees:getAdornee(meshName)
-				assert(parent, "Adornee part should exist for: " ..meshName .." in game.Workspace.ControlPoints")
+				assert(parent, "Adornee part should exist for: " ..meshName .." in game.Workspace." ..Constants.ControlPointsFolderName)
 				if not _views[meshName] then
 					_views[meshName] = {}
 				end
@@ -56,13 +57,14 @@ function ControlPointViews.new(context)
 				_views[meshName][index]:render({
 					Name = index,
 					Transparency = transparency,
-					Position = meshOrigin * controlPointPositions[meshName][controlPointIndex],
+					Position = meshOrigin * controlPointPositions[meshName][index],
 					PartParent = parent,
 					AdornmentParent = _adornmentFolder,
-					Selected = isSelected(meshName, controlPointIndex),
-					Hovered = isHovered(meshName, controlPointIndex),
+					Selected = if isSelected(meshName, index) then true else false,
+					Hovered = isHovered(meshName, index),
 					Shape = "Sphere",
 					Size = Constants.ControlPoint.Size,
+					Weight = isSelected(meshName, index)
 				})
 			end
 		end
@@ -83,18 +85,28 @@ function ControlPointViews.new(context)
 		_views = {}
 	end
 
+	function controlPointsViewObject:getSelectablesForMesh(meshName, selectables)
+		if not selectables then
+			error("Could not get selectables for mesh, selectables argument was nil.")
+			return
+		end
+		local viewsPerMesh = _views[meshName]
+		if not viewsPerMesh then
+			error("No views were found for mesh: " ..meshName)
+			return
+		end
+		for index, view in ipairs(viewsPerMesh) do
+			table.insert(selectables, {
+				Center = view.controlPoint.CFrame.p,
+				Selectable = Selectable.new(meshName, Index),
+			})
+		end
+	end
+
 	function controlPointsViewObject:getSelectables()
 		local selectables = {}
-		for meshName, viewsPerMesh in pairs(_views) do
-			for index, view in ipairs(viewsPerMesh) do
-				table.insert(selectables, {
-					Center = view.controlPoint.CFrame.p,
-					Selectable = {
-						MeshName = meshName,
-						ID = index,
-					},
-				})
-			end
+		for meshName in pairs(_views) do
+			self:getSelectablesForMesh(meshName, selectables)
 		end
 		return selectables
 	end

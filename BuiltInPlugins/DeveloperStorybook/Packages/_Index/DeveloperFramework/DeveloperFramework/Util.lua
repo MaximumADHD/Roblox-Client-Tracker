@@ -2,6 +2,7 @@
 	Public interface for Util
 ]]
 local strict = require(script.strict)
+local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
 
 return strict({
 	-- Plugin Utilities
@@ -19,6 +20,7 @@ return strict({
 	deepJoin = require(script.deepJoin),
 	deepCopy = require(script.deepCopy),
 	getDeepFolder = require(script.getDeepFolder),
+	GetTextSize = if FFlagRemoveUILibraryGetTextSize then require(script.GetTextSize) else nil,
 
 	-- TODO DEVTOOLS-4459: Remove this export
 	FitFrame = require(script.FitFrame),

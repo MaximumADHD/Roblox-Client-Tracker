@@ -1,11 +1,131 @@
+
 local Framework = script.Parent.Parent.Parent
 local Colors = require(Framework.Style.Colors)
 local StyleKey = require(Framework.Style.StyleKey)
 
+local StudioColorClasses = require(Framework.Style.ColorSystem.StudioColorClasses)
+
+local THEME_NAME = "Dark"
+
+
+local FFlagDevFrameworkUseStudioColorClasses = game:GetFastFlag("DevFrameworkUseStudioColorClasses")
 local FFlagEnablePublishPlaceAsStylizer = game:GetFastFlag("EnablePublishPlaceAsStylizer")
 local FFlagEnableGameSettingsStylizer = game:GetFastFlag("EnableGameSettingsStylizer")
 
 return {
+	-- Studio Color Classes
+	[StyleKey.BackgroundPaper] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Background.Paper[THEME_NAME]
+		else nil,
+	[StyleKey.BackgroundDefault] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Background.Default[THEME_NAME]
+		else nil,
+
+	[StyleKey.ForegroundMain] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Foreground.Main[THEME_NAME]
+		else nil,
+	[StyleKey.ForegroundMuted] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Foreground.Muted[THEME_NAME]
+		else nil,
+	[StyleKey.ForegroundContrast] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Foreground.Contrast[THEME_NAME]
+		else nil,
+
+	[StyleKey.TextPrimary] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Text.Primary[THEME_NAME]
+		else nil,
+	[StyleKey.TextSecondary] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Text.Secondary[THEME_NAME]
+		else nil,
+	[StyleKey.TextContrast] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Text.Contrast[THEME_NAME]
+		else nil,
+	[StyleKey.TextLink] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Text.Link[THEME_NAME]
+		else nil,
+	[StyleKey.TextDisabled] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Text.Disabled[THEME_NAME]
+		else nil,
+
+	[StyleKey.ErrorMain] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Error.Main[THEME_NAME]
+		else nil,
+	[StyleKey.SuccessMain] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Success.Main[THEME_NAME]
+		else nil,
+	[StyleKey.WarningMain] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Warning.Main[THEME_NAME]
+		else nil,
+
+	[StyleKey.ActionHover] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Action.Hover[THEME_NAME]
+		else nil,
+	[StyleKey.ActionEnabled] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Action.Enabled[THEME_NAME]
+		else nil,
+	[StyleKey.ActionSelected] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Action.Selected[THEME_NAME]
+		else nil,
+	[StyleKey.ActionActivated] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Action.Activated[THEME_NAME]
+		else nil,
+	[StyleKey.ActionFocusBorder] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Action.FocusBorder[THEME_NAME]
+		else nil,
+
+	[StyleKey.PrimaryMain] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Primary.Main[THEME_NAME]
+		else nil,
+
+	[StyleKey.PrimaryStatesHoverBackground] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.PrimaryStates.HoverBackground[THEME_NAME]
+		else nil,
+
+	[StyleKey.SecondaryMain] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Secondary.Main[THEME_NAME]
+		else nil,
+	[StyleKey.SecondaryMuted] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Secondary.Muted[THEME_NAME]
+		else nil,
+	[StyleKey.SecondaryContrast] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Secondary.Contrast[THEME_NAME]
+		else nil,
+
+	[StyleKey.SecondaryStatesHoverBackground] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.SecondaryStates.HoverBackground[THEME_NAME]
+		else nil,
+	[StyleKey.SecondaryStatesHoverOutlineBorder] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.SecondaryStates.HoverOutlineBorder[THEME_NAME]
+		else nil,
+	[StyleKey.SecondaryStatesRestingOutlineBorder] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.SecondaryStates.RestingOutlineBorder[THEME_NAME]
+		else nil,
+
+	[StyleKey.OtherFilledInputBackground] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Other.FilledInputBackground[THEME_NAME]
+		else nil,
+	[StyleKey.OtherDivider] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Other.Divider[THEME_NAME]
+		else nil,
+
+	-- Old StyleKeys which have been updated to new system
+
+	[StyleKey.ErrorText] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Error.Main[THEME_NAME]
+		else Color3.fromRGB(255, 68, 68),
+	[StyleKey.LinkText] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Text.Link[THEME_NAME]
+		else Color3.fromRGB(60, 180, 255),
+	[StyleKey.WarningText] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Warning.Main[THEME_NAME]
+		else Color3.fromRGB(255, 141, 60),
+
+	[StyleKey.MainText] = if FFlagDevFrameworkUseStudioColorClasses
+		then StudioColorClasses.Text.Primary[THEME_NAME]
+		else Colors.Gray_Light,
+
+	-- WARNING: StyleKeys below this line have not been updated to new system
+
 	[StyleKey.Border] = Colors.Carbon,
 	[StyleKey.BrightText] = Colors.White,
 	[StyleKey.Button] = Colors.Gray,
@@ -44,8 +164,6 @@ return {
 	[StyleKey.DimmedText] = Colors.lighter(Colors.Black, 0.4),
 	[StyleKey.Dropdown] = Colors.Slate,
 
-	[StyleKey.ErrorText] = Color3.fromRGB(255, 68, 68),
-
 	[StyleKey.InputFieldBackground] = Color3.fromRGB(37, 37, 37),
 	[StyleKey.InputFieldBackgroundDisabled] = Color3.fromRGB(37, 37, 37),
 	[StyleKey.InputFieldBorder] = Color3.fromRGB(26, 26, 26),
@@ -57,11 +175,9 @@ return {
 	[StyleKey.ItemSelected] = Colors.Blue_Dark,
 
 	[StyleKey.Light] = if FFlagEnablePublishPlaceAsStylizer then Color3.fromRGB(243, 243, 243) else nil,
-	[StyleKey.LinkText] = Color3.fromRGB(60, 180, 255),
 
 	[StyleKey.MainBackground] = Colors.Slate,
 	[StyleKey.MainButton] = Colors.Blue,
-	[StyleKey.MainText] = Colors.Gray_Light,
 	[StyleKey.MainTextDisabled] = Color3.fromRGB(85, 85, 85),
 	[StyleKey.MainTextHover] = Color3.fromRGB(66, 66, 66),
 	[StyleKey.MainTextSelected] = Colors.White,
@@ -100,8 +216,6 @@ return {
 	[StyleKey.CheckboxDisabledImage] = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_disabled_dark.png",
 
 	[StyleKey.CheckedFieldBackgroundHover] = Color3.fromRGB(15, 15, 15),
-
-	[StyleKey.WarningText] = Color3.fromRGB(255, 141, 60),
 
 	Font = Enum.Font.SourceSans,
 	TextSize = 18,

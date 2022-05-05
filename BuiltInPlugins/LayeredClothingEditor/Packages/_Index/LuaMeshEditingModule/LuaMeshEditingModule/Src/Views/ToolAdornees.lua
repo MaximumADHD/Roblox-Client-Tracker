@@ -12,6 +12,9 @@ local Packages = LuaMeshEditingModule.Packages
 local Dash = require(Packages.Dash)
 local keys = Dash.keys
 
+local Util = LuaMeshEditingModule.Src.Util
+local Constants = require(Util.Constants)
+
 local ToolAdornees = {}
 ToolAdornees.__index = ToolAdornees
 
@@ -43,7 +46,7 @@ function ToolAdornees.new(context)
 			self.controlPointAdornees.ControlPoints == nil or
 			self.controlPointAdornees.ControlPoints.Instance == nil then
 				local rootFolder = Instance.new("Folder", game.Workspace)
-				rootFolder.Name = "ControlPoints"
+				rootFolder.Name = Constants.ControlPointsFolderName
 				rootFolder.Archivable = false
 				self.controlPointAdornees = {
 					ControlPoints = {

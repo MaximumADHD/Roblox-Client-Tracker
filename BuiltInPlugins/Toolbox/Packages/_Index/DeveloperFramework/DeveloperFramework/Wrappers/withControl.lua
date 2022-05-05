@@ -25,8 +25,6 @@ local DoubleClickDetector = Util.DoubleClickDetector
 local Dash = require(Framework.packages.Dash)
 local joinDeep = Dash.joinDeep
 
-local FFlagDevFrameworkDoubleClick = game:GetFastFlag("DevFrameworkDoubleClick")
-
 local Controllable = Roact.Component:extend("Controllable")
 
 Controllable.shouldUpdate = wrapperShouldUpdate
@@ -36,7 +34,7 @@ function Controllable:init()
 		isHovering = false,
 		isPressing = false,
 	}
-	self.DoubleClickDetector = FFlagDevFrameworkDoubleClick and DoubleClickDetector.new()
+	self.DoubleClickDetector = DoubleClickDetector.new()
 	self.onMouseEnter = function()
 		self:setState({
 			isHovering = true,
@@ -58,7 +56,7 @@ function Controllable:init()
 			if self.props.ComponentProps.OnPress then
 				self.props.ComponentProps.OnPress(self.props.ComponentProps)
 			end
-			if FFlagDevFrameworkDoubleClick and self.props.ComponentProps.OnDoubleClick and self.DoubleClickDetector:isDoubleClick() then
+			if self.props.ComponentProps.OnDoubleClick and self.DoubleClickDetector:isDoubleClick() then
 				self.props.ComponentProps.OnDoubleClick(self.props.ComponentProps)
 			end
 		end

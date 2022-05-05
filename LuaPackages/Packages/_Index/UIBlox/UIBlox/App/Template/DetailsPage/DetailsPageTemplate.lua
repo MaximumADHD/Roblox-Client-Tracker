@@ -169,21 +169,21 @@ function DetailsPageTemplate:render()
 			[Roact.Ref] = self.containerRef,
 			[Roact.Change.AbsoluteSize] = self.onContainerSizeChange,
 		}, {
-			OnCloseButtonFrame = Roact.createElement("Frame", {
+			CloseButtonFrame = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				Size = getIconSizeUDim2(IconSize.Large),
 				AnchorPoint = Vector2.new(0, 0.5),
 				Position = UDim2.new(0, CLOSE_BUTTON_OFFSET, 0, closeButtonPosY),
 				ZIndex = 2,
 			}, {
-				OnCloseButton = Roact.createElement(IconButton, {
+				CloseButton = Roact.createElement(IconButton, {
 					size = UDim2.fromScale(1, 1),
 					icon = ICON_CLOSE,
-					iconColor3 = style.Theme.SystemPrimaryContent.Color,
+					iconColor3 = style.Theme.UIEmphasis.Color,
 					iconSize = IconSize.Medium,
 					onActivated = self.props.onClose,
 					showBackground = self.state.showStickyActionTopBar == false,
-					backgroundColorStyle = "SystemPrimaryDefault",
+					backgroundColor = style.Theme.BackgroundUIDefault,
 				}),
 			}),
 			BackgroundDetailsFrame = Roact.createElement("Frame", {

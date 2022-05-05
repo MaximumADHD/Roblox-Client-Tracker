@@ -1,4 +1,4 @@
-local FFlagFaceControlsEditorUI = game:GetFastFlag("FaceControlsEditorUI")
+local FFlagFaceControlsEditorUI = game:GetFastFlag("FaceControlsEditorUI2")
 
 function getMidPoint(lower, upper)
 	return (lower + upper) * 0.5
