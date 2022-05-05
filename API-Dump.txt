@@ -4,7 +4,6 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Property int Instance.DataCost {LocalUserSecurity} [Hidden] [ReadOnly] [Deprecated]
 	Property string Instance.Name
 	Property Instance Instance.Parent [<📁> LoadOnly] [NotReplicated]
-	Property Enum.PropertyStatus Instance.PropertyStatusStudio {RobloxSecurity} [ReadOnly] [NotScriptable]
 	Property bool Instance.RobloxLocked {PluginSecurity} [Hidden]
 	Property int64 Instance.SourceAssetId {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function void Instance:ClearAllChildren()
@@ -600,6 +599,7 @@ Class Clouds : Instance
 Class ClusterPacketCache : Instance [NotCreatable] [Service] [NotReplicated]
 Class CollectionService : Instance [NotCreatable] [Service]
 	Function void CollectionService:AddTag(Instance instance, string tag)
+	Function Array CollectionService:GetAllTags() {🧬Safe}
 	Function Objects CollectionService:GetCollection(string class) [Deprecated]
 	Function RBXScriptSignal CollectionService:GetInstanceAddedSignal(string tag)
 	Function RBXScriptSignal CollectionService:GetInstanceRemovedSignal(string tag)
@@ -609,6 +609,8 @@ Class CollectionService : Instance [NotCreatable] [Service]
 	Function void CollectionService:RemoveTag(Instance instance, string tag)
 	Event CollectionService.ItemAdded(Instance instance) [Deprecated]
 	Event CollectionService.ItemRemoved(Instance instance) [Deprecated]
+	Event CollectionService.TagAdded(string tag)
+	Event CollectionService.TagRemoved(string tag)
 Class CommandInstance : Instance [NotCreatable] [NotReplicated]
 	Property bool CommandInstance.AllowGUIAccessPoints [ReadOnly]
 	Property bool CommandInstance.Checked {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
@@ -1102,6 +1104,10 @@ Class Explosion : Instance
 	Property float Explosion.TimeScale
 	Property bool Explosion.Visible
 	Event Explosion.Hit(BasePart part, float distance)
+Class FaceAnimatorService : Instance [NotCreatable] [Service] [NotReplicated]
+	Property bool FaceAnimatorService.AudioAnimationEnabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property bool FaceAnimatorService.FlipHeadOrientation {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property bool FaceAnimatorService.VideoAnimationEnabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
 Class FaceControls : Instance [NotBrowsable]
 	Property float FaceControls.Corrugator {PluginSecurity} [NotReplicated]
 	Property float FaceControls.LeftBrowLowerer {PluginSecurity} [NotReplicated]
@@ -1265,6 +1271,7 @@ Class GuiBase2d : GuiBase [NotCreatable] [NotBrowsable]
 	Property Enum.SelectionBehavior GuiBase2d.SelectionBehaviorRight [NotBrowsable]
 	Property Enum.SelectionBehavior GuiBase2d.SelectionBehaviorUp [NotBrowsable]
 	Property bool GuiBase2d.SelectionGroup [NotBrowsable]
+	Event GuiBase2d.SelectionChanged(bool amISelected, GuiObject previousSelection, GuiObject newSelection)
 Class GuiObject : GuiBase2d [NotCreatable] [NotBrowsable]
 	Property GuiObject GuiObject.SelectionImageObject
 	Property bool GuiObject.ClipsDescendants
@@ -2303,7 +2310,7 @@ Class MaterialService : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property string MaterialService.WoodName {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.WoodPlanks {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.WoodPlanksName {RobloxSecurity} [NotScriptable]
-	Property bool MaterialService.Use2022Materials {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
+	Property bool MaterialService.Use2022Materials {RobloxScriptSecurity} [NotReplicated]
 	Property MaterialVariant MaterialService.TerrainAsphalt {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.TerrainBasalt {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.TerrainBrick {RobloxSecurity} [NotScriptable]
@@ -3275,6 +3282,7 @@ Class ReflectionMetadataItem : Instance [NotCreatable]
 	Property int ReflectionMetadataItem.PropertyOrder
 	Property string ReflectionMetadataItem.ScriptContext
 	Property bool ReflectionMetadataItem.ServerOnly
+	Property string ReflectionMetadataItem.SliderScaling
 	Property double ReflectionMetadataItem.UIMaximum
 	Property double ReflectionMetadataItem.UIMinimum
 	Property double ReflectionMetadataItem.UINumTicks
@@ -3385,6 +3393,7 @@ Class ScriptChangeService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event ScriptChangeService.ScriptSourceEdited(LuaSourceContainer script, Array edits) {RobloxScriptSecurity}
 Class ScriptCloneWatcher : Instance [NotCreatable] [Service] [NotReplicated]
 Class ScriptCloneWatcherHelper : Instance [NotCreatable] [Service] [NotReplicated]
+Class ScriptCloneWatcherHelperV2 : Instance [NotCreatable] [Service] [NotReplicated]
 Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool ScriptContext.ScriptsDisabled {LocalUserSecurity} [Hidden]
 	Function void ScriptContext:AddCoreScriptLocal(string name, Instance parent) {RobloxScriptSecurity}
@@ -5129,6 +5138,7 @@ Enum DeveloperMemoryTag
 	EnumItem DeveloperMemoryTag.Gui : 21
 	EnumItem DeveloperMemoryTag.Animation : 22
 	EnumItem DeveloperMemoryTag.Navigation : 23
+	EnumItem DeveloperMemoryTag.GeometryCSG : 24
 Enum DeviceType
 	EnumItem DeviceType.Unknown : 0
 	EnumItem DeviceType.Desktop : 1

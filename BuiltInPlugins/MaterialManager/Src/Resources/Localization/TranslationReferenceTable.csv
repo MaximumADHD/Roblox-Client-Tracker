@@ -18,7 +18,6 @@ Studio.MaterialManager.CreateDialog.TextureMaps,Texture Maps,Texture Maps
 Studio.MaterialManager.MaterialTextures.TextureMaps,Texture Maps,Texture Maps
 Studio.MaterialManager.Materials.GroundVariant,Ground Variant,Ground Variant
 Studio.MaterialManager.Materials.Glass,Glass,Glass
-Studio.MaterialManager.MaterialOverrides.SetOverride,SetOverride,SetOverride
 Studio.MaterialManager.CreateDialog.General,General,General
 Studio.MaterialManager.CreateDialog.CancelVariant,Cancel,Cancel
 Studio.MaterialManager.CreateDialog.NameVariant,Name,Name
@@ -44,11 +43,11 @@ Studio.MaterialManager.MaterialTextures.Roughness,Roughness,Roughness
 Studio.MaterialManager.TopBar.Create,Create Material Variant,Create Material Variant
 Studio.MaterialManager.TopBar.Search,Search Materials,Search Materials
 Studio.MaterialManager.TopBar.Show,Show in Explorer,Show in Explorer
-Studio.MaterialManager.TopBar.Apply,Apply to Selection,Apply to Selection
+Studio.MaterialManager.TopBar.Apply,Apply to Selected Parts,Apply to Selected Parts
+Studio.MaterialManager.MaterialTile.TerrainMaterial,Terrain Material,Terrain Material
 Studio.MaterialManager.TopBar.Filters,Filters,Filters
 Studio.MaterialManager.Import.MetalnessMapPreview,Metalness Map Preview,Metalness Map Preview
 Studio.MaterialManager.MaterialTile.PartMaterial,Part Material,Part Material
-Studio.MaterialManager.MaterialTile.TerrainMaterial,Terrain Material,Terrain Material
 Studio.MaterialManager.MaterialTile.BaseVariant,Base Variant,Base Variant
 Studio.MaterialManager.Materials.Granite,Granite,Granite
 Studio.MaterialManager.Materials.FabricMaterial,Fabric Material,Fabric Material
@@ -58,6 +57,7 @@ Studio.MaterialManager.Materials.DiamondPlate,Diamond Plate,Diamond Plate
 Studio.MaterialManager.LocalImageSelector.NoImageSelected,No image,No image
 Studio.MaterialManager.Import.ColorMapPreview,Color Map Preview,Color Map Preview
 Studio.MaterialManager.Materials.LeafyGrass,Leafy Grass,Leafy Grass
+Studio.MaterialManager.MaterialStatus.DuplicateMaterial,"Found multiple MaterialVariants matching the name and override material in MaterialService, this may cause unexpected behavior at runtime.","Found multiple MaterialVariants matching the name and override material in MaterialService, this may cause unexpected behavior at runtime."
 Studio.MaterialManager.Materials.CrackedLava,Cracked Lava,Cracked Lava
 Studio.MaterialManager.Import.NormalMapPreview,Normal Map Preview,Normal Map Preview
 Studio.MaterialManager.Materials.Basalt,Basalt,Basalt
@@ -128,6 +128,7 @@ Studio.MaterialManager.MaterialOptions.SetTerrainOverride,Set Terrain Override,S
 Studio.MaterialManager.Materials.WaterMaterial,Water Material,Water Material
 Studio.MaterialManager.MaterialInformation.SetOverride,Set Override,Set Override
 Studio.MaterialManager.MaterialOptions.SetOverride,Set Override,Set Override
+Studio.MaterialManager.MaterialOverrides.SetOverride,Set Override,Set Override
 Studio.MaterialManager.MaterialOverrides.PartOverride,Part Override,Part Override
 Studio.MaterialManager.Materials.LimestoneMaterial,Limestone Material,Limestone Material
 Studio.MaterialManager.MaterialOverrides.TerrainOverride,Terrain Override,Terrain Override
@@ -211,3 +212,6 @@ Studio.MaterialManager.MaterialInformation.ClearPartOverride,Clear Part Override
 Studio.MaterialManager.MaterialInformation.ClearTerrainOverride,Clear Terrain Override,Clear Terrain Override
 Studio.MaterialManager.MaterialInformation.ClearOverride,Clear Override,Clear Override
 Studio.MaterialManager.Categories.Materials,Materials,Materials
+Studio.MaterialManager.Materials.SnowVariant,Snow Variant,Snow Variant
+Studio.MaterialManager.Materials.SnowMaterial,Snow Material,Snow Material
+Studio.MaterialManager.MaterialStatus.MissingMaterial,Unable to find a MaterialVariant matching the name and override material in MaterialService.,Unable to find a MaterialVariant matching the name and override material in MaterialService.

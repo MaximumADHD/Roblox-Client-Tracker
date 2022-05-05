@@ -1,0 +1,12 @@
+{
+    "language": {
+        "mode": "nonstrict"
+    },
+    "lint": {
+        "LocalShadow": "disabled",
+        "LocalUnused": "disabled", // DEVTOOLS-4490
+        "ImportUnused": "disabled", // DEVTOOLS-4491
+        "FunctionUnused": "disabled", // DEVTOOLS-4492
+        "ImplicitReturn": "disabled", // DEVTOOLS-4493
+    }
+}

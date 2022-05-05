@@ -1,4 +1,5 @@
 Key,en-us
+Studio.MaterialManager.Callout.MaterialManagerApplyDescription,Click here to apply the selected material to the selected parts
 Studio.MaterialManager.Categories.Asphalt,Asphalt
 Studio.MaterialManager.Categories.Concrete,Concrete
 Studio.MaterialManager.Categories.Dirt,Dirt
@@ -21,6 +22,7 @@ Studio.MaterialManager.Categories.Stone,Stone
 Studio.MaterialManager.Categories.Synthetic,Synthetic
 Studio.MaterialManager.Categories.Translucent,Translucent
 Studio.MaterialManager.Categories.Wood,Wood
+Studio.MaterialManager.CreateDialog.AdditionalProperties,Additional
 Studio.MaterialManager.CreateDialog.BaseMaterialVariant,Base Material
 Studio.MaterialManager.CreateDialog.CancelVariant,Cancel
 Studio.MaterialManager.CreateDialog.CreateVariant,Create Variant
@@ -31,6 +33,7 @@ Studio.MaterialManager.CreateDialog.ErrorImportMap,Failed to import Texture Map
 Studio.MaterialManager.CreateDialog.ErrorNameExists,Name already exists
 Studio.MaterialManager.CreateDialog.ErrorNoName,Name required
 Studio.MaterialManager.CreateDialog.ErrorSelectMap,Failed to select Texture Map
+Studio.MaterialManager.CreateDialog.ErrorStudsPerTile,Studs Per Tile should be positive
 Studio.MaterialManager.CreateDialog.General,General
 Studio.MaterialManager.CreateDialog.Import,Import
 Studio.MaterialManager.CreateDialog.ImportColorMap,Color
@@ -38,15 +41,20 @@ Studio.MaterialManager.CreateDialog.ImportMetalnessMap,Metalness
 Studio.MaterialManager.CreateDialog.ImportNormalMap,Normal
 Studio.MaterialManager.CreateDialog.ImportRoughnessMap,Roughness
 Studio.MaterialManager.CreateDialog.InsertAssetURL,URL/Asset name
+Studio.MaterialManager.CreateDialog.MaterialPatternVariant,Material Pattern
 Studio.MaterialManager.CreateDialog.NameVariant,Name
 Studio.MaterialManager.CreateDialog.NoImageSelected,No Image Selected
 Studio.MaterialManager.CreateDialog.PlaceholderBaseMaterial,Select
 Studio.MaterialManager.CreateDialog.SaveVariant,Save
+Studio.MaterialManager.CreateDialog.StudsPerTileVariant,Studs Per Tile
 Studio.MaterialManager.CreateDialog.TextureMaps,Texture Maps
 Studio.MaterialManager.Import.ColorMapPreview,Color Map Preview
 Studio.MaterialManager.Import.MetalnessMapPreview,Metalness Map Preview
 Studio.MaterialManager.Import.NormalMapPreview,Normal Map Preview
 Studio.MaterialManager.Import.RoughnessMapPreview,Roughness Map Preview
+Studio.MaterialManager.MaterialAdditional.Additional,Additional
+Studio.MaterialManager.MaterialAdditional.MaterialPattern,Material Pattern
+Studio.MaterialManager.MaterialAdditional.StudsPerTile,Studs Per Tile
 Studio.MaterialManager.MaterialInformation.ClearOverride,Clear Override
 Studio.MaterialManager.MaterialInformation.ClearPartOverride,Clear Part Override
 Studio.MaterialManager.MaterialInformation.ClearTerrainOverride,Clear Terrain Override
@@ -64,6 +72,8 @@ Studio.MaterialManager.MaterialOverrides.None,None
 Studio.MaterialManager.MaterialOverrides.PartOverride,Part Override
 Studio.MaterialManager.MaterialOverrides.SetOverride,Set Override
 Studio.MaterialManager.MaterialOverrides.TerrainOverride,Terrain Override
+Studio.MaterialManager.MaterialPatterns.Organic,Organic
+Studio.MaterialManager.MaterialPatterns.Regular,Regular
 Studio.MaterialManager.MaterialStatus.DuplicateMaterial,"Found multiple MaterialVariants matching the name and override material in MaterialService, this may cause unexpected behavior at runtime."
 Studio.MaterialManager.MaterialStatus.MissingMaterial,Unable to find a MaterialVariant matching the name and override material in MaterialService.
 Studio.MaterialManager.MaterialTextures.Color,Color
@@ -189,9 +199,7 @@ Studio.MaterialManager.Materials.WoodPlanksMaterial,Wood Planks Material
 Studio.MaterialManager.Materials.WoodPlanksVariant,Wood Planks Variant
 Studio.MaterialManager.Materials.WoodVariant,Wood Variant
 Studio.MaterialManager.Plugin.Button,Material Manager
-Studio.MaterialManager.Plugin.Description,Toggles the Material Manager window.
 Studio.MaterialManager.Plugin.Name,Material Manager
-Studio.MaterialManager.Plugin.Toolbar,Material Manager
 Studio.MaterialManager.TopBar.Apply,Apply to Selected Parts
 Studio.MaterialManager.TopBar.Create,Create Material Variant
 Studio.MaterialManager.TopBar.Filters,Filters

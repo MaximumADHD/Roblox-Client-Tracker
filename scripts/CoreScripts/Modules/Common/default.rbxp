@@ -1,0 +1,96 @@
+{
+    "instanceHierarchy": {
+        "tree": {
+            "Flags": {
+                "$path": "Flags",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "GetDefaultQualityLevel": {
+                "$path": "GetDefaultQualityLevel.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "HumanoidReadyUtil": {
+                "$path": "HumanoidReadyUtil.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "CommonUtil": {
+                "$path": "CommonUtil.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "LegacyThumbnailUrls": {
+                "$path": "LegacyThumbnailUrls.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "ObjectPool": {
+                "$path": "ObjectPool.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "EventConnection": {
+                "$path": "EventConnection.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "GetGameNameAndDescription": {
+                "$path": "GetGameNameAndDescription.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "Create": {
+                "$path": "Create.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "Constants": {
+                "$path": "Constants.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "Url": {
+                "$path": "Url.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "RagdollRigging": {
+                "$path": "RagdollRigging.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "GetGameNameAndDescription.spec": {
+                "$path": "GetGameNameAndDescription.spec.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "PolicyService": {
+                "$path": "PolicyService.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "IXPServiceWrapper": {
+                "$path": "IXPServiceWrapper.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            }
+        }
+    }
+}

@@ -115,3 +115,4 @@ Studio.AssetImporter.PropertiesTooltip.DiffuseFilePath,The file path of the diff
 Studio.AssetImporter.PropertiesTooltip.NormalFilePath,The file path of the normal map. The normal map is an RGB image used to enhance surface details for lighting,The file path of the normal map. The normal map is an RGB image used to enhance surface details for lighting
 Studio.AssetImporter.PropertiesTooltip.RoughnessFilePath,The file path of the roughness map. The roughness map is a grayscale image used to determine how light should be reflected off a surface,The file path of the roughness map. The roughness map is a grayscale image used to determine how light should be reflected off a surface
 Studio.AssetImporter.PreviewTooltip.ResetCam,Reset camera,Reset camera
+Studio.AssetImporter.Properties.Manifold,Manifold,Manifold

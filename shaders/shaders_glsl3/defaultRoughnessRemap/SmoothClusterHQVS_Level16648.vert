@@ -3,9 +3,9 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 uniform vec4 CB0[53];
-uniform vec4 CB2[74];
+uniform vec4 CB2[99];
 uniform vec4 CB1[1];
-uniform vec4 CB4[36];
+uniform vec4 CB4[63];
 in vec4 POSITION;
 in vec4 NORMAL;
 in vec4 TEXCOORD0;

@@ -13,14 +13,15 @@ out vec4 _entryPointOutput;
 
 void main()
 {
-    vec4 f0 = texture(GBufferDepthTexture, VARYING0);
-    float f1 = f0.x * 500.0;
-    if (f1 > 499.0)
+    vec2 f0 = vec2((VARYING0.x * 2.0) - 1.0, 1.0 - (VARYING0.y * 2.0));
+    vec4 f1 = texture(GBufferDepthTexture, VARYING0);
+    float f2 = f1.x * 500.0;
+    if (f2 > 499.0)
     {
         discard;
     }
-    vec3 f2 = vec3((vec2((VARYING0.x * 2.0) - 1.0, 1.0 - (VARYING0.y * 2.0)) * CB1[4].xy) + CB1[4].zw, -1.0) * f1;
-    _entryPointOutput = vec4(texture(OccupancyTexture, (((((CB0[7].xyz + (CB0[4].xyz * f2.x)) + (CB0[5].xyz * f2.y)) + (CB0[6].xyz * f2.z)).yxz * CB0[16].xyz) + CB0[17].xyz).yzx).xyz, 1.0);
+    vec3 f3 = vec3(vec2(dot(f0, CB1[3].xy), dot(f0, CB1[3].zw)) + CB1[4].zw, -1.0) * f2;
+    _entryPointOutput = vec4(texture(OccupancyTexture, (((((CB0[7].xyz + (CB0[4].xyz * f3.x)) + (CB0[5].xyz * f3.y)) + (CB0[6].xyz * f3.z)).yxz * CB0[16].xyz) + CB0[17].xyz).yzx).xyz, 1.0);
 }
 
 //$$GBufferDepthTexture=s0

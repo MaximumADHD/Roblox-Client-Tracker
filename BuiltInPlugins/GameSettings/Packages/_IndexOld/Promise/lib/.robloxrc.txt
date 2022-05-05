@@ -1,0 +1,9 @@
+{
+    "language": {
+        "mode": "nocheck"
+    },
+    "lint": {
+        "*": "disabled",
+        "ImplicitReturn": "disabled",
+    }
+}

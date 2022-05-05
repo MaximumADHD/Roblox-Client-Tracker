@@ -320,6 +320,7 @@ Studio.App.AudioPrivacyPublishDialog.AssetTable.AssetCreatorColTitle,,Creator,Cr
 Studio.App.AudioPrivacyPublishDialog.PublishWithoutPermissionButton,warning modal button that publishes game without granting permission,Publish without Granting,Publish without Granting
 Studio.App.AudioPrivacyPublishDialog.PublishAndGrantPermissionButton,warning modal button that grants the universe permission to all assets in the game during publish,Grant Permissions,Grant Permissions
 Studio.App.AudioPrivacyCheck.GrantPermissionFailure3,"Appears in output window when permission granting fails. %1 and %2 are replaced by assed ids, and %3 is replaced by an error code.",Failed to grant universe [%1] permission to asset [%2]: %3,Failed to grant universe [%1] permission to asset [%2]: %3
+Studio.App.AudioPrivacyCheck.GrantPermissionUserFailure3,"Appears in output window when permission granting fails. %1 is replaced by universe id, %2 is replaced by assed id and %3 is replaced by user id.",Failed to grant the Universe %1 permission to use asset %2. Your User ID %3 is not authorized to grant asset permissions.,Failed to grant the Universe %1 permission to use asset %2. Your User ID %3 is not authorized to grant asset permissions.
 Studio.App.MainWindow.Version1,Main Window,Version %1,Version %1
 Studio.App.MainWindow.VersionLatest1,About Dialog,Latest version available %1,Latest version available %1
 Studio.App.MainWindow.WaitingForShutdown,Main Window,Waiting for Shutdown,Waiting for Shutdown
@@ -1246,6 +1247,8 @@ Studio.App.RobloxRibbonMainWindow.Lock,,Lock,Lock
 Studio.App.RobloxRibbonMainWindow.LockTool,,Lock Tool,Lock Tool
 Studio.App.RobloxRibbonMainWindow.ManageCloudPlugins,,Manage installed plugins,Manage installed plugins
 Studio.App.RobloxRibbonMainWindow.Material,,Material,Material
+Studio.App.RobloxRibbonMainWindow.MaterialManager,,Material Manager,Material Manager
+Studio.App.RobloxRibbonMainWindow.MaterialManagerToolTip,,"Manage, select, and apply materials","Manage, select, and apply materials"
 Studio.App.RobloxRibbonMainWindow.MaterialActionAsTool,,Material Action as Tool,Material Action as Tool
 Studio.App.RobloxRibbonMainWindow.Model,,Model,Model
 Studio.App.RobloxRibbonMainWindow.Motor,,Motor,Motor
@@ -2202,8 +2205,6 @@ Studio.App.BetaFeatures.LuauNativeVector3Title,,Native Vector3 Type,Native Vecto
 Studio.App.BetaFeatures.LuauNativeVector3Description,,Enable Luau VM built-in support for Vector3 type to improve script performance.,Enable Luau VM built-in support for Vector3 type to improve script performance.
 Studio.App.BetaFeatures.AcceleratedCollisionPipelineTitle,,Accelerated Collision Pipeline,Accelerated Collision Pipeline
 Studio.App.BetaFeatures.AcceleratedCollisionPipelineDescription,,Enable Accelerated Collision Detection which improves collision performance for large assemblies.,Enable Accelerated Collision Detection which improves collision performance for large assemblies.
-Studio.App.BetaFeatures.ContextualSaveTitle,,Save shortcut is contextual,Save shortcut is contextual
-Studio.App.BetaFeatures.ContextualSaveDescription,,Saves the place to the location (Local or Roblox) currently open in Studio.,Saves the place to the location (Local or Roblox) currently open in Studio.
 Studio.App.BetaFeatures.TerrainQolTitle,,Terrain Quality of Life Changes,Terrain Quality of Life Changes
 Studio.App.BetaFeatures.TerrainQolDescription,,Enable various small improvements to Terrain Tools.,Enable various small improvements to Terrain Tools.
 Studio.App.BetaFeatures.ImprovedInnerBoxTitle,,Improved Inner Box Avatar Collisions,Improved Inner Box Avatar Collisions
@@ -2789,6 +2790,7 @@ AssetId: %2
 Type: %3"
 Studio.App.IDEPermissionsResolutionLinkDefinition.FailureMessage1,Message that's output after user fails to grant their universe permission to use asset,Failed to grant Universe permission to use asset %1,Failed to grant Universe permission to use asset %1
 Studio.App.IDEPermissionsResolutionLinkDefinition.SuccessMessage1,Message that's output after user sucessfully grants their universe permission to use asset,Successfully granted Universe permission to use asset %1,Successfully granted Universe permission to use asset %1
+Studio.App.IDEPermissionsResolutionLinkDefinition.ExperienceSuccessMessage1,Message that's output after user sucessfully grants their experience permission to use asset,Successfully granted the experience permission to use asset %1,Successfully granted the experience permission to use asset %1
 Studio.App.IDEPermissionsResolutionLinkDefinition.LoadingElps,,Loading...,Loading...
 Studio.App.StudioUtilities.LogInRequired,,Log in required,Log in required
 Studio.App.StudioUtilities.YouMustLogInToPerformThisAction,,You must log in to perform this action!,You must log in to perform this action!
@@ -3270,3 +3272,4 @@ Studio.App.BetaFeatures.CurveAnimationsTitle,,Channel Animations,Channel Animati
 Studio.App.BetaFeatures.CurveAnimationsDescription,,Enable single-channel animations with new curve-based format in the Animation Clip Editor.,Enable single-channel animations with new curve-based format in the Animation Clip Editor.
 Studio.App.BetaFeatures.DebuggerV2Title,,Intuitive Lua Debugger,Intuitive Lua Debugger
 Studio.App.BetaFeatures.DebuggerV2Description,,"Enable a new debugging experience with a more powerful backend architecture and Lua-based UI for the Callstack, Watch, and Breakpoint windows.","Enable a new debugging experience with a more powerful backend architecture and Lua-based UI for the Callstack, Watch, and Breakpoint windows."
+Studio.App.RobloxApplication.AbnormalTerminateMessage,,An unexpected error has occurred and Studio needs to quit. Please restart Studio or contact support if the problem persists.,An unexpected error has occurred and Studio needs to quit. Please restart Studio or contact support if the problem persists.

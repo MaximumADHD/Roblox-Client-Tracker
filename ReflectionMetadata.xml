@@ -2486,6 +2486,15 @@
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
+            <string name="Name">Volume</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">10</double>
+            <double name="UINumTicks">1000</double>
+            <string name="SliderScaling">Square</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
             <string name="Name">ChannelCount</string>
             <bool name="FFlag">EnableAudioChannelCountProperty</bool>
           </Properties>
@@ -2506,6 +2515,15 @@
           <Properties>
             <string name="Name">ChannelCount</string>
             <bool name="FFlag">EnableAudioChannelCountProperty</bool>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Volume</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">10</double>
+            <double name="UINumTicks">1000</double>
+            <string name="SliderScaling">Square</string>
           </Properties>
         </Item>
       </Item>
@@ -2873,6 +2891,15 @@
         <string name="PreferredParent">SoundService</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Volume</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">10</double>
+            <double name="UINumTicks">1000</double>
+            <string name="SliderScaling">Square</string>
+          </Properties>
+        </Item>
       </Item>
     </Item>
 
@@ -6992,6 +7019,17 @@
         <string name="PreferredParent">GuiBase2d</string>
         <string name="PreferredParents">GuiBase2d</string>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Volume</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">100</double>
+            <double name="UINumTicks">1000</double>
+            <string name="SliderScaling">Square</string>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
