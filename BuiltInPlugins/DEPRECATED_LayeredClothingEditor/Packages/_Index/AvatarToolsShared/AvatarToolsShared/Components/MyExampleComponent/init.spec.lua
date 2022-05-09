@@ -1,1 +1,0 @@
--- TODO: Tests for the component
