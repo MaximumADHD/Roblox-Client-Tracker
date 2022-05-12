@@ -9,7 +9,7 @@ local TransformPointsHelpers = {}
 local function getTransformedPoints(context, points, weights, transformFunc)
 	local changed = {}
 	for meshName, pointWeightsForMesh in pairs(weights) do
-		local meshOrigin = context.GetMeshOrigin(meshName)
+		local meshOrigin = context:getMeshOrigin(meshName)
 		if not changed[meshName] then
 			changed[meshName] = {}
 		end
@@ -34,9 +34,9 @@ function TransformPointsHelpers.transformControlPoints(context, controlPointPosi
 end
 
 function TransformPointsHelpers.transformVertices(context, pointWeights, transformFunc)
-	local vertexData = context.GetVertexData()
+	local vertexData = context:getVertexData()
 	local changed = getTransformedPoints(context, vertexData, pointWeights, transformFunc)
-	context.UpdateVertexData(changed)
+	context:updateVertexData(changed)
 end
 
 function TransformPointsHelpers.translatePoint(position, transform, meshOrigin, weight)

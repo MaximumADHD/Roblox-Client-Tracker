@@ -1,7 +1,6 @@
 --[[
 	Public interface for UI
 ]]
-local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTimeProgressBar = game:GetFastFlag("DevFrameworkTimeProgressBar")
 local FFlagDevFrameworkResponsiveGrid2 = game:GetFastFlag("DevFrameworkResponsiveGrid2")
 local FFlagFaceControlsEditorUI = game:GetFastFlag("FaceControlsEditorUI2")
@@ -84,7 +83,7 @@ local UI = strict({
 	Checkbox = Checkbox,
 	CheckboxTreeView = CheckboxTreeView,
 	Container = Container,
-	DragBar = FFlagDevFrameworkSplitPane and DragBar or nil,
+	DragBar = DragBar,
 	DragBox = FFlagFaceControlsEditorUI and DragBox or nil,
 	DragListener = DragListener,
 	DropdownMenu = DropdownMenu,
@@ -117,7 +116,7 @@ local UI = strict({
 	SimpleTab = SimpleTab,
 	ShowOnTop = ShowOnTop,
 	Slider = Slider,
-	SplitPane = FFlagDevFrameworkSplitPane and SplitPane or nil,
+	SplitPane = SplitPane,
 	Table = Table,
 	TableRow = TableRow,
 	Tabs = Tabs,

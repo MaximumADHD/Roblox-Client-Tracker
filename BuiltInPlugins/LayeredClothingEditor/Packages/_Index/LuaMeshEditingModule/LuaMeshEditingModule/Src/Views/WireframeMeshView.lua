@@ -13,7 +13,25 @@ local edges = { 2, 3, 1 }
 function WireframeMeshView.new()
 	local wireframeMeshViewObject = setmetatable({}, WireframeMeshView)
 
+	-- private variables
+	local _onFolderChanged
+	local _folderAncestryChangedConnection
+	local _folderChildRemovedConnection
+
 	-- private functions
+	local function _onFolderChangedWrapper()
+		if _onFolderChanged then
+			_onFolderChanged()
+		end
+	end
+
+	local function _connect()
+		_folderAncestryChangedConnection = wireframeMeshViewObject.folder.AncestryChanged:Connect(
+			_onFolderChangedWrapper
+		)
+		_folderChildRemovedConnection = wireframeMeshViewObject.folder.ChildRemoved:Connect(_onFolderChangedWrapper)
+	end
+
 	local function _renderLinks(self, props)
 		local context = props.Context
 		local transparency = props.Transparency
@@ -65,6 +83,8 @@ function WireframeMeshView.new()
 			self.folder = Instance.new("Folder")
 			self.folder.Archivable = false
 			self.folder.Parent = CoreGui
+			_onFolderChanged = props.FolderChangedCallback
+			_connect()
 		end
 
 		if not self.adorns then
@@ -74,7 +94,19 @@ function WireframeMeshView.new()
 		_renderLinks(self, props)
 	end
 
+	function WireframeMeshView:disconnect()
+		if _folderAncestryChangedConnection then
+			_folderAncestryChangedConnection:Disconnect()
+			_folderAncestryChangedConnection = nil
+		end
+		if _folderChildRemovedConnection then
+			_folderChildRemovedConnection:Disconnect()
+			_folderChildRemovedConnection = nil
+		end
+	end
+
 	function wireframeMeshViewObject:cleanup()
+		self:disconnect()
 		if self.adorns then
 			for _, lowerPointIndices in pairs(self.adorns) do
 				for _, higherPointIndices in pairs(lowerPointIndices) do

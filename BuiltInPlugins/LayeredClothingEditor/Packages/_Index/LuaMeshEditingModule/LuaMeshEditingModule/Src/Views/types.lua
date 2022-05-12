@@ -12,14 +12,16 @@ export type ControlEdgeViewsProps = {
 	ControlPointEdges: {[string]: EdgeArray},
 	Transparency: number,
 	SelectedMesh: string,
+	FolderChangedCallback: () -> any,
 }
 
 export type ControlPointViewsProps = {
-	ControlPointPositions: {[string]: Vector3Array},
+	ControlPointPositions: { [string]: Vector3Array },
 	Transparency: number,
-	IsSelected: (meshName : string, id : string) -> any,
-	IsHovered: (meshName : string, id : string) -> boolean,
+	IsSelected: (meshName: string, id: string) -> any,
+	IsHovered: (meshName: string, id: string) -> boolean,
 	SelectedMesh: string,
+	FolderChangedCallback: () -> any,
 }
 
 export type ControlPointViewProps = {

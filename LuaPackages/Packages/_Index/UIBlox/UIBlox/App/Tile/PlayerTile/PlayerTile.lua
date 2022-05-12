@@ -22,6 +22,8 @@ local validateFontInfo = require(Core.Style.Validator.validateFontInfo)
 local Tile = require(App.Tile.BaseTile.Tile)
 
 local PlayerTile = Roact.PureComponent:extend("PlayerTile")
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local enablePlayerTilePaddingFix = UIBloxConfig.enablePlayerTilePaddingFix
 
 local imageType = t.union(t.string, validateImageSetData)
 PlayerTile.validateProps = t.strictInterface({
@@ -49,6 +51,7 @@ PlayerTile.validateProps = t.strictInterface({
 	}),
 
 	tileSize = t.optional(t.UDim2),
+	innerTilePadding = t.optional(t.number),
 
 	onActivated = t.optional(t.callback),
 	forwardedRef = t.optional(t.table),
@@ -63,6 +66,10 @@ PlayerTile.defaultProps = {
 	subtitle = "",
 }
 
+if enablePlayerTilePaddingFix then
+	PlayerTile.defaultProps.innerTilePadding = 8
+end
+
 local ANIMATION_SPRING_SETTINGS = {
 	dampingRatio = 1,
 	frequency = 4,
@@ -74,6 +81,7 @@ local CONTENT_STATE_COLOR = {
 
 local VIGNETTE = Images["component_assets/vignette_246"]
 local OUTER_BUTTON_PADDING = 10
+local BUTTON_GAP = enablePlayerTilePaddingFix and 8 or 10
 local BUTTON_HEIGHT = 36
 
 local function footer(props)
@@ -91,12 +99,13 @@ end
 local function thumbnailOverlayComponents(props)
 	return withStyle(function(style)
 		local primaryContentStyle = getContentStyle(CONTENT_STATE_COLOR, props.controlState, style)
+		local innerTilePadding = enablePlayerTilePaddingFix and props.innerTilePadding or OUTER_BUTTON_PADDING
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 1, 0),
 		}, {
 			ButtonBackgroundGradient = not Cryo.isEmpty(props.buttons) and Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, BUTTON_HEIGHT + OUTER_BUTTON_PADDING * 2),
+				Size = UDim2.new(1, 0, 0, BUTTON_HEIGHT + innerTilePadding * 2),
 				AnchorPoint = Vector2.new(0, 1),
 				Position = UDim2.new(0, 0, 1, 0),
 				LayoutOrder = 1,
@@ -153,36 +162,49 @@ local function thumbnailOverlayComponents(props)
 					{
 						BackgroundTransparency = 1,
 						Position = UDim2.new(1, 0, 1, 0),
-						Size = UDim2.new(0, props.tileSize.X.Offset - (OUTER_BUTTON_PADDING * 2), 0, BUTTON_HEIGHT),
+						Size = UDim2.new(0, props.tileSize.X.Offset - (innerTilePadding * 2), 0, BUTTON_HEIGHT),
 						AnchorPoint = Vector2.new(1, 1),
 						LayoutOrder = 3,
 						ZIndex = 2,
 					},
 					List.join(
 						List.map(props.buttons, function(button)
-							return Roact.createElement(PlayerTileButton, {
-								buttonHeight = BUTTON_HEIGHT,
-								tileSize = props.tileSize,
-								icon = button.icon,
-								isSecondary = button.isSecondary,
-								isDisabled = button.isDisabled,
-								onActivated = button.onActivated,
-								mouseEnter = props.hoverMouseEnter,
-								mouseLeave = props.hoverMouseLeave,
-							})
+							if enablePlayerTilePaddingFix then
+								return Roact.createElement(PlayerTileButton, {
+									buttonHeight = BUTTON_HEIGHT,
+									buttonWidth = props.tileSize.X.Offset / 2 - (innerTilePadding + BUTTON_GAP / 2),
+									icon = button.icon,
+									isSecondary = button.isSecondary,
+									isDisabled = button.isDisabled,
+									onActivated = button.onActivated,
+									mouseEnter = props.hoverMouseEnter,
+									mouseLeave = props.hoverMouseLeave,
+								})
+							else
+								return Roact.createElement(PlayerTileButton, {
+									buttonHeight = BUTTON_HEIGHT,
+									tileSize = props.tileSize,
+									icon = button.icon,
+									isSecondary = button.isSecondary,
+									isDisabled = button.isDisabled,
+									onActivated = button.onActivated,
+									mouseEnter = props.hoverMouseEnter,
+									mouseLeave = props.hoverMouseLeave,
+								})
+							end
 						end),
 						{
 							Roact.createElement("UIListLayout", {
 								HorizontalAlignment = Enum.HorizontalAlignment.Right,
-								Padding = UDim.new(0, 10),
+								Padding = UDim.new(0, BUTTON_GAP),
 								FillDirection = Enum.FillDirection.Horizontal,
 							}),
 						}
 					)
 				),
 				UIPadding = Roact.createElement("UIPadding", {
-					PaddingBottom = UDim.new(0, OUTER_BUTTON_PADDING),
-					PaddingRight = UDim.new(0, OUTER_BUTTON_PADDING),
+					PaddingBottom = UDim.new(0, innerTilePadding),
+					PaddingRight = UDim.new(0, innerTilePadding),
 				}),
 			}),
 		})
@@ -239,7 +261,7 @@ function PlayerTile:render()
 					controlState = self.state.controlState,
 				}),
 				hasRoundedCorners = true,
-				innerPadding = OUTER_BUTTON_PADDING,
+				innerPadding = enablePlayerTilePaddingFix and self.props.innerTilePadding or OUTER_BUTTON_PADDING,
 				name = title,
 				subtitle = self.props.subtitle,
 				titleTextLineCount = 1,

@@ -64,10 +64,11 @@ local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local TreeTable = Roact.PureComponent:extend("TreeTable")
 Typecheck.wrap(TreeTable, script)
 
-local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
+local FFlagDevFrameworkTableReturnWidthOnSizeChange = game:GetFastFlag("DevFrameworkTableReturnWidthOnSizeChange")
 
-local hasTableColumnResizeFFlags = FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize
+
+local hasTableColumnResizeFFlags = FFlagDevFrameworkTableColumnResize
 
 function TreeTable:init()
 	assert(THEME_REFACTOR, "TreeTable not supported in Theme1, please upgrade your plugin to Theme2")
@@ -214,7 +215,7 @@ function TreeTable:render()
 		OnSelectRow = self.onSelectRow,
 		OnDoubleClick = props.OnDoubleClick,
 		OnRightClickRow = self.onRightClickRow,
-		OnSizeChange = self.onSizeChange,
+		OnSizeChange = if FFlagDevFrameworkTableReturnWidthOnSizeChange then props.OnSizeChange else self.onSizeChange,
 		OnSortChange = props.OnSortChange,
 		OnColumnSizesChange = if hasTableColumnResizeFFlags then props.OnColumnSizesChange else nil,
 		RowComponent = props.RowComponent,
@@ -222,6 +223,7 @@ function TreeTable:render()
 		FullSpan = props.FullSpan,
 		HighlightedRows = props.HighlightedRows,
 		ScrollFocusIndex = props.ScrollFocusIndex,
+		Padding = if FFlagDevFrameworkTableReturnWidthOnSizeChange then props.Padding else nil,
 	})
 end
 

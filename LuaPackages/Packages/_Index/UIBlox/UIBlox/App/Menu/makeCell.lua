@@ -32,7 +32,7 @@ local SELECTED_ICON_SIZE = 16
 local CELL_BACKGROUND_ASSET = Images["component_assets/circle_17"]
 
 local function makeCell(backgroundThemeKey)
-	local cellComponent = Roact.PureComponent:extend("CellFor" ..backgroundThemeKey)
+	local cellComponent = Roact.PureComponent:extend("CellFor" .. backgroundThemeKey)
 
 	cellComponent.validateProps = t.strictInterface({
 		-- Icon can either be an Image in a ImageSet or a regular image asset
@@ -42,10 +42,13 @@ local function makeCell(backgroundThemeKey)
 
 		-- A KeyCode to display a keycode hint for, the display string based on
 		-- the users keyboard or gamepad button is displayed.
-		keyCodeLabel = t.optional(t.union(t.enum(Enum.KeyCode), t.strictInterface({
-			key = t.enum(Enum.KeyCode),
-			axis = t.optional(t.string),
-		}))),
+		keyCodeLabel = t.optional(t.union(
+			t.enum(Enum.KeyCode),
+			t.strictInterface({
+				key = t.enum(Enum.KeyCode),
+				axis = t.optional(t.string),
+			})
+		)),
 		selected = t.optional(t.boolean),
 
 		iconColorOverride = t.optional(t.Color3),
@@ -58,18 +61,21 @@ local function makeCell(backgroundThemeKey)
 		hasDivider = t.boolean,
 		disabled = t.optional(t.boolean),
 		stayOnActivated = t.optional(t.boolean),
+
 		renderRightSideGadget = t.optional(t.callback),
 		rightSideGadgetSize = t.optional(t.Vector2),
 
 		layoutOrder = t.integer,
 		setButtonRef = t.optional(t.union(t.callback, t.table)),
-		cursorKind = UIBloxConfig.enableAnimatedCursorForNonRoactGamepadComponent
-			and t.optional(CursorKind.isEnumValue) or nil,
+		cursorKind = UIBloxConfig.enableAnimatedCursorForNonRoactGamepadComponent and t.optional(
+			CursorKind.isEnumValue
+		) or nil,
 	})
 
 	cellComponent.defaultProps = {
 		selected = false,
 		disabled = false,
+		rightSideGadgetSize = Vector2.new(0, 0),
 	}
 
 	function cellComponent:init()
@@ -112,7 +118,7 @@ local function makeCell(backgroundThemeKey)
 		elseif self.props.hasRoundTop then
 			imageRectSize = Vector2.new(imageWidth, halfImageWidth)
 			imageRectOffset = imageOffset
-			sliceCenter = Rect.new(halfImageWidth - 1, halfImageWidth - 1, halfImageWidth +1, halfImageWidth)
+			sliceCenter = Rect.new(halfImageWidth - 1, halfImageWidth - 1, halfImageWidth + 1, halfImageWidth)
 		elseif self.props.hasRoundBottom then
 			imageRectSize = Vector2.new(imageWidth, halfImageWidth)
 			imageRectOffset = imageOffset + Vector2.new(0, halfImageWidth)
@@ -157,40 +163,45 @@ local function makeCell(backgroundThemeKey)
 
 			local textLengthOffset = 0
 			local textOnly = true
-			if self.props.icon then
-				textOnly = false
-				leftPadding = ELEMENT_PADDING
-				textLengthOffset = ELEMENT_PADDING + ICON_SIZE
-			end
 
-			if self.props.selected then
-				textOnly = false
-				textLengthOffset = textLengthOffset + SELECTED_ICON_SIZE + SELECTED_ICON_PADDING
-			end
-
-			if self.props.keyCodeLabel then
-				textOnly = false
-				textLengthOffset = textLengthOffset + KEYLABEL_PADDING + self.state.keyLabelWidth
-			end
-
-			-- Add start and end padding for text.
-			if textOnly then
-				textLengthOffset = textLengthOffset + TEXT_ONLY_PADDING * 2
+			if UIBloxConfig.enableRightSideGadgetView and self.props.rightSideGadgetSize ~= nil then
+				textLengthOffset = self.props.rightSideGadgetSize.X + ELEMENT_PADDING * 2 + ICON_SIZE
 			else
-				textLengthOffset = textLengthOffset + ELEMENT_PADDING * 2
+				if self.props.icon then
+					textOnly = false
+					leftPadding = ELEMENT_PADDING
+					textLengthOffset = ELEMENT_PADDING + ICON_SIZE
+				end
+
+				if self.props.selected then
+					textOnly = false
+					textLengthOffset = textLengthOffset + SELECTED_ICON_SIZE + SELECTED_ICON_PADDING
+				end
+
+				if self.props.keyCodeLabel then
+					textOnly = false
+					textLengthOffset = textLengthOffset + KEYLABEL_PADDING + self.state.keyLabelWidth
+				end
+
+				-- Add start and end padding for text.
+				if textOnly then
+					textLengthOffset = textLengthOffset + TEXT_ONLY_PADDING * 2
+				else
+					textLengthOffset = textLengthOffset + ELEMENT_PADDING * 2
+				end
 			end
 
 			local textTheme = theme.TextEmphasis
 			if self.props.textColorOverride then
 				textTheme = {
 					Color = self.props.textColorOverride,
-					Transparency = theme.TextEmphasis.Transparency
+					Transparency = theme.TextEmphasis.Transparency,
 				}
 			end
 			if self.state.controlState == ControlState.Pressed or self.props.disabled then
 				textTheme = {
 					Color = textTheme.Color,
-					Transparency = divideTransparency(theme.TextEmphasis.Transparency, 2)
+					Transparency = divideTransparency(theme.TextEmphasis.Transparency, 2),
 				}
 			end
 
@@ -218,7 +229,8 @@ local function makeCell(backgroundThemeKey)
 						[Roact.Ref] = self.props.setButtonRef,
 						[Roact.Event.Activated] = self.props.onActivated,
 						SelectionImageObject = UIBloxConfig.enableAnimatedCursorForNonRoactGamepadComponent
-							and getSelectionCursor(self.props.cursorKind) or nil,
+								and getSelectionCursor(self.props.cursorKind)
+							or nil,
 					},
 					children = {
 						Divider = Roact.createElement("Frame", {
@@ -261,7 +273,7 @@ local function makeCell(backgroundThemeKey)
 							}),
 
 							LeftPadding = Roact.createElement("UIPadding", {
-								PaddingLeft = UDim.new(0, leftPadding)
+								PaddingLeft = UDim.new(0, leftPadding),
 							}),
 
 							Icon = self.props.icon and Roact.createElement(ImageSetComponent.Label, {
@@ -279,12 +291,12 @@ local function makeCell(backgroundThemeKey)
 							Text = Roact.createElement(GenericTextLabel, {
 								fontStyle = font.Header2,
 								colorStyle = textTheme,
-
 								BackgroundTransparency = 1,
 								Size = UDim2.new(1, -textLengthOffset, 1, 0),
 								Text = self.props.text,
 								TextTruncate = Enum.TextTruncate.AtEnd,
 								TextXAlignment = Enum.TextXAlignment.Left,
+								TextWrapped = false, -- TODO: evaluate
 								LayoutOrder = 2,
 							}),
 						}),
@@ -302,26 +314,41 @@ local function makeCell(backgroundThemeKey)
 							}),
 
 							RightPadding = Roact.createElement("UIPadding", {
-								PaddingRight = UDim.new(0, rightPadding)
+								PaddingRight = UDim.new(0, rightPadding),
 							}),
 
-							KeyLabel = self.props.keyCodeLabel and Roact.createElement(KeyLabel, {
-								keyCode = self.props.keyCodeLabel,
+							RightSideContent = UIBloxConfig.enableRightSideGadgetView
+									and self.props.renderRightSideGadget
+									and Roact.createElement("Frame", {
+										BackgroundTransparency = 1,
+										BorderSizePixel = 0,
+										LayoutOrder = 3,
+										Size = UDim2.new(
+											0,
+											self.props.rightSideGadgetSize.X or 0,
+											0,
+											self.props.rightSideGadgetSize.Y or 0
+										),
+									}, self.props.renderRightSideGadget())
+								or Roact.createFragment({
+									KeyLabel = self.props.keyCodeLabel and Roact.createElement(KeyLabel, {
+										keyCode = self.props.keyCodeLabel,
 
-								LayoutOrder = 2,
+										LayoutOrder = 2,
 
-								[Roact.Change.AbsoluteSize] = self.keyLabelSizeChanged
-							}),
+										[Roact.Change.AbsoluteSize] = self.keyLabelSizeChanged,
+									}),
 
-							SelectedIcon = Roact.createElement(ImageSetComponent.Label, {
-								Image = Images["icons/status/success_small"],
-								Size = UDim2.fromOffset(SELECTED_ICON_SIZE, SELECTED_ICON_SIZE),
-								LayoutOrder = 1,
-								BackgroundTransparency = 1,
-								ImageColor3 = theme.IconEmphasis.Color,
-								ImageTransparency = theme.IconEmphasis.Transparency,
-								Visible = self.props.selected
-							}),
+									SelectedIcon = Roact.createElement(ImageSetComponent.Label, {
+										Image = Images["icons/status/success_small"],
+										Size = UDim2.fromOffset(SELECTED_ICON_SIZE, SELECTED_ICON_SIZE),
+										LayoutOrder = 1,
+										BackgroundTransparency = 1,
+										ImageColor3 = theme.IconEmphasis.Color,
+										ImageTransparency = theme.IconEmphasis.Transparency,
+										Visible = self.props.selected,
+									}),
+								}),
 						}),
 					},
 				},

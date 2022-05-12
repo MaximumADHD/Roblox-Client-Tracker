@@ -60,7 +60,7 @@ local function getNextSizes(props: Props, offset: number, outerSize: number, isF
 			end
 		end
 
-		nextSizes[i] = props.UseScale and UDim.new(nextOffset / outerSize, 0) or UDim.new(0, nextOffset)
+		nextSizes[i] = if props.UseScale then UDim.new(nextOffset / outerSize, 0) else UDim.new(0, nextOffset)
 		usedSize += nextOffset
 	end
 

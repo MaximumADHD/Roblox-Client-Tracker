@@ -1,0 +1,146 @@
+local FFlagFaceControlsEditorUI = game:GetFastFlag("FaceControlsEditorUI2")
+
+function getMidPoint(lower, upper)
+	return (lower + upper) * 0.5
+end
+
+function getTotalRange(min, max)
+	local range = max - min
+	return range
+end
+
+return function()
+	local Framework = script.Parent.Parent.Parent
+	local Util = require(Framework.Util)
+	local FlagsList = Util.Flags.new({
+		FFlagStudioDevFrameworkPackage = {"StudioDevFrameworkPackage"},
+	})
+	local Roact = require(Framework.Parent.Roact)
+	local RangeSlider = require(script.Parent)
+	local TestHelpers = require(Framework.TestHelpers)
+	local provideMockContext = TestHelpers.provideMockContext
+	local Cryo
+	local isUsedAsPackage = require(Framework.Util.isUsedAsPackage)
+	if FlagsList:get("FFlagStudioDevFrameworkPackage") and isUsedAsPackage() then
+		Cryo = require(Framework.Parent.Cryo)
+	else
+		local Util = require(Framework.Util)
+		Cryo = Util.Cryo
+	end
+
+	local DEFAULT_PROPS = {
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Disabled = false,
+		LowerRangeValue = 0,
+		UpperRangeValue = 4,
+		Min = 0,
+		Max = 4,
+		OnValuesChanged = function() end,
+		Position = UDim2.new(0.5, 0, 0.5, 0),
+		Size = UDim2.new(0, 200, 0, 20),
+		SnapIncrement = 1,
+		VerticalDragTolerance = 300,
+	}
+
+	local function createTestRangeSlider(props)
+		local combinedProps = Cryo.Dictionary.join(DEFAULT_PROPS, props or {})
+		return provideMockContext(nil, {
+			RangeSlider = Roact.createElement(RangeSlider, combinedProps)
+		})
+	end
+
+	it("should create and destroy without errors", function()
+		local element = createTestRangeSlider()
+		local instance = Roact.mount(element)
+		Roact.unmount(instance)
+	end)
+
+	it("should render correctly", function()
+		local container = Instance.new("Folder")
+		local element = createTestRangeSlider()
+		local instance = Roact.mount(element, container)
+
+		local frame = container:FindFirstChildOfClass("Frame")
+		expect(frame).to.be.ok()
+		Roact.unmount(instance)
+	end)
+
+	it("should set the lower knob to the correct default value", function()
+		local folder = Instance.new("Folder")
+		local lowerValue = 1
+		local max = 4
+		local element = createTestRangeSlider({
+			LowerRangeValue = lowerValue,
+			UpperRangeValue = 4,
+			Min = 0,
+			Max = max,
+		})
+		local instance = Roact.mount(element, folder)
+
+		local button = folder:FindFirstChildOfClass("Frame")
+		expect(button.LowerKnob).to.be.ok()
+		expect(button.LowerKnob.Position.X.Scale).to.equal(lowerValue/max)
+		Roact.unmount(instance)
+	end)
+
+	it("should set the upper knob to the correct default value", function()
+		local folder = Instance.new("Folder")
+		local upperValue = 3
+		local max = 4
+		local element = createTestRangeSlider({
+			LowerRangeValue = 0,
+			UpperRangeValue = upperValue,
+			Min = 0,
+			Max = max,
+		})
+		local instance = Roact.mount(element, folder)
+
+		local button = folder:FindFirstChildOfClass("Frame")
+		expect(button.UpperKnob).to.be.ok()
+		expect(button.UpperKnob.Position.X.Scale).to.equal(upperValue/max)
+		Roact.unmount(instance)
+	end)
+	
+	if FFlagFaceControlsEditorUI then
+		it("should fill from center correctly", function()
+			local folder = Instance.new("Folder")
+			local min = 0
+			local max = 5
+			local upperValue = 5
+			local element = createTestRangeSlider({
+				FillFromCenter = true,
+				HideLowerKnob = true,
+				LowerRangeValue = min,
+				UpperRangeValue = upperValue,
+				Min = min,
+				Max = max,
+			})
+			local instance = Roact.mount(element, folder)
+
+			local button = folder:FindFirstChildOfClass("Frame")
+			expect(button).to.be.ok()
+			expect(button.Background).to.be.ok()
+			expect(button.Background.Contents).to.be.ok()
+			expect(button.Background.Contents.Foreground).to.be.ok()
+			
+			local upperFillPercent = (upperValue - min) / getTotalRange(min, max)
+			local center = getMidPoint(min, max)
+			local centerFillPercent = (center - min) / getTotalRange(min, max)
+			local targetSize =  (upperFillPercent - centerFillPercent) * -1			
+			
+			expect(button.Background.Contents.Foreground.Size.X.Scale).to.equal(targetSize)
+			Roact.unmount(instance)
+		end)
+	end
+	
+	it("should throw if range is < 0", function()
+		local element = createTestRangeSlider({
+			Min = 0,
+			Max = -1,
+		})
+
+		expect(function()
+			Roact.mount(element)
+		end).to.throw()
+	end)
+end

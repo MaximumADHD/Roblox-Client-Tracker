@@ -50,14 +50,12 @@ local Pane = UI.Pane
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
-local FFlagDevFrameworkSearchBarSize = game:GetFastFlag("DevFrameworkSearchBarSize")
 local FFlagDevFrameworkSearchBarPosition = game:GetFastFlag("DevFrameworkSearchBarPosition")
 
 local SearchBar = Roact.PureComponent:extend("SearchBar")
 Typecheck.wrap(SearchBar, script)
 
 SearchBar.defaultProps = {
-	Width = not FFlagDevFrameworkSearchBarSize and 200 or nil,
 	ButtonWidth = 24,
 	LayoutOrder = 0,
 	PlaceholderText = "Search",
@@ -214,8 +212,6 @@ function SearchBar:render()
 	local props = self.props
 	local state = self.state
 
-	-- TODO : Remove containerWidth with FFlagDevFrameworkSearchBarSize
-	local containerWidth = props.Width
 	local buttonWidth = props.ButtonWidth
 	local layoutOrder = props.LayoutOrder
 	local placeholderText = props.PlaceholderText
@@ -322,7 +318,7 @@ function SearchBar:render()
 	}
 
 	return Roact.createElement(Pane, {
-		Size = FFlagDevFrameworkSearchBarSize and size or UDim2.new(0, containerWidth, 1, 0),
+		Size = size,
 		ClipsDescendants = true,
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,

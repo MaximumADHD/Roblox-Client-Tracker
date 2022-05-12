@@ -1,41 +1,8 @@
-local cube = {}
-function cube:getVertices()
-	return {
-		Vector3.new(0, 0, 1),
-		Vector3.new(0, 1, 1),
-		Vector3.new(0, 0, 0),
-		Vector3.new(0, 1, 0),
-		Vector3.new(1, 0, 0),
-		Vector3.new(1, 1, 0),
-		Vector3.new(1, 0, 1),
-		Vector3.new(1, 1, 1),
-	}
-end
-cube.instance = Instance.new("Part")
-function cube:getTriangleIndexData()
-	return {
-		{ 1, 2, 4 },
-		{ 1, 3, 4 },
-		{ 3, 4, 6 },
-		{ 3, 5, 6 },
-		{ 1, 3, 5 },
-		{ 1, 5, 7 },
-		{ 2, 4, 8 },
-		{ 4, 6, 8 },
-		{ 5, 6, 8 },
-		{ 5, 7, 8 },
-		{ 2, 7, 8 },
-		{ 1, 2, 7 },
-	}
-end
-function cube:getMeshOrigin()
-	return CFrame.new()
-end
-
+local TestHelpers = script.Parent.Parent.Util.TestHelpers
+local MeshEditingContextTestHelper = require(TestHelpers.MeshEditingContextTestHelper)
 
 return function()
 	local WireframeMeshView = require(script.Parent.WireframeMeshView)
-	local MeshEditingContextBase = require(script.Parent.Parent.MeshEditingContexts.MeshEditingContextBase)
 	local ToolAdornees = require(script.Parent.ToolAdornees)
 
 	it("should create and destroy without errors", function()
@@ -50,8 +17,7 @@ return function()
 		local wireframe = WireframeMeshView.new()
 		expect(wireframe).to.be.ok()
 
-		local context = MeshEditingContextBase.new()
-		context:init({ cube })
+		local cube1, context = MeshEditingContextTestHelper.createContextWithSingleWrapper()
 
 		local toolAdornees = ToolAdornees.new(context)
 		toolAdornees:render()
@@ -78,6 +44,8 @@ return function()
 
 		expect(wireframe.folder).to.be.ok()
 
+		cube1:Destroy()
 		wireframe:cleanup()
+		toolAdornees:cleanup()
 	end)
 end

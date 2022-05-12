@@ -20,8 +20,6 @@
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		Enum.VerticalAlignment VerticalAlignment: The VerticalAlignment of the components.
 ]]
-local FFlagToolboxAssetConfigUpdatePrivateAudioMessage = game:GetFastFlag("ToolboxAssetConfigUpdatePrivateAudioMessage")
-
 local TextService = game:GetService("TextService")
 
 local Framework = script.Parent.Parent
@@ -79,14 +77,9 @@ function RadioButton:render()
 		style = theme:getStyle("Framework", self)
 	end
 
-	local textWrapped
-	local textXAlignment
-	local verticalAlignment
-	if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then
-		textWrapped = prioritize(self.props.TextWrapped, style.TextWrapped)
-		textXAlignment = prioritize(self.props.TextXAlignment, style.TextXAlignment)
-		verticalAlignment = prioritize(self.props.VerticalAlignment, style.VerticalAlignment)
-	end
+	local textWrapped = prioritize(self.props.TextWrapped, style.TextWrapped)
+	local textXAlignment = prioritize(self.props.TextXAlignment, style.TextXAlignment)
+	local verticalAlignment = prioritize(self.props.VerticalAlignment, style.VerticalAlignment)
 
 	local font = style.Font
 	local descriptionTextSize
@@ -135,18 +128,14 @@ function RadioButton:render()
 	local buttonSize
 	local descriptionSize
 	local mainTextSize
-	if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then
-		if automaticSize ~= nil then
-			buttonSize = size
-			descriptionSize = size
-			mainTextSize = size
-		else
-			buttonSize = UDim2.new(0, buttonWidth, 0, buttonHeight)
-			descriptionSize = if descriptionTextDimensions then UDim2.new(0, descriptionTextDimensions.X, 0, descriptionTextDimensions.Y) else nil
-			mainTextSize = UDim2.new(0, textDimensions.X, 0, textDimensions.Y)
-		end
+	if automaticSize ~= nil then
+		buttonSize = size
+		descriptionSize = size
+		mainTextSize = size
 	else
 		buttonSize = UDim2.new(0, buttonWidth, 0, buttonHeight)
+		descriptionSize = if descriptionTextDimensions then UDim2.new(0, descriptionTextDimensions.X, 0, descriptionTextDimensions.Y) else nil
+		mainTextSize = UDim2.new(0, textDimensions.X, 0, textDimensions.Y)
 	end
 
 	local buttonStyleModifier
@@ -164,7 +153,7 @@ function RadioButton:render()
 	end
 
 	return Roact.createElement("TextButton", {
-		AutomaticSize = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then automaticSize else nil,
+		AutomaticSize = automaticSize,
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
 		Size = buttonSize,
@@ -175,7 +164,7 @@ function RadioButton:render()
 			FillDirection = Enum.FillDirection.Horizontal,
 			Padding = UDim.new(0, style.Padding),
 			SortOrder = Enum.SortOrder.LayoutOrder,
-			VerticalAlignment = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then verticalAlignment else Enum.VerticalAlignment.Center,
+			VerticalAlignment = verticalAlignment,
 		}),
 
 		RadioImage = Roact.createElement(Button, {
@@ -193,25 +182,25 @@ function RadioButton:render()
 			LayoutOrder = 2,
 		}, {
 			MainTextLabel = Roact.createElement(TextLabel, {
-				AutomaticSize = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then automaticSize else nil,
+				AutomaticSize = automaticSize,
 				LayoutOrder = 1,
-				Size = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then mainTextSize else UDim2.new(0, textDimensions.X, 0, textDimensions.Y),
+				Size = mainTextSize,
 				StyleModifier = textStyleModifier,
 				Text = text,
 				TextSize = textSize,
-				TextWrapped = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then textWrapped else nil,
-				TextXAlignment = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then textXAlignment else nil,
+				TextWrapped = textWrapped,
+				TextXAlignment = textXAlignment,
 			}),
 
 			DescriptionTextLabel = description and Roact.createElement(TextLabel, {
-				AutomaticSize = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then automaticSize else nil,
+				AutomaticSize = automaticSize,
 				LayoutOrder = 2,
-				Size = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then descriptionSize else UDim2.new(0, descriptionTextDimensions.X, 0, descriptionTextDimensions.Y),
+				Size = descriptionSize,
 				StyleModifier = StyleModifier.Disabled,
 				Text = description,
 				TextSize = descriptionTextSize or nil,
-				TextWrapped = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then textWrapped else nil,
-				TextXAlignment = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then textXAlignment else nil,
+				TextWrapped = textWrapped,
+				TextXAlignment = textXAlignment,
 			}),
 		}),
 	})

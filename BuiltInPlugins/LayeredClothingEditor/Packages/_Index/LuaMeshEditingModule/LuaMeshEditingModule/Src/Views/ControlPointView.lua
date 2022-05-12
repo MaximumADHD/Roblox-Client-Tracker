@@ -46,6 +46,11 @@ function ControlPointView.new()
 		if not self.controlPoint then
 			self.controlPoint = Instance.new("Part")
 			self.controlPoint.Name = name
+			self.controlPoint:GetPropertyChangedSignal("Name"):Connect(function()
+				if self.controlPoint.Name ~= name then
+					self.controlPoint.Name = name
+				end
+			end)
 			self.controlPoint.Transparency = 1
 			self.controlPoint.Archivable = false
 		end

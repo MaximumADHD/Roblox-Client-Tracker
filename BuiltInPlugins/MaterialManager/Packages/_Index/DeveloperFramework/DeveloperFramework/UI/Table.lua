@@ -36,11 +36,12 @@
 		array[any] HighlightedRows: An optional list of rows to highlight.
 		number ScrollFocusIndex: An optional row index for the infinite scroller to focus upon rendering.
 ]]
-local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
 local FFlagDevFrameworkRemoveInfiniteScroller = game:GetFastFlag("DevFrameworkRemoveInfiniteScroller")
+local FFlagDevFrameworkTableReturnWidthOnSizeChange = game:GetFastFlag("DevFrameworkTableReturnWidthOnSizeChange")
+local FFlagDevFrameworkFixSplitPaneAlignment = game:GetFastFlag("DevFrameworkFixSplitPaneAlignment")
 
-local hasTableColumnResizeFFlags = FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize
+local hasTableColumnResizeFFlags = FFlagDevFrameworkTableColumnResize
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -65,12 +66,15 @@ local TableHeaderCell = require(script.TableHeaderCell)
 local Util = require(Framework.Util)
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
+local FFlagDevFrameworkTableHeaderTooltip = game:GetFastFlag("DevFrameworkTableHeaderTooltip")
+
 local Table = Roact.PureComponent:extend("Table")
 Typecheck.wrap(Table, script)
 
 type Column = {
 	Name: string,
 	Key: string?,
+	Tooltip: string?,
 	Width: UDim?,
 	MinWidth: number?,
 }
@@ -119,7 +123,13 @@ function Table:init()
 		-- Adjustment so as not to cut off the last row
 		local listPadding = 5
 		local listHeight = rbx.AbsoluteSize.Y - (style.HeaderHeight + footerHeight) - listPadding
-		self.props.OnSizeChange(listHeight)
+
+		local tableWidth = nil
+		if FFlagDevFrameworkTableReturnWidthOnSizeChange then
+			local padding = if props.Padding then props.Padding else 1
+			tableWidth = rbx.AbsoluteSize.X - (2*padding)
+		end
+		self.props.OnSizeChange(listHeight, tableWidth)
 	end
 end
 
@@ -164,10 +174,14 @@ function Table:willUpdate(nextProps)
 	end
 	if hasTableColumnResizeFFlags and props.Columns ~= nextProps.Columns then
 		local changedColumnCount = #props.Columns ~= #nextProps.Columns
-		local changedColumnWidth = some(props.Columns, function(column, index: number)
-			local nextColumn = nextProps.Columns[index]
-			return nextColumn.Width ~= column.Width
-		end)
+		local changedColumnWidth = false
+		if not changedColumnCount then
+			changedColumnWidth = some(props.Columns, function(column, index: number)
+				local nextColumn = nextProps.Columns[index]
+				return nextColumn.Width ~= column.Width
+			end)
+		end
+
 		if changedColumnCount or changedColumnWidth then
 			self:_flushRenderRow()
 		end
@@ -197,10 +211,12 @@ function Table:renderResizableHeadings()
 		Sizes = sizes,
 		MinSizes = minSizes,
 		OnSizesChange = props.OnColumnSizesChange,
+		PaneStyle = "SubtleBox",
 	}, map(props.Columns, function(column: Column, index: number)
 		local order = props.SortIndex == index and props.SortOrder or nil
 		return Roact.createElement(TableHeaderCell, {
 			Name = column.Name,
+			Tooltip = FFlagDevFrameworkTableHeaderTooltip and column.Tooltip or nil,
 			Order = order,
 			Width = UDim.new(1, 0),
 			ColumnIndex = index,
@@ -238,7 +254,9 @@ end
 function Table:renderHeadings()
 	local props = self.props
 	if hasTableColumnResizeFFlags and props.OnColumnSizesChange then
-		return self:renderResizableHeadings()
+		return {
+			SplitPane = self:renderResizableHeadings()
+		}
 	else
 		return self:renderFixedHeadings()
 	end
@@ -248,10 +266,10 @@ function Table:renderScroll()
 	if FFlagDevFrameworkRemoveInfiniteScroller then
 		local rows = self:renderRows()
 		return Roact.createElement(ScrollingFrame, {
+			AutoSizeCanvas = false,
 			ScrollingDirection = Enum.ScrollingDirection.Y,
-			AutoSizeLayoutOptions = {
-				Padding = UDim.new(0,0)
-			}
+			Layout = Enum.FillDirection.Vertical,
+			AutomaticCanvasSize = Enum.AutomaticSize.XY,
 		}, {
 			Child = rows
 		})
@@ -276,7 +294,8 @@ function Table:renderRows()
 	local rows = map(props.Rows, function(row: any, index: number)
 		return Roact.createElement(Pane, {
 			LayoutOrder = index,
-			AutomaticSize = Enum.AutomaticSize.XY,
+			Size = if FFlagDevFrameworkFixSplitPaneAlignment then UDim2.fromScale(1, 0) else nil,
+			AutomaticSize = if FFlagDevFrameworkFixSplitPaneAlignment then Enum.AutomaticSize.Y else Enum.AutomaticSize.XY,
 		}, {
 			Row = self.onRenderRow(row)
 		})
@@ -304,7 +323,7 @@ function Table:render()
 		Layout = Enum.FillDirection.Horizontal,
 		LayoutOrder = 1,
 		Size = UDim2.new(1, 0, 0, headerHeight),
-		Padding = props.Scroll and style.ScrollHeaderPadding or nil,
+		Padding = if props.Scroll then style.ScrollHeaderPadding else nil,
 		Style = "SubtleBox",
 		BorderColor3 = style.Border,
 		BorderSizePixel = 1,
@@ -313,7 +332,7 @@ function Table:render()
 	local useVariableWidth = hasTableColumnResizeFFlags and props.OnColumnSizesChange and not props.UseScale and not props.ClampSize
 	local width = 0
 
-	local size = UDim2.new(1, 0, 1, -(headerHeight + footerHeight))
+	local size = UDim2.new(1, 0, 1, if FFlagDevFrameworkRemoveInfiniteScroller then -headerHeight else -(headerHeight + footerHeight))
 	if useVariableWidth then
 		width = reduce(props.Columns, function(value: number, column: Column)
 			local columnWidth = if column.Width then column.Width.Offset else 0
@@ -339,6 +358,7 @@ function Table:render()
 	local top
 	if useVariableWidth then
 		top = Roact.createElement(ScrollingFrame, {
+			Size = if FFlagDevFrameworkRemoveInfiniteScroller then UDim2.new(1, 0, 1, -footerHeight) else nil,
 			CanvasSize = UDim2.fromOffset(width, 0),
 			ScrollingDirection = Enum.ScrollingDirection.X,
 		}, {
@@ -361,7 +381,7 @@ function Table:render()
 		Size = props.Size,
 		Layout = Enum.FillDirection.Vertical,
 		Style = "BorderBox",
-		Padding = 1,
+		Padding = if FFlagDevFrameworkTableReturnWidthOnSizeChange and props.Padding then props.Padding else 1,
 		[Roact.Change.AbsoluteSize] = props.OnSizeChange and self.onSizeChange or nil,
 	}, {
 		Top = top,

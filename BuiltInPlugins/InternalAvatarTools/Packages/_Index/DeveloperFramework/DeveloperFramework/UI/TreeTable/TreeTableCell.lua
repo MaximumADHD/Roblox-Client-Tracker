@@ -4,6 +4,8 @@
 local Framework = script.Parent.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 
+local FFlagDevFrameworkFixSplitPaneAlignment = game:GetFastFlag("DevFrameworkFixSplitPaneAlignment")
+
 local Dash = require(Framework.packages.Dash)
 local join = Dash.join
 
@@ -114,7 +116,8 @@ function TreeTableCell:render()
 		BorderSizePixel = 1,
 		BorderColor3 = style.Border,
 		Size = UDim2.new(width.Scale, width.Offset, 1, 0),
-		[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChanged
+		[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChanged,
+		ClipsDescendants = FFlagDevFrameworkFixSplitPaneAlignment,
 	}, {
 		Tooltip = hasTooltip and Roact.createElement(Tooltip, {
 			MaxWidth = style.Tooltip.MaxWidth,

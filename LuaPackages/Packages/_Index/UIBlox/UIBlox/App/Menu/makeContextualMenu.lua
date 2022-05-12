@@ -105,10 +105,19 @@ local function makeContextualMenu(baseMenuComponent, backgroundThemeKey)
 		}
 
 		self.positionBinding = self.positionPercentBinding:map(function(positionPercent)
-			if self.props.menuDirection == MenuDirection.Down then
-				return UDim2.fromScale(0.5, positionPercent - 1)
+			local xScale
+			if self.props.horizontalAlignment == Enum.HorizontalAlignment.Left then
+				xScale = 0
+			elseif self.props.horizontalAlignment == Enum.HorizontalAlignment.Right then
+				xScale = 1
 			else
-				return UDim2.fromScale(0.5, 1 - positionPercent)
+				xScale = 0.5
+			end
+
+			if self.props.menuDirection == MenuDirection.Down then
+				return UDim2.fromScale(xScale, positionPercent - 1)
+			else
+				return UDim2.fromScale(xScale, 1 - positionPercent)
 			end
 		end)
 
@@ -126,9 +135,9 @@ local function makeContextualMenu(baseMenuComponent, backgroundThemeKey)
 
 			local anchorPointX
 			if self.props.horizontalAlignment == Enum.HorizontalAlignment.Left then
-				anchorPointX = 1
-			elseif self.props.horizontalAlignment == Enum.HorizontalAlignment.Right then
 				anchorPointX = 0
+			elseif self.props.horizontalAlignment == Enum.HorizontalAlignment.Right then
+				anchorPointX = 1
 			else
 				anchorPointX = 0.5
 			end

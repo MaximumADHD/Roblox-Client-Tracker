@@ -21,11 +21,7 @@
 		boolean DisableZoom: Disables the zoom functionality in the preview
 		boolean DisablePan: Disables the panning functionality in the preview
 ]]
-local FFlagDevFrameworkExtractAssetRenderModelCamera = game:GetFastFlag("DevFrameworkExtractAssetRenderModelCamera")
-local FFlagDevFrameworkAssetRenderModelCustomCamDirection = game:GetFastFlag("DevFrameworkAssetRenderModelCustomCamDirection")
 local FFlagDevFrameworkSeparateCenterCameraCenterModel = game:DefineFastFlag("DevFrameworkSeparateCenterCameraCenterModel", false)
-local FFlagDevFrameworkAssetRenderModelStatic2 = game:GetFastFlag("DevFrameworkAssetRenderModelStatic2")
-local FFlagDevFrameworkAssetRenderModelDisableZoom = game:GetFastFlag("DevFrameworkAssetRenderModelDisableZoom")
 local FFlagDevFrameworkAssetRenderModelDisablePan = game:GetFastFlag("DevFrameworkAssetRenderModelDisablePan")
 
 local Framework = script.Parent.Parent
@@ -61,7 +57,7 @@ function AssetRenderModel:init()
 	self.viewportFrameRef = Roact.createRef()
 
 	local camera
-	if FFlagDevFrameworkExtractAssetRenderModelCamera and self.props.Camera then
+	if self.props.Camera then
 		camera = self.props.Camera
 	else
 		camera = Instance.new("Camera")
@@ -172,12 +168,7 @@ function AssetRenderModel:init()
 			cameraDistAway = size.magnitude * INSERT_CAMERA_DIST_MULT
 		end
 
-		local dir
-		if FFlagDevFrameworkAssetRenderModelCustomCamDirection then
-			dir = self.props.FocusDirection.Unit
-		else
-			dir = Vector3.new(1, 1, 1).Unit
-		end
+		local dir = self.props.FocusDirection.Unit
 		camera.Focus = CFrame.new()
 		camera.CFrame = CFrame.new(cameraDistAway * dir, camera.Focus.p)
 	end
@@ -185,7 +176,7 @@ function AssetRenderModel:init()
 	self.centerModel = function()
 		local viewObject = self.viewportFrameModel
 		local viewObjectCf
-		
+
 		-- Move the model/part to the origin
 		if viewObject:IsA("Model") then
 			viewObjectCf = viewObject:GetBoundingBox()
@@ -199,26 +190,16 @@ function AssetRenderModel:init()
 		local model = self.viewportFrameModel
 		local initialDistance = self.props.InitialDistance
 		local size
-		
+
 		if model:IsA("Model") then
 			size = model:GetExtentsSize()
 		else
 			size = model.Size
 		end
-		
-		local cameraDistAway
-		if FFlagDevFrameworkAssetRenderModelStatic2 then
-			cameraDistAway = (initialDistance or size.magnitude) * INSERT_CAMERA_DIST_MULT
-		else
-			cameraDistAway = size.magnitude * INSERT_CAMERA_DIST_MULT
-		end
 
-		local dir
-		if FFlagDevFrameworkAssetRenderModelCustomCamDirection then
-			dir = self.props.FocusDirection.Unit
-		else
-			dir = Vector3.new(1, 1, 1).Unit
-		end
+		local cameraDistAway = (initialDistance or size.magnitude) * INSERT_CAMERA_DIST_MULT
+
+		local dir = self.props.FocusDirection.Unit
 		camera.Focus = CFrame.new()
 		camera.CFrame = CFrame.new(cameraDistAway * dir, camera.Focus.Position)
 	end
@@ -288,7 +269,7 @@ function AssetRenderModel:render()
 	local position = props.Position
 	local size = props.Size or UDim2.new(1, 0, 1, 0)
 	local static = props.Static
-	local disableZoom = FFlagDevFrameworkAssetRenderModelDisableZoom and props.DisableZoom
+	local disableZoom = props.DisableZoom
 
 	local camera = self.camera
 

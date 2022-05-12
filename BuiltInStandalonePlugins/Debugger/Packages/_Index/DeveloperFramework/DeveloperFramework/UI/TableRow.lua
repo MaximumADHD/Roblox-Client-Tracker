@@ -16,11 +16,10 @@
 		boolean FullSpan: Whether the root level should ignore column settings and use the first column key to populate entire width
 		boolean HighlightedRow: An optional boolean specifying whether to highlight the row.
 ]]
-local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
 local FFlagDevFrameworkTablePassNilForTooltipText = game:GetFastFlag("DevFrameworkTablePassNilForTooltipText")
 
-local hasTableColumnResizeFFlags = FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize
+local hasTableColumnResizeFFlags = FFlagDevFrameworkTableColumnResize
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -112,11 +111,8 @@ function TableRow:render()
 
 end
 
-
 TableRow = withContext({
 	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(TableRow)
-
-
 
 return withControl(TableRow)

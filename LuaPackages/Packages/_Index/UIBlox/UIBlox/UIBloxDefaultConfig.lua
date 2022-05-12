@@ -79,4 +79,10 @@ return {
 
 	-- enableActionBarLayoutFix : Indicate whether the fix to update the action bar layout is enabled
 	enableActionBarLayoutFix = false,
+
+	-- enablePlayerTilePaddingFix : Indicate whether the fix to update the player tile padding is enabled
+	enablePlayerTilePaddingFix = false,
+
+	-- config for supporting right side gadget for Menu Cell
+	enableRightSideGadgetView = false,
 }

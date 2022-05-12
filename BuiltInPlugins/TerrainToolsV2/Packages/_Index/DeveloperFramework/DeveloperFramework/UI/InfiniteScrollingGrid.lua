@@ -58,7 +58,6 @@ local Typecheck = Util.Typecheck
 local InfiniteScrollingGrid = Roact.PureComponent:extend("InfiniteScrollingGrid")
 Typecheck.wrap(InfiniteScrollingGrid, script)
 
-local FFlagDevFrameworkInfiniteScrollingGridImprovements = game:GetFastFlag("DevFrameworkInfiniteScrollingGridImprovements")
 local FFlagDevFrameworkScrollingFrameAddPadding = game:GetFastFlag("DevFrameworkScrollingFrameAddPadding")
 local FFlagDevFrameworkInfiniteScrollingGridFixRange = game:GetFastFlag("DevFrameworkInfiniteScrollingGridFixRange")
 
@@ -161,7 +160,7 @@ function InfiniteScrollingGrid:init()
 		local props : _Props = self.props
 		local state : _State = self.state
 
-		if state.canvasPosition and (not absoluteSizeChanged or not FFlagDevFrameworkInfiniteScrollingGridImprovements) then
+		if state.canvasPosition and not absoluteSizeChanged then
 			if canvasPosition.X == state.canvasPosition.X and canvasPosition.Y == state.canvasPosition.Y then
 				return
 			end
@@ -219,8 +218,7 @@ function InfiniteScrollingGrid:init()
 			if (minItemIndex ~= state.minItemIndex or
 				maxItemIndex ~= state.maxItemIndex or
 				targetMinItemIndex ~= targetMinItemIndex or
-				targetMaxItemIndex ~= targetMaxItemIndex or
-				not FFlagDevFrameworkInfiniteScrollingGridImprovements) then
+				targetMaxItemIndex ~= targetMaxItemIndex) then
 				self:setState({
 					absoluteSize = absoluteSize,
 					canvasPosition = canvasPosition,
@@ -309,14 +307,8 @@ function InfiniteScrollingGrid:didUpdate(prevProps: any)
 	end
 
 	if cellsPerRow ~= 0 then
-		if FFlagDevFrameworkInfiniteScrollingGridImprovements then
-			if not state.absoluteSize or state.absoluteSize.X ~= absoluteSize.X or state.absoluteSize.Y ~= absoluteSize.Y then
-				self.onUpdateView(state.canvasPosition or Vector2.new(0, 0), true)
-			end
-		else
-			if not state.absoluteSize or state.absoluteSize.X ~= absoluteSize.X and state.absoluteSize.Y ~= absoluteSize.Y then
-				self.onUpdateView(state.canvasPosition or Vector2.new(0, 0))
-			end
+		if not state.absoluteSize or state.absoluteSize.X ~= absoluteSize.X or state.absoluteSize.Y ~= absoluteSize.Y then
+			self.onUpdateView(state.canvasPosition or Vector2.new(0, 0), true)
 		end
 	end
 
@@ -386,16 +378,12 @@ function InfiniteScrollingGrid:render()
 
 	local indicator
 	if loading then
-		if FFlagDevFrameworkInfiniteScrollingGridImprovements then
-			indicator = Roact.createElement(Pane, {
-				Padding = style.LoadingIndicatorPadding,
-				Size = style.LoadingIndicatorSize,
-			}, {
-				loadingIndicator = LoadingIndicator
-			})
-		else
-			indicator = LoadingIndicator
-		end
+		indicator = Roact.createElement(Pane, {
+			Padding = style.LoadingIndicatorPadding,
+			Size = style.LoadingIndicatorSize,
+		}, {
+			loadingIndicator = LoadingIndicator
+		})
 	end
 
 	return Roact.createElement(Pane, join({
@@ -407,7 +395,7 @@ function InfiniteScrollingGrid:render()
 			AutomaticCanvasSize = Enum.AutomaticSize.XY,
 			CanvasSize = UDim2.fromScale(1, 1),
 			OnScrollUpdate = self.onScrollUpdate,
-			Padding = if FFlagDevFrameworkInfiniteScrollingGridImprovements and FFlagDevFrameworkScrollingFrameAddPadding then padding else nil,
+			Padding = if FFlagDevFrameworkScrollingFrameAddPadding then padding else nil,
 			Size = UDim2.fromScale(1, 1),
 		}, {
 			Grid = Roact.createElement(Pane, {
@@ -416,17 +404,16 @@ function InfiniteScrollingGrid:render()
 				Size = UDim2.new(1, 0, 0, absoluteCellSize.Y * (state.maxRowIndex - state.minRowIndex)),
 			}, grid),
 			Loader = Roact.createElement(Pane, {
-				AutomaticSize = if FFlagDevFrameworkInfiniteScrollingGridImprovements then Enum.AutomaticSize.XY else nil,
+				AutomaticSize = Enum.AutomaticSize.XY,
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				LayoutOrder = if FFlagDevFrameworkInfiniteScrollingGridImprovements then 2 else nil,
-				Padding = if not FFlagDevFrameworkInfiniteScrollingGridImprovements then style.LoadingIndicatorPadding else nil,
+				LayoutOrder = 2,
 				Position = UDim2.new(
 					0.5 - ((style.LoadingIndicatorSize.X.Scale) / 2),
 					-(style.LoadingIndicatorSize.X.Offset + style.LoadingIndicatorPadding) / 2,
 					0,
 					math.floor(absoluteMax / cellsPerRow) * absoluteCellSize.Y
 				),
-				Size = if FFlagDevFrameworkInfiniteScrollingGridImprovements then UDim2.fromOffset(0, 0) else style.LoadingIndicatorSize,
+				Size = UDim2.fromOffset(0, 0),
 			}, {
 				Indicator = indicator,
 			})

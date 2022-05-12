@@ -4,6 +4,8 @@
 local Framework = script.Parent.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 
+local FFlagDevFrameworkFixSplitPaneAlignment = game:GetFastFlag("DevFrameworkFixSplitPaneAlignment")
+
 local UI = Framework.UI
 local Pane = require(UI.Pane)
 local Tooltip = require(UI.Tooltip)
@@ -36,6 +38,7 @@ local function TableCell(props)
 		BorderSizePixel = 1,
 		BorderColor3 = style.Border,
 		Size = UDim2.new(width.Scale, width.Offset, 1, 0),
+		ClipsDescendants = FFlagDevFrameworkFixSplitPaneAlignment,
 	}, {
 		Text = Roact.createElement(TextLabel, {
 			Text = stringValue,

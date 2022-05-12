@@ -6,7 +6,7 @@ source = "git+https://github.com/roblox/roact-alignment#211d716"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
     "LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill",
-    "Promise Promise 3.2.1 url+https://github.com/roblox/roblox-lua-promise",
+    "Promise Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
     "React React 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
     "Scheduler Scheduler 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
     "Shared Shared 211d7169 git+https://github.com/roblox/roact-alignment#211d716",

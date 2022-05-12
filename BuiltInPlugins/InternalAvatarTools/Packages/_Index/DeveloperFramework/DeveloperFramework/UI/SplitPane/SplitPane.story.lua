@@ -1,8 +1,3 @@
-local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
-if not FFlagDevFrameworkSplitPane then
-	return
-end
-
 local Framework = script.Parent.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 

@@ -25,5 +25,6 @@ return {
 	NetworkingGames = require(LuaSocialLibrariesDeps.NetworkingGames),
 	CollisionMatchers = require(LuaSocialLibrariesDeps.CollisionMatchers),
 	SocialLibraries = require(LuaSocialLibrariesDeps.SocialLibraries),
+	SocialLibraries_v085 = require(LuaSocialLibrariesDeps.SocialLibraries_v085),
 	NetworkingUsers = require(LuaSocialLibrariesDeps.NetworkingUsers),
 }

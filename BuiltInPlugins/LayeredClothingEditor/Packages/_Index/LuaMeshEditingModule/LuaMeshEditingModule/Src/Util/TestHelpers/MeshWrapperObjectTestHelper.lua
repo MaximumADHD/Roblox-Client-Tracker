@@ -1,3 +1,7 @@
+local Workspace = game.Workspace
+
+local deepCopy = require(script.Parent.Parent.deepCopy)
+
 local MeshWrapperObjectTestHelper = {}
 
 MeshWrapperObjectTestHelper.positions = {
@@ -33,10 +37,10 @@ function SimpleCubeWrapper1.new(meshPart)
 	local simpleCubeWrapper1Object = setmetatable({}, SimpleCubeWrapper1)
 	simpleCubeWrapper1Object.instance = meshPart
 	function simpleCubeWrapper1Object:getVertices()
-		return MeshWrapperObjectTestHelper.positions
+		return deepCopy(MeshWrapperObjectTestHelper.positions)
 	end
 	function simpleCubeWrapper1Object:getTriangleIndexData()
-		return MeshWrapperObjectTestHelper.triangles
+		return deepCopy(MeshWrapperObjectTestHelper.triangles)
 	end
 	function simpleCubeWrapper1Object:getMeshOrigin()
 		return CFrame.new(0, 0, 0)
@@ -52,10 +56,10 @@ function SimpleCubeWrapper2.new(meshPart)
 	local simpleCubeWrapper2Object = setmetatable({}, SimpleCubeWrapper2)
 	simpleCubeWrapper2Object.instance = meshPart
 	function simpleCubeWrapper2Object:getVertices()
-		return MeshWrapperObjectTestHelper.positions
+		return deepCopy(MeshWrapperObjectTestHelper.positions)
 	end
 	function simpleCubeWrapper2Object:getTriangleIndexData()
-		return MeshWrapperObjectTestHelper.triangles
+		return deepCopy(MeshWrapperObjectTestHelper.triangles)
 	end
 	function simpleCubeWrapper2Object:getMeshOrigin()
 		return CFrame.new(0, 1, 0)
@@ -67,9 +71,11 @@ end
 MeshWrapperObjectTestHelper.getWrappers = function()
 	local meshPart1 = Instance.new("MeshPart")
 	meshPart1.Name = "Cube1"
+	meshPart1.Parent = Workspace
 
 	local meshPart2 = Instance.new("MeshPart")
 	meshPart2.Name = "Cube2"
+	meshPart2.Parent = Workspace
 
 	return {
 		SimpleCubeWrapper1.new(meshPart1),

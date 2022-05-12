@@ -19,6 +19,7 @@
 		number LayoutOrder: The layout order of this component in a list.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		string Tooltip: Tooltip to be displayed on hover
 
 	Style Values:
 		UDim2 Size: The size of this component.
@@ -37,11 +38,14 @@ local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
 local withContext = ContextServices.withContext
 local Container = require(Framework.UI.Container)
+local Tooltip = require(Framework.UI.Tooltip)
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
 local prioritize = Util.prioritize
 local Typecheck = Util.Typecheck
+
 local FFlagStudioExplainFriendCollaboratorPermission3 = game:GetFastFlag("StudioExplainFriendCollaboratorPermission3")
+local FFlagDevFrameworkTableHeaderTooltip = game:GetFastFlag("DevFrameworkTableHeaderTooltip")
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
@@ -145,6 +149,10 @@ function Button:render()
 			[Roact.Event.MouseEnter] = self.mouseEnter,
 			[Roact.Event.MouseLeave] = self.mouseLeave,
 		}, props[Roact.Children]),
+
+		Tooltip = FFlagDevFrameworkTableHeaderTooltip and props.Tooltip and Roact.createElement(Tooltip, {
+			Text = props.Tooltip
+		}) or nil
 	})
 end
 

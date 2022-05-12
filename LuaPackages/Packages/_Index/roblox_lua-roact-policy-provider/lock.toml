@@ -7,7 +7,7 @@ dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
     "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
     "Mock jtaylor/mock d2c4005c git+https://github.com/roblox/mock#master",
-    "Promise <patched> Promise 3.2.1 url+https://github.com/roblox/roblox-lua-promise",
+    "Promise <patched> Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
     "Roact <patched> RoactProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
     "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
     "tutils tutils 937da4f7 git+https://github.com/roblox/tutils#master",

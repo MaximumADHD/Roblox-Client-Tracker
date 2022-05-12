@@ -176,6 +176,7 @@ local Promise = {
 	Status = makeEnum("Promise.Status", {"Started", "Resolved", "Rejected", "Cancelled"}),
 	_getTime = os.clock,
 	_timeEvent = game:GetService("RunService").Heartbeat,
+	_unhandledRejectionCallbacks = {},
 }
 Promise.prototype = {}
 Promise.__index = Promise.prototype
@@ -1286,6 +1287,10 @@ function Promise.prototype:_reject(...)
 				self._source
 			)
 
+			for _, callback in ipairs(Promise._unhandledRejectionCallbacks) do
+				task.spawn(callback, self, unpack(self._values, 1, self._valuesLength))
+			end
+
 			if Promise.TEST then
 				-- Don't spam output when we're running tests.
 				return
@@ -1402,6 +1407,27 @@ function Promise.fromEvent(event, predicate)
 
 		onCancel(disconnect)
 	end)
+end
+
+--[=[
+	Registers a callback that runs when an unhandled rejection happens. An unhandled rejection happens when a Promise
+	is rejected, and the rejection is not observed with `:catch`.
+
+	The callback is called with the actual promise that rejected, followed by the rejection values.
+
+	@param callback (promise: Promise, ...: any) -- A callback that runs when an unhandled rejection happens.
+	@return () -> () -- Function that unregisters the `callback` when called
+]=]
+function Promise.onUnhandledRejection(callback)
+	table.insert(Promise._unhandledRejectionCallbacks, callback)
+
+	return function()
+		local index = table.find(Promise._unhandledRejectionCallbacks, callback)
+
+		if index then
+			table.remove(Promise._unhandledRejectionCallbacks, index)
+		end
+	end
 end
 
 return Promise

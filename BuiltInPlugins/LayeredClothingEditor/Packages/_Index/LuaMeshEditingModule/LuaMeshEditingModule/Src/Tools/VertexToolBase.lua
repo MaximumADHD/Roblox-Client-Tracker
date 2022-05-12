@@ -33,6 +33,7 @@ function VertexToolBase.new()
 	-- private variables
 	local _adornees
 	local _controlPointLocationData = {}
+	local _controlPointLocationDataBackup = {}
 	local _currentContext
 	local _currentHandle = Enum.RibbonTool.Select
 	local _edgeViews
@@ -54,7 +55,9 @@ function VertexToolBase.new()
 
 	-- private functions
 	local function _isHovered(meshName, id)
-		return _hoveredControlPoint ~= nil and _hoveredControlPoint.MeshName == meshName and _hoveredControlPoint.Index == id
+		return _hoveredControlPoint ~= nil
+			and _hoveredControlPoint.MeshName == meshName
+			and _hoveredControlPoint.Index == id
 	end
 
 	local function _isSelected(meshName, id)
@@ -86,22 +89,36 @@ function VertexToolBase.new()
 	end
 
 	local function _cleanupViews()
-		if _edgeViews then
-			_edgeViews:cleanup()
-			_edgeViews = nil
+		local viewsObjects = { _edgeViews, _pointViews, _adornees, _wireframeMeshView }
+		for _, obj in pairs(viewsObjects) do
+			if obj then
+				obj:disconnect()
+			end
 		end
-		if _pointViews then
-			_pointViews:cleanup()
-			_pointViews = nil
+
+		for _, obj in pairs(viewsObjects) do
+			if obj then
+				obj:cleanup()
+			end
 		end
-		if _adornees then
-			_adornees:cleanup()
-			_adornees = nil
-		end
-		if _wireframeMeshView then
-			_wireframeMeshView:cleanup()
-			_wireframeMeshView = nil
-		end
+
+		_edgeViews = nil
+		_pointViews = nil
+		_adornees = nil
+		_wireframeMeshView = nil
+	end
+
+	local function _initViews()
+		_adornees = ToolAdornees.new(_currentContext)
+		_pointViews = ControlPointViews.new(_currentContext)
+		_edgeViews = ControlEdgeViews.new(_currentContext)
+		_wireframeMeshView = WireframeMeshView.new()
+	end
+
+	local function _onExternalChange()
+		_cleanupViews()
+		_initViews()
+		vertexToolBaseObject:render()
 	end
 
 	local function _onContextChanged(context, controlPointLocationData)
@@ -117,6 +134,7 @@ function VertexToolBase.new()
 
 		_currentContext = context
 		_controlPointLocationData = controlPointLocationData
+		_controlPontLocationDataBackup = deepCopy(controlPointLocationData)
 	end
 
 	-- protected functions
@@ -203,10 +221,7 @@ function VertexToolBase.new()
 
 			self:saveState()
 
-			_adornees = ToolAdornees.new(_currentContext)
-			_pointViews = ControlPointViews.new(_currentContext)
-			_edgeViews = ControlEdgeViews.new(_currentContext)
-			_wireframeMeshView = WireframeMeshView.new()
+			_initViews()
 
 			self:render()
 		end
@@ -230,6 +245,16 @@ function VertexToolBase.new()
 		_toolStates[context] = nil
 	end
 
+	function vertexToolBaseObject:resetCurrentContext()
+		if not _currentContext then
+			return
+		end
+		self:saveState()
+		_currentContext:resetVertexData()
+		_controlPointLocationData = deepCopy(_controlPontLocationDataBackup)
+		self:render()
+	end
+
 	function vertexToolBaseObject:getCurrentHandle()
 		return _currentHandle
 	end
@@ -243,7 +268,9 @@ function VertexToolBase.new()
 			return
 		end
 
-		_adornees:render()
+		_adornees:render({
+			FolderChangedCallback = _onExternalChange,
+		})
 		_pointViews:render({
 			ControlPointPositions = _controlPointLocationData.Positions,
 			Adornees = _adornees,
@@ -251,13 +278,15 @@ function VertexToolBase.new()
 			IsSelected = _isSelected,
 			IsHovered = _isHovered,
 			SelectedMesh = _selectedMesh,
+			FolderChangedCallback = _onExternalChange,
 		})
 		_edgeViews:render({
 			ControlPointPositions = _controlPointLocationData.Positions,
 			ControlPointEdges = _controlPointLocationData.Edges,
 			Adornees = _adornees,
-			Transparency =_transparency,
+			Transparency = _transparency,
 			SelectedMesh = _selectedMesh,
+			FolderChangedCallback = _onExternalChange,
 		})
 		_wireframeMeshView:render({
 			Context = _currentContext,
@@ -265,6 +294,7 @@ function VertexToolBase.new()
 			WireColor = DEFAULT_WIREFRAME_COLOR,
 			ToolAdornees = _adornees,
 			Visible = _wireframeOn,
+			FolderChangedCallback = _onExternalChange,
 		})
 	end
 
@@ -281,7 +311,8 @@ function VertexToolBase.new()
 	end
 
 	function vertexToolBaseObject:cleanup()
-		_cleanupViews()
+		_onContextChanged()
+		_toolStates = nil
 	end
 
 	function vertexToolBaseObject:getWireframeEnabled()

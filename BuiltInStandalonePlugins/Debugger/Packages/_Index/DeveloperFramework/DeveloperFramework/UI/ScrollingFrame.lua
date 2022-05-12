@@ -19,7 +19,8 @@
 		table AutoSizeLayoutOptions: The options of the UILayout instance if auto-sizing. DEPRECATED: Use Layout instead.
 		Enum.FillDirection Layout: An optional Enum.FillDirection adding a UIListLayout instance.
 		UDim2 CanvasSize: The size of the scrolling frame's canvas.
-		integer ElementPadding: The padding between children when AutoSizeCanvas is true.
+		integer ElementPadding: The padding between children when AutoSizeCanvas is true. DEPRECATED: Use Spacing instead.
+		integer Spacing: The padding between children when Layout is used.
 		integer Padding: The padding for the contents within the scrollingFrame.
 		boolean ScrollingEnabled: Whether scrolling in this frame will change the CanvasPosition.
 		Style Style: a style table supplied from props and theme:getStyle()
@@ -39,7 +40,7 @@
 local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
 local FFlagDevFrameworkScrollingFrameFixUpdate = game:GetFastFlag("DevFrameworkScrollingFrameFixUpdate")
 local FFlagDevFrameworkScrollingFrameAddPadding = game:GetFastFlag("DevFrameworkScrollingFrameAddPadding")
-local FFlagDevFrameworkInfiniteScrollingGridImprovements = game:GetFastFlag("DevFrameworkInfiniteScrollingGridImprovements")
+local FFlagDevFrameworkRemoveInfiniteScroller = game:GetFastFlag("DevFrameworkRemoveInfiniteScroller")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -221,6 +222,8 @@ function ScrollingFrame:render()
 		paddingProps = self.getPaddingProps()
 	end
 
+	local spacing = if FFlagDevFrameworkRemoveInfiniteScroller then props.Spacing or UDim.new(0, 0) else nil
+
 	if autoSizeCanvas then
 		children = {
 			Layout = Roact.createElement(autoSizeElement, Cryo.Dictionary.join(layoutOptions, {
@@ -236,6 +239,7 @@ function ScrollingFrame:render()
 				Layout = Roact.createElement("UIListLayout", {
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					FillDirection = props.Layout,
+					Padding = spacing,
 					[Roact.Change.AbsoluteContentSize] = self.updateCanvasSize,
 					[Roact.Ref] = self.layoutRef,
 				}),
@@ -246,13 +250,14 @@ function ScrollingFrame:render()
 			children = {
 				Layout = Roact.createElement("UIListLayout", {
 					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = spacing,
 					FillDirection = props.Layout,
 				}),
 				Padding = if FFlagDevFrameworkScrollingFrameAddPadding then Roact.createElement("UIPadding", paddingProps) else nil,
 				Children = Roact.createFragment(children),
 			}
 		end
-	elseif FFlagDevFrameworkInfiniteScrollingGridImprovements and FFlagDevFrameworkScrollingFrameAddPadding then
+	elseif FFlagDevFrameworkScrollingFrameAddPadding then
 		children = {
 			Padding = Roact.createElement("UIPadding", paddingProps),
 			Children = Roact.createFragment(children),

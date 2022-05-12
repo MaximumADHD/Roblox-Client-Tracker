@@ -44,6 +44,7 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 		setFirstItemRef = t.optional(t.union(t.callback, t.table)),
 		setFrameRef = t.optional(t.union(t.callback, t.table)),
 		stayOnActivated = t.optional(t.boolean),
+		maxHeight = t.optional(t.number),
 	})
 
 	baseMenuComponent.defaultProps = {
@@ -62,6 +63,15 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 		local needsScrollbar = false
 		if menuHeight >= MAXIMUM_HEIGHT then
 			menuHeight = MAXIMUM_HEIGHT
+			needsScrollbar = true
+		end
+
+		local maxHeightOverride = self.props.maxHeight
+		if maxHeightOverride and maxHeightOverride > 0 and menuHeight > maxHeightOverride then
+			local availableHeight = maxHeightOverride - (ELEMENT_HEIGHT * 0.5)
+			local rows = math.floor(availableHeight / ELEMENT_HEIGHT)
+			rows = math.max(rows, 1)
+			menuHeight = (rows + 0.5) * ELEMENT_HEIGHT
 			needsScrollbar = true
 		end
 
@@ -130,6 +140,9 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 			local imageRectOffset = imageOffset
 			local imageWidth = imageSize.X
 			local halfImageWidth = imageWidth / 2
+			local needsTopRoundedBar = needsScrollbar and self.props.topElementRounded
+			local needsBottomRoundedBar = needsScrollbar and self.props.bottomElementRounded
+			local roundedBarCount = (needsTopRoundedBar and 1 or 0) + (needsBottomRoundedBar and 1 or 0)
 
 			return Roact.createElement("Frame", {
 				AnchorPoint = self.props.anchorPoint,
@@ -138,7 +151,7 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 				Size = UDim2.new(self.props.width.Scale, self.props.width.Offset, 0, menuHeight),
 				Position = self.props.position,
 			}, {
-				TopRoundedCorner = needsScrollbar and Roact.createElement("ImageLabel", {
+				TopRoundedCorner = needsTopRoundedBar and Roact.createElement("ImageLabel", {
 					BackgroundTransparency = 1,
 					Size = UDim2.new(1, 0, 0, ROUNDED_CORNER_SIZE),
 					Position = UDim2.fromScale(0, 0),
@@ -157,16 +170,16 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 				-- We turn off ClipsDescendants on the ScrollingFrame to allow the scroll bar to be offset over the contents.
 				ClippingFrame = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
-					Size = UDim2.new(1, 0, 1, needsScrollbar and -(ROUNDED_CORNER_SIZE * 2) or 0),
-					Position = UDim2.fromScale(0, 0.5),
-					AnchorPoint = Vector2.new(0, 0.5),
+					Size = UDim2.new(1, 0, 1, -(ROUNDED_CORNER_SIZE * roundedBarCount)),
+					Position = UDim2.fromScale(0, needsTopRoundedBar and 0.5 or 0),
+					AnchorPoint = Vector2.new(0, needsTopRoundedBar and 0.5 or 0),
 					ClipsDescendants = true,
 				}, {
 					ScrollingFrame = Roact.createElement("ScrollingFrame", {
 						[Roact.Ref] = self.props.setFrameRef,
 						Selectable = false,
 						BackgroundTransparency = 1,
-						Size = UDim2.new(1, needsScrollbar and -SCROLLBAR_OFFSET or 0, 1, 0),
+						Size = UDim2.new(1, needsTopRoundedBar and -SCROLLBAR_OFFSET or 0, 1, 0),
 						BorderSizePixel = 0,
 						ScrollBarThickness = 4,
 						ScrollBarImageColor3 = theme.UIEmphasis.Color,
@@ -182,7 +195,7 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 					}, children),
 				}),
 
-				BottomRoundedCorner = needsScrollbar and Roact.createElement("ImageLabel", {
+				BottomRoundedCorner = needsBottomRoundedBar and Roact.createElement("ImageLabel", {
 					BackgroundTransparency = 1,
 					Size = UDim2.new(1, 0, 0, ROUNDED_CORNER_SIZE),
 					Position = UDim2.fromScale(0, 1),

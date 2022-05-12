@@ -15,6 +15,8 @@ local Tooltip = require(UI.Tooltip)
 
 local withControl = require(Framework.Wrappers.withControl)
 
+local FFlagDevFrameworkTableHeaderTooltip = game:GetFastFlag("DevFrameworkTableHeaderTooltip")
+
 local TableHeaderCell = Roact.PureComponent:extend("TableHeaderCell")
 
 function TableHeaderCell:render()
@@ -25,6 +27,7 @@ function TableHeaderCell:render()
 	local index = props.ColumnIndex
 	local style = props.Style
 	local hasSort = props.OnPress ~= nil
+	local tooltip = FFlagDevFrameworkTableHeaderTooltip and props.Tooltip or nil
 	return Roact.createElement(Pane, assign({
 		LayoutOrder = index,
 		BorderColor3 = style.Border,
@@ -49,7 +52,7 @@ function TableHeaderCell:render()
 			AnchorPoint = Vector2.new(1, 0),
 		}),
 		Tooltip = Roact.createElement(Tooltip, {
-			Text = name,
+			Text = tooltip or name,
 		}),
 	})
 end

@@ -27,6 +27,7 @@ function MeshEditingContextBase.new()
 	local _meshesData
 	local _seamData
 	local _meshDataChanged = Signal.new()
+	local _meshesDataBackup
 
 	-- private functions
 	local function _makeVertexTriangleIndexData(meshName, vertexData, triangleIndexData)
@@ -44,7 +45,7 @@ function MeshEditingContextBase.new()
 		--verify
 		for index, vertex in ipairs(vertexData) do
 			if not vertexTriangleIndexData[index] then
-				error("Vertex index: " ..index .." is not a part of any triangle in mesh: " ..meshName)
+				error("Vertex index: " .. index .. " is not a part of any triangle in mesh: " .. meshName)
 			end
 		end
 
@@ -65,15 +66,24 @@ function MeshEditingContextBase.new()
 			assert(meshWrapperObject.getMeshOrigin, "MeshWrapperObject missing function: GetMeshOrigin")
 
 			local meshName = meshWrapperObject.instance.Name
-			assert(_meshesData[meshName] == nil, "Instance: " ..meshName .." shares a name with another Instance in MeshWrapperObjects, please make sure your instances are uniquely named.")
+			assert(
+				_meshesData[meshName] == nil,
+				"Instance: "
+					.. meshName
+					.. " shares a name with another Instance in MeshWrapperObjects, please make sure your instances are uniquely named."
+			)
 			_meshesData[meshName] = {}
 			local currentMeshData = _meshesData[meshName]
 			currentMeshData.VertexData = meshWrapperObject:getVertices()
 			currentMeshData.TriangleIndexData = meshWrapperObject:getTriangleIndexData()
-			currentMeshData.VertexTriangleIndexData = 
-				_makeVertexTriangleIndexData(meshName, currentMeshData.VertexData, currentMeshData.TriangleIndexData)
+			currentMeshData.VertexTriangleIndexData = _makeVertexTriangleIndexData(
+				meshName,
+				currentMeshData.VertexData,
+				currentMeshData.TriangleIndexData
+			)
 			currentMeshData.MeshOrigin = meshWrapperObject:getMeshOrigin()
 		end
+		_meshesDataBackup = deepCopy(_meshesData)
 
 		_seamData = buildSeamData(self, meshWrapperObjects)
 	end
@@ -157,7 +167,7 @@ function MeshEditingContextBase.new()
 		for meshName, changedVerticesPerMesh in pairs(changedVerticesCopy) do
 			local vertexDataForMesh = _meshesData[meshName].VertexData
 			if not vertexDataForMesh then
-				error("No vertex data found for mesh: " ..meshName)
+				error("No vertex data found for mesh: " .. meshName)
 				continue
 			end
 			for index, position in pairs(changedVerticesPerMesh) do
@@ -166,6 +176,11 @@ function MeshEditingContextBase.new()
 			end
 		end
 
+		_meshDataChanged:Fire()
+	end
+
+	function meshEditingContextBaseObject:resetVertexData()
+		_meshesData = deepCopy(_meshesDataBackup)
 		_meshDataChanged:Fire()
 	end
 
