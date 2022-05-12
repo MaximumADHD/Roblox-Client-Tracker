@@ -24,8 +24,7 @@ local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
-local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 local FFlagFixEulerAnglesOrder = game:DefineFastFlag("ACEFixEulerAnglesOrder", false)
 
@@ -64,33 +63,25 @@ local function mapDraggerContextToProps(draggerContext, props)
 
 		for trackName, value in pairs(values) do
 			if GetFFlagChannelAnimations() then
-				if GetFFlagQuaternionChannels() then
-					local path = {trackName}
-					if not AnimationData.isChannelAnimation(props.AnimationData) then
-						props.ValueChanged(instanceName, path, Constants.TRACK_TYPES.CFrame, props.Playhead, value, props.Analytics)
-					else
-						local rotationType
-						local eulerAnglesOrder = props.DefaultEulerAnglesOrder
-						if GetFFlagQuaternionChannels() then
-							rotationType = TrackUtils.getRotationTypeFromName(trackName, props.Tracks) or props.DefaultRotationType
-							if GetFFlagEulerAnglesOrder() and rotationType == Constants.TRACK_TYPES.EulerAngles then
-								local track = AnimationData.getTrack(props.AnimationData, "Root", path)
-								if not FFlagFixEulerAnglesOrder then
-									eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track)
-								else
-									eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track) or eulerAnglesOrder
-								end
-							end
-						else
-							rotationType = Constants.TRACK_TYPES.Rotation
-						end
-						-- Change the value of all tracks
-						TrackUtils.traverseValue(Constants.TRACK_TYPES.CFrame, value, function(_trackType, relPath, _value)
-							props.ValueChanged(instanceName, Cryo.List.join(path, relPath), _trackType, props.Playhead, _value, props.Analytics)
-						end, rotationType, eulerAnglesOrder)
-					end
+				local path = {trackName}
+				if not AnimationData.isChannelAnimation(props.AnimationData) then
+					props.ValueChanged(instanceName, path, Constants.TRACK_TYPES.CFrame, props.Playhead, value, props.Analytics)
 				else
-					props.ValueChanged(instanceName, {trackName}, Constants.TRACK_TYPES.CFrame, props.Playhead, value, props.Analytics)
+					local rotationType
+					local eulerAnglesOrder = props.DefaultEulerAnglesOrder
+					rotationType = TrackUtils.getRotationTypeFromName(trackName, props.Tracks) or props.DefaultRotationType
+					if GetFFlagCurveEditor() and rotationType == Constants.TRACK_TYPES.EulerAngles then
+						local track = AnimationData.getTrack(props.AnimationData, "Root", path)
+						if not FFlagFixEulerAnglesOrder then
+							eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track)
+						else
+							eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track) or eulerAnglesOrder
+						end
+					end
+					-- Change the value of all tracks
+					TrackUtils.traverseValue(Constants.TRACK_TYPES.CFrame, value, function(_trackType, relPath, _value)
+						props.ValueChanged(instanceName, Cryo.List.join(path, relPath), _trackType, props.Playhead, _value, props.Analytics)
+					end, rotationType, eulerAnglesOrder)
 				end
 			elseif GetFFlagFacialAnimationSupport() then
 				props.ValueChanged_deprecated2(instanceName, trackName, Constants.TRACK_TYPES.CFrame, props.Playhead, value, props.Analytics)

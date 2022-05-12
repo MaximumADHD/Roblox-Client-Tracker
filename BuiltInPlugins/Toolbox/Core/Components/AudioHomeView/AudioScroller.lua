@@ -1,6 +1,9 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
 
+local FFlagToolboxAudioDiscoveryRound2 =
+	require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscoveryRound2()
+
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
@@ -9,6 +12,7 @@ local Dash = Framework.Dash
 local Util = Plugin.Core.Util
 local LayoutOrderIterator = require(Util.LayoutOrderIterator)
 local Constants = require(Util.Constants)
+local AssetLogicWrapper = require(Plugin.Core.Components.AssetLogicWrapper)
 
 local ResultsFetcher = require(Plugin.Core.Components.ResultsFetcher)
 local Category = require(Plugin.Core.Types.Category)
@@ -32,7 +36,7 @@ type _ExternalAudioScrollerProps = {
 	Assets: { AssetInfo.AssetInfo },
 	Total: number?,
 	Loading: boolean,
-	TryInsert: ((assetData: any, assetWasDragged: boolean, insertionMethod: string) -> any),
+	TryInsert: ((assetData: any, assetWasDragged: boolean, insertionMethod: string?) -> any),
 	CanInsertAsset: () -> boolean,
 	LayoutOrder: number?,
 	Position: number?,
@@ -40,6 +44,8 @@ type _ExternalAudioScrollerProps = {
 	RenderTopContent: nil | (() -> nil),
 	AudioType: string?,
 	FetchNextPage: ((pageSize: number) -> ())?,
+	-- When removing FFlagToolboxAudioDiscoveryRound2 tryOpenAssetConfig should not be optional
+	tryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn?,
 }
 type AudioScrollerProps = _InteralAudioScrollerProps & _ExternalAudioScrollerProps
 
@@ -173,6 +179,7 @@ function AudioScroller:render()
 				TryInsert = tryInsert,
 				CanInsertAsset = canInsertAsset,
 				LayoutOrder = 2,
+				tryOpenAssetConfig = if FFlagToolboxAudioDiscoveryRound2 then props.tryOpenAssetConfig else nil,
 			}),
 			LoadingIndicator = loading and Roact.createElement("Frame", {
 				BackgroundColor3 = theme.backgroundColor,

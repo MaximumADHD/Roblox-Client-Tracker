@@ -51,14 +51,13 @@ local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local Flags = InGameMenu.Flags
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 local GetFFlagInGameMenuVRToggle = require(Flags.GetFFlagInGameMenuVRToggle)
-local FFlagShowVRVignetteToggle = require(Flags.FFlagShowVRVignetteToggle)
 local FFlagUserVRVignetteToggle do
 local success, result = pcall(function()
 	return UserSettings():IsUserFeatureEnabled("UserVRVignetteToggle")
 	end)
 	FFlagUserVRVignetteToggle = success and result
 end
-local canUseVignette = FFlagShowVRVignetteToggle and FFlagUserVRVignetteToggle
+local canUseVignette = FFlagUserVRVignetteToggle
 
 local VREnabledChanged = UserGameSettings:GetPropertyChangedSignal("VREnabled")
 

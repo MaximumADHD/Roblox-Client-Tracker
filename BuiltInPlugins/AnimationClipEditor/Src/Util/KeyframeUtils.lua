@@ -13,8 +13,8 @@ local Types = require(Plugin.Src.Types)
 local TweenService = game:GetService("TweenService")
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
-local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
+local GetFFlagUseCFrameAPI = require(Plugin.LuaFlags.GetFFlagUseCFrameAPI)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 local FFlagUseClampedAutoTangents = game:DefineFastFlag("ACEUseClampedAutoTangents", false)
 
@@ -24,13 +24,13 @@ function KeyframeUtils.getDefaultValue(trackType: string) : (CFrame | Vector3 | 
 	if trackType == Constants.TRACK_TYPES.CFrame then
 		return CFrame.new()
 	elseif GetFFlagChannelAnimations() and (trackType == Constants.TRACK_TYPES.Position or
-		trackType == (GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation)) then
+		trackType == Constants.TRACK_TYPES.EulerAngles) then
 		return Vector3.new()
 	elseif GetFFlagChannelAnimations() and (trackType == Constants.TRACK_TYPES.Number or trackType == Constants.TRACK_TYPES.Angle) then
 		return 0
 	elseif trackType == Constants.TRACK_TYPES.Facs then
 		return 0
-	elseif GetFFlagQuaternionChannels() and trackType == Constants.TRACK_TYPES.Quaternion then
+	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Quaternion then
 		return CFrame.new()
 	end
 
@@ -60,9 +60,9 @@ function KeyframeUtils.findNearestKeyframes(keyframes, tck)
 	local minIndex = 1
 	local maxIndex = #keyframes
 
-	if (tck < keyframes[minIndex]) then
+	if tck < keyframes[minIndex] then
 		return minIndex, nil
-	elseif (tck > keyframes[maxIndex]) then
+	elseif tck > keyframes[maxIndex] then
 		return maxIndex, nil
 	end
 
@@ -244,7 +244,7 @@ function KeyframeUtils.getSlope(track, tck, side)
 			local prevTick, prevKeyframe = getPrevKeyframe()
 			local nextTick, nextKeyframe = getNextKeyframe()
 			if prevTick and nextTick then
-				if GetFFlagQuaternionChannels() and track.Type == Constants.TRACK_TYPES.Quaternion then
+				if GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Quaternion then
 					return .5 * ((1 / (nextTick - tck)) + (1 / (tck - prevTick)))
 				else
 					local function clamp(x)
@@ -257,7 +257,7 @@ function KeyframeUtils.getSlope(track, tck, side)
 					if FFlagUseClampedAutoTangents then
 						fd *= clamp((keyframe.Value - prevKeyframe.Value) / (nextKeyframe.Value - prevKeyframe.Value))
 					end
-					
+
 					return fd
 				end
 			else
@@ -271,7 +271,7 @@ function KeyframeUtils.getSlope(track, tck, side)
 				return 0
 			elseif keyframe.InterpolationMode == Enum.KeyInterpolationMode.Linear then
 				local nextTick, nextKeyframe = getNextKeyframe()
-				if GetFFlagQuaternionChannels() and track.Type == Constants.TRACK_TYPES.Quaternion then
+				if GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Quaternion then
 					return nextKeyframe and (1 / (nextTick - tck)) or 0
 				else
 					return nextKeyframe and ((nextKeyframe.Value - keyframe.Value) / (nextTick - tck)) or 0
@@ -299,7 +299,7 @@ function KeyframeUtils.getSlope(track, tck, side)
 			if prevKeyframe.InterpolationMode == Enum.KeyInterpolationMode.Constant then
 				return 0
 			elseif prevKeyframe.InterpolationMode == Enum.KeyInterpolationMode.Linear then
-				if GetFFlagQuaternionChannels() and track.Type == Constants.TRACK_TYPES.Quaternion then
+				if GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Quaternion then
 					return 1 / (tck - prevTick)
 				else
 					return (prevKeyframe.Value - keyframe.Value) / (prevTick - tck)
@@ -354,7 +354,7 @@ function KeyframeUtils.getSlopes(track, tck)
 			return 0, 0
 		elseif lowKey.EasingStyle == Enum.KeyInterpolationMode.Linear then
 			local slope
-			if GetFFlagQuaternionChannels() and track.Type == Constants.TRACK_TYPES.Quaternion then
+			if GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Quaternion then
 				slope = 1 / (highTick - lowTick)
 			else
 				slope = (highKey.Value - lowKey.Value) / (highTick - lowTick)
@@ -375,7 +375,7 @@ function KeyframeUtils.getSlopes(track, tck)
 		local g11 = t * (3 * t - 2)
 
 		local slope
-		if GetFFlagQuaternionChannels() and track.Type == Constants.TRACK_TYPES.Quaternion then
+		if GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Quaternion then
 			slope = g01 / deltaTick
 			+ g10 * lowSlope
 			+ g11 * highSlope
@@ -426,7 +426,7 @@ function KeyframeUtils.blendCurveKeyframes(track, tck, low, high)
 		local h01 = t2 * (3 - 2 * t)
 		local h11 = t2 * (t - 1)
 
-		if GetFFlagQuaternionChannels() and track.Type == Constants.TRACK_TYPES.Quaternion then
+		if GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Quaternion then
 			-- The curve describes how the lerp coefficient evolves (always between 0 and 1)
 			local k = h10 * deltaTick * lowSlope
 				+ h01
@@ -485,20 +485,20 @@ if GetFFlagChannelAnimations() then
 			end
 		end
 
-		if not GetFFlagChannelAnimations() then
-			assert(track.Components and not isEmpty(track.Components), "Keyframes and Components arrays cannot be empty.")
-		end
-
 		if track.Type == Constants.TRACK_TYPES.CFrame then
 			local positionTrack = track.Components[Constants.PROPERTY_KEYS.Position]
 			local rotationTrack = track.Components[Constants.PROPERTY_KEYS.Rotation]
 
 			local position = positionTrack and KeyframeUtils.getValue(positionTrack, tck, defaultEulerAnglesOrder)::Vector3? or Vector3.new()
 
-			if rotationTrack.Type == (GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation) then
+			if rotationTrack.Type == Constants.TRACK_TYPES.EulerAngles then
 				local rotation = rotationTrack and KeyframeUtils.getValue(rotationTrack, tck, defaultEulerAnglesOrder)::Vector3? or Vector3.new()
-				if GetFFlagEulerAnglesOrder() then
-					return CFrame.new(position) * CFrameUtils.FromEulerAngles(rotation.X, rotation.Y, rotation.Z, rotationTrack.EulerAnglesOrder or defaultEulerAnglesOrder)
+				if GetFFlagCurveEditor() then
+					if GetFFlagUseCFrameAPI() then
+						return CFrame.new(position) * CFrame.fromEulerAngles(rotation.X, rotation.Y, rotation.Z, rotationTrack.EulerAnglesOrder or defaultEulerAnglesOrder)
+					else
+						return CFrame.new(position) * CFrameUtils.FromEulerAngles(rotation.X, rotation.Y, rotation.Z, rotationTrack.EulerAnglesOrder or defaultEulerAnglesOrder)
+					end
 				else
 					return CFrame.new(position) * CFrame.fromEulerAnglesXYZ(rotation.X, rotation.Y, rotation.Z)
 				end
@@ -506,7 +506,7 @@ if GetFFlagChannelAnimations() then
 				local rotation = rotationTrack and KeyframeUtils.getValue(rotationTrack, tck, defaultEulerAnglesOrder)::CFrame? or CFrame.new()
 				return CFrame.new(position) * rotation
 			end
-		elseif track.Type == Constants.TRACK_TYPES.Position or track.Type == (GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation) then
+		elseif track.Type == Constants.TRACK_TYPES.Position or track.Type == Constants.TRACK_TYPES.EulerAngles then
 			local XTrack = track.Components[Constants.PROPERTY_KEYS.X]
 			local YTrack = track.Components[Constants.PROPERTY_KEYS.Y]
 			local ZTrack = track.Components[Constants.PROPERTY_KEYS.Z]

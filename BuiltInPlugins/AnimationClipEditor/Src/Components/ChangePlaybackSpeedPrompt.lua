@@ -18,6 +18,8 @@ local withContext = ContextServices.withContext
 local Constants = require(Plugin.Src.Util.Constants)
 local TextEntryPrompt = require(Plugin.Src.Components.TextEntryPrompt)
 
+local GetFFlagFixButtonStyle = require(Plugin.LuaFlags.GetFFlagFixButtonStyle)
+
 local ChangePlaybackSpeedPrompt = Roact.PureComponent:extend("ChangePlaybackSpeedPrompt")
 
 function ChangePlaybackSpeedPrompt:init()
@@ -80,8 +82,8 @@ function ChangePlaybackSpeedPrompt:render()
 		HasError = hasNoticeText,
 		Text = playbackSpeed,
 		Buttons = {
-			{Key = false, Text = localization:getText("Dialog", "Cancel")},
-			{Key = true, Text = localization:getText("Dialog", "Confirm"), Style = "Primary"},
+			{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = if GetFFlagFixButtonStyle() then "Round" else nil},
+			{Key = true, Text = localization:getText("Dialog", "Confirm"), Style = if GetFFlagFixButtonStyle() then "RoundPrimary" else "Primary"},
 		},
 		OnTextSubmitted = function(text)
 			return self.setPlaybackSpeed(text, localization)

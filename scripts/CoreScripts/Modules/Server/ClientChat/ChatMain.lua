@@ -1,10 +1,14 @@
---!nocheck
+--!nonstrict
 
 --	// FileName: ChatMain.lua
 --	// Written by: Xsitsu
 --	// Description: Main module to handle initializing chat window UI and hooking up events to individual UI pieces.
 
 local moduleApiTable = {}
+moduleApiTable.Visible = nil
+moduleApiTable.IsCoreGuiEnabled = nil
+moduleApiTable.TopbarEnabled = nil
+moduleApiTable.VisibilityStateChanged = nil
 
 --// This section of code waits until all of the necessary RemoteEvents are found in EventFolder.
 --// I have to do some weird stuff since people could potentially already have pre-existing
@@ -431,6 +435,8 @@ function SetVisibility(val)
 		end
 	end
 end
+
+local DoChatBarFocus = nil
 
 do
 	moduleApiTable.TopbarEnabled = true

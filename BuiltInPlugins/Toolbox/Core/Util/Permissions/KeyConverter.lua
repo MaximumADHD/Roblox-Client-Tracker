@@ -7,6 +7,8 @@ local webKeys = require(Plugin.Core.Util.Permissions.Constants).webKeys
 local KeyConverter = {}
 
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
+local FFlagAssetConfigHandlePermissionsAssetTypeNotEnabled = game:GetFastFlag("AssetConfigHandlePermissionsAssetTypeNotEnabled")
+local DebugFlags = if FFlagAssetConfigHandlePermissionsAssetTypeNotEnabled then require(Plugin.Core.Util.DebugFlags) else nil
 
 function KeyConverter.getInternalSubjectType(webKey)
 	if webKey == webKeys.UserSubject then
@@ -87,9 +89,14 @@ function KeyConverter.getAssetPermissionSubjectType(internalSubjectType)
 end
 
 --For PostCheckActions reponse parsing,
---status can be 1 of 4 values : "HasPermission","NoPermission","AssetNotFound","UnknownError"
+--status can be 1 of these values : "HasPermission","NoPermission","AssetNotFound","UnknownError"
 function KeyConverter.resolveActionPermission(webKey, status, assetId)
-	if status == webKeys.HasPermission then
+	if FFlagAssetConfigHandlePermissionsAssetTypeNotEnabled and status == webKeys.UnknownError then
+		if DebugFlags.shouldDebugWarnings() then
+			warn(string.format("Ignoring %s for assetId: %s, webKey: %s", tostring(status), tostring(assetId), tostring(webKey)))
+		end
+		return PermissionsConstants.NoneKey
+	elseif status == webKeys.HasPermission then
 		return KeyConverter.getInternalAction(webKey)
 	elseif status == webKeys.NoPermission then
 		return PermissionsConstants.NoAccessKey

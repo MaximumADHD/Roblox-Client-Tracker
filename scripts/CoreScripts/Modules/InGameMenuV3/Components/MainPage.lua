@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -129,7 +129,7 @@ function MainPage:render()
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				CanvasSize = self.pageSize,
-				Size = UDim2.new(1, 0, 1),
+				Size = UDim2.new(1, 0, 1, 0),
 				[Roact.Change.CanvasPosition] = self.onScroll,
 			}, {
 				Layout = Roact.createElement("UIListLayout", {

@@ -1,5 +1,3 @@
-local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
-local FFlagToolboxAudioAssetConfigDisablePublicAudio = game:GetFastFlag("ToolboxAudioAssetConfigDisablePublicAudio")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
@@ -50,48 +48,7 @@ return function(patchInfo)
 			store:dispatch(UploadResult(false))
 		end
 
-		if FFlagToolboxPrivatePublicAudioAssetConfig3 then
-			local function onPatchAssetPermissionsSuccess()
-				return patchInfo.networkInterface
-					:patchAsset(
-						patchInfo.assetId,
-						patchInfo.name,
-						patchInfo.description,
-						patchInfo.genres,
-						patchInfo.commentOn,
-						patchInfo.copyOn,
-						patchInfo.locale,
-						patchInfo.localName,
-						patchInfo.localDescription
-					)
-					:andThen(onPatchSuccess, onPatchFail)
-			end
-
-			local permissionPatchData
-			if patchInfo.isAssetPublic then
-				local publicPermission: PermissionTypes.PermissionResultList = {
-					{
-						action = webKeys.UseAction,
-						subjectId = "",
-						subjectType = webKeys.All,
-					}
-				}
-				permissionPatchData = {
-					requests = publicPermission,
-				}
-			end
-
-			if permissionPatchData and not FFlagToolboxAudioAssetConfigDisablePublicAudio then
-				return patchInfo.networkInterface
-					:grantAssetPermissions(
-						patchInfo.assetId,
-						permissionPatchData
-					)
-					:andThen(onPatchAssetPermissionsSuccess, onPatchFail)
-			else
-				return onPatchAssetPermissionsSuccess()
-			end
-		else
+		local function onPatchAssetPermissionsSuccess()
 			return patchInfo.networkInterface
 				:patchAsset(
 					patchInfo.assetId,
@@ -106,5 +63,7 @@ return function(patchInfo)
 				)
 				:andThen(onPatchSuccess, onPatchFail)
 		end
+
+		return onPatchAssetPermissionsSuccess()
 	end
 end

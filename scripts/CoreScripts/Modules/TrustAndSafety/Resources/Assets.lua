@@ -19,5 +19,9 @@ return {
 			SliceCenter = Rect.new(8, 8, 9, 9),
 			Image = UIBloxImages["component_assets/circle_17"],
 		},
+		CloseIcon = {
+			IconSize = IconSize.Medium,
+			Image = UIBloxImages["icons/navigation/close"],
+		},
 	},
 }

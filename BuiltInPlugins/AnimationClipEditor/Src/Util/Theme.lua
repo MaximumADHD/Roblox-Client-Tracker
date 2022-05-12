@@ -12,7 +12,7 @@ local Decoration = UI.Decoration
 local LightTheme = Style.Themes.LightTheme
 local DarkTheme = Style.Themes.DarkTheme
 
-local GetFFlagEasierCurveWorkflow = require(Plugin.LuaFlags.GetFFlagEasierCurveWorkflow)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 -- Add new entries to both themes
 local overridedLightTheme = Cryo.Dictionary.join(LightTheme, {
@@ -62,7 +62,7 @@ local overridedLightTheme = Cryo.Dictionary.join(LightTheme, {
 	[StyleKey.CurveRotationY] = Color3.fromRGB(255, 0, 255),
 	[StyleKey.CurveRotationZ] = Color3.fromRGB(255, 165, 0),
 	[StyleKey.CurveEditorButton] = "rbxasset://textures/AnimationEditor/Button_Curve_Lightmode.png",
-	[StyleKey.DopeSheetButton] = "rbxasset://textures/AnimationEditor/Button_Dopesheet_Lightmode.png"
+	[StyleKey.DopeSheetButton] = "rbxasset://textures/AnimationEditor/Button_Dopesheet_Lightmode.png",	
 })
 
 local overridedDarkTheme = Cryo.Dictionary.join(DarkTheme, {
@@ -112,7 +112,7 @@ local overridedDarkTheme = Cryo.Dictionary.join(DarkTheme, {
 	[StyleKey.CurveRotationY] = Color3.fromRGB(255, 0, 255),
 	[StyleKey.CurveRotationZ] = Color3.fromRGB(255, 165, 0),
 	[StyleKey.CurveEditorButton] = "rbxasset://textures/AnimationEditor/Button_Curve_Darkmode.png",
-	[StyleKey.DopeSheetButton] = "rbxasset://textures/AnimationEditor/Button_Dopesheet_Darkmode.png"
+	[StyleKey.DopeSheetButton] = "rbxasset://textures/AnimationEditor/Button_Dopesheet_Darkmode.png",	
 })
 
 local playbackTheme = {
@@ -505,7 +505,7 @@ local curveTheme = {
 	rotationZ = StyleKey.CurveRotationZ,
 	selected = StyleKey.DialogMainButton,
 	xAxis = StyleKey.BrightText,
-	curveEditorButton = if GetFFlagEasierCurveWorkflow()
+	curveEditorButton = if GetFFlagCurveEditor()
 		then StyleKey.CurveEditorButton
 		else "rbxasset://textures/AnimationEditor/button_curve_editor.png",
 	dopesheetButton = StyleKey.DopeSheetButton,

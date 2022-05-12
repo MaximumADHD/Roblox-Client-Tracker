@@ -92,6 +92,21 @@ function User.fromDataTable(data)
 	return self
 end
 
+function User.mockEndpointResponse()
+	return {
+		created = "0001-01-01T06:00:00Z",
+		displayName = "DN+12345",
+		friendFrequentRank = 1,
+		friendFrequentScore = 2,
+		id = 12345,
+		isBanned = false,
+		isDeleted = false,
+		isOnline = false,
+		name = "USER NAME",
+		presenceType = 0,
+	}
+end
+
 function User.compare(user1, user2)
 	assert(not(user1 == nil and user2 == nil))
 	assert(user1 == nil or typeof(user1) == "table")

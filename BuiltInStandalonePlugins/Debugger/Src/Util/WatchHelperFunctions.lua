@@ -60,7 +60,7 @@ end
 module.sortTableByColumnAndOrder = function (mainTable, column, order, tableColumns, skipLastRow)
 	local currentOrder = order or Enum.SortDirection.Descending
 	local currentColumn = tableColumns[column] and column or 1
-	local sortValue = (tableColumns[column] and tableColumns[column]["Key"]) or tableColumns[currentColumn]["Key"]
+	local sortValue = (tableColumns[column] and tableColumns[column]) or tableColumns[currentColumn]
 	local basedOnOrder = function(a, b, mainOrder)
 		local sort1 = a
 		local sort2 = b
@@ -90,7 +90,7 @@ module.sortTableByColumnAndOrder = function (mainTable, column, order, tableColu
 		-- if the values of the 2 objects are identical, then sort by one that isn't
 		if a[sortValue] == b[sortValue] then
 			for k, v in pairs(tableColumns) do
-				local currentSortValue = v["Key"]
+				local currentSortValue = v
 				if a[currentSortValue] ~= b[currentSortValue] then
 					return basedOnOrder(a[currentSortValue], b[currentSortValue], Enum.SortDirection.Descending)
 				end

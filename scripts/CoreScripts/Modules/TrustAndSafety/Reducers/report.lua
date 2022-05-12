@@ -3,21 +3,34 @@ local CorePackages = game:GetService("CorePackages")
 local Cryo = require(CorePackages.Cryo)
 local Rodux = require(CorePackages.Rodux)
 
-local TrustAndSafety = script.Parent.Parent
+local TnsModule = script.Parent.Parent
 
-local OpenReportDialog = require(TrustAndSafety.Actions.OpenReportDialog)
-local CloseReportDialog = require(TrustAndSafety.Actions.CloseReportDialog)
-local OpenReportSentDialog = require(TrustAndSafety.Actions.OpenReportSentDialog)
-local CloseReportSentDialog = require(TrustAndSafety.Actions.CloseReportSentDialog)
+local OpenReportMenu = require(TnsModule.Actions.OpenReportMenu)
+local CloseReportMenu = require(TnsModule.Actions.CloseReportMenu)
+local OpenReportDialog = require(TnsModule.Actions.OpenReportDialog)
+local CloseReportDialog = require(TnsModule.Actions.CloseReportDialog)
+local OpenReportSentDialog = require(TnsModule.Actions.OpenReportSentDialog)
+local CloseReportSentDialog = require(TnsModule.Actions.CloseReportSentDialog)
 
 return Rodux.createReducer({
 	dialogOpen = false,
 	userId = nil, --Nil if reporting the game
 	userName = nil,
+	isReportMenuOpen = false,
 	isReportSentOpen = false,
 	reportType = nil,
 	targetPlayer = nil,
 }, {
+	[OpenReportMenu.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			isReportMenuOpen = true,
+		})
+	end,
+	[CloseReportMenu.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			isReportMenuOpen = false,
+		})
+	end,
 	[OpenReportDialog.name] = function(state, action)
 		return {
 			dialogOpen = true,

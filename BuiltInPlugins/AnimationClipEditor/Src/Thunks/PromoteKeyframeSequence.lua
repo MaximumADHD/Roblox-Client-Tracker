@@ -5,11 +5,9 @@
 local Plugin = script.Parent.Parent.Parent
 
 local AnimationData = require(Plugin.Src.Util.AnimationData)
-local Constants = require(Plugin.Src.Util.Constants)
 local deepCopy = require(Plugin.Src.Util.deepCopy)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
-local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
 local SetFuture = require(Plugin.Src.Actions.SetFuture)
 local SetPast = require(Plugin.Src.Actions.SetPast)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
@@ -17,8 +15,6 @@ local SortAndSetTracks = require(Plugin.Src.Thunks.SortAndSetTracks)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
 local Types = require(Plugin.Src.Types)
-
-local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
 
 return function(): (Types.Store) -> ()
 	return function(store: Types.Store): ()

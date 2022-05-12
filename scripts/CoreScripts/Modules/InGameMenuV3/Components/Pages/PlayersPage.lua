@@ -61,8 +61,6 @@ local UnblockPlayer = require(RobloxGui.Modules.PlayerList.Thunks.UnblockPlayer)
 
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
-local inGameGlobalGuiInset = settings():GetFVariable("InGameGlobalGuiInset")
-
 local DIVIDER_INDENT = 104
 local PLAYER_LABEL_HEIGHT = 71
 local PLAYER_LABEL_WIDTH = Constants.PageWidth
@@ -72,7 +70,7 @@ local ACTION_HEIGHT = 56
 local CONTEXT_MENU_HEADER_HEIGHT = 92
 
 local CONTEXT_SIDE_PADDING = 24 -- context menu should keep 24 px away from bottom/right side of screen
-local CONTEXT_PADDING_TOP = inGameGlobalGuiInset + CONTEXT_SIDE_PADDING -- context side padding + in-game inset
+local CONTEXT_PADDING_TOP = 24 -- context side padding
 -- context menu is 20 px away from right bound of player list if there are available space
 local CONTEXT_LEFT_PADDING = 20
 
@@ -443,19 +441,24 @@ end
 function PlayersPage:renderWithLocalizedAndSelectionCursor(style, localized, getSelectionCursor)
 	local moreMenuPositionYOffset = 0
 	local moreMenuPositionXOffset = 0
+	local maxMenuHeight = 0
+	local anchorFromBottom = false
 	local moreActions = {}
 	if self.state.selectedPlayer ~= nil then
 		moreActions = self:getMoreActions(localized)
-		local actionMenuHeight = (#moreActions * ACTION_HEIGHT) + CONTEXT_MENU_HEADER_HEIGHT
+		local actionMenuHeight = (math.min(7.5, #moreActions) * ACTION_HEIGHT) + CONTEXT_MENU_HEADER_HEIGHT
 		local screenWidth = self.props.screenSize.X
 		local screenHeight = self.props.screenSize.Y
 
 		-- always keep 24 px distance from side of screen if viewport is too limited
 		-- otherwise just postion to the right of all menu content with padding 20
-		if self.state.selectedPlayerPosition.Y + actionMenuHeight + CONTEXT_PADDING_TOP < screenHeight then
-			moreMenuPositionYOffset = self.state.selectedPlayerPosition.Y
+		if self.state.selectedPlayerPosition.Y - ACTION_HEIGHT + actionMenuHeight + CONTEXT_PADDING_TOP < screenHeight then
+			moreMenuPositionYOffset = math.max(0,self.state.selectedPlayerPosition.Y - ACTION_HEIGHT)
 		else
-			moreMenuPositionYOffset = screenHeight - actionMenuHeight - CONTEXT_PADDING_TOP
+			moreMenuPositionYOffset = 0
+			maxMenuHeight = screenHeight - CONTEXT_MENU_HEADER_HEIGHT
+			-- If menu doesn't fill the screen, anchor the menu from the bottom of the screen
+			anchorFromBottom = actionMenuHeight + (CONTEXT_PADDING_TOP) < screenHeight
 		end
 
 		if
@@ -480,6 +483,8 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(style, localized, get
 			and Roact.createElement(PlayerContextualMenu, {
 				moreActions = moreActions,
 				actionWidth = ACTION_WIDTH,
+				maxHeight = maxMenuHeight,
+				anchorFromBottom = anchorFromBottom,
 				xOffset = moreMenuPositionXOffset,
 				yOffset = moreMenuPositionYOffset,
 				canCaptureFocus = canCaptureFocus,

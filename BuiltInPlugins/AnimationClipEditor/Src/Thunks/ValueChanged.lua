@@ -16,8 +16,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
-local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 if GetFFlagChannelAnimations() then
 	return function(instanceName, path, trackType, tick, value, analytics)
@@ -28,24 +27,16 @@ if GetFFlagChannelAnimations() then
 
 			if track == nil then
 				local topTrackName = path[1]
-				if GetFFlagEulerAnglesOrder() then
+				if GetFFlagCurveEditor() then
 					local newTrackType = if trackType == Constants.TRACK_TYPES.Facs
 						then Constants.TRACK_TYPES.Facs
 						else Constants.TRACK_TYPES.CFrame
 					store:dispatch(AddTrack(instanceName, topTrackName, newTrackType, nil, nil, analytics))
 				else
 					if trackType == Constants.TRACK_TYPES.Facs then
-						if GetFFlagQuaternionsUI() then
-							store:dispatch(AddTrack(instanceName, topTrackName, trackType, nil, analytics))
-						else
-							store:dispatch(AddTrack(instanceName, topTrackName, trackType, analytics))
-						end
+						store:dispatch(AddTrack(instanceName, topTrackName, trackType, analytics))
 					else
-						if GetFFlagQuaternionsUI() then
-							store:dispatch(AddTrack(instanceName, topTrackName, Constants.TRACK_TYPES.CFrame, nil, analytics))
-						else
-							store:dispatch(AddTrack(instanceName, topTrackName, Constants.TRACK_TYPES.CFrame, analytics))
-						end
+						store:dispatch(AddTrack(instanceName, topTrackName, Constants.TRACK_TYPES.CFrame, analytics))
 					end
 				end
 				local keyframeData = {

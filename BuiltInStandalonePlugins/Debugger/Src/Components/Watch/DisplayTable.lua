@@ -27,7 +27,7 @@ local TableTab = require(Models.Watch.TableTab)
 local WatchRow = require(Models.Watch.WatchRow)
 local StepStateBundle = require(Models.StepStateBundle)
 
-local watchHelperFunctions = require(PluginRoot.Src.Util.WatchHelperFunctions)
+local WatchHelperFunctions = require(PluginRoot.Src.Util.WatchHelperFunctions)
 
 local Actions = PluginRoot.Src.Actions
 local SetVariableExpanded = require(Actions.Watch.SetVariableExpanded)
@@ -44,11 +44,24 @@ local UtilFolder = PluginRoot.Src.Util
 local MakePluginActions = require(UtilFolder.MakePluginActions)
 local Constants = require(UtilFolder.Constants)
 
-local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
-local hasTableColumnResizeFFlags = FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize
+local FFlagDevFrameworkTableHeaderTooltip = game:GetFastFlag("DevFrameworkTableHeaderTooltip")
+local hasTableColumnResizeFFlags = FFlagDevFrameworkTableColumnResize
 
 local DisplayTable = Roact.PureComponent:extend("DisplayTable")
+
+local VariableKeys = {
+	[1] = "nameColumn",
+	[2] = "scopeColumn",
+	[3] = "valueColumn",
+	[4] = "dataTypeColumn",
+}
+
+local WatchKeys = {
+	[1] = "expressionColumn",
+	[2] = "valueColumn",
+	[3] = "dataTypeColumn",
+}
 
 type PathMapping = {
 	[string] : WatchRow.WatchRow
@@ -128,16 +141,20 @@ function DisplayTable:init()
 		return {
 			{
 				Name = localization:getText("Watch", "NameColumn"),
-				Key = "nameColumn",
+				Key = VariableKeys[1],
+				Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText("Watch", "NameColumnTooltip") or nil,
 			}, {
 				Name = localization:getText("Watch", "ScopeColumn"),
-				Key = "scopeColumn",
+				Key = VariableKeys[2],
+				Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText("Watch", "ScopeColumnTooltip") or nil,
 			}, {
 				Name = localization:getText("Watch", "ValueColumn"),
-				Key = "valueColumn",
+				Key = VariableKeys[3],
+				Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText("Watch", "ValueColumnTooltip") or nil,
 			}, {
 				Name = localization:getText("Watch", "DataTypeColumn"),
-				Key = "dataTypeColumn",
+				Key = VariableKeys[4],
+				Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText("Watch", "DataTypeColumnTooltip") or nil,
 			}, 
 		}
 	end
@@ -147,13 +164,15 @@ function DisplayTable:init()
 		return {
 			{
 				Name = localization:getText("Watch", "ExpressionColumn"),
-				Key = "expressionColumn",
+				Key = WatchKeys[1],
 			}, {
 				Name = localization:getText("Watch", "ValueColumn"),
-				Key = "valueColumn",
+				Key = WatchKeys[2],
+				Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText("Watch", "ValueColumnTooltip") or nil,
 			}, {
 				Name = localization:getText("Watch", "DataTypeColumn"),
-				Key = "dataTypeColumn",
+				Key = WatchKeys[3],
+				Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText("Watch", "DataTypeColumnTooltip") or nil,
 			}, 
 		}
 	end
@@ -179,7 +198,7 @@ function DisplayTable:init()
 		MyWatchColumnSizes = hasTableColumnResizeFFlags and myWatchInitialSizes,
 	}
 	
-	self.OnSizesChange = function(newSizes : {UDim})
+	self.OnColumnSizesChange = function(newSizes : {UDim})
 		if hasTableColumnResizeFFlags then
 			local props = self.props
 			local isVariablesTab = props.SelectedTab == TableTab.Variables
@@ -314,8 +333,8 @@ function DisplayTable:init()
 			return false
 		end
 		
-		watchHelperFunctions.sortTableByColumnAndOrder(tableToSort, props.SortIndex, props.SortOrder, 
-			(isVariablesTab and self.getVariableTableColumns() or self.getWatchTableColumns()), false)
+		WatchHelperFunctions.sortTableByColumnAndOrder(tableToSort, props.SortIndex, props.SortOrder, 
+			(isVariablesTab and VariableKeys or WatchKeys), false)
 		return tableToSort[1] == leftItem
 	end
 end
@@ -327,9 +346,6 @@ function DisplayTable:render()
 	local isVariablesTab = props.SelectedTab == TableTab.Variables
 	
 	local tableColumns = (isVariablesTab and self.getVariableTableColumns() or self.getWatchTableColumns())
-	
-	watchHelperFunctions.sortTableByColumnAndOrder(props.RootItems, props.SortIndex, props.SortOrder, 
-		tableColumns, (not isVariablesTab))
 	
 	if hasTableColumnResizeFFlags then
 		tableColumns = map(tableColumns, function(column, index: number)
@@ -344,10 +360,6 @@ function DisplayTable:render()
 			end
 		end)
 	end
-	
-	local clampSize = if hasTableColumnResizeFFlags then true else nil
-	local useDeficit = if hasTableColumnResizeFFlags then true else nil
-	local onColumnSizesChange = if hasTableColumnResizeFFlags then self.OnSizesChange else nil
 	
 	local textInputCols = not isVariablesTab and {[1] = true} or nil
 	return Roact.createElement(TreeTable, {
@@ -368,9 +380,10 @@ function DisplayTable:render()
 		SortOrder = props.SortOrder,
 		OnSortChange = self.OnSortChange,
 		SortChildren = self.childSort,
-		OnColumnSizesChange = onColumnSizesChange,
-		UseDeficit = useDeficit,
-		ClampSize = clampSize,
+		OnColumnSizesChange = if hasTableColumnResizeFFlags then self.OnColumnSizesChange else nil,
+		UseDeficit = if hasTableColumnResizeFFlags then false else nil,
+		UseScale = if hasTableColumnResizeFFlags then true else nil,
+		ClampSize = if hasTableColumnResizeFFlags then true else nil,
 	})
 end
 
@@ -415,6 +428,10 @@ DisplayTable = RoactRodux.connect(
 		if not isVariablesTab then
 			table.insert(rootItems, WatchRow.fromExpression(""))
 		end
+
+		local tableColumns = (isVariablesTab and VariableKeys or WatchKeys)
+
+		WatchHelperFunctions.sortTableByColumnAndOrder(rootItems or {}, watch.columnIndex, watch.sortDirection, tableColumns, (not isVariablesTab))
 
 		return {
 			SelectedTab = tabState,

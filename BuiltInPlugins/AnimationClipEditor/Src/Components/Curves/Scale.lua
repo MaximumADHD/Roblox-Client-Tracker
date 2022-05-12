@@ -30,8 +30,6 @@ local withContext = ContextServices.withContext
 local Constants = require(Plugin.Src.Util.Constants)
 local ScaleTick = require(Plugin.Src.Components.Curves.ScaleTick)
 
-local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
-
 local Scale = Roact.PureComponent:extend("Scale")
 
 export type Props = {
@@ -125,13 +123,11 @@ function Scale:renderTick(children: {any}, value: number, label: string, tickSca
 	local props = self.props
 	local width = props.Width
 	local scaleType = props.ScaleType
-	local theme = props.Stylizer.PluginTheme
 
 	table.insert(children, Roact.createElement(ScaleTick, {
 		Value = label or "",
 		Width = width,
 		Position = UDim2.new(0, 0, 0, self:scale(value)),
-		Font = not GetFFlagQuaternionsUI() and theme.font or nil,  -- Unused
 		TickWidthScale = tickScale,
 		ScaleType = scaleType,
 	}))
@@ -161,7 +157,7 @@ function Scale:render(): (any)
 		maxValueDisplayed = math.ceil(maxValueDisplayed / self.majorInterval) * self.majorInterval
 
 		for i = minValueDisplayed, maxValueDisplayed, self.majorInterval do
-			self:renderTick(children, i, GetFFlagQuaternionsUI() and self:formatLabel(i) or string.format("%0.3f", i), props.TickWidthScale)
+			self:renderTick(children, i, self:formatLabel(i), props.TickWidthScale)
 			for j = 1, 4 do
 				self:renderTick(children, i + j * self.minorInterval, "", props.SmallTickWidthScale)
 			end

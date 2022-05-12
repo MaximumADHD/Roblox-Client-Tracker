@@ -17,8 +17,7 @@ local SortAndSetTracks = require(Plugin.Src.Thunks.SortAndSetTracks)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
-local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 local function wrappee(instanceName, trackName, trackType, rotationType, eulerAnglesOrder, analytics)
 	return function(store)
@@ -64,13 +63,9 @@ local function wrappee(instanceName, trackName, trackType, rotationType, eulerAn
 	end
 end
 
-if GetFFlagEulerAnglesOrder() then
+if GetFFlagCurveEditor() then
 	return function(instanceName, trackName, trackType, rotationType, eulerAnglesOrder, analytics)
 		return wrappee(instanceName, trackName, trackType, rotationType, eulerAnglesOrder, analytics)
-	end
-elseif GetFFlagQuaternionsUI() then
-	return function(instanceName, trackName, trackType, rotationType, analytics)
-		return wrappee(instanceName, trackName, trackType, rotationType, nil, analytics)
 	end
 elseif GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
 	return function(instanceName, trackName, trackType, analytics)

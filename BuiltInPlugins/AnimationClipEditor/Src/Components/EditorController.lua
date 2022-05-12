@@ -70,13 +70,11 @@ local PromoteToCurvesPrompt = require(Plugin.Src.Components.PromoteToCurvesPromp
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 local GetFFlagRootMotionTrack = require(Plugin.LuaFlags.GetFFlagRootMotionTrack)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
-local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
-local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
-local GetFFlagEasierCurveWorkflow = require(Plugin.LuaFlags.GetFFlagEasierCurveWorkflow)
+
+local FFlagShowDualScrollbars = game:DefineFastFlag("ACEShowDualScrollbars", false)
 
 local EditorController = Roact.PureComponent:extend("EditorController")
 
@@ -158,7 +156,7 @@ function EditorController:init()
 			self.props.Pause()
 			self.props.SetRightClickContextInfo({
 				TrackName = track.Name,
-				TrackType = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and track.Type or nil,
+				TrackType = GetFFlagFacialAnimationSupport() and track.Type or nil,
 				InstanceName = track.Instance,
 			})
 			self:setState({
@@ -314,10 +312,8 @@ function EditorController:init()
 	end
 
 	self.addTrackWrapper = function(instanceName, trackName, trackType)
-		if GetFFlagEulerAnglesOrder() then
+		if GetFFlagCurveEditor() then
 			self.props.AddTrack(instanceName, trackName, trackType, nil, nil, self.props.Analytics)
-		elseif GetFFlagQuaternionsUI() then
-			self.props.AddTrack_deprecated3(instanceName, trackName, trackType, nil, self.props.Analytics)
 		elseif GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
 			self.props.AddTrack_deprecated2(instanceName, trackName, trackType, self.props.Analytics)
 		elseif self.props.Analytics then
@@ -338,10 +334,10 @@ function EditorController:init()
 	end
 
 	self.applyValueToFacsSliderPartners = function(instanceName, path, trackType, tck, value)
-		
-		if not GetFFlagFaceControlsEditorUI() then return end				
-		if not trackType == Constants.TRACK_TYPES.Facs then return end	
-		
+
+		if not GetFFlagFaceControlsEditorUI() then return end
+		if not trackType == Constants.TRACK_TYPES.Facs then return end
+
 		local facsName = path[1]
 		local crossMapping = Constants.FacsCrossMappings[facsName]
 
@@ -401,17 +397,17 @@ function EditorController:init()
 
 		self.props.ValueChanged(instanceName, {groupPartnerName}, trackType, tck, 0, self.props.Analytics)
 	end
-	
+
 	-- Remove deprecated 2 functions when GetFFlagChannelAnimations() is retired
 	self.triggerValueChangedDeprecated2ForFaceControls = function(instanceName, path, trackType, tck, value)
 		self.applyValueToFacsSliderPartners_deprecated2(instanceName, path, trackType, tck, value)
 		self.props.ValueChanged_deprecated2(instanceName, path, trackType, tck, value)
 	end
-		
+
 	self.applyValueToFacsSliderPartners_deprecated2 = function(instanceName, path, trackType, tck, value)
 
-		if not GetFFlagFaceControlsEditorUI() then return end				
-		if not trackType == Constants.TRACK_TYPES.Facs then return end	
+		if not GetFFlagFaceControlsEditorUI() then return end
+		if not trackType == Constants.TRACK_TYPES.Facs then return end
 
 		local facsName = path
 		local crossMapping = Constants.FacsCrossMappings[facsName]
@@ -429,8 +425,8 @@ function EditorController:init()
 			end
 		end
 
-		--in the face controls editor some sliders control 2 facs properties, 
-		--for those also when the value is increased to one side, 
+		--in the face controls editor some sliders control 2 facs properties,
+		--for those also when the value is increased to one side,
 		--the other side gets set to 0
 		local sliderGroup = crossMapping.sliderGroup
 		if sliderGroup then
@@ -440,38 +436,38 @@ function EditorController:init()
 					groupPartnerName = sliderGroup[2]
 				else
 					groupPartnerName = sliderGroup[1]
-				end	
+				end
 
 				self.props.ValueChanged_deprecated2(instanceName, groupPartnerName, trackType, tck, 0, self.props.Analytics)
-			end			
+			end
 		end
 
 		-- also apply value change to symmetry partner for facs values if symmetry setting is enabled
-		if self.props.SymmetryEnabled then						
+		if self.props.SymmetryEnabled then
 			local symmetryPartner = crossMapping.symmetryPartner
 			if symmetryPartner then
-				self.applyValueToSymmetryPartner_deprecated2(instanceName, symmetryPartner, trackType, tck, value)		
-			end													
-		end		
+				self.applyValueToSymmetryPartner_deprecated2(instanceName, symmetryPartner, trackType, tck, value)
+			end
+		end
 	end
 
 	self.applyValueToSymmetryPartner_deprecated2 = function(instanceName, symmetryPartner, trackType, tck, value)
 		self.props.ValueChanged_deprecated2(instanceName, symmetryPartner, trackType, tck, value, self.props.Analytics)
-		--if the symmetry partner controls multiple facs, too, 
+		--if the symmetry partner controls multiple facs, too,
 		--if value >0 for the symmetry partner set the value of the group partner to 0
 		if value == nil or value <= 0 then return end
 		local crossMappingSymmetryPartner = Constants.FacsCrossMappings[symmetryPartner]
 		local sliderGroup = crossMappingSymmetryPartner.sliderGroup
-		if not sliderGroup then return end		
+		if not sliderGroup then return end
 		local groupPartnerName = nil
 		if crossMappingSymmetryPartner.indexInGroup == 1 then
 			groupPartnerName = sliderGroup[2]
 		else
 			groupPartnerName = sliderGroup[1]
-		end	
+		end
 
-		self.props.ValueChanged_deprecated2(instanceName, groupPartnerName, trackType, tck, 0, self.props.Analytics)											
-	end		
+		self.props.ValueChanged_deprecated2(instanceName, groupPartnerName, trackType, tck, 0, self.props.Analytics)
+	end
 
 	self.onValueChanged = function(instanceName, path, trackType, tck, value)
 		local animationData = self.props.AnimationData
@@ -480,13 +476,13 @@ function EditorController:init()
 		else
 			local rotationType
 			local eulerAnglesOrder = self.props.DefaultEulerAnglesOrder
-			if GetFFlagQuaternionChannels() then
+			if GetFFlagChannelAnimations() then
 				rotationType = GetFFlagCurveEditor() and self.props.DefaultRotationType or Constants.TRACK_TYPES.EulerAngles
 				local trackName = path[1]
 				local track = AnimationData.getTrack(animationData, instanceName, {trackName})
 				if track and track.Components and track.Components[Constants.PROPERTY_KEYS.Rotation] then
 					rotationType = track.Components[Constants.PROPERTY_KEYS.Rotation].Type
-					if GetFFlagEulerAnglesOrder() and rotationType == Constants.TRACK_TYPES.EulerAngles then
+					if GetFFlagCurveEditor() and rotationType == Constants.TRACK_TYPES.EulerAngles then
 						eulerAnglesOrder = track.EulerAnglesOrder
 					end
 				end
@@ -680,7 +676,7 @@ function EditorController:render()
 					BorderSizePixel = 0,
 				}, {
 					TrackList = Roact.createElement(TrackList, {
-						Size = UDim2.new(1, showCurveCanvas and (-Constants.SCROLL_BAR_SIZE - 1) or 0, 1, 0),
+						Size = UDim2.new(1, (FFlagShowDualScrollbars or showCurveCanvas) and (-Constants.SCROLL_BAR_SIZE - 1) or 0, 1, 0),
 						TopTrackIndex = topTrackIndex,
 						Tracks = tracks,
 						SelectedTracks = selectedTracks,
@@ -703,7 +699,7 @@ function EditorController:render()
 						OnTrackSelected = self.onTrackSelected,
 					}),
 
-					TrackScrollbarFrame = showCurveCanvas and Roact.createElement("Frame", {
+					TrackScrollbarFrame = (FFlagShowDualScrollbars or showCurveCanvas) and Roact.createElement("Frame", {
 						Size = UDim2.new(0, Constants.SCROLL_BAR_SIZE, 1, 0),
 						Position = UDim2.new(1, -Constants.SCROLL_BAR_SIZE, 0, 0),
 						BackgroundColor3 = theme.scrollBarTheme.backgroundColor,
@@ -719,12 +715,11 @@ function EditorController:render()
 				}) or nil,
 
 				TrackList = not GetFFlagCurveEditor() and Roact.createElement(TrackList, {
-					Size = showEvents and UDim2.new(1, 0, 1, -Constants.TRACK_HEIGHT)
-						or UDim2.new(1, 0, 1, 0),
+					Size = showEvents and UDim2.new(1, 0, 1, -Constants.TRACK_HEIGHT) or UDim2.new(1, 0, 1, 0),
 					LayoutOrder = 1,
 					TopTrackIndex = topTrackIndex,
 					Tracks = tracks,
-					SelectedTracks = not GetFFlagCurveEditor() and selectedTracks or nil,
+					SelectedTracks = selectedTracks,
 					UnusedTracks = unusedTracks,
 					UnusedFacs = unusedFacs,
 					AnimationData = animationData,
@@ -800,7 +795,7 @@ function EditorController:render()
 		TrackEditor = showEditor and Roact.createElement(TrackEditor, {
 			ZIndex = zIndex,
 			TopTrackIndex = topTrackIndex,
-			Tracks = if GetFFlagQuaternionsUI() then nil else tracks,
+			Tracks = if GetFFlagCurveEditor() then nil else tracks,
 			LayoutOrder = 2,
 			Size = UDim2.new(1, -trackListWidth - Constants.SCROLL_BAR_SIZE
 				- Constants.SCROLL_BAR_PADDING, 1, 0),
@@ -888,15 +883,10 @@ function EditorController:render()
 			OnClose = self.hideChangePlaybackSpeedPrompt,
 		}),
 
-		PromotePrompt = if
-			GetFFlagEasierCurveWorkflow() and showPromotePrompt
-		then
-			Roact.createElement(PromoteToCurvesPrompt, {
-				OnPromote = self.promoteKeyframeSequence,
-				OnClose = self.hidePromotePrompt
-			})
-		else
-			 nil,
+		PromotePrompt = if GetFFlagCurveEditor() and showPromotePrompt then Roact.createElement(PromoteToCurvesPrompt, {
+			OnPromote = self.promoteKeyframeSequence,
+			OnClose = self.hidePromotePrompt
+		}) else nil,
 	})
 end
 
@@ -912,8 +902,8 @@ end
 
 function EditorController:willUnmount()
 	local props = self.props
-	if GetFFlagFaceControlsEditorUI() then	
-		RigUtils.resetAllFacsValuesInFaceControls(props.RootInstance)	
+	if GetFFlagFaceControlsEditorUI() then
+		RigUtils.resetAllFacsValuesInFaceControls(props.RootInstance)
 	end
 	props.ReleaseEditor(props.Analytics)
 	props.Analytics:report("onEditorClosed", os.time() - self.openedTimestamp)
@@ -999,12 +989,12 @@ local function mapDispatchToProps(dispatch)
 			dispatch(AddTrack(instance, track, trackType, rotationType, EulerAnglesOrder, analytics))
 		end,
 
-		AddTrack_deprecated3 = not GetFFlagEulerAnglesOrder() and function(instance, track, trackType, rotationType, analytics)
+		AddTrack_deprecated3 = not GetFFlagCurveEditor() and function(instance, track, trackType, rotationType, analytics)
 			dispatch(AddWaypoint())
 			dispatch(AddTrack(instance, track, trackType, rotationType, analytics))
 		end or nil,
 
-		AddTrack_deprecated2 = not GetFFlagQuaternionsUI() and function(instance, track, trackType, analytics)
+		AddTrack_deprecated2 = not GetFFlagCurveEditor() and function(instance, track, trackType, analytics)
 			dispatch(AddWaypoint())
 			dispatch(AddTrack(instance, track, trackType, analytics))
 		end,

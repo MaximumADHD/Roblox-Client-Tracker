@@ -76,15 +76,10 @@ function ChatBubble:init()
 
 	self.mockSizingLabel = initMockSizingLabel()
 
-	self.isRichTextEnabled = (TextChatService.ChatVersion == Enum.ChatVersion.TextChatService and FFlagEnableRichTextForBubbleChat and true) or false
-	self.text = self.props.text
-	if self.isRichTextEnabled then
-		self.text = string.gsub(self.props.text, "&[%l]+[;]?", {
-			["&lt;"] = "<",
-			["&gt;"] = ">",
-			["&amp"] = "&",
-		})
-	end
+	self.isRichTextEnabled = if TextChatService.ChatVersion == Enum.ChatVersion.TextChatService and FFlagEnableRichTextForBubbleChat then
+		true
+	else
+		false
 end
 
 function ChatBubble:getBoundsFromSizingLabel(Text, TextSize, Font, Size)
@@ -102,7 +97,7 @@ function ChatBubble:getTextBounds()
 	local bounds = Vector2.new(0, 0)
 	if self.isRichTextEnabled then
 		bounds = self:getBoundsFromSizingLabel(
-			self.text,
+			self.props.text,
 			chatSettings.TextSize,
 			chatSettings.Font,
 			Vector2.new(chatSettings.MaxWidth, 10000)
@@ -240,7 +235,7 @@ function ChatBubble:renderNew()
 			Insert = self.props.renderInsert and self.props.renderInsert(),
 
 			Text = Roact.createElement("TextLabel", {
-				Text = self.text,
+				Text = self.props.text,
 				Size = UDim2.new(1, -extraWidth, 1, 0),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.fromScale(0.5, 0.5),

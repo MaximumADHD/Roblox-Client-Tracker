@@ -1,5 +1,6 @@
 local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
 local FFlagStudioExplainFriendCollaboratorPermission3 = game:GetFastFlag("StudioExplainFriendCollaboratorPermission3")
+local FFlagGSPermsRemoveCollaboratorsFixEnabled = game:GetFastFlag("GSPermsRemoveCollaboratorsFixEnabled")
 
 local ITEM_HEIGHT = 60
 local PADDING_Y = 20
@@ -214,6 +215,13 @@ function CollaboratorItem:render()
 	local onRemoved = props.OnRemoved
 
 	local currentPermission = props.CurrentPermission
+	
+	if FFlagGSPermsRemoveCollaboratorsFixEnabled then
+		if not currentPermission then
+			return
+		end
+	end
+	
 	local availablePermissions = props.AvailablePermissions
 	local onPermissionChanged = props.OnPermissionChanged
 

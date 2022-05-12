@@ -22,8 +22,7 @@ local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
-local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagBoneAdornmentSelection = require(Plugin.LuaFlags.GetFFlagBoneAdornmentSelection)
 
 return function(analytics)
@@ -57,14 +56,10 @@ return function(analytics)
 			store:dispatch(SortAndSetTracks({}))
 			for instanceName, instance in pairs(animationData.Instances) do
 				for trackName, track in pairs(instance.Tracks) do
-					if GetFFlagQuaternionsUI() then
+					if GetFFlagCurveEditor() then
 						local rotationType = TrackUtils.getRotationType(track)
-						if GetFFlagEulerAnglesOrder() then
-							local eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track)
-							store:dispatch(AddTrack(instanceName, trackName, track.Type, rotationType, eulerAnglesOrder, analytics))
-						else
-							store:dispatch(AddTrack(instanceName, trackName, track.Type, rotationType, analytics))
-						end
+						local eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track)
+						store:dispatch(AddTrack(instanceName, trackName, track.Type, rotationType, eulerAnglesOrder, analytics))
 					elseif GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
 						store:dispatch(AddTrack(instanceName, trackName, track.Type, analytics))
 					else
@@ -76,9 +71,9 @@ return function(analytics)
 
 		RigUtils.clearMicrobones()
 		if rootInstance and not animationData then
-			if GetFFlagBoneAdornmentSelection() then 
+			if GetFFlagBoneAdornmentSelection() then
 				store:dispatch(SetBoneLinksToBone(RigUtils.updateMicrobones(rootInstance, visualizeBones)))
-			else 
+			else
 				RigUtils.updateMicrobones(rootInstance, visualizeBones)
 			end
 		end

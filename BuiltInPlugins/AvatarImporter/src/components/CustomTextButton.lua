@@ -7,11 +7,11 @@
 		number layoutOrder - sets LayoutOrder property
 		string labelText - text to display on the button
 ]]
-
+local FFlagAvatarImporterDeduplicatePackages = game:GetFastFlag("AvatarImporterDeduplicatePackages")
 local root = script.Parent.Parent.Parent
 
 -- imports
-local Roact = require(root.lib.Roact)
+local Roact = if FFlagAvatarImporterDeduplicatePackages then require(root.Packages.Roact) else require(root.Packages._Old.lib.Roact)
 local Assets = require(root.src.Assets)
 local themeConfig = require(root.src.utils.themeConfig)
 local Constants = require(root.src.Constants)
@@ -100,7 +100,7 @@ function CustomTextButton:render()
 		BackgroundTransparency = 1,
 		Image = Assets.BUTTON_AVATAR_TYPE,
 		ScaleType = Enum.ScaleType.Slice,
-		Size = self.props.isLarge and UDim2.new(0, game:GetFastFlag("DisplayCorrectTypeInDetectionPrompt") and 192 or 162, 0, 34) or UDim2.new(0, 102, 0, 34),
+		Size = self.props.isLarge and UDim2.new(0, 192, 0, 34) or UDim2.new(0, 102, 0, 34),
 		SliceCenter = Rect.new(4, 4, 5, 5),
 		ImageColor3 = self:getButtonThemeConfig(),
 		LayoutOrder = self.props.layoutOrder,

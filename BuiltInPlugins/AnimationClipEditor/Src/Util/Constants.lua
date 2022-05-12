@@ -1,11 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
-local GetFFlagEulerFromPartTrack = require(Plugin.LuaFlags.GetFFlagEulerFromPartTrack)
-local GetFFlagEulerByDefault = require(Plugin.LuaFlags.GetFFlagEulerByDefault)
-local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
+local GetFFlagFaceControlsEditorUIUpdate = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUIUpdate)
 
 local FFlagStudioUseAnimationEditorAnalytics2 = game:DefineFastFlag("StudioUseAnimationEditorAnalytics2", false)
 
@@ -68,7 +64,7 @@ local Constants = {
 	TRACKLIST_BUTTON_SIZE = 16,
 	TRACKLIST_RIGHT_PADDING = 8,
 
-	NUMBERBOX_WIDTH = if GetFFlagEulerAnglesOrder() then 80 else 70,
+	NUMBERBOX_WIDTH = if GetFFlagCurveEditor() then 80 else 70,
 	NUMBERBOX_PADDING = 4,
 	NUMBERBOX_DRAG_MULTIPLIER = 0.05,
 	NUMBERBOX_FACS_DRAG_MULTIPLIER = 0.01,
@@ -136,11 +132,10 @@ local Constants = {
 		Other = "Other",
 
 		Position = GetFFlagChannelAnimations() and "Position" or nil,
-		Rotation = (GetFFlagChannelAnimations() and not GetFFlagQuaternionChannels()) and "Rotation" or nil,
 		Number = GetFFlagChannelAnimations() and "Number" or nil,
 		Angle = GetFFlagChannelAnimations() and "Angle" or nil,
-		Quaternion = GetFFlagQuaternionChannels() and "Quaternion" or nil,
-		EulerAngles = GetFFlagQuaternionChannels() and "EulerAngles" or nil,
+		Quaternion = GetFFlagChannelAnimations() and "Quaternion" or nil,
+		EulerAngles = GetFFlagChannelAnimations() and "EulerAngles" or nil,
 	},
 
 	INSTANCE_TYPES = {
@@ -153,7 +148,7 @@ local Constants = {
 	PROPERTY_KEYS = {
 		Position = "Position",
 		Rotation = "Rotation",
-		Quaternion = if GetFFlagEulerFromPartTrack() then nil else (if GetFFlagQuaternionChannels() then "Quaternion" else nil),  -- Unused
+		Quaternion = if GetFFlagCurveEditor() then nil else (if GetFFlagChannelAnimations() then "Quaternion" else nil),  -- Unused
 		X = "X",
 		Y = "Y",
 		Z = "Z",
@@ -640,14 +635,19 @@ Constants.faceControlsEditorFaceSideDiagramWidth = 220
 Constants.faceControlsEditorFaceSideDiagramHeight = 190
 Constants.faceControlsEditorDiagramPadding = 10
 Constants.faceControlsEditoSpacingBetweenDiagrams = 80
-Constants.faceControlsEditorTogglesContainerHeight = 80
+
+if GetFFlagFaceControlsEditorUIUpdate() then
+	Constants.faceControlsEditorTogglesContainerHeight = 95
+else
+	Constants.faceControlsEditorTogglesContainerHeight = 80
+end
 
 if GetFFlagChannelAnimations() then
 	Constants.COMPONENT_TRACK_TYPES = {
 		[Constants.TRACK_TYPES.CFrame] = {
 			_Order = {Constants.PROPERTY_KEYS.Position, Constants.PROPERTY_KEYS.Rotation},
 			[Constants.PROPERTY_KEYS.Position] = Constants.TRACK_TYPES.Position,
-			[Constants.PROPERTY_KEYS.Rotation] = GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation
+			[Constants.PROPERTY_KEYS.Rotation] = Constants.TRACK_TYPES.EulerAngles
 		},
 		[Constants.TRACK_TYPES.Position] = {
 			_Order = {Constants.PROPERTY_KEYS.X, Constants.PROPERTY_KEYS.Y, Constants.PROPERTY_KEYS.Z},
@@ -656,21 +656,12 @@ if GetFFlagChannelAnimations() then
 			[Constants.PROPERTY_KEYS.Z] = Constants.TRACK_TYPES.Number,
 		},
 	}
-	if GetFFlagQuaternionChannels() then
-		Constants.COMPONENT_TRACK_TYPES[Constants.TRACK_TYPES.EulerAngles] = {
-			_Order = {Constants.PROPERTY_KEYS.X, Constants.PROPERTY_KEYS.Y, Constants.PROPERTY_KEYS.Z},
-			[Constants.PROPERTY_KEYS.X] = Constants.TRACK_TYPES.Angle,
-			[Constants.PROPERTY_KEYS.Y] = Constants.TRACK_TYPES.Angle,
-			[Constants.PROPERTY_KEYS.Z] = Constants.TRACK_TYPES.Angle,
-		}
-	else
-		Constants.COMPONENT_TRACK_TYPES[Constants.TRACK_TYPES.Rotation] = {
-			_Order = {Constants.PROPERTY_KEYS.X, Constants.PROPERTY_KEYS.Y, Constants.PROPERTY_KEYS.Z},
-			[Constants.PROPERTY_KEYS.X] = Constants.TRACK_TYPES.Angle,
-			[Constants.PROPERTY_KEYS.Y] = Constants.TRACK_TYPES.Angle,
-			[Constants.PROPERTY_KEYS.Z] = Constants.TRACK_TYPES.Angle,
-		}
-	end
+	Constants.COMPONENT_TRACK_TYPES[Constants.TRACK_TYPES.EulerAngles] = {
+		_Order = {Constants.PROPERTY_KEYS.X, Constants.PROPERTY_KEYS.Y, Constants.PROPERTY_KEYS.Z},
+		[Constants.PROPERTY_KEYS.X] = Constants.TRACK_TYPES.Angle,
+		[Constants.PROPERTY_KEYS.Y] = Constants.TRACK_TYPES.Angle,
+		[Constants.PROPERTY_KEYS.Z] = Constants.TRACK_TYPES.Angle,
+	}
 
 	-- These values are used to create a track "offset" when comparing two tracks.
 	-- For instance, Rotation/Z should translate to 0.23 (because Rotation is 2 and Z is 3)
@@ -709,16 +700,16 @@ if GetFFlagCurveEditor() then
 	}
 end
 
-if GetFFlagQuaternionsUI() then
+if GetFFlagCurveEditor() then
 	Constants.TICK_LABEL_POSITION = {
 		[Constants.SCALE_TYPE.Number] = UDim2.new(.3, 0, .5, 0),
 		[Constants.SCALE_TYPE.Angle] = UDim2.new(.7, 0, .5, 0),
 	}
 end
 
-if GetFFlagEulerByDefault() then
+if GetFFlagCurveEditor() then
 	Constants.DEFAULT_ROTATION_TYPE = Constants.TRACK_TYPES.EulerAngles
-elseif GetFFlagQuaternionChannels() then
+elseif GetFFlagChannelAnimations() then
 	Constants.DEFAULT_ROTATION_TYPE = Constants.TRACK_TYPES.Quaternion
 else
 	Constants.DEFAULT_ROTATION_TYPE = Constants.TRACK_TYPES.Rotation

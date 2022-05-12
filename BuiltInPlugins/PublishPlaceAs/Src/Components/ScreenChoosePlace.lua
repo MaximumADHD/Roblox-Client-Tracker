@@ -2,7 +2,6 @@
 	Allow the user to go back to picking a universe
 	Allow the user to select a place to overwrite
 ]]
-local FFlagDebugFixPublishAsWhenQueryFails = game:GetFastFlag("DebugFixPublishAsWhenQueryFails")
 local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage2")
 local FFlagPlacePublishManagementUI2 = game:GetFastFlag("PlacePublishManagementUI2")
 local FFlagEnablePlacePublishManagementInTeamCreate = game:GetFastFlag("EnablePlacePublishManagementInTeamCreate")
@@ -10,7 +9,7 @@ local FFlagEnablePlacePublishManagementInTeamCreate = game:GetFastFlag("EnablePl
 local StudioService = game:GetService("StudioService")
 local StudioPublishService = game:GetService("StudioPublishService")
 
-local teamCreateToggleEnabled = false 
+local teamCreateToggleEnabled = false
 if FIntTeamCreateTogglePercentageRollout > 0 then
 	teamCreateToggleEnabled = StudioService:GetUserIsInTeamCreateToggleRamp()
 end
@@ -144,7 +143,7 @@ function ScreenChoosePlace:render()
 		}),
 	}
 
-	if (not FFlagDebugFixPublishAsWhenQueryFails) or props.PlacesQueryState == Constants.QUERY_STATE.QUERY_STATE_SUCCESS then
+	if props.PlacesQueryState == Constants.QUERY_STATE.QUERY_STATE_SUCCESS then
 		for _, place in pairs(places) do
 			if string.find(place.name:lower(), self.state.searchTerm:lower()) then
 				local createdTile = Roact.createElement(TilePlace, {
@@ -187,11 +186,7 @@ function ScreenChoosePlace:render()
 	-- Replace this with layoutRef
 	-- Manually calculating CanvasHeight for now
 	local canvasSize = 200
-	if FFlagDebugFixPublishAsWhenQueryFails then
-		canvasSize = components and math.ceil(#components * TILE_HEIGHT) or 200
-	else
-		canvasSize = math.ceil(#components * TILE_HEIGHT)
-	end
+	canvasSize = components and math.ceil(#components * TILE_HEIGHT) or 200
 
 	-- Force atleast 7 rows to show up to force scroll to appear. Further search results can be taken care of by InfiniteScrollingFrame
 	-- nextPageFunc
@@ -260,7 +255,7 @@ function ScreenChoosePlace:render()
 			}),
 		}),
 
-		MainContentsSuccess = (FFlagDebugFixPublishAsWhenQueryFails and props.PlacesQueryState == Constants.QUERY_STATE.QUERY_STATE_SUCCESS)
+		MainContentsSuccess = (props.PlacesQueryState == Constants.QUERY_STATE.QUERY_STATE_SUCCESS)
 			and Roact.createElement(InfiniteScrollingFrame, {
 				Size = UDim2.new(1, 0, 0.5, theme.FOOTER_HEIGHT * 2),
 				Position = UDim2.new(0, 0, 0, 100),
@@ -275,7 +270,7 @@ function ScreenChoosePlace:render()
 					end
 				end,
 			}, components),
-		MainContentsQuerying = (FFlagDebugFixPublishAsWhenQueryFails and props.PlacesQueryState == Constants.QUERY_STATE.QUERY_STATE_QUERYING)
+		MainContentsQuerying = (props.PlacesQueryState == Constants.QUERY_STATE.QUERY_STATE_QUERYING)
 			and Roact.createElement("Frame", {
 				Position = UDim2.new(0, 30, 0, 115),
 				Size = UDim2.new(0.95, 0, 0.7, 0),
@@ -287,7 +282,7 @@ function ScreenChoosePlace:render()
 				})
 			}),
 
-		MainContentsFailed = (FFlagDebugFixPublishAsWhenQueryFails and props.PlacesQueryState == Constants.QUERY_STATE.QUERY_STATE_FAILED)
+		MainContentsFailed = (props.PlacesQueryState == Constants.QUERY_STATE.QUERY_STATE_FAILED)
 			and Roact.createElement("Frame", {
 				Position = UDim2.new(0, 30, 0, 115),
 				Size = UDim2.new(0.95, 0, 0.7, 0),
@@ -316,23 +311,6 @@ function ScreenChoosePlace:render()
 						end}
 				)}
 			),
-
-		-- DEPRECATED, delete with FFlagDebugFixPublishAsWhenQueryFails
-		ScrollingFrame = (not FFlagDebugFixPublishAsWhenQueryFails)
-			and Roact.createElement(InfiniteScrollingFrame, {
-				Size = UDim2.new(1, 0, 0.5, theme.FOOTER_HEIGHT * 2),
-				Position = UDim2.new(0, 0, 0, 100),
-				BackgroundTransparency = 1,
-				-- TODO: replace manual calculation with self.layoutRef
-				-- LayoutRef = self.layoutRef,
-				CanvasHeight = canvasSize,
-				NextPageRequestDistance = 100,
-				NextPageFunc = function()
-					if nextPageCursor then
-						dispatchLoadExistingPlaces(parentGame, nextPageCursor)
-					end
-				end,
-			}, components),
 
 		Footer = Roact.createElement(Footer, {
 			MainButton = {
@@ -375,24 +353,14 @@ local function mapStateToProps(state, props)
 	local placeInfo = state.ExistingGame.placeInfo
 	local selectedGame = state.ExistingGame.selectedGame
 	local gameConfiguration = state.ExistingGame.gameConfiguration
-	if FFlagDebugFixPublishAsWhenQueryFails then
-		return {
-			NextPageCursor = placeInfo.nextPageCursor,
-			Places = placeInfo.places,
-			ParentGame = FFlagDebugFixPublishAsWhenQueryFails and selectedGame or placeInfo.parentGame,
-			IsPublishing = state.PublishedPlace.isPublishing,
-			PlacesQueryState = placeInfo.queryState,
-			OptInRegions = FFlagPlacePublishManagementUI2 and gameConfiguration.optInRegions or nil,
-		}
-	else
-		return {
-			NextPageCursor = placeInfo.nextPageCursor,
-			Places = placeInfo.places,
-			ParentGame = placeInfo.parentGame,
-			IsPublishing = state.PublishedPlace.isPublishing,
-			OptInRegions = FFlagPlacePublishManagementUI2 and gameConfiguration.optInRegions or nil,
-		}
-	end
+	return {
+		NextPageCursor = placeInfo.nextPageCursor,
+		Places = placeInfo.places,
+		ParentGame = selectedGame,
+		IsPublishing = state.PublishedPlace.isPublishing,
+		PlacesQueryState = placeInfo.queryState,
+		OptInRegions = FFlagPlacePublishManagementUI2 and gameConfiguration.optInRegions or nil,
+	}
 end
 
 local function useDispatchForProps(dispatch)

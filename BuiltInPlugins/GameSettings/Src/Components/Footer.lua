@@ -7,7 +7,6 @@
 			This will enable the Save button if true.
 ]]
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
-local FFlagGameSettingsDeduplicatePackages = game:GetFastFlag("GameSettingsDeduplicatePackages")
 
 local FOOTER_GRADIENT_SIZE = 3
 local FOOTER_GRADIENT_TRANSPARENCY = 0.9
@@ -18,7 +17,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
-local Promise = if FFlagGameSettingsDeduplicatePackages then Framework.Util.Promise else require(Plugin.Packages.Promise)
+local Promise = Framework.Util.Promise
 
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
@@ -51,16 +50,9 @@ function Footer:saveAllSettings(userPressedSave)
 	local localization = props.Localization
 	local dialog = props.Dialog
 
-	if FFlagGameSettingsDeduplicatePackages then
-		self.props.SaveAllSettings(userPressedSave, localization, dialog):andThen(function()
-			self.props.OnClose(userPressedSave)
-		end)
-	else
-		local resolved = self.props.SaveAllSettings(userPressedSave, localization, dialog):await()
-		if resolved then
-			self.props.OnClose(userPressedSave)
-		end
-	end
+	self.props.SaveAllSettings(userPressedSave, localization, dialog):andThen(function()
+		self.props.OnClose(userPressedSave)
+	end)
 end
 
 function Footer:init()

@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local TextChatService = game:GetService("TextChatService")
@@ -46,6 +46,6 @@ end
 ExperienceChat.mountClientApp({
 	defaultTargetTextChannel = findTextChannel("RBXGeneral"),
 	defaultSystemTextChannel = findTextChannel("RBXSystem"),
-	translator = RobloxTranslator,
+	translator = RobloxTranslator :: any,
 	parent = screenGui,
 })

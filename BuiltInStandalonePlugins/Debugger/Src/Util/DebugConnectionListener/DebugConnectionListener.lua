@@ -29,7 +29,7 @@ function DebugConnectionListener:onExecutionPaused(connection, pausedState, debu
 		if pausedState.Breakpoint ~= nil then
 			self.store:dispatch(SetCurrentBreakpointIdAction(pausedState.Breakpoint.MetaBreakpointId))
 		else
-			print("RIDE-6661: Null BP when BP hit")
+			-- TODO: investigate in RIDE-6661
 		end
 	end
 
@@ -121,7 +121,8 @@ function DebugConnectionListener:onConnectionEnded(debuggerConnection, reason, d
 end
 
 function DebugConnectionListener:onFocusChanged(debuggerConnection)
-	self.store:dispatch(SetFocusedDebuggerConnection(debuggerConnection.Id))
+	local focusedDebuggerConnectionId = if debuggerConnection ~= nil then debuggerConnection.Id else -1
+	self.store:dispatch(SetFocusedDebuggerConnection(focusedDebuggerConnectionId))
 end
 
 local function setUpConnections(debugConnectionListener, debuggerConnectionManager, debuggerUIService, scriptChangeService)
@@ -144,6 +145,8 @@ function DebugConnectionListener.new(store, debuggerConnectionManager, debuggerU
 end
 
 function DebugConnectionListener:destroy()
+	self.store:dispatch(SetFocusedDebuggerConnection(-1))
+
 	if self._connectionStartedConnection then
 		self._connectionStartedConnection:Disconnect()
 		self._connectionStartedConnection = nil

@@ -17,8 +17,6 @@ local withContext = ContextServices.withContext
 local Plugin = ContextServices.Plugin
 local Localization = ContextServices.Localization
 
-local Export = require(main.Src.Functions.Export)
-
 local Toolbar = Roact.PureComponent:extend("Toolbar")
 
 function Toolbar:renderButtons(toolbar)
@@ -28,9 +26,7 @@ function Toolbar:renderButtons(toolbar)
 			Toolbar = toolbar,
 			Title = self.props.Localization:getText("Plugin", "Export"),
 			Tooltip = self.props.Localization:getText("Plugin", "ExportTip"),
-			OnClick = function()
-				Export(self.props.Plugin:get())
-			end,
+			OnClick = self.props.onExportClicked,
 			ClickableWhenViewportHidden = true,
 		}),
 	}

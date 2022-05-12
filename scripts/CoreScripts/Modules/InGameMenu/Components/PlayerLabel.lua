@@ -1,6 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
-local Modules = CoreGui.RobloxGui.Modules
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -42,7 +40,7 @@ local iconPos = {
 	Size = UDim2.new(0, PLAYER_ICON_SIZE, 0, PLAYER_ICON_SIZE),
 }
 
-local validatePropsWithForwardRef = require(Modules.validatePropsWithForwardRef)
+local validatePropsWithForwardRef = require(CorePackages.validatePropsWithForwardRef)
 
 local PlayerLabel = Roact.PureComponent:extend("PlayerLabel")
 

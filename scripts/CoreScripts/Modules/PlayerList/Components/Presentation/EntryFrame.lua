@@ -1,7 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
-local Modules = CoreGui.RobloxGui.Modules
-local validatePropsWithForwardRef = require(Modules.validatePropsWithForwardRef)
+local validatePropsWithForwardRef = require(CorePackages.validatePropsWithForwardRef)
 
 local Cryo = require(CorePackages.Cryo)
 local Roact = require(CorePackages.Roact)

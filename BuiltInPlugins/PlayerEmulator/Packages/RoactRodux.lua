@@ -8,10 +8,5 @@ if FFlagPlayerEmulatorDeduplicatePackages then
 	return Package
 else
 	local PackageIndex = script.Parent._Old
-
-	if game:GetFastFlag("PlayerEmulatorUseRoactv14") then
-		return require(PackageIndex["roblox_roact-rodux"]["roact-rodux"])
-	end
-
-	return require(PackageIndex["RoactRodux-d65ac2db2841-f36097a9ef27"].packages["RoactRodux"])
+	return require(PackageIndex["roblox_roact-rodux"]["roact-rodux"])
 end

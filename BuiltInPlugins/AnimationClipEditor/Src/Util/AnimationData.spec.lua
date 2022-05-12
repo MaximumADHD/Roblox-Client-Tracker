@@ -4,7 +4,7 @@ return function()
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-	local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
+	local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 	local AnimationData = require(script.Parent.AnimationData)
 
@@ -828,7 +828,7 @@ return function()
 			expect(AnimationData.getTrack(data, "Root", {"TestTrack3"})).never.to.be.ok()
 			expect(AnimationData.getTrack(data, "Root", {"Component"})).never.to.be.ok()
 			expect(AnimationData.getTrack(data, "Root", {"TestTrack2", "Foo"})).never.to.be.ok()
-			if GetFFlagQuaternionsUI() then
+			if GetFFlagCurveEditor() then
 				expect(AnimationData.getTrack(data, "Root", {"TestTrack2", "Component", "Foo"})).never.to.be.ok()
 			end
 		end)

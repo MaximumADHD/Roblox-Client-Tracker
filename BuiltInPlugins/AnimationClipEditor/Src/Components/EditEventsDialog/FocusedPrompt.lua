@@ -27,6 +27,8 @@ local CaptureFocus = Framework.UI.CaptureFocus
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local GetFFlagFixButtonStyle = require(Plugin.LuaFlags.GetFFlagFixButtonStyle)
+
 local FocusedPrompt = Roact.PureComponent:extend("FocusedPrompt")
 
 function FocusedPrompt:renderButton(index, button, textSize)
@@ -37,7 +39,7 @@ function FocusedPrompt:renderButton(index, button, textSize)
 	return Roact.createElement(Button, {
 		Size = UDim2.new(0, buttonWidth, 0, buttonHeight),
 		LayoutOrder = index,
-		Style = "RoundPrimary",
+		Style = if GetFFlagFixButtonStyle() then button.Style else "RoundPrimary",
 		Text = button.Text,
 		OnClick = function()
 			props.OnButtonClicked(button.Key)

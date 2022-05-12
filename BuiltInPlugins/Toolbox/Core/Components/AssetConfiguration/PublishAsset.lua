@@ -41,10 +41,7 @@
 	Optional Props:
 		LayoutOrder, number, used by the layouter to set the position of the component.
 ]]
-local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
-local FFlagToolboxAudioAssetConfigDisablePublicAudio = game:GetFastFlag("ToolboxAudioAssetConfigDisablePublicAudio")
-local FFlagToolboxEnablePublicAudioToggle = game:GetFastFlag("ToolboxEnablePublicAudioToggle")
 local FFlagToolboxAssetConfigurationMatchPluginFlow = game:GetFastFlag("ToolboxAssetConfigurationMatchPluginFlow")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -231,16 +228,13 @@ function PublishAsset:renderContent(theme, localizedContent)
 
 	local copyWarning
 	local modelPublishWarningText
-	local localization = if FFlagToolboxPrivatePublicAudioAssetConfig3 or FFlagToolboxAssetConfigurationMatchPluginFlow then props.Localization else nil
-	if FFlagToolboxPrivatePublicAudioAssetConfig3 then
+	local localization = props.Localization
+	if isAudio and not isAssetPublic and copyOn then
+		copyWarning = localization:getText("AssetConfigCopy", "MustShare")
+	end
 
-		if isAudio and not isAssetPublic and copyOn then
-			copyWarning = localization:getText("AssetConfigCopy", "MustShare")
-		end
-
-		if isModel then
-			modelPublishWarningText = localization:getText("AssetConfig", "ModelPublishWarning")
-		end
+	if isModel then
+		modelPublishWarningText = localization:getText("AssetConfig", "ModelPublishWarning")
 	end
 	
 	local orderIterator = LayoutOrderIterator.new()
@@ -289,7 +283,7 @@ function PublishAsset:renderContent(theme, localizedContent)
 			[Roact.Ref] = self.listLayoutRef,
 		}),
 
-		ModelWarningFrame = if FFlagToolboxPrivatePublicAudioAssetConfig3 and isModel then Roact.createElement(Pane, {
+		ModelWarningFrame = if isModel then Roact.createElement(Pane, {
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			Layout = Enum.FillDirection.Horizontal,
 			LayoutOrder = orderIterator:getNextOrder(),
@@ -427,9 +421,9 @@ function PublishAsset:renderContent(theme, localizedContent)
 			}),
 		}),
 		
-		Sharing = if FFlagToolboxPrivatePublicAudioAssetConfig3 and displaySharing then
+		Sharing = if displaySharing then
 			Roact.createElement(ConfigSharing, {
-				AssetType = if FFlagToolboxAudioAssetConfigDisablePublicAudio then assetTypeEnum else nil,
+				AssetType = assetTypeEnum,
 				AllowSelectPrivate = allowSelectPrivate,
 				LayoutOrder = orderIterator:getNextOrder(),
 				IsIdVerificationRequired = if FFlagToolboxAudioAssetConfigIdVerification then isAudio else nil,
@@ -441,10 +435,9 @@ function PublishAsset:renderContent(theme, localizedContent)
 		else nil,
 
 		Copy = displayCopy and Roact.createElement(ConfigCopy, {
-			AssetType = if FFlagToolboxPrivatePublicAudioAssetConfig3 or FFlagToolboxAudioAssetConfigDisablePublicAudio then assetTypeEnum else nil,
-			Title = if FFlagToolboxPrivatePublicAudioAssetConfig3 then publishAssetLocalized.DistributeOnMarketplace else publishAssetLocalized.Copy,
+			AssetType = assetTypeEnum,
+			Title = publishAssetLocalized.DistributeOnMarketplace,
 
-			TotalHeight = if FFlagToolboxEnablePublicAudioToggle then nil else configCopyHeight,
 			CopyEnabled = if isPlugin then canChangeSalesStatus else allowCopy,
 			CopyOn = copyOn,
 			CopyWarning = copyWarning,
@@ -453,8 +446,8 @@ function PublishAsset:renderContent(theme, localizedContent)
 
 			LayoutOrder = orderIterator:getNextOrder(),
 
-			IsAssetPublic = if FFlagToolboxPrivatePublicAudioAssetConfig3 then isAssetPublic else nil,
-			IsAudio = if FFlagToolboxPrivatePublicAudioAssetConfig3 then isAudio else nil,
+			IsAssetPublic = isAssetPublic,
+			IsAudio = isAudio,
 
 			canChangeSalesStatus = canChangeSalesStatus,
 			currentAssetStatus = currentAssetStatus,
@@ -511,7 +504,7 @@ local function mapDispatchToProps(dispatch)
 end
 
 PublishAsset = withContext({
-	Localization = if FFlagToolboxPrivatePublicAudioAssetConfig3 or FFlagToolboxAssetConfigurationMatchPluginFlow then ContextServices.Localization else nil,
+	Localization = ContextServices.Localization,
 	Stylizer = ContextServices.Stylizer,
 })(PublishAsset)
 

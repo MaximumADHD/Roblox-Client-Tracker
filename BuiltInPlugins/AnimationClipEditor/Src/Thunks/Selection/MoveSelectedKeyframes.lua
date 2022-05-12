@@ -24,7 +24,6 @@ local SelectionUtils = require(Plugin.Src.Util.SelectionUtils)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-local GetFFlagQuaternionCurves = require(Plugin.LuaFlags.GetFFlagQuaternionCurves)
 
 local wrappee = function(pivotTick, newTick, pivotValue, newValue, dragContext)
 	return function(store)
@@ -93,7 +92,7 @@ local wrappee = function(pivotTick, newTick, pivotValue, newValue, dragContext)
 
 								AnimationData.moveKeyframe(dataTrack, oldTick, insertTick)
 								AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
-								if GetFFlagCurveEditor() and (not GetFFlagQuaternionCurves() or dataTrack.Type ~= Constants.TRACK_TYPES.Quaternion) then
+								if GetFFlagCurveEditor() and dataTrack.Type ~= Constants.TRACK_TYPES.Quaternion then
 									if dataTrack.Data and dataTrack.Data[insertTick] and pivotValue and newValue then
 										AnimationData.setKeyframeData(dataTrack, insertTick, { Value = dataTrack.Data[insertTick].Value - pivotValue + newValue })
 									end

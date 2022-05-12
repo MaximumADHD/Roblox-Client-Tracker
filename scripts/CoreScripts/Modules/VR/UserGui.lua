@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 
 local VRService = game:GetService("VRService")
 local ContextActionService = game:GetService("ContextActionService")
@@ -21,6 +21,7 @@ UserGuiModule.ModuleName = "UserGui"
 UserGuiModule.KeepVRTopbarOpen = false
 UserGuiModule.VRIsExclusive = false
 UserGuiModule.VRClosesNonExclusive = false
+UserGuiModule.SetVisible = nil
 VRHub:RegisterModule(UserGuiModule)
 
 local VR_MENU_KEY = "VRMenu"

@@ -22,6 +22,7 @@ return function()
 			ModalDialog = Roact.createElement(ModalDialog, {
 				visible = true,
 				titleText = "Title",
+				titleBar = nil,
 				contents = nil,
 				actionButtons = nil,
 				onDismiss = function() end,

@@ -2,8 +2,6 @@ local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 
-local Modules = CoreGui.RobloxGui.Modules
-
 local Cryo = require(CorePackages.Cryo)
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -31,7 +29,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 
 local FFlagPlayerListFormattingUpdates = require(RobloxGui.Modules.Flags.FFlagPlayerListFormattingUpdates)
-local validatePropsWithForwardRef = require(Modules.validatePropsWithForwardRef)
+local validatePropsWithForwardRef = require(CorePackages.validatePropsWithForwardRef)
 
 local PlayerEntry = Roact.PureComponent:extend("PlayerEntry")
 

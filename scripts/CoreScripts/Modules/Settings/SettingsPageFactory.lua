@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 
 --[[
 		Filename: SettingsPageFactory.lua
@@ -36,6 +36,7 @@ local function Initialize()
 	this.ShouldShowBottomBar = true
 	this.ShouldShowHubBar = true
 	this.IsPageClipped = true
+	this.SelectARow = nil
 	local rows = {}
 	local displayed = false
 

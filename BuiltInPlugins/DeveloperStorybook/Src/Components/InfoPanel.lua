@@ -3,7 +3,6 @@
 	Displays the story for the currently selected component.
 ]]
 local FFlagDeveloperStorybookMigrateToRoact17 = game:GetFastFlag("DeveloperStorybookMigrateToRoact17")
-local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 
 local Main = script.Parent.Parent.Parent
 local Types = require(Main.Src.Types)
@@ -315,22 +314,10 @@ function InfoPanel:render()
 		return order
 	end
 
-	local size
-	local position
-	local anchorPoint
-	if not FFlagDevFrameworkSplitPane then
-		size = UDim2.new(1, -sizes.Gutter, 1, -sizes.TopBar)
-		position = UDim2.new(1, 0, 0, sizes.TopBar)
-		anchorPoint = Vector2.new(1, 0)
-	end
-
 	if self.state.storyError then
 		return Roact.createElement(Pane, {
 			Style = "Box",
 			Padding = sizes.OuterPadding,
-			Size = size,
-			Position = position,
-			AnchorPoint = anchorPoint,
 		}, {
 			Scroller = Roact.createElement(ScrollingFrame, {
 				Size = UDim2.fromScale(1, 1),
@@ -353,9 +340,6 @@ function InfoPanel:render()
 	if not storyProps then
 		return Roact.createElement(Pane, {
 			Style = "BorderBox",
-			Size = size,
-			Position = position,
-			AnchorPoint = anchorPoint,
 			Layout = Enum.FillDirection.Vertical,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 			Spacing = 20,
@@ -486,12 +470,9 @@ function InfoPanel:render()
 	end
 
 	return Roact.createElement(Pane, {
-		ClipsDescendants = FFlagDevFrameworkSplitPane,
+		ClipsDescendants = true,
 		Style = "BorderBox",
 		Layout = Enum.FillDirection.Vertical,
-		Size = size,
-		Position = position,
-		AnchorPoint = anchorPoint,
 		Padding = {
 			Top = sizes.OuterPadding,
 			Left = sizes.OuterPadding,

@@ -1,25 +1,6 @@
 --!strict
+-- TODO: Unused if GetFFlagACEUseCFrameAPI() is true
 local CFrameUtils = {}
---[[
--- TODO: Waiting for the API proposal and the implementation of the missing EulerAngles functions
-local ToEulerAnglesMap: {[string]: (CFrame) -> (number, number, number)} = {
-	[Enum.RotationOrder.XYZ] = function(cf) return cf:ToEulerAnglesXYZ() end,
-	[Enum.RotationOrder.XZY] = function(cf) return cf:ToEulerAnglesXZY() end,
-	[Enum.RotationOrder.YXZ] = function(cf) return cf:ToEulerAnglesYXZ() end,
-	[Enum.RotationOrder.YZX] = function(cf) return cf:ToEulerAnglesYZX() end,
-	[Enum.RotationOrder.ZXY] = function(cf) return cf:ToEulerAnglesZXY() end,
-	[Enum.RotationOrder.ZYX] = function(cf) return cf:ToEulerAnglesZYX() end,
-}
-
-local FromEulerAnglesMap: {[string]: (number, number, number) -> (CFrame)} = {
-	[Enum.RotationOrder.XYZ] = function(x, y, z) return CFrame.fromEulerAnglesXYZ(x, y, z) end,
-	[Enum.RotationOrder.XZY] = function(x, y, z) return CFrame.fromEulerAnglesXZY(x, y, z) end,
-	[Enum.RotationOrder.YXZ] = function(x, y, z) return CFrame.fromEulerAnglesYXZ(x, y, z) end,
-	[Enum.RotationOrder.YZX] = function(x, y, z) return CFrame.fromEulerAnglesYZX(x, y, z) end,
-	[Enum.RotationOrder.ZXY] = function(x, y, z) return CFrame.fromEulerAnglesZXY(x, y, z) end,
-	[Enum.RotationOrder.ZYX] = function(x, y, z) return CFrame.fromEulerAnglesZYX(x, y, z) end,
-}
---]]
 
 local ToEulerAnglesMap: {[Enum.RotationOrder]: (CFrame) -> (number, number, number)} = {
 	[Enum.RotationOrder.XYZ] = function(cf)

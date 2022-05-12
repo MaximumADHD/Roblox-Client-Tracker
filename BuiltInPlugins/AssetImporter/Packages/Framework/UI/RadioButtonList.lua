@@ -17,9 +17,6 @@
 		boolean TextWrapped: Whether or not the description is text wrapped.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 ]]
-local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
-local FFlagToolboxAssetConfigUpdatePrivateAudioMessage = game:GetFastFlag("ToolboxAssetConfigUpdatePrivateAudioMessage")
-
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -58,12 +55,7 @@ function RadioButtonList:init()
 			return
 		end
 
-		local prioritySelectedKey
-		if FFlagToolboxPrivatePublicAudioAssetConfig3 then
-			prioritySelectedKey = prioritize(currentSelectedKey, state.selectedKey)
-		else
-			prioritySelectedKey = state.selectedKey
-		end
+		local prioritySelectedKey = prioritize(currentSelectedKey, state.selectedKey)
 		if (prioritySelectedKey ~= key) then
 			onClick(key)
 			self:setState({
@@ -96,44 +88,34 @@ function RadioButtonList:render()
 
 	local children = {}
 
-	local textWrapped
-	local textXAlignment
-	local verticalAlignment
-	if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then
-		textWrapped = prioritize(self.props.TextWrapped, style.TextWrapped)
-		textXAlignment = prioritize(self.props.TextXAlignment, style.TextXAlignment)
-		verticalAlignment = prioritize(self.props.VerticalAlignment, style.VerticalAlignment)
-	end
+	local textWrapped = prioritize(self.props.TextWrapped, style.TextWrapped)
+	local textXAlignment = prioritize(self.props.TextXAlignment, style.TextXAlignment)
+	local verticalAlignment = prioritize(self.props.VerticalAlignment, style.VerticalAlignment)
 
 	for index, button in ipairs(buttons) do
-		local isSelected
-		if FFlagToolboxPrivatePublicAudioAssetConfig3 then
-			local prioritySelectedKey = prioritize(currentSelectedKey, state.selectedKey)
-			isSelected = (prioritySelectedKey == button.Key)
-		else
-			isSelected = (state.selectedKey == button.Key)
-		end
+		local prioritySelectedKey = prioritize(currentSelectedKey, state.selectedKey)
+		local isSelected = (prioritySelectedKey == button.Key)
 
 		local size
-		if FFlagToolboxAssetConfigUpdatePrivateAudioMessage and automaticSize == Enum.AutomaticSize.Y then
+		if automaticSize == Enum.AutomaticSize.Y then
 			size = UDim2.new(1, 0, 0, 0)
 		end
 
 		children[button.Key] = Roact.createElement(RadioButton, {
-			AutomaticSize = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then automaticSize else nil,
+			AutomaticSize = automaticSize,
 			Description = button.Description,
 			Disabled = button.Disabled,
 			Key = button.Key,
 			LayoutOrder = index,
 			OnClick = function() self.onClick(button.Key, button.Disabled) end,
-			Size = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then size else nil,
-			Style = if FFlagToolboxPrivatePublicAudioAssetConfig3 then radioButtonStyle else nil,
+			Size = size,
+			Style = radioButtonStyle,
 			Selected = isSelected,
 			Text = button.Text,
 			TextSize = textSize,
-			TextWrapped = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then textWrapped else nil,
-			TextXAlignment = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then textXAlignment else nil,
-			VerticalAlignment = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then verticalAlignment else nil,
+			TextWrapped = textWrapped,
+			TextXAlignment = textXAlignment,
+			VerticalAlignment = verticalAlignment,
 		})
 	end
 

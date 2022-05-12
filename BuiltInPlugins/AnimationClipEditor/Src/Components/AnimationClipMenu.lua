@@ -46,7 +46,7 @@ local UpdateMetadata = require(Plugin.Src.Thunks.UpdateMetadata)
 local SetEditorMode = require(Plugin.Src.Actions.SetEditorMode)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local GetFFlagEasierCurveWorkflow = require(Plugin.LuaFlags.GetFFlagEasierCurveWorkflow)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 local FFlagAnimationFromVideoCreatorServiceInAnimationEditor = game:DefineFastFlag("AnimationFromVideoCreatorServiceInAnimationEditor", false)
 
@@ -214,7 +214,7 @@ function AnimationClipMenu:makeMenuActions(localization)
 		ItemSelected = onCreateNewRequested,
 	})
 
-	if not GetFFlagEasierCurveWorkflow() and GetFFlagChannelAnimations() then
+	if not GetFFlagCurveEditor() and GetFFlagChannelAnimations() then
 		table.insert(actions, {
 			Name = localization:getText("Menu", "PromoteToChannels"),
 			ItemSelected = onPromoteRequested,

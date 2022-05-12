@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 
 --LaserPointer.lua
 --Implements the visual part of the VR laser pointer
@@ -222,7 +222,7 @@ function LaserPointer.new(laserDistance)
 			A = -1,
 			B = 2,
 			C = 0,
-			Color3 = TELEPORT.COLOR_GOOD,
+			Color3 = nil,
 			Thickness = TELEPORT.ARC_THICKNESS,
 			Visible = false,
 		})

@@ -16,13 +16,16 @@ local withStyle = UIBlox.Core.Style.withStyle
 
 local DIALOG_WIDTH = 540
 local DIALOG_HEIGHT = 375
+local CONTENT_HEIGHT = 230
+local ACTION_BAR_HEIGHT = 96
 local MODAL_DISMISS_ACTION = "ModalDialogDismiss"
 
 local ModalDialog = Roact.PureComponent:extend("ModalDialog")
 
 ModalDialog.validateProps = t.strictInterface({
 	visible = t.boolean,
-	titleText = t.string,
+	titleText = t.optional(t.string),
+	titleBar = t.optional(t.table),
 	contents = t.optional(t.table),
 	actionButtons = t.optional(t.table),
 	onDismiss = t.callback,
@@ -30,6 +33,11 @@ ModalDialog.validateProps = t.strictInterface({
 
 function ModalDialog:render()
 	local props = self.props
+	local contentHeight = CONTENT_HEIGHT
+	if not props.actionButtons then
+		-- If there isn't any action button, extend content frame
+		contentHeight += ACTION_BAR_HEIGHT
+	end
 
 	return withStyle(function(style)
 		return Roact.createElement("Frame", {
@@ -64,12 +72,18 @@ function ModalDialog:render()
 					HorizontalAlignment = Enum.HorizontalAlignment.Center,
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
-				Title = Roact.createElement(ThemedTextLabel, {
-					fontKey = "Header1",
-					themeKey = "TextEmphasis",
+				Title = Roact.createElement("Frame", {
+					BackgroundTransparency = 1,
 					LayoutOrder = 1,
 					Size = UDim2.new(1, 0, 0, 48),
-					Text = props.titleText,
+				}, {
+					TitleBar = props.titleBar,
+					Label = props.titleText and Roact.createElement(ThemedTextLabel, {
+						fontKey = "Header1",
+						themeKey = "TextEmphasis",
+						Size = UDim2.new(1, 0, 1, 0),
+						Text = props.titleText,
+					}) or nil,
 				}),
 				Divider = Roact.createElement(Divider, {
 					LayoutOrder = 2,
@@ -77,14 +91,14 @@ function ModalDialog:render()
 				Content = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
 					LayoutOrder = 3,
-					Size = UDim2.new(1, 0, 0, 230),
+					Size = UDim2.new(1, 0, 0, contentHeight),
 				}, {
 					Contents = props.contents,
 				}),
-				ActionBar = Roact.createElement("Frame", {
+				ActionBar = props.actionButtons and Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
 					LayoutOrder = 4,
-					Size = UDim2.new(1, 0, 0, 96),
+					Size = UDim2.new(1, 0, 0, ACTION_BAR_HEIGHT),
 				}, {
 					Padding = Roact.createElement("UIPadding", {
 						PaddingTop = UDim.new(0, 24),
@@ -93,7 +107,7 @@ function ModalDialog:render()
 						PaddingRight = UDim.new(0, 24),
 					}),
 					ActionButtons = props.actionButtons,
-				}),
+				}) or nil,
 			}),
 		})
 	end)

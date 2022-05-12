@@ -121,7 +121,7 @@ function MaterialAdditional:render()
 		return Roact.createElement(Pane)
 	end
 
-	local studsPerTile = material.MaterialVariant.StudsPerTile
+	local studsPerTile = tostring(material.MaterialVariant.StudsPerTile)
 	local materialPattern = getMaterialPatternName(material.MaterialVariant.MaterialPattern)
 
 	local layoutOrderIterator = LayoutOrderIterator.new()

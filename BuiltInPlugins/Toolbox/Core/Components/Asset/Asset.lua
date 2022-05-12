@@ -134,7 +134,7 @@ function Asset:init(props)
 	if not FFlagToolboxAssetGridRefactor then
 		self.onMouseButton2Click = function(rbx, x, y)
 			local showEditOption = self.props.canManage
-			
+
 			local assetAnalyticsContext
 			if FFlagToolboxUsePageInfoInsteadOfAssetContext then
 				local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
@@ -200,7 +200,7 @@ function Asset:init(props)
 			local assetData = props.assetData
 			local plugin = props.Plugin:get()
 			local tryOpenAssetConfig = props.tryOpenAssetConfig
-			
+
 			local assetAnalyticsContext
 			if FFlagToolboxUsePageInfoInsteadOfAssetContext then
 				local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
@@ -714,7 +714,15 @@ local function mapDispatchToProps(dispatch)
 
 		tryCreateContextMenu = FFlagToolboxAssetGridRefactor
 				and function(assetData, localizedContent, plugin, tryOpenAssetConfig, assetAnalyticsContext)
-					dispatch(TryCreateContextMenu(assetData, localizedContent, plugin, tryOpenAssetConfig, assetAnalyticsContext))
+					dispatch(
+						TryCreateContextMenu(
+							assetData,
+							localizedContent,
+							plugin,
+							tryOpenAssetConfig,
+							assetAnalyticsContext
+						)
+					)
 				end
 			or nil,
 

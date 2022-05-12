@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 --!nolint GlobalUsedAsLocal
 
 --[[
@@ -210,6 +210,7 @@ local function CreateSettingsHub()
 	this.ResetCharacterPage = require(RobloxGui.Modules.Settings.Pages.ResetCharacter)
 	this.SettingsShowSignal = utility:CreateSignal()
 	this.OpenStateChangedCount = 0
+	this.BottomButtonFrame = nil
 
 	local pageChangeCon = nil
 
@@ -583,6 +584,8 @@ local function CreateSettingsHub()
 		end
 		this.RespawnBehaviourChangedEvent:Fire(resetEnabled, customCallback)
 	end)
+
+	local setVisibilityInternal = nil
 
 	local function createGui()
 		local PageViewSizeReducer = 0
@@ -1372,6 +1375,7 @@ local function CreateSettingsHub()
 		end
 	end)
 
+	local GetHeaderPosition = nil
 
 	local switchTab = function(direction, cycle)
 		local currentTabPosition = GetHeaderPosition(this.Pages.CurrentPage)
@@ -2169,6 +2173,7 @@ moduleApiTable.ModuleName = "SettingsMenu"
 moduleApiTable.KeepVRTopbarOpen = true
 moduleApiTable.VRIsExclusive = true
 moduleApiTable.VRClosesNonExclusive = true
+moduleApiTable.SetVisibility = nil
 VRHub:RegisterModule(moduleApiTable)
 
 VRHub.ModuleOpened.Event:connect(function(moduleName)

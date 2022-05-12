@@ -11,8 +11,6 @@
 		Permissions = table, containing permission information (Revoked, UseView, Edit)
 		PermissionsChanged = function, callback function that is called when a new user is added.		
 ]]
-local FFlagToolboxCollaboratorSearchUseFind = game:GetFastFlag("ToolboxCollaboratorSearchUseFind")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -49,15 +47,9 @@ local function getMatchesFromTable(text, t)
 	local matches = {}
 
 	for _,v in pairs(t) do
-		if FFlagToolboxCollaboratorSearchUseFind then
-			-- The variable "text" is user-input, so match it literally rather than as a pattern
-			if v[PermissionsConstants.SubjectNameKey]:lower():find(text:lower(), 1, true) then
-				table.insert(matches, v)
-			end
-		else
-			if v[PermissionsConstants.SubjectNameKey]:lower():match(text:lower()) then
-				table.insert(matches, v)
-			end
+		-- The variable "text" is user-input, so match it literally rather than as a pattern
+		if v[PermissionsConstants.SubjectNameKey]:lower():find(text:lower(), 1, true) then
+			table.insert(matches, v)
 		end
 	end
 	return matches

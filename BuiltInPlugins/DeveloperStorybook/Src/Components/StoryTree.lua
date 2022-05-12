@@ -1,8 +1,6 @@
 --[[
 	Display a list of available targets
 ]]
-local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
-
 local main = script.Parent.Parent.Parent
 local Roact = require(main.Packages.Roact)
 local RoactRodux = require(main.Packages.RoactRodux)
@@ -66,20 +64,7 @@ end
 
 function StoryTree:render()
 	local props = self.props
-	local style = props.Stylizer
-	local sizes = style.Sizes
-
-	local position
-	local size
-	if not FFlagDevFrameworkSplitPane then
-		position = UDim2.new(0, 0, 0, sizes.TopBar)
-		size = UDim2.new(0, sizes.Gutter, 1, -sizes.TopBar)
-	end
-
-	return Roact.createElement(Container, {
-		Position = position,
-		Size = size,
-	},
+	return Roact.createElement(Container, {},
 	{
 		Tree = Roact.createElement(TreeView, {
 			LayoutOrder = props.LayoutOrder,

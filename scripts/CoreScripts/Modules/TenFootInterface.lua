@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 --!nolint GlobalUsedAsLocal
 
 --[[
@@ -53,6 +53,7 @@ end
 
 local function CreateModule()
 	local this = {}
+	this.Container = nil
 	local nextObjectDisplayYPos = DISPLAY_POS_INIT_INSET
 	local displayStack = {}
 	local displayStackChanged = Instance.new("BindableEvent")
@@ -278,6 +279,8 @@ local function CreateModule()
 
 			addToDisplayStack(tenFootInterfaceStat)
 		end
+
+		local updateTenFootStat = nil
 
 		local function setDisplayedStat(newStat)
 			if displayedStatChangedCon then displayedStatChangedCon:disconnect() displayedStatChangedCon = nil end

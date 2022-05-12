@@ -2,7 +2,6 @@
 	Gets the new Stylizer-compatible AssetConfigTheme
 	This should replace AssetConfigTheme once UILibrary and withTheme are completely removed.
 ]]
-local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 
 local Plugin = script.Parent.Parent.Parent
@@ -31,14 +30,14 @@ return function()
 	return {
 		assetConfig = {
 			backgroundColor = StyleKey.MainBackground,
-			brightText = if FFlagToolboxPrivatePublicAudioAssetConfig3 then StyleKey.BrightText else nil,
+			brightText = StyleKey.BrightText,
 			errorColor = StyleKey.ErrorText,
-			warningColor = if FFlagToolboxPrivatePublicAudioAssetConfig3 then StyleKey.WarningText else nil,
+			warningColor = StyleKey.WarningText,
 			labelTextColor = StyleKey.DimmedText,
 			textColor = StyleKey.MainText,
 
 			publishAsset = {
-				warningIconColor = if FFlagToolboxPrivatePublicAudioAssetConfig3 then Color3.fromHex("#FFAA21") else nil,
+				warningIconColor = Color3.fromHex("#FFAA21"),
 			},
 
 			packagePermissions = {
@@ -232,13 +231,13 @@ return function()
 			},
 		}),
 
-		[ui.StyledDialog] = if FFlagToolboxPrivatePublicAudioAssetConfig3 then Cryo.Dictionary.join(getRawComponentStyle("StyledDialog"), {
+		[ui.StyledDialog] = Cryo.Dictionary.join(getRawComponentStyle("StyledDialog"), {
 			["&AssetConfigWarningDialog"] = {
 				ButtonSpacing = 8,
 			},
-		}) else nil,
+		}),
 			
-		[ui.RadioButton] = if FFlagToolboxPrivatePublicAudioAssetConfig3 then Cryo.Dictionary.join(radioButton, {
+		[ui.RadioButton] = Cryo.Dictionary.join(radioButton, {
 			["&AssetConfigRadioButton"] = {
 				TextSize = Constants.FONT_SIZE_ASSET_CONFIG_INPUT,
 
@@ -254,13 +253,13 @@ return function()
 					}),
 				}),
 			},
-		}) else nil,
+		}),
 
-		[ui.RadioButtonList] = if FFlagToolboxPrivatePublicAudioAssetConfig3 then Cryo.Dictionary.join(getRawComponentStyle("RadioButtonList"), {
+		[ui.RadioButtonList] = Cryo.Dictionary.join(getRawComponentStyle("RadioButtonList"), {
 			["&AssetConfigRadioButtonList"] = {
 				Padding = 17,
 				RadioButtonStyle = "AssetConfigRadioButton",
 			},
-		}) else nil,
+		}),
 	}
 end

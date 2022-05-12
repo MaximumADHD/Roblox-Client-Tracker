@@ -27,6 +27,9 @@ return function()
 	end
 
 	it("should create and destroy breakpoints without errors", function()
+		if not FFlagDevFrameworkRemoveInfiniteScroller then
+			return
+		end
 		local breakpointsTableElement =  createBreakpointsTable()
 		local folder = Instance.new("Folder")
 		local folderInstance = Roact.mount(breakpointsTableElement.getChildrenWithMockContext(), folder)

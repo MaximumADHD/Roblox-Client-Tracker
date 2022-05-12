@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 
 local ContextActionService = game:GetService("ContextActionService")
 local CoreGui = game:GetService("CoreGui")
@@ -74,7 +74,8 @@ NotificationHubModule.ModuleName = "Notifications"
 NotificationHubModule.KeepVRTopbarOpen = true
 NotificationHubModule.VRIsExclusive = true
 NotificationHubModule.VRClosesNonExclusive = true
-NotificationHubModule.UnreadCountChanged = function() end
+NotificationHubModule.UnreadCountChanged = function(...) end
+NotificationHubModule.SetVisible = nil
 VRHub:RegisterModule(NotificationHubModule)
 
 local notificationsPanel = Panel3D.Get("Notifications")
@@ -99,6 +100,7 @@ do
 		instance.isAnimating = false
 		instance.tweener = nil
 		instance.panel = panel
+		instance.SetPopOut = nil
 		instance.panel.OnMouseEnter = function()
 			for i, v in pairs(windows) do
 				if v ~= instance then

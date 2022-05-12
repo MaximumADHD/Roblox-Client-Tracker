@@ -19,8 +19,7 @@ local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
-local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 export type AnimationData = any
 
@@ -187,7 +186,7 @@ function AnimationData.addTrack(tracks, trackName, trackType, isChannelAnimation
 		else
 			tracks[trackName].Keyframes = {}
 			tracks[trackName].Data = {}
-			if GetFFlagEulerAnglesOrder() then
+			if GetFFlagCurveEditor() then
 				tracks[trackName].EulerAnglesOrder = eulerAnglesOrder
 			end
 		end
@@ -531,7 +530,7 @@ function AnimationData.promoteToChannels(data, rotationType, eulerAnglesOrder)
 		return
 	end
 
-	if GetFFlagEulerAnglesOrder() then
+	if GetFFlagCurveEditor() then
 		-- When promoting a KFS animation, we always promote to Quaternions,
 		-- and only when that's done we promote to Euler Angles if necessary
 		for _, instance in pairs(data.Instances) do
@@ -559,7 +558,7 @@ function AnimationData.isChannelAnimation(data)
 end
 
 function AnimationData.getTrack(data: AnimationData, instanceName: string, path: PathUtils.Path): (any?)
-	if not GetFFlagQuaternionsUI() then
+	if not GetFFlagCurveEditor() then
 		if not data or not data.Instances[instanceName] then
 			return nil
 		end

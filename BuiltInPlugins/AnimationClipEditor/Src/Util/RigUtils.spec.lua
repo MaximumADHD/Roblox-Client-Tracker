@@ -8,8 +8,6 @@ return function()
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-	local GetFFlagMarkerCurves = require(Plugin.LuaFlags.GetFFlagMarkerCurves)
-	local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 
 	local testRigAnimationData = {
 		Metadata = {
@@ -229,8 +227,8 @@ return function()
 						Type = Constants.TRACK_TYPES.CFrame,
 						Components = {
 							Rotation = {
-								Type = GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation,
-								EulerAnglesOrder = GetFFlagQuaternionChannels() and Enum.RotationOrder.XYZ,
+								Type = GetFFlagChannelAnimations() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation,
+								EulerAnglesOrder = GetFFlagChannelAnimations() and Enum.RotationOrder.XYZ,
 								Components = {
 									X = {
 										Type = Constants.TRACK_TYPES.Angle,
@@ -555,20 +553,18 @@ return function()
 				expect(curveAnimation.Name).to.equal("Test Curve Animation")
 			end)
 
-			if GetFFlagMarkerCurves() then
-				it("should add MarkerCurves for events", function()
-					local rig = buildTestRig()
-					local curveAnimation = RigUtils.toCurveAnimation(testCurveAnimationData, rig)
-					local foo = curveAnimation:FindFirstChild("FooEvent")
-					expect(foo).to.be.ok()
-					local markers = foo:GetMarkers()
-					expect(#markers).to.equal(2)
-					expect(markers[1].Value).to.equal("FooValue1")
-					expect(markers[1].Time).to.equal(0)
-					expect(markers[2].Value).to.equal("FooValue2")
-					expect(markers[2].Time).to.equal(0.5)
-				end)
-			end
+			it("should add MarkerCurves for events", function()
+				local rig = buildTestRig()
+				local curveAnimation = RigUtils.toCurveAnimation(testCurveAnimationData, rig)
+				local foo = curveAnimation:FindFirstChild("FooEvent")
+				expect(foo).to.be.ok()
+				local markers = foo:GetMarkers()
+				expect(#markers).to.equal(2)
+				expect(markers[1].Value).to.equal("FooValue1")
+				expect(markers[1].Time).to.equal(0)
+				expect(markers[2].Value).to.equal("FooValue2")
+				expect(markers[2].Time).to.equal(0.5)
+			end)
 
 			it("should throw if the expected AnimationData is not correct", function()
 				local rig = buildTestRig()
@@ -587,9 +583,7 @@ return function()
 				end).to.throw()
 			end)
 		end)
-	end
 
-	if GetFFlagChannelAnimations() then
 		describe("fromCurveAnimation", function()
 			it("should read a curveAnimation", function()
 				local curveAnimation = buildTestCurveAnimation()
@@ -609,7 +603,7 @@ return function()
 				local utr = ut.Components[Constants.PROPERTY_KEYS.Rotation]
 				expect(utr).to.be.ok()
 				expect(utr.IsCurveTrack).to.equal(true)
-				expect(utr.Type).to.equal(GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation)
+				expect(utr.Type).to.equal(Constants.TRACK_TYPES.EulerAngles)
 				expect(utr.Components).to.be.ok()
 
 				local utrx = utr.Components[Constants.PROPERTY_KEYS.X]
@@ -645,20 +639,18 @@ return function()
 				]]
 			end)
 
-			if GetFFlagMarkerCurves() then
-				it("should read the events", function()
-					local curveAnimation = buildTestCurveAnimation()
-					local animationData = RigUtils.fromCurveAnimation(curveAnimation)
-					local e = animationData.Events
-					expect(#e.Keyframes).to.equal(2)
-					expect(e.Keyframes[2]).to.equal(1200)
-					expect(#Cryo.Dictionary.keys(e.Data[0])).to.equal(2)
-					expect(e.Data[0]["FooEvent"]).to.be.ok()
-					expect(e.Data[0]["BarEvent"]).to.be.ok()
-					expect(#Cryo.Dictionary.keys(e.Data[1200])).to.equal(1)
-					expect(e.Data[1200]["FooEvent"]).to.be.ok()
-				end)
-			end
+			it("should read the events", function()
+				local curveAnimation = buildTestCurveAnimation()
+				local animationData = RigUtils.fromCurveAnimation(curveAnimation)
+				local e = animationData.Events
+				expect(#e.Keyframes).to.equal(2)
+				expect(e.Keyframes[2]).to.equal(1200)
+				expect(#Cryo.Dictionary.keys(e.Data[0])).to.equal(2)
+				expect(e.Data[0]["FooEvent"]).to.be.ok()
+				expect(e.Data[0]["BarEvent"]).to.be.ok()
+				expect(#Cryo.Dictionary.keys(e.Data[1200])).to.equal(1)
+				expect(e.Data[1200]["FooEvent"]).to.be.ok()
+			end)
 
 			it("should set the metadata", function()
 				local curveAnimation = buildTestCurveAnimation()

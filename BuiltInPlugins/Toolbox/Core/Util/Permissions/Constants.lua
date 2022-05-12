@@ -8,12 +8,11 @@
 	from, its scope, what files we need to use it in, etc, whereas {[webKeys.UserId] = _} is
 	a lot more explicit
 --]]
-local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
 local FFlagToolboxGrantUniverseAudioPermissions = game:GetFastFlag("ToolboxGrantUniverseAudioPermissions")
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 
 local webKeys = {
-	All = if FFlagToolboxPrivatePublicAudioAssetConfig3 then "All" else nil,
+	All = "All",
 
 	UserId = "userId",
 	UserName = "userName",

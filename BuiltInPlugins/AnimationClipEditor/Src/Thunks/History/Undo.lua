@@ -17,7 +17,7 @@ local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
 local TrackSelectionUtils = require(Plugin.Src.Util.TrackSelectionUtils)
 
-local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 return function(signals)
 	return function(store)
@@ -48,7 +48,7 @@ return function(signals)
 
 			-- Prune selected tracks, as some tracks might have disappeared
 			-- (Undoing a conversion from Quaternions to Euler's angles, for instance)
-			if GetFFlagQuaternionsUI() then
+			if GetFFlagCurveEditor() then
 				local newSelectedTracks, changed = TrackSelectionUtils.PruneSelectedTracks(animationData, selectedTracks)
 				if changed then
 					store:dispatch(SetSelectedTracks(newSelectedTracks))

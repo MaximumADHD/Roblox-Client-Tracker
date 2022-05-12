@@ -65,7 +65,7 @@ return function()
 			local analytics = Analytics.mock()
 
 			TestHelpers.loadAnimation(store, emptyData)
-			if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
+			if GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
 				store:dispatch(ValueChanged("Root", "Head", Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
 			else
 				store:dispatch(ValueChanged("Root", "Head", 0, CFrame.new(), analytics))

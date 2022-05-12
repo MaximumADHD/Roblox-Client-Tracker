@@ -6,7 +6,9 @@ return function()
 	local Toolbar = require(script.Parent.Toolbar)
 
 	local function createTestElement(props: {}?)
-		props = props or {}
+		props = props or {
+			onExportClicked = function() end,
+		}
 
 		return mockContext({
 			Toolbar = Roact.createElement(Toolbar, props)

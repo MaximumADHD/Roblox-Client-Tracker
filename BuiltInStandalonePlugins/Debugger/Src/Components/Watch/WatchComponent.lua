@@ -24,8 +24,8 @@ export type WatchTab = { string : string }
 -- Constants
 local HEADER_HEIGHT = 32
 
-local MINIMUM_WIDTH_FOR_DROPDOWN = 527
-local MINIMUM_WIDTH_FOR_SEARCHBAR = 420
+local MINIMUM_WIDTH_FOR_TEXT_DROPDOWN = 527
+local MINIMUM_WIDTH_FOR_SEARCHBAR_AND_ICON = 420
 
 function WatchComponent:didMount()
 	self.calculateVisibleComponents()
@@ -40,39 +40,50 @@ function WatchComponent:init()
 	self.componentRef = Roact.createRef()
 	self.state = {
 		shouldShowDropdown = true,
+		shouldShowDropdownIcon = false,
 		shouldShowSearchBar = true,
 	}
 
 	self.calculateVisibleComponents = function()
 		local currentWindow = self.componentRef.current
+		local windowLength = currentWindow.AbsoluteSize.x
 		if(currentWindow == nil) then
 			return
 		end
-		if currentWindow.AbsoluteSize.x < MINIMUM_WIDTH_FOR_SEARCHBAR then
-			if (self.state.shouldShowDropdown or self.state.shouldShowSearchBar) then
+		local shouldShowDropdown = self.state.shouldShowDropdown
+		local shouldShowDropdownIcon = self.state.shouldShowDropdownIcon
+		local shouldShowSearchBar = self.state.shouldShowSearchBar
+
+		if windowLength < MINIMUM_WIDTH_FOR_SEARCHBAR_AND_ICON then
+			if not shouldShowDropdownIcon or shouldShowDropdown or shouldShowSearchBar then
 				self:setState(function(state)
 					return {
 						shouldShowDropdown = false,
+						shouldShowDropdownIcon = true,
 						shouldShowSearchBar = false,
 					}
 				end)
 			end
-		elseif currentWindow.AbsoluteSize.x < MINIMUM_WIDTH_FOR_DROPDOWN then
-			if (self.state.shouldShowDropdown or not self.state.shouldShowSearchBar) then
+		elseif windowLength < MINIMUM_WIDTH_FOR_TEXT_DROPDOWN then
+			if shouldShowDropdown or not shouldShowDropdownIcon or not shouldShowSearchBar then
 				self:setState(function(state)
 					return {
 						shouldShowDropdown = false,
+						shouldShowDropdownIcon = true,
 						shouldShowSearchBar = true,
 					}
 				end)
 			end
-		elseif (not self.state.shouldShowDropdown) or not (self.state.shouldShowSearchBar) then
-			self:setState(function(state)
-				return {
-					shouldShowDropdown = true,
-					shouldShowSearchBar = true,
-				}
-			end)
+		else
+			if not shouldShowDropdown or shouldShowDropdownIcon or not shouldShowSearchBar then
+				self:setState(function(state)
+					return {
+						shouldShowDropdown = true,
+						shouldShowDropdownIcon = false,
+						shouldShowSearchBar = true,
+					}
+				end)
+			end
 		end
 	end
 
@@ -104,7 +115,7 @@ function WatchComponent:render()
 		Size = UDim2.fromScale(1, 1),
 		Style = "Box",
 		Layout = Enum.FillDirection.Vertical,
-		Padding = 5,
+		Padding = 2,
 		[Roact.Ref] = self.componentRef,
 		[Roact.Change.AbsoluteSize] = self.calculateVisibleComponents,
 	}, {
@@ -127,9 +138,10 @@ function WatchComponent:render()
 				Layout = Enum.FillDirection.Horizontal,
 				Spacing = 10,
 			}, {
-				DropdownView = self.state.shouldShowDropdown and Roact.createElement(ScopeDropdownField, {
+				DropdownView = (self.state.shouldShowDropdown or self.state.shouldShowDropdownIcon) and Roact.createElement(ScopeDropdownField, {
 					LayoutOrder = 1,
 					Size = UDim2.new(0.4, 0, 1, 0),
+					ShouldShowDropdownIcon = self.state.shouldShowDropdownIcon,
 				}),
 				SearchBarView = self.state.shouldShowSearchBar and Roact.createElement(SearchBarField, {
 					LayoutOrder = 2,

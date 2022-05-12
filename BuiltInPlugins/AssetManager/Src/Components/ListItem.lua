@@ -31,7 +31,11 @@ local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
 local OnAssetSingleClick = require(Plugin.Src.Thunks.OnAssetSingleClick)
 local OnRecentAssetRightClick = require(Plugin.Src.Thunks.OnRecentAssetRightClick)
 
+local ReviewStatus = require(Plugin.Src.Util.ReviewStatus)
+local ModerationUtil = require(Plugin.Src.Util.ModerationUtil)
+
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
+local FFlagStudioAssetManagerAssetModeration = game:GetFastFlag("StudioAssetManagerAssetModeration")
 
 local ModernIcons = require(Plugin.Src.Util.ModernIcons)
 local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and not game:GetService("StudioHighDpiService"):IsNotHighDPIAwareBuild()
@@ -257,6 +261,7 @@ function ListItem:render()
     -- Must use getStyle(namespace, component) for StyleModifiers to work
     -- otherwise functionality equivalent to prop.Theme:get("Plugin").Tile.Default
     local listItemStyle = if THEME_REFACTOR then props.Stylizer else props.Theme:getStyle("Plugin", self)
+    local localization = props.Localization
 
     local enabled = props.Enabled
 
@@ -327,6 +332,31 @@ function ListItem:render()
     local layoutOrder = props.LayoutOrder
     local layoutIndex = LayoutOrderIterator.new()
 
+    local moderationImage
+    local displayModerationStatus
+    local moderationTooltip
+    if FFlagStudioAssetManagerAssetModeration then
+        textFrameSize = UDim2.new(1, listItemStyle.Text.Frame.XOffset, 0, listItemStyle.Text.Frame.YOffset)      
+        if not isFolder then
+            local moderationData = props.ModerationData
+            if moderationData and next(moderationData) ~= nil then
+                -- fetch moderation data then set icon/textbox size
+                local isPending = moderationData.reviewStatus == ReviewStatus.Pending
+                local isApproved = ModerationUtil.isApprovedAsset(moderationData)
+                displayModerationStatus = isPending or not isApproved
+                if displayModerationStatus then
+                    if isPending then
+                        moderationImage = listItemStyle.Image.ModerationStatus.Pending  
+                    elseif not isApproved then
+                        moderationImage = listItemStyle.Image.ModerationStatus.Rejected
+                    end
+                    textFrameSize = UDim2.new(1, 2 * listItemStyle.Text.Frame.XOffset - listItemStyle.Text.Frame.Padding, 0, listItemStyle.Text.Frame.YOffset)
+                    moderationTooltip = ModerationUtil.getModerationTooltip(localization, moderationData)
+                end
+            end
+        end
+    end
+
     return Roact.createElement("ImageButton", {
         Size = size,
         BackgroundColor3 = backgroundColor,
@@ -340,7 +370,7 @@ function ListItem:render()
         [Roact.Event.MouseEnter] = self.onMouseEnter,
         [Roact.Event.MouseLeave] = self.onMouseLeave,
     }, {
-        Roact.createElement(FitFrameOnAxis, {
+        ListItem = Roact.createElement(FitFrameOnAxis, {
 			BackgroundTransparency = 1,
             axis = FitFrameOnAxis.Axis.Vertical,
             FillDirection = Enum.FillDirection.Horizontal,
@@ -378,9 +408,14 @@ function ListItem:render()
                 TextYAlignment = textYAlignment,
                 TextTruncate = textTruncate,
                 TextWrapped = true,
+            }, {
+                NameTooltip = FFlagStudioAssetManagerAssetModeration and Roact.createElement(Tooltip, {
+                    Text = name,
+                    Enabled = enabled,
+                }),
             }),
 
-            RenameTextBox = isEditingAsset and Roact.createElement("TextBox",{
+            RenameTextBox = isEditingAsset and Roact.createElement("TextBox", {
                 Size = UDim2.new(0, editTextSize.X + editTextPadding, 0, textFrameSize.Y.Offset),
                 LayoutOrder = layoutIndex:getNextOrder(),
 
@@ -400,9 +435,30 @@ function ListItem:render()
                 [Roact.Change.Text] = self.onTextChanged,
                 [Roact.Event.FocusLost] = self.onTextBoxFocusLost,
             }),
+
+            ModerationImageFrame = displayModerationStatus and Roact.createElement("Frame", {
+                Size = imageFrameSize,
+                LayoutOrder = layoutIndex:getNextOrder(),
+
+                BackgroundTransparency = 1,
+            },{
+                Image = Roact.createElement("ImageLabel", {
+                    Image = moderationImage,
+                    Size = imageSize,
+                    Position = imagePos,
+                    AnchorPoint = imageAnchorPos,
+
+                    BackgroundTransparency = 1,
+                }),
+
+                ModerationTooltip = Roact.createElement(Tooltip, {
+                    Text = moderationTooltip,
+                    Enabled = enabled,
+                }),
+            }),
         }),
 
-        Tooltip = enabled and Roact.createElement(Tooltip, {
+        DEPRECATED_Tooltip = not FFlagStudioAssetManagerAssetModeration and enabled and Roact.createElement(Tooltip, {
             Text = name,
             Enabled = true,
         }),

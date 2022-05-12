@@ -246,7 +246,7 @@ end
 
 local function TouchControls(props)
 
-	local movementMode = GameSettings.TouchMovementMode.Value
+	local movementMode = GameSettings.TouchMovementMode
 	local showMoveArea = false
 	local showTapTouch = false
 	local showThumbstickMove = true

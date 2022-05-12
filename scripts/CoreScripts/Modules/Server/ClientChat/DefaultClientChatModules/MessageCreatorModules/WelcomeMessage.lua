@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 
 --	// FileName: WelcomeMessage.lua
 --	// Written by: TheGamer101

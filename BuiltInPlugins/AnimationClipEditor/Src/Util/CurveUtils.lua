@@ -9,8 +9,6 @@ local Templates = require(Plugin.Src.Util.Templates)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
-local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
 
 local CurveUtils = {}
 
@@ -78,8 +76,8 @@ function CurveUtils.makeBounce(easingDirection, tickA, keyframeA, tickB, keyfram
 
 		-- Add an apex. Even though the curves are parabolas, the apex is required for quaternion tracks. Without the apex, the tracks
 		-- would interpolate between identical values.
-		local apexX = if GetFFlagQuaternionsUI() or not GetFFlagCurveEditor() then reboundX + e / a else nil
-		local apexY = if GetFFlagQuaternionsUI() or not GetFFlagCurveEditor() then 1 - e * e else nil
+		local apexX = reboundX + e / a
+		local apexY = 1 - e * e
 
 		-- Invert position and slopes if we're dealing with EasingIn
 		if easingDirection == Enum.PoseEasingDirection.In then
@@ -88,10 +86,8 @@ function CurveUtils.makeBounce(easingDirection, tickA, keyframeA, tickB, keyfram
 			reboundLeftSlope = reboundRightSlope
 			reboundRightSlope = t
 
-			if GetFFlagQuaternionsUI() or not GetFFlagCurveEditor() then
-				apexX = 1 - apexX
-				apexY = 1 - apexY
-			end
+			apexX = 1 - apexX
+			apexY = 1 - apexY
 		end
 
 		-- Create a keyframe for the rebound
@@ -106,20 +102,18 @@ function CurveUtils.makeBounce(easingDirection, tickA, keyframeA, tickB, keyfram
 		-- Keep the slope of the rebound, because we'll need it for the last keyframe
 		lastSlope = if easingDirection == Enum.PoseEasingDirection.Out then keyframe.RightSlope else keyframe.LeftSlope
 
-		if GetFFlagQuaternionsUI() or not GetFFlagCurveEditor() then
-			-- Create a keyframe for the apex
-			tick = KeyframeUtils.getNearestTick(tickA + apexX * dt)
-			keyframe = Templates.keyframe()
-			keyframe.InterpolationMode = Enum.KeyInterpolationMode.Cubic
-			keyframe.LeftSlope = 0
-			keyframe.RightSlope = 0
-			if isQuaternionTrack then
-				keyframe.Value = keyframeA.Value:lerp(keyframeB.Value, apexY)
-			else
-				keyframe.Value = keyframeA.Value + apexY * (keyframeB.Value - keyframeA.Value)
-			end
-			keyframes[tick] = keyframe
+		-- Create a keyframe for the apex
+		tick = KeyframeUtils.getNearestTick(tickA + apexX * dt)
+		keyframe = Templates.keyframe()
+		keyframe.InterpolationMode = Enum.KeyInterpolationMode.Cubic
+		keyframe.LeftSlope = 0
+		keyframe.RightSlope = 0
+		if isQuaternionTrack then
+			keyframe.Value = keyframeA.Value:lerp(keyframeB.Value, apexY)
+		else
+			keyframe.Value = keyframeA.Value + apexY * (keyframeB.Value - keyframeA.Value)
 		end
+		keyframes[tick] = keyframe
 
 		-- Prepare for next iteration
 		root = root + 2 * e
@@ -135,7 +129,7 @@ function CurveUtils.makeBounce(easingDirection, tickA, keyframeA, tickB, keyfram
 
 	if GetFFlagCurveEditor() then
 		if easingDirection == Enum.PoseEasingDirection.In then
-			if GetFFlagEulerAnglesOrder() and isQuaternionTrack then
+			if isQuaternionTrack then
 				keyframeA.RightSlope = lastSlope
 			else
 				keyframeA.RightSlope = -lastSlope
@@ -143,7 +137,7 @@ function CurveUtils.makeBounce(easingDirection, tickA, keyframeA, tickB, keyfram
 			keyframeB.LeftSlope = 0
 		else
 			keyframeA.RightSlope = 0
-			if GetFFlagEulerAnglesOrder() and isQuaternionTrack then
+			if isQuaternionTrack then
 				keyframeB.LeftSlope = lastSlope
 			else
 				keyframeB.LeftSlope = -lastSlope

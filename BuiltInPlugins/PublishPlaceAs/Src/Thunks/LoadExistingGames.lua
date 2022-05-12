@@ -9,17 +9,13 @@ local gamesTable = {}
 local currentGroup = -1
 local prevPageCursor = nil
 
-local FFlagDebugFixPublishAsWhenQueryFails = game:GetFastFlag("DebugFixPublishAsWhenQueryFails")
-
 return function(type, id, pageCursor)
 	return function(store)
 		if pageCursor ~= prevPageCursor or not pageCursor then
 
-			if FFlagDebugFixPublishAsWhenQueryFails then
-				-- only display the loading screen if we are loading for the first time
-				if not pageCursor then
-					store:dispatch(SetChooseGameQueryState(Constants.QUERY_STATE.QUERY_STATE_QUERYING))
-				end
+			-- only display the loading screen if we are loading for the first time
+			if not pageCursor then
+				store:dispatch(SetChooseGameQueryState(Constants.QUERY_STATE.QUERY_STATE_QUERYING))
 			end
 
 			prevPageCursor = pageCursor
@@ -41,11 +37,7 @@ return function(type, id, pageCursor)
 				resp.games = gamesTable
 				store:dispatch(SetGameInfo(resp))
 			end, function(err)
-				if FFlagDebugFixPublishAsWhenQueryFails then
-					store:dispatch(SetChooseGameQueryState(Constants.QUERY_STATE.QUERY_STATE_FAILED))
-				else
-					error("Failed to load games")
-				end
+				store:dispatch(SetChooseGameQueryState(Constants.QUERY_STATE.QUERY_STATE_FAILED))
 			end)
 		end
 	end

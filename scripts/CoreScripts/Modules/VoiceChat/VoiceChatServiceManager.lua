@@ -2,6 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 local MemStorageService = game:GetService("MemStorageService")
 local Promise = require(CorePackages.Promise)
 local Roact = require(CorePackages.Roact)
+local Cryo = require(CorePackages.Cryo)
 local PermissionsProtocol = require(CorePackages.UniversalApp.Permissions.PermissionsProtocol)
 local CoreGui = game:GetService("CoreGui")
 local runService = game:GetService('RunService')
@@ -29,6 +30,9 @@ local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagO
 local GetFFlagClearVoiceStateOnRejoin = require(RobloxGui.Modules.Flags.GetFFlagClearVoiceStateOnRejoin)
 local GetFFlagSkipRedundantVoiceCheck = require(CorePackages.AppTempCommon.Flags.GetFFlagSkipRedundantVoiceCheck)
 local GetFFlagEnableVoiceRccCheck = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceRccCheck)
+local GetFFlagVoiceAbuseReportsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceAbuseReportsEnabled)
+local GetFFlagClearUserFromRecentVoiceDataOnLeave = require(RobloxGui.Modules.Flags.GetFFlagClearUserFromRecentVoiceDataOnLeave)
+local GetFIntVoiceUsersInteractionExpiryTimeSeconds = require(RobloxGui.Modules.Flags.GetFIntVoiceUsersInteractionExpiryTimeSeconds)
 
 local Constants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
 local VoiceChatPrompt = require(RobloxGui.Modules.VoiceChatPrompt.Components.VoiceChatPrompt)
@@ -60,6 +64,7 @@ local VoiceChatServiceManager = {
 	available = nil,
 	version = nil,
 	participants = nil,
+	recentUsersInteractionData = nil,
 	permissionPromise = nil,
 	canUseServicePromise = nil,
 	localMuted = nil,
@@ -164,8 +169,8 @@ function VoiceChatServiceManager:asyncInit()
 			local service = game:GetService(serviceName)
 			if service then
 				if
-					service:GetVoiceChatApiVersion() < MIN_VOICE_CHAT_API_VERSION_IS_CONTEXT_ENABLED 
-					or service:IsContextVoiceEnabled() 
+					service:GetVoiceChatApiVersion() < MIN_VOICE_CHAT_API_VERSION_IS_CONTEXT_ENABLED
+					or service:IsContextVoiceEnabled()
 				then
 					self.voiceEnabled = true
 					self.service = service
@@ -182,7 +187,7 @@ function VoiceChatServiceManager:asyncInit()
 			return Promise.reject()
 		else
 			return Promise.resolve()
-		end			
+		end
 	end)
 end
 
@@ -513,15 +518,62 @@ function VoiceChatServiceManager:GetIcon(name, folder)
 	return getIconSrc(name, folder)
 end
 
+function VoiceChatServiceManager:getRecentUsersInteractionData()
+	self:_updateRecentUsersInteractionData()
+	return self.recentUsersInteractionData
+end
+
+function VoiceChatServiceManager:_setRecentUserState(userId, newState)
+	local oldState = self.recentUsersInteractionData[tostring(userId)] or {}
+	local participantInteractionData = Cryo.Dictionary.join(oldState, newState)
+
+	self.recentUsersInteractionData = Cryo.Dictionary.join(self.recentUsersInteractionData, {
+		[tostring(userId)] = participantInteractionData
+	})
+end
+
+function VoiceChatServiceManager:_updateRecentUsersInteractionData()
+	local currentTime = os.time()
+	local userIdsToRemove = {}
+
+	for userId, interactionData in pairs(self.recentUsersInteractionData) do
+		local participant = self.participants[userId]
+		local clearOnLeave = GetFFlagClearUserFromRecentVoiceDataOnLeave() and not participant
+		local clearOnInactive = (currentTime-interactionData.lastHeardTime) >= GetFIntVoiceUsersInteractionExpiryTimeSeconds()
+		local isCurrentlyMuted = participant and participant.isMuted
+
+		if (clearOnInactive and isCurrentlyMuted) or clearOnLeave then
+			userIdsToRemove[userId] = Cryo.None
+		end
+	end
+
+	self.recentUsersInteractionData = Cryo.Dictionary.join(self.recentUsersInteractionData, userIdsToRemove)
+end
+
 function VoiceChatServiceManager:SetupParticipantListeners()
 	self:ensureInitialized("setup participant listeners")
 	if not self.participants then
 		self.participants = {}
+
+		if GetFFlagVoiceAbuseReportsEnabled() then
+			self.recentUsersInteractionData = {}
+		end
+
 		-- TODO: Init the participants list with the "Initial" state when API is ready
 		self.service.ParticipantsStateChanged:Connect(function(participantLeft, participantJoined, updatedStates)
 			log:trace("Participants state changed")
 
 			for _, userId in ipairs(participantLeft) do
+				if GetFFlagVoiceAbuseReportsEnabled() and not GetFFlagClearUserFromRecentVoiceDataOnLeave() then
+					local participant = self.participants[tostring(userId)]
+
+					if not participant.isMuted then
+						self:_setRecentUserState(userId, {
+							lastHeardTime = os.time(),
+						})
+					end
+				end
+
 				self.participants[tostring(userId)] = nil
 				self.participantLeft:Fire(self.participants, GetFFlagPlayerListAnimateMic() and userId or nil)
 			end
@@ -530,8 +582,24 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 			end
 			for _, state in pairs(updatedStates) do
 				local userId = state["userId"]
+
+				if GetFFlagVoiceAbuseReportsEnabled() then
+					local lastState = self.participants[userId]
+
+					if not state.isMuted or (lastState and not lastState.isMuted) then
+						self:_setRecentUserState(userId, {
+							lastHeardTime = os.time(),
+						})
+					end
+				end
+
 				self.participants[tostring(userId)] = state
 			end
+
+			if GetFFlagVoiceAbuseReportsEnabled() then
+				self:_updateRecentUsersInteractionData()
+			end
+
 			if #updatedStates > 0 then
 				self.participantsUpdate:Fire(self.participants)
 			end
@@ -551,7 +619,7 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 					self.muteChanged:Fire(newMuted)
 				end
 			end
-			
+
 			if newState == (Enum::any).VoiceChatState.Leaving then
 				self.previousGroupId = self.service:GetGroupId()
 				self.previousMutedState = self.service:IsPublishPaused()

@@ -1,4 +1,3 @@
-local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local Packages = script:FindFirstAncestor("Packages")
 
 if not Packages then
@@ -12,7 +11,7 @@ RefactorFlags.THEME_REFACTOR = true
 local Roact = require(Packages.Roact)
 local Rodux = require(Packages.Rodux)
 local Framework = require(Packages.Framework)
-local SplitPane = if FFlagDevFrameworkSplitPane then Framework.UI.SplitPane else nil
+local SplitPane = Framework.UI.SplitPane
 
 local ContextServices = Framework.ContextServices
 local MockPlugin = Framework.TestHelpers.Instances.MockPlugin
@@ -32,43 +31,40 @@ local MakeTheme = require(Src.Resources.MakeTheme)
 local TranslationDevelopmentTable = Src.Resources.TranslationDevelopmentTable
 local TranslationReferenceTable = Src.Resources.TranslationReferenceTable
 
-local Window
-if FFlagDevFrameworkSplitPane then
-	Window = Roact.PureComponent:extend("Window")
-	local OFFSET = 42
+local Window = Roact.PureComponent:extend("Window")
+local OFFSET = 42
 
-	function Window:init()
-		self.state = {
-			paneSizes = {
-				UDim.new(0, 300),
-				UDim.new(1, -300),
-			}
+function Window:init()
+	self.state = {
+		paneSizes = {
+			UDim.new(0, 300),
+			UDim.new(1, -300),
 		}
-		self.onPaneSizesChange = function(paneSizes: {UDim})
-			self:setState({
-				paneSizes = paneSizes,
-			})
-		end
-	end
-
-	function Window:render()
-		local state = self.state
-		return Roact.createElement(SplitPane, {
-			ClampSize = true,
-			UseDeficit = true,
-			MinSizes = {
-				UDim.new(0, 100),
-				UDim.new(0, 100),
-			},
-			OnSizesChange = self.onPaneSizesChange,
-			Sizes = state.paneSizes,
-			Position = UDim2.fromOffset(0, OFFSET),
-			Size = UDim2.new(1, 0, 1, -OFFSET),
-		}, {
-			Roact.createElement(StoryTree),
-			Roact.createElement(InfoPanel),
+	}
+	self.onPaneSizesChange = function(paneSizes: {UDim})
+		self:setState({
+			paneSizes = paneSizes,
 		})
 	end
+end
+
+function Window:render()
+	local state = self.state
+	return Roact.createElement(SplitPane, {
+		ClampSize = true,
+		UseDeficit = true,
+		MinSizes = {
+			UDim.new(0, 100),
+			UDim.new(0, 100),
+		},
+		OnSizesChange = self.onPaneSizesChange,
+		Sizes = state.paneSizes,
+		Position = UDim2.fromOffset(0, OFFSET),
+		Size = UDim2.new(1, 0, 1, -OFFSET),
+	}, {
+		Roact.createElement(StoryTree),
+		Roact.createElement(InfoPanel),
+	})
 end
 
 local EmbeddedStorybook = {}
@@ -98,17 +94,11 @@ function EmbeddedStorybook.start(storybookGui: ScreenGui, player: Player)
 		Mouse.new(player:GetMouse()),
 		Analytics.mock()
 	}
-	local children = {
-		TopBar = Roact.createElement(TopBar),
-	}
-	if FFlagDevFrameworkSplitPane then
-		children.Window = Roact.createElement(Window, {})
-	else
-		children.StoryTree = Roact.createElement(StoryTree)
-		children.InfoPanel = Roact.createElement(InfoPanel)
-	end
 	local Screen = function()
-		return ContextServices.provide(contextItems, children)
+		return ContextServices.provide(contextItems, {
+			TopBar = Roact.createElement(TopBar),
+			Window = Roact.createElement(Window, {}),
+		})
 	end
 	local element = Roact.createElement(Screen, {})
 	EmbeddedStorybook.handle = Roact.mount(element, storybookGui)

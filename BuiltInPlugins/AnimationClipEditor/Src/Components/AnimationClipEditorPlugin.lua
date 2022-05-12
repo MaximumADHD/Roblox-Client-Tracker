@@ -42,10 +42,7 @@ local SetTool = require(Plugin.Src.Actions.SetTool)
 
 local DraggerWrapper = require(Plugin.Src.Components.Draggers.DraggerWrapper)
 
-local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
-local GetFFlagRenameSettings = require(Plugin.LuaFlags.GetFFlagRenameSettings)
-local GetFFlagEulerByDefault = require(Plugin.LuaFlags.GetFFlagEulerByDefault)
-local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 -- analytics
 local AnalyticsHandlers = require(Plugin.Src.Resources.AnalyticsHandlers)
@@ -177,7 +174,7 @@ end
 function AnimationClipEditorPlugin:getPluginSettings()
 	local plugin = self.props.plugin
 
-	if not GetFFlagRenameSettings() then
+	if not GetFFlagCurveEditor() then
 		local snapMode = plugin:GetSetting("SnapMode")
 		-- Legacy snap preference
 		local snapToKeys = plugin:GetSetting("SnapToKeys")
@@ -193,11 +190,6 @@ function AnimationClipEditorPlugin:getPluginSettings()
 
 		if showAsSeconds ~= nil then
 			self.store:dispatch(SetShowAsSeconds(showAsSeconds))
-		end
-
-		if GetFFlagQuaternionsUI() then
-			local rotationType = plugin:GetSetting("RotationType")
-			self.store:dispatch(SetDefaultRotationType(rotationType or (if GetFFlagEulerByDefault() then Constants.TRACK_TYPES.EulerAngles else Constants.TRACK_TYPES.Quaternion)))
 		end
 	else
 		local snapMode = plugin:GetSetting(Constants.SETTINGS.SnapMode)
@@ -226,21 +218,18 @@ function AnimationClipEditorPlugin:getPluginSettings()
 			end
 		end
 
-		if GetFFlagQuaternionsUI() then
-			local rotationType = plugin:GetSetting(Constants.SETTINGS.RotationType)
+		local rotationType = plugin:GetSetting(Constants.SETTINGS.RotationType)
+		if rotationType then
+			self.store:dispatch(SetDefaultRotationType(rotationType))
+		else
+			rotationType = plugin:GetSetting("RotationType")
 			if rotationType then
 				self.store:dispatch(SetDefaultRotationType(rotationType))
 			else
-				rotationType = plugin:GetSetting("RotationType")
-				if rotationType then
-					self.store:dispatch(SetDefaultRotationType(rotationType))
-				else
-					self.store:dispatch(SetDefaultRotationType(if GetFFlagEulerByDefault() then Constants.TRACK_TYPES.EulerAngles else Constants.TRACK_TYPES.Quaternion))
-				end
+				self.store:dispatch(SetDefaultRotationType(Constants.TRACK_TYPES.EulerAngles))
 			end
 		end
-	end
-	if GetFFlagEulerAnglesOrder() then
+
 		local eulerAnglesOrder = plugin:GetSetting(Constants.SETTINGS.EulerAnglesOrder)
 		self.store:dispatch(SetDefaultEulerAnglesOrder(if eulerAnglesOrder
 			then Enum.RotationOrder[eulerAnglesOrder]
@@ -252,20 +241,13 @@ end
 function AnimationClipEditorPlugin:setPluginSettings()
 	local plugin = self.props.plugin
 	local status = self.store:getState().Status
-	if not GetFFlagRenameSettings() then
+	if not GetFFlagCurveEditor() then
 		plugin:SetSetting("ShowAsSeconds", status.ShowAsSeconds)
 		plugin:SetSetting("SnapMode", status.SnapMode)
-		if GetFFlagQuaternionsUI() then
-			plugin:SetSetting("RotationType", status.DefaultRotationType)
-		end
 	else
 		plugin:SetSetting(Constants.SETTINGS.ShowAsSeconds, status.ShowAsSeconds)
 		plugin:SetSetting(Constants.SETTINGS.SnapMode, status.SnapMode)
-		if GetFFlagQuaternionsUI() then
-			plugin:SetSetting(Constants.SETTINGS.RotationType, status.DefaultRotationType)
-		end
-	end
-	if GetFFlagEulerAnglesOrder() then
+		plugin:SetSetting(Constants.SETTINGS.RotationType, status.DefaultRotationType)
 		plugin:SetSetting(Constants.SETTINGS.EulerAnglesOrder, status.DefaultEulerAnglesOrder)
 	end
 end

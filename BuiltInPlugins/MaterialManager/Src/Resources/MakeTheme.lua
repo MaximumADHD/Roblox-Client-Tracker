@@ -33,7 +33,6 @@ local roundBox = deepCopy(devFrameworkRoundBox)
 local selectInput = deepCopy(devFrameworkSelectInput)
 
 local function getPluginTheme()
-	local SideBarWidth = 300
 	local TopBarHeight = 36
 	local MaterialDetailsWidth = 300
 	local TopBarButtonWidth = 28
@@ -48,11 +47,7 @@ local function getPluginTheme()
 
 	return {
 		MaterialManagerView = {
-			-- Remove with FFlagDevFrameworkSplitPane
-			SideBarSize = UDim2.new(0, SideBarWidth, 1, 0),
 			TopBarSize = UDim2.new(1, 0, 0, TopBarHeight),
-			-- Remove with FFlagDevFrameworkSplitPane
-			MaterialViewSize = UDim2.new(1, -SideBarWidth, 1, 0),
 			MainViewSize = UDim2.new(1, 0, 1, -TopBarHeight),
 			MaterialGridSize = UDim2.new(1, -MaterialDetailsWidth, 1, 0),
 			MaterialDetailsSize = UDim2.new(0, MaterialDetailsWidth, 1, 0),
@@ -195,7 +190,7 @@ local function getPluginTheme()
 			ImagePosition = UDim2.fromOffset(6, 6),
 			ImageSize = UDim2.fromOffset(16, 16),
 			Padding = (TopBarHeight - TopBarButtonWidth) / 2,
-			SearchBarMaxWidth = 600,
+			SearchBarMaxWidth = SearchBarMaxWidth,
 			SpacerWidth = (DialogWidth - 3 * (TopBarButtonWidth + (TopBarHeight - TopBarButtonWidth) / 2) - SearchBarMaxWidth) / 2,
 		},
 

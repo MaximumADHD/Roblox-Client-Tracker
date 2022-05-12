@@ -60,6 +60,9 @@ function AudioTableWrapper:render()
 			TryInsert = function()
 				print("Try Insert")
 			end,
+			tryOpenAssetConfig = function()
+				print("try open asset config")
+			end,
 		}),
 	})
 end

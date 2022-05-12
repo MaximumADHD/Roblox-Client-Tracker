@@ -28,9 +28,10 @@ return function()
 	local UserGameSettings = UserSettings():GetService("UserGameSettings")
 	local localPlayer = Players.LocalPlayer
 
-	itSKIP("should create and destroy without errors", function()
+	it("should create and destroy without errors", function()
 		local movementModeEntry = Roact.createElement(MovementModeEntry, {
 			LayoutOrder = 2,
+			screenSize = Vector2.new(512, 512),
 		})
 
 		local element = Roact.createElement(RoactRodux.StoreProvider, {

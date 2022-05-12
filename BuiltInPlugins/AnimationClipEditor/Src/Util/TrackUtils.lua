@@ -19,9 +19,9 @@ local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAni
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
 local GetFFlagFixClampValuesForFacs = require(Plugin.LuaFlags.GetFFlagFixClampValuesForFacs)
-local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 local GetFFlagFacsAsFloat = require(Plugin.LuaFlags.GetFFlagFacsAsFloat)
-local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagUseCFrameAPI = require(Plugin.LuaFlags.GetFFlagUseCFrameAPI)
 
 local TrackUtils = {}
 
@@ -513,8 +513,12 @@ function TrackUtils.getItemsForProperty(track, value, name, defaultEAO)
 		-- will have that information embedded.
 		local position = value.Position
 		local xRot, yRot, zRot
-		if GetFFlagEulerAnglesOrder() then
-			xRot, yRot, zRot = CFrameUtils.ToEulerAngles(value, eulerAnglesOrder)
+		if GetFFlagCurveEditor() then
+			if GetFFlagUseCFrameAPI() then
+				xRot, yRot, zRot = value:ToEulerAngles(eulerAnglesOrder)
+			else
+				xRot, yRot, zRot = CFrameUtils.ToEulerAngles(value, eulerAnglesOrder)
+			end
 		else
 			xRot, yRot, zRot = value:ToEulerAnglesXYZ()
 		end
@@ -567,14 +571,14 @@ function TrackUtils.getItemsForProperty(track, value, name, defaultEAO)
 		}
 	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Position then
 		items = makeVectorItems(value.X, value.Y, value.Z, Constants.TRACK_TYPES.Number)
-	elseif GetFFlagChannelAnimations() and trackType == (GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation) then
+	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.EulerAngles then
 		items = makeVectorItems(removeNegativeZero(math.deg(value.X)),
 			removeNegativeZero(math.deg(value.Y)),
 			removeNegativeZero(math.deg(value.Z)),
 			Constants.TRACK_TYPES.Angle)
-	elseif GetFFlagQuaternionChannels() and trackType == Constants.TRACK_TYPES.Quaternion then
+	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Quaternion then
 		local xRot, yRot, zRot
-		if GetFFlagEulerAnglesOrder() then
+		if GetFFlagCurveEditor() then
 			xRot, yRot, zRot = CFrameUtils.ToEulerAngles(value, eulerAnglesOrder)
 		else
 			xRot, yRot, zRot = value:ToEulerAnglesXYZ()
@@ -624,9 +628,10 @@ function TrackUtils.getItemsForProperty(track, value, name, defaultEAO)
 	return items
 end
 
-function TrackUtils.getPropertyForItems(track, items)
+function TrackUtils.getPropertyForItems(track, items, defaultEAO)
 	local trackType = track.Type
 	local value
+	local eulerAnglesOrder = track.EulerAnglesOrder or defaultEAO
 
 	if trackType == Constants.TRACK_TYPES.CFrame then
 		local position = items.Position
@@ -634,25 +639,36 @@ function TrackUtils.getPropertyForItems(track, items)
 		local xRot = math.rad(rotation[1].Value)
 		local yRot = math.rad(rotation[2].Value)
 		local zRot = math.rad(rotation[3].Value)
-		value = CFrame.new(position[1].Value, position[2].Value, position[3].Value)
-			* CFrame.fromEulerAnglesXYZ(xRot, yRot, zRot)
-	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Position then
-		value = Vector3.new(items[1].Value, items[2].Value, items[3].Value)
-	elseif GetFFlagChannelAnimations() and trackType == (GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation) then
-		value = Vector3.new(math.rad(items[1].Value), math.rad(items[2].Value), math.rad(items[3].Value))
-	elseif GetFFlagQuaternionChannels() and trackType == Constants.TRACK_TYPES.Quaternion then
-		value = CFrame.fromEulerAnglesXYZ(math.rad(items[1].Value), math.rad(items[2].Value), math.rad(items[3].Value))
-	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Number then
-		value = items[1].Value
-	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Angle then
-		value = math.rad(items[1].Value)
-	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Facs then
-		value = items[1].Value
-		if GetFFlagFacsUiChanges() then
-			if GetFFlagFacsAsFloat() then
-				value = math.clamp(value, 0, 1)
+		if GetFFlagUseCFrameAPI() then
+			value = CFrame.new(position[1].Value, position[2].Value, position[3].Value)
+			* CFrame.fromEulerAngles(xRot, yRot, zRot, eulerAnglesOrder)
+		else
+			value = CFrame.new(position[1].Value, position[2].Value, position[3].Value)
+				* CFrame.fromEulerAnglesXYZ(xRot, yRot, zRot)
+		end
+	elseif GetFFlagChannelAnimations() then
+		if trackType == Constants.TRACK_TYPES.Position then
+			value = Vector3.new(items[1].Value, items[2].Value, items[3].Value)
+		elseif trackType == Constants.TRACK_TYPES.EulerAngles then
+			value = Vector3.new(math.rad(items[1].Value), math.rad(items[2].Value), math.rad(items[3].Value))
+		elseif trackType == Constants.TRACK_TYPES.Quaternion then
+			if GetFFlagUseCFrameAPI() then
+				value = CFrame.fromEulerAngles(math.rad(items[1].Value), math.rad(items[2].Value), math.rad(items[3].Value), eulerAnglesOrder)
 			else
-				value = math.clamp(value / 100, 0, 1)
+				value = CFrame.fromEulerAnglesXYZ(math.rad(items[1].Value), math.rad(items[2].Value), math.rad(items[3].Value))
+			end
+		elseif trackType == Constants.TRACK_TYPES.Number then
+			value = items[1].Value
+		elseif trackType == Constants.TRACK_TYPES.Angle then
+			value = math.rad(items[1].Value)
+		elseif trackType == Constants.TRACK_TYPES.Facs then
+			value = items[1].Value
+			if GetFFlagFacsUiChanges() then
+				if GetFFlagFacsAsFloat() then
+					value = math.clamp(value, 0, 1)
+				else
+					value = math.clamp(value / 100, 0, 1)
+				end
 			end
 		end
 	end
@@ -727,11 +743,8 @@ function TrackUtils.splitTrackComponents(track, rotationType, eulerAnglesOrder)
 					end
 
 					_track.Components[componentName] = Templates.track(componentType)
-					if
-						GetFFlagEulerAnglesOrder()
-						and componentName == Constants.PROPERTY_KEYS.Rotation
-						and componentType == Constants.TRACK_TYPES.EulerAngles
-					then
+					if GetFFlagCurveEditor() and componentName == Constants.PROPERTY_KEYS.Rotation
+							and componentType == Constants.TRACK_TYPES.EulerAngles then
 						_track.Components[componentName].EulerAnglesOrder = eulerAnglesOrder
 					end
 					createTrackComponents(_track.Components[componentName])
@@ -764,8 +777,12 @@ function TrackUtils.splitTrackComponents(track, rotationType, eulerAnglesOrder)
 				-- Decompose the CFrame into two Vectors so they can both be accessed by .X, .Y, .Z
 				local position = cFrame.Position
 				local rotation
-				if GetFFlagEulerAnglesOrder() then
-					rotation = Vector3.new(CFrameUtils.ToEulerAngles(cFrame, eulerAnglesOrder))
+				if GetFFlagCurveEditor() then
+					if GetFFlagUseCFrameAPI() then
+						rotation = Vector3.new(cFrame:ToEulerAngles(eulerAnglesOrder))
+					else
+						rotation = Vector3.new(CFrameUtils.ToEulerAngles(cFrame, eulerAnglesOrder))
+					end
 				else
 					rotation = Vector3.new(cFrame:ToEulerAnglesXYZ())
 				end
@@ -818,7 +835,7 @@ function TrackUtils.createTrackListEntryComponents(
 		for _, componentName in ipairs(componentTypes._Order) do
 			local componentType = componentTypes[componentName]
 
-			if not GetFFlagEulerAnglesOrder() then
+			if not GetFFlagCurveEditor() then
 				if componentName == Constants.PROPERTY_KEYS.Rotation then
 					componentType = rotationType
 				end
@@ -932,7 +949,7 @@ function TrackUtils.traverseComponents(trackType, func, rotationType)
 		if compTypes then
 			for _, compName in ipairs(compTypes._Order) do
 				local compType = compTypes[compName]
-				if GetFFlagQuaternionChannels() and compName == Constants.PROPERTY_KEYS.Rotation then
+				if GetFFlagChannelAnimations() and compName == Constants.PROPERTY_KEYS.Rotation then
 					compType = rotationType
 				end
 				recurse(compType, Cryo.List.join(relPath, {compName}))
@@ -959,8 +976,12 @@ function TrackUtils.traverseValue(trackType, value, func, rotationType, eulerAng
 			if rotationType == Constants.TRACK_TYPES.Quaternion then
 				rotation = _value - position
 			else
-				if GetFFlagEulerAnglesOrder() then
-					rotation = Vector3.new(CFrameUtils.ToEulerAngles(_value, eulerAnglesOrder))
+				if GetFFlagCurveEditor() then
+					if GetFFlagUseCFrameAPI() then
+						rotation = Vector3.new(_value:ToEulerAngles(eulerAnglesOrder))
+					else
+						rotation = Vector3.new(CFrameUtils.ToEulerAngles(_value, eulerAnglesOrder))
+					end
 				else
 					rotation = Vector3.new(_value:ToEulerAnglesXYZ())
 				end
@@ -970,7 +991,7 @@ function TrackUtils.traverseValue(trackType, value, func, rotationType, eulerAng
 			recurse(Constants.TRACK_TYPES.Number, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.X}), _value.X)
 			recurse(Constants.TRACK_TYPES.Number, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Y}), _value.Y)
 			recurse(Constants.TRACK_TYPES.Number, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Z}), _value.Z)
-		elseif _trackType == (GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation) then
+		elseif _trackType == (GetFFlagChannelAnimations() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation) then
 			recurse(Constants.TRACK_TYPES.Angle, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.X}), _value.X)
 			recurse(Constants.TRACK_TYPES.Angle, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Y}), _value.Y)
 			recurse(Constants.TRACK_TYPES.Angle, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Z}), _value.Z)
@@ -1016,7 +1037,9 @@ function TrackUtils.convertTrackToEulerAngles(track: Track, eulerAnglesOrder: En
 	-- Given a set of three previous angles and a new CFrame, find the Euler
 	-- decomposition that best fits the previous angles.
 	local function findClosestAngles(prevAngles: Vector3, value:CFrame): Vector3
-		local angles = Vector3.new(CFrameUtils.ToEulerAngles(value, eulerAnglesOrder))
+		local angles = if GetFFlagUseCFrameAPI()
+			then Vector3.new(value:ToEulerAngles(eulerAnglesOrder))
+			else Vector3.new(CFrameUtils.ToEulerAngles(value, eulerAnglesOrder))
 
 		if not prevAngles then
 			return angles

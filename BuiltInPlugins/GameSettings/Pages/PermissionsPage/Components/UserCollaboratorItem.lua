@@ -1,9 +1,10 @@
+local FFlagStudioExplainFriendCollaboratorPermission3 = game:GetFastFlag("StudioExplainFriendCollaboratorPermission3")
+local FFlagGSPermsRemoveCollaboratorsFixEnabled = game:GetFastFlag("GSPermsRemoveCollaboratorsFixEnabled")
 
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local FFlagStudioExplainFriendCollaboratorPermission3 = game:GetFastFlag("StudioExplainFriendCollaboratorPermission3")
 
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
@@ -187,14 +188,29 @@ UserCollaboratorItem = withContext({
 
 UserCollaboratorItem = RoactRodux.connect(
 	function(state, props)
-		return {
-			OwnerType = state.GameOwnerMetadata.creatorType,
 
-			IsOwner = IsUserOwner(state, props.Id),
-			IsOwnerFriend = IsUserCreatorFriend(state, props.Id),
-			UserName = GetUserName(state, props.Id),
-			CurrentPermission = GetUserPermission(state, props.Id),
-		}
+		if FFlagGSPermsRemoveCollaboratorsFixEnabled then
+			local currentPermission = GetUserPermission(state, props.Id)
+
+			if currentPermission then
+				return {
+					OwnerType = state.GameOwnerMetadata.creatorType,
+					IsOwner = IsUserOwner(state, props.Id),
+					IsOwnerFriend = IsUserCreatorFriend(state, props.Id),
+					UserName = GetUserName(state, props.Id),
+					CurrentPermission = currentPermission,
+				}
+			end
+		else
+			return {
+				OwnerType = state.GameOwnerMetadata.creatorType,
+
+				IsOwner = IsUserOwner(state, props.Id),
+				IsOwnerFriend = IsUserCreatorFriend(state, props.Id),
+				UserName = GetUserName(state, props.Id),
+				CurrentPermission = GetUserPermission(state, props.Id),
+			}
+		end
 	end,
 	function(dispatch)
 		return {

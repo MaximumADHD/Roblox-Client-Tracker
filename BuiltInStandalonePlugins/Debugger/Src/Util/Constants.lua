@@ -41,6 +41,17 @@ local GameStateTypes : {[string] : string} = {
 	Edit = "StudioGameStateType_Edit",
 }
 
+local GetIntForGST = function(gstString)
+	local gstMap = {
+		["StudioGameStateType_Edit"] = 0,
+		["StudioGameStateType_PlayClient"] = 1,
+		["StudioGameStateType_PlayServer"] = 2,
+		["StudioGameStateType_Standalone"] = 3,
+	}
+	
+	return gstMap[gstString]
+end
+
 local DebuggerPauseReason : {[string] : string} = {
 	Unknown = "Enum.DebuggerPauseReason.Unknown",
 	Requested = "Enum.DebuggerPauseReason.Requested",
@@ -64,6 +75,7 @@ local DebuggerStatus : {[string] : string} = {
 
 local HEADER_HEIGHT = 40
 local ICON_SIZE = 16
+local BUTTON_SIZE = 40
 
 local BreakpointIconDirectoryFilePath = "rbxasset://textures/Debugger/Breakpoints/"
 
@@ -97,10 +109,12 @@ return {
 	StepActionIds = StepActionIds,
 	HEADER_HEIGHT = HEADER_HEIGHT,
 	ICON_SIZE = ICON_SIZE,
+	BUTTON_SIZE = BUTTON_SIZE,
 	DebugpointIconTable = DebugpointIconTable,
 	SeparationToken = SeparationToken,
 	GameStateTypes = GameStateTypes,
 	DebugpointType = DebugpointType,
 	DebuggerPauseReason = DebuggerPauseReason,
 	DebuggerStatus = DebuggerStatus,
+	GetIntForGST = GetIntForGST
 }

@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 
 local LocalizationService = game:GetService("LocalizationService")
 local ChatService = game:GetService("Chat")

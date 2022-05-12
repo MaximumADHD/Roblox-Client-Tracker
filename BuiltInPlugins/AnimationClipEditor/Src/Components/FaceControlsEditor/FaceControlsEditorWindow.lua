@@ -77,6 +77,9 @@ local Util = Framework.Util
 local StyleModifier = Util.StyleModifier
 
 local GetFFlagFaceControlsEditorSelectTracks = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorSelectTracks)
+local GetFFlagFaceControlsEditorUIUpdate = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUIUpdate)
+
+local PADDING = 10
 
 function FaceControlsEditorWindow:init()
 	self.state = {
@@ -873,8 +876,8 @@ function FaceControlsEditorWindow:render()
 						self.props.SetAutoFocusFaceEnabled(self.props.AutoFocusFaceEnabled)
 						handleFocusFace(self.props)
 					end,
-				}),					
-				ResetAllButton = Roact.createElement(Button, {
+				}),		
+				ResetAllButton = not GetFFlagFaceControlsEditorUIUpdate() and Roact.createElement(Button, {
 					Text = localization:getText("Title", "ResetAll"),
 					Size = UDim2.new(0, 100, 0, 24),
 					Style = "RoundPrimary",
@@ -894,8 +897,45 @@ function FaceControlsEditorWindow:render()
 							end
 						end												
 					end,
-				}),							
-			})
+				}),				
+			}),
+			
+			
+			BottomFrame = GetFFlagFaceControlsEditorUIUpdate() and Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, 32 + 2 * PADDING),
+				Position = UDim2.new(0, 0, 1, 0),
+				AnchorPoint = Vector2.new(0, 1),
+				BackgroundColor3 = theme.ikTheme.headerColor,
+				BorderSizePixel = 0,
+			}, {
+				WideResetAllButton = Roact.createElement(Button, {
+					Text = localization:getText("Title", "ResetAll"),
+					AnchorPoint = Vector2.new(0.5, 1),
+					Position = UDim2.new(0.5, 0, 1, -PADDING),
+					IsRound = true,
+					Size = UDim2.new(1, -PADDING, 0, 32),
+					StyleModifier = resetAllButtonStyleModifier,
+					LayoutOrder = 3,					
+					OnClick = function() 
+						props.AddWaypoint()
+						RigUtils.resetAllFacsValuesInFaceControls(props.RootInstance)
+						local instance = animationData.Instances[instanceForFacs]
+						resetAllValuesInMapping()
+						for i, facsName in pairs(Constants.FacsNames) do
+							local track = instance.Tracks[facsName]
+							if track then
+								if KeyframeUtils.getValue(track, props.Playhead) then
+									triggerValueChanged(props, facsName, 0)
+								end
+							end
+						end												
+					end,
+				})
+			})				
+
+
+			
+			
 		})
 	})
 end

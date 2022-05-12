@@ -33,6 +33,8 @@ VRHub.ControllerModelsEnabled = false
 VRHub.LeftControllerModel = nil
 VRHub.RightControllerModel = nil
 
+VRHub.vrGuiLockEnabled = nil
+
 StarterGui:RegisterSetCore("VRLaserPointerMode", function(mode)
 	if not VRHub.LaserPointer then
 		return

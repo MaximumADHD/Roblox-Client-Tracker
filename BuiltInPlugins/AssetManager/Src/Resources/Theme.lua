@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagRemoveUILibraryComponentsPart1 = game:GetFastFlag("FFlagRemoveUILibraryComponentsPart1")
+local FFlagRemoveUILibraryComponentsPart1 = game:GetFastFlag("RemoveUILibraryComponentsPart1")
 
 local Cryo = require(Plugin.Packages.Cryo)
 local join = Cryo.Dictionary.join
@@ -193,6 +193,14 @@ local tile = {
 			XOffset = 8,
 			YOffset = 37,
 		},
+
+		ModerationStatus = {
+			Size = 24,
+			XOffset = 4,
+			YOffset = 4,
+			Rejected = "rbxasset://textures/StudioSharedUI/alert_error_withbg.png",
+			Pending = "rbxasset://textures/StudioSharedUI/pending_withbg.png",
+		},
 	},
 
 	Text = {
@@ -256,6 +264,11 @@ local listItem = {
 		BackgroundColor = StyleKey.MainBackground,
 		RBXThumbSize = 150,
 		Folder = "rbxasset://textures/StudioSharedUI/folder.png",
+
+		ModerationStatus = {
+			Rejected = "rbxasset://textures/StudioSharedUI/alert_error.png",
+			Pending = "rbxasset://textures/StudioSharedUI/pending.png",
+		},
 	},
 
 	Text = {
@@ -270,6 +283,9 @@ local listItem = {
 
 		Frame = {
 			Size = UDim2.new(1, -24, 0, 24),
+			XOffset = -24,
+			YOffset = 24,
+			Padding = 10,
 		},
 	},
 

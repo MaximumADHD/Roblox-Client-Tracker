@@ -1,17 +1,16 @@
---!nocheck
+--!nonstrict
 
 local CorePackages = game:GetService("CorePackages")
-local LuaSocialLibrariesDeps = require(CorePackages.LuaSocialLibrariesDeps)
-local Mock = LuaSocialLibrariesDeps.Mock
 local Roact = require(CorePackages.Roact)
-local RhodiumHelpers = require(game.CoreGui.RobloxGui.Modules.NotForProductionUse.RhodiumHelpers.api)
 local UIBlox = require(CorePackages.UIBlox)
+local JestGlobals = require(CorePackages.JestGlobals)
+
+local RhodiumHelpers = require(game.CoreGui.RobloxGui.Modules.NotForProductionUse.RhodiumHelpers.api)
 
 return function()
 	beforeAll(function(c)
-		expect.extend(Mock.Matchers)
-
-		c.Mock = Mock
+		c.jest = JestGlobals.jest
+		c.jestExpect = JestGlobals.expect
 		c.RhodiumHelpers = RhodiumHelpers
 		c.createInstanceWithProps = function(component, props, resolution)
 			local folder = Instance.new("ScreenGui", game:GetService("CoreGui"))

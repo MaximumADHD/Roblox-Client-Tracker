@@ -247,6 +247,13 @@ local function createStyles(theme, getColor)
 					XOffset = 8,
 					YOffset = 37,
 				},
+
+				ModerationStatus = {
+					XOffset = 4,
+					YOffset = 4,
+					Rejected = "rbxasset://textures/StudioSharedUI/alert_error_withbg.png",
+					Pending = "rbxasset://textures/StudioSharedUI/pending_withbg.png",
+				},
 			},
 
 			Text = {
@@ -315,6 +322,11 @@ local function createStyles(theme, getColor)
 				BackgroundColor = theme:GetColor(c.MainBackground),
 				RBXThumbSize = 150,
 				Folder = "rbxasset://textures/StudioSharedUI/folder.png",
+
+				ModerationStatus = {
+					Rejected = "rbxasset://textures/StudioSharedUI/alert_error.png",
+					Pending = "rbxasset://textures/StudioSharedUI/pending.png",
+				},
 			},
 
 			Text = {
@@ -329,6 +341,9 @@ local function createStyles(theme, getColor)
 
 				Frame = {
 					Size = UDim2.new(1, -24, 0, 24),
+					XOffset = -24,
+					YOffset = 24,
+					Padding = 10,
 				},
 			},
 

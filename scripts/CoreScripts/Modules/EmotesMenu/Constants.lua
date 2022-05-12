@@ -35,6 +35,15 @@ local Constants = {
 		},
 	},
 
+	ErrorTypes = {
+		NotSupported = "NotSupported",
+		R15Only = "R15Only",
+		SwitchToR15 = "SwitchToR15",
+		NoMatchingEmote = "NoMatchingEmote",
+		TemporarilyUnavailable = "TemporarilyUnavailable",
+		AnimationPlaying = "AnimationPlaying"
+	},
+
 	EmotesImage = "rbxthumb://type=Asset&id=%d&w=420&h=420",
 	EmotesMenuZIndex = 50,
 

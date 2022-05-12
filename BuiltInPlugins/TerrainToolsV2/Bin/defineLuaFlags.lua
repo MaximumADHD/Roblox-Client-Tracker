@@ -2,7 +2,6 @@
 -- If the flags are defined in main, then it's possible for the tests run first
 -- And then error when trying to use flags that aren't yet defined
 
-game:DefineFastFlag("TerrainOpenCloseMetrics", false)
 game:DefineFastFlag("TerrainToolsImportUploadAssets", false)
 game:DefineFastFlag("TerrainToolsGlobalState", false)
 

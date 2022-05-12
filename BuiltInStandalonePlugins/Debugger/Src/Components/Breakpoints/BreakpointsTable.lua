@@ -28,13 +28,14 @@ local Constants = require(PluginFolder.Src.Util.Constants)
 local BreakpointsTreeTableCell = require(PluginFolder.Src.Components.Breakpoints.BreakpointsTreeTableCell)
 
 local BreakpointsTable = Roact.PureComponent:extend("BreakpointsTable")
-local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
-local hasTableColumnResizeFFlags = FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize
+local FFlagDevFrameworkTableHeaderTooltip = game:GetFastFlag("DevFrameworkTableHeaderTooltip")
+local hasTableColumnResizeFFlags = FFlagDevFrameworkTableColumnResize
 
 local UtilFolder = PluginFolder.Src.Util
 local MakePluginActions = require(UtilFolder.MakePluginActions)
-local watchHelperFunctions = require(UtilFolder.WatchHelperFunctions)
+local BreakpointHelperFunctions = require(UtilFolder.BreakpointHelperFunctions)
+local WatchHelperFunctions = require(UtilFolder.WatchHelperFunctions)
 
 local Thunks = PluginFolder.Src.Thunks
 local ToggleAllBreakpoints = require(Thunks.Breakpoints.ToggleAllBreakpoints)
@@ -42,7 +43,6 @@ local ToggleAllBreakpoints = require(Thunks.Breakpoints.ToggleAllBreakpoints)
 local Actions = PluginFolder.Src.Actions
 local SetBreakpointSortState = require(Actions.BreakpointsWindow.SetBreakpointSortState)
 
-local BUTTON_SIZE = 40
 local BUTTON_PADDING = 5
 
 local tableColumnKeys = {
@@ -64,16 +64,18 @@ end
 function BreakpointsTable:init()
 	local initialSizes = nil
 	if hasTableColumnResizeFFlags then 
-		initialSizes = {}
-		for i = 1, #tableColumnKeys do
-			table.insert(initialSizes, UDim.new(1/(#tableColumnKeys), 0))
-		end
+		initialSizes = {
+			UDim.new(1/6, 0),
+			UDim.new(2/6, 0),
+			UDim.new(1/6, 0),
+			UDim.new(2/6, 0),
+		}
 	end
 	
 	self.state = {
 		selectedBreakpoints = {},
 		breakpointIdToExpansionState = {},
-		sizes = initialSizes
+		sizes = initialSizes,
 	}
 
 	self.OnDoubleClick = function(row)
@@ -81,7 +83,7 @@ function BreakpointsTable:init()
 		DebuggerUIService:EditBreakpoint(row.item.id)
 	end
 	
-	self.OnSizesChange = function(newSizes : {UDim})
+	self.OnColumnSizesChange = function(newSizes : {UDim})
 		if hasTableColumnResizeFFlags then
 			self:setState(function(state)
 				return {
@@ -119,7 +121,7 @@ function BreakpointsTable:init()
 			actionId == Constants.BreakpointActions.DisableBreakpoint or actionId == Constants.LogpointActions.DisableLogpoint then
 			local bpManager = game:GetService("BreakpointManager")
 			local bp = bpManager:GetBreakpointById(row.item.id)
-			bp:SetEnabled(not row.item.isEnabled)
+			BreakpointHelperFunctions.setBreakpointRowEnabled(bp, row)
 
 		elseif actionId == Constants.CommonActions.GoToScript then
 			self.goToScript()
@@ -257,23 +259,24 @@ function BreakpointsTable:render()
 
 	local tableColumns = {
 		{
-			Name = localization:getText("BreakpointsWindow", "EnabledColumn"),
+			Name = "",
 			Key = tableColumnKeys[1],
 		}, {
 			Name = localization:getText("BreakpointsWindow", "ScriptColumn"),
 			Key = tableColumnKeys[2],
+			Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText("BreakpointsWindow", "ScriptColumnTooltip") or nil,
 		}, {
 			Name = localization:getText("BreakpointsWindow", "LineColumn"),
 			Key = tableColumnKeys[3],
+			Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText("BreakpointsWindow", "LineColumnTooltip") or nil,
 		}, {
 			Name = localization:getText("BreakpointsWindow", "SourceLineColumn"),
 			Key = tableColumnKeys[4],
+			Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText("BreakpointsWindow", "SourceLineColumnTooltip") or nil,
 		}
 	}
 
 	local textInputCols = {[5] = true, [6] = true}
-
-	watchHelperFunctions.sortTableByColumnAndOrder(props.Breakpoints, props.SortIndex, props.SortOrder, tableColumns, false)
 
 	if hasTableColumnResizeFFlags then
 		tableColumns = map(tableColumns, function(column, index: number)
@@ -291,16 +294,14 @@ function BreakpointsTable:render()
 		expansionTable[bp] = self.state.breakpointIdToExpansionState[bp.id]
 	end
 	
-	local clampSize = if hasTableColumnResizeFFlags then true else nil
-	local useDeficit = if hasTableColumnResizeFFlags then true else nil
-	local onColumnSizesChange = if hasTableColumnResizeFFlags then self.OnSizesChange else nil
-
 	local toggleButtonText
 	if props.hasDisabledBreakpoints then
 		toggleButtonText = localization:getText("BreakpointsWindow", "EnableAll")
 	else
 		toggleButtonText = localization:getText("BreakpointsWindow", "DisableAll")
 	end
+
+	local topBarHeight = Constants.BUTTON_SIZE + BUTTON_PADDING * 2
 
 	return Roact.createElement(Pane, {
 		Size = UDim2.fromScale(1, 1),
@@ -310,7 +311,7 @@ function BreakpointsTable:render()
 		BackgroundColor3 = style.MainBackground,
 	}, {
 		ButtonsPane = Roact.createElement(Pane, {
-			Size = UDim2.new(1,0,0,BUTTON_SIZE+BUTTON_PADDING*2),
+			Size = UDim2.new(1, 0, 0, topBarHeight),
 			Spacing = BUTTON_PADDING,
 			Padding = BUTTON_PADDING,
 			Style = "Box",
@@ -320,14 +321,14 @@ function BreakpointsTable:render()
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		},{
 			DisableAllBreakpointButton = Roact.createElement(IconButton, {
-				Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
+				Size = UDim2.new(0, Constants.BUTTON_SIZE, 0, Constants.BUTTON_SIZE),
 				LayoutOrder = 1,
 				LeftIcon = "rbxasset://textures/Debugger/Breakpoints/disable_all@2x.png",
 				TooltipText = toggleButtonText,
 				OnClick = self.toggleEnabledAll
 			}),
 			DeleteAllBreakpointButton = Roact.createElement(IconButton, {
-				Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
+				Size = UDim2.new(0, Constants.BUTTON_SIZE, 0, Constants.BUTTON_SIZE),
 				LayoutOrder = 2,
 				LeftIcon = "rbxasset://textures/Debugger/Breakpoints/delete_all@2x.png",
 				TooltipText = localization:getText("BreakpointsWindow", "DeleteAll"),
@@ -335,7 +336,7 @@ function BreakpointsTable:render()
 			})
 		}),
 		TablePane = Roact.createElement(Pane, {
-			Size = UDim2.new(1, 0, 1, -BUTTON_SIZE),
+			Size = UDim2.new(1, 0, 1, -topBarHeight),
 			Style = "Box",
 			LayoutOrder = 2,
 		},{
@@ -359,9 +360,10 @@ function BreakpointsTable:render()
 				SortIndex = props.SortIndex,
 				SortOrder = props.SortOrder,
 				OnSortChange = self.OnSortChange,
-				OnColumnSizesChange = onColumnSizesChange,
-				UseDeficit = useDeficit,
-				ClampSize = clampSize,
+				OnColumnSizesChange = if hasTableColumnResizeFFlags then self.OnColumnSizesChange else nil,
+				UseDeficit = if hasTableColumnResizeFFlags then false else nil,
+				UseScale = if hasTableColumnResizeFFlags then true else nil,
+				ClampSize = if hasTableColumnResizeFFlags then true else nil,
 			}),
 		})
 	})
@@ -418,6 +420,9 @@ BreakpointsTable = RoactRodux.connect(
 				end
 			end
 		end
+
+		WatchHelperFunctions.sortTableByColumnAndOrder(breakpointsArray, state.Breakpoint.ColumnIndex, state.Breakpoint.SortDirection, tableColumnKeys, false)
+
 		return {
 			Breakpoints = breakpointsArray,
 			IsPaused = state.Common.isPaused,

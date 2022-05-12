@@ -3,6 +3,12 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 local Stats = game:GetService("Stats")
+local CoreGui = game:GetService("CoreGui")
+
+local EmotesConstants = require(CoreGui.RobloxGui.Modules.EmotesMenu.Constants)
+local MaybeSendEmoteFailureAnalyticsFromPlayer =
+	require(CoreGui.RobloxGui.Modules.EmotesMenu.Utility.MaybeSendEmoteFailureAnalyticsFromPlayer)
+local FFlagSendEmoteFailureEvents = require(CoreGui.RobloxGui.Modules.Flags.FFlagSendEmoteFailureEvents)
 
 type EquippedEmote = {
 	Name: string,
@@ -30,6 +36,18 @@ local function reportEmoteUsed(emote: Emote)
 		btid = Stats:GetBrowserTrackerId(),
 		assetID = if emote.AssetId then tostring(emote.AssetId) else nil,
 		slotNumber = if emote.Slot then tostring(emote.Slot) else nil,
+	})
+end
+
+local function reportEmoteFailed(errorType: string, emote: Emote?)
+	AnalyticsService:SendEventDeferred("client", "chat", "emoteTriggerFailed", {
+		pid = tostring(game.PlaceId),
+		uid = tostring(LocalPlayer.UserId),
+		btid = Stats:GetBrowserTrackerId(),
+		assetID = if emote and emote.AssetId then tostring(emote.AssetId) else nil,
+		slotNumber = if emote and emote.Slot then tostring(emote.Slot) else nil,
+		errorType = errorType,
+		invokedByCoreGui = false,
 	})
 end
 
@@ -174,8 +192,19 @@ LocalPlayer.Chatted:Connect(function(message: string, _recipient: Player?)
 			end
 		end
 
-		if emoteUsed then
-			reportEmoteUsed(emoteUsed)
+		if FFlagSendEmoteFailureEvents then
+			if emoteUsed then
+				reportEmoteUsed(emoteUsed)
+				MaybeSendEmoteFailureAnalyticsFromPlayer(LocalPlayer, function(errorType)
+					reportEmoteFailed(errorType, emoteUsed)
+				end)
+			else
+				reportEmoteFailed(EmotesConstants.ErrorTypes.NoMatchingEmote)
+			end
+		else
+			if emoteUsed then
+				reportEmoteUsed(emoteUsed)
+			end
 		end
 	end
 end)

@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 
 local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Roact)

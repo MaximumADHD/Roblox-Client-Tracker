@@ -6,7 +6,6 @@ local Plugin = script.Parent.Parent.Parent
 
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
-local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
 local Packages = Plugin.Packages
 local Cryo = require(Packages.Cryo)
 
@@ -696,15 +695,15 @@ function Localization:_recalculateContent()
 				Genre = self:_safeLocalize("Studio.Toolbox.General.Genre"),
 				Copy = self:_safeLocalize("Studio.Toolbox.General.Copy"),
 				Comments = self:_safeLocalize("Studio.Toolbox.General.Comments"),
-				DistributeOnMarketplace = FFlagToolboxPrivatePublicAudioAssetConfig3 and self:_safeLocalize(
+				DistributeOnMarketplace = self:_safeLocalize(
 					"Studio.Toolbox.General.DistributeOnMarketplace"
-				) or nil,
+				),
 				LearnMore = self:_safeLocalize("Studio.Toolbox.General.LearnMore"),
 				Me = self:_safeLocalize("Studio.Toolbox.General.Me"),
 				AssetType = self:_safeLocalize("Studio.Toolbox.General.AssetType"),
-				Sharing = FFlagToolboxPrivatePublicAudioAssetConfig3 and self:_safeLocalize(
+				Sharing = self:_safeLocalize(
 					"Studio.Toolbox.General.Sharing"
-				) or nil,
+				),
 				Tags = self:_safeLocalize("Studio.Toolbox.General.Tags"),
 				TermsOfUse = self:_safeLocalize("Studio.Toolbox.General.TermsOfUse"),
 

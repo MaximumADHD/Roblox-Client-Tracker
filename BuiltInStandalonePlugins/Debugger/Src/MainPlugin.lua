@@ -67,42 +67,43 @@ local WATCH_META_NAME = "Watch"
 local TOOLBAR_NAME = "Debugger"
 
 function MainPlugin:init(props)
+	local plugin = props.Plugin
+
 	self.state = {
-		editBreakpoint = {
-			Enabled = false,
-		},
 		callstackWindow = {
-			Enabled = false,
+			Enabled = plugin:GetSetting("callstackWindow_Enabled") or false,
 		},
 		breakpointsWindow = {
-			Enabled = false,
+			Enabled = plugin:GetSetting("breakpointsWindow_Enabled") or false,
 		},
 		watchWindow = {
-			Enabled = false,
+			Enabled = plugin:GetSetting("watchWindow_Enabled") or false,
 		},
+		uiDmLoaded = false
 	}
+
+	local mdiInstance = plugin.MultipleDocumentInterfaceInstance
+	mdiInstance.DataModelSessionStarted:Connect(function(dmSession)
+		self:setState(function() return { uiDmLoaded = true } end)
+	end)
+	mdiInstance.DataModelSessionEnded:Connect(function(dmSession)
+		self:setState(function() return { uiDmLoaded = false } end)
+	end)
+	if mdiInstance.FocusedDataModelSession then
+		self:setState(function() return { uiDmLoaded = true } end)
+	end
 
 	self.toggleWidgetEnabled = function(targetWidget)
 		self:setState(function(state)
 			return {
 				[targetWidget] = {
-					Enabled =  not state[targetWidget].Enabled,
+					Enabled = not state[targetWidget].Enabled,
 				}
 			}
 		end)
 	end
 
 	self.onWidgetClose = function(targetWidget)
-		self:setState(function(state)
-			return {
-				[targetWidget] = {
-					Enabled = false,
-				}
-			}
-		end)
-	end
-
-	self.onWidgetEnabledChanged = function(targetWidget)
 		self:setState(function(state)
 			return {
 				[targetWidget] = {
@@ -138,9 +139,11 @@ end
 
 function MainPlugin:renderButtons(toolbar)
 	local state = self.state
+
 	local callstackWindowEnabled = state.callstackWindow.Enabled
 	local watchWindowEnabled = state.watchWindow.Enabled
 	local breakpointsWindowEnabled = state.breakpointsWindow.Enabled
+
 	return {
 		ToggleCallstack = FFlagStudioDebuggerOverhaul_Dev and Roact.createElement(PluginButton, {
 			Name = "callStackDockWidgetActionV2",
@@ -185,9 +188,11 @@ function MainPlugin:render()
 	local props = self.props
 	local state = self.state
 	local plugin = props.Plugin
-	local callstackWindowEnabled = state.callstackWindow and state.callstackWindow.Enabled
-	local watchWindowEnabled = state.watchWindow and state.watchWindow.Enabled
-	local breakpointsWindowEnabled = state.breakpointsWindow and state.breakpointsWindow.Enabled
+
+	local callstackWindowEnabled = state.uiDmLoaded and state.callstackWindow and state.callstackWindow.Enabled
+	local watchWindowEnabled = state.uiDmLoaded and state.watchWindow and state.watchWindow.Enabled
+	local breakpointsWindowEnabled = state.uiDmLoaded and state.breakpointsWindow and state.breakpointsWindow.Enabled
+
 	return ContextServices.provide({
 		Plugin.new(plugin),
 		Store.new(self.store),
@@ -228,6 +233,10 @@ function MainPlugin:render()
 end
 
 function MainPlugin:willUnmount()
+	plugin:SetSetting("callstackWindow_Enabled", self.state.callstackWindow.Enabled)
+	plugin:SetSetting("watchWindow_Enabled", self.state.watchWindow.Enabled)
+	plugin:SetSetting("breakpointsWindow_Enabled", self.state.breakpointsWindow.Enabled)
+
 	if FFlagStudioDebuggerOverhaul_Dev and self.debugConnectionListener then
 		self.debugConnectionListener:destroy()
 		self.debugConnectionListener = nil

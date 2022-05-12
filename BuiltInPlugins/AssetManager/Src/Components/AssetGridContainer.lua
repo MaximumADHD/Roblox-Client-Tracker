@@ -50,6 +50,7 @@ local BulkImportService = game:GetService("BulkImportService")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 local FFlagAssetManagerGeneralizeSignalAPI = game:GetFastFlag("AssetManagerGeneralizeSignalAPI")
 local FFlagAssetManagerRefactorPath = game:GetFastFlag("AssetManagerRefactorPath")
+local FFlagStudioAssetManagerAssetModeration = game:GetFastFlag("StudioAssetManagerAssetModeration")
 
 local shouldEnableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).shouldEnableAudioImport
 local shouldEnableVideoImport = require(Plugin.Src.Util.AssetManagerUtilities).shouldEnableVideoImport
@@ -178,7 +179,7 @@ function AssetGridContainer:willUnmount()
 end
 
 function AssetGridContainer:createTiles(apiImpl, localization, theme,
-    assets, currentScreen, searchTerm, selectedAssets, hasLinkedScripts, enabled)
+    assets, assetsModerationData, currentScreen, searchTerm, selectedAssets, hasLinkedScripts, enabled)
 
     local numberAssets = 0
     local assetsToDisplay = {
@@ -218,6 +219,7 @@ function AssetGridContainer:createTiles(apiImpl, localization, theme,
                 asset.key = asset.layoutOrder
                 local assetTile = Roact.createElement(Tile, {
                     AssetData = asset,
+                    ModerationData = if FFlagStudioAssetManagerAssetModeration then assetsModerationData[asset.id] else nil,
                     LayoutOrder = asset.layoutOrder,
                     StyleModifier = selectedAssets[asset.layoutOrder] and StyleModifier.Selected or nil,
                     Enabled = enabled,
@@ -234,7 +236,7 @@ function AssetGridContainer:createTiles(apiImpl, localization, theme,
 end
 
 function AssetGridContainer:createListItems(apiImpl, localization, theme,
-    assets, currentScreen, searchTerm, selectedAssets, hasLinkedScripts, enabled)
+    assets, assetsModerationData, currentScreen, searchTerm, selectedAssets, hasLinkedScripts, enabled)
 
     local numberAssets = 0
     local assetsToDisplay = {
@@ -273,6 +275,7 @@ function AssetGridContainer:createListItems(apiImpl, localization, theme,
                 asset.key = asset.layoutOrder
                 local assetListItem = Roact.createElement(ListItem, {
                     AssetData = asset,
+                    ModerationData = if FFlagStudioAssetManagerAssetModeration then assetsModerationData[asset.id] else nil,
                     LayoutOrder = asset.layoutOrder,
                     StyleModifier = selectedAssets[asset.layoutOrder] and StyleModifier.Selected or nil,
                     Enabled = enabled,
@@ -324,6 +327,7 @@ function AssetGridContainer:render()
 
     local assetsTable = props.AssetsTable
     local assets = assetsTable.assets
+    local assetsModerationData = assetsTable.assetsModerationData
     local nextPageCursor = assetsTable.nextPageCursor
     local nextPageNumber = assetsTable.pageNumber
     local currentScreen = props.CurrentScreen
@@ -342,11 +346,11 @@ function AssetGridContainer:render()
     local layoutRef
     if view.Key == View.LIST.Key then
         contents, assetCount = self:createListItems(apiImpl, localization, theme,
-            assets, currentScreen, searchTerm, selectedAssets, hasLinkedScripts, enabled)
+            assets, assetsModerationData, currentScreen, searchTerm, selectedAssets, hasLinkedScripts, enabled)
         layoutRef = self.listLayoutRef
     elseif view.Key == View.GRID.Key then
         contents, assetCount = self:createTiles(apiImpl, localization, theme,
-            assets, currentScreen, searchTerm, selectedAssets, hasLinkedScripts, enabled)
+            assets, assetsModerationData, currentScreen, searchTerm, selectedAssets, hasLinkedScripts, enabled)
         layoutRef = self.gridLayoutRef
     end
 

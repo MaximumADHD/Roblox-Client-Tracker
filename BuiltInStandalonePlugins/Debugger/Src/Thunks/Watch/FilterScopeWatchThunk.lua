@@ -20,6 +20,9 @@ return function(enabledScopes)
 
 		local token = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
 		local threadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
+		if (threadId == nil) then
+			return
+		end
 		local frameNumber = common.currentFrameMap[common.currentDebuggerConnectionId][threadId]
 
 		local stepStateBundle = StepStateBundle.ctor(token, threadId, frameNumber)

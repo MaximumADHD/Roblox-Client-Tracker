@@ -24,8 +24,6 @@ local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContext
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
-local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
 
 local FFlagResetTrackSelectionOnLoad = game:DefineFastFlag("ACEResetTrackSelectionOnLoad", false)
 
@@ -59,13 +57,10 @@ return function(animationData, analytics)
 
 		for instanceName, instance in pairs(animationData.Instances) do
 			for trackName, track in pairs(instance.Tracks) do
-				if GetFFlagEulerAnglesOrder() then
+				if GetFFlagCurveEditor() then
 					local rotationType = TrackUtils.getRotationType(track)
 					local eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track)
 					store:dispatch(AddTrack(instanceName, trackName, track.Type, rotationType, eulerAnglesOrder, analytics))
-				elseif GetFFlagQuaternionsUI() then
-					local rotationType = TrackUtils.getRotationType(track)
-					store:dispatch(AddTrack(instanceName, trackName, track.Type, rotationType, analytics))
 				elseif GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
 					store:dispatch(AddTrack(instanceName, trackName, track.Type, analytics))
 				else

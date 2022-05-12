@@ -23,7 +23,6 @@ local ProximityPromptService = game:GetService("ProximityPromptService")
 local PlayersService = game:GetService("Players")
 
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
-local FFlagToolboxAssetConfigFixAudioCollaboratorsWarning = game:GetFastFlag("ToolboxAssetConfigFixAudioCollaboratorsWarning")
 
 local function DEPRECATED_deserializeResult(collaboratorsGETResults)
 	local collaborators = {
@@ -66,15 +65,9 @@ local function deserializeResponse(responseBody)
 				[PermissionsConstants.ActionKey] = KeyConverter.getInternalAction(webItem[webKeys.Action]),
 			}
 		else
-			if FFlagToolboxAssetConfigFixAudioCollaboratorsWarning then
-				local subjectId = webItem[webKeys.SubjectId]
-				if subjectId and subjectId ~= "" then
-					collaborators[PermissionsConstants.RoleSubjectKey][tonumber(subjectId)] = {
-						[PermissionsConstants.ActionKey] = KeyConverter.getInternalAction(webItem[webKeys.Action]),
-					}
-				end
-			else
-				collaborators[PermissionsConstants.RoleSubjectKey][tonumber(webItem[webKeys.SubjectId])] = {
+			local subjectId = webItem[webKeys.SubjectId]
+			if subjectId and subjectId ~= "" then
+				collaborators[PermissionsConstants.RoleSubjectKey][tonumber(subjectId)] = {
 					[PermissionsConstants.ActionKey] = KeyConverter.getInternalAction(webItem[webKeys.Action]),
 				}
 			end

@@ -18,8 +18,6 @@ local InGameMenu = script.Parent.Parent
 local FFlagLuaMenuPerfImprovements = require(InGameMenu.Flags.FFlagLuaMenuPerfImprovements)
 local FFlagAlwaysShowDisplayNameInExpMenu = require(InGameMenu.Flags.FFlagAlwaysShowDisplayNameInExpMenu)
 
-local Modules = CoreGui.RobloxGui.Modules
-
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
@@ -42,7 +40,7 @@ local iconPos = {
 	Size = UDim2.new(0, PLAYER_ICON_SIZE, 0, PLAYER_ICON_SIZE),
 }
 
-local validatePropsWithForwardRef = require(Modules.validatePropsWithForwardRef)
+local validatePropsWithForwardRef = require(CorePackages.validatePropsWithForwardRef)
 
 local PlayerLabel = Roact.PureComponent:extend("PlayerLabelV2")
 

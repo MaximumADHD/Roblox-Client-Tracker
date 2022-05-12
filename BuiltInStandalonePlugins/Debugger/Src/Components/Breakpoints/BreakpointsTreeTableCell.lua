@@ -6,6 +6,7 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 local Constants = require(Plugin.Src.Util.Constants)
+local BreakpointHelperFunctions = require(Plugin.Src.Util.BreakpointHelperFunctions)
 local StyleModifier = Framework.Util.StyleModifier
 
 local Dash = Framework.Dash
@@ -14,11 +15,12 @@ local join = Dash.join
 local UI = Framework.UI
 local Pane = UI.Pane
 local Image = UI.Decoration.Image
-local Checkbox = UI.Checkbox
-local TreeTableCell = UI.TreeTableCell
 local TextLabel = UI.Decoration.TextLabel
+local TreeTableCell = UI.TreeTableCell
 
 local BreakpointsTreeTableCell = Roact.PureComponent:extend("BreakpointsTreeTableCell")
+
+local FFlagDevFrameworkFixSplitPaneAlignment = game:GetFastFlag("DevFrameworkFixSplitPaneAlignment")
 
 function BreakpointsTreeTableCell:init()
 	self.onToggle = function()
@@ -46,7 +48,6 @@ function BreakpointsTreeTableCell:render()
 	local width = props.Width or UDim.new(1 / #props.Columns, 0)
 	local row = props.Row
 	local cellProps = props.CellProps
-	local value = row.item[key]
 	local isEnabledCol = key == "isEnabled"
 
 	local style = join(props.Style, cellProps.CellStyle)
@@ -83,7 +84,12 @@ function BreakpointsTreeTableCell:render()
 			BorderSizePixel = 1,
 			BorderColor3 = style.Border,
 			Size = UDim2.new(width.Scale, width.Offset, 1, 0),
-			OnRightClick = props.OnRightClick,
+			ClipsDescendants = FFlagDevFrameworkFixSplitPaneAlignment,
+			OnPress = function()
+				local bpManager = game:GetService("BreakpointManager")
+				local bp = bpManager:GetBreakpointById(row.item.id)
+				BreakpointHelperFunctions.setBreakpointRowEnabled(bp, row)
+			end,
 		}, {
 			Left = Roact.createElement(Pane, {
 				Layout = Enum.FillDirection.Horizontal,
@@ -103,23 +109,14 @@ function BreakpointsTreeTableCell:render()
 					ImageRectOffset = isExpanded and style.Arrow.ExpandedOffset or style.Arrow.CollapsedOffset,
 					[Roact.Event.Activated] = self.onToggle
 				}) or nil,
-				EnabledCheckbox = hasChildren and Roact.createElement(Checkbox, {
-					Checked = value,
-					OnClick = function()
-						local bpManager = game:GetService("BreakpointManager")
-						local bp = bpManager:GetBreakpointById(row.item.id)
-						bp:SetEnabled(not row.item.isEnabled)
-					end,
-					LayoutOrder = 1,
-				}),
 				ChildCountIndicator = hasChildren and Roact.createElement(TextLabel, {
 					Text = '(x' .. #row.item.children .. ')',
 					BackgroundTransparency = 1,
-					LayoutOrder = 2,
+					LayoutOrder = 1,
 					Size = UDim2.new(0, Constants.ICON_SIZE, 0, Constants.ICON_SIZE),
 				}),
 				BreakpointIcon = Roact.createElement(Image, {
-					LayoutOrder = 3,
+					LayoutOrder = 2,
 					Size = UDim2.new(0, Constants.ICON_SIZE, 0, Constants.ICON_SIZE),
 					Image = debugpointIconPath,
 				}),

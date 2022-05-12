@@ -1,5 +1,4 @@
 local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
-local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
 local FFlagToolboxAssetStyleUpdate2 = game:GetFastFlag("ToolboxAssetStyleUpdate2")
 local FFlagAssetConfigDistributionQuotas = game:GetFastFlag("AssetConfigDistributionQuotas")
 
@@ -80,9 +79,7 @@ local makeTheme = function(themeExtension, themeClass)
 			else nil,
 		[StyleKey.Toolbox_TipsTextColor] = if FFlagAssetConfigDistributionQuotas
 			then nil
-			else (if FFlagToolboxPrivatePublicAudioAssetConfig3
-				then Color3.fromRGB(136, 136, 136)
-				else Color3.fromRGB(136, 136, 136)),
+			else Color3.fromRGB(136, 136, 136),
 		[StyleKey.Toolbox_TabTopBorderColor] = StyleColors.Blue,
 		[StyleKey.Toolbox_TabSelectedColor] = StyleColors.White,
 		[StyleKey.Toolbox_IconTileGradientColor] = FFlagToolboxAssetCategorization4 and StyleColors.Black or nil,
@@ -353,7 +350,7 @@ local makeTheme = function(themeExtension, themeClass)
 			tipsTextColor = if FFlagAssetConfigDistributionQuotas
 				then nil
 				else not isCli() and StyleKey.Toolbox_TipsTextColor or nil,
-			warningIconColor = if FFlagToolboxPrivatePublicAudioAssetConfig3 then Color3.fromHex("#FFAA21") else nil,
+			warningIconColor = Color3.fromHex("#FFAA21"),
 			distributionQuotaTextColor = if FFlagAssetConfigDistributionQuotas
 				then StyleKey.AssetConfig_DistributionQuotaTextColor
 				else nil,

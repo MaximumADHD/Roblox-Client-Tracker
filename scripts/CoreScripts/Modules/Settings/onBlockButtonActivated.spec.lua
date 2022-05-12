@@ -1,26 +1,18 @@
---!nocheck
+--!nonstrict
 
 local CorePackages = game:GetService("CorePackages")
-local LuaSocialLibrariesDeps = require(CorePackages.LuaSocialLibrariesDeps)
-local Mock = LuaSocialLibrariesDeps.Mock
+local JestGlobals = require(CorePackages.JestGlobals)
+local jestExpect = JestGlobals.expect
+local jest = JestGlobals.jest
+
 local onBlockButtonActivated = require(script.Parent.onBlockButtonActivated)
 local Promise = require(CorePackages.Promise)
 
 return function()
 	beforeAll(function(c)
-		c.Mock = Mock
-		expect.extend(Mock.Matchers)
-
-		c.analytics = Mock.MagicMock.new({ name = "EventStream" })
-
-		c.predicates = {
-			isAnalytics = function(x)
-				return x == c.analytics
-			end,
-
-			isBlockeeUserId = function(x)
-				return x.blockeeUserId == 10
-			end,
+		c.analyticsActionMock, c.analyticsAction = jest.fn()
+		c.analytics = {
+			action = c.analyticsAction
 		}
 
 		c.promise = onBlockButtonActivated(
@@ -41,18 +33,17 @@ return function()
 	end)
 
 	it("SHOULD return a Promise", function(c)
-		expect(c.promise).to.be.ok()
-		expect(Promise.is(c.promise)).to.equal(true)
+		jestExpect(c.promise).never.toBeNil()
+		jestExpect(Promise.is(c.promise)).toBe(true)
 	end)
 
 	it("SHOULD call analytics with blockUserButtonClick event", function(c)
-			expect(c.analytics.action)
-				.toHaveBeenCalled(1)
-				.toHaveBeenCalledWith(
-					c.Mock.predicate(c.predicates.isAnalytics),
-					"SettingsHub",
-					"blockUserButtonClick",
-					c.Mock.predicate(c.predicates.isBlockeeUserId)
-				)
+			jestExpect(c.analyticsActionMock).toHaveBeenCalledTimes(1)
+			jestExpect(c.analyticsActionMock).toHaveBeenCalledWith(
+				c.analytics,
+				"SettingsHub",
+				"blockUserButtonClick",
+				{blockeeUserId = 10}
+			)
 	end)
 end

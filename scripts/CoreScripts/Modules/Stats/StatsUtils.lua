@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 
 --[[
   Filename: StatsUtils.lua
@@ -201,8 +201,6 @@ function StatsUtils.FormatTypedValue(value, statType)
   if FFlagUseNotificationsLocalization then
     if statType == StatsUtils.StatType_CPU or statType == StatsUtils.StatType_GPU then
       return string.gsub(LocalizedGetString("StatsUtil.ms",string.format("%.2f MB", value)),"{RBX_NUMBER}",string.format("%.2f",value))
-    elseif statType == StatsUtils.StatType_PlaceMemory then
-      return string.gsub(LocalizedGetString("StatsUtil.MB",string.format("%.2f ms", value)),"{RBX_NUMBER}",string.format("%.2f",value))
     elseif statType == StatsUtils.StatType_NetworkSent or statType == StatsUtils.StatType_NetworkReceived then
       return string.gsub(LocalizedGetString("StatsUtil.KBps",string.format("%.2f KB/s", value)),"{RBX_NUMBER}",string.format("%.2f",value))
     end

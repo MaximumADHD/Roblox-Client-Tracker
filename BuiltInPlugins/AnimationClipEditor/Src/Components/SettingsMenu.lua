@@ -27,11 +27,8 @@ local SetPlaybackSpeed = require(Plugin.Src.Thunks.Playback.SetPlaybackSpeed)
 
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local Constants = require(Plugin.Src.Util.Constants)
-local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 
-local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
-local GetFFlagRenameSettings = require(Plugin.LuaFlags.GetFFlagRenameSettings)
-local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 local SettingsMenu = Roact.PureComponent:extend("SettingsMenu")
 
@@ -77,9 +74,9 @@ function SettingsMenu:makeTimelineUnitMenu(): (ContextMenu.MenuItem)
 		},
 		CurrentValue = props.ShowAsSeconds and Constants.TIMELINE_UNITS.Seconds or Constants.TIMELINE_UNITS.Frames,
 		ItemSelected = function(item: ContextMenu.MenuItem): ()
-			if GetFFlagQuaternionsUI() then
+			if GetFFlagCurveEditor() then
 				local showAsSeconds = item.Value == Constants.TIMELINE_UNITS.Seconds
-				plugin:SetSetting(if GetFFlagRenameSettings() then Constants.SETTINGS.ShowAsSeconds else "ShowAsSeconds", showAsSeconds)
+				plugin:SetSetting(Constants.SETTINGS.ShowAsSeconds, showAsSeconds)
 				props.SetShowAsSeconds(showAsSeconds)
 			else
 				props.SetShowAsSeconds(item.Value == Constants.TIMELINE_UNITS.Seconds)
@@ -183,8 +180,8 @@ function SettingsMenu:makeSnapMenu(): (ContextMenu.MenuItem)
 
 		CurrentValue = snapMode,
 		ItemSelected = function(item: ContextMenu.MenuItem): ()
-			if GetFFlagQuaternionsUI() then
-				plugin:SetSetting(if GetFFlagRenameSettings() then Constants.SETTINGS.SnapMode else "SnapMode", item.Value)
+			if GetFFlagCurveEditor() then
+				plugin:SetSetting(Constants.SETTINGS.SnapMode, item.Value)
 			end
 			props.SetSnapMode(item.Value)
 		end,
@@ -205,7 +202,7 @@ function SettingsMenu:makeDefaultRotationTypeMenu(): (ContextMenu.MenuItem)
 		},
 		CurrentValue = rotationType,
 		ItemSelected = function(item: ContextMenu.MenuItem): ()
-			plugin:SetSetting(if GetFFlagRenameSettings() then Constants.SETTINGS.RotationType else "RotationType", item.Value)
+			plugin:SetSetting(if GetFFlagCurveEditor() then Constants.SETTINGS.RotationType else "RotationType", item.Value)
 			props.SetDefaultRotationType(item.Value)
 		end,
 	}
@@ -260,7 +257,7 @@ function SettingsMenu:makeMenuActions(): ({string | ContextMenu.MenuItem})
 	table.insert(actions, self:makePlaybackSpeedMenu())
 	table.insert(actions, Constants.MENU_SEPARATOR)
 
-	if GetFFlagQuaternionsUI() then
+	if GetFFlagCurveEditor() then
 		table.insert(actions, self:makeShowEvents())
 	else
 		table.insert(actions, {
@@ -273,12 +270,10 @@ function SettingsMenu:makeMenuActions(): ({string | ContextMenu.MenuItem})
 	end
 	table.insert(actions, self:makeSnapMenu())
 
-	if GetFFlagQuaternionsUI() then
+	if GetFFlagCurveEditor() then
 		table.insert(actions, Constants.MENU_SEPARATOR)
 		table.insert(actions, self:makeDefaultRotationTypeMenu())
-		if GetFFlagEulerAnglesOrder() then
-			table.insert(actions, self:makeEulerAnglesOrderMenu())
-		end
+		table.insert(actions, self:makeEulerAnglesOrderMenu())
 	end
 
 	return actions
@@ -298,7 +293,7 @@ local function mapStateToProps(state): {[string]: any}
 	local status = state.Status
 
 	local stateToProps = {
-		Analytics = if GetFFlagQuaternionsUI() then state.Analytics else nil,
+		Analytics = if GetFFlagCurveEditor() then state.Analytics else nil,
 		AnimationData = state.AnimationData,
 		DefaultEulerAnglesOrder = status.DefaultEulerAnglesOrder,
 		DefaultRotationType = status.DefaultRotationType,

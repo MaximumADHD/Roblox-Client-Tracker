@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 
 local InspectAndBuyFolder = script.Parent.Parent
 local Thunk = require(InspectAndBuyFolder.Thunk)

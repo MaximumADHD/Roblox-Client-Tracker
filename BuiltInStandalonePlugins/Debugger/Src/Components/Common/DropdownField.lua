@@ -3,12 +3,15 @@ local Roact = require(PluginFolder.Packages.Roact)
 local Framework = require(PluginFolder.Packages.Framework)
 local Cryo = require(PluginFolder.Packages.Cryo)
 
+local Constants = require(PluginFolder.Src.Util.Constants)
+
 local UI = Framework.UI
 local Pane = UI.Pane
 local DropdownMenu = UI.DropdownMenu
 local Checkbox = UI.Checkbox
 local Separator = UI.Separator
 local Button = UI.Button
+local IconButton = UI.IconButton
 
 local DropdownField = Roact.PureComponent:extend("DropdownField")
 
@@ -131,13 +134,20 @@ function DropdownField:render()
 	else
 		buttonText = localization:getText(props.Widget, "DropdownFieldText", {NumFields = props.NumDisplay})
 	end
+	local frameLength = props.ShouldShowDropdownIcon and Constants.BUTTON_SIZE or props.DropdownWidth
 
 	return Roact.createElement("Frame", {
-		Size = UDim2.new(0, props.DropdownWidth, 1, 0),
+		Size = UDim2.new(0, frameLength, 1, 0),
 		LayoutOrder = props.LayoutOrder,
 		BorderColor3 = style.BorderColor
 	}, {
-		ButtonView = Roact.createElement(Button, {
+		IconView = props.ShouldShowDropdownIcon and Roact.createElement(IconButton, {
+			Size = UDim2.new(0, Constants.BUTTON_SIZE, 0, Constants.BUTTON_SIZE),
+			LeftIcon = "rbxasset://textures/Debugger/Breakpoints/filter.png",
+			TooltipText = props.Tooltip,
+			OnClick = self.openMenu,
+		}),
+		ButtonView = not props.ShouldShowDropdownIcon and Roact.createElement(Button, {
 			Text = buttonText,
 			TextSize = style.TextSize,
 			Font = style.Font,
@@ -145,6 +155,7 @@ function DropdownField:render()
 			Stylizer = style,
 			BorderSizePixel = 0,
 			OnClick = self.openMenu,
+			Tooltip = props.Tooltip,
 		}),
 		DropdownView = Roact.createElement(DropdownMenu, {
 			Width = props.DropdownWidth,

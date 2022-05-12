@@ -3,6 +3,8 @@ local root = script.Parent.Parent
 -- load fast flags
 require(root.Bin.defineLuaFlags)
 
+local FFlagAvatarImporterDeduplicatePackages = game:GetFastFlag("AvatarImporterDeduplicatePackages")
+
 -- constants
 local Constants = require(root.src.Constants)
 
@@ -12,9 +14,9 @@ Globals.plugin = plugin
 Globals.toolbar = Globals.plugin:CreateToolbar(Constants.TOOLBAR_NAME)
 
 -- imports
-local Roact = require(root.lib.Roact)
-local Rodux = require(root.lib.Rodux)
-local RoactRodux = require(root.lib.RoactRodux)
+local Roact = if FFlagAvatarImporterDeduplicatePackages then require(root.Packages.Roact) else require(root.Packages._Old.lib.Roact)
+local Rodux = if FFlagAvatarImporterDeduplicatePackages then require(root.Packages.Rodux) else require(root.Packages._Old.lib.Rodux)
+local RoactRodux = if FFlagAvatarImporterDeduplicatePackages then require(root.Packages.RoactRodux) else require(root.Packages._Old.lib.RoactRodux)
 
 local Assets = require(root.src.Assets)
 local AvatarImporter = require(root.src.components.AvatarImporter)

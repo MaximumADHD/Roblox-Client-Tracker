@@ -17,13 +17,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Constants = require(Plugin.Src.Util.Constants)
 
-local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
-
 local ScaleTick = Roact.PureComponent:extend("TimelineTick")
-
-local LABEL_SIZE = not GetFFlagQuaternionsUI() and UDim2.new(0, 25, 0, 15) or nil  -- Replaced with Constant
-local LABEL_POSITION = not GetFFlagQuaternionsUI() and UDim2.new(.3, 0, .5, 0) or nil  -- Replaced with Constant
-local TICK_WIDTH_SCALE = not GetFFlagQuaternionsUI() and 0.7 or nil  -- Unused
 
 export type Props = {
 	-- State/Context
@@ -49,11 +43,9 @@ function ScaleTick:render(): (any)
 	local scaleType = props.ScaleType
 	local leftScale = scaleType == Constants.SCALE_TYPE.Number
 
-	local labelSize = if GetFFlagQuaternionsUI() then Constants.TICK_LABEL_SIZE else LABEL_SIZE
-	local tickWidthScale = if GetFFlagQuaternionsUI() then props.TickWidthScale else props.TickWidthScale or TICK_WIDTH_SCALE
-
-	local showValue = not GetFFlagQuaternionsUI() and props.ShowValue or nil  -- Unused, rely on value == ""
-	local labelPosition = if GetFFlagQuaternionsUI() then Constants.TICK_LABEL_POSITION[scaleType] else (props.LabelPosition or LABEL_POSITION)
+	local labelSize = Constants.TICK_LABEL_SIZE
+	local tickWidthScale = props.TickWidthScale
+	local labelPosition = Constants.TICK_LABEL_POSITION[scaleType]
 
 
 	return Roact.createElement("Frame", {
@@ -63,7 +55,7 @@ function ScaleTick:render(): (any)
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 	}, {
-		TimeLabel = if not GetFFlagQuaternionsUI() or value ~= "" then Roact.createElement("TextLabel", {
+		TimeLabel = if value ~= "" then Roact.createElement("TextLabel", {
 			Position = labelPosition,
 			Size = labelSize,
 			AnchorPoint = Vector2.new(.5, .5),
@@ -71,11 +63,10 @@ function ScaleTick:render(): (any)
 			BorderSizePixel = 0,
 			BackgroundTransparency = 1,
 			TextSize = timelineTheme.textSize,
-			TextXAlignment = GetFFlagQuaternionsUI() and Enum.TextXAlignment.Left or Enum.TextXAlignment.Center,
+			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Center,
 			Font = theme.font,
 			Text = value,
-			Visible = not GetFFlagQuaternionsUI() and showValue or nil,
 			Rotation = -90,
 		}) else nil,
 

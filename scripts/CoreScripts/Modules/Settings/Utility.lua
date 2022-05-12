@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 
 --[[
 		Filename: Utility.lua
@@ -482,6 +482,9 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 	-------------------- SETUP ------------------------
 	local this = {}
 	this.CurrentIndex = nil
+	this.UpdateDropDownList = nil
+	this.DropDownFrame = nil
+	this.Selections = nil
 
 	local indexChangedEvent = Instance.new("BindableEvent")
 	indexChangedEvent.Name = "IndexChanged"
@@ -876,6 +879,7 @@ local function CreateSelector(selectionStringTable, startPosition)
 	-------------------- SETUP ------------------------
 	local this = {}
 	this.HubRef = nil
+	this.SetSelectionIndex = nil
 
 	if type(selectionStringTable) ~= "table" then
 		error("CreateSelector selectionStringTable (first arg) is not a table", 2)
@@ -1027,7 +1031,7 @@ local function CreateSelector(selectionStringTable, startPosition)
 				if selectionLabel:IsDescendantOf(game) then
 					selectionLabel:TweenPosition(tweenPos, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, TweenTime * 0.9, true)
 				else
-					selectionLabel.Position = UDim2.new(tweenPos)
+					selectionLabel.Position = tweenPos
 				end
 			end
 		end

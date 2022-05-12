@@ -22,6 +22,8 @@ local Plugin = script.Parent.Parent.Parent
 local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 local FFlagToolboxRefactorSearchOptions = game:GetFastFlag("ToolboxRefactorSearchOptions")
 local FFlagToolboxAssetStyleUpdate2 = game:GetFastFlag("ToolboxAssetStyleUpdate2")
+local FFlagToolboxAudioLengthSearchFix =
+	require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioLengthSearchFix()
 
 local Packages = Plugin.Packages
 local Cryo = require(Packages.Cryo)
@@ -263,6 +265,7 @@ function Toolbox:render()
 	local searchTerm = props.searchTerm
 	local suggestions = props.suggestions or {}
 	local categoryName = props.categoryName
+	local audioSearchInfo = props.audioSearchInfo
 	local currentTabKey = Category.getTabKeyForCategoryName(categoryName)
 
 	local tryOpenAssetConfig = props.tryOpenAssetConfig
@@ -280,7 +283,7 @@ function Toolbox:render()
 	local headerOffset = tabHeight
 
 	local inHomeViewExperiment = false
-	local homeViewAssetTypes : { Enum.AssetType } = {}
+	local homeViewAssetTypes: { Enum.AssetType } = {}
 	local selectedAssetType = if FFlagToolboxAssetCategorization4
 		then Category.getEngineAssetType(Category.getCategoryByName(categoryName).assetType)
 		else nil
@@ -291,6 +294,7 @@ function Toolbox:render()
 			and not ixp:isError()
 			and (not creator or creator == "")
 			and searchTerm == ""
+			and (not FFlagToolboxAudioLengthSearchFix or audioSearchInfo == nil)
 		then
 			if not ixp:isReady() then
 				-- IXP state has not loaded yet, avoid a flash of (potentially) the wrong content
@@ -303,7 +307,7 @@ function Toolbox:render()
 				if ixpVariables["HomeViewEnabled"] then
 					table.insert(homeViewAssetTypes, Enum.AssetType.Model)
 				end
-				
+
 				if ixpVariables["2022Q2AudioDiscoveryEnabled"] then
 					table.insert(homeViewAssetTypes, Enum.AssetType.Audio)
 				end
@@ -431,10 +435,10 @@ Toolbox = withContext({
 local function mapStateToProps(state, props)
 	state = state or {}
 	local pageInfo = state.pageInfo or {}
-
 	return {
 		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
 		creator = if FFlagToolboxAssetCategorization4 then pageInfo.creator else nil,
+		audioSearchInfo = if FFlagToolboxAudioLengthSearchFix then pageInfo.audioSearchInfo else nil,
 		roles = state.roles or {},
 		searchTerm = if FFlagToolboxAssetCategorization4 then pageInfo.searchTerm or "" else nil,
 		sorts = pageInfo.sorts or {},

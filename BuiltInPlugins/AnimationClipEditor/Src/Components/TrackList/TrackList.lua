@@ -60,7 +60,6 @@ local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAni
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
 local GetFFlagFixClampValuesForFacs = require(Plugin.LuaFlags.GetFFlagFixClampValuesForFacs)
-local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFacsAsFloat = require(Plugin.LuaFlags.GetFFlagFacsAsFloat)
 
@@ -239,7 +238,7 @@ function TrackList:renderExpandedCFrameTrack(track, children, theme)
 							item.Value = value
 						end
 					end
-					local newValue = TrackUtils.getPropertyForItems(track, items)
+					local newValue = TrackUtils.getPropertyForItems(track, items, props.DefaultEulerAnglesOrder)
 					if GetFFlagFacsUiChanges() and not GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs then
 						if GetFFlagFacsAsFloat() then
 							newValue = math.clamp(math.floor(.5 + newValue * 100) / 100, 0, 1)
@@ -270,7 +269,7 @@ function TrackList:renderExpandedCFrameTrack(track, children, theme)
 							item.Value = value
 						end
 					end
-					local newValue = TrackUtils.getPropertyForItems(track, items)
+					local newValue = TrackUtils.getPropertyForItems(track, items, props.DefaultEulerAnglesOrder)
 					self.onValueChanged_deprecated(instance, name, playhead, newValue, props.analytics)
 				end,
 				OnChangeBegan = props.OnChangeBegan,
@@ -332,7 +331,7 @@ function TrackList:renderTrack(track, children, theme, parentPath, parentType)
 	local isChannelAnimation = animationData and animationData.Metadata and animationData.Metadata.IsChannelAnimation
 
 	local isExpandable
-	if GetFFlagQuaternionChannels() then
+	if GetFFlagChannelAnimations() then
 		if isChannelAnimation then
 			isExpandable = track.Components and not isEmpty(track.Components)
 		else
@@ -391,7 +390,7 @@ function TrackList:renderTrack(track, children, theme, parentPath, parentType)
 					item.Value = value
 				end
 			end
-			local newValue = TrackUtils.getPropertyForItems(track, items)
+			local newValue = TrackUtils.getPropertyForItems(track, items, props.DefaultEulerAnglesOrder)
 			if GetFFlagFacsUiChanges() and not GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs then
 				if GetFFlagFacsAsFloat() then
 					newValue = math.clamp(newValue, 0, 1)

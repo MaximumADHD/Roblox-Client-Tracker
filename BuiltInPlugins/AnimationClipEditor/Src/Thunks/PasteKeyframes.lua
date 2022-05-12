@@ -19,8 +19,6 @@ local SetNotification = require(Plugin.Src.Actions.SetNotification)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
-local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 return function(tck: number, analytics: any): (any) -> ()
@@ -56,13 +54,7 @@ return function(tck: number, analytics: any): (any) -> ()
 						if dataTrack == nil then
 							-- TODO: Use Clipboard quaternion info (Part of AVBURST-6647)
 							AnimationData.addTrack(dataInstance.Tracks, track.TopTrackName, track.TopTrackType, isChannelAnimation)
-								if GetFFlagEulerAnglesOrder() then
-								store:dispatch(AddTrack(instanceName, track.TopTrackName, track.TopTrackType, nil, nil, analytics))
-								elseif GetFFlagQuaternionsUI() then
-									store:dispatch(AddTrack(instanceName, track.TopTrackName, track.TopTrackType, nil, analytics))
-								else
-									store:dispatch(AddTrack(instanceName, track.TopTrackName, track.TopTrackType, analytics))
-								end
+							store:dispatch(AddTrack(instanceName, track.TopTrackName, track.TopTrackType, analytics))
 							dataTrack = AnimationData.getTrack(newData, instanceName, path)
 						end
 					else
@@ -71,27 +63,10 @@ return function(tck: number, analytics: any): (any) -> ()
 						-- as well as all the required components
 						local topTrack = AnimationData.getTrack(newData, instanceName, {track.TopTrackName})
 						if topTrack == nil then
-							AnimationData.addTrack(
-								dataInstance.Tracks,
-								track.TopTrackName,
-								track.TopTrackType,
-								isChannelAnimation,
-								if GetFFlagCurveEditor() then track.RotationType else nil,
-								if GetFFlagCurveEditor() then track.EulerAnglesOrder else nil)
-
-							if GetFFlagEulerAnglesOrder() then
-								store:dispatch(AddTrack(
-									instanceName,
-									track.TopTrackName,
-									track.TopTrackType,
-									if GetFFlagCurveEditor() then track.RotationType else nil,
-									if GetFFlagCurveEditor() then track.EulerAnglesOrder else nil,
-									analytics))
-							elseif GetFFlagQuaternionsUI() then
-								store:dispatch(AddTrack(instanceName, track.TopTrackName, track.TopTrackType, nil, analytics))
-							else
-								store:dispatch(AddTrack(instanceName, track.TopTrackName, track.TopTrackType, analytics))
-							end
+							AnimationData.addTrack(dataInstance.Tracks, track.TopTrackName, track.TopTrackType,
+								isChannelAnimation, track.RotationType, track.EulerAnglesOrder)
+							store:dispatch(AddTrack(instanceName, track.TopTrackName, track.TopTrackType,
+								track.RotationType, track.EulerAnglesOrder, analytics))
 						end
 						dataTrack = AnimationData.getTrack(newData, instanceName, path)
 						-- dataTrack is missing if we try to paste an Euler Angle track

@@ -30,7 +30,11 @@ local OnAssetDoubleClick = require(Plugin.Src.Thunks.OnAssetDoubleClick)
 local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
 local OnAssetSingleClick = require(Plugin.Src.Thunks.OnAssetSingleClick)
 
+local ReviewStatus = require(Plugin.Src.Util.ReviewStatus)
+local ModerationUtil = require(Plugin.Src.Util.ModerationUtil)
+
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
+local FFlagStudioAssetManagerAssetModeration = game:GetFastFlag("StudioAssetManagerAssetModeration")
 
 local ModernIcons = require(Plugin.Src.Util.ModernIcons)
 local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and not game:GetService("StudioHighDpiService"):IsNotHighDPIAwareBuild()
@@ -238,6 +242,7 @@ function Tile:render()
     -- Must use getStyle(namespace, component) for StyleModifiers to work
     -- otherwise functionality equivalent to prop.Theme:get("Plugin").Tile.Default
     local tileStyle = if THEME_REFACTOR then props.Stylizer else props.Theme:getStyle("Plugin", self)
+    local localization = props.Localization
 
     local enabled = props.Enabled
 
@@ -340,6 +345,35 @@ function Tile:render()
         thumbnailContainerProps.Image = image
     end
 
+    local displayModerationStatus
+    local moderationImage
+    local moderationStatusImageSize
+    local moderationStatusIconXOffset
+    local moderationStatusIconYOffset
+    local moderationTooltip
+    if FFlagStudioAssetManagerAssetModeration then
+        if not isFolder then
+            local moderationData = props.ModerationData
+            if moderationData and next(moderationData) ~= nil then
+                -- fetch moderation data then set icon/textbox size
+                local isPending = moderationData.reviewStatus == ReviewStatus.Pending
+                local isApproved = ModerationUtil.isApprovedAsset(moderationData)
+                displayModerationStatus = isPending or not isApproved
+                if displayModerationStatus then
+                    if isPending then
+                        moderationImage = tileStyle.Image.ModerationStatus.Pending  
+                    elseif not isApproved then
+                        moderationImage = tileStyle.Image.ModerationStatus.Rejected
+                    end
+                    moderationStatusImageSize = tileStyle.Image.ModerationStatus.Size
+                    moderationStatusIconXOffset = tileStyle.Image.ModerationStatus.XOffset
+                    moderationStatusIconYOffset = tileStyle.Image.ModerationStatus.YOffset
+                    moderationTooltip = ModerationUtil.getModerationTooltip(localization, moderationData)
+                end
+            end
+        end
+    end
+
     return Roact.createElement("ImageButton", {
         Size = size,
         BackgroundColor3 = backgroundColor,
@@ -369,6 +403,19 @@ function Tile:render()
 
                 Image = rootPlaceIcon,
                 BackgroundTransparency = 1,
+            }),
+
+            ModerationStatusImage = displayModerationStatus and Roact.createElement("ImageLabel", {
+                Size = UDim2.new(0, moderationStatusImageSize, 0, moderationStatusImageSize),
+                Position = UDim2.new(0, moderationStatusIconXOffset, 0, moderationStatusIconYOffset),
+
+                Image = moderationImage,
+                BackgroundTransparency = 1,
+            }, {
+                ModerationTooltip = Roact.createElement(Tooltip, {
+                    Text = moderationTooltip,
+                    Enabled = enabled,
+                }),
             }),
 
             FolderImage = isFolder and Roact.createElement("ImageLabel", {
@@ -421,7 +468,12 @@ function Tile:render()
             [Roact.Event.FocusLost] = self.onTextBoxFocusLost,
         }),
 
-        Tooltip = enabled and Roact.createElement(Tooltip, {
+        NameTooltip = FFlagStudioAssetManagerAssetModeration and Roact.createElement(Tooltip, {
+            Text = name,
+            Enabled = enabled,
+        }),
+
+        DEPRECATED_Tooltip = not FFlagStudioAssetManagerAssetModeration and enabled and Roact.createElement(Tooltip, {
             Text = name,
             Enabled = true,
         }),

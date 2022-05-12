@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 
 --[[
 	// Filename: PromptCreator.lua
@@ -21,6 +21,8 @@ local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local TenFootInterface = require(CoreGuiModules:WaitForChild("TenFootInterface"))
 local VRModules = CoreGuiModules:WaitForChild("VR")
 local VRDialogModule = require(VRModules:WaitForChild("Dialog"))
+
+local PromptDialogVR = nil
 
 function getViewportSize()
 	while not game.Workspace.CurrentCamera do

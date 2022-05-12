@@ -1,6 +1,9 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
 
+local FFlagToolboxAudioDiscoveryRound2 =
+	require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscoveryRound2()
+
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
@@ -13,6 +16,7 @@ local Constants = require(Util.Constants)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local AssetLogicWrapper = require(Plugin.Core.Components.AssetLogicWrapper)
 local AssetInfo = require(Plugin.Core.Models.AssetInfo)
 local Category = require(Plugin.Core.Types.Category)
 
@@ -23,9 +27,11 @@ local AudioTable = Roact.PureComponent:extend("AudioTable")
 type _ExternalAudioTableProps = {
 	AudioType: string?,
 	Assets: { AssetInfo.AssetInfo },
-	TryInsert: ((assetData: AssetInfo.AssetInfo, assetWasDragged: boolean, insertionMethod: string) -> nil),
+	TryInsert: ((assetData: AssetInfo.AssetInfo, assetWasDragged: boolean, insertionMethod: string?) -> nil),
 	CanInsertAsset: () -> boolean,
 	LayoutOrder: number?,
+	-- When removing FFlagToolboxAudioDiscoveryRound2 tryOpenAssetConfig should not be optional
+	tryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn?,
 }
 
 type AudioTableProps = _ExternalAudioTableProps & {
@@ -65,16 +71,17 @@ function AudioTable:render()
 	local rowsOrderIterator = LayoutOrderIterator.new()
 	local audioRows = Dash.map(assets, function(assetInfo: AssetInfo.AssetInfo)
 		local insertAsset = function(assetWasDragged: boolean)
-			self.props.TryInsert(assetInfo, assetWasDragged or false)
+			props.TryInsert(assetInfo, assetWasDragged or false)
 		end
 
-		return Roact.createElement(AudioRow, {
+		return AudioRow.Generator({
 			AssetInfo = assetInfo,
 			LayoutOrder = rowsOrderIterator:getNextOrder() + 1,
 			IsExpanded = assetInfo.Asset and assetInfo.Asset.Id == state.expandedAssetId,
 			OnExpanded = self.setExpandedAssetId,
 			InsertAsset = insertAsset,
-			CanInsertAsset = self.props.CanInsertAsset,
+			CanInsertAsset = props.CanInsertAsset,
+			tryOpenAssetConfig = if FFlagToolboxAudioDiscoveryRound2 then props.tryOpenAssetConfig else nil,
 		})
 	end)
 

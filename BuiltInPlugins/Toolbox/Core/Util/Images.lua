@@ -79,6 +79,8 @@ Images.CREATIONS_TAB = "rbxasset://textures/StudioToolbox/Tabs/MyCreations.png"
 Images.MUSIC_ICON = "rbxasset://textures/StudioToolbox/AudioMusic.png"
 Images.SOUND_EFFECT_ICON = "rbxasset://textures/StudioToolbox/AudioSoundEffect.png"
 
+Images.MONSTER_CAT_BANNER = "rbxasset://textures/StudioToolbox/Banners/MonsterCat.png"
+
 Images.OWNED_ICON = "rbxasset://textures/StudioToolbox/ProductOwned.png"
 
 -- For asset config

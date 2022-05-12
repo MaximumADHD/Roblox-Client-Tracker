@@ -18,9 +18,8 @@ local PathUtils = require(Plugin.Src.Util.PathUtils)
 local Templates = require(Plugin.Src.Util.Templates)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
-local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-local FFlagFixEulerAnglesIndent = GetFFlagCurveEditor()
+local GetFFlagUseCFrameAPI = require(Plugin.LuaFlags.GetFFlagUseCFrameAPI)
 
 return function(instanceName: string, path: PathUtils.Path, newType: string, analytics: any): ({[string]: any}) -> ()
 	return function(store: {[string]: any}): ()
@@ -44,7 +43,7 @@ return function(instanceName: string, path: PathUtils.Path, newType: string, ana
 
 		if track ~= nil and track.Data ~= nil then
 			if track.Type == Constants.TRACK_TYPES.Quaternion and newType == Constants.TRACK_TYPES.EulerAngles then
-				if GetFFlagEulerAnglesOrder() then
+				if GetFFlagCurveEditor() then
 					TrackUtils.convertTrackToEulerAngles(track, eulerAnglesOrder)
 				else
 					-- Create components and copy the ticks
@@ -79,10 +78,10 @@ return function(instanceName: string, path: PathUtils.Path, newType: string, ana
 									local prevTick = track.Keyframes[index-1]
 									if prevTick then
 										local prevKeyframe = track.Data[prevTick]
-										if GetFFlagEulerAnglesOrder() then
-											prevValue = Vector3.new(CFrameUtils.ToEulerAngles(prevKeyframe.Value, eulerAnglesOrder))
+										if GetFFlagUseCFrameAPI() then
+											prevValue = Vector3.new(prevKeyframe.Value:ToEulerAngles(eulerAnglesOrder))
 										else
-											prevValue = Vector3.new(prevKeyframe.Value:ToEulerAnglesXYZ())
+											prevValue = Vector3.new(CFrameUtils.ToEulerAngles(prevKeyframe.Value, eulerAnglesOrder))
 										end
 									end
 								end
@@ -99,10 +98,10 @@ return function(instanceName: string, path: PathUtils.Path, newType: string, ana
 									local nextTick = track.Keyframes[index+1]
 									if nextTick then
 										local nextKeyframe = track.Data[nextTick]
-										if GetFFlagEulerAnglesOrder() then
-											nextValue = Vector3.new(CFrameUtils.ToEulerAngles(nextKeyframe.Value, eulerAnglesOrder))
+										if GetFFlagUseCFrameAPI() then
+											nextValue = Vector3.new(nextKeyframe.Value:ToEulerAngles(eulerAnglesOrder))
 										else
-											nextValue = Vector3.new(nextKeyframe.Value:ToEulerAnglesXYZ())
+											nextValue = Vector3.new(CFrameUtils.ToEulerAngles(nextKeyframe.Value, eulerAnglesOrder))
 										end
 									end
 								end
@@ -133,7 +132,7 @@ return function(instanceName: string, path: PathUtils.Path, newType: string, ana
 					eulerAnglesOrder
 				)
 				store:dispatch(UpdateAnimationData(newData))
-				if not FFlagFixEulerAnglesIndent then
+				if not GetFFlagCurveEditor() then
 					store:dispatch(SetTracks(newTracks))
 				else
 					store:dispatch(SortAndSetTracks(newTracks))

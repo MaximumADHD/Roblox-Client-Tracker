@@ -2,8 +2,7 @@ return function ()
 	local CorePackages = game:GetService("CorePackages")
 	local Roact = require(CorePackages.Roact)
 	local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
-	local Modules = game:GetService("CoreGui").RobloxGui.Modules
-	local act = require(Modules.act)
+	local act = Roact.act :: (any) -> ()
 
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jestExpect = JestGlobals.expect

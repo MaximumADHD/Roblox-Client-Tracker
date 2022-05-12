@@ -13,8 +13,7 @@ local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
-local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 if GetFFlagChannelAnimations() then
 	return function(instanceName, path, trackType, tick, keyframeData, analytics)
@@ -42,10 +41,8 @@ if GetFFlagChannelAnimations() then
 					topTrackType = Constants.TRACK_TYPES.Facs
 				end
 
-				if GetFFlagEulerAnglesOrder() then
+				if GetFFlagCurveEditor() then
 					store:dispatch(AddTrack(instanceName, path[1], topTrackType, rotationType, eulerAnglesOrder, analytics))
-				elseif GetFFlagQuaternionsUI() then
-					store:dispatch(AddTrack(instanceName, path[1], topTrackType, rotationType, analytics))
 				else
 					store:dispatch(AddTrack(instanceName, path[1], topTrackType, analytics))
 				end

@@ -1,5 +1,4 @@
 local FFlagUGCLCAssetTypes2 = game:GetFastFlag("UGCLCAssetTypes2")
-local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -204,11 +203,9 @@ AssetConfigConstants.LIBRARY_REPORT_ASSET_TYPES = {
 	[Enum.AssetType.Plugin] = true,
 }
 
-if FFlagToolboxPrivatePublicAudioAssetConfig3 then
-	AssetConfigConstants.SHARING_KEYS = {
-		Public = true,
-		Private = false,
-	}
-end
+AssetConfigConstants.SHARING_KEYS = {
+	Public = true,
+	Private = false,
+}
 
 return AssetConfigConstants

@@ -7,6 +7,9 @@ local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
+local FFlagToolboxAudioDiscoveryRound2 =
+	require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscoveryRound2()
+
 local Packages = Plugin.Packages
 local Cryo = require(Packages.Cryo)
 local Framework = require(Packages.Framework)
@@ -393,6 +396,15 @@ function AssetAnalytics:logGoBack(
 		toolboxTab,
 		assetType
 	)
+end
+
+if FFlagToolboxAudioDiscoveryRound2 then
+	function AssetAnalytics:onCTABannerClicked(creatorId: number)
+		print(creatorId)
+		self.senders.sendEventDeferred(EVENT_TARGET, EVENT_CONTEXT, "CTABannerClicked", {
+			creatorId = creatorId,
+		})
+	end
 end
 
 return AssetAnalytics

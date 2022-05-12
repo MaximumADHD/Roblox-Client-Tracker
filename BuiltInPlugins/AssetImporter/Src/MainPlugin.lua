@@ -36,7 +36,7 @@ local MeshImportDialog = require(Components.MeshImportDialog)
 local ProgressWidget = require(Components.ProgressWidget)
 local ErrorWidget = require(Components.ErrorWidget)
 
-local getFFlagAssetImportHandleFileCancel = require(main.Src.Flags.getFFlagAssetImportHandleFileCancel)
+local getFFlagAssetImporterDSATelemetry = require(main.Src.Flags.getFFlagAssetImporterDSATelemetry)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -50,19 +50,11 @@ function MainPlugin:init(props)
 
 	self.promptClosed = function(succeeded, closed)
 		assert(self.state.promptRequested)
-		if getFFlagAssetImportHandleFileCancel() then
-			self:setState({
-				hasImportSettings = succeeded and not closed,
-				importOpenError = not succeeded and not closed,
-				promptRequested = false,
-			})
-		else
-			self:setState({
-				hasImportSettings = succeeded,
-				importOpenError = not succeeded,
-				promptRequested = false,
-			})
-		end
+		self:setState({
+			hasImportSettings = succeeded and not closed,
+			importOpenError = not succeeded and not closed,
+			promptRequested = false,
+		})
 	end
 
 	self.toggleEnabled = function()
@@ -84,6 +76,13 @@ function MainPlugin:init(props)
 			uploadInProgress = false,
 			importOpenError = false,
 		})
+	end
+
+	self.onCancel = function()
+		self.onClose()
+		if getFFlagAssetImporterDSATelemetry() then
+			AssetImportService:Cancel()
+		end
 	end
 
 	self.onImport = function(assetSettings)
@@ -141,7 +140,7 @@ function MainPlugin:render()
 		Dialog = hasImportSettings and Roact.createElement(MeshImportDialog, {
 			Resizable = true,
 			Title = localization:getText("Plugin", "WindowTitle"),
-			OnClose = self.onClose,
+			OnClose = self.onCancel,
 			OnImport = self.onImport,
 			Localization = localization,
 		}),

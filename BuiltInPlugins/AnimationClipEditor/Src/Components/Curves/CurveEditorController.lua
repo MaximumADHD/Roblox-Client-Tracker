@@ -63,8 +63,7 @@ local SelectKeyframeRange = require(Plugin.Src.Thunks.Selection.SelectKeyframeRa
 local SetKeyframeTangent = require(Plugin.Src.Thunks.SetKeyframeTangent)
 local SetSelectedKeyframeData = require(Plugin.Src.Thunks.Selection.SetSelectedKeyframeData)
 
-local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
-local GetFFlagQuaternionCurves = require(Plugin.LuaFlags.GetFFlagQuaternionCurves)
+local GetFFlagFixButtonStyle = require(Plugin.LuaFlags.GetFFlagFixButtonStyle)
 
 local CurveEditorController = Roact.Component:extend("CurveEditorController")
 
@@ -325,7 +324,7 @@ function CurveEditorController:init()
 			local instance = track.Instance
 			for tck, data in pairs(track.Data) do
 				local valueInRange = false
-				if GetFFlagQuaternionCurves() and track.Type == Constants.TRACK_TYPES.Quaternion then
+				if track.Type == Constants.TRACK_TYPES.Quaternion then
 					valueInRange = (minPos.Y <= 1 and 1 <= maxPos.Y) or (minPos.Y <= 0 and 0 <= maxPos.Y)
 				else
 					valueInRange = data.Value >= minPos.Y and data.Value <= maxPos.Y
@@ -422,38 +421,29 @@ function CurveEditorController:init()
 				})
 			end
 		elseif dragContext.dragMode == Constants.DRAG_MODE.Tangent then
-			if GetFFlagQuaternionCurves() then
-				local refValue = dragContext.value
-				if dragContext.side == Constants.SLOPES.Left then
-					if tck >= dragContext.tck then
-						return
-					end
-
-					-- Use 1 as refValue.Y when dragging the left tangent
-					if dragContext.trackType == Constants.TRACK_TYPES.Quaternion then
-						refValue = 1
-					end
-				elseif dragContext.side == Constants.SLOPES.Right then
-					if tck <= dragContext.tck then
-						return
-					end
-					-- Use 0 as refValue.Y when dragging the right tangent
-					if dragContext.trackType == Constants.TRACK_TYPES.Quaternion then
-						refValue = 0
-					end
+			local refValue = dragContext.value
+			if dragContext.side == Constants.SLOPES.Left then
+				if tck >= dragContext.tck then
+					return
 				end
 
-				local slope = (value - refValue) / (tck - dragContext.tck)
-				self.addDragWaypoint()
-				self.props.SetKeyframeTangent(dragContext.instance, dragContext.path, dragContext.tck, dragContext.side, slope)
-			else
-				if (dragContext.side == Constants.SLOPES.Left and tck < dragContext.tck) or
-					(dragContext.side == Constants.SLOPES.Right and tck > dragContext.tck) then
-					local slope = (value - dragContext.value) / (tck - dragContext.tck)
-					self.addDragWaypoint()
-					self.props.SetKeyframeTangent(dragContext.instance, dragContext.path, dragContext.tck, dragContext.side, slope)
+				-- Use 1 as refValue.Y when dragging the left tangent
+				if dragContext.trackType == Constants.TRACK_TYPES.Quaternion then
+					refValue = 1
+				end
+			elseif dragContext.side == Constants.SLOPES.Right then
+				if tck <= dragContext.tck then
+					return
+				end
+				-- Use 0 as refValue.Y when dragging the right tangent
+				if dragContext.trackType == Constants.TRACK_TYPES.Quaternion then
+					refValue = 0
 				end
 			end
+
+			local slope = (value - refValue) / (tck - dragContext.tck)
+			self.addDragWaypoint()
+			self.props.SetKeyframeTangent(dragContext.instance, dragContext.path, dragContext.tck, dragContext.side, slope)
 		end
 	end
 
@@ -548,7 +538,7 @@ function CurveEditorController:updateCanvasExtents(): ()
 					self.minValue = self.minValue and math.min(self.minValue, keyframe.Value) or keyframe.Value
 					self.maxValue = self.maxValue and math.max(self.maxValue, keyframe.Value) or keyframe.Value
 				end
-			elseif GetFFlagQuaternionCurves() then
+			else
 				self.minValue = self.minValue and math.min(self.minValue, 0) or 0
 				self.maxValue = self.maxValue and math.max(self.maxValue, 1) or 1
 			end
@@ -580,7 +570,7 @@ function CurveEditorController:updateTracks(nextProps: Props): ()
 			TrackUtils.traverseTracks(nil, track, function(t, _, path)
 				local fullPath = Cryo.List.join(selectedTrack, path)
 				local fullPathName = table.concat(fullPath, ".")
-				if (GetFFlagQuaternionCurves() or t.Type ~= Constants.TRACK_TYPES.Quaternion) and not addedTracks[fullPathName] then
+				if not addedTracks[fullPathName] then
 					table.insert(self.tracks, Cryo.Dictionary.join(t, {Path = fullPath, Instance = "Root"}))
 					addedTracks[fullPathName] = true
 				end
@@ -790,17 +780,7 @@ function CurveEditorController:render(): (any)
 				OnTangentInputEnded = self.handleTangentInputEnded,
 			}) or nil,
 
-			RightMask = not GetFFlagQuaternionsUI() and Roact.createElement("Frame", {
-				AnchorPoint = Vector2.new(0, 0),
-				Size = UDim2.new(0, props.TrackPadding / 2 + Constants.SCROLL_BAR_SIZE - 1, 1, Constants.SCROLL_BAR_SIZE),
-				Position = UDim2.new(1, -props.TrackPadding / 2, 0, 0),
-				BackgroundColor3 = theme.backgroundColor,
-				BorderColor3 = theme.borderColor,
-				BorderSizePixel = 1,
-				ZIndex = 3,
-			}) or nil,
-
-			RotationScale = GetFFlagQuaternionsUI() and Roact.createElement(Scale, {
+			RotationScale = Roact.createElement(Scale, {
 				Size = UDim2.new(0, props.TrackPadding / 2, 1, 0),
 				Width = props.TrackPadding / 2,
 				ParentSize = canvasSize,
@@ -852,8 +832,8 @@ function CurveEditorController:render(): (any)
 				NoticeText = localization:getText("Title", "CurrentDuration_Migrated", {currentDuration = currentDuration}),
 				Text = currentDuration,
 				Buttons = {
-					{Key = false, Text = localization:getText("Dialog", "Cancel")},
-					{Key = true, Text = localization:getText("Dialog", "Save"), Style = "Primary"},
+					{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = if GetFFlagFixButtonStyle() then "Round" else nil},
+					{Key = true, Text = localization:getText("Dialog", "Save"), Style = if GetFFlagFixButtonStyle() then "RoundPrimary" else "Primary"},
 				},
 				OnTextSubmitted = self.setSelectedKeyframeDuration,
 				OnClose = self.setChangingDuration,

@@ -10,7 +10,6 @@ local copy = Dash.copy
 local join = Dash.join
 local map = Dash.map
 
-local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
 
 local insert = table.insert
@@ -26,7 +25,7 @@ end
 
 local TableStory
 
-local hasTableColumnResizeFFlags = FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize
+local hasTableColumnResizeFFlags = FFlagDevFrameworkTableColumnResize
 
 if hasTableColumnResizeFFlags then
 	TableStory = Roact.PureComponent:extend("TableStory")

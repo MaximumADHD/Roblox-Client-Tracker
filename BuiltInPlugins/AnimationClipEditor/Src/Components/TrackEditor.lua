@@ -46,8 +46,6 @@ local SnapToNearestKeyframe = require(Plugin.Src.Thunks.SnapToNearestKeyframe)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-local GetFFlagQuaternionsUI = require(Plugin.LuaFlags.GetFFlagQuaternionsUI)
-local GetFFlagEasierCurveWorkflow = require(Plugin.LuaFlags.GetFFlagEasierCurveWorkflow)
 
 local TrackEditor = Roact.PureComponent:extend("TrackEditor")
 
@@ -158,27 +156,17 @@ function TrackEditor:init()
 		end
 	end
 
-	self.toggleEditorClicked = if GetFFlagEasierCurveWorkflow()
-	then
-		function()
-			if self.props.IsChannelAnimation then
-				if self.props.EditorMode == Constants.EDITOR_MODE.CurveCanvas then
-					self.props.SetEditorMode(Constants.EDITOR_MODE.DopeSheet)
-				else
-					self.props.SetEditorMode(Constants.EDITOR_MODE.CurveCanvas)
-				end
-			else
-				self.props.OnPromoteRequested()
-			end
-		end
-	else
-		function()
+	self.toggleEditorClicked = function()
+		if self.props.IsChannelAnimation then
 			if self.props.EditorMode == Constants.EDITOR_MODE.CurveCanvas then
 				self.props.SetEditorMode(Constants.EDITOR_MODE.DopeSheet)
 			else
 				self.props.SetEditorMode(Constants.EDITOR_MODE.CurveCanvas)
 			end
+		else
+			self.props.OnPromoteRequested()
 		end
+	end
 end
 
 function TrackEditor:render()
@@ -200,7 +188,7 @@ function TrackEditor:render()
 	local zIndex = props.ZIndex
 	local size = props.Size
 	local topTrackIndex = props.TopTrackIndex
-	local tracks = if GetFFlagQuaternionsUI() then nil else props.Tracks or {}
+	local tracks = if GetFFlagCurveEditor() then nil else props.Tracks or {}
 	local showEvents = props.ShowEvents
 	local playhead = props.Playhead
 	local isChannelAnimation = props.IsChannelAnimation
@@ -256,7 +244,6 @@ function TrackEditor:render()
 			AnimationData = props.AnimationData,
 			Playhead = playhead,
 			ZIndex = GetFFlagCurveEditor() and 2 or nil,
-			ShowToggleEditorButton = if GetFFlagEasierCurveWorkflow() then nil else (GetFFlagCurveEditor() and isChannelAnimation or nil),
 			EditorMode = GetFFlagCurveEditor() and props.EditorMode or nil,
 			OnToggleEditorClicked = GetFFlagCurveEditor() and self.toggleEditorClicked or nil,
 		}),
@@ -267,7 +254,7 @@ function TrackEditor:render()
 			EndTick = endTick,
 			TrackPadding = trackPadding,
 			TopTrackIndex = topTrackIndex,
-			Tracks = if GetFFlagQuaternionsUI() then nil else tracks,
+			Tracks = if GetFFlagCurveEditor() then nil else tracks,
 			Size = UDim2.new(1, 0, 1, -Constants.TIMELINE_HEIGHT - Constants.SCROLL_BAR_SIZE),
 			ShowAsSeconds = showAsSeconds,
 			IsChannelAnimation = isChannelAnimation,

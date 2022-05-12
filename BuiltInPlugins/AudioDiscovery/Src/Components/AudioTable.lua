@@ -33,10 +33,9 @@
 		table CellProps: A table of props which are passed from the table's props to the CellComponent.
 		number ScrollFocusIndex: An optional row index for the infinite scroller to focus upon rendering.
 ]]
-local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
 
-local hasTableColumnResizeFFlags = FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize
+local hasTableColumnResizeFFlags = FFlagDevFrameworkTableColumnResize
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -56,7 +55,7 @@ local some = Dash.some
 
 local Pane = UI.Pane
 local ScrollingFrame = UI.ScrollingFrame
-local SplitPane = if FFlagDevFrameworkSplitPane then UI.SplitPane else nil
+local SplitPane = UI.SplitPane
 local TableHeaderCell = require(script.TableHeaderCell)
 
 local AudioTable = Roact.PureComponent:extend("AudioTable")

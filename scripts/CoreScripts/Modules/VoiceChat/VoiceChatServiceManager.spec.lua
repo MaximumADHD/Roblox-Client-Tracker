@@ -1,12 +1,12 @@
---!nocheck
--- TODO: Add typechecking to this when "'toHaveBeenCalled' not found in table
--- 'Expectation'" fix is found
+--!nonstrict
+
 return function()
 	local CorePackages = game:GetService("CorePackages")
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jestExpect = JestGlobals.expect
 	local jest = JestGlobals.jest
 	local Promise = require(CorePackages.Promise)
+	local Cryo = require(CorePackages.Cryo)
 
 	local CoreGui = game:GetService("CoreGui")
 	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -35,7 +35,7 @@ return function()
 			done = true
 		end)
 		res:await()
-		expect(done).to.equal(true)
+		jestExpect(done).toBe(true)
 	end
 
 	local expectToReject = function(promise)
@@ -44,7 +44,7 @@ return function()
 			done = true
 		end)
 		res:await()
-		expect(done).to.equal(true)
+		jestExpect(done).toBe(true)
 	end
 
 	local expectSubstring = function(message, substring)
@@ -59,17 +59,13 @@ return function()
 	end
 
 	local lastLogMessage = ""
-	
+
 	log:addSink({
 		maxLevel = log.Levels.Warning,
 		log = function(self, message, context)
 			lastLogMessage = message
 		end,
 	})
-
-	local LuaSocialLibrariesDeps = require(CorePackages.LuaSocialLibrariesDeps)
-	local Mock = LuaSocialLibrariesDeps.Mock
-	local Spy = Mock.Spy
 
 	local VoiceChatServiceManagerKlass = require(script.Parent.VoiceChatServiceManager)
 	local PermissionsProtocol = require(CorePackages.UniversalApp.Permissions.PermissionsProtocol)
@@ -146,6 +142,10 @@ return function()
 		ParticipantsStateChangedMock:Fire({}, {}, userStates)
 	end
 
+	function VoiceChatServiceStub:setUserStates(userStates)
+		ParticipantsStateChangedMock:Fire({}, {}, userStates)
+	end
+
 	local HTTPServiceStub = {
 		GetAsyncFullUrlCB = noop
 	}
@@ -167,10 +167,6 @@ return function()
 		return self.hasPermissionsCB(type)
 	end
 
-	beforeAll(function(context)
-		expect.extend(Mock.Matchers)
-	end)
-
 	beforeEach(function(context)
 		ParticipantsStateChangedMock = Instance.new("BindableEvent")
 		StateChangedMock = Instance.new("BindableEvent")
@@ -186,19 +182,70 @@ return function()
 		VoiceChatServiceManager:UnmountPrompt()
 	end)
 
+	describe("VoiceChatServiceManager Recent Users Interaction", function()
+		beforeAll(function(context)
+			context.fflagClearUserFromRecentVoiceDataOnLeave = game:SetFastFlagForTesting("ClearUserFromRecentVoiceDataOnLeave", true)
+			context.fflagVoiceAbuseReportsEnabled = game:SetFastFlagForTesting("VoiceAbuseReportsEnabled_DEV", true)
+			context.fintVoiceUsersInteractionExpiryTimeSeconds = game:SetFastIntForTesting("VoiceUsersInteractionExpiryTimeSeconds", 600)
+		end)
+
+		afterAll(function(context)
+			game:SetFastFlagForTesting("ClearUserFromRecentVoiceDataOnLeave", context.fflagClearUserFromRecentVoiceDataOnLeave)
+			game:SetFastFlagForTesting("VoiceAbuseReportsEnabled_DEV", context.fflagVoiceAbuseReportsEnabled)
+			game:SetFastIntForTesting("VoiceUsersInteractionExpiryTimeSeconds", context.fintVoiceUsersInteractionExpiryTimeSeconds)
+		end)
+
+		it("Should record the timestamp when another user has unmuted", function()
+			local mockUserA = makeMockUser("001")
+			mockUserA.isMuted = true
+			local mockUserB = makeMockUser("002")
+			mockUserB.isMuted = true
+
+			expect(VoiceChatServiceManager).to.be.ok()
+			expect(Cryo.isEmpty(VoiceChatServiceManager:getRecentUsersInteractionData())).to.equal(true)
+			VoiceChatServiceStub:addUsers({mockUserA, mockUserB})
+			expect(Cryo.isEmpty(VoiceChatServiceManager:getRecentUsersInteractionData())).to.equal(true)
+			mockUserA.isMuted = false
+			VoiceChatServiceStub:setUserStates({mockUserA})
+			expect(#Cryo.Dictionary.values(VoiceChatServiceManager:getRecentUsersInteractionData())).to.equal(1)
+		end)
+
+		it("Recent user data cache should expire according to FIntVoiceUsersInteractionExpiryTimeSeconds", function()
+			local old = game:SetFastIntForTesting("VoiceUsersInteractionExpiryTimeSeconds", 0)
+
+			local mockUserA = makeMockUser("001")
+			mockUserA.isMuted = true
+			local mockUserB = makeMockUser("002")
+			mockUserB.isMuted = true
+
+			expect(VoiceChatServiceManager).to.be.ok()
+			expect(Cryo.isEmpty(VoiceChatServiceManager:getRecentUsersInteractionData())).to.equal(true)
+			VoiceChatServiceStub:addUsers({mockUserA, mockUserB})
+			expect(Cryo.isEmpty(VoiceChatServiceManager:getRecentUsersInteractionData())).to.equal(true)
+			mockUserA.isMuted = false
+			VoiceChatServiceStub:setUserStates({mockUserA})
+			expect(Cryo.isEmpty(VoiceChatServiceManager:getRecentUsersInteractionData())).to.equal(false)
+			mockUserA.isMuted = true
+			VoiceChatServiceStub:setUserStates({mockUserA})
+			expect(Cryo.isEmpty(VoiceChatServiceManager:getRecentUsersInteractionData())).to.equal(true)
+
+			game:SetFastIntForTesting("VoiceUsersInteractionExpiryTimeSeconds", old)
+		end)
+	end)
+
 	describe("Voice Chat Service Manager", function()
 		it("Participants are tracked properly when added and removed", function()
-			expect(VoiceChatServiceManager).to.be.ok()
+			jestExpect(VoiceChatServiceManager).never.toBeNil()
 			VoiceChatServiceStub:addUsers({makeMockUser("001"), makeMockUser("002")})
-			expect(deepEqual(
+			jestExpect(deepEqual(
 				VoiceChatServiceManager.participants,
 				{
 					["001"] = makeMockUser("001"),
 					["002"] = makeMockUser("002")
 				}
-			)).to.equal(true)
+			)).toBe(true)
 			VoiceChatServiceStub:addUsers({makeMockUser("003"), makeMockUser("004")})
-			expect(deepEqual(
+			jestExpect(deepEqual(
 				VoiceChatServiceManager.participants,
 				{
 					["001"] = makeMockUser("001"),
@@ -206,40 +253,40 @@ return function()
 					["003"] = makeMockUser("003"),
 					["004"] = makeMockUser("004"),
 				}
-			)).to.equal(true)
+			)).toBe(true)
 			VoiceChatServiceStub:kickUsers({"001", "002", "004"})
-			expect(deepEqual(
+			jestExpect(deepEqual(
 				VoiceChatServiceManager.participants,
 				{
 					["003"] = makeMockUser("003"),
 				}
-			)).to.equal(true)
+			)).toBe(true)
 			VoiceChatServiceStub:addUsers({makeMockUser("005"), makeMockUser("006")})
-			expect(deepEqual(
+			jestExpect(deepEqual(
 				VoiceChatServiceManager.participants,
 				{
 					["003"] = makeMockUser("003"),
 					["005"] = makeMockUser("005"),
 					["006"] = makeMockUser("006"),
 				}
-			)).to.equal(true)
+			)).toBe(true)
 		end)
 		itFIXME("Participants are cleared when player leaves voicechat", function()
 			-- TODO: Finish this when VoiceChatState is added to Enum Globally
-			expect(VoiceChatServiceManager).to.be.ok()
+			jestExpect(VoiceChatServiceManager).never.toBeNil()
 			VoiceChatServiceStub:addUsers({makeMockUser("001"), makeMockUser("002")})
-			expect(deepEqual(
+			jestExpect(deepEqual(
 				VoiceChatServiceManager.participants,
 				{
 					["001"] = makeMockUser("001"),
 					["002"] = makeMockUser("002"),
 				}
-			)).to.equal(true)
+			)).toBe(true)
 			VoiceChatServiceStub:Disconnect()
-			expect(deepEqual(
+			jestExpect(deepEqual(
 				VoiceChatServiceManager.participants,
 				{ }
-			)).to.equal(true)
+			)).toBe(true)
 		end)
 
 		it("requestMicPermission throws when a malformed response is given", function ()
@@ -290,8 +337,8 @@ return function()
 				act(function()
 					VoiceChatServiceManager:userAndPlaceCanUseVoice('12345')
 				end)
-				expect(CoreGui.RobloxVoiceChatPromptGui).to.be.ok()
-				expect(CoreGui.InGameMenuInformationalDialog.DialogMainFrame.TitleTextContainer.TitleText.text).to.equal("Voice Chat Suspended")
+				jestExpect(CoreGui.RobloxVoiceChatPromptGui).never.toBeNil()
+				jestExpect(CoreGui.InGameMenuInformationalDialog.DialogMainFrame.TitleTextContainer.TitleText.text).toBe("Voice Chat Suspended")
 			end)
 			it("Show place prompt if place is not enabled for voice", function ()
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, HTTPServiceStub)
@@ -306,11 +353,11 @@ return function()
 				})
 				VoiceChatServiceManager.promptSignal = Instance.new("BindableEvent")
 				VoiceChatServiceManager.promptSignal.Event:Connect(function(signal)
-					expect(signal).to.equal(VoiceChatPromptType.Place)
+					jestExpect(signal).toBe(VoiceChatPromptType.Place)
 				end)
-				expect(VoiceChatServiceManager:userAndPlaceCanUseVoice('12345')).to.equal(false)
+				jestExpect(VoiceChatServiceManager:userAndPlaceCanUseVoice('12345')).toBe(false)
 			end)
-	
+
 			it("Doesn't show place prompt if universe is not enabled for voice", function ()
 				local earlyOutFlag = game:SetFastFlagForTesting("VCPromptEarlyOut", true)
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, HTTPServiceStub)
@@ -328,7 +375,7 @@ return function()
 				VoiceChatServiceManager.promptSignal.Event:Connect(mockFn)
 				-- This should never fire
 				jestExpect(mock).never.toHaveBeenCalled()
-				expect(VoiceChatServiceManager:userAndPlaceCanUseVoice('12345')).to.equal(false)
+				jestExpect(VoiceChatServiceManager:userAndPlaceCanUseVoice('12345')).toBe(false)
 				game:SetFastFlagForTesting("VCPromptEarlyOut", earlyOutFlag)
 			end)
 		end)
@@ -353,25 +400,25 @@ return function()
 				act(function()
 					VoiceChatServiceManager:CheckAndShowPermissionPrompt()
 				end)
-				expect(CoreGui.RobloxVoiceChatPromptGui).to.be.ok()
-				expect(CoreGui.RobloxVoiceChatPromptGui.Content.Toast.ToastContainer.Toast.ToastFrame.ToastTextFrame.ToastTitle.Text).to.equal("Voice Chat Unavailable")
+				jestExpect(CoreGui.RobloxVoiceChatPromptGui).never.toBeNil()
+				jestExpect(CoreGui.RobloxVoiceChatPromptGui.Content.Toast.ToastContainer.Toast.ToastFrame.ToastTextFrame.ToastTitle.Text).toBe("Voice Chat Unavailable")
 			end)
 		end)
 
 		it("VoiceChatAvailable Returns the correct values", function ()
 			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new()
-			expect(VoiceChatServiceManager:VoiceChatAvailable()).to.equal(false)
+			jestExpect(VoiceChatServiceManager:VoiceChatAvailable()).toBe(false)
 			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub)
 			VoiceChatServiceStub.GetVoiceChatApiVersionCB = stub(2)
-			expect(VoiceChatServiceManager:VoiceChatAvailable()).to.equal(false)
+			jestExpect(VoiceChatServiceManager:VoiceChatAvailable()).toBe(false)
 			VoiceChatServiceStub.GetVoiceChatApiVersionCB = stub(6)
-			expect(VoiceChatServiceManager:VoiceChatAvailable()).to.equal(false)
+			jestExpect(VoiceChatServiceManager:VoiceChatAvailable()).toBe(false)
 			VoiceChatServiceStub.GetVoiceChatAvailableCB = stub(0)
-			expect(VoiceChatServiceManager:VoiceChatAvailable()).to.equal(false)
+			jestExpect(VoiceChatServiceManager:VoiceChatAvailable()).toBe(false)
 			-- We set available to nil because we cache it to keep init() itempotent
 			VoiceChatServiceManager.available = nil
 			VoiceChatServiceStub.GetVoiceChatAvailableCB = stub(2)
-			expect(VoiceChatServiceManager:VoiceChatAvailable()).to.equal(true)
+			jestExpect(VoiceChatServiceManager:VoiceChatAvailable()).toBe(true)
 		end)
 
 		describe("BlockingUtils", function()
@@ -393,14 +440,14 @@ return function()
 				VoiceChatServiceManager:SetupParticipantListeners()
 				local player = makeMockUser("001")
 				VoiceChatServiceStub:addUsers({player})
-	
-				local spy, func = Spy.new(noop)
+
+				local spy, func = jest.fn(noop)
 				VoiceChatServiceStub.SubscribeBlockCB = func;
 
 				BlockMock:Fire(player.UserId, true)
-				expect(spy).toHaveBeenCalled(1)
+				jestExpect(spy).toHaveBeenCalledTimes(1)
 			end)
-	
+
 			it("we call subscribe unblock when a user is unblocked", function ()
 				local UnblockMock = Instance.new("BindableEvent")
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
@@ -409,68 +456,68 @@ return function()
 				VoiceChatServiceManager:SetupParticipantListeners()
 				local player = makeMockUser("001")
 				VoiceChatServiceStub:addUsers({player})
-	
-				local spy, func = Spy.new(noop)
+
+				local spy, func = jest.fn(noop)
 				VoiceChatServiceStub.SubscribeUnblockCB = func;
-				
+
 				UnblockMock:Fire(player.UserId, false)
-				expect(spy).toHaveBeenCalled(1)
+				jestExpect(spy).toHaveBeenCalledTimes(1)
 			end)
 		end)
 
 		it("MuteUser toggles isMutedLocally", function ()
-			expect(VoiceChatServiceManager).to.be.ok()
+			jestExpect(VoiceChatServiceManager).never.toBeNil()
 			VoiceChatServiceStub:addUsers({makeMockUser("001"), makeMockUser("002")})
-			expect(deepEqual(
+			jestExpect(deepEqual(
 				VoiceChatServiceManager.participants,
 				{
 					["001"] = makeMockUser("001"),
 					["002"] = makeMockUser("002"),
 				}
-			)).to.equal(true)
+			)).toBe(true)
 			VoiceChatServiceStub.IsSubscribePausedCB = stub(false)
 			VoiceChatServiceManager:ToggleMutePlayer("002")
-			expect(deepEqual(
+			jestExpect(deepEqual(
 				VoiceChatServiceManager.participants,
 				{
 					["001"] = makeMockUser("001"),
 					["002"] = makeMockUser("002", true),
 				}
-			)).to.equal(true)
+			)).toBe(true)
 
 			VoiceChatServiceStub.IsSubscribePausedCB = stub(true)
 
-			local spy, func = Spy.new(noop)
+			local spy, func = jest.fn(noop)
 			VoiceChatServiceManager.participantsUpdate.Event:Connect(func)
 			VoiceChatServiceManager:ToggleMutePlayer("002")
 
-			expect(spy).toHaveBeenCalled(1)
-			expect(deepEqual(
+			jestExpect(spy).toHaveBeenCalledTimes(1)
+			jestExpect(deepEqual(
 				VoiceChatServiceManager.participants,
 				{
 					["001"] = makeMockUser("001"),
 					["002"] = makeMockUser("002"),
 				}
-			)).to.equal(true)
+			)).toBe(true)
 		end)
 
 		it("Rejoin clears participants", function ()
 			local ClearStateOnRejoinOld = game:SetFastFlagForTesting("ClearVoiceStateOnRejoin", true)
-			expect(VoiceChatServiceManager).to.be.ok()
+			jestExpect(VoiceChatServiceManager).never.toBeNil()
 			VoiceChatServiceStub:addUsers({makeMockUser("001"), makeMockUser("002")})
-			
-			expect(deepEqual(
+
+			jestExpect(deepEqual(
 				VoiceChatServiceManager.participants,
 				{
 					["001"] = makeMockUser("001"),
 					["002"] = makeMockUser("002"),
 				}
-			)).to.equal(true)
+			)).toBe(true)
 			VoiceChatServiceManager:RejoinCurrentChannel()
-			expect(deepEqual(
+			jestExpect(deepEqual(
 				VoiceChatServiceManager.participants,
 				{}
-			)).to.equal(true)
+			)).toBe(true)
 			game:SetFastFlagForTesting("ClearVoiceStateOnRejoin", ClearStateOnRejoinOld)
 		end)
 	end)

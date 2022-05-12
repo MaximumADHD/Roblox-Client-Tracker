@@ -15,6 +15,8 @@ local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategoriz
 
 local Plugin = script.Parent.Parent.Parent
 local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
+local FFlagToolboxAudioDiscoveryRound2 =
+	require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscoveryRound2()
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
@@ -59,7 +61,7 @@ type _InternalProps = {
 	OnAssetPreviewButtonClicked: ((assetData: any) -> ()),
 	ParentAbsolutePosition: Vector2,
 	ParentSize: Vector2,
-	TryInsert: ((assetData: any, assetWasDragged: boolean, insertionMethod: string) -> any),
+	TryInsert: ((assetData: any, assetWasDragged: boolean, insertionMethod: string?) -> any),
 	TryOpenAssetConfig: ((
 		assetId: number?,
 		flowType: string,
@@ -161,6 +163,7 @@ function AssetGridContainer:render()
 					Position = position,
 					FetchNextPage = self.requestNextPage,
 					Size = size,
+					tryOpenAssetConfig = if FFlagToolboxAudioDiscoveryRound2 then props.TryOpenAssetConfig else nil,
 				})
 			end
 		end

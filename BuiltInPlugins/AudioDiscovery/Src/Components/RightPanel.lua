@@ -11,8 +11,6 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
 
-local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
-
 local SortTable = require(Plugin.Src.Actions.SortTable)
 
 local SelectionService = game:GetService("Selection")
@@ -62,9 +60,9 @@ function RightPanel:render()
 	if props.Rows and #props.Rows > 0 then
 		return Roact.createElement(AudioTable, {
 			Scroll = true,
-			UseScale = if FFlagDevFrameworkSplitPane then true else nil,
-			ClampSize = if FFlagDevFrameworkSplitPane then true else nil,
-			OnColumnSizesChange = if FFlagDevFrameworkSplitPane then self.onSizesChange else nil,
+			UseScale = true,
+			ClampSize = true,
+			OnColumnSizesChange = self.onSizesChange,
 			SortIndex = props.SortIndex,
 			SortOrder = props.SortOrder,
 			OnSortChange = props.Sort,

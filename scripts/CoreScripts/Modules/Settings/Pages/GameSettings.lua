@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 --!nolint GlobalUsedAsLocal
 
 --[[
@@ -1497,7 +1497,8 @@ local function Initialize()
 
 	local function createOverscanOption()
 		local showOverscanScreen = function()
-			local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
+			-- FIXME: Cyclic module dependency, cast to any to appease typechecker
+			local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub) :: any
 			local overscan = require(RobloxGui.Modules.Shell.Components.Overscan.Overscan)
 			local roact = require(RobloxGui.Modules.Common.Roact)
 			local overscanComponent = nil
@@ -1508,7 +1509,7 @@ local function Initialize()
 					if GetFFlagFixXboxAdjustSetting() then
 						roact.unmount(overscanComponent)
 					else
-						roact.teardown(overscanComponent)
+						(roact :: any).teardown(overscanComponent)
 					end
 
 					-- show settings menu and give back movement
@@ -1538,7 +1539,7 @@ local function Initialize()
 			local overscanElement = roact.createElement(overscan, props)
 			overscanComponent = if GetFFlagFixXboxAdjustSetting()
 				then roact.mount(overscanElement, RobloxGui, tostring(overscan))
-				else roact.reify(overscanElement, RobloxGui, tostring(overscan))
+				else (roact :: any).reify(overscanElement, RobloxGui, tostring(overscan))
 		end
 
 		local adjustButton, adjustText, setButtonRowRef =
@@ -1564,7 +1565,8 @@ local function Initialize()
 				local devConsoleMaster = require(script.Parent.Parent.Parent.DevConsoleMaster)
 				if devConsoleMaster then
 					devConsoleMaster:SetVisibility(true)
-					local MenuModule = require(script.Parent.Parent.SettingsHub)
+					-- FIXME: Cyclic module dependency, cast to any to appease typechecker
+					local MenuModule = require(script.Parent.Parent.SettingsHub) :: any
 					if MenuModule then
 						MenuModule:SetVisibility(false)
 					end

@@ -26,7 +26,7 @@ function CallstackWindow:render()
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 		InitialDockState = Enum.InitialDockState.Bottom,
 		InitialEnabled = true,
-		InitialEnabledShouldOverrideRestore = true,
+		InitialEnabledShouldOverrideRestore = false,
 		Size = Vector2.new(640, 480),
 		MinSize =  Vector2.new(250, 200),
 		Enabled = enabled,

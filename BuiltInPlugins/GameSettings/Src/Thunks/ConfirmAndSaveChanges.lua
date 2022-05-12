@@ -6,8 +6,6 @@
 	After confirming that the user wants to save changes, this dispatches the SaveChanges thunk.
 	If no warnings are necessary, this thunk dispatches SaveChanges immediately.
 ]]
-local FFlagGameSettingsDeduplicatePackages = game:GetFastFlag("GameSettingsDeduplicatePackages")
-
 local Plugin = script.Parent.Parent.Parent
 local SaveChanges = require(Plugin.Src.Thunks.SaveChanges)
 
@@ -17,7 +15,7 @@ local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
 
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
-local Promise = if FFlagGameSettingsDeduplicatePackages then Util.Promise else require(Plugin.Packages.Promise)
+local Promise = Util.Promise
 
 return function(localization, dialog)
 	return function(store)

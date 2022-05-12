@@ -2,6 +2,7 @@ local PluginFolder = script.Parent.Parent.Parent.Parent
 local Roact = require(PluginFolder.Packages.Roact)
 local RoactRodux = require(PluginFolder.Packages.RoactRodux)
 local Framework = require(PluginFolder.Packages.Framework)
+local Cryo = require(PluginFolder.Packages.Cryo)
 
 local CallstackDropdownField = require(script.Parent.CallstackDropdownField)
 
@@ -24,6 +25,7 @@ local join = Dash.join
 local UI = Framework.UI
 local Pane = UI.Pane
 local TreeTable = UI.TreeTable
+local IconButton = UI.IconButton
 
 local StudioUI = Framework.StudioUI
 local showContextMenu = StudioUI.showContextMenu
@@ -44,9 +46,9 @@ local Constants = require(PluginFolder.Src.Util.Constants)
 
 local StudioService = game:GetService("StudioService")
 
-local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
-local hasTableColumnResizeFFlags = FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize
+local FFlagDevFrameworkTableHeaderTooltip = game:GetFastFlag("DevFrameworkTableHeaderTooltip")
+local hasTableColumnResizeFFlags = FFlagDevFrameworkTableColumnResize
 
 local columnNameToKey = {
 	FrameColumn = "frameColumn",
@@ -55,6 +57,8 @@ local columnNameToKey = {
 	FunctionColumn = "functionColumn",
 	LineColumn = "lineColumn",
 }
+
+local TABLE_PADDING = 1
 
 -- Local Functions
 local function setArrowIcon(index, frameData, frameListCopy, currentFrameNumber)
@@ -135,34 +139,32 @@ end
 function CallstackComponent:init()
 	
 	local initialSizes = nil
-	local numColumns = 6
 	if hasTableColumnResizeFFlags then 
-		initialSizes = {}
-		for i = 1,numColumns do
-			table.insert(initialSizes, UDim.new(1/numColumns, 0))
-		end
+		initialSizes = {
+			UDim.new(1/5, 0),
+			UDim.new(1/5, 0),
+			UDim.new(1/5, 0),
+			UDim.new(1/5, 0),
+			UDim.new(1/5, 0),
+		}
 	end
 	
 	self.state = {
 		selectedRows = {},
 		selectAll = false,
-		sizes = hasTableColumnResizeFFlags and {UDim.new(1, 0)},
-		savedWidths = hasTableColumnResizeFFlags and initialSizes
+		sizes = hasTableColumnResizeFFlags and initialSizes,
 	}
-	
-	self.OnSizesChange = function(newSizes : {UDim})
+
+	self.OnColumnSizesChange = function(newSizes : {UDim})
 		if hasTableColumnResizeFFlags then
 			self:setState(function(state)
 				return { 
 					sizes = newSizes,
-					-- if we have a new set of widths that isn't 1 big column, save them for 
-					-- the next time we have multiple columns
-					savedWidths = if #newSizes > 1 then newSizes else state.savedWidths
 				}
 			end)
 		end
 	end
-	
+
 	self.getTreeChildren = function(item)
 		return item.children or {}
 	end
@@ -296,6 +298,114 @@ function CallstackComponent:init()
 	self.getTreeChildren = function(item)
 		return item.children or {}
 	end
+
+	self.fetchOldColumnSizes = function(oldColumnNumber, prevProps)
+		local oldColumnNameToSize = {}
+		oldColumnNameToSize["ArrowColumn"] = self.state.sizes[1]
+
+		for i = 2, oldColumnNumber do
+			oldColumnNameToSize[prevProps.ColumnFilter[i-1]] = self.state.sizes[i]
+		end
+
+		return oldColumnNameToSize
+	end
+
+	self.updatedSizesAfterRemovingColumn = function(columnNumber, deletedColumnSize, oldColumnNameToSize)
+		local updatedSizes = {}
+		local remainingSpace = 1 - deletedColumnSize
+		for i = 1, columnNumber do
+			local currentColumn = if i == 1 then "ArrowColumn" else self.props.ColumnFilter[i-1]
+			local newColumnSize = UDim.new((oldColumnNameToSize[currentColumn].Scale)/remainingSpace, 0)
+			table.insert(updatedSizes, newColumnSize)			
+		end
+		return updatedSizes
+	end
+
+	self.updatedSizesAfterAddingColumns = function(columnNumber, oldColumnNumber, oldColumnNameToSize)
+		local updatedSizes = {}
+		local numOfColumnsAdded = columnNumber - oldColumnNumber
+		local addedColumnSize = UDim.new(1/columnNumber, 0)
+		for i = 1,columnNumber do
+			local currentColumn = if i == 1 then "ArrowColumn" else self.props.ColumnFilter[i-1]
+			if oldColumnNameToSize[currentColumn] == nil then
+				-- Set new column to default size
+				table.insert(updatedSizes, addedColumnSize)
+			else
+				-- With the remaining space (width - space for added columns), scale the column to the proportion it was on the previous resize.
+				local spaceForAddedColumns = numOfColumnsAdded*addedColumnSize.Scale
+				local newScale = (oldColumnNameToSize[currentColumn].Scale) * (1-spaceForAddedColumns)
+				local newColumnSize = UDim.new(newScale, 0)
+				table.insert(updatedSizes, newColumnSize)
+			end
+		end
+		return updatedSizes
+	end
+end
+
+function CallstackComponent:didUpdate(prevProps)
+	if #self.props.ColumnFilter ~= #prevProps.ColumnFilter then
+		-- add 1 for arrow column
+		local columnNumber = #self.props.ColumnFilter + 1
+
+		-- just arrow column (removing all columns/columnFilter is empty)
+		if columnNumber == 1 then
+			self:setState(function(state)
+				return {
+					sizes = {UDim.new(1, 0)}
+				}
+			end)
+			return
+		end
+
+		local updatedSizes = {}
+
+		-- columns have been resized so we need to scale the existing columns proportionally as we add/delete new columns
+		local oldColumnNumber = #prevProps.ColumnFilter + 1
+		local newColumnSet = Cryo.List.toSet(self.props.ColumnFilter)
+		local oldColumnNameToSize = self.fetchOldColumnSizes(oldColumnNumber, prevProps)
+
+		--removing single column
+		if columnNumber < oldColumnNumber then
+			local deletedColumnSize = nil
+			for i = 2, oldColumnNumber do
+				if newColumnSet[prevProps.ColumnFilter[i-1]] == nil then
+					deletedColumnSize = oldColumnNameToSize[prevProps.ColumnFilter[i-1]].Scale
+				end
+			end
+			updatedSizes = self.updatedSizesAfterRemovingColumn(columnNumber, deletedColumnSize, oldColumnNameToSize)
+
+		--adding column(s)
+		else
+			updatedSizes = self.updatedSizesAfterAddingColumns(columnNumber, oldColumnNumber, oldColumnNameToSize)
+		end
+		
+		self:setState(function(state)
+			return {
+				sizes = updatedSizes,
+			}
+		end)
+	end
+
+	self.onStepOver = function()
+		local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
+		local connection = debuggerConnectionManager:GetConnectionById(self.props.CurrentDebuggerConnectionId)
+		local thread = connection:GetThreadById(self.props.CurrentThreadId)
+		connection:Step(thread, function() end)
+	end
+
+	self.onStepInto = function()
+		local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
+		local connection = debuggerConnectionManager:GetConnectionById(self.props.CurrentDebuggerConnectionId)
+		local thread = connection:GetThreadById(self.props.CurrentThreadId)
+		connection:StepIn(thread, function() end)
+	end
+
+	self.onStepOut = function()
+		local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
+		local connection = debuggerConnectionManager:GetConnectionById(self.props.CurrentDebuggerConnectionId)
+		local thread = connection:GetThreadById(self.props.CurrentThreadId)
+		connection:StepOut(thread, function() end)
+	end
 end
 
 function CallstackComponent:render()
@@ -315,29 +425,19 @@ function CallstackComponent:render()
 		local currCol = {
 			Name = localization:getText("Callstack", v),
 			Key = columnNameToKey[v],
+			Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText("Callstack", v .. 'Tooltip') or nil,
 		}
 		table.insert(tableColumns, currCol)
 	end
 	
 	if hasTableColumnResizeFFlags then
 		local widthsToUse = self.state.sizes
-		if #tableColumns > #self.state.sizes then
-			-- If we are adding columns, use the saved previous widths
-			widthsToUse = self.state.savedWidths
-		elseif #tableColumns < #self.state.sizes then
-			-- If we are removing columns, reset the widths to 1 big column
-			widthsToUse = {UDim.new(1, 0)}
-		end
 		tableColumns = map(tableColumns, function(column, index: number)
 			return join(column, {
 				Width = widthsToUse[index]
 			})
 		end)
 	end
-	
-	local clampSize = if hasTableColumnResizeFFlags then true else nil
-	local useDeficit = if hasTableColumnResizeFFlags then true else nil
-	local onColumnSizesChange = if hasTableColumnResizeFFlags then self.OnSizesChange else nil
 
 	return Roact.createElement(Pane, {
 		Size = UDim2.fromScale(1, 1),
@@ -353,12 +453,56 @@ function CallstackComponent:render()
 			Style = "Box",
 			Layout = Enum.FillDirection.Horizontal,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
-			HorizontalAlignment = Enum.HorizontalAlignment.Right,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		}, {			
-			ColumnDropdown = Roact.createElement(CallstackDropdownField, {
+			ButtonContainer = Roact.createElement(Pane, {
+				Size = UDim2.new(0.5, 0, 0, Constants.HEADER_HEIGHT),
 				LayoutOrder = 1,
-				AutomaticSize = Enum.AutomaticSize.X,
-			})
+				Style = "Box",
+				Layout = Enum.FillDirection.Horizontal,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			}, {
+				StepOverButton = Roact.createElement(IconButton, {
+					Size = UDim2.new(0, Constants.BUTTON_SIZE, 0, Constants.BUTTON_SIZE),
+					LayoutOrder = 1,
+					LeftIcon = "rbxasset://textures/Debugger/Step-Over.png",
+					TooltipText = localization:getText("Common", "stepOverActionV2"),
+					OnClick = self.onStepOver,
+					Disabled = self.props.CurrentThreadId == nil,
+				}),
+				StepIntoButton = Roact.createElement(IconButton, {
+					Size = UDim2.new(0, Constants.BUTTON_SIZE, 0, Constants.BUTTON_SIZE),
+					LayoutOrder = 2,
+					LeftIcon = "rbxasset://textures/Debugger/Step-In.png",
+					TooltipText = localization:getText("Common", "stepIntoActionV2"),
+					OnClick = self.onStepInto,
+					Disabled = self.props.CurrentThreadId == nil,
+				}),
+				StepOutButton = Roact.createElement(IconButton, {
+					Size = UDim2.new(0, Constants.BUTTON_SIZE, 0, Constants.BUTTON_SIZE),
+					LayoutOrder = 3,
+					LeftIcon = "rbxasset://textures/Debugger/Step-Out.png",
+					TooltipText = localization:getText("Common", "stepOutActionV2"),
+					OnClick = self.onStepOut,
+					Disabled = self.props.CurrentThreadId == nil,
+				}),
+			}),
+			ColContainer = Roact.createElement(Pane, {
+				Size = UDim2.new(0.5, 0, 0, Constants.HEADER_HEIGHT),
+				Padding = 5,
+				Spacing = 10,
+				LayoutOrder = 2,
+				Style = "Box",
+				Layout = Enum.FillDirection.Horizontal,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+				HorizontalAlignment = Enum.HorizontalAlignment.Right,
+			}, {
+				ColumnDropdown = Roact.createElement(CallstackDropdownField, {
+					LayoutOrder = 1,
+					AutomaticSize = Enum.AutomaticSize.X,
+				})
+			}),
 		}),
 		BodyView = Roact.createElement(Pane, {
 			Size = UDim2.new(1, 0, 1, -1 * Constants.HEADER_HEIGHT),
@@ -380,9 +524,11 @@ function CallstackComponent:render()
 				OnExpansionChange = self.onExpansionChange,
 				FullSpan = true,
 				HighlightedRows = self.state.selectedRows,
-				OnColumnSizesChange = onColumnSizesChange,
-				UseDeficit = useDeficit,
-				ClampSize = clampSize
+				OnColumnSizesChange = if hasTableColumnResizeFFlags then self.OnColumnSizesChange else nil,
+				UseDeficit = if hasTableColumnResizeFFlags then false else nil,
+				UseScale = if hasTableColumnResizeFFlags then true else nil,
+				ClampSize = if hasTableColumnResizeFFlags then true else nil,
+				Padding = TABLE_PADDING,
 			})
 		}),
 	})
@@ -400,13 +546,14 @@ CallstackComponent = withContext({
 CallstackComponent = RoactRodux.connect(
 	function(state, props)
 		local common = state.Common
+		local callstack = state.Callstack
 		if common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId] == nil then
 			return {
 				RootItems = {},
 				CurrentThreadId = nil,
+				ColumnFilter = callstack.listOfEnabledColumns,
 			}
 		else
-			local callstack = state.Callstack
 			local currentThreadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
 			local address = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
 			local callstackVars = callstack.stateTokenToCallstackVars[address]

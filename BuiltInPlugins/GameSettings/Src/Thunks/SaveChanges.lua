@@ -2,8 +2,6 @@
 	Saves all user changed settings to actual setting values.
 	Returns a Promise that will resolve when saving is complete.
 ]]
-local FFlagGameSettingsDeduplicatePackages = game:GetFastFlag("GameSettingsDeduplicatePackages")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Analytics = require(Plugin.Src.Util.Analytics)
@@ -14,7 +12,7 @@ local CurrentStatus = require(Plugin.Src.Util.CurrentStatus)
 local SaveState = require(Plugin.Src.Util.SaveState)
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
-local Promise = if FFlagGameSettingsDeduplicatePackages then Util.Promise else require(Plugin.Packages.Promise)
+local Promise = Util.Promise
 
 return function()
 	return function(store)

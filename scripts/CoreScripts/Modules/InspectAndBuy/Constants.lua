@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 local InspectAndBuyFolder = script.Parent
 
 local FFlagInspectAndBuyLayeredClothingSupport = require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyLayeredClothingSupport)

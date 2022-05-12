@@ -11,7 +11,6 @@ game:DefineFastFlag("NewInGameMenuDisabledInVR", false)
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
-local FFlagForceNewIGMinVR = require(RobloxGui.Modules.Flags.FFlagForceNewIGMinVR)
 local FFlagDisableNewIGMinDUA = game:DefineFastFlag("DisableNewIGMinDUA", false)
 
 local isSubjectToDesktopPolicies = require(
@@ -25,7 +24,7 @@ return function()
 		end
 	end
 
-	if FFlagForceNewIGMinVR and VRService.VREnabled then
+	if VRService.VREnabled then
 		return true
 	end
 

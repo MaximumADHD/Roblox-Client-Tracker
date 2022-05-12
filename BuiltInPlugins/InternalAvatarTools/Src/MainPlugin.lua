@@ -16,9 +16,13 @@ local Mouse = ContextServices.Mouse
 local MakeTheme = require(main.Src.Resources.MakeTheme)
 
 local Toolbar = require(main.Src.Components.Toolbar)
+local PromptExportNonAccessory = require(main.Src.Components.PromptExportNonAccessory)
 
 local TranslationDevelopmentTable = main.Src.Resources.Localization.TranslationDevelopmentTable
 local TranslationReferenceTable = main.Src.Resources.Localization.TranslationReferenceTable
+
+local NonAccessoriesSelected = require(main.Src.Functions.NonAccessoriesSelected)
+local Export = require(main.Src.Functions.Export)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -27,6 +31,10 @@ function MainPlugin:init(props)
 		stringResourceTable = TranslationDevelopmentTable,
 		translationResourceTable = TranslationReferenceTable,
 		pluginName = "InternalAvatarTools",
+	})
+
+	self:setState({
+		promptExportNonAccessoryOpen = false,
 	})
 end
 
@@ -40,7 +48,32 @@ function MainPlugin:render()
 		MakeTheme(),
 		self.localization,
 	}, {
-		Toolbar = Roact.createElement(Toolbar),
+		Toolbar = Roact.createElement(Toolbar, {
+			onExportClicked = function()
+				if NonAccessoriesSelected() then
+					self:setState({
+						promptExportNonAccessoryOpen = true,
+					})
+				else
+					Export(plugin)
+				end
+			end
+		}),
+
+		PromptExportNonAccessory = self.state.promptExportNonAccessoryOpen and Roact.createElement(PromptExportNonAccessory, {
+			onConfirm = function()
+				Export(plugin)
+
+				self:setState({
+					promptExportNonAccessoryOpen = false,
+				})
+			end,
+			onCancel = function()
+				self:setState({
+					promptExportNonAccessoryOpen = false,
+				})
+			end,
+		})
 	})
 end
 

@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 
 --[[
 	// FileName: NewChat.lua
@@ -47,6 +47,9 @@ do
 		}
 
 		local communicationsConnections = {}
+		communicationsConnections.ChatWindow = nil
+		communicationsConnections.GetCore = nil
+		communicationsConnections.SetCore = nil
 		local eventConnections = {}
 
 		local SetCoreCache = {}

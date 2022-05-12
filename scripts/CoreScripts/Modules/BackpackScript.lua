@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 
 -- Backpack Version 5.1
 -- OnlyTwentyCharacters, SolarCrane
@@ -1889,8 +1889,6 @@ end)
 local BackpackStateChangedInVRConn, VRModuleOpenedConn, VRModuleClosedConn = nil, nil, nil
 local function OnVREnabled()
 	local Panel3D = require(RobloxGui.Modules.VR.Panel3D)
-	
-	Panel3D.showCursor = not FFlagEnableNewVrSystem
 
 	IsVR = VRService.VREnabled
 	OnCoreGuiChanged(backpackType, StarterGui:GetCoreGuiEnabled(backpackType))

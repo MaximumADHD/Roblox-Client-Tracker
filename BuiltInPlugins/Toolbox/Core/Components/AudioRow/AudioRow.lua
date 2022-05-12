@@ -3,6 +3,8 @@ local Plugin = script:FindFirstAncestor("Toolbox")
 
 local FFlagToolboxAssetGridRefactor6 = game:GetFastFlag("ToolboxAssetGridRefactor6")
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
+local FFlagToolboxAudioDiscoveryRound2 =
+	require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscoveryRound2()
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
@@ -15,6 +17,7 @@ local Constants = require(Util.Constants)
 local LayoutOrderIterator = require(Util.LayoutOrderIterator)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+local AssetLogicWrapper = require(Plugin.Core.Components.AssetLogicWrapper)
 local AudioPlayer = require(Plugin.Core.Components.AudioPlayer.AudioPlayer)
 local AudioRowMetadata = require(Plugin.Core.Components.AudioRow.AudioRowMetadata)
 local AudioRowInsertButton = require(Plugin.Core.Components.AudioRow.AudioRowInsertButton)
@@ -22,12 +25,15 @@ local DraggableButton = require(Plugin.Core.Components.DraggableButton)
 local NetworkInterface = require(Plugin.Core.Networking.NetworkInterface)
 local TryCreateContextMenu = require(Plugin.Core.Thunks.TryCreateContextMenu)
 local GetPageInfoAnalyticsContextInfo = require(Plugin.Core.Thunks.GetPageInfoAnalyticsContextInfo)
+local GetCanManageAssetRequest = require(Plugin.Core.Networking.Requests.GetCanManageAssetRequest)
 local AssetAnalyticsContextItem = require(Util.Analytics.AssetAnalyticsContextItem)
 
 local Images = require(Plugin.Core.Util.Images)
 local ContextHelper = require(Util.ContextHelper)
+local ContextGetter = require(Util.ContextGetter)
 
 local withLocalization = ContextHelper.withLocalization
+local getNetwork = ContextGetter.getNetwork
 
 local AssetInfo = require(Plugin.Core.Models.AssetInfo)
 local Category = require(Plugin.Core.Types.Category)
@@ -38,19 +44,25 @@ type _InteralAudioRowProps = {
 	Localization: any,
 	Stylizer: any,
 	Plugin: any,
-	tryCreateContextMenu: () -> nil,
+	tryCreateContextMenu: (...any) -> nil,
 	getPageInfoAnalyticsContextInfo: () -> any,
+	getCanManageAsset: (networkInterface: any, assetId: any) -> (),
 	AssetAnalytics: any,
 }
 
-type AudioRowProps = _InteralAudioRowProps & {
+type _ExternalAudioRowProps = {
 	AssetInfo: AssetInfo.AssetInfo,
 	LayoutOrder: number,
 	IsExpanded: boolean,
 	CanInsertAsset: () -> boolean,
 	InsertAsset: (assetWasDragged: boolean) -> nil,
 	OnExpanded: (assetId: number) -> nil,
+	-- When removing FFlagToolboxAudioDiscoveryRound2 tryOpenAssetConfig should not be optional
+	tryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn?,
 }
+
+type AudioRowProps = _InteralAudioRowProps & _ExternalAudioRowProps
+
 type AudioRowState = {
 	isHovered: boolean,
 	isPlayButtonHovered: boolean,
@@ -145,7 +157,13 @@ end
 
 function AudioRow:didMount()
 	local props: AudioRowProps = self.props
+
 	local asset = props.AssetInfo
+
+	if FFlagToolboxAudioDiscoveryRound2 and asset.Asset then
+		props.getCanManageAsset(getNetwork(self), asset.Asset.Id)
+	end
+
 	if not FFlagToolboxAssetGridRefactor6 or (FFlagToolboxAssetGridRefactor6 and asset) then
 		local assetAnalyticsContext
 		if FFlagToolboxUsePageInfoInsteadOfAssetContext then
@@ -205,7 +223,7 @@ function AudioRow:renderContent(localizedContent: any)
 
 	local tryCreateLocalizedContextMenu = function()
 		if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-			local props = self.props
+			local props: AudioRowProps = self.props
 			local assetInfo = props.AssetInfo
 			local plugin = props.Plugin:get()
 			local tryOpenAssetConfig = props.tryOpenAssetConfig
@@ -213,13 +231,7 @@ function AudioRow:renderContent(localizedContent: any)
 			local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
 			local assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
 
-			self.props.tryCreateContextMenu(
-				assetInfo,
-				localizedContent,
-				plugin,
-				tryOpenAssetConfig,
-				assetAnalyticsContext
-			)
+			props.tryCreateContextMenu(assetInfo, localizedContent, plugin, tryOpenAssetConfig, assetAnalyticsContext)
 		end
 	end
 
@@ -529,12 +541,17 @@ AudioRow = withContext({
 	Plugin = ContextServices.Plugin,
 })(AudioRow)
 
-local function mapStateToProps()
+local function mapStateToProps(state: any, props: _ExternalAudioRowProps)
 	return {}
 end
 
 local function mapDispatchToProps(dispatch)
 	return {
+		getCanManageAsset = if FFlagToolboxAudioDiscoveryRound2
+			then function(networkInterface, assetId)
+				dispatch(GetCanManageAssetRequest(networkInterface, assetId))
+			end
+			else nil,
 		tryCreateContextMenu = FFlagToolboxAssetGridRefactor6
 				and function(assetData, localizedContent, plugin, tryOpenAssetConfig, assetAnalyticsContext)
 					dispatch(
@@ -556,4 +573,10 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AudioRow)
+AudioRow = RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AudioRow)
+
+function TypedAudioRow(props: _ExternalAudioRowProps, children: any?)
+	return Roact.createElement(AudioRow, props, children)
+end
+
+return { Component = AudioRow, Generator = TypedAudioRow }

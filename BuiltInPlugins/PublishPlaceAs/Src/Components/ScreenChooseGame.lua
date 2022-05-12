@@ -36,8 +36,6 @@ local RoundTextButton = UILibrary.Component.RoundTextButton
 
 local LoadingIndicator = UILibrary.Component.LoadingIndicator
 
-local FFlagDebugFixPublishAsWhenQueryFails = game:GetFastFlag("DebugFixPublishAsWhenQueryFails")
-
 local ScreenChooseGame = Roact.PureComponent:extend("ScreenChooseGame")
 local SelectedItemKey = 0
 local SelectedItemType = Constants.SUBJECT_TYPE.USER
@@ -90,7 +88,7 @@ function ScreenChooseGame:render()
 		})
 	}
 
-	if (not FFlagDebugFixPublishAsWhenQueryFails) or props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_SUCCESS then
+	if props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_SUCCESS then
 		for _, game in pairs(games) do
 			-- TODO: (smallick) 2020/08/26
 			-- We should query using the endpoint and not manually
@@ -190,7 +188,7 @@ function ScreenChooseGame:render()
 			ListWidth = 330,
 		}),
 
-		MainContentsSuccess = (FFlagDebugFixPublishAsWhenQueryFails and props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_SUCCESS)
+		MainContentsSuccess = (props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_SUCCESS)
 			and Roact.createElement(InfiniteScrollingFrame, {
 				Position = UDim2.new(0, 30, 0, 115),
 				Size = UDim2.new(0.95, 0, 0.7, 0),
@@ -206,7 +204,7 @@ function ScreenChooseGame:render()
 				end,
 			}, components),
 
-		MainContentsQuerying = (FFlagDebugFixPublishAsWhenQueryFails and props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_QUERYING)
+		MainContentsQuerying = (props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_QUERYING)
 			and Roact.createElement("Frame", {
 				Position = UDim2.new(0, 30, 0, 115),
 				Size = UDim2.new(0.95, 0, 0.7, 0),
@@ -218,7 +216,7 @@ function ScreenChooseGame:render()
 				})
 			}),
 
-		MainContentsFailed = (FFlagDebugFixPublishAsWhenQueryFails and props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_FAILED)
+		MainContentsFailed = (props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_FAILED)
 			and Roact.createElement("Frame", {
 				Position = UDim2.new(0, 30, 0, 115),
 				Size = UDim2.new(0.95, 0, 0.7, 0),
@@ -248,24 +246,6 @@ function ScreenChooseGame:render()
 				)}
 			),
 
-		-- DEPRECATED delete with FFlagDebugFixPublishAsWhenQueryFails
-		ScrollingFrame = (not FFlagDebugFixPublishAsWhenQueryFails)
-			and Roact.createElement(InfiniteScrollingFrame, {
-				Position = UDim2.new(0, 30, 0, 115),
-				Size = UDim2.new(0.95, 0, 0.7, 0),
-				BackgroundTransparency = 1,
-				-- TODO: replace manual calculation with self.layoutRef
-				-- LayoutRef = self.layoutRef,
-				CanvasHeight = canvasSize,
-				NextPageRequestDistance = 100,
-				NextPageFunc = function()
-					if nextPageCursor and SelectedItemType and SelectedItemKey then
-						dispatchLoadExistingGames(SelectedItemType, SelectedItemKey, nextPageCursor)
-					end
-				end,
-			}, components),
-
-
 		Footer = Roact.createElement(Footer, {
 			MainButton = {
 				Name = "Create",
@@ -293,20 +273,12 @@ local function mapStateToProps(state, props)
 	local gameInfo = state.ExistingGame.gameInfo
 	local groupInfo = state.GroupsHavePermission.groupInfo
 
-	if FFlagDebugFixPublishAsWhenQueryFails then
-		return {
-			NextPageCursor = gameInfo.nextPageCursor,
-			Games = gameInfo.games,
-			Groups = groupInfo.groups,
-			GamesQueryState = gameInfo.queryState,
-		}
-	else
-		return {
-			NextPageCursor = gameInfo.nextPageCursor,
-			Games = gameInfo.games,
-			Groups = groupInfo.groups,
-		}
-	end
+	return {
+		NextPageCursor = gameInfo.nextPageCursor,
+		Games = gameInfo.games,
+		Groups = groupInfo.groups,
+		GamesQueryState = gameInfo.queryState,
+	}
 end
 
 local function useDispatchForProps(dispatch)

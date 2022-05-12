@@ -54,16 +54,18 @@ local FrameworkUtil = require(Libs.Framework).Util
 local deepEqual = FrameworkUtil.deepEqual
 local Dash = Framework.Dash
 
+export type TryOpenAssetConfigFn = ((
+	assetId: number?,
+	flowType: string,
+	instances: any,
+	assetTypeEnum: Enum.AssetType
+) -> ())
+
 export type AssetLogicWrapperProps = {
 	CanInsertAsset: (() -> boolean)?,
 	OnAssetPreviewButtonClicked: ((assetData: any) -> ()),
 	TryInsert: ((assetData: any, assetWasDragged: boolean, insertionMethod: string) -> any),
-	TryOpenAssetConfig: ((
-		assetId: number?,
-		flowType: string,
-		instances: any,
-		assetTypeEnum: Enum.AssetType
-	) -> any),
+	TryOpenAssetConfig: TryOpenAssetConfigFn,
 }
 
 type _ExternalProps = {
@@ -237,7 +239,7 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			self.onPermissionsGrantCallback
 		)
 
-		self.tryInsert = function(assetData, assetWasDragged, insertionMethod)
+		self.tryInsert = function(assetData, assetWasDragged: boolean, insertionMethod: string?)
 			self.lastInsertAttemptTime = tick()
 
 			local asset = assetData.Asset

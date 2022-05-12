@@ -42,7 +42,6 @@ local GetFFlagBubbleVoiceIndicator = require(RobloxGui.Modules.Flags.GetFFlagBub
 local GetFFlagEnableVoiceChatVoiceUISync = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatVoiceUISync)
 local GetFFlagBubbleChatDuplicateMessagesFix = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatDuplicateMessagesFix)
 local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatLocalMuteUI)
-local FFlagBubbleVoiceLocalErrorState = game:DefineFastFlag("BubbleVoiceLocalErrorStateV3", false)
 local FFlagEnableExperienceChat = require(RobloxGui.Modules.Common.Flags.FFlagEnableExperienceChat)
 local FFlagExperienceChatFixBubbleChat = game:DefineFastFlag("ExperienceChatFixBubbleChat", false)
 
@@ -249,33 +248,28 @@ end
 local LOCAL_STATE_MAP = {}
 
 local function setVoiceEnabled(voiceState)
-	if FFlagBubbleVoiceLocalErrorState then
-		local localUserId = tostring(Players.LocalPlayer.UserId)
-		local voiceEnabled = voiceState ~= (Enum::any).VoiceChatState.Ended
-		chatStore:dispatch(VoiceEnabledChanged(voiceEnabled))
+	local localUserId = tostring(Players.LocalPlayer.UserId)
+	local voiceEnabled = voiceState ~= (Enum::any).VoiceChatState.Ended
+	chatStore:dispatch(VoiceEnabledChanged(voiceEnabled))
 
-		if not LOCAL_STATE_MAP[voiceState] then
-			-- If we're somehow in a bad state, don't crash bubble chat altogether.
-			log:warning("LOCAL_STATE_MAP does not exist for {} state", voiceState)
-			chatStore:dispatch(VoiceStateChanged(localUserId, Constants.VOICE_STATE.MUTED))
-		else
-			chatStore:dispatch(VoiceStateChanged(localUserId, LOCAL_STATE_MAP[voiceState]))
-		end
-
-		if voiceState == (Enum::any).VoiceChatState.Failed then
-			for _, user in pairs(Players:GetPlayers()) do
-				local userId = tostring(user.UserId)
-				if user ~= Players.LocalPlayer then
-					chatStore:dispatch(VoiceStateChanged(userId, Constants.VOICE_STATE.HIDDEN))
-				end
-			end
-		elseif voiceState == (Enum::any).VoiceChatState.Joined and not VoiceChatServiceManager.localMuted then
-			-- The mute changed signal happens before the user is Joined, so check again here.
-			chatStore:dispatch(VoiceStateChanged(localUserId, Constants.VOICE_STATE.INACTIVE))
-		end
+	if not LOCAL_STATE_MAP[voiceState] then
+		-- If we're somehow in a bad state, don't crash bubble chat altogether.
+		log:warning("LOCAL_STATE_MAP does not exist for {} state", voiceState)
+		chatStore:dispatch(VoiceStateChanged(localUserId, Constants.VOICE_STATE.MUTED))
 	else
-		local voiceEnabled = voiceState ~= (Enum::any).VoiceChatState.Ended and voiceState ~= (Enum::any).VoiceChatState.Failed
-		chatStore:dispatch(VoiceEnabledChanged(voiceEnabled))
+		chatStore:dispatch(VoiceStateChanged(localUserId, LOCAL_STATE_MAP[voiceState]))
+	end
+
+	if voiceState == (Enum::any).VoiceChatState.Failed then
+		for _, user in pairs(Players:GetPlayers()) do
+			local userId = tostring(user.UserId)
+			if user ~= Players.LocalPlayer then
+				chatStore:dispatch(VoiceStateChanged(userId, Constants.VOICE_STATE.HIDDEN))
+			end
+		end
+	elseif voiceState == (Enum::any).VoiceChatState.Joined and not VoiceChatServiceManager.localMuted then
+		-- The mute changed signal happens before the user is Joined, so check again here.
+		chatStore:dispatch(VoiceStateChanged(localUserId, Constants.VOICE_STATE.INACTIVE))
 	end
 end
 
@@ -295,24 +289,22 @@ local function initVoiceChat()
 		return
 	end
 
-	if FFlagBubbleVoiceLocalErrorState then
-		-- Make sure VoiceChatState exists since it's not compiled on all platforms
-		-- Remove ::any when VoiceChatState is available to the linter
-		if not (Enum::any).VoiceChatState then
-			log:error("Enum.VoiceChatState does not exist but voice is enabled")
-			return
-		end
-
-		LOCAL_STATE_MAP = {
-			[(Enum::any).VoiceChatState.Idle] = Constants.VOICE_STATE.HIDDEN,
-			[(Enum::any).VoiceChatState.Joining] = Constants.VOICE_STATE.CONNECTING,
-			[(Enum::any).VoiceChatState.JoiningRetry] = Constants.VOICE_STATE.CONNECTING,
-			[(Enum::any).VoiceChatState.Joined] = Constants.VOICE_STATE.MUTED,
-			[(Enum::any).VoiceChatState.Leaving] = Constants.VOICE_STATE.MUTED,
-			[(Enum::any).VoiceChatState.Ended] = Constants.VOICE_STATE.HIDDEN,
-			[(Enum::any).VoiceChatState.Failed] = Constants.VOICE_STATE.ERROR,
-		}
+	-- Make sure VoiceChatState exists since it's not compiled on all platforms
+	-- Remove ::any when VoiceChatState is available to the linter
+	if not (Enum::any).VoiceChatState then
+		log:error("Enum.VoiceChatState does not exist but voice is enabled")
+		return
 	end
+
+	LOCAL_STATE_MAP = {
+		[(Enum::any).VoiceChatState.Idle] = Constants.VOICE_STATE.HIDDEN,
+		[(Enum::any).VoiceChatState.Joining] = Constants.VOICE_STATE.CONNECTING,
+		[(Enum::any).VoiceChatState.JoiningRetry] = Constants.VOICE_STATE.CONNECTING,
+		[(Enum::any).VoiceChatState.Joined] = Constants.VOICE_STATE.MUTED,
+		[(Enum::any).VoiceChatState.Leaving] = Constants.VOICE_STATE.MUTED,
+		[(Enum::any).VoiceChatState.Ended] = Constants.VOICE_STATE.HIDDEN,
+		[(Enum::any).VoiceChatState.Failed] = Constants.VOICE_STATE.ERROR,
+	}
 
 	local localUserId = Players.LocalPlayer.UserId
 

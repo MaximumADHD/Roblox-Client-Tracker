@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 
 local UserInputService = game:GetService("UserInputService")
 

@@ -27,14 +27,11 @@ local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAni
 local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
 local GetFFlagFixRigInfoForFacs = require(Plugin.LuaFlags.GetFFlagFixRigInfoForFacs)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
-local GetFFlagMarkerCurves = require(Plugin.LuaFlags.GetFFlagMarkerCurves)
 local GetFFlagRootMotionTrack = require(Plugin.LuaFlags.GetFFlagRootMotionTrack)
-local GetFFlagEulerAnglesOrder = require(Plugin.LuaFlags.GetFFlagEulerAnglesOrder)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagBoneAdornmentSelection = require(Plugin.LuaFlags.GetFFlagBoneAdornmentSelection)
 
-local FFlagACEFixTangentsSerialization = GetFFlagCurveEditor()
+
 local FFlagFixGetBoneFromBoneNode = game:DefineFastFlag("ACEFixGetBoneFromBoneNode", false)
 
 local RigUtils = {}
@@ -128,7 +125,7 @@ local function createBoneLink(bone, folder, visualizeBones, boneLinks)
 			boneLink.Cone.Height = length
 			boneLink.Line.Length = length
 			boneLink.CFrame = alignBoneLink(nodePosition, nextNodePosition)
-			if GetFFlagBoneAdornmentSelection() then 
+			if GetFFlagBoneAdornmentSelection() then
 				boneLinks[boneLink.Name] = bone.Name
 			end
 		end
@@ -171,7 +168,7 @@ function RigUtils.updateMicrobones(rig, visualizeBones)
 	for _, bone in ipairs(bones) do
 		createBoneNode(bone, folder, visualizeBones, boneLinks)
 	end
-	if GetFFlagBoneAdornmentSelection() then 
+	if GetFFlagBoneAdornmentSelection() then
 		return boneLinks
 	end
 end
@@ -994,7 +991,7 @@ end
 -- For KeyframeSequence animations, traverse all poses and sub-poses for a given keyframe.
 local function traversePoses(instance, func)
 	local poses = {}
-	if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
+	if GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
 		-- For now, we need to traverse Folders as well (For the FaceControls folder)
 		if instance:IsA("Keyframe") then
 			poses = instance:GetPoses()
@@ -1007,7 +1004,7 @@ local function traversePoses(instance, func)
 	end
 
 	for _, pose in pairs(poses) do
-		if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
+		if GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
 			-- Do not call the function for folders
 			if pose:IsA("PoseBase") then
 				func(pose)
@@ -1173,7 +1170,7 @@ local function createPathMap(tracks, partsToMotors, boneMap)
 	end
 
 	for trackName, track in pairs(tracks) do
-		if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
+		if GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
 			if track.Type == Constants.TRACK_TYPES.CFrame then
 				pathMap[trackName] = getPartPath(trackName)
 			elseif track.Type == Constants.TRACK_TYPES.Facs then
@@ -1227,7 +1224,7 @@ end
 
 function RigUtils.fillFloatCurve(track, curve)
 	if track then
-		if not FFlagACEFixTangentsSerialization then
+		if not GetFFlagCurveEditor() then
 			for tick, keyframe in pairs(track.Data) do
 				local time = tick / Constants.TICK_FREQUENCY
 				local key = FloatCurveKey.new(time, keyframe.Value, keyframe.InterpolationMode or Enum.KeyInterpolationMode.Cubic)
@@ -1260,7 +1257,7 @@ function RigUtils.fillFloatCurve(track, curve)
 end
 
 function RigUtils.fillQuaternionCurve(track, curve)
-	if not FFlagACEFixTangentsSerialization then
+	if not GetFFlagCurveEditor() then
 		for tick, keyframe in pairs(track.Data) do
 			local time = tick / Constants.TICK_FREQUENCY
 			local key = RotationCurveKey.new(time, keyframe.Value, keyframe.InterpolationMode)
@@ -1306,7 +1303,7 @@ end
 function RigUtils.makeEulerCurve(track)
 	if track then
 		local eulerCurve = Instance.new("EulerRotationCurve")
-		eulerCurve.RotationOrder = if GetFFlagEulerAnglesOrder() then track.EulerAnglesOrder else Enum.RotationOrder.XYZ
+		eulerCurve.RotationOrder = if GetFFlagCurveEditor() then track.EulerAnglesOrder else Enum.RotationOrder.XYZ
 		RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.X], eulerCurve:X())
 		RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.Y], eulerCurve:Y())
 		RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.Z], eulerCurve:Z())
@@ -1376,7 +1373,7 @@ function RigUtils.toCurveAnimation(animationData, rig)
 				vectorCurve.Parent = folder
 			end
 
-			if GetFFlagQuaternionChannels() then
+			if GetFFlagChannelAnimations() then
 				local rotationCurve = RigUtils.makeRotationCurve(track.Components[Constants.PROPERTY_KEYS.Rotation])
 				if rotationCurve then
 					rotationCurve.Name = Constants.PROPERTY_KEYS.Rotation
@@ -1398,7 +1395,7 @@ function RigUtils.toCurveAnimation(animationData, rig)
 		end
 	end
 
-	if GetFFlagMarkerCurves() then
+	if GetFFlagChannelAnimations() then
 		-- Export markers
 		-- The ACE does not use marker channels yet. All markers are (de)serialized as
 		-- KeyframeSequence Events, which are all merged into the Events table.
@@ -1447,7 +1444,7 @@ function RigUtils.readCurve(track, curve, trackType)
 	if trackType == Constants.TRACK_TYPES.Number or
 		trackType == Constants.TRACK_TYPES.Angle or
 		trackType == Constants.TRACK_TYPES.Facs or
-		GetFFlagQuaternionChannels() and trackType == Constants.TRACK_TYPES.Quaternion then
+		GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Quaternion then
 
 		track.Keyframes = {}
 		track.Data = {}
@@ -1482,7 +1479,7 @@ function RigUtils.readCurve(track, curve, trackType)
 				continue
 			end
 
-			if GetFFlagQuaternionChannels() then
+			if GetFFlagChannelAnimations() then
 				if componentCurve.ClassName == "RotationCurve" then
 					componentType = Constants.TRACK_TYPES.Quaternion
 				elseif componentCurve.ClassName == "EulerRotationCurve" then
@@ -1504,7 +1501,7 @@ function RigUtils.readCurve(track, curve, trackType)
 			end
 		end
 
-		if GetFFlagEulerAnglesOrder() and trackType == Constants.TRACK_TYPES.EulerAngles then
+		if GetFFlagCurveEditor() and trackType == Constants.TRACK_TYPES.EulerAngles then
 			track.EulerAnglesOrder = curve.RotationOrder
 		end
 	end
@@ -1564,7 +1561,7 @@ function RigUtils.fromCurveAnimation(curveAnimation)
 					if rotationCurve.ClassName == "RotationCurve" then
 						rotationType = Constants.TRACK_TYPES.Quaternion
 					elseif rotationCurve.ClassName == "EulerRotationCurve" then
-						rotationType = GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation
+						rotationType = GetFFlagChannelAnimations() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation
 					end
 				end
 				local track = AnimationData.addTrack(tracks, folder.Name, Constants.TRACK_TYPES.CFrame, true, rotationType)
@@ -1578,7 +1575,7 @@ function RigUtils.fromCurveAnimation(curveAnimation)
 	end)
 
 	-- Read markers
-	if GetFFlagMarkerCurves() then
+	if GetFFlagChannelAnimations() then
 		local children: {Instance} = curveAnimation:getChildren()
 		for _, child: Instance in ipairs(children) do
 			if not child:IsA("MarkerCurve") then
@@ -1652,7 +1649,7 @@ function RigUtils.toRigAnimation(animationData, rig)
 			local trackType = track.Type
 			local trackData = track.Data[tick]
 
-			if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
+			if GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
 				makePoseChain(keyframeInstance, trackName, trackType, trackData, pathMap)
 			else
 				makePoseChain_deprecated2(keyframeInstance, trackName, trackData, pathMap)
@@ -1778,7 +1775,7 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 
 			if shouldAddTrackForPose and pose.Weight ~= 0 then
 				if tracks[poseName] == nil then
-					if GetFFlagEulerAnglesOrder() then
+					if GetFFlagCurveEditor() then
 						AnimationData.addTrack(tracks, poseName, trackType, false, Constants.TRACK_TYPES.Quaternion, nil)
 					elseif GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
 						AnimationData.addTrack(tracks, poseName, trackType)

@@ -3,8 +3,6 @@ return function(plugin, pluginLoaderContext)
 		return
 	end
 
-	local FFlagGameSettingsDeduplicatePackages = game:GetFastFlag("GameSettingsDeduplicatePackages")
-
 	-- Fast flags
 	local FFlagDeveloperSubscriptionsEnabled = game:GetFastFlag("DeveloperSubscriptionsEnabled")
 	local FFlagGameSettingsRoactInspector = game:DefineFastFlag("GameSettingsRoactInspector", false)
@@ -22,9 +20,7 @@ return function(plugin, pluginLoaderContext)
 	local Framework = require(Plugin.Packages.Framework)
 	local ContextServices = Framework.ContextServices
 	local FrameworkUtil = Framework.Util
-	local Promise = if FFlagGameSettingsDeduplicatePackages
-		then FrameworkUtil.Promise
-		else require(Plugin.Packages.Promise)
+	local Promise = FrameworkUtil.Promise
 
 	local MainView = require(Plugin.Src.Components.MainView)
 	local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
@@ -154,15 +150,7 @@ return function(plugin, pluginLoaderContext)
 								Roact.unmount(dialogHandle)
 								dialog:Destroy()
 								setMainWidgetInteractable(true)
-								if FFlagGameSettingsDeduplicatePackages then
-									resolve(result)
-								else
-									if result then
-										resolve()
-									else
-										reject()
-									end
-								end
+								resolve(result)
 							end,
 						})
 					),
@@ -172,11 +160,7 @@ return function(plugin, pluginLoaderContext)
 					Roact.unmount(dialogHandle)
 					dialog:Destroy()
 					setMainWidgetInteractable(true)
-					if FFlagGameSettingsDeduplicatePackages then
-						resolve(false)
-					else
-						reject()
-					end
+					resolve(false)
 				end)
 
 				dialogHandle = Roact.mount(dialogContents, dialog)
@@ -212,9 +196,7 @@ return function(plugin, pluginLoaderContext)
 		end
 
 		if currentStatus == CurrentStatus.Working and not userPressedSave then
-			if FFlagGameSettingsDeduplicatePackages then
-				close()
-			end
+			close()
 			return
 		end
 
@@ -236,21 +218,7 @@ return function(plugin, pluginLoaderContext)
 							localization:getText("General", "ReplyYes"),
 						},
 					}
-					if FFlagGameSettingsDeduplicatePackages then
-						showDialog(SimpleDialog, dialogProps):andThen(function(didDiscardAllChanges)
-							if didDiscardAllChanges then
-								close()
-							else
-								--Return to game settings window without modifying state,
-								--giving the user another chance to modify or save.
-								settingsStore:dispatch(SetCurrentStatus(CurrentStatus.Open))
-								if not pluginGui.Enabled then
-									pluginGui.Enabled = true
-								end
-							end
-						end)
-					else
-						local didDiscardAllChanges = showDialog(SimpleDialog, dialogProps):await()
+					showDialog(SimpleDialog, dialogProps):andThen(function(didDiscardAllChanges)
 						if didDiscardAllChanges then
 							close()
 						else
@@ -261,7 +229,7 @@ return function(plugin, pluginLoaderContext)
 								pluginGui.Enabled = true
 							end
 						end
-					end
+					end)
 				else
 					settingsStore:dispatch(SetCurrentStatus(CurrentStatus.Closed))
 					pluginGui.Enabled = false

@@ -1,18 +1,28 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
 
+local FFlagToolboxAudioDiscoveryRound2 =
+	require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscoveryRound2()
+
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
+local RoactRodux = require(Packages.RoactRodux)
 
 local ResultsFetcher = require(Plugin.Core.Components.ResultsFetcher)
 local HomeTypes = require(Plugin.Core.Types.HomeTypes)
 
+local AssetLogicWrapper = require(Plugin.Core.Components.AssetLogicWrapper)
 local AudioScroller = require(Plugin.Core.Components.AudioHomeView.AudioScroller)
 local AudioTabs = require(Plugin.Core.Components.AudioTabs.AudioTabs)
 local Category = require(Plugin.Core.Types.Category)
 local Constants = require(Plugin.Core.Util.Constants)
+local Images = require(Plugin.Core.Util.Images)
+local AssetAnalyticsContextItem = require(Plugin.Core.Util.Analytics.AssetAnalyticsContextItem)
+local SearchWithOptions = require(Plugin.Core.Networking.Requests.SearchWithOptions)
+local Settings = require(Plugin.Core.ContextServices.Settings)
 
 local CategoryDropDown = require(Plugin.Core.Components.CategoryDropDown.CategoryDropDown)
+local CallToActionBanner = require(Plugin.Core.Components.CallToActionBanner.CallToActionBanner)
 local ContextServices = require(Packages.Framework).ContextServices
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 local withContext = ContextServices.withContext
@@ -21,10 +31,18 @@ local getNetwork = ContextGetter.getNetwork
 local AudioWrapper = Roact.PureComponent:extend("AudioWrapper")
 
 type _InteralAudioWrapperProps = {
+	Localization: any,
 	Stylizer: any,
+	Settings: any,
+	AssetAnalytics: any,
+	SearchWithOptions: (
+		networkInterface: any,
+		settings: any,
+		options: { Creator: { Name: string, Id: number } }
+	) -> nil,
 }
 
-type AudioWrapperProps = _InteralAudioWrapperProps & {
+type _ExternalAudioRowProps = {
 	AssetSections: { HomeTypes.Subcategory },
 	CategoryName: string,
 	LayoutOrder: number?,
@@ -54,15 +72,25 @@ type AudioWrapperProps = _InteralAudioWrapperProps & {
 	SubcategoryDict: { [string]: HomeTypes.Subcategory },
 	TopKeywords: { string }?,
 	CanInsertAsset: () -> boolean,
-	TryInsert: ((assetData: any, assetWasDragged: boolean, insertionMethod: string) -> any),
+	TryInsert: ((assetData: any, assetWasDragged: boolean, insertionMethod: string?) -> any),
 	LogPageView: ((searchCategory: string, pathName: string?) -> nil),
+	tryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn,
 }
+
+type AudioWrapperProps = _InteralAudioWrapperProps & _ExternalAudioRowProps
 
 type AudioWrapperState = {
 	selectedTab: string,
 	selectedCategory: HomeTypes.Subcategory | nil,
 	audioTabSize: UDim2,
 }
+
+local MONSTER_CAT_CREATOR = table.freeze({
+	Creator = {
+		Id = 1750384777,
+		Name = "Monstercat",
+	},
+})
 
 function AudioWrapper:init(props: AudioWrapperProps)
 	self.sizerRef = Roact.createRef()
@@ -100,13 +128,34 @@ function AudioWrapper:init(props: AudioWrapperProps)
 		local selectedTab = state.selectedTab
 		local audioTabSize = state.audioTabSize
 
-		local topContentHeight = Constants.AUDIO_TABS_HEIGHT
-			+ Constants.AUDIO_CATEGORY_HEIGHT
-			+ (Constants.AUDIO_PADDING * 2)
+		local topContentHeight
+		if not FFlagToolboxAudioDiscoveryRound2 then
+			topContentHeight = Constants.AUDIO_TABS_HEIGHT
+				+ Constants.AUDIO_CATEGORY_HEIGHT
+				+ (Constants.AUDIO_PADDING * 2)
+		end
+
+		local onBannerClick
+		local localization
+		local settings
+		local searchWithOptions
+		if FFlagToolboxAudioDiscoveryRound2 then
+			localization = props.Localization
+			settings = props.Settings:get("Plugin")
+			searchWithOptions = props.SearchWithOptions
+			local analytics = props.AssetAnalytics:get()
+			onBannerClick = function()
+				searchWithOptions(getNetwork(self), settings, MONSTER_CAT_CREATOR)
+				analytics:onCallToActionBannerClicked(MONSTER_CAT_CREATOR.Creator.Id)
+			end
+		end
 
 		return Roact.createElement("Frame", {
 			LayoutOrder = 1,
-			Size = UDim2.new(1, 0, 0, topContentHeight),
+			AutomaticSize = if FFlagToolboxAudioDiscoveryRound2 then Enum.AutomaticSize.Y else nil,
+			Size = if FFlagToolboxAudioDiscoveryRound2
+				then UDim2.new(1, 0, 0, 0)
+				else UDim2.new(1, 0, 0, topContentHeight),
 			BackgroundTransparency = 1,
 		}, {
 			Roact.createElement("UIPadding", {
@@ -132,8 +181,20 @@ function AudioWrapper:init(props: AudioWrapperProps)
 					OnTabSelect = self.onTabSelect,
 				}),
 			}),
+			CallToActionBanner = if FFlagToolboxAudioDiscoveryRound2
+				then CallToActionBanner.Generator({
+					LayoutOrder = 2,
+					Image = Images.MONSTER_CAT_BANNER,
+					Text = localization:getText(
+						"Audio",
+						"FindTracks",
+						{ creatorName = MONSTER_CAT_CREATOR.Creator.Name }
+					),
+					OnClick = onBannerClick,
+				})
+				else nil,
 			Roact.createElement(CategoryDropDown, {
-				LayoutOrder = 2,
+				LayoutOrder = if FFlagToolboxAudioDiscoveryRound2 then 3 else 2,
 				Subcategories = props.SubcategoryDict,
 				AudioType = selectedTab,
 				OnCategorySelect = self.onCategorySelect,
@@ -200,14 +261,34 @@ function AudioWrapper:render()
 					CanInsertAsset = canInsertAsset,
 					RenderTopContent = self.renderTopContent,
 					AudioType = selectedTab,
+					tryOpenAssetConfig = if FFlagToolboxAudioDiscoveryRound2 then props.tryOpenAssetConfig else nil,
 				})
 			end,
 		}),
 	})
 end
 
+local mapStateToProps = function()
+	return {}
+end
+
+local mapDispatchToProps = function(dispatch)
+	return {
+		SearchWithOptions = function(networkInterface, settings, options)
+			dispatch(SearchWithOptions(networkInterface, settings, options))
+		end,
+	}
+end
+
 AudioWrapper = withContext({
+	AssetAnalytics = if FFlagToolboxAudioDiscoveryRound2 then AssetAnalyticsContextItem else nil,
+	Localization = ContextServices.Localization,
+	Settings = if FFlagToolboxAudioDiscoveryRound2 then Settings else nil,
 	Stylizer = ContextServices.Stylizer,
 })(AudioWrapper)
 
-return AudioWrapper
+if FFlagToolboxAudioDiscoveryRound2 then
+	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AudioWrapper)
+else
+	return AudioWrapper
+end

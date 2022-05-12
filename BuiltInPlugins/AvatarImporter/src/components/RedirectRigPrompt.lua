@@ -3,10 +3,10 @@
 ]]
 
 local root = script.Parent.Parent.Parent
-
+local FFlagAvatarImporterDeduplicatePackages = game:GetFastFlag("AvatarImporterDeduplicatePackages")
 -- imports
-local Roact = require(root.lib.Roact)
-local RoactRodux = require(root.lib.RoactRodux)
+local Roact = if FFlagAvatarImporterDeduplicatePackages then require(root.Packages.Roact) else require(root.Packages._Old.lib.Roact)
+local RoactRodux = if FFlagAvatarImporterDeduplicatePackages then require(root.Packages.RoactRodux) else require(root.Packages._Old.lib.RoactRodux)
 
 local Constants = require(root.src.Constants)
 local CustomTextButton = require(root.src.components.CustomTextButton)
@@ -35,18 +35,11 @@ function RedirectRigPrompt:render()
 	end
 
 	local avatarTypeText = self.props.avatarType == Constants.AVATAR_TYPE.RTHRO_SLENDER and "Rthro Narrow" or self.props.avatarType
-	local headerText = ""
-	if game:GetFastFlag("DisplayCorrectTypeInDetectionPrompt") then
-		headerText = (self.props.avatarType == Constants.AVATAR_TYPE.CUSTOM or self.props.avatarType == nil) and "You are trying to import a R15 rig as Custom:" or "You are trying to import a Custom rig as " .. avatarTypeText .. ":"
-	else
-		headerText = (self.props.avatarType == Constants.AVATAR_TYPE.CUSTOM or self.props.avatarType == nil) and "You are trying to import a R15 rig as Custom:" or "You are trying to import a Custom rig as R15:"
-	end
+	local headerText = (self.props.avatarType == Constants.AVATAR_TYPE.CUSTOM or self.props.avatarType == nil) and "You are trying to import a R15 rig as Custom:" or "You are trying to import a Custom rig as " .. avatarTypeText .. ":"
 
 	local r15ButtonText = "Continue as R15"
-	if game:GetFastFlag("DisplayCorrectTypeInDetectionPrompt") then
-		if self.props.avatarType ~= Constants.AVATAR_TYPE.CUSTOM then
-			r15ButtonText = "Continue as " .. avatarTypeText
-		end
+	if self.props.avatarType ~= Constants.AVATAR_TYPE.CUSTOM then
+		r15ButtonText = "Continue as " .. avatarTypeText
 	end
 
 	return Roact.createElement("Frame", {

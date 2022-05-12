@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local actionModalDefaultStory = require(Modules.Settings.Components.Blocking:FindFirstChild("ActionModal.story"))
@@ -9,8 +9,8 @@ end
 return function()
 	describe("ActionModal", function()
 		beforeEach(function(c)
-			c.actionMockSpy, c.actionMock = c.Mock.Spy.new(noOpt)
-			c.cancelMockSpy, c.cancelMock = c.Mock.Spy.new(noOpt)
+			c.actionMockSpy, c.actionMock = c.jest.fn(noOpt)
+			c.cancelMockSpy, c.cancelMock = c.jest.fn(noOpt)
 
 			c.parent, c.cleanup = c.createInstanceWithProps(actionModalDefaultStory, {
 				action = c.actionMock,
@@ -27,12 +27,12 @@ return function()
 				Text = "Block",
 			})
 
-			expect(button).to.be.ok()
+			c.jestExpect(button).never.toBeNil()
 
 			c.RhodiumHelpers.clickInstance(button)
 
-			expect(c.actionMockSpy).toHaveBeenCalled(1)
-			expect(c.cancelMockSpy).never.toHaveBeenCalled()
+			c.jestExpect(c.actionMockSpy).toHaveBeenCalledTimes(1)
+			c.jestExpect(c.cancelMockSpy).never.toHaveBeenCalled()
 		end)
 
 
@@ -41,12 +41,12 @@ return function()
 				Text = "Cancel",
 			})
 
-			expect(blockButton).to.be.ok()
+			c.jestExpect(blockButton).never.toBeNil()
 
 			c.RhodiumHelpers.clickInstance(blockButton.Parent)
 
-			expect(c.actionMockSpy).never.toHaveBeenCalled()
-			expect(c.cancelMockSpy).toHaveBeenCalled(1)
+			c.jestExpect(c.actionMockSpy).never.toHaveBeenCalled()
+			c.jestExpect(c.cancelMockSpy).toHaveBeenCalledTimes(1)
 		end)
 	end)
 end

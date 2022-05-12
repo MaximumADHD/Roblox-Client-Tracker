@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 
 --[[
 		Filename: NotificationScript2.lua
@@ -765,7 +765,8 @@ if allowScreenshots then
 		end)
 	end
 
-	settings():GetService("GameSettings").VideoRecordingChangeRequest:Connect(function(value)
+	-- FIXME: Add GetService method to RobloxDefinitions.cpp settingsProps
+	(settings() :: any):GetService("GameSettings").VideoRecordingChangeRequest:Connect(function(value)
 		if not value then
 			local titleText = RobloxTranslator:FormatByKey("NotificationScript2.Video.Title")
 			local descriptionText = RobloxTranslator:FormatByKey("NotificationScript2.Video.Description")

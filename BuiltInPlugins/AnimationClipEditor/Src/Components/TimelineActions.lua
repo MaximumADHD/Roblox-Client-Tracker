@@ -74,7 +74,6 @@ local TogglePlay = require(Plugin.Src.Thunks.Playback.TogglePlay)
 local FFlagAnimEditorFixBackspaceOnMac = require(Plugin.LuaFlags.GetFFlagAnimEditorFixBackspaceOnMac)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 local TimelineActions = Roact.PureComponent:extend("TimelineActions")
@@ -213,7 +212,7 @@ function TimelineActions:makeMenuActions(localization)
 			else
 				table.insert(actions, pluginActions:get("ClearTangents"))
 			end
-			if GetFFlagQuaternionChannels() and self:multipleSelected() then
+			if self:multipleSelected() then
 				table.insert(actions, self:makeGenerateCurveMenu(localization))
 			end
 		else
@@ -271,34 +270,7 @@ function TimelineActions:didMount()
 				if isChannelAnimation then
 					TrackUtils.traverseComponents(trackType, function(componentType, relPath)
 						local componentPath = Cryo.List.join(path, relPath)
-						if GetFFlagQuaternionChannels() then
-							props.SplitTrack(instanceName, componentPath, componentType, tick, props.Analytics)
-						else
-							local componentTrack = AnimationData.getTrack(animationData, instanceName, componentPath)
-							local value
-							local leftSlope, rightSlope
-							local interpolationMode = Enum.KeyInterpolationMode.Cubic
-
-							if componentTrack and componentTrack.Keyframes then
-								value = KeyframeUtils.getValue(componentTrack, tick)
-								local prevKeyframe = TrackUtils.findPreviousKeyframe(componentTrack, tick)
-								if prevKeyframe then
-									interpolationMode = prevKeyframe.InterpolationMode
-									if interpolationMode == Enum.KeyInterpolationMode.Cubic then
-										leftSlope, rightSlope = KeyframeUtils.getSlopes(componentTrack, tick)
-									end
-								end
-							else
-								value = KeyframeUtils.getDefaultValue(componentType)
-							end
-							local keyframeData = {
-								Value = value,
-								InterpolationMode = interpolationMode,
-								LeftSlope = leftSlope,
-								RightSlope = rightSlope
-							}
-							props.AddKeyframe(instanceName, componentPath, componentType, tick, keyframeData, props.Analytics)
-						end
+						props.SplitTrack(instanceName, componentPath, componentType, tick, props.Analytics)
 					end, rotationType)
 				else
 					local track = AnimationData.getTrack(animationData, instanceName, path)
@@ -377,7 +349,9 @@ function TimelineActions:didMount()
 		if selectedTracks then
 			for instanceName, instance in pairs(props.AnimationData.Instances) do
 				for _, selectedTrack in pairs(selectedTracks) do
-					local track = if GetFFlagCurveEditor() then AnimationData.getTrack(props.AnimationData, instanceName, selectedTrack) else instance.Tracks[selectedTrack]
+					local track = if GetFFlagCurveEditor()
+						then AnimationData.getTrack(props.AnimationData, instanceName, selectedTrack)
+						else instance.Tracks[selectedTrack]
 					if GetFFlagChannelAnimations() then
 						local trackType = track and track.Type or (if GetFFlagCurveEditor() then TrackUtils.getComponentTypeFromPath(selectedTrack, tracks) else nil)
 
@@ -391,34 +365,7 @@ function TimelineActions:didMount()
 							end
 							TrackUtils.traverseComponents(if GetFFlagCurveEditor() then trackType else track.Type, function(componentType, relPath)
 								local componentPath = Cryo.List.join(if GetFFlagCurveEditor() then selectedTrack else {selectedTrack}, relPath)
-								if GetFFlagQuaternionChannels() then
-									props.SplitTrack(instanceName, componentPath, componentType, playhead, props.Analytics)
-								else
-									local componentTrack = AnimationData.getTrack(props.AnimationData, instanceName, componentPath)
-									local value
-									local leftSlope, rightSlope
-									local interpolationMode = Enum.KeyInterpolationMode.Cubic
-
-									if componentTrack and componentTrack.Keyframes then
-										value = KeyframeUtils.getValue(componentTrack, playhead)
-										local prevKeyframe = TrackUtils.findPreviousKeyframe(componentTrack, playhead)
-										if prevKeyframe then
-											interpolationMode = prevKeyframe.InterpolationMode
-											if interpolationMode == Enum.KeyInterpolationMode.Cubic then
-												leftSlope, rightSlope = KeyframeUtils.getSlopes(componentTrack, playhead)
-											end
-										end
-									else
-										value = KeyframeUtils.getDefaultValue(componentType)
-									end
-									local keyframeData = {
-										Value = value,
-										InterpolationMode = interpolationMode,
-										LeftSlope = leftSlope,
-										RightSlope = rightSlope
-									}
-									props.AddKeyframe(instanceName, componentPath, componentType, playhead, keyframeData, props.Analytics)
-								end
+								props.SplitTrack(instanceName, componentPath, componentType, playhead, props.Analytics)
 							end, rotationType)
 						else
 							local value

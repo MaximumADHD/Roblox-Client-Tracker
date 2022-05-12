@@ -2,9 +2,6 @@
 	Asset config's allow sharing field.
 ]]
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
-local FFlagToolboxAudioAssetConfigDisablePublicAudio = game:GetFastFlag("ToolboxAudioAssetConfigDisablePublicAudio")
-local FFlagToolboxAssetConfigUpdatePrivateAudioMessage = game:GetFastFlag("ToolboxAssetConfigUpdatePrivateAudioMessage")
-local FFlagToolboxEnablePublicAudioToggle = game:GetFastFlag("ToolboxEnablePublicAudioToggle")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -22,12 +19,9 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local Util = Plugin.Core.Util
-local AssetConfigConstants = require(Util.AssetConfigConstants)
 local Constants = require(Util.Constants)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
-
-local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
 
 local GuiService = game:GetService("GuiService")
 
@@ -95,40 +89,26 @@ function ConfigSharing:render()
 		showVerificationNotice = isIdVerificationRequired and not isVerified
 	end
 
-	local privateText
-	local publicText
-	local title
-	if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then
-		privateText = localization:getText("AssetConfigSharing", "SpecificExperiences")
-		publicText = localization:getText("AssetConfigSharing", "AllExperiences")
-		title = localization:getText("AssetConfigSharing", "ExperiencesWithAccess")
-		if FFlagToolboxEnablePublicAudioToggle then
-			if allowSelectPrivate then
-				privateInformationText = localization:getText("AssetConfigSharing", "PrivateInformation")
-			else
-				privateInformationText = localization:getText("AssetConfigSharing", "PrivateDisabledInformation")
-			end
-		else
-			privateInformationText = localization:getText("AssetConfigSharing", "PrivateInformation")
-		end
+	local privateText = localization:getText("AssetConfigSharing", "SpecificExperiences")
+	local publicText = localization:getText("AssetConfigSharing", "AllExperiences")
+	local title = localization:getText("AssetConfigSharing", "ExperiencesWithAccess")
+	if allowSelectPrivate then
+		privateInformationText = localization:getText("AssetConfigSharing", "PrivateInformation")
 	else
-		privateText = localization:getText("AssetConfigSharing", "OnlyMe")
-		publicText = localization:getText("AssetConfigSharing", "AnyoneOnRoblox")
-		title = localization:getText("General", "Sharing")
+		privateInformationText = localization:getText("AssetConfigSharing", "PrivateDisabledInformation")
 	end
 
 	local informationText
 	local allowSelectPublic = true
-	if FFlagToolboxAudioAssetConfigDisablePublicAudio and assetType == Enum.AssetType.Audio then
-		if FFlagToolboxEnablePublicAudioToggle and isAssetPublic then
+	if assetType == Enum.AssetType.Audio then
+		if isAssetPublic then
 			informationText = localization:getText("AssetConfigSharing", "PublicInformation")
 		else
 			informationText = localization:getText("AssetConfigSharing", "PublicDisabledInformation")
 			allowSelectPublic = false
 		end
 	else
-		-- NOTE for removing FFlagToolboxAudioAssetConfigDisablePublicAudio: We /MIGHT/ want to keep this else code for
-		-- audio too and instead enable FFlagToolboxAudioAssetConfigIdVerification in the future? TODO: Product decision needed.
+		-- NOTE We /MIGHT/ want to keep this else code for audio too and instead enable FFlagToolboxAudioAssetConfigIdVerification in the future? TODO: Product decision needed.
 		informationText = localization:getText("AssetConfigSharing", "PublicInformation")
 		if FFlagToolboxAudioAssetConfigIdVerification and isIdVerificationRequired then
 			allowSelectPublic = isVerified
@@ -198,14 +178,13 @@ function ConfigSharing:render()
 						{
 							Key = AssetConfigConstants.SHARING_KEYS.Private,
 							Text = privateText,
-							Description = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then privateInformationText else nil,
+							Description = privateInformationText,
 							Disabled = not allowSelectPrivate,
 						},
 						{
 							Key = AssetConfigConstants.SHARING_KEYS.Public,
 							Text = publicText,
-							Description = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage
-								and (not FFlagToolboxAudioAssetConfigIdVerification or not showVerificationNotice)
+							Description = if (not FFlagToolboxAudioAssetConfigIdVerification or not showVerificationNotice)
 							then
 								informationText
 							else nil,
@@ -218,9 +197,10 @@ function ConfigSharing:render()
 					CurrentSelectedKey = selectedKey,
 					SelectedKey = selectedKey,
 					Style = "AssetConfigRadioButtonList",
-					TextWrapped = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then true else nil,
-					TextXAlignment = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then Enum.TextXAlignment.Left else nil,
-					VerticalAlignment = if FFlagToolboxAssetConfigUpdatePrivateAudioMessage then Enum.VerticalAlignment.Top else nil,					}),
+					TextWrapped = true,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					VerticalAlignment = Enum.VerticalAlignment.Top,
+				}),
 			}),
 
 			VerificationNotice = if FFlagToolboxAudioAssetConfigIdVerification and showVerificationNotice
@@ -282,16 +262,6 @@ function ConfigSharing:render()
 					},
 					Size = UDim2.new(1, 0, 0, 0),
 				}, {
-					TipsLabel = if not FFlagToolboxAssetConfigUpdatePrivateAudioMessage then Roact.createElement(TextLabel, {
-						AutomaticSize = Enum.AutomaticSize.Y,
-						Size = UDim2.new(1, 0, 0, 0),
-						Text = informationText,
-						TextColor = publishAssetTheme.tipsTextColor,
-						TextSize = Constants.FONT_SIZE_LARGE,
-						TextWrapped = true,
-						TextXAlignment = Enum.TextXAlignment.Left,
-					}) else nil,
-
 					LinkText = Roact.createElement(LinkText, {
 						LayoutOrder = orderIterator:getNextOrder(),
 						OnClick = self.onLearnMoreActivated,

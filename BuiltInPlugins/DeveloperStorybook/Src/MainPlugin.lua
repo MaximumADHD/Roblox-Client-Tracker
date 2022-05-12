@@ -2,8 +2,6 @@
 	The main plugin for the Developer Storybook.
 	Consists of the PluginWidget, Toolbar, Button, and Roact tree.
 ]]
-local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
-
 local Main = script.Parent.Parent
 local Roact = require(Main.Packages.Roact)
 local Rodux = require(Main.Packages.Rodux)
@@ -24,10 +22,7 @@ local Localization = ContextServices.Localization
 local InspectorContext = require(Main.Src.Util.InspectorContext)
 local MakeTheme = require(Main.Src.Resources.MakeTheme)
 
-local SplitPane
-if FFlagDevFrameworkSplitPane then
-	SplitPane = Framework.UI.SplitPane
-end
+local SplitPane = Framework.UI.SplitPane
 
 local TranslationDevelopmentTable = Main.Src.Resources.TranslationDevelopmentTable
 local TranslationReferenceTable = Main.Src.Resources.TranslationReferenceTable
@@ -44,16 +39,14 @@ function MainPlugin:init(props)
 	self.state = {
 		enabled = false,
 	}
-	if FFlagDevFrameworkSplitPane then
-		self.state.paneSizes = {
-			UDim.new(0, 300),
-			UDim.new(1, -300),
-		}
-		self.onPaneSizesChange = function(paneSizes: {UDim})
-			self:setState({
-				paneSizes = paneSizes,
-			})
-		end
+	self.state.paneSizes = {
+		UDim.new(0, 300),
+		UDim.new(1, -300),
+	}
+	self.onPaneSizesChange = function(paneSizes: {UDim})
+		self:setState({
+			paneSizes = paneSizes,
+		})
 	end
 
 	self.toggleState = function()
@@ -124,32 +117,6 @@ function MainPlugin:render()
 
 	local OFFSET = 42
 
-	local children = {
-		TopBar = enabled and Roact.createElement(TopBar),
-	}
-	if enabled then
-		if FFlagDevFrameworkSplitPane then
-			children.Window = Roact.createElement(SplitPane, {
-				ClampSize = true,
-				UseDeficit = true,
-				MinSizes = {
-					UDim.new(0, 100),
-					UDim.new(0, 100),
-				},
-				OnSizesChange = self.onPaneSizesChange,
-				Sizes = state.paneSizes,
-				Position = UDim2.fromOffset(0, OFFSET),
-				Size = UDim2.new(1, 0, 1, -OFFSET),
-			}, {
-				Roact.createElement(StoryTree),
-				Roact.createElement(InfoPanel),
-			})
-		else
-			children.StoryTree = Roact.createElement(StoryTree)
-			children.InfoPanel = Roact.createElement(InfoPanel)
-		end
-	end
-
 	return ContextServices.provide(self.contextItems, {
 		Toolbar = Roact.createElement(PluginToolbar, {
 			Title = self.localization:getText("Toolbar", "Title"),
@@ -168,7 +135,24 @@ function MainPlugin:render()
 			OnClose = self.onClose,
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
-		}, children),
+		}, {
+			TopBar = enabled and Roact.createElement(TopBar),
+			Window = enabled and Roact.createElement(SplitPane, {
+				ClampSize = true,
+				UseDeficit = true,
+				MinSizes = {
+					UDim.new(0, 100),
+					UDim.new(0, 100),
+				},
+				OnSizesChange = self.onPaneSizesChange,
+				Sizes = state.paneSizes,
+				Position = UDim2.fromOffset(0, OFFSET),
+				Size = UDim2.new(1, 0, 1, -OFFSET),
+			}, {
+				Roact.createElement(StoryTree),
+				Roact.createElement(InfoPanel),
+			})
+		}),
 	})
 end
 

@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
@@ -6,6 +6,11 @@ local Cryo = require(CorePackages.Cryo)
 local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
 
 local Analytics = {}
+Analytics.eventStream = nil
+Analytics.pid = nil
+Analytics.uid = nil
+Analytics.inspecteeUid = nil
+Analytics.ctx = nil
 
 local INSPECT_TAG = "inspectAndBuy"
 

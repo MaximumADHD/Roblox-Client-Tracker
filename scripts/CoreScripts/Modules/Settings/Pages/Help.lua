@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 
 --[[
 		Filename: Help.lua
