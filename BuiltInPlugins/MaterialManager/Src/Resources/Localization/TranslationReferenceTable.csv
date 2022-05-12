@@ -142,10 +142,13 @@ Studio.MaterialManager.CreateDialog.ErrorBaseMaterialNotSelected,No Base Materia
 Studio.MaterialManager.CreateDialog.ErrorNameExists,Name already exists,Name already exists
 Studio.MaterialManager.CreateDialog.NoImageSelected,No Image Selected,No Image Selected
 Studio.MaterialManager.CreateDialog.ErrorImportMap,Failed to import Texture Map,Failed to import Texture Map
+Studio.MaterialManager.CreateDialog.MaterialPatternVariant,Material Pattern,Material Pattern
+Studio.MaterialManager.MaterialAdditional.MaterialPattern,Material Pattern,Material Pattern
 Studio.MaterialManager.Materials.PlasticVariant,Plastic Variant,Plastic Variant
 Studio.MaterialManager.CreateDialog.ErrorSelectMap,Failed to select Texture Map,Failed to select Texture Map
 Studio.MaterialManager.Materials.AsphaltMaterial,Asphalt Material,Asphalt Material
 Studio.MaterialManager.CreateDialog.ErrorFindUrl,Failed to find URL,Failed to find URL
+Studio.MaterialManager.CreateDialog.ErrorStudsPerTile,Studs Per Tile should be positive,Studs Per Tile should be positive
 Studio.MaterialManager.CreateDialog.Import,Import,Import
 Studio.MaterialManager.Materials.AirVariant,Air Variant,Air Variant
 Studio.MaterialManager.Materials.AsphaltVariant,Asphalt Variant,Asphalt Variant
@@ -169,6 +172,7 @@ Studio.MaterialManager.Materials.MetalVariant,Metal Variant,Metal Variant
 Studio.MaterialManager.Materials.MudVariant,Mud Variant,Mud Variant
 Studio.MaterialManager.Materials.NeonVariant,Neon Variant,Neon Variant
 Studio.MaterialManager.Categories.Organic,Organic,Organic
+Studio.MaterialManager.MaterialPatterns.Organic,Organic,Organic
 Studio.MaterialManager.Materials.NeonMaterial,Neon Material,Neon Material
 Studio.MaterialManager.Materials.PavementVariant,Pavement Variant,Pavement Variant
 Studio.MaterialManager.Materials.PebbleVariant,Pebble Variant,Pebble Variant
@@ -195,6 +199,8 @@ Studio.MaterialManager.Materials.GlassMaterial,Glass Material,Glass Material
 Studio.MaterialManager.Materials.GraniteMaterial,Granite Material,Granite Material
 Studio.MaterialManager.Materials.GrassMaterial,Grass Material,Grass Material
 Studio.MaterialManager.Materials.GroundMaterial,Ground Material,Ground Material
+Studio.MaterialManager.CreateDialog.StudsPerTileVariant,Studs Per Tile,Studs Per Tile
+Studio.MaterialManager.MaterialAdditional.StudsPerTile,Studs Per Tile,Studs Per Tile
 Studio.MaterialManager.Materials.IceMaterial,Ice Material,Ice Material
 Studio.MaterialManager.Materials.LeafyGrassMaterial,Leafy Grass Material,Leafy Grass Material
 Studio.MaterialManager.Materials.MetalMaterial,Metal Material,Metal Material
@@ -215,3 +221,7 @@ Studio.MaterialManager.Categories.Materials,Materials,Materials
 Studio.MaterialManager.Materials.SnowVariant,Snow Variant,Snow Variant
 Studio.MaterialManager.Materials.SnowMaterial,Snow Material,Snow Material
 Studio.MaterialManager.MaterialStatus.MissingMaterial,Unable to find a MaterialVariant matching the name and override material in MaterialService.,Unable to find a MaterialVariant matching the name and override material in MaterialService.
+Studio.MaterialManager.CreateDialog.AdditionalProperties,Additional,Additional
+Studio.MaterialManager.MaterialAdditional.Additional,Additional,Additional
+Studio.MaterialManager.Callout.MaterialManagerApplyDescription,Click here to apply the selected material to the selected parts,Click here to apply the selected material to the selected parts
+Studio.MaterialManager.MaterialPatterns.Regular,Regular,Regular

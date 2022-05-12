@@ -2701,6 +2701,18 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "Cancel",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetCurrentImportMap",
                     "Parameters": [
                     ],
@@ -7100,6 +7112,24 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "AutoSkin",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "WrapLayerAutoSkin"
+                    }
+                },
                 {
                     "Category": "Tuning",
                     "MemberType": "Property",
@@ -23093,42 +23123,6 @@
         },
         {
             "Members": [
-                {
-                    "Category": "Directories",
-                    "MemberType": "Property",
-                    "Name": "AdditionalCoreIncludeDirs",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    }
-                },
-                {
-                    "Category": "Script",
-                    "MemberType": "Property",
-                    "Name": "OverrideStarterScript",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    }
-                },
                 {
                     "Category": "Video",
                     "MemberType": "Property",
@@ -45706,6 +45700,32 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "SetContextEnabled",
+                    "Parameters": [
+                        {
+                            "Name": "context",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "enabled",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SetContinueExecution",
                     "Parameters": [
                         {
@@ -64072,17 +64092,6 @@
             "Members": [
             ],
             "MemoryCategory": "Instances",
-            "Name": "ReplicatedScriptService",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotCreatable",
-                "Service"
-            ]
-        },
-        {
-            "Members": [
-            ],
-            "MemoryCategory": "Instances",
             "Name": "ReplicatedStorage",
             "Superclass": "Instance",
             "Tags": [
@@ -67204,6 +67213,25 @@
                     "Parameters": [
                         {
                             "Name": "sid",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RemoveSessionsWithMetadataKey",
+                    "Parameters": [
+                        {
+                            "Name": "key",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
@@ -72562,6 +72590,24 @@
                     }
                 },
                 {
+                    "Category": "Audio",
+                    "MemberType": "Property",
+                    "Name": "Main Volume",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
                     "Category": "Script Editor Colors",
                     "MemberType": "Property",
                     "Name": "Matching Word Background Color",
@@ -72736,42 +72782,6 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "OutputLayoutMode"
-                    }
-                },
-                {
-                    "Category": "Directories",
-                    "MemberType": "Property",
-                    "Name": "OverrideCoreScripts",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Directories",
-                    "MemberType": "Property",
-                    "Name": "OverrideCoreScriptsDir",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "DataType",
-                        "Name": "QDir"
                     }
                 },
                 {
@@ -73481,7 +73491,7 @@
                 {
                     "Category": "Visualization",
                     "MemberType": "Property",
-                    "Name": "Show Navigation Areas",
+                    "Name": "Show Navigation Labels",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
                         "Write": "RobloxScriptSecurity"
@@ -81077,8 +81087,8 @@
                     "MemberType": "Property",
                     "Name": "MasterVolume",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -95733,6 +95743,23 @@
                 }
             ],
             "Name": "WaterForce"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Disabled",
+                    "Value": 0
+                },
+                {
+                    "Name": "EnabledPreserve",
+                    "Value": 1
+                },
+                {
+                    "Name": "EnabledOverride",
+                    "Value": 2
+                }
+            ],
+            "Name": "WrapLayerAutoSkin"
         },
         {
             "Items": [

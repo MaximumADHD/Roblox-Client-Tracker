@@ -1949,9 +1949,6 @@
         "ServerScriptService": {
             "summary": "A container whose contents should be scripts. Scripts that are added to the container are run on the server."
         },
-        "ReplicatedScriptService": {
-            "summary": "A container whose contents should be scripts. Scripts that are added to the container are run on the server and the client."
-        },
         "StudioService": {
             "summary": "A service for interfacing with the current studio state from Lua."
         },

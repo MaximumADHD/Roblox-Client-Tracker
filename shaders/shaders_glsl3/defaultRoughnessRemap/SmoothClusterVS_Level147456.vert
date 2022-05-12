@@ -17,6 +17,7 @@ out vec3 VARYING4;
 out vec4 VARYING5;
 out vec3 VARYING6;
 out vec3 VARYING7;
+out vec4 VARYING8;
 
 void main()
 {
@@ -59,5 +60,6 @@ void main()
     VARYING5 = vec4(dot(CB0[20], v2), dot(CB0[21], v2), dot(CB0[22], v2), length(v5));
     VARYING6 = (CB0[10].xyz * max(v24, 0.0)) + (CB0[12].xyz * max(-v24, 0.0));
     VARYING7 = v5;
+    VARYING8 = vec4(TEXCOORD0.xyz, 0.0);
 }
 

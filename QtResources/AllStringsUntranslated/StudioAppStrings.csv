@@ -1764,8 +1764,6 @@ Studio.App.PropertyEnum.Extra2,A second additional Script Editor Syntax Highligh
 Studio.App.PropertyEnum.Custom,A fully custom Script Editor Syntax Highlighting Preset,Custom,Custom
 Studio.App.SettingsHeader.GameOptions,,Game Options,Game Options
 Studio.App.SettingsCategory.GameOptionsInternal,,Internal,Internal
-Studio.App.Property.AdditionalCoreIncludeDirs,,Additional Core Include Dirs,Additional Core Include Dirs
-Studio.App.Property.OverrideStarterScript,,Override Starter Script,Override Starter Script
 Studio.App.SettingsHeader.Diagnostics,,Diagnostics,Diagnostics
 Studio.App.SettingsCategory.DiagnosticsPerformance,,Performance,Performance
 Studio.App.Property.InstanceCount,,Instance Count,Instance Count
@@ -1815,8 +1813,6 @@ Studio.App.Property.CameraZoomToMousePosition,,Camera Zoom to Mouse Position,Cam
 Studio.App.SettingsCategory.StudioDirectories,,Directories,Directories
 Studio.App.Property.DefaultScriptFileDir,,Default Script File Dir,Default Script File Dir
 Studio.App.Property.PluginsDir,,Plugins Dir,Plugins Dir
-Studio.App.Property.OverrideCoreScriptsDir,,Override Core Scripts Dir,Override Core Scripts Dir
-Studio.App.Property.OverrideCoreScripts,,Override Core Scripts,Override Core Scripts
 Studio.App.Property.LocalAssetsFolder,,Local Assets Folder,Local Assets Folder
 Studio.App.SettingsCategory.StudioGeneral,,General,General
 Studio.App.Property.AlwaysSaveScriptChanges,,Always Save Script Changes,Always Save Script Changes
@@ -1950,6 +1946,7 @@ Studio.App.Property.SelectHoverColor,,Select/Hover Color,Select/Hover Color
 Studio.App.Property.LineThickness,,Line Thickness,Line Thickness
 Studio.App.SettingsCategory.StudioAudio,,Audio,Audio
 Studio.App.Property.ServerAudioBehavior,,Server Audio Behavior,Server Audio Behavior
+Studio.App.Property.MainVolume,,Main Volume,Main Volume
 Studio.App.Property.OnlyPlayAudioFromWindowInFocus,,Only Play Audio from Window in Focus,Only Play Audio from Window in Focus
 Studio.App.SettingsCategory.StudioUndo,,Undo,Undo
 Studio.App.Property.RuntimeUndoBehavior,,Runtime Undo Behavior,Runtime Undo Behavior
@@ -1960,7 +1957,7 @@ Studio.App.Property.ShowCoreGUIInExplorerWhilePlaying,,Show Core GUI in Explorer
 Studio.App.Property.ShowPluginGUIServiceInExplorer,,Show Plugin GUI Service in Explorer,Show Plugin GUI Service in Explorer
 Studio.App.Property.ShowRobloxPluginGUIServiceInExplorer,,Show Roblox Plugin GUI Service in Explorer,Show Roblox Plugin GUI Service in Explorer
 Studio.App.SettingsCategory.StudioVisualization,,Visualization,Visualization
-Studio.App.Property.ShowNavigationAreas,,Show Navigation Areas,Show Navigation Areas
+Studio.App.Property.ShowNavigationLabels,,Show Navigation Labels,Show Navigation Labels
 Studio.App.Property.ShowNavigationMesh,,Show Navigation Mesh,Show Navigation Mesh
 Studio.App.Property.ShowPathfindingLinks,,Show Pathfinding Links,Show Pathfinding Links
 Studio.App.Property.ShowLightGuides,,Show Light Guides,Show Light Guides
@@ -2163,8 +2160,6 @@ Studio.App.BetaFeatures.InsertObjectStreamliningTitle,,Insert Object Streamlinin
 Studio.App.BetaFeatures.InsertObjectStreamliningDescription,,Enables a new unified workflow for inserting objects.,Enables a new unified workflow for inserting objects.
 Studio.App.BetaFeatures.ConvertToTerrainTitle,,TerrainTools: ConvertTool Beta,TerrainTools: ConvertTool Beta
 Studio.App.BetaFeatures.ConvertToTerrainDescription,,Enables the Convert TerrainTool which can convert Parts into Terrain materials and biomes.,Enables the Convert TerrainTool which can convert Parts into Terrain materials and biomes.
-Studio.App.BetaFeatures.LayeredClothingBetaTitle2,,3D Layered Clothing,3D Layered Clothing
-Studio.App.BetaFeatures.LayeredClothingBetaDescription2,,Enable 3D Layered Clothing in your experiences.,Enable 3D Layered Clothing in your experiences.
 Studio.App.BetaFeatures.AccessoryToolBetaTitle,,Accessory Fitting Tool,Accessory Fitting Tool
 Studio.App.BetaFeatures.AccessoryToolBetaDescription,,Use Accessory Fitting Tool to edit caged clothing items as well as rigid accessories.,Use Accessory Fitting Tool to edit caged clothing items as well as rigid accessories.
 Studio.App.BetaFeatures.FacialAnimationBetaTitle,,Facial Animation,Facial Animation
@@ -2467,7 +2462,7 @@ Studio.App.PropertyItems.YouMustLogInToCreateMeshes,Body of error message shown 
 Studio.App.PropertyItems.MaterialOverride.Disabled,"Note to localization: Make sure <font></font> remain unchanged, they are needed for text wrapping with rtf. Tooltip that displays if a MaterialOverride is set to a MaterialVariant that is not a descendant of MaterialService.",<font>The Override will not function unless the MaterialVariant is placed in MaterialService. Place the variant in MaterialService or choose another variant.</font>,<font>The Override will not function unless the MaterialVariant is placed in MaterialService. Place the variant in MaterialService or choose another variant.</font>
 Studio.App.PropertyItems.MaterialOverride.Invalid,"Note to localization: Make sure <font></font> remain unchanged, they are needed for text wrapping with rtf. Tooltip that displays if a MaterialOverride is set to a MaterialVariant whose BaseMaterial does not equal to the Material it is supposed to be overriding.",<font>The Base Material for the MaterialVariant does not match the Override material. Select matching materials for the variant to function.</font>,<font>The Base Material for the MaterialVariant does not match the Override material. Select matching materials for the variant to function.</font>
 Studio.App.PropertyItems.MaterialOverride.Missing,"Note to localization: Make sure <font></font> remain unchanged, they are needed for text wrapping with rtf. Tooltip that displays if a MaterialOverride is set to a MaterialVariant that has been deleted.",<font>The Override will not be functional because the MaterialVariant no longer exists. Apply a new variant or set the Override to None.</font>,<font>The Override will not be functional because the MaterialVariant no longer exists. Apply a new variant or set the Override to None.</font>
-Studio.App.PropertyItems.MaterialOverride.None,Item text for the default value of the combobox created by MaterialOverridePropertyItem.,<None>,<None>
+Studio.App.PropertyItems.MaterialOverride.None,Item text for the default value of the combobox created by MaterialVariantPropertyItem.,<None>,<None>
 Studio.App.PropertyItems.MaterialVariant.InvalidOverride,No material was found for the override.,Unable to find a MaterialVariant matching the name and override material in MaterialService.,Unable to find a MaterialVariant matching the name and override material in MaterialService.
 Studio.App.PropertyItems.MaterialVariant.InvalidVariant,No material was found as a variant.,Unable to find a MaterialVariant matching the name and base material in MaterialService.,Unable to find a MaterialVariant matching the name and base material in MaterialService.
 Studio.App.PropertyItems.MaterialVariant.DuplicateOverride,Multiple MaterialVariants match the given name and override.,"Found multiple MaterialVariants matching the name and override material in MaterialService, this may cause unexpected behavior at runtime.","Found multiple MaterialVariants matching the name and override material in MaterialService, this may cause unexpected behavior at runtime."
@@ -3273,3 +3268,5 @@ Studio.App.BetaFeatures.CurveAnimationsDescription,,Enable single-channel animat
 Studio.App.BetaFeatures.DebuggerV2Title,,Intuitive Lua Debugger,Intuitive Lua Debugger
 Studio.App.BetaFeatures.DebuggerV2Description,,"Enable a new debugging experience with a more powerful backend architecture and Lua-based UI for the Callstack, Watch, and Breakpoint windows.","Enable a new debugging experience with a more powerful backend architecture and Lua-based UI for the Callstack, Watch, and Breakpoint windows."
 Studio.App.RobloxApplication.AbnormalTerminateMessage,,An unexpected error has occurred and Studio needs to quit. Please restart Studio or contact support if the problem persists.,An unexpected error has occurred and Studio needs to quit. Please restart Studio or contact support if the problem persists.
+Studio.App.BetaFeatures.LuauIterTitle,,Generalized Iteration in Luau,Generalized Iteration in Luau
+Studio.App.BetaFeatures.LuauIterDescription,,Iteration with for loops in Luau now supports directly iterating tables without pairs/ipairs as well as __iter metamethod.,Iteration with for loops in Luau now supports directly iterating tables without pairs/ipairs as well as __iter metamethod.

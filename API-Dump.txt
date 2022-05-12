@@ -137,6 +137,7 @@ Class AppUpdateService : Instance [NotCreatable] [Service] [NotReplicated]
 Class AssetCounterService : Instance [NotCreatable] [Service] [NotReplicated]
 Class AssetDeliveryProxy : Instance [NotCreatable] [Service] [NotReplicated]
 Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void AssetImportService:Cancel() {RobloxScriptSecurity}
 	Function Dictionary AssetImportService:GetCurrentImportMap() {RobloxScriptSecurity}
 	Function Tuple AssetImportService:ImportMesh(string fileName) {RobloxScriptSecurity}
 	Function Tuple AssetImportService:ImportMeshWithPrompt() {RobloxScriptSecurity} [Yields]
@@ -366,6 +367,7 @@ Class WrapLayer : BaseWrap
 	Property float WrapLayer.Puffiness {✏️PluginSecurity}
 	Property Content WrapLayer.ReferenceMeshId {✏️PluginSecurity}
 	Property CFrame WrapLayer.ReferenceOrigin {✏️PluginSecurity}
+	Property Enum.WrapLayerAutoSkin WrapLayer.AutoSkin
 	Property bool WrapLayer.Enabled
 	Property CFrame WrapLayer.ReferenceOriginWorld [ReadOnly]
 	Property Color3 WrapLayer.Color [NotReplicated] [NotScriptable]
@@ -1221,8 +1223,6 @@ Class FunctionalTest : Instance [Deprecated]
 Class GamePassService : Instance [NotCreatable] [Service] [Deprecated]
 	Function bool GamePassService:PlayerHasPass(Player player, int64 gamePassId) [Yields] [Deprecated]
 Class GameSettings : Instance [NotCreatable] [Settings] [NotBrowsable]
-	Property string GameSettings.AdditionalCoreIncludeDirs {✏️RobloxScriptSecurity}
-	Property string GameSettings.OverrideStarterScript {✏️RobloxScriptSecurity}
 	Property bool GameSettings.VideoCaptureEnabled
 	Property bool GameSettings.VideoRecording {RobloxScriptSecurity} {✏️RobloxSecurity} [<📁> LoadOnly] [NotReplicated]
 	Event GameSettings.VideoRecordingChangeRequest(bool recording) {RobloxScriptSecurity}
@@ -2408,6 +2408,7 @@ Class MetaBreakpoint : Instance [NotCreatable] [NotReplicated]
 	Property bool MetaBreakpoint.IsLogpoint {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function Dictionary MetaBreakpoint:GetContextBreakpoints() {RobloxScriptSecurity}
 	Function int MetaBreakpoint:Remove(Function status) {RobloxScriptSecurity}
+	Function void MetaBreakpoint:SetContextEnabled(int context, bool enabled) {RobloxScriptSecurity}
 	Function void MetaBreakpoint:SetContinueExecution(bool enabled) {RobloxScriptSecurity}
 	Function void MetaBreakpoint:SetEnabled(bool enabled) {RobloxScriptSecurity}
 	Function int MetaBreakpoint:SetLine(int line, Function status) {RobloxScriptSecurity}
@@ -3344,7 +3345,6 @@ Class ReplicatedFirst : Instance [NotCreatable] [Service]
 	Event ReplicatedFirst.DefaultLoadingGuiRemoved() {RobloxScriptSecurity}
 	Event ReplicatedFirst.FinishedReplicating() {RobloxScriptSecurity}
 	Event ReplicatedFirst.RemoveDefaultLoadingGuiSignal() {RobloxScriptSecurity}
-Class ReplicatedScriptService : Instance [NotCreatable] [Service]
 Class ReplicatedStorage : Instance [NotCreatable] [Service]
 Class RobloxPluginGuiService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RobloxReplicatedStorage : Instance [NotCreatable] [Service] [NotBrowsable]
@@ -3516,6 +3516,7 @@ Class SessionService : Instance [NotCreatable] [Service]
 	Function string SessionService:GetRootSID() {RobloxScriptSecurity}
 	Function void SessionService:RemoveMetadata(string sid, string key) {RobloxScriptSecurity}
 	Function void SessionService:RemoveSession(string sid) {RobloxScriptSecurity}
+	Function void SessionService:RemoveSessionsWithMetadataKey(string key) {RobloxScriptSecurity}
 	Function void SessionService:ReplaceSession(string sid, string tag) {RobloxScriptSecurity}
 	Function bool SessionService:SessionExists(string sid) {RobloxScriptSecurity}
 	Function void SessionService:SetMetadata(string sid, string key, Variant value) {RobloxScriptSecurity}
@@ -3753,6 +3754,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Show Deployment Warnings
 	Property bool Studio.Show Diagnostics Bar
 	Property bool Studio.Show QT warnings in output
+	Property float Studio.Main Volume {RobloxScriptSecurity}
 	Property bool Studio.Only Play Audio from Window in Focus
 	Property Enum.ServerAudioBehavior Studio.Server Audio Behavior
 	Property bool Studio.Auto-Recovery Enabled
@@ -3766,8 +3768,6 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Camera Zoom to Mouse Position
 	Property QDir Studio.DefaultScriptFileDir
 	Property QDir Studio.LocalAssetsFolder {✏️RobloxScriptSecurity}
-	Property bool Studio.OverrideCoreScripts {✏️RobloxScriptSecurity}
-	Property QDir Studio.OverrideCoreScriptsDir {✏️RobloxScriptSecurity}
 	Property QDir Studio.PluginsDir
 	Property bool Studio.Show Core GUI in Explorer while Playing
 	Property bool Studio.Show FileSyncService
@@ -3873,7 +3873,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Use Bounding Box Move Handles {RobloxScriptSecurity}
 	Property Enum.RuntimeUndoBehavior Studio.RuntimeUndoBehavior
 	Property bool Studio.Show Light Guides {RobloxScriptSecurity}
-	Property bool Studio.Show Navigation Areas {RobloxScriptSecurity}
+	Property bool Studio.Show Navigation Labels {RobloxScriptSecurity}
 	Property bool Studio.Show Navigation Mesh
 	Property bool Studio.Show Pathfinding Links {RobloxScriptSecurity}
 	Function Array Studio:GetAvailableThemes() {PluginSecurity}
@@ -4272,7 +4272,7 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Property bool UserGameSettings.HasEverUsedVR {RobloxScriptSecurity}
 	Property bool UserGameSettings.IsUsingCameraYInverted {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool UserGameSettings.IsUsingGamepadCameraSensitivity {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Property float UserGameSettings.MasterVolume
+	Property float UserGameSettings.MasterVolume {RobloxScriptSecurity}
 	Property bool UserGameSettings.MicroProfilerWebServerEnabled {RobloxScriptSecurity} [Hidden]
 	Property string UserGameSettings.MicroProfilerWebServerIP {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property int UserGameSettings.MicroProfilerWebServerPort {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -6735,6 +6735,10 @@ Enum WaterForce
 	EnumItem WaterForce.Medium : 2
 	EnumItem WaterForce.Strong : 3
 	EnumItem WaterForce.Max : 4
+Enum WrapLayerAutoSkin
+	EnumItem WrapLayerAutoSkin.Disabled : 0
+	EnumItem WrapLayerAutoSkin.EnabledPreserve : 1
+	EnumItem WrapLayerAutoSkin.EnabledOverride : 2
 Enum WrapLayerDebugMode
 	EnumItem WrapLayerDebugMode.None : 0
 	EnumItem WrapLayerDebugMode.BoundCage : 1

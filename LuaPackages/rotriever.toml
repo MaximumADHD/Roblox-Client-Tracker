@@ -11,7 +11,7 @@ proxy = "https://github.com/roblox/rotriever-proxy-index"
 Roact = "github.com/roblox/roact@1.3.1"
 Rodux = "github.com/roblox/rodux@1.0"
 RoactRodux = "github.com/roblox/roact-rodux@0.2"
-RoactNavigation = "github.com/roblox/roact-navigation@0.5.1"
+RoactNavigation = "github.com/roblox/roact-navigation@0.5.2"
 Cryo = "github.com/roblox/cryo@1.0"
 Dash = "github.com/roblox/dash@0.1"
 LuaChatDeps = { git = "https://github.com/Roblox/lua-chat-deps" }
@@ -33,13 +33,15 @@ StringUtilities = "github.com/Roblox/string-utilities@1.0.0"
 UrlBuilder = { git = "https://github.com/Roblox/url-builder", rev = "master" }
 FitFrame = "github.com/roblox/roact-fit-components@2.0.0"
 ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v1.2.1" }
+ExperienceChat_v123 = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v1.2.3" }
 RoduxGames = { git = "https://github.com/Roblox/rodux-games", rev = "master" }
 React = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactProxy" }
 ReactIs = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactIsProxy" }
 ReactRoblox = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "ReactRobloxProxy" }
+Promise = "github.com/Roblox/roblox-lua-promise@3.3.0"
+RoactNavigationUpgradeFlag = { git = "https://github.com/roblox/roact-navigation-upgrade", rev = "v0.1.0", package = "RoactNavigationUpgradeFlag" }
 
 # The following packages were ported from AppTempCommon
-Promise = { git = "https://github.com/Roblox/lua-promise" }
 Result = { git = "https://github.com/Roblox/lua-result" }
 tutils = { git = "https://github.com/Roblox/tutils" }
 
@@ -61,17 +63,22 @@ DeveloperTools = "github.com/Roblox/developer-tools@0.2.2"
 Rodux = { git = "https://github.com/roblox/rodux", rev = "v3.0.0" }
 
 [config.patch_git."https://github.com/roblox/roblox-lua-promise"]
-Promise = "github.com/Roblox/roblox-lua-promise@3.2.1"
+Promise = "github.com/Roblox/roblox-lua-promise@3.3.0"
 
 [config.patch_git."https://github.com/roblox/lua-promise"]
-Promise = "github.com/Roblox/roblox-lua-promise@3.2.1"
+Promise = "github.com/Roblox/roblox-lua-promise@3.3.0"
 
 [config.patch."https://github.com/roblox/roact-navigation"]
-RoactNavigation = "github.com/roblox/roact-navigation@0.5.1"
+# RoactNavigation = "github.com/roblox/roact-navigation@0.5.1"
+RoactNavigation = { git = "https://github.com/roblox/roact-navigation-upgrade", rev = "v0.1.0", package = "RoactNavigationProxy" }
 
 # Roact 17 - Patch in flagged proxy for roact, roact-rodux, infinite-scroller, and gamepad
 [config.patch."github.com/roblox/roact"]
 Roact = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "RoactProxy" }
+
+# Roact 17 - Patch for Roact Navigation
+[config.patch."github.com/roblox/roact-alignment"]
+RoactCompat = { git = "https://github.com/Roblox/roact-17-upgrade", rev = "main", package = "RoactProxy" }
 
 [config.patch."github.com/roblox/roact-rodux"]
 RoactRodux = "github.com/Roblox/roact-rodux@0.5.0"

@@ -458,7 +458,8 @@ Hum,Studio.Toolbox.GrantAssetPermission.Failure,Failed to grant Universe permiss
 Failed to grant Universe permission to use asset {assetId:int},Studio.Toolbox.GrantAssetPermission.Information,Name: {assetName}
 ID: {assetId:int},Type: {assetType},Name: {assetName}
 ID: {assetId:int},Type: {assetType},Studio.Toolbox.GrantAssetPermission.GrantButton
-Grant,Grant,Studio.Toolbox.Audio.Music.Genre.children
+Grant,Grant,Studio.Toolbox.Audio.FindTracks
+Find Tracks by {creatorName},Find Tracks by {creatorName},Studio.Toolbox.Audio.Music.Genre.children
 Children,Children,Studio.Toolbox.Audio.Music.Genre.electronica
 Electronica,Electronica,Studio.Toolbox.Audio.Music.Genre.folk-contemporary
 Folk Contemporary,Folk Contemporary,Studio.Toolbox.Audio.Music.Genre.funk-soul-r-b
@@ -484,9 +485,9 @@ Sound Effect,Sound Effect,Studio.Toolbox.Audio.SoundEffect.Category.acid
 Acid,Acid,Studio.Toolbox.Audio.SoundEffect.Category.air
 Air,Air,Studio.Toolbox.Audio.SoundEffect.Category.alien
 Alien,Alien,Studio.Toolbox.Audio.SoundEffect.Category.ambience
-Ambience,Ambience,Studio.Toolbox.Audio.SoundEffect.Category.amphibians
-Amphibians,Amphibians,Studio.Toolbox.Audio.SoundEffect.Category.rocks
-Rocks,Rocks,Studio.Toolbox.Audio.SoundEffect.Category.answering-machine
+Ambience,Ambience,Studio.Toolbox.Audio.SoundEffect.Category.rocks
+Rocks,Rocks,Studio.Toolbox.Audio.SoundEffect.Category.amphibians
+Amphibians,Amphibians,Studio.Toolbox.Audio.SoundEffect.Category.answering-machine
 Answering Machine,Answering Machine,Studio.Toolbox.Audio.SoundEffect.Category.applause
 Applause,Applause,Studio.Toolbox.Audio.SoundEffect.Category.arrows
 Arrows,Arrows,Studio.Toolbox.Audio.SoundEffect.Category.buses

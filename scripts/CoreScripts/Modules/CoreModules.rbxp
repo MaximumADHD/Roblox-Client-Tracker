@@ -1,0 +1,306 @@
+{
+    // This project file is required to map ".robloxrc" from outside the Modules tree to individual scripts in order to achieve linting
+    // inside DataModel that matches "covert" behavior which uses file system
+    // The root cause of this is duplicate Modules entry points like CoreScripts/Modules, src/internal/Modules which use different .robloxrc
+    // Alternatives:
+    //  1. fix lint errors - over 500 error in over 20 files - resource intensive (no automation, manual QA, legacy code)
+    //  2. lower lint level for all scripts - bad, as it will reduce code quality over time
+    //  3. Wait until [Packagification](https://confluence.rbx.com/x/7PIaEg) happens - way too long, currently at RFC feedback stage (04/20/2022)
+    //
+    // This code can be removed once Packagification cleanup is done
+    "instanceHierarchy": {
+        "tree": {
+            "AvatarContextMenu": {
+                "$path": "AvatarContextMenu"
+            },
+            "AvatarEditorPrompts": {
+                "$path": "AvatarEditorPrompts"
+            },
+            "Common": {
+                "$path": "Common/CommonCoreModules.rbxp"
+            },
+            "CoreScriptsRhodiumTest": {
+                "$path": "CoreScriptsRhodiumTest"
+            },
+            "DevConsole": {
+                "$path": "DevConsole"
+            },
+            "EmotesMenu": {
+                "$path": "EmotesMenu"
+            },
+            "ErrorReporting": {
+                "$path": "ErrorReporting"
+            },
+            "Experiment": {
+                "$path": "Experiment"
+            },
+            "Flags": {
+                "$path": "Flags"
+            },
+            "InGameChat": {
+                "$path": "InGameChat"
+            },
+            "InGameMenu": {
+                "$path": "InGameMenu"
+            },
+            "InGameMenuV3": {
+                "$path": "InGameMenuV3"
+            },
+            "InspectAndBuy": {
+                "$path": "InspectAndBuy"
+            },
+            "Interfaces": {
+                "$path": "Interfaces"
+            },
+            "LuobuWarningToast": {
+                "$path": "LuobuWarningToast"
+            },
+            "PlayerList": {
+                "$path": "PlayerList"
+            },
+            "ProximityPromptsTests": {
+                "$path": "ProximityPromptsTests"
+            },
+            "PurchasePrompt": {
+                "$path": "PurchasePrompt"
+            },
+            "Server": {
+                "$path": "Server"
+            },
+            "Settings": {
+                "$path": "Settings"
+            },
+            "Stats": {
+                "$path": "Stats"
+            },
+            "TestHelpers": {
+                "$path": "TestHelpers"
+            },
+            "TopBar": {
+                "$path": "TopBar"
+            },
+            "TrustAndSafety": {
+                "$path": "TrustAndSafety"
+            },
+            "VirtualCursor": {
+                "$path": "VirtualCursor"
+            },
+            "VoiceChat": {
+                "$path": "VoiceChat"
+            },
+            "VoiceChatPrompt": {
+                "$path": "VoiceChatPrompt"
+            },
+            "VR": {
+                "$path": "VR"
+            },
+            "Watermark": {
+                "$path": "Watermark"
+            },
+            "ABTestHelper": {
+                "$path": "ABTestHelper.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "act": {
+                "$path": "act.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "ActionBindingsTab": {
+                "$path": "ActionBindingsTab.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "BackpackScript": {
+                "$path": "BackpackScript.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "BlockingUtility": {
+                "$path": "BlockingUtility.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "BusinessLogic": {
+                "$path": "BusinessLogic.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "CaptureMaster": {
+                "$path": "CaptureMaster.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "CaptureNotification": {
+                "$path": "CaptureNotification.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "ChatSelector": {
+                "$path": "ChatSelector.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "ChatUtil": {
+                "$path": "ChatUtil.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "CoreUtility": {
+                "$path": "CoreUtility.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "DevConsoleMaster": {
+                "$path": "DevConsoleMaster.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "ErrorPrompt": {
+                "$path": "ErrorPrompt.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "ErrorTestSets": {
+                "$path": "ErrorTestSets.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "FriendingUtility": {
+                "$path": "FriendingUtility.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "GameTranslator": {
+                "$path": "GameTranslator.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "GoogleAnalyticsUtils": {
+                "$path": "GoogleAnalyticsUtils.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "HttpAnalyticsTab": {
+                "$path": "HttpAnalyticsTab.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "InGameMenuConstants": {
+                "$path": "InGameMenuConstants.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "InGameMenuInit": {
+                "$path": "InGameMenuInit.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "isNewInGameMenuEnabled": {
+                "$path": "isNewInGameMenuEnabled.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "LoadingScreen3D": {
+                "$path": "LoadingScreen3D.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "Logger": {
+                "$path": "Logger.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "NetworkPauseNotification": {
+                "$path": "NetworkPauseNotification.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "NewChat": {
+                "$path": "NewChat.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "PlayerPermissionsModule": {
+                "$path": "PlayerPermissionsModule.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "PromptCreator": {
+                "$path": "PromptCreator.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "RobloxTranslator": {
+                "$path": "RobloxTranslator.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "Shimmer": {
+                "$path": "Shimmer.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "shouldSaveScreenshotToAlbum": {
+                "$path": "shouldSaveScreenshotToAlbum.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "SocialUtil": {
+                "$path": "SocialUtil.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "StyleWidgets": {
+                "$path": "StyleWidgets.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "TenFootInterface": {
+                "$path": "TenFootInterface.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            },
+            "UIBloxInGameConfig": {
+                "$path": "UIBloxInGameConfig.lua",
+                ".robloxrc": {
+                    "$path": "../.robloxrc"
+                }
+            }
+        }
+    }
+}
