@@ -1,9 +1,0 @@
-{
-    "language": {
-        "mode": "nocheck"
-    },
-    "lint": {
-        // Rhodium is an external dependency that shouldn't be linted here.
-        "*": "disabled",
-    }
-}
