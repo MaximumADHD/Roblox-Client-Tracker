@@ -1,3 +1,0 @@
-return {
-	newConnectionOrder = true,
-}

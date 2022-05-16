@@ -1,6 +1,0 @@
-{
-    "language": {
-        // Luau is not smart enough to understand how to type check these files.
-        "mode": "nocheck",
-    }
-}

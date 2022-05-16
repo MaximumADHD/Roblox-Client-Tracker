@@ -1,9 +1,0 @@
-{
-    "language": {
-        "mode": "nocheck",
-    },
-    "lint": {
-        // These packages come from other repositories and shouldn't be linted here.
-        "*": "disabled",
-    }
-}
