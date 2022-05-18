@@ -1172,6 +1172,15 @@
     </Item>
     <Item class="ReflectionMetadataClass">
         <Properties>
+            <string name="Name">PlaneConstraint</string>
+            <string name="ClassCategory">Constraints</string>
+            <string name="ExplorerOrder">30</string>
+            <string name="ExplorerImageIndex">134</string>
+            <string name="PreferredParent">BasePart</string>
+        </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+        <Properties>
             <string name="Name">Plane</string>
             <string name="ClassCategory">Constraints</string>
             <string name="ExplorerOrder">30</string>

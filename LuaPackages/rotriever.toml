@@ -87,4 +87,4 @@ RoactRodux = "github.com/Roblox/roact-rodux@0.5.0"
 InfiniteScroller = "github.com/Roblox/infinite-scroller@0.9.5"
 
 [config.patch."github.com/roblox/roact-gamepad"]
-RoactGamepad = "github.com/Roblox/roact-gamepad@0.5.2"
+RoactGamepad = "github.com/Roblox/roact-gamepad@0.5.3"

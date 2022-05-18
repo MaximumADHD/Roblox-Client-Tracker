@@ -22,18 +22,19 @@ Studio.Debugger.EditDebugpoint.Save,Save,Save
 Studio.Debugger.EditDebugpoint.EnabledLabel,isEnabled,isEnabled
 Studio.Debugger.Callstack.SourceColumnTooltip,The script where the function call of a frame originated,The script where the function call of a frame originated
 Studio.Debugger.EditDebugpoint.LogPlaceholder,Enter log message(s),Enter log message(s)
-Studio.Debugger.Watch.DropdownFieldText,{NumFields:int} Scopes,{NumFields:int} Scopes
 Studio.Debugger.Callstack.SourceColumn,Source,Source
 Studio.Debugger.EditDebugpoint.ConditionPlaceholder,Enter condition(s),Enter condition(s)
 Studio.Debugger.EditDebugpoint.LogTooltip,Log message will be displayed in Output widget when a Logpoint is hit.,Log message will be displayed in Output widget when a Logpoint is hit.
 Studio.Debugger.Callstack.WindowName,Call Stack,Call Stack
 Studio.Debugger.Common.stepOutActionV2,Step Out,Step Out
 Studio.Debugger.Common.stepOverActionV2,Step Over,Step Over
+Studio.Debugger.BreakpointsWindow.AllColumns,All Columns,All Columns
 Studio.Debugger.Callstack.AllColumns,All Columns,All Columns
 Studio.Debugger.Callstack.FrameColumn,Frame,Frame
 Studio.Debugger.Callstack.FrameColumnTooltip,The data associated with a single call to a function,The data associated with a single call to a function
 Studio.Debugger.Common.EnableLogpoint,Enable Logpoint,Enable Logpoint
 Studio.Debugger.Callstack.LayerColumn,Layer,Layer
+Studio.Debugger.Callstack.LayerColumnTooltip,The language that the script is written in,The language that the script is written in
 Studio.Debugger.Callstack.FunctionColumn,Function,Function
 Studio.Debugger.Callstack.FunctionColumnTooltip,The name of the function call associated with a frame,The name of the function call associated with a frame
 Studio.Debugger.Common.DeleteSelected,Delete Selected,Delete Selected
@@ -70,6 +71,7 @@ Studio.Debugger.BreakpointsWindow.DisableAll,Disable All Breakpoints,Disable All
 Studio.Debugger.BreakpointsWindow.DeleteAll,Delete All Breakpoints,Delete All Breakpoints
 Studio.Debugger.Watch.AllScopes,All Scopes,All Scopes
 Studio.Debugger.Watch.Upvalue,Upvalue,Upvalue
+Studio.Debugger.Watch.DropdownFieldText,{NumFields:int} Scopes,{NumFields:int} Scopes
 Studio.Debugger.Watch.FilterScopes,Filter by scopes,Filter by scopes
 Studio.Debugger.Watch.VariablesTab,Variables,Variables
 Studio.Debugger.Watch.WatchesTab,My Watches,My Watches

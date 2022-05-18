@@ -166,9 +166,9 @@ Add Premium benefits,Add Premium benefits,Studio.Toolbox.General.CategoryCreatio
 Shoulder Accessories,Shoulder Accessories,Studio.Toolbox.AssetConfigSharing.PrivateInformation
 Grant permissions to specific Universes through Asset Configuration on the web.,Grant permissions to specific Universes through Asset Configuration on the web.,Studio.Toolbox.General.CategoryCreationsFrontAccessory
 Front Accessories,Front Accessories,Studio.Toolbox.General.CategoryCreationsBackAccessory
-Back Accessories,Back Accessories,Studio.Toolbox.General.CategoryCreationsTShirtAccessory
-T-Shirt Accessories,T-Shirt Accessories,Studio.Toolbox.Audio.SoundEffect.Category.robots
-Robots,Robots,Studio.Toolbox.Audio.SoundEffect.Category.instruments
+Back Accessories,Back Accessories,Studio.Toolbox.Audio.SoundEffect.Category.robots
+Robots,Robots,Studio.Toolbox.General.CategoryCreationsTShirtAccessory
+T-Shirt Accessories,T-Shirt Accessories,Studio.Toolbox.Audio.SoundEffect.Category.instruments
 Instruments,Instruments,Studio.Toolbox.General.CategoryCreationsShirtAccessory
 Shirt Accessories,Shirt Accessories,Studio.Toolbox.General.CategoryCreationsJacketAccessory
 Jacket Accessories,Jacket Accessories,Studio.Toolbox.AssetConfigSharing.PrivateDisabledInformation
@@ -277,7 +277,8 @@ Genre,Studio.Toolbox.Audio.Music.Genre.dance-traditional,Dance Traditional
 Dance Traditional,Studio.Toolbox.General.Copy,Allow Copying
 Allow Copying,Studio.Toolbox.General.Comments,Allow Comments
 Allow Comments,Studio.Toolbox.Audio.SoundEffect.Category.buzzers,Buzzers
-Buzzers,Studio.Toolbox.General.LearnMore,Learn more
+Buzzers,Studio.Toolbox.AssetConfigSharing.PublicDisabledLinkText,Learn more
+Learn more,Studio.Toolbox.General.LearnMore,Learn more
 Learn more,Studio.Toolbox.General.Me,Me
 Me,Studio.Toolbox.General.Proceed,Proceed
 Proceed,Studio.Toolbox.General.AssetType,Asset type
@@ -323,15 +324,18 @@ Preview,Studio.Toolbox.AssetConfigPreview.Change,Change
 Change,Studio.Toolbox.AssetConfigSharing.PublicDisabledInformation,Audio files cannot be made public at this time. Please check back at a later date.
 Audio files cannot be made public at this time. Please check back at a later date.,Studio.Toolbox.AssetConfigSharing.PublicInformation,I certify that I am the creator of this asset. I agree that the asset may be shared and used by others on Roblox. This cannot be undone.
 I certify that I am the creator of this asset. I agree that the asset may be shared and used by others on Roblox. This cannot be undone.,Studio.Toolbox.Audio.SoundEffect.Category.breaking,Breaking
-Breaking,Studio.Toolbox.Audio.SoundEffect.Category.paper,Paper
+Breaking,Studio.Toolbox.AssetConfigSharing.PublicAllExperiences,Public - All Experiences
+Public - All Experiences,Studio.Toolbox.Audio.SoundEffect.Category.paper,Paper
 Paper,Studio.Toolbox.Audio.SoundEffect.Category.pops,Pops
 Pops,Studio.Toolbox.AssetConfigSharing.AllExperiences,All Experiences
-All Experiences,Studio.Toolbox.AssetConfigSharing.AnyoneOnRoblox,Anyone on Roblox
-Anyone on Roblox,Studio.Toolbox.Audio.SoundEffect.Category.rockets,Rockets
-Rockets,Studio.Toolbox.AssetConfigSharing.CheckStatus,Check Status
+All Experiences,Studio.Toolbox.Audio.SoundEffect.Category.rockets,Rockets
+Rockets,Studio.Toolbox.AssetConfigSharing.AnyoneOnRoblox,Anyone on Roblox
+Anyone on Roblox,Studio.Toolbox.AssetConfigSharing.CheckStatus,Check Status
 Check Status,Studio.Toolbox.Audio.SoundEffect.Category.spaceships,Spaceships
 Spaceships,Studio.Toolbox.AssetConfigSharing.ExperiencesWithAccess,Experiences with access
-Experiences with access,Studio.Toolbox.Audio.SoundEffect.Category.technical,Technical
+Experiences with access,Studio.Toolbox.AssetConfigSharing.PrivateInformationVersionTwo,You can grant permissions to specific experiences on web asset configuration.
+You can grant permissions to specific experiences on web asset configuration.,Studio.Toolbox.AssetConfigSharing.PrivateInformationLinkText,Manage permissions
+Manage permissions,Studio.Toolbox.Audio.SoundEffect.Category.technical,Technical
 Technical,Studio.Toolbox.AssetConfigSharing.PublicConfirmationTitle,Are you sure?
 Are you sure?,Studio.Toolbox.Audio.SoundEffect.Category.p-a-,P.A.
 P.A.,Studio.Toolbox.AssetConfigSharing.PublicConfirmationMessage,"Once shared with Anyone on Roblox, you cannot set it back to private."
@@ -339,7 +343,10 @@ P.A.,Studio.Toolbox.AssetConfigSharing.PublicConfirmationMessage,"Once shared wi
 Album/Artist,Studio.Toolbox.Audio.SoundEffect.Category.guns,Guns
 Guns,Studio.Toolbox.AssetConfigSharing.PublicConfirmationHeading,You have allowed this asset to be shared with Anyone on Roblox
 You have allowed this asset to be shared with Anyone on Roblox,Studio.Toolbox.AudioView.UploadedBy,Uploaded By
-Uploaded By,Studio.Toolbox.AssetConfigSharing.SpecificExperiences,Specific Experiences
+Uploaded By,Studio.Toolbox.General.CategoryGroupPlugins,Group Plugins
+Group Plugins,Studio.Toolbox.Audio.SoundEffect.Category.fans-air-conditioning,Fans & Air Conditioning
+Fans & Air Conditioning,Studio.Toolbox.AssetConfigSharing.PrivateSpecificExperiences,Private - Specific Experiences
+Private - Specific Experiences,Studio.Toolbox.AssetConfigSharing.SpecificExperiences,Specific Experiences
 Specific Experiences,Studio.Toolbox.Audio.SoundEffect.Category.movement,Movement
 Movement,Studio.Toolbox.AssetConfigSharing.VerificationNotice,"To make audio assets public, you must first verify your identity. Use the Refresh button to update your Verification status."
 "To make audio assets public, you must first verify your identity. Use the Refresh button to update your Verification status.",Studio.Toolbox.General.CategoryVideos,Videos
@@ -411,9 +418,7 @@ You earn:,Studio.Toolbox.Audio.SoundEffect.Category.room-tone,Room Tone
 Room Tone,Studio.Toolbox.AssetConfigSales.Target,"By enabling it, this asset will be put in {market} and available for any Roblox {user}."
 "By enabling it, this asset will be put in {market} and available for any Roblox {user}.",Studio.Toolbox.Audio.SoundEffect.Category.glassware,Glassware
 Glassware,Studio.Toolbox.Audio.SoundEffect.Category.leather,Leather
-Leather,Studio.Toolbox.General.CategoryGroupPlugins,Group Plugins
-Group Plugins,Studio.Toolbox.Audio.SoundEffect.Category.fans-air-conditioning,Fans & Air Conditioning
-Fans & Air Conditioning,Studio.Toolbox.General.Free,Free
+Leather,Studio.Toolbox.General.Free,Free
 Free,Studio.Toolbox.Audio.SoundEffect.Category.chairs,Chairs
 Chairs,Studio.Toolbox.General.Installing,Installing
 Installing,Studio.Toolbox.AssetConfigError.NetworkError,We encountered some problems:
@@ -447,8 +452,7 @@ Trending,Studio.Toolbox.HomeView.TopSearches,Top Searches
 Top Searches,Studio.Toolbox.Audio.SoundEffect.Category.chops,Chops
 Chops,Studio.Toolbox.AudioView.Artist,Artist
 Artist,Studio.Toolbox.AudioView.Length,Length
-Length,Studio.Toolbox.Audio.SoundEffect.Category.rips,Rips
-Rips,Studio.Toolbox.Audio.SoundEffect.Category.swishes,Swishes
+Length,Studio.Toolbox.Audio.SoundEffect.Category.swishes,Swishes
 Swishes,Studio.Toolbox.AudioView.Duration,Duration
 Duration,Studio.Toolbox.Audio.SoundEffect.Category.motorcycles,Motorcycles
 Motorcycles,Studio.Toolbox.AudioView.Category,Category
@@ -555,7 +559,8 @@ Public Places,Public Places,Studio.Toolbox.Audio.SoundEffect.Category.race-cars
 Race Cars,Race Cars,Studio.Toolbox.Audio.SoundEffect.Category.radio
 Radio,Radio,Studio.Toolbox.Audio.SoundEffect.Category.ricochets
 Ricochets,Ricochets,Studio.Toolbox.Audio.SoundEffect.Category.rings
-Rings,Rings,Studio.Toolbox.Audio.SoundEffect.Category.rips-tears
+Rings,Rings,Studio.Toolbox.Audio.SoundEffect.Category.rips
+Rips,Rips,Studio.Toolbox.Audio.SoundEffect.Category.rips-tears
 Rips & Tears,Rips & Tears,Studio.Toolbox.Audio.SoundEffect.Category.rollers
 Rollers,Rollers,Studio.Toolbox.Audio.SoundEffect.Category.scrapes
 Scrapes,Scrapes,Studio.Toolbox.Audio.SoundEffect.Category.rolling

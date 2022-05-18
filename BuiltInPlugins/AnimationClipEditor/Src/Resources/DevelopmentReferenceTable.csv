@@ -61,6 +61,8 @@ Studio.AnimationClipEditor.Dialog.SaveLocation, ,Animation will be saved to Rig 
 Studio.AnimationClipEditor.Dialog.Yes, ,Yes
 Studio.AnimationClipEditor.DropdownMenu.CreateNewClip, ,Create New Clip
 Studio.AnimationClipEditor.EditorErrors.OpenedWhileRunning, ,Animation Editor cannot be used while game is running!
+Studio.AnimationClipEditor.FaceControlsEditorButtonCallout.Description, ,The Face Animation Editor provides a user-friendly interface for creating and editing facial animations for dynamic heads.
+Studio.AnimationClipEditor.FaceControlsEditorButtonCallout.Title, ,Face Animation Editor
 Studio.AnimationClipEditor.IKMenu.BodyPart, ,Body Part
 Studio.AnimationClipEditor.IKMenu.DisableIK, ,Disable IK
 Studio.AnimationClipEditor.IKMenu.EnableIK, ,Enable IK
@@ -145,7 +147,7 @@ Studio.AnimationClipEditor.Settings.ZXY, ,ZXY
 Studio.AnimationClipEditor.Settings.ZYX, ,ZYX
 Studio.AnimationClipEditor.Title.AddEvent, ,Add Event
 Studio.AnimationClipEditor.Title.AnimationEvents, ,Animation Events
-Studio.AnimationClipEditor.Title.AutoFocusFace, ,Auto Focus Face
+Studio.AnimationClipEditor.Title.AutoFocusFace, ,Focus Face
 Studio.AnimationClipEditor.Title.ChangeDuration, ,Change Duration
 Studio.AnimationClipEditor.Title.ClickToContinue, ,Click here to continue using the Animation Editor
 Studio.AnimationClipEditor.Title.ClickToRevealInput, ,Click to reveal value input
@@ -160,7 +162,7 @@ Studio.AnimationClipEditor.Title.EditEvents, ,Edit Animation Events
 Studio.AnimationClipEditor.Title.Error, ,Error
 Studio.AnimationClipEditor.Title.EventName, ,Event Name
 Studio.AnimationClipEditor.Title.FACE, ,Face
-Studio.AnimationClipEditor.Title.FaceControlsEditor, ,Face Editor
+Studio.AnimationClipEditor.Title.FaceControlsEditor, ,Face Animation Editor
 Studio.AnimationClipEditor.Title.HoverOverNameDisplay, ,Hover-over name display
 Studio.AnimationClipEditor.Title.IK, ,IK
 Studio.AnimationClipEditor.Title.ManageIK, ,Manage IK

@@ -40,7 +40,7 @@ Studio.MaterialManager.CreateDialog.ImportColorMap,Color
 Studio.MaterialManager.CreateDialog.ImportMetalnessMap,Metalness
 Studio.MaterialManager.CreateDialog.ImportNormalMap,Normal
 Studio.MaterialManager.CreateDialog.ImportRoughnessMap,Roughness
-Studio.MaterialManager.CreateDialog.InsertAssetURL,URL/Asset name
+Studio.MaterialManager.CreateDialog.InsertAssetURL,URL
 Studio.MaterialManager.CreateDialog.MaterialPatternVariant,Material Pattern
 Studio.MaterialManager.CreateDialog.NameVariant,Name
 Studio.MaterialManager.CreateDialog.NoImageSelected,No Image Selected

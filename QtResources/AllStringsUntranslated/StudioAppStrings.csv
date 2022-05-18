@@ -4,6 +4,8 @@ Studio.App.Properties.MultipleTypes,,<Multiple Types>,<Multiple Types>
 Studio.App.Properties.NoAttributeAdded,Displayed in Attributes Section when no attribute has been added yet.,No Attribute has been added yet,No Attribute has been added yet
 Studio.App.Properties.AddAttribute,Title/text for Add Attribute button/dialog,Add Attribute,Add Attribute
 Studio.App.Properties.UnknownAttribute,Displayed when an unhandled exception occurs.,Unknown attributes runtime error.,Unknown attributes runtime error.
+Studio.App.PopupImagePicker.Url,Displayed as a label in the popup image picker,URL:,URL:
+Studio.App.PopupImagePicker.Search,Displayed as a label in the popup image picker,Search:,Search:
 Studio.App.AddAttributeDialog.AttributeName,Displayed to the left of attribute name line edit.,Name,Name
 Studio.App.AddAttributeDialog.AttributeType,Displayed to the left of attribute type combo box,Type,Type
 Studio.App.AddAttributeDialog.AttributeAlreadyExists,Displayed when adding an attribute and entering a name that exists.,Attribute already exists.,Attribute already exists.
@@ -2125,6 +2127,8 @@ Studio.App.StudioServiceHost.ConvertToPackageFailed,,Convert to package failed.,
 Studio.App.AuthenticationHelper.AuthFailedTryAgain,,Authentication failed. Please try again or contact support if the problem persists.,Authentication failed. Please try again or contact support if the problem persists.
 Studio.App.AuthenticationHelper.AuthFailedTimeout,,Could not authenticate user. Request timed out.,Could not authenticate user. Request timed out.
 Studio.App.Authenticator.TwoStepFailedParse,,"An error occurred while reading the response from the server. Please try again later, or contact support if the problem persists.","An error occurred while reading the response from the server. Please try again later, or contact support if the problem persists."
+Studio.App.BetaFeatures.ACESaveRigWithAnimationTitle,,Save rig with Animation,Save rig with Animation
+Studio.App.BetaFeatures.ACESaveRigWithAnimationDescription,,Animation clip editor will save the rig along with keyframes to make the animation retargetable.,Animation clip editor will save the rig along with keyframes to make the animation retargetable.
 Studio.App.BetaFeatures.ForumPostTitleEnding,,%1 is now enabled,%1 is now enabled
 Studio.App.BetaFeatures.CSGv2SmoothingTitle,,Normal smoothing Beta,Normal smoothing Beta
 Studio.App.BetaFeatures.CSGv2SmoothingDescription,,Use the SmoothAngle property on CSG part to define threshold angle and smooth normals.,Use the SmoothAngle property on CSG part to define threshold angle and smooth normals.
@@ -2164,6 +2168,8 @@ Studio.App.BetaFeatures.AccessoryToolBetaTitle,,Accessory Fitting Tool,Accessory
 Studio.App.BetaFeatures.AccessoryToolBetaDescription,,Use Accessory Fitting Tool to edit caged clothing items as well as rigid accessories.,Use Accessory Fitting Tool to edit caged clothing items as well as rigid accessories.
 Studio.App.BetaFeatures.FacialAnimationBetaTitle,,Facial Animation,Facial Animation
 Studio.App.BetaFeatures.FacialAnimationBetaDescription,,Enable the FaceControls instance which supports facial animation for avatars that have a dynamic-head.,Enable the FaceControls instance which supports facial animation for avatars that have a dynamic-head.
+Studio.App.BetaFeatures.AutoSkinTransferBetaTitle,,Automatic Skinning Transfer,Automatic Skinning Transfer
+Studio.App.BetaFeatures.AutoSkinTransferBetaDescription,,Enables the auto-skinning property on the WrapDeformer’s WrapLayer instances which allows deformation of accessories based on the skinning information of the character it’s attached to.,Enables the auto-skinning property on the WrapDeformer’s WrapLayer instances which allows deformation of accessories based on the skinning information of the character it’s attached to.
 Studio.App.BetaFeatures.ProximityPromptTitle,,Proximity Prompt Beta,Proximity Prompt Beta
 Studio.App.BetaFeatures.ProximityPromptDescription,,ProximityPrompt is a new instance type used to prompt the user for input so they can interact with an object in the 3D world.,ProximityPrompt is a new instance type used to prompt the user for input so they can interact with an object in the 3D world.
 Studio.App.BetaFeatures.ClarifiedIKDraggersTitle,,New Physical Draggers,New Physical Draggers
@@ -2624,6 +2630,7 @@ Studio.App.UIEditorWidget.ZoomInButton,,+,+
 Studio.App.UniverseController.FailedToLoadGameAssets,,"Failed to load game assets, some Studio features have been disabled.","Failed to load game assets, some Studio features have been disabled."
 Studio.App.UniverseController.ThisPlaceDoesNotBelongToAGame,,This place does not belong to a game.,This place does not belong to a game.
 Studio.App.UniverseController.CanAddToGame,,This place does not belong to a game. You can add it to a game by going to a game's configuration page on the website.,This place does not belong to a game. You can add it to a game by going to a game's configuration page on the website.
+Studio.App.UniverseController.PermissionDenied,,Unable to load universe. Permission denied.,Unable to load universe. Permission denied.
 Studio.App.RobloxCustomWidgets.Url,,URL:,URL:
 Studio.App.RobloxCustomWidgets.Loading,,(Loading...),(Loading...)
 Studio.App.RobloxCustomWidgets.MoreColors,,More Colors,More Colors
@@ -3131,6 +3138,8 @@ Studio.App.ScriptsInBatchDialog.ScriptSectionHeader,,Script,Script
 Studio.App.ScriptsInBatchDialog.VersionSectionHeader,,Version,Version
 Studio.App.AnimationFromVideoCreatorStudioService.SelectMP4VideoFile,,Select a mp4 video,Select a mp4 video
 Studio.App.AnimationFromVideoCreatorStudioService.NoFileSelected,,No file selected,No file selected
+Studio.App.AnimationFromVideoCreatorStudioService.FileTooLarge,,File is too large; must be less than %1MB,File is too large; must be less than %1MB
+Studio.App.AnimationFromVideoCreatorStudioService.UploadFailed,,Upload failed,Upload failed
 Studio.App.AssetManagerService.AssetIdInvalid,,AssetId is invalid,AssetId is invalid
 Studio.App.AssetManagerService.AliasNameInvalid,,Alias name is invalid,Alias name is invalid
 Studio.App.AssetManagerService.DataModelInvalid,,DataModel is invalid,DataModel is invalid

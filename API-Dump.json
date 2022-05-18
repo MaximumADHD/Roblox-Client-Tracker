@@ -13385,8 +13385,18 @@
             "Members": [
             ],
             "MemoryCategory": "PhysicsParts",
-            "Name": "Plane",
+            "Name": "PlaneConstraint",
             "Superclass": "Constraint"
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "PhysicsParts",
+            "Name": "Plane",
+            "Superclass": "PlaneConstraint",
+            "Tags": [
+                "Deprecated"
+            ]
         },
         {
             "Members": [
@@ -24046,9 +24056,6 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Enum",
@@ -24067,9 +24074,6 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Enum",
@@ -24088,9 +24092,6 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Enum",
@@ -24109,9 +24110,6 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Enum",
@@ -24130,9 +24128,6 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -24605,9 +24600,6 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -36976,39 +36968,6 @@
         },
         {
             "Members": [
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "FilePath",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    }
-                }
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "ImporterTextureSettings",
-            "Superclass": "ImporterBaseSettings",
-            "Tags": [
-                "NotCreatable",
-                "NotReplicated"
-            ]
-        },
-        {
-            "Members": [
             ],
             "MemoryCategory": "Instances",
             "Name": "IncrementalPatchBuilder",
@@ -38567,6 +38526,18 @@
             ],
             "MemoryCategory": "Animation",
             "Name": "KeyframeSequenceProvider",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "LSPFileSyncService",
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
@@ -52652,6 +52623,27 @@
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
+                    "Name": "PhysicsInertiaAndVolumeFix",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "PhysicsInertiaAndVolumeFix"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
                     "Name": "PhysicsSimulationRate",
                     "Security": {
                         "Read": "None",
@@ -64357,6 +64349,18 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetRobloxClientChannel",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetRobloxVersion",
                     "Parameters": [
                     ],
@@ -64833,18 +64837,6 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "ScriptCloneWatcherHelper",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotCreatable",
-                "Service",
-                "NotReplicated"
-            ]
-        },
-        {
-            "Members": [
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "ScriptCloneWatcherHelperV2",
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
@@ -67711,6 +67703,18 @@
             "MemoryCategory": "Instances",
             "Name": "Smoke",
             "Superclass": "Instance"
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "SnippetService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
         },
         {
             "Members": [
@@ -91646,6 +91650,10 @@
                 {
                     "Name": "Roblox_findColor3",
                     "Value": 26
+                },
+                {
+                    "Name": "Roblox_patchSnippetData",
+                    "Value": 27
                 }
             ],
             "Name": "LSPMethodType"
@@ -92661,6 +92669,23 @@
                 }
             ],
             "Name": "PermissionLevelShown"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Disabled",
+                    "Value": 1
+                },
+                {
+                    "Name": "Enabled",
+                    "Value": 2
+                }
+            ],
+            "Name": "PhysicsInertiaAndVolumeFix"
         },
         {
             "Items": [

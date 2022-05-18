@@ -704,7 +704,8 @@ Class LinearVelocity : Constraint
 	Property Vector3 LinearVelocity.PrimaryTangentAxis
 	Property Vector3 LinearVelocity.SecondaryTangentAxis
 	Property Vector3 LinearVelocity.VectorVelocity
-Class Plane : Constraint
+Class PlaneConstraint : Constraint
+Class Plane : PlaneConstraint [Deprecated]
 Class RigidConstraint : Constraint
 	Property bool RigidConstraint.Broken [ReadOnly] [NotBrowsable]
 	Property bool RigidConstraint.DestructionEnabled [NotBrowsable]
@@ -1266,11 +1267,11 @@ Class GuiBase2d : GuiBase [NotCreatable] [NotBrowsable]
 	Property bool GuiBase2d.AutoLocalize
 	Property bool GuiBase2d.Localize [<📁> LoadOnly] [Hidden] [NotReplicated] [Deprecated]
 	Property LocalizationTable GuiBase2d.RootLocalizationTable
-	Property Enum.SelectionBehavior GuiBase2d.SelectionBehaviorDown [NotBrowsable]
-	Property Enum.SelectionBehavior GuiBase2d.SelectionBehaviorLeft [NotBrowsable]
-	Property Enum.SelectionBehavior GuiBase2d.SelectionBehaviorRight [NotBrowsable]
-	Property Enum.SelectionBehavior GuiBase2d.SelectionBehaviorUp [NotBrowsable]
-	Property bool GuiBase2d.SelectionGroup [NotBrowsable]
+	Property Enum.SelectionBehavior GuiBase2d.SelectionBehaviorDown
+	Property Enum.SelectionBehavior GuiBase2d.SelectionBehaviorLeft
+	Property Enum.SelectionBehavior GuiBase2d.SelectionBehaviorRight
+	Property Enum.SelectionBehavior GuiBase2d.SelectionBehaviorUp
+	Property bool GuiBase2d.SelectionGroup
 	Event GuiBase2d.SelectionChanged(bool amISelected, GuiObject previousSelection, GuiObject newSelection)
 Class GuiObject : GuiBase2d [NotCreatable] [NotBrowsable]
 	Property GuiObject GuiObject.SelectionImageObject
@@ -1299,7 +1300,7 @@ Class GuiObject : GuiBase2d [NotCreatable] [NotBrowsable]
 	Property GuiObject GuiObject.NextSelectionRight
 	Property GuiObject GuiObject.NextSelectionUp
 	Property bool GuiObject.Selectable
-	Property int GuiObject.SelectionOrder [NotBrowsable]
+	Property int GuiObject.SelectionOrder
 	Function bool GuiObject:TweenPosition(UDim2 endPosition, Enum.EasingDirection easingDirection = "Out", Enum.EasingStyle easingStyle = "Quad", float time = 1, bool override = false, Function callback = nil)
 	Function bool GuiObject:TweenSize(UDim2 endSize, Enum.EasingDirection easingDirection = "Out", Enum.EasingStyle easingStyle = "Quad", float time = 1, bool override = false, Function callback = nil)
 	Function bool GuiObject:TweenSizeAndPosition(UDim2 endSize, UDim2 endPosition, Enum.EasingDirection easingDirection = "Out", Enum.EasingStyle easingStyle = "Quad", float time = 1, bool override = false, Function callback = nil)
@@ -1975,8 +1976,6 @@ Class ImporterRootSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property Enum.MeshScaleUnit ImporterRootSettings.ScaleUnit
 	Property Enum.NormalId ImporterRootSettings.WorldForward
 	Property Enum.NormalId ImporterRootSettings.WorldUp
-Class ImporterTextureSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
-	Property string ImporterTextureSettings.FilePath [ReadOnly]
 Class IncrementalPatchBuilder : Instance [NotCreatable] [Service] [NotReplicated]
 Class InputObject : Instance [NotCreatable]
 	Property Vector3 InputObject.Delta
@@ -2066,6 +2065,7 @@ Class KeyframeSequenceProvider : Instance [NotCreatable] [Service] [NotReplicate
 	Function Dictionary KeyframeSequenceProvider:GetMemStats() {RobloxScriptSecurity}
 	Function Content KeyframeSequenceProvider:RegisterActiveKeyframeSequence(Instance keyframeSequence)
 	Function Content KeyframeSequenceProvider:RegisterKeyframeSequence(Instance keyframeSequence)
+Class LSPFileSyncService : Instance [NotCreatable] [Service] [NotReplicated]
 Class LSPService : Instance [Service] [NotReplicated]
 	Function void LSPService:RegisterLSPCallback(Enum.LSPMethodType methodToOverride, Function callbackFunction) {RobloxScriptSecurity}
 Class LanguageService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -2740,6 +2740,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Enum.HumanoidOnlySetCollisionsOnStateChange Workspace.HumanoidOnlySetCollisionsOnStateChange [NotScriptable]
 	Property Enum.InterpolationThrottlingMode Workspace.InterpolationThrottling {✏️PluginSecurity}
 	Property Enum.MeshPartHeadsAndAccessories Workspace.MeshPartHeadsAndAccessories [NotScriptable]
+	Property Enum.PhysicsInertiaAndVolumeFix Workspace.PhysicsInertiaAndVolumeFix [NotScriptable]
 	Property Enum.PhysicsSimulationRate Workspace.PhysicsSimulationRate [Hidden] [NotReplicated]
 	Property Enum.PhysicsSteppingMethod Workspace.PhysicsSteppingMethod [NotScriptable]
 	Property Enum.ReplicateInstanceDestroySetting Workspace.ReplicateInstanceDestroySetting [NotScriptable]
@@ -3361,6 +3362,7 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property string RunService.ClientGitHash {RobloxScriptSecurity} [ReadOnly]
 	Function void RunService:BindToRenderStep(string name, int priority, Function function)
 	Function string RunService:GetCoreScriptVersion() {RobloxScriptSecurity}
+	Function string RunService:GetRobloxClientChannel() {RobloxScriptSecurity}
 	Function string RunService:GetRobloxVersion() {RobloxScriptSecurity}
 	Function bool RunService:IsClient()
 	Function bool RunService:IsEdit() {PluginSecurity}
@@ -3393,7 +3395,6 @@ Class ScriptChangeService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event ScriptChangeService.ScriptSourceEdited(LuaSourceContainer script, Array edits) {RobloxScriptSecurity}
 Class ScriptCloneWatcher : Instance [NotCreatable] [Service] [NotReplicated]
 Class ScriptCloneWatcherHelper : Instance [NotCreatable] [Service] [NotReplicated]
-Class ScriptCloneWatcherHelperV2 : Instance [NotCreatable] [Service] [NotReplicated]
 Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool ScriptContext.ScriptsDisabled {LocalUserSecurity} [Hidden]
 	Function void ScriptContext:AddCoreScriptLocal(string name, Instance parent) {RobloxScriptSecurity}
@@ -3541,6 +3542,7 @@ Class Smoke : Instance
 	Property float Smoke.RiseVelocity [<📁> LoadOnly] [NotReplicated]
 	Property float Smoke.Size [<📁> LoadOnly] [NotReplicated]
 	Property float Smoke.TimeScale
+Class SnippetService : Instance [NotCreatable] [Service] [NotReplicated]
 Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool SocialService:CanSendGameInviteAsync(Instance player) [Yields]
 	Function void SocialService:InvokeGameInvitePromptClosed(Instance player, Array recipientIds) {RobloxScriptSecurity}
@@ -5774,6 +5776,7 @@ Enum LSPMethodType
 	EnumItem LSPMethodType.Roblox_suggestExtraSelections : 24
 	EnumItem LSPMethodType.Roblox_findExecutablePosition : 25
 	EnumItem LSPMethodType.Roblox_findColor3 : 26
+	EnumItem LSPMethodType.Roblox_patchSnippetData : 27
 Enum Language
 	EnumItem Language.Default : 0
 Enum LeftRight
@@ -5997,6 +6000,10 @@ Enum PermissionLevelShown
 	EnumItem PermissionLevelShown.RobloxScript : 2
 	EnumItem PermissionLevelShown.Studio : 3
 	EnumItem PermissionLevelShown.Roblox : 4
+Enum PhysicsInertiaAndVolumeFix
+	EnumItem PhysicsInertiaAndVolumeFix.Default : 0
+	EnumItem PhysicsInertiaAndVolumeFix.Disabled : 1
+	EnumItem PhysicsInertiaAndVolumeFix.Enabled : 2
 Enum PhysicsSimulationRate
 	EnumItem PhysicsSimulationRate.Fixed240Hz : 0
 	EnumItem PhysicsSimulationRate.Fixed120Hz : 1

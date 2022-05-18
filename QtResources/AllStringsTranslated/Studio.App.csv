@@ -4453,3 +4453,5 @@ Studio.App.RobloxRibbonMainWindow.MaterialManager,,,Material Manager,Material Ma
 Studio.App.RobloxRibbonMainWindow.MaterialManagerToolTip,,,"Manage, select, and apply materials","Manage, select, and apply materials",,,,,,素材の管理、選択、適用,,,,,,,,,管理、選擇及套用材質
 Studio.App.IDEPermissionsResolutionLinkDefinition.ExperienceSuccessMessage1,,,Successfully granted the experience permission to use asset %1,Successfully granted the experience permission to use asset %1,,,,,,%1 のアセットを使用する体験権限を付与できました,,,,,,,,,已成功授予體驗使用素材 %1 的權限
 Studio.App.RobloxApplication.AbnormalTerminateMessage,,,An unexpected error has occurred and Studio needs to quit. Please restart Studio or contact support if the problem persists.,An unexpected error has occurred and Studio needs to quit. Please restart Studio or contact support if the problem persists.,,,,,,予期しないエラーが発生したため、Studio を終了する必要があります。問題が解決しない場合は、Studio を再起動するか、サポートにお問い合わせください。,,,,,,,,,發生意外錯誤，Studio 必須退出。如果問題持續，請重新啟動 Studio 或聯絡客服人員。
+Studio.App.Property.MainVolume,,,Main Volume,Main Volume,,,,,,,,,,,,,,,
+Studio.App.Property.ShowNavigationLabels,,,Show Navigation Labels,Show Navigation Labels,,,,,,,,,,,,,,,
