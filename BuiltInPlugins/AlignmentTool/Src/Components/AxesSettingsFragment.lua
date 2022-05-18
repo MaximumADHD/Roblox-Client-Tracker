@@ -10,7 +10,7 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local Cryo = require(Plugin.Packages.Cryo)
+local Dash = require(Plugin.Packages.Dash)
 local FitFrameOnAxis = require(Plugin.Packages.FitFrame).FitFrameOnAxis
 local Roact = require(Plugin.Packages.Roact)
 
@@ -28,6 +28,8 @@ local Util = Framework.Util
 local LayoutOrderIterator = Util.LayoutOrderIterator
 
 local AlignmentSpace = require(Plugin.Src.Utility.AlignmentSpace)
+
+local join = Dash.join
 
 local AxesSettingsFragment = Roact.PureComponent:extend("AxesSettingsFragment")
 
@@ -47,7 +49,7 @@ function AxesSettingsFragment:init(initialProps)
 	self.toggleAxis = function(axisId)
 		local props = self.props
 		if props.OnEnabledAxesChanged then
-			local enabledAxes = Cryo.Dictionary.join(props.EnabledAxes, {
+			local enabledAxes = join(props.EnabledAxes, {
 				[axisId] = not props.EnabledAxes[axisId],
 			})
 			props.OnEnabledAxesChanged(enabledAxes)

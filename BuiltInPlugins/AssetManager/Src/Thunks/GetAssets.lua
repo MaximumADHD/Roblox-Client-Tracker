@@ -22,6 +22,8 @@ local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableM
 local FFlagAssetManagerRefactorPath = game:GetFastFlag("AssetManagerRefactorPath")
 local FFlagStudioAssetManagerAssetModeration = game:GetFastFlag("StudioAssetManagerAssetModeration")
 
+local FFlagPackagesApiEnabled = game:GetFastFlag("PackagesApiEnabled")
+
 local numberOfAssetsToFetch = FIntStudioAssetManagerAssetFetchNumber
 
 if FFlagAssetManagerRefactorPath then
@@ -70,19 +72,35 @@ if FFlagAssetManagerRefactorPath then
                     error("Failed to load places")
                 end)
             elseif isPackage then
-                requestPromise = apiImpl.Develop.V1.Universes.packages(game.GameId, pageCursor, numberOfAssetsToFetch):makeRequest()
-                :andThen(function(response)
-                    if FFlagNewPackageAnalyticsWithRefactor2 then
-                        sendResultToKibana(response)
-                    end
-                    return response
-                end, function(response)
-                    if FFlagNewPackageAnalyticsWithRefactor2 then
-                        sendResultToKibana(response)
-                    end
-                    store:dispatch(SetIsFetchingAssets(false))
-                    error("Failed to load packages")
-                end)
+				if FFlagPackagesApiEnabled then
+					requestPromise = apiImpl.APIS.Packages.V1.packages(game.GameId, pageCursor, numberOfAssetsToFetch):makeRequest()
+					:andThen(function(response)
+						if FFlagNewPackageAnalyticsWithRefactor2 then
+							sendResultToKibana(response)
+						end
+						return response
+					end, function(response)
+						if FFlagNewPackageAnalyticsWithRefactor2 then
+							sendResultToKibana(response)
+						end
+						store:dispatch(SetIsFetchingAssets(false))
+						error("Failed to load packages")
+					end)
+				else
+					requestPromise = apiImpl.Develop.V1.Universes.packages(game.GameId, pageCursor, numberOfAssetsToFetch):makeRequest()
+					:andThen(function(response)
+						if FFlagNewPackageAnalyticsWithRefactor2 then
+							sendResultToKibana(response)
+						end
+						return response
+					end, function(response)
+						if FFlagNewPackageAnalyticsWithRefactor2 then
+							sendResultToKibana(response)
+						end
+						store:dispatch(SetIsFetchingAssets(false))
+						error("Failed to load packages")
+					end)
+				end
             elseif isAlias then
                 if not pageNumber then
                     page = 1
@@ -181,19 +199,35 @@ else
                     error("Failed to load places")
                 end)
             elseif assetType == Enum.AssetType.Package then
-                requestPromise = apiImpl.Develop.V1.Universes.packages(game.GameId, pageCursor, numberOfAssetsToFetch):makeRequest()
-                :andThen(function(response)
-                    if FFlagNewPackageAnalyticsWithRefactor2 then
-                        sendResultToKibana(response)
-                    end
-                    return response
-                end, function(response)
-                    if FFlagNewPackageAnalyticsWithRefactor2 then
-                        sendResultToKibana(response)
-                    end
-                    store:dispatch(SetIsFetchingAssets(false))
-                    error("Failed to load packages")
-                end)
+				if FFlagPackagesApiEnabled then
+					requestPromise = apiImpl.APIS.Packages.V1.packages(game.GameId, pageCursor, numberOfAssetsToFetch):makeRequest()
+					:andThen(function(response)
+						if FFlagNewPackageAnalyticsWithRefactor2 then
+							sendResultToKibana(response)
+						end
+						return response
+					end, function(response)
+						if FFlagNewPackageAnalyticsWithRefactor2 then
+							sendResultToKibana(response)
+						end
+						store:dispatch(SetIsFetchingAssets(false))
+						error("Failed to load packages")
+					end)
+                else
+					requestPromise = apiImpl.Develop.V1.Universes.packages(game.GameId, pageCursor, numberOfAssetsToFetch):makeRequest()
+					:andThen(function(response)
+						if FFlagNewPackageAnalyticsWithRefactor2 then
+							sendResultToKibana(response)
+						end
+						return response
+					end, function(response)
+						if FFlagNewPackageAnalyticsWithRefactor2 then
+							sendResultToKibana(response)
+						end
+						store:dispatch(SetIsFetchingAssets(false))
+						error("Failed to load packages")
+					end)
+				end
             elseif assetType == Enum.AssetType.Image
             or assetType == Enum.AssetType.MeshPart
             or assetType == Enum.AssetType.Lua

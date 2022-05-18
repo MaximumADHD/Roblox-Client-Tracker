@@ -13,7 +13,6 @@ local createFitToContent = UILibrary.Component.createFitToContent
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
     SortOrder = Enum.SortOrder.LayoutOrder,
 })
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local Collapsible = Roact.PureComponent:extend("Collapsible")
 
@@ -42,12 +41,7 @@ function Collapsible:render()
 	local state = self.state
 
 	local open = state.open
-	local theme
-	if THEME_REFACTOR then
-		theme = props.Stylizer
-	else
-		theme = props.Theme:get("Collapsible")
-	end
+	local theme = props.Stylizer
 	local title = props.Title
 	local renderContent = props.RenderContent
 	local layoutOrder = props.LayoutOrder
@@ -101,8 +95,7 @@ end
 
 
 Collapsible = withContext({
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = ContextServices.Stylizer,
 })(Collapsible)
 
 

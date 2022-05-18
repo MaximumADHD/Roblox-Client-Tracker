@@ -17,7 +17,6 @@
 ]]
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagRemoveUILibraryDeepJoin = game:GetFastFlag("RemoveUILibraryDeepJoin")
 local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
 
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
@@ -31,7 +30,6 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -43,10 +41,10 @@ local LinkText = FrameworkUI.LinkText
 
 local LayoutOrderIterator = Util.LayoutOrderIterator
 local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
+local deepJoin = Util.deepJoin
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Util.GetTextSize else UILibrary.Util.GetTextSize
-local deepJoin = if FFlagRemoveUILibraryDeepJoin then Util.deepJoin else UILibrary.Util.deepJoin
 local TitledFrame = UILibrary.Component.TitledFrame
 local RoundTextBox = UILibrary.Component.RoundTextBox
 
@@ -288,7 +286,7 @@ local function createPlaceTableData(places)
 end
 
 local function displayPlaceListPage(props, localization)
-	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+	local theme = props.Stylizer
 
 	local layoutIndex = LayoutOrderIterator.new()
 
@@ -348,7 +346,7 @@ local function displayPlaceListPage(props, localization)
 end
 
 local function displayEditPlacePage(props, localization)
-	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+	local theme = props.Stylizer
 
 	local layoutIndex = LayoutOrderIterator.new()
 
@@ -588,8 +586,7 @@ end
 
 Places = withContext({
 	Localization = ContextServices.Localization,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(Places)
 
 

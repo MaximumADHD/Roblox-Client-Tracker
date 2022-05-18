@@ -67,6 +67,21 @@ function EventStream:setRBXEventStream(eventContext, eventName, additionalArgs)
 	end
 end
 
+-- eventContext : (string) the location or context in which the event is occurring.
+-- eventName : (string) the name corresponding to the type of event to be reported. "screenLoaded" for example.
+-- additionalArgs : (optional, map<string, Value>) map for extra keys to appear in the event stream.
+function EventStream:sendEventDeferred(eventContext, eventName, additionalArgs)
+	additionalArgs = additionalArgs or {}
+
+	assert(type(eventContext) == "string", "Expected eventContext to be a string")
+	assert(type(eventName) == "string", "Expected eventName to be a string")
+	assert(type(additionalArgs) == "table", "Expected additionalArgs to be a table")
+
+	-- this function sends reports to the server in batches, not real-time
+	self._analyticsImpl:SendEventDeferred(self._platformTarget, eventContext, eventName, additionalArgs)
+end
+
+
 function EventStream:releaseRBXEventStream()
 	self._analyticsImpl:ReleaseRBXEventStream(self._platformTarget)
 	if self.timerSteppedConnection then

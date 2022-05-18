@@ -43,11 +43,17 @@ local SetTool = require(Plugin.Src.Actions.SetTool)
 local DraggerWrapper = require(Plugin.Src.Components.Draggers.DraggerWrapper)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagFaceControlsEditorShowCallout = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorShowCallout)
 
 -- analytics
 local AnalyticsHandlers = require(Plugin.Src.Resources.AnalyticsHandlers)
 
 local AnimationClipEditorPlugin = Roact.PureComponent:extend("AnimationClipEditorPlugin")
+
+local calloutController = nil
+
+local FStringFaceControlsEditorLink = game:GetFastString("FaceControlsEditorLink")
+local GetFFlagFaceControlsEditorBugBash3Update = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorBugBash3Update)
 
 function AnimationClipEditorPlugin:handleButtonClick(plugin)
 	if RunService:IsRunning() then
@@ -84,7 +90,24 @@ function AnimationClipEditorPlugin:init(initialProps)
 		stringResourceTable = DevelopmentReferenceTable,
 		translationResourceTable = TranslationReferenceTable,
 	})
+	
+	if GetFFlagFaceControlsEditorShowCallout() then	
+		local CalloutController = require(Plugin.Src.Util.CalloutController)
+		calloutController = CalloutController.new()
+		do
+			local definitionId = "FaceControlsEditorCallout"
 
+			local title = self.localization:getText("FaceControlsEditorButtonCallout", "Title")
+			local description = self.localization:getText("FaceControlsEditorButtonCallout", "Description")
+			local learnMoreUrl = "https://create.roblox.com/docs/avatar/dynamic-heads/animating-dynamic-heads"
+			if GetFFlagFaceControlsEditorBugBash3Update() then
+				learnMoreUrl = FStringFaceControlsEditorLink
+			end
+
+			calloutController:defineCallout(definitionId, title, description, learnMoreUrl)
+		end
+	end	
+	
 	self.actions = ContextServices.PluginActions.new(initialProps.plugin, MakePluginActions(initialProps.plugin, self.localization))
 
 	self.state = {
@@ -306,6 +329,7 @@ function AnimationClipEditorPlugin:render()
 			mouse = mouse,
 			analytics = analytics,
 			signals = self.signals,
+			calloutController = calloutController,
 		}, {
 			AnimationClipEditor = Roact.createElement(AnimationClipEditor),
 			Dragger = Roact.createElement(DraggerWrapper),

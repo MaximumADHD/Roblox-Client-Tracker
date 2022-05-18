@@ -6,8 +6,6 @@
 	assetId, number, will be used to request assetData on didMount.
 ]]
 
-local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
-local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 local FFlagToolboxAssetConfigurationMatchPluginFlow = game:GetFastFlag("ToolboxAssetConfigurationMatchPluginFlow")
 local FFlagAssetConfigCleanupDuplicateActions = game:GetFastFlag("AssetConfigCleanupDuplicateActions")
@@ -269,7 +267,7 @@ function AssetConfig:init(props)
 							state.status,
 							props.assetConfigData.Price,
 							state.price,
-							props.assetConfigData.ItemTags or (game:GetFastFlag("UGCDoNotConvertLC") and {} or nil),
+							props.assetConfigData.ItemTags or {},
 							state.tags
 						)
 					else
@@ -316,7 +314,7 @@ function AssetConfig:init(props)
 						})
 					end
 				elseif AssetConfigUtil.isCatalogAsset(props.assetTypeEnum) then
-					if FFlagCMSUploadFees and props.isUploadFeeEnabled then
+					if props.isUploadFeeEnabled then
 						props.uploadCatalogItemWithFee(
 							getNetwork(self),
 							self.state.name,
@@ -444,7 +442,7 @@ function AssetConfig:init(props)
 	self.tryCloseAssetConfig = function(index, action)
 		if action == "yes" then
 			-- Close the assetConfig
-			local pluginGui = FFlagRefactorDevFrameworkContextItems2 and self.props.Focus:get() or self.props.Focus:getTarget()
+			local pluginGui = self.props.Focus:get()
 
 			-- And we will let AssetConfigWrapper to handle the onClose and unMount.
 			pluginGui.Enabled = false
@@ -723,7 +721,7 @@ function AssetConfig:didMount()
 
 		self.props.getIsVerifiedCreator(getNetwork(self))
 
-		if FFlagCMSUploadFees and AssetConfigUtil.isCatalogAsset(self.props.assetTypeEnum) then
+		if AssetConfigUtil.isCatalogAsset(self.props.assetTypeEnum) then
 			self.props.getCatalogItemUploadFee(getNetwork(self), self.props.assetTypeEnum, self.props.instances)
 		end
 

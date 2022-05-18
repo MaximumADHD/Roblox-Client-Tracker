@@ -19,8 +19,6 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 
 local MockServiceWrapper = Roact.Component:extend("MockServiceWrapper")
 
-local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
-
 local function mockFocus()
 	return Instance.new("ScreenGui")
 end
@@ -46,30 +44,18 @@ function MockServiceWrapper:render()
 
 	local networkingImpl = Http.Networking.mock()
 	
-	if FFlagDevFrameworkUseCreateContext then
-		return ContextServices.provide({
-			ContextServices.Plugin.new(pluginInstance),
-			ContextServices.Focus.new(focusGui),
-			MakeTheme(),
-			localization,
-			ContextServices.Store.new(store),
-			NetworkingContext.new(networkingImpl),
-		}, {
-			UILibraryProvider = ContextServices.provide({
-				UILibraryWrapper.new(UILibrary),
-			}, self.props[Roact.Children])
-		})
-	else
-		return ContextServices.provide({
-			ContextServices.Plugin.new(pluginInstance),
-			ContextServices.Focus.new(focusGui),
-			MakeTheme(),
-			localization,
-			ContextServices.Store.new(store),
-			NetworkingContext.new(networkingImpl),
+	return ContextServices.provide({
+		ContextServices.Plugin.new(pluginInstance),
+		ContextServices.Focus.new(focusGui),
+		MakeTheme(),
+		localization,
+		ContextServices.Store.new(store),
+		NetworkingContext.new(networkingImpl),
+	}, {
+		UILibraryProvider = ContextServices.provide({
 			UILibraryWrapper.new(UILibrary),
 		}, self.props[Roact.Children])
-	end
+	})
 end
 
 return MockServiceWrapper

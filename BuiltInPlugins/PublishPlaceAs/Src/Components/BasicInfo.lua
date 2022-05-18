@@ -91,8 +91,6 @@ local Tooltip = Framework.UI.Tooltip
 
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local function PaddedTextLabel(props)
 	return Roact.createElement(TextLabel, {
 		BackgroundTransparency = 1,
@@ -116,7 +114,7 @@ local groupsLoaded = false
 local function displayContents(parent)
 	local props = parent.props
 
-	local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
+	local theme = props.Stylizer
 	local localization = props.Localization
 	local description = props.Description
 	local descriptionChanged = props.DescriptionChanged

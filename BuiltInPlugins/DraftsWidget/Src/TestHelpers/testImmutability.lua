@@ -8,8 +8,8 @@
 	All that matters is that the original data is preserved and unmodified.
 ]]
 local Plugin = script.Parent.Parent.Parent
-local FFlagRemoveUILibraryDeepJoin = game:GetFastFlag("RemoveUILibraryDeepJoin")
-local deepJoin = if FFlagRemoveUILibraryDeepJoin then require(Plugin.Packages.Framework).Util.deepJoin else require(Plugin.Src.Util.deepJoin)
+
+local deepJoin = require(Plugin.Packages.Framework).Util.deepJoin
 
 local function allFieldsAreUnchanged(tableA, tableB)
 	-- if there's some mistake, escape

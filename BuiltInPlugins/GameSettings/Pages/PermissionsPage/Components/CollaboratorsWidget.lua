@@ -3,7 +3,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
@@ -47,7 +46,7 @@ function CollaboratorsWidget:render()
 	-- Collaborators that are writeable can be removed even if not editable
 	local editable = props.Editable
 
-	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+	local theme = props.Stylizer
 	local localization = props.Localization
 
 	local userCollaborators = props.UserCollaborators
@@ -134,8 +133,7 @@ end
 
 
 CollaboratorsWidget = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 })(CollaboratorsWidget)
 

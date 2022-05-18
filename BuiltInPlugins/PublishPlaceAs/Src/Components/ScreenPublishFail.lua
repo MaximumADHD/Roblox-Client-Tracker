@@ -35,8 +35,6 @@ local ICON_SIZE = 150
 local BUTTON_WIDTH = 150
 local BUTTON_HEIGHT = 40
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local ScreenPublishFail = Roact.PureComponent:extend("ScreenPublishFail")
 
 function ScreenPublishFail:init()
@@ -81,7 +79,7 @@ end
 
 function ScreenPublishFail:render()
 	local props = self.props
-	local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
+	local theme = props.Stylizer
 	local localization = props.Localization
 	local apiImpl = API
 
@@ -164,8 +162,7 @@ function ScreenPublishFail:render()
 end
 
 ScreenPublishFail = withContext({
-	Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
-	Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	API = ContextServices.API,
 })(ScreenPublishFail)

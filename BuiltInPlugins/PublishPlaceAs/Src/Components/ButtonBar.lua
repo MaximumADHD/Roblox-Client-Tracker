@@ -23,13 +23,11 @@ local withContext = ContextServices.withContext
 local BUTTON_WIDTH = 125
 local BUTTON_HEIGHT = 35
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local ButtonBar = Roact.PureComponent:extend("ButtonBar")
 
 function ButtonBar:render()
 	local props = self.props
-	local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
+	local theme = props.Stylizer
 	local localization = props.Localization
 
 	local horizontalAlignment = props.HorizontalAlignment
@@ -92,8 +90,7 @@ function ButtonBar:render()
 end
 
 ButtonBar = withContext({
-	Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
-	Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 })(ButtonBar)
 

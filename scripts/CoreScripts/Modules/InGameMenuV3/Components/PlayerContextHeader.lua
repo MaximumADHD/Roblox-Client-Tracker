@@ -1,4 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local UIBlox = InGameMenuDependencies.UIBlox
@@ -7,15 +9,16 @@ local t = InGameMenuDependencies.t
 local withStyle = UIBlox.Style.withStyle
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 
+local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
+
 local PlayerContextHeader = Roact.PureComponent:extend("PlayerContextHeader")
 
 PlayerContextHeader.validateProps = t.strictInterface({
-	player = t.instanceIsA("Player"),
+	player = playerInterface,
 })
 
 function PlayerContextHeader:render()
 	return withStyle(function(style)
-
 		-- TODO: Switch to using icon from UIBlox. Managing rounded corners will be a challenge.
 		local avatarBackgroundImage = "rbxasset://textures/ui/PlayerList/NewAvatarBackground.png"
 
@@ -60,7 +63,7 @@ function PlayerContextHeader:render()
 					PlayerName = Roact.createElement(StyledTextLabel, {
 						layoutOrder = 2,
 						size = UDim2.new(1, 0, 0, 14),
-						text ="@" .. self.props.player.Name,
+						text = "@" .. self.props.player.Name,
 						fontStyle = style.Font.CaptionHeader,
 						colorStyle = style.Theme.TextDefault,
 						textTruncate = Enum.TextTruncate.AtEnd,
@@ -72,11 +75,11 @@ function PlayerContextHeader:render()
 			}),
 
 			AvatarImage = Roact.createElement("ImageLabel", {
-				Position = UDim2.new(0, 112/2, 0, 0),
+				Position = UDim2.new(0, 112 / 2, 0, 0),
 				Size = UDim2.new(0, 92, 0, 92),
 				AnchorPoint = Vector2.new(0.5, 0),
 				BackgroundTransparency = 1,
-				Image = "rbxthumb://type=AvatarHeadShot&id=" ..self.props.player.UserId.. "&w=150&h=150",
+				Image = "rbxthumb://type=AvatarHeadShot&id=" .. self.props.player.UserId .. "&w=150&h=150",
 				ZIndex = 2,
 			}),
 

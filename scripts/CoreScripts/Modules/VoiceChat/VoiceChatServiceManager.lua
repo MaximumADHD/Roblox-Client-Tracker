@@ -86,6 +86,7 @@ local VoiceChatServiceManager = {
 	bannedUntil = nil,
 	errorText = nil,
 	BlockStatusChanged = nil,
+	_mutedAnyone = false,
 	VOICE_CHAT_DEVICE_TYPE = VOICE_CHAT_DEVICE_TYPE,
 }
 
@@ -193,6 +194,10 @@ end
 
 function VoiceChatServiceManager:getService()
 	return self.service
+end
+
+function VoiceChatServiceManager:GetMutedAnyone()
+	return self._mutedAnyone
 end
 
 function VoiceChatServiceManager:GetRequest(url, method)
@@ -470,6 +475,9 @@ end
 
 function VoiceChatServiceManager:ToggleMutePlayer(userId: number)
 	self:ensureInitialized("mute player " .. userId)
+	if GetFFlagVoiceAbuseReportsEnabled() then
+		self._mutedAnyone = true
+	end
 	local requestedMuteStatus = not self.service:IsSubscribePaused(userId)
 	log:trace("Setting mute for {} to {}", shorten(userId), requestedMuteStatus)
 
@@ -489,6 +497,9 @@ end
 
 function VoiceChatServiceManager:MuteAll(muteState: boolean)
 	self:ensureInitialized("mute all")
+	if GetFFlagVoiceAbuseReportsEnabled() then
+		self._mutedAnyone = true
+	end
 	self.service:SubscribePauseAll(muteState)
 	-- We need to update the state and fire the event locally because toggling local muting doesn't trigger
 	-- a participantStateChange for some reason.
@@ -518,7 +529,8 @@ function VoiceChatServiceManager:GetIcon(name, folder)
 	return getIconSrc(name, folder)
 end
 
-function VoiceChatServiceManager:getRecentUsersInteractionData()
+export type RecentInteractionData = {[string]: {lastHeardTime: number}}
+function VoiceChatServiceManager:getRecentUsersInteractionData(): RecentInteractionData
 	self:_updateRecentUsersInteractionData()
 	return self.recentUsersInteractionData
 end
@@ -848,5 +860,7 @@ VoiceChatServiceManager.default = VoiceChatServiceManager.new(
 	nil, HttpRbxApiService, PermissionsProtocol.default,
 	GetFFlagDeferredBlockStatusChange() and BlockingUtility:GetAfterBlockedStatusChangedEvent() or BlockingUtility:GetBlockedStatusChangedEvent()
 )
+
+export type VoiceChatServiceManager = typeof(VoiceChatServiceManager.default)
 
 return VoiceChatServiceManager

@@ -12,8 +12,6 @@ local withContext = ContextServices.withContext
 local UI = Framework.UI
 local HoverArea = UI.HoverArea
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local LabeledImageButton = Roact.PureComponent:extend("LabeledImageButton")
 
 function LabeledImageButton:init()
@@ -49,12 +47,7 @@ end
 function LabeledImageButton:render()
 	local props = self.props
 	local state = self.state
-	local theme
-	if THEME_REFACTOR then
-		theme = props.Stylizer
-	else
-		theme = props.Theme:get("LabeledImageButton")
-	end
+	local theme = props.Stylizer
 	local layoutOrder = props.LayoutOrder
 	local labelText = props.LabelText
 	local buttonText = props.ButtonText
@@ -121,8 +114,7 @@ end
 
 
 LabeledImageButton = withContext({
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = ContextServices.Stylizer,
 })(LabeledImageButton)
 
 

@@ -17,11 +17,6 @@ local SnapPoints = require(Plugin.Src.Components.SnapPoints)
 local DraggedPivot = require(DraggerFramework.Components.DraggedPivot)
 local classifyInstancePivot = require(Plugin.Src.Utility.classifyInstancePivot)
 
-local getSelectableWithCache = require(Packages.DraggerSchemaCore.getSelectableWithCache) -- Remove with FFlagSelectSubPartShouldFavorSelection
-local shouldSelectSubPart = require(Packages.DraggerSchemaCore.shouldSelectSubPart) -- Remove with FFlagSelectSubPartShouldFavorSelection
-
-local getFFlagSelectSubPartShouldFavorSelection = require(DraggerFramework.Flags.getFFlagSelectSubPartShouldFavorSelection)
-
 local ZERO_VECTOR = Vector3.new()
 
 local MoveHandleDefinitions = {
@@ -169,29 +164,19 @@ end
 function FreeformDragger:_recomputeSnapPoints()
 	local ray = self._draggerContext:getMouseRay()
 
-	local useBoundsOf
-	if getFFlagSelectSubPartShouldFavorSelection() then
-		local draggerSchema = self._draggerToolModel:getSchema()
-		local selection = self._draggerToolModel:getSelectionWrapper():get()
-		-- Find the instance under the mouse to use as the snapping target.
-		-- If the instance is a descendant of a Model the Model is returned,
-		-- unless alt/option is held in which case the instance under the mouse
-		-- is returned.
-		-- Pass selectSubPartShouldFavorSelection as true to ensure that when
-		-- dragging an instance's pivot, it is possible to snap to the instance
-		-- even when it is covered by another object in the scene by holding
-		-- alt/option.
-		local selectSubPartShouldFavorSelection = true
-		useBoundsOf = draggerSchema.getMouseTarget(self._draggerContext, ray, selection, selectSubPartShouldFavorSelection)
-	else
-		local params = RaycastParams.new()
-		params.BruteForceAllSlow = true
-		local result = Workspace:Raycast(ray.Origin, ray.Direction, params)
-		if result then
-			local getMostNested = shouldSelectSubPart(self._draggerContext)
-			useBoundsOf = getSelectableWithCache(result.Instance, getMostNested, {})
-		end
-	end
+	local draggerSchema = self._draggerToolModel:getSchema()
+	local selection = self._draggerToolModel:getSelectionWrapper():get()
+	-- Find the instance under the mouse to use as the snapping target.
+	-- If the instance is a descendant of a Model the Model is returned,
+	-- unless alt/option is held in which case the instance under the mouse
+	-- is returned.
+	-- Pass selectSubPartShouldFavorSelection as true to ensure that when
+	-- dragging an instance's pivot, it is possible to snap to the instance
+	-- even when it is covered by another object in the scene by holding
+	-- alt/option.
+	local selectSubPartShouldFavorSelection = true
+	local useBoundsOf = draggerSchema.getMouseTarget(self._draggerContext, ray, selection, selectSubPartShouldFavorSelection)
+
 	if useBoundsOf then
 		if useBoundsOf == self._pivotOwner then
 			self._snapPoints = self._originalPivotSnapPoints

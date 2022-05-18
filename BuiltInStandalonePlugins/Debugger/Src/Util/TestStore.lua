@@ -23,6 +23,7 @@ local AddExpression = require(Actions.Watch.AddExpression)
 local ExpressionEvaluated = require(Actions.Watch.ExpressionEvaluated)
 local AddBreakpoint = require(Actions.BreakpointsWindow.AddBreakpoint)
 local AddChildVariables = require(Actions.Watch.AddChildVariables)
+local SetCurrentThreadAction = require(Actions.Callstack.SetCurrentThread)
 
 local DebugConnectionListener = require(Src.Util.DebugConnectionListener.DebugConnectionListener)
 local Constants = require(Src.Util.Constants)
@@ -126,14 +127,14 @@ return function(store)
 	currentMockConnection.MockSetThreadStateById(2, testThreadTwo)
 	currentMockConnection.MockSetCallstackByThreadId(1, testCallstack1)
 	currentMockConnection.MockSetCallstackByThreadId(2, testCallstack2)
-	
+
 	local defaults1 = mockDebuggerVariable.GetDefaultFrameVariables()
 	defaults1["Locals"]:MockSetChildren({debuggerVar1,debuggerVar2 })
 	currentMockConnection.MockSetDebuggerVariablesByCallstackFrame(testStackFrameOne,defaults1)
 	local defaults2 = mockDebuggerVariable.GetDefaultFrameVariables()
 	defaults2["Locals"]:MockSetChildren({debuggerVar2,debuggerVar1 })
 	currentMockConnection.MockSetDebuggerVariablesByCallstackFrame(testStackFrameTwo,defaults2)
-	
+
 	mainConnectionManager.ConnectionStarted:Fire(currentMockConnection)
 
 	currentMockConnection.Paused:Fire(testPausedState2, testPausedState2.Reason)
@@ -144,7 +145,7 @@ return function(store)
 	local dst = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
 	
 	local stepStateBundle1 = StepStateBundle.ctor(dst, 1, 1)
-	
+
 	store:dispatch(AddExpression("Expression 1"))
 	store:dispatch(ExpressionEvaluated(stepStateBundle1, expressionRow1))
 
@@ -159,5 +160,7 @@ return function(store)
 	store:dispatch(AddChildVariables(stepStateBundle1, "1_2", {variableRow1Child21}))
 	store:dispatch(AddChildVariables(stepStateBundle1, "2", {variableRow2Child1}))
 	store:dispatch(AddChildVariables(stepStateBundle1, "2_1", {variableRow2Child11}))
+	store:dispatch(SetCurrentThreadAction(1))
+
 	return store
 end

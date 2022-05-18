@@ -12,6 +12,7 @@
 ]]
 local FIntToolboxAutocompleteDropdownSize = game:GetFastInt("ToolboxAutocompleteDropdownSize")
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
+local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -235,9 +236,25 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		logSearchAnalytics = function(keyword, assetType, prefix, keyCount, delCount, autocompleteShown)
-			dispatch(LogMarketplaceSearchAnalytics(keyword, assetType, prefix, keyCount, delCount, autocompleteShown))
-		end,
+		logSearchAnalytics = if FFlagToolboxHomeViewAnalyticsUpdate
+			then function(keyword, assetType, prefix, keyCount, delCount, autocompleteShown)
+				dispatch(
+					LogMarketplaceSearchAnalytics(
+						keyword,
+						assetType,
+						prefix,
+						keyCount,
+						delCount,
+						autocompleteShown,
+						false
+					)
+				)
+			end
+			else function(keyword, assetType, prefix, keyCount, delCount, autocompleteShown)
+				dispatch(
+					LogMarketplaceSearchAnalytics(keyword, assetType, prefix, keyCount, delCount, autocompleteShown)
+				)
+			end,
 
 		getAutocompleteResults = function(networkInterface, categoryName, searchTerm, numberOfResults)
 			dispatch(GetAutocompleteResultsRequest(networkInterface, categoryName, searchTerm, numberOfResults))

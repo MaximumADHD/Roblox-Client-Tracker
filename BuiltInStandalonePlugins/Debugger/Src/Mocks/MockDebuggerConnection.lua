@@ -90,8 +90,8 @@ function MockDebuggerConnection:GetThreads(callback) : number
 	end)
 
 	promise:andThen(function(newCallback)
-		local data = {}
-		newCallback(data)
+		local luaResponse = DebuggerLuaResponse.new(self.MockThreadMap, Constants.DebuggerStatus.Success)
+		newCallback(luaResponse)
 	end)
 	return 0
 end

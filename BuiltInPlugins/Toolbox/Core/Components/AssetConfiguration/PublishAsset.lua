@@ -43,6 +43,7 @@
 ]]
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 local FFlagToolboxAssetConfigurationMatchPluginFlow = game:GetFastFlag("ToolboxAssetConfigurationMatchPluginFlow")
+local FFlagAssetConfigSharingDesignTweaks = game:GetFastFlag("AssetConfigSharingDesignTweaks")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -423,6 +424,7 @@ function PublishAsset:renderContent(theme, localizedContent)
 		
 		Sharing = if displaySharing then
 			Roact.createElement(ConfigSharing, {
+				AssetId = if FFlagAssetConfigSharingDesignTweaks then props.assetId else nil,
 				AssetType = assetTypeEnum,
 				AllowSelectPrivate = allowSelectPrivate,
 				LayoutOrder = orderIterator:getNextOrder(),

@@ -15,7 +15,7 @@ local Constants = {}
 
 Constants.MAX_HAT_TRIANGLES = 4000
 
-Constants.MAX_TEXTURE_SIZE = game:GetFastFlag("UGCValidateLayeredClothing2") and 1024 or 256
+Constants.MAX_TEXTURE_SIZE = 1024
 
 Constants.MATERIAL_WHITELIST = convertArrayToTable({
 	Enum.Material.Plastic,
@@ -185,48 +185,45 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.WaistAccessory] = {
 	}
 }
 
-if game:GetFastFlag("UGCValidateLayeredClothing2") then
+Constants.ASSET_TYPE_INFO[Enum.AssetType.TShirtAccessory] = {
+	attachmentNames = { "BodyFrontAttachment" },
+}
 
-	Constants.ASSET_TYPE_INFO[Enum.AssetType.TShirtAccessory] = {
-		attachmentNames = { "BodyFrontAttachment" },
-	}
+Constants.ASSET_TYPE_INFO[Enum.AssetType.ShirtAccessory] = {
+	attachmentNames = { "BodyFrontAttachment" },
+}
 
-	Constants.ASSET_TYPE_INFO[Enum.AssetType.ShirtAccessory] = {
-		attachmentNames = { "BodyFrontAttachment" },
-	}
+Constants.ASSET_TYPE_INFO[Enum.AssetType.PantsAccessory] = {
+	attachmentNames = { "WaistCenterAttachment" },
+}
 
-	Constants.ASSET_TYPE_INFO[Enum.AssetType.PantsAccessory] = {
-		attachmentNames = { "WaistCenterAttachment" },
-	}
+Constants.ASSET_TYPE_INFO[Enum.AssetType.JacketAccessory] = {
+	attachmentNames = { "BodyFrontAttachment" },
+}
 
-	Constants.ASSET_TYPE_INFO[Enum.AssetType.JacketAccessory] = {
-		attachmentNames = { "BodyFrontAttachment" },
-	}
+Constants.ASSET_TYPE_INFO[Enum.AssetType.SweaterAccessory] = {
+	attachmentNames = { "BodyFrontAttachment" },
+}
 
-	Constants.ASSET_TYPE_INFO[Enum.AssetType.SweaterAccessory] = {
-		attachmentNames = { "BodyFrontAttachment" },
-	}
+Constants.ASSET_TYPE_INFO[Enum.AssetType.ShortsAccessory] = {
+	attachmentNames = { "WaistCenterAttachment" },
+}
 
-	Constants.ASSET_TYPE_INFO[Enum.AssetType.ShortsAccessory] = {
-		attachmentNames = { "WaistCenterAttachment" },
-	}
+Constants.ASSET_TYPE_INFO[Enum.AssetType.LeftShoeAccessory] = {
+	attachmentNames = { "LeftFootAttachment" },
+}
 
-	Constants.ASSET_TYPE_INFO[Enum.AssetType.LeftShoeAccessory] = {
-		attachmentNames = { "LeftFootAttachment" },
-	}
+Constants.ASSET_TYPE_INFO[Enum.AssetType.RightShoeAccessory] = {
+	attachmentNames = { "RightFootAttachment" },
+}
 
-	Constants.ASSET_TYPE_INFO[Enum.AssetType.RightShoeAccessory] = {
-		attachmentNames = { "RightFootAttachment" },
-	}
+Constants.ASSET_TYPE_INFO[Enum.AssetType.DressSkirtAccessory] = {
+	attachmentNames = { "WaistCenterAttachment" },
+}
 
-	Constants.ASSET_TYPE_INFO[Enum.AssetType.DressSkirtAccessory] = {
-		attachmentNames = { "WaistCenterAttachment" },
-	}
-
-	Constants.LC_BOUNDS = {
-		size = Vector3.new(8, 8, 8),
-	}
-end
+Constants.LC_BOUNDS = {
+	size = Vector3.new(8, 8, 8),
+}
 
 Constants.PROPERTIES = {
 	Instance = {
@@ -287,13 +284,11 @@ Constants.PROPERTIES = {
 	},
 }
 
-if game:GetFastFlag("UGCValidateLayeredClothing2") then
-	Constants.CONTENT_ID_FIELDS = {
-		SpecialMesh = { "MeshId", "TextureId" },
-		MeshPart = { "MeshId", "TextureID" },
-		SurfaceAppearance = { "ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap" },
-		WrapLayer = { "CageMeshId", "ReferenceMeshId" },
-	}
-end
+Constants.CONTENT_ID_FIELDS = {
+	SpecialMesh = { "MeshId", "TextureId" },
+	MeshPart = { "MeshId", "TextureID" },
+	SurfaceAppearance = { "ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap" },
+	WrapLayer = { "CageMeshId", "ReferenceMeshId" },
+}
 
 return Constants

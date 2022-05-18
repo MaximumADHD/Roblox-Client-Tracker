@@ -10,6 +10,7 @@ return function()
 	}
 	local defaultSelectTextureMap = function(file : File?, assetId : string?, errorMessage : string?) end
 	local defaultClearSelection = function() end
+	local defaultUrlSelection = function(searchUrl: string?) end
 	local defaultPreviewTitle = ""
 	local defaultSearchUrl = ""
 
@@ -17,6 +18,7 @@ return function()
 		props = props or {
 			CurrentTextureMap = defautCurrentTextureMap,
 			SelectTextureMap = defaultSelectTextureMap,
+			UrlSelection = defaultUrlSelection,
 			ClearSelection = defaultClearSelection,
 			PreviewTitle = defaultPreviewTitle,
 			SearchUrl = defaultSearchUrl,
@@ -40,6 +42,7 @@ return function()
 				assetId = "rbxassetid://8706345277",
 			},
 			SelectTextureMap = function() end,
+			UrlSelection = function() end,
 			ClearSelection = function() end,
 			PreviewTitle = "",
 			SearchUrl = "",

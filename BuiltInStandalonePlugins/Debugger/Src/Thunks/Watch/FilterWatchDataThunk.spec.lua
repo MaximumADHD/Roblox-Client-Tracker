@@ -9,7 +9,6 @@ local Util = Plugin.Src.Util
 local TestStore = require(Util.TestStore)
 
 local FilterWatchDataThunk = require(script.Parent.FilterWatchDataThunk)
-
 local filterText = "Karan"
 
 return function()
@@ -17,16 +16,20 @@ return function()
 		local store = Rodux.Store.new(MainReducer, nil, MainMiddleware)
 		store = TestStore(store)
 		store:dispatch(FilterWatchDataThunk(filterText))
+		
 		local state = store:getState()
 
-		local dst = state.Common.debuggerConnectionIdToDST[1]
+		local common = state.Common
+		local watch = state.Watch
+		local dst = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
+		local currentThreadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
 
-		expect(state.Watch.stateTokenToFlattenedTree).to.be.ok()
-		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1]).to.be.ok()
-		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["1"].textFilteredOut).to.be.equal(false)
-		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["2"].textFilteredOut).to.be.equal(true)
-		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["1_2_1"].scopeFilteredOut).to.be.equal(false)
-		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["1_2_1"].textFilteredOut).to.be.equal(false)
+		expect(watch.stateTokenToFlattenedTree).to.be.ok()
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1]).to.be.ok()
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["1"].textFilteredOut).to.be.equal(false)
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["2"].textFilteredOut).to.be.equal(true)
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["1_2_1"].scopeFilteredOut).to.be.equal(false)
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["1_2_1"].textFilteredOut).to.be.equal(false)
 	end)
 	
 	it("should filter roots that don't match regardless of filter case", function()			
@@ -36,26 +39,34 @@ return function()
 		-- set the filter text to all uppercase and see it doesn't affect the results
 		store:dispatch(FilterWatchDataThunk(filterText:upper()))
 		local state = store:getState()
-		local dst = state.Common.debuggerConnectionIdToDST[1]
 
-		expect(state.Watch.stateTokenToFlattenedTree).to.be.ok()
-		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1]).to.be.ok()
-		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["1"].textFilteredOut).to.be.equal(false)
-		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["2"].textFilteredOut).to.be.equal(true)
-		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["1_2_1"].scopeFilteredOut).to.be.equal(false)
-		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["1_2_1"].textFilteredOut).to.be.equal(false)
+		local common = state.Common
+		local watch = state.Watch
+		local dst = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
+		local currentThreadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
+
+		expect(watch.stateTokenToFlattenedTree).to.be.ok()
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1]).to.be.ok()
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["1"].textFilteredOut).to.be.equal(false)
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["2"].textFilteredOut).to.be.equal(true)
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["1_2_1"].scopeFilteredOut).to.be.equal(false)
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["1_2_1"].textFilteredOut).to.be.equal(false)
 		
 		-- set the filter text to all lowercase and see that the results are identical
 		store:dispatch(FilterWatchDataThunk(filterText:lower()))
 		state = store:getState()
-		dst = state.Common.debuggerConnectionIdToDST[1]
 
-		expect(state.Watch.stateTokenToFlattenedTree).to.be.ok()
-		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1]).to.be.ok()
-		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["1"].textFilteredOut).to.be.equal(false)
-		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["2"].textFilteredOut).to.be.equal(true)
-		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["1_2_1"].scopeFilteredOut).to.be.equal(false)
-		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["1_2_1"].textFilteredOut).to.be.equal(false)
+		common = state.Common
+		watch = state.Watch
+		dst = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
+		currentThreadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
+
+		expect(watch.stateTokenToFlattenedTree).to.be.ok()
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1]).to.be.ok()
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["1"].textFilteredOut).to.be.equal(false)
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["2"].textFilteredOut).to.be.equal(true)
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["1_2_1"].scopeFilteredOut).to.be.equal(false)
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1].Variables["1_2_1"].textFilteredOut).to.be.equal(false)
 		
 	end)
 	
@@ -66,14 +77,18 @@ return function()
 		store:dispatch(FilterWatchDataThunk(filterText))
 
 		local state = store:getState()
-		local dst = state.Common.debuggerConnectionIdToDST[1]
 
-		expect(state.Watch.stateTokenToFlattenedTree).to.be.ok()
-		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1]).to.be.ok()
-		expect(state.Watch.pathToExpansionState["1"]).to.be.equal(true)
-		expect(state.Watch.pathToExpansionState["1_2"]).to.be.equal(true)
-		expect(state.Watch.pathToExpansionState["1_2_1"]).to.be.equal(true)
-		expect(state.Watch.pathToExpansionState["1_1"]).to.be.equal(false)
-		expect(state.Watch.pathToExpansionState["1_1_1"]).to.be.equal(false)
+		local common = state.Common
+		local watch = state.Watch
+		local dst = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
+		local currentThreadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
+
+		expect(watch.stateTokenToFlattenedTree).to.be.ok()
+		expect(watch.stateTokenToFlattenedTree[dst][currentThreadId][1]).to.be.ok()
+		expect(watch.pathToExpansionState["1"]).to.be.equal(true)
+		expect(watch.pathToExpansionState["1_2"]).to.be.equal(true)
+		expect(watch.pathToExpansionState["1_2_1"]).to.be.equal(true)
+		expect(watch.pathToExpansionState["1_1"]).to.be.equal(false)
+		expect(watch.pathToExpansionState["1_1_1"]).to.be.equal(false)
 	end)
 end

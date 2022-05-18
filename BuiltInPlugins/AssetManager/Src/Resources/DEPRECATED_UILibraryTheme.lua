@@ -1,13 +1,8 @@
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagRemoveUILibraryComponentsPart1 = game:GetFastFlag("RemoveUILibraryComponentsPart1")
-local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-
 local UILibrary = require(Plugin.Packages.UILibrary)
 local createTheme = UILibrary.createTheme
 local StudioStyle = UILibrary.Studio.Style
-local Spritesheet = if FFlagRemoveUILibraryComponentsPart1 then Util.Spritesheet else UILibrary.Util.Spritesheet
 
 local FONT_SIZE_SMALL = 14
 

@@ -4,8 +4,6 @@
 	Props:
 	onDropDownSelect, function, will return current selected item if selected.
 ]]
-local FFlagUGCGroupUploads2 = game:GetFastFlag("UGCGroupUploads2")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -48,12 +46,8 @@ end
 
 function ConfigAccess:didMount()
 	-- Initial request
-	if FFlagUGCGroupUploads2 then
-		if AssetConfigUtil.isCatalogAsset(self.props.assetTypeEnum) then
-			self.props.getAssetTypeAgents(getNetwork(self), self.props.assetTypeEnum)
-		else
-			self.props.getManageableGroups(getNetwork(self))
-		end
+	if AssetConfigUtil.isCatalogAsset(self.props.assetTypeEnum) then
+		self.props.getAssetTypeAgents(getNetwork(self), self.props.assetTypeEnum)
 	else
 		self.props.getManageableGroups(getNetwork(self))
 	end
@@ -79,14 +73,10 @@ function ConfigAccess:renderContent(theme, localization, localizedContent)
 	-- User is 0, howerver in source code, User is 1.
 	-- TODO: Notice UX to change the website.
 	local ownerIndex = (owner.typeId or 1)
-	if FFlagUGCGroupUploads2 then
-		local groups = AssetConfigUtil.isCatalogAsset(props.assetTypeEnum)
-			and props.assetTypeAgents
-			or props.manageableGroups
-		self.dropdownContent = AssetConfigUtil.getOwnerDropDownContent(groups, localizedContent)
-	else
-		self.dropdownContent = AssetConfigUtil.getOwnerDropDownContent(props.manageableGroups, localizedContent)
-	end
+	local groups = AssetConfigUtil.isCatalogAsset(props.assetTypeEnum)
+		and props.assetTypeAgents
+		or props.manageableGroups
+	self.dropdownContent = AssetConfigUtil.getOwnerDropDownContent(groups, localizedContent)
 
 	local onDropDownSelect = props.onDropDownSelect
 

@@ -29,6 +29,10 @@ local Util = Plugin.Src.Util
 local getFullMaterialType = require(Util.getFullMaterialType)
 local MaterialController = require(Util.MaterialController)
 
+-- TODO: cleaning up for the FFLagMaterialVariantTempIdCompatibility - remove all texture maps from that file
+local getFFlagMaterialVariantTempIdCompatibility = require(Plugin.Src.Flags.getFFlagMaterialVariantTempIdCompatibility)
+local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Plugin.Src.Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
+
 export type Props = {
 	Item : _Types.Material,
 	LayoutOrder : number?,
@@ -136,8 +140,16 @@ function MaterialTile:render()
 			Spacing = padding,
 			Size = size,
 		}, {
-			MaterialPreview = Roact.createElement(MaterialPreview, {
-				Clone = false,
+			MaterialPreview = getFFlagMaterialVariantTempIdCompatibility() and Roact.createElement(MaterialPreview, {
+				LayoutOrder = 1,
+				Material = materialVariant.BaseMaterial,
+				MaterialVariant = if not item.IsBuiltin then materialVariant.Name else nil,
+				Size = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then
+					UDim2.fromOffset(160, 140)
+					else
+					UDim2.new(size.X.Scale, size.X.Offset - (2 * padding), size.Y.Scale,  size.Y.Offset - (2 * padding) - spacing - textSize),
+				Static = true,
+			}) or Roact.createElement(MaterialPreview, {
 				ColorMap = colorMap,
 				LayoutOrder = 1,
 				Material = materialVariant.BaseMaterial,
@@ -145,7 +157,10 @@ function MaterialTile:render()
 				MetalnessMap = metalnessMap,
 				NormalMap = normalMap,
 				RoughnessMap = roughnessMap,
-				Size = UDim2.new(size.X.Scale, size.X.Offset - (2 * padding), size.Y.Scale,  size.Y.Offset - (2 * padding) - spacing - textSize),
+				Size = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then
+					UDim2.fromOffset(160, 140)
+					else
+					UDim2.new(size.X.Scale, size.X.Offset - (2 * padding), size.Y.Scale,  size.Y.Offset - (2 * padding) - spacing - textSize),
 				Static = true,
 			}),
 			NameLabel = Roact.createElement(Pane, {

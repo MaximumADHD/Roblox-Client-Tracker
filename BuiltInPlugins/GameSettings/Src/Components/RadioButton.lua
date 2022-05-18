@@ -19,7 +19,6 @@ local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FitFrameOnAxis = Framework.Util.FitFrame.FitFrameOnAxis
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -56,7 +55,7 @@ end
 
 function RadioButton:render()
 	local props = self.props
-	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+	local theme = props.Stylizer
 
 	local title = self.props.Title
 	local description = props.Description and props.Description or nil
@@ -163,8 +162,7 @@ end
 
 
 RadioButton = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Mouse = ContextServices.Mouse,
 })(RadioButton)
 

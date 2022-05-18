@@ -29,7 +29,6 @@ local withContext = ContextServices.withContext
 
 local FrameworkUtil = Framework.Util
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FitTextLabel = FrameworkUtil.FitFrame.FitTextLabel
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
 local UI = Framework.UI
@@ -48,7 +47,7 @@ function DeveloperSubscriptionListItem:render()
 
 	local onEditButtonActivated = self.props.OnEditButtonActivated
 
-	local theme = THEME_REFACTOR and self.props.Stylizer or self.props.Theme:get("Plugin")
+	local theme = self.props.Stylizer
 	local localization = self.props.Localization
 
 	local layoutIndex = LayoutOrderIterator.new()
@@ -149,8 +148,7 @@ end
 
 
 DeveloperSubscriptionListItem = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 })(DeveloperSubscriptionListItem)
 

@@ -278,7 +278,7 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 				categoryName = categoryName,
 				searchTerm = searchTerm,
 				assetIndex = assetIndex,
-			}, self.insertToolPromise, assetWasDragged)
+			}, self.insertToolPromise, assetWasDragged, getNetwork(self)) -- networkInterface added with FFLagInsertAssetBubbleUpNetwork
 		end
 
 		if not FFlagToolboxAssetCategorization4 then

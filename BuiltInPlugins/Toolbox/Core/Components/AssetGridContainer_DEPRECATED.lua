@@ -347,7 +347,7 @@ function AssetGridContainer:init(props)
 		)
 	end
 
-	self.tryInsert = function(assetData, assetWasDragged, insertionMethod)
+	self.tryInsert = function(assetData, assetWasDragged, insertionMethod, networkInterface) -- networkInterface added with FFLagInsertAssetBubbleUpNetwork
 		self.lastInsertAttemptTime = tick()
 
 		local asset = assetData.Asset
@@ -377,7 +377,7 @@ function AssetGridContainer:init(props)
 			categoryName = categoryName,
 			searchTerm = searchTerm,
 			assetIndex = assetIndex,
-		}, self.insertToolPromise, assetWasDragged)
+		}, self.insertToolPromise, assetWasDragged, networkInterface) -- networkInterface added with FFLagInsertAssetBubbleUpNetwork
 	end
 end
 

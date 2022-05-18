@@ -8,9 +8,8 @@ return function()
 
 	local Plugin = script.Parent.Parent
 
-	local FFlagEnableGameSettingsStylizer = game:GetFastFlag("EnableGameSettingsStylizer")
 	local RefactorFlags = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
-	RefactorFlags.THEME_REFACTOR = FFlagEnableGameSettingsStylizer
+	RefactorFlags.THEME_REFACTOR = true
 
 	local Roact = require(Plugin.Packages.Roact)
 	local DebugFlags = require(Plugin.Src.Util.DebugFlags)

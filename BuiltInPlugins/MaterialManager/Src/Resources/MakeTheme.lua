@@ -27,6 +27,8 @@ local DarkTheme = Style.Themes.DarkTheme
 local LightTheme = Style.Themes.LightTheme
 local StyleKey = Style.StyleKey
 
+local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Plugin.Src.Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
+
 local devFrameworkRoundBox = getRawComponentStyle("RoundBox")
 local devFrameworkSelectInput = getRawComponentStyle("SelectInput")
 local roundBox = deepCopy(devFrameworkRoundBox)
@@ -37,11 +39,11 @@ local function getPluginTheme()
 	local MaterialDetailsWidth = 300
 	local TopBarButtonWidth = 28
 	local MaterialDetailsRowHeight = 30
-	local MaterialDetailsTextureHeight = 60
+	local MaterialDetailsTextureHeight = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then 64 else 60
 	local MaterialDetaulsLabelWidth = 108
 	local ColumnWidth = 270
 	local DialogWidth = 720
-	local DialogHeight = 770
+	local DialogHeight = 480
 	local SearchBarMaxWidth = 600
 	local IconSize = UDim2.fromOffset(20, 20)
 
@@ -91,21 +93,23 @@ local function getPluginTheme()
 		},
 
 		MaterialGrid = {
-			BackgroundColor = StyleKey.ScrollingFrameBackgroundColor
+			BackgroundColor = StyleKey.ScrollingFrameBackgroundColor,
+			Padding = 5,
+			Spacing = 5,
 		},
 
 		MaterialTile = {
 			MaterialVariantIconPosition = UDim2.new(1, -26, 0, 10),
 			StatusIconPosition = UDim2.new(0, 10, 0, 10),
-			Padding = 5,
+			Padding = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then 10 else 5,
 			IconSize = IconSize,
 			MaterialVariant = {
 				Image = "rbxasset://textures/MaterialManager/Material_Variant.png",
 			},
-			MaxWidth = 190,
+			MaxWidth = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then 180 else 190,
 			Size = UDim2.fromOffset(200, 200),
-			Spacing = 5,
-			TextLabelSize = UDim2.new(1, -10, 0, 18),
+			Spacing = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then 10 else 5,
+			TextLabelSize = UDim2.new(1, if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then -20 else -10, 0, 18),
 			TextSize = 20,
 		},
 
@@ -115,20 +119,20 @@ local function getPluginTheme()
 			ButtonStyle = "RoundSubtle",
 			Close = {
 				Image = "rbxasset://textures/ui/TopBar/close.png",
-				Color = StyleKey.MainText,
+				Color = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then StyleKey.BrightText else StyleKey.MainText,
 			},
 			CreateVariant = {
 				Image = "rbxasset://textures/MaterialManager/Create_New_Variant.png",
-				Color = StyleKey.MainText,
+				Color = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then StyleKey.BrightText else StyleKey.MainText,
 			},
 			Delete = {
 				Image = "rbxasset://textures/MaterialManager/Delete.png",
-				Color = StyleKey.MainText,
+				Color = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then StyleKey.BrightText else StyleKey.MainText,
 			},
 			DropdownSize = UDim2.fromOffset(160, 30),
 			Edit = {
 				Image = "rbxasset://textures/MaterialManager/Edit.png",
-				Color = StyleKey.MainText,
+				Color = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then StyleKey.BrightText else StyleKey.MainText,
 			},
 			HeaderBackground = StyleKey.ScrollingFrameBackgroundColor,
 			HeaderFont = Enum.Font.SourceSansBold,
@@ -137,6 +141,7 @@ local function getPluginTheme()
 			ImageSize = UDim2.fromOffset(20, 20),
 			NameLabelSizeVariant = UDim2.new(1, -2 * MaterialDetailsRowHeight, 1, 0),
 			NameLabelSizeBuiltIn = UDim2.new(1, -MaterialDetailsRowHeight, 1, 0),
+			NoTexture = StyleKey.NoTextureFound,
 			LabelRowSize = UDim2.new(1, 0, 0, MaterialDetailsRowHeight),
 			OverrideSize = UDim2.fromOffset(140, 20),
 			Padding = 10,
@@ -238,11 +243,13 @@ if THEME_REFACTOR then
 			[StyleKey.ScrollingFrameBackgroundColor] = Color3.fromRGB(41, 41, 41),
 			[StyleKey.SelectInputBackgroundColor] = Color3.fromRGB(60, 60, 60),
 			[StyleKey.ImportImageBackground] = Color3.fromRGB(34, 34, 34),
+			[StyleKey.NoTextureFound] = "rbxasset://textures/MaterialManager/Texture_None.png"
 		})
 		local overridedLightTheme = join(LightTheme, {
 			[StyleKey.ScrollingFrameBackgroundColor] = Color3.fromRGB(245, 245, 245),
 			[StyleKey.SelectInputBackgroundColor] = Color3.fromRGB(255, 255, 255),
 			[StyleKey.ImportImageBackground] = Color3.fromRGB(255, 255, 255),
+			[StyleKey.NoTextureFound] = "rbxasset://textures/MaterialManager/Texture_None_Light.png"
 		})
 
 		if createMock then

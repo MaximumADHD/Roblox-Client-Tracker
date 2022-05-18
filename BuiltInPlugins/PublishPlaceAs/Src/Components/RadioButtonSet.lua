@@ -41,8 +41,6 @@ local Constants = require(Plugin.Src.Resources.Constants)
 
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local RadioButtonSet = Roact.PureComponent:extend("RadioButtonSet")
 
 function RadioButtonSet:init()
@@ -66,7 +64,7 @@ end
 
 function RadioButtonSet:render()
 	local props = self.props
-	local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
+	local theme = props.Stylizer
 
 	local layoutIndex = LayoutOrderIterator.new()
 
@@ -124,8 +122,7 @@ function RadioButtonSet:render()
 end
 
 RadioButtonSet = withContext({
-	Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
-	Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
+	Stylizer = ContextServices.Stylizer,
 })(RadioButtonSet)
 
 return RadioButtonSet

@@ -9,11 +9,7 @@
 ]]
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagRemoveUILibraryDeepJoin = game:GetFastFlag("RemoveUILibraryDeepJoin")
-
--- TODO: jbousellam - remove with FFlagRemoveUILibraryDeepJoin
-local UILibrary = require(Plugin.Packages.UILibrary)
-local deepJoin = if FFlagRemoveUILibraryDeepJoin then require(Plugin.Packages.Framework).Util.deepJoin else UILibrary.Util.deepJoin
+local deepJoin = require(Plugin.Packages.Framework).Util.deepJoin
 
 local function allFieldsAreUnchanged(tableA, tableB)
 	-- if there's some mistake, escape

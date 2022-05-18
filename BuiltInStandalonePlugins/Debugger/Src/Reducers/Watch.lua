@@ -221,10 +221,10 @@ return Rodux.createReducer(productionStartStore, {
 	end,
 	
 	[Resumed.name] = function(state : WatchStore, action : Resumed.Props)
-		assert((state.stateTokenToRoots[action.debuggerStateToken] ~= nil and
-			state.stateTokenToRoots[action.debuggerStateToken][action.threadId] ~= nil) and
-			(state.stateTokenToFlattenedTree[action.debuggerStateToken] ~= nil and
-				state.stateTokenToFlattenedTree[action.debuggerStateToken][action.threadId] ~= nil))
+		assert(state.stateTokenToRoots[action.debuggerStateToken] ~= nil and
+			state.stateTokenToRoots[action.debuggerStateToken][action.threadId] ~= nil)
+		assert(state.stateTokenToFlattenedTree[action.debuggerStateToken] ~= nil and
+				state.stateTokenToFlattenedTree[action.debuggerStateToken][action.threadId] ~= nil)
 		
 		local newStateTokenRootsForDST = deepCopy(state.stateTokenToRoots[action.debuggerStateToken])
 		newStateTokenRootsForDST[action.threadId] = nil
@@ -346,7 +346,7 @@ return Rodux.createReducer(productionStartStore, {
 
 		local stepStateBundle = action.stepStateBundle
 
-		local flattenedTree = action.isVariablesTab and stateTokenToFlattenedTreeCopy[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber].Variables or 
+		local flattenedTree = if action.isVariablesTab then stateTokenToFlattenedTreeCopy[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber].Variables else 
 			stateTokenToFlattenedTreeCopy[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber].Watches
 
 		for path, filteredOut in pairs(action.textFilterMap) do

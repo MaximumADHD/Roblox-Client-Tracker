@@ -15,7 +15,6 @@ local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
@@ -24,7 +23,7 @@ local DragDestination = Roact.PureComponent:extend("DragDestination")
 
 function DragDestination:render()
 	local props = self.props
-	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+	local theme = props.Stylizer
 
 	local index = props.LayoutOrder or 1
 
@@ -40,8 +39,7 @@ end
 
 
 DragDestination = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(DragDestination)
 
 

@@ -24,6 +24,7 @@ local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local getErrorTypes = require(Plugin.Src.Util.getErrorTypes)
 local TextureMaps = require(Plugin.Src.Util.getTextureMapNames)
+local FFlagURLbyNumberAndMaterialsBetaResponse = game:GetFastFlag("URLbyNumberAndMaterialsBetaResponse")
 
 local ErrorTypes = getErrorTypes()
 
@@ -55,6 +56,10 @@ function TextureSettings:init()
 		errorMetalnessMap = "",
 		errorNormalMap = "",
 		errorRoughnessMap = "",
+		urlColorMap = "",
+		urlMetalnessMap = "",
+		urlNormalMap = "",
+		urlRoughnessMap = "",
 	}
 
 	local function textureMapFromFileImport(file : File?) : _Types.TextureMap?
@@ -104,31 +109,45 @@ function TextureSettings:init()
 		if mapType == TextureMaps.ColorMap then
 			if (not errorMessage or errorMessage == "") and newState then
 				props.dispatchSetColorMap(newState)
+			elseif FFlagURLbyNumberAndMaterialsBetaResponse then
+				props.dispatchSetColorMap(nil)
 			end
-			self:setState({
-				errorColorMap = errorMessage,
-			})
+			self:setState(function(state)
+				return {
+					errorColorMap = errorMessage,
+					urlColorMap = if FFlagURLbyNumberAndMaterialsBetaResponse and file then "" else state.urlColorMap,
+				}
+			end)
 		elseif mapType == TextureMaps.MetalnessMap then
 			if (not errorMessage or errorMessage == "") and newState then
 				props.dispatchSetMetalnessMap(newState)
 			end
-			self:setState({
-				errorMetalnessMap = errorMessage,
-			})
+			self:setState(function(state)
+				return {
+					errorMetalnessMap = errorMessage,
+					urlMetalnessMap = if FFlagURLbyNumberAndMaterialsBetaResponse and file then "" else state.urlMetalnessMap,
+				}
+			end)
 		elseif mapType == TextureMaps.NormalMap then
 			if (not errorMessage or errorMessage == "") and newState then
 				props.dispatchSetNormalMap(newState)
 			end
-			self:setState({
-				errorNormalMap = errorMessage,
-			})
+			self:setState(function(state)
+				return {
+					errorNormalMap = errorMessage,
+					urlNormalMap = if FFlagURLbyNumberAndMaterialsBetaResponse and file then "" else state.urlNormalMap,
+				}
+			end)
 		elseif mapType == TextureMaps.RoughnessMap then
 			if (not errorMessage or errorMessage == "") and newState then
 				props.dispatchSetRoughnessMap(newState)
 			end
-			self:setState({
-				errorRoughnessMap = errorMessage,
-			})
+			self:setState(function(state)
+				return {
+					errorRoughnessMap = errorMessage,
+					urlRoughnessMap = if FFlagURLbyNumberAndMaterialsBetaResponse and file then "" else state.urlRoughnessMap,
+				}
+			end)
 		end
 	end
 
@@ -148,32 +167,86 @@ function TextureSettings:init()
 		self.selectTextureMap(TextureMaps.RoughnessMap, file, assetId, failedError)
 	end
 
+	if FFlagURLbyNumberAndMaterialsBetaResponse then
+		self.urlSelectColorMap = function(searchUrl)
+			self:setState({
+				urlColorMap = searchUrl,
+			})
+		end
+
+		self.urlSelectMetalnessMap = function(searchUrl)
+			self:setState({
+				urlMetalnessMap = searchUrl,
+			})
+		end
+
+		self.urlSelectNormalMap = function(searchUrl)
+			self:setState({
+				urlNormalMap = searchUrl,
+			})
+		end
+
+		self.urlSelectRoughnessMap = function(searchUrl)
+			self:setState({
+				urlRoughnessMap = searchUrl,
+			})
+		end
+	end
+
 	self.clearColorMap = function()
 		self.props.dispatchSetColorMap(nil)
-		self:setState({
-			errorColorMap = "",
-		})
+		if FFlagURLbyNumberAndMaterialsBetaResponse then
+			self:setState({
+				errorColorMap = "",
+				urlColorMap = "",
+			})
+		else
+			self:setState({
+				errorColorMap = "",
+			})
+		end
 	end
 
 	self.clearMetalnessMap = function()
 		self.props.dispatchSetMetalnessMap(nil)
-		self:setState({
-			errorMetalnessMap = "",
-		})
+		if FFlagURLbyNumberAndMaterialsBetaResponse then
+			self:setState({
+				errorMetalnessMap = "",
+				urlMetalnessMap = "",
+			})
+		else
+			self:setState({
+				errorMetalnessMap = "",
+			})
+		end
 	end
 
 	self.clearNormalMap = function()
 		self.props.dispatchSetNormalMap(nil)
-		self:setState({
-			errorNormalMap = "",
-		})
+		if FFlagURLbyNumberAndMaterialsBetaResponse then
+			self:setState({
+				errorNormalMap = "",
+				urlNormalMap = "",
+			})
+		else
+			self:setState({
+				errorNormalMap = "",
+			})
+		end
 	end
 
 	self.clearRoughnessMap = function()
 		self.props.dispatchSetRoughnessMap(nil)
-		self:setState({
-			errorRoughnessMap = "",
-		})
+		if FFlagURLbyNumberAndMaterialsBetaResponse then
+			self:setState({
+				errorRoughnessMap = "",
+				urlRoughnessMap = "",
+			})
+		else
+			self:setState({
+				errorRoughnessMap = "",
+			})
+		end
 	end
 
 	self.renderContent = function(key: string)
@@ -182,28 +255,56 @@ function TextureSettings:init()
 
 		-- TODO: remove key strings
 		if key == "ImportColorMap" then
-			return Roact.createElement(TextureMapSelector, {
+			return FFlagURLbyNumberAndMaterialsBetaResponse and Roact.createElement(TextureMapSelector, {
+				CurrentTextureMap = props.ColorMap,
+				SelectTextureMap = self.selectColorMap,
+				ClearSelection = self.clearColorMap,
+				PreviewTitle = localization:getText("Import", "ColorMapPreview"),
+				SearchUrl = self.state.urlColorMap,
+				UrlSelection = self.urlSelectColorMap,
+			}) or Roact.createElement(TextureMapSelector, {
 				CurrentTextureMap = props.ColorMap,
 				SelectTextureMap = self.selectColorMap,
 				ClearSelection = self.clearColorMap,
 				PreviewTitle = localization:getText("Import", "ColorMapPreview"),
 			})
 		elseif key == "ImportMetalnessMap" then
-			return Roact.createElement(TextureMapSelector, {
+			return FFlagURLbyNumberAndMaterialsBetaResponse and Roact.createElement(TextureMapSelector, {
+				CurrentTextureMap = props.MetalnessMap,
+				SelectTextureMap = self.selectMetalnessMap,
+				ClearSelection = self.clearMetalnessMap,
+				PreviewTitle = localization:getText("Import", "MetalnessMapPreview"),
+				SearchUrl = self.state.urlMetalnessMap,
+				UrlSelection = self.urlSelectMetalnessMap,
+			}) or Roact.createElement(TextureMapSelector, {
 				CurrentTextureMap = props.MetalnessMap,
 				SelectTextureMap = self.selectMetalnessMap,
 				ClearSelection = self.clearMetalnessMap,
 				PreviewTitle = localization:getText("Import", "MetalnessMapPreview"),
 			})
 		elseif key == "ImportNormalMap" then
-			return Roact.createElement(TextureMapSelector, {
+			return FFlagURLbyNumberAndMaterialsBetaResponse and Roact.createElement(TextureMapSelector, {
+				CurrentTextureMap = props.NormalMap,
+				SelectTextureMap = self.selectNormalMap,
+				ClearSelection = self.clearNormalMap,
+				PreviewTitle = localization:getText("Import", "NormalMapPreview"),
+				SearchUrl = self.state.urlNormalMap,
+				UrlSelection = self.state.urlSelectNormalMap,
+			}) or Roact.createElement(TextureMapSelector, {
 				CurrentTextureMap = props.NormalMap,
 				SelectTextureMap = self.selectNormalMap,
 				ClearSelection = self.clearNormalMap,
 				PreviewTitle = localization:getText("Import", "NormalMapPreview"),
 			})
 		elseif key == "ImportRoughnessMap" then
-			return Roact.createElement(TextureMapSelector, {
+			return FFlagURLbyNumberAndMaterialsBetaResponse and Roact.createElement(TextureMapSelector, {
+				CurrentTextureMap = props.RoughnessMap,
+				SelectTextureMap = self.selectRoughnessMap,
+				ClearSelection = self.clearRoughnessMap,
+				PreviewTitle = localization:getText("Import", "RoughnessMapPreview"),
+				SearchUrl = self.state.urlRoughnessMap,
+				UrlSelection = self.urlSelectRoughnessMap,
+			}) or  Roact.createElement(TextureMapSelector, {
 				CurrentTextureMap = props.RoughnessMap,
 				SelectTextureMap = self.selectRoughnessMap,
 				ClearSelection = self.clearRoughnessMap,

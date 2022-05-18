@@ -44,7 +44,7 @@ local function openPlugin()
 		moveHandlesEnabledFunction = function (selectionInfo)
 			if selectionInfo and selectionInfo.basisObject then
 				return true
-			else 
+			else
 				return false
 			end
 		end

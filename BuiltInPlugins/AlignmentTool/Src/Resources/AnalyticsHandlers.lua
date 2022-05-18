@@ -1,7 +1,10 @@
 local StudioService = game:GetService("StudioService")
 
 local Plugin = script.Parent.Parent.Parent
-local Cryo = require(Plugin.Packages.Cryo)
+
+local Dash = require(Plugin.Packages.Dash)
+
+local join = Dash.join
 
 local function uniqueClassNames(objects)
 	local classNameSet = {}
@@ -20,7 +23,7 @@ return function(analyticsService)
 	local function sendEvent(eventName, additionalArgs)
 		additionalArgs = additionalArgs or {}
 
-		local args = Cryo.Dictionary.join({
+		local args = join({
 			studioSid = analyticsService:GetSessionId(),
 			clientId = analyticsService:GetClientId(),
 			placeId = game.PlaceId,

@@ -15,8 +15,6 @@
 	override the Position of the whole component.
 ]]
 
-local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -57,7 +55,7 @@ local AssetConfigFooter = Roact.PureComponent:extend("AssetConfigFooter")
 
 local FFlagAssetConfigFixBadIdVerifyState = game:GetFastFlag("AssetConfigFixBadIdVerifyState")
 
-local BUTTON_HEIGHT = FFlagCMSUploadFees and 40 or 32
+local BUTTON_HEIGHT = 40
 local BUTTON_WIDTH = 120
 local LINK_BUTTON_HEIGHT = 20
 local IMPORT_BOX_WIDTH = 160
@@ -178,7 +176,7 @@ function AssetConfigFooter:renderContent(theme, localization, localizedContent)
 	end
 
 	local publishText = localizedContent.AssetConfig.Apply
-	if FFlagCMSUploadFees and screenFlowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW and AssetConfigUtil.isCatalogAsset(assetTypeEnum) then
+	if screenFlowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW and AssetConfigUtil.isCatalogAsset(assetTypeEnum) then
 		if props.isUploadFeeEnabled then
 			publishText = localization:getUploadWithFee(props.uploadFee)
 			if not props.canAffordUploadFee then

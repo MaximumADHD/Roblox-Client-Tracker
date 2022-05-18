@@ -11,7 +11,6 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local Cryo = require(Plugin.Packages.Cryo)
 
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
@@ -24,7 +23,7 @@ local Header = Roact.PureComponent:extend("Header")
 
 function Header:render()
 	local props = self.props
-	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+	local theme = props.Stylizer
 
 	local textSize
 	local calculatedTextSize = GetTextSize(props.Title, theme.fontStyle.Header.TextSize, theme.fontStyle.Header.Font)
@@ -43,8 +42,7 @@ end
 
 
 Header = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(Header)
 
 

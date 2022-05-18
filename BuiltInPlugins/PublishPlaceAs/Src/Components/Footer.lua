@@ -31,13 +31,11 @@ local ButtonBar = require(Plugin.Src.Components.ButtonBar)
 
 local Analytics = require(Plugin.Src.Util.Analytics)
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local Footer = Roact.PureComponent:extend("Footer")
 
 function Footer:render()
 	local props = self.props
-	local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
+	local theme = props.Stylizer
 	local localization = props.Localization
 
 	local onClose = props.OnClose
@@ -107,8 +105,7 @@ function Footer:render()
 end
 
 Footer = withContext({
-	Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
-	Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 })(Footer)
 

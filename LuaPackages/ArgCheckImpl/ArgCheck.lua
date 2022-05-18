@@ -1,9 +1,11 @@
+local FFlagDebugLuaArgCheck = game:DefineFastFlag("DebugLuaArgCheck", false)
+
 local function IsRunningInStudio()
 	return game:GetService("RunService"):IsStudio()
 end
 
 local function assert_(condition, message)
-	if IsRunningInStudio() or _G.__TESTEZ_RUNNING_TEST__ then
+	if FFlagDebugLuaArgCheck or IsRunningInStudio() or _G.__TESTEZ_RUNNING_TEST__ then
 		assert(condition, message)
 	end
 end

@@ -14,7 +14,6 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local FrameworkUI = Framework.UI
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Container = FrameworkUI.Container
 
@@ -22,7 +21,7 @@ local InsufficientPermissionsPage = Roact.Component:extend(script.Name)
 
 function InsufficientPermissionsPage:render()
 	local props = self.props
-	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+	local theme = props.Stylizer
 	local localization = props.Localization
 
 	return Roact.createElement(Container, {
@@ -45,8 +44,7 @@ end
 
 
 InsufficientPermissionsPage = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 })(InsufficientPermissionsPage)
 

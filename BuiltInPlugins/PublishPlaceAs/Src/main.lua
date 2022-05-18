@@ -19,9 +19,8 @@ return function(plugin, pluginLoaderContext)
 	local Roact = require(Plugin.Packages.Roact)
 	local Rodux = require(Plugin.Packages.Rodux)
 
-	local FFlagEnablePublishPlaceAsStylizer = game:GetFastFlag("EnablePublishPlaceAsStylizer")
 	local RefactorFlags = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
-	RefactorFlags.THEME_REFACTOR = FFlagEnablePublishPlaceAsStylizer
+	RefactorFlags.THEME_REFACTOR = true
 
 	local Framework = require(Plugin.Packages.Framework)
 

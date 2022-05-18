@@ -7,12 +7,10 @@ local StudioTheme = Framework.Style.Themes.StudioTheme
 local Stylizer = ContextServices.Stylizer
 local StyleKey = Framework.Style.StyleKey
 
-local FFlagRemoveUILibraryComponentsPart1 = game:GetFastFlag("RemoveUILibraryComponentsPart1")
-
 local UILibrary = require(Plugin.Packages.UILibrary)
 local createTheme = UILibrary.createTheme
 local StudioStyle = UILibrary.Studio.Style
-local Spritesheet = if FFlagRemoveUILibraryComponentsPart1 then Framework.Util.Spritesheet else UILibrary.Util.Spritesheet
+local Spritesheet = Framework.Util.Spritesheet
 
 local function getUILibraryTheme(theme, styleRoot)
 	local c = Enum.StudioStyleGuideColor

@@ -29,7 +29,7 @@ return function()
 
 		local playerGUI = {
 			CurrentScreenOrientation = Enum.ScreenOrientation.Portrait,
-			ScreenOrientation = nil,
+			ScreenOrientation = Enum.ScreenOrientation.Portrait,
 		}
 
 		local store = Rodux.Store.new(reducer)
@@ -70,4 +70,41 @@ return function()
 
 		Roact.unmount(instance)
 	end)
+
+	it("should will trigger the switch to LandscapeLeft and back to Sensor", function()
+
+		local playerGUI = {
+			CurrentScreenOrientation = Enum.ScreenOrientation.Portrait,
+			ScreenOrientation = Enum.ScreenOrientation.Sensor,
+		}
+
+		local store = Rodux.Store.new(reducer)
+
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = store
+		}, {
+			PageNavigationWatcher = Roact.createElement(ScreenOrientationSwitcher, {
+				playerGUI = playerGUI,
+			}),
+		})
+
+		local instance = Roact.mount(element)
+
+		act(function()
+			store:dispatch(SetMenuOpen(true))
+			store:flush()
+		end)
+		expect(playerGUI.ScreenOrientation).to.equal(Enum.ScreenOrientation.LandscapeLeft)
+
+		act(function()
+			store:dispatch(SetMenuOpen(false))
+			store:flush()
+		end)
+		expect(playerGUI.ScreenOrientation).to.equal(Enum.ScreenOrientation.Sensor)
+
+
+		Roact.unmount(instance)
+	end)
+
+
 end

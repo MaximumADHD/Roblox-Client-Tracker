@@ -84,10 +84,8 @@ local CAN_MANAGE_ASSET_DEVELOP_URL = Url.DEVELOP_URL .. "v1/user/%d/canmanage/%d
 local ASSET_PURCHASE_URLV2 = Url.ECONOMY_URL .. "/v2/user-products/%d/purchase"
 
 -- Package Permissions URLs
-local GET_PACKAGE_COLLABORATORS = Url.DEVELOP_URL .. "v1/packages/assets/%s/permissions?"
-local POST_PACKAGE_METADATA = Url.DEVELOP_URL .. "v1/packages/assets/versions/metadata/get"
-local PUT_PACKAGE_PERMISSIONS = Url.DEVELOP_URL .. "v1/packages/assets/%s/permissions-batch"
-local GET_PACKAGE_HIGHEST_PERMISSION_LIST = Url.DEVELOP_URL .. "v1/packages/assets/highest-permissions?assetIds=%s"
+local DEPRECATED_POST_PACKAGE_METADATA = Url.DEVELOP_URL .. "v1/packages/assets/versions/metadata/get"
+local POST_PACKAGE_METADATA = Url.APIS_URL .. "packages-api/v1/packages/assets/versions/metadata/get"
 
 -- Asset Permissions URLs
 local ASSET_PERMISSIONS = Url.APIS_URL .. "asset-permissions-api/v1/assets/%s/permissions"
@@ -513,10 +511,6 @@ function Urls.constructGetUserFriendsUrl(userId)
 	return GET_USER_FRIENDS_URL:format(userId)
 end
 
-function Urls.constructPutPackagePermissionsUrl(assetId)
-	return PUT_PACKAGE_PERMISSIONS:format(assetId)
-end
-
 function Urls.constructAssetPermissionsUrl(assetId)
 	return ASSET_PERMISSIONS:format(assetId)
 end
@@ -528,6 +522,10 @@ end
 
 function Urls.getRobuxPurchaseUrl()
 	return ROBUX_PURCHASE_URL
+end
+
+function Urls.DEPRECATED_constructPostPackageMetadata()
+	return DEPRECATED_POST_PACKAGE_METADATA
 end
 
 function Urls.constructPostPackageMetadata()

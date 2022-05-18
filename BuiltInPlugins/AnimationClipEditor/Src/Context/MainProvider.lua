@@ -32,6 +32,7 @@ function MainProvider:render()
 	local theme = self.props.theme
 	local actions = self.props.pluginActions
 	local signals = self.props.signals
+	local calloutController = self.props.calloutController
 
 	return ContextServices.provide({
 		analytics,
@@ -43,6 +44,7 @@ function MainProvider:render()
 		mouse,
 		actions,
 		signals,
+		calloutController,
 	}, children)
 end
 

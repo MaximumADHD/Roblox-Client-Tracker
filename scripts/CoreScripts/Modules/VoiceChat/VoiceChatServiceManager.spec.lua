@@ -15,6 +15,9 @@ return function()
 	local VoiceChatPromptType = require(RobloxGui.Modules.VoiceChatPrompt.PromptType)
 	local Modules = CoreGui.RobloxGui.Modules
 	local act = require(Modules.act)
+	local VCSS = require(script.Parent.VoiceChatServiceStub)
+	local VoiceChatServiceStub = VCSS.VoiceChatServiceStub
+	local makeMockUser = VCSS.makeMockUser
 
 	local noop = function() end
 	local stub = function(val)
@@ -69,82 +72,12 @@ return function()
 
 	local VoiceChatServiceManagerKlass = require(script.Parent.VoiceChatServiceManager)
 	local PermissionsProtocol = require(CorePackages.UniversalApp.Permissions.PermissionsProtocol)
-	local ParticipantsStateChangedMock = Instance.new("BindableEvent")
-	local StateChangedMock = Instance.new("BindableEvent")
 	local BlockMock = Instance.new("BindableEvent")
-	local VoiceChatServiceStub = {
-		ParticipantsStateChanged = ParticipantsStateChangedMock.Event,
-		StateChanged = StateChangedMock.Event,
-		GetVoiceChatApiVersionCB = stub(0),
-		GetVoiceChatAvailableCB = noop,
-		IsSubscribePausedCB = noop,
-		SubscribePauseCB = noop,
-		SubscribeBlockCB = noop,
-		SubscribeUnblockCB = noop,
-		groupId = 10000,
-		publishPaused = false,
-		available = true
-	}
 	local VoiceChatServiceManager
 
 	local TableUtilities = require(game:GetService("CorePackages").AppTempCommon.LuaApp.TableUtilities)
 
 	local deepEqual = TableUtilities.DeepEqual
-
-	local function makeMockUser(userId, isMutedLocally)
-		return {userId=tostring(userId), UserId=tostring(userId), isMuted=false, isMutedLocally=not not isMutedLocally}
-	end
-
-	function VoiceChatServiceStub:Disconnect()
-		-- Note: This currently doesn't work due to Enum.VoiceChatState not being available in the test runner
-		-- StateChangedMock:Fire(Enum.VoiceChatState.Ended)
-	end
-
-	function VoiceChatServiceStub:Leave()
-		-- Note: This currently doesn't work due to Enum.VoiceChatState not being available in the test runner
-		-- StateChangedMock:Fire(Enum.VoiceChatState.Ended)
-	end
-	function VoiceChatServiceStub:GetGroupId()
-		return self.groupId
-	end
-	function VoiceChatServiceStub:IsPublishPaused()
-		return self.publishPaused
-	end
-	function VoiceChatServiceStub:JoinByGroupIdToken()
-		return true
-	end
-
-	function VoiceChatServiceStub:IsSubscribePaused()
-		return self.IsSubscribePausedCB()
-	end
-	function VoiceChatServiceStub:SubscribePause(userId)
-		return self.SubscribePauseCB(userId)
-	end
-
-	function VoiceChatServiceStub:GetVoiceChatApiVersion()
-		return self.GetVoiceChatApiVersionCB()
-	end
-	function VoiceChatServiceStub:GetVoiceChatAvailable()
-		return self.GetVoiceChatAvailableCB()
-	end
-	function VoiceChatServiceStub:SubscribeBlock()
-		return self.SubscribeBlockCB()
-	end
-	function VoiceChatServiceStub:SubscribeUnblock()
-		return self.SubscribeUnblockCB()
-	end
-
-	function VoiceChatServiceStub:kickUsers(users)
-		ParticipantsStateChangedMock:Fire(users, {}, {})
-	end
-
-	function VoiceChatServiceStub:addUsers(userStates)
-		ParticipantsStateChangedMock:Fire({}, {}, userStates)
-	end
-
-	function VoiceChatServiceStub:setUserStates(userStates)
-		ParticipantsStateChangedMock:Fire({}, {}, userStates)
-	end
 
 	local HTTPServiceStub = {
 		GetAsyncFullUrlCB = noop
@@ -168,12 +101,9 @@ return function()
 	end
 
 	beforeEach(function(context)
-		ParticipantsStateChangedMock = Instance.new("BindableEvent")
-		StateChangedMock = Instance.new("BindableEvent")
 		BlockMock = Instance.new("BindableEvent")
 		HTTPServiceStub.GetAsyncFullUrlCB = noop
-		VoiceChatServiceStub.ParticipantsStateChanged = ParticipantsStateChangedMock.Event
-		VoiceChatServiceStub.StateChanged = StateChangedMock.Event
+		VoiceChatServiceStub:resetMocks()
 		VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, nil, nil, BlockMock.Event)
 		VoiceChatServiceManager:SetupParticipantListeners()
 	end)
@@ -230,6 +160,29 @@ return function()
 			expect(Cryo.isEmpty(VoiceChatServiceManager:getRecentUsersInteractionData())).to.equal(true)
 
 			game:SetFastIntForTesting("VoiceUsersInteractionExpiryTimeSeconds", old)
+		end)
+
+		it("mutedAnyone gets set when user is local muted", function ()
+			jestExpect(VoiceChatServiceManager).never.toBeNil()
+			VoiceChatServiceStub:addUsers({makeMockUser("001"), makeMockUser("002")})
+			jestExpect(VoiceChatServiceManager:GetMutedAnyone()).toBe(false)
+			VoiceChatServiceStub.IsSubscribePausedCB = stub(false)
+			VoiceChatServiceManager:ToggleMutePlayer("002")
+			jestExpect(VoiceChatServiceManager:GetMutedAnyone()).toBe(true)
+			VoiceChatServiceManager:ToggleMutePlayer("002")
+			-- Should still be true after un-muting user
+			jestExpect(VoiceChatServiceManager:GetMutedAnyone()).toBe(true)
+		end)
+
+		it("mutedAnyone gets set when muteAll is called", function ()
+			jestExpect(VoiceChatServiceManager).never.toBeNil()
+			VoiceChatServiceStub:addUsers({makeMockUser("001"), makeMockUser("002")})
+			jestExpect(VoiceChatServiceManager:GetMutedAnyone()).toBe(false)
+			VoiceChatServiceManager:MuteAll(true)
+			jestExpect(VoiceChatServiceManager:GetMutedAnyone()).toBe(true)
+			VoiceChatServiceManager:MuteAll(false)
+			-- Should still be true after un-muting everyone
+			jestExpect(VoiceChatServiceManager:GetMutedAnyone()).toBe(true)
 		end)
 	end)
 

@@ -21,10 +21,8 @@ local GetFFlagUIBloxEnableRadioButtonGamepadSupport = require(
 local GetFFlagUIBloxEnableActionBarLayoutFix = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableActionBarLayoutFix
 )
-local FFlagGridViewUseFunctionalSetStateInDidMount = require(CorePackages.UIBloxFlags.FFlagGridViewUseFunctionalSetStateInDidMount)
 
 return {
-	gridViewUseFunctionalSetStateInDidMount = FFlagGridViewUseFunctionalSetStateInDidMount,
 	useNewUICornerRoundedCorners = GetFFlagLuaAppUseNewUIBloxRoundedCorners(),
 	genericSliderFilterOldTouchInputs = true,
 	allowSystemBarToAcceptString = game:DefineFastFlag("UIBloxAllowSystemBarToAcceptString", false),

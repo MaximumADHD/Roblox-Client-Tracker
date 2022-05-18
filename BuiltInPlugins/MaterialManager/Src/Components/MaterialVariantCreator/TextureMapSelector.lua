@@ -7,6 +7,8 @@
 			Can be nil to mean no file is selected.
 		SelectTextureMap : (File?, string?, string?) -> void
 			Callback to select a new file. If an error occurred, file is nil and 2nd param is error message
+		UrlSelection : string -> ()
+			Callback to select url
 		ClearSelection : void -> void
 			Callback to clear the current selection
 		PreviewTitle : string
@@ -34,6 +36,7 @@ local MarketplaceService = game:GetService("MarketplaceService")
 local LoadingImage = require(Plugin.Src.Components.LoadingImage)
 local PromptSelectorWithPreview = require(Plugin.Src.Components.PromptSelectorWithPreview)
 local getErrorTypes = require(Plugin.Src.Util.getErrorTypes)
+local FFlagURLbyNumberAndMaterialsBetaResponse = game:GetFastFlag("URLbyNumberAndMaterialsBetaResponse")
 
 local ErrorTypes = getErrorTypes()
 
@@ -42,6 +45,7 @@ local StudioService = game:GetService("StudioService")
 export type Props = {
 	CurrentTextureMap : _Types.TextureMap?,
 	SelectTextureMap : (file: File?, assetId : string?, errorMessage : string?) -> (),
+	UrlSelection : (string?) -> (),
 	ClearSelection : () -> (),
 	PreviewTitle : string?,
 	SearchUrl : string?,
@@ -56,9 +60,11 @@ type _Props = Props & {
 local TextureMapSelector = Roact.PureComponent:extend("TextureMapSelector")
 
 function TextureMapSelector:init()
-	self.state = {
-		searchUrl = "",
-	}
+	if not FFlagURLbyNumberAndMaterialsBetaResponse then
+		self.state = {
+			searchUrl = "",
+		}
+	end
 
 	self.promptSelection = function()
 		local formats = {"png", "jpg", "jpeg"}
@@ -75,21 +81,34 @@ function TextureMapSelector:init()
 		end
 	end
 
-	self.urlSelection = function(searchUrl)
-		self:setState({
-			searchUrl = searchUrl,
-		})
+	if not FFlagURLbyNumberAndMaterialsBetaResponse then
+		self.urlSelection = function(searchUrl)
+			self:setState({
+				searchUrl = searchUrl,
+			})
+		end
 	end
 
 	self.onFocusLost = function()
-		local state = self.state
-		local searchUrl = state.searchUrl
+		local searchUrl
+		if FFlagURLbyNumberAndMaterialsBetaResponse then
+			local props : _Props = self.props
+			searchUrl = props.SearchUrl
+		else
+			local state = self.state
+			searchUrl = state.searchUrl
+		end
 
 		if searchUrl and searchUrl == "" then
 			return
 		end
 
-		local numericId = tonumber(searchUrl:match("://(%d+)"))
+		local numericId 
+		if FFlagURLbyNumberAndMaterialsBetaResponse then
+			numericId = tonumber(searchUrl:match("://(%d+)")) or tonumber(searchUrl:match("(%d+)"))
+		else
+			numericId = tonumber(searchUrl:match("://(%d+)"))
+		end
 		if not numericId then
 			self.props.SelectTextureMap(nil, nil, ErrorTypes.FailedUrl)
 			return
@@ -113,7 +132,11 @@ function TextureMapSelector:init()
 				return
 			end
 
-			self.props.SelectTextureMap(nil, searchUrl)
+			if FFlagURLbyNumberAndMaterialsBetaResponse then
+				self.props.SelectTextureMap(nil, "rbxassetid://" .. numericId)
+			else
+				self.props.SelectTextureMap(nil, searchUrl)
+			end
 		end)
 	end
 
@@ -148,7 +171,23 @@ function TextureMapSelector:render()
 		filename = props.CurrentTextureMap.assetId
 	end
 
-	local newProps = Dash.join(props, {
+	local newProps = FFlagURLbyNumberAndMaterialsBetaResponse and Dash.join(props, {
+		CurrentTextureMap = Dash.None,
+		SelectTextureMap = Dash.None,
+
+		SelectionName = filename,
+		HasSelection = hasSelection,
+
+		PreviewTitle = props.PreviewTitle,
+		RenderPreview = self.renderPreview,
+
+		PromptSelection = self.promptSelection,
+		UrlSelection = props.UrlSelection,
+		SearchUrl = props.SearchUrl,
+		ClearSelection = props.ClearSelection,
+
+		OnFocusLost = self.onFocusLost,
+	}) or Dash.join(props, {
 		CurrentTextureMap = Dash.None,
 		SelectTextureMap = Dash.None,
 

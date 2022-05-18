@@ -38,10 +38,10 @@ local function openPlugin()
 
 	local scaleHandlesEnabledFunction
 	if getFFlagDraggerHandlesIsEnabledFunction() then
-		scaleHandlesEnabledFunction = function (selectionInfo)  
+		scaleHandlesEnabledFunction = function (selectionInfo)
 			if selectionInfo and selectionInfo.basisObject then
 				return true
-			else 
+			else
 				return false
 			end
 		end

@@ -23,7 +23,6 @@ local withContext = ContextServices.withContext
 
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local TitledFrame = Framework.StudioUI.TitledFrame
 local ToggleButton = Framework.UI.ToggleButton
 local TextWithInlineLink = Framework.UI.TextWithInlineLink
@@ -56,7 +55,7 @@ end
 
 function ToggleButtonWithTitle:render()
 	local props = self.props
-	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+	local theme = props.Stylizer
 
 	local descriptionWidth = self.state.descriptionWidth
 
@@ -121,8 +120,7 @@ end
 
 
 ToggleButtonWithTitle = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(ToggleButtonWithTitle)
 
 

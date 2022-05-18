@@ -8,11 +8,6 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextItem = Framework.ContextServices.ContextItem
--- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
-local Provider = Framework.ContextServices.Provider
-
-local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
-
 local PreviewContext = ContextItem:extend("PreviewContext")
 
 function PreviewContext.new()
@@ -47,14 +42,6 @@ end
 
 function PreviewContext:getItems()
 	return Cryo.Dictionary.join({}, self.previewItems)
-end
-
-if not FFlagDevFrameworkUseCreateContext then
-	function PreviewContext:createProvider(root)
-		return Roact.createElement(Provider, {
-			ContextItem = self,
-		}, {root})
-	end
 end
 
 function PreviewContext:destroyItems()

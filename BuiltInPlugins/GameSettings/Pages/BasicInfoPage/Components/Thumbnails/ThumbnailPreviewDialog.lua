@@ -24,7 +24,6 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local FrameworkUI = Framework.UI
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local HoverArea = FrameworkUI.HoverArea
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
@@ -88,7 +87,7 @@ function ThumbnailPreviewDialog:render()
 		fullImageId = "rbxassetid://" .. imageId
 	end
 
-	local theme = THEME_REFACTOR and self.props.Stylizer or self.props.Theme:get("Plugin")
+	local theme = self.props.Stylizer
 	local localization = self.props.Localization
 
 	return Roact.createElement("Frame", {
@@ -195,8 +194,7 @@ end
 
 
 ThumbnailPreviewDialog = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
 })(ThumbnailPreviewDialog)

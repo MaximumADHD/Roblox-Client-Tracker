@@ -3,13 +3,8 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextItem = Framework.ContextServices.ContextItem
--- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
-local Provider = Framework.ContextServices.Provider
-
-local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
 local Analytics = ContextItem:extend("Analytics")
 
@@ -21,14 +16,6 @@ function Analytics.new(analyticsImpl)
 
 	setmetatable(self, Analytics)
 	return self
-end
-
-if not FFlagDevFrameworkUseCreateContext then
-	function Analytics:createProvider(root)
-		return Roact.createElement(Provider, {
-			ContextItem = self,
-		}, {root})
-	end
 end
 
 function Analytics:get()

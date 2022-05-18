@@ -109,7 +109,6 @@ local HoverArea = Framework.UI.HoverArea
 local TextWithInlineLink = Framework.UI.TextWithInlineLink
 
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local StyleModifier = Util.StyleModifier
 local LayoutOrderIterator = Util.LayoutOrderIterator
 local deepJoin = Util.deepJoin
@@ -531,7 +530,7 @@ function BasicInfo:init()
 	end
 
 	self.getModerationStatus = function(self, location, status)
-		local theme = THEME_REFACTOR and self.props.Stylizer or self.props.Theme:get("Plugin")
+		local theme = self.props.Stylizer
 		local localization = self.props.Localization
 
 		local statusText = localization:getText(optInLocationsKey, "Status")
@@ -584,7 +583,7 @@ function BasicInfo:init()
 	self.createOptInLocationBoxes = function(self, layoutOrder)
 		local props = self.props
 		local localization = self.props.Localization
-		local theme = THEME_REFACTOR and self.props.Stylizer or self.props.Theme:get("Plugin")
+		local theme = self.props.Stylizer
 
 		local optInLocations = props[optInLocationsKey]
 
@@ -702,7 +701,7 @@ end
 
 function BasicInfo:render()
 	local localization = self.props.Localization
-	local theme = THEME_REFACTOR and self.props.Stylizer or self.props.Theme:get("Plugin")
+	local theme = self.props.Stylizer
 
 	local layoutOrder = LayoutOrderIterator.new()
 
@@ -999,8 +998,7 @@ end
 
 BasicInfo = withContext({
 	Localization = ContextServices.Localization,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Dialog = Dialog,
 	Mouse = ContextServices.Mouse,
 })(BasicInfo)

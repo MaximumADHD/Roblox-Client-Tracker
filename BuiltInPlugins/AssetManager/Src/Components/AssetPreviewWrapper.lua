@@ -1,7 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
-
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
@@ -108,7 +106,7 @@ function AssetPreviewWrapper:render()
     local props = self.props
     local state = self.state
 
-    local target = FFlagRefactorDevFrameworkContextItems2 and props.Focus:get() or props.Focus:getTarget()
+    local target = props.Focus:get()
     local localization = props.Localization
     local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
 

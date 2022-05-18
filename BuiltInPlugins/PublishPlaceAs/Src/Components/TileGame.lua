@@ -15,8 +15,6 @@ local TILE_FOOTER_SIZE = 35
 local NAME_SIZE = 70
 local PADDING = 5
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local TileGame = Roact.PureComponent:extend("TileGame")
 
 function TileGame:init()
@@ -48,7 +46,7 @@ end
 
 function TileGame:render()
 	local props = self.props
-	local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
+	local theme = props.Stylizer
 	local localization = props.Localization
 
 	local name = props.Name
@@ -113,8 +111,7 @@ function TileGame:render()
 end
 
 TileGame = withContext({
-	Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
-	Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 })(TileGame)
 

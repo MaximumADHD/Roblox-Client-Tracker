@@ -23,7 +23,7 @@ type ThreadId = number
 type FrameNumber = number
 type DebuggerConnectionId = number
 
-type ThreadToFrameMap = {
+type ThreadIdToFrameMap = {
 	[ThreadId] : FrameNumber
 }
 
@@ -31,7 +31,7 @@ type CommonStore = {
 	debuggerConnectionIdToDST : {[DebuggerConnectionId] : DebuggerStateToken.DebuggerStateToken},
 	currentDebuggerConnectionId : number,
 	debuggerConnectionIdToCurrentThreadId : {[DebuggerConnectionId] : number},
-	currentFrameMap : {[DebuggerConnectionId] : ThreadToFrameMap},
+	currentFrameMap : {[DebuggerConnectionId] : ThreadIdToFrameMap},
 	currentBreakpointId : number,
 	isPaused : boolean,
 	pausedDebuggerConnectionIds : {[DebuggerConnectionId] : DebuggerConnectionId},
@@ -103,11 +103,12 @@ return Rodux.createReducer(productionStartStore, {
 
 	[SimPaused.name] = function(state : CommonStore, action : SimPaused.Props)
 		local pausedConnectionId = action.debuggerStateToken.debuggerConnectionId
-
 		return Cryo.Dictionary.join(state, {
 			debuggerConnectionIdToDST = Cryo.Dictionary.join(state.debuggerConnectionIdToDST, {[action.debuggerStateToken.debuggerConnectionId] = action.debuggerStateToken}),
 			isPaused = true,
 			pausedDebuggerConnectionIds = Cryo.Dictionary.join(state.pausedDebuggerConnectionIds, {[pausedConnectionId] = pausedConnectionId}),
+			debuggerConnectionIdToCurrentThreadId = Cryo.Dictionary.join(state.debuggerConnectionIdToDST, {[pausedConnectionId] = nil}),
+			currentFrameMap = Cryo.Dictionary.join(state.currentFrameMap, {[pausedConnectionId] = nil}),
 		})
 	end,
 
@@ -124,6 +125,7 @@ return Rodux.createReducer(productionStartStore, {
 		newState.debuggerConnectionIdToCurrentThreadId = deepCopy(state.debuggerConnectionIdToCurrentThreadId)
 		assert(newState.debuggerConnectionIdToCurrentThreadId[state.currentDebuggerConnectionId] ~= action.threadId)
 
+		-- only overwrite the curent threadId if there is none
 		if (newState.debuggerConnectionIdToCurrentThreadId[state.currentDebuggerConnectionId] == nil) then
 			newState.debuggerConnectionIdToCurrentThreadId[state.currentDebuggerConnectionId] = action.threadId
 		end

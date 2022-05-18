@@ -14,17 +14,11 @@ local Constants = require(Plugin.Src.Util.Constants)
 
 local PlayerEmulatorPlugin = Roact.PureComponent:extend("PlayerEmulatorPlugin")
 
-local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
-
 local PLUGIN_WINDOW_SIZE = Vector2.new(320, 330)
 
 function PlayerEmulatorPlugin:updateToolbarButtonActiveState()
 	local active = self.state.active
-	if FFlagDevFrameworkUseCreateContext then
-		if self.button then
-			self.button:SetActive(active)
-		end
-	else
+	if self.button then
 		self.button:SetActive(active)
 	end
 end
@@ -44,15 +38,13 @@ function PlayerEmulatorPlugin:init()
 		active = false,
 	}
 
-	if FFlagDevFrameworkUseCreateContext then
-		self.contextItems = {
-			ContextServices.Plugin.new(self.props.plugin),
-			globals.localization,
-			globals.theme,
-			globals.networking,
-			globals.store,
-		}
-	end
+	self.contextItems = {
+		ContextServices.Plugin.new(self.props.plugin),
+		globals.localization,
+		globals.theme,
+		globals.networking,
+		globals.store,
+	}
 
 	self.toggleActive = function()
 		local plugin = self.props.plugin
@@ -96,55 +88,25 @@ function PlayerEmulatorPlugin:render()
 
 	local enabled = RunService:IsEdit()
 
-	local props = self.props
-	local plugin = props.plugin
-
-	if FFlagDevFrameworkUseCreateContext then
-		return ContextServices.provide(self.contextItems, {
-			MainWidget = enabled and Roact.createElement(DockWidget, {
-				Enabled = active,
-				Title = globals.localization:getText("Meta", "PluginTitle"),
-				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-				InitialDockState = Enum.InitialDockState.Left,
-				Size = PLUGIN_WINDOW_SIZE,
-				MinSize = PLUGIN_WINDOW_SIZE,
-				OnClose = self.onClose,
-				ShouldRestore = false,
-			}, {
-				-- UILibraryWrapper consumes theme, focus etc. so needs to be wrapped in these items for React.createContext to consume them.
-				MainView = active and ContextServices.provide({
-					globals.uiLibraryWrapper
-				}, {
-					MainView = Roact.createElement(MainView)
-				})
-			})
-		})
-	else
-		return ContextServices.provide({
-			ContextServices.Plugin.new(plugin),
+	return ContextServices.provide(self.contextItems, {
+		MainWidget = enabled and Roact.createElement(DockWidget, {
+			Enabled = active,
+			Title = globals.localization:getText("Meta", "PluginTitle"),
+			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+			InitialDockState = Enum.InitialDockState.Left,
+			Size = PLUGIN_WINDOW_SIZE,
+			MinSize = PLUGIN_WINDOW_SIZE,
+			OnClose = self.onClose,
+			ShouldRestore = false,
 		}, {
-			MainWidget = enabled and Roact.createElement(DockWidget, {
-				Enabled = active,
-				Title = globals.localization:getText("Meta", "PluginTitle"),
-				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-				InitialDockState = Enum.InitialDockState.Left,
-				Size = PLUGIN_WINDOW_SIZE,
-				MinSize = PLUGIN_WINDOW_SIZE,
-				OnClose = self.onClose,
-				ShouldRestore = false,
+			-- UILibraryWrapper consumes theme, focus etc. so needs to be wrapped in these items for React.createContext to consume them.
+			MainView = active and ContextServices.provide({
+				globals.uiLibraryWrapper
 			}, {
-				MainProvider = active and ContextServices.provide({
-					globals.localization,
-					globals.theme,
-					globals.uiLibraryWrapper,
-					globals.store,
-					globals.networking,
-				}, {
-					MainView = Roact.createElement(MainView)
-				})
+				MainView = Roact.createElement(MainView)
 			})
 		})
-	end
+	})
 end
 
 return PlayerEmulatorPlugin

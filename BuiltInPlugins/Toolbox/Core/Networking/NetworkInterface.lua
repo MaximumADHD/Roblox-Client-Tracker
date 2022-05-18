@@ -28,6 +28,8 @@ local FIntToolboxGrantUniverseAudioPermissionsTimeoutInMS = game:GetFastInt(
 	"ToolboxGrantUniverseAudioPermissionsTimeoutInMS"
 )
 
+local FFlagPackagesApiEnabled = game:GetFastFlag("PackagesApiEnabled")
+
 local NetworkInterface = {}
 NetworkInterface.__index = NetworkInterface
 
@@ -709,7 +711,12 @@ function NetworkInterface:getLocalUserFriends(userId)
 end
 
 function NetworkInterface:postForPackageMetadata(assetid)
-	local targetUrl = Urls.constructPostPackageMetadata()
+	local targetUrl
+	if FFlagPackagesApiEnabled then
+		targetUrl = Urls.constructPostPackageMetadata()
+	else
+		targetUrl = Urls.DEPRECATED_constructPostPackageMetadata()
+	end
 
 	local payload = '[{ "assetId" : ' .. assetid .. ', "assetVersionNumber" : 1 }]'
 	return self._networkImp:httpPostJson(targetUrl, payload)
@@ -743,15 +750,6 @@ function NetworkInterface:getGroupRoleInfo(groupId)
 
 	printUrl("getGroupRoleInfo", "GET", groupId)
 	return self._networkImp:httpGet(targetUrl)
-end
-
-function NetworkInterface:DEPRECATED_putPackagePermissions(assetId, permissions)
-	local targetUrl = Urls.constructPutPackagePermissionsUrl(assetId)
-
-	local putPayload = self._networkImp:jsonEncode(permissions)
-
-	printUrl("putPackagePermissions", "PUT", targetUrl, putPayload)
-	return self._networkImp:httpPut(targetUrl, putPayload)
 end
 
 function NetworkInterface:grantAssetPermissions(assetId, permissions)

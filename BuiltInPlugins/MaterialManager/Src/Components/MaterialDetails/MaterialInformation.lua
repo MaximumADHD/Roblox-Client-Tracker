@@ -63,6 +63,7 @@ type _Style = {
 	ImageSize : UDim2,
 	NameLabelSizeBuiltIn : UDim2,
 	NameLabelSizeVariant : UDim2,
+	NoTexture : string,
 	LabelRowSize : UDim2,
 	OverrideSize : UDim2,
 	Padding : number,

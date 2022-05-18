@@ -7,7 +7,6 @@ local AssetConfigUtil = require(Util.AssetConfigUtil)
 local ScreenSetup = {}
 
 local FFlagSupportUploadGroupAnimations = game:GetFastFlag("StudioSupportUploadGroupAnimations")
-local FFlagUGCGroupUploads2 = game:GetFastFlag("UGCGroupUploads2")
 local FFlagToolboxAssetConfigurationMatchPluginFlow = game:GetFastFlag("ToolboxAssetConfigurationMatchPluginFlow")
 
 ScreenSetup.keys = convertArrayToTable({
@@ -44,7 +43,7 @@ local params = {
 		},
 		[AssetCategory.Catalog] = {
 			[keys.SHOW_ASSET_TYPE] = true,
-			[keys.SHOW_OWNERSHIP] = FFlagUGCGroupUploads2,
+			[keys.SHOW_OWNERSHIP] = true,
 			[keys.SHOW_SALES_TAB] = true,
 		},
 	},
@@ -62,7 +61,7 @@ local params = {
 		},
 		[AssetCategory.Catalog] = {
 			[keys.SHOW_ASSET_TYPE] = true,
-			[keys.SHOW_OWNERSHIP] = FFlagUGCGroupUploads2,
+			[keys.SHOW_OWNERSHIP] = true,
 		},
 	},
 }

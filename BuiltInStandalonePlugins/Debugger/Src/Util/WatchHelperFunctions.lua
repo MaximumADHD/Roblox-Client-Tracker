@@ -48,7 +48,7 @@ end
 
 module.isScopeFiltered = function(enabledScopes, rowData)
 	assert(rowData ~= nil, ("isScopeFiltered got a nil node for path %s"):format(tostring(rowData)))
-
+	
 	for _, scope in ipairs(enabledScopes) do
 		if string.find(rowData.scopeColumn, scope) then
 			return false

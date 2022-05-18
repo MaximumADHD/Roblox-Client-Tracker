@@ -4,10 +4,13 @@ return function()
 	local MessageBus = require(CorePackages.UniversalApp.MessageBus)
 	local PermissionsProtocol = require(CorePackages.UniversalApp.Permissions.PermissionsProtocol)
 
+	local getFFlagLuaPermissionContactAccess = require(script.Parent.Flags.getFFlagLuaPermissionContactAccess)
+
 	local TestPermissions = {
 		PermissionsProtocol.Permissions.CAMERA_ACCESS,
 		PermissionsProtocol.Permissions.MICROPHONE_ACCESS,
 		PermissionsProtocol.Permissions.LOCAL_NETWORK,
+		PermissionsProtocol.Permissions.CONTACTS_ACCESS,
 	}
 
 	local InvalidPermissions = {
@@ -81,12 +84,34 @@ return function()
 			local didSucceed = false
 			context.PermissionsProtocol:getSupportedPermissionsList():andThen(function(result)
 				didSucceed = result.permissions
-					and #result.permissions == 3
+					and #result.permissions == 4
 					and result.permissions[1] == TestPermissions[1]
 					and result.permissions[2] == TestPermissions[2]
 					and result.permissions[3] == TestPermissions[3]
+					and result.permissions[4] == TestPermissions[4]
 				expect(didSucceed).to.equal(true)
 			end)
+
+			if getFFlagLuaPermissionContactAccess() then
+				context.PermissionsProtocol:getSupportedPermissionsList():andThen(function(result)
+					didSucceed = result.permissions
+						and #result.permissions == 4
+						and result.permissions[1] == TestPermissions[1]
+						and result.permissions[2] == TestPermissions[2]
+						and result.permissions[3] == TestPermissions[3]
+						and result.permissions[4] == TestPermissions[4]
+					expect(didSucceed).to.equal(true)
+				end)
+			else
+				context.PermissionsProtocol:getSupportedPermissionsList():andThen(function(result)
+					didSucceed = result.permissions
+						and #result.permissions == 3
+						and result.permissions[1] == TestPermissions[1]
+						and result.permissions[2] == TestPermissions[2]
+						and result.permissions[3] == TestPermissions[3]
+					expect(didSucceed).to.equal(true)
+				end)
+			end
 
 			context.subscriber:subscribeProtocolMethodRequest(
 				PermissionsProtocol.SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR,

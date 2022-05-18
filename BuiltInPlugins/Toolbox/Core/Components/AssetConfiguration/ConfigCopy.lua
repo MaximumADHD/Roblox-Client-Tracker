@@ -13,6 +13,7 @@ local FStringToolboxAssetConfigEnabledAudioSharingLearnMoreLink = game:GetFastSt
 	"ToolboxAssetConfigEnabledAudioSharingLearnMoreLink"
 )
 local FFlagToolboxAssetConfigurationMatchPluginFlow = game:GetFastFlag("ToolboxAssetConfigurationMatchPluginFlow")
+local FFlagAssetConfigSharingDesignTweaks = game:GetFastFlag("AssetConfigSharingDesignTweaks")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -31,9 +32,11 @@ local AssetConfigUtil = FFlagToolboxAssetConfigurationMatchPluginFlow and requir
 local ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
 local LayoutOrderIterator = require(Util.LayoutOrderIterator)
 
+local TextLabel = Framework.UI.Decoration.TextLabel
 local LinkText = Framework.UI.LinkText
 local Pane = Framework.UI.Pane
 local ToggleButton = Framework.UI.ToggleButton
+local StyleModifier = Framework.Util.StyleModifier
 
 local GuiService = game:GetService("GuiService")
 
@@ -88,9 +91,9 @@ function ConfigCopy:init(props)
 			local onStatusChange = props.onStatusChange
 
 			if canChangeSalesStatus then
-				local newStatus = AssetConfigUtil.isOnSale(currentAssetStatus) and
-					AssetConfigConstants.ASSET_STATUS.OffSale or
-					AssetConfigConstants.ASSET_STATUS.OnSale
+				local newStatus = AssetConfigUtil.isOnSale(currentAssetStatus)
+						and AssetConfigConstants.ASSET_STATUS.OffSale
+					or AssetConfigConstants.ASSET_STATUS.OnSale
 				onStatusChange(newStatus)
 			end
 		end
@@ -147,11 +150,7 @@ function ConfigCopy:didUpdate(prevProps, prevState)
 	if assetType == Enum.AssetType.Audio then
 		self:setState(function(state)
 			local wasPublicThenPrivate = not props.IsAssetPublic and prevProps.IsAssetPublic
-			if
-				props.IsAudio
-				and state.copyWarning ~= warningText
-				and (wasPublicThenPrivate and prevProps.CopyOn)
-			then
+			if props.IsAudio and state.copyWarning ~= warningText and (wasPublicThenPrivate and prevProps.CopyOn) then
 				self.warningCountdown = WARNING_TIME_IN_SECONDS
 				return {
 					copyWarning = warningText,
@@ -209,7 +208,7 @@ function ConfigCopy:render()
 			end
 		end
 	end
-	
+
 	local localization = props.Localization
 	local informationText = localization:getText("AssetConfigCopy", "DistributeAgreement")
 	local learnMoreText = localization:getText("General", "LearnMore")
@@ -288,43 +287,41 @@ function ConfigCopy:render()
 			}),
 
 			ToggleButtonContainer = Roact.createElement(Pane, {
-					BackgroundTransparency = 1,
-					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					Layout = Enum.FillDirection.Horizontal,
-					LayoutOrder = if FFlagAssetConfigDistributionQuotas
-						then rightFrameLayoutOrder:getNextOrder()
-						else 1,
-					Padding = {
-						Bottom = TIPS_SPACING,
-					},
-					Size = UDim2.new(1, 0, 0, TOGGLE_BUTTON_HEIGHT + TIPS_SPACING),
-					Spacing = ERROR_TEXT_SPACING,
-					VerticalAlignment = Enum.VerticalAlignment.Top,
-				}, {
-					ToggleButton = Roact.createElement(ToggleButton, {
-						Disabled = not CopyEnabled,
-						LayoutOrder = 1,
-						OnClick = self.toggleCallback,
-						Selected = CopyOn,
-						Size = UDim2.new(0, TOGGLE_BUTTON_WIDTH, 0, TOGGLE_BUTTON_HEIGHT),
-					}),
-
-					ErrorText = if showWarningText
-						then Roact.createElement("TextLabel", {
-							AutomaticSize = Enum.AutomaticSize.XY,
-							LayoutOrder = 2,
-							BackgroundTransparency = 1,
-							Font = Constants.FONT,
-							Size = UDim2.new(1, 0, 0, 0),
-							Text = copyWarning,
-							TextWrapped = true,
-							TextColor3 = theme.assetConfig.errorColor,
-							TextXAlignment = Enum.TextXAlignment.Left,
-							TextYAlignment = Enum.TextYAlignment.Center,
-							TextSize = Constants.FONT_SIZE_LARGE,
-						})
-						else nil,
+				BackgroundTransparency = 1,
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+				Layout = Enum.FillDirection.Horizontal,
+				LayoutOrder = if FFlagAssetConfigDistributionQuotas then rightFrameLayoutOrder:getNextOrder() else 1,
+				Padding = {
+					Bottom = TIPS_SPACING,
+				},
+				Size = UDim2.new(1, 0, 0, TOGGLE_BUTTON_HEIGHT + TIPS_SPACING),
+				Spacing = ERROR_TEXT_SPACING,
+				VerticalAlignment = Enum.VerticalAlignment.Top,
+			}, {
+				ToggleButton = Roact.createElement(ToggleButton, {
+					Disabled = not CopyEnabled,
+					LayoutOrder = 1,
+					OnClick = self.toggleCallback,
+					Selected = CopyOn,
+					Size = UDim2.new(0, TOGGLE_BUTTON_WIDTH, 0, TOGGLE_BUTTON_HEIGHT),
 				}),
+
+				ErrorText = if showWarningText
+					then Roact.createElement("TextLabel", {
+						AutomaticSize = Enum.AutomaticSize.XY,
+						LayoutOrder = 2,
+						BackgroundTransparency = 1,
+						Font = Constants.FONT,
+						Size = UDim2.new(1, 0, 0, 0),
+						Text = copyWarning,
+						TextWrapped = true,
+						TextColor3 = theme.assetConfig.errorColor,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextYAlignment = Enum.TextYAlignment.Center,
+						TextSize = Constants.FONT_SIZE_LARGE,
+					})
+					else nil,
+			}),
 
 			QuotaInfo = if quotaMessageText or quotaLinkText
 				then Roact.createElement(Pane, {
@@ -355,29 +352,46 @@ function ConfigCopy:render()
 				})
 				else nil,
 
-			TipsLabel = Roact.createElement("TextLabel", {
-				AutomaticSize = Enum.AutomaticSize.Y,
-				Size = UDim2.new(1, 0, 0, 0),
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
+			TipsLabel = if FFlagAssetConfigSharingDesignTweaks
+				then Roact.createElement(TextLabel, {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					Size = UDim2.new(1, 0, 0, 0),
+					BorderSizePixel = 0,
 
-				Text = informationText,
-				TextWrapped = true,
-				TextColor3 = if FFlagAssetConfigDistributionQuotas
-					then publishAssetTheme.titleTextColor
-					else publishAssetTheme.tipsTextColor,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Center,
-				TextSize = Constants.FONT_SIZE_LARGE,
-				Font = Constants.FONT,
+					Text = informationText,
+					StyleModifier = StyleModifier.Disabled,
+					TextWrapped = true,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextYAlignment = Enum.TextYAlignment.Center,
+					TextSize = Constants.FONT_SIZE_LARGE,
 
-				LayoutOrder = if FFlagAssetConfigDistributionQuotas then rightFrameLayoutOrder:getNextOrder() else 2,
-			}),
+					LayoutOrder = if FFlagAssetConfigDistributionQuotas
+						then rightFrameLayoutOrder:getNextOrder()
+						else 2,
+				})
+				else Roact.createElement("TextLabel", {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					Size = UDim2.new(1, 0, 0, 0),
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+
+					Text = informationText,
+					TextWrapped = true,
+					TextColor3 = if FFlagAssetConfigDistributionQuotas
+						then publishAssetTheme.titleTextColor
+						else publishAssetTheme.tipsTextColor,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextYAlignment = Enum.TextYAlignment.Center,
+					TextSize = Constants.FONT_SIZE_LARGE,
+					Font = Constants.FONT,
+
+					LayoutOrder = if FFlagAssetConfigDistributionQuotas
+						then rightFrameLayoutOrder:getNextOrder()
+						else 2,
+				}),
 
 			LinkButton = Roact.createElement(LinkText, {
-				LayoutOrder = if FFlagAssetConfigDistributionQuotas
-					then rightFrameLayoutOrder:getNextOrder()
-					else 3,
+				LayoutOrder = if FFlagAssetConfigDistributionQuotas then rightFrameLayoutOrder:getNextOrder() else 3,
 				OnClick = self.onLearnMoreActivated,
 				Text = learnMoreText,
 			}),

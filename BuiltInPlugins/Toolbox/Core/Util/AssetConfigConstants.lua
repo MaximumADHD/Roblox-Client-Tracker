@@ -1,5 +1,3 @@
-local FFlagUGCLCAssetTypes2 = game:GetFastFlag("UGCLCAssetTypes2")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Util = Plugin.Core.Util
@@ -118,6 +116,15 @@ AssetConfigConstants.ASSET_TYPE_INFO = {
 	catalogAssetInfo(Enum.AssetType.FrontAccessory, true),
 	catalogAssetInfo(Enum.AssetType.BackAccessory, true),
 	catalogAssetInfo(Enum.AssetType.WaistAccessory, true),
+	catalogAssetInfo(Enum.AssetType.TShirtAccessory, true),
+	catalogAssetInfo(Enum.AssetType.ShirtAccessory, true),
+	catalogAssetInfo(Enum.AssetType.PantsAccessory, true),
+	catalogAssetInfo(Enum.AssetType.JacketAccessory, true),
+	catalogAssetInfo(Enum.AssetType.SweaterAccessory, true),
+	catalogAssetInfo(Enum.AssetType.ShortsAccessory, true),
+	catalogAssetInfo(Enum.AssetType.LeftShoeAccessory, true),
+	catalogAssetInfo(Enum.AssetType.RightShoeAccessory, true),
+	catalogAssetInfo(Enum.AssetType.DressSkirtAccessory, true),
 
 	-- marketplace assets
 	marketplaceAssetInfo(Enum.AssetType.Model),
@@ -131,18 +138,6 @@ AssetConfigConstants.ASSET_TYPE_INFO = {
 		true
 	),
 }
-
-if FFlagUGCLCAssetTypes2 then
-	table.insert(AssetConfigConstants.ASSET_TYPE_INFO, catalogAssetInfo(Enum.AssetType.TShirtAccessory, true))
-	table.insert(AssetConfigConstants.ASSET_TYPE_INFO, catalogAssetInfo(Enum.AssetType.ShirtAccessory, true))
-	table.insert(AssetConfigConstants.ASSET_TYPE_INFO, catalogAssetInfo(Enum.AssetType.PantsAccessory, true))
-	table.insert(AssetConfigConstants.ASSET_TYPE_INFO, catalogAssetInfo(Enum.AssetType.JacketAccessory, true))
-	table.insert(AssetConfigConstants.ASSET_TYPE_INFO, catalogAssetInfo(Enum.AssetType.SweaterAccessory, true))
-	table.insert(AssetConfigConstants.ASSET_TYPE_INFO, catalogAssetInfo(Enum.AssetType.ShortsAccessory, true))
-	table.insert(AssetConfigConstants.ASSET_TYPE_INFO, catalogAssetInfo(Enum.AssetType.LeftShoeAccessory, true))
-	table.insert(AssetConfigConstants.ASSET_TYPE_INFO, catalogAssetInfo(Enum.AssetType.RightShoeAccessory, true))
-	table.insert(AssetConfigConstants.ASSET_TYPE_INFO, catalogAssetInfo(Enum.AssetType.DressSkirtAccessory, true))
-end
 
 -- allow lookup by Enum.AssetType
 for _, info in ipairs(AssetConfigConstants.ASSET_TYPE_INFO) do

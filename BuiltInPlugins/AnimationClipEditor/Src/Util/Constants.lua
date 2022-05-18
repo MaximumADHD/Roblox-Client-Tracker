@@ -2,6 +2,7 @@ local Plugin = script.Parent.Parent.Parent
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFaceControlsEditorUIUpdate = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUIUpdate)
+local GetFFlagFaceControlsEditorBugBash2Update = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorBugBash2Update)
 
 local FFlagStudioUseAnimationEditorAnalytics2 = game:DefineFastFlag("StudioUseAnimationEditorAnalytics2", false)
 
@@ -634,7 +635,11 @@ Constants.faceControlsEditorFaceFrontDiagramHeight = 310
 Constants.faceControlsEditorFaceSideDiagramWidth = 220
 Constants.faceControlsEditorFaceSideDiagramHeight = 190
 Constants.faceControlsEditorDiagramPadding = 10
-Constants.faceControlsEditoSpacingBetweenDiagrams = 80
+if GetFFlagFaceControlsEditorBugBash2Update() then
+	Constants.faceControlsEditoSpacingBetweenDiagrams = 40
+else
+	Constants.faceControlsEditoSpacingBetweenDiagrams = 80
+end	
 
 if GetFFlagFaceControlsEditorUIUpdate() then
 	Constants.faceControlsEditorTogglesContainerHeight = 95

@@ -50,7 +50,6 @@ local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local UI = Framework.UI
 local DropdownMenu = UI.DropdownMenu
 
@@ -256,7 +255,7 @@ function SearchBar:init()
 
 	self.onRenderItem = function(item, index, activated)
 		local props = self.props
-		local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+		local theme = props.Stylizer
 		local searchBarTheme = theme.searchBar
 
 		local dropdownItem = self.state.dropdownItem
@@ -432,7 +431,7 @@ end
 
 function SearchBar:render()
 	local props = self.props
-	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+	local theme = props.Stylizer
 	local mouse = props.Mouse
 	local state = self.state
 
@@ -598,8 +597,7 @@ end
 
 
 SearchBar = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Mouse = ContextServices.Mouse,
 })(SearchBar)
 

@@ -3,11 +3,9 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
-local FFlagRemoveUILibraryComponentsPart1 = game:GetFastFlag("RemoveUILibraryComponentsPart1")
 local FFlagGSPermsRemoveCollaboratorsFixEnabled = game:GetFastFlag("GSPermsRemoveCollaboratorsFixEnabled")
 
 local ContextServices = Framework.ContextServices
@@ -16,7 +14,7 @@ local withContext = ContextServices.withContext
 local UILibrary = require(Plugin.Packages.UILibrary)
 local createFitToContent = UILibrary.Component.createFitToContent
 local ExpandableList = UILibrary.Component.ExpandableList
-local Spritesheet = if FFlagRemoveUILibraryComponentsPart1 then Framework.Util.Spritesheet else UILibrary.Util.Spritesheet
+local Spritesheet = Framework.Util.Spritesheet
 
 local PermissionsConstants = require(Page.Util.PermissionsConstants)
 local CollaboratorItem = require(Page.Components.CollaboratorItem)
@@ -104,7 +102,7 @@ function GroupCollaboratorItem:render()
 	local writable = props.Writable
 	local id = props.Id
 
-	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+	local theme = props.Stylizer
 
 	local isOwner = props.IsOwner
 	local groupRolesets = props.GroupRolesets
@@ -214,8 +212,7 @@ end
 
 
 GroupCollaboratorItem = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 })(GroupCollaboratorItem)
 

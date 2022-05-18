@@ -26,13 +26,7 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
-local Roact = require(Plugin.Packages.Roact)
-
 local ContextItem = Framework.ContextServices.ContextItem
--- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
-local Provider = Framework.ContextServices.Provider
-
-local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
 local FrameworkUtil = Framework.Util
 local Signal = FrameworkUtil.Signal
@@ -79,14 +73,6 @@ function ImageLoader.new(options)
 	end
 
 	return self
-end
-
-if not FFlagDevFrameworkUseCreateContext then
-	function ImageLoader:createProvider(root)
-		return Roact.createElement(Provider, {
-			ContextItem = self,
-		}, {root})
-	end
 end
 
 function ImageLoader:loadImage(imageId)

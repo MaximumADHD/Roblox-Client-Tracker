@@ -36,7 +36,6 @@ local SetScreen = require(Plugin.Src.Actions.SetScreen)
 local SetPlaceInfo = require(Plugin.Src.Actions.SetPlaceInfo)
 local SetPublishInfo = require(Plugin.Src.Actions.SetPublishInfo)
 local LoadExistingPlaces = require(Plugin.Src.Thunks.LoadExistingPlaces)
-local LoadGameConfiguration = require(Plugin.Src.Thunks.LoadGameConfiguration)
 
 local Footer = require(Plugin.Src.Components.Footer)
 local TilePlace = require(Plugin.Src.Components.TilePlace)
@@ -44,8 +43,6 @@ local TilePlace = require(Plugin.Src.Components.TilePlace)
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
 local getIsOptInChina = require(Plugin.Src.Util.PublishPlaceAsUtilities).getIsOptInChina
 local isTeamCreateEnabled = require(Plugin.Src.Util.PublishPlaceAsUtilities).isTeamCreateEnabled
-
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local ScreenChoosePlace = Roact.PureComponent:extend("ScreenChoosePlace")
 
@@ -106,7 +103,7 @@ end
 
 function ScreenChoosePlace:render()
 	local props = self.props
-	local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
+	local theme = props.Stylizer
 	local localization = props.Localization
 
 	local onClose = props.OnClose
@@ -344,8 +341,7 @@ function ScreenChoosePlace:render()
 end
 
 ScreenChoosePlace = withContext({
-	Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
-	Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 })(ScreenChoosePlace)
 

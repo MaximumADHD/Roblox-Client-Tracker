@@ -1,5 +1,6 @@
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
+local LocalizationService = game:GetService("LocalizationService")
 
 local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
@@ -7,6 +8,10 @@ local Roact = require(CorePackages.Roact)
 local Rodux = require(CorePackages.Rodux)
 local RoactRodux = require(CorePackages.RoactRodux)
 local UIBlox = require(CorePackages.UIBlox)
+
+local Dependencies = require(script.Dependencies)
+local Localization = require(Dependencies.Localization)
+local LocalizationProvider = require(Dependencies.LocalizationProvider)
 
 local GlobalConfig = require(script.GlobalConfig)
 local Reducers = require(script.Reducers)
@@ -32,9 +37,8 @@ function TrustAndSafety.new()
 		})
 	end
 
-	self.store = Rodux.Store.new(Reducers, nil, {
-		Rodux.thunkMiddleware,
-	})
+	self.store = self:createStore()
+	self.localization = self:createLocalization()
 
 	local appStyle = {
 		Theme = AppDarkTheme,
@@ -50,13 +54,40 @@ function TrustAndSafety.new()
 			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
 				style = appStyle,
 			}, {
-				App = Roact.createElement(TrustAndSafetyApp),
+				LocalizationProvider = Roact.createElement(LocalizationProvider, {
+					localization = self.localization,
+				}, {
+					App = Roact.createElement(TrustAndSafetyApp),
+				}),
 			})
 		})
 	})
 
 	self.element = Roact.mount(self.root, CoreGui, "TrustAndSafety")
 	return self
+end
+
+function TrustAndSafety:createStore()
+	local reducer = Reducers
+	local middlewares = {
+		Rodux.thunkMiddleware,
+	}
+	if GlobalConfig.logStore then
+		table.insert(middlewares, Rodux.loggerMiddleware)
+	end
+	return Rodux.Store.new(reducer, nil, middlewares)
+end
+
+function TrustAndSafety:createLocalization()
+	local localeId = LocalizationService.RobloxLocaleId
+	local localization = Localization.new(localeId)
+
+	LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):Connect(function()
+		local localeId = LocalizationService.RobloxLocaleId
+		localization:SetLocale(localeId)
+	end)
+	
+	return localization
 end
 
 function TrustAndSafety:openReportDialog(userId, userName)

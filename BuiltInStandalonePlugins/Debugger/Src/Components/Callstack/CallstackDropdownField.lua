@@ -48,14 +48,14 @@ function CallstackDropdownField:render()
 	
 	return Roact.createElement(DropdownField, {
 		KeyTexts = self.keyColumns,
-		NumDisplay = props.NumColumns,
-		MaxDisplay = 5,
 		ClickCallback = props.onColumnFilterChange,
 		KeyStates = props.ColumnStates,
 		Localization = localization,
 		Style = style,
 		Widget = "Callstack",
 		DropdownWidth = 200,
+		HamburgerMenu = true,
+		ShouldShowDropdownIcon = false,
 	})
 end
 
@@ -74,7 +74,6 @@ CallstackDropdownField = RoactRodux.connect(
 		newColumnStates[5] = hasValue(enabledColumns, Columns.Function)
 		newColumnStates[6] = hasValue(enabledColumns, Columns.Line)
 		return {
-			NumColumns = #enabledColumns,
 			ColumnStates = newColumnStates,
 		}
 	end,

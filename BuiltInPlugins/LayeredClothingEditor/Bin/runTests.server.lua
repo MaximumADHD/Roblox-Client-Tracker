@@ -22,7 +22,7 @@ local function runLuaMeshEditingModuleTests()
 	local TeamCityReporter = TestEZ.Reporters.TeamCityReporter
 
 	local reporter = _G["TEAMCITY"] and TeamCityReporter or TextReporter
-	local runModuleTest = require(LuaMeshEditingModule.Src.Util.runLuaMeshEditingModuleTests)
+	local runModuleTest = require(LuaMeshEditingModule.Util.runLuaMeshEditingModuleTests)
 
 	runModuleTest(TestEZ, reporter)
 end

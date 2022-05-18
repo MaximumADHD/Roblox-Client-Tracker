@@ -4,9 +4,9 @@ local Roact = require(CorePackages.Roact)
 local UIBlox = require(CorePackages.UIBlox)
 local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
--- local ReportModal = require(script.Parent.ReportModal)
+local ReportMenu = require(script.Parent.ReportMenu)
+local ReportSentDialog = require(script.Parent.ReportSentDialog)
 -- local ReportDialog = require(script.Parent.ReportPage.ReportDialog)
--- local ThankYouScreen = require(script.Parent.ThankYouScreen)
 
 local TrustAndSafetyApp = Roact.PureComponent:extend("TrustAndSafetyApp")
 
@@ -34,10 +34,10 @@ function TrustAndSafetyApp:render()
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 1, 0),
 			}, {
+				ReportMenu = Roact.createElement(ReportMenu),
+				ReportSentDialog = Roact.createElement(ReportSentDialog),
 				-- TODO UI pages
-				-- ReportModal = Roact.createElement(ReportModal),
 				-- ReportDialog = Roact.createElement(ReportDialog),
-				-- ThankYouScreen = Roact.createElement(ThankYouScreen),
 			})
 		})
 	})

@@ -24,7 +24,7 @@ return function(enabledScopes)
 			return
 		end
 		local frameNumber = common.currentFrameMap[common.currentDebuggerConnectionId][threadId]
-
+		
 		local stepStateBundle = StepStateBundle.ctor(token, threadId, frameNumber)
 		local isVariablesTab = watch.currentTab == TableTab.Variables
 

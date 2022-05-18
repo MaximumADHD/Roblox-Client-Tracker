@@ -1,13 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
-local Roact = require(Plugin.Packages.Roact)
-
 local ContextItem = Framework.ContextServices.ContextItem
--- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
-local Provider = Framework.ContextServices.Provider
-
-local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
 local FrameworkUtil = Framework.Util
 local Signal = FrameworkUtil.Signal
@@ -59,17 +53,8 @@ function TerrainSeaLevel.new(options)
 	return self
 end
 
-if FFlagDevFrameworkUseCreateContext then
-	function TerrainSeaLevel:getSignal()
-		return self._updateSignal
-	end
-else
-	function TerrainSeaLevel:createProvider(root)
-		return Roact.createElement(Provider, {
-			ContextItem = self,
-			UpdateSignal = self._updateSignal,
-		}, {root})
-	end
+function TerrainSeaLevel:getSignal()
+	return self._updateSignal
 end
 
 function TerrainSeaLevel:destroy()

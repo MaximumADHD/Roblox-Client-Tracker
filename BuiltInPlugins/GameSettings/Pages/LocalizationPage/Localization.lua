@@ -24,7 +24,6 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -354,7 +353,7 @@ end
 function LocalizationPage:render()
 	local props = self.props
 	local localization = props.Localization
-	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+	local theme = props.Stylizer
 
 	return Roact.createElement(SettingsPage, {
 		SettingsLoadJobs = loadSettings,
@@ -410,8 +409,7 @@ end
 LocalizationPage = withContext({
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(LocalizationPage)
 
 

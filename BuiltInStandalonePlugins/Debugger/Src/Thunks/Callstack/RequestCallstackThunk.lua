@@ -12,7 +12,6 @@ return function(threadState, debuggerConnection, debuggerStateToken, scriptChang
 				return
 			end
 			local callstack = threadState:GetChildren()
-
 			local callstackRows = {}
 			for stackFrameId, stackFrame in ipairs(callstack) do
 				local arrowColumnValue = {}

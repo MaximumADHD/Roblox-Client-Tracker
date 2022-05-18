@@ -74,7 +74,6 @@ local PurchaseStatus = require(Plugin.Core.Types.PurchaseStatus)
 local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
-local FFlagPluginsSetAudioPreviewUsageContext = game:GetFastFlag("PluginsSetAudioPreviewUsageContext")
 local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 local FFlagToolboxFixNonOwnedPluginInstallation = game:GetFastFlag("ToolboxFixNonOwnedPluginInstallation")
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
@@ -455,7 +454,7 @@ function AssetPreviewWrapper:init(props)
 					:get()
 					:logInsert(assetData, "PreviewClickInsertButton", nil, assetAnalyticsContext, navData)
 			end,
-		})
+		}, nil, nil, networkInterface) -- networkInterface added with FFLagInsertAssetBubbleUpNetwork
 		if success then
 			self:setState({
 				overrideEnableVoting = true,
@@ -642,7 +641,7 @@ function AssetPreviewWrapper:renderContent(theme, modalTarget, localizedContent)
 
 		CanFlagAsset = assetData.Creator and assetData.Creator.Id ~= 1 and assetData.Creator.Id ~= getUserId(),
 
-		UsageContext = if FFlagPluginsSetAudioPreviewUsageContext then Enum.UsageContext.Preview else nil,
+		UsageContext = Enum.UsageContext.Preview,
 	})
 
 	return modalTarget

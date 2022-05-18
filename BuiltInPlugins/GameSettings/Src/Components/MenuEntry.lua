@@ -13,13 +13,10 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local Cryo = require(Plugin.Packages.Cryo)
 
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
-
-local FFlagEnableGameSettingsStylizer = game:GetFastFlag("EnableGameSettingsStylizer")
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
@@ -42,7 +39,7 @@ end
 
 function MenuEntry:render()
 	local props = self.props
-	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+	local theme = props.Stylizer
 
 	local hovering = self.state.Hovering
 	local selected = self.props.Selected
@@ -64,7 +61,7 @@ function MenuEntry:render()
 	}, {
 		Highlight = Roact.createElement("Frame", {
 			ZIndex = 1,
-			Size = if FFlagEnableGameSettingsStylizer or theme.isDarkerTheme then UDim2.new(1, 0, 1, 0) else UDim2.new(0, 4, 1, 0),
+			Size = UDim2.new(1, 0, 1, 0),
 			BorderSizePixel = 0,
 			BackgroundColor3 = theme.menuEntry.highlight,
 
@@ -103,8 +100,7 @@ end
 
 
 MenuEntry = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Mouse = ContextServices.Mouse,
 })(MenuEntry)
 

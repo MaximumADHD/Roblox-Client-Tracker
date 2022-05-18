@@ -1,4 +1,6 @@
 --!strict
+local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
 local Framework = require(Packages.Framework)
@@ -34,6 +36,7 @@ export type AssetSwimlaneProps = Swimlane.SwimlaneProps & {
 	CategoryName: string,
 	InitialPageSize: number,
 	LayoutOrder: number,
+	SwimlaneCategory: string,
 	SectionName: string,
 	SearchTerm: string?,
 	SortName: string?,
@@ -88,6 +91,7 @@ function AssetSwimlane:render()
 	local onAssetPreviewButtonClicked = props.OnAssetPreviewButtonClicked
 	local searchTerm = props.SearchTerm
 	local sectionName = props.SectionName
+	local swimlaneCategory = props.SwimlaneCategory
 	local sortName = props.SortName
 	local title = props.Title
 	local tryInsert = props.TryInsert
@@ -113,7 +117,7 @@ function AssetSwimlane:render()
 			onAssetHovered = onAssetHovered,
 			onAssetHoverEnded = onAssetHoverEnded,
 			onAssetPreviewButtonClicked = onAssetPreviewButtonClicked,
-			swimlaneCategory = title,
+			swimlaneCategory = if FFlagToolboxHomeViewAnalyticsUpdate then swimlaneCategory else title,
 			tryInsert = tryInsert,
 			tryOpenAssetConfig = tryOpenAssetConfig,
 		})

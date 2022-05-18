@@ -5,11 +5,14 @@
 ]]
 local Plugin = script.Parent.Parent.Parent
 
+local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
-local StudioUI = require(Plugin.Packages.Framework).StudioUI
+
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+
+local StudioUI = Framework.StudioUI
 local DockWidget = StudioUI.DockWidget
 local PluginButton = StudioUI.PluginButton
 local PluginToolbar = StudioUI.PluginToolbar

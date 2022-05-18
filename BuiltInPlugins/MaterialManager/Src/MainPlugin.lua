@@ -119,6 +119,9 @@ function MainPlugin:willUnmount()
 	if self.materialController then
 		self.materialController:destroy()
 	end
+	if self.imageLoader then
+		self.imageLoader:destroy()
+	end
 end
 
 function MainPlugin:renderButtons(toolbar)

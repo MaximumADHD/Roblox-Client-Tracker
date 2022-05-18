@@ -26,19 +26,23 @@ local GeneralSettings = require(Plugin.Src.Components.MaterialVariantCreator.Gen
 local TextureSettings = require(Plugin.Src.Components.MaterialVariantCreator.TextureSettings)
 local AdditionalPropertiesSettings = require(Plugin.Src.Components.MaterialVariantCreator.AdditionalPropertiesSettings)
 local MaterialPreview = require(Plugin.Src.Components.MaterialPreview)
+-- TODO: cleaning up for the FFLagMaterialVariantTempIdCompatibility - remove all texture maps from that file
+local getFFlagMaterialVariantTempIdCompatibility = require(Plugin.Src.Flags.getFFlagMaterialVariantTempIdCompatibility)
 
 export type Props = {
 	ErrorName : string?,
 	ErrorBaseMaterial : string?,
 	ErrorStudsPerTile : string?,
 	SetStudsPerTileError : (string?) -> (),
+	MaterialVariantTemp : MaterialVariant,
 }
 
 type _Props = Props & {
-	ColorMap : _Types.TextureMap,
-	MetalnessMap : _Types.TextureMap,
-	NormalMap : _Types.TextureMap,
-	RoughnessMap : _Types.TextureMap,
+	ColorMap : _Types.TextureMap?,
+	MetalnessMap : _Types.TextureMap?,
+	NormalMap : _Types.TextureMap?,
+	RoughnessMap : _Types.TextureMap?,
+	Material : _Types.Material?,
 	Analytics : any,
 	Localization : any,
 	Stylizer : any,
@@ -62,24 +66,19 @@ function MaterialVariantCreator:render()
 	local layoutOrderIterator = LayoutOrderIterator.new()
 
 	local padding = UDim.new(0, style.Padding)
-
+	local materialVariant
+	if getFFlagMaterialVariantTempIdCompatibility() then
+		materialVariant = props.MaterialVariantTemp
+	end
 	local colorMap = props.ColorMap
 	local metalnessMap = props.MetalnessMap
 	local normalMap = props.NormalMap
 	local roughnessMap = props.RoughnessMap
 
-	if colorMap then
-		colorMap = colorMap.assetId or colorMap.tempId
-	end
-	if metalnessMap then
-		metalnessMap = metalnessMap.assetId or metalnessMap.tempId
-	end
-	if normalMap then
-		normalMap = normalMap.assetId or normalMap.tempId
-	end
-	if roughnessMap then
-		roughnessMap = roughnessMap.assetId or roughnessMap.tempId
-	end
+	colorMap = if colorMap then colorMap.assetId or colorMap.tempId else nil
+	metalnessMap = if metalnessMap then metalnessMap.assetId or metalnessMap.tempId else nil
+	normalMap = if normalMap then normalMap.assetId or normalMap.tempId else nil
+	roughnessMap = if roughnessMap then roughnessMap.assetId or roughnessMap.tempId else nil
 
 	return Roact.createElement(Pane, {
 		Layout = Enum.FillDirection.Horizontal,
@@ -138,7 +137,15 @@ function MaterialVariantCreator:render()
 			}),
 		}),
 
-		MaterialPreview = Roact.createElement(MaterialPreview, {
+		MaterialPreview = getFFlagMaterialVariantTempIdCompatibility() and Roact.createElement(MaterialPreview, {
+			BackgroundColor = style.Background,
+			DisableZoom = true,
+			MaterialVariant = materialVariant.Name,
+			Material = materialVariant.BaseMaterial,
+			InitialDistance = 12,
+			LayoutOrder = 2,
+			Size = style.PreviewSize,
+		}) or Roact.createElement(MaterialPreview, {
 			BackgroundColor = style.Background,
 			ColorMap = colorMap,
 			DisableZoom = true,

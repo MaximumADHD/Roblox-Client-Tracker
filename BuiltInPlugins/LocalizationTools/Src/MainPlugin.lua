@@ -18,7 +18,6 @@ local StudioUI = Framework.StudioUI
 local DockWidget = StudioUI.DockWidget
 
 local AnalyticsContext = require(main.Src.ContextServices.AnalyticsContext)
-local MakeTheme = require(main.Src.Resources.MakeTheme)
 local PluginTheme = require(main.Src.Resources.PluginTheme)
 local TranslationDevelopmentTable = main.Src.Resources.Localization.TranslationDevelopmentTable
 local TranslationReferenceTable = main.Src.Resources.Localization.TranslationReferenceTable
@@ -27,8 +26,6 @@ local MainView = require(main.Src.Components.MainView)
 local MainReducer = require(main.Src.Reducers.MainReducer)
 local LoadPluginMetadata = require(main.Src.Thunks.LoadPluginMetadata)
 local Analytics = require(main.Src.Util.Analytics)
-
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local WINDOW_SIZE = Vector2.new(300, 250)
 
@@ -49,12 +46,7 @@ function MainPlugin:init()
 		pluginName = "LocalizationTools",
 	})
 
-	self.theme = nil
-	if THEME_REFACTOR then
-		self.theme = PluginTheme()
-	else
-		self.theme = MakeTheme()
-	end
+	self.theme = PluginTheme()
 
 	self.api = ContextServices.API.new()
 
@@ -114,10 +106,7 @@ end
 function MainPlugin:render()
 	local props = self.props
 	local state = self.state
-	local theme
-	if (not THEME_REFACTOR) then
-		theme = self.theme:get("Plugin")
-	end
+
 	local plugin = props.Plugin
 	local enabled = state.enabled
 
@@ -132,7 +121,7 @@ function MainPlugin:render()
 			Title = self.localization:getText("Plugin", "WindowTitle"),
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			InitialDockState = Enum.InitialDockState.Left,
-			Size = THEME_REFACTOR and WINDOW_SIZE or theme.WindowSize,
+			Size = WINDOW_SIZE,
 			OnClose = self.onClose,
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,

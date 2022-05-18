@@ -3,6 +3,8 @@ local MessageBus = require(CorePackages.UniversalApp.MessageBus)
 local Promise = require(CorePackages.Promise)
 local t = require(CorePackages.Packages.t)
 
+local getFFlagLuaPermissionContactAccess = require(script.Parent.Flags.getFFlagLuaPermissionContactAccess)
+
 local PROTOCOL_NAME = "PermissionsProtocol"
 
 local PERMISSIONS_REQUEST_METHOD_NAME = "PermissionsRequest"
@@ -13,6 +15,7 @@ local permissions = {
 	CAMERA_ACCESS = "CAMERA_ACCESS",
 	MICROPHONE_ACCESS = "MICROPHONE_ACCESS",
 	LOCAL_NETWORK = "LOCAL_NETWORK",
+	CONTACTS_ACCESS = "CONTACTS_ACCESS",
 }
 
 local status = {
@@ -88,6 +91,9 @@ local function getPermissionRequestTelemetryData(permissions: Table): Table
 		end
 		if value == PermissionsProtocol.Permissions.LOCAL_NETWORK then
 			permissionsTelemetryTable["local_network_requested"] = ""
+		end
+		if value == PermissionsProtocol.Permissions.CONTACTS_ACCESS and getFFlagLuaPermissionContactAccess() then
+			permissionsTelemetryTable["contacts_access_requested"] = ""
 		end
 	end
 	return permissionsTelemetryTable

@@ -1,7 +1,5 @@
 local UGCValidationService = game:GetService("UGCValidationService")
 
-local FFlagUGCDoNotConvertLC = game:GetFastFlag("UGCDoNotConvertLC")
-
 local THUMBNAIL_CONFIGURATION = "ThumbnailConfiguration"
 local THUMBNAIL_CAMERA_TARGET = "ThumbnailCameraTarget"
 local THUMBNAIL_CAMERA_VALUE = "ThumbnailCameraValue"
@@ -21,7 +19,7 @@ end
 
 -- creates a new accessory with a MeshPart handle
 local function convertSpecialMeshAccessory(accessory)
-	if FFlagUGCDoNotConvertLC and isLayeredClothing(accessory) then
+	if isLayeredClothing(accessory) then
 		return accessory
 	end
 

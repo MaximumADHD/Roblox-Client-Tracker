@@ -45,7 +45,6 @@ local RoundTextBox = require(Plugin.Packages.RoactStudioWidgets.RoundTextBox)
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
 local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Util.GetTextSize else UILibrary.Util.GetTextSize
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -157,7 +156,7 @@ function DeveloperSubscriptionDetails:render()
 	local developerSubscription = self.props.DeveloperSubscription
 	local moderatedDevSub = self.props.ModeratedDevSub
 	local devSubErrors = self.props.DevSubErrors
-	local theme = THEME_REFACTOR and self.props.Stylizer or self.props.Theme:get("Plugin")
+	local theme = self.props.Stylizer
 	local localization = self.props.Localization
 
 	local canEdit = developerSubscription.IsNew or developerSubscription.Active
@@ -394,8 +393,7 @@ end
 
 
 DeveloperSubscriptionDetails = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Dialog = Dialog,
 })(DeveloperSubscriptionDetails)

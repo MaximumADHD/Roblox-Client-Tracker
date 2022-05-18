@@ -25,6 +25,9 @@ local MaterialController = require(Util.MaterialController)
 local Components = Plugin.Src.Components
 local MaterialPreview = require(Components.MaterialPreview)
 
+-- TODO: cleaning up for the FFLagMaterialVariantTempIdCompatibility - remove all texture maps from that file
+local getFFlagMaterialVariantTempIdCompatibility = require(Plugin.Src.Flags.getFFlagMaterialVariantTempIdCompatibility)
+
 export type Props = {
 	LayoutOrder : number?,
 	MockMaterial : _Types.Material?,
@@ -55,6 +58,7 @@ type _Style = {
 	ImageSize : UDim2,
 	NameLabelSizeBuiltIn : UDim2,
 	NameLabelSizeVariant : UDim2,
+	NoTexture : string,
 	LabelRowSize : UDim2,
 	OverrideSize : UDim2,
 	Padding : number,
@@ -104,7 +108,6 @@ function MaterialHeader:render()
 	local materialVariant = material.MaterialVariant
 	local colorMap = materialVariant.ColorMap
 	local metalnessMap = materialVariant.MetalnessMap
-	local name = materialVariant.Name
 	local normalMap = materialVariant.NormalMap
 	local roughnessMap = materialVariant.RoughnessMap
 
@@ -112,7 +115,15 @@ function MaterialHeader:render()
 		LayoutOrder = props.LayoutOrder,
 		Size = style.HeaderSize,
 	}, {
-		Preview = Roact.createElement(MaterialPreview, {
+		Preview = getFFlagMaterialVariantTempIdCompatibility() and Roact.createElement(MaterialPreview, {
+			BackgroundColor = style.HeaderBackground,
+			DisableZoom = true,
+			LayoutOrder = 1,
+			Material = materialVariant.BaseMaterial,
+			MaterialVariant = if not material.IsBuiltin then materialVariant.Name else nil,
+			Position = UDim2.fromOffset(0, 0),
+			Size = style.MaterialPreviewSize,
+		}) or Roact.createElement(MaterialPreview, {
 			BackgroundColor = style.HeaderBackground,
 			ColorMap = colorMap,
 			DisableZoom = true,
@@ -120,7 +131,6 @@ function MaterialHeader:render()
 			Material = materialVariant.BaseMaterial,
 			MaterialVariant = if not material.IsBuiltin then materialVariant.Name else nil,
 			MetalnessMap = metalnessMap,
-			Name = name,
 			NormalMap = normalMap,
 			Position = UDim2.fromOffset(0, 0),
 			Refresh = true,

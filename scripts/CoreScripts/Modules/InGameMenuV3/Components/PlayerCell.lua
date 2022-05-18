@@ -14,7 +14,6 @@ local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCurso
 
 local InGameMenu = script.Parent.Parent
 local Assets = require(InGameMenu.Resources.Assets)
-local FFlagLuaMenuPerfImprovements = require(InGameMenu.Flags.FFlagLuaMenuPerfImprovements)
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 
 local CONTAINER_FRAME_HEIGHT = 72
@@ -52,9 +51,9 @@ PlayerCell.defaultProps = {
 	Visible = true,
 }
 
-if FFlagLuaMenuPerfImprovements then
-	function PlayerCell:init()
-		self.onActivated = function()
+function PlayerCell:init()
+	self.onActivated = function()
+		if self.props.onActivated and self.props.userId then
 			self.props.onActivated(self.props.userId)
 		end
 	end
@@ -91,13 +90,8 @@ function PlayerCell:renderWithSelectionCursor(getSelectionCursor)
 			backgroundStyle = style.Theme.BackgroundOnHover
 		end
 
-		local activated = self.props.onActivated
-		if FFlagLuaMenuPerfImprovements then
-			activated = self.props.onActivated and self.onActivated or nil
-		end
-
 		return Roact.createElement(Cell, {
-			onActivated = activated,
+			onActivated = self.onActivated,
 			[Roact.Change.AbsolutePosition] = self.props[Roact.Change.AbsolutePosition],
 			[Roact.Ref] = self.props.forwardRef or Roact.createRef(),
 			SelectionImageObject = getSelectionCursor(CursorKind.Square),

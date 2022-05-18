@@ -22,7 +22,7 @@ local Workspace = game:GetService("Workspace")
 
 local Constants = require(Plugin.Src.Util.Constants)
 
-local FFSaveAnimationRigWithKeyframeSequence2 = game:DefineFastFlag("SaveAnimationRigWithKeyframeSequence2", false)
+local GetFFlagACESaveRigWithAnimation = require(Plugin.LuaFlags.GetFFlagACESaveRigWithAnimation)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
 local GetFFlagFixRigInfoForFacs = require(Plugin.LuaFlags.GetFFlagFixRigInfoForFacs)
@@ -1427,7 +1427,7 @@ function RigUtils.toCurveAnimation(animationData, rig)
 	end
 
 	-- Create AnimationRig
-	if FFSaveAnimationRigWithKeyframeSequence2 then
+	if GetFFlagACESaveRigWithAnimation() then
 		AddAnimationRigToAnimationClip(animationData, rig, curveAnimation)
 	end
 
@@ -1601,7 +1601,7 @@ function RigUtils.fromCurveAnimation(curveAnimation)
 	metadata.IsChannelAnimation = true
 
 	-- Create AnimationRig
-	if FFSaveAnimationRigWithKeyframeSequence2 then
+	if GetFFlagACESaveRigWithAnimation() then
 		local animationRig = curveAnimation:FindFirstChildOfClass("AnimationRigData")
 		if animationRig then
 			metadata.AnimationRig = animationRig
@@ -1683,7 +1683,7 @@ function RigUtils.toRigAnimation(animationData, rig)
 	end
 
 	-- Create AnimationRig
-	if FFSaveAnimationRigWithKeyframeSequence2 then
+	if GetFFlagACESaveRigWithAnimation() then
 		AddAnimationRigToAnimationClip(animationData, rig, keyframeSequence)
 	end
 
@@ -1852,7 +1852,7 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 	animationData.Metadata.Name = keyframeSequence.Name
 
 	-- Create AnimationRig
-	if FFSaveAnimationRigWithKeyframeSequence2 then
+	if GetFFlagACESaveRigWithAnimation() then
 		local animationRig = keyframeSequence:FindFirstChildOfClass("AnimationRigData")
 		if animationRig then
 			animationData.Metadata.AnimationRig = animationRig

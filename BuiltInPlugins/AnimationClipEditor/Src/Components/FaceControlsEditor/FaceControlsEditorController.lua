@@ -24,6 +24,8 @@ local ToggleShowFaceControlsEditorPanel = require(Plugin.Src.Thunks.ToggleShowFa
 local SetFaceControlsEditorEnabled = require(Plugin.Src.Actions.SetFaceControlsEditorEnabled)
 local SetShowFaceControlsEditorPanel = require(Plugin.Src.Actions.SetShowFaceControlsEditorPanel)
 local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
+local TeachingCallout = require(Plugin.Src.Components.TeachingCallout)
+local GetFFlagFaceControlsEditorShowCallout = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorShowCallout)
 
 local FaceControlsEditorController = Roact.PureComponent:extend("FaceControlsEditorController")
 
@@ -105,6 +107,7 @@ function FaceControlsEditorController:render()
 		Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(0, 0.5),
+		LayoutOrder = 2,
 	}, {
 		FaceControlsEditorButton = props.RootInstance and canUseFaceControlsEditor and Roact.createElement(Button, {
 			Style = state.showFaceControlsEditorPanel and style.FaceControlsEditorActive or style.FaceControlsEditorDefault,
@@ -119,7 +122,13 @@ function FaceControlsEditorController:render()
 				Text = localization:getText("Title", "FACE"),
 				Font = theme.font,
 				TextColor3 = theme.ikTheme.textColor,
-			})
+			},{
+				TeachingCallout = if GetFFlagFaceControlsEditorShowCallout() then Roact.createElement(TeachingCallout, {
+					Offset = Vector2.new(0, 6),
+					DefinitionId = "FaceControlsEditorCallout",
+					LocationId = "FaceControlsEditorButton",
+				}) else nil,
+			})			
 		}),
 
 		FaceControlsEditorWindow = props.ShowFaceControlsEditorPanel and state.showFaceControlsEditorPanel and Roact.createElement(FaceControlsEditorWindow, {

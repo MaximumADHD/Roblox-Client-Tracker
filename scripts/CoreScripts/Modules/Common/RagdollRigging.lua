@@ -1,7 +1,5 @@
 local RunService = game:GetService("RunService")
 
-local FFlagMPHAFixRagdollCollision = game:DefineFastFlag("MPHAFixRagdollHeadCollision", false)
-
 local Rigging = {}
 
 -- Gravity that joint friction values were tuned under.
@@ -472,12 +470,10 @@ function Rigging.disableMotors(model, rigType)
 		rootPart.CanCollide = false
 	end
 
-	if FFlagMPHAFixRagdollCollision then
-		-- Set the Head part to collide
-		local head = model:FindFirstChild("Head")
-		if head and head:IsA("BasePart") then
-			head.CanCollide = true
-		end
+	-- Set the Head part to collide
+	local head = model:FindFirstChild("Head")
+	if head and head:IsA("BasePart") then
+		head.CanCollide = true
 	end
 
 	return motors

@@ -28,6 +28,8 @@ local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagBoneAdornmentSelection = require(Plugin.LuaFlags.GetFFlagBoneAdornmentSelection)
+local GetFFlagCheckPartParentForBoneSelection = require(Plugin.LuaFlags.GetFFlagCheckPartParentForBoneSelection)
+
 
 local InstanceSelector = Roact.PureComponent:extend("InstanceSelector")
 
@@ -191,7 +193,7 @@ function InstanceSelector:render()
 	if props.SelectedTrackInstances then
 		for index, part in ipairs(props.SelectedTrackInstances) do
 			if GetFFlagBoneAdornmentSelection() then 
-				if part.Parent.Name ~=  "RBX_MICROBONE_NODES" then 
+				if (GetFFlagCheckPartParentForBoneSelection() and part.Parent == nil) or part.Parent.Name ~=  "RBX_MICROBONE_NODES" then 
 					children["SelectionBox" ..index] = Roact.createElement("SelectionBox", {
 						Archivable = false,
 						Adornee = part,

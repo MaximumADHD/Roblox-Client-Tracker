@@ -16,7 +16,7 @@ local FFlagDevFrameworkRemoveInfiniteScroller = game:GetFastFlag("DevFrameworkRe
 return function()
 	local function createBreakpointsTable(...)
 		local arg = {...}
-		local initialStore = arg[1] or {Breakpoint = {BreakpointIdsInDebuggerConnection = {}, MetaBreakpoints = {}}}
+		local initialStore = arg[1] or {Breakpoint = {BreakpointIdsInDebuggerConnection = {}, MetaBreakpoints = {}, listOfEnabledColumns = {}}}
 		return mockContext(initialStore, {
 			Frame = Roact.createElement("Frame", {
 				Size = UDim2.fromOffset(200, 200),
@@ -88,7 +88,8 @@ return function()
 			{Breakpoint = 
 				{
 					BreakpointIdsInDebuggerConnection = {[123] = {[8]=8, [10]=10, [9]=9}}, 
-					MetaBreakpoints = initialBreakpointData
+					MetaBreakpoints = initialBreakpointData,
+					listOfEnabledColumns = {},
 				}
 			})
 		

@@ -1,31 +1,21 @@
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagRemoveUILibraryComponentsPart1 = game:GetFastFlag("RemoveUILibraryComponentsPart1")
-
 local Cryo = require(Plugin.Packages.Cryo)
 local join = Cryo.Dictionary.join
 
 local Framework = require(Plugin.Packages.Framework)
-local ContextServices = Framework.ContextServices
-local Theme = ContextServices.Theme
-
-local StudioUI = Framework.StudioUI
-local StudioFrameworkStyles = StudioUI.StudioFrameworkStyles
 
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
-local StyleTable = Util.StyleTable
-local Style = Util.Style
 local StyleModifier = Util.StyleModifier
 local StyleKey = Framework.Style.StyleKey
 local StudioTheme = Framework.Style.Themes.StudioTheme
+local getRawComponentStyle = Framework.Style.getRawComponentStyle
 local ui = Framework.Style.ComponentSymbols
 
 local UI = Framework.UI
 local Decoration = UI.Decoration
 
-local UILibrary = require(Plugin.Packages.UILibrary)
-local Spritesheet = if FFlagRemoveUILibraryComponentsPart1 then Util.Spritesheet else UILibrary.Util.Spritesheet
+local Spritesheet = Util.Spritesheet
 
 local FONT_SIZE_SMALL = 14
 local FONT_SIZE_MEDIUM = 16
@@ -447,9 +437,9 @@ local PluginTheme = {
 	[ui.Tile] = tile,
 	[ui.ListItem] = listItem,
 
-	[ui.Button] = button,
+	[ui.Button] = join(getRawComponentStyle("Button"), button),
 	[ui.Image] = image,
-	[ui.LinkText] = linkText,
+	[ui.LinkText] = join(getRawComponentStyle("LinkText"), linkText),
 }
 
 

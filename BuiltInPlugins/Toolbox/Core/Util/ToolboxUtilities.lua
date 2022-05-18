@@ -3,6 +3,7 @@ local isCli = require(script.Parent.isCli)
 
 local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 local FFlagAssetConfigDistributionQuotas = game:GetFastFlag("AssetConfigDistributionQuotas")
+local FFlagAssetConfigSharingDesignTweaks = game:GetFastFlag("AssetConfigSharingDesignTweaks")
 local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 
 local AssetQuotaTypes = require(Plugin.Core.Types.AssetQuotaTypes)
@@ -77,6 +78,16 @@ end
 if FFlagToolboxAssetCategorization4 and not FFlagToolboxAudioDiscovery then
 	function ToolboxUtilities.getHomeViewEnabledAssetTypes()
 		return ToolboxPolicy["HomeViewEnabledAssetTypes"]
+	end
+end
+
+if FFlagAssetConfigSharingDesignTweaks then
+	export type AssetConfigMessaging = {
+		showManageUniversePermissionsLink: boolean?,
+		audioPublicationDisabledLink: string?,
+	}
+	function ToolboxUtilities.getAssetConfigMessaging() : AssetConfigMessaging
+		return ToolboxPolicy["AssetConfigMessaging"] or {}
 	end
 end
 

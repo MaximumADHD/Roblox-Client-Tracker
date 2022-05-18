@@ -21,8 +21,6 @@ local AnalyticsContext = require(Plugin.Src.ContextServices.AnalyticsContext)
 local LabeledImageButton = require(Plugin.Src.Components.LabeledImageButton)
 local EmbeddedTableUtil = require(Plugin.Src.Util.EmbeddedTableUtil)
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local EmbeddedTableSection = Roact.PureComponent:extend("EmbeddedTableSection")
 
 function EmbeddedTableSection:init()
@@ -36,12 +34,7 @@ end
 
 function EmbeddedTableSection:render()
 	local props = self.props
-	local theme
-	if THEME_REFACTOR then
-		theme = props.Stylizer
-	else
-		theme = props.Theme:get("EmbeddedTableSection")
-	end
+	local theme = props.Stylizer
 	local localization = props.Localization
 	local analytics = props.Analytics:get()
 	local layoutOrder = props.LayoutOrder
@@ -120,8 +113,7 @@ end
 
 EmbeddedTableSection = withContext({
 	Plugin = ContextServices.Plugin,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Analytics = AnalyticsContext,
 })(EmbeddedTableSection)

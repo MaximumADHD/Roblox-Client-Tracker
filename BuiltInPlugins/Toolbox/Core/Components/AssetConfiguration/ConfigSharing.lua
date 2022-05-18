@@ -2,6 +2,7 @@
 	Asset config's allow sharing field.
 ]]
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
+local FFlagAssetConfigSharingDesignTweaks = game:GetFastFlag("AssetConfigSharingDesignTweaks")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -21,8 +22,11 @@ local withContext = ContextServices.withContext
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
+local ToolboxUtilities = require(Util.ToolboxUtilities)
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 
+local ContentProvider = if FFlagAssetConfigSharingDesignTweaks then game:GetService("ContentProvider") else nil
+local HttpService = if FFlagAssetConfigSharingDesignTweaks then game:GetService("HttpService") else nil
 local GuiService = game:GetService("GuiService")
 
 local ConfigSharing = Roact.PureComponent:extend("ConfigSharing")
@@ -38,7 +42,14 @@ local VERFICATION_NOTICE_SPACING = 10
 
 function ConfigSharing:init()
 	self.onLearnMoreActivated = function()
-		GuiService:OpenBrowserWindow(AssetConfigConstants.TERM_OF_USE_URL)
+		if FFlagAssetConfigSharingDesignTweaks then
+			local url = ToolboxUtilities.getAssetConfigMessaging()["audioPublicationDisabledLink"]
+			if url then
+				GuiService:OpenBrowserWindow(url)
+			end
+		else
+			GuiService:OpenBrowserWindow(AssetConfigConstants.TERM_OF_USE_URL)
+		end
 	end
 
 	self.onClickVerify = function()
@@ -61,6 +72,7 @@ function ConfigSharing:render()
 	local assetConfigTheme = theme.assetConfig
 	local publishAssetTheme = theme.publishAsset
 
+	local assetId = props.AssetId
 	local assetType = props.AssetType
 	local allowSelectPrivate = props.AllowSelectPrivate
 	local layoutOrder = props.LayoutOrder
@@ -89,8 +101,8 @@ function ConfigSharing:render()
 		showVerificationNotice = isIdVerificationRequired and not isVerified
 	end
 
-	local privateText = localization:getText("AssetConfigSharing", "SpecificExperiences")
-	local publicText = localization:getText("AssetConfigSharing", "AllExperiences")
+	local privateText = localization:getText("AssetConfigSharing", if FFlagAssetConfigSharingDesignTweaks then "PrivateSpecificExperiences" else "SpecificExperiences")
+	local publicText = localization:getText("AssetConfigSharing", if FFlagAssetConfigSharingDesignTweaks then "PublicAllExperiences" else "AllExperiences")
 	local title = localization:getText("AssetConfigSharing", "ExperiencesWithAccess")
 	if allowSelectPrivate then
 		privateInformationText = localization:getText("AssetConfigSharing", "PrivateInformation")
@@ -99,6 +111,8 @@ function ConfigSharing:render()
 	end
 
 	local informationText
+	local publicInformationLinkProps
+	local privateInformationLinkProps
 	local allowSelectPublic = true
 	if assetType == Enum.AssetType.Audio then
 		if isAssetPublic then
@@ -106,6 +120,23 @@ function ConfigSharing:render()
 		else
 			informationText = localization:getText("AssetConfigSharing", "PublicDisabledInformation")
 			allowSelectPublic = false
+			if FFlagAssetConfigSharingDesignTweaks then
+				publicInformationLinkProps = {
+					Text = localization:getText("AssetConfigSharing", "PublicDisabledLinkText"),
+					OnClick = self.onLearnMoreActivated,
+				}
+
+				privateInformationText = localization:getText("AssetConfigSharing", "PrivateInformationVersionTwo")
+				if ToolboxUtilities.getAssetConfigMessaging()["showManageUniversePermissionsLink"] and assetId then
+					privateInformationLinkProps = {
+						Text = localization:getText("AssetConfigSharing", "PrivateInformationLinkText"),
+						OnClick = function()
+							local url = string.format("%slibrary/configure?id=%s#!/general", ContentProvider.BaseUrl, HttpService:urlEncode(assetId))
+							return GuiService:OpenBrowserWindow(url)
+						end,
+					}
+				end
+			end
 		end
 	else
 		-- NOTE We /MIGHT/ want to keep this else code for audio too and instead enable FFlagToolboxAudioAssetConfigIdVerification in the future? TODO: Product decision needed.
@@ -179,6 +210,7 @@ function ConfigSharing:render()
 							Key = AssetConfigConstants.SHARING_KEYS.Private,
 							Text = privateText,
 							Description = privateInformationText,
+							LinkProps = if FFlagAssetConfigSharingDesignTweaks then privateInformationLinkProps else nil,
 							Disabled = not allowSelectPrivate,
 						},
 						{
@@ -187,6 +219,10 @@ function ConfigSharing:render()
 							Description = if (not FFlagToolboxAudioAssetConfigIdVerification or not showVerificationNotice)
 							then
 								informationText
+							else nil,
+							LinkProps = if (not FFlagToolboxAudioAssetConfigIdVerification or not showVerificationNotice)
+							then
+								publicInformationLinkProps
 							else nil,
 							Disabled = not allowSelectPublic,
 						},
@@ -251,7 +287,7 @@ function ConfigSharing:render()
 				})
 				else nil,
 
-			TipsContainer = if not FFlagToolboxAudioAssetConfigIdVerification or not showVerificationNotice
+			TipsContainer = if not FFlagAssetConfigSharingDesignTweaks and (not FFlagToolboxAudioAssetConfigIdVerification or not showVerificationNotice)
 				then Roact.createElement(Pane, {
 					AutomaticSize = Enum.AutomaticSize.Y,
 					HorizontalAlignment = Enum.HorizontalAlignment.Left,

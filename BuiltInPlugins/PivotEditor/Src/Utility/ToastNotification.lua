@@ -7,15 +7,9 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-
 local ContextServices = Framework.ContextServices
 local ContextItem = ContextServices.ContextItem
--- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
-local Provider = ContextServices.Provider
-
-local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
 local getFFlagStudioToastNotificationsInLua = require(Plugin.Src.Flags.getFFlagStudioToastNotificationsInLua)
 
@@ -33,14 +27,6 @@ end
 
 function ToastNotification:destroy()
 	self._notificationService = nil
-end
-
-if not FFlagDevFrameworkUseCreateContext then
-	function ToastNotification:createProvider(root)
-		return Roact.createElement(Provider, {
-			ContextItem = self,
-		}, {root})
-	end
 end
 
 function ToastNotification:showNotification(message, notificationId)

@@ -20,6 +20,7 @@ return function()
 			searchId = pageInfo.searchId,
 			searchKeyword = pageInfo.searchTerm,
 			toolboxTab = PageInfoHelper.getCurrentTab(pageInfo),
+			isTopKeyword = pageInfo.isTopKeyword,
 		}
 	end
 end

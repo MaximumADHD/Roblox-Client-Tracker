@@ -1,10 +1,8 @@
 local Plugin = script.Parent.Parent.Parent
 local _Types = require(Plugin.Src.Types)
 local Framework = require(Plugin.Packages.Framework)
-local Roact = require(Plugin.Packages.Roact)
 
 local ContextItem = Framework.ContextServices.ContextItem
-local Provider = Framework.ContextServices.Provider
 
 local FrameworkUtil = Framework.Util
 local Signal = FrameworkUtil.Signal
@@ -107,12 +105,6 @@ function MaterialController.new(initialMaterialVariants : _Types.Array<MaterialV
 	end
 
 	return self
-end
-
-function MaterialController:createProvider(root)
-	return Roact.createElement(Provider, {
-		ContextItem = self,
-	}, {root})
 end
 
 function MaterialController:destroy()

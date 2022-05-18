@@ -61,18 +61,14 @@ local function validateLegacyAccessory(instances: {Instance}, assetTypeEnum: Enu
 		return false, reasons
 	end
 
-	if game:GetFastFlag("UGCValidateAttributes") then
-		success, reasons = validateAttributes(instance)
-		if not success then
-			return false, reasons
-		end
+	success, reasons = validateAttributes(instance)
+	if not success then
+		return false, reasons
 	end
 
-	if game:GetFastFlag("UGCValidateMeshBounds") then
-		success, reasons = validateMeshBounds(handle, attachment, meshId, meshScale, assetTypeEnum, boundsInfo)
-		if not success then
-			return false, reasons
-		end
+	success, reasons = validateMeshBounds(handle, attachment, meshId, meshScale, assetTypeEnum, boundsInfo)
+	if not success then
+		return false, reasons
 	end
 
 	success, reasons = validateTextureSize(textureId)

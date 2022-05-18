@@ -14,6 +14,7 @@ local join = Dash.join
 
 local UI = Framework.UI
 local Pane = UI.Pane
+local Checkbox = UI.Checkbox
 local Image = UI.Decoration.Image
 local TextLabel = UI.Decoration.TextLabel
 local TreeTableCell = UI.TreeTableCell
@@ -26,6 +27,13 @@ function BreakpointsTreeTableCell:init()
 	self.onToggle = function()
 		local cellProps = self.props.CellProps
 		cellProps.OnToggle(self.props.Row)
+	end
+
+	self.onCheckboxClicked = function()
+		local row = self.props.Row
+		local bpManager = game:GetService("BreakpointManager")
+		local bp = bpManager:GetBreakpointById(row.item.id)
+		bp:SetContinueExecution(not row.item.continueExecution)
 	end
 end
 
@@ -48,7 +56,9 @@ function BreakpointsTreeTableCell:render()
 	local width = props.Width or UDim.new(1 / #props.Columns, 0)
 	local row = props.Row
 	local cellProps = props.CellProps
+	local value = row.item[key]
 	local isEnabledCol = key == "isEnabled"
+	local isContinueExecutionCol = key == "continueExecution"
 
 	local style = join(props.Style, cellProps.CellStyle)
 	local backgroundColor = ((props.RowIndex % 2) == 1) and style.BackgroundOdd or style.BackgroundEven
@@ -121,6 +131,21 @@ function BreakpointsTreeTableCell:render()
 					Image = debugpointIconPath,
 				}),
 			})
+		})
+	elseif isContinueExecutionCol then
+		return Roact.createElement(Pane, {
+			Style = "Box",
+			BackgroundColor3 = backgroundColor,
+			BorderSizePixel = 1,
+			BorderColor3 = style.Border,
+			Size = UDim2.new(width.Scale, width.Offset, 1, 0),
+			ClipsDescendants = FFlagDevFrameworkFixSplitPaneAlignment,
+		}, {
+			EnabledCheckbox = hasChildren and Roact.createElement(Checkbox, {
+				Checked = value,
+				OnClick = self.onCheckboxClicked,
+				LayoutOrder = 0,
+			}),
 		})
 	end
 

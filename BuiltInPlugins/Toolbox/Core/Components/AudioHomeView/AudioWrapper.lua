@@ -1,6 +1,7 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
 
+local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
 local FFlagToolboxAudioDiscoveryRound2 =
 	require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscoveryRound2()
 
@@ -10,6 +11,7 @@ local RoactRodux = require(Packages.RoactRodux)
 
 local ResultsFetcher = require(Plugin.Core.Components.ResultsFetcher)
 local HomeTypes = require(Plugin.Core.Types.HomeTypes)
+local AssetInfo = require(Plugin.Core.Models.AssetInfo)
 
 local AssetLogicWrapper = require(Plugin.Core.Components.AssetLogicWrapper)
 local AudioScroller = require(Plugin.Core.Components.AudioHomeView.AudioScroller)
@@ -18,6 +20,7 @@ local Category = require(Plugin.Core.Types.Category)
 local Constants = require(Plugin.Core.Util.Constants)
 local Images = require(Plugin.Core.Util.Images)
 local AssetAnalyticsContextItem = require(Plugin.Core.Util.Analytics.AssetAnalyticsContextItem)
+local GetPageInfoAnalyticsContextInfo = require(Plugin.Core.Thunks.GetPageInfoAnalyticsContextInfo)
 local SearchWithOptions = require(Plugin.Core.Networking.Requests.SearchWithOptions)
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
@@ -209,6 +212,24 @@ function AudioWrapper:init(props: AudioWrapperProps)
 			self:setState({ audioTabSize = UDim2.new(0, 330, 0, Constants.AUDIO_TABS_HEIGHT) })
 		end
 	end
+
+	if FFlagToolboxHomeViewAnalyticsUpdate then
+		self.logImpression = function(asset: AssetInfo.AssetInfo)
+			local props = self.props
+			local state: AudioWrapperState = self.state
+
+			local getPageInfoAnalyticsContextInfo = props.getPageInfoAnalyticsContextInfo
+			local assetAnalytics = self.props.AssetAnalytics
+			local audioType = state.selectedTab
+			local category = if state.selectedCategory then state.selectedCategory.name else nil
+			if getPageInfoAnalyticsContextInfo and assetAnalytics then
+				local assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
+				assetAnalytics
+					:get()
+					:logImpression(asset, assetAnalyticsContext, { audioType = audioType, categoryName = category })
+			end
+		end
+	end
 end
 
 function AudioWrapper:didMount()
@@ -261,6 +282,7 @@ function AudioWrapper:render()
 					CanInsertAsset = canInsertAsset,
 					RenderTopContent = self.renderTopContent,
 					AudioType = selectedTab,
+					LogImpression = if FFlagToolboxHomeViewAnalyticsUpdate then self.logImpression else nil,
 					tryOpenAssetConfig = if FFlagToolboxAudioDiscoveryRound2 then props.tryOpenAssetConfig else nil,
 				})
 			end,
@@ -277,6 +299,11 @@ local mapDispatchToProps = function(dispatch)
 		SearchWithOptions = function(networkInterface, settings, options)
 			dispatch(SearchWithOptions(networkInterface, settings, options))
 		end,
+		getPageInfoAnalyticsContextInfo = if FFlagToolboxHomeViewAnalyticsUpdate
+			then function()
+				return dispatch(GetPageInfoAnalyticsContextInfo())
+			end
+			else nil,
 	}
 end
 

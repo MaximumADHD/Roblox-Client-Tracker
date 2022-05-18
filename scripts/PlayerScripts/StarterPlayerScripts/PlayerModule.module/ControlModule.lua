@@ -33,6 +33,13 @@ local FFlagUserFlagEnableNewVRSystem do
 	FFlagUserFlagEnableNewVRSystem = success and result
 end
 
+local FFlagUserCameraControlLastInputTypeUpdate do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserCameraControlLastInputTypeUpdate")
+	end)
+	FFlagUserCameraControlLastInputTypeUpdate = success and result
+end
+
 local TouchThumbstick = require(script:WaitForChild("TouchThumbstick"))
 
 -- These controllers handle only walk/run movement, jumping is handled by the
@@ -97,6 +104,9 @@ function ControlModule.new()
 	self.moveFunction = Players.LocalPlayer.Move
 	self.humanoid = nil
 	self.lastInputType = Enum.UserInputType.None
+	if FFlagUserCameraControlLastInputTypeUpdate then
+		self.controlsEnabled = true
+	end
 
 	-- For Roblox self.vehicleController
 	self.humanoidSeatedConn = nil
@@ -198,13 +208,23 @@ function ControlModule:EnableActiveControlModule()
 end
 
 function ControlModule:Enable(enable: boolean?)
+	if FFlagUserCameraControlLastInputTypeUpdate then
+		if enable == nil then 
+			enable = true 
+		end
+		self.controlsEnabled = enable
+	end
+
 	if not self.activeController then
 		return
 	end
-
-	if enable == nil then
-		enable = true
+	
+	if not FFlagUserCameraControlLastInputTypeUpdate then
+		if enable == nil then
+			enable = true
+		end
 	end
+
 	if enable then
 		self:EnableActiveControlModule()
 	else
@@ -214,6 +234,10 @@ end
 
 -- For those who prefer distinct functions
 function ControlModule:Disable()
+	if FFlagUserCameraControlLastInputTypeUpdate then
+		self.controlsEnabled = false
+	end
+	
 	if self.activeController then
 		self.activeController:Enable(false)
 
@@ -413,18 +437,27 @@ end
 -- disable the active controller if it is different from the on being switched to,
 -- and then enable the requested controller. The argument to this function must be
 -- a reference to one of the control modules, i.e. Keyboard, Gamepad, etc.
+
+-- This function should handle all controller enabling and disabling without relying on
+-- ControlModule:Enable() and Disable()
 function ControlModule:SwitchToController(controlModule)
-	if not controlModule then
-		if self.activeController then
-			self.activeController:Enable(false)
+	if FFlagUserCameraControlLastInputTypeUpdate then
+		-- controlModule is invalid, just disable current controller
+		if not controlModule then
+			if self.activeController then
+				self.activeController:Enable(false)
+			end
+			self.activeController = nil
+			self.activeControlModule = nil
+			return
 		end
-		self.activeController = nil
-		self.activeControlModule = nil
-	else
+		
+		-- first time switching to this control module, should instantiate it
 		if not self.controllers[controlModule] then
 			self.controllers[controlModule] = controlModule.new(CONTROL_ACTION_PRIORITY)
 		end
-
+		
+		-- switch to the new controlModule
 		if self.activeController ~= self.controllers[controlModule] then
 			if self.activeController then
 				self.activeController:Enable(false)
@@ -445,8 +478,46 @@ function ControlModule:SwitchToController(controlModule)
 					self.touchJumpController:Enable(false)
 				end
 			end
-
-			self:EnableActiveControlModule()
+			
+			if self.controlsEnabled then
+				self:EnableActiveControlModule()
+			end
+		end
+	else
+		if not controlModule then
+			if self.activeController then
+				self.activeController:Enable(false)
+			end
+			self.activeController = nil
+			self.activeControlModule = nil
+		else
+			if not self.controllers[controlModule] then
+				self.controllers[controlModule] = controlModule.new(CONTROL_ACTION_PRIORITY)
+			end
+	
+			if self.activeController ~= self.controllers[controlModule] then
+				if self.activeController then
+					self.activeController:Enable(false)
+				end
+				self.activeController = self.controllers[controlModule]
+				self.activeControlModule = controlModule -- Only used to check if controller switch is necessary
+	
+				if self.touchControlFrame and (self.activeControlModule == ClickToMove
+							or self.activeControlModule == TouchThumbstick
+							or self.activeControlModule == DynamicThumbstick) then
+					if not self.controllers[TouchJump] then
+						self.controllers[TouchJump] = TouchJump.new()
+					end
+					self.touchJumpController = self.controllers[TouchJump]
+					self.touchJumpController:Enable(true, self.touchControlFrame)
+				else
+					if self.touchJumpController then
+						self.touchJumpController:Enable(false)
+					end
+				end
+	
+				self:EnableActiveControlModule()
+			end
 		end
 	end
 end

@@ -33,8 +33,6 @@ local ScreenPublishManagement = Roact.PureComponent:extend("ScreenPublishManagem
 local ROLLOUT_OPTION_DEFAULT = "Default"
 local ROLLOUT_OPTION_FORCE = "Forced"
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 function ScreenPublishManagement:init()
 	self.state = {
 		rolloutOption = ROLLOUT_OPTION_DEFAULT,
@@ -81,7 +79,7 @@ end
 function ScreenPublishManagement:render()
 	local props = self.props
 	local onClose = props.OnClose
-	local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
+	local theme = props.Stylizer
 	local localization = props.Localization
 
 	local name = props.Name
@@ -289,8 +287,7 @@ function ScreenPublishManagement:render()
 end
 
 ScreenPublishManagement = withContext({
-	Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
-	Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	API = ContextServices.API,
 })(ScreenPublishManagement)

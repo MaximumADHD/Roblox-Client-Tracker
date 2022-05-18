@@ -12,7 +12,6 @@
 		Size UDim2, the size of the window
 		onClose callback, called when the user presses the "cancel" button
 ]]
-local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
 local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag("ToolboxUseDevFrameworkLoadingBarAndRadioButton")
 local FFlagDebugDisableLocalUGCValidation = game:GetFastFlag("DebugDisableLocalUGCValidation")
 
@@ -87,48 +86,25 @@ function AssetValidation:init(props)
 		isLoading = true,
 	}
 
-	if FFlagCMSUploadFees then
-		local canSkip = FFlagDebugDisableLocalUGCValidation and StudioService:HasInternalPermission()
-		if not canSkip and AssetConfigUtil.isCatalogAsset(self.props.assetTypeEnum) then
-			UGCValidation.validateAsync(self.props.instances, self.props.assetTypeEnum, function(success, reasons)
-				if success then
-					self:setState({ onFinish = self.props.nextScreen })
-				else
-					self:setState({
-						onFinish = function()
-							self:setState({
-								isLoading = false,
-								reasons = reasons
-							})
-						end
-					})
-				end
-			end)
-		else
-			-- skip validation for non-catalog assets
-			self.props.nextScreen()
-		end
+	local canSkip = FFlagDebugDisableLocalUGCValidation and StudioService:HasInternalPermission()
+	if not canSkip and AssetConfigUtil.isCatalogAsset(self.props.assetTypeEnum) then
+		UGCValidation.validateAsync(self.props.instances, self.props.assetTypeEnum, function(success, reasons)
+			if success then
+				self:setState({ onFinish = self.props.nextScreen })
+			else
+				self:setState({
+					onFinish = function()
+						self:setState({
+							isLoading = false,
+							reasons = reasons
+						})
+					end
+				})
+			end
+		end)
 	else
-		if AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) or
-			self.props.assetTypeEnum == Enum.AssetType.Model or
-			self.props.assetTypeEnum == Enum.AssetType.Animation then
-			self.props.nextScreen()
-		else
-			UGCValidation.validateAsync(self.props.instances, self.props.assetTypeEnum, function(success, reasons)
-				if success then
-					self:setState({ onFinish = self.props.nextScreen })
-				else
-					self:setState({
-						onFinish = function()
-							self:setState({
-								isLoading = false,
-								reasons = reasons
-							})
-						end
-					})
-				end
-			end)
-		end
+		-- skip validation for non-catalog assets
+		self.props.nextScreen()
 	end
 end
 

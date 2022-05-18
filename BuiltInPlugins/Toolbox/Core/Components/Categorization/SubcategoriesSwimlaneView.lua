@@ -4,6 +4,7 @@
 ]]
 local FFlagDevFrameworkAddUnobtrusiveLinkTextStyle = game:GetFastFlag("DevFrameworkAddUnobtrusiveLinkTextStyle")
 local FFlagDevFrameworkScrollingFrameAddPadding = game:GetFastFlag("DevFrameworkScrollingFrameAddPadding")
+local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
 local Packages = Plugin.Packages
@@ -129,6 +130,7 @@ function SubcategoriesSwimlaneView:init()
 			assetSectionsElems["AssetSwimlane_" .. i] = Roact.createElement(AssetSwimlane, {
 				CanInsertAsset = canInsertAsset,
 				CategoryName = categoryName,
+				SwimlaneCategory = if FFlagToolboxHomeViewAnalyticsUpdate then subcategory.name else nil,
 				OnClickSeeAll = function(sectionName: string, categorName: string, sortName: string, searchTerm: string)
 					return self.onClickSeeAllAssets(sectionName, categorName, sortName, searchTerm, subcategory)
 				end,

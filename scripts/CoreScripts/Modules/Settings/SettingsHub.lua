@@ -53,6 +53,7 @@ local GetFFlagShowGitHashInGame = require(RobloxGui.Modules.Flags.GetFFlagShowGi
 local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.GetFFlagAbuseReportEnableReportSentPage)
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
 local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuUseSpeakerIcons)
+local GetFFlagMuteButtonRaceConditionFix = require(RobloxGui.Modules.Flags.GetFFlagMuteButtonRaceConditionFix)
 
 local GetFFlagRemoveAssetVersionEndpoint = require(RobloxGui.Modules.Flags.GetFFlagRemoveAssetVersionEndpoint)
 
@@ -272,6 +273,29 @@ local function CreateSettingsHub()
 		return (type(arg) == "function") and arg() or arg
 	end
 
+	local function pollImage()
+		local newMuted = VoiceChatServiceManager.localMuted
+		local image
+		if newMuted == nil then
+			image = if GetFFlagOldMenuUseSpeakerIcons() then PlayerMuteStatusIcons.Loading else MuteStatusIcons.Loading
+		elseif newMuted then
+			image = if GetFFlagOldMenuUseSpeakerIcons() then PlayerMuteStatusIcons.MicOff else MuteStatusIcons.MicOff
+		elseif VoiceChatServiceManager.isTalking and GetFFlagPlayerListAnimateMic() then
+			local level = math.random()
+			local roundedLevel = 20 * math.floor(0.5 + 5*level)
+			image = VoiceChatServiceManager:GetIcon("Unmuted" .. tostring(roundedLevel), "MicLight")
+		else
+			image = if GetFFlagOldMenuUseSpeakerIcons() then PlayerMuteStatusIcons.MicOn else MuteStatusIcons.MicOn
+		end
+		return image
+	end
+	local function updateIcon()
+		local buttonHint = this.BottomButtonFrame:FindFirstChild("MuteButtonHint", true)
+		if buttonHint then
+			buttonHint.Image = pollImage()
+		end
+	end
+
 	local function addBottomBarButtonOld(name, text, gamepadImage, keyboardImage, position, clickFunc, hotkeys)
 		local buttonName = name .. "Button"
 		local textName = name .. "Text"
@@ -461,27 +485,8 @@ local function CreateSettingsHub()
 	end
 
 	local function appendMicButton()
-		local function pollImage()
-			local newMuted = VoiceChatServiceManager.localMuted
-			local image
-			if newMuted == nil then
-				image = if GetFFlagOldMenuUseSpeakerIcons() then PlayerMuteStatusIcons.Loading else MuteStatusIcons.Loading
-			elseif newMuted then
-				image = if GetFFlagOldMenuUseSpeakerIcons() then PlayerMuteStatusIcons.MicOff else MuteStatusIcons.MicOff
-			elseif VoiceChatServiceManager.isTalking and GetFFlagPlayerListAnimateMic() then
-				local level = math.random()
-				local roundedLevel = 20 * math.floor(0.5 + 5*level)
-				image = VoiceChatServiceManager:GetIcon("Unmuted" .. tostring(roundedLevel), "MicLight")
-			else
-				image = if GetFFlagOldMenuUseSpeakerIcons() then PlayerMuteStatusIcons.MicOn else MuteStatusIcons.MicOn
-			end
-			return image
-		end
-		local function updateIcon()
-			local buttonHint = this.BottomButtonFrame:FindFirstChild("MuteButtonHint", true)
-			if buttonHint then
-				buttonHint.Image = pollImage()
-			end
+		if GetFFlagMuteButtonRaceConditionFix() and this.BottomButtonFrame:FindFirstChild("MuteButtonHint", true) then
+			return
 		end
 
 		addBottomBarButton("MuteButton", "", "rbxasset://textures/ui/Settings/Help/BButtonLight" .. buttonImageAppend .. ".png",
@@ -491,29 +496,32 @@ local function CreateSettingsHub()
 			end, {}, UDim2.new(0,70,0,70),
 			--[[forceHintButton = ]] true
 		)
-		VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
-			updateIcon()
-		end)
 
-		if GetFFlagPlayerListAnimateMic() then
-			local renderStepName = 'settings-hub-renderstep'
-			this.SettingsShowSignal:connect(function(isOpen)
-				local frame = 0
-				local renderSteppedConnected = false
-				if isOpen and not renderSteppedConnected then
-					renderSteppedConnected = true
-					RunService:BindToRenderStep(renderStepName, Enum.RenderPriority.Last.Value, function()
-						frame = frame + 1
-						-- This looks a little less flickery if we only do it once every 3 frames
-						if frame % 3 == 0 then
-							updateIcon()
-						end
-					end)
-				elseif renderSteppedConnected then
-					renderSteppedConnected = false
-					RunService:UnbindFromRenderStep(renderStepName)
-				end
+		if not GetFFlagMuteButtonRaceConditionFix() then
+			VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
+				updateIcon()
 			end)
+	
+			if GetFFlagPlayerListAnimateMic() then
+				local renderStepName = 'settings-hub-renderstep'
+				this.SettingsShowSignal:connect(function(isOpen)
+					local frame = 0
+					local renderSteppedConnected = false
+					if isOpen and not renderSteppedConnected then
+						renderSteppedConnected = true
+						RunService:BindToRenderStep(renderStepName, Enum.RenderPriority.Last.Value, function()
+							frame = frame + 1
+							-- This looks a little less flickery if we only do it once every 3 frames
+							if frame % 3 == 0 then
+								updateIcon()
+							end
+						end)
+					elseif renderSteppedConnected then
+						renderSteppedConnected = false
+						RunService:UnbindFromRenderStep(renderStepName)
+					end
+				end)
+			end
 		end
 	end
 
@@ -527,14 +535,42 @@ local function CreateSettingsHub()
 	end
 
 	local voiceChatServiceConnected = false
+	local voiceEnabled = false
 	if GetFFlagEnableVoiceChatPlayersList()
 		and game:GetEngineFeature("VoiceChatSupported")
 		and not voiceChatServiceConnected
 	then
 		voiceChatServiceConnected = true
 		VoiceChatServiceManager:asyncInit():andThen(function()
-			addMuteButtonToBar()
+			voiceEnabled = true
 			VoiceChatServiceManager:SetupParticipantListeners()
+			addMuteButtonToBar()
+			if GetFFlagMuteButtonRaceConditionFix() then
+				VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
+					updateIcon()
+				end)
+		
+				if GetFFlagPlayerListAnimateMic() then
+					local renderStepName = 'settings-hub-renderstep'
+					this.SettingsShowSignal:connect(function(isOpen)
+						local frame = 0
+						local renderSteppedConnected = false
+						if isOpen and not renderSteppedConnected then
+							renderSteppedConnected = true
+							RunService:BindToRenderStep(renderStepName, Enum.RenderPriority.Last.Value, function()
+								frame = frame + 1
+								-- This looks a little less flickery if we only do it once every 3 frames
+								if frame % 3 == 0 then
+									updateIcon()
+								end
+							end)
+						elseif renderSteppedConnected then
+							renderSteppedConnected = false
+							RunService:UnbindFromRenderStep(renderStepName)
+						end
+					end)
+				end
+			end
 		end):catch(function()
 			if GetFFlagVoiceChatUILogging() then
 				log:warning("Failed to init VoiceChatServiceManager")
@@ -1169,6 +1205,10 @@ local function CreateSettingsHub()
 			end
 		end
 		onWorkspaceChanged("CurrentCamera")
+		-- This is here in the case that createGUI gets called After voice is done initializing
+		if GetFFlagMuteButtonRaceConditionFix() and voiceEnabled then
+			addMuteButtonToBar()
+		end
 		workspace.Changed:connect(onWorkspaceChanged)
 	end
 

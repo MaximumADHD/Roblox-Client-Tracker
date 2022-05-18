@@ -136,7 +136,7 @@ return function()
 		currentMockConnection.Paused:Fire(testPausedState2, testPausedState2.Reason)
 		state = mainStore:getState()
 		expect(state.Common.isPaused).to.equal(true)
-		expect(state.Common.currentFrameMap[1][1]).to.equal(nil)
+		expect(state.Common.currentFrameMap[1][1]).to.be.ok()
 		expect(state.Common.currentFrameMap[1][2]).to.be.ok()
 		expect(state.Common.debuggerConnectionIdToCurrentThreadId[1]).to.equal(2)
 		

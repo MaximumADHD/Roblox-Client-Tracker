@@ -17,6 +17,7 @@
 ]]
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
 local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
+local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -361,7 +362,11 @@ local function mapDispatchToProps(dispatch)
 		end,
 
 		requestSearch = function(networkInterface, settings, searchTerm, categoryName)
-			dispatch(RequestSearchRequest(networkInterface, settings, searchTerm, categoryName))
+			if FFlagToolboxHomeViewAnalyticsUpdate then
+				dispatch(RequestSearchRequest(networkInterface, settings, searchTerm, categoryName, false))
+			else
+				dispatch(RequestSearchRequest(networkInterface, settings, searchTerm, categoryName))
+			end
 		end,
 	}
 end

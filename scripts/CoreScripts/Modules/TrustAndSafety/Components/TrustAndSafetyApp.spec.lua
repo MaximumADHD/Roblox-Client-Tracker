@@ -9,6 +9,11 @@ return function()
 	local RoactRodux = require(CorePackages.RoactRodux)
 	local UIBlox = require(CorePackages.UIBlox)
 
+	local TnsModule = script.Parent.Parent
+	local Dependencies = require(TnsModule.Dependencies)
+	local Localization = require(Dependencies.Localization)
+	local LocalizationProvider = require(Dependencies.LocalizationProvider)
+
 	local Reducers = require(script.Parent.Parent.Reducers)
 
 	local appStyle = {
@@ -30,8 +35,12 @@ return function()
 				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
 					style = appStyle,
 				}, {
-					TrustAndSafetyApp = Roact.createElement(TrustAndSafetyApp)
-				})
+					LocalizationProvider = Roact.createElement(LocalizationProvider, {
+						localization = Localization.new("en-us"),
+					}, {
+						TrustAndSafetyApp = Roact.createElement(TrustAndSafetyApp)
+					}),
+				}),
 			})
 
 			local instance = Roact.mount(element)

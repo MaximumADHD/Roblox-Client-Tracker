@@ -9,8 +9,6 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local ProgressSpinner = Roact.PureComponent:extend("ProgressSpinner")
 
 local function createSpinnerTask(spinner)
@@ -56,12 +54,7 @@ end
 function ProgressSpinner:render()
 	local props = self.props
 	local enabled = props.IsBusy
-	local theme
-	if THEME_REFACTOR then
-		theme = props.Stylizer
-	else
-		theme = props.Theme:get("ProgressSpinner")
-	end
+	local theme = props.Stylizer
 
 	return enabled and Roact.createElement("ImageLabel", {
 		Position = UDim2.new(0.5, 0, 0.5, 0),
@@ -80,8 +73,7 @@ end
 
 
 ProgressSpinner = withContext({
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = ContextServices.Stylizer,
 })(ProgressSpinner)
 
 

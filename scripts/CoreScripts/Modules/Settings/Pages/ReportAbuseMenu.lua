@@ -9,15 +9,19 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GuiService = game:GetService("GuiService")
 local PlayersService = game:GetService("Players")
+local CorePackages = game:GetService("CorePackages")
 local MarketplaceService = game:GetService("MarketplaceService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
+local Cryo = require(CorePackages.Cryo)
+
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+local ReportAbuseLogic = require(RobloxGui.Modules.VoiceChat.ReportAbuseLogic)
 
 local FFlagFixUsernamesAutoLocalizeIssue = require(RobloxGui.Modules.Flags.FFlagFixUsernamesAutoLocalizeIssue)
 local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.GetFFlagAbuseReportEnableReportSentPage)
@@ -62,6 +66,15 @@ local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForCh
 
 local MIN_GAME_REPORT_TEXT_LENGTH = 5
 
+type MethodOfAbuse = ReportAbuseLogic.MethodOfAbuse
+local MethodsOfAbuse = ReportAbuseLogic.MethodsOfAbuse
+
+local TypeOfAbuseOptions: { [MethodOfAbuse]: string } = {
+	[MethodsOfAbuse.voice] = "Voice Chat",
+	[MethodsOfAbuse.text] = "Text Chat",
+	[MethodsOfAbuse.other] = "Other"
+}
+
 ----------- CLASS DECLARATION --------------
 local function Initialize()
 	local settingsPageFactory = require(RobloxGui.Modules.Settings.SettingsPageFactory)
@@ -93,7 +106,7 @@ local function Initialize()
 	function this:updateVoiceLayout()
 		if GetFFlagVoiceAbuseReportsEnabled() and voiceChatEnabled then
 			this.MethodOfAbuseFrame, this.MethodOfAbuseLabel, this.MethodOfAbuseMode =
-				utility:AddNewRow(this, "Type Of Abuse?", "DropDown", {"Voice Chat", "Text Chat", "Other"})
+				utility:AddNewRow(this, "Type Of Abuse?", "DropDown", Cryo.Dictionary.values(TypeOfAbuseOptions))
 			this.MethodOfAbuseMode:SetInteractable(false)
 			this.MethodOfAbuseLabel.ZIndex = 1
 			this.MethodOfAbuseFrame.LayoutOrder = 2
@@ -101,6 +114,13 @@ local function Initialize()
 			this.WhichPlayerFrame.LayoutOrder = 3
 			this.TypeOfAbuseFrame.LayoutOrder = 4
 			this.AbuseDescriptionFrame.LayoutOrder = 5
+		end
+	end
+
+	function this:UpdateMethodOfAbuse()
+		if GetFFlagVoiceAbuseReportsEnabled() and voiceChatEnabled then
+			local AbuseType = ReportAbuseLogic.GetDefaultMethodOfAbuse(nextPlayerToReport, VoiceChatServiceManager)
+			PageInstance.MethodOfAbuseMode:SetSelectionByValue(TypeOfAbuseOptions[AbuseType])
 		end
 	end
 
@@ -444,6 +464,7 @@ do
 	PageInstance = Initialize()
 
 	PageInstance.Displayed.Event:connect(function()
+		PageInstance:UpdateMethodOfAbuse()
 		PageInstance:UpdatePlayerDropDown()
 	end)
 

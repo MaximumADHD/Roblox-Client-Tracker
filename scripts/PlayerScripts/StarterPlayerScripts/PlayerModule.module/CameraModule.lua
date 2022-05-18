@@ -44,6 +44,13 @@ do
 	FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame = success and value
 end
 
+local FFlagUserCameraControlLastInputTypeUpdate do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserCameraControlLastInputTypeUpdate")
+	end)
+	FFlagUserCameraControlLastInputTypeUpdate = success and result
+end
+
 -- NOTICE: Player property names do not all match their StarterPlayer equivalents,
 -- with the differences noted in the comments on the right
 local PLAYER_CAMERA_PROPERTIES =
@@ -179,10 +186,12 @@ function CameraModule.new()
 		self:OnCurrentCameraChanged()
 	end)
 
-	self.lastInputType = UserInputService:GetLastInputType()
-	UserInputService.LastInputTypeChanged:Connect(function(newLastInputType)
-		self.lastInputType = newLastInputType
-	end)
+	if not FFlagUserCameraControlLastInputTypeUpdate then
+		self.lastInputType = UserInputService:GetLastInputType()
+		UserInputService.LastInputTypeChanged:Connect(function(newLastInputType)
+			self.lastInputType = newLastInputType
+		end)
+	end 
 
 	return self
 end
@@ -567,7 +576,10 @@ function CameraModule:GetCameraControlChoice()
 	local player = Players.LocalPlayer
 
 	if player then
-		if self.lastInputType == Enum.UserInputType.Touch or UserInputService.TouchEnabled then
+		if FFlagUserCameraControlLastInputTypeUpdate and UserInputService:GetLastInputType() == Enum.UserInputType.Touch
+			or not FFlagUserCameraControlLastInputTypeUpdate and self.lastInputType == Enum.UserInputType.Touch
+			or UserInputService.TouchEnabled then
+
 			-- Touch
 			if player.DevTouchCameraMode == Enum.DevTouchCameraMovementMode.UserChoice then
 				return CameraUtils.ConvertCameraModeEnumToStandard( UserGameSettings.TouchCameraMovementMode )

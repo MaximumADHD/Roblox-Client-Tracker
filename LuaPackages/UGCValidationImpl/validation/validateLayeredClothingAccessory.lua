@@ -32,11 +32,9 @@ local function buildAllowedAssetTypeIdSet()
 end
 
 local function validateLayeredClothingAccessory(instances: {Instance}, assetTypeEnum: Enum.AssetType, isServer: boolean): (boolean, {string}?)
-	if game:GetFastFlag("UGCLCAssetTypeIdsGuard") then
-		local allowedAssetTypeIdSet = buildAllowedAssetTypeIdSet()
-		if not allowedAssetTypeIdSet[assetTypeEnum.Value] then
-			return false, { "Asset type cannot be validated as Layered Clothing" }
-		end
+	local allowedAssetTypeIdSet = buildAllowedAssetTypeIdSet()
+	if not allowedAssetTypeIdSet[assetTypeEnum.Value] then
+		return false, { "Asset type cannot be validated as Layered Clothing" }
 	end
 
 	local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum]
@@ -83,18 +81,14 @@ local function validateLayeredClothingAccessory(instances: {Instance}, assetType
 		return false, reasons
 	end
 
-	if game:GetFastFlag("UGCValidateAttributes") then
-		success, reasons = validateAttributes(instance)
-		if not success then
-			return false, reasons
-		end
+	success, reasons = validateAttributes(instance)
+	if not success then
+		return false, reasons
 	end
 
-	if game:GetFastFlag("UGCValidateMeshBounds") then
-		success, reasons = validateMeshBounds(handle, attachment, meshId, meshScale, assetTypeEnum, Constants.LC_BOUNDS)
-		if not success then
-			return false, reasons
-		end
+	success, reasons = validateMeshBounds(handle, attachment, meshId, meshScale, assetTypeEnum, Constants.LC_BOUNDS)
+	if not success then
+		return false, reasons
 	end
 
 	success, reasons = validateTextureSize(textureId, true)

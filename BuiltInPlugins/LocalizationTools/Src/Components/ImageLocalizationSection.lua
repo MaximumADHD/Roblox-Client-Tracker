@@ -17,8 +17,6 @@ local HoverArea = UI.HoverArea
 
 local AnalyticsContext = require(Plugin.Src.ContextServices.AnalyticsContext)
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local ImageLocalizationSection = Roact.PureComponent:extend("ImageLocalizationSection")
 
 local HttpService = game:GetService("HttpService")
@@ -86,13 +84,7 @@ function ImageLocalizationSection:render()
 	end
 
 	local props = self.props
-	local theme
-
-	if THEME_REFACTOR then
-		theme = props.Stylizer
-	else
-		theme = props.Theme:get("ImageLocalizationSection")
-	end
+	local theme = props.Stylizer
 	local localization = props.Localization
 	local layoutOrder = props.LayoutOrder
 
@@ -157,8 +149,7 @@ end
 ]]
 ImageLocalizationSection = withContext({
 	Plugin = ContextServices.Plugin,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Analytics = AnalyticsContext,
 })(ImageLocalizationSection)

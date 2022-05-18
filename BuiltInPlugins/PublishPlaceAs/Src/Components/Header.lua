@@ -14,13 +14,11 @@ local withContext = ContextServices.withContext
 
 local HEADER_HEIGHT = 45
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local Header = Roact.PureComponent:extend("Header")
 
 function Header:render()
 	local props = self.props
-	local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
+	local theme = props.Stylizer
 
 	local title = props.Title
 	local layoutOrder = props.LayoutOrder or 1
@@ -40,8 +38,7 @@ function Header:render()
 end
 
 Header = withContext({
-	Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
-	Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
+	Stylizer = ContextServices.Stylizer,
 })(Header)
 
 return Header

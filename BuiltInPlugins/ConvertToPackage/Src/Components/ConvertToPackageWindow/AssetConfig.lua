@@ -24,6 +24,7 @@ local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
 
 local getPluginGui = require(Plugin.Src.ContextServices.PluginContext).getPluginGui
+local getUserId = require(Plugin.Src.Util.getUserId)
 
 local MakeChangeRequest = require(Plugin.Src.Thunks.MakeChangeRequest)
 local UploadConvertToPackageRequest = require(Plugin.Src.Thunks.UploadConvertToPackageRequest)
@@ -37,13 +38,23 @@ local PREVIEW_WIDTH = 240
 local DEFAULT_GENRE = "All"
 
 function AssetConfig:init(props)
+	local defaultOwner = nil
+	if game:GetFastFlag("FixPackageOwnerDefault") then
+		if game.CreatorId == 0 then
+			-- default owner is local user if game has no owner
+			defaultOwner = { creatorId = getUserId() }
+		else
+			-- default owner is game owner
+			defaultOwner = { creatorId = game.CreatorId }
+		end
+	end
 	self.state = {
 		assetId = nil,
 
 		-- Those states should be managed by the most common parent. In this case, assetConfig.
 		name = nil,
 		description = nil,
-		owner = game:GetFastFlag("FixPackageOwnerDefault") and {creatorId = game.CreatorId} or nil, -- default owner is game owner
+		owner = defaultOwner,
 		genres = {
 			DEFAULT_GENRE
 		},

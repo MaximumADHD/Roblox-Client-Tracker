@@ -24,7 +24,6 @@ local isEmpty = require(Plugin.Src.Util.isEmpty)
 local ShowDialog = require(Plugin.Src.Util.ShowDialog)
 local DownloadCloudTable = require(Plugin.Src.Thunks.DownloadCloudTable)
 local UploadCloudTable = require(Plugin.Src.Thunks.UploadCloudTable)
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local FFlagLocalizationToolsAllowUploadZhCjv = game:GetFastFlag("LocalizationToolsAllowUploadZhCjv")
 
@@ -48,13 +47,8 @@ function CloudTableSection:init()
 		local localization = props.Localization
 		local analytics = props.Analytics:get()
 		local mouse = props.Mouse
+		local theme = props.Stylizer
 
-		local theme
-		if THEME_REFACTOR then
-			theme = props.Stylizer
-		else
-			theme = props.Theme
-		end
 		local showDialog = ShowDialog(plugin, localization, theme, mouse)
 
 		props.UpdateCloudTable(api, localization, analytics, showDialog, isReplace)
@@ -75,12 +69,7 @@ end
 
 function CloudTableSection:render()
 	local props = self.props
-	local theme
-	if THEME_REFACTOR then
-		theme = props.Stylizer
-	else
-		theme = props.Theme:get("CloudTableSection")
-	end
+	local theme = props.Stylizer
 	local localization = props.Localization
 	local layoutOrder = props.LayoutOrder
 	local active = not props.IsBusy
@@ -186,8 +175,7 @@ end
 
 CloudTableSection = withContext({
 	Plugin = ContextServices.Plugin,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	API = ContextServices.API,
 	Mouse = ContextServices.Mouse,

@@ -10,7 +10,7 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local Cryo = require(Plugin.Packages.Cryo)
+local Dash = require(Plugin.Packages.Dash)
 local Framework = require(Plugin.Packages.Framework)
 
 local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
@@ -24,6 +24,8 @@ local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
 
 local Util = Framework.Util
 local StyleModifier = Util.StyleModifier
+
+local join = Dash.join
 
 if THEME_REFACTOR then
 	local darkThemeOverride = {
@@ -66,7 +68,7 @@ if THEME_REFACTOR then
 			SectionPadding = UDim.new(0, 15),
 		},
 
-		[ui.Button] = Cryo.Dictionary.join(getRawComponentStyle("Button"), {
+		[ui.Button] = join(getRawComponentStyle("Button"), {
 			["&Selectable"] = {
 				BackgroundStyle = {
 					BorderSize = 1,
@@ -91,7 +93,7 @@ if THEME_REFACTOR then
 			},
 		}),
 
-		[ui.Image] = Cryo.Dictionary.join(getRawComponentStyle("Image"), {
+		[ui.Image] = join(getRawComponentStyle("Image"), {
 			["&HelpIcon"] = {
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Color = StyleKey.HelpIconColor,

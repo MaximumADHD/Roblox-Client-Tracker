@@ -10,6 +10,7 @@ local ScreenOrientationSwitcher = Roact.Component:extend("ScreenOrientationSwitc
 
 function ScreenOrientationSwitcher:init()
 	self.switchBackToPortraitOnClose = false
+	self.priorScreenOrientation = nil
 end
 
 function ScreenOrientationSwitcher:didUpdate(priorProps)
@@ -20,18 +21,25 @@ function ScreenOrientationSwitcher:didUpdate(priorProps)
 
 	local playerGUI = self.props.playerGUI or PlayerGUI
 	local menuOpen = self.props.menuOpen
+	local screenSize = self.props.screenSize
 
 	if menuOpen ~= priorProps.menuOpen then
 		if menuOpen then -- on menu opened
-			if playerGUI.CurrentScreenOrientation == Enum.ScreenOrientation.Portrait then
+
+			local portraitOrientation = playerGUI.CurrentScreenOrientation == Enum.ScreenOrientation.Portrait
+			local portraitRatio = screenSize.Y > screenSize.X
+
+			if portraitOrientation or portraitRatio then
 				self.switchBackToPortraitOnClose = true
+				self.priorScreenOrientation = playerGUI.ScreenOrientation
 				playerGUI.ScreenOrientation = Enum.ScreenOrientation.LandscapeLeft
 			else
 				self.switchBackToPortraitOnClose = false
 			end
 		elseif self.switchBackToPortraitOnClose then -- on menu closed
 			self.switchBackToPortraitOnClose = false
-			playerGUI.ScreenOrientation = Enum.ScreenOrientation.Portrait
+			playerGUI.ScreenOrientation = self.priorScreenOrientation
+			self.priorScreenOrientation = nil
 		end
 	end
 end
@@ -43,6 +51,7 @@ end
 local function mapStateToProps(state, props)
 	return {
 		menuOpen = state.isMenuOpen,
+		screenSize = state.screenSize,
 	}
 end
 

@@ -16,7 +16,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local Cryo = require(Plugin.Packages.Cryo)
 
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
@@ -53,7 +52,7 @@ function UploadableIcon:render()
 	local preview = self.props.Preview or false
 	local hover = self.state.Hovering
 
-	local theme = THEME_REFACTOR and self.props.Stylizer or self.props.Theme:get("Plugin")
+	local theme = self.props.Stylizer
 	local localization = self.props.Localization
 
 	return Roact.createElement("ImageLabel", {
@@ -130,8 +129,7 @@ end
 
 
 UploadableIcon = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
 })(UploadableIcon)

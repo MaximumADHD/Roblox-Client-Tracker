@@ -13,6 +13,7 @@ local webKeys = require(Plugin.Core.Util.Permissions.Constants).webKeys
 
 local FFlagToolboxGrantUniverseAudioPermissions = game:GetFastFlag("ToolboxGrantUniverseAudioPermissions")
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
+local FFlagBubbleUpNetworkInterface = game:GetFastFlag("InsertAssetBubbleUpNetwork")
 
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local InsertService = game:GetService("InsertService")
@@ -57,11 +58,17 @@ local function getInsertPosition()
 	end
 end
 
-local function grantAssetPermission(assetId)
+local function grantAssetPermission(assetId, networkInterface) --networkInterface added with FFLagInsertAssetBubbleUpNetwork
 	if game.GameId == 0 then
 		return
 	end
-	local networkInterface = NetworkInterface.new()
+
+	local _networkInterface = nil -- delete with FFlagBubbleUpNetworkInterface
+	if FFlagBubbleUpNetworkInterface then
+		_networkInterface = networkInterface
+	else
+		_networkInterface = NetworkInterface.new()
+	end 
 
 	local requestBody = {
 		requests = {
@@ -72,7 +79,7 @@ local function grantAssetPermission(assetId)
 			},
 		},
 	}
-	return networkInterface
+	return _networkInterface
 		:grantAssetPermissionWithTimeout(assetId, requestBody)
 		:catch(function(err)
 			return err
@@ -80,7 +87,7 @@ local function grantAssetPermission(assetId)
 		:await()
 end
 
-local function doPermissionGrantDialogForAsset(assetName, assetId, assetTypeId, insertToolPromise, localization)
+local function doPermissionGrantDialogForAsset(assetName, assetId, assetTypeId, insertToolPromise, localization, networkInterface) --networkInterface added with FFLagInsertAssetBubbleUpNetwork
 	if game.GameId == 0 then
 		return
 	end
@@ -103,7 +110,7 @@ local function doPermissionGrantDialogForAsset(assetName, assetId, assetTypeId, 
 		assetType = localization:getText("General", "AssetTypeAudio"),
 	})
 	if grantPermission then
-		local result = grantAssetPermission(assetId)
+		local result = grantAssetPermission(assetId, networkInterface) -- networkInterface added with FFLagInsertAssetBubbleUpNetwork
 		if result ~= nil and result.Body ~= nil and result.Body.Error ~= nil and result.Body.Error.Code ~= nil and result.Body.Error.Code ~= 4 then
 			warn(localization:getText("GrantAssetPermission", "Failure", {
 				assetId = assetId,
@@ -117,14 +124,14 @@ local function doPermissionGrantDialogForAsset(assetName, assetId, assetTypeId, 
 	end
 end
 
-local function insertAudio(assetId, assetName, insertToolPromise, localization)
+local function insertAudio(assetId, assetName, insertToolPromise, localization, networkInterface) -- networkInterface added with FFLagInsertAssetBubbleUpNetwork
 	local url = Urls.constructAssetIdString(assetId)
 	if DebugFlags.shouldDebugUrls() then
 		print(("Inserting sound %s"):format(url))
 	end
 
 	if FFlagToolboxGrantUniverseAudioPermissions then
-		grantAssetPermission(assetId)
+		grantAssetPermission(assetId, networkInterface) -- networkInterface added with FFLagInsertAssetBubbleUpNetwork
 	end
 
 	local soundObj = Instance.new("Sound")
@@ -137,7 +144,7 @@ local function insertAudio(assetId, assetName, insertToolPromise, localization)
 	if FFlagToolboxEnableAudioGrantDialog then
 		-- If for some reason this fails in an unexpected way, we want it to happen after inserting
 		-- the asset for parity with the drag/drop code where the asset is already inserted.
-		doPermissionGrantDialogForAsset(assetName, assetId, Enum.AssetType.Audio.Value, insertToolPromise, localization)
+		doPermissionGrantDialogForAsset(assetName, assetId, Enum.AssetType.Audio.Value, insertToolPromise, localization, networkInterface)
 	end
 
 	return soundObj
@@ -390,12 +397,12 @@ local function assetTypeIdToString(assetTypeId)
 	end
 end
 
-local function dispatchInsertAsset(options, insertToolPromise)
+local function dispatchInsertAsset(options, insertToolPromise, networkInterface) -- networkInterface added with FFLagInsertAssetBubbleUpNetwork
 	local isPackage = Category.categoryIsPackage(options.categoryName)
 	if isPackage then
 		return insertPackage(options.assetId)
 	elseif options.assetTypeId == Enum.AssetType.Audio.Value then
-		return insertAudio(options.assetId, options.assetName, insertToolPromise, options.localization)
+		return insertAudio(options.assetId, options.assetName, insertToolPromise, options.localization, networkInterface)
 	elseif options.assetTypeId == Enum.AssetType.Decal.Value then
 		return insertDecal(options.plugin, options.assetId, options.assetName)
 	elseif options.assetTypeId == Enum.AssetType.Plugin.Value then
@@ -451,7 +458,7 @@ Options table format:
 local activeDraggingState = nil
 -- This is the public api we should be using.
 -- insertToolPromise can be nil if dragged, so we store it locally to preserve it on final drop.
-function InsertAsset.tryInsert(options, insertToolPromise, assetWasDragged)
+function InsertAsset.tryInsert(options, insertToolPromise, assetWasDragged, networkInterface)
 	if assetWasDragged then
 		local selectedRibbonTool = options.plugin:GetSelectedRibbonTool()
 		if not RIBBON_DRAGGER_TOOLS[selectedRibbonTool] then
@@ -466,13 +473,13 @@ function InsertAsset.tryInsert(options, insertToolPromise, assetWasDragged)
 		}
 		InsertAsset.doDragInsertAsset(options)
 	else
-		local value = InsertAsset.doInsertAsset(options, insertToolPromise)
+		local value = InsertAsset.doInsertAsset(options, insertToolPromise, networkInterface)
 		return value
 	end
 end
 
 --TODO: CLIDEVSRVS-1691: Replacing category index with assetTypeId for package insertion in lua toolbox
-function InsertAsset.doInsertAsset(options, insertToolPromise)
+function InsertAsset.doInsertAsset(options, insertToolPromise, networkInterface) -- networkInterface added with FFLagInsertAssetBubbleUpNetwork
 	local assetId = options.assetId
 	local assetName = options.assetName
 	local assetTypeId = options.assetTypeId
@@ -485,7 +492,7 @@ function InsertAsset.doInsertAsset(options, insertToolPromise)
 
 	options.localization = InsertAsset._localization
 
-	local asset, errorMessage = dispatchInsertAsset(options, insertToolPromise)
+	local asset, errorMessage = dispatchInsertAsset(options, insertToolPromise, networkInterface)
 
 	if assetTypeId == Enum.AssetType.Plugin.Value then
 		ChangeHistoryService:SetWaypoint(("After attempt to install plugin %d"):format(assetId))

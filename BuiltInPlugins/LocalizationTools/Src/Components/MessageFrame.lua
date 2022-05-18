@@ -9,18 +9,11 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local MessageFrame = Roact.PureComponent:extend("MessageFrame")
 
 function MessageFrame:render()
 	local props = self.props
-	local theme
-	if THEME_REFACTOR then
-		theme = props.Stylizer
-	else
-		theme = props.Theme:get("MessageFrame")
-	end
+	local theme = props.Stylizer
 	local message = props.Message
 
 	return Roact.createElement("Frame", {
@@ -47,8 +40,7 @@ end
 
 
 MessageFrame = withContext({
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = ContextServices.Stylizer,
 })(MessageFrame)
 
 

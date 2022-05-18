@@ -1,5 +1,3 @@
-game:DefineFastFlag("RigBuilderNoTwoFace", false)
-game:DefineFastFlag("RigBuilderFixR6HRPTransparency", false)
 game:DefineFastFlag("RigBuilderMeshPartHeads", false)
 
 local RigCreator = {}
@@ -25,11 +23,7 @@ function RigCreator.CreateR6Rig()
 	Root.Name = "HumanoidRootPart"
 	Root.Anchored = true
 	Root.CanCollide = true
-	if game:GetFastFlag("RigBuilderFixR6HRPTransparency") then
-		Root.Transparency = 1
-	else
-		Root.Transparency = 0.5
-	end
+	Root.Transparency = 1
 	Root.Size = Vector3.new(2, 2, 1)
 	Root.Parent = parent
 	Root.CFrame = CFrame.new(0, 5.2, 4.5)
@@ -263,7 +257,7 @@ local function r15RigImported(rig)
 	local r15Head = rig:WaitForChild("Head", 1) -- 1 second timeout
 
 	local existingFace = r15Head:FindFirstChild("face") or r15Head:FindFirstChild("Face")
-	if not game:GetFastFlag("RigBuilderNoTwoFace") or existingFace == nil then
+	if existingFace == nil then
 		local face = Instance.new("Decal", r15Head)
 		face.Name = "face"
 		face.Texture = "rbxasset://textures/face.png"

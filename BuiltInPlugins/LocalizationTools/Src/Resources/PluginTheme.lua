@@ -29,13 +29,7 @@ local lightThemeOverride = {
 	[StyleKey.ProgressSpinnerImage] = "rbxasset://textures/LightThemeLoadingCircle.png",
 }
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 return function(makeMock)
-   if (not THEME_REFACTOR) then
-      return {}
-   end
-
    ui:add("MainView")
    ui:add("MessageFrame")
    ui:add("CloudTableSection")

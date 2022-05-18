@@ -38,6 +38,13 @@ local function fixCFrame(item, cframe)
 	root.CFrame = cframe
 end
 
+local function cloneItem(sourceItem, editingItem)
+	local clone = sourceItem:clone()
+	clone.Anchored = false
+	fixCFrame(clone, ModelUtil:getRootCFrame(editingItem))
+	return clone
+end
+
 local function publishCageEdits(item, isClothes)
 	local newIdsInner = {}
 	local newIdsOuter = {}
@@ -73,8 +80,7 @@ local function generateRigidAccessory(store, editingItem, sourceItem)
 	local attachmentCFrameLocal = attachmentPoint.AttachmentCFrame
 	local itemCFrameLocal = attachmentPoint.ItemCFrame
 
-	local clone = sourceItem:clone()
-	fixCFrame(clone, ModelUtil:getRootCFrame(editingItem))
+	local clone = cloneItem(sourceItem, editingItem)
 
 	AccessoryUtil:createOrReuseAttachmentInstance(clone, editingItem.Parent, attachmentName, attachmentCFrameLocal, itemCFrameLocal)
 	clone.Size = itemSize
@@ -92,8 +98,7 @@ local function generateCagedAccessory(store, editingItem, sourceItem)
 	local attachmentCFrameLocal = attachmentPoint.AttachmentCFrame
 	local itemCFrameLocal = attachmentPoint.ItemCFrame
 
-	local clone = sourceItem:clone()
-	fixCFrame(clone, ModelUtil:getRootCFrame(editingItem))
+	local clone = cloneItem(sourceItem, editingItem)
 
 	AccessoryUtil:clearWelds(clone)
 	AccessoryUtil:createOrReuseAttachmentInstance(clone, editingItem.Parent, attachmentName, attachmentCFrameLocal, itemCFrameLocal)
@@ -114,8 +119,7 @@ local function generateCagedAvatar(store, editingItem, sourceItem)
 	local state = store:getState()
 	local pointData = state.cageData.pointData
 
-	local clone = sourceItem:clone()
-	fixCFrame(clone, ModelUtil:getRootCFrame(editingItem))
+	local clone = cloneItem(sourceItem, editingItem)
 
 	clone.Parent = Workspace
 	ModelUtil:deformAvatar(clone, pointData, Enum.CageType.Outer)

@@ -73,6 +73,7 @@ local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimati
 local GetFFlagRootMotionTrack = require(Plugin.LuaFlags.GetFFlagRootMotionTrack)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
+local GetFFlagFaceControlsEditorFixNonChannelPath = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorFixNonChannelPath)
 
 local FFlagShowDualScrollbars = game:DefineFastFlag("ACEShowDualScrollbars", false)
 
@@ -336,7 +337,12 @@ function EditorController:init()
 	self.applyValueToFacsSliderPartners = function(instanceName, path, trackType, tck, value)
 
 		if not GetFFlagFaceControlsEditorUI() then return end
-		if not trackType == Constants.TRACK_TYPES.Facs then return end
+		
+		if GetFFlagFaceControlsEditorFixNonChannelPath() then
+			if trackType ~= Constants.TRACK_TYPES.Facs then return end
+		else
+			if not trackType == Constants.TRACK_TYPES.Facs then return end
+		end
 
 		local facsName = path[1]
 		local crossMapping = Constants.FacsCrossMappings[facsName]
@@ -352,30 +358,31 @@ function EditorController:init()
 			elseif facsName == Constants.FacsNames.EyesLookDown then
 				self.props.ValueChanged(instanceName, {Constants.FacsNames.EyesLookUp}, trackType, tck, 0, self.props.Analytics)
 			end
-		end
+		end		
+		if crossMapping ~= nil or not GetFFlagFaceControlsEditorFixNonChannelPath() then			
+			--in the face controls editor some sliders control 2 facs properties,
+			--for those also when the value is increased to one side,
+			--the other side gets set to 0
+			local sliderGroup = crossMapping.sliderGroup
+			if sliderGroup then
+				if value >0 then
+					local groupPartnerName = nil
+					if crossMapping.indexInGroup == 1 then
+						groupPartnerName = sliderGroup[2]
+					else
+						groupPartnerName = sliderGroup[1]
+					end
 
-		--in the face controls editor some sliders control 2 facs properties,
-		--for those also when the value is increased to one side,
-		--the other side gets set to 0
-		local sliderGroup = crossMapping.sliderGroup
-		if sliderGroup then
-			if value >0 then
-				local groupPartnerName = nil
-				if crossMapping.indexInGroup == 1 then
-					groupPartnerName = sliderGroup[2]
-				else
-					groupPartnerName = sliderGroup[1]
+					self.props.ValueChanged(instanceName, {groupPartnerName}, trackType, tck, 0, self.props.Analytics)
 				end
-
-				self.props.ValueChanged(instanceName, {groupPartnerName}, trackType, tck, 0, self.props.Analytics)
 			end
-		end
 
-		-- also apply value change to symmetry partner for facs values if symmetry setting is enabled
-		if self.props.SymmetryEnabled then
-			local symmetryPartner = crossMapping.symmetryPartner
-			if symmetryPartner then
-				self.applyValueToSymmetryPartner(instanceName, symmetryPartner, trackType, tck, value)
+			-- also apply value change to symmetry partner for facs values if symmetry setting is enabled
+			if self.props.SymmetryEnabled then
+				local symmetryPartner = crossMapping.symmetryPartner
+				if symmetryPartner then
+					self.applyValueToSymmetryPartner(instanceName, symmetryPartner, trackType, tck, value)
+				end
 			end
 		end
 	end
@@ -407,7 +414,11 @@ function EditorController:init()
 	self.applyValueToFacsSliderPartners_deprecated2 = function(instanceName, path, trackType, tck, value)
 
 		if not GetFFlagFaceControlsEditorUI() then return end
-		if not trackType == Constants.TRACK_TYPES.Facs then return end
+		if GetFFlagFaceControlsEditorFixNonChannelPath() then	
+			if trackType ~= Constants.TRACK_TYPES.Facs then return end
+		else
+			if not trackType == Constants.TRACK_TYPES.Facs then return end			
+		end
 
 		local facsName = path
 		local crossMapping = Constants.FacsCrossMappings[facsName]
@@ -423,32 +434,33 @@ function EditorController:init()
 			elseif facsName == Constants.FacsNames.EyesLookDown then
 				self.props.ValueChanged_deprecated2(instanceName, Constants.FacsNames.EyesLookUp, trackType, tck, 0, self.props.Analytics)
 			end
-		end
+		end		
+		if crossMapping ~= nil or not GetFFlagFaceControlsEditorFixNonChannelPath() then			
+			--in the face controls editor some sliders control 2 facs properties,
+			--for those also when the value is increased to one side,
+			--the other side gets set to 0
+			local sliderGroup = crossMapping.sliderGroup
+			if sliderGroup then
+				if value >0 then
+					local groupPartnerName = nil
+					if crossMapping.indexInGroup == 1 then
+						groupPartnerName = sliderGroup[2]
+					else
+						groupPartnerName = sliderGroup[1]
+					end
 
-		--in the face controls editor some sliders control 2 facs properties,
-		--for those also when the value is increased to one side,
-		--the other side gets set to 0
-		local sliderGroup = crossMapping.sliderGroup
-		if sliderGroup then
-			if value >0 then
-				local groupPartnerName = nil
-				if crossMapping.indexInGroup == 1 then
-					groupPartnerName = sliderGroup[2]
-				else
-					groupPartnerName = sliderGroup[1]
+					self.props.ValueChanged_deprecated2(instanceName, groupPartnerName, trackType, tck, 0, self.props.Analytics)
 				end
-
-				self.props.ValueChanged_deprecated2(instanceName, groupPartnerName, trackType, tck, 0, self.props.Analytics)
 			end
-		end
 
-		-- also apply value change to symmetry partner for facs values if symmetry setting is enabled
-		if self.props.SymmetryEnabled then
-			local symmetryPartner = crossMapping.symmetryPartner
-			if symmetryPartner then
-				self.applyValueToSymmetryPartner_deprecated2(instanceName, symmetryPartner, trackType, tck, value)
+			-- also apply value change to symmetry partner for facs values if symmetry setting is enabled
+			if self.props.SymmetryEnabled then
+				local symmetryPartner = crossMapping.symmetryPartner
+				if symmetryPartner then
+					self.applyValueToSymmetryPartner_deprecated2(instanceName, symmetryPartner, trackType, tck, value)
+				end
 			end
-		end
+		end	
 	end
 
 	self.applyValueToSymmetryPartner_deprecated2 = function(instanceName, symmetryPartner, trackType, tck, value)

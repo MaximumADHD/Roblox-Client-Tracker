@@ -14,7 +14,6 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local ContextServices = Framework.ContextServices
 local UILibraryWrapper = ContextServices.UILibraryWrapper :: any
 local provideMockContext = Framework.TestHelpers.provideMockContext
-local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
 local MakeTheme = require(Plugin.Src.Util.MakeTheme)
 
@@ -56,16 +55,9 @@ return function(props, children)
     local uiLibWrapper = props.UILibraryWrapper
     if not uiLibWrapper then
         uiLibWrapper = UILibraryWrapper.new(UILibrary)
-        if not FFlagDevFrameworkUseCreateContext then
-            table.insert(contextItems, uiLibWrapper)
-        end
     end
 
-    if FFlagDevFrameworkUseCreateContext then
-        return provideMockContext(contextItems, {
-            UILibraryWrapper = ContextServices.provide({uiLibWrapper}, children)
-        })
-    else
-        return provideMockContext(contextItems, children)
-    end
+    return provideMockContext(contextItems, {
+        UILibraryWrapper = ContextServices.provide({uiLibWrapper}, children)
+    })
 end

@@ -54,8 +54,6 @@ local MENU_ENTRIES = {
 	"BasicInfo",
 }
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local ScreenCreateNewGame = Roact.PureComponent:extend("ScreenCreateNewGame")
 
 function ScreenCreateNewGame:init()
@@ -108,7 +106,7 @@ end
 
 function ScreenCreateNewGame:render()
 	local props = self.props
-	local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
+	local theme = props.Stylizer
 	local localization = props.Localization
 	local apiImpl = props.API:get()
 
@@ -270,8 +268,7 @@ function ScreenCreateNewGame:render()
 end
 
 ScreenCreateNewGame = withContext({
-	Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
-	Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	API = ContextServices.API,
 })(ScreenCreateNewGame)

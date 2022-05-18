@@ -94,17 +94,20 @@ function MainPlugin:init(props)
 	end
 
 	self.toggleWidgetEnabled = function(targetWidget)
-		self:setState(function(state)
+		local newEnabled = not self.state[targetWidget].Enabled
+		self.props.Plugin:SetSetting(targetWidget .. "_Enabled", newEnabled)
+		self:setState(function(_state)
 			return {
 				[targetWidget] = {
-					Enabled = not state[targetWidget].Enabled,
+					Enabled = newEnabled,
 				}
 			}
 		end)
 	end
 
 	self.onWidgetClose = function(targetWidget)
-		self:setState(function(state)
+		self.props.Plugin:SetSetting(targetWidget .. "_Enabled", false)
+		self:setState(function(_state)
 			return {
 				[targetWidget] = {
 					Enabled = false,
@@ -233,6 +236,9 @@ function MainPlugin:render()
 end
 
 function MainPlugin:willUnmount()
+	local props = self.props
+	local plugin = props.Plugin
+
 	plugin:SetSetting("callstackWindow_Enabled", self.state.callstackWindow.Enabled)
 	plugin:SetSetting("watchWindow_Enabled", self.state.watchWindow.Enabled)
 	plugin:SetSetting("breakpointsWindow_Enabled", self.state.breakpointsWindow.Enabled)

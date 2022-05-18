@@ -7,13 +7,7 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
-local Roact = require(Plugin.Packages.Roact)
-
 local ContextItem = Framework.ContextServices.ContextItem
--- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
-local Provider = Framework.ContextServices.Provider
-
-local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
 -- Pull the numeric part out of a content id (of form rbxasset://xyz or rbxtemp://xyz etc.)
 local function numericIdFromContentId(id)
@@ -34,14 +28,6 @@ function ImportAssetHandler.new(imageUploader, userId)
 	assert(self._imageUploader, "ImportAssetHandler expects an ImageUploader")
 
 	return self
-end
-
-if not FFlagDevFrameworkUseCreateContext then
-	function ImportAssetHandler:createProvider(root)
-		return Roact.createElement(Provider, {
-			ContextItem = self,
-		}, {root})
-	end
 end
 
 function ImportAssetHandler:handleAsset(assetFile : File, onAssetUpload : (string) -> ())

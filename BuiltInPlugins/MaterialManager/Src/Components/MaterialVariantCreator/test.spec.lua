@@ -5,9 +5,12 @@ return function()
 
 	local MaterialVariantCreator = require(script.Parent)
 
+	local defaultMaterialVariant = Enum.Material.Plastic
+
 	local function createTestElement(props: MaterialVariantCreator.Props?)
 		props = props or {
 			SetStudsPerTileError = function() end,
+			MaterialVariantTemp = defaultMaterialVariant,
 		}
 
 		return mockContext({
@@ -27,6 +30,7 @@ return function()
 			ErrorName = "ErrorName",
 			ErrorBaseMaterial = "ErrorBaseMaterial",
 			SetStudsPerTileError = function() end,
+			MaterialVariantTemp = defaultMaterialVariant,
 		})
 		local instance = Roact.mount(element, container)
 

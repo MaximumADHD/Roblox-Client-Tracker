@@ -8,7 +8,7 @@
 		Vector3 ItemSize: Size/Scale of the MeshPart for the editingItem.
 		callback SelectEditingItem: update store values when editing item is selected, provided via mapDispatchToProps
 		callback VerifyBounds: function to determine if item is within chosen accessory bounds.
-		table EditingItemContext: context item for the object the user selected to edit, provided via mapToProps.
+		table EditingItemContext: context item for the object the user selected to edit, provided via withContext.
 ]]
 
 local InsertService = game:GetService("InsertService")

@@ -22,19 +22,11 @@ local CloudTableSection = require(Plugin.Src.Components.CloudTableSection)
 local EmbeddedTableSection = require(Plugin.Src.Components.EmbeddedTableSection)
 local ImageLocalizationSection = require(Plugin.Src.Components.ImageLocalizationSection)
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local MainView = Roact.PureComponent:extend("MainView")
 
 function MainView:render()
 	local props = self.props
-	local theme
-	if THEME_REFACTOR then
-		theme = props.Stylizer
-	else
-		theme = props.Theme:get("MainView")
-	end
-
+	local theme = props.Stylizer
 	local layoutOrder = LayoutOrderIterator.new()
 
 	return Roact.createElement("Frame", {
@@ -91,8 +83,7 @@ end
 
 
 MainView = withContext({
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = ContextServices.Stylizer,
 })(MainView)
 
 

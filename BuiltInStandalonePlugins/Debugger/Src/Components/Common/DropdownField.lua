@@ -128,18 +128,21 @@ function DropdownField:render()
 	local props = self.props
 	local style = props.Style
 	local localization = props.Localization
+	local displayTextButtonDropdown = not props.ShouldShowDropdownIcon and not props.HamburgerMenu
 	local buttonText = ""
-	if props.NumDisplay == props.MaxDisplay then
-		buttonText = localization:getText(props.Widget, self.props.KeyTexts[1])
-	else
-		buttonText = localization:getText(props.Widget, "DropdownFieldText", {NumFields = props.NumDisplay})
+	if displayTextButtonDropdown then
+		if props.NumDisplay == props.MaxDisplay then
+			buttonText = localization:getText(props.Widget, self.props.KeyTexts[1])
+		else
+			buttonText = localization:getText(props.Widget, "DropdownFieldText", {NumFields = props.NumDisplay})
+		end
 	end
-	local frameLength = props.ShouldShowDropdownIcon and Constants.BUTTON_SIZE or props.DropdownWidth
+	
+	local frameLength = if displayTextButtonDropdown then props.DropdownWidth else Constants.BUTTON_SIZE 
 
-	return Roact.createElement("Frame", {
+	return Roact.createElement(Pane, {
 		Size = UDim2.new(0, frameLength, 1, 0),
 		LayoutOrder = props.LayoutOrder,
-		BorderColor3 = style.BorderColor
 	}, {
 		IconView = props.ShouldShowDropdownIcon and Roact.createElement(IconButton, {
 			Size = UDim2.new(0, Constants.BUTTON_SIZE, 0, Constants.BUTTON_SIZE),
@@ -147,7 +150,12 @@ function DropdownField:render()
 			TooltipText = props.Tooltip,
 			OnClick = self.openMenu,
 		}),
-		ButtonView = not props.ShouldShowDropdownIcon and Roact.createElement(Button, {
+		HamburgerIconView = props.HamburgerMenu and Roact.createElement(IconButton, {
+			Size = UDim2.new(0, Constants.BUTTON_SIZE, 0, Constants.BUTTON_SIZE),
+			LeftIcon = "rbxasset://textures/Debugger/Breakpoints/MoreButton.png",
+			OnClick = self.openMenu,
+		}),
+		ButtonView = displayTextButtonDropdown and Roact.createElement(Button, {
 			Text = buttonText,
 			TextSize = style.TextSize,
 			Font = style.Font,

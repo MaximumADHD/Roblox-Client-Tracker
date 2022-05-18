@@ -1,8 +1,6 @@
 --[[
 	The main view inside the window that appears when you click on Manage Plugins.
 ]]
-local FFlagPluginManagementFixUnmountSetState = game:GetFastFlag("PluginManagementFixUnmountSetState")
-
 local Plugin = script.Parent.Parent.Parent
 
 local MemStorageService = game:GetService("MemStorageService")
@@ -69,22 +67,14 @@ function ManagementMainView:init()
 		local props = self.props
 		props.Analytics:report("TryUpdateAllPlugins")
 		props.UpdateAllPlugins(props.Analytics)
-		if FFlagPluginManagementFixUnmountSetState then
-			spawn(function()
-				if self.mounted then
-					self.refreshPlugins()
-					self:setState({
-						updating = false,
-					})
-				end
-			end)
-		else
-			wait()
-			self.refreshPlugins()
-			self:setState({
-				updating = false,
-			})
-		end
+		spawn(function()
+			if self.mounted then
+				self.refreshPlugins()
+				self:setState({
+					updating = false,
+				})
+			end
+		end)
 	end
 
 	self.findPlugins = function()

@@ -10,7 +10,6 @@ local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetText
 local Framework = require(Plugin.Packages.Framework)
 local FrameworkUI = Framework.UI
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local Button = FrameworkUI.Button
 local HoverArea = FrameworkUI.HoverArea
 local ToggleButtonWithTitle = require(Plugin.Src.Components.ToggleButtonWithTitle)
@@ -138,7 +137,7 @@ local Options = Roact.PureComponent:extend(script.Name)
 function Options:render()
 	local props = self.props
 	local dialog = props.Dialog
-	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+	local theme = props.Stylizer
 	local localization = props.Localization
 
 	local shutdownButtonText = localization:getText("General","ButtonShutdownAllServers")
@@ -254,8 +253,7 @@ end
 
 
 Options = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Dialog = Dialog,
 })(Options)

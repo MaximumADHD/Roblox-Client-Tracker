@@ -18,7 +18,6 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local FrameworkUI = Framework.UI
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local UILibrary = require(Plugin.Packages.UILibrary)
 
 local Container = FrameworkUI.Container
@@ -42,7 +41,7 @@ function SettingsPage:init()
 	self.contentHeightChanged = function(rbx)
 		local scrollingFrame = self.scrollingFrameRef.current
 		if scrollingFrame then
-			local theme = THEME_REFACTOR and self.props.Stylizer or self.props.Theme:get("Plugin")
+			local theme = self.props.Stylizer
 			-- TODO remove the + settingPadding and replace with UIPadding once UISYS-469 is fixed
 			scrollingFrame.CanvasSize = UDim2.new(1, 0, 0, rbx.AbsoluteContentSize.Y + theme.settingsPage.settingPadding)
 		end
@@ -80,7 +79,7 @@ end
 
 function SettingsPage:render()
 	local props = self.props
-	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+	local theme = props.Stylizer
 
 	local title = props.Title
 	local loadState = props.LoadState
@@ -137,8 +136,7 @@ function SettingsPage:render()
 end
 
 SettingsPage = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(SettingsPage)
 
 SettingsPage = RoactRodux.connect(

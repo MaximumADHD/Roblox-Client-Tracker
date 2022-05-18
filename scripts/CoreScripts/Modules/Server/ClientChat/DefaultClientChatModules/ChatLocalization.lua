@@ -2,15 +2,32 @@
 
 local LocalizationService = game:GetService("LocalizationService")
 local ChatService = game:GetService("Chat")
+
 local success, userShouldLocalizeServerMessages = pcall(function() return UserSettings():IsUserFeatureEnabled("UserShouldLocalizeServerMessages") end)
 local userShouldLocalizeServerMessages = success and userShouldLocalizeServerMessages
+
+local flagExists, userFixWhisperLocalization = pcall(function() return UserSettings():IsUserFeatureEnabled("UserShouldFixWhisperLocalization") end)
+local FixWhisperLocalization = flagExists and userFixWhisperLocalization
 
 local existingKey = {
 	["System"] = "InGame.Chat.Label.SystemMessagePrefix",
 	["Team"] = "InGame.Chat.Label.TeamMessagePrefix",
-	["From "] = "InGame.Chat.Label.From",
-	["To "] = "InGame.Chat.Label.To",
+	["From "] = not FixWhisperLocalization and "InGame.Chat.Label.From" or nil,
+	["To "] = not FixWhisperLocalization and "InGame.Chat.Label.To" or nil,
 }
+
+local whisperPatterns = {
+	["From(%s.+)"] = {
+		English = "From",
+		LocalizationKey = "InGame.Chat.Label.From",
+	},
+
+	["To(%s.+)"] = {
+		English = "To",
+		LocalizationKey = "InGame.Chat.Label.To",
+	},
+}
+
 local ChatLocalization = {
 	_hasFetchedLocalization = false,
 }
@@ -19,7 +36,7 @@ function ChatLocalization:_getTranslator()
 	if not self._translator and not self._hasFetchedLocalization then
 		-- Don't keep retrying if this fails.
 		self._hasFetchedLocalization = true
-		
+
 		local localizationTable = ChatService:WaitForChild("ChatLocalization", 4)
 		if localizationTable then
 			self._translator = localizationTable:GetTranslator(LocalizationService.RobloxLocaleId)
@@ -102,12 +119,26 @@ function ChatLocalization:tryLocalize(rawString)
 	if existingKey[rawString] then
 		return self:Get(existingKey[rawString], rawString)
 	end
+
 	for enString, localizationKey in pairs(existingKey) do
 		if string.find(rawString, enString) then
 			local localizedPart = self:Get(localizationKey, enString)
 			return string.gsub(rawString, enString, localizedPart, 1)
 		end
 	end
+
+	if FixWhisperLocalization then
+		for pattern, info in pairs(whisperPatterns) do
+			local startIndex = string.find(rawString, pattern)
+			local namePart = string.match(rawString, pattern)
+			if startIndex and namePart then
+				local localizedPart = self:Get(info.LocalizationKey, info.English)
+				local startPart = if startIndex > 1 then rawString:sub(1, startIndex - 1) else ""
+				return startPart .. localizedPart .. namePart
+			end
+		end
+	end
+
 	return rawString
 end
 

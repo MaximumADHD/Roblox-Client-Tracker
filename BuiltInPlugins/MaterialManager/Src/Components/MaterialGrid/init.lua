@@ -27,6 +27,8 @@ local getMaterialPath = require(Util.getMaterialPath)
 local ContainsPath = require(Util.ContainsPath)
 local MaterialController = require(Util.MaterialController)
 
+local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Plugin.Src.Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
+
 local MaterialGrid = Roact.PureComponent:extend("MaterialGrid")
 
 export type Props = {
@@ -45,15 +47,21 @@ type _Props = Props & {
 
 type _Style = {
 	BackgroundColor : Color3,
+	Padding : number,
 }
 
 type _MaterialTileStyle = {
+	IconSize : UDim2,
+	MaterialVariant : _Types.Image,
+	MaterialVariantIconPosition : UDim2,
+	MaxWidth : number,
 	Padding : number,
 	Size : UDim2,
 	Spacing : number,
+	StatusIconPosition : UDim2,
+	TextLabelSize : UDim2,
 	TextSize : number,
 }
-
 function MaterialGrid:init()
 	self.onClick = function(item)
 		self.props.dispatchSetMaterial(item)
@@ -158,12 +166,18 @@ function MaterialGrid:render()
 	}, {
 		Grid = Roact.createElement(InfiniteScrollingGrid, {
 			AbsoluteMax = #self.state.materials,
-			CellPadding = UDim2.fromOffset(materialTileStyle.Padding, materialTileStyle.Padding),
+			CellPadding = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then
+				UDim2.fromOffset(style.Padding, style.Padding)
+				else
+				UDim2.fromOffset(materialTileStyle.Padding, materialTileStyle.Padding),
 			CellSize = materialTileStyle.Size,
 			BufferedRows = 2,
 			Items = self.state.materials,
 			Loading = false,
-			Padding = materialTileStyle.Padding,
+			Padding = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then
+				style.Padding
+				else
+				materialTileStyle.Padding,
 			RenderItem = self.renderTile,
 			Size = UDim2.fromScale(1, 1),
 		})

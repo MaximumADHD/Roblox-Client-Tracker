@@ -3,6 +3,8 @@ local Plugin = script:FindFirstAncestor("Toolbox")
 
 local FFlagToolboxAssetGridRefactor6 = game:GetFastFlag("ToolboxAssetGridRefactor6")
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
+local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
+
 local FFlagToolboxAudioDiscoveryRound2 =
 	require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscoveryRound2()
 
@@ -57,6 +59,7 @@ type _ExternalAudioRowProps = {
 	CanInsertAsset: () -> boolean,
 	InsertAsset: (assetWasDragged: boolean) -> nil,
 	OnExpanded: (assetId: number) -> nil,
+	LogImpression: (asset: AssetInfo.AssetInfo) -> ()?,
 	-- When removing FFlagToolboxAudioDiscoveryRound2 tryOpenAssetConfig should not be optional
 	tryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn?,
 }
@@ -159,18 +162,22 @@ function AudioRow:didMount()
 	local props: AudioRowProps = self.props
 
 	local asset = props.AssetInfo
+	local logImpression = props.LogImpression
 
 	if FFlagToolboxAudioDiscoveryRound2 and asset.Asset then
 		props.getCanManageAsset(getNetwork(self), asset.Asset.Id)
 	end
-
-	if not FFlagToolboxAssetGridRefactor6 or (FFlagToolboxAssetGridRefactor6 and asset) then
-		local assetAnalyticsContext
-		if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-			local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
-			assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
+	if FFlagToolboxHomeViewAnalyticsUpdate and asset and logImpression then
+		logImpression(asset)
+	else
+		if not FFlagToolboxAssetGridRefactor6 or (FFlagToolboxAssetGridRefactor6 and asset) then
+			local assetAnalyticsContext
+			if FFlagToolboxUsePageInfoInsteadOfAssetContext then
+				local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
+				assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
+			end
+			self.props.AssetAnalytics:get():logImpression(asset, assetAnalyticsContext)
 		end
-		self.props.AssetAnalytics:get():logImpression(asset, assetAnalyticsContext)
 	end
 end
 

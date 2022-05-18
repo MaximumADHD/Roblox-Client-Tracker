@@ -2,6 +2,7 @@
 -- TODO STM-151: Re-enable Luau Type Checks when Luau bugs are fixed
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
 local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
+local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
 
 local HttpService = game:GetService("HttpService")
 
@@ -398,10 +399,10 @@ function AssetAnalytics:logGoBack(
 	)
 end
 
-if FFlagToolboxAudioDiscoveryRound2 then
-	function AssetAnalytics:onCTABannerClicked(creatorId: number)
+if FFlagToolboxAudioDiscoveryRound2 and FFlagToolboxHomeViewAnalyticsUpdate then
+	function AssetAnalytics:onCallToActionBannerClicked(creatorId: number)
 		print(creatorId)
-		self.senders.sendEventDeferred(EVENT_TARGET, EVENT_CONTEXT, "CTABannerClicked", {
+		self.senders.sendEventDeferred(EVENT_TARGET, EVENT_CONTEXT, "CallToActionBannerClicked", {
 			creatorId = creatorId,
 		})
 	end

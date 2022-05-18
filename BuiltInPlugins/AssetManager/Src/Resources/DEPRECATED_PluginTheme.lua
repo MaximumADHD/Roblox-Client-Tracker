@@ -1,7 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagRemoveUILibraryComponentsPart1 = game:GetFastFlag("RemoveUILibraryComponentsPart1")
-
 local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = require(Plugin.Packages.Framework)
@@ -12,17 +10,13 @@ local StudioUI = Framework.StudioUI
 local StudioFrameworkStyles = StudioUI.StudioFrameworkStyles
 
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local StyleTable = Util.StyleTable
 local Style = Util.Style
 local StyleModifier = Util.StyleModifier
-local StudioTheme = Framework.Style.Themes.StudioTheme
+local Spritesheet = Util.Spritesheet
 
 local UI = Framework.UI
 local Decoration = UI.Decoration
-
-local UILibrary = require(Plugin.Packages.UILibrary)
-local Spritesheet = if FFlagRemoveUILibraryComponentsPart1 then Util.Spritesheet else UILibrary.Util.Spritesheet
 
 local getUILibraryTheme = require(script.Parent.DEPRECATED_UILibraryTheme)
 

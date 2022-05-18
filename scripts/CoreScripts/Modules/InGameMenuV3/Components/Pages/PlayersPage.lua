@@ -8,7 +8,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local UIBlox = InGameMenuDependencies.UIBlox
-local Cryo = InGameMenuDependencies.Cryo
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local t = InGameMenuDependencies.t
 
@@ -16,6 +15,9 @@ local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCurso
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
 local withStyle = UIBlox.Core.Style.withStyle
+local IconButton = UIBlox.App.Button.IconButton
+local ButtonStack = UIBlox.App.Button.ButtonStack
+local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local Images = UIBlox.App.ImageSet.Images
 local getIconSize = UIBlox.App.ImageSet.getIconSize
 
@@ -25,15 +27,13 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local Flags = InGameMenu.Flags
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
-local GetFFlagEnableVoiceChatSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatSpeakerIcons)
 local FocusHandler = require(script.Parent.Parent.Connection.FocusHandler)
 local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicator)
+local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 
 local PlayerCell = require(InGameMenu.Components.PlayerCell)
 local PlayerContextualMenu = require(InGameMenu.Components.PlayerContextualMenu)
 local CoPlayInviteCell = require(InGameMenu.Components.CoPlayInviteCell)
-
-local FFlagLuaMenuPerfImprovements = require(InGameMenu.Flags.FFlagLuaMenuPerfImprovements)
 
 local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
 local Divider = require(InGameMenu.Components.Divider)
@@ -45,15 +45,13 @@ local PageUtils = require(InGameMenu.Components.Pages.PageUtils)
 local OpenReportDialog = require(InGameMenu.Actions.OpenReportDialog)
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
-local GetFriends = require(InGameMenu.Thunks.GetFriends)
+local InviteUserToPlaceId = require(InGameMenu.Thunks.InviteUserToPlaceId)
 
 local Assets = require(InGameMenu.Resources.Assets)
 
 local Constants = require(InGameMenu.Resources.Constants)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
-local GetFFlagEnableVoiceChatNewPlayersList = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatNewPlayersList)
-local GetFFlagEnableVoiceChatNewMuteAll = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatNewMuteAll)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 local BlockPlayer = require(RobloxGui.Modules.PlayerList.Thunks.BlockPlayer)
@@ -73,28 +71,32 @@ local CONTEXT_SIDE_PADDING = 24 -- context menu should keep 24 px away from bott
 local CONTEXT_PADDING_TOP = 24 -- context side padding
 -- context menu is 20 px away from right bound of player list if there are available space
 local CONTEXT_LEFT_PADDING = 20
+local CONTEXT_MENU_BUTTON_CONTAINER_WIDTH = 118
+local CONTEXT_MENU_BUTTON_CONTAINER_HEIGHT = 36
+local CONTEXT_MENU_BUTTON_WIDTH = 47
 
 local ICON_SIZE = getIconSize(UIBlox.App.ImageSet.Enum.IconSize.Medium)
 
 local PlayersPage = Roact.PureComponent:extend("PlayersPage")
 
 PlayersPage.validateProps = t.strictInterface({
+	players = t.array(playerInterface),
 	isMenuOpen = t.boolean,
 	voiceEnabled = t.optional(t.boolean),
 	inspectMenuEnabled = t.boolean,
-	friends = t.map(t.integer, t.enum(Enum.FriendStatus)),
 	inviteFriends = t.array(t.strictInterface({
 		IsOnline = t.boolean,
 		Id = t.integer,
 		Username = t.string,
 		Displayname = t.string,
 	})),
+	incomingFriendRequests = t.array(playerInterface),
 	dispatchOpenReportDialog = t.callback,
 	closeMenu = t.callback,
 	blockPlayer = t.callback,
 	unblockPlayer = t.callback,
-	getFriends = t.callback,
 	openInviteFriendsPage = t.callback,
+	dispatchInviteUserToPlaceId = t.callback,
 	pageTitle = t.string,
 	screenSize = t.Vector2,
 	currentPage = t.optional(t.string),
@@ -102,19 +104,26 @@ PlayersPage.validateProps = t.strictInterface({
 	isReportDialogOpen = t.optional(t.boolean),
 	isGamepadLastInput = t.optional(t.boolean),
 	isCurrentZoneActive = t.optional(t.boolean),
+	blockingUtility = t.union(t.Instance, t.table),
+	playersService = t.union(t.Instance, t.table),
 })
+
+PlayersPage.defaultProps = {
+	players = {},
+	inviteFriends = {},
+	incomingFriendRequests = {},
+	blockingUtility = BlockingUtility,
+	playersService = Players,
+}
 
 function PlayersPage:init()
 	self:setState({
-		players = Players:GetPlayers(),
 		selectedPlayer = nil,
 		selectedPlayerPosition = Vector2.new(0, 0),
-		pageSizeY = 0,
 		voiceChatEnabled = false,
 		allMuted = false,
 		selectedPlayerRef = nil,
 		firstPlayerRef = nil,
-		inviteFriends = {},
 	})
 
 	self.setSelectedPlayerRef = function(rbx)
@@ -136,42 +145,30 @@ function PlayersPage:init()
 		})
 	end
 
-	if FFlagLuaMenuPerfImprovements then
-		self.positionChanged = function(rbx)
+	self.positionChanged = function(rbx)
+		self:setState({
+			selectedPlayerPosition = rbx.AbsolutePosition,
+		})
+	end
+
+	self.toggleMoreActions = function(userId)
+		local player = self.props.playersService:GetPlayerByUserId(userId)
+
+		if player ~= nil and self.state.selectedPlayer == player then
 			self:setState({
-				selectedPlayerPosition = rbx.AbsolutePosition,
+				selectedPlayer = Roact.None,
 			})
-		end
-		self.toggleMoreActions = function(userId)
-			local player = Players:GetPlayerByUserId(userId)
-			if self.state.selectedPlayer == player then
-				self:setState({
-					selectedPlayer = Roact.None,
-				})
-			else
-				self:setState({
-					selectedPlayer = player,
-				})
-			end
+		else
+			self:setState({
+				selectedPlayer = player or Roact.None,
+			})
 		end
 	end
 
 	PageUtils.initOnScrollDownState(self)
-
-	self.props.getFriends():andThen(function(friends)
-		self:setState({
-			inviteFriends = friends,
-		})
-	end)
-end
-
-local function sortPlayers(p1, p2)
-	return p1.Name:lower() < p2.Name:lower()
 end
 
 function PlayersPage:renderListEntries(style, localized, players)
-	local sortedPlayers = Cryo.List.sort(players, sortPlayers)
-
 	local layoutOrder = 0
 	local listComponents = {}
 
@@ -197,9 +194,63 @@ function PlayersPage:renderListEntries(style, localized, players)
 		onActivated = function()
 			self.props.openInviteFriendsPage()
 		end,
-		friends = self.state.inviteFriends,
+		friends = self.props.inviteFriends,
 	})
 	layoutOrder = layoutOrder + 1
+
+	-- incoming friend request section
+	if #self.props.incomingFriendRequests > 0 then
+		listComponents["header_incoming_friend_requests"] = Roact.createElement("TextLabel", {
+			BackgroundTransparency = style.Theme.BackgroundContrast.Transparency,
+			BackgroundColor3 = style.Theme.BackgroundContrast.Color,
+			BorderSizePixel = 0,
+			Font = style.Font.Footer.Font,
+			Text = localized.headerIncomingFriendRequests,
+			TextColor3 = style.Theme.TextDefault.Color,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextTransparency = style.Theme.TextDefault.Transparency,
+			TextSize = style.Font.BaseSize * style.Font.Footer.RelativeSize,
+			Size = UDim2.new(1, 0, 0, 24),
+			LayoutOrder = layoutOrder,
+		}, {
+			PaddingLeftadding = Roact.createElement("UIPadding", {
+				PaddingTop = UDim.new(0, 6),
+				PaddingBottom = UDim.new(0, 6),
+				PaddingLeft = UDim.new(0, 24),
+			}),
+		})
+
+		layoutOrder = layoutOrder + 1
+
+		-- incoming friend request players
+		for _, player in pairs(self.props.incomingFriendRequests) do
+			local id = player.UserId
+			listComponents["incoming_request_player_" .. id] = Roact.createElement(PlayerCell, {
+				username = player.Name,
+				displayName = player.DisplayName,
+				userId = player.UserId,
+				isOnline = true,
+				isSelected = self.state.selectedPlayer == player,
+				LayoutOrder = layoutOrder,
+
+				onActivated = self.toggleMoreActions,
+
+				[Roact.Change.AbsolutePosition] = self.state.selectedPlayer == player and self.positionChanged or nil,
+				[Roact.Ref] = self.setSelectedPlayerRef,
+			}, {
+				Icon = Roact.createElement(IconButton, {
+					size = UDim2.fromOffset(0, 0),
+					icon = Images["icons/actions/friends/friendpending"],
+					position = self.props.position,
+					anchorPoint = Vector2.new(1, 0.5),
+					layoutOrder = self.props.layoutOrder,
+					onActivated = self.toggleMoreActions,
+				}),
+			})
+
+			layoutOrder = layoutOrder + 1
+		end
+	end
 
 	-- players header section
 	listComponents["header_player"] = Roact.createElement("TextLabel", {
@@ -224,29 +275,8 @@ function PlayersPage:renderListEntries(style, localized, players)
 
 	layoutOrder = layoutOrder + 1
 
-	for index, player in pairs(sortedPlayers) do
-		local id = FFlagLuaMenuPerfImprovements and player.UserId or index
-
-		local positionChanged = FFlagLuaMenuPerfImprovements and self.positionChanged
-			or function(rbx)
-				self:setState({
-					selectedPlayerPosition = rbx.AbsolutePosition,
-				})
-			end
-
-		local toggleMoreActions = FFlagLuaMenuPerfImprovements and self.toggleMoreActions
-			or function()
-				if self.state.selectedPlayer == player then
-					self:setState({
-						selectedPlayer = Roact.None,
-					})
-				else
-					self:setState({
-						selectedPlayer = player,
-					})
-				end
-			end
-
+	for index, player in pairs(players) do
+		local id = player.UserId
 		local RoactRef
 		if index == 1 and not self.state.selectedPlayer then
 			RoactRef = self.setFirstPlayerRef
@@ -254,11 +284,7 @@ function PlayersPage:renderListEntries(style, localized, players)
 			RoactRef = self.setSelectedPlayerRef
 		end
 
-		local iconStyle = "MicLight"
-
-		if GetFFlagEnableVoiceChatSpeakerIcons() then
-			iconStyle = player ~= Players.LocalPlayer and "SpeakerLight" or "MicLight"
-		end
+		local iconStyle = player ~= self.props.playersService.LocalPlayer and "SpeakerLight" or "MicLight"
 
 		listComponents["player_" .. id] = Roact.createElement(PlayerCell, {
 			username = player.Name,
@@ -268,22 +294,25 @@ function PlayersPage:renderListEntries(style, localized, players)
 			isSelected = self.state.selectedPlayer == player,
 			LayoutOrder = layoutOrder,
 
-			onActivated = toggleMoreActions,
+			onActivated = self.toggleMoreActions,
 
-			[Roact.Change.AbsolutePosition] = self.state.selectedPlayer == player and positionChanged or nil,
+			[Roact.Change.AbsolutePosition] = self.state.selectedPlayer == player and self.positionChanged or nil,
 			[Roact.Ref] = RoactRef,
 		}, {
-			Icon = self.props.voiceEnabled and player ~= Players.LocalPlayer and Roact.createElement(VoiceIndicator, {
-				userId = tostring(player.UserId),
-				hideOnError = true,
-				iconStyle = iconStyle,
-				onClicked = toggleMoreActions,
-			}),
+			Icon = self.props.voiceEnabled and player ~= self.props.playersService.LocalPlayer and Roact.createElement(
+				VoiceIndicator,
+				{
+					userId = tostring(player.UserId),
+					hideOnError = true,
+					iconStyle = iconStyle,
+					onClicked = self.toggleMoreActions,
+				}
+			),
 		})
 
 		layoutOrder = layoutOrder + 1
 
-		if index < #sortedPlayers then
+		if index < #players then
 			listComponents["divider_" .. id] = Roact.createElement(Divider, {
 				LayoutOrder = layoutOrder,
 				Size = UDim2.new(1, -DIVIDER_INDENT, 0, 1),
@@ -297,47 +326,18 @@ function PlayersPage:renderListEntries(style, localized, players)
 end
 
 function PlayersPage:getMoreActions(localized)
+	-- determine friend status
+	local player = self.state.selectedPlayer
+	local friendStatus = self.props.playersService.LocalPlayer:GetFriendStatus(player)
+
 	local moreActions = {}
-
 	if self.state.selectedPlayer ~= nil then
-		if self.state.selectedPlayer ~= Players.LocalPlayer then
-			local friendStatus = Enum.FriendStatus.Unknown
-			if self.props.friends[self.state.selectedPlayer.UserId] then
-				friendStatus = self.props.friends[self.state.selectedPlayer.UserId]
+		if self.state.selectedPlayer ~= self.props.playersService.LocalPlayer then
+			-- get friend actions based on friend status
+			local friendAction = self:getFriendAction(localized, friendStatus)
+			if friendAction then
+				table.insert(moreActions, friendAction)
 			end
-
-			local friendActionText = localized.addFriend
-			local friendActionIcon = Images["icons/actions/friends/friendAdd"]
-			if friendStatus == Enum.FriendStatus.Friend then
-				friendActionText = localized.unfriend
-				friendActionIcon = Images["icons/actions/friends/friendRemove"]
-			elseif friendStatus == Enum.FriendStatus.FriendRequestSent then
-				friendActionText = localized.cancelFriend
-				friendActionIcon = Images["icons/actions/friends/friendRemove"] or Assets.Images.CancelFriendRequest
-			elseif friendStatus == Enum.FriendStatus.FriendRequestReceived then
-				friendActionText = localized.acceptFriend
-			end
-
-			table.insert(moreActions, {
-				text = friendActionText,
-				icon = friendActionIcon,
-				onActivated = function()
-					local player = self.state.selectedPlayer
-					if
-						friendStatus == Enum.FriendStatus.Friend
-						or friendStatus == Enum.FriendStatus.FriendRequestSent
-					then
-						Players.LocalPlayer:RevokeFriendship(player)
-					else
-						Players.LocalPlayer:RequestFriendship(player)
-						AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
-						SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsRequestFriendName, {})
-					end
-					self:setState({
-						selectedPlayer = Roact.None,
-					})
-				end,
-			})
 		end
 
 		table.insert(moreActions, {
@@ -353,7 +353,7 @@ function PlayersPage:getMoreActions(localized)
 			end,
 		})
 
-		if self.state.selectedPlayer ~= Players.LocalPlayer then
+		if self.state.selectedPlayer ~= self.props.playersService.LocalPlayer then
 			table.insert(moreActions, {
 				text = localized.reportAbuse,
 				icon = Images["icons/actions/feedback"],
@@ -374,10 +374,7 @@ function PlayersPage:getMoreActions(localized)
 					local isMuted = voiceParticipant.isMutedLocally
 					table.insert(moreActions, {
 						text = isMuted and "Unmute Player" or "Mute Player",
-						icon = GetFFlagEnableVoiceChatSpeakerIcons() and VoiceChatServiceManager:GetIcon(
-							isMuted and "Unmute" or "Mute",
-							"Misc"
-						) or VoiceChatServiceManager:GetIcon(isMuted and "Blank" or "Muted"),
+						icon = VoiceChatServiceManager:GetIcon(isMuted and "Unmute" or "Mute", "Misc"),
 						onActivated = function()
 							local player = self.state.selectedPlayer
 							log:debug("Muting Player {}", player.UserId)
@@ -390,8 +387,7 @@ function PlayersPage:getMoreActions(localized)
 				end
 			end
 
-			local player = self.state.selectedPlayer
-			local isBlocked = BlockingUtility:IsPlayerBlockedByUserId(player.UserId)
+			local isBlocked = self.props.blockingUtility:IsPlayerBlockedByUserId(player.UserId)
 			table.insert(moreActions, {
 				text = isBlocked and localized.unblockPlayer or localized.blockPlayer,
 				icon = Images["icons/actions/block"],
@@ -407,10 +403,141 @@ function PlayersPage:getMoreActions(localized)
 					})
 				end,
 			})
+
+			-- include action to unfriend if player is a friend
+			if self.state.selectedPlayer ~= self.props.playersService.LocalPlayer then
+				if friendStatus == Enum.FriendStatus.Friend then
+					table.insert(moreActions, {
+						text = localized.unfriend,
+						icon = Images["icons/actions/friends/friendRemove"],
+						onActivated = function()
+							self.props.playersService.LocalPlayer:RevokeFriendship(player)
+
+							-- todo: add analytics
+						end,
+					})
+				end
+			end
 		end
 	end
 
 	return moreActions
+end
+
+function PlayersPage:getFriendAction(localized, friendStatus)
+	local player = self.state.selectedPlayer
+
+	-- check if player is blocked
+	local isBlocked = self.props.blockingUtility:IsPlayerBlockedByUserId(player.UserId)
+	if isBlocked then
+		return nil
+	end
+
+	-- if we're not friends yet, we can either send a friend request
+	if friendStatus == Enum.FriendStatus.Unknown or friendStatus == Enum.FriendStatus.NotFriend then
+		return {
+			text = localized.addFriend,
+			icon = Images["icons/actions/friends/friendAdd"],
+			onActivated = function()
+				self.props.playersService.LocalPlayer:RequestFriendship(player)
+
+				-- send analytic events
+				AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
+				SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsRequestFriendName, {})
+			end,
+		}
+	elseif friendStatus == Enum.FriendStatus.FriendRequestSent then
+		return {
+			text = localized.pendingFriendRequest,
+			icon = Images["icons/actions/friends/friendpending"],
+			onActivated = function()
+				-- cancel request if there's a pending friend request
+				self.props.playersService.LocalPlayer:RevokeFriendship(player)
+
+				-- todo: send analytics counter and event
+			end,
+		}
+	elseif friendStatus == Enum.FriendStatus.FriendRequestReceived then
+		-- check to see if we have a pending incoming friend acceptance
+		-- this happens when we have a pending friend request and we
+		-- are about to decide whether we want to reject or accept friend request
+		if self.state.pendingIncomingPlayerInvite then
+			-- show reject/accept friend buttons
+			return {
+				text = localized.accept,
+				icon = Images["icons/actions/friends/friendpending"],
+				onActivated = function()
+					self:setState({
+						pendingIncomingPlayerInvite = Roact.None,
+					})
+				end,
+				renderRightSideGadget = self.state.pendingIncomingPlayerInvite and function()
+					return {
+						ButtonStack = Roact.createElement(ButtonStack, {
+							buttons = {
+								{
+									buttonType = ButtonType.Secondary,
+									props = {
+										icon = Images["icons/actions/reject"],
+										size = UDim2.fromOffset(
+											CONTEXT_MENU_BUTTON_WIDTH,
+											CONTEXT_MENU_BUTTON_CONTAINER_HEIGHT
+										),
+										onActivated = function()
+											self.props.playersService.LocalPlayer:RevokeFriendship(player)
+											self.setState({
+												selectedPlayer = Roact.None,
+												pendingIncomingPlayerInvite = Roact.None,
+											})
+										end,
+										layoutOrder = 1,
+									},
+								},
+								{
+									buttonType = ButtonType.PrimarySystem,
+									props = {
+										icon = Images["icons/actions/friends/friendAdd"],
+										size = UDim2.fromOffset(
+											CONTEXT_MENU_BUTTON_WIDTH,
+											CONTEXT_MENU_BUTTON_CONTAINER_HEIGHT
+										),
+										onActivated = function()
+											self.props.playersService.LocalPlayer:RequestFriendship(player)
+											self.setState({
+												selectedPlayer = Roact.None,
+												pendingIncomingPlayerInvite = Roact.None,
+											})
+										end,
+										layoutOrder = 2,
+									},
+								},
+							},
+							buttonHeight = CONTEXT_MENU_BUTTON_CONTAINER_HEIGHT,
+							forcedFillDirection = Enum.FillDirection.Horizontal,
+							marginBetween = 8,
+						}),
+					}
+				end,
+				rightSideGadgetSize = self.state.pendingIncomingPlayerInvite and Vector2.new(
+					CONTEXT_MENU_BUTTON_CONTAINER_WIDTH,
+					CONTEXT_MENU_BUTTON_CONTAINER_HEIGHT
+				),
+			}
+		else
+			-- show pending incoming friend invite state
+			return {
+				text = localized.pendingFriendRequest,
+				icon = Images["icons/actions/friends/friendpending"],
+				onActivated = function()
+					self:setState({
+						pendingIncomingPlayerInvite = player,
+					})
+				end,
+			}
+		end
+	else
+		return nil
+	end
 end
 
 function PlayersPage:renderFocusHandler(canCaptureFocus)
@@ -452,13 +579,15 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(style, localized, get
 
 		-- always keep 24 px distance from side of screen if viewport is too limited
 		-- otherwise just postion to the right of all menu content with padding 20
-		if self.state.selectedPlayerPosition.Y - ACTION_HEIGHT + actionMenuHeight + CONTEXT_PADDING_TOP < screenHeight then
-			moreMenuPositionYOffset = math.max(0,self.state.selectedPlayerPosition.Y - ACTION_HEIGHT)
+		if
+			self.state.selectedPlayerPosition.Y - ACTION_HEIGHT + actionMenuHeight + CONTEXT_PADDING_TOP < screenHeight
+		then
+			moreMenuPositionYOffset = math.max(0, self.state.selectedPlayerPosition.Y - ACTION_HEIGHT)
 		else
 			moreMenuPositionYOffset = 0
 			maxMenuHeight = screenHeight - CONTEXT_MENU_HEADER_HEIGHT
 			-- If menu doesn't fill the screen, anchor the menu from the bottom of the screen
-			anchorFromBottom = actionMenuHeight + (CONTEXT_PADDING_TOP) < screenHeight
+			anchorFromBottom = actionMenuHeight + CONTEXT_PADDING_TOP < screenHeight
 		end
 
 		if
@@ -499,44 +628,36 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(style, localized, get
 		useLeaveButton = true,
 		scrollingDown = self.state.scrollingDown,
 		pageTitle = self.props.pageTitle,
-		titleChildren = GetFFlagEnableVoiceChatNewMuteAll() and self.props.voiceEnabled and Roact.createElement(
-			"ImageButton",
-			{
-				Size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
-				BackgroundTransparency = 1,
-				AnchorPoint = Vector2.new(1, 0.5),
-				BorderSizePixel = 0,
-				Position = UDim2.new(1, 4, 0.5, 0),
-				Image = VoiceChatServiceManager:GetIcon(self.state.allMuted and "UnmuteAll" or "MuteAll", "Misc"),
-				[Roact.Event.Activated] = function()
-					VoiceChatServiceManager:MuteAll(not self.state.allMuted)
-					self:setState({
-						allMuted = not self.state.allMuted,
-					})
-				end,
-				SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect) or nil,
-			}
-		),
+		titleChildren = self.props.voiceEnabled and Roact.createElement("ImageButton", {
+			Size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
+			BackgroundTransparency = 1,
+			AnchorPoint = Vector2.new(1, 0.5),
+			BorderSizePixel = 0,
+			Position = UDim2.new(1, 4, 0.5, 0),
+			Image = VoiceChatServiceManager:GetIcon(self.state.allMuted and "UnmuteAll" or "MuteAll", "Misc"),
+			[Roact.Event.Activated] = function()
+				VoiceChatServiceManager:MuteAll(not self.state.allMuted)
+				self:setState({
+					allMuted = not self.state.allMuted,
+				})
+			end,
+			SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect) or nil,
+		}),
 	}, {
 		PlayerListContent = withStyle(function(style)
 			return Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				Size = UDim2.new(1, 0, 1, 0),
-
-				[Roact.Change.AbsoluteSize] = function(rbx)
-					self:setState({
-						pageSizeY = rbx.AbsoluteSize.Y,
-					})
-				end,
 			}, {
 				PlayerList = Roact.createElement(BarOnTopScrollingFrame, {
 					Position = UDim2.new(0, 0, 0, 0),
 					Size = UDim2.new(1, 0, 1, 0),
-					CanvasSize = UDim2.new(1, 0, 0, #self.state.players * (PLAYER_LABEL_HEIGHT + 1)),
+					-- CanvasSize = UDim2.new(1, 0, 0, #self.state.players * (PLAYER_LABEL_HEIGHT + 1)),
+					CanvasSize = UDim2.new(1, 0, 0, #self.props.players * (PLAYER_LABEL_HEIGHT + 1)),
 					ScrollingEnabled = self.state.selectedPlayer == nil,
 					onCanvasPositionChanged = self.onScroll,
-				}, self:renderListEntries(style, localized, self.state.players)),
+				}, self:renderListEntries(style, localized, self.props.players)),
 
 				MoreActionsMenu = moreActionsMenuPanel,
 			})
@@ -552,6 +673,7 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(style, localized, get
 			onNavigateAway = function()
 				self:setState({
 					selectedPlayer = Roact.None,
+					pendingIncomingPlayerInvite = Roact.None,
 				})
 			end,
 		}),
@@ -576,7 +698,11 @@ function PlayersPage:render()
 			blockPlayer = "CoreScripts.InGameMenu.Actions.BlockPlayer",
 			unblockPlayer = "CoreScripts.InGameMenu.Actions.UnblockPlayer",
 			headerPlayers = "CoreScripts.InGameMenu.Header.Players",
-			headerFriendRequests = "CoreScripts.InGameMenu.Header.FriendRequests",
+			headerIncomingFriendRequests = "CoreScripts.InGameMenu.Header.IncomingFriendRequests",
+			pendingFriendRequest = "CoreScripts.InGameMenu.Action.PendingFriendRequest",
+			inviteFriend = "CoreScripts.InGameMenu.Action.InviteFriend",
+			inviteSent = "CoreScripts.InGameMenu.Action.InviteSent",
+			accept = "CoreScripts.InGameMenu.Action.Accept",
 		})(function(localized)
 			return self:renderWithLocalized(style, localized)
 		end)
@@ -586,7 +712,6 @@ end
 function PlayersPage:didUpdate(prevProps, prevState)
 	if self.props.isMenuOpen and not prevProps.isMenuOpen then
 		self:setState({
-			players = Players:GetPlayers(),
 			selectedPlayer = Roact.None,
 		})
 	end
@@ -601,17 +726,10 @@ function PlayersPage:didUpdate(prevProps, prevState)
 	end
 end
 
-return RoactRodux.UNSTABLE_connect2(function(state, props)
-	local voiceEnabled = nil
-	if GetFFlagEnableVoiceChatNewPlayersList() then
-		voiceEnabled = state.voiceState.voiceEnabled
-	end
-
+return RoactRodux.connect(function(state, props)
 	return {
 		isMenuOpen = state.isMenuOpen,
-		voiceEnabled = voiceEnabled,
-		friends = state.friends,
-		inviteFriends = state.inviteFriends,
+		voiceEnabled = state.voiceState.voiceEnabled,
 		inspectMenuEnabled = state.displayOptions.inspectMenuEnabled,
 		screenSize = state.screenSize,
 		currentPage = state.menuPage,
@@ -637,11 +755,11 @@ end, function(dispatch)
 		unblockPlayer = function(player)
 			return dispatch(UnblockPlayer(player))
 		end,
-		getFriends = function()
-			return dispatch(GetFriends(Players))
-		end,
 		openInviteFriendsPage = function()
 			return dispatch(SetCurrentPage("InviteFriends"))
+		end,
+		dispatchInviteUserToPlaceId = function(userId, placeId)
+			dispatch(InviteUserToPlaceId(userId, placeId))
 		end,
 	}
 end)(PlayersPage)

@@ -18,7 +18,6 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FrameworkUI = Framework.UI
 local Button = FrameworkUI.Button
 
@@ -46,7 +45,7 @@ function DeveloperSubscriptionList:render()
     local onDeveloperSubscriptionEdited = self.props.OnDeveloperSubscriptionEdited
     local onDeveloperSubscriptionCreated = self.props.OnDeveloperSubscriptionCreated
     local listItemHeight = self.props.ListItemHeight or 32
-    local theme = THEME_REFACTOR and self.props.Stylizer or self.props.Theme:get("Plugin")
+    local theme = self.props.Stylizer
     local localization = self.props.Localization
     local layoutOrder = self.props.LayoutOrder
 
@@ -183,8 +182,7 @@ end
 
 
 DeveloperSubscriptionList = withContext({
-    Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+    Stylizer = ContextServices.Stylizer,
     Localization = ContextServices.Localization,
 })(DeveloperSubscriptionList)
 

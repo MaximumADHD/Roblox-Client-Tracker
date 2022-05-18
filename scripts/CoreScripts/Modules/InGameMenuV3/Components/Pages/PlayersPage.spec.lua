@@ -1,6 +1,13 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
-	local Modules = game:GetService("CoreGui").RobloxGui.Modules
+	local CoreGui = game:GetService("CoreGui")
+	local Modules = CoreGui.RobloxGui.Modules
+
+	local Rhodium = require(CorePackages.Rhodium)
+	local Element = Rhodium.Element
+	local XPath = Rhodium.XPath
+	local VirtualInput = Rhodium.VirtualInput
+
 	local act = require(Modules.act)
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jestExpect = JestGlobals.expect
@@ -35,14 +42,33 @@ return function()
 	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 	local GuiService = game:GetService("GuiService")
 
-	local function getMountableTreeAndStore(props)
+	local localPlayer = {
+		UserId = 1234,
+		Name = "Myself",
+		DisplayName = "Myself",
+		GetFriendStatus = function(player)
+			return nil
+		end,
+	}
+
+	local function getMountableTreeAndStore(props, otherPlayers)
 		local store = Rodux.Store.new(reducer, {}, { Rodux.thunkMiddleware })
+
+		local players = {
+			localPlayer,
+		}
+
+		if otherPlayers and #otherPlayers then
+			players = Cryo.List.join(players, otherPlayers)
+		end
+
 		local playersPage = Roact.createElement(
 			PlayersPage,
 			Cryo.Dictionary.join({
 				pageTitle = "People",
 				screenSize = Vector2.new(800, 600),
 				isMenuOpen = true,
+				players = players,
 			}, props or {})
 		)
 
@@ -166,6 +192,76 @@ return function()
 			end)
 
 			jestExpect(GuiService.SelectedCoreObject).toBeDefined()
+
+			Roact.unmount(instance)
+		end)
+	end)
+
+	describe("Players list rendering of sections", function()
+		it("Should show only local player in the people section", function()
+			local element = getMountableTreeAndStore()
+			jestExpect(Players.LocalPlayer.PlayerGui).toBeDefined()
+
+			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+
+			-- ensure friend is showing up in the proper sections
+			jestExpect(Players.LocalPlayer.PlayerGui:FindFirstChild("header_incoming_friend_requests", true)).toBeNil()
+			jestExpect(Players.LocalPlayer.PlayerGui:FindFirstChild("player_1234", true)).toBeDefined()
+
+			Roact.unmount(instance)
+		end)
+
+		it("Should show player in incoming players request section for player invite", function()
+			local potentialFriend = {
+				UserId = 1235,
+				Name = "potentialFriend",
+				DisplayName = "Potential Friend",
+			}
+
+			local element = getMountableTreeAndStore({
+				incomingFriendRequests = {
+					potentialFriend,
+				},
+			})
+			jestExpect(Players.LocalPlayer.PlayerGui).toBeDefined()
+
+			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+
+			-- ensure friend is showing up in the proper sections
+			jestExpect(Players.LocalPlayer.PlayerGui:FindFirstChild("header_incoming_friend_requests", true)).toBeDefined()
+			jestExpect(Players.LocalPlayer.PlayerGui:FindFirstChild("incoming_request_player_1235", true)).toBeDefined()
+
+			Roact.unmount(instance)
+		end)
+
+		it("Should show player context menu when player is pressed", function()
+			local mockPlayersService = {
+				LocalPlayer = localPlayer,
+				GetPlayerByUserId = function(_)
+					return localPlayer
+				end,
+				GetFriendStatus = function(_)
+					return Enum.FriendStatus.Unknown
+				end,
+			}
+
+			local element = getMountableTreeAndStore({
+				playersService = mockPlayersService,
+			})
+
+			local folder = Instance.new("ScreenGui", CoreGui)
+			local instance = Roact.mount(element, folder)
+			local playerCellPath = XPath.new(folder:FindFirstChild("player_1234", true))
+			local playerCellImageButton = Element.new(playerCellPath)
+			jestExpect(playerCellImageButton).toBeDefined()
+			jestExpect(playerCellImageButton:getRbxInstance()).toBeDefined()
+
+			act(function()
+				playerCellImageButton:click()
+				VirtualInput.waitForInputEventsProcessed()
+			end)
+
+			jestExpect(CoreGui:FindFirstChild("MoreActionsMenu", true)).toBeDefined()
 
 			Roact.unmount(instance)
 		end)

@@ -106,7 +106,7 @@ function SalesPage:renderContent(theme, localization, localizedContent)
 
 	local premiumBenefitsLink
 	local premiumBenefitsSize
-	if game:GetFastFlag("CMSPremiumBenefitsLink2") and AssetConfigUtil.isCatalogAsset(props.assetTypeEnum) then
+	if AssetConfigUtil.isCatalogAsset(props.assetTypeEnum) then
 		premiumBenefitsLink = string.format(ContentProvider.BaseUrl .. "catalog/configure?id=%d#!/sales", props.assetId)
 		premiumBenefitsSize = if FFlagRemoveUILibraryGetTextSize then
 			GetTextSize(localizedContent.Sales.PremiumBenefits, nil, nil, Vector2.new(0, 0))
@@ -178,14 +178,12 @@ function SalesPage:renderContent(theme, localization, localizedContent)
 			LayoutOrder = orderIterator:getNextOrder(),
 		}),
 
-		Separator2 = game:GetFastFlag("CMSPremiumBenefitsLink2")
-			and AssetConfigUtil.isCatalogAsset(props.assetTypeEnum)
+		Separator2 = AssetConfigUtil.isCatalogAsset(props.assetTypeEnum)
 			and Roact.createElement(Separator, {
 				LayoutOrder = orderIterator:getNextOrder(),
 			}) or nil,
 
-		PremiumBenefitsLink = game:GetFastFlag("CMSPremiumBenefitsLink2")
-			and AssetConfigUtil.isCatalogAsset(props.assetTypeEnum)
+		PremiumBenefitsLink = AssetConfigUtil.isCatalogAsset(props.assetTypeEnum)
 			and Roact.createElement("TextButton", {
 				LayoutOrder = orderIterator:getNextOrder(),
 				BackgroundTransparency = 1,

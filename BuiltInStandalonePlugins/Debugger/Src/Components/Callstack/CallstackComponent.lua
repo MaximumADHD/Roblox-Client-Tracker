@@ -32,6 +32,7 @@ local showContextMenu = StudioUI.showContextMenu
 
 local UtilFolder = PluginFolder.Src.Util
 local MakePluginActions = require(UtilFolder.MakePluginActions)
+local ColumnResizeHelperFunctions = require(UtilFolder.ColumnResizeHelperFunctions)
 
 local Actions = PluginFolder.Src.Actions
 local SetCurrentFrameNumber = require(Actions.Callstack.SetCurrentFrameNumber)
@@ -49,6 +50,10 @@ local StudioService = game:GetService("StudioService")
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
 local FFlagDevFrameworkTableHeaderTooltip = game:GetFastFlag("DevFrameworkTableHeaderTooltip")
 local hasTableColumnResizeFFlags = FFlagDevFrameworkTableColumnResize
+
+local defaultColumnKey = {
+	[1] = "arrowColumn"
+}
 
 local columnNameToKey = {
 	FrameColumn = "frameColumn",
@@ -138,15 +143,13 @@ end
 -- CallstackComponent
 function CallstackComponent:init()
 	
-	local initialSizes = nil
-	if hasTableColumnResizeFFlags then 
-		initialSizes = {
-			UDim.new(1/5, 0),
-			UDim.new(1/5, 0),
-			UDim.new(1/5, 0),
-			UDim.new(1/5, 0),
-			UDim.new(1/5, 0),
-		}
+	local initialSizes = {}
+	if hasTableColumnResizeFFlags then
+		-- TODO:  RIDE-7392 - Save Current Column Sizes When Closing Widget
+		local numColumns = #defaultColumnKey + #self.props.ColumnFilter
+		for i = 1, numColumns do
+			table.insert(initialSizes, UDim.new(1/numColumns, 0))
+		end
 	end
 	
 	self.state = {
@@ -291,99 +294,12 @@ function CallstackComponent:init()
 
 	self.onExpansionChange = function(newExpansion)
 		for row, expandedBool in pairs(newExpansion) do
-			self.props.onExpansionClicked(row.threadId)
+			self.props.onExpansionClicked(row.threadId, row.children[1], self.props.CurrentDebuggerConnectionId)
 		end
 	end
 	
 	self.getTreeChildren = function(item)
 		return item.children or {}
-	end
-
-	self.fetchOldColumnSizes = function(oldColumnNumber, prevProps)
-		local oldColumnNameToSize = {}
-		oldColumnNameToSize["ArrowColumn"] = self.state.sizes[1]
-
-		for i = 2, oldColumnNumber do
-			oldColumnNameToSize[prevProps.ColumnFilter[i-1]] = self.state.sizes[i]
-		end
-
-		return oldColumnNameToSize
-	end
-
-	self.updatedSizesAfterRemovingColumn = function(columnNumber, deletedColumnSize, oldColumnNameToSize)
-		local updatedSizes = {}
-		local remainingSpace = 1 - deletedColumnSize
-		for i = 1, columnNumber do
-			local currentColumn = if i == 1 then "ArrowColumn" else self.props.ColumnFilter[i-1]
-			local newColumnSize = UDim.new((oldColumnNameToSize[currentColumn].Scale)/remainingSpace, 0)
-			table.insert(updatedSizes, newColumnSize)			
-		end
-		return updatedSizes
-	end
-
-	self.updatedSizesAfterAddingColumns = function(columnNumber, oldColumnNumber, oldColumnNameToSize)
-		local updatedSizes = {}
-		local numOfColumnsAdded = columnNumber - oldColumnNumber
-		local addedColumnSize = UDim.new(1/columnNumber, 0)
-		for i = 1,columnNumber do
-			local currentColumn = if i == 1 then "ArrowColumn" else self.props.ColumnFilter[i-1]
-			if oldColumnNameToSize[currentColumn] == nil then
-				-- Set new column to default size
-				table.insert(updatedSizes, addedColumnSize)
-			else
-				-- With the remaining space (width - space for added columns), scale the column to the proportion it was on the previous resize.
-				local spaceForAddedColumns = numOfColumnsAdded*addedColumnSize.Scale
-				local newScale = (oldColumnNameToSize[currentColumn].Scale) * (1-spaceForAddedColumns)
-				local newColumnSize = UDim.new(newScale, 0)
-				table.insert(updatedSizes, newColumnSize)
-			end
-		end
-		return updatedSizes
-	end
-end
-
-function CallstackComponent:didUpdate(prevProps)
-	if #self.props.ColumnFilter ~= #prevProps.ColumnFilter then
-		-- add 1 for arrow column
-		local columnNumber = #self.props.ColumnFilter + 1
-
-		-- just arrow column (removing all columns/columnFilter is empty)
-		if columnNumber == 1 then
-			self:setState(function(state)
-				return {
-					sizes = {UDim.new(1, 0)}
-				}
-			end)
-			return
-		end
-
-		local updatedSizes = {}
-
-		-- columns have been resized so we need to scale the existing columns proportionally as we add/delete new columns
-		local oldColumnNumber = #prevProps.ColumnFilter + 1
-		local newColumnSet = Cryo.List.toSet(self.props.ColumnFilter)
-		local oldColumnNameToSize = self.fetchOldColumnSizes(oldColumnNumber, prevProps)
-
-		--removing single column
-		if columnNumber < oldColumnNumber then
-			local deletedColumnSize = nil
-			for i = 2, oldColumnNumber do
-				if newColumnSet[prevProps.ColumnFilter[i-1]] == nil then
-					deletedColumnSize = oldColumnNameToSize[prevProps.ColumnFilter[i-1]].Scale
-				end
-			end
-			updatedSizes = self.updatedSizesAfterRemovingColumn(columnNumber, deletedColumnSize, oldColumnNameToSize)
-
-		--adding column(s)
-		else
-			updatedSizes = self.updatedSizesAfterAddingColumns(columnNumber, oldColumnNumber, oldColumnNameToSize)
-		end
-		
-		self:setState(function(state)
-			return {
-				sizes = updatedSizes,
-			}
-		end)
 	end
 
 	self.onStepOver = function()
@@ -408,6 +324,35 @@ function CallstackComponent:didUpdate(prevProps)
 	end
 end
 
+function CallstackComponent:didUpdate(prevProps)
+	local props = self.props
+	if #props.ColumnFilter ~= #prevProps.ColumnFilter then
+		-- add 1 for arrow column (default key)
+		local columnNumber = #props.ColumnFilter + #defaultColumnKey
+		local updatedSizes = {}
+
+		-- columns have been resized so we need to scale the existing columns proportionally as we add/delete new columns
+		local oldColumnNumber = #prevProps.ColumnFilter + #defaultColumnKey
+		local newColumnSet = Cryo.List.toSet(props.ColumnFilter)
+		local oldColumnNameToSize = ColumnResizeHelperFunctions.fetchOldColumnSizes(oldColumnNumber, prevProps.ColumnFilter, defaultColumnKey, self.state.sizes)
+
+		if columnNumber < oldColumnNumber then
+			--removing column(s)
+			local deletedColumnsSize = ColumnResizeHelperFunctions.fetchDeletedColumnsSize(#defaultColumnKey, oldColumnNumber, prevProps.ColumnFilter, oldColumnNameToSize, newColumnSet)
+			updatedSizes = ColumnResizeHelperFunctions.updatedSizesAfterRemovingColumns(columnNumber, deletedColumnsSize, oldColumnNameToSize, defaultColumnKey, props.ColumnFilter)
+		else
+			--adding column(s)
+			updatedSizes = ColumnResizeHelperFunctions.updatedSizesAfterAddingColumns(columnNumber, oldColumnNumber, oldColumnNameToSize, props.ColumnFilter, defaultColumnKey)
+		end
+		
+		self:setState(function(state)
+			return {
+				sizes = updatedSizes,
+			}
+		end)
+	end
+end
+
 function CallstackComponent:render()
 	local props = self.props
 	local localization = props.Localization
@@ -417,7 +362,7 @@ function CallstackComponent:render()
 	local tableColumns = {
 		{
 			Name = "",
-			Key = "arrowColumn",
+			Key = defaultColumnKey[1],
 		},
 	}
 	
@@ -463,20 +408,20 @@ function CallstackComponent:render()
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 				HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			}, {
-				StepOverButton = Roact.createElement(IconButton, {
-					Size = UDim2.new(0, Constants.BUTTON_SIZE, 0, Constants.BUTTON_SIZE),
-					LayoutOrder = 1,
-					LeftIcon = "rbxasset://textures/Debugger/Step-Over.png",
-					TooltipText = localization:getText("Common", "stepOverActionV2"),
-					OnClick = self.onStepOver,
-					Disabled = self.props.CurrentThreadId == nil,
-				}),
 				StepIntoButton = Roact.createElement(IconButton, {
 					Size = UDim2.new(0, Constants.BUTTON_SIZE, 0, Constants.BUTTON_SIZE),
-					LayoutOrder = 2,
+					LayoutOrder = 1,
 					LeftIcon = "rbxasset://textures/Debugger/Step-In.png",
 					TooltipText = localization:getText("Common", "stepIntoActionV2"),
 					OnClick = self.onStepInto,
+					Disabled = self.props.CurrentThreadId == nil,
+				}),
+				StepOverButton = Roact.createElement(IconButton, {
+					Size = UDim2.new(0, Constants.BUTTON_SIZE, 0, Constants.BUTTON_SIZE),
+					LayoutOrder = 2,
+					LeftIcon = "rbxasset://textures/Debugger/Step-Over.png",
+					TooltipText = localization:getText("Common", "stepOverActionV2"),
+					OnClick = self.onStepOver,
 					Disabled = self.props.CurrentThreadId == nil,
 				}),
 				StepOutButton = Roact.createElement(IconButton, {
@@ -490,8 +435,6 @@ function CallstackComponent:render()
 			}),
 			ColContainer = Roact.createElement(Pane, {
 				Size = UDim2.new(0.5, 0, 0, Constants.HEADER_HEIGHT),
-				Padding = 5,
-				Spacing = 10,
 				LayoutOrder = 2,
 				Style = "Box",
 				Layout = Enum.FillDirection.Horizontal,
@@ -559,7 +502,6 @@ CallstackComponent = RoactRodux.connect(
 			local callstackVars = callstack.stateTokenToCallstackVars[address]
 			assert(callstackVars)
 			local threadList = callstackVars.threadList
-
 			local rootList = {}
 			local expansionTable = nil
 			for _, threadInfo in ipairs(threadList) do
@@ -569,6 +511,12 @@ CallstackComponent = RoactRodux.connect(
 					if (threadInfo.threadId == currentThreadId) then
 						expansionTable = {[rootItem] = true}
 					end
+				else
+					return {
+						RootItems = {},
+						CurrentThreadId = nil,
+						ColumnFilter = callstack.listOfEnabledColumns,
+					} 
 				end
 			end
 
@@ -587,9 +535,11 @@ CallstackComponent = RoactRodux.connect(
 			setCurrentFrameNumber = function(threadId, frameNumber)
 				return dispatch(SetCurrentFrameNumber(threadId, frameNumber))
 			end,
-			onExpansionClicked = function(threadId)
-				local DebuggerUIService = game:GetService("DebuggerUIService")
-				DebuggerUIService:SetCurrentThreadId(threadId)
+			onExpansionClicked = function(threadId, topFrame, currentDebuggerConnectionId)
+				local debuggerUIService = game:GetService("DebuggerUIService")
+				debuggerUIService:OpenScriptAtLine(topFrame.scriptGUID, currentDebuggerConnectionId, topFrame.lineColumn)
+				debuggerUIService:SetScriptLineMarker(topFrame.scriptGUID, currentDebuggerConnectionId, topFrame.lineColumn, true)
+				debuggerUIService:SetCurrentThreadId(threadId)
 				return dispatch(SetCurrentThread(threadId))
 			end,
 		}

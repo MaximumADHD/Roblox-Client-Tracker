@@ -6,7 +6,6 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local TextLabel = Framework.UI.Decoration.TextLabel
@@ -118,7 +117,7 @@ function Security:render()
 				or (props.ThirdPartyPurchaseAllowedValueChanged and props.ThirdPartyPurchaseAllowed)
 				or (props.ThirdPartyTeleportAllowedValueChanged and props.ThirdPartyTeleportAllowed)
 
-		local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+		local theme = props.Stylizer
 
 		local layoutOrder = LayoutOrderIterator.new(1)
 
@@ -211,8 +210,7 @@ end
 
 Security = withContext({
 	Localization = ContextServices.Localization,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(Security)
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)

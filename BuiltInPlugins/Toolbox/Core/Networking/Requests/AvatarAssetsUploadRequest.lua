@@ -3,7 +3,6 @@ local HttpService = game:GetService("HttpService")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagCMSUploadAccessoryMeshPartFormat2 = game:GetFastFlag("CMSUploadAccessoryMeshPartFormat2")
-local FFlagUGCGroupUploads2 = game:GetFastFlag("UGCGroupUploads2")
 
 local SetAssetId = require(Plugin.Core.Actions.SetAssetId)
 local NetworkError = require(Plugin.Core.Actions.NetworkError)
@@ -25,19 +24,12 @@ local UploadCatalogItemMeshPartFormatRequest = require(
 )
 
 local function createConfigDataTable(nameWithoutExtension, assetTypeId, description, groupId)
-	if FFlagUGCGroupUploads2 then
-		return {
-			name = nameWithoutExtension,
-			description = description,
-			creatorType = groupId ~= nil and "Group" or "User",
-			creatorTargetId = groupId ~= nil and groupId or getUserId(),
-		}
-	else
-		return {
-			name = nameWithoutExtension,
-			description = description,
-		}
-	end
+	return {
+		name = nameWithoutExtension,
+		description = description,
+		creatorType = groupId ~= nil and "Group" or "User",
+		creatorTargetId = groupId ~= nil and groupId or getUserId(),
+	}
 end
 
 return function(networkInterface, nameWithoutExtension, extension, description, assetTypeId, instances, tags, groupId)

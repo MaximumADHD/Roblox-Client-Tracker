@@ -30,8 +30,6 @@ local FitTextLabel = FrameworkUtil.FitFrame.FitTextLabel
 
 local LayoutOrderIterator =  Framework.Util.LayoutOrderIterator
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local ToggleButtonWithTitle = Roact.PureComponent:extend("ToggleButtonWithTitle")
 
 function ToggleButtonWithTitle:init()
@@ -55,7 +53,7 @@ end
 
 function ToggleButtonWithTitle:render()
     local props = self.props
-    local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
+    local theme = props.Stylizer
 
     local callout = props[Roact.Children].TeachingCallout
 
@@ -123,8 +121,7 @@ function ToggleButtonWithTitle:render()
 end
 
 ToggleButtonWithTitle = withContext({
-    Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
-    Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
+    Stylizer = ContextServices.Stylizer,
 })(ToggleButtonWithTitle)
 
 return ToggleButtonWithTitle

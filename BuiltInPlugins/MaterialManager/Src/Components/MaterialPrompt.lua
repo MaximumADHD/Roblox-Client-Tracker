@@ -27,6 +27,7 @@ local ImportAssetHandler = require(Plugin.Src.Components.ImportAssetHandler)
 local MaterialVariantCreator = require(Plugin.Src.Components.MaterialVariantCreator)
 
 local MaterialController = require(Plugin.Src.Util.MaterialController)
+local getFFlagMaterialVariantTempIdCompatibility = require(Plugin.Src.Flags.getFFlagMaterialVariantTempIdCompatibility)
 
 export type Props = {
 	PromptClosed : () -> (),
@@ -98,6 +99,38 @@ function MaterialPrompt:getBaseMaterialError()
 	return nil
 end
 
+function MaterialPrompt:createTempMaterialVariant()
+	local props : _Props = self.props
+
+	if self.materialVariant then 
+		self.materialVariant:Destroy() 
+	end
+	if self.materialVariantTemp then 
+		self.materialVariantTemp:Destroy() 
+	end
+
+	self.materialVariantTemp = Instance.new("MaterialVariant")
+	local tempName = "TempMaterialVariant-" .. game:GetService("HttpService"):GenerateGUID()
+	if props.Mode == "Create" then
+		self.materialVariantTemp.Name = tempName
+		self.materialVariantTemp.Parent = game:GetService("MaterialService")
+	elseif props.Mode == "Edit" then
+		local material = props.Material
+		if material then
+			-- self.materialVariant: original MV, store it to be able to restore it on Cancel/Close, give it a temp name
+			-- self.materialVariantTemp: temp MV, store it under MS to modify and show its preview, give it a name and baseMaterial of original
+			self.materialVariant = material.MaterialVariant
+			self.materialVariant.Parent = nil
+			self.materialVariantTemp.Name = material.MaterialVariant.Name
+			self.materialVariantTemp.BaseMaterial = material.MaterialVariant.BaseMaterial
+			self.materialVariant.Name = tempName
+			self.materialVariantTemp.Parent = game:GetService("MaterialService")
+
+			props.dispatchSetPath(getMaterialPath(self.materialVariantTemp))
+		end
+	end
+end
+
 function MaterialPrompt:init()
 	self:setState({
 		saveAttempt = false,
@@ -106,20 +139,33 @@ function MaterialPrompt:init()
 	self.lastName = nil
 	self.lastBaseMaterial = nil
 
+	if getFFlagMaterialVariantTempIdCompatibility() then
+		self.materialVariant = nil
+		self.materialVariantTemp = nil
+		self:createTempMaterialVariant()
+	end
+
 	self.setStudsPerTileError = function(error)
 		self:setState({
 			ErrorStudsPerTile = error or Roact.None,
 		})
 	end
 
+	self.clearMaterialVariantTemp = function()
+		if self.materialVariantTemp then
+			self.materialVariantTemp:Destroy()
+			self.materialVariantTemp = nil
+		end
+	end
+
 	self.onSave = function()
 		local props : _Props = self.props
+		local materialController = props.MaterialController
+		local assetHandler = props.ImportAssetHandler
 
 		self:setState({
 			saveAttempt = true,
 		})
-
-		local assetHandler = props.ImportAssetHandler
 
 		local function handleMaps(maps : { [string] : _Types.TextureMap }, materialVariant : MaterialVariant)
 			for mapType, map in pairs(maps) do
@@ -152,13 +198,20 @@ function MaterialPrompt:init()
 		end
 
 		local materialVariant
-
-		if props.Mode == "Create" then
-			materialVariant = Instance.new("MaterialVariant")
-		elseif props.Mode == "Edit" then
-			local material = props.Material
-			if material then
-				materialVariant = material.MaterialVariant
+		if getFFlagMaterialVariantTempIdCompatibility() then
+			-- TODO: move into separate method "finalizeMaterialVariant()"
+			materialVariant = self.materialVariantTemp
+			if props.Mode == "Edit" then
+				self.materialVariantTemp = self.materialVariant
+			end
+		else
+			if props.Mode == "Create" then
+				materialVariant = Instance.new("MaterialVariant")
+			elseif props.Mode == "Edit" then
+				local material = props.Material
+				if material then
+					materialVariant = material.MaterialVariant
+				end
 			end
 		end
 
@@ -177,10 +230,27 @@ function MaterialPrompt:init()
 		}
 		handleMaps(maps, materialVariant)
 
-		local materialController = props.MaterialController
 		props.dispatchSetMaterial(materialController:getMaterial(materialVariant))
 		props.dispatchSetPath(getMaterialPath(materialVariant))
 
+		if getFFlagMaterialVariantTempIdCompatibility() and props.Mode == "Edit" then
+			self.clearMaterialVariantTemp()
+		end
+		props.PromptClosed()
+		props.dispatchClearMaterialVariant()
+	end
+
+	self.onClose = function()
+		local props : _Props = self.props
+
+		if props.Mode == "Edit" then
+			-- swap temp and original MVs to always destroy temp
+			local materialVariant = self.materialVariantTemp
+			self.materialVariantTemp = self.materialVariant
+			materialVariant.Parent = game:GetService("MaterialService")
+		end
+
+		self.clearMaterialVariantTemp()
 		props.PromptClosed()
 		props.dispatchClearMaterialVariant()
 	end
@@ -189,11 +259,24 @@ function MaterialPrompt:init()
 		local props : _Props = self.props
 		
 		if key == "Cancel" then
-			props.PromptClosed()
-			props.dispatchClearMaterialVariant()
+			if getFFlagMaterialVariantTempIdCompatibility() then
+				self.onClose()
+			else
+				props.PromptClosed()
+				props.dispatchClearMaterialVariant()
+			end
 		elseif key == "Save" then
 			self.onSave()
 		end
+	end
+end
+
+function MaterialPrompt:didMount()
+	local props : _Props = self.props
+
+	if getFFlagMaterialVariantTempIdCompatibility() and props.Mode == "Edit" then
+		local materialController = props.MaterialController
+		props.dispatchSetMaterial(materialController:getMaterial(self.materialVariantTemp))
 	end
 end
 
@@ -201,6 +284,27 @@ function MaterialPrompt:render()
 	local props : _Props = self.props
 	local localization = props.Localization
 	local style : _Style = props.Stylizer.MaterialPrompt
+
+	if getFFlagMaterialVariantTempIdCompatibility() then
+		local colorMap = props.ColorMap
+		local metalnessMap = props.MetalnessMap
+		local normalMap = props.NormalMap
+		local roughnessMap = props.RoughnessMap
+		local studsPerTile = props.StudsPerTile
+		local materialPattern = props.MaterialPattern
+
+		colorMap = if colorMap then colorMap.assetId or colorMap.tempId else nil
+		metalnessMap = if metalnessMap then metalnessMap.assetId or metalnessMap.tempId else nil
+		normalMap = if normalMap then normalMap.assetId or normalMap.tempId else nil
+		roughnessMap = if roughnessMap then roughnessMap.assetId or roughnessMap.tempId else nil
+
+		self.materialVariantTemp.ColorMap = colorMap or ""
+		self.materialVariantTemp.MetalnessMap = metalnessMap or ""
+		self.materialVariantTemp.NormalMap = normalMap or ""
+		self.materialVariantTemp.RoughnessMap = roughnessMap or ""
+		self.materialVariantTemp.StudsPerTile = studsPerTile
+		self.materialVariantTemp.MaterialPattern = materialPattern
+	end
 
 	local mode = if props.Mode == "Create" then "CreateVariant" else "EditVariant"
 
@@ -217,7 +321,24 @@ function MaterialPrompt:render()
 		}
 	}
 
-	return Roact.createElement(StyledDialog, {
+	return getFFlagMaterialVariantTempIdCompatibility() and Roact.createElement(StyledDialog, {
+		Title = localization:getText("CreateDialog", mode),
+		MinContentSize = Vector2.new(style.DialogWidth, style.DialogHeight),
+		Resizable = true,
+		Modal = true,
+		Buttons = buttons,
+		OnClose = self.onClose,
+		OnButtonPressed = self.onButtonPressed,
+		Style = "FullBleed",
+	}, {
+		MaterialVariantCreator = Roact.createElement(MaterialVariantCreator, {
+			ErrorName = self:getNameError(),
+			ErrorBaseMaterial = self:getBaseMaterialError(),
+			ErrorStudsPerTile = self.state.ErrorStudsPerTile,
+			SetStudsPerTileError = self.setStudsPerTileError,
+			MaterialVariantTemp = self.materialVariantTemp,
+		})
+	}) or Roact.createElement(StyledDialog, {
 		Title = localization:getText("CreateDialog", mode),
 		MinContentSize = Vector2.new(style.DialogWidth, style.DialogHeight),
 		Resizable = false,

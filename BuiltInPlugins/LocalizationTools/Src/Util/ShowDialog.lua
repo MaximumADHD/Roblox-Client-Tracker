@@ -5,8 +5,6 @@ local ContextServices = Framework.ContextServices
 local Promise = Framework.Util.Promise
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
 
-
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 local DIALOG_SIZE = Vector2.new(300, 370)
 
 return function(plugin, localization, theme, mouse)
@@ -16,7 +14,7 @@ return function(plugin, localization, theme, mouse)
 			spawn(function()
 				local dialogHandle
 				local dialog = plugin:CreateQWidgetPluginGui(title, {
-					Size = THEME_REFACTOR and DIALOG_SIZE or theme:get("Plugin").DialogSize,
+					Size = DIALOG_SIZE,
 					Modal = true,
 				})
 				dialog.Enabled = true
@@ -38,12 +36,7 @@ return function(plugin, localization, theme, mouse)
 					cancel()
 				end)
 				
-				local providedTheme
-				if THEME_REFACTOR then
-					providedTheme = PluginTheme()
-				else
-					providedTheme = theme
-				end
+				local providedTheme = PluginTheme()
 				
 				local dialogContent = ContextServices.provide({
 					localization,

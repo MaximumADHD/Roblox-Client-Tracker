@@ -373,7 +373,7 @@ function DisplayTable:render()
 		Expansion = props.ExpansionTable,
 		OnFocusLost = self.OnFocusLost,
 		TextInputCols = textInputCols,
-		RightClick = self.onRightClick,
+		-- RightClick = self.onRightClick, TODO: Uncomment with RIDE-5141
 		OnDoubleClick = self.OnDoubleClick,
 		DisableTooltip = false,
 		SortIndex = props.SortIndex,

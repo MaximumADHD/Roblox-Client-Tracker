@@ -52,7 +52,7 @@ local pages = {
 		key = Constants.PlayersPageKey,
 		title = "CoreScripts.InGameMenu.PageTitle.Players",
 		icon = Images["icons/controls/players"],
-		component = script.PlayersPage,
+		component = script.PlayersPageWrapper,
 		navigationDepth = 1,
 		parentPage = nil,
 	},

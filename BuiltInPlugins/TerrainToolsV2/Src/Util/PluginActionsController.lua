@@ -1,12 +1,10 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
-local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
 local ContextItem = ContextServices.ContextItem
 local PluginActions = ContextServices.PluginActions
-local Provider = ContextServices.Provider
 
 local PluginActionsController = ContextItem:extend("PluginActionsController")
 
@@ -18,12 +16,6 @@ function PluginActionsController.new(plugin, pluginActions)
 	}, PluginActionsController)
 
 	return self
-end
-
-function PluginActionsController:createProvider(root)
-	return Roact.createElement(Provider, {
-		ContextItem = self,
-	}, {root})
 end
 
 function PluginActionsController:Enable(id)

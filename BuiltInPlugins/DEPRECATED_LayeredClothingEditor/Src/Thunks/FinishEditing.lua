@@ -6,6 +6,8 @@ local Plugin = script.Parent.Parent.Parent
 local ModelUtil = require(Plugin.Src.Util.ModelUtil)
 local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
 
+game:DefineFastFlag("UnanchorAccessoryOnGeneration", false)
+
 local function fromModelToAccessory(model)
 	local accessory = Instance.new("Accessory", Workspace)
 	model:GetChildren()[1].Parent = accessory
@@ -32,6 +34,15 @@ end
 local function fixCFrame(item, cframe)
 	local root = ModelUtil:getRootPart(item)
 	root.CFrame = cframe
+end
+
+local function cloneItem(sourceItem, editingItem)
+	local clone = sourceItem:clone()
+	if game:getFastFlag("UnanchorAccessoryOnGeneration") then
+		clone.Anchored = false
+	end
+	fixCFrame(clone, ModelUtil:getRootCFrame(editingItem))
+	return clone
 end
 
 local function publishCageEdits(item, isClothes)
@@ -65,8 +76,7 @@ local function generateRigidAccessory(store, editingItem, sourceItem)
 	local attachmentPoint = state.selectItem.attachmentPoint
 	local itemSize = state.selectItem.size
 
-	local clone = sourceItem:clone()
-	fixCFrame(clone, ModelUtil:getRootCFrame(editingItem))
+	local clone = cloneItem(sourceItem, editingItem)
 
 	ModelUtil:createOrReuseAttachmentInstance(clone, editingItem.Parent, accessoryTypeInfo, attachmentPoint)
 	clone.Size = itemSize
@@ -80,8 +90,7 @@ local function generateCagedAccessory(store, editingItem, sourceItem)
 	local accessoryTypeInfo = state.selectItem.accessoryTypeInfo
 	local attachmentPoint = state.selectItem.attachmentPoint
 
-	local clone = sourceItem:clone()
-	fixCFrame(clone, ModelUtil:getRootCFrame(editingItem))
+	local clone = cloneItem(sourceItem, editingItem)
 
 	ModelUtil:clearWelds(clone)
 	ModelUtil:createOrReuseAttachmentInstance(clone, editingItem.Parent, accessoryTypeInfo, attachmentPoint)
@@ -102,8 +111,7 @@ local function generateCagedAvatar(store, editingItem, sourceItem)
 	local state = store:getState()
 	local pointData = state.cageData.pointData
 
-	local clone = sourceItem:clone()
-	fixCFrame(clone, ModelUtil:getRootCFrame(editingItem))
+	local clone = cloneItem(sourceItem, editingItem)
 
 	clone.Parent = Workspace
 	ModelUtil:deformAvatar(clone, pointData, Enum.CageType.Outer)

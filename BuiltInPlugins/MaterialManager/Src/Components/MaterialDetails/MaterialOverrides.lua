@@ -27,6 +27,8 @@ local MaterialController = require(Util.MaterialController)
 local Components = Plugin.Src.Components
 local StatusIcon = require(Components.StatusIcon)
 
+local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Plugin.Src.Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
+
 export type Props = {
 	LayoutOrder : number?,
 	MockMaterial : _Types.Material?,
@@ -57,6 +59,7 @@ type _Style = {
 	ImageSize : UDim2,
 	NameLabelSizeBuiltIn : UDim2,
 	NameLabelSizeVariant : UDim2,
+	NoTexture : string,
 	LabelRowSize : UDim2,
 	OverrideSize : UDim2,
 	Padding : number,
@@ -291,11 +294,12 @@ function MaterialOverrides:render()
 				LayoutOrder = 2,
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 				Size = UDim2.new(0, 195, 0, 20),
+				Padding = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then 5 else nil,
 			}, {
 				ToggleButton = Roact.createElement(ToggleButton, {
 					OnClick = self.onOverrideToggled,
 					Selected = self.state.index > 1 and self.state.items[self.state.index] == material.MaterialVariant.Name,
-					Size = UDim2.fromOffset(40, 24),
+					Size = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then UDim2.fromOffset(30, 18) else UDim2.fromOffset(40, 24),
 				})
 			})
 		}

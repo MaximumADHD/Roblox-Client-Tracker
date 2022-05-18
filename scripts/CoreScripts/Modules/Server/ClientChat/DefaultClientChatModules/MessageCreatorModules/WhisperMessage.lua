@@ -52,7 +52,7 @@ function CreateMessageLabel(messageData, channelName)
 			end
 
 			if ChatLocalization.tryLocalize then
-				whisperString = ChatLocalization:tryLocalize (whisperString)
+				whisperString = ChatLocalization:tryLocalize(whisperString)
 			end
 
 			local formatChannelName = string.format("{%s}", whisperString)

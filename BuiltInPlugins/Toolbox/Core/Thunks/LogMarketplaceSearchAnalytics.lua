@@ -5,7 +5,9 @@ local Analytics = require(Util.Analytics.Analytics)
 local AnalyticsTypes = require(Plugin.Core.Types.AnalyticsTypes)
 local PageInfoHelper = require(Util.PageInfoHelper)
 
-return function(keyword, assetType, prefix, keyCount, delCount, autocompleteShown)
+local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
+
+return function(keyword, assetType, prefix, keyCount, delCount, autocompleteShown, isTopKeyword: boolean?)
 	return function(store)
 		local state = store:getState()
 
@@ -25,6 +27,18 @@ return function(keyword, assetType, prefix, keyCount, delCount, autocompleteShow
 			toolboxTab = toolboxTab,
 		}
 
-		Analytics.marketplaceSearch(keyword, prefix, keyCount, delCount, autocompleteShown, searchInfo)
+		if FFlagToolboxHomeViewAnalyticsUpdate then
+			Analytics.marketplaceSearch(
+				keyword,
+				prefix,
+				keyCount,
+				delCount,
+				autocompleteShown,
+				isTopKeyword or false,
+				searchInfo
+			)
+		else
+			Analytics.marketplaceSearch_DEPRECATED(keyword, prefix, keyCount, delCount, autocompleteShown, searchInfo)
+		end
 	end
 end

@@ -78,6 +78,7 @@ local StyleModifier = Util.StyleModifier
 
 local GetFFlagFaceControlsEditorSelectTracks = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorSelectTracks)
 local GetFFlagFaceControlsEditorUIUpdate = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUIUpdate)
+local GetFFlagFaceControlsEditorBugBash2Update = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorBugBash2Update)
 
 local PADDING = 10
 
@@ -403,7 +404,7 @@ function makeFacsOnFaceDiagramSliderUIItems (self, style, localization)
 						OnChangeBegan = function()
 							local props = self.props
 							props.AddWaypoint()
-							
+
 							if GetFFlagFaceControlsEditorSelectTracks() then
 								if GetFFlagCurveEditor() then
 									local list = {{facs.Name}}
@@ -694,6 +695,9 @@ function FaceControlsEditorWindow:willUpdate(nextProps)
 	end
 	if nextProps.ShowFaceControlsEditorPanel  ~= self.ShowFaceControlsEditorPanel then
 		if nextProps.ShowFaceControlsEditorPanel == true then
+			if GetFFlagFaceControlsEditorBugBash2Update() then
+				self.ShowFaceControlsEditorPanel = true
+			end	
 			handleFocusFace(nextProps)
 		end
 	end
@@ -726,9 +730,17 @@ function handleFocusFace(props)
 		if faceControls ~= nil then
 			local head = faceControls.Parent
 			local width = 0.75
+			if GetFFlagFaceControlsEditorBugBash2Update() then
+				local baseWidth = 0.75
+				local baseFOV = 70
+				width = baseWidth
+				if currentCamera.FieldOfView ~= baseFOV then
+					width = baseWidth / (currentCamera.FieldOfView / baseFOV)
+				end	
+			end
 			local center = head.Position + head.CFrame.LookVector * (width * 2)
 			currentCamera.CFrame = CFrame.new(center, head.CFrame.Position)
-			currentCamera.Focus = head.CFrame						
+			currentCamera.Focus = head.CFrame		
 		end
 	end	
 end
@@ -899,8 +911,7 @@ function FaceControlsEditorWindow:render()
 					end,
 				}),				
 			}),
-			
-			
+
 			BottomFrame = GetFFlagFaceControlsEditorUIUpdate() and Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, 32 + 2 * PADDING),
 				Position = UDim2.new(0, 0, 1, 0),
@@ -932,10 +943,6 @@ function FaceControlsEditorWindow:render()
 					end,
 				})
 			})				
-
-
-			
-			
 		})
 	})
 end
@@ -976,7 +983,7 @@ local function mapDispatchToProps(dispatch)
 		AddWaypoint = function()
 			dispatch(AddWaypoint())
 		end,
-		
+
 		SetSymmetryEnabled = function(symmetryEnabled)
 			dispatch(SetSymmetryEnabled(symmetryEnabled))
 		end,			

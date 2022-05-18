@@ -9,7 +9,6 @@
 
 local Plugin = script.Parent.Parent.Parent
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
-local FFlagDevFrameworkTooltipCustomContent = game:GetFastFlag("DevFrameworkTooltipCustomContent")
 local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
 
 local Roact = require(Plugin.Packages.Roact)
@@ -33,7 +32,6 @@ local StyleModifier = Util.StyleModifier
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local SearchBar = UILibrary.Component.SearchBar
-local DEPRECATED_StyledTooltip = UILibrary.Component.StyledTooltip -- Remove with FFlagDevFrameworkTooltipCustomContent
 local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Util.GetTextSize else UILibrary.Util.GetTextSize
 
 local SetRecentViewToggled = require(Plugin.Src.Actions.SetRecentViewToggled)
@@ -98,12 +96,7 @@ function TopBar:render()
         theme.Font, Vector2.new(topBarTheme.Tooltip.Width, math.huge))
     local linkTextExtents = GetTextSize(bulkImporterLinkText, topBarTheme.Tooltip.TextSize,
         theme.Font, Vector2.new(topBarTheme.Tooltip.Width, math.huge))
-    local tooltipHeight
-	if FFlagDevFrameworkTooltipCustomContent then
-		tooltipHeight = tooltipTextExtents.Y + topBarTheme.Tooltip.Padding + linkTextExtents.Y
-	else
-		tooltipHeight = tooltipTextExtents.Y + 3 * topBarTheme.Tooltip.Padding + linkTextExtents.Y
-	end
+    local tooltipHeight = tooltipTextExtents.Y + topBarTheme.Tooltip.Padding + linkTextExtents.Y
 
     local view = props.View
     local dispatchSetView = props.dispatchSetView
@@ -262,52 +255,7 @@ function TopBar:render()
                 end
             end,
         }, {
-            DEPRECATED_OpenBulkImporterTooltip = if not FFlagDevFrameworkTooltipCustomContent then Roact.createElement(DEPRECATED_StyledTooltip, {
-                Elements = {
-                    Roact.createElement("UIListLayout", {
-                        Padding = UDim.new(0, topBarTheme.Tooltip.Padding),
-                        FillDirection = Enum.FillDirection.Vertical,
-                        VerticalAlignment = Enum.VerticalAlignment.Center,
-                        SortOrder = Enum.SortOrder.LayoutOrder,
-                    }),
-
-                    Padding = Roact.createElement("UIPadding", {
-                        PaddingTop = UDim.new(0, topBarTheme.Tooltip.Padding),
-                        PaddingBottom = UDim.new(0, topBarTheme.Tooltip.Padding),
-                    }),
-
-                    Text = Roact.createElement("TextLabel", {
-                        Size = UDim2.new(0, tooltipTextExtents.X, 0, tooltipTextExtents.Y),
-
-                        BackgroundTransparency = 1,
-
-                        Font = theme.Font,
-                        Text = bulkImporterTooltipText,
-                        TextColor3 = theme.TextColor,
-                        TextSize = topBarTheme.Tooltip.TextSize,
-                        TextXAlignment = Enum.TextXAlignment.Left,
-                        TextWrapped = true,
-
-                        LayoutOrder = 1,
-                    }),
-
-                    LinkText = Roact.createElement(LinkText, {
-                        Text = bulkImporterLinkText,
-                        Style = "BulkImporterTooltip",
-
-                        LayoutOrder = 2,
-
-                        OnClick = function()
-                            BulkImportService:ShowBulkImportView()
-                        end,
-                    }),
-                },
-
-                TooltipExtents = Vector2.new(topBarTheme.Tooltip.Width, tooltipHeight),
-                Enabled = bulkImporterRunning,
-            }) else nil,
-
-            OpenBulkImporterTooltip = if FFlagDevFrameworkTooltipCustomContent then Roact.createElement(Tooltip, {
+            OpenBulkImporterTooltip = Roact.createElement(Tooltip, {
                 Content = Roact.createElement(Pane, {
                     Layout = Enum.FillDirection.Vertical,
                     Spacing = topBarTheme.Tooltip.Padding,
@@ -336,7 +284,7 @@ function TopBar:render()
                 }),
                 ContentExtents = Vector2.new(topBarTheme.Tooltip.Width, tooltipHeight),
                 Enabled = bulkImporterRunning,
-            }) else nil,
+            }),
 
             HoverArea = not bulkImporterRunning and enabled and Roact.createElement(HoverArea, {
                 Cursor = "PointingHand",

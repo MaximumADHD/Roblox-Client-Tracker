@@ -1,10 +1,9 @@
-local FFlagRemoveUILibraryDeepJoin = game:GetFastFlag("RemoveUILibraryDeepJoin")
 local Plugin = script.parent.parent.parent
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Cryo = require(Plugin.Packages.Cryo)
 local StudioTheme = UILibrary.Studio.Theme
 local StudioStyle = UILibrary.Studio.Style
-local deepJoin = if FFlagRemoveUILibraryDeepJoin then require(Plugin.Packages.Framework).Util.deepJoin else require(Plugin.Src.Util.deepJoin)
+local deepJoin = require(Plugin.Packages.Framework).Util.deepJoin
 local Colors = require(Plugin.Src.Util.Colors)
 local Images = require(Plugin.Src.Util.Constants).Images
 local Theme = {}

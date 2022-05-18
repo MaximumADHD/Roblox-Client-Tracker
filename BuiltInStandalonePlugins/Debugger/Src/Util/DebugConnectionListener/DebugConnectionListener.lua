@@ -44,12 +44,14 @@ function DebugConnectionListener:onExecutionPaused(connection, pausedState, debu
 		if not isThreadIdValid() then
 			return
 		end
-		local threadState = connection:GetThreadById(pausedState.ThreadId)
-		if threadState ~= nil then
-			self.store:dispatch(AddThreadId(pausedState.ThreadId, threadState.ThreadName, dst))
+
+		local threadStates = threads:GetArg()
+
+		for index, threadState in pairs(threadStates) do
+			self.store:dispatch(AddThreadId(threadState.ThreadId, threadState.ThreadName, dst))
 			self.store:dispatch(RequestCallstackThunk(threadState, connection, dst, scriptChangeService))
-			debuggerUIService:SetCurrentThreadId(pausedState.ThreadId)
-			self.store:dispatch(SetCurrentThread(pausedState.ThreadId))
+			debuggerUIService:SetCurrentThreadId(threadState.ThreadId)
+			self.store:dispatch(SetCurrentThread(threadState.ThreadId))
 			connection:Populate(threadState, function()
 				if not isThreadIdValid() then
 					return
@@ -77,10 +79,12 @@ end
 function DebugConnectionListener:onExecutionResumed(connection, pausedState, debuggerUIService)
 	local state = self.store:getState()
 	local common = state.Common
-
-	debuggerUIService:RemoveScriptLineMarkers(connection.Id, true)
 	local dst = common.debuggerConnectionIdToDST[connection.Id]
-	self.store:dispatch(Resumed(dst, pausedState.ThreadId))
+	if (dst) then
+		-- When we have multiple BPs hit, we get multiple resume signals
+		debuggerUIService:RemoveScriptLineMarkers(connection.Id, true)
+		self.store:dispatch(Resumed(dst, pausedState.ThreadId))
+	end
 end
 
 function DebugConnectionListener:connectEvents(debuggerConnectionId, connection, debuggerUIService, scriptChangeService)

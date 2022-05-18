@@ -26,9 +26,6 @@ local FullscreenTitleBar = require(script.Parent.FullscreenTitleBar)
 local QuickActions = require(script.Parent.QuickActions)
 local ScreenOrientationSwitcher = require(script.Parent.ScreenOrientationSwitcher)
 
-local Flags = InGameMenu.Flags
-local FFlagLuaMenuPerfImprovements = require(Flags.FFlagLuaMenuPerfImprovements)
-
 local Constants = require(InGameMenu.Resources.Constants)
 
 local function App(props)
@@ -39,43 +36,22 @@ local function App(props)
 		})
 	end
 
-	if FFlagLuaMenuPerfImprovements then
-		return Roact.createFragment({
-			Content = props.isMenuOpen and Roact.createFragment({
-				Overlay = Roact.createElement(ViewportOverlay),
-				SideNavigation = Roact.createElement(SideNavigation),
-				LeaveGameDialog = Roact.createElement(LeaveGameDialog),
-				PageContainer = Roact.createElement(PageContainer),
-				RespawnDialog = Roact.createElement(RespawnDialog),
-				ReportDialog = Roact.createElement(ReportDialog),
-				ReportSentDialog = Roact.createElement(ReportSentDialog),
-				ControlLayoutSetter = Roact.createElement(ControlLayoutSetter),
-				QuickActions =  Roact.createElement(QuickActions),
-			}) or nil,
-			Connection = Roact.createElement(Connection),
-			EducationalPopup = props.isEducationalPopupEnabled and Roact.createElement(EducationalPopup) or nil,
-			MenuIconTooltip = props.isEducationalPopupEnabled and Roact.createElement(MenuIconTooltip) or nil,
-			FullscreenTitleBar = fullscreenTitleBar,
-			ScreenOrientationSwitcher =  Roact.createElement(ScreenOrientationSwitcher),
-		})
-	else
-		return Roact.createFragment({
-			Overlay = Roact.createElement(ViewportOverlay),
-			SideNavigation = Roact.createElement(SideNavigation),
-			LeaveGameDialog = Roact.createElement(LeaveGameDialog),
-			PageContainer = Roact.createElement(PageContainer),
-			RespawnDialog = Roact.createElement(RespawnDialog),
-			ReportDialog = Roact.createElement(ReportDialog),
-			ReportSentDialog = Roact.createElement(ReportSentDialog),
-			ControlLayoutSetter = Roact.createElement(ControlLayoutSetter),
-			Connection = Roact.createElement(Connection),
-			EducationalPopup = props.isEducationalPopupEnabled and Roact.createElement(EducationalPopup) or nil,
-			MenuIconTooltip = props.isEducationalPopupEnabled and Roact.createElement(MenuIconTooltip) or nil,
-			FullscreenTitleBar = fullscreenTitleBar,
-			QuickActions = Roact.createElement(QuickActions),
-			ScreenOrientationSwitcher =  Roact.createElement(ScreenOrientationSwitcher),
-		})
-	end
+	return Roact.createFragment({
+		Overlay = Roact.createElement(ViewportOverlay),
+		SideNavigation = Roact.createElement(SideNavigation),
+		LeaveGameDialog = Roact.createElement(LeaveGameDialog),
+		PageContainer = Roact.createElement(PageContainer),
+		RespawnDialog = Roact.createElement(RespawnDialog),
+		ReportDialog = Roact.createElement(ReportDialog),
+		ReportSentDialog = Roact.createElement(ReportSentDialog),
+		ControlLayoutSetter = Roact.createElement(ControlLayoutSetter),
+		Connection = Roact.createElement(Connection),
+		EducationalPopup = props.isEducationalPopupEnabled and Roact.createElement(EducationalPopup) or nil,
+		MenuIconTooltip = props.isEducationalPopupEnabled and Roact.createElement(MenuIconTooltip) or nil,
+		FullscreenTitleBar = fullscreenTitleBar,
+		QuickActions = Roact.createElement(QuickActions),
+		ScreenOrientationSwitcher = Roact.createElement(ScreenOrientationSwitcher),
+	})
 end
 
 App = InGameMenuPolicy.connect(function(appPolicy, props)

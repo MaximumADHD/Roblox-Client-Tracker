@@ -1,4 +1,6 @@
 --!strict
+local FFlagToolboxSortAudioCategories = game:GetFastFlag("ToolboxSortAudioCategories")
+
 local Plugin = script:FindFirstAncestor("Toolbox")
 
 local Packages = Plugin.Packages
@@ -11,6 +13,8 @@ local LayoutOrderIterator = require(Util.LayoutOrderIterator)
 local Constants = require(Util.Constants)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+local LuauPolyfill = require(Packages.LuauPolyfill)
+local Array = LuauPolyfill.Array
 
 local Images = require(Plugin.Core.Util.Images)
 local Category = require(Plugin.Core.Types.Category)
@@ -36,11 +40,15 @@ type CategoryDropDownState = {
 	selectedIndex: number,
 }
 
+type DropDownItem = {
+	name: string,
+	subcategory: HomeTypes.Subcategory?,
+	-- When removing FFlagToolboxSortAudioCategories index should not be optional
+	index: number?,
+}
+
 type DropDownItems = {
-	[number]: {
-		name: string,
-		subcategory: HomeTypes.Subcategory?,
-	},
+	[number]: DropDownItem,
 }
 
 function CategoryDropDown:init()
@@ -71,6 +79,7 @@ function CategoryDropDown:render()
 	local dropDownItems: DropDownItems = {}
 
 	table.insert(dropDownItems, {
+		index = if FFlagToolboxSortAudioCategories then 1 else nil,
 		name = if Category.MUSIC.name == audioType
 			then localization:getText("Audio.Music", "Browse")
 			else localization:getText("Audio.SoundEffect", "Browse"),
@@ -82,9 +91,20 @@ function CategoryDropDown:render()
 			else "Audio.SoundEffect.Category"
 
 		if not sub.hidden then
-			local item = { name = localization:getText(translationKey, key), subcategory = sub }
+			local item = {
+				name = localization:getText(translationKey, key),
+				subcategory = sub,
+				index = if FFlagToolboxSortAudioCategories then sub.index + 1 else nil,
+			}
 			table.insert(dropDownItems, item)
 		end
+	end
+
+	if FFlagToolboxSortAudioCategories then
+		dropDownItems = Array.sort(dropDownItems, function(a: DropDownItem, b: DropDownItem)
+			-- When removing FFlagToolboxSortAudioCategories number should not be casted
+			return a.index :: number - b.index :: number
+		end)
 	end
 
 	local onItemClicked = function(index: number)

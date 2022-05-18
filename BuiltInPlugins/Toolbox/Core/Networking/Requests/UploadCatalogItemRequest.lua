@@ -3,7 +3,6 @@ local HttpService = game:GetService("HttpService")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagCMSUploadAccessoryMeshPartFormat2 = game:GetFastFlag("CMSUploadAccessoryMeshPartFormat2")
-local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
 
 local SetAssetId = require(Plugin.Core.Actions.SetAssetId)
 local NetworkError = require(Plugin.Core.Actions.NetworkError)
@@ -136,39 +135,27 @@ return function(networkInterface, nameWithoutExtension, extension, description, 
 				createConfigDataTable(nameWithoutExtension, assetTypeId, description)
 			)
 
-			if FFlagCMSUploadFees then
-				local formBodyData = createMultipartFormDataBody({
-					{
-						type = "application/json",
-						disposition = {
-							name = "config",
-							filename = "config.json",
-						},
-						value = configDataBlob,
+			local formBodyData = createMultipartFormDataBody({
+				{
+					type = "application/json",
+					disposition = {
+						name = "config",
+						filename = "config.json",
 					},
-					{
-						type = "application/octet-stream",
-						disposition = {
-							name = nameWithoutExtension,
-							filename = nameWithoutExtension .. "." .. extension,
-						},
-						value = fileDataString,
+					value = configDataBlob,
+				},
+				{
+					type = "application/octet-stream",
+					disposition = {
+						name = nameWithoutExtension,
+						filename = nameWithoutExtension .. "." .. extension,
 					},
-				})
-				return networkInterface
-					:uploadCatalogItem(formBodyData, AssetConfigConstants.MULTIPART_FORM_BOUNDARY)
-					:andThen(handlerFunc, errorFunc)
-			else
-				local boundary = "EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E"
-				local formBodyData = createFormDataBody(
-					configDataBlob,
-					nameWithoutExtension,
-					extension,
-					fileDataString,
-					boundary
-				)
-				return networkInterface:uploadCatalogItem(formBodyData, boundary):andThen(handlerFunc, errorFunc)
-			end
+					value = fileDataString,
+				},
+			})
+			return networkInterface
+				:uploadCatalogItem(formBodyData, AssetConfigConstants.MULTIPART_FORM_BOUNDARY)
+				:andThen(handlerFunc, errorFunc)
 		end, serializeErrorFunc)
 	end
 end

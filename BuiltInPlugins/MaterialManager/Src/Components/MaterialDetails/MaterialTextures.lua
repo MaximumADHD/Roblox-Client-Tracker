@@ -23,6 +23,8 @@ local TruncatedTextLabel = UI.TruncatedTextLabel
 
 local MaterialController = require(Plugin.Src.Util.MaterialController)
 
+local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Plugin.Src.Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
+
 export type Props = {
 	LayoutOrder : number?,
 	MockMaterial : _Types.Material?,
@@ -53,6 +55,7 @@ type _Style = {
 	ImageSize : UDim2,
 	NameLabelSizeBuiltIn : UDim2,
 	NameLabelSizeVariant : UDim2,
+	NoTexture : string,
 	LabelRowSize : UDim2,
 	OverrideSize : UDim2,
 	Padding : number,
@@ -80,7 +83,7 @@ function MaterialTextures:init()
 				LayoutOrder = 1,
 				Size = style.TextureSize,
 				Style = {
-					Image = image
+					Image = if not getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() and image == "" then style.NoTexture else image
 				}
 			}),
 			Label = Roact.createElement(TruncatedTextLabel, {

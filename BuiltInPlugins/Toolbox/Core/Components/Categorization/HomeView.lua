@@ -7,6 +7,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local FFlagToolboxUseExpandableTopSearch = game:GetFastFlag("ToolboxUseExpandableTopSearch") -- TODO: Flip when UISYS-1334 is ready
 local FintToolboxHomeViewInitialPageSize = game:GetFastInt("ToolboxHomeViewInitialPageSize")
 local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization4")
+local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
 
 local Libs = Plugin.Packages
 
@@ -48,6 +49,7 @@ local getNetwork = ContextGetter.getNetwork
 
 local GetAssetPreviewDataForStartup = require(Plugin.Core.Thunks.GetAssetPreviewDataForStartup)
 local RequestSearchRequest = require(Plugin.Core.Networking.Requests.RequestSearchRequest)
+local LogMarketplaceSearchAnalytics = require(Plugin.Core.Thunks.LogMarketplaceSearchAnalytics)
 
 local HomeTypes = require(Plugin.Core.Types.HomeTypes)
 
@@ -98,7 +100,9 @@ type _ExternalProps = {
 type _InternalProps = {
 	-- mapDispatchToProps
 	getAssetPreviewDataForStartup: any,
-	requestSearchRequest: any,
+	requestSearchRequest: (networkInterface: any, settings: any, searchText: string, categoryName: string) -> (),
+	-- make non optional when FFlagToolboxHomeViewAnalyticsUpdate is removed
+	logSearchAnalytics: (keyword: string, assetType: string) -> ()?,
 	-- withContext
 	API: any?,
 	Localization: any,
@@ -187,9 +191,14 @@ function HomeView:init()
 		local categoryName = props.CategoryName
 		local sortName = props.SortName
 		local requestSearchRequest = props.requestSearchRequest
+		local logSearchAnalytics = props.logSearchAnalytics
 
 		local networkInterface = getNetwork(self)
 		local settings = self.props.Settings:get("Plugin")
+
+		if FFlagToolboxHomeViewAnalyticsUpdate and logSearchAnalytics then
+			logSearchAnalytics(searchText, categoryName)
+		end
 		requestSearchRequest(networkInterface, settings, searchText, categoryName)
 	end
 
@@ -267,6 +276,7 @@ function HomeView:init()
 				SortName = sortName,
 				SearchTerm = nil,
 				SectionName = section.name,
+				SwimlaneCategory = section.name,
 				SwimlaneWidth = swimlaneWidth,
 				OnClickSeeAllAssets = onClickSeeAllAssets,
 				OnAssetPreviewButtonClicked = onAssetPreviewButtonClicked,
@@ -464,8 +474,17 @@ local function mapDispatchToProps(dispatch)
 			dispatch(GetAssetPreviewDataForStartup(assetId, tryInsert, localization, networkInterface))
 		end,
 		requestSearchRequest = function(networkInterface, settings, searchTerm, categoryName)
-			dispatch(RequestSearchRequest(networkInterface, settings, searchTerm, categoryName))
+			if FFlagToolboxHomeViewAnalyticsUpdate then
+				dispatch(RequestSearchRequest(networkInterface, settings, searchTerm, categoryName, true))
+			else
+				dispatch(RequestSearchRequest(networkInterface, settings, searchTerm, categoryName))
+			end
 		end,
+		logSearchAnalytics = if FFlagToolboxHomeViewAnalyticsUpdate
+			then function(keyword, assetType)
+				dispatch(LogMarketplaceSearchAnalytics(keyword, assetType, nil, nil, nil, false, true))
+			end
+			else nil,
 	}
 end
 

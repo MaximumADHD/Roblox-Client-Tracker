@@ -34,13 +34,11 @@ local TitledFrame = UILibrary.Component.TitledFrame
 local CHECKBOX_SIZE = 20
 local CHECKBOX_PADDING = 8
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local CheckBoxSet = Roact.PureComponent:extend("CheckBoxSet")
 
 function CheckBoxSet:render()
 	local props = self.props
-	local theme = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
+	local theme = props.Stylizer
 
 	local title = props.Title
 	local layoutOrder = props.LayoutOrder or 1
@@ -138,8 +136,7 @@ function CheckBoxSet:render()
 end
 
 CheckBoxSet = withContext({
-	Stylizer = if THEME_REFACTOR then ContextServices.Stylizer else nil,
-	Theme = if (not THEME_REFACTOR) then ContextServices.Theme else nil,
+	Stylizer = ContextServices.Stylizer,
 })(CheckBoxSet)
 
 return CheckBoxSet

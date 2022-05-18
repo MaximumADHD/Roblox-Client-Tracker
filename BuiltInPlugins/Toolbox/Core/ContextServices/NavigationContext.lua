@@ -9,14 +9,8 @@
 ]]
 local Plugin = script.Parent.Parent.Parent
 local Packages = Plugin.Packages
-local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
 local ContextItem = Framework.ContextServices.ContextItem
-
--- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
-local Provider = Framework.ContextServices.Provider
-
-local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
 local NavigationContext = ContextItem:extend("NavigationContext")
 
@@ -70,14 +64,6 @@ end
 
 function NavigationContext:getCurrentPath()
 	return self.observedNavStack[#self.observedNavStack]
-end
-
-if not FFlagDevFrameworkUseCreateContext then
-	function NavigationContext:createProvider(root)
-		return Roact.createElement(Provider, {
-			ContextItem = self,
-		}, { root })
-	end
 end
 
 return NavigationContext

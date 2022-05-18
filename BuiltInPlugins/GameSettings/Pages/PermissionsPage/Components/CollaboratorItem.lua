@@ -19,7 +19,6 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local UI = Framework.UI
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local StyleModifier = Util.StyleModifier
 local SelectInput = UI.SelectInput
 local Button = UI.Button
@@ -41,7 +40,7 @@ function DeleteButton:render()
 	local enabled = props.Enabled
 	local onClicked = props.OnClicked
 
-	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+	local theme = props.Stylizer
 
 	return Roact.createElement(UILibraryButton, {
 		Size = UDim2.new(0, CONTENT_HEIGHT, 0, CONTENT_HEIGHT),
@@ -77,8 +76,7 @@ end
 
 
 DeleteButton = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(DeleteButton)
 
 
@@ -157,7 +155,7 @@ function CollaboratorItem:init()
 	end
 
 	self.onRenderItem = function(item, index, activated)
-		local theme = THEME_REFACTOR and self.props.Stylizer or self.props.Theme:get("Plugin")
+		local theme = self.props.Stylizer
 		local mainText = item.Display
 		local description = item.Description
 
@@ -225,7 +223,7 @@ function CollaboratorItem:render()
 	local availablePermissions = props.AvailablePermissions
 	local onPermissionChanged = props.OnPermissionChanged
 
-	local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+	local theme = props.Stylizer
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, ITEM_HEIGHT),
@@ -299,8 +297,7 @@ function CollaboratorItem:render()
 end
 
 CollaboratorItem = withContext({
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 })(CollaboratorItem)
 
