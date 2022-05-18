@@ -8,10 +8,10 @@ Check out https://confluence.rbx.com/display/MOBAPP/uiBlox+ImageSet to see how t
 YOUR SPRITE SHEETS MAY GET MODERATED BECAUSE OF BRANDED CONTENT, refer to the work around in the link above if it does.
 --]]
 local FALLBACK_IMAGES = {
-	["img_set_1x_1"] = "http://www.roblox.com/asset/?id=9379764667",
-	["img_set_1x_2"] = "http://www.roblox.com/asset/?id=9379765665",
-	["img_set_1x_3"] = "http://www.roblox.com/asset/?id=9379766444",
-	["img_set_1x_4"] = "http://www.roblox.com/asset/?id=9379767173",
+	["img_set_1x_1"] = "http://www.roblox.com/asset/?id=9552515892",
+	["img_set_1x_2"] = "http://www.roblox.com/asset/?id=9552516889",
+	["img_set_1x_3"] = "http://www.roblox.com/asset/?id=9552517758",
+	["img_set_1x_4"] = "http://www.roblox.com/asset/?id=9552518540",
 	--["img_set_1x_5"] = "",
 	--["img_set_1x_6"] = "",
 }

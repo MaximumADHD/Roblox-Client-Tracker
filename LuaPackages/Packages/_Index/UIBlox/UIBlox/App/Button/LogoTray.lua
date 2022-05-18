@@ -13,6 +13,7 @@ local validateImage = require(Core.ImageSet.Validator.validateImage)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getIconSize = require(App.ImageSet.getIconSize)
 local IconButton = require(script.Parent.IconButton)
+local Colors = require(App.Style.Colors)
 
 local LOGO_SIZE_DEFAULT = IconSize.Large
 local LOGO_PADDING_DEFAULT = 12
@@ -74,6 +75,7 @@ function LogoTray:init()
 		local item = Roact.createElement(IconButton, {
 			icon = logoItem.logo,
 			size = self.getMeasuredItemSize(),
+			iconColor3 = Colors.White,
 			iconSize = LOGO_SIZE_DEFAULT,
 			onActivated = function()
 				self.props.handleItemClick(logoItem.key)

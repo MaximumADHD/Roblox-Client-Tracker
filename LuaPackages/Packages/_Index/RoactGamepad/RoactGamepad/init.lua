@@ -8,6 +8,8 @@ local api = {
 
 	withFocusController = require(script.withFocusController),
 	createFocusController = require(script.FocusController).createPublicApiWrapper,
+
+	FocusContext = require(script.FocusContext)
 }
 
 return api

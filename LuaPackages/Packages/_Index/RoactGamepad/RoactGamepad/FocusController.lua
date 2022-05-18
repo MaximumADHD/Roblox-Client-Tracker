@@ -32,6 +32,10 @@ function FocusControllerInternal.new()
 	return self
 end
 
+function FocusControllerInternal:isInitialized()
+	return self.engineInterface ~= nil
+end
+
 function FocusControllerInternal:moveFocusTo(ref)
 	if self.engineInterface == nil then
 		error("FocusController is not connected to a component hierarchy!", 2)

@@ -115,6 +115,10 @@ end
 
 function FocusNode:focus()
 	local focusController = self:__getFocusControllerInternal()
+	if not focusController:isInitialized() then
+		return -- The focus controller may have been torn down after delay
+	end
+
 	local children = focusController:getChildren(self)
 	if Cryo.isEmpty(children) then
 		focusController:setSelection(self.ref:getValue())

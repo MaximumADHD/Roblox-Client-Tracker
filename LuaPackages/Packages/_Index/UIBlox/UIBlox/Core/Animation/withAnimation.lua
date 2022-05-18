@@ -61,12 +61,12 @@ function AnimatedComponent:init()
 	end)
 end
 
-function AnimatedComponent:willUpdate(nextProps)
-	local values = nextProps.values
-	local options = nextProps.options
+function AnimatedComponent:didUpdate(prevProps)
+	local values = self.props.values
+	local options = self.props.options
 
-	local valuesChanged = values ~= self.props.values
-	local optionsChanged = options ~= self.props.options
+	local valuesChanged = values ~= prevProps.values
+	local optionsChanged = options ~= prevProps.options
 
 	if valuesChanged or optionsChanged then
 		local goals = {}
