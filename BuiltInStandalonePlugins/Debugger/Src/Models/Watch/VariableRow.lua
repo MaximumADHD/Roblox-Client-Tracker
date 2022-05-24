@@ -5,12 +5,12 @@ local DebuggerVariable = require(Src.Mocks.DebuggerVariable)
 local Constants = require(Src.Util.Constants)
 local WatchHelperFunctions = require(Src.Util.WatchHelperFunctions)
 
-type VarName = {nameColumn : string}
+type VarName = { nameColumn: string }
 
 export type VariableRow = VarName & WatchWindowTableRow.WatchWindowTableRow
 
-local function fromData(data) : VariableRow
-	return { 
+local function fromData(data): VariableRow
+	return {
 		nameColumn = data.name,
 		pathColumn = data.path,
 		scopeColumn = data.scope,
@@ -23,7 +23,13 @@ local function fromData(data) : VariableRow
 	}
 end
 
-local function fromInstance(instance : DebuggerVariable.DebuggerVariable, parent : VariableRow?, scope : string?, filterText : string, enabledScopes : {string}) : VariableRow
+local function fromInstance(
+	instance: DebuggerVariable.DebuggerVariable,
+	parent: VariableRow?,
+	scope: string?,
+	filterText: string,
+	enabledScopes: { string }
+): VariableRow
 	local parentPath = if parent then (parent.pathColumn .. Constants.SeparationToken) else ""
 	-- use VariableId if it exists (table/arrays), variable name otherwise
 	local pathName = if instance.VariableId ~= 0 then tostring(instance.VariableId) else instance.Name

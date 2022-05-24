@@ -8,7 +8,6 @@ local UserInputService = game:GetService("UserInputService")
 local GuiService = game:GetService("GuiService")
 local VRService = game:GetService("VRService")
 local Players = game:GetService("Players")
-local ABTestService = game:GetService("ABTestService")
 local RunService = game:GetService("RunService")
 
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
@@ -49,13 +48,14 @@ local GetFFlagStartScreenTimeUsingGuacEnabled
 	= require(CorePackages.Regulations.ScreenTime.GetFFlagStartScreenTimeUsingGuacEnabled)
 
 local GetFFlagEnableIXPInGame = require(CoreGuiModules.Common.Flags.GetFFlagEnableIXPInGame)
-local GetFFlagRemoveABTestServiceInitAndCleanup = require(CorePackages.AppTempCommon.Flags.GetFFlagRemoveABTestServiceInitAndCleanup)
 
 local IsExperienceMenuABTestEnabled = require(CoreGuiModules.InGameMenu.IsExperienceMenuABTestEnabled)
 local ExperienceMenuABTestManager = require(CoreGuiModules.InGameMenu.ExperienceMenuABTestManager)
 local GetCoreScriptsLayers = require(CoreGuiModules.Experiment.GetCoreScriptsLayers)
 
 local FFlagEnableLuobuWarningToast = require(RobloxGui.Modules.Flags.FFlagEnableLuobuWarningToast)
+
+local GetFFlagRtMessaging = require(RobloxGui.Modules.Flags.GetFFlagRtMessaging)
 
 -- The Rotriever index, as well as the in-game menu code itself, relies on
 -- the init.lua convention, so we have to run initify over the module.
@@ -83,10 +83,6 @@ if FFlagUseRoactGlobalConfigInCoreScripts and RunService:IsStudio() then
 		propValidation = true,
 		elementTracing = true,
 	})
-end
-
-if not GetFFlagRemoveABTestServiceInitAndCleanup() then
-	ABTestService:InitializeForUserId(localPlayer.UserId)
 end
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
@@ -271,4 +267,12 @@ end
 
 if game:DefineFastFlag("ReportChatEmoteUsage", false) then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/ChatEmoteUsage", script.Parent)
+end
+
+if GetFFlagRtMessaging() then
+	game:GetService("RtMessagingService")
+end
+
+if game:GetEngineFeature("FacialAnimationStreaming") then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/FacialAnimationStreaming", script.Parent)
 end

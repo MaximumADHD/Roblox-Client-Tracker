@@ -21,8 +21,6 @@ return function()
 	local SetInputType = require(InGameMenu.Actions.SetInputType)
 	local Constants = require(InGameMenu.Resources.Constants)
 
-	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
-
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
 
@@ -31,7 +29,9 @@ return function()
 		Font = AppFont,
 	}
 
-	local FocusHandlerContextProvider = require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
+	local FocusHandlerContextProvider = require(
+		script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider
+	)
 	local ReportSentDialog = require(script.Parent.ReportSentDialog)
 
 	local function getMountableTreeAndStore(props)
@@ -46,10 +46,9 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+					FocusHandlerContextProvider = Roact.createElement(FocusHandlerContextProvider, {}, {
 						ReportSentDialog = Roact.createElement(ReportSentDialog, props),
-					}) or nil,
-					ReportSentDialog = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(ReportSentDialog, props) or nil,
+					}),
 				}),
 			}),
 		}),
@@ -63,7 +62,7 @@ return function()
 	describeSKIP("Mount/unmount", function()
 		it("should create and destroy without errors", function()
 			local element = getMountableTreeAndStore({
-				isReportSentOpen = true
+				isReportSentOpen = true,
 			})
 
 			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)

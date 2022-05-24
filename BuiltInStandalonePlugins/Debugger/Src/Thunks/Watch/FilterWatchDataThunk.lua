@@ -13,7 +13,10 @@ local WatchHelperFunctions = require(Plugin.Src.Util.WatchHelperFunctions)
 
 local function depthFirstTextFilter(filterText, pathName, flattenedTree, expansionTree)
 	local node = flattenedTree[pathName]
-	assert(node ~= nil, ("FilterWatchDataThunk depthFirstTextFilter got a nil node for path %s"):format(tostring(pathName)))
+	assert(
+		node ~= nil,
+		("FilterWatchDataThunk depthFirstTextFilter got a nil node for path %s"):format(tostring(pathName))
+	)
 
 	local childMatch = false
 	for index, childPath in ipairs(node.childPaths) do
@@ -36,7 +39,7 @@ return function(filterString)
 
 		local token = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
 		local threadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
-		if (threadId == nil) then
+		if threadId == nil then
 			-- this can happen if we are adding a filter before hitting play
 			return
 		end
@@ -47,16 +50,16 @@ return function(filterString)
 
 		local stateRoot = watch.stateTokenToRoots
 		local stateFlat = watch.stateTokenToFlattenedTree
-		
+
 		local roots = stateRoot[token] and stateRoot[token][threadId] and stateRoot[token][threadId][frameNumber]
-		if (roots == nil) then
-			warn('unexpected nil in filter thunk')
+		if roots == nil then
+			warn("unexpected nil in filter thunk")
 			return
 		end
 
 		local tree = stateFlat[token] and stateFlat[token][threadId] and stateFlat[token][threadId][frameNumber]
-		if (tree == nil) then
-			warn('unexpected nil in filter thunk')
+		if tree == nil then
+			warn("unexpected nil in filter thunk")
 			return
 		end
 

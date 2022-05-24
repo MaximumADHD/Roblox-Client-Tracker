@@ -36,7 +36,7 @@ function TextInputWithLabel:render()
 	local layoutOrder = props.LayoutOrder
 
 	return Roact.createElement(Pane, {
-		Size =  size,
+		Size = size,
 		Style = "Box",
 		LayoutOrder = layoutOrder,
 		Layout = Enum.FillDirection.Horizontal,
@@ -51,7 +51,7 @@ function TextInputWithLabel:render()
 		}, {
 			Tooltip = tooltipText and Roact.createElement(Tooltip, {
 				Text = tooltipText,
-			})
+			}),
 		}),
 
 		Input = Roact.createElement(MultiLineTextInput, {

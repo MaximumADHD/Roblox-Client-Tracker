@@ -208,4 +208,5 @@ return{
 	["CoreScripts.InGameMenu.Report.BlockBody"] = [[あなたと {DISPLAY_NAME} (@{RBX_NAME}) さんは、お互いにやりとりすることができなくなりました。]],
 	["CoreScripts.InGameMenu.Report.Block"] = [[ブロックする]],
 	["CoreScripts.InGameMenu.Report.BlockPopup"] = [[{DISPLAY_NAME} (@{RBX_NAME}) さんをブロックしました]],
+	["CoreScripts.InGameMenu.PageTitle.Friends"] = [[友達]],
 }

@@ -12,8 +12,6 @@ return function()
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
 
 	local InGameMenu = script.Parent.Parent
-	local Flags = InGameMenu.Flags
-	local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 	local Constants = require(InGameMenu.Resources.Constants)
 	local FocusHandlerContextProvider = require(script.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
 
@@ -48,16 +46,12 @@ return function()
 		return Roact.createElement(UIBlox.Core.Style.Provider, {
 			style = appStyle,
 		}, {
-			FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+			FocusHandlerContextProvider = Roact.createElement(FocusHandlerContextProvider, {}, {
 				ConfirmationDialog = Roact.createElement(
 					ConfirmationDialog,
 					Cryo.Dictionary.join(dummyDialogProps, props)
-				)
-			}) or nil,
-			ConfirmationDialog = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(
-				ConfirmationDialog,
-				Cryo.Dictionary.join(dummyDialogProps, props)
-			) or nil
+				),
+			}),
 		})
 	end
 
@@ -88,9 +82,13 @@ return function()
 
 			Roact.unmount(tree)
 		end)
-		it("Should focus on the confirm button when it becomes visible and gamepad + FFlagInGameMenuController are enabled",
+		it(
+			"Should focus on the confirm button when it becomes visible and gamepad + FFlagInGameMenuController are enabled",
 			function()
-				local element = getMountableComponent({ visible = false, inputType = Constants.InputType.MouseAndKeyboard })
+				local element = getMountableComponent({
+					visible = false,
+					inputType = Constants.InputType.MouseAndKeyboard,
+				})
 				local tree = Roact.mount(element)
 				-- Nothing is focused as we open the dialog with mouse/keyboard
 				expect(GuiService.SelectedCoreObject).to.equal(nil)
@@ -100,6 +98,7 @@ return function()
 
 				Roact.unmount(tree)
 				GuiService.SelectedCoreObject = nil
-		end)
+			end
+		)
 	end)
 end

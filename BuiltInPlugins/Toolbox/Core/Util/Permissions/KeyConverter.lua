@@ -2,13 +2,16 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local PermissionsConstants = require(Plugin.Core.Components.AssetConfiguration.Permissions.PermissionsConstants)
 
-local webKeys = require(Plugin.Core.Util.Permissions.Constants).webKeys
+local WebConstants = require(Plugin.Core.Util.Permissions.Constants)
+local webKeys = WebConstants.webKeys
+local webValues = WebConstants.webValues
 
 local KeyConverter = {}
 
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
 local FFlagAssetConfigHandlePermissionsAssetTypeNotEnabled = game:GetFastFlag("AssetConfigHandlePermissionsAssetTypeNotEnabled")
 local DebugFlags = if FFlagAssetConfigHandlePermissionsAssetTypeNotEnabled then require(Plugin.Core.Util.DebugFlags) else nil
+local FFlagLimitGroupRoleSetPermissionsInGui = game:GetFastFlag("LimitGroupRoleSetPermissionsInGui")
 
 function KeyConverter.getInternalSubjectType(webKey)
 	if webKey == webKeys.UserSubject then
@@ -39,6 +42,32 @@ function KeyConverter.getInternalAction(webKey)
 	else
 		-- not supported
 		error("Unsupported Action: " .. tostring(webKey))
+	end
+end
+
+if FFlagLimitGroupRoleSetPermissionsInGui then
+	function KeyConverter.getPermissionLevel(webValue)
+		if webValue == webValues.AccountPermissionLevel then
+			return PermissionsConstants.AccountPermissionLevel
+		elseif webValue == webValues.UniversePermissionLevel then
+			return PermissionsConstants.UniversePermissionLevel
+		elseif webValue == webValues.AssetPermissionLevel then
+			return PermissionsConstants.AssetPermissionLevel
+		else
+			-- not supported
+			error("Unsupported PermissionLevel: " .. tostring(webValue))
+		end
+	end
+
+	function KeyConverter.getPermissionSource(webValue)
+		if webValue == webValues.AssetPermissionSource then
+			return PermissionsConstants.AssetPermissionSource
+		elseif webValue == webValues.GroupPermissionSource then
+			return PermissionsConstants.GroupPermissionSource
+		else
+			-- not supported
+			error("Unsupported PermissionSource: " .. tostring(webValue))
+		end
 	end
 end
 

@@ -20,11 +20,17 @@ local Constants = require(Src.Util.Constants)
 local DebugConnectionListener = {}
 DebugConnectionListener.__index = DebugConnectionListener
 
-function DebugConnectionListener:onExecutionPaused(connection, pausedState, debuggerPauseReason, debuggerUIService, scriptChangeService)
+function DebugConnectionListener:onExecutionPaused(
+	connection,
+	pausedState,
+	debuggerPauseReason,
+	debuggerUIService,
+	scriptChangeService
+)
 	self.store:dispatch(SetFocusedDebuggerConnection(connection.Id))
 	local state = self.store:getState()
 	local common = state.Common
-	local dst = DebuggerStateToken.fromData({debuggerConnectionId = connection.Id})
+	local dst = DebuggerStateToken.fromData({ debuggerConnectionId = connection.Id })
 	if tostring(debuggerPauseReason) == Constants.DebuggerPauseReason.Breakpoint then
 		if pausedState.Breakpoint ~= nil then
 			self.store:dispatch(SetCurrentBreakpointIdAction(pausedState.Breakpoint.MetaBreakpointId))
@@ -58,18 +64,25 @@ function DebugConnectionListener:onExecutionPaused(connection, pausedState, debu
 				end
 				local callstack = threadState:GetChildren()
 				for stackFrameId, stackFrame in ipairs(callstack) do
-					local stepStateBundle = StepStateBundle.ctor(dst,threadState.ThreadId,stackFrameId)
+					local stepStateBundle = StepStateBundle.ctor(dst, threadState.ThreadId, stackFrameId)
 					self.store:dispatch(LoadStackFrameVariables(connection, stackFrame, stepStateBundle))
 				end
 
-				local listOfExpressions = self.store:getState().Watch.listOfExpressions	
+				local listOfExpressions = self.store:getState().Watch.listOfExpressions
 				for _, expression in ipairs(listOfExpressions) do
-					self.store:dispatch(ExecuteExpressionForAllFrames(expression, connection, dst, threadState.ThreadId))
+					self.store:dispatch(
+						ExecuteExpressionForAllFrames(expression, connection, dst, threadState.ThreadId)
+					)
 				end
-				
+
 				-- Open script at top of callstack
 				local topFrame = threadState:GetFrame(0)
-				debuggerUIService:SetScriptLineMarker(topFrame.Script, common.currentDebuggerConnectionId, topFrame.Line, true)
+				debuggerUIService:SetScriptLineMarker(
+					topFrame.Script,
+					common.currentDebuggerConnectionId,
+					topFrame.Line,
+					true
+				)
 				debuggerUIService:OpenScriptAtLine(topFrame.Script, common.currentDebuggerConnectionId, topFrame.Line)
 			end)
 		end
@@ -80,7 +93,7 @@ function DebugConnectionListener:onExecutionResumed(connection, pausedState, deb
 	local state = self.store:getState()
 	local common = state.Common
 	local dst = common.debuggerConnectionIdToDST[connection.Id]
-	if (dst) then
+	if dst then
 		-- When we have multiple BPs hit, we get multiple resume signals
 		debuggerUIService:RemoveScriptLineMarkers(connection.Id, true)
 		self.store:dispatch(Resumed(dst, pausedState.ThreadId))
@@ -101,13 +114,13 @@ function DebugConnectionListener:connectEvents(debuggerConnectionId, connection,
 end
 
 function DebugConnectionListener:onConnectionStarted(debuggerConnection, debuggerUIService, scriptChangeService)
-	assert(debuggerConnection and debuggerConnection.Id~=0)
+	assert(debuggerConnection and debuggerConnection.Id ~= 0)
 	self.debuggerConnections[debuggerConnection.Id] = debuggerConnection
 	self:connectEvents(debuggerConnection.Id, debuggerConnection, debuggerUIService, scriptChangeService)
 end
 
 function DebugConnectionListener:onConnectionEnded(debuggerConnection, reason, debuggerUIService)
-	assert(debuggerConnection and debuggerConnection.Id~=0)
+	assert(debuggerConnection and debuggerConnection.Id ~= 0)
 	if debuggerUIService ~= nil then
 		debuggerUIService:RemoveScriptLineMarkers(debuggerConnection.Id, true)
 	end
@@ -117,7 +130,7 @@ function DebugConnectionListener:onConnectionEnded(debuggerConnection, reason, d
 	if dst then
 		self.store:dispatch(ClearConnectionDataAction(dst))
 	end
-	for _,eventConnection in pairs(self.connectionEventConnections[debuggerConnection.Id]) do
+	for _, eventConnection in pairs(self.connectionEventConnections[debuggerConnection.Id]) do
 		eventConnection:Disconnect()
 	end
 	self.connectionEventConnections[debuggerConnection.Id] = nil
@@ -129,18 +142,35 @@ function DebugConnectionListener:onFocusChanged(debuggerConnection)
 	self.store:dispatch(SetFocusedDebuggerConnection(focusedDebuggerConnectionId))
 end
 
-local function setUpConnections(debugConnectionListener, debuggerConnectionManager, debuggerUIService, scriptChangeService)
+local function setUpConnections(
+	debugConnectionListener,
+	debuggerConnectionManager,
+	debuggerUIService,
+	scriptChangeService
+)
 	local DebuggerConnectionManager = debuggerConnectionManager or game:GetService("DebuggerConnectionManager")
 	local DebuggerUIService = debuggerUIService or game:GetService("DebuggerUIService")
 	local ScriptChangeService = scriptChangeService or game:GetService("CrossDMScriptChangeListener")
 
-	debugConnectionListener._connectionStartedConnection = DebuggerConnectionManager.ConnectionStarted:Connect(function(debuggerConnection) debugConnectionListener:onConnectionStarted(debuggerConnection, DebuggerUIService, ScriptChangeService) end)
-	debugConnectionListener._connectionEndedConnection = DebuggerConnectionManager.ConnectionEnded:Connect(function(debuggerConnection, reason) debugConnectionListener:onConnectionEnded(debuggerConnection, reason, DebuggerUIService) end)
-	debugConnectionListener._focusChangedConnection = DebuggerConnectionManager.FocusChanged:Connect(function(debuggerConnection) debugConnectionListener:onFocusChanged(debuggerConnection) end)
+	debugConnectionListener._connectionStartedConnection = DebuggerConnectionManager.ConnectionStarted:Connect(
+		function(debuggerConnection)
+			debugConnectionListener:onConnectionStarted(debuggerConnection, DebuggerUIService, ScriptChangeService)
+		end
+	)
+	debugConnectionListener._connectionEndedConnection = DebuggerConnectionManager.ConnectionEnded:Connect(
+		function(debuggerConnection, reason)
+			debugConnectionListener:onConnectionEnded(debuggerConnection, reason, DebuggerUIService)
+		end
+	)
+	debugConnectionListener._focusChangedConnection = DebuggerConnectionManager.FocusChanged:Connect(
+		function(debuggerConnection)
+			debugConnectionListener:onFocusChanged(debuggerConnection)
+		end
+	)
 end
 
 function DebugConnectionListener.new(store, debuggerConnectionManager, debuggerUIService, scriptChangeService)
-	local self = {store = store}
+	local self = { store = store }
 	self.debuggerConnections = {}
 	self.connectionEventConnections = {}
 	setUpConnections(self, debuggerConnectionManager, debuggerUIService, scriptChangeService)

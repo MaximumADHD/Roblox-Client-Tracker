@@ -7,6 +7,8 @@ local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
 local Cryo = require(Packages.Cryo)
 
+local FFlagLimitGroupRoleSetPermissionsInGui = game:GetFastFlag("LimitGroupRoleSetPermissionsInGui")
+
 local function createKey(keyName)
 	local key = newproxy(true)
 
@@ -38,12 +40,23 @@ local uniqueIdentifiers = {
 	RoleSubjectKey = createKey("RoleSubjectType"),
 	
 	ActionKey = createKey("Action"),
+	PermissionLevelKey = FFlagLimitGroupRoleSetPermissionsInGui and createKey("PermissionLevel") or nil,
+	PermissionSourceKey = FFlagLimitGroupRoleSetPermissionsInGui and createKey("PermissionSource") or nil,
 	SubjectIdKey = createKey("SubjectId"),
 	SubjectNameKey = createKey("SubjectName"),
 	SubjectTypeKey = createKey("SubjectType"),
 	SubjectRankKey = createKey("SubjectRank"),
 	GroupIdKey = createKey("GroupId"),
 	GroupNameKey = createKey("GroupName"),
+
+	-- Enumerated values for PermissionLevelKey
+	AccountPermissionLevel = FFlagLimitGroupRoleSetPermissionsInGui and "Account" or nil,
+	UniversePermissionLevel = FFlagLimitGroupRoleSetPermissionsInGui and "Universe" or nil,
+	AssetPermissionLevel = FFlagLimitGroupRoleSetPermissionsInGui and "Asset" or nil,
+
+	-- Enumeration of values for PermissionSource.
+	AssetPermissionSource = FFlagLimitGroupRoleSetPermissionsInGui and "Asset" or nil,
+	GroupPermissionSource = FFlagLimitGroupRoleSetPermissionsInGui and "GroupRoleset" or nil,
 }
 
 local miscConstants = {

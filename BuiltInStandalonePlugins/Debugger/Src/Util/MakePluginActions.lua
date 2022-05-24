@@ -1,3 +1,8 @@
+local Plugin = script.Parent.Parent.Parent
+local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local deepCopy = Util.deepCopy
+
 local Constants = require(script.Parent.Constants)
 
 local function makeAction(localization, id)
@@ -39,12 +44,12 @@ local function getCallstackActions(localization)
 	for key, value in pairs(Constants.CallstackActionIds) do
 		actions[value] = makeAction(localization, value)
 	end
-	
+
 	-- This is commented out until the Command Framework gets implemented, so that we can
 	-- have unambiguous shortcuts for common actions.
 	--[[actions[Constants.CallstackActionIds.CopySelected].defaultShortcut = "Ctrl+C"
 	actions[Constants.CallstackActionIds.SelectAll].defaultShortcut = "Ctrl+A"]]
-	
+
 	return actions
 end
 
@@ -73,13 +78,13 @@ local function getBreakpointActions(localization, rowEnabled, isLogpoint)
 	end
 
 	if rowEnabled then
-		if isLogpoint then 
-			actions[Constants.LogpointActions.EnableLogpoint] = nil 
-		else 
+		if isLogpoint then
+			actions[Constants.LogpointActions.EnableLogpoint] = nil
+		else
 			actions[Constants.BreakpointActions.EnableBreakpoint] = nil
 		end
 	else
-		if isLogpoint then 
+		if isLogpoint then
 			actions[Constants.LogpointActions.DisableLogpoint] = nil
 		else
 			actions[Constants.BreakpointActions.DisableBreakpoint] = nil
@@ -89,10 +94,22 @@ local function getBreakpointActions(localization, rowEnabled, isLogpoint)
 	return actions
 end
 
+local function getBreakpointActionsOrder(rowEnabled, isLogpoint)
+	local orderedActionsCopy = if isLogpoint
+		then deepCopy(Constants.LogpointActionsOrder)
+		else deepCopy(Constants.BreakpointActionsOrder)
+	if rowEnabled then
+		table.remove(orderedActionsCopy, Constants.EnableKey)
+	else
+		table.remove(orderedActionsCopy, Constants.DisableKey)
+	end
+	return orderedActionsCopy
+end
+
 local function getActionsWithShortcuts(localization)
 	local toReturn = {}
 	local stepActions = getStepActions(localization)
-	for k,v in pairs(stepActions) do
+	for k, v in pairs(stepActions) do
 		toReturn[k] = v
 	end
 	return toReturn
@@ -103,4 +120,5 @@ return {
 	getWatchActions = getWatchActions,
 	getBreakpointActions = getBreakpointActions,
 	getActionsWithShortcuts = getActionsWithShortcuts,
+	getBreakpointActionsOrder = getBreakpointActionsOrder,
 }

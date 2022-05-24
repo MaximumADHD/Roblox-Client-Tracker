@@ -12,15 +12,15 @@ end
 local RunService = game:GetService("RunService")
 
 local PluginLoaderBuilder = require(Plugin.PluginLoader.PluginLoaderBuilder)
-local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
-local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
+local SourceStrings = Plugin.Src.Resources.SourceStrings
+local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 local StudioService = game:GetService("StudioService")
 
 local args : PluginLoaderBuilder.Args = {
 	plugin = plugin,
 	pluginName = "GameSettings",
-	translationResourceTable = TranslationReferenceTable,
-	fallbackResourceTable = TranslationDevelopmentTable,
+	translationResourceTable = LocalizedStrings,
+	fallbackResourceTable = SourceStrings,
 	overrideLocaleId = nil,
 	localizationNamespace = nil,
 	getToolbarName = function()

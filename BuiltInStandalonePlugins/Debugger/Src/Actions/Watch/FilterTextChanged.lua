@@ -3,11 +3,11 @@ local Framework = require(Plugin.Packages.Framework)
 local Action = Framework.Util.Action
 
 export type Props = {
-	filterText : string
+	filterText: string,
 }
 
-return Action(script.Name, function(filterText : string) : Props
+return Action(script.Name, function(filterText: string): Props
 	return {
-		filterText = filterText
+		filterText = filterText,
 	}
 end)

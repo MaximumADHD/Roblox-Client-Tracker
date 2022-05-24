@@ -21,17 +21,17 @@ local theme = require(Plugin.Src.Resources.makeTheme)
 
 
 -- localization
-local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
-local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
+local SourceStrings = Plugin.Src.Resources.SourceStrings
+local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 local Localization = ContextServices.Localization
 local localization = Localization.new({
-	stringResourceTable = TranslationDevelopmentTable,
-	translationResourceTable = TranslationReferenceTable,
+	stringResourceTable = SourceStrings,
+	translationResourceTable = LocalizedStrings,
 	pluginName = "PluginInstallation",
 })
 
 -- networking
--- TO DO : Replace with DevFramework's versions of these libraries 
+-- TO DO : Replace with DevFramework's versions of these libraries
 -- (https://jira.rbx.com/browse/DEVTOOLS-4441)
 local Http = require(Plugin.Packages.Http)
 local api = Http.API.new({

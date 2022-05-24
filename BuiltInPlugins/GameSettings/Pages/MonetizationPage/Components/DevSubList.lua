@@ -7,6 +7,7 @@
         func OnDeveloperSubscriptionCreated = when a developer subscriptin is made
         int ListItemHeight = the height in pixels of the list items
 ]]
+local FFlagGameSettingsRemoveFitContent = game:GetFastFlag("GameSettingsRemoveFitContent")
 
 local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
 
@@ -21,6 +22,9 @@ local Util = Framework.Util
 local FrameworkUI = Framework.UI
 local Button = FrameworkUI.Button
 
+local UI = Framework.UI
+local Pane = UI.Pane
+
 local DevSubListItem = require(script.Parent.DevSubListItem)
 local DevSubListHeaderText = require(script.Parent.DevSubListHeaderText)
 
@@ -32,11 +36,15 @@ local withContext = ContextServices.withContext
 local AddChange = require(Plugin.Src.Actions.AddChange)
 
 local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Util.GetTextSize else UILibrary.Util.GetTextSize
-local createFitToContent = UILibrary.Component.createFitToContent
-local FitToContent = createFitToContent("Frame", "UIListLayout", {
-    SortOrder = Enum.SortOrder.LayoutOrder,
-    Padding = UDim.new(0, 10),
-})
+
+local FitToContent
+if not FFlagGameSettingsRemoveFitContent then
+    local createFitToContent = UILibrary.Component.createFitToContent
+    FitToContent = createFitToContent("Frame", "UIListLayout", {
+        SortOrder = Enum.SortOrder.LayoutOrder,
+        Padding = UDim.new(0, 10),
+    })
+end
 
 local DeveloperSubscriptionList = Roact.Component:extend("DeveloperSubscriptionList")
 
@@ -174,10 +182,19 @@ function DeveloperSubscriptionList:render()
         LayoutOrder = index + 1
     })
 
-    return Roact.createElement(FitToContent, {
-        BackgroundTransparency = 1,
-        LayoutOrder = layoutOrder,
-    }, elements)
+    if FFlagGameSettingsRemoveFitContent then
+        return Roact.createElement(Pane, {
+            Layout = Enum.FillDirection.Vertical,
+            LayoutOrder = layoutOrder,
+            AutomaticSize = Enum.AutomaticSize.Y,
+            Spacing = UDim.new(0, 10),
+        }, elements)
+    else
+        return Roact.createElement(FitToContent, {
+            BackgroundTransparency = 1,
+            LayoutOrder = layoutOrder,
+        }, elements)
+    end
 end
 
 

@@ -78,7 +78,7 @@ local function init()
 	viewportCamera.FieldOfView = 70
 	viewport.CurrentCamera = viewportCamera
 
-	local localizationTable = script.Parent.ViewSelectorLocalizationTable
+	local localizationTable = script.Parent.LocalizedStrings
 	local translator = localizationTable:GetTranslator(StudioService.StudioLocaleId)
 	local fallbackTranslator = localizationTable:GetTranslator("en-us")
 	local children = model:GetChildren()

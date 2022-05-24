@@ -36,6 +36,7 @@ local POSITION_MOTOR_OPTIONS = {
     dampingRatio = 1,
     frequency = 4,
 }
+local HIDE_POSITION = -100
 
 function PageContainer:init(props)
 	self.onContainerRendered = function(rbx, key)
@@ -80,10 +81,18 @@ function PageContainer:init(props)
 		end
 	end)
 
-	self.positionMotor = Otter.createSingleMotor(-100)
-	self.containerPosition, self.setContainerPosition = Roact.createBinding(UDim2.new(0, -100, 0, 0))
+	self.positionMotor = Otter.createSingleMotor(HIDE_POSITION)
+	self.containerPosition, self.setContainerPosition = Roact.createBinding(UDim2.new(0, HIDE_POSITION, 0, 0))
 	self.positionMotor:onStep(function(position)
 		self.setContainerPosition(UDim2.new(0, position, 0, 0))
+	end)
+
+	self.pageMotor:onComplete(function(position)
+		if position == HIDE_POSITION then
+			self:setState({
+				frameVisible = false
+			})
+		end
 	end)
 end
 
@@ -130,14 +139,19 @@ function PageContainer:render()
 		Size = UDim2.new(0, Constants.PageWidth, 1, yOffset),
 		Position = self.containerPosition,
 		BackgroundTransparency = 1,
-		Visible = self.props.visible,
+		Visible = self.state.frameVisible,
 		ClipsDescendants = true,
 	}, pageElements)
 end
 
 function PageContainer:didUpdate(oldProps, oldState)
+	if self.props.visible == true then
+		self:setState({
+			frameVisible = true
+		})
+	end
 
-	self.positionMotor:setGoal(Otter.spring(self.props.visible and 64 or -100, POSITION_MOTOR_OPTIONS))
+	self.positionMotor:setGoal(Otter.spring(self.props.visible and 64 or HIDE_POSITION, POSITION_MOTOR_OPTIONS))
 
 	local lastPage = oldProps.currentPage
 	local currentPage = self.props.currentPage

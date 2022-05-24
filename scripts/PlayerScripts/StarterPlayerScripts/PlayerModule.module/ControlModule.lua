@@ -17,6 +17,7 @@ ControlModule.__index = ControlModule
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
+local GuiService = game:GetService("GuiService")
 local Workspace = game:GetService("Workspace")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local VRService = game:GetService("VRService")
@@ -38,6 +39,13 @@ local FFlagUserCameraControlLastInputTypeUpdate do
 		return UserSettings():IsUserFeatureEnabled("UserCameraControlLastInputTypeUpdate")
 	end)
 	FFlagUserCameraControlLastInputTypeUpdate = success and result
+end
+
+local FFlagUserUpdatePlayerScriptsTouchControlsEnabled do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserUpdatePlayerScriptsTouchControlsEnabled")
+	end)
+	FFlagUserUpdatePlayerScriptsTouchControlsEnabled = success and result
 end
 
 local TouchThumbstick = require(script:WaitForChild("TouchThumbstick"))
@@ -150,9 +158,16 @@ function ControlModule.new()
 	self.touchGui = nil
 	self.playerGuiAddedConn = nil
 
-	UserInputService:GetPropertyChangedSignal("ModalEnabled"):Connect(function()
-		self:UpdateTouchGuiVisibility()
-	end)
+	if FFlagUserUpdatePlayerScriptsTouchControlsEnabled then
+		GuiService:GetPropertyChangedSignal("TouchControlsEnabled"):Connect(function()
+			self:UpdateTouchGuiVisibility()
+			self:UpdateActiveControlModuleEnabled()
+		end)
+	else
+		UserInputService:GetPropertyChangedSignal("ModalEnabled"):Connect(function()
+			self:UpdateTouchGuiVisibility()
+		end)
+	end
 
 	if UserInputService.TouchEnabled then
 		self.playerGui = Players.LocalPlayer:FindFirstChildOfClass("PlayerGui")
@@ -191,6 +206,7 @@ function ControlModule:GetActiveController()
 	return self.activeController
 end
 
+-- Remove with FFlagUserUpdatePlayerScriptsTouchControlsEnabled
 function ControlModule:EnableActiveControlModule()
 	if self.activeControlModule == ClickToMove then
 		-- For ClickToMove, when it is the player's choice, we also enable the full keyboard controls.
@@ -205,6 +221,57 @@ function ControlModule:EnableActiveControlModule()
 	else
 		self.activeController:Enable(true)
 	end
+end
+
+-- Checks for conditions for enabling/disabling the active controller and updates whether the active controller is enabled/disabled
+function ControlModule:UpdateActiveControlModuleEnabled()
+	-- helpers for disable/enable
+	local disable = function() 
+		self.activeController:Enable(false)
+
+		if self.moveFunction then
+			self.moveFunction(Players.LocalPlayer, Vector3.new(0,0,0), true)
+		end
+	end
+
+	local enable = function()
+		if self.activeControlModule == ClickToMove then
+			-- For ClickToMove, when it is the player's choice, we also enable the full keyboard controls.
+			-- When the developer is forcing click to move, the most keyboard controls (WASD) are not available, only jump.
+			self.activeController:Enable(
+				true,
+				Players.LocalPlayer.DevComputerMovementMode == Enum.DevComputerMovementMode.UserChoice,
+				self.touchJumpController
+			)
+		elseif self.touchControlFrame then
+			self.activeController:Enable(true, self.touchControlFrame)
+		else
+			self.activeController:Enable(true)
+		end
+	end
+
+	-- there is no active controller
+	if not self.activeController then
+		return
+	end
+
+	-- developer called ControlModule:Disable(), don't turn back on
+	if not self.controlsEnabled then
+		disable()
+		return
+	end
+
+	-- GuiService.TouchControlsEnabled == false and the active controller is a touch controller, 
+	-- disable controls
+	if not GuiService.TouchControlsEnabled and UserInputService.TouchEnabled and 
+			(self.activeControlModule == ClickToMove or self.activeControlModule == TouchThumbstick or 
+			self.activeControlModule == DynamicThumbstick) then
+		disable()
+		return
+	end
+
+	-- no settings prevent enabling controls
+	enable()
 end
 
 function ControlModule:Enable(enable: boolean?)
@@ -225,10 +292,14 @@ function ControlModule:Enable(enable: boolean?)
 		end
 	end
 
-	if enable then
-		self:EnableActiveControlModule()
+	if FFlagUserUpdatePlayerScriptsTouchControlsEnabled then
+		self:UpdateActiveControlModuleEnabled()
 	else
-		self:Disable()
+		if enable then
+			self:EnableActiveControlModule()
+		else
+			self:Disable()
+		end
 	end
 end
 
@@ -238,11 +309,15 @@ function ControlModule:Disable()
 		self.controlsEnabled = false
 	end
 	
-	if self.activeController then
-		self.activeController:Enable(false)
-
-		if self.moveFunction then
-			self.moveFunction(Players.LocalPlayer, Vector3.new(0,0,0), true)
+	if FFlagUserUpdatePlayerScriptsTouchControlsEnabled then
+		self:UpdateActiveControlModuleEnabled()
+	else
+		if self.activeController then
+			self.activeController:Enable(false)
+	
+			if self.moveFunction then
+				self.moveFunction(Players.LocalPlayer, Vector3.new(0,0,0), true)
+			end
 		end
 	end
 end
@@ -428,8 +503,13 @@ end
 
 function ControlModule:UpdateTouchGuiVisibility()
 	if self.touchGui then
-		local doShow = self.humanoid and not UserInputService.ModalEnabled
-		self.touchGui.Enabled = not not doShow -- convert to bool
+		if FFlagUserUpdatePlayerScriptsTouchControlsEnabled then
+			local doShow = self.humanoid and GuiService.TouchControlsEnabled
+			self.touchGui.Enabled = not not doShow -- convert to bool
+		else
+			local doShow = self.humanoid and not UserInputService.ModalEnabled
+			self.touchGui.Enabled = not not doShow -- convert to bool
+		end
 	end
 end
 
@@ -479,8 +559,12 @@ function ControlModule:SwitchToController(controlModule)
 				end
 			end
 			
-			if self.controlsEnabled then
-				self:EnableActiveControlModule()
+			if FFlagUserUpdatePlayerScriptsTouchControlsEnabled then
+				self:UpdateActiveControlModuleEnabled()
+			else
+				if self.controlsEnabled then
+					self:EnableActiveControlModule()
+				end
 			end
 		end
 	else

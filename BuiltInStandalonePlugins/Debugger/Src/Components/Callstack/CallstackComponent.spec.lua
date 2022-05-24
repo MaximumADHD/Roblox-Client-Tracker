@@ -19,14 +19,14 @@ return function()
 			Frame = Roact.createElement("Frame", {
 				Size = UDim2.fromOffset(200, 200),
 			}, {
-				Callstack = Roact.createElement(CallstackComponent)
-			})
+				Callstack = Roact.createElement(CallstackComponent),
+			}),
 		})
 	end
 
 	it("should create and destroy callstack without errors", function()
 		local store = Rodux.Store.new(MainReducer, nil, MainMiddleware)
-		local mockContext =  createCallstack(store:getState())
+		local mockContext = createCallstack(store:getState())
 		local folder = Instance.new("Folder")
 		local folderInstance = Roact.mount(mockContext.getChildrenWithMockContext(), folder)
 		local tableView = folder:FindFirstChild("TableView", true)
@@ -51,15 +51,17 @@ return function()
 
 		local tableView = folder:FindFirstChild("TableView", true)
 		local list = tableView.Contents.List.Child.Scroller
-		
+
 		local state = store:getState()
 		local currDST = state.Common.debuggerConnectionIdToDST[state.Common.currentDebuggerConnectionId]
-		expect(list["1"].Row[1].Left.Text.Text).to.equal(state.Callstack.stateTokenToCallstackVars[currDST].threadList[1].displayString)
-		
+		expect(list["1"].Row[1].Left.Text.Text).to.equal(
+			state.Callstack.stateTokenToCallstackVars[currDST].threadList[1].displayString
+		)
+
 		expect(list["2"].Row[2].Left.Text.Text).to.equal("1")
 		expect(list["2"].Row[4].Left.Text.Text).to.equal("TestFrame1")
 		expect(list["2"].Row[5].Left.Text.Text).to.equal("10")
-		
+
 		expect(list["3"].Row[2].Left.Text.Text).to.equal("2")
 		expect(list["3"].Row[4].Left.Text.Text).to.equal("TestFrame2")
 		expect(list["3"].Row[5].Left.Text.Text).to.equal("20")

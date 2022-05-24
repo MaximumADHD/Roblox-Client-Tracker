@@ -11,22 +11,28 @@ export type BreakpointRow = {
 	condition: string,
 	logMessage: string,
 	continueExecution: boolean,
-	debugpointType : Constants.DebugpointType,
-	context : string,
+	debugpointType: Constants.DebugpointType,
+	context: string,
+	scriptGUID: string,
 }
 
-local function extractNonChildData(breakpoint : Metabreakpoint.MetaBreakpoint, context : string, scriptName : string) : BreakpointRow
+local function extractNonChildData(
+	breakpoint: Metabreakpoint.MetaBreakpoint,
+	context: string,
+	scriptGUID: string
+): BreakpointRow
 	return {
 		id = breakpoint.id,
 		isEnabled = breakpoint.isEnabled,
 		lineNumber = breakpoint.lineNumber,
-		scriptName = scriptName,
+		scriptName = "",
 		scriptLine = breakpoint.scriptLine,
 		condition = breakpoint.condition,
 		logMessage = breakpoint.logMessage,
 		continueExecution = breakpoint.continueExecution,
 		debugpointType = breakpoint.debugpointType,
 		context = context,
+		scriptGUID = scriptGUID,
 	}
 end
 

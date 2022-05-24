@@ -2,8 +2,6 @@ local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local LocalizationService = game:GetService("LocalizationService")
 
-local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
-local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
 local Roact = require(CorePackages.Roact)
 local Rodux = require(CorePackages.Rodux)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -19,6 +17,7 @@ local TrustAndSafetyApp = require(script.Components.TrustAndSafetyApp)
 local TrustAndSafetyAppPolicy = require(script.TrustAndSafetyAppPolicy)
 
 local OpenReportDialog = require(script.Actions.OpenReportDialog)
+local FetchPlaceInfo = require(script.Thunks.FetchPlaceInfo)
 
 local TrustAndSafety = {}
 TrustAndSafety.__index = TrustAndSafety
@@ -38,12 +37,8 @@ function TrustAndSafety.new()
 	end
 
 	self.store = self:createStore()
+	self.store:dispatch(FetchPlaceInfo(game.GameId))
 	self.localization = self:createLocalization()
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	self.root = Roact.createElement(RoactRodux.StoreProvider, {
 		store = self.store,
@@ -51,15 +46,11 @@ function TrustAndSafety.new()
 		PolicyProvider = Roact.createElement(TrustAndSafetyAppPolicy.Provider, {
 			policy = { TrustAndSafetyAppPolicy.Mapper },
 		}, {
-			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-				style = appStyle,
+			LocalizationProvider = Roact.createElement(LocalizationProvider, {
+				localization = self.localization,
 			}, {
-				LocalizationProvider = Roact.createElement(LocalizationProvider, {
-					localization = self.localization,
-				}, {
-					App = Roact.createElement(TrustAndSafetyApp),
-				}),
-			})
+				App = Roact.createElement(TrustAndSafetyApp),
+			}),
 		})
 	})
 
@@ -90,8 +81,8 @@ function TrustAndSafety:createLocalization()
 	return localization
 end
 
-function TrustAndSafety:openReportDialog(userId, userName)
-	self.store:dispatch(OpenReportDialog(userId, userName))
+function TrustAndSafety:openReportDialog(reportType, targetPlayer)
+	self.store:dispatch(OpenReportDialog(reportType, targetPlayer))
 end
 
 return {}

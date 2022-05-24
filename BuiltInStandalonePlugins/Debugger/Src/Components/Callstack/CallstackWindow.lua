@@ -28,7 +28,7 @@ function CallstackWindow:render()
 		InitialEnabled = true,
 		InitialEnabledShouldOverrideRestore = false,
 		Size = Vector2.new(640, 480),
-		MinSize =  Vector2.new(250, 200),
+		MinSize = Vector2.new(250, 200),
 		Enabled = enabled,
 		OnClose = onClose,
 	}, {

@@ -128,8 +128,8 @@ local function run(testChildren, container, testRunner, draggerType)
 	local localization = ContextServices.Localization.mock({
 		libraries = {
 			[AvatarToolsShared.Resources.LOCALIZATION_PROJECT_NAME] = {
-				stringResourceTable = AvatarToolsShared.Resources.TranslationDevelopmentTable,
-				translationResourceTable = AvatarToolsShared.Resources.TranslationReferenceTable,
+				stringResourceTable = AvatarToolsShared.Resources.SourceStrings,
+				translationResourceTable = AvatarToolsShared.Resources.LocalizedStrings,
 			},
 		},
 	})

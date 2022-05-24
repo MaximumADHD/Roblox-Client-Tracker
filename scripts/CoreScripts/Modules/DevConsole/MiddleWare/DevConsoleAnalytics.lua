@@ -4,8 +4,6 @@ local SetActiveTab = require(script.Parent.Parent.Actions.SetActiveTab)
 local SetDevConsoleVisibility = require(script.Parent.Parent.Actions.SetDevConsoleVisibility)
 local SetDevConsoleMinimized = require(script.Parent.Parent.Actions.SetDevConsoleMinimized)
 
-local FFlagReportDevConsoleOpenClose = settings():GetFFlag("ReportDevConsoleOpenClose")
-
 local START_VISIBLE = "DevConsoleStartVisible"
 local CLOSE_SESSION_TIME = "DevConsoleSessionTime"
 
@@ -105,10 +103,8 @@ end
 
 local export: any = function(nextDispatch, store)
 	return function(action)
-			ReportTabChange(store, action)
-		if FFlagReportDevConsoleOpenClose then
-			ReportDevConsoleOpenClose(store, action)
-		end
+		ReportTabChange(store, action)
+		ReportDevConsoleOpenClose(store, action)
 		nextDispatch(action)
 	end
 end

@@ -2,9 +2,9 @@ local CorePackages = game:GetService("CorePackages")
 
 local Action = require(CorePackages.AppTempCommon.Common.Action)
 
-return Action("OPEN_REPORT_DIALOG", function(userId, userName)
+return Action("OPEN_REPORT_DIALOG", function(reportType, targetPlayer)
 	return {
-		userId = userId,
-		userName = userName,
+		reportType = reportType,
+		targetPlayer = targetPlayer,
 	}
 end)

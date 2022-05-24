@@ -36,8 +36,8 @@ local Store = ContextServices.Store
 local MainReducer = require(main.Src.Reducers.MainReducer)
 local MakeTheme = require(main.Src.Resources.MakeTheme)
 
-local TranslationDevelopmentTable = main.Src.Resources.Localization.TranslationDevelopmentTable
-local TranslationReferenceTable = main.Src.Resources.Localization.TranslationReferenceTable
+local SourceStrings = main.Src.Resources.Localization.SourceStrings
+local LocalizedStrings = main.Src.Resources.Localization.LocalizedStrings
 
 local Components = main.Src.Components
 local ExampleComponent = require(Components.ExampleComponent)
@@ -81,8 +81,8 @@ function MainPlugin:init(props)
 	}, nil)
 
 	self.localization = ContextServices.Localization.new({
-		stringResourceTable = TranslationDevelopmentTable,
-		translationResourceTable = TranslationReferenceTable,
+		stringResourceTable = SourceStrings,
+		translationResourceTable = LocalizedStrings,
 		pluginName = "ManageCollaborators",
 	})
 	--[[

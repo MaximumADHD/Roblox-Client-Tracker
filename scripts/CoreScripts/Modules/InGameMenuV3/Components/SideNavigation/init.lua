@@ -22,15 +22,14 @@ local Constants = require(InGameMenu.Resources.Constants)
 local Pages = require(InGameMenu.Components.Pages)
 local InGameMenuPolicy = require(InGameMenu.InGameMenuPolicy)
 
-local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
-
 local SELECTION_PARENT_NAME = "SideNavigation_IGMSelectionGroup"
+local HIDE_POSITION = -65
 
 local SideNavigation = Roact.PureComponent:extend("SideNavigation")
 
 local POSITION_MOTOR_OPTIONS = {
-    dampingRatio = 1,
-    frequency = 4,
+	dampingRatio = 1,
+	frequency = 4,
 }
 
 SideNavigation.validateProps = t.strictInterface({
@@ -39,7 +38,7 @@ SideNavigation.validateProps = t.strictInterface({
 	navigateTo = t.callback,
 	currentPage = t.string,
 	canCaptureFocus = t.optional(t.boolean),
-	currentZone = GetFFlagIGMGamepadSelectionHistory() and t.optional(t.number) or nil,
+	currentZone = t.optional(t.number),
 
 	--policy
 	enableInGameHomeIcon = t.optional(t.boolean),
@@ -63,21 +62,37 @@ function SideNavigation:init()
 		end
 	end
 
-	self.positionMotor = Otter.createSingleMotor(-65)
-	self.containerPosition, self.setContainerPosition = Roact.createBinding(UDim2.new(0, -65, 0, 0))
+	self.positionMotor = Otter.createSingleMotor(HIDE_POSITION)
+	self.containerPosition, self.setContainerPosition = Roact.createBinding(UDim2.new(0, HIDE_POSITION, 0, 0))
 	self.positionMotor:onStep(function(position)
 		self.setContainerPosition(UDim2.new(0, position, 0, 0))
+	end)
+
+	self:setState({
+		-- delay set Frame.Visible false until motor animation finished
+		frameVisible = false
+	})
+	self.positionMotor:onComplete(function(position)
+		if position == HIDE_POSITION then
+			self:setState({
+				frameVisible = false
+			})
+		end
 	end)
 end
 
 function SideNavigation:didUpdate(_, _)
-	self.positionMotor:setGoal(Otter.spring(self.props.open and 0 or -65, POSITION_MOTOR_OPTIONS))
+	if self.props.open == true then
+		self:setState({
+			frameVisible = true
+		})
+	end
+	self.positionMotor:setGoal(Otter.spring(self.props.open and 0 or HIDE_POSITION, POSITION_MOTOR_OPTIONS))
 end
 
 function SideNavigation:render()
-
 	local onActivated = function(page)
-		self.props.navigateTo(page);
+		self.props.navigateTo(page)
 	end
 
 	local navItems = Cryo.List.map(Pages.navigationBarByIndex, function(navigationBarItem)
@@ -92,10 +107,10 @@ function SideNavigation:render()
 	end)
 
 	return withStyle(function(style)
-		return Roact.createElement("Frame",  {
+		return Roact.createElement("Frame", {
 			Size = UDim2.new(0, 64, 1, 0),
 			Position = self.containerPosition,
-			Visible = self.props.open
+			Visible = self.state.frameVisible
 		}, {
 			SystemBar = Roact.createElement(SystemBar, {
 				itemList = navItems,
@@ -108,10 +123,9 @@ function SideNavigation:render()
 				layoutOrder = 1,
 				layoutPaddingOffset = UDim.new(0, -8),
 				firstItemPaddingOffset = UDim.new(0, -7),
-			})
+			}),
 		})
 	end)
-
 end
 
 SideNavigation = InGameMenuPolicy.connect(function(appPolicy, props)
@@ -126,25 +140,19 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 		and state.displayOptions.inputType == Constants.InputType.Gamepad
 		and state.currentZone == 0
 
-	local currentZone = nil -- can inline when flag is removed
-	if GetFFlagIGMGamepadSelectionHistory() then
-		currentZone = state.currentZone
-	end
-
 	return {
 		canCaptureFocus = canCaptureFocus,
 		currentPage = state.menuPage,
 		open = state.isMenuOpen,
-		currentZone = currentZone,
+		currentZone = state.currentZone,
 	}
-end,
-function(dispatch)
+end, function(dispatch)
 	return {
 		closeMenu = function()
 			dispatch(CloseMenu)
 		end,
 		navigateTo = function(page)
 			dispatch(SetCurrentPage(page))
-		end
+		end,
 	}
 end)(SideNavigation)

@@ -4,11 +4,11 @@ local Util = Framework.Util
 local Action = Util.Action
 
 export type Props = {
-	listOfEnabledScopes : {string}
+	listOfEnabledScopes: { string },
 }
 
-return Action(script.Name, function(listOfEnabledScopes : {string})
+return Action(script.Name, function(listOfEnabledScopes: { string })
 	return {
-		listOfEnabledScopes = listOfEnabledScopes
+		listOfEnabledScopes = listOfEnabledScopes,
 	}
 end)

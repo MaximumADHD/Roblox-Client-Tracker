@@ -12,14 +12,14 @@ local TOOLBAR_ICON_PATH = "rbxasset://textures/StudioPlayerEmulator/player_emula
 require(script.Parent.defineLuaFlags)
 local Constants = require(Plugin.Src.Util.Constants)
 local PluginLoaderBuilder = require(Plugin.PluginLoader.PluginLoaderBuilder)
-local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
-local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
+local SourceStrings = Plugin.Src.Resources.SourceStrings
+local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 
 local args : PluginLoaderBuilder.Args = {
 	plugin = plugin,
 	pluginName = "PlayerEmulator",
-	translationResourceTable = TranslationReferenceTable,
-	fallbackResourceTable = TranslationDevelopmentTable,
+	translationResourceTable = LocalizedStrings,
+	fallbackResourceTable = SourceStrings,
 	overrideLocaleId = nil,
 	localizationNamespace = nil,
 	getToolbarName = function()
@@ -54,4 +54,3 @@ end
 
 local main = require(script.Parent.main)
 main(plugin, pluginLoaderContext)
-

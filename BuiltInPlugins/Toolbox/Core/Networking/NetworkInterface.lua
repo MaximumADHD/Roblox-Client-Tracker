@@ -22,7 +22,6 @@ local Category = require(Plugin.Core.Types.Category)
 local ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
 local PermissionTypes = require(Plugin.Core.Types.PermissionTypes)
 
-local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 local FIntToolboxGrantUniverseAudioPermissionsTimeoutInMS = game:GetFastInt(
 	"ToolboxGrantUniverseAudioPermissionsTimeoutInMS"
@@ -100,8 +99,7 @@ function NetworkInterface:getAssets(pageInfo)
 end
 
 function NetworkInterface:getToolboxItems(
-	-- remove string from args union when removing FFlagToolboxAssetCategorization4
-	args: string | {
+	args: {
 		categoryName: string,
 		sectionName: string?,
 		sortType: string?,
@@ -115,24 +113,9 @@ function NetworkInterface:getToolboxItems(
 		maxDuration: number?,
 		includeOnlyVerifiedCreators: boolean?,
 		tags: { string }?,
-	},
-	sortType: string?,
-	creatorType: string?,
-	minDuration: number?,
-	maxDuration: number?,
-	includeOnlyVerifiedCreators: boolean?,
-	creatorTargetId: number?,
-	ownerId: number?,
-	keyword: string?,
-	cursor: string?,
-	limit: number?
+	}
 )
-	local categoryName: string
-	if FFlagToolboxAssetCategorization4 and type(args) ~= "string" then
-		categoryName = args.categoryName
-	else
-		categoryName = args :: string
-	end
+	local categoryName = args.categoryName
 
 	local useCreatorWhitelist = nil
 
@@ -140,22 +123,7 @@ function NetworkInterface:getToolboxItems(
 		useCreatorWhitelist = ToolboxUtilities.getShouldUsePluginCreatorWhitelist()
 	end
 
-	local targetUrl = if FFlagToolboxAssetCategorization4
-		then Urls.constructGetToolboxItemsUrl(Dash.join(args, { useCreatorWhitelist = useCreatorWhitelist }))
-		else Urls.constructGetToolboxItemsUrl(
-			categoryName,
-			sortType,
-			creatorType,
-			minDuration,
-			maxDuration,
-			includeOnlyVerifiedCreators,
-			creatorTargetId,
-			ownerId,
-			keyword,
-			cursor,
-			limit,
-			useCreatorWhitelist
-		)
+	local targetUrl = Urls.constructGetToolboxItemsUrl(Dash.join(args, { useCreatorWhitelist = useCreatorWhitelist }))
 
 	return sendRequestAndRetry(function()
 		printUrl("getToolboxItems", "GET", targetUrl)
@@ -179,16 +147,7 @@ function NetworkInterface:getItemDetails(data)
 		table.insert(assetIds, assetInfo.id)
 	end
 
-	if FFlagToolboxAssetCategorization4 then
-		return self:getItemDetailsAssetIds(assetIds)
-	else
-		local targetUrl = Urls.constructGetItemDetails(assetIds)
-
-		return sendRequestAndRetry(function()
-			printUrl("getItemDetails", "GET", targetUrl)
-			return self._networkImp:httpGetJson(targetUrl)
-		end)
-	end
+	return self:getItemDetailsAssetIds(assetIds)
 end
 
 -- For now, only whitelistplugin uses this endpoint to fetch data.
@@ -906,12 +865,10 @@ function NetworkInterface:getAutocompleteResults(categoryName, searchTerm, numbe
 	return self._networkImp:httpGetJson(targetUrl)
 end
 
-if FFlagToolboxAssetCategorization4 then
-	function NetworkInterface:getHomeConfiguration(assetType: Enum.AssetType, locale: string?)
-		local targetUrl = Urls.constructGetHomeConfigurationUrl(assetType, locale)
-		printUrl("getHomeConfiguration", "GET", targetUrl)
-		return self._networkImp:httpGetJson(targetUrl)
-	end
+function NetworkInterface:getHomeConfiguration(assetType: Enum.AssetType, locale: string?)
+	local targetUrl = Urls.constructGetHomeConfigurationUrl(assetType, locale)
+	printUrl("getHomeConfiguration", "GET", targetUrl)
+	return self._networkImp:httpGetJson(targetUrl)
 end
 
 if FFlagToolboxAudioAssetConfigIdVerification then

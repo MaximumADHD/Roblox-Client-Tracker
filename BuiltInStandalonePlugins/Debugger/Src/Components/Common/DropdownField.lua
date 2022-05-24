@@ -12,6 +12,7 @@ local Checkbox = UI.Checkbox
 local Separator = UI.Separator
 local Button = UI.Button
 local IconButton = UI.IconButton
+local Tooltip = UI.Tooltip
 
 local DropdownField = Roact.PureComponent:extend("DropdownField")
 
@@ -43,7 +44,7 @@ local function getAllFieldsCheckbox(states)
 	end
 end
 
-function DropdownField:init()	
+function DropdownField:init()
 	self.state = {
 		isOpen = false,
 	}
@@ -64,7 +65,7 @@ function DropdownField:init()
 
 	self.onAllDropdownClick = function(key)
 		local props = self.props
-		local newAllFieldsChecked = not areAllFieldsChecked((props.KeyStates))
+		local newAllFieldsChecked = not areAllFieldsChecked(props.KeyStates)
 		local enabledFields = {}
 		if newAllFieldsChecked then
 			for k, v in ipairs(self.props.KeyTexts) do
@@ -103,6 +104,9 @@ function DropdownField:init()
 				Style = style.Separator,
 				Stylizer = style,
 			}),
+			Tooltip = self.props.Tooltips and self.props.Tooltips[index] and Roact.createElement(Tooltip, {
+				Text = self.props.Tooltips[index],
+			}),
 		})
 	end
 
@@ -121,7 +125,6 @@ function DropdownField:init()
 			}
 		end)
 	end
-
 end
 
 function DropdownField:render()
@@ -134,11 +137,11 @@ function DropdownField:render()
 		if props.NumDisplay == props.MaxDisplay then
 			buttonText = localization:getText(props.Widget, self.props.KeyTexts[1])
 		else
-			buttonText = localization:getText(props.Widget, "DropdownFieldText", {NumFields = props.NumDisplay})
+			buttonText = localization:getText(props.Widget, "DropdownFieldText", { NumFields = props.NumDisplay })
 		end
 	end
-	
-	local frameLength = if displayTextButtonDropdown then props.DropdownWidth else Constants.BUTTON_SIZE 
+
+	local frameLength = if displayTextButtonDropdown then props.DropdownWidth else Constants.BUTTON_SIZE
 
 	return Roact.createElement(Pane, {
 		Size = UDim2.new(0, frameLength, 1, 0),
@@ -154,6 +157,7 @@ function DropdownField:render()
 			Size = UDim2.new(0, Constants.BUTTON_SIZE, 0, Constants.BUTTON_SIZE),
 			LeftIcon = "rbxasset://textures/Debugger/Breakpoints/MoreButton.png",
 			OnClick = self.openMenu,
+			BackgroundStyle = "Box",
 		}),
 		ButtonView = displayTextButtonDropdown and Roact.createElement(Button, {
 			Text = buttonText,
@@ -174,8 +178,6 @@ function DropdownField:render()
 			Stylizer = style,
 		}),
 	})
-
 end
 
 return DropdownField
-

@@ -12,7 +12,7 @@
 		bool UseTranslatedContentEnabled
 		list Languages enabled for automatic translation
 ]]
-
+local FFlagGameSettingsRemoveFitContent = game:GetFastFlag("GameSettingsRemoveFitContent")
 
 local StudioService = game:GetService("StudioService")
 
@@ -33,18 +33,24 @@ local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
 local UILibrary = require(Plugin.Packages.UILibrary)
 local TitledFrame = UILibrary.Component.TitledFrame
 local ToggleButton = UILibrary.Component.ToggleButton
-local createFitToContent = UILibrary.Component.createFitToContent
-local FitToContent = createFitToContent("Frame", "UIListLayout", {
-	SortOrder = Enum.SortOrder.LayoutOrder,
-	Padding = UDim.new(0, 10),
-})
+
+local FitToContent
+if not FFlagGameSettingsRemoveFitContent then
+	local createFitToContent = UILibrary.Component.createFitToContent
+	FitToContent = createFitToContent("Frame", "UIListLayout", {
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		Padding = UDim.new(0, 10),
+	})
+end
 
 local Dropdown = require(Plugin.Src.Components.Dropdown)
+
 local UI = Framework.UI
 local LinkText = UI.LinkText
+local Pane = UI.Pane
 local Separator = UI.Separator
-local TextLabel = UI.Decoration.TextLabel
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
+local TextLabel = UI.Decoration.TextLabel
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local ReloadAutoTranslationTargetLanguages = require(Page.Thunks.ReloadAutoTranslationTargetLanguages)
@@ -309,10 +315,20 @@ local function displayLocalizationSettingsPage(props, localization, theme)
 			CenterGutter = CENTER_GUTTER,
 			TextSize = theme.fontStyle.Subtitle.TextSize,
 		}),
-		AutoTranslationOptions = showAutoTranslationOptions and Roact.createElement(FitToContent, {
-			LayoutOrder = layoutIndex:getNextOrder(),
-			BackgroundTransparency = 1,
-		}, autoTranslationChildren),
+		AutoTranslationOptions = showAutoTranslationOptions and (
+			if FFlagGameSettingsRemoveFitContent then
+				Roact.createElement(Pane, {
+					Layout = Enum.FillDirection.Vertical,
+					LayoutOrder = layoutIndex:getNextOrder(),
+					AutomaticSize = Enum.AutomaticSize.Y,
+					Spacing = UDim.new(0, 10),
+				}, autoTranslationChildren)
+			else
+				Roact.createElement(FitToContent, {
+					LayoutOrder = layoutIndex:getNextOrder(),
+					BackgroundTransparency = 1,
+				}, autoTranslationChildren)
+		),
 		AutoTranlsationUnavailable = showAutoTranlsationUnavailable and
 			Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtext, {
 				LayoutOrder = layoutIndex:getNextOrder(),
@@ -405,14 +421,11 @@ local function dispatchChanges(setValue, dispatch)
 	return dispatchFuncs
 end
 
-
 LocalizationPage = withContext({
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
 	Stylizer = ContextServices.Stylizer,
 })(LocalizationPage)
-
-
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
 LocalizationPage = RoactRodux.connect(

@@ -29,12 +29,12 @@ local MainReducer = require(main.Src.Reducers.MainReducer)
 local Style = Framework.Style
 local makeTheme = Style.makeTheme
 
-local TranslationDevelopmentTable = main.Src.Resources.Localization.TranslationDevelopmentTable
-local TranslationReferenceTable = main.Src.Resources.Localization.TranslationReferenceTable
+local SourceStrings = main.Src.Resources.Localization.SourceStrings
+local LocalizedStrings = main.Src.Resources.Localization.LocalizedStrings
 
 local Components = main.Src.Components
 local Window = require(Components.Window)
- 
+
 local SetDialog = require(main.Src.Actions.SetDialog)
 local Unpause = require(main.Src.Actions.Unpause)
 local DiscoverAudio = require(main.Src.Thunks.DiscoverAudio)
@@ -82,8 +82,8 @@ function MainPlugin:init(props)
 	self.store = Rodux.Store.new(MainReducer, nil, middleware, nil)
 
 	self.localization = ContextServices.Localization.new({
-		stringResourceTable = TranslationDevelopmentTable,
-		translationResourceTable = TranslationReferenceTable,
+		stringResourceTable = SourceStrings,
+		translationResourceTable = LocalizedStrings,
 		pluginName = "AudioDiscovery",
 	})
 	self.analytics = ContextServices.Analytics.new(function()

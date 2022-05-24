@@ -1,8 +1,8 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent
 
+	local getBuiltInMaterialVariants = require(Plugin.Src.Resources.Constants.getBuiltInMaterialVariants)
 	local MaterialController = require(Plugin.Src.Util.MaterialController)
-	local getBuiltInMaterialVariants = require(Plugin.Src.Util.getBuiltInMaterialVariants)
 	local MockMaterialService = require(Plugin.Src.TestHelpers.MockMaterialService)
 	local MaterialServiceWrapper = require(Plugin.Src.Util.MaterialServiceWrapper)
 

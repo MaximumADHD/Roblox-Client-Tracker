@@ -1,13 +1,10 @@
 local Plugin = script.Parent.Parent
 
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization4")
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local ToolboxStoryWrapper = require(Plugin.Stories.ToolboxStoryWrapper)
 
 local SearchPill = require(Plugin.Core.Components.Categorization.SearchPill)
-
-local CoreTestUtils = require(Plugin.TestUtils.CoreTestUtils)
 
 local function ToolboxWrapper(props)
 	return Roact.createElement(ToolboxStoryWrapper, props)
@@ -18,7 +15,7 @@ return {
 	stories = {
 		{
 			name = "Clickable",
-			story = FFlagToolboxAssetCategorization and Roact.createElement(ToolboxWrapper, {}, {
+			story = Roact.createElement(ToolboxWrapper, {}, {
 				SearchPill = Roact.createElement(SearchPill, {
 					AutomaticSize = Enum.AutomaticSize.XY,
 					Text = "Clickable",
@@ -26,16 +23,16 @@ return {
 						print("Clicked")
 					end,
 				}),
-			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization4", true),
+			}),
 		},
 		{
 			name = "Constant Size",
-			story = FFlagToolboxAssetCategorization and Roact.createElement(ToolboxWrapper, {}, {
+			story = Roact.createElement(ToolboxWrapper, {}, {
 				SearchPill = Roact.createElement(SearchPill, {
 					Text = "Size 100x50",
 					Size = UDim2.new(0, 100, 0, 50),
 				}),
-			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization4", true),
+			}),
 		},
 	},
 }

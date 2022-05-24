@@ -15,6 +15,7 @@
 	Removed = function, callback function for when the delete button is clicked.
 	RolePermissionChanged = function, callback function for when a user who has had this package shared with them, has their
 		permissions changed.
+	TooltipText = string, if provided, applies a tool tip to the whole collaborator item (the entire frame).
 ]]
 local ITEM_HEIGHT = 60
 local PADDING_Y = 10
@@ -35,6 +36,7 @@ local Framework = require(Packages.Framework)
 local DropdownMenu = Framework.UI.DropdownMenu
 local DetailedDropdownItem = require(Plugin.Core.Components.AssetConfiguration.Permissions.DetailedDropdownItem)
 local IconButton = Framework.UI.IconButton
+local Tooltip = Framework.UI.Tooltip
 
 local Util = Plugin.Core.Util
 local Images = require(Util.Images)
@@ -225,6 +227,9 @@ function CollaboratorItem:render()
 				Position = UDim2.new(1, 0, 0, 0),
 				Size = UDim2.new(0, CONTENT_HEIGHT, 0, CONTENT_HEIGHT),
 			}),
+			Tooltip = props.TooltipText and Roact.createElement(Tooltip, {
+				Text = props.TooltipText,
+			})
 		}),
 	})
 end

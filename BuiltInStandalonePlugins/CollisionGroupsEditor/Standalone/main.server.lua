@@ -52,8 +52,8 @@ if FFlagCGELocalizeWindowTitle then
 	local Resources = script.Parent.Parent.Resources
 
 	localization = UILibrary.Studio.Localization.new({
-		stringResourceTable = Resources.TranslationDevelopmentTable,
-		translationResourceTable = Resources.TranslationReferenceTable,
+		stringResourceTable = Resources.SourceStrings,
+		translationResourceTable = Resources.LocalizedStrings,
 		pluginName = "CGE",
 	})
 end
@@ -64,7 +64,7 @@ local RoactHandle = nil
 local inspector
 
 local function handleDMSession(dmSession)
-	if (Window == nil) then 
+	if (Window == nil) then
 		-- Set the initial icon to show while over this plugin's dock widget.
 		-- Without this, the cursor will be the odd plugin cursor for a
 		-- fraction of a second when entering the DockWidget for the first
@@ -72,13 +72,13 @@ local function handleDMSession(dmSession)
 		plugin:GetMouse().Icon = "rbxasset://SystemCursors/Arrow"
 
 		Window = plugin:CreateDockWidgetPluginGui("CollisionGroupsEditorWindow", Info)
-		
+
 		if FFlagCGELocalizeWindowTitle then
 			Window.Title = localization:getText("Main", "Title")
 		else
 			Window.Title = "Collision Groups Editor"
 		end
-		
+
 		updateButtonActive(Button, Window)
 
 		-- Listen for changes in plugin gui visibility to keep toolbar button
@@ -102,7 +102,7 @@ local function handleDMSession(dmSession)
 				}),
 				Window,
 				"CollisionGroupEditorGui"
-			)	
+			)
 		else
 			RoactHandle = Roact.mount(
 				Roact.createElement(Gui, {
@@ -111,7 +111,7 @@ local function handleDMSession(dmSession)
 				}),
 				Window,
 				"CollisionGroupEditorGui"
-			)	
+			)
 		end
 		if inspector then
 			inspector:addRoactTree("Roact tree", RoactHandle, Roact)
@@ -131,18 +131,18 @@ plugin.MultipleDocumentInterfaceInstance.DataModelSessionStarted:connect(functio
 	handleDMSession(dmSession)
 end)
 
--- Usually standalone plugin scripts are loaded before we've created any place session, 
+-- Usually standalone plugin scripts are loaded before we've created any place session,
 -- so listening for "new place session" from MultipleDocumentInterfaceInstance is sufficient.
--- With the advent of plugin debugging, we load standalone plugins again each time we open 
--- a place.  So we have a situation where MultipleDocumentInterfaceInstance already has a 
+-- With the advent of plugin debugging, we load standalone plugins again each time we open
+-- a place.  So we have a situation where MultipleDocumentInterfaceInstance already has a
 -- place session before plugin is loaded -> DataModelSessionStarted will never hit.
 -- So we have to explicitly check if we already have a DM session.
-if (plugin.MultipleDocumentInterfaceInstance.FocusedDataModelSession) then 
+if (plugin.MultipleDocumentInterfaceInstance.FocusedDataModelSession) then
 	handleDMSession(plugin.MultipleDocumentInterfaceInstance.FocusedDataModelSession)
 end
 
 local function destroyWindow()
-	if (Window ~= nil) then 
+	if (Window ~= nil) then
 		Roact.unmount(RoactHandle)
 		RoactHandle = nil
 		Window:Destroy()
@@ -159,15 +159,15 @@ plugin.Unloading:connect(destroyWindow)
 plugin.MultipleDocumentInterfaceInstance.DataModelSessionEnded:connect(destroyWindow)
 
 function onClicked()
-	-- Theoretically not possible, the button isn't available to users unless 
+	-- Theoretically not possible, the button isn't available to users unless
 	-- place session has started, at which point we have a Window.
 	-- Still, just to be safe, check for Window == nil.
-	if (Window == nil) then 
+	if (Window == nil) then
 		return
 	end
 
 	Window.Enabled = not Window.Enabled
-	if (Window.Enabled) then 
+	if (Window.Enabled) then
 		-- Reasonable time to update view.
 		plugin:Invoke("WindowEnabled", "true")
 	end
@@ -178,4 +178,3 @@ function onClicked()
 	end
 end
 Button.Click:Connect(onClicked)
-

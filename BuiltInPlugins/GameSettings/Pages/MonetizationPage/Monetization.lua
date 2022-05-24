@@ -702,9 +702,8 @@ local function displayMonetizationPage(props)
             RefreshBadges = refreshBadges,
         }),
 
-        Separator =  showBadges and Roact.createElement(Separator, {
+        Separator = showBadges and Roact.createElement(Separator, {
             LayoutOrder = layoutIndex:getNextOrder(),
-            Size = UDim2.new(1, 0, 0, 1),
         }),
         
         PaidAccess = Roact.createElement(PaidAccess, {

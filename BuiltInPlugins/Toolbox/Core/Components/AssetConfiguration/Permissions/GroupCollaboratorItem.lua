@@ -17,6 +17,7 @@
 
 ]]
 local FFlagDevFrameworkReplaceExpandaleWidgetWithExpandablePane = game:GetFastFlag("DevFrameworkReplaceExpandaleWidgetWithExpandablePane")
+local FFlagLimitGroupRoleSetPermissionsInGui = game:GetFastFlag("LimitGroupRoleSetPermissionsInGui")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -68,6 +69,27 @@ local function getLabelForAction(localized, action)
 		error("Unsupported Action: "..tostring(action))
 		return ""
 	end
+end
+
+-- Returns the permission level for the role set determined by `rolesetProps`.
+-- If no specific permission level is reported (either via missing group role
+-- set data, missing role from that data, or missing level value for that role),
+-- we simply return the Asset permissions level because it is the most
+-- permissible -- for the level to be any other value, it would have to be
+-- explicitly defined.
+local function getLevelForRoleset(props, rolesetProps)
+	assert(FFlagLimitGroupRoleSetPermissionsInGui)
+	if not props.Permissions[PermissionsConstants.RoleSubjectKey] then
+		return PermissionsConstants.AssetPermissionLevel
+	end
+	local groupRoles = props.Permissions[PermissionsConstants.RoleSubjectKey]
+
+	if not groupRoles[rolesetProps.Id] then
+		return PermissionsConstants.AssetPermissionLevel
+	end
+	local roleData = groupRoles[rolesetProps.Id]
+
+	return roleData[PermissionsConstants.PermissionLevelKey] or PermissionsConstants.AssetPermissionLevel
 end
 
 -- if RoleSubjectKey doesn't exist then there was a problem, so NoneKey is returned.
@@ -128,7 +150,7 @@ function GroupCollaboratorItem:render()
 	end)
 end
 
-function GroupCollaboratorItem:renderContent(theme, localiztion, localized)
+function GroupCollaboratorItem:renderContent(theme, localization, localized)
 	local props = self.props
 
 	local rolesetCollaboratorItems = {
@@ -155,6 +177,13 @@ function GroupCollaboratorItem:renderContent(theme, localiztion, localized)
 		local enabled = props.Enabled
 		if rolesetProps.Name == "Owner" then
 			enabled = false
+		end
+		local tooltipText = nil
+		if FFlagLimitGroupRoleSetPermissionsInGui then
+			-- We only leave it enabled if the permission level is "asset".
+			enabled = enabled and getLevelForRoleset(props, rolesetProps) == PermissionsConstants.AssetPermissionLevel
+			-- The inclusion of an actual tool tip is likewise a new feature.
+			tooltipText = if not enabled then localization:getGroupPermissionLockedTooltip(rolesetProps.Name) else nil
 		end
 
 		local lockedPermission = permissionLocked(action, rolesetItems)
@@ -190,6 +219,8 @@ function GroupCollaboratorItem:renderContent(theme, localiztion, localized)
 							props.RolePermissionChanged(rolesetProps.Id, newPermission)
 						end
 					end,
+
+					TooltipText = tooltipText,
 				}),
 			}),
 		})
@@ -198,6 +229,11 @@ function GroupCollaboratorItem:renderContent(theme, localiztion, localized)
 	end
 
 	local arrowImageProps = self.state.expanded and downArrowProps or rightArrowProps
+
+	local groupHeaderTooltipText = nil
+	if FFlagLimitGroupRoleSetPermissionsInGui then
+		groupHeaderTooltipText = localized.PackagePermissions.ActionDropdown.GroupOwnedTooltip .. " " .. (not sameAction and localized.PackagePermissions.ActionDropdown.MultipleLabelTooltip or "")
+	end
 
 	local expandableList
 	if FFlagDevFrameworkReplaceExpandaleWidgetWithExpandablePane then
@@ -232,6 +268,7 @@ function GroupCollaboratorItem:renderContent(theme, localiztion, localized)
 					Removed = props.Removed,
 
 					IsLoading = #rolesets == 0,
+					TooltipText = groupHeaderTooltipText
 				})
 			})
 		}, rolesetCollaboratorItems)
@@ -282,6 +319,8 @@ function GroupCollaboratorItem:renderContent(theme, localiztion, localized)
 						Removed = props.Removed,
 
 						IsLoading = #rolesets == 0,
+
+						TooltipText = groupHeaderTooltipText
 					})
 				}),
 			},

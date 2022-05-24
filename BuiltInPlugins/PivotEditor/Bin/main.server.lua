@@ -19,15 +19,15 @@ local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local EditPivotPlugin = require(Plugin.Src.RoduxComponents.EditPivotPlugin)
 
-local TranslationDevelopmentTable = Plugin.Src.Resources.Localization.TranslationDevelopmentTable
-local TranslationReferenceTable = Plugin.Src.Resources.Localization.TranslationReferenceTable
+local SourceStrings = Plugin.Src.Resources.Localization.SourceStrings
+local LocalizedStrings = Plugin.Src.Resources.Localization.LocalizedStrings
 
 local ToastNotification = require(Plugin.Src.Utility.ToastNotification)
 
 local localizationProps = {
 	pluginName = "PivotEditor",
-	stringResourceTable = TranslationDevelopmentTable,
-	translationResourceTable = TranslationReferenceTable,
+	stringResourceTable = SourceStrings,
+	translationResourceTable = LocalizedStrings,
 }
 
 local function main()

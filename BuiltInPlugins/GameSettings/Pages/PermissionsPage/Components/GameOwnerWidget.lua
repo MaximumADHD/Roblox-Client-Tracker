@@ -1,3 +1,5 @@
+local FFlagGameSettingsRemoveFitContent = game:GetFastFlag("GameSettingsRemoveFitContent")
+
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -9,16 +11,21 @@ local Cryo = require(Plugin.Packages.Cryo)
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
-local UILibrary = require(Plugin.Packages.UILibrary)
-local createFitToContent = UILibrary.Component.createFitToContent
+local UI = Framework.UI
+local Pane = UI.Pane
+
+local FitToContent
+if not FFlagGameSettingsRemoveFitContent then
+	local UILibrary = require(Plugin.Packages.UILibrary)
+	local createFitToContent = UILibrary.Component.createFitToContent
+	FitToContent = createFitToContent("Frame", "UIListLayout", {
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		Padding = UDim.new(0, 32),
+	})
+end
 
 local UserCollaboratorItem = require(Page.Components.UserCollaboratorItem)
 local GroupCollaboratorItem = require(Page.Components.GroupCollaboratorItem)
-
-local FitToContent = createFitToContent("Frame", "UIListLayout", {
-	SortOrder = Enum.SortOrder.LayoutOrder,
-	Padding = UDim.new(0, 32),
-})
 
 local GameOwnerWidget = Roact.PureComponent:extend("GameOwnerWidget")
 
@@ -34,10 +41,7 @@ function GameOwnerWidget:render()
 	local theme = props.Stylizer
 	local localization = props.Localization
 
-	return Roact.createElement(FitToContent, {
-		LayoutOrder = layoutOrder,
-		BackgroundTransparency = 1,
-	}, {
+	local children = {
 		Title = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
 			LayoutOrder = 0,
 
@@ -60,7 +64,22 @@ function GameOwnerWidget:render()
 			Id = ownerId,
 			Writable = writable,
 		})
-	})
+	}
+	
+	if FFlagGameSettingsRemoveFitContent then
+		return Roact.createElement(Pane, {
+			AutomaticSize = Enum.AutomaticSize.Y,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			LayoutOrder = layoutOrder,
+			Layout = Enum.FillDirection.Vertical,
+			Spacing = UDim.new(0, 32),
+		}, children)
+	else
+		return Roact.createElement(FitToContent, {
+			LayoutOrder = layoutOrder,
+			BackgroundTransparency = 1,
+		}, children)
+	end
 end
 
 

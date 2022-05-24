@@ -6,15 +6,15 @@ if DebugFlags.RunTests() or DebugFlags.RunRhodiumTests() then
 end
 
 local Constants = require(Plugin.Src.Util.Constants)
-local DevelopmentReferenceTable = Plugin.Src.Resources.DevelopmentReferenceTable
-local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
+local SourceStrings = Plugin.Src.Resources.SourceStrings
+local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 local PluginLoaderBuilder = require(Plugin.PluginLoader.PluginLoaderBuilder)
 
 local args : PluginLoaderBuilder.Args = {
 	plugin = plugin,
 	pluginName = Constants.PLUGIN_NAME,
-	translationResourceTable = TranslationReferenceTable,
-	fallbackResourceTable = DevelopmentReferenceTable,
+	translationResourceTable = LocalizedStrings,
+	fallbackResourceTable = SourceStrings,
 	overrideLocaleId = nil,
 	localizationNamespace = nil,
 	getToolbarName = function(getLocalizedText, namespace, pluginName)

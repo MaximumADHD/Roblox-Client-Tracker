@@ -5,7 +5,7 @@ function LuaSourceContainer:GetFullName()
 	return self.FileName
 end
 
-function LuaSourceContainer.new(guid : string, fileName : string)	
+function LuaSourceContainer.new(guid: string, fileName: string)
 	local self = {
 		ScriptGuid = guid,
 		FileName = fileName,

@@ -19,7 +19,6 @@ function Analytics.reportSaveCancel(isPublish)
 	local eventName = isPublish and "FilePublishPlaceAsCancel" or "FileSavePlaceAsCancel"
 	local args = {
 		userId = StudioService:GetUserId(),
-		inTreatment = StudioService:GetUserIsInTeamCreateToggleRamp(),
 		studioSid = RbxAnalyticsService:GetSessionId(),
 	}
 

@@ -8,12 +8,16 @@ CrossDMScriptChangeListener.__index = CrossDMScriptChangeListener
 
 local function setUpConnections(scriptChangeServiceListener, scriptChangeService)
 	local ScriptChangeService = scriptChangeService or game:GetService("CrossDMScriptChangeListener")
-	scriptChangeServiceListener._guidNameChangedConnection = ScriptChangeService.GuidNameChanged:Connect(function(guid : string, fileName : string)
-		scriptChangeServiceListener.store:dispatch(SetFilenameForGuid(guid, fileName))
-	end)
-	scriptChangeServiceListener._guidLineChangedConnection = ScriptChangeService.GuidLineContentsChanged:Connect(function(guid : string, lineNumber : number, contents : string)
-		scriptChangeServiceListener.store:dispatch(SetScriptSourceLine(guid, lineNumber, contents))
-	end)
+	scriptChangeServiceListener._guidNameChangedConnection = ScriptChangeService.GuidNameChanged:Connect(
+		function(guid: string, fileName: string)
+			scriptChangeServiceListener.store:dispatch(SetFilenameForGuid(guid, fileName))
+		end
+	)
+	scriptChangeServiceListener._guidLineChangedConnection = ScriptChangeService.GuidLineContentsChanged:Connect(
+		function(guid: string, lineNumber: number, contents: string)
+			scriptChangeServiceListener.store:dispatch(SetScriptSourceLine(guid, lineNumber, contents))
+		end
+	)
 end
 
 function CrossDMScriptChangeListener:destroy()
@@ -28,7 +32,7 @@ function CrossDMScriptChangeListener:destroy()
 end
 
 function CrossDMScriptChangeListener.new(store, scriptChangeService)
-	local self = {store = store}
+	local self = { store = store }
 	setUpConnections(self, scriptChangeService)
 	setmetatable(self, CrossDMScriptChangeListener)
 	return self

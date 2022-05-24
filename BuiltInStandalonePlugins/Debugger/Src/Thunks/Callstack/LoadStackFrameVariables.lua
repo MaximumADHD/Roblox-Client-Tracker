@@ -20,8 +20,8 @@ local function addChildVariableRowsForDebuggerVariable(store, stepStateBundle, d
 		return
 	end
 	for _, child in ipairs(children) do
-		-- the table we pass in here is used to pass in columns from a parent VariableRow that we use to make the child row 
-		local parentRow = VariableRow.fromData({["path"] = tostring(debuggerVar.VariableId),["scope"] = scope })
+		-- the table we pass in here is used to pass in columns from a parent VariableRow that we use to make the child row
+		local parentRow = VariableRow.fromData({ ["path"] = tostring(debuggerVar.VariableId), ["scope"] = scope })
 		table.insert(toReturn, VariableRow.fromInstance(child, parentRow, nil, filterText, listOfEnabledScopes))
 	end
 	store:dispatch(AddChildVariables(stepStateBundle, tostring(debuggerVar.VariableId), toReturn))
@@ -29,7 +29,7 @@ end
 
 local function addRootVariableRowChildren(store, stepStateBundle, debuggerConnection, debuggerVarList, scope)
 	for _, debuggerVar in ipairs(debuggerVarList) do
-		if debuggerVar.VariableId ~=0 then
+		if debuggerVar.VariableId ~= 0 then
 			assert(not debuggerVar.Populated)
 			debuggerConnection:Populate(debuggerVar, function()
 				local dst = stepStateBundle.debuggerStateToken
@@ -53,13 +53,22 @@ local function convertStackFrameInstancesToVariableRows(stackFrame, store)
 
 	local toReturn = {}
 	for _, localVar in ipairs(localVars) do
-		table.insert(toReturn, VariableRow.fromInstance(localVar, nil, ScopeEnum.Local, filterText, listOfEnabledScopes))
+		table.insert(
+			toReturn,
+			VariableRow.fromInstance(localVar, nil, ScopeEnum.Local, filterText, listOfEnabledScopes)
+		)
 	end
 	for _, globalVar in ipairs(globalVars) do
-		table.insert(toReturn, VariableRow.fromInstance(globalVar, nil, ScopeEnum.Global, filterText, listOfEnabledScopes))
+		table.insert(
+			toReturn,
+			VariableRow.fromInstance(globalVar, nil, ScopeEnum.Global, filterText, listOfEnabledScopes)
+		)
 	end
 	for _, upvalueVar in ipairs(upvalueVars) do
-		table.insert(toReturn, VariableRow.fromInstance(upvalueVar, nil, ScopeEnum.Upvalue, filterText, listOfEnabledScopes))
+		table.insert(
+			toReturn,
+			VariableRow.fromInstance(upvalueVar, nil, ScopeEnum.Upvalue, filterText, listOfEnabledScopes)
+		)
 	end
 	return toReturn
 end
@@ -67,16 +76,45 @@ end
 local function addRootVarsAndChildren(debuggerConnection, stackFrame, store, stepStateBundle)
 	local rootVars = convertStackFrameInstancesToVariableRows(stackFrame, store)
 	store:dispatch(AddRootVariables(stepStateBundle, rootVars))
-	addRootVariableRowChildren(store, stepStateBundle, debuggerConnection, stackFrame.Locals:GetChildren(), ScopeEnum.Local)
-	addRootVariableRowChildren(store, stepStateBundle, debuggerConnection, stackFrame.Globals:GetChildren(), ScopeEnum.Global)
-	addRootVariableRowChildren(store, stepStateBundle, debuggerConnection, stackFrame.Upvalues:GetChildren(), ScopeEnum.Upvalue)
+	addRootVariableRowChildren(
+		store,
+		stepStateBundle,
+		debuggerConnection,
+		stackFrame.Locals:GetChildren(),
+		ScopeEnum.Local
+	)
+	addRootVariableRowChildren(
+		store,
+		stepStateBundle,
+		debuggerConnection,
+		stackFrame.Globals:GetChildren(),
+		ScopeEnum.Global
+	)
+	addRootVariableRowChildren(
+		store,
+		stepStateBundle,
+		debuggerConnection,
+		stackFrame.Upvalues:GetChildren(),
+		ScopeEnum.Upvalue
+	)
 end
 
-local function onScopePopulated(scope : ScopeEnum.Scope, populatedScopes, debuggerConnection, stackFrame, store, stepStateBundle)
-	populatedScopes[scope] = true 
-	if populatedScopes[ScopeEnum.Local] and populatedScopes[ScopeEnum.Global] and populatedScopes[ScopeEnum.Upvalue] then
+local function onScopePopulated(
+	scope: ScopeEnum.Scope,
+	populatedScopes,
+	debuggerConnection,
+	stackFrame,
+	store,
+	stepStateBundle
+)
+	populatedScopes[scope] = true
+	if
+		populatedScopes[ScopeEnum.Local]
+		and populatedScopes[ScopeEnum.Global]
+		and populatedScopes[ScopeEnum.Upvalue]
+	then
 		addRootVarsAndChildren(debuggerConnection, stackFrame, store, stepStateBundle)
-	end 
+	end
 end
 
 local function populateStackVariables(debuggerConnection, stackFrame, store, stepStateBundle)
@@ -105,14 +143,14 @@ local function populateStackVariables(debuggerConnection, stackFrame, store, ste
 	end)
 end
 
-return function(debuggerConnection, stackFrame, stepStateBundle : StepStateBundle.StepStateBundle)
+return function(debuggerConnection, stackFrame, stepStateBundle: StepStateBundle.StepStateBundle)
 	return function(store, contextItems)
-		debuggerConnection:Populate(stackFrame, function ()
+		debuggerConnection:Populate(stackFrame, function()
 			local dst = stepStateBundle.debuggerStateToken
 			if dst ~= store:getState().Common.debuggerConnectionIdToDST[dst.debuggerConnectionId] then
 				return
 			end
 			populateStackVariables(debuggerConnection, stackFrame, store, stepStateBundle)
 		end)
-    end
+	end
 end

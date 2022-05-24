@@ -5,6 +5,7 @@ local Framework = require(PluginFolder.Packages.Framework)
 local Cryo = require(PluginFolder.Packages.Cryo)
 
 local ContextServices = Framework.ContextServices
+local Analytics = ContextServices.Analytics
 local Plugin = ContextServices.Plugin
 local Localization = ContextServices.Localization
 
@@ -30,6 +31,7 @@ local BreakpointsTreeTableCell = require(PluginFolder.Src.Components.Breakpoints
 local BreakpointsTable = Roact.PureComponent:extend("BreakpointsTable")
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
 local FFlagDevFrameworkTableHeaderTooltip = game:GetFastFlag("DevFrameworkTableHeaderTooltip")
+local FFlagDevFrameworkCustomTableRowHeight = game:GetFastFlag("DevFrameworkCustomTableRowHeight")
 local hasTableColumnResizeFFlags = FFlagDevFrameworkTableColumnResize
 
 local UtilFolder = PluginFolder.Src.Util
@@ -38,6 +40,8 @@ local BreakpointHelperFunctions = require(UtilFolder.BreakpointHelperFunctions)
 local WatchHelperFunctions = require(UtilFolder.WatchHelperFunctions)
 local ColumnResizeHelperFunctions = require(UtilFolder.ColumnResizeHelperFunctions)
 
+local AnalyticsEventNames = require(PluginFolder.Src.Resources.AnalyticsEventNames)
+
 local Thunks = PluginFolder.Src.Thunks
 local ToggleAllBreakpoints = require(Thunks.Breakpoints.ToggleAllBreakpoints)
 
@@ -45,8 +49,6 @@ local Actions = PluginFolder.Src.Actions
 local SetBreakpointSortState = require(Actions.BreakpointsWindow.SetBreakpointSortState)
 
 local BreakpointsDropdownField = require(script.Parent.BreakpointsDropdownField)
-
-local BUTTON_PADDING = 5
 
 local defaultColumnKeys = {
 	[1] = "isEnabled",
@@ -72,18 +74,18 @@ end
 
 function BreakpointsTable:init()
 	local initialSizes = {}
-	if hasTableColumnResizeFFlags then 
+	if hasTableColumnResizeFFlags then
 		local numColumns = #defaultColumnKeys + #self.props.ColumnFilter
 		for i = 1, numColumns do
 			-- have the script name column be double the size as the others.
 			if i == 2 then
-				table.insert(initialSizes, UDim.new(2/(numColumns+1), 0))
+				table.insert(initialSizes, UDim.new(2 / (numColumns + 1), 0))
 			else
-				table.insert(initialSizes, UDim.new(1/(numColumns+1), 0))
+				table.insert(initialSizes, UDim.new(1 / (numColumns + 1), 0))
 			end
 		end
 	end
-	
+
 	self.state = {
 		selectedBreakpoints = {},
 		breakpointIdToExpansionState = {},
@@ -93,12 +95,12 @@ function BreakpointsTable:init()
 	self.OnDoubleClick = function(row)
 		self.goToScript()
 	end
-	
-	self.OnColumnSizesChange = function(newSizes : {UDim})
+
+	self.OnColumnSizesChange = function(newSizes: { UDim })
 		if hasTableColumnResizeFFlags then
 			self:setState(function(state)
 				return {
-					sizes = newSizes
+					sizes = newSizes,
 				}
 			end)
 		end
@@ -112,7 +114,7 @@ function BreakpointsTable:init()
 
 		self:setState(function(state)
 			return {
-				selectedBreakpoints = selectedBps
+				selectedBreakpoints = selectedBps,
 			}
 		end)
 	end
@@ -120,20 +122,29 @@ function BreakpointsTable:init()
 	self.onMenuActionSelected = function(actionId, extraParameters)
 		local row = extraParameters.row
 
-		if actionId == Constants.BreakpointActions.DeleteBreakpoint or actionId == Constants.LogpointActions.DeleteLogpoint then
+		if
+			actionId == Constants.BreakpointActions.DeleteBreakpoint
+			or actionId == Constants.LogpointActions.DeleteLogpoint
+		then
 			local BreakpointManager = game:GetService("BreakpointManager")
 			BreakpointManager:RemoveBreakpointById(row.item.id)
 
-		elseif actionId == Constants.BreakpointActions.EditBreakpoint or actionId == Constants.LogpointActions.EditLogpoint then
+			self.props.Analytics:report(AnalyticsEventNames.RemoveMetaBreakpoint, "LuaBreakpointsTable.ContextMenu")
+		elseif
+			actionId == Constants.BreakpointActions.EditBreakpoint
+			or actionId == Constants.LogpointActions.EditLogpoint
+		then
 			local DebuggerUIService = game:GetService("DebuggerUIService")
 			DebuggerUIService:EditBreakpoint(row.item.id)
-
-		elseif actionId == Constants.BreakpointActions.EnableBreakpoint or actionId == Constants.LogpointActions.EnableLogpoint or
-			actionId == Constants.BreakpointActions.DisableBreakpoint or actionId == Constants.LogpointActions.DisableLogpoint then
+		elseif
+			actionId == Constants.BreakpointActions.EnableBreakpoint
+			or actionId == Constants.LogpointActions.EnableLogpoint
+			or actionId == Constants.BreakpointActions.DisableBreakpoint
+			or actionId == Constants.LogpointActions.DisableLogpoint
+		then
 			local bpManager = game:GetService("BreakpointManager")
 			local bp = bpManager:GetBreakpointById(row.item.id)
 			BreakpointHelperFunctions.setBreakpointRowEnabled(bp, row)
-
 		elseif actionId == Constants.CommonActions.GoToScript then
 			self.goToScript()
 		end
@@ -147,7 +158,7 @@ function BreakpointsTable:init()
 	self.onRightClick = function(row)
 		self:setState(function(state)
 			return {
-				selectedBreakpoints = {row.item}
+				selectedBreakpoints = { row.item },
 			}
 		end)
 
@@ -157,7 +168,8 @@ function BreakpointsTable:init()
 
 		local isLogpoint = row.item.debugpointType == Constants.DebugpointType.Logpoint
 		local actions = MakePluginActions.getBreakpointActions(localization, row.item.isEnabled, isLogpoint)
-		showContextMenu(plugin, "Breakpoint", actions, self.onMenuActionSelected, {row = row})
+		local actionsOrder = MakePluginActions.getBreakpointActionsOrder(row.item.isEnabled, isLogpoint)
+		showContextMenu(plugin, "Breakpoint", actions, self.onMenuActionSelected, { row = row }, actionsOrder)
 	end
 
 	self.deleteAllBreakpoints = function()
@@ -165,6 +177,8 @@ function BreakpointsTable:init()
 		for _, breakpoint in ipairs(self.props.Breakpoints) do
 			BreakpointManager:RemoveBreakpointById(breakpoint.id)
 		end
+
+		self.props.Analytics:report(AnalyticsEventNames.RemoveAllMetaBreakpoints, "LuaBreakpointsTable")
 	end
 
 	self.toggleEnabledAll = function()
@@ -176,8 +190,12 @@ function BreakpointsTable:init()
 		if #self.state.selectedBreakpoints ~= 0 then
 			local currBreakpoint = self.state.selectedBreakpoints[1]
 			local DebuggerUIService = game:GetService("DebuggerUIService")
-			local connectionId = if currBreakpoint.hiddenConnectionId then currBreakpoint.hiddenConnectionId else self.props.CurrentDebuggerConnectionId
-			local lineNumber = if currBreakpoint.hiddenLineNumber then currBreakpoint.hiddenLineNumber else currBreakpoint.lineNumber
+			local connectionId = if currBreakpoint.hiddenConnectionId
+				then currBreakpoint.hiddenConnectionId
+				else self.props.CurrentDebuggerConnectionId
+			local lineNumber = if currBreakpoint.hiddenLineNumber
+				then currBreakpoint.hiddenLineNumber
+				else currBreakpoint.lineNumber
 			DebuggerUIService:OpenScriptAtLine(currBreakpoint.scriptGUID, connectionId, lineNumber)
 		end
 	end
@@ -188,7 +206,12 @@ function BreakpointsTable:init()
 			for row, expandedBool in pairs(newExpansion) do
 				newExpansionMap[row.id] = expandedBool
 			end
-			return {breakpointIdToExpansionState = Cryo.Dictionary.join(state.breakpointIdToExpansionState, newExpansionMap)}
+			return {
+				breakpointIdToExpansionState = Cryo.Dictionary.join(
+					state.breakpointIdToExpansionState,
+					newExpansionMap
+				),
+			}
 		end)
 	end
 
@@ -209,7 +232,6 @@ function BreakpointsTable:init()
 			local newCondition = inputObj.Text
 			metaBP.LogMessage = newCondition
 		end
-
 	end
 end
 
@@ -217,7 +239,7 @@ function BreakpointsTable:didMount()
 	if self.props.IsPaused and self.props.CurrentBreakpoint then
 		self:setState(function(state)
 			return {
-				selectedBreakpoints = {self.props.CurrentBreakpoint}
+				selectedBreakpoints = { self.props.CurrentBreakpoint },
 			}
 		end)
 	end
@@ -233,17 +255,40 @@ function BreakpointsTable:didUpdate(prevProps)
 		-- columns have been resized so we need to scale the existing columns proportionally as we add/delete new columns
 		local oldColumnNumber = #prevProps.ColumnFilter + #defaultColumnKeys
 		local newColumnSet = Cryo.List.toSet(props.ColumnFilter)
-		local oldColumnNameToSize = ColumnResizeHelperFunctions.fetchOldColumnSizes(oldColumnNumber, prevProps.ColumnFilter, defaultColumnKeys, self.state.sizes)
+		local oldColumnNameToSize = ColumnResizeHelperFunctions.fetchOldColumnSizes(
+			oldColumnNumber,
+			prevProps.ColumnFilter,
+			defaultColumnKeys,
+			self.state.sizes
+		)
 
 		if columnNumber < oldColumnNumber then
 			--removing column(s)
-			local deletedColumnsSize = ColumnResizeHelperFunctions.fetchDeletedColumnsSize(#defaultColumnKeys, oldColumnNumber, prevProps.ColumnFilter, oldColumnNameToSize, newColumnSet)
-			updatedSizes = ColumnResizeHelperFunctions.updatedSizesAfterRemovingColumns(columnNumber, deletedColumnsSize, oldColumnNameToSize, defaultColumnKeys, props.ColumnFilter)
+			local deletedColumnsSize = ColumnResizeHelperFunctions.fetchDeletedColumnsSize(
+				#defaultColumnKeys,
+				oldColumnNumber,
+				prevProps.ColumnFilter,
+				oldColumnNameToSize,
+				newColumnSet
+			)
+			updatedSizes = ColumnResizeHelperFunctions.updatedSizesAfterRemovingColumns(
+				columnNumber,
+				deletedColumnsSize,
+				oldColumnNameToSize,
+				defaultColumnKeys,
+				props.ColumnFilter
+			)
 		else
 			--adding column(s)
-			updatedSizes = ColumnResizeHelperFunctions.updatedSizesAfterAddingColumns(columnNumber, oldColumnNumber, oldColumnNameToSize, props.ColumnFilter, defaultColumnKeys)
+			updatedSizes = ColumnResizeHelperFunctions.updatedSizesAfterAddingColumns(
+				columnNumber,
+				oldColumnNumber,
+				oldColumnNameToSize,
+				props.ColumnFilter,
+				defaultColumnKeys
+			)
 		end
-		
+
 		self:setState(function(state)
 			return {
 				sizes = updatedSizes,
@@ -255,7 +300,7 @@ function BreakpointsTable:didUpdate(prevProps)
 		if self.props.IsPaused and self.props.CurrentBreakpoint then
 			self:setState(function(state)
 				return {
-					selectedBreakpoints = {self.props.CurrentBreakpoint}
+					selectedBreakpoints = { self.props.CurrentBreakpoint },
 				}
 			end)
 			-- Just hit a breakpoint so self.props.CurrentBreakpoint is the selectedBp and we don't need to check if the
@@ -267,20 +312,38 @@ function BreakpointsTable:didUpdate(prevProps)
 	if self.props.Breakpoints ~= prevProps.Breakpoints then
 		if #self.state.selectedBreakpoints ~= 0 then
 			local updatedSelections = {}
-			local selectedBreakpointIds = {}
+			local selectedMetaBreakpointIds = {}
+			local selectedChildBreakpoints = {}
 
 			for _, currentBreakpoint in ipairs(self.state.selectedBreakpoints) do
-				selectedBreakpointIds[currentBreakpoint.id] = true
+				if currentBreakpoint.context then
+					-- currently selected breakpoint is a child breakpoint
+					selectedChildBreakpoints[currentBreakpoint.id] = currentBreakpoint.context
+						.. currentBreakpoint.scriptGUID
+				else
+					-- currently selected breakpoint is a metabreakpoint
+					selectedMetaBreakpointIds[currentBreakpoint.id] = true
+				end
 			end
 
-			for _, breakpoint in ipairs(self.props.Breakpoints) do
-				if selectedBreakpointIds[breakpoint.id] then
-					table.insert(updatedSelections, breakpoint)
+			for _, metaBreakpoint in ipairs(self.props.Breakpoints) do
+				if selectedMetaBreakpointIds[metaBreakpoint.id] then
+					table.insert(updatedSelections, metaBreakpoint)
+				end
+
+				if selectedChildBreakpoints[metaBreakpoint.id] then
+					--find the child breakpoint that was previously the selected breakpoint if it still exists.
+					for _, breakpoint in ipairs(metaBreakpoint.children) do
+						local childBreakpointInfo = breakpoint.context .. breakpoint.scriptGUID
+						if selectedChildBreakpoints[metaBreakpoint.id] == childBreakpointInfo then
+							table.insert(updatedSelections, breakpoint)
+						end
+					end
 				end
 			end
 			self:setState(function(state)
 				return {
-					selectedBreakpoints = updatedSelections
+					selectedBreakpoints = updatedSelections,
 				}
 			end)
 		end
@@ -291,29 +354,40 @@ function BreakpointsTable:render()
 	local props = self.props
 	local localization = props.Localization
 	local style = props.Stylizer
-	local shouldFocusBreakpoint = props.IsPaused and props.CurrentBreakpoint and self.state.selectedBreakpoints[1] and
-		props.CurrentBreakpoint.id == self.state.selectedBreakpoints[1].id
+	local shouldFocusBreakpoint = props.IsPaused
+		and props.CurrentBreakpoint
+		and self.state.selectedBreakpoints[1]
+		and props.CurrentBreakpoint.id == self.state.selectedBreakpoints[1].id
 
 	local tableColumns = {
 		{
 			Name = "",
 			Key = defaultColumnKeys[1],
-		}, {
+		},
+		{
 			Name = localization:getText("BreakpointsWindow", "ScriptColumn"),
 			Key = defaultColumnKeys[2],
-			Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText("BreakpointsWindow", "ScriptColumnTooltip") or nil,
-		}, {
+			Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText(
+				"BreakpointsWindow",
+				"ScriptColumnTooltip"
+			) or nil,
+		},
+		{
 			Name = localization:getText("BreakpointsWindow", "LineColumn"),
 			Key = defaultColumnKeys[3],
-			Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText("BreakpointsWindow", "LineColumnTooltip") or nil,
-		}
+			Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText(
+				"BreakpointsWindow",
+				"LineColumnTooltip"
+			) or nil,
+		},
 	}
 
 	for _, v in pairs(props.ColumnFilter) do
 		local currCol = {
 			Name = localization:getText("BreakpointsWindow", v),
 			Key = dropdownColumnNameToKey[v],
-			Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText("BreakpointsWindow", v .. 'Tooltip') or nil,
+			Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText("BreakpointsWindow", v .. "Tooltip")
+				or nil,
 		}
 		table.insert(tableColumns, currCol)
 	end
@@ -321,19 +395,19 @@ function BreakpointsTable:render()
 	if hasTableColumnResizeFFlags then
 		tableColumns = map(tableColumns, function(column, index: number)
 			return join(column, {
-				Width = self.state.sizes[index]
+				Width = self.state.sizes[index],
 			})
 		end)
 	end
 
 	local expansionTable = {}
 	for _, bp in pairs(props.Breakpoints) do
-		if (self.state.breakpointIdToExpansionState[bp.id] == nil) then
+		if self.state.breakpointIdToExpansionState[bp.id] == nil then
 			self.state.breakpointIdToExpansionState[bp.id] = false
 		end
 		expansionTable[bp] = self.state.breakpointIdToExpansionState[bp.id]
 	end
-	
+
 	local toggleButtonText
 	if props.hasDisabledBreakpoints then
 		toggleButtonText = localization:getText("BreakpointsWindow", "EnableAll")
@@ -341,7 +415,7 @@ function BreakpointsTable:render()
 		toggleButtonText = localization:getText("BreakpointsWindow", "DisableAll")
 	end
 
-	local topBarHeight = Constants.BUTTON_SIZE + BUTTON_PADDING * 2
+	local topBarHeight = Constants.HEADER_HEIGHT + Constants.BUTTON_PADDING * 2
 
 	return Roact.createElement(Pane, {
 		Size = UDim2.fromScale(1, 1),
@@ -352,8 +426,8 @@ function BreakpointsTable:render()
 	}, {
 		HeaderPane = Roact.createElement(Pane, {
 			Size = UDim2.new(1, 0, 0, topBarHeight),
-			Spacing = BUTTON_PADDING,
-			Padding = BUTTON_PADDING,
+			Spacing = Constants.BUTTON_PADDING,
+			Padding = Constants.BUTTON_PADDING,
 			Style = "Box",
 			Layout = Enum.FillDirection.Horizontal,
 			LayoutOrder = 1,
@@ -373,7 +447,7 @@ function BreakpointsTable:render()
 					LayoutOrder = 1,
 					LeftIcon = "rbxasset://textures/Debugger/Breakpoints/disable_all@2x.png",
 					TooltipText = toggleButtonText,
-					OnClick = self.toggleEnabledAll
+					OnClick = self.toggleEnabledAll,
 				}),
 				DeleteAllBreakpointButton = Roact.createElement(IconButton, {
 					Size = UDim2.new(0, Constants.BUTTON_SIZE, 0, Constants.BUTTON_SIZE),
@@ -394,14 +468,14 @@ function BreakpointsTable:render()
 				ColumnDropdown = Roact.createElement(BreakpointsDropdownField, {
 					LayoutOrder = 1,
 					AutomaticSize = Enum.AutomaticSize.X,
-				})
+				}),
 			}),
 		}),
 		TablePane = Roact.createElement(Pane, {
 			Size = UDim2.new(1, 0, 1, -topBarHeight),
 			Style = "Box",
 			LayoutOrder = 2,
-		},{
+		}, {
 			BreakpointsTable = Roact.createElement(TreeTable, {
 				Size = UDim2.new(1, 0, 1, 0),
 				Columns = tableColumns,
@@ -426,103 +500,109 @@ function BreakpointsTable:render()
 				UseDeficit = if hasTableColumnResizeFFlags then false else nil,
 				UseScale = if hasTableColumnResizeFFlags then true else nil,
 				ClampSize = if hasTableColumnResizeFFlags then true else nil,
+				ColumnHeaderHeight = if FFlagDevFrameworkCustomTableRowHeight
+					then Constants.COLUMN_HEADER_HEIGHT
+					else nil,
+				RowHeight = if FFlagDevFrameworkCustomTableRowHeight then Constants.ROW_HEIGHT else nil,
 			}),
-		})
+		}),
 	})
 end
 
 BreakpointsTable = ContextServices.withContext({
+	Analytics = Analytics,
 	Localization = Localization,
 	Stylizer = Stylizer,
-	Plugin = Plugin
+	Plugin = Plugin,
 })(BreakpointsTable)
 
-BreakpointsTable = RoactRodux.connect(
-	function(state, props)
-		local breakpointsArray = {}
-		local currentBreakpoint = nil
-		local currentBreakpointIndex = nil
-		local hasDisabledBreakpoints = false
-		for breakpointId, breakpoint in pairs(state.Breakpoint.MetaBreakpoints) do
-			local bpCopy = deepCopy(breakpoint)
-			bpCopy.scriptGUID = breakpoint.scriptName
-			bpCopy.scriptName = state.ScriptInfo.ScriptInfo[bpCopy.scriptName]
-			bpCopy.scriptLine = state.ScriptInfo.ScriptLineContents[bpCopy.scriptGUID] and 
-				state.ScriptInfo.ScriptLineContents[bpCopy.scriptGUID][bpCopy.lineNumber]
-			table.insert(breakpointsArray, bpCopy)
-			if breakpoint.isEnabled == false then
-				hasDisabledBreakpoints = true
-			end
+BreakpointsTable = RoactRodux.connect(function(state, props)
+	local breakpointsArray = {}
+	local currentBreakpoint = nil
+	local currentBreakpointIndex = nil
+	local hasDisabledBreakpoints = false
+	for breakpointId, breakpoint in pairs(state.Breakpoint.MetaBreakpoints) do
+		local bpCopy = deepCopy(breakpoint)
+		bpCopy.scriptGUID = breakpoint.scriptName
+		bpCopy.scriptName = state.ScriptInfo.ScriptInfo[bpCopy.scriptName]
+		bpCopy.scriptLine = state.ScriptInfo.ScriptLineContents[bpCopy.scriptGUID]
+			and state.ScriptInfo.ScriptLineContents[bpCopy.scriptGUID][bpCopy.lineNumber]
+		table.insert(breakpointsArray, bpCopy)
+		if breakpoint.isEnabled == false then
+			hasDisabledBreakpoints = true
 		end
-
-		local i = 1
-		for _, breakpoint in ipairs(breakpointsArray) do
-			if breakpoint.id == state.Common.currentBreakpointId then
-				currentBreakpoint = breakpoint
-				currentBreakpointIndex = i
-			end
-			i = i + 1
-			breakpoint.children = {}
-
-			for context, connectionIdAndBreakpoints in pairs(breakpoint.contextBreakpoints) do
-				for _, individualBreakpoint in ipairs(connectionIdAndBreakpoints.breakpoints) do
-					local bpRow = BreakpointRow.extractNonChildData(breakpoint, context, individualBreakpoint.Script)
-					bpRow.hiddenConnectionId = connectionIdAndBreakpoints.connectionId
-					bpRow.hiddenLineNumber = bpRow.lineNumber
-					bpRow.lineNumber = ""
-					bpRow.isEnabled = individualBreakpoint.Enabled
-					bpRow.scriptGUID = bpRow.scriptName
-					bpRow.scriptName = {
-						Value = state.ScriptInfo.ScriptInfo[bpRow.scriptName],
-						LeftIcon = {
-							Image = fetchContextIcon(context),
-							Size = UDim2.new(0, Constants.ICON_SIZE, 0, Constants.ICON_SIZE),
-						}
-					}
-					table.insert(breakpoint.children, bpRow)
-				end
-			end
-		end
-
-		local currKeys = {}
-		local textInputCols = {}
-		for _, v in ipairs(defaultColumnKeys) do
-			table.insert(currKeys, v)
-		end
-		for index, v in ipairs(state.Breakpoint.listOfEnabledColumns) do
-			table.insert(currKeys, dropdownColumnNameToKey[v])
-			if v == "ConditionColumn" or v == "LogMessageColumn" then
-				local colIndex = index + #defaultColumnKeys
-				textInputCols[colIndex] = true
-			end
-		end
-		WatchHelperFunctions.sortTableByColumnAndOrder(breakpointsArray, state.Breakpoint.ColumnIndex, state.Breakpoint.SortDirection, currKeys, false)
-
-		return {
-			Breakpoints = breakpointsArray,
-			IsPaused = state.Common.isPaused,
-			CurrentBreakpoint = currentBreakpoint,
-			CurrentBreakpointIndex = currentBreakpointIndex,
-			CurrentDebuggerConnectionId = state.Common.currentDebuggerConnectionId,
-			SortIndex = state.Breakpoint.ColumnIndex,
-			SortOrder = state.Breakpoint.SortDirection,
-			hasDisabledBreakpoints = hasDisabledBreakpoints,
-			ColumnFilter = state.Breakpoint.listOfEnabledColumns,
-			TextInputCols = textInputCols,
-			CurrentKeys = currKeys,
-		}
-	end,
-
-	function(dispatch)
-		return {
-			onToggleEnabledAll = function(breakpointManager, stateToSet)
-				return dispatch(ToggleAllBreakpoints(breakpointManager, stateToSet))
-			end,
-			onSetBreakpointSortState = function(sortDirection, columnIndex)
-				return dispatch(SetBreakpointSortState(sortDirection, columnIndex))
-			end,
-		}
 	end
-)(BreakpointsTable)
+
+	local i = 1
+	for _, breakpoint in ipairs(breakpointsArray) do
+		if breakpoint.id == state.Common.currentBreakpointId then
+			currentBreakpoint = breakpoint
+			currentBreakpointIndex = i
+		end
+		i = i + 1
+		breakpoint.children = {}
+
+		for context, connectionIdAndBreakpoints in pairs(breakpoint.contextBreakpoints) do
+			for _, individualBreakpoint in ipairs(connectionIdAndBreakpoints.breakpoints) do
+				local bpRow = BreakpointRow.extractNonChildData(breakpoint, context, individualBreakpoint.Script)
+				bpRow.hiddenConnectionId = connectionIdAndBreakpoints.connectionId
+				bpRow.hiddenLineNumber = bpRow.lineNumber
+				bpRow.lineNumber = ""
+				bpRow.isEnabled = individualBreakpoint.Enabled
+				bpRow.scriptName = {
+					Value = state.ScriptInfo.ScriptInfo[individualBreakpoint.Script],
+					LeftIcon = {
+						Image = fetchContextIcon(context),
+						Size = UDim2.new(0, Constants.ICON_SIZE, 0, Constants.ICON_SIZE),
+					},
+				}
+				table.insert(breakpoint.children, bpRow)
+			end
+		end
+	end
+
+	local currKeys = {}
+	local textInputCols = {}
+	for _, v in ipairs(defaultColumnKeys) do
+		table.insert(currKeys, v)
+	end
+	for index, v in ipairs(state.Breakpoint.listOfEnabledColumns) do
+		table.insert(currKeys, dropdownColumnNameToKey[v])
+		if v == "ConditionColumn" or v == "LogMessageColumn" then
+			local colIndex = index + #defaultColumnKeys
+			textInputCols[colIndex] = true
+		end
+	end
+	WatchHelperFunctions.sortTableByColumnAndOrder(
+		breakpointsArray,
+		state.Breakpoint.ColumnIndex,
+		state.Breakpoint.SortDirection,
+		currKeys,
+		false
+	)
+
+	return {
+		Breakpoints = breakpointsArray,
+		IsPaused = state.Common.isPaused,
+		CurrentBreakpoint = currentBreakpoint,
+		CurrentBreakpointIndex = currentBreakpointIndex,
+		CurrentDebuggerConnectionId = state.Common.currentDebuggerConnectionId,
+		SortIndex = state.Breakpoint.ColumnIndex,
+		SortOrder = state.Breakpoint.SortDirection,
+		hasDisabledBreakpoints = hasDisabledBreakpoints,
+		ColumnFilter = state.Breakpoint.listOfEnabledColumns,
+		TextInputCols = textInputCols,
+		CurrentKeys = currKeys,
+	}
+end, function(dispatch)
+	return {
+		onToggleEnabledAll = function(breakpointManager, stateToSet)
+			return dispatch(ToggleAllBreakpoints(breakpointManager, stateToSet))
+		end,
+		onSetBreakpointSortState = function(sortDirection, columnIndex)
+			return dispatch(SetBreakpointSortState(sortDirection, columnIndex))
+		end,
+	}
+end)(BreakpointsTable)
 
 return BreakpointsTable

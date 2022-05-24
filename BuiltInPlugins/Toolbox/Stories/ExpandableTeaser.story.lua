@@ -1,14 +1,11 @@
 local Plugin = script.Parent.Parent
 
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization4")
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local ToolboxStoryWrapper = require(Plugin.Stories.ToolboxStoryWrapper)
 
 local ExpandableTeaser = require(Plugin.Core.Components.Categorization.ExpandableTeaser)
 local SearchList = require(Plugin.Core.Components.Categorization.SearchList)
-
-local CoreTestUtils = require(Plugin.TestUtils.CoreTestUtils)
 
 local function ToolboxWrapper(props)
 	return Roact.createElement(ToolboxStoryWrapper, props)
@@ -57,7 +54,7 @@ return {
 	stories = {
 		{
 			name = "Expandable",
-			story = FFlagToolboxAssetCategorization and Roact.createElement(ToolboxWrapper, {}, {
+			story = Roact.createElement(ToolboxWrapper, {}, {
 				Roact.createElement("Frame", {
 					AutomaticSize = Enum.AutomaticSize.Y,
 					BackgroundTransparency = 1,
@@ -69,11 +66,11 @@ return {
 						TeaserSize = Vector2.new(0, 10),
 					}, makeChildren()),
 				}),
-			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization4", true),
+			}),
 		},
 		{
 			name = "Search Pills",
-			story = FFlagToolboxAssetCategorization and Roact.createElement(ToolboxWrapper, {}, {
+			story = Roact.createElement(ToolboxWrapper, {}, {
 				Roact.createElement("Frame", {
 					AutomaticSize = Enum.AutomaticSize.Y,
 					BackgroundTransparency = 1,
@@ -85,7 +82,7 @@ return {
 						TeaserSize = Vector2.new(0, 28),
 					}, makeSearchListChildren()),
 				}),
-			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization4", true),
+			}),
 		},
 	},
 }

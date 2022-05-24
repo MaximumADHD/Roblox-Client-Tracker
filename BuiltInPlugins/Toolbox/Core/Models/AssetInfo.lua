@@ -1,6 +1,4 @@
 --!strict
-local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
-
 local Plugin = script:FindFirstAncestor("Toolbox")
 local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 
@@ -92,9 +90,7 @@ export type AssetInfo = {
 local AssetInfo = {}
 
 AssetInfo.new = function(): AssetInfo
-	return {
-		Asset = if FFlagToolboxAssetCategorization4 then nil else {} :: any,
-	}
+	return {}
 end
 
 function AssetInfo.fromItemDetailsRequest(data): AssetInfo

@@ -208,4 +208,5 @@ return{
 	["CoreScripts.InGameMenu.Report.BlockBody"] = [[이제 {DISPLAY_NAME}(@{RBX_NAME}) 님과는 더 이상 대화할 수 없습니다.]],
 	["CoreScripts.InGameMenu.Report.Block"] = [[차단]],
 	["CoreScripts.InGameMenu.Report.BlockPopup"] = [[{DISPLAY_NAME}(@{RBX_NAME}) 님을 차단했습니다]],
+	["CoreScripts.InGameMenu.PageTitle.Friends"] = [[친구]],
 }

@@ -10,8 +10,6 @@ local Packages = Plugin.Packages
 
 local Promise = require(Packages.Framework).Util.Promise
 
-local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
-
 -- public api
 local NetworkInterfaceMock = {}
 NetworkInterfaceMock.__index = NetworkInterfaceMock
@@ -157,8 +155,7 @@ end
 
 -- Intentionally ignoring that the real method has parameters because they are not used in this mock
 function NetworkInterfaceMock:getToolboxItems(
-	-- remove string from args union when removing FFlagToolboxAssetCategorization4
-	args: string | {
+	args: {
 		categoryName: string,
 		sortType: string?,
 		keyword: string?,
@@ -170,25 +167,10 @@ function NetworkInterfaceMock:getToolboxItems(
 		minDuration: number?,
 		maxDuration: number?,
 		includeOnlyVerifiedCreators: boolean?,
-	},
-	sortType: string?,
-	creatorType: string?,
-	minDuration: number?,
-	maxDuration: number?,
-	includeOnlyVerifiedCreators: boolean?,
-	creatorTargetId: number?,
-	ownerId: number?,
-	keyword: string?,
-	cursor: string?,
-	limit: number?
+	}
 )
-	local categoryName: string
-	if FFlagToolboxAssetCategorization4 and type(args) ~= "string" then
-		categoryName = args.categoryName
-		sortType = args.sortType
-	else
-		categoryName = args :: string
-	end
+	local categoryName = args.categoryName
+	local sortType = args.sortType
 
 	createStringValueforVerification(categoryName, sortType)
 	local fakeItemListContent = {

@@ -2,7 +2,6 @@ return function()
 	local CoreGui = game:GetService("CoreGui")
 	local CorePackages = game:GetService("CorePackages")
 
-
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Roact = InGameMenuDependencies.Roact
 	local Rodux = InGameMenuDependencies.Rodux
@@ -13,11 +12,9 @@ return function()
 	local Localization = require(InGameMenu.Localization.Localization)
 	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 	local reducer = require(InGameMenu.reducer)
-	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
-
 
 	local appStyle = {
 		Theme = AppDarkTheme,
@@ -30,16 +27,17 @@ return function()
 	SendNotificationInfo.Name = "SendNotificationInfo"
 	SendNotificationInfo.Parent = RobloxGui
 
-	local FocusHandlerContextProvider = require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
+	local FocusHandlerContextProvider = require(
+		script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider
+	)
 	local GraphicsQualityEntry = require(script.Parent.GraphicsQualityEntry)
 
 	local UserGameSettings = UserSettings():GetService("UserGameSettings")
 	local RenderSettings = settings().Rendering
 
 	itSKIP("should create and destroy without errors", function()
-
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = Rodux.Store.new(reducer)
+			store = Rodux.Store.new(reducer),
 		}, {
 			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 				style = appStyle,
@@ -47,14 +45,11 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+					FocusHandlerContextProvider = Roact.createElement(FocusHandlerContextProvider, {}, {
 						GraphicsQualityEntry = Roact.createElement(GraphicsQualityEntry, {
 							LayoutOrder = 2,
 						}),
-					}) or nil,
-					GraphicsQualityEntry = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(GraphicsQualityEntry, {
-						LayoutOrder = 2,
-					}) or nil,
+					}),
 				}),
 			}),
 		})
@@ -69,7 +64,7 @@ return function()
 
 	itSKIP("should set the rendering setting to the saved quality level when initalized", function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = Rodux.Store.new(reducer)
+			store = Rodux.Store.new(reducer),
 		}, {
 			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 				style = appStyle,
@@ -77,14 +72,11 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+					FocusHandlerContextProvider = Roact.createElement(FocusHandlerContextProvider, {}, {
 						GraphicsQualityEntry = Roact.createElement(GraphicsQualityEntry, {
 							LayoutOrder = 2,
 						}),
-					}) or nil,
-					GraphicsQualityEntry = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(GraphicsQualityEntry, {
-						LayoutOrder = 2,
-					}) or nil,
+					}),
 				}),
 			}),
 		})

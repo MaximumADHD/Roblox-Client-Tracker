@@ -22,7 +22,7 @@ local Models = Plugin.Src.Models
 local DebuggerStateToken = require(Models.DebuggerStateToken)
 
 local defaultNewNum = 1
-local defaultDebuggerToken = DebuggerStateToken.fromData({debuggerConnectionId = 1})
+local defaultDebuggerToken = DebuggerStateToken.fromData({ debuggerConnectionId = 1 })
 
 return function()
 	it("should return its expected default state", function()
@@ -66,7 +66,11 @@ return function()
 		it("should preserve immutability", function()
 			local prepState = CommonReducer(nil, SetFocusedDebuggerConnection(1))
 			local prepState2 = CommonReducer(prepState, AddThreadIdAction(123, "TestScript.Lua", defaultDebuggerToken))
-			local immutabilityPreserved = testImmutability(CommonReducer, ResumedAction(defaultDebuggerToken, 123), prepState2)
+			local immutabilityPreserved = testImmutability(
+				CommonReducer,
+				ResumedAction(defaultDebuggerToken, 123),
+				prepState2
+			)
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)
@@ -103,7 +107,7 @@ return function()
 			expect(state.debuggerConnectionIdToDST[1]).to.equal(defaultDebuggerToken)
 			expect(state.currentFrameMap).to.be.ok()
 			expect(state.debuggerConnectionIdToCurrentThreadId).to.be.ok()
-			expect(state.isPaused).to.equal(true)	
+			expect(state.isPaused).to.equal(true)
 			expect(state.pausedDebuggerConnectionIds[defaultDebuggerToken.debuggerConnectionId]).to.equal(1)
 		end)
 
@@ -144,7 +148,7 @@ return function()
 			expect(state.debuggerConnectionIdToDST).to.be.ok()
 			expect(state.debuggerConnectionIdToDST[1]).to.equal(nil)
 			expect(state.currentFrameMap).to.be.ok()
-			expect(state.debuggerConnectionIdToCurrentThreadId).to.be.ok()	
+			expect(state.debuggerConnectionIdToCurrentThreadId).to.be.ok()
 			expect(state.isPaused).to.equal(false)
 			expect(state.pausedDebuggerConnectionIds[defaultDebuggerToken.debuggerConnectionId]).to.equal(nil)
 		end)
@@ -152,11 +156,15 @@ return function()
 		it("should preserve immutability", function()
 			local prepState = CommonReducer(nil, SetFocusedDebuggerConnection(1))
 			prepState = CommonReducer(prepState, SimPaused(defaultDebuggerToken))
-			local immutabilityPreserved = testImmutability(CommonReducer, ClearConnectionData(defaultDebuggerToken), prepState)
+			local immutabilityPreserved = testImmutability(
+				CommonReducer,
+				ClearConnectionData(defaultDebuggerToken),
+				prepState
+			)
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)
-	
+
 	describe(SetCurrentBreakpointId.name, function()
 		it("should set the CurrentBreakpointId", function()
 			local prepState = CommonReducer(nil, SetFocusedDebuggerConnection(1))
@@ -192,7 +200,11 @@ return function()
 		it("should preserve immutability", function()
 			local prepState = CommonReducer(nil, SetFocusedDebuggerConnection(1))
 			local prepState2 = CommonReducer(prepState, SimPaused(defaultDebuggerToken))
-			local immutabilityPreserved = testImmutability(CommonReducer, AddThreadIdAction(123, "TestScript.Lua", defaultDebuggerToken), prepState2)
+			local immutabilityPreserved = testImmutability(
+				CommonReducer,
+				AddThreadIdAction(123, "TestScript.Lua", defaultDebuggerToken),
+				prepState2
+			)
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)

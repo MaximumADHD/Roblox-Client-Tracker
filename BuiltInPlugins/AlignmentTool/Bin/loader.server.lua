@@ -3,8 +3,8 @@ require(script.Parent.defineLuaFlags)
 local Plugin = script.Parent.Parent
 
 local PluginLoaderBuilder = require(Plugin.PluginLoader.PluginLoaderBuilder)
-local TranslationDevelopmentTable = Plugin.Src.Resources.Localization.TranslationDevelopmentTable
-local TranslationReferenceTable = Plugin.Src.Resources.Localization.TranslationReferenceTable
+local SourceStrings = Plugin.Src.Resources.Localization.SourceStrings
+local LocalizedStrings = Plugin.Src.Resources.Localization.LocalizedStrings
 
 local FFlagDebugRbxQtitanRibbonAndDockingEnabled = game:GetFastFlag("DebugRbxQtitanRibbonAndDockingEnabled")
 local FFlagFixToolbarButtonForFreshInstallation_AlignmentTool = game:GetFastFlag("FixToolbarButtonForFreshInstallation_AlignmentTool")
@@ -12,8 +12,8 @@ local FFlagFixToolbarButtonForFreshInstallation_AlignmentTool = game:GetFastFlag
 local args : PluginLoaderBuilder.Args = {
 	plugin = plugin,
 	pluginName = "AlignmentTool",
-	translationResourceTable = TranslationReferenceTable,
-	fallbackResourceTable = TranslationDevelopmentTable,
+	translationResourceTable = LocalizedStrings,
+	fallbackResourceTable = SourceStrings,
 	overrideLocaleId = nil,
 	localizationNamespace = nil,
 	getToolbarName = function()

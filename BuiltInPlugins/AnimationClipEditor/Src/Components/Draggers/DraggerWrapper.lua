@@ -54,6 +54,7 @@ local function mapDraggerContextToProps(draggerContext, props)
 	draggerContext.Tool = props.Tool
 	draggerContext.IsPlaying = props.PlayState ~= Constants.PLAY_STATE.Pause
 	draggerContext.BoneLinksToBone = props.BoneLinksToBone
+	draggerContext.VisualizeBones = props.VisualizeBones
 
 	draggerContext.ScrubberSignal = props.Signals:get(Constants.SIGNAL_KEYS.ScrubberChanged)
 	draggerContext.OnManipulateJoints = function(instanceName, values)
@@ -150,7 +151,8 @@ local function mapStateToProps(state, props)
 		AnimationData = state.AnimationData,
 		DefaultRotationType = status.DefaultRotationType,
 		DefaultEulerAnglesOrder = status.DefaultEulerAnglesOrder,
-		BoneLinksToBone = state.Status.BoneLinksToBone
+		BoneLinksToBone = state.Status.BoneLinksToBone,
+		VisualizeBones = state.Status.VisualizeBones,
 	}
 end
 

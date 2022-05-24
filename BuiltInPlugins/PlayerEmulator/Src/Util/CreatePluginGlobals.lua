@@ -9,13 +9,13 @@ local Http = require(Plugin.Packages.Http)
 
 local NetworkingContext = require(Plugin.Src.ContextServices.NetworkingContext)
 local MakeTheme = require(Plugin.Src.Resources.MakeTheme)
-local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
-local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
+local SourceStrings = Plugin.Src.Resources.SourceStrings
+local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 local createMainReducer = require(Plugin.Src.Reducers.createMainReducer)
 
 local localization = ContextServices.Localization.new({
-	stringResourceTable = TranslationDevelopmentTable,
-	translationResourceTable = TranslationReferenceTable,
+	stringResourceTable = SourceStrings,
+	translationResourceTable = LocalizedStrings,
 	pluginName = "PlayerEmulator",
 })
 

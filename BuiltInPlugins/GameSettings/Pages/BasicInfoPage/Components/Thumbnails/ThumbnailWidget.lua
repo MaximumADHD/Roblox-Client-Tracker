@@ -21,6 +21,7 @@
 			thumbnail, or when the user has finished dragging a thumbnail.
 			These actions are handled by the ThumbnailController above this component.
 ]]
+local FFlagGameSettingsRemoveFitContent = game:GetFastFlag("GameSettingsRemoveFitContent")
 
 local Page = script.Parent.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
@@ -30,6 +31,9 @@ local Util = Framework.Util
 local Cryo = require(Plugin.Packages.Cryo)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
+local UI = Framework.UI
+local Pane = UI.Pane
+
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
@@ -38,16 +42,21 @@ local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local ThumbnailSet = require(Page.Components.Thumbnails.ThumbnailSet)
 local DragGhostThumbnail = require(Page.Components.Thumbnails.DragGhostThumbnail)
 local BulletPoint = UILibrary.Component.BulletPoint
-local createFitToContent = UILibrary.Component.createFitToContent
+
+local FitToContent
+
+if not FFlagGameSettingsRemoveFitContent then
+	local createFitToContent = UILibrary.Component.createFitToContent
+	FitToContent = createFitToContent("Frame", "UIListLayout", {
+		Padding = UDim.new(0, 15),
+		SortOrder = Enum.SortOrder.LayoutOrder,
+	})
+end
 
 local getSocialMediaReferencesAllowed = require(Plugin.Src.Util.GameSettingsUtilities).getSocialMediaReferencesAllowed
 
 local ThumbnailWidget = Roact.PureComponent:extend("ThumbnailWidget")
 
-local FitToContent = createFitToContent("Frame", "UIListLayout", {
-	Padding = UDim.new(0, 15),
-	SortOrder = Enum.SortOrder.LayoutOrder,
-})
 
 function ThumbnailWidget:init()
 	self.frameRef = Roact.createRef()
@@ -155,10 +164,7 @@ function ThumbnailWidget:render()
 		countTextColor = theme.thumbnail.count
 	end
 
-	return Roact.createElement(FitToContent, {
-		LayoutOrder = self.props.LayoutOrder or 1,
-		BackgroundTransparency = 1,
-	}, {
+	local children = {
 		-- Placed in a folder to prevent this component from being part
 		-- of the LayoutOrder. This component is a drag area that is the size
 		-- of the entire component.
@@ -248,7 +254,21 @@ function ThumbnailWidget:render()
 				TextYAlignment = Enum.TextYAlignment.Center,
 			})),
 		}),
-	})
+	}
+
+	if FFlagGameSettingsRemoveFitContent then
+		return Roact.createElement(Pane, {
+			LayoutOrder = self.props.LayoutOrder or 1,
+			Layout = Enum.FillDirection.Vertical,
+			AutomaticSize = Enum.AutomaticSize.XY,
+			Spacing = UDim.new(0, 15),
+		}, children)
+	else
+		return Roact.createElement(FitToContent, {
+			LayoutOrder = self.props.LayoutOrder or 1,
+			BackgroundTransparency = 1,
+		}, children)
+	end
 end
 
 

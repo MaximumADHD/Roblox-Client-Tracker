@@ -2,12 +2,6 @@
 --[[
 	A generic clickable Search Pill.
 ]]
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization4")
-if not FFlagToolboxAssetCategorization then
-	-- needed for withAbsoluteSizeAndPosition
-	return {}
-end
-
 local Plugin = script:FindFirstAncestor("Toolbox")
 
 local Packages = Plugin.Packages

@@ -159,8 +159,7 @@ end, function(dispatch)
 			dispatch(CloseReportMenu())
 		end,
 		openReportDialog = function(reportType, targetPlayer)
-			--TODO: open report dialog
-			print("openReportDialog: " .. reportType)
+			dispatch(OpenReportDialog(reportType, targetPlayer))
 		end,
 	}
 end)(ReportMenu)

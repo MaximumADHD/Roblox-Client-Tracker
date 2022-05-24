@@ -33,6 +33,8 @@ local Util = Framework.Util
 local Typecheck = Util.Typecheck
 Typecheck.wrap(InstanceSelector, script)
 
+game:DefineFastFlag("SelectPreviewAvatarFromViewport2", false)
+
 function InstanceSelector:setSelectedInstance()
 	if #Selection:Get() > 0 then
 		local willSelectItem = Selection:Get()[1]
@@ -53,7 +55,19 @@ function InstanceSelector:getSelectedInstance()
 end
 
 function InstanceSelector:getMouseTarget()
-	return self.props.Mouse:get().Target
+	local target = self.props.Mouse:get().Target
+	if game:getFastFlag("SelectPreviewAvatarFromViewport2") then
+		if
+			not target
+			or self.props.IsSelectedInstanceValid(target)
+			or not target.Parent:FindFirstChild("HumanoidRootPart")
+		then
+			return target
+		end
+		return target.Parent
+	else
+		return target
+	end
 end
 
 function InstanceSelector:selectValidInstance(validFunc, invalidFunc)

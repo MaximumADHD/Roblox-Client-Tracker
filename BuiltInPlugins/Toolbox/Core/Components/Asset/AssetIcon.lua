@@ -15,8 +15,6 @@
 		callback onPreviewAudioButtonClicked() // remove with FFlagToolboxAssetGridRefactor
 ]]
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
-local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
-local FFlagToolboxAssetStyleUpdate2 = game:GetFastFlag("ToolboxAssetStyleUpdate2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -47,8 +45,6 @@ local ImageWithDefault = require(Plugin.Core.Components.ImageWithDefault)
 local TooltipWrapper = require(Plugin.Core.Components.TooltipWrapper)
 local PopUpWrapperButton = require(Plugin.Core.Components.Asset.Preview.PopUpWrapperButton)
 
-local SetAssetPreview = require(Plugin.Core.Actions.SetAssetPreview)
-
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local AssetIcon = Roact.PureComponent:extend("AssetIcon")
@@ -78,11 +74,7 @@ function AssetIcon:init(props)
 
 	if FFlagToolboxAssetGridRefactor then
 		self.onAssetPreviewButtonClicked = function()
-			if FFlagToolboxAssetCategorization4 then
-				self.props.onAssetPreviewButtonClicked()
-			else
-				self.props.onPreviewToggled(true, self.props.assetId)
-			end
+			self.props.onAssetPreviewButtonClicked()
 		end
 	end
 end
@@ -128,7 +120,7 @@ function AssetIcon:render()
 		local isCurrentlyCreationsTab = Category.getTabForCategoryName(props.categoryName) == Category.CREATIONS
 
 		local children = {
-			UICorner = FFlagToolboxAssetStyleUpdate2 and Roact.createElement("UICorner", {
+			UICorner = Roact.createElement("UICorner", {
 				CornerRadius = UDim.new(0, Constants.ASSET_CORNER_RADIUS),
 			}),
 
@@ -139,7 +131,7 @@ function AssetIcon:render()
 				Image = thumbnailUrl,
 				defaultImage = "",
 			}, {
-				UICorner = FFlagToolboxAssetStyleUpdate2 and Roact.createElement("UICorner", {
+				UICorner = Roact.createElement("UICorner", {
 					CornerRadius = UDim.new(0, Constants.ASSET_CORNER_RADIUS),
 				}),
 			}),
@@ -225,14 +217,4 @@ local function mapStateToProps(state, props)
 	}
 end
 
-local mapDispatchToProps
-if FFlagToolboxAssetGridRefactor then
-	mapDispatchToProps = function(dispatch)
-		return {
-			onPreviewToggled = function(isPreviewing, previewAssetId)
-				dispatch(SetAssetPreview(isPreviewing, previewAssetId))
-			end,
-		}
-	end
-end
-return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AssetIcon)
+return RoactRodux.connect(mapStateToProps, nil)(AssetIcon)

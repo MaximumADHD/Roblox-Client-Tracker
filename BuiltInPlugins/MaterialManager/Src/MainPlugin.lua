@@ -18,12 +18,13 @@ local Http = Framework.Http
 
 local MainReducer = require(main.Src.Reducers.MainReducer)
 local MakeTheme = require(main.Src.Resources.MakeTheme)
+local createAnalyticsHandlers = require(main.Src.Resources.createAnalyticsHandlers)
 
-local TranslationDevelopmentTable = main.Src.Resources.Localization.TranslationDevelopmentTable
-local TranslationReferenceTable = main.Src.Resources.Localization.TranslationReferenceTable
+local SourceStrings = main.Src.Resources.Localization.SourceStrings
+local LocalizedStrings = main.Src.Resources.Localization.LocalizedStrings
 
 local Components = main.Src.Components
-local MaterialManagerView = require(Components.MaterialManagerView)
+local MaterialBrowser = require(Components.MaterialBrowser)
 local MaterialPrompt = require(Components.MaterialPrompt)
 local ImageUploader = require(Components.ImageUploader)
 local ImportAssetHandler = require(Components.ImportAssetHandler)
@@ -31,9 +32,11 @@ local ImageLoader = require(Components.ImageLoader)
 
 local Utils = main.Src.Util
 local MaterialController = require(Utils.MaterialController)
-local getBuiltInMaterialVariants = require(Utils.getBuiltInMaterialVariants)
 local MaterialServiceWrapper = require(Utils.MaterialServiceWrapper)
 local CalloutController = require(Utils.CalloutController)
+
+local getBuiltInMaterialVariants = require(main.Src.Resources.Constants.getBuiltInMaterialVariants)
+local FIntInfluxReportMaterialManagerHundrethPercent = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent")
 
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
@@ -93,15 +96,19 @@ function MainPlugin:init(props)
 	}, nil)
 
 	self.localization = ContextServices.Localization.new({
-		stringResourceTable = TranslationDevelopmentTable,
-		translationResourceTable = TranslationReferenceTable,
+		stringResourceTable = SourceStrings,
+		translationResourceTable = LocalizedStrings,
 		pluginName = "MaterialManager",
 	})
 
-	-- TODO: skuhne add analytics handlers
-	self.analytics = ContextServices.Analytics.new(function()
-		return {}
-	end, {})
+	self.analytics = nil
+	if FIntInfluxReportMaterialManagerHundrethPercent then
+		self.analytics = ContextServices.Analytics.new(createAnalyticsHandlers)
+	else
+		self.analytics = ContextServices.Analytics.new(function()
+			return {}
+		end, {})
+	end
 
 	self.materialController = MaterialController.new(
 		getBuiltInMaterialVariants(),
@@ -182,7 +189,7 @@ function MainPlugin:render()
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
 		}, {
-			Roact.createElement(MaterialManagerView, {
+			Roact.createElement(MaterialBrowser, {
 				OpenPrompt = self.openPrompt
 			}),
 		}),

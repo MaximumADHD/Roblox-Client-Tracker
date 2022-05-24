@@ -28,7 +28,7 @@ local function hasValue(tab, val)
 	return false
 end
 
-function BreakpointsDropdownField:init()	
+function BreakpointsDropdownField:init()
 	self.keyColumns = {
 		[1] = "AllColumns",
 		[2] = Columns.SourceLine,
@@ -42,7 +42,7 @@ function BreakpointsDropdownField:render()
 	local props = self.props
 	local style = props.Stylizer
 	local localization = props.Localization
-	
+
 	return Roact.createElement(DropdownField, {
 		KeyTexts = self.keyColumns,
 		ClickCallback = props.onColumnFilterChange,
@@ -61,27 +61,22 @@ BreakpointsDropdownField = withContext({
 	Stylizer = Stylizer,
 })(BreakpointsDropdownField)
 
-BreakpointsDropdownField = RoactRodux.connect(
-	function(state, props)
-		local enabledColumns = state.Breakpoint.listOfEnabledColumns
-		local newColumnStates = {}
-		newColumnStates[2] = hasValue(enabledColumns, Columns.SourceLine)
-		newColumnStates[3] = hasValue(enabledColumns, Columns.Condition)
-		newColumnStates[4] = hasValue(enabledColumns, Columns.LogMessage)
-		newColumnStates[5] = hasValue(enabledColumns, Columns.ContinueExecution)
-		return {
-			ColumnStates = newColumnStates,
-		}
-	end,
-	
-	function(dispatch)
-		return {
-			onColumnFilterChange = function(enabledColumns)
-				return dispatch(BreakpointColumnFilter(enabledColumns))
-			end,
-		}
-	end
-	
-)(BreakpointsDropdownField)
+BreakpointsDropdownField = RoactRodux.connect(function(state, props)
+	local enabledColumns = state.Breakpoint.listOfEnabledColumns
+	local newColumnStates = {}
+	newColumnStates[2] = hasValue(enabledColumns, Columns.SourceLine)
+	newColumnStates[3] = hasValue(enabledColumns, Columns.Condition)
+	newColumnStates[4] = hasValue(enabledColumns, Columns.LogMessage)
+	newColumnStates[5] = hasValue(enabledColumns, Columns.ContinueExecution)
+	return {
+		ColumnStates = newColumnStates,
+	}
+end, function(dispatch)
+	return {
+		onColumnFilterChange = function(enabledColumns)
+			return dispatch(BreakpointColumnFilter(enabledColumns))
+		end,
+	}
+end)(BreakpointsDropdownField)
 
 return BreakpointsDropdownField

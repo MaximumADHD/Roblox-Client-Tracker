@@ -41,11 +41,11 @@ end
 
 function Gui:GetGroups()
 	local groups = self.props.plugin:GetItem("Groups")
-	if (groups == nil) then 
+	if (groups == nil) then
 		groups ={}
 	end
 	local selectedGroupIds = self.props.plugin:GetItem("SelectedGroupIds")
-	if (selectedGroupIds == nil) then 
+	if (selectedGroupIds == nil) then
 		selectedGroupIds = {}
 	end
 
@@ -113,12 +113,12 @@ function Gui:render()
 	local plugin = props.plugin
 	local localization = nil
 
-	if FFlagCGELocalizeWindowTitle then 
+	if FFlagCGELocalizeWindowTitle then
 	 	localization = props.localization
 	else
 		localization = UILibrary.Studio.Localization.new({
-			stringResourceTable = Resources.TranslationDevelopmentTable,
-			translationResourceTable = Resources.TranslationReferenceTable,
+			stringResourceTable = Resources.SourceStrings,
+			translationResourceTable = Resources.LocalizedStrings,
 			pluginName = "CGE",
 		})
 	end
@@ -174,8 +174,8 @@ function Gui:render()
 end
 
 function Gui:didMount()
-	self.SetStateAndRefreshConn = self.props.plugin:OnInvoke("SetStateAndRefresh", function(digestedState)	
-		if digestedState == nil then 
+	self.SetStateAndRefreshConn = self.props.plugin:OnInvoke("SetStateAndRefresh", function(digestedState)
+		if digestedState == nil then
 			digestedState = {}
 		end
 		self:SetStateAndRefresh(digestedState)

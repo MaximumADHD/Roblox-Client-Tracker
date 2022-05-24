@@ -3,8 +3,6 @@ local MemStorageService = game:GetService("MemStorageService")
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
-
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
@@ -174,36 +172,28 @@ function ToolboxPlugin:render()
 		[Roact.Change.Enabled] = self.onDockWidgetEnabledChanged,
 		[Roact.Event.AncestryChanged] = self.onAncestryChanged,
 	}, {
-		Toolbox = pluginGuiLoaded and ContextServices.provide(
-			if FFlagToolboxAssetCategorization4
-				then
-					{
-						ContextServices.Focus.new(self.state.pluginGui),
-						NavigationContext.new(), -- create a no-op version of navigation
-					}
-				else {
-					ContextServices.Focus.new(self.state.pluginGui),
-				},
-			{
-				Roact.createElement(ExternalServicesWrapper, {
-					plugin = plugin,
+		Toolbox = pluginGuiLoaded and ContextServices.provide({
+			ContextServices.Focus.new(self.state.pluginGui),
+			NavigationContext.new(), -- create a no-op version of navigation
+		}, {
+			Roact.createElement(ExternalServicesWrapper, {
+				plugin = plugin,
+				pluginGui = pluginGui,
+				theme = theme,
+				networkInterface = networkInterface,
+				localization = localization,
+			}, {
+				Roact.createElement(Toolbox, {
+					initialWidth = initialWidth,
+					backgrounds = backgrounds,
+					suggestions = suggestions,
+					tryOpenAssetConfig = tryOpenAssetConfig,
 					pluginGui = pluginGui,
-					theme = theme,
-					networkInterface = networkInterface,
-					localization = localization,
-				}, {
-					Roact.createElement(Toolbox, {
-						initialWidth = initialWidth,
-						backgrounds = backgrounds,
-						suggestions = suggestions,
-						tryOpenAssetConfig = tryOpenAssetConfig,
-						pluginGui = pluginGui,
-						pluginLoaderContext = props.pluginLoaderContext,
-						onMouseEnter = self.onDockWidgetInteraction,
-					}),
+					pluginLoaderContext = props.pluginLoaderContext,
+					onMouseEnter = self.onDockWidgetInteraction,
 				}),
-			}
-		),
+			}),
+		}),
 	})
 end
 

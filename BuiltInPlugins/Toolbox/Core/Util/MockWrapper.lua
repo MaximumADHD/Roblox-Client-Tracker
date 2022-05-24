@@ -60,16 +60,16 @@ local function MockWrapper(props)
 
 	local assetAnalytics = AssetAnalyticsContextItem.new(props.assetAnalytics or AssetAnalytics.mock())
 
-	local TranslationDevelopmentTable = Plugin.LocalizationSource.TranslationDevelopmentTable
-	local TranslationReferenceTable = Plugin.LocalizationSource.TranslationReferenceTable
+	local SourceStrings = Plugin.LocalizationSource.SourceStrings
+	local LocalizedStrings = Plugin.LocalizationSource.LocalizedStrings
 	local devFrameworkLocalization = ContextServices.Localization.new({
-		stringResourceTable = TranslationDevelopmentTable,
-		translationResourceTable = TranslationReferenceTable,
+		stringResourceTable = SourceStrings,
+		translationResourceTable = LocalizedStrings,
 		pluginName = "Toolbox",
 		libraries = {
 			[Framework.Resources.LOCALIZATION_PROJECT_NAME] = {
-				stringResourceTable = Framework.Resources.TranslationDevelopmentTable,
-				translationResourceTable = Framework.Resources.TranslationReferenceTable,
+				stringResourceTable = Framework.Resources.SourceStrings,
+				translationResourceTable = Framework.Resources.LocalizedStrings,
 			},
 		},
 		overrideGetLocale = function()

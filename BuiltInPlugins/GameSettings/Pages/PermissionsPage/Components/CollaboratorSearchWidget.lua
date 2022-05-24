@@ -1,3 +1,4 @@
+local FFlagGameSettingsRemoveFitContent = game:GetFastFlag("GameSettingsRemoveFitContent")
 
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -7,10 +8,11 @@ local Util = Framework.Util
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
+local UI = Framework.UI
+local Pane = UI.Pane
+
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
-
-local UILibrary = require(Plugin.Packages.UILibrary)
 
 local TextService = game:GetService("TextService")
 --even though this is deprecated, the warning message will only be up for a while before being removed
@@ -25,8 +27,6 @@ local UserHeadshotThumbnail = require(Plugin.Src.Components.AutoThumbnails.UserH
 local GroupIconThumbnail = require(Plugin.Src.Components.AutoThumbnails.GroupIconThumbnail)
 local Searchbar = require(Page.Components.SearchBar)
 
-local createFitToContent = UILibrary.Component.createFitToContent
-
 local GetUserCollaborators = require(Page.Selectors.GetUserCollaborators)
 local GetGroupCollaborators = require(Page.Selectors.GetGroupCollaborators)
 local AddUserCollaborator = require(Page.Thunks.AddUserCollaborator)
@@ -35,10 +35,16 @@ local SearchCollaborators = require(Page.Thunks.SearchCollaborators)
 
 local IsGroupGame = require(Page.Selectors.IsGroupGame)
 
-local FitToContent = createFitToContent("Frame", "UIListLayout", {
-	SortOrder = Enum.SortOrder.LayoutOrder,
-	Padding = UDim.new(0, 32),
-})
+local FitToContent
+if not FFlagGameSettingsRemoveFitContent then
+	local UILibrary = require(Plugin.Packages.UILibrary)
+	local createFitToContent = UILibrary.Component.createFitToContent
+	FitToContent = createFitToContent("Frame", "UIListLayout", {
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		Padding = UDim.new(0, 32),
+	})
+end
+
 
 local PADDING = 16
 local PERMISSIONS_ID = "Permissions"
@@ -242,10 +248,7 @@ function CollaboratorSearchWidget:render()
 	local WarningTextSize
 	local titleWidth
 
-	return Roact.createElement(FitToContent, {
-		BackgroundTransparency = 1,
-		LayoutOrder = layoutOrder,
-	}, {
+	local children = {
 		Title = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
 			AutomaticSize = Enum.AutomaticSize.XY,
 			LayoutOrder = 0,
@@ -291,17 +294,29 @@ function CollaboratorSearchWidget:render()
 
 			Results = results,
 		}),
-	})
-end
+	} 
 
+	if FFlagGameSettingsRemoveFitContent then
+		return Roact.createElement(Pane, {
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			AutomaticSize = Enum.AutomaticSize.Y,
+			Layout = Enum.FillDirection.Vertical,
+			LayoutOrder = layoutOrder,
+			Spacing = UDim.new(0, 32),
+		}, children)
+	else
+		return Roact.createElement(FitToContent, {
+			BackgroundTransparency = 1,
+			LayoutOrder = layoutOrder,
+		}, children)
+	end
+end
 
 CollaboratorSearchWidget = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
 })(CollaboratorSearchWidget)
-
-
 
 CollaboratorSearchWidget = RoactRodux.connect(
 	function(state, props)

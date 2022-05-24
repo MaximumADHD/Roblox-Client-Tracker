@@ -22,7 +22,7 @@ end
 function MyJiraTicket:render()
 	local localization = self.props.Localization
 	return Roact.createElement(Button, {
-		-- From Studio.BootcampPlugin.TutorialComponents.MyJiraTicket in TranslationDevelopmentTable.csv
+		-- From Studio.BootcampPlugin.TutorialComponents.MyJiraTicket in SourceStrings.csv
 		Text = localization:getText("TutorialComponents", "MyJiraTicket"),
 		OnClick = onClick,
 	})

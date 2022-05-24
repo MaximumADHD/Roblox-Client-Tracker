@@ -12,7 +12,6 @@
 ]]
 local HttpService = game:GetService("HttpService")
 
-local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
 
@@ -98,8 +97,6 @@ type _InternalProps = {
 }
 
 type _State = {
-	absoluteSize: Vector2, -- TODO Remove with FFlagToolboxAssetCategorization4
-	absolutePosition: Vector2, -- TODO Remove with FFlagToolboxAssetCategorization4
 	hoveredAssetId: number,
 	isShowingToolMessageBox: boolean,
 	isShowingScriptWarningMessageBox: boolean,
@@ -122,10 +119,6 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 		self.ref = Roact.createRef()
 
 		self.state = {
-			absoluteSize = if not FFlagToolboxAssetCategorization4
-				then Vector2.new(Constants.TOOLBOX_MIN_WIDTH, 0)
-				else nil,
-			absolutePosition = if not FFlagToolboxAssetCategorization4 then Vector2.new() else nil,
 			hoveredAssetId = 0,
 			isShowingToolMessageBox = false,
 			isShowingScriptWarningMessageBox = false,
@@ -281,54 +274,28 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			}, self.insertToolPromise, assetWasDragged, getNetwork(self)) -- networkInterface added with FFLagInsertAssetBubbleUpNetwork
 		end
 
-		if not FFlagToolboxAssetCategorization4 then
-			self.updateBoundaryVariables = function()
-				local ref = self.ref.current
-				if not ref then
-					return
-				end
-				if
-					self.state.absolutePosition ~= ref.AbsolutePosition
-					or self.state.absoluteSize ~= ref.AbsoluteSize
-				then
-					self:setState({
-						absoluteSize = ref.AbsoluteSize,
-						absolutePosition = ref.AbsolutePosition,
-					})
-				end
-			end
+		self.openAssetPreview = function(assetData)
+			self:setState(function()
+				return {
+					previewAssetData = assetData,
+				}
+			end)
+			local assetId = assetData.Asset.Id
+			self.props._onPreviewToggled(true, assetId)
 		end
 
-		if FFlagToolboxAssetCategorization4 then
-			self.openAssetPreview = function(assetData)
-				self:setState(function()
-					return {
-						previewAssetData = assetData,
-					}
-				end)
-				local assetId = assetData.Asset.Id
-				self.props._onPreviewToggled(true, assetId)
-			end
-
-			self.closeAssetPreview = function(assetData)
-				self:setState(function()
-					return {
-						previewAssetData = Roact.None,
-					}
-				end)
-				self.props._onPreviewToggled(false, Roact.None)
-			end
+		self.closeAssetPreview = function(assetData)
+			self:setState(function()
+				return {
+					previewAssetData = Roact.None,
+				}
+			end)
+			self.props._onPreviewToggled(false, Roact.None)
 		end
 	end
 
 	function AssetLogicWrapper:willUnmount()
 		self.insertToolPromise:destroy()
-	end
-
-	if not FFlagToolboxAssetCategorization4 then
-		function AssetLogicWrapper:didMount()
-			self.updateBoundaryVariables()
-		end
 	end
 
 	function AssetLogicWrapper:render()
@@ -355,49 +322,29 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			ClearHoveredAsset = self.clearHoveredAsset,
 			TryInsert = self.tryInsert,
 			TryOpenAssetConfig = tryOpenAssetConfig,
-			ParentAbsolutePosition = if not FFlagToolboxAssetCategorization4 then state.absolutePosition else nil,
-			ParentSize = if not FFlagToolboxAssetCategorization4 then state.absoluteSize else nil,
 
 			OnAssetPreviewButtonClicked = self.openAssetPreview,
 		})
 
-		local showAssetPreview
-		if FFlagToolboxAssetCategorization4 then
-			showAssetPreview = isPreviewing and previewAssetData ~= Roact.None
-			wrappedProps = Dash.omit(wrappedProps, {
-				-- mapStateToProps
-				"_categoryName",
-				"_isPreviewing",
-				"_previewAssetId",
-				"_searchTerm",
-				-- mapDispatchToProps
-				"_onPreviewToggled",
-				"_postInsertAssetRequest",
-				"_setMostRecentAssetInsertTime",
-				-- ContextItems
-				"_AssetAnalytics",
-				"_Localization",
-				"_Plugin",
-				"_Settings",
-			})
-		else
-			showAssetPreview = isPreviewing
-		end
+		local showAssetPreview = isPreviewing and previewAssetData ~= Roact.None
+		wrappedProps = Dash.omit(wrappedProps, {
+			-- mapStateToProps
+			"_categoryName",
+			"_isPreviewing",
+			"_previewAssetId",
+			"_searchTerm",
+			-- mapDispatchToProps
+			"_onPreviewToggled",
+			"_postInsertAssetRequest",
+			"_setMostRecentAssetInsertTime",
+			-- ContextItems
+			"_AssetAnalytics",
+			"_Localization",
+			"_Plugin",
+			"_Settings",
+		})
 
 		return Roact.createFragment({
-			Sizing = if not FFlagToolboxAssetCategorization4
-				then Roact.createElement("Frame", {
-					AutomaticSize = automaticSize,
-					BackgroundTransparency = 1,
-					Position = position,
-					Size = size,
-					ZIndex = -1,
-					[Roact.Ref] = self.ref,
-					[Roact.Change.AbsolutePosition] = self.updateBoundaryVariables,
-					[Roact.Change.AbsoluteSize] = self.updateBoundaryVariables,
-				})
-				else nil,
-
 			ToolScriptWarningMessageBox = isShowingScriptWarningMessageBox and Roact.createElement(
 				ScriptConfirmationDialog,
 				{
@@ -463,8 +410,8 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			}),
 
 			AssetPreview = showAssetPreview and Roact.createElement(AssetPreviewWrapper, {
-				assetData = if FFlagToolboxAssetCategorization4 then previewAssetData else nil,
-				onClose = if FFlagToolboxAssetCategorization4 then self.closeAssetPreview else nil,
+				assetData = previewAssetData,
+				onClose = self.closeAssetPreview,
 				tryInsert = self.tryInsert,
 				tryOpenAssetConfig = tryOpenAssetConfig,
 			}),
@@ -495,11 +442,9 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 
 	local function mapDispatchToProps(dispatch)
 		return {
-			_onPreviewToggled = if FFlagToolboxAssetCategorization4
-				then function(isPreviewing, previewAssetId)
-					dispatch(SetAssetPreview(isPreviewing, previewAssetId))
-				end
-				else nil,
+			_onPreviewToggled = function(isPreviewing, previewAssetId)
+				dispatch(SetAssetPreview(isPreviewing, previewAssetId))
+			end,
 			_postInsertAssetRequest = function(networkInterface: any, assetId: number)
 				dispatch(PostInsertAssetRequest(networkInterface, assetId))
 			end,

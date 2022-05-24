@@ -19,8 +19,8 @@ local DockWidget = StudioUI.DockWidget
 
 local AnalyticsContext = require(main.Src.ContextServices.AnalyticsContext)
 local PluginTheme = require(main.Src.Resources.PluginTheme)
-local TranslationDevelopmentTable = main.Src.Resources.Localization.TranslationDevelopmentTable
-local TranslationReferenceTable = main.Src.Resources.Localization.TranslationReferenceTable
+local SourceStrings = main.Src.Resources.Localization.SourceStrings
+local LocalizedStrings = main.Src.Resources.Localization.LocalizedStrings
 
 local MainView = require(main.Src.Components.MainView)
 local MainReducer = require(main.Src.Reducers.MainReducer)
@@ -41,8 +41,8 @@ function MainPlugin:init()
 	})
 
 	self.localization = ContextServices.Localization.new({
-		stringResourceTable = TranslationDevelopmentTable,
-		translationResourceTable = TranslationReferenceTable,
+		stringResourceTable = SourceStrings,
+		translationResourceTable = LocalizedStrings,
 		pluginName = "LocalizationTools",
 	})
 

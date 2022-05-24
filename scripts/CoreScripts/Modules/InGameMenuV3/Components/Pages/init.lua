@@ -58,7 +58,7 @@ local pages = {
 	},
 	{
 		key = "InviteFriends",
-		title = "CoreScripts.InGameMenu.PageTitle.InviteFriends",
+		title = "CoreScripts.InGameMenu.PageTitle.Friends",
 		icon = Images["icons/actions/friends/friendInvite"],
 		component = script.Parent.InviteFriendsPage,
 		navigationDepth = 2,

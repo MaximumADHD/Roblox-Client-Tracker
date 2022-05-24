@@ -12,13 +12,6 @@
 		function DeviceSelected(id, selected) = Callback for when device is selected. Accepts the id
 			of box and selection state to set in store
 ]]
-local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage2")
-
-local teamCreateToggleEnabled = false
-if FIntTeamCreateTogglePercentageRollout > 0 then
-	local StudioService = game:GetService("StudioService")
-    teamCreateToggleEnabled = StudioService:GetUserIsInTeamCreateToggleRamp()
-end
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -58,7 +51,7 @@ function PlatformSelect:render()
 	local props = self.props
 	local localization = props.Localization
 
-	local theme = if teamCreateToggleEnabled then props.Stylizer else nil
+	local theme = props.Stylizer
 
 	local layoutOrder = props.LayoutOrder or 0
 	local devicesError = props.DevicesError
@@ -95,8 +88,8 @@ function PlatformSelect:render()
 				deviceSelected(box.Id, not box.Selected)
 			end
 		end,
-		AbsoluteMaxHeight = teamCreateToggleEnabled and theme.checkboxset.maxHeight or nil,
-		UseGridLayout = teamCreateToggleEnabled,
+		AbsoluteMaxHeight = theme.checkboxset.maxHeight,
+		UseGridLayout = true,
 	}, {
 		ListDialog = self.state.dialogEnabled and Roact.createElement(ListDialog, {
 			Title = localization:getText("General", "ContentDialogTitle"),

@@ -5,10 +5,10 @@ export type WatchWindowTableRow = {
 	scopeColumn: string,
 	valueColumn: string,
 	dataTypeColumn: string,
-	childPaths : {Path},
+	childPaths: { Path },
 	expanded: boolean,
 	textFilteredOut: boolean,
-	scopeFilteredOut : boolean,
+	scopeFilteredOut: boolean,
 }
 
 return {}

@@ -13,10 +13,8 @@ local OpenReportSentDialog = require(TnsModule.Actions.OpenReportSentDialog)
 local CloseReportSentDialog = require(TnsModule.Actions.CloseReportSentDialog)
 
 return Rodux.createReducer({
-	dialogOpen = false,
-	userId = nil, --Nil if reporting the game
-	userName = nil,
 	isReportMenuOpen = false,
+	isReportDialogOpen = false,
 	isReportSentOpen = false,
 	reportType = nil,
 	targetPlayer = nil,
@@ -32,23 +30,23 @@ return Rodux.createReducer({
 		})
 	end,
 	[OpenReportDialog.name] = function(state, action)
-		return {
-			dialogOpen = true,
-			reportSentOpen = state.reportSentOpen,
-			userId = action.userId,
-			userName = action.userName,
-		}
+		return Cryo.Dictionary.join(state, {
+			isReportMenuOpen = false,
+			isReportDialogOpen = true,
+			reportType = action.reportType,
+			targetPlayer = action.targetPlayer or Cryo.None,
+		})
 	end,
 	[CloseReportDialog.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			dialogOpen = false,
+			isReportDialogOpen = false,
 		})
 	end,
 	[OpenReportSentDialog.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			isReportSentOpen = true,
 			reportType = action.reportType,
-			targetPlayer = action.targetPlayer,
+			targetPlayer = action.targetPlayer or Cryo.None,
 		})
 	end,
 	[CloseReportSentDialog.name] = function(state, action)

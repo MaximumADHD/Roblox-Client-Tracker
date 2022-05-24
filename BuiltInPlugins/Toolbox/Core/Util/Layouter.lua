@@ -1,5 +1,3 @@
-local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -16,13 +14,11 @@ function Layouter.getAssetsPerRow(width)
 	)
 end
 
-if FFlagToolboxAssetCategorization4 then
-	function Layouter.getSwimlaneWidth(width)
-		local containerWidth = width - (2 * Constants.MAIN_VIEW_PADDING) - Constants.SCROLLBAR_PADDING
-		local assetWidth = Constants.ASSET_WIDTH_NO_PADDING + Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING
-		local assetPerRow = Layouter.getAssetsPerRow(containerWidth)
-		return assetPerRow * assetWidth - Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING
-	end
+function Layouter.getSwimlaneWidth(width)
+	local containerWidth = width - (2 * Constants.MAIN_VIEW_PADDING) - Constants.SCROLLBAR_PADDING
+	local assetWidth = Constants.ASSET_WIDTH_NO_PADDING + Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING
+	local assetPerRow = Layouter.getAssetsPerRow(containerWidth)
+	return assetPerRow * assetWidth - Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING
 end
 
 function Layouter.getAssetCellHeightWithPadding(showPrices)

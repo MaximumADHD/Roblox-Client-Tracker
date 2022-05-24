@@ -18,8 +18,8 @@ local MakeTheme = require(main.Src.Resources.MakeTheme)
 local Toolbar = require(main.Src.Components.Toolbar)
 local PromptExportNonAccessory = require(main.Src.Components.PromptExportNonAccessory)
 
-local TranslationDevelopmentTable = main.Src.Resources.Localization.TranslationDevelopmentTable
-local TranslationReferenceTable = main.Src.Resources.Localization.TranslationReferenceTable
+local SourceStrings = main.Src.Resources.Localization.SourceStrings
+local LocalizedStrings = main.Src.Resources.Localization.LocalizedStrings
 
 local NonAccessoriesSelected = require(main.Src.Functions.NonAccessoriesSelected)
 local Export = require(main.Src.Functions.Export)
@@ -28,8 +28,8 @@ local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
 function MainPlugin:init(props)
 	self.localization = ContextServices.Localization.new({
-		stringResourceTable = TranslationDevelopmentTable,
-		translationResourceTable = TranslationReferenceTable,
+		stringResourceTable = SourceStrings,
+		translationResourceTable = LocalizedStrings,
 		pluginName = "InternalAvatarTools",
 	})
 

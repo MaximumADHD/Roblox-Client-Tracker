@@ -1,6 +1,5 @@
 local Plugin = script.Parent.Parent
 
-local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 local FFlagDevFrameworkResponsiveGrid2 = game:GetFastFlag("DevFrameworkResponsiveGrid2")
 
 local Libs = Plugin.Packages
@@ -23,7 +22,7 @@ return {
 		{
 			name = "SubcategoriesView",
 			summary = "Example with 5 subcategories.",
-			story = if FFlagToolboxAssetCategorization4 and FFlagDevFrameworkResponsiveGrid2
+			story = if FFlagDevFrameworkResponsiveGrid2
 				then Roact.createElement(ToolboxWrapper, {}, {
 					IconTile = Roact.createElement(SubcategoriesView, {
 						Size = UDim2.new(1, 0, 0, 200),
@@ -91,10 +90,7 @@ return {
 						},
 					}),
 				})
-				else (CoreTestUtils.mustSetFlag("FFlagDevFrameworkResponsiveGrid2", true) and CoreTestUtils.mustSetFlag(
-					"FFlagToolboxAssetCategorization4",
-					true
-				)),
+				else CoreTestUtils.mustSetFlag("FFlagDevFrameworkResponsiveGrid2", true),
 		},
 	},
 }

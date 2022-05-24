@@ -39,8 +39,6 @@ local InGameMenuPolicy = require(script.InGameMenuPolicy)
 local GlobalConfig = require(script.GlobalConfig)
 local Constants = require(script.Resources.Constants)
 
-local GetFFlagIGMGamepadSelectionHistory = require(script.Flags.GetFFlagIGMGamepadSelectionHistory)
-
 local OpenChangedEvent = Instance.new("BindableEvent")
 local RespawnBehaviourChangedEvent = Instance.new("BindableEvent")
 
@@ -121,13 +119,9 @@ return {
 							localization = localization,
 						}, {
 							CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
-								FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory()
-										and Roact.createElement(FocusHandlerContextProvider, {}, {
-											InGameMenu = Roact.createElement(App),
-										})
-									or nil,
-								InGameMenu = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(App)
-									or nil,
+								FocusHandlerContextProvider = Roact.createElement(FocusHandlerContextProvider, {}, {
+									InGameMenu = Roact.createElement(App),
+								}) or nil,
 							}),
 						}),
 					}),

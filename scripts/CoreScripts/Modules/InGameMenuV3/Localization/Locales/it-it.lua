@@ -208,4 +208,5 @@ return{
 	["CoreScripts.InGameMenu.Report.BlockBody"] = [[Tu e {DISPLAY_NAME} (@{RBX_NAME}) non potrete più comunicare tra di voi.]],
 	["CoreScripts.InGameMenu.Report.Block"] = [[Blocca]],
 	["CoreScripts.InGameMenu.Report.BlockPopup"] = [[Hai bloccato {DISPLAY_NAME} (@{RBX_NAME})]],
+	["CoreScripts.InGameMenu.PageTitle.Friends"] = [[Amici]],
 }

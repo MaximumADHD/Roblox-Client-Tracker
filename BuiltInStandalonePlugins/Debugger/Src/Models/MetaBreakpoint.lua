@@ -10,11 +10,11 @@ export type MetaBreakpoint = {
 	condition: string,
 	logMessage: string,
 	continueExecution: boolean,
-	debugpointType : Constants.DebugpointType,
-	contextBreakpoints : {[string] : {connectionId : string, breakpoints : {[number] : Instance}}}
+	debugpointType: Constants.DebugpointType,
+	contextBreakpoints: { [string]: { connectionId: string, breakpoints: { [number]: Instance } } },
 }
 
-local function fromMetaBreakpoint(metaBreakpoint) : MetaBreakpoint
+local function fromMetaBreakpoint(metaBreakpoint): MetaBreakpoint
 	return {
 		id = metaBreakpoint.Id,
 		isEnabled = metaBreakpoint.Enabled,
@@ -24,33 +24,36 @@ local function fromMetaBreakpoint(metaBreakpoint) : MetaBreakpoint
 		condition = metaBreakpoint.Condition,
 		logMessage = metaBreakpoint.LogMessage,
 		continueExecution = metaBreakpoint.ContinueExecution,
-		debugpointType = metaBreakpoint.IsLogpoint and Constants.DebugpointType.Logpoint or Constants.DebugpointType.Breakpoint,
+		debugpointType = metaBreakpoint.IsLogpoint and Constants.DebugpointType.Logpoint
+			or Constants.DebugpointType.Breakpoint,
 		contextBreakpoints = metaBreakpoint:GetContextBreakpoints(),
 	}
 end
 
 -- Mocks MetaBreakpoint Model.
 -- Create unique values for props that are not passed in
-local function mockMetaBreakpoint(metaBreakpoint, uniqueId) : MetaBreakpoint
+local function mockMetaBreakpoint(metaBreakpoint, uniqueId): MetaBreakpoint
 	if metaBreakpoint.isEnabled == nil then
-		metaBreakpoint.isEnabled = math.random()>0.5
+		metaBreakpoint.isEnabled = math.random() > 0.5
 	end
 
 	if metaBreakpoint.continueExecution == nil then
-		metaBreakpoint.continueExecution = math.random()>0.5
+		metaBreakpoint.continueExecution = math.random() > 0.5
 	end
 
 	return {
 		id = metaBreakpoint.id or uniqueId,
 		isEnabled = metaBreakpoint.isEnabled,
 		lineNumber = metaBreakpoint.lineNumber or uniqueId,
-		scriptName = metaBreakpoint.scriptName or ("script"..tostring(uniqueId)),
-		scriptLine = metaBreakpoint.scriptLine or ("local varNum"..tostring(uniqueId).." = 0"),
-		condition = metaBreakpoint.condition or ("varNum"..tostring(uniqueId).." == 0"),
-		logMessage = metaBreakpoint.logMessage or ("varNum"..tostring(uniqueId)),
+		scriptName = metaBreakpoint.scriptName or ("script" .. tostring(uniqueId)),
+		scriptLine = metaBreakpoint.scriptLine or ("local varNum" .. tostring(uniqueId) .. " = 0"),
+		condition = metaBreakpoint.condition or ("varNum" .. tostring(uniqueId) .. " == 0"),
+		logMessage = metaBreakpoint.logMessage or ("varNum" .. tostring(uniqueId)),
 		continueExecution = metaBreakpoint.continueExecution,
-		debugpointType = metaBreakpoint.debugpointType or math.fmod(uniqueId,2)==0 and Constants.DebugpointType.Breakpoint or Constants.DebugpointType.Logpoint,
-		contextBreakpoints = metaBreakpoint.contextBreakpoints or {}
+		debugpointType = metaBreakpoint.debugpointType
+			or math.fmod(uniqueId, 2) == 0 and Constants.DebugpointType.Breakpoint
+			or Constants.DebugpointType.Logpoint,
+		contextBreakpoints = metaBreakpoint.contextBreakpoints or {},
 	}
 end
 

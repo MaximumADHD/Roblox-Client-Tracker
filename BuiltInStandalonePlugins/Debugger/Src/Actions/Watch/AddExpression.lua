@@ -4,11 +4,11 @@ local Util = Framework.Util
 local Action = Util.Action
 
 export type Props = {
-	expression : string
+	expression: string,
 }
 
-return Action(script.Name, function(expression : string) : Props
+return Action(script.Name, function(expression: string): Props
 	return {
-		expression = expression
+		expression = expression,
 	}
 end)

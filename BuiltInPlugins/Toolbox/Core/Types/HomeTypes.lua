@@ -1,6 +1,5 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
-local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 
 local ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
@@ -45,15 +44,13 @@ if not FFlagToolboxAudioDiscovery then
 		end
 	end
 
-	if FFlagToolboxAssetCategorization4 then
-		local HomeViewAssetTypeString = ToolboxUtilities.getHomeViewEnabledAssetTypes()
-		if HomeViewAssetTypeString ~= nil then
-			local HomeViewAssetTypes = string.split(HomeViewAssetTypeString, ";")
-			for i, assetName in pairs(HomeViewAssetTypes) do
-				local success = pcall(AddEnabledAssetByName, assetName)
-				if not success then
-					warn(assetName .. " is not a valid asset name")
-				end
+	local HomeViewAssetTypeString = ToolboxUtilities.getHomeViewEnabledAssetTypes()
+	if HomeViewAssetTypeString ~= nil then
+		local HomeViewAssetTypes = string.split(HomeViewAssetTypeString, ";")
+		for i, assetName in pairs(HomeViewAssetTypes) do
+			local success = pcall(AddEnabledAssetByName, assetName)
+			if not success then
+				warn(assetName .. " is not a valid asset name")
 			end
 		end
 	end

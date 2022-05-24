@@ -1,5 +1,4 @@
 --!strict
-local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
@@ -42,7 +41,6 @@ local function wrapViewForRoactNavigation(pageConstructor)
 					local navBreadcrumbs = navContext:getBreadcrumbRoute()
 					local toolboxTab = analyticsContext.toolboxTab
 					local assetType = analyticsContext.currentCategory
-
 					analytics:logPageView(searchID, searchCategory, pathName, navBreadcrumbs, toolboxTab, assetType)
 				end
 			end
@@ -129,189 +127,179 @@ local function getAssetLogicWrapperProps(viewProps)
 end
 
 -- A list of views we can route to. Add any new navigatable pages here.
-local navigationRoutes
-if FFlagToolboxAssetCategorization4 then
-	navigationRoutes = {
-		[Constants.NAVIGATION.HOME] = wrapViewForRoactNavigation(function(viewProps)
-			local component = if FFlagToolboxAudioDiscovery and viewProps.AssetType == Enum.AssetType.Audio
-				then AudioHomeView
-				else HomeView
+local navigationRoutes = {
+	[Constants.NAVIGATION.HOME] = wrapViewForRoactNavigation(function(viewProps)
+		local component = if FFlagToolboxAudioDiscovery and viewProps.AssetType == Enum.AssetType.Audio
+			then AudioHomeView
+			else HomeView
 
-			return Roact.createElement(
-				component,
-				Dash.join(getAssetLogicWrapperProps(viewProps), {
-					AssetSections = viewProps.AssetSections,
-					CategoryName = viewProps.CategoryName,
-					OnClickSubcategory = function(subcategoryName, subcategoryDict, searchTerm, categoryName, sortName)
-						if subcategoryDict.childCount == 0 then
-							viewProps.navigateTo(
-								Constants.NAVIGATION.RESULTS,
-								Constants.HOMEVIEW_SEARCH_CATEGORY,
-								subcategoryName,
-								Dash.join(viewProps, getAssetLogicWrapperProps(viewProps), {
-									CategoryName = categoryName,
-									SearchTerm = searchTerm,
-									SortName = sortName,
-								})
-							)
-						else
-							viewProps.navigateTo(
-								Constants.NAVIGATION.SUBCATEGORY,
-								Constants.HOMEVIEW_SEARCH_CATEGORY,
-								subcategoryName,
-								Dash.join(viewProps, getAssetLogicWrapperProps(viewProps), {
-									CategoryName = categoryName,
-									SortName = sortName,
-									SubcategoryPath = { subcategoryName },
-									SubcategoryDict = subcategoryDict.children,
-									TopKeywords = viewProps.TopKeywords,
-								})
-							)
-						end
-					end,
-					OnClickSeeAllSubcategories = function(mySubcategoryDict, categoryName, sortName)
-						viewProps.navigateTo(
-							Constants.NAVIGATION.ALL_SUBCATEGORIES,
-							Constants.HOMEVIEW_SEARCH_CATEGORY,
-							Constants.NAVIGATION.ALL_SUBCATEGORIES,
-							Dash.join(viewProps, getAssetLogicWrapperProps(viewProps), {
-								CategoryName = categoryName,
-								SortName = sortName,
-								SubcategoryDict = mySubcategoryDict,
-							})
-						)
-					end,
-					OnClickSeeAllAssets = function(sectionName, categoryName, sortName, searchTerm, navigation)
+		return Roact.createElement(
+			component,
+			Dash.join(getAssetLogicWrapperProps(viewProps), {
+				AssetSections = viewProps.AssetSections,
+				CategoryName = viewProps.CategoryName,
+				OnClickSubcategory = function(subcategoryName, subcategoryDict, searchTerm, categoryName, sortName)
+					if subcategoryDict.childCount == 0 then
 						viewProps.navigateTo(
 							Constants.NAVIGATION.RESULTS,
-							sectionName,
-							sectionName,
+							Constants.HOMEVIEW_SEARCH_CATEGORY,
+							subcategoryName,
 							Dash.join(viewProps, getAssetLogicWrapperProps(viewProps), {
 								CategoryName = categoryName,
 								SearchTerm = searchTerm,
-								SectionName = sectionName,
 								SortName = sortName,
 							})
 						)
-					end,
-					SubcategoryDict = viewProps.SubcategoryDict,
-					SortName = viewProps.SortName,
-					Size = UDim2.new(1, 0, 1, 0),
-					TopKeywords = viewProps.TopKeywords,
-					MaxWidth = viewProps.MaxWidth,
-					LogPageView = if FFlagToolboxAudioDiscovery then viewProps.logPageView else nil,
-				})
-			)
-		end),
-		[Constants.NAVIGATION.ALL_SUBCATEGORIES] = wrapViewForRoactNavigation(function(viewProps)
-			local params = viewProps.params
-			local categoryName = params and params.CategoryName
-			local sortName = params and params.SortName
-			local subcategoryDict = params and params.SubcategoryDict
-
-			return Roact.createElement(
-				SubcategoriesView,
-				Dash.join(getAssetLogicWrapperProps(viewProps), {
-					CategoryName = categoryName,
-					OnClickBack = function()
-						viewProps:navigateGoBack()
-					end,
-					OnClickSubcategory = function(subcategoryPath, mySubcategoryDict, myCategoryName, mySortName)
+					else
 						viewProps.navigateTo(
 							Constants.NAVIGATION.SUBCATEGORY,
 							Constants.HOMEVIEW_SEARCH_CATEGORY,
-							subcategoryPath[#subcategoryPath],
+							subcategoryName,
 							Dash.join(viewProps, getAssetLogicWrapperProps(viewProps), {
-								CategoryName = myCategoryName,
-								SortName = mySortName,
-								SubcategoryPath = subcategoryPath,
-								SubcategoryDict = mySubcategoryDict,
+								CategoryName = categoryName,
+								SortName = sortName,
+								SubcategoryPath = { subcategoryName },
+								SubcategoryDict = subcategoryDict.children,
+								TopKeywords = viewProps.TopKeywords,
 							})
 						)
-					end,
-					OnClickSeeAllAssets = function(sectionName, myCategoryName, mySortName, searchTerm)
-						viewProps.navigateTo(
-							Constants.NAVIGATION.RESULTS,
-							Constants.HOMEVIEW_SEARCH_CATEGORY,
-							sectionName,
-							Dash.join(viewProps, getAssetLogicWrapperProps(viewProps), {
-								CategoryName = myCategoryName,
-								SearchTerm = searchTerm,
-								SectionName = sectionName,
-								SortName = mySortName,
-							})
-						)
-					end,
-					SortName = sortName,
-					Size = UDim2.new(1, 0, 1, 0),
-					SubcategoryDict = subcategoryDict,
-				})
-			)
-		end),
-		[Constants.NAVIGATION.SUBCATEGORY] = wrapViewForRoactNavigation(function(viewProps)
-			local params = viewProps.params
-			local categoryName = params and params.CategoryName
-			local sortName = params and params.SortName
-			local subcategoryDict = params and params.SubcategoryDict
-			local subcategoryPath = params and params.SubcategoryPath
+					end
+				end,
+				OnClickSeeAllSubcategories = function(mySubcategoryDict, categoryName, sortName)
+					viewProps.navigateTo(
+						Constants.NAVIGATION.ALL_SUBCATEGORIES,
+						Constants.HOMEVIEW_SEARCH_CATEGORY,
+						Constants.NAVIGATION.ALL_SUBCATEGORIES,
+						Dash.join(viewProps, getAssetLogicWrapperProps(viewProps), {
+							CategoryName = categoryName,
+							SortName = sortName,
+							SubcategoryDict = mySubcategoryDict,
+						})
+					)
+				end,
+				OnClickSeeAllAssets = function(sectionName, categoryName, sortName, searchTerm, navigation)
+					viewProps.navigateTo(
+						Constants.NAVIGATION.RESULTS,
+						sectionName,
+						sectionName,
+						Dash.join(viewProps, getAssetLogicWrapperProps(viewProps), {
+							CategoryName = categoryName,
+							SearchTerm = searchTerm,
+							SectionName = sectionName,
+							SortName = sortName,
+						})
+					)
+				end,
+				SubcategoryDict = viewProps.SubcategoryDict,
+				SortName = viewProps.SortName,
+				Size = UDim2.new(1, 0, 1, 0),
+				TopKeywords = viewProps.TopKeywords,
+				MaxWidth = viewProps.MaxWidth,
+				LogPageView = if FFlagToolboxAudioDiscovery then viewProps.logPageView else nil,
+			})
+		)
+	end),
+	[Constants.NAVIGATION.ALL_SUBCATEGORIES] = wrapViewForRoactNavigation(function(viewProps)
+		local params = viewProps.params
+		local categoryName = params and params.CategoryName
+		local sortName = params and params.SortName
+		local subcategoryDict = params and params.SubcategoryDict
 
-			return Roact.createElement(
-				SubcategoriesSwimlaneView,
-				Dash.join(getAssetLogicWrapperProps(viewProps), {
-					CategoryName = categoryName,
-					MaxWidth = viewProps.MaxWidth,
-					OnClickBack = function()
-						viewProps:navigateGoBack()
-					end,
-					OnClickSeeAllAssets = function(sectionName, myCategoryName, mySortName, searchTerm)
-						viewProps.navigateTo(
-							Constants.NAVIGATION.RESULTS,
-							Constants.HOMEVIEW_SEARCH_CATEGORY,
-							sectionName,
-							Dash.join(viewProps, getAssetLogicWrapperProps(viewProps), {
-								CategoryName = myCategoryName,
-								SearchTerm = searchTerm,
-								SortName = mySortName,
-							})
-						)
-					end,
-					Size = UDim2.new(1, 0, 1, 0),
-					SortName = sortName,
-					SubcategoryDict = subcategoryDict,
-					SubcategoryPath = subcategoryPath,
-				})
-			)
-		end),
-		[Constants.NAVIGATION.RESULTS] = wrapViewForRoactNavigation(function(viewProps)
-			local params = viewProps.params
-			local categoryName = params and params.CategoryName
-			local sectionName = params and params.SectionName
-			local searchTerm = params and params.SearchTerm
-			local sortName = params and params.SortName
+		return Roact.createElement(
+			SubcategoriesView,
+			Dash.join(getAssetLogicWrapperProps(viewProps), {
+				CategoryName = categoryName,
+				OnClickBack = function()
+					viewProps:navigateGoBack()
+				end,
+				OnClickSubcategory = function(subcategoryPath, mySubcategoryDict, myCategoryName, mySortName)
+					viewProps.navigateTo(
+						Constants.NAVIGATION.SUBCATEGORY,
+						Constants.HOMEVIEW_SEARCH_CATEGORY,
+						subcategoryPath[#subcategoryPath],
+						Dash.join(viewProps, getAssetLogicWrapperProps(viewProps), {
+							CategoryName = myCategoryName,
+							SortName = mySortName,
+							SubcategoryPath = subcategoryPath,
+							SubcategoryDict = mySubcategoryDict,
+						})
+					)
+				end,
+				OnClickSeeAllAssets = function(sectionName, myCategoryName, mySortName, searchTerm)
+					viewProps.navigateTo(
+						Constants.NAVIGATION.RESULTS,
+						Constants.HOMEVIEW_SEARCH_CATEGORY,
+						sectionName,
+						Dash.join(viewProps, getAssetLogicWrapperProps(viewProps), {
+							CategoryName = myCategoryName,
+							SearchTerm = searchTerm,
+							SectionName = sectionName,
+							SortName = mySortName,
+						})
+					)
+				end,
+				SortName = sortName,
+				Size = UDim2.new(1, 0, 1, 0),
+				SubcategoryDict = subcategoryDict,
+			})
+		)
+	end),
+	[Constants.NAVIGATION.SUBCATEGORY] = wrapViewForRoactNavigation(function(viewProps)
+		local params = viewProps.params
+		local categoryName = params and params.CategoryName
+		local sortName = params and params.SortName
+		local subcategoryDict = params and params.SubcategoryDict
+		local subcategoryPath = params and params.SubcategoryPath
 
-			return Roact.createElement(
-				ResultsView,
-				Dash.join(getAssetLogicWrapperProps(viewProps), {
-					CategoryName = categoryName,
-					OnClickBack = function()
-						viewProps:navigateGoBack()
-					end,
-					SearchTerm = searchTerm,
-					SectionName = sectionName,
-					Size = UDim2.new(1, 0, 1, 0),
-					SortName = sortName,
-				})
-			)
-		end),
-	}
-else
-	navigationRoutes = {
-		-- navigationRoutes cannot be empty, otherwise it will throw, so create a dummy route
-		defaultRoute = wrapViewForRoactNavigation(function(viewProps)
-			return Roact.createElement("Frame")
-		end),
-	}
-end
+		return Roact.createElement(
+			SubcategoriesSwimlaneView,
+			Dash.join(getAssetLogicWrapperProps(viewProps), {
+				CategoryName = categoryName,
+				MaxWidth = viewProps.MaxWidth,
+				OnClickBack = function()
+					viewProps:navigateGoBack()
+				end,
+				OnClickSeeAllAssets = function(sectionName, myCategoryName, mySortName, searchTerm)
+					viewProps.navigateTo(
+						Constants.NAVIGATION.RESULTS,
+						Constants.HOMEVIEW_SEARCH_CATEGORY,
+						sectionName,
+						Dash.join(viewProps, getAssetLogicWrapperProps(viewProps), {
+							CategoryName = myCategoryName,
+							SearchTerm = searchTerm,
+							SortName = mySortName,
+						})
+					)
+				end,
+				Size = UDim2.new(1, 0, 1, 0),
+				SortName = sortName,
+				SubcategoryDict = subcategoryDict,
+				SubcategoryPath = subcategoryPath,
+			})
+		)
+	end),
+	[Constants.NAVIGATION.RESULTS] = wrapViewForRoactNavigation(function(viewProps)
+		local params = viewProps.params
+		local categoryName = params and params.CategoryName
+		local sectionName = params and params.SectionName
+		local searchTerm = params and params.SearchTerm
+		local sortName = params and params.SortName
+
+		return Roact.createElement(
+			ResultsView,
+			Dash.join(getAssetLogicWrapperProps(viewProps), {
+				CategoryName = categoryName,
+				OnClickBack = function()
+					viewProps:navigateGoBack()
+				end,
+				SearchTerm = searchTerm,
+				SectionName = sectionName,
+				Size = UDim2.new(1, 0, 1, 0),
+				SortName = sortName,
+			})
+		)
+	end),
+}
 
 local NavigationContainer = Roact.PureComponent:extend("NavigationContainer")
 

@@ -22,6 +22,8 @@ local SoundService = game:GetService("SoundService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
+local VideoCaptureService = game:GetService("VideoCaptureService")
+local UserGameSettings = Settings:GetService("UserGameSettings")
 
 local VoiceChatService = nil
 
@@ -59,6 +61,8 @@ local VOICE_CHAT_DEVICE_TYPE = {
 	Output = "Output",
 }
 
+local GetFFlagEnableCameraByDefault = require(RobloxGui.Modules.Flags.GetFFlagEnableCameraByDefault)
+
 local FFlagGroupEditDevConsoleButton = settings():GetFFlag("GroupEditDevConsoleButton")
 local FFlagMicroProfilerSessionAnalytics = settings():GetFFlag("MicroProfilerSessionAnalytics")
 
@@ -69,6 +73,15 @@ local MOVEMENT_MODE_KEYBOARDMOUSE_STRING = "Keyboard + Mouse"
 local MOVEMENT_MODE_CLICKTOMOVE_STRING = UserInputService.TouchEnabled and "Tap to Move" or "Click to Move"
 local MOVEMENT_MODE_DYNAMICTHUMBSTICK_STRING = "Dynamic Thumbstick"
 local MOVEMENT_MODE_THUMBSTICK_STRING = "Classic Thumbstick"
+
+----------- VIDEO CAMERA ------------
+
+local CAMERA_DEVICE_INDEX_KEY = "CameraDeviceIndex"
+local CAMERA_DEVICE_NAMES_KEY = "CameraDeviceNames"
+local CAMERA_DEVICE_GUID_KEY = "CameraDeviceGuids"
+local CAMERA_DEVICE_SELECTOR_KEY = "CameraDeviceSelector"
+local CAMERA_DEVICE_FRAME_KEY = "CameraDeviceFrame"
+local CAMERA_DEVICE_INFO_KEY = "CameraDeviceInfo"
 
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
@@ -1578,7 +1591,11 @@ local function Initialize()
 			devConsoleText.Font = Enum.Font.SourceSans
 			devConsoleButton.Position = UDim2.new(1, -400, 0, 12)
 			local row = utility:AddNewRowObject(this, "Developer Console", devConsoleButton)
-			row.LayoutOrder = 15
+			if game:GetEngineFeature("VideoCaptureService") then
+				row.LayoutOrder = 16
+			else
+				row.LayoutOrder = 15
+			end
 			setButtonRowRef(row)
 		end
 
@@ -1746,6 +1763,41 @@ local function Initialize()
 		)
 	end
 
+	local function createCameraDeviceOptions()
+		local selectedIndex = this[CAMERA_DEVICE_INDEX_KEY] or 1
+		local options = this[CAMERA_DEVICE_NAMES_KEY] or {}
+		local guids = this[CAMERA_DEVICE_GUID_KEY] or {}
+
+                -- TODO: localization: https://jira.rbx.com/browse/AVBURST-8776
+		local deviceLabel = "Video camera"
+		this[CAMERA_DEVICE_FRAME_KEY], _, this[CAMERA_DEVICE_SELECTOR_KEY] =
+				utility:AddNewRow(this, deviceLabel, "Selector", options, selectedIndex)
+		this[CAMERA_DEVICE_FRAME_KEY].LayoutOrder = 15
+
+		this[CAMERA_DEVICE_INFO_KEY] = {
+			Name = selectedIndex > 0 and options[selectedIndex] or nil,
+			Guid = selectedIndex > 0 and guids[selectedIndex] or nil,
+		}
+
+		this[CAMERA_DEVICE_SELECTOR_KEY].IndexChanged:connect(
+			function(newIndex)
+				if this[CAMERA_DEVICE_INFO_KEY].Name == this[CAMERA_DEVICE_NAMES_KEY][newIndex] and
+					this[CAMERA_DEVICE_INFO_KEY].Guid == this[CAMERA_DEVICE_GUID_KEY][newIndex] then
+					return
+				end
+
+				this[CAMERA_DEVICE_INFO_KEY] = {
+					Name = this[CAMERA_DEVICE_NAMES_KEY][newIndex],
+					Guid = this[CAMERA_DEVICE_GUID_KEY][newIndex],
+				}
+
+				local deviceGuid = this[CAMERA_DEVICE_INFO_KEY].Guid
+				log:info("Changed webcam to: {}", deviceGuid)
+				UserGameSettings.DefaultCameraID = deviceGuid
+			end
+		)
+	end
+
 	local function updateVoiceChatDevices(deviceType)
 		if deviceType ~= VOICE_CHAT_DEVICE_TYPE.Input and deviceType ~= VOICE_CHAT_DEVICE_TYPE.Output then
 			if GetFFlagVoiceChatUILogging() then
@@ -1797,11 +1849,47 @@ local function Initialize()
 		end
 	end
 
+	local function updateCameraDevices()
+		local devs = VideoCaptureService:GetCameraDevices()
+		local deviceNames = {}
+		local deviceGuids = {}
+		local selectedIndex = 1
+		if GetFFlagEnableCameraByDefault() or UserGameSettings.DefaultCameraID == "{DefaultDeviceGuid}" then
+			selectedIndex = 2
+		end
+		table.insert(deviceNames, "Off")
+		table.insert(deviceGuids, "{NullDeviceGuid}")
+                -- TODO: localization: https://jira.rbx.com/browse/AVBURST-8776
+		table.insert(deviceNames, "System default")
+		table.insert(deviceGuids, "{DefaultDeviceGuid}")
+		for guid, name in pairs(devs) do
+			if guid == UserGameSettings.DefaultCameraID then
+				selectedIndex = #deviceNames+1
+			end
+			table.insert(deviceNames, name)
+			table.insert(deviceGuids, guid)
+		end
+
+		this[CAMERA_DEVICE_NAMES_KEY] = deviceNames
+		this[CAMERA_DEVICE_GUID_KEY] = deviceGuids
+		this[CAMERA_DEVICE_INDEX_KEY] = 0
+
+		if not this[CAMERA_DEVICE_SELECTOR_KEY] then
+			createCameraDeviceOptions()
+		else
+			this[CAMERA_DEVICE_SELECTOR_KEY]:UpdateOptions(deviceNames)
+		end
+		this[CAMERA_DEVICE_SELECTOR_KEY]:SetSelectionIndex(selectedIndex)
+	end
+
 	local deviceChangedConnection = nil
 
 	local function updateVoiceChatOptions()
 		updateVoiceChatDevices(VOICE_CHAT_DEVICE_TYPE.Input)
 		updateVoiceChatDevices(VOICE_CHAT_DEVICE_TYPE.Output)
+		if game:GetEngineFeature("VideoCaptureService") then
+			updateCameraDevices()
+		end
 	end
 
 	local function setupDeviceChangedListener()

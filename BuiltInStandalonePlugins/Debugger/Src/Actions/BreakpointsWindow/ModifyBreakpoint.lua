@@ -5,10 +5,10 @@ local Action = Util.Action
 local MetaBreakpoint = require(Plugin.Src.Models.MetaBreakpoint)
 
 export type Props = {
-	metaBreakpoint : MetaBreakpoint.MetaBreakpoint,
+	metaBreakpoint: MetaBreakpoint.MetaBreakpoint,
 }
 
-return Action(script.Name, function(metaBreakpoint : MetaBreakpoint.MetaBreakpoint) : Props
+return Action(script.Name, function(metaBreakpoint: MetaBreakpoint.MetaBreakpoint): Props
 	return {
 		metaBreakpoint = metaBreakpoint,
 	}

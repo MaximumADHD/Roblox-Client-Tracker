@@ -4,6 +4,8 @@ return function(plugin, pluginLoaderContext)
 	end
 
 	-- Fast flags
+	local FFlagDebugBuiltInPluginModalsNotBlocking = game:GetFastFlag("DebugBuiltInPluginModalsNotBlocking")
+	local FFlagDebugPluginModals = game:GetFastFlag("DebugPluginModals")
 	local FFlagDeveloperSubscriptionsEnabled = game:GetFastFlag("DeveloperSubscriptionsEnabled")
 	local FFlagGameSettingsRoactInspector = game:DefineFastFlag("GameSettingsRoactInspector", false)
 
@@ -16,7 +18,7 @@ return function(plugin, pluginLoaderContext)
 	local Roact = require(Plugin.Packages.Roact)
 	local Rodux = require(Plugin.Packages.Rodux)
 	local Cryo = require(Plugin.Packages.Cryo)
-	
+
 	local Framework = require(Plugin.Packages.Framework)
 	local ContextServices = Framework.ContextServices
 	local FrameworkUtil = Framework.Util
@@ -104,13 +106,13 @@ return function(plugin, pluginLoaderContext)
 	local settingsStore = Rodux.Store.new(MainReducer, nil, middlewares)
 	local lastObservedStatus = CurrentStatus.Open
 
-	local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
-	local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
+	local SourceStrings = Plugin.Src.Resources.SourceStrings
+	local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 
 	local localization = ContextServices.Localization.new({
 		pluginName = Plugin.Name,
-		stringResourceTable = TranslationDevelopmentTable,
-		translationResourceTable = TranslationReferenceTable,
+		stringResourceTable = SourceStrings,
+		translationResourceTable = LocalizedStrings,
 	})
 
 	-- Make sure that the main window elements cannot be interacted with
@@ -130,10 +132,26 @@ return function(plugin, pluginLoaderContext)
 			spawn(function()
 				setMainWidgetInteractable(false)
 				local dialogHandle
-				local dialog = plugin:CreateQWidgetPluginGui(props.Title, {
-					Size = props.Size or Vector2.new(473, 197),
-					Modal = true,
-				})
+				local CancelDialogBody
+				local size = props.Size or Vector2.new(473, 197)
+				local dialog
+				if FFlagDebugPluginModals then
+					local info = DockWidgetPluginGuiInfo.new(
+						Enum.InitialDockState.Float,
+						false,
+						false,
+						size.X,
+						size.Y,
+						size.X,
+						size.Y
+					)
+					dialog = plugin:CreateDockWidgetPluginGui(props.Title, info)
+				else
+					dialog = plugin:CreateQWidgetPluginGui(props.Title, {
+						Size = size,
+						Modal = not FFlagDebugBuiltInPluginModalsNotBlocking,
+					})
+				end
 				dialog.Enabled = true
 				dialog.Title = props.Title
 				local dialogContents = Roact.createElement(ExternalServicesWrapper, {
@@ -247,13 +265,27 @@ return function(plugin, pluginLoaderContext)
 
 	local function makePluginGui()
 		local pluginId = Plugin.Name
-		pluginGui = plugin:CreateQWidgetPluginGui(pluginId, {
-			Size = Vector2.new(960, 600),
-			MinSize = Vector2.new(960, 600),
-			Resizable = true,
-			Modal = true,
-			InitialEnabled = false,
-		})
+		local size = Vector2.new(960, 600)
+		if FFlagDebugPluginModals then
+			local info = DockWidgetPluginGuiInfo.new(
+				Enum.InitialDockState.Float,
+				false,
+				false,
+				size.X,
+				size.Y,
+				size.X,
+				size.Y
+			)
+			pluginGui = plugin:CreateDockWidgetPluginGui(pluginId, info)
+		else
+			pluginGui = plugin:CreateQWidgetPluginGui(pluginId, {
+				Size = size,
+				MinSize = size,
+				Resizable = true,
+				Modal = not FFlagDebugBuiltInPluginModalsNotBlocking,
+				InitialEnabled = false,
+			})
+		end
 		pluginGui.Name = Plugin.Name
 		pluginGui.Title = localization:getText("General", "PluginName")
 		pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling

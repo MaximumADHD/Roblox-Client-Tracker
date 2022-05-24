@@ -1,18 +1,10 @@
 local Plugin = script.Parent.Parent
 
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization4")
-
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local ToolboxStoryWrapper = require(Plugin.Stories.ToolboxStoryWrapper)
 
-local SearchList
-if FFlagToolboxAssetCategorization then
-	-- needed for withAbsoluteSizeAndPosition
-	SearchList = require(Plugin.Core.Components.Categorization.SearchList)
-end
-
-local CoreTestUtils = require(Plugin.TestUtils.CoreTestUtils)
+local SearchList = require(Plugin.Core.Components.Categorization.SearchList)
 
 local PADDING_HORIZONTAL = 14
 
@@ -49,7 +41,7 @@ return {
 	stories = {
 		{
 			name = "Full, no max count",
-			story = FFlagToolboxAssetCategorization and Roact.createElement(ToolboxWrapper, {}, {
+			story = Roact.createElement(ToolboxWrapper, {}, {
 				Roact.createElement("Frame", {
 					AutomaticSize = Enum.AutomaticSize.Y,
 					BackgroundTransparency = 1,
@@ -60,11 +52,11 @@ return {
 						ItemMinWidth = 2 * PADDING_HORIZONTAL,
 					}),
 				}),
-			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization4", true),
+			}),
 		},
 		{
 			name = "Max row count of 2",
-			story = FFlagToolboxAssetCategorization and Roact.createElement(ToolboxWrapper, {}, {
+			story = Roact.createElement(ToolboxWrapper, {}, {
 				Roact.createElement("Frame", {
 					AutomaticSize = Enum.AutomaticSize.Y,
 					BackgroundTransparency = 1,
@@ -76,7 +68,7 @@ return {
 						MaxRowCount = 2,
 					}),
 				}),
-			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization4", true),
+			}),
 		},
 	},
 }

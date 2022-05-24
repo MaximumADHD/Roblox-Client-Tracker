@@ -2,17 +2,11 @@
 	Allow the user to go back to picking a universe
 	Allow the user to select a place to overwrite
 ]]
-local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage2")
 local FFlagPlacePublishManagementUI2 = game:GetFastFlag("PlacePublishManagementUI2")
 local FFlagEnablePlacePublishManagementInTeamCreate = game:GetFastFlag("EnablePlacePublishManagementInTeamCreate")
 
 local StudioService = game:GetService("StudioService")
 local StudioPublishService = game:GetService("StudioPublishService")
-
-local teamCreateToggleEnabled = false
-if FIntTeamCreateTogglePercentageRollout > 0 then
-	teamCreateToggleEnabled = StudioService:GetUserIsInTeamCreateToggleRamp()
-end
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -315,9 +309,7 @@ function ScreenChoosePlace:render()
 				Active = parentGame and self.state.selectedPlace ~= nil and not isPublishing,
 				OnActivated = function()
 					-- groupId is unused
-					if teamCreateToggleEnabled then
-						game:GetService("StudioPublishService"):SetTeamCreateOnPublishInfo(false, "")
-					end
+					game:GetService("StudioPublishService"):SetTeamCreateOnPublishInfo(false, "")
 					if FFlagPlacePublishManagementUI2 and showNextPublishManagemnt then
 						-- open place publish screen
 						OpenPublishManagement(self.state.selectedPlace, self.props.ParentGame)

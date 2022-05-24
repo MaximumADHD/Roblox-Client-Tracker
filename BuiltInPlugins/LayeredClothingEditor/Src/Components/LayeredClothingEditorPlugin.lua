@@ -30,8 +30,8 @@ local AnalyticsHandlers = require(Plugin.Src.Resources.AnalyticsHandlers)
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
 
 -- localization
-local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
-local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
+local SourceStrings = Plugin.Src.Resources.SourceStrings
+local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 
 local LayeredClothingEditor = require(Plugin.Src.Components.LayeredClothingEditor)
 
@@ -71,12 +71,12 @@ function LayeredClothingEditorPlugin:init()
 	self.analytics = ContextServices.Analytics.new(AnalyticsHandlers)
 	self.localization = ContextServices.Localization.new({
 		pluginName = PLUGIN_NAME,
-		stringResourceTable = TranslationDevelopmentTable,
-		translationResourceTable = TranslationReferenceTable,
+		stringResourceTable = SourceStrings,
+		translationResourceTable = LocalizedStrings,
 		libraries = {
 			[AvatarToolsShared.Resources.LOCALIZATION_PROJECT_NAME] = {
-				stringResourceTable = AvatarToolsShared.Resources.TranslationDevelopmentTable,
-				translationResourceTable = AvatarToolsShared.Resources.TranslationReferenceTable,
+				stringResourceTable = AvatarToolsShared.Resources.SourceStrings,
+				translationResourceTable = AvatarToolsShared.Resources.LocalizedStrings,
 			},
 		},
 	})

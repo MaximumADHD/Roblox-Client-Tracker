@@ -20,7 +20,6 @@
 		callback onPreviewAudioButtonClicked	 // remove with FFlagToolboxAssetGridRefactor
 ]]
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
-local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -170,15 +169,7 @@ function Asset:init(props)
 		end
 
 		if asset.TypeId == Enum.AssetType.Plugin.Value then
-			if FFlagToolboxAssetCategorization4 then
-				self.onAssetPreviewButtonClicked()
-			else
-				if FFlagToolboxAssetGridRefactor then
-					self.props.onPreviewToggled(true, self.props.assetId)
-				else
-					self.props.onAssetPreviewButtonClicked(assetData)
-				end
-			end
+			self.onAssetPreviewButtonClicked()
 			return
 		end
 
@@ -186,7 +177,7 @@ function Asset:init(props)
 	end
 
 	self.onAssetPreviewButtonClicked = function()
-		if FFlagToolboxAssetCategorization4 then
+		if FFlagToolboxAssetGridRefactor then
 			local assetData = self.props.assetData
 			self.props.onAssetPreviewButtonClicked(assetData)
 		else
@@ -258,15 +249,11 @@ function Asset:init(props)
 					local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
 					assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
 				end
-				if FFlagToolboxAssetCategorization4 then
-					local swimlaneName = self.props.swimlaneCategory
-					local nav = self.props.NavigationContext:get()
-					local analytics = self.props.AssetAnalytics:get()
-					local navData = analytics.getNavigationContext(nav, swimlaneName)
-					self.props.AssetAnalytics:get():logImpression(assetData, assetAnalyticsContext, navData)
-				else
-					self.props.AssetAnalytics:get():logImpression(assetData, assetAnalyticsContext)
-				end
+				local swimlaneName = self.props.swimlaneCategory
+				local nav = self.props.NavigationContext:get()
+				local analytics = self.props.AssetAnalytics:get()
+				local navData = analytics.getNavigationContext(nav, swimlaneName)
+				self.props.AssetAnalytics:get():logImpression(assetData, assetAnalyticsContext, navData)
 			end
 			self.wasAssetBoundsWithinScrollingBounds = wasAssetBoundsWithinScrollingBounds
 		end
@@ -295,15 +282,11 @@ function Asset:didMount()
 			local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
 			assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
 		end
-		if FFlagToolboxAssetCategorization4 then
-			local swimlaneName = self.props.swimlaneCategory
-			local nav = self.props.NavigationContext:get()
-			local analytics = self.props.AssetAnalytics:get()
-			local navData = analytics.getNavigationContext(nav, swimlaneName)
-			self.props.AssetAnalytics:get():logImpression(assetData, assetAnalyticsContext, navData)
-		else
-			self.props.AssetAnalytics:get():logImpression(assetData, assetAnalyticsContext)
-		end
+		local swimlaneName = self.props.swimlaneCategory
+		local nav = self.props.NavigationContext:get()
+		local analytics = self.props.AssetAnalytics:get()
+		local navData = analytics.getNavigationContext(nav, swimlaneName)
+		self.props.AssetAnalytics:get():logImpression(assetData, assetAnalyticsContext, navData)
 	end
 end
 
@@ -646,7 +629,7 @@ end
 Asset = withContext({
 	AssetAnalytics = AssetAnalyticsContextItem,
 	Plugin = FFlagToolboxAssetGridRefactor and ContextServices.Plugin or nil,
-	NavigationContext = FFlagToolboxAssetCategorization4 and NavigationContext or nil,
+	NavigationContext = NavigationContext,
 	Stylizer = ContextServices.Stylizer,
 })(Asset)
 
@@ -677,7 +660,7 @@ local function mapStateToProps(state, props)
 	local canManage = manageableAssets[tostring(assetId)]
 
 	local assetData
-	if FFlagToolboxAssetCategorization4 and not props.assetData then
+	if not props.assetData then
 		assetData = props.assetData
 	else
 		assetData = FFlagToolboxAssetGridRefactor and idToAssetMap[assetId] or nil

@@ -20,14 +20,14 @@ return function()
 			Frame = Roact.createElement("Frame", {
 				Size = UDim2.fromOffset(200, 200),
 			}, {
-				DisplayTable = Roact.createElement(DisplayTable)
-			})
+				DisplayTable = Roact.createElement(DisplayTable),
+			}),
 		})
 	end
 
 	it("should create and destroy displayTable without errors", function()
 		local store = Rodux.Store.new(MainReducer, nil, MainMiddleware)
-		local mockContext =  createDisplayTable(store:getState())
+		local mockContext = createDisplayTable(store:getState())
 		local folder = Instance.new("Folder")
 		local folderInstance = Roact.mount(mockContext.getChildrenWithMockContext(), folder)
 		local tableView = folder:FindFirstChild("DisplayTable", true)
@@ -52,7 +52,7 @@ return function()
 		local folderInstance = Roact.mount(mockContext.getChildrenWithMockContext(), folder)
 
 		local tableView = folder:FindFirstChild("DisplayTable", true)
-		
+
 		local list = tableView.Contents.List.Child.Scroller
 
 		expect(list["1"].Row[1].Left.Text.Text).to.equal("Alex")

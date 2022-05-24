@@ -26,23 +26,19 @@ function ControlledTabs:render()
 	})
 end
 
-ControlledTabs = RoactRodux.connect(
-	function(state, props)
-		local selectedTabString = state.Watch.currentTab
-		local selectedTab = selectedTabString == TableTab.Variables and props.Tabs[1] or props.Tabs[2]
-		return {
-			selectedTab = selectedTab,
-		}
-	end,
-	
-	function(dispatch)
-		return {
-			onTabSelected = function(tab)
-				local tabString = tab.Key
-				return dispatch(SetTab(tabString))
-			end,
-		}
-	end
-)(ControlledTabs)
+ControlledTabs = RoactRodux.connect(function(state, props)
+	local selectedTabString = state.Watch.currentTab
+	local selectedTab = selectedTabString == TableTab.Variables and props.Tabs[1] or props.Tabs[2]
+	return {
+		selectedTab = selectedTab,
+	}
+end, function(dispatch)
+	return {
+		onTabSelected = function(tab)
+			local tabString = tab.Key
+			return dispatch(SetTab(tabString))
+		end,
+	}
+end)(ControlledTabs)
 
 return ControlledTabs

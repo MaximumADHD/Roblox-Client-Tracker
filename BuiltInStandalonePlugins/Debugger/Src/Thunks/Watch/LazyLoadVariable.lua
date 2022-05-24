@@ -13,13 +13,13 @@ local WatchHelperFunctions = require(Plugin.Src.Util.WatchHelperFunctions)
 
 local function convertChildrenToVariableRows(parent, parentVariableRow, state)
 	local filterText = state.Watch.filterText
-	local listOfEnabledScopes = state.Watch.listOfEnabledScopes	
+	local listOfEnabledScopes = state.Watch.listOfEnabledScopes
 	local toReturn = {}
 	local children = parent:GetChildren()
 	for index, child in ipairs(children) do
 		local instance1 = VariableRow.fromInstance(child, parentVariableRow, nil, filterText, listOfEnabledScopes)
 		table.insert(toReturn, instance1)
-	end 
+	end
 	return toReturn
 end
 
@@ -29,27 +29,30 @@ local function convertChildrenToWatchRows(parent, parentWatchRow)
 	for index, child in ipairs(children) do
 		local instance1 = WatchRow.fromChildInstance(child, parentWatchRow.pathColumn)
 		table.insert(toReturn, instance1)
-	end 
+	end
 	return toReturn
 end
 
-return function(variablePath : string, stepStateBundle : StepStateBundle.StepStateBundle,
-	isVariablesTab : boolean, debuggerConnection)
+return function(variablePath: string, stepStateBundle: StepStateBundle.StepStateBundle, isVariablesTab: boolean, debuggerConnection)
 	return function(store, contextItems)
 		local targetVar = WatchHelperFunctions.getDebuggerVariableFromSplitPath(variablePath, debuggerConnection)
 		if not targetVar then
 			return
 		end
-		debuggerConnection:Populate(targetVar, function ()
+		debuggerConnection:Populate(targetVar, function()
 			local state = store:getState()
 
-			if stepStateBundle.debuggerStateToken ~= state.Common.debuggerConnectionIdToDST[stepStateBundle.debuggerStateToken.debuggerConnectionId] then
+			if
+				stepStateBundle.debuggerStateToken
+				~= state.Common.debuggerConnectionIdToDST[stepStateBundle.debuggerStateToken.debuggerConnectionId]
+			then
 				return
 			end
 
-			local flattenedTree = state.Watch.stateTokenToFlattenedTree[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber]
+			local flattenedTree =
+				state.Watch.stateTokenToFlattenedTree[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber]
 
-			if (isVariablesTab) then
+			if isVariablesTab then
 				local targetVariableRow = flattenedTree.Variables[variablePath]
 				local children = convertChildrenToVariableRows(targetVar, targetVariableRow, state)
 				store:dispatch(AddChildVariables(stepStateBundle, variablePath, children))
@@ -59,5 +62,5 @@ return function(variablePath : string, stepStateBundle : StepStateBundle.StepSta
 				store:dispatch(AddChildExpression(stepStateBundle, variablePath, children))
 			end
 		end)
-    end
+	end
 end

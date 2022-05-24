@@ -1,5 +1,3 @@
-local FFlagToolboxAssetStyleUpdate2 = game:GetFastFlag("ToolboxAssetStyleUpdate2")
-
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -16,7 +14,6 @@ local Sort = require(Plugin.Core.Types.Sort)
 local RequestReason = require(Plugin.Core.Types.RequestReason)
 
 local Actions = Plugin.Core.Actions
-local ChangeBackground = require(Actions.ChangeBackground)
 local SetToolboxManageableGroups = require(Actions.SetToolboxManageableGroups)
 local UpdatePageInfo = require(Actions.UpdatePageInfo)
 local UpdateSearchTerm = require(Actions.UpdateSearchTerm)
@@ -137,26 +134,6 @@ return Rodux.createReducer({
 			currentPage = action.currentPage,
 		})
 	end,
-
-	[ChangeBackground.name] = if not FFlagToolboxAssetStyleUpdate2
-		then function(state, action)
-			if action.selected == nil then
-				if DebugFlags.shouldDebugWarnings() then
-					warn("Toolbox ChangeBackground action.selected = nil")
-				end
-				return state
-			end
-
-			local index = action.index or 0
-			local key = action.selected and "selectedBackgroundIndex" or "hoveredBackgroundIndex"
-			local newState = Cryo.Dictionary.join(state, {
-				[key] = index,
-			})
-
-			return newState
-		end
-		else nil,
-
 	[SetToolboxManageableGroups.name] = function(state, action)
 		if not action.groups then
 			if DebugFlags.shouldDebugWarnings() then

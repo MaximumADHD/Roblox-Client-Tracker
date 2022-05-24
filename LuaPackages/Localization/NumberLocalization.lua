@@ -20,6 +20,8 @@ local Logging = require(CorePackages.Logging)
 
 local RoundingBehaviour = require(script.Parent.RoundingBehaviour)
 
+game:DefineFastFlag("AllowNumberLocalizationSigFigParam", false)
+
 local localeInfos = {}
 
 local DEFAULT_LOCALE = "en-us"
@@ -255,13 +257,21 @@ function NumberLocalization.localize(number, locale)
     return number
 end
 
-function NumberLocalization.abbreviate(number, locale, roundingBehaviour)
+function NumberLocalization.abbreviate(number, locale, roundingBehaviour, numSignificantDigits)
 	if number == 0 then
 		return "0"
 	end
 
 	if roundingBehaviour == nil then
 		roundingBehaviour = RoundingBehaviour.RoundToClosest
+	end
+
+	if game:GetFastFlag("AllowNumberLocalizationSigFigParam") then
+		if numSignificantDigits == nil then
+			numSignificantDigits = 3
+		end
+	else
+		numSignificantDigits = 3  -- the default value it was at before
 	end
 
 	local localeInfo = localeInfos[locale]
@@ -277,7 +287,7 @@ function NumberLocalization.abbreviate(number, locale, roundingBehaviour)
 	local symbol = denominationEntry[2]
 
 	-- Round to required significant digits
-	local significantQuotient = roundToSignificantDigits(number / baseValue, 3, roundingBehaviour)
+	local significantQuotient = roundToSignificantDigits(number / baseValue, numSignificantDigits, roundingBehaviour)
 
 	-- trim to 1 decimal point
 	local trimmedQuotient

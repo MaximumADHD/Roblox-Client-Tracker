@@ -1,8 +1,8 @@
 export type DebuggerStateToken = {
-    debuggerConnectionId : number,
+	debuggerConnectionId: number,
 }
 
-local function fromData(data) : DebuggerStateToken
+local function fromData(data): DebuggerStateToken
 	return {
 		debuggerConnectionId = data.debuggerConnectionId,
 	}

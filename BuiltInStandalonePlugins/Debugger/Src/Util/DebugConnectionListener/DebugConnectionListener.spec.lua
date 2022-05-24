@@ -6,7 +6,7 @@ local MainMiddleware = require(Plugin.Src.Middleware.MainMiddleware)
 
 local DebugConnectionListener = require(Plugin.Src.Util.DebugConnectionListener.DebugConnectionListener)
 local Mocks = Plugin.Src.Mocks
-local MockDebuggerConnection =require(Mocks.MockDebuggerConnection)
+local MockDebuggerConnection = require(Mocks.MockDebuggerConnection)
 local mockStackFrame = require(Mocks.StackFrame)
 local mockScriptRef = require(Mocks.ScriptRef)
 local mockThreadState = require(Mocks.ThreadState)
@@ -22,17 +22,27 @@ local Constants = require(Plugin.Src.Util.Constants)
 return function()
 	local function setupFakeThread(mockConnection, fakeThreadId)
 		-- setup fake data
-		local testStackFrameOne = mockStackFrame.new(10* fakeThreadId, mockScriptRef.new(), "TestFrame1", "C")
+		local testStackFrameOne = mockStackFrame.new(10 * fakeThreadId, mockScriptRef.new(), "TestFrame1", "C")
 		local testStackFrameTwo = mockStackFrame.new(20 * fakeThreadId, mockScriptRef.new(), "TestFrame2", "C")
 		local testCallstack1 = {
 			[0] = testStackFrameOne,
 			[1] = testStackFrameTwo,
 		}
-		local testThreadOne = mockThreadState.new(fakeThreadId, "Workspace.NewFolder.SomeFolder.AbsurdlyLongPath.script", true)
+		local testThreadOne = mockThreadState.new(
+			fakeThreadId,
+			"Workspace.NewFolder.SomeFolder.AbsurdlyLongPath.script",
+			true
+		)
 		mockConnection.MockSetThreadStateById(fakeThreadId, testThreadOne)
 		mockConnection.MockSetCallstackByThreadId(fakeThreadId, testCallstack1)
-		mockConnection.MockSetDebuggerVariablesByCallstackFrame(testStackFrameOne,mockDebuggerVariable.GetDefaultFrameVariables())
-		mockConnection.MockSetDebuggerVariablesByCallstackFrame(testStackFrameTwo,mockDebuggerVariable.GetDefaultFrameVariables())
+		mockConnection.MockSetDebuggerVariablesByCallstackFrame(
+			testStackFrameOne,
+			mockDebuggerVariable.GetDefaultFrameVariables()
+		)
+		mockConnection.MockSetDebuggerVariablesByCallstackFrame(
+			testStackFrameTwo,
+			mockDebuggerVariable.GetDefaultFrameVariables()
+		)
 	end
 
 	it("should create and destroy DebugConnectionListener without errors", function()
@@ -41,7 +51,12 @@ return function()
 		local debuggerUIService = MockDebuggerUIService.new()
 		local mockCrossDMScriptChangeListenerService = MockCrossDMScriptChangeListenerService.new()
 
-		local mainListener = DebugConnectionListener.new(mainStore, mainConnectionManager, debuggerUIService, mockCrossDMScriptChangeListenerService)
+		local mainListener = DebugConnectionListener.new(
+			mainStore,
+			mainConnectionManager,
+			debuggerUIService,
+			mockCrossDMScriptChangeListenerService
+		)
 		expect(mainListener)
 		mainListener:destroy()
 	end)
@@ -52,7 +67,12 @@ return function()
 		local debuggerUIService = MockDebuggerUIService.new()
 		local mockCrossDMScriptChangeListenerService = MockCrossDMScriptChangeListenerService.new()
 
-		local mainListener = DebugConnectionListener.new(mainStore, mainConnectionManager, debuggerUIService, mockCrossDMScriptChangeListenerService)
+		local mainListener = DebugConnectionListener.new(
+			mainStore,
+			mainConnectionManager,
+			debuggerUIService,
+			mockCrossDMScriptChangeListenerService
+		)
 		local currentMockConnection = MockDebuggerConnection.new(1)
 		mainConnectionManager.ConnectionStarted:Fire(currentMockConnection)
 		mainConnectionManager.ConnectionEnded:Fire(currentMockConnection)
@@ -65,11 +85,16 @@ return function()
 		local debuggerUIService = MockDebuggerUIService.new()
 		local mockCrossDMScriptChangeListenerService = MockCrossDMScriptChangeListenerService.new()
 
-		local mainListener = DebugConnectionListener.new(mainStore, mainConnectionManager, debuggerUIService, mockCrossDMScriptChangeListenerService)
+		local mainListener = DebugConnectionListener.new(
+			mainStore,
+			mainConnectionManager,
+			debuggerUIService,
+			mockCrossDMScriptChangeListenerService
+		)
 		local currentMockConnection = MockDebuggerConnection.new(1)
 
 		setupFakeThread(currentMockConnection, 1)
-		
+
 		local mockBreakpoint = MockBreakpoint.new({
 			Script = "TestScriptGuid",
 			Id = 2,
@@ -85,7 +110,9 @@ return function()
 		expect(state.Common.currentBreakpointId).to.equal(30)
 		expect(state.Common.isPaused).to.equal(true)
 		expect(debuggerUIService.showingArrow).to.equal(true)
-		expect(debuggerUIService.openScripts[currentMockConnection.MockThreadIdToCallstackMap[1][0].Script]).to.equal(true)
+		expect(debuggerUIService.openScripts[currentMockConnection.MockThreadIdToCallstackMap[1][0].Script]).to.equal(
+			true
+		)
 		mainConnectionManager.ConnectionEnded:Fire(currentMockConnection)
 		mainListener:destroy()
 	end)
@@ -96,12 +123,17 @@ return function()
 		local debuggerUIService = MockDebuggerUIService.new()
 		local mockCrossDMScriptChangeListenerService = MockCrossDMScriptChangeListenerService.new()
 
-		local mainListener = DebugConnectionListener.new(mainStore, mainConnectionManager, debuggerUIService, mockCrossDMScriptChangeListenerService)
+		local mainListener = DebugConnectionListener.new(
+			mainStore,
+			mainConnectionManager,
+			debuggerUIService,
+			mockCrossDMScriptChangeListenerService
+		)
 		local currentMockConnection = MockDebuggerConnection.new(1)
 
 		setupFakeThread(currentMockConnection, 1)
 		setupFakeThread(currentMockConnection, 2)
-		
+
 		local mockBreakpoint = MockBreakpoint.new({
 			Script = "TestScriptGuid",
 			Id = 3,
@@ -113,7 +145,7 @@ return function()
 		testPausedState2:SetBreakpointHit(mockBreakpoint)
 
 		mainConnectionManager.ConnectionStarted:Fire(currentMockConnection)
-		
+
 		currentMockConnection.Paused:Fire(testPausedState1, testPausedState1.Reason)
 		currentMockConnection.Paused:Fire(testPausedState2, testPausedState2.Reason)
 		local state = mainStore:getState()
@@ -122,8 +154,12 @@ return function()
 		expect(state.Common.currentFrameMap[1][1]).to.be.ok()
 		expect(state.Common.currentFrameMap[1][2]).to.be.ok()
 		expect(state.Common.debuggerConnectionIdToCurrentThreadId[1]).to.equal(2)
-		expect(debuggerUIService.openScripts[currentMockConnection.MockThreadIdToCallstackMap[1][0].Script]).to.equal(true)
-		expect(debuggerUIService.openScripts[currentMockConnection.MockThreadIdToCallstackMap[2][0].Script]).to.equal(true)
+		expect(debuggerUIService.openScripts[currentMockConnection.MockThreadIdToCallstackMap[1][0].Script]).to.equal(
+			true
+		)
+		expect(debuggerUIService.openScripts[currentMockConnection.MockThreadIdToCallstackMap[2][0].Script]).to.equal(
+			true
+		)
 		expect(debuggerUIService.showingArrow).to.equal(true)
 
 		currentMockConnection.Resumed:Fire(testPausedState2)
@@ -139,7 +175,7 @@ return function()
 		expect(state.Common.currentFrameMap[1][1]).to.be.ok()
 		expect(state.Common.currentFrameMap[1][2]).to.be.ok()
 		expect(state.Common.debuggerConnectionIdToCurrentThreadId[1]).to.equal(2)
-		
+
 		currentMockConnection.Resumed:Fire(testPausedState2)
 		state = mainStore:getState()
 		expect(state.Common.isPaused).to.equal(false)
@@ -149,7 +185,7 @@ return function()
 		mainConnectionManager.ConnectionEnded:Fire(currentMockConnection)
 		mainListener:destroy()
 	end)
-	
+
 	it("should change connection focus on FocusChanged signal", function()
 		-- setup 2 mock DebuggerConnections
 		local mainStore = Rodux.Store.new(MainReducer, nil, MainMiddleware)
@@ -157,7 +193,12 @@ return function()
 		local debuggerUIService = MockDebuggerUIService.new()
 		local mockCrossDMScriptChangeListenerService = MockCrossDMScriptChangeListenerService.new()
 
-		local mainListener = DebugConnectionListener.new(mainStore, mainConnectionManager, debuggerUIService, mockCrossDMScriptChangeListenerService)
+		local mainListener = DebugConnectionListener.new(
+			mainStore,
+			mainConnectionManager,
+			debuggerUIService,
+			mockCrossDMScriptChangeListenerService
+		)
 		local mockConnection1 = MockDebuggerConnection.new(1)
 		local mockConnection2 = MockDebuggerConnection.new(2)
 
@@ -166,25 +207,25 @@ return function()
 
 		local testPausedState1 = mockPausedState.new(Constants.DebuggerPauseReason.Requested, 1, true)
 		local testPausedState2 = mockPausedState.new(Constants.DebuggerPauseReason.Requested, 2, true)
-		
+
 		-- start and pause the 2 DebuggerConnections
 		mainConnectionManager.ConnectionStarted:Fire(mockConnection1)
 		mainConnectionManager.ConnectionStarted:Fire(mockConnection2)
 		mockConnection1.Paused:Fire(testPausedState1, testPausedState1.Reason)
 		mockConnection2.Paused:Fire(testPausedState2, testPausedState2.Reason)
-		
+
 		local state = mainStore:getState()
 		expect(state.Common.currentDebuggerConnectionId).to.equal(2)
-		
+
 		-- Firing a FocusChanged signal should change our current debuggerConnectionId
 		mainConnectionManager.FocusChanged:Fire(mockConnection1)
 		state = mainStore:getState()
 		expect(state.Common.currentDebuggerConnectionId).to.equal(1)
-		
+
 		mainConnectionManager.FocusChanged:Fire(mockConnection2)
 		state = mainStore:getState()
 		expect(state.Common.currentDebuggerConnectionId).to.equal(2)
-		
+
 		mainConnectionManager.ConnectionEnded:Fire(mockConnection2)
 		mainConnectionManager.ConnectionEnded:Fire(mockConnection1)
 		mainListener:destroy()

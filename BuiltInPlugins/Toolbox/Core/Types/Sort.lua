@@ -1,5 +1,3 @@
-local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Category = require(Plugin.Core.Types.Category)

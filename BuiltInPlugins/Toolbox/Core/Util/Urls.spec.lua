@@ -1,7 +1,6 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
 local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
-local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 
 local Packages = Plugin.Packages
 
@@ -17,9 +16,7 @@ return function()
 	local EXPECTED_BASE_URL = "https://apis.roblox.com/toolbox-service/v1"
 
 	local function urlForCategory(category)
-		return if FFlagToolboxAssetCategorization4
-			then Urls.constructGetToolboxItemsUrl({ categoryName = category, ownerId = OWNER_ID })
-			else Urls.constructGetToolboxItemsUrl(category, nil, nil, nil, nil, nil, nil, OWNER_ID, nil, nil, nil, nil)
+		return Urls.constructGetToolboxItemsUrl({ categoryName = category, ownerId = OWNER_ID })
 	end
 
 	local EXPECTED = {
@@ -61,30 +58,22 @@ return function()
 		expect(Urls.constructInsertAssetUrl(123)).toBe(string.format("%s/insert/asset/123", EXPECTED_BASE_URL))
 	end)
 
-	if FFlagToolboxAssetCategorization4 then
-		it("should generate section asset urls", function()
-			expect(Urls.constructGetToolboxItemsUrl({
-				categoryName = Category.FREE_MODELS.name,
-				sectionName = "trending",
-			})).toBe(
-				string.format("%s/home/%d/section/trending/assets", EXPECTED_BASE_URL, Enum.AssetType.Model.Value)
-			)
-		end)
+	it("should generate section asset urls", function()
+		expect(Urls.constructGetToolboxItemsUrl({
+			categoryName = Category.FREE_MODELS.name,
+			sectionName = "trending",
+		})).toBe(string.format("%s/home/%d/section/trending/assets", EXPECTED_BASE_URL, Enum.AssetType.Model.Value))
+	end)
 
-		it("should generate section asset urls with params", function()
-			expect(Urls.constructGetToolboxItemsUrl({
-				categoryName = Category.FREE_MODELS.name,
-				sectionName = "trending",
-				limit = 10,
-			})).toBe(
-				string.format(
-					"%s/home/%d/section/trending/assets?limit=10",
-					EXPECTED_BASE_URL,
-					Enum.AssetType.Model.Value
-				)
-			)
-		end)
-	end
+	it("should generate section asset urls with params", function()
+		expect(Urls.constructGetToolboxItemsUrl({
+			categoryName = Category.FREE_MODELS.name,
+			sectionName = "trending",
+			limit = 10,
+		})).toBe(
+			string.format("%s/home/%d/section/trending/assets?limit=10", EXPECTED_BASE_URL, Enum.AssetType.Model.Value)
+		)
+	end)
 
 	if FFlagToolboxAudioDiscovery then
 		describe("Audio Subtypes", function()

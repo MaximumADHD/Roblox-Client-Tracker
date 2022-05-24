@@ -29,9 +29,6 @@ return function()
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jest = JestGlobals.jest
 
-	local Flags = InGameMenu.Flags
-	local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
-
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
 
@@ -40,7 +37,9 @@ return function()
 		Font = AppFont,
 	}
 
-	local FocusHandlerContextProvider = require(script.Parent.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
+	local FocusHandlerContextProvider = require(
+		script.Parent.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider
+	)
 	local LeaveGamePrompt = require(script.Parent.LeaveGamePrompt)
 
 	local getMountableTreeAndStore = function(props)
@@ -54,10 +53,9 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+					FocusHandlerContextProvider = Roact.createElement(FocusHandlerContextProvider, {}, {
 						LeaveGamePrompt = Roact.createElement(LeaveGamePrompt, props),
-					}) or nil,
-					LeaveGamePrompt = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(LeaveGamePrompt, props) or nil,
+					}),
 				}),
 			}),
 		})
@@ -119,7 +117,7 @@ return function()
 	describe("Keyboard support", function()
 		it("Pressing keyboard return should exit leave prompt", function()
 			local onConfirmMockSpy, onConfirmMock = jest.fn()
-			local element, store = getMountableTreeAndStore({onConfirm = onConfirmMock})
+			local element, store = getMountableTreeAndStore({ onConfirm = onConfirmMock })
 
 			act(function()
 				store:dispatch(SetInputType(Constants.InputType.MouseAndKeyboard))

@@ -49,11 +49,11 @@ local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local Flags = InGameMenu.Flags
-local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 local GetFFlagInGameMenuVRToggle = require(Flags.GetFFlagInGameMenuVRToggle)
-local FFlagUserVRVignetteToggle do
-local success, result = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserVRVignetteToggle")
+local FFlagUserVRVignetteToggle
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserVRVignetteToggle")
 	end)
 	FFlagUserVRVignetteToggle = success and result
 end
@@ -70,7 +70,7 @@ BasicPage.validateProps = t.strictInterface({
 	canCaptureFocus = t.optional(t.boolean),
 	canGamepadCaptureFocus = t.optional(t.boolean),
 	vrService = GetFFlagInGameMenuVRToggle() and t.optional(t.union(t.Instance, t.table)) or nil,
-	currentZone = GetFFlagIGMGamepadSelectionHistory() and t.optional(t.number) or nil,
+	currentZone = t.optional(t.number),
 })
 
 BasicPage.defaultProps = {
@@ -85,7 +85,7 @@ function BasicPage:init()
 		shiftLockEnabled = localPlayer.DevEnableMouseLock,
 		fullScreenEnabled = UserGameSettings:InFullScreen(),
 		invertedCameraEnabled = UserGameSettings.IsUsingCameraYInverted,
-		vrActive =  GetFFlagInGameMenuVRToggle() and self.props.vrService.VREnabled or nil,
+		vrActive = GetFFlagInGameMenuVRToggle() and self.props.vrService.VREnabled or nil,
 		vrEnabled = UserGameSettings.VREnabled,
 		voiceChatEnabled = false,
 		scrollingDown = false,
@@ -98,29 +98,11 @@ function BasicPage:init()
 	PageUtils.initOnScrollDownState(self)
 end
 
-function BasicPage:didUpdate(prevProps)
-	local shouldSettingsDisabledInVRBeShown = not (GetFFlagInGameMenuVRToggle() and self.state.vrActive)
-
-	if not GetFFlagIGMGamepadSelectionHistory() then
-		-- Gamepad navigation
-		-- if there is nothing selected on page open, select the first button in the menu
-		if (self.props.canCaptureFocus and self.props.canGamepadCaptureFocus)
-			and not (prevProps.canCaptureFocus and prevProps.canGamepadCaptureFocus)
-		then
-			if shouldSettingsDisabledInVRBeShown then
-				GuiService.SelectedCoreObject = self.cameraModeButton:getValue()
-			else
-				GuiService.SelectedCoreObject = self.volumeButton:getValue()
-				end
-			end
-		end
-end
-
 function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 	local shouldSettingsDisabledInVRBeShown = not (GetFFlagInGameMenuVRToggle() and self.state.vrActive)
 	local showVoiceChatOptions = self.state.voiceChatEnabled
 
-	local dividerSize = UDim2.new(1, -24, 0, 1);
+	local dividerSize = UDim2.new(1, -24, 0, 1)
 
 	return Roact.createElement(Page, {
 		useLeaveButton = true,
@@ -128,9 +110,10 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 		pageTitle = self.props.pageTitle,
 		position = self.props.position,
 	}, {
-		FocusHandler = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandler, {
+		FocusHandler = Roact.createElement(FocusHandler, {
 			isFocused = self.props.canCaptureFocus and self.props.canGamepadCaptureFocus,
-			shouldForgetPreviousSelection = self.props.currentPage == Constants.MainPagePageKey or self.props.currentZone == 0,
+			shouldForgetPreviousSelection = self.props.currentPage == Constants.MainPagePageKey
+				or self.props.currentZone == 0,
 			didFocus = function(previousSelection)
 				if previousSelection then
 					GuiService.SelectedCoreObject = previousSelection
@@ -139,8 +122,8 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 				else
 					GuiService.SelectedCoreObject = self.volumeButton:getValue()
 				end
-			end
-		}) or nil,
+			end,
+		}),
 		PageContents = Roact.createElement("ScrollingFrame", {
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
@@ -170,13 +153,14 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 				canCaptureFocus = self.props.canGamepadCaptureFocus,
 				screenSize = self.props.screenSize,
 			}),
-			InvertedCamera = shouldSettingsDisabledInVRBeShown and
-				self.state.invertedCameraEnabled and Roact.createElement(AutoPropertyToggleEntry, {
-				LayoutOrder = 3,
-				labelKey = "CoreScripts.InGameMenu.GameSettings.InvertedCamera",
-				instance = UserGameSettings,
-				valueKey = "CameraYInverted",
-			}),
+			InvertedCamera = shouldSettingsDisabledInVRBeShown
+				and self.state.invertedCameraEnabled
+				and Roact.createElement(AutoPropertyToggleEntry, {
+					LayoutOrder = 3,
+					labelKey = "CoreScripts.InGameMenu.GameSettings.InvertedCamera",
+					instance = UserGameSettings,
+					valueKey = "CameraYInverted",
+				}),
 			CameraSensitivity = shouldSettingsDisabledInVRBeShown and Roact.createElement(CameraSensitivityEntry, {
 				LayoutOrder = 4,
 				canCaptureFocus = self.props.canCaptureFocus and self.props.canGamepadCaptureFocus,
@@ -251,14 +235,16 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 					SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 				end,
 			}),
-			VRMode = GetFFlagInGameMenuVRToggle() and (self.state.vrActive or UserGameSettings.HasEverUsedVR) and Roact.createElement(AutoPropertyToggleEntry, {
-				LayoutOrder = 16,
-				labelKey = "CoreScripts.InGameMenu.GameSettings.VREnabled",
-				instance = UserGameSettings,
-				valueKey = "VREnabled",
-				subtextEnabled = self.state.vrEnabled ~= vrEnabledAtModuleLoad,
-				subtextKey = "CoreScripts.InGameMenu.GameSettings.RestartPending",
-			}),
+			VRMode = GetFFlagInGameMenuVRToggle()
+				and (self.state.vrActive or UserGameSettings.HasEverUsedVR)
+				and Roact.createElement(AutoPropertyToggleEntry, {
+					LayoutOrder = 16,
+					labelKey = "CoreScripts.InGameMenu.GameSettings.VREnabled",
+					instance = UserGameSettings,
+					valueKey = "VREnabled",
+					subtextEnabled = self.state.vrEnabled ~= vrEnabledAtModuleLoad,
+					subtextKey = "CoreScripts.InGameMenu.GameSettings.RestartPending",
+				}),
 			VignetteEnabled = canUseVignette and self.state.vrActive and Roact.createElement(AutoPropertyToggleEntry, {
 				LayoutOrder = 17,
 				labelKey = "CoreScripts.InGameMenu.GameSettings.VignetteEnabled",
@@ -338,7 +324,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 						UserGameSettings.HasEverUsedVR = true
 					end
 					self:setState({
-						vrActive = self.props.vrService.VREnabled
+						vrActive = self.props.vrService.VREnabled,
 					})
 				end,
 			}),
@@ -346,7 +332,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 				event = VREnabledChanged,
 				callback = function()
 					self:setState({
-						vrEnabled = UserGameSettings.VREnabled
+						vrEnabled = UserGameSettings.VREnabled,
 					})
 				end,
 			}),
@@ -365,32 +351,27 @@ function BasicPage:didMount()
 		-- Check if voice chat is enabled
 		-- TODO: Clean up when API gets simplified
 		local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
-		VoiceChatServiceManager:asyncInit():andThen(function()
-			self:setState({
-				voiceChatEnabled = true,
-			})
-		end)
-		:catch(function() end)
+		VoiceChatServiceManager
+			:asyncInit()
+			:andThen(function()
+				self:setState({
+					voiceChatEnabled = true,
+				})
+			end)
+			:catch(function() end)
 	end)
 end
 
 return RoactRodux.UNSTABLE_connect2(function(state)
-	local canCaptureFocus = state.menuPage == "GameSettings"
-		and state.isMenuOpen
-		and not state.respawn.dialogOpen
+	local canCaptureFocus = state.menuPage == "GameSettings" and state.isMenuOpen and not state.respawn.dialogOpen
 
 	local canGamepadCaptureFocus = state.displayOptions.inputType == Constants.InputType.Gamepad
 		and state.currentZone == 1
 
-	local currentZone = nil -- can inline when flag is removed
-	if GetFFlagIGMGamepadSelectionHistory() then
-		currentZone = state.currentZone
-	end
-
 	return {
 		isMenuOpen = state.isMenuOpen,
 		currentPage = state.menuPage,
-		currentZone = currentZone,
+		currentZone = state.currentZone,
 		canCaptureFocus = canCaptureFocus,
 		canGamepadCaptureFocus = canGamepadCaptureFocus,
 		screenSize = state.screenSize,

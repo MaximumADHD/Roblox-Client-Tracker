@@ -38,18 +38,34 @@ return function(networkInterface, assetId)
 		local myUserId = getUserId()
 
 		-- Use the DeveloperFramework API to get retry support, and so we can gradually remove Toolbox NetworkInterface
-		API.API.Ownership.hasAsset(assetId, myUserId):makeRequest():andThen(function(ownershipResults)
-			local ownsAsset = tostring(ownershipResults.responseBody) == "true"
-			if FFlagToolboxAssetGridRefactor then
-				assetId = tonumber(assetId)
-			end
-			store:dispatch(SetOwnsAsset(ownsAsset, assetId))
-		end, function(result)
-			if DebugFlags.shouldDebugWarnings() then
-				warn("Could not get asset ownership")
-			end
+		if (myUserId % 100) < game:GetFastInt("PluginOwnershipHasAssetMigrationRolloutPercentage") then
+			API.Inventory.V1.Users.Items.isOwned(myUserId, Enum.AvatarItemType.Asset, assetId):makeRequest():andThen(function(ownershipResults)
+				local ownsAsset = tostring(ownershipResults.responseBody) == "true"
+				if FFlagToolboxAssetGridRefactor then
+					assetId = tonumber(assetId)
+				end
+				store:dispatch(SetOwnsAsset(ownsAsset, assetId))
+			end, function(result)
+				if DebugFlags.shouldDebugWarnings() then
+					warn("Could not get asset ownership")
+				end
 
-			store:dispatch(NetworkError(result))
-		end)
+				store:dispatch(NetworkError(result))
+			end)
+		else
+			API.API.Ownership.hasAsset(assetId, myUserId):makeRequest():andThen(function(ownershipResults)
+				local ownsAsset = tostring(ownershipResults.responseBody) == "true"
+				if FFlagToolboxAssetGridRefactor then
+					assetId = tonumber(assetId)
+				end
+				store:dispatch(SetOwnsAsset(ownsAsset, assetId))
+			end, function(result)
+				if DebugFlags.shouldDebugWarnings() then
+					warn("Could not get asset ownership")
+				end
+
+				store:dispatch(NetworkError(result))
+			end)
+		end
 	end
 end

@@ -4,18 +4,19 @@ PausedState:
 - reason : Enum.DebuggerPauseReason (temporarily string)
 - threadId : number
 - allThreadsPaused : boolean
-]]--
+]]
+--
 
 local Breakpoint = require(script.Parent.Breakpoint)
 
 local PausedState = {}
 PausedState.__index = PausedState
 
-function PausedState:SetBreakpointHit(breakpoint : Breakpoint.Breakpoint)
+function PausedState:SetBreakpointHit(breakpoint: Breakpoint.Breakpoint)
 	self.Breakpoint = breakpoint
 end
 
-function PausedState.new(reason : string, threadId : number, allThreadsPaused : boolean)	
+function PausedState.new(reason: string, threadId: number, allThreadsPaused: boolean)
 	local self = {
 		Reason = reason,
 		ThreadId = threadId,

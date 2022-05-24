@@ -111,7 +111,6 @@ end
 
 function CollaboratorItem:createTextLabel(text, style, height, padding, layoutOrder, isEnabled)
 	return Roact.createElement(TextLabel, {
-		BackgroundTransparency = 1,
 		StyleModifier = not isEnabled and StyleModifier.Disabled or nil,
 		LayoutOrder = layoutOrder,
 		Size = UDim2.new(1, 0, 0, height),
@@ -131,7 +130,6 @@ end
 -- remove with FFlagStudioExplainFriendCollaboratorPermission3
 function CollaboratorItem:DEPRECATED_createTextLabel(text, style, height, padding, layoutOrder)
 	return Roact.createElement(TextLabel, {
-		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
 		Size = UDim2.new(1, 0, 0, height),
 		Style = style,

@@ -30,13 +30,6 @@ local TEAM_CREATE_ENABLED = "teamCreateEnabled"
 
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 local FStringTeamCreateLearnMoreLink = game:GetFastString("TeamCreateLink")
-local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage2")
-
-local teamCreateToggleEnabled = false
-if FIntTeamCreateTogglePercentageRollout > 0 then
-    local StudioService = game:GetService("StudioService")
-    teamCreateToggleEnabled = StudioService:GetUserIsInTeamCreateToggleRamp()
-end
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -47,12 +40,12 @@ local TitledFrame = UILibrary.Component.TitledFrame
 local RoundTextBox = UILibrary.Component.RoundTextBox
 local Separator = UILibrary.Component.Separator
 
-local TeachingCallout = teamCreateToggleEnabled and require(Plugin.Src.Components.TeachingCallout) or nil
+local TeachingCallout = require(Plugin.Src.Components.TeachingCallout)
 
 local Header = require(Plugin.Src.Components.Header)
 local PlatformSelect = require(Plugin.Src.Components.PlatformSelect)
 local CheckBoxSet = require(Plugin.Src.Components.CheckBoxSet)
-local ToggleButtonWithTitle = teamCreateToggleEnabled and require(Plugin.Src.Components.ToggleButtonWithTitle) or nil
+local ToggleButtonWithTitle = require(Plugin.Src.Components.ToggleButtonWithTitle)
 
 local GetPlayerAcceptances = require(Plugin.Src.Thunks.GetPlayerAcceptances)
 
@@ -194,13 +187,13 @@ local function displayContents(parent)
 
 		Description = Roact.createElement(TitledFrame, {
 			Title = localization:getText("PageTitle", "Description"),
-			MaxHeight = teamCreateToggleEnabled and theme.descriptionBox.maxHeight or 150,
+			MaxHeight = theme.descriptionBox.maxHeight,
 			LayoutOrder = layoutOrder:getNextOrder(),
 			TextSize = Constants.TEXT_SIZE,
 		}, {
 			TextBox = Roact.createElement(RoundTextBox, {
 				Active = true,
-				Height = teamCreateToggleEnabled and theme.descriptionBox.textBoxHeight or 130,
+				Height = theme.descriptionBox.textBoxHeight,
 				Multiline = true,
 				MaxLength = MAX_DESCRIPTION_LENGTH,
 				Text = description,
@@ -316,11 +309,11 @@ local function displayContents(parent)
 			end,
 		}),
 
-		Separator3 = if teamCreateToggleEnabled then Roact.createElement(Separator, {
+		Separator3 = Roact.createElement(Separator, {
 			LayoutOrder = layoutOrder:getNextOrder(),
-		}) else nil,
+		}),
 
-		EnableTeamCreate = if teamCreateToggleEnabled then Roact.createElement(ToggleButtonWithTitle, {
+		EnableTeamCreate = Roact.createElement(ToggleButtonWithTitle, {
 			Title = localization:getText("TeamCreate", "Title"),
 			LayoutOrder = layoutOrder:getNextOrder(),
 			Disabled = false,
@@ -339,7 +332,7 @@ local function displayContents(parent)
 			TeachingCallout = Roact.createElement(TeachingCallout, {
 				DefinitionId = "PublishPlaceAsTeamCreateToggleCallout",
 				LocationId = "TeamCreateToggle", }),
-			}) else nil,
+			}),
 	}
 
 	if props.IsPublish then
@@ -503,7 +496,7 @@ local function loadValuesToProps(getValue, state)
 		CreatorId = getValue("creatorId"),
 		OptInLocations = shouldShowDevPublishLocations() and getValue(optInLocationsKey) or {},
 		PlayerAcceptance = state.Policy.PlayerAcceptance,
-		TeamCreateEnabled = teamCreateToggleEnabled and getValue(TEAM_CREATE_ENABLED) or nil,
+		TeamCreateEnabled = getValue(TEAM_CREATE_ENABLED),
 	}
 end
 
@@ -560,9 +553,9 @@ local function dispatchForProps(setValue, dispatch)
 			dispatch(GetPlayerAcceptances(apiImpl))
 		end,
 
-		TeamCreateEnabledChanged = teamCreateToggleEnabled and function(enabled)
+		TeamCreateEnabledChanged = function(enabled)
 			dispatch(AddChange(TEAM_CREATE_ENABLED, enabled))
-		end or nil,
+		end,
 	}
 end
 

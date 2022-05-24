@@ -11,8 +11,6 @@
 		function renderTopContent: function that returns a roact element which is the content located above the infinite grid.
 		UDim2 Size
 ]]
-local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
-
 local Plugin = script.Parent.Parent.Parent
 local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 local FFlagToolboxAudioDiscoveryRound2 =
@@ -171,7 +169,7 @@ function AssetGridContainer:render()
 
 	return Roact.createElement(AssetGrid, {
 		AssetIds = assetIds,
-		AssetMap = if FFlagToolboxAssetCategorization4 then props.idToAssetMap else nil,
+		AssetMap = props.idToAssetMap,
 		LayoutOrder = layoutOrder,
 		Position = position,
 		RenderTopContent = renderTopContent,
@@ -180,7 +178,7 @@ function AssetGridContainer:render()
 
 		-- Props from AssetLogicWrapper
 		CanInsertAsset = canInsertAsset,
-		OnAssetPreviewButtonClicked = if FFlagToolboxAssetCategorization4 then onAssetPreviewButtonClicked else nil,
+		OnAssetPreviewButtonClicked = onAssetPreviewButtonClicked,
 		ParentAbsolutePosition = props.ParentAbsolutePosition,
 		ParentSize = props.ParentSize,
 		TryInsert = tryInsert,
@@ -206,7 +204,7 @@ local function mapStateToProps(state: any, props)
 		assetIds = assets.idsToRender or {},
 		categoryName = categoryName,
 		currentUserPackagePermissions = state.packages.permissionsTable or {},
-		idToAssetMap = if FFlagToolboxAssetCategorization4 then assets.idToAssetMap else nil,
+		idToAssetMap = assets.idToAssetMap,
 	}
 end
 

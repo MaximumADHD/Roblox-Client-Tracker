@@ -1,11 +1,4 @@
-local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage2")
-
-local teamCreateToggleEnabled = false
-if FIntTeamCreateTogglePercentageRollout > 0 then
-	local StudioService = game:GetService("StudioService")
-	teamCreateToggleEnabled = StudioService:GetUserIsInTeamCreateToggleRamp()
-end
-
+local FFlagDebugBuiltInPluginModalsNotBlocking = game:GetFastFlag("DebugBuiltInPluginModalsNotBlocking")
 return function(plugin, pluginLoaderContext)
 	if not plugin then
 		return
@@ -45,16 +38,16 @@ return function(plugin, pluginLoaderContext)
 	local MakeTheme = require(Plugin.Src.Resources.MakeTheme)
 
 	-- localization
-	local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
-	local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
+	local SourceStrings = Plugin.Src.Resources.SourceStrings
+	local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 
 	-- Plugin Specific Globals
 	local StudioService = game:GetService("StudioService")
 	local dataStore = Rodux.Store.new(MainReducer, {}, MainMiddleware)
 	local localization = ContextServices.Localization.new({
 		pluginName = Plugin.Name,
-		stringResourceTable = TranslationDevelopmentTable,
-		translationResourceTable = TranslationReferenceTable,
+		stringResourceTable = SourceStrings,
+		translationResourceTable = LocalizedStrings,
 	})
 
 	-- Widget Gui Elements
@@ -77,7 +70,7 @@ return function(plugin, pluginLoaderContext)
 			MinSize = Vector2.new(890, 550),
 			MaxSize = Vector2.new(960, 750),
 			Resizable = true,
-			Modal = true,
+			Modal = not FFlagDebugBuiltInPluginModalsNotBlocking,
 			InitialEnabled = false,
 		})
 		pluginGui.Name = Plugin.Name
@@ -89,18 +82,15 @@ return function(plugin, pluginLoaderContext)
 		end)
 	end
 
-	local calloutController = nil
-	if teamCreateToggleEnabled then
-		local CalloutController = require(Plugin.Src.Util.CalloutController)
-		calloutController = CalloutController.new()
+	local CalloutController = require(Plugin.Src.Util.CalloutController)
+	local calloutController = CalloutController.new()
 
-		local title = localization:getText("TcToggleCallout", "Title")
-		local definitionId = "PublishPlaceAsTeamCreateToggleCallout"
-		local description = localization:getText("TcToggleCallout", "Description")
-		local learnMoreUrl = game:GetFastString("TeamCreateLink")
+	local title = localization:getText("TcToggleCallout", "Title")
+	local definitionId = "PublishPlaceAsTeamCreateToggleCallout"
+	local description = localization:getText("TcToggleCallout", "Description")
+	local learnMoreUrl = game:GetFastString("TeamCreateLink")
 
-		calloutController:defineCallout(definitionId, title, description, learnMoreUrl)
-	end
+	calloutController:defineCallout(definitionId, title, description, learnMoreUrl)
 
 	--Initializes and populates the plugin popup window
 	local function openPluginWindow(showGameSelect, isPublish, closeMode)

@@ -143,7 +143,6 @@ function Security:render()
 				}),
 	
 				Description = Roact.createElement(TextLabel, {
-					BackgroundTransparency = 1,
 					LayoutOrder = layoutOrder:getNextOrder(),
 					Style = "SubText",
 					Text = localization:getText("Security", "InsecureWarning"),

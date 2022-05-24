@@ -43,8 +43,8 @@ local AnalyticsHandlers = require(Plugin.Src.Resources.AnalyticsHandlers)
 local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 -- localization
-local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
-local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
+local SourceStrings = Plugin.Src.Resources.SourceStrings
+local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 
 local MainView = require(Plugin.Src.Components.MainView)
 
@@ -78,12 +78,12 @@ end
 local analytics = ContextServices.Analytics.new(AnalyticsHandlers)
 local localization = ContextServices.Localization.new({
 	pluginName = PLUGIN_NAME,
-	stringResourceTable = TranslationDevelopmentTable,
-	translationResourceTable = TranslationReferenceTable,
+	stringResourceTable = SourceStrings,
+	translationResourceTable = LocalizedStrings,
 	libraries = {
 		[Framework.Resources.LOCALIZATION_PROJECT_NAME] = {
-			stringResourceTable = Framework.Resources.TranslationDevelopmentTable,
-			translationResourceTable = Framework.Resources.TranslationReferenceTable,
+			stringResourceTable = Framework.Resources.SourceStrings,
+			translationResourceTable = Framework.Resources.LocalizedStrings,
 		},
 	},
 })
@@ -296,7 +296,7 @@ local function main()
 
 	pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	pluginGui:GetPropertyChangedSignal("Enabled"):connect(showIfEnabled)
-	
+
 	-- configure the widget and button if its visible
 	showIfEnabled()
 

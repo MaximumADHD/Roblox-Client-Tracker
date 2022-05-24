@@ -19,12 +19,16 @@ function BreakpointManagerListener:onMetaBreakpointAdded(metaBreakpoint)
 end
 
 function BreakpointManagerListener:updateScriptWatcher(metaBreakpoint)
-	local contextBreakpoints = metaBreakpoint:GetContextBreakpoints();
+	local contextBreakpoints = metaBreakpoint:GetContextBreakpoints()
 	for _, connectionIdAndBreakpoints in pairs(contextBreakpoints) do
 		local connectionId = connectionIdAndBreakpoints.connectionId
 		local breakpoints = connectionIdAndBreakpoints.breakpoints
 		for _, breakpoint in ipairs(breakpoints) do
-			self._crossDmScriptChangeListenerService:StartWatchingScriptLine(breakpoint.Script, connectionId, breakpoint.Line)
+			self._crossDmScriptChangeListenerService:StartWatchingScriptLine(
+				breakpoint.Script,
+				connectionId,
+				breakpoint.Line
+			)
 		end
 	end
 end
@@ -41,17 +45,24 @@ end
 
 local function setUpConnections(breakpointManagerListener, breakpointManager, scriptChangeService)
 	local BreakpointManager = breakpointManager or game:GetService("BreakpointManager")
-	breakpointManagerListener._crossDmScriptChangeListenerService = scriptChangeService or game:GetService("CrossDMScriptChangeListener")
+	breakpointManagerListener._crossDmScriptChangeListenerService = scriptChangeService
+		or game:GetService("CrossDMScriptChangeListener")
 
-	breakpointManagerListener._metaBreakpointAddedConnection = BreakpointManager.MetaBreakpointAdded:Connect(function(metaBreakpoint)
-		breakpointManagerListener:onMetaBreakpointAdded(metaBreakpoint)
-	end)
-	breakpointManagerListener._metaBreakpointChangedConnection = BreakpointManager.MetaBreakpointChanged:Connect(function(metaBreakpoint)
-		breakpointManagerListener:onMetaBreakpointChanged(metaBreakpoint)
-	end)
-	breakpointManagerListener._metaBreakpointRemovedConnection = BreakpointManager.MetaBreakpointRemoved:Connect(function(metaBreakpoint)
-		breakpointManagerListener:onMetaBreakpointRemoved(metaBreakpoint)
-	end)
+	breakpointManagerListener._metaBreakpointAddedConnection = BreakpointManager.MetaBreakpointAdded:Connect(
+		function(metaBreakpoint)
+			breakpointManagerListener:onMetaBreakpointAdded(metaBreakpoint)
+		end
+	)
+	breakpointManagerListener._metaBreakpointChangedConnection = BreakpointManager.MetaBreakpointChanged:Connect(
+		function(metaBreakpoint)
+			breakpointManagerListener:onMetaBreakpointChanged(metaBreakpoint)
+		end
+	)
+	breakpointManagerListener._metaBreakpointRemovedConnection = BreakpointManager.MetaBreakpointRemoved:Connect(
+		function(metaBreakpoint)
+			breakpointManagerListener:onMetaBreakpointRemoved(metaBreakpoint)
+		end
+	)
 end
 
 function BreakpointManagerListener:destroy()
@@ -72,7 +83,7 @@ function BreakpointManagerListener:destroy()
 end
 
 function BreakpointManagerListener.new(store, breakpointManager, scriptChangeService)
-	local self = {store = store}
+	local self = { store = store }
 	setUpConnections(self, breakpointManager, scriptChangeService)
 	setmetatable(self, BreakpointManagerListener)
 	return self

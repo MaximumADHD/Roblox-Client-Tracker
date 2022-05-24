@@ -208,4 +208,5 @@ return{
 	["CoreScripts.InGameMenu.Report.BlockBody"] = [[你和 {DISPLAY_NAME}（@{RBX_NAME}）将无法和彼此沟通。]],
 	["CoreScripts.InGameMenu.Report.Block"] = [[屏蔽]],
 	["CoreScripts.InGameMenu.Report.BlockPopup"] = [[你已屏蔽 {DISPLAY_NAME}（@{RBX_NAME}）]],
+	["CoreScripts.InGameMenu.PageTitle.Friends"] = [[好友]],
 }

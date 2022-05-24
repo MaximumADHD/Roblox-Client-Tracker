@@ -5,6 +5,7 @@ local RigUtils = require(Plugin.Src.Util.RigUtils)
 local Math = require(DraggerFramework.Utility.Math)
 local Constants = require(Plugin.Src.Util.Constants)
 local GetFFlagBoneAdornmentSelection = require(Plugin.LuaFlags.GetFFlagBoneAdornmentSelection)
+local GetFFlagHideBonesWithToggle = require(Plugin.LuaFlags.GetFFlagHideBonesWithToggle)
 
 local function isValidJoint(rootInstance, joint, partsToMotors)
 	return joint:IsDescendantOf(rootInstance) and joint:IsA("BasePart") and partsToMotors[joint.Name] ~= nil
@@ -118,7 +119,7 @@ return function(draggerContext, mouseRay, currentSelection)
 		hitDistance = gizmoResult.Distance
 	end
 
-	if GetFFlagBoneAdornmentSelection() then 
+	if GetFFlagBoneAdornmentSelection() and (not GetFFlagHideBonesWithToggle() or GetFFlagHideBonesWithToggle() and draggerContext.VisualizeBones) then 
 		local _, partNameToMotorMap, _, boneMap = RigUtils.getRigInfo(draggerContext.RootInstance)
 		local folder = RigUtils.getOrCreateMicroboneFolder()
 		local boneLink, boneDistance = hitTestAllBoneLinks(mouseRay, folder)

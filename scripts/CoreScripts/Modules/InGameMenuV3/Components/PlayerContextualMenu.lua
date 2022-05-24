@@ -17,8 +17,9 @@ local RootedConnection = require(script.Parent.Connection.RootedConnection)
 local PlayerContextHeader = require(InGameMenu.Components.PlayerContextHeader)
 
 local Flags = InGameMenu.Flags
-local GetFFlagIGMRefactorPlayerContextualMenuGamepadSupport = require(Flags.GetFFlagIGMRefactorPlayerContextualMenuGamepadSupport)
-local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
+local GetFFlagIGMRefactorPlayerContextualMenuGamepadSupport = require(
+	Flags.GetFFlagIGMRefactorPlayerContextualMenuGamepadSupport
+)
 
 local PLAYER_CONTEXTUAL_MENU_CLOSE_ACTION = "player_contextual_menu_close_action"
 local SELECTION_PARENT_NAME = "player_contextual_menu_selection_parent"
@@ -99,19 +100,10 @@ function PlayerContextualMenu:renderContextualMenuFocusHandler(isRooted, childre
 			if GetFFlagIGMRefactorPlayerContextualMenuGamepadSupport() then
 				GuiService:AddSelectionParent(SELECTION_PARENT_NAME, self.containerRef:getValue())
 
-				if GetFFlagIGMGamepadSelectionHistory() then
-					GuiService.SelectedCoreObject = previousSelection or self.firstOptionRef:getValue()
-				else
-					GuiService.SelectedCoreObject = self.firstOptionRef:getValue()
-				end
+				GuiService.SelectedCoreObject = previousSelection or self.firstOptionRef:getValue()
 			else
 				GuiService:AddSelectionParent(SELECTION_PARENT_NAME, self.state.containerRef)
-
-				if GetFFlagIGMGamepadSelectionHistory() then
-					GuiService.SelectedCoreObject = previousSelection or self.state.firstOptionRef
-				else
-					GuiService.SelectedCoreObject = self.state.firstOptionRef
-				end
+				GuiService.SelectedCoreObject = previousSelection or self.state.firstOptionRef
 			end
 		end,
 

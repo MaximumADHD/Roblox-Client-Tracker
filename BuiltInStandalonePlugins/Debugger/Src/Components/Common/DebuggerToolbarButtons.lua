@@ -71,7 +71,7 @@ end
 
 function DebuggerToolbarButtons:didMount()
 	local pluginActions = self.props.PluginActions
-	self.connections  = {}
+	self.connections = {}
 	self.shortcuts = {}
 	self:addAction(pluginActions:get(Constants.StepActionIds.stepOverActionV2), self.onStepOver)
 	self:addAction(pluginActions:get(Constants.StepActionIds.stepIntoActionV2), self.onStepInto)
@@ -85,7 +85,7 @@ function DebuggerToolbarButtons:renderButtons(toolbar)
 		connectionForPlayDataModel = uiService:IsConnectionForPlayDataModel(self.props.CurrentConnectionId)
 	end
 	local isPaused = self.props.IsPaused
-	
+
 	return {
 		ResumeButton = Roact.createElement(PluginButton, {
 			Name = "simulationResumeActionV2",
@@ -147,7 +147,7 @@ end
 
 function DebuggerToolbarButtons:render()
 	if self.shortcuts then
-		for _,action in pairs(self.shortcuts) do
+		for _, action in pairs(self.shortcuts) do
 			action.Enabled = self.props.IsPaused
 		end
 	end
@@ -164,27 +164,23 @@ DebuggerToolbarButtons = ContextServices.withContext({
 	PluginActions = PluginActions,
 })(DebuggerToolbarButtons)
 
-DebuggerToolbarButtons = RoactRodux.connect(
-	function(state, props)
-		local common = state.Common
-		local isPaused = common.isPaused
-		local currentThreadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
-		local currentConnectionId = common.currentDebuggerConnectionId
-		
-		return {
-			IsPaused = isPaused,
-			CurrentThreadId = currentThreadId,
-			CurrentConnectionId = currentConnectionId,
-		}
-	end,
+DebuggerToolbarButtons = RoactRodux.connect(function(state, props)
+	local common = state.Common
+	local isPaused = common.isPaused
+	local currentThreadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
+	local currentConnectionId = common.currentDebuggerConnectionId
 
-	function(dispatch)
-		return {
-			onSetPausedState = function(pause)
-				return dispatch(SetPausedState(pause))
-			end,
-		}
-	end
-)(DebuggerToolbarButtons)
+	return {
+		IsPaused = isPaused,
+		CurrentThreadId = currentThreadId,
+		CurrentConnectionId = currentConnectionId,
+	}
+end, function(dispatch)
+	return {
+		onSetPausedState = function(pause)
+			return dispatch(SetPausedState(pause))
+		end,
+	}
+end)(DebuggerToolbarButtons)
 
 return DebuggerToolbarButtons

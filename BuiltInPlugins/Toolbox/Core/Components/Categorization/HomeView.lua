@@ -6,7 +6,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxUseExpandableTopSearch = game:GetFastFlag("ToolboxUseExpandableTopSearch") -- TODO: Flip when UISYS-1334 is ready
 local FintToolboxHomeViewInitialPageSize = game:GetFastInt("ToolboxHomeViewInitialPageSize")
-local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization4")
 local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
 
 local Libs = Plugin.Packages
@@ -101,8 +100,7 @@ type _InternalProps = {
 	-- mapDispatchToProps
 	getAssetPreviewDataForStartup: any,
 	requestSearchRequest: (networkInterface: any, settings: any, searchText: string, categoryName: string) -> (),
-	-- make non optional when FFlagToolboxHomeViewAnalyticsUpdate is removed
-	logSearchAnalytics: (keyword: string, assetType: string) -> ()?,
+	logSearchAnalytics: (keyword: string, assetType: string) -> (),
 	-- withContext
 	API: any?,
 	Localization: any,
@@ -326,9 +324,7 @@ function HomeView:init()
 				Total = subcategoryCount,
 			}),
 
-			TopKeywords = if FFlagToolboxAssetCategorization
-					and not FFlagToolboxUseExpandableTopSearch
-					and showTopKeywords
+			TopKeywords = if not FFlagToolboxUseExpandableTopSearch and showTopKeywords
 				then Roact.createElement(Pane, {
 					AutomaticSize = Enum.AutomaticSize.Y,
 					Layout = Enum.FillDirection.Vertical,
@@ -355,9 +351,7 @@ function HomeView:init()
 				})
 				else nil,
 
-			TopKeywordsExpandable = if FFlagToolboxAssetCategorization
-					and FFlagToolboxUseExpandableTopSearch
-					and showTopKeywords
+			TopKeywordsExpandable = if FFlagToolboxUseExpandableTopSearch and showTopKeywords
 				then Roact.createElement(ExpandableTeaser, {
 					LayoutOrder = orderIterator:getNextOrder(),
 					Size = UDim2.new(0, swimlaneWidth, 0, minTopKeywordsHeight),

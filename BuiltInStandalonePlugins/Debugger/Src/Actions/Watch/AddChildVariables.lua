@@ -11,26 +11,27 @@ local StepStateBundle = require(Plugin.Src.Models.StepStateBundle)
 export type Path = string
 
 export type Props = {
-	stepStateBundle : StepStateBundle.StepStateBundle,
-	parentPath : string,
- 	childKeys : {string},
-	newVarsMapping : {[Path] : VariableRow.VariableRow},
+	stepStateBundle: StepStateBundle.StepStateBundle,
+	parentPath: string,
+	childKeys: { string },
+	newVarsMapping: { [Path]: VariableRow.VariableRow },
 }
 
-return Action(script.Name, function(stepStateBundle : StepStateBundle.StepStateBundle, parentPath : string,
-	newVars : {VariableRow.VariableRow}) : Props
+return Action(
+	script.Name,
+	function(stepStateBundle: StepStateBundle.StepStateBundle, parentPath: string, newVars: { VariableRow.VariableRow }): Props
+		local childKeys = {}
+		local newVarsMapping = {}
+		for index, variableRow in ipairs(newVars) do
+			table.insert(childKeys, variableRow.pathColumn)
+			newVarsMapping[variableRow.pathColumn] = variableRow
+		end
 
-	local childKeys = {}
-	local newVarsMapping = {}
-	for index, variableRow in ipairs(newVars) do
-		table.insert(childKeys, variableRow.pathColumn)
-		newVarsMapping[variableRow.pathColumn] = variableRow
+		return {
+			stepStateBundle = stepStateBundle,
+			parentPath = parentPath,
+			childKeys = childKeys,
+			newVarsMapping = newVarsMapping,
+		}
 	end
-	
-	return {
-		stepStateBundle = stepStateBundle,
-		parentPath = parentPath,
-		childKeys = childKeys,
-		newVarsMapping = newVarsMapping
-	}
-end)
+)

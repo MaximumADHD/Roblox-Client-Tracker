@@ -5,11 +5,11 @@ local Action = Util.Action
 local DebuggerStateToken = require(Plugin.Src.Models.DebuggerStateToken)
 
 export type Props = {
-	debuggerStateToken : DebuggerStateToken.DebuggerStateToken,
+	debuggerStateToken: DebuggerStateToken.DebuggerStateToken,
 }
 
-return Action(script.Name, function(debuggerStateToken : DebuggerStateToken.DebuggerStateToken) : Props
+return Action(script.Name, function(debuggerStateToken: DebuggerStateToken.DebuggerStateToken): Props
 	return {
-		debuggerStateToken = debuggerStateToken
+		debuggerStateToken = debuggerStateToken,
 	}
 end)

@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local MemStorageService = game:GetService("MemStorageService")
+local PlayersService = game:GetService("Players")
 local Promise = require(CorePackages.Promise)
 local Roact = require(CorePackages.Roact)
 local Cryo = require(CorePackages.Cryo)
@@ -601,6 +602,7 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 					if not state.isMuted or (lastState and not lastState.isMuted) then
 						self:_setRecentUserState(userId, {
 							lastHeardTime = os.time(),
+							player = PlayersService:GetPlayerByUserId(userId),
 						})
 					end
 				end

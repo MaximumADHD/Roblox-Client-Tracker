@@ -14,6 +14,7 @@ local GameIcon = require(Components.GameIcon)
 local FavoriteButton = require(Components.FavoriteButton)
 local Assets = require(InGameMenu.Resources.Assets)
 local Images = Assets.Images
+local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local PrimarySystemButton = UIBlox.App.Button.PrimarySystemButton
 local SecondaryButton = UIBlox.App.Button.SecondaryButton
@@ -34,6 +35,11 @@ local ITEM_PADDING = 24
 local BUTTON_PADDING = 12
 local BUTTON_WIDTH = Constants.PageWidth - 48
 local BUTTON_HEIGHT = 36
+
+local DROP_SHADOW_IMAGE = Images.DropShadowFavorite
+local DROP_SHADOW_HEIGHT = 17
+local DROP_SHADOW_SLICE = Rect.new(10, 0, 20, 8)
+local DROP_SHADOW_TRANSPARENCY = 0.3
 
 local LeavePrompt = Roact.PureComponent:extend("LeavePrompt")
 
@@ -103,26 +109,71 @@ function LeavePrompt:render()
 						Padding = UDim.new(0, ITEM_PADDING),
 						SortOrder = Enum.SortOrder.LayoutOrder,
 					}),
-					FavoriteGameFrame = Roact.createElement("Frame", {
+					HomeFrame = returnHomeMode and Roact.createElement("Frame", {
 						Size = UDim2.new(0, 100, 0, 110),
 						BackgroundTransparency = 1,
 						LayoutOrder = 2,
 					},{
-						GameThumbnail = not returnHomeMode and Roact.createElement(GameIcon, {
-							gameId = game.gameId,
-							cornerRadius = UDim.new(0, 8),
-							iconSize = 100,
-							layoutOrder = 2,
-						}) or nil,
 						RobloxLogo = returnHomeMode and Roact.createElement("ImageLabel", {
 							Image = Images.LeaveRobloxLogo,
 							BackgroundTransparency = 1,
 							Size = UDim2.new(0, 120, 0, 120),
+							LayoutOrder = 0,
+						}),
+					}) or nil,
+					FavoriteGameFrame = not returnHomeMode and Roact.createElement("Frame", {
+						Size = UDim2.new(0, 180, 0, 110),
+						BackgroundTransparency = 1,
+						LayoutOrder = 2,
+					},{
+						Bar = Roact.createElement("Frame", {
+							Size = UDim2.new(1, 0, 0, 66),
+							LayoutOrder = 1,
+							AnchorPoint = Vector2.new(0, 1),
+							Position = UDim2.new(0,0,1,0),
+							BackgroundColor3 = style.Theme.BackgroundUIDefault.Color,
+							ZIndex = 0,
+						}, {
+							UICorner = Roact.createElement("UICorner", {
+								CornerRadius = UDim.new(0, 8),
+							}),
+						}),
+						GameThumbnailDropShadow = Roact.createElement(ImageSetLabel, {
+							Size = UDim2.new(0, 100, 0, DROP_SHADOW_HEIGHT),
+							Position = UDim2.new(0, 12, 1, -2),
+							AnchorPoint = Vector2.new(0, 1),
+							BackgroundTransparency = 1,
+							Image = DROP_SHADOW_IMAGE,
+							ImageColor3 = style.Theme.DropShadow.Color,
+							ScaleType = Enum.ScaleType.Slice,
+							SliceCenter = DROP_SHADOW_SLICE,
+							ImageTransparency = DROP_SHADOW_TRANSPARENCY,
 							LayoutOrder = 2,
-						}) or nil,
-						FavoriteButton = not returnHomeMode and Roact.createElement(FavoriteButton, {
-							Position = UDim2.new(1, 0, 1, -40)
-						}) or nil,
+						}),
+						FavoriteButtonDropShadow = Roact.createElement(ImageSetLabel, {
+							Size = UDim2.new(0, 44, 0, DROP_SHADOW_HEIGHT),
+							AnchorPoint = Vector2.new(1, 1),
+							Position = UDim2.new(1, -12, 1, -2),
+							BackgroundTransparency = 1,
+							Image = DROP_SHADOW_IMAGE,
+							ImageColor3 = style.Theme.DropShadow.Color,
+							ImageTransparency = DROP_SHADOW_TRANSPARENCY,
+							ScaleType = Enum.ScaleType.Slice,
+							SliceCenter = DROP_SHADOW_SLICE,
+							LayoutOrder = 3,
+						}),
+						FavoriteButton = Roact.createElement(FavoriteButton, {
+							Position = UDim2.new(1, -12, 1, -10),
+							AnchorPoint = Vector2.new(1, 1),
+							LayoutOrder = 5,
+						}),
+						GameThumbnail = Roact.createElement(GameIcon, {
+							Position  = UDim2.new(0, 12, 0, 0),
+							gameId = game.gameId,
+							cornerRadius = UDim.new(0, 8),
+							iconSize = 100,
+							layoutOrder = 4,
+						}),
 					}),
 					TitleText = Roact.createElement(ThemedTextLabel, {
 						fontKey = "Header1",

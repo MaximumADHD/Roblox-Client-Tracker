@@ -7,8 +7,6 @@ local getMaxAudioLength = require(Plugin.Core.Util.ToolboxUtilities).getMaxAudio
 local TextService = game:GetService("TextService")
 local StudioService = game:GetService("StudioService")
 
-local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
-local FFlagToolboxAssetStyleUpdate2 = game:GetFastFlag("ToolboxAssetStyleUpdate2")
 local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
 
@@ -28,16 +26,14 @@ Constants.FONT_SIZE_LARGE = 18
 Constants.FONT_SIZE_TITLE = 22
 Constants.FONT_SIZE_ASSET_CONFIG_INPUT = 20
 
-if FFlagToolboxAssetCategorization4 then
-	Constants.NAVIGATION = {
-		HOME = "Home",
-		SUBCATEGORY = "Subcategory",
-		ALL_SUBCATEGORIES = "All_Subcategories",
-		RESULTS = "Results",
-	}
+Constants.NAVIGATION = {
+	HOME = "Home",
+	SUBCATEGORY = "Subcategory",
+	ALL_SUBCATEGORIES = "All_Subcategories",
+	RESULTS = "Results",
+}
 
-	Constants.HOMEVIEW_SEARCH_CATEGORY = "Category"
-end
+Constants.HOMEVIEW_SEARCH_CATEGORY = "Category"
 
 -- TODO: jbousellam - remove with FFlagRemoveUILibraryGetTextSize
 function Constants.getTextSize(text, fontSize, font, frameSize)
@@ -103,11 +99,7 @@ Constants.FOOTER_HEIGHT = 35
 Constants.BACKGROUND_BUTTON_ICON_SIZE = 10
 Constants.BACKGROUND_BUTTON_FONT_SIZE = Constants.FONT_SIZE_SMALL
 
-if FFlagToolboxAssetCategorization4 then
-	Constants.MAIN_VIEW_PADDING = 10
-else
-	Constants.MAIN_VIEW_PADDING = 8
-end
+Constants.MAIN_VIEW_PADDING = 10
 
 Constants.SUGGESTIONS_INNER_PADDING = 6
 Constants.SUGGESTIONS_OUTER_PADDING = 6
@@ -152,10 +144,7 @@ Constants.ASSET_VOTE_BAR_OUTER_HEIGHT = 13
 Constants.ASSET_VOTE_COUNT_FONT_SIZE = Constants.FONT_SIZE_SMALL
 Constants.ASSET_VOTE_COUNT_HEIGHT = Constants.ASSET_VOTE_COUNT_FONT_SIZE
 Constants.ASSET_VOTING_HEIGHT = Constants.ASSET_VOTE_BAR_OUTER_HEIGHT + Constants.ASSET_VOTE_COUNT_HEIGHT
-
-if FFlagToolboxAssetStyleUpdate2 then
-	Constants.ASSET_CORNER_RADIUS = 5
-end
+Constants.ASSET_CORNER_RADIUS = 5
 
 Constants.ASSET_HEIGHT = Constants.ASSET_THUMBNAIL_SIZE + Constants.ASSET_INNER_PADDING + Constants.ASSET_NAME_HEIGHT
 

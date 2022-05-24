@@ -11,7 +11,6 @@ return function()
 	local Localization = require(InGameMenu.Localization.Localization)
 	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 	local reducer = require(InGameMenu.reducer)
-	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
@@ -21,7 +20,9 @@ return function()
 		Font = AppFont,
 	}
 
-	local FocusHandlerContextProvider = require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
+	local FocusHandlerContextProvider = require(
+		script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider
+	)
 	local SliderEntry = require(script.Parent.SliderEntry)
 
 	itSKIP("should create and destroy without errors", function()
@@ -37,7 +38,7 @@ return function()
 		})
 
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = Rodux.Store.new(reducer)
+			store = Rodux.Store.new(reducer),
 		}, {
 			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 				style = appStyle,
@@ -45,10 +46,9 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
-						SliderEntry = sliderEntry
-					}) or nil,
-					SliderEntry = not GetFFlagIGMGamepadSelectionHistory() and sliderEntry or nil
+					FocusHandlerContextProvider = Roact.createElement(FocusHandlerContextProvider, {}, {
+						SliderEntry = sliderEntry,
+					}),
 				}),
 			}),
 		})

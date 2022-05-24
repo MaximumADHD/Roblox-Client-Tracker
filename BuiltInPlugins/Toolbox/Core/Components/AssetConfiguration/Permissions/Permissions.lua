@@ -118,7 +118,12 @@ function Permissions:renderContent(theme, localization, localized)
             PermissionsChanged = self.props.PermissionsChanged,
         }),
 
-        RevokedWarningMessage = Roact.createElement("TextLabel", {
+        -- TODO(scurtis): This should only be here if this is a user-owned package. In the case of a
+        -- group-owned package, the warning should be included *inside* the collapsed region. It
+        -- only has meaning within that context. Outside is non-sensical. It hasn't been done yet
+        -- because various theme/style components used here is not available in GroupCollaboratorItem.lua
+        -- where it would be needed.
+        RevokedWarningMessage = canManagePermissions and Roact.createElement("TextLabel", {
             LayoutOrder = orderIterator:getNextOrder(),
             Size = UDim2.new(1, 0, 0, textLabelYSize),
 

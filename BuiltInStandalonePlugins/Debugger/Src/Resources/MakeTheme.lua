@@ -19,16 +19,14 @@ local Style = Framework.Style
 local StudioTheme = Style.Themes.StudioTheme
 local StyleKey = Style.StyleKey
 
-
-
 local PluginTheme = {
 	-- New Plugin Setup: Add theme values, i.e.
 	-- [StyleKey.Something] = Color3.new()
 	MainBackground = StyleKey.MainBackground,
 	Separator = {
-		['Weight'] = 1,
-		['StretchMargin'] = 15,
-		['Color'] = Color3.fromRGB(150, 150, 150),
+		["Weight"] = 1,
+		["StretchMargin"] = 15,
+		["Color"] = Color3.fromRGB(150, 150, 150),
 	},
 	BorderColor = Color3.fromRGB(229, 229, 229),
 }

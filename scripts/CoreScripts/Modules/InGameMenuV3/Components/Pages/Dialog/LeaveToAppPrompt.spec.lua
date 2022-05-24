@@ -29,8 +29,6 @@ return function()
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jest = JestGlobals.jest
 
-	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
-
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
 
@@ -39,7 +37,9 @@ return function()
 		Font = AppFont,
 	}
 
-	local FocusHandlerContextProvider = require(script.Parent.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
+	local FocusHandlerContextProvider = require(
+		script.Parent.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider
+	)
 	local LeaveToAppPrompt = require(script.Parent.LeaveToAppPrompt)
 
 	local getMountableTreeAndStore = function(props)
@@ -53,10 +53,9 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory and Roact.createElement(FocusHandlerContextProvider, {}, {
+					FocusHandlerContextProvider = Roact.createElement(FocusHandlerContextProvider, {}, {
 						LeaveToAppPrompt = Roact.createElement(LeaveToAppPrompt, props),
-					}) or nil,
-					LeaveToAppPrompt = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(LeaveToAppPrompt, props) or nil,
+					}),
 				}),
 			}),
 		})
@@ -118,7 +117,7 @@ return function()
 	describe("Keyboard support", function()
 		it("Pressing keyboard return should exit leave prompt", function()
 			local onConfirmSpy, onConfirm = jest.fn()
-			local element, store = getMountableTreeAndStore({onConfirm = onConfirm})
+			local element, store = getMountableTreeAndStore({ onConfirm = onConfirm })
 
 			act(function()
 				store:dispatch(SetInputType(Constants.InputType.MouseAndKeyboard))
@@ -147,9 +146,9 @@ return function()
 			if game:GetEngineFeature("VirtualInputEventsProcessed") then
 				local mockDetectURL = jest.fn()
 				local mockLinkingProtocol = {
-					detectURL = mockDetectURL
+					detectURL = mockDetectURL,
 				}
-				local element, store = getMountableTreeAndStore({linkingProtocol = mockLinkingProtocol})
+				local element, store = getMountableTreeAndStore({ linkingProtocol = mockLinkingProtocol })
 
 				act(function()
 					store:dispatch(SetInputType(Constants.InputType.MouseAndKeyboard))

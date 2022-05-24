@@ -5,7 +5,7 @@ local module = {}
 
 module.getDebuggerVariableFromSplitPath = function(path, debuggerConnection)
 	local splitPath = {}
-	for debuggerVarIdString in string.gmatch(path, "([^"..Constants.SeparationToken.."]+)") do
+	for debuggerVarIdString in string.gmatch(path, "([^" .. Constants.SeparationToken .. "]+)") do
 		table.insert(splitPath, tonumber(debuggerVarIdString))
 	end
 
@@ -19,27 +19,27 @@ end
 
 module.textMatchRow = function(filterText, rowData)
 	local lowercaseFilter = filterText:lower()
-	if (rowData.nameColumn ~= nil) then
-		if (string.find(rowData.nameColumn:lower(), lowercaseFilter) ~= nil) then
-			return true
-		end
-	end
-	
-	if (rowData.expressionColumn ~= nil) then
-		if (string.find(rowData.expressionColumn:lower(), lowercaseFilter) ~= nil) then
+	if rowData.nameColumn ~= nil then
+		if string.find(rowData.nameColumn:lower(), lowercaseFilter) ~= nil then
 			return true
 		end
 	end
 
-	if (string.find(rowData.scopeColumn:lower(), lowercaseFilter) ~= nil) then
+	if rowData.expressionColumn ~= nil then
+		if string.find(rowData.expressionColumn:lower(), lowercaseFilter) ~= nil then
+			return true
+		end
+	end
+
+	if string.find(rowData.scopeColumn:lower(), lowercaseFilter) ~= nil then
 		return true
 	end
 
-	if (string.find(rowData.valueColumn:lower(), lowercaseFilter) ~= nil) then
+	if string.find(rowData.valueColumn:lower(), lowercaseFilter) ~= nil then
 		return true
 	end
 
-	if (string.find(rowData.dataTypeColumn:lower(), lowercaseFilter) ~= nil) then
+	if string.find(rowData.dataTypeColumn:lower(), lowercaseFilter) ~= nil then
 		return true
 	end
 
@@ -48,7 +48,7 @@ end
 
 module.isScopeFiltered = function(enabledScopes, rowData)
 	assert(rowData ~= nil, ("isScopeFiltered got a nil node for path %s"):format(tostring(rowData)))
-	
+
 	for _, scope in ipairs(enabledScopes) do
 		if string.find(rowData.scopeColumn, scope) then
 			return false
@@ -57,14 +57,14 @@ module.isScopeFiltered = function(enabledScopes, rowData)
 	return true
 end
 
-module.sortTableByColumnAndOrder = function (mainTable, column, order, tableColumns, skipLastRow)
+module.sortTableByColumnAndOrder = function(mainTable, column, order, tableColumns, skipLastRow)
 	local currentOrder = order or Enum.SortDirection.Descending
 	local currentColumn = tableColumns[column] and column or 1
 	local sortValue = (tableColumns[column] and tableColumns[column]) or tableColumns[currentColumn]
 	local basedOnOrder = function(a, b, mainOrder)
 		local sort1 = a
 		local sort2 = b
-		
+
 		if type(sort1) == "boolean" then
 			-- booleans have no > or < operator
 			sort1 = sort1 and 1 or 0
@@ -78,7 +78,7 @@ module.sortTableByColumnAndOrder = function (mainTable, column, order, tableColu
 				sort2 = sort2lower
 			end
 		end
-		
+
 		if mainOrder == Enum.SortDirection.Ascending then
 			return sort1 > sort2
 		else
@@ -96,11 +96,11 @@ module.sortTableByColumnAndOrder = function (mainTable, column, order, tableColu
 				end
 			end
 			return false
-		end 
-		
+		end
+
 		return basedOnOrder(a[sortValue], b[sortValue], currentOrder)
 	end
-	
+
 	-- we skip the last row of sorting for the Expressions table (so that the empty row isn't sorted)
 	local lastRow = nil
 	if skipLastRow and #mainTable > 0 then
@@ -108,7 +108,7 @@ module.sortTableByColumnAndOrder = function (mainTable, column, order, tableColu
 	end
 
 	table.sort(mainTable, sortComp)
-	
+
 	if skipLastRow and lastRow then
 		table.insert(mainTable, lastRow)
 	end

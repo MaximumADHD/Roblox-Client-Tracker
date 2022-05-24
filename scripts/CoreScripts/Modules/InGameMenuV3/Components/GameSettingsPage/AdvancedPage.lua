@@ -36,17 +36,14 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
 
-local Flags = InGameMenu.Flags
-local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
-
 local AdvancedPage = Roact.PureComponent:extend("AdvancedPage")
 
 AdvancedPage.validateProps = t.strictInterface({
 	canCaptureFocus = t.boolean,
 	closeMenu = t.callback,
 	pageTitle = t.string,
-	currentPage = GetFFlagIGMGamepadSelectionHistory() and t.string or nil,
-	currentZone = GetFFlagIGMGamepadSelectionHistory() and t.number or nil,
+	currentPage = t.string,
+	currentZone = t.number,
 })
 
 function AdvancedPage:init()
@@ -59,16 +56,6 @@ function AdvancedPage:init()
 	self.performanceToggleRef = Roact.createRef()
 end
 
-if not GetFFlagIGMGamepadSelectionHistory() then
-	function AdvancedPage:didUpdate(prevProps)
-		if self.props.canCaptureFocus
-			and not prevProps.canCaptureFocus
-		then
-			GuiService.SelectedCoreObject = self.performanceToggleRef:getValue()
-		end
-	end
-end
-
 function AdvancedPage:renderWithSelectionCursor(getSelectionCursor)
 	return withStyle(function(style)
 		return Roact.createElement(Page, {
@@ -78,14 +65,14 @@ function AdvancedPage:renderWithSelectionCursor(getSelectionCursor)
 			buttonRef = self.backButtonRef,
 			NextSelectionDown = self.performanceToggleRef,
 		}, {
-			FocusHandler = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandler, {
+			FocusHandler = Roact.createElement(FocusHandler, {
 				isFocused = self.props.canCaptureFocus,
 				shouldForgetPreviousSelection = self.props.currentPage ~= Constants.advancedSettingsPageKey
 					or self.props.currentZone == 0,
 				didFocus = function(previousSelection)
 					GuiService.SelectedCoreObject = previousSelection or self.performanceToggleRef:getValue()
 				end,
-			}) or nil,
+			}),
 			Layout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				HorizontalAlignment = Enum.HorizontalAlignment.Right,
@@ -116,7 +103,7 @@ function AdvancedPage:renderWithSelectionCursor(getSelectionCursor)
 				end,
 			}),
 			DeveloperConsole = withLocalization({
-				text = "CoreScripts.InGameMenu.GameSettings.DeveloperConsole"
+				text = "CoreScripts.InGameMenu.GameSettings.DeveloperConsole",
 			})(function(localized)
 				return Roact.createElement("TextButton", {
 					BackgroundTransparency = 1,
@@ -178,20 +165,15 @@ return RoactRodux.UNSTABLE_connect2(function(state)
 		and not state.respawn.dialogOpen
 		and state.currentZone == 1
 
-	local currentZone = nil -- can inline when flag is removed
-	if GetFFlagIGMGamepadSelectionHistory() then
-		currentZone = state.currentZone
-	end
-
 	return {
 		canCaptureFocus = canCaptureFocus,
-		currentPage = GetFFlagIGMGamepadSelectionHistory() and state.menuPage or nil,
-		currentZone = currentZone,
+		currentPage = state.menuPage,
+		currentZone = state.currentZone,
 	}
 end, function(dispatch)
 	return {
 		closeMenu = function()
 			dispatch(CloseMenu)
-		end
+		end,
 	}
 end)(AdvancedPage)

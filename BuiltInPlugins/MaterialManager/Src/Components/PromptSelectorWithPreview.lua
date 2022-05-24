@@ -49,6 +49,7 @@ local StudioUI = Framework.StudioUI
 local Dialog = StudioUI.Dialog
 
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
+local FFlagDevFrameworkIconButtonBorderColor = game:GetFastFlag("DevFrameworkIconButtonBorderColor")
 
 type Array<T> = { [number]: T }
 
@@ -59,6 +60,8 @@ type _ExternalProps = {
 	RenderPreview : () -> FrameworkTypes.RoactElement,
 	PromptSelection : () -> (),
 	UrlSelection : (string) -> (),
+	BorderColorUrlBool : boolean,
+	BorderColorFileBool : boolean,
 	SearchUrl : string?,
 	ClearSelection : () -> (),
 	OnFocusLost : () -> (),
@@ -94,6 +97,7 @@ type _Style = {
 	ImportImageBackground : Color3,
 	ButtonIconColor : Color3,
 	ButtonIconHoveredColor : Color3,
+	BorderColorError : Color3,
 
 	ToolbarTransparency : number,
 	ToolbarBackgroundColor : Color3,
@@ -432,9 +436,23 @@ function PromptSelectorWithPreview:render()
 					OnTextChanged = props.UrlSelection,
 					Size = UDim2.new(0, importWidth, 0, buttonHeight),
 					OnFocusLost = props.OnFocusLost,
+					BorderColor = if props.BorderColorUrlBool then style.BorderColorError else nil,
 				}),
 
-				IconImport = Roact.createElement(IconButton, {
+				IconImport = if FFlagDevFrameworkIconButtonBorderColor then Roact.createElement(IconButton, {
+					Size = UDim2.new(0, importWidth, 0, buttonHeight),
+					Text = localization:getText("CreateDialog", "Import"),
+					TextXAlignment = Enum.TextXAlignment.Left,
+					LeftIcon = style.ImportIcon,
+					IconColor = style.ImportIconColor,
+					BackgroundColor = style.ButtonColor,
+					OnClick = props.PromptSelection,
+					BorderColor = if props.BorderColorFileBool then style.BorderColorError else nil,
+					Padding = {
+						Left = style.IconImportPaddingLeft,
+						Right = style.IconImportPaddingRight,
+					},
+				}) else Roact.createElement(IconButton, {
 					Size = UDim2.new(0, importWidth, 0, buttonHeight),
 					Text = localization:getText("CreateDialog", "Import"),
 					TextXAlignment = Enum.TextXAlignment.Left,

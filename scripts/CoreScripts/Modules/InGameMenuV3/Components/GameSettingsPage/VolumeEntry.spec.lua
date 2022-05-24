@@ -15,22 +15,21 @@ return function()
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
 
-	local Flags = InGameMenu.Flags
-	local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
-
 	local appStyle = {
 		Theme = AppDarkTheme,
 		Font = AppFont,
 	}
 
-	local FocusHandlerContextProvider = require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
+	local FocusHandlerContextProvider = require(
+		script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider
+	)
 	local VolumeEntry = require(script.Parent.VolumeEntry)
 
 	itSKIP("should create and destroy without errors", function()
 		local testButtonRef = Roact.createRef()
 
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = Rodux.Store.new(reducer)
+			store = Rodux.Store.new(reducer),
 		}, {
 			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 				style = appStyle,
@@ -38,20 +37,14 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+					FocusHandlerContextProvider = Roact.createElement(FocusHandlerContextProvider, {}, {
 						VolumeEntry = Roact.createElement(VolumeEntry, {
 							LayoutOrder = 9,
 							canCaptureFocus = true,
 							isMenuOpen = true,
-							buttonRef =  testButtonRef,
+							buttonRef = testButtonRef,
 						}),
-					}) or nil,
-					VolumeEntry = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(VolumeEntry, {
-						LayoutOrder = 9,
-						canCaptureFocus = true,
-						isMenuOpen = true,
-						buttonRef =  testButtonRef,
-					}) or nil,
+					}),
 				}),
 			}),
 		})
@@ -60,13 +53,11 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-
 	itSKIP("should set buttonRef properties reference to a button instance", function()
-
 		local testButtonRef = Roact.createRef()
 
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = Rodux.Store.new(reducer)
+			store = Rodux.Store.new(reducer),
 		}, {
 			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 				style = appStyle,
@@ -74,20 +65,14 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+					FocusHandlerContextProvider = Roact.createElement(FocusHandlerContextProvider, {}, {
 						VolumeEntry = Roact.createElement(VolumeEntry, {
 							LayoutOrder = 9,
 							canCaptureFocus = true,
 							isMenuOpen = true,
-							buttonRef =  testButtonRef,
+							buttonRef = testButtonRef,
 						}),
-					}) or nil,
-					VolumeEntry = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(VolumeEntry, {
-						LayoutOrder = 9,
-						canCaptureFocus = true,
-						isMenuOpen = true,
-						buttonRef =  true,
-					}) or nil,
+					}),
 				}),
 			}),
 		})

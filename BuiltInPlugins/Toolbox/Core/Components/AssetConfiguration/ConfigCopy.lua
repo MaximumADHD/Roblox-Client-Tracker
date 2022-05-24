@@ -5,7 +5,6 @@
 	ToggleCallback, function, will return current selected statue if toggled.
 ]]
 
-local FFlagAssetConfigDistributionQuotas = game:GetFastFlag("AssetConfigDistributionQuotas")
 local FStringToolboxAssetConfigDisabledAudioSharingLearnMoreLink = game:GetFastString(
 	"ToolboxAssetConfigDisabledAudioSharingLearnMoreLink"
 )
@@ -13,6 +12,7 @@ local FStringToolboxAssetConfigEnabledAudioSharingLearnMoreLink = game:GetFastSt
 	"ToolboxAssetConfigEnabledAudioSharingLearnMoreLink"
 )
 local FFlagToolboxAssetConfigurationMatchPluginFlow = game:GetFastFlag("ToolboxAssetConfigurationMatchPluginFlow")
+local FFlagToolboxAssetConfigurationFixPriceToggle = game:getFastFlag("ToolboxAssetConfigurationFixPriceToggle")
 local FFlagAssetConfigSharingDesignTweaks = game:GetFastFlag("AssetConfigSharingDesignTweaks")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -91,30 +91,34 @@ function ConfigCopy:init(props)
 			local onStatusChange = props.onStatusChange
 
 			if canChangeSalesStatus then
-				local newStatus = AssetConfigUtil.isOnSale(currentAssetStatus)
+				local newStatus
+				if FFlagToolboxAssetConfigurationFixPriceToggle then
+					newStatus = if AssetConfigUtil.isOnSale(currentAssetStatus) then AssetConfigConstants.ASSET_STATUS.OffSale else AssetConfigConstants.ASSET_STATUS.OnSale
+				else
+					newStatus = AssetConfigUtil.isOnSale(currentAssetStatus)
 						and AssetConfigConstants.ASSET_STATUS.OffSale
 					or AssetConfigConstants.ASSET_STATUS.OnSale
+				end
+
 				onStatusChange(newStatus)
 			end
 		end
 	end
 
-	if FFlagAssetConfigDistributionQuotas then
-		self.distributionQuotas = ToolboxUtilities.getAssetConfigDistributionQuotas()
+	self.distributionQuotas = ToolboxUtilities.getAssetConfigDistributionQuotas()
 
-		self.onQuotaLinkActivated = function()
-			local assetType = self.props.AssetType
-			if not assetType then
-				return
-			end
-
-			local quotaPolicyForAssetType = self.distributionQuotas[assetType.Name]
-			if not quotaPolicyForAssetType or not quotaPolicyForAssetType.link then
-				return
-			end
-
-			GuiService:OpenBrowserWindow(quotaPolicyForAssetType.link)
+	self.onQuotaLinkActivated = function()
+		local assetType = self.props.AssetType
+		if not assetType then
+			return
 		end
+
+		local quotaPolicyForAssetType = self.distributionQuotas[assetType.Name]
+		if not quotaPolicyForAssetType or not quotaPolicyForAssetType.link then
+			return
+		end
+
+		GuiService:OpenBrowserWindow(quotaPolicyForAssetType.link)
 	end
 end
 
@@ -185,7 +189,7 @@ function ConfigCopy:render()
 
 	local quotaMessageText
 	local quotaLinkText
-	if FFlagAssetConfigDistributionQuotas and assetType and CopyEnabled then
+	if assetType and CopyEnabled then
 		local quotaPolicyForAssetType = self.distributionQuotas[assetType.Name]
 		if quotaPolicyForAssetType then
 			if
@@ -290,7 +294,7 @@ function ConfigCopy:render()
 				BackgroundTransparency = 1,
 				HorizontalAlignment = Enum.HorizontalAlignment.Left,
 				Layout = Enum.FillDirection.Horizontal,
-				LayoutOrder = if FFlagAssetConfigDistributionQuotas then rightFrameLayoutOrder:getNextOrder() else 1,
+				LayoutOrder = rightFrameLayoutOrder:getNextOrder(),
 				Padding = {
 					Bottom = TIPS_SPACING,
 				},
@@ -365,9 +369,7 @@ function ConfigCopy:render()
 					TextYAlignment = Enum.TextYAlignment.Center,
 					TextSize = Constants.FONT_SIZE_LARGE,
 
-					LayoutOrder = if FFlagAssetConfigDistributionQuotas
-						then rightFrameLayoutOrder:getNextOrder()
-						else 2,
+					LayoutOrder = rightFrameLayoutOrder:getNextOrder(),
 				})
 				else Roact.createElement("TextLabel", {
 					AutomaticSize = Enum.AutomaticSize.Y,
@@ -377,21 +379,17 @@ function ConfigCopy:render()
 
 					Text = informationText,
 					TextWrapped = true,
-					TextColor3 = if FFlagAssetConfigDistributionQuotas
-						then publishAssetTheme.titleTextColor
-						else publishAssetTheme.tipsTextColor,
+					TextColor3 = publishAssetTheme.titleTextColor,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextYAlignment = Enum.TextYAlignment.Center,
 					TextSize = Constants.FONT_SIZE_LARGE,
 					Font = Constants.FONT,
 
-					LayoutOrder = if FFlagAssetConfigDistributionQuotas
-						then rightFrameLayoutOrder:getNextOrder()
-						else 2,
+					LayoutOrder = rightFrameLayoutOrder:getNextOrder(),
 				}),
 
 			LinkButton = Roact.createElement(LinkText, {
-				LayoutOrder = if FFlagAssetConfigDistributionQuotas then rightFrameLayoutOrder:getNextOrder() else 3,
+				LayoutOrder = rightFrameLayoutOrder:getNextOrder(),
 				OnClick = self.onLearnMoreActivated,
 				Text = learnMoreText,
 			}),

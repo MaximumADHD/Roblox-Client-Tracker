@@ -1,6 +1,11 @@
 -- This is taken from Roact internal implementation details as a temporary helper
 -- so that we can control warnings spew and also validate warning logs in unit tests.
 -- We should clean it up and turn it into a nice central logging facility later on.
+local FFlagLoggingRethrowUsingError = game:DefineFastFlag("LoggingRethrowUsingError", false)
+
+local function GetFFlagLoggingRethrowUsingError()
+	return game:GetFastFlag("LoggingRethrowUsingError")
+end
 
 local outputEnabled = true
 local collectors = {}
@@ -36,7 +41,13 @@ function Logging.capture(callback)
 	collectors[collector] = nil
 	outputEnabled = wasOutputEnabled
 
-	assert(success, result)
+	if GetFFlagLoggingRethrowUsingError() then
+		if not success then
+			error(result)
+		end
+	else
+		assert(success, result)
+	end
 
 	return collector
 end

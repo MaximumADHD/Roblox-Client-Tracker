@@ -5,13 +5,13 @@ local ContextServices = require(Plugin.Packages.Framework).ContextServices
 
 local Localization = ContextServices.Localization
 
-local TranslationDevelopmentTable = Plugin.Localization.TranslationDevelopmentTable
-local TranslationReferenceTable = Plugin.Localization.TranslationReferenceTable
+local SourceStrings = Plugin.Localization.SourceStrings
+local LocalizedStrings = Plugin.Localization.LocalizedStrings
 
 local localization = Localization.new({
 	pluginName = "RigBuilder",
-	stringResourceTable = TranslationDevelopmentTable,
-	translationResourceTable = TranslationReferenceTable,
+	stringResourceTable = SourceStrings,
+	translationResourceTable = LocalizedStrings,
 })
 
 

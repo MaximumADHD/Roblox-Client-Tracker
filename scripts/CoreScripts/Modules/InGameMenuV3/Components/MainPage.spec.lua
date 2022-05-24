@@ -29,7 +29,6 @@ return function()
 	local FocusHandlerContextProvider = require(script.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
 	local MainPage = require(script.Parent.MainPage)
 
-	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 	local GuiService = game:GetService("GuiService")
 
 	local CoreGui = game:GetService("CoreGui")
@@ -49,14 +48,9 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(
-						FocusHandlerContextProvider,
-						{},
-						{
-							MainPage = Roact.createElement(MainPage, props),
-						}
-					) or nil,
-					MainPage = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(MainPage, props) or nil,
+					FocusHandlerContextProvider = Roact.createElement(FocusHandlerContextProvider, {}, {
+						MainPage = Roact.createElement(MainPage, props),
+					}),
 				}),
 			}),
 		}),

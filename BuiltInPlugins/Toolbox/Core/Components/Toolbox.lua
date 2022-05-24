@@ -19,9 +19,7 @@ local MemStorageService = game:GetService("MemStorageService")
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 local FFlagToolboxRefactorSearchOptions = game:GetFastFlag("ToolboxRefactorSearchOptions")
-local FFlagToolboxAssetStyleUpdate2 = game:GetFastFlag("ToolboxAssetStyleUpdate2")
 local FFlagToolboxAudioLengthSearchFix =
 	require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioLengthSearchFix()
 
@@ -52,11 +50,10 @@ local getNetwork = ContextGetter.getNetwork
 
 local Components = Plugin.Core.Components
 local TabSet = require(Components.TabSet)
-local Footer = require(Components.Footer.Footer)
 local Header = require(Components.Header)
 local MainView = require(Components.MainView.MainView)
 local SoundPreviewComponent = require(Components.SoundPreviewComponent)
-local HomeWrapper = if FFlagToolboxAssetCategorization4 then require(Components.Home.HomeWrapper) else nil
+local HomeWrapper = require(Components.Home.HomeWrapper)
 local SearchOptions = require(Plugin.Core.Components.SearchOptions.SearchOptions)
 
 local Requests = Plugin.Core.Networking.Requests
@@ -284,11 +281,9 @@ function Toolbox:render()
 
 	local inHomeViewExperiment = false
 	local homeViewAssetTypes: { Enum.AssetType } = {}
-	local selectedAssetType = if FFlagToolboxAssetCategorization4
-		then Category.getEngineAssetType(Category.getCategoryByName(categoryName).assetType)
-		else nil
+	local selectedAssetType = Category.getEngineAssetType(Category.getCategoryByName(categoryName).assetType)
 
-	if FFlagToolboxAudioDiscovery and FFlagToolboxAssetCategorization4 then
+	if FFlagToolboxAudioDiscovery then
 		if
 			currentTabKey == Category.MARKETPLACE_KEY
 			and not ixp:isError()
@@ -317,8 +312,7 @@ function Toolbox:render()
 		end
 	else
 		if
-			FFlagToolboxAssetCategorization4
-			and currentTabKey == Category.MARKETPLACE_KEY
+			currentTabKey == Category.MARKETPLACE_KEY
 			and table.find(HomeTypes.ENABLED_ASSET_TYPES, selectedAssetType) ~= nil
 			and not ixp:isError()
 			and (not creator or creator == "")
@@ -368,34 +362,14 @@ function Toolbox:render()
 				CategoryName = categoryName,
 				Locale = locale,
 				Position = UDim2.new(0, 0, 0, headerOffset + Constants.HEADER_HEIGHT + 1),
-				Size = UDim2.new(
-					1,
-					0,
-					1,
-					-(
-							Constants.HEADER_HEIGHT
-							+ (FFlagToolboxAssetStyleUpdate2 and 0 or Constants.FOOTER_HEIGHT)
-							+ headerOffset
-							+ 2
-						)
-				),
+				Size = UDim2.new(1, 0, 1, -(Constants.HEADER_HEIGHT + headerOffset + 2)),
 				SortName = Sort.getDefaultSortNameForCategory(categoryName),
 				TryOpenAssetConfig = tryOpenAssetConfig,
 				EnabledAssetTypes = if FFlagToolboxAudioDiscovery then homeViewAssetTypes else nil,
 			})
 			else Roact.createElement(MainView, {
 				Position = UDim2.new(0, 0, 0, headerOffset + Constants.HEADER_HEIGHT + 1),
-				Size = UDim2.new(
-					1,
-					0,
-					1,
-					-(
-							Constants.HEADER_HEIGHT
-							+ (FFlagToolboxAssetStyleUpdate2 and 0 or Constants.FOOTER_HEIGHT)
-							+ headerOffset
-							+ 2
-						)
-				),
+				Size = UDim2.new(1, 0, 1, -(Constants.HEADER_HEIGHT + headerOffset + 2)),
 
 				maxWidth = toolboxWidth,
 				suggestions = suggestions,
@@ -415,18 +389,12 @@ function Toolbox:render()
 			})
 			else nil,
 
-		Footer = if not FFlagToolboxAssetStyleUpdate2
-			then Roact.createElement(Footer, {
-				backgrounds = backgrounds,
-			})
-			else nil,
-
 		AudioPreview = Roact.createElement(SoundPreviewComponent),
 	})
 end
 
 Toolbox = withContext({
-	IXP = if FFlagToolboxAssetCategorization4 then IXPContext else nil,
+	IXP = IXPContext,
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Settings = Settings,
@@ -437,10 +405,10 @@ local function mapStateToProps(state, props)
 	local pageInfo = state.pageInfo or {}
 	return {
 		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
-		creator = if FFlagToolboxAssetCategorization4 then pageInfo.creator else nil,
+		creator = pageInfo.creator,
 		audioSearchInfo = if FFlagToolboxAudioLengthSearchFix then pageInfo.audioSearchInfo else nil,
 		roles = state.roles or {},
-		searchTerm = if FFlagToolboxAssetCategorization4 then pageInfo.searchTerm or "" else nil,
+		searchTerm = pageInfo.searchTerm or "",
 		sorts = pageInfo.sorts or {},
 	}
 end

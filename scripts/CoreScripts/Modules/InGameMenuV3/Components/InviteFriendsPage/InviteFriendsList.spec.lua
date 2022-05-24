@@ -25,10 +25,10 @@ return function()
 	local Constants = require(InGameMenu.Resources.Constants)
 	local InviteStatus = Constants.InviteStatus
 
-	local FocusHandlerContextProvider = require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
+	local FocusHandlerContextProvider = require(
+		script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider
+	)
 	local InviteFriendsList = require(script.Parent.InviteFriendsList)
-
-	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 
 	it("should create and destroy without errors", function()
 		local inviteFriendsList = Roact.createElement(InviteFriendsList, {
@@ -47,11 +47,10 @@ return function()
 				},
 			},
 			canCaptureFocus = true,
-			searchBoxRef = Roact.createRef(),
 		})
 
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = Rodux.Store.new(reducer)
+			store = Rodux.Store.new(reducer),
 		}, {
 			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 				style = appStyle,
@@ -59,10 +58,9 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+					FocusHandlerContextProvider = Roact.createElement(FocusHandlerContextProvider, {}, {
 						InviteFriendsList = inviteFriendsList,
-					}) or nil,
-					InviteFriendsList = not GetFFlagIGMGamepadSelectionHistory() and inviteFriendsList or nil,
+					}),
 				}),
 			}),
 		})
@@ -71,7 +69,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should not throw erros when invite state is updated", function()
+	it("should not throw errors when invite state is updated", function()
 		local store = Rodux.Store.new(reducer)
 
 		local inviteFriendsList = Roact.createElement(InviteFriendsList, {
@@ -90,11 +88,10 @@ return function()
 				},
 			},
 			canCaptureFocus = true,
-			searchBoxRef = Roact.createRef(),
 		})
 
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = store
+			store = store,
 		}, {
 			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 				style = appStyle,
@@ -102,10 +99,9 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+					FocusHandlerContextProvider = Roact.createElement(FocusHandlerContextProvider, {}, {
 						InviteFriendsList = inviteFriendsList,
-					}) or nil,
-					InviteFriendsList = not GetFFlagIGMGamepadSelectionHistory() and inviteFriendsList or nil,
+					}),
 				}),
 			}),
 		})

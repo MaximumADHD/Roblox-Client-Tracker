@@ -13,7 +13,7 @@ local DebugConnectionListener = require(Util.DebugConnectionListener.DebugConnec
 local Mocks = Plugin.Src.Mocks
 
 local MockBreakpointManager = require(Mocks.MockBreakpointManager)
-local MockDebuggerConnection =require(Mocks.MockDebuggerConnection)
+local MockDebuggerConnection = require(Mocks.MockDebuggerConnection)
 local MockDebuggerConnectionManager = require(Mocks.MockDebuggerConnectionManager)
 local MockMetaBreakpoint = require(Mocks.MetaBreakpoint)
 local MockCrossDMScriptChangeListenerService = require(Mocks.MockCrossDMScriptChangeListenerService)
@@ -24,7 +24,12 @@ local ToggleAllBreakpoints = require(script.Parent.ToggleAllBreakpoints)
 local function fakeDebuggerConnect(store)
 	local mainConnectionManager = MockDebuggerConnectionManager.new()
 
-	local _mainListener = DebugConnectionListener.new(store, mainConnectionManager, MockDebuggerUIService.new(), MockCrossDMScriptChangeListenerService.new())
+	local _mainListener = DebugConnectionListener.new(
+		store,
+		mainConnectionManager,
+		MockDebuggerUIService.new(),
+		MockCrossDMScriptChangeListenerService.new()
+	)
 	local currentMockConnection = MockDebuggerConnection.new(1)
 	mainConnectionManager.ConnectionStarted:Fire(currentMockConnection)
 end
@@ -52,11 +57,15 @@ return function()
 
 		local mockBreakpointManager = MockBreakpointManager.new()
 		local mockCrossDMScriptChangeListenerService = MockCrossDMScriptChangeListenerService.new()
-		local _mainBreakpointListener = BreakpointManagerListener.new(store, mockBreakpointManager, mockCrossDMScriptChangeListenerService)
+		local _mainBreakpointListener = BreakpointManagerListener.new(
+			store,
+			mockBreakpointManager,
+			mockCrossDMScriptChangeListenerService
+		)
 
 		-- add breakpoints to the store
-		local metaBreakpoint1 = createMockMetaBreakpoint(1,"scriptString1", mockBreakpointManager)
-		local metaBreakpoint2 = createMockMetaBreakpoint(2,"scriptString2", mockBreakpointManager)
+		local metaBreakpoint1 = createMockMetaBreakpoint(1, "scriptString1", mockBreakpointManager)
+		local metaBreakpoint2 = createMockMetaBreakpoint(2, "scriptString2", mockBreakpointManager)
 		mockBreakpointManager.MetaBreakpointAdded:Fire(metaBreakpoint1)
 		mockBreakpointManager.MetaBreakpointAdded:Fire(metaBreakpoint2)
 

@@ -27,20 +27,17 @@ return function()
 	local RoactRodux = InGameMenuDependencies.RoactRodux
 	local Roact = InGameMenuDependencies.Roact
 	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
-	local FocusHandlerContextProvider = require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
+	local FocusHandlerContextProvider = require(
+		script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider
+	)
 	local BasicPage = require(script.Parent.Parent.GameSettingsPage.BasicPage)
 
 	local Flags = InGameMenu.Flags
-	local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 	local GetFFlagInGameMenuVRToggle = require(Flags.GetFFlagInGameMenuVRToggle)
-
 
 	local function getMountableTreeAndStore(props)
 		local store = Rodux.Store.new(reducer)
-		local basicPage = Roact.createElement(
-			BasicPage,
-			Cryo.Dictionary.join({ pageTitle = "Settings" }, props or {})
-		)
+		local basicPage = Roact.createElement(BasicPage, Cryo.Dictionary.join({ pageTitle = "Settings" }, props or {}))
 
 		return Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
@@ -51,10 +48,9 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+					FocusHandlerContextProvider = Roact.createElement(FocusHandlerContextProvider, {}, {
 						BasicPage = basicPage,
-					}) or nil,
-					BasicPage = not GetFFlagIGMGamepadSelectionHistory() and basicPage or nil,
+					}),
 				}),
 			}),
 		}),
@@ -137,12 +133,11 @@ return function()
 					VREnabled = true,
 					GetPropertyChangedSignal = function(self, propertyName)
 						return VRService:GetPropertyChangedSignal(propertyName)
-					end
-				}
+					end,
+				},
 			}
 
 			it("SelectedCoreObject gets modified by FFlagInGameMenuController if a gamepad is enabled in VR", function()
-
 				local element, store = getMountableTreeAndStore(propsForVR)
 
 				local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)

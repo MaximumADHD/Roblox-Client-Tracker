@@ -24,8 +24,8 @@ local MakeTheme = require(Main.Src.Resources.MakeTheme)
 
 local SplitPane = Framework.UI.SplitPane
 
-local TranslationDevelopmentTable = Main.Src.Resources.TranslationDevelopmentTable
-local TranslationReferenceTable = Main.Src.Resources.TranslationReferenceTable
+local SourceStrings = Main.Src.Resources.SourceStrings
+local LocalizedStrings = Main.Src.Resources.LocalizedStrings
 
 local Components = Main.Src.Components
 
@@ -76,13 +76,13 @@ function MainPlugin:init(props)
 	self.theme = MakeTheme()
 
 	self.localization = Localization.new({
-		stringResourceTable = TranslationDevelopmentTable,
-		translationResourceTable = TranslationReferenceTable,
+		stringResourceTable = SourceStrings,
+		translationResourceTable = LocalizedStrings,
 		pluginName = Main.Name,
 		libraries = {
 			[Framework.Resources.LOCALIZATION_PROJECT_NAME] = {
-				stringResourceTable = Framework.Resources.TranslationDevelopmentTable,
-				translationResourceTable = Framework.Resources.TranslationReferenceTable,
+				stringResourceTable = Framework.Resources.SourceStrings,
+				translationResourceTable = Framework.Resources.LocalizedStrings,
 			},
 		},
 	})

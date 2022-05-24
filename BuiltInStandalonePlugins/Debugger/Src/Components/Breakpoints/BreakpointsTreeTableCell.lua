@@ -35,17 +35,27 @@ function BreakpointsTreeTableCell:init()
 		local bp = bpManager:GetBreakpointById(row.item.id)
 		bp:SetContinueExecution(not row.item.continueExecution)
 	end
+
+	self.onBreakpointIconClicked = function()
+		local row = self.props.Row
+		local bpManager = game:GetService("BreakpointManager")
+		local bp = bpManager:GetBreakpointById(row.item.id)
+		BreakpointHelperFunctions.setBreakpointRowEnabled(bp, row)
+	end
 end
 
 local function fetchDebugpointIcon(row)
 	if row.item.debugpointType == "Breakpoint" then
 		if not row.item.condition or row.item.condition == "" then
-			return (row.item.isEnabled and Constants.DebugpointIconTable.breakpointEnabled) or Constants.DebugpointIconTable.breakpointDisabled
+			return (row.item.isEnabled and Constants.DebugpointIconTable.breakpointEnabled)
+				or Constants.DebugpointIconTable.breakpointDisabled
 		else
-			return (row.item.isEnabled and Constants.DebugpointIconTable.conditionalEnabled) or Constants.DebugpointIconTable.conditionalDisabled
+			return (row.item.isEnabled and Constants.DebugpointIconTable.conditionalEnabled)
+				or Constants.DebugpointIconTable.conditionalDisabled
 		end
 	else
-		return (row.item.isEnabled and Constants.DebugpointIconTable.logpointEnabled) or Constants.DebugpointIconTable.logpointDisabled
+		return (row.item.isEnabled and Constants.DebugpointIconTable.logpointEnabled)
+			or Constants.DebugpointIconTable.logpointDisabled
 	end
 end
 
@@ -64,8 +74,8 @@ function BreakpointsTreeTableCell:render()
 	local backgroundColor = ((props.RowIndex % 2) == 1) and style.BackgroundOdd or style.BackgroundEven
 	if props.HighlightCell then
 		if style[StyleModifier.Hover] then
-			backgroundColor = ((props.RowIndex % 2) == 1) and style[StyleModifier.Hover].BackgroundOdd or
-				style[StyleModifier.Hover].BackgroundEven
+			backgroundColor = ((props.RowIndex % 2) == 1) and style[StyleModifier.Hover].BackgroundOdd
+				or style[StyleModifier.Hover].BackgroundEven
 		end
 	end
 	local isExpanded = cellProps.Expansion[row.item]
@@ -77,15 +87,17 @@ function BreakpointsTreeTableCell:render()
 		local indent = row.depth * style.Indent
 		local left = style.CellPadding.Left + indent
 		if not hasChildren then
-			left = left + indent*2
+			left = left + indent * 2
 		end
 
-		local padding = isFirstCol and {
-			Top = style.CellPadding.Top,
-			Left = left,
-			Right = style.CellPadding.Right,
-			Bottom = style.CellPadding.Bottom,
-		} or style.CellPadding
+		local padding = isFirstCol
+				and {
+					Top = style.CellPadding.Top,
+					Left = left,
+					Right = style.CellPadding.Right,
+					Bottom = style.CellPadding.Bottom,
+				}
+			or style.CellPadding
 
 		local debugpointIconPath = fetchDebugpointIcon(row)
 		return Roact.createElement(Pane, {
@@ -95,11 +107,6 @@ function BreakpointsTreeTableCell:render()
 			BorderColor3 = style.Border,
 			Size = UDim2.new(width.Scale, width.Offset, 1, 0),
 			ClipsDescendants = FFlagDevFrameworkFixSplitPaneAlignment,
-			OnPress = function()
-				local bpManager = game:GetService("BreakpointManager")
-				local bp = bpManager:GetBreakpointById(row.item.id)
-				BreakpointHelperFunctions.setBreakpointRowEnabled(bp, row)
-			end,
 		}, {
 			Left = Roact.createElement(Pane, {
 				Layout = Enum.FillDirection.Horizontal,
@@ -117,20 +124,25 @@ function BreakpointsTreeTableCell:render()
 					ImageColor3 = style.Arrow.Color,
 					ImageRectSize = Vector2.new(arrowSize, arrowSize),
 					ImageRectOffset = isExpanded and style.Arrow.ExpandedOffset or style.Arrow.CollapsedOffset,
-					[Roact.Event.Activated] = self.onToggle
+					[Roact.Event.Activated] = self.onToggle,
 				}) or nil,
 				ChildCountIndicator = hasChildren and Roact.createElement(TextLabel, {
-					Text = '(x' .. #row.item.children .. ')',
+					Text = "(x" .. #row.item.children .. ")",
 					BackgroundTransparency = 1,
 					LayoutOrder = 1,
 					Size = UDim2.new(0, Constants.ICON_SIZE, 0, Constants.ICON_SIZE),
 				}),
-				BreakpointIcon = Roact.createElement(Image, {
+				BreakpointIconPane = Roact.createElement(Pane, {
 					LayoutOrder = 2,
-					Size = UDim2.new(0, Constants.ICON_SIZE, 0, Constants.ICON_SIZE),
-					Image = debugpointIconPath,
+					OnPress = self.onBreakpointIconClicked,
+					AutomaticSize = Enum.AutomaticSize.XY,
+				}, {
+					BreakpointIcon = Roact.createElement(Image, {
+						Size = UDim2.new(0, Constants.ICON_SIZE, 0, Constants.ICON_SIZE),
+						Image = debugpointIconPath,
+					}),
 				}),
-			})
+			}),
 		})
 	elseif isContinueExecutionCol then
 		return Roact.createElement(Pane, {
@@ -158,21 +170,16 @@ function BreakpointsTreeTableCell:render()
 		Style = props.Style,
 		RowIndex = props.RowIndex,
 		HighlightCell = props.HighlightCell,
-		OnRightClick = props.OnRightClick
+		OnRightClick = props.OnRightClick,
 	})
 end
 
-BreakpointsTreeTableCell = RoactRodux.connect(
-	function(state, props)
-		return {
-			-- empty
-		}
-	end,
-
-	function(dispatch)
-		return nil
-	end
-)(BreakpointsTreeTableCell)
+BreakpointsTreeTableCell = RoactRodux.connect(function(state, props)
+	return {
+		-- empty
+	}
+end, function(dispatch)
+	return nil
+end)(BreakpointsTreeTableCell)
 
 return BreakpointsTreeTableCell
-

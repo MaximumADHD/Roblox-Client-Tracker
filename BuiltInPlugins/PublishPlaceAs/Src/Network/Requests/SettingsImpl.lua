@@ -7,9 +7,6 @@
 		to save and load settings. Other implementations, such as
 		SettingsImpl_mock, can be provided to allow testing.
 ]]
-
-local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage2")
-
 local StudioService = game:GetService("StudioService")
 local StudioPublishService = game:GetService("StudioPublishService")
 
@@ -20,11 +17,6 @@ local PostContactEmail = require(Plugin.Src.Thunks.PostContactEmail)
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 local optInLocationsKey = KeyProvider.getOptInLocationsKeyName()
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
-
-local teamCreateToggleEnabled = false 
-if FIntTeamCreateTogglePercentageRollout > 0 then
-    teamCreateToggleEnabled = StudioService:GetUserIsInTeamCreateToggleRamp()
-end
 
 local UNIVERSEACTIVATE_ACCEPTED_KEYS = {
 	isActive = true,
@@ -79,9 +71,7 @@ local function saveAll(state, localization, apiImpl, email)
 		end
 	end
 
-	if teamCreateToggleEnabled then
-		game:GetService("StudioPublishService"):SetTeamCreateOnPublishInfo(state.teamCreateEnabled, configuration.name)
-	end
+	game:GetService("StudioPublishService"):SetTeamCreateOnPublishInfo(state.teamCreateEnabled, configuration.name)
 
 	StudioPublishService:setUploadNames(configuration.name, configuration.name)
 	StudioService:publishAs(0, 0, state.creatorId)

@@ -1,9 +1,4 @@
 return function()
-	local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
-	if not FFlagToolboxAssetCategorization4 then
-		return
-	end
-
 	local Plugin = script.Parent.Parent.Parent.Parent
 
 	local Packages = Plugin.Packages

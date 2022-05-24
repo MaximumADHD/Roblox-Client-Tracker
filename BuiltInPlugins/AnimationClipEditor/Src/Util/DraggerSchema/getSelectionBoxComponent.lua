@@ -2,10 +2,11 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Constants = require(Plugin.Src.Util.Constants)
 local GetFFlagBoneAdornmentSelection = require(Plugin.LuaFlags.GetFFlagBoneAdornmentSelection)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
+local GetFFlagHideBonesWithToggle = require(Plugin.LuaFlags.GetFFlagHideBonesWithToggle)
 
 return function(draggerContext, hoverSelectable)
 	--if we have hit a bone
-	if GetFFlagBoneAdornmentSelection() and hoverSelectable.parent.Name == "RBX_MICROBONE_NODES" then
+	if GetFFlagBoneAdornmentSelection() and hoverSelectable.parent.Name == "RBX_MICROBONE_NODES" and (not GetFFlagHideBonesWithToggle() or GetFFlagHideBonesWithToggle() and draggerContext.VisualizeBones) then
 		--first check if this is a bone link and then highlight the respective bone node
 		local bone = draggerContext.BoneLinksToBone[hoverSelectable.Name]
 		local folder = RigUtils.getOrCreateMicroboneFolder()

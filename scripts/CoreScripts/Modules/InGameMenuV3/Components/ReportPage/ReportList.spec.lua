@@ -24,7 +24,6 @@ return function()
 
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
-	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 
 	local appStyle = {
 		Theme = AppDarkTheme,
@@ -79,14 +78,9 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(
-						FocusHandlerContextProvider,
-						{},
-						{
-							ReportList = reportList,
-						}
-					) or nil,
-					ReportList = not GetFFlagIGMGamepadSelectionHistory() and reportList or nil,
+					FocusHandlerContextProvider = Roact.createElement(FocusHandlerContextProvider, {}, {
+						ReportList = reportList,
+					}) or nil,
 				}),
 			}),
 		}),

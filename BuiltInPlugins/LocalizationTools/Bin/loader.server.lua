@@ -12,14 +12,14 @@ local RunService = game:GetService("RunService")
 local PLUGIN_ICON = "rbxasset://textures/localizationTestingIcon.png"
 
 local PluginLoaderBuilder = require(Plugin.PluginLoader.PluginLoaderBuilder)
-local TranslationDevelopmentTable = Plugin.Src.Resources.Localization.TranslationDevelopmentTable
-local TranslationReferenceTable = Plugin.Src.Resources.Localization.TranslationReferenceTable
+local SourceStrings = Plugin.Src.Resources.Localization.SourceStrings
+local LocalizedStrings = Plugin.Src.Resources.Localization.LocalizedStrings
 
 local args : PluginLoaderBuilder.Args = {
 	plugin = plugin,
 	pluginName = "LocalizationTools",
-	translationResourceTable = TranslationReferenceTable,
-	fallbackResourceTable = TranslationDevelopmentTable,
+	translationResourceTable = LocalizedStrings,
+	fallbackResourceTable = SourceStrings,
 	overrideLocaleId = nil,
 	localizationNamespace = nil,
 	getToolbarName = function(getLocalizedText, namespace, pluginName)
@@ -62,4 +62,3 @@ end
 
 local main = require(script.Parent.main)
 main(plugin, pluginLoaderContext)
-

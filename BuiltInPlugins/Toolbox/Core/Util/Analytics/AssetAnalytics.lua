@@ -1,7 +1,6 @@
 --!nocheck
 -- TODO STM-151: Re-enable Luau Type Checks when Luau bugs are fixed
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
-local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
 
 local HttpService = game:GetService("HttpService")
@@ -99,42 +98,40 @@ function AssetAnalytics.mock()
 	return AssetAnalytics.new(stubSenders)
 end
 
-if FFlagToolboxAssetCategorization4 then
-	function AssetAnalytics.getNavigationContext(navigation: any, swimlaneCategory: string): NavigationData
-		local function stackContainsView(viewName, successCallback)
-			return function(view)
-				if view == viewName then
-					successCallback()
-					return
-				end
+function AssetAnalytics.getNavigationContext(navigation: any, swimlaneCategory: string): NavigationData
+	local function stackContainsView(viewName, successCallback)
+		return function(view)
+			if view == viewName then
+				successCallback()
+				return
 			end
 		end
-
-		local navBreadcrumbs = navigation:getBreadcrumbRoute()
-
-		local containSeeAll = false
-		table.foreach(
-			navBreadcrumbs,
-			stackContainsView(Constants.NAVIGATION.RESULTS, function()
-				containSeeAll = true
-			end)
-		)
-
-		local containSeeAllSubcategory = false
-		table.foreach(
-			navBreadcrumbs,
-			stackContainsView(Constants.NAVIGATION.ALL_SUBCATEGORIES, function()
-				containSeeAllSubcategory = true
-			end)
-		)
-
-		return {
-			navBreadcrumbs = HttpService:JSONEncode(navBreadcrumbs),
-			navSwimlane = swimlaneCategory,
-			navSeeAll = containSeeAll,
-			navSeeAllSubcategory = containSeeAllSubcategory,
-		}
 	end
+
+	local navBreadcrumbs = navigation:getBreadcrumbRoute()
+
+	local containSeeAll = false
+	table.foreach(
+		navBreadcrumbs,
+		stackContainsView(Constants.NAVIGATION.RESULTS, function()
+			containSeeAll = true
+		end)
+	)
+
+	local containSeeAllSubcategory = false
+	table.foreach(
+		navBreadcrumbs,
+		stackContainsView(Constants.NAVIGATION.ALL_SUBCATEGORIES, function()
+			containSeeAllSubcategory = true
+		end)
+	)
+
+	return {
+		navBreadcrumbs = HttpService:JSONEncode(navBreadcrumbs),
+		navSwimlane = swimlaneCategory,
+		navSeeAll = containSeeAll,
+		navSeeAllSubcategory = containSeeAllSubcategory,
+	}
 end
 
 function AssetAnalytics.schedule(delayS: number, callback: () -> any)
@@ -265,9 +262,7 @@ function AssetAnalytics:logImpression(assetData: AssetData, assetAnalyticsContex
 		trackingAttributes = AssetAnalytics.getTrackingAttributes(assetData)
 	end
 
-	if FFlagToolboxAssetCategorization4 then
-		trackingAttributes = Dash.join(trackingAttributes, navigationData or {})
-	end
+	trackingAttributes = Dash.join(trackingAttributes, navigationData or {})
 
 	if not search.impressions[assetId] then
 		self.senders.sendEventDeferred(EVENT_TARGET, EVENT_CONTEXT, "MarketplaceAssetImpression", trackingAttributes)
@@ -304,16 +299,9 @@ function AssetAnalytics:logInsert(
 		return
 	end
 
-	local insertionAttributes
-	if FFlagToolboxAssetCategorization4 then
-		insertionAttributes = Cryo.Dictionary.join({
-			method = insertionMethod,
-		}, AssetAnalytics.getTrackingAttributes(assetData, assetAnalyticsContext), navigationData or {})
-	else
-		insertionAttributes = Cryo.Dictionary.join({
-			method = insertionMethod,
-		}, AssetAnalytics.getTrackingAttributes(assetData, assetAnalyticsContext))
-	end
+	local insertionAttributes = Cryo.Dictionary.join({
+		method = insertionMethod,
+	}, AssetAnalytics.getTrackingAttributes(assetData, assetAnalyticsContext), navigationData or {})
 
 	self.senders.sendEventDeferred(EVENT_TARGET, EVENT_CONTEXT, "MarketplaceInsert", insertionAttributes)
 
@@ -401,7 +389,6 @@ end
 
 if FFlagToolboxAudioDiscoveryRound2 and FFlagToolboxHomeViewAnalyticsUpdate then
 	function AssetAnalytics:onCallToActionBannerClicked(creatorId: number)
-		print(creatorId)
 		self.senders.sendEventDeferred(EVENT_TARGET, EVENT_CONTEXT, "CallToActionBannerClicked", {
 			creatorId = creatorId,
 		})

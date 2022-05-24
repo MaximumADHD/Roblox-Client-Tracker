@@ -16,14 +16,14 @@ local ControlledTabs = require(script.Parent.ControlledTabs)
 local ScopeDropdownField = require(script.Parent.ScopeDropdownField)
 local SearchBarField = require(script.Parent.SearchBarField)
 
+local Constants = require(Plugin.Src.Util.Constants)
+
 local WatchComponent = Roact.PureComponent:extend("WatchComponent")
 
 -- Type Declarations
-export type WatchTab = { string : string }
+export type WatchTab = { string: string }
 
 -- Constants
-local HEADER_HEIGHT = 32
-
 local MINIMUM_WIDTH_FOR_TEXT_DROPDOWN = 527
 local MINIMUM_WIDTH_FOR_SEARCHBAR_AND_ICON = 420
 
@@ -47,7 +47,7 @@ function WatchComponent:init()
 	self.calculateVisibleComponents = function()
 		local currentWindow = self.componentRef.current
 		local windowLength = currentWindow.AbsoluteSize.x
-		if(currentWindow == nil) then
+		if currentWindow == nil then
 			return
 		end
 		local shouldShowDropdown = self.state.shouldShowDropdown
@@ -96,7 +96,7 @@ function WatchComponent:render()
 	local props = self.props
 	local localization = props.Localization
 	local style = props.Stylizer
-	
+
 	local WatchTab = {
 		Variables = localization:getText("Watch", "VariablesTab"),
 		Watches = localization:getText("Watch", "WatchesTab"),
@@ -111,18 +111,22 @@ function WatchComponent:render()
 			Key = "Watches",
 		},
 	}
+
+	local topBarHeight = Constants.HEADER_HEIGHT + Constants.BUTTON_PADDING * 2
+
 	return Roact.createElement(Pane, {
 		Size = UDim2.fromScale(1, 1),
 		Style = "Box",
 		Layout = Enum.FillDirection.Vertical,
-		Padding = 2,
 		[Roact.Ref] = self.componentRef,
 		[Roact.Change.AbsoluteSize] = self.calculateVisibleComponents,
 	}, {
 		HeaderView = Roact.createElement(Pane, {
 			LayoutOrder = 1,
-			Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
+			Size = UDim2.new(1, 0, 0, topBarHeight),
 			Style = "Box",
+			Spacing = Constants.BUTTON_PADDING,
+			Padding = Constants.BUTTON_PADDING,
 		}, {
 			TabView = Roact.createElement(ControlledTabs, {
 				LayoutOrder = 1,
@@ -138,27 +142,27 @@ function WatchComponent:render()
 				Layout = Enum.FillDirection.Horizontal,
 				Spacing = 10,
 			}, {
-				DropdownView = (self.state.shouldShowDropdown or self.state.shouldShowDropdownIcon) and Roact.createElement(ScopeDropdownField, {
-					LayoutOrder = 1,
-					Size = UDim2.new(0.4, 0, 1, 0),
-					ShouldShowDropdownIcon = self.state.shouldShowDropdownIcon,
-				}),
+				DropdownView = (self.state.shouldShowDropdown or self.state.shouldShowDropdownIcon)
+					and Roact.createElement(ScopeDropdownField, {
+						LayoutOrder = 1,
+						Size = UDim2.new(0.4, 0, 1, 0),
+						ShouldShowDropdownIcon = self.state.shouldShowDropdownIcon,
+					}),
 				SearchBarView = self.state.shouldShowSearchBar and Roact.createElement(SearchBarField, {
 					LayoutOrder = 2,
 					Size = UDim2.new(0.6, 0, 1, 0),
 				}),
-			})
+			}),
 		}),
 
 		BodyView = Roact.createElement(Pane, {
 			LayoutOrder = 2,
-			Size = UDim2.new(1, 0, 1, -1 * HEADER_HEIGHT),
-			Padding = 0,
+			Size = UDim2.new(1, 0, 1, -topBarHeight),
 			Style = "Box",
 		}, {
 			DisplayTableView = Roact.createElement(DisplayTable, {
 				Stylizer = style,
-			})
+			}),
 		}),
 	})
 end

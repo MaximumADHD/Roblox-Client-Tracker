@@ -24,17 +24,17 @@ type FrameNumber = number
 type DebuggerConnectionId = number
 
 type ThreadIdToFrameMap = {
-	[ThreadId] : FrameNumber
+	[ThreadId]: FrameNumber,
 }
 
 type CommonStore = {
-	debuggerConnectionIdToDST : {[DebuggerConnectionId] : DebuggerStateToken.DebuggerStateToken},
-	currentDebuggerConnectionId : number,
-	debuggerConnectionIdToCurrentThreadId : {[DebuggerConnectionId] : number},
-	currentFrameMap : {[DebuggerConnectionId] : ThreadIdToFrameMap},
-	currentBreakpointId : number,
-	isPaused : boolean,
-	pausedDebuggerConnectionIds : {[DebuggerConnectionId] : DebuggerConnectionId},
+	debuggerConnectionIdToDST: { [DebuggerConnectionId]: DebuggerStateToken.DebuggerStateToken },
+	currentDebuggerConnectionId: number,
+	debuggerConnectionIdToCurrentThreadId: { [DebuggerConnectionId]: number },
+	currentFrameMap: { [DebuggerConnectionId]: ThreadIdToFrameMap },
+	currentBreakpointId: number,
+	isPaused: boolean,
+	pausedDebuggerConnectionIds: { [DebuggerConnectionId]: DebuggerConnectionId },
 }
 
 local productionStartStore = {
@@ -48,7 +48,7 @@ local productionStartStore = {
 }
 
 return Rodux.createReducer(productionStartStore, {
-	[SetCurrentThreadAction.name] = function(state : CommonStore, action : SetCurrentThreadAction.Props)
+	[SetCurrentThreadAction.name] = function(state: CommonStore, action: SetCurrentThreadAction.Props)
 		local newThreadMap = deepCopy(state.debuggerConnectionIdToCurrentThreadId)
 		newThreadMap[state.currentDebuggerConnectionId] = action.currentThreadId
 
@@ -57,7 +57,7 @@ return Rodux.createReducer(productionStartStore, {
 		})
 	end,
 
-	[SetCurrentFrameNumberAction.name] = function(state : CommonStore, action : SetCurrentFrameNumberAction.Props)
+	[SetCurrentFrameNumberAction.name] = function(state: CommonStore, action: SetCurrentFrameNumberAction.Props)
 		local newCurrentFrameMap = deepCopy(state.currentFrameMap)
 
 		assert(newCurrentFrameMap[state.currentDebuggerConnectionId] ~= nil)
@@ -65,21 +65,27 @@ return Rodux.createReducer(productionStartStore, {
 		newCurrentFrameMap[state.currentDebuggerConnectionId][action.threadId] = action.currentFrame
 
 		return Cryo.Dictionary.join(state, {
-			currentFrameMap = newCurrentFrameMap
+			currentFrameMap = newCurrentFrameMap,
 		})
 	end,
 
-	[ResumedAction.name] = function(state : CommonStore, action)
+	[ResumedAction.name] = function(state: CommonStore, action)
 		return Cryo.Dictionary.join(state, {
-			debuggerConnectionIdToDST = Cryo.Dictionary.join(state.debuggerConnectionIdToDST, {[action.debuggerStateToken.debuggerConnectionId] = Cryo.None}),
+			debuggerConnectionIdToDST = Cryo.Dictionary.join(
+				state.debuggerConnectionIdToDST,
+				{ [action.debuggerStateToken.debuggerConnectionId] = Cryo.None }
+			),
 			debuggerConnectionIdToCurrentThreadId = {},
 			currentFrameMap = {},
 			isPaused = false,
-			pausedDebuggerConnectionIds = Cryo.Dictionary.join(state.pausedDebuggerConnectionIds, {[action.debuggerStateToken.debuggerConnectionId] = Cryo.None}),
+			pausedDebuggerConnectionIds = Cryo.Dictionary.join(
+				state.pausedDebuggerConnectionIds,
+				{ [action.debuggerStateToken.debuggerConnectionId] = Cryo.None }
+			),
 		})
 	end,
 
-	[ClearConnectionDataAction.name] = function(state : CommonStore, action)
+	[ClearConnectionDataAction.name] = function(state: CommonStore, action)
 		local removedConnectionId = action.debuggerStateToken.debuggerConnectionId
 		local shouldBePaused = state.isPaused
 		local newFocusedConnectionId = state.currentDebuggerConnectionId
@@ -87,46 +93,64 @@ return Rodux.createReducer(productionStartStore, {
 			newFocusedConnectionId = -1
 			shouldBePaused = false
 		end
-		local newPausedDebuggerConnectionIds = Cryo.Dictionary.join(state.pausedDebuggerConnectionIds, {[removedConnectionId] = Cryo.None})
+		local newPausedDebuggerConnectionIds = Cryo.Dictionary.join(
+			state.pausedDebuggerConnectionIds,
+			{ [removedConnectionId] = Cryo.None }
+		)
 		if next(newPausedDebuggerConnectionIds) == nil then
 			shouldBePaused = false
 		end
 		return Cryo.Dictionary.join(state, {
-			debuggerConnectionIdToDST = Cryo.Dictionary.join(state.debuggerConnectionIdToDST, {[removedConnectionId] = Cryo.None}),
+			debuggerConnectionIdToDST = Cryo.Dictionary.join(
+				state.debuggerConnectionIdToDST,
+				{ [removedConnectionId] = Cryo.None }
+			),
 			currentDebuggerConnectionId = newFocusedConnectionId,
-			debuggerConnectionIdToCurrentThreadId = Cryo.List.removeValue(state.debuggerConnectionIdToCurrentThreadId, removedConnectionId),
+			debuggerConnectionIdToCurrentThreadId = Cryo.List.removeValue(
+				state.debuggerConnectionIdToCurrentThreadId,
+				removedConnectionId
+			),
 			currentFrameMap = Cryo.List.removeValue(state.currentFrameMap, removedConnectionId),
 			isPaused = shouldBePaused,
 			pausedDebuggerConnectionIds = newPausedDebuggerConnectionIds,
 		})
 	end,
 
-	[SimPaused.name] = function(state : CommonStore, action : SimPaused.Props)
+	[SimPaused.name] = function(state: CommonStore, action: SimPaused.Props)
 		local pausedConnectionId = action.debuggerStateToken.debuggerConnectionId
 		return Cryo.Dictionary.join(state, {
-			debuggerConnectionIdToDST = Cryo.Dictionary.join(state.debuggerConnectionIdToDST, {[action.debuggerStateToken.debuggerConnectionId] = action.debuggerStateToken}),
+			debuggerConnectionIdToDST = Cryo.Dictionary.join(
+				state.debuggerConnectionIdToDST,
+				{ [action.debuggerStateToken.debuggerConnectionId] = action.debuggerStateToken }
+			),
 			isPaused = true,
-			pausedDebuggerConnectionIds = Cryo.Dictionary.join(state.pausedDebuggerConnectionIds, {[pausedConnectionId] = pausedConnectionId}),
-			debuggerConnectionIdToCurrentThreadId = Cryo.Dictionary.join(state.debuggerConnectionIdToDST, {[pausedConnectionId] = nil}),
-			currentFrameMap = Cryo.Dictionary.join(state.currentFrameMap, {[pausedConnectionId] = nil}),
+			pausedDebuggerConnectionIds = Cryo.Dictionary.join(
+				state.pausedDebuggerConnectionIds,
+				{ [pausedConnectionId] = pausedConnectionId }
+			),
+			debuggerConnectionIdToCurrentThreadId = Cryo.Dictionary.join(
+				state.debuggerConnectionIdToDST,
+				{ [pausedConnectionId] = nil }
+			),
+			currentFrameMap = Cryo.Dictionary.join(state.currentFrameMap, { [pausedConnectionId] = nil }),
 		})
 	end,
 
-	[SetCurrentBreakpointId.name] = function(state : CommonStore, action : SetCurrentBreakpointId.Props)
-		return Cryo.Dictionary.join(state, {currentBreakpointId = action.breakpointId})
+	[SetCurrentBreakpointId.name] = function(state: CommonStore, action: SetCurrentBreakpointId.Props)
+		return Cryo.Dictionary.join(state, { currentBreakpointId = action.breakpointId })
 	end,
 
-	[SetPausedState.name] = function(state : CommonStore, action : SetPausedState.Props)
-		return Cryo.Dictionary.join(state, {isPaused = action.pause})
+	[SetPausedState.name] = function(state: CommonStore, action: SetPausedState.Props)
+		return Cryo.Dictionary.join(state, { isPaused = action.pause })
 	end,
 
-	[AddThreadIdAction.name] = function(state : CommonStore, action : AddThreadIdAction.Props)
+	[AddThreadIdAction.name] = function(state: CommonStore, action: AddThreadIdAction.Props)
 		local newState = {}
 		newState.debuggerConnectionIdToCurrentThreadId = deepCopy(state.debuggerConnectionIdToCurrentThreadId)
 		assert(newState.debuggerConnectionIdToCurrentThreadId[state.currentDebuggerConnectionId] ~= action.threadId)
 
 		-- only overwrite the curent threadId if there is none
-		if (newState.debuggerConnectionIdToCurrentThreadId[state.currentDebuggerConnectionId] == nil) then
+		if newState.debuggerConnectionIdToCurrentThreadId[state.currentDebuggerConnectionId] == nil then
 			newState.debuggerConnectionIdToCurrentThreadId[state.currentDebuggerConnectionId] = action.threadId
 		end
 
@@ -139,9 +163,9 @@ return Rodux.createReducer(productionStartStore, {
 		return Cryo.Dictionary.join(state, newState)
 	end,
 
-	[SetFocusedDebuggerConnection.name] = function(state : CommonStore, action : SetFocusedDebuggerConnection.Props)
+	[SetFocusedDebuggerConnection.name] = function(state: CommonStore, action: SetFocusedDebuggerConnection.Props)
 		return Cryo.Dictionary.join(state, {
-			currentDebuggerConnectionId = action.debuggerConnectionId
+			currentDebuggerConnectionId = action.debuggerConnectionId,
 		})
 	end,
 })

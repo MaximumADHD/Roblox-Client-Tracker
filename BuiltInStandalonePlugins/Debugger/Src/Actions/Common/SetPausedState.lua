@@ -4,10 +4,10 @@ local Util = Framework.Util
 local Action = Util.Action
 
 export type Props = {
-	pause : boolean
+	pause: boolean,
 }
 
-return Action(script.Name, function(pause : boolean) : Props
+return Action(script.Name, function(pause: boolean): Props
 	return {
 		pause = pause,
 	}

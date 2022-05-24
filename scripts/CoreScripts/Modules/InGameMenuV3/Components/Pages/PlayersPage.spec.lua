@@ -38,8 +38,6 @@ return function()
 		InGameMenu.Components.Connection.FocusHandlerUtils.FocusHandlerContextProvider
 	)
 	local PlayersPage = require(script.Parent.PlayersPage)
-
-	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 	local GuiService = game:GetService("GuiService")
 
 	local localPlayer = {
@@ -81,14 +79,9 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(
-						FocusHandlerContextProvider,
-						{},
-						{
-							PlayersPage = playersPage,
-						}
-					) or nil,
-					PlayersPage = not GetFFlagIGMGamepadSelectionHistory() and playersPage or nil,
+					FocusHandlerContextProvider = Roact.createElement(FocusHandlerContextProvider, {}, {
+						PlayersPage = playersPage,
+					}),
 				}),
 			}),
 		}),
@@ -112,7 +105,7 @@ return function()
 			jestExpect(#Players.LocalPlayer.PlayerGui:GetChildren()).toEqual(1)
 
 			-- check for a few things we expect to find at various places in the tree
-			jestExpect(Players.LocalPlayer.PlayerGui:FindFirstChild("PageTitle", true)).toBeDefined()
+			jestExpect(Players.LocalPlayer.PlayerGui:FindFirstChild("PageHeader", true)).toBeDefined()
 			jestExpect(Players.LocalPlayer.PlayerGui:FindFirstChild("PlayerIcon", true)).toBeDefined()
 			jestExpect(Players.LocalPlayer.PlayerGui:FindFirstChild("PlayerList", true)).toBeDefined()
 
@@ -131,9 +124,9 @@ return function()
 			local renderedPlayersPage = Players.LocalPlayer.PlayerGui:GetChildren()[1]
 			jestExpect(renderedPlayersPage).toBeDefined()
 
-			local renderedTitle = renderedPlayersPage:FindFirstChild("PageTitle", true)
-			jestExpect(renderedTitle).toBeDefined()
-			jestExpect(renderedTitle.text).toEqual("People")
+			local renderedHeader = renderedPlayersPage:FindFirstChild("PageHeader", true)
+			jestExpect(renderedHeader).toBeDefined()
+			jestExpect(renderedHeader.ThreeSectionBar.centerFrame.centerContent.Text).toEqual("People")
 
 			local renderedPlayerListContent = renderedPlayersPage:FindFirstChild("PlayerListContent", true)
 			jestExpect(renderedPlayerListContent).toBeDefined()

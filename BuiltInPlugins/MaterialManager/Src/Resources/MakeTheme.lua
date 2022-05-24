@@ -28,6 +28,7 @@ local LightTheme = Style.Themes.LightTheme
 local StyleKey = Style.StyleKey
 
 local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Plugin.Src.Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
+local FFlagDevFrameworkIconButtonBorderColor = game:GetFastFlag("DevFrameworkIconButtonBorderColor")
 
 local devFrameworkRoundBox = getRawComponentStyle("RoundBox")
 local devFrameworkSelectInput = getRawComponentStyle("SelectInput")
@@ -81,6 +82,14 @@ local function getPluginTheme()
 			PlaceholderTextColor = StyleKey.ButtonText,
 			BackgroundStyle = join(roundBox, {
 				Color = StyleKey.SelectInputBackgroundColor,
+			}),
+		}),
+
+		CustomSelectInputError = join(selectInput, {
+			PlaceholderTextColor = StyleKey.ButtonText,
+			BackgroundStyle = join(roundBox, {
+				Color = StyleKey.SelectInputBackgroundColor,
+				BorderColor = StyleKey.ErrorText,
 			}),
 		}),
 
@@ -215,7 +224,8 @@ local function getPluginTheme()
 			IconImportPaddingRight = 55,
 
 			ButtonIconColor = StyleKey.Icon,
-			ButtonIconHoveredColor = StyleKey.ButtonHover,
+			ButtonIconHoveredColor = if FFlagDevFrameworkIconButtonBorderColor then Color3.fromRGB(255, 255, 255) else StyleKey.ButtonHover,
+			BorderColorError = if FFlagDevFrameworkIconButtonBorderColor then StyleKey.ErrorText else nil,
 
 			ToolbarTransparency = 0.4,
 			ToolbarBackgroundColor = StyleKey.ToolbarBackgroundColor,

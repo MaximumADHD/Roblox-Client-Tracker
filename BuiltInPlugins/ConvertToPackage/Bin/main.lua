@@ -3,6 +3,8 @@ return function(plugin, pluginLoaderContext)
 		return
 	end
 
+	local FFlagDebugBuiltInPluginModalsNotBlocking = game:GetFastFlag("DebugBuiltInPluginModalsNotBlocking")
+
 	local Plugin = script.Parent.Parent
 	local Roact = require(Plugin.Packages.Roact)
 	local Rodux = require(Plugin.Packages.Rodux)
@@ -17,8 +19,8 @@ return function(plugin, pluginLoaderContext)
 	local NetworkInterface = require(Plugin.Src.Networking.NetworkInterface)
 
 	-- localization
-	local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
-	local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
+	local SourceStrings = Plugin.Src.Resources.SourceStrings
+	local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 	local Localization = UILibrary.Studio.Localization
 
 	local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
@@ -26,8 +28,8 @@ return function(plugin, pluginLoaderContext)
 	local ScreenSelect = require(Plugin.Src.Components.ConvertToPackageWindow.ScreenSelect)
 
 	local localization = Localization.new({
-		stringResourceTable = TranslationDevelopmentTable,
-		translationResourceTable = TranslationReferenceTable,
+		stringResourceTable = SourceStrings,
+		translationResourceTable = LocalizedStrings,
 		pluginName = Plugin.Name,
 	})
 
@@ -39,7 +41,7 @@ return function(plugin, pluginLoaderContext)
 			Size = Vector2.new(960, 600),
 			MinSize = Vector2.new(960, 600),
 			Resizable = true,
-			Modal = true,
+			Modal = not FFlagDebugBuiltInPluginModalsNotBlocking,
 			InitialEnabled = false,
 		})
 
@@ -114,7 +116,7 @@ return function(plugin, pluginLoaderContext)
 			function(instances, name, clonedInstances)
 				openAssetConfigWindow(instances, name, clonedInstances)
 			end
-		)		
+		)
 	end
 
 	main()

@@ -4,11 +4,11 @@ local Util = Framework.Util
 local Action = Util.Action
 
 export type Props = {
-	listOfEnabledColumns : {string}
+	listOfEnabledColumns: { string },
 }
 
-return Action(script.Name, function(listOfEnabledColumns : {string})
+return Action(script.Name, function(listOfEnabledColumns: { string })
 	return {
-		listOfEnabledColumns = listOfEnabledColumns
+		listOfEnabledColumns = listOfEnabledColumns,
 	}
 end)

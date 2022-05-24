@@ -13,13 +13,15 @@ local Cryo = require(Plugin.Packages.Cryo)
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
-local Separator = require(Plugin.Packages.Framework).UI.Separator
-local Pane = require(Plugin.Packages.Framework).UI.Pane
-local RadioButtonList = require(Plugin.Packages.Framework).UI.RadioButtonList
-local TextLabel = require(Plugin.Packages.Framework).UI.Decoration.TextLabel
+local UI = Framework.UI
+local Pane = UI.Pane
+local RadioButtonList = UI.RadioButtonList
+local Separator = UI.Separator
+local TextLabel = UI.Decoration.TextLabel
+
 local GameOwnerWidget = require(Page.Components.GameOwnerWidget)
 local CollaboratorsWidget = require(Page.Components.CollaboratorsWidget)
-local SearchbarWidget = require(Page.Components.CollaboratorSearchWidget)
+local CollaboratorSearchWidget = require(Page.Components.CollaboratorSearchWidget)
 
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
 
@@ -296,7 +298,6 @@ function Permissions:render()
 					VerticalAlignment = Enum.VerticalAlignment.Top,
 				}, {
 					Title = Roact.createElement(TextLabel, {
-						BackgroundTransparency = 1,
 						Style = "SubText",
 						Text = localization:getText("General", "TitlePlayability"),
 						TextSize = theme.fontStyle.Subtitle.TextSize,
@@ -312,7 +313,6 @@ function Permissions:render()
 						Spacing = theme.playabilityWidget.buttonPane.spacing,
 					}, {
 						Header = Roact.createElement(TextLabel, {
-							BackgroundTransparency = 1,
 							LayoutOrder = 0,
 							Style = "Title",
 							Text = localization:getText("General", "PlayabilityHeader"),
@@ -345,7 +345,6 @@ function Permissions:render()
 					})
 				}),
 				PlayabilityWarning = playabilityWarningVisible and Roact.createElement(TextLabel, {
-					BackgroundTransparency = 1,
 					LayoutOrder = 15,
 					Style = "SubText",
 					Text = localization:getText("AccessPermissions", "PlayabilityWarning"),
@@ -357,7 +356,6 @@ function Permissions:render()
 
 			Separator1 = Roact.createElement(Separator, {
 				LayoutOrder = 20,
-				Size = UDim2.new(1, 0, 0, 1),
 			}),
 
 			OwnerWidget = Roact.createElement(GameOwnerWidget, {
@@ -368,7 +366,6 @@ function Permissions:render()
 
 			Separator2 = Roact.createElement(Separator, {
 				LayoutOrder = 40,
-				Size = UDim2.new(1, 0, 0, 1),
 			}),
 
 			TeamCreateWarning = teamCreateWarningVisible and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
@@ -379,7 +376,7 @@ function Permissions:render()
 				LayoutOrder = 50,
 			})),
 
-			SearchbarWidget = canUserEditCollaborators and Roact.createElement(SearchbarWidget, {
+			SearchbarWidget = canUserEditCollaborators and Roact.createElement(CollaboratorSearchWidget, {
 				LayoutOrder = 50,
 				Writable = true,
 			}),

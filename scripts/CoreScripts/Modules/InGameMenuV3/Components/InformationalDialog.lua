@@ -13,8 +13,6 @@ local t = InGameMenuDependencies.t
 local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent
-local Flags = InGameMenu.Flags
-local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 local Constants = require(InGameMenu.Resources.Constants)
 local Assets = require(InGameMenu.Resources.Assets)
 
@@ -69,7 +67,7 @@ function InformationalDialog:init()
 	self.onAncestryChanged = function(instance)
 		if instance:IsDescendantOf(game) then
 			self:setState({
-				isRooted = true
+				isRooted = true,
 			})
 		end
 	end
@@ -100,11 +98,6 @@ function InformationalDialog:render()
 		local bodyTextContainerHeight = BOTTOM_PADDING + math.max(textHeight, bodyFontSize * 2)
 		local subBodyTextContainerHeight = BOTTOM_PADDING + math.max(subTextHeight, bodyFontSize * 2)
 
-		local shouldForgetPreviousSelection = nil -- can be inlined when GetFFlagIGMGamepadSelectionHistory is removed
-		if GetFFlagIGMGamepadSelectionHistory() then
-			shouldForgetPreviousSelection = not self.props.visible
-		end
-
 		return Roact.createElement(Roact.Portal, {
 			target = CoreGui,
 		}, {
@@ -131,7 +124,18 @@ function InformationalDialog:render()
 					ImageTransparency = style.Theme.BackgroundUIDefault.Transparency,
 					Position = UDim2.new(0.5, 0, 0.5, 0),
 					ScaleType = Assets.Images.RoundedRect.ScaleType,
-					Size = UDim2.new(0, TEXT_HEIGHT, 0, TITLE_BAR + DIVIDER + bodyTextContainerHeight + subBodyTextContainerHeight + BUTTON_CONTAINER_SIZE + 3.5 * BOTTOM_PADDING + props.iconSize),
+					Size = UDim2.new(
+						0,
+						TEXT_HEIGHT,
+						0,
+						TITLE_BAR
+							+ DIVIDER
+							+ bodyTextContainerHeight
+							+ subBodyTextContainerHeight
+							+ BUTTON_CONTAINER_SIZE
+							+ 3.5 * BOTTOM_PADDING
+							+ props.iconSize
+					),
 					SliceCenter = Assets.Images.RoundedRect.SliceCenter,
 				}, {
 					Padding = Roact.createElement("UIPadding", {
@@ -183,7 +187,7 @@ function InformationalDialog:render()
 							Size = UDim2.new(1, 0, 1, 0),
 							Text = props.bodyText,
 							TextWrapped = true,
-						})
+						}),
 					}),
 					SubBodyTextContainer = Roact.createElement("Frame", {
 						BackgroundTransparency = 1,
@@ -194,7 +198,7 @@ function InformationalDialog:render()
 							Size = UDim2.new(1, 0, 1, 0),
 							Text = props.subBodyText,
 							TextWrapped = true,
-						})
+						}),
 					}),
 					SpaceContainer2 = Roact.createElement("Frame", {
 						BackgroundTransparency = 1,
@@ -221,7 +225,7 @@ function InformationalDialog:render()
 							text = props.confirmText,
 							onActivated = function()
 								self:setState({
-									show = false
+									show = false,
 								})
 								if self.props.onContinueFunc then
 									self.props.onContinueFunc()
@@ -237,14 +241,14 @@ function InformationalDialog:render()
 				isFocused = self.state.isRooted
 					and self.props.visible
 					and self.props.inputType == Constants.InputType.Gamepad,
-				shouldForgetPreviousSelection = shouldForgetPreviousSelection,
+				shouldForgetPreviousSelection = not self.props.visible,
 				didFocus = function()
 					GuiService:RemoveSelectionGroup(BUTTONS_SELECTION_PARENT)
 					GuiService:AddSelectionParent(BUTTONS_SELECTION_PARENT, self.buttonContainerRef:getValue())
 
 					GuiService.SelectedCoreObject = self.confirmButtonRef:getValue()
 				end,
-			})
+			}),
 		})
 	end)
 end
@@ -262,8 +266,7 @@ function InformationalDialog:bindActions()
 	end
 
 	if self.props.bindReturnToConfirm then
-		ContextActionService:BindCoreAction(
-			MODAL_CONFIRM_ACTION, confirmFunc, false, Enum.KeyCode.Return)
+		ContextActionService:BindCoreAction(MODAL_CONFIRM_ACTION, confirmFunc, false, Enum.KeyCode.Return)
 	end
 end
 

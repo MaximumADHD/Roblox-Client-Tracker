@@ -8,8 +8,6 @@ return function()
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
 
-	local GetFFlagIGMGamepadSelectionHistory = require(script.Parent.Parent.Flags.GetFFlagIGMGamepadSelectionHistory)
-
 	local appStyle = {
 		Theme = AppDarkTheme,
 		Font = AppFont,
@@ -30,10 +28,9 @@ return function()
 		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
 			style = appStyle,
 		}, {
-			FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
-				Slider = slider
-			}) or nil,
-			Slider = not GetFFlagIGMGamepadSelectionHistory() and slider or nil
+			FocusHandlerContextProvider = Roact.createElement(FocusHandlerContextProvider, {}, {
+				Slider = slider,
+			}),
 		})
 
 		local instance = Roact.mount(element)

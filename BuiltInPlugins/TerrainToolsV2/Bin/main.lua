@@ -36,8 +36,8 @@ return function(plugin, pluginLoaderContext)
 	local makeTheme = require(Plugin.Src.Resources.makeTheme)
 
 	-- Localization
-	local DevelopmentReferenceTable = Plugin.Src.Resources.DevelopmentReferenceTable
-	local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
+	local SourceStrings = Plugin.Src.Resources.SourceStrings
+	local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 	local Localization = require(UILibraryCompat.Localization)
 
 	-- Terrain Context Items
@@ -65,8 +65,8 @@ return function(plugin, pluginLoaderContext)
 		local theme = ContextItems.UILibraryTheme.new(PluginTheme.new())
 		local localization = Localization.new({
 			pluginName = PLUGIN_NAME,
-			stringResourceTable = DevelopmentReferenceTable,
-			translationResourceTable = TranslationReferenceTable,
+			stringResourceTable = SourceStrings,
+			translationResourceTable = LocalizedStrings,
 		})
 		local localizationItem = ContextItems.UILibraryLocalization.new(localization)
 

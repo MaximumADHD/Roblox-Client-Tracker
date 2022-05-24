@@ -15,7 +15,8 @@ local SetStudsPerTile = require(Actions.SetStudsPerTile)
 local SetMaterialPattern = require(Actions.SetMaterialPattern)
 local ClearMaterialVariant = require(Actions.ClearMaterialVariant)
 local SetMode = require(Actions.SetMode)
-local getMaterialPatterns = require(Plugin.Src.Util.getMaterialPatterns)
+
+local getMaterialPatterns = require(Plugin.Src.Resources.Constants.getMaterialPatterns)
 
 local DEFAULT_STUDS_PER_TILE = 10
 local materialPatterns = getMaterialPatterns()

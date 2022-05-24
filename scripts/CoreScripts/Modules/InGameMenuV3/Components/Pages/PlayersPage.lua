@@ -25,8 +25,6 @@ local InGameMenu = script.Parent.Parent.Parent
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
-local Flags = InGameMenu.Flags
-local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 local FocusHandler = require(script.Parent.Parent.Connection.FocusHandler)
 local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicator)
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
@@ -45,7 +43,6 @@ local PageUtils = require(InGameMenu.Components.Pages.PageUtils)
 local OpenReportDialog = require(InGameMenu.Actions.OpenReportDialog)
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
-local InviteUserToPlaceId = require(InGameMenu.Thunks.InviteUserToPlaceId)
 
 local Assets = require(InGameMenu.Resources.Assets)
 
@@ -96,7 +93,6 @@ PlayersPage.validateProps = t.strictInterface({
 	blockPlayer = t.callback,
 	unblockPlayer = t.callback,
 	openInviteFriendsPage = t.callback,
-	dispatchInviteUserToPlaceId = t.callback,
 	pageTitle = t.string,
 	screenSize = t.Vector2,
 	currentPage = t.optional(t.string),
@@ -127,16 +123,9 @@ function PlayersPage:init()
 	})
 
 	self.setSelectedPlayerRef = function(rbx)
-		if GetFFlagIGMGamepadSelectionHistory() then
-			self:setState({
-				selectedPlayerRef = rbx,
-			})
-		else
-			self:setState({
-				selectedPlayerRef = rbx,
-				firstPlayerRef = Roact.None,
-			})
-		end
+		self:setState({
+			selectedPlayerRef = rbx,
+		})
 	end
 
 	self.setFirstPlayerRef = function(rbx)
@@ -541,12 +530,6 @@ function PlayersPage:getFriendAction(localized, friendStatus)
 end
 
 function PlayersPage:renderFocusHandler(canCaptureFocus)
-	local shouldForgetPreviousSelection = nil -- Can be inlined when flag is removed
-	if GetFFlagIGMGamepadSelectionHistory() then
-		shouldForgetPreviousSelection = self.props.currentPage == Constants.MainPagePageKey
-			or not self.props.isCurrentZoneActive
-	end
-
 	return Roact.createElement(FocusHandler, {
 		isFocused = canCaptureFocus
 			and self.props.currentPage == "Players"
@@ -554,13 +537,11 @@ function PlayersPage:renderFocusHandler(canCaptureFocus)
 			and not self.props.isReportDialogOpen
 			and not self.state.selectedPlayer
 			and (self.state.selectedPlayerRef or self.state.firstPlayerRef) ~= nil,
-		shouldForgetPreviousSelection = shouldForgetPreviousSelection,
-		didFocus = GetFFlagIGMGamepadSelectionHistory() and function(previousSelection)
+		shouldForgetPreviousSelection = self.props.currentPage == Constants.MainPagePageKey
+			or not self.props.isCurrentZoneActive,
+		didFocus = function(previousSelection)
 			-- Focus first player when landing on the page
 			GuiService.SelectedCoreObject = previousSelection or self.state.firstPlayerRef
-		end or function()
-			-- Focus first player when landing on the page
-			GuiService.SelectedCoreObject = self.state.selectedPlayerRef or self.state.firstPlayerRef
 		end,
 	})
 end
@@ -700,8 +681,6 @@ function PlayersPage:render()
 			headerPlayers = "CoreScripts.InGameMenu.Header.Players",
 			headerIncomingFriendRequests = "CoreScripts.InGameMenu.Header.IncomingFriendRequests",
 			pendingFriendRequest = "CoreScripts.InGameMenu.Action.PendingFriendRequest",
-			inviteFriend = "CoreScripts.InGameMenu.Action.InviteFriend",
-			inviteSent = "CoreScripts.InGameMenu.Action.InviteSent",
 			accept = "CoreScripts.InGameMenu.Action.Accept",
 		})(function(localized)
 			return self:renderWithLocalized(style, localized)
@@ -729,6 +708,7 @@ end
 return RoactRodux.connect(function(state, props)
 	return {
 		isMenuOpen = state.isMenuOpen,
+		inviteFriends = state.inviteFriends.inviteFriends,
 		voiceEnabled = state.voiceState.voiceEnabled,
 		inspectMenuEnabled = state.displayOptions.inspectMenuEnabled,
 		screenSize = state.screenSize,
@@ -757,9 +737,6 @@ end, function(dispatch)
 		end,
 		openInviteFriendsPage = function()
 			return dispatch(SetCurrentPage("InviteFriends"))
-		end,
-		dispatchInviteUserToPlaceId = function(userId, placeId)
-			dispatch(InviteUserToPlaceId(userId, placeId))
 		end,
 	}
 end)(PlayersPage)

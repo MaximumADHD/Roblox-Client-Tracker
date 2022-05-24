@@ -54,8 +54,8 @@ function GameIcon:render()
 			return Roact.createElement(AssetImage.Label, {
 				imageKey = "RoundedRect",
 				Size = UDim2.fromOffset(iconSize, iconSize),
-				ImageColor3 = style.Theme.PlaceHolder.Color,
-				ImageTransparency = style.Theme.PlaceHolder.Transparency,
+				ImageColor3 = style.Theme.UIMuted.Color,
+				ImageTransparency = 0,
 				LayoutOrder = self.props.layoutOrder,
 				Position = self.props.Position,
 				AnchorPoint = self.props.AnchorPoint,
@@ -65,8 +65,8 @@ function GameIcon:render()
 					Size = UDim2.fromOffset(placeholderIconSize, placeholderIconSize),
 					Position = UDim2.fromScale(0.5, 0.5),
 					Image = Images["icons/imageUnavailable"],
-					ImageColor3 = style.Theme.UIDefault.Color,
-					ImageTransparency = style.Theme.UIDefault.Transparency,
+					ImageColor3 = style.Theme.SystemPrimaryDefault.Color,
+					ImageTransparency = 0,
 					AnchorPoint = Vector2.new(0.5, 0.5),
 				}, {
 					UICorner = cornerRadius and cornerRadius ~= UDim.new(0, 0) and Roact.createElement("UICorner", {

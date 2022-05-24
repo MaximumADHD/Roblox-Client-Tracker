@@ -25,6 +25,7 @@ local CONTROLLER_SCROLL_DELTA = 0.2
 local CONTROLLER_THUMBSTICK_DEADZONE = 0.8
 
 local DROPDOWN_BG_TRANSPARENCY = 0.2
+local DROPDOWN_SUBTITLE_OFFSET = 10
 
 ------------- SERVICES ----------------
 local HttpService = game:GetService("HttpService")
@@ -41,6 +42,8 @@ local VRService = game:GetService("VRService")
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 local FFlagFixUsernamesAutoLocalizeIssue = require(RobloxGui.Modules.Flags.FFlagFixUsernamesAutoLocalizeIssue)
+local GetFFlagVoiceAbuseReportsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceAbuseReportsEnabled)
+
 
 ------------------ Modules --------------------
 local RobloxTranslator
@@ -780,6 +783,7 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		local itemSpacing = itemHeight + 1
 
 		local dropDownWidth = vrEnabled and 600 or 400
+		local subtitleTotalOffset = 0
 
 		for i,v in pairs(dropDownStringTable) do
 			local SelectionOverrideObject =	Util.Create'Frame'
@@ -789,26 +793,74 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 				Size = UDim2.new(1, 0, 1, 0)
 			};
 
-			local nextSelection = Util.Create'TextButton'
-			{
-				Name = "Selection" .. tostring(i),
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				AutoButtonColor = false,
-				Size = UDim2.new(1, -28, 0, itemHeight),
-				Position = UDim2.new(0,14,0, (i - 1) * itemSpacing),
-				TextColor3 = VRService.VREnabled and SELECTION_TEXT_COLOR_NORMAL_VR or SELECTION_TEXT_COLOR_NORMAL,
-				Font = font,
-				TextSize = textSize,
-				Text = v,
-				ZIndex = 10,
-				SelectionImageObject = SelectionOverrideObject,
-				Parent = DropDownScrollingFrame
-			};
+			local text = v
+			local subtitle = ''
+			local UseSubtitle =  GetFFlagVoiceAbuseReportsEnabled() and typeof(v) == 'table'
+			if UseSubtitle then
+				text = v.title
+				subtitle = v.subtitle
+				subtitleTotalOffset += DROPDOWN_SUBTITLE_OFFSET
+			end
+
+			local nextSelection
+
+			if UseSubtitle then
+				nextSelection = Util.Create'TextButton'
+				{
+					Name = "Selection" .. tostring(i),
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					AutoButtonColor = false,
+					TextYAlignment = Enum.TextYAlignment.Top,
+					Size = UDim2.new(1, -28, 0, itemHeight + DROPDOWN_SUBTITLE_OFFSET),
+					Position = UDim2.new(0,14,0, (i - 1) * (itemSpacing + DROPDOWN_SUBTITLE_OFFSET)),
+					TextColor3 = VRService.VREnabled and SELECTION_TEXT_COLOR_NORMAL_VR or SELECTION_TEXT_COLOR_NORMAL,
+					Font = font,
+					TextSize = textSize,
+					Text = text,
+					ZIndex = 10,
+					SelectionImageObject = SelectionOverrideObject,
+					Parent = DropDownScrollingFrame
+				}
+
+				local subtitleSize = 0.8
+				local subtitlePadding = 15
+				local _Subtitle = Util.Create'TextLabel'
+				{
+					Name = "Subtitle" .. tostring(i),
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					Size = UDim2.new(1, -28, 0, itemHeight * subtitleSize),
+					Position = UDim2.new(0,14,0, subtitlePadding),
+					TextColor3 = VRService.VREnabled and SELECTION_TEXT_COLOR_NORMAL_VR or SELECTION_TEXT_COLOR_NORMAL,
+					Font = font,
+					TextSize = textSize * subtitleSize,
+					Text = subtitle,
+					ZIndex = 10,
+					Parent = nextSelection
+				}
+			else
+				nextSelection = Util.Create'TextButton'
+				{
+					Name = "Selection" .. tostring(i),
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					AutoButtonColor = false,
+					Size = UDim2.new(1, -28, 0, itemHeight),
+					Position = UDim2.new(0,14,0, (i - 1) * itemSpacing),
+					TextColor3 = VRService.VREnabled and SELECTION_TEXT_COLOR_NORMAL_VR or SELECTION_TEXT_COLOR_NORMAL,
+					Font = font,
+					TextSize = textSize,
+					Text = v,
+					ZIndex = 10,
+					SelectionImageObject = SelectionOverrideObject,
+					Parent = DropDownScrollingFrame
+				}
+			end
 
 			if i == startPosition then
 				this.CurrentIndex = i
-				selectedTextLabel.Text = v
+				selectedTextLabel.Text = text
 				nextSelection.TextColor3 = SELECTION_TEXT_COLOR_HIGHLIGHTED
 			elseif not startPosition and i == 1 then
 				nextSelection.TextColor3 = SELECTION_TEXT_COLOR_HIGHLIGHTED
@@ -836,7 +888,7 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		GuiService:RemoveSelectionGroup(guid)
 		GuiService:AddSelectionTuple(guid, unpack(this.Selections))
 
-		DropDownScrollingFrame.CanvasSize = UDim2.new(1,-20,0,#dropDownStringTable * itemSpacing)
+		DropDownScrollingFrame.CanvasSize = UDim2.new(1,-20,0,#dropDownStringTable * itemSpacing + subtitleTotalOffset)
 
 		local function updateDropDownSize()
 			if DropDownScrollingFrame.CanvasSize.Y.Offset < (DropDownFullscreenFrame.AbsoluteSize.Y - 10) then

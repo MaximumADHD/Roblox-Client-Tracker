@@ -11,7 +11,7 @@ module.setBreakpointRowEnabled = function(bp, row)
 		if intForGST == nil then
 			return
 		end
-		bp:SetContextEnabled(intForGST, not row.item.isEnabled)
+		bp:SetChildBreakpointEnabledByScriptAndContext(row.item.scriptGUID, intForGST, not row.item.isEnabled)
 	end
 end
 

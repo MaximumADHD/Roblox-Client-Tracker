@@ -25,8 +25,8 @@ local Signals = require(Plugin.Src.Context.Signals)
 local Theme = require(Plugin.Src.Util.Theme)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local Localization = ContextServices.Localization
-local DevelopmentReferenceTable = Plugin.Src.Resources.DevelopmentReferenceTable
-local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
+local SourceStrings = Plugin.Src.Resources.SourceStrings
+local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 
 local Constants = require(Plugin.Src.Util.Constants)
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
@@ -87,11 +87,11 @@ function AnimationClipEditorPlugin:init(initialProps)
 
 	self.localization = Localization.new({
 		pluginName = Constants.PLUGIN_NAME,
-		stringResourceTable = DevelopmentReferenceTable,
-		translationResourceTable = TranslationReferenceTable,
+		stringResourceTable = SourceStrings,
+		translationResourceTable = LocalizedStrings,
 	})
-	
-	if GetFFlagFaceControlsEditorShowCallout() then	
+
+	if GetFFlagFaceControlsEditorShowCallout() then
 		local CalloutController = require(Plugin.Src.Util.CalloutController)
 		calloutController = CalloutController.new()
 		do
@@ -106,8 +106,8 @@ function AnimationClipEditorPlugin:init(initialProps)
 
 			calloutController:defineCallout(definitionId, title, description, learnMoreUrl)
 		end
-	end	
-	
+	end
+
 	self.actions = ContextServices.PluginActions.new(initialProps.plugin, MakePluginActions(initialProps.plugin, self.localization))
 
 	self.state = {

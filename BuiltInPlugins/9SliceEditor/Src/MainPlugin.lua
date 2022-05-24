@@ -19,8 +19,8 @@ local Plugin = ContextServices.Plugin
 local Mouse = ContextServices.Mouse
 local MakeTheme = require(main.Src.Resources.MakeTheme)
 
-local TranslationDevelopmentTable = main.Src.Resources.Localization.TranslationDevelopmentTable
-local TranslationReferenceTable = main.Src.Resources.Localization.TranslationReferenceTable
+local SourceStrings = main.Src.Resources.Localization.SourceStrings
+local LocalizedStrings = main.Src.Resources.Localization.LocalizedStrings
 
 local SliceEditor = require(main.Src.Components.SliceEditorMain)
 local InstanceUnderEditManager = require(main.Src.Components.InstanceUnderEditManager)
@@ -37,8 +37,8 @@ local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
 function MainPlugin:init(props)
 	self.localization = ContextServices.Localization.new({
-		stringResourceTable = TranslationDevelopmentTable,
-		translationResourceTable = TranslationReferenceTable,
+		stringResourceTable = SourceStrings,
+		translationResourceTable = LocalizedStrings,
 		pluginName = "9SliceEditor",
 	})
 
@@ -95,7 +95,7 @@ function MainPlugin:init(props)
 		if FFlag9SliceEditorEnableAnalytics and enabled and not self.state.enabled then
 			self.reportOpen()
 		end
-		
+
 		self:setState({
 			enabled = enabled
 		})

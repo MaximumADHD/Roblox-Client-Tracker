@@ -212,7 +212,9 @@ function LanguageSection:render()
 				[Roact.Ref] = self.textBoxRef,
 
 				[Roact.Event.FocusLost] = function()
-					SetLocaleId(self.textBoxRef.current.Text)
+					if self.textBoxRef.current then
+						SetLocaleId(self.textBoxRef.current.Text)
+					end
 				end
 			}),
 

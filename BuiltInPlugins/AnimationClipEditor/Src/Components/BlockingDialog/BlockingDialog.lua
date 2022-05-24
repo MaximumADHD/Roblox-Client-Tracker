@@ -26,8 +26,8 @@ local MainProvider = require(Plugin.Src.Context.MainProvider)
 local Theme = require(Plugin.Src.Util.Theme)
 local ContextServices = Framework.ContextServices
 local Localization = ContextServices.Localization
-local DevelopmentReferenceTable = Plugin.Src.Resources.DevelopmentReferenceTable
-local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
+local SourceStrings = Plugin.Src.Resources.SourceStrings
+local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 
 local BlockingDialog = Roact.PureComponent:extend("BlockingDialog")
 
@@ -36,8 +36,8 @@ function BlockingDialog:init(initialProps)
 	self.theme = Theme()
 	self.localization = Localization.new({
 		pluginName = Constants.PLUGIN_NAME,
-		stringResourceTable = DevelopmentReferenceTable,
-		translationResourceTable = TranslationReferenceTable,
+		stringResourceTable = SourceStrings,
+		translationResourceTable = LocalizedStrings,
 	})
 end
 

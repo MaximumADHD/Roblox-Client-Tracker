@@ -18,69 +18,80 @@ local Columns = require(Models.Callstack.ColumnEnum)
 type ThreadId = number
 
 type CallstackVars = {
-	threadList : {ThreadInfo.ThreadInfo},
-	threadIdToFrameList : {[ThreadId] : {CallstackRow.CallstackRow}}
+	threadList: { ThreadInfo.ThreadInfo },
+	threadIdToFrameList: { [ThreadId]: { CallstackRow.CallstackRow } },
 }
 
 type CallstackStore = {
-	stateTokenToCallstackVars : {[DebuggerStateToken.DebuggerStateToken] : CallstackVars},
-	listOfEnabledColumns : {string},
+	stateTokenToCallstackVars: { [DebuggerStateToken.DebuggerStateToken]: CallstackVars },
+	listOfEnabledColumns: { string },
 }
 
 local productionStartStore = {
 	stateTokenToCallstackVars = {},
-	listOfEnabledColumns = {Columns.Frame, Columns.Source, Columns.Function, Columns.Line},
+	listOfEnabledColumns = { Columns.Frame, Columns.Source, Columns.Function, Columns.Line },
 }
 
 return Rodux.createReducer(productionStartStore, {
-	[AddThreadIdAction.name] = function(state : CallstackStore, action : AddThreadIdAction.Props)
+	[AddThreadIdAction.name] = function(state: CallstackStore, action: AddThreadIdAction.Props)
 		return Cryo.Dictionary.join(state, {
 			stateTokenToCallstackVars = Cryo.Dictionary.join(state.stateTokenToCallstackVars, {
 				[action.debuggerStateToken] = {
-					threadList = Cryo.List.join(state.stateTokenToCallstackVars[action.debuggerStateToken].threadList, {ThreadInfo.fromData(action)}),
+					threadList = Cryo.List.join(
+						state.stateTokenToCallstackVars[action.debuggerStateToken].threadList,
+						{ ThreadInfo.fromData(action) }
+					),
 					threadIdToFrameList = state.stateTokenToCallstackVars[action.debuggerStateToken].threadIdToFrameList,
-				}
-			})
+				},
+			}),
 		})
 	end,
 
-	[AddCallstackAction.name] = function(state : CallstackStore, action : AddCallstackAction.Props)
+	[AddCallstackAction.name] = function(state: CallstackStore, action: AddCallstackAction.Props)
 		if state.stateTokenToCallstackVars[action.debuggerStateToken] == nil then
 			assert(false)
 			return state
 		end
-		
+
 		return Cryo.Dictionary.join(state, {
 			stateTokenToCallstackVars = Cryo.Dictionary.join(state.stateTokenToCallstackVars, {
 				[action.debuggerStateToken] = {
-					threadIdToFrameList = Cryo.Dictionary.join(state.stateTokenToCallstackVars[action.debuggerStateToken].threadIdToFrameList, {
-						[action.threadId] = action.frameList,
-					}),
+					threadIdToFrameList = Cryo.Dictionary.join(
+						state.stateTokenToCallstackVars[action.debuggerStateToken].threadIdToFrameList,
+						{
+							[action.threadId] = action.frameList,
+						}
+					),
 					threadList = state.stateTokenToCallstackVars[action.debuggerStateToken].threadList,
-				}
-			})
+				},
+			}),
 		})
 	end,
 
-	[SimPaused.name] = function(state : CallstackStore, action : SimPaused.Props)
-		assert(state.stateTokenToCallstackVars[action.debuggerStateToken] == nil or
-			state.stateTokenToCallstackVars[action.debuggerStateToken].threadIdToFrameList[action.threadId] == nil)
-		
+	[SimPaused.name] = function(state: CallstackStore, action: SimPaused.Props)
+		assert(
+			state.stateTokenToCallstackVars[action.debuggerStateToken] == nil
+				or state.stateTokenToCallstackVars[action.debuggerStateToken].threadIdToFrameList[action.threadId]
+					== nil
+		)
+
 		return Cryo.Dictionary.join(state, {
 			stateTokenToCallstackVars = Cryo.Dictionary.join(state.stateTokenToCallstackVars, {
 				[action.debuggerStateToken] = {
-					threadList = state.stateTokenToCallstackVars[action.debuggerStateToken] and 
-						state.stateTokenToCallstackVars[action.debuggerStateToken].threadList or {},
-					threadIdToFrameList = state.stateTokenToCallstackVars[action.debuggerStateToken] and
-						state.stateTokenToCallstackVars[action.debuggerStateToken].threadIdToFrameList or {},
-				}
-			})
+					threadList = state.stateTokenToCallstackVars[action.debuggerStateToken]
+							and state.stateTokenToCallstackVars[action.debuggerStateToken].threadList
+						or {},
+					threadIdToFrameList = state.stateTokenToCallstackVars[action.debuggerStateToken]
+							and state.stateTokenToCallstackVars[action.debuggerStateToken].threadIdToFrameList
+						or {},
+				},
+			}),
 		})
 	end,
 
-	[ResumedAction.name] = function(state : CallstackStore, action)
+	[ResumedAction.name] = function(state: CallstackStore, action)
 		local newThreadList = {}
-		for k,v in ipairs(state.stateTokenToCallstackVars[action.debuggerStateToken].threadList) do
+		for k, v in ipairs(state.stateTokenToCallstackVars[action.debuggerStateToken].threadList) do
 			if v.threadId ~= action.threadId then
 				table.insert(newThreadList, v)
 			end
@@ -88,7 +99,10 @@ return Rodux.createReducer(productionStartStore, {
 
 		assert(state.stateTokenToCallstackVars[action.debuggerStateToken] ~= nil)
 
-		local newThreadIdToFrameList = Cryo.Dictionary.join(state.stateTokenToCallstackVars[action.debuggerStateToken].threadIdToFrameList, {})
+		local newThreadIdToFrameList = Cryo.Dictionary.join(
+			state.stateTokenToCallstackVars[action.debuggerStateToken].threadIdToFrameList,
+			{}
+		)
 		newThreadIdToFrameList[action.threadId] = nil
 
 		return Cryo.Dictionary.join(state, {
@@ -96,18 +110,21 @@ return Rodux.createReducer(productionStartStore, {
 				[action.debuggerStateToken] = {
 					threadIdToFrameList = newThreadIdToFrameList,
 					threadList = newThreadList,
-				}
-			})
+				},
+			}),
 		})
 	end,
-	
-	[ClearConnectionDataAction.name] = function(state : CallstackStore, action)
+
+	[ClearConnectionDataAction.name] = function(state: CallstackStore, action)
 		return Cryo.Dictionary.join(state, {
-			stateTokenToCallstackVars = Cryo.Dictionary.join(state.stateTokenToCallstackVars, {[action.debuggerStateToken] = Cryo.None}),
+			stateTokenToCallstackVars = Cryo.Dictionary.join(
+				state.stateTokenToCallstackVars,
+				{ [action.debuggerStateToken] = Cryo.None }
+			),
 		})
 	end,
-	
-	[ColumnFilterChange.name] = function(state : CallstackStore, action : ColumnFilterChange.Props)
+
+	[ColumnFilterChange.name] = function(state: CallstackStore, action: ColumnFilterChange.Props)
 		return Cryo.Dictionary.join(state, {
 			listOfEnabledColumns = action.listOfEnabledColumns,
 		})

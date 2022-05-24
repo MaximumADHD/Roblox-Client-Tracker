@@ -14,8 +14,8 @@ return function(plugin, store)
 	-- Resources
 	local createAnalyticsHandlers = require(main.Src.Resources.createAnalyticsHandlers)
 	local MakeTheme = require(main.Src.Resources.MakeTheme)
-	local TranslationDevelopmentTable = main.Src.Resources.Localization.TranslationDevelopmentTable
-	local TranslationReferenceTable = main.Src.Resources.Localization.TranslationReferenceTable
+	local SourceStrings = main.Src.Resources.Localization.SourceStrings
+	local LocalizedStrings = main.Src.Resources.Localization.LocalizedStrings
 
 	local pluginItem = ContextServices.Plugin.new(plugin)
 	local mouse = Mouse.new(plugin:getMouse())
@@ -27,8 +27,8 @@ return function(plugin, store)
 	-- To enable localization, add the plugin to:
 	-- Client/RobloxStudio/Translation/builtin_plugin_config.py
 	local localization = Localization.new({
-		stringResourceTable = TranslationDevelopmentTable,
-		translationResourceTable = TranslationReferenceTable,
+		stringResourceTable = SourceStrings,
+		translationResourceTable = LocalizedStrings,
 		pluginName = "AssetImporter",
 	})
 

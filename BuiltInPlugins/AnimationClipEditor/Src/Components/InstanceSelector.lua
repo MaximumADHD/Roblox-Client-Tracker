@@ -29,6 +29,8 @@ local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagBoneAdornmentSelection = require(Plugin.LuaFlags.GetFFlagBoneAdornmentSelection)
 local GetFFlagCheckPartParentForBoneSelection = require(Plugin.LuaFlags.GetFFlagCheckPartParentForBoneSelection)
+local GetFFlagHideBonesWithToggle = require(Plugin.LuaFlags.GetFFlagHideBonesWithToggle)
+
 
 
 local InstanceSelector = Roact.PureComponent:extend("InstanceSelector")
@@ -171,12 +173,14 @@ function InstanceSelector:render()
 	local state = self.state
 	local props = self.props
 
+	local visualizeBones = props.VisualizeBones
+
 	local hoverPart = state.HoverPart
 	local container = props.Container or CoreGui
 	local children = {}
 	local folder = RigUtils.getOrCreateMicroboneFolder()
 
-	if GetFFlagBoneAdornmentSelection() then 
+	if GetFFlagBoneAdornmentSelection() and (not GetFFlagHideBonesWithToggle() or GetFFlagHideBonesWithToggle() and visualizeBones) then 
 		local boneLinks = folder:GetChildren()
 		for _, boneLink in pairs(boneLinks) do
 			if boneLink:FindFirstChild("Cone") and boneLink.Cone.Color3 == Constants.BONE_COLOR_SELECTED then 
@@ -192,7 +196,7 @@ function InstanceSelector:render()
 	end
 	if props.SelectedTrackInstances then
 		for index, part in ipairs(props.SelectedTrackInstances) do
-			if GetFFlagBoneAdornmentSelection() then 
+			if GetFFlagBoneAdornmentSelection() and (not GetFFlagHideBonesWithToggle() or GetFFlagHideBonesWithToggle() and visualizeBones) then 
 				if (GetFFlagCheckPartParentForBoneSelection() and part.Parent == nil) or part.Parent.Name ~=  "RBX_MICROBONE_NODES" then 
 					children["SelectionBox" ..index] = Roact.createElement("SelectionBox", {
 						Archivable = false,
@@ -290,6 +294,7 @@ local function mapStateToProps(state, props)
 		RootInstance = state.Status.RootInstance,
 		SelectedTrackInstances = state.Status.SelectedTrackInstances,
 		BoneLinksToBone = state.Status.BoneLinksToBone,
+		VisualizeBones = state.Status.VisualizeBones,
 	}
 end
 

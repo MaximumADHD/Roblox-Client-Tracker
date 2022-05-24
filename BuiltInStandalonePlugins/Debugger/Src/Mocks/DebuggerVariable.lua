@@ -6,21 +6,22 @@ DebuggerVariable:
 - value : string
 - type : string
 - variablesPopulated : boolean
-]]--
+]]
+--
 
 local DebuggerVariable = {}
 DebuggerVariable.__index = DebuggerVariable
 
-function DebuggerVariable.new(variableId : number, name : string, value : string, type : string)
+function DebuggerVariable.new(variableId: number, name: string, value: string, type: string)
 	local self = {
 		VariableId = variableId,
 		Name = name,
 		Value = value,
 		Type = type,
 		Populated = false,
-		PopulatableType = "DebuggerVariable"
+		PopulatableType = "DebuggerVariable",
 	}
-	
+
 	setmetatable(self, DebuggerVariable)
 	return self
 end
@@ -39,9 +40,10 @@ function DebuggerVariable:GetVariableByIndex()
 end
 
 function DebuggerVariable.GetDefaultFrameVariables()
-	return {["Locals"] = DebuggerVariable.new(1, "", "", ""),
+	return {
+		["Locals"] = DebuggerVariable.new(1, "", "", ""),
 		["Globals"] = DebuggerVariable.new(1, "", "", ""),
-		["Upvalues"] = DebuggerVariable.new(1, "", "", "")
+		["Upvalues"] = DebuggerVariable.new(1, "", "", ""),
 	}
 end
 

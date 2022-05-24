@@ -1,3 +1,5 @@
+local FFlagGameSettingsRemoveFitContent = game:GetFastFlag("GameSettingsRemoveFitContent")
+
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -6,13 +8,15 @@ local Util = Framework.Util
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
+local UI = Framework.UI
+local Pane = UI.Pane
+
 local FFlagGSPermsRemoveCollaboratorsFixEnabled = game:GetFastFlag("GSPermsRemoveCollaboratorsFixEnabled")
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.Packages.UILibrary)
-local createFitToContent = UILibrary.Component.createFitToContent
 local ExpandableList = UILibrary.Component.ExpandableList
 local Spritesheet = Framework.Util.Spritesheet
 
@@ -32,10 +36,14 @@ local SetGroupPermission = require(Page.Thunks.SetGroupPermission)
 local DEFAULT_ROLESET_VALUE = PermissionsConstants.NoAccessKey
 local PERMISSIONS = "Permissions"
 
-local FitToContent = createFitToContent("Frame", "UIListLayout", {
-	SortOrder = Enum.SortOrder.LayoutOrder,
-	Padding = UDim.new(0, 0),
-})
+local FitToContent
+if not FFlagGameSettingsRemoveFitContent then
+	local createFitToContent = UILibrary.Component.createFitToContent
+	FitToContent = createFitToContent("Frame", "UIListLayout", {
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		Padding = UDim.new(0, 0),
+	})
+end
 
 local arrowSize = 12
 local arrowPadding = 4 -- padding between arrow and GroupCollaboratorItem icon
@@ -126,7 +134,6 @@ function GroupCollaboratorItem:render()
 	for i, rolesetId in ipairs(groupRolesets) do
 		children["Separator"..i] = Roact.createElement(Separator, {
 			LayoutOrder = i*2 - 1,
-			Size = UDim2.new(1, 0, 0, 1),
 		})
 
 		children["RolesetCollaborator"..rolesetId] = Roact.createElement(RolesetCollaboratorItem, {
@@ -194,10 +201,18 @@ function GroupCollaboratorItem:render()
 		},
 
 		Content = {
-			RoleCollaborators = Roact.createElement(FitToContent, {
-				LayoutOrder = 1,
-				BackgroundTransparency = 1,
-			}, children)
+			RoleCollaborators = if FFlagGameSettingsRemoveFitContent then
+				Roact.createElement(Pane, {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					HorizontalAlignment = Enum.HorizontalAlignment.Left,
+					LayoutOrder = 1,
+					Layout = Enum.FillDirection.Vertical,
+				}, children)
+			else
+				Roact.createElement(FitToContent, {
+					LayoutOrder = 1,
+					BackgroundTransparency = 1,
+				}, children)
 		},
 
 		IsExpanded = self.state.expanded and not isLoading,

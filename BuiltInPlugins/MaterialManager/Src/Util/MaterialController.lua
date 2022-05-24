@@ -14,11 +14,13 @@ local getFFlagMaterialServiceOverrideChangedSignal = require(Flags.getFFlagMater
 
 local Util = Plugin.Src.Util
 local damerauLevenshteinDistance = require(Util.DamerauLevenshteinDistance)
-local getMaterialPath = require(Util.getMaterialPath)
-local getMaterialType = require(Util.getMaterialType)
-local getMaterialName = require(Util.getMaterialName)
-local getSupportedMaterials = require(Util.getSupportedMaterials)
 local containsPath = require(Util.ContainsPath)
+
+local Constants = Plugin.Src.Resources.Constants
+local getMaterialPath = require(Constants.getMaterialPath)
+local getMaterialType = require(Constants.getMaterialType)
+local getMaterialName = require(Constants.getMaterialName)
+local getSupportedMaterials = require(Constants.getSupportedMaterials)
 
 export type Category = {
 	Builtin : boolean,

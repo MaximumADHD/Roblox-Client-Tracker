@@ -1,10 +1,5 @@
 --!strict
 return function()
-	local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
-	if not FFlagToolboxAssetCategorization4 then
-		return
-	end
-
 	local Plugin = script:FindFirstAncestor("Toolbox")
 	local Packages = Plugin.Packages
 	local Roact = require(Packages.Roact)

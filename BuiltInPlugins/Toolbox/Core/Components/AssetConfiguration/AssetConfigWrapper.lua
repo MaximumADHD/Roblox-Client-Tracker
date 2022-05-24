@@ -13,6 +13,8 @@
 	localization = A localization object to be used by a LocalizationProvider.
 	plugin = A plugin object to be used by a PluginProvider.
 ]]
+local FFlagDebugBuiltInPluginModalsNotBlocking = game:GetFastFlag("DebugBuiltInPluginModalsNotBlocking")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -82,7 +84,7 @@ function AssetConfigWrapper:render()
 		MinSize = Vector2.new(ASSET_CONFIG_MIN_WIDTH, ASSET_CONFIG_MIN_HEIGHT),
 		Size = Vector2.new(ASSET_CONFIG_WIDTH, ASSET_CONFIG_HEIGHT),
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-		Modal = true,
+		Modal = not FFlagDebugBuiltInPluginModalsNotBlocking,
 		InitialEnabled = true,
 		plugin = plugin,
 

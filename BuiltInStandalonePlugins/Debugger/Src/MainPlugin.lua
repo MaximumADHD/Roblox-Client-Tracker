@@ -38,8 +38,8 @@ local MakeTheme = require(Src.Resources.MakeTheme)
 local MakePluginActions = require(Src.Util.MakePluginActions)
 local AnalyticsHolder = require(Src.Resources.AnalyticsHolder)
 
-local TranslationDevelopmentTable = Src.Resources.Localization.TranslationDevelopmentTable
-local TranslationReferenceTable = Src.Resources.Localization.TranslationReferenceTable
+local SourceStrings = Src.Resources.Localization.SourceStrings
+local LocalizedStrings = Src.Resources.Localization.LocalizedStrings
 
 local Components = Src.Components
 local CallstackWindow = require(Components.Callstack.CallstackWindow)
@@ -79,18 +79,24 @@ function MainPlugin:init(props)
 		watchWindow = {
 			Enabled = plugin:GetSetting("watchWindow_Enabled") or false,
 		},
-		uiDmLoaded = false
+		uiDmLoaded = false,
 	}
 
 	local mdiInstance = plugin.MultipleDocumentInterfaceInstance
 	mdiInstance.DataModelSessionStarted:Connect(function(dmSession)
-		self:setState(function() return { uiDmLoaded = true } end)
+		self:setState(function()
+			return { uiDmLoaded = true }
+		end)
 	end)
 	mdiInstance.DataModelSessionEnded:Connect(function(dmSession)
-		self:setState(function() return { uiDmLoaded = false } end)
+		self:setState(function()
+			return { uiDmLoaded = false }
+		end)
 	end)
 	if mdiInstance.FocusedDataModelSession then
-		self:setState(function() return { uiDmLoaded = true } end)
+		self:setState(function()
+			return { uiDmLoaded = true }
+		end)
 	end
 
 	self.toggleWidgetEnabled = function(targetWidget)
@@ -100,7 +106,7 @@ function MainPlugin:init(props)
 			return {
 				[targetWidget] = {
 					Enabled = newEnabled,
-				}
+				},
 			}
 		end)
 	end
@@ -118,7 +124,7 @@ function MainPlugin:init(props)
 
 	self.store = Rodux.Store.new(MainReducer, nil, Middleware)
 
-	if (FFlagDebugPopulateDebuggerPlugin) then
+	if FFlagDebugPopulateDebuggerPlugin then
 		self.store = TestStore(self.store)
 	end
 
@@ -127,8 +133,8 @@ function MainPlugin:init(props)
 	self.scriptChangeServiceListener = FFlagStudioDebuggerOverhaul_Dev and CrossDMScriptChangeListener.new(self.store)
 
 	self.localization = ContextServices.Localization.new({
-		stringResourceTable = TranslationDevelopmentTable,
-		translationResourceTable = TranslationReferenceTable,
+		stringResourceTable = SourceStrings,
+		translationResourceTable = LocalizedStrings,
 		pluginName = "Debugger",
 	})
 	--[[
@@ -137,7 +143,10 @@ function MainPlugin:init(props)
 	--]]
 	self.analytics = AnalyticsHolder
 
-	self.pluginActions = ContextServices.PluginActions.new(props.Plugin, MakePluginActions.getActionsWithShortcuts(self.localization))
+	self.pluginActions = ContextServices.PluginActions.new(
+		props.Plugin,
+		MakePluginActions.getActionsWithShortcuts(self.localization)
+	)
 end
 
 function MainPlugin:renderButtons(toolbar)
@@ -203,7 +212,7 @@ function MainPlugin:render()
 		MakeTheme(),
 		self.localization,
 		self.analytics,
-		self.pluginActions
+		self.pluginActions,
 	}, {
 		Toolbar = FFlagStudioDebuggerOverhaul_Dev and Roact.createElement(PluginToolbar, {
 			Title = TOOLBAR_NAME,
@@ -212,18 +221,24 @@ function MainPlugin:render()
 			end,
 		}),
 		ToolbarWithRoduxConnection = FFlagStudioDebuggerOverhaul_Dev and Roact.createElement(DebuggerToolbarButtons),
-		CallstackWindow = (FFlagStudioDebuggerOverhaul_Dev and callstackWindowEnabled) and Roact.createElement(CallstackWindow, {
-			Enabled = callstackWindowEnabled,
-			OnClose = function()
-				self.onWidgetClose("callstackWindow")
-			end,
-		}) or nil,
-		BreakpointsWindow = (FFlagStudioDebuggerOverhaul_Dev and breakpointsWindowEnabled) and Roact.createElement(BreakpointsWindow, {
-			Enabled = breakpointsWindowEnabled,
-			OnClose = function()
-				self.onWidgetClose("breakpointsWindow")
-			end,
-		}) or nil,
+		CallstackWindow = (FFlagStudioDebuggerOverhaul_Dev and callstackWindowEnabled) and Roact.createElement(
+			CallstackWindow,
+			{
+				Enabled = callstackWindowEnabled,
+				OnClose = function()
+					self.onWidgetClose("callstackWindow")
+				end,
+			}
+		) or nil,
+		BreakpointsWindow = (FFlagStudioDebuggerOverhaul_Dev and breakpointsWindowEnabled) and Roact.createElement(
+			BreakpointsWindow,
+			{
+				Enabled = breakpointsWindowEnabled,
+				OnClose = function()
+					self.onWidgetClose("breakpointsWindow")
+				end,
+			}
+		) or nil,
 		WatchWindow = (FFlagStudioDebuggerOverhaul_Dev and watchWindowEnabled) and Roact.createElement(WatchWindow, {
 			Enabled = watchWindowEnabled,
 			OnClose = function()
@@ -247,7 +262,7 @@ function MainPlugin:willUnmount()
 		self.debugConnectionListener:destroy()
 		self.debugConnectionListener = nil
 	end
-	
+
 	if FFlagStudioDebuggerOverhaul_Dev and self.breakpointManagerListener then
 		self.breakpointManagerListener:destroy()
 		self.breakpointManagerListener = nil

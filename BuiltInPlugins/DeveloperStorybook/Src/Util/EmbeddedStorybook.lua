@@ -28,8 +28,8 @@ local InfoPanel = require(Src.Components.InfoPanel)
 local StoryTree = require(Src.Components.StoryTree)
 local TopBar = require(Src.Components.TopBar)
 local MakeTheme = require(Src.Resources.MakeTheme)
-local TranslationDevelopmentTable = Src.Resources.TranslationDevelopmentTable
-local TranslationReferenceTable = Src.Resources.TranslationReferenceTable
+local SourceStrings = Src.Resources.SourceStrings
+local LocalizedStrings = Src.Resources.LocalizedStrings
 
 local Window = Roact.PureComponent:extend("Window")
 local OFFSET = 42
@@ -75,13 +75,13 @@ function EmbeddedStorybook.start(storybookGui: ScreenGui, player: Player)
 		Rodux.thunkMiddleware,
 	})
 	local localization = Localization.new({
-		stringResourceTable = TranslationDevelopmentTable,
-		translationResourceTable = TranslationReferenceTable,
+		stringResourceTable = SourceStrings,
+		translationResourceTable = LocalizedStrings,
 		pluginName = "StorybookClient",
 		libraries = {
 			[Framework.Resources.LOCALIZATION_PROJECT_NAME] = {
-				stringResourceTable = Framework.Resources.TranslationDevelopmentTable,
-				translationResourceTable = Framework.Resources.TranslationReferenceTable,
+				stringResourceTable = Framework.Resources.SourceStrings,
+				translationResourceTable = Framework.Resources.LocalizedStrings,
 			},
 		},
 	})

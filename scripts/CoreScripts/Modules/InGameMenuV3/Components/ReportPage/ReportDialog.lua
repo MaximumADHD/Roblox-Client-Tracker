@@ -12,8 +12,6 @@ local Cryo = InGameMenuDependencies.Cryo
 local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent.Parent
-local Flags = InGameMenu.Flags
-local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 
 local FocusHandler = require(script.Parent.Parent.Connection.FocusHandler)
 
@@ -134,11 +132,7 @@ function ReportDialog:renderButtons(style, localized, reportChildren)
 		if self.props.userId ~= nil then
 			typeOfAbuse = ABUSE_TYPES_PLAYER[self.state.typeOfAbuseIndex]
 		end
-		self.props.dispatchSendReport(
-			typeOfAbuse,
-			self.state.abuseDescription,
-			self.props.userId
-		)
+		self.props.dispatchSendReport(typeOfAbuse, self.state.abuseDescription, self.props.userId)
 		self.props.dispatchCloseReportDialog()
 	end
 
@@ -187,22 +181,31 @@ function ReportDialog:renderReportPlayer(style, localized, reportChildren)
 		Size = UDim2.new(1, 0, 0, 68),
 	}, {
 		--TODO: Replace this with real circular thumbnail when that is available.
-		PlayerCutout = Roact.createElement(ImageSetLabel, Cryo.Dictionary.join(iconPos, {
-			BackgroundTransparency = 1,
-			Image = Assets.Images.CircleCutout,
-			ImageColor3 = style.Theme.BackgroundUIDefault.Color,
-			ZIndex = 2,
-		})),
-		PlayerIcon = Roact.createElement(ImageSetLabel, Cryo.Dictionary.join(iconPos, {
-			BackgroundTransparency = 1,
-			Image = userId > 0 and "rbxthumb://type=AvatarHeadShot&id=" ..userId.. "&w=48&h=48" or "",
-		})),
-		PlayerBackground = Roact.createElement("Frame", Cryo.Dictionary.join(iconPos, {
-			BackgroundColor3 = style.Theme.UIDefault.Color,
-			BackgroundTransparency = 0,
-			BorderSizePixel = 0,
-			ZIndex = 0,
-		})),
+		PlayerCutout = Roact.createElement(
+			ImageSetLabel,
+			Cryo.Dictionary.join(iconPos, {
+				BackgroundTransparency = 1,
+				Image = Assets.Images.CircleCutout,
+				ImageColor3 = style.Theme.BackgroundUIDefault.Color,
+				ZIndex = 2,
+			})
+		),
+		PlayerIcon = Roact.createElement(
+			ImageSetLabel,
+			Cryo.Dictionary.join(iconPos, {
+				BackgroundTransparency = 1,
+				Image = userId > 0 and "rbxthumb://type=AvatarHeadShot&id=" .. userId .. "&w=48&h=48" or "",
+			})
+		),
+		PlayerBackground = Roact.createElement(
+			"Frame",
+			Cryo.Dictionary.join(iconPos, {
+				BackgroundColor3 = style.Theme.UIDefault.Color,
+				BackgroundTransparency = 0,
+				BorderSizePixel = 0,
+				ZIndex = 0,
+			})
+		),
 
 		PlayerName = Roact.createElement(ThemedTextLabel, {
 			fontKey = "Body",
@@ -216,7 +219,7 @@ function ReportDialog:renderReportPlayer(style, localized, reportChildren)
 		}),
 	})
 
-	reportChildren.AbuseTypeDropDown = Roact.createElement("Frame",{
+	reportChildren.AbuseTypeDropDown = Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
 		LayoutOrder = 4,
 		Size = UDim2.new(1, 0, 0, 68),
@@ -233,7 +236,7 @@ function ReportDialog:renderReportPlayer(style, localized, reportChildren)
 			canCaptureFocus = self.props.isGamepadLastInput,
 			selectionChanged = function(index)
 				self:setState({
-					typeOfAbuseIndex = index
+					typeOfAbuseIndex = index,
 				})
 			end,
 			ButtonRef = self.reportDropDownRef,
@@ -245,11 +248,11 @@ function ReportDialog:renderReportPlayer(style, localized, reportChildren)
 end
 
 function ReportDialog:renderReportGame(style, localized, reportChildren)
-	self:renderReportTitle(style, reportChildren, "Report " ..self.props.placeName)
+	self:renderReportTitle(style, reportChildren, "Report " .. self.props.placeName)
 
 	local gameThumbnail = Assets.Images.PlaceholderGameIcon
 	if game.GameId > 0 then
-		gameThumbnail = "rbxthumb://type=GameIcon&id=" ..game.GameId.. "&w=150&h=150"
+		gameThumbnail = "rbxthumb://type=GameIcon&id=" .. game.GameId .. "&w=150&h=150"
 	end
 
 	reportChildren.ReportGameTextContainer = Roact.createElement("Frame", {
@@ -285,17 +288,16 @@ end
 function ReportDialog:render()
 	return withStyle(function(style)
 		return withLocalization({
-			flagingGame = { "CoreScripts.InGameMenu.Report.FlagingGame",
-				RBX_NAME = self.props.placeName,
-			},
-			reportGameTitle = { "CoreScripts.InGameMenu.Report.ReportGameTitle",
+			flagingGame = { "CoreScripts.InGameMenu.Report.FlagingGame", RBX_NAME = self.props.placeName },
+			reportGameTitle = {
+				"CoreScripts.InGameMenu.Report.ReportGameTitle",
 				RBX_NAME = self.props.placeName,
 			},
 			reportPlayerTitle = "CoreScripts.InGameMenu.Report.ReportPlayerTitle",
 			selectTypeOfAbuse = "CoreScripts.InGameMenu.Report.SelectAbuseType",
 			cancel = "CoreScripts.InGameMenu.Cancel",
 			report = "CoreScripts.InGameMenu.Report.SendReport",
-			textboxPlaceHolder = "CoreScripts.InGameMenu.Report.AdditionalDetails"
+			textboxPlaceHolder = "CoreScripts.InGameMenu.Report.AdditionalDetails",
 		})(function(localized)
 			local reportDialogChildren = {}
 
@@ -343,7 +345,7 @@ function ReportDialog:render()
 					Size = UDim2.new(0, 600, 0, 450),
 					SliceCenter = Assets.Images.RoundedRect.SliceCenter,
 				}, reportDialogChildren),
-				FocusHandler = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandler, {
+				FocusHandler = Roact.createElement(FocusHandler, {
 					isFocused = self.props.canCaptureFocus and self.props.isGamepadLastInput,
 					shouldForgetPreviousSelection = not self.props.isOpen,
 					didFocus = function(previousSelection)
@@ -355,7 +357,7 @@ function ReportDialog:render()
 						end
 						GuiService.SelectedCoreObject = previousSelection or defaultSelection
 					end,
-				}) or nil
+				}),
 			})
 		end)
 	end)
@@ -368,8 +370,7 @@ function ReportDialog:bindActions()
 		end
 	end
 
-	ContextActionService:BindCoreAction(
-		REPORT_MODAL_CLOSE_ACTION, closeReportFunc, false, Enum.KeyCode.Escape)
+	ContextActionService:BindCoreAction(REPORT_MODAL_CLOSE_ACTION, closeReportFunc, false, Enum.KeyCode.Escape)
 end
 
 function ReportDialog:unbindActions()
@@ -393,22 +394,6 @@ function ReportDialog:didUpdate(prevProps)
 		})
 	end
 
-	if not GetFFlagIGMGamepadSelectionHistory() then
-		if not (prevProps.canCaptureFocus and prevProps.isGamepadLastInput)
-			and (self.props.canCaptureFocus and self.props.isGamepadLastInput)
-		then
-			-- If report dialog is for game, it doesn't have the 'Report type' dropdown,
-			-- and should select the text entry box by default.
-			local defaultSelection
-			if self.props.userId then
-				defaultSelection = self.reportDropDownRef:getValue()
-			else
-				defaultSelection = self.reportTextEntryRef:getValue()
-			end
-			GuiService.SelectedCoreObject = defaultSelection
-		end
-	end
-
 	if self.props.isOpen then
 		self:bindActions()
 	else
@@ -420,39 +405,36 @@ function ReportDialog:willUnmount()
 	self:unbindActions()
 end
 
-return RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		return {
-			isOpen = state.report.dialogOpen,
-			userId = state.report.userId,
-			userName = state.report.userName,
-			placeName = state.gameInfo.name,
-			canCaptureFocus = state.report.dialogOpen and not state.respawn.dialogOpen,
-			isGamepadLastInput = state.displayOptions.inputType == Constants.InputType.Gamepad,
-		}
-	end,
-	function(dispatch)
-		return {
-			dispatchCloseReportDialog = function()
-				dispatch(CloseReportDialog())
-			end,
-			dispatchSendReport = function(abuseReason, abuseDescription, userId)
-				dispatch(SendReport(abuseReason, abuseDescription, userId))
+return RoactRodux.UNSTABLE_connect2(function(state, props)
+	return {
+		isOpen = state.report.dialogOpen,
+		userId = state.report.userId,
+		userName = state.report.userName,
+		placeName = state.gameInfo.name,
+		canCaptureFocus = state.report.dialogOpen and not state.respawn.dialogOpen,
+		isGamepadLastInput = state.displayOptions.inputType == Constants.InputType.Gamepad,
+	}
+end, function(dispatch)
+	return {
+		dispatchCloseReportDialog = function()
+			dispatch(CloseReportDialog())
+		end,
+		dispatchSendReport = function(abuseReason, abuseDescription, userId)
+			dispatch(SendReport(abuseReason, abuseDescription, userId))
 
-				local stringTable = {}
-				if GAME_TYPE_OF_ABUSE == abuseReason then
-					table.insert(stringTable, "report_type=game")
-					table.insert(stringTable, "reported_entity_id=" .. tostring(game.GameId))
-				else
-					table.insert(stringTable, "report_type=user")
-					table.insert(stringTable, "reported_entity_id=" .. tostring(userId))
-				end
-
-				table.insert(stringTable, "report_source=ingame")
-				local infoString = table.concat(stringTable,"&")
-
-				SendAnalytics(Constants.AnalyticsReportSubmittedName, infoString, {})
+			local stringTable = {}
+			if GAME_TYPE_OF_ABUSE == abuseReason then
+				table.insert(stringTable, "report_type=game")
+				table.insert(stringTable, "reported_entity_id=" .. tostring(game.GameId))
+			else
+				table.insert(stringTable, "report_type=user")
+				table.insert(stringTable, "reported_entity_id=" .. tostring(userId))
 			end
-		}
-	end
-)(ReportDialog)
+
+			table.insert(stringTable, "report_source=ingame")
+			local infoString = table.concat(stringTable, "&")
+
+			SendAnalytics(Constants.AnalyticsReportSubmittedName, infoString, {})
+		end,
+	}
+end)(ReportDialog)

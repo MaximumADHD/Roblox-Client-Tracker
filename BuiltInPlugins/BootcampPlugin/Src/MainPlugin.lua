@@ -28,8 +28,8 @@ local Mouse = ContextServices.Mouse
 
 local MakeTheme = require(main.Src.Resources.MakeTheme)
 
-local TranslationDevelopmentTable = main.Src.Resources.Localization.TranslationDevelopmentTable
-local TranslationReferenceTable = main.Src.Resources.Localization.TranslationReferenceTable
+local SourceStrings = main.Src.Resources.Localization.SourceStrings
+local LocalizedStrings = main.Src.Resources.Localization.LocalizedStrings
 
 local Components = main.Src.Components
 local Aggregator = require(Components.Aggregator)
@@ -68,8 +68,8 @@ function MainPlugin:init(props)
 	end
 
 	self.localization = ContextServices.Localization.new({
-		stringResourceTable = TranslationDevelopmentTable,
-		translationResourceTable = TranslationReferenceTable,
+		stringResourceTable = SourceStrings,
+		translationResourceTable = LocalizedStrings,
 		pluginName = "BootcampPlugin",
 	})
 end

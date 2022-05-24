@@ -28,24 +28,21 @@ local function hasValue(tab, val)
 	return false
 end
 
-function CallstackDropdownField:init()	
-	
+function CallstackDropdownField:init()
 	self.keyColumns = {
 		[1] = "AllColumns",
 		[2] = Columns.Frame,
-		[3] = Columns.Layer,
-		[4] = Columns.Source,
-		[5] = Columns.Function,
-		[6] = Columns.Line,
+		[3] = Columns.Source,
+		[4] = Columns.Function,
+		[5] = Columns.Line,
 	}
-	
 end
 
 function CallstackDropdownField:render()
 	local props = self.props
 	local style = props.Stylizer
 	local localization = props.Localization
-	
+
 	return Roact.createElement(DropdownField, {
 		KeyTexts = self.keyColumns,
 		ClickCallback = props.onColumnFilterChange,
@@ -64,28 +61,22 @@ CallstackDropdownField = withContext({
 	Stylizer = Stylizer,
 })(CallstackDropdownField)
 
-CallstackDropdownField = RoactRodux.connect(
-	function(state, props)
-		local enabledColumns = state.Callstack.listOfEnabledColumns
-		local newColumnStates = {}
-		newColumnStates[2] = hasValue(enabledColumns, Columns.Frame)
-		newColumnStates[3] = hasValue(enabledColumns, Columns.Layer)
-		newColumnStates[4] = hasValue(enabledColumns, Columns.Source)
-		newColumnStates[5] = hasValue(enabledColumns, Columns.Function)
-		newColumnStates[6] = hasValue(enabledColumns, Columns.Line)
-		return {
-			ColumnStates = newColumnStates,
-		}
-	end,
-	
-	function(dispatch)
-		return {
-			onColumnFilterChange = function(enabledColumns)
-				return dispatch(ColumnFilterChange(enabledColumns))
-			end,
-		}
-	end
-	
-)(CallstackDropdownField)
+CallstackDropdownField = RoactRodux.connect(function(state, props)
+	local enabledColumns = state.Callstack.listOfEnabledColumns
+	local newColumnStates = {}
+	newColumnStates[2] = hasValue(enabledColumns, Columns.Frame)
+	newColumnStates[3] = hasValue(enabledColumns, Columns.Source)
+	newColumnStates[4] = hasValue(enabledColumns, Columns.Function)
+	newColumnStates[5] = hasValue(enabledColumns, Columns.Line)
+	return {
+		ColumnStates = newColumnStates,
+	}
+end, function(dispatch)
+	return {
+		onColumnFilterChange = function(enabledColumns)
+			return dispatch(ColumnFilterChange(enabledColumns))
+		end,
+	}
+end)(CallstackDropdownField)
 
 return CallstackDropdownField

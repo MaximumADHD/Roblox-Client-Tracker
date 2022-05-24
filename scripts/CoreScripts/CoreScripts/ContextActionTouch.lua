@@ -7,6 +7,7 @@
 local contextActionService = game:GetService("ContextActionService")
 local userInputService = game:GetService("UserInputService")
 local playersService = game:GetService("Players")
+local guiService = game:GetService("GuiService")
 local isTouchDevice = userInputService.TouchEnabled
 local functionTable = {}
 local buttonVector = {}
@@ -19,6 +20,7 @@ local ContextUpImage = "https://www.roblox.com/asset/?id=97166444"
 local oldTouches = {}
 
 local FFlagCancelButtonTouchEventOnMouseDragOff = game:DefineFastFlag("CancelButtonTouchEventOnMouseDragOff", false)
+local FFlagUpdateCorescriptsTouchControlsEnabled = game:DefineFastFlag("UpdateCorescriptsTouchControlsEnabled", false)
 
 local IMAGE = "image"
 local TITLE = "title"
@@ -65,12 +67,19 @@ function createContextActionGui()
 		buttonFrame.Name = "ContextButtonFrame"
 		buttonFrame.Parent = buttonScreenGui
 
-		buttonFrame.Visible = not userInputService.ModalEnabled
-		userInputService.Changed:connect(function(property)
-			if property == "ModalEnabled" then
-				buttonFrame.Visible = not userInputService.ModalEnabled
-			end
-		end)
+		if FFlagUpdateCorescriptsTouchControlsEnabled then
+			buttonFrame.Visible = guiService.TouchControlsEnabled
+			guiService:GetPropertyChangedSignal("TouchControlsEnabled"):Connect(function()
+				buttonFrame.Visible = guiService.TouchControlsEnabled
+			end)
+		else
+			buttonFrame.Visible = not userInputService.ModalEnabled
+			userInputService.Changed:connect(function(property)
+				if property == "ModalEnabled" then
+					buttonFrame.Visible = not userInputService.ModalEnabled
+				end
+			end)
+		end
 	end
 end
 

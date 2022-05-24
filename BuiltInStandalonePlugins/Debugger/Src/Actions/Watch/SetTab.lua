@@ -10,12 +10,12 @@ local Dash = Framework.Dash
 local includes = Dash.includes
 
 export type Props = {
-	currentTab : string
+	currentTab: string,
 }
 
-return Action(script.Name, function(currentTab : string) : Props
+return Action(script.Name, function(currentTab: string): Props
 	assert(includes(TableTab, currentTab))
 	return {
-		currentTab = currentTab
+		currentTab = currentTab,
 	}
 end)

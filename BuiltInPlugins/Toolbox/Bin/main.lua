@@ -9,7 +9,6 @@ return function(plugin, pluginLoaderContext)
 	local Util = Plugin.Core.Util
 	local FFlagDebugToolboxEnableRoactChecks = game:GetFastFlag("DebugToolboxEnableRoactChecks")
 	local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
-	local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 
 	local isCli = require(Util.isCli)
 	if isCli() then
@@ -52,8 +51,7 @@ return function(plugin, pluginLoaderContext)
 	local AssetConfigConstants = require(Util.AssetConfigConstants)
 	local AssetConfigUtil = require(Util.AssetConfigUtil)
 	local makeToolboxAnalyticsContext = require(Util.Analytics.makeToolboxAnalyticsContext)
-
-	local IXPContext = if FFlagToolboxAssetCategorization4 then require(Plugin.Core.ContextServices.IXPContext) else nil
+	local IXPContext = require(Plugin.Core.ContextServices.IXPContext)
 
 	if DebugFlags.shouldDebugWarnings() then
 		local Promise = require(Packages.Framework).Util.Promise
@@ -82,8 +80,8 @@ return function(plugin, pluginLoaderContext)
 	local ContextServices = Framework.ContextServices
 	local ThunkWithArgsMiddleware = Framework.Util.ThunkWithArgsMiddleware
 
-	local TranslationDevelopmentTable = Plugin.LocalizationSource.TranslationDevelopmentTable
-	local TranslationReferenceTable = Plugin.LocalizationSource.TranslationReferenceTable
+	local SourceStrings = Plugin.LocalizationSource.SourceStrings
+	local LocalizedStrings = Plugin.LocalizationSource.LocalizedStrings
 
 	local HttpService = game:GetService("HttpService")
 	local RobloxPluginGuiService = game:GetService("RobloxPluginGuiService")
@@ -94,13 +92,13 @@ return function(plugin, pluginLoaderContext)
 	end
 
 	local devFrameworkLocalization = ContextServices.Localization.new({
-		stringResourceTable = TranslationDevelopmentTable,
-		translationResourceTable = TranslationReferenceTable,
+		stringResourceTable = SourceStrings,
+		translationResourceTable = LocalizedStrings,
 		pluginName = "Toolbox",
 		libraries = {
 			[Framework.Resources.LOCALIZATION_PROJECT_NAME] = {
-				stringResourceTable = Framework.Resources.TranslationDevelopmentTable,
-				translationResourceTable = Framework.Resources.TranslationReferenceTable,
+				stringResourceTable = Framework.Resources.SourceStrings,
+				translationResourceTable = Framework.Resources.LocalizedStrings,
 			},
 		},
 	})
@@ -130,8 +128,8 @@ return function(plugin, pluginLoaderContext)
 	end
 
 	local function createLocalization()
-		local translationDevelopmentTable = Plugin.LocalizationSource.TranslationDevelopmentTable
-		local translationReferenceTable = Plugin.LocalizationSource.TranslationReferenceTable
+		local SourceStrings = Plugin.LocalizationSource.SourceStrings
+		local LocalizedStrings = Plugin.LocalizationSource.LocalizedStrings
 
 		-- Check if we should use a fake locale
 		if DebugFlags.shouldUseTestCustomLocale() then
@@ -142,7 +140,7 @@ return function(plugin, pluginLoaderContext)
 		if DebugFlags.shouldUseTestRealLocale() then
 			print("Toolbox using test real locale")
 			return Localization.createTestRealLocaleLocalization(
-				translationReferenceTable,
+				LocalizedStrings,
 				DebugFlags.getOrCreateTestRealLocale()
 			)
 		end
@@ -152,10 +150,10 @@ return function(plugin, pluginLoaderContext)
 				return StudioService["StudioLocaleId"]
 			end,
 			getTranslator = function(localeId)
-				return translationReferenceTable:GetTranslator(localeId)
+				return LocalizedStrings:GetTranslator(localeId)
 			end,
 			getFallbackTranslator = function(localeId)
-				return translationDevelopmentTable:GetTranslator(localeId)
+				return SourceStrings:GetTranslator(localeId)
 			end,
 			localeIdChanged = StudioService:GetPropertyChangedSignal("StudioLocaleId"),
 		})
@@ -331,11 +329,7 @@ return function(plugin, pluginLoaderContext)
 			end,
 		})
 
-		local ixpContext
-
-		if FFlagToolboxAssetCategorization4 then
-			ixpContext = IXPContext.new()
-		end
+		local ixpContext = IXPContext.new()
 
 		local toolboxWithServices
 		toolboxWithServices = Roact.createElement(ToolboxServiceWrapper, {

@@ -39,6 +39,8 @@ local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
 local ExplorerPreviewInstances = Roact.PureComponent:extend("ExplorerPreviewInstances")
 Typecheck.wrap(ExplorerPreviewInstances, script)
 
+game:DefineFastFlag("PreviewAvatarPositionBugFix", false)
+
 function ExplorerPreviewInstances:init()
 	self.folderRef = Roact.createRef()
 	self.editingItemClones = {}
@@ -46,7 +48,7 @@ end
 
 function ExplorerPreviewInstances:render()
 	return Roact.createElement(Roact.Portal, {
-		target = game.Workspace
+		target = game.Workspace,
 	}, {
 		LayeredClothingEditorPreview = Roact.createElement("Folder", {
 			[Roact.Ref] = self.folderRef,
@@ -87,13 +89,13 @@ local function getModelFromUserAddedAssets(self, uniqueId, tabKey)
 	end
 
 	for _, asset in ipairs(userAddedAssets[tabKey]) do
-			if asset.uniqueId == uniqueId then
-				local result = asset.instance:Clone()
-				result.Archivable = false
-				return result
-			end
+		if asset.uniqueId == uniqueId then
+			local result = asset.instance:Clone()
+			result.Archivable = false
+			return result
 		end
 	end
+end
 
 local function getModel(self, uniqueId, tabKey)
 	local result = getModelFromUserAddedAssets(self, uniqueId, tabKey)
@@ -138,12 +140,17 @@ end
 
 local function addPreviewAvatar(self, previewAvatar)
 	local editingItem = self.props.EditingItemContext:getItem()
+	if game:getFastFlag("PreviewAvatarPositionBugFix") then
+		previewAvatar.Parent = self.folderRef.current
+	end
 	if ItemCharacteristics.isAvatar(editingItem) then
 		ModelUtil:positionAvatar(previewAvatar, editingItem)
 	else
 		ModelUtil:positionAvatar(previewAvatar, editingItem.Parent)
 	end
-	previewAvatar.Parent = self.folderRef.current
+	if not game:getFastFlag("PreviewAvatarPositionBugFix") then
+		previewAvatar.Parent = self.folderRef.current
+	end
 	previewAvatar.Name = PreviewConstants.PreviewAvatarName
 	self.props.PreviewContext:addAvatar(previewAvatar)
 end

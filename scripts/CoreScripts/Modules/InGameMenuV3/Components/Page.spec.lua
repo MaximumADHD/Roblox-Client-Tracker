@@ -55,8 +55,8 @@ return function()
         local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
 
         local renderedPage = Players.LocalPlayer.PlayerGui:GetChildren()[1]
-        expect(renderedPage:FindFirstChild("PageTitle")).never.to.equal(nil)
-        expect(renderedPage:FindFirstChild("PageTitle").text).to.equal("test")
+        expect(renderedPage:FindFirstChild("PageHeader")).never.to.equal(nil)
+        expect(renderedPage:FindFirstChild("PageHeader").ThreeSectionBar.centerFrame.centerContent.Text).to.equal("test")
 
         local pageContainer = renderedPage:FindFirstChild("PageContainer")
         expect(pageContainer).never.to.equal(nil)

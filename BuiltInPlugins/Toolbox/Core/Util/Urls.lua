@@ -15,7 +15,6 @@ local Url = require(Plugin.Libs.Http.Url)
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
-local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 local FIntCanManageLuaRolloutPercentage = game:DefineFastInt("CanManageLuaRolloutPercentage", 0)
 
@@ -141,9 +140,7 @@ if FFlagToolboxAudioDiscovery then
 end
 
 function Urls.constructGetToolboxItemsUrl(
-	-- remove string from args union when removing FFlagToolboxAssetCategorization4
-	-- and also remove all the type(args) ~= "string" conditionals
-	args: string | {
+	args: {
 		categoryName: string,
 		sectionName: string?,
 		sortType: string?,
@@ -158,50 +155,21 @@ function Urls.constructGetToolboxItemsUrl(
 		includeOnlyVerifiedCreators: boolean?,
 		useCreatorWhitelist: boolean?,
 		tags: { string }?,
-	},
-	sortType: string?,
-	creatorType: string?,
-	minDuration: number?,
-	maxDuration: number?,
-	includeOnlyVerifiedCreators: boolean?,
-	creatorTargetId: number?,
-	ownerId: number?,
-	keyword: string?,
-	cursor: string?,
-	limit: number?,
-	useCreatorWhitelist: boolean?
+	}
 )
-	local categoryName: string
-	if FFlagToolboxAssetCategorization4 and type(args) ~= "string" then
-		categoryName = args.categoryName
-		ownerId = args.ownerId
-	else
-		categoryName = args :: string
-	end
+	local categoryName = args.categoryName
+	local ownerId = args.ownerId
 
-	local query = if FFlagToolboxAssetCategorization4 and type(args) ~= "string"
-		then Object.assign(
-			{},
-			Dash.omit(args, {
-				"categoryName",
-				"sectionName",
-				"ownerId",
-				"tags",
-			}),
-			{ tags = if FFlagToolboxAudioDiscovery and args.tags then Array.join(args.tags, ",") else nil }
-		)
-		else {
-			creatorType = creatorType,
-			minDuration = minDuration,
-			maxDuration = maxDuration,
-			includeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
-			creatorTargetId = creatorTargetId,
-			keyword = keyword,
-			sortType = sortType,
-			cursor = cursor,
-			limit = limit,
-			useCreatorWhitelist = useCreatorWhitelist,
-		}
+	local query = Object.assign(
+		{},
+		Dash.omit(args, {
+			"categoryName",
+			"sectionName",
+			"ownerId",
+			"tags",
+		}),
+		{ tags = if FFlagToolboxAudioDiscovery and args.tags then Array.join(args.tags, ",") else nil }
+	)
 
 	local categoryData = Category.getCategoryByName(categoryName)
 
@@ -210,7 +178,7 @@ function Urls.constructGetToolboxItemsUrl(
 	end
 
 	local targetUrl
-	if FFlagToolboxAssetCategorization4 and type(args) ~= "string" and args.sectionName then
+	if args.sectionName then
 		local apiName = Category.ToolboxAssetTypeToEngine[categoryData.assetType].Value
 		targetUrl = string.format("%s/home/%s/section/%s/assets", TOOLBOX_SERVICE_URL, apiName, args.sectionName)
 	elseif FFlagToolboxAudioDiscovery and Urls.usesMarketplaceRoute(categoryData.name) then
@@ -616,13 +584,11 @@ function Urls.constructToolboxAutocompleteUrl(categoryName, searchTerm, numberOf
 	return url
 end
 
-if FFlagToolboxAssetCategorization4 then
-	function Urls.constructGetHomeConfigurationUrl(assetType: Enum.AssetType, locale: string?)
-		return string.format("%s/home/%s/configuration?", TOOLBOX_SERVICE_URL, assetType.Name)
-			.. Url.makeQueryString({
-				locale = locale,
-			})
-	end
+function Urls.constructGetHomeConfigurationUrl(assetType: Enum.AssetType, locale: string?)
+	return string.format("%s/home/%s/configuration?", TOOLBOX_SERVICE_URL, assetType.Name)
+		.. Url.makeQueryString({
+			locale = locale,
+		})
 end
 
 if FFlagToolboxAudioAssetConfigIdVerification then

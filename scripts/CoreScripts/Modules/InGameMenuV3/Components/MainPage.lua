@@ -41,7 +41,6 @@ local networkImpl = httpRequest(HttpRbxApiService)
 
 local Flags = InGameMenu.Flags
 local GetFFlagUseIGMControllerBar = require(Flags.GetFFlagUseIGMControllerBar)
-local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 local GetFFlagSideNavControllerBar = require(Flags.GetFFlagSideNavControllerBar)
 local FocusHandler = require(script.Parent.Connection.FocusHandler)
 local IGMMainPageControllerBar = require(script.Parent.IGMMainPageControllerBar)
@@ -62,7 +61,7 @@ MainPage.validateProps = t.strictInterface({
 	canCaptureFocus = t.optional(t.boolean),
 	inputType = t.optional(t.string),
 	setFirstItemRef = t.optional(t.callback),
-	currentZone = GetFFlagIGMGamepadSelectionHistory() and t.optional(t.number) or nil,
+	currentZone = t.optional(t.number),
 	isMainPageInForeground = GetFFlagSideNavControllerBar() and t.optional(t.boolean) or nil,
 })
 
@@ -78,26 +77,16 @@ function MainPage:init()
 end
 
 function MainPage:renderMainPageFocusHandler()
-	local canCaptureFocus = self.canGamepadCaptureFocus(self.props)
-
-	local shouldForgetPreviousSelection = nil -- can be inlined when flag is removed
-	if GetFFlagIGMGamepadSelectionHistory() then
-		canCaptureFocus = self.canGamepadCaptureFocus(self.props)
-		shouldForgetPreviousSelection = not self.props.open or self.props.currentZone == 0
-	end
-
 	return Roact.createElement(FocusHandler, {
-		isFocused = canCaptureFocus,
-		shouldForgetPreviousSelection = shouldForgetPreviousSelection,
-		didFocus = GetFFlagIGMGamepadSelectionHistory() and function(previousSelection)
+		isFocused = self.canGamepadCaptureFocus(self.props),
+		shouldForgetPreviousSelection = not self.props.open or self.props.currentZone == 0,
+		didFocus = function(previousSelection)
 			GuiService.SelectedCoreObject = previousSelection or self.mainPageFirstButtonRef:getValue()
-		end or function()
 		end,
 	})
 end
 
 function MainPage:render()
-
 	local canCaptureFocus = nil
 	if GetFFlagSideNavControllerBar() then
 		canCaptureFocus = self.props.isMainPageInForeground and self.props.inputType == Constants.InputType.Gamepad
@@ -106,7 +95,6 @@ function MainPage:render()
 	end
 
 	return withStyle(function(style)
-
 		return Roact.createElement("TextButton", {
 			Size = UDim2.new(0, MAIN_PAGE_WIDTH, 1, 0),
 			BackgroundColor3 = style.Theme.BackgroundDefault.Color,
@@ -117,7 +105,10 @@ function MainPage:render()
 			AutoButtonColor = false,
 			Selectable = false,
 		}, {
-			MainPageFocusHandler = GetFFlagUseIGMControllerBar() and not (VRService.VREnabled and FFlagEnableNewVrSystem) and self:renderMainPageFocusHandler() or nil,
+			MainPageFocusHandler = GetFFlagUseIGMControllerBar()
+					and not (VRService.VREnabled and FFlagEnableNewVrSystem)
+					and self:renderMainPageFocusHandler()
+				or nil,
 			ControllerBar = Roact.createElement(IGMMainPageControllerBar, {
 				canCaptureFocus = canCaptureFocus,
 			}),
@@ -140,7 +131,7 @@ function MainPage:render()
 						self.setPageSize(UDim2.new(0, 0, 0, rbx.AbsoluteContentSize.Y))
 					end,
 				}),
-				GameIconHeader = Roact.createElement(GameIconHeader, {LayoutOrder = 1}),
+				GameIconHeader = Roact.createElement(GameIconHeader, { LayoutOrder = 1 }),
 				Spacer = Roact.createElement(Spacer, {
 					layoutOrder = 2,
 				}),
@@ -170,7 +161,7 @@ function MainPage:render()
 						textXAlignment = Enum.TextXAlignment.Left,
 						textYAlignment = Enum.TextYAlignment.Top,
 					}),
-				})
+				}),
 			}),
 			LeaveButton = Roact.createElement(LeaveButton, {
 				hidden = self.state.scrollingDown,
@@ -184,17 +175,10 @@ function MainPage:didMount()
 end
 
 function MainPage.canGamepadCaptureFocus(props)
-	return props.canCaptureFocus
-		and props.inputType == Constants.InputType.Gamepad
+	return props.canCaptureFocus and props.inputType == Constants.InputType.Gamepad
 end
 
 function MainPage:didUpdate(prevProps, prevState)
-	if not GetFFlagIGMGamepadSelectionHistory() then
-		if self.canGamepadCaptureFocus(self.props) then
-			GuiService.SelectedCoreObject = self.mainPageFirstButtonRef:getValue()
-		end
-	end
-
 	if VRService.VREnabled and FFlagEnableNewVrSystem then
 		UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
 	end
@@ -203,12 +187,9 @@ end
 return RoactRodux.UNSTABLE_connect2(function(state, props)
 	local isMainPageInForeground = nil
 	if GetFFlagSideNavControllerBar() then
-		isMainPageInForeground = state.isMenuOpen and not state.respawn.dialogOpen and state.menuPage == Constants.MainPagePageKey
-	end
-
-	local currentZone = nil -- can inline when flag is removed
-	if GetFFlagIGMGamepadSelectionHistory() then
-		currentZone = state.currentZone
+		isMainPageInForeground = state.isMenuOpen
+			and not state.respawn.dialogOpen
+			and state.menuPage == Constants.MainPagePageKey
 	end
 
 	local canCaptureFocus = state.menuPage == Constants.MainPagePageKey
@@ -220,14 +201,13 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 		open = state.isMenuOpen,
 		screenSize = state.screenSize,
 		canCaptureFocus = canCaptureFocus,
-		currentZone = currentZone,
+		currentZone = state.currentZone,
 		inputType = state.displayOptions.inputType,
 		isMainPageInForeground = isMainPageInForeground,
 		isFavorited = state.gameInfo.isFavorited,
 		gameDescription = state.gameInfo.description,
 	}
 end, function(dispatch)
-
 	local universeId = game.GameId
 
 	return {

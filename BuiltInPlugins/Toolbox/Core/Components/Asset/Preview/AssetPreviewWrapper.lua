@@ -74,7 +74,6 @@ local PurchaseStatus = require(Plugin.Core.Types.PurchaseStatus)
 local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
-local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 local FFlagToolboxFixNonOwnedPluginInstallation = game:GetFastFlag("ToolboxFixNonOwnedPluginInstallation")
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
 local FFlagToolboxAssetPreviewProtectAgainstNilAssetData = game:GetFastFlag(
@@ -288,7 +287,7 @@ function AssetPreviewWrapper:init(props)
 			local assetData = props.assetData
 			local plugin = props.Plugin:get()
 			local tryOpenAssetConfig = props.tryOpenAssetConfig
-			
+
 			local assetAnalyticsContext
 			if FFlagToolboxUsePageInfoInsteadOfAssetContext then
 				local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
@@ -308,7 +307,7 @@ function AssetPreviewWrapper:init(props)
 				self.props.tryCreateContextMenu(assetData, showEditOption, nil, nil, assetAnalyticsContext)
 			else
 				self.props.tryCreateContextMenu(assetData, showEditOption)
-			end			
+			end
 		end
 	end
 
@@ -442,13 +441,10 @@ function AssetPreviewWrapper:init(props)
 			categoryName = categoryName,
 			currentCategoryName = currentCategoryName,
 			onSuccess = function()
-				local navData
-				if FFlagToolboxAssetCategorization4 then
-					local analytics = self.props.AssetAnalytics:get()
-					local navigation = self.props.NavigationContext:get()
-					local swimlaneName = self.props.swimlane
-					navData = analytics.getNavigationContext(navigation, swimlaneName)
-				end
+				local analytics = self.props.AssetAnalytics:get()
+				local navigation = self.props.NavigationContext:get()
+				local swimlaneName = self.props.swimlane
+				local navData = analytics.getNavigationContext(navigation, swimlaneName)
 
 				self.props.AssetAnalytics
 					:get()
@@ -700,12 +696,7 @@ local function mapStateToProps(state, props)
 
 	local categories = nil
 
-	local assetData
-	if FFlagToolboxAssetCategorization4 then
-		assetData = props.assetData
-	else
-		assetData = FFlagToolboxAssetGridRefactor and idToAssetMap[assetId] or nil
-	end
+	local assetData = props.assetData
 	local stateToProps = {
 		assetData = assetData,
 		categories = categories,
@@ -761,7 +752,15 @@ local function mapDispatchToProps(dispatch)
 
 		tryCreateContextMenu = FFlagToolboxAssetGridRefactor
 				and function(assetData, localizedContent, plugin, tryOpenAssetConfig, assetAnalyticsContext)
-					dispatch(TryCreateContextMenu(assetData, localizedContent, plugin, tryOpenAssetConfig, assetAnalyticsContext))
+					dispatch(
+						TryCreateContextMenu(
+							assetData,
+							localizedContent,
+							plugin,
+							tryOpenAssetConfig,
+							assetAnalyticsContext
+						)
+					)
 				end
 			or nil,
 
@@ -798,7 +797,7 @@ end
 AssetPreviewWrapper = withContext({
 	Settings = Settings,
 	AssetAnalytics = AssetAnalyticsContextItem,
-	NavigationContext = FFlagToolboxAssetCategorization4 and NavigationContext or nil,
+	NavigationContext = NavigationContext,
 	Plugin = FFlagToolboxAssetGridRefactor and ContextServices.Plugin or nil,
 	Stylizer = ContextServices.Stylizer,
 })(AssetPreviewWrapper)

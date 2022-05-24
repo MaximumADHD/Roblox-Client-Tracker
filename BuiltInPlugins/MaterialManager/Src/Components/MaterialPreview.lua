@@ -12,9 +12,11 @@ local AssetRenderModel = StudioUI.AssetRenderModel
 
 local Util = Plugin.Src.Util
 local MaterialController = require(Util.MaterialController)
-local getMaterialColor = require(Util.getMaterialColor)
-local getMaterialName = require(Util.getMaterialName)
-local getMaterialType = require(Util.getMaterialType)
+
+local Constants = Plugin.Src.Resources.Constants
+local getMaterialColor = require(Constants.getMaterialColor)
+local getMaterialName = require(Constants.getMaterialName)
+local getMaterialType = require(Constants.getMaterialType)
 
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialPack2022Update = require(Flags.getFFlagMaterialPack2022Update)

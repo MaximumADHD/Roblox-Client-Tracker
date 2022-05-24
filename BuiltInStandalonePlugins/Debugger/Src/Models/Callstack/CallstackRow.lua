@@ -1,6 +1,5 @@
 export type CallstackRow = {
 	frameColumn: string,
-	layerColumn: string,
 	functionColumn: string,
 	lineColumn: string,
 	sourceColumn: string,
@@ -13,7 +12,7 @@ local ICON_FRAME_TOP = {
 		["Size"] = UDim2.new(0, 14, 0, 14),
 	},
 	["Value"] = "",
-} 
+}
 
 -- TODO: Shift to MakeTheme.lua
 local ICON_CURRENT_FRAME = {
@@ -24,20 +23,18 @@ local ICON_CURRENT_FRAME = {
 	["Value"] = "",
 }
 
-local function new() : CallstackRow
+local function new(): CallstackRow
 	return {
 		frameColumn = "",
-		layerColumn = "",
 		functionColumn = "",
 		lineColumn = "",
 		sourceColumn = "",
 	}
 end
 
-local function fromData(data) : CallstackRow
+local function fromData(data): CallstackRow
 	return {
 		frameColumn = data.frameColumn,
-		layerColumn = data.layerColumn,
 		functionColumn = data.functionColumn,
 		lineColumn = data.lineColumn,
 		sourceColumn = data.sourceColumn,

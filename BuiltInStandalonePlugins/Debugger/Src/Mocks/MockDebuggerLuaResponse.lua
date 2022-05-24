@@ -1,7 +1,7 @@
 local MockDebuggerLuaResponse = {}
 MockDebuggerLuaResponse.__index = MockDebuggerLuaResponse
 
-function MockDebuggerLuaResponse.new(arg, status : string)
+function MockDebuggerLuaResponse.new(arg, status: string)
 	local self = {}
 	self.arg = arg
 	self.Status = status

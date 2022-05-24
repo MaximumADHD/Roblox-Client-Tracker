@@ -24,7 +24,7 @@ local RemoveExpression = require(Actions.Watch.RemoveExpression)
 local SimPaused = require(Actions.Common.SimPaused)
 local Constants = require(Util.Constants)
 
-local defaultDebuggerToken = DebuggerStateToken.fromData({debuggerConnectionId = 1, stepNumber = 1})
+local defaultDebuggerToken = DebuggerStateToken.fromData({ debuggerConnectionId = 1, stepNumber = 1 })
 local defaultThreadId = 1
 local stepStateBundle = StepStateBundle.ctor(defaultDebuggerToken, 2, 2)
 
@@ -41,7 +41,7 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
- 				childPaths = {},
+				childPaths = {},
 			}
 
 			local expressionData1 = WatchRow.fromData(varData1)
@@ -65,9 +65,15 @@ return function()
 			expect(#state.stateTokenToRoots[defaultDebuggerToken][2][2].Watches).to.equal(1)
 			expect(state.stateTokenToRoots[defaultDebuggerToken][2][2].Watches[1]).to.equal(tokenizedValue1)
 			expect(state.stateTokenToRoots[defaultDebuggerToken][2][2].Watches).to.be.ok()
-			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Watches[tokenizedValue1].expressionColumn).to.equal(varData1.expression)
-			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Watches[tokenizedValue1].childPaths[1]).to.equal(tokenizedValue2)
-			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Watches[tokenizedValue2].nameColumn).to.equal(varData2.name)
+			expect(
+				state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Watches[tokenizedValue1].expressionColumn
+			).to.equal(varData1.expression)
+			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Watches[tokenizedValue1].childPaths[1]).to.equal(
+				tokenizedValue2
+			)
+			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Watches[tokenizedValue2].nameColumn).to.equal(
+				varData2.name
+			)
 		end)
 
 		it("should preserve immutability", function()
@@ -102,12 +108,16 @@ return function()
 
 			local prepState2 = WatchReducer(prepState, ExpressionEvaluated(stepStateBundle, expressionData1))
 
-			local immutabilityPreserved = testImmutability(WatchReducer, AddChildExpression(stepStateBundle, tokenizedValue1, vars2), prepState2)
+			local immutabilityPreserved = testImmutability(
+				WatchReducer,
+				AddChildExpression(stepStateBundle, tokenizedValue1, vars2),
+				prepState2
+			)
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)
 
-	describe(AddExpression.name, function() 
+	describe(AddExpression.name, function()
 		it("should update the expressions list", function()
 			local state = WatchReducer(nil, AddExpression("Add Expression Test"))
 
@@ -133,12 +143,12 @@ return function()
 		end)
 	end)
 
-	describe(ChangeExpression.name, function() 
+	describe(ChangeExpression.name, function()
 		it("should update the expression in place", function()
 			local prepState1 = WatchReducer(nil, AddExpression("ChangeExpression Test1"))
 			local prepState2 = WatchReducer(prepState1, AddExpression("ChangeExpression Test2"))
 			local state = WatchReducer(prepState2, ChangeExpression("ChangeExpression Test1", "ChangeExpression Test3"))
-			
+
 			expect(state).to.be.ok()
 			expect(state.listOfExpressions).to.be.ok()
 			expect(#state.listOfExpressions).to.equal(2)
@@ -149,7 +159,7 @@ return function()
 		it("should not allow duplicates", function()
 			local prepState1 = WatchReducer(nil, AddExpression("ChangeExpression Test1"))
 			local prepState2 = WatchReducer(prepState1, AddExpression("ChangeExpression Test2"))
-			
+
 			local state = WatchReducer(prepState2, ChangeExpression("ChangeExpression Test1", "ChangeExpression Test2"))
 
 			expect(state).to.be.ok()
@@ -159,7 +169,7 @@ return function()
 			expect(state.listOfExpressions[2]).to.equal("ChangeExpression Test2")
 		end)
 
-		it("not allow changing what isn't there", function()			
+		it("not allow changing what isn't there", function()
 			local state = WatchReducer(nil, ChangeExpression("ChangeExpression Test1", "ChangeExpression Test2"))
 
 			expect(state).to.be.ok()
@@ -179,7 +189,7 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
- 				childPaths = {},
+				childPaths = {},
 			}
 
 			local expressionData1 = WatchRow.fromData(varData1)
@@ -209,12 +219,16 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
- 				childPaths = {},
+				childPaths = {},
 			}
 			local expressionData1 = WatchRow.fromData(varData1)
 			local prepState3 = WatchReducer(prepState2, ExpressionEvaluated(stepStateBundle, expressionData1))
 
-			local immutabilityPreserved = testImmutability(WatchReducer, ChangeExpression("ChangeExpression Test1", "ChangeExpression Test3"), prepState3)
+			local immutabilityPreserved = testImmutability(
+				WatchReducer,
+				ChangeExpression("ChangeExpression Test1", "ChangeExpression Test3"),
+				prepState3
+			)
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)
@@ -231,7 +245,7 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
- 				childPaths = {},
+				childPaths = {},
 			}
 
 			local varData2 = {
@@ -252,8 +266,12 @@ return function()
 			expect(state.stateTokenToRoots[defaultDebuggerToken][2][2].Watches[1]).to.equal(tokenizedValue1)
 			expect(state.stateTokenToRoots[defaultDebuggerToken][2][2].Watches[2]).to.equal(tokenizedValue2)
 			expect(state.stateTokenToRoots[defaultDebuggerToken][2][2].Watches).to.be.ok()
-			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Watches[tokenizedValue1].expressionColumn).to.equal(varData1.expression)
-			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Watches[tokenizedValue2].expressionColumn).to.equal(varData2.expression)
+			expect(
+				state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Watches[tokenizedValue1].expressionColumn
+			).to.equal(varData1.expression)
+			expect(
+				state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Watches[tokenizedValue2].expressionColumn
+			).to.equal(varData2.expression)
 		end)
 
 		it("should preserve immutability", function()
@@ -268,15 +286,19 @@ return function()
 				dataType = "string",
 				childPaths = {},
 			}
-			
+
 			local expressionData1 = WatchRow.fromData(varData1)
 
-			local immutabilityPreserved = testImmutability(WatchReducer, ExpressionEvaluated(stepStateBundle, expressionData1), prepState)
+			local immutabilityPreserved = testImmutability(
+				WatchReducer,
+				ExpressionEvaluated(stepStateBundle, expressionData1),
+				prepState
+			)
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)
 
-	describe(RemoveExpression.name, function() 
+	describe(RemoveExpression.name, function()
 		it("should remove the expression from the list of expressions", function()
 			local prepState = WatchReducer(nil, AddExpression("RemoveExpression Test"))
 			expect(prepState).to.be.ok()
@@ -285,7 +307,7 @@ return function()
 			expect(prepState.listOfExpressions[1]).to.equal("RemoveExpression Test")
 
 			local state = WatchReducer(prepState, RemoveExpression("RemoveExpression Test"))
-			
+
 			expect(state).to.be.ok()
 			expect(state.listOfExpressions).to.be.ok()
 			expect(#state.listOfExpressions).to.equal(0)
@@ -302,12 +324,16 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
- 				childPaths = {},
+				childPaths = {},
 			}
 			local expressionData1 = WatchRow.fromData(varData1)
 			local prepState3 = WatchReducer(prepState2, ExpressionEvaluated(stepStateBundle, expressionData1))
 
-			local immutabilityPreserved = testImmutability(WatchReducer, RemoveExpression("RemoveExpression Test"), prepState3)
+			local immutabilityPreserved = testImmutability(
+				WatchReducer,
+				RemoveExpression("RemoveExpression Test"),
+				prepState3
+			)
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)

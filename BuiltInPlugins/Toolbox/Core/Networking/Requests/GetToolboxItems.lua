@@ -17,7 +17,6 @@ local Constants = require(Util.Constants)
 local CreatorInfoHelper = require(Util.CreatorInfoHelper)
 local PageInfoHelper = require(Util.PageInfoHelper)
 
-local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
 
 return function(networkInterface, category, audioSearchInfo, pageInfo, settings, nextPageCursor)
@@ -75,33 +74,19 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 				then pageInfo.includeOnlyVerifiedCreators
 				else nil
 
-			local getRequest = if FFlagToolboxAssetCategorization4
-				then networkInterface:getToolboxItems({
-					categoryName = category,
-					sortType = sortName,
-					keyword = pageInfo.searchTerm or "",
-					cursor = nextPageCursor,
-					limit = Constants.TOOLBOX_ITEM_SEARCH_LIMIT,
-					ownerId = ownerId,
-					creatorType = pageInfo.creatorType,
-					creatorTargetId = creatorTargetId,
-					minDuration = audioSearchInfo and audioSearchInfo.minDuration or nil,
-					maxDuration = audioSearchInfo and audioSearchInfo.maxDuration or nil,
-					includeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
-				})
-				else networkInterface:getToolboxItems(
-					category,
-					sortName,
-					pageInfo.creatorType,
-					audioSearchInfo and audioSearchInfo.minDuration or nil,
-					audioSearchInfo and audioSearchInfo.maxDuration or nil,
-					includeOnlyVerifiedCreators,
-					creatorTargetId,
-					ownerId,
-					pageInfo.searchTerm or "",
-					nextPageCursor,
-					Constants.TOOLBOX_ITEM_SEARCH_LIMIT
-				)
+			local getRequest = networkInterface:getToolboxItems({
+				categoryName = category,
+				sortType = sortName,
+				keyword = pageInfo.searchTerm or "",
+				cursor = nextPageCursor,
+				limit = Constants.TOOLBOX_ITEM_SEARCH_LIMIT,
+				ownerId = ownerId,
+				creatorType = pageInfo.creatorType,
+				creatorTargetId = creatorTargetId,
+				minDuration = audioSearchInfo and audioSearchInfo.minDuration or nil,
+				maxDuration = audioSearchInfo and audioSearchInfo.maxDuration or nil,
+				includeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
+			})
 
 			return getRequest:andThen(function(result)
 				if PageInfoHelper.isPageInfoStale(pageInfo, store) then

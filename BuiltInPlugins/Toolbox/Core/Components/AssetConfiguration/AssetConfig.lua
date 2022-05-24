@@ -8,6 +8,7 @@
 
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 local FFlagToolboxAssetConfigurationMatchPluginFlow = game:GetFastFlag("ToolboxAssetConfigurationMatchPluginFlow")
+local FFlagToolboxAssetConfigurationFixPriceToggle = game:GetFastFlag("ToolboxAssetConfigurationFixPriceToggle")
 local FFlagAssetConfigCleanupDuplicateActions = game:GetFastFlag("AssetConfigCleanupDuplicateActions")
 
 local StudioService = game:GetService("StudioService")
@@ -606,69 +607,141 @@ function AssetConfig:isLoading()
 	return self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW and not self.state.assetId
 end
 
-function AssetConfig:didUpdate(previousProps, previousState)
-	if self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
-		local assetConfigData = self.props.assetConfigData
-		if next(assetConfigData) and (not self.state.dispatchGetFunction) then
-			local creator = assetConfigData.Creator or {}
-			local groupMetadataMissing = not self.state.groupMetadata or next(self.state.groupMetadata) == nil
-			if creator.typeId == ConfigTypes.OWNER_TYPES.User and not creator.username then
-				self.props.dispatchGetUsername(creator.targetId)
+if FFlagToolboxAssetConfigurationFixPriceToggle then
+	function AssetConfig:didUpdate()
+		if self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
+			local assetConfigData = self.props.assetConfigData
+			if not next(assetConfigData) then -- check if assetConfigData is not empty - we cannot check the length here since the keys are non-numeric
+				return
+			end
+
+			if (not self.state.dispatchGetFunction) then
+				local creator = assetConfigData.Creator or {}
+				local groupMetadataMissing = not self.state.groupMetadata or next(self.state.groupMetadata) == nil
+				if creator.typeId == ConfigTypes.OWNER_TYPES.User and not creator.username then
+					self.props.dispatchGetUsername(creator.targetId)
+					self:setState({
+						dispatchGetFunction = true,
+					})
+				elseif creator.typeId == ConfigTypes.OWNER_TYPES.Group and groupMetadataMissing then
+					self.props.dispatchGetGroupMetadata(creator.targetId)
+					self.props.dispatchGetGroupRoleInfo(getNetwork(self), creator.targetId)
+					self:setState({
+						dispatchGetFunction = true,
+					})
+				end
+			end
+
+			-- If we have assetConfigData and state is nil(default state),
+			-- then we will use the data retrived from the assetConfigData to trigger a re-render.
+			if (not self.init) then
+				local isAssetPublic
+				if assetConfigData["AssetPermissions"] then
+					isAssetPublic = AssetPermissionUtil.isAssetPublic(assetConfigData["AssetPermissions"])
+				end
+
+				local assetStatus = assetConfigData.Status
+				local isCopyingAllowed = assetConfigData.IsCopyingAllowed or AssetConfigUtil.isOnSale(assetStatus)
+
 				self:setState({
-					dispatchGetFunction = true,
+					-- assetId is named differently in the data returned by different end-points
+					assetId = AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum)
+						and assetConfigData.Id
+						or assetConfigData.AssetId,
+					name = assetConfigData.Name,
+					description = assetConfigData.Description,
+					owner = assetConfigData.Creator,
+					genres = assetConfigData.Genres,
+					allowCopy = assetConfigData.IsPublicDomainEnabled,
+					copyOn = isCopyingAllowed,
+					copyOnOriginalValue = isCopyingAllowed,
+					commentOn = assetConfigData.EnableComments,
+					price = assetConfigData.Price or AssetConfigUtil.getMinPrice(self.props.allowedAssetTypesForRelease, self.props.assetTypeEnum),
+					status = assetStatus,
+					isAssetPublic = isAssetPublic,
+					isAssetPublicOriginalValue = isAssetPublic,
 				})
-			elseif creator.typeId == ConfigTypes.OWNER_TYPES.Group and groupMetadataMissing then
-				self.props.dispatchGetGroupMetadata(creator.targetId)
-				self.props.dispatchGetGroupRoleInfo(getNetwork(self), creator.targetId)
+				self.init = true
+			end
+
+			if assetConfigData.ItemTags and self.state.tags == nil then
 				self:setState({
-					dispatchGetFunction = true,
+					tags = TagsUtil.getTagsFromItemTags(assetConfigData.ItemTags),
+				})
+			end
+		else
+			if (self.props.isVerifiedCreator ~= nil) and self.state.allowCopy ~= self.props.isVerifiedCreator then
+				self:setState({
+					allowCopy = self.props.isVerifiedCreator
 				})
 			end
 		end
 	end
-
-	-- If we have assetConfigData and state is nil(default state),
-	-- then we will use the data retrived from the assetConfigData to trigger a re-render.
-	if self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
-		local assetConfigData = self.props.assetConfigData
-		if next(assetConfigData) and (not self.init) then
-
-			local isAssetPublic
-			if assetConfigData["AssetPermissions"] then
-				isAssetPublic = AssetPermissionUtil.isAssetPublic(assetConfigData["AssetPermissions"])
+else
+	function AssetConfig:didUpdate(previousProps, previousState)
+		if self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
+			local assetConfigData = self.props.assetConfigData
+			if next(assetConfigData) and (not self.state.dispatchGetFunction) then
+				local creator = assetConfigData.Creator or {}
+				local groupMetadataMissing = not self.state.groupMetadata or next(self.state.groupMetadata) == nil
+				if creator.typeId == ConfigTypes.OWNER_TYPES.User and not creator.username then
+					self.props.dispatchGetUsername(creator.targetId)
+					self:setState({
+						dispatchGetFunction = true,
+					})
+				elseif creator.typeId == ConfigTypes.OWNER_TYPES.Group and groupMetadataMissing then
+					self.props.dispatchGetGroupMetadata(creator.targetId)
+					self.props.dispatchGetGroupRoleInfo(getNetwork(self), creator.targetId)
+					self:setState({
+						dispatchGetFunction = true,
+					})
+				end
 			end
-
-			self:setState({
-				-- assetId is named differently in the data returned by different end-points
-				assetId = AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum)
-					and assetConfigData.Id
-					or assetConfigData.AssetId,
-				name = assetConfigData.Name,
-				description = assetConfigData.Description,
-				owner = assetConfigData.Creator,
-				genres = assetConfigData.Genres,
-				allowCopy = assetConfigData.IsPublicDomainEnabled,
-				copyOn = assetConfigData.IsCopyingAllowed,
-				copyOnOriginalValue = assetConfigData.IsCopyingAllowed,
-				commentOn = assetConfigData.EnableComments,
-				price = assetConfigData.Price or AssetConfigUtil.getMinPrice(self.props.allowedAssetTypesForRelease, self.props.assetTypeEnum),
-				status = assetConfigData.Status,
-				isAssetPublic = isAssetPublic,
-				isAssetPublicOriginalValue = isAssetPublic,
-			})
-			self.init = true
 		end
-
-		if assetConfigData.ItemTags and self.state.tags == nil then
-			self:setState({
-				tags = TagsUtil.getTagsFromItemTags(assetConfigData.ItemTags),
-			})
-		end
-	else
-		if (self.props.isVerifiedCreator ~= nil) and self.state.allowCopy ~= self.props.isVerifiedCreator then
-			self:setState({
-				allowCopy = self.props.isVerifiedCreator
-			})
+	
+		-- If we have assetConfigData and state is nil(default state),
+		-- then we will use the data retrived from the assetConfigData to trigger a re-render.
+		if self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
+			local assetConfigData = self.props.assetConfigData
+			if next(assetConfigData) and (not self.init) then
+	
+				local isAssetPublic
+				if assetConfigData["AssetPermissions"] then
+					isAssetPublic = AssetPermissionUtil.isAssetPublic(assetConfigData["AssetPermissions"])
+				end
+	
+				self:setState({
+					-- assetId is named differently in the data returned by different end-points
+					assetId = AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum)
+						and assetConfigData.Id
+						or assetConfigData.AssetId,
+					name = assetConfigData.Name,
+					description = assetConfigData.Description,
+					owner = assetConfigData.Creator,
+					genres = assetConfigData.Genres,
+					allowCopy = assetConfigData.IsPublicDomainEnabled,
+					copyOn = assetConfigData.IsCopyingAllowed,
+					copyOnOriginalValue = assetConfigData.IsCopyingAllowed,
+					commentOn = assetConfigData.EnableComments,
+					price = assetConfigData.Price or AssetConfigUtil.getMinPrice(self.props.allowedAssetTypesForRelease, self.props.assetTypeEnum),
+					status = assetConfigData.Status,
+					isAssetPublic = isAssetPublic,
+					isAssetPublicOriginalValue = isAssetPublic,
+				})
+				self.init = true
+			end
+	
+			if assetConfigData.ItemTags and self.state.tags == nil then
+				self:setState({
+					tags = TagsUtil.getTagsFromItemTags(assetConfigData.ItemTags),
+				})
+			end
+		else
+			if (self.props.isVerifiedCreator ~= nil) and self.state.allowCopy ~= self.props.isVerifiedCreator then
+				self:setState({
+					allowCopy = self.props.isVerifiedCreator
+				})
+			end
 		end
 	end
 end

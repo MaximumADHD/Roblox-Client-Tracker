@@ -5,7 +5,6 @@
 local Plugin = script.Parent.Parent.Parent
 
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
-local FFlagToolboxAssetCategorization4 = game:GetFastFlag("ToolboxAssetCategorization4")
 local Packages = Plugin.Packages
 local Cryo = require(Packages.Cryo)
 
@@ -16,6 +15,8 @@ local AssetConfigConstants = require(Plugin.Core.Util.AssetConfigConstants)
 local isCli = require(Plugin.Core.Util.isCli)
 local Localization = {}
 Localization.__index = Localization
+
+local FFlagLimitGroupRoleSetPermissionsInGui = game:GetFastFlag("LimitGroupRoleSetPermissionsInGui")
 
 --[[
 	options:
@@ -247,6 +248,13 @@ function Localization:getUploadWithFee(price)
 	})
 end
 
+function Localization:getGroupPermissionLockedTooltip(roleName)
+	assert(FFlagLimitGroupRoleSetPermissionsInGui)
+	return self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.LockedGroup", {
+		roleName = roleName
+	})
+end
+
 function Localization:destroy()
 	if self._externalLocaleIdChangedConnection then
 		self._externalLocaleIdChangedConnection:Disconnect()
@@ -392,9 +400,9 @@ function Localization:_recalculateContent()
 	self:_update({
 		ToolboxToolbarName = self:_safeLocalize("Studio.Toolbox.General.ToolboxToolbarName"),
 
-		Categorization = FFlagToolboxAssetCategorization4 and {
+		Categorization = {
 			AllModels = self:_safeLocalize("Studio.Toolbox.General.AllModels"),
-		} or nil,
+		},
 
 		Category = {
 			FreeModels = self:_safeLocalize("Studio.Toolbox.General.CategoryModels"),
@@ -642,6 +650,10 @@ function Localization:_recalculateContent()
 				EditLabel = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.EditLabel"),
 				OwnerLabel = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.OwnerLabel"),
 				MultipleLabel = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.MultipleLabel"),
+				MultipleLabelTooltip = if FFlagLimitGroupRoleSetPermissionsInGui then
+				                       self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.MultipleLabelTooltip") else nil,
+				GroupOwnedTooltip = if FFlagLimitGroupRoleSetPermissionsInGui then
+				                    self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedTooltip") else nil,
 
 				NoAccessDescription = self:_safeLocalize(
 					"Studio.Toolbox.AssetConfigPackagePermissions.NoAccessDescription"
@@ -678,8 +690,12 @@ function Localization:_recalculateContent()
 			},
 
 			Warning = {
-				UserOwned = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.UserOwnedWarning"),
-				GroupOwned = self:_safeLocalize("Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedWarning"),
+				UserOwned = self:_safeLocalize(if FFlagLimitGroupRoleSetPermissionsInGui then
+				                               "Studio.Toolbox.AssetConfigPackagePermissions.UserOwnedWarningAllVersions" else
+											   "Studio.Toolbox.AssetConfigPackagePermissions.UserOwnedWarning"),
+				GroupOwned = self:_safeLocalize(if FFlagLimitGroupRoleSetPermissionsInGui then
+												"Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedWarningAllVersions" else
+												"Studio.Toolbox.AssetConfigPackagePermissions.GroupOwnedWarning"),
 			},
 
 			RightClickMenu = {
@@ -695,15 +711,11 @@ function Localization:_recalculateContent()
 				Genre = self:_safeLocalize("Studio.Toolbox.General.Genre"),
 				Copy = self:_safeLocalize("Studio.Toolbox.General.Copy"),
 				Comments = self:_safeLocalize("Studio.Toolbox.General.Comments"),
-				DistributeOnMarketplace = self:_safeLocalize(
-					"Studio.Toolbox.General.DistributeOnMarketplace"
-				),
+				DistributeOnMarketplace = self:_safeLocalize("Studio.Toolbox.General.DistributeOnMarketplace"),
 				LearnMore = self:_safeLocalize("Studio.Toolbox.General.LearnMore"),
 				Me = self:_safeLocalize("Studio.Toolbox.General.Me"),
 				AssetType = self:_safeLocalize("Studio.Toolbox.General.AssetType"),
-				Sharing = self:_safeLocalize(
-					"Studio.Toolbox.General.Sharing"
-				),
+				Sharing = self:_safeLocalize("Studio.Toolbox.General.Sharing"),
 				Tags = self:_safeLocalize("Studio.Toolbox.General.Tags"),
 				TermsOfUse = self:_safeLocalize("Studio.Toolbox.General.TermsOfUse"),
 

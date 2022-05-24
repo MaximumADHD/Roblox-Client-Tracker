@@ -18,8 +18,8 @@ local PluginButton = StudioUI.PluginButton
 local PluginToolbar = StudioUI.PluginToolbar
 local DockWidget = StudioUI.DockWidget
 
-local DevelopmentStringsTable = Plugin.Src.Resources.TranslationDevelopmentTable
-local TranslationStringsTable = Plugin.Src.Resources.TranslationReferenceTable
+local DevelopmentStringsTable = Plugin.Src.Resources.SourceStrings
+local TranslationStringsTable = Plugin.Src.Resources.LocalizedStrings
 
 local DOCKWIDGET_MIN_WIDTH = 600
 local DOCKWIDGET_MIN_HEIGHT = 180

@@ -3,7 +3,7 @@ local StackFrame = require(script.Parent.StackFrame)
 local ThreadState = {}
 ThreadState.__index = ThreadState
 
-function ThreadState.new(threadId : number, threadName : string, isValid : boolean)
+function ThreadState.new(threadId: number, threadName: string, isValid: boolean)
 	local self = {
 		ThreadId = threadId,
 		ThreadName = threadName,
@@ -11,14 +11,14 @@ function ThreadState.new(threadId : number, threadName : string, isValid : boole
 		Populated = false,
 		PopulatableType = "ThreadState",
 		callstack = {},
-		FrameCount = 0
+		FrameCount = 0,
 	}
-	
+
 	setmetatable(self, ThreadState)
 	return self
 end
 
-function ThreadState:GetFrame(index : number) : StackFrame.StackFrame
+function ThreadState:GetFrame(index: number): StackFrame.StackFrame
 	return self.callstack[index]
 end
 
@@ -31,12 +31,12 @@ function ThreadState:GetChildren()
 	return toReturn
 end
 
-function ThreadState:MockSetChildren(newCallstack : { StackFrame.StackFrame })
+function ThreadState:MockSetChildren(newCallstack: { StackFrame.StackFrame })
 	assert(newCallstack)
 	assert(newCallstack[0])
 	self.callstack = newCallstack
 	self.FrameCount = 0
-	for _ in pairs(self.callstack) do 
+	for _ in pairs(self.callstack) do
 		self.FrameCount = self.FrameCount + 1
 	end
 	self.Populated = true

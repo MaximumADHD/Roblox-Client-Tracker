@@ -23,7 +23,7 @@ local contextItemsList = {
 	MakeTheme(true),
 }
 
-return function (initialStore, children)
+return function(initialStore, children)
 	assert(type(initialStore) == "table", "Expected initialStore to be a table")
 	assert(type(children) == "table", "Expected children to be a table")
 

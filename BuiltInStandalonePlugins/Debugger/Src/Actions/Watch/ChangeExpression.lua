@@ -4,11 +4,11 @@ local Util = Framework.Util
 local Action = Util.Action
 
 export type Props = {
-	oldExpression : string,
-	newExpression : string
+	oldExpression: string,
+	newExpression: string,
 }
 
-return Action(script.Name, function(oldExpression : string, newExpression : string) : Props
+return Action(script.Name, function(oldExpression: string, newExpression: string): Props
 	return {
 		oldExpression = oldExpression,
 		newExpression = newExpression,

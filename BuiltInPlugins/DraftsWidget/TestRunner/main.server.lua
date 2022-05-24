@@ -36,16 +36,16 @@ local DraftState = require(Plugin.Src.Symbols.DraftState)
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
 
 -- localization
-local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
-local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
+local SourceStrings = Plugin.Src.Resources.SourceStrings
+local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 local Localization = UILibrary.Studio.Localization
 
 -- Plugin Specific Globals
 local roduxStore = Rodux.Store.new(MainReducer)
 local theme = PluginTheme.new()
 local localization = Localization.new({
-	stringResourceTable = TranslationDevelopmentTable,
-	translationResourceTable = TranslationReferenceTable,
+	stringResourceTable = SourceStrings,
+	translationResourceTable = LocalizedStrings,
 	overrideLocaleChangedSignal = StudioService:GetPropertyChangedSignal("StudioLocaleId"),
 	getLocale = function()
 		if #OverrideLocaleId > 0 then
@@ -101,21 +101,21 @@ local function toggleWidget()
 	pluginGui.Enabled = not pluginGui.Enabled
 end
 
-local function createToolTip(enabled)    
+local function createToolTip(enabled)
     local toolbar = plugin:CreateToolbar("draftsToolbar")
     local pluginButton = toolbar:CreateButton(
         "draftsButton",
         localization:getText("Meta", "PluginButtonTooltip"),
         ""
     )
-    
+
     if enabled then
         pluginButton.ClickableWhenViewportHidden = true
         pluginButton.Click:connect(toggleWidget)
     end
-    
+
     pluginButton.Enabled = enabled
-    
+
     return pluginButton
 end
 
@@ -226,10 +226,10 @@ end
 
 --Binds a toolbar button
 local function main()
-	local pluginTitle = localization:getText("Meta", "PluginName")    
+	local pluginTitle = localization:getText("Meta", "PluginName")
 	plugin.Name = pluginTitle
 	local pluginButton = createToolTip(true)
-    
+
 	local function showIfEnabled()
 		if pluginGui.Enabled then
 			openPluginWindow()

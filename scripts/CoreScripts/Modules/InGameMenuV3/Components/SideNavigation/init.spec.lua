@@ -8,7 +8,9 @@ return function()
 		local Rodux = InGameMenuDependencies.Rodux
 		local UIBlox = InGameMenuDependencies.UIBlox
 
-		local FocusHandlerContextProvider = require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
+		local FocusHandlerContextProvider = require(
+			script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider
+		)
 		local SideNavigation = require(script.Parent)
 
 		local InGameMenu = script.Parent.Parent.Parent
@@ -16,7 +18,6 @@ return function()
 		local Localization = require(InGameMenu.Localization.Localization)
 		local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 		local InGameMenuPolicy = require(InGameMenu.InGameMenuPolicy)
-		local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 
 		local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 		local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
@@ -27,7 +28,7 @@ return function()
 		}
 
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = Rodux.Store.new(reducer)
+			store = Rodux.Store.new(reducer),
 		}, {
 			InGameMenuPolicy = Roact.createElement(InGameMenuPolicy.Provider, {
 				policy = { InGameMenuPolicy.Mapper },
@@ -38,10 +39,9 @@ return function()
 					LocalizationProvider = Roact.createElement(LocalizationProvider, {
 						localization = Localization.new("en-us"),
 					}, {
-						FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+						FocusHandlerContextProvider = Roact.createElement(FocusHandlerContextProvider, {}, {
 							SideNavigation = Roact.createElement(SideNavigation),
-						}) or nil,
-						SideNavigation = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(SideNavigation) or nil,
+						}),
 					}),
 				}),
 			}),

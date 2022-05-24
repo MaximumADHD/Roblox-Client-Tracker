@@ -39,7 +39,7 @@ local expressionData1 = {
 
 local expressionRow1 = WatchRow.fromData(expressionData1)
 
-local debuggerVar1 = mockDebuggerVariable.new(1,"Alex", "somePreview", "map")
+local debuggerVar1 = mockDebuggerVariable.new(1, "Alex", "somePreview", "map")
 
 local varData1Child1 = {
 	name = "Heesoo",
@@ -73,7 +73,7 @@ local varData1Child21 = {
 	dataType = "string",
 }
 
-local debuggerVar2 = mockDebuggerVariable.new(2,"UnitedStates", "somePreview2", "map")
+local debuggerVar2 = mockDebuggerVariable.new(2, "UnitedStates", "somePreview2", "map")
 
 local varData2Child1 = {
 	name = "Wisconsin",
@@ -120,46 +120,51 @@ local testPausedState1 = mockPausedState.new(Constants.DebuggerPauseReason.Reque
 local testPausedState2 = mockPausedState.new(Constants.DebuggerPauseReason.Requested, 2, true)
 
 return function(store)
-	local currentMockConnection = MockDebuggerConnection.new(1)	
+	local currentMockConnection = MockDebuggerConnection.new(1)
 	local mainConnectionManager = MockDebuggerConnectionManager.new()
-	local _mainListener = DebugConnectionListener.new(store, mainConnectionManager, MockDebuggerUIService.new(), MockCrossDMScriptChangeListenerService.new())
+	local _mainListener = DebugConnectionListener.new(
+		store,
+		mainConnectionManager,
+		MockDebuggerUIService.new(),
+		MockCrossDMScriptChangeListenerService.new()
+	)
 	currentMockConnection.MockSetThreadStateById(1, testThreadOne)
 	currentMockConnection.MockSetThreadStateById(2, testThreadTwo)
 	currentMockConnection.MockSetCallstackByThreadId(1, testCallstack1)
 	currentMockConnection.MockSetCallstackByThreadId(2, testCallstack2)
 
 	local defaults1 = mockDebuggerVariable.GetDefaultFrameVariables()
-	defaults1["Locals"]:MockSetChildren({debuggerVar1,debuggerVar2 })
-	currentMockConnection.MockSetDebuggerVariablesByCallstackFrame(testStackFrameOne,defaults1)
+	defaults1["Locals"]:MockSetChildren({ debuggerVar1, debuggerVar2 })
+	currentMockConnection.MockSetDebuggerVariablesByCallstackFrame(testStackFrameOne, defaults1)
 	local defaults2 = mockDebuggerVariable.GetDefaultFrameVariables()
-	defaults2["Locals"]:MockSetChildren({debuggerVar2,debuggerVar1 })
-	currentMockConnection.MockSetDebuggerVariablesByCallstackFrame(testStackFrameTwo,defaults2)
+	defaults2["Locals"]:MockSetChildren({ debuggerVar2, debuggerVar1 })
+	currentMockConnection.MockSetDebuggerVariablesByCallstackFrame(testStackFrameTwo, defaults2)
 
 	mainConnectionManager.ConnectionStarted:Fire(currentMockConnection)
 
 	currentMockConnection.Paused:Fire(testPausedState2, testPausedState2.Reason)
-	currentMockConnection.Paused:Fire(testPausedState1, testPausedState1.Reason)	
-	
+	currentMockConnection.Paused:Fire(testPausedState1, testPausedState1.Reason)
+
 	local state = store:getState()
 	local common = state.Common
 	local dst = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
-	
+
 	local stepStateBundle1 = StepStateBundle.ctor(dst, 1, 1)
 
 	store:dispatch(AddExpression("Expression 1"))
 	store:dispatch(ExpressionEvaluated(stepStateBundle1, expressionRow1))
 
 	local i = 0
-	for _, uniqueId in ipairs({1,2,3,4,5,6,7,8,9,10,11,12,14}) do
-		store:dispatch(AddBreakpoint(123, MetaBreakpointModel.mockMetaBreakpoint({isEnabled = (i>=6)}, uniqueId)))
-		i = i+ 1
+	for _, uniqueId in ipairs({ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14 }) do
+		store:dispatch(AddBreakpoint(123, MetaBreakpointModel.mockMetaBreakpoint({ isEnabled = (i >= 6) }, uniqueId)))
+		i = i + 1
 	end
 
-	store:dispatch(AddChildVariables(stepStateBundle1, "1", {variableRow1Child1, variableRow1Child2}))
-	store:dispatch(AddChildVariables(stepStateBundle1, "1_1", {variableRow1Child11}))
-	store:dispatch(AddChildVariables(stepStateBundle1, "1_2", {variableRow1Child21}))
-	store:dispatch(AddChildVariables(stepStateBundle1, "2", {variableRow2Child1}))
-	store:dispatch(AddChildVariables(stepStateBundle1, "2_1", {variableRow2Child11}))
+	store:dispatch(AddChildVariables(stepStateBundle1, "1", { variableRow1Child1, variableRow1Child2 }))
+	store:dispatch(AddChildVariables(stepStateBundle1, "1_1", { variableRow1Child11 }))
+	store:dispatch(AddChildVariables(stepStateBundle1, "1_2", { variableRow1Child21 }))
+	store:dispatch(AddChildVariables(stepStateBundle1, "2", { variableRow2Child1 }))
+	store:dispatch(AddChildVariables(stepStateBundle1, "2_1", { variableRow2Child11 }))
 	store:dispatch(SetCurrentThreadAction(1))
 
 	return store

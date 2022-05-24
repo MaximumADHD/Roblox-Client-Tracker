@@ -36,7 +36,7 @@ local function hasValue(tab, val)
 	return false
 end
 
-function ScopeDropdownField:init()	
+function ScopeDropdownField:init()
 	self.keyColumns = {
 		[1] = ALLSCOPE_KEY,
 		[2] = VariableScope.LocalScope,
@@ -49,9 +49,16 @@ function ScopeDropdownField:render()
 	local props = self.props
 	local style = props.Stylizer
 	local localization = props.Localization
-	
+	local tooltips = {
+		[1] = nil,
+		[2] = localization:getText("Watch", "LocalTooltip"),
+		[3] = localization:getText("Watch", "UpvalueTooltip"),
+		[4] = localization:getText("Watch", "GlobalTooltip"),
+	}
+
 	return Roact.createElement(DropdownField, {
 		KeyTexts = self.keyColumns,
+		Tooltips = tooltips,
 		NumDisplay = props.NumEnabledChoices,
 		MaxDisplay = 3,
 		ClickCallback = props.onScopeFilterChange,
@@ -70,27 +77,22 @@ ScopeDropdownField = withContext({
 	Stylizer = Stylizer,
 })(ScopeDropdownField)
 
-ScopeDropdownField = RoactRodux.connect(
-	function(state, props)
-		local enabledScopes = state.Watch.listOfEnabledScopes
-		local newKeyStates = {}
-		newKeyStates[2] = hasValue(enabledScopes, VariableScope.LocalScope)
-		newKeyStates[3] = hasValue(enabledScopes, VariableScope.UpvalueScope)
-		newKeyStates[4] = hasValue(enabledScopes, VariableScope.GlobalScope)
-		return {
-			NumEnabledChoices = #enabledScopes,
-			KeyStates = newKeyStates,
-		}
-	end,
-	
-	function(dispatch)
-		return {
-			onScopeFilterChange = function(enabledScopes)
-				return dispatch(FilterScopeWatchThunk(enabledScopes))
-			end,
-		}
-	end
-	
-)(ScopeDropdownField)
+ScopeDropdownField = RoactRodux.connect(function(state, props)
+	local enabledScopes = state.Watch.listOfEnabledScopes
+	local newKeyStates = {}
+	newKeyStates[2] = hasValue(enabledScopes, VariableScope.LocalScope)
+	newKeyStates[3] = hasValue(enabledScopes, VariableScope.UpvalueScope)
+	newKeyStates[4] = hasValue(enabledScopes, VariableScope.GlobalScope)
+	return {
+		NumEnabledChoices = #enabledScopes,
+		KeyStates = newKeyStates,
+	}
+end, function(dispatch)
+	return {
+		onScopeFilterChange = function(enabledScopes)
+			return dispatch(FilterScopeWatchThunk(enabledScopes))
+		end,
+	}
+end)(ScopeDropdownField)
 
 return ScopeDropdownField

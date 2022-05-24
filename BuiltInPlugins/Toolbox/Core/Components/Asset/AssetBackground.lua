@@ -1,5 +1,3 @@
-local FFlagToolboxAssetStyleUpdate2 = game:GetFastFlag("ToolboxAssetStyleUpdate2")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -27,19 +25,8 @@ local function renderContent(props, theme)
 	local image = ""
 
 	local borderSize = 0
-	if FFlagToolboxAssetStyleUpdate2 then
-		backgroundColor = theme.asset.background.color
-		borderSize = theme.asset.background.borderSize
-	else
-		local backgroundIndex = props.backgroundIndex
-		if backgroundIndex == Background.BLACK then
-			backgroundColor = Color3.fromRGB(0, 0, 0)
-		elseif backgroundIndex == Background.NONE then
-			backgroundColor = theme.asset.background.color
-			borderSize = theme.asset.background.borderSize
-			image = theme.asset.background.image
-		end
-	end
+	backgroundColor = theme.asset.background.color
+	borderSize = theme.asset.background.borderSize
 
 	props = Cryo.Dictionary.join(props, {
 		BackgroundColor3 = backgroundColor,

@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local Package = require(PackageIndex["ReactProxy"]["ReactProxy"])
+local Package = require(PackageIndex["React"]["React"])
 
 export type LazyComponent<T, P> = Package.LazyComponent<T, P> 
 export type StatelessFunctionalComponent<P> = Package.StatelessFunctionalComponent<P> 

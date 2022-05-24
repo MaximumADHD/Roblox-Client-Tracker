@@ -3,7 +3,7 @@ local ScriptRef = require(script.Parent.ScriptRef)
 local StackFrame = {}
 StackFrame.__index = StackFrame
 
-function StackFrame.new(line : number, scriptRef : ScriptRef.ScriptRef, frameName : string, frameType)
+function StackFrame.new(line: number, scriptRef: ScriptRef.ScriptRef, frameName: string, frameType)
 	local self = {
 		Line = line,
 		Script = scriptRef,
@@ -11,9 +11,9 @@ function StackFrame.new(line : number, scriptRef : ScriptRef.ScriptRef, frameNam
 		FrameType = frameType,
 		Populated = false,
 		FrameId = 0,
-		PopulatableType = "StackFrame"
+		PopulatableType = "StackFrame",
 	}
-	
+
 	setmetatable(self, StackFrame)
 	return self
 end

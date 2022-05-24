@@ -10,10 +10,10 @@ local TestStore = require(Util.TestStore)
 
 local FilterScopeWatchThunk = require(script.Parent.FilterScopeWatchThunk)
 
-local enabledScopes = {"Global, Upvalue"}
+local enabledScopes = { "Global, Upvalue" }
 
 return function()
-	it("should filter roots that don't match and leave children unchanged", function()			
+	it("should filter roots that don't match and leave children unchanged", function()
 		local store = Rodux.Store.new(MainReducer, nil, MainMiddleware)
 		store = TestStore(store)
 		local state = store:getState()

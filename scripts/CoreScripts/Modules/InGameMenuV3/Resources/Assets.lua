@@ -119,5 +119,6 @@ return {
 		LeaveGameTilesBackground = "rbxasset://textures/ui/InGameMenu/game_tiles_background.png",
 		LeaveRobloxLogo = "rbxasset://textures/ui/InGameMenu/roblox_logo.png",
 		ButtonStackGradient = "rbxasset://textures/ui/InGameMenu/gradient.png",
+		DropShadowFavorite = "rbxasset://textures/ui/InGameMenu/drop_shadow_favorite.png",
 	}
 }

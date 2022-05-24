@@ -1,5 +1,5 @@
 --[[
-	The DeveloperTools plugin is used by developers to debug their interfaces.	
+	The DeveloperTools plugin is used by developers to debug their interfaces.
 ]]
 
 local main = script.Parent.Parent
@@ -21,8 +21,8 @@ local PluginActions = ContextServices.PluginActions
 local MainReducer = require(main.Src.Reducers.MainReducer)
 local MakeTheme = require(main.Src.Resources.MakeTheme)
 
-local TranslationDevelopmentTable = main.Src.Resources.Localization.TranslationDevelopmentTable
-local TranslationReferenceTable = main.Src.Resources.Localization.TranslationReferenceTable
+local SourceStrings = main.Src.Resources.Localization.SourceStrings
+local LocalizedStrings = main.Src.Resources.Localization.LocalizedStrings
 
 local Components = main.Src.Components
 local InspectorProvider = require(Components.InspectorProvider)
@@ -35,7 +35,7 @@ function MainPlugin:init()
 	self.state = {
 		enabled = false,
 	}
-	
+
 	self.toggleEnabled = function()
 		self:setState(function(state)
 			return {
@@ -67,13 +67,13 @@ function MainPlugin:init()
 	})
 
 	self.localization = ContextServices.Localization.new({
-		stringResourceTable = TranslationDevelopmentTable,
-		translationResourceTable = TranslationReferenceTable,
+		stringResourceTable = SourceStrings,
+		translationResourceTable = LocalizedStrings,
 		pluginName = "DeveloperInspector",
 		libraries = {
 			[Framework.Resources.LOCALIZATION_PROJECT_NAME] = {
-				stringResourceTable = Framework.Resources.TranslationDevelopmentTable,
-				translationResourceTable = Framework.Resources.TranslationReferenceTable,
+				stringResourceTable = Framework.Resources.SourceStrings,
+				translationResourceTable = Framework.Resources.LocalizedStrings,
 			},
 		},
 	})

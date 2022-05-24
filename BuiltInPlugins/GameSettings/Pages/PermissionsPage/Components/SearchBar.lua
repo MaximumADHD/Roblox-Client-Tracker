@@ -38,6 +38,8 @@
 		callback OnItemClicked(key) : A callback when the user selects an item in the dropdown.
 			Returns the key as it was defined in the Results array.
 ]]
+local FFlagGameSettingsRemoveFitContent = game:GetFastFlag("GameSettingsRemoveFitContent")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
@@ -52,28 +54,34 @@ local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
 local UI = Framework.UI
 local DropdownMenu = UI.DropdownMenu
+local Pane = UI.Pane
 
-local createFitToContent = UILibrary.Component.createFitToContent
 local LoadingIndicator = UILibrary.Component.LoadingIndicator
+
+local FFlagGameSettingsFixSearchBarRef = game:GetFastFlag("GameSettingsFixSearchBarRef")
 
 local TextService = game:GetService("TextService")
 
-local ContentFit = createFitToContent("Frame", "UIListLayout", {
-	SortOrder = Enum.SortOrder.LayoutOrder,
-	Padding = UDim.new(0, 0),
-})
-
-local HorizontalContentFit = createFitToContent("Frame", "UIListLayout", {
-	SortOrder = Enum.SortOrder.LayoutOrder,
-	Padding = UDim.new(0, 0),
-	FillDirection = Enum.FillDirection.Horizontal,
-})
-
-local SearchBarContentFit = createFitToContent("ImageLabel", "UIListLayout", {
-	SortOrder = Enum.SortOrder.LayoutOrder,
-	Padding = UDim.new(0, 0),
-	FillDirection = Enum.FillDirection.Horizontal,
-})
+local ContentFix
+local HorizontalContentFix
+local SearchBarContentFix
+if not FFlagGameSettingsRemoveFitContent then
+	local createFitToContent = UILibrary.Component.createFitToContent
+	ContentFit = createFitToContent("Frame", "UIListLayout", {
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		Padding = UDim.new(0, 0),
+	})
+	HorizontalContentFit = createFitToContent("Frame", "UIListLayout", {
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		Padding = UDim.new(0, 0),
+		FillDirection = Enum.FillDirection.Horizontal,
+	})
+	SearchBarContentFit = createFitToContent("ImageLabel", "UIListLayout", {
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		Padding = UDim.new(0, 0),
+		FillDirection = Enum.FillDirection.Horizontal,
+	})
+end
 
 local THUMBNAIL_SIZE = 32
 local SEARCH_BAR_HEIGHT = 40
@@ -129,7 +137,7 @@ function SearchBar:init()
 	self.onTextChanged = function(rbx)
 		local text = stripSearchTerm(rbx.Text)
 		local textBox = self.textBoxRef.current
-		if self.state.text ~= text then
+		if textBox and self.state.text ~= text then
 			self:setState({
 				text = text,
 			})
@@ -159,6 +167,9 @@ function SearchBar:init()
 
 	self.onTextBoxFocused = function(textboxEnabled, rbx)
 		local textBox = self.textBoxRef.current
+		if FFlagGameSettingsFixSearchBarRef and not textBox then
+			return
+		end
 
 		self:setState({
 			isFocused = true,
@@ -201,6 +212,9 @@ function SearchBar:init()
 
 	self.onClearButtonClicked = function()
 		local textBox = self.textBoxRef.current
+		if FFlagGameSettingsFixSearchBarRef and not textBox then
+			return
+		end
 		self:setState({
 			isFocused = true,
 		})
@@ -332,6 +346,49 @@ function SearchBar:init()
 
 			local backgroundColor = isHovered and searchBarTheme.dropDown.hovered.backgroundColor
 				or searchBarTheme.dropDown.backgroundColor
+
+			local children = {
+				Ribbon = isHovered and showRibbon and Roact.createElement("Frame", {
+					Size = UDim2.new(0, RIBBON_WIDTH, 1, 0),
+					BackgroundColor3 = searchBarTheme.dropDown.selected.backgroundColor,
+					BorderSizePixel = 0,
+					LayoutOrder = 0,
+				}),
+
+				IconFrame = Roact.createElement("Frame", {
+					BackgroundTransparency = 1,
+					LayoutOrder = 1,
+					Size = UDim2.new(0, itemHeight,
+						0, itemHeight),
+				} , {
+					SmallIcon = Roact.createElement("Frame", {
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.new(0.5, 0, 0.5, 0),
+						Size = UDim2.new(0, THUMBNAIL_SIZE, 0, THUMBNAIL_SIZE),
+
+						BackgroundColor3 = backgroundColor,
+						BorderSizePixel = 0,
+					}, {
+						Icon = item.Icon,
+					}),
+				}),
+
+				TextLabel = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
+					Size = UDim2.new(1, textLabelOffset, 0, itemHeight),
+					Text = item.Name,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextColor3 = isHovered and searchBarTheme.dropDown.hovered.displayText or searchBarTheme.dropDown.displayText,
+					BackgroundTransparency = 1,
+					TextWrapped = true,
+					ClipsDescendants = true,
+					LayoutOrder = 2,
+				}), {
+					Padding = Roact.createElement("UIPadding", {
+						PaddingLeft = UDim.new(0, textPadding),
+					}),
+				}),
+			}
+			
 			return Roact.createElement("ImageButton", {
 					Size = UDim2.new(0, contentWidth, 0, itemHeight),
 					BackgroundColor3 = backgroundColor,
@@ -346,50 +403,18 @@ function SearchBar:init()
 						self.onKeyMouseLeave(key)
 					end,
 				}, {
-					Roact.createElement(HorizontalContentFit, {
-						LayoutOrder = index,
-						BackgroundTransparency = 1,
-					} , {
-						Ribbon = isHovered and showRibbon and Roact.createElement("Frame", {
-							Size = UDim2.new(0, RIBBON_WIDTH, 1, 0),
-							BackgroundColor3 = searchBarTheme.dropDown.selected.backgroundColor,
-							BorderSizePixel = 0,
-							LayoutOrder = 0,
-						}),
-
-						IconFrame = Roact.createElement("Frame", {
+					if FFlagGameSettingsRemoveFitContent then
+						Roact.createElement(Pane, {
+							AutomaticSize = Enum.AutomaticSize.XY,
+							HorizontalAlignment = Enum.HorizontalAlignment.Left,
+							LayoutOrder = index,
+							Layout = Enum.FillDirection.Horizontal,
+						}, children)
+					else
+						Roact.createElement(HorizontalContentFit, {
+							LayoutOrder = index,
 							BackgroundTransparency = 1,
-							LayoutOrder = 1,
-							Size = UDim2.new(0, itemHeight,
-								0, itemHeight),
-						} , {
-							SmallIcon = Roact.createElement("Frame", {
-								AnchorPoint = Vector2.new(0.5, 0.5),
-								Position = UDim2.new(0.5, 0, 0.5, 0),
-								Size = UDim2.new(0, THUMBNAIL_SIZE, 0, THUMBNAIL_SIZE),
-
-								BackgroundColor3 = backgroundColor,
-								BorderSizePixel = 0,
-							}, {
-								Icon = item.Icon,
-							}),
-						}),
-
-						TextLabel = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-							Size = UDim2.new(1, textLabelOffset, 0, itemHeight),
-							Text = item.Name,
-							TextXAlignment = Enum.TextXAlignment.Left,
-							TextColor3 = isHovered and searchBarTheme.dropDown.hovered.displayText or searchBarTheme.dropDown.displayText,
-							BackgroundTransparency = 1,
-							TextWrapped = true,
-							ClipsDescendants = true,
-							LayoutOrder = 2,
-						}), {
-							Padding = Roact.createElement("UIPadding", {
-								PaddingLeft = UDim.new(0, textPadding),
-							}),
-						}),
-					})
+						}, children)
 				})
 		end
 	end
@@ -504,103 +529,116 @@ function SearchBar:render()
 		state.lastResults = results
 	end
 
-	return Roact.createElement(ContentFit, {
-		BackgroundTransparency = 1,
-		LayoutOrder = layoutOrder,
-	}, {
-		Background =  Roact.createElement(SearchBarContentFit, {
+	local children = {
+		ImageFrame = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
-			Image = DEPRECATED_Constants.ROUNDED_BORDER_IMAGE,
-			ImageColor3 = borderColor,
-			ScaleType = Enum.ScaleType.Slice,
-			SliceCenter = DEPRECATED_Constants.ROUNDED_FRAME_SLICE,
+			LayoutOrder = 0,
+			Size = UDim2.new(0, SEARCH_BAR_HEIGHT,
+				0, SEARCH_BAR_HEIGHT),
+		}, {
+			Image = Roact.createElement("ImageLabel", {
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				Size = UDim2.new(0, SEARCH_BAR_BUTTON_ICON_SIZE,
+					0, SEARCH_BAR_BUTTON_ICON_SIZE),
+				BackgroundTransparency = 1,
+				Image = "rbxasset://textures/GameSettings/search.png",
+				ImageColor3 = theme.searchBar.searchIcon,
+			}),
+		}),
 
+		TextBox = Roact.createElement("TextBox", Cryo.Dictionary.join(theme.fontStyle.Normal, {
+			LayoutOrder = 1,
+			Size = UDim2.new(1, textBoxOffset, 0, SEARCH_BAR_HEIGHT),
+			BackgroundTransparency = 1,
+			ClipsDescendants = true,
+
+			ClearTextOnFocus = false,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			Text = props.Enabled and text or "",
+			TextEditable = props.Enabled,
+
+			PlaceholderText = errorText or defaultText,
+			PlaceholderColor3 = errorText and theme.warningColor or searchBarTheme.placeholderText,
+
+			-- Get a reference to the text box so that clicking on the container can call :CaptureFocus()
+			[Roact.Ref] = self.textBoxRef,
+
+			[Roact.Change.Text] = self.onTextChanged,
+			[Roact.Event.Focused] = function(...) self.onTextBoxFocused(props.Enabled, ...) end,
+			[Roact.Event.FocusLost] = self.onTextBoxFocusLost,
+		}), {
+			Dropdown = searchBarRef and Roact.createElement(DropdownMenu, {
+				Hide = not showDropdown,
+				Items = self.state.mergedItems,
+				OnFocusLost = self.hideDropdown,
+				OnItemActivated = self.onItemClicked,
+				OnRenderItem = self.onRenderItem,
+				Style = "ImageOffset",
+				Width = searchBarExtents.Width,
+			}),
+		}),
+
+		ClearButtonFrame = Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			LayoutOrder = 2,
+			Size = UDim2.new(0, SEARCH_BAR_HEIGHT,
+				0, SEARCH_BAR_HEIGHT),
+		}, {
+			ClearButton = Roact.createElement("ImageButton", {
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				Size = UDim2.new(0, CLEAR_BUTTON_ICON_SIZE, 0, CLEAR_BUTTON_ICON_SIZE),
+				BackgroundTransparency = 1,
+				Visible = text ~= "",
+				Image = isClearButtonHovered and "rbxasset://textures/StudioSharedUI/clear-hover.png"
+					or "rbxasset://textures/StudioSharedUI/clear.png",
+				ImageColor3 = isClearButtonHovered and searchBarTheme.clearButton.imageSelected
+					or searchBarTheme.clearButton.image,
+
+				[Roact.Event.MouseEnter] = self.onClearButtonHovered,
+				[Roact.Event.MouseMoved] = self.onClearButtonHovered,
+				[Roact.Event.MouseLeave] = self.onClearButtonHoverEnded,
+				[Roact.Event.MouseButton1Down] = self.onClearButtonClicked,
+			}),
+		}),
+	}
+
+	if FFlagGameSettingsRemoveFitContent then
+		return Roact.createElement(Pane, {
+			Style = "BorderBox",
+			AutomaticSize = Enum.AutomaticSize.Y,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			LayoutOrder = layoutOrder,
+			Layout = Enum.FillDirection.Horizontal,
 			[Roact.Event.MouseEnter] = self.onContainerHovered,
 			[Roact.Event.MouseMoved] = self.onContainerHovered,
 			[Roact.Event.MouseLeave] = self.onContainerHoverEnded,
+		}, children)
+	else
+		return Roact.createElement(ContentFit, {
+			BackgroundTransparency = 1,
+			LayoutOrder = layoutOrder,
 		}, {
-			ImageFrame = Roact.createElement("Frame", {
+			Background = Roact.createElement(SearchBarContentFit, {
 				BackgroundTransparency = 1,
-				LayoutOrder = 0,
-				Size = UDim2.new(0, SEARCH_BAR_HEIGHT,
-					0, SEARCH_BAR_HEIGHT),
-			}, {
-				Image = Roact.createElement("ImageLabel", {
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Position = UDim2.new(0.5, 0, 0.5, 0),
-					Size = UDim2.new(0, SEARCH_BAR_BUTTON_ICON_SIZE,
-						0, SEARCH_BAR_BUTTON_ICON_SIZE),
-					BackgroundTransparency = 1,
-					Image = "rbxasset://textures/GameSettings/search.png",
-					ImageColor3 = theme.searchBar.searchIcon,
-				}),
-			}),
-
-			TextBox = Roact.createElement("TextBox", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-				LayoutOrder = 1,
-				Size = UDim2.new(1, textBoxOffset, 0, SEARCH_BAR_HEIGHT),
-				BackgroundTransparency = 1,
-				ClipsDescendants = true,
-
-				ClearTextOnFocus = false,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				Text = props.Enabled and text or "",
-				TextEditable = props.Enabled,
-
-				PlaceholderText = errorText or defaultText,
-				PlaceholderColor3 = errorText and theme.warningColor or searchBarTheme.placeholderText,
-
-				-- Get a reference to the text box so that clicking on the container can call :CaptureFocus()
-				[Roact.Ref] = self.textBoxRef,
-
-				[Roact.Change.Text] = self.onTextChanged,
-				[Roact.Event.Focused] = function(...) self.onTextBoxFocused(props.Enabled, ...) end,
-				[Roact.Event.FocusLost] = self.onTextBoxFocusLost,
-			}), {
-				Dropdown = searchBarRef and Roact.createElement(DropdownMenu, {
-					Hide = not showDropdown,
-					Items = self.state.mergedItems,
-					OnFocusLost = self.hideDropdown,
-					OnItemActivated = self.onItemClicked,
-					OnRenderItem = self.onRenderItem,
-					Style = "ImageOffset",
-					Width = searchBarExtents.Width,
-				}),
-			}),
-
-			ClearButtonFrame = Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
-				LayoutOrder = 2,
-				Size = UDim2.new(0, SEARCH_BAR_HEIGHT,
-					0, SEARCH_BAR_HEIGHT),
-			}, {
-				ClearButton = Roact.createElement("ImageButton", {
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Position = UDim2.new(0.5, 0, 0.5, 0),
-					Size = UDim2.new(0, CLEAR_BUTTON_ICON_SIZE, 0, CLEAR_BUTTON_ICON_SIZE),
-					BackgroundTransparency = 1,
-					Visible = text ~= "",
-					Image = isClearButtonHovered and "rbxasset://textures/StudioSharedUI/clear-hover.png"
-						or "rbxasset://textures/StudioSharedUI/clear.png",
-					ImageColor3 = isClearButtonHovered and searchBarTheme.clearButton.imageSelected
-						or searchBarTheme.clearButton.image,
-
-					[Roact.Event.MouseEnter] = self.onClearButtonHovered,
-					[Roact.Event.MouseMoved] = self.onClearButtonHovered,
-					[Roact.Event.MouseLeave] = self.onClearButtonHoverEnded,
-					[Roact.Event.MouseButton1Down] = self.onClearButtonClicked,
-				}),
-			}),
-		}),
-	})
+				Image = DEPRECATED_Constants.ROUNDED_BORDER_IMAGE,
+				ImageColor3 = borderColor,
+				ScaleType = Enum.ScaleType.Slice,
+				SliceCenter = DEPRECATED_Constants.ROUNDED_FRAME_SLICE,
+	
+				[Roact.Event.MouseEnter] = self.onContainerHovered,
+				[Roact.Event.MouseMoved] = self.onContainerHovered,
+				[Roact.Event.MouseLeave] = self.onContainerHoverEnded,
+			}, children),
+		})
+	end
+	
 end
-
 
 SearchBar = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Mouse = ContextServices.Mouse,
 })(SearchBar)
-
-
 
 return SearchBar

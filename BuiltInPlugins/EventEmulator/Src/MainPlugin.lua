@@ -19,8 +19,8 @@ local Mouse = ContextServices.Mouse
 local Store = ContextServices.Store
 local MakeTheme = require(main.Src.Resources.MakeTheme)
 
-local TranslationDevelopmentTable = main.Src.Resources.Localization.TranslationDevelopmentTable
-local TranslationReferenceTable = main.Src.Resources.Localization.TranslationReferenceTable
+local SourceStrings = main.Src.Resources.Localization.SourceStrings
+local LocalizedStrings = main.Src.Resources.Localization.LocalizedStrings
 
 local EventEmulator = require(main.Src.Components.EventEmulator)
 
@@ -62,8 +62,8 @@ function MainPlugin:init(props)
 	})
 
 	self.localization = ContextServices.Localization.new({
-		stringResourceTable = TranslationDevelopmentTable,
-		translationResourceTable = TranslationReferenceTable,
+		stringResourceTable = SourceStrings,
+		translationResourceTable = LocalizedStrings,
 		pluginName = main.Name,
 	})
 end

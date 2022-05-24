@@ -6,7 +6,7 @@ local Signal = Framework.Util.Signal
 local MockCrossDMScriptChangeListenerService = {}
 MockCrossDMScriptChangeListenerService.__index = MockCrossDMScriptChangeListenerService
 
-function MockCrossDMScriptChangeListenerService.new() 
+function MockCrossDMScriptChangeListenerService.new()
 	local self = {}
 	self.GuidNameChanged = Signal.new()
 	self.GuidLineContentsChanged = Signal.new()
@@ -15,13 +15,17 @@ function MockCrossDMScriptChangeListenerService.new()
 	return self
 end
 
-function MockCrossDMScriptChangeListenerService:StartWatchingScriptLine(guid : string, connectionId : number, lineNumber : number)
+function MockCrossDMScriptChangeListenerService:StartWatchingScriptLine(
+	guid: string,
+	connectionId: number,
+	lineNumber: number
+)
 	self.watchingScripts[guid] = Cryo.Dictionary.join(self.watchingScripts[guid] or {}, {
-		[lineNumber] = true
+		[lineNumber] = true,
 	})
 end
 
-function MockCrossDMScriptChangeListenerService:IsWatchingScriptLine(guid : string, lineNumber : number)
+function MockCrossDMScriptChangeListenerService:IsWatchingScriptLine(guid: string, lineNumber: number)
 	return self.watchingScripts[guid] and self.watchingScripts[guid][lineNumber]
 end
 

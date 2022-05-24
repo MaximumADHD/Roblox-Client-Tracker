@@ -13,7 +13,7 @@ local SearchBarField = Roact.PureComponent:extend("SearchBarField")
 -- SearchBarField
 function SearchBarField:render()
 	local props = self.props
-	
+
 	return Roact.createElement(SearchBar, {
 		ShowSearchIcon = true,
 		ShowSearchButton = false,
@@ -21,22 +21,25 @@ function SearchBarField:render()
 		OnSearchRequested = props.onSearchRequested,
 		LayoutOrder = props.LayoutOrder,
 		Size = props.Size,
+		SearchTerm = props.SearchTerm,
 	})
 end
 
 -- RoactRodux Connection
-SearchBarField = RoactRodux.connect(
-	nil, 
-	function(dispatch)
-		return {
-			onFilterTextChanged = function(filterString)
-				return dispatch(FilterWatchDataThunk(filterString))
-			end,
-			onSearchRequested = function(filterString)
-				return dispatch(FilterWatchDataThunk(filterString))
-			end,
-		}
-	end
-)(SearchBarField)
+SearchBarField = RoactRodux.connect(function(state, props)
+	local watch = state.Watch
+	return {
+		SearchTerm = watch.filterText,
+	}
+end, function(dispatch)
+	return {
+		onFilterTextChanged = function(filterString)
+			return dispatch(FilterWatchDataThunk(filterString))
+		end,
+		onSearchRequested = function(filterString)
+			return dispatch(FilterWatchDataThunk(filterString))
+		end,
+	}
+end)(SearchBarField)
 
 return SearchBarField

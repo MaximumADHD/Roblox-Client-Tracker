@@ -10,6 +10,7 @@
 		func OnEditFinished = function to call when this page wants to return to the
 			list view, when the back button gets clicked
 ]]
+local FFlagGameSettingsRemoveFitContent = game:GetFastFlag("GameSettingsRemoveFitContent")
 
 local StudioService = game:GetService("StudioService")
 
@@ -38,7 +39,6 @@ local DevSubModeration = require(Page.Thunks.DevSubModeration)
 
 local RoundTextButton = UILibrary.Component.RoundTextButton
 local TitledFrame = UILibrary.Component.TitledFrame
-local createFitToContent = UILibrary.Component.createFitToContent
 
 local RoundTextBox = require(Plugin.Packages.RoactStudioWidgets.RoundTextBox)
 
@@ -50,16 +50,21 @@ local withContext = ContextServices.withContext
 
 local FrameworkUI = Framework.UI
 local HoverArea = FrameworkUI.HoverArea
+local Pane = FrameworkUI.Pane
 local Separator = FrameworkUI.Separator
 
 local FrameworkUtil = Framework.Util
 local FitFrameOnAxis = FrameworkUtil.FitFrame.FitFrameOnAxis
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
 
-local FitToContent = createFitToContent("Frame", "UIListLayout", {
-	SortOrder = Enum.SortOrder.LayoutOrder,
-	Padding = UDim.new(0, DEPRECATED_Constants.ELEMENT_PADDING),
-})
+local FitToContent
+if not FFlagGameSettingsRemoveFitContent then
+	local createFitToContent = UILibrary.Component.createFitToContent
+	FitToContent = createFitToContent("Frame", "UIListLayout", {
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		Padding = UDim.new(0, DEPRECATED_Constants.ELEMENT_PADDING),
+	})
+end
 
 local PRICE_ICON_PADDING = 8
 
@@ -205,9 +210,7 @@ function DeveloperSubscriptionDetails:render()
 	local idTextSize = GetTextSize(developerSubscription.Id, theme.fontStyle.Normal.TextSize, theme.fontStyle.Normal.Font)
 	local priceIconSize = theme.fontStyle.Normal.TextSize
 
-	return Roact.createElement(FitToContent, {
-		BackgroundTransparency = 1,
-	}, {
+	local children = {
 		HeaderFrame = Roact.createElement(FitFrameOnAxis, {
 			LayoutOrder = layoutIndex:getNextOrder(),
 			BackgroundTransparency = 1,
@@ -388,17 +391,29 @@ function DeveloperSubscriptionDetails:render()
 				Alignment = Enum.TextXAlignment.Left,
 			}),
 		}),
-	})
-end
+	}
 
+	if FFlagGameSettingsRemoveFitContent then
+		return Roact.createElement(Pane, {
+			AutomaticSize = Enum.AutomaticSize.Y,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			LayoutOrder = self.props.LayoutOrder or 1,
+			Layout = Enum.FillDirection.Vertical,
+			Spacing = UDim.new(0, DEPRECATED_Constants.ELEMENT_PADDING),
+		}, children)
+	else
+		return Roact.createElement(FitToContent, {
+			LayoutOrder = self.props.LayoutOrder or 1,
+			BackgroundTransparency = 1,
+		}, children)
+	end
+end
 
 DeveloperSubscriptionDetails = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Dialog = Dialog,
 })(DeveloperSubscriptionDetails)
-
-
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
 return RoactRodux.connect(

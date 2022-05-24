@@ -26,6 +26,8 @@ local StatusLevel = require(Plugin.Src.Utility.StatusLevel)
 local StatusPropertyMap = require(Plugin.Src.Utility.StatusPropertyMap)
 local GetLocalizedString = require(Plugin.Src.Utility.GetLocalizedString)
 
+local getFFlagAssetImportShowPropsAfterHidden = require(Plugin.Src.Flags.getFFlagAssetImportShowPropsAfterHidden)
+
 local statusBucketToType = {
 	["Errors"] = StatusLevel.Error,
 	["Warnings"] = StatusLevel.Warning,
@@ -144,18 +146,33 @@ function PropertyListView:render()
 					statusObject.StatusMessage = message
 				end
 
-				sectionProperties[propertyIndex] = Roact.createElement(PropertyView, {
-					Dependencies = propertyMetadata.Dependencies,
-					Editable = propertyMetadata.Editable,
-					Instance = props.Instance,
-					LayoutOrder = propertyIndex + #sectionStatuses,
-					Localization = localization,
-					PropertyName = propertyMetadata.Name,
-					SetProperty = props.SetProperty,
-					StatusLevel = level,
-					StatusMessage = message,
-					ValueType = propertyMetadata.ValueType,
-				})
+				if getFFlagAssetImportShowPropsAfterHidden() then
+					table.insert(sectionProperties, Roact.createElement(PropertyView, {
+						Dependencies = propertyMetadata.Dependencies,
+						Editable = propertyMetadata.Editable,
+						Instance = props.Instance,
+						LayoutOrder = propertyIndex + #sectionStatuses,
+						Localization = localization,
+						PropertyName = propertyMetadata.Name,
+						SetProperty = props.SetProperty,
+						StatusLevel = level,
+						StatusMessage = message,
+						ValueType = propertyMetadata.ValueType,
+					}))
+				else
+					sectionProperties[propertyIndex] = Roact.createElement(PropertyView, {
+						Dependencies = propertyMetadata.Dependencies,
+						Editable = propertyMetadata.Editable,
+						Instance = props.Instance,
+						LayoutOrder = propertyIndex + #sectionStatuses,
+						Localization = localization,
+						PropertyName = propertyMetadata.Name,
+						SetProperty = props.SetProperty,
+						StatusLevel = level,
+						StatusMessage = message,
+						ValueType = propertyMetadata.ValueType,
+					})
+				end
 			end
 		end
 

@@ -1,9 +1,4 @@
 return function()
-	local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization4")
-	if not FFlagToolboxAssetCategorization then
-		return
-	end
-
 	local Plugin = script:FindFirstAncestor("Toolbox")
 
 	local Packages = Plugin.Packages

@@ -9,8 +9,7 @@ local WatchHelperFunctions = require(Util.WatchHelperFunctions)
 
 local LazyLoadVariableThunk = require(Plugin.Src.Thunks.Watch.LazyLoadVariable)
 
-return function(variablePath : string, stepStateBundle : StepStateBundle.StepStateBundle,
-	isVariablesTab : boolean, debuggerConnection)
+return function(variablePath: string, stepStateBundle: StepStateBundle.StepStateBundle, isVariablesTab: boolean, debuggerConnection)
 	return function(store, contextItems)
 		if not debuggerConnection then
 			return

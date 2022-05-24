@@ -14,10 +14,22 @@ local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 local PlayerContextHeader = Roact.PureComponent:extend("PlayerContextHeader")
 
 PlayerContextHeader.validateProps = t.strictInterface({
-	player = playerInterface,
+	player = t.union(
+		playerInterface,
+		t.strictInterface({
+			IsOnline = t.boolean,
+			Id = t.integer,
+			Username = t.string,
+			DisplayName = t.string,
+		})
+	),
 })
 
 function PlayerContextHeader:render()
+	local userId = self.props.player.UserId or self.props.player.Id
+	local username = self.props.player.Name or self.props.player.Username
+	local displayName = self.props.player.DisplayName
+
 	return withStyle(function(style)
 		-- TODO: Switch to using icon from UIBlox. Managing rounded corners will be a challenge.
 		local avatarBackgroundImage = "rbxasset://textures/ui/PlayerList/NewAvatarBackground.png"
@@ -51,7 +63,7 @@ function PlayerContextHeader:render()
 					DisplayName = Roact.createElement(StyledTextLabel, {
 						layoutOrder = 1,
 						size = UDim2.new(1, 0, 0, 20),
-						text = self.props.player.DisplayName,
+						text = displayName,
 						fontStyle = style.Font.Header2,
 						colorStyle = style.Theme.TextEmphasis,
 						textTruncate = Enum.TextTruncate.AtEnd,
@@ -63,7 +75,7 @@ function PlayerContextHeader:render()
 					PlayerName = Roact.createElement(StyledTextLabel, {
 						layoutOrder = 2,
 						size = UDim2.new(1, 0, 0, 14),
-						text = "@" .. self.props.player.Name,
+						text = "@" .. username,
 						fontStyle = style.Font.CaptionHeader,
 						colorStyle = style.Theme.TextDefault,
 						textTruncate = Enum.TextTruncate.AtEnd,
@@ -79,7 +91,7 @@ function PlayerContextHeader:render()
 				Size = UDim2.new(0, 92, 0, 92),
 				AnchorPoint = Vector2.new(0.5, 0),
 				BackgroundTransparency = 1,
-				Image = "rbxthumb://type=AvatarHeadShot&id=" .. self.props.player.UserId .. "&w=150&h=150",
+				Image = "rbxthumb://type=AvatarHeadShot&id=" .. userId .. "&w=150&h=150",
 				ZIndex = 2,
 			}),
 

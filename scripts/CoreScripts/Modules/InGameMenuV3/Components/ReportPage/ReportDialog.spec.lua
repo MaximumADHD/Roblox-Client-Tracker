@@ -24,14 +24,14 @@ return function()
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
 
-	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
-
 	local appStyle = {
 		Theme = AppDarkTheme,
 		Font = AppFont,
 	}
 
-	local FocusHandlerContextProvider = require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
+	local FocusHandlerContextProvider = require(
+		script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider
+	)
 	local ReportDialog = require(script.Parent.ReportDialog)
 
 	local function getMountableTreeAndStore(props)
@@ -46,10 +46,9 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+					FocusHandlerContextProvider = Roact.createElement(FocusHandlerContextProvider, {}, {
 						ReportDialog = Roact.createElement(ReportDialog, props),
-					}) or nil,
-					ReportDialog = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(ReportDialog, props) or nil,
+					}),
 				}),
 			}),
 		}),
@@ -113,36 +112,42 @@ return function()
 			Roact.unmount(instance)
 		end)
 
-		it("When reporting player, Should gain focus only when gamepad was used and FFlagInGameMenuController is enabled", function()
-			local element, store = getMountableTreeAndStore({ isOpen = false })
+		it(
+			"When reporting player, Should gain focus only when gamepad was used and FFlagInGameMenuController is enabled",
+			function()
+				local element, store = getMountableTreeAndStore({ isOpen = false })
 
-			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
-			act(function()
-				store:dispatch(SetInputType(Constants.InputType.Gamepad))
-				store:dispatch(OpenReportDialog(12, "mr f"))
-				store:flush()
-			end)
+				local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+				act(function()
+					store:dispatch(SetInputType(Constants.InputType.Gamepad))
+					store:dispatch(OpenReportDialog(12, "mr f"))
+					store:flush()
+				end)
 
-			jestExpect(tostring(GuiService.SelectedCoreObject)).toEqual("OpenDropDownButton")
+				jestExpect(tostring(GuiService.SelectedCoreObject)).toEqual("OpenDropDownButton")
 
-			Roact.unmount(instance)
-			GuiService.SelectedCoreObject = nil
-		end)
+				Roact.unmount(instance)
+				GuiService.SelectedCoreObject = nil
+			end
+		)
 
-		it("When reporting game, Should gain focus only when gamepad was used and FFlagInGameMenuController is enabled", function()
-			local element, store = getMountableTreeAndStore({ isOpen = false })
+		it(
+			"When reporting game, Should gain focus only when gamepad was used and FFlagInGameMenuController is enabled",
+			function()
+				local element, store = getMountableTreeAndStore({ isOpen = false })
 
-			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
-			act(function()
-				store:dispatch(SetInputType(Constants.InputType.Gamepad))
-				store:dispatch(OpenReportDialog())
-				store:flush()
-			end)
+				local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+				act(function()
+					store:dispatch(SetInputType(Constants.InputType.Gamepad))
+					store:dispatch(OpenReportDialog())
+					store:flush()
+				end)
 
-			jestExpect(tostring(GuiService.SelectedCoreObject)).toEqual("TextBox")
+				jestExpect(tostring(GuiService.SelectedCoreObject)).toEqual("TextBox")
 
-			Roact.unmount(instance)
-			GuiService.SelectedCoreObject = nil
-		end)
+				Roact.unmount(instance)
+				GuiService.SelectedCoreObject = nil
+			end
+		)
 	end)
 end

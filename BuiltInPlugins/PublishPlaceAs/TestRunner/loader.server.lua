@@ -3,16 +3,16 @@ require(script.Parent.Parent.TestRunner.defineLuaFlags)
 local Plugin = script.Parent.Parent
 
 local PluginLoaderBuilder = require(Plugin.PluginLoader.PluginLoaderBuilder)
-local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
-local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
+local SourceStrings = Plugin.Src.Resources.SourceStrings
+local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 
 local StudioService = game:GetService("StudioService")
 
 local args : PluginLoaderBuilder.Args = {
 	plugin = plugin,
 	pluginName = "PublishPlaceAs",
-	translationResourceTable = TranslationReferenceTable,
-	fallbackResourceTable = TranslationDevelopmentTable,
+	translationResourceTable = LocalizedStrings,
+	fallbackResourceTable = SourceStrings,
 	overrideLocaleId = nil,
 	localizationNamespace = nil,
 	noToolbar = true,

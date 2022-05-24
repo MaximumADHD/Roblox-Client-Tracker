@@ -1,11 +1,12 @@
 --!strict
 --[[
 ScriptRef:
-]]--
+]]
+--
 
 local ScriptRef = {}
 
-function ScriptRef.new()		
+function ScriptRef.new()
 	return "TestScript" .. math.random()
 end
 

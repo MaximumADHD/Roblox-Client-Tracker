@@ -218,6 +218,7 @@ function StoryHost:render()
 			LayoutOrder = 2,
 			ClipsDescendants = true,
 			Layout = Enum.FillDirection.Vertical,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			AutomaticSize = not props.FixedSize and Enum.AutomaticSize.Y or nil,
 			[Roact.Ref] = self.paneRef,
 		}, children)

@@ -11,17 +11,18 @@ MetaBreakpoint:
 - Enabled: boolean
 - ContinueExecution: boolean
 - IsLogpoint : boolean
-]]--
+]]
+--
 
 export type MetaBreakpointProperties = {
-	Script : string | nil,
-	Line : number | nil,
-	Condition : string | nil,
-	Id : number | nil,
-	LogMessage : string | nil,
+	Script: string | nil,
+	Line: number | nil,
+	Condition: string | nil,
+	Id: number | nil,
+	LogMessage: string | nil,
 	Enabled: boolean | nil,
 	ContinueExecution: boolean | nil,
-	IsLogpoint : boolean | nil,
+	IsLogpoint: boolean | nil,
 }
 
 local MetaBreakpoint = {}
@@ -49,7 +50,7 @@ function MetaBreakpoint:GetContextBreakpoints()
 	return {}
 end
 
-function MetaBreakpoint.new(metaBreakpoint : MetaBreakpointProperties)
+function MetaBreakpoint.new(metaBreakpoint: MetaBreakpointProperties)
 	if metaBreakpoint.Enabled == nil then
 		metaBreakpoint.Enabled = true
 	end

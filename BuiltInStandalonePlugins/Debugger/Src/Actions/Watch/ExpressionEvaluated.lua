@@ -8,13 +8,16 @@ local WatchRow = require(Models.Watch.WatchRow)
 local StepStateBundle = require(Plugin.Src.Models.StepStateBundle)
 
 export type Props = {
-	stepStateBundle : StepStateBundle.StepStateBundle,
-	watchRow : WatchRow.WatchRow,
+	stepStateBundle: StepStateBundle.StepStateBundle,
+	watchRow: WatchRow.WatchRow,
 }
 
-return Action(script.Name, function(stepStateBundle : StepStateBundle.StepStateBundle, watchRow : WatchRow.WatchRow) : Props	
-	return {
-		stepStateBundle = stepStateBundle,
-		watchRow = watchRow
-	}
-end)
+return Action(
+	script.Name,
+	function(stepStateBundle: StepStateBundle.StepStateBundle, watchRow: WatchRow.WatchRow): Props
+		return {
+			stepStateBundle = stepStateBundle,
+			watchRow = watchRow,
+		}
+	end
+)

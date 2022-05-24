@@ -20,7 +20,6 @@ local FocusHandler = require(script.Parent.Parent.Connection.FocusHandler)
 local OpenReportDialog = require(InGameMenu.Actions.OpenReportDialog)
 
 local ReportList = Roact.PureComponent:extend("ReportList")
-local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 
 game:DefineFastFlag("IGMReportListMissingBottomEntry", false)
 
@@ -35,12 +34,12 @@ ReportList.validateProps = t.strictInterface({
 	placeName = t.string,
 	players = t.array(t.strictInterface({
 		Id = t.integer,
-		Username = t.string
+		Username = t.string,
 	})),
 	dispatchOpenReportDialog = t.callback,
 	canCaptureFocus = t.optional(t.boolean),
-	currentPage = GetFFlagIGMGamepadSelectionHistory() and t.optional(t.string) or nil,
-	currentZone = GetFFlagIGMGamepadSelectionHistory() and t.optional(t.number) or nil,
+	currentPage = t.optional(t.string),
+	currentZone = t.optional(t.number),
 })
 
 local function sortPlayers(p1, p2)
@@ -64,15 +63,14 @@ function ReportList:renderListEntries()
 		HorizontalAlignment = Enum.HorizontalAlignment.Right,
 	})
 
-	if GetFFlagIGMGamepadSelectionHistory() then
-		listComponents.FocusHandler = Roact.createElement(FocusHandler, {
-			isFocused = self.props.canCaptureFocus,
-			shouldForgetPreviousSelection = self.props.currentPage == Constants.MainPagePageKey or self.props.currentZone == 0,
-			didFocus = function(previousSelection)
-				GuiService.SelectedCoreObject = previousSelection or self.reportGameRef:getValue()
-			end,
-		})
-	end
+	listComponents.FocusHandler = Roact.createElement(FocusHandler, {
+		isFocused = self.props.canCaptureFocus,
+		shouldForgetPreviousSelection = self.props.currentPage == Constants.MainPagePageKey
+			or self.props.currentZone == 0,
+		didFocus = function(previousSelection)
+			GuiService.SelectedCoreObject = previousSelection or self.reportGameRef:getValue()
+		end,
+	})
 
 	listComponents.GameReport = Roact.createElement(GameLabel, {
 		gameId = game.GameId,
@@ -81,22 +79,22 @@ function ReportList:renderListEntries()
 		[Roact.Ref] = self.reportGameRef,
 		onActivated = function()
 			self.props.dispatchOpenReportDialog()
-		end
+		end,
 	}, {
 		ReportButton = Roact.createElement(ReportButton, {
 			LayoutOrder = 1,
-		})
+		}),
 	})
 
 	if #sortedPlayers > 0 then
 		listComponents["divider_" .. layoutOrder] = Roact.createElement(Divider, {
 			LayoutOrder = 2,
-			Size = UDim2.new(1, -DIVIDER_INDENT, 0, DIVIDER_HEIGHT)
+			Size = UDim2.new(1, -DIVIDER_INDENT, 0, DIVIDER_HEIGHT),
 		})
 	end
 
 	for index, playerInfo in pairs(sortedPlayers) do
-		listComponents["player_"..index] = Roact.createElement(PlayerCell, {
+		listComponents["player_" .. index] = Roact.createElement(PlayerCell, {
 			username = playerInfo.Username,
 			userId = playerInfo.Id,
 			isOnline = true,
@@ -111,7 +109,7 @@ function ReportList:renderListEntries()
 				userId = playerInfo.Id,
 				userName = playerInfo.Username,
 				LayoutOrder = 1,
-			})
+			}),
 		})
 
 		layoutOrder = layoutOrder + 1
@@ -119,7 +117,7 @@ function ReportList:renderListEntries()
 		if index < playersCount then
 			listComponents["divider_" .. layoutOrder] = Roact.createElement(Divider, {
 				LayoutOrder = layoutOrder,
-				Size = UDim2.new(1, -DIVIDER_INDENT, 0, DIVIDER_HEIGHT)
+				Size = UDim2.new(1, -DIVIDER_INDENT, 0, DIVIDER_HEIGHT),
 			})
 
 			layoutOrder = layoutOrder + 1
@@ -127,15 +125,6 @@ function ReportList:renderListEntries()
 	end
 
 	return listComponents
-end
-
-function ReportList:didUpdate(prevProps, prevState)
-	if not GetFFlagIGMGamepadSelectionHistory() then
-		-- Only highlight buttons when Gamepad connected
-		if self.props.canCaptureFocus and not prevProps.canCaptureFocus then
-			GuiService.SelectedCoreObject = self.reportGameRef:getValue()
-		end
-	end
 end
 
 function ReportList:render()
@@ -154,29 +143,24 @@ function ReportList:render()
 	}, self:renderListEntries())
 end
 
-return RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		local placeName = state.gameInfo.name
+return RoactRodux.UNSTABLE_connect2(function(state, props)
+	local placeName = state.gameInfo.name
 
-		local canCaptureFocus = state.menuPage == "Report"
-			and state.displayOptions.inputType == Constants.InputType.Gamepad
-			and not (state.report.dialogOpen
-				or state.report.reportSentOpen
-				or state.respawn.dialogOpen)
-			and state.currentZone == 1
+	local canCaptureFocus = state.menuPage == "Report"
+		and state.displayOptions.inputType == Constants.InputType.Gamepad
+		and not (state.report.dialogOpen or state.report.reportSentOpen or state.respawn.dialogOpen)
+		and state.currentZone == 1
 
-		return {
-			placeName = placeName,
-			canCaptureFocus = canCaptureFocus,
-			currentPage = (GetFFlagIGMGamepadSelectionHistory() or nil) and state.menuPage,
-			currentZone = (GetFFlagIGMGamepadSelectionHistory() or nil) and state.currentZone,
-		}
-	end,
-	function(dispatch)
-		return {
-			dispatchOpenReportDialog = function(userId, userName)
-				dispatch(OpenReportDialog(userId, userName))
-			end,
-		}
-	end
-)(ReportList)
+	return {
+		placeName = placeName,
+		canCaptureFocus = canCaptureFocus,
+		currentPage = state.menuPage,
+		currentZone = state.currentZone,
+	}
+end, function(dispatch)
+	return {
+		dispatchOpenReportDialog = function(userId, userName)
+			dispatch(OpenReportDialog(userId, userName))
+		end,
+	}
+end)(ReportList)

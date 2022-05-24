@@ -31,7 +31,7 @@ return function()
 		local scriptInfoReducer = Rodux.Store.new(ScriptInfoReducer)
 		expect(scriptInfoReducer:getState()).to.be.ok()
 	end)
-	
+
 	describe(SetFilenameForGuidAction.name, function()
 		it("should Modify Script Info", function()
 			local state = ScriptInfoReducer(initialState, SetFilenameForGuidAction("Guid1", ""))
@@ -52,7 +52,11 @@ return function()
 
 		it("should preserve immutability", function()
 			local state = ScriptInfoReducer(initialState, SetFilenameForGuidAction("Guid1", ""))
-			local immutabilityPreserved = testImmutability(ScriptInfoReducer, SetFilenameForGuidAction("Guid1", "second.lua"), state)
+			local immutabilityPreserved = testImmutability(
+				ScriptInfoReducer,
+				SetFilenameForGuidAction("Guid1", "second.lua"),
+				state
+			)
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)
@@ -66,7 +70,11 @@ return function()
 		end)
 
 		it("should preserve immutability", function()
-			local immutabilityPreserved = testImmutability(ScriptInfoReducer, SetScriptSourceLineAction("Guid1", 4, "scriptLine"), initialState)
+			local immutabilityPreserved = testImmutability(
+				ScriptInfoReducer,
+				SetScriptSourceLineAction("Guid1", 4, "scriptLine"),
+				initialState
+			)
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)
