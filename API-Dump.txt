@@ -104,6 +104,15 @@ Class AnimationFromVideoCreatorStudioService : Instance [NotCreatable] [Service]
 	Function string AnimationFromVideoCreatorStudioService:ImportVideoWithPrompt() {RobloxScriptSecurity} [Yields]
 Class AnimationRigData : Instance
 	Function bool AnimationRigData:LoadFromHumanoid(Instance humanoid) {RobloxScriptSecurity}
+Class AnimationStreamTrack : Instance [NotCreatable] [NotReplicated]
+	Property bool AnimationStreamTrack.IsPlaying [Hidden] [ReadOnly]
+	Property Enum.AnimationPriority AnimationStreamTrack.Priority [Hidden] [NotReplicated]
+	Property float AnimationStreamTrack.WeightCurrent [Hidden] [ReadOnly]
+	Property float AnimationStreamTrack.WeightTarget [Hidden] [ReadOnly]
+	Function void AnimationStreamTrack:AdjustWeight(float weight = 1, float fadeTime = 0.100000001) {RobloxScriptSecurity}
+	Function void AnimationStreamTrack:Play(float fadeTime = 0.100000001, float weight = 1) {RobloxScriptSecurity}
+	Function void AnimationStreamTrack:Stop(float fadeTime = 0.100000001) {RobloxScriptSecurity}
+	Event AnimationStreamTrack.Stopped() {RobloxScriptSecurity}
 Class AnimationTrack : Instance [NotCreatable]
 	Property Animation AnimationTrack.Animation [ReadOnly]
 	Property bool AnimationTrack.IsPlaying [ReadOnly]
@@ -127,6 +136,7 @@ Class Animator : Instance
 	Function void Animator:ApplyJointVelocities(Variant motors)
 	Function Array Animator:GetPlayingAnimationTracks()
 	Function AnimationTrack Animator:LoadAnimation(Animation animation)
+	Function AnimationStreamTrack Animator:LoadStreamAnimation(TrackerStreamAnimation animation) {RobloxScriptSecurity}
 	Function void Animator:StepAnimations(float deltaTime) {PluginSecurity}
 	Event Animator.AnimationPlayed(AnimationTrack animationTrack)
 Class AppUpdateService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -1177,6 +1187,8 @@ Class Texture : Decal
 	Property float Texture.OffsetStudsV
 	Property float Texture.StudsPerTileU
 	Property float Texture.StudsPerTileV
+Class FacialAnimationStreamingService : Instance [NotCreatable] [Service]
+	Property bool FacialAnimationStreamingService.Enabled {RobloxScriptSecurity} [Hidden]
 Class Feature : Instance [NotCreatable]
 	Property Enum.NormalId Feature.FaceId
 	Property Enum.InOut Feature.InOut
@@ -1323,7 +1335,7 @@ Class GuiObject : GuiBase2d [NotCreatable] [NotBrowsable]
 	Event GuiObject.TouchSwipe(Enum.SwipeDirection swipeDirection, int numberOfTouches)
 	Event GuiObject.TouchTap(Array touchPositions)
 Class CanvasGroup : GuiObject [NotBrowsable]
-	Property Color3 CanvasGroup.GroupColor
+	Property Color3 CanvasGroup.GroupColor3
 	Property float CanvasGroup.GroupTransparency
 Class Frame : GuiObject
 	Property Enum.FrameStyle Frame.Style
@@ -1969,6 +1981,7 @@ Class ImporterRootSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property Vector3 ImporterRootSettings.FileDimensions [ReadOnly]
 	Property bool ImporterRootSettings.ImportAsModelAsset
 	Property bool ImporterRootSettings.InsertInWorkspace
+	Property bool ImporterRootSettings.InsertWithScenePosition
 	Property bool ImporterRootSettings.InvertNegativeFaces
 	Property bool ImporterRootSettings.MergeMeshes
 	Property float ImporterRootSettings.PolygonCount [ReadOnly]
@@ -2066,8 +2079,6 @@ Class KeyframeSequenceProvider : Instance [NotCreatable] [Service] [NotReplicate
 	Function Content KeyframeSequenceProvider:RegisterActiveKeyframeSequence(Instance keyframeSequence)
 	Function Content KeyframeSequenceProvider:RegisterKeyframeSequence(Instance keyframeSequence)
 Class LSPFileSyncService : Instance [NotCreatable] [Service] [NotReplicated]
-Class LSPService : Instance [Service] [NotReplicated]
-	Function void LSPService:RegisterLSPCallback(Enum.LSPMethodType methodToOverride, Function callbackFunction) {RobloxScriptSecurity}
 Class LanguageService : Instance [NotCreatable] [Service] [NotReplicated]
 Class Light : Instance [NotCreatable]
 	Property float Light.Brightness
@@ -2408,6 +2419,7 @@ Class MetaBreakpoint : Instance [NotCreatable] [NotReplicated]
 	Property bool MetaBreakpoint.IsLogpoint {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function Dictionary MetaBreakpoint:GetContextBreakpoints() {RobloxScriptSecurity}
 	Function int MetaBreakpoint:Remove(Function status) {RobloxScriptSecurity}
+	Function void MetaBreakpoint:SetChildBreakpointEnabledByScriptAndContext(string script, int contextGST, bool enabled) {RobloxScriptSecurity}
 	Function void MetaBreakpoint:SetContextEnabled(int context, bool enabled) {RobloxScriptSecurity}
 	Function void MetaBreakpoint:SetContinueExecution(bool enabled) {RobloxScriptSecurity}
 	Function void MetaBreakpoint:SetEnabled(bool enabled) {RobloxScriptSecurity}
@@ -3358,6 +3370,7 @@ Class RotationCurve : Instance
 	Function Array RotationCurve:InsertKey(RotationCurveKey key)
 	Function int RotationCurve:RemoveKeyAtIndex(int startingIndex, int count = 1)
 	Function int RotationCurve:SetKeys(Array keys)
+Class RtMessagingService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property string RunService.ClientGitHash {RobloxScriptSecurity} [ReadOnly]
 	Function void RunService:BindToRenderStep(string name, int priority, Function function)
@@ -3425,6 +3438,15 @@ Class ScriptDebugger : Instance [NotCreatable]
 	Event ScriptDebugger.Resuming()
 	Event ScriptDebugger.WatchAdded(Instance watch)
 	Event ScriptDebugger.WatchRemoved(Instance watch)
+Class ScriptDocument : Instance [NotCreatable] [NotReplicated]
+	Function int ScriptDocument:GetNumLines() {RobloxScriptSecurity}
+	Function LuaSourceContainer ScriptDocument:GetScript() {RobloxScriptSecurity}
+	Function string ScriptDocument:GetText() {RobloxScriptSecurity}
+Class ScriptEditorService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void ScriptEditorService:RegisterLSPCallback(Enum.LSPMethodType methodToOverride, Function callbackFunction) {RobloxScriptSecurity}
+	Event ScriptEditorService.TextDocumentDidChange(ScriptDocument document, Variant changesArray) {RobloxScriptSecurity}
+	Event ScriptEditorService.TextDocumentDidClose(ScriptDocument oldDocument) {RobloxScriptSecurity}
+	Event ScriptEditorService.TextDocumentDidOpen(ScriptDocument newDocument) {RobloxScriptSecurity}
 Class ScriptRegistrationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function LuaSourceContainer ScriptRegistrationService:GetSourceContainerByScriptGuid(string guid) {RobloxScriptSecurity}
 Class ScriptService : Instance [NotCreatable] [Service]
@@ -3928,7 +3950,6 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string StudioService:GetStartupPluginId() {RobloxScriptSecurity}
 	Function string StudioService:GetTermsOfUseUrl() {RobloxScriptSecurity}
 	Function int64 StudioService:GetUserId() {PluginSecurity}
-	Function bool StudioService:GetUserIsInTeamCreateToggleRamp() {RobloxScriptSecurity}
 	Function RaycastResult StudioService:GizmoRaycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams.new()) {PluginSecurity}
 	Function bool StudioService:HasInternalPermission() {RobloxScriptSecurity}
 	Function bool StudioService:IsPluginInstalled(int64 assetId) {RobloxScriptSecurity}
@@ -4057,7 +4078,7 @@ Class TextBoxService : Instance [NotCreatable] [Service]
 Class TextChannel : Instance [NotBrowsable]
 	Function Tuple TextChannel:AddUserAsync(int64 userId) [Yields]
 	Function TextChatMessage TextChannel:DisplaySystemMessage(string systemMessage, string metadata = "")
-	Function TextChatMessage TextChannel:SendAsync(string message, string metadata = "")
+	Function TextChatMessage TextChannel:SendAsync(string message, string metadata = "") [Yields]
 	Event TextChannel.MessageReceived(TextChatMessage incomingMessage)
 	Callback Tuple TextChannel.OnIncomingMessage(TextChatMessage message)
 Class TextChatCommand : Instance [NotBrowsable]
@@ -4130,6 +4151,7 @@ Class TouchTransmitter : Instance [NotCreatable] [NotBrowsable]
 Class TracerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void TracerService:FinishSpan(string spanId) {RobloxScriptSecurity}
 	Function string TracerService:StartSpan(string name, string parentId) {RobloxScriptSecurity}
+Class TrackerStreamAnimation : Instance [NotReplicated]
 Class Trail : Instance
 	Property float Trail.Brightness
 	Property ColorSequence Trail.Color
@@ -4268,7 +4290,7 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Property bool UserGameSettings.AllTutorialsDisabled {RobloxScriptSecurity}
 	Property bool UserGameSettings.CameraYInverted {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool UserGameSettings.ChatVisible {RobloxScriptSecurity}
-	Property string UserGameSettings.DefaultCameraID {RobloxScriptSecurity} [Hidden]
+	Property string UserGameSettings.DefaultCameraID {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool UserGameSettings.Fullscreen {RobloxScriptSecurity}
 	Property float UserGameSettings.GamepadCameraSensitivity
 	Property bool UserGameSettings.HasEverUsedVR {RobloxScriptSecurity}
@@ -4991,6 +5013,7 @@ Enum ConnectionError
 	EnumItem ConnectionError.DisconnectClientRequest : 285
 	EnumItem ConnectionError.DisconnectOutOfMemory : 286
 	EnumItem ConnectionError.DisconnectModeratedGame : 287
+	EnumItem ConnectionError.DisconnectOutOfMemoryExitContinue : 288
 	EnumItem ConnectionError.PlacelaunchErrors : 512
 	EnumItem ConnectionError.PlacelaunchDisabled : 515
 	EnumItem ConnectionError.PlacelaunchError : 516

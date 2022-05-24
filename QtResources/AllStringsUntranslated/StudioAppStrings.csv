@@ -291,8 +291,6 @@ Studio.App.MainWindow.SaveActiveLocalFileNewName,Main Window,Save the active loc
 Studio.App.MainWindow.SaveChangesTo1,Main Window,Save changes to %1?,Save changes to %1?
 Studio.App.MainWindow.SaveToFile,Main Window,Save to File,Save to File
 Studio.App.MainWindow.SaveToFileAsPrompt,Main Window,Save to File As...,Save to File As...
-Studio.App.MainWindow.CloseFile,Main Window,Close File,Close File
-Studio.App.MainWindow.CloseFileStatusTip,Main Window,Close the open file,Close the open file
 Studio.App.MainWindow.ClosePlace,Main Window,Close Place,Close Place
 Studio.App.MainWindow.ClosePlaceStatusTip,Main Window,Close the open place,Close the open place
 Studio.App.MainWindow.CloseTab,Main Window,Close Tab,Close Tab
@@ -2127,6 +2125,8 @@ Studio.App.StudioServiceHost.ConvertToPackageFailed,,Convert to package failed.,
 Studio.App.AuthenticationHelper.AuthFailedTryAgain,,Authentication failed. Please try again or contact support if the problem persists.,Authentication failed. Please try again or contact support if the problem persists.
 Studio.App.AuthenticationHelper.AuthFailedTimeout,,Could not authenticate user. Request timed out.,Could not authenticate user. Request timed out.
 Studio.App.Authenticator.TwoStepFailedParse,,"An error occurred while reading the response from the server. Please try again later, or contact support if the problem persists.","An error occurred while reading the response from the server. Please try again later, or contact support if the problem persists."
+Studio.App.BetaFeatures.CreateAnimationFromVideoTitle,,Create animation from video,Create animation from video
+Studio.App.BetaFeatures.CreateAnimationFromVideoDescription,,"Animation clip editor will have a ""Create from video"" option in the Import menu to transfer 3D pose from a video to an avatar.","Animation clip editor will have a ""Create from video"" option in the Import menu to transfer 3D pose from a video to an avatar."
 Studio.App.BetaFeatures.ACESaveRigWithAnimationTitle,,Save rig with Animation,Save rig with Animation
 Studio.App.BetaFeatures.ACESaveRigWithAnimationDescription,,Animation clip editor will save the rig along with keyframes to make the animation retargetable.,Animation clip editor will save the rig along with keyframes to make the animation retargetable.
 Studio.App.BetaFeatures.ForumPostTitleEnding,,%1 is now enabled,%1 is now enabled
@@ -3255,6 +3255,9 @@ Studio.App.BulkAudioImportRateLimiting.NoCapacity,,Audio uploads are temporarily
 Studio.App.BulkAudioImportRateLimiting.UploadsDefault2,,"You have %1 audio uploads per 30 days.
 (<a href=%2>Learn more</a>)","You have %1 audio uploads per 30 days.
 (<a href=%2>Learn more</a>)"
+Studio.App.BulkVideoImportErrors.UploadError,WIP feature: This error message will be revisited,An error occurred during video uploading.,An error occurred during video uploading.
+Studio.App.BulkVideoImportErrors.ProcessError,WIP feature: This error message will be revisited,An error occurred during video processing.,An error occurred during video processing.
+Studio.App.BulkVideoImportErrors.ValidationError,WIP feature: This error message will be revisited,The file does not meet our requirement.,The file does not meet our requirement.
 Studio.App.DocTabManager.CloseTab,,Close Tab,Close Tab
 Studio.App.DocTabManager.CloseTabsRight,,Close Tabs to the Right,Close Tabs to the Right
 Studio.App.DocTabManager.CloseTabsOther,,Close Other Tabs,Close Other Tabs

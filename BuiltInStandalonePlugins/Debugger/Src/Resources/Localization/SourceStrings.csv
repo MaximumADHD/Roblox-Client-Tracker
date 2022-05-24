@@ -1,0 +1,89 @@
+Key,Source,en-us
+Studio.Debugger.BreakpointsWindow.EnabledColumn,Enabled,Enabled
+Studio.Debugger.Plugin.Name,Debugger,Debugger
+Studio.Debugger.Plugin.Toolbar,Debugger,Debugger
+Studio.Debugger.BreakpointsWindow.ConditionColumn,Condition,Condition
+Studio.Debugger.EditDebugpoint.ConditionLabel,Condition,Condition
+Studio.Debugger.Common.CopySelected,Copy Selected,Copy Selected
+Studio.Debugger.EditDebugpoint.TitleLine,line {LineNumber:int},line {LineNumber:int}
+Studio.Debugger.Plugin.Button,Toggle,Toggle
+Studio.Debugger.EditDebugpoint.OptionsLabel,Options,Options
+Studio.Debugger.Plugin.Description,Toggles the Debugger plugin window.,Toggles the Debugger plugin window.
+Studio.Debugger.Watch.WindowName,Watch,Watch
+Studio.Debugger.Common.EditBreakpoint,Edit Breakpoint,Edit Breakpoint
+Studio.Debugger.EditBreakpoint.DialogName,Edit Breakpoint,Edit Breakpoint
+Studio.Debugger.BreakpointsWindow.LogMessageColumn,Log Message,Log Message
+Studio.Debugger.EditDebugpoint.LogLabel,Log Message,Log Message
+Studio.Debugger.BreakpointsWindow.ScriptColumn,Script,Script
+Studio.Debugger.Common.DeleteLogpoint,Delete Logpoint,Delete Logpoint
+Studio.Debugger.EditDebugpoint.Cancel,Cancel,Cancel
+Studio.Debugger.Watch.Local,Local,Local
+Studio.Debugger.EditDebugpoint.Save,Save,Save
+Studio.Debugger.EditDebugpoint.EnabledLabel,isEnabled,isEnabled
+Studio.Debugger.Callstack.SourceColumnTooltip,The script where the function call of a frame originated,The script where the function call of a frame originated
+Studio.Debugger.EditDebugpoint.LogPlaceholder,Enter log message(s),Enter log message(s)
+Studio.Debugger.Callstack.SourceColumn,Source,Source
+Studio.Debugger.EditDebugpoint.ConditionPlaceholder,Enter condition(s),Enter condition(s)
+Studio.Debugger.EditDebugpoint.LogTooltip,Log message will be displayed in Output widget when a Logpoint is hit.,Log message will be displayed in Output widget when a Logpoint is hit.
+Studio.Debugger.Callstack.WindowName,Call Stack,Call Stack
+Studio.Debugger.Common.stepOutActionV2,Step Out,Step Out
+Studio.Debugger.Common.stepOverActionV2,Step Over,Step Over
+Studio.Debugger.BreakpointsWindow.AllColumns,All Columns,All Columns
+Studio.Debugger.Callstack.AllColumns,All Columns,All Columns
+Studio.Debugger.Callstack.FrameColumn,Frame,Frame
+Studio.Debugger.Callstack.FrameColumnTooltip,The data associated with a single call to a function,The data associated with a single call to a function
+Studio.Debugger.Common.EnableLogpoint,Enable Logpoint,Enable Logpoint
+Studio.Debugger.Callstack.LayerColumn,Layer,Layer
+Studio.Debugger.Callstack.LayerColumnTooltip,The language that the script is written in,The language that the script is written in
+Studio.Debugger.Callstack.FunctionColumn,Function,Function
+Studio.Debugger.Callstack.FunctionColumnTooltip,The name of the function call associated with a frame,The name of the function call associated with a frame
+Studio.Debugger.Common.DeleteSelected,Delete Selected,Delete Selected
+Studio.Debugger.BreakpointsWindow.LineColumn,Line,Line
+Studio.Debugger.Callstack.LineColumn,Line,Line
+Studio.Debugger.Callstack.CurrentScriptTitle,Current Script: ,Current Script:
+Studio.Debugger.Callstack.LineColumnTooltip,The line number of the function call associated with a frame,The line number of the function call associated with a frame
+Studio.Debugger.Callstack.DropdownFieldText,{NumFields:int} Columns,{NumFields:int} Columns
+Studio.Debugger.Callstack.SelectInputPlaceholderText,Select Script,Select Script
+Studio.Debugger.Common.DisableBreakpoint,Disable Breakpoint,Disable Breakpoint
+Studio.Debugger.Common.SelectAll,Select All,Select All
+Studio.Debugger.BreakpointsWindow.ConditionColumnTooltip,The condition that must be met for a breakpoint to be triggered,The condition that must be met for a breakpoint to be triggered
+Studio.Debugger.Common.simulationResumeActionV2,Resume,Resume
+Studio.Debugger.Common.stepIntoActionV2,Step Into,Step Into
+Studio.Debugger.Common.AddExpression,Add Expression,Add Expression
+Studio.Debugger.BreakpointsWindow.LogMessageColumnTooltip,The message printed to the Output when a breakpoint is triggered,The message printed to the Output when a breakpoint is triggered
+Studio.Debugger.Common.EditExpression,Edit Expression,Edit Expression
+Studio.Debugger.Common.EnableBreakpoint,Enable Breakpoint,Enable Breakpoint
+Studio.Debugger.BreakpointsWindow.EnableAll,Enable All Breakpoints,Enable All Breakpoints
+Studio.Debugger.Common.DeleteBreakpoint,Delete Breakpoint,Delete Breakpoint
+Studio.Debugger.Watch.GlobalTooltip,A global variable is accessible from multiple blocks of code following where it's declared if the blocks are within the same script,A global variable is accessible from multiple blocks of code following where it's declared if the blocks are within the same script
+Studio.Debugger.Common.EditLogpoint,Edit Logpoint,Edit Logpoint
+Studio.Debugger.Common.DisableLogpoint,Disable Logpoint,Disable Logpoint
+Studio.Debugger.BreakpointsWindow.GoToScript,Go To Script,Go To Script
+Studio.Debugger.Common.GoToScript,Go To Script,Go To Script
+Studio.Debugger.BreakpointsWindow.ScriptColumnTooltip,The script a breakpoint belongs to,The script a breakpoint belongs to
+Studio.Debugger.BreakpointsWindow.WindowName,Breakponts Window,Breakpoints Window
+Studio.Debugger.BreakpointsWindow.LineColumnTooltip,The line number a breakpoint is on,The line number a breakpoint is on
+Studio.Debugger.BreakpointsWindow.SourceLineColumn,Source Line,Source Line
+Studio.Debugger.BreakpointsWindow.SourceLineColumnTooltip,The content of the line a breakpoint is on,The content of the line a breakpoint is on
+Studio.Debugger.BreakpointsWindow.ContinueExecutionColumn,Continue Execution,Continue Execution
+Studio.Debugger.BreakpointsWindow.ContinueExecutionColumnTooltip,Determines if execution will be paused when a breakpoint is hit,Determines if execution will be paused when a breakpoint is hit
+Studio.Debugger.BreakpointsWindow.DisableAll,Disable All Breakpoints,Disable All Breakpoints
+Studio.Debugger.BreakpointsWindow.DeleteAll,Delete All Breakpoints,Delete All Breakpoints
+Studio.Debugger.Watch.AllScopes,All Scopes,All Scopes
+Studio.Debugger.Watch.LocalTooltip,A local variable is accessible only within the block of code where it's declared,A local variable is accessible only within the block of code where it's declared
+Studio.Debugger.Watch.Upvalue,Upvalue,Upvalue
+Studio.Debugger.Watch.UpvalueTooltip,An upvalue is a local variable that an inner function or loop uses,An upvalue is a local variable that an inner function or loop uses
+Studio.Debugger.Watch.Global,Global,Global
+Studio.Debugger.Watch.DropdownFieldText,{NumFields:int} Scopes,{NumFields:int} Scopes
+Studio.Debugger.Watch.FilterScopes,Filter variables by scope,Filter variables by scope
+Studio.Debugger.Watch.VariablesTab,Variables,Variables
+Studio.Debugger.Watch.WatchesTab,My Watches,My Watches
+Studio.Debugger.Watch.NameColumn,Name,Name
+Studio.Debugger.Watch.NameColumnTooltip,The declared name of a variable,The declared name of a variable
+Studio.Debugger.Watch.ScopeColumn,Scope,Scope
+Studio.Debugger.Watch.ExpressionColumn,Expression,Expression
+Studio.Debugger.Watch.ScopeColumnTooltip,The scope of a variable: where it can be “seen” and accessed,The scope of a variable: where it can be “seen” and accessed
+Studio.Debugger.Watch.ValueColumn,Value,Value
+Studio.Debugger.Watch.ValueColumnTooltip,The current value of a variable,The current value of a variable
+Studio.Debugger.Watch.DataTypeColumn,Data Type,Data Type
+Studio.Debugger.Watch.DataTypeColumnTooltip,The data type of a variable,The data type of a variable

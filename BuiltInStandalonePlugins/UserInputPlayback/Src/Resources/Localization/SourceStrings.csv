@@ -1,0 +1,49 @@
+Key,en-us
+Studio.UserInputPlayback.ChooseRecordingNamePopUp.CancelButtonName,Cancel
+Studio.UserInputPlayback.ChooseRecordingNamePopUp.EnterNameForRecordingMessage,Enter name for recording ({numBytes:int} bytes):
+Studio.UserInputPlayback.ChooseRecordingNamePopUp.SaveButtonName,Save
+Studio.UserInputPlayback.ChooseRecordingNamePopUp.Title,Save Recording As
+Studio.UserInputPlayback.PlaybackTabView.FilterEventsLabel,Filter events:
+Studio.UserInputPlayback.PlaybackTabView.PlayButtonPlay,Play...
+Studio.UserInputPlayback.PlaybackTabView.PlayButtonReady,Ready to Play
+Studio.UserInputPlayback.PlaybackTabView.PlayButtonStop,Stop
+Studio.UserInputPlayback.PlaybackTabView.PlayFileLabel,Play file:
+Studio.UserInputPlayback.PlaybackTabView.RecordingDevice,Device
+Studio.UserInputPlayback.PlaybackTabView.RecordingDuration,Duration
+Studio.UserInputPlayback.PlaybackTabView.RecordingInfoLabel,Recording info:
+Studio.UserInputPlayback.PlaybackTabView.RecordingNumberOfEvents,Number of Events
+Studio.UserInputPlayback.PlaybackTabView.RecordingOrientation,Orientation
+Studio.UserInputPlayback.PlaybackTabView.RecordingResolution,Resolution
+Studio.UserInputPlayback.PlaybackTabView.SecondsUnitAbbrevation,s
+Studio.UserInputPlayback.PlaybackTabView.SelectInputDefaultText,Choose an item...
+Studio.UserInputPlayback.PlaybackTabView.SetEmulationDeviceLabel,Set emulation device
+Studio.UserInputPlayback.PlaybackTabView.StatusMessageDisabled,Status: Can't start playback now.
+Studio.UserInputPlayback.PlaybackTabView.StatusMessageNotPlaying,Status: Not playing.
+Studio.UserInputPlayback.PlaybackTabView.StatusMessagePlaying,Status: Playing...
+Studio.UserInputPlayback.PlaybackTabView.StatusMessageShouldStartPlayback,Status: Press Studio "Play" button to start playback.
+Studio.UserInputPlayback.Plugin.Button,Playback Tool
+Studio.UserInputPlayback.Plugin.Description,Open User Input Playback tool
+Studio.UserInputPlayback.Plugin.Name,User Input Playback Tool
+Studio.UserInputPlayback.Plugin.PlaybackTabTitle,Playback
+Studio.UserInputPlayback.Plugin.RecordingTabTitle,Recording
+Studio.UserInputPlayback.Plugin.Toolbar,User Input
+Studio.UserInputPlayback.RecordTabView.ComputerEmulationDeviceName,computer (default)
+Studio.UserInputPlayback.RecordTabView.ComputerEmulationDeviceOrientation,Default
+Studio.UserInputPlayback.RecordTabView.CurrentRecordingDeviceLabel,Current recording device:
+Studio.UserInputPlayback.RecordTabView.DefaultRecordingName,Recording
+Studio.UserInputPlayback.RecordTabView.EmulationDeviceName,Name
+Studio.UserInputPlayback.RecordTabView.EmulationDeviceOrientation,Orientation
+Studio.UserInputPlayback.RecordTabView.EmulationDeviceResolution,Resolution
+Studio.UserInputPlayback.RecordTabView.FilterNameGamepad,Gamepad
+Studio.UserInputPlayback.RecordTabView.FilterNameKeyboard,Keyboard
+Studio.UserInputPlayback.RecordTabView.FilterNameMouseClick,Mouse click
+Studio.UserInputPlayback.RecordTabView.FilterNameMouseMove,Mouse move
+Studio.UserInputPlayback.RecordTabView.FilterNameTouch,Touch input
+Studio.UserInputPlayback.RecordTabView.RecordButtonReadyToRecord,Ready to Record
+Studio.UserInputPlayback.RecordTabView.RecordButtonRecord,Record...
+Studio.UserInputPlayback.RecordTabView.RecordButtonStopRecording,Stop Recording
+Studio.UserInputPlayback.RecordTabView.ResolutionPixelsName,px
+Studio.UserInputPlayback.RecordTabView.StatusMessageDisabled,Status: Can't start recording now.
+Studio.UserInputPlayback.RecordTabView.StatusMessageNotRecording,Status: Not recording.
+Studio.UserInputPlayback.RecordTabView.StatusMessageRecording,Status: Recording...
+Studio.UserInputPlayback.RecordTabView.StatusMessageShouldRecordOnGamePlayStart,Status: Press Studio "Play" button to begin recording.

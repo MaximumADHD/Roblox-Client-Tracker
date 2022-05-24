@@ -1,0 +1,5 @@
+Key,Source,en-us
+Studio.DeviceEmulator.Plugin.Name,DeviceEmulator,DeviceEmulator
+Studio.DeviceEmulator.Plugin.Toolbar,DeviceEmulator,DeviceEmulator
+Studio.DeviceEmulator.Plugin.Button,Toggle,Toggle
+Studio.DeviceEmulator.Plugin.Description,Toggles the Device Emulator plugin window.,Toggles the Device Emulator plugin window.

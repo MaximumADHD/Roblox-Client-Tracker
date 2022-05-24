@@ -24,29 +24,28 @@ dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
     "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
     "DeveloperTools DeveloperTools 0.2.2 url+https://github.com/roblox/developer-tools",
-    "ExperienceChat ExperienceChat 966611a2 git+https://github.com/roblox/lua-experience-chat#v1.2.1",
-    "ExperienceChat_v123 ExperienceChat 23c138db git+https://github.com/roblox/lua-experience-chat#v1.2.3",
+    "ExperienceChat ExperienceChat 23c138db git+https://github.com/roblox/lua-experience-chat#v1.2.3",
     "FitFrame RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "IAPExperience IAPExperience 9d3a27d1 git+https://github.com/roblox/iapexperience#master",
     "InGameMenuDependencies InGameMenuDependencies 5dd650f7 git+https://github.com/roblox/in-game-menu-dependencies#master",
-    "JestGlobals JestGlobals 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
+    "JestGlobals JestGlobals 2.4.0 url+https://github.com/roblox/jest-roblox",
     "LuaChatDeps LuaChatDeps bab81049 git+https://github.com/roblox/lua-chat-deps#master",
     "LuaProfileDeps LuaProfileDeps caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
     "LuaProfileDeps_v200 LuaProfileDeps dd87276c git+https://github.com/roblox/lua-profile#v2.0.0",
-    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps fa3d7ab3 git+https://github.com/roblox/lua-social-libraries-deps#master",
+    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps a40799f5 git+https://github.com/roblox/lua-social-libraries-deps#master",
     "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
     "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
     "PolicyProvider roblox/lua-roact-policy-provider 045503a9 git+https://github.com/roblox/lua-roact-policy-provider#master",
     "PremiumUpsellDeps PremiumUpsellDeps 6aa73b7f git+https://github.com/roblox/premium-upsell-deps#master",
     "Promise Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
     "PurchasePromptDeps roblox/purchase-prompt-deps 891a2e04 git+https://github.com/roblox/purchase-prompt-deps#master",
-    "React ReactProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
-    "ReactDevtoolsExtensions ReactDevtoolsExtensionsProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
-    "ReactIs ReactIsProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
-    "ReactRoblox ReactRobloxProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "ReactDevtoolsExtensions ReactDevtoolsExtensions 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "ReactIs ReactIs 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "ReactRoblox ReactRoblox 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
     "Result roblox/lua-result c6817c84 git+https://github.com/roblox/lua-result#master",
     "Rhodium Rhodium 0.2.8 url+https://github.com/roblox/rhodium",
-    "Roact <patched> RoactProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
     "RoactGamepad <patched> RoactGamepad 0.5.3 url+https://github.com/roblox/roact-gamepad",
     "RoactNavigation <patched> RoactNavigationProxy 6e1cfd43 git+https://github.com/roblox/roact-navigation-upgrade#v0.1.0",
     "RoactNavigationUpgradeFlag RoactNavigationUpgradeFlag 6e1cfd43 git+https://github.com/roblox/roact-navigation-upgrade#v0.1.0",
@@ -55,7 +54,7 @@ dependencies = [
     "RoduxGames RoduxGames 1b7ccfde git+https://github.com/roblox/rodux-games#master",
     "StringUtilities roblox/string-utilities 1.0.0 url+https://github.com/roblox/string-utilities",
     "Thumbnailing Thumbnailing 4270107f git+https://github.com/roblox/thumbnailing#main",
-    "UIBlox UIBlox 34aa9444 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
     "UrlBuilder roblox/url-builder 8b1eb7a8 git+https://github.com/roblox/url-builder#master",
     "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -103,39 +102,24 @@ dependencies = ["Dash Dash 0.1.9 url+https://github.com/roblox/dash"]
 
 [[package]]
 name = "DiffSequences"
-version = "2.3.1"
-commit = "787bf693fefc32d5d31cc09b7c0acde3dfa862f9"
-source = "git+https://github.com/roblox/jest-roblox#v2.3.1"
-dependencies = ["LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill"]
+version = "2.4.0"
+commit = "1c3943c47b5de7ecf768be0655e88d45bf253aeb"
+source = "url+https://github.com/roblox/jest-roblox"
+dependencies = ["LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill"]
 
 [[package]]
 name = "Expect"
-version = "2.3.1"
-commit = "787bf693fefc32d5d31cc09b7c0acde3dfa862f9"
-source = "git+https://github.com/roblox/jest-roblox#v2.3.1"
+version = "2.4.0"
+commit = "1c3943c47b5de7ecf768be0655e88d45bf253aeb"
+source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
-    "JestGetType JestGetType 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
-    "JestMatcherUtils JestMatcherUtils 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
-    "JestMessageUtil JestMessageUtil 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
-    "JestSnapshot JestSnapshot 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
-    "LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill",
-    "RobloxShared RobloxShared 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
-]
-
-[[package]]
-name = "ExperienceChat"
-version = "1.2.1"
-commit = "966611a27978d9da4a6ff8b38c382dea2032821d"
-source = "git+https://github.com/roblox/lua-experience-chat#v1.2.1"
-dependencies = [
-    "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
-    "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
-    "Promise Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
-    "Roact RoactCompat 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-    "RoactRodux <patched> RoactRodux 0.5.0 url+https://github.com/roblox/roact-rodux",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox 34aa9444 git+https://github.com/roblox/uiblox#master",
-    "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
+    "JestGetType JestGetType 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestMatcherUtils JestMatcherUtils 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestMessageUtil JestMessageUtil 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestSnapshot JestSnapshot 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
+    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RobloxShared RobloxShared 2.4.0 url+https://github.com/roblox/jest-roblox",
 ]
 
 [[package]]
@@ -147,10 +131,10 @@ dependencies = [
     "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
     "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
     "Promise Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
-    "Roact RoactProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
     "RoactRodux <patched> RoactRodux 0.5.0 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox 34aa9444 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
 ]
 
@@ -160,9 +144,9 @@ version = "1.0.0"
 commit = "9d3a27d118218f8f83feb2ba5e5309350fac9c75"
 source = "git+https://github.com/roblox/iapexperience#master"
 dependencies = [
-    "Roact <patched> RoactProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
     "RoactFitComponents RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
-    "UIBlox UIBlox 34aa9444 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -177,10 +161,10 @@ dependencies = [
     "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
     "PolicyProvider roblox/lua-roact-policy-provider 045503a9 git+https://github.com/roblox/lua-roact-policy-provider#master",
     "Promise Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
-    "Roact <patched> RoactProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
     "RoactRodux <patched> RoactRodux 0.5.0 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox 34aa9444 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -194,107 +178,193 @@ dependencies = [
     "FitFrame RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "Lumberyak roblox/lumberyak 0.1.1 url+https://github.com/roblox/lumberyak",
     "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
-    "Roact <patched> RoactProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
 [[package]]
 name = "Jest"
-version = "2.3.1"
-commit = "787bf693fefc32d5d31cc09b7c0acde3dfa862f9"
-source = "git+https://github.com/roblox/jest-roblox#v2.3.1"
+version = "2.4.0"
+commit = "1c3943c47b5de7ecf768be0655e88d45bf253aeb"
+source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
-    "JestFakeTimers JestFakeTimers 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
-    "JestMock JestMock 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
+    "JestFakeTimers JestFakeTimers 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestMock JestMock 2.4.0 url+https://github.com/roblox/jest-roblox",
+]
+
+[[package]]
+name = "JestConsole"
+version = "2.4.0"
+commit = "1c3943c47b5de7ecf768be0655e88d45bf253aeb"
+source = "url+https://github.com/roblox/jest-roblox"
+dependencies = [
+    "ChalkLua roblox/chalk-lua 0.1.2 url+https://github.com/roblox/chalk-lua",
+    "JestEach JestEach 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestMessageUtil JestMessageUtil 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestMock JestMock 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestTypes JestTypes 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestUtil JestUtil 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
+    "RobloxShared RobloxShared 2.4.0 url+https://github.com/roblox/jest-roblox",
 ]
 
 [[package]]
 name = "JestDiff"
-version = "2.3.1"
-commit = "787bf693fefc32d5d31cc09b7c0acde3dfa862f9"
-source = "git+https://github.com/roblox/jest-roblox#v2.3.1"
+version = "2.4.0"
+commit = "1c3943c47b5de7ecf768be0655e88d45bf253aeb"
+source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "ChalkLua roblox/chalk-lua 0.1.2 url+https://github.com/roblox/chalk-lua",
-    "DiffSequences DiffSequences 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
-    "JestGetType JestGetType 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
-    "LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill",
-    "PrettyFormat PrettyFormat 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
+    "DiffSequences DiffSequences 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestGetType JestGetType 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
+    "PrettyFormat PrettyFormat 2.4.0 url+https://github.com/roblox/jest-roblox",
+]
+
+[[package]]
+name = "JestEach"
+version = "2.4.0"
+commit = "1c3943c47b5de7ecf768be0655e88d45bf253aeb"
+source = "url+https://github.com/roblox/jest-roblox"
+dependencies = [
+    "ChalkLua roblox/chalk-lua 0.1.2 url+https://github.com/roblox/chalk-lua",
+    "JestGetType JestGetType 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestTypes JestTypes 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestUtil JestUtil 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
+    "PrettyFormat PrettyFormat 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
 ]
 
 [[package]]
 name = "JestFakeTimers"
-version = "2.3.1"
-commit = "787bf693fefc32d5d31cc09b7c0acde3dfa862f9"
-source = "git+https://github.com/roblox/jest-roblox#v2.3.1"
+version = "2.4.0"
+commit = "1c3943c47b5de7ecf768be0655e88d45bf253aeb"
+source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
-    "JestGetType JestGetType 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
-    "JestMock JestMock 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
-    "LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill",
+    "JestGetType JestGetType 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestMock JestMock 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
 ]
 
 [[package]]
 name = "JestGetType"
-version = "2.3.1"
-commit = "787bf693fefc32d5d31cc09b7c0acde3dfa862f9"
-source = "git+https://github.com/roblox/jest-roblox#v2.3.1"
+version = "2.4.0"
+commit = "1c3943c47b5de7ecf768be0655e88d45bf253aeb"
+source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
-    "LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill",
-    "RegExp RegExp 0.1.3 url+https://github.com/roblox/luau-regexp",
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
+    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
 ]
 
 [[package]]
 name = "JestGlobals"
-version = "2.3.1"
-commit = "787bf693fefc32d5d31cc09b7c0acde3dfa862f9"
-source = "git+https://github.com/roblox/jest-roblox#v2.3.1"
+version = "2.4.0"
+commit = "1c3943c47b5de7ecf768be0655e88d45bf253aeb"
+source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
-    "Expect Expect 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
-    "Jest Jest 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
-    "JestSnapshot JestSnapshot 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
-    "TestEZ TestEZ 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
+    "Expect Expect 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "Jest Jest 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestSnapshot JestSnapshot 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
+    "TestEZ TestEZ 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "TestEZJestAdapter TestEZJestAdapter 2.4.0 url+https://github.com/roblox/jest-roblox",
 ]
 
 [[package]]
 name = "JestMatcherUtils"
-version = "2.3.1"
-commit = "787bf693fefc32d5d31cc09b7c0acde3dfa862f9"
-source = "git+https://github.com/roblox/jest-roblox#v2.3.1"
+version = "2.4.0"
+commit = "1c3943c47b5de7ecf768be0655e88d45bf253aeb"
+source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "ChalkLua roblox/chalk-lua 0.1.2 url+https://github.com/roblox/chalk-lua",
-    "JestDiff JestDiff 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
-    "JestGetType JestGetType 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
-    "LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill",
-    "PrettyFormat PrettyFormat 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
-    "RegExp RegExp 0.1.3 url+https://github.com/roblox/luau-regexp",
+    "JestDiff JestDiff 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestGetType JestGetType 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
+    "PrettyFormat PrettyFormat 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
 ]
 
 [[package]]
 name = "JestMessageUtil"
-version = "2.3.1"
-commit = "787bf693fefc32d5d31cc09b7c0acde3dfa862f9"
-source = "git+https://github.com/roblox/jest-roblox#v2.3.1"
-dependencies = ["LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill"]
+version = "2.4.0"
+commit = "1c3943c47b5de7ecf768be0655e88d45bf253aeb"
+source = "url+https://github.com/roblox/jest-roblox"
+dependencies = ["LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill"]
 
 [[package]]
 name = "JestMock"
-version = "2.3.1"
-commit = "787bf693fefc32d5d31cc09b7c0acde3dfa862f9"
-source = "git+https://github.com/roblox/jest-roblox#v2.3.1"
-dependencies = ["LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill"]
+version = "2.4.0"
+commit = "1c3943c47b5de7ecf768be0655e88d45bf253aeb"
+source = "url+https://github.com/roblox/jest-roblox"
+dependencies = ["LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill"]
+
+[[package]]
+name = "JestReporters"
+version = "2.4.0"
+commit = "1c3943c47b5de7ecf768be0655e88d45bf253aeb"
+source = "url+https://github.com/roblox/jest-roblox"
+dependencies = [
+    "ChalkLua roblox/chalk-lua 0.1.2 url+https://github.com/roblox/chalk-lua",
+    "JestConsole JestConsole 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestMock JestMock 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestTestResult JestTestResult 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestTypes JestTypes 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestUtil JestUtil 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
+    "Path Path 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "RobloxShared RobloxShared 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "TestUtils TestUtils 2.4.0 url+https://github.com/roblox/jest-roblox",
+]
 
 [[package]]
 name = "JestSnapshot"
-version = "2.3.1"
-commit = "787bf693fefc32d5d31cc09b7c0acde3dfa862f9"
-source = "git+https://github.com/roblox/jest-roblox#v2.3.1"
+version = "2.4.0"
+commit = "1c3943c47b5de7ecf768be0655e88d45bf253aeb"
+source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "ChalkLua roblox/chalk-lua 0.1.2 url+https://github.com/roblox/chalk-lua",
-    "JestDiff JestDiff 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
-    "JestGetType JestGetType 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
-    "JestMatcherUtils JestMatcherUtils 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
-    "LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill",
-    "PrettyFormat PrettyFormat 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
-    "RobloxShared RobloxShared 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
+    "JestDiff JestDiff 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestGetType JestGetType 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestMatcherUtils JestMatcherUtils 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
+    "PrettyFormat PrettyFormat 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "RobloxShared RobloxShared 2.4.0 url+https://github.com/roblox/jest-roblox",
+]
+
+[[package]]
+name = "JestTestResult"
+version = "2.4.0"
+commit = "1c3943c47b5de7ecf768be0655e88d45bf253aeb"
+source = "url+https://github.com/roblox/jest-roblox"
+dependencies = [
+    "JestTypes JestTypes 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
+]
+
+[[package]]
+name = "JestTypes"
+version = "2.4.0"
+commit = "1c3943c47b5de7ecf768be0655e88d45bf253aeb"
+source = "url+https://github.com/roblox/jest-roblox"
+dependencies = [
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
+    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+]
+
+[[package]]
+name = "JestUtil"
+version = "2.4.0"
+commit = "1c3943c47b5de7ecf768be0655e88d45bf253aeb"
+source = "url+https://github.com/roblox/jest-roblox"
+dependencies = [
+    "ChalkLua roblox/chalk-lua 0.1.2 url+https://github.com/roblox/chalk-lua",
+    "JestTypes JestTypes 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
+    "Picomatch Picomatch 0.2.0 url+https://github.com/roblox/picomatch-lua",
+    "Promise Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
+    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RobloxShared RobloxShared 2.4.0 url+https://github.com/roblox/jest-roblox",
 ]
 
 [[package]]
@@ -306,7 +376,7 @@ dependencies = [
     "AssetCard roblox/asset-card 103b2a57 git+https://github.com/roblox/asset-card#v1.0.3",
     "InfiniteScroller <patched> InfiniteScroller 0.9.5 url+https://github.com/roblox/infinite-scroller",
     "RoduxNetworking rodux-networking 4a963dc9 git+https://github.com/roblox/rodux-networking#v2.0.0",
-    "UIBlox UIBlox 34aa9444 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
 ]
 
 [[package]]
@@ -326,7 +396,7 @@ dependencies = [
     "NetworkingUserInfo NetworkingUserInfo caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
     "NetworkingUsers roblox/networking-users 6616f72f git+https://github.com/roblox/networking-users#master",
     "Promise Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
-    "Roact <patched> RoactProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
     "RoactNavigation <patched> RoactNavigationProxy 6e1cfd43 git+https://github.com/roblox/roact-navigation-upgrade#v0.1.0",
     "RoactRodux <patched> RoactRodux 0.5.0 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
@@ -335,7 +405,7 @@ dependencies = [
     "RoduxNetworking RoduxNetworking 3.0.1 url+https://github.com/roblox/rodux-networking",
     "RoduxPresence roblox/rodux-presence d060d8dd git+https://github.com/roblox/rodux-presence#master",
     "RoduxProfile RoduxProfile caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
-    "UIBlox UIBlox 34aa9444 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
     "UnitTestHelpers UnitTestHelpers caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
@@ -357,7 +427,7 @@ dependencies = [
     "NetworkingUserInfo NetworkingUserInfo dd87276c git+https://github.com/roblox/lua-profile#v2.0.0",
     "NetworkingUsers roblox/networking-users 6616f72f git+https://github.com/roblox/networking-users#master",
     "Promise Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
-    "Roact <patched> RoactProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
     "RoactNavigation <patched> RoactNavigationProxy 6e1cfd43 git+https://github.com/roblox/roact-navigation-upgrade#v0.1.0",
     "RoactRodux <patched> RoactRodux 0.5.0 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
@@ -366,7 +436,7 @@ dependencies = [
     "RoduxNetworking RoduxNetworking 3.0.1 url+https://github.com/roblox/rodux-networking",
     "RoduxPresence roblox/rodux-presence d060d8dd git+https://github.com/roblox/rodux-presence#master",
     "RoduxProfile RoduxProfile dd87276c git+https://github.com/roblox/lua-profile#v2.0.0",
-    "UIBlox UIBlox 34aa9444 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
     "UnitTestHelpers UnitTestHelpers dd87276c git+https://github.com/roblox/lua-profile#v2.0.0",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
@@ -374,7 +444,7 @@ dependencies = [
 [[package]]
 name = "LuaSocialLibrariesDeps"
 version = "1.1.0"
-commit = "fa3d7ab379107bce01dd546d07463f34562f0841"
+commit = "a40799f5277eaf2f371992961b665044239808c3"
 source = "git+https://github.com/roblox/lua-social-libraries-deps#master"
 dependencies = [
     "CollisionMatchers 2D-Collision-Matchers 89b7a343 git+https://github.com/roblox/2d-collision-matchers#v1.0.1",
@@ -382,17 +452,19 @@ dependencies = [
     "Mock mock 2db7a70f git+https://github.com/roblox/mock#v1.1.0",
     "NetworkingAliases roblox/networking-aliases 30e7008e git+https://github.com/roblox/networking-aliases#v0.1.1",
     "NetworkingChat roblox/networking-chat a4ef5fb2 git+https://github.com/roblox/networking-chat#v0.2.0",
+    "NetworkingContacts NetworkingContacts a3a4c724 git+https://github.com/roblox/lua-app-networking#main",
     "NetworkingFriends roblox/networking-friends b26534d7 git+https://github.com/roblox/networking-friends#v2.0.1",
     "NetworkingFriends_221 NetworkingFriends 2.3.2 url+https://github.com/roblox/networking-friends",
     "NetworkingGames NetworkingGames db69cf81 git+https://github.com/roblox/networking-games#v1.1.0",
-    "NetworkingPresence roblox/networking-presence e1b72e1a git+https://github.com/roblox/networking-presence#v1.0.0",
+    "NetworkingPresence NetworkingPresence 4f4187d1 git+https://github.com/roblox/networking-presence#v2.0.0",
     "NetworkingUsers roblox/networking-users 6616f72f git+https://github.com/roblox/networking-users#v1.0.0",
+    "NetworkingUtil Util a3a4c724 git+https://github.com/roblox/lua-app-networking#main",
     "RoactFitComponents RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "RoduxAliases roblox/rodux-aliases 69aebf4b git+https://github.com/roblox/rodux-aliases#v1.0.1",
     "RoduxAliases_v2 RoduxAliases a23db922 git+https://github.com/roblox/rodux-aliases#v2.0.0",
     "RoduxFriends roblox/rodux-friends f3eb648d git+https://github.com/roblox/rodux-friends#v2.1.0",
     "RoduxFriends_v220 roblox/rodux-friends e373c05f git+https://github.com/roblox/rodux-friends#v2.2.7",
-    "RoduxFriends_v3 RoduxFriends 49f82e79 git+https://github.com/roblox/rodux-friends#v3.4.2",
+    "RoduxFriends_v3 RoduxFriends ce00d21f git+https://github.com/roblox/rodux-friends#v3.6.0",
     "RoduxGames RoduxGames f661dfd1 git+https://github.com/roblox/rodux-games#v1.2.2",
     "RoduxNetworking rodux-networking 082e44c0 git+https://github.com/roblox/rodux-networking#v2.3.0",
     "RoduxPresence roblox/rodux-presence 87b5d3c2 git+https://github.com/roblox/rodux-presence#v1.0.1",
@@ -413,8 +485,8 @@ source = "url+https://github.com/roblox/luau-polyfill"
 
 [[package]]
 name = "LuauPolyfill"
-version = "0.3.0"
-commit = "74b83807c5341c678fe4c121153d5bc9d55ab151"
+version = "0.3.2"
+commit = "ad1971925fd0d78c520426a3c2e43fe1711962e0"
 source = "url+https://github.com/roblox/luau-polyfill"
 
 [[package]]
@@ -440,6 +512,13 @@ dependencies = [
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
     "buildApiSiteUrl buildApiSiteUrl dd87276c git+https://github.com/roblox/lua-profile#v2.0.0",
 ]
+
+[[package]]
+name = "NetworkingContacts"
+version = "0.1.2"
+commit = "a3a4c72458a9aba6f7a4eab6ef3612b2ad89b5ed"
+source = "git+https://github.com/roblox/lua-app-networking#main"
+dependencies = ["Util Util a3a4c724 git+https://github.com/roblox/lua-app-networking#main"]
 
 [[package]]
 name = "NetworkingCurrentlyWearing"
@@ -490,6 +569,12 @@ commit = "db69cf81cd643477a64daf8954f76febc31124bf"
 source = "git+https://github.com/roblox/networking-games#v1.1.0"
 
 [[package]]
+name = "NetworkingPresence"
+version = "2.0.0"
+commit = "4f4187d1c4a3a123706607d3129ef5eca79f8e2c"
+source = "git+https://github.com/roblox/networking-presence#v2.0.0"
+
+[[package]]
 name = "NetworkingUserInfo"
 version = "1.2.1"
 commit = "caca70319277d2f83e1c775ad48ffe7d5b8c2495"
@@ -514,6 +599,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "Path"
+version = "2.4.0"
+commit = "1c3943c47b5de7ecf768be0655e88d45bf253aeb"
+source = "url+https://github.com/roblox/jest-roblox"
+dependencies = ["LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill"]
+
+[[package]]
+name = "Picomatch"
+version = "0.2.0"
+commit = "2b61117e5e008fd417dd2bc01cf0459afdff3a1b"
+source = "url+https://github.com/roblox/picomatch-lua"
+dependencies = [
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
+    "Promise Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
+    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+]
+
+[[package]]
 name = "PremiumUpsellDeps"
 version = "0.0.0"
 commit = "6aa73b7fbb7cad0ca793288d4031ce31fb7b8fd6"
@@ -522,15 +625,16 @@ dependencies = ["RoactFitComponents RoactFitComponents 2.0.0 url+https://github.
 
 [[package]]
 name = "PrettyFormat"
-version = "2.3.1"
-commit = "787bf693fefc32d5d31cc09b7c0acde3dfa862f9"
-source = "git+https://github.com/roblox/jest-roblox#v2.3.1"
+version = "2.4.0"
+commit = "1c3943c47b5de7ecf768be0655e88d45bf253aeb"
+source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "ChalkLua roblox/chalk-lua 0.1.2 url+https://github.com/roblox/chalk-lua",
-    "JestGetType JestGetType 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
-    "LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill",
-    "RegExp RegExp 0.1.3 url+https://github.com/roblox/luau-regexp",
-    "RobloxShared RobloxShared 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
+    "JestGetType JestGetType 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
+    "ReactIs ReactIs 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RobloxShared RobloxShared 2.4.0 url+https://github.com/roblox/jest-roblox",
 ]
 
 [[package]]
@@ -541,219 +645,86 @@ source = "url+https://github.com/roblox/roblox-lua-promise"
 
 [[package]]
 name = "React"
-version = "17.0.1-rc.10"
-commit = "211d7169c9bc81ebac1b1496dadab2322d481ea5"
-source = "git+https://github.com/roblox/roact-alignment#211d716"
-dependencies = [
-    "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
-    "LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill",
-    "Shared Shared 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-]
-
-[[package]]
-name = "React"
 version = "17.0.1-rc.11"
 commit = "6c194eddd9e61faeaa91fb7e6dc21fe47c3cba98"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11"
+source = "url+https://github.com/roblox/roact-alignment"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
-    "LuauPolyfill LuauPolyfill 0.3.0 url+https://github.com/roblox/luau-polyfill",
-    "Shared Shared 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-]
-
-[[package]]
-name = "ReactDebugTools"
-version = "17.0.1-rc.10"
-commit = "211d7169c9bc81ebac1b1496dadab2322d481ea5"
-source = "git+https://github.com/roblox/roact-alignment#211d716"
-dependencies = [
-    "LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill",
-    "ReactReconciler ReactReconciler 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-    "Shared Shared 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
+    "Shared Shared 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
 ]
 
 [[package]]
 name = "ReactDebugTools"
 version = "17.0.1-rc.11"
 commit = "6c194eddd9e61faeaa91fb7e6dc21fe47c3cba98"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11"
+source = "url+https://github.com/roblox/roact-alignment"
 dependencies = [
-    "LuauPolyfill LuauPolyfill 0.3.0 url+https://github.com/roblox/luau-polyfill",
-    "ReactReconciler ReactReconciler 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-    "Shared Shared 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-]
-
-[[package]]
-name = "ReactDevtoolsExtensions"
-version = "17.0.1-rc.10"
-commit = "211d7169c9bc81ebac1b1496dadab2322d481ea5"
-source = "git+https://github.com/roblox/roact-alignment#211d716"
-dependencies = [
-    "React React 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-    "ReactDevtoolsShared ReactDevtoolsShared 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-    "ReactRoblox ReactRoblox 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-    "Shared Shared 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
+    "ReactReconciler ReactReconciler 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Shared Shared 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
 ]
 
 [[package]]
 name = "ReactDevtoolsExtensions"
 version = "17.0.1-rc.11"
 commit = "6c194eddd9e61faeaa91fb7e6dc21fe47c3cba98"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11"
+source = "url+https://github.com/roblox/roact-alignment"
 dependencies = [
-    "React React 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-    "ReactDevtoolsShared ReactDevtoolsShared 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-    "ReactRoblox ReactRoblox 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-    "Shared Shared 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-]
-
-[[package]]
-name = "ReactDevtoolsExtensionsProxy"
-version = "0.0.1"
-commit = "2d7e421e278fcda56e9671b7ab06451514453777"
-source = "git+https://github.com/roblox/roact-17-upgrade#main"
-dependencies = [
-    "ReactDevtoolsExtensions_rc10 ReactDevtoolsExtensions 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-    "ReactDevtoolsExtensions_rc11 ReactDevtoolsExtensions 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-    "Roact17UpgradeFlag Roact17UpgradeFlag 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
-]
-
-[[package]]
-name = "ReactDevtoolsShared"
-version = "17.0.1-rc.10"
-commit = "211d7169c9bc81ebac1b1496dadab2322d481ea5"
-source = "git+https://github.com/roblox/roact-alignment#211d716"
-dependencies = [
-    "LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill",
-    "React React 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-    "ReactDebugTools ReactDebugTools 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-    "ReactIs ReactIs 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-    "ReactReconciler ReactReconciler 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-    "ReactRoblox ReactRoblox 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-    "Shared Shared 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
+    "React React 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "ReactDevtoolsShared ReactDevtoolsShared 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "ReactRoblox ReactRoblox 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Shared Shared 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
 ]
 
 [[package]]
 name = "ReactDevtoolsShared"
 version = "17.0.1-rc.11"
 commit = "6c194eddd9e61faeaa91fb7e6dc21fe47c3cba98"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11"
+source = "url+https://github.com/roblox/roact-alignment"
 dependencies = [
-    "LuauPolyfill LuauPolyfill 0.3.0 url+https://github.com/roblox/luau-polyfill",
-    "React React 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-    "ReactDebugTools ReactDebugTools 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-    "ReactIs ReactIs 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-    "ReactReconciler ReactReconciler 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-    "ReactRoblox ReactRoblox 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-    "Shared Shared 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
+    "React React 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "ReactDebugTools ReactDebugTools 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "ReactIs ReactIs 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "ReactReconciler ReactReconciler 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "ReactRoblox ReactRoblox 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Shared Shared 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
 ]
-
-[[package]]
-name = "ReactIs"
-version = "17.0.1-rc.10"
-commit = "211d7169c9bc81ebac1b1496dadab2322d481ea5"
-source = "git+https://github.com/roblox/roact-alignment#211d716"
-dependencies = ["Shared Shared 211d7169 git+https://github.com/roblox/roact-alignment#211d716"]
 
 [[package]]
 name = "ReactIs"
 version = "17.0.1-rc.11"
 commit = "6c194eddd9e61faeaa91fb7e6dc21fe47c3cba98"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11"
-dependencies = ["Shared Shared 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11"]
-
-[[package]]
-name = "ReactIsProxy"
-version = "0.0.1"
-commit = "2d7e421e278fcda56e9671b7ab06451514453777"
-source = "git+https://github.com/roblox/roact-17-upgrade#main"
-dependencies = [
-    "ReactIs_rc10 ReactIs 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-    "ReactIs_rc11 ReactIs 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-    "Roact17UpgradeFlag Roact17UpgradeFlag 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
-]
-
-[[package]]
-name = "ReactProxy"
-version = "0.0.1"
-commit = "2d7e421e278fcda56e9671b7ab06451514453777"
-source = "git+https://github.com/roblox/roact-17-upgrade#main"
-dependencies = [
-    "React_rc10 React 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-    "React_rc11 React 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-    "Roact17UpgradeFlag Roact17UpgradeFlag 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
-]
-
-[[package]]
-name = "ReactReconciler"
-version = "17.0.1-rc.10"
-commit = "211d7169c9bc81ebac1b1496dadab2322d481ea5"
-source = "git+https://github.com/roblox/roact-alignment#211d716"
-dependencies = [
-    "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
-    "LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill",
-    "Promise Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
-    "React React 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-    "Scheduler Scheduler 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-    "Shared Shared 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-]
+source = "url+https://github.com/roblox/roact-alignment"
+dependencies = ["Shared Shared 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment"]
 
 [[package]]
 name = "ReactReconciler"
 version = "17.0.1-rc.11"
 commit = "6c194eddd9e61faeaa91fb7e6dc21fe47c3cba98"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11"
+source = "url+https://github.com/roblox/roact-alignment"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
-    "LuauPolyfill LuauPolyfill 0.3.0 url+https://github.com/roblox/luau-polyfill",
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
     "Promise Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
-    "React React 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-    "Scheduler Scheduler 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-    "Shared Shared 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-]
-
-[[package]]
-name = "ReactRoblox"
-version = "17.0.1-rc.10"
-commit = "211d7169c9bc81ebac1b1496dadab2322d481ea5"
-source = "git+https://github.com/roblox/roact-alignment#211d716"
-dependencies = [
-    "LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill",
-    "React React 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-    "ReactReconciler ReactReconciler 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-    "Scheduler Scheduler 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-    "Shared Shared 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
+    "React React 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Scheduler Scheduler 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Shared Shared 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
 ]
 
 [[package]]
 name = "ReactRoblox"
 version = "17.0.1-rc.11"
 commit = "6c194eddd9e61faeaa91fb7e6dc21fe47c3cba98"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11"
+source = "url+https://github.com/roblox/roact-alignment"
 dependencies = [
-    "LuauPolyfill LuauPolyfill 0.3.0 url+https://github.com/roblox/luau-polyfill",
-    "React React 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-    "ReactReconciler ReactReconciler 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-    "Scheduler Scheduler 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-    "Shared Shared 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
+    "React React 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "ReactReconciler ReactReconciler 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Scheduler Scheduler 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Shared Shared 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
 ]
-
-[[package]]
-name = "ReactRobloxProxy"
-version = "0.0.1"
-commit = "2d7e421e278fcda56e9671b7ab06451514453777"
-source = "git+https://github.com/roblox/roact-17-upgrade#main"
-dependencies = [
-    "ReactRoblox_rc10 ReactRoblox 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-    "ReactRoblox_rc11 ReactRoblox 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-    "Roact17UpgradeFlag Roact17UpgradeFlag 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
-]
-
-[[package]]
-name = "RegExp"
-version = "0.1.3"
-commit = "48226ebb04e4d10fd66ef357e8d1c6b2c185ca9a"
-source = "url+https://github.com/roblox/luau-regexp"
 
 [[package]]
 name = "RegExp"
@@ -768,33 +739,15 @@ commit = "9d855fd3b2cc3c2fd9df321eddee2c7b01c85058"
 source = "url+https://github.com/roblox/rhodium"
 
 [[package]]
-name = "Roact17UpgradeFlag"
-version = "0.0.1"
-commit = "2d7e421e278fcda56e9671b7ab06451514453777"
-source = "git+https://github.com/roblox/roact-17-upgrade#main"
-
-[[package]]
-name = "RoactCompat"
-version = "17.0.1-rc.10"
-commit = "211d7169c9bc81ebac1b1496dadab2322d481ea5"
-source = "git+https://github.com/roblox/roact-alignment#211d716"
-dependencies = [
-    "LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill",
-    "React React 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-    "ReactRoblox ReactRoblox 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-    "Shared Shared 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-]
-
-[[package]]
 name = "RoactCompat"
 version = "17.0.1-rc.11"
 commit = "6c194eddd9e61faeaa91fb7e6dc21fe47c3cba98"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11"
+source = "url+https://github.com/roblox/roact-alignment"
 dependencies = [
-    "LuauPolyfill LuauPolyfill 0.3.0 url+https://github.com/roblox/luau-polyfill",
-    "React React 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-    "ReactRoblox ReactRoblox 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-    "Shared Shared 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
+    "React React 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "ReactRoblox ReactRoblox 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Shared Shared 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
 ]
 
 [[package]]
@@ -804,7 +757,7 @@ commit = "f424225f04feb5b7190b8ffa82f7bb094c0c3720"
 source = "url+https://github.com/roblox/roact-fit-components"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
-    "Roact <patched> RoactProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
 ]
 
 [[package]]
@@ -814,7 +767,7 @@ commit = "a272b7690704002d92650606358a5236216b71bf"
 source = "url+https://github.com/roblox/roact-gamepad"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
-    "Roact <patched> RoactProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
     "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
@@ -829,7 +782,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill",
     "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
     "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
-    "Roact <patched> RoactProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
 ]
 
 [[package]]
@@ -842,7 +795,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill",
     "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
     "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
-    "Roact <patched> RoactProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
 ]
 
 [[package]]
@@ -863,34 +816,24 @@ commit = "6e1cfd433f41a179649edce2049a2b8dce9ab1c2"
 source = "git+https://github.com/roblox/roact-navigation-upgrade#v0.1.0"
 
 [[package]]
-name = "RoactProxy"
-version = "0.0.1"
-commit = "2d7e421e278fcda56e9671b7ab06451514453777"
-source = "git+https://github.com/roblox/roact-17-upgrade#main"
-dependencies = [
-    "Roact17UpgradeFlag Roact17UpgradeFlag 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
-    "Roact17_rc10 RoactCompat 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-    "Roact17_rc11 RoactCompat 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
-]
-
-[[package]]
 name = "RoactRodux"
 version = "0.5.0"
 commit = "44f7b3eab26d8bb32a79d1c9a9eae971bb5263a4"
 source = "url+https://github.com/roblox/roact-rodux"
 dependencies = [
-    "Roact <patched> RoactProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
 ]
 
 [[package]]
 name = "RobloxShared"
-version = "2.3.1"
-commit = "787bf693fefc32d5d31cc09b7c0acde3dfa862f9"
-source = "git+https://github.com/roblox/jest-roblox#v2.3.1"
+version = "2.4.0"
+commit = "1c3943c47b5de7ecf768be0655e88d45bf253aeb"
+source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
-    "JestGetType JestGetType 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1",
-    "LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill",
+    "JestGetType JestGetType 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestMock JestMock 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
 ]
 
 [[package]]
@@ -907,9 +850,9 @@ dependencies = [
 
 [[package]]
 name = "RoduxFriends"
-version = "3.4.2"
-commit = "49f82e7924f0c445e5f6cceffff0e74c7e4e3ebe"
-source = "git+https://github.com/roblox/rodux-friends#v3.4.2"
+version = "3.6.0"
+commit = "ce00d21fe6a149e393e0265236935c4fcc5a64d6"
+source = "git+https://github.com/roblox/rodux-friends#v3.6.0"
 dependencies = [
     "FriendsNetworking NetworkingFriends 2.3.2 url+https://github.com/roblox/networking-friends",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
@@ -1046,37 +989,20 @@ dependencies = [
 
 [[package]]
 name = "Scheduler"
-version = "17.0.1-rc.10"
-commit = "211d7169c9bc81ebac1b1496dadab2322d481ea5"
-source = "git+https://github.com/roblox/roact-alignment#211d716"
-dependencies = [
-    "LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill",
-    "Shared Shared 211d7169 git+https://github.com/roblox/roact-alignment#211d716",
-]
-
-[[package]]
-name = "Scheduler"
 version = "17.0.1-rc.11"
 commit = "6c194eddd9e61faeaa91fb7e6dc21fe47c3cba98"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11"
+source = "url+https://github.com/roblox/roact-alignment"
 dependencies = [
-    "LuauPolyfill LuauPolyfill 0.3.0 url+https://github.com/roblox/luau-polyfill",
-    "Shared Shared 6c194edd git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11",
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
+    "Shared Shared 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
 ]
-
-[[package]]
-name = "Shared"
-version = "17.0.1-rc.10"
-commit = "211d7169c9bc81ebac1b1496dadab2322d481ea5"
-source = "git+https://github.com/roblox/roact-alignment#211d716"
-dependencies = ["LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill"]
 
 [[package]]
 name = "Shared"
 version = "17.0.1-rc.11"
 commit = "6c194eddd9e61faeaa91fb7e6dc21fe47c3cba98"
-source = "git+https://github.com/roblox/roact-alignment#v17.0.1-rc.11"
-dependencies = ["LuauPolyfill LuauPolyfill 0.3.0 url+https://github.com/roblox/luau-polyfill"]
+source = "url+https://github.com/roblox/roact-alignment"
+dependencies = ["LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill"]
 
 [[package]]
 name = "SocialLibraries"
@@ -1089,13 +1015,13 @@ dependencies = [
     "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
     "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
     "Promise <patched> Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
-    "Roact <patched> RoactProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
     "RoactFitComponents RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "RoactNavigation <patched> RoactNavigationProxy 6e1cfd43 git+https://github.com/roblox/roact-navigation-upgrade#v0.1.0",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
     "RoduxPresence roblox/rodux-presence 87b5d3c2 git+https://github.com/roblox/rodux-presence#v1.0.1",
     "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
-    "UIBlox UIBlox 34aa9444 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
@@ -1111,23 +1037,47 @@ dependencies = [
     "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
     "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
     "Promise <patched> Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
-    "Roact <patched> RoactProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
     "RoactFitComponents RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "RoactNavigation <patched> RoactNavigationProxy 6e1cfd43 git+https://github.com/roblox/roact-navigation-upgrade#v0.1.0",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
     "RoduxPresence roblox/rodux-presence 87b5d3c2 git+https://github.com/roblox/rodux-presence#v1.0.1",
     "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
-    "UIBlox UIBlox 34aa9444 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
 [[package]]
 name = "TestEZ"
-version = "2.3.1"
-commit = "787bf693fefc32d5d31cc09b7c0acde3dfa862f9"
-source = "git+https://github.com/roblox/jest-roblox#v2.3.1"
-dependencies = ["JestMatcherUtils JestMatcherUtils 787bf693 git+https://github.com/roblox/jest-roblox#v2.3.1"]
+version = "2.4.0"
+commit = "1c3943c47b5de7ecf768be0655e88d45bf253aeb"
+source = "url+https://github.com/roblox/jest-roblox"
+dependencies = ["JestMatcherUtils JestMatcherUtils 2.4.0 url+https://github.com/roblox/jest-roblox"]
+
+[[package]]
+name = "TestEZJestAdapter"
+version = "2.4.0"
+commit = "1c3943c47b5de7ecf768be0655e88d45bf253aeb"
+source = "url+https://github.com/roblox/jest-roblox"
+dependencies = [
+    "ChalkLua roblox/chalk-lua 0.1.2 url+https://github.com/roblox/chalk-lua",
+    "JestReporters JestReporters 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "JestTestResult JestTestResult 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
+]
+
+[[package]]
+name = "TestUtils"
+version = "2.4.0"
+commit = "1c3943c47b5de7ecf768be0655e88d45bf253aeb"
+source = "url+https://github.com/roblox/jest-roblox"
+dependencies = [
+    "ChalkLua roblox/chalk-lua 0.1.2 url+https://github.com/roblox/chalk-lua",
+    "JestTypes JestTypes 2.4.0 url+https://github.com/roblox/jest-roblox",
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
+    "PrettyFormat PrettyFormat 2.4.0 url+https://github.com/roblox/jest-roblox",
+]
 
 [[package]]
 name = "Thumbnailing"
@@ -1138,15 +1088,15 @@ source = "git+https://github.com/roblox/thumbnailing#main"
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "34aa9444271a8f410e5f6dd502636a3fc0fad908"
+commit = "f068477e3960fa8577cdf78198b47c6041ab60ad"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
     "FitFrame RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "InfiniteScroller <patched> InfiniteScroller 0.9.5 url+https://github.com/roblox/infinite-scroller",
-    "LuauPolyfill LuauPolyfill 0.3.0 url+https://github.com/roblox/luau-polyfill",
+    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
     "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
-    "Roact <patched> RoactProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
     "RoactGamepad <patched> RoactGamepad 0.5.3 url+https://github.com/roblox/roact-gamepad",
     "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -1160,11 +1110,11 @@ source = "git+https://github.com/roblox/lua-profile#v1.2.1"
 dependencies = [
     "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
     "DebugUtils DebugUtils caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
-    "Roact <patched> RoactProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
     "RoactNavigation <patched> RoactNavigationProxy 6e1cfd43 git+https://github.com/roblox/roact-navigation-upgrade#v0.1.0",
     "RoactRodux <patched> RoactRodux 0.5.0 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox 34aa9444 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -1176,13 +1126,19 @@ source = "git+https://github.com/roblox/lua-profile#v2.0.0"
 dependencies = [
     "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
     "DebugUtils DebugUtils dd87276c git+https://github.com/roblox/lua-profile#v2.0.0",
-    "Roact <patched> RoactProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
     "RoactNavigation <patched> RoactNavigationProxy 6e1cfd43 git+https://github.com/roblox/roact-navigation-upgrade#v0.1.0",
     "RoactRodux <patched> RoactRodux 0.5.0 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox 34aa9444 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
+
+[[package]]
+name = "Util"
+version = "0.1.2"
+commit = "a3a4c72458a9aba6f7a4eab6ef3612b2ad89b5ed"
+source = "git+https://github.com/roblox/lua-app-networking#main"
 
 [[package]]
 name = "buildApiSiteUrl"
@@ -1234,9 +1190,9 @@ version = "1.0.3"
 commit = "103b2a571ef09611ac91d38f15c3777682f69bfe"
 source = "git+https://github.com/roblox/asset-card#v1.0.3"
 dependencies = [
-    "Roact <patched> RoactProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox 34aa9444 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -1294,7 +1250,7 @@ dependencies = [
     "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
     "Mock jtaylor/mock d2c4005c git+https://github.com/roblox/mock#master",
     "Promise <patched> Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
-    "Roact <patched> RoactProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
     "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
     "tutils tutils 937da4f7 git+https://github.com/roblox/tutils#master",
 ]
@@ -1407,10 +1363,10 @@ dependencies = [
     "FitFrame RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
     "PolicyProvider roblox/lua-roact-policy-provider 045503a9 git+https://github.com/roblox/lua-roact-policy-provider#master",
-    "Roact <patched> RoactProxy 2d7e421e git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
     "RoactRodux <patched> RoactRodux 0.5.0 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox 34aa9444 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 

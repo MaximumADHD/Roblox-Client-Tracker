@@ -43,7 +43,6 @@ CloudsReprojectFilterFS,Fragment
 CloudsSunCoverFS,Fragment
 CloudsUpsampleNoHistoryFS,Fragment
 CloudsVS,Vertex
-CloudsWideSunCoverFS,Fragment
 CloudsWind2dFS,Fragment
 CloudsWindFS,Fragment
 CopyGuiVS,Vertex

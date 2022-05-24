@@ -48,7 +48,7 @@ Studio.Common.Action.Move,,,Move,Move,Verschieben,Mover,Déplacer,,,移動,이�
 Studio.Common.Action.Rotate,,,Rotate,Rotate,Drehen,Girar,Pivoter,,,回転,회전,Girar,Вращать,,,,旋转,旋转,旋轉
 Studio.Common.Action.Error,,,Error,Error,Fehler,Error,Erreur,,,エラー,오류,Erro,Ошибка,,,,错误,错误,錯誤
 Studio.Common.Action.Height,,,Height,Height,Höhe,Altura,Hauteur,,,高さ,높이,Altura,Высота,,,,高度,高度,高度：
-Studio.Common.Action.LabelWithColon1,,,%1:,%1:,,%1:,%1:,,,%1:,%1:,%1:,%1:,,,,%1,%1,%1：
+Studio.Common.Action.LabelWithColon1,,,%1:,%1:,,%1:,%1 :,,,%1:,%1:,%1:,%1:,,,,%1,%1,%1：
 Studio.Common.Action.Name,,,Name,Name,,Nombre,Nom,,,名前,이름,Nome,Имя,,,,名称,名称,名稱
 Studio.Common.Action.Search,,,Search,Search,Suchen,Buscar,Rechercher,,,検索,검색,Pesquisar,Поиск,,,,搜索,搜索,搜尋
 Studio.Common.Action.Value,,,Value,Value,Wert,Valor,Valeur,,,値,값,Valor,Значение,,,,值,值,值

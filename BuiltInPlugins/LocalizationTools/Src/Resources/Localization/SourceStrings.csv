@@ -1,0 +1,69 @@
+Key,Source,en-us
+Studio.LocalizationTools.Plugin.RibbonBarButton,Tools,Tools
+Studio.LocalizationTools.EmbeddedTableSection.SectionLabel,Embedded Localization Table,Embedded Localization Table
+Studio.LocalizationTools.UploadDialogContent.ConfirmUploadDialogTitle,Comfirm Upload,Comfirm Upload
+Studio.LocalizationTools.CloudTableSection.ReplaceButton,Replace,Replace
+Studio.LocalizationTools.UploadDialogContent.PatchInvalidLanguagesLabel,Invalid columns:,Invalid columns:
+Studio.LocalizationTools.EmbeddedTableSection.TextCaptureStopText,Stop untranslated text capture,Stop untranslated text capture
+Studio.LocalizationTools.Plugin.WindowTitle,Localization Tools,Localization Tools
+Studio.LocalizationTools.EmbeddedTableSection.TextCaptureButton,Text Capture,Text Capture
+Studio.LocalizationTools.MessageFrame.UploadingPatchMessage,Uploading patch...,Uploading patch...
+Studio.LocalizationTools.MessageFrame.BusyMessage,busy,busy
+Studio.LocalizationTools.Plugin.ToolbarLabel,Localization,Localization
+Studio.LocalizationTools.UploadTable.GetGameSourceLanguageFailed,Localization Tools failed to request game source langauge.,Localization Tools failed to request game source langauge.
+Studio.LocalizationTools.Plugin.ToolTipMessage,Hide/show the Localization Tools View,Hide/show the Localization Tools View
+Studio.LocalizationTools.EmbeddedTableSection.TextCaptureStartText,Start untranslated text capture,Start untranslated text capture
+Studio.LocalizationTools.EmbeddedTableSection.ExportButton,Export,Export
+Studio.LocalizationTools.EmbeddedTableSection.ImportButton,Import,Import
+Studio.LocalizationTools.UploadDialogContent.ConfirmButton,Confirm,Confirm
+Studio.LocalizationTools.CloudTableSection.ReplaceTableLabel,Replace entire cloud table with CSV,Replace entire cloud table with CSV
+Studio.LocalizationTools.EmbeddedTableSection.ExportTextLabel,Export LocalizationTables under LocalizationService to CSV files,Export LocalizationTables under LocalizationService to CSV files
+Studio.LocalizationTools.UploadDialogContent.AddEntriesPreText,Add entries:,Add entries:
+Studio.LocalizationTools.EmbeddedTableSection.ImportTextLabel,Import CSV files to LocalizationTables under LocalizationService,Import CSV files to LocalizationTables under LocalizationService
+Studio.LocalizationTools.CloudTableSection.CloudTablePageLinkText,Click here to configure your cloud localization table,Click here to configure your cloud localization table
+Studio.LocalizationTools.UploadDialogContent.PatchTotalTranslationsLabel,Total translations:,Total translations:
+Studio.LocalizationTools.UploadDialogContent.ChangeTranslationsPretext,Change translations:,Change translations:
+Studio.LocalizationTools.UploadDialogContent.UploadPatchMessage,Upload patch?,Upload patch?
+Studio.LocalizationTools.CloudTableSection.DownloadButton,Download,Download
+Studio.LocalizationTools.CloudTableSection.DownloadTableLabel,Download table as CSV,Download table as CSV
+Studio.LocalizationTools.CloudTableSection.UpdateButton,Update,Update
+Studio.LocalizationTools.CloudTableSection.UpdateTableLabel,Update with new content from CSV,Update with new content from CSV
+Studio.LocalizationTools.UploadTable.PatchCloudTableFailed,Localization Tools failed to upload cloud table.,Localization Tools failed to upload cloud table.
+Studio.LocalizationTools.UploadDialogContent.CancelButton,Cancel,Cancel
+Studio.LocalizationTools.CloudTableSection.AdvancedButton,Advanced,Advanced
+Studio.LocalizationTools.CloudTableSection.PublishPlaceMessage,Publish this place to upload a table,Publish this place to upload a table
+Studio.LocalizationTools.CloudTableSection.SectionLabel,Cloud Localization Table,Cloud Localization Table
+Studio.LocalizationTools.UploadDialogContent.PatchEmptyMessage,Patch empty. Upload anyway?,Patch empty. Upload anyway?
+Studio.LocalizationTools.UploadDialogContent.PatchContainsLabel,This patch contains: ,This patch contains: 
+Studio.LocalizationTools.UploadDialogContent.AddTranslationsPretext,Add translations:,Add translations:
+Studio.LocalizationTools.UploadDialogContent.DeleteEntriesPretext,Delete entries:,Delete entries:
+Studio.LocalizationTools.UploadDialogContent.DeleteTranslationsPretext,Delete translations:,Delete translations:
+Studio.LocalizationTools.UploadDialogContent.AddLanguagesPretext,Add languages:,Add languages:
+Studio.LocalizationTools.DownloadTable.SetEntriesFailed,Internal error.,Internal error.
+Studio.LocalizationTools.UploadDialogContent.PatchTotalRowsLabel,Total rows:,Total rows:
+Studio.LocalizationTools.PluginMetadata.GetPermissionFailedMessage,Localization Tools failed to get permission info.,Localization Tools failed to get permission info.
+Studio.LocalizationTools.UploadDialogContent.PatchLanguagesLabel,Languages:,Languages:
+Studio.LocalizationTools.UploadDialogContent.PatchWillLabel,This patch will:,This patch will:
+Studio.LocalizationTools.MessageFrame.OpenCSVFileMessage,Open CSV file...,Open CSV file...
+Studio.LocalizationTools.UploadDialogContent.UploadCompleteWithInvalidEntries,Upload complete with invalid entries: ,Upload complete with invalid entries: 
+Studio.LocalizationTools.UploadDialogContent.InvalidIdentifier,Entries with invalid identifier:,Entries with invalid identifier:
+Studio.LocalizationTools.UploadDialogContent.InvalidTranslation,Invalid translations:,Invalid translations:
+Studio.LocalizationTools.UploadDialogContent.ParentLangaugeTranslationMissing,"{locale} translation requires {language} translation for entry with key: {key},  source: {source},  context: {context}","{locale} translation requires {language} translation for entry with key: {key},  source: {source},  context: {context}"
+Studio.LocalizationTools.MessageFrame.DownloadFailedMessage,Download cloud table failed,Download cloud table failed
+Studio.LocalizationTools.MessageFrame.SelectCSVFileMessage,Select CSV file...,Select CSV file...
+Studio.LocalizationTools.MessageFrame.UploadFailedMessage,Upload cloud table failed,Upload cloud table failed
+Studio.LocalizationTools.MessageFrame.UploadCompletedMessage,Upload cloud table complete,Upload cloud table complete
+Studio.LocalizationTools.UploadTable.PatchSupportedLangugesFailed,Localization Tools failed to add supported langauges.,Localization Tools failed to add supported langauges.
+Studio.LocalizationTools.MessageFrame.ComputingPatchMessage,Computing patch...,Computing patch...
+Studio.LocalizationTools.MessageFrame.UploadCanceledMessage,Upload canceled,Upload canceled
+Studio.LocalizationTools.MessageFrame.ConfirmUploadMessage,Confirm upload...,Confirm upload...
+Studio.LocalizationTools.DownloadTable.GetCloudTableFailed,Localization Tools failed to request cloud table.,Localization Tools failed to request cloud table.
+Studio.LocalizationTools.MessageFrame.TableWrittenToFileMessage,Table written to file,Table written to file
+Studio.LocalizationTools.DownloadTable.SetEntriesFailedWithErrorMessage,Cloud table contains invalid entries.,Cloud table contains invalid entries.
+Studio.LocalizationTools.UploadTable.GetSupportedLanguagesFailedMessage,Localization Tools failed to request supported langauges.,Localization Tools failed to request supported langauges.
+Studio.LocalizationTools.MessageFrame.DownloadingTableMessage,Downloading table...,Downloading table...
+Studio.LocalizationTools.PluginMetadata.GetOrCreateCloudTableFailedMessage,Localization Tools failed to get cloud table info.,Localization Tools failed to get cloud table info.
+Studio.LocalizationTools.PluginMetadata.GetAllLocalesFailed,Localization Tools failed to get all languages info.,Localization Tools failed to get all languages info.
+Studio.LocalizationTools.ImageLocalizationSection.SectionLabel,Image Localization,Image Localization
+Studio.LocalizationTools.ImageLocalizationSection.UploadButton,Upload Image IDs,Upload Image IDs
+Studio.LocalizationTools.ImageLocalizationSection.UploadButtonLabel,Upload Image Asset IDs,Upload Image Asset IDs

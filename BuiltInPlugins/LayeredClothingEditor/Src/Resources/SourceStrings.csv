@@ -1,0 +1,103 @@
+Key,en-us
+Studio.AccessoryFittingTool.Actions.Redo,Redo
+Studio.AccessoryFittingTool.Actions.SelectLattice,Select Lattice
+Studio.AccessoryFittingTool.Actions.ToggleTransform,Toggle Transform
+Studio.AccessoryFittingTool.Actions.Undo,Undo
+Studio.AccessoryFittingTool.AddEditingItemFromExplorer.AddWithNoCageText,Imported {itemName} does not contain an {cageName}. Please use Cage Generation in Edit to generate one.
+Studio.AccessoryFittingTool.AddEditingItemFromExplorer.ConfirmAddText,Adding {itemName} to asset list?
+Studio.AccessoryFittingTool.AddEditingItemFromExplorer.ControlsPanelBlockerText,Add and avatar or clothing instance from Explorer or workspace.
+Studio.AccessoryFittingTool.AddEditingItemFromExplorer.InvalidAddText,Only avatar or clothing item can be added
+Studio.AccessoryFittingTool.AddEditingItemFromExplorer.InvalidAddTextAccOnly,Item is not valid for creating clothing or accessory.
+Studio.AccessoryFittingTool.AddEditingItemFromExplorer.Tooltip,Add assets from Explorer
+Studio.AccessoryFittingTool.AssetType.Accessory,Accessory
+Studio.AccessoryFittingTool.AssetType.AssetType,Asset Type
+Studio.AccessoryFittingTool.AssetType.Back,Back
+Studio.AccessoryFittingTool.AssetType.Center,Center
+Studio.AccessoryFittingTool.AssetType.Clothing,Clothing
+Studio.AccessoryFittingTool.AssetType.Dress,Dress
+Studio.AccessoryFittingTool.AssetType.Face,Face
+Studio.AccessoryFittingTool.AssetType.Front,Front
+Studio.AccessoryFittingTool.AssetType.Hair,Hair
+Studio.AccessoryFittingTool.AssetType.Hat,Hat
+Studio.AccessoryFittingTool.AssetType.Jacket,Jacket
+Studio.AccessoryFittingTool.AssetType.LeftCollar,Left Collar
+Studio.AccessoryFittingTool.AssetType.LeftShoe,LeftShoe
+Studio.AccessoryFittingTool.AssetType.LeftShoulder,Left Shoulder
+Studio.AccessoryFittingTool.AssetType.Neck,Neck
+Studio.AccessoryFittingTool.AssetType.Pants,Pants
+Studio.AccessoryFittingTool.AssetType.Prompt,Select the asset type:
+Studio.AccessoryFittingTool.AssetType.RightCollar,Right Collar
+Studio.AccessoryFittingTool.AssetType.RightShoe,RightShoe
+Studio.AccessoryFittingTool.AssetType.RightShoulder,Right Shoulder
+Studio.AccessoryFittingTool.AssetType.Shirt,Shirt
+Studio.AccessoryFittingTool.AssetType.Shorts,Shorts
+Studio.AccessoryFittingTool.AssetType.Shoulder,Shoulder
+Studio.AccessoryFittingTool.AssetType.Skirt,Skirt
+Studio.AccessoryFittingTool.AssetType.Sweater,Sweater
+Studio.AccessoryFittingTool.AssetType.TeeShirt,Tee Shirt
+Studio.AccessoryFittingTool.AssetType.Waist,Waist
+Studio.AccessoryFittingTool.Dialog.Cancel,Cancel
+Studio.AccessoryFittingTool.Dialog.Confirm,Confirm
+Studio.AccessoryFittingTool.Dialog.DefaultTitle,Layered Clothing Editor
+Studio.AccessoryFittingTool.EditAndPreview.PromptCage,Adjust fitting by editing the cage mesh vertices. Use preview to access fitting quality with different options for bodies and animations.
+Studio.AccessoryFittingTool.EditAndPreview.PromptNoCage,"Move, rotate and scale accessory within the bounding box to adjust fitting. Use preview to access fitting quality on different bodies and animations."
+Studio.AccessoryFittingTool.EditingMode.InnerCage,Inner Cage
+Studio.AccessoryFittingTool.EditingMode.MeshPart,Mesh Part
+Studio.AccessoryFittingTool.EditingMode.OuterCage,Outer Cage
+Studio.AccessoryFittingTool.EditingMode.Text,Editing
+Studio.AccessoryFittingTool.Editor.CageGenerate,Cage Generate
+Studio.AccessoryFittingTool.Editor.Edit,Edit
+Studio.AccessoryFittingTool.Editor.EditAndPreview,Edit And Preview
+Studio.AccessoryFittingTool.Editor.Generate,Generate
+Studio.AccessoryFittingTool.Editor.LatticeTool,Lattice Tool
+Studio.AccessoryFittingTool.Editor.MeshPartMode,"Move, rotate, and scale MeshPart to adjust fitting."
+Studio.AccessoryFittingTool.Editor.PointTool,Point Tool
+Studio.AccessoryFittingTool.Editor.Preview,Preview
+Studio.AccessoryFittingTool.Editor.Reset,Reset
+Studio.AccessoryFittingTool.Editor.ResumeEditing,Click here to resume editing cages.
+Studio.AccessoryFittingTool.Editor.RingTool,Ring Tool
+Studio.AccessoryFittingTool.Editor.Select,Select
+Studio.AccessoryFittingTool.EditorErrors.OpenedWhileRunning,Layered Clothing Editor cannot be used while game is running!
+Studio.AccessoryFittingTool.Flow.Back,Back
+Studio.AccessoryFittingTool.Flow.Generate,Generate
+Studio.AccessoryFittingTool.Flow.Next,Next
+Studio.AccessoryFittingTool.Generate.Prompt,The asset is ready.
+Studio.AccessoryFittingTool.Generate.Wait,Please wait while the asset is being generated...
+Studio.AccessoryFittingTool.LatticeTool.GenerateMessageBoxText,The previous lattice on this deformer will be replaced. Any transformations on the lattice will be overwritten. Proceed?
+Studio.AccessoryFittingTool.Main.Title,Accessory Fitting Tool
+Studio.AccessoryFittingTool.Main.ToolbarButton,Accessory Fitting Tool
+Studio.AccessoryFittingTool.Main.Tooltip,Edit and Preview Cage Mesh for Clothing and Accessories
+Studio.AccessoryFittingTool.Meta.PluginName,Layered Clothing Editor
+Studio.AccessoryFittingTool.Meta.ToolbarName,Avatar
+Studio.AccessoryFittingTool.Preview.AddNew,Add new...
+Studio.AccessoryFittingTool.Preview.AnimationInvalidAdd,Only a KeyframeSequence Instance can be added
+Studio.AccessoryFittingTool.Preview.Animations,Animations
+Studio.AccessoryFittingTool.Preview.Asset,Asset
+Studio.AccessoryFittingTool.Preview.AvatarInvalidAdd,Only an avatar item can be added
+Studio.AccessoryFittingTool.Preview.Avatars,Avatars
+Studio.AccessoryFittingTool.Preview.Clothing,Clothing
+Studio.AccessoryFittingTool.Preview.ClothingInvalidAdd,Only a clothing item can be added
+Studio.AccessoryFittingTool.Preview.ConfirmAddTile,Add {itemName} tile?
+Studio.AccessoryFittingTool.Preview.PanelBlockerAddAnimation,Add a KeyframeSequence Instance from the Explorer
+Studio.AccessoryFittingTool.Preview.PanelBlockerAddAvatar,Add an avatar item from the Explorer
+Studio.AccessoryFittingTool.Preview.PanelBlockerAddClothing,Add clothing item from the Explorer
+Studio.AccessoryFittingTool.Preview.Transparency,Transparency
+Studio.AccessoryFittingTool.Reset.InnerCage,Reset Inner Cage
+Studio.AccessoryFittingTool.Reset.OuterCage,Reset Outer Cage
+Studio.AccessoryFittingTool.Select.Click,Click here to begin selecting...
+Studio.AccessoryFittingTool.Select.Invalid,Invalid Selection
+Studio.AccessoryFittingTool.Select.LoseChanges,You have unpublished changes on the previous item. You will lose those changes if you select this new item. Proceed?
+Studio.AccessoryFittingTool.Select.Part,Part:
+Studio.AccessoryFittingTool.Select.Prompt,Click the part you want to become the accessory.
+Studio.AccessoryFittingTool.Select.PromptGeneric,Click the part or model that you would like to edit.
+Studio.AccessoryFittingTool.Select.Selection,Selection:
+Studio.AccessoryFittingTool.SelectItem.Delete,Delete
+Studio.AccessoryFittingTool.ToolSettings.FalloffDistance,Falloff Distance
+Studio.AccessoryFittingTool.ToolSettings.Generate,Generate
+Studio.AccessoryFittingTool.ToolSettings.LocalAlignment,Local Alignment
+Studio.AccessoryFittingTool.ToolSettings.Subdivisions,Subdivisions
+Studio.AccessoryFittingTool.ToolSettings.Target,Target
+Studio.AccessoryFittingTool.Transparency.InnerCage,InnerCage
+Studio.AccessoryFittingTool.Transparency.Mesh,Mesh
+Studio.AccessoryFittingTool.Transparency.OuterCage,OuterCage
+Studio.AccessoryFittingTool.Transparency.Title,Transparency

@@ -2899,60 +2899,60 @@
   },
   "@roblox/globaltype/Random.NextNumber": {
     "overloads": {
-      "() -> number": "@roblox/globaltype/Random.NextNumber/overload/() -> number",
-      "(number, number) -> number": "@roblox/globaltype/Random.NextNumber/overload/(number, number) -> number"
+      "(Random) -> number": "@roblox/globaltype/Random.NextNumber/overload/(Random) -> number",
+      "(Random, number, number) -> number": "@roblox/globaltype/Random.NextNumber/overload/(Random, number, number) -> number"
     }
   },
-  "@roblox/globaltype/Random.NextNumber/overload/() -> number/param/0": {
+  "@roblox/globaltype/Random.NextNumber/overload/(Random) -> number/param/0": {
     "documentation": ""
   },
-  "@roblox/globaltype/Random.NextNumber/overload/() -> number/return/0": {
+  "@roblox/globaltype/Random.NextNumber/overload/(Random) -> number/return/0": {
     "documentation": ""
   },
-  "@roblox/globaltype/Random.NextNumber/overload/() -> number": {
+  "@roblox/globaltype/Random.NextNumber/overload/(Random) -> number": {
     "documentation": "",
     "params": [
       {
         "name": "self",
-        "documentation": "@roblox/globaltype/Random.NextNumber/overload/() -> number/param/0"
+        "documentation": "@roblox/globaltype/Random.NextNumber/overload/(Random) -> number/param/0"
       }
     ],
     "returns": [
-      "@roblox/globaltype/Random.NextNumber/overload/() -> number/return/0"
+      "@roblox/globaltype/Random.NextNumber/overload/(Random) -> number/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/datatype/Random",
     "code_sample": ""
   },
-  "@roblox/globaltype/Random.NextNumber/overload/(number, number) -> number/param/0": {
+  "@roblox/globaltype/Random.NextNumber/overload/(Random, number, number) -> number/param/0": {
     "documentation": ""
   },
-  "@roblox/globaltype/Random.NextNumber/overload/(number, number) -> number/param/1": {
+  "@roblox/globaltype/Random.NextNumber/overload/(Random, number, number) -> number/param/1": {
     "documentation": ""
   },
-  "@roblox/globaltype/Random.NextNumber/overload/(number, number) -> number/param/2": {
+  "@roblox/globaltype/Random.NextNumber/overload/(Random, number, number) -> number/param/2": {
     "documentation": ""
   },
-  "@roblox/globaltype/Random.NextNumber/overload/(number, number) -> number/return/0": {
+  "@roblox/globaltype/Random.NextNumber/overload/(Random, number, number) -> number/return/0": {
     "documentation": ""
   },
-  "@roblox/globaltype/Random.NextNumber/overload/(number, number) -> number": {
+  "@roblox/globaltype/Random.NextNumber/overload/(Random, number, number) -> number": {
     "documentation": "",
     "params": [
       {
         "name": "self",
-        "documentation": "@roblox/globaltype/Random.NextNumber/overload/(number, number) -> number/param/0"
+        "documentation": "@roblox/globaltype/Random.NextNumber/overload/(Random, number, number) -> number/param/0"
       },
       {
         "name": "min",
-        "documentation": "@roblox/globaltype/Random.NextNumber/overload/(number, number) -> number/param/1"
+        "documentation": "@roblox/globaltype/Random.NextNumber/overload/(Random, number, number) -> number/param/1"
       },
       {
         "name": "max",
-        "documentation": "@roblox/globaltype/Random.NextNumber/overload/(number, number) -> number/param/2"
+        "documentation": "@roblox/globaltype/Random.NextNumber/overload/(Random, number, number) -> number/param/2"
       }
     ],
     "returns": [
-      "@roblox/globaltype/Random.NextNumber/overload/(number, number) -> number/return/0"
+      "@roblox/globaltype/Random.NextNumber/overload/(Random, number, number) -> number/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/datatype/Random",
     "code_sample": ""

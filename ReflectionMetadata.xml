@@ -3754,7 +3754,7 @@
         <string name="ClassCategory">Text Chat</string>
         <string name="ExplorerOrder">511</string>
         <string name="ExplorerImageIndex">143</string>
-        <string name="FFlag">TextChatServiceEnabled</string>
+        <string name="FFlag">TextChatServiceEnabledRC1</string>
       </Properties>
     </Item>
 
@@ -3764,7 +3764,7 @@
         <string name="ClassCategory">Text Chat</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">141</string>
-        <string name="FFlag">TextChatServiceEnabled</string>
+        <string name="FFlag">TextChatServiceEnabledRC1</string>
       </Properties>
     </Item>
 
@@ -3774,7 +3774,7 @@
         <string name="ClassCategory">Text Chat</string>
         <string name="ExplorerOrder">11</string>
         <string name="ExplorerImageIndex">142</string>
-        <string name="FFlag">TextChatServiceEnabled</string>
+        <string name="FFlag">TextChatServiceEnabledRC1</string>
       </Properties>
     </Item>
 
@@ -3785,7 +3785,7 @@
         <string name="ExplorerOrder">12</string>
         <string name="ExplorerImageIndex">140</string>
         <string name="PreferredParent">TextChatService</string>
-        <string name="FFlag">TextChatServiceEnabled</string>
+        <string name="FFlag">TextChatServiceEnabledRC1</string>
       </Properties>
     </Item>
 
@@ -3796,7 +3796,7 @@
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">139</string>
         <string name="PreferredParent">TextChannel</string>
-        <string name="FFlag">TextChatServiceEnabled</string>
+        <string name="FFlag">TextChatServiceEnabledRC1</string>
       </Properties>
     </Item>
 
@@ -3807,7 +3807,7 @@
         <string name="ExplorerOrder">13</string>
         <string name="ExplorerImageIndex">138</string>
         <string name="PreferredParent">TextChatService</string>
-        <string name="FFlag">TextChatServiceEnabled</string>
+        <string name="FFlag">TextChatServiceEnabledRC1</string>
       </Properties>
     </Item>
 
@@ -4152,7 +4152,7 @@
         <string name="ClassCategory">3D Interfaces</string>
         <string name="ExplorerOrder">41</string>
         <string name="ExplorerImageIndex">130</string>
-        <string name="FFlag">ShowMaterialVariantInStudio</string>
+        <string name="FFlag">RenderMaterialVariant</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -4202,7 +4202,7 @@
         <string name="ClassCategory">3D Interfaces</string>
         <string name="ExplorerOrder">42</string>
         <string name="ExplorerImageIndex">144</string>
-        <string name="FFlag">UGCTerrainDetail</string>
+        <string name="FFlag">RenderMaterialVariant</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
@@ -4251,7 +4251,7 @@
         <string name="Name">MaterialService</string>
         <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">131</string>
-        <string name="FFlag">ShowMaterialServiceInStudio</string>
+        <string name="FFlag">RenderMaterialVariant</string>
       </Properties>
     </Item>
 
@@ -8385,91 +8385,91 @@
         <Properties>
           <string name="Name">Rock</string>
           <bool name="Browsable">true</bool>
-          <string name="FFlag">RenderMaterialVariantTerrain</string>
+          <string name="FFlag">RenderMaterialVariant</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">Glacier</string>
           <bool name="Browsable">true</bool>
-          <string name="FFlag">RenderMaterialVariantTerrain</string>
+          <string name="FFlag">RenderMaterialVariant</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">Snow</string>
           <bool name="Browsable">true</bool>
-          <string name="FFlag">RenderMaterialVariantTerrain</string>
+          <string name="FFlag">RenderMaterialVariant</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">Sandstone</string>
           <bool name="Browsable">true</bool>
-          <string name="FFlag">RenderMaterialVariantTerrain</string>
+          <string name="FFlag">RenderMaterialVariant</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">Mud</string>
           <bool name="Browsable">true</bool>
-          <string name="FFlag">RenderMaterialVariantTerrain</string>
+          <string name="FFlag">RenderMaterialVariant</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">Basalt</string>
           <bool name="Browsable">true</bool>
-          <string name="FFlag">RenderMaterialVariantTerrain</string>
+          <string name="FFlag">RenderMaterialVariant</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">Ground</string>
           <bool name="Browsable">true</bool>
-          <string name="FFlag">RenderMaterialVariantTerrain</string>
+          <string name="FFlag">RenderMaterialVariant</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">CrackedLava</string>
           <bool name="Browsable">true</bool>
-          <string name="FFlag">RenderMaterialVariantTerrain</string>
+          <string name="FFlag">RenderMaterialVariant</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">Asphalt</string>
           <bool name="Browsable">true</bool>
-          <string name="FFlag">RenderMaterialVariantTerrain</string>
+          <string name="FFlag">RenderMaterialVariant</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">LeafyGrass</string>
           <bool name="Browsable">true</bool>
-          <string name="FFlag">RenderMaterialVariantTerrain</string>
+          <string name="FFlag">RenderMaterialVariant</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">Salt</string>
           <bool name="Browsable">true</bool>
-          <string name="FFlag">RenderMaterialVariantTerrain</string>
+          <string name="FFlag">RenderMaterialVariant</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">Limestone</string>
           <bool name="Browsable">true</bool>
-          <string name="FFlag">RenderMaterialVariantTerrain</string>
+          <string name="FFlag">RenderMaterialVariant</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">Pavement</string>
           <bool name="Browsable">true</bool>
-          <string name="FFlag">RenderMaterialVariantTerrain</string>
+          <string name="FFlag">RenderMaterialVariant</string>
         </Properties>
       </Item>
     </Item>
