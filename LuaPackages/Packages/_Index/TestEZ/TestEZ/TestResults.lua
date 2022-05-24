@@ -12,7 +12,7 @@ local TestEnum = require(script.Parent.TestEnum)
 local STATUS_SYMBOLS = {
 	[TestEnum.TestStatus.Success] = "+",
 	[TestEnum.TestStatus.Failure] = "-",
-	[TestEnum.TestStatus.Skipped] = "~"
+	[TestEnum.TestStatus.Skipped] = "~",
 }
 
 local TestResults = {}
@@ -29,7 +29,7 @@ function TestResults.new(plan)
 		skippedCount = 0,
 		planNode = plan,
 		children = {},
-		errors = {}
+		errors = {},
 	}
 
 	setmetatable(self, TestResults)
@@ -45,7 +45,7 @@ function TestResults.createNode(planNode)
 		planNode = planNode,
 		children = {},
 		errors = {},
-		status = nil
+		status = nil,
 	}
 
 	return node
@@ -76,22 +76,18 @@ function TestResults:visualize(root, level)
 	for _, child in ipairs(root.children) do
 		if child.planNode.type == TestEnum.NodeType.It then
 			local symbol = STATUS_SYMBOLS[child.status] or "?"
-			local str = ("%s[%s] %s"):format(
-				(" "):rep(3 * level),
-				symbol,
-				child.planNode.phrase
-			)
+			local str = ("%s[%s] %s"):format((" "):rep(3 * level), symbol, child.planNode.phrase)
 
 			if child.messages and #child.messages > 0 then
-				str = str .. "\n " .. (" "):rep(3 * level) .. table.concat(child.messages, "\n " .. (" "):rep(3 * level))
+				str = str
+					.. "\n "
+					.. (" "):rep(3 * level)
+					.. table.concat(child.messages, "\n " .. (" "):rep(3 * level))
 			end
 
 			table.insert(buffer, str)
 		else
-			local str = ("%s%s"):format(
-				(" "):rep(3 * level),
-				child.planNode.phrase or ""
-			)
+			local str = ("%s%s"):format((" "):rep(3 * level), child.planNode.phrase or "")
 
 			if child.status then
 				str = str .. (" (%s)"):format(child.status)

@@ -1,4 +1,4 @@
--- upstream: https://github.com/facebook/jest/blob/v27.0.6/packages/jest-snapshot/src/dedentLines.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-snapshot/src/dedentLines.ts
 -- /**
 --  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
 --  *
@@ -6,10 +6,12 @@
 --  * LICENSE file in the root directory of this source tree.
 --  */
 
-type Array<T> = { T }
+local CurrentModule = script.Parent
+local Packages = CurrentModule.Parent
+local LuauPolyfill = require(Packages.LuauPolyfill)
+type Array<T> = LuauPolyfill.Array<T>
 
-local getIndentationLength, dedentLine, hasUnmatchedDoubleQuoteMarks,
-	isFirstLineOfTag, dedentStartTag, dedentMarkup, dedentLines
+local getIndentationLength, dedentLine, hasUnmatchedDoubleQuoteMarks, isFirstLineOfTag, dedentStartTag, dedentMarkup, dedentLines
 
 function getIndentationLength(line: string): number
 	local result = string.match(line, "^[ ]+")
@@ -25,16 +27,16 @@ function dedentLine(line: string): string
 	return line:sub(getIndentationLength(line) + 1)
 end
 
--- // Return true if:
--- // "key": "value has multiple lines\n...
--- // "key has multiple lines\n...
+-- Return true if:
+-- "key": "value has multiple lines\n...
+-- "key has multiple lines\n...
 function hasUnmatchedDoubleQuoteMarks(string_: string): boolean
 	local n = 0
 
 	local i = string.find(string_, '"')
 
 	while i do
-		if i == 1 or string.sub(string_, i - 1, i - 1) ~= '\\' then
+		if i == 1 or string.sub(string_, i - 1, i - 1) ~= "\\" then
 			n = n + 1
 		end
 
@@ -48,20 +50,17 @@ function isFirstLineOfTag(line: string)
 	return string.find(line, "^[ ]*<") ~= nil
 end
 
--- // The length of the output array is the index of the next input line.
+-- The length of the output array is the index of the next input line.
 
--- // Push dedented lines of start tag onto output and return true;
--- // otherwise return false because:
--- // * props include a multiline string (or text node, if props have markup)
--- // * start tag does not close
-function dedentStartTag(
-	input: Array<string>,
-	output: Array<string>
-): boolean
+-- Push dedented lines of start tag onto output and return true;
+-- otherwise return false because:
+-- * props include a multiline string (or text node, if props have markup)
+-- * start tag does not close
+function dedentStartTag(input: Array<string>, output: Array<string>): boolean
 	local line = input[#output + 1]
 	table.insert(output, dedentLine(line))
 
-	if string.find(line, '>') then
+	if string.find(line, ">") then
 		return true
 	end
 
@@ -69,16 +68,16 @@ function dedentStartTag(
 		line = input[#output + 1]
 
 		if hasUnmatchedDoubleQuoteMarks(line) then
-			return false -- // because props include a multiline string
+			return false -- because props include a multiline string
 		elseif isFirstLineOfTag(line) then
-			-- // Recursion only if props have markup.
+			-- Recursion only if props have markup.
 			if not dedentMarkup(input, output) then
 				return false
 			end
 		else
 			table.insert(output, dedentLine(line))
 
-			if string.find(line, '>') then
+			if string.find(line, ">") then
 				return true
 			end
 		end
@@ -87,11 +86,11 @@ function dedentStartTag(
 	return false
 end
 
--- // Push dedented lines of markup onto output and return true;
--- // otherwise return false because:
--- // * props include a multiline string
--- // * text has more than one adjacent line
--- // * markup does not close
+-- Push dedented lines of markup onto output and return true;
+-- otherwise return false because:
+-- * props include a multiline string
+-- * text has more than one adjacent line
+-- * markup does not close
 function dedentMarkup(input: Array<string>, output: Array<string>): boolean
 	local line = input[#output + 1]
 
@@ -99,7 +98,7 @@ function dedentMarkup(input: Array<string>, output: Array<string>): boolean
 		return false
 	end
 
-	if string.find(input[#output], '/>') then
+	if string.find(input[#output], "/>") then
 		return true
 	end
 
@@ -111,7 +110,7 @@ function dedentMarkup(input: Array<string>, output: Array<string>): boolean
 		line = input[#output + 1]
 
 		if isFirstLineOfTag(line) then
-			if string.find(line, '</') then
+			if string.find(line, "</") then
 				table.insert(output, dedentLine(line))
 				table.remove(stack)
 			else
@@ -119,14 +118,14 @@ function dedentMarkup(input: Array<string>, output: Array<string>): boolean
 					return false
 				end
 
-				if not string.find(input[#output], '/>') then
+				if not string.find(input[#output], "/>") then
 					table.insert(stack, getIndentationLength(line))
 				end
 			end
 			isText = false
 		else
 			if isText then
-				return false -- // because text has more than one adjacent line
+				return false -- because text has more than one adjacent line
 			end
 
 			local getIndentationLengthOfTag = stack[#stack]
@@ -138,11 +137,11 @@ function dedentMarkup(input: Array<string>, output: Array<string>): boolean
 	return #stack == 0
 end
 
--- // Return lines unindented by heuristic;
--- // otherwise return null because:
--- // * props include a multiline string
--- // * text has more than one adjacent line
--- // * markup does not close
+-- Return lines unindented by heuristic;
+-- otherwise return null because:
+-- * props include a multiline string
+-- * text has more than one adjacent line
+-- * markup does not close
 function dedentLines(input: Array<string>): Array<string> | nil
 	local output: Array<string> = {}
 

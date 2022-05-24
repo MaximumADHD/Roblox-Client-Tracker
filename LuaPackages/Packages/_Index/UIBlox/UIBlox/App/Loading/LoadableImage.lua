@@ -15,6 +15,9 @@ local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 
 local ContentProviderContext = require(UIBlox.App.Context.ContentProvider)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local enablePlayerTilePaddingFix = UIBloxConfig.enablePlayerTilePaddingFix
+
 local LOAD_FAILED_RETRY_COUNT = 3
 local RETRY_TIME_MULTIPLIER = 1.5
 
@@ -43,6 +46,14 @@ local validateProps = t.strictInterface({
 	cornerRadius = t.optional(t.UDim),
 	-- The final image
 	Image = t.optional(t.string),
+	-- The top padding of final image
+	ImagePaddingTop = t.optional(t.number),
+	-- The bottom padding of final image
+	ImagePaddingBottom = t.optional(t.number),
+	-- The left padding of final image
+	ImagePaddingLeft = t.optional(t.number),
+	-- The right padding of final image
+	ImagePaddingRight = t.optional(t.number),
 	-- The transparency of the final and loading image
 	ImageTransparency = t.optional(t.number),
 	-- The image rect offset of the final and loading image
@@ -115,6 +126,10 @@ function LoadableImage:render()
 	local scaleType = self.props.ScaleType
 	local zIndex = self.props.ZIndex
 	local image = self.props.Image
+	local ImagePaddingTop = self.props.ImagePaddingTop
+	local ImagePaddingBottom = self.props.ImagePaddingBottom
+	local ImagePaddingLeft = self.props.ImagePaddingLeft
+	local ImagePaddingRight = self.props.ImagePaddingRight
 	local imageTransparency = self.props.ImageTransparency
 	local imageRectOffset = self.props.ImageRectOffset
 	local imageRectSize = self.props.ImageRectSize
@@ -192,26 +207,59 @@ function LoadableImage:render()
 				}) or nil,
 			})
 		else
-			return Roact.createElement(ImageSetComponent.Label, {
-				AnchorPoint = anchorPoint,
-				BackgroundColor3 = backgroundColor3 or theme.PlaceHolder.Color,
-				BackgroundTransparency = backgroundTransparency or theme.PlaceHolder.Transparency,
-				BorderSizePixel = 0,
-				Image = loadingComplete and image or loadingImage,
-				ImageTransparency = imageTransparency,
-				ImageRectOffset = imageRectOffset,
-				ImageRectSize = imageRectSize,
-				LayoutOrder = layoutOrder,
-				Position = position,
-				ScaleType = scaleType,
-				Size = size,
-				ZIndex = zIndex,
-			}, {
-				UISizeConstraint = sizeConstraint,
-				UICorner = cornerRadius ~= UDim.new(0, 0) and Roact.createElement("UICorner", {
-					CornerRadius = cornerRadius,
-				}) or nil,
-			})
+			if enablePlayerTilePaddingFix then
+				return Roact.createElement("Frame", {
+					AnchorPoint = anchorPoint,
+					BackgroundColor3 = backgroundColor3 or theme.PlaceHolder.Color,
+					BackgroundTransparency = backgroundTransparency or theme.PlaceHolder.Transparency,
+					BorderSizePixel = 0,
+					LayoutOrder = layoutOrder,
+					Position = position,
+					Size = size,
+					ZIndex = zIndex,
+				}, {
+					UISizeConstraint = sizeConstraint,
+					UICorner = Roact.createElement("UICorner", {
+						CornerRadius = cornerRadius,
+					}) or nil,
+					Image = Roact.createElement(ImageSetComponent.Label, {
+						BackgroundTransparency = 1,
+						Image = loadingComplete and image or loadingImage,
+						ImageTransparency = imageTransparency,
+						ImageRectOffset = imageRectOffset,
+						ImageRectSize = imageRectSize,
+						ScaleType = scaleType,
+						Size = UDim2.new(1, 0, 1, 0),
+					}),
+					UIPadding = Roact.createElement("UIPadding", {
+						PaddingTop = UDim.new(0, ImagePaddingTop),
+						PaddingBottom = UDim.new(0, ImagePaddingBottom),
+						PaddingLeft = UDim.new(0, ImagePaddingLeft),
+						PaddingRight = UDim.new(0, ImagePaddingRight),
+					}),
+				})
+			else
+				return Roact.createElement(ImageSetComponent.Label, {
+					AnchorPoint = anchorPoint,
+					BackgroundColor3 = backgroundColor3 or theme.PlaceHolder.Color,
+					BackgroundTransparency = backgroundTransparency or theme.PlaceHolder.Transparency,
+					BorderSizePixel = 0,
+					Image = loadingComplete and image or loadingImage,
+					ImageTransparency = imageTransparency,
+					ImageRectOffset = imageRectOffset,
+					ImageRectSize = imageRectSize,
+					LayoutOrder = layoutOrder,
+					Position = position,
+					ScaleType = scaleType,
+					Size = size,
+					ZIndex = zIndex,
+				}, {
+					UISizeConstraint = sizeConstraint,
+					UICorner = cornerRadius ~= UDim.new(0, 0) and Roact.createElement("UICorner", {
+						CornerRadius = cornerRadius,
+					}) or nil,
+				})
+			end
 		end
 	end)
 end

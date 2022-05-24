@@ -5,6 +5,9 @@ local Core = UIBlox.Core
 local Packages = UIBlox.Parent
 
 local t = require(Packages.t)
+local validateColorInfo = require(Core.Style.Validator.validateColorInfo)
+local validateFontInfo = require(Core.Style.Validator.validateFontInfo)
+
 local Roact = require(Packages.Roact)
 local withStyle = require(Core.Style.withStyle)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
@@ -14,12 +17,14 @@ local getIconSize = require(App.ImageSet.getIconSize)
 local Images = require(App.ImageSet.Images)
 
 local PADDING_ITEM = 8
-local RIGHT_ARROW = Images["icons/navigation/pushRight_small"]
+local NAVIGATION_PUSH_RIGHT_SMALL = "icons/navigation/pushRight_small"
 
 local CellTailDescription = Roact.PureComponent:extend("CellTailDescription")
 
 CellTailDescription.validateProps = t.strictInterface({
 	text = t.optional(t.string),
+	textColor = t.optional(validateColorInfo),
+	textFont = t.optional(validateFontInfo),
 	showArrow = t.optional(t.boolean),
 })
 
@@ -36,6 +41,9 @@ function CellTailDescription:render()
 	end
 
 	return withStyle(function(style)
+		local textColor = self.props.textColor or style.Theme.TextDefault
+		local textFont = self.props.textFont or style.Font.Body
+
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
@@ -51,15 +59,15 @@ function CellTailDescription:render()
 				LayoutOrder = 1,
 				AutomaticSize = Enum.AutomaticSize.XY,
 				Text = text,
-				colorStyle = style.Theme.TextDefault,
-				fontStyle = style.Font.Body,
+				colorStyle = textColor,
+				fontStyle = textFont,
 				BackgroundTransparency = 1,
 			}) or nil,
 			RightArrow = showArrow and Roact.createElement(ImageSetComponent.Label, {
 				LayoutOrder = 2,
 				Size = UDim2.fromOffset(getIconSize(IconSize.Small), getIconSize(IconSize.Small)),
 				BackgroundTransparency = 1,
-				Image = RIGHT_ARROW,
+				Image = Images[NAVIGATION_PUSH_RIGHT_SMALL],
 				ImageColor3 = style.Theme.TextEmphasis.Color,
 				ImageTransparency = style.Theme.TextEmphasis.Transparency,
 			}) or nil,

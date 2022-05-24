@@ -1,20 +1,8 @@
 -- This file just provides a convenient interface to query for images
 local GetImageSetData = require(script.Parent.GetImageSetData)
+local FALLBACK_IMAGES = require(script.Parent.FallbackImages)
 
 local GuiService = game:GetService("GuiService")
-
---[[ Fallback spritesheet image to use if CorePackages is unavailable
-Check out https://confluence.rbx.com/display/MOBAPP/uiBlox+ImageSet to see how to update the sprite sheets
-YOUR SPRITE SHEETS MAY GET MODERATED BECAUSE OF BRANDED CONTENT, refer to the work around in the link above if it does.
---]]
-local FALLBACK_IMAGES = {
-	["img_set_1x_1"] = "http://www.roblox.com/asset/?id=9552515892",
-	["img_set_1x_2"] = "http://www.roblox.com/asset/?id=9552516889",
-	["img_set_1x_3"] = "http://www.roblox.com/asset/?id=9552517758",
-	["img_set_1x_4"] = "http://www.roblox.com/asset/?id=9552518540",
-	--["img_set_1x_5"] = "",
-	--["img_set_1x_6"] = "",
-}
 
 local CorePackages = script:FindFirstAncestor("CorePackages")
 local success, scale = pcall(GuiService.GetResolutionScale, GuiService)

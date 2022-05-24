@@ -38,8 +38,7 @@ local function newEnvironment(currentNode, extraEnvironment, filePath)
 
 	if extraEnvironment then
 		if type(extraEnvironment) ~= "table" then
-			error(("Bad argument #2 to newEnvironment. Expected table, got %s"):format(
-				typeof(extraEnvironment)), 2)
+			error(("Bad argument #2 to newEnvironment. Expected table, got %s"):format(typeof(extraEnvironment)), 2)
 		end
 
 		for key, value in pairs(extraEnvironment) do
@@ -92,7 +91,7 @@ local function newEnvironment(currentNode, extraEnvironment, filePath)
 		[TestEnum.NodeType.BeforeAll] = "beforeAll",
 		[TestEnum.NodeType.AfterAll] = "afterAll",
 		[TestEnum.NodeType.BeforeEach] = "beforeEach",
-		[TestEnum.NodeType.AfterEach] = "afterEach"
+		[TestEnum.NodeType.AfterEach] = "afterEach",
 	}
 
 	for nodeType, name in pairs(lifecycleHooks) do
@@ -121,8 +120,10 @@ local function newEnvironment(currentNode, extraEnvironment, filePath)
 		warning.
 	]]
 	function env.HACK_NO_XPCALL()
-		warn("HACK_NO_XPCALL is deprecated. It is now safe to yield in an " ..
-			"xpcall, so this is no longer necessary. It can be safely deleted.")
+		warn(
+			"HACK_NO_XPCALL is deprecated. It is now safe to yield in an "
+				.. "xpcall, so this is no longer necessary. It can be safely deleted."
+		)
 	end
 
 	env.fit = env.itFOCUS
@@ -132,7 +133,7 @@ local function newEnvironment(currentNode, extraEnvironment, filePath)
 
 	env.expect = setmetatable({
 		extend = function(...)
-			error("Cannot call \"expect.extend\" from within a \"describe\" node.")
+			error('Cannot call "expect.extend" from within a "describe" node.')
 		end,
 	}, {
 		__call = function(_self, ...)
@@ -209,7 +210,7 @@ function TestNode:addChild(phrase, nodeType, nodeModifier, filePath)
 		filters["pathIgnoreNodeModifier"] = getIgnoreModifier(filePath, self.plan.testPathIgnorePatterns, nodeModifier)
 	end
 
-	for _,filter in pairs(filters) do
+	for _, filter in pairs(filters) do
 		if filter ~= TestEnum.NodeModifier.Focus then
 			nodeModifier = filter
 			break
@@ -275,7 +276,7 @@ TestPlan.__index = TestPlan
 ]]
 function TestPlan.new(planArgs)
 	local plan = {
-		children = {}
+		children = {},
 	}
 
 	if planArgs then

@@ -1,4 +1,4 @@
--- upstream: https://github.com/facebook/jest/blob/v27.0.6/packages/jest-snapshot/src/State.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-snapshot/src/State.ts
 -- /**
 --  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
 --  *
@@ -6,12 +6,12 @@
 --  * LICENSE file in the root directory of this source tree.
 --  */
 
--- deviation: omitting fs and types file import and defining in line instead
+-- ROBLOX deviation: omitting fs and types file import and defining in line instead
 
 local CurrentModule = script.Parent
 local Packages = CurrentModule.Parent
 
--- deviation: used to communicate with the TestEZ test runner
+-- ROBLOX deviation: used to communicate with the TestEZ test runner
 local JEST_TEST_CONTEXT = "__JEST_TEST_CONTEXT__"
 
 local function getCoreScriptSyncService()
@@ -26,6 +26,7 @@ local CoreScriptSyncService = nil
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Array = LuauPolyfill.Array
 local Error = LuauPolyfill.Error
+type Error = LuauPolyfill.Error
 local Object = LuauPolyfill.Object
 local Set = LuauPolyfill.Set
 
@@ -37,6 +38,11 @@ type ConfigSnapshotUpdateState = string
 -- local JestMessageUtil = require(Packages.JestMessageUtil)
 -- local getStackTraceLines = JestMessageUtil.getStackTraceLines
 -- local getTopFrame = JestMessageUtil.getTopFrame
+
+-- ROBLOX TODO: fix PrettyFormat types imports
+-- local PrettyFormat = require(Packages.PrettyFormat)
+local PrettyFormat = require(CurrentModule.PrettyFormat)
+type PrettyFormatOptions = PrettyFormat.OptionsReceived
 
 local utils = require(CurrentModule.utils)
 local addExtraLineBreaks = utils.addExtraLineBreaks
@@ -54,15 +60,16 @@ local getParent = utils.robloxGetParent
 -- functionality
 
 local types = require(CurrentModule.types)
--- deviation: we do not have the BabelTraverse or Prettier types defined in the
+-- ROBLOX deviation: we do not have the BabelTraverse or Prettier types defined in the
 -- types file
+type SnapshotData = types.SnapshotData
 
 type SnapshotStateOptions = {
 	updateSnapshot: ConfigSnapshotUpdateState,
-	-- deviation: the function return is defined as any instead of null | Prettier
-	-- getPrettier: () -> any,
-	-- getBabelTraverse: () -> any,
-	expand: boolean?
+	-- ROBLOX deviation: the function return is defined as any instead of null | Prettier
+	-- prettierPath: ConfigPath;
+	expand: boolean?,
+	snapshotFormat: PrettyFormatOptions,
 }
 
 type SnapshotMatchOptions = {
@@ -71,8 +78,8 @@ type SnapshotMatchOptions = {
 	key: string?,
 	inlineSnapshot: string?,
 	isInline: boolean,
-	-- deviation: error type defined as any instead of Error
-	error_: any
+	-- ROBLOX deviation: error type defined as any instead of Error
+	error_: any,
 }
 
 type SnapshotReturnOptions = {
@@ -80,12 +87,12 @@ type SnapshotReturnOptions = {
 	count: number,
 	expected: string?,
 	key: string,
-	pass: boolean
+	pass: boolean,
 }
 
 type SaveStatus = {
 	deleted: boolean,
-	saved: boolean
+	saved: boolean,
 }
 
 type SnapshotState = {
@@ -93,40 +100,47 @@ type SnapshotState = {
 	_dirty: boolean,
 	_index: number,
 	_updateSnapshot: ConfigSnapshotUpdateState,
-	_snapshotData: types.SnapshotData,
-	_initialData: types.SnapshotData,
+	_snapshotData: SnapshotData,
+	_initialData: SnapshotData,
 	_snapshotPath: ConfigPath,
 	-- ROBLOX TODO: ADO-1552 align this type as Array<InlineSnapshot> when we support inlineSnapshot testing
-	_inlineSnapshots: {any},
-	-- deviation: defined as any for now because LuauPolyfill.Set<string> and Set.Set<string>
+	_inlineSnapshots: { any },
+	-- ROBLOX deviation: defined as any for now because LuauPolyfill.Set<string> and Set.Set<string>
 	-- both didn't seem to be working
 	_uncheckedKeys: any,
 	-- _uncheckedKeys: LuauPolyfill.Set<string>,
-	-- deviation: omitting fields _getBabelTraverse and _getPrettier
+	-- ROBLOX deviation: omitting field _prettierPath
+	-- _prettierPath: ConfigPath;
+	_snapshotFormat: PrettyFormatOptions,
+
 	added: number,
 	expand: boolean,
 	matched: number,
 	unmatched: number,
-	updated: number
+	updated: number,
+
+	_addSnapshot: (
+		self: SnapshotState,
+		key: string,
+		receivedSerialized: string,
+		options: { isInline: boolean, error: Error? }
+	) -> (),
 }
 
 local SnapshotState = {}
 SnapshotState.__index = SnapshotState
 
-function SnapshotState.new(snapshotPath: ConfigPath, options: SnapshotStateOptions)
-	local returnValue = getSnapshotData(
-		snapshotPath,
-		options.updateSnapshot
-	)
+function SnapshotState.new(snapshotPath: ConfigPath, options: SnapshotStateOptions): SnapshotState
+	local returnValue = getSnapshotData(snapshotPath, options.updateSnapshot)
 	local data = returnValue.data
 	local dirty = returnValue.dirty
 
-	local self: SnapshotState = {
+	local self = {
 		_snapshotPath = snapshotPath,
 		_initialData = data,
 		_snapshotData = data,
 		_dirty = dirty,
-		-- deviation: omitting assignment for getBabelTraverse, getPrettier
+		-- ROBLOX deviation: omitting assignment for getBabelTraverse, getPrettier
 		_inlineSnapshots = {},
 		_uncheckedKeys = Set.new(Object.keys(data)),
 		_counters = {},
@@ -136,10 +150,11 @@ function SnapshotState.new(snapshotPath: ConfigPath, options: SnapshotStateOptio
 		matched = 0,
 		unmatched = 0,
 		_updateSnapshot = options.updateSnapshot,
-		updated = 0
+		updated = 0,
+		_snapshotFormat = options.snapshotFormat,
 	}
 
-	return setmetatable(self, SnapshotState)
+	return (setmetatable(self, SnapshotState) :: any) :: SnapshotState
 end
 
 function SnapshotState:markSnapshotsAsCheckedForTest(testName: string): ()
@@ -150,11 +165,11 @@ function SnapshotState:markSnapshotsAsCheckedForTest(testName: string): ()
 	end
 end
 
--- deviation: Error type annotated as any
+-- ROBLOX deviation: Error type annotated as any
 function SnapshotState:_addSnapshot(
 	key: string,
 	receivedSerialized: string,
-	options: {isInline: boolean, error: any?}
+	options: { isInline: boolean, error: any? }
 ): ()
 	self._dirty = true
 	if options.isInline then
@@ -176,35 +191,35 @@ function SnapshotState:clear(): ()
 	self.updated = 0
 end
 
-function SnapshotState:save(): SaveStatus
+function SnapshotState.save(self: SnapshotState): SaveStatus
 	local hasExternalSnapshots = #Object.keys(self._snapshotData)
 	local hasInlineSnapshots = #self._inlineSnapshots > 0
 	local isEmpty = not hasExternalSnapshots and not hasInlineSnapshots
 
 	local status: SaveStatus = {
 		deleted = false,
-		saved = false
+		saved = false,
 	}
 
 	if CoreScriptSyncService == nil then
 		CoreScriptSyncService = getCoreScriptSyncService() or false
 	end
-	-- deviation: error when FileSystemService doesn't exist
+	-- ROBLOX deviation: error when FileSystemService doesn't exist
 	if not CoreScriptSyncService then
-		error(Error(
-			'Attempting to save snapshots in an environment where CoreScriptSyncService is inaccessible.\n' ..
-			'You may need to pass in --load.asRobloxScript.'
-		))
+		error(
+			Error(
+				"Attempting to save snapshots in an environment where CoreScriptSyncService is inaccessible.\n"
+					.. "You may need to pass in --load.asRobloxScript."
+			)
+		)
 	end
 
-	-- deviation: SnapshotState._snapshotPath stores the path in the DOM of the snapshot
+	-- ROBLOX deviation: SnapshotState._snapshotPath stores the path in the DOM of the snapshot
 	-- and not the filesystem path
 	-- CoreScriptSyncService:GetScriptFilePath is used to convert the test ModuleScript
 	-- into its filesystem location
-	local snapshotPath = CoreScriptSyncService:GetScriptFilePath(_G[JEST_TEST_CONTEXT].instance)
-	-- gets path of parent directory, GetScriptFilePath can only be called on ModuleScripts
-	snapshotPath = getParent(snapshotPath, 1)
-	snapshotPath = snapshotPath
+	local snapshotPath = getParent(CoreScriptSyncService:GetScriptFilePath(_G[JEST_TEST_CONTEXT].instance), 1)
+		-- gets path of parent directory, GetScriptFilePath can only be called on ModuleScripts
 		.. "/__snapshots__/"
 		.. _G[JEST_TEST_CONTEXT].instance.Name:match("(.*)%.spec")
 		.. ".snap.lua"
@@ -218,12 +233,14 @@ function SnapshotState:save(): SaveStatus
 			error(Error("Jest-Roblox: inline snapshot testing is not currently supported"))
 		end
 		status.saved = true
-	elseif not hasExternalSnapshots and require(snapshotPath) then
-	 	-- deviation: omitted part of code dealing with unlinking file until we have
+	elseif not hasExternalSnapshots and require(snapshotPath) :: any then
+		-- ROBLOX deviation: omitted part of code dealing with unlinking file until we have
 		-- robust final solution for I/O. This may not even be needed in our translation?
-		if self._updateSnapshot == 'all' then
-			error("Jest-Roblox: You shouldn't reach this code path. Please file an issue at github.com/Roblox/jest-roblox or in #jest-roblox")
-		--	fs.unlinkSync(this._snapshotPath)
+		if self._updateSnapshot == "all" then
+			error(
+				"Jest-Roblox: You shouldn't reach this code path. Please file an issue at github.com/Roblox/jest-roblox or in #jest-roblox"
+			)
+			--	fs.unlinkSync(this._snapshotPath)
 		end
 		status.deleted = true
 	end
@@ -235,12 +252,12 @@ function SnapshotState:getUncheckedCount(): number
 	return self._uncheckedKeys.size or 0
 end
 
-function SnapshotState:getUncheckedKeys(): {string}
+function SnapshotState:getUncheckedKeys(): { string }
 	return Array.from(self._uncheckedKeys)
 end
 
 function SnapshotState:removeUncheckedKeys(): ()
-	if self._updateSnapshot == 'all' and self._uncheckedKeys.size > 0 then
+	if self._updateSnapshot == "all" and self._uncheckedKeys.size > 0 then
 		self._dirty = true
 		for index, key in self._uncheckedKeys:ipairs() do
 			self._snapshotData[key] = nil
@@ -249,12 +266,9 @@ function SnapshotState:removeUncheckedKeys(): ()
 	end
 end
 
-function SnapshotState:match(
-	snapshotMatchOptions: SnapshotMatchOptions
-): SnapshotReturnOptions
+function SnapshotState.match(self: SnapshotState, snapshotMatchOptions: SnapshotMatchOptions): SnapshotReturnOptions
 	local testName = snapshotMatchOptions.testName
 	local received = snapshotMatchOptions.received
-	local key = snapshotMatchOptions.key
 	-- local inlineSnapshot = snapshotMatchOptions.inlineSnapshot
 	local isInline = snapshotMatchOptions.isInline
 	local error_ = snapshotMatchOptions.error_
@@ -262,19 +276,16 @@ function SnapshotState:match(
 	self._counters[testName] = (self._counters[testName] or 0) + 1
 	local count = self._counters[testName]
 
-	if not key then
-		key = testNameToKey(testName, count)
-	end
+	local key = if snapshotMatchOptions.key then snapshotMatchOptions.key else testNameToKey(testName, count)
 
-	-- // Do not mark the snapshot as "checked" if the snapshot is inline and
-	-- // there's an external snapshot. This way the external snapshot can be
-	-- // removed with `--updateSnapshot`.
-
-	if not (isInline and self._snapshotData[key]) then
+	-- Do not mark the snapshot as "checked" if the snapshot is inline and
+	-- there's an external snapshot. This way the external snapshot can be
+	-- removed with `--updateSnapshot`.
+	if not (isInline and self._snapshotData[key] ~= nil) then
 		self._uncheckedKeys:delete(key)
 	end
 
-	local receivedSerialized = addExtraLineBreaks(serialize(received))
+	local receivedSerialized = addExtraLineBreaks(serialize(received, nil, self._snapshotFormat))
 	local expected
 	if isInline then
 		-- ROBLOX TODO: ADO-1552 Add when we support inlineSnapshot testing
@@ -285,44 +296,48 @@ function SnapshotState:match(
 
 	local pass = expected == receivedSerialized
 	local hasSnapshot = expected ~= nil
-	local snapshotPathExists, _ = pcall(function() require(self._snapshotPath) end)
+	local snapshotPathExists, _ = pcall(function()
+		local _ = require(self._snapshotPath) :: any
+	end)
 	local snapshotIsPersisted = isInline or snapshotPathExists
 
 	if pass and not isInline then
-		-- // Executing a snapshot file as JavaScript and writing the strings back
-		-- // when other snapshots have changed loses the proper escaping for some
-		-- // characters. Since we check every snapshot in every test, use the newly
-		-- // generated formatted string.
-		-- // Note that this is only relevant when a snapshot is added and the dirty
-		-- // flag is set.
+		-- Executing a snapshot file as JavaScript and writing the strings back
+		-- when other snapshots have changed loses the proper escaping for some
+		-- characters. Since we check every snapshot in every test, use the newly
+		-- generated formatted string.
+		-- Note that this is only relevant when a snapshot is added and the dirty
+		-- flag is set.
 		self._snapshotData[key] = receivedSerialized
 	end
 
-	-- // These are the conditions on when to write snapshots:
-	-- //  * There's no snapshot file in a non-CI environment.
-	-- //  * There is a snapshot file and we decided to update the snapshot.
-	-- //  * There is a snapshot file, but it doesn't have this snaphsot.
-	-- // These are the conditions on when not to write snapshots:
-	-- //  * The update flag is set to 'none'.
-	-- //  * There's no snapshot file or a file without this snapshot on a CI environment.
+	-- These are the conditions on when to write snapshots:
+	--  * There's no snapshot file in a non-CI environment.
+	--  * There is a snapshot file and we decided to update the snapshot.
+	--  * There is a snapshot file, but it doesn't have this snaphsot.
+	-- These are the conditions on when not to write snapshots:
+	--  * The update flag is set to 'none'.
+	--  * There's no snapshot file or a file without this snapshot on a CI environment.
 	if
-		(hasSnapshot and self._updateSnapshot == 'all') or
-		((not hasSnapshot or not snapshotIsPersisted) and
-			(self._updateSnapshot == 'new' or self._updateSnapshot == 'all'))
+		(hasSnapshot and self._updateSnapshot == "all")
+		or (
+			(not hasSnapshot or not snapshotIsPersisted)
+			and (self._updateSnapshot == "new" or self._updateSnapshot == "all")
+		)
 	then
-		if self._updateSnapshot == 'all' then
+		if self._updateSnapshot == "all" then
 			if not pass then
 				if hasSnapshot then
 					self.updated = self.updated + 1
 				else
 					self.added = self.added + 1
 				end
-				self:_addSnapshot(key, receivedSerialized, {error = error_, isInline = isInline})
+				self:_addSnapshot(key, receivedSerialized, { error = error_, isInline = isInline })
 			else
 				self.matched = self.matched + 1
 			end
 		else
-			self:_addSnapshot(key, receivedSerialized, {error = error_, isInline = isInline})
+			self:_addSnapshot(key, receivedSerialized, { error = error_, isInline = isInline })
 			self.added = self.added + 1
 		end
 
@@ -331,23 +346,18 @@ function SnapshotState:match(
 			count = count,
 			expected = "",
 			key = key,
-			pass = true
+			pass = true,
 		}
 	else
 		if not pass then
 			self.unmatched = self.unmatched + 1
-			local expectedValue
-			if expected then
-				expectedValue = removeExtraLineBreaks(expected)
-			else
-				expectedValue = nil
-			end
+			local expectedValue = if expected then removeExtraLineBreaks(expected) else nil
 			return {
 				actual = removeExtraLineBreaks(receivedSerialized),
 				count = count,
 				expected = expectedValue,
 				key = key,
-				pass = false
+				pass = false,
 			}
 		else
 			self.matched = self.matched + 1
@@ -356,14 +366,14 @@ function SnapshotState:match(
 				count = count,
 				expected = "",
 				key = key,
-				pass = true
+				pass = true,
 			}
 		end
 	end
 end
 
--- deviation: changed string? to string so that return type could align
-function SnapshotState:fail(testName: string, _received: any, key: string): string
+-- ROBLOX deviation: changed string? to string so that return type could align
+function SnapshotState.fail(self: SnapshotState, testName: string, _received: any, key: string): string
 	self._counters[testName] = (self._counters[testName] or 0) + 1
 	local count = self._counters[testName]
 

@@ -1,4 +1,4 @@
--- upstream: https://github.com/facebook/jest/blob/v27.2.5/packages/jest-diff/src/joinAlignedDiffs.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-diff/src/joinAlignedDiffs.ts
 -- /**
 --  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
 --  *
@@ -9,24 +9,24 @@
 local CurrentModule = script.Parent
 local Packages = CurrentModule.Parent
 
-local Array = require(Packages.LuauPolyfill).Array
+local LuauPolyfill = require(Packages.LuauPolyfill)
+local Array = LuauPolyfill.Array
+type Array<T> = LuauPolyfill.Array<T>
 
 local CleanupSemantic = require(CurrentModule.CleanupSemantic)
 local DIFF_DELETE = CleanupSemantic.DIFF_DELETE
 local DIFF_EQUAL = CleanupSemantic.DIFF_EQUAL
 local DIFF_INSERT = CleanupSemantic.DIFF_INSERT
 type Diff = CleanupSemantic.Diff
-type Array<T> = { [number]: T }
 
 local Types = require(CurrentModule.types)
 type DiffOptionsNormalized = Types.DiffOptionsNormalized
 type DiffOptionsColor = Types.DiffOptionsColor
 
-local function formatTrailingSpaces(
-	line: string,
-	trailingSpaceFormatter: DiffOptionsColor
-): string
-	return line:gsub('%s+$', function(s) return trailingSpaceFormatter(s) end)
+local function formatTrailingSpaces(line: string, trailingSpaceFormatter: DiffOptionsColor): string
+	return line:gsub("%s+$", function(s)
+		return trailingSpaceFormatter(s)
+	end)
 end
 
 local function printDiffLine(
@@ -38,22 +38,16 @@ local function printDiffLine(
 	emptyFirstOrLastLinePlaceholder: string
 ): string
 	if #line ~= 0 then
-		return color(
-			indicator .. ' ' .. formatTrailingSpaces(line, trailingSpaceFormatter)
-		)
-	elseif indicator ~= ' ' then
+		return color(indicator .. " " .. formatTrailingSpaces(line, trailingSpaceFormatter))
+	elseif indicator ~= " " then
 		return color(indicator)
 	elseif isFirstOrLast and #emptyFirstOrLastLinePlaceholder ~= 0 then
-		return color(indicator .. ' ' .. emptyFirstOrLastLinePlaceholder)
+		return color(indicator .. " " .. emptyFirstOrLastLinePlaceholder)
 	end
-	return ''
+	return ""
 end
 
-local function printDeleteLine(
-	line: string,
-	isFirstOrLast: boolean,
-	options: DiffOptionsNormalized
-): string
+local function printDeleteLine(line: string, isFirstOrLast: boolean, options: DiffOptionsNormalized): string
 	return printDiffLine(
 		line,
 		isFirstOrLast,
@@ -64,11 +58,7 @@ local function printDeleteLine(
 	)
 end
 
-local function printInsertLine(
-	line: string,
-	isFirstOrLast: boolean,
-	options: DiffOptionsNormalized
-): string
+local function printInsertLine(line: string, isFirstOrLast: boolean, options: DiffOptionsNormalized): string
 	return printDiffLine(
 		line,
 		isFirstOrLast,
@@ -79,11 +69,7 @@ local function printInsertLine(
 	)
 end
 
-local function printCommonLine(
-	line: string,
-	isFirstOrLast: boolean,
-	options: DiffOptionsNormalized
-): string
+local function printCommonLine(line: string, isFirstOrLast: boolean, options: DiffOptionsNormalized): string
 	return printDiffLine(
 		line,
 		isFirstOrLast,
@@ -94,7 +80,7 @@ local function printCommonLine(
 	)
 end
 
--- // In GNU diff format, indexes are one-based instead of zero-based.
+-- In GNU diff format, indexes are one-based instead of zero-based.
 local function createPatchMark(
 	aStart: number,
 	aEnd: number,
@@ -103,26 +89,20 @@ local function createPatchMark(
 	options: DiffOptionsNormalized
 ): string
 	return options.patchColor(
-		string.format(
-			'@@ -%d,%d +%d,%d @@',
-			aStart + 1, aEnd - aStart, bStart + 1, bEnd - bStart
-		)
+		string.format("@@ -%d,%d +%d,%d @@", aStart + 1, aEnd - aStart, bStart + 1, bEnd - bStart)
 	)
 end
 
--- // jest --no-expand
--- //
--- // Given array of aligned strings with inverse highlight formatting,
--- // return joined lines with diff formatting (and patch marks, if needed).
-local function joinAlignedDiffsNoExpand(
-	diffs: Array<Diff>,
-	options: DiffOptionsNormalized
-): string
+-- jest --no-expand
+--
+-- Given array of aligned strings with inverse highlight formatting,
+-- return joined lines with diff formatting (and patch marks, if needed).
+local function joinAlignedDiffsNoExpand(diffs: Array<Diff>, options: DiffOptionsNormalized): string
 	local iLength = #diffs
 	local nContextLines = options.contextLines
 	local nContextLines2 = nContextLines + nContextLines
 
-	-- // First pass: count output lines and see if it has patches.
+	-- First pass: count output lines and see if it has patches.
 	local jLength = iLength
 	local hasExcessAtStartOrEnd = false
 	local nExcessesBetweenChanges = 0
@@ -135,23 +115,23 @@ local function joinAlignedDiffsNoExpand(
 
 		if iStart ~= i then
 			if iStart == 0 then
-				-- // at start
+				-- at start
 				if i > nContextLines then
-					jLength -= i - nContextLines -- // subtract excess common lines
+					jLength -= i - nContextLines -- subtract excess common lines
 					hasExcessAtStartOrEnd = true
 				end
 			elseif i == iLength then
-				-- // at end
+				-- at end
 				local n = i - iStart
 				if n > nContextLines then
-					jLength -= n - nContextLines -- // subtract excess common lines
+					jLength -= n - nContextLines -- subtract excess common lines
 					hasExcessAtStartOrEnd = true
 				end
 			else
-				-- // between changes
+				-- between changes
 				local n = i - iStart
 				if n > nContextLines2 then
-					jLength -= n - nContextLines2 -- // subtract excess common lines
+					jLength -= n - nContextLines2 -- subtract excess common lines
 					nExcessesBetweenChanges += 1
 				end
 			end
@@ -164,20 +144,20 @@ local function joinAlignedDiffsNoExpand(
 
 	local hasPatch = nExcessesBetweenChanges ~= 0 or hasExcessAtStartOrEnd
 	if nExcessesBetweenChanges ~= 0 then
-		jLength += nExcessesBetweenChanges + 1 -- // add patch lines
+		jLength += nExcessesBetweenChanges + 1 -- add patch lines
 	elseif hasExcessAtStartOrEnd then
-		jLength += 1 -- // add patch line
+		jLength += 1 -- add patch line
 	end
 	local jLast = jLength - 1
 
 	local lines: { [number]: string } = {}
 
-	local jPatchMark = 0 -- // index of placeholder line for current patch mark
+	local jPatchMark = 0 -- index of placeholder line for current patch mark
 	if hasPatch then
-		table.insert(lines, '') -- // placeholder line for first patch mark
+		table.insert(lines, "") -- placeholder line for first patch mark
 	end
 
-	-- // Indexes of expected or received lines in current patch:
+	-- Indexes of expected or received lines in current patch:
 	local aStart = 0
 	local bStart = 0
 	local aEnd = 0
@@ -202,7 +182,7 @@ local function joinAlignedDiffsNoExpand(
 		bEnd += 1
 	end
 
-	-- // Second pass: push lines with diff formatting (and patch marks, if needed).
+	-- Second pass: push lines with diff formatting (and patch marks, if needed).
 	i = 0
 	while i ~= iLength do
 		local iStart = i
@@ -212,7 +192,7 @@ local function joinAlignedDiffsNoExpand(
 
 		if iStart ~= i then
 			if iStart == 0 then
-				-- // at beginning
+				-- at beginning
 				if i > nContextLines then
 					iStart = i - nContextLines
 					aStart = iStart
@@ -227,7 +207,7 @@ local function joinAlignedDiffsNoExpand(
 					iCommon += 1
 				end
 			elseif i == iLength then
-				-- // at end
+				-- at end
 				local iEnd = i
 				if i - iStart > nContextLines then
 					iEnd = iStart + nContextLines
@@ -239,7 +219,7 @@ local function joinAlignedDiffsNoExpand(
 					iCommon += 1
 				end
 			else
-				-- // between changes
+				-- between changes
 				local nCommon = i - iStart
 
 				if nCommon > nContextLines2 then
@@ -251,15 +231,9 @@ local function joinAlignedDiffsNoExpand(
 						iCommon += 1
 					end
 
-					lines[jPatchMark + 1] = createPatchMark(
-						aStart,
-						aEnd,
-						bStart,
-						bEnd,
-						options
-					)
+					lines[jPatchMark + 1] = createPatchMark(aStart, aEnd, bStart, bEnd, options)
 					jPatchMark = #lines
-					table.insert(lines, '') -- // placeholder line for next patch mark
+					table.insert(lines, "") -- placeholder line for next patch mark
 
 					local nOmit = nCommon - nContextLines2
 					aStart = aEnd + nOmit
@@ -297,36 +271,30 @@ local function joinAlignedDiffsNoExpand(
 		lines[jPatchMark + 1] = createPatchMark(aStart, aEnd, bStart, bEnd, options)
 	end
 
-	return table.concat(lines, '\n')
+	return table.concat(lines, "\n")
 end
 
--- // jest --expand
--- //
--- // Given array of aligned strings with inverse highlight formatting,
--- // return joined lines with diff formatting.
-local function joinAlignedDiffsExpand(
-	diffs: Array<Diff>,
-	options: DiffOptionsNormalized
-): string
+-- jest --expand
+--
+-- Given array of aligned strings with inverse highlight formatting,
+-- return joined lines with diff formatting.
+local function joinAlignedDiffsExpand(diffs: Array<Diff>, options: DiffOptionsNormalized): string
 	return table.concat(
-		Array.map(
-			diffs,
-			function(diff, i: number, diffs_: { [number]: any }): string
-				local line = diff[2]
-				-- deviation: 1-indexing
-				local isFirstOrLast = i == 1 or i == #diffs_
+		Array.map(diffs, function(diff, i: number, diffs_: { [number]: any }): string
+			local line = diff[2]
+			-- ROBLOX deviation: 1-indexing
+			local isFirstOrLast = i == 1 or i == #diffs_
 
-				local case = diff[1]
-				if case == DIFF_DELETE then
-					return printDeleteLine(line, isFirstOrLast, options)
-				elseif case == DIFF_INSERT then
-					return printInsertLine(line, isFirstOrLast, options)
-				else
-					return printCommonLine(line, isFirstOrLast, options)
-				end
+			local case = diff[1]
+			if case == DIFF_DELETE then
+				return printDeleteLine(line, isFirstOrLast, options)
+			elseif case == DIFF_INSERT then
+				return printInsertLine(line, isFirstOrLast, options)
+			else
+				return printCommonLine(line, isFirstOrLast, options)
 			end
-		),
-		'\n'
+		end),
+		"\n"
 	)
 end
 

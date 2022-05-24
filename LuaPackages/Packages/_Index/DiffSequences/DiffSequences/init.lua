@@ -1,4 +1,4 @@
--- upstream: https://github.com/facebook/jest/blob/v27.2.5/packages/diff-sequences/src/index.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/diff-sequences/src/index.ts
 -- /**
 --  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
 --  *
@@ -11,7 +11,7 @@ local Packages = CurrentModule.Parent
 
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Number = LuauPolyfill.Number
-type Array<T> = { T }
+type Array<T> = LuauPolyfill.Array<T>
 
 -- This diff-sequences package implements the linear space variation in
 -- An O(ND) Difference Algorithm and Its Variations by Eugene W. Myers
@@ -35,14 +35,14 @@ type Array<T> = { T }
 -- The “edit graph” for sequences a and b corresponds to items:
 -- in a on the horizontal axis
 -- in b on the vertical axis
--- //
+--
 -- Given a-coordinate of a point in a diagonal, you can compute b-coordinate.
--- //
+--
 -- Forward diagonals kF:
 -- zero diagonal intersects top left corner
 -- positive diagonals intersect top edge
 -- negative diagonals insersect left edge
--- //
+--
 -- Reverse diagonals kR:
 -- zero diagonal intersects bottom right corner
 -- positive diagonals intersect right edge
@@ -52,7 +52,7 @@ type Array<T> = { T }
 -- horizontal: delete an item from a
 -- vertical: insert an item from b
 -- diagonal: common item in a and b
--- //
+--
 -- The algorithm solves dual problems in the graph analogy:
 -- Find longest common subsequence: path with maximum number of diagonal edges
 -- Find shortest edit script: path with minimum number of non-diagonal edges
@@ -61,7 +61,7 @@ type Array<T> = { T }
 type IsCommon = (
 	number, -- caller can assume: 0 <= aIndex && aIndex < aLength
 	number -- caller can assume: 0 <= bIndex && bIndex < bLength
-) -> boolean;
+) -> boolean
 
 -- Output callback function receives the number of adjacent items
 -- and starting indexes of each common subsequence.
@@ -69,10 +69,10 @@ type FoundSubsequence = (
 	number, -- caller can assume: 0 < nCommon
 	number, -- caller can assume: 0 <= aCommon && aCommon < aLength
 	number -- caller can assume: 0 <= bCommon && bCommon < bLength
-) -> ();
+) -> ()
 
--- deviation: omitted since Luau doesn't have mixed type arrays
--- // Either original functions or wrapped to swap indexes if graph is transposed.
+-- ROBLOX deviation: omitted since Luau doesn't have mixed type arrays
+-- Either original functions or wrapped to swap indexes if graph is transposed.
 -- export type Callbacks = {
 -- 	FoundSubsequence;
 -- 	IsCommon;
@@ -106,21 +106,15 @@ type Division = {
 	-- The start of interval following division is closed like array slice method.
 	nChangeFollowing: number, -- number of change items
 	aStartFollowing: number,
-	bStartFollowing: number
-};
+	bStartFollowing: number,
+}
 
-local pkg = 'diff-sequences' -- for error messages
+local pkg = "diff-sequences" -- for error messages
 local NOT_YET_SET = 0 -- small int instead of undefined to avoid deopt in V8
 
 -- Return the number of common items that follow in forward direction.
 -- The length of what Myers paper calls a “snake” in a forward path.
-local function countCommonItemsF(
-	aIndex: number,
-	aEnd: number,
-	bIndex: number,
-	bEnd: number,
-	isCommon: IsCommon
-): number
+local function countCommonItemsF(aIndex: number, aEnd: number, bIndex: number, bEnd: number, isCommon: IsCommon): number
 	local nCommon = 0
 	while aIndex < aEnd and bIndex < bEnd and isCommon(aIndex, bIndex) do
 		aIndex += 1
@@ -165,16 +159,10 @@ local function extendPathsF(
 	-- ROBLOX FIXME? should the values inserted into aIndexesF be 1-based so we don't have to adjust in several places here?
 	local aFirst = aIndexesF[iF + 1] -- in first iteration always insert
 	local aIndexPrev1 = aFirst -- prev value of [iF - 1] in next iteration
-	aIndexesF[iF + 1] += countCommonItemsF(
-		aFirst + 1,
-		aEnd,
-		bF + aFirst - kF + 1,
-		bEnd,
-		isCommon
-	)
+	aIndexesF[iF + 1] += countCommonItemsF(aFirst + 1, aEnd, bF + aFirst - kF + 1, bEnd, isCommon)
 
 	-- Optimization: skip diagonals in which paths cannot ever overlap.
-	local nF = d < iMaxF and d or iMaxF;
+	local nF = d < iMaxF and d or iMaxF
 
 	-- The diagonals kF are odd when d is odd and even when d is even.
 	iF += 1
@@ -187,30 +175,24 @@ local function extendPathsF(
 		if iF ~= d and aIndexPrev1 < aIndexesF[iF + 1] then
 			aFirst = aIndexesF[iF + 1] -- vertical to insert from b
 		else
-			aFirst = aIndexPrev1 + 1; -- horizontal to delete from a
+			aFirst = aIndexPrev1 + 1 -- horizontal to delete from a
 
 			if aEnd <= aFirst then
 				-- Optimization: delete moved past right of graph.
-				return iF - 1;
+				return iF - 1
 			end
 		end
 
 		-- To get last point of path segment, move along diagonal of common items.
 		-- ROBLOX deviation: add one to index for Lua 1-based arrays
-		aIndexPrev1 = aIndexesF[iF + 1];
-		aIndexesF[iF + 1] = aFirst + countCommonItemsF(
-			aFirst + 1,
-			aEnd,
-			bF + aFirst - kF + 1,
-			bEnd,
-			isCommon
-		)
+		aIndexPrev1 = aIndexesF[iF + 1]
+		aIndexesF[iF + 1] = aFirst + countCommonItemsF(aFirst + 1, aEnd, bF + aFirst - kF + 1, bEnd, isCommon)
 
 		iF += 1
 		kF += 2
 	end
 
-	return iMaxF;
+	return iMaxF
 end
 
 -- A simple function to extend reverse paths from (d - 1) to d changes
@@ -230,19 +212,13 @@ local function extendPathsR(
 	-- ROBLOX FIXME? should the values inserted into aIndexesR be 1-based so we don't have to adjust in several places here?
 	local aFirst = aIndexesR[iR + 1] -- in first iteration always insert
 	local aIndexPrev1 = aFirst -- prev value of [iR - 1] in next iteration
-	aIndexesR[iR + 1] -= countCommonItemsR(
-		aStart,
-		aFirst - 1,
-		bStart,
-		bR + aFirst - kR - 1,
-		isCommon
-	)
+	aIndexesR[iR + 1] -= countCommonItemsR(aStart, aFirst - 1, bStart, bR + aFirst - kR - 1, isCommon)
 
 	-- Optimization: skip diagonals in which paths cannot ever overlap.
-	local nR = d < iMaxR and d or iMaxR;
+	local nR = d < iMaxR and d or iMaxR
 
 	-- The diagonals kR are odd when d is odd and even when d is even.
-	iR +=1
+	iR += 1
 	kR -= 2
 	while iR <= nR do
 		-- To get first point of path segment, move one change in reverse direction
@@ -255,19 +231,13 @@ local function extendPathsR(
 
 			if aFirst < aStart then
 				-- Optimization: delete moved past left of graph.
-				return iR - 1;
+				return iR - 1
 			end
 		end
 
 		-- To get last point of path segment, move along diagonal of common items.
 		aIndexPrev1 = aIndexesR[iR + 1]
-		aIndexesR[iR + 1] = aFirst - countCommonItemsR(
-			aStart,
-			aFirst - 1,
-			bStart,
-			bR + aFirst - kR - 1,
-			isCommon
-		)
+		aIndexesR[iR + 1] = aFirst - countCommonItemsR(aStart, aFirst - 1, bStart, bR + aFirst - kR - 1, isCommon)
 		iR += 1
 		kR -= 2
 	end
@@ -316,19 +286,12 @@ local function extendOverlappablePathsF(
 		local insert = iF == 0 or (iF ~= d and aIndexPrev1 < aIndexesF[iF + 1])
 		-- ROBLOX FIXME? should the values inserted into aIndexesF be 1-based so we don't have to adjust in several places here?
 		local aLastPrev = insert and aIndexesF[iF + 1] or aIndexPrev1
-		local aFirst: number = insert
-			and aLastPrev -- vertical to insert from b
+		local aFirst: number = insert and aLastPrev -- vertical to insert from b
 			or aLastPrev + 1 -- horizontal to delete from a
 
 		-- To get last point of path segment, move along diagonal of common items.
 		local bFirst = bF + aFirst - kF
-		local nCommonF = countCommonItemsF(
-			aFirst + 1,
-			aEnd,
-			bFirst + 1,
-			bEnd,
-			isCommon
-		)
+		local nCommonF = countCommonItemsF(aFirst + 1, aEnd, bFirst + 1, bEnd, isCommon)
 		local aLast = aFirst + nCommonF
 
 		aIndexPrev1 = aIndexesF[iF + 1]
@@ -351,13 +314,7 @@ local function extendOverlappablePathsF(
 				-- Because of invariant that intervals preceding the middle change
 				-- cannot have common items at the end,
 				-- move in reverse direction along a diagonal of common items.
-				local nCommonR = countCommonItemsR(
-					aStart,
-					aLastPrev,
-					bStart,
-					bLastPrev,
-					isCommon
-				)
+				local nCommonR = countCommonItemsR(aStart, aLastPrev, bStart, bLastPrev, isCommon)
 
 				local aIndexPrevFirst = aLastPrev - nCommonR
 				local bIndexPrevFirst = bLastPrev - nCommonR
@@ -454,19 +411,12 @@ local function extendOverlappablePathsR(
 		-- ROBLOX FIXME? should the values inserted into aIndexesF be 1-based so we don't have to adjust in several places here?
 		local insert = iR == 0 or (iR ~= d and aIndexesR[iR + 1] < aIndexPrev1)
 		local aLastPrev = insert and aIndexesR[iR + 1] or aIndexPrev1
-		local aFirst: number = insert
-			and aLastPrev -- vertical to insert from b
+		local aFirst: number = insert and aLastPrev -- vertical to insert from b
 			or aLastPrev - 1 -- horizontal to delete from a
 
 		-- To get last point of path segment, move along diagonal of common items.
 		local bFirst = bR + aFirst - kR
-		local nCommonR = countCommonItemsR(
-			aStart,
-			aFirst - 1,
-			bStart,
-			bFirst - 1,
-			isCommon
-		)
+		local nCommonR = countCommonItemsR(aStart, aFirst - 1, bStart, bFirst - 1, isCommon)
 		local aLast = aFirst - nCommonR
 
 		aIndexPrev1 = aIndexesR[iR + 1]
@@ -517,19 +467,13 @@ local function extendOverlappablePathsR(
 					-- Because of invariant that intervals following the middle change
 					-- cannot have common items at the start,
 					-- move in forward direction along a diagonal of common items.
-					local nCommonF = countCommonItemsF(
-						aLastPrev,
-						aEnd,
-						bLastPrev,
-						bEnd,
-						isCommon
-					)
+					local nCommonF = countCommonItemsF(aLastPrev, aEnd, bLastPrev, bEnd, isCommon)
 
 					division.nCommonFollowing = nCommonF
 					if nCommonF ~= 0 then
-					-- The last point of reverse path segment is start of common subsequence.
-					  division.aCommonFollowing = aLastPrev
-					  division.bCommonFollowing = bLastPrev
+						-- The last point of reverse path segment is start of common subsequence.
+						division.aCommonFollowing = aLastPrev
+						division.bCommonFollowing = bLastPrev
 					end
 
 					local aStartFollowing = aLastPrev + nCommonF -- aFirstPrev
@@ -596,7 +540,7 @@ local function divide(
 
 	if baDeltaLength % 2 == 0 then
 		-- The number of changes in paths is 2 * d if length difference is even.
-		-- deviation: lua treats 0 as a true value
+		-- ROBLOX deviation: lua treats 0 as a true value
 		local dMin = (nChange ~= 0 and nChange or baDeltaLength) / 2
 		local dMax = (aLength + bLength) / 2
 
@@ -605,9 +549,10 @@ local function divide(
 
 			if d < dMin then
 				iMaxR = extendPathsR(d, aStart, bStart, bR, isCommon, aIndexesR, iMaxR)
-			-- If a reverse path overlaps a forward path in the same diagonal,
-			-- return a division of the index intervals at the middle change.
-			elseif extendOverlappablePathsR(
+				-- If a reverse path overlaps a forward path in the same diagonal,
+				-- return a division of the index intervals at the middle change.
+			elseif
+				extendOverlappablePathsR(
 					d,
 					aStart,
 					aEnd,
@@ -618,7 +563,9 @@ local function divide(
 					iMaxF,
 					aIndexesR,
 					iMaxR,
-					division) then
+					division
+				)
+			then
 				return
 			end
 		end
@@ -637,21 +584,14 @@ local function divide(
 
 		d = d + 1
 		while d <= dMax do
-			iMaxR = extendPathsR(
-				d - 1,
-				aStart,
-				bStart,
-				bR,
-				isCommon,
-				aIndexesR,
-				iMaxR
-			)
+			iMaxR = extendPathsR(d - 1, aStart, bStart, bR, isCommon, aIndexesR, iMaxR)
 
 			if d < dMin then
 				iMaxF = extendPathsF(d, aEnd, bEnd, bF, isCommon, aIndexesF, iMaxF)
-			-- If a forward path overlaps a reverse path in the same diagonal,
-			-- return a division of the index intervals at the middle change.
-			elseif extendOverlappablePathsF(
+				-- If a forward path overlaps a reverse path in the same diagonal,
+				-- return a division of the index intervals at the middle change.
+			elseif
+				extendOverlappablePathsF(
 					d,
 					aStart,
 					aEnd,
@@ -662,20 +602,22 @@ local function divide(
 					iMaxF,
 					aIndexesR,
 					iMaxR,
-					division) then
+					division
+				)
+			then
 				return
 			end
-		d = d + 1
+			d = d + 1
 		end
 	end
 
-	error(string.format('%s: no overlap aStart=%i aEnd=%i bStart=%i bEnd=%i', pkg, aStart, aEnd, bStart, bEnd))
+	error(string.format("%s: no overlap aStart=%i aEnd=%i bStart=%i bEnd=%i", pkg, aStart, aEnd, bStart, bEnd))
 end
 
 -- Given index intervals and input function to compare items at indexes,
 -- return by output function the number of adjacent items and starting indexes
 -- of each common subsequence. Divide and conquer with only linear space.
--- //
+--
 -- The index intervals are half open [start, end) like array slice method.
 -- DO NOT CALL if start === end, because interval cannot contain common items
 -- and because divide function will throw the “no overlap” error.
@@ -718,17 +660,7 @@ local function findSubsequences(
 	local foundSubsequence, isCommon = unpack(callbacks[transposed and 2 or 1])
 
 	-- Divide the index intervals at the middle change.
-	divide(
-		nChange,
-		aStart,
-		aEnd,
-		bStart,
-		bEnd,
-		isCommon,
-		aIndexesF,
-		aIndexesR,
-		division
-	)
+	divide(nChange, aStart, aEnd, bStart, bEnd, isCommon, aIndexesF, aIndexesR, division)
 	local nChangePreceding = division.nChangePreceding
 	local aEndPreceding = division.aEndPreceding
 	local bEndPreceding = division.bEndPreceding
@@ -786,20 +718,20 @@ local function findSubsequences(
 end
 
 local function validateLength(name: string, arg: any): ()
-	if typeof(arg) ~= 'number' then
-		error(string.format('%s: %s type %s is not a number', pkg, name, type(arg)))
+	if typeof(arg) ~= "number" then
+		error(string.format("%s: %s type %s is not a number", pkg, name, type(arg)))
 	end
 	if not Number.isSafeInteger(arg) then
-		error(string.format('%s: %s type %s is not a safe integer', pkg, name, type(arg)))
+		error(string.format("%s: %s type %s is not a safe integer", pkg, name, type(arg)))
 	end
 	if arg < 0 then
-		error(string.format('%s: %s type %s is a negative integer', pkg, name, type(arg)))
+		error(string.format("%s: %s type %s is a negative integer", pkg, name, type(arg)))
 	end
 end
 
 local function validateCallback(name: string, arg: any): ()
-	if typeof(arg) ~= 'function' then
-		error(string.format('%s: %s type %s is not a function', pkg, name, type(arg)))
+	if typeof(arg) ~= "function" then
+		error(string.format("%s: %s type %s is not a function", pkg, name, type(arg)))
 	end
 end
 
@@ -807,16 +739,11 @@ end
 -- Given lengths of sequences and input function to compare items at indexes,
 -- return by output function the number of adjacent items and starting indexes
 -- of each common subsequence.
-return function(
-	aLength: number,
-	bLength: number,
-	isCommon: IsCommon,
-	foundSubsequence: FoundSubsequence
-): ()
-	validateLength('aLength', aLength)
-	validateLength('bLength', bLength)
-	validateCallback('isCommon', isCommon)
-	validateCallback('foundSubsequence', foundSubsequence)
+return function(aLength: number, bLength: number, isCommon: IsCommon, foundSubsequence: FoundSubsequence): ()
+	validateLength("aLength", aLength)
+	validateLength("bLength", bLength)
+	validateCallback("isCommon", isCommon)
+	validateCallback("foundSubsequence", foundSubsequence)
 
 	-- Count common items from the start in the forward direction.
 	local nCommonF = countCommonItemsF(0, aLength, 0, bLength, isCommon)
@@ -834,13 +761,7 @@ return function(
 		local bStart = nCommonF
 
 		-- Count common items from the end in the reverse direction.
-		local nCommonR = countCommonItemsR(
-			aStart,
-			aLength - 1,
-			bStart,
-			bLength - 1,
-			isCommon
-		)
+		local nCommonR = countCommonItemsR(aStart, aLength - 1, bStart, bLength - 1, isCommon)
 
 		-- Invariant: intervals do not have common items at the end.
 		-- The end of an index interval is open like array slice method.
@@ -854,13 +775,13 @@ return function(
 		if aLength ~= nCommonFR and bLength ~= nCommonFR then
 			local nChange = 0 -- number of change items is not yet known
 			local transposed = false -- call the original unwrapped functions
-			local callbacks = {{foundSubsequence, isCommon}}
+			local callbacks = { { foundSubsequence, isCommon } }
 
 			-- Indexes in sequence a of last points in furthest reaching paths
 			-- from outside the start at top left in the forward direction:
-			local aIndexesF = {NOT_YET_SET};
+			local aIndexesF = { NOT_YET_SET }
 			-- from the end at bottom right in the reverse direction:
-			local aIndexesR = {NOT_YET_SET};
+			local aIndexesR = { NOT_YET_SET }
 
 			-- Initialize one object as output of all calls to divide function.
 			local division = {
@@ -879,18 +800,7 @@ return function(
 			}
 
 			-- Find and return common subsequences in the trimmed index intervals.
-			findSubsequences(
-				nChange,
-				aStart,
-				aEnd,
-				bStart,
-				bEnd,
-				transposed,
-				callbacks,
-				aIndexesF,
-				aIndexesR,
-				division
-			)
+			findSubsequences(nChange, aStart, aEnd, bStart, bEnd, transposed, callbacks, aIndexesF, aIndexesR, division)
 		end
 
 		if nCommonR ~= 0 then

@@ -116,7 +116,6 @@ ExperienceHoverTile.validateProps = t.strictInterface({
 
 ExperienceHoverTile.defaultProps = {
 	isPlayable = true,
-	openedMenu = TileMenuState.None,
 
 	onPanelClick = NOOP,
 	onThumbnailClick = NOOP,
@@ -152,7 +151,7 @@ function ExperienceHoverTile:init()
 
 	self.closeMenus = function()
 		if self.props.onToggleMenu then
-			self.props.onToggleMenu(TileMenuState.None)
+			self.props.onToggleMenu()
 		end
 	end
 
@@ -167,7 +166,7 @@ function ExperienceHoverTile:init()
 	self.toggleFriendsMenu = function()
 		if self.props.onToggleMenu then
 			if self.props.openedMenu == TileMenuState.Friends then
-				self.props.onToggleMenu(TileMenuState.None)
+				self.props.onToggleMenu()
 			else
 				self.props.onToggleMenu(TileMenuState.Friends)
 			end
@@ -177,7 +176,7 @@ function ExperienceHoverTile:init()
 	self.toggleMoreMenu = function()
 		if self.props.onToggleMenu then
 			if self.props.openedMenu == TileMenuState.More then
-				self.props.onToggleMenu(TileMenuState.None)
+				self.props.onToggleMenu()
 			else
 				self.props.onToggleMenu(TileMenuState.More)
 			end

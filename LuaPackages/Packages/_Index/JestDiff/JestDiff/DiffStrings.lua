@@ -1,4 +1,4 @@
--- upstream: https://github.com/facebook/jest/blob/v27.2.5/packages/jest-diff/src/diffStrings.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-diff/src/diffStrings.ts
 -- /**
 --  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
 --  *
@@ -8,6 +8,8 @@
 
 local CurrentModule = script.Parent
 local Packages = CurrentModule.Parent
+local LuauPolyfill = require(Packages.LuauPolyfill)
+type Array<T> = LuauPolyfill.Array<T>
 
 local diffSequences = require(Packages.DiffSequences)
 
@@ -17,7 +19,6 @@ local DIFF_EQUAL = CleanupSemantic.DIFF_EQUAL
 local DIFF_INSERT = CleanupSemantic.DIFF_INSERT
 local Diff = CleanupSemantic.Diff
 type Diff = CleanupSemantic.Diff
-type Array<T> = { [number]: T }
 
 return function(a: string, b: string): Array<Diff>
 	local isCommon = function(aIndex: number, bIndex: number)
@@ -28,11 +29,7 @@ return function(a: string, b: string): Array<Diff>
 	local bIndex = 0
 	local diffs = {}
 
-	local foundSubsequence = function(
-		nCommon: number,
-		aCommon: number,
-		bCommon: number
-	)
+	local foundSubsequence = function(nCommon: number, aCommon: number, bCommon: number)
 		if aIndex ~= aCommon then
 			table.insert(diffs, Diff.new(DIFF_DELETE, a:sub(aIndex + 1, aCommon)))
 		end
@@ -40,14 +37,14 @@ return function(a: string, b: string): Array<Diff>
 			table.insert(diffs, Diff.new(DIFF_INSERT, b:sub(bIndex + 1, bCommon)))
 		end
 
-		aIndex = aCommon + nCommon -- // number of characters compared in a
-		bIndex = bCommon + nCommon -- // number of characters compared in b
+		aIndex = aCommon + nCommon -- number of characters compared in a
+		bIndex = bCommon + nCommon -- number of characters compared in b
 		table.insert(diffs, Diff.new(DIFF_EQUAL, b:sub(bCommon + 1, bIndex)))
 	end
 
 	diffSequences(#a, #b, isCommon, foundSubsequence)
 
-	-- // After the last common subsequence, push remaining change items.
+	-- After the last common subsequence, push remaining change items.
 	if aIndex ~= #a then
 		table.insert(diffs, Diff.new(DIFF_DELETE, a:sub(aIndex + 1)))
 	end

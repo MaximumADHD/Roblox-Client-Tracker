@@ -51,7 +51,7 @@ local function makeContextualMenu(baseMenuComponent, backgroundThemeKey)
 
 		zIndex = t.optional(t.integer),
 		open = t.boolean,
-		menuDirection = enumerateValidator(MenuDirection),
+		menuDirection = t.optional(enumerateValidator(MenuDirection)),
 		openPositionY = t.UDim,
 
 		closeBackgroundVisible = t.optional(t.boolean),
@@ -68,9 +68,13 @@ local function makeContextualMenu(baseMenuComponent, backgroundThemeKey)
 		})),
 		horizontalAlignment = t.optional(t.enum(Enum.HorizontalAlignment)),
 		openPositionX = t.optional(t.UDim),
+
+		contextMenuWidthOverride = t.optional(t.UDim),
+		anchorPointOverride = t.optional(t.Vector2),
 	})
 
 	contextualMenuComponent.defaultProps = {
+		menuDirection = MenuDirection.Up,
 		zIndex = 2,
 		closeBackgroundVisible = true,
 		horizontalAlignment = Enum.HorizontalAlignment.Center,
@@ -104,23 +108,6 @@ local function makeContextualMenu(baseMenuComponent, backgroundThemeKey)
 			absolutePosition = Vector2.new(0, 0),
 		}
 
-		self.positionBinding = self.positionPercentBinding:map(function(positionPercent)
-			local xScale
-			if self.props.horizontalAlignment == Enum.HorizontalAlignment.Left then
-				xScale = 0
-			elseif self.props.horizontalAlignment == Enum.HorizontalAlignment.Right then
-				xScale = 1
-			else
-				xScale = 0.5
-			end
-
-			if self.props.menuDirection == MenuDirection.Down then
-				return UDim2.fromScale(xScale, positionPercent - 1)
-			else
-				return UDim2.fromScale(xScale, 1 - positionPercent)
-			end
-		end)
-
 		self.visibleBinding = self.positionPercentBinding:map(function(positionPercent)
 			return positionPercent ~= 0
 		end)
@@ -128,18 +115,21 @@ local function makeContextualMenu(baseMenuComponent, backgroundThemeKey)
 
 	function contextualMenuComponent:render()
 		return withStyle(function(stylePalette)
+			-- For small screens, the menu is stretched across the entire screen.
+			-- This makes offset and horizontal alignment not useful so we do not take it into account.
+			local anchorPointX = 0.5
 			local contextMenuWidth = UDim.new(1, -CONTEXT_MENU_PADDING * 2)
-			if self.state.absoluteSize.X > LARGE_WIDTH_THRESHOLD then
+			local openPositionX = UDim.new(0, 0)
+			local isLargeWidth = self.state.absoluteSize.X > LARGE_WIDTH_THRESHOLD
+			if isLargeWidth then
 				contextMenuWidth = UDim.new(0, LARGE_WIDTH_SIZE)
-			end
+				openPositionX = self.props.openPositionX
 
-			local anchorPointX
-			if self.props.horizontalAlignment == Enum.HorizontalAlignment.Left then
-				anchorPointX = 0
-			elseif self.props.horizontalAlignment == Enum.HorizontalAlignment.Right then
-				anchorPointX = 1
-			else
-				anchorPointX = 0.5
+				if self.props.horizontalAlignment == Enum.HorizontalAlignment.Left then
+					anchorPointX = 0
+				elseif self.props.horizontalAlignment == Enum.HorizontalAlignment.Right then
+					anchorPointX = 1
+				end
 			end
 
 			local anchorPointY = 0
@@ -151,6 +141,12 @@ local function makeContextualMenu(baseMenuComponent, backgroundThemeKey)
 			if not self.props.closeBackgroundVisible then
 				backgroundTransparency = 1
 			end
+
+			--Apply overrides
+			contextMenuWidth = self.props.contextMenuWidthOverride or contextMenuWidth
+			local anchorPoint = self.props.anchorPointOverride or Vector2.new(anchorPointX, anchorPointY)
+
+
 
 			local topCornerInset, _ = GuiService:GetGuiInset()
 			local absolutePosition = self.state.absolutePosition + topCornerInset
@@ -200,7 +196,7 @@ local function makeContextualMenu(baseMenuComponent, backgroundThemeKey)
 				PositionFrame = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
 					Size = UDim2.fromScale(1, 1),
-					Position = UDim2.new(self.props.openPositionX.Scale, self.props.openPositionX.Offset, self.props.openPositionY.Scale, self.props.openPositionY.Offset),
+					Position = UDim2.new(openPositionX.Scale, openPositionX.Offset, self.props.openPositionY.Scale, self.props.openPositionY.Offset),
 					ZIndex = 2,
 				}, {
 					BaseMenu = Roact.createElement(baseMenuComponent, {
@@ -209,8 +205,23 @@ local function makeContextualMenu(baseMenuComponent, backgroundThemeKey)
 						setFrameRef = self.props.setFrameRef,
 
 						width = contextMenuWidth,
-						position = self.positionBinding,
-						anchorPoint = Vector2.new(anchorPointX, anchorPointY),
+						position = self.positionPercentBinding:map(function(positionPercent)
+							local xScale = 0.5
+							if isLargeWidth or self.props.anchorPointOverride then
+								if self.props.horizontalAlignment == Enum.HorizontalAlignment.Left then
+									xScale = 0
+								elseif self.props.horizontalAlignment == Enum.HorizontalAlignment.Right then
+									xScale = 1
+								end
+							end
+
+							if self.props.menuDirection == MenuDirection.Down then
+								return UDim2.fromScale(xScale, positionPercent - 1)
+							else
+								return UDim2.fromScale(xScale, 1 - positionPercent)
+							end
+						end),
+						anchorPoint = anchorPoint,
 					}),
 				}),
 			})

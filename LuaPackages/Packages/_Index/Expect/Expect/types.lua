@@ -1,19 +1,27 @@
--- upstream: https://github.com/facebook/jest/blob/v27.0.6/packages/expect/src/types.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/expect/src/types.ts
 
-type RegExp = { exec: (string) -> any, test: (string) -> boolean }
-type Error = { [string]: any }
-type Array<T> = { [number]: T }
-type Record<K, T> = { [any]: T }
+local CurrentModule = script.Parent
+local Packages = CurrentModule.Parent
+
+local RegExp = require(Packages.RegExp)
+type RegExp = RegExp.RegExp
+local LuauPolyfill = require(Packages.LuauPolyfill)
+type Error = LuauPolyfill.Error
+type Array<T> = LuauPolyfill.Array<T>
+type Record<K, T> = { [K]: T }
 type Partial<T> = any
 type Function = (...any) -> any
-type Object = { [string]: any }
+type Object = LuauPolyfill.Object
+
+-- ROBLOX deviation: use `unknown` type until Luau starts to support it
+type unknown = any
 
 -- ROBLOX deviation: inline Promise type here. should probably go into LuauPolyfill
 export type PromiseLike<T> = {
 	andThen: (
 		((T) -> T)? | (PromiseLike<T>)?, -- resolve
 		((any) -> () | PromiseLike<T>)? -- reject
-	) -> PromiseLike<T>
+	) -> PromiseLike<T>,
 }
 
 export type Promise<T> = {
@@ -22,23 +30,29 @@ export type Promise<T> = {
 		((any) -> () | PromiseLike<nil>)? -- reject
 	) -> Promise<T>)?,
 
-	catch: ((
-		((any) -> () | PromiseLike<nil>)
-	) -> Promise<T>)?,
+	catch: ((((any) -> () | PromiseLike<nil>)) -> Promise<T>)?,
 
-	onCancel: ((() -> ()?) -> boolean)?
+	onCancel: ((() -> ()?) -> boolean)?,
 }
 
 export type SyncExpectationResult = {
 	pass: boolean,
-	message: () -> string
+	message: () -> string,
 }
 
 export type AsyncExpectationResult = Promise<SyncExpectationResult>
 
 export type ExpectationResult = SyncExpectationResult | AsyncExpectationResult
 
-export type RawMatcherFn = any
+--[[
+	ROBLOX TODO: add default generic param when possible
+	original code:
+	export type RawMatcherFn<T extends MatcherState = MatcherState> = {
+]]
+-- ROBLOX FIXME: add Symbol to the definition: [INTERNAL_MATCHER_FLAG]: boolean?
+export type RawMatcherFn<T> = any
+-- ROBLOX FIXME: workaround for defult generic param
+export type RawMatcherFn_ = RawMatcherFn<MatcherState>
 -- ROBLOX deviation: currently no way – type the __call metamethod
 -- {
 --   __call: (any, any, any?) -> ExpectationResult,
@@ -56,12 +70,7 @@ export type MatcherState = {
 	currentTestName: string?,
 	dontThrow: (() -> ())?,
 	error: Error?,
-	equals: (
-		any,
-		any,
-		Array<Tester>?,
-		boolean?
-	) -> boolean,
+	equals: (any, any, Array<Tester>?, boolean?) -> boolean,
 	expand: boolean?,
 	expectedAssertionsNumber: number?,
 	expectedAssertionsNumberError: Error?,
@@ -77,43 +86,71 @@ export type MatcherState = {
 	-- }
 }
 
-export type AsymmetricMatcher = Record<string, any>
-export type MatchersObject = {[string]: RawMatcherFn}
+export type AsymmetricMatcher = {
+	asymmetricMatch: (self: AsymmetricMatcher, other: unknown) -> boolean,
+	toString: (self: AsymmetricMatcher) -> string,
+	getExpectedType: ((self: AsymmetricMatcher) -> string)?,
+	toAsymmetricMatcher: ((self: AsymmetricMatcher) -> string)?,
+}
+
+--[[
+	ROBLOX TODO: add default generic param when possible
+	original code:
+	export type MatchersObject<T extends MatcherState = MatcherState> = {
+]]
+export type MatchersObject<T> = { [string]: RawMatcherFn<T> }
+-- ROBLOX FIXME: workaround for defult generic param
+export type MatchersObject_ = MatchersObject<MatcherState>
 export type ExpectedAssertionsErrors = Array<{
 	actual: string | number,
 	error: Error,
-	expected: string
+	expected: string,
 }>
 
-export type Expect = {
+-- ROBLOX deviation start: no Omit utility in Luau
+type AsymmetricMatchersOmitAnyAndAnything = {
+	arrayContaining: (Array<unknown>) -> AsymmetricMatcher,
+	objectContaining: (Record<string, unknown>) -> AsymmetricMatcher,
+	stringContaining: (string) -> AsymmetricMatcher,
+	stringMatching: (string | RegExp) -> AsymmetricMatcher,
+}
+
+type AsymmetricMatchers = {
+	any: (unknown) -> AsymmetricMatcher,
+	anything: () -> AsymmetricMatcher,
+} & AsymmetricMatchersOmitAnyAndAnything
+-- ROBLOX deviation end
+
+--[[
+	ROBLOX TODO: add default generic param when possible
+	original code:
+	export type Expect<State extends MatcherState = MatcherState> = {
+]]
+export type Expect<State> = {
 	-- ROBLOX deviation: no way to express __call metamethod typing
-	-- (any) -> Matchers<T>,
+	-- <T = unknown>(actual: T) -> Matchers<void, T>;
 
 	-- TODO: this is added by test runners, not `expect` itself
 	addSnapshotSerializer: (any) -> (),
 	assertions: (number) -> (),
-	extend: (any) -> (),
+	-- TODO: remove this `T extends` - should get from some interface merging
+	extend: <T>(MatchersObject<T>) -> (),
 	extractExpectedAssertionsErrors: () -> ExpectedAssertionsErrors,
-	getState: () -> MatcherState,
+	getState: () -> State,
 	hasAssertions: () -> (),
 	setState: (Partial<MatcherState>) -> (),
-
-	any: (any) -> AsymmetricMatcher,
-	anything: () -> AsymmetricMatcher,
-	arrayContaining: (Array<any>) -> AsymmetricMatcher,
-	objectContaining: (Record<string, any>) -> AsymmetricMatcher,
-	stringContaining: (string) -> AsymmetricMatcher,
-	stringMatching: (string | RegExp) -> AsymmetricMatcher,
-	[string]: AsymmetricMatcher,
-	never: {[string]: AsymmetricMatcher}
+} & AsymmetricMatchers & {
+	never: AsymmetricMatchersOmitAnyAndAnything,
 }
+-- ROBLOX FIXME: workaround for defult generic param
+export type Expect_ = Expect<MatcherState>
 
 type Constructable = {
-	new: (...Array<any>) -> any
+	new: (...Array<any>) -> any,
 }
 
 -- This is a copy from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/de6730f4463cba69904698035fafd906a72b9664/types/jest/index.d.ts#L570-L817
-export type Matchers<R> = {
+export type Matchers<R, T> = {
 	-- /**
 	-- * Ensures the last call to a mock function was provided specific args.
 	-- */
@@ -125,8 +162,8 @@ export type Matchers<R> = {
 	-- /**
 	-- * If you know how to test something, `.not` lets you test its opposite.
 	-- */
-	-- ROBLOX deviation: use never isntead of not to avoid use of Lua key word
-	never: Matchers<R>,
+	-- ROBLOX deviation: use never instead of not to avoid use of Lua key word
+	never: Matchers<R, T>,
 	-- /**
 	-- * Ensure that a mock function is called with specific arguments on an Nth call.
 	-- */
@@ -166,9 +203,9 @@ export type Matchers<R> = {
 	-- /**
 	--  * Using exact equality with floating point numbers is a bad idea.
 	--  * Rounding means that intuitive things fail.
-	--  * The default for numDigits is 2.
+	--  * The default for `precision` is 2.
 	--  */
-	toBeCloseTo: (number, numDigits: number?) -> R,
+	toBeCloseTo: (number, precision: number?) -> R,
 	-- /**
 	--  * Ensure that a variable is not undefined.
 	--  */
@@ -190,7 +227,7 @@ export type Matchers<R> = {
 	--  * Ensure that an object is an instance of a class.
 	--  * This matcher uses `instanceof` underneath.
 	--  */
-	toBeInstanceOf: (Function) -> R,
+	toBeInstanceOf: (unknown) -> R,
 	-- /**
 	--  * For comparing floating point numbers.
 	--  */
@@ -306,7 +343,7 @@ export type Matchers<R> = {
 	-- /**
 	--  * Used to check that a JavaScript object matches a subset of the properties of an object
 	--  */
-	toMatchObject: (Record<string, any> | Array<any>) -> R,
+	toMatchObject: (Record<string, unknown> | Array<Record<string, unknown>>) -> R,
 	-- /**
 	--  * Ensure that a mock function has returned (as opposed to thrown) at least once.
 	--  */
@@ -326,11 +363,11 @@ export type Matchers<R> = {
 	-- /**
 	--  * Used to test that a function throws when it is called.
 	--  */
-	toThrow: ((string | Constructable | RegExp | Error)?) -> R,
+	toThrow: (unknown?) -> R,
 	-- /**
 	--  * If you want to test that a specific error is thrown inside a function.
 	--  */
-	toThrowError: ((string | Constructable | RegExp | Error)?) -> R,
+	toThrowError: (unknown?) -> R,
 
 	-- /* TODO: START snapshot matchers are not from `expect`, the types should not be here */
 	-- /**
@@ -372,5 +409,7 @@ export type Matchers<R> = {
 	toThrowErrorMatchingInlineSnapshot: (string?) -> R,
 	-- /* TODO: END snapshot matchers are not from `expect`, the types should not be here */
 }
+-- ROBLOX FIXME: workaround for defult generic param
+export type Matchers_<R> = Matchers<R, unknown>
 
 return {}

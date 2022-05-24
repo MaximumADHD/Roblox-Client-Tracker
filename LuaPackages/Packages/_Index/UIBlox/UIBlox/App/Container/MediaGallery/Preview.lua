@@ -274,8 +274,6 @@ function Preview:init()
 				selectedIndex = nextAnimatedIndex,
 				focusIndex = nextFocusIndex,
 			})
-
-			self.updatePreviewTransparency(0)
 		else
 			self.updateProgress(self.animationTime / METER_ANIMATION_INTERVAL)
 
@@ -449,7 +447,7 @@ function Preview:renderThumbnails(style)
 			BackgroundTransparency = 1,
 		}, {
 			Thumbnail = Roact.createElement(ThumbnailButton, {
-				key = index,
+				itemKey = index,
 				imageId = item.imageId,
 				isVideo = item.isVideo,
 				isSelected = isSelected,
@@ -513,6 +511,10 @@ end
 function Preview:didUpdate(_, prevState)
 	if self.state.focusIndex ~= prevState.focusIndex then
 		self:scrollToNewIndex()
+	end
+
+	if self.state.selectedIndex ~= prevState.selectedIndex then
+		self.updatePreviewTransparency(0)
 	end
 end
 

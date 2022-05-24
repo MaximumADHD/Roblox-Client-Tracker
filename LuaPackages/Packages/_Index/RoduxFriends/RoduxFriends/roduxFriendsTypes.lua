@@ -53,7 +53,7 @@ export type GetFriendshipStatusSucceeded = {
 	responseBody: {
 		data: {
 			[string]: {
-				id: number, 
+				id: number,
 				status: string
 			}
 		}
@@ -67,6 +67,9 @@ export type GetFriendsFromUserId = {
 		},
 	},
 	namedIds: NamedIds,
+	queryArgs: {
+		userSort: string?,
+	}
 }
 
 export type GetFriendRequestsSucceeded = {
@@ -129,6 +132,16 @@ export type RecommendationByUserId = { [string]: RecommendationModel }
 
 export type FriendshipStatus = { [string]: Enum.FriendStatus }
 
+type FriendsRank = {
+	[string]: number
+}
+
+export type FriendsRankByUserId = {
+	{
+		[string]: FriendsRank,
+	}
+}
+
 export type Reducer = {
 	byUserId: { [string]: UserIds },
 	countsByUserId: { [string]: number },
@@ -142,6 +155,7 @@ export type Reducer = {
 	},
 	recommendations: RecommendationByUserId,
 	friendshipStatus: FriendshipStatus,
+	friendsRankByUserId: FriendsRankByUserId,
 }
 
 return {}

@@ -14,7 +14,7 @@ local RUNNING_GLOBAL = "__TESTEZ_RUNNING_TEST__"
 local JEST_TEST_CONTEXT = "__JEST_TEST_CONTEXT__"
 
 local TestRunner = {
-	environment = {}
+	environment = {},
 }
 
 local function wrapExpectContextWithPublicApi(expectationContext)
@@ -46,8 +46,16 @@ function TestRunner.runPlan(plan)
 	_G[JEST_TEST_CONTEXT] = {
 		blocks = {},
 		instance = nil,
-		snapshotState = nil
+		snapshotState = nil,
 	}
+
+	-- ROBLOX deviation START: adding startTime so that jest reporters can report time elapsed for tests
+	local fenv = getfenv()
+	-- ROBLOX NOTE: additional check as DateTime only exists in Luau and not in native Lua
+	if fenv.DateTime then
+		session.results.startTime = fenv.DateTime.now().UnixTimestampMillis
+	end
+	-- ROBLOX deviation END
 
 	TestRunner.runPlanNode(session, plan, lifecycleHooks)
 
@@ -102,18 +110,15 @@ function TestRunner.runPlanNode(session, planNode, lifecycleHooks)
 			return table.concat(lines, "\n")
 		end
 
-		local nodeSuccess, nodeResult = xpcall(
-			function()
-				callback(context)
-			end,
-			function(message)
-				if typeof(message) == "table" and message.stack and message.name and message.message then
-					return messagePrefix .. removeTestEZFromStack(tostring(message) .. '\n' .. message.stack)
-				else
-					return messagePrefix .. debug.traceback(tostring(message), 2)
-				end
+		local nodeSuccess, nodeResult = xpcall(function()
+			callback(context)
+		end, function(message)
+			if typeof(message) == "table" and message.stack and message.name and message.message then
+				return messagePrefix .. removeTestEZFromStack(tostring(message) .. "\n" .. message.stack)
+			else
+				return messagePrefix .. debug.traceback(tostring(message), 2)
 			end
-		)
+		end)
 
 		-- If a node threw an error, we prefer to use that message over
 		-- one created by fail() if it was set.
@@ -143,7 +148,10 @@ function TestRunner.runPlanNode(session, planNode, lifecycleHooks)
 			local success, errorMessage = runCallback(hook, "afterEach hook: ")
 			if not success then
 				if not testSuccess then
-					return false, testErrorMessage .. "\nWhile cleaning up the failed test another error was found:\n" .. errorMessage
+					return false,
+						testErrorMessage
+							.. "\nWhile cleaning up the failed test another error was found:\n"
+							.. errorMessage
 				end
 				return false, errorMessage
 			end

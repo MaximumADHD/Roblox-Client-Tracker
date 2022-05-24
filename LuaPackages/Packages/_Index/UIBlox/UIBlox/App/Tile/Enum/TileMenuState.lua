@@ -8,5 +8,4 @@ local enumerate = require(Packages.enumerate)
 return enumerate("TileMenuState", {
 	"Friends",
 	"More",
-	"None",
 })

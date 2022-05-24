@@ -1,4 +1,4 @@
--- upstream: https://github.com/facebook/jest/blob/v26.5.3/packages/expect/src/print.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/expect/src/print.ts
 -- /**
 --  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
 --  *
@@ -20,50 +20,40 @@ local RECEIVED_COLOR = JestMatcherUtils.RECEIVED_COLOR
 local printReceived = JestMatcherUtils.printReceived
 local stringify = JestMatcherUtils.stringify
 
-type Array<T> = { T }
+type Array<T> = LuauPolyfill.Array<T>
 
--- // Format substring but do not enclose in double quote marks.
--- // The replacement is compatible with pretty-format package.
+-- Format substring but do not enclose in double quote marks.
+-- The replacement is compatible with pretty-format package.
 local function printSubstring(val: string): string
 	val = val:gsub("(\\)", "\\%1")
-	val = val:gsub("(\")", "\\%1")
+	val = val:gsub('(")', "\\%1")
 	return val
 end
 
 local function printReceivedStringContainExpectedSubstring(
 	received: string,
 	start: number,
-	length: number -- // not end
+	length: number -- not end
 ): string
-	return RECEIVED_COLOR('"' ..
-		printSubstring(received:sub(0, start - 1))) ..
-		INVERTED_COLOR(printSubstring(received:sub(start, start + length - 1))) ..
-		RECEIVED_COLOR(printSubstring(received:sub(start + length, #received))) ..
-		'"'
+	return RECEIVED_COLOR('"' .. printSubstring(received:sub(0, start - 1)))
+		.. INVERTED_COLOR(printSubstring(received:sub(start, start + length - 1)))
+		.. RECEIVED_COLOR(printSubstring(received:sub(start + length, #received)))
+		.. '"'
 end
 
-local function printReceivedStringContainExpectedResult(
-	received: string,
-	result
-): string
+local function printReceivedStringContainExpectedResult(received: string, result): string
 	-- result passed in should be the result of making a call to RegExp:exec
 	if result == nil then
 		return printReceived(received)
 	else
-		return printReceivedStringContainExpectedSubstring(
-			received,
-			result.index,
-			#result[1])
+		return printReceivedStringContainExpectedSubstring(received, result.index, #result[1])
 	end
 end
 
--- // The serialized array is compatible with pretty-format package min option.
--- // However, items have default stringify depth (instead of depth - 1)
--- // so expected item looks consistent by itself and enclosed in the array.
-local function printReceivedArrayContainExpectedItem(
-	received: Array<any>,
-	index: number
-): string
+-- The serialized array is compatible with pretty-format package min option.
+-- However, items have default stringify depth (instead of depth - 1)
+-- so expected item looks consistent by itself and enclosed in the array.
+local function printReceivedArrayContainExpectedItem(received: Array<any>, index: number): string
 	local receivedMap = {}
 	for i, item in ipairs(received) do
 		local stringified = stringify(item)
@@ -77,12 +67,7 @@ local function printReceivedArrayContainExpectedItem(
 	return RECEIVED_COLOR("{") .. table.concat(receivedMap, RECEIVED_COLOR(", ")) .. RECEIVED_COLOR("}")
 end
 
-local function printCloseTo(
-	receivedDiff: number,
-	expectedDiff: number,
-	precision: number,
-	isNot: boolean
-): string
+local function printCloseTo(receivedDiff: number, expectedDiff: number, precision: number, isNot: boolean): string
 	local receivedDiffString = stringify(receivedDiff)
 	local expectedDiffString
 
@@ -102,43 +87,36 @@ local function printCloseTo(
 
 	if isNot then
 		return string.format(
-			"Expected precision:  %s  %s\n" ..
-    		"Expected difference: %s< %s\n" ..
-    		"Received difference: %s  %s",
-    		"      ", stringify(precision),
-    		"never ", EXPECTED_COLOR(expectedDiffString),
-    		"      ", RECEIVED_COLOR(receivedDiffString)
-    	)
+			"Expected precision:  %s  %s\n" .. "Expected difference: %s< %s\n" .. "Received difference: %s  %s",
+			"      ",
+			stringify(precision),
+			"never ",
+			EXPECTED_COLOR(expectedDiffString),
+			"      ",
+			RECEIVED_COLOR(receivedDiffString)
+		)
 	else
 		return string.format(
-			"Expected precision:  %s  %s\n" ..
-    		"Expected difference: %s< %s\n" ..
-    		"Received difference: %s  %s",
-			"", stringify(precision),
-			"", EXPECTED_COLOR(expectedDiffString),
-			"", RECEIVED_COLOR(receivedDiffString)
+			"Expected precision:  %s  %s\n" .. "Expected difference: %s< %s\n" .. "Received difference: %s  %s",
+			"",
+			stringify(precision),
+			"",
+			EXPECTED_COLOR(expectedDiffString),
+			"",
+			RECEIVED_COLOR(receivedDiffString)
 		)
 	end
 end
 
-local function printExpectedConstructorName(
-	label: string,
-	expected
-): string
+local function printExpectedConstructorName(label: string, expected): string
 	return printConstructorName(label, expected, false, true) .. "\n"
 end
 
-local function printExpectedConstructorNameNot(
-	label: string,
-	expected
-): string
+local function printExpectedConstructorNameNot(label: string, expected): string
 	return printConstructorName(label, expected, true, true) .. "\n"
 end
 
-local function printReceivedConstructorName(
-	label: string,
-	received
-): string
+local function printReceivedConstructorName(label: string, received): string
 	return printConstructorName(label, received, false, false) .. "\n"
 end
 
@@ -161,33 +139,30 @@ local function printable(obj)
 	return true
 end
 
--- // Do not call function if received is equal to expected.
-local function printReceivedConstructorNameNot(
-	label: string,
-	received,
-	expected
-): string
+-- Do not call function if received is equal to expected.
+local function printReceivedConstructorNameNot(label: string, received, expected): string
 	local retval
-	if typeof(tostring(expected)) == "string" and
-		#tostring(expected) ~= 0 and
-		typeof(tostring(received)) == "string" and
-		#tostring(received) ~= 0 then
-			if printable(expected) and printable(received) then
-				retval = printConstructorName(label, received, true, false)
+	if
+		typeof(tostring(expected)) == "string"
+		and #tostring(expected) ~= 0
+		and typeof(tostring(received)) == "string"
+		and #tostring(received) ~= 0
+	then
+		if printable(expected) and printable(received) then
+			retval = printConstructorName(label, received, true, false)
 
-				if getmetatable(received) and getmetatable(received).__index == expected then
-					retval = retval .. ' extends '
-				else
-					retval = retval .. ' extends … extends '
-				end
-				retval = retval .. EXPECTED_COLOR(tostring(expected)) ..
-					'\n'
-				return retval
+			if getmetatable(received) and getmetatable(received).__index == expected then
+				retval = retval .. " extends "
 			else
-				return printConstructorName(label, received, true, false) .. '\n'
+				retval = retval .. " extends … extends "
 			end
+			retval = retval .. EXPECTED_COLOR(tostring(expected)) .. "\n"
+			return retval
+		else
+			return printConstructorName(label, received, true, false) .. "\n"
+		end
 	else
-		return printConstructorName(label, received, false, false) .. '\n'
+		return printConstructorName(label, received, false, false) .. "\n"
 	end
 end
 
@@ -199,13 +174,8 @@ end
 
 	deviation: constructor does not have Function type annotation
 ]]
-function printConstructorName(
-	label: string,
-	constructor,
-	isNot: boolean,
-	isExpected: boolean
-): string
-	-- deviation: omitted handling for tostring() returning non-string as
+function printConstructorName(label: string, constructor, isNot: boolean, isExpected: boolean): string
+	-- ROBLOX deviation: omitted handling for tostring() returning non-string as
 	-- tostring() always returns string
 	local retval = label .. ": "
 	if not isNot then
@@ -245,8 +215,8 @@ function printConstructorName(
 			local kv_pair = nil
 			if printable(key) and printable(value) then
 				kv_pair = string.format("%s: %s, ", stringify(key), stringify(value))
-			-- We don't print key values for metamethods since they don't
-			-- provide us with any additional information
+				-- We don't print key values for metamethods since they don't
+				-- provide us with any additional information
 			elseif printable(key) and key:find("__") ~= 1 then
 				kv_pair = string.format("%s, ", stringify(key))
 			end
@@ -296,5 +266,5 @@ return {
 	printExpectedConstructorName = printExpectedConstructorName,
 	printExpectedConstructorNameNot = printExpectedConstructorNameNot,
 	printReceivedConstructorName = printReceivedConstructorName,
-	printReceivedConstructorNameNot = printReceivedConstructorNameNot
+	printReceivedConstructorNameNot = printReceivedConstructorNameNot,
 }

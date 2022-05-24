@@ -1,4 +1,4 @@
--- upstream: https://github.com/facebook/jest/blob/v27.2.5/packages/jest-diff/src/diffLines.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-diff/src/diffLines.ts
 -- /**
 --  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
 --  *
@@ -8,6 +8,8 @@
 
 local CurrentModule = script.Parent
 local Packages = CurrentModule.Parent
+local LuauPolyfill = require(Packages.LuauPolyfill)
+type Array<T> = LuauPolyfill.Array<T>
 
 local diff = require(Packages.DiffSequences)
 
@@ -17,7 +19,6 @@ local DIFF_EQUAL = CleanupSemantic.DIFF_EQUAL
 local DIFF_INSERT = CleanupSemantic.DIFF_INSERT
 local Diff = CleanupSemantic.Diff
 type Diff = CleanupSemantic.Diff
-type Array<T> = { [number]: T }
 
 local joinAlignedDiffsExpand = require(CurrentModule.JoinAlignedDiffs).joinAlignedDiffsExpand
 local joinAlignedDiffsNoExpand = require(CurrentModule.JoinAlignedDiffs).joinAlignedDiffsNoExpand
@@ -52,10 +53,7 @@ local function countChanges(diffs: Array<Diff>): ChangeCounts
 	return { a = a, b = b }
 end
 
-local function printAnnotation(
-	options: DiffOptionsNormalized,
-	changeCounts: ChangeCounts
-): string
+local function printAnnotation(options: DiffOptionsNormalized, changeCounts: ChangeCounts): string
 	local aAnnotation = options.aAnnotation
 	local aColor = options.aColor
 	local aIndicator = options.aIndicator
@@ -66,49 +64,44 @@ local function printAnnotation(
 	local omitAnnotationLines = options.omitAnnotationLines
 
 	if omitAnnotationLines then
-		return ''
+		return ""
 	end
 
-	local aRest = ''
-	local bRest = ''
+	local aRest = ""
+	local bRest = ""
 
 	if includeChangeCounts then
 		local aCount = tostring(changeCounts.a)
 		local bCount = tostring(changeCounts.b)
 
-		-- // Padding right aligns the ends of the annotations.
+		-- Padding right aligns the ends of the annotations.
 		local baAnnotationLengthDiff = #bAnnotation - #aAnnotation
-		local aAnnotationPadding = string.rep(' ', math.max(0, baAnnotationLengthDiff))
-		local bAnnotationPadding = string.rep(' ', math.max(0, -baAnnotationLengthDiff))
+		local aAnnotationPadding = string.rep(" ", math.max(0, baAnnotationLengthDiff))
+		local bAnnotationPadding = string.rep(" ", math.max(0, -baAnnotationLengthDiff))
 
-		-- // Padding left aligns the ends of the counts.
+		-- Padding left aligns the ends of the counts.
 		local baCountLengthDiff = #bCount - #aCount
-		local aCountPadding = string.rep(' ', math.max(0, baCountLengthDiff))
-		local bCountPadding = string.rep(' ', math.max(0, -baCountLengthDiff))
+		local aCountPadding = string.rep(" ", math.max(0, baCountLengthDiff))
+		local bCountPadding = string.rep(" ", math.max(0, -baCountLengthDiff))
 
-		aRest =
-			aAnnotationPadding .. '  ' .. aIndicator .. ' ' .. aCountPadding .. aCount
-		bRest =
-			bAnnotationPadding .. '  ' .. bIndicator .. ' ' .. bCountPadding .. bCount
+		aRest = aAnnotationPadding .. "  " .. aIndicator .. " " .. aCountPadding .. aCount
+		bRest = bAnnotationPadding .. "  " .. bIndicator .. " " .. bCountPadding .. bCount
 	end
 
-	return aColor(aIndicator .. ' ' .. aAnnotation .. aRest) ..
-		'\n' ..
-		bColor(bIndicator .. ' ' .. bAnnotation .. bRest) ..
-		'\n\n'
+	return aColor(aIndicator .. " " .. aAnnotation .. aRest)
+		.. "\n"
+		.. bColor(bIndicator .. " " .. bAnnotation .. bRest)
+		.. "\n\n"
 end
 
-local function printDiffLines(
-	diffs: Array<Diff>,
-	options: DiffOptionsNormalized
-): string
+local function printDiffLines(diffs: Array<Diff>, options: DiffOptionsNormalized): string
 	if options.expand then
 		return printAnnotation(options, countChanges(diffs)) .. joinAlignedDiffsExpand(diffs, options)
 	end
 	return printAnnotation(options, countChanges(diffs)) .. joinAlignedDiffsNoExpand(diffs, options)
 end
 
--- // Compare two arrays of strings line-by-line. Format as comparison lines.
+-- Compare two arrays of strings line-by-line. Format as comparison lines.
 local function diffLinesUnified(
 	aLines: { [number]: string },
 	bLines: { [number]: string },
@@ -121,18 +114,12 @@ local function diffLinesUnified(
 		bLines = {}
 	end
 
-	return printDiffLines(
-		diffLinesRaw(
-			aLines,
-			bLines
-		),
-		normalizeDiffOptions(options)
-	)
+	return printDiffLines(diffLinesRaw(aLines, bLines), normalizeDiffOptions(options))
 end
 
--- // Given two pairs of arrays of strings:
--- // Compare the pair of comparison arrays line-by-line.
--- // Format the corresponding lines in the pair of displayable arrays.
+-- Given two pairs of arrays of strings:
+-- Compare the pair of comparison arrays line-by-line.
+-- Format the corresponding lines in the pair of displayable arrays.
 local function diffLinesUnified2(
 	aLinesDisplay: { [number]: string },
 	bLinesDisplay: { [number]: string },
@@ -149,17 +136,14 @@ local function diffLinesUnified2(
 		bLinesCompare = {}
 	end
 
-	if
-		#aLinesDisplay ~= #aLinesCompare or
-		#bLinesDisplay ~= #bLinesCompare
-	then
-		-- // Fall back to diff of display lines.
+	if #aLinesDisplay ~= #aLinesCompare or #bLinesDisplay ~= #bLinesCompare then
+		-- Fall back to diff of display lines.
 		return diffLinesUnified(aLinesDisplay, bLinesDisplay, options)
 	end
 
 	local diffs = diffLinesRaw(aLinesCompare, bLinesCompare)
 
-	-- // Replace comparison lines with displayable lines.
+	-- Replace comparison lines with displayable lines.
 	local aIndex = 0
 	local bIndex = 0
 	for _, d in ipairs(diffs) do
@@ -180,11 +164,8 @@ local function diffLinesUnified2(
 	return printDiffLines(diffs, normalizeDiffOptions(options))
 end
 
--- // Compare two arrays of strings line-by-line.
-function diffLinesRaw(
-	aLines:{ [number]: string },
-	bLines:{ [number]: string }
-): Array<Diff>
+-- Compare two arrays of strings line-by-line.
+function diffLinesRaw(aLines: { [number]: string }, bLines: { [number]: string }): Array<Diff>
 	local aLength = #aLines
 	local bLength = #bLines
 
@@ -196,11 +177,7 @@ function diffLinesRaw(
 	local aIndex = 0
 	local bIndex = 0
 
-	local foundSubsequence = function(
-		nCommon: number,
-		aCommon: number,
-		bCommon: number
-	)
+	local foundSubsequence = function(nCommon: number, aCommon: number, bCommon: number)
 		while aIndex ~= aCommon do
 			table.insert(diffs, Diff.new(DIFF_DELETE, aLines[aIndex + 1]))
 			aIndex += 1
@@ -219,7 +196,7 @@ function diffLinesRaw(
 
 	diff(aLength, bLength, isCommon, foundSubsequence)
 
-	-- // After the last common subsequence, push remaining change items.
+	-- After the last common subsequence, push remaining change items.
 	while aIndex ~= aLength do
 		table.insert(diffs, Diff.new(DIFF_DELETE, aLines[aIndex + 1]))
 		aIndex += 1

@@ -62,7 +62,7 @@ function TestBootstrap:getModulesImpl(root, modules, current)
 			instance = current,
 			method = method,
 			path = path,
-			pathStringForSorting = pathString:lower()
+			pathStringForSorting = pathString:lower(),
 		})
 	end
 end
@@ -108,7 +108,7 @@ function TestBootstrap:run(roots, reporter, otherOptions)
 	local testPathIgnorePatterns = _G["TESTEZ_TEST_PATH_IGNORE_PATTERNS"]
 	local extraEnvironment = otherOptions["extraEnvironment"] or {}
 
-	for testPath in string.gmatch(_G["TESTEZ_RUN_TESTS_PATH"] or "", '([^,]+)') do
+	for testPath in string.gmatch(_G["TESTEZ_RUN_TESTS_PATH"] or "", "([^,]+)") do
 		table.insert(runTestsByPath, testPath)
 	end
 
@@ -134,7 +134,7 @@ function TestBootstrap:run(roots, reporter, otherOptions)
 		testNamePattern = testNamePattern,
 		testPathPattern = testPathPattern,
 		testPathIgnorePatterns = testPathIgnorePatterns,
-		extraEnvironment = extraEnvironment
+		extraEnvironment = extraEnvironment,
 	}
 
 	local plan = TestPlanner.createPlan(modules, planArgs)

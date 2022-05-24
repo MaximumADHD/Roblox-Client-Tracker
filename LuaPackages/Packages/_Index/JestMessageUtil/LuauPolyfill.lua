@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["LuauPolyfill-2fca3173-0.2.6"]["LuauPolyfill"])
+local Package = require(PackageIndex["LuauPolyfill-2fca3173-0.3.2"]["LuauPolyfill"])
 
 export type Array<T> = Package.Array<T> 
 export type Error = Package.Error
@@ -12,6 +12,9 @@ export type Object = Package.Object
 export type PromiseLike<T> = Package.PromiseLike<T> 
 export type Promise<T> = Package.Promise<T> 
 export type Set<T> = Package.Set<T> 
+export type Symbol = Package.Symbol
+export type Timeout = Package.Timeout
+export type Interval = Package.Interval
 export type WeakMap<T, V> = Package.WeakMap<T, V> 
 
 

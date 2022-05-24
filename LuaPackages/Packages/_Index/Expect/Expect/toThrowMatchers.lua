@@ -1,4 +1,4 @@
--- upstream: https://github.com/facebook/jest/blob/v26.5.3/packages/expect/src/toThrowMatchers.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/expect/src/toThrowMatchers.ts
 -- /**
 --  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
 --  *
@@ -16,9 +16,10 @@ local LuauPolyfill = require(Packages.LuauPolyfill)
 local instanceof = LuauPolyfill.instanceof
 local Error = LuauPolyfill.Error
 type Function = (...any) -> any?
-type RegExp = {exec: (RegExp, string) -> any, test: (RegExp, string) -> boolean}
-type Object = { [string]: any }
-type Error = { message: string}
+local RegExp = require(Packages.RegExp)
+type RegExp = RegExp.RegExp
+type Object = LuauPolyfill.Object
+type Error = LuauPolyfill.Error
 
 local JestMatcherUtils = require(Packages.JestMatcherUtils)
 local EXPECTED_COLOR = JestMatcherUtils.EXPECTED_COLOR
@@ -46,8 +47,8 @@ local printReceivedStringContainExpectedSubstring = Print.printReceivedStringCon
 local Types = require(CurrentModule.types)
 type ExpectationResult = Types.ExpectationResult
 type MatcherState = Types.MatcherState
-type MatchersObject = Types.MatchersObject
-type RawMatcherFn = Types.RawMatcherFn
+type MatchersObject = Types.MatchersObject_
+type RawMatcherFn = Types.RawMatcherFn_
 type SyncExpectationResult = Types.SyncExpectationResult
 
 local isError = require(CurrentModule.utils).isError
@@ -58,14 +59,14 @@ type Thrown = {
 	hasMessage: boolean,
 	isError: boolean,
 	message: string,
-	value: any
-};
+	value: any,
+}
 
 local toThrowExpectedRegExp, toThrowExpectedAsymmetric, toThrowExpectedObject, toThrowExpectedClass
 local toThrowExpectedString, toThrow, formatExpected, formatReceived, formatStack
 
 local function getThrown(e: any): Thrown
-	-- deviation: hasMessage is also considered true if message is a table
+	-- ROBLOX deviation: hasMessage is also considered true if message is a table
 	local hasMessage = e ~= nil and (typeof(e.message) == "string" or typeof(e.message) == "table")
 
 	if hasMessage and typeof(e.name) == "string" and typeof(e.stack) == "string" then
@@ -73,42 +74,35 @@ local function getThrown(e: any): Thrown
 			hasMessage = hasMessage,
 			isError = true,
 			message = e.message,
-			value = e
+			value = e,
 		}
 	end
 
 	-- We include the following cases for completeness but based on our
-	-- deviation of always printing the stack trace even for non-errors
+	-- ROBLOX deviation of always printing the stack trace even for non-errors
 	-- we should always be in the case above
 	if hasMessage then
 		return {
 			hasMessage = hasMessage,
 			isError = false,
 			message = e.message,
-			value = e
+			value = e,
 		}
 	else
 		return {
 			hasMessage = hasMessage,
 			isError = false,
 			message = tostring(e),
-			value = e
+			value = e,
 		}
 	end
 end
 
-local function createMatcher(
-	matcherName: string,
-	fromPromise: boolean?
-): RawMatcherFn
-	return function(
-		this: MatcherState,
-		received: any,
-		expected: any
-	): ExpectationResult
+local function createMatcher(matcherName: string, fromPromise: boolean?): RawMatcherFn
+	return function(this: MatcherState, received: any, expected: any): ExpectationResult
 		local options: MatcherHintOptions = {
 			isNot = this.isNot,
-			promise = this.promise
+			promise = this.promise,
 		}
 
 		local thrown = nil
@@ -116,25 +110,29 @@ local function createMatcher(
 		if fromPromise and isError(received) then
 			thrown = getThrown(received)
 		else
-			-- deviation: we also allow received to be a table with a __call metamethod
-			if typeof(received) ~= "function" and
-				not (typeof(received) == "table" and getmetatable(received) and getmetatable(received).__call) then
+			-- ROBLOX deviation: we also allow received to be a table with a __call metamethod
+			if
+				typeof(received) ~= "function"
+				and not (typeof(received) == "table" and getmetatable(received) and getmetatable(received).__call)
+			then
 				if not fromPromise then
 					local placeholder
 
-					if expected  == nil then
+					if expected == nil then
 						placeholder = ""
 					else
 						placeholder = "expected"
 					end
 
-					error(Error(
-						matcherErrorMessage(
-							matcherHint(matcherName, nil, placeholder, options),
-							RECEIVED_COLOR("received") .. " value must be a function",
-							printWithType("Received", received, printReceived)
+					error(
+						Error(
+							matcherErrorMessage(
+								matcherHint(matcherName, nil, placeholder, options),
+								RECEIVED_COLOR("received") .. " value must be a function",
+								printWithType("Received", received, printReceived)
+							)
 						)
-					))
+					)
 				end
 			else
 				--[[[
@@ -179,19 +177,19 @@ local function createMatcher(
 				end, function(error_)
 					if error_ == nil then
 						error_ = "nil"
-					-- if they specify a table with a message field we treat
-					-- that as something they wanted to use to compare their error
-					-- message against
+						-- if they specify a table with a message field we treat
+						-- that as something they wanted to use to compare their error
+						-- message against
 					elseif getType(error_) == "error" or (typeof(error_) == "table" and error_.message) then
 						-- Set the stack if it has not been given a value by the user
 						if error_.stack == nil then
-					 		error_.stack = diffStack(compareStack, debug.traceback())
-					 	else
-					 		if not error_.stack:find("ThrowMatchers%-test%.js") then
-				 				error_.stack = diffStack(compareStack, error_.stack)
-					 		end
-					 	end
-					 	return error_
+							error_.stack = diffStack(compareStack, debug.traceback())
+						else
+							if not error_.stack:find("ThrowMatchers%-test%.js") then
+								error_.stack = diffStack(compareStack, error_.stack)
+							end
+						end
+						return error_
 					elseif typeof(error_) == "string" then
 						-- This regex strips out the first part of the error message which typically
 						-- looks like LoadedCode....:line_number
@@ -235,7 +233,7 @@ local function createMatcher(
 
 					local errorObject = Error(error_)
 					local _, end_ = string.find(errorObject.stack, getTopStackEntry(errorObject.stack), 1, true)
-					errorObject.stack = string.sub(errorObject.stack, end_ + 1 + string.len('\n'))
+					errorObject.stack = string.sub(errorObject.stack, end_ + 1 + string.len("\n"))
 					errorObject.stack = diffStack(compareStack, errorObject.stack)
 					errorObject["$$robloxInternalJestError"] = true
 
@@ -256,28 +254,29 @@ local function createMatcher(
 			return toThrowExpectedString(matcherName, options, thrown, expected)
 		elseif getType(expected) == "regexp" then
 			return toThrowExpectedRegExp(matcherName, options, thrown, expected)
-		-- deviation: we have different logic for determining if expected is an Error class
+			-- ROBLOX deviation: we have different logic for determining if expected is an Error class
 		elseif typeof(expected) == "table" and not expected.message then
 			return toThrowExpectedClass(matcherName, options, thrown, expected)
 		elseif typeof(expected) == "table" then
 			return toThrowExpectedObject(matcherName, options, thrown, expected)
 		else
-			error(Error(
-				matcherErrorMessage(
-					matcherHint(matcherName, nil, nil, options),
-					EXPECTED_COLOR("expected") .. " value must be a string or regular expression or class or error",
-					printWithType("Expected", expected, printExpected)
+			error(
+				Error(
+					matcherErrorMessage(
+						matcherHint(matcherName, nil, nil, options),
+						EXPECTED_COLOR("expected") .. " value must be a string or regular expression or class or error",
+						printWithType("Expected", expected, printExpected)
+					)
 				)
-			))
+			)
 		end
 	end
 end
 
 local matchers = {
 	toThrow = createMatcher("toThrow"),
-	toThrowError = createMatcher("toThrowError")
+	toThrowError = createMatcher("toThrowError"),
 }
-
 
 --[[
 	deviation: In all of the following toThrow functions,
@@ -288,7 +287,7 @@ local matchers = {
 	as error(Error('simple'))
 ]]
 
--- deviation: expected does not have RegExp type annotation
+-- ROBLOX deviation: expected does not have RegExp type annotation
 function toThrowExpectedRegExp(
 	matcherName: string,
 	options: JestMatcherUtils.MatcherHintOptions,
@@ -300,42 +299,33 @@ function toThrowExpectedRegExp(
 	local message
 	if pass then
 		message = function()
-			local retval = matcherHint(matcherName, nil, nil, options) ..
-				'\n\n' ..
-				formatExpected('Expected pattern: never ', expected)
+			local retval = matcherHint(matcherName, nil, nil, options)
+				.. "\n\n"
+				.. formatExpected("Expected pattern: never ", expected)
 
 			if thrown ~= nil and thrown.hasMessage and not thrown.value["$$robloxInternalJestError"] then
-				retval = retval .. formatReceived(
-					'Received message:       ',
-					thrown,
-					'message',
-					expected
-				) .. formatStack(thrown)
+				retval = retval
+					.. formatReceived("Received message:       ", thrown, "message", expected)
+					.. formatStack(thrown)
 			else
-				retval = retval ..
-					formatReceived('Received value:         ', thrown, 'message') ..
-					formatStack(thrown)
+				retval = retval .. formatReceived("Received value:         ", thrown, "message") .. formatStack(thrown)
 			end
 
 			return retval
 		end
 	else
 		message = function()
-			local retval = matcherHint(matcherName, nil, nil, options) ..
-				'\n\n' ..
-				formatExpected('Expected pattern: ', expected)
+			local retval = matcherHint(matcherName, nil, nil, options)
+				.. "\n\n"
+				.. formatExpected("Expected pattern: ", expected)
 
 			if thrown == nil then
-				retval = retval .. '\n' .. DID_NOT_THROW
+				retval = retval .. "\n" .. DID_NOT_THROW
 			else
 				if thrown.hasMessage and not thrown.value["$$robloxInternalJestError"] then
-					retval = retval ..
-						formatReceived('Received message: ', thrown, 'message') ..
-						formatStack(thrown)
+					retval = retval .. formatReceived("Received message: ", thrown, "message") .. formatStack(thrown)
 				else
-					retval = retval ..
-						formatReceived('Received value:   ', thrown, 'message') ..
-						formatStack(thrown)
+					retval = retval .. formatReceived("Received value:   ", thrown, "message") .. formatStack(thrown)
 				end
 			end
 
@@ -343,12 +333,12 @@ function toThrowExpectedRegExp(
 		end
 	end
 
-	return {message = message, pass = pass}
+	return { message = message, pass = pass }
 end
 
 type AsymmetricMatcher = {
-	asymmetricMatch: (any, any) -> boolean
-};
+	asymmetricMatch: (any, any) -> boolean,
+}
 
 function toThrowExpectedAsymmetric(
 	matcherName: string,
@@ -361,43 +351,39 @@ function toThrowExpectedAsymmetric(
 	local message
 	if pass then
 		message = function()
-			local retval = matcherHint(matcherName, nil, nil, options) ..
-				"\n\n" ..
-				formatExpected("Expected asymmetric matcher: never ", expected) ..
-				"\n"
+			local retval = matcherHint(matcherName, nil, nil, options)
+				.. "\n\n"
+				.. formatExpected("Expected asymmetric matcher: never ", expected)
+				.. "\n"
 
 			if thrown ~= nil and thrown.hasMessage and not thrown.value["$$robloxInternalJestError"] then
-				retval = retval ..
-					formatReceived("Received name:    ", thrown, "name") ..
-					formatReceived("Received message: ", thrown, "message") ..
-					formatStack(thrown)
+				retval = retval
+					.. formatReceived("Received name:    ", thrown, "name")
+					.. formatReceived("Received message: ", thrown, "message")
+					.. formatStack(thrown)
 			else
-				retval = retval ..
-					formatReceived("Thrown value: ", thrown, "message") ..
-					formatStack(thrown)
+				retval = retval .. formatReceived("Thrown value: ", thrown, "message") .. formatStack(thrown)
 			end
 
 			return retval
 		end
 	else
 		message = function()
-			local retval = matcherHint(matcherName, nil, nil, options) ..
-				"\n\n" ..
-				formatExpected("Expected asymmetric matcher: ", expected) ..
-				"\n"
+			local retval = matcherHint(matcherName, nil, nil, options)
+				.. "\n\n"
+				.. formatExpected("Expected asymmetric matcher: ", expected)
+				.. "\n"
 
 			if thrown == nil then
 				retval = retval .. DID_NOT_THROW
 			else
 				if thrown.hasMessage and not thrown.value["$$robloxInternalJestError"] then
-					retval = retval ..
-						formatReceived("Received name:    ", thrown, "name") ..
-						formatReceived("Received message: ", thrown, "message") ..
-						formatStack(thrown)
+					retval = retval
+						.. formatReceived("Received name:    ", thrown, "name")
+						.. formatReceived("Received message: ", thrown, "message")
+						.. formatStack(thrown)
 				else
-					retval = retval ..
-						formatReceived("Thrown value: ", thrown, "message") ..
-						formatStack(thrown)
+					retval = retval .. formatReceived("Thrown value: ", thrown, "message") .. formatStack(thrown)
 				end
 			end
 
@@ -405,10 +391,10 @@ function toThrowExpectedAsymmetric(
 		end
 	end
 
-	return {message = message, pass = pass}
+	return { message = message, pass = pass }
 end
 
--- deviation: expected does not have Error type annotation
+-- ROBLOX deviation: expected does not have Error type annotation
 function toThrowExpectedObject(
 	matcherName: string,
 	options: JestMatcherUtils.MatcherHintOptions,
@@ -420,48 +406,41 @@ function toThrowExpectedObject(
 	local message
 	if pass then
 		message = function()
-			local retval = matcherHint(matcherName, nil, nil, options) ..
-				"\n\n" ..
-				formatExpected("Expected message: never ", expected.message)
+			local retval = matcherHint(matcherName, nil, nil, options)
+				.. "\n\n"
+				.. formatExpected("Expected message: never ", expected.message)
 
 			if thrown ~= nil and thrown.hasMessage and not thrown.value["$$robloxInternalJestError"] then
-				retval = retval ..
-					formatStack(thrown)
+				retval = retval .. formatStack(thrown)
 			else
-				retval = retval ..
-					formatReceived("Received value:         ", thrown, "message") ..
-					formatStack(thrown)
+				retval = retval .. formatReceived("Received value:         ", thrown, "message") .. formatStack(thrown)
 			end
 
 			return retval
 		end
 	else
 		message = function()
-			local retval = matcherHint(matcherName, nil, nil, options) ..
-				"\n\n"
+			local retval = matcherHint(matcherName, nil, nil, options) .. "\n\n"
 
 			if thrown == nil then
-				retval = retval ..
-					formatExpected("Expected message: ", expected.message) ..
-					"\n" ..
-					DID_NOT_THROW
+				retval = retval .. formatExpected("Expected message: ", expected.message) .. "\n" .. DID_NOT_THROW
 			else
 				if thrown.hasMessage and not thrown.value["$$robloxInternalJestError"] then
-					retval = retval ..
-						printDiffOrStringify(
+					retval = retval
+						.. printDiffOrStringify(
 							expected.message,
 							thrown.message,
 							"Expected message",
 							"Received message",
 							true
-						) ..
-						"\n" ..
-						formatStack(thrown)
+						)
+						.. "\n"
+						.. formatStack(thrown)
 				else
-					retval = retval ..
-						formatExpected("Expected message: ", expected.message) ..
-						formatReceived("Received value:   ", thrown, "message") ..
-						formatStack(thrown)
+					retval = retval
+						.. formatExpected("Expected message: ", expected.message)
+						.. formatReceived("Received value:   ", thrown, "message")
+						.. formatStack(thrown)
 				end
 			end
 
@@ -469,10 +448,10 @@ function toThrowExpectedObject(
 		end
 	end
 
-	return {message = message, pass = pass}
+	return { message = message, pass = pass }
 end
 
--- deviation: expected does not have Function type annotation
+-- ROBLOX deviation: expected does not have Function type annotation
 function toThrowExpectedClass(
 	matcherName: string,
 	options: JestMatcherUtils.MatcherHintOptions,
@@ -488,63 +467,49 @@ function toThrowExpectedClass(
 	local message
 	if pass then
 		message = function()
-			local retval = matcherHint(matcherName, nil, nil, options) ..
-				"\n\n" ..
-				printExpectedConstructorNameNot("Expected constructor", expected)
+			local retval = matcherHint(matcherName, nil, nil, options)
+				.. "\n\n"
+				.. printExpectedConstructorNameNot("Expected constructor", expected)
 			if
-				thrown ~= nil and
-				isClass(thrown.value) and
-				isClass(expected) and
-				getmetatable(thrown.value).__index ~= expected and
-				not thrown.value["$$robloxInternalJestError"] then
-					retval = retval ..
-						printReceivedConstructorNameNot(
-							"Received constructor",
-							getmetatable(thrown.value),
-							expected
-						)
+				thrown ~= nil
+				and isClass(thrown.value)
+				and isClass(expected)
+				and getmetatable(thrown.value).__index ~= expected
+				and not thrown.value["$$robloxInternalJestError"]
+			then
+				retval = retval
+					.. printReceivedConstructorNameNot("Received constructor", getmetatable(thrown.value), expected)
 			end
 
 			retval = retval .. "\n"
 
 			if thrown ~= nil and thrown.hasMessage and not thrown.value["$$robloxInternalJestError"] then
-				retval = retval ..
-					formatReceived("Received message: ", thrown, "message") ..
-					formatStack(thrown)
+				retval = retval .. formatReceived("Received message: ", thrown, "message") .. formatStack(thrown)
 			else
-				retval = retval ..
-					formatReceived("Received value: ", thrown, "message") ..
-					formatStack(thrown)
+				retval = retval .. formatReceived("Received value: ", thrown, "message") .. formatStack(thrown)
 			end
 
 			return retval
 		end
 	else
 		message = function()
-			local retval = matcherHint(matcherName, nil, nil, options) ..
-				"\n\n" ..
-				printExpectedConstructorName("Expected constructor", expected)
+			local retval = matcherHint(matcherName, nil, nil, options)
+				.. "\n\n"
+				.. printExpectedConstructorName("Expected constructor", expected)
 
 			if thrown == nil then
 				retval = retval .. "\n" .. DID_NOT_THROW
 			else
 				if thrown.value ~= nil and isClass(thrown.value) and not thrown.value["$$robloxInternalJestError"] then
-						retval = retval .. printReceivedConstructorName(
-							"Received constructor",
-							getmetatable(thrown.value)
-						)
+					retval = retval .. printReceivedConstructorName("Received constructor", getmetatable(thrown.value))
 				end
 
 				retval = retval .. "\n"
 
-				if thrown.hasMessage and not thrown.value["$$robloxInternalJestError"]  then
-					retval = retval ..
-						formatReceived("Received message: ", thrown, "message") ..
-						formatStack(thrown)
+				if thrown.hasMessage and not thrown.value["$$robloxInternalJestError"] then
+					retval = retval .. formatReceived("Received message: ", thrown, "message") .. formatStack(thrown)
 				else
-					retval = retval ..
-						formatReceived("Received value: ", thrown, "message") ..
-						formatStack(thrown)
+					retval = retval .. formatReceived("Received value: ", thrown, "message") .. formatStack(thrown)
 				end
 			end
 
@@ -552,7 +517,7 @@ function toThrowExpectedClass(
 		end
 	end
 
-	return {message = message, pass = pass}
+	return { message = message, pass = pass }
 end
 
 function toThrowExpectedString(
@@ -570,35 +535,35 @@ function toThrowExpectedString(
 	local message
 	if pass then
 		message = function()
-			local retval = matcherHint(matcherName, nil, nil, options) ..
-				"\n\n" ..
-				formatExpected("Expected substring: never ", expected)
+			local retval = matcherHint(matcherName, nil, nil, options)
+				.. "\n\n"
+				.. formatExpected("Expected substring: never ", expected)
 
 			if thrown ~= nil and thrown.hasMessage and not thrown.value["$$robloxInternalJestError"] then
-				retval = retval .. formatReceived("Received message:         ", thrown, "message", expected) ..
-					formatStack(thrown)
+				retval = retval
+					.. formatReceived("Received message:         ", thrown, "message", expected)
+					.. formatStack(thrown)
 			else
-				retval = retval .. formatReceived("Received value:           ", thrown, "message") ..
-					formatStack(thrown)
+				retval = retval
+					.. formatReceived("Received value:           ", thrown, "message")
+					.. formatStack(thrown)
 			end
 
 			return retval
 		end
 	else
 		message = function()
-			local retval = matcherHint(matcherName, nil, nil, options) ..
-				"\n\n" ..
-				formatExpected("Expected substring: ", expected)
+			local retval = matcherHint(matcherName, nil, nil, options)
+				.. "\n\n"
+				.. formatExpected("Expected substring: ", expected)
 
 			if thrown == nil then
 				retval = retval .. "\n" .. DID_NOT_THROW
 			else
 				if thrown.hasMessage and not thrown.value["$$robloxInternalJestError"] then
-					retval = retval .. formatReceived("Received message:   ", thrown, "message") ..
-						formatStack(thrown)
+					retval = retval .. formatReceived("Received message:   ", thrown, "message") .. formatStack(thrown)
 				else
-					retval = retval .. formatReceived("Received value:     ", thrown, "message") ..
-						formatStack(thrown)
+					retval = retval .. formatReceived("Received value:     ", thrown, "message") .. formatStack(thrown)
 				end
 			end
 
@@ -606,52 +571,43 @@ function toThrowExpectedString(
 		end
 	end
 
-	return {message = message, pass = pass}
+	return { message = message, pass = pass }
 end
 
-function toThrow(
-	matcherName: string,
-	options: MatcherHintOptions,
-	thrown: Thrown | nil
-): SyncExpectationResult
+function toThrow(matcherName: string, options: MatcherHintOptions, thrown: Thrown | nil): SyncExpectationResult
 	local pass = thrown ~= nil
 
 	local message
 
 	if pass then
 		message = function()
-			local retval = matcherHint(matcherName, nil, "", options) ..
-				"\n\n"
+			local retval = matcherHint(matcherName, nil, "", options) .. "\n\n"
 
 			if thrown ~= nil and thrown.hasMessage and not thrown.value["$$robloxInternalJestError"] then
-				retval = retval ..
-					formatReceived("Error name:    ", thrown, "name") ..
-					formatReceived("Error message: ", thrown, "message") ..
-					formatStack(thrown)
+				retval = retval
+					.. formatReceived("Error name:    ", thrown, "name")
+					.. formatReceived("Error message: ", thrown, "message")
+					.. formatStack(thrown)
 			else
-				retval = retval ..
-					formatReceived("Thrown value: ", thrown, "message") ..
-					formatStack(thrown)
+				retval = retval .. formatReceived("Thrown value: ", thrown, "message") .. formatStack(thrown)
 			end
 
 			return retval
 		end
 	else
 		message = function()
-			return matcherHint(matcherName, nil, "", options) ..
-				"\n\n" ..
-				DID_NOT_THROW
+			return matcherHint(matcherName, nil, "", options) .. "\n\n" .. DID_NOT_THROW
 		end
 	end
 
-	return {message = message, pass = pass}
+	return { message = message, pass = pass }
 end
 
 function formatExpected(label: string, expected: any)
 	return label .. printExpected(expected) .. "\n"
 end
 
--- deviation: expected does not have string | RegExp type annotation
+-- ROBLOX deviation: expected does not have string | RegExp type annotation
 function formatReceived(
 	label: string,
 	thrown: Thrown, -- ROBLOX FIXME: narrowing | nil,
@@ -669,28 +625,15 @@ function formatReceived(
 			local index = message:find(expected)
 
 			if index then
-				return
-					label ..
-					printReceivedStringContainExpectedSubstring(
-						message,
-						index,
-						#expected
-					) ..
-					"\n"
+				return label .. printReceivedStringContainExpectedSubstring(message, index, #expected) .. "\n"
 			end
 		elseif getType(expected) == "regexp" then
-			-- deviation: we don't check for expected.exec being a function
+			-- ROBLOX deviation: we don't check for expected.exec being a function
 			-- since all RegExp polyfill instances have this function defined
-			return
-				label ..
-				printReceivedStringContainExpectedResult(
-					message,
-					expected:exec(message)
-			 	) ..
-				"\n"
+			return label .. printReceivedStringContainExpectedResult(message, expected:exec(message)) .. "\n"
 		end
 
-		return label .. printReceived(message) .. "\n";
+		return label .. printReceived(message) .. "\n"
 	end
 
 	if key == "name" then
@@ -720,8 +663,7 @@ function formatStack(thrown: Thrown) -- ROBLOX FIXME: narrowing | nil)
 	end
 end
 
-
 return {
 	createMatcher = createMatcher,
-	matchers = matchers
+	matchers = matchers,
 }

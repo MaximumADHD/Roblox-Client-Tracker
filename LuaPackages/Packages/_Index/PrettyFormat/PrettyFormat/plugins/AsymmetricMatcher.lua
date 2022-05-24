@@ -1,4 +1,4 @@
--- upstream: https://github.com/facebook/jest/blob/v26.5.3/packages/pretty-format/src/plugins/AsymmetricMatcher.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/pretty-format/src/plugins/AsymmetricMatcher.ts
 -- /**
 --  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
 --  *
@@ -21,14 +21,11 @@ type Refs = Types.Refs
 type Printer = Types.Printer
 
 local asymmetricMatcher = Symbol.for_("jest.asymmetricMatcher")
-local SPACE = ' '
+local SPACE = " "
 
--- deviation: stringContaining shouldn't accept string patterns so we unescape special characters
+-- ROBLOX deviation: stringContaining shouldn't accept string patterns so we unescape special characters
 local function unescape(s: string): string
-	return s:gsub(
-		"%%([%$%%%^%*%(%)%.%[%]%+%-%?])",
-		"%1"
-	)
+	return s:gsub("%%([%$%%%^%*%(%)%.%[%]%+%-%?])", "%1")
 end
 
 local function serialize(
@@ -41,66 +38,43 @@ local function serialize(
 ): string
 	local stringedValue = val:toString()
 
-	if
-		stringedValue == 'ArrayContaining' or
-		stringedValue == 'ArrayNotContaining'
-	then
+	if stringedValue == "ArrayContaining" or stringedValue == "ArrayNotContaining" then
 		depth = depth + 1
 		if depth > config.maxDepth then
-			return '[' .. stringedValue .. ']';
+			return "[" .. stringedValue .. "]"
 		end
-		return stringedValue ..
-			SPACE ..
-			'{' ..
-			printListItems(val.sample, config, indentation, depth, refs, printer) ..
-			'}'
+		return stringedValue
+			.. SPACE
+			.. "{"
+			.. printListItems(val.sample, config, indentation, depth, refs, printer)
+			.. "}"
 	end
 
-	if
-		stringedValue == 'ObjectContaining' or
-		stringedValue == 'ObjectNotContaining'
-	then
+	if stringedValue == "ObjectContaining" or stringedValue == "ObjectNotContaining" then
 		depth = depth + 1
 		if depth > config.maxDepth then
-			return '[' .. stringedValue .. ']';
+			return "[" .. stringedValue .. "]"
 		end
-		return stringedValue ..
-			SPACE ..
-			'{' ..
-			printObjectProperties(
-				val.sample,
-				config,
-				indentation,
-				depth,
-				refs,
-				printer
-			) ..
-			'}'
+		return stringedValue
+			.. SPACE
+			.. "{"
+			.. printObjectProperties(val.sample, config, indentation, depth, refs, printer)
+			.. "}"
 	end
 
-	if
-		stringedValue == 'StringMatching' or
-		stringedValue == 'StringNotMatching'
-	then
-		return stringedValue ..
-			SPACE ..
-			printer(val.sample, config, indentation, depth, refs)
+	if stringedValue == "StringMatching" or stringedValue == "StringNotMatching" then
+		return stringedValue .. SPACE .. printer(val.sample, config, indentation, depth, refs)
 	end
 
-	if
-		stringedValue == 'StringContaining' or
-		stringedValue == 'StringNotContaining'
-	then
-		return stringedValue ..
-			SPACE ..
-			printer(unescape(val.sample), config, indentation, depth, refs)
+	if stringedValue == "StringContaining" or stringedValue == "StringNotContaining" then
+		return stringedValue .. SPACE .. printer(unescape(val.sample), config, indentation, depth, refs)
 	end
 
 	return val:toAsymmetricMatcher()
 end
 
 local function test(val: any): boolean
-	return typeof(val) == 'table' and val ~= nil and val['$$typeof'] == asymmetricMatcher
+	return typeof(val) == "table" and val ~= nil and val["$$typeof"] == asymmetricMatcher
 end
 
 return {

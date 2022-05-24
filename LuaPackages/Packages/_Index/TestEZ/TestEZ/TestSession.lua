@@ -27,7 +27,7 @@ function TestSession.new(plan)
 		nodeStack = {},
 		contextStack = {},
 		expectationContextStack = {},
-		hasFocusNodes = false
+		hasFocusNodes = false,
 	}
 
 	setmetatable(self, TestSession)
@@ -76,7 +76,7 @@ function TestSession:gatherErrors()
 			for _, message in ipairs(node.errors) do
 				table.insert(results.errors, {
 					message = message,
-					phrase = node.planNode.phrase
+					phrase = node.planNode.phrase,
 				})
 			end
 		end
@@ -132,7 +132,6 @@ function TestSession:getContext()
 	assert(#self.contextStack > 0, "Tried to get context from an empty stack!")
 	return self.contextStack[#self.contextStack]
 end
-
 
 function TestSession:getExpectationContext()
 	assert(#self.expectationContextStack > 0, "Tried to get expectationContext from an empty stack!")
@@ -206,7 +205,7 @@ end
 	way.
 ]]
 function TestSession:addDummyError(phrase, message)
-	self:pushNode({type = TestEnum.NodeType.It, phrase = phrase})
+	self:pushNode({ type = TestEnum.NodeType.It, phrase = phrase })
 	self:setError(message)
 	self:popNode()
 	self.nodeStack[#self.nodeStack].status = TestEnum.TestStatus.Failure

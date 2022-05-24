@@ -32,6 +32,7 @@ PlayerTile.validateProps = t.strictInterface({
 	subtitle = t.string,
 
 	thumbnail = t.optional(t.union(t.string, t.table)),
+	thumbnailPadding = t.optional(t.number),
 
 	buttons = t.optional(t.array(t.strictInterface({
 		icon = t.optional(imageType),
@@ -51,7 +52,6 @@ PlayerTile.validateProps = t.strictInterface({
 	}),
 
 	tileSize = t.optional(t.UDim2),
-	innerTilePadding = t.optional(t.number),
 
 	onActivated = t.optional(t.callback),
 	forwardedRef = t.optional(t.table),
@@ -67,7 +67,7 @@ PlayerTile.defaultProps = {
 }
 
 if enablePlayerTilePaddingFix then
-	PlayerTile.defaultProps.innerTilePadding = 8
+	PlayerTile.defaultProps.thumbnailPadding = 0
 end
 
 local ANIMATION_SPRING_SETTINGS = {
@@ -80,7 +80,7 @@ local CONTENT_STATE_COLOR = {
 }
 
 local VIGNETTE = Images["component_assets/vignette_246"]
-local OUTER_BUTTON_PADDING = 10
+local OUTER_BUTTON_PADDING = enablePlayerTilePaddingFix and 8 or 10
 local BUTTON_GAP = enablePlayerTilePaddingFix and 8 or 10
 local BUTTON_HEIGHT = 36
 
@@ -99,13 +99,12 @@ end
 local function thumbnailOverlayComponents(props)
 	return withStyle(function(style)
 		local primaryContentStyle = getContentStyle(CONTENT_STATE_COLOR, props.controlState, style)
-		local innerTilePadding = enablePlayerTilePaddingFix and props.innerTilePadding or OUTER_BUTTON_PADDING
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 1, 0),
 		}, {
 			ButtonBackgroundGradient = not Cryo.isEmpty(props.buttons) and Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, BUTTON_HEIGHT + innerTilePadding * 2),
+				Size = UDim2.new(1, 0, 0, BUTTON_HEIGHT + OUTER_BUTTON_PADDING * 2),
 				AnchorPoint = Vector2.new(0, 1),
 				Position = UDim2.new(0, 0, 1, 0),
 				LayoutOrder = 1,
@@ -162,7 +161,7 @@ local function thumbnailOverlayComponents(props)
 					{
 						BackgroundTransparency = 1,
 						Position = UDim2.new(1, 0, 1, 0),
-						Size = UDim2.new(0, props.tileSize.X.Offset - (innerTilePadding * 2), 0, BUTTON_HEIGHT),
+						Size = UDim2.new(0, props.tileSize.X.Offset - (OUTER_BUTTON_PADDING * 2), 0, BUTTON_HEIGHT),
 						AnchorPoint = Vector2.new(1, 1),
 						LayoutOrder = 3,
 						ZIndex = 2,
@@ -172,7 +171,7 @@ local function thumbnailOverlayComponents(props)
 							if enablePlayerTilePaddingFix then
 								return Roact.createElement(PlayerTileButton, {
 									buttonHeight = BUTTON_HEIGHT,
-									buttonWidth = props.tileSize.X.Offset / 2 - (innerTilePadding + BUTTON_GAP / 2),
+									buttonWidth = props.tileSize.X.Offset / 2 - (OUTER_BUTTON_PADDING + BUTTON_GAP / 2),
 									icon = button.icon,
 									isSecondary = button.isSecondary,
 									isDisabled = button.isDisabled,
@@ -203,8 +202,8 @@ local function thumbnailOverlayComponents(props)
 					)
 				),
 				UIPadding = Roact.createElement("UIPadding", {
-					PaddingBottom = UDim.new(0, innerTilePadding),
-					PaddingRight = UDim.new(0, innerTilePadding),
+					PaddingBottom = UDim.new(0, OUTER_BUTTON_PADDING),
+					PaddingRight = UDim.new(0, OUTER_BUTTON_PADDING),
 				}),
 			}),
 		})
@@ -247,6 +246,7 @@ function PlayerTile:render()
 	local title = self.props.title
 	local onActivated = self.props.onActivated
 	local thumbnail = self.props.thumbnail
+	local thumbnailPadding = self.props.thumbnailPadding
 
 	return withStyle(function(style)
 		return Roact.createElement("Frame", {
@@ -261,12 +261,13 @@ function PlayerTile:render()
 					controlState = self.state.controlState,
 				}),
 				hasRoundedCorners = true,
-				innerPadding = enablePlayerTilePaddingFix and self.props.innerTilePadding or OUTER_BUTTON_PADDING,
+				innerPadding = OUTER_BUTTON_PADDING,
 				name = title,
 				subtitle = self.props.subtitle,
 				titleTextLineCount = 1,
 				onActivated = onActivated,
 				thumbnail = thumbnail,
+				thumbnailPadding = thumbnailPadding,
 				backgroundImage = Images[style.Theme.PlayerBackgroundDefault.Image],
 				thumbnailOverlayComponents = thumbnailOverlayComponents(Dictionary.join(self.props, {
 					hoverMouseEnter = self.hoverMouseEnter,

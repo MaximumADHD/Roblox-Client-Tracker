@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["RegExp-ce718df5-0.1.3"]["RegExp"])
+local Package = require(PackageIndex["RegExp"]["RegExp"])
 
 export type RegExp = Package.RegExp
 

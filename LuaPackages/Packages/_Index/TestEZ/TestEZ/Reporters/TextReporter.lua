@@ -7,11 +7,21 @@ local TestService = game:GetService("TestService")
 
 local CurrentModule = script.Parent
 local Packages = CurrentModule.Parent.Parent
-local success, JestMatcherUtils = pcall(function() return require(Packages.JestMatcherUtils) end)
-local EXPECTED_COLOR = success and JestMatcherUtils.EXPECTED_COLOR or function(s) return s end
-local RECEIVED_COLOR = success and JestMatcherUtils.RECEIVED_COLOR or function(s) return s end
-local BOLD_WEIGHT = success and JestMatcherUtils.BOLD_WEIGHT or function(s) return s end
-local DIM_COLOR = success and JestMatcherUtils.DIM_COLOR or function(s) return s end
+local success, JestMatcherUtils = pcall(function()
+	return require(Packages.JestMatcherUtils)
+end)
+local EXPECTED_COLOR = success and JestMatcherUtils.EXPECTED_COLOR or function(s)
+	return s
+end
+local RECEIVED_COLOR = success and JestMatcherUtils.RECEIVED_COLOR or function(s)
+	return s
+end
+local BOLD_WEIGHT = success and JestMatcherUtils.BOLD_WEIGHT or function(s)
+	return s
+end
+local DIM_COLOR = success and JestMatcherUtils.DIM_COLOR or function(s)
+	return s
+end
 
 local TestEnum = require(script.Parent.Parent.TestEnum)
 
@@ -19,7 +29,7 @@ local INDENT = (" "):rep(3)
 local STATUS_SYMBOLS = {
 	[TestEnum.TestStatus.Success] = EXPECTED_COLOR("+"),
 	[TestEnum.TestStatus.Failure] = RECEIVED_COLOR("-"),
-	[TestEnum.TestStatus.Skipped] = DIM_COLOR("~")
+	[TestEnum.TestStatus.Skipped] = DIM_COLOR("~"),
 }
 local UNKNOWN_STATUS_SYMBOL = "?"
 
@@ -42,16 +52,9 @@ local function reportNode(node, buffer, level)
 	if node.status then
 		local symbol = STATUS_SYMBOLS[node.status] or UNKNOWN_STATUS_SYMBOL
 
-		line = ("%s[%s] %s"):format(
-			INDENT:rep(level),
-			symbol,
-			node.planNode.phrase
-		)
+		line = ("%s[%s] %s"):format(INDENT:rep(level), symbol, node.planNode.phrase)
 	else
-		line = ("%s%s"):format(
-			INDENT:rep(level),
-			node.planNode.phrase
-		)
+		line = ("%s%s"):format(INDENT:rep(level), node.planNode.phrase)
 	end
 
 	table.insert(buffer, line)
@@ -85,11 +88,7 @@ function TextReporter.report(results)
 	local resultBuffer = {
 		"Test results:",
 		report(results),
-		("%d passed, %d failed, %d skipped"):format(
-			results.successCount,
-			results.failureCount,
-			results.skippedCount
-		)
+		("%d passed, %d failed, %d skipped"):format(results.successCount, results.failureCount, results.skippedCount),
 	}
 
 	print(table.concat(resultBuffer, "\n"))

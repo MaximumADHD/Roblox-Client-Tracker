@@ -1,4 +1,4 @@
--- upstream: https://github.com/facebook/jest/blob/v26.5.3/packages/expect/src/jasmineUtils.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/expect/src/jasmineUtils.ts
 -- /*
 -- Copyright (c) 2008-2016 Pivotal Labs
 -- Permission is hereby granted, free of charge, to any person obtaining
@@ -24,27 +24,27 @@ local Packages = CurrentModule.Parent
 
 local RobloxShared = require(Packages.RobloxShared)
 
-type Array<T> = { T };
-type Table = { any: any };
--- deviation: Tester type defined in file since type imports are not yet
+local LuauPolyfill = require(Packages.LuauPolyfill)
+type Array<T> = LuauPolyfill.Array<T>
+-- ROBLOX deviation: Tester type defined in file since type imports are not yet
 -- supported
 -- making Tester return type 'any' due to error with type narrowing (CLI-37948)
 
--- // Extracted out of jasmine 2.5.2
+-- Extracted out of jasmine 2.5.2
 
-type Tester = (any, any) -> any;
+type Tester = (any, any) -> any
 
 local equals = RobloxShared.expect.equals
 
--- deviation: omitted functionToString since we don't use it
+-- ROBLOX deviation: omitted functionToString since we don't use it
 
--- deviation: moved to RobloxShared to avoid reaching into internals with rotriever workspaces
+-- ROBLOX deviation: moved to RobloxShared to avoid reaching into internals with rotriever workspaces
 -- local isAsymmetric = RobloxShared.expect.isAsymmetric
 -- local asymmetricMatch = RobloxShared.expect.asymmetricMatch
 -- local eq = RobloxShared.expect.eq
 -- local keys = RobloxShared.expect.keys
 
--- deviation: we have no concept of undefined so hasDefinedKey is the same as hasKey
+-- ROBLOX deviation: we have no concept of undefined so hasDefinedKey is the same as hasKey
 -- local hasDefinedKey = RobloxShared.expect.hasDefinedKey
 -- local hasKey = RobloxShared.expect.hasKey
 local isA = RobloxShared.expect.isA
@@ -60,7 +60,7 @@ local isA = RobloxShared.expect.isA
 	end
 --]]
 
--- deviation: Function annotation for func omitted
+-- ROBLOX deviation: Function annotation for func omitted
 local function fnNameFor(func)
 	-- Upstream code omitted for now but translated below:
 	--[[
@@ -91,7 +91,9 @@ local function hasProperty(obj: any, property: string): boolean
 		return false
 	end
 
-	local ok, result = pcall(function() return obj[property] end)
+	local ok, result = pcall(function()
+		return obj[property]
+	end)
 
 	if ok then
 		return result ~= nil
@@ -106,5 +108,5 @@ return {
 	fnNameFor = fnNameFor,
 	isUndefined = isUndefined,
 	getPrototype = getPrototype,
-	hasProperty = hasProperty
+	hasProperty = hasProperty,
 }

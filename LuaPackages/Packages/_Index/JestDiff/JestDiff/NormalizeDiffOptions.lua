@@ -1,4 +1,4 @@
--- upstream: https://github.com/facebook/jest/blob/v27.2.5/packages/jest-diff/src/normalizeDiffOptions.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-diff/src/normalizeDiffOptions.ts
 -- /**
 --  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
 --  *
@@ -9,9 +9,13 @@
 local CurrentModule = script.Parent
 local Packages = CurrentModule.Parent
 
-local Number = require(Packages.LuauPolyfill).Number
+local LuauPolyfill = require(Packages.LuauPolyfill)
+local Number = LuauPolyfill.Number
+local Object = LuauPolyfill.Object
 
 local chalk = require(Packages.ChalkLua)
+-- ROBLOX TODO: fix PrettyFormat types imports
+type CompareKeys = ((a: string, b: string) -> number) | nil
 
 local Types = require(CurrentModule.types)
 type DiffOptions = Types.DiffOptions
@@ -24,52 +28,46 @@ end
 local DIFF_CONTEXT_DEFAULT = 5
 
 local OPTIONS_DEFAULT = {
-	aAnnotation = 'Expected',
+	aAnnotation = "Expected",
 	aColor = chalk.green,
-	aIndicator = '-',
-	bAnnotation = 'Received',
+	aIndicator = "-",
+	bAnnotation = "Received",
 	bColor = chalk.red,
-	bIndicator = '+',
+	bIndicator = "+",
 	changeColor = chalk.inverse,
 	changeLineTrailingSpaceColor = noColor,
 	commonColor = chalk.dim,
-	commonIndicator = ' ',
+	commonIndicator = " ",
 	commonLineTrailingSpaceColor = noColor,
+	-- ROBLOX deviation: using Object.None instead of nil because assigning nil is no different from not assigning value at all
+	compareKeys = Object.None,
 	contextLines = DIFF_CONTEXT_DEFAULT,
-	emptyFirstOrLastLinePlaceholder = '',
+	emptyFirstOrLastLinePlaceholder = "",
 	expand = true,
 	includeChangeCounts = false,
 	omitAnnotationLines = false,
 	patchColor = chalk.yellow,
 }
 
--- omitting return type due to CLI-37948
--- (E001) Type 'nil | number' could not be converted to 'number'
-local function getContextLines(contextLines: number?)
-	if typeof(contextLines) == 'number' and
-		Number.isSafeInteger(contextLines) and
-		contextLines >= 0
-	then
+local function getCompareKeys(compareKeys: CompareKeys?): CompareKeys
+	return if compareKeys and typeof(compareKeys) == "function" then compareKeys else OPTIONS_DEFAULT.compareKeys
+end
+
+local function getContextLines(contextLines: number?): number
+	if typeof(contextLines) == "number" and Number.isSafeInteger(contextLines) and contextLines >= 0 then
 		return contextLines
 	end
 	return DIFF_CONTEXT_DEFAULT
 end
 
--- // Pure function returns options with all properties.
-local function normalizeDiffOptions(
-	options: DiffOptions
-): DiffOptionsNormalized
-	local ret_options = {}
-	for key, value in pairs(OPTIONS_DEFAULT) do
-		ret_options[key] = value
-	end
-	if typeof(options) == 'table' then
-		for key, value in pairs(options) do
-			ret_options[key] = value
-		end
-		ret_options['contextLines'] = getContextLines(options.contextLines)
-	end
-	return (ret_options :: DiffOptionsNormalized)
+-- Pure function returns options with all properties.
+local function normalizeDiffOptions(options_: DiffOptions?): DiffOptionsNormalized
+	-- ROBLOX FIXME Luau: needs a normalization fix to avoid Key 'compareKeys' is missing from '{  }' in the type 'DiffOptions | {  }'
+	local options = if options_ then options_ else {} :: DiffOptions
+	return Object.assign({}, OPTIONS_DEFAULT, options, {
+		compareKeys = getCompareKeys(options.compareKeys),
+		contextLines = getContextLines(options.contextLines),
+	}) :: DiffOptionsNormalized
 end
 
 return {

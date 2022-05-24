@@ -1,12 +1,15 @@
--- API aligned with https://github.com/facebook/jest/blob/v27.0.6/packages/jest-fake-timers/src/modernFakeTimers.ts
--- deviation: major implementation deviation, refer to README for more info
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-fake-timers/src/modernFakeTimers.ts
+--[[
+	ROBLOX deviation: API aligned with the upstream
+	major implementation deviation, refer to README for more info
+]]
 
 local CurrentModule = script
 local Packages = CurrentModule.Parent
 
 local getType = require(Packages.JestGetType).getType
 
-local jestMock = require(Packages.JestMock)
+local jestMock = require(Packages.JestMock).ModuleMocker
 
 local realDelay = delay
 local realTick = tick
@@ -15,7 +18,23 @@ local realOs = os
 
 type Timeout = {
 	time: number,
-	callback: () -> ()
+	callback: () -> (),
+}
+
+export type FakeTimers = {
+	clearAllTimers: (self: FakeTimers) -> (),
+	dispose: (self: FakeTimers) -> (),
+	runAllTimers: (self: FakeTimers) -> (),
+	runOnlyPendingTimers: (self: FakeTimers) -> (),
+	advanceTimersToNextTimer: (self: FakeTimers, steps_: number?) -> (),
+	advanceTimersByTime: (self: FakeTimers, msToRun: number) -> (),
+	runAllTicks: (self: FakeTimers) -> (),
+	useRealTimers: (self: FakeTimers) -> (),
+	useFakeTimers: (self: FakeTimers) -> (),
+	reset: (self: FakeTimers) -> (),
+	setSystemTime: (self: FakeTimers, now: any) -> (),
+	getRealSystemTime: (self: FakeTimers) -> (),
+	getTimerCount: (self: FakeTimers) -> number,
 }
 
 local FakeTimers = {}
@@ -35,7 +54,7 @@ function FakeTimers.new()
 	}
 	local osOverride = {
 		time = mock:fn(realOs.time),
-		clock = mock:fn(realOs.clock)
+		clock = mock:fn(realOs.clock),
 	}
 	setmetatable(osOverride, { __index = realOs })
 
@@ -143,7 +162,7 @@ end
 
 function FakeTimers:runAllTicks(): ()
 	if self:_checkFakeTimers() then
-		error('not implemented')
+		error("not implemented")
 	end
 end
 
@@ -186,7 +205,7 @@ function FakeTimers:useFakeTimers(): ()
 			return realDateTime.fromUnixTimestamp(self._mockSystemTime)
 		end)
 		self.osOverride.time.mockImplementation(function(time_)
-			if typeof(time_) == 'table' then
+			if typeof(time_) == "table" then
 				local unixTime = realDateTime.fromUniversalTime(
 					time_.year or 1970,
 					time_.month or 1,
@@ -221,7 +240,7 @@ function FakeTimers:setSystemTime(now: any): ()
 		if not now then
 			now = realDateTime.now()
 		end
-		if getType(now) == 'DateTime' then
+		if getType(now) == "DateTime" then
 			now = now.UnixTimestamp
 		end
 		self._mockSystemTime = now
@@ -243,8 +262,8 @@ end
 function FakeTimers:_checkFakeTimers()
 	if not self._fakingTime then
 		error(
-			"A function to advance timers was called but the timers API is not " ..
-			"mocked with fake timers. Call `jest.useFakeTimers()` in this test."
+			"A function to advance timers was called but the timers API is not "
+				.. "mocked with fake timers. Call `jest.useFakeTimers()` in this test."
 		)
 	end
 

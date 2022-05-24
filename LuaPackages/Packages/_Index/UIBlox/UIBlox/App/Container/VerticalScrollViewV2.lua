@@ -35,6 +35,7 @@ VerticalScrollView.defaultProps = {
 	canvasSizeY = UDim.new(2, 0),
 	useAutomaticCanvasSize = false,
 	isGamepadFocusable = false,
+	scrollingEnabled = true
 }
 
 VerticalScrollView.validateProps = t.strictInterface({
@@ -48,6 +49,7 @@ VerticalScrollView.validateProps = t.strictInterface({
 	canvasSizeY = t.optional(t.UDim),
 	useAutomaticCanvasSize = t.optional(t.boolean),
 	isGamepadFocusable = t.optional(t.boolean),
+	scrollingEnabled = t.optional(t.boolean),
 
 	-- Optional passthrough props for the scrolling frame
 	[Roact.Change.CanvasPosition] = t.optional(t.callback),
@@ -98,6 +100,10 @@ function VerticalScrollView:init()
 		end
 	end
 	self.inputBegan = function(instance, input)
+		if not self.props.scrollingEnabled then
+			return
+		end
+
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			self.disconnectWaitToHideSidebar()
 			self:setState({
@@ -107,6 +113,10 @@ function VerticalScrollView:init()
 		end
 	end
 	self.inputEnded = function(instance, input)
+		if not self.props.scrollingEnabled then
+			return
+		end
+
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			self.disconnectWaitToHideSidebar()
 			self.scrollBarImageTransparencyMotor:setGoal(Otter.instant(1))
@@ -166,6 +176,7 @@ function VerticalScrollView:renderWithProviders(stylePalette, getSelectionCursor
 	local automaticSize = self.props.useAutomaticCanvasSize and Enum.AutomaticSize.Y or nil
 	local isGamepadFocusable = self.props.isGamepadFocusable
 	local scrollBarThickness = self.state.scrollBarThickness
+	local scrollingEnabled = self.props.scrollingEnabled
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -195,6 +206,7 @@ function VerticalScrollView:renderWithProviders(stylePalette, getSelectionCursor
 			ElasticBehavior = self.props.elasticBehavior,
 			-- ScrollingFrame Specific
 			CanvasSize = self.getMainCanvasSize(),
+			ScrollingEnabled = scrollingEnabled,
 
 			ScrollBarImageColor3 = theme.UIEmphasis.Color,
 			ScrollBarImageTransparency = self.scrollBarImageTransparency,

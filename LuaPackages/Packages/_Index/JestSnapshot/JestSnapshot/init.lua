@@ -1,4 +1,4 @@
--- upstream: https://github.com/facebook/jest/blob/v27.0.6/packages/jest-snapshot/src/index.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-snapshot/src/index.ts
 -- /**
 --  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
 --  *
@@ -6,17 +6,18 @@
 --  * LICENSE file in the root directory of this source tree.
 --  */
 
--- deviation: omitting imports for file system interaction
+-- ROBLOX deviation: omitting imports for file system interaction
 
 local CurrentModule = script
 local Packages = CurrentModule.Parent
 
--- deviation: used to communicate with the TestEZ test runner
+-- ROBLOX deviation: used to communicate with the TestEZ test runner
 local JEST_TEST_CONTEXT = "__JEST_TEST_CONTEXT__"
 
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Error = LuauPolyfill.Error
 local instanceof = LuauPolyfill.instanceof
+local AssertionError = require(Packages.RobloxShared).AssertionError
 
 local getType = require(Packages.JestGetType).getType
 
@@ -54,6 +55,7 @@ local printReceived = printSnapshot.printReceived
 local printSnapshotAndReceived = printSnapshot.printSnapshotAndReceived
 
 local types = require(CurrentModule.types)
+type MatchSnapshotConfig = types.MatchSnapshotConfig
 
 local utils = require(CurrentModule.utils)
 
@@ -62,19 +64,15 @@ local _toMatchSnapshot, _toThrowErrorMatchingSnapshot
 local DID_NOT_THROW = "Received function did not throw"
 local NOT_SNAPSHOT_MATCHERS = "Snapshot matchers cannot be used with " .. BOLD_WEIGHT("never")
 
--- deviation: we cannot have multiline regex patterns in Lua so in our usage of
+-- ROBLOX deviation: we cannot have multiline regex patterns in Lua so in our usage of
 -- this pattern, we will first split on newlines and then use it
 -- local INDENTATION_REGEX = "^([^%S\n]*)%S"
 
--- // Display name in report when matcher fails same as in snapshot file,
--- // but with optional hint argument in bold weight.
-local function printSnapshotName(
-	concatenatedBlockNames: string,
-	hint: string,
-	count: number
-): string
-	concatenatedBlockNames = concatenatedBlockNames or ""
-	hint = hint or ""
+-- Display name in report when matcher fails same as in snapshot file,
+-- but with optional hint argument in bold weight.
+local function printSnapshotName(concatenatedBlockNames_: string?, hint_: string?, count: number): string
+	local concatenatedBlockNames = if concatenatedBlockNames_ then concatenatedBlockNames_ else ""
+	local hint = if hint_ then hint_ else ""
 	local hasNames = concatenatedBlockNames:len() ~= 0
 	local hasHint = #hint ~= 0
 
@@ -98,12 +96,10 @@ end
 
 -- ROBLOX TODO: ADO-1552 Add stripAddedIndentation when we support inlineSnapshot testing
 
--- deviation: omitted fileExists and cleanup
+-- ROBLOX deviation: omitted fileExists and cleanup
 
-local function toMatchSnapshot(
-	...
-)
-	local args = {...}
+local function toMatchSnapshot(...)
+	local args = { ... }
 	local this: types.Context = args[1]
 	local received: any = args[2]
 	local propertiesOrHint: any = args[3]
@@ -113,7 +109,7 @@ local function toMatchSnapshot(
 	local properties
 
 	local length = select("#", ...)
-	-- deviation: all the length parameters are one more than upstream because
+	-- ROBLOX deviation: all the length parameters are one more than upstream because
 	-- the this parameter isn't counted in upstream
 	if length == 3 and typeof(propertiesOrHint) == "string" then
 		hint = propertiesOrHint
@@ -121,34 +117,31 @@ local function toMatchSnapshot(
 		if typeof(propertiesOrHint) ~= "table" or typeof(propertiesOrHint) == nil then
 			local options: JestMatcherUtils.MatcherHintOptions = {
 				isNot = this.isNot,
-				promise = this.promise
+				promise = this.promise,
 			}
-			local printedWithType = printWithType(
-				"Expected properties",
-				propertiesOrHint,
-				printExpected
-			)
+			local printedWithType = printWithType("Expected properties", propertiesOrHint, printExpected)
 
 			if length == 4 then
 				options.secondArgument = "hint"
 				options.secondArgumentColor = BOLD_WEIGHT
 
 				if propertiesOrHint == nil then
-					printedWithType = printedWithType .. "\n\nTo provide a hint without properties: toMatchSnapshot('hint')"
+					printedWithType = printedWithType
+						.. "\n\nTo provide a hint without properties: toMatchSnapshot('hint')"
 				end
 			end
 
-			error(Error(
-				matcherErrorMessage(
+			error(AssertionError.new({
+				message = matcherErrorMessage(
 					matcherHint(matcherName, nil, PROPERTIES_ARG, options),
 					"Expected " .. EXPECTED_COLOR("properties") .. " must be an object",
 					printedWithType
-				)
-			))
+				),
+			}))
 		end
 
-		-- // Future breaking change: Snapshot hint must be a string
-		-- // if (arguments.length === 3 && typeof hint !== 'string') {}
+		-- Future breaking change: Snapshot hint must be a string
+		-- if (arguments.length === 3 && typeof hint !== 'string') {}
 
 		properties = propertiesOrHint
 	end
@@ -159,13 +152,13 @@ local function toMatchSnapshot(
 		isInline = false,
 		matcherName = matcherName,
 		properties = properties,
-		received = received
+		received = received,
 	})
 end
 
 -- ROBLOX TODO: ADO-1552 add toMatchInlineSnapshot
 
-function _toMatchSnapshot(config: types.MatchSnapshotConfig)
+function _toMatchSnapshot(config: MatchSnapshotConfig)
 	local context = config.context
 	local hint = config.hint
 	local inlineSnapshot = config.inlineSnapshot
@@ -189,19 +182,24 @@ function _toMatchSnapshot(config: types.MatchSnapshotConfig)
 		local ok, result = pcall(function()
 			return SnapshotState.new(
 				snapshotPath,
-				{ updateSnapshot = _G.UPDATESNAPSHOT or "none" }
+				{ updateSnapshot = _G.UPDATESNAPSHOT or "none", snapshotFormat = {} }
 			)
 		end)
 		if ok then
 			_G[JEST_TEST_CONTEXT].snapshotState = result
 		else
-			return {message = function() return "Jest-Roblox: Error while loading snapshot file" end, pass = false}
+			return {
+				message = function()
+					return "Jest-Roblox: Error while loading snapshot file"
+				end,
+				pass = false,
+			}
 		end
 	end
 	context.snapshotState = context.snapshotState or _G[JEST_TEST_CONTEXT].snapshotState
 	context.currentTestName = context.currentTestName or table.concat(_G[JEST_TEST_CONTEXT].blocks, " ")
 
-	-- deviation: we don't call dontThrow because we don't yet have the functionality in
+	-- ROBLOX deviation: we don't call dontThrow because we don't yet have the functionality in
 	-- place where we add errors to global matcher state and deal with them accordingly
 	-- so we instead rely on throwing the actual errors
 	-- local _ = context.dontThrow and context.dontThrow()
@@ -211,50 +209,41 @@ function _toMatchSnapshot(config: types.MatchSnapshotConfig)
 	local snapshotState = context.snapshotState
 
 	if isNot then
-		error(Error(
-			matcherErrorMessage(
-				matcherHintFromConfig(config, false),
-				NOT_SNAPSHOT_MATCHERS
-			)
-		))
+		error(AssertionError.new({
+			message = matcherErrorMessage(matcherHintFromConfig(config, false), NOT_SNAPSHOT_MATCHERS),
+		}))
 	end
 
 	if snapshotState == nil then
-		-- // Because the state is the problem, this is not a matcher error.
-		-- // Call generic stringify from jest-matcher-utils package
-		-- // because uninitialized snapshot state does not need snapshot serializers.
-		error(Error(
-			matcherHintFromConfig(config, false) ..
-			"\n\n" ..
-			"Snapshot state must be initialized" ..
-			"\n\n" ..
-			printWithType("Snapshot state", snapshotState, stringify)
-		))
+		-- Because the state is the problem, this is not a matcher error.
+		-- Call generic stringify from jest-matcher-utils package
+		-- because uninitialized snapshot state does not need snapshot serializers.
+		error(AssertionError.new({
+			message = matcherHintFromConfig(config, false)
+				.. "\n\n"
+				.. "Snapshot state must be initialized"
+				.. "\n\n"
+				.. printWithType("Snapshot state", snapshotState, stringify),
+		}))
 	end
 
-	local fullTestName
-	if currentTestName and hint then
-		fullTestName = currentTestName .. ": " .. hint
-	else
-		fullTestName = currentTestName or "" -- // future BREAKING change: || hint
-	end
+	local fullTestName = if currentTestName and hint
+		then currentTestName .. ": " .. hint :: string
+		else currentTestName or "" -- future BREAKING change: || hint
 
 	if typeof(properties) == "table" then
 		-- ROBLOX deviation: Roblox Instance matchers
 		-- allow property matchers against received Instance values
 		if received == nil or (typeof(received) ~= "table" and getType(received) ~= "Instance") then
-			error(Error(
-				matcherErrorMessage(
+			error(AssertionError.new({
+				message = matcherErrorMessage(
 					matcherHintFromConfig(config, false),
-					RECEIVED_COLOR(
-						"received"
-					) .. " value must be an object when the matcher has " ..
-					EXPECTED_COLOR(
-						"properties"
-					),
+					RECEIVED_COLOR("received")
+						.. " value must be an object when the matcher has "
+						.. EXPECTED_COLOR("properties"),
 					printWithType("Received", received, printReceived)
-				)
-			))
+				),
+			}))
 		end
 
 		local propertyPass = context.equals(received, properties, {
@@ -268,25 +257,22 @@ function _toMatchSnapshot(config: types.MatchSnapshotConfig)
 		if not propertyPass then
 			local key = snapshotState:fail(fullTestName, received)
 			local matched = key:match("(%d+)$")
-			local count
-			if matched == nil then
-				count = 1
-			else
-				count = tonumber(matched)
-			end
+			-- ROBLOX deviation START: no way for Luau to know if matched is non-nil then tonumber(matched) is guaranteed to be non-nil
+			local count = if matched == nil then 1 else tonumber(matched) :: number
+			-- ROBLOX deviation END
 
 			local message = function()
-				return matcherHintFromConfig(config, false) ..
-					"\n\n" ..
-					printSnapshotName(currentTestName, hint, count) ..
-					"\n\n" ..
-					printPropertiesAndReceived(properties, received, snapshotState.expand)
+				return matcherHintFromConfig(config, false)
+					.. "\n\n"
+					.. printSnapshotName(currentTestName, hint, count)
+					.. "\n\n"
+					.. printPropertiesAndReceived(properties, received, snapshotState.expand)
 			end
 
 			return {
 				message = message,
 				name = matcherName,
-				pass = false
+				pass = false,
 			}
 		else
 			received = utils.deepMerge(received, properties)
@@ -298,7 +284,7 @@ function _toMatchSnapshot(config: types.MatchSnapshotConfig)
 		inlineSnapshot = inlineSnapshot,
 		isInline = isInline,
 		received = received,
-		testName = fullTestName
+		testName = fullTestName,
 	})
 	local actual = result.actual
 	local count = result.count
@@ -306,21 +292,28 @@ function _toMatchSnapshot(config: types.MatchSnapshotConfig)
 	local pass = result.pass
 
 	if pass then
-		return {message = function() return "" end, pass = true}
+		return {
+			message = function()
+				return ""
+			end,
+			pass = true,
+		}
 	end
 
 	local message
 	if expected == nil then
 		message = function()
-			local retval = matcherHintFromConfig(config, true) ..
-				"\n\n" ..
-				printSnapshotName(currentTestName, hint, count) ..
-				"\n\n" ..
-				"New snapshot was " .. BOLD_WEIGHT("not written") .. ". The update flag " ..
-				"must be explicitly passed to write a new snapshot.\n\n" ..
-				"This is likely because this test is run in a continuous integration " ..
-				"(CI) environment in which snapshots are not written by default.\n\n" ..
-				"Received:"
+			local retval = matcherHintFromConfig(config, true)
+				.. "\n\n"
+				.. printSnapshotName(currentTestName, hint, count)
+				.. "\n\n"
+				.. "New snapshot was "
+				.. BOLD_WEIGHT("not written")
+				.. ". The update flag "
+				.. "must be explicitly passed to write a new snapshot.\n\n"
+				.. "This is likely because this test is run in a continuous integration "
+				.. "(CI) environment in which snapshots are not written by default.\n\n"
+				.. "Received:"
 
 			if actual:find("\n") then
 				retval = retval .. "\n"
@@ -334,28 +327,23 @@ function _toMatchSnapshot(config: types.MatchSnapshotConfig)
 		end
 	else
 		message = function()
-			return matcherHintFromConfig(config, true) ..
-				"\n\n" ..
-				printSnapshotName(currentTestName, hint, count) ..
-				"\n\n" ..
-				printSnapshotAndReceived(
-					expected,
-					actual,
-					received,
-					snapshotState.expand
-				)
+			return matcherHintFromConfig(config, true)
+				.. "\n\n"
+				.. printSnapshotName(currentTestName, hint, count)
+				.. "\n\n"
+				.. printSnapshotAndReceived(expected, actual, received, snapshotState.expand)
 		end
 	end
 
-	-- // Passing the actual and expected objects so that a custom reporter
-	-- // could access them, for example in order to display a custom visual diff,
-	-- // or create a different error message
+	-- Passing the actual and expected objects so that a custom reporter
+	-- could access them, for example in order to display a custom visual diff,
+	-- or create a different error message
 	return {
 		actual = actual,
 		expected = expected,
 		message = message,
 		name = matcherName,
-		pass = false
+		pass = false,
 	}
 end
 
@@ -365,27 +353,21 @@ local function toThrowErrorMatchingSnapshot(
 	hint: string | any,
 	fromPromise: boolean
 )
-	local matcherName = 'toThrowErrorMatchingSnapshot'
+	local matcherName = "toThrowErrorMatchingSnapshot"
 
-	-- // Future breaking change: Snapshot hint must be a string
-	-- // if (hint !== undefined && typeof hint !== string) {}
+	-- Future breaking change: Snapshot hint must be a string
+	-- if (hint !== undefined && typeof hint !== string) {}
 
-	return _toThrowErrorMatchingSnapshot(
-		{
-			context = this,
-			hint = hint,
-			isInline = false,
-			matcherName = matcherName,
-			received = received
-		},
-		fromPromise
-	)
+	return _toThrowErrorMatchingSnapshot({
+		context = this,
+		hint = hint,
+		isInline = false,
+		matcherName = matcherName,
+		received = received,
+	}, fromPromise)
 end
 
-function _toThrowErrorMatchingSnapshot(
-	config: types.MatchSnapshotConfig,
-	fromPromise: boolean?
-)
+function _toThrowErrorMatchingSnapshot(config: types.MatchSnapshotConfig, fromPromise: boolean?)
 	local context = config.context
 	local hint = config.hint
 	local inlineSnapshot = config.inlineSnapshot
@@ -393,7 +375,7 @@ function _toThrowErrorMatchingSnapshot(
 	local matcherName = config.matcherName
 	local received = config.received
 
-	-- deviation: we don't call dontThrow because we don't yet have the functionality in
+	-- ROBLOX deviation: we don't call dontThrow because we don't yet have the functionality in
 	-- place where we add errors to global matcher state and deal with them accordingly
 	-- so we instead rely on throwing the actual errors
 	-- local _ = context.dontThrow and context.dontThrow()
@@ -403,25 +385,22 @@ function _toThrowErrorMatchingSnapshot(
 
 	if not fromPromise then
 		if typeof(received) ~= "function" then
-			local options: JestMatcherUtils.MatcherHintOptions = {isNot = isNot, promise = promise}
+			local options: JestMatcherUtils.MatcherHintOptions = { isNot = isNot, promise = promise }
 
-			error(Error(
-				matcherErrorMessage(
+			error(AssertionError.new({
+				message = matcherErrorMessage(
 					matcherHint(matcherName, nil, "", options),
 					RECEIVED_COLOR("received") .. " value must be a function",
 					printWithType("Received", received, printReceived)
-				)
-			))
+				),
+			}))
 		end
 	end
 
 	if isNot then
-		error(Error(
-			matcherErrorMessage(
-				matcherHintFromConfig(config, false),
-				NOT_SNAPSHOT_MATCHERS
-			)
-		))
+		error(AssertionError.new({
+			message = matcherErrorMessage(matcherHintFromConfig(config, false), NOT_SNAPSHOT_MATCHERS),
+		}))
 	end
 
 	local error_
@@ -438,13 +417,11 @@ function _toThrowErrorMatchingSnapshot(
 	end
 
 	if error_ == nil then
-		-- // Because the received value is a function, this is not a matcher error.
-		error(Error(
-			matcherHintFromConfig(config, false) .. "\n\n" .. DID_NOT_THROW
-		))
+		-- Because the received value is a function, this is not a matcher error.
+		error(AssertionError.new({ message = matcherHintFromConfig(config, false) .. "\n\n" .. DID_NOT_THROW }))
 	end
 
-	-- deviation: instead of being able to set received = error.message in our
+	-- ROBLOX deviation: instead of being able to set received = error.message in our
 	-- _toMatchSnapshot call, we have to deal with different cases since in Lua
 	-- we could be dealing with our Error polyfill, a thrown object, or a thrown
 	-- string
@@ -460,7 +437,7 @@ function _toThrowErrorMatchingSnapshot(
 		inlineSnapshot = inlineSnapshot,
 		isInline = isInline,
 		matcherName = matcherName,
-		received = error_
+		received = error_,
 	})
 end
 

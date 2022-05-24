@@ -31,7 +31,7 @@ local TestPlanner = {}
 function TestPlanner.createPlan(modulesList, planArgs)
 	local testPlanArgs
 	if type(planArgs) == "string" then
-		testPlanArgs = {testNamePattern = planArgs}
+		testPlanArgs = { testNamePattern = planArgs }
 	else
 		testPlanArgs = planArgs
 	end

@@ -28,6 +28,9 @@ local validateProps = t.strictInterface({
 	-- Optional the thumbnail image transparency
 	imageTransparency = t.optional(t.number),
 
+	-- Optional the thumbnail image padding
+	imagePadding = t.optional(t.number),
+
 	-- Optional whether the tile thumbnail is selected or not
 	isSelected = t.optional(t.boolean),
 
@@ -44,6 +47,7 @@ local validateProps = t.strictInterface({
 TileThumbnail.defaultProps = {
 	imageSize = UDim2.fromScale(1, 1),
 	imageTransparency = 0,
+	imagePadding = 0,
 }
 
 local CORNER_RADIUS = UDim.new(0, 10)
@@ -55,6 +59,7 @@ function TileThumbnail:render()
 	local image = self.props.Image
 	local imageSize = self.props.imageSize
 	local imageTransparency = self.props.imageTransparency
+	local imagePadding = self.props.imagePadding
 	local isSelected = self.props.isSelected
 	local multiSelect = self.props.multiSelect
 	local overlayComponents = self.props.overlayComponents
@@ -91,7 +96,7 @@ function TileThumbnail:render()
 						ImageColor3 = theme.UIEmphasis.Color,
 						ImageTransparency = imageTransparency,
 						Position = UDim2.fromScale(0.5, 0.5),
-						Size = imageSize,
+						Size = imageSize - UDim2.fromOffset(imagePadding * 2, imagePadding * 2),
 					}, {
 						UICorner = hasRoundedCorners and Roact.createElement("UICorner", {
 								CornerRadius = CORNER_RADIUS,
@@ -103,6 +108,10 @@ function TileThumbnail:render()
 						Image = image,
 						Position = UDim2.fromScale(0.5, 0.5),
 						Size = imageSize,
+						ImagePaddingTop = imagePadding,
+						ImagePaddingBottom = imagePadding,
+						ImagePaddingLeft = imagePadding,
+						ImagePaddingRight = imagePadding,
 						cornerRadius = hasRoundedCorners and CORNER_RADIUS or nil,
 						showFailedStateWhenLoadingFailed = true,
 						useShimmerAnimationWhileLoading = true,

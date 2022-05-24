@@ -180,7 +180,7 @@ function FullScreen:render()
 			BackgroundTransparency = 1,
 		}, {
 			Item = Roact.createElement(ThumbnailButton, {
-				key = focusIndex,
+				itemKey = focusIndex,
 				imageId = item.imageId,
 				isVideo = item.isVideo,
 				userInteractionEnabled = false,

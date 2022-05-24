@@ -1,4 +1,4 @@
--- deviation: does not exist in upstream
+-- ROBLOX NOTE: no upstream
 -- this plugin serializes Roblox Instance objects
 -- https://developer.roblox.com/en-us/api-reference/class/Instance
 
@@ -30,10 +30,12 @@ local function printInstance(
 	refs: Refs,
 	printer: Printer
 ): string
-	local result = ''
+	local result = ""
 
 	local children = val:GetChildren()
-	table.sort(children, function(a, b) return a.Name < b.Name end)
+	table.sort(children, function(a, b)
+		return a.Name < b.Name
+	end)
 	local props = getRobloxProperties(val.ClassName)
 
 	if #props > 0 or #children > 0 then
@@ -43,77 +45,36 @@ local function printInstance(
 
 		-- print properties of Instance
 		for i, v in ipairs(props) do
-
-			local name = printer(
-				v,
-				config,
-				indentationNext,
-				depth,
-				refs
-			)
+			local name = printer(v, config, indentationNext, depth, refs)
 
 			local value = val[v]
 			-- collapses output for Instance values to avoid loops
 			if getType(value) == "Instance" then
-				value = printer(
-					value,
-					config,
-					indentationNext,
-					math.huge,
-					refs
-				)
+				value = printer(value, config, indentationNext, math.huge, refs)
 			else
-				value = printer(
-					value,
-					config,
-					indentationNext,
-					depth,
-					refs
-				)
+				value = printer(value, config, indentationNext, depth, refs)
 			end
 
-			result = string.format("%s%s%s: %s",
-				result,
-				indentationNext,
-				name,
-				value
-			)
+			result = string.format("%s%s%s: %s", result, indentationNext, name, value)
 
 			if i < #props or #children > 0 then
-				result = result .. ',' .. config.spacingInner
+				result = result .. "," .. config.spacingInner
 			elseif not config.min then
-				result = result .. ','
+				result = result .. ","
 			end
 		end
 
 		-- recursively print children of Instance
 		for i, v in ipairs(children) do
-			local name = printer(
-				v.Name,
-				config,
-				indentationNext,
-				depth,
-				refs
-			)
-			local value = printer(
-				v,
-				config,
-				indentationNext,
-				depth,
-				refs
-			)
+			local name = printer(v.Name, config, indentationNext, depth, refs)
+			local value = printer(v, config, indentationNext, depth, refs)
 
-			result = string.format("%s%s%s: %s",
-				result,
-				indentationNext,
-				name,
-				value
-			)
+			result = string.format("%s%s%s: %s", result, indentationNext, name, value)
 
 			if i < #children then
-				result = result .. ',' .. config.spacingInner
+				result = result .. "," .. config.spacingInner
 			elseif not config.min then
-				result = result .. ','
+				result = result .. ","
 			end
 		end
 
@@ -134,34 +95,14 @@ local function serialize(
 	depth = depth + 1
 
 	if depth >= config.maxDepth then
-		return string.format("\"%s\" [%s]", val.Name, val.ClassName)
+		return string.format('"%s" [%s]', val.Name, val.ClassName)
 	end
 
 	if instanceof(val, InstanceSubset) then
-		return val.ClassName ..
-			' {' ..
-			printTableEntries(
-				val.subset,
-				config,
-				indentation,
-				depth,
-				refs,
-				printer
-			) ..
-			'}'
+		return val.ClassName .. " {" .. printTableEntries(val.subset, config, indentation, depth, refs, printer) .. "}"
 	end
 
-	return val.ClassName ..
-		' {' ..
-		printInstance(
-			val,
-			config,
-			indentation,
-			depth,
-			refs,
-			printer
-		) ..
-		'}'
+	return val.ClassName .. " {" .. printInstance(val, config, indentation, depth, refs, printer) .. "}"
 end
 
 local function test(val: any): boolean
@@ -170,5 +111,5 @@ end
 
 return {
 	serialize = serialize,
-	test = test
+	test = test,
 }

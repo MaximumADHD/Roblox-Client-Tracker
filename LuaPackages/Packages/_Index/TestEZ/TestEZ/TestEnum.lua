@@ -7,7 +7,7 @@ local TestEnum = {}
 TestEnum.TestStatus = {
 	Success = "Success",
 	Failure = "Failure",
-	Skipped = "Skipped"
+	Skipped = "Skipped",
 }
 
 TestEnum.NodeType = {
@@ -16,13 +16,13 @@ TestEnum.NodeType = {
 	BeforeAll = "BeforeAll",
 	AfterAll = "AfterAll",
 	BeforeEach = "BeforeEach",
-	AfterEach = "AfterEach"
+	AfterEach = "AfterEach",
 }
 
 TestEnum.NodeModifier = {
 	None = "None",
 	Skip = "Skip",
-	Focus = "Focus"
+	Focus = "Focus",
 }
 
 return TestEnum

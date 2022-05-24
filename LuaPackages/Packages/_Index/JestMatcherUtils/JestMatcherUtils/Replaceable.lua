@@ -1,4 +1,4 @@
--- upstream: https://github.com/facebook/jest/blob/v27.2.5/packages/jest-matcher-utils/src/Replaceable.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-matcher-utils/src/Replaceable.ts
 -- /**
 -- * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
 -- *
@@ -10,7 +10,7 @@ local CurrentModule = script.Parent
 local Packages = CurrentModule.Parent
 local getType = require(Packages.JestGetType).getType
 
-type ReplaceableForEachCallBack = (any, any, any) -> nil;
+type ReplaceableForEachCallBack = (any, any, any) -> nil
 
 local Replaceable = {}
 
@@ -33,7 +33,7 @@ function Replaceable.isReplaceable(obj1: any, obj2: any): boolean
 	local obj1Type = getType(obj1)
 	local obj2Type = getType(obj2)
 
-	return obj1Type == obj2Type and obj1Type == 'table'
+	return obj1Type == obj2Type and obj1Type == "table"
 end
 
 function Replaceable:forEach(callback: ReplaceableForEachCallBack)

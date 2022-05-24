@@ -5,4 +5,9 @@ local PackageIndex = script.Parent.Parent.Parent._Index
 
 local Package = require(PackageIndex["JestDiff"]["JestDiff"])
 
+export type Diff = Package.Diff
+export type DiffOptions = Package.DiffOptions
+export type DiffOptionsColor = Package.DiffOptionsColor
+
+
 return Package

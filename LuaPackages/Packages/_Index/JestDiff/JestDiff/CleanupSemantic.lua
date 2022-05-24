@@ -1,4 +1,4 @@
--- upstream: https://github.com/facebook/jest/blob/v27.2.5/packages/jest-diff/src/cleanupSemantic.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-diff/src/cleanupSemantic.ts
 -- implementation adapted from:
 -- https://github.com/google/diff-match-patch/blob/858b3812cc02e7d48da4beebb21d4d80dc1d3062/lua/diff_match_patch.lua
 -- /**
@@ -24,6 +24,11 @@
 --  * Applies the patch onto another text, allowing for errors.
 --  * @author fraser@google.com (Neil Fraser)
 --  */
+
+local CurrentModule = script.Parent
+local Packages = CurrentModule.Parent
+local LuauPolyfill = require(Packages.LuauPolyfill)
+type Array<T> = LuauPolyfill.Array<T>
 
 -- /**
 --  * CHANGES by pedrottimark to diff_match_patch_uncompressed.ts file:
@@ -58,15 +63,13 @@ local DIFF_EQUAL = 0
 --  * @param {string} text Text to be deleted, inserted, or retained.
 --  * @constructor
 --  */
+-- ROBLOX FIXME Luau: Luau can't represent [1]: number, [2]: string
+export type Diff = Array<any>
 local Diff = {}
 Diff.__index = Diff
-function Diff.new(op: number, text: string)
-	local self = { op, text }
-	setmetatable(self, Diff)
-	return self
+function Diff.new(op: number, text: string): Diff
+	return (setmetatable({ op :: any, text }, Diff) :: any) :: Diff
 end
-export type Diff = typeof(Diff.new(0, ""))
-type Array<T> = { [number]: T }
 
 --[[
 * Determine the common prefix of two strings.
@@ -77,9 +80,7 @@ type Array<T> = { [number]: T }
 --]]
 local function _diff_commonPrefix(text1: string, text2: string): number
 	-- Quick check for common null cases.
-	if #text1 == 0 or #text2 == 0 or
-		strbyte(text1, 1, 1) ~= strbyte(text2, 1, 1)
-	then
+	if #text1 == 0 or #text2 == 0 or strbyte(text1, 1, 1) ~= strbyte(text2, 1, 1) then
 		return 0
 	end
 	-- Binary search.
@@ -89,9 +90,7 @@ local function _diff_commonPrefix(text1: string, text2: string): number
 	local pointermid = pointermax
 	local pointerstart = 1
 	while pointermin < pointermid do
-		if strsub(text1, pointerstart, pointermid)
-			== strsub(text2, pointerstart, pointermid)
-		then
+		if strsub(text1, pointerstart, pointermid) == strsub(text2, pointerstart, pointermid) then
 			pointermin = pointermid
 			pointerstart = pointermin
 		else
@@ -110,8 +109,7 @@ end
 --]]
 local function _diff_commonSuffix(text1: string, text2: string): number
 	-- Quick check for common null cases.
-	if #text1 == 0 or #text2 == 0
-		or strbyte(text1, -1) ~= strbyte(text2, -1) then
+	if #text1 == 0 or #text2 == 0 or strbyte(text1, -1) ~= strbyte(text2, -1) then
 		return 0
 	end
 	-- Binary search.
@@ -121,9 +119,7 @@ local function _diff_commonSuffix(text1: string, text2: string): number
 	local pointermid = pointermax
 	local pointerend = 1
 	while pointermin < pointermid do
-		if strsub(text1, -pointermid, -pointerend)
-			== strsub(text2, -pointermid, -pointerend)
-		then
+		if strsub(text1, -pointermid, -pointerend) == strsub(text2, -pointermid, -pointerend) then
 			pointermin = pointermid
 			pointerend = pointermin
 		else
@@ -173,12 +169,11 @@ local function _diff_commonOverlap(text1: string, text2: string): number
 		if found == nil then
 			return best
 		end
-		length = length + found - 1
-		if found == 1 or strsub(text1, text_length - length + 1) ==
-						strsub(text2, 1, length)
-		then
+		-- ROBLOX FIXME Luau: narrowing/type state should make this cast unnecessary
+		length += (found :: number - 1)
+		if found == 1 or strsub(text1, text_length - length + 1) == strsub(text2, 1, length) then
 			best = length
-			length = length + 1
+			length += 1
 		end
 	end
 	return best
@@ -190,11 +185,11 @@ end
 --]]
 local function diff_cleanupSemantic(diffs: Array<Diff>)
 	local changes = false
-	local equalities = {}  -- Stack of indices where equalities are found.
-	local equalitiesLength = 0  -- Keeping our own length var is faster.
+	local equalities = {} -- Stack of indices where equalities are found.
+	local equalitiesLength = 0 -- Keeping our own length var is faster.
 	local lastEquality = nil
 	-- Always equal to diffs[equalities[equalitiesLength]][2]
-	local pointer = 1  -- Index of current position.
+	local pointer = 1 -- Index of current position.
 	-- Number of characters that changed prior to the equality.
 	local length_insertions1 = 0
 	local length_deletions1 = 0
@@ -203,7 +198,7 @@ local function diff_cleanupSemantic(diffs: Array<Diff>)
 	local length_deletions2 = 0
 
 	while diffs[pointer] do
-		if diffs[pointer][1] == DIFF_EQUAL then  -- Equality found.
+		if diffs[pointer][1] == DIFF_EQUAL then -- Equality found.
 			equalitiesLength = equalitiesLength + 1
 			equalities[equalitiesLength] = pointer
 			length_insertions1 = length_insertions2
@@ -211,21 +206,21 @@ local function diff_cleanupSemantic(diffs: Array<Diff>)
 			length_insertions2 = 0
 			length_deletions2 = 0
 			lastEquality = diffs[pointer][2]
-		else  -- An insertion or deletion.
+		else -- An insertion or deletion.
 			if diffs[pointer][1] == DIFF_INSERT then
-				length_insertions2 = length_insertions2 + #(diffs[pointer][2])
+				length_insertions2 = length_insertions2 + #diffs[pointer][2]
 			else
-				length_deletions2 = length_deletions2 + #(diffs[pointer][2])
+				length_deletions2 = length_deletions2 + #diffs[pointer][2]
 			end
 			-- Eliminate an equality that is smaller or equal to the edits on both
 			-- sides of it.
-			if lastEquality
+			if
+				lastEquality
 				and #lastEquality <= max(length_insertions1, length_deletions1)
 				and #lastEquality <= max(length_insertions2, length_deletions2)
 			then
 				-- Duplicate record.
-				tinsert(diffs, equalities[equalitiesLength],
-					Diff.new(DIFF_DELETE, lastEquality))
+				tinsert(diffs, equalities[equalitiesLength], Diff.new(DIFF_DELETE, lastEquality))
 				-- Change second copy to insert.
 				diffs[equalities[equalitiesLength] + 1][1] = DIFF_INSERT
 				-- Throw away the equality we just deleted.
@@ -233,7 +228,7 @@ local function diff_cleanupSemantic(diffs: Array<Diff>)
 				-- Throw away the previous equality (it needs to be reevaluated).
 				equalitiesLength = equalitiesLength - 1
 				pointer = (equalitiesLength > 0) and equalities[equalitiesLength] or 0
-				length_insertions1, length_deletions1 = 0, 0  -- Reset the counters.
+				length_insertions1, length_deletions1 = 0, 0 -- Reset the counters.
 				length_insertions2, length_deletions2 = 0, 0
 				lastEquality = nil
 				changes = true
@@ -246,7 +241,7 @@ local function diff_cleanupSemantic(diffs: Array<Diff>)
 	if changes then
 		_diff_cleanupMerge(diffs)
 	end
-		_diff_cleanupSemanticLossless(diffs)
+	_diff_cleanupSemanticLossless(diffs)
 
 	-- Find any overlaps between deletions and insertions.
 	-- e.g: <del>abcxxx</del><ins>xxxdef</ins>
@@ -256,34 +251,26 @@ local function diff_cleanupSemantic(diffs: Array<Diff>)
 	-- Only extract an overlap if it is as big as the edit ahead or behind it.
 	pointer = 2
 	while diffs[pointer] do
-		if diffs[pointer - 1][1] == DIFF_DELETE and
-			diffs[pointer][1] == DIFF_INSERT then
+		if diffs[pointer - 1][1] == DIFF_DELETE and diffs[pointer][1] == DIFF_INSERT then
 			local deletion = diffs[pointer - 1][2]
 			local insertion = diffs[pointer][2]
 			local overlap_length1 = _diff_commonOverlap(deletion, insertion)
 			local overlap_length2 = _diff_commonOverlap(insertion, deletion)
 			if overlap_length1 >= overlap_length2 then
-				if overlap_length1 >= #deletion / 2 or
-					overlap_length1 >= #insertion / 2 then
+				if overlap_length1 >= #deletion / 2 or overlap_length1 >= #insertion / 2 then
 					-- Overlap found.  Insert an equality and trim the surrounding edits.
-					tinsert(diffs, pointer,
-						Diff.new(DIFF_EQUAL, strsub(insertion, 1, overlap_length1)))
-					diffs[pointer - 1][2] =
-						strsub(deletion, 1, #deletion - overlap_length1)
+					tinsert(diffs, pointer, Diff.new(DIFF_EQUAL, strsub(insertion, 1, overlap_length1)))
+					diffs[pointer - 1][2] = strsub(deletion, 1, #deletion - overlap_length1)
 					diffs[pointer + 1][2] = strsub(insertion, overlap_length1 + 1)
 					pointer = pointer + 1
 				end
 			else
-				if overlap_length2 >= #deletion / 2 or
-					overlap_length2 >= #insertion / 2 then
+				if overlap_length2 >= #deletion / 2 or overlap_length2 >= #insertion / 2 then
 					-- Reverse overlap found.
 					-- Insert an equality and swap and trim the surrounding edits.
-					tinsert(diffs, pointer,
-						Diff.new(DIFF_EQUAL, strsub(deletion, 1, overlap_length2)))
-					diffs[pointer - 1] = {DIFF_INSERT,
-						strsub(insertion, 1, #insertion - overlap_length2)}
-					diffs[pointer + 1] = {DIFF_DELETE,
-						strsub(deletion, overlap_length2 + 1)}
+					tinsert(diffs, pointer, Diff.new(DIFF_EQUAL, strsub(deletion, 1, overlap_length2)))
+					diffs[pointer - 1] = { DIFF_INSERT, strsub(insertion, 1, #insertion - overlap_length2) }
+					diffs[pointer + 1] = { DIFF_DELETE, strsub(deletion, overlap_length2 + 1) }
 					pointer = pointer + 1
 				end
 			end
@@ -315,14 +302,14 @@ local function _diff_cleanupSemanticScore(one: string, two: string): number
 	-- rather than force total conformity.
 	local char1 = strsub(one, -1)
 	local char2 = strsub(two, 1, 1)
-	local nonAlphaNumeric1 = strmatch(char1, '%W')
-	local nonAlphaNumeric2 = strmatch(char2, '%W')
-	local whitespace1 = nonAlphaNumeric1 and strmatch(char1, '%s')
-	local whitespace2 = nonAlphaNumeric2 and strmatch(char2, '%s')
-	local lineBreak1 = whitespace1 and strmatch(char1, '%c')
-	local lineBreak2 = whitespace2 and strmatch(char2, '%c')
-	local blankLine1 = lineBreak1 and strmatch(one, '\n\r?\n$')
-	local blankLine2 = lineBreak2 and strmatch(two, '^\r?\n\r?\n')
+	local nonAlphaNumeric1 = strmatch(char1, "%W")
+	local nonAlphaNumeric2 = strmatch(char2, "%W")
+	local whitespace1 = nonAlphaNumeric1 and strmatch(char1, "%s")
+	local whitespace2 = nonAlphaNumeric2 and strmatch(char2, "%s")
+	local lineBreak1 = whitespace1 and strmatch(char1, "%c")
+	local lineBreak2 = whitespace2 and strmatch(char2, "%c")
+	local blankLine1 = lineBreak1 and strmatch(one, "\n\r?\n$")
+	local blankLine2 = lineBreak2 and strmatch(two, "^\r?\n\r?\n")
 
 	if blankLine1 or blankLine2 then
 		-- Five points for blank lines.
@@ -375,15 +362,13 @@ _diff_cleanupSemanticLossless = function(diffs: Array<Diff>)
 			local bestEquality1 = equality1
 			local bestEdit = edit
 			local bestEquality2 = equality2
-			local bestScore = _diff_cleanupSemanticScore(equality1, edit)
-				+ _diff_cleanupSemanticScore(edit, equality2)
+			local bestScore = _diff_cleanupSemanticScore(equality1, edit) + _diff_cleanupSemanticScore(edit, equality2)
 
 			while strbyte(edit, 1) == strbyte(equality2, 1) do
 				equality1 = equality1 .. strsub(edit, 1, 1)
 				edit = strsub(edit, 2) .. strsub(equality2, 1, 1)
 				equality2 = strsub(equality2, 2)
-				local score = _diff_cleanupSemanticScore(equality1, edit)
-					+ _diff_cleanupSemanticScore(edit, equality2)
+				local score = _diff_cleanupSemanticScore(equality1, edit) + _diff_cleanupSemanticScore(edit, equality2)
 				-- The >= encourages trailing rather than leading whitespace on edits.
 				if score >= bestScore then
 					bestScore = score
@@ -404,22 +389,22 @@ _diff_cleanupSemanticLossless = function(diffs: Array<Diff>)
 				if #bestEquality2 > 0 then
 					diffs[pointer + 1][2] = bestEquality2
 				else
-					tremove(diffs, pointer + 1, 1)
-					pointer = pointer - 1
+					tremove(diffs, pointer + 1)
+					pointer -= 1
 				end
 			end
 		end
-		pointer = pointer + 1
+		pointer += 1
 	end
 end
 
--- deviation: no need for regex patterns
+-- ROBLOX deviation: no need for regex patterns
 
 _diff_cleanupMerge = function(diffs: Array<Diff>)
-	diffs[#diffs + 1] = Diff.new(DIFF_EQUAL, '')  -- Add a dummy entry at the end.
+	diffs[#diffs + 1] = Diff.new(DIFF_EQUAL, "") -- Add a dummy entry at the end.
 	local pointer = 1
 	local count_delete, count_insert = 0, 0
-	local text_delete, text_insert = '', ''
+	local text_delete, text_insert = "", ""
 	local commonlength
 	while diffs[pointer] do
 		local diff_type = diffs[pointer][1]
@@ -439,13 +424,11 @@ _diff_cleanupMerge = function(diffs: Array<Diff>)
 					commonlength = _diff_commonPrefix(text_insert, text_delete)
 					if commonlength > 0 then
 						local back_pointer = pointer - count_delete - count_insert
-						if back_pointer > 1 and diffs[back_pointer - 1][1] == DIFF_EQUAL
-							then
+						if back_pointer > 1 and diffs[back_pointer - 1][1] == DIFF_EQUAL then
 							diffs[back_pointer - 1][2] = diffs[back_pointer - 1][2]
 								.. strsub(text_insert, 1, commonlength)
 						else
-							tinsert(diffs, 1,
-								Diff.new(DIFF_EQUAL, strsub(text_insert, 1, commonlength)))
+							tinsert(diffs, 1, Diff.new(DIFF_EQUAL, strsub(text_insert, 1, commonlength)))
 							pointer = pointer + 1
 						end
 						text_insert = strsub(text_insert, commonlength + 1)
@@ -454,8 +437,7 @@ _diff_cleanupMerge = function(diffs: Array<Diff>)
 					-- Factor out any common suffixies.
 					commonlength = _diff_commonSuffix(text_insert, text_delete)
 					if commonlength ~= 0 then
-						diffs[pointer][2] =
-							strsub(text_insert, -commonlength) .. diffs[pointer][2]
+						diffs[pointer][2] = strsub(text_insert, -commonlength) .. diffs[pointer][2]
 						text_insert = strsub(text_insert, 1, -commonlength - 1)
 						text_delete = strsub(text_delete, 1, -commonlength - 1)
 					end
@@ -482,11 +464,11 @@ _diff_cleanupMerge = function(diffs: Array<Diff>)
 				pointer = pointer + 1
 			end
 			count_insert, count_delete = 0, 0
-			text_delete, text_insert = '', ''
+			text_delete, text_insert = "", ""
 		end
 	end
-	if diffs[#diffs][2] == '' then
-		diffs[#diffs] = nil  -- Remove the dummy entry at the end.
+	if diffs[#diffs][2] == "" then
+		diffs[#diffs] = nil -- Remove the dummy entry at the end.
 	end
 
 	-- Second pass: look for single edits surrounded on both sides by equalities

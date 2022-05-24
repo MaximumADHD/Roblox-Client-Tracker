@@ -32,10 +32,7 @@ end
 -- returns true if all property-values in the subset table exist in the Instance
 -- and returns false otherwise
 -- returns nil for undefined behavior
-local function instanceSubsetEquality(
-	instance: any,
-	subset: any
-): boolean | nil
+local function instanceSubsetEquality(instance: any, subset: any): boolean | nil
 	local function subsetEqualityWithContext(seenReferences)
 		return function(localInstance, localSubset)
 			seenReferences = seenReferences or {}
@@ -50,29 +47,22 @@ local function instanceSubsetEquality(
 				instanceChildren[v.Name] = true
 			end
 
-			return Array.every(
-				Object.keys(localSubset),
-				function(prop)
-					local subsetVal = localSubset[prop]
-					if isObjectWithKeys(subsetVal) then
-						-- return false for circular references
-						if seenReferences[subsetVal] then
-							return false
-						end
-						seenReferences[subsetVal] = true
+			return Array.every(Object.keys(localSubset), function(prop)
+				local subsetVal = localSubset[prop]
+				if isObjectWithKeys(subsetVal) then
+					-- return false for circular references
+					if seenReferences[subsetVal] then
+						return false
 					end
-					local result = localInstance ~= nil and
-						(table.find(instanceProperties, prop) ~= nil or instanceChildren[prop] ~= nil) and
-						equals(
-							localInstance[prop],
-							subsetVal,
-							{ subsetEqualityWithContext(seenReferences) }
-						)
-
-					seenReferences[subsetVal] = nil
-					return result
+					seenReferences[subsetVal] = true
 				end
-			)
+				local result = localInstance ~= nil
+					and (table.find(instanceProperties, prop) ~= nil or instanceChildren[prop] ~= nil)
+					and equals(localInstance[prop], subsetVal, { subsetEqualityWithContext(seenReferences) })
+
+				seenReferences[subsetVal] = nil
+				return result
+			end)
 		end
 	end
 
@@ -91,21 +81,17 @@ function InstanceSubset.new(className, subset)
 	table.sort(subset)
 	local self = {
 		ClassName = className,
-		subset = subset
+		subset = subset,
 	}
 
 	setmetatable(self, InstanceSubset)
 	return self
 end
 
--- given an Instance and a property-value table subset, returns 
+-- given an Instance and a property-value table subset, returns
 -- an InstanceSubset object representing the subset of Instance with values in the subset table
 -- and a InstanceSubset object representing the subset table
-local function getInstanceSubset(
-	instance: any,
-	subset: any,
-	seenReferences
-): any
+local function getInstanceSubset(instance: any, subset: any, seenReferences): any
 	seenReferences = seenReferences or {}
 
 	local trimmed: any = {}
@@ -131,11 +117,11 @@ local function getInstanceSubset(
 		table.insert(propsAndChildren, v.Name)
 	end
 
-	for i, prop in ipairs(
-		Array.filter(
-			propsAndChildren,
-			function(prop) return hasPropertyInObject(subset, prop) end)
-	) do
+	for i, prop in
+		ipairs(Array.filter(propsAndChildren, function(prop)
+			return hasPropertyInObject(subset, prop)
+		end))
+	do
 		if seenReferences[instance[prop]] ~= nil then
 			error("Circular reference passed into .toMatchInstance(subset)")
 		else
@@ -152,8 +138,7 @@ local function getInstanceSubset(
 		subsetClassName = rawget(subset, "ClassName")
 	end
 
-	return InstanceSubset.new(instance.ClassName, trimmed),
-		InstanceSubset.new(subsetClassName, newSubset)
+	return InstanceSubset.new(instance.ClassName, trimmed), InstanceSubset.new(subsetClassName, newSubset)
 end
 
 return {

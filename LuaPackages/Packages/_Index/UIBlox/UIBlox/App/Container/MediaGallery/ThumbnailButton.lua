@@ -34,7 +34,7 @@ ThumbnailButton.validateProps = t.strictInterface({
 	anchorPoint = t.optional(t.Vector2),
 	position = t.optional(t.UDim2),
 
-	key = t.any,
+	itemKey = t.any,
 	imageId = t.optional(t.string),
 	isVideo = t.optional(t.boolean),
 	isSelected = t.optional(t.boolean),
@@ -64,13 +64,13 @@ function ThumbnailButton:init()
 
 	self.onActivated = function()
 		if self.props.onActivated then
-			self.props.onActivated(self.props.key)
+			self.props.onActivated(self.props.itemKey)
 		end
 	end
 
 	self.onPlayActivated = function()
 		if self.props.onPlayActivated then
-			self.props.onPlayActivated(self.props.key)
+			self.props.onPlayActivated(self.props.itemKey)
 		end
 	end
 end

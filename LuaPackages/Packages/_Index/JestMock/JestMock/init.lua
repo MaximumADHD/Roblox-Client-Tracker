@@ -1,6 +1,6 @@
--- upstream: https://github.com/facebook/jest/blob/v27.0.6/packages/jest-mock/src/index.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/jest-mock/src/index.ts
 
--- deviation: Currently we have translated a limited subset of the jest-mock
+-- ROBLOX deviation: Currently we have translated a limited subset of the jest-mock
 -- functionality just to bootstrap the development of the spyMatchers. As we have
 -- a need for more functionality, we will revisit this file and continue the translation
 -- efforts.
@@ -13,19 +13,52 @@ local Array = LuauPolyfill.Array
 local Set = LuauPolyfill.Set
 local Symbol = LuauPolyfill.Symbol
 
+type Array<T> = LuauPolyfill.Array<T>
+type Object = LuauPolyfill.Object
+
+local exports = {}
+
 local ModuleMockerClass = {}
 
 -- ROBLOX TODO: Uncomment this type once Luau has supported ... syntax
 -- type Function = (...) -> any;
-type Array<T> = { [number]: T };
 -- ROBLOX TODO: Fix once Luau has support for default type arguments
-type MockDefaultY = Array<any>;
+type MockDefaultY = Array<any>
 type MockFunctionState<T, Y> = {
 	calls: Array<Y>,
 	instances: Array<T>,
 	invocationCallOrder: Array<number>,
-	results: Array<MockFunctionResult>
-};
+	results: Array<MockFunctionResult>,
+}
+
+--[[
+	ROBLOX deviation: skipped code
+	original code lines 35 - 67
+]]
+
+--[[
+	ROBLOX deviation START: skipped unsupported TS functionality
+	original code:
+	export type MaybeMockedDeep<T> = T extends MockableFunction
+	  ? MockedFunctionDeep<T>
+	  : T extends object
+	  ? MockedObjectDeep<T>
+	  : T;
+
+	export type MaybeMocked<T> = T extends MockableFunction
+	  ? MockedFunction<T>
+	  : T extends object
+	  ? MockedObject<T>
+	  : T;
+	]]
+export type MaybeMockedDeep<T> = T
+export type MaybeMocked<T> = T
+-- ROBLOX deviation END
+
+--[[
+	ROBLOX deviation: skipped code
+	original code lines 81 - 103
+]]
 
 -- ROBLOX TODO: Uncomment this type and use it once Luau has supported it
 -- ROBLOX TODO: Un in-line the MockInstance type declaration once we have "extends" syntax in Luau
@@ -37,7 +70,7 @@ type MockFunctionState<T, Y> = {
 --     mock: MockFunctionState<T, Y>,
 --     mockClear: () -> Mock<T, Y>,
 --     mockReset: () -> Mock<T, Y>,
---     -- deviation: Revisit after https://github.com/facebook/jest/issues/11244
+--     -- ROBLOX deviation: Revisit after https://github.com/facebook/jest/issues/11244
 --     mockRestore: any,
 --     mockImplementation: (...) -> T) -> Mock<T, Y>,
 --     mockImplementationOnce (...) -> T -> Mock<T, Y>,
@@ -50,22 +83,30 @@ type MockFunctionState<T, Y> = {
 -- 	__call: (...) -> T
 -- };
 
--- deviation: MockFunctionResultType defined as string for now but
+-- ROBLOX deviation: MockFunctionResultType defined as string for now but
 -- eventually should be = 'return' | 'throw' | 'incomplete';
-type MockFunctionResultType = string;
+type MockFunctionResultType = string
 type MockFunctionResult = {
 	type: MockFunctionResultType,
-	value: any
-};
+	value: any,
+}
 type MockFunctionConfig = {
-	-- deviation: mockImpl defined as any for now but should be Function | nil if/when Luau supports general function type
+	-- ROBLOX deviation: mockImpl defined as any for now but should be Function | nil if/when Luau supports general function type
 	mockImpl: any,
 	mockName: string,
 	specificReturnValues: Array<any>,
-	-- deviation: specificMockImpls defined as Array<any> for now but should be Array<Function> if/when Luau supports general function type
-	specificMockImpls: Array<any>
-};
+	-- ROBLOX deviation: specificMockImpls defined as Array<any> for now but should be Array<Function> if/when Luau supports general function type
+	specificMockImpls: Array<any>,
+}
 
+export type ModuleMocker = {
+	isMockFunction: (_self: ModuleMocker, fn: any) -> boolean,
+	fn: (_self: ModuleMocker, implementation: any) -> (),
+	clearAllMocks: (_self: ModuleMocker) -> (),
+	resetAllMocks: (_self: ModuleMocker) -> (),
+	restoreAllMocks: (_self: ModuleMocker) -> (),
+	mocked: <T>(_self: ModuleMocker, item: T, _deep: boolean?) -> MaybeMocked<T> | MaybeMockedDeep<T>,
+}
 
 ModuleMockerClass.__index = ModuleMockerClass
 function ModuleMockerClass.new()
@@ -73,7 +114,7 @@ function ModuleMockerClass.new()
 		_mockState = {},
 		_mockConfigRegistry = {},
 		_invocationCallCounter = 1,
-		_spyState = Set.new()
+		_spyState = Set.new(),
 	}
 
 	setmetatable(self, ModuleMockerClass)
@@ -81,7 +122,7 @@ function ModuleMockerClass.new()
 	return self
 end
 
--- deviation: omitting _getSlots as it is specific to JS prototypes
+-- ROBLOX deviation: omitting _getSlots as it is specific to JS prototypes
 
 function ModuleMockerClass:_ensureMockConfig(f): MockFunctionConfig
 	local config = self._mockConfigRegistry[f]
@@ -107,9 +148,9 @@ end
 function ModuleMockerClass:_defaultMockConfig(): MockFunctionConfig
 	return {
 		mockImpl = nil,
-		mockName = 'jest.fn()',
+		mockName = "jest.fn()",
 		specificMockImpls = {},
-		specificReturnValues = {}
+		specificReturnValues = {},
 	}
 end
 
@@ -118,25 +159,22 @@ function ModuleMockerClass:_defaultMockState()
 		calls = {},
 		instances = {},
 		invocationCallOrder = {},
-		results = {}
+		results = {},
 	}
 end
 
-function ModuleMockerClass:_makeComponent(
-	metadata: any,
-	restore
-)
-	if metadata.type == 'function' then
+function ModuleMockerClass:_makeComponent(metadata: any, restore)
+	if metadata.type == "function" then
 		local mocker = self
 
 		local mockConstructor = function(f, ...)
-			local args = {...}
+			local args = { ... }
 
 			local mockState = mocker:_ensureMockState(f)
 			local mockConfig = mocker:_ensureMockConfig(f)
 
 			table.insert(mockState.instances, f)
-			-- deviation: We use a Symbol meant to represent nil instead of
+			-- ROBLOX deviation: We use a Symbol meant to represent nil instead of
 			-- actual nil values to help with handling nil values
 			for i = 1, select("#", ...) do
 				if args[i] == nil then
@@ -145,25 +183,25 @@ function ModuleMockerClass:_makeComponent(
 			end
 			table.insert(mockState.calls, args)
 
-			-- // Create and record an "incomplete" mock result immediately upon
-			-- // calling rather than waiting for the mock to return. This avoids
-			-- // issues caused by recursion where results can be recorded in the
-			-- // wrong order.
+			-- Create and record an "incomplete" mock result immediately upon
+			-- calling rather than waiting for the mock to return. This avoids
+			-- issues caused by recursion where results can be recorded in the
+			-- wrong order.
 			local mockResult = {
-				type = 'incomplete',
-				value = nil
+				type = "incomplete",
+				value = nil,
 			}
 
 			table.insert(mockState.results, mockResult)
 			table.insert(mockState.invocationCallOrder, mocker._invocationCallCounter)
 			self._invocationCallCounter = self._invocationCallCounter + 1
 
-			-- deviation: omitted finalReturnValue, thrownError, and
+			-- ROBLOX deviation: omitted finalReturnValue, thrownError, and
 			-- callDidThrowError as we get this state for free with our
 			-- pcall error handling
 
 			local ok, result = pcall(function(args_)
-				-- deviation: omitted section of code dealing with calling
+				-- ROBLOX deviation: omitted section of code dealing with calling
 				-- function as constructor
 				local specificMockImpl = Array.shift(mockConfig.specificMockImpls)
 				if specificMockImpl == nil then
@@ -174,32 +212,31 @@ function ModuleMockerClass:_makeComponent(
 					return specificMockImpl(unpack(args_))
 				end
 
-				-- deviation: omitted section on f._protoImpl
+				-- ROBLOX deviation: omitted section on f._protoImpl
 				return nil
-			end, {...})
+			end, { ... })
 
 			if not ok then
-				mockResult.type = 'throw'
+				mockResult.type = "throw"
 				mockResult.value = result
 
 				error(result)
 			end
 
-			mockResult.type = 'return'
+			mockResult.type = "return"
 			mockResult.value = result
 
 			return result
 		end
 
-		local f = {}
-		setmetatable(f, {__call = mockConstructor})
+		local f = setmetatable({}, { __call = mockConstructor })
 
 		f._isMockFunction = true
 		f.getMockImplementation = function()
 			return self:_ensureMockConfig(f).mockImpl
 		end
 
-		if typeof(restore) == 'function' then
+		if typeof(restore) == "function" then
 			self._spyState.add(restore)
 		end
 
@@ -209,15 +246,14 @@ function ModuleMockerClass:_makeComponent(
 		f.mock = setmetatable({}, {
 			__index = function(tbl, key)
 				return self:_ensureMockState(f)[key]
-			end
-			-- deviation: for now we don't have newindex defined as we don't have any use cases
+			end,
+			-- ROBLOX deviation: for now we don't have newindex defined as we don't have any use cases
 			-- but it should look something like the following
 			-- __newindex = function(table, key, value)
 			-- 		local state = self:_ensureMockState(f)
 			-- 		state[key] = value
 			-- 		return state
 			-- 	end
-
 		})
 
 		f.mockClear = function()
@@ -240,33 +276,37 @@ function ModuleMockerClass:_makeComponent(
 			end
 		end
 
-		-- deviation: omitted mockResolvedValue and mockRejectedValue
+		-- ROBLOX deviation: omitted mockResolvedValue and mockRejectedValue
 
 		f.mockImplementationOnce = function(fn)
-			-- // next function call will use this mock implementation return value
-			-- // or default mock implementation return value
+			-- next function call will use this mock implementation return value
+			-- or default mock implementation return value
 			local mockConfig = self:_ensureMockConfig(f)
 			table.insert(mockConfig.specificMockImpls, fn)
 			return f
 		end
 
 		f.mockImplementation = function(fn)
-			-- // next function call will use mock implementation return value
+			-- next function call will use mock implementation return value
 			local mockConfig = self:_ensureMockConfig(f)
 			mockConfig.mockImpl = fn
 			return f
 		end
 
 		f.mockReturnValueOnce = function(value)
-			-- // next function call will return this value or default return value
-			return f.mockImplementationOnce(function() return value end)
+			-- next function call will return this value or default return value
+			return f.mockImplementationOnce(function()
+				return value
+			end)
 		end
 
-		-- deviation: omitted mockResolvedValueOnce and mockRejectedValueOnce
+		-- ROBLOX deviation: omitted mockResolvedValueOnce and mockRejectedValueOnce
 
 		f.mockReturnValue = function(value)
-			-- // next function call will return specified return value or this one
-			return f.mockImplementation(function() return value end)
+			-- next function call will return specified return value or this one
+			return f.mockImplementation(function()
+				return value
+			end)
 		end
 
 		f.mockReturnThis = function()
@@ -285,10 +325,10 @@ function ModuleMockerClass:_makeComponent(
 
 		f.getMockName = function()
 			local mockConfig = self:_ensureMockConfig(f)
-			return mockConfig.mockName or 'jest.fn()'
+			return mockConfig.mockName or "jest.fn()"
 		end
 
-		-- deviation: Since we don't have the new keyword in Lua, we add a
+		-- ROBLOX deviation: Since we don't have the new keyword in Lua, we add a
 		-- fn.new() function
 		f.new = function(...)
 			f(...)
@@ -301,14 +341,11 @@ function ModuleMockerClass:_makeComponent(
 
 		return f
 	else
-		error('Call to _makeComponent with non-function')
+		error("Call to _makeComponent with non-function")
 	end
 end
 
-function ModuleMockerClass:_createMockFunction(
-	metadata,
-	mockConstructor
-)
+function ModuleMockerClass:_createMockFunction(metadata, mockConstructor)
 	local name = metadata.name
 	if not name then
 		return mockConstructor
@@ -322,16 +359,15 @@ function ModuleMockerClass:isMockFunction(fn: any)
 	return typeof(fn) == "table" and fn._isMockFunction == true
 end
 
-
 -- ROBLOX TODO: type as fn(implementation: (...) -> any): JestMock.Mock<any, any> once ... syntax is supported
 function ModuleMockerClass:fn(implementation)
 	local length = 0
-	local fn = self:_makeComponent({length = length, type = 'function'})
+	local fn = self:_makeComponent({ length = length, type = "function" })
 	if implementation then
 		fn.mockImplementation(implementation)
 	end
 
-	-- deviation: fn is a callable table, 
+	-- ROBLOX deviation: fn is a callable table,
 	-- return a forwarding function as the second return value
 	local function mockFn(...)
 		return getmetatable(fn).__call(fn, ...)
@@ -356,4 +392,27 @@ function ModuleMockerClass:restoreAllMocks()
 	self._spyState = Set.new()
 end
 
-return ModuleMockerClass
+--[[
+	ROBLOX deviation: skipped private _typeOf method
+	original code:
+	private _typeOf(value: any): string {
+	  return value == null ? '' + value : typeof value;
+	}
+]]
+
+function ModuleMockerClass.mocked<T>(_self: ModuleMocker, item: T, _deep: boolean?): MaybeMocked<T> | MaybeMockedDeep<T>
+	return item :: any
+end
+
+exports.ModuleMocker = ModuleMockerClass
+
+local JestMock = ModuleMockerClass.new()
+local fn = JestMock.fn
+exports.fn = fn
+-- ROBLOX TODO: spyOn is not implemented
+-- local spyOn = JestMock.spyOn
+-- exports.spyOn = spyOn
+local mocked = JestMock.mocked
+exports.mocked = mocked
+
+return exports

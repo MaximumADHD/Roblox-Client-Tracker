@@ -1,4 +1,4 @@
--- upstream: https://github.com/facebook/jest/blob/v26.5.3/packages/pretty-format/src/types.ts
+-- ROBLOX upstream: https://github.com/facebook/jest/blob/v27.4.7/packages/pretty-format/src/types.ts
 -- /**
 --  * Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
 --  *
@@ -11,7 +11,7 @@ export type Colors = {
 	content: { close: string, open: string },
 	prop: { close: string, open: string },
 	tag: { close: string, open: string },
-	value: { close: string, open: string }
+	value: { close: string, open: string },
 }
 type Indent = (string) -> string
 export type Refs = { [number]: any }
@@ -33,8 +33,11 @@ type ThemeReceived = {
 	value: string?,
 }
 
+export type CompareKeys = ((a: string, b: string) -> number) | nil
+
 export type Options = {
 	callToJSON: boolean,
+	compareKeys: CompareKeys,
 	escapeRegex: boolean,
 	escapeString: boolean,
 	highlight: boolean,
@@ -42,12 +45,14 @@ export type Options = {
 	maxDepth: number,
 	min: boolean,
 	plugins: Plugins,
+	printBasicPrototype: boolean,
 	printFunctionName: boolean,
 	theme: Theme,
 }
 
-export type OptionsReceived = {
+export type PrettyFormatOptions = {
 	callToJSON: boolean?,
+	compareKeys: CompareKeys,
 	escapeRegex: boolean?,
 	escapeString: boolean?,
 	highlight: boolean?,
@@ -55,44 +60,36 @@ export type OptionsReceived = {
 	maxDepth: number?,
 	min: boolean?,
 	plugins: Plugins?,
+	printBasicPrototype: boolean?,
 	printFunctionName: boolean?,
 	theme: ThemeReceived?,
 }
 
+export type OptionsReceived = PrettyFormatOptions
+
 export type Config = {
 	callToJSON: boolean,
-	colors: Colors,
+	compareKeys: CompareKeys,
+	-- ROBLOX deviation: we don't support colors?
+	colors: Colors?,
 	escapeRegex: boolean,
 	escapeString: boolean,
 	indent: string,
 	maxDepth: number,
 	min: boolean,
 	plugins: Plugins,
+	printBasicPrototype: boolean,
 	printFunctionName: boolean,
 	spacingInner: string,
 	spacingOuter: string,
 }
 
-export type Printer = (
-	any,
-	Config,
-	string,
-	number,
-	Refs,
-	boolean?
-) -> string
+export type Printer = (any, Config, string, number, Refs, boolean?) -> string
 
 type Test = (any) -> boolean
 
 export type NewPlugin = {
-	serialize: (
-		any,
-		Config,
-		string,
-		number,
-		Refs,
-		Printer
-	) -> string,
+	serialize: (any, Config, string, number, Refs, Printer) -> string,
 	test: Test,
 }
 
@@ -103,13 +100,8 @@ type PluginOptions = {
 }
 
 export type OldPlugin = {
-	print: (
-		any,
-		Print,
-		Indent,
-		PluginOptions,
-		Colors
-	) -> string,
+	-- ROBLOX deviation: we don't support colors?
+	print: (any, Print, Indent, PluginOptions, Colors?) -> string,
 	test: Test,
 }
 

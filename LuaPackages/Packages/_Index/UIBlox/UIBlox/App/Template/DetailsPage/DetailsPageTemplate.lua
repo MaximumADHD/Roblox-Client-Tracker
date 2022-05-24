@@ -27,7 +27,9 @@ local validateDetailsPageComponentList = require(DetailsPage.validateDetailsPage
 
 local DetailsPageTemplate = Roact.PureComponent:extend("DetailsPageTemplate")
 
-local ICON_CLOSE = Images["icons/navigation/close"]
+local ICON_CLOSE = "icons/navigation/close"
+
+local ICON_BACK = "icons/navigation/pushBack"
 
 local HEADER_MAX_PADDING = 500
 
@@ -42,6 +44,7 @@ local MOBILE_ACTION_BAR_HEIGHT = 72
 DetailsPageTemplate.defaultProps = {
 	startingOffsetPosition = HEADER_MAX_PADDING,
 	isMobile = false,
+	isFullscreen = false,
 }
 
 DetailsPageTemplate.validateProps = t.strictInterface({
@@ -62,6 +65,8 @@ DetailsPageTemplate.validateProps = t.strictInterface({
 	bannerImageUrl = t.optional(t.string),
 	startingOffsetPosition = t.optional(t.number),
 	isMobile = t.optional(t.boolean),
+	isFullscreen = t.optional(t.boolean),
+	renderFullscreenContent = t.optional(t.callback),
 })
 
 local function getHeaderPaddingHeight(props, backgroundHeight)
@@ -145,6 +150,10 @@ function DetailsPageTemplate:render()
 	local backgroundComponentPosition = self.state.backgroundComponentPosition
 	local containerSize = self.state.containerSize
 
+	local isFullscreen = self.props.isFullscreen
+	local renderFullscreenContent = self.props.renderFullscreenContent
+	local showFullscreen = (not isMobile and isFullscreen and renderFullscreenContent) and true or false
+
 	return withStyle(function(style)
 		local theme = style.Theme
 		local showPlaceholderBanner = self.props.bannerImageUrl == nil
@@ -178,7 +187,7 @@ function DetailsPageTemplate:render()
 			}, {
 				CloseButton = Roact.createElement(IconButton, {
 					size = UDim2.fromScale(1, 1),
-					icon = ICON_CLOSE,
+					icon = showFullscreen and Images[ICON_BACK] or Images[ICON_CLOSE],
 					iconColor3 = style.Theme.UIEmphasis.Color,
 					iconSize = IconSize.Medium,
 					onActivated = self.props.onClose,
@@ -208,7 +217,7 @@ function DetailsPageTemplate:render()
 					ScaleType = Enum.ScaleType.Crop,
 				}) or nil,
 			}),
-			StickyActionBarFrame = self.state.showStickyActionTopBar and Roact.createElement("TextButton", {
+			StickyActionBarFrame = (self.state.showStickyActionTopBar or showFullscreen) and Roact.createElement("TextButton", {
 				Text = "",
 				AutoButtonColor = false,
 				Size = UDim2.new(1, 0, 0, headerHeight),
@@ -228,6 +237,7 @@ function DetailsPageTemplate:render()
 				size = UDim2.fromScale(1, 1),
 				canvasSizeY = UDim.new(1, 0),
 				useAutomaticCanvasSize = true,
+				scrollingEnabled = not showFullscreen,
 
 				[Roact.Change.CanvasPosition] = self.canvasPositionChange,
 				scrollingFrameRef = self.scrollingFrameRef,
@@ -304,6 +314,17 @@ function DetailsPageTemplate:render()
 					LayoutOrder = 3,
 				}),
 			}),
+			FullscreenFrame = showFullscreen and Roact.createElement("TextButton", {
+				Size = UDim2.new(1, 0, 1, -headerHeight),
+				Position = UDim2.fromOffset(0, headerHeight),
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				AutoButtonColor = false,
+				ClipsDescendants = true,
+				ZIndex = 2,
+			}, {
+				FullscreenContent = renderFullscreenContent(),
+			}) or nil,
 			MobileActionBarFrame = isMobile and Roact.createElement("TextButton", {
 				Text = "",
 				AutoButtonColor = false,
