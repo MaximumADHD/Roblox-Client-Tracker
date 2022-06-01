@@ -4,8 +4,8 @@ version = "1.0.0"
 commit = "9d3a27d118218f8f83feb2ba5e5309350fac9c75"
 source = "git+https://github.com/roblox/iapexperience#master"
 dependencies = [
-    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Roact <patched> RoactCompat 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
     "RoactFitComponents RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
-    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 9327998d git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]

@@ -27,7 +27,7 @@ DropdownMenuComponent.validateProps = t.strictInterface({
 	-- Texts shown by the DropdownCell when no value is selected, i.e. the initial state.
 	placeholder = t.string,
 
-  -- The callback function when a value is selected, passing the selected value as the parameter.
+	-- The callback function when a value is selected, passing the selected value as the parameter.
 	onChange = t.callback,
 
 	-- Size of the DropdownCell.
@@ -44,6 +44,9 @@ DropdownMenuComponent.validateProps = t.strictInterface({
 
 	-- If the component is disabled.
 	isDisabled = t.optional(t.boolean),
+
+	-- Callback triggers on menu open/close events. A single boolean will be passed with the open state of the menu.
+	onMenuOpenChange = t.optional(t.callback),
 
 	-- Array of datas for menu cells
 	cellDatas = t.array(t.strictInterface({
@@ -70,6 +73,12 @@ DropdownMenuComponent.validateProps = t.strictInterface({
 		textColorOverride = t.optional(t.Color3),
 	}))
 })
+
+function DropdownMenuComponent:didUpdate(prevProps, prevState)
+	if self.props.onMenuOpenChange and self.state.menuOpen ~= prevState.menuOpen then
+		self.props.onMenuOpenChange(self.state.menuOpen)
+	end
+end
 
 function DropdownMenuComponent:init()
 	self.rootRef = Roact.createRef()

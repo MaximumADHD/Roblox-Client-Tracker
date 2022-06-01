@@ -16,8 +16,8 @@ return {
 	RoduxPresence = require(LuaSocialLibrariesDeps.RoduxPresence),
 	RoduxPresence_v3 = require(LuaSocialLibrariesDeps.RoduxPresence_v3),
 	RoduxGames = require(LuaSocialLibrariesDeps.RoduxGames),
+	RoduxContacts = require(LuaSocialLibrariesDeps.RoduxContacts),
 	httpRequest = require(LuaSocialLibrariesDeps.httpRequest),
-	NetworkingUtil = require(LuaSocialLibrariesDeps.NetworkingUtil),
 	NetworkingPresence = require(LuaSocialLibrariesDeps.NetworkingPresence),
 	NetworkingAliases = require(LuaSocialLibrariesDeps.NetworkingAliases),
 	NetworkingChat = require(LuaSocialLibrariesDeps.NetworkingChat),
@@ -27,6 +27,5 @@ return {
 	NetworkingContacts = require(LuaSocialLibrariesDeps.NetworkingContacts),
 	CollisionMatchers = require(LuaSocialLibrariesDeps.CollisionMatchers),
 	SocialLibraries = require(LuaSocialLibrariesDeps.SocialLibraries),
-	SocialLibraries_v085 = require(LuaSocialLibrariesDeps.SocialLibraries_v085),
 	NetworkingUsers = require(LuaSocialLibrariesDeps.NetworkingUsers),
 }

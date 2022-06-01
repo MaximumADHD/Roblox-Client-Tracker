@@ -9,8 +9,11 @@ export type UploadContactsByUser = {
 	},
 }
 
+export type FindContactFriends = {}
+
 export type RequestThunks = {
 	UploadContactsByUser: UploadContactsByUser,
+	FindContactFriends: FindContactFriends,
 }
 
 export type Config = {

@@ -50,6 +50,9 @@ IconButton.validateProps = t.strictInterface({
 	-- The activated callback for the button
 	onActivated = t.optional(t.callback),
 
+	-- Callback called when the position of the button changes
+	onAbsolutePositionChanged = t.optional(t.callback),
+
 	anchorPoint = t.optional(t.Vector2),
 	layoutOrder = t.optional(t.number),
 	position = t.optional(t.UDim2),
@@ -60,6 +63,7 @@ IconButton.validateProps = t.strictInterface({
 	iconTransparency = t.optional(t.union(t.number, bindingValidator(t.number))),
 	showBackground = t.optional(t.boolean),
 	backgroundColor = t.optional(validateColorInfo),
+	backgroundTransparency = t.optional(t.union(t.number, bindingValidator(t.number))),
 
 	[Roact.Children] = t.optional(t.table),
 
@@ -82,6 +86,7 @@ IconButton.defaultProps = {
 	iconTransparency = nil,
 	showBackground = false,
 	backgroundColor = nil,
+	backgroundTransparency = nil,
 
 	isDisabled = false,
 	userInteractionEnabled = true,
@@ -153,6 +158,7 @@ function IconButton:render()
 			BackgroundTransparency = 1,
 			AutoButtonColor = false,
 
+			[Roact.Change.AbsolutePosition] = self.props.onAbsolutePositionChanged,
 			[Roact.Event.Activated] = self.props.onActivated,
 		}, {
 			sizeConstraint = Roact.createElement("UISizeConstraint", {
@@ -171,7 +177,7 @@ function IconButton:render()
 			background = showBackground and Roact.createElement("Frame", {
 				Size = UDim2.fromScale(1, 1),
 				BackgroundColor3 = backgroundColor.Color,
-				BackgroundTransparency = backgroundColor.Transparency,
+				BackgroundTransparency = self.props.backgroundTransparency or backgroundColor.Transparency,
 				ZIndex = 0,
 			}, {
 				corner = Roact.createElement("UICorner", {

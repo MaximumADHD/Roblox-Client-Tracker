@@ -11,6 +11,8 @@ local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local Otter = require(Packages.Otter)
 
+local getIconSize = require(App.ImageSet.getIconSize)
+local IconSize = require(App.ImageSet.Enum.IconSize)
 local Images = require(App.ImageSet.Images)
 local IconButton = require(App.Button.IconButton)
 local ExternalEventConnection = require(UIBlox.Utility.ExternalEventConnection)
@@ -25,7 +27,7 @@ local PADDING_MIDDLE = 24
 local PADDING_ITEMS = 12
 local CORNER_RADIUS = 8
 local IMAGE_RATIO = 16 / 9 -- width / height
-local PAGINATION_ARROW_WIDTH = 28
+local PAGINATION_ARROW_WIDTH = getIconSize(IconSize.Medium)
 
 local METER_BAR_THICKNESS = 2
 local METER_ANIMATION_INTERVAL = 5
