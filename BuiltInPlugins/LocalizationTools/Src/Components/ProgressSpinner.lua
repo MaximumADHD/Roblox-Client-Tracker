@@ -71,12 +71,9 @@ function ProgressSpinner:render()
 	})
 end
 
-
 ProgressSpinner = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(ProgressSpinner)
-
-
 
 local function mapStateToProps(state, _)
 	return {

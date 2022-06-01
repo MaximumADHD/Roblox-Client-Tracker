@@ -28,7 +28,10 @@ local ImportAssetHandler = require(Plugin.Src.Components.ImportAssetHandler)
 local MaterialVariantCreator = require(Plugin.Src.Components.MaterialPrompt.MaterialVariantCreator)
 
 local MaterialController = require(Plugin.Src.Util.MaterialController)
-local getFFlagMaterialVariantTempIdCompatibility = require(Plugin.Src.Flags.getFFlagMaterialVariantTempIdCompatibility)
+
+local Flags = Plugin.Src.Flags
+local getFFlagMaterialVariantTempIdCompatibility = require(Flags.getFFlagMaterialVariantTempIdCompatibility)
+local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
 
 local FIntInfluxReportMaterialManagerHundrethPercent = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent")
 
@@ -131,7 +134,7 @@ function MaterialPrompt:createTempMaterialVariant()
 		self.materialVariantTemp.Parent = game:GetService("MaterialService")
 	elseif props.Mode == "Edit" then
 		local material = props.Material
-		if material then
+		if material and (getFFlagMaterialManagerGlassNeonForceField() or material.MaterialVariant) then
 			-- self.materialVariant: original MV, store it to be able to restore it on Cancel/Close, give it a temp name
 			-- self.materialVariantTemp: temp MV, store it under MS to modify and show its preview, give it a name and baseMaterial of original
 			self.materialVariant = material.MaterialVariant
@@ -141,7 +144,11 @@ function MaterialPrompt:createTempMaterialVariant()
 			self.materialVariant.Name = tempName
 			self.materialVariantTemp.Parent = game:GetService("MaterialService")
 
-			props.dispatchSetPath(getMaterialPath(self.materialVariantTemp))
+			if getFFlagMaterialManagerGlassNeonForceField() then
+				props.dispatchSetPath(getMaterialPath(self.materialVariantTemp.BaseMaterial))
+			else
+				props.dispatchSetPath(getMaterialPath(self.materialVariantTemp))
+			end
 		end
 	end
 end
@@ -202,7 +209,7 @@ function MaterialPrompt:init()
 
 		if props.Mode == "Edit" then
 			local material = props.Material
-			if material then
+			if material and (getFFlagMaterialManagerGlassNeonForceField() or material.MaterialVariant) then
 				self.lastName = material.MaterialVariant.Name
 				self.lastBaseMaterial = material.MaterialVariant.BaseMaterial
 			end
@@ -246,7 +253,11 @@ function MaterialPrompt:init()
 		handleMaps(maps, materialVariant)
 
 		props.dispatchSetMaterial(materialController:getMaterial(materialVariant))
-		props.dispatchSetPath(getMaterialPath(materialVariant))
+		if getFFlagMaterialManagerGlassNeonForceField() then
+			props.dispatchSetPath(getMaterialPath(materialVariant.BaseMaterial))
+		else
+			props.dispatchSetPath(getMaterialPath(materialVariant))
+		end
 
 		if FIntInfluxReportMaterialManagerHundrethPercent > 0 then
 			self:sendAnalyticsToKibana()

@@ -3,9 +3,6 @@ local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 local LuaMeshEditingModule = require(Plugin.Packages.LuaMeshEditingModule)
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
-local themeRefactorFlags = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
-themeRefactorFlags.THEME_REFACTOR = true
-
 local function runAvatarToolsSharedTests()
 	local TestEZ = require(Plugin.Packages.Dev.TestEZ)
 	local TextReporter = TestEZ.Reporters.TextReporter -- Remove Quiet to see output

@@ -12,9 +12,6 @@ local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
-
 local Style = Framework.Style
 local BaseTheme = Style.Themes.BaseTheme
 local StudioTheme = Style.Themes.StudioTheme
@@ -123,18 +120,13 @@ local PluginTheme = {
 	})
 }
 
-if THEME_REFACTOR then
-	return function(createMock)
-		local styleRoot
-		if createMock then
-			styleRoot = StudioTheme.mock()
-		else
-			styleRoot = StudioTheme.new()
-		end
-
-		return styleRoot:extend(PluginTheme)
+return function(createMock)
+	local styleRoot
+	if createMock then
+		styleRoot = StudioTheme.mock()
+	else
+		styleRoot = StudioTheme.new()
 	end
-else
-	-- TODO: DEVTOOLS-4731: Once THEME_REFACTOR is on, remove this
-	assert(false, "Mesh Importer requires Stylizer")
+
+	return styleRoot:extend(PluginTheme)
 end

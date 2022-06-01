@@ -7,14 +7,11 @@
 		boolean isEndorsed
 		number LayoutOrder = 0
 		number curentSoundId
-		boolean isPlaying // remove with FFlagToolboxAssetGridRefactor
 		AssetConfigConstants.ASSET_STATUS status
 
 		callback onMouseEnter()
 		callback onMouseLeave()
-		callback onPreviewAudioButtonClicked() // remove with FFlagToolboxAssetGridRefactor
 ]]
-local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -71,11 +68,9 @@ function AssetIcon:init(props)
 			isHovered = false,
 		})
 	end
-
-	if FFlagToolboxAssetGridRefactor then
-		self.onAssetPreviewButtonClicked = function()
-			self.props.onAssetPreviewButtonClicked()
-		end
+	
+	self.onAssetPreviewButtonClicked = function()
+		self.props.onAssetPreviewButtonClicked()
 	end
 end
 
@@ -92,14 +87,10 @@ function AssetIcon:render()
 		local typeId = props.typeId
 		local isPlugin = typeId == Enum.AssetType.Plugin.Value
 		local currentSoundId = props.currentSoundId
-		local isPlaying = not FFlagToolboxAssetGridRefactor and props.isPlaying or nil
 		local isLoading = props.isLoading
 
 		local onMouseEnter = self.onMouseEnter
 		local onMouseLeave = self.onMouseLeave
-		local onPreviewAudioButtonClicked = not FFlagToolboxAssetGridRefactor and props.onPreviewAudioButtonClicked
-			or nil
-
 		local isHovered = self.state.isHovered
 		local isAssetHovered = props.isHovered
 		local status = props.status
@@ -146,9 +137,7 @@ function AssetIcon:render()
 
 				assetId = assetId,
 				currentSoundId = currentSoundId,
-				isPlaying = not FFlagToolboxAssetGridRefactor and isPlaying or nil,
 				isLoading = isLoading,
-				onClick = not FFlagToolboxAssetGridRefactor and onPreviewAudioButtonClicked or nil,
 			}),
 
 			AudioProgressBar = isAudioAsset and Roact.createElement(AudioProgressBar, {
@@ -163,8 +152,7 @@ function AssetIcon:render()
 			AssetPreviewTriggerButton = not isCurrentlyCreationsTab and Roact.createElement(PopUpWrapperButton, {
 				position = PREVIEW_POSITION,
 				ShowIcon = isAssetHovered,
-				onClick = FFlagToolboxAssetGridRefactor and self.onAssetPreviewButtonClicked
-					or props.onAssetPreviewButtonClicked,
+				onClick = self.onAssetPreviewButtonClicked,
 			}),
 
 			AssetStatus = isAssetHovered and assetStatusImage and Roact.createElement("ImageLabel", {

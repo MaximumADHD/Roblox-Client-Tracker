@@ -8,6 +8,7 @@ local withContext = ContextServices.withContext
 local Analytics = ContextServices.Analytics
 local Localization = ContextServices.Localization
 local Plugin = ContextServices.Plugin
+local AnalyticsEventNames = require(PluginRoot.Src.Resources.AnalyticsEventNames)
 
 local StudioUI = Framework.StudioUI
 local showContextMenu = StudioUI.showContextMenu
@@ -288,6 +289,8 @@ function DisplayTable:init()
 		local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
 
 		if col == 1 then
+			local newWatch = false
+
 			if self.IsDuplicateWatchEntry(newExpression) then
 				if oldExpression == "" then
 					-- if we have inputted a duplicate entry, clear the input row
@@ -301,6 +304,7 @@ function DisplayTable:init()
 
 			if oldExpression == "" and newExpression ~= "" then
 				self.props.OnAddExpression(newExpression)
+				newWatch = true
 				if currentStepStateBundle ~= nil then
 					local dst = currentStepStateBundle.debuggerStateToken
 					if dst then
@@ -317,6 +321,7 @@ function DisplayTable:init()
 				self.props.OnRemoveExpression(oldExpression)
 			elseif oldExpression ~= newExpression then
 				self.props.OnChangeExpression(oldExpression, newExpression)
+				newWatch = true
 				if currentStepStateBundle ~= nil then
 					local dst = currentStepStateBundle.debuggerStateToken
 					if dst then
@@ -329,6 +334,10 @@ function DisplayTable:init()
 						)
 					end
 				end
+			end
+
+			if newWatch then
+				self.props.Analytics:report(AnalyticsEventNames.WatchAdded, "WatchWindow")
 			end
 		end
 	end

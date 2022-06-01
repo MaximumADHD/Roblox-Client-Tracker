@@ -172,7 +172,6 @@ function CloudTableSection:render()
 	})
 end
 
-
 CloudTableSection = withContext({
 	Plugin = ContextServices.Plugin,
 	Stylizer = ContextServices.Stylizer,
@@ -181,8 +180,6 @@ CloudTableSection = withContext({
 	Mouse = ContextServices.Mouse,
 	Analytics = AnalyticsContext,
 })(CloudTableSection)
-
-
 
 local function mapStateToProps(state, _)
 	return {

@@ -37,8 +37,8 @@ local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialManagerApplyToModels = require(Flags.getFFlagMaterialManagerApplyToModels)
-local getFFlagMaterialServiceStringOverride = require(Flags.getFFlagMaterialServiceStringOverride)
 local getFFlagMaterialPack2022Update = require(Flags.getFFlagMaterialPack2022Update)
+local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
 
 local MaterialController = require(Plugin.Src.Util.MaterialController)
 local TeachingCallout = require(Plugin.Src.Components.TeachingCallout)
@@ -125,7 +125,7 @@ function TopBar:init()
 	self.showInExplorer = function()
 		local props : _Props = self.props
 
-		if props.Material then
+		if props.Material and props.Material.MaterialVariant then
 			Selection:Set({
 				props.Material.MaterialVariant
 			})
@@ -135,18 +135,23 @@ function TopBar:init()
 	self.applyToSelection = function()
 		local props : _Props = self.props
 
-		if getFFlagMaterialManagerApplyToModels() and props.Material then
-			ApplyToSelection(props.Material.MaterialVariant.BaseMaterial,
-				if props.Material.IsBuiltin then props.Material.MaterialVariant.Name else nil)
-		elseif Selection and props.Material then
-			local instances = Selection:Get()
-			ChangeHistoryService:SetWaypoint("Applied Material to Selection")
+		if getFFlagMaterialManagerGlassNeonForceField() and props.Material then
+			ApplyToSelection(props.Material.Material,
+				if props.Material.MaterialVariant then props.Material.MaterialVariant.Name else nil)
+		else
+			if getFFlagMaterialManagerApplyToModels() and props.Material then
+				ApplyToSelection(props.Material.Material,
+					if props.Material.MaterialVariant then props.Material.MaterialVariant.Name else nil)
+			elseif Selection and props.Material then
+				local instances = Selection:Get()
+				ChangeHistoryService:SetWaypoint("Applied Material to Selection")
 
-			for _, instance in ipairs(instances) do
-				if getFFlagMaterialServiceStringOverride() and instance:IsA("BasePart") then
-					instance.Material = props.Material.MaterialVariant.BaseMaterial
-					if not props.Material.IsBuiltin then
-						instance.MaterialVariant = props.Material.MaterialVariant.Name
+				for _, instance in ipairs(instances) do
+					if instance:IsA("BasePart") then
+						instance.Material = props.Material.Material
+						if props.Material.MaterialVariant then
+							instance.MaterialVariant = props.Material.MaterialVariant.Name
+						end
 					end
 				end
 			end
@@ -208,7 +213,14 @@ function TopBar:didMount()
 		end)
 	end
 
-	local isDisabledShowInExplorer = not props.Material or props.Material.IsBuiltin
+	-- Make sure this isn't nil
+	local isDisabledShowInExplorer
+	if getFFlagMaterialManagerGlassNeonForceField() then
+		isDisabledShowInExplorer = if not props.Material or not props.Material.MaterialVariant then true else false
+	else
+		isDisabledShowInExplorer = not props.Material or props.Material.IsBuiltin
+	end
+
 	local isDisablesApplyToSelection = not props.Material or (not getFFlagMaterialPack2022Update() and props.Material.MaterialType == "Terrain")
 
 	self:setState({
@@ -222,7 +234,7 @@ function TopBar:didMount()
 	-- 	if self.props.Material then
 	-- 		local instances = Selection:Get()
 	-- 		for _, instance in ipairs(instances) do
-	-- 			if getFFlagMaterialServiceStringOverride() and instance:IsA("BasePart") then
+	-- 			if instance:IsA("BasePart") then
 	-- 				self:setState{
 	-- 					isDisabledApplyToSelection = false,
 	-- 				}
@@ -254,7 +266,13 @@ end
 function TopBar:didUpdate(prevProps, prevState)
 	local props : _Props = self.props
 
-	local isDisabledShowInExplorer = not props.Material or props.Material.IsBuiltin
+	-- Make sure this isn't nil
+	local isDisabledShowInExplorer
+	if getFFlagMaterialManagerGlassNeonForceField() then
+		isDisabledShowInExplorer = if not props.Material or not props.Material.MaterialVariant then true else false
+	else
+		isDisabledShowInExplorer = not props.Material or props.Material.IsBuiltin
+	end
 	local isDisabledApplyToSelection = not props.Material or (not getFFlagMaterialPack2022Update() and props.Material.MaterialType == "Terrain")
 
 	if prevState.isDisabledShowInExplorer ~= isDisabledShowInExplorer or prevState.isDisabledApplyToSelection ~= isDisabledApplyToSelection then
@@ -274,7 +292,7 @@ function TopBar:didUpdate(prevProps, prevState)
 	-- 	-- local isDisabled = true
 	-- 	-- local instances = Selection:Get()
 	-- 	-- for _, instance in ipairs(instances) do
-	-- 	-- 	if getFFlagMaterialServiceStringOverride() and instance:IsA("BasePart") then
+	-- 	-- 	if instance:IsA("BasePart") then
 	-- 	-- 		self:setState{
 	-- 	-- 			isDisabledApplyToSelection = false,
 	-- 	-- 		}

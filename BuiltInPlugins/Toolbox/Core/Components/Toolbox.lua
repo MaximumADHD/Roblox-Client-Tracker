@@ -73,17 +73,14 @@ local HomeTypes = require(Plugin.Core.Types.HomeTypes)
 
 local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
-local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
 
 local Background = require(Plugin.Core.Types.Background)
 
 local Toolbox = Roact.PureComponent:extend("Toolbox")
 
-if FFlagToolboxAssetGridRefactor then
-	Toolbox.defaultProps = {
-		Size = UDim2.new(1, 0, 1, 0),
-	}
-end
+Toolbox.defaultProps = {
+	Size = UDim2.new(1, 0, 1, 0),
+}
 
 function Toolbox:handleInitialSettings()
 	local networkInterface = getNetwork(self)
@@ -131,7 +128,6 @@ function Toolbox:init(props)
 		showSearchOptions = false,
 		-- Keep track of the timestamp an asset was last inserted
 		-- Allows us to track an analytic if a search is made and no asset is chosen
-		mostRecentAssetInsertTime = not FFlagToolboxAssetGridRefactor and 0 or nil,
 	}
 
 	self.toolboxRef = Roact.createRef()
@@ -206,14 +202,6 @@ function Toolbox:init(props)
 		local newCategory = PageInfoHelper.getCategory(options.categoryName)
 
 		Analytics.onCategorySelected(currentCategory, newCategory)
-	end
-
-	if not FFlagToolboxAssetGridRefactor then
-		self.updateMostRecentAssetTime = function()
-			self:setState({
-				mostRecentAssetInsertTime = tick(),
-			})
-		end
 	end
 end
 
@@ -331,7 +319,7 @@ function Toolbox:render()
 
 	return Roact.createElement("Frame", {
 		Position = UDim2.new(0, 0, 0, 0),
-		Size = FFlagToolboxAssetGridRefactor and size or UDim2.new(1, 0, 1, 0),
+		Size = size,
 
 		BorderSizePixel = 0,
 		BackgroundColor3 = toolboxTheme.backgroundColor,
@@ -352,8 +340,6 @@ function Toolbox:render()
 			maxWidth = toolboxWidth,
 			onSearchOptionsToggled = self.toggleSearchOptions,
 			pluginGui = pluginGui,
-			mostRecentAssetInsertTime = not FFlagToolboxAssetGridRefactor and self.state.mostRecentAssetInsertTime
-				or nil,
 		}),
 
 		MainView = if inHomeViewExperiment
@@ -378,9 +364,6 @@ function Toolbox:render()
 					then self.toggleSearchOptions
 					else nil,
 				tryOpenAssetConfig = tryOpenAssetConfig,
-				mostRecentAssetInsertTime = not FFlagToolboxAssetGridRefactor and self.state.mostRecentAssetInsertTime
-					or nil,
-				onAssetInsertionSuccesful = not FFlagToolboxAssetGridRefactor and self.updateMostRecentAssetTime or nil,
 			}),
 
 		SearchOptions = if FFlagToolboxRefactorSearchOptions and showSearchOptions

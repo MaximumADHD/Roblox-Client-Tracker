@@ -1,4 +1,18 @@
 return {
 	RemoveMetaBreakpoint = "Debugger.MetaBreakpoint.User.Remove",
 	RemoveAllMetaBreakpoints = "Debugger.MetaBreakpoint.User.RemoveAll",
+	EnableMetaBreakpoint = "Debugger.MetaBreakpoint.User.Enable",
+	DisableMetaBreakpoint = "Debugger.MetaBreakpoint.User.Disable",
+	EnableBreakpoint = "Debugger.Breakpoint.User.Enable",
+	DisableBreakpoint = "Debugger.Breakpoint.User.Disable",
+	EnableAllMetaBreakpoints = "Debugger.MetaBreakpoint.User.EnableAll",
+	DisableAllMetaBreakpoints = "Debugger.MetaBreakpoint.User.DisableAll",
+	MetaBreakpointConditionChanged = "Debugger.MetaBreakpoint.User.Edit.Condition",
+	MetaBreakpointLogMessageChanged = "Debugger.MetaBreakpoint.User.Edit.LogMessage",
+	MetaBreakpointContinueExecutionChanged = "Debugger.MetaBreakpoint.User.Edit.ContinueExecution",
+	CallstackStepInto = "Debugger.Callstack.User.StepInto",
+	CallstackStepOver = "Debugger.Callstack.User.StepOver",
+	CallstackStepOut = "Debugger.Callstack.User.StepOut",
+	CallstackChangeFrame = "Debugger.Callstack.User.ChangeFrame",
+	WatchAdded = "Debugger.Watch.User.Add",
 }

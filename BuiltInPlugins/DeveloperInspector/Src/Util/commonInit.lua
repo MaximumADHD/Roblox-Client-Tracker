@@ -8,10 +8,4 @@ return function()
 		return
 	end
 	commonInitCalled = true
-
-	local Plugin = script.Parent.Parent.Parent
-
-	local RefactorFlags = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
-	RefactorFlags.THEME_REFACTOR = true
-
 end

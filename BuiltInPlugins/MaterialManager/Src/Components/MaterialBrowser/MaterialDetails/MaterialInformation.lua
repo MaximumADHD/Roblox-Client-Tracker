@@ -25,7 +25,14 @@ local SetFromVariantInstance = require(Actions.SetFromVariantInstance)
 local SetMode = require(Actions.SetMode)
 
 local getFullMaterialType = require(Plugin.Src.Resources.Constants.getFullMaterialType)
+local getMaterialName = require(Plugin.Src.Resources.Constants.getMaterialName)
+local getSupportedMaterials = require(Plugin.Src.Resources.Constants.getSupportedMaterials)
 local MaterialController = require(Plugin.Src.Util.MaterialController)
+
+local Flags = Plugin.Src.Flags
+local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
+
+local supportedMaterials = getSupportedMaterials()
 
 export type Props = {
 	LayoutOrder : number?,
@@ -82,7 +89,7 @@ function MaterialInformation:init()
 		local props : _Props = self.props
 		local material : _Types.Material? = props.Material
 
-		if material then
+		if material and  material.MaterialVariant then
 			props.dispatchSetFromVariantInstance(material.MaterialVariant)
 			props.dispatchSetMode("Edit")
 			props.OpenPrompt("Edit")
@@ -93,7 +100,7 @@ function MaterialInformation:init()
 		local props : _Props = self.props
 		local material : _Types.Material? = props.Material
 
-		if material then
+		if material and material.MaterialVariant then
 			changeHistoryService:SetWaypoint("Delete MaterialVariant")
 			material.MaterialVariant.Parent = nil
 		end
@@ -103,7 +110,7 @@ function MaterialInformation:init()
 		local props : _Props = self.props
 		local material : _Types.Material? = props.Material
 
-		if material then
+		if material and material.MaterialVariant then
 			props.dispatchClearMaterialVariant()
 			props.dispatchSetBaseMaterial(material.MaterialVariant.BaseMaterial)
 			props.dispatchSetMode("Create")
@@ -141,7 +148,16 @@ function MaterialInformation:render()
 		return Roact.createElement(Pane)
 	end
 
-	local name = if material.IsBuiltin then localization:getText("Materials", material.MaterialVariant.Name) else material.MaterialVariant.Name
+	-- Remove with FFlagMaterialManagerGlassNeonForceField
+	local isBuiltin, name
+	if getFFlagMaterialManagerGlassNeonForceField() then
+		isBuiltin = not material.MaterialVariant
+		name = if isBuiltin then localization:getText("Materials", getMaterialName(material.Material)) else material.MaterialVariant.Name
+	else
+		isBuiltin = material.IsBuiltin
+		name = if isBuiltin then localization:getText("Materials", getMaterialName(material.MaterialVariant.BaseMaterial)) else material.MaterialVariant.Name
+	end
+
 	local fullMaterialType = getFullMaterialType(material, localization)
 
 	local path = material.MaterialPath
@@ -152,6 +168,20 @@ function MaterialInformation:render()
 	end
 
 	local pathString = table.concat(localizedPathParts, " > ")
+
+	local nameLabelSize
+	if getFFlagMaterialManagerGlassNeonForceField() then
+		local numButtons = 0
+		if material.MaterialVariant then
+			numButtons = 2
+		elseif not material.MaterialVariant and supportedMaterials[material.Material] then
+			numButtons = 1
+		end
+
+		nameLabelSize = UDim2.new(1, -(numButtons * style.ButtonSize.X.Offset), 1, 0)
+	else
+		nameLabelSize = if material.IsBuiltin then style.NameLabelSizeBuiltIn else style.NameLabelSizeVariant
+	end 
 
 	return Roact.createElement(Pane, {
 		AutomaticSize = Enum.AutomaticSize.XY,
@@ -167,12 +197,12 @@ function MaterialInformation:render()
 			Name = Roact.createElement(TruncatedTextLabel, {
 				LayoutOrder = 1,
 				Font = style.HeaderFont,
-				Size = if material.IsBuiltin then style.NameLabelSizeBuiltIn else style.NameLabelSizeVariant,
+				Size = nameLabelSize,
 				Text = name,
 				TextSize = style.TitleTextSize,
 				TextXAlignment = Enum.TextXAlignment.Left,
 			}),
-			CreateVariant = if material.IsBuiltin then
+			CreateVariant = if isBuiltin and (not getFFlagMaterialManagerGlassNeonForceField() or supportedMaterials[material.Material]) then
 				Roact.createElement(Button, {
 					LayoutOrder = 2,
 					OnClick = self.createVariant,
@@ -185,7 +215,7 @@ function MaterialInformation:render()
 						Position = style.ImagePosition,
 					})
 				}) else nil,
-			Edit = if not material.IsBuiltin then
+			Edit = if not isBuiltin then
 				Roact.createElement(Button, {
 					LayoutOrder = 2,
 					OnClick = self.edit,
@@ -198,7 +228,7 @@ function MaterialInformation:render()
 						Position = style.ImagePosition,
 					})
 				}) else nil,
-			Delete = if not material.IsBuiltin then
+			Delete = if not isBuiltin then
 				Roact.createElement(Button, {
 					LayoutOrder = 3,
 					OnClick = self.delete,

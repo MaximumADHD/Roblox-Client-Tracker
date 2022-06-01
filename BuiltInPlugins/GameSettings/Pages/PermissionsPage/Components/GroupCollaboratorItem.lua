@@ -4,12 +4,12 @@ local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local UI = Framework.UI
 local Pane = UI.Pane
+local Separator = UI.Separator
 
 local FFlagGSPermsRemoveCollaboratorsFixEnabled = game:GetFastFlag("GSPermsRemoveCollaboratorsFixEnabled")
 
@@ -23,7 +23,6 @@ local Spritesheet = Framework.Util.Spritesheet
 local PermissionsConstants = require(Page.Util.PermissionsConstants)
 local CollaboratorItem = require(Page.Components.CollaboratorItem)
 local RolesetCollaboratorItem = require(Page.Components.RolesetCollaboratorItem)
-local Separator = Framework.UI.Separator
 local GroupIconThumbnail = require(Plugin.Src.Components.AutoThumbnails.GroupIconThumbnail)
 
 local IsGroupOwner = require(Page.Selectors.IsGroupOwner)
@@ -115,7 +114,7 @@ function GroupCollaboratorItem:render()
 	local isOwner = props.IsOwner
 	local groupRolesets = props.GroupRolesets
 	local groupName = props.GroupName
-	
+
 	if FFlagGSPermsRemoveCollaboratorsFixEnabled then
 		if not groupRolesets then
 			return
@@ -225,21 +224,18 @@ function GroupCollaboratorItem:render()
 	})
 end
 
-
 GroupCollaboratorItem = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 })(GroupCollaboratorItem)
 
-
-
 GroupCollaboratorItem = RoactRodux.connect(
 	function(state, props)
-		
+
 		if FFlagGSPermsRemoveCollaboratorsFixEnabled then
 			local groupName = GetGroupName(state, props.Id)
-			
-			if groupName then 
+
+			if groupName then
 				return {
 					IsOwner = IsGroupOwner(state, props.Id),
 					GroupRolesets = GetGroupRolesets(state, props.Id),
@@ -267,6 +263,5 @@ GroupCollaboratorItem = RoactRodux.connect(
 		}
 	end
 )(GroupCollaboratorItem)
-
 
 return GroupCollaboratorItem

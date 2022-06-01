@@ -13,8 +13,6 @@
 		boolean HasEditingCage: determines if a cage has been loaded into the editor, some tab buttons are disabled if not.
 ]]
 
-local FFlagDebugEnableLatticeTool = game:DefineFastFlag("DebugEnableLatticeTool", false)
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
@@ -51,14 +49,6 @@ function EditorTabsRibbon:render()
 	local hasEditingCage = props.HasEditingCage
 
 	local buttons = {}
-	if FFlagDebugEnableLatticeTool then
-		table.insert(buttons, {
-			Key = Constants.TOOL_MODE.Lattice,
-			Label = localization:getText(Constants.LOCALIZATION_KEYS.Editor, Constants.TOOL_MODE.Lattice),
-			Disabled = not hasEditingCage
-		})
-	end
-
 	table.insert(buttons, {
 		Key = Constants.TOOL_MODE.Point,
 		Label = localization:getText(Constants.LOCALIZATION_KEYS.Editor, Constants.TOOL_MODE.Point),

@@ -83,7 +83,7 @@ function DebugConnectionListener:onExecutionPaused(
 					topFrame.Line,
 					true
 				)
-				debuggerUIService:OpenScriptAtLine(topFrame.Script, common.currentDebuggerConnectionId, topFrame.Line)
+				debuggerUIService:OpenScriptAtLine(topFrame.Script, common.currentDebuggerConnectionId, topFrame.Line, false)
 			end)
 		end
 	end)
@@ -130,8 +130,11 @@ function DebugConnectionListener:onConnectionEnded(debuggerConnection, reason, d
 	if dst then
 		self.store:dispatch(ClearConnectionDataAction(dst))
 	end
-	for _, eventConnection in pairs(self.connectionEventConnections[debuggerConnection.Id]) do
-		eventConnection:Disconnect()
+
+	if self.connectionEventConnections[debuggerConnection.Id] then
+		for _, eventConnection in pairs(self.connectionEventConnections[debuggerConnection.Id]) do
+			eventConnection:Disconnect()
+		end
 	end
 	self.connectionEventConnections[debuggerConnection.Id] = nil
 	self.debuggerConnections[debuggerConnection.Id] = nil

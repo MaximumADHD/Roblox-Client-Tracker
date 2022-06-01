@@ -4,7 +4,6 @@ local Roact = require(Plugin.Packages.Roact)
 local Badges = Roact.PureComponent:extend(script.Name)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 local UILibrary = require(Plugin.Packages.UILibrary)
 local TitledFrame = UILibrary.Component.TitledFrame
 
@@ -27,10 +26,10 @@ local GetConfigureKeyName = KeyProvider.getConfigureKeyName
 local ShouldAllowBadges = require(Plugin.Src.Util.GameSettingsUtilities).shouldAllowBadges
 
 function Badges:render()
-    if not ShouldAllowBadges() then 
+    if not ShouldAllowBadges() then
         return nil
     end
-    
+
     local props = self.props
     local theme = props.Stylizer
     local localization = props.Localization
@@ -38,7 +37,7 @@ function Badges:render()
     local badgeList = props.BadgeList
     local dispatchOnLoadMoreBadges = props.OnLoadMoreBadges
     local dispatchRefreshBadges = props.RefreshBadges
-   
+
     local layoutOrder = props.LayoutOrder
 
     local buttonText = localization:getText("General", "ButtonCreate")
@@ -50,7 +49,7 @@ function Badges:render()
         localization:getText("Monetization", "BadgeName"),
         localization:getText("Monetization", "BadgeDescription"),
     }
-    
+
     -- Text to display on table if theres no badges
     local emptyText = localization:getText("Monetization", "NoBadges")
 
@@ -139,12 +138,9 @@ function Badges:render()
     })
 end
 
-
 Badges = withContext({
     Localization = ContextServices.Localization,
     Stylizer = ContextServices.Stylizer,
 })(Badges)
-
-
 
 return Badges

@@ -17,7 +17,6 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local PointToolSettings = require(Plugin.Src.Components.PointTool.PointToolSettings)
-local LatticeToolSettings = require(Plugin.Src.Components.LatticeTool.LatticeToolSettings)
 local ResetSettings = require(Plugin.Src.Components.ResetSettings)
 
 local Constants = require(Plugin.Src.Util.Constants)
@@ -44,10 +43,6 @@ function EditorSettingView:render()
 		BorderColor3 = theme.BorderColor,
 	}, {
 		PointToolSettings = toolMode == Constants.TOOL_MODE.Point and Roact.createElement(PointToolSettings, {
-			Size = UDim2.new(1, 0, 1, 0),
-		}),
-
-		LatticeToolSettings = toolMode == Constants.TOOL_MODE.Lattice and Roact.createElement(LatticeToolSettings, {
 			Size = UDim2.new(1, 0, 1, 0),
 		}),
 

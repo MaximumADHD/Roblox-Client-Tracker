@@ -61,7 +61,6 @@ local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimati
 local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
 local GetFFlagFixClampValuesForFacs = require(Plugin.LuaFlags.GetFFlagFixClampValuesForFacs)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-local GetFFlagFacsAsFloat = require(Plugin.LuaFlags.GetFFlagFacsAsFloat)
 
 local TrackList = Roact.PureComponent:extend("TrackList")
 
@@ -209,9 +208,6 @@ function TrackList:renderExpandedCFrameTrack(track, children, theme)
 	local trackWidth = self.getTrackWidth(indent, nameWidth)
 
 	local currentValue = TrackUtils.getCurrentValue(track, playhead, animationData, props.DefaultEulerAnglesOrder)
-	if not GetFFlagFacsAsFloat() and GetFFlagFacsUiChanges() and not GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs then
-		currentValue = math.floor(0.5 + (currentValue * 100))
-	end
 	local items = TrackUtils.getItemsForProperty(track, currentValue, nil, props.DefaultEulerAnglesOrder)
 	trackWidth = trackWidth + #items.Position
 		* (Constants.NUMBERBOX_WIDTH + Constants.NUMBERTRACK_PADDING * 2)
@@ -231,7 +227,7 @@ function TrackList:renderExpandedCFrameTrack(track, children, theme)
 				Height = Constants.TRACK_HEIGHT,
 				Indent = indent,
 				ReadOnly = isPlaying,
-				DragMultiplier = if GetFFlagFacsAsFloat() then dragMultiplier else (GetFFlagFacsUiChanges() and GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs and 1 or nil),
+				DragMultiplier = dragMultiplier,
 				OnItemChanged = function(key, value)
 					for _, item in ipairs(items[targetProperty]) do
 						if item.Key == key then
@@ -240,11 +236,7 @@ function TrackList:renderExpandedCFrameTrack(track, children, theme)
 					end
 					local newValue = TrackUtils.getPropertyForItems(track, items, props.DefaultEulerAnglesOrder)
 					if GetFFlagFacsUiChanges() and not GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs then
-						if GetFFlagFacsAsFloat() then
-							newValue = math.clamp(math.floor(.5 + newValue * 100) / 100, 0, 1)
-						else
-							newValue = math.clamp(newValue / 100, 0, 1)
-						end
+						newValue = math.clamp(math.floor(.5 + newValue * 100) / 100, 0, 1)
 					end
 					if GetFFlagChannelAnimations() then
 						self.onValueChanged(instance, {name}, track.Type, playhead, newValue)
@@ -353,13 +345,7 @@ function TrackList:renderTrack(track, children, theme, parentPath, parentType)
 	if trackType ~= Constants.TRACK_TYPES.CFrame then
 		local currentValue = TrackUtils.getCurrentValueForPath(path, instance, playhead, animationData, trackType, props.DefaultEulerAnglesOrder)
 		if GetFFlagFacsUiChanges() and not GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs then
-			if GetFFlagFacsAsFloat() then
-				currentValue = math.clamp(currentValue, 0, 1)
-			elseif GetFFlagFixClampValuesForFacs() then
-				currentValue = math.floor(0.5 + math.clamp(currentValue, 0, 1) * 100)
-			else
-				currentValue = math.floor(0.5 + (currentValue * 100))
-			end
+			currentValue = math.clamp(currentValue, 0, 1)
 		end
 		items = (isChannelAnimation and expanded) and {} or TrackUtils.getItemsForProperty(track, currentValue, name, props.DefaultEulerAnglesOrder)
 	else
@@ -383,7 +369,7 @@ function TrackList:renderTrack(track, children, theme, parentPath, parentType)
 		ReadOnly = isPlaying,
 		Expanded = expanded,
 		Selected = selected,
-		DragMultiplier = if GetFFlagFacsAsFloat() then dragMultiplier else (GetFFlagFacsUiChanges() and GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs and 1 or nil),
+		DragMultiplier = dragMultiplier,
 		OnItemChanged = function(key, value)
 			for _, item in ipairs(items) do
 				if item.Key == key then
@@ -392,11 +378,7 @@ function TrackList:renderTrack(track, children, theme, parentPath, parentType)
 			end
 			local newValue = TrackUtils.getPropertyForItems(track, items, props.DefaultEulerAnglesOrder)
 			if GetFFlagFacsUiChanges() and not GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs then
-				if GetFFlagFacsAsFloat() then
-					newValue = math.clamp(newValue, 0, 1)
-				else
-					newValue = math.clamp(newValue / 100, 0, 1)
-				end
+				newValue = math.clamp(newValue, 0, 1)
 			end
 			self.onValueChanged(instance, path, trackType, playhead, newValue)
 		end,
@@ -482,13 +464,7 @@ function TrackList:renderTrack_deprecated(track, children, theme)
 
 		local currentValue = TrackUtils.getCurrentValue(track, playhead, animationData, props.DefaultEulerAnglesOrder)
 		if GetFFlagFacsUiChanges() and track.Type == Constants.TRACK_TYPES.Facs then
-			if GetFFlagFacsAsFloat() then
-				currentValue = math.clamp(currentValue, 0, 1)
-			elseif GetFFlagFixClampValuesForFacs() then
-				currentValue = math.floor(0.5 + math.clamp(currentValue, 0, 1) * 100)
-			else
-				currentValue = math.floor(0.5 + (currentValue * 100))
-			end
+			currentValue = math.clamp(currentValue, 0, 1)
 		end
 		local items = TrackUtils.getItemsForProperty(track, currentValue, nil, props.DefaultEulerAnglesOrder)
 
@@ -505,14 +481,10 @@ function TrackList:renderTrack_deprecated(track, children, theme)
 			Height = Constants.TRACK_HEIGHT,
 			Indent = 0,
 			ReadOnly = isPlaying,
-			DragMultiplier = if GetFFlagFacsAsFloat() then dragMultiplier else (GetFFlagFacsUiChanges() and track.Type == Constants.TRACK_TYPES.Facs and 1 or nil),
+			DragMultiplier = dragMultiplier,
 			OnItemChanged = function(key, value)
 				if GetFFlagFacsUiChanges() and track.Type == Constants.TRACK_TYPES.Facs then
-					if GetFFlagFacsAsFloat() then
-						value = math.clamp(value, 0, 1)
-					else
-						value = math.clamp(value / 100, 0, 1)
-					end
+					value = math.clamp(value, 0, 1)
 				end
 				self.onFacsChanged(instance, name, playhead, value, props.Analytics)
 			end,

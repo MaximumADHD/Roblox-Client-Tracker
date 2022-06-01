@@ -13,8 +13,6 @@ local Plugin = script.Parent.Parent.Parent
 local Dash = require(Plugin.Packages.Dash)
 local Framework = require(Plugin.Packages.Framework)
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local FrameworkStyle = Framework.Style
 local Colors = FrameworkStyle.Colors
 local StudioTheme = FrameworkStyle.Themes.StudioTheme
@@ -27,97 +25,93 @@ local StyleModifier = Util.StyleModifier
 
 local join = Dash.join
 
-if THEME_REFACTOR then
-	local darkThemeOverride = {
-		[StyleKey.HelpIconColor] = Colors.Gray_Light,
-		[StyleKey.SelectableButtonBorderColor] = Colors.Gray,
-		[StyleKey.SelectableButtonSelectedColor] = Colors.Gray_Mid,
-	}
-	local lightThemeOverride = {
-		[StyleKey.HelpIconColor] = Color3.fromRGB(184, 184, 184),
-		[StyleKey.SelectableButtonBorderColor] = Colors.Gray_Light,
-		[StyleKey.SelectableButtonSelectedColor] = Colors.Gray_Lighter,
-	}
+local darkThemeOverride = {
+	[StyleKey.HelpIconColor] = Colors.Gray_Light,
+	[StyleKey.SelectableButtonBorderColor] = Colors.Gray,
+	[StyleKey.SelectableButtonSelectedColor] = Colors.Gray_Mid,
+}
+local lightThemeOverride = {
+	[StyleKey.HelpIconColor] = Color3.fromRGB(184, 184, 184),
+	[StyleKey.SelectableButtonBorderColor] = Colors.Gray_Light,
+	[StyleKey.SelectableButtonSelectedColor] = Colors.Gray_Lighter,
+}
 
-	local PluginTheme = {
+local PluginTheme = {
+	SectionPadding = UDim.new(0, 15),
+	SectionContentPadding = UDim.new(0, 10),
+	SectionContentPaddingCompact = UDim.new(0, 6),
+
+	InfoLabel = {
+		ErrorTextColor = StyleKey.ErrorText,
+		WarningTextColor = StyleKey.WarningText,
+		InfoTextColor = StyleKey.MainText,
+	},
+
+	MainView = {
+		ListItemPadding = UDim.new(0, 10),
+		Padding = 10,
+		PrimaryButtonSize = UDim2.new(0, 160, 0, 32),
+	},
+
+	RelativeToSetting = {
+		HelpIconPadding = UDim.new(0, 2),
+	},
+
+	LabeledElementList = {
+		ItemContentPadding = UDim.new(0, 10),
+		ItemPaddingHorizontal = UDim.new(0, 15),
+		ItemPaddingVertical = UDim.new(0, 8),
+		MaximumLabelWidth = 100,
 		SectionPadding = UDim.new(0, 15),
-		SectionContentPadding = UDim.new(0, 10),
-		SectionContentPaddingCompact = UDim.new(0, 6),
+	},
 
-		InfoLabel = {
-			ErrorTextColor = StyleKey.ErrorText,
-			WarningTextColor = StyleKey.WarningText,
-			InfoTextColor = StyleKey.MainText,
-		},
-
-		MainView = {
-			ListItemPadding = UDim.new(0, 10),
-			Padding = 10,
-			PrimaryButtonSize = UDim2.new(0, 160, 0, 32),
-		},
-
-		RelativeToSetting = {
-			HelpIconPadding = UDim.new(0, 2),
-		},
-
-		LabeledElementList = {
-			ItemContentPadding = UDim.new(0, 10),
-			ItemPaddingHorizontal = UDim.new(0, 15),
-			ItemPaddingVertical = UDim.new(0, 8),
-			MaximumLabelWidth = 100,
-			SectionPadding = UDim.new(0, 15),
-		},
-
-		[ui.Button] = join(getRawComponentStyle("Button"), {
-			["&Selectable"] = {
+	[ui.Button] = join(getRawComponentStyle("Button"), {
+		["&Selectable"] = {
+			BackgroundStyle = {
+				BorderSize = 1,
+				Transparency = 1,
+			},
+			[StyleModifier.Hover] = {
 				BackgroundStyle = {
+					BorderColor = StyleKey.SelectableButtonBorderColor,
 					BorderSize = 1,
-					Transparency = 1,
-				},
-				[StyleModifier.Hover] = {
-					BackgroundStyle = {
-						BorderColor = StyleKey.SelectableButtonBorderColor,
-						BorderSize = 1,
-						Color = StyleKey.ButtonHover,
-						Transparency = 0,
-					},
-				},
-				[StyleModifier.Selected] = {
-					BackgroundStyle = {
-						BorderColor = StyleKey.SelectableButtonBorderColor,
-						BorderSize = 1,
-						Color = StyleKey.SelectableButtonSelectedColor,
-						Transparency = 0,
-					},
+					Color = StyleKey.ButtonHover,
+					Transparency = 0,
 				},
 			},
-		}),
-
-		[ui.Image] = join(getRawComponentStyle("Image"), {
-			["&HelpIcon"] = {
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Color = StyleKey.HelpIconColor,
-				Image = "rbxasset://textures/AlignTool/Help.png",
-				Position = UDim2.new(0.5, 0, 0.5, 0),
-				Size = UDim2.fromOffset(14, 14),
-
-				[StyleModifier.Disabled] = {
-					Transparency = 0.5,
+			[StyleModifier.Selected] = {
+				BackgroundStyle = {
+					BorderColor = StyleKey.SelectableButtonBorderColor,
+					BorderSize = 1,
+					Color = StyleKey.SelectableButtonSelectedColor,
+					Transparency = 0,
 				},
 			},
-		}),
-	}
+		},
+	}),
 
-	return function(createMock)
-		local styleRoot
-		if createMock then
-			styleRoot = StudioTheme.mock()
-		else
-			styleRoot = StudioTheme.new(darkThemeOverride, lightThemeOverride)
-		end
+	[ui.Image] = join(getRawComponentStyle("Image"), {
+		["&HelpIcon"] = {
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Color = StyleKey.HelpIconColor,
+			Image = "rbxasset://textures/AlignTool/Help.png",
+			Position = UDim2.new(0.5, 0, 0.5, 0),
+			Size = UDim2.fromOffset(14, 14),
 
-		return styleRoot:extend(PluginTheme)
+			[StyleModifier.Disabled] = {
+				Transparency = 0.5,
+			},
+		},
+	}),
+}
+
+return function(createMock)
+	local styleRoot
+	if createMock then
+		styleRoot = StudioTheme.mock()
+	else
+		styleRoot = StudioTheme.new(darkThemeOverride, lightThemeOverride)
 	end
-else
-	assert(false, "Align Tool requires Stylizer")
+
+	return styleRoot:extend(PluginTheme)
 end

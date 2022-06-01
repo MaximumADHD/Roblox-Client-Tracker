@@ -8,7 +8,6 @@ local webValues = WebConstants.webValues
 
 local KeyConverter = {}
 
-local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
 local FFlagAssetConfigHandlePermissionsAssetTypeNotEnabled = game:GetFastFlag("AssetConfigHandlePermissionsAssetTypeNotEnabled")
 local DebugFlags = if FFlagAssetConfigHandlePermissionsAssetTypeNotEnabled then require(Plugin.Core.Util.DebugFlags) else nil
 local FFlagLimitGroupRoleSetPermissionsInGui = game:GetFastFlag("LimitGroupRoleSetPermissionsInGui")
@@ -133,11 +132,7 @@ function KeyConverter.resolveActionPermission(webKey, status, assetId)
 		error("Permissions Error: " .. tostring(status) .. ", assetId: " .. tostring(assetId))
 	else
 		-- "status == Unknown Error"
-		if FFlagToolboxAssetGridRefactor then
-			error("Permissions Error: " .. tostring(status) .. ", assetId: " .. tostring(assetId))
-		else
-			return PermissionsConstants.NoAccessKey
-		end
+		error("Permissions Error: " .. tostring(status) .. ", assetId: " .. tostring(assetId))
 	end
 end
 

@@ -1,5 +1,3 @@
-local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
-
 local Plugin = script.Parent.Parent.Parent
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
@@ -25,7 +23,7 @@ function ToolboxTestWrapper:render(props)
 	return Roact.createElement(Toolbox, {
 		backgrounds = Background.BACKGROUNDS,
 		suggestions = Suggestion.SUGGESTIONS,
-		Size = FFlagToolboxAssetGridRefactor and UDim2.new(0, 400, 0, 400) or nil,
+		Size = UDim2.new(0, 400, 0, 400),
 	})
 end
 

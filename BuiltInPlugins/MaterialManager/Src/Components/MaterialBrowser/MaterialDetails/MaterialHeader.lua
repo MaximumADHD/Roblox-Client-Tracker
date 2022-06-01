@@ -26,7 +26,9 @@ local Components = Plugin.Src.Components
 local MaterialPreview = require(Components.MaterialPreview)
 
 -- TODO: cleaning up for the FFLagMaterialVariantTempIdCompatibility - remove all texture maps from that file
-local getFFlagMaterialVariantTempIdCompatibility = require(Plugin.Src.Flags.getFFlagMaterialVariantTempIdCompatibility)
+local Flags = Plugin.Src.Flags
+local getFFlagMaterialVariantTempIdCompatibility = require(Flags.getFFlagMaterialVariantTempIdCompatibility)
+local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
 
 export type Props = {
 	LayoutOrder : number?,
@@ -106,10 +108,29 @@ function MaterialHeader:render()
 	end
 
 	local materialVariant = material.MaterialVariant
-	local colorMap = materialVariant.ColorMap
-	local metalnessMap = materialVariant.MetalnessMap
-	local normalMap = materialVariant.NormalMap
-	local roughnessMap = materialVariant.RoughnessMap
+
+	local colorMap, metalnessMap, normalMap, roughnessMap
+	if getFFlagMaterialManagerGlassNeonForceField() then
+		if materialVariant then
+			colorMap = materialVariant.ColorMap
+			metalnessMap = materialVariant.MetalnessMap
+			normalMap = materialVariant.NormalMap
+			roughnessMap = materialVariant.RoughnessMap
+		end
+	else
+		colorMap = materialVariant.ColorMap
+		metalnessMap = materialVariant.MetalnessMap
+		normalMap = materialVariant.NormalMap
+		roughnessMap = materialVariant.RoughnessMap
+	end
+
+	-- Move this back to the component and remove with FFlagMaterialManagerGlassNeonForceField
+	local isBuiltin
+	if getFFlagMaterialManagerGlassNeonForceField() then
+		isBuiltin = not materialVariant
+	else
+		isBuiltin = material.IsBuiltin
+	end
 
 	return Roact.createElement(Pane, {
 		LayoutOrder = props.LayoutOrder,
@@ -119,8 +140,8 @@ function MaterialHeader:render()
 			BackgroundColor = style.HeaderBackground,
 			DisableZoom = true,
 			LayoutOrder = 1,
-			Material = materialVariant.BaseMaterial,
-			MaterialVariant = if not material.IsBuiltin then materialVariant.Name else nil,
+			Material = if getFFlagMaterialManagerGlassNeonForceField() then material.Material else materialVariant.BaseMaterial,
+			MaterialVariant = if not isBuiltin then materialVariant.Name else nil,
 			Position = UDim2.fromOffset(0, 0),
 			Size = style.MaterialPreviewSize,
 		}) or Roact.createElement(MaterialPreview, {
@@ -128,8 +149,8 @@ function MaterialHeader:render()
 			ColorMap = colorMap,
 			DisableZoom = true,
 			LayoutOrder = 1,
-			Material = materialVariant.BaseMaterial,
-			MaterialVariant = if not material.IsBuiltin then materialVariant.Name else nil,
+			Material = if getFFlagMaterialManagerGlassNeonForceField() then material.Material else materialVariant.BaseMaterial,
+			MaterialVariant = if not isBuiltin then materialVariant.Name else nil,
 			MetalnessMap = metalnessMap,
 			NormalMap = normalMap,
 			Position = UDim2.fromOffset(0, 0),

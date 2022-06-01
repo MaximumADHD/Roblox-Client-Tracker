@@ -12,6 +12,7 @@ local Analytics = ContextServices.Analytics
 local Localization = ContextServices.Localization
 local PluginActions = ContextServices.PluginActions
 local Plugin = ContextServices.Plugin
+local AnalyticsEventNames = require(PluginFolder.Src.Resources.AnalyticsEventNames)
 
 local Stylizer = Framework.Style.Stylizer
 
@@ -188,6 +189,8 @@ function CallstackComponent:init()
 			local frameNumber = rowInfo.frameColumn
 			props.setCurrentFrameNumber(threadId, frameNumber)
 
+			self.props.Analytics:report(AnalyticsEventNames.CallstackChangeFrame, "CallstackComponent")
+
 			if rowInfo.scriptGUID ~= "" and rowInfo.sourceColumn ~= "" and rowInfo.lineColumn ~= "" and frameNumber then
 				local DebuggerUIService = game:GetService("DebuggerUIService")
 
@@ -205,7 +208,8 @@ function CallstackComponent:init()
 				DebuggerUIService:OpenScriptAtLine(
 					rowInfo.scriptGUID,
 					props.CurrentDebuggerConnectionId,
-					rowInfo.lineColumn
+					rowInfo.lineColumn,
+					false
 				)
 			end
 		end
@@ -322,6 +326,8 @@ function CallstackComponent:init()
 		local connection = debuggerConnectionManager:GetConnectionById(self.props.CurrentDebuggerConnectionId)
 		local thread = connection:GetThreadById(self.props.CurrentThreadId)
 		connection:Step(thread, function() end)
+
+		self.props.Analytics:report(AnalyticsEventNames.CallstackStepOver, "CallstackComponent")
 	end
 
 	self.onStepInto = function()
@@ -329,6 +335,8 @@ function CallstackComponent:init()
 		local connection = debuggerConnectionManager:GetConnectionById(self.props.CurrentDebuggerConnectionId)
 		local thread = connection:GetThreadById(self.props.CurrentThreadId)
 		connection:StepIn(thread, function() end)
+
+		self.props.Analytics:report(AnalyticsEventNames.CallstackStepInto, "CallstackComponent")
 	end
 
 	self.onStepOut = function()
@@ -336,6 +344,8 @@ function CallstackComponent:init()
 		local connection = debuggerConnectionManager:GetConnectionById(self.props.CurrentDebuggerConnectionId)
 		local thread = connection:GetThreadById(self.props.CurrentThreadId)
 		connection:StepOut(thread, function() end)
+
+		self.props.Analytics:report(AnalyticsEventNames.CallstackStepOut, "CallstackComponent")
 	end
 end
 
@@ -576,7 +586,7 @@ end, function(dispatch)
 		end,
 		onExpansionClicked = function(threadId, topFrame, currentDebuggerConnectionId)
 			local debuggerUIService = game:GetService("DebuggerUIService")
-			debuggerUIService:OpenScriptAtLine(topFrame.scriptGUID, currentDebuggerConnectionId, topFrame.lineColumn)
+			debuggerUIService:OpenScriptAtLine(topFrame.scriptGUID, currentDebuggerConnectionId, topFrame.lineColumn, false)
 			debuggerUIService:SetScriptLineMarker(
 				topFrame.scriptGUID,
 				currentDebuggerConnectionId,

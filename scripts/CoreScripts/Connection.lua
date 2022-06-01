@@ -22,6 +22,7 @@ local fIntPotentialClientTimeout = game:DefineFastInt("PotentialClientTimeoutSec
 
 local fflagPredictedOOMExit = game:DefineFastFlag("PredictedOOMExit", false)
 local fflagPredictedOOMExitContinueChoice = game:DefineFastFlag("PredictedOOMExitContinueChoice", false)
+local fflagExitContinueHighlight = game:DefineFastFlag("ExitContinueHighlight", false)
 
 local coreGuiOverflowDetection = game:GetEngineFeature("CoreGuiOverflowDetection")
 
@@ -289,7 +290,7 @@ local ButtonList = {
 			LocalizationKey = "InGame.CommonUI.Button.Continue",
 			LayoutOrder = 2,
 			Callback = closePrompt,
-			Primary = true,
+			Primary = if fflagExitContinueHighlight then nil else true,
 		}
 	}
 }

@@ -10,11 +10,12 @@ local withStyle = UIBlox.Core.Style.withStyle
 
 local CoreGui = game:GetService("CoreGui")
 local RunService = game:GetService("RunService")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
+local TrustAndSafety = require(RobloxGui.Modules.TrustAndSafety)
 
 local InGameMenu = script.Parent.Parent.Parent
 local Assets = require(InGameMenu.Resources.Assets)
-local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
-local OpenReportDialog = require(InGameMenu.Actions.OpenReportDialog)
 local SetRespawning = require(InGameMenu.Actions.SetRespawning)
 local MuteAllButton = require(InGameMenu.Components.QuickActions.MuteAllButton)
 local MuteSelfButton = require(InGameMenu.Components.QuickActions.MuteSelfButton)
@@ -27,22 +28,19 @@ local QUICK_ACTIONS_PADDING = 8
 local QUICK_ACTIONS_WIDTH = 60
 
 QuickActionsMenu.validateProps = t.strictInterface({
-	closeMenu = t.callback,
-	dispatchOpenReportDialog = t.callback,
 	layoutOrder = t.number,
 	startRespawning = t.callback,
+	transparencies = t.table,
 	voiceEnabled = t.boolean,
 })
 
 
 function QuickActionsMenu:init()
-	self.openReportDialog = function()
-		-- TODO new report dialog
-		self.props.dispatchOpenReportDialog()
+	self.openReportMenu = function()
+		TrustAndSafety.openReportMenu()
 	end
 
 	self.screenshot = function()
-		self.props.closeMenu()
 		for _ = 1, 2 do -- wait for top-bar to update
 			RunService.RenderStepped:Wait()
 		end
@@ -56,8 +54,8 @@ function QuickActionsMenu:render()
 			LayoutOrder = self.props.layoutOrder,
 			Size = UDim2.new(0, QUICK_ACTIONS_WIDTH, 0, 0),
 			AutomaticSize = Enum.AutomaticSize.Y,
-			BackgroundColor3 = style.Theme.BackgroundOnHover.Color,
-			BackgroundTransparency = style.Theme.BackgroundOnHover.Transparency,
+			BackgroundColor3 = style.Theme.UIMuted.Color,
+			BackgroundTransparency = self.props.transparencies.frame,
 		}, {
 			padding = Roact.createElement("UIPadding", {
 				PaddingTop = UDim.new(0, QUICK_ACTIONS_PADDING),
@@ -75,21 +73,33 @@ function QuickActionsMenu:render()
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
 			MuteSelfButton = self.props.voiceEnabled and Roact.createElement(MuteSelfButton, {
+				iconTransparency = self.props.transparencies.button5,
+				backgroundTransparency = self.props.transparencies.button5,
+				backgroundColor = style.Theme.BackgroundUIDefault,
 				iconSize = IconSize.Medium,
 				layoutOrder = 1,
 			}) or nil,
 			MuteAllButton = self.props.voiceEnabled and Roact.createElement(MuteAllButton, {
+				iconTransparency = self.props.transparencies.button4,
+				backgroundTransparency = self.props.transparencies.button4,
+				backgroundColor = style.Theme.BackgroundUIDefault,
 				iconSize = IconSize.Medium,
 				layoutOrder = 2,
 			}) or nil,
 			ReportButton = Roact.createElement(IconButton, {
+				iconTransparency = self.props.transparencies.button3,
+				backgroundTransparency = self.props.transparencies.button3,
+				backgroundColor = style.Theme.BackgroundUIDefault,
 				showBackground = true,
 				layoutOrder = 3,
 				icon = Assets.Images.ReportIcon,
 				iconSize = IconSize.Medium,
-				onActivated = self.openReportDialog,
+				onActivated = self.openReportMenu,
 			}),
 			ScreenshotButton = Roact.createElement(IconButton, {
+				iconTransparency = self.props.transparencies.button2,
+				backgroundTransparency = self.props.transparencies.button2,
+				backgroundColor = style.Theme.BackgroundUIDefault,
 				showBackground = true,
 				layoutOrder = 4,
 				iconSize = IconSize.Medium,
@@ -97,6 +107,9 @@ function QuickActionsMenu:render()
 				icon = Assets.Images.ScreenshotIcon,
 			}),
 			RespawnButton = Roact.createElement(IconButton, {
+				iconTransparency = self.props.transparencies.button1,
+				backgroundTransparency = self.props.transparencies.button1,
+				backgroundColor = style.Theme.BackgroundUIDefault,
 				showBackground = true,
 				layoutOrder = 5,
 				onActivated = self.props.startRespawning,
@@ -107,28 +120,12 @@ function QuickActionsMenu:render()
 	end)
 end
 
-local function mapStateToProps(state, _)
-	local voiceEnabled = false
-	if state.voiceState then
-		voiceEnabled = state.voiceState.voiceEnabled or false
-	end
-	return {
-		voiceEnabled = voiceEnabled,
-	}
-end
-
 local function mapDispatchToProps(dispatch)
 	return {
-		closeMenu = function()
-			dispatch(CloseMenu)
-		end,
-		dispatchOpenReportDialog = function(userId, userName)
-			dispatch(OpenReportDialog(userId, userName))
-		end,
 		startRespawning = function()
 			dispatch(SetRespawning(true))
 		end,
 	}
 end
 
-return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(QuickActionsMenu)
+return RoactRodux.connect(nil, mapDispatchToProps)(QuickActionsMenu)

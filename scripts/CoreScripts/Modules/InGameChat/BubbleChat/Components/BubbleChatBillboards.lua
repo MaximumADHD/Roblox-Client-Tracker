@@ -22,7 +22,6 @@ local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndic
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 
-local GetFFlagBubbleVoiceIndicator = require(RobloxGui.Modules.Flags.GetFFlagBubbleVoiceIndicator)
 local GetFFlagBubbleVoiceIndicatorSetting = require(RobloxGui.Modules.Flags.GetFFlagBubbleVoiceIndicatorSetting)
 
 local ChatBillboards = Roact.Component:extend("ChatBillboards")
@@ -56,7 +55,7 @@ function ChatBillboards:init()
 	end
 end
 
-function ChatBillboards:renderNew()
+function ChatBillboards:render()
 	if not self.props.voiceEnabled and not self.props.bubbleChatEnabled then
 		-- No voice or bubble chat, so nothing to render
 		return
@@ -94,38 +93,9 @@ function ChatBillboards:renderNew()
 	}, billboards)
 end
 
-function ChatBillboards:renderOld()
-	local billboards = {}
-
-	for userId, _ in pairs(self.state.userMessages) do
-		billboards["BubbleChat_" .. userId] = Roact.createElement(BubbleChatBillboard, {
-			userId = userId,
-			onFadeOut = self.onBillboardFadeOut,
-		})
-	end
-
-	-- Wrapped in a ScreenGui so all of the billboards don't clog up
-	-- PlayerGui. Specifically need to use a ScreenGui so we can set
-	-- ResetOnSpawn. Folders would be a better alternative, but those
-	-- are always destroyed when respawning.
-	return Roact.createElement("ScreenGui", {
-		ResetOnSpawn = false,
-	}, billboards)
-end
-
-function ChatBillboards:render()
-	if GetFFlagBubbleVoiceIndicator() then
-		return self:renderNew()
-	else
-		return self:renderOld()
-	end
-end
-
 function ChatBillboards:willUnmount()
-	if GetFFlagBubbleVoiceIndicator() then
-		for _, conn in pairs(self.connections) do
-			conn:Disconnect()
-		end
+	for _, conn in pairs(self.connections) do
+		conn:Disconnect()
 	end
 end
 

@@ -4,19 +4,18 @@ local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local UI = Framework.UI
 local Pane = UI.Pane
+local Separator = UI.Separator
 
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UserCollaboratorItem = require(Page.Components.UserCollaboratorItem)
 local GroupCollaboratorItem = require(Page.Components.GroupCollaboratorItem)
-local Separator = require(Plugin.Packages.Framework).UI.Separator
 
 local GetUserCollaborators = require(Page.Selectors.GetUserCollaborators)
 local GetGroupCollaborators = require(Page.Selectors.GetGroupCollaborators)
@@ -26,12 +25,12 @@ local FitToContentList
 if not FFlagGameSettingsRemoveFitContent then
 	local UILibrary = require(Plugin.Packages.UILibrary)
 	local createFitToContent = UILibrary.Component.createFitToContent
-	
+
 	FitToContentWidget = createFitToContent("Frame", "UIListLayout", {
 		SortOrder = Enum.SortOrder.LayoutOrder,
 		Padding = UDim.new(0, 32),
 	})
-	
+
 	FitToContentList = createFitToContent("Frame", "UIListLayout", {
 		SortOrder = Enum.SortOrder.LayoutOrder,
 		Padding = UDim.new(0, 0),

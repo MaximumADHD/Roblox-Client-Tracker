@@ -11,8 +11,6 @@
 		bool ShowMenu = Whether to show the context menu.
 		function OnMenuOpened() = A callback for when the context menu has successfully opened.
 ]]
-local FFlagDumpTrackMenu = game:DefineFastFlag("ACEDEBUGDumpTrackMenu", false)
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
@@ -351,7 +349,7 @@ function TrackActions:render(): (any?)
 	 	menuActions = self:makeMenuActions(topLevelTrack, showEulerConversion)
 	end
 
-	if FFlagDumpTrackMenu or (FFlagUseInternalPermissionForDebugging and self.hasInternalPermission) then
+	if FFlagUseInternalPermissionForDebugging and self.hasInternalPermission then
 		table.insert(menuActions, {
 			Name = "[INTERNAL] Dump track data",
 			ItemSelected = function()

@@ -23,11 +23,11 @@ local createStore = require(script.createStore)
 local App = require(script.Components.App)
 local FocusHandlerContextProvider = require(script.Components.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
 local initVoiceChatStore = require(RobloxGui.Modules.VoiceChat.initVoiceChatStore)
+local TrustAndSafety = require(RobloxGui.Modules.TrustAndSafety)
 
 local Localization = require(script.Localization.Localization)
 
 local SetLocaleId = require(script.Actions.SetLocaleId)
-local OpenReportDialog = require(script.Actions.OpenReportDialog)
 local SetInspectMenuEnabled = require(script.Actions.SetInspectMenuEnabled)
 local SetCurrentPage = require(script.Actions.SetCurrentPage)
 local SetScreenSize = require(script.Actions.SetScreenSize)
@@ -99,7 +99,7 @@ return {
 		local menuTree = Roact.createElement("ScreenGui", {
 			ResetOnSpawn = false,
 			IgnoreGuiInset = true,
-			DisplayOrder = 1,
+			DisplayOrder = 7,
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			AutoLocalize = false,
 			[Roact.Change.AbsoluteSize] = function(rbx)
@@ -149,7 +149,7 @@ return {
 
 	openReportDialog = function(player)
 		menuStore:dispatch(OpenMenu(Constants.AnalyticsMenuOpenTypes.ReportAbuseTriggered, Constants.ReportDialogKey))
-		menuStore:dispatch(OpenReportDialog(player.UserId, player.Name))
+		TrustAndSafety.openReportDialogForPlayer(player)
 	end,
 
 	openGameSettingsPage = function()

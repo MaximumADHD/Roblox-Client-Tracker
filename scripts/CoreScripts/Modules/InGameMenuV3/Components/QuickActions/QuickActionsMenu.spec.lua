@@ -18,6 +18,11 @@ return function()
 			Font = AppFont,
 		}
 
+		local transparencies = {
+			button1 = 0,
+			button2 = 0,
+			button3 = 0,
+		}
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = Rodux.Store.new(reducer)
 		}, {
@@ -26,6 +31,8 @@ return function()
 			}, {
 				QuickActions = Roact.createElement(QuickActionsMenu, {
 					layoutOrder = 2,
+					voiceEnabled = false,
+					transparencies = transparencies,
 				}),
 			}),
 		})

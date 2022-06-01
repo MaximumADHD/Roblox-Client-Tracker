@@ -17,6 +17,7 @@ local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local Workspace = game.Workspace
 
 local Plugin = script.Parent.Parent.Parent.Parent
+local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
@@ -25,12 +26,17 @@ local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyTo
 local Mannequin = AccessoryAndBodyToolSharedUtil.Mannequin
 local PreviewUtil = AccessoryAndBodyToolSharedUtil.PreviewUtil
 local AvatarUtil = AccessoryAndBodyToolSharedUtil.AvatarUtil
+local AccessoryUtil = AccessoryAndBodyToolSharedUtil.AccessoryUtil
 
+local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingModuleContext
+
+local SetAccessoryTypeInfo = require(Plugin.Src.Actions.SetAccessoryTypeInfo)
 local VerifyBounds = require(Plugin.Src.Thunks.VerifyBounds)
 local SelectEditingItem = require(Plugin.Src.Thunks.SelectEditingItem)
 local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
 
 local Constants = require(Plugin.Src.Util.Constants)
+local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -50,50 +56,58 @@ local function onMannequinChanged(self, regenerated)
 	local attachmentPoint = props.AttachmentPoint
 	local accessoryTypeInfo = props.AccessoryTypeInfo
 	local verifyBounds = props.VerifyBounds
-	local pointData = props.PointData
 	local editingCage = props.EditingCage
 	local editingItemContext = props.EditingItemContext
+	local luaMeshEditingModuleContext = props.LuaMeshEditingModuleContext
+	local meshEditingContext = luaMeshEditingModuleContext:getCurrentContext()
 
 	local mannequinInstance = self.mannequin.model
 	local sourceDisplayItem = self.mannequin.sourceDisplayItem
 	local displayItem = self.mannequin.displayItem
-	AvatarUtil:positionAvatarNextTo(mannequinInstance, sourceDisplayItem, true)
 
-	local size = if regenerated then itemSize else displayItem.Size
+	if not ItemCharacteristics.hasAnyCage(displayItem) then
+		-- we use studio's undo/redo to handle changes to a rigid accessory. In order
+		-- for ChangeHistoryService to track it, it needs to be Archivable.
+		mannequinInstance.Archivable = true
+		displayItem.Archivable = true
+	end
 
-	local attachmentName = if accessoryTypeInfo then accessoryTypeInfo.Name else ""
-	self.mannequin:transformLayer(
-		1,
-		size,
-		attachmentPoint.AttachmentCFrame,
-		attachmentPoint.ItemCFrame,
-		attachmentName)
+	AvatarUtil:positionAvatarNextTo(mannequinInstance, sourceDisplayItem, true, function()
+		local size = if regenerated then itemSize else displayItem.Size
 
-	-- TODO: shouldn't have to do this once we refactor to use the vertex editing module
-	if pointData and pointData[editingCage] then
-		local verts = {}
-		local _, pointTable = next(pointData[editingCage])
-		for _, point in ipairs(pointTable) do
-			table.insert(verts, point.Position)
+		local attachmentName = if accessoryTypeInfo then accessoryTypeInfo.Name else ""
+
+		local attachmentCFrameLocal = attachmentPoint.AttachmentCFrame
+		local itemCFrameLocal = attachmentPoint.ItemCFrame
+		if self.itemCFrameLocalToAttachmentPoint then
+			attachmentCFrameLocal = self.itemCFrameLocalToAttachmentPoint:inverse()
+			itemCFrameLocal = self.itemCFrameLocalToAttachmentPoint
+			self.itemCFrameLocalToAttachmentPoint = nil
+		end
+		self.mannequin:transformLayer(
+			1,
+			size,
+			attachmentCFrameLocal,
+			itemCFrameLocal,
+			attachmentName)
+
+		if meshEditingContext then
+			self.mannequin:deformLayer(1, meshEditingContext:getVertexData(), editingCage)
 		end
 
-		self.mannequin:deformLayer(1, verts, editingCage)
-	end
+		self.props.EditingItemContext:setEditingItem(displayItem)
 
-	self.props.EditingItemContext:setEditingItem(displayItem)
+		verifyBounds(displayItem)
 
-	verifyBounds(displayItem)
-
-	if not regenerated then
-		self.props.SelectEditingItem(displayItem)
-		spawn(function()
+		if not regenerated then
+			self.props.SelectEditingItem(luaMeshEditingModuleContext, displayItem)
 			ModelUtil:focusCameraOnItem(displayItem)
-		end)
-	else
-		ModelUtil:createModelInfo(displayItem, false)
-	end
+		else
+			ModelUtil:createModelInfo(displayItem, false)
+		end
 
-	ChangeHistoryService:ResetWaypoints()
+		ChangeHistoryService:ResetWaypoints()
+	end)
 end
 
 function SelectedEditingItem:init()
@@ -113,6 +127,7 @@ function SelectedEditingItem:init()
 					onMannequinChanged(self, true)
 				end)
 				self.props.EditingItemContext:setSourceItemWithUniqueDeformerNames(self.mannequin.sourceDisplayItem)
+				self.props.SetAccessoryTypeInfo(Cryo.None)
 				onMannequinChanged(self, false)
 			end
 		end
@@ -132,7 +147,14 @@ function SelectedEditingItem:didMount()
 end
 
 function SelectedEditingItem:didUpdate(prevProps)
-	if prevProps.AccessoryTypeInfo ~= self.props.AccessoryTypeInfo and self.mannequin then
+	local accessoryTypeInfo = self.props.AccessoryTypeInfo
+	if accessoryTypeInfo and prevProps.AccessoryTypeInfo ~= accessoryTypeInfo and self.mannequin then
+		if accessoryTypeInfo then
+			local parentAvatar = self.sourceItem and self.sourceItem.Parent
+			if parentAvatar and ItemCharacteristics.isAvatar(parentAvatar) then
+				self.itemCFrameLocalToAttachmentPoint = AccessoryUtil:getItemCFrameRelativeToAttachmentPoint(accessoryTypeInfo.Name, parentAvatar, self.sourceItem)
+			end
+		end
 		self.mannequin:reset()
 	end
 end
@@ -152,21 +174,22 @@ end
 
 local function mapStateToProps(state, props)
 	local selectItem = state.selectItem
-	local cageData = state.cageData
 
 	return {
 		AccessoryTypeInfo = selectItem.accessoryTypeInfo,
 		AttachmentPoint = selectItem.attachmentPoint,
 		ItemSize = selectItem.size,
 		EditingCage = selectItem.editingCage,
-		PointData = cageData.pointData,
 	}
 end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		SelectEditingItem = function(item)
-			dispatch(SelectEditingItem(item))
+		SetAccessoryTypeInfo = function(info)
+			dispatch(SetAccessoryTypeInfo(info))
+		end,
+		SelectEditingItem = function(context, item)
+			dispatch(SelectEditingItem(context, item))
 		end,
 		VerifyBounds = function(editingItem)
 			dispatch(VerifyBounds(editingItem))
@@ -176,6 +199,7 @@ end
 
 SelectedEditingItem = withContext({
 	EditingItemContext = EditingItemContext,
+	LuaMeshEditingModuleContext = LuaMeshEditingModuleContext,
 })(SelectedEditingItem)
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(SelectedEditingItem)

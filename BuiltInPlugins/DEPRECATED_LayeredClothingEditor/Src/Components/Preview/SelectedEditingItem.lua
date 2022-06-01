@@ -33,6 +33,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Util = Framework.Util
 local Typecheck = Util.Typecheck
+local deepCopy = Util.deepCopy
 
 local ModelUtil = require(Plugin.Src.Util.ModelUtil)
 local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
@@ -93,18 +94,39 @@ local function setupEditingItem(self, regenerated, accessoryTypeChanged)
 		ModelUtil:positionAvatar(self.mannequin, self.editingItem, not regenerated)
 
 		local newAttachmentName = ""
-		if self.props.AccessoryTypeInfo and self.props.AttachmentPoint then
+		local attachmentPoint = self.props.AttachmentPoint
+		if self.props.AccessoryTypeInfo and attachmentPoint then
 			newAttachmentName = self.props.AccessoryTypeInfo.Name
-			useCurrentAttachmentPointInfo = useCurrentAttachmentPointInfo or
-				ModelUtil:getExistingAttachmentInstance(self.editingItem, newAttachmentName) ~= nil
-			ModelUtil:createOrReuseAttachmentInstance(
-				self.editingItem,
-				self.mannequin,
-				self.props.AccessoryTypeInfo,
-				useCurrentAttachmentPointInfo and self.props.AttachmentPoint or nil)
+
+			if game:GetFastFlag("RelativeAccessoryPosition") then
+				attachmentPoint = deepCopy(attachmentPoint)
+				if self.itemCFrameLocalToAttachmentPoint then
+					attachmentPoint.AttachmentCFrame = self.itemCFrameLocalToAttachmentPoint:inverse()
+					attachmentPoint.ItemCFrame = self.itemCFrameLocalToAttachmentPoint
+					self.itemCFrameLocalToAttachmentPoint = nil
+				end
+
+				ModelUtil:createOrReuseAttachmentInstance(
+					self.editingItem,
+					self.mannequin,
+					self.props.AccessoryTypeInfo,
+					attachmentPoint)
+			else
+				useCurrentAttachmentPointInfo = useCurrentAttachmentPointInfo or
+					ModelUtil:getExistingAttachmentInstance(self.editingItem, newAttachmentName) ~= nil
+				ModelUtil:createOrReuseAttachmentInstance(
+					self.editingItem,
+					self.mannequin,
+					self.props.AccessoryTypeInfo,
+					useCurrentAttachmentPointInfo and attachmentPoint or nil)
+			end
 		end
 
-		ModelUtil:attachClothingItem(self.mannequin, self.editingItem, newAttachmentName, useCurrentAttachmentPointInfo)
+		if game:GetFastFlag("RelativeAccessoryPosition") then
+			ModelUtil:attachClothingItem(self.mannequin, self.editingItem, newAttachmentName, true)
+		else
+			ModelUtil:attachClothingItem(self.mannequin, self.editingItem, newAttachmentName, useCurrentAttachmentPointInfo)
+		end
 
 		self.MannequinAncestryChangedHandle = self.mannequin.AncestryChanged:Connect(self.onEditingItemExternalChange)
 	else
@@ -154,6 +176,7 @@ function SelectedEditingItem:init()
 			self.props.EditingItemContext:setSourceItemWithUniqueDeformerNames(self.sourceItemWithUniqueDeformerNames)
 		end
 		setupEditingItem(self, self.sourceItem == sourceItem, false)
+		self.sourceItem = sourceItem
 	end
 end
 
@@ -187,9 +210,27 @@ function SelectedEditingItem:didMount()
 end
 
 function SelectedEditingItem:didUpdate(prevProps)
-	if prevProps.AccessoryTypeInfo ~= self.props.AccessoryTypeInfo then
-		destroyEditingItem(self)
-		setupEditingItem(self, true, true)
+	if game:GetFastFlag("RelativeAccessoryPosition") then
+		local accessoryTypeInfo = self.props.AccessoryTypeInfo
+		if prevProps.AccessoryTypeInfo ~= accessoryTypeInfo and self.mannequin then
+			if accessoryTypeInfo then
+				local parentAvatar = self.sourceItem and self.sourceItem.Parent
+				if parentAvatar and ItemCharacteristics.isAvatar(parentAvatar) then
+					self.itemCFrameLocalToAttachmentPoint = ModelUtil:getItemCFrameRelativeToAttachmentPoint(
+						accessoryTypeInfo.Name,
+						parentAvatar,
+						self.sourceItem
+					)
+				end
+			end
+			destroyEditingItem(self)
+			setupEditingItem(self, true, true)
+		end
+	else
+		if prevProps.AccessoryTypeInfo ~= self.props.AccessoryTypeInfo then
+			destroyEditingItem(self)
+			setupEditingItem(self, true, true)
+		end
 	end
 end
 

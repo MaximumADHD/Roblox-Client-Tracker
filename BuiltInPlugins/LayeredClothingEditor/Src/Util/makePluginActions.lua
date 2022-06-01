@@ -3,7 +3,6 @@
 ]]
 
 local ACTION_KEYS = {
-	CycleHandles = "T",
 	LockControl = "R",
 
 	-- History

@@ -23,6 +23,8 @@ local UNMUTED_ICON =  "rbxasset://textures/ui/VoiceChat/Blank.png"
 
 MuteSelfButton.validateProps = t.interface({
 	layoutOrder = t.integer,
+	backgroundColor = t.optional(t.string),
+	backgroundTransparency = t.optional(t.number),
 })
 
 function MuteSelfButton:init()
@@ -47,6 +49,9 @@ end
 
 function MuteSelfButton:render()
 	return Roact.createElement(IconButton, {
+		iconTransparency = self.props.backgroundTransparency,
+		backgroundTransparency = self.props.backgroundTransparency,
+		backgroundColor = self.props.backgroundColor,
 		showBackground = true,
 		layoutOrder = self.props.layoutOrder,
 		icon = self.state.selfMuted and MUTED_ICON or UNMUTED_ICON,

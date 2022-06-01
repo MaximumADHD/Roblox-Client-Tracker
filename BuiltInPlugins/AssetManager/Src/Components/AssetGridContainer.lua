@@ -17,7 +17,6 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local StyleModifier = Util.StyleModifier
 local ui = Framework.Style.ComponentSymbols
 
@@ -184,7 +183,7 @@ function AssetGridContainer:createTiles(apiImpl, localization, theme,
     local numberAssets = 0
     local assetsToDisplay = {
         GridLayout = Roact.createElement("UIGridLayout", {
-            CellSize = if THEME_REFACTOR then theme[ui.Tile].Size else theme.Tile.Default.Size,
+            CellSize = theme[ui.Tile].Size,
             CellPadding = theme.AssetGridContainer.CellPadding,
             SortOrder = Enum.SortOrder.LayoutOrder,
 
@@ -318,7 +317,7 @@ end
 function AssetGridContainer:render()
     local props = self.props
     local apiImpl = props.API:get()
-    local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+    local theme = props.Stylizer
     local localization = props.Localization
 
     local size = props.Size
@@ -451,8 +450,7 @@ AssetGridContainer = withContext({
     API = ContextServices.API,
     Localization = ContextServices.Localization,
     Plugin = ContextServices.Plugin,
-    Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-    Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+    Stylizer = ContextServices.Stylizer,
 })(AssetGridContainer)
 
 local function mapStateToProps(state, props)

@@ -19,7 +19,6 @@ local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAni
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
 local GetFFlagFixClampValuesForFacs = require(Plugin.LuaFlags.GetFFlagFixClampValuesForFacs)
-local GetFFlagFacsAsFloat = require(Plugin.LuaFlags.GetFFlagFacsAsFloat)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagUseCFrameAPI = require(Plugin.LuaFlags.GetFFlagUseCFrameAPI)
 
@@ -589,13 +588,7 @@ function TrackUtils.getItemsForProperty(track, value, name, defaultEAO)
 			Constants.TRACK_TYPES.Angle)
 	elseif trackType == Constants.TRACK_TYPES.Facs then
 		if GetFFlagFacsUiChanges() and GetFFlagChannelAnimations() then
-			if GetFFlagFacsAsFloat() then
-				value = math.clamp(value, 0, 1)
-			elseif GetFFlagFixClampValuesForFacs() then
-				value = math.floor(0.5 + math.clamp(value, 0, 1) * 100)
-			else
-				value = math.floor(0.5 + (value * 100))
-			end
+			value = math.clamp(value, 0, 1)
 		end
 		items = {
 			{
@@ -664,11 +657,7 @@ function TrackUtils.getPropertyForItems(track, items, defaultEAO)
 		elseif trackType == Constants.TRACK_TYPES.Facs then
 			value = items[1].Value
 			if GetFFlagFacsUiChanges() then
-				if GetFFlagFacsAsFloat() then
-					value = math.clamp(value, 0, 1)
-				else
-					value = math.clamp(value / 100, 0, 1)
-				end
+				value = math.clamp(value, 0, 1)
 			end
 		end
 	end

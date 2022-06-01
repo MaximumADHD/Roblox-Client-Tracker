@@ -8,6 +8,7 @@ local Players = game:GetService("Players")
 
 local Promise = require(Root.Promise)
 local PremiumProduct = require(Root.Models.PremiumProduct)
+local EngineFeatureEnablePlayerOwnsBundleApi = game:GetEngineFeature("EnablePlayerOwnsBundleApi")
 
 -- This is the approximate strategy for URL building that we use elsewhere
 local BASE_URL = string.gsub(ContentProvider.BaseUrl:lower(), "/m.", "/www.")
@@ -97,6 +98,8 @@ end
 local function getPlayerOwns(player, id, infoType)
 	if infoType == Enum.InfoType.Asset then
 		return MarketplaceService:PlayerOwnsAsset(player, id)
+	elseif EngineFeatureEnablePlayerOwnsBundleApi and infoType == Enum.InfoType.Bundle then
+		return MarketplaceService:PlayerOwnsBundle(player, id)
 	elseif infoType == Enum.InfoType.GamePass then
 		return MarketplaceService:UserOwnsGamePassAsync(player.UserId, id)
 	elseif infoType == Enum.InfoType.Subscription then

@@ -28,7 +28,6 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local FrameworkUtil = Framework.Util
-local Util = Framework.Util
 local FitTextLabel = FrameworkUtil.FitFrame.FitTextLabel
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
 local UI = Framework.UI
@@ -146,12 +145,9 @@ function DeveloperSubscriptionListItem:render()
 	})
 end
 
-
 DeveloperSubscriptionListItem = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 })(DeveloperSubscriptionListItem)
-
-
 
 return DeveloperSubscriptionListItem

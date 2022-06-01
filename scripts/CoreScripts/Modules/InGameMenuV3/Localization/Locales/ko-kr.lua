@@ -209,4 +209,6 @@ return{
 	["CoreScripts.InGameMenu.Report.Block"] = [[차단]],
 	["CoreScripts.InGameMenu.Report.BlockPopup"] = [[{DISPLAY_NAME}(@{RBX_NAME}) 님을 차단했습니다]],
 	["CoreScripts.InGameMenu.PageTitle.Friends"] = [[친구]],
+	["CoreScripts.InGameMenu.Action.UnmutePlayer"] = [[플레이어 음소거 해제]],
+	["CoreScripts.InGameMenu.Action.MutePlayer"] = [[플레이어 음소거]],
 }

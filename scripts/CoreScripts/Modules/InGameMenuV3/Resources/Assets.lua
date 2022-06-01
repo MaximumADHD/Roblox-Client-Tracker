@@ -74,12 +74,9 @@ return {
 			Image = "rbxasset://textures/ui/InGameMenu/WhiteSquare.png",
 		},
 		Circle = UIBloxImages["component_assets/circle_29"],
-		CircleCutout = "rbxasset://textures/ui/InGameMenu/CircleCutout.png",
 
-		QuarterCircle = "rbxasset://textures/ui/InGameMenu/QuarterCircle.png",
 		ExpandArrow = Images["InGameMenu/Icons/ExpandArrow"],
 		SelectedCheck = Images["InGameMenu/Icons/SelectedCheck"],
-		SuccessTick = Images["LuaApp/icons/status_progress"],
 
 		RetryIcon = Images["LuaApp/icons/common_refresh"],
 		ClearIcon = Images["InGameMenu/Icons/Clear"],
@@ -113,8 +110,6 @@ return {
 			ScaleType = Enum.ScaleType.Slice,
 		},
 		SliderButton = Images["InGameMenu/Graphic/SliderButton"],
-
-		PlaceholderGameIcon = UIBloxImages["icons/imageUnavailable"],
 
 		LeaveGameTilesBackground = "rbxasset://textures/ui/InGameMenu/game_tiles_background.png",
 		LeaveRobloxLogo = "rbxasset://textures/ui/InGameMenu/roblox_logo.png",

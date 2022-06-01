@@ -11,8 +11,6 @@ local PLUS = "rbxasset://textures/GameSettings/CenterPlus.png"
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
@@ -67,12 +65,9 @@ function NewThumbnail:render()
 	})
 end
 
-
 NewThumbnail = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Mouse = ContextServices.Mouse,
 })(NewThumbnail)
-
-
 
 return NewThumbnail

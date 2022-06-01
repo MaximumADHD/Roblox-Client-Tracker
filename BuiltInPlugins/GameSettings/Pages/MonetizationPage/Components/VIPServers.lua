@@ -40,8 +40,8 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
-local FitFrameOnAxis = Framework.Util.FitFrame.FitFrameOnAxis
-local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
+local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
+local LayoutOrderIterator = Util.LayoutOrderIterator
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -56,7 +56,6 @@ local ToggleButton = UILibrary.Component.ToggleButton
 local shouldDisablePrivateServersAndPaidAccess = require(Plugin.Src.Util.GameSettingsUtilities).shouldDisablePrivateServersAndPaidAccess
 
 local VIPServers = Roact.PureComponent:extend("VIPServers")
-
 
 function VIPServers:init()
     self.lastNonFreePrice = 10
@@ -266,13 +265,10 @@ function VIPServers:render()
     })
 end
 
-
 VIPServers = withContext({
     Localization = ContextServices.Localization,
     Stylizer = ContextServices.Stylizer,
     Mouse = ContextServices.Mouse,
 })(VIPServers)
-
-
 
 return VIPServers

@@ -20,8 +20,8 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local AutoThumbnail = require(Plugin.Src.Components.AutoThumbnails.AutoThumbnail)
@@ -76,11 +76,8 @@ function GroupIconThumbnail:render()
 	})
 end
 
-
 GroupIconThumbnail = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(GroupIconThumbnail)
-
-
 
 return GroupIconThumbnail

@@ -27,8 +27,14 @@ local MaterialTextures = require(MaterialDetailsComponents.MaterialTextures)
 local MaterialAdditional = require(MaterialDetailsComponents.MaterialAdditional)
 local MaterialOverrides = require(MaterialDetailsComponents.MaterialOverrides)
 
+local getSupportedMaterials = require(Plugin.Src.Resources.Constants.getSupportedMaterials)
+local supportedMaterials = getSupportedMaterials()
+
 local Util = Plugin.Src.Util
 local MaterialController = require(Util.MaterialController)
+
+local Flags = Plugin.Src.Flags
+local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
 
 local MaterialDetails = Roact.PureComponent:extend("MaterialDetails")
 
@@ -84,7 +90,13 @@ function MaterialDetails:render()
 			Size = size,
 		})
 	else
-		local isBuiltin = props.Material.IsBuiltin
+		local isBuiltin, overrideSupport
+		if getFFlagMaterialManagerGlassNeonForceField() then
+			isBuiltin = not props.Material.MaterialVariant
+			overrideSupport = supportedMaterials[props.Material.Material]
+		else
+			isBuiltin = props.Material.IsBuiltin
+		end
 
 		local layoutOrderIterator = LayoutOrderIterator.new()
 
@@ -105,10 +117,12 @@ function MaterialDetails:render()
 					LayoutOrder = layoutOrderIterator:getNextOrder(),
 					OpenPrompt = props.OpenPrompt,
 				}),
-				MaterialOverrides = Roact.createElement(MaterialOverrides, {
-					LayoutOrder = layoutOrderIterator:getNextOrder(),
-					OpenPrompt = props.OpenPrompt
-				}),
+				MaterialOverrides = if not getFFlagMaterialManagerGlassNeonForceField() or overrideSupport then
+					Roact.createElement(MaterialOverrides, {
+						LayoutOrder = layoutOrderIterator:getNextOrder(),
+						OpenPrompt = props.OpenPrompt
+					})
+					else nil,
 				MaterialTextures = if not isBuiltin then
 					Roact.createElement(MaterialTextures, {
 						LayoutOrder = layoutOrderIterator:getNextOrder(),

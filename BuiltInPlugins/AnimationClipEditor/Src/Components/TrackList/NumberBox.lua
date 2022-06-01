@@ -44,7 +44,6 @@ local RoundFrame = require(UILibraryCompat.RoundFrame)
 local TextBox = require(Plugin.Src.Components.TextBox)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local GetFFlagFacsAsFloat = require(Plugin.LuaFlags.GetFFlagFacsAsFloat)
 
 local NumberBox = Roact.PureComponent:extend("NumberBox")
 
@@ -93,12 +92,8 @@ function NumberBox:init()
 end
 
 function NumberBox:formatNumber(number)
-	if GetFFlagFacsAsFloat() then
-		local precision = self.props.Precision or Constants.NUMBER_PRECISION
-		return tostring(math.floor(.5 + number * precision) / precision)
-	else
-		return math.floor(number * 1000) / 1000
-	end
+	local precision = self.props.Precision or Constants.NUMBER_PRECISION
+	return tostring(math.floor(.5 + number * precision) / precision)
 end
 
 function NumberBox:render()

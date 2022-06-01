@@ -45,12 +45,11 @@ local Button = FrameworkUI.Button
 local HoverArea = FrameworkUI.HoverArea
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local FitFrameOnAxis = Framework.Util.FitFrame.FitFrameOnAxis
+local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
 
 local TableWithMenu = require(Plugin.Src.Components.TableWithMenu)
 
 local DevProducts = Roact.PureComponent:extend(script.Name)
-
 
 function DevProducts:render()
     local props = self.props
@@ -155,12 +154,9 @@ function DevProducts:render()
     })
 end
 
-
 DevProducts = withContext({
     Localization = ContextServices.Localization,
     Stylizer = ContextServices.Stylizer,
 })(DevProducts)
-
-
 
 return DevProducts

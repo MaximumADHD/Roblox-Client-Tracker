@@ -4,9 +4,14 @@ local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 local Framework = require(Plugin.Packages.Framework)
 local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+local LuaMeshEditingModule = require(Plugin.Packages.LuaMeshEditingModule)
+
+local PointTool = require(LuaMeshEditingModule.Tools.PointTool)
 
 local Components = AvatarToolsShared.Components
 local ConfirmDialog = Components.ConfirmDialog
+
+local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingModuleContext
 
 local RunService = game:GetService("RunService")
 
@@ -34,6 +39,7 @@ local SourceStrings = Plugin.Src.Resources.SourceStrings
 local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 
 local LayeredClothingEditor = require(Plugin.Src.Components.LayeredClothingEditor)
+local LuaMeshEditingModuleWrapper = require(Plugin.Src.Components.Draggers.LuaMeshEditingModuleWrapper)
 
 local ReleaseEditor = require(Plugin.Src.Thunks.ReleaseEditor)
 
@@ -95,6 +101,7 @@ function LayeredClothingEditorPlugin:init()
 		})
 		plugin:Deactivate()
 		self.store:dispatch(ReleaseEditor())
+		self.meshEditingContext:cleanup()
 	end
 
 	self.onToggleWidget = function()
@@ -114,6 +121,7 @@ function LayeredClothingEditorPlugin:init()
 			if not self.state.enabled then
 				plugin:Deactivate()
 				self.store:dispatch(ReleaseEditor())
+				self.meshEditingContext:cleanup()
 			end
 		end
 	end
@@ -123,6 +131,12 @@ function LayeredClothingEditorPlugin:init()
 	self.signals = Signals.new(Constants.SIGNAL_KEYS)
 
 	self.editingItemContext = EditingItemContext.new()
+
+	local pointTool = PointTool.new()
+	pointTool:setFalloff(Constants.DEFAULT_FALLOFF)
+	self.meshEditingContext = LuaMeshEditingModuleContext.new({
+		[Constants.TOOL_MODE.Point] = pointTool,
+	})
 
 	self.toolbarButton.Click:connect(self.onToggleWidget)
 
@@ -156,6 +170,7 @@ function LayeredClothingEditorPlugin:render()
 		mouse = self.props.plugin:getMouse(),
 		signals = self.signals,
 		editingItemContext = self.editingItemContext,
+		meshEditingContext = self.meshEditingContext,
 	}, {
 		Widget = Roact.createElement(DockWidget, {
 			Title = self.localization:getText("Main", "Title"),

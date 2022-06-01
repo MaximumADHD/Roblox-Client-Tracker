@@ -62,11 +62,8 @@ function LabeledTextButton:render()
 	})
 end
 
-
 LabeledTextButton = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(LabeledTextButton)
-
-
 
 return LabeledTextButton

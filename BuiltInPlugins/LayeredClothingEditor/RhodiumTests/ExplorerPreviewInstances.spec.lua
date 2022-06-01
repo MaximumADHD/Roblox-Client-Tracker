@@ -24,7 +24,7 @@ return function()
 	end)
 
 	it("Transformations to rigid item should also be shown in Preview", function()
-		runRhodiumTest(function(_, _, _, editingItemContext)
+		runRhodiumTest(function(_, _, editingItemContext)
 			TestHelper.goToEditScreenFromStart(false)
 
 			local editingItem = editingItemContext:getItem()

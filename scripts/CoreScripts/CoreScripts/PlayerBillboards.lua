@@ -38,7 +38,6 @@ local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local initVoiceChatStore = require(RobloxGui.Modules.VoiceChat.initVoiceChatStore)
-local GetFFlagBubbleVoiceIndicator = require(RobloxGui.Modules.Flags.GetFFlagBubbleVoiceIndicator)
 local GetFFlagEnableVoiceChatVoiceUISync = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatVoiceUISync)
 local GetFFlagBubbleChatDuplicateMessagesFix = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatDuplicateMessagesFix)
 local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatLocalMuteUI)
@@ -390,11 +389,9 @@ if game:GetEngineFeature("BubbleChatSettingsApi") then
 	end)
 end
 
-if GetFFlagBubbleVoiceIndicator() then
-	-- Voice chat can't be disabled in a running game, so no need to track changes to its state
-	VoiceChatServiceManager:asyncInit():andThen(initVoiceChat):catch(function()
-		-- If voice fails to init, silently halt instead of throwing an
-		-- unresolved promise error.
-		log:debug("VoiceChatServiceManager failed to initialize")
-	end)
-end
+-- Voice chat can't be disabled in a running game, so no need to track changes to its state
+VoiceChatServiceManager:asyncInit():andThen(initVoiceChat):catch(function()
+	-- If voice fails to init, silently halt instead of throwing an
+	-- unresolved promise error.
+	log:debug("VoiceChatServiceManager failed to initialize")
+end)

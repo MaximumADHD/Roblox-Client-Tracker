@@ -18,7 +18,7 @@ return function(plugin, pluginLoaderContext)
 		-- Roact.setGlobalConfig({
 		-- 	elementTracing = true,
 		-- })
-		
+
 		local mainPlugin = Roact.createElement(AnimationClipEditorPlugin, {
 			plugin = plugin,
 			pluginLoaderContext = pluginLoaderContext,
@@ -36,7 +36,7 @@ return function(plugin, pluginLoaderContext)
 				inspector = Framework.DeveloperTools.forPlugin("AnimationClipEditor", plugin)
 				inspector:addRoactTree("Roact tree", handle, Roact)
 			end
-		end		
+		end
 	end
 
 	plugin.Unloading:Connect(function()

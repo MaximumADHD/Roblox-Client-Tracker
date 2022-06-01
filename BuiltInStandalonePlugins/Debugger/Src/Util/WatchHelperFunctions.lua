@@ -57,10 +57,17 @@ module.isScopeFiltered = function(enabledScopes, rowData)
 	return true
 end
 
-module.sortTableByColumnAndOrder = function(mainTable, column, order, tableColumns, skipLastRow)
+module.sortTableByColumnAndOrder = function(mainTable, column, order, tableColumns, skipLastRow, defaultSortingValues : {[number] : string}?)
 	local currentOrder = order or Enum.SortDirection.Descending
-	local currentColumn = tableColumns[column] and column or 1
-	local sortValue = (tableColumns[column] and tableColumns[column]) or tableColumns[currentColumn]
+	local sortValue
+	local unsorted = (column == nil and order == nil)
+	if unsorted and defaultSortingValues and #defaultSortingValues > 0 then
+		sortValue = defaultSortingValues[1]
+	else
+		local currentColumn = tableColumns[column] and column or 1
+		sortValue = (tableColumns[column] and tableColumns[column]) or tableColumns[currentColumn]
+	end
+	
 	local basedOnOrder = function(a, b, mainOrder)
 		local sort1 = a
 		local sort2 = b
@@ -86,19 +93,23 @@ module.sortTableByColumnAndOrder = function(mainTable, column, order, tableColum
 		end
 	end
 
-	local sortComp = function(a, b)
+	local sortComp = function(left, right)
 		-- if the values of the 2 objects are identical, then sort by one that isn't
-		if a[sortValue] == b[sortValue] then
-			for k, v in pairs(tableColumns) do
+		if left[sortValue] == right[sortValue] then			
+			local sortingValues = if defaultSortingValues then defaultSortingValues else tableColumns
+			
+			-- if there is a sort value in the list where the values aren't equal, use it to sort
+			for _, v in ipairs(sortingValues) do
 				local currentSortValue = v
-				if a[currentSortValue] ~= b[currentSortValue] then
-					return basedOnOrder(a[currentSortValue], b[currentSortValue], Enum.SortDirection.Descending)
+				if left[currentSortValue] ~= right[currentSortValue] then
+					return basedOnOrder(left[currentSortValue], right[currentSortValue], Enum.SortDirection.Descending)
 				end
 			end
+			
 			return false
 		end
 
-		return basedOnOrder(a[sortValue], b[sortValue], currentOrder)
+		return basedOnOrder(left[sortValue], right[sortValue], currentOrder)
 	end
 
 	-- we skip the last row of sorting for the Expressions table (so that the empty row isn't sorted)

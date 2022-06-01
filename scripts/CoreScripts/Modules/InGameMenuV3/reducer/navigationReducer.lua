@@ -19,12 +19,6 @@ return function (state, action)
 					dialogOpen = false
 				})
 			})
-		elseif state.report.dialogOpen then -- Close the report dialog if open
-			return Cryo.Dictionary.join(state, {
-				report = Cryo.Dictionary.join(state.report, {
-					dialogOpen = false
-				})
-			})
 		elseif state.menuPage then
 			-- If you are in a child page, go to its parent
 			local parentPage = page.parentPage

@@ -17,11 +17,12 @@ local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
 local Urls = require(Plugin.Core.Util.Urls)
 local Constants = require(Plugin.Core.Util.Constants)
 
+local AssetQuotaTypes = require(Plugin.Core.Types.AssetQuotaTypes)
 local Category = require(Plugin.Core.Types.Category)
 
 local ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
-local PermissionTypes = require(Plugin.Core.Types.PermissionTypes)
 
+local FFlagAssetConfigDynamicDistributionQuotas = game:GetFastFlag("AssetConfigDynamicDistributionQuotas")
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 local FIntToolboxGrantUniverseAudioPermissionsTimeoutInMS = game:GetFastInt(
 	"ToolboxGrantUniverseAudioPermissionsTimeoutInMS"
@@ -875,6 +876,14 @@ if FFlagToolboxAudioAssetConfigIdVerification then
 	function NetworkInterface:getUserAgeVerification()
 		local targetUrl = Urls.constructUserAgeVerificationUrl()
 		printUrl("getUserAgeVerification", "GET", targetUrl)
+		return self._networkImp:httpGetJson(targetUrl)
+	end
+end
+
+if FFlagAssetConfigDynamicDistributionQuotas then
+	function NetworkInterface:getCreatorMarketplaceQuotas(assetType: Enum.AssetType, resourceType: AssetQuotaTypes.AssetQuotaResourceType)
+		local targetUrl = Urls.getCreatorMarketplaceQuotas(assetType, resourceType)
+		printUrl("getCreatorMarketplaceQuotas", "GET", targetUrl)
 		return self._networkImp:httpGetJson(targetUrl)
 	end
 end

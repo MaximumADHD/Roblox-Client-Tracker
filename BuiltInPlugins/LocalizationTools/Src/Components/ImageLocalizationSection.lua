@@ -144,9 +144,6 @@ local function mapStateToProps(state, _)
 	}
 end
 
---[[
-	Theme update covered by ticket CLI-38105
-]]
 ImageLocalizationSection = withContext({
 	Plugin = ContextServices.Plugin,
 	Stylizer = ContextServices.Stylizer,

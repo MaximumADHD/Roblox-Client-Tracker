@@ -21,7 +21,6 @@ local Cryo = require(Plugin.Packages.Cryo)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -312,12 +311,9 @@ function TableWithMenuItem:render()
 	}, row))
 end
 
-
 TableWithMenuItem = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Mouse = ContextServices.Mouse,
 })(TableWithMenuItem)
-
-
 
 return TableWithMenuItem

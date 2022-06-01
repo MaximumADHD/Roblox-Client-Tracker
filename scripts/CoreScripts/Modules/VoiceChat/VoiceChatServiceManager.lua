@@ -34,6 +34,7 @@ local GetFFlagEnableVoiceRccCheck = require(RobloxGui.Modules.Flags.GetFFlagEnab
 local GetFFlagVoiceAbuseReportsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceAbuseReportsEnabled)
 local GetFFlagClearUserFromRecentVoiceDataOnLeave = require(RobloxGui.Modules.Flags.GetFFlagClearUserFromRecentVoiceDataOnLeave)
 local GetFIntVoiceUsersInteractionExpiryTimeSeconds = require(RobloxGui.Modules.Flags.GetFIntVoiceUsersInteractionExpiryTimeSeconds)
+local GetFFlagEnableLuaVoiceChatAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
 
 local Constants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
 local VoiceChatPrompt = require(RobloxGui.Modules.VoiceChatPrompt.Components.VoiceChatPrompt)
@@ -44,6 +45,7 @@ local PostInformedOfBan = require(CorePackages.AppTempCommon.VoiceChat.Requests.
 local SKIP_VOICE_CHECK_KEY = Constants.SKIP_VOICE_CHECK_KEY
 local SKIP_VOICE_CHECK_UNIVERSE_KEY = Constants.SKIP_VOICE_CHECK_UNIVERSE_KEY
 
+local Analytics = require(script.Parent.Analytics)
 local HttpService = game:GetService("HttpService")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local isSubjectToDesktopPolicies = require(RobloxGui.Modules.InGameMenu.isSubjectToDesktopPolicies)
@@ -114,12 +116,13 @@ end
 
 VoiceChatServiceManager.__index = VoiceChatServiceManager
 
-function VoiceChatServiceManager.new(VoiceChatService, HttpRbxApiService, PermissionsService, BlockStatusChanged)
+function VoiceChatServiceManager.new(VoiceChatService, HttpRbxApiService, PermissionsService, BlockStatusChanged, AnalyticsService)
 	local self = setmetatable({
 		service = VoiceChatService,
 		HttpRbxApiService = HttpRbxApiService,
 		PermissionsService = PermissionsService,
 		BlockStatusChanged = BlockStatusChanged,
+		Analytics = if GetFFlagEnableLuaVoiceChatAnalytics then Analytics.new(AnalyticsService) else nil,
 	}, VoiceChatServiceManager)
 
 	local iconStyle = if GetFFlagOldMenuUseSpeakerIcons() then "SpeakerLight" else "MicLight"
@@ -149,11 +152,20 @@ local function shorten(id)
 end
 
 local function bind(t, k)
-	return function(...) return t[k](t, ...) end
+	return function(...) 
+		return t[k](t, ...) 
+	end
+end
+
+function VoiceChatServiceManager:_reportJoinFailed(result, level)
+	if GetFFlagEnableLuaVoiceChatAnalytics() then
+		self.Analytics:reportVoiceChatJoinResult(false, result, level)
+	end
 end
 
 function VoiceChatServiceManager:asyncInit()
 	if GetFFlagVoiceChatDUARGate() and isSubjectToDesktopPolicies() then
+		self:_reportJoinFailed("blockedByDesktopPolicies")
 		return Promise.reject()
 	end
 	if self.service then
@@ -181,10 +193,12 @@ function VoiceChatServiceManager:asyncInit()
 		end)
 		if not success then
 			log:warning("EnableVoiceChat flag is enabled but GetService panicked")
+			self:_reportJoinFailed("getServiceFailed", Analytics.ERROR)
 
 			return Promise.reject()
 		elseif not self.service then
 			log:debug("VoiceChatService is not set after init")
+			self:_reportJoinFailed("contextNotEnabled")
 
 			return Promise.reject()
 		else
@@ -231,6 +245,7 @@ function VoiceChatServiceManager:userAndPlaceCanUseVoice()
 	end
 	local result = GetShowAgeVerificationOverlay(bind(self, 'GetRequest'), tostring(game.GameId), tostring(game.PlaceId))
 	if not result then
+		self:_reportJoinFailed("invalidResponse", Analytics.ERROR)
 		return false
 	end
 	local universePlaceSettings = result.universePlaceVoiceEnabledSettings
@@ -239,6 +254,7 @@ function VoiceChatServiceManager:userAndPlaceCanUseVoice()
 
 	if GetFFlagVCPromptEarlyOut() and universePlaceSettings and not universePlaceSettings.isUniverseEnabledForVoice then
 		-- We don't need to show any of these if the universe isn't voice enabled
+		self:_reportJoinFailed("universeNotEnabled")
 		return false
 	end
 
@@ -264,6 +280,15 @@ function VoiceChatServiceManager:userAndPlaceCanUseVoice()
 				or nil
 		)
 	end
+
+	if not universePlaceSettings or not userSettings then
+		self:_reportJoinFailed("invalidResponse", Analytics.ERROR)
+	elseif not universePlaceSettings.isPlaceEnabledForVoice then
+		self:_reportJoinFailed("placeNotEnabled")
+	elseif not userSettings.isVoiceEnabled then
+		self:_reportJoinFailed("userNotEnabled")
+	end
+
 	return universePlaceSettings and userSettings
 		and userSettings.isVoiceEnabled
 		and universePlaceSettings.isPlaceEnabledForVoice
@@ -294,7 +319,7 @@ function VoiceChatServiceManager:requestMicPermission()
 	self.permissionPromise = self.PermissionsService:requestPermissions(permissions):andThen(function (permissionResponse)
 		if not permissionResponse and not permissionResponse.status then
 			log:debug("No permission response, rejecting access")
-
+			self:_reportJoinFailed("noPermissionResponse", Analytics.ERROR)
 			return Promise.reject()
 		end
 		log:debug("Permission status {}", permissionResponse.status)
@@ -304,6 +329,7 @@ function VoiceChatServiceManager:requestMicPermission()
 			if permissionGranted then
 				return Promise.resolve()
 			else
+				self:_reportJoinFailed("missingPermissions")
 				local missingPermissions = permissionResponse.missingPermissions
 				local networkPermissionDenied = missingPermissions and #missingPermissions == 1
 					and missingPermissions[1] == 'LOCAL_NETWORK'
@@ -355,6 +381,13 @@ function VoiceChatServiceManager:canUseServiceAsync()
 						VCS.VoiceChatEnabledForUniverseOnRcc,
 						VCS.VoiceChatEnabledForPlaceOnRcc
 					)
+
+					if not VCS.VoiceChatEnabledForUniverseOnRcc then
+						self:_reportJoinFailed("universeNotEnabled")
+					elseif not VCS.VoiceChatEnabledForPlaceOnRcc then
+						self:_reportJoinFailed("placeNotEnabled")
+					end
+
 					self.available = VOICE_CHAT_AVAILABILITY.PlaceNotAvailable
 					reject()
 					return
@@ -646,9 +679,10 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 					log:debug("State Changed to Failed. Reason: {}", self.service:GetAndClearCallFailureMessage())
 
 				end
-				if (oldState == (Enum::any).VoiceChatState.Joining or
-					oldState == (Enum::any).VoiceChatState.JoiningRetry or
-					oldState == (Enum::any).VoiceChatState.Joined) then
+				if oldState == (Enum::any).VoiceChatState.Joining 
+					or oldState == (Enum::any).VoiceChatState.JoiningRetry 
+					or oldState == (Enum::any).VoiceChatState.Joined
+				then
 					if newState == (Enum::any).VoiceChatState.Ended then
 						log:debug("State Changed to Ended from {}", oldState)
 					end
@@ -853,9 +887,9 @@ function VoiceChatServiceManager:VoiceChatAvailable()
 end
 
 function VoiceChatServiceManager:UnmountPrompt()
-    if self.voiceChatPromptInstance ~= nil then
-        Roact.unmount(self.voiceChatPromptInstance)
-    end
+	if self.voiceChatPromptInstance ~= nil then
+		Roact.unmount(self.voiceChatPromptInstance)
+	end
 end
 
 VoiceChatServiceManager.default = VoiceChatServiceManager.new(

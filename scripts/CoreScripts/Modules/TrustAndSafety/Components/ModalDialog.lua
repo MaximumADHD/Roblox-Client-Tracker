@@ -8,11 +8,14 @@ local t = require(CorePackages.Packages.t)
 local TnsModule = script.Parent.Parent
 local Assets = require(TnsModule.Resources.Assets)
 local Dependencies = require(TnsModule.Dependencies)
-local ThemedTextLabel = require(Dependencies.ThemedTextLabel)
 local Divider = require(Dependencies.Divider)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local withStyle = UIBlox.Core.Style.withStyle
+local IconButton = UIBlox.App.Button.IconButton
+local HeaderBar = UIBlox.App.Bar.HeaderBar
+local IconSize = UIBlox.App.ImageSet.Enum.IconSize
+local UIBloxImages = UIBlox.App.ImageSet.Images
 
 local DIALOG_WIDTH = 540
 local DIALOG_HEIGHT = 375
@@ -25,11 +28,35 @@ local ModalDialog = Roact.PureComponent:extend("ModalDialog")
 ModalDialog.validateProps = t.strictInterface({
 	visible = t.boolean,
 	titleText = t.optional(t.string),
-	titleBar = t.optional(t.table),
+	showCloseButton = t.optional(t.boolean),
+	headerBar = t.optional(t.table),
 	contents = t.optional(t.table),
 	actionButtons = t.optional(t.table),
 	onDismiss = t.callback,
+	onBackButtonActivated = t.optional(t.callback),
 })
+
+function ModalDialog:renderHeaderBarLeft()
+	local props = self.props
+	if props.showCloseButton then
+		-- close button
+		return function()
+			return Roact.createElement(IconButton, {
+				iconSize = IconSize.Medium,
+				icon = UIBloxImages["icons/navigation/close"],
+				onActivated = props.onDismiss,
+			})
+		end
+	elseif props.onBackButtonActivated ~= nil then
+		-- back button
+		return HeaderBar.renderLeft.backButton(props.onBackButtonActivated)
+	else
+		-- placeholder to fix the title style
+		return function()
+			return nil
+		end
+	end
+end
 
 function ModalDialog:render()
 	local props = self.props
@@ -52,7 +79,7 @@ function ModalDialog:render()
 				BorderSizePixel = 0,
 				Size = UDim2.new(1, 0, 1, 0),
 				Text = "",
-				ZIndex = -10;
+				ZIndex = -10,
 				[Roact.Event.Activated] = props.onDismiss,
 			}),
 			Dialog = Roact.createElement(ImageSetLabel, {
@@ -72,17 +99,16 @@ function ModalDialog:render()
 					HorizontalAlignment = Enum.HorizontalAlignment.Center,
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
-				Title = Roact.createElement("Frame", {
+				HeaderBar = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
 					LayoutOrder = 1,
 					Size = UDim2.new(1, 0, 0, 48),
 				}, {
-					TitleBar = props.titleBar,
-					Label = props.titleText and Roact.createElement(ThemedTextLabel, {
-						fontKey = "Header1",
-						themeKey = "TextEmphasis",
-						Size = UDim2.new(1, 0, 1, 0),
-						Text = props.titleText,
+					Bar = props.headerBar or Roact.createElement(HeaderBar, {
+						backgroundTransparency = 1,
+						barHeight = 48,
+						renderLeft = self:renderHeaderBarLeft(),
+						title = props.titleText,
 					}) or nil,
 				}),
 				Divider = Roact.createElement(Divider, {
@@ -92,6 +118,7 @@ function ModalDialog:render()
 					BackgroundTransparency = 1,
 					LayoutOrder = 3,
 					Size = UDim2.new(1, 0, 0, contentHeight),
+					ZIndex = 10,	-- contents may cover action bar
 				}, {
 					Contents = props.contents,
 				}),

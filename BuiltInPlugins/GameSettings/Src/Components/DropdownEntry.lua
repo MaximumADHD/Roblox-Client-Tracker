@@ -16,10 +16,9 @@ local DEFAULT_SIZE = UDim2.new(0, 220, 0, 38)
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 local Cryo = require(Plugin.Packages.Cryo)
 
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local DropdownEntry = Roact.PureComponent:extend("DropdownEntry")
@@ -104,12 +103,9 @@ function DropdownEntry:render()
 	})
 end
 
-
 DropdownEntry = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Mouse = ContextServices.Mouse,
 })(DropdownEntry)
-
-
 
 return DropdownEntry

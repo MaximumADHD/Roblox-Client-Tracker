@@ -12,12 +12,10 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 local Cryo = require(Plugin.Packages.Cryo)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
-
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
@@ -88,11 +86,8 @@ function CheckBoxSet:render()
 	}, children)
 end
 
-
 CheckBoxSet = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(CheckBoxSet)
-
-
 
 return CheckBoxSet

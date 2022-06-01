@@ -24,8 +24,6 @@ local App = require(script.Components.App)
 local FocusHandlerContextProvider = require(script.Components.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
 local initVoiceChatStore = require(RobloxGui.Modules.VoiceChat.initVoiceChatStore)
 
-local GetFFlagEnableVoiceChatNewMenu = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatNewMenu)
-
 local Localization = require(script.Localization.Localization)
 
 local SetLocaleId = require(script.Actions.SetLocaleId)
@@ -42,7 +40,6 @@ local GlobalConfig = require(script.GlobalConfig)
 local Constants = require(script.Resources.Constants)
 
 local GetFFlagIGMGamepadSelectionHistory = require(script.Flags.GetFFlagIGMGamepadSelectionHistory)
-
 
 local OpenChangedEvent = Instance.new("BindableEvent")
 local RespawnBehaviourChangedEvent = Instance.new("BindableEvent")
@@ -99,9 +96,7 @@ return {
 			menuStore:dispatch(SetInspectMenuEnabled(enabled))
 		end)
 
-		if GetFFlagEnableVoiceChatNewMenu() then
-			initVoiceChatStore(menuStore)
-		end
+		initVoiceChatStore(menuStore)
 
 		local menuTree = Roact.createElement("ScreenGui", {
 			ResetOnSpawn = false,
@@ -111,7 +106,7 @@ return {
 			AutoLocalize = false,
 			[Roact.Change.AbsoluteSize] = function(rbx)
 				menuStore:dispatch(SetScreenSize(rbx.AbsoluteSize))
-			end
+			end,
 		}, {
 			StoreProvider = Roact.createElement(RoactRodux.StoreProvider, {
 				store = menuStore,
@@ -126,15 +121,18 @@ return {
 							localization = localization,
 						}, {
 							CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
-								FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
-									InGameMenu = Roact.createElement(App),
-								}) or nil,
-								InGameMenu = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(App) or nil,
+								FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory()
+										and Roact.createElement(FocusHandlerContextProvider, {}, {
+											InGameMenu = Roact.createElement(App),
+										})
+									or nil,
+								InGameMenu = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(App)
+									or nil,
 							}),
 						}),
 					}),
 				}),
-			})
+			}),
 		})
 
 		local hasInternalPermission = UserSettings().GameSettings:InStudioMode()

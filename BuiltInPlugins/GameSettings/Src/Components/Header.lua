@@ -13,7 +13,7 @@ local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
 local Cryo = require(Plugin.Packages.Cryo)
 
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.Packages.UILibrary)
@@ -40,11 +40,8 @@ function Header:render()
 	}))
 end
 
-
 Header = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(Header)
-
-
 
 return Header

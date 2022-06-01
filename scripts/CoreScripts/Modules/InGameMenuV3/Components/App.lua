@@ -16,14 +16,13 @@ local SideNavigation = require(script.Parent.SideNavigation)
 local LeaveGameDialog = require(script.Parent.LeaveGameDialog)
 local PageContainer = require(script.Parent.PageContainer)
 local RespawnDialog = require(script.Parent.RespawnDialog)
-local ReportDialog = require(script.Parent.ReportPage.ReportDialog)
-local ReportSentDialog = require(script.Parent.ReportPage.ReportSentDialog)
 local ControlLayoutSetter = require(script.Parent.ControlsPage.ControlLayoutSetter)
 local Connection = require(script.Parent.Connection)
 local EducationalPopup = require(script.Parent.EducationalPopup)
 local MenuIconTooltip = require(script.Parent.MenuIconTooltip)
 local FullscreenTitleBar = require(script.Parent.FullscreenTitleBar)
 local QuickActions = require(script.Parent.QuickActions)
+local ScreenshotToast = require(script.Parent.ScreenshotToast)
 local ScreenOrientationSwitcher = require(script.Parent.ScreenOrientationSwitcher)
 
 local Constants = require(InGameMenu.Resources.Constants)
@@ -42,14 +41,13 @@ local function App(props)
 		LeaveGameDialog = Roact.createElement(LeaveGameDialog),
 		PageContainer = Roact.createElement(PageContainer),
 		RespawnDialog = Roact.createElement(RespawnDialog),
-		ReportDialog = Roact.createElement(ReportDialog),
-		ReportSentDialog = Roact.createElement(ReportSentDialog),
 		ControlLayoutSetter = Roact.createElement(ControlLayoutSetter),
 		Connection = Roact.createElement(Connection),
 		EducationalPopup = props.isEducationalPopupEnabled and Roact.createElement(EducationalPopup) or nil,
 		MenuIconTooltip = props.isEducationalPopupEnabled and Roact.createElement(MenuIconTooltip) or nil,
 		FullscreenTitleBar = fullscreenTitleBar,
 		QuickActions = Roact.createElement(QuickActions),
+		ScreenshotToast = Roact.createElement(ScreenshotToast),
 		ScreenOrientationSwitcher = Roact.createElement(ScreenOrientationSwitcher),
 	})
 end

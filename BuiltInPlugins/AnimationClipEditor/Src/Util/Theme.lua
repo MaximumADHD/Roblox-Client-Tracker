@@ -62,7 +62,7 @@ local overridedLightTheme = Cryo.Dictionary.join(LightTheme, {
 	[StyleKey.CurveRotationY] = Color3.fromRGB(255, 0, 255),
 	[StyleKey.CurveRotationZ] = Color3.fromRGB(255, 165, 0),
 	[StyleKey.CurveEditorButton] = "rbxasset://textures/AnimationEditor/Button_Curve_Lightmode.png",
-	[StyleKey.DopeSheetButton] = "rbxasset://textures/AnimationEditor/Button_Dopesheet_Lightmode.png",	
+	[StyleKey.DopeSheetButton] = "rbxasset://textures/AnimationEditor/Button_Dopesheet_Lightmode.png",
 })
 
 local overridedDarkTheme = Cryo.Dictionary.join(DarkTheme, {
@@ -112,7 +112,7 @@ local overridedDarkTheme = Cryo.Dictionary.join(DarkTheme, {
 	[StyleKey.CurveRotationY] = Color3.fromRGB(255, 0, 255),
 	[StyleKey.CurveRotationZ] = Color3.fromRGB(255, 165, 0),
 	[StyleKey.CurveEditorButton] = "rbxasset://textures/AnimationEditor/Button_Curve_Darkmode.png",
-	[StyleKey.DopeSheetButton] = "rbxasset://textures/AnimationEditor/Button_Dopesheet_Darkmode.png",	
+	[StyleKey.DopeSheetButton] = "rbxasset://textures/AnimationEditor/Button_Dopesheet_Darkmode.png",
 })
 
 local playbackTheme = {
@@ -519,6 +519,10 @@ local scrubberTheme = {
 	image = "rbxasset://textures/AnimationEditor/img_scrubberhead.png",
 }
 
+local progressBarTheme = {
+	backgroundColor = Colors.Blue,
+}
+
 local PluginTheme = {
 	font = Enum.Font.SourceSans,
 	backgroundColor = StyleKey.MainBackground,
@@ -549,6 +553,7 @@ local PluginTheme = {
 	keyframe = keyframe,
 	scrubberTheme = scrubberTheme,
 	curveTheme = curveTheme,
+	progressBarTheme = progressBarTheme,
 }
 
 local UILibraryOverrides = {

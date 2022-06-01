@@ -18,6 +18,7 @@ return Rodux.createReducer({
 	isReportSentOpen = false,
 	reportType = nil,
 	targetPlayer = nil,
+	onGoBackFromReportDialog = nil,
 }, {
 	[OpenReportMenu.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
@@ -35,6 +36,7 @@ return Rodux.createReducer({
 			isReportDialogOpen = true,
 			reportType = action.reportType,
 			targetPlayer = action.targetPlayer or Cryo.None,
+			onGoBackFromReportDialog = action.onGoBack or Cryo.None,
 		})
 	end,
 	[CloseReportDialog.name] = function(state, action)

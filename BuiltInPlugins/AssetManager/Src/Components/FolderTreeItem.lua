@@ -16,8 +16,6 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -62,7 +60,7 @@ function FolderTreeItem:init()
 
     self.resizeFrameHeight = function()
         local props = self.props
-        local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+        local theme = props.Stylizer
         local themeHeight = theme.TreeViewItem.Height
         local height
         if self.layoutRef.current then
@@ -77,7 +75,7 @@ end
 
 function FolderTreeItem:render()
     local props = self.props
-    local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+    local theme = props.Stylizer
 
     local treeViewTheme = theme.TreeViewItem
     local instance = props.element
@@ -173,8 +171,7 @@ function FolderTreeItem:render()
 end
 
 FolderTreeItem = withContext({
-    Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-    Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+    Stylizer = ContextServices.Stylizer,
     Mouse = ContextServices.Mouse,
 })(FolderTreeItem)
 

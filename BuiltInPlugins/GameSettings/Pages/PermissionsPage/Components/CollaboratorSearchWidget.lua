@@ -4,19 +4,14 @@ local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local UI = Framework.UI
 local Pane = UI.Pane
 
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-
-local TextService = game:GetService("TextService")
---even though this is deprecated, the warning message will only be up for a while before being removed
-local GuiService = game:GetService("GuiService")
 
 local PermissionsConstants = require(Page.Util.PermissionsConstants)
 local LOADING = require(Page.Keys.loadingInProgress)
@@ -45,8 +40,6 @@ if not FFlagGameSettingsRemoveFitContent then
 	})
 end
 
-
-local PADDING = 16
 local PERMISSIONS_ID = "Permissions"
 
 local CollaboratorSearchWidget = Roact.PureComponent:extend("CollaboratorSearchWidget")
@@ -232,7 +225,6 @@ function CollaboratorSearchWidget:render()
 
 	local theme = props.Stylizer
 	local localization = props.Localization
-	local mouse = props.Mouse
 
 	local results = self:getResults()
 	local isLoading = self:isLoading()
@@ -244,9 +236,6 @@ function CollaboratorSearchWidget:render()
 	local tooManyCollaboratorsText = localization:getText(PERMISSIONS_ID, "CollaboratorSearchbarTooManyText1",{
 		maxNumCollaborators = maxCollaborators,
 	})
-
-	local WarningTextSize
-	local titleWidth
 
 	local children = {
 		Title = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
@@ -294,7 +283,7 @@ function CollaboratorSearchWidget:render()
 
 			Results = results,
 		}),
-	} 
+	}
 
 	if FFlagGameSettingsRemoveFitContent then
 		return Roact.createElement(Pane, {
@@ -343,6 +332,5 @@ CollaboratorSearchWidget = RoactRodux.connect(
 		}
 	end
 )(CollaboratorSearchWidget)
-
 
 return CollaboratorSearchWidget

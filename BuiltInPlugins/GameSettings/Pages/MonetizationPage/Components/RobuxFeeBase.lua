@@ -26,9 +26,8 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
-local FrameworkUtil = Framework.Util
-local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
-local FitFrameOnAxis = FrameworkUtil.FitFrame.FitFrameOnAxis
+local LayoutOrderIterator = Util.LayoutOrderIterator
+local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -314,12 +313,9 @@ function RobuxFeeBase:render()
     })
 end
 
-
 RobuxFeeBase = withContext({
     Localization = ContextServices.Localization,
     Stylizer = ContextServices.Stylizer,
 })(RobuxFeeBase)
-
-
 
 return RobuxFeeBase

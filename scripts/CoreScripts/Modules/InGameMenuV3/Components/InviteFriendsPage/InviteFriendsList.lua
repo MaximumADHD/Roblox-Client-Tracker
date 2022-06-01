@@ -19,7 +19,6 @@ local PlayerContextualMenuWrapper = require(InGameMenu.Components.PlayerContextu
 
 local Divider = require(InGameMenu.Components.Divider)
 local BarOnTopScrollingFrame = require(InGameMenu.Components.BarOnTopScrollingFrame)
-local PlayerSearchPredicate = require(InGameMenu.Utility.PlayerSearchPredicate)
 local FocusHandler = require(InGameMenu.Components.Connection.FocusHandler)
 local RootedConnection = require(InGameMenu.Components.Connection.RootedConnection)
 
@@ -69,7 +68,11 @@ function InviteFriendsList:init()
 	end
 
 	self.toggleMoreActions = function(playerInfo)
-		if playerInfo ~= nil and self.state.selectedPlayer == playerInfo then
+		if
+			playerInfo ~= nil
+			and self.state.selectedPlayer
+			and self.state.selectedPlayer.UserId == playerInfo.UserId
+		then
 			self:setState({
 				selectedPlayer = Roact.None,
 			})
@@ -100,37 +103,33 @@ end
 
 function InviteFriendsList:renderListEntries()
 	local friends = self.props.friends
-
 	local friendsCount = #friends
 	local layoutOrder = 1
-
 	local friendList = {}
-	local visibleEntryCount = 0
-
 	friendList.ListLayout = Roact.createElement("UIListLayout", {
 		SortOrder = Enum.SortOrder.LayoutOrder,
 		HorizontalAlignment = Enum.HorizontalAlignment.Right,
 	})
 
 	for index, playerInfo in pairs(friends) do
-		local isEntryVisible = PlayerSearchPredicate(self.state.searchText, playerInfo.Username, playerInfo.DisplayName)
-
-		if isEntryVisible then
-			visibleEntryCount = visibleEntryCount + 1
-		end
-
 		friendList["friend_" .. index] = Roact.createElement(PlayerCell, {
 			username = playerInfo.Username,
 			displayName = playerInfo.DisplayName,
 			userId = playerInfo.Id,
 			isOnline = playerInfo.IsOnline,
-			isSelected = self.state.selectedPlayer == playerInfo,
+			isSelected = self.state.selectedPlayer and self.state.selectedPlayer.UserId == playerInfo.Id,
 			LayoutOrder = layoutOrder,
-			Visible = isEntryVisible,
-			[Roact.Ref] = self.state.selectedPlayer == playerInfo and self.setSelectedPlayerRef or nil,
-			[Roact.Change.AbsolutePosition] = self.state.selectedPlayer == playerInfo and self.positionChanged or nil,
+			Visible = true,
+			[Roact.Ref] = self.state.selectedPlayer
+					and self.state.selectedPlayer.UserId == playerInfo.Id
+					and self.setSelectedPlayerRef
+				or nil,
+			[Roact.Change.AbsolutePosition] = self.state.selectedPlayer
+					and self.state.selectedPlayer.UserId == playerInfo.Id
+					and self.positionChanged
+				or nil,
 			onActivated = function(_)
-				self.toggleMoreActions(friends[index])
+				self.toggleMoreActions(self:getPlayerByIndex(index))
 			end,
 		}, {
 			Icon = Roact.createElement(IconButton, {
@@ -138,7 +137,7 @@ function InviteFriendsList:renderListEntries()
 				icon = Images["icons/actions/friends/friendInvite"],
 				anchorPoint = Vector2.new(1, 0.5),
 				onActivated = function(_)
-					self.toggleMoreActions(friends[index])
+					self.toggleMoreActions(self:getPlayerByIndex(index))
 				end,
 			}),
 		})
@@ -149,18 +148,18 @@ function InviteFriendsList:renderListEntries()
 			friendList["divider_" .. layoutOrder] = Roact.createElement(Divider, {
 				LayoutOrder = layoutOrder,
 				Size = UDim2.new(1, 0, 0, 1),
-				Visible = isEntryVisible,
+				Visible = true,
 			})
 
 			layoutOrder = layoutOrder + 1
 		end
 	end
 
-	return friendList, visibleEntryCount
+	return friendList
 end
 
 function InviteFriendsList:render()
-	local listEntries, visibleEntryCount = self:renderListEntries()
+	local listEntries = self:renderListEntries()
 
 	local friendsList = Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -169,7 +168,7 @@ function InviteFriendsList:render()
 		List = Roact.createElement(BarOnTopScrollingFrame, {
 			Position = UDim2.new(0, 0, 0, 0),
 			Size = UDim2.new(1, 0, 1, 0),
-			CanvasSize = UDim2.new(1, 0, 0, visibleEntryCount * (PLAYER_LABEL_HEIGHT + 1)),
+			CanvasSize = UDim2.new(1, 0, 0, #self.props.friends * (PLAYER_LABEL_HEIGHT + 1)),
 		}, listEntries),
 
 		MoreActionsMenu = Roact.createElement(PlayerContextualMenuWrapper, {
@@ -203,6 +202,24 @@ function InviteFriendsList:render()
 			})
 		end,
 	})
+end
+
+function InviteFriendsList:getPlayerByIndex(index)
+	if index <= 0 then
+		return nil
+	end
+
+	-- friends interface is different from a Player instance
+	local player = self.props.friends[index]
+	if player then
+		return {
+			UserId = player.Id,
+			Name = player.Username,
+			DisplayName = player.DisplayName,
+		}
+	end
+
+	return nil
 end
 
 return RoactRodux.connect(function(state, props)

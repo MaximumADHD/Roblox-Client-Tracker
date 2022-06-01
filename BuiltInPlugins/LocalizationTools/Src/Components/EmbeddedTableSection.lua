@@ -110,14 +110,11 @@ local function mapStateToProps(state, _)
 	}
 end
 
-
 EmbeddedTableSection = withContext({
 	Plugin = ContextServices.Plugin,
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Analytics = AnalyticsContext,
 })(EmbeddedTableSection)
-
-
 
 return RoactRodux.connect(mapStateToProps)(EmbeddedTableSection)

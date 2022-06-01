@@ -26,7 +26,6 @@ local Constants = require(script.Parent.Parent.Constants)
 local getSettingsForMessage = require(script.Parent.Parent.Helpers.getSettingsForMessage)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
-local GetFFlagBubbleVoiceIndicator = require(RobloxGui.Modules.Flags.GetFFlagBubbleVoiceIndicator)
 local GetFFlagEnableVoiceChatSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatSpeakerIcons)
 local GetFFlagEnableVoiceChatManualReconnect = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatManualReconnect)
 local GetFFlagBubbleChatInexistantAdorneeFix = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatInexistantAdorneeFix)
@@ -85,7 +84,7 @@ function BubbleChatBillboard:init()
 		end
 	end
 
-	if GetFFlagBubbleVoiceIndicator() and self.props.voiceEnabled then
+	if self.props.voiceEnabled then
 		local onClick
 		if self.props.userId == tostring(Players.LocalPlayer.UserId) then
 			onClick = function()
@@ -155,14 +154,10 @@ function BubbleChatBillboard:didMount()
 
 	-- When the character respawns, we need to update the adornee
 	local player
-	if not GetFFlagBubbleVoiceIndicator() then
+	if adornee then
 		player = Players:GetPlayerFromCharacter(adornee)
-	else
-		if adornee then
-			player = Players:GetPlayerFromCharacter(adornee)
-		elseif tonumber(self.props.userId) then
-			player = Players:GetPlayerByUserId(self.props.userId)
-		end
+	elseif tonumber(self.props.userId) then
+		player = Players:GetPlayerByUserId(self.props.userId)
 	end
 
 	if player then
@@ -368,60 +363,45 @@ function BubbleChatBillboard:render()
 
 	local children = {}
 	local active = nil
-	if not GetFFlagBubbleVoiceIndicator() then
-		children.DistantBubble = not self.state.isInsideMaximizeDistance and Roact.createElement(ChatBubbleDistant, {
-			fadingOut = not self.props.messageIds or #self.props.messageIds == 0,
-			onFadeOut = self.onLastBubbleFadeOut,
-			chatSettings = chatSettings,
-		})
+	local showVoiceIndicator = self.props.voiceEnabled and not self.state.voiceTimedOut
 
-		children.BubbleChatList = self.state.isInsideMaximizeDistance and Roact.createElement(BubbleChatList, {
-			userId = self.props.userId,
-			isVisible = self.state.isInsideMaximizeDistance,
-			onLastBubbleFadeOut = self.onLastBubbleFadeOut,
+	-- If neither bubble chat nor voice is on, this whole component shouldn't be rendered.
+	if showVoiceIndicator and (
+		not self.props.bubbleChatEnabled 
+		or not self.props.messageIds
+		or #self.props.messageIds == 0)
+	then
+		-- Render the VoiceBubble if neither of the other two should render.
+		children.VoiceBubble = Roact.createElement(VoiceBubble, {
 			chatSettings = chatSettings,
+			renderInsert = self.renderInsert,
+			insertSize = self.insertSize,
+			isDistant = not self.state.isInsideMaximizeDistance,
 		})
-	else
-		local showVoiceIndicator = self.props.voiceEnabled and not self.state.voiceTimedOut
+	end
 
-		-- If neither bubble chat nor voice is on, this whole component shouldn't be rendered.
-		if showVoiceIndicator and (
-			not self.props.bubbleChatEnabled 
-			or not self.props.messageIds
-			or #self.props.messageIds == 0)
-		then
-			-- Render the VoiceBubble if neither of the other two should render.
-			children.VoiceBubble = Roact.createElement(VoiceBubble, {
+	if self.state.hasMessage then
+		if self.state.isInsideMaximizeDistance then
+			children.BubbleChatList = Roact.createElement(BubbleChatList, {
+				userId = self.props.userId,
+				isVisible = self.state.isInsideMaximizeDistance,
+				onLastBubbleFadeOut = self.onLastBubbleFadeOut,
 				chatSettings = chatSettings,
-				renderInsert = self.renderInsert,
+				renderFirstInsert = showVoiceIndicator and self.renderInsert,
 				insertSize = self.insertSize,
-				isDistant = not self.state.isInsideMaximizeDistance,
+			})
+		else
+			children.DistantBubble = Roact.createElement(ChatBubbleDistant, {
+				fadingOut = not self.props.messageIds or #self.props.messageIds == 0,
+				onFadeOut = self.onLastBubbleFadeOut,
+				chatSettings = chatSettings,
+				renderInsert = showVoiceIndicator and self.renderInsert,
+				insertSize = self.insertSize,
 			})
 		end
-
-		if self.state.hasMessage then
-			if self.state.isInsideMaximizeDistance then
-				children.BubbleChatList = Roact.createElement(BubbleChatList, {
-					userId = self.props.userId,
-					isVisible = self.state.isInsideMaximizeDistance,
-					onLastBubbleFadeOut = self.onLastBubbleFadeOut,
-					chatSettings = chatSettings,
-					renderFirstInsert = showVoiceIndicator and self.renderInsert,
-					insertSize = self.insertSize,
-				})
-			else
-				children.DistantBubble = Roact.createElement(ChatBubbleDistant, {
-					fadingOut = not self.props.messageIds or #self.props.messageIds == 0,
-					onFadeOut = self.onLastBubbleFadeOut,
-					chatSettings = chatSettings,
-					renderInsert = showVoiceIndicator and self.renderInsert,
-					insertSize = self.insertSize,
-				})
-			end
-		end
-
-		active = showVoiceIndicator
 	end
+
+	active = showVoiceIndicator
 
 	-- For other players, increase vertical offset by 1 to prevent overlaps with the name display
 	-- For the local player, increase Z offset to prevent the character from overlapping his bubbles when jumping/emoting

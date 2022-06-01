@@ -8,6 +8,9 @@ local Constants = require(Plugin.Src.Util.Constants)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
+local SetAnimationImportProgress = require(Plugin.Src.Actions.SetAnimationImportProgress)
+local SetAnimationImportStatus = require(Plugin.Src.Actions.SetAnimationImportStatus)
+local SetCreatingAnimationFromVideo = require(Plugin.Src.Actions.SetCreatingAnimationFromVideo)
 
 -- this function is is a variation of : ImportFBXAnimationUserMayChooseModel function (but is provided with a fbxFilePath parameter)
 local function _ImportFBXAnimationFromFilePathUserMayChooseModel(store, fbxFilePath, plugin, animationClipDropdown, analytics)
@@ -37,7 +40,6 @@ local function _ImportFBXAnimationFromFilePathUserMayChooseModel(store, fbxFileP
 		end
 
 		analytics:report("onImportFbxAnimation")
-		print("[AnimationFromVideoCreatorService] Finished importing fbx animation")
 	else
 		warn(result)
 	end
@@ -45,12 +47,29 @@ end
 
 return function(plugin, animationClipDropdown, analytics)
 	return function(store)
+
+	-- Do not allow more than one video to animation conversion at once.
+	if store:getState().Status.CreatingAnimationFromVideo then
+		return
+	end
+
+	store:dispatch(SetAnimationImportStatus(Constants.ANIMATION_FROM_VIDEO_STATUS.Initializing))
+	store:dispatch(SetAnimationImportProgress(0))
+	store:dispatch(SetCreatingAnimationFromVideo(true))
+	animationClipDropdown:showAnimationImportProgress()
+
 		local function progressCallback(progress: number, status: number)
-			print("[AnimationFromVideoCreatorService] Current processing progress is: ", progress, " and status: ", status)
+			if not store:getState().Status.CreatingAnimationFromVideo then
+				return false
+			else
+				store:dispatch(SetAnimationImportStatus(status))
+				store:dispatch(SetAnimationImportProgress(progress))
+				return true
+			end
 		end
-		
+
 		local AnimationFromVideoCreatorStudioService = game:GetService("AnimationFromVideoCreatorStudioService")
-		
+
 		local success, result = pcall(function()
 			-- alternatively we can split the process into two parts:
 			-- using AnimationFromVideoCreatorStudioService:ImportVideoWithPrompt()
@@ -58,16 +77,23 @@ return function(plugin, animationClipDropdown, analytics)
 			return AnimationFromVideoCreatorStudioService:CreateAnimationByUploadingVideo(progressCallback)
 		end)
 
+		-- If no file selected, hide progress and cancel
 		if not success then
+			animationClipDropdown:hideAnimationImportProgress()
 			warn(result)
 			return
 		end
 
 		local fbxFilePath = result
-		print("[AnimationFromVideoCreatorService] Processed fbx file downloaded at path: ", fbxFilePath)
 		--TODO: analytics:report("")
 
-		print("[AnimationFromVideoCreatorService] Importing animation from fbx: ", fbxFilePath)
+		-- Stop if canceled between downloading the FBX and importing the animation
+		if fbxFilePath == nil or not store:getState().Status.CreatingAnimationFromVideo then
+			return
+		end
+
+		animationClipDropdown:hideAnimationImportProgress()
+
 		_ImportFBXAnimationFromFilePathUserMayChooseModel(store, fbxFilePath, plugin, animationClipDropdown, analytics)
 
 	end

@@ -134,7 +134,15 @@ function DropdownField:render()
 	local displayTextButtonDropdown = not props.ShouldShowDropdownIcon and not props.HamburgerMenu
 	local buttonText = ""
 	if displayTextButtonDropdown then
-		if props.NumDisplay == props.MaxDisplay then
+		if props.NumDisplay == 0 then
+			buttonText = localization:getText("Common", "None")
+		elseif props.NumDisplay == 1 then
+			for index, enabled in pairs(props.KeyStates) do
+				if enabled then
+					buttonText = localization:getText(props.Widget, self.props.KeyTexts[index])
+				end
+			end
+		elseif props.NumDisplay == props.MaxDisplay then
 			buttonText = localization:getText(props.Widget, self.props.KeyTexts[1])
 		else
 			buttonText = localization:getText(props.Widget, "DropdownFieldText", { NumFields = props.NumDisplay })

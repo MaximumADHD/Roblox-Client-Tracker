@@ -13,17 +13,17 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingModuleContext
+
 local UI = Framework.UI
 local Button = UI.Button
 local StringUtil = require(Plugin.Src.Util.StringUtil)
-
-local AddWaypoint = require(Plugin.Src.Thunks.AddWaypoint)
-local ResetPoints = require(Plugin.Src.Thunks.ResetPoints)
 
 local Util = Framework.Util
 local Typecheck = Util.Typecheck
@@ -31,13 +31,21 @@ local Typecheck = Util.Typecheck
 local ResetSettings = Roact.PureComponent:extend("ResetSettings")
 Typecheck.wrap(ResetSettings, script)
 
+function ResetSettings:init()
+	self.resetPoints = function()
+		local context = self.props.LuaMeshEditingModuleContext
+		if context then
+			context:resetTools()
+		end
+	end
+end
+
 function ResetSettings:render()
 	local props = self.props
 
 	local size = props.Size
 	local layoutOrder = props.LayoutOrder
 	local editingCage = props.EditingCage
-	local resetPoints = props.ResetPoints
 	local localization = props.Localization
 	local theme = props.Stylizer
 
@@ -62,18 +70,16 @@ function ResetSettings:render()
 			Style = "Round",
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.new(0.5, 0, 0.5, 0),
-			OnClick = resetPoints,
+			OnClick = self.resetPoints,
 		}),
 	})
 end
 
-
 ResetSettings = withContext({
 	Localization = ContextServices.Localization,
+	LuaMeshEditingModuleContext = LuaMeshEditingModuleContext,
 	Stylizer = ContextServices.Stylizer,
 })(ResetSettings)
-
-
 
 local function mapStateToProps(state, props)
 	local selectItem = state.selectItem
@@ -82,13 +88,4 @@ local function mapStateToProps(state, props)
 	}
 end
 
-local function mapDispatchToProps(dispatch)
-	return {
-		ResetPoints = function()
-			dispatch(AddWaypoint())
-			dispatch(ResetPoints())
-		end,
-	}
-end
-
-return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(ResetSettings)
+return RoactRodux.connect(mapStateToProps, nil)(ResetSettings)

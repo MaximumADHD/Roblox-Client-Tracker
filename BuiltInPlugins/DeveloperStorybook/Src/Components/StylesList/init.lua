@@ -24,8 +24,8 @@ local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
 
 local StylesList = Roact.PureComponent:extend("StylesList")
 
-local SUMMARY = [[In addition to Default, these Styles are defined for this component in StudioFrameworkStyles:]]
-local NOSTYLES = [[Only the Default style is defined for this component in StudioFrameworkStyles.]]
+local SUMMARY = [[In addition to Default, these Styles are defined for this component:]]
+local NOSTYLES = [[Only the Default style is defined for this component.]]
 
 function StylesList:render()
 	local props = self.props

@@ -197,13 +197,10 @@ function DeveloperSubscriptionList:render()
     end
 end
 
-
 DeveloperSubscriptionList = withContext({
     Stylizer = ContextServices.Stylizer,
     Localization = ContextServices.Localization,
 })(DeveloperSubscriptionList)
-
-
 
 return RoactRodux.connect(
     function(state, props)

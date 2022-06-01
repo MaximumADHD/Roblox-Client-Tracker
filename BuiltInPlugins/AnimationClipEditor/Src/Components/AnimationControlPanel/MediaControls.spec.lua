@@ -1,5 +1,3 @@
-local FFlagMergePlayPause = game:DefineFastFlag("ACEMergePlayPause", false)
-
 return function()
 	local Plugin = script.Parent.Parent.Parent.Parent
 	local Roact = require(Plugin.Packages.Roact)
@@ -37,9 +35,6 @@ return function()
 		expect(frame.GoToFirstFrame).to.be.ok()
 		expect(frame.SkipBackward).to.be.ok()
 		expect(frame.Reverse).to.be.ok()
-		if not FFlagMergePlayPause then
-			expect(frame.Pause).to.be.ok()
-		end
 		expect(frame.Play).to.be.ok()
 		expect(frame.SkipForward).to.be.ok()
 		expect(frame.GoToLastFrame).to.be.ok()

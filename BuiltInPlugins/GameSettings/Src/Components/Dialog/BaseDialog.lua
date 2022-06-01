@@ -8,11 +8,10 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 local Cryo = require(Plugin.Packages.Cryo)
 
-local Pane = require(Plugin.Packages.Framework).UI.Pane
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local Pane = Framework.UI.Pane
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local ButtonBar = require(Plugin.Src.Components.ButtonBar)
@@ -56,11 +55,8 @@ function BaseDialog:render()
 	}))
 end
 
-
 BaseDialog = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(BaseDialog)
-
-
 
 return BaseDialog

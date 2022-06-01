@@ -41,7 +41,6 @@ local GetFFlagScreenTime = require(CorePackages.Regulations.ScreenTime.GetFFlagS
 
 local GetFFlagEnableCaptureMode = require(RobloxGui.Modules.Flags.GetFFlagEnableCaptureMode)
 
-local GetFFlagBubbleVoiceIndicator = require(RobloxGui.Modules.Flags.GetFFlagBubbleVoiceIndicator)
 local GetFFlagEnableVoiceDefaultChannel = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceDefaultChannel)
 
 local GetFFlagStartScreenTimeUsingGuacEnabled
@@ -175,11 +174,7 @@ local UserRoactBubbleChatBeta do
 end
 
 if game:GetEngineFeature("EnableBubbleChatFromChatService") or UserRoactBubbleChatBeta then
-	if GetFFlagBubbleVoiceIndicator() then
-		ScriptContext:AddCoreScriptLocal("CoreScripts/PlayerBillboards", RobloxGui)
-	else
-		ScriptContext:AddCoreScriptLocal("CoreScripts/InGameChat", RobloxGui)
-	end
+	ScriptContext:AddCoreScriptLocal("CoreScripts/PlayerBillboards", RobloxGui)
 end
 
 -- Purchase Prompt Script

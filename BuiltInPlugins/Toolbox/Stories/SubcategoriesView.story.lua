@@ -4,8 +4,6 @@ local FFlagDevFrameworkResponsiveGrid2 = game:GetFastFlag("DevFrameworkResponsiv
 
 local Libs = Plugin.Packages
 local Roact = require(Libs.Roact)
-local RefactorFlags = require(Libs.Framework).Util.RefactorFlags
-RefactorFlags.THEME_REFACTOR = true
 
 local ToolboxStoryWrapper = require(Plugin.Stories.ToolboxStoryWrapper)
 local SubcategoriesView = require(Plugin.Core.Components.Categorization.SubcategoriesView)

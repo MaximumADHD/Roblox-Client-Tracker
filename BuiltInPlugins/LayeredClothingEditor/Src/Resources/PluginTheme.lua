@@ -257,6 +257,8 @@ local function createValuesInternal(mock)
 		Transparency = 0.8,
 		InBoundsColor = Color3.new(0, 0, 1),
 		OutBoundsColor = Color3.new(1, 0, 0),
+		LineThickness = 5,
+		LineColor = Color3.new(0, 0, 0),
 	}
 
 	local rootTheme = {

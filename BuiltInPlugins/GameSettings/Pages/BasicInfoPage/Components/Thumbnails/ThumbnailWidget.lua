@@ -26,15 +26,14 @@ local FFlagGameSettingsRemoveFitContent = game:GetFastFlag("GameSettingsRemoveFi
 local Page = script.Parent.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 local Cryo = require(Plugin.Packages.Cryo)
 local UILibrary = require(Plugin.Packages.UILibrary)
+local Framework = require(Plugin.Packages.Framework)
 
 local UI = Framework.UI
 local Pane = UI.Pane
 
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
@@ -271,13 +270,10 @@ function ThumbnailWidget:render()
 	end
 end
 
-
 ThumbnailWidget = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
 })(ThumbnailWidget)
-
-
 
 return ThumbnailWidget

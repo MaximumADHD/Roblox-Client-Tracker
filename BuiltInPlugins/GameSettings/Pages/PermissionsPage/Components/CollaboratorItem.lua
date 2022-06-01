@@ -26,7 +26,6 @@ local TextLabel = UI.Decoration.TextLabel
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 
-local DEPRECATED_DetailedDropdown = UILibrary.Component.DetailedDropdown
 local LoadingIndicator = UILibrary.Component.LoadingIndicator
 local UILibraryButton = UILibrary.Component.Button
 
@@ -74,12 +73,9 @@ function DeleteButton:render()
 	})
 end
 
-
 DeleteButton = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(DeleteButton)
-
-
 
 local CollaboratorItem = Roact.PureComponent:extend("CollaboratorItem")
 
@@ -211,15 +207,14 @@ function CollaboratorItem:render()
 	local onRemoved = props.OnRemoved
 
 	local currentPermission = props.CurrentPermission
-	
+
 	if FFlagGSPermsRemoveCollaboratorsFixEnabled then
 		if not currentPermission then
 			return
 		end
 	end
-	
+
 	local availablePermissions = props.AvailablePermissions
-	local onPermissionChanged = props.OnPermissionChanged
 
 	local theme = props.Stylizer
 

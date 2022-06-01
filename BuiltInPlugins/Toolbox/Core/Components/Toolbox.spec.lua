@@ -1,6 +1,4 @@
 return function()
-	local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
-
 	local Plugin = script.Parent.Parent.Parent
 
 	local Packages = Plugin.Packages
@@ -19,7 +17,7 @@ return function()
 				backgrounds = {},
 				categories = Category.MARKETPLACE,
 				suggestions = Suggestion.SUGGESTIONS,
-				Size = FFlagToolboxAssetGridRefactor and UDim2.new(0, 400, 0, 400) or nil,
+				Size = UDim2.new(0, 400, 0, 400),
 			}),
 		})
 

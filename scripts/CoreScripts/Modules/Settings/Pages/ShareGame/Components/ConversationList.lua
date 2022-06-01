@@ -10,6 +10,7 @@ local Players = game:GetService("Players")
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 
+local Modules = CoreGui.RobloxGui.Modules
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 
 local isSelectionGroupEnabled = require(ShareGame.isSelectionGroupEnabled)
@@ -20,6 +21,7 @@ local InviteUserIdToPlaceId = require(ShareGame.Thunks.InviteUserIdToPlaceId)
 local LoadingFriendsPage = require(ShareGame.Components.LoadingFriendsPage)
 local NoFriendsPage = require(ShareGame.Components.NoFriendsPage)
 local PlayerSearchPredicate = require(CoreGui.RobloxGui.Modules.InGameMenu.Utility.PlayerSearchPredicate)
+local GetFFlagShareInviteLinkContextMenuV1Enabled = require(Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
 
 local User = require(AppTempCommon.LuaApp.Models.User)
 local httpRequest = require(AppTempCommon.Temp.httpRequest)
@@ -158,6 +160,7 @@ function ConversationList:render()
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
 		Size = size,
+		Position = GetFFlagShareInviteLinkContextMenuV1Enabled() and UDim2.new(0, 0, 0, topPadding) or nil,
 		CanvasSize = UDim2.new(0, 0, 0, numEntries * (entryHeight + entryPadding)),
 		ScrollBarThickness = 0,
 		ZIndex = zIndex,

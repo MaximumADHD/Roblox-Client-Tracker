@@ -9,8 +9,6 @@
 
 		callback onClick(number assetId)
 ]]
-local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -39,26 +37,24 @@ local AudioPreviewButton = Roact.PureComponent:extend("AudioPreviewButton")
 
 local LOADING_HEIGHT = 10
 
-if FFlagToolboxAssetGridRefactor then
-	function AudioPreviewButton:init()
-		self.onPreviewAudioButtonClicked = function()
-			local assetId = self.props.assetId
-			local currentSoundId = self.props.currentSoundId
-			if currentSoundId == assetId then
-				if self.props.isPlaying then
-					self.props.pauseASound()
+function AudioPreviewButton:init()
+	self.onPreviewAudioButtonClicked = function()
+		local assetId = self.props.assetId
+		local currentSoundId = self.props.currentSoundId
+		if currentSoundId == assetId then
+			if self.props.isPlaying then
+				self.props.pauseASound()
 
-					Analytics.onSoundPausedCounter()
-				else
-					self.props.resumeASound()
-
-					Analytics.onSoundPlayedCounter()
-				end
+				Analytics.onSoundPausedCounter()
 			else
-				self.props.playASound(assetId)
+				self.props.resumeASound()
 
 				Analytics.onSoundPlayedCounter()
 			end
+		else
+			self.props.playASound(assetId)
+
+			Analytics.onSoundPlayedCounter()
 		end
 	end
 end
@@ -101,11 +97,7 @@ function AudioPreviewButton:render()
 			BackgroundTransparency = 1,
 
 			[Roact.Event.MouseButton1Click] = function(rbx)
-				if FFlagToolboxAssetGridRefactor then
-					self.onPreviewAudioButtonClicked()
-				else
-					props.onClick(assetId)
-				end
+				self.onPreviewAudioButtonClicked()
 			end,
 		})
 	end
@@ -115,30 +107,26 @@ AudioPreviewButton = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(AudioPreviewButton)
 
-if FFlagToolboxAssetGridRefactor then
-	local function mapStateToProps(state, props)
-		state = state or {}
-		local sound = state.sound or {}
+local function mapStateToProps(state, props)
+	state = state or {}
+	local sound = state.sound or {}
 
-		return {
-			isPlaying = sound.isPlaying or false,
-		}
-	end
-
-	local function mapDispatchToProps(dispatch)
-		return {
-			pauseASound = function()
-				dispatch(PausePreviewSound())
-			end,
-			playASound = function(currentSoundId)
-				dispatch(PlayPreviewSound(currentSoundId))
-			end,
-			resumeASound = function()
-				dispatch(ResumePreviewSound())
-			end,
-		}
-	end
-	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AudioPreviewButton)
-else
-	return AudioPreviewButton
+	return {
+		isPlaying = sound.isPlaying or false,
+	}
 end
+
+local function mapDispatchToProps(dispatch)
+	return {
+		pauseASound = function()
+			dispatch(PausePreviewSound())
+		end,
+		playASound = function(currentSoundId)
+			dispatch(PlayPreviewSound(currentSoundId))
+		end,
+		resumeASound = function()
+			dispatch(ResumePreviewSound())
+		end,
+	}
+end
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AudioPreviewButton)

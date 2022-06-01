@@ -27,7 +27,9 @@ local MaterialController = require(Util.MaterialController)
 local Components = Plugin.Src.Components
 local StatusIcon = require(Components.StatusIcon)
 
-local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Plugin.Src.Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
+local Flags = Plugin.Src.Flags
+local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
+local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
 
 export type Props = {
 	LayoutOrder : number?,
@@ -95,7 +97,7 @@ function MaterialOverrides:init()
 	self.onMaterialAddedRemoved = function(_, materialVariant : MaterialVariant)
 		local props : _Props = self.props
 		local material = props.Material
-		local baseMaterial = material.MaterialVariant.BaseMaterial
+		local baseMaterial = if getFFlagMaterialManagerGlassNeonForceField() then material.Material else material.MaterialVariant.BaseMaterial
 
 		if materialVariant.BaseMaterial == baseMaterial then
 			self:setState({
@@ -201,7 +203,18 @@ function MaterialOverrides:didMount()
 	self.overrideStatusChangedConnection = materialController:getOverrideStatusChangedSignal():Connect(self.onOverrideChanged)
 
 	if props.Material then
-		local items, index = materialController:getMaterialOverrides(props.Material.MaterialVariant.BaseMaterial)
+		-- Move into function call with FFlagMaterialManagerGlassNeonForceField
+		local material
+		if getFFlagMaterialManagerGlassNeonForceField() then 
+			material = props.Material.Material
+		elseif props.Material.MaterialVariant then
+			material = props.Material.MaterialVariant.BaseMaterial
+		else
+			-- Remove with the FFlagMaterialManagerGlassNeonForceField check, this is here due to Luau reasons
+			assert("Missing material")
+			material = Enum.Material.Plastic
+		end
+		local items, index = materialController:getMaterialOverrides(material)
 		table.insert(items, 1, localization:getText("MaterialOverrides", "None"))
 
 		self:setState({
@@ -218,7 +231,18 @@ function MaterialOverrides:didUpdate(prevProps : _Props)
 
 	if prevProps.Material ~= props.Material or self.state.variantsListChanged then
 		if props.Material then
-			local items, index = materialController:getMaterialOverrides(props.Material.MaterialVariant.BaseMaterial)
+			-- Move into function call with FFlagMaterialManagerGlassNeonForceField
+			local material
+			if getFFlagMaterialManagerGlassNeonForceField() then 
+				material = props.Material.Material
+			elseif props.Material.MaterialVariant then
+				material = props.Material.MaterialVariant.BaseMaterial
+			else
+				-- Remove with the FFlagMaterialManagerGlassNeonForceField check, this is here due to Luau reasons
+				assert("Missing material")
+				material = Enum.Material.Plastic
+			end
+			local items, index = materialController:getMaterialOverrides(material)
 			table.insert(items, 1, localization:getText("MaterialOverrides", "None"))
 
 			self:setState({
@@ -237,7 +261,9 @@ function MaterialOverrides:render()
 	local material = props.Material
 	local materialController = props.MaterialController
 
-	local override = materialController:getMaterialOverride(material.MaterialVariant.BaseMaterial)
+	-- Move into function call with FFlagMaterialManagerGlassNeonForceField
+	local materialType = if getFFlagMaterialManagerGlassNeonForceField() then material.Material else material.MaterialVariant.BaseMaterial
+	local override = materialController:getMaterialOverride(materialType)
 
 	if not material then
 		return Roact.createElement(Pane)
@@ -245,7 +271,10 @@ function MaterialOverrides:render()
 
 	local contents = {}
 
-	if material.IsBuiltin then
+	-- Move into if statement with FFlagMaterialManagerGlassNeonForceField
+	local isBuiltin = if getFFlagMaterialManagerGlassNeonForceField() then not material.MaterialVariant else material.IsBuiltin
+
+	if isBuiltin then
 		contents = {
 			Label = Roact.createElement(Pane, {
 				LayoutOrder = 1,

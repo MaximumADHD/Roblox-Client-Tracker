@@ -76,15 +76,23 @@ local FFlagUseNotificationsLocalization = success and result
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
 local MIN_GAME_REPORT_TEXT_LENGTH = 5
+local timeEntered
 
 type MethodOfAbuse = ReportAbuseLogic.MethodOfAbuse
 local MethodsOfAbuse = ReportAbuseLogic.MethodsOfAbuse
 
-local TypeOfAbuseOptions: { [MethodOfAbuse]: { title: string, subtitle: string, index: number} } = {
-	[MethodsOfAbuse.voice] = {title = "Voice Chat", subtitle = "This person was screaming on top of their lungs", index = 1},
-	[MethodsOfAbuse.text] = {title = "Text Chat", subtitle = "This person typed a mean word in text chat", index = 2},
-	[MethodsOfAbuse.other] = {title = "Other", subtitle = "This person is following me, wearing a bad shirt, etc.", index = 3}
+type MOAOption = { title: string, subtitle: string, index: number}
+local TypeOfAbuseOptions: { [MethodOfAbuse]: MOAOption } = {
+	[MethodsOfAbuse.voice] = {title = "Feature.SettingsHub.MethodOfAbuse.VoiceChat.Title", subtitle = "Feature.SettingsHub.MethodOfAbuse.VoiceChat.Subtitle", index = 1},
+	[MethodsOfAbuse.text] = {title = "Feature.SettingsHub.MethodOfAbuse.Text.Title", subtitle = "Feature.SettingsHub.MethodOfAbuse.Text.Subtitle", index = 2},
+	[MethodsOfAbuse.other] = {title = "Feature.SettingsHub.MethodOfAbuse.Other.Title", subtitle = "Feature.SettingsHub.MethodOfAbuse.Other.Subtitle", index = 3}
 }
+
+local function SendEventStream(action: string, eventTable: { [string]: any } | nil)
+	if GetFFlagVoiceAbuseReportsEnabled() then
+		AnalyticsService:SetRBXEvent(Constants.AnalyticsTargetName, Constants.NewAnalyticsReportMenu, action, eventTable or {})
+	end
+end
 
 ----------- CLASS DECLARATION --------------
 local function Initialize()
@@ -116,8 +124,14 @@ local function Initialize()
 
 	function this:updateVoiceLayout()
 		if GetFFlagVoiceAbuseReportsEnabled() and voiceChatEnabled then
+			local MOAValues = Cryo.List.map(Cryo.Dictionary.values(TypeOfAbuseOptions), function(item: MOAOption)
+				item.title = RobloxTranslator:FormatByKey(item.title)
+				item.subtitle = RobloxTranslator:FormatByKey(item.subtitle)
+				return item
+			end)
+			local MOALabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.MethodOfAbuse")
 			this.MethodOfAbuseFrame, this.MethodOfAbuseLabel, this.MethodOfAbuseMode =
-				utility:AddNewRow(this, "Type Of Abuse?", "DropDown", Cryo.List.sort(Cryo.Dictionary.values(TypeOfAbuseOptions), function(a, b)
+				utility:AddNewRow(this, MOALabel, "DropDown", Cryo.List.sort(MOAValues, function(a, b)
 					return a.index < b.index
 				end))
 			this.MethodOfAbuseMode:SetInteractable(false)
@@ -150,6 +164,10 @@ local function Initialize()
 		else
 			this.MethodOfAbuseMode:UpdateDropDownList(Cryo.Dictionary.values(TypeOfAbuseOptions))
 		end
+		SendEventStream(Constants.AnalyticsFieldChanged, {
+			field = 'MethodOfAbuse',
+			methodOfAbuse = TypeOfAbuseOptions[MethodsOfAbuse.text]
+		})
 	end
 
 	function this:getPlayerPrimaryPart(player)
@@ -454,6 +472,10 @@ local function Initialize()
 
 				updateSubmitButton()
 			end
+			SendEventStream(Constants.AnalyticsFieldChanged, {
+				field = 'TypeOfAbuse',
+				abuseType = ABUSE_TYPES_GAME[this.TypeOfAbuseMode.CurrentIndex]
+			})
 		end
 
 		local function cleanupReportAbuseMenu()
@@ -520,6 +542,9 @@ local function Initialize()
 					end)
 				end
 			end
+			SendEventStream(Constants.AnalyticsSubmissionDuration, {
+				duration = DateTime.now().UnixTimestampMillis - timeEntered.UnixTimestampMillis
+			})
 
 			if showReportSentAlert then
 				local alertText = "Thanks for your report! Our moderators will review the chat logs and evaluate what happened."
@@ -553,6 +578,9 @@ local function Initialize()
 				this:updateTypeOfAbuseDropdown()
 			end
 
+			SendEventStream(Constants.AnalyticsFieldChanged, {
+				field = 'PlayerSelection',
+			})
 			updateSubmitButton()
 		end
 		this.WhichPlayerMode.IndexChanged:connect(playerSelectionChanged)
@@ -577,15 +605,26 @@ local function Initialize()
 	return this
 end
 
-
+local open = false
 ----------- Public Facing API Additions --------------
 do
 	PageInstance = Initialize()
 
 	PageInstance.Displayed.Event:connect(function()
+		timeEntered = DateTime.now()
+		open = true
 		PageInstance:UpdateMethodOfAbuse()
 		PageInstance:UpdatePlayerDropDown()
 	end)
+
+	if GetFFlagVoiceAbuseReportsEnabled() then
+		PageInstance.Hidden.Event:connect(function()
+			if open then
+				SendEventStream(Constants.AnalyticsReportLeft)
+				open = false
+			end
+		end)
+	end
 
 	function PageInstance:ReportPlayer(player)
 		if player then

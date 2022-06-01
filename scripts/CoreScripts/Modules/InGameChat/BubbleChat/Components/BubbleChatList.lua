@@ -8,7 +8,6 @@ local ChatBubble = require(script.Parent.ChatBubble)
 local Types = require(script.Parent.Parent.Types)
 
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
-local GetFFlagBubbleVoiceIndicator = require(RobloxGui.Modules.Flags.GetFFlagBubbleVoiceIndicator)
 
 local BubbleChatList = Roact.Component:extend("BubbleChatList")
 
@@ -100,11 +99,8 @@ function BubbleChatList:render()
 	for index, bubble in ipairs(self.state.bubbles) do
 		local isMostRecent = index == #self.state.bubbles
 
-		local renderInsert, insertSize
-		if GetFFlagBubbleVoiceIndicator() then
-			renderInsert = isMostRecent and self.props.renderFirstInsert or nil
-			insertSize = self.props.insertSize
-		end
+		local renderInsert = isMostRecent and self.props.renderFirstInsert or nil
+		local insertSize = self.props.insertSize
 	
 		children["Bubble" .. bubble.messageId] = Roact.createElement(ChatBubble, {
 			messageId = bubble.messageId,

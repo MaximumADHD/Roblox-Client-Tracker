@@ -21,13 +21,6 @@ return function(plugin, pluginLoaderContext)
 	local Packages = Plugin.Packages
 	local Roact = require(Packages.Roact)
 
-	--[[
-		RefactorFlags needs to be required and updated directly; before Framework's init
-		is required (so that any files that Framework's init requires get the correct values).
-	]]
-	local RefactorFlags = require(Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
-	RefactorFlags.THEME_REFACTOR = true
-
 	local Framework = require(Packages.Framework)
 
 	if FFlagDebugToolboxEnableRoactChecks then
@@ -41,7 +34,6 @@ return function(plugin, pluginLoaderContext)
 	local Rodux = require(Packages.Rodux)
 
 	local InsertAsset = require(Util.InsertAsset)
-	local Analytics = require(Util.Analytics.Analytics)
 	local AssetAnalyticsContextItem = require(Util.Analytics.AssetAnalyticsContextItem)
 	local DebugFlags = require(Util.DebugFlags)
 	local Settings = require(Util.Settings)

@@ -9,10 +9,6 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local UILibrary = require(Plugin.Packages.UILibrary)
 
-local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
-
 local MockPlugin = require(Plugin.Src.TestHelpers.MockPlugin)
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
@@ -52,13 +48,8 @@ function MockServiceWrapper.getMockGlobals(props)
 
 	local theme = props.theme
 	if not theme then
-		if THEME_REFACTOR then
-			local Theme = require(Plugin.Src.Resources.Theme)
-			theme = Theme(true)
-		else
-			local PluginTheme = require(Plugin.Src.Resources.DEPRECATED_PluginTheme)
-			theme = PluginTheme.mock()
-		end
+		local Theme = require(Plugin.Src.Resources.Theme)
+		theme = Theme(true)
 	end
 
 	return {

@@ -40,7 +40,8 @@ local Constants = {
 		PlayersTriggered = "Players",
 		SettingsTriggered = "Settings",
 		EducationalMenuTriggered = "EducationalMenu",
-
+		ScreenshotToast = "ScreenshotToast",
+		
 		-- Legacy menu open types. These occur when the old system menu is
 		-- opened; the new menu won't trigger it.
 		GamepadLeaveGame = "GamepadLeaveGame",
@@ -51,7 +52,6 @@ local Constants = {
 	AnalyticsLeaveToHomeName = "leave_to_home",
 	AnalyticsConfirmedName = "confirmed",
 	AnalyticsCancelledName = "cancelled",
-	AnalyticsReportSubmittedName = "ingame_menu_report_submitted",
 	AnalyticsRequestFriendName = "RequestFriendship",
 	AnalyticsExamineAvatarName = "examine_avatar",
 

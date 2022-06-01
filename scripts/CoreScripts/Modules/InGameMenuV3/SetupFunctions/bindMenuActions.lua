@@ -159,9 +159,7 @@ local function bindMenuActions(store)
 		local state = store:getState()
 		return (state.menuPage ~= "Controls"
 			and state.isMenuOpen
-			and not state.respawn.dialogOpen
-			and not state.report.dialogOpen
-			and not state.report.reportSentOpen)
+			and not state.respawn.dialogOpen)
 	end
 
 	ContextActionService:BindCoreAction(LEFT_BUMPER_SWITCH_ZONE,

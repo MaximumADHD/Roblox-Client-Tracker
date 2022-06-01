@@ -114,6 +114,7 @@ local function onInstanceChanged(instance, property)
 			SelectionManager:onParentChanged()
 		else
 			Resize:updatePosition()
+			Resize:updateSize()
 			DistanceLinesManager:update()
 			DistanceLinesManager:setVisible(true)
 			SizeBox:update()

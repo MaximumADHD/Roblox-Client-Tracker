@@ -1,7 +1,11 @@
 local VCSM = require(script.Parent.VoiceChatServiceManager)
 
 export type MethodOfAbuse = "voice" | "text" | "other"
-local MethodsOfAbuse: { [MethodOfAbuse]: MethodOfAbuse } = {
+local MethodsOfAbuse: {
+	voice: "voice",
+	text: "text",
+	other: "other",
+} = {
 	voice = "voice",
 	text = "text",
 	other = "other",

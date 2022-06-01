@@ -13,9 +13,6 @@ return function()
 	local Roact = require(Plugin.Packages.Roact)
 	local DebugFlags = require(Plugin.Src.Utility.DebugFlags)
 
-	local RefactorFlags = require(Plugin.Packages.Framework.Util.RefactorFlags)
-	RefactorFlags.THEME_REFACTOR = true
-
 	if DebugFlags.EnableRoactConfigs() then
 		Roact.setGlobalConfig({
 			elementTracing = true,

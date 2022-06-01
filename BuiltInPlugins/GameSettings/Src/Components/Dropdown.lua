@@ -31,10 +31,9 @@ local SCROLL_BOTTOM = "rbxasset://textures/GameSettings/ScrollBarBottom.png"
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 local Cryo = require(Plugin.Packages.Cryo)
 
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
@@ -270,12 +269,9 @@ function Dropdown:render()
 	})
 end
 
-
 Dropdown = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Mouse = ContextServices.Mouse,
 })(Dropdown)
-
-
 
 return Dropdown

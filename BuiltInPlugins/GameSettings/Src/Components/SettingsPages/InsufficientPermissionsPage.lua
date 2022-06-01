@@ -13,7 +13,6 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local FrameworkUI = Framework.UI
-local Util = Framework.Util
 
 local Container = FrameworkUI.Container
 
@@ -42,12 +41,9 @@ function InsufficientPermissionsPage:render()
 	})
 end
 
-
 InsufficientPermissionsPage = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 })(InsufficientPermissionsPage)
-
-
 
 return InsufficientPermissionsPage

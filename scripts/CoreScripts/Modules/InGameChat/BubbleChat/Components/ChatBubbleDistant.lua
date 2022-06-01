@@ -18,7 +18,6 @@ local getSizeSpringFromSettings = require(root.Helpers.getSizeSpringFromSettings
 local getTransparencySpringFromSettings = require(root.Helpers.getTransparencySpringFromSettings)
 
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
-local GetFFlagBubbleVoiceIndicator = require(RobloxGui.Modules.Flags.GetFFlagBubbleVoiceIndicator)
 
 local ChatBubbleDistant = Roact.PureComponent:extend("ChatBubbleDistant")
 
@@ -53,17 +52,11 @@ function ChatBubbleDistant:init(props)
 		self.updateWidth(math.round(value))
 	end)
 
-	if GetFFlagBubbleVoiceIndicator() then
-		self.height, self.updateHeight = Roact.createBinding(getFullHeight(props))
+	self.height, self.updateHeight = Roact.createBinding(getFullHeight(props))
 
-		self.frameSize = Roact.joinBindings({ self.width, self.height }):map(function(sizes)
-			return UDim2.fromOffset(sizes[1], sizes[2])
-		end)
-	else
-		self.frameSize = self.width:map(function(width)
-			return UDim2.fromOffset(width, self.props.height + self.props.chatSettings.Padding * 2)
-		end)
-	end
+	self.frameSize = Roact.joinBindings({ self.width, self.height }):map(function(sizes)
+		return UDim2.fromOffset(sizes[1], sizes[2])
+	end)
 
 	self.transparency, self.updateTransparency = Roact.createBinding(1)
 	self.transparencyMotor = Otter.createSingleMotor(1)
@@ -77,10 +70,6 @@ function ChatBubbleDistant:init(props)
 end
 
 function ChatBubbleDistant.getDerivedStateFromProps(nextProps, lastState)
-	if not GetFFlagBubbleVoiceIndicator() then
-		return nil
-	end
-
 	local chatSettings = nextProps.chatSettings
 
 	local fullWidth
@@ -102,71 +91,7 @@ function ChatBubbleDistant.getDerivedStateFromProps(nextProps, lastState)
 	return nil
 end
 
-function ChatBubbleDistant:renderOld()
-	local chatSettings = self.props.chatSettings
-	local backgroundImageSettings = chatSettings.BackgroundImage
-	local backgroundGradientSettings = chatSettings.BackgroundGradient
-
-	return Roact.createElement("Frame", {
-		AnchorPoint = Vector2.new(0.5, 1),
-		Size = UDim2.fromOffset(self.props.width + chatSettings.Padding * 2, self.props.height + chatSettings.Padding * 2),
-		Position = UDim2.new(0.5, 0, 1, -8),
-		Transparency = 1,
-	}, {
-		Scale = Roact.createElement("UIScale", {
-			Scale = 0.75,
-		}),
-		Carat = chatSettings.TailVisible and Roact.createElement("ImageLabel", {
-			AnchorPoint = Vector2.new(0.5, 0),
-			BackgroundTransparency = 1,
-			Position = UDim2.new(0.5, 0, 1, -1), --UICorner generates a 1 pixel gap (UISYS-625), this fixes it by moving the carrot up by 1 pixel
-			Size = UDim2.fromOffset(12, 8),
-			Image = "rbxasset://textures/ui/InGameChat/Caret.png",
-			ImageColor3 = chatSettings.BackgroundColor3,
-			ImageTransparency = self.transparency,
-		}),
-		RoundedFrame = 	Roact.createElement("ImageLabel", Cryo.Dictionary.join(backgroundImageSettings, {
-			Size = self.frameSize,
-			BackgroundColor3 = chatSettings.BackgroundColor3,
-			BackgroundTransparency = backgroundImageSettings.Image == "" and self.transparency or 1,
-			BorderSizePixel = 0,
-			AnchorPoint = Vector2.new(0.5, 0),
-			Position = UDim2.new(0.5, 0, 0, 0),
-			ClipsDescendants = true,
-			ImageTransparency = self.transparency,
-		}), {
-			UICorner = chatSettings.CornerEnabled and Roact.createElement("UICorner", {
-				CornerRadius = chatSettings.CornerRadius,
-			}),
-
-			Contents = Roact.createElement("Frame", {
-				Size = UDim2.fromScale(1, 1),
-				BackgroundTransparency = 1,
-			}, {
-				Padding = Roact.createElement("UIPadding", {
-					PaddingTop = UDim.new(0, chatSettings.Padding),
-					PaddingRight = UDim.new(0, chatSettings.Padding),
-					PaddingBottom = UDim.new(0, chatSettings.Padding),
-					PaddingLeft = UDim.new(0, chatSettings.Padding),
-				}),
-
-				Icon = Roact.createElement("TextLabel", {
-					BackgroundTransparency = 1,
-					Text = "…",
-					TextColor3 = chatSettings.TextColor3,
-					TextTransparency = self.transparency,
-					Font = Enum.Font.GothamBlack,
-					TextScaled = true,
-					Size = UDim2.fromScale(1, 1),
-				})
-			}),
-
-			Gradient = backgroundGradientSettings.Enabled and Roact.createElement("UIGradient", backgroundGradientSettings)
-		})
-	})
-end
-
-function ChatBubbleDistant:renderNew()
+function ChatBubbleDistant:render()
 	local chatSettings = self.props.chatSettings
 	local backgroundImageSettings = chatSettings.BackgroundImage
 	local backgroundGradientSettings = chatSettings.BackgroundGradient
@@ -240,14 +165,6 @@ function ChatBubbleDistant:renderNew()
 	})
 end
 
-function ChatBubbleDistant:render()
-	if GetFFlagBubbleVoiceIndicator() then
-		return self:renderNew()
-	else
-		return self:renderOld()
-	end
-end
-
 function ChatBubbleDistant:fadeOut()
 	if not self.isFadingOut then
 		self.isFadingOut = true
@@ -266,7 +183,7 @@ end
 function ChatBubbleDistant:didUpdate(previousProps, previousState)
 	if self.props.fadingOut then
 		self:fadeOut()
-	elseif GetFFlagBubbleVoiceIndicator() then
+	else
 		if self.state.fullHeight ~= previousState.fullHeight then
 			self.updateHeight(self.state.fullHeight)
 		end
@@ -285,11 +202,7 @@ function ChatBubbleDistant:didMount()
 		local transparencySpring = getTransparencySpringFromSettings(chatSettings)
 
 		self.transparencyMotor:setGoal(transparencySpring(self.props.chatSettings.Transparency))
-		if GetFFlagBubbleVoiceIndicator() then
-			self.widthMotor:setGoal(sizeSpring(self.state.fullWidth))
-		else
-			self.widthMotor:setGoal(sizeSpring(self.props.width + self.props.chatSettings.Padding * 2))
-		end
+		self.widthMotor:setGoal(sizeSpring(self.state.fullWidth))
 	end
 end
 

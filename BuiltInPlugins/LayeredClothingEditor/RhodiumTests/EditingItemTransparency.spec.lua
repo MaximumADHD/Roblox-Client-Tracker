@@ -49,7 +49,7 @@ return function()
 	end)
 
 	it("change mesh transparency for clothes", function()
-		runRhodiumTest(function(container, store, _, editingItemContext)
+		runRhodiumTest(function(container, store, editingItemContext)
 			TestHelper.goToEditScreenFromStart(true)
 			local MeshValueTextPath = getTextBox(MeshValueTextBoxPath)
 			expect(TestHelper.waitForXPathInstance(MeshValueTextPath)).to.be.ok()

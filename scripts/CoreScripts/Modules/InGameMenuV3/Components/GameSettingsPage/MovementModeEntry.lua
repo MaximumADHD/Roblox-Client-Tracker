@@ -199,7 +199,7 @@ function MovementModeEntry:render()
 		Size = UDim2.new(1, 0, 0, 44 + 56 + 20),
 		BackgroundTransparency = 1,
 		LayoutOrder = self.props.LayoutOrder,
-		ZIndex = 2,
+		ZIndex = self.state.dropdownMenuOpen and 3 or 2,
 	}, {
 		Padding = Roact.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, 24),
@@ -230,6 +230,11 @@ function MovementModeEntry:render()
 				end
 
 				return Roact.createElement(DropdownMenu, {
+					onMenuOpenChange = function(menuOpen)
+						self:setState({
+							dropdownMenuOpen = menuOpen
+						})
+					end,
 					placeholder = disabled and localized.placeholder or localized[selectedIndex],
 					size = (not UIBloxConfig.fixDropdownMenuListPositionAndSize) and UDim2.new(1, 0, 0, 44) or nil,
 					height = UIBloxConfig.fixDropdownMenuListPositionAndSize and UDim.new(0,44) or nil,

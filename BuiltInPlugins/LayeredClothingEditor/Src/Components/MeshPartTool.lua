@@ -13,7 +13,7 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
-local ControlPointLink = require(Plugin.Src.Components.ToolShared.ControlPointLink)
+--local ControlPointLink = require(Plugin.Src.Components.ToolShared.ControlPointLink)
 
 local SetAttachmentPoint = require(Plugin.Src.Actions.SetAttachmentPoint)
 local SetItemSize = require(Plugin.Src.Actions.SetItemSize)
@@ -142,19 +142,25 @@ function MeshPartTool:didUpdate(prevProps, prevState)
 	end
 end
 
-function MeshPartTool:renderLinks(bounds, offset, position, adornee)
+function MeshPartTool:renderLinks(theme, bounds, offset, position, adornee)
 	local links = {}
 
 	for _, edge in ipairs(Constants.CUBE_EDGES) do
 		local startPos = (edge[1] * bounds) + position + offset
 		local endPos = (edge[2] * bounds) + position + offset
-		table.insert(links, Roact.createElement(ControlPointLink, {
-			StartPoint = startPos,
-			EndPoint = endPos,
+		local length = (startPos - endPos).Magnitude
+		local cframe = CFrame.new(Vector3.new(0, 0, 0), (endPos - startPos).Unit)
+		cframe = cframe + startPos
+		table.insert(links, Roact.createElement("LineHandleAdornment", {
+			Length = length,
+			CFrame = cframe,
 			Adornee = adornee,
 			Transparency = 0,
-			Color = Color3.new(0, 0, 0),
-			Thickness = 5,
+			Color3 = theme.LineColor,
+			Thickness = theme.LineThickness,
+			ZIndex = 1,
+			Archivable = false,
+			AlwaysOnTop = false,
 		}))
 	end
 
@@ -166,7 +172,7 @@ function MeshPartTool:renderBorderedBox(bounds, offset, position, adornee)
 	local theme = props.Stylizer
 	local color = props.InBounds and theme.InBoundsColor or theme.OutBoundsColor
 
-	local links = self:renderLinks(bounds, offset, position, adornee)
+	local links = self:renderLinks(theme, bounds, offset, position, adornee)
 
 	return Roact.createElement("BoxHandleAdornment", {
 		Adornee = adornee,

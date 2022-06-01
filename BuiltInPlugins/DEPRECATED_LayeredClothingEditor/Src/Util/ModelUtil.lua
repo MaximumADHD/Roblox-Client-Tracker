@@ -122,6 +122,15 @@ function ModelUtil:getExistingAttachmentPoint(item, body, attachmentName)
 	}
 end
 
+function ModelUtil:getItemCFrameRelativeToAttachmentPoint(attachmentName, body, item)
+	if attachmentName then
+		local attachment = body:FindFirstChild(attachmentName, true)
+		if attachment then
+			return CFrame.new(attachment.WorldPosition):inverse() * item.CFrame
+		end
+	end
+end
+
 function ModelUtil:createOrReuseAttachmentInstance(item, body, attachmentInfo, attachmentPoint)
 	if not attachmentInfo then
 		return
@@ -151,7 +160,11 @@ function ModelUtil:createOrReuseAttachmentInstance(item, body, attachmentInfo, a
 
 	if attachmentPoint then
 		attachmentInst.CFrame = attachmentPoint.AttachmentCFrame
-		item.CFrame = bodyAttachmentInst.WorldCFrame * attachmentPoint.ItemCFrame
+		if game:GetFastFlag("RelativeAccessoryPosition") then
+			item.CFrame = CFrame.new(bodyAttachmentInst.WorldPosition) * attachmentPoint.ItemCFrame
+		else
+			item.CFrame = bodyAttachmentInst.WorldCFrame * attachmentPoint.ItemCFrame
+		end
 	else
 		attachmentInst.CFrame = bodyAttachmentInst.CFrame
 	end

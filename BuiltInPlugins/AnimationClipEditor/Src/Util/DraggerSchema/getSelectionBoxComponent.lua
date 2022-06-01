@@ -3,6 +3,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local GetFFlagBoneAdornmentSelection = require(Plugin.LuaFlags.GetFFlagBoneAdornmentSelection)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local GetFFlagHideBonesWithToggle = require(Plugin.LuaFlags.GetFFlagHideBonesWithToggle)
+local FFlagCheckForAdornment = game:DefineFastFlag("CheckForAdornment", false)
 
 return function(draggerContext, hoverSelectable)
 	--if we have hit a bone
@@ -22,8 +23,10 @@ return function(draggerContext, hoverSelectable)
 			for boneLinkName, correspondingBone in pairs(draggerContext.BoneLinksToBone) do
 				if correspondingBone == bone then 
 					local boneLink = folder:FindFirstChild(boneLinkName)
-					boneLink.Cone.Color3 = Constants.BONE_COLOR_HOVER
-					boneLink.Cone.Transparency = Constants.BONE_TRANSPARENCY_HOVER
+					if not FFlagCheckForAdornment or (boneLink and boneLink:FindFirstChild("Cone")) then 
+						boneLink.Cone.Color3 = Constants.BONE_COLOR_HOVER
+						boneLink.Cone.Transparency = Constants.BONE_TRANSPARENCY_HOVER
+					end
 				end
 			end
 		end

@@ -25,11 +25,17 @@ local VoiceBetaBadge = Roact.PureComponent:extend("MenuIcon")
 local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
 local GetFStringVoiceBetaBadgeLearnMore = require(RobloxGui.Modules.Flags.GetFStringVoiceBetaBadgeLearnMore)
 local GetFFlagEnableBetaBadgeLearnMore = require(RobloxGui.Modules.Flags.GetFFlagEnableBetaBadgeLearnMore)
+local GetFFlagBetaBadgeLearnMoreLinkFormview = require(RobloxGui.Modules.Flags.GetFFlagBetaBadgeLearnMoreLinkFormview)
 
 VoiceBetaBadge.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
 	Analytics = t.table
 })
+
+local CustomWebviewType: {[string]: number} = {
+	FullScreen = 0,
+	FormSheet = 2
+}
 
 local BadgeSize = UDim2.fromOffset(31, 11)
 local PopupPadding = UDim.new(0, 12)
@@ -45,6 +51,7 @@ local OPEN_CUSTOM_WEBVIEW = 20
 function openWebview(url)
 	local notificationData = HttpService:JSONEncode({
 		title = if game:GetEngineFeature("SetWebViewTitle") then 'Help Center' else nil,
+		presentationStyle = if GetFFlagBetaBadgeLearnMoreLinkFormview() then CustomWebviewType.FormSheet else nil,
 		visible = true,
 		url = url,
 	})

@@ -83,7 +83,7 @@ function DeviceSelectionEntry:render()
 		Size = UDim2.new(1, 0, 0, 44 + 56 + 20),
 		BackgroundTransparency = 1,
 		LayoutOrder = self.props.LayoutOrder,
-		ZIndex = 2,
+		ZIndex = self.state.dropdownMenuOpen and 3 or 2,
 	}, {
 		Padding = Roact.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, 24),
@@ -106,6 +106,11 @@ function DeviceSelectionEntry:render()
 			BackgroundTransparency = 1,
 		}, {
 			Dropdown = Roact.createElement(DropdownMenu, {
+				onMenuOpenChange = function(menuOpen)
+					self:setState({
+						dropdownMenuOpen = menuOpen
+					})
+				end,
 				height = UDim.new(0, 44),
 				screenSize = self.props.screenSize,
 				cellDatas = dropDownSelection,

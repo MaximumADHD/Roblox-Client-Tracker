@@ -4,4 +4,6 @@
 -- properly set in Group Configuration.
 game:DefineFastFlag("LimitGroupRoleSetPermissionsInGui", false)
 
+game:DefineFastFlag("ToolboxFixDragInsertRemains", false)
+
 return nil

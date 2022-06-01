@@ -109,6 +109,14 @@ function AnimationClipDropdown:init()
 		})
 	end
 
+	self.showAnimationImportProgress = function()
+		self.props.ShowAnimationImportProgress()
+	end
+
+	self.hideAnimationImportProgress = function()
+		self.props.HideAnimationImportProgress()
+	end
+
 	self.showCreateNewPrompt = function()
 		self:setState({
 			showCreateNewPrompt = true,

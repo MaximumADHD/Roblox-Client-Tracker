@@ -12,9 +12,6 @@ local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 
-local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
-
 local Style = Framework.Style
 local StudioTheme = Style.Themes.StudioTheme
 -- local _StyleKey = Style.StyleKey -- uncomment to use
@@ -24,18 +21,13 @@ local PluginTheme = {
 	-- [StyleKey.Something] = Color3.new()
 }
 
-if THEME_REFACTOR then
-	return function(createMock: boolean?)
-		local styleRoot
-		if createMock then
-			styleRoot = StudioTheme.mock()
-		else
-			styleRoot = StudioTheme.new()
-		end
-
-		return styleRoot:extend(PluginTheme)
+return function(createMock: boolean?)
+	local styleRoot
+	if createMock then
+		styleRoot = StudioTheme.mock()
+	else
+		styleRoot = StudioTheme.new()
 	end
-else
-	-- TODO: DEVTOOLS-4731: Once THEME_REFACTOR is on, remove this
-	warn("Stylizer is required for this template")
+
+	return styleRoot:extend(PluginTheme)
 end

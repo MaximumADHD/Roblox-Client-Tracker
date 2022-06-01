@@ -110,7 +110,7 @@ function CameraModeEntry:render()
 		Size = UDim2.new(1, 0, 0, 44 + 56 + 20),
 		BackgroundTransparency = 1,
 		LayoutOrder = self.props.LayoutOrder,
-		ZIndex = 2,
+		ZIndex = self.state.dropdownMenuOpen and 3 or 2,
 	}, {
 		Padding = Roact.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, 24),
@@ -135,6 +135,11 @@ function CameraModeEntry:render()
 					optionTexts[index] = { text = text }
 				end
 				return Roact.createElement(DropdownMenu, {
+					onMenuOpenChange = function(menuOpen)
+						self:setState({
+							dropdownMenuOpen = menuOpen
+						})
+					end,
 					placeholder = localized[selectedIndex],
 					height = UDim.new(0, 44),
 					screenSize = self.props.screenSize,

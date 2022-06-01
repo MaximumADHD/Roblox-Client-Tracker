@@ -35,6 +35,7 @@ local success, result = pcall(function() return settings():GetFFlag('UseNotifica
 local FFlagUseNotificationsLocalization = success and result
 
 local GetFixGraphicsQuality = require(RobloxGui.Modules.Flags.GetFixGraphicsQuality)
+local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 
 local shouldSaveScreenshotToAlbum = require(RobloxGui.Modules.shouldSaveScreenshotToAlbum)
 
@@ -745,7 +746,7 @@ local allowScreenshots = not PolicyService:IsSubjectToChinaPolicies()
 
 if allowScreenshots then
 	-- Otherwise game.ScreenshotSavedToAlbum signal will be fired, handling in CaptureNotification.lua
-	if not shouldSaveScreenshotToAlbum() then
+	if not shouldSaveScreenshotToAlbum() and not EnableInGameMenuV3 then
 		game.ScreenshotReady:Connect(function(path)
 			local titleText = RobloxTranslator:FormatByKey("NotificationScript2.Screenshot.Title")
 			local descriptionText = RobloxTranslator:FormatByKey("NotificationScript2.Screenshot.Description")

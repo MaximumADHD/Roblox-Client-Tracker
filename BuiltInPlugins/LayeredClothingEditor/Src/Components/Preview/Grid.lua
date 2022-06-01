@@ -12,7 +12,6 @@
 		table SelectedAssets: which assets are selected in the grid, which is provided via mapStateToProps.
 		callback StartSelectingFromExplorer: function to start selecting from explorer, which mapDispatchToProps provides
 		Plugin Plugin: A Plugin ContextItem, which is provided via withContext.
-		string SelectorMode: enum to decide which selector should be on, which is provided via mapStateToProps
 		table UserAddedAssets: the table of assets added by the user
 		callback UpdateUserAddedAssets: function called when user added assets are changed
 
@@ -266,7 +265,6 @@ local function mapStateToProps(state, props)
 		PrebuiltAssetsInfo = previewAssets.prebuiltAssetsInfo,
 		SelectedTab = previewStatus.selectedTab,
 		SelectedAssets = previewStatus.selectedAssets,
-		SelectorMode = selectItem.selectorMode,
 		EditingItem = selectItem.editingItem,
 	}
 end

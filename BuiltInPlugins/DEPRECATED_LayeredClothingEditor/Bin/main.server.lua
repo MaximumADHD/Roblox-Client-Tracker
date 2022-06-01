@@ -17,9 +17,6 @@ if not GetAccessoryToolEngineFeature() then
 	return
 end
 
-local themeRefactorFlags = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
-themeRefactorFlags.THEME_REFACTOR = true
-
 -- we have to do this before including the rest of the modules because they might access studio code
 local isRunningTests = DebugFlags.RunTests() or DebugFlags.RunRhodiumTests()
 Roact.setGlobalConfig({

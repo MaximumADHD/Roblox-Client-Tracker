@@ -19,7 +19,6 @@ local join = Framework.Dash.join
 local Util = Framework.Util
 local StyleModifier = Util.StyleModifier
 local deepCopy = Util.deepCopy
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Style = Framework.Style
 local StudioTheme = Style.Themes.StudioTheme
@@ -148,6 +147,7 @@ local function getPluginTheme()
 			HeaderSize = UDim2.new(1, 0, 0, 300),
 			ImagePosition = UDim2.fromOffset(5, 5),
 			ImageSize = UDim2.fromOffset(20, 20),
+			-- Remove NameLabelSize* with FFlagMaterialManagerGlassNeonForceField
 			NameLabelSizeVariant = UDim2.new(1, -2 * MaterialDetailsRowHeight, 1, 0),
 			NameLabelSizeBuiltIn = UDim2.new(1, -MaterialDetailsRowHeight, 1, 0),
 			NoTexture = StyleKey.NoTextureFound,
@@ -246,32 +246,26 @@ local function getPluginTheme()
 	}
 end
 
-if THEME_REFACTOR then
-	return function(createMock: boolean?)
-		local styleRoot
-		local overridedDarkTheme = join(DarkTheme, {
-			[StyleKey.ScrollingFrameBackgroundColor] = Color3.fromRGB(41, 41, 41),
-			[StyleKey.SelectInputBackgroundColor] = Color3.fromRGB(60, 60, 60),
-			[StyleKey.ImportImageBackground] = Color3.fromRGB(34, 34, 34),
-			[StyleKey.NoTextureFound] = "rbxasset://textures/MaterialManager/Texture_None.png"
-		})
-		local overridedLightTheme = join(LightTheme, {
-			[StyleKey.ScrollingFrameBackgroundColor] = Color3.fromRGB(245, 245, 245),
-			[StyleKey.SelectInputBackgroundColor] = Color3.fromRGB(255, 255, 255),
-			[StyleKey.ImportImageBackground] = Color3.fromRGB(255, 255, 255),
-			[StyleKey.NoTextureFound] = "rbxasset://textures/MaterialManager/Texture_None_Light.png"
-		})
+return function(createMock: boolean?)
+	local styleRoot
+	local overridedDarkTheme = join(DarkTheme, {
+		[StyleKey.ScrollingFrameBackgroundColor] = Color3.fromRGB(41, 41, 41),
+		[StyleKey.SelectInputBackgroundColor] = Color3.fromRGB(60, 60, 60),
+		[StyleKey.ImportImageBackground] = Color3.fromRGB(34, 34, 34),
+		[StyleKey.NoTextureFound] = "rbxasset://textures/MaterialManager/Texture_None.png"
+	})
+	local overridedLightTheme = join(LightTheme, {
+		[StyleKey.ScrollingFrameBackgroundColor] = Color3.fromRGB(245, 245, 245),
+		[StyleKey.SelectInputBackgroundColor] = Color3.fromRGB(255, 255, 255),
+		[StyleKey.ImportImageBackground] = Color3.fromRGB(255, 255, 255),
+		[StyleKey.NoTextureFound] = "rbxasset://textures/MaterialManager/Texture_None_Light.png"
+	})
 
-		if createMock then
-			styleRoot = StudioTheme.mock(overridedDarkTheme, overridedLightTheme)
-		else
-			styleRoot = StudioTheme.new(overridedDarkTheme, overridedLightTheme)
-		end
-
-		return styleRoot:extend(getPluginTheme())
+	if createMock then
+		styleRoot = StudioTheme.mock(overridedDarkTheme, overridedLightTheme)
+	else
+		styleRoot = StudioTheme.new(overridedDarkTheme, overridedLightTheme)
 	end
-else
-	-- TODO: DEVTOOLS-4731: Once THEME_REFACTOR is on, remove this
-	warn("Stylizer is required for this template")
-end
 
+	return styleRoot:extend(getPluginTheme())
+end

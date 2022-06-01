@@ -12,8 +12,6 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 local Cryo = require(Plugin.Packages.Cryo)
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
@@ -39,11 +37,8 @@ function DeveloperSubscriptionListHeaderText:render()
 	}))
 end
 
-
 DeveloperSubscriptionListHeaderText = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(DeveloperSubscriptionListHeaderText)
-
-
 
 return DeveloperSubscriptionListHeaderText

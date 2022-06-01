@@ -53,9 +53,8 @@ local HoverArea = FrameworkUI.HoverArea
 local Pane = FrameworkUI.Pane
 local Separator = FrameworkUI.Separator
 
-local FrameworkUtil = Framework.Util
-local FitFrameOnAxis = FrameworkUtil.FitFrame.FitFrameOnAxis
-local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
+local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
+local LayoutOrderIterator = Util.LayoutOrderIterator
 
 local FitToContent
 if not FFlagGameSettingsRemoveFitContent then

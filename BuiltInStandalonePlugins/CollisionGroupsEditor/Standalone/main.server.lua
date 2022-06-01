@@ -5,7 +5,7 @@ commonInit()
 local FFlagCGELocalizeWindowTitle = game:GetFastFlag("CGELocalizeWindowTitle")
 
 local Roact = require(Main.Packages.Roact)
-local Gui = require(Main.Plugin.Components.Gui)
+local Gui = require(Main.Plugin.Components.DEPRECATED_Gui)
 
 local MinX = 128
 local MinY = 256

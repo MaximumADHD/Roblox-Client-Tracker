@@ -1,19 +1,21 @@
-local main = script.Parent.Parent.Parent.Parent
-local Roact = require(main.Packages.Roact)
-local RoactRodux = require(main.Packages.RoactRodux)
+local Plugin = script.Parent.Parent.Parent.Parent
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 
-local Framework = require(main.Packages.Framework)
+local Framework = require(Plugin.Packages.Framework)
 local StudioUI = Framework.StudioUI
 
 local ContextServices = Framework.ContextServices
+local Analytics = ContextServices.Analytics
 local PluginActions = ContextServices.PluginActions
+local AnalyticsEventNames = require(Plugin.Src.Resources.AnalyticsEventNames)
 
 local PluginToolbar = StudioUI.PluginToolbar
 local PluginButton = StudioUI.PluginButton
 
-local Constants = require(main.Src.Util.Constants)
+local Constants = require(Plugin.Src.Util.Constants)
 
-local SetPausedState = require(main.Src.Actions.Common.SetPausedState)
+local SetPausedState = require(Plugin.Src.Actions.Common.SetPausedState)
 
 local DebuggerToolbarButtons = Roact.PureComponent:extend("DebuggerToolbarButtons")
 
@@ -42,22 +44,28 @@ function DebuggerToolbarButtons:init(props)
 		uiService:Pause()
 	end
 
-	self.onStepOver = function()
+	self.onStepOver = function(actionSource)
 		local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
 		local connection = debuggerConnectionManager:GetConnectionById(self.props.CurrentConnectionId)
 		connection:Step(self.getThreadForStepping(connection), function() end)
+
+		self.props.Analytics:report(AnalyticsEventNames.CallstackStepOver, actionSource)
 	end
 
-	self.onStepInto = function()
+	self.onStepInto = function(actionSource)
 		local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
 		local connection = debuggerConnectionManager:GetConnectionById(self.props.CurrentConnectionId)
 		connection:StepIn(self.getThreadForStepping(connection), function() end)
+
+		self.props.Analytics:report(AnalyticsEventNames.CallstackStepInto, actionSource)
 	end
 
-	self.onStepOut = function()
+	self.onStepOut = function(actionSource)
 		local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
 		local connection = debuggerConnectionManager:GetConnectionById(self.props.CurrentConnectionId)
 		connection:StepOut(self.getThreadForStepping(connection), function() end)
+
+		self.props.Analytics:report(AnalyticsEventNames.CallstackStepOut, actionSource)
 	end
 end
 
@@ -73,9 +81,15 @@ function DebuggerToolbarButtons:didMount()
 	local pluginActions = self.props.PluginActions
 	self.connections = {}
 	self.shortcuts = {}
-	self:addAction(pluginActions:get(Constants.StepActionIds.stepOverActionV2), self.onStepOver)
-	self:addAction(pluginActions:get(Constants.StepActionIds.stepIntoActionV2), self.onStepInto)
-	self:addAction(pluginActions:get(Constants.StepActionIds.stepOutActionV2), self.onStepOut)
+	self:addAction(pluginActions:get(Constants.StepActionIds.stepOverActionV2), function()
+		self.onStepOver("PluginAction")
+	end)
+	self:addAction(pluginActions:get(Constants.StepActionIds.stepIntoActionV2), function()
+		self.onStepInto("PluginAction")
+	end)
+	self:addAction(pluginActions:get(Constants.StepActionIds.stepOutActionV2), function()
+		self.onStepOut("PluginAction")
+	end)
 end
 
 function DebuggerToolbarButtons:renderButtons(toolbar)
@@ -117,7 +131,9 @@ function DebuggerToolbarButtons:renderButtons(toolbar)
 			Title = STEPOVER_META_NAME,
 			Tooltip = "",
 			Icon = "rbxasset://textures/Debugger/Step-Over.png",
-			OnClick = self.onStepOver,
+			OnClick = function()
+				self.onStepOver("ToolbarButton")
+			end,
 			ClickableWhenViewportHidden = true,
 		}),
 		StepIntoButton = Roact.createElement(PluginButton, {
@@ -128,7 +144,9 @@ function DebuggerToolbarButtons:renderButtons(toolbar)
 			Title = STEPINTO_META_NAME,
 			Tooltip = "",
 			Icon = "rbxasset://textures/Debugger/Step-In.png",
-			OnClick = self.onStepInto,
+			OnClick = function()
+				self.onStepInto("ToolbarButton")
+			end,
 			ClickableWhenViewportHidden = true,
 		}),
 		StepOutButton = Roact.createElement(PluginButton, {
@@ -139,7 +157,9 @@ function DebuggerToolbarButtons:renderButtons(toolbar)
 			Title = STEPOUT_META_NAME,
 			Tooltip = "",
 			Icon = "rbxasset://textures/Debugger/Step-Out.png",
-			OnClick = self.onStepOut,
+			OnClick = function()
+				self.onStepOut("ToolbarButton")
+			end,
 			ClickableWhenViewportHidden = true,
 		}),
 	}
@@ -161,6 +181,7 @@ function DebuggerToolbarButtons:render()
 end
 
 DebuggerToolbarButtons = ContextServices.withContext({
+	Analytics = Analytics,
 	PluginActions = PluginActions,
 })(DebuggerToolbarButtons)
 

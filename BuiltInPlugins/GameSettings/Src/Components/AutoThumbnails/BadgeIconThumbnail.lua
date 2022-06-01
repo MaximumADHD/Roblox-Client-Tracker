@@ -20,8 +20,8 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local AutoThumbnail = require(Plugin.Src.Components.AutoThumbnails.AutoThumbnail)
@@ -78,11 +78,8 @@ function BadgeIconThumbnail:render()
     })
 end
 
-
 BadgeIconThumbnail = withContext({
     Stylizer = ContextServices.Stylizer,
 })(BadgeIconThumbnail)
-
-
 
 return BadgeIconThumbnail

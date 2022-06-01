@@ -209,4 +209,6 @@ return{
 	["CoreScripts.InGameMenu.Report.Block"] = [[Заблокировать]],
 	["CoreScripts.InGameMenu.Report.BlockPopup"] = [[Ты блокируешь пользователя {DISPLAY_NAME} (@{RBX_NAME})]],
 	["CoreScripts.InGameMenu.PageTitle.Friends"] = [[Друзья]],
+	["CoreScripts.InGameMenu.Action.UnmutePlayer"] = [[Включить звук]],
+	["CoreScripts.InGameMenu.Action.MutePlayer"] = [[Отключить звук]],
 }

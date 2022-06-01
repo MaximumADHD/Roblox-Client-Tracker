@@ -144,7 +144,12 @@ function BreakpointsTable:init()
 		then
 			local bpManager = game:GetService("BreakpointManager")
 			local bp = bpManager:GetBreakpointById(row.item.id)
-			BreakpointHelperFunctions.setBreakpointRowEnabled(bp, row)
+			BreakpointHelperFunctions.setBreakpointRowEnabled(
+				bp,
+				row,
+				self.props.Analytics,
+				"LuaBreakpointsTable.ContextMenu"
+			)
 		elseif actionId == Constants.CommonActions.GoToScript then
 			self.goToScript()
 		end
@@ -183,7 +188,15 @@ function BreakpointsTable:init()
 
 	self.toggleEnabledAll = function()
 		local BreakpointManager = game:GetService("BreakpointManager")
-		self.props.onToggleEnabledAll(BreakpointManager, self.props.hasDisabledBreakpoints)
+		local enable = self.props.hasDisabledBreakpoints
+
+		self.props.onToggleEnabledAll(BreakpointManager, enable)
+
+		if enable then
+			self.props.Analytics:report(AnalyticsEventNames.EnableAllMetaBreakpoints, "LuaBreakpointsTable")
+		else
+			self.props.Analytics:report(AnalyticsEventNames.DisableAllMetaBreakpoints, "LuaBreakpointsTable")
+		end
 	end
 
 	self.goToScript = function()
@@ -196,7 +209,7 @@ function BreakpointsTable:init()
 			local lineNumber = if currBreakpoint.hiddenLineNumber
 				then currBreakpoint.hiddenLineNumber
 				else currBreakpoint.lineNumber
-			DebuggerUIService:OpenScriptAtLine(currBreakpoint.scriptGUID, connectionId, lineNumber)
+			DebuggerUIService:OpenScriptAtLine(currBreakpoint.scriptGUID, connectionId, lineNumber, true)
 		end
 	end
 
@@ -227,10 +240,18 @@ function BreakpointsTable:init()
 
 		if self.props.CurrentKeys[col] == "condition" then
 			local newCondition = inputObj.Text
-			metaBP.Condition = newCondition
+
+			if newCondition ~= metaBP.Condition then
+				metaBP.Condition = newCondition
+				self.props.Analytics:report(AnalyticsEventNames.MetaBreakpointConditionChanged, "LuaBreakpointsTable")
+			end
 		elseif self.props.CurrentKeys[col] == "logMessage" then
-			local newCondition = inputObj.Text
-			metaBP.LogMessage = newCondition
+			local newLogMessage = inputObj.Text
+
+			if newLogMessage ~= metaBP.LogMessage then
+				metaBP.LogMessage = newLogMessage
+				self.props.Analytics:report(AnalyticsEventNames.MetaBreakpointLogMessageChanged, "LuaBreakpointsTable")
+			end
 		end
 	end
 end
@@ -578,7 +599,8 @@ BreakpointsTable = RoactRodux.connect(function(state, props)
 		state.Breakpoint.ColumnIndex,
 		state.Breakpoint.SortDirection,
 		currKeys,
-		false
+		false,
+		{"scriptGUID", "lineNumber"}
 	)
 
 	return {

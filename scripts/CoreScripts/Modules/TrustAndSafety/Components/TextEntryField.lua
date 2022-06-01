@@ -185,6 +185,7 @@ function TextEntryField:renderWithSelectionCursor(getSelectionCursor)
 						Size = UDim2.new(1, 0, 1, 0),
 						Position = UDim2.new(0, 0, 0, 0),
 						TextTransparency = 0.5,
+						TextWrapped = true,
 						TextXAlignment = Enum.TextXAlignment.Left,
 						TextYAlignment = Enum.TextYAlignment.Top,
 						Visible = self.props.text == "",

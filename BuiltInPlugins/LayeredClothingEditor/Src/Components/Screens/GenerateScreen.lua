@@ -28,6 +28,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
+local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingModuleContext
 
 local SetControlsPanelBlockerActivity = require(Plugin.Src.Actions.SetControlsPanelBlockerActivity)
 local ReleaseEditor = require(Plugin.Src.Thunks.ReleaseEditor)
@@ -41,17 +42,7 @@ Typecheck.wrap(GenerateScreen, script)
 
 function GenerateScreen:init()
 	self.onGenerateClicked = function()
-		local editingItem = self.props.EditingItemContext:getItem()
-		local sourceItem = self.props.EditingItemContext:getSourceItemWithUniqueDeformerNames()
 		self.props.SetControlsPanelBlockerActivity(true)
-		self.props.FinishEditing(editingItem, sourceItem)
-		self.props.SetControlsPanelBlockerActivity(false)
-
-		-- return to start screen
-		self.props.EditingItemContext:clear()
-		self.props.GoToNext()
-		self.props.ReleaseEditor()
-		self.props.EditingItemContext:setSourceItem(nil)
 	end
 end
 
@@ -86,11 +77,31 @@ function GenerateScreen:render()
 	})
 end
 
+function GenerateScreen:didUpdate(prevProps)
+	if
+		self.props.IsControlsPanelBlockerActive ~= prevProps.IsControlsPanelBlockerActive
+		and self.props.IsControlsPanelBlockerActive
+	then
+		task.delay(0, function()
+			local editingItem = self.props.EditingItemContext:getItem()
+			local sourceItem = self.props.EditingItemContext:getSourceItemWithUniqueDeformerNames()
+			self.props.FinishEditing(self.props.LuaMeshEditingModuleContext, editingItem, sourceItem)
+			self.props.SetControlsPanelBlockerActivity(false)
+
+			-- return to start screen
+			self.props.EditingItemContext:clear()
+			self.props.GoToNext()
+			self.props.ReleaseEditor()
+			self.props.EditingItemContext:setSourceItem(nil)
+		end)
+	end
+end
 
 GenerateScreen = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	EditingItemContext = EditingItemContext,
+	LuaMeshEditingModuleContext = LuaMeshEditingModuleContext,
 })(GenerateScreen)
 
 local function mapStateToProps(state, props)
@@ -106,8 +117,8 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetControlsPanelBlockerActivity(isActive))
 		end,
 
-		FinishEditing = function(item, sourceItem)
-			dispatch(FinishEditing(item, sourceItem))
+		FinishEditing = function(context, item, sourceItem)
+			dispatch(FinishEditing(context, item, sourceItem))
 		end,
 
 		ReleaseEditor = function()

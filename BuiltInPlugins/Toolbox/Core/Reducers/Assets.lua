@@ -1,5 +1,4 @@
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
-local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -109,7 +108,7 @@ return Rodux.createReducer({
 	previewAssetId = nil,
 	isPreviewing = false,
 
-	mostRecentAssetInsertTime = FFlagToolboxAssetGridRefactor and 0 or nil,
+	mostRecentAssetInsertTime = 0,
 	manageableAssets = {},
 	-- Will be used to fetch versionId to install the latest plugin.
 	previewPluginData = nil,
@@ -144,7 +143,7 @@ return Rodux.createReducer({
 	[SetAssetPreview.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			isPreviewing = action.isPreviewing,
-			previewAssetId = FFlagToolboxAssetGridRefactor and action.previewAssetId or nil,
+			previewAssetId = action.previewAssetId,
 		})
 	end,
 

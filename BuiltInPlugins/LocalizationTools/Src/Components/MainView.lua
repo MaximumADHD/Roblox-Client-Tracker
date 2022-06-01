@@ -81,11 +81,8 @@ function MainView:render()
 	})
 end
 
-
 MainView = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(MainView)
-
-
 
 return MainView

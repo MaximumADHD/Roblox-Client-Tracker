@@ -148,18 +148,20 @@ function MainPage:render()
 				}, {
 					Padding = Roact.createElement("UIPadding", {
 						PaddingTop = UDim.new(0, 24),
-						PaddingBottom = UDim.new(0, 24),
+						PaddingBottom = UDim.new(0, 80),
 						PaddingLeft = UDim.new(0, 24),
 						PaddingRight = UDim.new(0, 24),
 					}),
 					DescriptionText = Roact.createElement(StyledTextLabel, {
-						fontStyle = style.Font.Header2,
+						fontStyle = style.Font.CaptionBody,
 						colorStyle = style.Theme.TextEmphasis,
-						size = UDim2.new(1, 0, 0, 59),
+						size = UDim2.new(1, 0, 0, 0),
 						text = self.props.gameDescription,
 						textWrapped = true,
+						fluidSizing = false,
 						textXAlignment = Enum.TextXAlignment.Left,
 						textYAlignment = Enum.TextYAlignment.Top,
+						automaticSize = Enum.AutomaticSize.Y,
 					}),
 				}),
 			}),

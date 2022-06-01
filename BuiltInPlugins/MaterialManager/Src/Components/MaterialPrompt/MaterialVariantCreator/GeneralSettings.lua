@@ -17,7 +17,6 @@ local SelectInput = UI.SelectInput
 
 local LabeledElementList = require(Plugin.Src.Components.LabeledElementList)
 
-
 local Constants = Plugin.Src.Resources.Constants
 local getSupportedMaterials = require(Constants.getSupportedMaterials)
 local getMaterialName = require(Constants.getMaterialName)
@@ -26,6 +25,9 @@ local Actions = Plugin.Src.Actions
 local SetName = require(Actions.SetName)
 local SetBaseMaterial = require(Actions.SetBaseMaterial)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+
+local Flags = Plugin.Src.Flags
+local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
 
 export type Props = {
 	LayoutOrder : number?,
@@ -48,8 +50,19 @@ type _Style = {
 	CustomSelectInput : any,
 	CustomSelectInputError : any,
 }
+local materials = {}
 
-local materials = getSupportedMaterials()
+if getFFlagMaterialManagerGlassNeonForceField() then
+	local supportedMaterials = getSupportedMaterials()
+
+	for material, overrideSupported in pairs(supportedMaterials) do
+		if overrideSupported then
+			table.insert(materials, material)
+		end
+	end
+else
+	materials = getSupportedMaterials()
+end
 
 local GeneralSettings = Roact.PureComponent:extend("GeneralSettings")
 

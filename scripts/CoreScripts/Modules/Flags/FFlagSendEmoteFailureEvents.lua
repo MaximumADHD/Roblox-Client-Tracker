@@ -1,1 +1,1 @@
-return game:DefineFastFlag("SendEmoteFailureEvents", false)
+return game:DefineFastFlag("SendEmoteFailureEvents2", false)

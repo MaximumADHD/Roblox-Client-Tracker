@@ -24,7 +24,6 @@
 		callback nextPage()
 		callback tryOpenAssetConfig, invoke assetConfig page with an assetId.
 ]]
-local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
 local FFlagToolboxRefactorSearchOptions = game:GetFastFlag("ToolboxRefactorSearchOptions")
 
 local GuiService = game:GetService("GuiService")
@@ -77,57 +76,9 @@ function MainView:init(props)
 	local networkInterface = getNetwork(self)
 	local settings = getSettings(self)
 
-	if not FFlagToolboxAssetGridRefactor then
-		self.state = {
-			lowerIndexToRender = 0,
-			upperIndexToRender = 0,
-			assetIds = {},
-		}
-	end
-
 	self.headerHeight = 0
 	self.containerWidth = 0
 	self.scrollingFrameRef = Roact.createRef()
-
-	local function tryRerender(self)
-		if not FFlagToolboxAssetGridRefactor then
-			local scrollingFrame = self.scrollingFrameRef.current
-			if not scrollingFrame then
-				return
-			end
-			local canvasY = scrollingFrame.CanvasPosition.Y
-			local windowHeight = scrollingFrame.AbsoluteWindowSize.Y
-			local canvasHeight = scrollingFrame.CanvasSize.Y.Offset
-
-			-- Where the bottom of the scrolling frame is relative to canvas size
-			local bottom = canvasY + windowHeight
-			local dist = canvasHeight - bottom
-
-			if dist < Constants.DIST_FROM_BOTTOM_BEFORE_NEXT_PAGE then
-				self.requestNextPage()
-			end
-
-			self:calculateRenderBounds()
-		end
-	end
-
-	self.onScroll = function()
-		if FFlagToolboxAssetGridRefactor then
-			return
-		end
-		-- We we are previewing the asset, we shouldn't be able
-		-- to scroll tbe main view of the Toolbox
-		if not self.props.isPreviewing then
-			tryRerender(self)
-		end
-	end
-
-	self.onAssetGridContainerChanged = function()
-		if FFlagToolboxAssetGridRefactor then
-			return
-		end
-		tryRerender(self)
-	end
 
 	self.requestNextPage = function()
 		settings = self.props.Settings:get("Plugin")
@@ -153,78 +104,6 @@ function MainView:init(props)
 	end
 end
 
-function MainView.getDerivedStateFromProps(nextProps, lastState)
-	if not FFlagToolboxAssetGridRefactor then
-		local lowerBound = lastState.lowerIndexToRender or 0
-		local upperBound = lastState.upperIndexToRender or 0
-
-		local assetIds = Layouter.sliceAssetsFromBounds(nextProps.idsToRender or {}, lowerBound, upperBound)
-
-		return {
-			assetIds = assetIds,
-			lowerIndexToRender = lowerBound,
-			upperIndexToRender = upperBound,
-		}
-	end
-end
-
-function MainView:didMount()
-	if not FFlagToolboxAssetGridRefactor then
-		self.scrollingFrameRef.current:GetPropertyChangedSignal("AbsoluteSize"):connect(function()
-			self:calculateRenderBounds()
-		end)
-		self:calculateRenderBounds()
-	end
-end
-
-function MainView:calculateRenderBounds()
-	if FFlagToolboxAssetGridRefactor then
-		return
-	end
-	local props = self.props
-	local showPrices = Category.shouldShowPrices(props.categoryName)
-	local lowerBound, upperBound = Layouter.calculateRenderBoundsForScrollingFrame(
-		self.scrollingFrameRef.current,
-		self.containerWidth,
-		self.headerHeight,
-		showPrices
-	)
-
-	-- If either bound has changed then recalculate the assets
-	if lowerBound ~= self.state.lowerIndexToRender or upperBound ~= self.state.upperIndexToRender then
-		local assetIds = Layouter.sliceAssetsFromBounds(self.props.idsToRender or {}, lowerBound, upperBound)
-
-		self:setState({
-			assetIds = assetIds,
-			lowerIndexToRender = lowerBound,
-			upperIndexToRender = upperBound,
-		})
-	end
-end
-
-function MainView:didUpdate(prevProps, prevState)
-	if FFlagToolboxAssetGridRefactor then
-		return
-	end
-	-- Check if the toolbox has empty space
-	-- If there is then request the next page
-	local spaceToDisplay = self.state.upperIndexToRender - self.state.lowerIndexToRender
-	local displayed = #self.state.assetIds
-
-	local networkErrors = self.props.networkErrors or {}
-	local networkError = networkErrors[#networkErrors]
-
-	-- If I have recieved an error code, I should not request more data
-	-- And user's action to request more data will reset my network error status
-	if not networkError and displayed < spaceToDisplay and displayed ~= 0 then
-		self.requestNextPage()
-	end
-
-	if prevProps.idsToRender ~= self.props.idsToRender then
-		self:calculateRenderBounds()
-	end
-end
-
 function MainView:render()
 	return withLocalization(function(localization, localizedContent)
 		local props = self.props
@@ -245,33 +124,14 @@ function MainView:render()
 		local networkErrors = props.networkErrors or {}
 		local networkError = networkErrors[#networkErrors]
 
-		local idsToRender
-		local assetIds
-		local assetCount
-		local allAssetCount
-		if FFlagToolboxAssetGridRefactor then
-			allAssetCount = props.allAssetCount
-			assetCount = props.allAssetCount
-		else
-			-- Need to calculate height for both rendered assets and all assets
-			idsToRender = props.idsToRender or {}
-			assetIds = state.assetIds or {}
-			assetCount = #assetIds
-			allAssetCount = #idsToRender
-		end
+		local allAssetCount = props.allAssetCount
+		local assetCount = props.allAssetCount
 
 		local lowerIndexToRender = state.lowerIndexToRender or 0
 
 		local containerWidth = maxWidth - (2 * Constants.MAIN_VIEW_PADDING) - Constants.SCROLLBAR_PADDING
 
 		local showPrices = Category.shouldShowPrices(props.categoryName)
-
-		local allAssetsHeight
-		if not FFlagToolboxAssetGridRefactor then
-			-- Add a bit extra to the container so we can see the details of the assets on the last row
-			allAssetsHeight = Layouter.calculateAssetsHeight(allAssetCount, containerWidth, showPrices)
-				+ Constants.ASSET_OUTLINE_EXTRA_HEIGHT
-		end
 
 		local suggestionIntro = localizedContent.Sort.ByText
 
@@ -294,12 +154,6 @@ function MainView:render()
 			containerWidth
 		)
 
-		local canvasHeight
-		if not FFlagToolboxAssetGridRefactor then
-			local fullInnerHeight = headerHeight + allAssetsHeight + headerToBodyPadding
-			canvasHeight = fullInnerHeight + (2 * Constants.MAIN_VIEW_PADDING)
-		end
-
 		local hasResults = allAssetCount > 0
 
 		local showInfoBanner = not hasResults and not isLoading
@@ -314,18 +168,6 @@ function MainView:render()
 				end,
 				content = localizedContent.NoPluginsFound,
 			}
-		end
-
-		local assetsPerRow
-		local assetHeight
-		local gridContainerOffset
-		local scrollingEnabled
-		if not FFlagToolboxAssetGridRefactor then
-			-- Need to shift the position of AssetGridContainer depending on how many rows we've cut off the start
-			assetsPerRow = Layouter.getAssetsPerRow(containerWidth)
-			assetHeight = Layouter.getAssetCellHeightWithPadding(showPrices)
-			gridContainerOffset = math.max(math.floor(lowerIndexToRender / assetsPerRow) * assetHeight, 0)
-			scrollingEnabled = not props.isPreviewing
 		end
 
 		local showSearchOptions
@@ -345,66 +187,33 @@ function MainView:render()
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 		}, {
-			ScrollingFrame = Roact.createElement(
-				FFlagToolboxAssetGridRefactor and "Frame" or StyledScrollingFrame,
-				FFlagToolboxAssetGridRefactor
-						and {
-							BackgroundTransparency = 1,
-							Size = UDim2.new(1, 0, 1, 0),
-						}
-					or {
-						Position = UDim2.new(0, 0, 0, 0),
-						Size = UDim2.new(1, 0, 1, 0),
-						CanvasSize = UDim2.new(0, 0, 0, canvasHeight),
-						ZIndex = 1,
+			ScrollingFrame = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 1, 0),
+			}, {
+				UIPadding = Roact.createElement("UIPadding", {
+					PaddingBottom = UDim.new(0, Constants.MAIN_VIEW_PADDING),
+					PaddingLeft = UDim.new(0, Constants.MAIN_VIEW_PADDING),
+					PaddingRight = UDim.new(0, Constants.MAIN_VIEW_PADDING),
+					PaddingTop = UDim.new(0, Constants.MAIN_VIEW_PADDING),
+				}),
 
-						scrollingEnabled = scrollingEnabled,
+				Header = Roact.createElement(MainViewHeader, {
+					suggestions = suggestions,
+					containerWidth = containerWidth,
+					showTags = showTags,
+				}),
 
-						[Roact.Ref] = self.scrollingFrameRef,
-						onScroll = self.onScroll,
-					},
-				{
-					UIPadding = Roact.createElement("UIPadding", {
-						PaddingBottom = UDim.new(0, Constants.MAIN_VIEW_PADDING),
-						PaddingLeft = UDim.new(0, Constants.MAIN_VIEW_PADDING),
-						PaddingRight = UDim.new(0, Constants.MAIN_VIEW_PADDING),
-						PaddingTop = UDim.new(0, Constants.MAIN_VIEW_PADDING),
-					}),
+				NoResultsDetail = noResultsDetailProps and Roact.createElement(
+					NoResultsDetail,
+					Cryo.Dictionary.join({
+						Position = UDim2.new(0, 0, 0, 66 + headerHeight),
+						ZIndex = 2,
+					}, noResultsDetailProps)
+				),
+			}),
 
-					Header = Roact.createElement(MainViewHeader, {
-						suggestions = suggestions,
-						containerWidth = containerWidth,
-						showTags = showTags,
-					}),
-
-					NoResultsDetail = noResultsDetailProps and Roact.createElement(
-						NoResultsDetail,
-						Cryo.Dictionary.join({
-							Position = UDim2.new(0, 0, 0, 66 + headerHeight),
-							ZIndex = 2,
-						}, noResultsDetailProps)
-					),
-
-					AssetGridContainer = not FFlagToolboxAssetGridRefactor and Roact.createElement(
-						AssetGridContainer_DEPRECATED,
-						{
-							Position = UDim2.new(0, 0, 0, headerHeight + headerToBodyPadding + gridContainerOffset),
-
-							assetIds = assetIds,
-							searchTerm = searchTerm,
-							categoryName = categoryName,
-
-							ZIndex = 1,
-
-							onAssetGridContainerChanged = self.onAssetGridContainerChanged,
-							tryOpenAssetConfig = tryOpenAssetConfig,
-							onAssetInsertionSuccesful = self.props.onAssetInsertionSuccesful,
-						}
-					),
-				}
-			),
-
-			AssetGridContainerNew = FFlagToolboxAssetGridRefactor and Roact.createElement(AssetGridContainer, {
+			AssetGridContainerNew = Roact.createElement(AssetGridContainer, {
 				Position = UDim2.new(0, 0, 0, headerHeight + headerToBodyPadding),
 				Size = UDim2.new(1, 0, 1, -headerHeight - headerToBodyPadding),
 				TryOpenAssetConfig = tryOpenAssetConfig,
@@ -462,17 +271,9 @@ local function mapStateToProps(state, props)
 		end
 	end
 
-	local isPreviewing
-	if not FFlagToolboxAssetGridRefactor then
-		isPreviewing = assets.isPreviewing or false
-	end
 	return {
-		idsToRender = not FFlagToolboxAssetGridRefactor and assets.idsToRender or {} or nil,
-
-		allAssetCount = FFlagToolboxAssetGridRefactor and #assets.idsToRender or nil,
+		allAssetCount = #assets.idsToRender,
 		isLoading = assets.isLoading or false,
-
-		isPreviewing = isPreviewing,
 
 		networkErrors = state.networkErrors or {},
 

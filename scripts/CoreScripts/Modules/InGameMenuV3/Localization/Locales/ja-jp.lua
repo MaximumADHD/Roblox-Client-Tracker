@@ -209,4 +209,6 @@ return{
 	["CoreScripts.InGameMenu.Report.Block"] = [[ブロックする]],
 	["CoreScripts.InGameMenu.Report.BlockPopup"] = [[{DISPLAY_NAME} (@{RBX_NAME}) さんをブロックしました]],
 	["CoreScripts.InGameMenu.PageTitle.Friends"] = [[友達]],
+	["CoreScripts.InGameMenu.Action.UnmutePlayer"] = [[プレイヤーのミュート解除]],
+	["CoreScripts.InGameMenu.Action.MutePlayer"] = [[プレイヤーをミュート]],
 }

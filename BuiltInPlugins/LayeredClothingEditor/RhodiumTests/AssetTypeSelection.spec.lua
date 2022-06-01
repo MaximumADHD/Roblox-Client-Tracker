@@ -90,7 +90,7 @@ return function()
 	end
 
 	it("Attachment info should be preserved if it's a valid attachment type", function()
-		runRhodiumTest(function(_, _, _, editingItemContext)
+		runRhodiumTest(function(_, _, editingItemContext)
 			TestHelper.goToEditScreenFromStart(false, true)
 
 			local editingItem = editingItemContext:getItem()

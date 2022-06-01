@@ -12,6 +12,10 @@ local StyleModifier = Framework.Util.StyleModifier
 local Dash = Framework.Dash
 local join = Dash.join
 
+local ContextServices = Framework.ContextServices
+local Analytics = ContextServices.Analytics
+local AnalyticsEventNames = require(Plugin.Src.Resources.AnalyticsEventNames)
+
 local UI = Framework.UI
 local Pane = UI.Pane
 local Checkbox = UI.Checkbox
@@ -34,13 +38,20 @@ function BreakpointsTreeTableCell:init()
 		local bpManager = game:GetService("BreakpointManager")
 		local bp = bpManager:GetBreakpointById(row.item.id)
 		bp:SetContinueExecution(not row.item.continueExecution)
+
+		self.props.Analytics:report(AnalyticsEventNames.MetaBreakpointContinueExecutionChanged, "LuaBreakpointsTable")
 	end
 
 	self.onBreakpointIconClicked = function()
 		local row = self.props.Row
 		local bpManager = game:GetService("BreakpointManager")
 		local bp = bpManager:GetBreakpointById(row.item.id)
-		BreakpointHelperFunctions.setBreakpointRowEnabled(bp, row)
+		BreakpointHelperFunctions.setBreakpointRowEnabled(
+			bp,
+			row,
+			self.props.Analytics,
+			"LuaBreakpointsTable.BreakpointIconClicked"
+		)
 	end
 end
 
@@ -173,6 +184,10 @@ function BreakpointsTreeTableCell:render()
 		OnRightClick = props.OnRightClick,
 	})
 end
+
+BreakpointsTreeTableCell = ContextServices.withContext({
+	Analytics = Analytics,
+})(BreakpointsTreeTableCell)
 
 BreakpointsTreeTableCell = RoactRodux.connect(function(state, props)
 	return {

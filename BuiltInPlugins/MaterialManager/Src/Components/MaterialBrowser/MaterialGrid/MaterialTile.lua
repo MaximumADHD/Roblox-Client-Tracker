@@ -26,11 +26,14 @@ local MaterialPreview = require(Components.MaterialPreview)
 local StatusIcon = require(Components.StatusIcon)
 
 local getFullMaterialType = require(Plugin.Src.Resources.Constants.getFullMaterialType)
+local getMaterialName = require(Plugin.Src.Resources.Constants.getMaterialName)
 local MaterialController = require(Plugin.Src.Util.MaterialController)
 
 -- TODO: cleaning up for the FFLagMaterialVariantTempIdCompatibility - remove all texture maps from that file
-local getFFlagMaterialVariantTempIdCompatibility = require(Plugin.Src.Flags.getFFlagMaterialVariantTempIdCompatibility)
-local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Plugin.Src.Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
+local Flags = Plugin.Src.Flags
+local getFFlagMaterialVariantTempIdCompatibility = require(Flags.getFFlagMaterialVariantTempIdCompatibility)
+local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
+local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
 
 export type Props = {
 	Item : _Types.Material,
@@ -98,8 +101,14 @@ function MaterialTile:didMount()
 	self.overrideStatusChangedConnection = props.MaterialController:getOverrideStatusChangedSignal():Connect(function(materialType)
 		local props : _Props = self.props
 
-		if props.Item.IsBuiltin and materialType == props.Item.MaterialVariant.BaseMaterial then
-			self:setState({})
+		if getFFlagMaterialManagerGlassNeonForceField() then
+			if not props.Item.MaterialVariant and materialType == props.Item.Material then
+				self:setState({})
+			end
+		else
+			if props.Item.IsBuiltin and props.Item.MaterialVariant and materialType == props.Item.MaterialVariant.BaseMaterial then
+				self:setState({})
+			end
 		end
 	end)
 end
@@ -112,17 +121,34 @@ function MaterialTile:render()
 	local item = props.Item
 	local materialVariant = item.MaterialVariant
 
-	local colorMap = materialVariant.ColorMap
-	local metalnessMap = materialVariant.MetalnessMap
-	local name = if item.IsBuiltin then localization:getText("Materials", materialVariant.Name) else materialVariant.Name
-	local normalMap = materialVariant.NormalMap
-	local roughnessMap = materialVariant.RoughnessMap
-	local fullMaterialType = getFullMaterialType(item, localization)
+	local name
+	local colorMap, metalnessMap, normalMap, roughnessMap
 
+	if getFFlagMaterialManagerGlassNeonForceField() then
+		name = if not materialVariant then localization:getText("Materials", getMaterialName(item.Material)) else materialVariant.Name
+
+		if materialVariant then
+			colorMap = materialVariant.ColorMap
+			metalnessMap = materialVariant.MetalnessMap
+			normalMap = materialVariant.NormalMap
+			roughnessMap = materialVariant.RoughnessMap
+		end
+	else
+		colorMap = materialVariant.ColorMap
+		metalnessMap = materialVariant.MetalnessMap
+		name = if item.IsBuiltin then localization:getText("Materials", materialVariant.Name) else materialVariant.Name
+		normalMap = materialVariant.NormalMap
+		roughnessMap = materialVariant.RoughnessMap
+	end
+
+	local fullMaterialType = getFullMaterialType(item, localization)
 	local padding = prioritize(props.Padding, style.Padding)
 	local size = prioritize(props.Size, style.Size)
 	local spacing = style.Spacing
 	local textSize = style.TextSize
+
+	-- Remove and replace with getFFlagMaterialManagerGlassNeonForceField
+	local isBuiltin = if getFFlagMaterialManagerGlassNeonForceField() then not item.MaterialVariant else item.IsBuiltin
 
 	return Roact.createElement(Button, {
 		LayoutOrder = props.LayoutOrder,
@@ -141,8 +167,8 @@ function MaterialTile:render()
 		}, {
 			MaterialPreview = getFFlagMaterialVariantTempIdCompatibility() and Roact.createElement(MaterialPreview, {
 				LayoutOrder = 1,
-				Material = materialVariant.BaseMaterial,
-				MaterialVariant = if not item.IsBuiltin then materialVariant.Name else nil,
+				Material = if getFFlagMaterialManagerGlassNeonForceField() then item.Material else materialVariant.BaseMaterial,
+				MaterialVariant = if not isBuiltin then materialVariant.Name else nil,
 				Size = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then
 					UDim2.fromOffset(160, 140)
 					else
@@ -151,8 +177,8 @@ function MaterialTile:render()
 			}) or Roact.createElement(MaterialPreview, {
 				ColorMap = colorMap,
 				LayoutOrder = 1,
-				Material = materialVariant.BaseMaterial,
-				MaterialVariant = if not item.IsBuiltin then materialVariant.Name else nil,
+				Material = if getFFlagMaterialManagerGlassNeonForceField() then item.Material else materialVariant.BaseMaterial,
+				MaterialVariant = if not isBuiltin then materialVariant.Name else nil,
 				MetalnessMap = metalnessMap,
 				NormalMap = normalMap,
 				RoughnessMap = roughnessMap,
@@ -180,7 +206,7 @@ function MaterialTile:render()
 				})
 			})
 		}),
-		MaterialVariantIcon = if not item.IsBuiltin then
+		MaterialVariantIcon = if not isBuiltin then
 			Roact.createElement(Container, {
 				LayoutOrder = 2,
 				Position = style.MaterialVariantIconPosition,
@@ -195,7 +221,7 @@ function MaterialTile:render()
 				})
 			})
 			else nil,
-		StatusIcon = if item.IsBuiltin then
+		StatusIcon = if isBuiltin then
 			Roact.createElement(StatusIcon, {
 				LayoutOrder = 3,
 				Material = item,

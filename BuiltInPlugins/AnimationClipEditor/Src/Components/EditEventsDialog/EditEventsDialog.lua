@@ -46,6 +46,8 @@ local EventNameEntry = require(Plugin.Src.Components.EditEventsDialog.EventNameE
 local AddEventEntry = require(Plugin.Src.Components.EditEventsDialog.AddEventEntry)
 local FocusedPrompt = require(Plugin.Src.Components.EditEventsDialog.FocusedPrompt)
 
+local FFlagFixRenameAllPromptLabel = game:DefineFastFlag("ACEFixRenameAllPromptLabel", false)
+
 local EditEventsDialog = Roact.PureComponent:extend("EditEventsDialog")
 
 function EditEventsDialog:init(initialProps)
@@ -352,7 +354,10 @@ function EditEventsDialog:renderRenameAllPrompt(theme, localization)
 			{Key = false, Text = localization:getText("Dialog", "ChangeThis")},
 			{Key = true, Text = localization:getText("Dialog", "ChangeAll")},
 		},
-		PromptText = localization:getText("Dialog", "RenameAllPrompt_Migrated", {name = name}, {newName = newName}),
+		PromptText = if FFlagFixRenameAllPromptLabel then
+			localization:getText("Dialog", "RenameAllPrompt_Migrated",	{name = name, newName = newName})
+		else
+			localization:getText("Dialog", "RenameAllPrompt_Migrated",	{name = name}, {newName = newName}),
 		OnButtonClicked = function(doRenameAll)
 			if doRenameAll then
 				self.onRenameAllEvents(name, newName)

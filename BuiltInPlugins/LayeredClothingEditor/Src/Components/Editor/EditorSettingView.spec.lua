@@ -50,7 +50,7 @@ return function()
 		)
 	end)
 
-	it("should render correctly for ToolMode:Lattice", function ()
+	itSKIP("should render correctly for ToolMode:Lattice", function ()
 		runComponentTest(
 			Roact.createElement(EditorSettingView, {
 				Size = UDim2.new(1, 0, 1, 0),

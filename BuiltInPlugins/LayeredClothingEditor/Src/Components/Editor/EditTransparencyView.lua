@@ -16,11 +16,14 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 
+local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingModuleContext
+
 local Components = AvatarToolsShared.Components
 local TransparencySlider = Components.TransparencySlider
 
 local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
 local GetTransparency = require(Plugin.Src.Util.GetTransparency)
+local ModelUtil = require(Plugin.Src.Util.ModelUtil)
 
 local ChangeCageTransparency = require(Plugin.Src.Thunks.ChangeCageTransparency)
 
@@ -38,6 +41,16 @@ local Constants = require(Plugin.Src.Util.Constants)
 local EditTransparencyView = Roact.PureComponent:extend("EditTransparencyView")
 local Util = Framework.Util
 local LayoutOrderIterator = Util.LayoutOrderIterator
+
+function EditTransparencyView:init()
+	self.setValue = function(cageType, value)
+		local context = self.props.LuaMeshEditingModuleContext
+		if context then
+			context:setTransparency(ModelUtil.transparencyFromLCEditorToProperty(value))
+			self.props.ChangeCageTransparency(cageType, value)
+		end
+	end
+end
 
 function EditTransparencyView:render()
 	local props = self.props
@@ -76,7 +89,7 @@ function EditTransparencyView:render()
 			LayoutOrder = orderIterator:getNextOrder(),
 			IsDisabled = not outerCage,
 			SetValue = function(value)
-				props.ChangeCageTransparency(Enum.CageType.Outer, value)
+				self.setValue(Enum.CageType.Outer, value)
 			end,
 		}),
 		InnerCage = editingCage == Enum.CageType.Inner and Roact.createElement(TransparencySlider, {
@@ -86,7 +99,7 @@ function EditTransparencyView:render()
 			LayoutOrder = orderIterator:getNextOrder(),
 			IsDisabled = not innerCage,
 			SetValue = function(value)
-				props.ChangeCageTransparency(Enum.CageType.Inner, value)
+				self.setValue(Enum.CageType.Inner, value)
 			end,
 		}),
 	})
@@ -95,6 +108,7 @@ end
 
 EditTransparencyView = withContext({
 	Localization = ContextServices.Localization,
+	LuaMeshEditingModuleContext = LuaMeshEditingModuleContext,
 	Stylizer = ContextServices.Stylizer,
 	EditingItemContext = EditingItemContext,
 })(EditTransparencyView)

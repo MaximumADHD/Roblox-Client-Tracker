@@ -1,10 +1,9 @@
 --[[
-	Do not delete the test when removing the flag, need to be updated.
+	TODO: STM-1590 - We need to update these tests since the Asset Grid refactor 
 ]]
 
 return function()
-	local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
-
+	--[[
 	local Plugin = script.Parent.Parent
 
 	local Packages = Plugin.Packages
@@ -50,12 +49,6 @@ return function()
 	--local expect = JestRoblox.Globals.expect
 
 	describe("Asset Preview Test Suite", function()
-		-- TODO: Update the test when removing the flag (STM-679)
-
-		if FFlagToolboxAssetGridRefactor then
-			return
-		end
-
 		local originalConstructAssetThumbnailUrl
 		local container
 		local instance
@@ -275,4 +268,5 @@ return function()
 			end)
 		end
 	end)
+	--]]
 end

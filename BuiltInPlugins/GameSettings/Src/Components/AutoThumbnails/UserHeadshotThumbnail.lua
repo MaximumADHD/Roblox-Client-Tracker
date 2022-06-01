@@ -20,8 +20,8 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local AutoThumbnail = require(Plugin.Src.Components.AutoThumbnails.AutoThumbnail)
@@ -124,7 +124,6 @@ function UserHeadshotThumbnail:render()
 			RenderContents = function(contentId, status)
 				local thumbnail = self:getThumbnail(contentId, status)
 
-				local props = self.props
 				local theme = props.Stylizer
 
 				return Roact.createElement("ImageLabel", {
@@ -148,11 +147,8 @@ function UserHeadshotThumbnail:render()
 	})
 end
 
-
 UserHeadshotThumbnail = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(UserHeadshotThumbnail)
-
-
 
 return UserHeadshotThumbnail

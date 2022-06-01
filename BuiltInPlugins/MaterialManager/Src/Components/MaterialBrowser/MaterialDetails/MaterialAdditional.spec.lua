@@ -25,6 +25,7 @@ return function()
 	it("should render material with studs per tile correctly", function()
 		local TestMaterial = {
 			IsBuiltin = true,
+			Material = Enum.Material.Plastic,
 			MaterialPath = { "Plastic" },
 			MaterialType = "Base",
 			MaterialVariant = Instance.new("MaterialVariant")
@@ -48,6 +49,7 @@ return function()
 	it("should render material with material pattern correctly", function()
 		local TestMaterial = {
 			IsBuiltin = true,
+			Material = Enum.Material.Plastic,
 			MaterialPath = { "Plastic" },
 			MaterialType = "Base",
 			MaterialVariant = Instance.new("MaterialVariant")

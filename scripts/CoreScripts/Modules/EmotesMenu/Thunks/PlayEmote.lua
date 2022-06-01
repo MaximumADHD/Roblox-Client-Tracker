@@ -95,9 +95,9 @@ local function PlayEmote(emoteName, slotNumber, emoteAssetId, onEmotePlay, onEmo
 				EmotesAnalytics:onEmotePlayed(slotNumber, emoteAssetId)
 			else
 				if GetFFlagNewEmotesInGame() then
-					handlePlayFailure(store, Constants.LocalizationKeys.ErrorMessages.AnimationPlaying, slotNumber, emoteAssetId)
+					handlePlayFailure(store, Constants.ErrorTypes.AnimationPlaying, slotNumber, emoteAssetId)
 				else
-					handlePlayFailure(store, Constants.LocalizationKeys.ErrorMessages.TemporarilyUnavailable, slotNumber, emoteAssetId)
+					handlePlayFailure(store, Constants.ErrorTypes.TemporarilyUnavailable, slotNumber, emoteAssetId)
 				end
 				return
 			end

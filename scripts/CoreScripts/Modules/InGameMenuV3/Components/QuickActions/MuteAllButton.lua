@@ -18,6 +18,8 @@ local MuteAllButton = Roact.PureComponent:extend("MuteAllButton")
 
 MuteAllButton.validateProps = t.interface({
 	layoutOrder = t.integer,
+	backgroundTransparency = t.optional(t.number),
+	backgroundColor = t.optional(t.string),
 })
 
 function MuteAllButton:init()
@@ -42,6 +44,9 @@ end
 
 function MuteAllButton:render()
 	return Roact.createElement(IconButton, {
+		iconTransparency = self.props.backgroundTransparency,
+		backgroundTransparency = self.props.backgroundTransparency,
+		backgroundColor = self.props.backgroundColor,
 		showBackground = true,
 		layoutOrder = self.props.layoutOrder,
 		icon = VoiceChatServiceManager:GetIcon(self.state.allMuted and "MuteAll" or "UnmuteAll", "Misc"),

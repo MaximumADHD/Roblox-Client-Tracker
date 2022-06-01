@@ -25,7 +25,6 @@ local SPACER_HEIGHT = 4
 local TOTAL_HEADER_HEIGHT = TITLE_HEIGHT + SPACER_HEIGHT
 
 local function renderWithSelectionCursor(props, getSelectionCursor)
-
 	return withStyle(function(style)
 		return Roact.createElement("TextButton", {
 			AutoButtonColor = false,
@@ -46,7 +45,14 @@ local function renderWithSelectionCursor(props, getSelectionCursor)
 				end) or function()
 					return nil
 				end,
+				renderCenter = props.isFilteringMode and function()
+					return props.searchBar
+				end or nil,
 				renderRight = function()
+					if props.isFilteringMode then
+						return nil
+					end
+
 					return props.titleChildren
 				end,
 				backgroundTransparency = style.Theme.BackgroundDefault.Transparency,

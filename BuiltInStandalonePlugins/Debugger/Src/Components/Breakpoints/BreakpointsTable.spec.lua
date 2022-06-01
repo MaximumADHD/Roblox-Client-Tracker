@@ -125,4 +125,65 @@ return function()
 
 		Roact.unmount(folderInstance)
 	end)
+	
+	local function checkBreakpointDataIsTheSame(initialBreakpointData)
+		local breakpointsTableElement = createBreakpointsTable({
+			Breakpoint = {
+				BreakpointIdsInDebuggerConnection = { [123] = { [8] = 8, [10] = 10, [9] = 9 } },
+				MetaBreakpoints = initialBreakpointData,
+				listOfEnabledColumns = {},
+			},
+		})
+
+		local folder = Instance.new("Folder")
+		local folderInstance = Roact.mount(breakpointsTableElement.getChildrenWithMockContext(), folder)
+		local store = breakpointsTableElement.getStore()
+		store:flush()
+		local breakpointsTable = folder:FindFirstChild("BreakpointsTable", true)
+		local treeTable = breakpointsTable:FindFirstChild("TablePane"):FindFirstChild("BreakpointsTable")
+		local list = treeTable.Contents.List.Child.Scroller
+
+		expect(list:FindFirstChild("1", false)).to.be.ok()
+		expect(list["1"].Row[3].Left.Text.Text).to.equal("10")
+
+		expect(list:FindFirstChild("2", false)).to.be.ok()
+		expect(list["2"].Row[3].Left.Text.Text).to.equal("8")
+
+		expect(list:FindFirstChild("3", false)).to.be.ok()
+		expect(list["3"].Row[3].Left.Text.Text).to.equal("9")
+
+		expect(list:FindFirstChild("4", false)).to.equal(nil)
+		
+		Roact.unmount(folderInstance)
+		
+	end
+	
+	it("should have initial sorting not affected by breakpoint enabled state", function()
+		if not FFlagDevFrameworkRemoveInfiniteScroller then
+			return
+		end
+		local initialBreakpointData = {}
+
+		--uniqueID is used as the lineNumber in the mock breakpoints, which is how the breakpoints are sorted
+		-- first we test the order with all metaBreakpoints enabled
+		for i, uniqueId in ipairs({ 8, 10, 9 }) do
+			initialBreakpointData = Cryo.Dictionary.join(
+				initialBreakpointData,
+				{ [uniqueId] = MetaBreakpointModel.mockMetaBreakpoint({["isEnabled"] = true}, uniqueId) }
+			)
+		end
+		
+		checkBreakpointDataIsTheSame(initialBreakpointData)
+		
+		-- try the same with different enabled/disabled metabreakpoint settings
+		initialBreakpointData = {}
+		for i, uniqueId in ipairs({ 8, 10, 9 }) do
+			initialBreakpointData = Cryo.Dictionary.join(
+				initialBreakpointData,
+				{[uniqueId] = MetaBreakpointModel.mockMetaBreakpoint({["isEnabled"] = (uniqueId ~= 9)}, uniqueId) }
+			)
+		end
+		
+		checkBreakpointDataIsTheSame(initialBreakpointData)
+	end)
 end

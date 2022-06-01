@@ -22,6 +22,9 @@ local getMaterialPatternName = require(Plugin.Src.Resources.Constants.getMateria
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local MaterialController = require(Plugin.Src.Util.MaterialController)
 
+local Flags = Plugin.Src.Flags
+local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
+
 export type Props = {
 	LayoutOrder : number?,
 	MockMaterial : _Types.Material?,
@@ -118,7 +121,7 @@ function MaterialAdditional:render()
 	local localization = props.Localization
 	local material = props.Material
 
-	if not material then
+	if not material or (getFFlagMaterialManagerGlassNeonForceField() and not material.MaterialVariant) then
 		return Roact.createElement(Pane)
 	end
 

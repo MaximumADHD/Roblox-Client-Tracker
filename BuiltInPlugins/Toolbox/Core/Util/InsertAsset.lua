@@ -11,6 +11,7 @@ local Category = require(Plugin.Core.Types.Category)
 
 local webKeys = require(Plugin.Core.Util.Permissions.Constants).webKeys
 
+local FFlagToolboxFixDragInsertRemains = game:GetFastFlag("ToolboxFixDragInsertRemains")
 local FFlagToolboxGrantUniverseAudioPermissions = game:GetFastFlag("ToolboxGrantUniverseAudioPermissions")
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 local FFlagBubbleUpNetworkInterface = game:GetFastFlag("InsertAssetBubbleUpNetwork")
@@ -466,10 +467,11 @@ function InsertAsset.tryInsert(options, insertToolPromise, assetWasDragged, netw
 		end
 		activeDraggingState = {
 			assetName = options.assetName,
-			assetId = if FFlagToolboxEnableAudioGrantDialog then options.assetId else nil,
+			assetId = if FFlagToolboxEnableAudioGrantDialog or FFlagToolboxFixDragInsertRemains then options.assetId else nil,
 			assetTypeId = if FFlagToolboxEnableAudioGrantDialog then options.assetTypeId else nil,
 			localization = if FFlagToolboxEnableAudioGrantDialog then InsertAsset._localization else nil,
 			insertToolPromise = insertToolPromise,
+			onSuccess = if FFlagToolboxFixDragInsertRemains then options.onSuccess else nil,
 		}
 		InsertAsset.doDragInsertAsset(options)
 	else
@@ -549,9 +551,9 @@ function InsertAsset.doDragInsertAsset(options)
 	if success then
 		sendInsertionAnalytics(options, true)
 
-		-- TODO STM-819: Move (or create new) analytics which fire when the asset is actually inserted
-		-- via drag, rather than when the drag starts.
-		options.onSuccess(assetId)
+		if not FFlagToolboxFixDragInsertRemains then
+			options.onSuccess(assetId)
+		end
 	else
 		warn(("Toolbox failed to drag asset %d %s: %s"):format(assetId, assetName, errorMessage or ""))
 	end
@@ -610,6 +612,11 @@ function InsertAsset.registerProcessDragHandler()
 					activeDraggingState.instances,
 					activeDraggingState.insertToolPromise
 				)
+
+				if FFlagToolboxFixDragInsertRemains and activeDraggingState.onSuccess then
+					activeDraggingState.onSuccess(activeDraggingState.assetId, activeDraggingState.instances)
+				end
+
 				activeDraggingState = nil
 			end
 		end)

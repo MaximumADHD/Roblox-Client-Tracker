@@ -11,7 +11,7 @@
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		table EditingItemContext: An EditingItemContext, which is provided via withContext.
 		table Localization: A Localization ContextItem, which is provided via withContext.
-		callback ChangeTool: function to change editing tool (point/lattice), provided via mapDispatchToProps
+		callback SetToolMode: function to change editing tool (point/lattice), provided via mapDispatchToProps
 		callback AddUserAddedAssetForPreview: adds asset into preview grid, provided via mapDispatchToProps
 ]]
 
@@ -30,7 +30,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
-local ChangeTool = require(Plugin.Src.Thunks.ChangeTool)
+local SetToolMode = require(Plugin.Src.Actions.SetToolMode)
 local AddUserAddedAssetForPreview = require(Plugin.Src.Thunks.AddUserAddedAssetForPreview)
 
 local SelectFrame = require(Plugin.Src.Components.SelectFrame)
@@ -84,7 +84,7 @@ function SelectItemScreen:init()
 	self.setSourceItem = function(item)
 		self.props.EditingItemContext:setSourceItem(item)
 		self.checkForPreviewAvatar(item)
-		self.props.ChangeTool(Constants.TOOL_MODE.None)
+		self.props.SetToolMode(Constants.TOOL_MODE.None)
 		self.props.GoToNext()
 	end
 
@@ -248,8 +248,8 @@ SelectItemScreen = withContext({
 
 local function mapDispatchToProps(dispatch)
 	return {
-		ChangeTool = function(toolMode)
-			dispatch(ChangeTool(toolMode))
+		SetToolMode = function(toolMode)
+			dispatch(SetToolMode(toolMode))
 		end,
 
 		AddUserAddedAssetForPreview = function(tab, asset)

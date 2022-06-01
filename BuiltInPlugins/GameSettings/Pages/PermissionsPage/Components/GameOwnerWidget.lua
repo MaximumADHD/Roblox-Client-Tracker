@@ -3,10 +3,9 @@ local FFlagGameSettingsRemoveFitContent = game:GetFastFlag("GameSettingsRemoveFi
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
+local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
@@ -82,13 +81,10 @@ function GameOwnerWidget:render()
 	end
 end
 
-
 GameOwnerWidget = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 })(GameOwnerWidget)
-
-
 
 GameOwnerWidget = RoactRodux.connect(
 	function(state, props)

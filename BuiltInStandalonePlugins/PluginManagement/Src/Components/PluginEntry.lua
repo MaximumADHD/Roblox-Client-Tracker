@@ -10,8 +10,6 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
-local FlagsListFile = require(Plugin.Src.Util.FlagsList)
-
 local Constants = require(Plugin.Src.Util.Constants)
 local UpdateStatus = require(Plugin.Src.Util.UpdateStatus)
 local UI = require(Plugin.Packages.Framework).UI
@@ -195,14 +193,9 @@ function PluginEntry:render()
 		- Constants.PLUGIN_CONTEXT_WIDTH,.5,0)
 
 	local hasHttpPermissions = (allowedHttpCount > 0) or (deniedHttpCount > 0)
-	local hasScriptInjectionPermissions = false
-
-	if FlagsListFile:get("FFlagPluginManagementQ3ContentSecurity") then
-		hasScriptInjectionPermissions = (allowedScriptInjection ~= nil)
-	end
+	local hasScriptInjectionPermissions = (allowedScriptInjection ~= nil)
 	local hasPermissions = hasHttpPermissions or hasScriptInjectionPermissions
 	-- Q3_2020 new design: always show "no permissions" if we have no permissions
-	local showPermissions = FlagsListFile:get("FFlagPluginManagementQ3ContentSecurity") or hasPermissions
 
 	return Roact.createElement("Frame", {
 		BackgroundColor3 = theme.BackgroundColor,
@@ -274,7 +267,7 @@ function PluginEntry:render()
 				TextSize = 16,
 			}),
 
-			HttpRequestOverview = showPermissions and Roact.createElement(HttpRequestOverview, {
+			HttpRequestOverview = Roact.createElement(HttpRequestOverview, {
 				assetId = data.assetId,
 				LayoutOrder = 3,
 			}),

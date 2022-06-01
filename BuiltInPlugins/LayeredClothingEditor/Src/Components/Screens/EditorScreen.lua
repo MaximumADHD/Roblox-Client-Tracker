@@ -22,6 +22,8 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 
+local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingModuleContext
+
 local Components = AvatarToolsShared.Components
 local InputBlocker = Components.InputBlocker
 
@@ -44,6 +46,7 @@ local PreviewFrame = require(Plugin.Src.Components.PreviewFrame)
 local ExplorerPreviewInstances = require(Plugin.Src.Components.Preview.ExplorerPreviewInstances)
 local AnimationPlaybackWrapper = require(Plugin.Src.Components.AnimationPlayback.AnimationPlaybackWrapper)
 
+local SetToolMode = require(Plugin.Src.Actions.SetToolMode)
 local FinishSelectingFromExplorer = require(Plugin.Src.Thunks.FinishSelectingFromExplorer)
 local AddUserAddedAssetForPreview = require(Plugin.Src.Thunks.AddUserAddedAssetForPreview)
 
@@ -56,15 +59,34 @@ local EditorScreen = Roact.PureComponent:extend("EditorScreen")
 local Typecheck = Util.Typecheck
 Typecheck.wrap(EditorScreen, script)
 
+function EditorScreen:init()
+	self.finishSelectingFromExplorer = function()
+		local props = self.props
+		local context = self.props.LuaMeshEditingModuleContext
+		if context then
+			context:resume()
+		end
+		self.props.FinishSelectingFromExplorer()
+	end
+
+	self.onNext = function()
+		self.props.SetToolMode(Constants.TOOL_MODE.None)
+		self.props.GoToNext()
+	end
+
+	self.onPrevious = function()
+		self.props.SetToolMode(Constants.TOOL_MODE.None)
+		self.props.GoToPrevious()
+	end
+end
+
 function EditorScreen:render()
 	local props = self.props
 
 	local userAddedAssets = props.UserAddedAssets
 	local editingCage = props.EditingCage
 	local theme = props.Stylizer
-	local goToNext = props.GoToNext
 	local addUserAddedAssetForPreview = props.AddUserAddedAssetForPreview
-	local goToPrevious = props.GoToPrevious
 	local localization = props.Localization
 
 	local orderIterator = LayoutOrderIterator.new()
@@ -102,8 +124,8 @@ function EditorScreen:render()
 				}, {
 					EditAndPreviewFrame = Roact.createElement(EditAndPreviewFrame, {
 						PromptText = promptText,
-						GoToNext = goToNext,
-						GoToPrevious = goToPrevious,
+						GoToNext = self.onNext,
+						GoToPrevious = self.onPrevious,
 					}),
 				}),
 
@@ -150,7 +172,7 @@ function EditorScreen:render()
 			}),
 
 			ControlsPanelBlocker = props.IsControlsPanelBlockerActive and Roact.createElement(InputBlocker,{
-				OnFocused = props.FinishSelectingFromExplorer,
+				OnFocused = self.finishSelectingFromExplorer,
 				Text = props.ControlsPanelBlockerMessage,
 			}),
 			AnimationPlaybackWrapper = Roact.createElement(AnimationPlaybackWrapper),
@@ -180,6 +202,10 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
+		SetToolMode = function(toolMode)
+			dispatch(SetToolMode(toolMode))
+		end,
+
 		FinishSelectingFromExplorer = function()
 			dispatch(FinishSelectingFromExplorer())
 		end,
@@ -197,6 +223,7 @@ end
 
 EditorScreen = withContext({
 	Stylizer = ContextServices.Stylizer,
+	LuaMeshEditingModuleContext = LuaMeshEditingModuleContext,
 	Localization = ContextServices.Localization,
 })(EditorScreen)
 

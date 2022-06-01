@@ -1,7 +1,6 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
 
-local FFlagToolboxAssetGridRefactor6 = game:GetFastFlag("ToolboxAssetGridRefactor6")
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
 local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
 
@@ -170,7 +169,7 @@ function AudioRow:didMount()
 	if FFlagToolboxHomeViewAnalyticsUpdate and asset and logImpression then
 		logImpression(asset)
 	else
-		if not FFlagToolboxAssetGridRefactor6 or (FFlagToolboxAssetGridRefactor6 and asset) then
+		if asset then
 			local assetAnalyticsContext
 			if FFlagToolboxUsePageInfoInsteadOfAssetContext then
 				local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
@@ -559,19 +558,17 @@ local function mapDispatchToProps(dispatch)
 				dispatch(GetCanManageAssetRequest(networkInterface, assetId))
 			end
 			else nil,
-		tryCreateContextMenu = FFlagToolboxAssetGridRefactor6
-				and function(assetData, localizedContent, plugin, tryOpenAssetConfig, assetAnalyticsContext)
-					dispatch(
-						TryCreateContextMenu(
-							assetData,
-							localizedContent,
-							plugin,
-							tryOpenAssetConfig,
-							assetAnalyticsContext
-						)
-					)
-				end
-			or nil,
+		tryCreateContextMenu = function(assetData, localizedContent, plugin, tryOpenAssetConfig, assetAnalyticsContext)
+			dispatch(
+				TryCreateContextMenu(
+					assetData,
+					localizedContent,
+					plugin,
+					tryOpenAssetConfig,
+					assetAnalyticsContext
+				)
+			)
+		end,
 		getPageInfoAnalyticsContextInfo = if FFlagToolboxUsePageInfoInsteadOfAssetContext
 			then function()
 				return dispatch(GetPageInfoAnalyticsContextInfo())

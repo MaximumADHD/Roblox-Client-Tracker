@@ -28,7 +28,10 @@ local MaterialController = require(Util.MaterialController)
 
 local Constants = Plugin.Src.Resources.Constants
 local getMaterialPath = require(Constants.getMaterialPath)
-local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Plugin.Src.Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
+
+local Flags = Plugin.Src.Flags
+local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
+local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
 
 local MaterialGrid = Roact.PureComponent:extend("MaterialGrid")
 
@@ -89,7 +92,7 @@ function MaterialGrid:init()
 		end)
 
 		self.materialNameChangedConnection = props.MaterialController:getMaterialNameChangedSignal():Connect(function(materialVariant)
-			if (ContainsPath(self.props.Path, getMaterialPath(materialVariant))) then
+			if (ContainsPath(self.props.Path, getMaterialPath(if getFFlagMaterialManagerGlassNeonForceField() then materialVariant.BaseMaterial else materialVariant))) then
 				self:setState({
 					materials = props.MaterialController:getMaterials(self.props.Path, self.props.Search)
 				})

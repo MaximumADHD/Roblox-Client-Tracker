@@ -5,7 +5,6 @@ local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
 local Style = Framework.Style
 
-
 local StyleModifier = Util.StyleModifier
 local StyleKey = Style.StyleKey
 

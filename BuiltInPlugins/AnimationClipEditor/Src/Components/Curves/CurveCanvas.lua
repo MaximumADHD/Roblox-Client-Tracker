@@ -123,7 +123,7 @@ function CurveCanvas:scaleSlope(slope: number): (number)
 	return slope * xFactor / yFactor
 end
 
-function CurveCanvas:renderCurve(track: {any}): ()
+function CurveCanvas:renderCurve(track): ()
 	local props = self.props
 	local theme = props.Stylizer.PluginTheme
 

@@ -209,4 +209,6 @@ return{
 	["CoreScripts.InGameMenu.Report.Block"] = [[封鎖]],
 	["CoreScripts.InGameMenu.Report.BlockPopup"] = [[您已封鎖 {DISPLAY_NAME}（@{RBX_NAME}）]],
 	["CoreScripts.InGameMenu.PageTitle.Friends"] = [[好友]],
+	["CoreScripts.InGameMenu.Action.UnmutePlayer"] = [[解除靜音玩家]],
+	["CoreScripts.InGameMenu.Action.MutePlayer"] = [[靜音玩家]],
 }

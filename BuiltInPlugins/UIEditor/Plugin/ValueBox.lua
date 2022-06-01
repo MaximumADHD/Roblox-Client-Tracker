@@ -9,8 +9,15 @@ local CoreGuiManager = require(script.Parent.CoreGuiManager)
 -- Services
 local TextService = game:GetService("TextService")
 
+-- Flags
+local FFlagScaleWithResolution = game:DefineFastFlag("ScaleWithResolution", false)
+
 -- Constants
 local IMAGE_LABEL_PADDING = Vector2.new(12, 4) -- Padding inside the m_imageLabel
+local TEXT_SIZE_MAX = 15 -- Maximum text size px
+local TEXT_SIZE_MIN = 12 -- Minimum text size px
+local TEXT_SIZE_TARGET_RATIO = 20 / 800 -- Text aims to be 20 px at 1080p and scales accordingly
+local X_MARGIN_RATIO = 12 / 1400 -- Value box horizontal margins aims to be 12 px at 1080p
 
 -- Functions
 
@@ -40,14 +47,35 @@ end
 
 -- Sets the text and updates the size of the ValueBox. 
 function ValueBox:setText(text)
+	local screenGui = CoreGuiManager:findOrCreateScreenGui("ValueBoxes")
+
 	self.m_textLabel.Text = text
 	
-	-- Update the size of the text label and image label to fit the text in the text label.
-	local textSize = calcTextSize(self.m_textLabel)
-	self.m_textLabel.Size = UDim2.new(0, textSize.X, 0, textSize.Y)
-	local newWidth = textSize.X + 2*IMAGE_LABEL_PADDING.X
-	local newHeight = textSize.Y + 2*IMAGE_LABEL_PADDING.Y
-	self.m_imageLabel.Size = UDim2.new(0, newWidth, 0, newHeight)
+	-- Update text size according to resolution.
+	if FFlagScaleWithResolution then
+		local targetTextSize = TEXT_SIZE_TARGET_RATIO * screenGui.AbsoluteSize.Y
+		targetTextSize = math.clamp(targetTextSize, TEXT_SIZE_MIN, TEXT_SIZE_MAX)
+		self.m_textLabel.TextSize = targetTextSize
+
+		-- Update the size of the text label and image label to fit the text in the text label.
+		local textSize = calcTextSize(self.m_textLabel)
+
+		local xMargin = X_MARGIN_RATIO * screenGui.AbsoluteSize.X
+		xMargin = math.clamp(xMargin, 0, IMAGE_LABEL_PADDING.X)
+		local yMargin = xMargin / IMAGE_LABEL_PADDING.X * IMAGE_LABEL_PADDING.Y
+
+		self.m_textLabel.Size = UDim2.new(0, textSize.X, 0, textSize.Y)
+		local newWidth = textSize.X + 2*xMargin
+		local newHeight = textSize.Y + 2*yMargin
+		self.m_imageLabel.Size = UDim2.new(0, newWidth, 0, newHeight)
+	else
+		-- Update the size of the text label and image label to fit the text in the text label.
+		local textSize = calcTextSize(self.m_textLabel)
+		self.m_textLabel.Size = UDim2.new(0, textSize.X, 0, textSize.Y)
+		local newWidth = textSize.X + 2*IMAGE_LABEL_PADDING.X
+		local newHeight = textSize.Y + 2*IMAGE_LABEL_PADDING.Y
+		self.m_imageLabel.Size = UDim2.new(0, newWidth, 0, newHeight)
+	end
 end
 
 -- Shows or hides the ValueBox.

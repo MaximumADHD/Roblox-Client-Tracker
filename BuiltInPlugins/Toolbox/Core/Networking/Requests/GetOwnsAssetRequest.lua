@@ -5,8 +5,6 @@
 		networkInterface = The NetworkInterface impl.
 		assetId = The asset's id.
 ]]
-local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
@@ -41,9 +39,7 @@ return function(networkInterface, assetId)
 		if (myUserId % 100) < game:GetFastInt("PluginOwnershipHasAssetMigrationRolloutPercentage") then
 			API.Inventory.V1.Users.Items.isOwned(myUserId, Enum.AvatarItemType.Asset, assetId):makeRequest():andThen(function(ownershipResults)
 				local ownsAsset = tostring(ownershipResults.responseBody) == "true"
-				if FFlagToolboxAssetGridRefactor then
-					assetId = tonumber(assetId)
-				end
+				assetId = tonumber(assetId)
 				store:dispatch(SetOwnsAsset(ownsAsset, assetId))
 			end, function(result)
 				if DebugFlags.shouldDebugWarnings() then
@@ -55,9 +51,7 @@ return function(networkInterface, assetId)
 		else
 			API.API.Ownership.hasAsset(assetId, myUserId):makeRequest():andThen(function(ownershipResults)
 				local ownsAsset = tostring(ownershipResults.responseBody) == "true"
-				if FFlagToolboxAssetGridRefactor then
-					assetId = tonumber(assetId)
-				end
+				assetId = tonumber(assetId)
 				store:dispatch(SetOwnsAsset(ownsAsset, assetId))
 			end, function(result)
 				if DebugFlags.shouldDebugWarnings() then

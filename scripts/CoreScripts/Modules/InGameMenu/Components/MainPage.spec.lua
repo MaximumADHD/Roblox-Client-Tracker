@@ -34,7 +34,6 @@ return function()
 
 	local CoreGui = game:GetService("CoreGui")
 	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-	local GetFFlagEnableVoiceChatMuteButton = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatMuteButton)
 	local RhodiumHelpers = require(RobloxGui.Modules.NotForProductionUse.RhodiumHelpers.api)
 	local ParticipantAdded = require(RobloxGui.Modules.VoiceChat.Actions.ParticipantAdded)
 
@@ -42,7 +41,7 @@ return function()
 		local store = Rodux.Store.new(reducer)
 
 		return Roact.createElement(RoactRodux.StoreProvider, {
-			store = store
+			store = store,
 		}, {
 			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 				style = appStyle,
@@ -50,13 +49,18 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
-						MainPage = Roact.createElement(MainPage, props)
-					}) or nil,
-					MainPage = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(MainPage, props) or nil
+					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(
+						FocusHandlerContextProvider,
+						{},
+						{
+							MainPage = Roact.createElement(MainPage, props),
+						}
+					) or nil,
+					MainPage = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(MainPage, props) or nil,
 				}),
 			}),
-		}), store
+		}),
+			store
 	end
 
 	it("should mount and unmount with minimal props", function()
@@ -127,7 +131,7 @@ return function()
 		end)
 
 		it("Should gain focus only when gamepad was used and FFlagInGameMenuController is enabled", function()
-			local element, store = getMountableTreeAndStore({open = true})
+			local element, store = getMountableTreeAndStore({ open = true })
 			expect(Players.LocalPlayer.PlayerGui).to.be.ok()
 
 			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
@@ -147,29 +151,27 @@ return function()
 
 	describe("Voice chat mute button", function()
 		it("should render mute button when voice chat is enabled", function()
-			if GetFFlagEnableVoiceChatMuteButton() then
-				local element, store = getMountableTreeAndStore({voiceEnabled = true})
+			local element, store = getMountableTreeAndStore({ voiceEnabled = true })
 
-				-- ensure initial player voice state is available for local player
-				local localUserId = tostring(Players.LocalPlayer.UserId)
-				act(function()
-					store:dispatch(ParticipantAdded(localUserId))
-				end)
+			-- ensure initial player voice state is available for local player
+			local localUserId = tostring(Players.LocalPlayer.UserId)
+			act(function()
+				store:dispatch(ParticipantAdded(localUserId))
+			end)
 
-				local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
-				expect(Players.LocalPlayer.PlayerGui).to.be.ok()
+			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+			expect(Players.LocalPlayer.PlayerGui).to.be.ok()
 
-				local button = RhodiumHelpers.findFirstInstance(Players.LocalPlayer.PlayerGui, {
-					Name = "VoiceChatMuteButton",
-				});
-				expect(button).to.be.ok()
+			local button = RhodiumHelpers.findFirstInstance(Players.LocalPlayer.PlayerGui, {
+				Name = "VoiceChatMuteButton",
+			})
+			expect(button).to.be.ok()
 
-				Roact.unmount(instance)
-			end
+			Roact.unmount(instance)
 		end)
 
 		it("should render mute button when voice chat is not enabled", function()
-			local element, store = getMountableTreeAndStore({voiceEnabled = false})
+			local element, store = getMountableTreeAndStore({ voiceEnabled = false })
 
 			-- ensure initial player voice state is available for local player
 			local localUserId = tostring(Players.LocalPlayer.UserId)
@@ -180,7 +182,7 @@ return function()
 
 			local button = RhodiumHelpers.findFirstInstance(Players.LocalPlayer.PlayerGui, {
 				Name = "VoiceChatMuteButton",
-			});
+			})
 			expect(button).never.to.be.ok()
 
 			Roact.unmount(instance)

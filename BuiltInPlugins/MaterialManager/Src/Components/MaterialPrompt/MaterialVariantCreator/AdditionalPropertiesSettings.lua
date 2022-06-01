@@ -27,6 +27,9 @@ local SetStudsPerTile = require(Actions.SetStudsPerTile)
 local SetMaterialPattern = require(Actions.SetMaterialPattern)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
+local Flags = Plugin.Src.Flags
+local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
+
 export type Props = {
 	LayoutOrder : number?,
 	ErrorStudsPerTile : string?,
@@ -97,7 +100,7 @@ function AdditionalPropertiesSettings:init()
 			return Roact.createElement(TextInput, {
 				Style = "FilledRoundedBorder",
 				Size = style.DialogColumnSize,
-				Text = props.StudsPerTile,
+				Text = if getFFlagMaterialManagerGlassNeonForceField() then tostring(props.StudsPerTile) else props.StudsPerTile,
 				OnTextChanged = self.onStudsPerTileChanged,
 			})
 		elseif key == "MaterialPatternVariant" then

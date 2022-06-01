@@ -8,14 +8,12 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local RoactRodux = require(Plugin.Packages.RoactRodux)
 local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+
+local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingModuleContext
 
 local Components = AvatarToolsShared.Components
 local SliderSetting = Components.SliderSetting
-
-local SetFalloff = require(Plugin.Src.Actions.SetFalloff)
-local SoftSelectRbfPoints = require(Plugin.Src.Thunks.SoftSelectRbfPoints)
 
 local Constants = require(Plugin.Src.Util.Constants)
 
@@ -28,13 +26,41 @@ local Pane = UI.Pane
 
 local PointToolSettings = Roact.PureComponent:extend("PointToolSettings")
 
+function PointToolSettings:init()
+	self.state = {
+		falloff = Constants.DEFAULT_FALLOFF,
+	}
+
+	self.setFalloff = function(newFalloff)
+		local context = self.props.LuaMeshEditingModuleContext
+		local tool = context:getCurrentTool()
+		if not tool then
+			return
+		end
+		tool:setFalloff(newFalloff)
+		self:setState({
+			falloff = newFalloff,
+		})
+	end
+end
+
+function PointToolSettings:didMount()
+	local context = self.props.LuaMeshEditingModuleContext
+	local tool = context:getCurrentTool()
+	if tool then
+		self:setState({
+			falloff = tool:getFalloff()
+		})
+	end
+end
+
 function PointToolSettings:render()
 	local props = self.props
+	local state = self.state
 
-	local falloff = props.Falloff
+	local falloff = state.falloff
 	local size = props.Size
 	local layoutOrder = props.LayoutOrder
-	local setFalloff = props.SetFalloff
 
 	local localization = props.Localization
 
@@ -59,7 +85,7 @@ function PointToolSettings:render()
 			Size = UDim2.new(1, 0, 0, theme.SliderHeight),
 			UsePercentage = false,
 			LayoutOrder = 1,
-			SetValue = setFalloff,
+			SetValue = self.setFalloff,
 			IsDisabled = false,
 		}),
 	})
@@ -68,25 +94,8 @@ end
 
 PointToolSettings = withContext({
 	Localization = ContextServices.Localization,
+	LuaMeshEditingModuleContext = LuaMeshEditingModuleContext,
 	Stylizer = ContextServices.Stylizer,
 })(PointToolSettings)
 
-
-
-local function mapStateToProps(state, props)
-	local pointTool = state.pointTool
-	return {
-		Falloff = pointTool.falloff,
-	}
-end
-
-local function mapDispatchToProps(dispatch)
-	return {
-		SetFalloff = function(falloff)
-			dispatch(SetFalloff(falloff))
-			dispatch(SoftSelectRbfPoints())
-		end,
-	}
-end
-
-return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PointToolSettings)
+return PointToolSettings

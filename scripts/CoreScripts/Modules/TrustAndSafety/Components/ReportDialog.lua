@@ -1,0 +1,346 @@
+local CorePackages = game:GetService("CorePackages")
+
+local Cryo = require(CorePackages.Cryo)
+local Roact = require(CorePackages.Roact)
+local RoactRodux = require(CorePackages.RoactRodux)
+local t = require(CorePackages.Packages.t)
+local UIBlox = require(CorePackages.UIBlox)
+
+local TnsModule = script.Parent.Parent
+local Dependencies = require(TnsModule.Dependencies)
+
+local GameIcon = require(Dependencies.GameIcon)
+local PlayerCell = require(Dependencies.PlayerCell)
+local ThemedTextLabel = require(Dependencies.ThemedTextLabel)
+local UIBloxInGameConfig = require(Dependencies.UIBloxInGameConfig)
+local withLocalization = require(Dependencies.withLocalization)
+local playerInterface = require(Dependencies.playerInterface)
+
+local CloseReportDialog = require(TnsModule.Actions.CloseReportDialog)
+local Constants = require(TnsModule.Resources.Constants)
+local SendReport = require(TnsModule.Thunks.SendReport)
+local TextEntryField = require(TnsModule.Components.TextEntryField)
+local ModalDialog = require(TnsModule.Components.ModalDialog)
+
+local StyleProvider = UIBlox.Core.Style.Provider
+local withStyle = UIBlox.Core.Style.withStyle
+local ButtonStack = UIBlox.App.Button.ButtonStack
+local ButtonType = UIBlox.App.Button.Enum.ButtonType
+local Colors = UIBlox.App.Style.Colors
+local DropdownMenu = UIBlox.App.Menu.DropdownMenu
+
+local REPORT_REASONS = {
+	"Swearing",
+	"Inappropriate Username",
+	"Bullying",
+	"Scamming",
+	"Dating",
+	"Cheating/Exploiting",
+	"Personal Question",
+	"Offsite Links",
+}
+local REPORT_REASON_GAME = "Inappropriate Content"
+local MIN_TEXT_LENGTH = 0
+local MAX_TEXT_LENGTH = 160
+local CELL_THEME_OVERRIDES = {
+	-- transparent background for cell
+	BackgroundDefault = {
+		Color = Colors.Flint,
+		Transparency = 1,
+	},
+	BackgroundOnHover = {
+		Color = Colors.Flint,
+		Transparency = 1,
+	},
+	BackgroundOnPress = {
+		Color = Colors.Flint,
+		Transparency = 1,
+	},
+}
+
+local ReportDialog = Roact.PureComponent:extend("ReportDialog")
+
+ReportDialog.validateProps = t.strictInterface({
+	isReportDialogOpen = t.boolean,
+	reportType = t.optional(t.valueOf(Constants.ReportType)),
+	targetPlayer = t.optional(playerInterface),
+	placeName = t.string,
+	screenSize = t.Vector2,
+	closeDialog = t.callback,
+	sendReport = t.callback,
+	onGoBack = t.optional(t.callback),
+})
+
+function ReportDialog:init()
+	self.state = {
+		reasonText = nil,
+		descriptionText = "",
+	}
+	-- Change the drop-down list selection.
+	self.onReasonChanged = function(reason)
+		self:setState({
+			reasonText = reason
+		})
+	end
+	-- Edit the text field.
+	self.onTextChanged = function(text)
+		self:setState({
+			descriptionText = text,
+		})
+	end
+	-- Press the "Report" button.
+	self.onReport = function()
+		local reason = self:getReason()
+		self.props.sendReport(self.props.reportType, self.props.targetPlayer, reason, self.state.descriptionText)
+		self.props.closeDialog()
+	end
+	-- Press the "Cancel" button or transparent background.
+	self.onCancel = function()
+		self.props.closeDialog()
+	end
+end
+
+function ReportDialog:getReason()
+	if self.props.reportType == Constants.ReportType.Player then
+		return self.state.reasonText
+	elseif self.props.reportType == Constants.ReportType.Game then
+		return REPORT_REASON_GAME
+	else
+		return nil
+	end
+end
+
+function ReportDialog:canReport()
+	local reasonValid = (self:getReason() ~= nil)
+	local textLength = utf8.len(utf8.nfcnormalize(self.state.descriptionText))
+	local descriptionValid = (textLength >= MIN_TEXT_LENGTH and textLength <= MAX_TEXT_LENGTH)
+	return (reasonValid and descriptionValid)
+end
+
+function ReportDialog:renderPlayerInfo()
+	return withStyle(function(style)
+		-- override cell style
+		local cellTheme = Cryo.Dictionary.join(style.Theme, CELL_THEME_OVERRIDES)
+		local cellStyle = Cryo.Dictionary.join(style, {
+			Theme = cellTheme,
+		})
+		return Roact.createElement(StyleProvider, {
+			style = cellStyle,
+		}, {
+			Roact.createElement(PlayerCell, {
+				userId = self.props.targetPlayer.UserId,
+				username = self.props.targetPlayer.Name,
+				displayName = self.props.targetPlayer.DisplayName,
+				isOnline = false,
+				isSelected = false,
+				LayoutOrder = 1,
+			})
+		})
+	end)
+end
+
+function ReportDialog:renderDropDownMenu()
+	return Roact.createElement("Frame", {
+		BackgroundTransparency = 1,
+		Position = UDim2.new(0, 0, 0, 72),
+		Size = UDim2.new(1, 0, 0, 48),
+		ZIndex = 10,
+	}, {
+		DropDown = withLocalization({
+			menu1 = "CoreScripts.InGameMenu.Report.AbuseSwearing",
+			menu2 = "CoreScripts.InGameMenu.Report.AbuseUsername",
+			menu3 = "CoreScripts.InGameMenu.Report.AbuseBullying",
+			menu4 = "CoreScripts.InGameMenu.Report.AbuseScamming",
+			menu5 = "CoreScripts.InGameMenu.Report.AbuseDating",
+			menu6 = "CoreScripts.InGameMenu.Report.AbuseExploiting",
+			menu7 = "CoreScripts.InGameMenu.Report.AbusePersonalQuestion",
+			menu8 = "CoreScripts.InGameMenu.Report.AbuseOffsiteLink",
+			placeHolderText = "CoreScripts.InGameMenu.Report.AbuseTypePlaceHolder",
+		})(function(localized)
+			-- build mapping for action
+			local cellDatas = {}
+			local reasonMap = {}
+			for i, reason in ipairs(REPORT_REASONS) do
+				local text = localized["menu"..tostring(i)]
+				table.insert(cellDatas, {
+					text = text,
+				})
+				reasonMap[text] = reason
+			end
+			local function onDropDownChanged(text)
+				local reason = reasonMap[text]
+				self.onReasonChanged(reason)
+			end
+			return Roact.createElement(DropdownMenu, {
+				placeholder = localized.placeHolderText,
+				onChange = onDropDownChanged,
+				size = (not UIBloxInGameConfig.fixDropdownMenuListPositionAndSize) and UDim2.new(1, 0, 0, 48) or nil,
+				height = UIBloxInGameConfig.fixDropdownMenuListPositionAndSize and UDim.new(0, 48) or nil,
+				screenSize = self.props.screenSize,
+				cellDatas = cellDatas,
+			})
+		end)
+	})
+end
+
+function ReportDialog:renderPlayerContents()
+	return withLocalization({
+		placeHolderText = "CoreScripts.InGameMenu.Report.AbuseDetailsPlaceHolder",
+	})(function(localized)
+		return Roact.createFragment({
+			PlayerInfo = self:renderPlayerInfo(),
+			DropDownMenu = self:renderDropDownMenu(),
+			TextField = Roact.createElement(TextEntryField, {
+				enabled = self.props.isReportDialogOpen,
+				text = self.state.descriptionText,
+				textChanged = self.onTextChanged,
+				maxTextLength = MAX_TEXT_LENGTH,
+				autoFocusOnEnabled = false,
+				PlaceholderText = localized.placeHolderText,
+				Position = UDim2.new(0, 0, 0, 132),
+				Size = UDim2.new(0, 492, 0, 111),
+			})
+		})
+	end)
+end
+
+function ReportDialog:renderPlaceContents()
+	return withLocalization({
+		labelText = {
+			"CoreScripts.InGameMenu.Report.ReportingGame",
+			RBX_NAME = self.props.placeName,
+		},
+		placeHolderText = "CoreScripts.InGameMenu.Report.AbuseDetailsPlaceHolder",
+	})(function(localized)
+		return Roact.createFragment({
+			PlaceInfo = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				Position = UDim2.new(0, 0, 0, 24),
+				Size = UDim2.new(1, 0, 0, 64),
+			}, {
+				GameIcon = Roact.createElement(GameIcon, {
+					gameId = game.GameId,
+					iconSize = 64,
+					cornerRadius = UDim.new(0, 8),
+				}),
+				Label = Roact.createElement(ThemedTextLabel, {
+					fontKey = "Body",
+					themeKey = "TextDefault",
+					AnchorPoint = Vector2.new(0, 0.5),
+					BackgroundTransparency = 1,
+					Position = UDim2.new(0, 76, 0.5, 0),
+					Size = UDim2.new(0, 416, 0, 40),
+					Text = localized.labelText,
+					TextWrapped = true,
+					TextXAlignment = Enum.TextXAlignment.Left,
+				}),
+			}),
+			TextField = Roact.createElement(TextEntryField, {
+				enabled = self.props.isReportDialogOpen,
+				text = self.state.descriptionText,
+				textChanged = self.onTextChanged,
+				maxTextLength = MAX_TEXT_LENGTH,
+				autoFocusOnEnabled = false,
+				PlaceholderText = localized.placeHolderText,
+				Position = UDim2.new(0, 0, 0, 112),
+				Size = UDim2.new(0, 492, 0, 119),
+			})
+		})
+	end)
+end
+
+function ReportDialog:renderContents()
+	if self.props.reportType == Constants.ReportType.Player then
+		return self:renderPlayerContents()
+	elseif self.props.reportType == Constants.ReportType.Game then
+		return self:renderPlaceContents()
+	else
+		return nil
+	end
+end
+
+function ReportDialog:getBackButtonCallback()
+	if self.props.onGoBack ~= nil then
+		return function()
+			self.props.closeDialog()
+			self.props.onGoBack()
+		end
+	else
+		return nil
+	end
+end
+
+function ReportDialog:render()
+	return withLocalization({
+		titleText = "CoreScripts.InGameMenu.Report.ReportTitle",
+		cancelText = "CoreScripts.InGameMenu.Cancel",
+		reportText = "CoreScripts.InGameMenu.Report.SendReport",
+	})(function(localized)
+		return Roact.createElement(ModalDialog, {
+			visible = self.props.isReportDialogOpen,
+			titleText = localized.titleText,
+			contents = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 1, 0),
+			}, {
+				Padding = Roact.createElement("UIPadding", {
+					PaddingLeft = UDim.new(0, 24),
+					PaddingRight = UDim.new(0, 24),
+				}),
+				Contents = self:renderContents(),
+			}),
+			actionButtons = Roact.createElement(ButtonStack, {
+				buttonHeight = 48,
+				buttons = {{
+					buttonType = ButtonType.Secondary,
+					props = {
+						onActivated = self.onCancel,
+						text = localized.cancelText,
+					},
+				},{
+					buttonType = ButtonType.PrimarySystem,
+					props = {
+						isDisabled = not self:canReport(),
+						onActivated = self.onReport,
+						text = localized.reportText,
+					},
+				}}
+			}),
+			onDismiss = self.onCancel,
+			onBackButtonActivated = self:getBackButtonCallback(),
+		})
+	end)
+end
+
+function ReportDialog:didUpdate(prevProps)
+	if prevProps.isReportDialogOpen and not self.props.isReportDialogOpen then
+		-- clear the states
+		self:setState({
+			reasonText = Roact.None,
+			descriptionText = "",
+		})
+	end
+end
+
+return RoactRodux.UNSTABLE_connect2(
+	function(state, props)
+		return {
+			isReportDialogOpen = state.report.isReportDialogOpen,
+			reportType = state.report.reportType,
+			targetPlayer = state.report.targetPlayer,
+			onGoBack = state.report.onGoBackFromReportDialog,
+			placeName = state.placeInfo.name,
+			screenSize = state.displayOptions.screenSize,
+		}
+	end,
+	function(dispatch)
+		return {
+			closeDialog = function()
+				dispatch(CloseReportDialog())
+			end,
+			sendReport = function(reportType, targetPlayer, reason, description)
+				dispatch(SendReport(reportType, targetPlayer, reason, description))
+			end
+		}
+	end
+)(ReportDialog)

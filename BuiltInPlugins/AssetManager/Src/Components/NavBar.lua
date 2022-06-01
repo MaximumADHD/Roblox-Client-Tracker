@@ -29,7 +29,6 @@ local withContext = ContextServices.withContext
 local LinkText = Framework.UI.LinkText
 
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Util.GetTextSize else UILibrary.Util.GetTextSize
 local LayoutOrderIterator = Util.LayoutOrderIterator
 local StyleModifier = Util.StyleModifier
@@ -195,7 +194,7 @@ end
 function NavBar:render()
     local props = self.props
     local localization = self.props.Localization
-    local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+    local theme = props.Stylizer
 
     local size = props.Size
     local layoutOrder = props.LayoutOrder
@@ -241,8 +240,7 @@ function NavBar:render()
 end
 
 NavBar = withContext({
-    Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-    Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+    Stylizer = ContextServices.Stylizer,
     Localization = ContextServices.Localization,
 })(NavBar)
 

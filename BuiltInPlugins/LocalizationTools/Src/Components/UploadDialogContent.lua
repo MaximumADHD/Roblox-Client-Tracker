@@ -261,12 +261,9 @@ function UploadDialogContent:render()
 	})
 end
 
-
 UploadDialogContent = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 })(UploadDialogContent)
-
-
 
 return UploadDialogContent

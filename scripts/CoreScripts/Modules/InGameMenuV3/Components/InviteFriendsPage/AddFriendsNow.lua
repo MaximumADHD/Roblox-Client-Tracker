@@ -97,15 +97,13 @@ function AddFriendsNow:render()
 						Size = UDim2.new(1, 0, 1, -totalTextPadding),
 						TextXAlignment = Enum.TextXAlignment.Center,
 						TextWrapped = true,
-					})
+					}),
 				}),
 
 				RootedConnection = Roact.createElement(RootedConnection, {
 					render = function(isRooted)
 						return Roact.createElement(FocusHandler, {
-							isFocused = props.canCaptureFocus
-								and self.state.buttonIsInitialized
-								and isRooted,
+							isFocused = props.canCaptureFocus and self.state.buttonIsInitialized and isRooted,
 
 							didFocus = function()
 								GuiService.SelectedCoreObject = self.buttonRef:getValue()
@@ -128,25 +126,15 @@ function AddFriendsNow:render()
 						})
 					end,
 				}),
-
-				MakeFriendsButton = Roact.createElement(UIBlox.App.Button.SecondaryButton, {
-					layoutOrder = 3,
-					size = UDim2.new(1, 0, 0, 48),
-					text = localized.makeFriendsNow,
-					onActivated = props.switchToPlayers,
-				}),
 			})
 		end)
 	end)
 end
 
-return RoactRodux.UNSTABLE_connect2(
-	nil,
-	function(dispatch)
-		return {
-			switchToPlayers = function()
-				dispatch(SetCurrentPage("Players"))
-			end
-		}
-	end
-)(AddFriendsNow)
+return RoactRodux.UNSTABLE_connect2(nil, function(dispatch)
+	return {
+		switchToPlayers = function()
+			dispatch(SetCurrentPage("Players"))
+		end,
+	}
+end)(AddFriendsNow)

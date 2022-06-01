@@ -23,7 +23,6 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 

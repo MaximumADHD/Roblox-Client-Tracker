@@ -63,7 +63,6 @@ local VOICE_CHAT_DEVICE_TYPE = {
 
 local GetFFlagEnableCameraByDefault = require(RobloxGui.Modules.Flags.GetFFlagEnableCameraByDefault)
 
-local FFlagGroupEditDevConsoleButton = settings():GetFFlag("GroupEditDevConsoleButton")
 local FFlagMicroProfilerSessionAnalytics = settings():GetFFlag("MicroProfilerSessionAnalytics")
 
 local MICROPROFILER_SETTINGS_PRESSED = "MicroprofilerSettingsPressed"
@@ -1599,7 +1598,6 @@ local function Initialize()
 			setButtonRowRef(row)
 		end
 
-	if FFlagGroupEditDevConsoleButton then
 		if RunService:IsStudio() then
 			makeDevConsoleOption()
 		else
@@ -1628,31 +1626,6 @@ local function Initialize()
 					end
 				end
 			end)
-		end
-		else
-			-- Only show option if we are place/group owner
-			if game.CreatorType == Enum.CreatorType.Group then
-				spawn(
-					function()
-						-- spawn since GetRankInGroup is async
-						local success, result =
-							pcall(
-							function()
-								return LocalPlayer:GetRankInGroup(game.CreatorId) == 255
-							end
-						)
-						if success then
-							if result == true then
-								makeDevConsoleOption()
-							end
-						else
-							print("DeveloperConsole: GetRankInGroup failed because", result)
-						end
-					end
-				)
-			elseif LocalPlayer.UserId == game.CreatorId and game.CreatorType == Enum.CreatorType.User then
-				makeDevConsoleOption()
-			end
 		end
 	end
 

@@ -12,11 +12,9 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-
 
 local BORDER = "rbxasset://textures/GameSettings/DottedBorder_Square.png"
 local PLUS = "rbxasset://textures/GameSettings/CenterPlus.png"
@@ -75,12 +73,9 @@ function NewUploadableIcon:render()
 	})
 end
 
-
 NewUploadableIcon = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Mouse = ContextServices.Mouse,
 })(NewUploadableIcon)
-
-
 
 return NewUploadableIcon

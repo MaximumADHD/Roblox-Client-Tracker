@@ -7,8 +7,6 @@ require(script.Parent.defineLuaFlags)
 local commonInit = require(script.Parent.commonInit)
 commonInit()
 
-local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
-
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 local FFlagAssetManagerGeneralizeSignalAPI = game:GetFastFlag("AssetManagerGeneralizeSignalAPI")
@@ -39,9 +37,6 @@ local MainMiddleware = require(Plugin.Src.Middleware.MainMiddleware)
 -- analytics
 local AnalyticsHandlers = require(Plugin.Src.Resources.AnalyticsHandlers)
 
--- theme
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 -- localization
 local SourceStrings = Plugin.Src.Resources.SourceStrings
 local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
@@ -63,18 +58,10 @@ local TOOLBAR_NAME = "assetManagerToolbar"
 local TOOLBAR_BUTTON_NAME = "assetManagerToolButton"
 local DOCK_WIDGET_PLUGIN_NAME = "AssetManager_PluginGui"
 
-local ABTEST_SHOWHIDEV2_NAME = "AllUsers.RobloxStudio.ShowHideV2"
-
 -- Plugin Specific Globals
 local store = Rodux.Store.new(MainReducer, {}, MainMiddleware)
-local theme
-if THEME_REFACTOR then
-	local Theme = require(Plugin.Src.Resources.Theme)
-	theme = Theme()
-else
-	local DEPRECATED_PluginTheme = require(Plugin.Src.Resources.DEPRECATED_PluginTheme)
-	theme = DEPRECATED_PluginTheme.makePluginTheme()
-end
+local Theme = require(Plugin.Src.Resources.Theme)
+local theme = Theme()
 local analytics = ContextServices.Analytics.new(AnalyticsHandlers)
 local localization = ContextServices.Localization.new({
 	pluginName = PLUGIN_NAME,

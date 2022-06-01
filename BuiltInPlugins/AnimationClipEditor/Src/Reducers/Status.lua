@@ -45,6 +45,9 @@ return Rodux.createReducer({
 	UnusedTracks = {},
 	UnusedFacs = {},
 	IsDirty = false,
+	CreatingAnimationFromVideo = false,
+	AnimationImportProgress = 0.0,
+	AnimationImportStatus = Constants.ANIMATION_FROM_VIDEO_STATUS.Initializing,
 	PinnedParts = {},
 	BoneLinksToBone = {},
 	EventEditingTick = nil,
@@ -250,6 +253,24 @@ return Rodux.createReducer({
 		})
 	end,
 
+	SetAnimationImportProgress = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			AnimationImportProgress = action.animationImportProgress,
+		})
+	end,
+
+	SetAnimationImportStatus = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			AnimationImportStatus = action.animationImportStatus,
+		})
+	end,
+
+	SetCreatingAnimationFromVideo = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			CreatingAnimationFromVideo = action.creatingAnimationFromVideo,
+		})
+	end,
+
 	SetTool = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			Tool = action.tool,
@@ -327,10 +348,10 @@ return Rodux.createReducer({
 			SymmetryEnabled = action.symmetryEnabled,
 		})
 	end,
-	
+
 	SetAutoFocusFaceEnabled = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			AutoFocusFaceEnabled = action.autoFocusFaceEnabled,
 		})
-	end,	
+	end,
 })

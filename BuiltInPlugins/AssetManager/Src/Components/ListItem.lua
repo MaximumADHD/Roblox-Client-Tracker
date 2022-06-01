@@ -14,7 +14,6 @@ local UI = Framework.UI
 local Tooltip = UI.Tooltip
 
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local StyleModifier = Util.StyleModifier
 local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
 local LayoutOrderIterator = Util.LayoutOrderIterator
@@ -256,23 +255,20 @@ end
 
 function ListItem:render()
     local props = self.props
-    local pluginStyle = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
-    
-    -- Must use getStyle(namespace, component) for StyleModifiers to work
-    -- otherwise functionality equivalent to prop.Theme:get("Plugin").Tile.Default
-    local listItemStyle = if THEME_REFACTOR then props.Stylizer else props.Theme:getStyle("Plugin", self)
+    local pluginStyle = props.Stylizer
+
     local localization = props.Localization
 
     local enabled = props.Enabled
 
-    local size = listItemStyle.Size
+    local size = pluginStyle.Size
 
     local assetData = props.AssetData
 
-    local backgroundColor = listItemStyle.BackgroundColor
-    local backgroundTransparency = listItemStyle.BackgroundTransparency
-    local borderSizePixel = listItemStyle.BorderSizePixel
-    local padding = listItemStyle.Padding
+    local backgroundColor = pluginStyle.BackgroundColor
+    local backgroundTransparency = pluginStyle.BackgroundTransparency
+    local borderSizePixel = pluginStyle.BorderSizePixel
+    local padding = pluginStyle.Padding
 
     local imageInfo = {}
     local isFolder = assetData.ClassName == "Folder"
@@ -292,32 +288,32 @@ function ListItem:render()
         end
     end
 
-    local imageFrameSize = listItemStyle.Image.FrameSize
-    local imageSize = listItemStyle.Image.ImageSize
-    local imagePos = listItemStyle.Image.ImagePosition
-    local imageAnchorPos = listItemStyle.Image.ImageAnchorPosition
-    local imageBGColor = listItemStyle.Image.BackgroundColor
+    local imageFrameSize = pluginStyle.Image.FrameSize
+    local imageSize = pluginStyle.Image.ImageSize
+    local imagePos = pluginStyle.Image.ImagePosition
+    local imageAnchorPos = pluginStyle.Image.ImageAnchorPosition
+    local imageBGColor = pluginStyle.Image.BackgroundColor
 
-    local textColor = listItemStyle.Text.Color
+    local textColor = pluginStyle.Text.Color
     local textFont = pluginStyle.Font
-    local textSize = listItemStyle.Text.Size
-    local textBGTransparency = listItemStyle.Text.BackgroundTransparency
-    local textTruncate = listItemStyle.Text.TextTruncate
-    local textXAlignment = listItemStyle.Text.XAlignment
-    local textYAlignment = listItemStyle.Text.YAlignment
+    local textSize = pluginStyle.Text.Size
+    local textBGTransparency = pluginStyle.Text.BackgroundTransparency
+    local textTruncate = pluginStyle.Text.TextTruncate
+    local textXAlignment = pluginStyle.Text.XAlignment
+    local textYAlignment = pluginStyle.Text.YAlignment
 
-    local textFrameSize = listItemStyle.Text.Frame.Size
+    local textFrameSize = pluginStyle.Text.Frame.Size
 
     local editText = self.state.editText
     local isEditingAsset = props.EditingAssets[assetData.id]
-    local editTextPadding = listItemStyle.EditText.TextPadding
-    local editTextClearOnFocus = listItemStyle.EditText.ClearTextOnFocus
-    local editTextXAlignment = listItemStyle.Text.XAlignment
+    local editTextPadding = pluginStyle.EditText.TextPadding
+    local editTextClearOnFocus = pluginStyle.EditText.ClearTextOnFocus
+    local editTextXAlignment = pluginStyle.Text.XAlignment
 
-    local editTextFrameBackgroundColor = listItemStyle.EditText.Frame.BackgroundColor
-    local editTextFrameBorderColor = listItemStyle.EditText.Frame.BorderColor
+    local editTextFrameBackgroundColor = pluginStyle.EditText.Frame.BackgroundColor
+    local editTextFrameBorderColor = pluginStyle.EditText.Frame.BorderColor
 
-    local editTextSize = GetTextSize(editText, textSize, textFont, Vector2.new(listItemStyle.Size.X.Offset, math.huge))
+    local editTextSize = GetTextSize(editText, textSize, textFont, Vector2.new(pluginStyle.Size.X.Offset, math.huge))
 
     local name = assetData.name
     local displayName = assetData.name
@@ -336,7 +332,7 @@ function ListItem:render()
     local displayModerationStatus
     local moderationTooltip
     if FFlagStudioAssetManagerAssetModeration then
-        textFrameSize = UDim2.new(1, listItemStyle.Text.Frame.XOffset, 0, listItemStyle.Text.Frame.YOffset)      
+        textFrameSize = UDim2.new(1, pluginStyle.Text.Frame.XOffset, 0, pluginStyle.Text.Frame.YOffset)      
         if not isFolder then
             local moderationData = props.ModerationData
             if moderationData and next(moderationData) ~= nil then
@@ -346,11 +342,11 @@ function ListItem:render()
                 displayModerationStatus = isPending or not isApproved
                 if displayModerationStatus then
                     if isPending then
-                        moderationImage = listItemStyle.Image.ModerationStatus.Pending  
+                        moderationImage = pluginStyle.Image.ModerationStatus.Pending  
                     elseif not isApproved then
-                        moderationImage = listItemStyle.Image.ModerationStatus.Rejected
+                        moderationImage = pluginStyle.Image.ModerationStatus.Rejected
                     end
-                    textFrameSize = UDim2.new(1, 2 * listItemStyle.Text.Frame.XOffset - listItemStyle.Text.Frame.Padding, 0, listItemStyle.Text.Frame.YOffset)
+                    textFrameSize = UDim2.new(1, 2 * pluginStyle.Text.Frame.XOffset - pluginStyle.Text.Frame.Padding, 0, pluginStyle.Text.Frame.YOffset)
                     moderationTooltip = ModerationUtil.getModerationTooltip(localization, moderationData)
                 end
             end
@@ -471,8 +467,7 @@ ListItem = withContext({
     Localization = ContextServices.Localization,
     Mouse = ContextServices.Mouse,
     Plugin = ContextServices.Plugin,
-    Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-    Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+    Stylizer = ContextServices.Stylizer,
 })(ListItem)
 
 local function mapStateToProps(state, props)

@@ -29,7 +29,7 @@ local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local ShutdownAllServers = require(Page.Thunks.ShutdownAllServers)
 
-local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
+local LayoutOrderIterator = Util.LayoutOrderIterator
 
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 

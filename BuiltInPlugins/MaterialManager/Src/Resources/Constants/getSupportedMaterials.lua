@@ -1,7 +1,48 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local _Types = require(Plugin.Src.Types)
 
+local Flags = Plugin.Src.Flags
+local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
+
 local supportedMaterials = {
+	[Enum.Material.Asphalt] = true,
+	[Enum.Material.Basalt] = true,
+	[Enum.Material.Brick] = true,
+	[Enum.Material.Cobblestone] = true,
+	[Enum.Material.Concrete] = true,
+	[Enum.Material.CorrodedMetal] = true,
+	[Enum.Material.CrackedLava] = true,
+	[Enum.Material.DiamondPlate] = true,
+	[Enum.Material.Fabric] = true,
+	[Enum.Material.Foil] = true,
+	[Enum.Material.ForceField] = false,
+	[Enum.Material.Glacier] = true,
+	[Enum.Material.Glass] = false,
+	[Enum.Material.Granite] = true,
+	[Enum.Material.Grass] = true,
+	[Enum.Material.Ground] = true,
+	[Enum.Material.Ice] = true,
+	[Enum.Material.LeafyGrass] = true,
+	[Enum.Material.Limestone] = true,
+	[Enum.Material.Marble] = true,
+	[Enum.Material.Metal] = true,
+	[Enum.Material.Mud] = true,
+	[Enum.Material.Neon] = false,
+	[Enum.Material.Pavement] = true,
+	[Enum.Material.Pebble] = true,
+	[Enum.Material.Plastic] = true,
+	[Enum.Material.Rock] = true,
+	[Enum.Material.Salt] = true,
+	[Enum.Material.Sand] = true,
+	[Enum.Material.Sandstone] = true,
+	[Enum.Material.Slate] = true,
+	[Enum.Material.SmoothPlastic] = true,
+	[Enum.Material.Snow] = true,
+	[Enum.Material.Wood] = true,
+	[Enum.Material.WoodPlanks] = true,
+}
+
+local DEPRECATED_SupportedMaterials = {
 	Enum.Material.Asphalt,
 	Enum.Material.Basalt,
 	Enum.Material.Brick,
@@ -36,6 +77,12 @@ local supportedMaterials = {
 	Enum.Material.WoodPlanks,
 }
 
-return function() : _Types.Array<Enum.Material>
-	return supportedMaterials
+if getFFlagMaterialManagerGlassNeonForceField() then
+	return function() : _Types.Map<Enum.Material, boolean>
+		return supportedMaterials
+	end
+else
+	return function() : _Types.Array<Enum.Material>
+		return DEPRECATED_SupportedMaterials
+	end
 end

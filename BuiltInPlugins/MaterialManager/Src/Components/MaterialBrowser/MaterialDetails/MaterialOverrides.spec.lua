@@ -24,6 +24,7 @@ return function()
 	it("should render base material correctly", function()
 		local TestBuiltinMaterial = {
 			IsBuiltin = true,
+			Material = Enum.Material.Grass,
 			MaterialPath = { "Grass" },
 			MaterialType = "Base",
 			MaterialVariant = Instance.new("MaterialVariant")
@@ -46,6 +47,7 @@ return function()
 	it("should render part material correctly", function()
 		local TestVariantMaterial = {
 			IsBuiltin = false,
+			Material = Enum.Material.Plastic,
 			MaterialPath = { "Plastic" },
 			MaterialType = "Part",
 			MaterialVariant = Instance.new("MaterialVariant")
@@ -68,6 +70,7 @@ return function()
 	it("should render terrain material correctly", function()
 		local TestVariantMaterial = {
 			IsBuiltin = false,
+			Material = Enum.Material.LeafyGrass,
 			MaterialPath = { "LeafyGrass" },
 			MaterialType = "Terrain",
 			MaterialVariant = Instance.new("MaterialVariant")

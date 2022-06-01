@@ -84,6 +84,9 @@ function AnimationControlPanel:render()
 	local stepAnimation = props.StepAnimation
 	local frameRate = props.FrameRate
 	local isChannelAnimation = props.IsChannelAnimation
+	local showAnimationImportProgress = props.ShowAnimationImportProgress
+	local hideAnimationImportProgress = props.HideAnimationImportProgress
+	local updateAnimationImportProgress = props.UpdateAnimationImportProgress
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, Constants.TIMELINE_HEIGHT),
@@ -106,6 +109,9 @@ function AnimationControlPanel:render()
 			InstanceType = rootInstance and animationData and animationData.Instances.Root.Type,
 			LayoutOrder = 0,
 			IsChannelAnimation = isChannelAnimation,
+			ShowAnimationImportProgress = showAnimationImportProgress,
+			HideAnimationImportProgress = hideAnimationImportProgress,
+			UpdateAnimationImportProgress = updateAnimationImportProgress,
 		}),
 
 		MediaControls = Roact.createElement(MediaControls, {

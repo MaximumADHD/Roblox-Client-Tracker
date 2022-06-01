@@ -93,11 +93,8 @@ function Collapsible:render()
 	})
 end
 
-
 Collapsible = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(Collapsible)
-
-
 
 return Collapsible

@@ -10,10 +10,9 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 local Cryo = require(Plugin.Packages.Cryo)
 
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local BaseDialog = require(Plugin.Src.Components.Dialog.BaseDialog)
@@ -45,11 +44,8 @@ function SimpleDialog:render()
 	})
 end
 
-
 SimpleDialog = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(SimpleDialog)
-
-
 
 return SimpleDialog

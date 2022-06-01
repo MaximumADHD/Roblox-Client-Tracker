@@ -64,7 +64,6 @@ return function()
 			PlayersPage,
 			Cryo.Dictionary.join({
 				pageTitle = "People",
-				screenSize = Vector2.new(800, 600),
 				isMenuOpen = true,
 				players = players,
 			}, props or {})

@@ -12,9 +12,6 @@ return function()
 	local Plugin = script.Parent.Parent
 	local Roact = require(Plugin.Packages.Roact)
 
-	local RefactorFlags = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
-	RefactorFlags.THEME_REFACTOR = true
-
 	Roact.setGlobalConfig({
 		elementTracing = true,
 		propValidation = true,

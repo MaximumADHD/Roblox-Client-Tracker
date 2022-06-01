@@ -1,19 +1,37 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent
+	
+	local Framework = require(Plugin.Packages.Framework)
+	local ServiceWrapper = Framework.TestHelpers.ServiceWrapper
 
-	local getBuiltInMaterialVariants = require(Plugin.Src.Resources.Constants.getBuiltInMaterialVariants)
+	local Flags = Plugin.Src.Flags
+	local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
+
+	local DEPRECATED_getBuiltInMaterialVariants = require(Plugin.Src.Resources.Constants.DEPRECATED_getBuiltInMaterialVariants)
 	local MaterialController = require(Plugin.Src.Util.MaterialController)
 	local MockMaterialService = require(Plugin.Src.TestHelpers.MockMaterialService)
+
+	local getFFlagDevFrameworkMockWrapper = require(Plugin.Src.Flags.getFFlagDevFrameworkMockWrapper)
+
 	local MaterialServiceWrapper = require(Plugin.Src.Util.MaterialServiceWrapper)
 
-	local builtInMaterialVariants = getBuiltInMaterialVariants()
+	local builtInMaterialVariants
+	if getFFlagMaterialManagerGlassNeonForceField() then
+		builtInMaterialVariants = nil
+	else
+		builtInMaterialVariants = DEPRECATED_getBuiltInMaterialVariants()
+	end
 	local humanMade = 15
 	local synthetic = 2
 
 	local materialServiceWrapper
 
 	beforeEach(function()
-		materialServiceWrapper = MaterialServiceWrapper.new(MockMaterialService.new())
+		if getFFlagDevFrameworkMockWrapper() then
+			materialServiceWrapper = ServiceWrapper.new("MaterialService")
+		else
+			materialServiceWrapper = MaterialServiceWrapper.new(MockMaterialService.new())
+		end
 	end)
 
 	afterEach(function()

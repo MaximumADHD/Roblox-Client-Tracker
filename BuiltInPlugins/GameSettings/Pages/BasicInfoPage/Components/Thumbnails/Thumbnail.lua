@@ -18,8 +18,6 @@
 local Page = script.Parent.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 local Cryo = require(Plugin.Packages.Cryo)
 
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
@@ -143,13 +141,10 @@ function Thumbnail:render()
 	})
 end
 
-
 Thumbnail = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
 })(Thumbnail)
-
-
 
 return Thumbnail

@@ -1,5 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Cryo = InGameMenuDependencies.Cryo
@@ -20,8 +19,6 @@ local SetControllerBarHeight = require(InGameMenu.Actions.SetControllerBarHeight
 local DecrementControllerBar = require(InGameMenu.Actions.DecrementControllerBar)
 local IncrementControllerBar = require(InGameMenu.Actions.IncrementControllerBar)
 
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-
 local navigationReducer = require(script.navigationReducer)
 local respawn = require(script.respawn)
 local invites = require(script.invites)
@@ -35,7 +32,6 @@ local voiceStateReducer = require(InGameMenu.Parent.VoiceChat.Reducers.voiceStat
 local FFlagRecordRecording = require(InGameMenu.Flags.FFlagRecordRecording)
 local GetFFlagUseIGMControllerBar = require(InGameMenu.Flags.GetFFlagUseIGMControllerBar)
 local GetFFlagIGMControllerBarRefactor = require(InGameMenu.Flags.GetFFlagIGMControllerBarRefactor)
-local GetFFlagEnableVoiceChatNewMenu = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatNewMenu)
 
 local Constants = require(InGameMenu.Resources.Constants)
 local Controls = require(InGameMenu.Resources.Controls)
@@ -89,12 +85,12 @@ local topLevelReducers = {
 			screenSize = action.newScreenSize,
 		})
 	end,
-	[SetVideoRecording.name] = FFlagRecordRecording and function (state, action)
+	[SetVideoRecording.name] = FFlagRecordRecording and function(state, action)
 		return Cryo.Dictionary.join(state, {
 			recording = action.recording,
 		})
 	end or nil,
-	[SetRespawning.name] = function (state, action)
+	[SetRespawning.name] = function(state, action)
 		local isMainPageMoreMenuOpen
 		if action.respawning then
 			isMainPageMoreMenuOpen = false
@@ -129,7 +125,6 @@ local topLevelReducers = {
 }
 
 local function reducer(state, action)
-
 	-- TODO: refactor to use combineReducers and have a root reducer provide the initial state
 	if state == nil then
 		state = {
@@ -161,9 +156,7 @@ local function reducer(state, action)
 
 	state.respawn = respawn(state.respawn, action)
 	state.invites = invites(state.invites, action)
-	if GetFFlagEnableVoiceChatNewMenu() then
-		state.voiceState = voiceStateReducer(state.voiceState, action)
-	end
+	state.voiceState = voiceStateReducer(state.voiceState, action)
 	state.gameInfo = gameInfo(state.gameInfo, action)
 	state.report = report(state.report, action)
 	state.friends = friends(state.friends, action)

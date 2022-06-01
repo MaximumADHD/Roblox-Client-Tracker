@@ -34,7 +34,7 @@ local Util = Framework.Util
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local TitledFrame = Framework.StudioUI.TitledFrame
-local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
+local LayoutOrderIterator = Util.LayoutOrderIterator
 
 local RadioButton = require(Plugin.Src.Components.RadioButton)
 

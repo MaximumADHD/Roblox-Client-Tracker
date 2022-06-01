@@ -28,6 +28,7 @@ function ServiceWrapper:init()
 	assert(self.props.pluginActions ~= nil, "Expect a PluginActions object")
 	assert(self.props.signals ~= nil, "Expect a Signals object")
 	assert(self.props.editingItemContext ~= nil, "Expect a EditingItemContext")
+	assert(self.props.meshEditingContext ~= nil, "Expect a LuaMeshEditingModuleContext")
 end
 
 
@@ -42,6 +43,7 @@ function ServiceWrapper:render()
 	local pluginActions = self.props.pluginActions
 	local signals = self.props.signals
 	local editingItemContext = self.props.editingItemContext
+	local meshEditingContext = self.props.meshEditingContext
 
 	-- the order of these providers should be read as bottom up,
 	-- things most likely to change or trigger updates should be near the top of the list
@@ -56,6 +58,7 @@ function ServiceWrapper:render()
 		signals,
 		ContextServices.Mouse.new(mouse),
 		editingItemContext,
+		meshEditingContext,
 		AssetServiceWrapper.new(AssetService),
 	}, children)
 end

@@ -15,7 +15,6 @@
 		callback onGroupSelected()
 		callback onSearchOptionsToggled()
 ]]
-local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
 local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
 local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
 
@@ -347,7 +346,7 @@ local function mapStateToProps(state, props)
 		groupIndex = pageInfo.groupIndex or 0,
 		creatorFilter = pageInfo.creator or {},
 		searchIsFiltered = isSearchFiltered(pageInfo),
-		mostRecentAssetInsertTime = FFlagToolboxAssetGridRefactor and assets.mostRecentAssetInsertTime or nil,
+		mostRecentAssetInsertTime = assets.mostRecentAssetInsertTime,
 	}
 end
 

@@ -15,10 +15,9 @@ local FALLBACK_IMAGE = "rbxasset://textures/GameSettings/ModeratedAsset.jpg"
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 local Cryo = require(Plugin.Packages.Cryo)
 
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
@@ -127,13 +126,10 @@ function UploadableIcon:render()
 	})
 end
 
-
 UploadableIcon = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
 })(UploadableIcon)
-
-
 
 return UploadableIcon

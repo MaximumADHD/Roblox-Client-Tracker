@@ -36,8 +36,6 @@ local LiveSearchEntry = require(Plugin.Core.Components.SearchOptions.LiveSearchE
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor6")
-
 local LiveSearchDropdown = Roact.PureComponent:extend("LiveSearchDropdown")
 
 function LiveSearchDropdown:init(props)
@@ -136,19 +134,10 @@ function LiveSearchDropdown:renderContent(modalTarget)
 		BorderColor3 = dropdownTheme.dropdownFrame.borderColor,
 	})
 
-	local elem
-	local elemProps
-	if FFlagToolboxAssetGridRefactor then
-		elem = ShowOnTop
-		elemProps = {
-			Priority = 3,
-		}
-	else
-		elem = Roact.Portal
-		elemProps = {
-			target = modalTarget,
-		}
-	end
+	local elem = ShowOnTop
+	local elemProps = {
+		Priority = 3,
+	}
 
 	return Roact.createElement("Frame", {
 		Position = position,

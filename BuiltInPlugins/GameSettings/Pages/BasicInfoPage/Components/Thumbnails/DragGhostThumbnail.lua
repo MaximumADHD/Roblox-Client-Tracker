@@ -16,8 +16,6 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
@@ -82,11 +80,8 @@ function DragGhostThumbnail:render()
 	})
 end
 
-
 DragGhostThumbnail = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(DragGhostThumbnail)
-
-
 
 return DragGhostThumbnail

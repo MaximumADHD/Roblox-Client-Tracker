@@ -15,8 +15,6 @@ local withContext = ContextServices.withContext
 
 local FitFrameVertical = FitFrame.FitFrameVertical
 
-local FlagsList = require(Plugin.Src.Util.FlagsList)
-
 local PluginDetailsView = Roact.Component:extend("PluginDetailsView")
 
 local PADDING = 40
@@ -148,7 +146,7 @@ function PluginDetailsView:render()
 					title = localization:getText("Details", "HttpRequests"),
 				}),
 
-				ScriptInjectionPermissionContainer = FlagsList:get("FFlagPluginManagementQ3ContentSecurity") and next(scriptInjectionPermissions) and Roact.createElement(ListItem, {
+				ScriptInjectionPermissionContainer = next(scriptInjectionPermissions) and Roact.createElement(ListItem, {
 					LayoutOrder = 4,
 					renderContent = function()
 						return Roact.createElement(ScriptInjectionHolder, {

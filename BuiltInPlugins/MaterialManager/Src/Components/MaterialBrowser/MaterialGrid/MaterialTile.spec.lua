@@ -8,8 +8,9 @@ return function()
 
 	local defaultMaterial = {
 		IsBuiltin = true,
+		Material = Enum.Material.Plastic,
 		MaterialPath = { "All" },
-		MaterialVariant = Enum.Material.Plastic,
+		MaterialVariant = Instance.new("MaterialVariant"),
 		MaterialType = "Base"
 	}
 

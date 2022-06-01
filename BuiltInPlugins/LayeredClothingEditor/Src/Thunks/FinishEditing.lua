@@ -6,6 +6,7 @@ local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 
 local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
 local AccessoryUtil = AccessoryAndBodyToolSharedUtil.AccessoryUtil
+local WrapUtil = AccessoryAndBodyToolSharedUtil.WrapUtil
 
 local ModelUtil = require(Plugin.Src.Util.ModelUtil)
 local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
@@ -36,13 +37,6 @@ end
 local function fixCFrame(item, cframe)
 	local root = ModelUtil:getRootPart(item)
 	root.CFrame = cframe
-end
-
-local function cloneItem(sourceItem, editingItem)
-	local clone = sourceItem:clone()
-	clone.Anchored = false
-	fixCFrame(clone, ModelUtil:getRootCFrame(editingItem))
-	return clone
 end
 
 local function publishCageEdits(item, isClothes)
@@ -80,7 +74,8 @@ local function generateRigidAccessory(store, editingItem, sourceItem)
 	local attachmentCFrameLocal = attachmentPoint.AttachmentCFrame
 	local itemCFrameLocal = attachmentPoint.ItemCFrame
 
-	local clone = cloneItem(sourceItem, editingItem)
+	local clone = sourceItem:clone()
+	fixCFrame(clone, ModelUtil:getRootCFrame(editingItem))
 
 	AccessoryUtil:createOrReuseAttachmentInstance(clone, editingItem.Parent, attachmentName, attachmentCFrameLocal, itemCFrameLocal)
 	clone.Size = itemSize
@@ -88,9 +83,10 @@ local function generateRigidAccessory(store, editingItem, sourceItem)
 	parentToAccessory(clone)
 end
 
-local function generateCagedAccessory(store, editingItem, sourceItem)
+local function generateCagedAccessory(store, meshEditingContext, editingItem, sourceItem)
 	local state = store:getState()
-	local pointData = state.cageData.pointData
+	local outerCageData = meshEditingContext:getOuterCageContext():getVertexData()
+	local innerCageData = meshEditingContext:getInnerCageContext():getVertexData()
 	local accessoryTypeInfo = state.selectItem.accessoryTypeInfo
 	local attachmentPoint = state.selectItem.attachmentPoint
 
@@ -98,15 +94,17 @@ local function generateCagedAccessory(store, editingItem, sourceItem)
 	local attachmentCFrameLocal = attachmentPoint.AttachmentCFrame
 	local itemCFrameLocal = attachmentPoint.ItemCFrame
 
-	local clone = cloneItem(sourceItem, editingItem)
+	local clone = sourceItem:clone()
+	fixCFrame(clone, ModelUtil:getRootCFrame(editingItem))
 
 	AccessoryUtil:clearWelds(clone)
 	AccessoryUtil:createOrReuseAttachmentInstance(clone, editingItem.Parent, attachmentName, attachmentCFrameLocal, itemCFrameLocal)
 
 	-- temporary bug workaround: LC item needs to be a child of a model in order for deformation API to work
 	local tempModel = parentToTempModel(clone)
-	ModelUtil:deformClothing(clone, pointData, Enum.CageType.Inner)
-	ModelUtil:deformClothing(clone, pointData, Enum.CageType.Outer)
+
+	WrapUtil:deformClothing(clone, innerCageData, Enum.CageType.Inner)
+	WrapUtil:deformClothing(clone, outerCageData, Enum.CageType.Outer)
 
 	publishCageEdits(clone, true)
 
@@ -115,21 +113,21 @@ local function generateCagedAccessory(store, editingItem, sourceItem)
 	fromModelToAccessory(tempModel)
 end
 
-local function generateCagedAvatar(store, editingItem, sourceItem)
-	local state = store:getState()
-	local pointData = state.cageData.pointData
+local function generateCagedAvatar(meshEditingContext, editingItem, sourceItem)
+	local outerCageData = meshEditingContext:getOuterCageContext():getVertexData()
 
-	local clone = cloneItem(sourceItem, editingItem)
+	local clone = sourceItem:clone()
+	fixCFrame(clone, ModelUtil:getRootCFrame(editingItem))
 
 	clone.Parent = Workspace
-	ModelUtil:deformAvatar(clone, pointData, Enum.CageType.Outer)
+	WrapUtil:deformBody(clone, outerCageData, Enum.CageType.Outer)
 
 	publishCageEdits(clone, false)
 
 	ModelUtil:cleanupDeformerNames(clone, sourceItem)
 end
 
-return function(editingItem, sourceItem)
+return function(meshEditingContext, editingItem, sourceItem)
 	return function(store)
 		if not editingItem or not sourceItem then
 			return
@@ -137,12 +135,12 @@ return function(editingItem, sourceItem)
 
 		if ItemCharacteristics.isClothes(editingItem) then
 			if ItemCharacteristics.hasAnyCage(editingItem) then
-				generateCagedAccessory(store, editingItem, sourceItem)
+				generateCagedAccessory(store, meshEditingContext, editingItem, sourceItem)
 			else
 				generateRigidAccessory(store, editingItem, sourceItem)
 			end
 		elseif ItemCharacteristics.isAvatar(editingItem) then
-			generateCagedAvatar(store, editingItem, sourceItem)
+			generateCagedAvatar(meshEditingContext, editingItem, sourceItem)
 		end
 	end
 end

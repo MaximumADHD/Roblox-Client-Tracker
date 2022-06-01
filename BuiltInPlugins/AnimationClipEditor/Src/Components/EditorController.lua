@@ -25,6 +25,7 @@ local SignalsContext = require(Plugin.Src.Context.Signals)
 
 local KeyboardListener = Framework.UI.KeyboardListener
 local InactiveCover = require(Plugin.Src.Components.InactiveCover)
+local ProgressScreen = require(Plugin.Src.Components.ProgressScreen)
 
 local TrackEditor = require(Plugin.Src.Components.TrackEditor)
 local TrackList = require(Plugin.Src.Components.TrackList.TrackList)
@@ -61,6 +62,7 @@ local SetPlaybackSpeed = require(Plugin.Src.Thunks.Playback.SetPlaybackSpeed)
 local Pause = require(Plugin.Src.Actions.Pause)
 local PromoteKeyframeSequence = require(Plugin.Src.Thunks.PromoteKeyframeSequence)
 local SetEditorMode = require(Plugin.Src.Actions.SetEditorMode)
+local SetCreatingAnimationFromVideo = require(Plugin.Src.Actions.SetCreatingAnimationFromVideo)
 
 local Playback = require(Plugin.Src.Components.Playback)
 local InstanceSelector = require(Plugin.Src.Components.InstanceSelector)
@@ -182,6 +184,18 @@ function EditorController:init()
 		self:setState({
 			showPromotePrompt = false,
 		})
+	end
+
+	self.showAnimationImportProgress = function(): ()
+		self.props.SetCreatingAnimationFromVideo(true)
+	end
+
+	self.hideAnimationImportProgress = function(): ()
+		self.props.SetCreatingAnimationFromVideo(false)
+	end
+
+	self.cancelCreateFromVideo = function()
+		self.hideAnimationImportProgress()
 	end
 
 	self.updateTrackListWidth = function(input)
@@ -337,7 +351,7 @@ function EditorController:init()
 	self.applyValueToFacsSliderPartners = function(instanceName, path, trackType, tck, value)
 
 		if not GetFFlagFaceControlsEditorUI() then return end
-		
+
 		if GetFFlagFaceControlsEditorFixNonChannelPath() then
 			if trackType ~= Constants.TRACK_TYPES.Facs then return end
 		else
@@ -358,8 +372,8 @@ function EditorController:init()
 			elseif facsName == Constants.FacsNames.EyesLookDown then
 				self.props.ValueChanged(instanceName, {Constants.FacsNames.EyesLookUp}, trackType, tck, 0, self.props.Analytics)
 			end
-		end		
-		if crossMapping ~= nil or not GetFFlagFaceControlsEditorFixNonChannelPath() then			
+		end
+		if crossMapping ~= nil or not GetFFlagFaceControlsEditorFixNonChannelPath() then
 			--in the face controls editor some sliders control 2 facs properties,
 			--for those also when the value is increased to one side,
 			--the other side gets set to 0
@@ -414,10 +428,10 @@ function EditorController:init()
 	self.applyValueToFacsSliderPartners_deprecated2 = function(instanceName, path, trackType, tck, value)
 
 		if not GetFFlagFaceControlsEditorUI() then return end
-		if GetFFlagFaceControlsEditorFixNonChannelPath() then	
+		if GetFFlagFaceControlsEditorFixNonChannelPath() then
 			if trackType ~= Constants.TRACK_TYPES.Facs then return end
 		else
-			if not trackType == Constants.TRACK_TYPES.Facs then return end			
+			if not trackType == Constants.TRACK_TYPES.Facs then return end
 		end
 
 		local facsName = path
@@ -434,8 +448,8 @@ function EditorController:init()
 			elseif facsName == Constants.FacsNames.EyesLookDown then
 				self.props.ValueChanged_deprecated2(instanceName, Constants.FacsNames.EyesLookUp, trackType, tck, 0, self.props.Analytics)
 			end
-		end		
-		if crossMapping ~= nil or not GetFFlagFaceControlsEditorFixNonChannelPath() then			
+		end
+		if crossMapping ~= nil or not GetFFlagFaceControlsEditorFixNonChannelPath() then
 			--in the face controls editor some sliders control 2 facs properties,
 			--for those also when the value is increased to one side,
 			--the other side gets set to 0
@@ -460,7 +474,7 @@ function EditorController:init()
 					self.applyValueToSymmetryPartner_deprecated2(instanceName, symmetryPartner, trackType, tck, value)
 				end
 			end
-		end	
+		end
 	end
 
 	self.applyValueToSymmetryPartner_deprecated2 = function(instanceName, symmetryPartner, trackType, tck, value)
@@ -576,6 +590,10 @@ function EditorController:render()
 	local showPromotePrompt = state.showPromotePrompt
 	local isChannelAnimation = AnimationData.isChannelAnimation(animationData)
 
+	local creatingAnimationFromVideo = props.CreatingAnimationFromVideo
+	local animationImportProgress = props.AnimationImportProgress
+	local animationImportStatus = props.AnimationImportStatus
+
 	local selectedPaths = {}
 	if not GetFFlagCurveEditor() and GetFFlagChannelAnimations() and selectedTracks then
 		for _, track in pairs(selectedTracks) do
@@ -655,6 +673,9 @@ function EditorController:render()
 				ShowAsSeconds = showAsSeconds,
 				IsChannelAnimation = isChannelAnimation,
 				LayoutOrder = GetFFlagCurveEditor() and 0 or nil,
+				ShowAnimationImportProgress = self.showAnimationImportProgress,
+				HideAnimationImportProgress = self.hideAnimationImportProgress,
+				CancelAnimationImport = self.cancelCreateFromVideo,
 			}),
 
 			EventsAndTracks = Roact.createElement("ImageButton", {
@@ -883,6 +904,12 @@ function EditorController:render()
 			OnFocused = self.attachEditorWrapper,
 		}),
 
+		ProgressScreen = creatingAnimationFromVideo and Roact.createElement(ProgressScreen, {
+			OnCancelled = self.cancelCreateFromVideo,
+			Progress = animationImportProgress,
+			Status = animationImportStatus,
+		}),
+
 		ChangeFPSPrompt = showChangeFPSPrompt and Roact.createElement(ChangeFPSPrompt, {
 			FrameRate = props.FrameRate,
 			SetFrameRate = props.SetFrameRate,
@@ -923,7 +950,6 @@ end
 
 local function mapStateToProps(state)
 	local status = state.Status
-
 	return {
 		Active = state.Status.Active,
 		EditingLength = state.Status.EditingLength,
@@ -955,6 +981,9 @@ local function mapStateToProps(state)
 		DefaultRotationType = status.DefaultRotationType,
 		DefaultEulerAnglesOrder = status.DefaultEulerAnglesOrder,
 		SymmetryEnabled = status.SymmetryEnabled,
+		AnimationImportProgress = status.AnimationImportProgress,
+		AnimationImportStatus = status.AnimationImportStatus,
+		CreatingAnimationFromVideo = status.CreatingAnimationFromVideo,
 	}
 end
 
@@ -1079,6 +1108,10 @@ local function mapDispatchToProps(dispatch)
 
 		SetEditorMode = function(editorMode)
 			dispatch(SetEditorMode(editorMode))
+		end,
+
+		SetCreatingAnimationFromVideo = function(creatingAnimationFromVideo)
+			dispatch(SetCreatingAnimationFromVideo(creatingAnimationFromVideo))
 		end,
 	}
 

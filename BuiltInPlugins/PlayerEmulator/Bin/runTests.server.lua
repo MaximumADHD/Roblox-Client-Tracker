@@ -2,9 +2,6 @@ local Plugin = script.Parent.Parent
 
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
-local RefactorFlags = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
-RefactorFlags.THEME_REFACTOR = true
-
 local FFlagPlayerEmulatorDeduplicatePackages = game:GetFastFlag("PlayerEmulatorDeduplicatePackages")
 
 if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then

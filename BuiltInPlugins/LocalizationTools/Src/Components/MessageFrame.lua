@@ -38,12 +38,9 @@ function MessageFrame:render()
 	})
 end
 
-
 MessageFrame = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(MessageFrame)
-
-
 
 local function mapStateToProps(state, _)
 	return {

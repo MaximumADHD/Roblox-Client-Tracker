@@ -5,9 +5,6 @@ if not Packages then
 	return nil
 end
 
-local RefactorFlags = require(Packages.Framework.Util.RefactorFlags)
-RefactorFlags.THEME_REFACTOR = true
-
 local Roact = require(Packages.Roact)
 local Rodux = require(Packages.Rodux)
 local Framework = require(Packages.Framework)

@@ -4,7 +4,6 @@ return function()
 	local MockManagement = require(Plugin.Src.Components.MockManagement)
 	local PermissionInfo = require(Plugin.Src.Models.PermissionInfo)
 	local Constants = require(Plugin.Src.Util.Constants)
-	local FlagsList = require(Plugin.Src.Util.FlagsList)
 	local HttpRequestOverview = require(script.Parent.HttpRequestOverview)
 
 	local ASSET_ID = 165687726
@@ -63,9 +62,7 @@ return function()
 
 		local root = container:FindFirstChild("HttpRequestOverview")
 		expect(root).to.be.ok()
-		if FlagsList:get("FFlagPluginManagementQ3ContentSecurity") then
-			expect(root.NoPermissionsRequested).to.be.ok()
-		end
+		expect(root.NoPermissionsRequested).to.be.ok()
 		Roact.unmount(instance)
 	end)
 
@@ -98,9 +95,6 @@ return function()
 	end)
 
 	it("should show script injection property if specified", function()
-		if not FlagsList:get("FFlagPluginManagementQ3ContentSecurity") then
-			return
-		end
 		local container = Instance.new("Folder")
 		local element = createMockElement(createMockStore(0, 0, true))
 		local instance = Roact.mount(element, container)

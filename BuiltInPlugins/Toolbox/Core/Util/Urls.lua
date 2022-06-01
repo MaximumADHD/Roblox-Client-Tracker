@@ -10,11 +10,13 @@ local Set = LuauPolyfill.Set
 local Object = LuauPolyfill.Object
 local Array = LuauPolyfill.Array
 
+local AssetQuotaTypes = require(Plugin.Core.Types.AssetQuotaTypes)
 local Category = require(Plugin.Core.Types.Category)
 local Url = require(Plugin.Libs.Http.Url)
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
+local FFlagAssetConfigDynamicDistributionQuotas = game:GetFastFlag("AssetConfigDynamicDistributionQuotas")
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 local FIntCanManageLuaRolloutPercentage = game:DefineFastInt("CanManageLuaRolloutPercentage", 0)
 
@@ -594,6 +596,15 @@ end
 if FFlagToolboxAudioAssetConfigIdVerification then
 	function Urls.constructUserAgeVerificationUrl()
 		return AGE_VERIFICATION_URL
+	end
+end
+
+if FFlagAssetConfigDynamicDistributionQuotas then
+	function Urls.getCreatorMarketplaceQuotas(assetType: Enum.AssetType, resourceType: AssetQuotaTypes.AssetQuotaResourceType)
+		return string.format("%s/v1/asset-quotas?%s", Url.PUBLISH_URL, Url.makeQueryString({
+			assetType = assetType.Name,
+			resourceType = resourceType,
+		}))
 	end
 end
 

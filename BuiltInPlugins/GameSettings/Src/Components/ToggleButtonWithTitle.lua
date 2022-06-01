@@ -27,10 +27,9 @@ local TitledFrame = Framework.StudioUI.TitledFrame
 local ToggleButton = Framework.UI.ToggleButton
 local TextWithInlineLink = Framework.UI.TextWithInlineLink
 
-local FrameworkUtil = require(Plugin.Packages.Framework).Util
-local FitTextLabel = FrameworkUtil.FitFrame.FitTextLabel
+local FitTextLabel = Util.FitFrame.FitTextLabel
 
-local LayoutOrderIterator = FFlagGameSettingsEnableVoiceChat and require(Plugin.Packages.Framework).Util.LayoutOrderIterator or nil
+local LayoutOrderIterator = FFlagGameSettingsEnableVoiceChat and Util.LayoutOrderIterator or nil
 
 local ToggleButtonWithTitle = Roact.PureComponent:extend("ToggleButtonWithTitle")
 
@@ -118,11 +117,8 @@ function ToggleButtonWithTitle:render()
 	})
 end
 
-
 ToggleButtonWithTitle = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(ToggleButtonWithTitle)
-
-
 
 return ToggleButtonWithTitle

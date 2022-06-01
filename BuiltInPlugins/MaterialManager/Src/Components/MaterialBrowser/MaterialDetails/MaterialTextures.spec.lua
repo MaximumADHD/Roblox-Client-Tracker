@@ -27,6 +27,7 @@ return function()
 	it("should render material with color map correctly", function()
 		local TestMaterial = {
 			IsBuiltin = true,
+			Material = Enum.Material.Plastic,
 			MaterialPath = { "Plastic" },
 			MaterialType = "Base",
 			MaterialVariant = Instance.new("MaterialVariant")
@@ -50,6 +51,7 @@ return function()
 	it("should render material with all maps correctly", function()
 		local TestMaterial = {
 			IsBuiltin = true,
+			Material = Enum.Material.Plastic,
 			MaterialPath = { "Plastic" },
 			MaterialType = "Base",
 			MaterialVariant = Instance.new("MaterialVariant")

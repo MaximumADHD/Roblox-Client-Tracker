@@ -8,11 +8,13 @@ local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatSer
 
 local FFlagVoiceDefaultChannelUseNewName = game:DefineFastFlag("VoiceDefaultChannelUseNewName2", false)
 local FFlagDebugDefaultChannelStartMuted = game:DefineFastFlag("DebugDefaultChannelStartMuted", true)
+local GetFFlagEnableLuaVoiceChatAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
 
 local GenerateDefaultChannelAvailable = game:GetEngineFeature("VoiceServiceGenerateDefaultChannelAvailable")
 local EnableDefaultVoiceAvailable = game:GetEngineFeature("VoiceServiceEnableDefaultVoiceAvailable")
 
 local log = require(RobloxGui.Modules.InGameChat.BubbleChat.Logger)(script.Name)
+local Analytics = require(RobloxGui.Modules.VoiceChat.Analytics).new()
 
 local function initializeDefaultChannel()
 	local VoiceChatService = VoiceChatServiceManager:getService()
@@ -23,7 +25,17 @@ local function initializeDefaultChannel()
 
 	log:info("Joining default channel")
 
-	return VoiceChatService:JoinByGroupIdToken("default", FFlagDebugDefaultChannelStartMuted)
+	local success = VoiceChatService:JoinByGroupIdToken("default", FFlagDebugDefaultChannelStartMuted)
+	
+	if GetFFlagEnableLuaVoiceChatAnalytics() then
+		if success then
+			Analytics:reportVoiceChatJoinResult(true, "defaultJoinSuccess")
+		else
+			Analytics:reportVoiceChatJoinResult(false, "defaultJoinFailed", "error")
+		end
+	end
+
+	return success
 end
 
 if not Players.LocalPlayer.Character then
@@ -41,6 +53,9 @@ if FFlagVoiceDefaultChannelUseNewName then
 			log:info("VoiceChatService not found. Assuming default values.")
 		elseif not VoiceChatService.EnableDefaultVoice then
 			log:debug("Default channel is disabled.")
+			if GetFFlagEnableLuaVoiceChatAnalytics() then
+				Analytics:reportVoiceChatJoinResult(false, "defaultDisabled")
+			end
 			return
 		end
 	end
@@ -64,6 +79,7 @@ VoiceChatServiceManager:asyncInit():andThen(function()
 	end
 end):catch(function()
 	-- If voice chat doesn't initialize, silently halt rather than throwing
-	-- a unresolved promise error.
+	-- a unresolved promise error. Don't report an event since the manager
+	-- will handle that.
 	log:info("VoiceChatServiceManager did not initialize")
 end)

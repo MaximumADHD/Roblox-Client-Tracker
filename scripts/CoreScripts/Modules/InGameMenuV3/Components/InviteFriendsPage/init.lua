@@ -22,6 +22,10 @@ local RootedConnection = require(InGameMenu.Components.Connection.RootedConnecti
 local InviteFriendsList = require(script.InviteFriendsList)
 local AddFriendsNow = require(script.AddFriendsNow)
 local LoadingFriendsError = require(script.LoadingFriendsError)
+local ShareInviteLinkButton = require(script.ShareInviteLinkButton)
+
+local Flags = InGameMenu.Flags
+local GetFFlagShareInviteLinkContextMenuV3Enabled = require(Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
 
 local InviteFriendsPage = Roact.PureComponent:extend("InviteFriendsPage")
 
@@ -121,6 +125,8 @@ function InviteFriendsPage:render()
 			}, {
 				Page = Roact.createElement(Page, {
 					pageTitle = self.props.pageTitle,
+					titleChildren = GetFFlagShareInviteLinkContextMenuV3Enabled()
+					    and Roact.createElement(ShareInviteLinkButton) or nil,
 				}, children),
 			})
 		end,

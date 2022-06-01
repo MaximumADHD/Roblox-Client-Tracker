@@ -1,13 +1,11 @@
 local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
-local Constants = require(Plugin.Src.Util.Constants)
 local Cryo = require(Plugin.Packages.Cryo)
 
 return Rodux.createReducer({
 	editingItem = nil,
 	layeredClothingItemsInList = {},
 	manuallyHiddenLayeredClothingItems = {},
-	selectorMode = Constants.SELECTOR_MODE.None,
 	editingCage = nil,
 	cagesTransparency = {},
 	acessoryTypeInfo = nil,
@@ -18,16 +16,6 @@ return Rodux.createReducer({
 		AttachmentCFrame = CFrame.new(),
 	},
 }, {
-	SetSelectorMode = function(state, action)
-		return Cryo.Dictionary.join(state, {
-			selectorMode = action.selectorMode,
-		})
-	end,
-	SetLayeredClothingItemsInList = function(state, action)
-		return Cryo.Dictionary.join(state, {
-			layeredClothingItemsInList = action.layeredClothingItemsInList,
-		})
-	end,
 	SetManuallyHiddenLayeredClothingItems = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			manuallyHiddenLayeredClothingItems = action.manuallyHiddenLayeredClothingItems,

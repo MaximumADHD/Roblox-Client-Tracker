@@ -7,7 +7,6 @@
 		table Buttons = The buttons to add to this button bar.
 ]]
 
-
 local BUTTON_BAR_PADDING = 25
 local BUTTON_BAR_EDGE_PADDING = 35
 
@@ -15,25 +14,21 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
-local UILibrary = require(Plugin.Packages.UILibrary)
 
 local StyleModifier = Util.StyleModifier
 
 local UI = Framework.UI
 local Button = UI.Button
 
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
-
-local RoundTextButton = UILibrary.Component.RoundTextButton
 
 local ButtonBar = Roact.PureComponent:extend("ButtonBar")
 
 function ButtonBar:render()
 	local props = self.props
-	local theme = props.Stylizer
 
 	local horizontalAlignment = props.HorizontalAlignment
 	local buttons = props.Buttons

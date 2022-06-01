@@ -1,16 +1,14 @@
 local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
 
-local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
 
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UI = Framework.UI
@@ -404,13 +402,10 @@ function Permissions:render()
 	})
 end
 
-
 Permissions = withContext({
 	Localization = ContextServices.Localization,
 	Stylizer = ContextServices.Stylizer,
 })(Permissions)
-
-
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
 Permissions = RoactRodux.connect(

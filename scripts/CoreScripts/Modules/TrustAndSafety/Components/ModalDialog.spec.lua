@@ -15,21 +15,59 @@ return function()
 		Font = AppFont,
 	}
 
-	it("empty dialog should create and destroy without errors", function()
-		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = appStyle,
-		}, {
-			ModalDialog = Roact.createElement(ModalDialog, {
-				visible = true,
-				titleText = "Title",
-				titleBar = nil,
-				contents = nil,
-				actionButtons = nil,
-				onDismiss = function() end,
-			}),
-		})
+	describe("mount & unmount", function()
+		it("empty page", function()
+			local element = Roact.createElement(UIBlox.Core.Style.Provider, {
+				style = appStyle,
+			}, {
+				ModalDialog = Roact.createElement(ModalDialog, {
+					visible = true,
+					onDismiss = function() end,
+				}),
+			})
 
-		local instance = Roact.mount(element)
-		Roact.unmount(instance)
+			local instance = Roact.mount(element)
+			Roact.unmount(instance)
+		end)
+
+		it("empty page with close button", function()
+			local element = Roact.createElement(UIBlox.Core.Style.Provider, {
+				style = appStyle,
+			}, {
+				ModalDialog = Roact.createElement(ModalDialog, {
+					visible = true,
+					titleText = "Title",
+					showCloseButton = true,
+					headerBar = nil,
+					contents = nil,
+					actionButtons = nil,
+					onDismiss = function() end,
+					onBackButtonActivated = nil,
+				}),
+			})
+
+			local instance = Roact.mount(element)
+			Roact.unmount(instance)
+		end)
+
+		it("empty page with back button", function()
+			local element = Roact.createElement(UIBlox.Core.Style.Provider, {
+				style = appStyle,
+			}, {
+				ModalDialog = Roact.createElement(ModalDialog, {
+					visible = true,
+					titleText = "Title",
+					showCloseButton = false,
+					headerBar = nil,
+					contents = nil,
+					actionButtons = nil,
+					onDismiss = function() end,
+					onBackButtonActivated = function() end,
+				}),
+			})
+
+			local instance = Roact.mount(element)
+			Roact.unmount(instance)
+		end)
 	end)
 end

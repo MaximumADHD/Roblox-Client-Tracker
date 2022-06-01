@@ -27,6 +27,8 @@ local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
 local PreviewContext = require(Plugin.Src.Context.PreviewContext)
 local AssetServiceWrapper = require(Plugin.Src.Context.AssetServiceWrapper)
 
+local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingModuleContext
+
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -35,7 +37,6 @@ local Typecheck = Util.Typecheck
 
 local Constants = require(Plugin.Src.Util.Constants)
 local PreviewConstants = require(Plugin.Src.Util.PreviewConstants)
-local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
 local ExplorerPreviewInstances = Roact.PureComponent:extend("ExplorerPreviewInstances")
 Typecheck.wrap(ExplorerPreviewInstances, script)
@@ -62,9 +63,10 @@ local function onPreviewSelectionChanged(self)
 	end
 
 	-- this will be first layer on the preview avatar
+	local archivable = editingItem.Archivable
 	editingItem.Archivable = true
 	local clone = editingItem:Clone()
-	editingItem.Archivable = false
+	editingItem.Archivable = archivable
 	PreviewUtil.addPreviewClothingFromInstances(previewAvatars, {clone})
 
 	PreviewUtil.addPreviewClothingFromIds(previewAvatars, selectedClothingIds, userAddedAssets[clothingTabKey], assetService)
@@ -79,23 +81,17 @@ local function transformOrDeformPreviewLayers(self)
 	local accessoryTypeInfo = props.AccessoryTypeInfo
 	local previewContext = props.PreviewContext
 	local editingCage = props.EditingCage
-	local pointData = props.PointData
 	local itemSize = props.ItemSize
+	local luaMeshEditingModuleContext = props.LuaMeshEditingModuleContext
+	local meshEditingContext = luaMeshEditingModuleContext:getCurrentContext()
 
 	local previewAvatars = previewContext:getAvatars()
 	for _, avatar in ipairs(previewAvatars) do
 		if editingCage == Constants.EDIT_MODE.Mesh then
 			avatar:transformLayer(1, itemSize, attachmentPoint.AttachmentCFrame, attachmentPoint.ItemCFrame, accessoryTypeInfo.Name)
 		else
-			-- TODO: shouldn't have to do this once we refactor to use the vertex editing module
-			if pointData and pointData[editingCage] then
-				local verts = {}
-				local _, pointTable = next(pointData[editingCage])
-				for _, point in ipairs(pointTable) do
-					table.insert(verts, point.Position)
-				end
-
-				avatar:deformLayer(1, verts, editingCage)
+			if meshEditingContext then
+				avatar:deformLayer(1, meshEditingContext:getVertexData(), editingCage)
 			end
 		end
 	end
@@ -124,6 +120,27 @@ function ExplorerPreviewInstances:init()
 	self.isUpdateInProgress = false
 end
 
+function ExplorerPreviewInstances:didMount()
+	local props = self.props
+	local luaMeshEditingModuleContext = self.props.LuaMeshEditingModuleContext
+	local outerCageContext = luaMeshEditingModuleContext:getOuterCageContext()
+	local innerCageContext = luaMeshEditingModuleContext:getInnerCageContext()
+
+	if outerCageContext then
+		self.outerCageDataChanged = outerCageContext:getMeshDataChangedSignal():Connect(function()
+			-- force an update
+			self:setState({temp = {}})
+		end)
+	end
+
+	if innerCageContext then
+		self.innerCageDataChanged = innerCageContext:getMeshDataChangedSignal():Connect(function()
+			-- force an update
+			self:setState({temp = {}})
+		end)
+	end
+end
+
 function ExplorerPreviewInstances:render()
 	return Roact.createElement(Roact.Portal, {
 		target = game.Workspace
@@ -147,7 +164,6 @@ end
 local function mapStateToProps(state, props)
 	local previewStatus = state.previewStatus
 	local selectItem = state.selectItem
-	local cageData = state.cageData
 
 	return {
 		AttachmentPoint = selectItem.attachmentPoint,
@@ -155,7 +171,6 @@ local function mapStateToProps(state, props)
 		ItemSize = selectItem.size,
 		SelectedAssets = previewStatus.selectedAssets,
 		EditingCage = selectItem.editingCage,
-		PointData = cageData.pointData,
 	}
 end
 
@@ -163,6 +178,7 @@ ExplorerPreviewInstances = withContext({
 	EditingItemContext = EditingItemContext,
 	PreviewContext = PreviewContext,
 	AssetServiceWrapper = AssetServiceWrapper,
+	LuaMeshEditingModuleContext = LuaMeshEditingModuleContext,
 })(ExplorerPreviewInstances)
 
 return RoactRodux.connect(mapStateToProps)(ExplorerPreviewInstances)

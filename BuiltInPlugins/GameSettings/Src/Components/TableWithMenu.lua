@@ -31,7 +31,6 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -137,7 +136,7 @@ function TableWithMenu:render()
     local onItemClicked = props.OnItemClicked
     local layoutOrder = props.LayoutOrder
     local nextPageFunc = props.NextPageFunc or function()
-        
+
     end
     local MenuItemsFilterFunc = props.MenuItemsFilterFunc
 
@@ -148,7 +147,7 @@ function TableWithMenu:render()
 
     local headerContent = self:createHeaderLabels(theme, headers, headerButton)
     local dataContent, dataCount = self:createDataLabels(data, menuItems, onItemClicked, MenuItemsFilterFunc)
-    
+
     local emptyText = (dataCount == 0 and props.EmptyText) or nil
     local backgroundColor = showTableBackground and theme.table.item.background or nil
 
@@ -187,10 +186,10 @@ function TableWithMenu:render()
 
             NextPageFunc = nextPageFunc,
             NextPageRequestDistance = nextPageRequestDistance,
-            
+
             LayoutOrder = 2,
         }, dataContent),
-        
+
         EmptyTextBox = emptyText and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Smaller, {
             Size = size,
             LayoutOrder = 2,
@@ -204,11 +203,8 @@ function TableWithMenu:render()
     })
 end
 
-
 TableWithMenu = withContext({
     Stylizer = ContextServices.Stylizer,
 })(TableWithMenu)
-
-
 
 return TableWithMenu

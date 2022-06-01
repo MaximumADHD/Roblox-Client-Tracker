@@ -24,6 +24,9 @@ local SnappingType			= require(script.Parent.Enum.SnappingType)
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local UserInputService = game:GetService("UserInputService")
 
+-- Flags
+local FFlagScaleWithResolution = game:DefineFastFlag("ScaleWithResolution", false)
+
 -- Constants
 local MINIMUM_SIZE = 1
 local HANDLE_POSITION_OFFSET = 3
@@ -33,7 +36,9 @@ local BASE_COLOR = Color3.fromRGB(255, 255, 255)
 local HANDLE_BORDER_COLOR = Color3.fromRGB(136, 136, 136)
 local BOUNDING_BOX_COLOR = Color3.fromRGB(222, 222, 222)
 local HANDLE_OFFSET = Vector2.new(1, 1)
-local HANDLE_SIZE = 7
+local HANDLE_SIZE_MAX = 7 -- Maximum handle size px
+local HANDLE_SIZE_MIN = 3 -- Minimum handle size px
+local HANDLE_SIZE_TARGET_RATIO = HANDLE_SIZE_MAX / 800 -- Handle size aims to be 7px at 1080p and scales accordingly
 
 local BOUNDING_BOX_WIDTH = 1
 
@@ -120,6 +125,32 @@ local function createHandleParent()
 	m_handleParent.BorderSizePixel = 0
 end
 
+-- Returns a UDim2 representing the size of the handle scaled according to resolution.
+local function getHandleSize(): UDim2
+	local handleSize = HANDLE_SIZE_MAX
+	if m_screenGui and FFlagScaleWithResolution then
+		handleSize = m_screenGui.AbsoluteSize.Y * HANDLE_SIZE_TARGET_RATIO
+		handleSize = math.clamp(handleSize, HANDLE_SIZE_MIN, HANDLE_SIZE_MAX)
+	end
+	return UDim2.new(0, handleSize, 0, handleSize)
+end
+
+-- Updates sizes for each handle and handle drop shadow according to resolution.
+--
+-- void updateHandleSize()
+local function updateHandleSize()
+	if not FFlagScaleWithResolution then
+		return
+	end
+
+	for i = 1, #m_handles do
+		local handle = m_handles[i]
+		handle.Size = getHandleSize()
+		local dropShadow = handle:FindFirstChildWhichIsA("ImageLabel")
+		dropShadow.Size = UDim2.new(0, handle.AbsoluteSize.X + 8, 0, handle.AbsoluteSize.Y + 8)
+	end
+end
+
 -- void createResizeHandles()
 local function createResizeHandles()	
 	--[[
@@ -158,7 +189,7 @@ local function createResizeHandles()
 		local handle = Instance.new("Frame")
 		handle.Name = "ResizeHandle_" .. Direction:toShortName(i)
 		handle.AnchorPoint = anchorPoints[i]
-		handle.Size = UDim2.new(0, HANDLE_SIZE, 0, HANDLE_SIZE)
+		handle.Size = getHandleSize()
 		handle.Position = positions[i]
 		handle.BackgroundColor3 = BASE_COLOR
 		handle.BorderColor3 = HANDLE_BORDER_COLOR
@@ -170,7 +201,7 @@ local function createResizeHandles()
 		dropShadow.Name = "ResizeHandleDropShadow_" .. Direction:toShortName(i)
 		-- We want to show four pixels of drop shadow on each side of the resize handle, 
 		-- which is why we add 8 to the size.
-		dropShadow.Size = UDim2.new(0, HANDLE_SIZE + 8, 0, HANDLE_SIZE + 8)
+		dropShadow.Size = UDim2.new(0, handle.AbsoluteSize.X + 8, 0, handle.AbsoluteSize.Y + 8)
 		-- The image's first four pixels is the blured edge, so move it over by 4 pixels. We want
 		-- more to show at the bottom than top, so move it by a little less in y.  
 		dropShadow.Position = UDim2.new(0, -4, 0, -3)
@@ -322,6 +353,8 @@ local function updateHandlePositionFromExtents(extents)
 	else
 		m_handleParent.Rotation = 0
 	end
+
+	updateHandleSize()
 end
 
 local function createResizeAdorns()
@@ -744,6 +777,11 @@ end
 function Resize:Off()
 	Resize:hide()
 	deleteResizeAdorns()
+end
+
+-- void updateSize()
+function Resize:updateSize()
+	updateHandleSize()
 end
 
 return Resize

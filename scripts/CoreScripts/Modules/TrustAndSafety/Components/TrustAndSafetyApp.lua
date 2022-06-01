@@ -11,6 +11,7 @@ local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
 local TnsModule = script.Parent.Parent
 local SetScreenSize = require(TnsModule.Actions.SetScreenSize)
 local ReportMenu = require(TnsModule.Components.ReportMenu)
+local ReportDialog = require(TnsModule.Components.ReportDialog)
 local ReportSentDialog = require(TnsModule.Components.ReportSentDialog)
 
 local TrustAndSafetyApp = Roact.PureComponent:extend("TrustAndSafetyApp")
@@ -45,9 +46,8 @@ function TrustAndSafetyApp:render()
 				Size = UDim2.new(1, 0, 1, 0),
 			}, {
 				ReportMenu = Roact.createElement(ReportMenu),
+				ReportDialog = Roact.createElement(ReportDialog),
 				ReportSentDialog = Roact.createElement(ReportSentDialog),
-				-- TODO UI pages
-				-- ReportDialog = Roact.createElement(ReportDialog),
 			})
 		})
 	})

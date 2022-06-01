@@ -6,7 +6,6 @@ local Roact = require(Packages.Roact)
 local Asset = require(Plugin.Core.Components.Asset.Asset)
 
 local ToolboxStoryWrapper = require(Plugin.Stories.ToolboxStoryWrapper)
-local CoreTestUtils = require(Plugin.TestUtils.CoreTestUtils)
 local MockItems = require(Plugin.TestUtils.MockItems)
 local GetAssets = require(Plugin.Core.Actions.GetAssets)
 
@@ -38,7 +37,7 @@ return {
 					assetId = fakeAssetId,
 					LayoutOrder = 1,
 				}),
-			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetGridRefactor", true),
+			}),
 		},
 		{
 			name = "Asset hovered",
@@ -61,7 +60,7 @@ return {
 						LayoutOrder = 1,
 					}),
 				}),
-			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetGridRefactor", true),
+			}),
 		},
 	},
 }

@@ -23,7 +23,9 @@ local TruncatedTextLabel = UI.TruncatedTextLabel
 
 local MaterialController = require(Plugin.Src.Util.MaterialController)
 
-local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Plugin.Src.Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
+local Flags = Plugin.Src.Flags
+local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
+local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
 
 export type Props = {
 	LayoutOrder : number?,
@@ -121,7 +123,7 @@ function MaterialTextures:render()
 	local localization = props.Localization
 	local material = props.Material
 
-	if not material then
+	if not material or (not getFFlagMaterialManagerGlassNeonForceField() and not material.MaterialVariant) then
 		return Roact.createElement(Pane)
 	end
 

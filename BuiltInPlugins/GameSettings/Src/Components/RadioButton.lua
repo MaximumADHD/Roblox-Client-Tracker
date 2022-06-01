@@ -19,7 +19,7 @@ local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
-local FitFrameOnAxis = Framework.Util.FitFrame.FitFrameOnAxis
+local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -37,9 +37,6 @@ function RadioButton:init(initialProps)
 			self:mouseHoverChanged(false)
 		end
 	end
-
-	local title = initialProps.Title
-	local description = initialProps.Description or ""
 end
 
 function RadioButton:mouseHoverChanged(hovering)
@@ -160,12 +157,9 @@ function RadioButton:render()
 	})
 end
 
-
 RadioButton = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Mouse = ContextServices.Mouse,
 })(RadioButton)
-
-
 
 return RadioButton

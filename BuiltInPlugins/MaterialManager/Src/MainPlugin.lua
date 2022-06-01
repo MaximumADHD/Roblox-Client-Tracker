@@ -16,6 +16,8 @@ local Store = ContextServices.Store
 
 local Http = Framework.Http
 
+local ServiceWrapper = Framework.TestHelpers.ServiceWrapper
+
 local MainReducer = require(main.Src.Reducers.MainReducer)
 local MakeTheme = require(main.Src.Resources.MakeTheme)
 local createAnalyticsHandlers = require(main.Src.Resources.createAnalyticsHandlers)
@@ -35,8 +37,13 @@ local MaterialController = require(Utils.MaterialController)
 local MaterialServiceWrapper = require(Utils.MaterialServiceWrapper)
 local CalloutController = require(Utils.CalloutController)
 
-local getBuiltInMaterialVariants = require(main.Src.Resources.Constants.getBuiltInMaterialVariants)
+local Flags = main.Src.Flags
+local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
+
+local DEPRECATED_getBuiltInMaterialVariants = require(main.Src.Resources.Constants.DEPRECATED_getBuiltInMaterialVariants)
 local FIntInfluxReportMaterialManagerHundrethPercent = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent")
+
+local getFFlagDevFrameworkMockWrapper = require(main.Src.Flags.getFFlagDevFrameworkMockWrapper)
 
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
@@ -110,10 +117,31 @@ function MainPlugin:init(props)
 		end, {})
 	end
 
-	self.materialController = MaterialController.new(
-		getBuiltInMaterialVariants(),
-		MaterialServiceWrapper.new()
-	)
+	if getFFlagMaterialManagerGlassNeonForceField() then
+		if getFFlagDevFrameworkMockWrapper() then
+			self.materialController = MaterialController.new(
+				nil,
+				ServiceWrapper.new("MaterialService")
+			)
+		else
+			self.materialController = MaterialController.new(
+				nil,
+				MaterialServiceWrapper.new()
+			)
+		end
+	else
+		if getFFlagDevFrameworkMockWrapper() then
+			self.materialController = MaterialController.new(
+				DEPRECATED_getBuiltInMaterialVariants(),
+				ServiceWrapper.new("MaterialService")
+			)
+		else
+			self.materialController = MaterialController.new(
+				DEPRECATED_getBuiltInMaterialVariants(),
+				MaterialServiceWrapper.new()
+			)
+		end
+	end
 
 	-- Remove with FFlagMaterialManagerTeachingCallout, also CalloutController and TeachingCallout
 	self.calloutController = CalloutController.new()

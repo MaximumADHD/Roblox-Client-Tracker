@@ -29,8 +29,6 @@ local LayoutOrderIterator = require(Plugin.Src.Util.LayoutOrderIterator)
 local Button = Framework.UI.Button
 local Tooltip = require(Plugin.Src.Components.Tooltip)
 
-local FFlagMergePlayPause = game:DefineFastFlag("ACEMergePlayPause", false)
-
 local MediaControls = Roact.PureComponent:extend("MediaControls")
 
 export type Props = {
@@ -174,7 +172,6 @@ function MediaControls:render(): (any)
 	local layoutOrder = props.LayoutOrder
 	local skipBackward = props.SkipBackward
 	local skipForward = props.SkipForward
-	local togglePlay = if not FFlagMergePlayPause then props.TogglePlay else nil  -- Unused
 	local toggleLooping = props.ToggleLooping
 	local goToFirstFrame = props.GoToFirstFrame
 	local goToLastFrame = props.GoToLastFrame
@@ -195,21 +192,10 @@ function MediaControls:render(): (any)
 		}),
 		GoToFirstFrame = self:makeButton(playbackTheme.goToFirstFrame, goToFirstFrame, playbackTheme, "GoToFirstFrame"),
 		SkipBackward = self:makeButton(playbackTheme.skipBackward, skipBackward, playbackTheme, "SkipBackward"),
-
-		Reverse = if not FFlagMergePlayPause then
-			self:makePlayToggle_deprecated(isReverse, playbackTheme.reverse, Constants.PLAY_STATE.Reverse, playbackTheme, "Reverse")
-		else
-			self:makePlayToggle(isReverse, playbackTheme.pause, playbackTheme.reverse, Constants.PLAY_STATE.Reverse, playbackTheme, "Pause", "Reverse"),
-
-		Pause = if not FFlagMergePlayPause then
-			self:makePlayToggle_deprecated(isPaused, playbackTheme.pause, Constants.PLAY_STATE.Pause, playbackTheme, "Pause")
-		else nil,
-
-		Play = if not FFlagMergePlayPause then
-			self:makePlayToggle_deprecated(isPlaying, playbackTheme.play, Constants.PLAY_STATE.Play, playbackTheme, "Play")
-		else
-			self:makePlayToggle(isPlaying, playbackTheme.pause, playbackTheme.play, Constants.PLAY_STATE.Play, playbackTheme, "Pause", "Play"),
-
+		Reverse = self:makePlayToggle(isReverse, playbackTheme.pause, playbackTheme.reverse,
+			Constants.PLAY_STATE.Reverse, playbackTheme, "Pause", "Reverse"),
+		Play = self:makePlayToggle(isPlaying, playbackTheme.pause, playbackTheme.play,
+			Constants.PLAY_STATE.Play, playbackTheme, "Pause", "Play"),
 		SkipForward = self:makeButton(playbackTheme.skipForward, skipForward, playbackTheme, "SkipForward"),
 		GoToLastFrame = self:makeButton(playbackTheme.goToLastFrame, goToLastFrame, playbackTheme, "GoToLastFrame"),
 

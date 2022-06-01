@@ -10,21 +10,30 @@ local UIBlox = require(CorePackages.UIBlox)
 local Dependencies = require(script.Dependencies)
 local Localization = require(Dependencies.Localization)
 local LocalizationProvider = require(Dependencies.LocalizationProvider)
+local playerInterface = require(Dependencies.playerInterface)
 
+local Constants = require(script.Resources.Constants)
 local GlobalConfig = require(script.GlobalConfig)
 local Reducers = require(script.Reducers)
 local TrustAndSafetyApp = require(script.Components.TrustAndSafetyApp)
 local TrustAndSafetyAppPolicy = require(script.TrustAndSafetyAppPolicy)
 
 local OpenReportDialog = require(script.Actions.OpenReportDialog)
+local OpenReportMenu = require(script.Actions.OpenReportMenu)
 local FetchPlaceInfo = require(script.Thunks.FetchPlaceInfo)
 
 local TrustAndSafety = {}
-TrustAndSafety.__index = TrustAndSafety
 
-function TrustAndSafety.new()
-	local self = setmetatable({}, TrustAndSafety)
+function TrustAndSafety:getInstance()
+	-- initialization on demand
+	if not self._initialized then
+		self:initialize()
+		self._initialized = true
+	end
+	return self
+end
 
+function TrustAndSafety:initialize()
 	if GlobalConfig.propValidation then
 		Roact.setGlobalConfig({
 			propValidation = true,
@@ -55,7 +64,6 @@ function TrustAndSafety.new()
 	})
 
 	self.element = Roact.mount(self.root, CoreGui, "TrustAndSafety")
-	return self
 end
 
 function TrustAndSafety:createStore()
@@ -85,4 +93,19 @@ function TrustAndSafety:openReportDialog(reportType, targetPlayer)
 	self.store:dispatch(OpenReportDialog(reportType, targetPlayer))
 end
 
-return {}
+function TrustAndSafety:openReportMenu()
+	self.store:dispatch(OpenReportMenu())
+end
+
+return {
+	openReportDialogForPlayer = function(targetPlayer)
+		assert(playerInterface(targetPlayer))
+		TrustAndSafety:getInstance():openReportDialog(Constants.ReportType.Player, targetPlayer)
+	end,
+	openReportDialogForPlace = function()
+		TrustAndSafety:getInstance():openReportDialog(Constants.ReportType.Game)
+	end,
+	openReportMenu = function()
+		TrustAndSafety:getInstance():openReportMenu()
+	end,
+}

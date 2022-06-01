@@ -28,7 +28,7 @@ Types.IMessageData = t.interface({
 
 -- Type for the settings object. Keep backward compatibility in mind when modifying
 -- this: any change might break calls to Chat:SetBubbleChatSettings (see type
--- assertion in InGameChat.lua)
+-- assertion in PlayerBillboards.lua)
 local chatSettings = {
 	BubbleDuration = t.optional(t.number),
 	MaxBubbles = t.optional(t.number),

@@ -26,7 +26,6 @@ local TextLabel = UI.Decoration.TextLabel
 local Tooltip = UI.Tooltip
 
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local LayoutOrderIterator = Util.LayoutOrderIterator
 local StyleModifier = Util.StyleModifier
 
@@ -68,7 +67,7 @@ end
 function TopBar:render()
     local props = self.props
     local analytics = props.Analytics
-    local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+    local theme = props.Stylizer
     local topBarTheme = theme.TopBar
     local localization = props.Localization
 
@@ -348,8 +347,7 @@ end
 TopBar = withContext({
     Analytics = ContextServices.Analytics,
     Localization = ContextServices.Localization,
-    Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-    Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+    Stylizer = ContextServices.Stylizer,
 })(TopBar)
 
 local function mapStateToProps(state, props)

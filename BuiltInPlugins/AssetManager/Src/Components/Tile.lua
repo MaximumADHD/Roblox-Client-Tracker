@@ -9,7 +9,6 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local StyleModifier = Util.StyleModifier
 
 local UI = Framework.UI
@@ -237,47 +236,44 @@ end
 
 function Tile:render()
     local props = self.props
-    local pluginStyle = if THEME_REFACTOR then props.Stylizer else props.Theme:get("Plugin")
+    local pluginStyle = props.Stylizer
 
-    -- Must use getStyle(namespace, component) for StyleModifiers to work
-    -- otherwise functionality equivalent to prop.Theme:get("Plugin").Tile.Default
-    local tileStyle = if THEME_REFACTOR then props.Stylizer else props.Theme:getStyle("Plugin", self)
     local localization = props.Localization
 
     local enabled = props.Enabled
 
-    local size = tileStyle.Size
+    local size = pluginStyle.Size
 
     local assetData = props.AssetData
 
-    local backgroundColor = tileStyle.BackgroundColor
-    local backgroundTransparency = tileStyle.BackgroundTransparency
-    local borderSizePixel = tileStyle.BorderSizePixel
+    local backgroundColor = pluginStyle.BackgroundColor
+    local backgroundTransparency = pluginStyle.BackgroundTransparency
+    local borderSizePixel = pluginStyle.BorderSizePixel
 
-    local textColor = tileStyle.Text.Color
+    local textColor = pluginStyle.Text.Color
     local textFont = pluginStyle.Font
-    local textSize = tileStyle.Text.Size
-    local textBGTransparency = tileStyle.Text.BackgroundTransparency
-    local textTruncate = tileStyle.Text.TextTruncate
-    local textXAlignment = tileStyle.Text.XAlignment
-    local textYAlignment = tileStyle.Text.YAlignment
+    local textSize = pluginStyle.Text.Size
+    local textBGTransparency = pluginStyle.Text.BackgroundTransparency
+    local textTruncate = pluginStyle.Text.TextTruncate
+    local textXAlignment = pluginStyle.Text.XAlignment
+    local textYAlignment = pluginStyle.Text.YAlignment
 
-    local textFrameSize = tileStyle.Text.Frame.Size
-    local textFramePos = tileStyle.Text.Frame.Position
+    local textFrameSize = pluginStyle.Text.Frame.Size
+    local textFramePos = pluginStyle.Text.Frame.Position
 
     local editText = self.state.editText
     local isEditingAsset = props.EditingAssets[assetData.id]
-    local editTextWrapped = tileStyle.EditText.TextWrapped
-    local editTextClearOnFocus = tileStyle.EditText.ClearTextOnFocus
-    local editTextXAlignment = tileStyle.Text.XAlignment
+    local editTextWrapped = pluginStyle.EditText.TextWrapped
+    local editTextClearOnFocus = pluginStyle.EditText.ClearTextOnFocus
+    local editTextXAlignment = pluginStyle.Text.XAlignment
 
-    local editTextFrameBackgroundColor = tileStyle.EditText.Frame.BackgroundColor
-    local editTextFrameBorderColor = tileStyle.EditText.Frame.BorderColor
+    local editTextFrameBackgroundColor = pluginStyle.EditText.Frame.BackgroundColor
+    local editTextFrameBorderColor = pluginStyle.EditText.Frame.BorderColor
 
-    local editTextSize = GetTextSize(editText, textSize, textFont, Vector2.new(tileStyle.Size.X.Offset, math.huge))
+    local editTextSize = GetTextSize(editText, textSize, textFont, Vector2.new(pluginStyle.Size.X.Offset, math.huge))
     local editTextPadding
-    if editTextSize.X < tileStyle.Size.X.Offset then
-        editTextPadding = tileStyle.EditText.TextPadding
+    if editTextSize.X < pluginStyle.Size.X.Offset then
+        editTextPadding = pluginStyle.EditText.TextPadding
     else
         editTextPadding = 0
     end
@@ -302,32 +298,32 @@ function Tile:render()
         image = assetData.Screen.Image
     else
         image = self.state.assetFetchStatus == Enum.AssetFetchStatus.Success and self.thumbnailUrl
-            or tileStyle.Image.PlaceHolder
+            or pluginStyle.Image.PlaceHolder
     end
 
-    local imageFrameSize = tileStyle.Image.FrameSize
-    local imageSize = tileStyle.Image.ImageSize
-    local imagePos = tileStyle.Image.Position
-    local imageFolderPos = tileStyle.Image.FolderPosition
-    local imageFolderAnchorPos = tileStyle.Image.FolderAnchorPosition
-    local imageBGColor = tileStyle.Image.BackgroundColor
+    local imageFrameSize = pluginStyle.Image.FrameSize
+    local imageSize = pluginStyle.Image.ImageSize
+    local imagePos = pluginStyle.Image.Position
+    local imageFolderPos = pluginStyle.Image.FolderPosition
+    local imageFolderAnchorPos = pluginStyle.Image.FolderAnchorPosition
+    local imageBGColor = pluginStyle.Image.BackgroundColor
 
     local createAssetPreviewButton = not isFolder and not isPlace
     local showAssetPreviewButton = self.state.assetPreviewButtonHovered
-    local magnifyingGlass = tileStyle.AssetPreview.Image
+    local magnifyingGlass = pluginStyle.AssetPreview.Image
     if FFlagHighDpiIcons then
         magnifyingGlass = ModernIcons.getIconForCurrentTheme(ModernIcons.IconEnums.Zoom)
     end
-    local assetPreviewButtonOffset = tileStyle.AssetPreview.Button.Offset
+    local assetPreviewButtonOffset = pluginStyle.AssetPreview.Button.Offset
 
     local isRootPlace = assetData.isRootPlace
-    local rootPlaceImageSize = tileStyle.Image.StartingPlace.Size
-    local rootPlaceIcon = tileStyle.Image.StartingPlace.Icon
+    local rootPlaceImageSize = pluginStyle.Image.StartingPlace.Size
+    local rootPlaceIcon = pluginStyle.Image.StartingPlace.Icon
     if FFlagHighDpiIcons then
         rootPlaceIcon = ModernIcons.getIconForCurrentTheme(ModernIcons.IconEnums.Spawn)
     end
-    local rootPlaceIconXOffset = tileStyle.Image.StartingPlace.XOffset
-    local rootPlaceIconYOffset = tileStyle.Image.StartingPlace.YOffset
+    local rootPlaceIconXOffset = pluginStyle.Image.StartingPlace.XOffset
+    local rootPlaceIconYOffset = pluginStyle.Image.StartingPlace.YOffset
 
     local layoutOrder = props.LayoutOrder
 
@@ -361,13 +357,13 @@ function Tile:render()
                 displayModerationStatus = isPending or not isApproved
                 if displayModerationStatus then
                     if isPending then
-                        moderationImage = tileStyle.Image.ModerationStatus.Pending  
+                        moderationImage = pluginStyle.Image.ModerationStatus.Pending  
                     elseif not isApproved then
-                        moderationImage = tileStyle.Image.ModerationStatus.Rejected
+                        moderationImage = pluginStyle.Image.ModerationStatus.Rejected
                     end
-                    moderationStatusImageSize = tileStyle.Image.ModerationStatus.Size
-                    moderationStatusIconXOffset = tileStyle.Image.ModerationStatus.XOffset
-                    moderationStatusIconYOffset = tileStyle.Image.ModerationStatus.YOffset
+                    moderationStatusImageSize = pluginStyle.Image.ModerationStatus.Size
+                    moderationStatusIconXOffset = pluginStyle.Image.ModerationStatus.XOffset
+                    moderationStatusIconYOffset = pluginStyle.Image.ModerationStatus.YOffset
                     moderationTooltip = ModerationUtil.getModerationTooltip(localization, moderationData)
                 end
             end
@@ -486,8 +482,7 @@ Tile = withContext({
     Localization = ContextServices.Localization,
     Mouse = ContextServices.Mouse,
     Plugin = ContextServices.Plugin,
-    Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-    Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+    Stylizer = ContextServices.Stylizer,
 })(Tile)
 
 local function mapStateToProps(state, props)

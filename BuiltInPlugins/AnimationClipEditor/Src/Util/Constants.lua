@@ -417,6 +417,19 @@ local Constants = {
 	TOGGLE_EDITOR_BUTTON_HEIGHT = 16,
 
 	CLAMPED_AUTO_TANGENT_THRESHOLD = 0.25,
+
+	ANIMATION_FROM_VIDEO_STATUS = {
+		Initializing = 0,
+		Pending = 1,
+		Processing = 2,
+		RequiresModeration = 3,
+		Error = 4,
+		ModerationRejected = 5,
+		Success = 6,
+		InputTooLong = 7,
+		InputHasNoPerson = 8,
+		InputUnstable = 9
+	},
 }
 
 Constants.MAIN_MINIMUM_SIZE = Vector2.new(Constants.TRACK_LIST_MIN_WIDTH + Constants.TIMELINE_MIN_WIDTH, 200)
@@ -639,7 +652,7 @@ if GetFFlagFaceControlsEditorBugBash2Update() then
 	Constants.faceControlsEditoSpacingBetweenDiagrams = 40
 else
 	Constants.faceControlsEditoSpacingBetweenDiagrams = 80
-end	
+end
 
 if GetFFlagFaceControlsEditorUIUpdate() then
 	Constants.faceControlsEditorTogglesContainerHeight = 95

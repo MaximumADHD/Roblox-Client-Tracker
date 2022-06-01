@@ -13,10 +13,9 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 local Cryo = require(Plugin.Packages.Cryo)
 
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.Packages.UILibrary)
@@ -74,11 +73,8 @@ function ListDialog:render()
 	})
 end
 
-
 ListDialog = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(ListDialog)
-
-
 
 return ListDialog

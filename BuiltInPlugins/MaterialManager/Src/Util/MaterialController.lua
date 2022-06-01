@@ -8,9 +8,10 @@ local FrameworkUtil = Framework.Util
 local Signal = FrameworkUtil.Signal
 
 local Flags = Plugin.Src.Flags
-local getFFlagMaterialServiceStringOverride = require(Flags.getFFlagMaterialServiceStringOverride)
 local getFFlagMaterialPack2022Update = require(Flags.getFFlagMaterialPack2022Update)
 local getFFlagMaterialServiceOverrideChangedSignal = require(Flags.getFFlagMaterialServiceOverrideChangedSignal)
+local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
+local getFFlagDevFrameworkMockWrapper = require(Flags.getFFlagDevFrameworkMockWrapper)
 
 local Util = Plugin.Src.Util
 local damerauLevenshteinDistance = require(Util.DamerauLevenshteinDistance)
@@ -21,6 +22,8 @@ local getMaterialPath = require(Constants.getMaterialPath)
 local getMaterialType = require(Constants.getMaterialType)
 local getMaterialName = require(Constants.getMaterialName)
 local getSupportedMaterials = require(Constants.getSupportedMaterials)
+
+local supportedMaterials = getSupportedMaterials()
 
 export type Category = {
 	Builtin : boolean,
@@ -51,6 +54,10 @@ end
 local MaterialController = ContextItem:extend("MaterialController")
 
 function MaterialController.new(initialMaterialVariants : _Types.Array<MaterialVariant>, materialServiceWrapper : any)
+	if getFFlagMaterialManagerGlassNeonForceField() then
+		assert(not initialMaterialVariants, "MaterialController should not take an initialMaterialVariants argument with FFlagMaterialManagerGlassNeonForceField enabled.")
+	end
+
 	local self = setmetatable({
 		_categoryChangedSignal = Signal.new(),
 		_materialAddedSignal = Signal.new(),
@@ -75,7 +82,11 @@ function MaterialController.new(initialMaterialVariants : _Types.Array<MaterialV
 
 	self._materialServiceAdded = self._materialServiceWrapper:asInstance().DescendantAdded:Connect(function(instance)
 		if instance:IsA("MaterialVariant") then
-			self:addMaterial(instance, getMaterialPath(instance))
+			if getFFlagMaterialManagerGlassNeonForceField() then
+				self:addMaterial(instance.BaseMaterial, instance, getMaterialPath(instance.BaseMaterial))
+			else
+				self:DEPRECATED_addMaterial(instance, getMaterialPath(instance))
+			end
 		end
 	end)
 
@@ -91,20 +102,39 @@ function MaterialController.new(initialMaterialVariants : _Types.Array<MaterialV
 		end
 	end)
 
-	for _, materialVariant in ipairs(initialMaterialVariants) do
-		self:addMaterial(materialVariant, getMaterialPath(materialVariant))
-	end
+	if getFFlagMaterialManagerGlassNeonForceField() then
+		for material, _ in pairs(supportedMaterials) do
+			self:addMaterial(material, nil, getMaterialPath(material))
+		end
 
-	for _, descendant in ipairs(self._materialServiceWrapper:asInstance():GetDescendants()) do
-		if descendant:IsA("MaterialVariant") then
-			self:addMaterial(descendant, getMaterialPath(descendant))
+		for _, descendant in ipairs(self._materialServiceWrapper:asInstance():GetDescendants()) do
+			if descendant:IsA("MaterialVariant") then
+				self:addMaterial(descendant.BaseMaterial, descendant, getMaterialPath(descendant.BaseMaterial))
+			end
+		end
+
+		for materialEnum, _ in ipairs(supportedMaterials) do
+			local materialName = getMaterialName(materialEnum) .. "Name"
+			self._nameToEnum[materialName] = materialEnum
+		end
+	else
+		for _, materialVariant in ipairs(initialMaterialVariants) do
+			self:DEPRECATED_addMaterial(materialVariant, getMaterialPath(materialVariant))
+		end
+
+		for _, descendant in ipairs(self._materialServiceWrapper:asInstance():GetDescendants()) do
+			if descendant:IsA("MaterialVariant") then
+				self:DEPRECATED_addMaterial(descendant, getMaterialPath(descendant))
+			end
+		end
+
+		for _, materialEnum in ipairs(getSupportedMaterials()) do
+			local materialName = getMaterialName(materialEnum) .. "Name"
+			self._nameToEnum[materialName] = materialEnum
 		end
 	end
 
-	for _, materialEnum in ipairs(getSupportedMaterials()) do
-		local materialName = getMaterialName(materialEnum) .. "Name"
-		self._nameToEnum[materialName] = materialEnum
-	end
+
 
 	return self
 end
@@ -120,12 +150,23 @@ function MaterialController:destroy()
 	end
 end
 
-function MaterialController:getMaterialWrapper(material : MaterialVariant) : _Types.Material
+function MaterialController:DEPRECATED_getMaterialWrapper(material : MaterialVariant) : _Types.Material
+	assert(not getFFlagMaterialManagerGlassNeonForceField(), "This function is deprecated with FFlagMaterialManagerGlassNeonForceField")
 	return {
 		IsBuiltin = not material:IsDescendantOf(self._materialServiceWrapper:asInstance()),
+		Material = material.BaseMaterial,
 		MaterialPath = getMaterialPath(material),
 		MaterialType = getMaterialType(material.BaseMaterial),
 		MaterialVariant = material,
+	}
+end
+
+function MaterialController:getMaterialWrapper(material : Enum.Material, materialVariant : MaterialVariant?) : _Types.Material
+	return {
+		Material = material,
+		MaterialPath = getMaterialPath(material),
+		MaterialType = getMaterialType(material),
+		MaterialVariant = materialVariant,
 	}
 end
 
@@ -187,12 +228,18 @@ function MaterialController:getCategoriesChangedSignal() : RBXScriptSignal
 end
 
 function MaterialController:getOverrideStatus(materialType : Enum.Material) : Enum.PropertyStatus
-	return self._materialServiceWrapper:asMaterialService():GetOverrideStatus(materialType)
+	if getFFlagDevFrameworkMockWrapper() then
+		return self._materialServiceWrapper:asService():GetOverrideStatus(materialType)
+	else
+		return self._materialServiceWrapper:asMaterialService():GetOverrideStatus(materialType)
+	end
 end
 
-function MaterialController:addMaterial(material : MaterialVariant, moving : boolean)
+function MaterialController:DEPRECATED_addMaterial(material : MaterialVariant, moving : boolean)
+	assert(not getFFlagMaterialManagerGlassNeonForceField(), "This function is deprecated with FFlagMaterialManagerGlassNeonForceField")
+
 	local path = getMaterialPath(material)
-	local materialWrapper = self:getMaterialWrapper(material)
+	local materialWrapper = self:DEPRECATED_getMaterialWrapper(material)
 	local category = self:addCategory(path, materialWrapper.IsBuiltin)
 	assert(category, "Category to which a Material is added should exist, or be created")
 	table.insert(category.Materials, materialWrapper)
@@ -221,6 +268,43 @@ function MaterialController:addMaterial(material : MaterialVariant, moving : boo
 	self._materialAddedSignal:Fire(path, material, moving)
 end
 
+function MaterialController:addMaterial(material : Enum.Material, materialVariant : MaterialVariant, moving : boolean)
+	local path = getMaterialPath(material)
+	local materialWrapper = self:getMaterialWrapper(material, materialVariant)
+	local category = self:addCategory(path, not materialWrapper.MaterialVariant)
+	assert(category, "Category to which a Material is added should exist, or be created")
+	table.insert(category.Materials, materialWrapper)
+
+	if materialVariant then
+		self._materialPaths[materialVariant] = path
+		self._materialWrappers[materialVariant] = materialWrapper
+		-- If the way to categorize is changed, make it happen here
+		assert(not self._materialChangedListeners[materialVariant], "Already connected to material changed")
+
+		self._materialChangedListeners[materialVariant] = materialVariant.Changed:Connect(function(property)
+			if property == "ColorMap" or property == "MetalnessMap" or property == "NormalMap" or property == "RoughnessMap" then
+				self._materialChangedSignal:Fire(materialVariant)
+			elseif property == "StudsPerTile" then
+				self._materialChangedSignal:Fire(materialVariant)
+			elseif property == "MaterialPattern" then
+				self._materialChangedSignal:Fire(materialVariant)
+			elseif property == "BaseMaterial" then
+				self:moveMaterial(materialVariant)
+				self._materialChangedSignal:Fire(materialVariant)
+			elseif property == "Name" then
+				self._materialChangedSignal:Fire(materialVariant)
+				self._materialNameChangedSignal:Fire(materialVariant)
+			end
+		end)
+	else
+		self._materialPaths[material] = path
+		self._materialWrappers[material] = materialWrapper
+	end
+
+	self._materialAddedSignal:Fire(path, materialVariant, moving)
+end
+
+-- Built-in Materials will never be removed so there is not point in adding support for them here
 function MaterialController:removeMaterial(material : MaterialVariant, moving : boolean)
 	local path = self._materialPaths[material]
 	assert(path, "Cannot remove material that does not exist")
@@ -237,8 +321,10 @@ function MaterialController:removeMaterial(material : MaterialVariant, moving : 
 	self._materialPaths[material] = nil
 	self._materialWrappers[material] = nil
 
-	self._materialChangedListeners[material]:Disconnect()
-	self._materialChangedListeners[material] = nil
+	if not getFFlagMaterialManagerGlassNeonForceField() or self._materialChangedListeners[material] then
+		self._materialChangedListeners[material]:Disconnect()
+		self._materialChangedListeners[material] = nil
+	end
 
 	self._materialRemovedSignal:Fire(path, material, moving)
 end
@@ -247,7 +333,12 @@ function MaterialController:moveMaterial(material : MaterialVariant)
 	assert(self._materialPaths[material], "Tried to move material that wasn't registered.")
 
 	self:removeMaterial(material, true)
-	self:addMaterial(material, true)
+
+	if getFFlagMaterialManagerGlassNeonForceField() then
+		self:addMaterial(material.BaseMaterial, material, true)
+	else
+		self:DEPRECATED_addMaterial(material, true)
+	end
 end
 
 function MaterialController:getMaterial(material : MaterialVariant)
@@ -266,17 +357,29 @@ function MaterialController:getMaterials(path : _Types.Path, search : string?) :
 		local tolerance = 0
 		search = string.lower(search)
 
-		local function searchFilter(material)
+		-- Remove with FFlagMaterialManagerGlassNeonForceField
+		local function DEPRECATED_searchFilter(material)
 			local name = string.lower(material.MaterialVariant.Name)
 			local findName = string.find(name, search) or damerauLevenshteinDistance(name, search) == tolerance
 			return findName and (#path == 0 or containsPath(path, getMaterialPath(material.MaterialVariant)))
 		end
 
-		recurseMaterials(category, materials, searchFilter)
+		local function searchFilter(material)
+			local name
+			if material.MaterialVariant then
+				name = string.lower(material.MaterialVariant.Name)
+			else
+				name = string.lower(getMaterialName(material.Material))
+			end
+			local findName = string.find(name, search) or damerauLevenshteinDistance(name, search) == tolerance
+			return findName and (#path == 0 or containsPath(path, getMaterialPath(material.Material)))
+		end
+
+		recurseMaterials(category, materials, if getFFlagMaterialManagerGlassNeonForceField() then searchFilter else DEPRECATED_searchFilter)
 
 		if #materials == 0 then
 			tolerance = 1
-			recurseMaterials(category, materials, searchFilter)
+			recurseMaterials(category, materials, if getFFlagMaterialManagerGlassNeonForceField() then searchFilter else DEPRECATED_searchFilter)
 		end
 	end
 
@@ -288,9 +391,16 @@ function MaterialController:getVariants(baseMaterial : Enum.Material)
 	assert(category, "Tried to get materials for path which does not exist")
 
 	local materials = {}
-	recurseMaterials(category, materials, function(material)
-		return material.MaterialVariant.BaseMaterial == baseMaterial and not material.IsBuiltin
-	end)
+	if getFFlagMaterialManagerGlassNeonForceField() then
+		recurseMaterials(category, materials, function(material)
+			return material.MaterialVariant and material.MaterialVariant.BaseMaterial == baseMaterial
+		end)
+	else
+		recurseMaterials(category, materials, function(material)
+			return material.MaterialVariant.BaseMaterial == baseMaterial and not material.IsBuiltin
+		end)
+	end
+
 
 	return materials
 end
@@ -300,43 +410,69 @@ function MaterialController:ifMaterialNameExists(name : string, baseMaterial : E
 	assert(category, "Tried to get materials for path which does not exist")
 
 	local materials = {}
-	recurseMaterials(category, materials, function(material)
-		return material.MaterialVariant.Name == name and material.MaterialVariant.BaseMaterial == baseMaterial and not material.IsBuiltin
-	end)
+	if getFFlagMaterialManagerGlassNeonForceField() then
+		recurseMaterials(category, materials, function(material)
+			return material.MaterialVariant and material.MaterialVariant.Name == name and material.Material == baseMaterial
+		end)
+	else
+		recurseMaterials(category, materials, function(material)
+			return material.MaterialVariant.Name == name and material.MaterialVariant.BaseMaterial == baseMaterial and not material.IsBuiltin
+		end)
+	end
 
 	return #materials ~= 0
 end
 
 function MaterialController:getUses2022Materials() : boolean
 	if getFFlagMaterialPack2022Update() then
-		return self._materialServiceWrapper:asMaterialService().Use2022Materials
+		if getFFlagDevFrameworkMockWrapper() then
+			return self._materialServiceWrapper:asService().Use2022Materials
+		else
+			return self._materialServiceWrapper:asMaterialService().Use2022Materials
+		end
 	end
 
 	return false
 end
 
 function MaterialController:getMaterialOverrideChangedSignal(material : Enum.Material)
-	assert(getFFlagMaterialServiceOverrideChangedSignal(), "Enable FFlagMaterialServiceStringOverride in order to use this functionality.")
+	assert(getFFlagMaterialServiceOverrideChangedSignal(), "Enable FFlagMaterialServiceOverrideChangedSignal in order to use this functionality.")
 
-	return self._materialServiceWrapper:asMaterialService():GetMaterialOverrideChanged(material)
+	if getFFlagDevFrameworkMockWrapper() then
+		return self._materialServiceWrapper:asService():GetMaterialOverrideChanged(material)
+	else
+		return self._materialServiceWrapper:asMaterialService():GetMaterialOverrideChanged(material)
+	end
 end
 
 function MaterialController:getBuiltInMaterialsChangedSignal(material : Enum.Material)
-	assert(getFFlagMaterialPack2022Update(), "Enable FFlagMaterialServiceStringOverride in order to use this functionality.")
+	assert(getFFlagMaterialPack2022Update(), "Enable FFlagMaterialPack2022Update in order to use this functionality.")
 
-	return self._materialServiceWrapper:asMaterialService():GetPropertyChangedSignal("Use2022Materials")
+	if getFFlagDevFrameworkMockWrapper() then
+		return self._materialServiceWrapper:asInstance():GetPropertyChangedSignal("Use2022Materials")
+	else
+		return self._materialServiceWrapper:asMaterialService():GetPropertyChangedSignal("Use2022Materials")
+	end
 end
 
 function MaterialController:getMaterialOverride(material : Enum.Material) : string
-	assert(getFFlagMaterialServiceStringOverride(), "Enable FFlagMaterialServiceStringOverride in order to use this functionality.")
-
-	return self._materialServiceWrapper:asMaterialService():GetBaseMaterialOverride(material)
+	if not getFFlagMaterialManagerGlassNeonForceField() or supportedMaterials[material] then
+		if getFFlagDevFrameworkMockWrapper() then
+			return self._materialServiceWrapper:asService():GetBaseMaterialOverride(material)
+		else
+			return self._materialServiceWrapper:asMaterialService():GetBaseMaterialOverride(material)
+		end
+	else
+		return ""
+	end
 end
 
 function MaterialController:setMaterialOverride(material : Enum.Material, materialVariant : string?)
-	assert(getFFlagMaterialServiceStringOverride(), "Enable FFlagMaterialServiceStringOverride in order to use this functionality.")
-
-	self._materialServiceWrapper:asMaterialService():SetBaseMaterialOverride(material, materialVariant or "")
+	if getFFlagDevFrameworkMockWrapper() then
+		self._materialServiceWrapper:asService():SetBaseMaterialOverride(material, materialVariant or "")
+	else
+		self._materialServiceWrapper:asMaterialService():SetBaseMaterialOverride(material, materialVariant or "")
+	end
 end
 
 function MaterialController:getMaterialOverrides(material : Enum.Material) : (_Types.Array<_Types.Material>, number)
@@ -378,9 +514,11 @@ function MaterialController:getMaterialOverrides(material : Enum.Material) : (_T
 end
 
 function MaterialController:getMaterialVariant(material : Enum.Material, name : string) : MaterialVariant
-	assert(getFFlagMaterialServiceStringOverride(), "Enable FFlagMaterialServiceStringOverride in order to use this functionality.")
-
-	return self._materialServiceWrapper:asMaterialService():GetMaterialVariant(material, name)
+	if getFFlagDevFrameworkMockWrapper() then
+		return self._materialServiceWrapper:asService():GetMaterialVariant(material, name)
+	else
+		return self._materialServiceWrapper:asMaterialService():GetMaterialVariant(material, name)
+	end
 end
 
 function MaterialController:getMaterialAddedSignal() : RBXScriptSignal
@@ -404,7 +542,11 @@ function MaterialController:getOverrideChangedSignal() : RBXScriptSignal
 end
 
 function MaterialController:getOverrideStatusChangedSignal() : RBXScriptSignal
-	return self._materialServiceWrapper:asMaterialService().OverrideStatusChanged
+	if getFFlagDevFrameworkMockWrapper() then
+		return self._materialServiceWrapper:asService().OverrideStatusChanged
+	else
+		return self._materialServiceWrapper:asMaterialService().OverrideStatusChanged
+	end
 end
 
 return MaterialController

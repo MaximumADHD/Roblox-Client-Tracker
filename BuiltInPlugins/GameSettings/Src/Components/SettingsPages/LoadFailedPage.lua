@@ -15,7 +15,6 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local FrameworkUI = Framework.UI
-local Util = Framework.Util
 
 local Button = FrameworkUI.Button
 local Container = FrameworkUI.Container
@@ -86,12 +85,9 @@ function LoadFailedPage:render()
 	})
 end
 
-
 LoadFailedPage = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 })(LoadFailedPage)
-
-
 
 return LoadFailedPage

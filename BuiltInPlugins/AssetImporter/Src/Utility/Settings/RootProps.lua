@@ -4,7 +4,7 @@ local getFFlagDisableAvatarAnchoredSetting = require(Plugin.Src.Flags.getFFlagDi
 
 local AssetImportService = game:GetService("AssetImportService")
 
-local getFFlagAssetImporterFixPivotAndInsertLocations = require(Plugin.Src.Flags.getFFlagAssetImporterFixPivotAndInsertLocations)
+local getFFlagAssetImporterFixPivotAndInsertLocations2 = require(Plugin.Src.Flags.getFFlagAssetImporterFixPivotAndInsertLocations)
 
 local function hideIfAvatar()
 	return AssetImportService:IsAvatar() and getFFlagDisableAvatarAnchoredSetting()
@@ -15,11 +15,15 @@ local function hideIfNotAvatar()
 end
 
 local function hideIfNotInsertToWorkspace(rootSettings)
-	if getFFlagAssetImporterFixPivotAndInsertLocations() then
+	if getFFlagAssetImporterFixPivotAndInsertLocations2() then
 		return not rootSettings.InsertInWorkspace
 	else
 		return true
 	end
+end
+
+local function hideIfNotFFlagAssetImporterFixPivotAndInsertLocations2()
+	return not getFFlagAssetImporterFixPivotAndInsertLocations2()
 end
 
 return {
@@ -30,6 +34,7 @@ return {
 			{Name = "ImportAsModelAsset", Editable = true},
 			{Name = "InsertInWorkspace", Editable = true},
 			{Name = "InsertWithScenePosition", Editable = true, ShouldHide = hideIfNotInsertToWorkspace},
+			{Name = "UseSceneOriginAsPivot", Editable = true, ShouldHide = hideIfNotFFlagAssetImporterFixPivotAndInsertLocations2},
 			{Name = "Anchored", Editable = true, ShouldHide = hideIfAvatar},
 		},
 	},

@@ -38,7 +38,6 @@ local Constants = require(Plugin.Src.Util.Constants)
 local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-local GetFFlagFacsAsFloat = require(Plugin.LuaFlags.GetFFlagFacsAsFloat)
 
 local Track = Roact.PureComponent:extend("Track")
 
@@ -112,7 +111,6 @@ function Track:render()
 	local dragMultiplier = props.DragMultiplier or Constants.NUMBERBOX_DRAG_MULTIPLIER
 
 	local trackTheme = theme.trackTheme
-	local curveTheme = not GetFFlagFacsAsFloat() and theme.curveTheme or nil  -- Unused
 	local arrowTheme = trackTheme.arrow
 	local expanded = props.Expanded or false
 	local selected = props.Selected or false
@@ -169,7 +167,7 @@ function Track:render()
 			color = theme.curveTheme[colorName]
 		end
 
-		if GetFFlagFacsAsFloat() and GetFFlagCurveEditor() then
+		if GetFFlagCurveEditor() then
 			precision = if item.Type == Constants.TRACK_TYPES.Facs then Constants.NUMBER_FACS_PRECISION else Constants.NUMBER_PRECISION
 		else
 			precision = Constants.NUMBER_PRECISION

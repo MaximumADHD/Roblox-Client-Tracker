@@ -17,13 +17,13 @@ local withLocalization = require(Dependencies.withLocalization)
 
 local CloseReportMenu = require(TnsModule.Actions.CloseReportMenu)
 local OpenReportDialog = require(TnsModule.Actions.OpenReportDialog)
+local OpenReportMenu = require(TnsModule.Actions.OpenReportMenu)
 local Assets = require(TnsModule.Resources.Assets)
 local Constants = require(TnsModule.Resources.Constants)
 local ModalDialog = require(TnsModule.Components.ModalDialog)
 local GameCell = require(TnsModule.Components.GameCell)
 
 local Colors = UIBlox.App.Style.Colors
-local IconButton = UIBlox.App.Button.IconButton
 local StyleProvider = UIBlox.Core.Style.Provider
 local withStyle = UIBlox.Core.Style.withStyle
 
@@ -44,30 +44,11 @@ ReportMenu.validateProps = t.strictInterface({
 	openReportDialog = t.callback,
 })
 
-function ReportMenu:renderTitleBar()
-	return Roact.createElement("Frame", {
-		BackgroundTransparency = 1,
-		Size = UDim2.new(1, 0, 1, 0),
-	}, {
-		CloseButton = Roact.createElement(IconButton, {
-			anchorPoint = Vector2.new(0, 0.5),
-			icon = Assets.Images.CloseIcon.Image,
-			iconSize = Assets.Images.CloseIcon.IconSize,
-			position = UDim2.new(0, 24, 0.5, 0),
-			onActivated = self.props.closeDialog,
-		}),
-	})
-end
-
 function ReportMenu:getSortedPlayerList()
 	local list = {}
 	for _, player in ipairs(Players:GetPlayers()) do
 		if player ~= Players.LocalPlayer then
-			table.insert(list, {
-				UserId = player.UserId,
-				Name = player.Name,
-				DisplayName = player.DisplayName,
-			})
+			table.insert(list, player)
 		end
 	end
 	-- sort by display name in alphabetical order
@@ -139,7 +120,7 @@ function ReportMenu:render()
 			ModalDialog = Roact.createElement(ModalDialog, {
 				visible = self.props.isReportMenuOpen,
 				titleText = localized.titleText,
-				titleBar = self:renderTitleBar(),
+				showCloseButton = true,
 				contents = self:renderContents(),
 				onDismiss = self.props.closeDialog,
 			}),
@@ -159,7 +140,9 @@ end, function(dispatch)
 			dispatch(CloseReportMenu())
 		end,
 		openReportDialog = function(reportType, targetPlayer)
-			dispatch(OpenReportDialog(reportType, targetPlayer))
+			dispatch(OpenReportDialog(reportType, targetPlayer, function()
+				dispatch(OpenReportMenu())
+			end))
 		end,
 	}
 end)(ReportMenu)

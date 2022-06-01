@@ -3,9 +3,14 @@ local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 
+local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
+local BlockPlayer = require(RobloxGui.Modules.PlayerList.Thunks.BlockPlayer)
+local UnblockPlayer = require(RobloxGui.Modules.PlayerList.Thunks.UnblockPlayer)
+local TrustAndSafety = require(RobloxGui.Modules.TrustAndSafety)
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -13,6 +18,8 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 local t = InGameMenuDependencies.t
 
 local UIBlox = InGameMenuDependencies.UIBlox
+local ButtonStack = UIBlox.App.Button.ButtonStack
+local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local Images = UIBlox.App.ImageSet.Images
 
 local InGameMenu = script.Parent.Parent
@@ -23,7 +30,6 @@ local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local PlayerContextualMenu = require(InGameMenu.Components.PlayerContextualMenu)
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 local InviteUserToPlaceId = require(InGameMenu.Thunks.InviteUserToPlaceId)
-local OpenReportDialog = require(InGameMenu.Actions.OpenReportDialog)
 
 local InviteStatus = Constants.InviteStatus
 
@@ -31,12 +37,7 @@ local PlayerContextualMenuWrapper = Roact.PureComponent:extend("PlayerContextual
 
 PlayerContextualMenuWrapper.validateProps = t.strictInterface({
 	xOffset = t.optional(t.number),
-	selectedPlayer = t.optional(t.strictInterface({
-		IsOnline = t.boolean,
-		Id = t.integer,
-		Username = t.string,
-		DisplayName = t.string,
-	})),
+	selectedPlayer = t.optional(playerInterface),
 	selectedPlayerPosition = t.optional(t.Vector2),
 	blockingUtility = t.union(t.Instance, t.table),
 	playersService = t.union(t.Instance, t.table),
@@ -49,7 +50,8 @@ PlayerContextualMenuWrapper.validateProps = t.strictInterface({
 	isCurrentZoneActive = t.optional(t.boolean),
 	closeMenu = t.callback,
 	dispatchInviteUserToPlaceId = t.callback,
-	dispatchOpenReportDialog = t.callback,
+	blockPlayer = t.callback,
+	unblockPlayer = t.callback,
 })
 
 PlayerContextualMenuWrapper.defaultProps = {
@@ -68,9 +70,13 @@ local CONTEXT_MENU_HEADER_HEIGHT = 92
 local CONTEXT_SIDE_PADDING = 24 -- context menu should keep 24 px away from bottom/right side of screen
 local CONTEXT_PADDING_TOP = 24 -- context side padding
 local CONTEXT_LEFT_PADDING = 20
+local CONTEXT_MENU_BUTTON_CONTAINER_WIDTH = 118
+local CONTEXT_MENU_BUTTON_CONTAINER_HEIGHT = 36
+local CONTEXT_MENU_BUTTON_WIDTH = 47
 
 function PlayerContextualMenuWrapper:render()
 	return withLocalization({
+		addFriend = "CoreScripts.InGameMenu.Actions.AddFriend",
 		viewAvatar = "CoreScripts.InGameMenu.Actions.ViewAvatar",
 		reportAbuse = "CoreScripts.InGameMenu.Actions.ReportAbuse",
 		inviteFriend = "CoreScripts.InGameMenu.Action.InviteFriend",
@@ -80,6 +86,8 @@ function PlayerContextualMenuWrapper:render()
 		unfriend = "CoreScripts.InGameMenu.Actions.Unfriend",
 		unmutePlayer = "CoreScripts.InGameMenu.Action.UnmutePlayer",
 		mutePlayer = "CoreScripts.InGameMenu.Action.MutePlayer",
+		pendingFriendRequest = "CoreScripts.InGameMenu.Action.PendingFriendRequest",
+		accept = "CoreScripts.InGameMenu.Action.Accept",
 	})(function(localized)
 		return self:renderWithLocalized(localized)
 	end)
@@ -149,13 +157,18 @@ end
 
 function PlayerContextualMenuWrapper:getMoreActions(localized)
 	local player = self.props.selectedPlayer
-	local isFriendsWithPlayer = self.props.playersService.LocalPlayer:IsFriendsWith(player.Id)
+	local isFriendsWithPlayer = self.props.playersService.LocalPlayer:IsFriendsWith(player.UserId)
 
 	local moreActions = {}
 	if self.props.selectedPlayer ~= nil then
 		local inviteAction = self:getInviteAction(localized, player, isFriendsWithPlayer)
 		if inviteAction then
 			table.insert(moreActions, inviteAction)
+		end
+
+		local friendAction = self:getFriendAction(localized, player)
+		if friendAction then
+			table.insert(moreActions, friendAction)
 		end
 
 		local viewAvatarAction = self:getViewAvatarAction(localized, player)
@@ -188,6 +201,11 @@ function PlayerContextualMenuWrapper:getMoreActions(localized)
 end
 
 function PlayerContextualMenuWrapper:getInviteAction(localized, player, isFriendsWithPlayer)
+	local isPlayerInstanceType = typeof(player) == "Instance" and player:IsA("Player")
+	if isPlayerInstanceType then
+		return nil
+	end
+
 	if not player then
 		return nil
 	end
@@ -196,7 +214,7 @@ function PlayerContextualMenuWrapper:getInviteAction(localized, player, isFriend
 		return nil
 	end
 
-	local userInviteStatus = self.props.invitesState[tostring(player.Id)]
+	local userInviteStatus = self.props.invitesState[tostring(player.UserId)]
 	if userInviteStatus then
 		-- todo: handle moderated and failed states
 
@@ -213,7 +231,7 @@ function PlayerContextualMenuWrapper:getInviteAction(localized, player, isFriend
 			icon = Images["icons/actions/friends/friendInvite"],
 			onActivated = function()
 				local placeId = tostring(game.PlaceId)
-				local userId = tostring(player.Id)
+				local userId = tostring(player.UserId)
 				if placeId then
 					self.props.dispatchInviteUserToPlaceId(userId, placeId)
 				end
@@ -224,12 +242,132 @@ function PlayerContextualMenuWrapper:getInviteAction(localized, player, isFriend
 	return nil
 end
 
+function PlayerContextualMenuWrapper:getFriendAction(localized, player)
+	local isPlayerInstanceType = typeof(player) == "Instance" and player:IsA("Player")
+	if not isPlayerInstanceType then
+		return nil
+	end
+
+	-- check if player is blocked
+	local isBlocked = self.props.blockingUtility:IsPlayerBlockedByUserId(player.UserId)
+	if isBlocked then
+		return nil
+	end
+
+	-- if we're not friends yet, we can either send a friend request
+	local friendStatus = self.props.playersService.LocalPlayer:GetFriendStatus(player)
+	if friendStatus == Enum.FriendStatus.Unknown or friendStatus == Enum.FriendStatus.NotFriend then
+		return {
+			text = localized.addFriend,
+			icon = Images["icons/actions/friends/friendAdd"],
+			onActivated = function()
+				self.props.playersService.LocalPlayer:RequestFriendship(player)
+
+				-- send analytic events
+				AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
+				SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsRequestFriendName, {})
+			end,
+		}
+	elseif friendStatus == Enum.FriendStatus.FriendRequestSent then
+		return {
+			text = localized.pendingFriendRequest,
+			icon = Images["icons/actions/friends/friendpending"],
+			onActivated = function()
+				-- cancel request if there's a pending friend request
+				self.props.playersService.LocalPlayer:RevokeFriendship(player)
+
+				-- todo: send analytics counter and event
+			end,
+		}
+	elseif friendStatus == Enum.FriendStatus.FriendRequestReceived then
+		-- check to see if we have a pending incoming friend acceptance
+		-- this happens when we have a pending friend request and we
+		-- are about to decide whether we want to reject or accept friend request
+		if self.state.pendingIncomingPlayerInvite then
+			-- show reject/accept friend buttons
+			return {
+				text = localized.accept,
+				icon = Images["icons/actions/friends/friendpending"],
+				onActivated = function()
+					self:setState({
+						pendingIncomingPlayerInvite = Roact.None,
+					})
+				end,
+				renderRightSideGadget = self.state.pendingIncomingPlayerInvite and function()
+					return {
+						ButtonStack = Roact.createElement(ButtonStack, {
+							buttons = {
+								{
+									buttonType = ButtonType.Secondary,
+									props = {
+										icon = Images["icons/actions/reject"],
+										size = UDim2.fromOffset(
+											CONTEXT_MENU_BUTTON_WIDTH,
+											CONTEXT_MENU_BUTTON_CONTAINER_HEIGHT
+										),
+										onActivated = function()
+											self.props.playersService.LocalPlayer:RevokeFriendship(player)
+											self.setState({
+												selectedPlayer = Roact.None,
+												pendingIncomingPlayerInvite = Roact.None,
+											})
+										end,
+										layoutOrder = 1,
+									},
+								},
+								{
+									buttonType = ButtonType.PrimarySystem,
+									props = {
+										icon = Images["icons/actions/friends/friendAdd"],
+										size = UDim2.fromOffset(
+											CONTEXT_MENU_BUTTON_WIDTH,
+											CONTEXT_MENU_BUTTON_CONTAINER_HEIGHT
+										),
+										onActivated = function()
+											self.props.playersService.LocalPlayer:RequestFriendship(player)
+											self.setState({
+												selectedPlayer = Roact.None,
+												pendingIncomingPlayerInvite = Roact.None,
+											})
+										end,
+										layoutOrder = 2,
+									},
+								},
+							},
+							buttonHeight = CONTEXT_MENU_BUTTON_CONTAINER_HEIGHT,
+							forcedFillDirection = Enum.FillDirection.Horizontal,
+							marginBetween = 8,
+						}),
+					}
+				end,
+				rightSideGadgetSize = self.state.pendingIncomingPlayerInvite and Vector2.new(
+					CONTEXT_MENU_BUTTON_CONTAINER_WIDTH,
+					CONTEXT_MENU_BUTTON_CONTAINER_HEIGHT
+				),
+			}
+		else
+			-- show pending incoming friend invite state
+			return {
+				text = localized.pendingFriendRequest,
+				icon = Images["icons/actions/friends/friendpending"],
+				onActivated = function()
+					self:setState({
+						pendingIncomingPlayerInvite = player,
+					})
+				end,
+			}
+		end
+	else
+		return nil
+	end
+end
+
 function PlayerContextualMenuWrapper:getViewAvatarAction(localized, player)
 	return {
 		text = localized.viewAvatar,
 		icon = Assets.Images.ViewAvatar,
 		onActivated = function()
-			GuiService:InspectPlayerFromUserIdWithCtx(player.Id, "escapeMenu")
+			GuiService:InspectPlayerFromUserIdWithCtx(player.UserId, "escapeMenu")
 			self.props.closeMenu()
 			self.props.onActionComplete()
 			SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsExamineAvatarName, {})
@@ -238,7 +376,7 @@ function PlayerContextualMenuWrapper:getViewAvatarAction(localized, player)
 end
 
 function PlayerContextualMenuWrapper:getReportAction(localized, player)
-	local isLocalPlayer = player.Id == self.props.playersService.LocalPlayer.UserId
+	local isLocalPlayer = player.UserId == self.props.playersService.LocalPlayer.UserId
 	if isLocalPlayer then
 		return nil
 	end
@@ -247,23 +385,27 @@ function PlayerContextualMenuWrapper:getReportAction(localized, player)
 		text = localized.reportAbuse,
 		icon = Images["icons/actions/feedback"],
 		onActivated = function()
-			-- todo: replace with new V3 T&S module integration
-			self.props.dispatchOpenReportDialog(player.Id, player.Username)
+			TrustAndSafety.openReportDialogForPlayer(player)
 			self.props.onActionComplete()
 		end,
 	}
 end
 
 function PlayerContextualMenuWrapper:getMutePlayerAction(localized, player)
+	local isPlayerInstanceType = typeof(player) == "Instance" and player:IsA("Player")
+	if not isPlayerInstanceType then
+		return nil
+	end
+
 	if self.props.voiceEnabled then
-		local voiceParticipant = VoiceChatServiceManager.participants[tostring(player.Id)]
+		local voiceParticipant = VoiceChatServiceManager.participants[tostring(player.UserId)]
 		if voiceParticipant then
 			local isMuted = voiceParticipant.isMutedLocally
 			return {
 				text = isMuted and localized.unmutePlayer or localized.mutePlayer,
 				icon = VoiceChatServiceManager:GetIcon(isMuted and "Unmute" or "Mute", "Misc"),
 				onActivated = function()
-					VoiceChatServiceManager:ToggleMutePlayer(player.Id)
+					VoiceChatServiceManager:ToggleMutePlayer(player.UserId)
 					self.props.onActionComplete()
 				end,
 			}
@@ -274,18 +416,38 @@ function PlayerContextualMenuWrapper:getMutePlayerAction(localized, player)
 end
 
 function PlayerContextualMenuWrapper:getBlockPlayerAction(localized, player)
-	local isBlocked = self.props.blockingUtility:IsPlayerBlockedByUserId(player.Id)
+	local isPlayerInstanceType = typeof(player) == "Instance" and player:IsA("Player")
+	if not isPlayerInstanceType then
+		return nil
+	end
+
+	local isLocalPlayer = player.UserId == self.props.playersService.LocalPlayer.UserId
+	if isLocalPlayer then
+		return nil
+	end
+
+	local isBlocked = self.props.blockingUtility:IsPlayerBlockedByUserId(player.UserId)
 	return {
 		text = isBlocked and localized.unblockPlayer or localized.blockPlayer,
 		icon = Images["icons/actions/block"],
 		onActivated = function()
-			-- todo: integrate with block api
+			if isBlocked then
+				self.props.unblockPlayer(player)
+			else
+				self.props.blockPlayer(player)
+			end
+
 			self.props.onActionComplete()
 		end,
 	}
 end
 
 function PlayerContextualMenuWrapper:getUnfriendAction(localized, player, isFriendsWithPlayer)
+	local isPlayerInstanceType = typeof(player) == "Instance" and player:IsA("Player")
+	if not isPlayerInstanceType then
+		return nil
+	end
+
 	if not isFriendsWithPlayer then
 		return nil
 	end
@@ -294,6 +456,7 @@ function PlayerContextualMenuWrapper:getUnfriendAction(localized, player, isFrie
 		text = localized.unfriend,
 		icon = Images["icons/actions/friends/friendRemove"],
 		onActivated = function()
+			-- todo: use non - players service API
 			self.props.playersService.LocalPlayer:RevokeFriendship(player)
 
 			-- todo: add analytics
@@ -318,8 +481,11 @@ end, function(dispatch)
 		dispatchInviteUserToPlaceId = function(userId, placeId)
 			dispatch(InviteUserToPlaceId(userId, placeId))
 		end,
-		dispatchOpenReportDialog = function(userId, userName)
-			dispatch(OpenReportDialog(userId, userName))
+		blockPlayer = function(player)
+			return dispatch(BlockPlayer(player))
+		end,
+		unblockPlayer = function(player)
+			return dispatch(UnblockPlayer(player))
 		end,
 	}
 end)(PlayerContextualMenuWrapper)

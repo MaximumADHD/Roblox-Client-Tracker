@@ -58,8 +58,6 @@ local Images = UIBlox.App.ImageSet.Images
 local FocusHandler = require(script.Parent.Connection.FocusHandler)
 local IGMMainPageControllerBar = require(script.Parent.IGMMainPageControllerBar)
 
-local GetFFlagEnableVoiceChatNewPlayersList = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatNewPlayersList)
-local GetFFlagEnableVoiceChatMuteButton = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatMuteButton)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 
 local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
@@ -106,7 +104,6 @@ function MainPage:renderButtonModels(style, localized)
 	-- Report Button
 
 	if areCapturesAllowed() then
-
 		-- Screenshot Button
 		if FFlagTakeAScreenshotOfThis then
 			table.insert(buttons, {
@@ -159,7 +156,6 @@ function MainPage:renderButtonModels(style, localized)
 				textColorOverride = colorOverride,
 			})
 		end
-
 	end
 
 	-- Respawn Button
@@ -274,29 +270,33 @@ function MainPage:renderMainPageFocusHandler()
 		shouldForgetPreviousSelection = shouldForgetPreviousSelection,
 		didFocus = GetFFlagIGMGamepadSelectionHistory() and function(previousSelection)
 			if not GetFFlagSideNavControllerBar() then
-				ContextActionService:BindCoreAction(LEFT_STICK_TOGGLES_MORE_MENU_ACTION, function(actionName, inputState)
-					if inputState == Enum.UserInputState.End then
-						if GetFFlagRemoveMoreMenuFromReducer() then
-							self:setState({
-								modalOpen = true
-							})
-						else
-							self.props.setMainPageMoreMenuOpen(true)
+				ContextActionService:BindCoreAction(
+					LEFT_STICK_TOGGLES_MORE_MENU_ACTION,
+					function(actionName, inputState)
+						if inputState == Enum.UserInputState.End then
+							if GetFFlagRemoveMoreMenuFromReducer() then
+								self:setState({
+									modalOpen = true,
+								})
+							else
+								self.props.setMainPageMoreMenuOpen(true)
+							end
+							return Enum.ContextActionResult.Sink
 						end
-						return Enum.ContextActionResult.Sink
-					end
-					return Enum.ContextActionResult.Pass
-				end, false, Enum.KeyCode.ButtonL3)
+						return Enum.ContextActionResult.Pass
+					end,
+					false,
+					Enum.KeyCode.ButtonL3
+				)
 			end
 
 			GuiService.SelectedCoreObject = previousSelection or self.mainPageFirstButtonRef:getValue()
-
 		end or function()
 			ContextActionService:BindCoreAction(LEFT_STICK_TOGGLES_MORE_MENU_ACTION, function(actionName, inputState)
 				if inputState == Enum.UserInputState.End then
 					if GetFFlagRemoveMoreMenuFromReducer() then
 						self:setState({
-							modalOpen = not self.state.modalOpen
+							modalOpen = not self.state.modalOpen,
 						})
 					else
 						self.props.setMainPageMoreMenuOpen(not self.props.isMainPageMoreMenuOpen)
@@ -337,7 +337,7 @@ function MainPage:renderMoreMenuFocusHandler()
 				if inputState == Enum.UserInputState.End then
 					if GetFFlagRemoveMoreMenuFromReducer() then
 						self:setState({
-							modalOpen = false
+							modalOpen = false,
 						})
 					else
 						self.props.setMainPageMoreMenuOpen(false)
@@ -352,15 +352,17 @@ function MainPage:renderMoreMenuFocusHandler()
 					CLOSE_MORE_MENU_ACTION,
 					closeMoreMenuActionCallback,
 					false,
-					Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonL3)
+					Enum.KeyCode.ButtonB,
+					Enum.KeyCode.ButtonL3
+				)
 			else
 				ContextActionService:BindCoreAction(
 					CLOSE_MORE_MENU_ACTION,
 					closeMoreMenuActionCallback,
 					false,
-					Enum.KeyCode.ButtonB)
+					Enum.KeyCode.ButtonB
+				)
 			end
-
 
 			if self.moreMenuFrameRef ~= nil then
 				GuiService:RemoveSelectionGroup(MORE_MENU_NAME)
@@ -398,7 +400,7 @@ function MainPage:render()
 				onActivated = function()
 					if GetFFlagRemoveMoreMenuFromReducer() then
 						self:setState({
-							modalOpen = true
+							modalOpen = true,
 						})
 					else
 						self.props.setMainPageMoreMenuOpen(true)
@@ -435,191 +437,111 @@ function MainPage:render()
 				})
 			end
 
-			if GetFFlagEnableVoiceChatMuteButton() then
-				local voiceChatMuteButton = nil
-				if self.props.voiceEnabled then
-					voiceChatMuteButton = Roact.createElement(VoiceIndicator, {
-						size = UDim2.fromOffset(BOTTOM_MENU_ICON_SIZE, BOTTOM_MENU_ICON_SIZE),
-						userId = tostring(Players.LocalPlayer.UserId),
-						iconStyle = "MicLight",
-						onClicked = function()
-							VoiceChatServiceManager:ToggleMic()
-						end,
-					})
-					leaveGameSizeOffset = leaveGameSizeOffset - (BOTTOM_MENU_ICON_SIZE + 12)
-				end
-
-				return Roact.createElement("TextButton", {
-					Size = UDim2.new(0, MAIN_PAGE_WIDTH, 1, 0),
-					BackgroundColor3 = style.Theme.BackgroundDefault.Color,
-					BackgroundTransparency = style.Theme.BackgroundDefault.Transparency,
-					BorderSizePixel = 0,
-					Visible = self.props.open,
-					Text = "",
-					AutoButtonColor = false,
-					Selectable = false,
-				}, {
-					MoreMenuFocusHandler = self:renderMoreMenuFocusHandler(),
-					MainPageFocusHandler = GetFFlagUseIGMControllerBar() and not (VRService.VREnabled and FFlagEnableNewVrSystem) and self:renderMainPageFocusHandler() or nil,
-					ControllerBar = ControllerBar,
-					ZonePortal = Roact.createElement(ZonePortal, {
-						targetZone = 0,
-						direction = Direction.Left,
-					}),
-					GameIconHeader = Roact.createElement(GameIconHeader),
-					PageNavigation = Roact.createElement(PageNavigation, {
-						Position = UDim2.new(0, Constants.Zone.ContentOffset, 0, 148),
-						mainPageFirstButtonRef = self.mainPageFirstButtonRef,
-					}),
-
-					ContextualMenu = Roact.createElement(ContextualMenu, {
-						buttonProps = buttonModels,
-						setFrameRef = self.setMoreMenuRef,
-						setFirstItemRef = self.setMoreMenuFirstItemRef,
-
-						open = isMainPageMoreMenuOpen,
-						menuDirection = MenuDirection.Up,
-						openPositionY = UDim.new(1, -84),
-
-						closeBackgroundVisible = true,
-						screenSize = self.props.screenSize,
-
-						onDismiss = function()
-							if GetFFlagRemoveMoreMenuFromReducer() then
-								self:setState({
-									modalOpen = false
-								})
-							else
-								self.props.setMainPageMoreMenuOpen(false)
-							end
-						end,
-					}),
-					BottomButtons = Roact.createElement("Frame", {
-						Size = UDim2.new(1, 0, 0, 84),
-						Position = UDim2.new(0, 0, 1, 0),
-						AnchorPoint = Vector2.new(0, 1),
-						BackgroundTransparency = 1,
-					}, {
-						Layout = Roact.createElement("UIListLayout", {
-							FillDirection = Enum.FillDirection.Horizontal,
-							HorizontalAlignment = Enum.HorizontalAlignment.Center,
-							Padding = UDim.new(0, 12),
-							SortOrder = Enum.SortOrder.LayoutOrder,
-							VerticalAlignment = Enum.VerticalAlignment.Center,
-						}),
-						Padding = Roact.createElement("UIPadding", {
-							PaddingTop = UDim.new(0, 24),
-							PaddingBottom = UDim.new(0, 24),
-							PaddingLeft = UDim.new(0, 24),
-							PaddingRight = UDim.new(0, 24),
-						}),
-						LeaveGame = Roact.createElement("Frame", {
-							BackgroundTransparency = 1,
-							Size = UDim2.new(1, leaveGameSizeOffset, 0, BOTTOM_MENU_ICON_SIZE),
-							Position = UDim2.fromScale(1, 0),
-							AnchorPoint = Vector2.new(1, 0),
-							LayoutOrder = 1,
-						}, {
-							Button = Roact.createElement(UIBlox.App.Button.PrimarySystemButton, {
-								size = UDim2.fromScale(1, 1),
-								onActivated = self.props.startLeavingGame,
-								text = localized.leaveGame,
-							}),
-							KeyLabel = leaveGameKeyCode and Roact.createElement(KeyLabel, {
-								keyCode = leaveGameKeyCode,
-								iconThemeKey = "UIDefault",
-								textThemeKey = "SystemPrimaryContent",
-								AnchorPoint = Vector2.new(1, 0.5),
-								Position = UDim2.new(1, -16, 0.5, 0),
-								LayoutOrder = 2,
-							}) or nil,
-						}),
-						VoiceChatMuteButton = voiceChatMuteButton,
-						MoreButton = showContextMenu and moreButton,
-					})
+			local voiceChatMuteButton = nil
+			if self.props.voiceEnabled then
+				voiceChatMuteButton = Roact.createElement(VoiceIndicator, {
+					size = UDim2.fromOffset(BOTTOM_MENU_ICON_SIZE, BOTTOM_MENU_ICON_SIZE),
+					userId = tostring(Players.LocalPlayer.UserId),
+					iconStyle = "MicLight",
+					onClicked = function()
+						VoiceChatServiceManager:ToggleMic()
+					end,
 				})
-			else
-				return Roact.createElement("TextButton", {
-					Size = UDim2.new(0, MAIN_PAGE_WIDTH, 1, 0),
-					BackgroundColor3 = style.Theme.BackgroundDefault.Color,
-					BackgroundTransparency = style.Theme.BackgroundDefault.Transparency,
-					BorderSizePixel = 0,
-					Visible = self.props.open,
-					Text = "",
-					AutoButtonColor = false,
-					Selectable = false,
-				}, {
-					MoreMenuFocusHandler = self:renderMoreMenuFocusHandler(),
-					MainPageFocusHandler = GetFFlagUseIGMControllerBar() and not (VRService.VREnabled and FFlagEnableNewVrSystem) and self:renderMainPageFocusHandler() or nil,
-					ControllerBar = ControllerBar,
-					ZonePortal = Roact.createElement(ZonePortal, {
-						targetZone = 0,
-						direction = Direction.Left,
-					}),
-					GameIconHeader = Roact.createElement(GameIconHeader),
-					PageNavigation = Roact.createElement(PageNavigation, {
-						Position = UDim2.new(0, Constants.Zone.ContentOffset, 0, 148),
-						mainPageFirstButtonRef = self.mainPageFirstButtonRef,
-					}),
-
-					ContextualMenu = Roact.createElement(ContextualMenu, {
-						buttonProps = buttonModels,
-						setFrameRef = self.setMoreMenuRef,
-						setFirstItemRef = self.setMoreMenuFirstItemRef,
-
-						open = isMainPageMoreMenuOpen,
-						menuDirection = MenuDirection.Up,
-						openPositionY = UDim.new(1, -84),
-
-						closeBackgroundVisible = true,
-						screenSize = self.props.screenSize,
-
-						onDismiss = function()
-							if GetFFlagRemoveMoreMenuFromReducer() then
-								self:setState({
-									modalOpen = false
-								})
-							else
-								self.props.setMainPageMoreMenuOpen(false)
-							end
-						end,
-					}),
-					BottomButtons = Roact.createElement("Frame", {
-							Size = UDim2.new(1, 0, 0, 84),
-							Position = UDim2.new(0, 0, 1, 0),
-							AnchorPoint = Vector2.new(0, 1),
-							BackgroundTransparency = 1,
-						}, {
-						Padding = Roact.createElement("UIPadding", {
-							PaddingTop = UDim.new(0, 24),
-							PaddingBottom = UDim.new(0, 24),
-							PaddingLeft = UDim.new(0, 24),
-							PaddingRight = UDim.new(0, 24),
-						}),
-						LeaveGame = Roact.createElement("Frame", {
-							BackgroundTransparency = 1,
-							Size = UDim2.new(1, leaveGameSizeOffset, 0, BOTTOM_MENU_ICON_SIZE),
-							Position = UDim2.fromScale(1, 0),
-							AnchorPoint = Vector2.new(1, 0),
-						}, {
-							Button = Roact.createElement(UIBlox.App.Button.PrimarySystemButton, {
-								size = UDim2.fromScale(1, 1),
-								onActivated = self.props.startLeavingGame,
-								text = localized.leaveGame,
-							}),
-							KeyLabel = leaveGameKeyCode and Roact.createElement(KeyLabel, {
-								keyCode = leaveGameKeyCode,
-								iconThemeKey = "UIDefault",
-								textThemeKey = "SystemPrimaryContent",
-								AnchorPoint = Vector2.new(1, 0.5),
-								Position = UDim2.new(1, -16, 0.5, 0),
-								LayoutOrder = 2,
-							}) or nil,
-						}),
-						MoreButton = showContextMenu and moreButton,
-					}),
-				})
+				leaveGameSizeOffset = leaveGameSizeOffset - (BOTTOM_MENU_ICON_SIZE + 12)
 			end
+
+			return Roact.createElement("TextButton", {
+				Size = UDim2.new(0, MAIN_PAGE_WIDTH, 1, 0),
+				BackgroundColor3 = style.Theme.BackgroundDefault.Color,
+				BackgroundTransparency = style.Theme.BackgroundDefault.Transparency,
+				BorderSizePixel = 0,
+				Visible = self.props.open,
+				Text = "",
+				AutoButtonColor = false,
+				Selectable = false,
+			}, {
+				MoreMenuFocusHandler = self:renderMoreMenuFocusHandler(),
+				MainPageFocusHandler = GetFFlagUseIGMControllerBar()
+						and not (VRService.VREnabled and FFlagEnableNewVrSystem)
+						and self:renderMainPageFocusHandler()
+					or nil,
+				ControllerBar = ControllerBar,
+				ZonePortal = Roact.createElement(ZonePortal, {
+					targetZone = 0,
+					direction = Direction.Left,
+				}),
+				GameIconHeader = Roact.createElement(GameIconHeader),
+				PageNavigation = Roact.createElement(PageNavigation, {
+					Position = UDim2.new(0, Constants.Zone.ContentOffset, 0, 148),
+					mainPageFirstButtonRef = self.mainPageFirstButtonRef,
+				}),
+
+				ContextualMenu = Roact.createElement(ContextualMenu, {
+					buttonProps = buttonModels,
+					setFrameRef = self.setMoreMenuRef,
+					setFirstItemRef = self.setMoreMenuFirstItemRef,
+
+					open = isMainPageMoreMenuOpen,
+					menuDirection = MenuDirection.Up,
+					openPositionY = UDim.new(1, -84),
+
+					closeBackgroundVisible = true,
+					screenSize = self.props.screenSize,
+
+					onDismiss = function()
+						if GetFFlagRemoveMoreMenuFromReducer() then
+							self:setState({
+								modalOpen = false,
+							})
+						else
+							self.props.setMainPageMoreMenuOpen(false)
+						end
+					end,
+				}),
+				BottomButtons = Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, 84),
+					Position = UDim2.new(0, 0, 1, 0),
+					AnchorPoint = Vector2.new(0, 1),
+					BackgroundTransparency = 1,
+				}, {
+					Layout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Horizontal,
+						HorizontalAlignment = Enum.HorizontalAlignment.Center,
+						Padding = UDim.new(0, 12),
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
+					}),
+					Padding = Roact.createElement("UIPadding", {
+						PaddingTop = UDim.new(0, 24),
+						PaddingBottom = UDim.new(0, 24),
+						PaddingLeft = UDim.new(0, 24),
+						PaddingRight = UDim.new(0, 24),
+					}),
+					LeaveGame = Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, leaveGameSizeOffset, 0, BOTTOM_MENU_ICON_SIZE),
+						Position = UDim2.fromScale(1, 0),
+						AnchorPoint = Vector2.new(1, 0),
+						LayoutOrder = 1,
+					}, {
+						Button = Roact.createElement(UIBlox.App.Button.PrimarySystemButton, {
+							size = UDim2.fromScale(1, 1),
+							onActivated = self.props.startLeavingGame,
+							text = localized.leaveGame,
+						}),
+						KeyLabel = leaveGameKeyCode and Roact.createElement(KeyLabel, {
+							keyCode = leaveGameKeyCode,
+							iconThemeKey = "UIDefault",
+							textThemeKey = "SystemPrimaryContent",
+							AnchorPoint = Vector2.new(1, 0.5),
+							Position = UDim2.new(1, -16, 0.5, 0),
+							LayoutOrder = 2,
+						}) or nil,
+					}),
+					VoiceChatMuteButton = voiceChatMuteButton,
+					MoreButton = showContextMenu and moreButton,
+				}),
+			})
 		end)
 	end)
 end
@@ -634,8 +556,7 @@ function MainPage:willUnmount()
 end
 
 function MainPage.canGamepadCaptureFocus(props)
-	return props.canCaptureFocus
-		and props.inputType == Constants.InputType.Gamepad
+	return props.canCaptureFocus and props.inputType == Constants.InputType.Gamepad
 end
 
 function MainPage:didUpdate(prevProps, prevState)
@@ -670,12 +591,15 @@ function MainPage:didUpdate(prevProps, prevState)
 				and not isMoreMenuOpen
 		end
 
-		if gamepadCanToggleMoreMenu(self.props, isMainPageMoreMenuOpen) and not gamepadCanToggleMoreMenu(prevProps, prevIsMainPageMoreMenuOpen) then
+		if
+			gamepadCanToggleMoreMenu(self.props, isMainPageMoreMenuOpen)
+			and not gamepadCanToggleMoreMenu(prevProps, prevIsMainPageMoreMenuOpen)
+		then
 			ContextActionService:BindCoreAction(LEFT_STICK_TOGGLES_MORE_MENU_ACTION, function(actionName, inputState)
 				if inputState == Enum.UserInputState.End then
 					if GetFFlagRemoveMoreMenuFromReducer() then
 						self:setState({
-							modalOpen = true
+							modalOpen = true,
 						})
 					else
 						self.props.setMainPageMoreMenuOpen(true)
@@ -684,7 +608,10 @@ function MainPage:didUpdate(prevProps, prevState)
 				end
 				return Enum.ContextActionResult.Pass
 			end, false, Enum.KeyCode.ButtonL3)
-		elseif not gamepadCanToggleMoreMenu(self.props, isMainPageMoreMenuOpen) and gamepadCanToggleMoreMenu(prevProps, prevIsMainPageMoreMenuOpen) then
+		elseif
+			not gamepadCanToggleMoreMenu(self.props, isMainPageMoreMenuOpen)
+			and gamepadCanToggleMoreMenu(prevProps, prevIsMainPageMoreMenuOpen)
+		then
 			ContextActionService:UnbindCoreAction(LEFT_STICK_TOGGLES_MORE_MENU_ACTION)
 		end
 	end
@@ -700,11 +627,11 @@ function MainPage:didUpdate(prevProps, prevState)
 						delay(RECORD_UPDATE_STEP, loop)
 					end
 					self:setState({
-						recordingDuration = tick() - startTime
+						recordingDuration = tick() - startTime,
 					})
 				end
 				self:setState({
-					recordingDuration = 0
+					recordingDuration = 0,
 				})
 				delay(RECORD_UPDATE_STEP, loop)
 			end
@@ -721,11 +648,9 @@ end
 return RoactRodux.UNSTABLE_connect2(function(state, props)
 	local isMainPageInForeground = nil
 	if GetFFlagSideNavControllerBar() then
-		isMainPageInForeground = state.isMenuOpen and not state.respawn.dialogOpen and state.menuPage == Constants.MainPagePageKey
-	end
-	local voiceEnabled = nil
-	if GetFFlagEnableVoiceChatNewPlayersList() then
-		voiceEnabled = state.voiceState.voiceEnabled
+		isMainPageInForeground = state.isMenuOpen
+			and not state.respawn.dialogOpen
+			and state.menuPage == Constants.MainPagePageKey
 	end
 
 	local isMainPageMoreMenuOpen = nil -- Can inline when flags are removed
@@ -749,7 +674,7 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 		respawnButtonVisible = state.respawn.enabled,
 		recording = state.recording,
 		screenSize = state.screenSize,
-		voiceEnabled = voiceEnabled,
+		voiceEnabled = state.voiceState.voiceEnabled,
 		canCaptureFocus = canCaptureFocus,
 		currentZone = currentZone,
 		inputType = state.displayOptions.inputType,
@@ -766,9 +691,8 @@ end, function(dispatch)
 		closeMenu = function()
 			dispatch(CloseMenu)
 		end,
-		setMainPageMoreMenuOpen = not GetFFlagRemoveMoreMenuFromReducer()
-			and function(isMainPageMoreMenuOpen)
-				dispatch(SetMainPageMoreMenuOpen(isMainPageMoreMenuOpen))
-			end or nil,
+		setMainPageMoreMenuOpen = not GetFFlagRemoveMoreMenuFromReducer() and function(isMainPageMoreMenuOpen)
+			dispatch(SetMainPageMoreMenuOpen(isMainPageMoreMenuOpen))
+		end or nil,
 	}
 end)(MainPage)

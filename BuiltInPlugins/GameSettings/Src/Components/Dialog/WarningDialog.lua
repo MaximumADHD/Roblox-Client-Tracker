@@ -14,9 +14,9 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
-local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
+local LayoutOrderIterator = Util.LayoutOrderIterator
 
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
@@ -82,11 +82,8 @@ function WarningDialog:render()
 	})
 end
 
-
 WarningDialog = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(WarningDialog)
-
-
 
 return WarningDialog

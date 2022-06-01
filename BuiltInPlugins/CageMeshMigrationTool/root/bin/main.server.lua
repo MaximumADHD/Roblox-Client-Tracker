@@ -9,9 +9,6 @@ if not StudioService:HasInternalPermission() or not game:GetFastFlag("DebugCageM
 	return
 end
 
-local RefactorFlags = require(root.Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
-RefactorFlags.THEME_REFACTOR = true
-
 local Roact = require(root.Packages.Roact)
 local Rodux = require(root.Packages.Rodux)
 

@@ -14,8 +14,6 @@ local IconWithText = require(Plugin.Src.Components.IconWithText)
 
 local FitTextLabel = FitFrame.FitTextLabel
 
-local FlagsList = require(Plugin.Src.Util.FlagsList)
-
 --TODO: Rename this component to PermissionOverview as it now pertains to multiple permissions
 local HttpRequestOverview = Roact.PureComponent:extend("HttpRequestOverview")
 
@@ -45,7 +43,6 @@ function HttpRequestOverview:render()
 	local allowedScriptInjection = self.props.allowedScriptInjection
 	local showHttpPermissions = acceptedRequestsCount > 0 or deniedRequestsCount > 0
 	local showScriptInjectionPermission = allowedScriptInjection ~= nil
-	local showQ3PermissionUI = FlagsList:get("FFlagPluginManagementQ3ContentSecurity")
 	local showAnyPermissions = showHttpPermissions or showScriptInjectionPermission
 	local layoutOrder = self.props.LayoutOrder
 	local localization = self.props.Localization
@@ -68,7 +65,7 @@ function HttpRequestOverview:render()
 			VerticalAlignment = Enum.VerticalAlignment.Top,
 		}),
 
-		NoPermissionsRequested = showQ3PermissionUI and (not showAnyPermissions) and Roact.createElement(FitTextLabel, {
+		NoPermissionsRequested = (not showAnyPermissions) and Roact.createElement(FitTextLabel, {
 			BackgroundTransparency = 1,
 			Font = theme.Font,
 			LayoutOrder = layoutIndex:getNextOrder(),
@@ -119,7 +116,7 @@ function HttpRequestOverview:render()
 			Size = UDim2.new(0, 1, 0, Constants.HTTP_OVERVIEW_ICON_SIZE),
 		}),
 
-		ScriptInjection = showQ3PermissionUI and showScriptInjectionPermission and Roact.createElement(FitTextLabel, {
+		ScriptInjection = showScriptInjectionPermission and Roact.createElement(FitTextLabel, {
 			BackgroundTransparency = 1,
 			Font = theme.Font,
 			LayoutOrder = layoutIndex:getNextOrder(),
@@ -131,7 +128,7 @@ function HttpRequestOverview:render()
 			width = FitTextLabel.Width.FitToText,
 		}),
 
-		Border2 = showQ3PermissionUI and showScriptInjectionPermission and Roact.createElement("Frame", {
+		Border2 = showScriptInjectionPermission and Roact.createElement("Frame", {
 			BorderSizePixel = 0,
 			BackgroundColor3 = theme.BorderColor,
 			LayoutOrder = layoutIndex:getNextOrder(),

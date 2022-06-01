@@ -209,4 +209,6 @@ return{
 	["CoreScripts.InGameMenu.Report.Block"] = [[Bloquer]],
 	["CoreScripts.InGameMenu.Report.BlockPopup"] = [[Tu as bloqué {DISPLAY_NAME} (@{RBX_NAME})]],
 	["CoreScripts.InGameMenu.PageTitle.Friends"] = [[Amis]],
+	["CoreScripts.InGameMenu.Action.UnmutePlayer"] = [[Réactiver le son pour le joueur]],
+	["CoreScripts.InGameMenu.Action.MutePlayer"] = [[Désactiver le son pour le joueur]],
 }

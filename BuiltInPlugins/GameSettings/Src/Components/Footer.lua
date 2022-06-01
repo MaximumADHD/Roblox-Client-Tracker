@@ -16,9 +16,9 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
-local Promise = Framework.Util.Promise
+local Promise = Util.Promise
 
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Dialog = require(Plugin.Src.ContextServices.Dialog)
 

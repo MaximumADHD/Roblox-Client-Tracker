@@ -112,11 +112,8 @@ function LabeledImageButton:render()
 	})
 end
 
-
 LabeledImageButton = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(LabeledImageButton)
-
-
 
 return LabeledImageButton

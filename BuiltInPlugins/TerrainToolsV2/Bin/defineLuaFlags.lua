@@ -5,21 +5,6 @@
 game:DefineFastFlag("TerrainToolsImportUploadAssets", false)
 game:DefineFastFlag("TerrainToolsGlobalState", false)
 
-local Plugin = script.Parent.Parent
-local RefactorFlags = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
-RefactorFlags.THEME_REFACTOR = true
-
-local function handleFlagDependencies(flag, requiredFlags)
-	if not game:GetFastFlag(flag) then
-		return
-	end
-
-	for _, requiredFlag in ipairs(requiredFlags) do
-		assert(game:GetFastFlag(requiredFlag),
-			("FFlag%s requires FFlag%s to be on"):format(flag, requiredFlag))
-	end
-end
-
 -- Need to explicitly return something from a module
 -- Else you get an error "Module code did not return exactly one value"
 return nil

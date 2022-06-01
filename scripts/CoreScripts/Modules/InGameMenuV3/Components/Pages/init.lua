@@ -93,14 +93,6 @@ local pages = {
 		parentPage = nil,
 	},
 	{
-		key = "Report",
-		title = "CoreScripts.InGameMenu.PageTitle.Report",
-		icon = Images["icons/actions/feedback"],
-		component = script.Parent.ReportPage,
-		navigationDepth = 2,
-		parentPage = Constants.MainPagePageKey,
-	},
-	{
 		key = "Controls",
 		title = "CoreScripts.InGameMenu.PageTitle.Controls",
 		icon = Images["icons/controls/controls"],

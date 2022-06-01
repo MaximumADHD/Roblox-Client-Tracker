@@ -632,7 +632,6 @@ end
 local function displayMonetizationPage(props)
     local localization = props.Localization
     local theme = props.Stylizer
-    
     local taxRate = props.TaxRate
     local minimumFee = props.MinimumFee
 
@@ -1048,13 +1047,10 @@ function Monetization:render()
     })
 end
 
-
 Monetization = withContext({
     Localization = ContextServices.Localization,
     Stylizer = ContextServices.Stylizer,
 })(Monetization)
-
-
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
 Monetization = RoactRodux.connect(

@@ -6,9 +6,7 @@
 		list Order = The order in which the thumbnails are sorted.
 		variant StartId = The thumbnailId of the thumbnail to display first.
 ]]
-
 local BLACK = Color3.new(0, 0, 0)
-local WHITE = Color3.new(1, 1, 1)
 
 local IMAGE_PADDING = UDim.new(0, 10)
 local BUTTON_PADDING = UDim.new(0, 20)
@@ -23,7 +21,6 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local FrameworkUI = Framework.UI
-local Util = Framework.Util
 local HoverArea = FrameworkUI.HoverArea
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
@@ -192,13 +189,10 @@ function ThumbnailPreviewDialog:render()
 	})
 end
 
-
 ThumbnailPreviewDialog = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
 })(ThumbnailPreviewDialog)
-
-
 
 return ThumbnailPreviewDialog

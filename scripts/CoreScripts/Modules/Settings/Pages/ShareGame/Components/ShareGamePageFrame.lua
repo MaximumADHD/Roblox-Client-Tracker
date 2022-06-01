@@ -21,6 +21,8 @@ end
 local Header = require(ShareGame.Components.Header)
 local ConversationList = require(ShareGame.Components.ConversationList)
 local Constants = require(ShareGame.Constants)
+local ShareInviteLink = require(ShareGame.Components.ShareInviteLink)
+local GetFFlagShareInviteLinkContextMenuV1Enabled = require(Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
 
 local FetchUserFriends
 local ClosePage
@@ -33,6 +35,7 @@ else
 end
 
 local USER_LIST_PADDING = 10
+local SHARE_INVITE_LINK_HEIGHT = 44
 
 local ShareGamePageFrame = Roact.PureComponent:extend("ShareGamePageFrame")
 
@@ -93,11 +96,19 @@ function ShareGamePageFrame:render()
 			toggleSearchIcon = toggleSearchIcon,
 			iconType = iconType,
 		}),
+		ShareInviteLink = GetFFlagShareInviteLinkContextMenuV1Enabled()
+			and Roact.createElement(ShareInviteLink, {
+				deviceLayout = deviceLayout,
+				size = UDim2.new(1, 0, 0, SHARE_INVITE_LINK_HEIGHT),
+				layoutOrder = 1,
+				zIndex = zIndex
+			})
+			or nil,
 		ConversationList = Roact.createElement(ConversationList, {
 			analytics = analytics,
 			size = UDim2.new(1, 0, 1, layoutSpecific.EXTEND_BOTTOM_SIZE - USER_LIST_PADDING),
-			topPadding = USER_LIST_PADDING,
-			layoutOrder = 1,
+			topPadding = GetFFlagShareInviteLinkContextMenuV1Enabled() and USER_LIST_PADDING + SHARE_INVITE_LINK_HEIGHT or USER_LIST_PADDING,
+			layoutOrder = GetFFlagShareInviteLinkContextMenuV1Enabled() and 2 or 1,
 			zIndex = zIndex,
 			searchText = searchText,
 			isVisible = isVisible,

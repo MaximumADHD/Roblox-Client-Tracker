@@ -11,9 +11,8 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local Separator = Roact.PureComponent:extend("Separator")
@@ -31,11 +30,8 @@ function Separator:render()
 	})
 end
 
-
 Separator = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(Separator)
-
-
 
 return Separator

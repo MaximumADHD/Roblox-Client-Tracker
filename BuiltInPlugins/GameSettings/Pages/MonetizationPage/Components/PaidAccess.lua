@@ -31,7 +31,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
-local FitFrameOnAxis = Framework.Util.FitFrame.FitFrameOnAxis
+local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -153,13 +153,10 @@ function PaidAccess:render()
     })
 end
 
-
 PaidAccess = withContext({
     Localization = ContextServices.Localization,
     Stylizer = ContextServices.Stylizer,
     Mouse = ContextServices.Mouse,
 })(PaidAccess)
-
-
 
 return PaidAccess

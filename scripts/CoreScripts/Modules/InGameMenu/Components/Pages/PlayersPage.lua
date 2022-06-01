@@ -48,8 +48,6 @@ local Assets = require(InGameMenu.Resources.Assets)
 local Constants = require(InGameMenu.Resources.Constants)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
-local GetFFlagEnableVoiceChatNewPlayersList = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatNewPlayersList)
-local GetFFlagEnableVoiceChatNewMuteAll = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatNewMuteAll)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 local BlockPlayer = require(RobloxGui.Modules.PlayerList.Thunks.BlockPlayer)
@@ -67,7 +65,7 @@ local ACTION_WIDTH = 352
 local ACTION_HEIGHT = 56
 local CONTEXT_SIDE_PADDING = 24 -- context menu should keep 24 px away from bottom/right side of screen
 local CONTEXT_PADDING_TOP = inGameGlobalGuiInset + CONTEXT_SIDE_PADDING -- context side padding + in-game inset
- -- context menu is 20 px away from right bound of player list if there are available space
+-- context menu is 20 px away from right bound of player list if there are available space
 local CONTEXT_LEFT_PADDING = 20
 
 local PlayersPage = Roact.PureComponent:extend("PlayersPage")
@@ -160,23 +158,25 @@ function PlayersPage:renderListEntries(players)
 	for index, player in pairs(sortedPlayers) do
 		local id = FFlagLuaMenuPerfImprovements and player.UserId or index
 
-		local positionChanged = FFlagLuaMenuPerfImprovements and self.positionChanged or function(rbx)
-			self:setState({
-				selectedPlayerPosition = rbx.AbsolutePosition,
-			})
-		end
-
-		local toggleMoreActions = FFlagLuaMenuPerfImprovements and self.toggleMoreActions or function()
-			if self.state.selectedPlayer == player then
+		local positionChanged = FFlagLuaMenuPerfImprovements and self.positionChanged
+			or function(rbx)
 				self:setState({
-					selectedPlayer = Roact.None,
-				})
-			else
-				self:setState({
-					selectedPlayer = player,
+					selectedPlayerPosition = rbx.AbsolutePosition,
 				})
 			end
-		end
+
+		local toggleMoreActions = FFlagLuaMenuPerfImprovements and self.toggleMoreActions
+			or function()
+				if self.state.selectedPlayer == player then
+					self:setState({
+						selectedPlayer = Roact.None,
+					})
+				else
+					self:setState({
+						selectedPlayer = player,
+					})
+				end
+			end
 
 		local RoactRef
 		if index == 1 and not self.state.selectedPlayer then
@@ -203,13 +203,13 @@ function PlayersPage:renderListEntries(players)
 
 			[Roact.Change.AbsolutePosition] = self.state.selectedPlayer == player and positionChanged or nil,
 			[Roact.Ref] = RoactRef,
-		},{
+		}, {
 			Icon = self.props.voiceEnabled and player ~= Players.LocalPlayer and Roact.createElement(VoiceIndicator, {
 				userId = tostring(player.UserId),
 				hideOnError = true,
 				iconStyle = iconStyle,
 				onClicked = toggleMoreActions,
-			})
+			}),
 		})
 
 		layoutOrder = layoutOrder + 1
@@ -217,7 +217,7 @@ function PlayersPage:renderListEntries(players)
 		if index < #sortedPlayers then
 			listComponents["divider_" .. id] = Roact.createElement(Divider, {
 				LayoutOrder = layoutOrder,
-				Size = UDim2.new(1, -DIVIDER_INDENT, 0, 1)
+				Size = UDim2.new(1, -DIVIDER_INDENT, 0, 1),
 			})
 
 			layoutOrder = layoutOrder + 1
@@ -238,10 +238,12 @@ function PlayersPage:getMoreActions(localized)
 			end
 
 			local friendActionText = localized.addFriend
-			local friendActionIcon = FFlagFixMenuIcons and Images["icons/actions/friends/friendAdd"] or Assets.Images.AddFriend
+			local friendActionIcon = FFlagFixMenuIcons and Images["icons/actions/friends/friendAdd"]
+				or Assets.Images.AddFriend
 			if friendStatus == Enum.FriendStatus.Friend then
 				friendActionText = localized.unfriend
-				friendActionIcon = FFlagFixMenuIcons and Images["icons/actions/friends/friendRemove"] or Assets.Images.UnFriend
+				friendActionIcon = FFlagFixMenuIcons and Images["icons/actions/friends/friendRemove"]
+					or Assets.Images.UnFriend
 			elseif friendStatus == Enum.FriendStatus.FriendRequestSent then
 				friendActionText = localized.cancelFriend
 				friendActionIcon = FFlagFixMenuIcons and Images["icons/actions/friends/friendRemove"]
@@ -255,13 +257,15 @@ function PlayersPage:getMoreActions(localized)
 				icon = friendActionIcon,
 				onActivated = function()
 					local player = self.state.selectedPlayer
-					if friendStatus == Enum.FriendStatus.Friend
-						or friendStatus == Enum.FriendStatus.FriendRequestSent then
+					if
+						friendStatus == Enum.FriendStatus.Friend
+						or friendStatus == Enum.FriendStatus.FriendRequestSent
+					then
 						Players.LocalPlayer:RevokeFriendship(player)
 					else
 						Players.LocalPlayer:RequestFriendship(player)
 						AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
-						SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsRequestFriendName,{})
+						SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsRequestFriendName, {})
 					end
 					self:setState({
 						selectedPlayer = Roact.None,
@@ -279,7 +283,7 @@ function PlayersPage:getMoreActions(localized)
 					selectedPlayer = Roact.None,
 				})
 				self.props.closeMenu()
-				SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsExamineAvatarName,{})
+				SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsExamineAvatarName, {})
 			end,
 		})
 
@@ -296,20 +300,22 @@ function PlayersPage:getMoreActions(localized)
 				end,
 			})
 			if self.props.voiceEnabled then
-				local voiceParticipant = VoiceChatServiceManager.participants[tostring(self.state.selectedPlayer.UserId)]
+				local voiceParticipant =
+					VoiceChatServiceManager.participants[tostring(
+						self.state.selectedPlayer.UserId
+					)]
 				if voiceParticipant then
 					local isMuted = voiceParticipant.isMutedLocally
 					table.insert(moreActions, {
 						text = isMuted and "Unmute Player" or "Mute Player",
-						icon = GetFFlagEnableVoiceChatSpeakerIcons()
-							and VoiceChatServiceManager:GetIcon(isMuted and "Unmute" or "Mute", "Misc")
-							or VoiceChatServiceManager:GetIcon(isMuted and "Blank" or "Muted"),
+						icon = GetFFlagEnableVoiceChatSpeakerIcons() and VoiceChatServiceManager:GetIcon(
+							isMuted and "Unmute" or "Mute",
+							"Misc"
+						) or VoiceChatServiceManager:GetIcon(isMuted and "Blank" or "Muted"),
 						onActivated = function()
 							local player = self.state.selectedPlayer
 							log:debug("Muting Player {}", player.UserId)
-							VoiceChatServiceManager:ToggleMutePlayer(
-								player.UserId
-							)
+							VoiceChatServiceManager:ToggleMutePlayer(player.UserId)
 							self:setState({
 								selectedPlayer = Roact.None,
 							})
@@ -384,8 +390,14 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(localized, getSelecti
 			moreMenuPositionYOffset = screenHeight - actionMenuHeight - CONTEXT_PADDING_TOP
 		end
 
-		if screenWidth >= self.state.selectedPlayerPosition.X + PLAYER_LABEL_WIDTH + CONTEXT_LEFT_PADDING + ACTION_WIDTH
-			+ CONTEXT_SIDE_PADDING then
+		if
+			screenWidth
+			>= self.state.selectedPlayerPosition.X
+				+ PLAYER_LABEL_WIDTH
+				+ CONTEXT_LEFT_PADDING
+				+ ACTION_WIDTH
+				+ CONTEXT_SIDE_PADDING
+		then
 			moreMenuPositionXOffset = self.state.selectedPlayerPosition.X + PLAYER_LABEL_WIDTH + CONTEXT_LEFT_PADDING
 		else
 			moreMenuPositionXOffset = screenWidth - ACTION_WIDTH - CONTEXT_SIDE_PADDING
@@ -397,20 +409,22 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(localized, getSelecti
 		and not self.props.isRespawnDialogOpen
 		and self.props.isCurrentZoneActive
 
-	moreActionsMenuPanel = self.state.selectedPlayer and Roact.createElement(PlayerContextualMenu, {
-		moreActions = moreActions,
-		actionWidth = ACTION_WIDTH,
-		xOffset = moreMenuPositionXOffset,
-		yOffset = moreMenuPositionYOffset,
-		canCaptureFocus = canCaptureFocus,
-		onClose = function()
-			self:setState({ selectedPlayer = Roact.None })
-		end
-	}) or nil
+	moreActionsMenuPanel = self.state.selectedPlayer
+			and Roact.createElement(PlayerContextualMenu, {
+				moreActions = moreActions,
+				actionWidth = ACTION_WIDTH,
+				xOffset = moreMenuPositionXOffset,
+				yOffset = moreMenuPositionYOffset,
+				canCaptureFocus = canCaptureFocus,
+				onClose = function()
+					self:setState({ selectedPlayer = Roact.None })
+				end,
+			})
+		or nil
 
 	return Roact.createElement(Page, {
 		pageTitle = self.props.pageTitle,
-		titleChildren = GetFFlagEnableVoiceChatNewMuteAll() and self.props.voiceEnabled and Roact.createElement("ImageButton", {
+		titleChildren = self.props.voiceEnabled and Roact.createElement("ImageButton", {
 			Size = UDim2.fromOffset(36, 36),
 			BackgroundTransparency = 1,
 			AnchorPoint = Vector2.new(1, 0.5),
@@ -420,11 +434,11 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(localized, getSelecti
 			[Roact.Event.Activated] = function()
 				VoiceChatServiceManager:MuteAll(not self.state.allMuted)
 				self:setState({
-					allMuted = not self.state.allMuted
+					allMuted = not self.state.allMuted,
 				})
 			end,
 			SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
-		})
+		}),
 	}, {
 		PlayerListContent = withStyle(function(style)
 			return Roact.createElement("Frame", {
@@ -433,7 +447,7 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(localized, getSelecti
 
 				[Roact.Change.AbsoluteSize] = function(rbx)
 					self:setState({
-						pageSizeY = rbx.AbsoluteSize.Y
+						pageSizeY = rbx.AbsoluteSize.Y,
 					})
 				end,
 			}, {
@@ -460,7 +474,7 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(localized, getSelecti
 					selectedPlayer = Roact.None,
 				})
 			end,
-		})
+		}),
 	})
 end
 
@@ -503,44 +517,35 @@ function PlayersPage:didUpdate(prevProps, prevState)
 	end
 end
 
-return RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		local voiceEnabled = nil
-		if GetFFlagEnableVoiceChatNewPlayersList() then
-			voiceEnabled = state.voiceState.voiceEnabled
-		end
+return RoactRodux.UNSTABLE_connect2(function(state, props)
+	return {
+		isMenuOpen = state.isMenuOpen,
+		voiceEnabled = state.voiceState.voiceEnabled,
+		friends = state.friends,
+		inspectMenuEnabled = state.displayOptions.inspectMenuEnabled,
+		screenSize = state.screenSize,
+		currentPage = state.menuPage,
+		isRespawnDialogOpen = state.respawn.dialogOpen,
+		isReportDialogOpen = state.report.dialogOpen or state.report.reportSentOpen,
+		isGamepadLastInput = state.displayOptions.inputType == Constants.InputType.Gamepad,
+		isCurrentZoneActive = state.currentZone == 1,
+	}
+end, function(dispatch)
+	return {
+		dispatchOpenReportDialog = function(userId, userName)
+			dispatch(OpenReportDialog(userId, userName))
+		end,
 
-		return {
-			isMenuOpen = state.isMenuOpen,
-			voiceEnabled = voiceEnabled,
-			friends = state.friends,
-			inspectMenuEnabled = state.displayOptions.inspectMenuEnabled,
-			screenSize = state.screenSize,
-			currentPage = state.menuPage,
-			isRespawnDialogOpen = state.respawn.dialogOpen,
-			isReportDialogOpen = state.report.dialogOpen or state.report.reportSentOpen,
-			isGamepadLastInput = state.displayOptions.inputType == Constants.InputType.Gamepad,
-			isCurrentZoneActive = state.currentZone == 1,
+		closeMenu = function()
+			dispatch(CloseMenu)
+		end,
 
-		}
-	end,
-	function(dispatch)
-		return {
-			dispatchOpenReportDialog = function(userId, userName)
-				dispatch(OpenReportDialog(userId, userName))
-			end,
+		blockPlayer = function(player)
+			return dispatch(BlockPlayer(player))
+		end,
 
-			closeMenu = function()
-				dispatch(CloseMenu)
-			end,
-
-			blockPlayer = function(player)
-				return dispatch(BlockPlayer(player))
-			end,
-
-			unblockPlayer = function(player)
-				return dispatch(UnblockPlayer(player))
-			end,
-		}
-	end
-)(PlayersPage)
+		unblockPlayer = function(player)
+			return dispatch(UnblockPlayer(player))
+		end,
+	}
+end)(PlayersPage)

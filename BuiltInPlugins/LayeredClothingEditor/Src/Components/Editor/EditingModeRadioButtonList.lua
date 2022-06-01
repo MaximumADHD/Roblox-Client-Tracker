@@ -29,7 +29,6 @@ local SignalsContext = require(Plugin.Src.Context.Signals)
 local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
 
 local SelectEditingCage = require(Plugin.Src.Thunks.SelectEditingCage)
-local AddWaypoint = require(Plugin.Src.Thunks.AddWaypoint)
 
 local Constants = require(Plugin.Src.Util.Constants)
 local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
@@ -79,13 +78,12 @@ function EditingModeRadioButtonList:render()
 	local size = props.Size
 	local layoutOrder = props.LayoutOrder
 	local localization = props.Localization
-	local pointData = props.PointData
 	local theme = props.Stylizer
 
 	local editingItem = props.EditingItemContext:getItem()
 	local isCaged = ItemCharacteristics.hasAnyCage(editingItem)
-	local isInnerButtonDisabled = not pointData or not pointData[Enum.CageType.Inner]
-	local isOuterButtonDisabled = not pointData or not pointData[Enum.CageType.Outer]
+	local isInnerButtonDisabled = not ItemCharacteristics.hasInnerCage(editingItem)
+	local isOuterButtonDisabled = not ItemCharacteristics.hasOuterCage(editingItem)
 
 	return Roact.createElement(Pane, {
 		Size = size,
@@ -136,14 +134,12 @@ local function mapStateToProps(state, props)
 	local cageData = state.cageData
 	return {
 		EditingCage = selectItem.editingCage,
-		PointData = cageData.pointData,
 	}
 end
 
 local function mapDispatchToProps(dispatch)
 	return {
 		SelectEditingCage = function(cage)
-			dispatch(AddWaypoint())
 			dispatch(SelectEditingCage(cage))
 		end,
 	}

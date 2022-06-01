@@ -583,13 +583,10 @@ function Places:render()
 	})
 end
 
-
 Places = withContext({
 	Localization = ContextServices.Localization,
 	Stylizer = ContextServices.Stylizer,
 })(Places)
-
-
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
 Places = RoactRodux.connect(

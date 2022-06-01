@@ -22,6 +22,7 @@ return function()
 	it("should render builtin material correctly", function()
 		local TestBuiltinMaterial = {
 			IsBuiltin = true,
+			Material = Enum.Material.Plastic,
 			MaterialPath = { "Plastic" },
 			MaterialType = "Base",
 			MaterialVariant = Instance.new("MaterialVariant")
@@ -43,6 +44,7 @@ return function()
 	it("should render variant material correctly", function()
 		local TestVariantMaterial = {
 			IsBuiltin = false,
+			Material = Enum.Material.Plastic,
 			MaterialPath = { "Plastic" },
 			MaterialType = "Base",
 			MaterialVariant = Instance.new("MaterialVariant")

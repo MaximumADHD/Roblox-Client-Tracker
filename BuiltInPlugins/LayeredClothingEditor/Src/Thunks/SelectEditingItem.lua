@@ -1,6 +1,9 @@
 -- Select item in workspace, and focus on it
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
+local LuaMeshEditingModule = require(Plugin.Packages.LuaMeshEditingModule)
+
+local CageEditingContext = require(LuaMeshEditingModule.MeshEditingContexts.CageEditingContext)
 
 local SetPreviewAssetsSelected = require(Plugin.Src.Actions.SetPreviewAssetsSelected)
 local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
@@ -12,24 +15,22 @@ local SetEditingCage = require(Plugin.Src.Actions.SetEditingCage)
 local SetItemSize = require(Plugin.Src.Actions.SetItemSize)
 local SetAccessoryTypeInfo = require(Plugin.Src.Actions.SetAccessoryTypeInfo)
 local SetAttachmentPoint = require(Plugin.Src.Actions.SetAttachmentPoint)
-local GetRbfPoints = require(Plugin.Src.Thunks.GetRbfPoints)
-local MakeLattices = require(Plugin.Src.Thunks.MakeLattices)
 local SelectPreviewTab = require(Plugin.Src.Actions.SelectPreviewTab)
 local SetCagesTransparency = require(Plugin.Src.Actions.SetCagesTransparency)
-local ChangeTool = require(Plugin.Src.Thunks.ChangeTool)
+local SetToolMode = require(Plugin.Src.Actions.SetToolMode)
 
-local SetPast = require(Plugin.Src.Actions.SetPast)
-local SetFuture = require(Plugin.Src.Actions.SetFuture)
+local ModelUtil = require(Plugin.Src.Util.ModelUtil)
 
 -- select default cage when editing item changed
 local function selectCage(store, item)
 	if ItemCharacteristics.isItemEmpty(item) or not ItemCharacteristics.hasAnyCage(item) then
 		if ItemCharacteristics.isClothes(item) then
 			store:dispatch(SetEditingCage(Constants.EDIT_MODE.Mesh))
+			return Constants.EDIT_MODE.Mesh
 		else
 			store:dispatch(SetEditingCage(Cryo.None))
+			return nil
 		end
-		return
 	end
 
 	local defaultCageSelect =  Enum.CageType.Outer
@@ -37,6 +38,7 @@ local function selectCage(store, item)
 		defaultCageSelect = Enum.CageType.Inner
 	end
 	store:dispatch(SetEditingCage(defaultCageSelect))
+	return defaultCageSelect
 end
 
 local function getPreviewPanelTab(tabs)
@@ -70,11 +72,11 @@ local function getPreviewTab(newEditingItem, storeState)
 	return getPreviewPanelTab(activeTabsForNewEditingItem)
 end
 
-return function(item)
+return function(context, item)
 	return function(store)
 		local state = store:getState()
 
-		store:dispatch(ChangeTool(Constants.TOOL_MODE.None))
+		store:dispatch(SetToolMode(Constants.TOOL_MODE.None))
 		store:dispatch(SelectPreviewTab(getPreviewTab(item, state)))
 		store:dispatch(SetAccessoryTypeInfo(Cryo.None))
 		store:dispatch(SetAttachmentPoint({
@@ -86,7 +88,7 @@ return function(item)
 			store:dispatch(SetItemSize(item.Size))
 		end
 
-		selectCage(store, item)
+		local selectedCage = selectCage(store, item)
 
 		local cagesTransparency = {
 			[Enum.CageType.Inner] = Constants.DEFAULT_CAGE_TRANSPARENCY,
@@ -94,10 +96,24 @@ return function(item)
 		}
 
 		store:dispatch(SetCagesTransparency(cagesTransparency))
-		store:dispatch(GetRbfPoints(item))
-		store:dispatch(MakeLattices())
 
-		store:dispatch(SetPast({}))
-		store:dispatch(SetFuture({}))
+		if ItemCharacteristics.isAvatar(item) then
+			ModelUtil:createModelInfo(item, true)
+		elseif ItemCharacteristics.isClothes(item) then
+			ModelUtil:createModelInfo(item, false)
+		end
+
+		-- this is a little misleading, EDIT_MODE.Mesh refers to rigid MeshPart mode
+		if selectedCage ~= nil and selectedCage ~= Constants.EDIT_MODE.Mesh then
+			local innerCageContext = CageEditingContext.new()
+			local outerCageContext = CageEditingContext.new()
+			innerCageContext:initFromCageMesh(Enum.CageType.Inner, item)
+			outerCageContext:initFromCageMesh(Enum.CageType.Outer, item)
+			context:setInnerCageContext(innerCageContext)
+			context:setOuterCageContext(outerCageContext)
+		else
+			context:setInnerCageContext()
+			context:setOuterCageContext()
+		end
 	end
 end

@@ -10,7 +10,7 @@ function MockDebuggerUIService.new()
 	return self
 end
 
-function MockDebuggerUIService:OpenScriptAtLine(guid: string, debuggerConnectionId: number, line: number)
+function MockDebuggerUIService:OpenScriptAtLine(guid : string, debuggerConnectionId : number, line : number, showErrorOnFail : boolean)
 	self.openScripts[guid] = true
 end
 

@@ -44,14 +44,13 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
 local UILibrary = require(Plugin.Packages.UILibrary)
+local Framework = require(Plugin.Packages.Framework)
 
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
-local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
 local UI = Framework.UI
 local DropdownMenu = UI.DropdownMenu
 local Pane = UI.Pane
@@ -62,9 +61,6 @@ local FFlagGameSettingsFixSearchBarRef = game:GetFastFlag("GameSettingsFixSearch
 
 local TextService = game:GetService("TextService")
 
-local ContentFix
-local HorizontalContentFix
-local SearchBarContentFix
 if not FFlagGameSettingsRemoveFitContent then
 	local createFitToContent = UILibrary.Component.createFitToContent
 	ContentFit = createFitToContent("Frame", "UIListLayout", {
@@ -388,7 +384,7 @@ function SearchBar:init()
 					}),
 				}),
 			}
-			
+
 			return Roact.createElement("ImageButton", {
 					Size = UDim2.new(0, contentWidth, 0, itemHeight),
 					BackgroundColor3 = backgroundColor,
@@ -626,14 +622,13 @@ function SearchBar:render()
 				ImageColor3 = borderColor,
 				ScaleType = Enum.ScaleType.Slice,
 				SliceCenter = DEPRECATED_Constants.ROUNDED_FRAME_SLICE,
-	
+
 				[Roact.Event.MouseEnter] = self.onContainerHovered,
 				[Roact.Event.MouseMoved] = self.onContainerHovered,
 				[Roact.Event.MouseLeave] = self.onContainerHoverEnded,
 			}, children),
 		})
 	end
-	
 end
 
 SearchBar = withContext({

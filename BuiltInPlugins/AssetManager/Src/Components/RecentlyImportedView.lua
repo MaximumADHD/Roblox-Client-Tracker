@@ -19,7 +19,6 @@ local UI = Framework.UI
 local ScrollingFrame = UI.ScrollingFrame
 
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local LayoutOrderIterator = Util.LayoutOrderIterator
 local StyleModifier = Util.StyleModifier
 
@@ -64,7 +63,7 @@ end
 
 function RecentlyImportedView:render()
     local props = self.props
-    local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+    local theme = props.Stylizer
     local recentViewTheme = theme.RecentView
     local localization = props.Localization
 
@@ -165,8 +164,7 @@ RecentlyImportedView = withContext({
     Analytics = ContextServices.Analytics,
     Localization = ContextServices.Localization,
     Mouse = ContextServices.Mouse,
-    Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-    Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+    Stylizer = ContextServices.Stylizer,
 })(RecentlyImportedView)
 
 local function mapStateToProps(state, props)

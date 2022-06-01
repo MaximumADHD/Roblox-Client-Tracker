@@ -25,7 +25,6 @@ local Button = UI.Button
 local HoverArea = UI.HoverArea
 
 local Util = Framework.Util
-local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local LayoutOrderIterator = Util.LayoutOrderIterator
 
 -- TODO: jbousellam - remove with FFlagRemoveUILibraryGetTextSize
@@ -190,7 +189,7 @@ end
 
 function MainView:render()
     local props = self.props
-    local theme = THEME_REFACTOR and props.Stylizer or props.Theme:get("Plugin")
+    local theme = props.Stylizer
 
     local localization = props.Localization
 
@@ -320,8 +319,7 @@ end
 
 MainView = withContext({
     API = ContextServices.API,
-    Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-    Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+    Stylizer = ContextServices.Stylizer,
     Localization = ContextServices.Localization,
 })(MainView)
 

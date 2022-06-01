@@ -20,11 +20,11 @@ local FrameworkUI = Framework.UI
 local Util = Framework.Util
 
 local Button = FrameworkUI.Button
+local Container = FrameworkUI.Container
 local HoverArea = FrameworkUI.HoverArea
 
 local FitTextLabel = Util.FitFrame.FitTextLabel
 
-local Container = FrameworkUI.Container
 local MenuBar = require(Plugin.Src.Components.MenuBar)
 local Separator = require(Plugin.Src.Components.Separator)
 local Footer = require(Plugin.Src.Components.Footer)
