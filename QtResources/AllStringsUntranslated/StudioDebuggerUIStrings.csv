@@ -33,6 +33,7 @@ Studio.App.DebuggerUIUtilities.EditBreakpointElps,,Edit Breakpoint...,Edit Break
 Studio.App.DebuggerUIUtilities.EnableBreakpoint,,Enable Breakpoint,Enable Breakpoint
 Studio.App.DebuggerUIUtilities.DisableBreakpoint,,Disable Breakpoint,Disable Breakpoint
 Studio.App.DebuggerUIUtilities.BreakpointsDisabledLinkedSource,,Breakpoints are currently disabled for LinkedSource.,Breakpoints are currently disabled for LinkedSource.
+Studio.App.DebuggerUIUtilities.ScriptNotAvailable,,"The script is currently not available because it is not loaded into the Client data model yet. Once the Client data model starts executing, the script will be available.","The script is currently not available because it is not loaded into the Client data model yet. Once the Client data model starts executing, the script will be available."
 Studio.App.BreakpointTooltip.BreakpointLocationFmt2,,"Location: %1, line %2","Location: %1, line %2"
 Studio.App.BreakpointTooltip.ConditionText,,Condition,Condition
 Studio.App.BreakpointTooltip.LogExpressionText,,Log Expression,Log Expression

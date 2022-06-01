@@ -18,6 +18,7 @@ Studio.MaterialManager.Categories.Plastic,Plastic
 Studio.MaterialManager.Categories.Rock,Rock
 Studio.MaterialManager.Categories.Sand,Sand
 Studio.MaterialManager.Categories.Snow,Snow
+Studio.MaterialManager.Categories.Special,Special
 Studio.MaterialManager.Categories.Stone,Stone
 Studio.MaterialManager.Categories.Synthetic,Synthetic
 Studio.MaterialManager.Categories.Translucent,Translucent
@@ -120,9 +121,9 @@ Studio.MaterialManager.Materials.FabricVariant,Fabric Variant
 Studio.MaterialManager.Materials.Foil,Foil
 Studio.MaterialManager.Materials.FoilMaterial,Foil Material
 Studio.MaterialManager.Materials.FoilVariant,Foil Variant
-Studio.MaterialManager.Materials.Forcefield,Force Field
-Studio.MaterialManager.Materials.ForcefieldMaterial,Force Field Material
-Studio.MaterialManager.Materials.ForcefieldVariant,Force Field Variant
+Studio.MaterialManager.Materials.ForceField,Force Field
+Studio.MaterialManager.Materials.ForceFieldMaterial,Force Field Material
+Studio.MaterialManager.Materials.ForceFieldVariant,Force Field Variant
 Studio.MaterialManager.Materials.Glacier,Glacier
 Studio.MaterialManager.Materials.GlacierMaterial,Glacier Material
 Studio.MaterialManager.Materials.GlacierVariant,Glacier Variant

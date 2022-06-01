@@ -8,7 +8,7 @@ version = "0.1.0"
 proxy = "https://github.com/roblox/rotriever-proxy-index"
 
 [dependencies]
-Roact = { target = "github.com/Roblox/roact-alignment", version = "17.0.1-rc.11", package = "RoactCompat" }
+Roact = { target = "github.com/Roblox/roact-alignment", version = "17.0.1-rc.12", package = "RoactCompat" }
 Rodux = "github.com/roblox/rodux@1.0"
 RoactRodux = "github.com/roblox/roact-rodux@0.2"
 RoactNavigation = "github.com/roblox/roact-navigation@0.5.2"
@@ -18,7 +18,6 @@ LuaChatDeps = { git = "https://github.com/Roblox/lua-chat-deps" }
 LuaSocialLibrariesDeps = { git = "https://github.com/Roblox/lua-social-libraries-deps" }
 PremiumUpsellDeps = { git = "https://github.com/Roblox/premium-upsell-deps" }
 AvatarExperienceDeps = { git = "https://github.com/Roblox/avatar-experience-deps" }
-LuaProfileDeps = { git = "https://github.com/Roblox/lua-profile", rev = "v1.2.1", package = "LuaProfileDeps" }
 LuaProfileDeps_v200 = { git = "https://github.com/Roblox/lua-profile", rev = "v2.0.0", package = "LuaProfileDeps" }
 PurchasePromptDeps = { git = "https://github.com/Roblox/purchase-prompt-deps" }
 IAPExperience = { git = "https://github.com/Roblox/IAPExperience", rev = "master" }
@@ -34,9 +33,9 @@ UrlBuilder = { git = "https://github.com/Roblox/url-builder", rev = "master" }
 FitFrame = "github.com/roblox/roact-fit-components@2.0.0"
 ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v1.2.3" }
 RoduxGames = { git = "https://github.com/Roblox/rodux-games", rev = "master" }
-React = "github.com/Roblox/roact-alignment@17.0.1-rc.11"
-ReactIs = "github.com/Roblox/roact-alignment@17.0.1-rc.11"
-ReactRoblox = "github.com/Roblox/roact-alignment@17.0.1-rc.11"
+React = "github.com/Roblox/roact-alignment@17.0.1-rc.12"
+ReactIs = "github.com/Roblox/roact-alignment@17.0.1-rc.12"
+ReactRoblox = "github.com/Roblox/roact-alignment@17.0.1-rc.12"
 Promise = "github.com/Roblox/roblox-lua-promise@3.3.0"
 RoactNavigationUpgradeFlag = { git = "https://github.com/roblox/roact-navigation-upgrade", rev = "v0.1.0", package = "RoactNavigationUpgradeFlag" }
 
@@ -53,7 +52,7 @@ JestGlobals = "github.com/roblox/jest-roblox@2.4.0"
 Rhodium = "github.com/roblox/rhodium@0.2.8"
 
 # Dependencies for the Roact17 inspector
-ReactDevtoolsExtensions = "github.com/Roblox/roact-alignment@17.0.1-rc.11"
+ReactDevtoolsExtensions = "github.com/Roblox/roact-alignment@17.0.1-rc.12"
 DeveloperTools = "github.com/Roblox/developer-tools@0.2.2"
 
 # Patch all dependencies upon rodux to the flagged indireciton package, which
@@ -72,15 +71,15 @@ Promise = "github.com/Roblox/roblox-lua-promise@3.3.0"
 RoactNavigation = { git = "https://github.com/roblox/roact-navigation-upgrade", rev = "v0.1.0", package = "RoactNavigationProxy" }
 
 [config.patch_git."https://github.com/roblox/roact-17-upgrade"]
-Roact = { target = "github.com/Roblox/roact-alignment", version = "17.0.1-rc.11", package = "RoactCompat" }
-RoactProxy = { target = "github.com/Roblox/roact-alignment", version = "17.0.1-rc.11", package = "RoactCompat" }
+Roact = { target = "github.com/Roblox/roact-alignment", version = "17.0.1-rc.12", package = "RoactCompat" }
+RoactProxy = { target = "github.com/Roblox/roact-alignment", version = "17.0.1-rc.12", package = "RoactCompat" }
 
 # Roact 17 - Patch in flagged proxy for roact, roact-rodux, infinite-scroller, and gamepad
 [config.patch."github.com/roblox/roact"]
-Roact = { target = "github.com/Roblox/roact-alignment", version = "17.0.1-rc.11", package = "RoactCompat" }
+Roact = { target = "github.com/Roblox/roact-alignment", version = "17.0.1-rc.12", package = "RoactCompat" }
 
 [config.patch."github.com/roblox/roact-rodux"]
-RoactRodux = "github.com/Roblox/roact-rodux@0.5.0"
+RoactRodux = "github.com/Roblox/roact-rodux@0.5.1"
 
 [config.patch."github.com/roblox/infinite-scroller"]
 InfiniteScroller = "github.com/Roblox/infinite-scroller@0.9.5"

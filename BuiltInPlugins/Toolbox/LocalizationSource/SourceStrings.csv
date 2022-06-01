@@ -49,7 +49,8 @@ Prop Planes,Prop Planes,Studio.Toolbox.General.SalesOnsale
 Onsale,Onsale,Studio.Toolbox.General.EndorseBadgeTooltipText
 Marked as a high-quality item,Marked as a high-quality item,Studio.Toolbox.General.CategoryCreationsDecals
 Images,Images,Studio.Toolbox.General.CategoryDecals
-Images,Images,Studio.Toolbox.Audio.SoundEffect.Category.zippers
+Images,Images,Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaInfoShortLink
+What's my limit?,What's my limit?,Studio.Toolbox.Audio.SoundEffect.Category.zippers
 Zippers,Zippers,Studio.Toolbox.General.CategoryCreationsMeshes
 Meshes,Meshes,Studio.Toolbox.General.CategoryMeshes
 Meshes,Meshes,Studio.Toolbox.Audio.SoundEffect.Category.brakes
@@ -138,9 +139,10 @@ Cancel,Cancel,Studio.Toolbox.AssetConfigPackagePermissions.UserOwnedWarning
 Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package.,Users you share with will always have access to the current and previous versions of this package. Removing collaborators will discontinue their access to newer versions of the package.,Studio.Toolbox.Audio.Music.Browse
 Browse by Genre,Browse by Genre,Studio.Toolbox.HomeView.essential
 Essential,Essential,Studio.Toolbox.General.SearchTagCreator
-by:,by:,Studio.Toolbox.General.RightClickMenuCopyTextureID
-Copy Texture ID,Copy Texture ID,Studio.Toolbox.General.TabMarketplace
-Marketplace,Marketplace,Studio.Toolbox.General.TabInventory
+by:,by:,Studio.Toolbox.General.TabMarketplace
+Marketplace,Marketplace,Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaRemaining2
+{remaining} Marketplace shares left through {date}.,{remaining} Marketplace shares left through {date}.,Studio.Toolbox.General.RightClickMenuCopyTextureID
+Copy Texture ID,Copy Texture ID,Studio.Toolbox.General.TabInventory
 Inventory,Inventory,Studio.Toolbox.Audio.SoundEffect.Category.voices
 Voices,Voices,Studio.Toolbox.General.GoBack
 Go Back,Go Back,Studio.Toolbox.General.TabRecent
@@ -227,14 +229,13 @@ Configure asset,Configure asset,Studio.Toolbox.Purchase.FreeSuccessHeader
 Installation Complete!,Installation Complete!,Studio.Toolbox.AssetConfigPreview.Format
 Acceptable files: {formatString},Max: {maxDimensionsX} x {maxDimensionsY},Acceptable files: {formatString}
 Max: {maxDimensionsX} x {maxDimensionsY},Studio.Toolbox.General.RightClickMenuEditAsset,Edit Asset
-Edit Asset,Studio.Toolbox.Audio.SoundEffect.Category.ratchets,Ratchets
-Ratchets,Studio.Toolbox.General.RightClickMenuReport,Report
+Edit Asset,Studio.Toolbox.General.RightClickMenuReport,Report
 Report,Studio.Toolbox.Audio.SoundEffect.Category.flowing,Flowing
-Flowing,Studio.Toolbox.General.StatusReviewPending,In Review
+Flowing,Studio.Toolbox.Audio.SoundEffect.Category.radio-fx,Radio FX
+Radio FX,Studio.Toolbox.General.StatusReviewPending,In Review
 In Review,Studio.Toolbox.ThumbnailStatus.InReview,In Review
 In Review,Studio.Toolbox.AssetUploadResult.Back,Back
-Back,Studio.Toolbox.Audio.SoundEffect.Category.radio-fx,Radio FX
-Radio FX,Studio.Toolbox.Audio.SoundEffect.Category.crowds,Crowds
+Back,Studio.Toolbox.Audio.SoundEffect.Category.crowds,Crowds
 Crowds,Studio.Toolbox.Audio.SoundEffect.Category.marine,Marine
 Marine,Studio.Toolbox.General.StatusModerated,Rejected
 Rejected,Studio.Toolbox.General.StatusDelayedRelease,Ready For Sale
@@ -305,9 +306,9 @@ General,Studio.Toolbox.Audio.SoundEffect.Category.alarms,Alarms
 Alarms,Studio.Toolbox.HomeView.newest,Newest
 Newest,Studio.Toolbox.General.SideTabPermissions,Permissions
 Permissions,Studio.Toolbox.General.TermsOfUse,Terms of use
-Terms of use,Studio.Toolbox.General.PreviewAreaAssetID,Asset ID: {assetId}
-Asset ID: {assetId},Studio.Toolbox.Audio.SoundEffect.Category.rain,Rain
-Rain,Studio.Toolbox.General.PreviewAreaStatus,Status: {assetStatus}
+Terms of use,Studio.Toolbox.Audio.SoundEffect.Category.rain,Rain
+Rain,Studio.Toolbox.General.PreviewAreaAssetID,Asset ID: {assetId}
+Asset ID: {assetId},Studio.Toolbox.General.PreviewAreaStatus,Status: {assetStatus}
 Status: {assetStatus},Studio.Toolbox.General.InstallSuccess,Success!
 Success!,Studio.Toolbox.Audio.SoundEffect.Category.sliding,Sliding
 Sliding,Studio.Toolbox.Audio.SoundEffect.Category.breathing,Breathing
@@ -341,7 +342,8 @@ Manage permissions,Studio.Toolbox.Audio.SoundEffect.Category.technical,Technical
 Technical,Studio.Toolbox.AssetConfigSharing.PublicConfirmationTitle,Are you sure?
 Are you sure?,Studio.Toolbox.Audio.SoundEffect.Category.p-a-,P.A.
 P.A.,Studio.Toolbox.AssetConfigSharing.PublicConfirmationMessage,"Once shared with Anyone on Roblox, you cannot set it back to private."
-"Once shared with Anyone on Roblox, you cannot set it back to private.",Studio.Toolbox.AudioView.AlbumArtist,Album/Artist
+"Once shared with Anyone on Roblox, you cannot set it back to private.",Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaUnavailable,Marketplace sharing has been temporarily disabled.
+Marketplace sharing has been temporarily disabled.,Studio.Toolbox.AudioView.AlbumArtist,Album/Artist
 Album/Artist,Studio.Toolbox.Audio.SoundEffect.Category.guns,Guns
 Guns,Studio.Toolbox.AssetConfigSharing.PublicConfirmationHeading,You have allowed this asset to be shared with Anyone on Roblox
 You have allowed this asset to be shared with Anyone on Roblox,Studio.Toolbox.AudioView.UploadedBy,Uploaded By
@@ -354,7 +356,9 @@ Movement,Studio.Toolbox.AssetConfigSharing.VerificationNotice,"To make audio ass
 "To make audio assets public, you must first verify your identity. Use the Refresh button to update your Verification status.",Studio.Toolbox.General.CategoryVideos,Videos
 Videos,Studio.Toolbox.AssetConfigSharing.VerificationAction,ID Verify your account
 ID Verify your account,Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaUnused2,Share up to {capacity} assets per {days} days.
-Share up to {capacity} assets per {days} days.,Studio.Toolbox.AssetConfigVersions.Current,Current published version
+Share up to {capacity} assets per {days} days.,Studio.Toolbox.General.NoPluginsFound.TextLine2,"For more plugins, try searching in the {link} on our website."
+"For more plugins, try searching in the {link} on our website.",Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaExhausted1,Sharing limit exceeded. Try again on {dateTime}.
+Sharing limit exceeded. Try again on {dateTime}.,Studio.Toolbox.AssetConfigVersions.Current,Current published version
 Current published version,Studio.Toolbox.AssetConfigVersions.Restore,Restore previous version
 Restore previous version,Studio.Toolbox.Audio.SoundEffect.Category.electric,Electric
 Electric,Studio.Toolbox.Audio.SoundEffect.Category.flying,Flying
@@ -444,8 +448,7 @@ Feedback,Studio.Toolbox.General.AbbreviatedSeconds,s
 s,Studio.Toolbox.General.AbbreviatedMinutes,m
 m,Studio.Toolbox.General.SearchOptionAudioLength,Sound Length
 Sound Length,Studio.Toolbox.AssetConfigAnimation.FilterID,Filter ID
-Filter ID,Studio.Toolbox.General.NoPluginsFound.TextLine2,"For more plugins, try searching in the {link} on our website."
-"For more plugins, try searching in the {link} on our website.",Studio.Toolbox.Audio.SoundEffect.Category.battle,Battle
+Filter ID,Studio.Toolbox.Audio.SoundEffect.Category.battle,Battle
 Battle,Studio.Toolbox.AssetConfigAnimation.InvalidAnimationID,Invalid Animation ID
 Invalid Animation ID,Studio.Toolbox.AssetPreview.PluginNotice,This plugin was created by a third party. Roblox does not guarantee its safety or quality.
 This plugin was created by a third party. Roblox does not guarantee its safety or quality.,Studio.Toolbox.ScriptWarning.InstructionText,Please review the scripts to prevent unwanted changes to your experience.
@@ -562,7 +565,8 @@ Pouring,Pouring,Studio.Toolbox.Audio.SoundEffect.Category.power
 Power,Power,Studio.Toolbox.Audio.SoundEffect.Category.public-places
 Public Places,Public Places,Studio.Toolbox.Audio.SoundEffect.Category.race-cars
 Race Cars,Race Cars,Studio.Toolbox.Audio.SoundEffect.Category.radio
-Radio,Radio,Studio.Toolbox.Audio.SoundEffect.Category.ricochets
+Radio,Radio,Studio.Toolbox.Audio.SoundEffect.Category.ratchets
+Ratchets,Ratchets,Studio.Toolbox.Audio.SoundEffect.Category.ricochets
 Ricochets,Ricochets,Studio.Toolbox.Audio.SoundEffect.Category.rings
 Rings,Rings,Studio.Toolbox.Audio.SoundEffect.Category.rips
 Rips,Rips,Studio.Toolbox.Audio.SoundEffect.Category.rips-tears

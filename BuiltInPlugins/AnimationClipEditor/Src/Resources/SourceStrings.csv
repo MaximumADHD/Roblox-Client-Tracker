@@ -1,4 +1,14 @@
 Key,Source,en-us
+Studio.AnimationClipEditor.AnimationFromVideo.Error, ,An unknown error occurred while processing the video.
+Studio.AnimationClipEditor.AnimationFromVideo.Initializing, ,Uploading video...
+Studio.AnimationClipEditor.AnimationFromVideo.InputHasNoPerson, ,Error: to person could be detected in the video.
+Studio.AnimationClipEditor.AnimationFromVideo.InputTooLong, ,Error: the video was too long. Please use a video less than 15 seconds long.
+Studio.AnimationClipEditor.AnimationFromVideo.InputUnstable, ,Error: the video was too unstable. Please use a more stable video.
+Studio.AnimationClipEditor.AnimationFromVideo.ModerationRejected, ,Video was rejected due to moderation.
+Studio.AnimationClipEditor.AnimationFromVideo.Pending, ,Preparing to create animation from video...
+Studio.AnimationClipEditor.AnimationFromVideo.Processing, ,Creating animation from video. This may take a minute...
+Studio.AnimationClipEditor.AnimationFromVideo.RequiresModeration, ,Video requires moderation.
+Studio.AnimationClipEditor.AnimationFromVideo.Success, ,Success! Applying animation to avatar...
 Studio.AnimationClipEditor.ContextMenu.AddEvent, ,Add Animation Event Here
 Studio.AnimationClipEditor.ContextMenu.AddKeyframe, ,Add Keyframe
 Studio.AnimationClipEditor.ContextMenu.AddKeyframeHere, ,Add Keyframe Here

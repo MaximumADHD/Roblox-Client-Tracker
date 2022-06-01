@@ -30,31 +30,30 @@ dependencies = [
     "InGameMenuDependencies InGameMenuDependencies 5dd650f7 git+https://github.com/roblox/in-game-menu-dependencies#master",
     "JestGlobals JestGlobals 2.4.0 url+https://github.com/roblox/jest-roblox",
     "LuaChatDeps LuaChatDeps bab81049 git+https://github.com/roblox/lua-chat-deps#master",
-    "LuaProfileDeps LuaProfileDeps caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
     "LuaProfileDeps_v200 LuaProfileDeps dd87276c git+https://github.com/roblox/lua-profile#v2.0.0",
-    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps a40799f5 git+https://github.com/roblox/lua-social-libraries-deps#master",
+    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 5e2564f6 git+https://github.com/roblox/lua-social-libraries-deps#master",
     "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
     "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
     "PolicyProvider roblox/lua-roact-policy-provider 045503a9 git+https://github.com/roblox/lua-roact-policy-provider#master",
     "PremiumUpsellDeps PremiumUpsellDeps 6aa73b7f git+https://github.com/roblox/premium-upsell-deps#master",
     "Promise Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
     "PurchasePromptDeps roblox/purchase-prompt-deps 891a2e04 git+https://github.com/roblox/purchase-prompt-deps#master",
-    "React React 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "ReactDevtoolsExtensions ReactDevtoolsExtensions 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "ReactIs ReactIs 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "ReactRoblox ReactRoblox 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "React React 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
+    "ReactDevtoolsExtensions ReactDevtoolsExtensions 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
+    "ReactIs ReactIs 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
+    "ReactRoblox ReactRoblox 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
     "Result roblox/lua-result c6817c84 git+https://github.com/roblox/lua-result#master",
     "Rhodium Rhodium 0.2.8 url+https://github.com/roblox/rhodium",
-    "Roact RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Roact RoactCompat 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
     "RoactGamepad <patched> RoactGamepad 0.5.3 url+https://github.com/roblox/roact-gamepad",
     "RoactNavigation <patched> RoactNavigationProxy 6e1cfd43 git+https://github.com/roblox/roact-navigation-upgrade#v0.1.0",
     "RoactNavigationUpgradeFlag RoactNavigationUpgradeFlag 6e1cfd43 git+https://github.com/roblox/roact-navigation-upgrade#v0.1.0",
-    "RoactRodux <patched> RoactRodux 0.5.0 url+https://github.com/roblox/roact-rodux",
+    "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
     "RoduxGames RoduxGames 1b7ccfde git+https://github.com/roblox/rodux-games#master",
     "StringUtilities roblox/string-utilities 1.0.0 url+https://github.com/roblox/string-utilities",
     "Thumbnailing Thumbnailing 4270107f git+https://github.com/roblox/thumbnailing#main",
-    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 9327998d git+https://github.com/roblox/uiblox#master",
     "UrlBuilder roblox/url-builder 8b1eb7a8 git+https://github.com/roblox/url-builder#master",
     "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -66,19 +65,6 @@ name = "Dash"
 version = "0.1.9"
 commit = "48dd78d2e51e25c900fd3f400f4a6dc7fc1e2a24"
 source = "url+https://github.com/roblox/dash"
-
-[[package]]
-name = "DebugUtils"
-version = "1.2.1"
-commit = "caca70319277d2f83e1c775ad48ffe7d5b8c2495"
-source = "git+https://github.com/roblox/lua-profile#v1.2.1"
-dependencies = [
-    "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
-    "HttpRequest roblox/http-request 3e68dca3 git+https://github.com/roblox/http-request#v1.1.0",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "RoduxNetworking RoduxNetworking 3.0.1 url+https://github.com/roblox/rodux-networking",
-    "t roblox/t 1.2.5 url+https://github.com/roblox/t",
-]
 
 [[package]]
 name = "DebugUtils"
@@ -131,10 +117,10 @@ dependencies = [
     "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
     "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
     "Promise Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
-    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "RoactRodux <patched> RoactRodux 0.5.0 url+https://github.com/roblox/roact-rodux",
+    "Roact <patched> RoactCompat 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
+    "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 9327998d git+https://github.com/roblox/uiblox#master",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
 ]
 
@@ -144,9 +130,9 @@ version = "1.0.0"
 commit = "9d3a27d118218f8f83feb2ba5e5309350fac9c75"
 source = "git+https://github.com/roblox/iapexperience#master"
 dependencies = [
-    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Roact <patched> RoactCompat 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
     "RoactFitComponents RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
-    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 9327998d git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -161,10 +147,10 @@ dependencies = [
     "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
     "PolicyProvider roblox/lua-roact-policy-provider 045503a9 git+https://github.com/roblox/lua-roact-policy-provider#master",
     "Promise Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
-    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "RoactRodux <patched> RoactRodux 0.5.0 url+https://github.com/roblox/roact-rodux",
+    "Roact <patched> RoactCompat 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
+    "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 9327998d git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -178,7 +164,7 @@ dependencies = [
     "FitFrame RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "Lumberyak roblox/lumberyak 0.1.1 url+https://github.com/roblox/lumberyak",
     "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
-    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Roact <patched> RoactCompat 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -376,38 +362,7 @@ dependencies = [
     "AssetCard roblox/asset-card 103b2a57 git+https://github.com/roblox/asset-card#v1.0.3",
     "InfiniteScroller <patched> InfiniteScroller 0.9.5 url+https://github.com/roblox/infinite-scroller",
     "RoduxNetworking rodux-networking 4a963dc9 git+https://github.com/roblox/rodux-networking#v2.0.0",
-    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
-]
-
-[[package]]
-name = "LuaProfileDeps"
-version = "1.2.1"
-commit = "caca70319277d2f83e1c775ad48ffe7d5b8c2495"
-source = "git+https://github.com/roblox/lua-profile#v1.2.1"
-dependencies = [
-    "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
-    "DebugUtils DebugUtils caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
-    "HttpRequest roblox/http-request 3e68dca3 git+https://github.com/roblox/http-request#v1.1.0",
-    "NetworkingBlocking NetworkingBlocking caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
-    "NetworkingCurrentlyWearing NetworkingCurrentlyWearing caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
-    "NetworkingFriends roblox/networking-friends e175ee4d git+https://github.com/roblox/networking-friends#master",
-    "NetworkingGames NetworkingGames 0e172804 git+https://github.com/roblox/networking-games#main",
-    "NetworkingPresence roblox/networking-presence e1b72e1a git+https://github.com/roblox/networking-presence#master",
-    "NetworkingUserInfo NetworkingUserInfo caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
-    "NetworkingUsers roblox/networking-users 6616f72f git+https://github.com/roblox/networking-users#master",
-    "Promise Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
-    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "RoactNavigation <patched> RoactNavigationProxy 6e1cfd43 git+https://github.com/roblox/roact-navigation-upgrade#v0.1.0",
-    "RoactRodux <patched> RoactRodux 0.5.0 url+https://github.com/roblox/roact-rodux",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "RoduxFriends roblox/rodux-friends e7dec272 git+https://github.com/roblox/rodux-friends#master",
-    "RoduxGames RoduxGames 1b7ccfde git+https://github.com/roblox/rodux-games#master",
-    "RoduxNetworking RoduxNetworking 3.0.1 url+https://github.com/roblox/rodux-networking",
-    "RoduxPresence roblox/rodux-presence d060d8dd git+https://github.com/roblox/rodux-presence#master",
-    "RoduxProfile RoduxProfile caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
-    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
-    "UnitTestHelpers UnitTestHelpers caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
-    "t roblox/t 1.2.5 url+https://github.com/roblox/t",
+    "UIBlox UIBlox 9327998d git+https://github.com/roblox/uiblox#master",
 ]
 
 [[package]]
@@ -427,16 +382,16 @@ dependencies = [
     "NetworkingUserInfo NetworkingUserInfo dd87276c git+https://github.com/roblox/lua-profile#v2.0.0",
     "NetworkingUsers roblox/networking-users 6616f72f git+https://github.com/roblox/networking-users#master",
     "Promise Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
-    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Roact <patched> RoactCompat 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
     "RoactNavigation <patched> RoactNavigationProxy 6e1cfd43 git+https://github.com/roblox/roact-navigation-upgrade#v0.1.0",
-    "RoactRodux <patched> RoactRodux 0.5.0 url+https://github.com/roblox/roact-rodux",
+    "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
     "RoduxFriends roblox/rodux-friends e7dec272 git+https://github.com/roblox/rodux-friends#master",
     "RoduxGames RoduxGames 1b7ccfde git+https://github.com/roblox/rodux-games#master",
     "RoduxNetworking RoduxNetworking 3.0.1 url+https://github.com/roblox/rodux-networking",
     "RoduxPresence roblox/rodux-presence d060d8dd git+https://github.com/roblox/rodux-presence#master",
     "RoduxProfile RoduxProfile dd87276c git+https://github.com/roblox/lua-profile#v2.0.0",
-    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 9327998d git+https://github.com/roblox/uiblox#master",
     "UnitTestHelpers UnitTestHelpers dd87276c git+https://github.com/roblox/lua-profile#v2.0.0",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
@@ -444,7 +399,7 @@ dependencies = [
 [[package]]
 name = "LuaSocialLibrariesDeps"
 version = "1.1.0"
-commit = "a40799f5277eaf2f371992961b665044239808c3"
+commit = "5e2564f611eb36c871437e795bd992cf64b2dc79"
 source = "git+https://github.com/roblox/lua-social-libraries-deps#master"
 dependencies = [
     "CollisionMatchers 2D-Collision-Matchers 89b7a343 git+https://github.com/roblox/2d-collision-matchers#v1.0.1",
@@ -452,16 +407,16 @@ dependencies = [
     "Mock mock 2db7a70f git+https://github.com/roblox/mock#v1.1.0",
     "NetworkingAliases roblox/networking-aliases 30e7008e git+https://github.com/roblox/networking-aliases#v0.1.1",
     "NetworkingChat roblox/networking-chat a4ef5fb2 git+https://github.com/roblox/networking-chat#v0.2.0",
-    "NetworkingContacts NetworkingContacts a3a4c724 git+https://github.com/roblox/lua-app-networking#main",
+    "NetworkingContacts NetworkingContacts 0.2.0 url+https://github.com/roblox/lua-app-networking",
     "NetworkingFriends roblox/networking-friends b26534d7 git+https://github.com/roblox/networking-friends#v2.0.1",
     "NetworkingFriends_221 NetworkingFriends 2.3.2 url+https://github.com/roblox/networking-friends",
     "NetworkingGames NetworkingGames db69cf81 git+https://github.com/roblox/networking-games#v1.1.0",
     "NetworkingPresence NetworkingPresence 4f4187d1 git+https://github.com/roblox/networking-presence#v2.0.0",
     "NetworkingUsers roblox/networking-users 6616f72f git+https://github.com/roblox/networking-users#v1.0.0",
-    "NetworkingUtil Util a3a4c724 git+https://github.com/roblox/lua-app-networking#main",
     "RoactFitComponents RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "RoduxAliases roblox/rodux-aliases 69aebf4b git+https://github.com/roblox/rodux-aliases#v1.0.1",
     "RoduxAliases_v2 RoduxAliases a23db922 git+https://github.com/roblox/rodux-aliases#v2.0.0",
+    "RoduxContacts RoduxContacts 0.1.0 url+https://github.com/roblox/rodux-contacts",
     "RoduxFriends roblox/rodux-friends f3eb648d git+https://github.com/roblox/rodux-friends#v2.1.0",
     "RoduxFriends_v220 roblox/rodux-friends e373c05f git+https://github.com/roblox/rodux-friends#v2.2.7",
     "RoduxFriends_v3 RoduxFriends ce00d21f git+https://github.com/roblox/rodux-friends#v3.6.0",
@@ -471,8 +426,7 @@ dependencies = [
     "RoduxPresence_v3 RoduxPresence af4ec863 git+https://github.com/roblox/rodux-presence#v3.0.1",
     "RoduxUsers roblox/rodux-users 28427098 git+https://github.com/roblox/rodux-users#v1.1.1",
     "RoduxUsers_v13 RoduxUsers 941abdeb git+https://github.com/roblox/rodux-users#v1.3.3",
-    "SocialLibraries SocialLibraries 2547d3f7 git+https://github.com/roblox/social-libraries#v0.8.4",
-    "SocialLibraries_v085 SocialLibraries f342310f git+https://github.com/roblox/social-libraries#v0.8.5",
+    "SocialLibraries SocialLibraries f342310f git+https://github.com/roblox/social-libraries#v0.8.5",
     "httpRequest roblox/http-request 3e68dca3 git+https://github.com/roblox/http-request#v1.1.0",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
 ]
@@ -491,18 +445,6 @@ source = "url+https://github.com/roblox/luau-polyfill"
 
 [[package]]
 name = "NetworkingBlocking"
-version = "1.2.1"
-commit = "caca70319277d2f83e1c775ad48ffe7d5b8c2495"
-source = "git+https://github.com/roblox/lua-profile#v1.2.1"
-dependencies = [
-    "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
-    "DebugUtils DebugUtils caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "buildApiSiteUrl buildApiSiteUrl caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
-]
-
-[[package]]
-name = "NetworkingBlocking"
 version = "2.0.0"
 commit = "dd87276c033aaf5d243c99dbf624aaa9358f0bac"
 source = "git+https://github.com/roblox/lua-profile#v2.0.0"
@@ -515,22 +457,10 @@ dependencies = [
 
 [[package]]
 name = "NetworkingContacts"
-version = "0.1.2"
-commit = "a3a4c72458a9aba6f7a4eab6ef3612b2ad89b5ed"
-source = "git+https://github.com/roblox/lua-app-networking#main"
-dependencies = ["Util Util a3a4c724 git+https://github.com/roblox/lua-app-networking#main"]
-
-[[package]]
-name = "NetworkingCurrentlyWearing"
-version = "1.2.1"
-commit = "caca70319277d2f83e1c775ad48ffe7d5b8c2495"
-source = "git+https://github.com/roblox/lua-profile#v1.2.1"
-dependencies = [
-    "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
-    "DebugUtils DebugUtils caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "buildApiSiteUrl buildApiSiteUrl caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
-]
+version = "0.2.0"
+commit = "11ad1ec768a453af9dfea4df1d4dda2b1563f542"
+source = "url+https://github.com/roblox/lua-app-networking"
+dependencies = ["Util Util 0.2.0 url+https://github.com/roblox/lua-app-networking"]
 
 [[package]]
 name = "NetworkingCurrentlyWearing"
@@ -573,18 +503,6 @@ name = "NetworkingPresence"
 version = "2.0.0"
 commit = "4f4187d1c4a3a123706607d3129ef5eca79f8e2c"
 source = "git+https://github.com/roblox/networking-presence#v2.0.0"
-
-[[package]]
-name = "NetworkingUserInfo"
-version = "1.2.1"
-commit = "caca70319277d2f83e1c775ad48ffe7d5b8c2495"
-source = "git+https://github.com/roblox/lua-profile#v1.2.1"
-dependencies = [
-    "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
-    "DebugUtils DebugUtils caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "buildApiSiteUrl buildApiSiteUrl caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
-]
 
 [[package]]
 name = "NetworkingUserInfo"
@@ -632,7 +550,7 @@ dependencies = [
     "ChalkLua roblox/chalk-lua 0.1.2 url+https://github.com/roblox/chalk-lua",
     "JestGetType JestGetType 2.4.0 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
-    "ReactIs ReactIs 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "ReactIs ReactIs 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
     "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
     "RobloxShared RobloxShared 2.4.0 url+https://github.com/roblox/jest-roblox",
 ]
@@ -645,85 +563,85 @@ source = "url+https://github.com/roblox/roblox-lua-promise"
 
 [[package]]
 name = "React"
-version = "17.0.1-rc.11"
-commit = "6c194eddd9e61faeaa91fb7e6dc21fe47c3cba98"
+version = "17.0.1-rc.12"
+commit = "5088d0c0b98902ec9dcd5694041257291588d42b"
 source = "url+https://github.com/roblox/roact-alignment"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
     "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
-    "Shared Shared 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Shared Shared 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
 ]
 
 [[package]]
 name = "ReactDebugTools"
-version = "17.0.1-rc.11"
-commit = "6c194eddd9e61faeaa91fb7e6dc21fe47c3cba98"
+version = "17.0.1-rc.12"
+commit = "5088d0c0b98902ec9dcd5694041257291588d42b"
 source = "url+https://github.com/roblox/roact-alignment"
 dependencies = [
     "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
-    "ReactReconciler ReactReconciler 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "Shared Shared 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "ReactReconciler ReactReconciler 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
+    "Shared Shared 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
 ]
 
 [[package]]
 name = "ReactDevtoolsExtensions"
-version = "17.0.1-rc.11"
-commit = "6c194eddd9e61faeaa91fb7e6dc21fe47c3cba98"
+version = "17.0.1-rc.12"
+commit = "5088d0c0b98902ec9dcd5694041257291588d42b"
 source = "url+https://github.com/roblox/roact-alignment"
 dependencies = [
-    "React React 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "ReactDevtoolsShared ReactDevtoolsShared 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "ReactRoblox ReactRoblox 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "Shared Shared 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "React React 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
+    "ReactDevtoolsShared ReactDevtoolsShared 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
+    "ReactRoblox ReactRoblox 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
+    "Shared Shared 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
 ]
 
 [[package]]
 name = "ReactDevtoolsShared"
-version = "17.0.1-rc.11"
-commit = "6c194eddd9e61faeaa91fb7e6dc21fe47c3cba98"
+version = "17.0.1-rc.12"
+commit = "5088d0c0b98902ec9dcd5694041257291588d42b"
 source = "url+https://github.com/roblox/roact-alignment"
 dependencies = [
     "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
-    "React React 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "ReactDebugTools ReactDebugTools 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "ReactIs ReactIs 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "ReactReconciler ReactReconciler 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "ReactRoblox ReactRoblox 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "Shared Shared 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "React React 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
+    "ReactDebugTools ReactDebugTools 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
+    "ReactIs ReactIs 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
+    "ReactReconciler ReactReconciler 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
+    "ReactRoblox ReactRoblox 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
+    "Shared Shared 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
 ]
 
 [[package]]
 name = "ReactIs"
-version = "17.0.1-rc.11"
-commit = "6c194eddd9e61faeaa91fb7e6dc21fe47c3cba98"
+version = "17.0.1-rc.12"
+commit = "5088d0c0b98902ec9dcd5694041257291588d42b"
 source = "url+https://github.com/roblox/roact-alignment"
-dependencies = ["Shared Shared 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment"]
+dependencies = ["Shared Shared 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment"]
 
 [[package]]
 name = "ReactReconciler"
-version = "17.0.1-rc.11"
-commit = "6c194eddd9e61faeaa91fb7e6dc21fe47c3cba98"
+version = "17.0.1-rc.12"
+commit = "5088d0c0b98902ec9dcd5694041257291588d42b"
 source = "url+https://github.com/roblox/roact-alignment"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
     "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
     "Promise Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
-    "React React 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "Scheduler Scheduler 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "Shared Shared 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "React React 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
+    "Scheduler Scheduler 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
+    "Shared Shared 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
 ]
 
 [[package]]
 name = "ReactRoblox"
-version = "17.0.1-rc.11"
-commit = "6c194eddd9e61faeaa91fb7e6dc21fe47c3cba98"
+version = "17.0.1-rc.12"
+commit = "5088d0c0b98902ec9dcd5694041257291588d42b"
 source = "url+https://github.com/roblox/roact-alignment"
 dependencies = [
     "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
-    "React React 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "ReactReconciler ReactReconciler 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "Scheduler Scheduler 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "Shared Shared 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "React React 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
+    "ReactReconciler ReactReconciler 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
+    "Scheduler Scheduler 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
+    "Shared Shared 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
 ]
 
 [[package]]
@@ -740,14 +658,14 @@ source = "url+https://github.com/roblox/rhodium"
 
 [[package]]
 name = "RoactCompat"
-version = "17.0.1-rc.11"
-commit = "6c194eddd9e61faeaa91fb7e6dc21fe47c3cba98"
+version = "17.0.1-rc.12"
+commit = "5088d0c0b98902ec9dcd5694041257291588d42b"
 source = "url+https://github.com/roblox/roact-alignment"
 dependencies = [
     "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
-    "React React 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "ReactRoblox ReactRoblox 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "Shared Shared 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "React React 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
+    "ReactRoblox ReactRoblox 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
+    "Shared Shared 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
 ]
 
 [[package]]
@@ -757,7 +675,7 @@ commit = "f424225f04feb5b7190b8ffa82f7bb094c0c3720"
 source = "url+https://github.com/roblox/roact-fit-components"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
-    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Roact <patched> RoactCompat 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
 ]
 
 [[package]]
@@ -767,7 +685,7 @@ commit = "a272b7690704002d92650606358a5236216b71bf"
 source = "url+https://github.com/roblox/roact-gamepad"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
-    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Roact <patched> RoactCompat 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
     "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
@@ -782,7 +700,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill",
     "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
     "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
-    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Roact <patched> RoactCompat 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
 ]
 
 [[package]]
@@ -795,7 +713,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill",
     "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
     "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
-    "Roact RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Roact RoactCompat 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
 ]
 
 [[package]]
@@ -817,11 +735,11 @@ source = "git+https://github.com/roblox/roact-navigation-upgrade#v0.1.0"
 
 [[package]]
 name = "RoactRodux"
-version = "0.5.0"
-commit = "44f7b3eab26d8bb32a79d1c9a9eae971bb5263a4"
+version = "0.5.1"
+commit = "60ce019cc53a78b1917c1cc4880879e6a3d0c34c"
 source = "url+https://github.com/roblox/roact-rodux"
 dependencies = [
-    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Roact <patched> RoactCompat 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
 ]
 
@@ -846,6 +764,20 @@ dependencies = [
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
     "RoduxNetworking RoduxNetworking 3.0.1 url+https://github.com/roblox/rodux-networking",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
+]
+
+[[package]]
+name = "RoduxContacts"
+version = "0.1.0"
+commit = "63239e8665e0fbebf97ee82164ae00f15c4deec7"
+source = "url+https://github.com/roblox/rodux-contacts"
+dependencies = [
+    "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
+    "NetworkingContacts NetworkingContacts 0.2.0 url+https://github.com/roblox/lua-app-networking",
+    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
+    "RoduxNetworking RoduxNetworking 3.0.1 url+https://github.com/roblox/rodux-networking",
+    "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
+    "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
 [[package]]
@@ -930,29 +862,6 @@ dependencies = [
 
 [[package]]
 name = "RoduxProfile"
-version = "1.2.1"
-commit = "caca70319277d2f83e1c775ad48ffe7d5b8c2495"
-source = "git+https://github.com/roblox/lua-profile#v1.2.1"
-dependencies = [
-    "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
-    "DebugUtils DebugUtils caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
-    "NetworkingBlocking NetworkingBlocking caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
-    "NetworkingCurrentlyWearing NetworkingCurrentlyWearing caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
-    "NetworkingFriends roblox/networking-friends e175ee4d git+https://github.com/roblox/networking-friends#master",
-    "NetworkingGames NetworkingGames 0e172804 git+https://github.com/roblox/networking-games#main",
-    "NetworkingPresence roblox/networking-presence e1b72e1a git+https://github.com/roblox/networking-presence#master",
-    "NetworkingUserInfo NetworkingUserInfo caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
-    "NetworkingUsers roblox/networking-users 6616f72f git+https://github.com/roblox/networking-users#master",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "RoduxFriends roblox/rodux-friends e7dec272 git+https://github.com/roblox/rodux-friends#master",
-    "RoduxGames RoduxGames 1b7ccfde git+https://github.com/roblox/rodux-games#master",
-    "RoduxNetworking RoduxNetworking 3.0.1 url+https://github.com/roblox/rodux-networking",
-    "RoduxPresence roblox/rodux-presence d060d8dd git+https://github.com/roblox/rodux-presence#master",
-    "RoduxUsers roblox/rodux-users 999c44ef git+https://github.com/roblox/rodux-users#master",
-]
-
-[[package]]
-name = "RoduxProfile"
 version = "2.0.0"
 commit = "dd87276c033aaf5d243c99dbf624aaa9358f0bac"
 source = "git+https://github.com/roblox/lua-profile#v2.0.0"
@@ -989,42 +898,20 @@ dependencies = [
 
 [[package]]
 name = "Scheduler"
-version = "17.0.1-rc.11"
-commit = "6c194eddd9e61faeaa91fb7e6dc21fe47c3cba98"
+version = "17.0.1-rc.12"
+commit = "5088d0c0b98902ec9dcd5694041257291588d42b"
 source = "url+https://github.com/roblox/roact-alignment"
 dependencies = [
     "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
-    "Shared Shared 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Shared Shared 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
 ]
 
 [[package]]
 name = "Shared"
-version = "17.0.1-rc.11"
-commit = "6c194eddd9e61faeaa91fb7e6dc21fe47c3cba98"
+version = "17.0.1-rc.12"
+commit = "5088d0c0b98902ec9dcd5694041257291588d42b"
 source = "url+https://github.com/roblox/roact-alignment"
 dependencies = ["LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill"]
-
-[[package]]
-name = "SocialLibraries"
-version = "0.8.4"
-commit = "2547d3f7acf0102aad9d7af1b2f070129c04c879"
-source = "git+https://github.com/roblox/social-libraries#v0.8.4"
-dependencies = [
-    "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
-    "GenericPagination roblox/genericpagination 885168d0 git+https://github.com/roblox/genericpagination#master",
-    "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
-    "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
-    "Promise <patched> Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
-    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "RoactFitComponents RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
-    "RoactNavigation <patched> RoactNavigationProxy 6e1cfd43 git+https://github.com/roblox/roact-navigation-upgrade#v0.1.0",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "RoduxPresence roblox/rodux-presence 87b5d3c2 git+https://github.com/roblox/rodux-presence#v1.0.1",
-    "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
-    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
-    "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
-    "t roblox/t 1.2.5 url+https://github.com/roblox/t",
-]
 
 [[package]]
 name = "SocialLibraries"
@@ -1037,13 +924,13 @@ dependencies = [
     "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
     "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
     "Promise <patched> Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
-    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Roact <patched> RoactCompat 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
     "RoactFitComponents RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "RoactNavigation <patched> RoactNavigationProxy 6e1cfd43 git+https://github.com/roblox/roact-navigation-upgrade#v0.1.0",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
     "RoduxPresence roblox/rodux-presence 87b5d3c2 git+https://github.com/roblox/rodux-presence#v1.0.1",
     "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
-    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 9327998d git+https://github.com/roblox/uiblox#master",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
@@ -1088,7 +975,7 @@ source = "git+https://github.com/roblox/thumbnailing#main"
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "f068477e3960fa8577cdf78198b47c6041ab60ad"
+commit = "9327998d9beb3ada38bce0e4398bca382fb9896d"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
@@ -1096,25 +983,9 @@ dependencies = [
     "InfiniteScroller <patched> InfiniteScroller 0.9.5 url+https://github.com/roblox/infinite-scroller",
     "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
     "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
-    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Roact <patched> RoactCompat 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
     "RoactGamepad <patched> RoactGamepad 0.5.3 url+https://github.com/roblox/roact-gamepad",
     "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
-    "t roblox/t 1.2.5 url+https://github.com/roblox/t",
-]
-
-[[package]]
-name = "UnitTestHelpers"
-version = "1.2.1"
-commit = "caca70319277d2f83e1c775ad48ffe7d5b8c2495"
-source = "git+https://github.com/roblox/lua-profile#v1.2.1"
-dependencies = [
-    "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
-    "DebugUtils DebugUtils caca7031 git+https://github.com/roblox/lua-profile#v1.2.1",
-    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "RoactNavigation <patched> RoactNavigationProxy 6e1cfd43 git+https://github.com/roblox/roact-navigation-upgrade#v0.1.0",
-    "RoactRodux <patched> RoactRodux 0.5.0 url+https://github.com/roblox/roact-rodux",
-    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -1126,25 +997,19 @@ source = "git+https://github.com/roblox/lua-profile#v2.0.0"
 dependencies = [
     "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
     "DebugUtils DebugUtils dd87276c git+https://github.com/roblox/lua-profile#v2.0.0",
-    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Roact <patched> RoactCompat 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
     "RoactNavigation <patched> RoactNavigationProxy 6e1cfd43 git+https://github.com/roblox/roact-navigation-upgrade#v0.1.0",
-    "RoactRodux <patched> RoactRodux 0.5.0 url+https://github.com/roblox/roact-rodux",
+    "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 9327998d git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
 [[package]]
 name = "Util"
-version = "0.1.2"
-commit = "a3a4c72458a9aba6f7a4eab6ef3612b2ad89b5ed"
-source = "git+https://github.com/roblox/lua-app-networking#main"
-
-[[package]]
-name = "buildApiSiteUrl"
-version = "1.2.1"
-commit = "caca70319277d2f83e1c775ad48ffe7d5b8c2495"
-source = "git+https://github.com/roblox/lua-profile#v1.2.1"
+version = "0.2.0"
+commit = "11ad1ec768a453af9dfea4df1d4dda2b1563f542"
+source = "url+https://github.com/roblox/lua-app-networking"
 
 [[package]]
 name = "buildApiSiteUrl"
@@ -1190,9 +1055,9 @@ version = "1.0.3"
 commit = "103b2a571ef09611ac91d38f15c3777682f69bfe"
 source = "git+https://github.com/roblox/asset-card#v1.0.3"
 dependencies = [
-    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Roact <patched> RoactCompat 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 9327998d git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -1250,7 +1115,7 @@ dependencies = [
     "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
     "Mock jtaylor/mock d2c4005c git+https://github.com/roblox/mock#master",
     "Promise <patched> Promise 3.3.0 url+https://github.com/roblox/roblox-lua-promise",
-    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
+    "Roact <patched> RoactCompat 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
     "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
     "tutils tutils 937da4f7 git+https://github.com/roblox/tutils#master",
 ]
@@ -1363,10 +1228,10 @@ dependencies = [
     "FitFrame RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
     "PolicyProvider roblox/lua-roact-policy-provider 045503a9 git+https://github.com/roblox/lua-roact-policy-provider#master",
-    "Roact <patched> RoactCompat 17.0.1-rc.11 url+https://github.com/roblox/roact-alignment",
-    "RoactRodux <patched> RoactRodux 0.5.0 url+https://github.com/roblox/roact-rodux",
+    "Roact <patched> RoactCompat 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
+    "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox f068477e git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 9327998d git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 

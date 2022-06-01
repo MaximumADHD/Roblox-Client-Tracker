@@ -373,8 +373,8 @@ Class BaseWrap : Instance [NotCreatable]
 	Function bool BaseWrap:IsHSRReady() {RobloxScriptSecurity}
 	Function void BaseWrap:ModifyVertices(Enum.CageType cageType, Array vertices) {RobloxScriptSecurity}
 Class WrapLayer : BaseWrap
-	Property int WrapLayer.Order {✏️PluginSecurity}
-	Property float WrapLayer.Puffiness {✏️PluginSecurity}
+	Property int WrapLayer.Order
+	Property float WrapLayer.Puffiness
 	Property Content WrapLayer.ReferenceMeshId {✏️PluginSecurity}
 	Property CFrame WrapLayer.ReferenceOrigin {✏️PluginSecurity}
 	Property Enum.WrapLayerAutoSkin WrapLayer.AutoSkin
@@ -1021,7 +1021,7 @@ Class DebuggerUIService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void DebuggerUIService:EditBreakpoint(int metaBreakpointId) {RobloxScriptSecurity}
 	Function void DebuggerUIService:EditWatch(string expression) {RobloxScriptSecurity}
 	Function bool DebuggerUIService:IsConnectionForPlayDataModel(int debuggerConnectionId) {RobloxScriptSecurity}
-	Function void DebuggerUIService:OpenScriptAtLine(string guid, int debuggerConnectionId, int line) {RobloxScriptSecurity}
+	Function void DebuggerUIService:OpenScriptAtLine(string guid, int debuggerConnectionId, int line, bool showErrorOnFail) {RobloxScriptSecurity}
 	Function void DebuggerUIService:Pause() {RobloxScriptSecurity}
 	Function void DebuggerUIService:RemoveScriptLineMarkers(int debuggerConnectionId, bool allMarkers) {RobloxScriptSecurity}
 	Function void DebuggerUIService:Resume() {RobloxScriptSecurity}
@@ -1247,6 +1247,11 @@ Class GamepadService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void GamepadService:SetGamepadCursorPosition(Vector2 position) {RobloxScriptSecurity}
 	Event GamepadService.GamepadThumbstick1Changed(Vector2 event) {RobloxScriptSecurity}
 Class Geometry : Instance [NotCreatable] [Service]
+Class GetTextBoundsParams : Instance [NotReplicated]
+	Property Font GetTextBoundsParams.Font
+	Property float GetTextBoundsParams.Size
+	Property string GetTextBoundsParams.Text
+	Property float GetTextBoundsParams.Width
 Class GlobalDataStore : Instance [NotCreatable] [NotReplicated]
 	Function Tuple GlobalDataStore:GetAsync(string key) [Yields]
 	Function Variant GlobalDataStore:IncrementAsync(string key, int delta = 1, Array userIds = {}, DataStoreIncrementOptions options = nil) [Yields]
@@ -1944,8 +1949,10 @@ Class IXPService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void IXPService:ClearUserLayers() {LocalUserSecurity}
 	Function Enum.IXPLoadingStatus IXPService:GetBrowserTrackerLayerLoadingStatus() {LocalUserSecurity}
 	Function Dictionary IXPService:GetBrowserTrackerLayerVariables(string layerName) {LocalUserSecurity}
+	Function Enum.IXPLoadingStatus? IXPService:GetBrowserTrackerStatusForLayer(string layerName) {LocalUserSecurity}
 	Function Enum.IXPLoadingStatus IXPService:GetUserLayerLoadingStatus() {LocalUserSecurity}
 	Function Dictionary IXPService:GetUserLayerVariables(string layerName) {LocalUserSecurity}
+	Function Enum.IXPLoadingStatus? IXPService:GetUserStatusForLayer(string layerName) {LocalUserSecurity}
 	Function void IXPService:InitializeUserLayers(int64 userId) {LocalUserSecurity}
 	Function void IXPService:LogBrowserTrackerLayerExposure(string layerName) {LocalUserSecurity}
 	Function void IXPService:LogUserLayerExposure(string layerName) {LocalUserSecurity}
@@ -1971,10 +1978,13 @@ Class ImporterMaterialSettings : ImporterBaseSettings [NotCreatable] [NotReplica
 	Property string ImporterMaterialSettings.RoughnessFilePath [ReadOnly]
 Class ImporterMeshSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property bool ImporterMeshSettings.Anchored
+	Property bool ImporterMeshSettings.CageManifold [ReadOnly]
+	Property bool ImporterMeshSettings.CageManifoldPreview
+	Property bool ImporterMeshSettings.CageNoOverlappingVertices [ReadOnly]
+	Property bool ImporterMeshSettings.CageNoOverlappingVerticesPreview
 	Property Vector3 ImporterMeshSettings.Dimensions [ReadOnly]
 	Property bool ImporterMeshSettings.DoubleSided
 	Property bool ImporterMeshSettings.IgnoreVertexColors
-	Property bool ImporterMeshSettings.Manifold [ReadOnly]
 	Property float ImporterMeshSettings.PolygonCount [ReadOnly]
 Class ImporterRootSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property bool ImporterRootSettings.Anchored
@@ -1987,6 +1997,7 @@ Class ImporterRootSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property float ImporterRootSettings.PolygonCount [ReadOnly]
 	Property Enum.RigType ImporterRootSettings.RigType
 	Property Enum.MeshScaleUnit ImporterRootSettings.ScaleUnit
+	Property bool ImporterRootSettings.UseSceneOriginAsPivot
 	Property Enum.NormalId ImporterRootSettings.WorldForward
 	Property Enum.NormalId ImporterRootSettings.WorldUp
 Class IncrementalPatchBuilder : Instance [NotCreatable] [Service] [NotReplicated]
@@ -2224,6 +2235,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function Dictionary MarketplaceService:PerformPurchase(Enum.InfoType infoType, int64 productId, int expectedPrice, string requestId, bool isRobloxPurchase) {RobloxScriptSecurity} [Yields]
 	Function bool MarketplaceService:PlayerCanMakePurchases(Instance player) {RobloxScriptSecurity}
 	Function bool MarketplaceService:PlayerOwnsAsset(Instance player, int64 assetId) [Yields]
+	Function bool MarketplaceService:PlayerOwnsBundle(Player player, int64 bundleId) [Yields]
 	Function void MarketplaceService:PromptBundlePurchase(Instance player, int64 bundleId)
 	Function void MarketplaceService:PromptGamePassPurchase(Instance player, int64 gamePassId)
 	Function void MarketplaceService:PromptNativePurchase(Instance player, string productId) {RobloxScriptSecurity}
@@ -2272,89 +2284,43 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 Class MaterialService : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property string MaterialService.AsphaltName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.BasaltName {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.Brick {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.BrickName {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.Cobblestone {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.CobblestoneName {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.Concrete {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.ConcreteName {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.CorrodedMetal {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.CorrodedMetalName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.CrackedLavaName {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.DiamondPlate {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.DiamondPlateName {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.Fabric {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.FabricName {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.Foil {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.FoilName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.GlacierName {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.Granite {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.GraniteName {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.Grass {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.GrassName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.GroundName {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.Ice {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.IceName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.LeafyGrassName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.LimestoneName {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.Marble {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.MarbleName {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.Metal {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.MetalName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.MudName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.PavementName {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.Pebble {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.PebbleName {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.Plastic {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.PlasticName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.RockName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.SaltName {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.Sand {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.SandName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.SandstoneName {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.Slate {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.SlateName {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.SmoothPlastic {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.SmoothPlasticName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.SnowName {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.Wood {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.WoodName {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.WoodPlanks {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.WoodPlanksName {RobloxSecurity} [NotScriptable]
 	Property bool MaterialService.Use2022Materials {RobloxScriptSecurity} [NotReplicated]
-	Property MaterialVariant MaterialService.TerrainAsphalt {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.TerrainBasalt {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.TerrainBrick {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.TerrainCobblestone {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.TerrainConcrete {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.TerrainCrackedLava {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.TerrainGlacier {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.TerrainGrass {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.TerrainGround {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.TerrainIce {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.TerrainLeafyGrass {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.TerrainLimestone {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.TerrainMud {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.TerrainPavement {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.TerrainRock {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.TerrainSalt {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.TerrainSand {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.TerrainSandstone {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.TerrainSlate {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.TerrainSnow {RobloxSecurity} [NotScriptable]
-	Property MaterialVariant MaterialService.TerrainWoodPlanks {RobloxSecurity} [NotScriptable]
 	Property bool MaterialService.hasPropertyWarningInStudio {RobloxSecurity} [Hidden] [ReadOnly]
-	Function void MaterialService:ClearOverridePartMaterial(Enum.Material material)
-	Function void MaterialService:ClearOverrideTerrainMaterial(Enum.Material material)
 	Function string MaterialService:GetBaseMaterialOverride(Enum.Material material)
 	Function RBXScriptSignal MaterialService:GetMaterialOverrideChanged(Enum.Material material) {RobloxScriptSecurity}
 	Function MaterialVariant MaterialService:GetMaterialVariant(Enum.Material material, string name)
-	Function MaterialVariant MaterialService:GetOverridePartMaterial(Enum.Material material)
 	Function Enum.PropertyStatus MaterialService:GetOverrideStatus(Enum.Material material) {RobloxScriptSecurity}
-	Function MaterialVariant MaterialService:GetOverrideTerrainMaterial(Enum.Material material)
 	Function void MaterialService:SetBaseMaterialOverride(Enum.Material material, string name)
-	Function void MaterialService:SetOverridePartMaterial(MaterialVariant materialVariant)
-	Function void MaterialService:SetOverrideTerrainMaterial(MaterialVariant materialVariant)
 	Event MaterialService.OverrideStatusChanged(Enum.Material material) {RobloxScriptSecurity}
 Class MaterialVariant : Instance [NotBrowsable]
 	Property Enum.Material MaterialVariant.BaseMaterial {PluginSecurity}
@@ -3443,6 +3409,7 @@ Class ScriptDocument : Instance [NotCreatable] [NotReplicated]
 	Function LuaSourceContainer ScriptDocument:GetScript() {RobloxScriptSecurity}
 	Function string ScriptDocument:GetText() {RobloxScriptSecurity}
 Class ScriptEditorService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function ScriptDocument ScriptEditorService:FindScriptDocument(LuaSourceContainer script) {RobloxScriptSecurity}
 	Function void ScriptEditorService:RegisterLSPCallback(Enum.LSPMethodType methodToOverride, Function callbackFunction) {RobloxScriptSecurity}
 	Event ScriptEditorService.TextDocumentDidChange(ScriptDocument document, Variant changesArray) {RobloxScriptSecurity}
 	Event ScriptEditorService.TextDocumentDidClose(ScriptDocument oldDocument) {RobloxScriptSecurity}
@@ -4118,6 +4085,7 @@ Class TextFilterResult : Instance [NotCreatable] [NotReplicated]
 Class TextService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance TextService:FilterStringAsync(string stringToFilter, int64 fromUserId, Enum.TextFilterContext textContext = "PrivateChat") [Yields]
 	Function Dictionary TextService:GetFamilyInfoAsync(Content assetId) [Yields]
+	Function Vector2 TextService:GetTextBoundsAsync(GetTextBoundsParams params) [Yields]
 	Function Vector2 TextService:GetTextSize(string string, int fontSize, Enum.Font font, Vector2 frameSize)
 	Function void TextService:SetResolutionScale(float scale) {RobloxScriptSecurity}
 Class TextSource : Instance [NotCreatable] [NotBrowsable]
@@ -5254,7 +5222,7 @@ Enum Font
 	EnumItem Font.Antique : 15
 	EnumItem Font.SourceSansSemibold : 16
 	EnumItem Font.Gotham : 17
-	EnumItem Font.GothamSemibold : 18
+	EnumItem Font.GothamMedium : 18
 	EnumItem Font.GothamBold : 19
 	EnumItem Font.GothamBlack : 20
 	EnumItem Font.AmaticSC : 21
@@ -5790,16 +5758,16 @@ Enum LSPMethodType
 	EnumItem LSPMethodType.Completion : 15
 	EnumItem LSPMethodType.Declaration : 16
 	EnumItem LSPMethodType.DocumentSymbols : 17
-	EnumItem LSPMethodType.TextDocument_publishDiagnostics : 18
-	EnumItem LSPMethodType.Window_showMessage : 19
-	EnumItem LSPMethodType.Window_showMessageRequest : 20
-	EnumItem LSPMethodType.Roblox_registerSyntaxCategories : 21
-	EnumItem LSPMethodType.Roblox_signalQuiescence : 22
-	EnumItem LSPMethodType.Roblox_syntaxHighlight : 23
-	EnumItem LSPMethodType.Roblox_suggestExtraSelections : 24
-	EnumItem LSPMethodType.Roblox_findExecutablePosition : 25
-	EnumItem LSPMethodType.Roblox_findColor3 : 26
-	EnumItem LSPMethodType.Roblox_patchSnippetData : 27
+	EnumItem LSPMethodType.TextDocument_publishDiagnostics : 19
+	EnumItem LSPMethodType.Window_showMessage : 20
+	EnumItem LSPMethodType.Window_showMessageRequest : 21
+	EnumItem LSPMethodType.Roblox_registerSyntaxCategories : 22
+	EnumItem LSPMethodType.Roblox_signalQuiescence : 23
+	EnumItem LSPMethodType.Roblox_syntaxHighlight : 24
+	EnumItem LSPMethodType.Roblox_suggestExtraSelections : 25
+	EnumItem LSPMethodType.Roblox_findExecutablePosition : 26
+	EnumItem LSPMethodType.Roblox_findColor3 : 27
+	EnumItem LSPMethodType.Roblox_patchSnippetData : 28
 Enum Language
 	EnumItem Language.Default : 0
 Enum LeftRight

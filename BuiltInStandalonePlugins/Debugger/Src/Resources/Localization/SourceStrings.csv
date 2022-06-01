@@ -16,6 +16,7 @@ Studio.Debugger.BreakpointsWindow.LogMessageColumn,Log Message,Log Message
 Studio.Debugger.EditDebugpoint.LogLabel,Log Message,Log Message
 Studio.Debugger.BreakpointsWindow.ScriptColumn,Script,Script
 Studio.Debugger.Common.DeleteLogpoint,Delete Logpoint,Delete Logpoint
+Studio.Debugger.Common.None,None,None
 Studio.Debugger.EditDebugpoint.Cancel,Cancel,Cancel
 Studio.Debugger.Watch.Local,Local,Local
 Studio.Debugger.EditDebugpoint.Save,Save,Save
@@ -60,9 +61,9 @@ Studio.Debugger.Common.EditLogpoint,Edit Logpoint,Edit Logpoint
 Studio.Debugger.Common.DisableLogpoint,Disable Logpoint,Disable Logpoint
 Studio.Debugger.BreakpointsWindow.GoToScript,Go To Script,Go To Script
 Studio.Debugger.Common.GoToScript,Go To Script,Go To Script
-Studio.Debugger.BreakpointsWindow.ScriptColumnTooltip,The script a breakpoint belongs to,The script a breakpoint belongs to
-Studio.Debugger.BreakpointsWindow.WindowName,Breakponts Window,Breakpoints Window
+Studio.Debugger.BreakpointsWindow.WindowName,Breakpoints,Breakpoints
 Studio.Debugger.BreakpointsWindow.LineColumnTooltip,The line number a breakpoint is on,The line number a breakpoint is on
+Studio.Debugger.BreakpointsWindow.ScriptColumnTooltip,The script a breakpoint belongs to,The script a breakpoint belongs to
 Studio.Debugger.BreakpointsWindow.SourceLineColumn,Source Line,Source Line
 Studio.Debugger.BreakpointsWindow.SourceLineColumnTooltip,The content of the line a breakpoint is on,The content of the line a breakpoint is on
 Studio.Debugger.BreakpointsWindow.ContinueExecutionColumn,Continue Execution,Continue Execution
