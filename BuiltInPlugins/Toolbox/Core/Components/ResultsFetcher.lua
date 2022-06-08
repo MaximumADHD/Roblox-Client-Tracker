@@ -3,6 +3,8 @@ local Plugin = script:FindFirstAncestor("Toolbox")
 local Packages = Plugin.Packages
 
 local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
+local FFlagToolboxFixAssetFetcherOnUpdate = game:GetFastFlag("ToolboxFixAssetFetcherOnUpdate")
+local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
 
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
@@ -47,6 +49,7 @@ export type ResultsFetcherProps = {
 	searchTerm: string?,
 	initialPageSize: number,
 	tags: { string }?,
+	includeOnlyVerifiedCreators: boolean?,
 }
 
 function ResultsFetcher:init(props: ResultsFetcherProps)
@@ -84,6 +87,10 @@ function ResultsFetcher:didUpdate(previousProps: ResultsFetcherProps)
 	local current = Dash.filter(self.props, filterRender)
 
 	if not deepEqual(prev, current) then
+		if FFlagToolboxFixAssetFetcherOnUpdate then
+			self.canceled = self.loadingMutex
+			self.loadingMutex = false
+		end
 		self:fetchResults({ initialPage = true })
 	end
 end
@@ -111,6 +118,10 @@ function ResultsFetcher:fetchResults(args: { pageSize: number?, initialPage: boo
 	end)
 
 	local innerFetch = function()
+		local includeOnlyVerifiedCreators = if FFlagToolboxShowIdVerifiedFilter
+			then self.props.includeOnlyVerifiedCreators
+			else nil		
+
 		local promiseError
 		local assetIdsResponse = networkInterface
 			:getToolboxItems({
@@ -121,6 +132,7 @@ function ResultsFetcher:fetchResults(args: { pageSize: number?, initialPage: boo
 				tags = if FFlagToolboxAudioDiscovery then props.tags else nil,
 				cursor = nextPageCursor,
 				limit = pageSize,
+				includeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
 			})
 			:catch(function(error: HttpResponse.HttpResponse)
 				promiseError = true
@@ -173,6 +185,14 @@ function ResultsFetcher:fetchResults(args: { pageSize: number?, initialPage: boo
 		end
 
 		self.loadingMutex = false
+
+		if FFlagToolboxFixAssetFetcherOnUpdate then
+			if self.canceled then
+				self.canceled = false
+				return
+			end
+		end
+
 		self:setState(function(previousState)
 			local stateUpdate: InternalResultsState = {} :: any -- Partial<InternalResultsState>
 

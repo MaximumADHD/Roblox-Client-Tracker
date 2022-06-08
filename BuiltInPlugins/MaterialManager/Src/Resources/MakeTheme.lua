@@ -1,7 +1,6 @@
 --[[
 	Creates the theme for the plugin.
-	Extends the default StudioFrameworkStyles, and also defines values specific
-	to components created within this plugin and constant values shared across components.
+	Defines values specific to components created within this plugin and constant values shared across components.
 
 	Params:
 		bool createMock: An optional param that should only be
@@ -26,8 +25,12 @@ local DarkTheme = Style.Themes.DarkTheme
 local LightTheme = Style.Themes.LightTheme
 local StyleKey = Style.StyleKey
 
-local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Plugin.Src.Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
+
 local FFlagDevFrameworkIconButtonBorderColor = game:GetFastFlag("DevFrameworkIconButtonBorderColor")
+local FFlagMaterialManagerSideBarHide = game:GetFastFlag("MaterialManagerSideBarHide")
+
+local Flags = Plugin.Src.Flags
+local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
 
 local devFrameworkRoundBox = getRawComponentStyle("RoundBox")
 local devFrameworkSelectInput = getRawComponentStyle("SelectInput")
@@ -39,20 +42,30 @@ local function getPluginTheme()
 	local MaterialDetailsWidth = 300
 	local TopBarButtonWidth = 28
 	local MaterialDetailsRowHeight = 30
-	local MaterialDetailsTextureHeight = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then 64 else 60
+	local MaterialDetailsTextureHeight = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then 64 else 60
 	local MaterialDetaulsLabelWidth = 108
 	local ColumnWidth = 270
 	local DialogWidth = 720
 	local DialogHeight = 480
 	local SearchBarMaxWidth = 600
 	local IconSize = UDim2.fromOffset(20, 20)
+	local MaterialTileWidth = 200
+	local TilePadding = 10
 
 	return {
-		MaterialManagerView = {
+		MaterialBrowser = {
 			TopBarSize = UDim2.new(1, 0, 0, TopBarHeight),
 			MainViewSize = UDim2.new(1, 0, 1, -TopBarHeight),
+			MinSideBarWidth = 120,
+			MaterialDetailsWidth = MaterialDetailsWidth,
 			MaterialGridSize = UDim2.new(1, -MaterialDetailsWidth, 1, 0),
 			MaterialDetailsSize = UDim2.new(0, MaterialDetailsWidth, 1, 0),
+			HideIcon = "rbxasset://textures/MaterialManager/chevrons-left.png",
+			IconColor = StyleKey.ButtonText,
+			BackgroundColor = StyleKey.MainBackground,
+			IconSize = IconSize,
+			MaterialTileWidth = MaterialTileWidth,
+			Padding = TilePadding,
 		},
 
 		MaterialPrompt = {
@@ -104,18 +117,51 @@ local function getPluginTheme()
 			BackgroundColor = StyleKey.ScrollingFrameBackgroundColor,
 			Padding = 5,
 			Spacing = 5,
+			IconColor = StyleKey.ButtonText,
+			BottomBarTransparency = 0.2,
+			BottomBarBackgroundColor = StyleKey.MainBackground,
+			ShowIcon = "rbxasset://textures/MaterialManager/chevrons-right.png",
+			IconSize = IconSize,
 		},
 
+		MaterialItem = {
+			ApplyIcon = {
+				Image = "rbxasset://textures/MaterialManager/Apply_To_Selection.png",
+				Color = StyleKey.BrightText,
+			},
+			ApplyIconPosition = UDim2.new(1, -4, 0, 4),
+			ApplyIconAnchorPoint = Vector2.new(1, 0),
+			ButtonSize = UDim2.fromOffset(28, 28),
+			Gradient = StyleKey.Gradient,
+			GradientHover = StyleKey.GradientHover,
+			GridPadding = 4,
+			ListPadding = 2,
+			IconSize = IconSize,
+			ListHeight = 40,
+			MaterialVariantIcon = {
+				Image = "rbxasset://textures/MaterialManager/Material_Variant.png",
+			},
+			MaterialVariantIconPosition = UDim2.new(1, -4, 1, -4),
+			MaterialVariantIconAnchorPoint = Vector2.new(1, 1),
+			Padding = 4,
+			Spacing = 4,
+			StatusIconPosition = UDim2.new(0, 6, 0, 6),
+			TextSize = 20,
+		},
+
+		-- Remove MaterialTile with FFlagMaterialManagerGridListView
 		MaterialTile = {
-			MaterialVariantIconPosition = UDim2.new(1, -26, 0, 10),
+			Height = 40,
+			ApplyMaterialIconPosition = UDim2.new(1, -34, 0, 6),
+			MaterialVariantIconPosition = UDim2.new(1, -26, 1, -26),
 			StatusIconPosition = UDim2.new(0, 10, 0, 10),
-			Padding = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then 10 else 5,
+			Padding = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then TilePadding else 5,
 			IconSize = IconSize,
 			MaterialVariant = {
 				Image = "rbxasset://textures/MaterialManager/Material_Variant.png",
 			},
 			MaxWidth = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then 180 else 190,
-			Size = UDim2.fromOffset(200, 200),
+			Size = if FFlagMaterialManagerSideBarHide then UDim2.fromOffset(MaterialTileWidth, MaterialTileWidth) else UDim2.fromOffset(200, 200),
 			Spacing = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then 10 else 5,
 			TextLabelSize = UDim2.new(1, if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then -20 else -10, 0, 18),
 			TextSize = 20,
@@ -127,20 +173,20 @@ local function getPluginTheme()
 			ButtonStyle = "RoundSubtle",
 			Close = {
 				Image = "rbxasset://textures/ui/TopBar/close.png",
-				Color = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then StyleKey.BrightText else StyleKey.MainText,
+				Color = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then StyleKey.BrightText else StyleKey.MainText,
 			},
 			CreateVariant = {
 				Image = "rbxasset://textures/MaterialManager/Create_New_Variant.png",
-				Color = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then StyleKey.BrightText else StyleKey.MainText,
+				Color = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then StyleKey.BrightText else StyleKey.MainText,
 			},
 			Delete = {
 				Image = "rbxasset://textures/MaterialManager/Delete.png",
-				Color = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then StyleKey.BrightText else StyleKey.MainText,
+				Color = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then StyleKey.BrightText else StyleKey.MainText,
 			},
 			DropdownSize = UDim2.fromOffset(160, 30),
 			Edit = {
 				Image = "rbxasset://textures/MaterialManager/Edit.png",
-				Color = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then StyleKey.BrightText else StyleKey.MainText,
+				Color = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then StyleKey.BrightText else StyleKey.MainText,
 			},
 			HeaderBackground = StyleKey.ScrollingFrameBackgroundColor,
 			HeaderFont = Enum.Font.SourceSansBold,
@@ -178,6 +224,8 @@ local function getPluginTheme()
 				Image = "rbxasset://textures/MaterialManager/Create_New_Variant.png",
 				Color = StyleKey.BrightText,
 			},
+			Grid = StyleKey.GridIcon,
+			List = StyleKey.ListIcon,
 			ShowInExplorer = {
 				Image = "rbxasset://textures/MaterialManager/Show_In_Explorer.png",
 				Color = StyleKey.BrightText,
@@ -200,12 +248,14 @@ local function getPluginTheme()
 			-- DropdownSize = UDim2.fromOffset(TopBarDropdownWidth, TopBarButtonWidth),
 			TopBarButtonWidth = TopBarButtonWidth,
 			BackgroundColor = StyleKey.Titlebar,
+			ViewTypeBackground = StyleKey.Button,
 			ButtonSize = UDim2.fromOffset(TopBarButtonWidth, TopBarButtonWidth),
 			ImagePosition = UDim2.fromOffset(6, 6),
 			ImageSize = UDim2.fromOffset(16, 16),
 			Padding = (TopBarHeight - TopBarButtonWidth) / 2,
 			SearchBarMaxWidth = SearchBarMaxWidth,
 			SpacerWidth = (DialogWidth - 3 * (TopBarButtonWidth + (TopBarHeight - TopBarButtonWidth) / 2) - SearchBarMaxWidth) / 2,
+			ViewTypeSize = UDim2.new(0, 50, 1, 0),
 		},
 
 		PromptSelectorWithPreview = {
@@ -252,13 +302,21 @@ return function(createMock: boolean?)
 		[StyleKey.ScrollingFrameBackgroundColor] = Color3.fromRGB(41, 41, 41),
 		[StyleKey.SelectInputBackgroundColor] = Color3.fromRGB(60, 60, 60),
 		[StyleKey.ImportImageBackground] = Color3.fromRGB(34, 34, 34),
-		[StyleKey.NoTextureFound] = "rbxasset://textures/MaterialManager/Texture_None.png"
+		[StyleKey.NoTextureFound] = "rbxasset://textures/MaterialManager/Texture_None.png",
+		[StyleKey.GridIcon] = "rbxasset://textures/MaterialManager/Grid_DT.png",
+		[StyleKey.ListIcon] = "rbxasset://textures/MaterialManager/List_DT.png",
+		[StyleKey.Gradient] = "rbxasset://textures/MaterialManager/Gradient_DT.png",
+		[StyleKey.GradientHover] = "rbxasset://textures/MaterialManager/Gradient_Hover_DT.png",
 	})
 	local overridedLightTheme = join(LightTheme, {
 		[StyleKey.ScrollingFrameBackgroundColor] = Color3.fromRGB(245, 245, 245),
 		[StyleKey.SelectInputBackgroundColor] = Color3.fromRGB(255, 255, 255),
 		[StyleKey.ImportImageBackground] = Color3.fromRGB(255, 255, 255),
-		[StyleKey.NoTextureFound] = "rbxasset://textures/MaterialManager/Texture_None_Light.png"
+		[StyleKey.NoTextureFound] = "rbxasset://textures/MaterialManager/Texture_None_Light.png",
+		[StyleKey.GridIcon] = "rbxasset://textures/MaterialManager/Grid_LT.png",
+		[StyleKey.ListIcon] = "rbxasset://textures/MaterialManager/List_LT.png",
+		[StyleKey.Gradient] = "rbxasset://textures/MaterialManager/Gradient_LT.png",
+		[StyleKey.GradientHover] = "rbxasset://textures/MaterialManager/Gradient_Hover_LT.png",
 	})
 
 	if createMock then

@@ -19,6 +19,7 @@ local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 local FFlagAssetConfigDynamicDistributionQuotas = game:GetFastFlag("AssetConfigDynamicDistributionQuotas")
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 local FIntCanManageLuaRolloutPercentage = game:DefineFastInt("CanManageLuaRolloutPercentage", 0)
+local FFlagInfiniteScrollerForVersions = game:getFastFlag("InfiniteScrollerForVersions")
 
 local Urls = {}
 
@@ -61,6 +62,7 @@ local POST_FAVORITED_BASE = "/favorites/users/%d/assets/%d/favorite"
 local DELETE_FAVORITE_BASE = "/favorites/users/%d/assets/%d/favorite"
 
 local GET_VERSION_HISTORY_BASE = Url.DEVELOP_URL .. "v1/assets/%s/saved-versions"
+local GET_VERSION_HISTORY_PAGE_BASE = Url.DEVELOP_URL .. "v1/assets/%s/saved-versions?cursor=%s"
 local POST_REVERT_HISTORY_BASE = Url.DEVELOP_URL .. "v1/assets/%s/revert-version?"
 local GET_ASSET_CONFIG = Url.DEVELOP_URL .. "v1/assets?"
 local GET_ASSET_GROUP = Url.DEVELOP_URL .. "/v1/groups/%s"
@@ -331,6 +333,11 @@ function Urls.constructAssetIdUrl(assetId)
 	return ASSET_ID .. Url.makeQueryString({
 		id = assetId,
 	})
+end
+
+function Urls.constructAssetSavedVersionPageString(assetId, pageCursor)
+	assert(FFlagInfiniteScrollerForVersions)
+	return (GET_VERSION_HISTORY_PAGE_BASE):format(assetId, pageCursor)
 end
 
 function Urls.constructAssetSavedVersionString(assetId)

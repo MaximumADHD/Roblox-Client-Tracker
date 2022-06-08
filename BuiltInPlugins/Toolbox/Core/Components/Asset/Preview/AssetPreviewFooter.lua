@@ -3,11 +3,12 @@
 
 	Required Props:
 		table AssetData: The asset data from Rodux
-		number FitMaxWidth: Max width in pixels to use with FitTextLabel.
 		Localization Localization: A Localization ContextItem, which is provided via withContext.
 	Optional Props:
 		number LayoutOrder: LayoutOrder of the component.
 ]]
+local FFlagDevFrameworkRemoveFitFrame = game:GetFastFlag("DevFrameworkRemoveFitFrame")
+
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -36,6 +37,11 @@ function AssetPreviewFooter:render()
 		return nil
 	end
 
+	local size
+	if FFlagDevFrameworkRemoveFitFrame then
+		size = if fitMaxWidth then UDim2.fromOffset(fitMaxWidth, 0) else UDim2.fromScale(1, 0)
+	end
+
 	return Roact.createElement(Container, {
 		LayoutOrder = layoutOrder,
 		Size = UDim2.fromScale(1, 0),
@@ -45,9 +51,10 @@ function AssetPreviewFooter:render()
 			Text = localization:getText("AssetPreview", "PluginNotice"),
 			AnchorPoint = Vector2.new(0.5, 0),
 			Position = UDim2.fromScale(0.5, 0),
-			FitWidth = true,
+			FitWidth = if FFlagDevFrameworkRemoveFitFrame then nil else true,
 			TextWrapped = true,
-			FitMaxWidth = fitMaxWidth,
+			FitMaxWidth = if FFlagDevFrameworkRemoveFitFrame then nil else fitMaxWidth,
+			Size = if FFlagDevFrameworkRemoveFitFrame then size else nil,
 			TextTransparency = 0.5,
 			TextXAlignment = Enum.TextXAlignment.Center,
 			AutomaticSize = Enum.AutomaticSize.Y,

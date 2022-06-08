@@ -35,6 +35,8 @@ local Input = require(Plugin.Src.Util.Input)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
+local GetFFlagFaceControlsEditorUXImprovements = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUXImprovements)
+
 local FaceControlsEditorWindow = Roact.PureComponent:extend("FaceControlsEditorWindow")
 
 local SIZE = Vector2.new(Constants.faceControlsEditorOriginalWidth, 310)
@@ -375,6 +377,9 @@ function makeFacsOnFaceDiagramSliderUIItems (self, style, localization)
 
 				local minValue = 0
 				local maxValue = 1
+				local value = math.clamp(sliderProps.currentValue, minValue, maxValue)
+				local fillFromCenter = (sliderGroup ~= nil)
+				local shouldUseBigKnobStyle = GetFFlagFaceControlsEditorUXImprovements() and theme.faceSliderMaxValueTheme and (value == minValue or value == maxValue or (fillFromCenter and value == 0.5))
 
 				children[name.."_rotatedSliderContainer"] = Roact.createElement("Frame", {
 					BorderSizePixel = 0,
@@ -388,15 +393,15 @@ function makeFacsOnFaceDiagramSliderUIItems (self, style, localization)
 
 				{
 					Scrubber = Roact.createElement(Slider, {
-						Style = theme.faceSliderTheme,
+						Style = if shouldUseBigKnobStyle then theme.faceSliderMaxValueTheme else theme.faceSliderTheme,
 						Disabled = false,
 						Min = minValue,
 						Max = maxValue,
 						Tooltip = getSliderTooltipText(facs, sliderProps),
-						Value = math.clamp(sliderProps.currentValue, minValue, maxValue),
+						Value = value,
 						--for sliders which control multiple facs properties
 						--the slider fill should go from center towards both ends of slider
-						FillFromCenter = (sliderGroup~=nil),
+						FillFromCenter = fillFromCenter,
 
 						OnRightClick = function()
 							prepAndTriggerSliderContextMenu(self, facs, self.props, crossMapping, symmetryPartner, sliderGroup)
@@ -469,18 +474,20 @@ function makeEyesControlDragBox (self, style, localization)
 	local maxXValue = 1
 	local minYValue = -1
 	local maxYValue = 1
+	local value = Vector2.new( math.clamp(sliderProps.currentValue.X, minXValue, maxXValue), math.clamp(sliderProps.currentValue.Y, minYValue, maxYValue))
+	local shouldUseBigKnobStyle =  value.X == minXValue or  value.X == maxXValue or value.Y == minYValue or value.Y == maxYValue or (value.X == -0 and value.Y == 0)
 
 	--this window is never opened in actual usage when FFlagFaceControlsEditorUI is false,
 	--but we need this FFlagFaceControlsEditorUI check here to not make the all flags off test fail
 	children[eyesDragBoxControlName] = FFlagFaceControlsEditorUI and Roact.createElement(DragBox, {
-		Style = theme.faceDragBoxTheme,
+		Style = if GetFFlagFaceControlsEditorUXImprovements() and shouldUseBigKnobStyle then theme.faceDragBoxMaxValueTheme else theme.faceDragBoxTheme,
 		Disabled = false,
 		MinX = minXValue,
 		MaxX = maxXValue,
 		MinY = minYValue,
 		MaxY = maxYValue,
 		Tooltip = eyesDragBoxTooltipText,
-		Value = Vector2.new( math.clamp(sliderProps.currentValue.X, minXValue, maxXValue), math.clamp(sliderProps.currentValue.Y, minYValue, maxYValue)),
+		Value = value,
 		OnRightClick = function()
 			local editedItemsTable = {}
 			table.insert(editedItemsTable, Constants.FacsNames.EyesLookLeft)

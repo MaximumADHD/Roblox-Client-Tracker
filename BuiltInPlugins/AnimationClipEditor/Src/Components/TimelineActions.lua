@@ -522,9 +522,7 @@ function TimelineActions:didMount()
 	end)
 
 	self:addAction(actions:get("AddEvent"), function()
-		local props = self.props
-		local tick = props.Tick
-		props.OnEditEvents(tick)
+		self.props.OnEditEvents(self.props.Tick)
 	end)
 
 	self:addAction(actions:get("ToggleTool"), function()

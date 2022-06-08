@@ -2,8 +2,6 @@
 	A set of utilities for interfacing between Motor6D Rigs and the AnimationClip editor.
 ]]
 
-local DEFAULT_TOLERANCE = 0.0001
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
@@ -15,6 +13,7 @@ local MathUtils = Framework.Util.Math
 local buildHierarchy = require(Plugin.Src.Util.buildHierarchy)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
+local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local Adorn = require(Plugin.Src.Util.Adorn)
 local Templates = require(Plugin.Src.Util.Templates)
 
@@ -30,7 +29,7 @@ local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimati
 local GetFFlagRootMotionTrack = require(Plugin.LuaFlags.GetFFlagRootMotionTrack)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagBoneAdornmentSelection = require(Plugin.LuaFlags.GetFFlagBoneAdornmentSelection)
-
+local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 
 local FFlagFixGetBoneFromBoneNode = game:DefineFastFlag("ACEFixGetBoneFromBoneNode", false)
 
@@ -1340,7 +1339,7 @@ end
 
 -- Exporting to CurveAnimation animation requires a dummy rig so that we
 -- can determine which parts are connected to other parts to build a pose chain.
-function RigUtils.toCurveAnimation(animationData, rig)
+function RigUtils.toCurveAnimation(animationData: Types.AnimationData, rig: Instance): (CurveAnimation, number, number, number)
 	assert(animationData ~= nil, "No data table was provided.")
 	assert(rig ~= nil, "Exporting to CurveAnimation requires a reference rig.")
 	local metadata = animationData.Metadata
@@ -1351,6 +1350,7 @@ function RigUtils.toCurveAnimation(animationData, rig)
 	curveAnimation.Priority = metadata.Priority
 
 	local _, partsToMotors, _, boneMap = RigUtils.getRigInfo(rig)
+	local numKeyframes, numTracks, numEvents = 0, 0, 0
 
 	-- Create curves
 	local root = animationData.Instances.Root
@@ -1393,6 +1393,9 @@ function RigUtils.toCurveAnimation(animationData, rig)
 				facsCurve.Parent = folder
 			end
 		end
+
+		numKeyframes += TrackUtils.countKeyframes(track)
+		numTracks += 1
 	end
 
 	if GetFFlagChannelAnimations() then
@@ -1422,6 +1425,7 @@ function RigUtils.toCurveAnimation(animationData, rig)
 			for markerTick: number, payload: string in pairs(markers) do
 				local markerTime = markerTick / Constants.TICK_FREQUENCY
 				markersCurve:InsertMarkerAtTime(markerTime, payload)
+				numEvents += 1
 			end
 		end
 	end
@@ -1431,7 +1435,7 @@ function RigUtils.toCurveAnimation(animationData, rig)
 		AddAnimationRigToAnimationClip(animationData, rig, curveAnimation)
 	end
 
-	return curveAnimation
+	return curveAnimation, numKeyframes, numTracks, numEvents
 end
 
 function RigUtils.readCurve(track, curve, trackType)
@@ -1532,7 +1536,7 @@ function RigUtils.readFacsCurves(tracks, faceControlsFolder)
 	return endTick
 end
 
-function RigUtils.fromCurveAnimation(curveAnimation)
+function RigUtils.fromCurveAnimation(curveAnimation: CurveAnimation)
 	assert(curveAnimation ~= nil
 		and typeof(curveAnimation) == "Instance"
 		and curveAnimation.ClassName == "CurveAnimation",
@@ -1543,6 +1547,7 @@ function RigUtils.fromCurveAnimation(curveAnimation)
 
 	local tracks = animationData.Instances.Root.Tracks
 	local endTick = 0
+	local numKeyframes, numTracks, numEvents = 0, 0, 0
 
 	-- Read channels
 	traverseFolders(curveAnimation, function(folder)
@@ -1561,11 +1566,15 @@ function RigUtils.fromCurveAnimation(curveAnimation)
 					if rotationCurve.ClassName == "RotationCurve" then
 						rotationType = Constants.TRACK_TYPES.Quaternion
 					elseif rotationCurve.ClassName == "EulerRotationCurve" then
-						rotationType = GetFFlagChannelAnimations() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation
+						rotationType = Constants.TRACK_TYPES.EulerAngles
 					end
 				end
 				local track = AnimationData.addTrack(tracks, folder.Name, Constants.TRACK_TYPES.CFrame, true, rotationType)
 				lastTick = RigUtils.readCurve(track, folder, Constants.TRACK_TYPES.CFrame)
+				if GetFFlagCurveAnalytics() then
+					numTracks += 1
+					numKeyframes += TrackUtils.countKeyframes(track)
+				end
 			end
 		end
 
@@ -1576,19 +1585,19 @@ function RigUtils.fromCurveAnimation(curveAnimation)
 
 	-- Read markers
 	if GetFFlagChannelAnimations() then
-		local children: {Instance} = curveAnimation:getChildren()
+		local children = curveAnimation:GetChildren()
 		for _, child: Instance in ipairs(children) do
-			if not child:IsA("MarkerCurve") then
-				continue
-			end
-			local markers: {Types.Marker} = (child::MarkerCurve):getMarkers()
-			for _, marker: Types.Marker in ipairs(markers) do
-				local markerTick = KeyframeUtils.getNearestTick(marker.Time * Constants.TICK_FREQUENCY)
-				if markerTick > endTick then
-					endTick = markerTick
-				end
+			if child:IsA("MarkerCurve") then
+				local markers = child:GetMarkers()
+				for _, marker: Types.Marker in ipairs(markers) do
+					local markerTick = KeyframeUtils.getNearestTick(marker.Time * Constants.TICK_FREQUENCY)
+					if markerTick > endTick then
+						endTick = markerTick
+					end
 
-				AnimationData.addEvent(animationData.Events, markerTick, child.Name, marker.Value)
+					AnimationData.addEvent(animationData.Events, markerTick, child.Name, marker.Value)
+					numEvents += 1
+				end
 			end
 		end
 	end
@@ -1608,7 +1617,7 @@ function RigUtils.fromCurveAnimation(curveAnimation)
 		end
 	end
 
-	return animationData
+	return animationData, numKeyframes, numTracks, numEvents
 end
 
 -- Exporting to KeyframeSequence animation requires a dummy rig so that we

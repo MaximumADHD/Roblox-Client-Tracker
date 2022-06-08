@@ -42,7 +42,7 @@ local supportedMaterials = {
 	[Enum.Material.WoodPlanks] = true,
 }
 
-local DEPRECATED_SupportedMaterials = {
+local supportedMaterialsList = {
 	Enum.Material.Asphalt,
 	Enum.Material.Basalt,
 	Enum.Material.Brick,
@@ -78,11 +78,15 @@ local DEPRECATED_SupportedMaterials = {
 }
 
 if getFFlagMaterialManagerGlassNeonForceField() then
-	return function() : _Types.Map<Enum.Material, boolean>
-		return supportedMaterials
+	return function(isList : boolean?) : _Types.Map<any, any>
+		if isList then
+			return supportedMaterialsList
+		else
+			return supportedMaterials
+		end
 	end
 else
 	return function() : _Types.Array<Enum.Material>
-		return DEPRECATED_SupportedMaterials
+		return supportedMaterialsList
 	end
 end

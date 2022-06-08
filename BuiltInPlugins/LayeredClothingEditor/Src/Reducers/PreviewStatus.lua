@@ -1,8 +1,10 @@
 local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 
-local PreviewConstants = require(Plugin.Src.Util.PreviewConstants)
+local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
+local PreviewConstants = AccessoryAndBodyToolSharedUtil.PreviewConstants
 
 return Rodux.createReducer({
 	selectedTab = PreviewConstants.TABS_KEYS.None,

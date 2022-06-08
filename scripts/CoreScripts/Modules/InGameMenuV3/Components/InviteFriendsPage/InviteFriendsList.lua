@@ -16,6 +16,7 @@ local InGameMenu = script.Parent.Parent.Parent
 local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
 local PlayerCell = require(InGameMenu.Components.PlayerCell)
 local PlayerContextualMenuWrapper = require(InGameMenu.Components.PlayerContextualMenuWrapper)
+local PlayerSearchPredicate = require(InGameMenu.Utility.PlayerSearchPredicate)
 
 local Divider = require(InGameMenu.Components.Divider)
 local BarOnTopScrollingFrame = require(InGameMenu.Components.BarOnTopScrollingFrame)
@@ -24,7 +25,7 @@ local RootedConnection = require(InGameMenu.Components.Connection.RootedConnecti
 
 local Constants = require(InGameMenu.Resources.Constants)
 
-local PLAYER_LABEL_HEIGHT = 72
+local PLAYER_CELL_HEIGHT = 72
 
 local InviteFriendsList = Roact.PureComponent:extend("InviteFriendsList")
 
@@ -40,10 +41,15 @@ InviteFriendsList.validateProps = t.strictInterface({
 	canCaptureFocus = t.boolean,
 	playersService = t.union(t.Instance, t.table),
 	isMenuOpen = t.optional(t.boolean),
+
+	isFilteringMode = t.optional(t.boolean),
+	searchText = t.optional(t.string),
 })
 
 InviteFriendsList.defaultProps = {
 	playersService = Players,
+	isFilteringMode = false,
+	searchText = "",
 }
 
 function InviteFriendsList:init()
@@ -85,9 +91,18 @@ function InviteFriendsList:init()
 end
 
 function InviteFriendsList:didUpdate(prevProps, prevState)
-	if self.props.isMenuOpen and not prevProps.isMenuOpen then
+	if self.props.isFilteringMode and self.props.searchText ~= prevProps.searchText then
+		-- handle filtering mode with context menu open, dismiss if not part of filter
+		local isEntryVisible = self.state.selectedPlayer
+				and PlayerSearchPredicate(
+					self.props.searchText,
+					self.state.selectedPlayer.Name,
+					self.state.selectedPlayer.DisplayName
+				)
+			or false
+
 		self:setState({
-			selectedPlayer = Roact.None,
+			selectedPlayer = isEntryVisible and self.state.selectedPlayer or Roact.None,
 		})
 	end
 
@@ -103,63 +118,72 @@ end
 
 function InviteFriendsList:renderListEntries()
 	local friends = self.props.friends
-	local friendsCount = #friends
 	local layoutOrder = 1
 	local friendList = {}
+	local visibleEntryIndex = 0
+
 	friendList.ListLayout = Roact.createElement("UIListLayout", {
 		SortOrder = Enum.SortOrder.LayoutOrder,
 		HorizontalAlignment = Enum.HorizontalAlignment.Right,
 	})
 
+	local map, visibilityCount = self:mapVisibilityToIndex(friends, self.props.searchText)
 	for index, playerInfo in pairs(friends) do
-		friendList["friend_" .. index] = Roact.createElement(PlayerCell, {
-			username = playerInfo.Username,
-			displayName = playerInfo.DisplayName,
-			userId = playerInfo.Id,
-			isOnline = playerInfo.IsOnline,
-			isSelected = self.state.selectedPlayer and self.state.selectedPlayer.UserId == playerInfo.Id,
-			LayoutOrder = layoutOrder,
-			Visible = true,
-			[Roact.Ref] = self.state.selectedPlayer
-					and self.state.selectedPlayer.UserId == playerInfo.Id
-					and self.setSelectedPlayerRef
-				or nil,
-			[Roact.Change.AbsolutePosition] = self.state.selectedPlayer
-					and self.state.selectedPlayer.UserId == playerInfo.Id
-					and self.positionChanged
-				or nil,
-			onActivated = function(_)
-				self.toggleMoreActions(self:getPlayerByIndex(index))
-			end,
-		}, {
-			Icon = Roact.createElement(IconButton, {
-				size = UDim2.fromOffset(0, 0),
-				icon = Images["icons/actions/friends/friendInvite"],
-				anchorPoint = Vector2.new(1, 0.5),
+		local isEntryVisibleForPlayer = true
+		if self.props.isFilteringMode then
+			isEntryVisibleForPlayer = map[index]
+		end
+
+		if isEntryVisibleForPlayer then
+			visibleEntryIndex = visibleEntryIndex + 1
+			friendList["friend_" .. index] = Roact.createElement(PlayerCell, {
+				username = playerInfo.Username,
+				displayName = playerInfo.DisplayName,
+				userId = playerInfo.Id,
+				isOnline = playerInfo.IsOnline,
+				isSelected = self.state.selectedPlayer and self.state.selectedPlayer.UserId == playerInfo.Id,
+				LayoutOrder = layoutOrder,
+				[Roact.Ref] = self.state.selectedPlayer
+						and self.state.selectedPlayer.UserId == playerInfo.Id
+						and self.setSelectedPlayerRef
+					or nil,
+				[Roact.Change.AbsolutePosition] = self.state.selectedPlayer
+						and self.state.selectedPlayer.UserId == playerInfo.Id
+						and self.positionChanged
+					or nil,
 				onActivated = function(_)
 					self.toggleMoreActions(self:getPlayerByIndex(index))
 				end,
-			}),
-		})
-
-		layoutOrder = layoutOrder + 1
-
-		if index < friendsCount then
-			friendList["divider_" .. layoutOrder] = Roact.createElement(Divider, {
-				LayoutOrder = layoutOrder,
-				Size = UDim2.new(1, 0, 0, 1),
-				Visible = true,
+			}, {
+				Icon = Roact.createElement(IconButton, {
+					size = UDim2.fromOffset(0, 0),
+					icon = Images["icons/actions/friends/friendInvite"],
+					anchorPoint = Vector2.new(1, 0.5),
+					onActivated = function(_)
+						self.toggleMoreActions(self:getPlayerByIndex(index))
+					end,
+				}),
 			})
 
 			layoutOrder = layoutOrder + 1
+
+			if visibleEntryIndex < visibilityCount then
+				friendList["divider_" .. layoutOrder] = Roact.createElement(Divider, {
+					LayoutOrder = layoutOrder,
+					Size = UDim2.new(1, 0, 0, 1),
+					Visible = true,
+				})
+
+				layoutOrder = layoutOrder + 1
+			end
 		end
 	end
 
-	return friendList
+	return friendList, visibilityCount
 end
 
 function InviteFriendsList:render()
-	local listEntries = self:renderListEntries()
+	local listEntries, visibleEntryCount = self:renderListEntries()
 
 	local friendsList = Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -168,7 +192,7 @@ function InviteFriendsList:render()
 		List = Roact.createElement(BarOnTopScrollingFrame, {
 			Position = UDim2.new(0, 0, 0, 0),
 			Size = UDim2.new(1, 0, 1, 0),
-			CanvasSize = UDim2.new(1, 0, 0, #self.props.friends * (PLAYER_LABEL_HEIGHT + 1)),
+			CanvasSize = UDim2.new(1, 0, 0, visibleEntryCount * (PLAYER_CELL_HEIGHT + 1)),
 		}, listEntries),
 
 		MoreActionsMenu = Roact.createElement(PlayerContextualMenuWrapper, {
@@ -202,6 +226,21 @@ function InviteFriendsList:render()
 			})
 		end,
 	})
+end
+
+function InviteFriendsList:mapVisibilityToIndex(friends, searchText)
+	local visibilityCount = 0
+	local map = {}
+	for index, playerInfo in pairs(friends) do
+		local isEntryVisibleForPlayer = PlayerSearchPredicate(searchText, playerInfo.Username, playerInfo.DisplayName)
+		map[index] = isEntryVisibleForPlayer
+
+		if isEntryVisibleForPlayer then
+			visibilityCount = visibilityCount + 1
+		end
+	end
+
+	return map, visibilityCount
 end
 
 function InviteFriendsList:getPlayerByIndex(index)

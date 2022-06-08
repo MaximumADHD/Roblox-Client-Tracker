@@ -561,7 +561,7 @@ function CameraModule:Update(dt)
 
 		-- Update to character local transparency as needed based on camera-to-subject distance
 		if self.activeTransparencyController then
-			self.activeTransparencyController:Update()
+			self.activeTransparencyController:Update(dt)
 		end
 
 		if CameraInput.getInputEnabled() then

@@ -39,19 +39,19 @@ local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMateria
 local MaterialDetails = Roact.PureComponent:extend("MaterialDetails")
 
 export type Props = {
-	LayoutOrder : number?,
-	MaterialMock : _Types.Material?,
-	OpenPrompt : (type : _Types.MaterialPromptType) -> (),
-	Size : UDim2?,
+	LayoutOrder: number?,
+	MaterialMock: _Types.Material?,
+	OpenPrompt: (type: _Types.MaterialPromptType) -> (),
+	Size: UDim2?,
 }
 
 type _Props = Props & {
-	Analytics : any,
-	dispatchClearMaterial : () -> (),
-	Localization : any,
-	Material : _Types.Material?,
-	MaterialController : any,
-	Stylizer : any,
+	Analytics: any,
+	dispatchClearMaterial: () -> (),
+	Localization: any,
+	Material: _Types.Material?,
+	MaterialController: any,
+	Stylizer: any,
 }
 
 function MaterialDetails:willUnmount()
@@ -62,7 +62,7 @@ function MaterialDetails:willUnmount()
 end
 
 function MaterialDetails:didMount()
-	local props : _Props = self.props
+	local props: _Props = self.props
 
 	if props.Material then
 		if self.connection then
@@ -78,7 +78,7 @@ function MaterialDetails:didMount()
 end
 
 function MaterialDetails:render()
-	local props : _Props = self.props
+	local props: _Props = self.props
 
 	local layoutOrder = props.LayoutOrder
 	local size = props.Size

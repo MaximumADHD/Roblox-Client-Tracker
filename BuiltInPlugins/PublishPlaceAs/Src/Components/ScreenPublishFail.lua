@@ -28,7 +28,8 @@ local RoundTextButton = UILibrary.Component.RoundTextButton
 local SettingsImpl = require(Plugin.Src.Network.Requests.SettingsImpl)
 
 local StudioService = game:GetService("StudioService")
-local StudioPublishService = FFlagPlacePublishManagementUI2 and game:GetService("StudioPublishService") or nil
+local StudioPublishService = game:GetService("StudioPublishService")
+local FFLagMovePublishToStudioPublishService = game:GetFastFlag("MovePublishToStudioPublishService")
 local ContentProvider = game:GetService("ContentProvider")
 
 local ICON_SIZE = 150
@@ -63,11 +64,19 @@ function ScreenPublishFail:didMount()
 		ContentProvider:PreloadAsync(asset, setStatus)
 	end)
 
-	self.finishedConnection = StudioService.GamePublishFinished:connect(function(success)
-		if success then
-			self.props.OpenPublishSuccessfulPage(self.props.Id, self.props.Name, self.props.ParentGameName)
-		end
-	end)
+	if FFLagMovePublishToStudioPublishService then
+		self.finishedConnection = StudioPublishService.GamePublishFinished:connect(function(success)
+			if success then
+				self.props.OpenPublishSuccessfulPage(self.props.Id, self.props.Name, self.props.ParentGameName)
+			end
+		end)
+	else
+		self.finishedConnection = StudioService.DEPRECATED_GamePublishFinished:connect(function(success)
+			if success then
+				self.props.OpenPublishSuccessfulPage(self.props.Id, self.props.Name, self.props.ParentGameName)
+			end
+		end)
+	end
 end
 
 function ScreenPublishFail:willUnmount()
@@ -143,15 +152,19 @@ function ScreenPublishFail:render()
 			OnClicked = function()
 				if not isPublishing then
 					if parentGameId == 0 then
-						SettingsImpl.saveAll(settings, localization, apiImpl)
+						SettingsImpl.saveAll(settings, localization, apiImpl, nil, props.IsPublish)
 					else
-						if FFlagPlacePublishManagementUI2 and publishParameters ~= nil and next(publishParameters) ~= nil then
-							-- groupId is unused in existing game/place publish, only new game publish
-							StudioPublishService:publishAs(parentGameId, id, 0, true, publishParameters)
+						if FFLagMovePublishToStudioPublishService then
+							if FFlagPlacePublishManagementUI2 and publishParameters ~= nil and next(publishParameters) ~= nil then
+								-- groupId is unused in existing game/place publish, only new game publish
+								StudioPublishService:publishAs(parentGameId, id, 0, true, publishParameters)
+							else
+								StudioPublishService:publishAs(parentGameId, id, 0, props.IsPublish, nil)
+							end
 						else
 							-- groupId is unused in existing game/place publish, only new game publish
 							-- which is in the if block
-							StudioService:publishAs(parentGameId, id, 0)
+							StudioService:DEPRECATED_publishAs(parentGameId, id, 0)
 						end
 					end
 				end

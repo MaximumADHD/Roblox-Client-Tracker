@@ -6,6 +6,8 @@ local Framework = require(PluginFolder.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
+local Analytics = ContextServices.Analytics
+local AnalyticsEventNames = require(PluginFolder.Src.Resources.AnalyticsEventNames)
 
 local Stylizer = Framework.Style.Stylizer
 
@@ -16,6 +18,8 @@ local ColumnFilterChange = require(Actions.Callstack.ColumnFilterChange)
 
 local Models = PluginFolder.Src.Models
 local Columns = require(Models.Callstack.ColumnEnum)
+
+local flatListToString = require(PluginFolder.Src.Util.flatListToString)
 
 local CallstackDropdownField = Roact.PureComponent:extend("CallstackDropdownField")
 
@@ -36,6 +40,11 @@ function CallstackDropdownField:init()
 		[4] = Columns.Function,
 		[5] = Columns.Line,
 	}
+
+	self.clickCallback = function(enabledColumns)
+		self.props.onColumnFilterChange(enabledColumns)
+		self.props.Analytics:report(AnalyticsEventNames.CallstackColumnsEdited, flatListToString(enabledColumns))
+	end
 end
 
 function CallstackDropdownField:render()
@@ -45,7 +54,7 @@ function CallstackDropdownField:render()
 
 	return Roact.createElement(DropdownField, {
 		KeyTexts = self.keyColumns,
-		ClickCallback = props.onColumnFilterChange,
+		ClickCallback = self.clickCallback,
 		KeyStates = props.ColumnStates,
 		Localization = localization,
 		Style = style,
@@ -57,6 +66,7 @@ function CallstackDropdownField:render()
 end
 
 CallstackDropdownField = withContext({
+	Analytics = Analytics,
 	Localization = Localization,
 	Stylizer = Stylizer,
 })(CallstackDropdownField)

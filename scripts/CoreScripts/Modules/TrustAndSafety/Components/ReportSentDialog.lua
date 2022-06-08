@@ -15,9 +15,9 @@ local ThemedTextLabel = require(Dependencies.ThemedTextLabel)
 
 local PrimarySystemButton = UIBlox.App.Button.PrimarySystemButton
 
-local BlockPlayer = require(TnsModule.Thunks.BlockPlayer)
 local BlockPlayerItem = require(TnsModule.Components.BlockPlayerItem)
 local CloseReportSentDialog = require(TnsModule.Actions.CloseReportSentDialog)
+local OpenBlockPlayerDialog = require(TnsModule.Actions.OpenBlockPlayerDialog)
 local Constants = require(TnsModule.Resources.Constants)
 local ModalDialog = require(TnsModule.Components.ModalDialog)
 
@@ -36,7 +36,7 @@ ReportSentDialog.validateProps = t.strictInterface({
 		DisplayName = t.string,
 	})),
 	closeDialog = t.callback,
-	blockPlayer = t.callback,
+	openBlockPlayerDialog = t.callback,
 })
 
 function ReportSentDialog:init()
@@ -51,7 +51,7 @@ function ReportSentDialog:init()
 	-- Press the "Done" button.
 	self.onConfirm = function()
 		if self:isReportingPlayer() and self.state.isCheckBoxSelected then
-			self.props.blockPlayer(self.props.targetPlayer)
+			self.props.openBlockPlayerDialog(self.props.targetPlayer)
 		end
 		self.props.closeDialog()
 		self:clearState()
@@ -201,8 +201,8 @@ end, function(dispatch)
 		closeDialog = function()
 			dispatch(CloseReportSentDialog())
 		end,
-		blockPlayer = function(player)
-			dispatch(BlockPlayer(player))
+		openBlockPlayerDialog = function(player)
+			dispatch(OpenBlockPlayerDialog(player))
 		end,
 	}
 end)(ReportSentDialog)

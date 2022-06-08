@@ -16,12 +16,18 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+
+local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
+local AvatarToolsSharedConstants = AccessoryAndBodyToolSharedUtil.Constants
+local PreviewConstantsInterface = AccessoryAndBodyToolSharedUtil.PreviewConstantsInterface
+local getActivePreviewTabs = AccessoryAndBodyToolSharedUtil.getActivePreviewTabs
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
+local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
 
 local UI = Framework.UI
 local Tabs = UI.Tabs
@@ -29,10 +35,6 @@ local Pane = UI.Pane
 
 local Util = Framework.Util
 local Typecheck = Util.Typecheck
-
-local Constants = require(Plugin.Src.Util.Constants)
-local PreviewConstantsInterface = require(Plugin.Src.Util.PreviewConstantsInterface)
-local getActivePreviewTabs = require(Plugin.Src.Util.getActivePreviewTabs)
 
 local SelectPreviewTab = require(Plugin.Src.Actions.SelectPreviewTab)
 
@@ -71,7 +73,7 @@ function PreviewTabsRibbon:render()
 	for tabKey, tabInfo in pairs(tabsToDisplay) do
 		buttons[tabInfo.LayoutOrder] = {
 			Key = tabKey,
-			Label = localization:getText(Constants.LOCALIZATION_KEYS.Preview, tabInfo.LocalizationKey),
+			Label = localization:getText(AvatarToolsSharedConstants.LOCALIZATION_KEYS.Preview, tabInfo.LocalizationKey),
 			Disabled = not isTabActive(tabKey, editingItem),
 		}
 	end

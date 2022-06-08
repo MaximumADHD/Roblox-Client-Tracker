@@ -27,7 +27,7 @@ end
 local SHOULD_RUN_TESTS = DebugFlags.RunTests()
 local SHOULD_RUN_RHODIUM_TESTS = DebugFlags.RunRhodiumTests()
 
-if game:GetFastFlag("AccessoryToolRefactor") and (SHOULD_RUN_TESTS or SHOULD_RUN_RHODIUM_TESTS) then
+if game:GetFastFlag("AccessoryToolRefactor2") and (SHOULD_RUN_TESTS or SHOULD_RUN_RHODIUM_TESTS) then
 	game:GetService("ProcessService"):ExitAsync(0)
 	return
 end

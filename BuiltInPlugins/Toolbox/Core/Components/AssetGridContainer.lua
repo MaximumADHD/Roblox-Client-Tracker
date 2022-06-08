@@ -15,6 +15,7 @@ local Plugin = script.Parent.Parent.Parent
 local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 local FFlagToolboxAudioDiscoveryRound2 =
 	require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscoveryRound2()
+local FFlagToolboxFixTryInStudio = game:GetFastFlag("ToolboxFixTryInStudio")
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
@@ -34,6 +35,14 @@ local PermissionsConstants = require(Plugin.Core.Components.AssetConfiguration.P
 local AssetLogicWrapper = require(Plugin.Core.Components.AssetLogicWrapper)
 local AudioScroller = require(Plugin.Core.Components.AudioHomeView.AudioScroller)
 local AssetInfo = require(Plugin.Core.Models.AssetInfo)
+
+local GetAssets
+local SetAssetPreview 
+local Actions = Plugin.Core.Actions
+if FFlagToolboxFixTryInStudio then
+	GetAssets = require(Actions.GetAssets)
+	SetAssetPreview = require(Actions.SetAssetPreview)
+end
 
 local GetAssetPreviewDataForStartup = require(Plugin.Core.Thunks.GetAssetPreviewDataForStartup)
 
@@ -93,6 +102,12 @@ function AssetGridContainer:init(props)
 		local settings = self.props.Settings:get("Plugin")
 		self.props.nextPage(networkInterface, settings)
 	end
+
+	self.setAssetPreview = if FFlagToolboxFixTryInStudio then function(assetData)
+		local assetId = assetData.Asset.Id
+		props.getAssets({assetData})
+		props.setAssetPreview(true, assetId)
+	end else nil
 end
 
 function AssetGridContainer:didMount()
@@ -101,7 +116,11 @@ function AssetGridContainer:didMount()
 
 	if assetId then
 		local props = self.props
-		props.getAssetPreviewDataForStartup(assetId, props.TryInsert, props.Localization, getNetwork(self))
+		if FFlagToolboxFixTryInStudio then
+			props.getAssetPreviewDataForStartup(assetId, props.TryInsert, props.Localization, getNetwork(self), self.setAssetPreview)
+		else
+			props.getAssetPreviewDataForStartup(assetId, props.TryInsert, props.Localization, getNetwork(self))
+		end
 	end
 end
 
@@ -213,12 +232,18 @@ local function mapDispatchToProps(dispatch)
 		dispatchPostAssetCheckPermissions = function(networkInterface, assetIds)
 			dispatch(PostAssetCheckPermissions(networkInterface, assetIds))
 		end,
-		getAssetPreviewDataForStartup = function(assetId, tryInsert, localization, networkInterface)
-			dispatch(GetAssetPreviewDataForStartup(assetId, tryInsert, localization, networkInterface))
+		getAssetPreviewDataForStartup = function(assetId, tryInsert, localization, networkInterface, setAssetPreview)
+			dispatch(GetAssetPreviewDataForStartup(assetId, tryInsert, localization, networkInterface, setAssetPreview))
 		end,
+		getAssets = if FFlagToolboxFixTryInStudio then function(assetData)
+			return dispatch(GetAssets(assetData))
+		end else nil,
 		nextPage = function(networkInterface, settings)
 			dispatch(NextPageRequest(networkInterface, settings))
 		end,
+		setAssetPreview = if FFlagToolboxFixTryInStudio then function(isPreviewing, previewAssetId)
+			return dispatch(SetAssetPreview(isPreviewing, previewAssetId))
+		end else nil,
 	}
 end
 

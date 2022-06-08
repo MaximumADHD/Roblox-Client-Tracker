@@ -1,9 +1,11 @@
 return function()
 	local Plugin = script.Parent.Parent
 	local Rhodium = require(Plugin.Packages.Dev.Rhodium)
+	local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 	local XPath = Rhodium.XPath
 
-	local GetTransparency = require(Plugin.Src.Util.GetTransparency)
+	local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
+	local TransparencyUtil = AccessoryAndBodyToolSharedUtil.TransparencyUtil
 
 	local TestHelper = require(Plugin.Src.Util.TestHelper)
 	local TestRunner = require(Plugin.Src.Util.TestRunner)
@@ -58,7 +60,7 @@ return function()
 
 			expect(TestHelper.waitForXPathInstance(MeshValueTextPath).Text).to.equal("20")
 			expect(editingItemContext:getItem()).to.be.ok()
-			expect(GetTransparency(editingItemContext:getItem())).to.near(20, nearLimit)
+			expect(TransparencyUtil.getTransparency(editingItemContext:getItem())).to.near(20, nearLimit)
 		end)
 	end)
 

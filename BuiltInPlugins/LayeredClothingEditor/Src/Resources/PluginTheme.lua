@@ -3,6 +3,9 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 
+local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
+local PreviewConstants = AccessoryAndBodyToolSharedUtil.PreviewConstants
+
 local Framework = require(Plugin.Packages.Framework)
 
 local Util = Framework.Util
@@ -21,8 +24,6 @@ local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
 
 local DarkTheme = FrameworkStyle.Themes.DarkTheme
 local LightTheme = FrameworkStyle.Themes.LightTheme
-
-local PreviewConstants = require(Plugin.Src.Util.PreviewConstants)
 
 local darkThemeOverride = Cryo.Dictionary.join(DarkTheme, {
 	[StyleKey.PlayImage] = "rbxasset://textures/LayeredClothingEditor/Icon_Play_Light.png",

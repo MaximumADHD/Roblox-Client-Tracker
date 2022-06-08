@@ -20,8 +20,6 @@ local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingMod
 local SetControlsPanelBlockerActivity = require(Plugin.Src.Actions.SetControlsPanelBlockerActivity)
 local SetControlsPanelBlockerMessage = require(Plugin.Src.Actions.SetControlsPanelBlockerMessage)
 
-local delayToNextFrame = require(Plugin.Src.Util.delayToNextFrame)
-
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 
 local LuaMeshEditingModuleWrapper = Roact.PureComponent:extend("LuaMeshEditingModuleWrapper")
@@ -60,7 +58,7 @@ function LuaMeshEditingModuleWrapper:didMount()
 			or tool == Enum.RibbonTool.Move
 			or tool == Enum.RibbonTool.Scale then
 
-			delayToNextFrame(function()
+			task.delay(0, function()
 				plugin:Activate(true)
 			end)
 			if vertexToolBase then

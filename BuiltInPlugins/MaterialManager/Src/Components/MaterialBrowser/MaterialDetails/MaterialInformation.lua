@@ -35,49 +35,49 @@ local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMateria
 local supportedMaterials = getSupportedMaterials()
 
 export type Props = {
-	LayoutOrder : number?,
-	MaterialMock : _Types.Material?,
-	OpenPrompt : (type : _Types.MaterialPromptType) -> (),
+	LayoutOrder: number?,
+	MaterialMock: _Types.Material?,
+	OpenPrompt: (type: _Types.MaterialPromptType) -> (),
 }
 
 type _Props = Props & { 
-	Analytics : any,
-	dispatchClearMaterialVariant : () -> (),
-	dispatchSetMaterial : (material : _Types.Material) -> (),
-	dispatchSetBaseMaterial : (baseMaterial : Enum.Material) -> (),
-	dispatchSetFromVariantInstance : (materialVariant : MaterialVariant) -> (),
-	dispatchSetMode : (mode : string) -> (),
-	Localization : any,
-	Material : _Types.Material?,
-	MaterialController : any,
-	Stylizer : any,
+	Analytics: any,
+	dispatchClearMaterialVariant: () -> (),
+	dispatchSetMaterial: (material: _Types.Material) -> (),
+	dispatchSetBaseMaterial: (baseMaterial: Enum.Material) -> (),
+	dispatchSetFromVariantInstance: (materialVariant: MaterialVariant) -> (),
+	dispatchSetMode: (mode: string) -> (),
+	Localization: any,
+	Material: _Types.Material?,
+	MaterialController: any,
+	Stylizer: any,
 }
 
 type _Style = {
-	ButtonPosition : UDim2,
-	ButtonSize : UDim2,
-	ButtonStyle : string,
-	Close : _Types.Image,
-	CreateVariant : _Types.Image,
-	Delete : _Types.Image,
-	DropdownSize : UDim2,
-	Edit : _Types.Image,
-	HeaderBackground : Color3,
-	HeaderFont : Enum.Font,
-	HeaderSize : UDim2,
-	ImagePosition : UDim2,
-	ImageSize : UDim2,
-	NameLabelSizeBuiltIn : UDim2,
-	NameLabelSizeVariant : UDim2,
-	NoTexture : string,
-	LabelRowSize : UDim2,
-	OverrideSize : UDim2,
-	Padding : number,
-	SectionHeaderTextSize : number,
-	TextureLabelSize : UDim2,
-	TextureRowSize : UDim2,
-	TextureSize : UDim2,
-	TitleTextSize : number,
+	ButtonPosition: UDim2,
+	ButtonSize: UDim2,
+	ButtonStyle: string,
+	Close: _Types.Image,
+	CreateVariant: _Types.Image,
+	Delete: _Types.Image,
+	DropdownSize: UDim2,
+	Edit: _Types.Image,
+	HeaderBackground: Color3,
+	HeaderFont: Enum.Font,
+	HeaderSize: UDim2,
+	ImagePosition: UDim2,
+	ImageSize: UDim2,
+	NameLabelSizeBuiltIn: UDim2,
+	NameLabelSizeVariant: UDim2,
+	NoTexture: string,
+	LabelRowSize: UDim2,
+	OverrideSize: UDim2,
+	Padding: number,
+	SectionHeaderTextSize: number,
+	TextureLabelSize: UDim2,
+	TextureRowSize: UDim2,
+	TextureSize: UDim2,
+	TitleTextSize: number,
 }
 
 local changeHistoryService = game:GetService("ChangeHistoryService")
@@ -86,8 +86,8 @@ local MaterialInformation = Roact.PureComponent:extend("MaterialInformation")
 
 function MaterialInformation:init()
 	self.edit = function()
-		local props : _Props = self.props
-		local material : _Types.Material? = props.Material
+		local props: _Props = self.props
+		local material: _Types.Material? = props.Material
 
 		if material and  material.MaterialVariant then
 			props.dispatchSetFromVariantInstance(material.MaterialVariant)
@@ -97,8 +97,8 @@ function MaterialInformation:init()
 	end
 
 	self.delete = function()
-		local props : _Props = self.props
-		local material : _Types.Material? = props.Material
+		local props: _Props = self.props
+		local material: _Types.Material? = props.Material
 
 		if material and material.MaterialVariant then
 			changeHistoryService:SetWaypoint("Delete MaterialVariant")
@@ -107,14 +107,23 @@ function MaterialInformation:init()
 	end
 
 	self.createVariant = function()
-		local props : _Props = self.props
-		local material : _Types.Material? = props.Material
+		local props: _Props = self.props
+		local material: _Types.Material? = props.Material
 
-		if material and material.MaterialVariant then
-			props.dispatchClearMaterialVariant()
-			props.dispatchSetBaseMaterial(material.MaterialVariant.BaseMaterial)
-			props.dispatchSetMode("Create")
-			props.OpenPrompt("Create")
+		if getFFlagMaterialManagerGlassNeonForceField() then
+			if material and material.MaterialVariant then
+				props.dispatchClearMaterialVariant()
+				props.dispatchSetBaseMaterial(material.Material)
+				props.dispatchSetMode("Create")
+				props.OpenPrompt("Create")
+			end
+		else
+			if material and material.MaterialVariant then
+				props.dispatchClearMaterialVariant()
+				props.dispatchSetBaseMaterial(material.MaterialVariant.BaseMaterial)
+				props.dispatchSetMode("Create")
+				props.OpenPrompt("Create")
+			end
 		end
 	end
 end
@@ -127,7 +136,7 @@ function MaterialInformation:willUnmount()
 end
 
 function MaterialInformation:didMount()
-	local props : _Props = self.props
+	local props: _Props = self.props
 	local materialController = props.MaterialController
 	local dispatchSetMaterial = props.dispatchSetMaterial
 
@@ -139,8 +148,8 @@ function MaterialInformation:didMount()
 end
 
 function MaterialInformation:render()
-	local props : _Props = self.props
-	local style : _Style = props.Stylizer.MaterialDetails
+	local props: _Props = self.props
+	local style: _Style = props.Stylizer.MaterialDetails
 	local localization = props.Localization
 	local material = props.Material
 
@@ -275,16 +284,16 @@ return RoactRodux.connect(
 			dispatchClearMaterialVariant = function()
 				dispatch(ClearMaterialVariant())
 			end,
-			dispatchSetMaterial = function(material : _Types.Material)
+			dispatchSetMaterial = function(material: _Types.Material)
 				dispatch(SetMaterial(material))
 			end,
-			dispatchSetFromVariantInstance = function(materialVariant : MaterialVariant)
+			dispatchSetFromVariantInstance = function(materialVariant: MaterialVariant)
 				dispatch(SetFromVariantInstance(materialVariant))
 			end,
-			dispatchSetBaseMaterial = function(baseMaterial : Enum.Material)
+			dispatchSetBaseMaterial = function(baseMaterial: Enum.Material)
 				dispatch(SetBaseMaterial(baseMaterial))
 			end,
-			dispatchSetMode = function(mode : string)
+			dispatchSetMode = function(mode: string)
 				dispatch(SetMode(mode))
 			end,
 		}

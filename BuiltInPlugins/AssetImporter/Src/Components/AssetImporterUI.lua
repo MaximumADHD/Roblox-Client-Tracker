@@ -12,8 +12,6 @@ local Localization = ContextServices.Localization
 local Stylizer = Framework.Style.Stylizer
 local ThemeSwitcher = Framework.Style.ThemeSwitcher
 
-local FFlagDevFrameworkSeparateCenterCameraCenterModel = game:GetFastFlag("DevFrameworkSeparateCenterCameraCenterModel")
-
 local UI = Framework.UI
 local Pane = UI.Pane
 local Separator = UI.Separator
@@ -81,12 +79,8 @@ function AssetImporterUI:render()
 	local localization = props.Localization
 	local sizes = style.Sizes
 
-	local recenterCamera
-	local recenterModel
-	if FFlagDevFrameworkSeparateCenterCameraCenterModel then
-		recenterCamera = false
-		recenterModel = true
-	end
+	local recenterCamera = false
+	local recenterModel = true
 
 	return Roact.createElement(Pane, {
 		Layout = Enum.FillDirection.Vertical,
@@ -136,7 +130,7 @@ function AssetImporterUI:render()
 							ReferenceCamera = self.camera,
 						}),
 					}),
-					CameraResetButtonContainer = FFlagDevFrameworkSeparateCenterCameraCenterModel and Roact.createElement(Pane, {
+					CameraResetButtonContainer = Roact.createElement(Pane, {
 						Size = UDim2.new(0, 28, 0, 28),
 						Position = UDim2.new(1, -10, 0, 10),
 						AnchorPoint = Vector2.new(1, 0),
@@ -154,7 +148,7 @@ function AssetImporterUI:render()
 								}),
 							}),
 						}),
-					}) or nil,
+					}),
 				}),
 
 				Separator = Roact.createElement(Separator, {

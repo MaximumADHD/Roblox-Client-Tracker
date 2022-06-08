@@ -16,6 +16,10 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+
+local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
+local ItemCharacteristics = AccessoryAndBodyToolSharedUtil.ItemCharacteristics
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -25,13 +29,12 @@ local UI = Framework.UI
 local RadioButton = UI.RadioButton
 local Pane = UI.Pane
 
-local SignalsContext = require(Plugin.Src.Context.Signals)
-local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
+local SignalsContext = AvatarToolsShared.Contexts.Signals
+local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
 
 local SelectEditingCage = require(Plugin.Src.Thunks.SelectEditingCage)
 
 local Constants = require(Plugin.Src.Util.Constants)
-local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
 
 local EditingModeRadioButtonList = Roact.PureComponent:extend("EditingModeRadioButtonList")
 

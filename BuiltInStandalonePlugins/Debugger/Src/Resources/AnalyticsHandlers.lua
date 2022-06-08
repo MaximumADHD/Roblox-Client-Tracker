@@ -43,5 +43,14 @@ return function(rbxAnalyticsService)
 		[AnalyticsEventNames.CallstackStepOut] = reportEventWithActionSource,
 		[AnalyticsEventNames.CallstackChangeFrame] = reportEventWithActionSource,
 		[AnalyticsEventNames.WatchAdded] = reportEventWithActionSource,
+		[AnalyticsEventNames.WatchScopeEdited] = function(eventName, scopesAsString)
+			reportEvent(eventName, { enabledScopes = scopesAsString })
+		end,
+		[AnalyticsEventNames.BreakpointsColumnsEdited] = function(eventName, columnsAsString)
+			reportEvent(eventName, { enabledColumns = columnsAsString })
+		end,
+		[AnalyticsEventNames.CallstackColumnsEdited] = function(eventName, columnsAsString)
+			reportEvent(eventName, { enabledColumns = columnsAsString })
+		end,
 	}
 end

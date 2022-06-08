@@ -24,7 +24,6 @@
 		callback nextPage()
 		callback tryOpenAssetConfig, invoke assetConfig page with an assetId.
 ]]
-local FFlagToolboxRefactorSearchOptions = game:GetFastFlag("ToolboxRefactorSearchOptions")
 
 local GuiService = game:GetService("GuiService")
 
@@ -52,7 +51,6 @@ local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
-local AssetGridContainer_DEPRECATED = require(Plugin.Core.Components.AssetGridContainer_DEPRECATED)
 local AssetGridContainer = require(Plugin.Core.Components.AssetGridContainer)
 
 local InfoBanner = require(Plugin.Core.Components.InfoBanner)
@@ -60,7 +58,6 @@ local NoResultsDetail = require(Plugin.Core.Components.NoResultsDetail)
 local LoadingIndicator = Framework.UI.LoadingIndicator
 
 local MainViewHeader = require(Plugin.Core.Components.MainView.MainViewHeader)
-local StyledScrollingFrame = require(Plugin.Core.Components.StyledScrollingFrame)
 local Toast = require(Plugin.Core.Components.Toast)
 local SearchOptions = require(Plugin.Core.Components.SearchOptions.SearchOptions)
 
@@ -83,24 +80,6 @@ function MainView:init(props)
 	self.requestNextPage = function()
 		settings = self.props.Settings:get("Plugin")
 		self.props.nextPage(networkInterface, settings)
-	end
-
-	if not FFlagToolboxRefactorSearchOptions then
-		self.updateSearch = function(searchTerm, extraDetails)
-			if not self.props.isSearching then
-				self.props.userSearch(networkInterface, searchTerm, extraDetails)
-			end
-		end
-
-		self.onSearchOptionsClosed = function(options)
-			if options then
-				settings = self.props.Settings:get("Plugin")
-				self.props.searchWithOptions(networkInterface, settings, options)
-			end
-			if self.props.onSearchOptionsToggled then
-				self.props.onSearchOptionsToggled()
-			end
-		end
 	end
 end
 
@@ -139,14 +118,6 @@ function MainView:render()
 		local searchTerm = props.searchTerm
 		local showTags = (creatorName ~= nil) or (#searchTerm > 0) or (props.audioSearchInfo ~= nil)
 
-		local showCreatorSearch
-		if not FFlagToolboxRefactorSearchOptions then
-			showCreatorSearch = true
-			if showRobloxCreatedAssets() then
-				showCreatorSearch = false
-			end
-		end
-
 		local headerHeight, headerToBodyPadding = Layouter.calculateMainViewHeaderHeight(
 			showTags,
 			suggestionIntro,
@@ -168,12 +139,6 @@ function MainView:render()
 				end,
 				content = localizedContent.NoPluginsFound,
 			}
-		end
-
-		local showSearchOptions
-		if not FFlagToolboxRefactorSearchOptions then
-			showSearchOptions = props.showSearchOptions
-			getModal(self).onSearchOptionsToggled(showSearchOptions)
 		end
 
 		local tryOpenAssetConfig = props.tryOpenAssetConfig
@@ -219,17 +184,6 @@ function MainView:render()
 				TryOpenAssetConfig = tryOpenAssetConfig,
 			}),
 
-			SearchOptions = if not FFlagToolboxRefactorSearchOptions and showSearchOptions
-				then Roact.createElement(SearchOptions, {
-					LiveSearchData = props.liveSearchData,
-					SortIndex = props.sortIndex,
-					updateSearch = self.updateSearch,
-					onClose = self.onSearchOptionsClosed,
-					showAudioSearch = isCategoryAudio,
-					showCreatorSearch = showCreatorSearch,
-				})
-				else nil,
-
 			InfoBanner = showInfoBanner and Roact.createElement(InfoBanner, {
 				Position = UDim2.new(0, 0, 0, 16 + headerHeight),
 				Text = localizedContent.InfoBannerText,
@@ -260,17 +214,6 @@ local function mapStateToProps(state, props)
 	local assets = state.assets or {}
 	local pageInfo = state.pageInfo or {}
 
-	local liveSearchData
-	if not FFlagToolboxRefactorSearchOptions then
-		if state.liveSearch then
-			liveSearchData = {
-				searchTerm = state.liveSearch.searchTerm,
-				isSearching = state.liveSearch.isSearching,
-				results = state.liveSearch.results,
-			}
-		end
-	end
-
 	return {
 		allAssetCount = #assets.idsToRender,
 		isLoading = assets.isLoading or false,
@@ -279,11 +222,8 @@ local function mapStateToProps(state, props)
 
 		audioSearchInfo = pageInfo.audioSearchInfo,
 		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
-		sortIndex = if not FFlagToolboxRefactorSearchOptions then pageInfo.sortIndex or 1 else nil,
 		searchTerm = pageInfo.searchTerm or "",
 		creator = pageInfo.creator,
-
-		liveSearchData = if not FFlagToolboxRefactorSearchOptions then liveSearchData or {} else nil,
 	}
 end
 
@@ -292,19 +232,6 @@ local function mapDispatchToProps(dispatch)
 		nextPage = function(networkInterface, settings)
 			dispatch(NextPageRequest(networkInterface, settings))
 		end,
-
-		-- User search (searching as the user types in the search bar)
-		userSearch = if not FFlagToolboxRefactorSearchOptions
-			then function(networkInterface, searchTerm)
-				dispatch(UserSearchRequest(networkInterface, searchTerm))
-			end
-			else nil,
-
-		searchWithOptions = if not FFlagToolboxRefactorSearchOptions
-			then function(networkInterface, settings, options)
-				dispatch(SearchWithOptions(networkInterface, settings, options))
-			end
-			else nil,
 	}
 end
 

@@ -21,13 +21,13 @@ local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingMod
 local Components = AvatarToolsShared.Components
 local TransparencySlider = Components.TransparencySlider
 
-local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
-local GetTransparency = require(Plugin.Src.Util.GetTransparency)
-local ModelUtil = require(Plugin.Src.Util.ModelUtil)
+local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
+local TransparencyUtil = AccessoryAndBodyToolSharedUtil.TransparencyUtil
+local ItemCharacteristics = AccessoryAndBodyToolSharedUtil.ItemCharacteristics
 
 local ChangeCageTransparency = require(Plugin.Src.Thunks.ChangeCageTransparency)
 
-local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
+local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -46,7 +46,7 @@ function EditTransparencyView:init()
 	self.setValue = function(cageType, value)
 		local context = self.props.LuaMeshEditingModuleContext
 		if context then
-			context:setTransparency(ModelUtil.transparencyFromLCEditorToProperty(value))
+			context:setTransparency(TransparencyUtil.transparencyFromLCEditorToProperty(value))
 			self.props.ChangeCageTransparency(cageType, value)
 		end
 	end
@@ -76,7 +76,7 @@ function EditTransparencyView:render()
 	}, {
 		Mesh = Roact.createElement(TransparencySlider, {
 			Title = localization:getText("Transparency", "Mesh"),
-			Value = GetTransparency(editingItem),
+			Value = TransparencyUtil.getTransparency(editingItem),
 			Size = UDim2.new(1, -theme.MainPadding, 0, theme.SliderHeight),
 			LayoutOrder = orderIterator:getNextOrder(),
 			Item = editingItem,

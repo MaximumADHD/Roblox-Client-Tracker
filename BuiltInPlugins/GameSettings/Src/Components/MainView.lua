@@ -35,6 +35,8 @@ local StudioService = game:GetService("StudioService")
 local TextService = game:GetService("TextService")
 
 local MainView = Roact.PureComponent:extend("MainView")
+local StudioPublishService = game:GetService("StudioPublishService")
+local FFLagMovePublishToStudioPublishService = game:GetFastFlag("MovePublishToStudioPublishService")
 
 function MainView:init()
 	local selectedPage
@@ -138,7 +140,11 @@ function MainView:render()
             AnchorPoint = Vector2.new(0.5, 0.5),
 
             OnClick = function()
-                StudioService:ShowSaveOrPublishPlaceToRoblox(false, false, Enum.StudioCloseMode.None)
+                if FFLagMovePublishToStudioPublishService then
+                    StudioPublishService:ShowSaveOrPublishPlaceToRoblox(false, false, Enum.StudioCloseMode.None)
+                else
+                    StudioService:DEPRECATED_ShowSaveOrPublishPlaceToRoblox(false, false, Enum.StudioCloseMode.None)
+                end
                 self.props.OnClose(false)
             end,
         }, {

@@ -5,10 +5,10 @@ local Util = Framework.Util
 local Action = Util.Action
 
 export type Payload = {
-	RoughnessMap : _Types.TextureMap?
+	RoughnessMap: _Types.TextureMap?
 }
 
-return Action(script.Name, function(roughnessMap : _Types.TextureMap?) : Payload
+return Action(script.Name, function(roughnessMap: _Types.TextureMap?): Payload
 	assert(not roughnessMap or type(roughnessMap) == "table", ("Expected RoughnessMap to be nil or a table, received %s"):format(type(roughnessMap)))
 	return {
 		RoughnessMap = roughnessMap,

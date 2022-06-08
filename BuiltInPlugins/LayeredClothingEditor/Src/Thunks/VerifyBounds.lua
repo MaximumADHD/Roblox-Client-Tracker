@@ -4,11 +4,13 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+
+local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
+local AccessoryUtil = AccessoryAndBodyToolSharedUtil.AccessoryUtil
+local ItemCharacteristics = AccessoryAndBodyToolSharedUtil.ItemCharacteristics
 
 local SetInBounds = require(Plugin.Src.Actions.SetInBounds)
-
-local ModelUtil = require(Plugin.Src.Util.ModelUtil)
-local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
 
 return function(editingItem)
 	return function(store)
@@ -47,7 +49,7 @@ return function(editingItem)
 		local bounds = accessoryTypeInfo.Bounds
 		local offset = accessoryTypeInfo.Offset
 
-		local inBounds = ModelUtil:checkAccessoryBounds(matchingAttachment.WorldPosition + offset, bounds, editingItem.CFrame, editingItem.Size)
+		local inBounds = AccessoryUtil:checkAccessoryBounds(matchingAttachment.WorldPosition + offset, bounds, editingItem.CFrame, editingItem.Size)
 		store:dispatch(SetInBounds(inBounds))
 	end
 end

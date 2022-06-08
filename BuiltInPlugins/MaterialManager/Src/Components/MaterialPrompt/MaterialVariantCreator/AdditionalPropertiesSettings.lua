@@ -31,24 +31,24 @@ local Flags = Plugin.Src.Flags
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
 
 export type Props = {
-	LayoutOrder : number?,
-	ErrorStudsPerTile : string?,
-	setStudsPerTileError : (string?) -> (),
+	LayoutOrder: number?,
+	ErrorStudsPerTile: string?,
+	setStudsPerTileError: (string?) -> (),
 }
 
 type _Props = Props & {
-	Analytics : any,
-	Localization : any,
-	Stylizer : any,
-	StudsPerTile : number,
-	MaterialPattern : Enum.MaterialPattern,
-	dispatchSetStudsPerTile : (number) -> (),
-	dispatchSetMaterialPattern : (Enum.MaterialPattern) -> (),
+	Analytics: any,
+	Localization: any,
+	Stylizer: any,
+	StudsPerTile: number,
+	MaterialPattern: Enum.MaterialPattern,
+	dispatchSetStudsPerTile: (number) -> (),
+	dispatchSetMaterialPattern: (Enum.MaterialPattern) -> (),
 }
 
 type _Style = {
-	DialogColumnSize : UDim2,
-	CustomSelectInput : any,
+	DialogColumnSize: UDim2,
+	CustomSelectInput: any,
 }
 
 local materialPatterns = getMaterialPatterns()
@@ -70,7 +70,7 @@ function AdditionalPropertiesSettings:init()
 	end
 
 	self.onStudsPerTileChanged = function(text)
-		local props : _Props = self.props
+		local props: _Props = self.props
 		local localization = props.Localization
 
 		local numberFromText = isTextValid(text)
@@ -92,8 +92,8 @@ function AdditionalPropertiesSettings:init()
 	end
 
 	self.renderContent = function(key: string)
-		local props : _Props = self.props
-		local style : _Style = props.Stylizer.AdditionalPropertiesSettings
+		local props: _Props = self.props
+		local style: _Style = props.Stylizer.AdditionalPropertiesSettings
 
 		-- TODO: remove key strings
 		if key == "StudsPerTileVariant" then
@@ -116,7 +116,7 @@ function AdditionalPropertiesSettings:init()
 	end
 
 	self.getError = function(key: string)
-		local props : _Props = self.props
+		local props: _Props = self.props
 
 		-- TODO: remove key strings
 		if key == "StudsPerTileVariant" then
@@ -127,7 +127,7 @@ function AdditionalPropertiesSettings:init()
 	end
 
 	self.getText = function(key: string)
-		local props : _Props = self.props
+		local props: _Props = self.props
 		local localization = props.Localization
 
 		return localization:getText("CreateDialog", key)
@@ -135,7 +135,7 @@ function AdditionalPropertiesSettings:init()
 end
 
 function AdditionalPropertiesSettings:didMount()
-	local props : _Props = self.props
+	local props: _Props = self.props
 
 	self:setState({
 		currentIndex = 1
@@ -153,7 +153,7 @@ function AdditionalPropertiesSettings:didMount()
 end
 
 function AdditionalPropertiesSettings:render()
-	local props : _Props = self.props
+	local props: _Props = self.props
 
 	local items = {
 		"StudsPerTileVariant",
@@ -178,7 +178,7 @@ AdditionalPropertiesSettings = withContext({
 
 
 
-local function mapStateToProps(state : MainReducer.State, _)
+local function mapStateToProps(state: MainReducer.State, _)
 	return {
 		StudsPerTile = state.MaterialPromptReducer.StudsPerTile,
 		MaterialPattern = state.MaterialPromptReducer.MaterialPattern,

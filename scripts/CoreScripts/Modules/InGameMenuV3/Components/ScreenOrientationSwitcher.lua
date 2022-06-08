@@ -1,10 +1,11 @@
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 local PlayerGUI = Players.LocalPlayer:WaitForChild("PlayerGui")
-
+local InGameMenu = script.Parent.Parent
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
+local InGameMenuPolicy = require(InGameMenu.InGameMenuPolicy)
 
 local ScreenOrientationSwitcher = Roact.Component:extend("ScreenOrientationSwitcher")
 
@@ -25,11 +26,10 @@ function ScreenOrientationSwitcher:didUpdate(priorProps)
 
 	if menuOpen ~= priorProps.menuOpen then
 		if menuOpen then -- on menu opened
-
 			local portraitOrientation = playerGUI.CurrentScreenOrientation == Enum.ScreenOrientation.Portrait
 			local portraitRatio = screenSize.Y > screenSize.X
-
-			if portraitOrientation or portraitRatio then
+			local underPortraitThreshold = math.min(screenSize.X, screenSize.Y) < self.props.portraitThreshold
+			if (portraitOrientation or portraitRatio) and underPortraitThreshold then
 				self.switchBackToPortraitOnClose = true
 				self.priorScreenOrientation = playerGUI.ScreenOrientation
 				playerGUI.ScreenOrientation = Enum.ScreenOrientation.LandscapeLeft
@@ -47,6 +47,13 @@ end
 function ScreenOrientationSwitcher:render()
 	return Roact.oneChild(self.props[Roact.Children])
 end
+
+ScreenOrientationSwitcher = InGameMenuPolicy.connect(function(appPolicy, props)
+	return {
+		portraitThreshold = appPolicy.inGameMenuPortraitThreshold(),
+	}
+end)(ScreenOrientationSwitcher)
+
 
 local function mapStateToProps(state, props)
 	return {

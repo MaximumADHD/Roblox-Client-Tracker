@@ -39,7 +39,7 @@ local getIsOptInChina = require(Plugin.Src.Util.PublishPlaceAsUtilities).getIsOp
 local isTeamCreateEnabled = require(Plugin.Src.Util.PublishPlaceAsUtilities).isTeamCreateEnabled
 
 local ScreenChoosePlace = Roact.PureComponent:extend("ScreenChoosePlace")
-
+local FFLagMovePublishToStudioPublishService = game:GetFastFlag("MovePublishToStudioPublishService")
 local LoadingIndicator = UILibrary.Component.LoadingIndicator
 
 function shouldShowNextPublishManagemnt(optInRegions, isPublish)
@@ -77,13 +77,23 @@ function ScreenChoosePlace:init()
 end
 
 function ScreenChoosePlace:didMount()
-	self.finishedConnection = StudioService.GamePublishFinished:connect(function(success)
-		if success then
-			self.props.OpenPublishSuccessfulPage(self.state.selectedPlace, self.props.ParentGame)
-		else
-			self.props.OpenPublishFailPage(self.state.selectedPlace, self.props.ParentGame)
-		end
-	end)
+	if FFLagMovePublishToStudioPublishService then
+		self.finishedConnection = StudioPublishService.GamePublishFinished:connect(function(success)
+			if success then
+				self.props.OpenPublishSuccessfulPage(self.state.selectedPlace, self.props.ParentGame)
+			else
+				self.props.OpenPublishFailPage(self.state.selectedPlace, self.props.ParentGame)
+			end
+		end)
+	else
+		self.finishedConnection = StudioService.DEPRECATED_GamePublishFinished:connect(function(success)
+			if success then
+				self.props.OpenPublishSuccessfulPage(self.state.selectedPlace, self.props.ParentGame)
+			else
+				self.props.OpenPublishFailPage(self.state.selectedPlace, self.props.ParentGame)
+			end
+		end)
+	end
 end
 
 function ScreenChoosePlace:willUnmount()
@@ -321,7 +331,11 @@ function ScreenChoosePlace:render()
 						else
 							StudioPublishService:setUploadNames(self.state.selectedPlace.name, parentGame.name)
 						end
-						StudioService:publishAs(parentGame.universeId, self.state.selectedPlace.placeId, 0)
+						if FFLagMovePublishToStudioPublishService then
+							StudioPublishService:publishAs(parentGame.universeId, self.state.selectedPlace.placeId, 0, props.IsPublish, nil)
+						else
+							StudioService:DEPRECATED_publishAs(parentGame.universeId, self.state.selectedPlace.placeId, 0)
+						end
 						dispatchSetIsPublishing(true)
 					end
 				end,

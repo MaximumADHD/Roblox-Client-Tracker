@@ -30,40 +30,39 @@ local MaterialVariantCreator = require(Plugin.Src.Components.MaterialPrompt.Mate
 local MaterialController = require(Plugin.Src.Util.MaterialController)
 
 local Flags = Plugin.Src.Flags
-local getFFlagMaterialVariantTempIdCompatibility = require(Flags.getFFlagMaterialVariantTempIdCompatibility)
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
 
 local FIntInfluxReportMaterialManagerHundrethPercent = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent")
 
 export type Props = {
-	PromptClosed : () -> (),
+	PromptClosed: () -> (),
 	Name: string?,
 	BaseMaterial: Enum.Material?,
-	ColorMap : _Types.TextureMap?,
-	MetalnessMap : _Types.TextureMap?,
-	NormalMap : _Types.TextureMap?,	
-	RoughnessMap : _Types.TextureMap?,
-	StudsPerTile : number?,
-	MaterialPattern : Enum.MaterialPattern,
-	MaterialMock : _Types.Material?,
-	Mode : string?,
-	Material : _Types.Material?,
+	ColorMap: _Types.TextureMap?,
+	MetalnessMap: _Types.TextureMap?,
+	NormalMap: _Types.TextureMap?,	
+	RoughnessMap: _Types.TextureMap?,
+	StudsPerTile: number?,
+	MaterialPattern: Enum.MaterialPattern,
+	MaterialMock: _Types.Material?,
+	Mode: string?,
+	Material: _Types.Material?,
 }
 
 type _Props = Props & {
-	Analytics : any,
-	Localization : any,
-	Stylizer : any,
-	ImportAssetHandler : any,
-	MaterialController : any,
-	dispatchClearMaterialVariant : () -> (),
-	dispatchSetMaterial : (material : _Types.Material) -> (),
-	dispatchSetPath : (path : _Types.Path) -> (),
+	Analytics: any,
+	Localization: any,
+	Stylizer: any,
+	ImportAssetHandler: any,
+	MaterialController: any,
+	dispatchClearMaterialVariant: () -> (),
+	dispatchSetMaterial: (material: _Types.Material) -> (),
+	dispatchSetPath: (path: _Types.Path) -> (),
 }
 
 type _Style = {
-	DialogWidth : number,
-	DialogHeight : number,
+	DialogWidth: number,
+	DialogHeight: number,
 }
 
 local MaterialPrompt = Roact.PureComponent:extend("MaterialPrompt")
@@ -73,7 +72,7 @@ function MaterialPrompt:hasValidName()
 end
 
 function MaterialPrompt:getNameError()
-	local props : _Props = self.props
+	local props: _Props = self.props
 	local localization = props.Localization
 	local materialController = props.MaterialController
 
@@ -92,7 +91,7 @@ function MaterialPrompt:getNameError()
 end
 
 function MaterialPrompt:getBaseMaterialError()
-	local props : _Props = self.props
+	local props: _Props = self.props
 	local localization = props.Localization
 
 	if not self.state.saveAttempt then
@@ -106,7 +105,7 @@ function MaterialPrompt:getBaseMaterialError()
 end
 
 function MaterialPrompt:sendAnalyticsToKibana()
-	local props : _Props = self.props
+	local props: _Props = self.props
 	local baseMaterial = props.BaseMaterial
 
 	if props.Mode == "Create" and baseMaterial then
@@ -118,7 +117,7 @@ function MaterialPrompt:sendAnalyticsToKibana()
 end
 
 function MaterialPrompt:createTempMaterialVariant()
-	local props : _Props = self.props
+	local props: _Props = self.props
 
 	if self.materialVariant then 
 		self.materialVariant:Destroy() 
@@ -160,12 +159,9 @@ function MaterialPrompt:init()
 	})
 	self.lastName = nil
 	self.lastBaseMaterial = nil
-
-	if getFFlagMaterialVariantTempIdCompatibility() then
-		self.materialVariant = nil
-		self.materialVariantTemp = nil
-		self:createTempMaterialVariant()
-	end
+	self.materialVariant = nil
+	self.materialVariantTemp = nil
+	self:createTempMaterialVariant()
 
 	self.setStudsPerTileError = function(error)
 		self:setState({
@@ -181,7 +177,7 @@ function MaterialPrompt:init()
 	end
 
 	self.onSave = function()
-		local props : _Props = self.props
+		local props: _Props = self.props
 		local materialController = props.MaterialController
 		local assetHandler = props.ImportAssetHandler
 
@@ -189,20 +185,20 @@ function MaterialPrompt:init()
 			saveAttempt = true,
 		})
 
-		local function handleMaps(maps : { [string] : _Types.TextureMap }, materialVariant : MaterialVariant)
+		local function handleMaps(maps: { [string]: _Types.TextureMap }, materialVariant: MaterialVariant)
 			for mapType, map in pairs(maps) do
 				-- Upload maps if a new asset
 				if map.file then
 					task.spawn(function()
 						assetHandler:handleAsset(map.file, function(assetId)
-							(materialVariant :: any)[mapType] = assetId
+							(materialVariant:: any)[mapType] = assetId
 						end)
 					end)
 					-- Use already uploaded assetId
 				elseif map.assetId then
-					(materialVariant :: any)[mapType] = map.assetId
+					(materialVariant:: any)[mapType] = map.assetId
 				else
-					(materialVariant :: any)[mapType] = ""
+					(materialVariant:: any)[mapType] = ""
 				end
 			end
 		end
@@ -219,22 +215,10 @@ function MaterialPrompt:init()
 			return
 		end
 
-		local materialVariant
-		if getFFlagMaterialVariantTempIdCompatibility() then
-			-- TODO: move into separate method "finalizeMaterialVariant()"
-			materialVariant = self.materialVariantTemp
-			if props.Mode == "Edit" then
-				self.materialVariantTemp = self.materialVariant
-			end
-		else
-			if props.Mode == "Create" then
-				materialVariant = Instance.new("MaterialVariant")
-			elseif props.Mode == "Edit" then
-				local material = props.Material
-				if material then
-					materialVariant = material.MaterialVariant
-				end
-			end
+		-- TODO: move into separate method "finalizeMaterialVariant()"
+		local materialVariant = self.materialVariantTemp
+		if props.Mode == "Edit" then
+			self.materialVariantTemp = self.materialVariant
 		end
 
 		materialVariant.Name = props.Name
@@ -263,7 +247,7 @@ function MaterialPrompt:init()
 			self:sendAnalyticsToKibana()
 		end
 		
-		if getFFlagMaterialVariantTempIdCompatibility() and props.Mode == "Edit" then
+		if props.Mode == "Edit" then
 			self.clearMaterialVariantTemp()
 		end
 		props.PromptClosed()
@@ -271,12 +255,12 @@ function MaterialPrompt:init()
 	end
 
 	self.onClose = function()
-		local props : _Props = self.props
+		local props: _Props = self.props
 
 		if props.Mode == "Edit" then
-			-- swap temp and original MVs to always destroy temp
-			local materialVariant = self.materialVariantTemp
-			self.materialVariantTemp = self.materialVariant
+			-- return back to original MV
+			local materialVariant = self.materialVariant
+			materialVariant.Name = self.materialVariantTemp.Name
 			materialVariant.Parent = game:GetService("MaterialService")
 		end
 
@@ -286,15 +270,8 @@ function MaterialPrompt:init()
 	end
 
 	self.onButtonPressed = function(key)
-		local props : _Props = self.props
-
 		if key == "Cancel" then
-			if getFFlagMaterialVariantTempIdCompatibility() then
-				self.onClose()
-			else
-				props.PromptClosed()
-				props.dispatchClearMaterialVariant()
-			end
+			self.onClose()
 		elseif key == "Save" then
 			self.onSave()
 		end
@@ -302,39 +279,37 @@ function MaterialPrompt:init()
 end
 
 function MaterialPrompt:didMount()
-	local props : _Props = self.props
+	local props: _Props = self.props
 
-	if getFFlagMaterialVariantTempIdCompatibility() and props.Mode == "Edit" then
+	if props.Mode == "Edit" then
 		local materialController = props.MaterialController
 		props.dispatchSetMaterial(materialController:getMaterial(self.materialVariantTemp))
 	end
 end
 
 function MaterialPrompt:render()
-	local props : _Props = self.props
+	local props: _Props = self.props
 	local localization = props.Localization
-	local style : _Style = props.Stylizer.MaterialPrompt
+	local style: _Style = props.Stylizer.MaterialPrompt
 
-	if getFFlagMaterialVariantTempIdCompatibility() then
-		local colorMap = props.ColorMap
-		local metalnessMap = props.MetalnessMap
-		local normalMap = props.NormalMap
-		local roughnessMap = props.RoughnessMap
-		local studsPerTile = props.StudsPerTile
-		local materialPattern = props.MaterialPattern
+	local colorMap = props.ColorMap
+	local metalnessMap = props.MetalnessMap
+	local normalMap = props.NormalMap
+	local roughnessMap = props.RoughnessMap
+	local studsPerTile = props.StudsPerTile
+	local materialPattern = props.MaterialPattern
 
-		colorMap = if colorMap then colorMap.assetId or colorMap.tempId else nil
-		metalnessMap = if metalnessMap then metalnessMap.assetId or metalnessMap.tempId else nil
-		normalMap = if normalMap then normalMap.assetId or normalMap.tempId else nil
-		roughnessMap = if roughnessMap then roughnessMap.assetId or roughnessMap.tempId else nil
+	colorMap = if colorMap then colorMap.assetId or colorMap.tempId else nil
+	metalnessMap = if metalnessMap then metalnessMap.assetId or metalnessMap.tempId else nil
+	normalMap = if normalMap then normalMap.assetId or normalMap.tempId else nil
+	roughnessMap = if roughnessMap then roughnessMap.assetId or roughnessMap.tempId else nil
 
-		self.materialVariantTemp.ColorMap = colorMap or ""
-		self.materialVariantTemp.MetalnessMap = metalnessMap or ""
-		self.materialVariantTemp.NormalMap = normalMap or ""
-		self.materialVariantTemp.RoughnessMap = roughnessMap or ""
-		self.materialVariantTemp.StudsPerTile = studsPerTile
-		self.materialVariantTemp.MaterialPattern = materialPattern
-	end
+	self.materialVariantTemp.ColorMap = colorMap or ""
+	self.materialVariantTemp.MetalnessMap = metalnessMap or ""
+	self.materialVariantTemp.NormalMap = normalMap or ""
+	self.materialVariantTemp.RoughnessMap = roughnessMap or ""
+	self.materialVariantTemp.StudsPerTile = studsPerTile
+	self.materialVariantTemp.MaterialPattern = materialPattern
 
 	local mode = if props.Mode == "Create" then "CreateVariant" else "EditVariant"
 
@@ -351,7 +326,7 @@ function MaterialPrompt:render()
 		}
 	}
 
-	return getFFlagMaterialVariantTempIdCompatibility() and Roact.createElement(StyledDialog, {
+	return Roact.createElement(StyledDialog, {
 		Title = localization:getText("CreateDialog", mode),
 		MinContentSize = Vector2.new(style.DialogWidth, style.DialogHeight),
 		Resizable = true,
@@ -368,22 +343,6 @@ function MaterialPrompt:render()
 			SetStudsPerTileError = self.setStudsPerTileError,
 			MaterialVariantTemp = self.materialVariantTemp,
 		})
-	}) or Roact.createElement(StyledDialog, {
-		Title = localization:getText("CreateDialog", mode),
-		MinContentSize = Vector2.new(style.DialogWidth, style.DialogHeight),
-		Resizable = false,
-		Modal = true,
-		Buttons = buttons,
-		OnClose = props.PromptClosed,
-		OnButtonPressed = self.onButtonPressed,
-		Style = "FullBleed",
-	}, {
-		MaterialVariantCreator = Roact.createElement(MaterialVariantCreator, {
-			ErrorName = self:getNameError(),
-			ErrorBaseMaterial = self:getBaseMaterialError(),
-			ErrorStudsPerTile = self.state.ErrorStudsPerTile,
-			SetStudsPerTileError = self.setStudsPerTileError,
-		})
 	})
 end
 
@@ -398,7 +357,7 @@ MaterialPrompt = withContext({
 
 
 
-local function mapStateToProps(state : MainReducer.State, props : _Props)
+local function mapStateToProps(state: MainReducer.State, props: _Props)
 	return {
 		Name = state.MaterialPromptReducer.Name,
 		BaseMaterial = state.MaterialPromptReducer.BaseMaterial,
@@ -418,7 +377,7 @@ local function mapDispatchToProps(dispatch)
 		dispatchClearMaterialVariant = function ()
 			dispatch(ClearMaterialVariant())
 		end,
-		dispatchSetMaterial = function(material : _Types.Material)
+		dispatchSetMaterial = function(material: _Types.Material)
 			dispatch(SetMaterial(material))
 		end,
 		dispatchSetPath = function(path)

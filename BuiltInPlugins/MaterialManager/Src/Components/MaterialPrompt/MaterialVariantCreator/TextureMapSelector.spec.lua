@@ -8,7 +8,7 @@ return function()
 	local defautCurrentTextureMap = {
 		assetId = "",
 	}
-	local defaultSelectTextureMap = function(file : File?, assetId : string?, errorMessage : string?) end
+	local defaultSelectTextureMap = function(file: File?, assetId: string?, errorMessage: string?) end
 	local defaultClearSelection = function() end
 	local defaultUrlSelection = function(searchUrl: string?) end
 	local defaultPreviewTitle = ""

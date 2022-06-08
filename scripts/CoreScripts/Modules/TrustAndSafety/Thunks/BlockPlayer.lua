@@ -2,11 +2,14 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 
-local function BlockPlayer(player)
+local TnsModule = script.Parent.Parent
+local ShowToast = require(TnsModule.Actions.ShowToast)
+
+local function BlockPlayer(player, doneToastText)
 	return function(store)
 		coroutine.wrap(function()
 			if BlockingUtility:BlockPlayerAsync(player) then
-				-- NO-OP
+				store:dispatch(ShowToast(doneToastText))
 			end
 		end)()
 	end

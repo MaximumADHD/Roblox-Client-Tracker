@@ -15,6 +15,10 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+
+local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
+local AvatarToolsSharedConstants = AccessoryAndBodyToolSharedUtil.Constants
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -51,13 +55,13 @@ function EditorTabsRibbon:render()
 	local buttons = {}
 	table.insert(buttons, {
 		Key = Constants.TOOL_MODE.Point,
-		Label = localization:getText(Constants.LOCALIZATION_KEYS.Editor, Constants.TOOL_MODE.Point),
+		Label = localization:getText(AvatarToolsSharedConstants.LOCALIZATION_KEYS.Editor, Constants.TOOL_MODE.Point),
 		Disabled = not hasEditingCage,
 	})
 
 	table.insert(buttons, {
 		Key = Constants.TOOL_MODE.Reset,
-		Label = localization:getText(Constants.LOCALIZATION_KEYS.Editor, Constants.TOOL_MODE.Reset),
+		Label = localization:getText(AvatarToolsSharedConstants.LOCALIZATION_KEYS.Editor, Constants.TOOL_MODE.Reset),
 		Disabled = not hasEditingCage,
 	})
 

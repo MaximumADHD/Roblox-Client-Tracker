@@ -53,10 +53,10 @@ end
 
 function LeaveToAppPrompt:render()
 	return withLocalization({
-		titleText = "CoreScripts.InGameMenu.Prompt.LeaveGameTitle",
-		bodyText = "CoreScripts.InGameMenu.Prompt.LeaveGameBodyText",
+		titleText = "CoreScripts.InGameMenu.Prompt.ReturnHome",
+		bodyText = "CoreScripts.InGameMenu.Prompt.ReturnHomeBodyText",
 		confirmText = "CoreScripts.InGameMenu.Prompt.BackToHome",
-		cancelText = "CoreScripts.InGameMenu.Prompt.ResumeGame",
+		cancelText = "CoreScripts.InGameMenu.Cancel",
 	})(function(localized)
 		return Roact.createElement(LeavePrompt, {
 			titleText = localized.titleText,

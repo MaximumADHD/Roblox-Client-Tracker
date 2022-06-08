@@ -1,3 +1,5 @@
+local FFlagDevFrameworkRemoveFitFrame = game:GetFastFlag("DevFrameworkRemoveFitFrame")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -40,8 +42,10 @@ local function generateErrorSections(errorMap, uploadStyle, absoluteContentSize,
             Text = sectionText,
             TextSize = uploadStyle.SubtextSize,
             TextXAlignment = Enum.TextXAlignment.Center,
-            FitWidth = true,
-            FitMaxWidth = absoluteContentSize,
+            FitWidth = if FFlagDevFrameworkRemoveFitFrame then nil else true,
+            FitMaxWidth = if FFlagDevFrameworkRemoveFitFrame then nil else absoluteContentSize,
+            AutomaticSize = if FFlagDevFrameworkRemoveFitFrame then Enum.AutomaticSize.Y else nil,
+            Size = if FFlagDevFrameworkRemoveFitFrame then UDim2.fromScale(1, 0) else nil,
             HorizontalAlignment = Enum.HorizontalAlignment.Center,
         })
         table.insert(sections, section)
@@ -50,15 +54,17 @@ local function generateErrorSections(errorMap, uploadStyle, absoluteContentSize,
     return sections
 end
 
-function FailureWidget:init()
-    self:setState({
-		absoluteContentSize = 0,
-	})
-    self.onContentResize = function(absoluteContentSize)
-		self:setState({
-			absoluteContentSize = absoluteContentSize.x
-		})
-	end
+if not FFlagDevFrameworkRemoveFitFrame then
+    function FailureWidget:init()
+        self:setState({
+            absoluteContentSize = 0,
+        })
+        self.onContentResize = function(absoluteContentSize)
+            self:setState({
+                absoluteContentSize = absoluteContentSize.x
+            })
+        end
+    end
 end
 
 function FailureWidget:render()
@@ -74,7 +80,8 @@ function FailureWidget:render()
         and localization:getText("Upload", "FailureDescriptionNoError")
         or localization:getText("Upload", "FailureDescription")
 
-    local sections = generateErrorSections(errorMap, uploadStyle, state.absoluteContentSize, props.InstanceMap, localization)
+    -- TODO FFlagDevFrameworkRemoveFitFrame remove state.absoluteContentSize argument when flag is retired
+    local sections = generateErrorSections(errorMap, uploadStyle, if FFlagDevFrameworkRemoveFitFrame then nil else state.absoluteContentSize, props.InstanceMap, localization)
 
     local titleSize = uploadStyle.TextSize + uploadStyle.SubtextSize + 10
 

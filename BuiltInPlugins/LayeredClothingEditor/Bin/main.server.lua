@@ -4,7 +4,7 @@
 ]]
 require(script.Parent.defineLuaFlags)
 
-if not game:GetFastFlag("AccessoryToolRefactor") then
+if not game:GetFastFlag("AccessoryToolRefactor2") then
 	return
 end
 

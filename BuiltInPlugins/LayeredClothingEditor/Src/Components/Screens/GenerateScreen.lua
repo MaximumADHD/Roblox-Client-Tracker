@@ -27,7 +27,7 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
+local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
 local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingModuleContext
 
 local SetControlsPanelBlockerActivity = require(Plugin.Src.Actions.SetControlsPanelBlockerActivity)

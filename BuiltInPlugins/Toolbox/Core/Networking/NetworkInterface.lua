@@ -33,6 +33,8 @@ local FFlagPackagesApiEnabled = game:GetFastFlag("PackagesApiEnabled")
 local NetworkInterface = {}
 NetworkInterface.__index = NetworkInterface
 
+local FFlagInfiniteScrollerForVersions = game:getFastFlag("InfiniteScrollerForVersions")
+
 function NetworkInterface.new()
 	local networkImp = {
 		_networkImp = Networking.new(),
@@ -373,6 +375,18 @@ function NetworkInterface:getAssetConfigData(assetId)
 	local targetUrl = Urls.constructAssetConfigDataUrl(assetId)
 
 	printUrl("getAssetConfigData", "GET", targetUrl)
+	return self._networkImp:httpGet(targetUrl)
+end
+
+-- cursor must be the valid page cursor value returned by previous
+-- invocations of this function or getVersionHistory() for the given assetId.
+-- cursor must not be nil.
+function NetworkInterface:getVersionHistoryPage(assetId, cursor)
+	assert(FFlagInfiniteScrollerForVersions)
+	assert(cursor ~= nil)
+	local targetUrl = Urls.constructAssetSavedVersionPageString(assetId, cursor)
+
+	printUrl("getVersionsHistoryNextPage", "GET", targetUrl)
 	return self._networkImp:httpGet(targetUrl)
 end
 

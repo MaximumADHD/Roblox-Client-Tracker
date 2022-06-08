@@ -5,6 +5,7 @@ local Analytics = {}
 local FIntStudioAudioDiscoveryOpenAnalyticThrottle = game:GetFastInt("StudioAudioDiscoveryOpenAnalyticThrottle")
 local FIntStudioAudioDiscoverySelectAnalyticsThrottle = game:GetFastInt("StudioAudioDiscoverySelectAnalyticsThrottle")
 local FIntStudioAudioDiscoveryBreakdownAnalyticsThrottle = game:GetFastInt("StudioAudioDiscoveryBreakdownAnalyticsThrottle")
+local FIntStudioAudioDiscoveryPermissionCheckAnalyticsThrottle = game:getFastInt("StudioAudioDiscoveryPermissionCheckAnalyticsThrottle")
 
 function Analytics:_sendToKibana(name, points, throttle)
 	task.spawn(RbxAnalyticsService.ReportInfluxSeries, RbxAnalyticsService, name, points, throttle)
@@ -32,6 +33,16 @@ function Analytics:reportBreakdown(good, bad)
 		bad = bad,
 	}
 	self:_sendToKibana("StudioAudioDiscoveryBreakdown", points, FIntStudioAudioDiscoveryBreakdownAnalyticsThrottle)
+end
+
+function Analytics:reportPermissionCheck(result)
+	local points = {
+		responseCode = result.responseCode,
+		responseBody = result.responseBody,
+		responseTimeMs = result.responseTimeMs,
+	}
+
+	self:_sendToKibana("StudioAudioDiscoveryPermissionCheck", points, FIntStudioAudioDiscoveryPermissionCheckAnalyticsThrottle)
 end
 
 return Analytics

@@ -4,6 +4,12 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+
+local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
+
+local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
+local ItemCharacteristics = AccessoryAndBodyToolSharedUtil.ItemCharacteristics
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -12,16 +18,12 @@ local withContext = ContextServices.withContext
 local UI = Framework.UI
 local ScreenFlow = UI.ScreenFlow
 
-local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
-
 local AssetTypeScreen = require(Plugin.Src.Components.Screens.AssetTypeScreen)
 local EditorScreen = require(Plugin.Src.Components.Screens.EditorScreen)
 local SelectItemScreen = require(Plugin.Src.Components.Screens.SelectItemScreen)
 local GenerateScreen = require(Plugin.Src.Components.Screens.GenerateScreen)
 
 local SelectedEditingItem = require(Plugin.Src.Components.Preview.SelectedEditingItem)
-
-local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
 
 local LayeredClothingEditor = Roact.PureComponent:extend("LayeredClothingEditor")
 

@@ -9,6 +9,6 @@ local ErrorTypes: _Types.Map<string, ErrorType> = {
 	None = "None",
 }
 
-return function() : _Types.Map<string, ErrorType>
+return function(): _Types.Map<string, ErrorType>
 	return ErrorTypes
 end

@@ -1,6 +1,10 @@
 local Plugin = script.Parent.Parent.Parent
 local Framework = require(Plugin.Packages.Framework)
 local Rodux = require(Plugin.Packages.Rodux)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+
+local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
+local ItemCharacteristics = AccessoryAndBodyToolSharedUtil.ItemCharacteristics
 
 local Rhodium = require(Plugin.Packages.Dev.Rhodium)
 local Element = Rhodium.Element
@@ -8,8 +12,6 @@ local XPath = Rhodium.XPath
 
 local ContextServices = Framework.ContextServices
 local Localization = ContextServices.Localization
-
-local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
 
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 

@@ -15,9 +15,6 @@
 		Stylizer
 
 ]]
-
-local FFlagDevFrameworkAddUnobtrusiveLinkTextStyle = game:GetFastFlag("DevFrameworkAddUnobtrusiveLinkTextStyle")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
@@ -100,7 +97,7 @@ function SectionHeader:render()
 		}, {
 			SeeAllButton = Roact.createElement(LinkText, {
 				OnClick = onClickSeeAll,
-				Style = if FFlagDevFrameworkAddUnobtrusiveLinkTextStyle then "Unobtrusive" else nil,
+				Style = "Unobtrusive",
 				Text = seeAllText,
 			}),
 		}),

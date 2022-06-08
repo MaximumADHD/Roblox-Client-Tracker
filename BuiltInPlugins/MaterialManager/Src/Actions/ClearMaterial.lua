@@ -5,6 +5,6 @@ local Action = Util.Action
 
 export type Payload = {}
 
-return Action(script.Name, function() : Payload
+return Action(script.Name, function(): Payload
 	return {}
 end)

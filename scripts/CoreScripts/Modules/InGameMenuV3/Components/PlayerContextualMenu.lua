@@ -121,7 +121,7 @@ function PlayerContextualMenu:render()
 		target = CoreGui,
 	}, {
 		InGameMenuContextGui = Roact.createElement("ScreenGui", {
-			DisplayOrder = 2,
+			DisplayOrder = 7,
 			IgnoreGuiInset = true,
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 		}, {

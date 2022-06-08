@@ -5,8 +5,6 @@ return function()
 	local TestRunner = require(Plugin.Src.Util.TestRunner)
 	local runComponentTest = TestRunner.runComponentTest
 
-	local PreviewConstants = require(Plugin.Src.Util.PreviewConstants)
-
 	local PreviewTabsRibbon = require(script.Parent.PreviewTabsRibbon)
 	it("should create and destroy without errors", function()
 		runComponentTest(Roact.createElement(PreviewTabsRibbon))

@@ -13,6 +13,7 @@ local LightTheme = Style.Themes.LightTheme
 local DarkTheme = Style.Themes.DarkTheme
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagFaceControlsEditorUXImprovements = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUXImprovements)
 
 -- Add new entries to both themes
 local overridedLightTheme = Cryo.Dictionary.join(LightTheme, {
@@ -217,6 +218,8 @@ local checkBoxTheme = {
 local faceSliderBarHeight  = 1
 local faceSliderBarSliceCenter = Rect.new(3, 0, 4, 6)
 local faceSliderHandleSize = 6
+if GetFFlagFaceControlsEditorUXImprovements() then faceSliderHandleSize = 6.5 end
+local faceSliderLargeHandleSize = 9
 local faceSliderKnobColor = Colors.White
 
 local knobStyle = {
@@ -227,6 +230,16 @@ local knobStyle = {
 	[StyleModifier.Disabled] = {
 		Color = StyleKey.Button,
 	},
+}
+
+local knobMaxValueStyle = {
+	AnchorPoint = Vector2.new(0.5, 0.5),
+	Color = faceSliderKnobColor,
+	Image = StyleKey.SliderKnobImage,
+	Size = UDim2.new(0, faceSliderLargeHandleSize, 0, faceSliderLargeHandleSize),
+	[StyleModifier.Disabled] = {
+		Color = StyleKey.Button,
+	},	
 }
 
 local faceSliderTheme = {
@@ -259,6 +272,36 @@ local faceSliderTheme = {
 		UpperKnobBackgroundStyle = knobStyle,
 }
 
+local faceSliderMaxValueTheme = {
+	KnobSize = Vector2.new(18, 18),
+	Background = Decoration.Image,
+	BackgroundStyle = {
+		AnchorPoint = Vector2.new(0, 0.5),
+		Color = Color3.fromRGB(87, 87, 87),
+		Image = "rbxasset://textures/DeveloperFramework/slider_bg.png",
+		Position = UDim2.new(0, 0, 0.5, 0),
+		ScaleType = Enum.ScaleType.Slice,
+		Size = UDim2.new(UDim.new(1, 0), UDim.new(0, faceSliderBarHeight)),
+		SliceCenter = faceSliderBarSliceCenter,
+	},
+	Foreground = Decoration.Image,
+	ForegroundStyle = {
+		AnchorPoint = Vector2.new(0, 0.5),
+		Image = "rbxasset://textures/DeveloperFramework/slider_bg.png",
+		Color = StyleKey.DialogMainButton,
+		ScaleType = Enum.ScaleType.Slice,
+		Size = UDim2.new(UDim.new(1, 0), UDim.new(0, faceSliderBarHeight)),
+		SliceCenter = faceSliderBarSliceCenter,
+		[StyleModifier.Disabled] = {
+			Color = StyleKey.Button,
+		},
+	},
+	LowerKnobBackground = Decoration.Image,
+	LowerKnobBackgroundStyle = knobMaxValueStyle,
+	UpperKnobBackground = Decoration.Image,
+	UpperKnobBackgroundStyle = knobMaxValueStyle,
+}
+
 local faceDragBoxTheme = {
 	KnobSize = Vector2.new(18, 18),
 	Background = Decoration.Image,
@@ -272,11 +315,53 @@ local faceDragBoxTheme = {
 		BackgroundTransparency = 1,
 		ImageTransparency = 1,
 	},
+	ForegroundStyle = {
+		AnchorPoint = Vector2.new(0, 0.5),
+		Image = "rbxasset://textures/DeveloperFramework/slider_bg.png",
+		Color = StyleKey.DialogMainButton,
+		ScaleType = Enum.ScaleType.Slice,
+		Size = UDim2.new(UDim.new(1, 0), UDim.new(0, faceSliderBarHeight)),
+		SliceCenter = faceSliderBarSliceCenter,
+		[StyleModifier.Disabled] = {
+			Color = StyleKey.Button,
+		},
+	},	
 	OutlineStyle = {
 		Color = Color3.fromRGB(87, 87, 87),
 	},
 	KnobBackground = Decoration.Image,
 	KnobBackgroundStyle = knobStyle,
+}
+
+local faceDragBoxMaxValueTheme = {
+	KnobSize = Vector2.new(18, 18),
+	Background = Decoration.Image,
+	BackgroundStyle = {
+		AnchorPoint = Vector2.new(0, 0.5),
+		Color = Color3.fromRGB(87, 87, 87),
+		Position = UDim2.new(0, 0, 0.5, 0),
+		ScaleType = Enum.ScaleType.Slice,
+		Size = UDim2.new(UDim.new(1, 0), UDim.new(1, 0)),
+		SliceCenter = faceSliderBarSliceCenter,
+		BackgroundTransparency = 1,
+		ImageTransparency = 1,
+	},
+	ForegroundStyle = {
+		AnchorPoint = Vector2.new(0, 0.5),
+		Image = "rbxasset://textures/DeveloperFramework/slider_bg.png",
+		Color = StyleKey.DialogMainButton,
+		ScaleType = Enum.ScaleType.Slice,
+		Size = UDim2.new(UDim.new(1, 0), UDim.new(0, faceSliderBarHeight)),
+		SliceCenter = faceSliderBarSliceCenter,
+		[StyleModifier.Disabled] = {
+			Color = StyleKey.Button,
+		},
+	},	
+	OutlineStyle = {
+		Color = Color3.fromRGB(87, 87, 87),
+	},
+	KnobBackground = Decoration.Image,
+	KnobBackgroundStyle = knobMaxValueStyle,
 }
 
 -- Rest of the values come from UILibrary createTheme.lua and StudioStyle.lua
@@ -547,7 +632,9 @@ local PluginTheme = {
 	ikTheme = ikTheme,
 	checkBox = checkBoxTheme,
 	faceSliderTheme = faceSliderTheme,
+	faceSliderMaxValueTheme = faceSliderMaxValueTheme,
 	faceDragBoxTheme = faceDragBoxTheme,
+	faceDragBoxMaxValueTheme = faceDragBoxMaxValueTheme,
 	roundFrame = roundFrameTheme,
 	button = buttonTheme,
 	keyframe = keyframe,

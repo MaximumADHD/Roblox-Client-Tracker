@@ -43,6 +43,6 @@ local enumToName = {
 	[Enum.Material.WoodPlanks] = "WoodPlanks",
 }
 
-return function(material : Enum.Material) : string
+return function(material: Enum.Material): string
 	return enumToName[material]
 end

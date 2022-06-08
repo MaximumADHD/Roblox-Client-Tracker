@@ -29,20 +29,28 @@
 	[GetCurrentSelection]
 		Passthrough BindableFunction to AbstractItemView
 --]]
+local FFlagRemoveUILibraryFitContent = game:GetFastFlag("RemoveUILibraryFitContent")
 
 local Plugin = script.Parent.Parent.Parent
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Roact = require(Plugin.Packages.Roact)
-local createFitToContent = UILibrary.Component.createFitToContent
 
 local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
 
 local AbstractItemView = require(Plugin.Src.Components.AbstractItemView)
 
-local FitToContent = createFitToContent("Frame", "UIListLayout", {
-    SortOrder = Enum.SortOrder.LayoutOrder,
-    FillDirection = Enum.FillDirection.Vertical,
-})
+local Framework = require(Plugin.Packages.Framework)
+local UI = Framework.UI
+local Pane = UI.Pane
+
+local FitToContent
+if not FFlagRemoveUILibraryFitContent then
+	local createFitToContent = UILibrary.Component.createFitToContent
+	FitToContent = createFitToContent("Frame", "UIListLayout", {
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		FillDirection = Enum.FillDirection.Vertical,
+	})
+end
 
 local ListItemView = Roact.Component:extend("ListItemView")
 
@@ -71,7 +79,7 @@ function ListItemView:render()
 	local verticalAlignment = self.props.VerticalAlignment
 	local padding = self.props.Padding
 
-    return Roact.createElement(AbstractItemView, {
+	return Roact.createElement(AbstractItemView, {
 		Size = UDim2.new(1,0,1,0),
 
 		GetCurrentSelection = getCurrentSelection,
@@ -108,10 +116,16 @@ function ListItemView:render()
 						self.contentSizeChanged(rbx.AbsoluteContentSize)
 					end,
 				}),
-
-				FitContent = Roact.createElement(FitToContent, {
-
-				}, children),
+				FitContent = (
+					if FFlagRemoveUILibraryFitContent then
+						Roact.createElement(Pane, {
+							AutomaticSize = Enum.AutomaticSize.Y,
+							HorizontalAlignment = Enum.HorizontalAlignment.Left,
+							Layout = Enum.FillDirection.Vertical,
+						}, children)
+					else
+						Roact.createElement(FitToContent, {}, children)
+				),
 			})
 		end,
 	})

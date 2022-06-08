@@ -87,7 +87,7 @@ local enumToTexture = {
 	}
 }
 
-local builtInMaterialVariants : _Types.Array<MaterialVariant> = {}
+local builtInMaterialVariants: _Types.Array<MaterialVariant> = {}
 
 for _, material in ipairs(getSupportedMaterials()) do
 	local materialVariant = Instance.new("MaterialVariant")

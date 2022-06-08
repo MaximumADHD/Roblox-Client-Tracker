@@ -5,6 +5,7 @@ local TARGET = "studio"
 local CONTEXT = "animationEditor"
 
 local GetFFlagFacsAnimationExportAnalytics = require(Plugin.LuaFlags.GetFFlagFacsAnimationExportAnalytics)
+local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 
 return function(analyticsService)
 	local function sendEvent(eventName, additionalArgs)
@@ -73,8 +74,13 @@ return function(analyticsService)
             sendEvent("userChoseSelectedModelForAnimImport")
         end,
 
-        onExportAnimation = function(_, hasFacs)
-            if GetFFlagFacsAnimationExportAnalytics() then
+        onExportAnimation = function(_, hasFacs, animationType)
+            if GetFFlagCurveAnalytics() then
+                sendEvent("exportAnimation", {
+                    animationType = animationType,
+                    hasFacs = if GetFFlagFacsAnimationExportAnalytics() then hasFacs else nil,
+                })
+            elseif GetFFlagFacsAnimationExportAnalytics() then
                 sendEvent("exportAnimation", {
                     hasFacs = hasFacs,
                 })
@@ -83,8 +89,9 @@ return function(analyticsService)
             end
         end,
 
-        onLoadAnimation = function(_, name, numKeyframes, numPoses, numEvents)
+        onLoadAnimation = function(_, name, numKeyframes, numPoses, numEvents, animationType)
             sendEvent("loadAnimation", {
+                animationType = animationType,
                 name = name,
                 numKeyframes = numKeyframes,
                 numPoses = numPoses,
@@ -92,8 +99,9 @@ return function(analyticsService)
             })
         end,
 
-        onSaveAnimation = function(_, name, numKeyframes, numPoses, numEvents)
+        onSaveAnimation = function(_, name, numKeyframes, numPoses, numEvents, animationType)
             sendEvent("saveAnimation", {
+                animationType = animationType,
                 name = name,
                 numKeyframes = numKeyframes,
                 numPoses = numPoses,
@@ -200,6 +208,23 @@ return function(analyticsService)
             sendEvent("deleteKeyframe", {
                 trackName = trackName,
                 frame = tick,  -- TODO: Check with analytics when to rename this parameter to Tick
+            })
+        end,
+
+        onPromoteAnimation = function(_, name, numTracks, numKeyframes, numEvents)
+            sendEvent("promoteAnimation", {
+                name = name,
+                numKeyframes = numKeyframes,
+                numTracks = numTracks,
+                numEvents = numEvents,
+            })
+        end,
+
+		onEditorModeSwitch = function(_, oldMode, newMode, duration)
+            sendEvent("editorModeSwitch", {
+                oldMode = oldMode,
+                newMode = newMode,
+                duration = duration,
             })
         end,
     }

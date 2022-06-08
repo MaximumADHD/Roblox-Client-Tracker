@@ -11,19 +11,11 @@
 		UDim2 Size: The size of the scrolling frame.
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent
-local FFlagDevFrameworkResponsiveGrid2 = game:GetFastFlag("DevFrameworkResponsiveGrid2")
-if not FFlagDevFrameworkResponsiveGrid2 then
-	return {}
-end
-local FFlagDevFrameworkAddUnobtrusiveLinkTextStyle = game:GetFastFlag("DevFrameworkAddUnobtrusiveLinkTextStyle")
-local FFlagDevFrameworkScrollingFrameAddPadding = game:GetFastFlag("DevFrameworkScrollingFrameAddPadding")
-
 local Libs = Plugin.Packages
 local Framework = require(Libs.Framework)
 local Roact = require(Libs.Roact)
 
 local Util = Plugin.Core.Util
-local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
 local Urls = require(Util.Urls)
 
@@ -157,12 +149,12 @@ function SubcategoriesView:render()
 			},
 			CanvasSize = UDim2.new(1, 0, 0, 0),
 			EnableScrollBarBackground = true,
-			Padding = if FFlagDevFrameworkScrollingFrameAddPadding then Constants.MAIN_VIEW_PADDING else nil,
+			Padding = Constants.MAIN_VIEW_PADDING,
 			Size = size,
 		}, {
 			BackButton = Roact.createElement(LinkText, {
 				OnClick = self.onClickBack,
-				Style = if FFlagDevFrameworkAddUnobtrusiveLinkTextStyle then "Unobtrusive" else nil,
+				Style = "Unobtrusive",
 				Text = backText,
 			}),
 

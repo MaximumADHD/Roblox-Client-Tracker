@@ -19,7 +19,6 @@ local MemStorageService = game:GetService("MemStorageService")
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxRefactorSearchOptions = game:GetFastFlag("ToolboxRefactorSearchOptions")
 local FFlagToolboxAudioLengthSearchFix =
 	require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioLengthSearchFix()
 
@@ -151,9 +150,7 @@ function Toolbox:init(props)
 			Analytics.onSearchOptionsOpened()
 		end
 
-		if FFlagToolboxRefactorSearchOptions then
-			getModal(self).onSearchOptionsToggled(not showSearchOptions)
-		end
+		getModal(self).onSearchOptionsToggled(not showSearchOptions)
 
 		self:setState({
 			showSearchOptions = not showSearchOptions,
@@ -359,14 +356,10 @@ function Toolbox:render()
 
 				maxWidth = toolboxWidth,
 				suggestions = suggestions,
-				showSearchOptions = if not FFlagToolboxRefactorSearchOptions then showSearchOptions else nil,
-				onSearchOptionsToggled = if not FFlagToolboxRefactorSearchOptions
-					then self.toggleSearchOptions
-					else nil,
 				tryOpenAssetConfig = tryOpenAssetConfig,
 			}),
 
-		SearchOptions = if FFlagToolboxRefactorSearchOptions and showSearchOptions
+		SearchOptions = if showSearchOptions
 			then Roact.createElement(SearchOptions, {
 				onSearchOptionsToggled = self.toggleSearchOptions,
 			})

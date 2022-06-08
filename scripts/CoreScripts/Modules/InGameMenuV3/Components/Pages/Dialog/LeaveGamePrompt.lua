@@ -43,7 +43,7 @@ function LeaveGamePrompt:render()
 		titleText = "CoreScripts.InGameMenu.Prompt.LeaveGameTitle",
 		bodyText = "CoreScripts.InGameMenu.Prompt.LeaveGameBodyText",
 		confirmText = "CoreScripts.InGameMenu.Prompt.LeaveGame",
-		cancelText = "CoreScripts.InGameMenu.Prompt.ResumeGame",
+		cancelText = "CoreScripts.InGameMenu.Cancel",
 	})(function(localized)
 		return Roact.createElement(LeavePrompt, {
 			titleText = localized.titleText,

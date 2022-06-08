@@ -61,6 +61,7 @@ local GetFFlagInGameMenuV1LeaveToHome = require(RobloxGui.Modules.Flags.GetFFlag
 local FFlagInGameMenuV1FullScreenTitleBar = game:DefineFastFlag("InGameMenuV1FullScreenTitleBar", false)
 local FFlagInGameMenuHomeButton = game:DefineFastFlag("InGameMenuHomeButton", false)
 local FFlagInGameMenuV1ExitModal = game:DefineFastFlag("InGameMenuV1ExitModal", false)
+local GetFFlagVoiceAbuseReportsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceAbuseReportsEnabled)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -501,7 +502,7 @@ local function CreateSettingsHub()
 			VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
 				updateIcon()
 			end)
-	
+
 			if GetFFlagPlayerListAnimateMic() then
 				local renderStepName = 'settings-hub-renderstep'
 				this.SettingsShowSignal:connect(function(isOpen)
@@ -549,7 +550,7 @@ local function CreateSettingsHub()
 				VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
 					updateIcon()
 				end)
-		
+
 				if GetFFlagPlayerListAnimateMic() then
 					local renderStepName = 'settings-hub-renderstep'
 					this.SettingsShowSignal:connect(function(isOpen)
@@ -2043,6 +2044,11 @@ local function CreateSettingsHub()
 			this.ReportSentPage = require(RobloxGui.Modules.Settings.Pages.ReportSentPage)
 			this.ReportSentPage:SetHub(this)
 		end
+
+		if GetFFlagVoiceAbuseReportsEnabled() then
+			this.ReportSentPageV2 = require(RobloxGui.Modules.Settings.Pages.ReportSentPageV2)
+			this.ReportSentPageV2:SetHub(this)
+		end
 	end
 
 	this.HelpPage = require(RobloxGui.Modules.Settings.Pages.Help)
@@ -2112,6 +2118,10 @@ local function CreateSettingsHub()
 	if this.ReportSentPage then
 		this:AddPage(this.ReportSentPage)
 	end
+	if this.ReportSentPageV2 then
+		this:AddPage(this.ReportSentPageV2)
+	end
+
 	this:AddPage(this.HelpPage)
 	if this.RecordPage then
 		this:AddPage(this.RecordPage)

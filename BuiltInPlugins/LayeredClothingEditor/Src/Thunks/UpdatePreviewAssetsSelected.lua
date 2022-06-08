@@ -8,10 +8,12 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+
+local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
+local PreviewConstantsInterface = AccessoryAndBodyToolSharedUtil.PreviewConstantsInterface
 
 local SetPreviewAssetsSelected = require(Plugin.Src.Actions.SetPreviewAssetsSelected)
-
-local PreviewConstantsInterface = require(Plugin.Src.Util.PreviewConstantsInterface)
 
 local function getUpdatedSelectedAssetsForTab(id, isAddingAsset, isMultiSelect, selectedAssetsForTab)
 	if isMultiSelect then

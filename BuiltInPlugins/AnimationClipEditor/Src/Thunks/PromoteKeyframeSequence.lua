@@ -16,7 +16,7 @@ local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
 local Types = require(Plugin.Src.Types)
 
-return function(): (Types.Store) -> ()
+return function(analytics): (Types.Store) -> ()
 	return function(store: Types.Store): ()
 		local state = store:getState()
 		local animationData = state.AnimationData
@@ -36,7 +36,7 @@ return function(): (Types.Store) -> ()
 		store:dispatch(SetSelectedKeyframes({}))
 
 		local newData = deepCopy(animationData)
-		AnimationData.promoteToChannels(newData, rotationType, eulerAnglesOrder)
+		local numTracks, numKeyframes = AnimationData.promoteToChannels(newData, rotationType, eulerAnglesOrder)
 
 		local tracks = state.Status.Tracks
 
@@ -47,5 +47,7 @@ return function(): (Types.Store) -> ()
 
 		store:dispatch(SortAndSetTracks(tracks))
 		store:dispatch(UpdateAnimationData(newData))
+
+		analytics:report("onPromoteAnimation", animationData.Metadata.Name, numTracks, numKeyframes)
 	end
 end

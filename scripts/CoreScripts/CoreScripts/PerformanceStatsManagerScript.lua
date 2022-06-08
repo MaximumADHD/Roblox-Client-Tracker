@@ -23,8 +23,6 @@ local StatsViewerClass = require(CoreGuiService.RobloxGui.Modules.Stats.StatsVie
 local masterFrame = Instance.new("Frame")
 masterFrame.Name = "PerformanceStats"
 
-local FFlagPerformanceProfilerAnalytics = settings():GetFFlag("PerformanceProfilerAnalytics")
-
 local statsAggregatorManager = StatsAggregatorManagerClass.getSingleton()
 local statsViewer = StatsViewerClass.new()
 local statsButtonsByType ={}
@@ -184,15 +182,13 @@ function UpdatePerformanceStatsVisibility()
 
   AnalyticsService:TrackEvent("Game", actionName, "", 0)
 
-  if FFlagPerformanceProfilerAnalytics then
-    if shouldBeVisible then
-      openTimeStamp = time()
-      AnalyticsService:ReportCounter(OpenCounterName, 1)
-    else
-      if openTimeStamp then
-        local timeDiff = time() - openTimeStamp
-        AnalyticsService:ReportStats(TimeOpenCounterName, timeDiff)
-      end
+  if shouldBeVisible then
+    openTimeStamp = time()
+    AnalyticsService:ReportCounter(OpenCounterName, 1)
+  else
+    if openTimeStamp then
+      local timeDiff = time() - openTimeStamp
+      AnalyticsService:ReportStats(TimeOpenCounterName, timeDiff)
     end
   end
 end

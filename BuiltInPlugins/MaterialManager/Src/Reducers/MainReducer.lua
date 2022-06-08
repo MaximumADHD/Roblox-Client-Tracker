@@ -5,8 +5,8 @@ local MaterialBrowserReducer = require(Plugin.Src.Reducers.MaterialBrowserReduce
 local MaterialPromptReducer = require(Plugin.Src.Reducers.MaterialPromptReducer)
 
 export type State = {
-	MaterialBrowserReducer : MaterialBrowserReducer.State,
-	MaterialPromptReducer : MaterialPromptReducer.State,
+	MaterialBrowserReducer: MaterialBrowserReducer.State,
+	MaterialPromptReducer: MaterialPromptReducer.State,
 }
 
 return (Rodux.combineReducers({

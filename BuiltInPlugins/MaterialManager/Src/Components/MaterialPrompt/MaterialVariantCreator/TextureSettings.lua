@@ -30,23 +30,23 @@ local ErrorTypes = getErrorTypes()
 local TextureMaps = getTextureMapNames()
 
 export type Props = {
-	LayoutOrder : number?,
+	LayoutOrder: number?,
 }
 
 type _Props = Props & {
-	Analytics : any,
-	Localization : any,
-	Stylizer : any,
+	Analytics: any,
+	Localization: any,
+	Stylizer: any,
 
-	ColorMap : _Types.TextureMap?,
-	MetalnessMap : _Types.TextureMap?,
-	NormalMap : _Types.TextureMap?,
-	RoughnessMap : _Types.TextureMap?,
+	ColorMap: _Types.TextureMap?,
+	MetalnessMap: _Types.TextureMap?,
+	NormalMap: _Types.TextureMap?,
+	RoughnessMap: _Types.TextureMap?,
 
-	dispatchSetColorMap : (_Types.TextureMap?) -> (),
-	dispatchSetMetalnessMap : (_Types.TextureMap?) -> (),
-	dispatchSetNormalMap : (_Types.TextureMap?) -> (),
-	dispatchSetRoughnessMap : (_Types.TextureMap?) -> (),
+	dispatchSetColorMap: (_Types.TextureMap?) -> (),
+	dispatchSetMetalnessMap: (_Types.TextureMap?) -> (),
+	dispatchSetNormalMap: (_Types.TextureMap?) -> (),
+	dispatchSetRoughnessMap: (_Types.TextureMap?) -> (),
 }
 
 local TextureSettings = Roact.PureComponent:extend("TextureSettings")
@@ -63,7 +63,7 @@ function TextureSettings:init()
 		urlRoughnessMap = "",
 	}
 
-	local function textureMapFromFileImport(file : File?) : _Types.TextureMap?
+	local function textureMapFromFileImport(file: File?): _Types.TextureMap?
 		local id
 		if file then
 			id = file:GetTemporaryId()
@@ -76,7 +76,7 @@ function TextureSettings:init()
 		return nil
 	end
 
-	local function getNewState(file : File?, assetId : number?)
+	local function getNewState(file: File?, assetId: number?)
 		local newState
 		if assetId then
 			newState = {
@@ -88,8 +88,8 @@ function TextureSettings:init()
 		return newState
 	end
 
-	self.selectTextureMap = function(mapType : string, file : File?, assetId : number?, failedError : string?)
-		local props : _Props = self.props
+	self.selectTextureMap = function(mapType: string, file: File?, assetId: number?, failedError: string?)
+		local props: _Props = self.props
 		local localization = props.Localization
 		local errorMessage = ""
 		local newState
@@ -152,19 +152,19 @@ function TextureSettings:init()
 		end
 	end
 
-	self.selectColorMap = function(file : File?, assetId : number?, failedError : string?)
+	self.selectColorMap = function(file: File?, assetId: number?, failedError: string?)
 		self.selectTextureMap(TextureMaps.ColorMap, file, assetId, failedError)
 	end
 
-	self.selectNormalMap = function(file : File?, assetId : number?, failedError : string?)
+	self.selectNormalMap = function(file: File?, assetId: number?, failedError: string?)
 		self.selectTextureMap(TextureMaps.NormalMap, file, assetId, failedError)
 	end
 
-	self.selectMetalnessMap = function(file : File?, assetId : number?, failedError : string?)
+	self.selectMetalnessMap = function(file: File?, assetId: number?, failedError: string?)
 		self.selectTextureMap(TextureMaps.MetalnessMap, file, assetId, failedError)
 	end
 
-	self.selectRoughnessMap = function(file : File?, assetId : number?, failedError : string?)
+	self.selectRoughnessMap = function(file: File?, assetId: number?, failedError: string?)
 		self.selectTextureMap(TextureMaps.RoughnessMap, file, assetId, failedError)
 	end
 
@@ -251,7 +251,7 @@ function TextureSettings:init()
 	end
 
 	self.renderContent = function(key: string)
-		local props : _Props = self.props
+		local props: _Props = self.props
 		local localization = props.Localization
 
 		-- TODO: remove key strings
@@ -334,7 +334,7 @@ function TextureSettings:init()
 	end
 
 	self.getText = function(key: string)
-		local props : _Props = self.props
+		local props: _Props = self.props
 		local localization = props.Localization
 
 		return localization:getText("CreateDialog", key)
@@ -342,7 +342,7 @@ function TextureSettings:init()
 end
 
 function TextureSettings:render()
-	local props : _Props = self.props
+	local props: _Props = self.props
 
 	-- TODO: add texture map functionality
 	local items = {
@@ -370,7 +370,7 @@ TextureSettings = withContext({
 
 
 
-local function mapStateToProps(state : MainReducer.State, _)
+local function mapStateToProps(state: MainReducer.State, _)
 	return {
 		ColorMap = state.MaterialPromptReducer.ColorMap,
 		MetalnessMap = state.MaterialPromptReducer.MetalnessMap,

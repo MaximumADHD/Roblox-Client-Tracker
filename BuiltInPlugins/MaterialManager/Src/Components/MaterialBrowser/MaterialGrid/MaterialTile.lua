@@ -1,3 +1,6 @@
+-- Remove MaterialTile with FFlagMaterialManagerGridListView
+local FFlagDevFrameworkRemoveFitFrame = game:GetFastFlag("DevFrameworkRemoveFitFrame")
+
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local _Types = require(Plugin.Src.Types)
 local Roact = require(Plugin.Packages.Roact)
@@ -28,51 +31,83 @@ local StatusIcon = require(Components.StatusIcon)
 local getFullMaterialType = require(Plugin.Src.Resources.Constants.getFullMaterialType)
 local getMaterialName = require(Plugin.Src.Resources.Constants.getMaterialName)
 local MaterialController = require(Plugin.Src.Util.MaterialController)
+local ApplyToSelection = require(Plugin.Src.Util.ApplyToSelection)
 
--- TODO: cleaning up for the FFLagMaterialVariantTempIdCompatibility - remove all texture maps from that file
 local Flags = Plugin.Src.Flags
-local getFFlagMaterialVariantTempIdCompatibility = require(Flags.getFFlagMaterialVariantTempIdCompatibility)
 local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
 
 export type Props = {
-	Item : _Types.Material,
-	LayoutOrder : number?,
-	OnClick : (material : _Types.Material) -> (),
-	Padding : number?,
-	SetUpdate : ((item : _Types.Material, layoutOrder : number?, property : string) -> ()),
-	Size : UDim2?,
+	Item: _Types.Material,
+	LayoutOrder: number?,
+	OnClick: (material: _Types.Material) -> (),
+	Padding: number?,
+	SetUpdate: ((item: _Types.Material, layoutOrder: number?, property: string) -> ()),
+	Size: UDim2?,
 }
 
 type _Props = Props & {
-	Analytics : any,
-	Localization : any,
-	Material : _Types.Material,
-	MaterialController : any,
-	Stylizer : any,
+	Analytics: any,
+	Localization: any,
+	Material: _Types.Material,
+	MaterialController: any,
+	Stylizer: any,
 }
 
 type _Style = {
-	IconSize : UDim2,
-	MaterialVariant : _Types.Image,
-	MaterialVariantIconPosition : UDim2,
-	MaxWidth : number,
-	Padding : number,
-	Size : UDim2,
-	Spacing : number,
-	StatusIconPosition : UDim2,
-	TextLabelSize : UDim2,
-	TextSize : number,
+	IconSize: UDim2,
+	MaterialVariant: _Types.Image,
+	MaterialVariantIconPosition: UDim2,
+	MaxWidth: number,
+	Padding: number,
+	Size: UDim2,
+	Spacing: number,
+	StatusIconPosition: UDim2,
+	TextLabelSize: UDim2,
+	TextSize: number,
 }
 
 local MaterialTile = Roact.PureComponent:extend("MaterialTile")
 
 function MaterialTile:init()
 	self.onClick = function()
-		local props : _Props = self.props
+		local props: _Props = self.props
 
 		props.OnClick(props.Item)
 	end
+
+	self.onMouseEnter = function()
+		self:setState({
+			hover = true
+		})
+	end
+
+	self.onMouseLeave = function()
+		self:setState({
+			hover = false
+		})
+	end
+
+	self.applyToSelection = function()
+		local props : _Props = self.props
+		local item = props.Item
+
+		local isBuiltin = if getFFlagMaterialManagerGlassNeonForceField() then not item.MaterialVariant else item.IsBuiltin
+
+		if isBuiltin then
+			if getFFlagMaterialManagerGlassNeonForceField() then
+				ApplyToSelection(item.Material)
+			elseif props.Item.MaterialVariant then
+				ApplyToSelection(props.Item.MaterialVariant.BaseMaterial)
+			end
+		elseif props.Item.MaterialVariant then
+			ApplyToSelection(if getFFlagMaterialManagerGlassNeonForceField() then item.Material else props.Item.MaterialVariant.BaseMaterial, props.Item.MaterialVariant.Name)
+		end
+	end
+
+	self.state = {
+		hover = false
+	}
 end
 
 function MaterialTile:willUnmount()
@@ -88,10 +123,10 @@ function MaterialTile:willUnmount()
 end
 
 function MaterialTile:didMount()
-	local props : _Props = self.props
+	local props: _Props = self.props
 
 	self.changedConnection = props.MaterialController:getMaterialChangedSignal():Connect(function(materialVariant)
-		local props : _Props = self.props
+		local props: _Props = self.props
 
 		if materialVariant == props.Item.MaterialVariant then
 			self:setState({})
@@ -99,7 +134,7 @@ function MaterialTile:didMount()
 	end)
 
 	self.overrideStatusChangedConnection = props.MaterialController:getOverrideStatusChangedSignal():Connect(function(materialType)
-		local props : _Props = self.props
+		local props: _Props = self.props
 
 		if getFFlagMaterialManagerGlassNeonForceField() then
 			if not props.Item.MaterialVariant and materialType == props.Item.Material then
@@ -114,41 +149,28 @@ function MaterialTile:didMount()
 end
 
 function MaterialTile:render()
-	local props : _Props = self.props
-	local style : _Style = props.Stylizer.MaterialTile
+	local props: _Props = self.props
+	local style: _Style = props.Stylizer.MaterialTile
 	local localization = props.Localization
 
 	local item = props.Item
 	local materialVariant = item.MaterialVariant
 
 	local name
-	local colorMap, metalnessMap, normalMap, roughnessMap
-
 	if getFFlagMaterialManagerGlassNeonForceField() then
 		name = if not materialVariant then localization:getText("Materials", getMaterialName(item.Material)) else materialVariant.Name
-
-		if materialVariant then
-			colorMap = materialVariant.ColorMap
-			metalnessMap = materialVariant.MetalnessMap
-			normalMap = materialVariant.NormalMap
-			roughnessMap = materialVariant.RoughnessMap
-		end
 	else
-		colorMap = materialVariant.ColorMap
-		metalnessMap = materialVariant.MetalnessMap
 		name = if item.IsBuiltin then localization:getText("Materials", materialVariant.Name) else materialVariant.Name
-		normalMap = materialVariant.NormalMap
-		roughnessMap = materialVariant.RoughnessMap
 	end
 
 	local fullMaterialType = getFullMaterialType(item, localization)
-	local padding = prioritize(props.Padding, style.Padding)
-	local size = prioritize(props.Size, style.Size)
-	local spacing = style.Spacing
 	local textSize = style.TextSize
 
 	-- Remove and replace with getFFlagMaterialManagerGlassNeonForceField
-	local isBuiltin = if getFFlagMaterialManagerGlassNeonForceField() then not item.MaterialVariant else item.IsBuiltin
+	local isBuiltin = if getFFlagMaterialManagerGlassNeonForceField() then not materialVariant else item.IsBuiltin
+	local padding = prioritize(props.Padding, style.Padding)
+	local size = prioritize(props.Size, style.Size)
+	local spacing = style.Spacing
 
 	return Roact.createElement(Button, {
 		LayoutOrder = props.LayoutOrder,
@@ -165,23 +187,10 @@ function MaterialTile:render()
 			Spacing = padding,
 			Size = size,
 		}, {
-			MaterialPreview = getFFlagMaterialVariantTempIdCompatibility() and Roact.createElement(MaterialPreview, {
+			MaterialPreview = Roact.createElement(MaterialPreview, {
 				LayoutOrder = 1,
 				Material = if getFFlagMaterialManagerGlassNeonForceField() then item.Material else materialVariant.BaseMaterial,
 				MaterialVariant = if not isBuiltin then materialVariant.Name else nil,
-				Size = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then
-					UDim2.fromOffset(160, 140)
-					else
-					UDim2.new(size.X.Scale, size.X.Offset - (2 * padding), size.Y.Scale,  size.Y.Offset - (2 * padding) - spacing - textSize),
-				Static = true,
-			}) or Roact.createElement(MaterialPreview, {
-				ColorMap = colorMap,
-				LayoutOrder = 1,
-				Material = if getFFlagMaterialManagerGlassNeonForceField() then item.Material else materialVariant.BaseMaterial,
-				MaterialVariant = if not isBuiltin then materialVariant.Name else nil,
-				MetalnessMap = metalnessMap,
-				NormalMap = normalMap,
-				RoughnessMap = roughnessMap,
 				Size = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then
 					UDim2.fromOffset(160, 140)
 					else
@@ -195,7 +204,7 @@ function MaterialTile:render()
 				Size = style.TextLabelSize,
 			}, {
 				Name = Roact.createElement(TextLabel, {
-					FitMaxWidth = style.MaxWidth,
+					FitMaxWidth = if FFlagDevFrameworkRemoveFitFrame then nil else style.MaxWidth,
 					Size = UDim2.fromScale(1, 1),
 					Text = name,
 					TextSize = textSize,
@@ -244,6 +253,8 @@ return RoactRodux.connect(
 	function(state, props)
 		return {
 			Material = state.MaterialBrowserReducer.Material,
+			MaterialTileSize = state.MaterialBrowserReducer.MaterialTileSize,
+			MenuHover = state.MaterialBrowserReducer.MenuHover,
 		}
 	end
 )(MaterialTile)

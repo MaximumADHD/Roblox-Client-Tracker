@@ -25,27 +25,27 @@ local MaterialController = require(Util.MaterialController)
 local SideBar = Roact.PureComponent:extend("SideBar")
 
 export type Props = {
-	LayoutOrder : number?,
-	Size : UDim2?,
+	LayoutOrder: number?,
+	Size: UDim2?,
 }
 
 type _Props = Props & {
-	Analytics : any,
-	Path : _Types.Path,
-	dispatchSetPath : (path : _Types.Path) -> (),
-	Localization : any,
-	MaterialController : any,
-	Stylizer : any,
+	Analytics: any,
+	Path: _Types.Path,
+	dispatchSetPath: (path: _Types.Path) -> (),
+	Localization: any,
+	MaterialController: any,
+	Stylizer: any,
 }
 
 type _state = {
-	Expansion : _Types.Map<any, boolean>,
-	Selection : _Types.Map<any, boolean>,
-	lastPath : _Types.Path,
+	Expansion: _Types.Map<any, boolean>,
+	Selection: _Types.Map<any, boolean>,
+	lastPath: _Types.Path,
 }
 
 function SideBar:updateSelection()
-	local props : _Props = self.props
+	local props: _Props = self.props
 
 	if #props.Path ~= 0 and self.state.lastPath ~= props.Path then
 		local parentCategories = {}
@@ -108,7 +108,7 @@ function SideBar:init()
 	end
 
 	self.onSelectionChange = function(newSelection)
-		local props : _Props = self.props
+		local props: _Props = self.props
 
 		for key, value in pairs(newSelection) do
 			props.dispatchSetPath(key.path)
@@ -127,7 +127,7 @@ function SideBar:init()
 end
 
 function SideBar:didMount()
-	local props : _Props = self.props
+	local props: _Props = self.props
 	local localization = props.Localization
 	local rootCategory = props.MaterialController:getRootCategory()
 
@@ -149,8 +149,8 @@ function SideBar:didUpdate()
 end
 
 function SideBar:render()
-	local props : _Props = self.props
-	local state : _state = self.state
+	local props: _Props = self.props
+	local state: _state = self.state
 
 	local size = props.Size
 	local layoutOrder = props.LayoutOrder

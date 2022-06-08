@@ -40,6 +40,6 @@ local enumToType = {
 	[Enum.Material.WoodPlanks] = "Base",
 }
 
-return function(material : Enum.Material) : _Types.MaterialType
+return function(material: Enum.Material): _Types.MaterialType
 	return enumToType[material]
 end

@@ -26,53 +26,53 @@ local Flags = Plugin.Src.Flags
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
 
 export type Props = {
-	LayoutOrder : number?,
-	MockMaterial : _Types.Material?,
+	LayoutOrder: number?,
+	MockMaterial: _Types.Material?,
 }
 
 type _Props = Props & { 
-	Analytics : any,
-	Localization : any,
-	Material : _Types.Material?,
-	MaterialController : any,
-	Stylizer : any,
+	Analytics: any,
+	Localization: any,
+	Material: _Types.Material?,
+	MaterialController: any,
+	Stylizer: any,
 }
 
 type _Style = {
-	ButtonPosition : UDim2,
-	ButtonSize : UDim2,
-	ButtonStyle : string,
-	Close : _Types.Image,
-	CreateVariant : _Types.Image,
-	Delete : _Types.Image,
-	DropdownSize : UDim2,
-	Edit : _Types.Image,
-	HeaderBackground : Color3,
-	HeaderFont : Enum.Font,
-	HeaderSize : UDim2,
-	ImagePosition : UDim2,
-	ImageSize : UDim2,
-	NameLabelSizeBuiltIn : UDim2,
-	NameLabelSizeVariant : UDim2,
-	NoTexture : string,
-	LabelRowSize : UDim2,
-	OverrideSize : UDim2,
-	Padding : number,
-	SectionHeaderTextSize : number,
-	TextureLabelSize : UDim2,
-	AdditionalLabelSize : UDim2,
-	AdditionalTextSize : UDim2,
-	TextureRowSize : UDim2,
-	TextureSize : UDim2,
-	TitleTextSize : number,
+	ButtonPosition: UDim2,
+	ButtonSize: UDim2,
+	ButtonStyle: string,
+	Close: _Types.Image,
+	CreateVariant: _Types.Image,
+	Delete: _Types.Image,
+	DropdownSize: UDim2,
+	Edit: _Types.Image,
+	HeaderBackground: Color3,
+	HeaderFont: Enum.Font,
+	HeaderSize: UDim2,
+	ImagePosition: UDim2,
+	ImageSize: UDim2,
+	NameLabelSizeBuiltIn: UDim2,
+	NameLabelSizeVariant: UDim2,
+	NoTexture: string,
+	LabelRowSize: UDim2,
+	OverrideSize: UDim2,
+	Padding: number,
+	SectionHeaderTextSize: number,
+	TextureLabelSize: UDim2,
+	AdditionalLabelSize: UDim2,
+	AdditionalTextSize: UDim2,
+	TextureRowSize: UDim2,
+	TextureSize: UDim2,
+	TitleTextSize: number,
 }
 
 local MaterialAdditional = Roact.PureComponent:extend("MaterialAdditional")
 
 function MaterialAdditional:init()
-	self.createAdditionalElement = function(name : string, text : string, layoutOrder : number)
-		local props : _Props = self.props
-		local style : _Style = props.Stylizer.MaterialDetails
+	self.createAdditionalElement = function(name: string, text: string, layoutOrder: number)
+		local props: _Props = self.props
+		local style: _Style = props.Stylizer.MaterialDetails
 
 		return Roact.createElement(Pane, {
 			Layout = Enum.FillDirection.Horizontal,
@@ -105,10 +105,10 @@ function MaterialAdditional:willUnmount()
 end
 
 function MaterialAdditional:didMount()
-	local props : _Props = self.props
+	local props: _Props = self.props
 	local materialController = props.MaterialController
 
-	self.connection = materialController:getMaterialChangedSignal():Connect(function(materialVariant : MaterialVariant)
+	self.connection = materialController:getMaterialChangedSignal():Connect(function(materialVariant: MaterialVariant)
 		if self.props.Material and self.props.Material.MaterialVariant == materialVariant then
 			self:setState({})
 		end
@@ -116,8 +116,8 @@ function MaterialAdditional:didMount()
 end
 
 function MaterialAdditional:render()
-	local props : _Props = self.props
-	local style : _Style = props.Stylizer.MaterialDetails
+	local props: _Props = self.props
+	local style: _Style = props.Stylizer.MaterialDetails
 	local localization = props.Localization
 	local material = props.Material
 
@@ -167,7 +167,7 @@ MaterialAdditional = withContext({
 
 
 
-local function mapStateToProps(state : MainReducer.State, props : _Props)
+local function mapStateToProps(state: MainReducer.State, props: _Props)
 	return {
 		Material = props.MockMaterial or state.MaterialBrowserReducer.Material,
 	}

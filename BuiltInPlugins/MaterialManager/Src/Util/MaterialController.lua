@@ -26,13 +26,13 @@ local getSupportedMaterials = require(Constants.getSupportedMaterials)
 local supportedMaterials = getSupportedMaterials()
 
 export type Category = {
-	Builtin : boolean,
-	Categories : _Types.Map<string, Category>,
-	CategoryNames : _Types.Array<string>,
-	Materials : _Types.Array<_Types.Material>,
+	Builtin: boolean,
+	Categories: _Types.Map<string, Category>,
+	CategoryNames: _Types.Array<string>,
+	Materials: _Types.Array<_Types.Material>,
 }
 
-local function recurseMaterials(category : Category, materialList : _Types.Array<_Types.Material>, filter : ((material : _Types.Material) -> boolean)?)
+local function recurseMaterials(category: Category, materialList: _Types.Array<_Types.Material>, filter: ((material: _Types.Material) -> boolean)?)
 	-- Optimized to make sure we don't need to check for filter's existence every iteration
 	if filter then
 		for _, material in ipairs(category.Materials) do
@@ -174,14 +174,14 @@ function MaterialController:getRootCategory() : Category
 	return self._rootCategory
 end
 
-function MaterialController:addCategory(path : _Types.Path, builtin : boolean) : Category?
+function MaterialController:addCategory(path: _Types.Path, builtin: boolean): Category?
 	return self:findCategory(path, builtin, true)
 end
 
-function MaterialController:findCategory(path : _Types.Path, builtin : boolean?, add : boolean?) : Category?
+function MaterialController:findCategory(path: _Types.Path, builtin: boolean?, add: boolean?): Category?
 	assert(#path > 0 or not add, "Can't add root category")
 
-	local category : Category = self._rootCategory
+	local category: Category = self._rootCategory
 	local changed = false
 	for _, directory in ipairs(path) do
 		if category.Categories[directory] then
@@ -211,19 +211,19 @@ function MaterialController:findCategory(path : _Types.Path, builtin : boolean?,
 	return category
 end
 
-function MaterialController:removeCategory(path : _Types.Path)
+function MaterialController:removeCategory(path: _Types.Path)
 	-- TODO
 
 	assert(false, "MaterialController does not currently support removing categories")
 end
 
-function MaterialController:moveCategory(source : _Types.Path, target : _Types.Path)
+function MaterialController:moveCategory(source: _Types.Path, target: _Types.Path)
 	-- TODO
 
 	assert(false, "MaterialController does not currently support moving categories")
 end
 
-function MaterialController:getCategoriesChangedSignal() : RBXScriptSignal
+function MaterialController:getCategoriesChangedSignal(): RBXScriptSignal
 	return self._categoryChangedSignal
 end
 
@@ -329,7 +329,7 @@ function MaterialController:removeMaterial(material : MaterialVariant, moving : 
 	self._materialRemovedSignal:Fire(path, material, moving)
 end
 
-function MaterialController:moveMaterial(material : MaterialVariant)
+function MaterialController:moveMaterial(material: MaterialVariant)
 	assert(self._materialPaths[material], "Tried to move material that wasn't registered.")
 
 	self:removeMaterial(material, true)
@@ -341,11 +341,11 @@ function MaterialController:moveMaterial(material : MaterialVariant)
 	end
 end
 
-function MaterialController:getMaterial(material : MaterialVariant)
+function MaterialController:getMaterial(material: MaterialVariant)
 	return self._materialWrappers[material]
 end
 
-function MaterialController:getMaterials(path : _Types.Path, search : string?) : _Types.Array<_Types.Material>
+function MaterialController:getMaterials(path: _Types.Path, search: string?): _Types.Array<_Types.Material>
 	local category = self:findCategory(path)
 	assert(category, "Tried to get materials for path which does not exist")
 
@@ -386,7 +386,7 @@ function MaterialController:getMaterials(path : _Types.Path, search : string?) :
 	return materials
 end
 
-function MaterialController:getVariants(baseMaterial : Enum.Material)
+function MaterialController:getVariants(baseMaterial: Enum.Material)
 	local category = self:findCategory({})
 	assert(category, "Tried to get materials for path which does not exist")
 
@@ -405,7 +405,7 @@ function MaterialController:getVariants(baseMaterial : Enum.Material)
 	return materials
 end
 
-function MaterialController:ifMaterialNameExists(name : string, baseMaterial : Enum.Material) : boolean
+function MaterialController:ifMaterialNameExists(name: string, baseMaterial: Enum.Material): boolean
 	local category = self:findCategory({})
 	assert(category, "Tried to get materials for path which does not exist")
 
@@ -423,7 +423,7 @@ function MaterialController:ifMaterialNameExists(name : string, baseMaterial : E
 	return #materials ~= 0
 end
 
-function MaterialController:getUses2022Materials() : boolean
+function MaterialController:getUses2022Materials(): boolean
 	if getFFlagMaterialPack2022Update() then
 		if getFFlagDevFrameworkMockWrapper() then
 			return self._materialServiceWrapper:asService().Use2022Materials
@@ -475,7 +475,7 @@ function MaterialController:setMaterialOverride(material : Enum.Material, materi
 	end
 end
 
-function MaterialController:getMaterialOverrides(material : Enum.Material) : (_Types.Array<_Types.Material>, number)
+function MaterialController:getMaterialOverrides(material: Enum.Material): (_Types.Array<_Types.Material>, number)
 	local currentOverride = self:getMaterialOverride(material)
 
 	local materialIndex = -1
@@ -521,23 +521,23 @@ function MaterialController:getMaterialVariant(material : Enum.Material, name : 
 	end
 end
 
-function MaterialController:getMaterialAddedSignal() : RBXScriptSignal
+function MaterialController:getMaterialAddedSignal(): RBXScriptSignal
 	return self._materialAddedSignal
 end
 
-function MaterialController:getMaterialRemovedSignal() : RBXScriptSignal
+function MaterialController:getMaterialRemovedSignal(): RBXScriptSignal
 	return self._materialRemovedSignal
 end
 
-function MaterialController:getMaterialChangedSignal() : RBXScriptSignal
+function MaterialController:getMaterialChangedSignal(): RBXScriptSignal
 	return self._materialChangedSignal
 end
 
-function MaterialController:getMaterialNameChangedSignal() : RBXScriptSignal
+function MaterialController:getMaterialNameChangedSignal(): RBXScriptSignal
 	return self._materialNameChangedSignal
 end
 
-function MaterialController:getOverrideChangedSignal() : RBXScriptSignal
+function MaterialController:getOverrideChangedSignal(): RBXScriptSignal
 	return self._overrideChangedSignal
 end
 

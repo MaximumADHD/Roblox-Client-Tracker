@@ -7,6 +7,7 @@ local SourceStrings = Plugin.Src.Resources.SourceStrings
 local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 
 local StudioService = game:GetService("StudioService")
+local StudioPublishService = game:GetService("StudioPublishService")
 
 local args : PluginLoaderBuilder.Args = {
 	plugin = plugin,
@@ -17,15 +18,21 @@ local args : PluginLoaderBuilder.Args = {
 	localizationNamespace = nil,
 	noToolbar = true,
 	extraTriggers = {
-		["StudioService.OnSaveOrPublishPlaceToRoblox"] = function()
-			return StudioService.OnSaveOrPublishPlaceToRoblox
+		["StudioService.DEPRECATED_OnSaveOrPublishPlaceToRoblox"] = function()
+			return StudioService.DEPRECATED_OnSaveOrPublishPlaceToRoblox
 		end,
-		["StudioService.OnPublishPlaceToRoblox"] = function()
-			return StudioService.OnPublishPlaceToRoblox
+		["StudioService.DEPRECATED_OnPublishPlaceToRoblox"] = function()
+			return StudioService.DEPRECATED_OnPublishPlaceToRoblox
 		end,
-		["StudioService.GamePublishFinished"] = function()
-			return StudioService.GamePublishFinished
+		["StudioService.DEPRECATED_GamePublishFinished"] = function()
+			return StudioService.DEPRECATED_GamePublishFinished
 		end,
+		["StudioPublishService.GamePublishFinished"] = function()
+			return StudioPublishService.GamePublishFinished
+		end,
+		["StudioPublishService.OnSaveOrPublishPlaceToRoblox"] = function()
+			return StudioPublishService.OnSaveOrPublishPlaceToRoblox
+		end
 	},
 }
 

@@ -5,7 +5,7 @@ local Util = Plugin.Src.Util
 local CopyPath = require(Util.CopyPath)
 local MaterialController = require(Util.MaterialController)
 
-local function recurseCategories(categoriesSource : MaterialController.Category, categoriesPath : _Types.Path, localization)
+local function recurseCategories(categoriesSource: MaterialController.Category, categoriesPath: _Types.Path, localization)
 	local categoriesTarget = {}
 
 	for _, name in ipairs(categoriesSource.CategoryNames) do
@@ -31,7 +31,7 @@ local function recurseCategories(categoriesSource : MaterialController.Category,
 	return categoriesTarget
 end
 
-return function(categoriesSource : MaterialController.Category, localization)
+return function(categoriesSource: MaterialController.Category, localization)
 	local categories = recurseCategories(categoriesSource, {}, localization)
 
 	return categories

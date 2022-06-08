@@ -5,20 +5,20 @@
 	equal to the label text from theme.
 
 	Required Props:
-		callback GetText: ((key : string) -> string) gets the text for a label
+		callback GetText: ((key: string) -> string) gets the text for a label
 		table Items: A list of items to display , simply a list of strings
-		callback RenderContent: ((key : string) -> FrameworkTypes.RoactElement?) renders an element given a key
+		callback RenderContent: ((key: string) -> FrameworkTypes.RoactElement?) renders an element given a key
 
 	Optional Props:
 		number ColumnSpacing: The spacing between the columns of the list
-		UDim LabelColumnWidth : The width of the label column
+		UDim LabelColumnWidth: The width of the label column
 		number LayoutOrder: The layout order of the component
 		number Padding: The padding around the entire list
 		number Spacing: The spacing between elements in the list
 		Enum.TextXAlignment TextXAlignment: The X alignment of the text in the label
 		Enum.TextYAlignment TextYAlignment: The Y alignment of the text in the label
-		callback GetWarning: ((key : string) -> (warning : string?)) The warning to show below
-		callback GetError: ((key : string) -> (error : string?)) The error to show below
+		callback GetWarning: ((key: string) -> (warning: string?)) The warning to show below
+		callback GetError: ((key: string) -> (error: string?)) The error to show below
 ]]--
 
 local Plugin = script.Parent.Parent.Parent
@@ -42,54 +42,54 @@ local TextLabel = UI.Decoration.TextLabel
 local Pane = UI.Pane
 
 type _ListItemProps = {
-	AbsoluteSize : Vector2,
-	LabelColumnWidth : UDim,
-	LayoutOrder : number,
-	Spacing : number,
-	Text : string,
-	TextSize : number,
-	TextXAlignment : Enum.TextXAlignment,
-	TextYAlignment : Enum.TextYAlignment,
-	VerticalSpacing : number,
-	TextErrorOrWarningColor : Color3,
-	WrapperProps : any,
-	ErrorText : string?,
-	WarningText : string?,
+	AbsoluteSize: Vector2,
+	LabelColumnWidth: UDim,
+	LayoutOrder: number,
+	Spacing: number,
+	Text: string,
+	TextSize: number,
+	TextXAlignment: Enum.TextXAlignment,
+	TextYAlignment: Enum.TextYAlignment,
+	VerticalSpacing: number,
+	TextErrorOrWarningColor: Color3,
+	WrapperProps: any,
+	ErrorText: string?,
+	WarningText: string?,
 }
 
 type SharedProps = {
-	ColumnSpacing : number?,
-	GetText : (key : string) -> string,
-	Items : {string},
-	Padding : number?,
-	RenderContent : (key : string) -> FrameworkTypes.RoactElement?,
-	Spacing : number?,
-	TextXAlignment : Enum.TextXAlignment?,
-	TextYAlignment : Enum.TextYAlignment?,
-	GetWarning : ((key : string) -> string)?,
-	GetError : ((key : string) -> string)?,
+	ColumnSpacing: number?,
+	GetText: (key: string) -> string,
+	Items: {string},
+	Padding: number?,
+	RenderContent: (key: string) -> FrameworkTypes.RoactElement?,
+	Spacing: number?,
+	TextXAlignment: Enum.TextXAlignment?,
+	TextYAlignment: Enum.TextYAlignment?,
+	GetWarning: ((key: string) -> string)?,
+	GetError: ((key: string) -> string)?,
 }
 
 type ExternalProps = {
-	LabelColumnWidth : UDim?,
-	LayoutOrder : number?,
+	LabelColumnWidth: UDim?,
+	LayoutOrder: number?,
 }
 
 type InternalProps = {
-	LabelColumnWidth : UDim,
-	LayoutOrder : number,
-	Stylizer : any,
+	LabelColumnWidth: UDim,
+	LayoutOrder: number,
+	Stylizer: any,
 }
 
 export type Props = SharedProps & ExternalProps
 type _Props = SharedProps & InternalProps
 
 type _Style = {
-	ItemSpacing : number,
-	VerticalSpacing : number,
-	ItemPaddingHorizontal : UDim,
-	ErrorOrWarningTextSize : number,
-	ErrorOrWarningColor : Color3,
+	ItemSpacing: number,
+	VerticalSpacing: number,
+	ItemPaddingHorizontal: UDim,
+	ErrorOrWarningTextSize: number,
+	ErrorOrWarningColor: Color3,
 }
 
 -- LabeledElementListItem is a helper compoment internal to this module.
@@ -107,7 +107,7 @@ LabeledElementListItem.defaultProps = {
 }
 
 function LabeledElementListItem:render()
-	local props : _ListItemProps = self.props
+	local props: _ListItemProps = self.props
 
 	local fillDirection = Enum.FillDirection.Horizontal
 	local labelColumnWidth = props.LabelColumnWidth
@@ -141,7 +141,7 @@ function LabeledElementListItem:render()
 			Pane = Roact.createElement(Pane, join({
 				LayoutOrder = 3,
 				AutomaticSize = Enum.AutomaticSize.XY,
-			}, props.WrapperProps), (props :: any)[Roact.Children]),
+			}, props.WrapperProps), (props:: any)[Roact.Children]),
 			ErrorOrWarning = Roact.createElement(Pane, {
 				Size = UDim2.new(1, 0, 0, props.TextSize),
 				LayoutOrder = 4,
@@ -167,12 +167,12 @@ LabeledElementList.defaultProps = {
 }
 
 function LabeledElementList:render()
-	local props : _Props = self.props
+	local props: _Props = self.props
 	local getText = props.GetText
 	local items = props.Items
 	local renderContent = props.RenderContent
 	local labelColumnWidth = props.LabelColumnWidth
-	local style : _Style = props.Stylizer.LabeledElementList
+	local style: _Style = props.Stylizer.LabeledElementList
 
 	local children = {}
 	for index, item in ipairs(items) do

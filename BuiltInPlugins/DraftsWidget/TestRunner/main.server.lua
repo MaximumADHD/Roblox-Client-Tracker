@@ -7,6 +7,17 @@ require(script.Parent.defineLuaFlags)
 
 local Plugin = script.Parent.Parent
 
+local FFlagRemoveUILibraryFitContent = game:GetFastFlag("RemoveUILibraryFitContent")
+
+local getTheme
+local ContextServices
+if FFlagRemoveUILibraryFitContent then
+	local Framework = require(Plugin.Packages.Framework)
+	ContextServices = Framework.ContextServices
+	local makeTheme = Framework.Style.makeTheme
+	getTheme = makeTheme(Plugin.Src.Components)
+end
+
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 local MockDraftsService = require(Plugin.Src.TestHelpers.MockDraftsService)
 local DraftsService = game:GetService("DraftsService")
@@ -33,7 +44,7 @@ local CommitState = require(Plugin.Src.Symbols.CommitState)
 local DraftState = require(Plugin.Src.Symbols.DraftState)
 
 -- theme
-local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
+local DEPRECATED_PluginTheme = require(Plugin.Src.Resources.PluginTheme)
 
 -- localization
 local SourceStrings = Plugin.Src.Resources.SourceStrings
@@ -42,7 +53,7 @@ local Localization = UILibrary.Studio.Localization
 
 -- Plugin Specific Globals
 local roduxStore = Rodux.Store.new(MainReducer)
-local theme = PluginTheme.new()
+local theme = DEPRECATED_PluginTheme.new()
 local localization = Localization.new({
 	stringResourceTable = SourceStrings,
 	translationResourceTable = LocalizedStrings,
@@ -74,7 +85,7 @@ local function openPluginWindow()
 	end
 
 	-- create the roact tree
-	local servicesProvider = Roact.createElement(ServiceWrapper, {
+	local DEPRECATED_servicesProvider = Roact.createElement(ServiceWrapper, {
 		draftsService = draftsService,
 		plugin = plugin,
 		pluginGui = pluginGui,
@@ -82,11 +93,18 @@ local function openPluginWindow()
 		theme = theme,
 		store = roduxStore,
 	}, {
-		mainView = Roact.createElement(MainView, {
-		}),
+		mainView = Roact.createElement(MainView, {}),
 	})
 
-	pluginHandle = Roact.mount(servicesProvider, pluginGui)
+	if FFlagRemoveUILibraryFitContent then
+		pluginHandle = Roact.mount(ContextServices.provide({
+			Theme = getTheme()
+		}, {
+			Provide = DEPRECATED_servicesProvider
+		}), pluginGui)
+	else
+		pluginHandle = Roact.mount(DEPRECATED_servicesProvider, pluginGui)
+	end
 end
 
 --Closes and unmounts the Skeleton Editor popup window

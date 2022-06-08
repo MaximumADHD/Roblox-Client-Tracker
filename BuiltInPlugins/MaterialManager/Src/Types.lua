@@ -25,14 +25,14 @@ export type Material = {
 	2. Insert assetId -> add assetId
 ]]--
 export type TextureMap = {	
-	file : File?,
-	tempId : string?,
-	assetId : string?,
+	file: File?,
+	tempId: string?,
+	assetId: string?,
 }
 
 export type Image = {
-	Image : string,
-	Color : Color3,
+	Image: string,
+	Color: Color3,
 }
 
 return {}

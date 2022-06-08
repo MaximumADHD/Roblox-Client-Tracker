@@ -1,6 +1,7 @@
 --[[
 	A collapsible widget for advanced options
 ]]
+local FFlagRemoveUILibraryFitContent = game:GetFastFlag("RemoveUILibraryFitContent")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -8,11 +9,17 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local UILibrary = require(Plugin.Packages.UILibrary)
-local createFitToContent = UILibrary.Component.createFitToContent
-local FitToContent = createFitToContent("Frame", "UIListLayout", {
-    SortOrder = Enum.SortOrder.LayoutOrder,
-})
+local UI = Framework.UI
+local Pane = UI.Pane
+
+local FitToContent
+if not FFlagRemoveUILibraryFitContent then
+	local UILibrary = require(Plugin.Packages.UILibrary)
+    local createFitToContent = UILibrary.Component.createFitToContent
+    FitToContent = createFitToContent("Frame", "UIListLayout", {
+        SortOrder = Enum.SortOrder.LayoutOrder,
+    })
+end
 
 local Collapsible = Roact.PureComponent:extend("Collapsible")
 
@@ -84,13 +91,25 @@ function Collapsible:render()
 
 	local content = open and renderContent() or nil
 
-	return Roact.createElement(FitToContent, {
-		BackgroundTransparency = 1,
-		LayoutOrder = layoutOrder,
-	}, {
-		TopBar = topBar,
-		Content = content,
-	})
+	if FFlagRemoveUILibraryFitContent then
+		return Roact.createElement(Pane, {
+			AutomaticSize = Enum.AutomaticSize.Y,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			Layout = Enum.FillDirection.Vertical,
+			LayoutOrder = layoutOrder,
+		}, {
+			TopBar = topBar,
+			Content = content,
+		})
+	else
+		return Roact.createElement(FitToContent, {
+			BackgroundTransparency = 1,
+			LayoutOrder = layoutOrder,
+		}, {
+			TopBar = topBar,
+			Content = content,
+		})
+	end
 end
 
 Collapsible = withContext({

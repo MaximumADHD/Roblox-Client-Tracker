@@ -1,3 +1,5 @@
+local StudioPublishService = game:GetService("StudioPublishService")
+local FFLagMovePublishToStudioPublishService = game:GetFastFlag("MovePublishToStudioPublishService")
 local FFlagDebugBuiltInPluginModalsNotBlocking = game:GetFastFlag("DebugBuiltInPluginModalsNotBlocking")
 return function(plugin, pluginLoaderContext)
 	if not plugin then
@@ -118,7 +120,8 @@ return function(plugin, pluginLoaderContext)
 	local function main()
 		plugin.Name = Plugin.Name
 		makePluginGui()
-			pluginLoaderContext.signals["StudioService.OnSaveOrPublishPlaceToRoblox"]:Connect(
+		if FFLagMovePublishToStudioPublishService then
+			pluginLoaderContext.signals["StudioPublishService.OnSaveOrPublishPlaceToRoblox"]:Connect(
 				function(showGameSelect, isPublish, closeMode)
 						if isPublish then
 							pluginGui.Title = localization:getText("General", "PublishGame")
@@ -129,9 +132,25 @@ return function(plugin, pluginLoaderContext)
 				end
 			)
 
-		pluginLoaderContext.signals["StudioService.GamePublishFinished"]:Connect(function(success)
-			dataStore:dispatch(SetIsPublishing(false))
-		end)
+			pluginLoaderContext.signals["StudioPublishService.GamePublishFinished"]:Connect(function(success)
+				dataStore:dispatch(SetIsPublishing(false))
+			end)
+		else
+			pluginLoaderContext.signals["StudioService.DEPRECATED_OnSaveOrPublishPlaceToRoblox"]:Connect(
+				function(showGameSelect, isPublish, closeMode)
+						if isPublish then
+							pluginGui.Title = localization:getText("General", "PublishGame")
+						else
+							pluginGui.Title = localization:getText("General", "SaveGame")
+						end
+					openPluginWindow(showGameSelect, isPublish, closeMode)
+				end
+			)
+
+			pluginLoaderContext.signals["StudioService.DEPRECATED_GamePublishFinished"]:Connect(function(success)
+				dataStore:dispatch(SetIsPublishing(false))
+			end)
+		end
 	end
 	main()
 end

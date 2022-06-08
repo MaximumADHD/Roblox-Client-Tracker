@@ -19,6 +19,8 @@ local CaptureFocus = Framework.UI.CaptureFocus
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local GetFFlagFixButtonStyle = require(Plugin.LuaFlags.GetFFlagFixButtonStyle)
+
 local StartScreen = Roact.PureComponent:extend("StartScreen")
 
 function StartScreen:render()
@@ -56,7 +58,7 @@ function StartScreen:render()
 			InputText = localization:getText("Dialog", "AnimationName"),
 			Text = localization:getText("Title", "DefaultAnimationName"),
 			Buttons = {
-				{Key = true, Text = localization:getText("Dialog", "Create"), Style = style.Primary},
+				{Key = true, Text = localization:getText("Dialog", "Create"), Style = if GetFFlagFixButtonStyle() then "RoundPrimary" else style.Primary},
 			},
 			OnTextSubmitted = onCreateAnimation,
 		}),

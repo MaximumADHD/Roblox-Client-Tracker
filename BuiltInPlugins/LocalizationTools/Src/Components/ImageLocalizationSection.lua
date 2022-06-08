@@ -1,7 +1,6 @@
 --[[
 	For interacting with the Image Localization feature
 ]]
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)

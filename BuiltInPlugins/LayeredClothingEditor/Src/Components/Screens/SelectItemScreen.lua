@@ -20,6 +20,10 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 
+local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
+local ItemCharacteristics = AccessoryAndBodyToolSharedUtil.ItemCharacteristics
+local PreviewConstants = AccessoryAndBodyToolSharedUtil.PreviewConstants
+
 local Components = AvatarToolsShared.Components
 local ConfirmDialog = Components.ConfirmDialog
 local ConfirmCancelDialog = Components.ConfirmCancelDialog
@@ -29,15 +33,14 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
+local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
+
 local SetToolMode = require(Plugin.Src.Actions.SetToolMode)
 local AddUserAddedAssetForPreview = require(Plugin.Src.Thunks.AddUserAddedAssetForPreview)
 
 local SelectFrame = require(Plugin.Src.Components.SelectFrame)
 
-local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
 local ShowDialog = require(Plugin.Src.Util.ShowDialog)
-local PreviewConstants = require(Plugin.Src.Util.PreviewConstants)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local SelectItemScreen = Roact.PureComponent:extend("SelectItemScreen")

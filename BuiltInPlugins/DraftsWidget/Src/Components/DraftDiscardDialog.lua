@@ -6,6 +6,7 @@
     ChoiceSelected - Callback to invoke whenever the user selects an option
         in the dialog. True for confirm, false for cancel / closing the dialog
 --]]
+local FFlagRemoveUILibraryFitContent = game:GetFastFlag("RemoveUILibraryFitContent")
 
 local TextService = game:GetService("TextService")
 
@@ -13,18 +14,25 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
+local Framework = require(Plugin.Packages.Framework)
+local UI = Framework.UI
+local Pane = UI.Pane
+
 local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
 local withLocalization = UILibrary.Localizing.withLocalization
 
 local BulletPoint = UILibrary.Component.BulletPoint
-local createFitToContent = UILibrary.Component.createFitToContent
 local StyledDialog = UILibrary.Component.StyledDialog
 local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
 
-local FitToContent = createFitToContent("Frame", "UIListLayout", {
-    SortOrder = Enum.SortOrder.LayoutOrder,
-    FillDirection = Enum.FillDirection.Vertical,
-})
+local FitToContent
+if not FFlagRemoveUILibraryFitContent then
+    local createFitToContent = UILibrary.Component.createFitToContent
+    FitToContent = createFitToContent("Frame", "UIListLayout", {
+        SortOrder = Enum.SortOrder.LayoutOrder,
+        FillDirection = Enum.FillDirection.Vertical,
+    })
+end
 
 local HEADER_TEXT_SIZE = 22
 local BUTTON_TEXT_SIZE = 22
@@ -143,9 +151,18 @@ function DraftDiscardDialog:render()
                         end,
                     }),
 
-                    FitContent = Roact.createElement(FitToContent, {
-                        BackgroundTransparency = 1,
-                    }, bullets),
+                    FitContent = (
+                        if FFlagRemoveUILibraryFitContent then
+                            Roact.createElement(Pane, {
+                                AutomaticSize = Enum.AutomaticSize.Y,
+                                HorizontalAlignment = Enum.HorizontalAlignment.Left,
+                                Layout = Enum.FillDirection.Vertical,
+                            }, bullets)
+                        else
+                            Roact.createElement(FitToContent, {
+                                BackgroundTransparency = 1,
+                            }, bullets)
+                    ),
                 })
             })
         end)

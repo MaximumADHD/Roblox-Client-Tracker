@@ -1,5 +1,6 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
+local FFlagToolboxFixAssetFetcherOnUpdate = game:GetFastFlag("ToolboxFixAssetFetcherOnUpdate")
 local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 local Packages = Plugin.Packages
 local Framework = require(Packages.Framework)
@@ -240,6 +241,26 @@ return function()
 
 		Roact.unmount(roactState.tree)
 	end)
+
+	if FFlagToolboxFixAssetFetcherOnUpdate then
+		it("should cancel in flight request when props change", function()
+			local networkInterfaceMock = buildNetworkInterfaceMock({ delayGetItemDetailsAssetIds = true })
+			local roactState = renderResultsFetcher(networkInterfaceMock, { searchTerm = "abc" })
+			wait()
+
+			local updatedElement = createResultsFetcher(buildNetworkInterfaceMock(), { searchTerm = "start20" })
+			Roact.update(roactState.tree, updatedElement)
+			networkInterfaceMock.getItemDetailsAssetIdsDeferred.resolver()
+			wait()
+
+			expect(latestState.loading).toBe(false)
+			expect(latestState.error).toBe(nil)
+			expect(latestState.total).toBe(737)
+			expect(mapAssetIds(latestState.assets)).toEqual({ 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 })
+
+			Roact.unmount(roactState.tree)
+		end)
+	end
 
 	it("should fetch the proper number of initial results", function()
 		local networkInterfaceMock = buildNetworkInterfaceMock()

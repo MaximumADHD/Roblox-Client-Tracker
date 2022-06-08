@@ -1,8 +1,6 @@
 --[[
 	Creates the theme for the plugin.
-
-	Extends the default StudioFrameworkStyles, and also defines values specific
-	to components created within this plugin and constant values shared across components.
+	Defines values specific to components created within this plugin and constant values shared across components.
 
 	Params:
 		bool createMock: An optional param that should only be set to true in testing.

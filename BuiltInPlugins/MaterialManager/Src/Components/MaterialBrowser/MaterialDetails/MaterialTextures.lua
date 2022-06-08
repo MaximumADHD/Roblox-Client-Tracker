@@ -28,52 +28,52 @@ local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Flags.get
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
 
 export type Props = {
-	LayoutOrder : number?,
-	MockMaterial : _Types.Material?,
+	LayoutOrder: number?,
+	MockMaterial: _Types.Material?,
 }
 
 type _Props = Props & { 
-	Analytics : any,
-	dispatchSetMaterial : (material : _Types.Material) -> (),
-	Localization : any,
-	Material : _Types.Material?,
-	MaterialController : any,
-	Stylizer : any,
+	Analytics: any,
+	dispatchSetMaterial: (material: _Types.Material) -> (),
+	Localization: any,
+	Material: _Types.Material?,
+	MaterialController: any,
+	Stylizer: any,
 }
 
 type _Style = {
-	ButtonPosition : UDim2,
-	ButtonSize : UDim2,
-	ButtonStyle : string,
-	Close : _Types.Image,
-	CreateVariant : _Types.Image,
-	Delete : _Types.Image,
-	DropdownSize : UDim2,
-	Edit : _Types.Image,
-	HeaderBackground : Color3,
-	HeaderFont : Enum.Font,
-	HeaderSize : UDim2,
-	ImagePosition : UDim2,
-	ImageSize : UDim2,
-	NameLabelSizeBuiltIn : UDim2,
-	NameLabelSizeVariant : UDim2,
-	NoTexture : string,
-	LabelRowSize : UDim2,
-	OverrideSize : UDim2,
-	Padding : number,
-	SectionHeaderTextSize : number,
-	TextureLabelSize : UDim2,
-	TextureRowSize : UDim2,
-	TextureSize : UDim2,
-	TitleTextSize : number,
+	ButtonPosition: UDim2,
+	ButtonSize: UDim2,
+	ButtonStyle: string,
+	Close: _Types.Image,
+	CreateVariant: _Types.Image,
+	Delete: _Types.Image,
+	DropdownSize: UDim2,
+	Edit: _Types.Image,
+	HeaderBackground: Color3,
+	HeaderFont: Enum.Font,
+	HeaderSize: UDim2,
+	ImagePosition: UDim2,
+	ImageSize: UDim2,
+	NameLabelSizeBuiltIn: UDim2,
+	NameLabelSizeVariant: UDim2,
+	NoTexture: string,
+	LabelRowSize: UDim2,
+	OverrideSize: UDim2,
+	Padding: number,
+	SectionHeaderTextSize: number,
+	TextureLabelSize: UDim2,
+	TextureRowSize: UDim2,
+	TextureSize: UDim2,
+	TitleTextSize: number,
 }
 
 local MaterialTextures = Roact.PureComponent:extend("MaterialTextures")
 
 function MaterialTextures:init()
-	self.createTextureElement = function(name : string, image : string, layoutOrder : number)
-		local props : _Props = self.props
-		local style : _Style = props.Stylizer.MaterialDetails
+	self.createTextureElement = function(name: string, image: string, layoutOrder: number)
+		local props: _Props = self.props
+		local style: _Style = props.Stylizer.MaterialDetails
 
 		return Roact.createElement(Pane, {
 			Layout = Enum.FillDirection.Horizontal,
@@ -107,10 +107,10 @@ function MaterialTextures:willUnmount()
 end
 
 function MaterialTextures:didMount()
-	local props : _Props = self.props
+	local props: _Props = self.props
 	local materialController = props.MaterialController
 
-	self.connection = materialController:getMaterialChangedSignal():Connect(function(materialVariant : MaterialVariant)
+	self.connection = materialController:getMaterialChangedSignal():Connect(function(materialVariant: MaterialVariant)
 		if self.props.Material and self.props.Material.MaterialVariant == materialVariant then
 			self:setState({})
 		end
@@ -118,8 +118,8 @@ function MaterialTextures:didMount()
 end
 
 function MaterialTextures:render()
-	local props : _Props = self.props
-	local style : _Style = props.Stylizer.MaterialDetails
+	local props: _Props = self.props
+	local style: _Style = props.Stylizer.MaterialDetails
 	local localization = props.Localization
 	local material = props.Material
 
@@ -187,7 +187,7 @@ return RoactRodux.connect(
 	end,
 	function(dispatch)
 		return {
-			dispatchSetMaterial = function(material : _Types.Material)
+			dispatchSetMaterial = function(material: _Types.Material)
 				dispatch(SetMaterial(material))
 			end,
 		}

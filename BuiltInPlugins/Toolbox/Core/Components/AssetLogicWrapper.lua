@@ -14,6 +14,8 @@ local HttpService = game:GetService("HttpService")
 
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
+local FFlagToolboxFixTryInStudio = game:GetFastFlag("ToolboxFixTryInStudio")
+local FFlagToolboxLocalizeInsertTool = game:GetFastFlag("ToolboxLocalizeInsertTool")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -87,6 +89,7 @@ type _InternalProps = {
 	-- mapDispatchToProps
 	_onPreviewToggled: ((isPreviewing: boolean, previewAssetId: number?) -> any),
 	_postInsertAssetRequest: ((networkInterface: any, assetId: number) -> any),
+	_previewAssetData: any?,
 	_setMostRecentAssetInsertTime: (() -> any),
 	_getPageInfoAnalyticsContextInfo: any, --(() -> ())
 	-- ContextItems
@@ -302,18 +305,21 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 		local props: _Props = self.props
 		local state: _State = self.state
 
-		local automaticSize = props.AutomaticSize
 		local isPreviewing = props._isPreviewing
-		local position = props.Position
-		local size = props.Size
 		local tryOpenAssetConfig = props.TryOpenAssetConfig
 
 		local isShowingToolMessageBox = state.isShowingToolMessageBox
-		local previewAssetData = state.previewAssetData
 		local isShowingScriptWarningMessageBox = state.isShowingScriptWarningMessageBox
 		local isShowingGrantPermissionsMessageBox = state.isShowingGrantPermissionsMessageBox
 		local scriptWarningInfo = state.scriptWarningInfo
 		local grantPermissionsInfo = state.grantPermissionsInfo
+
+		local previewAssetData
+		if FFlagToolboxFixTryInStudio then
+			previewAssetData = state.previewAssetData or props._previewAssetData
+		else
+			previewAssetData = state.previewAssetData
+		end
 
 		local localization = self.props._Localization
 
@@ -332,6 +338,8 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			"_categoryName",
 			"_isPreviewing",
 			"_previewAssetId",
+			"_previewAssetData",
+			"_searchTerm",
 			"_searchTerm",
 			-- mapDispatchToProps
 			"_onPreviewToggled",
@@ -390,8 +398,8 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			ToolMessageBox = isShowingToolMessageBox and Roact.createElement(MessageBox, {
 				Name = string.format("ToolboxToolMessageBox-%s", HttpService:GenerateGUID()),
 
-				Title = "Insert Tool",
-				Text = "Put this tool into the starter pack?",
+				Title = if FFlagToolboxLocalizeInsertTool then localization:getText("InsertTool", "DialogTitle") else "Insert Tool",
+				Text = if FFlagToolboxLocalizeInsertTool then localization:getText("InsertTool", "DialogText") else "Put this tool into the starter pack?",
 				Icon = Images.INFO_ICON,
 
 				onClose = self.onMessageBoxClosed,
@@ -433,9 +441,18 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 		local pageInfo = state.pageInfo or {}
 		local categoryName = pageInfo.categoryName or Category.DEFAULT.name
 
+		-- NOTE: props.previewAssetData is needed for TryInStudio on non-HomeView tabs
+		local previewAssetData
+		if FFlagToolboxFixTryInStudio then 
+			local idToAssetMap = assets.idToAssetMap or {}
+			local previewAssetId = assets.previewAssetId
+			previewAssetData = idToAssetMap[previewAssetId]
+		end
+
 		return {
 			_categoryName = categoryName,
 			_isPreviewing = assets.isPreviewing or false,
+			_previewAssetData = if FFlagToolboxFixTryInStudio then previewAssetData else nil,
 			_searchTerm = pageInfo.searchTerm or "",
 		}
 	end

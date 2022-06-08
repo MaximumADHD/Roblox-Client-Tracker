@@ -1,5 +1,9 @@
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+
+local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
+local PreviewConstants = AccessoryAndBodyToolSharedUtil.PreviewConstants
 
 local SetAccessoryTypeInfo = require(Plugin.Src.Actions.SetAccessoryTypeInfo)
 local SetAttachmentPoint = require(Plugin.Src.Actions.SetAttachmentPoint)
@@ -8,7 +12,6 @@ local SetToolMode = require(Plugin.Src.Actions.SetToolMode)
 local SetEditingCage = require(Plugin.Src.Actions.SetEditingCage)
 
 local Constants = require(Plugin.Src.Util.Constants)
-local PreviewConstants = require(Plugin.Src.Util.PreviewConstants)
 
 local Selection = game:GetService("Selection")
 local ChangeHistoryService = game:GetService("ChangeHistoryService")

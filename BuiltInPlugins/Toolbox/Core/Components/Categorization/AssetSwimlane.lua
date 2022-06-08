@@ -34,6 +34,7 @@ type AssetSwimlaneState = {
 export type AssetSwimlaneProps = Swimlane.SwimlaneProps & {
 	CanInsertAsset: () -> (),
 	CategoryName: string,
+	IncludeOnlyVerifiedCreators: boolean?,
 	InitialPageSize: number,
 	LayoutOrder: number,
 	SwimlaneCategory: string,
@@ -148,6 +149,7 @@ function AssetSwimlane:render()
 	return ResultsFetcher.Generator({
 		networkInterface = networkInterface,
 		categoryName = categoryName,
+		includeOnlyVerifiedCreators = props.IncludeOnlyVerifiedCreators,
 		sortName = sortName,
 		searchTerm = searchTerm,
 		sectionName = sectionName,

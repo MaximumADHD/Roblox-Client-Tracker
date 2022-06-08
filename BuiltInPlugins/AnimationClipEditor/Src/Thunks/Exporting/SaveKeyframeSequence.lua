@@ -9,6 +9,7 @@ local CollectionService = game:GetService("CollectionService")
 local Plugin = script.Parent.Parent.Parent.Parent
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local deepCopy = require(Plugin.Src.Util.deepCopy)
+local Constants = require(Plugin.Src.Util.Constants)
 
 local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
@@ -50,6 +51,6 @@ return function(name, analytics)
 		store:dispatch(SetIsDirty(false))
 		store:dispatch(SetNotification("Saved", name))
 
-		analytics:report("onSaveAnimation", name, numKeyframes, numPoses, numEvents)
+		analytics:report("onSaveAnimation", name, numKeyframes, numPoses, numEvents, Constants.ANIMATION_TYPE.KeyframeSequence)
 	end
 end

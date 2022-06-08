@@ -4,6 +4,9 @@ local Packages = Plugin.Packages
 local Framework = require(Packages.Framework)
 local ContextItem = Framework.ContextServices.ContextItem
 local Signal = Framework.Util.Signal
+local Dash = Framework.Dash
+
+local FFlagStudioRegisterToolboxIxpLayer = game:GetFastFlag("StudioRegisterToolboxIxpLayer")
 
 local IXPContext = ContextItem:extend("IXPContext")
 
@@ -48,7 +51,14 @@ function IXPContext:getVariables()
 	if not self:isReady() then
 		return {}
 	end
-	return self.IXPService:GetUserLayerVariables("StudioMarketplace")
+	if FFlagStudioRegisterToolboxIxpLayer then
+		return Dash.joinDeep(
+			self.IXPService:GetUserLayerVariables("StudioMarketplace"),
+			self.IXPService:GetUserLayerVariables("Studio.Toolbox.Usage")
+		)
+	else
+		return self.IXPService:GetUserLayerVariables("StudioMarketplace")
+	end
 end
 
 return IXPContext

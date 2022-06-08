@@ -44,8 +44,10 @@ local SetVerticalScrollZoom = require(Plugin.Src.Actions.SetVerticalScrollZoom)
 local SnapToNearestFrame = require(Plugin.Src.Thunks.SnapToNearestFrame)
 local SnapToNearestKeyframe = require(Plugin.Src.Thunks.SnapToNearestKeyframe)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
+local SwitchEditorMode = require(Plugin.Src.Thunks.SwitchEditorMode)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 
 local TrackEditor = Roact.PureComponent:extend("TrackEditor")
 
@@ -159,9 +161,17 @@ function TrackEditor:init()
 	self.toggleEditorClicked = function()
 		if self.props.IsChannelAnimation then
 			if self.props.EditorMode == Constants.EDITOR_MODE.CurveCanvas then
-				self.props.SetEditorMode(Constants.EDITOR_MODE.DopeSheet)
+				if GetFFlagCurveAnalytics() then
+					self.props.SwitchEditorMode(Constants.EDITOR_MODE.DopeSheet, self.props.Analytics)
+				else
+					self.props.SetEditorMode(Constants.EDITOR_MODE.DopeSheet)
+				end
 			else
-				self.props.SetEditorMode(Constants.EDITOR_MODE.CurveCanvas)
+				if GetFFlagCurveAnalytics() then
+					self.props.SwitchEditorMode(Constants.EDITOR_MODE.CurveCanvas, self.props.Analytics)
+				else
+					self.props.SetEditorMode(Constants.EDITOR_MODE.CurveCanvas)
+				end
 			end
 		else
 			self.props.OnPromoteRequested()
@@ -397,12 +407,17 @@ local function mapDispatchToProps(dispatch)
 		SetEditorMode = function(editorMode)
 			dispatch(SetEditorMode(editorMode))
 		end,
+
+		SwitchEditorMode = function(editorMode, analytics)
+			dispatch(SwitchEditorMode(editorMode, analytics))
+		end,
 	}
 end
 
 TrackEditor = withContext({
-	Mouse = ContextServices.Mouse,
+	Analytics = ContextServices.Analytics,
 	Localization = ContextServices.Localization,
+	Mouse = ContextServices.Mouse,
 })(TrackEditor)
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(TrackEditor)

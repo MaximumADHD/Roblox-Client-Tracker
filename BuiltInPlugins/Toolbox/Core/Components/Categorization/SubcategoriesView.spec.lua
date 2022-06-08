@@ -5,10 +5,6 @@ return function()
 	local Roact = require(Libs.Roact)
 
 	local MockWrapper = require(Plugin.Core.Util.MockWrapper)
-	local FFlagDevFrameworkResponsiveGrid2 = game:GetFastFlag("DevFrameworkResponsiveGrid2")
-	if not FFlagDevFrameworkResponsiveGrid2 then
-		return {}
-	end
 	local SubcategoriesView = require(Plugin.Core.Components.Categorization.SubcategoriesView)
 
 	describe("SubcategoriesView", function()

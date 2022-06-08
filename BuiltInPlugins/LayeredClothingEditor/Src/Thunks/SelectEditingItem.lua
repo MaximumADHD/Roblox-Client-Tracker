@@ -2,15 +2,18 @@
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local LuaMeshEditingModule = require(Plugin.Packages.LuaMeshEditingModule)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+
+local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
+local ItemCharacteristics = AccessoryAndBodyToolSharedUtil.ItemCharacteristics
+local PreviewConstants = AccessoryAndBodyToolSharedUtil.PreviewConstants
+local PreviewConstantsInterface = AccessoryAndBodyToolSharedUtil.PreviewConstantsInterface
+local getActivePreviewTabs = AccessoryAndBodyToolSharedUtil.getActivePreviewTabs
 
 local CageEditingContext = require(LuaMeshEditingModule.MeshEditingContexts.CageEditingContext)
 
 local SetPreviewAssetsSelected = require(Plugin.Src.Actions.SetPreviewAssetsSelected)
-local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
 local Constants = require(Plugin.Src.Util.Constants)
-local getActivePreviewTabs = require(Plugin.Src.Util.getActivePreviewTabs)
-local PreviewConstantsInterface = require(Plugin.Src.Util.PreviewConstantsInterface)
-local PreviewConstants = require(Plugin.Src.Util.PreviewConstants)
 local SetEditingCage = require(Plugin.Src.Actions.SetEditingCage)
 local SetItemSize = require(Plugin.Src.Actions.SetItemSize)
 local SetAccessoryTypeInfo = require(Plugin.Src.Actions.SetAccessoryTypeInfo)
@@ -18,8 +21,6 @@ local SetAttachmentPoint = require(Plugin.Src.Actions.SetAttachmentPoint)
 local SelectPreviewTab = require(Plugin.Src.Actions.SelectPreviewTab)
 local SetCagesTransparency = require(Plugin.Src.Actions.SetCagesTransparency)
 local SetToolMode = require(Plugin.Src.Actions.SetToolMode)
-
-local ModelUtil = require(Plugin.Src.Util.ModelUtil)
 
 -- select default cage when editing item changed
 local function selectCage(store, item)
@@ -96,12 +97,6 @@ return function(context, item)
 		}
 
 		store:dispatch(SetCagesTransparency(cagesTransparency))
-
-		if ItemCharacteristics.isAvatar(item) then
-			ModelUtil:createModelInfo(item, true)
-		elseif ItemCharacteristics.isClothes(item) then
-			ModelUtil:createModelInfo(item, false)
-		end
 
 		-- this is a little misleading, EDIT_MODE.Mesh refers to rigid MeshPart mode
 		if selectedCage ~= nil and selectedCage ~= Constants.EDIT_MODE.Mesh then

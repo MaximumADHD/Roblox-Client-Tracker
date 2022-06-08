@@ -211,4 +211,7 @@ return{
 	["CoreScripts.InGameMenu.PageTitle.Friends"] = [[好友]],
 	["CoreScripts.InGameMenu.Action.UnmutePlayer"] = [[]],
 	["CoreScripts.InGameMenu.Action.MutePlayer"] = [[]],
+	["CoreScripts.InGameMenu.CoreScripts.InGameMenu.Prompt.ReturnHome"] = [[]],
+	["CoreScripts.InGameMenu.Prompt.ReturnHome"] = [[]],
+	["CoreScripts.InGameMenu.Prompt.ReturnHomeBodyText"] = [[]],
 }

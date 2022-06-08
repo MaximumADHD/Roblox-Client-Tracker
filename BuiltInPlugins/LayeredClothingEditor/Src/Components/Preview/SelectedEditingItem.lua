@@ -26,25 +26,23 @@ local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyTo
 local Mannequin = AccessoryAndBodyToolSharedUtil.Mannequin
 local PreviewUtil = AccessoryAndBodyToolSharedUtil.PreviewUtil
 local AvatarUtil = AccessoryAndBodyToolSharedUtil.AvatarUtil
+local ItemCharacteristics = AccessoryAndBodyToolSharedUtil.ItemCharacteristics
 local AccessoryUtil = AccessoryAndBodyToolSharedUtil.AccessoryUtil
 
+local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
 local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingModuleContext
 
 local SetAccessoryTypeInfo = require(Plugin.Src.Actions.SetAccessoryTypeInfo)
 local VerifyBounds = require(Plugin.Src.Thunks.VerifyBounds)
 local SelectEditingItem = require(Plugin.Src.Thunks.SelectEditingItem)
-local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
 
 local Constants = require(Plugin.Src.Util.Constants)
-local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Util = Framework.Util
 local Typecheck = Util.Typecheck
-
-local ModelUtil = require(Plugin.Src.Util.ModelUtil)
 
 local SelectedEditingItem = Roact.PureComponent:extend("SelectedEditingItem")
 Typecheck.wrap(SelectedEditingItem, script)
@@ -101,9 +99,7 @@ local function onMannequinChanged(self, regenerated)
 
 		if not regenerated then
 			self.props.SelectEditingItem(luaMeshEditingModuleContext, displayItem)
-			ModelUtil:focusCameraOnItem(displayItem)
-		else
-			ModelUtil:createModelInfo(displayItem, false)
+			AvatarUtil:focusCameraOnAvatar(mannequinInstance)
 		end
 
 		ChangeHistoryService:ResetWaypoints()

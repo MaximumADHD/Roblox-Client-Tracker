@@ -28,36 +28,41 @@ local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
+local getFFlagMaterialManagerMaterialListFix = require(Flags.getFFlagMaterialManagerMaterialListFix)
 
 export type Props = {
-	LayoutOrder : number?,
-	ErrorName : string?,
-	ErrorBaseMaterial : string?,
+	LayoutOrder: number?,
+	ErrorName: string?,
+	ErrorBaseMaterial: string?,
 }
 
 type _Props = Props & {
-	Analytics : any,
-	BaseMaterial : Enum.Material,
-	Localization : any,
-	Name : string,
-	Stylizer : any,
-	dispatchSetName : (string) -> (),
-	dispatchSetBaseMaterial : (Enum.Material) -> (),
+	Analytics: any,
+	BaseMaterial: Enum.Material,
+	Localization: any,
+	Name: string,
+	Stylizer: any,
+	dispatchSetName: (string) -> (),
+	dispatchSetBaseMaterial: (Enum.Material) -> (),
 }
 
 type _Style = {
-	DialogColumnSize : UDim2,
-	CustomSelectInput : any,
-	CustomSelectInputError : any,
+	DialogColumnSize: UDim2,
+	CustomSelectInput: any,
+	CustomSelectInputError: any,
 }
 local materials = {}
 
 if getFFlagMaterialManagerGlassNeonForceField() then
-	local supportedMaterials = getSupportedMaterials()
+	if getFFlagMaterialManagerMaterialListFix() then
+		materials = getSupportedMaterials(true)
+	else
+		local supportedMaterials = getSupportedMaterials(true)
 
-	for material, overrideSupported in pairs(supportedMaterials) do
-		if overrideSupported then
-			table.insert(materials, material)
+		for material, overrideSupported in pairs(supportedMaterials) do
+			if overrideSupported then
+				table.insert(materials, material)
+			end
 		end
 	end
 else
@@ -91,9 +96,9 @@ function GeneralSettings:init()
 	end
 
 	self.renderContent = function(key: string)
-		local props : _Props = self.props
+		local props: _Props = self.props
 		local localization = props.Localization
-		local style : _Style = props.Stylizer.GeneralSettings
+		local style: _Style = props.Stylizer.GeneralSettings
 
 		-- TODO: remove key strings
 		if key == "NameVariant" then
@@ -118,7 +123,7 @@ function GeneralSettings:init()
 	end
 
 	self.getError = function(key: string)
-		local props : _Props = self.props
+		local props: _Props = self.props
 
 		-- TODO: remove key strings
 		if key == "NameVariant" then
@@ -131,7 +136,7 @@ function GeneralSettings:init()
 	end
 
 	self.getText = function(key: string)
-		local props : _Props = self.props
+		local props: _Props = self.props
 		local localization = props.Localization
 
 		return localization:getText("CreateDialog", key)
@@ -139,7 +144,7 @@ function GeneralSettings:init()
 end
 
 function GeneralSettings:didMount()
-	local props : _Props = self.props
+	local props: _Props = self.props
 
 	for index, material in ipairs(materials) do
 		table.insert(self.baseMaterials, self.props.Localization:getText("Materials", getMaterialName(material)))
@@ -153,7 +158,7 @@ function GeneralSettings:didMount()
 end
 
 function GeneralSettings:render()
-	local props : _Props = self.props
+	local props: _Props = self.props
 
 	local items = {
 		"NameVariant",
@@ -176,7 +181,7 @@ GeneralSettings = withContext({
 	Stylizer = Stylizer,
 })(GeneralSettings)
 
-local function mapStateToProps(state : MainReducer.State, _)
+local function mapStateToProps(state: MainReducer.State, _)
 	return {
 		Name = state.MaterialPromptReducer.Name,
 		BaseMaterial = state.MaterialPromptReducer.BaseMaterial,

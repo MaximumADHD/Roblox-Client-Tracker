@@ -40,7 +40,9 @@ local function renderWithSelectionCursor(props, getSelectionCursor)
 		}, {
 			PageHeader = Roact.createElement(HeaderBar, {
 				title = props.pageTitle,
-				renderLeft = props.enableBackButton and HeaderBar.renderLeft.backButton(function()
+				renderLeft = props.isFilteringMode and function()
+					return nil
+				end or props.enableBackButton and HeaderBar.renderLeft.backButton(function()
 					props.navigateUp()
 				end) or function()
 					return nil

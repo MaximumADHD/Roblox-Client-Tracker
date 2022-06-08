@@ -23,7 +23,7 @@ local withContext = ContextServices.withContext
 
 local Pane = Framework.UI.Pane
 
-local SignalsContext = require(Plugin.Src.Context.Signals)
+local SignalsContext = AvatarToolsShared.Contexts.Signals
 local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingModuleContext
 
 local MeshPartTool = require(Plugin.Src.Components.MeshPartTool)

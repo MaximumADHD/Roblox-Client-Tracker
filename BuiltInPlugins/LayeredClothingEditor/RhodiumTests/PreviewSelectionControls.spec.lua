@@ -2,11 +2,12 @@ return function()
 	local Plugin = script.Parent.Parent
 	local Rhodium = require(Plugin.Packages.Dev.Rhodium)
 	local XPath = Rhodium.XPath
+	local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+	local isProductionEnvironment = AvatarToolsShared.Util.isProductionEnvironment
 
 	local TestHelper = require(Plugin.Src.Util.TestHelper)
 	local TestRunner = require(Plugin.Src.Util.TestRunner)
 	local runRhodiumTest = TestRunner.runRhodiumTest
-	local isProductionEnvironment = require(Plugin.Src.Util.isProductionEnvironment)
 
 	local ScrollerPath = TestHelper.getEditScreenContainer()
 	local editSwizzlePath = ScrollerPath:cat(XPath.new("EditSwizzle.Header"))

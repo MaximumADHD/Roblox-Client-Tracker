@@ -15,11 +15,13 @@ local Stylizer = Framework.Style.Stylizer
 local UI = Framework.UI
 local Pane = UI.Pane
 local InfiniteScrollingGrid = UI.InfiniteScrollingGrid
+local IconButton = UI.IconButton
 
 local Actions = Plugin.Src.Actions
 local SetMaterial = require(Actions.SetMaterial)
 
 local Components = Plugin.Src.Components
+local MaterialItem = require(Components.MaterialBrowser.MaterialGrid.MaterialItem)
 local MaterialTile = require(Components.MaterialBrowser.MaterialGrid.MaterialTile)
 
 local Util = Plugin.Src.Util
@@ -31,57 +33,101 @@ local getMaterialPath = require(Constants.getMaterialPath)
 
 local Flags = Plugin.Src.Flags
 local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
+local getFFlagMaterialManagerGridListView = require(Flags.getFFlagMaterialManagerGridListView)
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
+local FFlagMaterialManagerSideBarHide = game:GetFastFlag("MaterialManagerSideBarHide")
 
 local MaterialGrid = Roact.PureComponent:extend("MaterialGrid")
 
 export type Props = {
-	LayoutOrder : number?,
-	Size : UDim2?,
+	LayoutOrder: number?,
+	Size: UDim2?,
+	OnShowButtonClicked: () -> ()?,
+	SideBarVisible: boolean?,
 }
 
 type _Props = Props & {
-	Analytics : any,
-	Localization : any,
-	MaterialController : any,
-	Path : _Types.Path,
-	Stylizer : any,
-	Search : string,
+	Analytics: any,
+	Localization: any,
+	MaterialController: any,
+	MaterialTileSize: number,
+	Path: _Types.Path,
+	Stylizer: any,
+	Search: string,
+	ViewType: string,
 }
 
 type _Style = {
-	BackgroundColor : Color3,
-	Padding : number,
+	BackgroundColor: Color3,
+	Padding: number,
+	IconColor: Color3,
+	BottomBarTransparency: number,
+	BottomBarBackgroundColor: Color3,
+	ShowIcon: string,
+	IconSize: UDim2,
 }
 
-type _MaterialTileStyle = {
-	IconSize : UDim2,
-	MaterialVariant : _Types.Image,
-	MaterialVariantIconPosition : UDim2,
-	MaxWidth : number,
-	Padding : number,
-	Size : UDim2,
-	Spacing : number,
-	StatusIconPosition : UDim2,
-	TextLabelSize : UDim2,
-	TextSize : number,
+type _MaterialItemStyle = {
+	ApplyIcon: _Types.Image,
+	ApplyIconPosition: UDim2,
+	ApplyIconAnchorPoint: Vector2,
+	ButtonSize: UDim2,
+	Gradient: string,
+	GradientHover: string,
+	GridPadding: number,
+	IconSize: UDim2,
+	ListHeight: number,
+	ListPadding: number,
+	MaterialVariantIcon: _Types.Image,
+	MaterialVariantIconPosition: UDim2,
+	MaterialVariantIconAnchorPoint: Vector2,
+	Padding: number,
+	Spacing: number,
+	StatusIconPosition: UDim2,
+	TextSize: number,
 }
+
+-- Remove MaterialTile with FFlagMaterialManagerGridListView
+type _MaterialTileStyle = {
+	IconSize: UDim2,
+	MaterialVariant: _Types.Image,
+	MaterialVariantIconPosition: UDim2,
+	MaxWidth: number,
+	Padding: number,
+	Size: UDim2,
+	Spacing: number,
+	StatusIconPosition: UDim2,
+	TextLabelSize: UDim2,
+	TextSize: number,
+}
+
 function MaterialGrid:init()
 	self.onClick = function(item)
 		self.props.dispatchSetMaterial(item)
 	end
 
-	self.renderTile = function (layoutOrder : number, item : _Types.Material)
-		return Roact.createElement(MaterialTile, {
-			Item = item,
-			LayoutOrder = layoutOrder,
-			OnClick = self.onClick,
-			SetUpdate = function() end,
-		})
+	if getFFlagMaterialManagerGridListView() then
+		self.renderItem = function (layoutOrder: number, item: _Types.Material)
+			return Roact.createElement(MaterialItem, {
+				Item = item,
+				LayoutOrder = layoutOrder,
+				OnClick = self.onClick,
+				SetUpdate = function() end,
+			})
+		end
+	else
+		self.renderTile = function (layoutOrder: number, item: _Types.Material)
+			return Roact.createElement(MaterialTile, {
+				Item = item,
+				LayoutOrder = layoutOrder,
+				OnClick = self.onClick,
+				SetUpdate = function() end,
+			})
+		end
 	end
 
 	self.setupMaterialConnections = function()
-		local props : _Props = self.props
+		local props: _Props = self.props
 
 		self.materialAddedConnection = props.MaterialController:getMaterialAddedSignal():Connect(function(materialPath)
 			if (ContainsPath(self.props.Path, materialPath)) then
@@ -134,7 +180,7 @@ function MaterialGrid:willUnmount()
 end
 
 function MaterialGrid:didMount()
-	local props : _Props = self.props
+	local props: _Props = self.props
 
 	if #self.state.materials == 0 then
 		self:setState({
@@ -146,7 +192,7 @@ function MaterialGrid:didMount()
 end
 
 function MaterialGrid:didUpdate(prevProps)
-	local props : _Props = self.props
+	local props: _Props = self.props
 
 	if prevProps.Path ~= props.Path or prevProps.Search ~= props.Search then
 		self:setState({
@@ -156,36 +202,83 @@ function MaterialGrid:didUpdate(prevProps)
 end
 
 function MaterialGrid:render()
-	local props : _Props = self.props
-	local style : _Style = props.Stylizer.MaterialGrid
-	local materialTileStyle : _MaterialTileStyle = props.Stylizer.MaterialTile
+	local props: _Props = self.props
+	local style: _Style = props.Stylizer.MaterialGrid
+	local materialTileStyle: _MaterialTileStyle = props.Stylizer.MaterialTile
+	local materialItemStyle: _MaterialItemStyle = props.Stylizer.MaterialItem
 
 	local layoutOrder = props.LayoutOrder
+	local materialTileSize = props.MaterialTileSize
 	local size = props.Size
+	local viewType = props.ViewType
 
-	return Roact.createElement(Pane, {
-		BackgroundColor = style.BackgroundColor,
-		LayoutOrder = layoutOrder,
-		Size = size
-	}, {
-		Grid = Roact.createElement(InfiniteScrollingGrid, {
-			AbsoluteMax = #self.state.materials,
-			CellPadding = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then
-				UDim2.fromOffset(style.Padding, style.Padding)
-				else
-				UDim2.fromOffset(materialTileStyle.Padding, materialTileStyle.Padding),
-			CellSize = materialTileStyle.Size,
-			BufferedRows = 2,
-			Items = self.state.materials,
-			Loading = false,
-			Padding = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then
-				style.Padding
-				else
-				materialTileStyle.Padding,
-			RenderItem = self.renderTile,
-			Size = UDim2.fromScale(1, 1),
+	if getFFlagMaterialManagerGridListView() then
+		return Roact.createElement(Pane, {
+			BackgroundColor = style.BackgroundColor,
+			LayoutOrder = layoutOrder,
+			Size = size
+		}, {
+			Grid = Roact.createElement(InfiniteScrollingGrid, {
+				AbsoluteMax = #self.state.materials,
+				CellPadding = if viewType == "Grid" then
+					UDim2.fromOffset(materialItemStyle.GridPadding, materialItemStyle.GridPadding)
+					else
+					UDim2.fromOffset(materialItemStyle.ListPadding, materialItemStyle.ListPadding),
+				CellSize = if viewType == "Grid" then
+					UDim2.fromOffset(materialTileSize, materialTileSize)
+					else
+					UDim2.new(1, -20, 0, materialItemStyle.ListHeight),
+				BufferedRows = 2,
+				Items = self.state.materials,
+				Loading = false,
+				Padding = style.Padding,
+				RenderItem = self.renderItem,
+				Size = UDim2.fromScale(1, 1),
+			}),
+			ShowButton = if FFlagMaterialManagerSideBarHide and not props.SideBarVisible then Roact.createElement(IconButton, {
+				Size = style.IconSize,
+				LeftIcon = style.ShowIcon,
+				IconColor = style.IconColor,
+				OnClick = props.OnShowButtonClicked,
+				AnchorPoint = Vector2.new(0, 1),
+				Position = UDim2.new(0, 5, 1, -5),
+				LayoutOrder = 2,
+			}) else nil,
 		})
-	})
+	else
+		return Roact.createElement(Pane, {
+			BackgroundColor = style.BackgroundColor,
+			LayoutOrder = layoutOrder,
+			Size = size
+		}, {
+			Grid = Roact.createElement(InfiniteScrollingGrid, {
+				AbsoluteMax = #self.state.materials,
+				CellPadding = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then
+					UDim2.fromOffset(style.Padding, style.Padding)
+					else
+					UDim2.fromOffset(materialTileStyle.Padding, materialTileStyle.Padding),
+				CellSize = materialTileStyle.Size,
+				BufferedRows = 2,
+				Items = self.state.materials,
+				Loading = false,
+				Padding = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then
+					style.Padding
+					else
+					materialTileStyle.Padding,
+				RenderItem = self.renderTile,
+				Size = UDim2.fromScale(1, 1),
+			}),
+			ShowButton = if FFlagMaterialManagerSideBarHide and not props.SideBarVisible then Roact.createElement(IconButton, {
+				Size = style.IconSize,
+				LeftIcon = style.ShowIcon,
+				IconColor = style.IconColor,
+				OnClick = props.OnShowButtonClicked,
+				AnchorPoint = Vector2.new(0, 1),
+				Position = UDim2.new(0, 5, 1, -5),
+				LayoutOrder = 2,
+			}) else nil,
+		})
+	end
 end
 
 MaterialGrid = withContext({
@@ -199,7 +292,9 @@ return RoactRodux.connect(
 	function(state, props)
 		return {
 			Path = state.MaterialBrowserReducer.Path,
+			MaterialTileSize = state.MaterialBrowserReducer.MaterialTileSize,
 			Search = state.MaterialBrowserReducer.Search,
+			ViewType = state.MaterialBrowserReducer.ViewType,
 		}
 	end,
 	function(dispatch)

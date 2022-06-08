@@ -4,10 +4,10 @@ local Util = Framework.Util
 local Action = Util.Action
 
 export type Payload = {
-	Search : string
+	Search: string
 }
 
-return Action(script.Name, function(search : string) : Payload
+return Action(script.Name, function(search: string): Payload
 	assert(type(search) == "string", ("Expected search to be a string, received %s"):format(type(search)))
 	return {
 		Search = search

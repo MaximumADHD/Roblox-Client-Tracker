@@ -6,6 +6,7 @@ local Roact = InGameMenuDependencies.Roact
 local t = InGameMenuDependencies.t
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local Cryo = InGameMenuDependencies.Cryo
+local UIBlox = InGameMenuDependencies.UIBlox
 
 local InGameMenu = script.Parent.Parent
 
@@ -24,8 +25,17 @@ local AddFriendsNow = require(script.AddFriendsNow)
 local LoadingFriendsError = require(script.LoadingFriendsError)
 local ShareInviteLinkButton = require(script.ShareInviteLinkButton)
 
+local IconButton = UIBlox.App.Button.IconButton
+local getIconSize = UIBlox.App.ImageSet.getIconSize
+local ICON_SIZE = getIconSize(UIBlox.App.ImageSet.Enum.IconSize.Medium)
+local Images = UIBlox.App.ImageSet.Images
+
+local SearchBar = require(script.Parent.SearchBar)
+
 local Flags = InGameMenu.Flags
 local GetFFlagShareInviteLinkContextMenuV3Enabled = require(Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
+
+local ACTIONS_ICON_PADDING = 10
 
 local InviteFriendsPage = Roact.PureComponent:extend("InviteFriendsPage")
 
@@ -45,7 +55,24 @@ function InviteFriendsPage:init()
 		loadingFriends = true,
 		loadingFriendsError = false,
 		friends = {},
+		isFilteringMode = false,
+		searchText = "",
 	}
+
+	self.onSearchTextChanged = function(searchText)
+		if searchText ~= self.state.searchText and self.state.isFilteringMode then
+			self:setState({
+				searchText = searchText,
+			})
+		end
+	end
+
+	self.onSearchBarDismissed = function()
+		self:setState({
+			isFilteringMode = false,
+			searchText = "",
+		})
+	end
 end
 
 function InviteFriendsPage:renderLoadingPage()
@@ -93,6 +120,8 @@ function InviteFriendsPage:renderFriends()
 	return Roact.createElement(InviteFriendsList, {
 		friends = self.state.friends,
 		canCaptureFocus = self.props.canCaptureFocus,
+		isFilteringMode = self.state.isFilteringMode,
+		searchText = self.state.searchText,
 	})
 end
 
@@ -125,17 +154,61 @@ function InviteFriendsPage:render()
 			}, {
 				Page = Roact.createElement(Page, {
 					pageTitle = self.props.pageTitle,
-					titleChildren = GetFFlagShareInviteLinkContextMenuV3Enabled()
-					    and Roact.createElement(ShareInviteLinkButton) or nil,
+					titleChildren = self:getActions(),
+					isFilteringMode = self.state.isFilteringMode,
+					searchBar = Roact.createElement(SearchBar, {
+						size = UDim2.new(1, 0, 0, 36),
+						autoCaptureFocus = true,
+						onTextChanged = self.onSearchTextChanged,
+						onCancelled = self.onSearchBarDismissed,
+					}),
 				}, children),
 			})
 		end,
 	})
 end
 
+function InviteFriendsPage:getActions()
+	local width = (
+		GetFFlagShareInviteLinkContextMenuV3Enabled() and (2 * ICON_SIZE) + ACTIONS_ICON_PADDING or ICON_SIZE
+	)
+	local padding = GetFFlagShareInviteLinkContextMenuV3Enabled() and ACTIONS_ICON_PADDING or 0
+	return Roact.createElement("Frame", {
+		BackgroundTransparency = 1,
+		Size = UDim2.new(0, width, 1, 0),
+	}, {
+		Layout = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Horizontal,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+			Padding = UDim.new(0, padding),
+		}),
+		ShareIcon = GetFFlagShareInviteLinkContextMenuV3Enabled() and Roact.createElement(ShareInviteLinkButton, {
+			layoutOrder = 1,
+		}) or nil,
+		SearchIcon = Roact.createElement(IconButton, {
+			layoutOrder = GetFFlagShareInviteLinkContextMenuV3Enabled() and 2 or 1,
+			size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
+			icon = Images["icons/common/search"],
+			onActivated = function()
+				self:setState({
+					isFilteringMode = true,
+				})
+			end,
+		}),
+	})
+end
+
 function InviteFriendsPage:didMount()
 	self.mounted = true
 	self:loadFriends()
+end
+
+function InviteFriendsPage:didUpdate(prevProps, prevState)
+	if not self.props.isMenuOpen and prevProps.isMenuOpen then
+		self.onSearchBarDismissed()
+	end
 end
 
 function InviteFriendsPage:loadFriends()
@@ -213,5 +286,6 @@ return RoactRodux.connect(function(state, props)
 	return {
 		canCaptureFocus = canCaptureFocus,
 		menuPage = state.menuPage,
+		isMenuOpen = state.isMenuOpen,
 	}
 end)(InviteFriendsPage)

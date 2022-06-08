@@ -12,6 +12,8 @@ local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 local SetFrameRate = require(Plugin.Src.Actions.SetFrameRate)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 
+local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
+
 return function(name, analytics)
 	return function(store)
 		local state = store:getState()
@@ -34,7 +36,7 @@ return function(name, analytics)
 		if animation:IsA("KeyframeSequence") then
 			newData, frameRate, numKeyframes, numPoses, numEvents = RigUtils.fromRigAnimation(animation)
 		elseif animation:IsA("CurveAnimation") then
-			newData = RigUtils.fromCurveAnimation(animation)
+			newData, numKeyframes, numPoses, numEvents = RigUtils.fromCurveAnimation(animation)
 			frameRate = Constants.DEFAULT_FRAMERATE
 		else
 			return
@@ -45,8 +47,13 @@ return function(name, analytics)
 		store:dispatch(SetIsDirty(false))
 		store:dispatch(SetFrameRate(frameRate))
 
-		-- TODO: Add analytics for channel animations
-		if not AnimationData.isChannelAnimation(newData) then
+		if GetFFlagCurveAnalytics() then
+			local animationType = if AnimationData.isChannelAnimation(newData)
+				then Constants.ANIMATION_TYPE.CurveAnimation
+				else Constants.ANIMATION_TYPE.KeyframeSequence
+
+			analytics:report("onLoadAnimation", name, numKeyframes, numPoses, numEvents, animationType)
+		elseif not AnimationData.isChannelAnimation(newData) then
 			analytics:report("onLoadAnimation", name, numKeyframes, numPoses, numEvents)
 		end
 	end

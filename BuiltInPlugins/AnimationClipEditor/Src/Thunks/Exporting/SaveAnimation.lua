@@ -9,10 +9,13 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local deepCopy = require(Plugin.Src.Util.deepCopy)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
+local Constants = require(Plugin.Src.Util.Constants)
 
 local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 local SetNotification = require(Plugin.Src.Actions.SetNotification)
+
+local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 
 return function(name, analytics)
 	return function(store)
@@ -32,7 +35,7 @@ return function(name, analytics)
 		local numKeyframes, numPoses, numEvents
 
 		if AnimationData.isChannelAnimation(newData) then
-			animationAsset = RigUtils.toCurveAnimation(newData, rootInstance)
+			animationAsset, numKeyframes, numPoses, numEvents = RigUtils.toCurveAnimation(newData, rootInstance)
 		else
 			animationAsset, numKeyframes, numPoses, numEvents = RigUtils.toRigAnimation(newData, rootInstance)
 		end
@@ -57,8 +60,13 @@ return function(name, analytics)
 		store:dispatch(SetIsDirty(false))
 		store:dispatch(SetNotification("Saved", name))
 
-		-- TODO: Add analytics for channel animations
-		if not AnimationData.isChannelAnimation(newData) then
+		if GetFFlagCurveAnalytics() then
+			local animationType = if AnimationData.isChannelAnimation(newData)
+				then Constants.ANIMATION_TYPE.CurveAnimation
+				else Constants.ANIMATION_TYPE.KeyframeSequence
+
+			analytics:report("onSaveAnimation", name, numKeyframes, numPoses, numEvents, animationType)
+		elseif not AnimationData.isChannelAnimation(newData) then
 			analytics:report("onSaveAnimation", name, numKeyframes, numPoses, numEvents)
 		end
 	end

@@ -2,15 +2,15 @@
 --[[
 	A view wrapper displaying a list of swimlanes.
 ]]
-local FFlagDevFrameworkAddUnobtrusiveLinkTextStyle = game:GetFastFlag("DevFrameworkAddUnobtrusiveLinkTextStyle")
-local FFlagDevFrameworkScrollingFrameAddPadding = game:GetFastFlag("DevFrameworkScrollingFrameAddPadding")
 local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
+local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
 local Sort = require(Plugin.Core.Types.Sort)
+local RoactRodux = require(Packages.RoactRodux)
 
 local Dash = Framework.Dash
 local ContextServices = Framework.ContextServices
@@ -61,6 +61,9 @@ export type _ExternalProps = {
 }
 
 export type _InternalProps = {
+	-- mapStateToProps
+	IncludeOnlyVerifiedCreators: boolean?,
+	-- withContext
 	Localization: any,
 	Stylizer: any,
 }
@@ -112,6 +115,7 @@ function SubcategoriesSwimlaneView:init()
 		local sortName = props.SortName or Sort.getDefaultSortNameForCategory(categoryName)
 		local subcategoryDict = props.SubcategoryDict
 		local theme = props.Stylizer
+		local includeOnlyVerifiedCreators = props.IncludeOnlyVerifiedCreators
 		-- Props from AssetLogicWrapper
 		local canInsertAsset = props.CanInsertAsset
 		local tryInsert = props.TryInsert
@@ -137,6 +141,7 @@ function SubcategoriesSwimlaneView:init()
 				NetworkInterface = getNetwork(self),
 				SortName = sortName,
 				SearchTerm = subcategory.searchKeywords,
+				IncludeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
 				InitialPageSize = INITIAL_PAGE_SIZE,
 				LayoutOrder = subcategory.index,
 				OnClickSeeAllAssets = onClickSeeAllAssets,
@@ -184,7 +189,7 @@ function SubcategoriesSwimlaneView:render()
 			AutoSizeCanvas = true,
 			EnableScrollBarBackground = true,
 			LayoutOrder = layoutOrder,
-			Padding = if FFlagDevFrameworkScrollingFrameAddPadding then Constants.MAIN_VIEW_PADDING else nil,
+			Padding = Constants.MAIN_VIEW_PADDING,
 			Size = size,
 		}, {
 			Contents = Roact.createElement(
@@ -203,7 +208,7 @@ function SubcategoriesSwimlaneView:render()
 					BackButton = Roact.createElement(LinkText, {
 						LayoutOrder = -1,
 						OnClick = self.onClickBack,
-						Style = if FFlagDevFrameworkAddUnobtrusiveLinkTextStyle then "Unobtrusive" else nil,
+						Style = "Unobtrusive",
 						Text = backText,
 					}),
 				}, assetSectionsElems)
@@ -212,9 +217,23 @@ function SubcategoriesSwimlaneView:render()
 	})
 end
 
+function mapStateToProps(state: any, props)
+	state = state or {}
+	local pageInfo = state.pageInfo or {}
+	return {
+		IncludeOnlyVerifiedCreators = if FFlagToolboxShowIdVerifiedFilter
+			then pageInfo.includeOnlyVerifiedCreators
+			else nil,
+	}
+end
+
 SubcategoriesSwimlaneView = withContext({
 	Localization = ContextServices.Localization,
 	Stylizer = ContextServices.Stylizer,
 })(SubcategoriesSwimlaneView)
 
-return SubcategoriesSwimlaneView
+if FFlagToolboxShowIdVerifiedFilter then
+	return RoactRodux.connect(mapStateToProps)(SubcategoriesSwimlaneView)
+else
+	return SubcategoriesSwimlaneView
+end

@@ -6,6 +6,8 @@ local Framework = require(PluginFolder.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
+local Analytics = ContextServices.Analytics
+local AnalyticsEventNames = require(PluginFolder.Src.Resources.AnalyticsEventNames)
 
 local Stylizer = Framework.Style.Stylizer
 
@@ -13,6 +15,8 @@ local DropdownField = require(PluginFolder.Src.Components.Common.DropdownField)
 
 local Thunks = PluginFolder.Src.Thunks
 local FilterScopeWatchThunk = require(Thunks.Watch.FilterScopeWatchThunk)
+
+local flatListToString = require(PluginFolder.Src.Util.flatListToString)
 
 local FFlagDevFrameworkTableHeaderTooltip = game:GetFastFlag("DevFrameworkTableHeaderTooltip")
 
@@ -43,6 +47,11 @@ function ScopeDropdownField:init()
 		[3] = VariableScope.UpvalueScope,
 		[4] = VariableScope.GlobalScope,
 	}
+
+	self.clickCallback = function(enabledScopes)
+		self.props.onScopeFilterChange(enabledScopes)
+		self.props.Analytics:report(AnalyticsEventNames.WatchScopeEdited, flatListToString(enabledScopes))
+	end
 end
 
 function ScopeDropdownField:render()
@@ -61,7 +70,7 @@ function ScopeDropdownField:render()
 		Tooltips = tooltips,
 		NumDisplay = props.NumEnabledChoices,
 		MaxDisplay = 3,
-		ClickCallback = props.onScopeFilterChange,
+		ClickCallback = self.clickCallback,
 		KeyStates = props.KeyStates,
 		Localization = localization,
 		Style = style,
@@ -73,6 +82,7 @@ function ScopeDropdownField:render()
 end
 
 ScopeDropdownField = withContext({
+	Analytics = Analytics,
 	Localization = Localization,
 	Stylizer = Stylizer,
 })(ScopeDropdownField)

@@ -23,6 +23,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 
 local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingModuleContext
+local PreviewContext = AvatarToolsShared.Contexts.PreviewContext
 
 local Components = AvatarToolsShared.Components
 local InputBlocker = Components.InputBlocker
@@ -30,8 +31,6 @@ local InputBlocker = Components.InputBlocker
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-
-local PreviewContext = require(Plugin.Src.Context.PreviewContext)
 
 local Util = Framework.Util
 local LayoutOrderIterator = Util.LayoutOrderIterator

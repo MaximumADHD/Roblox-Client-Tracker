@@ -20,7 +20,6 @@ local Category = require(Plugin.Core.Types.Category)
 local HomeTypes = require(Plugin.Core.Types.HomeTypes)
 local Sort = require(Plugin.Core.Types.Sort)
 
-local HomeView = require(Plugin.Core.Components.Categorization.HomeView)
 local NavigationContainer = require(Plugin.Core.Components.Home.NavigationContainer)
 
 local FrameworkUtil = require(Packages.Framework).Util
@@ -49,7 +48,6 @@ function HomeWrapper:shouldUpdate(nextProps, nextState)
 	local props = self.props
 	local assetType = props.AssetType
 	local homeConfiguration = props.homeConfiguration
-
 	return assetType ~= nextProps.AssetType or not deepEqual(homeConfiguration, nextProps.homeConfiguration)
 end
 

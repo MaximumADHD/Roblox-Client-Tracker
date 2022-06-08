@@ -1,3 +1,5 @@
+local FFlagDevFrameworkRemoveFitFrame = game:GetFastFlag("DevFrameworkRemoveFitFrame")
+
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local _Types = require(Plugin.Src.Types)
 local Roact = require(Plugin.Packages.Roact)
@@ -32,70 +34,72 @@ local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Flags.get
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
 
 export type Props = {
-	LayoutOrder : number?,
-	MockMaterial : _Types.Material?,
+	LayoutOrder: number?,
+	MockMaterial: _Types.Material?,
 }
 
 type _Props = Props & { 
-	Analytics : any,
-	dispatchSetBaseMaterial : (baseMaterial : string) -> (),
-	Localization : any,
-	Material : _Types.Material?,
-	MaterialController : any,
-	Stylizer : any,
+	Analytics: any,
+	dispatchSetBaseMaterial: (baseMaterial: string) -> (),
+	Localization: any,
+	Material: _Types.Material?,
+	MaterialController: any,
+	Stylizer: any,
 }
 
 type _Style = {
-	ButtonPosition : UDim2,
-	ButtonSize : UDim2,
-	ButtonStyle : string,
-	Close : _Types.Image,
-	CreateVariant : _Types.Image,
-	Delete : _Types.Image,
-	DropdownSize : UDim2,
-	Edit : _Types.Image,
-	HeaderBackground : Color3,
-	HeaderFont : Enum.Font,
-	HeaderSize : UDim2,
-	ImagePosition : UDim2,
-	ImageSize : UDim2,
-	NameLabelSizeBuiltIn : UDim2,
-	NameLabelSizeVariant : UDim2,
-	NoTexture : string,
-	LabelRowSize : UDim2,
-	OverrideSize : UDim2,
-	Padding : number,
-	SectionHeaderTextSize : number,
-	TextureLabelSize : UDim2,
-	TextureRowSize : UDim2,
-	TextureSize : UDim2,
-	TitleTextSize : number,
+	ButtonPosition: UDim2,
+	ButtonSize: UDim2,
+	ButtonStyle: string,
+	Close: _Types.Image,
+	CreateVariant: _Types.Image,
+	Delete: _Types.Image,
+	DropdownSize: UDim2,
+	Edit: _Types.Image,
+	HeaderBackground: Color3,
+	HeaderFont: Enum.Font,
+	HeaderSize: UDim2,
+	ImagePosition: UDim2,
+	ImageSize: UDim2,
+	NameLabelSizeBuiltIn: UDim2,
+	NameLabelSizeVariant: UDim2,
+	NoTexture: string,
+	LabelRowSize: UDim2,
+	OverrideSize: UDim2,
+	Padding: number,
+	SectionHeaderTextSize: number,
+	TextureLabelSize: UDim2,
+	TextureRowSize: UDim2,
+	TextureSize: UDim2,
+	TitleTextSize: number,
 }
 
 local MaterialOverrides = Roact.PureComponent:extend("MaterialOverrides")
 
 function MaterialOverrides:init()
-	self.onMaterialVariantChanged = function(materialVariant : MaterialVariant)
-		local props : _Props = self.props
+	self.onMaterialVariantChanged = function(materialVariant: MaterialVariant)
+		local props: _Props = self.props
 		local material = props.Material
 
-		if materialVariant.BaseMaterial == material.MaterialVariant.BaseMaterial then
-			self:setState({})
-
-			return
-		end
-
-		for _, variant in ipairs(self.variants) do
-			if materialVariant == variant then
+		if material.MaterialVariant then
+			if materialVariant.BaseMaterial == material.MaterialVariant.BaseMaterial then
 				self:setState({})
 
 				return
 			end
+
+			for _, variant in ipairs(self.variants) do
+				if materialVariant == variant then
+					self:setState({})
+
+					return
+				end
+			end
 		end
 	end
 
-	self.onMaterialAddedRemoved = function(_, materialVariant : MaterialVariant)
-		local props : _Props = self.props
+	self.onMaterialAddedRemoved = function(_, materialVariant: MaterialVariant)
+		local props: _Props = self.props
 		local material = props.Material
 		local baseMaterial = if getFFlagMaterialManagerGlassNeonForceField() then material.Material else material.MaterialVariant.BaseMaterial
 
@@ -106,10 +110,10 @@ function MaterialOverrides:init()
 		end
 	end
 
-	self.onOverrideChanged = function(materialEnum : Enum.Material)
-		local props : _Props = self.props
+	self.onOverrideChanged = function(materialEnum: Enum.Material)
+		local props: _Props = self.props
 		local material = props.Material
-		local baseMaterial = material.MaterialVariant.BaseMaterial
+		local baseMaterial = if getFFlagMaterialManagerGlassNeonForceField() then material.Material else material.MaterialVariant.BaseMaterial
 
 		if materialEnum == baseMaterial then
 			self:setState({})
@@ -117,9 +121,9 @@ function MaterialOverrides:init()
 	end
 
 	self.onMaterialItemActivated = function(value, index)
-		local props : _Props = self.props
+		local props: _Props = self.props
 		local material = props.Material
-		local baseMaterial = material.MaterialVariant.BaseMaterial
+		local baseMaterial = if getFFlagMaterialManagerGlassNeonForceField() then material.Material else material.MaterialVariant.BaseMaterial
 
 		if index == 1 then
 			props.MaterialController:setMaterialOverride(baseMaterial)
@@ -134,27 +138,30 @@ function MaterialOverrides:init()
 
 	self.onOverrideToggled = function()
 		local props : _Props = self.props
-		local material = props.Material 
-		local materialType = material.MaterialVariant.BaseMaterial
-		local materialName = material.MaterialVariant.Name
+		local material = props.Material
 
-		local materialIndex = 1
-		for index, name in ipairs(self.state.items) do
-			if materialName == name then
-				materialIndex = index
+		if material.MaterialVariant then
+			local materialType = material.MaterialVariant.BaseMaterial
+			local materialName = material.MaterialVariant.Name
+
+			local materialIndex = 1
+			for index, name in ipairs(self.state.items) do
+				if materialName == name then
+					materialIndex = index
+				end
 			end
-		end
 
-		if self.state.index ~= materialIndex then
-			props.MaterialController:setMaterialOverride(materialType, materialName)
-		else
-			materialIndex = 1
-			props.MaterialController:setMaterialOverride(materialType)
-		end
+			if self.state.index ~= materialIndex then
+				props.MaterialController:setMaterialOverride(materialType, materialName)
+			else
+				materialIndex = 1
+				props.MaterialController:setMaterialOverride(materialType)
+			end
 
-		self:setState({
-			index = materialIndex
-		})
+			self:setState({
+				index = materialIndex
+			})
+		end
 	end
 
 	self.variants = {}
@@ -192,7 +199,7 @@ function MaterialOverrides:willUnmount()
 end
 
 function MaterialOverrides:didMount()
-	local props : _Props = self.props
+	local props: _Props = self.props
 	local localization = props.Localization
 	local materialController = props.MaterialController
 
@@ -224,8 +231,8 @@ function MaterialOverrides:didMount()
 	end
 end
 
-function MaterialOverrides:didUpdate(prevProps : _Props)
-	local props : _Props = self.props
+function MaterialOverrides:didUpdate(prevProps: _Props)
+	local props: _Props = self.props
 	local localization = props.Localization
 	local materialController = props.MaterialController
 
@@ -255,7 +262,7 @@ function MaterialOverrides:didUpdate(prevProps : _Props)
 end
 
 function MaterialOverrides:render()
-	local props : _Props = self.props
+	local props: _Props = self.props
 	local style = props.Stylizer.MaterialDetails
 	local localization = props.Localization
 	local material = props.Material
@@ -290,7 +297,8 @@ function MaterialOverrides:render()
 					Size = style.ImageSize,
 				}),
 				Label = Roact.createElement(TextLabel, {
-					FitWidth = true,
+					FitWidth = if FFlagDevFrameworkRemoveFitFrame then nil else true,
+					AutomaticSize = if FFlagDevFrameworkRemoveFitFrame then Enum.AutomaticSize.XY else nil,
 					LayoutOrder = 2,
 					Text = localization:getText("MaterialOverrides", "MaterialOverride"),
 				}),
@@ -372,7 +380,7 @@ return RoactRodux.connect(
 	end,
 	function(dispatch)
 		return {
-			dispatchSetBaseMaterial = function(baseMaterial : string)
+			dispatchSetBaseMaterial = function(baseMaterial: string)
 				dispatch(SetBaseMaterial(baseMaterial))
 			end,
 		}

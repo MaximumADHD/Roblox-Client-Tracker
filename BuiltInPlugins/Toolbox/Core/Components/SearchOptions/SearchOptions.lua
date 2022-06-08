@@ -15,7 +15,6 @@
 local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag(
 	"ToolboxUseDevFrameworkLoadingBarAndRadioButton"
 )
-local FFlagToolboxRefactorSearchOptions = game:GetFastFlag("ToolboxRefactorSearchOptions")
 local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -107,15 +106,9 @@ function SearchOptions:init(initialProps)
 		self.extraSearchDetails = extraDetails
 
 		
-		if FFlagToolboxRefactorSearchOptions then
-			if not self.props.isSearching then
-				local networkInterface = getNetwork(self)
-				self.props.userSearch(networkInterface, searchTerm, extraDetails)
-			end
-		else
-			if self.props.updateSearch then
-				self.props.updateSearch(searchTerm)
-			end
+		if not self.props.isSearching then
+			local networkInterface = getNetwork(self)
+			self.props.userSearch(networkInterface, searchTerm, extraDetails)
 		end
 	end
 
@@ -140,23 +133,11 @@ function SearchOptions:init(initialProps)
 	end
 
 	self.apply = function(options)
-		if FFlagToolboxRefactorSearchOptions then
-			self.onSearchOptionsClosed(options)
-		else
-			if self.props.onClose then
-				self.props.onClose(options)
-			end
-		end
+		self.onSearchOptionsClosed(options)
 	end
 
 	self.cancel = function()
-		if FFlagToolboxRefactorSearchOptions then
-			self.onSearchOptionsClosed(nil)
-		else
-			if self.props.onClose then
-				self.props.onClose()
-			end
-		end
+		self.onSearchOptionsClosed(nil)
 	end
 
 	self.footerButtonClicked = function(button)
@@ -228,16 +209,14 @@ function SearchOptions:init(initialProps)
 		end)
 	end
 
-	if FFlagToolboxRefactorSearchOptions then
-		self.onSearchOptionsClosed = function(options)
-			if options then
-				local networkInterface = getNetwork(self)
-				local settings = self.props.Settings:get("Plugin")
-				self.props.searchWithOptions(networkInterface, settings, options)
-			end
-			if self.props.onSearchOptionsToggled then
-				self.props.onSearchOptionsToggled()
-			end
+	self.onSearchOptionsClosed = function(options)
+		if options then
+			local networkInterface = getNetwork(self)
+			local settings = self.props.Settings:get("Plugin")
+			self.props.searchWithOptions(networkInterface, settings, options)
+		end
+		if self.props.onSearchOptionsToggled then
+			self.props.onSearchOptionsToggled()
 		end
 	end
 end
@@ -274,19 +253,12 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 
 	local audioSearchTitle = self.props.Localization:getText("General", "SearchOptionAudioLength")
 
-	local showAudioSearch
-	local showCreatorSearch
-	if FFlagToolboxRefactorSearchOptions then
-		local categoryName = self.props.categoryName
-		showAudioSearch = Category.categoryIsAudio(categoryName)
+	local categoryName = self.props.categoryName
+	local showAudioSearch = Category.categoryIsAudio(categoryName)
 
-		showCreatorSearch = true
-		if showRobloxCreatedAssets() then
-			showCreatorSearch = false
-		end
-	else
-		showAudioSearch = self.props.showAudioSearch
-		showCreatorSearch = self.props.showCreatorSearch
+	local showCreatorSearch = true
+	if showRobloxCreatedAssets() then
+		showCreatorSearch = false
 	end
 
 	local sorts
@@ -520,7 +492,7 @@ end
 
 SearchOptions = withContext({
 	Localization = ContextServices.Localization,
-	Settings = if FFlagToolboxRefactorSearchOptions then Settings else nil,
+	Settings = Settings,
 	Stylizer = ContextServices.Stylizer,
 })(SearchOptions)
 
@@ -529,7 +501,7 @@ local function mapStateToProps(state, props)
 	local pageInfo = state.pageInfo or {}
 
 	local liveSearchData
-	if FFlagToolboxRefactorSearchOptions and state.liveSearch then
+	if state.liveSearch then
 		liveSearchData = {
 			searchTerm = state.liveSearch.searchTerm,
 			isSearching = state.liveSearch.isSearching,
@@ -540,26 +512,23 @@ local function mapStateToProps(state, props)
 	return {
 		audioSearchInfo = pageInfo.audioSearchInfo,
 		includeOnlyVerifiedCreators = pageInfo.includeOnlyVerifiedCreators,
-		categoryName = if FFlagToolboxRefactorSearchOptions then pageInfo.categoryName or Category.DEFAULT.name else nil,
-		LiveSearchData = if FFlagToolboxRefactorSearchOptions then liveSearchData else nil,
-		SortIndex = if FFlagToolboxRefactorSearchOptions then pageInfo.sortIndex or 1 else nil,
+		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
+		LiveSearchData = liveSearchData,
+		SortIndex = pageInfo.sortIndex or 1,
 	}
 end
 
-local mapDispatchToProps
-if FFlagToolboxRefactorSearchOptions then
-	mapDispatchToProps = function(dispatch)
-		return {
-			-- User search (searching as the user types in the search bar)
-			userSearch = function(networkInterface, searchTerm)
-				dispatch(UserSearchRequest(networkInterface, searchTerm))
-			end,
+local mapDispatchToProps = function(dispatch)
+	return {
+		-- User search (searching as the user types in the search bar)
+		userSearch = function(networkInterface, searchTerm)
+			dispatch(UserSearchRequest(networkInterface, searchTerm))
+		end,
 	
-			searchWithOptions = function(networkInterface, settings, options)
-				dispatch(SearchWithOptions(networkInterface, settings, options))
-			end,
-		}
-	end	
+		searchWithOptions = function(networkInterface, settings, options)
+			dispatch(SearchWithOptions(networkInterface, settings, options))
+		end,
+	}
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(SearchOptions)

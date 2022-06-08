@@ -16,7 +16,6 @@ local Properties = require(VirtualCursorFolder.Properties)
 local FIntVirtualCursorScrollingRadius = game:DefineFastInt("VirtualCursorScrollingRadius", 15)
 local FIntVirtualCursorScrollingSlowDownPercent = game:DefineFastInt("VirtualCursorScrollingSlowDownPercent", 25)
 local FIntVirtualCursorScrollingFrameSpeed = game:DefineFastInt("VirtualCursorScrollingFrameSpeed", 2000)
-local FFlagVirtualCursorDontShowScrollIcon = game:DefineFastFlag("VirtualCursorDontShowScrollIcon", false)
 
 local velocityTarget = 1
 local lastSelectedObject = nil
@@ -52,16 +51,8 @@ local function handleScrollingFrame(element, pos, dt)
 	local absCanvasSize = element.AbsoluteCanvasSize
 	local absSize = element.AbsoluteSize
 	local scrollingDirection = element.ScrollingDirection
-	local canScrollX = false
-	local canScrollY = false
-
-	if FFlagVirtualCursorDontShowScrollIcon then
-		canScrollX = absCanvasSize.X > absSize.X and (scrollingDirection == Enum.ScrollingDirection.XY or scrollingDirection == Enum.ScrollingDirection.X)
-		canScrollY = absCanvasSize.Y > absSize.Y and (scrollingDirection == Enum.ScrollingDirection.XY or scrollingDirection == Enum.ScrollingDirection.Y)
-	else
-		canScrollX = scrollingDirection == Enum.ScrollingDirection.XY or scrollingDirection == Enum.ScrollingDirection.X
-		canScrollY = scrollingDirection == Enum.ScrollingDirection.XY or scrollingDirection == Enum.ScrollingDirection.Y
-	end
+	local canScrollX = absCanvasSize.X > absSize.X and (scrollingDirection == Enum.ScrollingDirection.XY or scrollingDirection == Enum.ScrollingDirection.X)
+	local canScrollY = absCanvasSize.Y > absSize.Y and (scrollingDirection == Enum.ScrollingDirection.XY or scrollingDirection == Enum.ScrollingDirection.Y)
 	
 	local absSize = element.AbsoluteSize
 	local absPos = element.AbsolutePosition

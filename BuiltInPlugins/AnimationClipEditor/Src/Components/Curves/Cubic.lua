@@ -8,6 +8,8 @@ local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 local Line = require(Plugin.Src.Components.Curves.Line)
 
+local GetFFlagClampFacsCurves = require(Plugin.LuaFlags.GetFFlagClampFacsCurves)
+
 local Cubic = Roact.PureComponent:extend("Cubic")
 
 export type Props = {
@@ -20,6 +22,8 @@ export type Props = {
 	Transparency: number?,
 	FrameWidth: number,
 	ZIndex: number?,
+	MinClamp: number?,
+	MaxClamp: number?,
 }
 
 function Cubic:render(): (any)
@@ -44,6 +48,10 @@ function Cubic:render(): (any)
 			+ h10 * (b.X - a.X) * props.ASlope
 			+ h01 * b.Y
 			+ h11 * (b.X - a.X) * props.BSlope
+
+		if GetFFlagClampFacsCurves() and self.props.MinClamp and self.props.MaxClamp then
+			curY = math.clamp(curY, self.props.MinClamp, self.props.MaxClamp)
+		end
 
 		if prevX and prevX < props.FrameWidth and curX > 0 then
 			table.insert(children, Roact.createElement(Line, {

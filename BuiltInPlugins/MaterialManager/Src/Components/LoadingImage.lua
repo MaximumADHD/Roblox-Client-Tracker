@@ -24,24 +24,24 @@ local LoadingIndicator = UI.LoadingIndicator
 local ImageLoader = require(Plugin.Src.Components.ImageLoader)
 
 export type Props = {
-	BackgroundTransparency : number?,
-	Size : UDim2?,
-	Image : string?,
-	ScaleType : Enum.ScaleType?,
-	LayoutOrder : number?,
-	AnchorPoint : Vector2?,
-	Position : UDim2?,
-	ZIndex : number?,
+	BackgroundTransparency: number?,
+	Size: UDim2?,
+	Image: string?,
+	ScaleType: Enum.ScaleType?,
+	LayoutOrder: number?,
+	AnchorPoint: Vector2?,
+	Position: UDim2?,
+	ZIndex: number?,
 }
 
 type _Props = Props & {
-	ImageLoader : any,	
+	ImageLoader: any,	
 }
 
 local LoadingImage = Roact.PureComponent:extend("LoadingImage")
 
 function LoadingImage:init()
-	local props : _Props = self.props
+	local props: _Props = self.props
 	
 	self.state = {
 		currentImageLoaded = false,
@@ -76,7 +76,7 @@ function LoadingImage:init()
 end
 
 function LoadingImage:didMount()
-	local props : _Props = self.props
+	local props: _Props = self.props
 
 	self.isMounted = true
 	self.onImageLoaderConnection = props.ImageLoader.ImageLoaded:Connect(self.onImageLoaded)
@@ -93,7 +93,7 @@ function LoadingImage:willUnmount()
 end
 
 function LoadingImage:didUpdate(prevProps, prevState)
-	local props : _Props = self.props
+	local props: _Props = self.props
 
 	if prevProps.Image ~= props.Image then
 		self.requestLoadImage(props.Image)
@@ -101,7 +101,7 @@ function LoadingImage:didUpdate(prevProps, prevState)
 end
 
 function LoadingImage:render()
-	local props : _Props = self.props
+	local props: _Props = self.props
 	local loaded = self.state.currentImageLoaded
 
 	local imageProps = loaded and Dash.join(props, {

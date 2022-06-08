@@ -16,36 +16,28 @@ local MaterialController = require(Util.MaterialController)
 local Constants = Plugin.Src.Resources.Constants
 local getMaterialColor = require(Constants.getMaterialColor)
 local getMaterialName = require(Constants.getMaterialName)
-local getMaterialType = require(Constants.getMaterialType)
 
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialPack2022Update = require(Flags.getFFlagMaterialPack2022Update)
 local getFFlagMaterialServiceOverrideChangedSignal = require(Flags.getFFlagMaterialServiceOverrideChangedSignal)
--- TODO: cleaning up for the FFLagMaterialVariantTempIdCompatibility - remove all texture maps checks from this file and terrain checks from everywhere
-local getFFlagMaterialVariantTempIdCompatibility = require(Flags.getFFlagMaterialVariantTempIdCompatibility)
 
 local InsertService = game:GetService("InsertService")
 local materialModel = InsertService:LoadLocalAsset("rbxasset://models/MaterialManager/sphere_model.rbxm")
 
 export type Props = {
 	BackgroundColor : Color3?,
-	ColorMap : string?,
 	DisableZoom : boolean?,
-	ForceSurfaceAppearance : boolean?,
 	InitialDistance : number?,
 	LayoutOrder : number?,
 	Position : UDim2?,
 	Material : Enum.Material?,
 	MaterialVariant : string?,
-	MetalnessMap : string?,
-	NormalMap : string?,
-	RoughnessMap : string?,
 	Size : UDim2?,
 	Static : boolean?,
 }
 
 type _Props = Props & {
-	MaterialController : any,
+	MaterialController: any,
 }
 
 local MaterialPreview = Roact.PureComponent:extend("MaterialPreview")
@@ -73,7 +65,7 @@ function MaterialPreview:willUnmount()
 end
 
 function MaterialPreview:didMount()
-	local props : _Props = self.props
+	local props: _Props = self.props
 
 	if getFFlagMaterialServiceOverrideChangedSignal() and not props.MaterialVariant and props.Material then
 		self.materialOverrideChangedConnection = props.MaterialController:getMaterialOverrideChangedSignal(props.Material):Connect(function()
@@ -92,8 +84,8 @@ function MaterialPreview:didMount()
 	self.materialOverride = self.props.MaterialController:getMaterialOverride(self.props.Material)
 end
 
-function MaterialPreview:willUpdate(prevProps : _Props)
-	local props : _Props = self.props
+function MaterialPreview:willUpdate(prevProps: _Props)
+	local props: _Props = self.props
 	local materialOverride = props.MaterialController:getMaterialOverride(props.Material)
 
 	self.updateView = prevProps.MaterialVariant ~= props.MaterialVariant
@@ -109,7 +101,7 @@ function MaterialPreview:willUpdate(prevProps : _Props)
 end
 
 function MaterialPreview:didUpdate()
-	local props : _Props = self.props
+	local props: _Props = self.props
 
 	if getFFlagMaterialServiceOverrideChangedSignal() and not props.MaterialVariant and props.Material then
 		if self.materialOverrideChangedConnection then
@@ -127,95 +119,32 @@ function MaterialPreview:didUpdate()
 end
 
 function MaterialPreview:render()
-	local props : _Props = self.props
+	local props: _Props = self.props
 
 	local materialVariant = props.MaterialVariant
 	local material = props.Material
-	local colorMap = props.ColorMap
-	local forceSurfaceAppearance = props.ForceSurfaceAppearance
 	local materialController = props.MaterialController
-	local metalnessMap = props.MetalnessMap
-	local normalMap = props.NormalMap
-	local roughnessMap = props.RoughnessMap
 
-	local isTerrain = getMaterialType(material) == "Terrain"
-	local isNotTerrain = not isTerrain
 	local uses2022Materials = props.MaterialController:getUses2022Materials()
 
-	if not getFFlagMaterialVariantTempIdCompatibility() then
-		if isTerrain and not uses2022Materials then
-			local override = materialController:getMaterialOverride(material)
-			local materialVariantOverride = materialController:getMaterialVariant(material, override)
-
-			if materialVariantOverride then
-				colorMap = materialVariantOverride.ColorMap
-				metalnessMap = materialVariantOverride.MetalnessMap
-				normalMap = materialVariantOverride.NormalMap
-				roughnessMap = materialVariantOverride.RoughnessMap
-			end
-		end
+		-- If a re-render has been triggered, the model needs to be regenerated
+	if self.updateView then
+		self.model = materialModel:Clone()
+		self.model.MeshPart.SurfaceAppearance:Destroy()
 	end
 
-	if getFFlagMaterialVariantTempIdCompatibility() then
-			-- If a re-render has been triggered, the model needs to be regenerated
-		if self.updateView then
-			self.model = materialModel:Clone()
-			self.model.MeshPart.SurfaceAppearance:Destroy()
-		end
-
-		if materialVariant then
-			self.model.MeshPart.MaterialVariant = materialVariant
-		else
-			local override = materialController:getMaterialOverride(material)
-
-			if override == "" or (override == getMaterialName(material) and not materialController:getMaterialVariant(material, override)) then
-				self.model.MeshPart.Color = getMaterialColor(material, uses2022Materials) or Color3.fromRGB(163, 162, 165)
-			end
-		end
-
-		self.model.MeshPart.Material = material
-		self.updateView = false
+	if materialVariant then
+		self.model.MeshPart.MaterialVariant = materialVariant
 	else
-		if (uses2022Materials or isNotTerrain) and not forceSurfaceAppearance then
-			-- If a re-render has been triggered, the model needs to be regenerated
-			if self.updateView then
-				self.model = materialModel:Clone()
-				self.model.MeshPart.SurfaceAppearance:Destroy()
-			end
+		local override = materialController:getMaterialOverride(material)
 
-			if materialVariant then
-				self.model.MeshPart.MaterialVariant = materialVariant
-			else
-				local override = materialController:getMaterialOverride(material)
-
-				if override == "" or (override == getMaterialName(material) and not materialController:getMaterialVariant(material, override)) then
-					self.model.MeshPart.Color = getMaterialColor(material, uses2022Materials) or Color3.fromRGB(163, 162, 165)
-				end
-			end
-
-			self.model.MeshPart.Material = material
-			self.updateView = false
-		else
-			self.model = materialModel:Clone()
-			local surfaceAppearance = self.model.MeshPart.SurfaceAppearance
-
-			if colorMap then
-				surfaceAppearance.ColorMap = colorMap
-			end
-
-			if metalnessMap then
-				surfaceAppearance.MetalnessMap = metalnessMap
-			end
-
-			if normalMap then
-				surfaceAppearance.NormalMap = normalMap
-			end
-
-			if roughnessMap then
-				surfaceAppearance.RoughnessMap = roughnessMap
-			end
+		if override == "" or (override == getMaterialName(material) and not materialController:getMaterialVariant(material, override)) then
+			self.model.MeshPart.Color = getMaterialColor(material, uses2022Materials) or Color3.fromRGB(163, 162, 165)
 		end
 	end
+
+	self.model.MeshPart.Material = material
+	self.updateView = false
 
 	return Roact.createElement(Pane, {
 		BackgroundColor = props.BackgroundColor,

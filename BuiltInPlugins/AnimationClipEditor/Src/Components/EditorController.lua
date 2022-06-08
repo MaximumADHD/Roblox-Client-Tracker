@@ -62,6 +62,7 @@ local SetPlaybackSpeed = require(Plugin.Src.Thunks.Playback.SetPlaybackSpeed)
 local Pause = require(Plugin.Src.Actions.Pause)
 local PromoteKeyframeSequence = require(Plugin.Src.Thunks.PromoteKeyframeSequence)
 local SetEditorMode = require(Plugin.Src.Actions.SetEditorMode)
+local SwitchEditorMode = require(Plugin.Src.Thunks.SwitchEditorMode)
 local SetCreatingAnimationFromVideo = require(Plugin.Src.Actions.SetCreatingAnimationFromVideo)
 
 local Playback = require(Plugin.Src.Components.Playback)
@@ -76,6 +77,7 @@ local GetFFlagRootMotionTrack = require(Plugin.LuaFlags.GetFFlagRootMotionTrack)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
 local GetFFlagFaceControlsEditorFixNonChannelPath = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorFixNonChannelPath)
+local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 
 local FFlagShowDualScrollbars = game:DefineFastFlag("ACEShowDualScrollbars", false)
 
@@ -528,8 +530,12 @@ function EditorController:init()
 	end
 
 	self.promoteKeyframeSequence = function()
-		self.props.PromoteKeyframeSequence()
-		self.props.SetEditorMode(Constants.EDITOR_MODE.CurveCanvas)
+		self.props.PromoteKeyframeSequence(self.props.Analytics)
+		if GetFFlagCurveAnalytics() then
+			self.props.SwitchEditorMode(Constants.EDITOR_MODE.CurveCanvas, self.props.Analytics)
+		else
+			self.props.SetEditorMode(Constants.EDITOR_MODE.CurveCanvas)
+		end
 	end
 end
 
@@ -936,6 +942,9 @@ function EditorController:didMount()
 	local timelineUnit = props.ShowAsSeconds and "Seconds" or "Frames"
 	props.AttachEditor(props.Analytics)
 	props.Analytics:report("onEditorOpened", timelineUnit, false, snapMode)
+	if GetFFlagCurveAnalytics() then
+		self.props.SetEditorMode(Constants.EDITOR_MODE.DopeSheet)
+	end
 	self.openedTimestamp = os.time()
 end
 
@@ -945,6 +954,9 @@ function EditorController:willUnmount()
 		RigUtils.resetAllFacsValuesInFaceControls(props.RootInstance)
 	end
 	props.ReleaseEditor(props.Analytics)
+	if GetFFlagCurveAnalytics() then
+		props.Analytics:report("onEditorModeSwitch", props.EditorMode, os.time() - props.EditorModeSwitchTime)
+	end
 	props.Analytics:report("onEditorClosed", os.time() - self.openedTimestamp)
 end
 
@@ -978,6 +990,7 @@ local function mapStateToProps(state)
 		Analytics = state.Analytics,
 		PlaybackSpeed = status.PlaybackSpeed,
 		EditorMode = status.EditorMode,
+		EditorModeSwitchTime = status.EditorModeSwitchTime,
 		DefaultRotationType = status.DefaultRotationType,
 		DefaultEulerAnglesOrder = status.DefaultEulerAnglesOrder,
 		SymmetryEnabled = status.SymmetryEnabled,
@@ -1102,12 +1115,16 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetPlaybackSpeed(playbackSpeed))
 		end,
 
-		PromoteKeyframeSequence = function()
-			dispatch(PromoteKeyframeSequence())
+		PromoteKeyframeSequence = function(analytics)
+			dispatch(PromoteKeyframeSequence(analytics))
 		end,
 
 		SetEditorMode = function(editorMode)
 			dispatch(SetEditorMode(editorMode))
+		end,
+
+		SwitchEditorMode = function(editorMode, analytics)
+			dispatch(SwitchEditorMode(editorMode, analytics))
 		end,
 
 		SetCreatingAnimationFromVideo = function(creatingAnimationFromVideo)

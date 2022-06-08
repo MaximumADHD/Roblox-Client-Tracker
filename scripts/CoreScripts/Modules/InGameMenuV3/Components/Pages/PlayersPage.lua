@@ -315,7 +315,6 @@ function PlayersPage:renderListEntries(style, localized, players)
 				isOnline = true,
 				isSelected = self.state.selectedPlayer == player,
 				LayoutOrder = layoutOrder,
-				-- Visible = isEntryVisibleForPlayer,
 
 				onActivated = self.toggleMoreActions,
 

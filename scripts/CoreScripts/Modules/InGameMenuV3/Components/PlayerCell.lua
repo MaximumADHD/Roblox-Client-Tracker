@@ -21,9 +21,7 @@ local CONTAINER_FRAME_HEIGHT = 72
 local PLAYER_ICON_SIZE = 48
 local ONLINE_INDICATOR_SIZE = 6
 
-local DISPLAYNAME_WIDTH = 219
 local DISPLAYNAME_HEIGHT = 20
-local USERNAME_WIDTH = 219
 local USERNAME_HEIGHT = 14
 
 local CORNER_RADIUS = UDim.new(0, PLAYER_ICON_SIZE / 2)
@@ -103,7 +101,7 @@ function PlayerCell:renderWithSelectionCursor(getSelectionCursor)
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				AnchorPoint = Vector2.new(0, 0),
-				Size = UDim2.new(1, 0, 0, CONTAINER_FRAME_HEIGHT),
+				Size = UDim2.new(1, -BUTTONS_PADDING, 0, CONTAINER_FRAME_HEIGHT),
 			}, {
 				HeadListLayout = Roact.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Horizontal,
@@ -153,7 +151,7 @@ function PlayerCell:renderWithSelectionCursor(getSelectionCursor)
 
 				NameContainer = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
-					Size = UDim2.new(1, 0, 0, CONTAINER_FRAME_HEIGHT),
+					Size = UDim2.new(1, -PLAYER_ICON_SIZE - BUTTONS_PADDING, 0, CONTAINER_FRAME_HEIGHT),
 					Position = UDim2.fromOffset(PLAYER_ICON_SIZE, 0),
 					AnchorPoint = Vector2.new(0, 0.5),
 					LayoutOrder = 2,
@@ -171,7 +169,7 @@ function PlayerCell:renderWithSelectionCursor(getSelectionCursor)
 						themeKey = "TextEmphasis",
 						BackgroundTransparency = 1,
 						AnchorPoint = Vector2.new(0, 0.5),
-						Size = UDim2.new(0, DISPLAYNAME_WIDTH, 0, DISPLAYNAME_HEIGHT),
+						Size = UDim2.new(1, 0, 0, DISPLAYNAME_HEIGHT),
 						Text = displayName or props.username,
 						TextXAlignment = Enum.TextXAlignment.Left,
 						TextTruncate = Enum.TextTruncate.AtEnd,
@@ -183,7 +181,7 @@ function PlayerCell:renderWithSelectionCursor(getSelectionCursor)
 						themeKey = "TextDefault",
 						BackgroundTransparency = 1,
 						AnchorPoint = Vector2.new(0, 0.5),
-						Size = UDim2.new(0, USERNAME_WIDTH, 0, USERNAME_HEIGHT),
+						Size = UDim2.new(1, 0, 0, USERNAME_HEIGHT),
 						Text = "@" .. props.username,
 						TextXAlignment = Enum.TextXAlignment.Left,
 						TextTruncate = Enum.TextTruncate.AtEnd,

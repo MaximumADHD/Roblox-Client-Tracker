@@ -7,6 +7,8 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local FFlagToolboxUseExpandableTopSearch = game:GetFastFlag("ToolboxUseExpandableTopSearch") -- TODO: Flip when UISYS-1334 is ready
 local FintToolboxHomeViewInitialPageSize = game:GetFastInt("ToolboxHomeViewInitialPageSize")
 local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
+local FFlagToolboxFixTryInStudio = game:GetFastFlag("ToolboxFixTryInStudio")
+local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
 
 local Libs = Plugin.Packages
 
@@ -54,7 +56,6 @@ local HomeTypes = require(Plugin.Core.Types.HomeTypes)
 
 local ASSET_SECTION_SPACING = 10
 local INITIAL_PAGE_SIZE = FintToolboxHomeViewInitialPageSize
-local MAIN_VIEW_PADDING = Constants.MAIN_VIEW_PADDING
 local SECTION_SPACING = 20
 local SWIMLANE_SIZE = 20
 local SUBCATEGORY_SIZE = Vector2.new(75, 90)
@@ -97,6 +98,8 @@ type _ExternalProps = {
 }
 
 type _InternalProps = {
+	-- mapStateToProps
+	IncludeOnlyVerifiedCreators: boolean?,
 	-- mapDispatchToProps
 	getAssetPreviewDataForStartup: any,
 	requestSearchRequest: (networkInterface: any, settings: any, searchText: string, categoryName: string) -> (),
@@ -125,7 +128,12 @@ function HomeView:didMount()
 	local assetId = tonumber(assetIdStr)
 
 	if assetId then
-		props.getAssetPreviewDataForStartup(assetId, self.tryInsert, props.Localization, getNetwork(self))
+		if FFlagToolboxFixTryInStudio then
+			local onAssetPreviewButtonClicked = props.OnAssetPreviewButtonClicked
+			props.getAssetPreviewDataForStartup(assetId, props.TryInsert, props.Localization, getNetwork(self), onAssetPreviewButtonClicked)
+		else
+			props.getAssetPreviewDataForStartup(assetId, props.TryInsert, props.Localization, getNetwork(self))
+		end
 	end
 
 	self.onOverallAbsoluteSizeChange()
@@ -226,6 +234,7 @@ function HomeView:init()
 		local assetSections = props.AssetSections
 		local canInsertAsset = props.CanInsertAsset
 		local categoryName = props.CategoryName
+		local includeOnlyVerifiedCreators = props.IncludeOnlyVerifiedCreators
 		local localization = props.Localization
 		local onClickSeeAllAssets = props.OnClickSeeAllAssets
 		local onAssetPreviewButtonClicked = props.OnAssetPreviewButtonClicked
@@ -270,6 +279,7 @@ function HomeView:init()
 			assetSectionsElems["AssetSwimlane_" .. i] = Roact.createElement(AssetSwimlane, {
 				CanInsertAsset = canInsertAsset,
 				CategoryName = categoryName,
+				IncludeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
 				InitialPageSize = SWIMLANE_SIZE,
 				SortName = sortName,
 				SearchTerm = nil,
@@ -393,6 +403,7 @@ function HomeView:render()
 	local props: HomeViewProps = self.props
 
 	local categoryName = props.CategoryName
+	local includeOnlyVerifiedCreators = props.IncludeOnlyVerifiedCreators
 	local layoutOrder = props.LayoutOrder
 	local position = props.Position
 	local sortName = props.SortName
@@ -427,6 +438,7 @@ function HomeView:render()
 			searchTerm = nil,
 			sectionName = sectionName,
 			initialPageSize = INITIAL_PAGE_SIZE,
+			includeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
 			render = function(resultsState)
 				if resultsState.loading and #resultsState.assetIds == 0 then
 					return Roact.createElement("Frame", {
@@ -462,10 +474,20 @@ function HomeView:render()
 	})
 end
 
+function mapStateToProps(state: any, props)
+	state = state or {}
+	local pageInfo = state.pageInfo or {}
+	return {
+		IncludeOnlyVerifiedCreators = if FFlagToolboxShowIdVerifiedFilter
+			then pageInfo.includeOnlyVerifiedCreators
+			else nil,
+	}
+end
+
 local function mapDispatchToProps(dispatch)
 	return {
-		getAssetPreviewDataForStartup = function(assetId, tryInsert, localization, networkInterface)
-			dispatch(GetAssetPreviewDataForStartup(assetId, tryInsert, localization, networkInterface))
+		getAssetPreviewDataForStartup = function(assetId, tryInsert, localization, networkInterface, setAssetPreview)
+			dispatch(GetAssetPreviewDataForStartup(assetId, tryInsert, localization, networkInterface, setAssetPreview))
 		end,
 		requestSearchRequest = function(networkInterface, settings, searchTerm, categoryName)
 			if FFlagToolboxHomeViewAnalyticsUpdate then
@@ -488,4 +510,8 @@ HomeView = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(HomeView)
 
-return RoactRodux.connect(nil, mapDispatchToProps)(HomeView)
+if FFlagToolboxShowIdVerifiedFilter then
+	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(HomeView)
+else
+	return RoactRodux.connect(nil, mapDispatchToProps)(HomeView)
+end

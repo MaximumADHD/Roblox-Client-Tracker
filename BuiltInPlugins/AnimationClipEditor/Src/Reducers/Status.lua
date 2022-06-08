@@ -58,6 +58,7 @@ return Rodux.createReducer({
 	SymmetryEnabled = false,
 	AutoFocusFaceEnabled = false,
 	DefaultEulerAnglesOrder = Enum.RotationOrder.XYZ,
+	EditorModeSwitchTime = nil,
 }, {
 	SetActive = function(state, action)
 		return Cryo.Dictionary.join(state, {
@@ -340,6 +341,7 @@ return Rodux.createReducer({
 	SetEditorMode = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			EditorMode = action.editorMode,
+			EditorModeSwitchTime = action.editorModeSwitchTime,
 		})
 	end,
 

@@ -2,6 +2,7 @@
 local Plugin = script:FindFirstAncestor("Toolbox")
 
 local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
+local FFlagToolboxRemoveSFXMonstercatBanner = game:GetFastFlag("ToolboxRemoveSFXMonstercatBanner")
 local FFlagToolboxAudioDiscoveryRound2 =
 	require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscoveryRound2()
 
@@ -153,6 +154,11 @@ function AudioWrapper:init(props: AudioWrapperProps)
 			end
 		end
 
+		local isMusic
+		if FFlagToolboxRemoveSFXMonstercatBanner then
+			isMusic = selectedTab == Category.MUSIC.name
+		end
+
 		return Roact.createElement("Frame", {
 			LayoutOrder = 1,
 			AutomaticSize = if FFlagToolboxAudioDiscoveryRound2 then Enum.AutomaticSize.Y else nil,
@@ -185,6 +191,7 @@ function AudioWrapper:init(props: AudioWrapperProps)
 				}),
 			}),
 			CallToActionBanner = if FFlagToolboxAudioDiscoveryRound2
+					and (not FFlagToolboxRemoveSFXMonstercatBanner or isMusic)
 				then CallToActionBanner.Generator({
 					LayoutOrder = 2,
 					Image = Images.MONSTER_CAT_BANNER,

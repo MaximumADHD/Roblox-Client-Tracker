@@ -152,8 +152,8 @@ local function shorten(id)
 end
 
 local function bind(t, k)
-	return function(...) 
-		return t[k](t, ...) 
+	return function(...)
+		return t[k](t, ...)
 	end
 end
 
@@ -584,9 +584,9 @@ function VoiceChatServiceManager:_updateRecentUsersInteractionData()
 
 	for userId, interactionData in pairs(self.recentUsersInteractionData) do
 		local participant = self.participants[userId]
-		local clearOnLeave = GetFFlagClearUserFromRecentVoiceDataOnLeave() and not participant
+		local clearOnLeave = GetFFlagClearUserFromRecentVoiceDataOnLeave() and not PlayersService:GetPlayerByUserId(tonumber(userId))
 		local clearOnInactive = (currentTime-interactionData.lastHeardTime) >= GetFIntVoiceUsersInteractionExpiryTimeSeconds()
-		local isCurrentlyMuted = participant and participant.isMuted
+		local isCurrentlyMuted = if not participant then true else participant.isMuted
 
 		if (clearOnInactive and isCurrentlyMuted) or clearOnLeave then
 			userIdsToRemove[userId] = Cryo.None
@@ -679,8 +679,8 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 					log:debug("State Changed to Failed. Reason: {}", self.service:GetAndClearCallFailureMessage())
 
 				end
-				if oldState == (Enum::any).VoiceChatState.Joining 
-					or oldState == (Enum::any).VoiceChatState.JoiningRetry 
+				if oldState == (Enum::any).VoiceChatState.Joining
+					or oldState == (Enum::any).VoiceChatState.JoiningRetry
 					or oldState == (Enum::any).VoiceChatState.Joined
 				then
 					if newState == (Enum::any).VoiceChatState.Ended then

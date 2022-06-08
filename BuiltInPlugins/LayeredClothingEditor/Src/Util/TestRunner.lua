@@ -6,6 +6,10 @@ local LuaMeshEditingModule = require(Plugin.Packages.LuaMeshEditingModule)
 
 local PointTool = require(LuaMeshEditingModule.Tools.PointTool)
 local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingModuleContext
+local Signals = AvatarToolsShared.Contexts.Signals
+local PreviewContext = AvatarToolsShared.Contexts.PreviewContext
+local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
+local AssetServiceWrapper = AvatarToolsShared.Contexts.AssetServiceWrapper
 
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
 
@@ -18,11 +22,6 @@ local provideMockContext = TestHelpers.provideMockContext
 local Constants = require(Plugin.Src.Util.Constants)
 local TestHelper = require(Plugin.Src.Util.TestHelper)
 local makeMockNetworkLayer = require(Plugin.Src.Util.makeMockNetworkLayer)
-local Signals = require(Plugin.Src.Context.Signals)
-local PreviewContext = require(Plugin.Src.Context.PreviewContext)
-local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
-local AssetServiceWrapper = require(Plugin.Src.Context.AssetServiceWrapper)
-local MockAssetService = require(Plugin.Src.Util.MockAssetService)
 
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
@@ -35,7 +34,7 @@ local function run(testChildren, container, testRunner)
 	local store = Rodux.Store.new(MainReducer, nil, middlewares)
 	local signals = Signals.new(Constants.SIGNAL_KEYS)
 	local editingItemContext = EditingItemContext.new()
-	local assetServiceWrapper = AssetServiceWrapper.new(MockAssetService)
+	local assetServiceWrapper = AssetServiceWrapper.mock()
 	local theme = PluginTheme.mock()
 	local localization = ContextServices.Localization.mock({
 		libraries = {

@@ -66,7 +66,7 @@ MovementModeEntry.defaultProps = {
 	canOpen = true,
 }
 
-function touchInputActive()
+function isTouchInputActive()
 	local lastInputType = UserInputService:GetLastInputType()
 	return UserInputService.TouchEnabled
 		and (
@@ -76,32 +76,32 @@ function touchInputActive()
 		)
 end
 
-function currentInputModeList()
-	if touchInputActive() then
+function currentInputModeList(touchInputActive)
+	if touchInputActive then
 		return playerScripts:GetRegisteredTouchMovementModes()
 	else
 		return playerScripts:GetRegisteredComputerMovementModes()
 	end
 end
 
-function currentInputMode()
-	if touchInputActive() then
+function currentInputMode(touchInputActive)
+	if touchInputActive then
 		return UserGameSettings.TouchMovementMode
 	else
 		return UserGameSettings.ComputerMovementMode
 	end
 end
 
-function localizationKeys()
-	if touchInputActive() then
+function localizationKeys(touchInputActive)
+	if touchInputActive then
 		return TOUCH_MOVEMENT_MODE_LOCALIZATION_KEYS
 	else
 		return MOVEMENT_MODE_LOCALIZATION_KEYS
 	end
 end
 
-function setInputMode(mode)
-	if touchInputActive() then
+function setInputMode(touchInputActive, mode)
+	if touchInputActive then
 		UserGameSettings.TouchMovementMode = mode
 	else
 		UserGameSettings.ComputerMovementMode = mode
@@ -109,18 +109,22 @@ function setInputMode(mode)
 end
 
 function MovementModeEntry:init()
+	local touchInputActive = isTouchInputActive()
 	self:setState({
-		selectedInputMode = currentInputMode(),
-		inputModeList = currentInputModeList(),
+		touchInputActive = touchInputActive,
+		selectedInputMode = currentInputMode(touchInputActive),
+		inputModeList = currentInputModeList(touchInputActive),
 		developerComputerMode = localPlayer.DevComputerMovementMode,
 	})
 end
 
 function MovementModeEntry:willUpdate(nextProps)
 	if self.props.controlLayout ~= nextProps.controlLayout then
+		local touchInputActive = isTouchInputActive()
 		self:setState({
-			selectedInputMode = currentInputMode(),
-			inputModeList = currentInputModeList(),
+			touchInputActive = touchInputActive,
+			selectedInputMode = currentInputMode(touchInputActive),
+			inputModeList = currentInputModeList(touchInputActive),
 			developerComputerMode = localPlayer.DevComputerMovementMode,
 		})
 	end
@@ -133,39 +137,49 @@ function MovementModeEntry:render()
 		ComputerMovementModeListener = Roact.createElement(ExternalEventConnection, {
 			event = ComputerMovementModeChanged,
 			callback = function()
+				local touchInputActive = isTouchInputActive()
 				self:setState({
-					selectedInputMode = currentInputMode(),
+					touchInputActive = touchInputActive,
+					selectedInputMode = currentInputMode(touchInputActive),
 				})
 			end,
 		}),
 		TouchMovementModeListener = Roact.createElement(ExternalEventConnection, {
 			event = TouchMovementModeChanged,
 			callback = function()
+				local touchInputActive = isTouchInputActive()
 				self:setState({
-					selectedInputMode = currentInputMode(),
+					touchInputActive = touchInputActive,
+					selectedInputMode = currentInputMode(touchInputActive),
 				})
 			end,
 		}),
 		ComputerMovementModeRegisteredListener = Roact.createElement(ExternalEventConnection, {
 			event = playerScripts.ComputerMovementModeRegistered,
 			callback = function()
+				local touchInputActive = isTouchInputActive()
 				self:setState({
-					inputModeList = currentInputModeList(),
+					touchInputActive = touchInputActive,
+					inputModeList = currentInputModeList(touchInputActive),
 				})
 			end,
 		}),
 		TouchMovementModeRegisteredListener = Roact.createElement(ExternalEventConnection, {
 			event = playerScripts.TouchMovementModeRegistered,
 			callback = function()
+				local touchInputActive = isTouchInputActive()
 				self:setState({
-					inputModeList = currentInputModeList(),
+					touchInputActive = touchInputActive,
+					inputModeList = currentInputModeList(touchInputActive),
 				})
 			end,
 		}),
 		DevComputerMovementMode = Roact.createElement(ExternalEventConnection, {
 			event = DevComputerMovementModeChanged,
 			callback = function()
+				local touchInputActive = isTouchInputActive()
 				self:setState({
+					touchInputActive = touchInputActive,
 					developerComputerMode = localPlayer.DevComputerMovementMode,
 				})
 			end,
@@ -181,7 +195,7 @@ function MovementModeEntry:render()
 	local selectedIndex = 0
 
 	if not disabled then
-		local movementLocalizationKeys = localizationKeys()
+		local movementLocalizationKeys = localizationKeys(self.state.touchInputActive)
 		for index, enum in ipairs(self.state.inputModeList) do
 			localizedTexts[index] = movementLocalizationKeys[enum]
 			assert(localizedTexts[index] ~= nil, "Movement mode " .. enum.Name .. " has no localization key")
@@ -244,7 +258,7 @@ function MovementModeEntry:render()
 					onChange = function(newSelection)
 						local selection = nameToIndex[newSelection]
 						if selection ~= nil then
-							setInputMode(self.state.inputModeList[selection])
+							setInputMode(self.state.touchInputActive, self.state.inputModeList[selection])
 							SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 						end
 					end,

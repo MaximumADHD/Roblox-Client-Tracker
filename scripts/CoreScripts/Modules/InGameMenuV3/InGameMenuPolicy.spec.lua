@@ -8,13 +8,12 @@ return function()
 			return {
 				UnitTestPolicy = function()
 					return testPolicyValue
-				end
+				end,
 			}
 		end
 
 		local RoactTestComponent = Roact.PureComponent:extend("RoactTestComponent")
-		function RoactTestComponent:render()
-		end
+		function RoactTestComponent:render() end
 		function RoactTestComponent:didMount()
 			self.props.callback(self.props.testValue)
 		end

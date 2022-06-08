@@ -6,6 +6,8 @@ local Framework = require(PluginFolder.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
+local Analytics = ContextServices.Analytics
+local AnalyticsEventNames = require(PluginFolder.Src.Resources.AnalyticsEventNames)
 
 local Stylizer = Framework.Style.Stylizer
 
@@ -16,6 +18,8 @@ local BreakpointColumnFilter = require(Actions.BreakpointsWindow.BreakpointColum
 
 local Models = PluginFolder.Src.Models
 local Columns = require(Models.BreakpointTableColumnEnum)
+
+local flatListToString = require(PluginFolder.Src.Util.flatListToString)
 
 local BreakpointsDropdownField = Roact.PureComponent:extend("BreakpointsDropdownField")
 
@@ -36,6 +40,11 @@ function BreakpointsDropdownField:init()
 		[4] = Columns.LogMessage,
 		[5] = Columns.ContinueExecution,
 	}
+
+	self.clickCallback = function(enabledColumns)
+		self.props.onColumnFilterChange(enabledColumns)
+		self.props.Analytics:report(AnalyticsEventNames.BreakpointsColumnsEdited, flatListToString(enabledColumns))
+	end
 end
 
 function BreakpointsDropdownField:render()
@@ -45,7 +54,7 @@ function BreakpointsDropdownField:render()
 
 	return Roact.createElement(DropdownField, {
 		KeyTexts = self.keyColumns,
-		ClickCallback = props.onColumnFilterChange,
+		ClickCallback = self.clickCallback,
 		KeyStates = props.ColumnStates,
 		Localization = localization,
 		Style = style,
@@ -57,6 +66,7 @@ function BreakpointsDropdownField:render()
 end
 
 BreakpointsDropdownField = withContext({
+	Analytics = Analytics,
 	Localization = Localization,
 	Stylizer = Stylizer,
 })(BreakpointsDropdownField)

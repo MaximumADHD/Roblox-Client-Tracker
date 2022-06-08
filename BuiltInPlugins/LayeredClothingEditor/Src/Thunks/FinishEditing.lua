@@ -6,10 +6,10 @@ local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 
 local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
 local AccessoryUtil = AccessoryAndBodyToolSharedUtil.AccessoryUtil
+local AvatarUtil = AccessoryAndBodyToolSharedUtil.AvatarUtil
 local WrapUtil = AccessoryAndBodyToolSharedUtil.WrapUtil
-
-local ModelUtil = require(Plugin.Src.Util.ModelUtil)
-local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
+local getDeformerToPartMap = AccessoryAndBodyToolSharedUtil.getDeformerToPartMap
+local ItemCharacteristics = AccessoryAndBodyToolSharedUtil.ItemCharacteristics
 
 local function fromModelToAccessory(model)
 	local accessory = Instance.new("Accessory", Workspace)
@@ -35,14 +35,28 @@ local function parentToTempModel(item)
 end
 
 local function fixCFrame(item, cframe)
-	local root = ModelUtil:getRootPart(item)
+	local root = item
+	if ItemCharacteristics.isAvatar(item) then
+		root = AvatarUtil:getRootPart(item)
+	end
 	root.CFrame = cframe
+end
+
+local function cloneItem(sourceItem, editingItem)
+	local clone = sourceItem:clone()
+	clone.Anchored = false
+	if ItemCharacteristics.isAvatar(editingItem) then
+		fixCFrame(clone, AvatarUtil:getRootCFrame(editingItem))
+	else
+		fixCFrame(clone, editingItem.CFrame)
+	end
+	return clone
 end
 
 local function publishCageEdits(item, isClothes)
 	local newIdsInner = {}
 	local newIdsOuter = {}
-	local deformerToPartMap = ModelUtil:getDeformerToPartMap(item, not isClothes)
+	local deformerToPartMap = getDeformerToPartMap(item, not isClothes)
 	if isClothes then
 		for _, deformer in pairs(deformerToPartMap) do
 			local id = PublishService:PublishCageMeshAsync(deformer, Enum.CageType.Inner)
@@ -74,8 +88,7 @@ local function generateRigidAccessory(store, editingItem, sourceItem)
 	local attachmentCFrameLocal = attachmentPoint.AttachmentCFrame
 	local itemCFrameLocal = attachmentPoint.ItemCFrame
 
-	local clone = sourceItem:clone()
-	fixCFrame(clone, ModelUtil:getRootCFrame(editingItem))
+	local clone = cloneItem(sourceItem, editingItem)
 
 	AccessoryUtil:createOrReuseAttachmentInstance(clone, editingItem.Parent, attachmentName, attachmentCFrameLocal, itemCFrameLocal)
 	clone.Size = itemSize
@@ -94,8 +107,7 @@ local function generateCagedAccessory(store, meshEditingContext, editingItem, so
 	local attachmentCFrameLocal = attachmentPoint.AttachmentCFrame
 	local itemCFrameLocal = attachmentPoint.ItemCFrame
 
-	local clone = sourceItem:clone()
-	fixCFrame(clone, ModelUtil:getRootCFrame(editingItem))
+	local clone = cloneItem(sourceItem, editingItem)
 
 	AccessoryUtil:clearWelds(clone)
 	AccessoryUtil:createOrReuseAttachmentInstance(clone, editingItem.Parent, attachmentName, attachmentCFrameLocal, itemCFrameLocal)
@@ -108,7 +120,7 @@ local function generateCagedAccessory(store, meshEditingContext, editingItem, so
 
 	publishCageEdits(clone, true)
 
-	ModelUtil:cleanupDeformerNames(tempModel, sourceItem)
+	WrapUtil:renameDeformers(tempModel, sourceItem)
 
 	fromModelToAccessory(tempModel)
 end
@@ -116,15 +128,14 @@ end
 local function generateCagedAvatar(meshEditingContext, editingItem, sourceItem)
 	local outerCageData = meshEditingContext:getOuterCageContext():getVertexData()
 
-	local clone = sourceItem:clone()
-	fixCFrame(clone, ModelUtil:getRootCFrame(editingItem))
+	local clone = cloneItem(sourceItem, editingItem)
 
 	clone.Parent = Workspace
 	WrapUtil:deformBody(clone, outerCageData, Enum.CageType.Outer)
 
 	publishCageEdits(clone, false)
 
-	ModelUtil:cleanupDeformerNames(clone, sourceItem)
+	WrapUtil:renameDeformers(clone, sourceItem)
 end
 
 return function(meshEditingContext, editingItem, sourceItem)

@@ -3,7 +3,7 @@
 local MaterialServiceWrapper = {}
 MaterialServiceWrapper.__index = MaterialServiceWrapper
 
-function MaterialServiceWrapper.new(MockMaterialService : any)
+function MaterialServiceWrapper.new(MockMaterialService: any)
 	local self = {
 		_mock = MockMaterialService,
 		_instance = if MockMaterialService then Instance.new("Folder") else game:GetService("MaterialService"),

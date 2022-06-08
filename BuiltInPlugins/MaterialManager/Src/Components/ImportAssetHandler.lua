@@ -30,7 +30,7 @@ function ImportAssetHandler.new(imageUploader, userId)
 	return self
 end
 
-function ImportAssetHandler:handleAsset(assetFile : File, onAssetUpload : (string) -> ())
+function ImportAssetHandler:handleAsset(assetFile: File, onAssetUpload: (string) -> ())
 	assert(assetFile, "ImportAssetHandler:handleAsset() requires an assetFile")
 
 	local tempId = assetFile:GetTemporaryId()

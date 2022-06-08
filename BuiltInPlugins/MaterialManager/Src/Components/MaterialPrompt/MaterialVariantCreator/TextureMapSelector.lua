@@ -2,18 +2,18 @@
 	Wraps a PromptSelectorWithPreview to give the user a way to select a local image and see a preview.
 
 	Props:
-		CurrentTextureMap : TextureMap?
+		CurrentTextureMap: TextureMap?
 			The currently selected file we should render a preview of.
 			Can be nil to mean no file is selected.
-		SelectTextureMap : (File?, string?, string?) -> void
+		SelectTextureMap: (File?, string?, string?) -> void
 			Callback to select a new file. If an error occurred, file is nil and 2nd param is error message
-		UrlSelection : string -> ()
+		UrlSelection: string -> ()
 			Callback to select url
-		ClearSelection : void -> void
+		ClearSelection: void -> void
 			Callback to clear the current selection
-		PreviewTitle : string
+		PreviewTitle: string
 			Title to use on the expanded preview window
-		SearchUrl : string?
+		SearchUrl: string?
 			AssetId that is inserted by user
 ]]
 
@@ -43,18 +43,18 @@ local ErrorTypes = getErrorTypes()
 local StudioService = game:GetService("StudioService")
 
 export type Props = {
-	CurrentTextureMap : _Types.TextureMap?,
-	SelectTextureMap : (file: File?, assetId : string?, errorMessage : string?) -> (),
-	UrlSelection : (string?) -> (),
-	ClearSelection : () -> (),
-	PreviewTitle : string?,
-	SearchUrl : string?,
+	CurrentTextureMap: _Types.TextureMap?,
+	SelectTextureMap: (file: File?, assetId: string?, errorMessage: string?) -> (),
+	UrlSelection: (string?) -> (),
+	ClearSelection: () -> (),
+	PreviewTitle: string?,
+	SearchUrl: string?,
 }
 
 type _Props = Props & {
-	Analytics : any,
-	Localization : any,
-	Stylizer : any,
+	Analytics: any,
+	Localization: any,
+	Stylizer: any,
 }
 
 local TextureMapSelector = Roact.PureComponent:extend("TextureMapSelector")
@@ -105,7 +105,7 @@ function TextureMapSelector:init()
 	self.onFocusLost = function()
 		local searchUrl
 		if FFlagURLbyNumberAndMaterialsBetaResponse then
-			local props : _Props = self.props
+			local props: _Props = self.props
 			searchUrl = props.SearchUrl
 		else
 			local state = self.state
@@ -184,7 +184,7 @@ function TextureMapSelector:init()
 end
 
 function TextureMapSelector:render()
-	local props : _Props = self.props
+	local props: _Props = self.props
 
 	local hasSelection = false
 	local filename = ""

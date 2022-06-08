@@ -50,6 +50,9 @@ local seriesNameKey = KeyProvider.getLuobuStudioDevPublishKeyName()
 local selectedKey = KeyProvider.getSelectedKeyName()
 local createNewGameKey = KeyProvider.getCreateNewGameKeyName()
 
+local StudioPublishService = game:GetService("StudioPublishService")
+local FFLagMovePublishToStudioPublishService = game:GetFastFlag("MovePublishToStudioPublishService")
+
 local MENU_ENTRIES = {
 	"BasicInfo",
 }
@@ -87,13 +90,23 @@ function ScreenCreateNewGame:init()
 end
 
 function ScreenCreateNewGame:didMount()
-	self.finishedConnection = StudioService.GamePublishFinished:connect(function(success, gameId)
-		if success and gameId ~=0 then
-			self.props.OpenPublishSuccessfulPage(self.props.Changed)
-		else
-			self.props.OpenPublishFailPage(self.props.Changed)
-		end
-	end)
+	if FFLagMovePublishToStudioPublishService then
+		self.finishedConnection = StudioPublishService.GamePublishFinished:connect(function(success, gameId)
+			if success and gameId ~=0 then
+				self.props.OpenPublishSuccessfulPage(self.props.Changed)
+			else
+				self.props.OpenPublishFailPage(self.props.Changed)
+			end
+		end)
+	else
+		self.finishedConnection = StudioService.DEPRECATED_GamePublishFinished:connect(function(success, gameId)
+			if success and gameId ~=0 then
+				self.props.OpenPublishSuccessfulPage(self.props.Changed)
+			else
+				self.props.OpenPublishFailPage(self.props.Changed)
+			end
+		end)
+	end
 
 	self.props.DispatchLoadGroups()
 end
@@ -185,7 +198,7 @@ function ScreenCreateNewGame:render()
 						end
 
 						dispatchSetIsPublishing(true)
-						SettingsImpl.saveAll(changed, localization, apiImpl)
+						SettingsImpl.saveAll(changed, localization, apiImpl, nil, isPublish)
 					end
 				end,
 			},
@@ -230,7 +243,7 @@ function ScreenCreateNewGame:render()
 								bottomText = "",
 							})
 							dispatchSetIsPublishing(true)
-							SettingsImpl.saveAll(changed, localization, apiImpl, email1)
+							SettingsImpl.saveAll(changed, localization, apiImpl, email1, isPublish)
 						else
 							self:setState({
 								bottomText = localization:getText(optInLocationsKey, "ErrorEmailNotEqual")

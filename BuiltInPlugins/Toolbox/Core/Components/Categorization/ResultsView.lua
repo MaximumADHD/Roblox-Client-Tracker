@@ -1,14 +1,15 @@
 --[[
 	A view wrapper dispalying a back button and a grid of assets based on prop filters.
 ]]
-local FFlagDevFrameworkAddUnobtrusiveLinkTextStyle = game:GetFastFlag("DevFrameworkAddUnobtrusiveLinkTextStyle")
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
+local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
 local Sort = require(Plugin.Core.Types.Sort)
+local RoactRodux = require(Packages.RoactRodux)
 
 local Dash = Framework.Dash
 local ContextServices = Framework.ContextServices
@@ -44,6 +45,9 @@ export type _ExternalProps = {
 }
 
 export type _InternalProps = {
+	-- mapStateToProps
+	IncludeOnlyVerifiedCreators: boolean?,
+	-- withContext
 	Localization: any,
 	Stylizer: any,
 }
@@ -78,7 +82,7 @@ function ResultsView:init()
 		return Roact.createElement(LinkText, {
 			LayoutOrder = 1,
 			OnClick = self.onClickBack,
-			Style = if FFlagDevFrameworkAddUnobtrusiveLinkTextStyle then "Unobtrusive" else nil,
+			Style = "Unobtrusive",
 			Text = backText,
 		})
 	end
@@ -96,6 +100,7 @@ function ResultsView:render()
 	local searchTerm = props.SearchTerm
 	local sectionName = props.SectionName
 	local sortName = props.SortName
+	local includeOnlyVerifiedCreators = props.IncludeOnlyVerifiedCreators
 	-- Props from AssetLogicWrapper
 	local canInsertAsset = props.CanInsertAsset
 	local onAssetPreviewButtonClicked = props.OnAssetPreviewButtonClicked
@@ -116,6 +121,7 @@ function ResultsView:render()
 		sortName = sortName,
 		searchTerm = searchTerm,
 		initialPageSize = INITIAL_PAGE_SIZE,
+		includeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
 		render = function(resultsState)
 			if resultsState.loading and #resultsState.assetIds == 0 then
 				return Roact.createElement("Frame", {
@@ -150,9 +156,23 @@ function ResultsView:render()
 	})
 end
 
+function mapStateToProps(state: any, props)
+	state = state or {}
+	local pageInfo = state.pageInfo or {}
+	return {
+		IncludeOnlyVerifiedCreators = if FFlagToolboxShowIdVerifiedFilter
+			then pageInfo.includeOnlyVerifiedCreators
+			else nil,
+	}
+end
+
 ResultsView = withContext({
 	Localization = ContextServices.Localization,
 	Stylizer = ContextServices.Stylizer,
 })(ResultsView)
 
-return ResultsView
+if FFlagToolboxShowIdVerifiedFilter then
+	return RoactRodux.connect(mapStateToProps)(ResultsView)
+else
+	return ResultsView
+end

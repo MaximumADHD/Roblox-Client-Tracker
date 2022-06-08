@@ -430,6 +430,11 @@ local Constants = {
 		InputHasNoPerson = 8,
 		InputUnstable = 9
 	},
+
+	ANIMATION_TYPE = {
+		KeyframeSequence = "KeyframeSequence",
+		CurveAnimation = "CurveAnimation",
+	},
 }
 
 Constants.MAIN_MINIMUM_SIZE = Vector2.new(Constants.TRACK_LIST_MIN_WIDTH + Constants.TIMELINE_MIN_WIDTH, 200)

@@ -63,8 +63,6 @@ local VOICE_CHAT_DEVICE_TYPE = {
 
 local GetFFlagEnableCameraByDefault = require(RobloxGui.Modules.Flags.GetFFlagEnableCameraByDefault)
 
-local FFlagMicroProfilerSessionAnalytics = settings():GetFFlag("MicroProfilerSessionAnalytics")
-
 local MICROPROFILER_SETTINGS_PRESSED = "MicroprofilerSettingsPressed"
 
 local MOVEMENT_MODE_DEFAULT_STRING = UserInputService.TouchEnabled and "Default (Dynamic Thumbstick)" or "Default (Keyboard)"
@@ -718,9 +716,7 @@ local function Initialize()
 				GameSettings.OnScreenProfilerEnabled = (newIndex == 1)
 			end
 
-			if FFlagMicroProfilerSessionAnalytics then
-				AnalyticsService:ReportCounter(MICROPROFILER_SETTINGS_PRESSED)
-			end
+			AnalyticsService:ReportCounter(MICROPROFILER_SETTINGS_PRESSED)
 			reportSettingsForAnalytics()
 		end
 

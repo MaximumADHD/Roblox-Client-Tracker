@@ -33,22 +33,26 @@ local ImportAssetHandler = require(Components.ImportAssetHandler)
 local ImageLoader = require(Components.ImageLoader)
 
 local Utils = main.Src.Util
+local CalloutController = require(Utils.CalloutController)
 local MaterialController = require(Utils.MaterialController)
 local MaterialServiceWrapper = require(Utils.MaterialServiceWrapper)
-local CalloutController = require(Utils.CalloutController)
+local PluginController = require(Utils.PluginController)
 
 local Flags = main.Src.Flags
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
+local getFFlagMaterialManagerGridListView = require(Flags.getFFlagMaterialManagerGridListView)
 
 local DEPRECATED_getBuiltInMaterialVariants = require(main.Src.Resources.Constants.DEPRECATED_getBuiltInMaterialVariants)
 local FIntInfluxReportMaterialManagerHundrethPercent = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent")
 
 local getFFlagDevFrameworkMockWrapper = require(main.Src.Flags.getFFlagDevFrameworkMockWrapper)
-
+local FFlagMaterialManagerSideBarHide = game:GetFastFlag("MaterialManagerSideBarHide")
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
 function MainPlugin:init(props)
+	local plugin = props.Plugin
+
 	self.state = {
 		enabled = false,
 	}
@@ -148,6 +152,11 @@ function MainPlugin:init(props)
 	local definitionId = "MaterialManagerApplyCallout"
 	local description = self.localization:getText("Callout", "MaterialManagerApplyDescription")
 	self.calloutController:defineCallout(definitionId, "", description, "")
+
+	self.pluginController = PluginController.new(plugin, self.store)
+	if getFFlagMaterialManagerGridListView() then
+		self.pluginController:initialize()
+	end
 end
 
 function MainPlugin:willUnmount()
@@ -193,6 +202,7 @@ function MainPlugin:render()
 		self.imageLoader,
 		self.assetHandler,
 		self.calloutController,
+		self.pluginController,
 	}, {
 		Toolbar = Roact.createElement(PluginToolbar, {
 			Title = "Edit",
@@ -212,7 +222,7 @@ function MainPlugin:render()
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			InitialDockState = Enum.InitialDockState.Bottom,
 			Size = Vector2.new(640, 480),
-			MinSize = Vector2.new(400, 200),
+			MinSize = if FFlagMaterialManagerSideBarHide then Vector2.new(300, 200) else Vector2.new(400, 200),
 			OnClose = self.onClose,
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,

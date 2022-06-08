@@ -105,6 +105,20 @@ local function Initialize()
 
 	local voiceChatEnabled = false
 
+	local function getMethodOfAbuseDropdownItems()
+		return Cryo.List.map(Cryo.Dictionary.values(TypeOfAbuseOptions), function(item: MOAOption)
+			item.title = RobloxTranslator:FormatByKey(item.title)
+			item.subtitle = RobloxTranslator:FormatByKey(item.subtitle)
+			return item
+		end)
+	end
+
+	local function getSortedMethodOfAbuseList()
+		return Cryo.List.sort(getMethodOfAbuseDropdownItems(), function(a, b)
+			return a.index < b.index
+		end)
+	end
+
 	function this:GetPlayerNameText(player)
 		return player.DisplayName .. " [@" .. player.Name .. "]"
 	end
@@ -124,16 +138,9 @@ local function Initialize()
 
 	function this:updateVoiceLayout()
 		if GetFFlagVoiceAbuseReportsEnabled() and voiceChatEnabled then
-			local MOAValues = Cryo.List.map(Cryo.Dictionary.values(TypeOfAbuseOptions), function(item: MOAOption)
-				item.title = RobloxTranslator:FormatByKey(item.title)
-				item.subtitle = RobloxTranslator:FormatByKey(item.subtitle)
-				return item
-			end)
 			local MOALabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.MethodOfAbuse")
 			this.MethodOfAbuseFrame, this.MethodOfAbuseLabel, this.MethodOfAbuseMode =
-				utility:AddNewRow(this, MOALabel, "DropDown", Cryo.List.sort(MOAValues, function(a, b)
-					return a.index < b.index
-				end))
+				utility:AddNewRow(this, MOALabel, "DropDown", getSortedMethodOfAbuseList())
 			this.MethodOfAbuseMode:SetInteractable(false)
 			this.MethodOfAbuseLabel.ZIndex = 1
 			this.MethodOfAbuseFrame.LayoutOrder = 2
@@ -157,12 +164,11 @@ local function Initialize()
 		--If you select the user before selecting the type of abuse,
 		--and that user isn't voice enabled/active, we remove Voice Chat as an option
 		if not player or not recentVoicePlayers[tostring(player.UserId)] then
-			this.MethodOfAbuseMode:UpdateDropDownList({
-				TypeOfAbuseOptions[MethodsOfAbuse.text],
-				TypeOfAbuseOptions[MethodsOfAbuse.other],
-			})
+			this.MethodOfAbuseMode:UpdateDropDownList(Cryo.List.filter(getSortedMethodOfAbuseList(), function(item)
+				return item.index ~= TypeOfAbuseOptions[MethodsOfAbuse.voice].index
+			end))
 		else
-			this.MethodOfAbuseMode:UpdateDropDownList(Cryo.Dictionary.values(TypeOfAbuseOptions))
+			this.MethodOfAbuseMode:UpdateDropDownList(getSortedMethodOfAbuseList())
 		end
 		SendEventStream(Constants.AnalyticsFieldChanged, {
 			field = 'MethodOfAbuse',
@@ -181,33 +187,29 @@ local function Initialize()
 		end
 	end
 
+	function this:isVoiceReportSelected()
+		if not GetFFlagVoiceAbuseReportsEnabled() then
+			return false
+		end
+		local recentVoicePlayers = VoiceChatServiceManager:getRecentUsersInteractionData()
+
+		local isVoiceDropdownSelected = this.MethodOfAbuseMode.CurrentIndex == AbuseVectorIndex.Voice.rawValue()
+		local currentSelectedPlayer = this:GetPlayerFromIndex(this.WhichPlayerMode.CurrentIndex)
+		local isCurrentSelectedPlayerVoice = if currentSelectedPlayer and recentVoicePlayers[tostring(currentSelectedPlayer.UserId)] then true else false
+
+		return isVoiceDropdownSelected and (not currentSelectedPlayer or isCurrentSelectedPlayerVoice)
+	end
+
 	function this:UpdatePlayerDropDown()
 		playerNames = {}
 		nameToRbxPlayer = {}
-		local recentVoicePlayers
 
 		local index = 1
 
 		if GetFFlagVoiceAbuseReportsEnabled() then
-			recentVoicePlayers = VoiceChatServiceManager:getRecentUsersInteractionData()
-		end
-
-		local function isVoiceReportSelected()
-			if not GetFFlagVoiceAbuseReportsEnabled() then
-				return false
-			end
-
-			local isVoiceDropdownSelected = this.MethodOfAbuseMode.CurrentIndex == AbuseVectorIndex.Voice.rawValue()
-			local currentSelectedPlayer = this:GetPlayerFromIndex(this.WhichPlayerMode.CurrentIndex)
-			local isCurrentSelectedPlayerVoice = if currentSelectedPlayer and recentVoicePlayers[tostring(currentSelectedPlayer.UserId)] then true else false
-
-			return isVoiceDropdownSelected and (not currentSelectedPlayer or isCurrentSelectedPlayerVoice)
-		end
-
-		if GetFFlagVoiceAbuseReportsEnabled() then
 			local players = {}
 
-			if isVoiceReportSelected() then
+			if this:isVoiceReportSelected() then
 				local recentVoicePlayers = VoiceChatServiceManager:getRecentUsersInteractionData()
 
 				for userId, data in pairs(recentVoicePlayers) do
@@ -241,7 +243,7 @@ local function Initialize()
 			end
 		end
 
-		if GetFFlagVoiceAbuseReportsEnabled() and isVoiceReportSelected() then
+		if GetFFlagVoiceAbuseReportsEnabled() and this:isVoiceReportSelected() then
 			table.sort(playerNames, function(a, b)
 				local playerA = nameToRbxPlayer[a]
 				local playerB = nameToRbxPlayer[b]
@@ -389,7 +391,7 @@ local function Initialize()
 
 		local function updateMethodOfAbuseVisibility()
 			if GetFFlagHideMOAOnExperience() and this.MethodOfAbuseMode then
-				this.MethodOfAbuseFrame.Visible = this.GameOrPlayerMode.CurrentIndex == 2 
+				this.MethodOfAbuseFrame.Visible = this.GameOrPlayerMode.CurrentIndex == 2
 			end
 		end
 
@@ -517,7 +519,13 @@ local function Initialize()
 						PlayersService:ReportAbuse(currentAbusingPlayer, abuseReason, this.AbuseDescription.Selection.Text)
 						reportAnalytics("user", currentAbusingPlayer.UserId)
 					end)
-					if isReportSentEnabled then
+
+					if GetFFlagVoiceAbuseReportsEnabled() then
+						if this:isVoiceReportSelected() then
+							showReportSentAlert = false
+							self.HubRef.ReportSentPageV2:ShowReportedPlayer(currentAbusingPlayer, true)
+						end
+					elseif isReportSentEnabled then
 						showReportSentAlert = false -- Don't show the alert, since we'll show a different page
 						self.HubRef.ReportSentPage:ShowReportedPlayer(currentAbusingPlayer)
 					end

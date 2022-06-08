@@ -23,15 +23,15 @@ local materialPatterns = getMaterialPatterns()
 local DEFAULT_MATERIAL_PATTERN = materialPatterns[1]
 
 export type State = {
-	Name : string,
-	BaseMaterial : Enum.Material,
-	ColorMap : _Types.TextureMap?,
-	MetalnessMap : _Types.TextureMap?,
-	NormalMap : _Types.TextureMap?,
-	RoughnessMap : _Types.TextureMap?,
-	Mode : string?,
-	StudsPerTile : number,
-	MaterialPattern : Enum.MaterialPattern,
+	Name: string,
+	BaseMaterial: Enum.Material,
+	ColorMap: _Types.TextureMap?,
+	MetalnessMap: _Types.TextureMap?,
+	NormalMap: _Types.TextureMap?,
+	RoughnessMap: _Types.TextureMap?,
+	Mode: string?,
+	StudsPerTile: number,
+	MaterialPattern: Enum.MaterialPattern,
 }
 
 local initialState = {
@@ -40,55 +40,55 @@ local initialState = {
 }
 
 local MaterialPromptReducer = Rodux.createReducer(initialState, {
-	[SetName.name] = function(state : State, action : SetName.Payload)
+	[SetName.name] = function(state: State, action: SetName.Payload)
 		return Cryo.Dictionary.join(state, {
 			Name = action.Name,
 		})
 	end,
 
-	[SetBaseMaterial.name] = function(state : State, action : SetBaseMaterial.Payload)
+	[SetBaseMaterial.name] = function(state: State, action: SetBaseMaterial.Payload)
 		return Cryo.Dictionary.join(state, {
 			BaseMaterial = action.BaseMaterial,
 		})
 	end,
 
-	[SetColorMap.name] = function(state : State, action : SetColorMap.Payload)
+	[SetColorMap.name] = function(state: State, action: SetColorMap.Payload)
 		return Cryo.Dictionary.join(state, {
 			ColorMap = action.ColorMap or Cryo.None,
 		})
 	end,
 
-	[SetMetalnessMap.name] = function(state : State, action : SetMetalnessMap.Payload)
+	[SetMetalnessMap.name] = function(state: State, action: SetMetalnessMap.Payload)
 		return Cryo.Dictionary.join(state, {
 			MetalnessMap = action.MetalnessMap or Cryo.None,
 		})
 	end,
 
-	[SetNormalMap.name] = function(state : State, action : SetNormalMap.Payload)
+	[SetNormalMap.name] = function(state: State, action: SetNormalMap.Payload)
 		return Cryo.Dictionary.join(state, {
 			NormalMap = action.NormalMap or Cryo.None,
 		})
 	end,
 
-	[SetRoughnessMap.name] = function(state : State, action : SetRoughnessMap.Payload)
+	[SetRoughnessMap.name] = function(state: State, action: SetRoughnessMap.Payload)
 		return Cryo.Dictionary.join(state, {
 			RoughnessMap = action.RoughnessMap or Cryo.None,
 		})
 	end,
 
-	[SetStudsPerTile.name] = function(state : State, action : SetStudsPerTile.Payload)
+	[SetStudsPerTile.name] = function(state: State, action: SetStudsPerTile.Payload)
 		return Cryo.Dictionary.join(state, {
 			StudsPerTile = action.StudsPerTile,
 		})
 	end,
 	
-	[SetMaterialPattern.name] = function(state : State, action : SetMaterialPattern.Payload)
+	[SetMaterialPattern.name] = function(state: State, action: SetMaterialPattern.Payload)
 		return Cryo.Dictionary.join(state, {
 			MaterialPattern = action.MaterialPattern,
 		})
 	end,
 
-	[ClearMaterialVariant.name] = function(state : State)
+	[ClearMaterialVariant.name] = function(state: State)
 		return Cryo.Dictionary.join(state, {
 			Name = Cryo.None,
 			BaseMaterial = Cryo.None,
@@ -101,7 +101,7 @@ local MaterialPromptReducer = Rodux.createReducer(initialState, {
 		})
 	end,
 	
-	[SetFromVariantInstance.name] = function(state : State, action : SetFromVariantInstance.Payload)
+	[SetFromVariantInstance.name] = function(state: State, action: SetFromVariantInstance.Payload)
 		return Cryo.Dictionary.join(state, {
 			Name = action.Name,
 			BaseMaterial = action.BaseMaterial,
@@ -114,7 +114,7 @@ local MaterialPromptReducer = Rodux.createReducer(initialState, {
 		})
 	end,
 
-	[SetMode.name] = function(state : State, action : SetMode.Payload)
+	[SetMode.name] = function(state: State, action: SetMode.Payload)
 		return Cryo.Dictionary.join(state, {
 			Mode = action.Mode or Cryo.None,
 		})

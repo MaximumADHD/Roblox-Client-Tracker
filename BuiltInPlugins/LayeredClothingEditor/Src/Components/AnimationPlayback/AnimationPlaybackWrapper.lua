@@ -19,11 +19,14 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 
+local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
+local PreviewingInfo = AccessoryAndBodyToolSharedUtil.PreviewingInfo
+
 local Components = AvatarToolsShared.Components
 local PreviewAnimationPlayback = Components.PreviewAnimationPlayback
 
-local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
-local PreviewContext = require(Plugin.Src.Context.PreviewContext)
+local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
+local PreviewContext = AvatarToolsShared.Contexts.PreviewContext
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -34,8 +37,6 @@ local AnimationPlaybackWrapper = Roact.PureComponent:extend("AnimationPlaybackWr
 local SetPlayhead = require(Plugin.Src.Actions.SetPlayhead)
 local SetTrackLength = require(Plugin.Src.Actions.SetTrackLength)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
-
-local PreviewingInfo = require(Plugin.Src.Util.PreviewingInfo)
 
 local Util = Framework.Util
 local Typecheck = Util.Typecheck

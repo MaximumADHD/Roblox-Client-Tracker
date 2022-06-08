@@ -13,6 +13,8 @@ local SetScreenSize = require(TnsModule.Actions.SetScreenSize)
 local ReportMenu = require(TnsModule.Components.ReportMenu)
 local ReportDialog = require(TnsModule.Components.ReportDialog)
 local ReportSentDialog = require(TnsModule.Components.ReportSentDialog)
+local BlockPlayerDialog = require(TnsModule.Components.BlockPlayerDialog)
+local Toast = require(TnsModule.Components.Toast)
 
 local TrustAndSafetyApp = Roact.PureComponent:extend("TrustAndSafetyApp")
 
@@ -48,6 +50,8 @@ function TrustAndSafetyApp:render()
 				ReportMenu = Roact.createElement(ReportMenu),
 				ReportDialog = Roact.createElement(ReportDialog),
 				ReportSentDialog = Roact.createElement(ReportSentDialog),
+				BlockPlayerDialog = Roact.createElement(BlockPlayerDialog),
+				Toast = Roact.createElement(Toast),
 			})
 		})
 	})

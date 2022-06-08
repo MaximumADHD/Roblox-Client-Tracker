@@ -9,10 +9,10 @@ local AssetService = game:GetService("AssetService")
 
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+local isProductionEnvironment = AvatarToolsShared.Util.isProductionEnvironment
 
 local SetPrebuiltAssetsInfo = require(Plugin.Src.Actions.SetPrebuiltAssetsInfo)
-
-local isProductionEnvironment = require(Plugin.Src.Util.isProductionEnvironment)
 
 local function convertArrayToIdIndexedTable(table)
 	local result = {}

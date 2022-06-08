@@ -6,10 +6,10 @@ local implementation = PolicyProvider.GetPolicyImplementations.MemStorageService
 local InGameMenuPolicy = PolicyProvider.withGetPolicyImplementation(implementation)
 
 local GetFIntEducationalPopupDisplayMaxCount = require(
-	script.Parent.Parent.Flags.GetFIntEducationalPopupDisplayMaxCount)
+	script.Parent.Parent.Flags.GetFIntEducationalPopupDisplayMaxCount
+)
 
-local isSubjectToDesktopPolicies = require(
-	script.Parent.isSubjectToDesktopPolicies)
+local isSubjectToDesktopPolicies = require(script.Parent.isSubjectToDesktopPolicies)
 
 local FFlagUseGUACforDUARPolicy = game:DefineFastFlag("UseGUACforDUARPolicy", false)
 local FFlagUseGUACforFullscreenTitleBar = game:DefineFastFlag("UseGUACforFullscreenTitleBar", false)
@@ -45,6 +45,10 @@ InGameMenuPolicy.Mapper = function(policy)
 				end
 			end
 			return false
+		end,
+
+		inGameMenuPortraitThreshold = function()
+			return policy.InGameMenuPortraitThreshold or 550
 		end,
 	}
 end

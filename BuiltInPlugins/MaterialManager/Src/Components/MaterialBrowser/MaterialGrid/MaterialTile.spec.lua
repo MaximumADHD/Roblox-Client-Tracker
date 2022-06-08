@@ -16,7 +16,7 @@ return function()
 
 	local defaultOnClick = function() end
 
-	local defaultSetUpdate = function(item : _Types.Material, layoutOrder : number?, property : string) end
+	local defaultSetUpdate = function(item: _Types.Material, layoutOrder: number?, property: string) end
 
 	local function createTestElement(props: MaterialTile.Props?)
 		props = props or {

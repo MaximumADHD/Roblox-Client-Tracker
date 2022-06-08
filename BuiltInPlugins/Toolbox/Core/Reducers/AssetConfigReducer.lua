@@ -13,6 +13,7 @@ local LOADING_IN_BACKGROUND = require(Util.Keys).LoadingInProgress
 local Actions = Plugin.Core.Actions
 local SetAssetId = require(Actions.SetAssetId)
 local SetUploadAssetType = require(Actions.SetUploadAssetType)
+local ExtendVersionHistoryData = require(Actions.ExtendVersionHistoryData)
 local SetVersionHistoryData = require(Actions.SetVersionHistoryData)
 local SetAssetConfigData = require(Actions.SetAssetConfigData)
 local SetCurrentScreen = require(Actions.SetCurrentScreen)
@@ -47,6 +48,8 @@ local SetUploadFee = require(Actions.SetUploadFee)
 local SetAssetConfigAssetTypeAgents = require(Actions.SetAssetConfigAssetTypeAgents)
 local SetDescendantPermissions = require(Actions.SetDescendantPermissions)
 local SetAgeVerificationData = require(Actions.SetAgeVerificationData)
+
+local FFlagInfiniteScrollerForVersions = game:getFastFlag("InfiniteScrollerForVersions")
 
 return Rodux.createReducer({
 	-- Empty table means publish new asset
@@ -159,6 +162,19 @@ return Rodux.createReducer({
 
 		return Cryo.Dictionary.join(state, {
 			screenConfigs = newScreenConfigs,
+		})
+	end,
+
+	[ExtendVersionHistoryData.name] = function(state, action)
+		assert(FFlagInfiniteScrollerForVersions)
+		-- The new version history consists of the old version history's *data*
+		-- pre-pended to the new version history's data, but preserving the
+		-- new history's other metadata.
+		return Cryo.Dictionary.join(state, {
+			versionHistory = {
+				nextPageCursor = action.versionHistory.nextPageCursor,
+				data = Cryo.List.join(state.versionHistory.data, action.versionHistory.data),
+			}
 		})
 	end,
 

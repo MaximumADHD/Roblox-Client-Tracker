@@ -29,6 +29,7 @@ local FlowScreenLayout = Components.FlowScreenLayout
 
 local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
 local AssetTypeAttachmentInfo = AccessoryAndBodyToolSharedUtil.AssetTypeAttachmentInfo
+local AcessoryUtil = AccessoryAndBodyToolSharedUtil.AccessoryUtil
 
 local Pane = Framework.UI.Pane
 
@@ -37,9 +38,7 @@ local SetAttachmentPoint = require(Plugin.Src.Actions.SetAttachmentPoint)
 
 local LCERadioButtonList = require(Plugin.Src.Components.LCERadioButtonList)
 
-local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
-
-local ModelUtil = require(Plugin.Src.Util.ModelUtil)
+local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
 
 local Util = Framework.Util
 local Typecheck = Util.Typecheck
@@ -184,7 +183,7 @@ function AssetTypeScreen:init()
 			AssetSubType = key,
 		}))
 
-		local existingAttachment = ModelUtil:getExistingAttachmentPoint(editingItem, editingItem.Parent, attachment.Name)
+		local existingAttachment = AcessoryUtil:getExistingAttachmentPoint(editingItem, editingItem.Parent, attachment.Name)
 		if existingAttachment then
 			self.props.SetAttachmentPoint(existingAttachment)
 		end

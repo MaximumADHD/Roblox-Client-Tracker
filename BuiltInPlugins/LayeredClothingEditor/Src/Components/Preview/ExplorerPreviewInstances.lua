@@ -22,11 +22,11 @@ local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
 local PreviewUtil = AccessoryAndBodyToolSharedUtil.PreviewUtil
 local AvatarUtil = AccessoryAndBodyToolSharedUtil.AvatarUtil
+local PreviewConstants = AccessoryAndBodyToolSharedUtil.PreviewConstants
 
-local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
-local PreviewContext = require(Plugin.Src.Context.PreviewContext)
-local AssetServiceWrapper = require(Plugin.Src.Context.AssetServiceWrapper)
-
+local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
+local PreviewContext = AvatarToolsShared.Contexts.PreviewContext
+local AssetServiceWrapper = AvatarToolsShared.Contexts.AssetServiceWrapper
 local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingModuleContext
 
 local Framework = require(Plugin.Packages.Framework)
@@ -36,7 +36,6 @@ local Util = Framework.Util
 local Typecheck = Util.Typecheck
 
 local Constants = require(Plugin.Src.Util.Constants)
-local PreviewConstants = require(Plugin.Src.Util.PreviewConstants)
 
 local ExplorerPreviewInstances = Roact.PureComponent:extend("ExplorerPreviewInstances")
 Typecheck.wrap(ExplorerPreviewInstances, script)
@@ -58,10 +57,6 @@ local function onPreviewSelectionChanged(self)
 
 	local previewAvatars = PreviewUtil.createPreviewAvatars(selectedAvatarIds, userAddedAssets[avatarTabKey], self.folderRef.current, assetService)
 
-	for _, previewAvatar in ipairs(previewAvatars) do
-		AvatarUtil:positionAvatarNextTo(previewAvatar.model, editingItem.Parent, true)
-	end
-
 	-- this will be first layer on the preview avatar
 	local archivable = editingItem.Archivable
 	editingItem.Archivable = true
@@ -72,6 +67,10 @@ local function onPreviewSelectionChanged(self)
 	PreviewUtil.addPreviewClothingFromIds(previewAvatars, selectedClothingIds, userAddedAssets[clothingTabKey], assetService)
 
 	previewContext:setAvatars(previewAvatars)
+
+	for _, previewAvatar in ipairs(previewAvatars) do
+		AvatarUtil:positionAvatarNextTo(previewAvatar.model, editingItem.Parent, true)
+	end
 end
 
 local function transformOrDeformPreviewLayers(self)

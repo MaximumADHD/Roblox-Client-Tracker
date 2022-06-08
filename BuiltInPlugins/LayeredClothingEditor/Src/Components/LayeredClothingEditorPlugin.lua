@@ -12,6 +12,8 @@ local Components = AvatarToolsShared.Components
 local ConfirmDialog = Components.ConfirmDialog
 
 local LuaMeshEditingModuleContext = AvatarToolsShared.Contexts.LuaMeshEditingModuleContext
+local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
+local Signals = AvatarToolsShared.Contexts.Signals
 
 local RunService = game:GetService("RunService")
 
@@ -39,18 +41,13 @@ local SourceStrings = Plugin.Src.Resources.SourceStrings
 local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 
 local LayeredClothingEditor = require(Plugin.Src.Components.LayeredClothingEditor)
-local LuaMeshEditingModuleWrapper = require(Plugin.Src.Components.Draggers.LuaMeshEditingModuleWrapper)
 
 local ReleaseEditor = require(Plugin.Src.Thunks.ReleaseEditor)
 
 local makePluginActions = require(Plugin.Src.Util.makePluginActions)
 local Constants = require(Plugin.Src.Util.Constants)
-local Signals = require(Plugin.Src.Context.Signals)
-local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
-local delayToNextFrame = require(Plugin.Src.Util.delayToNextFrame)
 local ShowDialog = require(Plugin.Src.Util.ShowDialog)
 
-local SetDraggerType = require(Plugin.Src.Actions.SetDraggerType)
 local FinishSelectingFromExplorer = require(Plugin.Src.Thunks.FinishSelectingFromExplorer)
 
 local LayeredClothingEditorPlugin = Roact.PureComponent:extend("LayeredClothingEditorPlugin")
@@ -146,7 +143,7 @@ function LayeredClothingEditorPlugin:init()
 		if not plugin:IsActivatedWithExclusiveMouse() then
 			plugin:Activate(true)
 		end
-		delayToNextFrame(function()
+		task.delay(0, function()
 			self.toolbarButton:SetActive(true)
 			self.signals:get(Constants.SIGNAL_KEYS.PluginWindowFocused):Fire()
 		end)

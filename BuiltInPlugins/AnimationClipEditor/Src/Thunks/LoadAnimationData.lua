@@ -17,6 +17,7 @@ local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 local UpdateEditingLength = require(Plugin.Src.Thunks.UpdateEditingLength)
 local SetShowEvents = require(Plugin.Src.Actions.SetShowEvents)
+local SwitchEditorMode = require(Plugin.Src.Thunks.SwitchEditorMode)
 local SetEditorMode = require(Plugin.Src.Actions.SetEditorMode)
 local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
@@ -24,6 +25,7 @@ local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContext
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 
 local FFlagResetTrackSelectionOnLoad = game:DefineFastFlag("ACEResetTrackSelectionOnLoad", false)
 
@@ -43,7 +45,11 @@ return function(animationData, analytics)
 
 		-- Switch back to DopeSheet mode
 		if GetFFlagCurveEditor() then
-			store:dispatch(SetEditorMode(Constants.EDITOR_MODE.DopeSheet))
+			if GetFFlagCurveAnalytics() then
+				store:dispatch(SwitchEditorMode(Constants.EDITOR_MODE.DopeSheet, analytics))
+			else
+				store:dispatch(SetEditorMode(Constants.EDITOR_MODE.DopeSheet))
+			end
 		end
 
 		if GetFFlagChannelAnimations() then

@@ -7,7 +7,7 @@ export type Payload = {
 	BaseMaterial : Enum.Material
 }
 
-return Action(script.Name, function(baseMaterial : Enum.Material) : Payload
+return Action(script.Name, function(baseMaterial: Enum.Material) : Payload
 	return {
 		BaseMaterial = baseMaterial,
 	}

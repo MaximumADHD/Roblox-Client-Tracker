@@ -3,15 +3,16 @@
 	exports the current animation to a Roblox asset id.
 ]]
 
--- TODO: Remove when GetFFlagChannelAnimations() is ON
 local Selection = game:GetService("Selection")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local SaveAnimation = require(Plugin.Src.Thunks.Exporting.SaveAnimation)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
+local Constants = require(Plugin.Src.Util.Constants)
 
 local GetFFlagFacsAnimationExportAnalytics = require(Plugin.LuaFlags.GetFFlagFacsAnimationExportAnalytics)
+local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 
 return function(plugin, analytics)
 	return function(store)
@@ -36,10 +37,19 @@ return function(plugin, analytics)
 			Selection:Set({exported})
 
 			local hasFacs = false
+			local animationType
+
 			if GetFFlagFacsAnimationExportAnalytics() then
 				hasFacs = AnimationData.hasFacsData(animationData)
 			end
-			analytics:report("onExportAnimation", hasFacs)
+
+			if GetFFlagCurveAnalytics() then
+				animationType = if AnimationData.isChannelAnimation(animationData)
+					then Constants.ANIMATION_TYPE.CurveAnimation
+					else Constants.ANIMATION_TYPE.KeyframeSequence
+			end
+
+			analytics:report("onExportAnimation", hasFacs, animationType)
 		end
 	end
 end

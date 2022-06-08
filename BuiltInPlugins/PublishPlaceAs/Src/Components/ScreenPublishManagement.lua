@@ -25,6 +25,7 @@ local SetPublishInfo = require(Plugin.Src.Actions.SetPublishInfo)
 local getIsOptInChina = require(Plugin.Src.Util.PublishPlaceAsUtilities).getIsOptInChina
 local StudioService = game:GetService("StudioService")
 local StudioPublishService = game:GetService("StudioPublishService")
+local FFLagMovePublishToStudioPublishService = game:GetFastFlag("MovePublishToStudioPublishService")
 local GuiService = game:GetService("GuiService")
 local layoutOrder = LayoutOrderIterator.new()
 
@@ -58,13 +59,23 @@ function ScreenPublishManagement:init()
 end
 
 function ScreenPublishManagement:didMount()
-	self.finishedConnection = StudioService.GamePublishFinished:connect(function(success)
-		if success then
-			self.props.OpenPublishSuccessfulPage(self.props.PlaceId, self.props.Name, self.props.ParentGame)
-		else
-			self.props.OpenPublishFailPage(self.props.PlaceId, self.props.Name, self.props.ParentGame, self.publishParameters)
-		end
-	end)
+	if FFLagMovePublishToStudioPublishService then
+		self.finishedConnection = StudioPublishService.GamePublishFinished:connect(function(success)
+			if success then
+				self.props.OpenPublishSuccessfulPage(self.props.PlaceId, self.props.Name, self.props.ParentGame)
+			else
+				self.props.OpenPublishFailPage(self.props.PlaceId, self.props.Name, self.props.ParentGame, self.publishParameters)
+			end
+		end)
+	else
+		self.finishedConnection = StudioService.DEPRECATED_GamePublishFinished:connect(function(success)
+			if success then
+				self.props.OpenPublishSuccessfulPage(self.props.PlaceId, self.props.Name, self.props.ParentGame)
+			else
+				self.props.OpenPublishFailPage(self.props.PlaceId, self.props.Name, self.props.ParentGame, self.publishParameters)
+			end
+		end)
+	end
 
 	local apiImpl = self.props.API:get()
 	self.props.DispatchLoadGameConfiguration(self.props.ParentGame.universeId, apiImpl)

@@ -40,6 +40,8 @@ local Cubic = require(Plugin.Src.Components.Curves.Cubic)
 local Keyframe = require(Plugin.Src.Components.Curves.Keyframe)
 local TangentControl = require(Plugin.Src.Components.Curves.TangentControl)
 
+local GetFFlagClampFacsCurves = require(Plugin.LuaFlags.GetFFlagClampFacsCurves)
+
 local CurveCanvas = Roact.PureComponent:extend("CurveCanvas")
 
 export type Props = {
@@ -147,7 +149,12 @@ function CurveCanvas:renderCurve(track): ()
 
 	-- Display a small dot on the scrubber
 	local playhead = self.props.Playhead
-	local scrubberPosition = self:toCanvasSpace(Vector2.new(playhead, KeyframeUtils.getValue(track, playhead)::number))
+	local value = KeyframeUtils.getValue(track, playhead)::number
+	if GetFFlagClampFacsCurves() and track.Type == Constants.TRACK_TYPES.Facs then
+		value = math.clamp(value, 0, 1)
+	end
+
+	local scrubberPosition = self:toCanvasSpace(Vector2.new(playhead, value))
 	local scrubberName = string.format("%s_Scrubber", pathName)
 
 	self.children[scrubberName] = Roact.createElement(Keyframe, {
@@ -171,6 +178,14 @@ function CurveCanvas:renderCurve(track): ()
 			break
 		end
 		selectionTrack = selectionTrack.Components and selectionTrack.Components[part] or selectionTrack[part]
+	end
+
+	local minClamp, maxClamp
+	if GetFFlagClampFacsCurves() and track.Type == Constants.TRACK_TYPES.Facs then
+		-- The clamp values will be used in screen space, so "min" corresponds
+		-- to 1.0, and "max" corresponds to 0.0
+		minClamp = self:toCanvasSpace(Vector2.new(0, 1)).Y
+		maxClamp = self:toCanvasSpace(Vector2.new(0, 0)).Y
 	end
 
 	for keyframeIndex, curTick in ipairs(track.Keyframes) do
@@ -224,6 +239,8 @@ function CurveCanvas:renderCurve(track): ()
 						Width = if curveSelected then Constants.CURVE_WIDTH_SELECTED else Constants.CURVE_WIDTH,
 						FrameWidth = props.AbsoluteSize.X,
 						ZIndex = 2,
+						MinClamp = minClamp,
+						MaxClamp = maxClamp,
 					})
 				end
 			end

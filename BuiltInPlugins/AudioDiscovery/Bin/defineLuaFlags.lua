@@ -8,5 +8,10 @@ game:DefineFastInt("SoundEffectMaxDuration", 6)
 game:DefineFastInt("StudioAudioDiscoveryOpenAnalyticThrottle", 10000) --> 100% of opens
 game:DefineFastInt("StudioAudioDiscoverySelectAnalyticsThrottle", 10000) --> 100% of row selects
 game:DefineFastInt("StudioAudioDiscoveryBreakdownAnalyticsThrottle", 10000) --> 100% processing complete results
+game:DefineFastInt("StudioAudioDiscoveryPermissionCheckAnalyticsThrottle", 1000) --> 10% http request results
+
+game:DefineFastFlag("AudioDiscoveryAddPermCheck", false)
+game:DefineFastInt("AudioDiscoveryPermCheckMaxAssetIdsPerRequest", 60)
+game:DefineFastFlag("DEBUG_StudioAudioDiscoveryPermissionCheckErrors", false)
 
 return nil

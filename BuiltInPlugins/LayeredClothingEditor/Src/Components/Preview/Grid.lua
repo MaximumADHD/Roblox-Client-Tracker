@@ -36,6 +36,10 @@ local ScrollableGrid = Components.ScrollableGrid
 local AssetThumbnailTiles = Components.AssetThumbnailTiles
 local InstanceSelectorTile = Components.InstanceSelectorTile
 
+local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
+local AvatarToolsSharedConstants = AccessoryAndBodyToolSharedUtil.Constants
+local PreviewConstantsInterface = AccessoryAndBodyToolSharedUtil.PreviewConstantsInterface
+
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -50,11 +54,10 @@ local GetPrebuiltAssetsInfo = require(Plugin.Src.Thunks.GetPrebuiltAssetsInfo)
 local StartSelectingFromExplorer = require(Plugin.Src.Thunks.StartSelectingFromExplorer)
 local FinishSelectingFromExplorer = require(Plugin.Src.Thunks.FinishSelectingFromExplorer)
 
-local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
-local AssetServiceWrapper = require(Plugin.Src.Context.AssetServiceWrapper)
+local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
+local AssetServiceWrapper = AvatarToolsShared.Contexts.AssetServiceWrapper
 
 local Constants = require(Plugin.Src.Util.Constants)
-local PreviewConstantsInterface = require(Plugin.Src.Util.PreviewConstantsInterface)
 local ShowDialog = require(Plugin.Src.Util.ShowDialog)
 
 local Grid = Roact.PureComponent:extend("Grid")
@@ -79,7 +82,7 @@ function Grid:init()
 		local localization = props.Localization
 		local tabInfo = PreviewConstantsInterface.getTabInfo(selectedTab)
 		if tabInfo then
-			local localizedText = localization:getText(Constants.LOCALIZATION_KEYS.Preview, tabInfo.PanelBlockerLocalizationKey)
+			local localizedText = localization:getText(AvatarToolsSharedConstants.LOCALIZATION_KEYS.Preview, tabInfo.PanelBlockerLocalizationKey)
 			props.StartSelectingFromExplorer(Constants.SELECTOR_MODE.Preview, localizedText)
 		end
 	end
@@ -105,7 +108,7 @@ function Grid:init()
 	self.onInstanceSelectorValidSelection = function(instance)
 		local props = self.props
 		ShowDialog(props.Plugin, props.Localization, ConfirmCancelDialog,{
-			Text = self.props.Localization:getText(Constants.LOCALIZATION_KEYS.Preview, "ConfirmAddTile", {
+			Text = self.props.Localization:getText(AvatarToolsSharedConstants.LOCALIZATION_KEYS.Preview, "ConfirmAddTile", {
 				itemName = instance.Name,
 			}),
 			OnConfirm = function()
@@ -126,7 +129,7 @@ function Grid:init()
 
 		if tabInfo then
 			ShowDialog(props.Plugin, props.Localization, ConfirmDialog,{
-				Text = localization:getText(Constants.LOCALIZATION_KEYS.Preview, tabInfo.InvalidAddLocalizationKey),
+				Text = localization:getText(AvatarToolsSharedConstants.LOCALIZATION_KEYS.Preview, tabInfo.InvalidAddLocalizationKey),
 			})
 		end
 	end

@@ -1,5 +1,6 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
@@ -15,6 +16,7 @@ local DisplayTable = require(script.Parent.DisplayTable)
 local ControlledTabs = require(script.Parent.ControlledTabs)
 local ScopeDropdownField = require(script.Parent.ScopeDropdownField)
 local SearchBarField = require(script.Parent.SearchBarField)
+local TableTab = require(Plugin.Src.Models.Watch.TableTab)
 
 local Constants = require(Plugin.Src.Util.Constants)
 
@@ -142,7 +144,7 @@ function WatchComponent:render()
 				Layout = Enum.FillDirection.Horizontal,
 				Spacing = 10,
 			}, {
-				DropdownView = (self.state.shouldShowDropdown or self.state.shouldShowDropdownIcon)
+				DropdownView = props.IsVariablesTab and (self.state.shouldShowDropdown or self.state.shouldShowDropdownIcon)
 					and Roact.createElement(ScopeDropdownField, {
 						LayoutOrder = 1,
 						Size = UDim2.new(0.4, 0, 1, 0),
@@ -173,5 +175,11 @@ WatchComponent = withContext({
 	Localization = Localization,
 	Stylizer = Stylizer,
 })(WatchComponent)
+
+WatchComponent = RoactRodux.connect(function(state, props)
+	return {
+		IsVariablesTab = state.Watch.currentTab == TableTab.Variables,
+	}
+end)(WatchComponent)
 
 return WatchComponent

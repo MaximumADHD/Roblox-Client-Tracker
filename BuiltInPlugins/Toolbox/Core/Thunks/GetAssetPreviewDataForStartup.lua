@@ -1,17 +1,19 @@
+local FFlagToolboxFixTryInStudio = game:GetFastFlag("ToolboxFixTryInStudio")
+
 local Plugin = script.Parent.Parent.Parent
 
-local Packages = Plugin.Packages
-local Cryo = require(Packages.Cryo)
-
-local Util = Plugin.Core.Util
-
 local Actions = Plugin.Core.Actions
-local GetAssets = require(Actions.GetAssets)
-local SetAssetPreview = require(Actions.SetAssetPreview)
+
+local GetAssets
+local SetAssetPreview 
+if not FFlagToolboxFixTryInStudio then
+	GetAssets = require(Actions.GetAssets)
+	SetAssetPreview = require(Actions.SetAssetPreview)
+end
 
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 
-return function(assetId, tryInsert, localization, networkInterface)
+return function(assetId, tryInsert, localization, networkInterface, setAssetPreview)
 	return function(store)
 		local ok, result = pcall(function()
 			local requestPromise = networkInterface:getItemDetails({
@@ -50,12 +52,16 @@ return function(assetId, tryInsert, localization, networkInterface)
 					},
 				}
 
-				-- Add the asset data to the store, so that we can open AssetPreview
-				store:dispatch(GetAssets({
-					assetData,
-				}))
+				if FFlagToolboxFixTryInStudio then
+					setAssetPreview(assetData)
+				else
+					-- Add the asset data to the store, so that we can open AssetPreview
+					store:dispatch(GetAssets({
+						assetData,
+					}))
 
-				store:dispatch(SetAssetPreview(true, assetId))
+					store:dispatch(SetAssetPreview(true, assetId))
+				end
 
 				-- TODO: Make this is into a thunk & call it via that instead of a parameter:
 				tryInsert(assetData, false)

@@ -1,3 +1,5 @@
+local FFlagDevFrameworkRemoveFitFrame = game:GetFastFlag("DevFrameworkRemoveFitFrame")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Types = require(Plugin.Src.Types)
@@ -125,8 +127,10 @@ function PropertyListView:render()
 				end
 				local statusStyle = statusBucketToType[statusBucketType] == StatusLevel.Error and style.ErrorStatus or style.WarningStatus
 				table.insert(sectionStatuses, Roact.createElement(TextLabel, {
-					FitMaxWidth = statusMaxWidth,
-					FitWidth = true,
+					FitMaxWidth = if FFlagDevFrameworkRemoveFitFrame then nil else statusMaxWidth,
+					FitWidth = if FFlagDevFrameworkRemoveFitFrame then nil else true,
+					Size = if FFlagDevFrameworkRemoveFitFrame then UDim2.fromOffset(statusMaxWidth, 0) else nil,
+					AutomaticSize = if FFlagDevFrameworkRemoveFitFrame then Enum.AutomaticSize.XY else nil,
 					LayoutOrder = #sectionStatuses,
 					Style = statusStyle,
 					Text = getLocalizedStatusMessage(localization, status.StatusType, statusBucketType),

@@ -23,32 +23,32 @@ local Flags = Plugin.Src.Flags
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
 
 export type Props = {
-	LayoutOrder : number?,
-	Material : _Types.Material,
-	Position : UDim2?,
-	Size : UDim2?,
-	ZIndex : number?,
+	LayoutOrder: number?,
+	Material: _Types.Material,
+	Position: UDim2?,
+	Size: UDim2?,
+	ZIndex: number?,
 }
 
 type _Props = Props & {
-	Analytics : any,
-	Localization : any,
-	Material : _Types.Material,
-	MaterialController : any,
-	Stylizer : any,
+	Analytics: any,
+	Localization: any,
+	Material: _Types.Material,
+	MaterialController: any,
+	Stylizer: any,
 }
 
 type _Style = {
-	Error : _Types.Image,
-	IconSize : UDim2,
-	Warning : _Types.Image,
+	Error: _Types.Image,
+	IconSize: UDim2,
+	Warning: _Types.Image,
 }
 
 local StatusIcon = Roact.PureComponent:extend("StatusIcon")
 
 function StatusIcon:render()
-	local props : _Props = self.props
-	local style : _Style = props.Stylizer.StatusIcon
+	local props: _Props = self.props
+	local style: _Style = props.Stylizer.StatusIcon
 	local localization = props.Localization
 	local material = props.Material
 
@@ -69,6 +69,7 @@ function StatusIcon:render()
 		statusText = localization:getText("MaterialStatus", "DuplicateMaterial")
 	elseif status == Enum.PropertyStatus.Ok then
 		return Roact.createElement(Pane, {
+			LayoutOrder = props.LayoutOrder,
 			Size = UDim2.fromOffset(0, 0),
 		})
 	end

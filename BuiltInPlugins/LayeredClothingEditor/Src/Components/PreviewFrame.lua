@@ -16,6 +16,9 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 
+local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
+local PreviewConstantsInterface = AccessoryAndBodyToolSharedUtil.PreviewConstantsInterface
+
 local Components = AvatarToolsShared.Components
 local AnimationPlaybackSlider = Components.AnimationPlaybackSlider
 
@@ -34,8 +37,6 @@ local Grid = require(Plugin.Src.Components.Preview.Grid)
 
 local SetSliderPlayhead = require(Plugin.Src.Actions.SetSliderPlayhead)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
-
-local PreviewConstantsInterface = require(Plugin.Src.Util.PreviewConstantsInterface)
 
 local PreviewFrame = Roact.PureComponent:extend("PreviewFrame")
 Typecheck.wrap(PreviewFrame, script)

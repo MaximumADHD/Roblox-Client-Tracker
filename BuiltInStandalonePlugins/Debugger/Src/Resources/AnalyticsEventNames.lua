@@ -15,4 +15,7 @@ return {
 	CallstackStepOut = "Debugger.Callstack.User.StepOut",
 	CallstackChangeFrame = "Debugger.Callstack.User.ChangeFrame",
 	WatchAdded = "Debugger.Watch.User.Add",
+	WatchScopeEdited = "Debugger.LuaUI.Watch.User.Edit.Scope",
+	BreakpointsColumnsEdited = "Debugger.LuaUI.Breakpoints.User.Edit.Columns",
+	CallstackColumnsEdited = "Debugger.LuaUI.Callstack.User.Edit.Columns",
 }

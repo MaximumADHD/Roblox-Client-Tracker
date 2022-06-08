@@ -1,12 +1,14 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent
+	local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+
+	local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
+	local PreviewConstants = AccessoryAndBodyToolSharedUtil.PreviewConstants
 
 	local SetPreviewAssetsSelected = require(Plugin.Src.Actions.SetPreviewAssetsSelected)
 	local SelectPreviewTab = require(Plugin.Src.Actions.SelectPreviewTab)
 
 	local PreviewStatus = require(Plugin.Src.Reducers.PreviewStatus)
-
-	local PreviewConstants = require(Plugin.Src.Util.PreviewConstants)
 
 	it("should return a table", function()
 		local state = PreviewStatus(nil, {})

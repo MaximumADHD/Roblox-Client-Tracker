@@ -1,6 +1,7 @@
 --[[
 	For managing embedded localization tables
 ]]
+local FFlagRemoveUILibraryFitContent = game:GetFastFlag("RemoveUILibraryFitContent")
 
 local LocalizationService = game:GetService("LocalizationService")
 
@@ -11,11 +12,17 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local UILibrary = require(Plugin.Packages.UILibrary)
-local createFitToContent = UILibrary.Component.createFitToContent
-local FitToContent = createFitToContent("Frame", "UIListLayout", {
-    SortOrder = Enum.SortOrder.LayoutOrder,
-})
+local UI = Framework.UI
+local Pane = UI.Pane
+
+local FitToContent
+if not FFlagRemoveUILibraryFitContent then
+	local UILibrary = require(Plugin.Packages.UILibrary)
+    local createFitToContent = UILibrary.Component.createFitToContent
+    FitToContent = createFitToContent("Frame", "UIListLayout", {
+        SortOrder = Enum.SortOrder.LayoutOrder,
+    })
+end
 
 local AnalyticsContext = require(Plugin.Src.ContextServices.AnalyticsContext)
 local LabeledImageButton = require(Plugin.Src.Components.LabeledImageButton)
@@ -47,11 +54,43 @@ function EmbeddedTableSection:render()
 	local textCaptureLabelText = isTextScraperRunning
 		and localization:getText("EmbeddedTableSection", "TextCaptureStopText")
 		or localization:getText("EmbeddedTableSection", "TextCaptureStartText")
+	
+	local containerChildren = {
+		Padding = Roact.createElement("UIPadding", {
+			PaddingTop = UDim.new(0, theme.PaddingTop),
+			PaddingLeft = UDim.new(0, theme.LeftIndent),
+		}),
+		TextCapture = Roact.createElement(LabeledImageButton, {
+			Active = active,
+			ButtonText = localization:getText("EmbeddedTableSection", "TextCaptureButton"),
+			ButtonImage = textCaptureButtonImage,
+			LabelText = textCaptureLabelText,
+			LayoutOrder = 1,
+			OnButtonClick = self.toggleTextScraperEnabled,
+		}),
+		Export = Roact.createElement(LabeledImageButton, {
+			Active = active,
+			ButtonText = localization:getText("EmbeddedTableSection", "ExportButton"),
+			ButtonImage = theme.ExportButtonImage,
+			LabelText = localization:getText("EmbeddedTableSection", "ExportTextLabel"),
+			LayoutOrder = 2,
+			OnButtonClick = function()
+				EmbeddedTableUtil.promptExportToCSVs(analytics)
+			end,
+		}),
+		Import = Roact.createElement(LabeledImageButton, {
+			Active = active,
+			ButtonText = localization:getText("EmbeddedTableSection", "ImportButton"),
+			ButtonImage = theme.ImportButtonImage,
+			LabelText = localization:getText("EmbeddedTableSection", "ImportTextLabel"),
+			LayoutOrder = 3,
+			OnButtonClick = function()
+				EmbeddedTableUtil.promptImportFromCSVs(analytics)
+			end,
+		}),
+	}
 
-	return Roact.createElement(FitToContent, {
-		BackgroundTransparency = 1,
-		LayoutOrder = layoutOrder,
-	}, {
+	local children = {
 		Padding = Roact.createElement("UIPadding", {
 			PaddingTop = UDim.new(0, theme.PaddingTop * 2),
 		}),
@@ -64,44 +103,35 @@ function EmbeddedTableSection:render()
 			TextSize = theme.SectionLabelTextSize,
 			TextXAlignment = Enum.TextXAlignment.Left,
 		}),
-		Container = Roact.createElement(FitToContent, {
+		Container = (
+			if FFlagRemoveUILibraryFitContent then
+				Roact.createElement(Pane, {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					HorizontalAlignment = Enum.HorizontalAlignment.Left,
+					Layout = Enum.FillDirection.Vertical,
+					LayoutOrder = 2,
+				}, containerChildren)
+			else
+				Roact.createElement(FitToContent, {
+					BackgroundTransparency = 1,
+					LayoutOrder = 2,
+				}, containerChildren)
+		)
+	}
+
+	if FFlagRemoveUILibraryFitContent then
+		return Roact.createElement(Pane, {
+			AutomaticSize = Enum.AutomaticSize.Y,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			Layout = Enum.FillDirection.Vertical,
+			LayoutOrder = layoutOrder,
+		}, children)
+	else
+		return Roact.createElement(FitToContent, {
 			BackgroundTransparency = 1,
-			LayoutOrder = 2,
-		}, {
-			Padding = Roact.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, theme.PaddingTop),
-				PaddingLeft = UDim.new(0, theme.LeftIndent),
-			}),
-			TextCapture = Roact.createElement(LabeledImageButton, {
-				Active = active,
-				ButtonText = localization:getText("EmbeddedTableSection", "TextCaptureButton"),
-				ButtonImage = textCaptureButtonImage,
-				LabelText = textCaptureLabelText,
-				LayoutOrder = 1,
-				OnButtonClick = self.toggleTextScraperEnabled,
-			}),
-			Export = Roact.createElement(LabeledImageButton, {
-				Active = active,
-				ButtonText = localization:getText("EmbeddedTableSection", "ExportButton"),
-				ButtonImage = theme.ExportButtonImage,
-				LabelText = localization:getText("EmbeddedTableSection", "ExportTextLabel"),
-				LayoutOrder = 2,
-				OnButtonClick = function()
-					EmbeddedTableUtil.promptExportToCSVs(analytics)
-				end,
-			}),
-			Import = Roact.createElement(LabeledImageButton, {
-				Active = active,
-				ButtonText = localization:getText("EmbeddedTableSection", "ImportButton"),
-				ButtonImage = theme.ImportButtonImage,
-				LabelText = localization:getText("EmbeddedTableSection", "ImportTextLabel"),
-				LayoutOrder = 3,
-				OnButtonClick = function()
-					EmbeddedTableUtil.promptImportFromCSVs(analytics)
-				end,
-			}),
-		})
-	})
+			LayoutOrder = layoutOrder,
+		}, children)
+	end
 end
 
 local function mapStateToProps(state, _)

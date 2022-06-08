@@ -6,6 +6,7 @@
 -- TODO: Remove when GetFFlacChannelAnimations() is ON
 local Plugin = script.Parent.Parent.Parent.Parent
 local RigUtils = require(Plugin.Src.Util.RigUtils)
+local Constants = require(Plugin.Src.Util.Constants)
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local SetNotification = require(Plugin.Src.Actions.SetNotification)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
@@ -29,7 +30,7 @@ return function(name, analytics)
 				store:dispatch(SetIsDirty(false))
 				store:dispatch(SetFrameRate(frameRate))
 
-				analytics:report("onLoadAnimation", name, numKeyframes, numPoses, numEvents)
+				analytics:report("onLoadAnimation", name, numKeyframes, numPoses, numEvents, Constants.ANIMATION_TYPE.KeyframeSequence)
 			end
 		end
 	end

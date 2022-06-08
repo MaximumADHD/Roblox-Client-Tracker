@@ -45,11 +45,12 @@ local GetUniverseConfiguration = require(Plugin.Src.Thunks.GetUniverseConfigurat
 local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
 
 local StudioService = game:GetService("StudioService")
-
+local StudioPublishService = game:GetService("StudioPublishService")
 local MainView = Roact.PureComponent:extend("MainView")
 
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagAssetManagerRefactorPath = game:GetFastFlag("AssetManagerRefactorPath")
+local FFLagMovePublishToStudioPublishService = game:GetFastFlag("MovePublishToStudioPublishService")
 
 local universeNameSet = false
 local initialHasLinkedScriptValue = false
@@ -147,9 +148,16 @@ function MainView:didMount()
     if game.GameId ~= 0 then
         self.props.dispatchGetUniverseConfiguration(self.props.API:get())
     end
-    self.gamePublishedConnection = StudioService.GamePublishFinished:connect(function()
-        self.props.dispatchGetUniverseConfiguration(self.props.API:get())
-    end)
+
+    if FFLagMovePublishToStudioPublishService then
+        self.gamePublishedConnection = StudioPublishService.GamePublishFinished:connect(function()
+            self.props.dispatchGetUniverseConfiguration(self.props.API:get())
+        end)
+    else
+        self.gamePublishedConnection = StudioService.DEPRECATED_GamePublishFinished:connect(function()
+            self.props.dispatchGetUniverseConfiguration(self.props.API:get())
+        end)
+    end
 end
 
 function MainView:willUnmount()
@@ -253,7 +261,11 @@ function MainView:render()
             LayoutOrder = layoutIndex:getNextOrder(),
 
             OnClick = function()
-                StudioService:ShowSaveOrPublishPlaceToRoblox(false, false, Enum.StudioCloseMode.None)
+                if FFLagMovePublishToStudioPublishService then
+                    StudioPublishService:ShowSaveOrPublishPlaceToRoblox(false, false, Enum.StudioCloseMode.None)
+                else
+                    StudioService:DEPRECATED_ShowSaveOrPublishPlaceToRoblox(false, false, Enum.StudioCloseMode.None)
+                end
             end,
         }, {
             Roact.createElement(HoverArea, {Cursor = "PointingHand"}),

@@ -4,22 +4,22 @@
 	display that item.
 
 	Props
-		SelectionName : string
+		SelectionName: string
 			Text to display below the preview
-		HasSelection : bool
+		HasSelection: bool
 			Whether something is currently selected
-		PreviewTitle : string
+		PreviewTitle: string
 			Title to use on the expanded preview window
 
-		RenderPreview : void -> Roact element
+		RenderPreview: void -> Roact element
 			Function to render a preview of the current item
-		PromptSelection : void -> void
+		PromptSelection: void -> void
 			Callback to prompt the user to select an item (e.g. with StudioService:PromptImportFile())
-		UrlSelection : string -> void
+		UrlSelection: string -> void
 			Callback to select already uploaded item (by URL)
-		ClearSelection : void -> void
+		ClearSelection: void -> void
 			Callback to clear the current selection
-		SearchUrl : string
+		SearchUrl: string
 			AssetId that is inserted by user
 ]]
 
@@ -54,66 +54,66 @@ local FFlagDevFrameworkIconButtonBorderColor = game:GetFastFlag("DevFrameworkIco
 type Array<T> = { [number]: T }
 
 type _ExternalProps = {
-	SelectionName : string?,
-	PreviewTitle : string?,
-	HasSelection : boolean,
-	RenderPreview : () -> FrameworkTypes.RoactElement,
-	PromptSelection : () -> (),
-	UrlSelection : (string) -> (),
-	BorderColorUrlBool : boolean,
-	BorderColorFileBool : boolean,
-	SearchUrl : string?,
-	ClearSelection : () -> (),
-	OnFocusLost : () -> (),
+	SelectionName: string?,
+	PreviewTitle: string?,
+	HasSelection: boolean,
+	RenderPreview: () -> FrameworkTypes.RoactElement,
+	PromptSelection: () -> (),
+	UrlSelection: (string) -> (),
+	BorderColorUrlBool: boolean,
+	BorderColorFileBool: boolean,
+	SearchUrl: string?,
+	ClearSelection: () -> (),
+	OnFocusLost: () -> (),
 }
 
 type _InternalProps = {
-	OnClose : () -> (),
-	Metadata : Array<string>,
-	Icon : string,
+	OnClose: () -> (),
+	Metadata: Array<string>,
+	Icon: string,
 }
 
 type Props = _ExternalProps & _InternalProps
 
 type _Props = Props & {
-	Stylizer : any,
-	Localization : any,
+	Stylizer: any,
+	Localization: any,
 }
 
 type _Style = {
-	ExpandIcon : string,
-	ClearIcon : string,
-	ImportIcon : string,
+	ExpandIcon: string,
+	ClearIcon: string,
+	ImportIcon: string,
 
-	PreviewBackgroundColor : Color3,
-	PreviewBorderColor : Color3,
+	PreviewBackgroundColor: Color3,
+	PreviewBorderColor: Color3,
 
-	ButtonColor : Color3,
-	ButtonHeight : number,
-	IconImportPaddingLeft : number,
-	IconImportPaddingRight : number,
+	ButtonColor: Color3,
+	ButtonHeight: number,
+	IconImportPaddingLeft: number,
+	IconImportPaddingRight: number,
 
-	ImportIconColor : Color3,
-	ImportImageBackground : Color3,
-	ButtonIconColor : Color3,
-	ButtonIconHoveredColor : Color3,
-	BorderColorError : Color3,
+	ImportIconColor: Color3,
+	ImportImageBackground: Color3,
+	ButtonIconColor: Color3,
+	ButtonIconHoveredColor: Color3,
+	BorderColorError: Color3,
 
-	ToolbarTransparency : number,
-	ToolbarBackgroundColor : Color3,
-	ToolbarButtonBackgroundColor : Color3,
-	ToolbarHeight : number,
+	ToolbarTransparency: number,
+	ToolbarBackgroundColor: Color3,
+	ToolbarButtonBackgroundColor: Color3,
+	ToolbarHeight: number,
 
-	ColumnWidth : number,
-	PreviewSize : number,
+	ColumnWidth: number,
+	PreviewSize: number,
 
-	PaddingVertical : number,
-	PaddingHorizontal : number,
-	TextHeight : number,
+	PaddingVertical: number,
+	PaddingHorizontal: number,
+	TextHeight: number,
 	
-	ExpandedPreviewDefaultSize : Vector2,
-	ExpandedPreviewMinSize : Vector2,
-	ExpandedPreviewPadding : UDim,
+	ExpandedPreviewDefaultSize: Vector2,
+	ExpandedPreviewMinSize: Vector2,
+	ExpandedPreviewPadding: UDim,
 }
 
 -- Button used in the toolbar shown on hover in PromptSelectorWithPreview
@@ -138,9 +138,9 @@ function PreviewToolbarButton:init()
 end
 
 function PreviewToolbarButton:render()
-	local props : _Props = self.props
+	local props: _Props = self.props
 	local state = self.state
-	local style : _Style = props.Stylizer.PromptSelectorWithPreview
+	local style: _Style = props.Stylizer.PromptSelectorWithPreview
 	local toolbaButtonSize = style.ToolbarHeight - 4
 	local toolbarIconSize = toolbaButtonSize - 10
 
@@ -195,8 +195,8 @@ PreviewToolbarButton = withContext({
 local PreviewDialog = Roact.PureComponent:extend("PreviewDialog")
 
 function PreviewDialog:render()
-	local props : _Props = self.props
-	local style : _Style = props.Stylizer.PromptSelectorWithPreview
+	local props: _Props = self.props
+	local style: _Style = props.Stylizer.PromptSelectorWithPreview
 
 	local previewTitle = props.PreviewTitle or ""
 
@@ -310,10 +310,10 @@ function PromptSelectorWithPreview:init()
 end
 
 function PromptSelectorWithPreview:render()
-	local props : _Props = self.props
+	local props: _Props = self.props
 	local localization = props.Localization
 	local state = self.state
-	local style : _Style = props.Stylizer.PromptSelectorWithPreview
+	local style: _Style = props.Stylizer.PromptSelectorWithPreview
 	local layoutOrderIterator = LayoutOrderIterator.new()
 
 	local selectionName = props.SelectionName or ""

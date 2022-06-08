@@ -12,15 +12,17 @@ local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
 
---local ControlPointLink = require(Plugin.Src.Components.ToolShared.ControlPointLink)
+local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
+local AvatarToolsSharedConstants = AccessoryAndBodyToolSharedUtil.Constants
 
 local SetAttachmentPoint = require(Plugin.Src.Actions.SetAttachmentPoint)
 local SetItemSize = require(Plugin.Src.Actions.SetItemSize)
 local VerifyBounds = require(Plugin.Src.Thunks.VerifyBounds)
 
-local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
-local SignalsContext = require(Plugin.Src.Context.Signals)
+local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
+local SignalsContext = AvatarToolsShared.Contexts.Signals
 
 local Constants = require(Plugin.Src.Util.Constants)
 
@@ -145,7 +147,7 @@ end
 function MeshPartTool:renderLinks(theme, bounds, offset, position, adornee)
 	local links = {}
 
-	for _, edge in ipairs(Constants.CUBE_EDGES) do
+	for _, edge in ipairs(AvatarToolsSharedConstants.CUBE_EDGES) do
 		local startPos = (edge[1] * bounds) + position + offset
 		local endPos = (edge[2] * bounds) + position + offset
 		local length = (startPos - endPos).Magnitude

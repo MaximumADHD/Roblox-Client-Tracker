@@ -18,7 +18,6 @@ local Types = require(Plugin.Src.Types)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
-local GetFFlagFixClampValuesForFacs = require(Plugin.LuaFlags.GetFFlagFixClampValuesForFacs)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagUseCFrameAPI = require(Plugin.LuaFlags.GetFFlagUseCFrameAPI)
 
@@ -1144,6 +1143,17 @@ function TrackUtils.convertTrackToEulerAngles(track: Track, eulerAnglesOrder: En
 	track.Keyframes = nil
 	track.Data = nil
 	track.Type = Constants.TRACK_TYPES.EulerAngles
+end
+
+function TrackUtils.countKeyframes(track: Types.Track): (number)
+	local numKeyframes = 0
+	TrackUtils.traverseTracks(nil, track, function(componentTrack: Types.Track): ()
+		if componentTrack.Keyframes then
+			numKeyframes += #componentTrack.Keyframes
+		end
+	end, true)
+
+	return numKeyframes
 end
 
 return TrackUtils

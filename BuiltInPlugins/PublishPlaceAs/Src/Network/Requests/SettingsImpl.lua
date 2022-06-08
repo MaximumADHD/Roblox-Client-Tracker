@@ -9,6 +9,7 @@
 ]]
 local StudioService = game:GetService("StudioService")
 local StudioPublishService = game:GetService("StudioPublishService")
+local FFLagMovePublishToStudioPublishService = game:GetFastFlag("MovePublishToStudioPublishService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -57,7 +58,7 @@ end
 	endpoints or setting properties in the datamodel.
 ]]
 
-local function saveAll(state, localization, apiImpl, email)
+local function saveAll(state, localization, apiImpl, email, isPublish)
 	local configuration = {}
 	local universeActivate = {}
 
@@ -74,9 +75,19 @@ local function saveAll(state, localization, apiImpl, email)
 	game:GetService("StudioPublishService"):SetTeamCreateOnPublishInfo(state.teamCreateEnabled, configuration.name)
 
 	StudioPublishService:setUploadNames(configuration.name, configuration.name)
-	StudioService:publishAs(0, 0, state.creatorId)
+	if FFLagMovePublishToStudioPublishService then
+		StudioPublishService:publishAs(0, 0, state.creatorId, isPublish, nil)
+	else
+		StudioService:DEPRECATED_publishAs(0, 0, state.creatorId)
+	end
 
-	local success, gameId = StudioService.GamePublishFinished:wait()
+	local success, gameId
+	if FFLagMovePublishToStudioPublishService then
+		success, gameId = StudioPublishService.GamePublishFinished:wait()
+	else
+		success, gameId = StudioService.DEPRECATED_GamePublishFinished:wait()
+	end
+
 	-- Failure handled in ScreenCreateNewGame
 	if not success then
 		return
@@ -115,9 +126,15 @@ local function saveAll(state, localization, apiImpl, email)
 
 	apiImpl.Develop.V2.Universes.configuration(gameId, configuration):makeRequest()
 	:andThen(function()
-		StudioService:SetUniverseDisplayName(configuration.name)
-		StudioService:RefreshDocumentDisplayName()
-		StudioService:EmitPlacePublishedSignal()
+		if FFLagMovePublishToStudioPublishService then
+			StudioPublishService:SetUniverseDisplayName(configuration.name)
+			StudioPublishService:RefreshDocumentDisplayName()
+			StudioPublishService:EmitPlacePublishedSignal()
+		else
+			StudioService:DEPRECATED_SetUniverseDisplayName(configuration.name)
+			StudioService:DEPRECATED_RefreshDocumentDisplayName()
+			StudioService:DEPRECATED_EmitPlacePublishedSignal()
+		end
 	end, function(response)
 		parseErrorMessages(response, localization:getText("Error","SetConfiguration"))
 	end)

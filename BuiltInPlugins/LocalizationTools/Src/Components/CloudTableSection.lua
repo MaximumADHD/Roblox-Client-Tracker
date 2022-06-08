@@ -1,21 +1,30 @@
 --[[
 	For managing cloud localization tables
 ]]
+local FFlagRemoveUILibraryFitContent = game:GetFastFlag("RemoveUILibraryFitContent")
+
 local GuiService = game:GetService("GuiService")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local UILibrary = require(Plugin.Packages.UILibrary)
-local createFitToContent = UILibrary.Component.createFitToContent
-local FitToContent = createFitToContent("Frame", "UIListLayout", {
-	SortOrder = Enum.SortOrder.LayoutOrder,
-})
-local LinkText = Framework.UI.LinkText
+local UI = Framework.UI
+local LinkText = UI.LinkText
+local Pane = UI.Pane
+
+local FitToContent
+if not FFlagRemoveUILibraryFitContent then
+	local UILibrary = require(Plugin.Packages.UILibrary)
+    local createFitToContent = UILibrary.Component.createFitToContent
+    FitToContent = createFitToContent("Frame", "UIListLayout", {
+        SortOrder = Enum.SortOrder.LayoutOrder,
+    })
+end
 
 local AnalyticsContext = require(Plugin.Src.ContextServices.AnalyticsContext)
 local LabeledTextButton = require(Plugin.Src.Components.LabeledTextButton)
@@ -82,10 +91,7 @@ function CloudTableSection:render()
 
 	local content
 	if isReady then
-		content = Roact.createElement(FitToContent, {
-			BackgroundTransparency = 1,
-			LayoutOrder = 2,
-		}, {
+		local contentChildren = {
 			Padding = Roact.createElement("UIPadding", {
 				PaddingTop = UDim.new(0, theme.PaddingTop),
 				PaddingLeft = UDim.new(0, theme.LeftIndent),
@@ -134,7 +140,21 @@ function CloudTableSection:render()
 					Text = localization:getText("CloudTableSection", "CloudTablePageLinkText"),
 				}),
 			}),
-		})
+		}
+		
+		if FFlagRemoveUILibraryFitContent then
+			content = Roact.createElement(Pane, {
+				AutomaticSize = Enum.AutomaticSize.Y,
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+				Layout = Enum.FillDirection.Vertical,
+				LayoutOrder = 2,
+			}, contentChildren)
+		else
+			content = Roact.createElement(FitToContent, {
+				BackgroundTransparency = 1,
+				LayoutOrder = 2,
+			}, contentChildren)
+		end
 	else
 		content = Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, theme.PublishMessageHeight),
@@ -152,10 +172,7 @@ function CloudTableSection:render()
 		})
 	end
 
-	return Roact.createElement(FitToContent, {
-		BackgroundTransparency = 1,
-		LayoutOrder = layoutOrder,
-	}, {
+	local children =  {
 		Padding = Roact.createElement("UIPadding", {
 			PaddingTop = UDim.new(0, theme.PaddingTop),
 		}),
@@ -169,7 +186,21 @@ function CloudTableSection:render()
 			TextXAlignment = Enum.TextXAlignment.Left,
 		}),
 		Content = content,
-	})
+	}
+
+	if FFlagRemoveUILibraryFitContent then
+		return Roact.createElement(Pane, {
+			AutomaticSize = Enum.AutomaticSize.Y,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			Layout = Enum.FillDirection.Vertical,
+			LayoutOrder = layoutOrder,
+		}, children)
+	else
+		return Roact.createElement(FitToContent, {
+			BackgroundTransparency = 1,
+			LayoutOrder = layoutOrder,
+		}, children)
+	end
 end
 
 CloudTableSection = withContext({

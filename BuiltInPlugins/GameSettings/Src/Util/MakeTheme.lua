@@ -478,7 +478,6 @@ local style = {
 			height = 50,
 		},
 		padding = 10,
-		DEPRECATED_width = 140, -- remove with FFlagStudioExplainFriendCollaboratorPermission3
 		width = 195
 	},
 

@@ -13,8 +13,6 @@
 		LayoutOrder, number, will be used by the layout to change the component's position.
 ]]
 
-local FFlagToolboxUseInfiniteScroller = game:GetFastFlag("ToolboxUseInfiniteScroller")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -93,7 +91,6 @@ function OverrideAssetView:init(props)
 	end
 
 	self.requestOverrideAsset = function()
-		-- TODO STM-352: Apparently FFlagToolboxUseInfiniteScroller does not work with this code.
 		props.getOverrideAssets(self.state.pageIndex)
 		self:setState({
 			pageIndex = self.state.pageIndex + 1,
@@ -244,24 +241,16 @@ function OverrideAssetView:renderContent()
 
 	local layouterRef = self.layouterRef
 
-	if FFlagToolboxUseInfiniteScroller then
-		return Roact.createElement(InfiniteScrollingFrame, {
-			LoadNext = self.requestOverrideAsset,
-			LayoutOrder = props.LayoutOrder,
-			Size = Size,
-		}, itemList)
-	else
-		return Roact.createElement(DEPRECATED_InfiniteScrollingFrame, {
-			Size = Size,
+	return Roact.createElement(DEPRECATED_InfiniteScrollingFrame, {
+		Size = Size,
 
-			BackgroundColor3 = publishAssetTheme.backgroundColor,
-			layouterRef = layouterRef,
+		BackgroundColor3 = publishAssetTheme.backgroundColor,
+		layouterRef = layouterRef,
 
-			nextPageFunc = self.DEPRECATED_requestOverrideAsset,
+		nextPageFunc = self.DEPRECATED_requestOverrideAsset,
 
-			LayoutOrder = props.LayoutOrder,
-		}, itemList)
-	end
+		LayoutOrder = props.LayoutOrder,
+	}, itemList)
 end
 
 local function mapDispatchToProps(dispatch)

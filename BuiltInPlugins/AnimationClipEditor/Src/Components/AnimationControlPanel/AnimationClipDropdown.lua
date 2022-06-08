@@ -46,6 +46,7 @@ local Pause = require(Plugin.Src.Actions.Pause)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagFixButtonStyle = require(Plugin.LuaFlags.GetFFlagFixButtonStyle)
 
 local AnimationClipDropdown = Roact.PureComponent:extend("AnimationClipDropdown")
 
@@ -300,8 +301,8 @@ function AnimationClipDropdown:render()
 			InputText = localization:getText("Dialog", "AnimationName"),
 			Text = localization:getText("Title", "DefaultAnimationName"),
 			Buttons = {
-				{Key = false, Text = localization:getText("Dialog", "Cancel")},
-				{Key = true, Text = localization:getText("Dialog", "Create"), Style = style.Primary},
+				{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = if GetFFlagFixButtonStyle() then "Round" else nil},
+				{Key = true, Text = localization:getText("Dialog", "Create"), Style = if GetFFlagFixButtonStyle() then "RoundPrimary" else style.Primary},
 			},
 			OnTextSubmitted = function(text)
 				self.hideCreateNewPrompt()
@@ -319,8 +320,8 @@ function AnimationClipDropdown:render()
 			NoticeText = localization:getText("Dialog", "SaveLocation"),
 			Text = animationName,
 			Buttons = {
-				{Key = false, Text = localization:getText("Dialog", "Cancel")},
-				{Key = true, Text = localization:getText("Dialog", "Save"), Style = style.Primary},
+				{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = if GetFFlagFixButtonStyle() then "Round" else nil},
+				{Key = true, Text = localization:getText("Dialog", "Save"), Style = if GetFFlagFixButtonStyle() then "RoundPrimary" else style.Primary},
 			},
 			OnTextSubmitted = function(text)
 				self.hideSaveAsPrompt()
@@ -349,8 +350,8 @@ function AnimationClipDropdown:render()
 		OverwritePrompt = overwriteName and Roact.createElement(FocusedPrompt, {
 			PromptText = localization:getText("Menu", "Overwrite_Migrated", {overwriteName = overwriteName}),
 			Buttons = {
-				{Key = false, Text = localization:getText("Dialog", "No")},
-				{Key = true, Text = localization:getText("Dialog", "Yes"), Style = style.Primary},
+				{Key = false, Text = localization:getText("Dialog", "No"), Style = if GetFFlagFixButtonStyle() then "Round" else nil},
+				{Key = true, Text = localization:getText("Dialog", "Yes"), Style = if GetFFlagFixButtonStyle() then "RoundPrimary" else style.Primary},
 			},
 			OnButtonClicked = function(didSave)
 				self.hideOverwritePrompt()
@@ -368,13 +369,13 @@ function AnimationClipDropdown:render()
 		PromotePrompt = GetFFlagChannelAnimations() and showPromotePrompt and Roact.createElement(FocusedPrompt, {
 			PromptText = localization:getText("Dialog", "PromotePrompt"),
 			Buttons = {
-				{Key = false, Text = localization:getText("Dialog", "Cancel")},
-				{Key = true, Text = localization:getText("Dialog", "Confirm"), Style = style.Primary},
+				{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = if GetFFlagFixButtonStyle() then "Round" else nil},
+				{Key = true, Text = localization:getText("Dialog", "Confirm"), Style = if GetFFlagFixButtonStyle() then "RoundPrimary" else style.Primary},
 			},
 			OnButtonClicked = function(didPromote)
 				self.hidePromotePrompt()
 				if didPromote then
-					props.PromoteKeyframeSequence()
+					props.PromoteKeyframeSequence(props.Analytics)
 				end
 			end,
 			OnClose = self.hidePromotePrompt
@@ -386,9 +387,9 @@ function AnimationClipDropdown:render()
 			NoticeText = localization:getText("Dialog", "SaveLocation"),
 			Text = animationName,
 			Buttons = {
-				{Key = "Delete", Text = localization:getText("Dialog", "Delete")},
-				{Key = false, Text = localization:getText("Dialog", "Cancel")},
-				{Key = true, Text = localization:getText("Dialog", "Save"), Style = style.Primary},
+				{Key = "Delete", Text = localization:getText("Dialog", "Delete"), Style = if GetFFlagFixButtonStyle() then "Round" else nil},
+				{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = if GetFFlagFixButtonStyle() then "Round" else nil},
+				{Key = true, Text = localization:getText("Dialog", "Save"), Style = if GetFFlagFixButtonStyle() then "RoundPrimary" else style.Primary},
 			},
 			OnButtonClicked = function(text)
 				if text == "Delete" then
@@ -470,8 +471,8 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetIsDirty(isDirty))
 		end,
 
-		PromoteKeyframeSequence = if GetFFlagCurveEditor() then nil else function()
-			dispatch(PromoteKeyframeSequence())
+		PromoteKeyframeSequence = if GetFFlagCurveEditor() then nil else function(analytics)
+			dispatch(PromoteKeyframeSequence(analytics))
 		end,
 	}
 end

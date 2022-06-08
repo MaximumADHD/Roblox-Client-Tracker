@@ -3,15 +3,16 @@ return function()
 	local Rhodium = require(Plugin.Packages.Dev.Rhodium)
 	local XPath = Rhodium.XPath
 	local Element = Rhodium.Element
+	local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+
+	local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
+	local PreviewConstants = AccessoryAndBodyToolSharedUtil.PreviewConstants
+	local PreviewConstantsInterface = AccessoryAndBodyToolSharedUtil.PreviewConstantsInterface
+	local isProductionEnvironment = AvatarToolsShared.Util.isProductionEnvironment
 
 	local TestHelper = require(Plugin.Src.Util.TestHelper)
 	local TestRunner = require(Plugin.Src.Util.TestRunner)
 	local runRhodiumTest = TestRunner.runRhodiumTest
-
-	local PreviewConstants = require(Plugin.Src.Util.PreviewConstants)
-	local PreviewConstantsInterface = require(Plugin.Src.Util.PreviewConstantsInterface)
-
-	local isProductionEnvironment = require(Plugin.Src.Util.isProductionEnvironment)
 
 	local SelectPreviewTab = require(Plugin.Src.Actions.SelectPreviewTab)
 

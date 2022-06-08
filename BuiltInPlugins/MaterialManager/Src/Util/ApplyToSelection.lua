@@ -1,7 +1,7 @@
 local Selection = game:GetService("Selection")
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 
-return function(baseMaterial : Enum.Material, materialVariant : string?)
+return function(baseMaterial: Enum.Material, materialVariant: string?)
 	if Selection then
 		local instances = Selection:Get()
 		ChangeHistoryService:SetWaypoint("Applied Material to Selection")

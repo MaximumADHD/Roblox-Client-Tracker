@@ -24,6 +24,8 @@ return function()
         local element = createTestElement({
             LayoutOrder = 1,
             Size = UDim2.fromScale(1, 1),
+            OnClickShowButton = function() end,
+            SideBarHide = true,
         })
         local instance = Roact.mount(element, container)
 

@@ -26,8 +26,6 @@ local OFFSET = .10
 local ROW_VALUE_WIDTH = .8
 local MICROPROFILER_PRESSED_COUNTERNAME ="MicroprofilerDevConsolePressed"
 
-local FFlagMicroProfilerSessionAnalytics = settings():GetFFlag("MicroProfilerSessionAnalytics")
-
 local MainViewProfiler = Roact.Component:extend("MainViewProfiler")
 
 function MainViewProfiler:init()
@@ -44,9 +42,7 @@ function MainViewProfiler:init()
 				clientProfilerEnabled = screenProfilerEnabled
 			})
 
-			if FFlagMicroProfilerSessionAnalytics then
-				AnalyticsService:ReportCounter(MICROPROFILER_PRESSED_COUNTERNAME)
-			end
+			AnalyticsService:ReportCounter(MICROPROFILER_PRESSED_COUNTERNAME)
 		end
 	end
 

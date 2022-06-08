@@ -43,8 +43,10 @@ local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContext
 local ToggleBoneVisibility = require(Plugin.Src.Thunks.ToggleBoneVisibility)
 
 local SelectAllKeyframes = require(Plugin.Src.Thunks.Selection.SelectAllKeyframes)
+local SetEventEditingTick = require(Plugin.Src.Actions.SetEventEditingTick)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
+local SetShowEvents = require(Plugin.Src.Actions.SetShowEvents)
 local SetTool = require	(Plugin.Src.Actions.SetTool)
 
 local Framework = require(Plugin.Packages.Framework)
@@ -57,6 +59,7 @@ local Redo = require(Plugin.Src.Thunks.History.Redo)
 local TogglePlay = require(Plugin.Src.Thunks.Playback.TogglePlay)
 
 local FFlagAnimEditorFixBackspaceOnMac = require(Plugin.LuaFlags.GetFFlagAnimEditorFixBackspaceOnMac)
+local FFlagCurveEditorEvents = game:DefineFastFlag("ACECurveEditorEvents", false)
 
 local KeyframeActions = Roact.PureComponent:extend("KeyframeActions")
 
@@ -207,6 +210,11 @@ function KeyframeActions:makeMenuActions(localization: any): any
 		end
 	end
 
+	if FFlagCurveEditorEvents then
+		table.insert(actions, Constants.MENU_SEPARATOR)
+		table.insert(actions, pluginActions:get("AddEvent"))
+	end
+
 	return actions
 end
 
@@ -280,6 +288,18 @@ function KeyframeActions:didMount(): ()
 		return self.props.Undo(self.props.Signals)
 	end
 
+	if FFlagCurveEditorEvents then
+		-- Note: AddEvent is used both by KeyframeActions and TimelineActions,
+		-- but we cannot add the action in both places as it would register
+		-- two callbacks with a single event. The DopeSheet chose to register
+		-- the callback in TimelineActions, so the CurveEditor will do the same.
+		-- It's probably better, however, to create another component shared at
+		-- a higher level (EditorController?) that registers the callback for
+		-- everyone.
+		self:addAction(actions:get("AddEvent"), function()
+			self.props.OnEditEvents(self.props.Tick)
+		end)
+	end
 
 	self:addAction(actions:get("CopySelected"), self.props.CopySelectedKeyframes)
 	self:addAction(actions:get("DeleteSelected"), deleteSelectedKeyframesWrapper)
@@ -419,6 +439,11 @@ local function mapDispatchToProps(dispatch): {[string]: any}
 		DeselectAllKeyframes = function(): ()
 			dispatch(SetSelectedKeyframes{})
 			dispatch(SetSelectedEvents({}))
+		end,
+
+		OnEditEvents = function(tck)
+			dispatch(SetShowEvents(true))
+			dispatch(SetEventEditingTick(tck))
 		end,
 
 		PasteKeyframes = function(tck: number, analytics: any): ()

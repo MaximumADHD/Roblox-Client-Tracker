@@ -25,57 +25,55 @@ local MaterialController = require(Util.MaterialController)
 local Components = Plugin.Src.Components
 local MaterialPreview = require(Components.MaterialPreview)
 
--- TODO: cleaning up for the FFLagMaterialVariantTempIdCompatibility - remove all texture maps from that file
 local Flags = Plugin.Src.Flags
-local getFFlagMaterialVariantTempIdCompatibility = require(Flags.getFFlagMaterialVariantTempIdCompatibility)
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
 
 export type Props = {
-	LayoutOrder : number?,
-	MockMaterial : _Types.Material?,
+	LayoutOrder: number?,
+	MockMaterial: _Types.Material?,
 }
 
 type _Props = Props & { 
-	Analytics : any,
-	dispatchClearMaterial : () -> (),
-	Localization : any,
-	Material : _Types.Material?,
-	MaterialController : any,
-	Stylizer : any,
+	Analytics: any,
+	dispatchClearMaterial: () -> (),
+	Localization: any,
+	Material: _Types.Material?,
+	MaterialController: any,
+	Stylizer: any,
 }
 
 type _Style = {
-	ButtonPosition : UDim2,
-	ButtonSize : UDim2,
-	ButtonStyle : string,
-	Close : _Types.Image,
-	CreateVariant : _Types.Image,
-	Delete : _Types.Image,
-	DropdownSize : UDim2,
-	Edit : _Types.Image,
-	HeaderBackground : Color3,
-	HeaderFont : Enum.Font,
-	HeaderSize : UDim2,
-	ImagePosition : UDim2,
-	ImageSize : UDim2,
-	NameLabelSizeBuiltIn : UDim2,
-	NameLabelSizeVariant : UDim2,
-	NoTexture : string,
-	LabelRowSize : UDim2,
-	OverrideSize : UDim2,
-	Padding : number,
-	SectionHeaderTextSize : number,
-	TextureLabelSize : UDim2,
-	TextureRowSize : UDim2,
-	TextureSize : UDim2,
-	TitleTextSize : number,
+	ButtonPosition: UDim2,
+	ButtonSize: UDim2,
+	ButtonStyle: string,
+	Close: _Types.Image,
+	CreateVariant: _Types.Image,
+	Delete: _Types.Image,
+	DropdownSize: UDim2,
+	Edit: _Types.Image,
+	HeaderBackground: Color3,
+	HeaderFont: Enum.Font,
+	HeaderSize: UDim2,
+	ImagePosition: UDim2,
+	ImageSize: UDim2,
+	NameLabelSizeBuiltIn: UDim2,
+	NameLabelSizeVariant: UDim2,
+	NoTexture: string,
+	LabelRowSize: UDim2,
+	OverrideSize: UDim2,
+	Padding: number,
+	SectionHeaderTextSize: number,
+	TextureLabelSize: UDim2,
+	TextureRowSize: UDim2,
+	TextureSize: UDim2,
+	TitleTextSize: number,
 }
 
 local MaterialHeader = Roact.PureComponent:extend("MaterialHeader")
 
 function MaterialHeader:init()
 	self.onClose = function()
-		local props : _Props = self.props
+		local props: _Props = self.props
 
 		props.dispatchClearMaterial()
 	end
@@ -89,7 +87,7 @@ function MaterialHeader:willUnmount()
 end
 
 function MaterialHeader:didMount()
-	local props : _Props = self.props
+	local props: _Props = self.props
 
 	self.connection = props.MaterialController:getMaterialChangedSignal():Connect(function(materialVariant)
 		if self.props.Material and materialVariant == self.props.Material.MaterialVariant then
@@ -99,7 +97,7 @@ function MaterialHeader:didMount()
 end
 
 function MaterialHeader:render()
-	local props : _Props = self.props
+	local props: _Props = self.props
 	local style = props.Stylizer.MaterialDetails
 	local material = props.Material
 
@@ -108,21 +106,6 @@ function MaterialHeader:render()
 	end
 
 	local materialVariant = material.MaterialVariant
-
-	local colorMap, metalnessMap, normalMap, roughnessMap
-	if getFFlagMaterialManagerGlassNeonForceField() then
-		if materialVariant then
-			colorMap = materialVariant.ColorMap
-			metalnessMap = materialVariant.MetalnessMap
-			normalMap = materialVariant.NormalMap
-			roughnessMap = materialVariant.RoughnessMap
-		end
-	else
-		colorMap = materialVariant.ColorMap
-		metalnessMap = materialVariant.MetalnessMap
-		normalMap = materialVariant.NormalMap
-		roughnessMap = materialVariant.RoughnessMap
-	end
 
 	-- Move this back to the component and remove with FFlagMaterialManagerGlassNeonForceField
 	local isBuiltin
@@ -136,26 +119,13 @@ function MaterialHeader:render()
 		LayoutOrder = props.LayoutOrder,
 		Size = style.HeaderSize,
 	}, {
-		Preview = getFFlagMaterialVariantTempIdCompatibility() and Roact.createElement(MaterialPreview, {
+		Preview = Roact.createElement(MaterialPreview, {
 			BackgroundColor = style.HeaderBackground,
 			DisableZoom = true,
 			LayoutOrder = 1,
 			Material = if getFFlagMaterialManagerGlassNeonForceField() then material.Material else materialVariant.BaseMaterial,
 			MaterialVariant = if not isBuiltin then materialVariant.Name else nil,
 			Position = UDim2.fromOffset(0, 0),
-			Size = style.MaterialPreviewSize,
-		}) or Roact.createElement(MaterialPreview, {
-			BackgroundColor = style.HeaderBackground,
-			ColorMap = colorMap,
-			DisableZoom = true,
-			LayoutOrder = 1,
-			Material = if getFFlagMaterialManagerGlassNeonForceField() then material.Material else materialVariant.BaseMaterial,
-			MaterialVariant = if not isBuiltin then materialVariant.Name else nil,
-			MetalnessMap = metalnessMap,
-			NormalMap = normalMap,
-			Position = UDim2.fromOffset(0, 0),
-			Refresh = true,
-			RoughnessMap = roughnessMap,
 			Size = style.MaterialPreviewSize,
 		}),
 		Close = Roact.createElement(Button, {

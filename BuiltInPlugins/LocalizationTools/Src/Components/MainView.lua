@@ -1,6 +1,7 @@
 --[[
 	Localization Tools plugin main view
 ]]
+local FFlagRemoveUILibraryFitContent = game:GetFastFlag("RemoveUILibraryFitContent")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -10,11 +11,18 @@ local ContextServices = Framework.ContextServices
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 local withContext = ContextServices.withContext
 
-local UILibrary = require(Plugin.Packages.UILibrary)
-local createFitToContent = UILibrary.Component.createFitToContent
-local FitToContent = createFitToContent("Frame", "UIListLayout", {
-    SortOrder = Enum.SortOrder.LayoutOrder,
-})
+local UI = Framework.UI
+local Pane = UI.Pane
+
+local FitToContent
+if not FFlagRemoveUILibraryFitContent then
+	local UILibrary = require(Plugin.Packages.UILibrary)
+    local createFitToContent = UILibrary.Component.createFitToContent
+    FitToContent = createFitToContent("Frame", "UIListLayout", {
+        SortOrder = Enum.SortOrder.LayoutOrder,
+    })
+end
+
 local ProgressSpinner = require(Plugin.Src.Components.ProgressSpinner)
 
 local MessageFrame = require(Plugin.Src.Components.MessageFrame)
@@ -28,6 +36,30 @@ function MainView:render()
 	local props = self.props
 	local theme = props.Stylizer
 	local layoutOrder = LayoutOrderIterator.new()
+
+	local containerChildren = {
+		Padding = Roact.createElement("UIPadding", {
+			PaddingTop = UDim.new(0, theme.PaddingTop),
+			PaddingBottom = UDim.new(0, theme.Padding),
+			PaddingLeft = UDim.new(0, theme.Padding),
+			PaddingRight = UDim.new(0, theme.PaddingRight),
+		}),
+		CloudTableSection = Roact.createElement(CloudTableSection, {
+			LayoutOrder = layoutOrder:getNextOrder(),
+		}),
+		EmbeddedTableSection = Roact.createElement(EmbeddedTableSection, {
+			LayoutOrder = layoutOrder:getNextOrder(),
+		}),
+		ImageLocalizationSection = Roact.createElement(ImageLocalizationSection, {
+			LayoutOrder = layoutOrder:getNextOrder(),
+		}),
+		ExtendedBackground = Roact.createElement("Frame", {
+			BackgroundColor3 = theme.MainBackground,
+			BorderSizePixel = 0,
+			LayoutOrder = layoutOrder:getNextOrder(),
+			Size = UDim2.new(1, 0, 0, theme.EmptyFrameHeight),
+		})
+	}
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
@@ -48,33 +80,20 @@ function MainView:render()
 			ScrollingDirection = Enum.ScrollingDirection.XY,
 			Size = UDim2.new(1, 0, 1, theme.ScrollingFrameHeight - 1),
 		}, {
-			Container = Roact.createElement(FitToContent, {
-				BackgroundTransparency = 0,
-				BackgroundColor3 = theme.MainBackground,
-				BorderSizePixel = 0,
-			}, {
-				Padding = Roact.createElement("UIPadding", {
-					PaddingTop = UDim.new(0, theme.PaddingTop),
-					PaddingBottom = UDim.new(0, theme.Padding),
-					PaddingLeft = UDim.new(0, theme.Padding),
-					PaddingRight = UDim.new(0, theme.PaddingRight),
-				}),
-				CloudTableSection = Roact.createElement(CloudTableSection, {
-					LayoutOrder = layoutOrder:getNextOrder(),
-				}),
-				EmbeddedTableSection = Roact.createElement(EmbeddedTableSection, {
-					LayoutOrder = layoutOrder:getNextOrder(),
-				}),
-				ImageLocalizationSection = Roact.createElement(ImageLocalizationSection, {
-					LayoutOrder = layoutOrder:getNextOrder(),
-				}),
-				ExtendedBackground = Roact.createElement("Frame", {
-					BackgroundColor3 = theme.MainBackground,
-					BorderSizePixel = 0,
-					LayoutOrder = layoutOrder:getNextOrder(),
-					Size = UDim2.new(1, 0, 0, theme.EmptyFrameHeight),
-				})
-			}),
+			Container = (
+				if FFlagRemoveUILibraryFitContent then
+					Roact.createElement(Pane, {
+						Style = "Box",
+						AutomaticSize = Enum.AutomaticSize.Y,
+						HorizontalAlignment = Enum.HorizontalAlignment.Left,
+					}, containerChildren)
+				else
+					Roact.createElement(FitToContent, {
+						BackgroundTransparency = 0,
+						BackgroundColor3 = theme.MainBackground,
+						BorderSizePixel = 0,
+					}, containerChildren)
+			),
 		}),
 
 		ProgressSpinner = Roact.createElement(ProgressSpinner),
