@@ -385,7 +385,8 @@ Use & View,Studio.Toolbox.AssetConfigPackagePermissions.EditLabel,Edit
 Edit,Studio.Toolbox.Audio.Music.Genre.country,Country
 Country,Studio.Toolbox.NoTagFound,Word(s) not found in the tag library
 Word(s) not found in the tag library,Studio.Toolbox.AssetConfigPackagePermissions.MultipleLabel,(Multiple)
-(Multiple),Studio.Toolbox.AssetConfigPackagePermissions.LockedGroup,"To change access for the \"{roleName}\" role, visit the Configure Group page on the website."
+(Multiple),Studio.Toolbox.InsertTool.DialogTitle,Insert Tool
+Insert Tool,Studio.Toolbox.AssetConfigPackagePermissions.LockedGroup,"To change access for the \"{roleName}\" role, visit the Configure Group page on the website."
 "To change access for the \"{roleName}\" role, visit the Configure Group page on the website.",Studio.Toolbox.AssetConfigPackagePermissions.NoAccessDescription,"Cannot use, view or edit this package"
 "Cannot use, view or edit this package",Studio.Toolbox.AssetConfigPackagePermissions.EditDescription,"Can use, view and edit this package"
 "Can use, view and edit this package",Studio.Toolbox.AssetConfigPackagePermissions.FriendsCollaboratorType,Friends
@@ -618,4 +619,5 @@ Whistles,Whistles,Studio.Toolbox.Audio.SoundEffect.Category.wild
 Wild,Wild,Studio.Toolbox.Audio.SoundEffect.Category.winds
 Winds,Winds,Studio.Toolbox.Audio.SoundEffect.Category.wingflaps
 Wingflaps,Wingflaps,Studio.Toolbox.Audio.SoundEffect.Category.wood
-Wood,Wood
+Wood,Wood,Studio.Toolbox.InsertTool.DialogText
+Put this tool into the starter pack?,Put this tool into the starter pack?

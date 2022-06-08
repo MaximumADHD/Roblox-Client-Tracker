@@ -65033,6 +65033,56 @@
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "EditTextAsync",
+                    "Parameters": [
+                        {
+                            "Name": "newText",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "startLine",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "startCharacter",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "endLine",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "endCharacter",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -73899,6 +73949,18 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "RefreshDocumentDisplayName",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SetTeamCreateOnPublishInfo",
                     "Parameters": [
                         {
@@ -73910,6 +73972,25 @@
                         },
                         {
                             "Name": "newPlaceName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetUniverseDisplayName",
+                    "Parameters": [
+                        {
+                            "Name": "newName",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
@@ -73946,6 +74027,105 @@
                         "Category": "Primitive",
                         "Name": "void"
                     },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ShowSaveOrPublishPlaceToRoblox",
+                    "Parameters": [
+                        {
+                            "Name": "showGameSelect",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        },
+                        {
+                            "Name": "isPublish",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        },
+                        {
+                            "Name": "closeMode",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "StudioCloseMode"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "GameNameUpdated",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "GamePublishFinished",
+                    "Parameters": [
+                        {
+                            "Name": "success",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        },
+                        {
+                            "Name": "gameId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "OnSaveOrPublishPlaceToRoblox",
+                    "Parameters": [
+                        {
+                            "Name": "showGameSelect",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        },
+                        {
+                            "Name": "isPublish",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        },
+                        {
+                            "Name": "closeMode",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "StudioCloseMode"
+                            }
+                        }
+                    ],
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 }
@@ -74301,8 +74481,105 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "EmitPlacePublishedSignal",
+                    "Name": "DEPRECATED_EmitPlacePublishedSignal",
                     "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "DEPRECATED_RefreshDocumentDisplayName",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "DEPRECATED_SetUniverseDisplayName",
+                    "Parameters": [
+                        {
+                            "Name": "newName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "DEPRECATED_ShowSaveOrPublishPlaceToRoblox",
+                    "Parameters": [
+                        {
+                            "Name": "showGameSelect",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        },
+                        {
+                            "Name": "isPublish",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        },
+                        {
+                            "Name": "closeMode",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "StudioCloseMode"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "DEPRECATED_publishAs",
+                    "Parameters": [
+                        {
+                            "Name": "universeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "placeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "groupId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
@@ -74552,51 +74829,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "PublishAs",
-                    "Parameters": [
-                        {
-                            "Name": "universeId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        },
-                        {
-                            "Name": "placeId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        },
-                        {
-                            "Name": "groupId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "RefreshDocumentDisplayName",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "RequestClose",
                     "Parameters": [
                         {
@@ -74642,25 +74874,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "SetUniverseDisplayName",
-                    "Parameters": [
-                        {
-                            "Name": "newName",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "ShowPlaceVersionHistoryDialog",
                     "Parameters": [
                         {
@@ -74682,39 +74895,6 @@
                     "MemberType": "Function",
                     "Name": "ShowPublishToRoblox",
                     "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "ShowSaveOrPublishPlaceToRoblox",
-                    "Parameters": [
-                        {
-                            "Name": "showGameSelect",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        },
-                        {
-                            "Name": "isPublish",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        },
-                        {
-                            "Name": "closeMode",
-                            "Type": {
-                                "Category": "Enum",
-                                "Name": "StudioCloseMode"
-                            }
-                        }
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
@@ -74831,7 +75011,7 @@
                 },
                 {
                     "MemberType": "Event",
-                    "Name": "GameNameUpdated",
+                    "Name": "DEPRECATED_GameNameUpdated",
                     "Parameters": [
                         {
                             "Name": "name",
@@ -74846,7 +75026,7 @@
                 },
                 {
                     "MemberType": "Event",
-                    "Name": "GamePublishFinished",
+                    "Name": "DEPRECATED_GamePublishFinished",
                     "Parameters": [
                         {
                             "Name": "success",
@@ -74860,6 +75040,50 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "int64"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "DEPRECATED_OnPublishPlaceToRoblox",
+                    "Parameters": [
+                        {
+                            "Name": "isOverwritePublish",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "DEPRECATED_OnSaveOrPublishPlaceToRoblox",
+                    "Parameters": [
+                        {
+                            "Name": "showGameSelect",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        },
+                        {
+                            "Name": "isPublish",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        },
+                        {
+                            "Name": "closeMode",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "StudioCloseMode"
                             }
                         }
                     ],
@@ -74943,50 +75167,6 @@
                             "Type": {
                                 "Category": "DataType",
                                 "Name": "Objects"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "OnPublishPlaceToRoblox",
-                    "Parameters": [
-                        {
-                            "Name": "isOverwritePublish",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "OnSaveOrPublishPlaceToRoblox",
-                    "Parameters": [
-                        {
-                            "Name": "showGameSelect",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        },
-                        {
-                            "Name": "isPublish",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        },
-                        {
-                            "Name": "closeMode",
-                            "Type": {
-                                "Category": "Enum",
-                                "Name": "StudioCloseMode"
                             }
                         }
                     ],
@@ -75183,9 +75363,6 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "Hidden"
-                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "DataType",

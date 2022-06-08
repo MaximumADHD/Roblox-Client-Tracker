@@ -3405,6 +3405,7 @@ Class ScriptDebugger : Instance [NotCreatable]
 	Event ScriptDebugger.WatchAdded(Instance watch)
 	Event ScriptDebugger.WatchRemoved(Instance watch)
 Class ScriptDocument : Instance [NotCreatable] [NotReplicated]
+	Function bool ScriptDocument:EditTextAsync(string newText, int startLine, int startCharacter, int endLine, int endCharacter) {RobloxScriptSecurity} [Yields]
 	Function int ScriptDocument:GetNumLines() {RobloxScriptSecurity}
 	Function LuaSourceContainer ScriptDocument:GetScript() {RobloxScriptSecurity}
 	Function string ScriptDocument:GetText() {RobloxScriptSecurity}
@@ -3888,8 +3889,14 @@ Class StudioHighDpiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool StudioHighDpiService:IsNotHighDPIAwareBuild() {RobloxScriptSecurity}
 Class StudioPublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioPublishService:PublishAs(int64 universeId, int64 placeId, int64 groupId, bool isPublish, Variant publishParameters) {RobloxScriptSecurity}
+	Function void StudioPublishService:RefreshDocumentDisplayName() {RobloxScriptSecurity}
 	Function void StudioPublishService:SetTeamCreateOnPublishInfo(bool shouldTurnOnTcOnPublish, string newPlaceName) {RobloxScriptSecurity}
+	Function void StudioPublishService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
 	Function void StudioPublishService:SetUploadNames(string placeName, string universeName) {RobloxScriptSecurity}
+	Function void StudioPublishService:ShowSaveOrPublishPlaceToRoblox(bool showGameSelect, bool isPublish, Enum.StudioCloseMode closeMode) {RobloxScriptSecurity}
+	Event StudioPublishService.GameNameUpdated(string name) {RobloxScriptSecurity}
+	Event StudioPublishService.GamePublishFinished(bool success, int64 gameId) {RobloxScriptSecurity}
+	Event StudioPublishService.OnSaveOrPublishPlaceToRoblox(bool showGameSelect, bool isPublish, Enum.StudioCloseMode closeMode) {RobloxScriptSecurity}
 Class StudioScriptDebugEventListener : Instance [NotCreatable] [Service] [NotReplicated]
 Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool StudioService.AlignDraggedObjects {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -3907,7 +3914,11 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property string StudioService.StudioLocaleId [ReadOnly]
 	Function void StudioService:AnimationIdSelected(int64 id) {RobloxScriptSecurity}
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
-	Function void StudioService:EmitPlacePublishedSignal() {RobloxScriptSecurity}
+	Function void StudioService:DEPRECATED_EmitPlacePublishedSignal() {RobloxScriptSecurity}
+	Function void StudioService:DEPRECATED_RefreshDocumentDisplayName() {RobloxScriptSecurity}
+	Function void StudioService:DEPRECATED_SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
+	Function void StudioService:DEPRECATED_ShowSaveOrPublishPlaceToRoblox(bool showGameSelect, bool isPublish, Enum.StudioCloseMode closeMode) {RobloxScriptSecurity}
+	Function void StudioService:DEPRECATED_publishAs(int64 universeId, int64 placeId, int64 groupId) {RobloxScriptSecurity}
 	Function string StudioService:GetBadgeConfigureUrl(int64 badgeId) {RobloxScriptSecurity}
 	Function string StudioService:GetBadgeUploadUrl() {RobloxScriptSecurity}
 	Function Dictionary StudioService:GetClassIcon(string className) {PluginSecurity}
@@ -3924,27 +3935,23 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioService:OpenInBrowser_DONOTUSE(string url) {RobloxScriptSecurity}
 	Function Instance StudioService:PromptImportFile(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
 	Function Objects StudioService:PromptImportFiles(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
-	Function void StudioService:PublishAs(int64 universeId, int64 placeId, int64 groupId) {RobloxScriptSecurity}
-	Function void StudioService:RefreshDocumentDisplayName() {RobloxScriptSecurity}
 	Function void StudioService:RequestClose(Enum.StudioCloseMode closeMode) {RobloxScriptSecurity}
 	Function void StudioService:SetPluginEnabled(int64 assetId, bool state) {RobloxScriptSecurity}
-	Function void StudioService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
 	Function void StudioService:ShowPlaceVersionHistoryDialog(int64 placeId) {RobloxScriptSecurity}
 	Function void StudioService:ShowPublishToRoblox() {RobloxScriptSecurity}
-	Function void StudioService:ShowSaveOrPublishPlaceToRoblox(bool showGameSelect, bool isPublish, Enum.StudioCloseMode closeMode) {RobloxScriptSecurity}
 	Function void StudioService:TryInstallPlugin(int64 assetId, int64 assetVersionId) {RobloxScriptSecurity} [Yields]
 	Function void StudioService:UninstallPlugin(int64 assetId) {RobloxScriptSecurity}
 	Function void StudioService:UpdatePluginManagement() {RobloxScriptSecurity}
-	Event StudioService.GameNameUpdated(string name) {RobloxScriptSecurity}
-	Event StudioService.GamePublishFinished(bool success, int64 gameId) {RobloxScriptSecurity}
+	Event StudioService.DEPRECATED_GameNameUpdated(string name) {RobloxScriptSecurity}
+	Event StudioService.DEPRECATED_GamePublishFinished(bool success, int64 gameId) {RobloxScriptSecurity}
+	Event StudioService.DEPRECATED_OnPublishPlaceToRoblox(bool isOverwritePublish) {RobloxScriptSecurity}
+	Event StudioService.DEPRECATED_OnSaveOrPublishPlaceToRoblox(bool showGameSelect, bool isPublish, Enum.StudioCloseMode closeMode) {RobloxScriptSecurity}
 	Event StudioService.OnImportFromRoblox() {RobloxScriptSecurity}
 	Event StudioService.OnOpenGameSettings(string pageIdentifier) {RobloxScriptSecurity}
 	Event StudioService.OnOpenManagePackagePlugin(int64 userId, int64 assetId) {RobloxScriptSecurity}
 	Event StudioService.OnPluginInstalledFromToolbox() {RobloxScriptSecurity}
 	Event StudioService.OnPluginInstalledFromWeb(string pluginId) {RobloxScriptSecurity}
 	Event StudioService.OnPublishAsPlugin(Objects instances) {RobloxScriptSecurity}
-	Event StudioService.OnPublishPlaceToRoblox(bool isOverwritePublish) {RobloxScriptSecurity}
-	Event StudioService.OnSaveOrPublishPlaceToRoblox(bool showGameSelect, bool isPublish, Enum.StudioCloseMode closeMode) {RobloxScriptSecurity}
 	Event StudioService.OnSaveToRoblox(Objects instances) {RobloxScriptSecurity}
 	Event StudioService.PromptTransformPluginCheckEnable() {RobloxScriptSecurity}
 	Event StudioService.SaveLocallyAsComplete(bool success) {RobloxScriptSecurity}
@@ -3956,7 +3963,7 @@ Class SurfaceAppearance : Instance
 	Property Content SurfaceAppearance.MetalnessMap {PluginSecurity}
 	Property Content SurfaceAppearance.NormalMap {PluginSecurity}
 	Property Content SurfaceAppearance.RoughnessMap {PluginSecurity}
-	Property Content SurfaceAppearance.TexturePack {RobloxSecurity} [Hidden]
+	Property Content SurfaceAppearance.TexturePack {RobloxSecurity}
 Class TaskScheduler : Instance [NotCreatable] [Service]
 	Property Enum.ThreadPoolConfig TaskScheduler.ThreadPoolConfig
 	Property double TaskScheduler.SchedulerDutyCycle [ReadOnly]

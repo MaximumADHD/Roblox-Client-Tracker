@@ -9,7 +9,7 @@ uniform vec4 CB2[4];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
-uniform sampler2D WangTileMapTexture;
+uniform sampler2D NoiseMapTexture;
 uniform sampler2D DiffuseMapTexture;
 uniform sampler2D NormalMapTexture;
 uniform sampler2D NormalDetailMapTexture;
@@ -28,7 +28,7 @@ void main()
     float f0 = length(VARYING4.xyz);
     float f1 = clamp(1.0 - (VARYING4.w * CB0[23].y), 0.0, 1.0);
     vec2 f2 = VARYING0 * CB2[0].x;
-    float f3 = texture2D(WangTileMapTexture, f2 * CB2[2].w).x * 8.0;
+    float f3 = texture2D(NoiseMapTexture, f2 * CB2[2].w).x * 8.0;
     float f4 = fract(f3);
     float f5 = floor(f3);
     vec2 f6 = dFdx(f2);
@@ -131,7 +131,7 @@ void main()
 //$$ShadowMapTexture=s1
 //$$LightMapTexture=s6
 //$$LightGridSkylightTexture=s7
-//$$WangTileMapTexture=s9
+//$$NoiseMapTexture=s9
 //$$DiffuseMapTexture=s3
 //$$NormalMapTexture=s4
 //$$NormalDetailMapTexture=s8

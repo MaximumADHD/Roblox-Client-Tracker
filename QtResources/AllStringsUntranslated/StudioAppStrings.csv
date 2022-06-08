@@ -3166,8 +3166,6 @@ Studio.App.BulkImportService.UniverseNotValid,,Universe is not valid,Universe is
 Studio.App.BulkImportService.UniverseResourcesNotLoaded,,Universe resources are not loaded yet,Universe resources are not loaded yet
 Studio.App.Callout.LearnMore,"Within a Teaching Callout, this text is a link that takes a user to a learning resource for a new feature. Teaching Callouts are used to showcase new Studio features to users.",Learn more,Learn more
 Studio.App.Callout.GotIt,Button that a user clicks to dismiss a Teaching Callout. Teaching Callouts are used to showcase new Studio features to users.,Got it!,Got it!
-Studio.App.CalloutController.AssetManagerCalloutTitle,Name of the new Asset Manager built-in plugin that displays as a title for a Teaching Callout that points to the button for the plugin.,Asset Manager,Asset Manager
-Studio.App.CalloutController.AssetManagerCalloutDescription,Description that appears in the Teaching Callout pointing out the new Asset Manager feature.,"Replacing the Game Explorer, the Asset Manager is a new menu in Studio that enables developers to more effectively manage game assets!","Replacing the Game Explorer, the Asset Manager is a new menu in Studio that enables developers to more effectively manage game assets!"
 Studio.App.CalloutController.DraggerModeCalloutTitle,,Drag Mode,Drag Mode
 Studio.App.CalloutController.DraggerModeCalloutDescription,,Leverages the physics engine and constraints solver to simulate real-world behavior when moving objects. It adjusts some settings to work properly.,Leverages the physics engine and constraints solver to simulate real-world behavior when moving objects. It adjusts some settings to work properly.
 Studio.App.CalloutController.PivotEditorCalloutTitle,,Pivot Editor,Pivot Editor

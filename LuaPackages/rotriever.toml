@@ -32,12 +32,14 @@ StringUtilities = "github.com/Roblox/string-utilities@1.0.0"
 UrlBuilder = { git = "https://github.com/Roblox/url-builder", rev = "master" }
 FitFrame = "github.com/roblox/roact-fit-components@2.0.0"
 ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v1.2.3" }
+ExperienceChat_v1_2_4 = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v1.2.4" }
 RoduxGames = { git = "https://github.com/Roblox/rodux-games", rev = "master" }
 React = "github.com/Roblox/roact-alignment@17.0.1-rc.12"
 ReactIs = "github.com/Roblox/roact-alignment@17.0.1-rc.12"
 ReactRoblox = "github.com/Roblox/roact-alignment@17.0.1-rc.12"
 Promise = "github.com/Roblox/roblox-lua-promise@3.3.0"
 RoactNavigationUpgradeFlag = { git = "https://github.com/roblox/roact-navigation-upgrade", rev = "v0.1.0", package = "RoactNavigationUpgradeFlag" }
+VirtualizedList = { git = "https://github.com/roblox/virtualized-list-lua", rev = "v0.1.0-rc.2" }
 
 # The following packages were ported from AppTempCommon
 Result = { git = "https://github.com/Roblox/lua-result" }

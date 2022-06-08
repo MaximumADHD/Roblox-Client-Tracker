@@ -12,7 +12,7 @@ uniform samplerCube PrefilteredEnvTexture;
 uniform samplerCube PrefilteredEnvIndoorTexture;
 uniform samplerCube PrefilteredEnvBlendTargetTexture;
 uniform sampler2D PrecomputedBRDFTexture;
-uniform sampler2D WangTileMapTexture;
+uniform sampler2D NoiseMapTexture;
 uniform sampler2D DiffuseMapTexture;
 uniform sampler2D NormalMapTexture;
 uniform sampler2D NormalDetailMapTexture;
@@ -33,7 +33,7 @@ void main()
     vec3 f1 = VARYING4.xyz / vec3(f0);
     float f2 = clamp(1.0 - (VARYING4.w * CB0[23].y), 0.0, 1.0);
     vec2 f3 = VARYING0 * CB2[0].x;
-    vec4 f4 = texture(WangTileMapTexture, f3 * CB2[2].w);
+    vec4 f4 = texture(NoiseMapTexture, f3 * CB2[2].w);
     float f5 = f4.x * 8.0;
     float f6 = fract(f5);
     float f7 = floor(f5);
@@ -177,7 +177,7 @@ void main()
 //$$PrefilteredEnvIndoorTexture=s14
 //$$PrefilteredEnvBlendTargetTexture=s2
 //$$PrecomputedBRDFTexture=s11
-//$$WangTileMapTexture=s9
+//$$NoiseMapTexture=s9
 //$$DiffuseMapTexture=s3
 //$$NormalMapTexture=s4
 //$$NormalDetailMapTexture=s8

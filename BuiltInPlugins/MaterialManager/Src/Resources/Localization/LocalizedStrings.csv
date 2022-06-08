@@ -225,3 +225,4 @@ Studio.MaterialManager.CreateDialog.AdditionalProperties,Additional,Additional
 Studio.MaterialManager.MaterialAdditional.Additional,Additional,Additional
 Studio.MaterialManager.Callout.MaterialManagerApplyDescription,Click here to apply the selected material to the selected parts,Click here to apply the selected material to the selected parts
 Studio.MaterialManager.MaterialPatterns.Regular,Regular,Regular
+Studio.MaterialManager.Categories.Special,Special,Special

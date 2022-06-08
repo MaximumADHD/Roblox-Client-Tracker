@@ -2,6 +2,7 @@ Key,Source,en-us
 Studio.AssetImporter.Plugin.Description,Import a mesh rig or avatar from a file using the import UI.,Import a mesh rig or avatar from a file using the import UI.
 Studio.AssetImporter.Plugin.Name,AssetImporter,AssetImporter
 Studio.AssetImporter.Properties.PolygonCount,Polygon Count,Polygon Count
+Studio.AssetImporter.Properties.UseSceneOriginAsPivot,Set Pivot to Scene Origin,Set Pivot to Scene Origin
 Studio.AssetImporter.Plugin.ImportConfiguration,Settings for the current import,Settings for the current import
 Studio.AssetImporter.PropertiesTooltip.MergeMeshes,Combine sub meshes into one mesh,Combine sub meshes into one mesh
 Studio.AssetImporter.Plugin.Toolbar,Mesh Importer,Mesh Importer
@@ -116,3 +117,12 @@ Studio.AssetImporter.PropertiesTooltip.NormalFilePath,The file path of the norma
 Studio.AssetImporter.PropertiesTooltip.RoughnessFilePath,The file path of the roughness map. The roughness map is a grayscale image used to determine how light should be reflected off a surface,The file path of the roughness map. The roughness map is a grayscale image used to determine how light should be reflected off a surface
 Studio.AssetImporter.PreviewTooltip.ResetCam,Reset camera,Reset camera
 Studio.AssetImporter.Properties.Manifold,Manifold,Manifold
+Studio.AssetImporter.Properties.InsertWithScenePosition,Insert Using Scene Position,Insert Using Scene Position
+Studio.AssetImporter.PropertiesTooltip.CageManifoldPreview,This cage mesh is not a manifold. Non-manifold area is marked in the preview render,This cage mesh is not a manifold. Non-manifold area is marked in the preview render
+Studio.AssetImporter.Statuses.CageManifoldWarning,This cage mesh is not a manifold. Non-manifold area is marked in the preview render,This cage mesh is not a manifold. Non-manifold area is marked in the preview render
+Studio.AssetImporter.PropertiesTooltip.CageNoOverlappingVerticesPreview,There are almost coincident but not duplicated vertices in this cage mesh and they are marked in the preview render,There are almost coincident but not duplicated vertices in this cage mesh and they are marked in the preview render
+Studio.AssetImporter.Statuses.CageOverlappingVerticesWarning,There are almost coincident but not duplicated vertices in this cage mesh and they are marked in the preview render,There are almost coincident but not duplicated vertices in this cage mesh and they are marked in the preview render
+Studio.AssetImporter.Properties.CageManifoldPreview,Non manifold cage,Non manifold cage
+Studio.AssetImporter.Properties.CageNoOverlappingVerticesPreview,Almost coincident vertices,Almost coincident vertices
+Studio.AssetImporter.PropertiesTooltip.InsertWithScenePosition,If this object should be inserted using its location in the imported scene,If this object should be inserted using its location in the imported scene
+Studio.AssetImporter.PropertiesTooltip.UseSceneOriginAsPivot,If the model's pivot point should be set at the imported scene's origin,If the model's pivot point should be set at the imported scene's origin
