@@ -16,6 +16,9 @@ local withSelectionCursorProvider = require(UIBlox.App.SelectionImage.withSelect
 local CursorKind = require(UIBlox.App.SelectionImage.CursorKind)
 local Images = require(Packages.UIBlox.App.ImageSet.Images)
 
+local DROP_SHADOW_ASSET = Images["component_assets/dropshadow_17_8"]
+local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
+
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local MENU_BACKGROUND_ASSET = Images["component_assets/circle_17"]
@@ -45,6 +48,7 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 		setFrameRef = t.optional(t.union(t.callback, t.table)),
 		stayOnActivated = t.optional(t.boolean),
 		maxHeight = t.optional(t.number),
+		showDropShadow = t.optional(t.boolean)
 	})
 
 	baseMenuComponent.defaultProps = {
@@ -52,6 +56,7 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 		position = UDim2.new(0, 0, 0, 0),
 		topElementRounded = true,
 		bottomElementRounded = true,
+		showDropShadow = false,
 	}
 
 	function baseMenuComponent:init()
@@ -151,7 +156,21 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 				Size = UDim2.new(self.props.width.Scale, self.props.width.Offset, 0, menuHeight),
 				Position = self.props.position,
 			}, {
+				DropShadow = self.props.showDropShadow and Roact.createElement(ImageSetComponent.Label, {
+					ZIndex = 2,
+					Position = UDim2.new(0.5, 0, 0.5, 0),
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, 16, 1, 16),
+					Image = DROP_SHADOW_ASSET,
+					ImageColor3 = stylePalette.Theme.DropShadow.Color,
+					ImageTransparency = stylePalette.Theme.DropShadow.Transparency,
+					ScaleType = Enum.ScaleType.Slice,
+					SliceCenter = Rect.new(16, 16, 16, 16),
+				}) or nil,
+
 				TopRoundedCorner = needsTopRoundedBar and Roact.createElement("ImageLabel", {
+					ZIndex = 3,
 					BackgroundTransparency = 1,
 					Size = UDim2.new(1, 0, 0, ROUNDED_CORNER_SIZE),
 					Position = UDim2.fromScale(0, 0),
@@ -169,6 +188,7 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 
 				-- We turn off ClipsDescendants on the ScrollingFrame to allow the scroll bar to be offset over the contents.
 				ClippingFrame = Roact.createElement("Frame", {
+					ZIndex = 3,
 					BackgroundTransparency = 1,
 					Size = UDim2.new(1, 0, 1, -(ROUNDED_CORNER_SIZE * roundedBarCount)),
 					Position = UDim2.fromScale(0, needsTopRoundedBar and 0.5 or 0),
@@ -196,6 +216,7 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 				}),
 
 				BottomRoundedCorner = needsBottomRoundedBar and Roact.createElement("ImageLabel", {
+					ZIndex = 2,
 					BackgroundTransparency = 1,
 					Size = UDim2.new(1, 0, 0, ROUNDED_CORNER_SIZE),
 					Position = UDim2.fromScale(0, 1),

@@ -7,6 +7,10 @@ local Packages = UIBlox.Parent
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
 local StyledTextLabel = require(App.Text.StyledTextLabel)
+local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
+local TEXT_TITLE_MAX_LINE_NUMBER = 2
+local TEXT_MAX_BOUND = 10000
+local DEFAULT_LINE_HEIGHT = 1.4
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
@@ -21,14 +25,43 @@ DetailsPageTitleContent.validateProps = t.strictInterface({
 	verticalAlignment = t.optional(t.enum(Enum.VerticalAlignment)),
 })
 
+function DetailsPageTitleContent:init()
+	self.state = {
+		containerWidth = nil
+	}
+	self.onContainerSizeChange = function(rbx)
+		self:setState(function(prevState, props)
+			return {
+				containerWidth = rbx.AbsoluteSize.X,
+			}
+		end)
+	end
+	self.getTextSize = function(text, fontStyle, style)
+		local baseSize = style.Font.BaseSize
+		local fontSize = fontStyle.RelativeSize * baseSize
+		local bounds = Vector2.new(TEXT_MAX_BOUND, TEXT_MAX_BOUND)
+		return GetTextSize(text, fontSize, fontStyle.Font, bounds)
+	end
+end
+
 function DetailsPageTitleContent:render()
 	return withStyle(function(style)
 		local theme = style.Theme
 		local font = style.Font
-
+		local titleSize = UDim2.new(0, 0, 1, 0)
+		if self.props.titleText then
+			local titleTextSize = self.getTextSize(self.props.titleText, font.Title, style)
+			local titleTextLineHeight = titleTextSize.Y * DEFAULT_LINE_HEIGHT
+			if self.state.containerWidth ~= nil and titleTextSize.X >= self.state.containerWidth then
+				titleSize = UDim2.new(0, 0, 0, titleTextLineHeight * TEXT_TITLE_MAX_LINE_NUMBER)
+			else
+				titleSize = UDim2.new(0, 0, 0, titleTextLineHeight)
+			end
+		end
 		return Roact.createElement("Frame", {
 			Size = UDim2.fromScale(1, 0),
 			BackgroundTransparency = 1,
+			[Roact.Change.AbsoluteSize] = self.onContainerSizeChange,
 			AutomaticSize = Enum.AutomaticSize.Y,
 			LayoutOrder = self.props.layoutOrder,
 		}, {
@@ -39,9 +72,13 @@ function DetailsPageTitleContent:render()
 			}),
 			Title = self.props.titleText and Roact.createElement(StyledTextLabel, {
 				text = self.props.titleText,
+				size = titleSize,
+				automaticSize = Enum.AutomaticSize.X,
 				fontStyle = font.Title,
 				colorStyle = theme.TextEmphasis,
-				automaticSize = Enum.AutomaticSize.XY,
+				textTruncate = Enum.TextTruncate.AtEnd,
+				lineHeight = DEFAULT_LINE_HEIGHT,
+				fluidSizing = false,
 				layoutOrder = 1,
 				richText = false,
 			}) or nil,

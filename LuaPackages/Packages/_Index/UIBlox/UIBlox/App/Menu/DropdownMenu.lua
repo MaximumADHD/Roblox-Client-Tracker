@@ -39,6 +39,9 @@ DropdownMenuComponent.validateProps = t.strictInterface({
 	-- Size of the display area, used to determine the position for dropdown menu and the size of dismiss layer.
 	screenSize = t.Vector2,
 
+	-- Shadow Effect of the DropdownMenuList's Frame
+	showDropShadow = t.optional(t.boolean),
+
 	-- If the component is in error state (shows the error style).
 	errorState = t.optional(t.boolean),
 
@@ -73,6 +76,10 @@ DropdownMenuComponent.validateProps = t.strictInterface({
 		textColorOverride = t.optional(t.Color3),
 	}))
 })
+
+DropdownMenuComponent.defaultProps = {
+	showDropShadow = false,
+}
 
 function DropdownMenuComponent:didUpdate(prevProps, prevState)
 	if self.props.onMenuOpenChange and self.state.menuOpen ~= prevState.menuOpen then
@@ -186,6 +193,7 @@ function DropdownMenuComponent:render()
 
 				closeBackgroundVisible = false,
 				screenSize = self.props.screenSize,
+				showDropShadow = self.props.showDropShadow,
 
 				onDismiss = self.closeMenu,
 			}),
@@ -224,6 +232,7 @@ function DropdownMenuComponent:render()
 
 			closeBackgroundVisible = false,
 			screenSize = self.props.screenSize,
+			showDropShadow = self.props.showDropShadow,
 
 			onDismiss = self.closeMenu,
 		}),

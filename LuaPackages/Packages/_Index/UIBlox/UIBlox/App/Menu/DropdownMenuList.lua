@@ -23,6 +23,7 @@ dropdownMenuListComponent.validateProps = t.strictInterface({
 
 	zIndex = t.optional(t.integer),
 	open = t.boolean,
+	showDropShadow = t.boolean,
 	openPositionY = t.UDim,
 
 	closeBackgroundVisible = t.optional(t.boolean),
@@ -35,6 +36,7 @@ dropdownMenuListComponent.validateProps = t.strictInterface({
 dropdownMenuListComponent.defaultProps = {
 	zIndex = 2,
 	closeBackgroundVisible = false,
+	showDropShadow = false,
 }
 
 function dropdownMenuListComponent:init()
@@ -130,7 +132,7 @@ function dropdownMenuListComponent:render()
 			}, {
 				BaseMenu = Roact.createElement(BaseMenu, {
 					buttonProps = self.props.buttonProps,
-
+					showDropShadow = self.props.showDropShadow,
 					width = menuWidth,
 					position = UDim2.fromScale(0, 0),
 					anchorPoint = Vector2.new(0, anchorPointY),

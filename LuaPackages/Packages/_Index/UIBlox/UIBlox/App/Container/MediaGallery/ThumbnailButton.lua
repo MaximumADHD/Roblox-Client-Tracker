@@ -17,6 +17,7 @@ local IconSize = require(App.ImageSet.Enum.IconSize)
 local Images = require(App.ImageSet.Images)
 local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
 local PrimaryContextualButton = require(App.Button.PrimaryContextualButton)
+local LoadableImage = require(App.Loading.LoadableImage)
 
 local IMAGE_UNAVAILABLE = "icons/imageUnavailable"
 local ICON_SIZE = getIconSize(IconSize.Large)
@@ -95,7 +96,6 @@ function ThumbnailButton:renderButton()
 			Size = size,
 			AnchorPoint = anchorPoint,
 			Position = position,
-			Image = imageId,
 			AutoButtonColor = false,
 			BackgroundColor3 = bgStyle.Color,
 			BackgroundTransparency = bgStyle.Transparency,
@@ -105,6 +105,13 @@ function ThumbnailButton:renderButton()
 		}, {
 			Corner = Roact.createElement("UICorner", {
 				CornerRadius = UDim.new(0, CORNER_RADIUS),
+			}),
+			Tile = Roact.createElement(LoadableImage, {
+				Size = UDim2.fromScale(1, 1),
+				cornerRadius = UDim.new(0, CORNER_RADIUS),
+				Image = imageId,
+				useShimmerAnimationWhileLoading = true,
+				ZIndex = -1,
 			}),
 			PlayButton = isVideo and Roact.createElement(PrimaryContextualButton, {
 				size = PLAY_BUTTON_SIZE,
