@@ -7,14 +7,15 @@ local Dash = require(Packages.Dash) :: any
 
 return function(state: ReducerTypes.ByContactId, action: ActionTypes.FindContactFriendsSucceeded)
 	local contactIds: { string } = action.responseBody.UserContactIds
+	local newState = {}
 
 	local getNewContacts = Dash.filter(contactIds, function(contactId)
 		return state[contactId] == nil
 	end)
 
 	Dash.forEach(getNewContacts, function(newContactId)
-		state[newContactId] = {}
+		newState[newContactId] = {}
 	end)
 
-	return state
+	return Dash.join(state, newState)
 end

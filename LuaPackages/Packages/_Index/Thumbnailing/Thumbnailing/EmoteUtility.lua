@@ -15,6 +15,15 @@ local module = {}
 -- Note: this only works on prod, not sitetest or gametest.
 local FALLBACK_POSE_ANIMATION_ID = "http://www.roblox.com/asset/?id=532421348"
 
+-- When passed in as an asset id to use for posing, it means "user did not select
+-- an emote or have a non-default idle anim equipped: use default idle anim".
+module.PLACEHOLDER_POSE_ASSET_ID = "0"
+
+-- In cases where asset id is "0" (the placeholder), that means they want to pose the avatar
+-- based on the default idle animation.  That's some weird special case (it's an animation that
+-- doesn't belong to an ownable asset).  This ID will work across all STXs and Prod.
+local DEFAULT_IDLE_ANIMATION_ID = "http://www.roblox.com/asset/?id=507766388"
+
 -- Particularly on the universal app, we often call SetPlayerCharacterPose several times
 -- in a row with the same emote/pose assets.
 -- We can avoid a bunch of async calls by caching results.
@@ -22,15 +31,32 @@ local cachedPoseAssetId = nil
 local cachedPoseAsset = nil
 local cachedKeyframeSequenceId = nil
 local cachedKeyframeSequence = nil
+local cachedPoseAssetIsIdleAnim = nil
 
 local function getPoseAsset(poseAssetId)
 	if poseAssetId == cachedPoseAssetId then
-		return cachedPoseAsset
+		return cachedPoseAsset, cachedPoseAssetIsIdleAnim
 	end
-	local retVal = InsertService:LoadAsset(poseAssetId):GetChildren()[1]
-	cachedPoseAsset = retVal
+	local asset = InsertService:LoadAsset(poseAssetId):GetChildren()[1]
+
+	local poseAssetIsIdleAnim = false
+	if asset.ClassName == "Folder" then
+		poseAssetIsIdleAnim = true
+		local parent = asset:FindFirstChild("Pose", true) or asset:FindFirstChild("pose", true)
+		if parent == nil then
+			parent = asset:FindFirstChild("Idle", true) or asset:FindFirstChild("idle", true)
+		end
+		if parent then
+			asset = parent:FindFirstChildWhichIsA("Animation", true)
+		else
+			asset = asset:FindFirstChildWhichIsA("Animation", true)
+		end
+	end
+
+	cachedPoseAsset = asset
 	cachedPoseAssetId = poseAssetId
-	return retVal
+	cachedPoseAssetIsIdleAnim = poseAssetIsIdleAnim
+	return asset, poseAssetIsIdleAnim
 end
 
 -- Note, this is a yielding function.
@@ -241,16 +267,18 @@ local function getMainThumbnailKeyframe(character, poseAssetId, useRotationInPos
 	local thumbnailKeyframe
 	local givenPoseTrumpsToolPose = false
 
-	if poseAssetId then
-		local poseAsset = getPoseAsset(poseAssetId)
+	if poseAssetId == module.PLACEHOLDER_POSE_ASSET_ID then
+		local poseKeyframeSequence = getKeyframeSequence(DEFAULT_IDLE_ANIMATION_ID)
+		thumbnailKeyframe = poseKeyframeSequence:GetKeyframes()[1]
+	elseif poseAssetId then
+		local poseAsset, poseAssetIsIdleAnim = getPoseAsset(poseAssetId)
 
 		-- In the current setup, a user may select an emote to pose their avatar for a picture.
 		-- If they do this, the 'poseAsset' is an Animation, and we consider that a 'stronger'
 		-- vote for how to pose than any info we may get from a tool they are holding.
-		-- If they did not select an emote, the poseAsset is a KeyframeSequence (based on the
-		-- user's idle animation).  In that case, we defer to the tool: if it has something to
+		-- If they did not select an emote, we defer to the tool: if it has something to
 		-- say about how we pose, use that.
-		if poseAsset.ClassName ~= "KeyframeSequence" then
+		if not poseAssetIsIdleAnim then
 			givenPoseTrumpsToolPose = true
 		end
 

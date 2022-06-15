@@ -42,6 +42,9 @@ DropdownMenuComponent.validateProps = t.strictInterface({
 	-- Shadow Effect of the DropdownMenuList's Frame
 	showDropShadow = t.optional(t.boolean),
 
+	-- Set Fixed DropdownMenuList's Height
+	fixedListHeight = t.optional(t.number),
+
 	-- If the component is in error state (shows the error style).
 	errorState = t.optional(t.boolean),
 
@@ -79,6 +82,7 @@ DropdownMenuComponent.validateProps = t.strictInterface({
 
 DropdownMenuComponent.defaultProps = {
 	showDropShadow = false,
+	fixedListHeight = nil,
 }
 
 function DropdownMenuComponent:didUpdate(prevProps, prevState)
@@ -194,7 +198,7 @@ function DropdownMenuComponent:render()
 				closeBackgroundVisible = false,
 				screenSize = self.props.screenSize,
 				showDropShadow = self.props.showDropShadow,
-
+				fixedListHeight = self.props.fixedListHeight,
 				onDismiss = self.closeMenu,
 			}),
 			UISizeConstraint = limitMenuWidth and

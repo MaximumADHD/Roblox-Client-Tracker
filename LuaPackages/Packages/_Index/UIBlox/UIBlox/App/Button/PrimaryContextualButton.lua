@@ -47,6 +47,7 @@ function PrimaryContextualButton:render()
 			fontStyle = self.props.fontStyle,
 			isDisabled = self.props.isDisabled,
 			isLoading = self.props.isLoading,
+			isHoverBackgroundEnabled = true,
 			isDelayedInput = self.props.isDelayedInput,
 			enableInputDelayed = self.props.enableInputDelayed,
 			delayInputSeconds = self.props.delayInputSeconds,

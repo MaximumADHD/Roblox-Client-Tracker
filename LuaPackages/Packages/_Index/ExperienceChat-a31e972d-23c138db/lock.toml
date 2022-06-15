@@ -10,6 +10,6 @@ dependencies = [
     "Roact <patched> RoactCompat 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
-    "UIBlox UIBlox 3434eeee git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox a0188a0b git+https://github.com/roblox/uiblox#master",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
 ]

@@ -43,6 +43,9 @@ return t.strictInterface({
 	--Is the button loading
 	isLoading = t.optional(t.boolean),
 
+	--Determine whether hover background is enabled
+	isHoverBackgroundEnabled = t.optional(t.boolean),
+
 	--Determine if it should setup a delay on the input
 	isDelayedInput = t.optional(t.boolean),
 

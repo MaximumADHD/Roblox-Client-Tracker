@@ -23,6 +23,7 @@ local getIconSize = require(UIBlox.App.ImageSet.getIconSize)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 local withAnimation = require(UIBlox.Core.Animation.withAnimation)
 local validateFontInfo = require(Core.Style.Validator.validateFontInfo)
+local HoverButtonBackground = require(Core.Button.HoverButtonBackground)
 
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
@@ -102,6 +103,9 @@ local validateProps = t.interface({
 
 	--Determine if it should setup a delay on the input
 	isDelayedInput = t.optional(t.boolean),
+
+	--Determine whether hover background is enabled
+	isHoverBackgroundEnabled = t.optional(t.boolean),
 
 	--Used to start the input delay, set to true when you want to start the animation.
 	enableInputDelayed = t.optional(t.boolean),
@@ -222,6 +226,15 @@ function GenericButton:renderButton(loadingProgress)
 		local textStyle = text and getContentStyle(textStateColorMap, currentState, style)
 		local iconStyle = icon and getContentStyle(iconStateColorMap, currentState, style)
 		local inputIconStyle = inputIcon and getContentStyle(inputIconStateColorMap, currentState, style)
+		local isHoverState = currentState == ControlState.Hover
+		-- Temp solution to add an additional hover background layer for Hover state.
+		-- For long term, need design support to provide a new style with dedicated hover state color
+		local showHoverBackground
+		if UIBloxConfig.enableGenericButtonHoverBackgroundFix then
+			showHoverBackground = isHoverState and self.props.isHoverBackgroundEnabled == true
+		else
+			showHoverBackground = false
+		end
 
 		local buttonContentLayer
 		if isLoading then
@@ -302,6 +315,7 @@ function GenericButton:renderButton(loadingProgress)
 			inputIconStateColorMap = Cryo.None,
 			onActivated = Cryo.None,
 			isLoading = Cryo.None,
+			isHoverBackgroundEnabled = Cryo.None,
 			isDelayedInput = Cryo.None,
 			enableInputDelayed = Cryo.None,
 			delayInputSeconds = Cryo.None,
@@ -336,6 +350,7 @@ function GenericButton:renderButton(loadingProgress)
 				ScaleType = Enum.ScaleType.Slice,
 				SliceCenter = self.props.SliceCenter,
 			}),
+			HoverBackground = showHoverBackground and Roact.createElement(HoverButtonBackground) or nil,
 		})
 	end)
 end

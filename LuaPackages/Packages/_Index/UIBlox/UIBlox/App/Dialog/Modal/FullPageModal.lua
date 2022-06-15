@@ -30,10 +30,12 @@ FullPageModal.validateProps = t.strictInterface({
 	buttonStackProps = t.optional(t.table), -- Button stack validates the contents
 
 	onCloseClicked = t.optional(t.callback),
+	distanceFromTop = t.optional(t.number),
 })
 
 FullPageModal.defaultProps = {
-	marginSize = MARGIN
+	marginSize = MARGIN,
+	distanceFromTop = 0,
 }
 
 function FullPageModal:init()
@@ -56,6 +58,7 @@ function FullPageModal:render()
 		isFullHeight = true,
 		screenSize = self.props.screenSize,
 		position = self.props.position,
+		distanceFromTop = self.props.distanceFromTop,
 	}, {
 		TitleContainer = Roact.createElement(ModalTitle, {
 			title = self.props.title,

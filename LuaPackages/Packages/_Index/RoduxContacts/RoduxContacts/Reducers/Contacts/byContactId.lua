@@ -4,6 +4,7 @@ local Types = ContactsReducer.Types
 local Rodux = require(Packages.Rodux) :: any
 
 local setContactsInStore = require(script.Parent.utils.setContactsInStore)
+local updateContactsInStore = require(script.Parent.utils.updateContactsInStore)
 local ActionTypes = require(Types.ActionTypes)
 local ReducerTypes = require(Types.ReducerTypes)
 
@@ -13,8 +14,18 @@ return function(options)
 	local NetworkingContacts = options.networkingContacts
 
 	return Rodux.createReducer(DEFAULT_STATE, {
-		[NetworkingContacts.FindContactFriends.Succeeded.name] = function(state: ReducerTypes.ByContactId, action: ActionTypes.FindContactFriendsSucceeded)
+		[NetworkingContacts.FindContactFriends.Succeeded.name] = function(state: ReducerTypes.ByContactId, action: ActionTypes.FindContactFriendsSucceeded): ReducerTypes.ByContactId
 			return setContactsInStore(state, action)
+		end :: (
+			state: ReducerTypes.ByContactId,
+			action: any
+		) -> ReducerTypes.ByContactId,
+
+		[NetworkingContacts.GetContactEntitiesByContactId.Succeeded.name] = function(
+			state: ReducerTypes.ByContactId,
+			action: ActionTypes.GetContactEntitiesByContactIdSucceeded
+		): ReducerTypes.ByContactId
+			return updateContactsInStore(state, action)
 		end,
 	})
 end

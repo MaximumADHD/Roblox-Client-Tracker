@@ -18,8 +18,7 @@ local CursorKind = require(App.SelectionImage.CursorKind)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
 
 local SCROLL_BAR_RIGHT_PADDING = 4
-local MOUSE_SCROLL_BAR_THICKNESS = 8
-local TOUCH_OR_CONTROLLER_SCROLL_BAR_THICKNESS = 2
+local SCROLL_BAR_THICKNESS = 2
 local HIDE_SIDEBAR_AFTER_IN_SECONDS = 0.70
 local SPRING_PARAMETERS = {
 	frequency = 3,
@@ -35,7 +34,7 @@ VerticalScrollView.defaultProps = {
 	canvasSizeY = UDim.new(2, 0),
 	useAutomaticCanvasSize = false,
 	isGamepadFocusable = false,
-	scrollingEnabled = true
+	scrollingEnabled = true,
 }
 
 VerticalScrollView.validateProps = t.strictInterface({
@@ -107,7 +106,7 @@ function VerticalScrollView:init()
 		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			self.disconnectWaitToHideSidebar()
 			self:setState({
-				scrollBarThickness = MOUSE_SCROLL_BAR_THICKNESS,
+				scrollBarThickness = SCROLL_BAR_THICKNESS,
 			})
 			self.scrollBarImageTransparencyMotor:setGoal(Otter.instant(0))
 		end
@@ -127,7 +126,7 @@ function VerticalScrollView:init()
 		if not self.waitToHideSidebarConnection and UserInputService:GetLastInputType() == Enum.UserInputType.Touch then
 			self.scrollBarImageTransparencyMotor:setGoal(Otter.instant(0))
 			self:setState({
-				scrollBarThickness = TOUCH_OR_CONTROLLER_SCROLL_BAR_THICKNESS,
+				scrollBarThickness = SCROLL_BAR_THICKNESS,
 			})
 			self.waitToHideSidebarConnection = RunService.Heartbeat:Connect(self.waitToHideSidebar)
 		end
@@ -142,7 +141,7 @@ function VerticalScrollView:init()
 	self.onGamepadFocused = function()
 		self.scrollBarImageTransparencyMotor:setGoal(Otter.instant(0))
 		self:setState({
-			scrollBarThickness = TOUCH_OR_CONTROLLER_SCROLL_BAR_THICKNESS,
+			scrollBarThickness = SCROLL_BAR_THICKNESS,
 		})
 	end
 
@@ -152,17 +151,17 @@ function VerticalScrollView:init()
 
 	self.getMainCanvasPosition = function()
 		return self.scrollPosition:map(function(canvasPositionY)
-			return UDim2.fromOffset(0, -canvasPositionY)
+			return Vector2.new(0, canvasPositionY)
 		end)
 	end
 
 	self.onMainCanvasSizeChange = function(rbx)
-		self.updateCanvasSize(rbx.AbsoluteSize)
+		self.updateCanvasSize(rbx.AbsoluteCanvasSize)
 	end
 
 	self.getMainCanvasSize = function()
 		return self.mainCanvasSize:map(function(absoluteSize)
-			return UDim2.fromOffset(absoluteSize.X, absoluteSize.Y)
+			return UDim2.new(0, SCROLL_BAR_THICKNESS, 0, absoluteSize.Y)
 		end)
 	end
 end
@@ -187,31 +186,22 @@ function VerticalScrollView:renderWithProviders(stylePalette, getSelectionCursor
 
 		[Roact.Ref] = self.parentFrameRef,
 	}, {
-
-		MainCanvas = Roact.createElement("Frame", {
-			Size = UDim2.new(UDim.new(1, 0), canvasSizeY),
-			Position = self.getMainCanvasPosition(),
-			BackgroundTransparency = 1,
-			AutomaticSize = automaticSize,
-
-			[Roact.Ref] = self.mainCanvasRef,
-			[Roact.Change.AbsoluteSize] = self.onMainCanvasSizeChange,
-		}, self.props[Roact.Children]),
-
-		VisualScrollingFrame = Roact.createElement(isGamepadFocusable and Focusable.ScrollingFrame or "ScrollingFrame", {
-			Active = true,
+		MainCanvas = Roact.createElement(isGamepadFocusable and Focusable.ScrollingFrame or "ScrollingFrame", {
+			Active = false,
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
-			Size = UDim2.new(1, -SCROLL_BAR_RIGHT_PADDING, 1, 0),
+			Size = UDim2.fromScale(1, 1),
 			ElasticBehavior = self.props.elasticBehavior,
 			-- ScrollingFrame Specific
-			CanvasSize = self.getMainCanvasSize(),
-			ScrollingEnabled = scrollingEnabled,
+			CanvasSize = UDim2.new(UDim.new(1, 0), canvasSizeY),
+			AutomaticCanvasSize = automaticSize,
 
-			ScrollBarImageColor3 = theme.UIEmphasis.Color,
-			ScrollBarImageTransparency = self.scrollBarImageTransparency,
-			ScrollBarThickness = scrollBarThickness,
+			ScrollingEnabled = scrollingEnabled,
 			ScrollingDirection = Enum.ScrollingDirection.Y,
+
+			--hide scroll bar
+			ScrollBarImageTransparency = 1,
+			ScrollBarThickness = 0,
 
 			SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
 			onFocusGained = isGamepadFocusable and self.onGamepadFocused or nil,
@@ -231,8 +221,29 @@ function VerticalScrollView:renderWithProviders(stylePalette, getSelectionCursor
 			[Roact.Event.InputBegan] = self.inputBegan,
 			[Roact.Event.InputEnded] = self.inputEnded,
 			[Roact.Change.CanvasPosition] = self.canvasPosition,
+			[Roact.Change.AbsoluteCanvasSize] = self.onMainCanvasSizeChange,
 			[Roact.Change.CanvasSize] = self.props[Roact.Change.CanvasSize],
+
 			[Roact.Ref] = self.props.scrollingFrameRef,
+		}, self.props[Roact.Children]),
+
+		ScrollBar = Roact.createElement("ScrollingFrame", {
+			Active = false,
+			Size = UDim2.new(0, SCROLL_BAR_THICKNESS, 1, 0),
+			AnchorPoint = Vector2.new(1, 0),
+			Position = UDim2.new(1, -SCROLL_BAR_RIGHT_PADDING, 0, 0),
+
+			CanvasSize = self.getMainCanvasSize(),
+			CanvasPosition = self.getMainCanvasPosition(),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+
+			ScrollBarImageColor3 = theme.UIEmphasis.Color,
+			ScrollBarImageTransparency = self.scrollBarImageTransparency,
+			ScrollBarThickness = scrollBarThickness,
+			ScrollingDirection = Enum.ScrollingDirection.Y,
+
+			ScrollingEnabled = false,
 		}),
 	})
 end

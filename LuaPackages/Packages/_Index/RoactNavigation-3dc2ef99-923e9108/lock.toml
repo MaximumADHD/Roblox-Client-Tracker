@@ -4,7 +4,7 @@ version = "0.5.2"
 commit = "923e91085ee609a811142596db74c0a2f792f110"
 source = "git+https://github.com/roblox/roact-navigation#v0.5.2"
 dependencies = [
-    "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
+    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
     "LuauPolyfill LuauPolyfill 0.2.6 url+https://github.com/roblox/luau-polyfill",
     "Otter roblox/otter 0.1.3 url+https://github.com/roblox/otter",
     "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",

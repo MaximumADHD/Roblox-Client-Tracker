@@ -34,6 +34,7 @@ Cell.validateProps = t.strictInterface({
 
 	onStateChanged = t.optional(t.callback),
 	onActivated = t.optional(t.callback),
+	onTouchTapped = t.optional(t.callback),
 
 	head = t.table,
 	tail = t.optional(t.table),
@@ -107,6 +108,7 @@ function Cell:render()
 		local interactionEnabled = (tail and userInteractionEnabled) and true or false
 		local isDisabled = self.props.isDisabled
 		local onActivated = self.props.onActivated
+		local onTouchTapped = self.props.onTouchTapped
 
 		local currentState = self.props[Cell.debugProps.controlState] or self.state.controlState
 		local backgroundStyle = self.getBackgroundStyle(currentState, style)
@@ -123,6 +125,7 @@ function Cell:render()
 			onStateChanged = self.onStateChanged,
 			userInteractionEnabled = interactionEnabled,
 			[Roact.Event.Activated] = onActivated,
+			[Roact.Event.TouchTap] = onTouchTapped,
 
 			[Roact.Change.AbsolutePosition] = self.props[Roact.Change.AbsolutePosition],
 			[Roact.Ref] = self.props.forwardRef,

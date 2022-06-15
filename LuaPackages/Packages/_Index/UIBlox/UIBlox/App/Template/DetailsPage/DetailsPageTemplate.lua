@@ -202,10 +202,6 @@ function DetailsPageTemplate:render()
 				Position = UDim2.fromScale(0.5, 0),
 				[Roact.Change.AbsoluteSize] = self.onBackgroundComponentFrameSizeChange,
 			}, {
-				UISizeConstraint = Roact.createElement("UISizeConstraint", {
-					MinSize = Vector2.new(0, 0),
-					MaxSize = Vector2.new(math.huge, HEADER_MAX_PADDING + headerHeight)
-				}),
 				GradientPlaceholder = showPlaceholderBanner and Roact.createElement(
 					"UIGradient",
 					bannerPlaceholderGradient

@@ -80,4 +80,7 @@ return {
 
 	-- config for supporting right side gadget for Menu Cell
 	enableRightSideGadgetView = false,
+
+	-- indicate whether hover background fix for button is enabled
+	enableGenericButtonHoverBackgroundFix = false,
 }

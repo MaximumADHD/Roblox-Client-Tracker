@@ -64,7 +64,7 @@ local testTheme = {
 }
 
 local font = {
-	Font = Enum.Font.GothamSemibold,
+	Font = Enum.Font.GothamMedium,
 	RelativeSize = 1,
 	RelativeMinSize = 1,
 }

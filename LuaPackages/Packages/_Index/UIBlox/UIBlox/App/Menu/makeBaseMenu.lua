@@ -28,6 +28,8 @@ local MAXIMUM_ELEMENTS = 7
 local MAXIMUM_HEIGHT = ELEMENT_HEIGHT * (MAXIMUM_ELEMENTS + 0.5)
 
 local ROUNDED_CORNER_SIZE = 4
+local FIX_HEIGHT_ROUNDED_CORNER_SIZE = 8
+local SHADOW_SLICE = 16
 
 local SCROLLBAR_OFFSET = 4
 
@@ -48,7 +50,8 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 		setFrameRef = t.optional(t.union(t.callback, t.table)),
 		stayOnActivated = t.optional(t.boolean),
 		maxHeight = t.optional(t.number),
-		showDropShadow = t.optional(t.boolean)
+		showDropShadow = t.optional(t.boolean),
+		fixedListHeight = t.optional(t.number),
 	})
 
 	baseMenuComponent.defaultProps = {
@@ -57,10 +60,69 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 		topElementRounded = true,
 		bottomElementRounded = true,
 		showDropShadow = false,
+		fixedListHeight = nil,
 	}
 
 	function baseMenuComponent:init()
 		self.gamepadRefs = RoactGamepad.createRefCache()
+	end
+
+	function baseMenuComponent:renderFixedHeightMenu(props, stylePalette, children)
+		local fixedListHeight = props.fixedListHeight
+		return Roact.createElement("Frame", {
+			AnchorPoint = props.anchorPoint,
+			BackgroundTransparency = 1,
+			LayoutOrder = props.layoutOrder,
+			Size = UDim2.new(props.width.Scale, props.width.Offset, 0, fixedListHeight),
+			Position = props.position,
+		}, {
+			DropShadow = props.showDropShadow and Roact.createElement(ImageSetComponent.Label, {
+				ZIndex = 2,
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, SHADOW_SLICE, 1, SHADOW_SLICE),
+				Image = DROP_SHADOW_ASSET,
+				ImageColor3 = stylePalette.Theme.DropShadow.Color,
+				ImageTransparency = stylePalette.Theme.DropShadow.Transparency,
+				ScaleType = Enum.ScaleType.Slice,
+				SliceCenter = Rect.new(SHADOW_SLICE, SHADOW_SLICE, SHADOW_SLICE, SHADOW_SLICE),
+			}) or nil,
+			ContentFrame = Roact.createElement("Frame", {
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Size = UDim2.new(1, 0, 1, 0),
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				BackgroundColor3 = stylePalette.Theme.BackgroundUIDefault.Color,
+				BackgroundTransparency = stylePalette.Theme.BackgroundUIDefault.Transparency,
+				ZIndex = 3,
+			}, {
+				UICorner = Roact.createElement("UICorner", {
+					CornerRadius = UDim.new(0, FIX_HEIGHT_ROUNDED_CORNER_SIZE),
+				}),
+				ClippingFrame = Roact.createElement("Frame", {
+					ZIndex = 4,
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, 0, 1, -FIX_HEIGHT_ROUNDED_CORNER_SIZE * 2),
+					Position = UDim2.new(0, 0, 0.5, 0),
+					AnchorPoint = Vector2.new(0, 0.5),
+					ClipsDescendants = true,
+				}, {
+					ScrollingFrame = Roact.createElement("ScrollingFrame", {
+						[Roact.Ref] = props.setFrameRef,
+						Selectable = false,
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, 0, 1, 0),
+						BorderSizePixel = 0,
+						ScrollBarThickness = 4,
+						ScrollBarImageColor3 = stylePalette.Theme.UIEmphasis.Color,
+						ScrollBarImageTransparency = stylePalette.Theme.UIEmphasis.Transparency,
+						ScrollingDirection = Enum.ScrollingDirection.Y,
+						CanvasSize = UDim2.new(1, 0, 0,#props.buttonProps * ELEMENT_HEIGHT),
+						ClipsDescendants = false,
+					}, children),
+				}),
+			})
+		})
 	end
 
 	function baseMenuComponent:render()
@@ -148,6 +210,10 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 			local needsTopRoundedBar = needsScrollbar and self.props.topElementRounded
 			local needsBottomRoundedBar = needsScrollbar and self.props.bottomElementRounded
 			local roundedBarCount = (needsTopRoundedBar and 1 or 0) + (needsBottomRoundedBar and 1 or 0)
+
+			if self.props.fixedListHeight then
+				return baseMenuComponent:renderFixedHeightMenu(self.props, stylePalette, children)
+			end
 
 			return Roact.createElement("Frame", {
 				AnchorPoint = self.props.anchorPoint,

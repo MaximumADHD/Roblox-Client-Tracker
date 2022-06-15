@@ -4,7 +4,7 @@ version = "0.5.3"
 commit = "a272b7690704002d92650606358a5236216b71bf"
 source = "url+https://github.com/roblox/roact-gamepad"
 dependencies = [
-    "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
+    "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
     "Roact <patched> RoactCompat 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
     "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",

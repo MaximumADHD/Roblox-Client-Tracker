@@ -28,7 +28,12 @@ local validateProps = t.strictInterface({
 	[Roact.Children] = t.table,
 	position = t.optional(t.UDim2),
 	anchorPoint = t.optional(t.Vector2),
+	distanceFromTop = t.optional(t.number),
 })
+
+ModalWindow.defaultProps = {
+	distanceFromTop = 0,
+}
 
 function ModalWindow:init()
 	self.contentSize, self.changeContentSize = Roact.createBinding(Vector2.new(0, 0))
@@ -66,15 +71,20 @@ function ModalWindow:render()
 		anchorPoint = self.props.anchorPoint or anchorPoint
 
 		if self.props.isFullHeight then
-			local height = UDim.new(1, 0)
-			if screenSize.X >= 540 and screenSize.Y >= 700 then
-				height = UDim.new(0.8, 0)
+			local height
+			if self.props.distanceFromTop > 0 then
+				height = UDim.new(1, -self.props.distanceFromTop)
+			else
+				height = UDim.new(1, 0)
+				if screenSize.X >= 540 and screenSize.Y >= 700 then
+					height = UDim.new(0.8, 0)
+				end
 			end
 			return Roact.createElement(ImageSetComponent.Button, {
 				Position = position,
 				Size = UDim2.new(width, height),
 				AnchorPoint = anchorPoint,
-				BackgroundTransparency = 0,
+				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				Image = Images[backgroundImage],
 				ImageColor3 = theme.BackgroundUIDefault.Color,
