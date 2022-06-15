@@ -45,6 +45,7 @@ Studio.AssetManager.ContextMenu.CopyMeshIdToClipboard,Copy Mesh ID to Clipboard,
 Studio.AssetManager.ContextMenu.OpenFolder,Open,Open
 Studio.AssetManager.ContextMenu.AddImages,Add Images,Add Images
 Studio.AssetManager.ContextMenu.AddMeshes,Add Meshes,Add Meshes
+Studio.AssetManager.MainView.AssetPreviewError,Failed to load asset preview data, Failed to load asset preview data
 Studio.AssetManager.ContextMenu.AddNewPlace,Add New Place,Add New Place
 Studio.AssetManager.ContextMenu.NewPlaceAdded,New Place Added,New Place Added
 Studio.AssetManager.ContextMenu.CopyTextureIdToClipboard,Copy Texture ID to Clipboard,Copy Texture ID to Clipboard

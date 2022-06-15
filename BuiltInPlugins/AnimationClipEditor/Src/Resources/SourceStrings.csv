@@ -1,14 +1,19 @@
 Key,Source,en-us
-Studio.AnimationClipEditor.AnimationFromVideo.Error, ,An unknown error occurred while processing the video.
-Studio.AnimationClipEditor.AnimationFromVideo.Initializing, ,Uploading video...
-Studio.AnimationClipEditor.AnimationFromVideo.InputHasNoPerson, ,Error: to person could be detected in the video.
-Studio.AnimationClipEditor.AnimationFromVideo.InputTooLong, ,Error: the video was too long. Please use a video less than 15 seconds long.
-Studio.AnimationClipEditor.AnimationFromVideo.InputUnstable, ,Error: the video was too unstable. Please use a more stable video.
-Studio.AnimationClipEditor.AnimationFromVideo.ModerationRejected, ,Video was rejected due to moderation.
-Studio.AnimationClipEditor.AnimationFromVideo.Pending, ,Preparing to create animation from video...
-Studio.AnimationClipEditor.AnimationFromVideo.Processing, ,Creating animation from video. This may take a minute...
-Studio.AnimationClipEditor.AnimationFromVideo.RequiresModeration, ,Video requires moderation.
-Studio.AnimationClipEditor.AnimationFromVideo.Success, ,Success! Applying animation to avatar...
+Studio.AnimationClipEditor.AnimationFromVideo.Cancelled, ,Your animation creation has been canceled.
+Studio.AnimationClipEditor.AnimationFromVideo.ChooseVideo, ,Choose Video
+Studio.AnimationClipEditor.AnimationFromVideo.Error, ,"We encountered an error. Please try again in a bit, and if you continue to see this error, you may need to try a new video."
+Studio.AnimationClipEditor.AnimationFromVideo.Initializing, ,Getting started...
+Studio.AnimationClipEditor.AnimationFromVideo.InputHasNoPerson, ,"Couldn't detect a person – try a video with a person fully in frame, facing the camera."
+Studio.AnimationClipEditor.AnimationFromVideo.InputTooLong, ,That video is too long – try a video shorter than 10 seconds.
+Studio.AnimationClipEditor.AnimationFromVideo.InputUnstable, ,That video is too shaky – try a more stable video.
+Studio.AnimationClipEditor.AnimationFromVideo.ModerationRejected, ,Your animation did not comply with our moderation rules. Please try a different video.
+Studio.AnimationClipEditor.AnimationFromVideo.Pending, ,Video pending – please wait...
+Studio.AnimationClipEditor.AnimationFromVideo.Processing, ,Your video is processing...
+Studio.AnimationClipEditor.AnimationFromVideo.RequiresModeration, ,Our moderation team is taking a look – we'll be in touch shortly.
+Studio.AnimationClipEditor.AnimationFromVideo.Success, ,Success! Your animation is ready.
+Studio.AnimationClipEditor.AnimationFromVideo.TimedOut, ,"Sorry, we're unable to process your video right now due to a high volume of requests. Please try again in a bit."
+Studio.AnimationClipEditor.AnimationFromVideo.TutorialText, ,"Choose a short video (10 seconds or less) containing a single person, fully in frame. Try to use a video with a stable, unmoving camera."
+Studio.AnimationClipEditor.AnimationFromVideo.TutorialTitle, ,Create animation from video
 Studio.AnimationClipEditor.ContextMenu.AddEvent, ,Add Animation Event Here
 Studio.AnimationClipEditor.ContextMenu.AddKeyframe, ,Add Keyframe
 Studio.AnimationClipEditor.ContextMenu.AddKeyframeHere, ,Add Keyframe Here

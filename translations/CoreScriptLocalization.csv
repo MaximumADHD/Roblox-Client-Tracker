@@ -908,5 +908,5 @@ Feature.SettingsHub.ReportSubmitted.ThankYou,,,We've received your report and wi
 Feature.SettingsHub.ReportSubmitted.MutedAndBlocked,,,You have blocked and muted {Displayname}(@{Username}),,You have blocked and muted {Displayname}(@{Username}),,,,,,,,,,,,
 Feature.SettingsHub.ReportSubmitted.Muted,,,You have muted {Displayname}(@{Username}),,You have muted {Displayname}(@{Username}),,,,,,,,,,,,
 Feature.SettingsHub.ReportSubmitted.Blocked,,,You have blocked {Displayname}(@{Username}),,You have blocked {Displayname}(@{Username}),,,,,,,,,,,,
-Feature.SocialShare.Label.ShareServerLink,,,Invites,,Share Server Link,,,,,,,,,,,,
-Feature.Catalog.Action.Share,,,Invites,Teilen,Share,Compartir,Compartir,Partager,Condividi,シェア,공유,Compartilhar,Compartilhar,Поделиться,分享,分享,分享
+Feature.SocialShare.Action.Share,,,Share,Teilen,Share,Compartir,Compartir,Partager,Condividi,シェア,공유,Compartilhar,Compartilhar,Поделиться,分享,分享,分享
+Feature.SocialShare.Label.ShareServerLink,,,Share Server Link,Serverlink teilen,Share Server Link,Compartir enlance del servidor,Compartir enlance del servidor,Partager le lien du serveur,Condividi Collegamento Server,サーバーリンクをシェア,서버 링크 공유,Compartilhar link do servidor,Compartilhar link do servidor,Поделиться ссылкой на сервер,私人服务器链接,分享伺服器連結,私人服务器链接

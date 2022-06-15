@@ -470,6 +470,7 @@ Class Breakpoint : Instance [NotReplicated]
 	Property string Breakpoint.Script {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool Breakpoint.ContinueExecution {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool Breakpoint.Enabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property bool Breakpoint.Valid {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool Breakpoint.Verified {RobloxScriptSecurity} [Hidden] [ReadOnly]
 Class BreakpointManager : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance BreakpointManager:AddBreakpoint(Instance script, int line, Instance condition) {RobloxScriptSecurity}
@@ -1027,6 +1028,7 @@ Class DebuggerUIService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void DebuggerUIService:Resume() {RobloxScriptSecurity}
 	Function void DebuggerUIService:SetCurrentThreadId(int debuggerThreadId) {RobloxScriptSecurity}
 	Function void DebuggerUIService:SetScriptLineMarker(string guid, int debuggerConnectionId, int line, bool lineMarkerType) {RobloxScriptSecurity}
+	Event DebuggerUIService.ExpressionAdded(string expression) {RobloxScriptSecurity}
 Class DebuggerVariable : Instance [NotCreatable] [NotReplicated]
 	Property string DebuggerVariable.Name {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property string DebuggerVariable.Type {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -1982,10 +1984,13 @@ Class ImporterMeshSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property bool ImporterMeshSettings.CageManifoldPreview
 	Property bool ImporterMeshSettings.CageNoOverlappingVertices [ReadOnly]
 	Property bool ImporterMeshSettings.CageNoOverlappingVerticesPreview
+	Property bool ImporterMeshSettings.CageUVMatched [ReadOnly]
+	Property bool ImporterMeshSettings.CageUVMatchedPreview
 	Property Vector3 ImporterMeshSettings.Dimensions [ReadOnly]
 	Property bool ImporterMeshSettings.DoubleSided
 	Property bool ImporterMeshSettings.IgnoreVertexColors
 	Property float ImporterMeshSettings.PolygonCount [ReadOnly]
+	Property bool ImporterMeshSettings.UseImportedPivot
 Class ImporterRootSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property bool ImporterRootSettings.Anchored
 	Property Vector3 ImporterRootSettings.FileDimensions [ReadOnly]
@@ -2383,6 +2388,7 @@ Class MetaBreakpoint : Instance [NotCreatable] [NotReplicated]
 	Property bool MetaBreakpoint.ContinueExecution {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool MetaBreakpoint.Enabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool MetaBreakpoint.IsLogpoint {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool MetaBreakpoint.Valid {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function Dictionary MetaBreakpoint:GetContextBreakpoints() {RobloxScriptSecurity}
 	Function int MetaBreakpoint:Remove(Function status) {RobloxScriptSecurity}
 	Function void MetaBreakpoint:SetChildBreakpointEnabledByScriptAndContext(string script, int contextGST, bool enabled) {RobloxScriptSecurity}
@@ -3405,10 +3411,12 @@ Class ScriptDebugger : Instance [NotCreatable]
 	Event ScriptDebugger.WatchAdded(Instance watch)
 	Event ScriptDebugger.WatchRemoved(Instance watch)
 Class ScriptDocument : Instance [NotCreatable] [NotReplicated]
-	Function bool ScriptDocument:EditTextAsync(string newText, int startLine, int startCharacter, int endLine, int endCharacter) {RobloxScriptSecurity} [Yields]
+	Function Tuple ScriptDocument:EditTextAsync(string newText, int startLine, int startCharacter, int endLine = -1, int endCharacter = -1) {RobloxScriptSecurity} [Yields]
+	Function string ScriptDocument:GetInternalUri() {RobloxScriptSecurity}
 	Function int ScriptDocument:GetNumLines() {RobloxScriptSecurity}
 	Function LuaSourceContainer ScriptDocument:GetScript() {RobloxScriptSecurity}
 	Function string ScriptDocument:GetText() {RobloxScriptSecurity}
+	Function bool ScriptDocument:IsCommandBar() {RobloxScriptSecurity}
 Class ScriptEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ScriptDocument ScriptEditorService:FindScriptDocument(LuaSourceContainer script) {RobloxScriptSecurity}
 	Function void ScriptEditorService:RegisterLSPCallback(Enum.LSPMethodType methodToOverride, Function callbackFunction) {RobloxScriptSecurity}
@@ -3587,8 +3595,8 @@ Class CompressorSoundEffect : SoundEffect
 	Property float CompressorSoundEffect.Release
 	Property Instance CompressorSoundEffect.SideChain
 	Property float CompressorSoundEffect.Threshold
-Class CustomDspSoundEffect : SoundEffect [NotCreatable]
-Class ChannelSelectorSoundEffect : CustomDspSoundEffect [NotBrowsable]
+Class CustomSoundEffect : SoundEffect [NotCreatable]
+Class ChannelSelectorSoundEffect : CustomSoundEffect [NotBrowsable]
 	Property int ChannelSelectorSoundEffect.Channel
 Class DistortionSoundEffect : SoundEffect
 	Property float DistortionSoundEffect.Level
@@ -4957,6 +4965,7 @@ Enum ComputerMovementMode
 	EnumItem ComputerMovementMode.ClickToMove : 2
 Enum ConnectionError
 	EnumItem ConnectionError.OK : 0
+	EnumItem ConnectionError.Unknown : 1
 	EnumItem ConnectionError.DisconnectErrors : 256
 	EnumItem ConnectionError.DisconnectBadhash : 257
 	EnumItem ConnectionError.DisconnectSecurityKeyMismatch : 258

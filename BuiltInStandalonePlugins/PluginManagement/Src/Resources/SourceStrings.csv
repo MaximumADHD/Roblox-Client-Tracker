@@ -3,6 +3,7 @@ Studio.PluginInstallation.Details.HttpRequests,HTTP Requests,HTTP Requests
 Studio.PluginInstallation.PluginEntry.HttpRequest,HTTP Requests,HTTP Requests
 Studio.PluginInstallation.PluginEntry.ScriptInjectionAllowed,Script Injection Allowed,Script Injection Allowed
 Studio.PluginInstallation.Details.ScriptInjectionInfo,"By allowing Script Injection, this plugin may insert or modify scripts that perform malicious actions anywhere in your game (scripts can pretty much do anything). Disabling Script Injection might result in a non-working plugin.","By allowing Script Injection, this plugin may insert or modify scripts that perform malicious actions anywhere in your game (scripts can pretty much do anything). Disabling Script Injection might result in a non-working plugin."
+Studio.PluginInstallation.PluginEntry.AutoUpdateText,Auto Update,Auto Update
 Studio.PluginInstallation.DialogTitle.InstallPlugin,Installing plugin,Installing plugin
 Studio.PluginInstallation.Details.HttpRequestInfo,"By allowing HTTP requests, 3rd party developers are able to gather information on your machine. These might be harmless (such as crash logs) or malicious (such as gathering information on your game's scripts). Disabling HTTP requests might result in a non-working plugin.","By allowing HTTP requests, 3rd party developers are able to gather information on your machine. These might be harmless (such as crash logs) or malicious (such as gathering information on your game's scripts). Disabling HTTP requests might result in a non-working plugin."
 Studio.PluginInstallation.Dialog.Ok,OK,OK
@@ -10,6 +11,7 @@ Studio.PluginInstallation.Progress.Completed,Installation Complete!,Installation
 Studio.PluginInstallation.Details.ScriptInjection,Script Injection,Script Injection
 Studio.PluginInstallation.Meta.PluginWindowName,Plugin Installation,Plugin Installation
 Studio.PluginInstallation.Main.InstallingPlugin,Installing plugin : {1},Installing plugin : {1}
+Studio.PluginInstallation.PluginEntry.AutoUpdateEntry,Last updated on {date:shortdate},Last updated on {date:shortdate}
 Studio.PluginInstallation.Main.ErrorNoId,Error : No plugin to install,Error : No plugin to install
 Studio.PluginInstallation.Progress.CompletedMessage,{1} successfully installed.,{1} successfully installed.
 Studio.PluginInstallation.Progress.HttpError,HTTP Error. Could not fetch information about this plugin. Try again later. {1},HTTP Error. Could not fetch information about this plugin. Try again later. {1}

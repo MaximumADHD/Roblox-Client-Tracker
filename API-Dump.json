@@ -9177,6 +9177,29 @@
                 {
                     "Category": "State",
                     "MemberType": "Property",
+                    "Name": "Valid",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "State",
+                    "MemberType": "Property",
                     "Name": "Verified",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
@@ -19458,6 +19481,21 @@
                         "Category": "Primitive",
                         "Name": "void"
                     },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "ExpressionAdded",
+                    "Parameters": [
+                        {
+                            "Name": "expression",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 }
@@ -37085,6 +37123,46 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "CageUVMatched",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "CageUVMatchedPreview",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "Dimensions",
                     "Security": {
                         "Read": "None",
@@ -37160,6 +37238,24 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "UseImportedPivot",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 }
             ],
@@ -45132,6 +45228,29 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "string"
+                    }
+                },
+                {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "Valid",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 },
                 {
@@ -65000,6 +65119,18 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "GetInternalUri",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetNumLines",
                     "Parameters": [
                     ],
@@ -65036,6 +65167,18 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "IsCommandBar",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "EditTextAsync",
                     "Parameters": [
                         {
@@ -65060,6 +65203,7 @@
                             }
                         },
                         {
+                            "Default": "-1",
                             "Name": "endLine",
                             "Type": {
                                 "Category": "Primitive",
@@ -65067,6 +65211,7 @@
                             }
                         },
                         {
+                            "Default": "-1",
                             "Name": "endCharacter",
                             "Type": {
                                 "Category": "Primitive",
@@ -65075,8 +65220,8 @@
                         }
                     ],
                     "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
+                        "Category": "Group",
+                        "Name": "Tuple"
                     },
                     "Security": "RobloxScriptSecurity",
                     "Tags": [
@@ -68492,7 +68637,7 @@
             "Members": [
             ],
             "MemoryCategory": "Instances",
-            "Name": "CustomDspSoundEffect",
+            "Name": "CustomSoundEffect",
             "Superclass": "SoundEffect",
             "Tags": [
                 "NotCreatable"
@@ -68521,7 +68666,7 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "ChannelSelectorSoundEffect",
-            "Superclass": "CustomDspSoundEffect",
+            "Superclass": "CustomSoundEffect",
             "Tags": [
                 "NotBrowsable"
             ]
@@ -88164,6 +88309,10 @@
                 {
                     "Name": "OK",
                     "Value": 0
+                },
+                {
+                    "Name": "Unknown",
+                    "Value": 1
                 },
                 {
                     "Name": "DisconnectErrors",

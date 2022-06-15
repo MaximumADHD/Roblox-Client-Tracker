@@ -67,7 +67,8 @@ Group Packages,Group Packages,Studio.Toolbox.General.SearchTagLength
 length:,length:,Studio.Toolbox.Audio.Music.Genre.ethnic-pop
 Ethnic Pop,Ethnic Pop,Studio.Toolbox.General.CategoryMyAudio
 My Audio,My Audio,Studio.Toolbox.General.CategoryMyPackages
-My Packages,My Packages,Studio.Toolbox.General.SideTabSales
+My Packages,My Packages,Studio.Toolbox.General.SearchResultsBackToHome
+< All {assetType} /,< All {assetType} /,Studio.Toolbox.General.SideTabSales
 Sales,Sales,Studio.Toolbox.General.CategoryMyPlugins
 My Plugins,My Plugins,Studio.Toolbox.General.CategoryMyAnimations
 My Animations,My Animations,Studio.Toolbox.Audio.SoundEffect.Category.squeaks

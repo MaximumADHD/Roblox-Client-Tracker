@@ -319,7 +319,6 @@ Studio.App.AudioPrivacyPublishDialog.AssetTable.AssetIdColTitle,,Asset ID,Asset 
 Studio.App.AudioPrivacyPublishDialog.AssetTable.AssetCreatorColTitle,,Creator,Creator
 Studio.App.AudioPrivacyPublishDialog.PublishWithoutPermissionButton,warning modal button that publishes game without granting permission,Publish without Granting,Publish without Granting
 Studio.App.AudioPrivacyPublishDialog.PublishAndGrantPermissionButton,warning modal button that grants the universe permission to all assets in the game during publish,Grant Permissions,Grant Permissions
-Studio.App.AudioPrivacyCheck.GrantPermissionFailure3,"Appears in output window when permission granting fails. %1 and %2 are replaced by assed ids, and %3 is replaced by an error code.",Failed to grant universe [%1] permission to asset [%2]: %3,Failed to grant universe [%1] permission to asset [%2]: %3
 Studio.App.AudioPrivacyCheck.GrantPermissionUserFailure3,"Appears in output window when permission granting fails. %1 is replaced by universe id, %2 is replaced by assed id and %3 is replaced by user id.",Failed to grant the Universe %1 permission to use asset %2. Your User ID %3 is not authorized to grant asset permissions.,Failed to grant the Universe %1 permission to use asset %2. Your User ID %3 is not authorized to grant asset permissions.
 Studio.App.MainWindow.Version1,Main Window,Version %1,Version %1
 Studio.App.MainWindow.VersionLatest1,About Dialog,Latest version available %1,Latest version available %1
@@ -897,8 +896,10 @@ Studio.App.RBXMainWindow.Tutorials,,Tutorials,Tutorials
 Studio.App.RBXMainWindow.CleansUpAllClientsAndServer,,Clean up all clients and servers,Clean up all clients and servers
 Studio.App.RBXMainWindow.ToggleGameAudio,,Toggle Game Audio,Toggle Game Audio
 Studio.App.RBXMainWindow.ScriptAnalysis,,Script Analysis,Script Analysis
+Studio.App.RBXMainWindow.CodeSnippet,,Code Snippet,Code Snippet
 Studio.App.RBXMainWindow.ViewTeamCreateWindow,,View Team Create Window,View Team Create Window
 Studio.App.RBXMainWindow.ViewScriptAnalysisElps,,View Script Analysis...,View Script Analysis...
+Studio.App.RBXMainWindow.ViewCodeSnippetElps,,View Code Snippet...,View Code Snippet...
 Studio.App.RBXMainWindow.TeamCreate,,Team Create,Team Create
 Studio.App.RBXMainWindow.ScriptRecovery,,Script Recovery,Script Recovery
 Studio.App.RBXMainWindow.ViewRecoveredScriptsElps,,View Recovered Scripts...,View Recovered Scripts...
@@ -1009,6 +1010,7 @@ Studio.App.RBXMainWindow.CantSaveAndReloadLua,,The original plugin was a .lua fi
 Studio.App.RBXMainWindow.CantSaveEmptyPluginTitle,,Cannot Save Empty Plugin,Cannot Save Empty Plugin
 Studio.App.RBXMainWindow.CantSaveEmptyPlugin,,The plugin you are trying to save would have no contents.  You cannot save an empty plugin.,The plugin you are trying to save would have no contents.  You cannot save an empty plugin.
 Studio.App.RBXMainWindow.PublishChangesToPackage,,Publish Changes to Package,Publish Changes to Package
+Studio.App.RBXMainWindow.PublishToPackage,,Publish to Package,Publish to Package
 Studio.App.RBXMainWindow.StudioSettingsElps,,Studio Settings...,Studio Settings...
 Studio.App.RBXMainWindow.SettingsElps,,Settings...,Settings...
 Studio.App.RBXMainWindow.ConvertToPackageElps,,Convert to Package...,Convert to Package...
@@ -1366,6 +1368,7 @@ Studio.App.RobloxRibbonMainWindow.ViewLuaAPIObjects,,View Lua API objects that c
 Studio.App.RobloxRibbonMainWindow.ViewPropertiesOfObjects,,View properties of objects,View properties of objects
 Studio.App.RobloxRibbonMainWindow.ViewRecoveredScripts,,View Recovered Scripts,View Recovered Scripts
 Studio.App.RobloxRibbonMainWindow.ViewScriptAnalysis,,View Script Analysis,View Script Analysis
+Studio.App.RobloxRibbonMainWindow.ViewCodeSnippet,,View Code Snippet,View Code Snippet
 Studio.App.RobloxRibbonMainWindow.ViewScriptPerformanceInformat,,View script performance information,View script performance information
 Studio.App.RobloxRibbonMainWindow.ViewTaskExecutionInformation,,View task execution information,View task execution information
 Studio.App.RobloxRibbonMainWindow.ViewTutorials,,View Tutorials,View Tutorials
@@ -1575,6 +1578,7 @@ Studio.App.PackageManagementVerbs.ConfirmGetLatestWarn,,"Are you sure you want t
 Your unpublished changes will be lost!","Are you sure you want to get the latest version of this package?
 Your unpublished changes will be lost!"
 Studio.App.PackageManagementVerbs.ErrorModelPrimaryPart,,Error: Cannot Publish a Model Package without a PrimaryPart.,Error: Cannot Publish a Model Package without a PrimaryPart.
+Studio.App.PackageManagementVerbs.PublishNoop,,The package instance matched the newest version; no new version was created.,The package instance matched the newest version; no new version was created.
 Studio.App.PackageMassUpdate.MassUpdate,A function that enables developer to update package across places.,Mass Update,Mass Update
 Studio.App.PackageMassUpdate.UpdateDescription1,<b>%1</b> should not be translated. %1 is name of the package to be updated.,Update all <b>%1</b> copies in the following places of this game to,Update all <b>%1</b> copies in the following places of this game to
 Studio.App.PackageMassUpdate.Version,Version of a package,Version,Version
@@ -2302,6 +2306,11 @@ Studio.App.RobloxStudioVerbs.StartServerSaveFailure,,Start server - save failure
 Studio.App.RobloxStudioVerbs.RevealInExplorer,,Reveal In Explorer/Finder,Reveal In Explorer/Finder
 Studio.App.RobloxStudioVerbs.SyncInstanceToFs,,Sync Instance,Sync Instance
 Studio.App.RobloxStudioVerbs.UnionFailed,,Union failed,Union failed
+Studio.App.RobloxStudioVerbs.ShouldUnscale,,"This nonuniformly scaled union contains parts which can't be exactly represented separately, before separating:
+Reset the scale to make re-unioning easier, or Apply the scale as closely as possible.","This nonuniformly scaled union contains parts which can't be exactly represented separately, before separating:
+Reset the scale to make re-unioning easier, or Apply the scale as closely as possible."
+Studio.App.RobloxStudioVerbs.ResetScale,Remove the 3d scale that an object had resetting it back to its original size.,Reset Scale,Reset Scale
+Studio.App.RobloxStudioVerbs.ApplyScale,Apply the 3d scale that on object had to all of its children instead.,Apply Scale,Apply Scale
 Studio.App.RobloxStudioVerbs.NegationFailed,,Negation failed,Negation failed
 Studio.App.RobloxStudioVerbs.SeparateFailed,,Separate failed,Separate failed
 Studio.App.RobloxStudioVerbs.RobloxLuaScripts,"NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Roblox Lua Scripts (*.lua),Roblox Lua Scripts (*.lua)
@@ -2790,8 +2799,6 @@ AssetId: %2
 Type: %3","Name: %1
 AssetId: %2
 Type: %3"
-Studio.App.IDEPermissionsResolutionLinkDefinition.FailureMessage1,Message that's output after user fails to grant their universe permission to use asset,Failed to grant Universe permission to use asset %1,Failed to grant Universe permission to use asset %1
-Studio.App.IDEPermissionsResolutionLinkDefinition.SuccessMessage1,Message that's output after user sucessfully grants their universe permission to use asset,Successfully granted Universe permission to use asset %1,Successfully granted Universe permission to use asset %1
 Studio.App.IDEPermissionsResolutionLinkDefinition.ExperienceSuccessMessage1,Message that's output after user sucessfully grants their experience permission to use asset,Successfully granted the experience permission to use asset %1,Successfully granted the experience permission to use asset %1
 Studio.App.IDEPermissionsResolutionLinkDefinition.LoadingElps,,Loading...,Loading...
 Studio.App.StudioUtilities.LogInRequired,,Log in required,Log in required
@@ -3141,7 +3148,7 @@ Studio.App.ScriptsInBatchDialog.FailedToLoadDataErrorMessage,,Failed to load dat
 Studio.App.ScriptsInBatchDialog.Title,,Scripts In Batch,Scripts In Batch
 Studio.App.ScriptsInBatchDialog.ScriptSectionHeader,,Script,Script
 Studio.App.ScriptsInBatchDialog.VersionSectionHeader,,Version,Version
-Studio.App.AnimationFromVideoCreatorStudioService.SelectMP4VideoFile,,Select a mp4 video,Select a mp4 video
+Studio.App.AnimationFromVideoCreatorStudioService.SelectMP4VideoFile,,Select a video,Select a video
 Studio.App.AnimationFromVideoCreatorStudioService.NoFileSelected,,No file selected,No file selected
 Studio.App.AnimationFromVideoCreatorStudioService.FileTooLarge,,File is too large; must be less than %1MB,File is too large; must be less than %1MB
 Studio.App.AnimationFromVideoCreatorStudioService.UploadFailed,,Upload failed,Upload failed
@@ -3283,5 +3290,5 @@ Studio.App.BetaFeatures.CurveAnimationsDescription,,Enable single-channel animat
 Studio.App.BetaFeatures.DebuggerV2Title,,Intuitive Debugger,Intuitive Debugger
 Studio.App.BetaFeatures.DebuggerV2Description,,"Enable a new debugging experience with a more powerful backend architecture and Lua-based UI for the Callstack, Watch, and Breakpoint windows.","Enable a new debugging experience with a more powerful backend architecture and Lua-based UI for the Callstack, Watch, and Breakpoint windows."
 Studio.App.RobloxApplication.AbnormalTerminateMessage,,An unexpected error has occurred and Studio needs to quit. Please restart Studio or contact support if the problem persists.,An unexpected error has occurred and Studio needs to quit. Please restart Studio or contact support if the problem persists.
-Studio.App.BetaFeatures.LuauIterTitle,,Generalized Iteration in Luau,Generalized Iteration in Luau
-Studio.App.BetaFeatures.LuauIterDescription,,Iteration with for loops in Luau now supports directly iterating tables without pairs/ipairs as well as __iter metamethod.,Iteration with for loops in Luau now supports directly iterating tables without pairs/ipairs as well as __iter metamethod.
+Studio.App.BetaFeatures.NonuniformUnionsTitle,,Nonuniform Unions,Nonuniform Unions
+Studio.App.BetaFeatures.NonuniformUnionsDescription,,Allow unions created with the CSG system to scale nonuniformly in the same way as MeshParts. Change the interpretation of existing nonuniformly scaled unions.,Allow unions created with the CSG system to scale nonuniformly in the same way as MeshParts. Change the interpretation of existing nonuniformly scaled unions.
