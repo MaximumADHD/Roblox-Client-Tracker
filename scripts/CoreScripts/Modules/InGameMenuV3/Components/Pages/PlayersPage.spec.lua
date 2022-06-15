@@ -226,7 +226,7 @@ return function()
 			Roact.unmount(instance)
 		end)
 
-		it("Should show player context menu when player is pressed", function()
+		itSKIP("Should show player context menu when player is pressed", function()
 			local mockPlayersService = {
 				LocalPlayer = localPlayer,
 				GetPlayerByUserId = function(_)

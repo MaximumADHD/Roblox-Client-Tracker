@@ -19,6 +19,7 @@ local SearchBarField = require(script.Parent.SearchBarField)
 local TableTab = require(Plugin.Src.Models.Watch.TableTab)
 
 local Constants = require(Plugin.Src.Util.Constants)
+local AddExpression = require(Plugin.Src.Actions.Watch.AddExpression)
 
 local WatchComponent = Roact.PureComponent:extend("WatchComponent")
 
@@ -39,6 +40,17 @@ end
 
 -- WatchComponent
 function WatchComponent:init()
+
+	local debuggerUIService = game:GetService("DebuggerUIService")
+	if debuggerUIService then
+		-- if check for unit tests
+		debuggerUIService.ExpressionAdded:Connect(
+			function(expression)
+				self.props.OnAddExpression(expression)
+			end
+		)
+	end
+
 	self.componentRef = Roact.createRef()
 	self.state = {
 		shouldShowDropdown = true,
@@ -179,6 +191,12 @@ WatchComponent = withContext({
 WatchComponent = RoactRodux.connect(function(state, props)
 	return {
 		IsVariablesTab = state.Watch.currentTab == TableTab.Variables,
+	}
+end, function(dispatch)
+	return {
+		OnAddExpression = function(newExpression)
+			return dispatch(AddExpression(newExpression))
+		end,
 	}
 end)(WatchComponent)
 

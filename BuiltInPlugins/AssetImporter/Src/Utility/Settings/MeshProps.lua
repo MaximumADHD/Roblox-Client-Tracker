@@ -2,6 +2,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local getFFlagDisableAvatarAnchoredSetting = require(Plugin.Src.Flags.getFFlagDisableAvatarAnchoredSetting)
 local getFFlagLCQualityCheckDisplay = require(Plugin.Src.Flags.getFFlagLCQualityCheckDisplay)
+local getFFlagAssetImporterUseImportedPivots = require(Plugin.Src.Flags.getFFlagAssetImporterUseImportedPivots)
 
 local AssetImportService = game:GetService("AssetImportService")
 
@@ -13,24 +14,31 @@ local function hideIfManifold(meshSettings)
 	if getFFlagLCQualityCheckDisplay() then
 		if meshSettings.ImportName:match("_OuterCage") or meshSettings.ImportName:match("_InnerCage") then
 			return meshSettings.CageManifold 
-		else
-			return true
 		end
-	else
-		return true
 	end
+	return true
 end
 
 local function hideIfNoOverlappingVertices(meshSettings)
 	if getFFlagLCQualityCheckDisplay() then
 		if meshSettings.ImportName:match("_OuterCage") or meshSettings.ImportName:match("_InnerCage") then
 			return meshSettings.CageNoOverlappingVertices
-		else
-			return true
 		end
-	else
-		return true
 	end
+	return true
+end
+
+local function hideIfUVMatched(meshSettings)
+	if getFFlagLCQualityCheckDisplay() then
+		if meshSettings.ImportName:match("_OuterCage") or meshSettings.ImportName:match("_InnerCage") then
+			return meshSettings.CageUVMatched
+		end
+	end
+	return true
+end
+
+local function hideIfUseImportedPivotsFlagOff(meshSettings)
+	return not getFFlagAssetImporterUseImportedPivots()
 end
 
 return {
@@ -39,6 +47,7 @@ return {
 		Properties = {
 			{Name = "ImportName", Editable = true},
 			{Name = "Anchored", Editable = true, ShouldHide = hideIfAvatar},
+			{Name = "UseImportedPivot", Editable = true, ShouldHide = hideIfUseImportedPivotsFlagOff},
 		},
 	},
 	{
@@ -50,6 +59,7 @@ return {
 			{Name = "IgnoreVertexColors", Editable = true},
 			{Name = "CageManifoldPreview", Editable = true, ShouldHide = hideIfManifold},
 			{Name = "CageNoOverlappingVerticesPreview", Editable = true, ShouldHide = hideIfNoOverlappingVertices},
+			{Name = "CageUVMatchedPreview", Editable = true, ShouldHide = hideIfUVMatched},
 		},
 	},
 }

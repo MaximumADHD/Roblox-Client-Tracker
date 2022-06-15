@@ -6,8 +6,6 @@ local RunService = game:GetService("RunService")
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
-
 local DraftService = require(Plugin.Src.ContextServices.DraftsService)
 
 local Roact = require(Plugin.Packages.Roact)
@@ -15,13 +13,14 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Framework = require(Plugin.Packages.Framework)
 
+local GetTextSize = Framework.Util.GetTextSize
+
 local getPlugin = require(Plugin.Src.ContextServices.StudioPlugin).getPlugin
 local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
 local withLocalization = UILibrary.Localizing.withLocalization
 
 local DraftDiscardDialog = require(Plugin.Src.Components.DraftDiscardDialog)
 local DraftListItem = require(Plugin.Src.Components.DraftListItem)
-local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Framework.Util.GetTextSize else UILibrary.Util.GetTextSize
 local ListItemView = require(Plugin.Src.Components.ListItemView)
 local RoundTextButton = UILibrary.Component.RoundTextButton
 

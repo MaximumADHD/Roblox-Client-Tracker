@@ -6,12 +6,12 @@ local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local t = InGameMenuDependencies.t
-
 local UIBlox = InGameMenuDependencies.UIBlox
 local withStyle = UIBlox.Core.Style.withStyle
-
 local QuickActionsTooltip = require(script.QuickActionsTooltip)
 local QuickActionsMenu = require(script.QuickActionsMenu)
+
+local FFlagEnableInGameMenuQAScreenshot = game:DefineFastFlag("EnableInGameMenuQAScreenshot", true)
 
 local QuickActions = Roact.PureComponent:extend("QuickActions")
 
@@ -43,7 +43,7 @@ local function isBetweenFrames(dTime, startFrame, endFrame)
 	return dTime >= (startFrame/FPS) and dTime <= (endFrame/FPS)
 end
 
-local buttonCount = 3 -- default: Respawn, Report, Screenshot
+local buttonCount = 2 -- default: Respawn, Report
 local frameFinalTransparency = 0.2 -- default: style.Theme.UIMuted
 
 local function showAnimation(timeElapsed, updateBindings, reverse, stopCallback)
@@ -58,10 +58,8 @@ local function showAnimation(timeElapsed, updateBindings, reverse, stopCallback)
 			updateBindings.button1(elapsed)
 			updateBindings.button2(elapsed)
 			updateBindings.button3(elapsed)
-			if buttonCount == 5 then
-				updateBindings.button4(elapsed)
-				updateBindings.button5(elapsed)
-			end
+			updateBindings.button4(elapsed)
+			updateBindings.button5(elapsed)
 		else
 			local finalTransparency = 1
 			updateBindings.gradient(finalTransparency)
@@ -69,10 +67,8 @@ local function showAnimation(timeElapsed, updateBindings, reverse, stopCallback)
 			updateBindings.button1(finalTransparency)
 			updateBindings.button2(finalTransparency)
 			updateBindings.button3(finalTransparency)
-			if buttonCount == 5 then
-				updateBindings.button4(finalTransparency)
-				updateBindings.button5(finalTransparency)
-			end
+			updateBindings.button4(finalTransparency)
+			updateBindings.button5(finalTransparency)
 			stopCallback()
 		end
 		return
@@ -99,17 +95,15 @@ local function showAnimation(timeElapsed, updateBindings, reverse, stopCallback)
 		updateBindings.button3(scaledElapsed)
 	end
 
-	if buttonCount == 5 then
-		if isBetweenFrames(timeElapsed, 15.5, 17.5) then
-			local elapsed = linearTween(timeElapsed, 15.5, 17.5)
-			local scaledElapsed = 1 - elapsed
-			updateBindings.button4(scaledElapsed)
-		end
-		if isBetweenFrames(timeElapsed, 17.5, 19.5) then
-			local elapsed = linearTween(timeElapsed, 17.5, 19.5)
-			local scaledElapsed = 1 - elapsed
-			updateBindings.button5(scaledElapsed)
-		end
+	if isBetweenFrames(timeElapsed, 15.5, 17.5) then
+		local elapsed = linearTween(timeElapsed, 15.5, 17.5)
+		local scaledElapsed = 1 - elapsed
+		updateBindings.button4(scaledElapsed)
+	end
+	if isBetweenFrames(timeElapsed, 17.5, 19.5) then
+		local elapsed = linearTween(timeElapsed, 17.5, 19.5)
+		local scaledElapsed = 1 - elapsed
+		updateBindings.button5(scaledElapsed)
 	end
 
 	local totalFrame = buttonCount * 2 + 9.5
@@ -129,10 +123,8 @@ local function showAnimation(timeElapsed, updateBindings, reverse, stopCallback)
 		updateBindings.button1(0)
 		updateBindings.button2(0)
 		updateBindings.button3(0)
-		if buttonCount == 5 then
-			updateBindings.button4(0)
-			updateBindings.button5(0)
-		end
+		updateBindings.button4(0)
+		updateBindings.button5(0)
 		stopCallback()
 	end
 end
@@ -164,7 +156,12 @@ function QuickActions:init()
 		-- In order to see the disappear animation
 		frameVisible = false
 	})
-	buttonCount = self.props.voiceEnabled and 5 or 3
+	if FFlagEnableInGameMenuQAScreenshot then
+		buttonCount = buttonCount + 1
+	end
+	if self.props.voiceEnabled then
+		buttonCount = buttonCount + 2
+	end
 
 	local touchScreenGui = localPlayer.PlayerGui:FindFirstChild("TouchGui")
 	if touchScreenGui then
@@ -225,6 +222,7 @@ function QuickActions:render()
 				Menu = Roact.createElement(QuickActionsMenu, {
 					layoutOrder = 2,
 					voiceEnabled = self.props.voiceEnabled,
+					screenshotEnabled = FFlagEnableInGameMenuQAScreenshot,
 					transparencies = transparencies,
 				}),
 			})

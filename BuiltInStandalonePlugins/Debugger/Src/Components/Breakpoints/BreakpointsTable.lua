@@ -47,6 +47,7 @@ local ToggleAllBreakpoints = require(Thunks.Breakpoints.ToggleAllBreakpoints)
 
 local Actions = PluginFolder.Src.Actions
 local SetBreakpointSortState = require(Actions.BreakpointsWindow.SetBreakpointSortState)
+local BreakpointColumnFilter = require(Actions.BreakpointsWindow.BreakpointColumnFilter)
 
 local BreakpointsDropdownField = require(script.Parent.BreakpointsDropdownField)
 
@@ -62,6 +63,8 @@ local dropdownColumnNameToKey = {
 	LogMessageColumn = "logMessage",
 	ContinueExecutionColumn = "continueExecution",
 }
+
+local BREAKPOINT_WINDOW_CONFIGS = "breakpointsWindowConfigs"
 
 local function fetchContextIcon(context)
 	if context == Constants.GameStateTypes.Client then
@@ -257,6 +260,18 @@ function BreakpointsTable:init()
 end
 
 function BreakpointsTable:didMount()
+	local props = self.props
+	local plugin = props.Plugin:get()
+	local configs = plugin:GetSetting(BREAKPOINT_WINDOW_CONFIGS)
+	if configs and configs[Constants.ColumnSize] and configs[Constants.ColumnFilter] then
+		props.onColumnFilterChange(configs[Constants.ColumnFilter])
+		self:setState(function(state)
+			return {
+				sizes = ColumnResizeHelperFunctions.fetchSizesFromColumnScales(configs[Constants.ColumnSize]),
+			}
+		end)
+	end
+
 	if self.props.IsPaused and self.props.CurrentBreakpoint then
 		self:setState(function(state)
 			return {
@@ -266,11 +281,23 @@ function BreakpointsTable:didMount()
 	end
 end
 
+function BreakpointsTable:willUnmount()
+	local props = self.props
+	local plugin = props.Plugin:get()
+	local configs = {}
+	configs[Constants.ColumnFilter] = props.ColumnFilter
+	configs[Constants.ColumnSize] = ColumnResizeHelperFunctions.fetchScaleFromColumnSizes(self.state.sizes)
+	plugin:SetSetting(BREAKPOINT_WINDOW_CONFIGS, configs)
+end
+
 function BreakpointsTable:didUpdate(prevProps)
 	local props = self.props
-	if #props.ColumnFilter ~= #prevProps.ColumnFilter then
-		-- add the 3 default columns
-		local columnNumber = #props.ColumnFilter + #defaultColumnKeys
+	-- add the 3 default columns
+	local columnNumber = #props.ColumnFilter + #defaultColumnKeys
+
+	-- if #state.sizes == columnNumber but the ColumnFilter size changed we have loaded the user's saved column sizes into the state
+	-- in didMount(), and this didUpdate() was triggered from dispatching the saved ColumnFilter, rather than the user adding/deleting visible columns.
+	if #props.ColumnFilter ~= #prevProps.ColumnFilter and #self.state.sizes ~= columnNumber then
 		local updatedSizes = {}
 
 		-- columns have been resized so we need to scale the existing columns proportionally as we add/delete new columns
@@ -570,6 +597,7 @@ BreakpointsTable = RoactRodux.connect(function(state, props)
 				bpRow.hiddenLineNumber = bpRow.lineNumber
 				bpRow.lineNumber = ""
 				bpRow.isEnabled = individualBreakpoint.Enabled
+				bpRow.isValid = individualBreakpoint.Valid
 				bpRow.scriptName = {
 					Value = state.ScriptInfo.ScriptInfo[individualBreakpoint.Script],
 					LeftIcon = {
@@ -623,6 +651,9 @@ end, function(dispatch)
 		end,
 		onSetBreakpointSortState = function(sortDirection, columnIndex)
 			return dispatch(SetBreakpointSortState(sortDirection, columnIndex))
+		end,
+		onColumnFilterChange = function(enabledColumns)
+			return dispatch(BreakpointColumnFilter(enabledColumns))
 		end,
 	}
 end)(BreakpointsTable)

@@ -10,8 +10,9 @@ local t = require(CorePackages.Packages.t)
 local TnsModule = script.Parent.Parent
 local Dependencies = require(TnsModule.Dependencies)
 local FocusHandler = require(Dependencies.FocusHandler)
-local withLocalization = require(Dependencies.withLocalization)
+local playerInterface = require(Dependencies.playerInterface)
 local ThemedTextLabel = require(Dependencies.ThemedTextLabel)
+local withLocalization = require(Dependencies.withLocalization)
 
 local PrimarySystemButton = UIBlox.App.Button.PrimarySystemButton
 
@@ -30,11 +31,7 @@ ReportSentDialog.validateProps = t.strictInterface({
 	isReportSentOpen = t.boolean,
 	inputType = t.optional(t.string),
 	reportType = t.optional(t.valueOf(Constants.ReportType)),
-	targetPlayer = t.optional(t.strictInterface({
-		UserId = t.integer,
-		Name = t.string,
-		DisplayName = t.string,
-	})),
+	targetPlayer = t.optional(playerInterface),
 	closeDialog = t.callback,
 	openBlockPlayerDialog = t.callback,
 })

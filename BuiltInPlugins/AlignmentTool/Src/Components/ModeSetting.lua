@@ -30,8 +30,17 @@ local LayoutOrderIterator = Util.LayoutOrderIterator
 
 local AlignmentMode = require(Plugin.Src.Utility.AlignmentMode)
 
+-- pcall needed to effectively mock service call for unit tests
+local function isHighDpiEnabled()
+    local highDpiServiceFound, isNotHighDpiBuild = pcall(function() return game:GetService("StudioHighDpiService"):IsNotHighDPIAwareBuild() end)
+    assert(highDpiServiceFound or isNotHighDpiBuild == "'StudioHighDpiService' is not a valid Service name")
+    return not highDpiServiceFound or not isNotHighDpiBuild
+end
+local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and isHighDpiEnabled()
+
 local ModeSetting = Roact.PureComponent:extend("ModeSetting")
 
+-- Remove with FFlagHighDpiIcons
 local ModeButtonDefinitions = {
 	[1] = {
 		Image = "rbxasset://textures/AlignTool/button_min_24.png",
@@ -92,7 +101,7 @@ function ModeSetting:render()
 	end
 
 	local modeButtons = {}
-	for _, button in ipairs(ModeButtonDefinitions) do
+	for _, button in ipairs(FFlagHighDpiIcons and theme.ModeButtons or ModeButtonDefinitions) do
 		local mode = button.Mode
 		local image = button.Image
 		modeButtons[tostring(mode)] = renderButton(mode, image)

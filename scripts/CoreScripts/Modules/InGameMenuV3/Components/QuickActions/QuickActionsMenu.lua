@@ -19,6 +19,7 @@ local Assets = require(InGameMenu.Resources.Assets)
 local SetRespawning = require(InGameMenu.Actions.SetRespawning)
 local MuteAllButton = require(InGameMenu.Components.QuickActions.MuteAllButton)
 local MuteSelfButton = require(InGameMenu.Components.QuickActions.MuteSelfButton)
+local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 
 local QuickActionsMenu = Roact.PureComponent:extend("QuickActionsMenu")
 
@@ -32,6 +33,8 @@ QuickActionsMenu.validateProps = t.strictInterface({
 	startRespawning = t.callback,
 	transparencies = t.table,
 	voiceEnabled = t.boolean,
+	screenshotEnabled = t.boolean,
+	closeMenu = t.callback,
 })
 
 
@@ -41,7 +44,8 @@ function QuickActionsMenu:init()
 	end
 
 	self.screenshot = function()
-		for _ = 1, 2 do -- wait for top-bar to update
+		self.props.closeMenu()
+		for _ = 1, 16 do -- wait for menu animation to hide
 			RunService.RenderStepped:Wait()
 		end
 		CoreGui:TakeScreenshot()
@@ -50,6 +54,16 @@ end
 
 function QuickActionsMenu:render()
 	return withStyle(function(style)
+		local reportButtonTransparency, muteAllButtonTransparency, muteSelfButtonTransparency
+			if self.props.screenshotEnabled then
+				reportButtonTransparency = self.props.transparencies.button3
+				muteAllButtonTransparency = self.props.transparencies.button4
+				muteSelfButtonTransparency = self.props.transparencies.button5
+			else
+				reportButtonTransparency = self.props.transparencies.button2
+				muteAllButtonTransparency = self.props.transparencies.button3
+				muteSelfButtonTransparency = self.props.transparencies.button4
+			end
 		return Roact.createElement("Frame", {
 			LayoutOrder = self.props.layoutOrder,
 			Size = UDim2.new(0, QUICK_ACTIONS_WIDTH, 0, 0),
@@ -73,22 +87,22 @@ function QuickActionsMenu:render()
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
 			MuteSelfButton = self.props.voiceEnabled and Roact.createElement(MuteSelfButton, {
-				iconTransparency = self.props.transparencies.button5,
-				backgroundTransparency = self.props.transparencies.button5,
+				iconTransparency = muteSelfButtonTransparency,
+				backgroundTransparency = muteSelfButtonTransparency,
 				backgroundColor = style.Theme.BackgroundUIDefault,
 				iconSize = IconSize.Medium,
 				layoutOrder = 1,
 			}) or nil,
 			MuteAllButton = self.props.voiceEnabled and Roact.createElement(MuteAllButton, {
-				iconTransparency = self.props.transparencies.button4,
-				backgroundTransparency = self.props.transparencies.button4,
+				iconTransparency = muteAllButtonTransparency,
+				backgroundTransparency = muteAllButtonTransparency,
 				backgroundColor = style.Theme.BackgroundUIDefault,
 				iconSize = IconSize.Medium,
 				layoutOrder = 2,
 			}) or nil,
 			ReportButton = Roact.createElement(IconButton, {
-				iconTransparency = self.props.transparencies.button3,
-				backgroundTransparency = self.props.transparencies.button3,
+				iconTransparency = reportButtonTransparency,
+				backgroundTransparency = reportButtonTransparency,
 				backgroundColor = style.Theme.BackgroundUIDefault,
 				showBackground = true,
 				layoutOrder = 3,
@@ -96,7 +110,7 @@ function QuickActionsMenu:render()
 				iconSize = IconSize.Medium,
 				onActivated = self.openReportMenu,
 			}),
-			ScreenshotButton = Roact.createElement(IconButton, {
+			ScreenshotButton = self.props.screenshotEnabled and Roact.createElement(IconButton, {
 				iconTransparency = self.props.transparencies.button2,
 				backgroundTransparency = self.props.transparencies.button2,
 				backgroundColor = style.Theme.BackgroundUIDefault,
@@ -105,7 +119,7 @@ function QuickActionsMenu:render()
 				iconSize = IconSize.Medium,
 				onActivated = self.screenshot,
 				icon = Assets.Images.ScreenshotIcon,
-			}),
+			}) or nil,
 			RespawnButton = Roact.createElement(IconButton, {
 				iconTransparency = self.props.transparencies.button1,
 				backgroundTransparency = self.props.transparencies.button1,
@@ -122,6 +136,9 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
+		closeMenu = function()
+			dispatch(CloseMenu)
+		end,
 		startRespawning = function()
 			dispatch(SetRespawning(true))
 		end,

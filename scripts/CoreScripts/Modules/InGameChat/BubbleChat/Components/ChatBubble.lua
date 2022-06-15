@@ -16,6 +16,7 @@ local getTransparencySpringFromSettings = require(root.Helpers.getTransparencySp
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local FFlagEnableRichTextForBubbleChat = require(RobloxGui.Modules.Flags.FFlagEnableRichTextForBubbleChat)
+local FFlagFixMockSizingLabelMemoryLeak = game:DefineFastFlag("FixMockSizingLabelMemoryLeak", false)
 
 local ChatBubble = Roact.PureComponent:extend("ChatBubble")
 
@@ -73,7 +74,11 @@ function ChatBubble:init()
 		return UDim2.fromOffset(sizes[1], sizes[2])
 	end)
 
-	self.mockSizingLabel = initMockSizingLabel()
+	if FFlagFixMockSizingLabelMemoryLeak then
+		self.mockSizingLabel = nil
+	else
+		self.mockSizingLabel = initMockSizingLabel()
+	end
 
 	self.isRichTextEnabled = if TextChatService.ChatVersion == Enum.ChatVersion.TextChatService and FFlagEnableRichTextForBubbleChat then
 		true
@@ -82,11 +87,23 @@ function ChatBubble:init()
 end
 
 function ChatBubble:getBoundsFromSizingLabel(Text, TextSize, Font, Size)
-	self.mockSizingLabel.Text = Text
-	self.mockSizingLabel.TextSize = TextSize
-	self.mockSizingLabel.Font = Font
-	self.mockSizingLabel.Size = UDim2.fromOffset(Size.X, Size.Y)
-	return self.mockSizingLabel.TextBounds
+	if FFlagFixMockSizingLabelMemoryLeak then
+		local mockSizingLabel = initMockSizingLabel()
+		mockSizingLabel.Text = Text
+		mockSizingLabel.TextSize = TextSize
+		mockSizingLabel.Font = Font
+		mockSizingLabel.Size = UDim2.fromOffset(Size.X, Size.Y)
+
+		local textBounds = mockSizingLabel.TextBounds
+		mockSizingLabel:Destroy()
+		return textBounds
+	else
+		self.mockSizingLabel.Text = Text
+		self.mockSizingLabel.TextSize = TextSize
+		self.mockSizingLabel.Font = Font
+		self.mockSizingLabel.Size = UDim2.fromOffset(Size.X, Size.Y)
+		return self.mockSizingLabel.TextBounds
+	end
 end
 
 function ChatBubble:getTextBounds()

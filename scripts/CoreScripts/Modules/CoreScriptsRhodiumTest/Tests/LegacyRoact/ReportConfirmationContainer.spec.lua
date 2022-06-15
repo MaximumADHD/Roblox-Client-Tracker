@@ -2,6 +2,7 @@
 
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local ReportConfirmationContainer = require(Modules.Settings.Components.ReportConfirmation.ReportConfirmationContainer)
+local Constants = require(Modules.InGameMenu.Resources.Constants)
 
 local noOp = function()
 end
@@ -13,10 +14,26 @@ return function()
 		end)
 
 		beforeEach(function(c)
-			c.blockPlayerAsyncMockSpy, c.blockPlayerAsyncMock = c.jest.fn(noOp)
+			c.blockPlayerAsyncMockSpy, c.blockPlayerAsyncMock = c.jest.fn(function()
+				return true
+			end)
+
 			c.mutePlayerMockSpy, c.mutePlayerMock = c.jest.fn(noOp)
-			c.unblockPlayerAsyncMockSpy, c.unblockPlayerAsyncMock = c.jest.fn(noOp)
+			c.unblockPlayerAsyncMockSpy, c.unblockPlayerAsyncMock = c.jest.fn(function()
+				return true
+			end)
+
 			c.unmutePlayerMockSpy, c.unmutePlayerMock = c.jest.fn(noOp)
+
+			c.blockingAnalyticsMockSpy, c.blockingAnalyticsMock = c.jest.fn()
+			c.reportAbuseAnalyticsMockSpy, c.reportAbuseAnalyticsMock = c.jest.fn()
+
+			c.blockingAnalytics = {
+				action = c.blockingAnalyticsMock
+			}
+			c.reportAbuseAnalytics = {
+				action = c.reportAbuseAnalyticsMock,
+			}
 
 			c.mockPlayer = {
 				Name = "TheStuff",
@@ -71,6 +88,8 @@ return function()
 					player = c.mockPlayer,
 					voiceChatServiceManager = c.mockVoiceChatServiceManager,
 					blockingUtility = c.mockBlockingUtility,
+					blockingAnalytics = c.blockingAnalytics,
+					reportAbuseAnalytics = c.reportAbuseAnalytics,
 				})
 			end)
 
@@ -121,6 +140,21 @@ return function()
 				c.jestExpect(c.blockPlayerAsyncMockSpy).toHaveBeenCalledWith(c.jestExpect.any("table"), c.mockPlayer)
 				c.jestExpect(c.mutePlayerMockSpy).toHaveBeenCalledWith(c.jestExpect.any("table"), c.mockPlayer)
 				c.jestExpect(c.toggleMutePlayerMockSpy).toHaveBeenCalledWith(c.jestExpect.any("table"), c.mockPlayer.UserId)
+
+				c.jestExpect(c.blockingAnalyticsMockSpy).toHaveBeenCalledTimes(1)
+				c.jestExpect(c.blockingAnalyticsMockSpy).toHaveBeenCalledWith(
+					c.blockingAnalytics,
+					"SettingsHub",
+					"blockUser",
+					{blockeeUserId = c.mockPlayer.UserId}
+				)
+
+				c.jestExpect(c.reportAbuseAnalyticsMockSpy).toHaveBeenCalledTimes(1)
+				c.jestExpect(c.reportAbuseAnalyticsMockSpy).toHaveBeenCalledWith(
+					c.reportAbuseAnalytics,
+					"muteUser",
+					{muteeUserId = c.mockPlayer.UserId}
+				)
 			end)
 
 			it("SHOULD mute and NOT block player when only mute is selected", function(c)
@@ -157,6 +191,15 @@ return function()
 				c.jestExpect(c.blockPlayerAsyncMockSpy).toHaveBeenCalledTimes(0)
 				c.jestExpect(c.mutePlayerMockSpy).toHaveBeenCalledWith(c.jestExpect.any("table"), c.mockPlayer)
 				c.jestExpect(c.toggleMutePlayerMockSpy).toHaveBeenCalledWith(c.jestExpect.any("table"), c.mockPlayer.UserId)
+
+				c.jestExpect(c.blockingAnalyticsMockSpy).toHaveBeenCalledTimes(0)
+
+				c.jestExpect(c.reportAbuseAnalyticsMockSpy).toHaveBeenCalledTimes(1)
+				c.jestExpect(c.reportAbuseAnalyticsMockSpy).toHaveBeenCalledWith(
+					c.reportAbuseAnalytics,
+					"muteUser",
+					{muteeUserId = c.mockPlayer.UserId}
+				)
 			end)
 
 			it("SHOULD neither mute nor block player when no actions are selected", function(c)
@@ -174,6 +217,9 @@ return function()
 				c.jestExpect(c.blockPlayerAsyncMockSpy).toHaveBeenCalledTimes(0)
 				c.jestExpect(c.mutePlayerMockSpy).toHaveBeenCalledTimes(0)
 				c.jestExpect(c.toggleMutePlayerMockSpy).toHaveBeenCalledTimes(0)
+
+				c.jestExpect(c.blockingAnalyticsMockSpy).toHaveBeenCalledTimes(0)
+				c.jestExpect(c.reportAbuseAnalyticsMockSpy).toHaveBeenCalledTimes(0)
 			end)
 		end)
 
@@ -195,11 +241,16 @@ return function()
 					player = c.mockPlayer,
 					voiceChatServiceManager = c.mockVoiceChatServiceManager,
 					blockingUtility = c.mockBlockingUtility,
+					blockingAnalytics = c.blockingAnalytics,
+					reportAbuseAnalytics = c.reportAbuseAnalytics,
 				})
+
+				c.fflagVoiceARUnblockingUnmutingEnabled = game:SetFastFlagForTesting("VoiceARUnblockingUnmutingEnabled", true)
 			end)
 
 			afterEach(function(c)
 				c.cleanup()
+				game:SetFastFlagForTesting("VoiceARUnblockingUnmutingEnabled", c.fflagVoiceARUnblockingUnmutingEnabled)
 			end)
 
 			it("SHOULD unmute and unblock player when those actions are selected", function(c)
@@ -235,6 +286,21 @@ return function()
 				c.jestExpect(c.unblockPlayerAsyncMockSpy).toHaveBeenCalledWith(c.jestExpect.any("table"), c.mockPlayer)
 				c.jestExpect(c.unmutePlayerMockSpy).toHaveBeenCalledWith(c.jestExpect.any("table"), c.mockPlayer)
 				c.jestExpect(c.toggleMutePlayerMockSpy).toHaveBeenCalledTimes(1)
+
+				c.jestExpect(c.blockingAnalyticsMockSpy).toHaveBeenCalledTimes(1)
+				c.jestExpect(c.blockingAnalyticsMockSpy).toHaveBeenCalledWith(
+					c.blockingAnalytics,
+					"SettingsHub",
+					"unblockUser",
+					{blockeeUserId = c.mockPlayer.UserId}
+				)
+
+				c.jestExpect(c.reportAbuseAnalyticsMockSpy).toHaveBeenCalledTimes(1)
+				c.jestExpect(c.reportAbuseAnalyticsMockSpy).toHaveBeenCalledWith(
+					c.reportAbuseAnalytics,
+					"unmuteUser",
+					{muteeUserId = c.mockPlayer.UserId}
+				)
 			end)
 		end)
 	end)

@@ -1,5 +1,3 @@
-local FFlagAvatarImporterRthroNarrowNoHumanoidScalingValues = game:DefineFastFlag("AvatarImporterRthroNarrowNoHumanoidScalingValues", false)
-
 local root = script.Parent.Parent
 
 -- imports
@@ -73,62 +71,32 @@ Constants.SCREENS = convertArrayToTable({
 	"REDIRECT_RIG",
 })
 
-
-if FFlagAvatarImporterRthroNarrowNoHumanoidScalingValues then
-	Constants.SCALE_VALUES_DEFAULTS = {
-		[Constants.AVATAR_TYPE.R15] = {
-			HeadScale = 1,
-			BodyHeightScale = 1,
-			BodyWidthScale = 1,
-			BodyDepthScale = 1,
-			BodyTypeScale = 0,
-			BodyProportionScale = 0
-		},
-		[Constants.AVATAR_TYPE.RTHRO] = {
-			HeadScale = 1,
-			BodyHeightScale = 1,
-			BodyWidthScale = 1,
-			BodyDepthScale = 1,
-			BodyTypeScale = 1,
-			BodyProportionScale = 0
-		},
-		[Constants.AVATAR_TYPE.RTHRO_SLENDER] = {
-			HeadScale = 1,
-			BodyHeightScale = 1,
-			BodyWidthScale = 1,
-			BodyDepthScale = 1,
-			BodyTypeScale = 1,
-			BodyProportionScale = 1
-		}
+Constants.SCALE_VALUES_DEFAULTS = {
+	[Constants.AVATAR_TYPE.R15] = {
+		HeadScale = 1,
+		BodyHeightScale = 1,
+		BodyWidthScale = 1,
+		BodyDepthScale = 1,
+		BodyTypeScale = 0,
+		BodyProportionScale = 0
+	},
+	[Constants.AVATAR_TYPE.RTHRO] = {
+		HeadScale = 1,
+		BodyHeightScale = 1,
+		BodyWidthScale = 1,
+		BodyDepthScale = 1,
+		BodyTypeScale = 1,
+		BodyProportionScale = 0
+	},
+	[Constants.AVATAR_TYPE.RTHRO_SLENDER] = {
+		HeadScale = 1,
+		BodyHeightScale = 1,
+		BodyWidthScale = 1,
+		BodyDepthScale = 1,
+		BodyTypeScale = 1,
+		BodyProportionScale = 1
 	}
-else
-	Constants.SCALE_VALUES_DEFAULTS = {
-		R15 = {
-			HeadScale = 1,
-			BodyHeightScale = 1,
-			BodyWidthScale = 1,
-			BodyDepthScale = 1,
-			BodyTypeScale = 0,
-			BodyProportionScale = 0
-		},
-		Rthro = {
-			HeadScale = 1,
-			BodyHeightScale = 1,
-			BodyWidthScale = 1,
-			BodyDepthScale = 1,
-			BodyTypeScale = 1,
-			BodyProportionScale = 0
-		},
-		RthroNarrow = {
-			HeadScale = 1,
-			BodyHeightScale = 1,
-			BodyWidthScale = 1,
-			BodyDepthScale = 1,
-			BodyTypeScale = 1,
-			BodyProportionScale = 1
-		}
-	}
-end
+}
 
 Constants.ERROR_NO_FILE = "No FBX file selected"
 

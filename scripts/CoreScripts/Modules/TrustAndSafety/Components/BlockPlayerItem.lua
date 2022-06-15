@@ -54,10 +54,13 @@ function BlockPlayerItem:render()
 		}),
 		Text = Roact.createElement(ThemedTextLabel, {
 			AnchorPoint = Vector2.new(0, 0.5),
-			AutomaticSize = Enum.AutomaticSize.XY,
+			AutomaticSize = Enum.AutomaticSize.Y,
 			themeKey = "TextEmphasis",
 			Position = UDim2.new(0, 60, 0.5, 0),
+			Size = UDim2.new(1, -(60 + 64), 0, 0),
 			Text = props.text,
+			TextTruncate = Enum.TextTruncate.AtEnd,
+			TextXAlignment = Enum.TextXAlignment.Left,
 		}),
 		Divider = Roact.createElement(Divider, {
 			Position = UDim2.new(0, 0, 1, 0),

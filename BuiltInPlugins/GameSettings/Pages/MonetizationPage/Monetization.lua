@@ -7,8 +7,6 @@ local FIntDevProductsMaxPrice = game:DefineFastInt("DevProductsMaxPrice", 100000
 
 local FVariableMaxRobuxPrice = game:DefineFastInt("DeveloperSubscriptionsMaxRobuxPrice", 2000)
 
-local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
-
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -34,13 +32,14 @@ local Separator = FrameworkUI.Separator
 
 local LayoutOrderIterator = Util.LayoutOrderIterator
 local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
+local GetTextSize = Util.GetTextSize
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local TitledFrame = UILibrary.Component.TitledFrame
 local RoundTextBox = UILibrary.Component.RoundTextBox
 local RoundFrame = UILibrary.Component.RoundFrame
 local TextEntry = UILibrary.Component.TextEntry
-local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Util.GetTextSize else UILibrary.Util.GetTextSize
+
 local BadgeIconThumbnail = require(Plugin.Src.Components.AutoThumbnails.BadgeIconThumbnail)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)

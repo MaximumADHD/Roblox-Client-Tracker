@@ -72,6 +72,7 @@ local HomeTypes = require(Plugin.Core.Types.HomeTypes)
 
 local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
+local FFlagToolboxSearchResultsBackButton = game:GetFastFlag("ToolboxSearchResultsBackButton")
 
 local Background = require(Plugin.Core.Types.Background)
 
@@ -199,6 +200,17 @@ function Toolbox:init(props)
 		local newCategory = PageInfoHelper.getCategory(options.categoryName)
 
 		Analytics.onCategorySelected(currentCategory, newCategory)
+	end
+
+	if FFlagToolboxSearchResultsBackButton then
+		-- Navigate to the default view for this tab name
+		self.onBackToHome = function()
+			local categoryName = self.props.categoryName
+			local currentTabKey = Category.getTabKeyForCategoryName(categoryName)
+			self.changeMarketplaceTab(currentTabKey, {
+				categoryName = categoryName,
+			})
+		end
 	end
 end
 
@@ -357,6 +369,7 @@ function Toolbox:render()
 				maxWidth = toolboxWidth,
 				suggestions = suggestions,
 				tryOpenAssetConfig = tryOpenAssetConfig,
+				onBackToHome = if FFlagToolboxSearchResultsBackButton then self.onBackToHome else nil,
 			}),
 
 		SearchOptions = if showSearchOptions

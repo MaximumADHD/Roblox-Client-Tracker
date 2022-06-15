@@ -5,27 +5,20 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
+local Stylizer = Framework.Style.Stylizer
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Analytics = ContextServices.Analytics
 local Localization = ContextServices.Localization
 
-local Stylizer = Framework.Style.Stylizer
-
-local Actions = Plugin.Src.Actions
-local SetMaterial = require(Actions.SetMaterial)
-
 local UI = Framework.UI
-local Image = UI.Decoration.Image
 local Pane = UI.Pane
 local TruncatedTextLabel = UI.TruncatedTextLabel
 
-local MaterialController = require(Plugin.Src.Util.MaterialController)
-
-local Flags = Plugin.Src.Flags
-local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
-local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
+local LabeledTexture = require(Plugin.Src.Components.MaterialBrowser.MaterialDetails.LabeledTexture)
+local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+local SetMaterial = require(Plugin.Src.Actions.SetMaterial)
 
 export type Props = {
 	LayoutOrder: number?,
@@ -37,11 +30,12 @@ type _Props = Props & {
 	dispatchSetMaterial: (material: _Types.Material) -> (),
 	Localization: any,
 	Material: _Types.Material?,
-	MaterialController: any,
 	Stylizer: any,
 }
 
 type _Style = {
+	AdditionalLabelSize: UDim2,
+	AdditionalTextSize: UDim2,
 	ButtonPosition: UDim2,
 	ButtonSize: UDim2,
 	ButtonStyle: string,
@@ -70,60 +64,13 @@ type _Style = {
 
 local MaterialTextures = Roact.PureComponent:extend("MaterialTextures")
 
-function MaterialTextures:init()
-	self.createTextureElement = function(name: string, image: string, layoutOrder: number)
-		local props: _Props = self.props
-		local style: _Style = props.Stylizer.MaterialDetails
-
-		return Roact.createElement(Pane, {
-			Layout = Enum.FillDirection.Horizontal,
-			LayoutOrder = layoutOrder,
-			Size = style.TextureRowSize,
-			Spacing = style.Padding,
-		}, {
-			Image = Roact.createElement(Image, {
-				LayoutOrder = 1,
-				Size = style.TextureSize,
-				Style = {
-					Image = if not getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() and image == "" then style.NoTexture else image
-				}
-			}),
-			Label = Roact.createElement(TruncatedTextLabel, {
-				LayoutOrder = 2,
-				Size = style.TextureLabelSize,
-				Text = name,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Center,
-			})
-		})
-	end
-end
-
-function MaterialTextures:willUnmount()
-	if self.connection then
-		self.connection:Disconnect()
-		self.connection = nil
-	end
-end
-
-function MaterialTextures:didMount()
-	local props: _Props = self.props
-	local materialController = props.MaterialController
-
-	self.connection = materialController:getMaterialChangedSignal():Connect(function(materialVariant: MaterialVariant)
-		if self.props.Material and self.props.Material.MaterialVariant == materialVariant then
-			self:setState({})
-		end
-	end)
-end
-
 function MaterialTextures:render()
 	local props: _Props = self.props
 	local style: _Style = props.Stylizer.MaterialDetails
 	local localization = props.Localization
 	local material = props.Material
 
-	if not material or (not getFFlagMaterialManagerGlassNeonForceField() and not material.MaterialVariant) then
+	if not material then
 		return Roact.createElement(Pane)
 	end
 
@@ -149,38 +96,37 @@ function MaterialTextures:render()
 			TextSize = style.SectionHeaderTextSize,
 			TextXAlignment = Enum.TextXAlignment.Left,
 		}),
-		ColorMap = self.createTextureElement(
-			localization:getText("MaterialTextures", "Color"),
-			colorMap,
-			layoutOrderIterator:getNextOrder()
-		),
-		MetalnessMap = self.createTextureElement(
-			localization:getText("MaterialTextures", "Metalness"),
-			metalnessMap,
-			layoutOrderIterator:getNextOrder()
-		),
-		NormalMap = self.createTextureElement(
-			localization:getText("MaterialTextures", "Normal"),
-			normalMap,
-			layoutOrderIterator:getNextOrder()
-		),
-		RoughnessMap = self.createTextureElement(
-			localization:getText("MaterialTextures", "Roughness"),
-			roughnessMap,
-			layoutOrderIterator:getNextOrder()
-		),
+		ColorMap = Roact.createElement(LabeledTexture, {
+			Name = localization:getText("MaterialTextures", "Color"),
+			Image = if colorMap == "" then style.NoTexture else colorMap,
+			LayoutOrder = layoutOrderIterator:getNextOrder()
+		}),
+		MetalnessMap = Roact.createElement(LabeledTexture, {
+			Name = localization:getText("MaterialTextures", "Metalness"),
+			Image = if metalnessMap == "" then style.NoTexture else metalnessMap,
+			LayoutOrder = layoutOrderIterator:getNextOrder()
+		}),
+		NormalMap = Roact.createElement(LabeledTexture, {
+			Name = localization:getText("MaterialTextures", "Normal"),
+			Image = if normalMap == "" then style.NoTexture else normalMap,
+			LayoutOrder = layoutOrderIterator:getNextOrder()
+		}),
+		RoughnessMap = Roact.createElement(LabeledTexture, {
+			Name = localization:getText("MaterialTextures", "Roughness"),
+			Image = if roughnessMap == "" then style.NoTexture else roughnessMap,
+			LayoutOrder = layoutOrderIterator:getNextOrder()
+		}),
 	})
 end
 
 MaterialTextures = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
-	MaterialController = MaterialController,
 	Stylizer = Stylizer,
 })(MaterialTextures)
 
 return RoactRodux.connect(
-	function(state, props)
+	function(state: MainReducer.State, props: _Props)
 		return {
 			Material = props.MockMaterial or state.MaterialBrowserReducer.Material,
 		}

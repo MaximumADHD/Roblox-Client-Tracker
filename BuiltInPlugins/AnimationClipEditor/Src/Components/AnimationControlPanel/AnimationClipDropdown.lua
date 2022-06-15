@@ -47,6 +47,8 @@ local Pause = require(Plugin.Src.Actions.Pause)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFixButtonStyle = require(Plugin.LuaFlags.GetFFlagFixButtonStyle)
+local GetFFlagCreateAnimationFromVideoTutorialEnabled = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoTutorialEnabled)
+local GetFFlagCreateAnimationFromVideoAnalytics = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoAnalytics)
 
 local AnimationClipDropdown = Roact.PureComponent:extend("AnimationClipDropdown")
 
@@ -59,6 +61,7 @@ function AnimationClipDropdown:init()
 		showPromotePrompt = false,
 		overwriteName = nil,
 		loadingName = nil,
+		showCreateAnimationFromVideoTutorial = false,
 	}
 
 	self.showMenu = function()
@@ -154,6 +157,19 @@ function AnimationClipDropdown:init()
 		})
 	end
 
+	if GetFFlagCreateAnimationFromVideoTutorialEnabled() then
+		self.setShowCreateAnimationFromVideoTutorial = function(showTutorial)
+			self:setState({
+				showCreateAnimationFromVideoTutorial = showTutorial,
+			})
+		end
+
+		self.continueAfterCreateAnimationFromVideoTutorial = function()
+			local props = self.props
+			props.CreateFromVideoAndImportFBXAnimationUserMayChooseModel(props.plugin, self, props.Analytics)
+		end
+	end
+
 	self.importRequested = function()
 		if self.props.IsDirty then
 			self.showLoadNewPrompt(IMPORT_KEY)
@@ -173,11 +189,18 @@ function AnimationClipDropdown:init()
 	end
 
 	self.createFromVideoRequested = function()
-		if self.props.IsDirty then
-			self.showLoadNewPrompt(IMPORT_FBX_KEY)
+		if GetFFlagCreateAnimationFromVideoAnalytics() then
+			self.props.Analytics:report("onAnimationEditorImportVideoCreate")
+		end
+		if GetFFlagCreateAnimationFromVideoTutorialEnabled() then
+			self.setShowCreateAnimationFromVideoTutorial(true)
 		else
-			local plugin = self.props.Plugin
-			self.props.CreateFromVideoAndImportFBXAnimationUserMayChooseModel(plugin, self, self.props.Analytics)
+			if self.props.IsDirty then
+				self.showLoadNewPrompt(IMPORT_FBX_KEY)
+			else
+				local plugin = self.props.Plugin
+				self.props.CreateFromVideoAndImportFBXAnimationUserMayChooseModel(plugin, self, self.props.Analytics)
+			end
 		end
 	end
 
@@ -248,6 +271,8 @@ function AnimationClipDropdown:render()
 	local loadingName = state.loadingName
 	local showPromotePrompt = state.showPromotePrompt
 	local style = theme.button
+
+	local showCreateAnimationFromVideoTutorial = GetFFlagCreateAnimationFromVideoTutorialEnabled() and state.showCreateAnimationFromVideoTutorial or nil
 
 	return Roact.createElement("ImageButton", {
 		Size = UDim2.new(1, -Constants.CONTROLS_WIDTH - Constants.TIME_DISPLAY_WIDTH, 1, 0),
@@ -405,6 +430,23 @@ function AnimationClipDropdown:render()
 				self.handleLoadNewPrompt()
 			end,
 			OnClose = self.hideLoadNewPrompt,
+		}),
+
+		CreateAnimationFromVideoTutorial = showCreateAnimationFromVideoTutorial and Roact.createElement(FocusedPrompt, {
+			PromptText = localization:getText("AnimationFromVideo", "TutorialText"),
+			Buttons = {
+				{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = if GetFFlagFixButtonStyle() then "Round" else nil},
+				{Key = true, Text = localization:getText("AnimationFromVideo", "ChooseVideo"), Style = if GetFFlagFixButtonStyle() then "RoundPrimary" else style.Primary},
+			},
+			OnButtonClicked = function(shouldContinue)
+				self.setShowCreateAnimationFromVideoTutorial(false)
+				if shouldContinue then
+					self.continueAfterCreateAnimationFromVideoTutorial()
+				end
+			end,
+			OnClose = function()
+				self.setShowCreateAnimationFromVideoTutorial(false)
+			end
 		}),
 	})
 end

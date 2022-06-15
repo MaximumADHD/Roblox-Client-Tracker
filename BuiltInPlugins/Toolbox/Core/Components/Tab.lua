@@ -14,15 +14,13 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
-
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
 local Constants = require(Plugin.Core.Util.Constants)
 
 local Tooltip = Framework.UI.Tooltip
-local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Framework.Util.GetTextSize else nil
+local GetTextSize = Framework.Util.GetTextSize
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -65,10 +63,7 @@ function Tab:render()
 	local tabWidth = self.props.TabWidth
 	local displayText = self.props.DisplayText
 
-	local textWidth = if FFlagRemoveUILibraryGetTextSize then
-		GetTextSize(text, nil, Constants.FONT_BOLD, Vector2.new(0, 0)).X
-	else
-		Constants.getTextSize(text, nil, Constants.FONT_BOLD).X
+	local textWidth = GetTextSize(text, nil, Constants.FONT_BOLD, Vector2.new(0, 0)).X
 	local contentColor = (selected or hovered) and tabTheme.selectedColor or tabTheme.contentColor
 
 	local tooltip = not displayText and Roact.createElement(Tooltip, {

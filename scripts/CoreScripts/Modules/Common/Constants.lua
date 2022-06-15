@@ -33,6 +33,11 @@ local Constants = {
 	SECONDARY_BUTTON_TEXTURE = "rbxasset://textures/ui/ErrorPrompt/SecondaryButton.png",
 	SHIMMER_TEXTURE = "rbxasset://textures/ui/LuaApp/graphic/shimmer_darkTheme.png",
 	OVERLAY_TEXTURE = "rbxasset://textures/ui/ErrorPrompt/ShimmerOverlay.png",
+
+	-- Server Types
+	VIP_SERVER = "VIPServer",
+	RESERVED_SERVER = "ReservedServer",
+	STANDARD_SERVER = "StandardServer",
 }
 
 return Constants

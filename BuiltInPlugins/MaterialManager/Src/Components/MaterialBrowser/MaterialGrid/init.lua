@@ -19,6 +19,7 @@ local IconButton = UI.IconButton
 
 local Actions = Plugin.Src.Actions
 local SetMaterial = require(Actions.SetMaterial)
+local SetMenuHover = require(Actions.SetMenuHover)
 
 local Components = Plugin.Src.Components
 local MaterialItem = require(Components.MaterialBrowser.MaterialGrid.MaterialItem)
@@ -35,20 +36,28 @@ local Flags = Plugin.Src.Flags
 local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
 local getFFlagMaterialManagerGridListView = require(Flags.getFFlagMaterialManagerGridListView)
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
+local getFFlagMaterialManagerHideDetails = require(Flags.getFFlagMaterialManagerHideDetails)
+local getFFlagMaterialManagerDetailsOverhaul = require(Flags.getFFlagMaterialManagerDetailsOverhaul)
 local FFlagMaterialManagerSideBarHide = game:GetFastFlag("MaterialManagerSideBarHide")
 
 local MaterialGrid = Roact.PureComponent:extend("MaterialGrid")
 
 export type Props = {
+	DetailsVisible: boolean?,
 	LayoutOrder: number?,
-	Size: UDim2?,
-	OnShowButtonClicked: () -> ()?,
+	OnSidebarButtonClicked: (() -> ())?,
+	OnShowButtonClicked: (() -> ())?,
+	OnDetailsButtonClicked: (() -> ())?,
 	SideBarVisible: boolean?,
+	Size: UDim2?,
 }
 
 type _Props = Props & {
 	Analytics: any,
+	dispatchSetMenuHover: () -> (),
+	GridLock: boolean,
 	Localization: any,
+	Material: _Types.Material,
 	MaterialController: any,
 	MaterialTileSize: number,
 	Path: _Types.Path,
@@ -59,12 +68,12 @@ type _Props = Props & {
 
 type _Style = {
 	BackgroundColor: Color3,
-	Padding: number,
+	ChevronLeft: string,
+	ChevronRight: string,
 	IconColor: Color3,
-	BottomBarTransparency: number,
-	BottomBarBackgroundColor: Color3,
-	ShowIcon: string,
 	IconSize: UDim2,
+	Padding: number,
+	ShowIcon: string,
 }
 
 type _MaterialItemStyle = {
@@ -154,6 +163,13 @@ function MaterialGrid:init()
 		end)
 	end
 
+	self.onMouseEnter = function()
+		self.props.dispatchSetMenuHover(true)
+	end
+
+	self.onMouseLeave = function()
+		self.props.dispatchSetMenuHover(false)
+	end
 
 	self.state = {
 		materials = {},
@@ -201,6 +217,10 @@ function MaterialGrid:didUpdate(prevProps)
 	end
 end
 
+function MaterialGrid:shouldUpdate(nextProps: _Props, nextState)
+	return if getFFlagMaterialManagerDetailsOverhaul() and nextProps.GridLock then false else Roact.PureComponent.shouldUpdate(self, nextProps, nextState)
+end
+
 function MaterialGrid:render()
 	local props: _Props = self.props
 	local style: _Style = props.Stylizer.MaterialGrid
@@ -237,12 +257,27 @@ function MaterialGrid:render()
 			}),
 			ShowButton = if FFlagMaterialManagerSideBarHide and not props.SideBarVisible then Roact.createElement(IconButton, {
 				Size = style.IconSize,
-				LeftIcon = style.ShowIcon,
+				LeftIcon = if getFFlagMaterialManagerHideDetails() then style.ChevronRight else style.ShowIcon,
 				IconColor = style.IconColor,
-				OnClick = props.OnShowButtonClicked,
+				OnClick = if getFFlagMaterialManagerHideDetails() then props.OnSidebarButtonClicked else props.OnShowButtonClicked,
+				OnMouseEnter = self.onMouseEnter,
+				OnMouseLeave = self.onMouseLeave,
 				AnchorPoint = Vector2.new(0, 1),
 				Position = UDim2.new(0, 5, 1, -5),
 				LayoutOrder = 2,
+				ZIndex = 2,
+			}) else nil,
+			DetailsButton = if getFFlagMaterialManagerHideDetails() and not props.DetailsVisible and props.Material then Roact.createElement(IconButton, {
+				Size = style.IconSize,
+				LeftIcon = style.ChevronLeft,
+				IconColor = style.IconColor,
+				OnClick = props.OnDetailsButtonClicked,
+				OnMouseEnter = self.onMouseEnter,
+				OnMouseLeave = self.onMouseLeave,
+				AnchorPoint = Vector2.new(1, 0),
+				Position = UDim2.new(1, -5, 0, 5),
+				LayoutOrder = 3,
+				ZIndex = 2,
 			}) else nil,
 		})
 	else
@@ -267,16 +302,41 @@ function MaterialGrid:render()
 					materialTileStyle.Padding,
 				RenderItem = self.renderTile,
 				Size = UDim2.fromScale(1, 1),
+				Position = UDim2.fromOffset(0, 0),
+				ZIndex = 1,
 			}),
-			ShowButton = if FFlagMaterialManagerSideBarHide and not props.SideBarVisible then Roact.createElement(IconButton, {
-				Size = style.IconSize,
-				LeftIcon = style.ShowIcon,
-				IconColor = style.IconColor,
-				OnClick = props.OnShowButtonClicked,
-				AnchorPoint = Vector2.new(0, 1),
-				Position = UDim2.new(0, 5, 1, -5),
+			Pane = Roact.createElement(Pane, {
 				LayoutOrder = 2,
-			}) else nil,
+				Size = UDim2.fromScale(1, 1),
+				Position = UDim2.fromOffset(0, 0),
+				ZIndex = 2,
+			}, {
+				SidebarButton = if FFlagMaterialManagerSideBarHide and not props.SideBarVisible then Roact.createElement(IconButton, {
+					Size = style.IconSize,
+					LeftIcon = if getFFlagMaterialManagerHideDetails() then style.ChevronRight else style.ShowIcon,
+					IconColor = style.IconColor,
+					OnClick = if getFFlagMaterialManagerHideDetails() then props.OnSidebarButtonClicked else props.OnShowButtonClicked,
+					OnMouseEnter = self.onMouseEnter,
+					OnMouseLeave = self.onMouseLeave,
+					AnchorPoint = Vector2.new(0, 1),
+					Position = UDim2.new(0, 5, 1, -5),
+					LayoutOrder = 1,
+					ZIndex = 2,
+				}) else nil,
+				DetailsButton = if getFFlagMaterialManagerHideDetails() and not props.DetailsVisible and props.Material then Roact.createElement(IconButton, {
+					Size = style.IconSize,
+					LeftIcon = style.ChevronLeft,
+					IconColor = style.IconColor,
+					OnClick = props.OnDetailsButtonClicked,
+					OnMouseEnter = self.onMouseEnter,
+					OnMouseLeave = self.onMouseLeave,
+					AnchorPoint = Vector2.new(1, 0),
+					Position = UDim2.new(1, -5, 0, 5),
+					LayoutOrder = 2,
+					ZIndex = 2,
+				}) else nil,
+			})
+
 		})
 	end
 end
@@ -291,6 +351,8 @@ MaterialGrid = withContext({
 return RoactRodux.connect(
 	function(state, props)
 		return {
+			GridLock = getFFlagMaterialManagerDetailsOverhaul() and state.MaterialBrowserReducer.GridLock or nil,
+			Material = getFFlagMaterialManagerHideDetails() and state.MaterialBrowserReducer.Material or nil,
 			Path = state.MaterialBrowserReducer.Path,
 			MaterialTileSize = state.MaterialBrowserReducer.MaterialTileSize,
 			Search = state.MaterialBrowserReducer.Search,
@@ -301,6 +363,9 @@ return RoactRodux.connect(
 		return {
 			dispatchSetMaterial = function(material)
 				dispatch(SetMaterial(material))
+			end,
+			dispatchSetMenuHover = function(menuHover)
+				dispatch(SetMenuHover(menuHover))
 			end,
 		}
 	end

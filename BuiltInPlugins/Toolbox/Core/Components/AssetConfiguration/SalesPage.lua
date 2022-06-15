@@ -17,8 +17,6 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
-
 local ContentProvider = game:GetService("ContentProvider")
 local GuiService = game:GetService("GuiService")
 
@@ -37,7 +35,7 @@ local PriceComponent = require(AssetConfiguration.PriceComponent)
 local SetFieldError = require(Plugin.Core.Actions.SetFieldError)
 
 local Separator = Framework.UI.Separator
-local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Framework.Util.GetTextSize else nil
+local GetTextSize = Framework.Util.GetTextSize
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
@@ -108,10 +106,7 @@ function SalesPage:renderContent(theme, localization, localizedContent)
 	local premiumBenefitsSize
 	if AssetConfigUtil.isCatalogAsset(props.assetTypeEnum) then
 		premiumBenefitsLink = string.format(ContentProvider.BaseUrl .. "catalog/configure?id=%d#!/sales", props.assetId)
-		premiumBenefitsSize = if FFlagRemoveUILibraryGetTextSize then
-			GetTextSize(localizedContent.Sales.PremiumBenefits, nil, nil, Vector2.new(0, 0))
-		else
-			Constants.getTextSize(localizedContent.Sales.PremiumBenefits)
+		premiumBenefitsSize = GetTextSize(localizedContent.Sales.PremiumBenefits, nil, nil, Vector2.new(0, 0))
 	end
 
 	local orderIterator = LayoutOrderIterator.new()

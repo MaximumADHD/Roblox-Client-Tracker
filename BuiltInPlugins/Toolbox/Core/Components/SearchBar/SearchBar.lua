@@ -17,8 +17,6 @@
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
-
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
@@ -30,7 +28,7 @@ local withLocalization = ContextHelper.withLocalization
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Framework.Util.GetTextSize else nil
+local GetTextSize = Framework.Util.GetTextSize
 
 local RoundButton = require(Plugin.Core.Components.RoundButton)
 local SearchBarButtons = require(Plugin.Core.Components.SearchBar.SearchBarButtons)
@@ -198,7 +196,7 @@ function SearchBar:renderContent(theme, localization, localizedContent)
 
 	local parentWidth = containerWidth - adjustedButtonsWidth - (2 * innerPadding)
 
-	local textWidth = if FFlagRemoveUILibraryGetTextSize then GetTextSize(text, nil, nil, Vector2.new(0, 0)).x else Constants.getTextSize(text).x
+	local textWidth = GetTextSize(text, nil, nil, Vector2.new(0, 0)).x
 	local isShorterThanParent = textWidth < parentWidth
 
 	local searchBarTheme = theme.searchBar

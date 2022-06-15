@@ -3,13 +3,13 @@
 ]]
 
 local root = script.Parent.Parent.Parent
-local FFlagAvatarImporterDeduplicatePackages = game:GetFastFlag("AvatarImporterDeduplicatePackages")
+
 -- services
 local GuiService = game:GetService("GuiService")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 
 -- imports
-local Roact = if FFlagAvatarImporterDeduplicatePackages then require(root.Packages.Roact) else require(root.Packages._Old.lib.Roact)
+local Roact = require(root.Packages.Roact)
 
 local Assets = require(root.src.Assets)
 

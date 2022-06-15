@@ -22,6 +22,10 @@ local GetFFlagUIBloxEnableActionBarLayoutFix = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableActionBarLayoutFix
 )
 
+local GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix = require(
+		CorePackages.UIBloxFlags.GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix
+)
+
 return {
 	useNewUICornerRoundedCorners = GetFFlagLuaAppUseNewUIBloxRoundedCorners(),
 	genericSliderFilterOldTouchInputs = true,
@@ -43,4 +47,5 @@ return {
 
 	-- Config to enable new icon sizes
 	enableNewIconSizes = game:DefineFastFlag("UIBloxUseNewIconSizes", false),
+	enableGenericButtonHoverBackgroundFix = GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix(),
 }

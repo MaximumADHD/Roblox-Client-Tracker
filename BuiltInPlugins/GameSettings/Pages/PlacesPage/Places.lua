@@ -17,8 +17,6 @@
 ]]
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
-
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 local GetEditKeyName = KeyProvider.getEditKeyName
 local GetVersionHistoryKeyName = KeyProvider.getVersionHistoryKeyName
@@ -27,11 +25,16 @@ local Page = script.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
-
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+
+local Util = Framework.Util
+local deepJoin = Util.deepJoin
+local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
+local GetTextSize = Util.GetTextSize
+local LayoutOrderIterator = Util.LayoutOrderIterator
 
 local FrameworkUI = Framework.UI
 local Button = FrameworkUI.Button
@@ -39,12 +42,7 @@ local HoverArea = FrameworkUI.HoverArea
 local Separator = FrameworkUI.Separator
 local LinkText = FrameworkUI.LinkText
 
-local LayoutOrderIterator = Util.LayoutOrderIterator
-local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
-local deepJoin = Util.deepJoin
-
 local UILibrary = require(Plugin.Packages.UILibrary)
-local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Util.GetTextSize else UILibrary.Util.GetTextSize
 local TitledFrame = UILibrary.Component.TitledFrame
 local RoundTextBox = UILibrary.Component.RoundTextBox
 

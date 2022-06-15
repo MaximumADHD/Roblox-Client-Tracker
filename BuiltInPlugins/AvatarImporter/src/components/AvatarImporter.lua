@@ -3,11 +3,10 @@
 ]]
 
 local root = script.Parent.Parent.Parent
-local FFlagAvatarImporterDeduplicatePackages = game:GetFastFlag("AvatarImporterDeduplicatePackages")
 
 -- imports
-local Roact = if FFlagAvatarImporterDeduplicatePackages then require(root.Packages.Roact) else require(root.Packages._Old.lib.Roact)
-local RoactRodux = if FFlagAvatarImporterDeduplicatePackages then require(root.Packages.RoactRodux) else require(root.Packages._Old.lib.RoactRodux)
+local Roact = require(root.Packages.Roact)
+local RoactRodux = require(root.Packages.RoactRodux)
 
 local Constants = require(root.src.Constants)
 local AvatarPrompt = require(root.src.components.AvatarPrompt)

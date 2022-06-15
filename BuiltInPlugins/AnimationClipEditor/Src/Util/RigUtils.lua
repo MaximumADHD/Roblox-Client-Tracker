@@ -32,6 +32,8 @@ local GetFFlagBoneAdornmentSelection = require(Plugin.LuaFlags.GetFFlagBoneAdorn
 local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 
 local FFlagFixGetBoneFromBoneNode = game:DefineFastFlag("ACEFixGetBoneFromBoneNode", false)
+local FFlagCheckPart0OfMotor6DExists = game:DefineFastFlag("CheckPart0OfMotor6DExists", false)
+
 
 local RigUtils = {}
 
@@ -266,7 +268,7 @@ function RigUtils.findRootPart(rig)
 	if currentPart then
 		while not root do
 			local motor = motorMap[currentPart]
-			if motor then
+			if motor and (not FFlagCheckPart0OfMotor6DExists or motorMap[currentPart].Part0) then
 				currentPart = motorMap[currentPart].Part0.Name
 			else
 				root = currentPart

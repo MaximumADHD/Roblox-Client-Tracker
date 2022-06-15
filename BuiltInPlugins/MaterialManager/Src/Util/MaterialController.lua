@@ -9,7 +9,6 @@ local Signal = FrameworkUtil.Signal
 
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialPack2022Update = require(Flags.getFFlagMaterialPack2022Update)
-local getFFlagMaterialServiceOverrideChangedSignal = require(Flags.getFFlagMaterialServiceOverrideChangedSignal)
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
 local getFFlagDevFrameworkMockWrapper = require(Flags.getFFlagDevFrameworkMockWrapper)
 
@@ -53,7 +52,7 @@ end
 
 local MaterialController = ContextItem:extend("MaterialController")
 
-function MaterialController.new(initialMaterialVariants : _Types.Array<MaterialVariant>, materialServiceWrapper : any)
+function MaterialController.new(initialMaterialVariants: _Types.Array<MaterialVariant>, materialServiceWrapper: any)
 	if getFFlagMaterialManagerGlassNeonForceField() then
 		assert(not initialMaterialVariants, "MaterialController should not take an initialMaterialVariants argument with FFlagMaterialManagerGlassNeonForceField enabled.")
 	end
@@ -133,8 +132,6 @@ function MaterialController.new(initialMaterialVariants : _Types.Array<MaterialV
 			self._nameToEnum[materialName] = materialEnum
 		end
 	end
-
-
 
 	return self
 end
@@ -436,8 +433,6 @@ function MaterialController:getUses2022Materials(): boolean
 end
 
 function MaterialController:getMaterialOverrideChangedSignal(material : Enum.Material)
-	assert(getFFlagMaterialServiceOverrideChangedSignal(), "Enable FFlagMaterialServiceOverrideChangedSignal in order to use this functionality.")
-
 	if getFFlagDevFrameworkMockWrapper() then
 		return self._materialServiceWrapper:asService():GetMaterialOverrideChanged(material)
 	else

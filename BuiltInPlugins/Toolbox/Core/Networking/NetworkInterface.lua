@@ -22,18 +22,15 @@ local Category = require(Plugin.Core.Types.Category)
 
 local ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
 
-local FFlagAssetConfigDynamicDistributionQuotas = game:GetFastFlag("AssetConfigDynamicDistributionQuotas")
+local FFlagAssetConfigDynamicDistributionQuotas2 = game:GetFastFlag("AssetConfigDynamicDistributionQuotas2")
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
-local FIntToolboxGrantUniverseAudioPermissionsTimeoutInMS = game:GetFastInt(
-	"ToolboxGrantUniverseAudioPermissionsTimeoutInMS"
-)
-
+local FIntToolboxGrantUniverseAudioPermissionsTimeoutInMS = game:GetFastInt("ToolboxGrantUniverseAudioPermissionsTimeoutInMS")
 local FFlagPackagesApiEnabled = game:GetFastFlag("PackagesApiEnabled")
 
 local NetworkInterface = {}
 NetworkInterface.__index = NetworkInterface
 
-local FFlagInfiniteScrollerForVersions = game:getFastFlag("InfiniteScrollerForVersions")
+local FFlagInfiniteScrollerForVersions2 = game:getFastFlag("InfiniteScrollerForVersions2")
 
 function NetworkInterface.new()
 	local networkImp = {
@@ -382,7 +379,7 @@ end
 -- invocations of this function or getVersionHistory() for the given assetId.
 -- cursor must not be nil.
 function NetworkInterface:getVersionHistoryPage(assetId, cursor)
-	assert(FFlagInfiniteScrollerForVersions)
+	assert(FFlagInfiniteScrollerForVersions2)
 	assert(cursor ~= nil)
 	local targetUrl = Urls.constructAssetSavedVersionPageString(assetId, cursor)
 
@@ -894,7 +891,7 @@ if FFlagToolboxAudioAssetConfigIdVerification then
 	end
 end
 
-if FFlagAssetConfigDynamicDistributionQuotas then
+if FFlagAssetConfigDynamicDistributionQuotas2 then
 	function NetworkInterface:getCreatorMarketplaceQuotas(assetType: Enum.AssetType, resourceType: AssetQuotaTypes.AssetQuotaResourceType)
 		local targetUrl = Urls.getCreatorMarketplaceQuotas(assetType, resourceType)
 		printUrl("getCreatorMarketplaceQuotas", "GET", targetUrl)

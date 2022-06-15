@@ -1,8 +1,8 @@
 local root = script.Parent.Parent.Parent
-local FFlagAvatarImporterDeduplicatePackages = game:GetFastFlag("AvatarImporterDeduplicatePackages")
+
 -- imports
-local Rodux = if FFlagAvatarImporterDeduplicatePackages then require(root.Packages.Rodux) else require(root.Packages._Old.lib.Rodux)
-local Cryo = if FFlagAvatarImporterDeduplicatePackages then require(root.Packages.Cryo) else require(root.Packages._Old.lib.Cryo)
+local Rodux = require(root.Packages.Rodux)
+local Cryo = require(root.Packages.Cryo)
 
 local actions = root.src.actions
 local SetError = require(actions.SetError)

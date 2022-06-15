@@ -47,7 +47,7 @@ type _InteralAudioWrapperProps = {
 }
 
 type _ExternalAudioRowProps = {
-	AssetSections: { HomeTypes.Subcategory },
+	AssetSections: { HomeTypes.HomeConfigurationSection },
 	CategoryName: string,
 	LayoutOrder: number?,
 	OnClickSubcategory: ((

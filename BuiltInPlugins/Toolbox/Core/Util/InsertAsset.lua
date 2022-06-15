@@ -12,7 +12,6 @@ local Category = require(Plugin.Core.Types.Category)
 local webKeys = require(Plugin.Core.Util.Permissions.Constants).webKeys
 
 local FFlagToolboxFixDragInsertRemains = game:GetFastFlag("ToolboxFixDragInsertRemains")
-local FFlagToolboxGrantUniverseAudioPermissions = game:GetFastFlag("ToolboxGrantUniverseAudioPermissions")
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
 local FFlagBubbleUpNetworkInterface = game:GetFastFlag("InsertAssetBubbleUpNetwork")
 
@@ -131,9 +130,7 @@ local function insertAudio(assetId, assetName, insertToolPromise, localization, 
 		print(("Inserting sound %s"):format(url))
 	end
 
-	if FFlagToolboxGrantUniverseAudioPermissions then
-		grantAssetPermission(assetId, networkInterface) -- networkInterface added with FFLagInsertAssetBubbleUpNetwork
-	end
+	grantAssetPermission(assetId, networkInterface) -- networkInterface added with FFLagInsertAssetBubbleUpNetwork
 
 	local soundObj = Instance.new("Sound")
 	soundObj.SourceAssetId = assetId

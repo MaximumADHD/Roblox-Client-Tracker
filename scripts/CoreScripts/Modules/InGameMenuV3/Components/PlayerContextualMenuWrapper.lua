@@ -254,6 +254,10 @@ function PlayerContextualMenuWrapper:getFriendAction(localized, player)
 		return nil
 	end
 
+	if player.Parent ~= Players or Players.LocalPlayer.Parent ~= Players then
+		return nil
+	end
+
 	-- if we're not friends yet, we can either send a friend request
 	local friendStatus = self.props.playersService.LocalPlayer:GetFriendStatus(player)
 	if friendStatus == Enum.FriendStatus.Unknown or friendStatus == Enum.FriendStatus.NotFriend then
@@ -397,6 +401,10 @@ function PlayerContextualMenuWrapper:getMutePlayerAction(localized, player)
 		return nil
 	end
 
+	if player.Parent ~= Players or Players.LocalPlayer.Parent ~= Players then
+		return nil
+	end
+
 	if self.props.voiceEnabled then
 		local voiceParticipant = VoiceChatServiceManager.participants[tostring(player.UserId)]
 		if voiceParticipant then
@@ -449,6 +457,10 @@ function PlayerContextualMenuWrapper:getUnfriendAction(localized, player, isFrie
 	end
 
 	if not isFriendsWithPlayer then
+		return nil
+	end
+
+	if player.Parent ~= Players or Players.LocalPlayer.Parent ~= Players then
 		return nil
 	end
 

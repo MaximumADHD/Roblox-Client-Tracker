@@ -40,10 +40,10 @@ local Requests = Plugin.Core.Networking.Requests
 local GetVersionsHistoryRequest = require(Requests.GetVersionsHistoryRequest)
 local MakeChangeRequest = require(Requests.MakeChangeRequest)
 
-local FFlagInfiniteScrollerForVersions = game:getFastFlag("InfiniteScrollerForVersions")
+local FFlagInfiniteScrollerForVersions2 = game:getFastFlag("InfiniteScrollerForVersions2")
 local GetVersionsHistoryPageRequest
 local InfiniteScrollingGrid
-if FFlagInfiniteScrollerForVersions then
+if FFlagInfiniteScrollerForVersions2 then
 	GetVersionsHistoryPageRequest = require(Requests.GetVersionsHistoryPageRequest)
 	InfiniteScrollingGrid = Framework.UI.InfiniteScrollingGrid
 end
@@ -101,10 +101,10 @@ function Versions:init(props)
 		-- when we do an update (see didUpdate()) and automatically redraw with
 		-- a call to setState. If we did self.previousVersions, we'd have to
 		-- test in every call to render.
-		previousVersions = FFlagInfiniteScrollerForVersions and {} or nil,
+		previousVersions = FFlagInfiniteScrollerForVersions2 and {} or nil,
 	}
 
-	if FFlagInfiniteScrollerForVersions then
+	if FFlagInfiniteScrollerForVersions2 then
 		-- The page cursor for the page we've requested but not yet acknowledged receipt.
 		self.loadingPage = INITIAL_PAGE
 	end
@@ -185,7 +185,7 @@ function Versions:didUpdate(previousProps, previousState)
 	local currentItem = previousState.currentItem
 
 	local versionHistory = self.props.versionHistory
-	if FFlagInfiniteScrollerForVersions then
+	if FFlagInfiniteScrollerForVersions2 then
 		if versionHistory then
 			if (not next(currentItem)) and versionHistory.data then
 				self:setState({
@@ -208,10 +208,12 @@ function Versions:didUpdate(previousProps, previousState)
 	-- Otherwise, we test to see if the *new* page to read is different from
 	-- the previous page we've read; that suggests we've finished reading
 	-- the page; clear the loadingPage data.
-	if FFlagInfiniteScrollerForVersions and self.loadingPage then
-		local hasNewPage = previousProps.versionHistory and
-			previousProps.versionHistory.nextPageCursor ~= self.props.versionHistory.nextPageCursor
-		if self.loadingPage == INITIAL_PAGE or hasNewPage then
+	-- If version history is nil, the initial page hasn't even loaded, so just
+	-- bail out.
+	if FFlagInfiniteScrollerForVersions2 and self.loadingPage and versionHistory then
+		local loadedInitialPage = (self.loadingPage == INITIAL_PAGE)
+		local loadedNextPage = (previousProps.versionHistory and previousProps.versionHistory.nextPageCursor ~= versionHistory.nextPageCursor)
+		if loadedInitialPage or loadedNextPage then
 			self.loadingPage = nil
 			-- We've completed reading in new data. That means we need to read
 			-- the newly added previous versions into our state. Ideally,
@@ -222,7 +224,7 @@ function Versions:didUpdate(previousProps, previousState)
 			-- directly to the state and passing it back in to trigger
 			-- state-update related actions. But the table is always the same
 			-- table for the grid's sake.
-			copyPreviousVersions(self.props.versionHistory.data, self.state.previousVersions)
+			copyPreviousVersions(versionHistory.data, self.state.previousVersions)
 			self:setState({
 				previousVersions = self.state.previousVersions
 			})
@@ -232,7 +234,7 @@ end
 
 
 local createItemList
-if not FFlagInfiniteScrollerForVersions then
+if not FFlagInfiniteScrollerForVersions2 then
 	createItemList = function(props)
 		local itemList = {
 			UIListLayout = Roact.createElement("UIListLayout", {
@@ -284,7 +286,7 @@ function Versions:renderContent(theme, localization, localizedContent)
 	local LayoutOrder = props.LayoutOrder
 	local Size = props.Size
 
-	if FFlagInfiniteScrollerForVersions then
+	if FFlagInfiniteScrollerForVersions2 then
 		local nextPageCursor = nil
 		local hasPreviousVersions = nil
 		local previousVersions = nil
@@ -502,7 +504,7 @@ local function mapDispatchToProps(dispatch)
 			dispatch(GetVersionsHistoryRequest(networkInterface, assetId))
 		end,
 
-		getVersionHistoryPage = FFlagInfiniteScrollerForVersions and function(networkInterface, assetId, pageCursor)
+		getVersionHistoryPage = FFlagInfiniteScrollerForVersions2 and function(networkInterface, assetId, pageCursor)
 			dispatch(GetVersionsHistoryPageRequest(networkInterface, assetId, pageCursor))
 		end or nil,
 

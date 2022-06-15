@@ -8,6 +8,11 @@ local darkThemeOverride = {
 	[StyleKey.EmphasisTextColor] = Color3.fromRGB(255, 255, 255),
 	[StyleKey.ScrollbarColor] = Color3.fromRGB(204, 204, 204),
 	[StyleKey.SubTitleTextColor] = Color3.fromRGB(170, 170, 170),
+	Separator = {
+		["Weight"] = 1,
+		["StretchMargin"] = 7,
+		["Color"] = Color3.fromRGB(170, 170, 170),
+	},
 }
 
 local lightThemeOverride = {
@@ -15,6 +20,11 @@ local lightThemeOverride = {
 	[StyleKey.EmphasisTextColor] = Color3.fromRGB(0, 0, 0),
 	[StyleKey.ScrollbarColor] = Color3.fromRGB(25, 25, 25),
 	[StyleKey.SubTitleTextColor] = Color3.fromRGB(0, 0, 0),
+	Separator = {
+		["Weight"] = 1,
+		["StretchMargin"] = 7,
+		["Color"] = Color3.fromRGB(0, 0, 0),
+	},
 }
 
 local styleRoot = StudioTheme.new(darkThemeOverride, lightThemeOverride)

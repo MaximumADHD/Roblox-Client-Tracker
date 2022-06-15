@@ -39,6 +39,7 @@ local InstanceSelectorTile = Components.InstanceSelectorTile
 local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
 local AvatarToolsSharedConstants = AccessoryAndBodyToolSharedUtil.Constants
 local PreviewConstantsInterface = AccessoryAndBodyToolSharedUtil.PreviewConstantsInterface
+local PreviewFolderManager = AccessoryAndBodyToolSharedUtil.PreviewFolderManager
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -53,6 +54,7 @@ local UpdatePreviewAssetsSelected = require(Plugin.Src.Thunks.UpdatePreviewAsset
 local GetPrebuiltAssetsInfo = require(Plugin.Src.Thunks.GetPrebuiltAssetsInfo)
 local StartSelectingFromExplorer = require(Plugin.Src.Thunks.StartSelectingFromExplorer)
 local FinishSelectingFromExplorer = require(Plugin.Src.Thunks.FinishSelectingFromExplorer)
+local DeleteUserAddedAssetForPreview = require(Plugin.Src.Thunks.DeleteUserAddedAssetForPreview)
 
 local EditingItemContext = AvatarToolsShared.Contexts.EditingItemContext
 local AssetServiceWrapper = AvatarToolsShared.Contexts.AssetServiceWrapper
@@ -73,8 +75,17 @@ local function getSelectedIds(self)
 	return Cryo.List.toSet(Cryo.Dictionary.keys(selectedAssetsforTab))
 end
 
+local function getUserAddedAssets(self, selectedTab)
+	local props = self.props
+	local userAddedAssets = props.UserAddedAssets
+
+	return userAddedAssets and userAddedAssets[selectedTab] or {}
+end
+
 function Grid:init()
 	self.gridRef = Roact.createRef()
+
+	self.previewFolder = PreviewFolderManager.new()
 
 	self.onClickAddNewInstance = function()
 		local props = self.props
@@ -87,22 +98,25 @@ function Grid:init()
 		end
 	end
 
-	self.isSelectedInstanceValid = function(item)
+	self.isInstanceValidForTab = function(tab, instance)
 		local props = self.props
-
-		local selectedTab = props.SelectedTab
 		local editingItem = props.EditingItemContext:getItem()
-
-		local tabInfo = PreviewConstantsInterface.getTabInfo(selectedTab)
-		if not tabInfo.IsSelectedInstanceValid(item) then
+		local tabInfo = PreviewConstantsInterface.getTabInfo(tab)
+		if not tabInfo or not tabInfo.IsSelectedInstanceValid(instance) then
 			return false
 		end
-
-		local isPreviewModel = item:FindFirstAncestor("LayeredClothingEditorPreview") ~= nil
-		local isEditingItem = item == editingItem
-		local isMannequin = item == editingItem.Parent
+		local isPreviewModel = instance:FindFirstAncestor("LayeredClothingEditorPreview") ~= nil
+		local isEditingItem = instance == editingItem
+		local isMannequin = instance == editingItem.Parent
 
 		return not (isPreviewModel or isEditingItem or isMannequin)
+	end
+
+	self.isSelectedInstanceValid = function(instance)
+		local props = self.props
+		local selectedTab = props.SelectedTab
+
+		return self.isInstanceValidForTab(selectedTab, instance)
 	end
 
 	self.onInstanceSelectorValidSelection = function(instance)
@@ -112,10 +126,9 @@ function Grid:init()
 				itemName = instance.Name,
 			}),
 			OnConfirm = function()
-				local props = self.props
 				local selectedTab = props.SelectedTab
 
-				self.props.FinishSelectingFromExplorer(instance)
+				props.FinishSelectingFromExplorer(instance)
 				props.UpdateUserAddedAssets(selectedTab, instance:Clone())
 			end,
 		})
@@ -133,13 +146,6 @@ function Grid:init()
 			})
 		end
 	end
-end
-
-local function getUserAddedAssets(self, selectedTab)
-	local props = self.props
-	local userAddedAssets = props.UserAddedAssets
-
-	return userAddedAssets and userAddedAssets[selectedTab] or {}
 end
 
 local function getUserAddedAssetIds(self, selectedTab)
@@ -214,21 +220,24 @@ function Grid:render()
 				IsSelectedInstanceValid = self.isSelectedInstanceValid,
 				OnClickAddNewInstance = self.onClickAddNewInstance,
 				OnInstanceSelectorValidSelection = self.onInstanceSelectorValidSelection,
-				OnInstanceSelectorInvalidSelection = self.onInstanceSelectorInvalidSelection
-			})
+				OnInstanceSelectorInvalidSelection = self.onInstanceSelectorInvalidSelection,
+			}),
 		})
 
 		local ids, info = combineAssetInfo(self, selectedTab)
-		children = Cryo.Dictionary.join(children, AssetThumbnailTiles({
-			AssetIds = ids,
-			AssetsInfo = info,
-			LayoutOrder = orderIterator:getNextOrder(),
-			SelectedTiles = getSelectedIds(self),
-			DefaultThumbnail = theme.DefaultTileImages[selectedTab],
-			OnThumbnailClick = function(id, selected)
-				self.props.UpdatePreviewAssetsSelected(id, not selected)
-			end,
-		}))
+		children = Cryo.Dictionary.join(
+			children,
+			AssetThumbnailTiles({
+				AssetIds = ids,
+				AssetsInfo = info,
+				LayoutOrder = orderIterator:getNextOrder(),
+				SelectedTiles = getSelectedIds(self),
+				DefaultThumbnail = theme.DefaultTileImages[selectedTab],
+				OnThumbnailClick = function(id, selected)
+					self.props.UpdatePreviewAssetsSelected(id, not selected)
+				end,
+			})
+		)
 	end
 
 	return Roact.createElement(ScrollableGrid, {
@@ -247,8 +256,18 @@ function Grid:didMount()
 	local arrayOfAssetIds = PreviewConstantsInterface.getAllAssetIds()
 	local arrayOfBundleIds = PreviewConstantsInterface.getAllBundleIds()
 	self.props.GetPrebuiltAssetsInfo(API, assetService, arrayOfAssetIds, arrayOfBundleIds)
-end
 
+	if not next(self.props.UserAddedAssets) then
+		self.previewFolder:resetAllFoldersAttributes()
+	end
+
+	self.previewFolder:cleanDirtyFolders(self.props.UserAddedAssets, self.props.DeleteUserAddedAssetForPreview)
+	self.previewFolder:addDirtyFolders(
+		self.props.UserAddedAssets,
+		self.isInstanceValidForTab,
+		self.props.UpdateUserAddedAssets
+	)
+end
 
 Grid = withContext({
 	Stylizer = ContextServices.Stylizer,
@@ -285,6 +304,9 @@ local function mapDispatchToProps(dispatch)
 		end,
 		FinishSelectingFromExplorer = function(item)
 			dispatch(FinishSelectingFromExplorer())
+		end,
+		DeleteUserAddedAssetForPreview = function(tab, index)
+			dispatch(DeleteUserAddedAssetForPreview(tab, index))
 		end,
 	}
 end

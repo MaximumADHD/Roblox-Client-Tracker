@@ -47,6 +47,9 @@ function DebuggerToolbarButtons:init(props)
 	self.onStepOver = function(actionSource)
 		local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
 		local connection = debuggerConnectionManager:GetConnectionById(self.props.CurrentConnectionId)
+		if self.props.CurrentThreadId == nil or connection == nil then
+			return
+		end
 		connection:Step(self.getThreadForStepping(connection), function() end)
 
 		self.props.Analytics:report(AnalyticsEventNames.CallstackStepOver, actionSource)
@@ -55,6 +58,9 @@ function DebuggerToolbarButtons:init(props)
 	self.onStepInto = function(actionSource)
 		local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
 		local connection = debuggerConnectionManager:GetConnectionById(self.props.CurrentConnectionId)
+		if self.props.CurrentThreadId == nil or connection == nil then
+			return
+		end
 		connection:StepIn(self.getThreadForStepping(connection), function() end)
 
 		self.props.Analytics:report(AnalyticsEventNames.CallstackStepInto, actionSource)
@@ -63,6 +69,9 @@ function DebuggerToolbarButtons:init(props)
 	self.onStepOut = function(actionSource)
 		local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
 		local connection = debuggerConnectionManager:GetConnectionById(self.props.CurrentConnectionId)
+		if self.props.CurrentThreadId == nil or connection == nil then
+			return
+		end
 		connection:StepOut(self.getThreadForStepping(connection), function() end)
 
 		self.props.Analytics:report(AnalyticsEventNames.CallstackStepOut, actionSource)

@@ -14,7 +14,7 @@ local FStringToolboxAssetConfigEnabledAudioSharingLearnMoreLink = game:GetFastSt
 local FFlagToolboxAssetConfigurationMatchPluginFlow = game:GetFastFlag("ToolboxAssetConfigurationMatchPluginFlow")
 local FFlagToolboxAssetConfigurationFixPriceToggle = game:getFastFlag("ToolboxAssetConfigurationFixPriceToggle")
 local FFlagAssetConfigSharingDesignTweaks = game:GetFastFlag("AssetConfigSharingDesignTweaks")
-local FFlagAssetConfigDynamicDistributionQuotas = game:GetFastFlag("AssetConfigDynamicDistributionQuotas")
+local FFlagAssetConfigDynamicDistributionQuotas2 = game:GetFastFlag("AssetConfigDynamicDistributionQuotas2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -115,7 +115,7 @@ function ConfigCopy:init(props)
 		end
 	end
 
-	if FFlagAssetConfigDynamicDistributionQuotas then
+	if FFlagAssetConfigDynamicDistributionQuotas2 then
 		self.distributionQuotaPolicy = ToolboxUtilities.getAssetConfigDistributionQuotas()
 	else
 		self.distributionQuotas = ToolboxUtilities.getAssetConfigDistributionQuotas()
@@ -127,7 +127,7 @@ function ConfigCopy:init(props)
 			return
 		end
 
-		local quotaPolicyForAssetType = if FFlagAssetConfigDynamicDistributionQuotas
+		local quotaPolicyForAssetType = if FFlagAssetConfigDynamicDistributionQuotas2
 			then self.distributionQuotaPolicy[assetType.Name]
 			else self.distributionQuotas[assetType.Name]
 		if not quotaPolicyForAssetType or not quotaPolicyForAssetType.link then
@@ -153,7 +153,7 @@ function ConfigCopy:didMount(prevProps, prevState)
 		end)
 	end)
 
-	if FFlagAssetConfigDynamicDistributionQuotas then
+	if FFlagAssetConfigDynamicDistributionQuotas2 then
 		self:updateDistributionQuotas()
 	end
 end
@@ -189,12 +189,12 @@ function ConfigCopy:didUpdate(prevProps, prevState)
 		end)
 	end
 
-	if FFlagAssetConfigDynamicDistributionQuotas and assetType ~= prevProps.AssetType then
+	if FFlagAssetConfigDynamicDistributionQuotas2 and assetType ~= prevProps.AssetType then
 		self:updateDistributionQuotas()
 	end
 end
 
-if FFlagAssetConfigDynamicDistributionQuotas then
+if FFlagAssetConfigDynamicDistributionQuotas2 then
 	function ConfigCopy:updateDistributionQuotas()
 		local networkInterface = getNetwork(self)
 
@@ -255,11 +255,9 @@ if FFlagAssetConfigDynamicDistributionQuotas then
 		if quotaPolicyForAssetType and distributionQuota then
 			local usage = distributionQuota.usage
 			local capacity = distributionQuota.capacity
-			local expirationTime = distributionQuota.expirationTime
+			local expirationTime = distributionQuota.expirationTime or ""
 			local localeId = self.props.Localization:getLocale()
-			local formattedDate = formatLocalDateTime(expirationTime, "MMM D", localeId)
-			local formattedDateTime = formatLocalDateTime(expirationTime, "MMM D, h:mmA", localeId)
-
+			
 			if capacity < 1 then
 				publishingEnabled = false
 				quotaMessageText = props.Localization:getText(
@@ -278,6 +276,7 @@ if FFlagAssetConfigDynamicDistributionQuotas then
 					)
 			elseif usage >= capacity then
 				publishingEnabled = false
+				local formattedDateTime = formatLocalDateTime(expirationTime, "MMM D, h:mmA", localeId)
 				quotaMessageText = props.Localization:getText(
 					"AssetConfigSharing",
 					"DistributeMarketplaceQuotaExhausted1",
@@ -286,6 +285,7 @@ if FFlagAssetConfigDynamicDistributionQuotas then
 					}
 				)
 			elseif usage > 0 then
+				local formattedDate = formatLocalDateTime(expirationTime, "MMM D", localeId)
 				quotaMessageText = props.Localization:getText(
 					"AssetConfigSharing",
 					"DistributeMarketplaceQuotaRemaining2",
@@ -328,7 +328,7 @@ function ConfigCopy:render()
 	local quotaMessageText
 	local quotaLinkText
 	if assetType and CopyEnabled then
-		if FFlagAssetConfigDynamicDistributionQuotas then
+		if FFlagAssetConfigDynamicDistributionQuotas2 then
 			local publishingEnabled
 			publishingEnabled, quotaMessageText, quotaLinkText = self:getDistributionQuotaStatus()
 
@@ -479,8 +479,8 @@ function ConfigCopy:render()
 			QuotaInfo = if quotaMessageText or quotaLinkText
 				then Roact.createElement(Pane, {
 					AutomaticSize = Enum.AutomaticSize.XY,
-					Layout = if FFlagAssetConfigDynamicDistributionQuotas then Enum.FillDirection.Vertical else nil,
-					HorizontalAlignment = if FFlagAssetConfigDynamicDistributionQuotas
+					Layout = if FFlagAssetConfigDynamicDistributionQuotas2 then Enum.FillDirection.Vertical else nil,
+					HorizontalAlignment = if FFlagAssetConfigDynamicDistributionQuotas2
 						then Enum.HorizontalAlignment.Left
 						else nil,
 					LayoutOrder = rightFrameLayoutOrder:getNextOrder(),
@@ -498,14 +498,14 @@ function ConfigCopy:render()
 							TextWrapped = true,
 							TextSize = Constants.FONT_SIZE_LARGE,
 							TextColor3 = publishAssetTheme.distributionQuotaTextColor,
-							LayoutOrder = if FFlagAssetConfigDynamicDistributionQuotas then 1 else nil,
+							LayoutOrder = if FFlagAssetConfigDynamicDistributionQuotas2 then 1 else nil,
 						})
 						else nil,
 					QuotaLink = if quotaLinkText
 						then Roact.createElement(LinkText, {
 							Text = quotaLinkText,
 							OnClick = self.onQuotaLinkActivated,
-							LayoutOrder = if FFlagAssetConfigDynamicDistributionQuotas then 2 else nil,
+							LayoutOrder = if FFlagAssetConfigDynamicDistributionQuotas2 then 2 else nil,
 						})
 						else nil,
 				})

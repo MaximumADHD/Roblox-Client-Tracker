@@ -1,3 +1,5 @@
+local FFlagAutoUpdatePlugins = game:GetFastFlag("AutoUpdatePlugins")
+
 local Constants = {}
 
 Constants.HEADER_TITLE_WIDTH = 250
@@ -22,10 +24,11 @@ Constants.MOVED_DIALOG_BUTTON_HEIGHT = 32
 Constants.PLUGIN_VERTICAL_PADDING = 5
 Constants.PLUGIN_HORIZONTAL_PADDING = 30
 Constants.THUMBNAIL_SIZE = 60
-Constants.PLUGIN_ENTRY_HEIGHT = 120
+Constants.PLUGIN_ENTRY_HEIGHT = FFlagAutoUpdatePlugins and 150 or 120
 Constants.PLUGIN_NAME_HEIGHT = 30
 Constants.PLUGIN_CREATOR_HEIGHT = 20
 Constants.PLUGIN_DESCRIPTION_HEIGHT = 60
+Constants.PLUGIN_UPDATE_HEIGHT = 30
 Constants.PLUGIN_ENABLE_WIDTH = 40
 Constants.PLUGIN_CONTEXT_WIDTH = 28
 Constants.MODERATED_WARNING_WIDTH = 194

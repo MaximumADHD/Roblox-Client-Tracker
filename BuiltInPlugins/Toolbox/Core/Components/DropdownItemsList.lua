@@ -26,20 +26,19 @@
 ]]
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
-
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
-local getTextSize = if FFlagRemoveUILibraryGetTextSize then Framework.Util.GetTextSize else require(Util.getTextSize)
 local ContextHelper = require(Util.ContextHelper)
 local DebugFlags = require(Util.DebugFlags)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+
+local getTextSize = Framework.Util.GetTextSize
 
 local withModal = ContextHelper.withModal
 
@@ -121,10 +120,7 @@ function DropdownItemsList:getScrollButtons(
 
 		maxWidth = math.max(
 			maxWidth,
-			if FFlagRemoveUILibraryGetTextSize then
-				getTextSize(itemName, fontSize, nil, Vector2.new(0, 0)).X + (textInset * 2) + Constants.SCROLLBAR_BACKGROUND_THICKNESS
-			else
-				getTextSize(itemName, fontSize).X + (textInset * 2) + Constants.SCROLLBAR_BACKGROUND_THICKNESS
+			getTextSize(itemName, fontSize, nil, Vector2.new(0, 0)).X + (textInset * 2) + Constants.SCROLLBAR_BACKGROUND_THICKNESS
 		)
 
 		scrollButtons[itemKey or itemName] = Roact.createElement("ImageButton", {

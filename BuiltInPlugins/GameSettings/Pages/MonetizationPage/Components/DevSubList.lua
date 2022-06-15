@@ -9,33 +9,30 @@
 ]]
 local FFlagGameSettingsRemoveFitContent = game:GetFastFlag("GameSettingsRemoveFitContent")
 
-local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
-
 local Framework = require(Plugin.Packages.Framework)
+
 local Util = Framework.Util
-local FrameworkUI = Framework.UI
-local Button = FrameworkUI.Button
+local GetTextSize = Util.GetTextSize
 
 local UI = Framework.UI
+local Button = UI.Button
 local Pane = UI.Pane
+
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local DevSubListItem = require(script.Parent.DevSubListItem)
 local DevSubListHeaderText = require(script.Parent.DevSubListHeaderText)
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local DeepMergeTables = require(Plugin.Src.Util.DeepMergeTables)
-local ContextServices = Framework.ContextServices
-local withContext = ContextServices.withContext
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
-
-local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Util.GetTextSize else UILibrary.Util.GetTextSize
 
 local FitToContent
 if not FFlagGameSettingsRemoveFitContent then

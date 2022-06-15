@@ -14,8 +14,6 @@ local FFlagGameSettingsRemoveFitContent = game:GetFastFlag("GameSettingsRemoveFi
 
 local StudioService = game:GetService("StudioService")
 
-local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
-
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local FileUtils = require(Plugin.Src.Util.FileUtils)
@@ -43,18 +41,19 @@ local TitledFrame = UILibrary.Component.TitledFrame
 local RoundTextBox = require(Plugin.Packages.RoactStudioWidgets.RoundTextBox)
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Util.GetTextSize else UILibrary.Util.GetTextSize
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+
+local Util = Framework.Util
+local GetTextSize = Util.GetTextSize
+local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
+local LayoutOrderIterator = Util.LayoutOrderIterator
 
 local FrameworkUI = Framework.UI
 local HoverArea = FrameworkUI.HoverArea
 local Pane = FrameworkUI.Pane
 local Separator = FrameworkUI.Separator
-
-local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
-local LayoutOrderIterator = Util.LayoutOrderIterator
 
 local FitToContent
 if not FFlagGameSettingsRemoveFitContent then

@@ -43,6 +43,8 @@ ReportConfirmationContainer.validateProps = t.interface({
 	}),
 	isVoiceReport = t.boolean,
 	closeMenu = t.callback,
+	blockingAnalytics = t.optional(t.table),
+	reportAbuseAnalytics = t.optional(t.table),
 })
 
 local function getIsPlayerBlockedByUserId(blockingUtility, userId)
@@ -75,21 +77,39 @@ function ReportConfirmationContainer:init()
 		local muteFlipped = self.state.muteFlipped
 
 		if blockFlipped and not self.state.targetInitiallyBlocked then
-			self.props.blockingUtility:BlockPlayerAsync(player)
+			local success = self.props.blockingUtility:BlockPlayerAsync(player)
+
+			if success then
+				self.props.blockingAnalytics:action("SettingsHub", "blockUser", {
+					blockeeUserId = player.UserId,
+				})
+			end
 		elseif not blockFlipped and self.state.targetInitiallyBlocked and GetFFlagVoiceARUnblockingUnmutingEnabled() then
-			self.props.blockingUtility:UnblockPlayerAsync(player)
+			local success = self.props.blockingUtility:UnblockPlayerAsync(player)
+
+			if success then
+				self.props.blockingAnalytics:action("SettingsHub", "unblockUser", {
+					blockeeUserId = player.UserId,
+				})
+			end
 		end
 
 		local voiceParticipant = self.props.voiceChatServiceManager.participants[tostring(player.UserId)]
 
 		if muteFlipped and not self.state.targetInitiallyVoiceMuted then
 			self.props.blockingUtility:MutePlayer(player)
+			self.props.reportAbuseAnalytics:action("muteUser", {
+				muteeUserId = player.UserId,
+			})
 
 			if voiceParticipant and not voiceParticipant.isMutedLocally then
 				self.props.voiceChatServiceManager:ToggleMutePlayer(player.UserId)
 			end
 		elseif not muteFlipped and self.state.targetInitiallyVoiceMuted and GetFFlagVoiceARUnblockingUnmutingEnabled() then
 			self.props.blockingUtility:UnmutePlayer(player)
+			self.props.reportAbuseAnalytics:action("unmuteUser", {
+				muteeUserId = player.UserId,
+			})
 
 			if voiceParticipant and voiceParticipant.isMutedLocally then
 				self.props.voiceChatServiceManager:ToggleMutePlayer(player.UserId)

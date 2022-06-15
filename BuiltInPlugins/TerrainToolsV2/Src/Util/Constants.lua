@@ -30,9 +30,9 @@ Constants.ToolIcons = {
 	[ToolId.Paint] = TexturePath .. "mt_paint.png",
 }
 
-local TerrainToolHighDpiIcons = "rbxasset://studio_svg_textures/Shared/Terrain/%s/Large/"
-local DraggerHighDpiIcons = "rbxasset://studio_svg_textures/Shared/Actions/DraggerTools/%s/Large/"
-local ClipboardHighDpiIcons = "rbxasset://studio_svg_textures/Shared/Actions/Clipboard/%s/Large/"
+local TerrainToolHighDpiIcons = "rbxasset://studio_svg_textures/Lua/Terrain/%s/Large/"
+local DraggerHighDpiIcons = "rbxasset://studio_svg_textures/Shared/DraggerTools/%s/Large/"
+local ClipboardHighDpiIcons = "rbxasset://studio_svg_textures/Shared/Clipboard/%s/Large/"
 
 Constants.HighDpiToolIconsWithTheme1 = {
 	[ToolId.Generate] = TerrainToolHighDpiIcons .. "Terrain_Generate.png",

@@ -1,7 +1,7 @@
 --!strict
 export type AssetTypeQuotaPolicy = {
-	capacity: number?, -- TODO Remove with FFlagAssetConfigDynamicDistributionQuotas
-	days: number?, -- TODO Remove with FFlagAssetConfigDynamicDistributionQuotas
+	capacity: number?, -- TODO Remove with FFlagAssetConfigDynamicDistributionQuotas2
+	days: number?, -- TODO Remove with FFlagAssetConfigDynamicDistributionQuotas2
 	link: string?,
 }
 

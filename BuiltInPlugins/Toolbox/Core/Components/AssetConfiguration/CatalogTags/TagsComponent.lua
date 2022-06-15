@@ -19,12 +19,11 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
-local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
-
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
 local Cryo = require(Packages.Cryo)
+local Framework = require(Packages.Framework)
 
 local Util = Plugin.Core.Util
 local ContextGetter = require(Util.ContextGetter)
@@ -34,11 +33,11 @@ local AssetConfigConstants = require(Util.AssetConfigConstants)
 local trimString = require(Util.trimString)
 local TagsUtil = require(Util.TagsUtil)
 
-local Framework = require(Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+
 local StyleModifier = Framework.Util.StyleModifier
-local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Framework.Util.GetTextSize else nil
+local GetTextSize = Framework.Util.GetTextSize
 
 local RoundBox = Framework.UI.Decoration.RoundBox
 
@@ -247,16 +246,11 @@ function TagsComponent:renderContents(theme, localization, localizedContent)
 	for i = 1, #props.tags do
 		local tag = props.tags[i]
 
-		local textSize = if FFlagRemoveUILibraryGetTextSize then GetTextSize(
+		local textSize = GetTextSize(
 			tag.localizedDisplayName,
 			Constants.FONT_SIZE_TITLE,
 			Constants.FONT,
 			Vector2.new(0, 0)
-		)
-		else Constants.getTextSize(
-			tag.localizedDisplayName,
-			Constants.FONT_SIZE_TITLE,
-			Constants.FONT
 		)
 
 		local sizeX = TAG_PADDING + textSize.X + TAG_PADDING + CLOSE_BUTTON_SIZE + TAG_PADDING

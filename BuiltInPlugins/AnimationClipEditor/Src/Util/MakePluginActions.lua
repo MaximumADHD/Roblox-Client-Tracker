@@ -4,6 +4,7 @@
 
 local Plugin = script.Parent.Parent.Parent
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagFaceAnimationEditorFocusFaceWithF = require(Plugin.LuaFlags.GetFFlagFaceAnimationEditorFocusFaceWithF)
 
 local ACTION_KEYS = {
 	-- Keyframe manipulation
@@ -51,6 +52,10 @@ local ACTION_KEYS = {
 	"ToggleBoneVis",
 }
 
+if GetFFlagFaceAnimationEditorFocusFaceWithF() then
+	table.insert(ACTION_KEYS, "FocusCamera")
+end
+
 -- Move that back to the ACTION_KEYS table when GetFFlagCurveEditor is retired
 if GetFFlagCurveEditor() then
 	table.insert(ACTION_KEYS, "ClearBothTangents")
@@ -97,6 +102,10 @@ return function(plugin, localization)
 	actions.ToggleTool.defaultShortcut = "R"
 
 	actions.ToggleBoneVis.defaultShortcut = "V"
+	
+	if GetFFlagFaceAnimationEditorFocusFaceWithF() then
+		actions.FocusCamera.defaultShortcut = "F"
+	end
 
 	return actions
 end

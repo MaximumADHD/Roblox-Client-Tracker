@@ -5,6 +5,7 @@ local Metabreakpoint = require(PluginFolder.Src.Models.MetaBreakpoint)
 export type BreakpointRow = {
 	id: number,
 	isEnabled: boolean,
+	isValid: boolean,
 	lineNumber: number,
 	scriptName: string,
 	scriptLine: string,
@@ -24,6 +25,7 @@ local function extractNonChildData(
 	return {
 		id = breakpoint.id,
 		isEnabled = breakpoint.isEnabled,
+		isValid = breakpoint.isValid,
 		lineNumber = breakpoint.lineNumber,
 		scriptName = "",
 		scriptLine = breakpoint.scriptLine,

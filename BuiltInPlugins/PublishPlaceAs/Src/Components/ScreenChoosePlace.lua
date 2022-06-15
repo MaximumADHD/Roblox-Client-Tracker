@@ -4,6 +4,7 @@
 ]]
 local FFlagPlacePublishManagementUI2 = game:GetFastFlag("PlacePublishManagementUI2")
 local FFlagEnablePlacePublishManagementInTeamCreate = game:GetFastFlag("EnablePlacePublishManagementInTeamCreate")
+local FFlagRemoveUILibrarySeparator = game:GetFastFlag("RemoveUILibrarySeparator")
 
 local StudioService = game:GetService("StudioService")
 local StudioPublishService = game:GetService("StudioPublishService")
@@ -20,7 +21,7 @@ local withContext = ContextServices.withContext
 
 local Constants = require(Plugin.Src.Resources.Constants)
 
-local Separator = UILibrary.Component.Separator
+local Separator = if FFlagRemoveUILibrarySeparator then Framework.UI.Separator else UILibrary.Component.Separator
 local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
 local SearchBar = UILibrary.Component.SearchBar
 local RoundTextButton = UILibrary.Component.RoundTextButton
@@ -215,8 +216,8 @@ function ScreenChoosePlace:render()
 		}),
 
 		Sep1 = Roact.createElement(Separator, {
-			Weight = 2,
-			Padding = 20,
+			Weight = if FFlagRemoveUILibrarySeparator then nil else 2,
+			Padding = if FFlagRemoveUILibrarySeparator then nil else 20,
 			Position = UDim2.new(0.5, 0, 0, 50),
 		}),
 

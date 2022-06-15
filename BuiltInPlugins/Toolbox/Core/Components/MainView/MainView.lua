@@ -25,6 +25,8 @@
 		callback tryOpenAssetConfig, invoke assetConfig page with an assetId.
 ]]
 
+local FFlagToolboxSearchResultsBackButton = game:GetFastFlag("ToolboxSearchResultsBackButton")
+
 local GuiService = game:GetService("GuiService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -167,6 +169,7 @@ function MainView:render()
 					suggestions = suggestions,
 					containerWidth = containerWidth,
 					showTags = showTags,
+					onBackToHome = if FFlagToolboxSearchResultsBackButton then props.onBackToHome else nil,
 				}),
 
 				NoResultsDetail = noResultsDetailProps and Roact.createElement(

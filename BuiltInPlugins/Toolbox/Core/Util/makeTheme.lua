@@ -1,5 +1,6 @@
 local Plugin = script:FindFirstAncestor("Toolbox")
 local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
+local FFlagToolboxSearchResultsBackButton = game:GetFastFlag("ToolboxSearchResultsBackButton")
 
 local Images = require(Plugin.Core.Util.Images)
 
@@ -407,7 +408,7 @@ local makeTheme = function(themeExtension, themeClass)
 		searchTag = {
 			backgroundColor = StyleKey.Toolbox_SearchTagBackgroundColor,
 			borderColor = StyleKey.Border,
-			textColor = StyleKey.MainText,
+			textColor = if FFlagToolboxSearchResultsBackButton then StyleKey.TextContrast else StyleKey.MainText,
 			clearAllText = StyleKey.LinkText,
 		},
 

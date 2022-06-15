@@ -85,6 +85,14 @@ local pages = {
 		actionKey = "follow",
 	},
 	{
+		key = "ReportExperience",
+		title = "CoreScripts.InGameMenu.Report.ReportExperience",
+		icon = Images["icons/actions/feedback"],
+		navigationDepth = 2,
+		parentPage = Constants.MainPagePageKey,
+		actionKey = "reportExperience",
+	},
+	{
 		key = Constants.GameSettingsPageKey,
 		title = "CoreScripts.InGameMenu.PageTitle.GameSettings",
 		icon = Images["icons/common/settings"],

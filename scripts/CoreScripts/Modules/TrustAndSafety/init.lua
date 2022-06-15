@@ -103,7 +103,7 @@ return {
 		TrustAndSafety:getInstance():openReportDialog(Constants.ReportType.Player, targetPlayer)
 	end,
 	openReportDialogForPlace = function()
-		TrustAndSafety:getInstance():openReportDialog(Constants.ReportType.Game)
+		TrustAndSafety:getInstance():openReportDialog(Constants.ReportType.Place)
 	end,
 	openReportMenu = function()
 		TrustAndSafety:getInstance():openReportMenu()

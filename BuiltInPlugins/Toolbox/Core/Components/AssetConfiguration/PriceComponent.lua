@@ -17,7 +17,6 @@
 		LayoutOrder, number, used to override position of the whole component by the layouter.
 ]]
 local FIntToolboxPriceTextBoxMaxCount = game:GetFastInt("ToolboxPriceTextBoxMaxCount")
-local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -29,7 +28,7 @@ local withContext = ContextServices.withContext
 
 local TextInput = Framework.UI.TextInput
 local TitledFrame = Framework.StudioUI.TitledFrame
-local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Framework.Util.GetTextSize else nil
+local GetTextSize = Framework.Util.GetTextSize
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
@@ -98,14 +97,8 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 
 	local UntypedVector2 = Vector2
 	local inputBoxSize = FFlagPriceComponentTextSize and Vector2.new(INPUT_BOX_WIDTH, ROW_HEIGHT) or UntypedVector2.new(0, INPUT_BOX_WIDTH, 0, ROW_HEIGHT)
-	local feeVector = if FFlagRemoveUILibraryGetTextSize then
-		GetTextSize(feeString, Constants.FONT_SIZE_MEDIUM, Constants.FONT, inputBoxSize)
-	else
-		Constants.getTextSize(feeString, Constants.FONT_SIZE_MEDIUM, Constants.FONT, inputBoxSize)
-	local earnVector = if FFlagRemoveUILibraryGetTextSize then
-		GetTextSize(finalPriceString, Constants.FONT_SIZE_MEDIUM, Constants.FONT, inputBoxSize)
-	else
-		Constants.getTextSize(finalPriceString, Constants.FONT_SIZE_MEDIUM, Constants.FONT, inputBoxSize)
+	local feeVector = GetTextSize(feeString, Constants.FONT_SIZE_MEDIUM, Constants.FONT, inputBoxSize)
+	local earnVector = GetTextSize(finalPriceString, Constants.FONT_SIZE_MEDIUM, Constants.FONT, inputBoxSize)
 
 	local textboxText = tostring(price or "")
 

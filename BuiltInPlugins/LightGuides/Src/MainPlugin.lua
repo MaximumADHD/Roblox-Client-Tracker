@@ -69,9 +69,10 @@ function MainPlugin.new()
 	}
 
 	if not self._folder then
-		self._folder = Instance.new("Folder")
-		self._folder.Name = "LightGuides"
-		self._folder.Parent = CoreGui
+		local folder = Instance.new("Folder")
+		folder.Name = "LightGuides"
+		folder.Parent = CoreGui
+		self._folder = folder
 	end
 
 	setmetatable(self, MainPlugin)

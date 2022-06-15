@@ -18,6 +18,12 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 
 --[[ Add Server CoreScript ]]--
+local FFlagEnableServerInGameMenu = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableServerInGameMenu)
+
+if FFlagEnableServerInGameMenu() then
+	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerInGameMenu", script.Parent)
+end
+
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerSocialScript", script.Parent)
 
 -- Leaderstat server child-order tracker

@@ -1,3 +1,5 @@
+local AnalyticsService = game:GetService("RbxAnalyticsService")
+local PlayersService = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 
@@ -8,6 +10,8 @@ local Roact = require(CorePackages.Roact)
 local Settings = script:FindFirstAncestor("Settings")
 local settingsPageFactory = require(RobloxGuiModules.Settings.SettingsPageFactory)
 local Utility = require(RobloxGuiModules.Settings.Utility)
+local ReportAbuseAnalytics = require(Settings.Analytics.ReportAbuseAnalytics)
+local BlockingAnalytics = require(Settings.Analytics.BlockingAnalytics)
 
 local ReportConfirmationScreen = require(Settings.Components.ReportConfirmation.ReportConfirmationScreen)
 
@@ -18,6 +22,22 @@ local unmount = function()
 		handle = nil
 	end
 end
+
+local localPlayer = PlayersService.LocalPlayer
+while not localPlayer do
+	PlayersService.ChildAdded:wait()
+	localPlayer = PlayersService.LocalPlayer
+end
+
+local reportAbuseAnalytics = ReportAbuseAnalytics.new(
+	localPlayer.UserId,
+	{ EventStream = AnalyticsService }
+)
+
+local blockingAnalytics = BlockingAnalytics.new(
+	localPlayer.UserId,
+	{ EventStream = AnalyticsService }
+)
 
 local function Initialize()
 	local instance = settingsPageFactory:CreateNewPage()
@@ -78,6 +98,8 @@ function ReportSentPageV2:UpdateMenu()
 		end,
 		isVoiceReport = self.isVoiceReport,
 		ZIndex = self.HubRef.Shield.ZIndex+1,
+		reportAbuseAnalytics = reportAbuseAnalytics,
+		blockingAnalytics = blockingAnalytics,
 	})
 
 	handle = Roact.mount(reportConfirmationScreen, self.Root, "ReportSentPageV2")

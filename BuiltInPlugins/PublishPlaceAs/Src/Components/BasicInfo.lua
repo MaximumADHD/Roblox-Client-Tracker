@@ -30,15 +30,17 @@ local TEAM_CREATE_ENABLED = "teamCreateEnabled"
 
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 local FStringTeamCreateLearnMoreLink = game:GetFastString("TeamCreateLink")
+local FFlagRemoveUILibrarySeparator = game:GetFastFlag("RemoveUILibrarySeparator")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
+local Framework = require(Plugin.Packages.Framework)
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local TitledFrame = UILibrary.Component.TitledFrame
 local RoundTextBox = UILibrary.Component.RoundTextBox
-local Separator = UILibrary.Component.Separator
+local Separator = if FFlagRemoveUILibrarySeparator then Framework.UI.Separator else UILibrary.Component.Separator
 
 local TeachingCallout = require(Plugin.Src.Components.TeachingCallout)
 
@@ -71,7 +73,6 @@ local selectedKey = KeyProvider.getSelectedKeyName()
 local termsOfUseDialogKey = KeyProvider.getTermsOfUseDialogKeyName()
 local buttonClickedKey = KeyProvider.getButtonClickedKeyName()
 
-local Framework = require(Plugin.Packages.Framework)
 local Button = Framework.UI.Button
 local HoverArea = Framework.UI.HoverArea
 local Image = Framework.UI.Decoration.Image

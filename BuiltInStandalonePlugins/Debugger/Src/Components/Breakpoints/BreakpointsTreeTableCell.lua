@@ -56,7 +56,9 @@ function BreakpointsTreeTableCell:init()
 end
 
 local function fetchDebugpointIcon(row)
-	if row.item.debugpointType == "Breakpoint" then
+	if not row.item.isValid then
+		return Constants.DebugpointIconTable.invalidBreakpoint
+	elseif row.item.debugpointType == "Breakpoint" then
 		if not row.item.condition or row.item.condition == "" then
 			return (row.item.isEnabled and Constants.DebugpointIconTable.breakpointEnabled)
 				or Constants.DebugpointIconTable.breakpointDisabled

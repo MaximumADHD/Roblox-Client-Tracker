@@ -4,11 +4,9 @@ local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 local getMaxAudioLength = require(Plugin.Core.Util.ToolboxUtilities).getMaxAudioLength
 
-local TextService = game:GetService("TextService")
 local StudioService = game:GetService("StudioService")
 
 local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
-local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
 
 local Category = require(Plugin.Core.Types.Category)
 
@@ -34,16 +32,6 @@ Constants.NAVIGATION = {
 }
 
 Constants.HOMEVIEW_SEARCH_CATEGORY = "Category"
-
--- TODO: jbousellam - remove with FFlagRemoveUILibraryGetTextSize
-function Constants.getTextSize(text, fontSize, font, frameSize)
-	assert(not FFlagRemoveUILibraryGetTextSize)
-	fontSize = fontSize or Constants.FONT_SIZE_MEDIUM
-	font = font or Constants.FONT
-	frameSize = frameSize or Vector2.new(0, 0)
-
-	return TextService:GetTextSize(text, fontSize, font, frameSize)
-end
 
 function Constants.getClassIcon(instance)
 	local className = instance.ClassName
@@ -173,13 +161,6 @@ Constants.SEARCH_BAR_WIDTH = Constants.TOOLBOX_MIN_WIDTH - Constants.MAIN_VIEW_P
 Constants.TAB_ICON_SIZE = 16
 Constants.TAB_INNER_PADDING = 3
 Constants.TAB_OUTER_PADDING = 8
-
--- TODO: jbousellam - remove with FFlagRemoveUILibraryGetTextSize
-function Constants.DEPRECATED_CalculateTabHeaderWidth(text)
-	assert(not FFlagRemoveUILibraryGetTextSize)
-	local textWidth = Constants.getTextSize(text, nil, Constants.FONT_BOLD).X
-	return textWidth + Constants.TAB_ICON_SIZE + Constants.TAB_INNER_PADDING + Constants.TAB_OUTER_PADDING * 2
-end
 
 Constants.TOOLBOX_MIN_HEIGHT = 380
 

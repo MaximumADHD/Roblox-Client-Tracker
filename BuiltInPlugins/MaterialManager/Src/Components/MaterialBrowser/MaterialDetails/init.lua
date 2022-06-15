@@ -33,9 +33,6 @@ local supportedMaterials = getSupportedMaterials()
 local Util = Plugin.Src.Util
 local MaterialController = require(Util.MaterialController)
 
-local Flags = Plugin.Src.Flags
-local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
-
 local MaterialDetails = Roact.PureComponent:extend("MaterialDetails")
 
 export type Props = {
@@ -54,29 +51,6 @@ type _Props = Props & {
 	Stylizer: any,
 }
 
-function MaterialDetails:willUnmount()
-	if self.connection then
-		self.connection:Disconnect()
-		self.connection = nil
-	end
-end
-
-function MaterialDetails:didMount()
-	local props: _Props = self.props
-
-	if props.Material then
-		if self.connection then
-			self.connection:Disconnect()
-		end
-
-		self.connection = props.MaterialController:getMaterialRemovedSignal():Connect(function(_, materialVariant, moving)
-			if not moving and materialVariant == self.props.Material.MaterialVariant then
-				props.dispatchClearMaterial()
-			end
-		end)
-	end
-end
-
 function MaterialDetails:render()
 	local props: _Props = self.props
 
@@ -90,14 +64,8 @@ function MaterialDetails:render()
 			Size = size,
 		})
 	else
-		local isBuiltin, overrideSupport
-		if getFFlagMaterialManagerGlassNeonForceField() then
-			isBuiltin = not props.Material.MaterialVariant
-			overrideSupport = supportedMaterials[props.Material.Material]
-		else
-			isBuiltin = props.Material.IsBuiltin
-		end
-
+		local isBuiltin = not props.Material.MaterialVariant
+		local overrideSupport = supportedMaterials[props.Material.Material]
 		local layoutOrderIterator = LayoutOrderIterator.new()
 
 		return Roact.createElement(ScrollingFrame, {
@@ -117,7 +85,7 @@ function MaterialDetails:render()
 					LayoutOrder = layoutOrderIterator:getNextOrder(),
 					OpenPrompt = props.OpenPrompt,
 				}),
-				MaterialOverrides = if not getFFlagMaterialManagerGlassNeonForceField() or overrideSupport then
+				MaterialOverrides = if overrideSupport then
 					Roact.createElement(MaterialOverrides, {
 						LayoutOrder = layoutOrderIterator:getNextOrder(),
 						OpenPrompt = props.OpenPrompt

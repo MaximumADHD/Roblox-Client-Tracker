@@ -37,6 +37,8 @@ local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 local GetFFlagFaceControlsEditorUXImprovements = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUXImprovements)
 
+local GetFFlagFaceAnimationEditorFocusFaceWithF = require(Plugin.LuaFlags.GetFFlagFaceAnimationEditorFocusFaceWithF)
+
 local FaceControlsEditorWindow = Roact.PureComponent:extend("FaceControlsEditorWindow")
 
 local SIZE = Vector2.new(Constants.faceControlsEditorOriginalWidth, 310)
@@ -189,7 +191,39 @@ function FaceControlsEditorWindow:init()
 	end
 end
 
+function FaceControlsEditorWindow:addAction(action, func)
+	if action then
+		action.Enabled = false
+		table.insert(self.Actions, action)
+		table.insert(self.Connections, action.Triggered:Connect(func))
+	end
+end
+
+function FaceControlsEditorWindow:didMount()
+	if GetFFlagFaceAnimationEditorFocusFaceWithF() then
+		local actions = self.props.PluginActions
+		self.Connections = {}
+		self.Actions = {}
+		self:addAction(actions:get("FocusCamera"), function()
+			focusFace(self.props)
+		end)
+	end
+end
+
 function FaceControlsEditorWindow:willUnmount()
+	if GetFFlagFaceAnimationEditorFocusFaceWithF() then
+		if self.Connections then
+			for _, connection in ipairs(self.Connections) do
+				connection:Disconnect()
+			end
+			self.Connections = {}
+		end
+		if self.Actions then
+			for _, action in ipairs(self.Actions) do
+				action.Enabled = false
+			end
+		end	
+	end
 	self.hideFaceControlsEditor()
 end
 
@@ -730,25 +764,31 @@ function getFacsKeysWithNonZerovalueCount(animationData, playhead)
 	return count
 end
 
+--function which only focusses face when AutoFocusFaceEnabled
 function handleFocusFace(props)
 	if props.AutoFocusFaceEnabled then
-		local currentCamera = game.Workspace.CurrentCamera
-		local faceControls = RigUtils.getFaceControls(props.RootInstance)
-		if faceControls ~= nil then
-			local head = faceControls.Parent
-			local width = 0.75
-			if GetFFlagFaceControlsEditorBugBash2Update() then
-				local baseWidth = 0.75
-				local baseFOV = 70
-				width = baseWidth
-				if currentCamera.FieldOfView ~= baseFOV then
-					width = baseWidth / (currentCamera.FieldOfView / baseFOV)
-				end	
-			end
-			local center = head.Position + head.CFrame.LookVector * (width * 2)
-			currentCamera.CFrame = CFrame.new(center, head.CFrame.Position)
-			currentCamera.Focus = head.CFrame		
+		focusFace(props)
+	end	
+end
+
+--the actual focus face function which does not check AutoFocusFaceEnabled, is also called by F key press handler
+function focusFace(props)
+	local currentCamera = game.Workspace.CurrentCamera
+	local faceControls = RigUtils.getFaceControls(props.RootInstance)
+	if faceControls ~= nil then
+		local head = faceControls.Parent
+		local width = 0.75
+		if GetFFlagFaceControlsEditorBugBash2Update() then
+			local baseWidth = 0.75
+			local baseFOV = 70
+			width = baseWidth
+			if currentCamera.FieldOfView ~= baseFOV then
+				width = baseWidth / (currentCamera.FieldOfView / baseFOV)
+			end	
 		end
+		local center = head.Position + head.CFrame.LookVector * (width * 2)
+		currentCamera.CFrame = CFrame.new(center, head.CFrame.Position)
+		currentCamera.Focus = head.CFrame		
 	end	
 end
 
@@ -773,6 +813,11 @@ function FaceControlsEditorWindow:render()
 
 	local animationData = props.AnimationData
 	local playhead = props.Playhead
+
+	if GetFFlagFaceAnimationEditorFocusFaceWithF() then
+		local pluginActions = props.PluginActions
+		pluginActions:get("FocusCamera").Enabled = true
+	end	
 
 	--if animationData ~= nil check is to avoid nil when the user animated one avatar,
 	--then selects another avatar (while ACE open) which had no anim yet
@@ -1005,6 +1050,7 @@ FaceControlsEditorWindow = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Plugin = ContextServices.Plugin,
+	PluginActions = ContextServices.PluginActions,
 })(FaceControlsEditorWindow)
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(FaceControlsEditorWindow)

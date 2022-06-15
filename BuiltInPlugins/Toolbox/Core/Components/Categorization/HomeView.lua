@@ -9,6 +9,7 @@ local FintToolboxHomeViewInitialPageSize = game:GetFastInt("ToolboxHomeViewIniti
 local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
 local FFlagToolboxFixTryInStudio = game:GetFastFlag("ToolboxFixTryInStudio")
 local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
+local FFlagToolboxHomeViewSingleLaneNoTitle = game:GetFastFlag("ToolboxHomeViewSingleLaneNoTitle")
 
 local Libs = Plugin.Packages
 
@@ -67,7 +68,7 @@ local TOP_SEARCH_MAX_ROW_COUNT = 2
 local HomeView = Roact.PureComponent:extend("HomeView")
 
 type _ExternalProps = {
-	AssetSections: { HomeTypes.Subcategory },
+	AssetSections: { HomeTypes.HomeConfigurationSection },
 	CategoryName: string,
 	LayoutOrder: number?,
 	OnClickSubcategory: ((
@@ -130,7 +131,13 @@ function HomeView:didMount()
 	if assetId then
 		if FFlagToolboxFixTryInStudio then
 			local onAssetPreviewButtonClicked = props.OnAssetPreviewButtonClicked
-			props.getAssetPreviewDataForStartup(assetId, props.TryInsert, props.Localization, getNetwork(self), onAssetPreviewButtonClicked)
+			props.getAssetPreviewDataForStartup(
+				assetId,
+				props.TryInsert,
+				props.Localization,
+				getNetwork(self),
+				onAssetPreviewButtonClicked
+			)
 		else
 			props.getAssetPreviewDataForStartup(assetId, props.TryInsert, props.Localization, getNetwork(self))
 		end
@@ -412,6 +419,16 @@ function HomeView:render()
 	local assetSections = props.AssetSections
 	local sectionName = assetSections[#assetSections] and assetSections[#assetSections].name or nil
 
+	local hideTopContent
+	if FFlagToolboxHomeViewSingleLaneNoTitle then
+		-- If there is only a single swimlane defined, it has no subcategories, and there are no top keywords, we hide the top content
+		hideTopContent = #assetSections == 1
+			and assetSections[#assetSections]
+			and not assetSections[#assetSections].subcategory
+			and props.TopKeywords
+			and #props.TopKeywords == 0
+	end
+
 	-- Props from AssetLogicWrapper
 	local canInsertAsset = props.CanInsertAsset
 	local onAssetPreviewButtonClicked = props.OnAssetPreviewButtonClicked
@@ -420,7 +437,9 @@ function HomeView:render()
 
 	-- NOTE: We must call createTopContent here to prevent ResultsFetcher from
 	-- being called multiple times on AssetGrid re-render.
-	local topContentElems = self.createTopContent()
+	local topContentElems = if FFlagToolboxHomeViewSingleLaneNoTitle and hideTopContent
+		then nil
+		else self.createTopContent()
 	local renderTopContent = function()
 		return topContentElems
 	end

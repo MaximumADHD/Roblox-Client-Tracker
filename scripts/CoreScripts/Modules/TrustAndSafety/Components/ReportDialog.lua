@@ -42,6 +42,9 @@ local REPORT_REASONS = {
 local REPORT_REASON_GAME = "Inappropriate Content"
 local MIN_TEXT_LENGTH = 0
 local MAX_TEXT_LENGTH = 160
+local TEXTFIELD_HEIGHT = 111
+local TEXTFIELD_BUTTON_MARGIN = 12
+local BUTTON_HEIGHT = 48
 local CELL_THEME_OVERRIDES = {
 	-- transparent background for cell
 	BackgroundDefault = {
@@ -103,7 +106,7 @@ end
 function ReportDialog:getReason()
 	if self.props.reportType == Constants.ReportType.Player then
 		return self.state.reasonText
-	elseif self.props.reportType == Constants.ReportType.Game then
+	elseif self.props.reportType == Constants.ReportType.Place then
 		return REPORT_REASON_GAME
 	else
 		return nil
@@ -171,6 +174,8 @@ function ReportDialog:renderDropDownMenu()
 				local reason = reasonMap[text]
 				self.onReasonChanged(reason)
 			end
+			-- dropdown menu' list cover textfield and button stacks
+			local fixedListHeight = TEXTFIELD_HEIGHT + TEXTFIELD_BUTTON_MARGIN + BUTTON_HEIGHT
 			return Roact.createElement(DropdownMenu, {
 				placeholder = localized.placeHolderText,
 				onChange = onDropDownChanged,
@@ -178,6 +183,8 @@ function ReportDialog:renderDropDownMenu()
 				height = UIBloxInGameConfig.fixDropdownMenuListPositionAndSize and UDim.new(0, 48) or nil,
 				screenSize = self.props.screenSize,
 				cellDatas = cellDatas,
+				showDropShadow = true,
+				fixedListHeight = fixedListHeight,
 			})
 		end)
 	})
@@ -198,7 +205,7 @@ function ReportDialog:renderPlayerContents()
 				autoFocusOnEnabled = false,
 				PlaceholderText = localized.placeHolderText,
 				Position = UDim2.new(0, 0, 0, 132),
-				Size = UDim2.new(0, 492, 0, 111),
+				Size = UDim2.new(0, 492, 0, TEXTFIELD_HEIGHT),
 			})
 		})
 	end)
@@ -252,7 +259,7 @@ end
 function ReportDialog:renderContents()
 	if self.props.reportType == Constants.ReportType.Player then
 		return self:renderPlayerContents()
-	elseif self.props.reportType == Constants.ReportType.Game then
+	elseif self.props.reportType == Constants.ReportType.Place then
 		return self:renderPlaceContents()
 	else
 		return nil
@@ -290,7 +297,7 @@ function ReportDialog:render()
 				Contents = self:renderContents(),
 			}),
 			actionButtons = Roact.createElement(ButtonStack, {
-				buttonHeight = 48,
+				buttonHeight = BUTTON_HEIGHT,
 				buttons = {{
 					buttonType = ButtonType.Secondary,
 					props = {

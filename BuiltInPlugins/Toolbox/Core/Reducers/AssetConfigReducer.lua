@@ -49,7 +49,7 @@ local SetAssetConfigAssetTypeAgents = require(Actions.SetAssetConfigAssetTypeAge
 local SetDescendantPermissions = require(Actions.SetDescendantPermissions)
 local SetAgeVerificationData = require(Actions.SetAgeVerificationData)
 
-local FFlagInfiniteScrollerForVersions = game:getFastFlag("InfiniteScrollerForVersions")
+local FFlagInfiniteScrollerForVersions2 = game:getFastFlag("InfiniteScrollerForVersions2")
 
 return Rodux.createReducer({
 	-- Empty table means publish new asset
@@ -166,7 +166,7 @@ return Rodux.createReducer({
 	end,
 
 	[ExtendVersionHistoryData.name] = function(state, action)
-		assert(FFlagInfiniteScrollerForVersions)
+		assert(FFlagInfiniteScrollerForVersions2)
 		-- The new version history consists of the old version history's *data*
 		-- pre-pended to the new version history's data, but preserving the
 		-- new history's other metadata.

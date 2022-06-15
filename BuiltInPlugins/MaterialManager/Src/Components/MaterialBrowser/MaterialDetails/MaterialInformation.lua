@@ -17,6 +17,9 @@ local Image = UI.Decoration.Image
 local Pane = UI.Pane
 local TruncatedTextLabel = UI.TruncatedTextLabel
 
+local GeneralServiceController = require(Plugin.Src.Util.GeneralServiceController)
+local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+
 local Actions = Plugin.Src.Actions
 local ClearMaterialVariant = require(Actions.ClearMaterialVariant)
 local SetMaterial = require(Actions.SetMaterial)
@@ -24,13 +27,10 @@ local SetBaseMaterial = require(Actions.SetBaseMaterial)
 local SetFromVariantInstance = require(Actions.SetFromVariantInstance)
 local SetMode = require(Actions.SetMode)
 
-local getFullMaterialType = require(Plugin.Src.Resources.Constants.getFullMaterialType)
-local getMaterialName = require(Plugin.Src.Resources.Constants.getMaterialName)
-local getSupportedMaterials = require(Plugin.Src.Resources.Constants.getSupportedMaterials)
-local MaterialController = require(Plugin.Src.Util.MaterialController)
-
-local Flags = Plugin.Src.Flags
-local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
+local Constants = Plugin.Src.Resources.Constants
+local getFullMaterialType = require(Constants.getFullMaterialType)
+local getMaterialName = require(Constants.getMaterialName)
+local getSupportedMaterials = require(Constants.getSupportedMaterials)
 
 local supportedMaterials = getSupportedMaterials()
 
@@ -47,13 +47,15 @@ type _Props = Props & {
 	dispatchSetBaseMaterial: (baseMaterial: Enum.Material) -> (),
 	dispatchSetFromVariantInstance: (materialVariant: MaterialVariant) -> (),
 	dispatchSetMode: (mode: string) -> (),
+	GeneralServiceController: any,
 	Localization: any,
 	Material: _Types.Material?,
-	MaterialController: any,
 	Stylizer: any,
 }
 
 type _Style = {
+	AdditionalLabelSize: UDim2,
+	AdditionalTextSize: UDim2,
 	ButtonPosition: UDim2,
 	ButtonSize: UDim2,
 	ButtonStyle: string,
@@ -80,8 +82,6 @@ type _Style = {
 	TitleTextSize: number,
 }
 
-local changeHistoryService = game:GetService("ChangeHistoryService")
-
 local MaterialInformation = Roact.PureComponent:extend("MaterialInformation")
 
 function MaterialInformation:init()
@@ -101,8 +101,7 @@ function MaterialInformation:init()
 		local material: _Types.Material? = props.Material
 
 		if material and material.MaterialVariant then
-			changeHistoryService:SetWaypoint("Delete MaterialVariant")
-			material.MaterialVariant.Parent = nil
+			props.GeneralServiceController:destroyWithUndo(material.MaterialVariant)
 		end
 	end
 
@@ -110,41 +109,13 @@ function MaterialInformation:init()
 		local props: _Props = self.props
 		local material: _Types.Material? = props.Material
 
-		if getFFlagMaterialManagerGlassNeonForceField() then
-			if material and material.MaterialVariant then
-				props.dispatchClearMaterialVariant()
-				props.dispatchSetBaseMaterial(material.Material)
-				props.dispatchSetMode("Create")
-				props.OpenPrompt("Create")
-			end
-		else
-			if material and material.MaterialVariant then
-				props.dispatchClearMaterialVariant()
-				props.dispatchSetBaseMaterial(material.MaterialVariant.BaseMaterial)
-				props.dispatchSetMode("Create")
-				props.OpenPrompt("Create")
-			end
+		if material then
+			props.dispatchClearMaterialVariant()
+			props.dispatchSetBaseMaterial(material.Material)
+			props.dispatchSetMode("Create")
+			props.OpenPrompt("Create")
 		end
 	end
-end
-
-function MaterialInformation:willUnmount()
-	if self.materialChangedConnection then
-		self.materialChangedConnection:Disconnect()
-		self.materialChangedConnection = nil
-	end
-end
-
-function MaterialInformation:didMount()
-	local props: _Props = self.props
-	local materialController = props.MaterialController
-	local dispatchSetMaterial = props.dispatchSetMaterial
-
-	self.materialChangedConnection = materialController:getMaterialChangedSignal():Connect(function(materialVariant: MaterialVariant)
-		if self.props.Material and materialVariant == self.props.Material.MaterialVariant then
-			dispatchSetMaterial(materialController:getMaterial(materialVariant))
-		end
-	end)
 end
 
 function MaterialInformation:render()
@@ -157,40 +128,26 @@ function MaterialInformation:render()
 		return Roact.createElement(Pane)
 	end
 
-	-- Remove with FFlagMaterialManagerGlassNeonForceField
-	local isBuiltin, name
-	if getFFlagMaterialManagerGlassNeonForceField() then
-		isBuiltin = not material.MaterialVariant
-		name = if isBuiltin then localization:getText("Materials", getMaterialName(material.Material)) else material.MaterialVariant.Name
-	else
-		isBuiltin = material.IsBuiltin
-		name = if isBuiltin then localization:getText("Materials", getMaterialName(material.MaterialVariant.BaseMaterial)) else material.MaterialVariant.Name
-	end
+	local isBuiltin = not material.MaterialVariant
+	local name = if isBuiltin then localization:getText("Materials", getMaterialName(material.Material)) else material.MaterialVariant.Name
 
 	local fullMaterialType = getFullMaterialType(material, localization)
-
 	local path = material.MaterialPath
-	local localizedPathParts = {}
 
+	local localizedPathParts = {}
 	for index, subPath in ipairs(path) do
 		localizedPathParts[index] = localization:getText("Categories", subPath)
 	end
 
 	local pathString = table.concat(localizedPathParts, " > ")
 
-	local nameLabelSize
-	if getFFlagMaterialManagerGlassNeonForceField() then
-		local numButtons = 0
-		if material.MaterialVariant then
-			numButtons = 2
-		elseif not material.MaterialVariant and supportedMaterials[material.Material] then
-			numButtons = 1
-		end
-
-		nameLabelSize = UDim2.new(1, -(numButtons * style.ButtonSize.X.Offset), 1, 0)
-	else
-		nameLabelSize = if material.IsBuiltin then style.NameLabelSizeBuiltIn else style.NameLabelSizeVariant
-	end 
+	local numButtons = 0
+	if material.MaterialVariant then
+		numButtons = 2
+	elseif not material.MaterialVariant and supportedMaterials[material.Material] then
+		numButtons = 1
+	end
+	local nameLabelSize = UDim2.new(1, -(numButtons * style.ButtonSize.X.Offset), 1, 0)
 
 	return Roact.createElement(Pane, {
 		AutomaticSize = Enum.AutomaticSize.XY,
@@ -211,7 +168,7 @@ function MaterialInformation:render()
 				TextSize = style.TitleTextSize,
 				TextXAlignment = Enum.TextXAlignment.Left,
 			}),
-			CreateVariant = if isBuiltin and (not getFFlagMaterialManagerGlassNeonForceField() or supportedMaterials[material.Material]) then
+			CreateVariant = if isBuiltin and supportedMaterials[material.Material] then
 				Roact.createElement(Button, {
 					LayoutOrder = 2,
 					OnClick = self.createVariant,
@@ -268,15 +225,15 @@ end
 
 MaterialInformation = withContext({
 	Analytics = Analytics,
+	GeneralServiceController = GeneralServiceController,
 	Localization = Localization,
-	MaterialController = MaterialController,
 	Stylizer = Stylizer,
 })(MaterialInformation)
 
 return RoactRodux.connect(
-	function(state, props)
+	function(state: MainReducer.State, props: _Props)
 		return {
-			Material = props.MaterialMock or state.MaterialBrowserReducer.Material,
+			Material = props.MaterialMock or state.MaterialBrowserReducer.Material
 		}
 	end,
 	function(dispatch)

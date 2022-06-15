@@ -165,7 +165,6 @@ end
 
 function VoiceChatServiceManager:asyncInit()
 	if GetFFlagVoiceChatDUARGate() and isSubjectToDesktopPolicies() then
-		self:_reportJoinFailed("blockedByDesktopPolicies")
 		return Promise.reject()
 	end
 	if self.service then

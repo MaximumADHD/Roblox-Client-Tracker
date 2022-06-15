@@ -60,7 +60,10 @@ local function getPluginTheme()
 			MaterialDetailsWidth = MaterialDetailsWidth,
 			MaterialGridSize = UDim2.new(1, -MaterialDetailsWidth, 1, 0),
 			MaterialDetailsSize = UDim2.new(0, MaterialDetailsWidth, 1, 0),
+			MinListWidth = 50,
 			HideIcon = "rbxasset://textures/MaterialManager/chevrons-left.png",
+			ChevronLeft = "rbxasset://textures/MaterialManager/chevrons-left.png",
+			ChevronRight = "rbxasset://textures/MaterialManager/chevrons-right.png",
 			IconColor = StyleKey.ButtonText,
 			BackgroundColor = StyleKey.MainBackground,
 			IconSize = IconSize,
@@ -121,6 +124,8 @@ local function getPluginTheme()
 			BottomBarTransparency = 0.2,
 			BottomBarBackgroundColor = StyleKey.MainBackground,
 			ShowIcon = "rbxasset://textures/MaterialManager/chevrons-right.png",
+			ChevronLeft = "rbxasset://textures/MaterialManager/chevrons-left.png",
+			ChevronRight = "rbxasset://textures/MaterialManager/chevrons-right.png",
 			IconSize = IconSize,
 		},
 
@@ -168,6 +173,8 @@ local function getPluginTheme()
 		},
 
 		MaterialDetails = {
+			AdditionalLabelSize = UDim2.new(0, MaterialDetaulsLabelWidth, 1, 0), -- Remove with FFlagMaterialManagerDetailsOverhaul
+			AdditionalTextSize = UDim2.new(1, -MaterialDetaulsLabelWidth, 1, 0), -- Remove with FFlagMaterialManagerDetailsOverhaul
 			ButtonPosition = UDim2.new(1, -MaterialDetailsRowHeight, 0, 5),
 			ButtonSize = UDim2.fromOffset(MaterialDetailsRowHeight, MaterialDetailsRowHeight),
 			ButtonStyle = "RoundSubtle",
@@ -196,17 +203,29 @@ local function getPluginTheme()
 			-- Remove NameLabelSize* with FFlagMaterialManagerGlassNeonForceField
 			NameLabelSizeVariant = UDim2.new(1, -2 * MaterialDetailsRowHeight, 1, 0),
 			NameLabelSizeBuiltIn = UDim2.new(1, -MaterialDetailsRowHeight, 1, 0),
-			NoTexture = StyleKey.NoTextureFound,
+			NoTexture = StyleKey.NoTextureFound, -- Remove with FFlagMaterialManagerDetailsOverhaul
 			LabelRowSize = UDim2.new(1, 0, 0, MaterialDetailsRowHeight),
 			OverrideSize = UDim2.fromOffset(140, 20),
 			Padding = 10,
 			SectionHeaderTextSize = 18,
-			TextureLabelSize = UDim2.new(1, -MaterialDetailsTextureHeight, 1, 0),
-			AdditionalLabelSize = UDim2.new(0, MaterialDetaulsLabelWidth, 1, 0),
-			AdditionalTextSize = UDim2.new(1, -MaterialDetaulsLabelWidth, 1, 0),
-			TextureRowSize = UDim2.new(1, 0, 0, MaterialDetailsTextureHeight),
-			TextureSize = UDim2.fromOffset(MaterialDetailsTextureHeight, MaterialDetailsTextureHeight),
+			TextureLabelSize = UDim2.new(1, -MaterialDetailsTextureHeight, 1, 0), -- Remove with FFlagMaterialManagerDetailsOverhaul
+			TextureRowSize = UDim2.new(1, 0, 0, MaterialDetailsTextureHeight), -- Remove with FFlagMaterialManagerDetailsOverhaul
+			TextureSize = UDim2.fromOffset(MaterialDetailsTextureHeight, MaterialDetailsTextureHeight), -- Remove with FFlagMaterialManagerDetailsOverhaul
 			TitleTextSize = 22,
+		},
+
+		LabeledString = {
+			LabelSize = UDim2.new(0, MaterialDetaulsLabelWidth, 1, 0),
+			RowSize = UDim2.new(1, 0, 0, MaterialDetailsRowHeight),
+			TextSize = UDim2.new(1, -MaterialDetaulsLabelWidth, 1, 0),
+		},
+
+		LabeledTexture = {
+			LabelSize = UDim2.new(1, -MaterialDetailsTextureHeight, 1, 0),
+			NoTexture = StyleKey.NoTextureFound,
+			Padding = 10,
+			RowSize = UDim2.new(1, 0, 0, MaterialDetailsTextureHeight),
+			TextureSize = UDim2.fromOffset(MaterialDetailsTextureHeight, MaterialDetailsTextureHeight),
 		},
 
 		StatusIcon = {

@@ -51,9 +51,9 @@ return function()
 			Roact.unmount(instance)
 		end)
 
-		it("report game page", function()
+		it("report place page", function()
 			local store = Rodux.Store.new(Reducers)
-			store:dispatch(OpenReportDialog(Constants.ReportType.Game))
+			store:dispatch(OpenReportDialog(Constants.ReportType.Place))
 
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,

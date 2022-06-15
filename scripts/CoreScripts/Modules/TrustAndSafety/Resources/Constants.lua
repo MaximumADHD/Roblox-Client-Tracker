@@ -8,7 +8,7 @@ local Constants = {
 		Gamepad = "Gamepad",
 	},
 	ReportType = {
-		Game = "Game",
+		Place = "Place",
 		Player = "Player",
 	},
 }

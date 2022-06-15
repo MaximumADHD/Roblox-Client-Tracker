@@ -18,7 +18,7 @@ local Toast = require(TnsModule.Components.Toast)
 
 local TrustAndSafetyApp = Roact.PureComponent:extend("TrustAndSafetyApp")
 
-local DISPLAY_ORDER = 2 -- Displays above the InGameMenu
+local DISPLAY_ORDER = 8 -- Displays above the InGameMenuV3
 
 TrustAndSafetyApp.validateProps = t.strictInterface({
 	setScreenSize = t.callback,

@@ -1,8 +1,9 @@
 -- singleton
-
 local Page = script.Parent.Parent
 
 local ConstantColors = require(Page.Util.ConstantColors)
+
+local FFlagRemoveStudioThemeFromPlugins = game:GetFastFlag("RemoveStudioThemeFromPlugins", false)
 
 local Theme = {}
 
@@ -60,14 +61,19 @@ end
 function Theme.getBorderColor(props)
 	return getThemeData(props) and getThemeData(props).separator or ConstantColors.DefaultColor
 end
-
+-- TODO: jbousellam - remove with FFlagRemoveStudioThemeFromPlugins
 function Theme.getCheckboxBGColor()
+	assert(not FFlagRemoveStudioThemeFromPlugins)
 	return settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.InputFieldBackground)
 end
 
 function Theme.getRadioButtonTextColor(props)
-	return (getThemeData(props) and getThemeData(props).radioButton) and getThemeData(props).radioButton.title
+	if FFlagRemoveStudioThemeFromPlugins then
+		return if (getThemeData(props) and getThemeData(props).radioButton) then getThemeData(props).radioButton.title else nil
+	else
+		return (getThemeData(props) and getThemeData(props).radioButton) and getThemeData(props).radioButton.title
 		or settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.BrightText)
+	end
 end
 
 getThemeData = function(props)

@@ -1,13 +1,11 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
-
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local UILibrary = require(Packages.UILibrary)
 local Framework = require(Packages.Framework)
 
-local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Framework.Util.GetTextSize else nil
+local GetTextSize = Framework.Util.GetTextSize
 
 local Constants = require(Plugin.Src.Util.Constants)
 
@@ -122,10 +120,8 @@ function MessageBox:render()
 		local wrapTextWidth = 424
 		local wrapInformativeTextWidth = 192
 
-		local textOneLineSize = if FFlagRemoveUILibraryGetTextSize then GetTextSize(text, textFontSize, textFont, Vector2.new(0, 0))
-			else Constants.getTextSize(text, textFontSize, textFont)
-		local informativeOneLineTextSize = if FFlagRemoveUILibraryGetTextSize then GetTextSize(informativeText, informativeTextFontSize, informativeTextFont, Vector2.new(0, 0))
-			else Constants.getTextSize(informativeText, informativeTextFontSize, informativeTextFont)
+		local textOneLineSize = GetTextSize(text, textFontSize, textFont, Vector2.new(0, 0))
+		local informativeOneLineTextSize = GetTextSize(informativeText, informativeTextFontSize, informativeTextFont, Vector2.new(0, 0))
 
 		-- Wrap both texts, get the bigger of the 2
 		local textWidth = math.max(math.min(textOneLineSize.X, wrapTextWidth),
@@ -147,10 +143,8 @@ function MessageBox:render()
 
 		local maxTextWidth = innerMaxWidth - fullIconWidth
 
-		local textSize = if FFlagRemoveUILibraryGetTextSize then GetTextSize(text, textFontSize, textFont, Vector2.new(maxTextWidth, 1000))
-			else Constants.getTextSize(text, textFontSize, textFont, Vector2.new(maxTextWidth, 1000))
-		local informativeTextSize = if FFlagRemoveUILibraryGetTextSize then GetTextSize(informativeText, informativeTextFontSize, informativeTextFont, Vector2.new(maxTextWidth, 1000))
-			else Constants.getTextSize(informativeText, informativeTextFontSize, informativeTextFont, Vector2.new(maxTextWidth, 1000))
+		local textSize = GetTextSize(text, textFontSize, textFont, Vector2.new(maxTextWidth, 1000))
+		local informativeTextSize = GetTextSize(informativeText, informativeTextFontSize, informativeTextFont, Vector2.new(maxTextWidth, 1000))
 
 		local textHeight = textSize.Y
 		local textToInformativeTextPadding = 8

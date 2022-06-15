@@ -5,7 +5,7 @@ local HttpService = game:GetService("HttpService")
 local NetworkError = require(Plugin.Core.Actions.NetworkError)
 local SetVersionHistoryData = require(Plugin.Core.Actions.SetVersionHistoryData)
 
-local FFlagInfiniteScrollerForVersions = game:getFastFlag("InfiniteScrollerForVersions")
+local FFlagInfiniteScrollerForVersions2 = game:getFastFlag("InfiniteScrollerForVersions2")
 
 export type VersionHistoryResponseItem = {
 	assetId: number,
@@ -27,7 +27,7 @@ return function(networkInterface, assetId)
 			local responseJson = result.responseBody
 			-- This will require we have HttpService
 			local response = HttpService:JSONDecode(responseJson) :: VersionHistoryResponse
-			if FFlagInfiniteScrollerForVersions then
+			if FFlagInfiniteScrollerForVersions2 then
 				store:dispatch(SetVersionHistoryData(response))
 			else
 				-- response.data consists of an array of version data in

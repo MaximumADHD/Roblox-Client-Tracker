@@ -3,9 +3,6 @@ local wrapStrictTable = require(Plugin.Src.Util.wrapStrictTable)
 local convertArrayToTable = require(Plugin.Src.Util.convertArrayToTable)
 local getUserId = require(Plugin.Src.Util.getUserId)
 
-local TextService = game:GetService("TextService")
-local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
-
 local Constants = {}
 
 Constants.FONT = Enum.Font.SourceSans
@@ -14,16 +11,6 @@ Constants.FONT_SIZE_SMALL = 14
 Constants.FONT_SIZE_MEDIUM = 16
 Constants.FONT_SIZE_LARGE = 18
 Constants.FONT_SIZE_TITLE = 22
-
--- TODO: jbousellam - Remove with FFlagRemoveUILibraryGetTextSize
-function Constants.getTextSize(text, fontSize, font, frameSize)
-	assert(not FFlagRemoveUILibraryGetTextSize)
-	fontSize = fontSize or Constants.FONT_SIZE_MEDIUM
-	font = font or Constants.FONT
-	frameSize = frameSize or Vector2.new(0, 0)
-
-	return TextService:GetTextSize(text, fontSize, font, frameSize)
-end
 
 Constants.SCROLLBAR_THICKNESS = 8
 Constants.SCROLLBAR_PADDING = 2

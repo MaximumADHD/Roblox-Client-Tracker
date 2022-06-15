@@ -132,6 +132,13 @@ local DebugpointType: { [string]: DebugpointType } = {
 	Logpoint = "Logpoint",
 }
 
+local ColumnSize = "ColumnSize"
+local ColumnSizeVariables = "ColumnSizeVariables"
+local ColumnSizeMyWatches = "ColumnSizeMyWatches"
+local Tab = "Tab"
+local ScopeFilter = "ScopeFilter"
+local ColumnFilter = "ColumnFilter"
+
 return {
 	CallstackActionIds = CallstackActionIds,
 	WatchActionIds = WatchActionIds,
@@ -158,4 +165,10 @@ return {
 	DisableKey = DisableKey,
 	CallstackActionsOrder = CallstackActionsOrder,
 	WatchActionsOrder = WatchActionsOrder,
+	ColumnSize = ColumnSize,
+	Tab = Tab,
+	ScopeFilter = ScopeFilter,
+	ColumnFilter = ColumnFilter,
+	ColumnSizeVariables = ColumnSizeVariables,
+	ColumnSizeMyWatches = ColumnSizeMyWatches,
 }

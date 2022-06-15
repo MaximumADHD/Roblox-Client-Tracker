@@ -37,13 +37,16 @@ local ChangeExpression = require(Actions.Watch.ChangeExpression)
 local AddExpression = require(Actions.Watch.AddExpression)
 local RemoveExpression = require(Actions.Watch.RemoveExpression)
 local SetWatchSortState = require(Actions.Watch.SetWatchSortState)
+local SetTab = require(Actions.Watch.SetTab)
 
 local LazyLoadVariableChildren = require(PluginRoot.Src.Thunks.Watch.LazyLoadVariableChildren)
 local ExecuteExpressionForAllFrames = require(PluginRoot.Src.Thunks.Watch.ExecuteExpressionForAllFrames)
+local FilterScopeWatchThunk = require(PluginRoot.Src.Thunks.Watch.FilterScopeWatchThunk)
 
 local UtilFolder = PluginRoot.Src.Util
 local MakePluginActions = require(UtilFolder.MakePluginActions)
 local Constants = require(UtilFolder.Constants)
+local ColumnResizeHelperFunctions = require(UtilFolder.ColumnResizeHelperFunctions)
 
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
 local FFlagDevFrameworkTableHeaderTooltip = game:GetFastFlag("DevFrameworkTableHeaderTooltip")
@@ -64,6 +67,8 @@ local WatchKeys = {
 	[2] = "valueColumn",
 	[3] = "dataTypeColumn",
 }
+
+local WATCH_WINDOW_CONFIGS = "watchWindowConfigs"
 
 type PathMapping = {
 	[string]: WatchRow.WatchRow,
@@ -219,8 +224,8 @@ function DisplayTable:init()
 	end
 
 	self.state = {
-		VariableColumnSizes = hasTableColumnResizeFFlags and variableInitialSizes,
-		MyWatchColumnSizes = hasTableColumnResizeFFlags and myWatchInitialSizes,
+		VariableColumnSizes = variableInitialSizes,
+		MyWatchColumnSizes = myWatchInitialSizes,
 	}
 
 	self.OnColumnSizesChange = function(newSizes: { UDim })
@@ -401,6 +406,33 @@ function DisplayTable:init()
 	end
 end
 
+function DisplayTable:didMount()
+	local props = self.props
+	local plugin = props.Plugin:get()
+	local configs = plugin:GetSetting(WATCH_WINDOW_CONFIGS)
+	if configs and configs[Constants.ColumnSizeVariables] and configs[Constants.ColumnSizeMyWatches] and configs[Constants.Tab] and configs[Constants.ScopeFilter] then
+		props.onScopeFilterChange(configs[Constants.ScopeFilter])
+		props.onTabSelected(configs[Constants.Tab])
+		self:setState(function(state)
+			return {
+				VariableColumnSizes = ColumnResizeHelperFunctions.fetchSizesFromColumnScales(configs[Constants.ColumnSizeVariables]),
+				MyWatchColumnSizes = ColumnResizeHelperFunctions.fetchSizesFromColumnScales(configs[Constants.ColumnSizeMyWatches]),
+			}
+		end)
+	end
+end
+
+function DisplayTable:willUnmount()
+	local props = self.props
+	local plugin = props.Plugin:get()
+	local configs = {}
+	configs[Constants.ScopeFilter] = props.EnabledScopes
+	configs[Constants.Tab] = props.SelectedTab
+	configs[Constants.ColumnSizeVariables] = ColumnResizeHelperFunctions.fetchScaleFromColumnSizes(self.state.VariableColumnSizes)
+	configs[Constants.ColumnSizeMyWatches] = ColumnResizeHelperFunctions.fetchScaleFromColumnSizes(self.state.MyWatchColumnSizes)
+	plugin:SetSetting(WATCH_WINDOW_CONFIGS, configs)
+end
+
 function DisplayTable:render()
 	local props = self.props
 	local style = props.Stylizer
@@ -509,6 +541,7 @@ DisplayTable = RoactRodux.connect(function(state, props)
 		CurrentStepStateBundle = StepStateBundle.ctor(token, threadId, frameNumber),
 		SortIndex = watch.columnIndex,
 		SortOrder = watch.sortDirection,
+		EnabledScopes = watch.listOfEnabledScopes,
 	}
 end, function(dispatch)
 	return {
@@ -535,6 +568,12 @@ end, function(dispatch)
 		end,
 		OnSetWatchSortState = function(sortDirection, columnIndex)
 			return dispatch(SetWatchSortState(sortDirection, columnIndex))
+		end,
+		onScopeFilterChange = function(enabledScopes)
+			return dispatch(FilterScopeWatchThunk(enabledScopes))
+		end,
+		onTabSelected = function(tab)
+			return dispatch(SetTab(tab))
 		end,
 	}
 end)(DisplayTable)

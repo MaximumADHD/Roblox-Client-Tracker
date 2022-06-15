@@ -2,10 +2,8 @@ local Plugin = script.Parent.Parent
 
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
-local FFlagPlayerEmulatorDeduplicatePackages = game:GetFastFlag("PlayerEmulatorDeduplicatePackages")
-
 if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
-	local TestEZ = if FFlagPlayerEmulatorDeduplicatePackages then require(Plugin.Packages.Dev.TestEZ) else require(Plugin.Packages.TestEZ)
+	local TestEZ = require(Plugin.Packages.Dev.TestEZ)
 	local TestBootstrap = TestEZ.TestBootstrap
 
 	local TeamCityReporter = TestEZ.Reporters.TeamCityReporter

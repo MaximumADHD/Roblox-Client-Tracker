@@ -11,8 +11,6 @@
 		function OnButtonClicked = A callback for when a button is clicked.
 		function OnClose = A callback for when the dialog is closed.
 ]]
-local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
@@ -24,7 +22,7 @@ local withContext = ContextServices.withContext
 local StudioUI = Framework.StudioUI
 local StyledDialog = StudioUI.StyledDialog
 
-local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Framework.Util.GetTextSize else nil
+local GetTextSize = Framework.Util.GetTextSize
 
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Images = require(Plugin.Core.Util.Images)
@@ -53,14 +51,12 @@ function PurchaseDialog:renderContent(theme, localizedContent)
 
 	theme = self.props.Stylizer
 
-	local textWidth = if FFlagRemoveUILibraryGetTextSize then GetTextSize(
+	local textWidth = GetTextSize(
 		localizedContent.PurchaseFlow.CurrentBalance,
 		Constants.FONT_SIZE_MEDIUM,
 		nil,
 		Vector2.new(0, 0)
 	).X
-	else
-		Constants.getTextSize(localizedContent.PurchaseFlow.CurrentBalance, Constants.FONT_SIZE_MEDIUM).X
 
 	local width = Dialog.IMAGE_SIZE.X.Offset + Dialog.PROMPT_SIZE.X.Offset
 	local height = Dialog.PROMPT_SIZE.Y.Offset + Dialog.BALANCE_SIZE.Y.Offset

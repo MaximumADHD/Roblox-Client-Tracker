@@ -18,6 +18,18 @@ local deepJoin = Framework.Util.deepJoin
 
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
+-- pcall needed to effectively mock service call for unit tests
+local function isHighDpiEnabled()
+    local highDpiServiceFound, isNotHighDpiBuild = pcall(function() return game:GetService("StudioHighDpiService"):IsNotHighDPIAwareBuild() end)
+    assert(highDpiServiceFound or isNotHighDpiBuild == "'StudioHighDpiService' is not a valid Service name")
+    return not highDpiServiceFound or not isNotHighDpiBuild
+end
+local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and isHighDpiEnabled()
+
+local TerrainResourceFolderTheme1 = "rbxasset://studio_svg_textures/Lua/Terrain/%s/Large/"
+local TerrainLightResources = string.format(TerrainResourceFolderTheme1,"Light")
+local TerrainDarkResources = string.format(TerrainResourceFolderTheme1,"Dark")
+
 local Theme = {}
 
 local ColorSheet = {
@@ -100,7 +112,7 @@ function Theme.createValues(getColor, c, m)
 		}
 	})
 
-	local brushSettingsTheme = defineTheme({
+	local DEPRECATED_brushSettingsTheme = defineTheme({
 		sphereBrushImage = "rbxasset://textures/TerrainTools/icon_shape_sphere.png",
 		cubeBrushImage = "rbxasset://textures/TerrainTools/icon_shape_cube.png",
 		cylinderBrushImage = "rbxasset://textures/TerrainTools/icon_shape_cylinder.png",
@@ -113,6 +125,30 @@ function Theme.createValues(getColor, c, m)
 		pickHeightDisableImage = "rbxasset://textures/TerrainTools/icon_picker_disable.png",
 	}, {
 		Dark = {
+			pickHeightDisableImage = "rbxasset://textures/TerrainTools/icon_picker_disable_dark.png",
+		}
+	})
+
+    local brushSettingsTheme = defineTheme({
+		sphereBrushImage = TerrainLightResources .. "TerrainBrushTypeSphere.png",
+		cubeBrushImage = TerrainLightResources .. "TerrainBrushTypeCube.png",
+		cylinderBrushImage = TerrainLightResources .. "TerrainBrushTypeCylinder.png",
+
+		flattenBothImage = TerrainLightResources .. "FlattenModeRemoveAboveFillBelow.png",
+		flattenErodeImage = TerrainLightResources .. "FlattenModeRemoveAbove.png",
+		flattenGrowImage = TerrainLightResources .. "FlattenModeFillBelow.png",
+
+		pickHeightEnableImage = "rbxasset://textures/TerrainTools/icon_picker_enable.png",
+		pickHeightDisableImage = "rbxasset://textures/TerrainTools/icon_picker_disable.png",
+	}, {
+		Dark = {
+            sphereBrushImage = TerrainDarkResources .. "TerrainBrushTypeSphere.png",
+            cubeBrushImage = TerrainDarkResources .. "TerrainBrushTypeCube.png",
+            cylinderBrushImage = TerrainDarkResources .. "TerrainBrushTypeCylinder.png",
+    
+            flattenBothImage = TerrainDarkResources .. "FlattenModeRemoveAboveFillBelow.png",
+            flattenErodeImage = TerrainDarkResources .. "FlattenModeRemoveAbove.png",
+            flattenGrowImage = TerrainDarkResources .. "FlattenModeFillBelow.png",
 			pickHeightDisableImage = "rbxasset://textures/TerrainTools/icon_picker_disable_dark.png",
 		}
 	})
@@ -338,7 +374,7 @@ function Theme.createValues(getColor, c, m)
 		tabTheme = tabTheme,
 		toggleTheme = toggleTheme,
 		toolRenderTheme = toolRenderTheme,
-		brushSettingsTheme = brushSettingsTheme,
+		brushSettingsTheme = FFlagHighDpiIcons and brushSettingsTheme or DEPRECATED_brushSettingsTheme,
 		panelTheme = panelTheme,
 		roundTextButtonTheme = roundTextButtonTheme,
 		roundToggleTextButtonTheme = roundToggleTextButtonTheme,

@@ -8,8 +8,6 @@
 ]]
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
-
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
@@ -17,6 +15,7 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Util = Framework.Util
+local GetTextSize = Util.GetTextSize
 local StyleModifier = Util.StyleModifier
 local ui = Framework.Style.ComponentSymbols
 
@@ -27,7 +26,6 @@ local LoadingIndicator = UI.LoadingIndicator
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
-local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Util.GetTextSize else UILibrary.Util.GetTextSize
 
 local Screens = require(Plugin.Src.Util.Screens)
 local View = require(Plugin.Src.Util.View)

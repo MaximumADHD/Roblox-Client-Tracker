@@ -12,16 +12,11 @@
         CurrentScreen = table, the current screen that is displayed see Screen.lua for the table format.
     Optional Properties:
 ]]
-local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-
--- TODO: jbousellam - remove with FFlagRemoveUILibraryGetTextSize
-local UILibrary = require(Plugin.Packages.UILibrary)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -29,7 +24,7 @@ local withContext = ContextServices.withContext
 local LinkText = Framework.UI.LinkText
 
 local Util = Framework.Util
-local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Util.GetTextSize else UILibrary.Util.GetTextSize
+local GetTextSize = Util.GetTextSize
 local LayoutOrderIterator = Util.LayoutOrderIterator
 local StyleModifier = Util.StyleModifier
 

@@ -15,18 +15,17 @@
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
-
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
 
 local Util = Plugin.Core.Util
-local getTextSize = if FFlagRemoveUILibraryGetTextSize then Framework.Util.GetTextSize else require(Util.getTextSize)
 local Constants = require(Util.Constants)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+
+local getTextSize = Framework.Util.GetTextSize
 
 local LinkButton = Roact.PureComponent:extend("LinkButton")
 

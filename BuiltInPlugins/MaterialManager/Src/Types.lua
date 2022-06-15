@@ -12,9 +12,16 @@ export type Material = {
 	-- Remove IsBuiltin with FFlagMaterialManagerGlassNeonForceField
 	IsBuiltin : boolean?,
 	Material : Enum.Material,
-    MaterialPath : Path,
+	MaterialPath : Path,
+	MaterialType: MaterialType,
 	MaterialVariant : MaterialVariant?,
-    MaterialType : MaterialType,
+}
+
+export type Category = {
+	Builtin: boolean,
+	Categories: Map<string, Category>,
+	CategoryNames: Array<string>,
+	Materials: Array<Material>,
 }
 
 -- TODO: decide on type for TextureMap

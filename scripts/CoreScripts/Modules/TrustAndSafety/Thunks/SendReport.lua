@@ -17,7 +17,7 @@ return function(reportType, targetPlayer, reason, description)
 				Players:ReportAbuse(targetPlayer, reason, description)
 				store:dispatch(OpenReportSentDialog(reportType, targetPlayer))
 			end)()
-		elseif reportType == Constants.ReportType.Game then
+		elseif reportType == Constants.ReportType.Place then
 			local state = store:getState()
 			local placeName = state.placeInfo.name
 			local placeDescription = state.placeInfo.description
@@ -45,7 +45,7 @@ return function(reportType, targetPlayer, reason, description)
 		if reportType == Constants.ReportType.Player then
 			table.insert(stringTable, "report_type=user")
 			table.insert(stringTable, "reported_entity_id=" .. tostring(targetPlayer.UserId))
-		elseif reportType == Constants.ReportType.Game then
+		elseif reportType == Constants.ReportType.Place then
 			table.insert(stringTable, "report_type=game")
 			table.insert(stringTable, "reported_entity_id=" .. tostring(game.GameId))
 		end

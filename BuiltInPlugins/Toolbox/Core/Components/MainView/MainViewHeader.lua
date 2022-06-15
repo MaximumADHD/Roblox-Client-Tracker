@@ -1,4 +1,6 @@
 local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
+local FFlagToolboxSearchResultsBackButton = game:GetFastFlag("ToolboxSearchResultsBackButton")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -136,6 +138,8 @@ function MainViewHeader:render()
 				Tags = tagsList,
 				onClearTags = self.onTagsCleared,
 				searchTerm = searchTerm,
+				categoryName = if FFlagToolboxSearchResultsBackButton then props.categoryName else nil,
+				onBackToHome = if FFlagToolboxSearchResultsBackButton then props.onBackToHome else nil,
 			})
 		end
 

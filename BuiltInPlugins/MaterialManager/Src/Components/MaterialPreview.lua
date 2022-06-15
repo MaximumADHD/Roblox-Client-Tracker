@@ -19,7 +19,6 @@ local getMaterialName = require(Constants.getMaterialName)
 
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialPack2022Update = require(Flags.getFFlagMaterialPack2022Update)
-local getFFlagMaterialServiceOverrideChangedSignal = require(Flags.getFFlagMaterialServiceOverrideChangedSignal)
 
 local InsertService = game:GetService("InsertService")
 local materialModel = InsertService:LoadLocalAsset("rbxasset://models/MaterialManager/sphere_model.rbxm")
@@ -67,7 +66,7 @@ end
 function MaterialPreview:didMount()
 	local props: _Props = self.props
 
-	if getFFlagMaterialServiceOverrideChangedSignal() and not props.MaterialVariant and props.Material then
+	if not props.MaterialVariant and props.Material then
 		self.materialOverrideChangedConnection = props.MaterialController:getMaterialOverrideChangedSignal(props.Material):Connect(function()
 			self:setState({})
 		end)
@@ -103,7 +102,7 @@ end
 function MaterialPreview:didUpdate()
 	local props: _Props = self.props
 
-	if getFFlagMaterialServiceOverrideChangedSignal() and not props.MaterialVariant and props.Material then
+	if not props.MaterialVariant and props.Material then
 		if self.materialOverrideChangedConnection then
 			self.materialOverrideChangedConnection:Disconnect()
 			self.materialOverrideChangedConnection = nil

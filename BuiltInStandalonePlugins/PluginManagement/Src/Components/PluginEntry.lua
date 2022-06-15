@@ -1,4 +1,5 @@
 local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
+local FFlagAutoUpdatePlugins = game:GetFastFlag("AutoUpdatePlugins")
 
 local StudioService = game:getService("StudioService")
 local ContentProvider = game:getService("ContentProvider")
@@ -27,6 +28,7 @@ local LoadingBar = UI.FakeLoadingBar
 
 local RemovePluginData = require(Plugin.Src.Actions.RemovePluginData)
 local HttpRequestOverview = require(Plugin.Src.Components.HttpRequestOverview)
+local UpdateOverview = require(Plugin.Src.Components.UpdateOverview)
 
 local LOADING_BAR_SIZE = UDim2.new(0, 120, 0, 8)
 local LOADING_BAR_TIME = 0.5
@@ -271,6 +273,11 @@ function PluginEntry:render()
 				assetId = data.assetId,
 				LayoutOrder = 3,
 			}),
+
+			UpdateOverview = if FFlagAutoUpdatePlugins then Roact.createElement(UpdateOverview, {
+				assetId = data.assetId,
+				LayoutOrder = 4,
+			}) else nil,
 		}),
 
 		ModeratedWarning = isModerated and Roact.createElement("TextLabel", {

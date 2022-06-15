@@ -428,7 +428,9 @@ local Constants = {
 		Success = 6,
 		InputTooLong = 7,
 		InputHasNoPerson = 8,
-		InputUnstable = 9
+		InputUnstable = 9,
+		TimedOut = 10,
+		Cancelled = 11
 	},
 
 	ANIMATION_TYPE = {

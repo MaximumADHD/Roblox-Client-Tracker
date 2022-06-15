@@ -12,14 +12,24 @@ local Framework = require(Plugin.Packages.Framework)
 local TestHelpers = Framework.TestHelpers
 local ContextServices = Framework.ContextServices
 
+local getFFlagMaterialManagerDetailsOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerDetailsOverhaul)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local MakeTheme = require(Plugin.Src.Resources.MakeTheme)
 
+local Util = Plugin.Src.Util
+local GeneralServiceController = require(Util.GeneralServiceController)
+local MaterialServiceController = require(Util.MaterialServiceController)
+
 -- New Plugin Setup: Populate contextItemsList with mocks
+
+local store = ContextServices.Store.new(Rodux.Store.new(MainReducer, nil, nil, nil))
+
 local contextItemsList = {
 	ContextServices.Analytics.mock(),
 	ContextServices.Localization.mock(),
-	ContextServices.Store.new(Rodux.Store.new(MainReducer, nil, nil, nil)),
+	store,
+	if getFFlagMaterialManagerDetailsOverhaul() then MaterialServiceController.mock(store) else nil,
+	if getFFlagMaterialManagerDetailsOverhaul() then GeneralServiceController.mock() else nil,
 	MakeTheme(true),
 }
 

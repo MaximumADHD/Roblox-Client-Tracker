@@ -38,17 +38,12 @@ end
 
 local toastBackgroundTransparency
 local hasOpenMenu = false
-local hasCloseMenu = false
 
 local function showAnimation(timeElapsed, updateBindings, _, stopCallback, props)
 	if isBetweenFrames(timeElapsed, 0, 5) then
 		updateBindings.flash(0)
 		updateBindings.toast(0)
 		updateBindings.toastBackground(toastBackgroundTransparency)
-		if not hasCloseMenu then
-			props.closeMenu()
-			hasCloseMenu = true
-		end
 	elseif isBetweenFrames(timeElapsed, 5, 12) then
 		local scaledElapsed = linearTween(timeElapsed, 5, 12)
 		updateBindings.flash(scaledElapsed)
@@ -76,7 +71,6 @@ local function showAnimation(timeElapsed, updateBindings, _, stopCallback, props
 		updateBindings.toastBackground(1)
 		stopCallback()
 		hasOpenMenu = false
-		hasCloseMenu = false
 	end
 end
 

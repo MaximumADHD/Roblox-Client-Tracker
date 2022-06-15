@@ -6,7 +6,8 @@
 
 local Workspace = game:GetService("Workspace")
 
-local FLAGS_FOLDER = "MaterialManagerFlags"
+local Plugin = script.Parent.Parent.Parent
+local FLAGS_FOLDER = Plugin.Name .. "Flags"
 
 local inStudio, hasInternalPermission = pcall(function()
 	-- Currently not available in CLI

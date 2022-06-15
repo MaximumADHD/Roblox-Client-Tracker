@@ -58,6 +58,13 @@ function ModalDialog:renderHeaderBarLeft()
 	end
 end
 
+function ModalDialog:renderHeaderBarRight()
+	-- placeholder to center the title text
+	return function()
+		return nil
+	end
+end
+
 function ModalDialog:render()
 	local props = self.props
 	local contentHeight = CONTENT_HEIGHT
@@ -108,6 +115,7 @@ function ModalDialog:render()
 						backgroundTransparency = 1,
 						barHeight = 48,
 						renderLeft = self:renderHeaderBarLeft(),
+						renderRight = self:renderHeaderBarRight(),
 						title = props.titleText,
 					}) or nil,
 				}),

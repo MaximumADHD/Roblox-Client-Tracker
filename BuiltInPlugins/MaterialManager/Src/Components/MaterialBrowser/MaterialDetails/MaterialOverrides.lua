@@ -6,12 +6,12 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 
+local Stylizer = Framework.Style.Stylizer
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Analytics = ContextServices.Analytics
 local Localization = ContextServices.Localization
-
-local Stylizer = Framework.Style.Stylizer
 
 local UI = Framework.UI
 local Pane = UI.Pane
@@ -20,18 +20,14 @@ local ToggleButton = UI.ToggleButton
 local TextLabel = UI.Decoration.TextLabel
 local TruncatedTextLabel = UI.TruncatedTextLabel
 
-local Actions = Plugin.Src.Actions
-local SetBaseMaterial = require(Actions.SetBaseMaterial)
+local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Plugin.Src.Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
+local getSupportedMaterials = require(Plugin.Src.Resources.Constants.getSupportedMaterials)
+local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+local MaterialServiceController = require(Plugin.Src.Util.MaterialServiceController)
+local SetBaseMaterial = require(Plugin.Src.Actions.SetBaseMaterial)
+local StatusIcon = require(Plugin.Src.Components.StatusIcon)
 
-local Util = Plugin.Src.Util
-local MaterialController = require(Util.MaterialController)
-
-local Components = Plugin.Src.Components
-local StatusIcon = require(Components.StatusIcon)
-
-local Flags = Plugin.Src.Flags
-local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
-local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
+local supportedMaterials = getSupportedMaterials()
 
 export type Props = {
 	LayoutOrder: number?,
@@ -43,11 +39,15 @@ type _Props = Props & {
 	dispatchSetBaseMaterial: (baseMaterial: string) -> (),
 	Localization: any,
 	Material: _Types.Material?,
-	MaterialController: any,
+	MaterialOverride: number,
+	MaterialOverrides: _Types.Array<string>,
+	MaterialServiceController: any,
 	Stylizer: any,
 }
 
 type _Style = {
+	AdditionalLabelSize: UDim2,
+	AdditionalTextSize: UDim2,
 	ButtonPosition: UDim2,
 	ButtonSize: UDim2,
 	ButtonStyle: string,
@@ -77,186 +77,28 @@ type _Style = {
 local MaterialOverrides = Roact.PureComponent:extend("MaterialOverrides")
 
 function MaterialOverrides:init()
-	self.onMaterialVariantChanged = function(materialVariant: MaterialVariant)
-		local props: _Props = self.props
-		local material = props.Material
-
-		if material.MaterialVariant then
-			if materialVariant.BaseMaterial == material.MaterialVariant.BaseMaterial then
-				self:setState({})
-
-				return
-			end
-
-			for _, variant in ipairs(self.variants) do
-				if materialVariant == variant then
-					self:setState({})
-
-					return
-				end
-			end
-		end
-	end
-
-	self.onMaterialAddedRemoved = function(_, materialVariant: MaterialVariant)
-		local props: _Props = self.props
-		local material = props.Material
-		local baseMaterial = if getFFlagMaterialManagerGlassNeonForceField() then material.Material else material.MaterialVariant.BaseMaterial
-
-		if materialVariant.BaseMaterial == baseMaterial then
-			self:setState({
-				variantsListChanged = true
-			})
-		end
-	end
-
-	self.onOverrideChanged = function(materialEnum: Enum.Material)
-		local props: _Props = self.props
-		local material = props.Material
-		local baseMaterial = if getFFlagMaterialManagerGlassNeonForceField() then material.Material else material.MaterialVariant.BaseMaterial
-
-		if materialEnum == baseMaterial then
-			self:setState({})
-		end
-	end
-
 	self.onMaterialItemActivated = function(value, index)
 		local props: _Props = self.props
-		local material = props.Material
-		local baseMaterial = if getFFlagMaterialManagerGlassNeonForceField() then material.Material else material.MaterialVariant.BaseMaterial
+		local baseMaterial = if props.Material then props.Material.Material else Enum.Material.Plastic
 
 		if index == 1 then
-			props.MaterialController:setMaterialOverride(baseMaterial)
+			props.MaterialServiceController:setMaterialOverride(baseMaterial)
 		else
-			props.MaterialController:setMaterialOverride(baseMaterial, self.state.items[index])
+			props.MaterialServiceController:setMaterialOverride(baseMaterial, props.MaterialOverrides[index])
 		end
-
-		self:setState({
-			index = index
-		})
 	end
 
-	self.onOverrideToggled = function()
-		local props : _Props = self.props
-		local material = props.Material
+	self.onOverrideToggled = function(toggled)
+		local props: _Props = self.props
 
-		if material.MaterialVariant then
-			local materialType = material.MaterialVariant.BaseMaterial
-			local materialName = material.MaterialVariant.Name
-
-			local materialIndex = 1
-			for index, name in ipairs(self.state.items) do
-				if materialName == name then
-					materialIndex = index
-				end
-			end
-
-			if self.state.index ~= materialIndex then
-				props.MaterialController:setMaterialOverride(materialType, materialName)
+		if props.Material and props.Material.MaterialVariant then
+			if toggled then
+				props.MaterialServiceController:setMaterialOverride(props.Material.Material)
 			else
-				materialIndex = 1
-				props.MaterialController:setMaterialOverride(materialType)
+				local materialIndex = table.find(props.MaterialOverrides, props.Material.MaterialVariant.Name)
+
+				props.MaterialServiceController:setMaterialOverride(props.Material.Material, props.MaterialOverrides[materialIndex])
 			end
-
-			self:setState({
-				index = materialIndex
-			})
-		end
-	end
-
-	self.variants = {}
-	self.state = {
-		index = -1,
-		items = {},
-	}
-end
-
-function MaterialOverrides:willUnmount()
-	if self.materialChangedConnection then
-		self.materialChangedConnection:Disconnect()
-		self.materialChangedConnection = nil
-	end
-
-	if self.materialAddedConnection then
-		self.materialAddedConnection:Disconnect()
-		self.materialAddedConnection = nil
-	end
-
-	if self.materialRemovedConnection then
-		self.materialRemovedConnection:Disconnect()
-		self.materialRemovedConnection = nil
-	end
-
-	if self.overrideChangedConnection then
-		self.overrideChangedConnection:Disconnect()
-		self.overrideChangedConnection = nil
-	end
-
-	if self.overrideStatusChangedConnection then
-		self.overrideStatusChangedConnection:Disconnect()
-		self.overrideStatusChangedConnection = nil
-	end
-end
-
-function MaterialOverrides:didMount()
-	local props: _Props = self.props
-	local localization = props.Localization
-	local materialController = props.MaterialController
-
-	self.materialChangedConnection = materialController:getMaterialChangedSignal():Connect(self.onMaterialVariantChanged)
-	self.materialAddedConnection = materialController:getMaterialAddedSignal():Connect(self.onMaterialAddedRemoved)
-	self.materialRemovedConnection = materialController:getMaterialRemovedSignal():Connect(self.onMaterialAddedRemoved)
-	self.overrideChangedConnection = materialController:getOverrideChangedSignal():Connect(self.onOverrideChanged)
-	self.overrideStatusChangedConnection = materialController:getOverrideStatusChangedSignal():Connect(self.onOverrideChanged)
-
-	if props.Material then
-		-- Move into function call with FFlagMaterialManagerGlassNeonForceField
-		local material
-		if getFFlagMaterialManagerGlassNeonForceField() then 
-			material = props.Material.Material
-		elseif props.Material.MaterialVariant then
-			material = props.Material.MaterialVariant.BaseMaterial
-		else
-			-- Remove with the FFlagMaterialManagerGlassNeonForceField check, this is here due to Luau reasons
-			assert("Missing material")
-			material = Enum.Material.Plastic
-		end
-		local items, index = materialController:getMaterialOverrides(material)
-		table.insert(items, 1, localization:getText("MaterialOverrides", "None"))
-
-		self:setState({
-			items = items,
-			index = index + 1
-		})
-	end
-end
-
-function MaterialOverrides:didUpdate(prevProps: _Props)
-	local props: _Props = self.props
-	local localization = props.Localization
-	local materialController = props.MaterialController
-
-	if prevProps.Material ~= props.Material or self.state.variantsListChanged then
-		if props.Material then
-			-- Move into function call with FFlagMaterialManagerGlassNeonForceField
-			local material
-			if getFFlagMaterialManagerGlassNeonForceField() then 
-				material = props.Material.Material
-			elseif props.Material.MaterialVariant then
-				material = props.Material.MaterialVariant.BaseMaterial
-			else
-				-- Remove with the FFlagMaterialManagerGlassNeonForceField check, this is here due to Luau reasons
-				assert("Missing material")
-				material = Enum.Material.Plastic
-			end
-			local items, index = materialController:getMaterialOverrides(material)
-			table.insert(items, 1, localization:getText("MaterialOverrides", "None"))
-
-			self:setState({
-				items = items,
-				index = index + 1,
-				variantsListChanged = false,
-			})
 		end
 	end
 end
@@ -266,11 +108,6 @@ function MaterialOverrides:render()
 	local style = props.Stylizer.MaterialDetails
 	local localization = props.Localization
 	local material = props.Material
-	local materialController = props.MaterialController
-
-	-- Move into function call with FFlagMaterialManagerGlassNeonForceField
-	local materialType = if getFFlagMaterialManagerGlassNeonForceField() then material.Material else material.MaterialVariant.BaseMaterial
-	local override = materialController:getMaterialOverride(materialType)
 
 	if not material then
 		return Roact.createElement(Pane)
@@ -278,10 +115,7 @@ function MaterialOverrides:render()
 
 	local contents = {}
 
-	-- Move into if statement with FFlagMaterialManagerGlassNeonForceField
-	local isBuiltin = if getFFlagMaterialManagerGlassNeonForceField() then not material.MaterialVariant else material.IsBuiltin
-
-	if isBuiltin then
+	if not material.MaterialVariant then
 		contents = {
 			Label = Roact.createElement(Pane, {
 				LayoutOrder = 1,
@@ -310,15 +144,16 @@ function MaterialOverrides:render()
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 			}, {
 				SelectInput = Roact.createElement(SelectInput, {
-					Items = self.state.items,
+					Items = props.MaterialOverrides,
 					OnItemActivated = self.onMaterialItemActivated,
-					PlaceholderText = override,
-					SelectedIndex = self.state.index,
+					PlaceholderText = props.MaterialOverrides[props.MaterialOverride],
+					SelectedIndex = props.MaterialOverride,
 					Width = style.OverrideSize.X.Offset,
 				})
 			})
 		}
 	else
+		local toggled = props.MaterialOverride > 1 and props.MaterialOverrides[props.MaterialOverride] == material.MaterialVariant.Name
 		contents = {
 			Label = Roact.createElement(TextLabel, {
 				LayoutOrder = 1,
@@ -334,8 +169,8 @@ function MaterialOverrides:render()
 				Padding = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then 5 else nil,
 			}, {
 				ToggleButton = Roact.createElement(ToggleButton, {
-					OnClick = self.onOverrideToggled,
-					Selected = self.state.index > 1 and self.state.items[self.state.index] == material.MaterialVariant.Name,
+					OnClick = function() self.onOverrideToggled(toggled) end,
+					Selected = toggled,
 					Size = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then UDim2.fromOffset(30, 18) else UDim2.fromOffset(40, 24),
 				})
 			})
@@ -368,15 +203,25 @@ end
 MaterialOverrides = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
-	MaterialController = MaterialController,
+	MaterialServiceController = MaterialServiceController,
 	Stylizer = Stylizer,
 })(MaterialOverrides)
 
 return RoactRodux.connect(
-	function(state, props)
-		return {
-			Material = props.MockMaterial or state.MaterialBrowserReducer.Material,
-		}
+	function(state: MainReducer.State, props: _Props)
+		if props.MockMaterial then
+			return {
+				Material = props.MockMaterial,
+			}
+		elseif not state.MaterialBrowserReducer.Material or not supportedMaterials[state.MaterialBrowserReducer.Material.Material] then
+			return {}
+		else
+			return {
+				Material = state.MaterialBrowserReducer.Material,
+				MaterialOverrides = state.MaterialBrowserReducer.MaterialOverrides[state.MaterialBrowserReducer.Material.Material],
+				MaterialOverride = state.MaterialBrowserReducer.MaterialOverride[state.MaterialBrowserReducer.Material.Material],
+			}
+		end
 	end,
 	function(dispatch)
 		return {

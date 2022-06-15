@@ -7,7 +7,7 @@
 		function OnClose - closure to run to close the QWidget dialog
 ]]
 local StudioService = game:GetService("StudioService")
-
+local FFlagRemoveUILibrarySeparator = game:GetFastFlag("RemoveUILibrarySeparator")
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -24,7 +24,7 @@ local SettingsImpl = require(Plugin.Src.Network.Requests.SettingsImpl)
 
 local Constants = require(Plugin.Src.Resources.Constants)
 
-local Separator = UILibrary.Component.Separator
+local Separator = if FFlagRemoveUILibrarySeparator then Framework.UI.Separator else UILibrary.Component.Separator
 
 local MenuBar = require(Plugin.Src.Components.Menu.MenuBar)
 local Footer = require(Plugin.Src.Components.Footer)
@@ -152,7 +152,7 @@ function ScreenCreateNewGame:render()
 		}),
 
 		Separator = Roact.createElement(Separator, {
-			Weight = 3,
+			Weight = if FFlagRemoveUILibrarySeparator then nil else 3,
 			Position = UDim2.new(0, theme.MENU_BAR_WIDTH, 0.5, 0),
 			DominantAxis = Enum.DominantAxis.Height,
 		}),

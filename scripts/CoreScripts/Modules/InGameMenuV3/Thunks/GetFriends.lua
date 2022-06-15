@@ -13,6 +13,7 @@ return function(playersService)
 
 				if not success then
 					reject("Error loading online friends")
+					return
 				end
 
 				local friends = {}

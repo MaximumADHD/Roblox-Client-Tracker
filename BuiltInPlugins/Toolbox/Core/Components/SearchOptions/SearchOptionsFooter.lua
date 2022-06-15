@@ -13,8 +13,6 @@ local BUTTON_TEXT_PADDING = 20
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
-
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
@@ -26,7 +24,7 @@ local withLocalization = ContextHelper.withLocalization
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Framework.Util.GetTextSize else nil
+local GetTextSize = Framework.Util.GetTextSize
 
 local RoundButton = require(Plugin.Core.Components.RoundButton)
 
@@ -51,8 +49,8 @@ function SearchOptionsFooter:renderContent(theme, localizedContent)
 
 	local applyText = localizedContent.SearchOptions.Apply
 	local cancelText = localizedContent.SearchOptions.Cancel
-	local applyWidth = if FFlagRemoveUILibraryGetTextSize then GetTextSize(applyText, nil, nil, Vector2.new(0, 0)).X + BUTTON_TEXT_PADDING else Constants.getTextSize(applyText).X + BUTTON_TEXT_PADDING
-	local cancelWidth = if FFlagRemoveUILibraryGetTextSize then GetTextSize(cancelText, nil, nil, Vector2.new(0, 0)).X + BUTTON_TEXT_PADDING else Constants.getTextSize(cancelText).X + BUTTON_TEXT_PADDING
+	local applyWidth = GetTextSize(applyText, nil, nil, Vector2.new(0, 0)).X + BUTTON_TEXT_PADDING
+	local cancelWidth = GetTextSize(cancelText, nil, nil, Vector2.new(0, 0)).X + BUTTON_TEXT_PADDING
 
 	local cancelTheme = theme.searchOptions.cancelButton
 	local applyTheme = theme.searchOptions.applyButton

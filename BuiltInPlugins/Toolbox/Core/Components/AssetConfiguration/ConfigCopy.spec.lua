@@ -1,5 +1,5 @@
 return function()
-	local FFlagAssetConfigDynamicDistributionQuotas = game:GetFastFlag("AssetConfigDynamicDistributionQuotas")
+	local FFlagAssetConfigDynamicDistributionQuotas2 = game:GetFastFlag("AssetConfigDynamicDistributionQuotas2")
 	local Plugin = script:FindFirstAncestor("Toolbox")
 
 	local Packages = Plugin.Packages
@@ -78,7 +78,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	if FFlagAssetConfigDynamicDistributionQuotas then
+	if FFlagAssetConfigDynamicDistributionQuotas2 then
 		local function assertToggleEnabled(container: Instance, enabled: boolean)
 			TestHelpers.pollAssertionUntil(function()
 				-- ToggleButton will have no PointingHand if it is disabled
@@ -106,6 +106,18 @@ return function()
 				-- No monthly quota returned
 				duration = "Day",
 			}
+			local instance, container = renderTestInstance()
+
+			assertToggleEnabled(container, true)
+		end)
+
+		it("should enable the toggle if within quota with no usage", function()
+			fakeQuota = {
+				capacity = 10,
+				usage = 0,
+				duration = "Month",
+			}
+
 			local instance, container = renderTestInstance()
 
 			assertToggleEnabled(container, true)

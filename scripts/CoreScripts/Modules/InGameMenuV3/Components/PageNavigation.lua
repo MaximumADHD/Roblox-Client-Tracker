@@ -1,4 +1,8 @@
+local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
+
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local TrustAndSafety = require(RobloxGui.Modules.TrustAndSafety)
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Otter = InGameMenuDependencies.Otter
@@ -221,7 +225,12 @@ local function PageNavigation(props)
 				props.setFollowing(not followSelected)
 				props.postFollowing(networkImpl, not followSelected)
 			end
-		}
+		},
+		reportExperience = {
+			onActivated = function()
+				TrustAndSafety.openReportDialogForPlace()
+			end
+		},
 	}
 
 	local pageCount = #Pages.pagesByIndex

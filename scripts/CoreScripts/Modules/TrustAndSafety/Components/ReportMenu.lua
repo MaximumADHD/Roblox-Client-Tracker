@@ -12,6 +12,8 @@ local Dependencies = require(TnsModule.Dependencies)
 local BarOnTopScrollingFrame = require(Dependencies.BarOnTopScrollingFrame)
 local Divider = require(Dependencies.Divider)
 local PlayerCell = require(Dependencies.PlayerCell)
+local PlayerSearchPredicate = require(Dependencies.PlayerSearchPredicate)
+local SearchBar = require(Dependencies.SearchBar)
 local ThemedTextLabel = require(Dependencies.ThemedTextLabel)
 local withLocalization = require(Dependencies.withLocalization)
 
@@ -24,7 +26,12 @@ local ModalDialog = require(TnsModule.Components.ModalDialog)
 local GameCell = require(TnsModule.Components.GameCell)
 
 local Colors = UIBlox.App.Style.Colors
+
+local HeaderBar = UIBlox.App.Bar.HeaderBar
+local IconButton = UIBlox.App.Button.IconButton
+local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local StyleProvider = UIBlox.Core.Style.Provider
+local UIBloxImages = UIBlox.App.ImageSet.Images
 local withStyle = UIBlox.Core.Style.withStyle
 
 local CELL_THEME_OVERRIDES = {
@@ -44,10 +51,43 @@ ReportMenu.validateProps = t.strictInterface({
 	openReportDialog = t.callback,
 })
 
-function ReportMenu:getSortedPlayerList()
+function ReportMenu:init()
+	self.state = {
+		isFilterMode = false,
+		filterText = nil,
+	}
+	-- Press the "Search" button.
+	self.onSearch = function()
+		self:setState({
+			isFilterMode = true,
+			filterText = "",
+		})
+	end
+	-- Change the filter text.
+	self.onTextChanged = function(text)
+		self:setState({
+			filterText = text,
+		})
+	end
+	-- Press the "Canel" button.
+	self.onCancel = function()
+		self:setState({
+			isFilterMode = false,
+			filterText = Roact.None,
+		})
+	end
+end
+
+function ReportMenu:getPlayerList()
 	local list = {}
 	for _, player in ipairs(Players:GetPlayers()) do
-		if player ~= Players.LocalPlayer then
+		if player == Players.LocalPlayer then
+			-- Don't show the user him/herself.
+		elseif not self.state.isFilterMode then
+			-- Normal mode: just show
+			table.insert(list, player)
+		elseif PlayerSearchPredicate(self.state.filterText, player.Name, player.DisplayName) then
+			-- Filter mode: show if predicate returns true
 			table.insert(list, player)
 		end
 	end
@@ -56,6 +96,47 @@ function ReportMenu:getSortedPlayerList()
 		return p1.DisplayName:lower() < p2.DisplayName:lower()
 	end)
 	return sorted
+end
+
+function ReportMenu:renderHeaderBar()
+	if not self.state.isFilterMode then
+		return withLocalization({
+			titleText = "CoreScripts.InGameMenu.Report.MenuTitle",
+		})(function(localized)
+			return Roact.createElement(HeaderBar, {
+				backgroundTransparency = 1,
+				barHeight = 48,
+				renderLeft = function()
+					return Roact.createElement(IconButton, {
+						iconSize = IconSize.Medium,
+						icon = UIBloxImages["icons/navigation/close"],
+						onActivated = self.props.closeDialog,
+					})
+				end,
+				renderRight = function()
+					return Roact.createElement(IconButton, {
+						iconSize = IconSize.Medium,
+						icon = UIBloxImages["icons/common/search"],
+						onActivated = self.onSearch,
+					})
+				end,
+				title = localized.titleText,
+			})
+		end)
+	else
+		return Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			Position = UDim2.fromOffset(24, 6),	-- centered
+			Size = UDim2.new(1, -48, 1, -12),
+		}, {
+			Roact.createElement(SearchBar, {
+				size = UDim2.fromScale(1, 1),
+				autoCaptureFocus = true,
+				onTextChanged = self.onTextChanged,
+				onCancelled = self.onCancel,
+			})
+		})
+	end
 end
 
 function ReportMenu:renderContents()
@@ -67,17 +148,20 @@ function ReportMenu:renderContents()
 		})
 	}
 	-- game
-	table.insert(items, Roact.createElement(GameCell, {
-		gameId = game.GameId,
-		layoutOrder = #items + 1,
-		onActivated = function()
-			props.openReportDialog(Constants.ReportType.Game, nil)
-		end,
-	}))
+	if not self.state.isFilterMode then
+		-- Don't show "Report Experience" in filter mode.
+		table.insert(items, Roact.createElement(GameCell, {
+			gameId = game.GameId,
+			layoutOrder = #items + 1,
+			onActivated = function()
+				props.openReportDialog(Constants.ReportType.Place, nil)
+			end,
+		}))
+	end
 	local canvasHeight = CELL_HEIGHT
 	-- players
-	local sortedPlayers = self:getSortedPlayerList()
-	for _, player in pairs(sortedPlayers) do
+	local players = self:getPlayerList()
+	for _, player in pairs(players) do
 		table.insert(items, Roact.createElement(Divider, {
 			LayoutOrder = #items + 1,
 			Size = UDim2.new(1, 0, 0, 1),
@@ -113,20 +197,26 @@ function ReportMenu:renderContents()
 end
 
 function ReportMenu:render()
-	return withLocalization({
-		titleText = "CoreScripts.InGameMenu.Report.MenuTitle",
-	})(function(localized)
-		return Roact.createFragment({
-			ModalDialog = Roact.createElement(ModalDialog, {
-				visible = self.props.isReportMenuOpen,
-				titleText = localized.titleText,
-				showCloseButton = true,
-				contents = self:renderContents(),
-				onDismiss = self.props.closeDialog,
-			}),
-			--TODO: integrate FocusHandler
+	return Roact.createFragment({
+		ModalDialog = Roact.createElement(ModalDialog, {
+			visible = self.props.isReportMenuOpen,
+			headerBar = self:renderHeaderBar(),
+			showCloseButton = true,
+			contents = self:renderContents(),
+			onDismiss = self.props.closeDialog,
+		}),
+		--TODO: integrate FocusHandler
+	})
+end
+
+function ReportMenu:didUpdate(prevProps)
+	if prevProps.isReportMenuOpen and not self.props.isReportMenuOpen then
+		-- clear the states
+		self:setState({
+			isFilterMode = false,
+			filterText = Roact.None,
 		})
-	end)
+	end
 end
 
 return RoactRodux.UNSTABLE_connect2(function(state, props)

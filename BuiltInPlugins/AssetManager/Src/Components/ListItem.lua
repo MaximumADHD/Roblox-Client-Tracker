@@ -1,7 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
-
 local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -17,10 +15,7 @@ local Util = Framework.Util
 local StyleModifier = Util.StyleModifier
 local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
 local LayoutOrderIterator = Util.LayoutOrderIterator
-
--- TODO: jbousellam - Remove with FFlagRemoveUILibraryGetTextSize
-local UILibrary = require(Plugin.Packages.UILibrary)
-local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Util.GetTextSize else UILibrary.Util.GetTextSize
+local GetTextSize = Util.GetTextSize
 
 local SetEditingAssets = require(Plugin.Src.Actions.SetEditingAssets)
 
@@ -35,6 +30,7 @@ local ModerationUtil = require(Plugin.Src.Util.ModerationUtil)
 
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 local FFlagStudioAssetManagerAssetModeration = game:GetFastFlag("StudioAssetManagerAssetModeration")
+local FFlagAssetManagerFixOpenAssetPreview1 = game:GetFastFlag("AssetManagerFixOpenAssetPreview1")
 
 local ModernIcons = require(Plugin.Src.Util.ModernIcons)
 local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and not game:GetService("StudioHighDpiService"):IsNotHighDPIAwareBuild()
@@ -108,7 +104,15 @@ function ListItem:init()
         local isFolder = assetData.ClassName == "Folder"
         local isPlace = assetData.assetType == Enum.AssetType.Place
         if not isFolder and not isPlace then
-            self.props.dispatchGetAssetPreviewData(self.props.API:get(), {assetData.id})
+            if FFlagAssetManagerFixOpenAssetPreview1 then
+                local assetPreviewData = self.props.AssetsTable.assetPreviewData[assetData.id]
+                -- asset preview data is not loaded or stored
+                if type(assetPreviewData) ~= "table" then
+                    self.props.dispatchGetAssetPreviewData(self.props.API:get(), {assetData.id})
+                end
+            else
+                self.props.dispatchGetAssetPreviewData(self.props.API:get(), {assetData.id})
+            end
         end
     end
 
@@ -473,6 +477,7 @@ ListItem = withContext({
 local function mapStateToProps(state, props)
     local assetManagerReducer = state.AssetManagerReducer
 	return {
+        AssetsTable = assetManagerReducer.assetsTable,
         EditingAssets = assetManagerReducer.editingAssets,
         SelectedAssets = assetManagerReducer.selectedAssets,
 	}

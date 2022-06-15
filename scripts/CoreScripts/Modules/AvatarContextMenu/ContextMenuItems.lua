@@ -32,7 +32,7 @@ local ArgCheck = require(CorePackages.ArgCheck)
 local FFlagAvatarContextMenuItemsChatButtonRefactor
 	= require(CoreGuiModules.Flags.FFlagAvatarContextMenuItemsChatButtonRefactor)
 local FFlagEnableExperienceChat = require(CoreGuiModules.Common.Flags.FFlagEnableExperienceChat)
-
+local FFlagWaveEmoteOnAvatarContextMenuWithExpChat = require(CoreGuiModules.Common.Flags.FFlagWaveEmoteOnAvatarContextMenuWithExpChat)
 -- VARIABLES
 
 local LocalPlayer = PlayersService.LocalPlayer
@@ -279,6 +279,40 @@ function ContextMenuItems:CreateInspectAndBuyButton()
 	browseItemsButton.Parent = self.MenuItemFrame
 end
 
+local function findFirstTextChannel(): TextChannel?
+	local general = TextChatService:FindFirstChild("RBXGeneral", true)
+	if general then
+		return general
+	else
+		for _, child in ipairs(TextChatService:GetDescendants()) do
+			if child:IsA("TextSource") then
+				local textSource: TextSource = child
+				if textSource.UserId == PlayersService.LocalPlayer.UserId and textSource.CanSend == true then
+					local parent = textSource.Parent
+					if parent:IsA("TextChannel") then
+						return parent
+					end
+				end
+			end
+		end
+
+		return nil
+	end
+end
+
+local function isExperienceChatOn(textChatService: TextChatService): boolean
+	local chatVersionValid, _ = pcall(function()
+		local _ = Enum.ChatVersion.LegacyChatService
+	end)
+	if chatVersionValid then
+		if FFlagEnableExperienceChat and textChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+			return true
+		end
+	end
+
+	return false
+end
+
 function ContextMenuItems:CreateEmoteButton()
 	local function wave()
 		if self.CloseMenuFunc then self:CloseMenuFunc() end
@@ -287,6 +321,15 @@ function ContextMenuItems:CreateEmoteButton()
         AnalyticsService:TrackEvent("Game", "AvatarContextMenuWave", "placeId: " .. tostring(game.PlaceId))
 
 		PlayersService:Chat("/e wave")
+
+		if isExperienceChatOn(self.TextChatService) then
+			if FFlagWaveEmoteOnAvatarContextMenuWithExpChat then
+				local textChannel: TextChannel? = findFirstTextChannel()
+				if textChannel then
+					textChannel:SendAsync("/e wave")
+				end
+			end
+		end
 	end
 
 	local waveString = RobloxTranslator:FormatByKey("Corescripts.AvatarContextMenu.Wave")
@@ -307,13 +350,8 @@ local IChatButtonProps = t.interface({
 })
 
 function ContextMenuItems:CreateChatButton(props)
-	local chatVersionValid, _ = pcall(function()
-		local _ = Enum.ChatVersion.LegacyChatService
-	end)
-	if chatVersionValid then
-		if FFlagEnableExperienceChat and self.TextChatService.ChatVersion == Enum.ChatVersion.TextChatService then
-			return
-		end
+	if isExperienceChatOn(self.TextChatService) then
+		return
 	end
 
 	local chatDisabled = false

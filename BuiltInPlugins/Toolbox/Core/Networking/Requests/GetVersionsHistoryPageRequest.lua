@@ -5,7 +5,7 @@ local HttpService = game:GetService("HttpService")
 local NetworkError = require(Plugin.Core.Actions.NetworkError)
 local ExtendVersionHistoryData = require(Plugin.Core.Actions.ExtendVersionHistoryData)
 
-local FFlagInfiniteScrollerForVersions = game:getFastFlag("InfiniteScrollerForVersions")
+local FFlagInfiniteScrollerForVersions2 = game:getFastFlag("InfiniteScrollerForVersions2")
 
 export type VersionHistoryPageResponseItem = {
 	assetId: number,
@@ -23,7 +23,7 @@ export type VersionHistoryPageResponse = {
 }
 
 return function(networkInterface, assetId, pageCursor)
-	assert(FFlagInfiniteScrollerForVersions)
+	assert(FFlagInfiniteScrollerForVersions2)
 	return function(store)
 		return networkInterface:getVersionHistoryPage(assetId, pageCursor):andThen(function(result)
 			local responseJson = result.responseBody

@@ -23,10 +23,9 @@ ModernIcons.IconEnums = {
 }
 
 local InsertableObjectIcons = "rbxasset://studio_svg_textures/Shared/InsertableObjects/%s/Standard/"
-local AssetManagerLargeIcons = "rbxasset://studio_svg_textures/Shared/AssetManager/%s/Large/"
-local AssetManagerIcons = "rbxasset://studio_svg_textures/Shared/AssetManager/%s/Standard/"
+local AssetManagerLargeIcons = "rbxasset://studio_svg_textures/Lua/AssetManager/%s/Large/"
+local AssetManagerIcons = "rbxasset://studio_svg_textures/Lua/AssetManager/%s/Standard/"
 local NavigationIcons = "rbxasset://studio_svg_textures/Shared/Navigation/%s/Standard/"
-local ViewIcons = "rbxasset://studio_svg_textures/Shared/Actions/View/%s/Large/"
 
 ModernIcons.HighDpiAssetManagerIconsWithTheme1 = {
 	[ModernIcons.IconEnums.Places] = AssetManagerLargeIcons .. ModernIcons.IconEnums.Places .. ".png",
@@ -45,9 +44,9 @@ ModernIcons.HighDpiAssetManagerIconsWithTheme1 = {
     [ModernIcons.IconEnums.ArrowDown] = NavigationIcons .. ModernIcons.IconEnums.ArrowDown .. ".png",
     [ModernIcons.IconEnums.ArrowRight] = NavigationIcons .. ModernIcons.IconEnums.ArrowRight .. ".png",
     [ModernIcons.IconEnums.More] = NavigationIcons .. ModernIcons.IconEnums.More .. ".png",
-    [ModernIcons.IconEnums.Zoom] = ViewIcons .. ModernIcons.IconEnums.Zoom .. ".png",
-    [ModernIcons.IconEnums.Scripts] = InsertableObjectIcons .. ModernIcons.IconEnums.Scripts .. ".png",
-    [ModernIcons.IconEnums.Spawn] = InsertableObjectIcons .. ModernIcons.IconEnums.Spawn .. ".png",
+    [ModernIcons.IconEnums.Zoom] = NavigationIcons .. ModernIcons.IconEnums.Zoom .. ".png",
+    [ModernIcons.IconEnums.Scripts] = AssetManagerIcons .. ModernIcons.IconEnums.Scripts .. ".png",
+    [ModernIcons.IconEnums.Spawn] = AssetManagerIcons .. ModernIcons.IconEnums.Spawn .. ".png",
 }
 
 ModernIcons.getIconForCurrentTheme = function(IconEnum)

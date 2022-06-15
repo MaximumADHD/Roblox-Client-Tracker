@@ -3,9 +3,9 @@
 ]]
 
 local root = script.Parent.Parent.Parent
-local FFlagAvatarImporterDeduplicatePackages = game:GetFastFlag("AvatarImporterDeduplicatePackages")
+
 -- imports
-local Roact = if FFlagAvatarImporterDeduplicatePackages then require(root.Packages.Roact) else require(root.Packages._Old.lib.Roact)
+local Roact = require(root.Packages.Roact)
 
 local Studio = settings().Studio
 

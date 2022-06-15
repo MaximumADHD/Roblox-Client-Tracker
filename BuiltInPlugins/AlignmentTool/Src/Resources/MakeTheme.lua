@@ -14,30 +14,70 @@ local Framework = require(Plugin.Packages.Framework)
 local FrameworkStyle = Framework.Style
 local Colors = FrameworkStyle.Colors
 local StudioTheme = FrameworkStyle.Themes.StudioTheme
-local StyleKey = FrameworkStyle.StyleKey
+local StyleKey = FrameworkStyle.StyleKey 
 local ui = FrameworkStyle.ComponentSymbols
 local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
 
 local Util = Framework.Util
 local StyleModifier = Util.StyleModifier
 
+-- pcall needed to effectively mock service for unit tests
+local function isHighDpiEnabled()
+    local highDpiServiceFound, isNotHighDpiBuild = pcall(function() return game:GetService("StudioHighDpiService"):IsNotHighDPIAwareBuild() end)
+    assert(highDpiServiceFound or isNotHighDpiBuild == "'StudioHighDpiService' is not a valid Service name")
+    return not highDpiServiceFound or not isNotHighDpiBuild
+end
+local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and isHighDpiEnabled()
+local AlignmentMode = require(Plugin.Src.Utility.AlignmentMode)
+
 local join = Dash.join
+
+local AlignToolResourceFolderTheme1 = "rbxasset://studio_svg_textures/Lua/AlignTool/%s/Large/"
+local AlignToolLightResources = string.format(AlignToolResourceFolderTheme1,"Light")
+local AlignToolDarkResources = string.format(AlignToolResourceFolderTheme1,"Dark")
+
+local NavigationResourceFolderTheme1 = "rbxasset://studio_svg_textures/Shared/Navigation/%s/Standard/"
+local NavigationLightResources = string.format(NavigationResourceFolderTheme1,"Light")
+local NavigationDarkResources = string.format(NavigationResourceFolderTheme1,"Dark")
 
 local darkThemeOverride = {
 	[StyleKey.HelpIconColor] = Colors.Gray_Light,
 	[StyleKey.SelectableButtonBorderColor] = Colors.Gray,
 	[StyleKey.SelectableButtonSelectedColor] = Colors.Gray_Mid,
+    [StyleKey.ModeButtonMin] = AlignToolDarkResources .. "AlignMin.png",
+    [StyleKey.ModeButtonCenter] = AlignToolDarkResources .. "AlignCenter.png",
+    [StyleKey.ModeButtonMax] =AlignToolDarkResources .. "AlignMax.png",
+    [StyleKey.Help] = NavigationDarkResources .. "Help.png",
 }
 local lightThemeOverride = {
 	[StyleKey.HelpIconColor] = Color3.fromRGB(184, 184, 184),
 	[StyleKey.SelectableButtonBorderColor] = Colors.Gray_Light,
 	[StyleKey.SelectableButtonSelectedColor] = Colors.Gray_Lighter,
+    [StyleKey.ModeButtonMin] = AlignToolLightResources .. "AlignMin.png",
+    [StyleKey.ModeButtonCenter] = AlignToolLightResources .. "AlignCenter.png",
+    [StyleKey.ModeButtonMax] =AlignToolLightResources .. "AlignMax.png",
+    [StyleKey.Help] =  NavigationLightResources .. "Help.png",
 }
 
 local PluginTheme = {
 	SectionPadding = UDim.new(0, 15),
 	SectionContentPadding = UDim.new(0, 10),
 	SectionContentPaddingCompact = UDim.new(0, 6),
+
+    ModeButtons = {
+        [1] = {
+            Image = StyleKey.ModeButtonMin,
+            Mode = AlignmentMode.Min,
+        },
+        [2] = {
+            Image = StyleKey.ModeButtonCenter,
+            Mode = AlignmentMode.Center,
+        },
+        [3] = {
+            Image = StyleKey.ModeButtonMax,
+            Mode = AlignmentMode.Max,
+        },
+    },
 
 	InfoLabel = {
 		ErrorTextColor = StyleKey.ErrorText,
@@ -92,7 +132,7 @@ local PluginTheme = {
 		["&HelpIcon"] = {
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Color = StyleKey.HelpIconColor,
-			Image = "rbxasset://textures/AlignTool/Help.png",
+			Image = FFlagHighDpiIcons and StyleKey.Help or "rbxasset://textures/AlignTool/Help.png",
 			Position = UDim2.new(0.5, 0, 0.5, 0),
 			Size = UDim2.fromOffset(14, 14),
 

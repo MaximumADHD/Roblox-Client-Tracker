@@ -11,8 +11,6 @@
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local FFlagRemoveUILibraryGetTextSize = game:GetFastFlag("RemoveUILibraryGetTextSize")
-
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
@@ -27,7 +25,7 @@ local RoundFrame = require(Plugin.Core.Components.RoundFrame)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local GetTextSize = if FFlagRemoveUILibraryGetTextSize then Framework.Util.GetTextSize else nil
+local GetTextSize = Framework.Util.GetTextSize
 
 local ITEM_HEIGHT = Constants.SEARCH_TAG_HEIGHT
 local DELETE_BUTTON_SIZE = 10
@@ -51,8 +49,8 @@ function SearchTag:renderContent(theme, localizedContent)
 	local prefix = self.props.prefix
 	local name = self.props.Name
 	local onDelete = self.props.onDelete
-	local textWidth = if FFlagRemoveUILibraryGetTextSize then GetTextSize(name, nil, nil, Vector2.new(0, 0)).X else Constants.getTextSize(name).X
-	local byTextWidth = if FFlagRemoveUILibraryGetTextSize then GetTextSize(prefix, Constants.FONT_SIZE_MEDIUM, Constants.FONT_BOLD, Vector2.new(0, 0)).X else Constants.getTextSize(prefix, Constants.FONT_SIZE_MEDIUM, Constants.FONT_BOLD).X
+	local textWidth = GetTextSize(name, nil, nil, Vector2.new(0, 0)).X
+	local byTextWidth = GetTextSize(prefix, Constants.FONT_SIZE_MEDIUM, Constants.FONT_BOLD, Vector2.new(0, 0)).X
 
 	local frameWidth = byTextWidth + textWidth + DELETE_BUTTON_SIZE + TEXT_PADDING * 4
 

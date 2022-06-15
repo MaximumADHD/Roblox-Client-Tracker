@@ -4,6 +4,7 @@ local Constants = require(PluginFolder.Src.Util.Constants)
 export type MetaBreakpoint = {
 	id: number,
 	isEnabled: boolean,
+	isValid: boolean,
 	lineNumber: number,
 	scriptName: string,
 	scriptLine: string,
@@ -18,6 +19,7 @@ local function fromMetaBreakpoint(metaBreakpoint): MetaBreakpoint
 	return {
 		id = metaBreakpoint.Id,
 		isEnabled = metaBreakpoint.Enabled,
+		isValid = metaBreakpoint.Valid,
 		lineNumber = metaBreakpoint.Line,
 		scriptName = metaBreakpoint.Script,
 		scriptLine = "",
@@ -37,6 +39,10 @@ local function mockMetaBreakpoint(metaBreakpoint, uniqueId): MetaBreakpoint
 		metaBreakpoint.isEnabled = math.random() > 0.5
 	end
 
+	if metaBreakpoint.isValid == nil then
+		metaBreakpoint.isValid = true
+	end
+
 	if metaBreakpoint.continueExecution == nil then
 		metaBreakpoint.continueExecution = math.random() > 0.5
 	end
@@ -44,6 +50,7 @@ local function mockMetaBreakpoint(metaBreakpoint, uniqueId): MetaBreakpoint
 	return {
 		id = metaBreakpoint.id or uniqueId,
 		isEnabled = metaBreakpoint.isEnabled,
+		isValid = metaBreakpoint.isValid,
 		lineNumber = metaBreakpoint.lineNumber or uniqueId,
 		scriptName = metaBreakpoint.scriptName or ("script" .. tostring(uniqueId)),
 		scriptLine = metaBreakpoint.scriptLine or ("local varNum" .. tostring(uniqueId) .. " = 0"),

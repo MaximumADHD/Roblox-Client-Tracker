@@ -16,10 +16,10 @@ local Url = require(Plugin.Libs.Http.Url)
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
-local FFlagAssetConfigDynamicDistributionQuotas = game:GetFastFlag("AssetConfigDynamicDistributionQuotas")
+local FFlagAssetConfigDynamicDistributionQuotas2 = game:GetFastFlag("AssetConfigDynamicDistributionQuotas2")
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 local FIntCanManageLuaRolloutPercentage = game:DefineFastInt("CanManageLuaRolloutPercentage", 0)
-local FFlagInfiniteScrollerForVersions = game:getFastFlag("InfiniteScrollerForVersions")
+local FFlagInfiniteScrollerForVersions2 = game:getFastFlag("InfiniteScrollerForVersions2")
 
 local Urls = {}
 
@@ -336,7 +336,7 @@ function Urls.constructAssetIdUrl(assetId)
 end
 
 function Urls.constructAssetSavedVersionPageString(assetId, pageCursor)
-	assert(FFlagInfiniteScrollerForVersions)
+	assert(FFlagInfiniteScrollerForVersions2)
 	return (GET_VERSION_HISTORY_PAGE_BASE):format(assetId, pageCursor)
 end
 
@@ -606,7 +606,7 @@ if FFlagToolboxAudioAssetConfigIdVerification then
 	end
 end
 
-if FFlagAssetConfigDynamicDistributionQuotas then
+if FFlagAssetConfigDynamicDistributionQuotas2 then
 	function Urls.getCreatorMarketplaceQuotas(assetType: Enum.AssetType, resourceType: AssetQuotaTypes.AssetQuotaResourceType)
 		return string.format("%s/v1/asset-quotas?%s", Url.PUBLISH_URL, Url.makeQueryString({
 			assetType = assetType.Name,

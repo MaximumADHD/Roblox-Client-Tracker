@@ -20,7 +20,7 @@ function ShareButton:render()
 	return Roact.createElement("TextButton", {
 		LayoutOrder = layoutOrder,
 		Size = size,
-		Text = RobloxTranslator:FormatByKey("Feature.Catalog.Action.Share"),
+		Text = RobloxTranslator:FormatByKey("Feature.SocialShare.Action.Share"),
 		TextSize = SHARE_TEXT_SIZE,
 		Font = SHARE_TEXT_FONT,
 		AutoButtonColor = false,

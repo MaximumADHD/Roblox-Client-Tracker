@@ -32,6 +32,7 @@ return function()
 				QuickActions = Roact.createElement(QuickActionsMenu, {
 					layoutOrder = 2,
 					voiceEnabled = false,
+					screenshotEnabled = true,
 					transparencies = transparencies,
 				}),
 			}),

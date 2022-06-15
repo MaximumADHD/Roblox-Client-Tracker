@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local UserInputService = game:GetService("UserInputService")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -27,6 +28,8 @@ local USERNAME_HEIGHT = 14
 local CORNER_RADIUS = UDim.new(0, PLAYER_ICON_SIZE / 2)
 local BUTTONS_PADDING = 12
 
+local FFlagPlayerCellHandleTouchTap = game:DefineFastFlag("PlayerCellHandleTouchTap", false)
+
 local PlayerCell = Roact.PureComponent:extend("PlayerCell")
 
 PlayerCell.validateProps = t.strictInterface({
@@ -44,16 +47,24 @@ PlayerCell.validateProps = t.strictInterface({
 	[Roact.Change.AbsolutePosition] = t.optional(t.callback),
 	[Roact.Ref] = t.optional(t.union(t.callback, t.table)),
 	forwardRef = t.optional(t.union(t.callback, t.table)),
+	UserInputService = t.optional(t.union(t.Instance, t.table)),
 })
 
 PlayerCell.defaultProps = {
 	Visible = true,
+	UserInputService = UserInputService,
 }
 
 function PlayerCell:init()
 	self.onActivated = function()
 		if self.props.onActivated and self.props.userId then
 			self.props.onActivated(self.props.userId)
+		end
+	end
+
+	self.onActivatedOverride = function()
+		if not self.props.UserInputService.TouchEnabled then
+			self.onActivated()
 		end
 	end
 end
@@ -90,7 +101,9 @@ function PlayerCell:renderWithSelectionCursor(getSelectionCursor)
 		end
 
 		return Roact.createElement(Cell, {
-			onActivated = self.onActivated,
+			onActivated = FFlagPlayerCellHandleTouchTap and self.onActivatedOverride or self.onActivated,
+			onTouchTapped = FFlagPlayerCellHandleTouchTap and self.onActivated or nil,
+
 			[Roact.Change.AbsolutePosition] = self.props[Roact.Change.AbsolutePosition],
 			[Roact.Ref] = self.props.forwardRef or Roact.createRef(),
 			SelectionImageObject = getSelectionCursor(CursorKind.Square),

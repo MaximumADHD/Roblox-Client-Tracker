@@ -5,25 +5,22 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
+local Stylizer = Framework.Style.Stylizer
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Analytics = ContextServices.Analytics
 local Localization = ContextServices.Localization
 
-local Stylizer = Framework.Style.Stylizer
-
 local UI = Framework.UI
 local Pane = UI.Pane
 local TruncatedTextLabel = UI.TruncatedTextLabel
-local TextLabel = UI.Decoration.TextLabel
+
+local getFFlagMaterialManagerGlassNeonForceField = require(Plugin.Src.Flags.getFFlagMaterialManagerGlassNeonForceField)
 
 local getMaterialPatternName = require(Plugin.Src.Resources.Constants.getMaterialPatternName)
-local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-local MaterialController = require(Plugin.Src.Util.MaterialController)
-
-local Flags = Plugin.Src.Flags
-local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
+local LabeledString = require(Plugin.Src.Components.MaterialBrowser.MaterialDetails.LabeledString)
+local MainReducer = require(Plugin.Src.Reducers.MainReducer) 
 
 export type Props = {
 	LayoutOrder: number?,
@@ -34,11 +31,12 @@ type _Props = Props & {
 	Analytics: any,
 	Localization: any,
 	Material: _Types.Material?,
-	MaterialController: any,
 	Stylizer: any,
 }
 
 type _Style = {
+	AdditionalLabelSize: UDim2,
+	AdditionalTextSize: UDim2,
 	ButtonPosition: UDim2,
 	ButtonSize: UDim2,
 	ButtonStyle: string,
@@ -60,60 +58,12 @@ type _Style = {
 	Padding: number,
 	SectionHeaderTextSize: number,
 	TextureLabelSize: UDim2,
-	AdditionalLabelSize: UDim2,
-	AdditionalTextSize: UDim2,
 	TextureRowSize: UDim2,
 	TextureSize: UDim2,
 	TitleTextSize: number,
 }
 
 local MaterialAdditional = Roact.PureComponent:extend("MaterialAdditional")
-
-function MaterialAdditional:init()
-	self.createAdditionalElement = function(name: string, text: string, layoutOrder: number)
-		local props: _Props = self.props
-		local style: _Style = props.Stylizer.MaterialDetails
-
-		return Roact.createElement(Pane, {
-			Layout = Enum.FillDirection.Horizontal,
-			LayoutOrder = layoutOrder,
-			Size = style.LabelRowSize,
-		}, {
-			Label = Roact.createElement(TextLabel, {
-				LayoutOrder = 1,
-				Size = style.AdditionalLabelSize,
-				Text = name,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Center,
-			}),
-			Text = Roact.createElement(TruncatedTextLabel, {
-				LayoutOrder = 2,
-				Size = style.AdditionalTextSize,
-				Text = text,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Center,
-			}),
-		})
-	end
-end
-
-function MaterialAdditional:willUnmount()
-	if self.connection then
-		self.connection:Disconnect()
-		self.connection = nil
-	end
-end
-
-function MaterialAdditional:didMount()
-	local props: _Props = self.props
-	local materialController = props.MaterialController
-
-	self.connection = materialController:getMaterialChangedSignal():Connect(function(materialVariant: MaterialVariant)
-		if self.props.Material and self.props.Material.MaterialVariant == materialVariant then
-			self:setState({})
-		end
-	end)
-end
 
 function MaterialAdditional:render()
 	local props: _Props = self.props
@@ -144,16 +94,16 @@ function MaterialAdditional:render()
 			TextSize = style.SectionHeaderTextSize,
 			TextXAlignment = Enum.TextXAlignment.Left,
 		}),
-		StudsPerTile = self.createAdditionalElement(
-			localization:getText("MaterialAdditional", "StudsPerTile"),
-			studsPerTile,
-			layoutOrderIterator:getNextOrder()
-		),
-		MaterialPattern = self.createAdditionalElement(
-			localization:getText("MaterialAdditional", "MaterialPattern"),
-			materialPattern,
-			layoutOrderIterator:getNextOrder()
-		),
+		StudsPerTile = Roact.createElement(LabeledString, {
+			LayoutOrder = layoutOrderIterator:getNextOrder(),
+			Name = localization:getText("MaterialAdditional", "StudsPerTile"),
+			Text = studsPerTile,
+		}),
+		MaterialPattern = Roact.createElement(LabeledString, {
+			LayoutOrder = layoutOrderIterator:getNextOrder(),
+			Name = localization:getText("MaterialAdditional", "MaterialPattern"),
+			Text = materialPattern,
+		}),
 	})
 end
 
@@ -161,15 +111,12 @@ end
 MaterialAdditional = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
-	MaterialController = MaterialController,
 	Stylizer = Stylizer,
 })(MaterialAdditional)
 
-
-
 local function mapStateToProps(state: MainReducer.State, props: _Props)
 	return {
-		Material = props.MockMaterial or state.MaterialBrowserReducer.Material,
+		Material = props.MockMaterial or state.MaterialBrowserReducer.Material
 	}
 end
 

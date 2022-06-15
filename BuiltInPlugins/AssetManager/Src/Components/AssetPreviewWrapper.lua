@@ -21,7 +21,7 @@ local StudioService = game:GetService("StudioService")
 
 local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
-local FFlagAssetManagerFixOpenAssetPreview = game:GetFastFlag("AssetManagerFixOpenAssetPreview")
+local FFlagAssetManagerFixOpenAssetPreview1 = game:GetFastFlag("AssetManagerFixOpenAssetPreview1")
 
 local MAX_PREVIEW_WIDTH = 640
 
@@ -112,10 +112,16 @@ function AssetPreviewWrapper:render()
 
     local assetData = props.AssetPreviewData
     local selectedInstance 
-    if FFlagAssetManagerFixOpenAssetPreview then
+    local favoriteCount
+    local favorited
+    if FFlagAssetManagerFixOpenAssetPreview1 then
         selectedInstance = if self.state.selectedPreviewInstance then self.state.selectedPreviewInstance else assetData.rootTreeViewInstance
+        favoriteCount = if assetData.favoriteCount then tonumber(assetData.favoriteCount) else 0
+        favorited = if assetData.favorited then assetData.favorited else false        
     else
         selectedInstance = self.state.selectedPreviewInstance or assetData.rootTreeViewInstance
+        favoriteCount = assetData.favoriteCount and assetData.favoriteCount or 0
+        favorited = assetData.favorited and assetData.favorited or false
     end
 
     local maxPreviewWidth = math.min(state.maxPreviewWidth, MAX_PREVIEW_WIDTH)
@@ -162,8 +168,8 @@ function AssetPreviewWrapper:render()
 
                 Favorites = {
                     OnClick = self.onFavoritedActivated,
-                    Count = assetData.favoriteCount and assetData.favoriteCount or 0,
-                    IsFavorited = assetData.favorited and assetData.favorited or false,
+                    Count = favoriteCount,
+                    IsFavorited = favorited,
                 },
 
                 HideCreatorSearch = true,

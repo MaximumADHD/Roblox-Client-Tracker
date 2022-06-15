@@ -78,6 +78,7 @@ local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
 local GetFFlagFaceControlsEditorFixNonChannelPath = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorFixNonChannelPath)
 local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
+local GetFFlagCreateAnimationFromVideoAnalytics = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoAnalytics)
 
 local FFlagShowDualScrollbars = game:DefineFastFlag("ACEShowDualScrollbars", false)
 
@@ -197,6 +198,9 @@ function EditorController:init()
 	end
 
 	self.cancelCreateFromVideo = function()
+		if GetFFlagCreateAnimationFromVideoAnalytics() then
+			self.props.Analytics:report("onAnimationEditorImportVideoUploadCancel")
+		end
 		self.hideAnimationImportProgress()
 	end
 
@@ -681,7 +685,6 @@ function EditorController:render()
 				LayoutOrder = GetFFlagCurveEditor() and 0 or nil,
 				ShowAnimationImportProgress = self.showAnimationImportProgress,
 				HideAnimationImportProgress = self.hideAnimationImportProgress,
-				CancelAnimationImport = self.cancelCreateFromVideo,
 			}),
 
 			EventsAndTracks = Roact.createElement("ImageButton", {

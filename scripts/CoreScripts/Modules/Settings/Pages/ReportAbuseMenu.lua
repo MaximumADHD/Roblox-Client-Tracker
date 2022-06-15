@@ -6,12 +6,14 @@
 --]]
 
 local CoreGui = game:GetService("CoreGui")
+local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GuiService = game:GetService("GuiService")
 local PlayersService = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
 local MarketplaceService = game:GetService("MarketplaceService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
+local Workspace = game:GetService("Workspace")
 
 local enumerate = require(CorePackages.enumerate)
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
@@ -20,9 +22,12 @@ local Cryo = require(CorePackages.Cryo)
 
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local Url = require(RobloxGui.Modules.Common.Url)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local ReportAbuseLogic = require(RobloxGui.Modules.VoiceChat.ReportAbuseLogic)
+local createVoiceAbuseReportRequest = require(RobloxGui.Modules.VoiceChat.createVoiceAbuseReportRequest)
+local VoiceUsersByProximity = require(RobloxGui.Modules.VoiceChat.VoiceUsersByProximity)
 
 local FFlagFixUsernamesAutoLocalizeIssue = require(RobloxGui.Modules.Flags.FFlagFixUsernamesAutoLocalizeIssue)
 local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.GetFFlagAbuseReportEnableReportSentPage)
@@ -100,6 +105,7 @@ local function Initialize()
 	local this = settingsPageFactory:CreateNewPage()
 
 	local playerNames = {}
+	local sortedUserIds = {}
 	local nameToRbxPlayer = {}
 	local nextPlayerToReport = nil
 
@@ -117,6 +123,14 @@ local function Initialize()
 		return Cryo.List.sort(getMethodOfAbuseDropdownItems(), function(a, b)
 			return a.index < b.index
 		end)
+	end
+
+	function this:setReportTimestamp(reportTimeSeconds)
+		this.reportTimestamp = reportTimeSeconds
+	end
+
+	function this:getReportTimestamp()
+		return this.reportTimestamp
 	end
 
 	function this:GetPlayerNameText(player)
@@ -201,14 +215,14 @@ local function Initialize()
 	end
 
 	function this:UpdatePlayerDropDown()
+		local players = {}
 		playerNames = {}
+		sortedUserIds = {}
 		nameToRbxPlayer = {}
 
 		local index = 1
 
 		if GetFFlagVoiceAbuseReportsEnabled() then
-			local players = {}
-
 			if this:isVoiceReportSelected() then
 				local recentVoicePlayers = VoiceChatServiceManager:getRecentUsersInteractionData()
 
@@ -244,28 +258,25 @@ local function Initialize()
 		end
 
 		if GetFFlagVoiceAbuseReportsEnabled() and this:isVoiceReportSelected() then
-			table.sort(playerNames, function(a, b)
-				local playerA = nameToRbxPlayer[a]
-				local playerB = nameToRbxPlayer[b]
+			local localPlayerPart = this:getPlayerPrimaryPart(PlayersService.LocalPlayer)
 
-				local localPlayerPart = this:getPlayerPrimaryPart(PlayersService.LocalPlayer)
-				local playerAPart = this:getPlayerPrimaryPart(playerA)
-				local playerBPart = this:getPlayerPrimaryPart(playerB)
+			if localPlayerPart then
+				local proximityComparator = VoiceUsersByProximity.getComparator(localPlayerPart.Position)
+				table.sort(players, proximityComparator)
 
-				--no characters, sort alphabetically
-				if not localPlayerPart or (not playerAPart and not playerBPart) then
+				playerNames = Cryo.List.map(players, function(player)
+					return this:GetPlayerNameText(player)
+				end)
+			else
+				--if no local player part, default to alphabetical
+				table.sort(playerNames, function(a, b)
 					return a:lower() < b:lower()
-				elseif playerAPart and not playerBPart then
-					return true
-				elseif not playerAPart and playerBPart then
-					return false
-				end
+				end)
+			end
 
-				--local character and both other characters exist, sort by distance
-				local characterDistA = (playerAPart.Position-localPlayerPart.Position).Magnitude
-				local characterDistB = (playerBPart.Position-localPlayerPart.Position).Magnitude
-
-				return characterDistA < characterDistB
+			sortedUserIds = Cryo.List.map(playerNames, function(playerName)
+				local player = nameToRbxPlayer[playerName]
+				return if player then player.UserId else nil
 			end)
 		else
 			table.sort(playerNames, function(a, b)
@@ -330,6 +341,14 @@ local function Initialize()
 	-- DropDown menus require hub to to be set when they are initialized
 	function this:SetHub(newHubRef)
 		this.HubRef = newHubRef
+
+		if GetFFlagVoiceAbuseReportsEnabled() then
+			this.HubRef.SettingsShowSignal:connect(function(isOpen)
+				if isOpen then
+					this:setReportTimestamp(Workspace:GetServerTimeNow())
+				end
+			end)
+		end
 
 		if utility:IsSmallTouchScreen() then
 			this.GameOrPlayerFrame,
@@ -515,10 +534,31 @@ local function Initialize()
 					local layerData = IXPServiceWrapper:IsEnabled() and IXPServiceWrapper:GetLayerData("AbuseReports") or {}
 					local dialogVariant = layerData.thankYouDialog
 					isReportSentEnabled = self.HubRef.ReportSentPage and GetFFlagAbuseReportEnableReportSentPage() and dialogVariant == "variant" -- "Report Sent" is only enabled for reporting players
-					spawn(function()
-						PlayersService:ReportAbuse(currentAbusingPlayer, abuseReason, this.AbuseDescription.Selection.Text)
+
+					if GetFFlagVoiceAbuseReportsEnabled() and this:isVoiceReportSelected() then
+						pcall(function()
+							task.spawn(function()
+								local request = createVoiceAbuseReportRequest(PlayersService, VoiceChatServiceManager, {
+									localUserId = PlayersService.LocalPlayer.UserId,
+									abuserUserId = currentAbusingPlayer.UserId,
+									abuseComment = this.AbuseDescription.Selection.Text,
+									abuseReason = abuseReason,
+									inExpMenuOpenedUnixMilli = this:getReportTimestamp()*1000, --milliseconds conversion
+									sortedPlayerListUserIds = sortedUserIds,
+								})
+
+								local fullUrl = Url.APIS_URL.."v2.0/abuse-report"
+								HttpRbxApiService:PostAsyncFullUrl(fullUrl, request)
+							end)
+						end)
+
 						reportAnalytics("user", currentAbusingPlayer.UserId)
-					end)
+					else
+						spawn(function()
+							PlayersService:ReportAbuse(currentAbusingPlayer, abuseReason, this.AbuseDescription.Selection.Text)
+							reportAnalytics("user", currentAbusingPlayer.UserId)
+						end)
+					end
 
 					if GetFFlagVoiceAbuseReportsEnabled() then
 						if this:isVoiceReportSelected() then

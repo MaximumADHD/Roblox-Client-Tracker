@@ -12,6 +12,9 @@ local SetAnimationImportProgress = require(Plugin.Src.Actions.SetAnimationImport
 local SetAnimationImportStatus = require(Plugin.Src.Actions.SetAnimationImportStatus)
 local SetCreatingAnimationFromVideo = require(Plugin.Src.Actions.SetCreatingAnimationFromVideo)
 
+local GetFFlagCreateAnimationFromVideoErrorCodes = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoErrorCodes)
+local GetFFlagCreateAnimationFromVideoAnalytics = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoAnalytics)
+
 -- this function is is a variation of : ImportFBXAnimationUserMayChooseModel function (but is provided with a fbxFilePath parameter)
 local function _ImportFBXAnimationFromFilePathUserMayChooseModel(store, fbxFilePath, plugin, animationClipDropdown, analytics)
 	local state = store:getState()
@@ -77,15 +80,25 @@ return function(plugin, animationClipDropdown, analytics)
 			return AnimationFromVideoCreatorStudioService:CreateAnimationByUploadingVideo(progressCallback)
 		end)
 
-		-- If no file selected, hide progress and cancel
+		-- Show errors or return if no file selected
 		if not success then
-			animationClipDropdown:hideAnimationImportProgress()
+			-- Close the progress dialog if the status is still initializing (the user cancelled picking a file).
+			-- Otherwise the dialog is used to show errors.
+			if not GetFFlagCreateAnimationFromVideoErrorCodes() or store:getState().Status.AnimationImportStatus == Constants.ANIMATION_FROM_VIDEO_STATUS.Initializing then
+				animationClipDropdown:hideAnimationImportProgress()
+			end
+			if GetFFlagCreateAnimationFromVideoAnalytics() then
+				analytics:report("onAnimationEditorImportVideoError", result)
+			end
 			warn(result)
 			return
 		end
 
 		local fbxFilePath = result
-		--TODO: analytics:report("")
+
+		if GetFFlagCreateAnimationFromVideoAnalytics() then
+			analytics:report("onAnimationEditorImportVideoUploadSucceed")
+		end
 
 		-- Stop if canceled between downloading the FBX and importing the animation
 		if fbxFilePath == nil or not store:getState().Status.CreatingAnimationFromVideo then

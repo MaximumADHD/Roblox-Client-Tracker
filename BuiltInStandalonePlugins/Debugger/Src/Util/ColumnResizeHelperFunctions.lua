@@ -58,4 +58,20 @@ module.updatedSizesAfterAddingColumns =
 		return updatedSizes
 	end
 
+module.fetchScaleFromColumnSizes = function(sizes)
+	local scales = {}
+	for _, size in ipairs(sizes) do
+		table.insert(scales, size.Scale)
+	end
+	return scales
+end
+
+module.fetchSizesFromColumnScales = function(scales)
+	local sizes = {}
+	for _, scale in ipairs(scales) do
+		table.insert(sizes, UDim.new(scale, 0))
+	end
+	return sizes
+end
+
 return module

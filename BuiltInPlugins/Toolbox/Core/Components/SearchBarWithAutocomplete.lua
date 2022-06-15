@@ -8,10 +8,10 @@
 			or clicks the search button. This will also be called with an empty string
 			when the user clicks "Clear". - OnSearchRequested(searchTerm: string)
 		callback OnTextChanged: callback for when the text was changed - OnTextChanged(text: string)
-		string PlaceholderText: Placeholder text to show when there is no search term entered.
 ]]
 local FIntToolboxAutocompleteDropdownSize = game:GetFastInt("ToolboxAutocompleteDropdownSize")
 local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
+local FFlagToolboxLocalizeSearchPlaceholder = game:GetFastFlag("ToolboxLocalizeSearchPlaceholder")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -32,6 +32,8 @@ local LogMarketplaceSearchAnalytics = require(Plugin.Core.Thunks.LogMarketplaceS
 local DropdownMenu = require(Packages.Framework).UI.DropdownMenu
 local DropdownMenuItem = require(Plugin.Core.Components.DropdownMenuItem)
 local SearchBar = require(Packages.Framework).StudioUI.SearchBar
+local ContextServices = require(Packages.Framework).ContextServices
+local withContext = ContextServices.withContext
 
 local DROPDOWN_ITEM_HEIGHT = 32
 local AUTOCOMPLETE_WAIT_TIME = 0.12 -- waittime (in seconds) before firing autocomplete API request
@@ -195,6 +197,7 @@ function SearchBarWithAutocomplete:render()
 		OnInputEnded = self.onInputEnded,
 		OnSearchRequested = self.onSearchRequested,
 		OnTextChanged = self.onSearchTextChanged,
+		PlaceholderText = if FFlagToolboxLocalizeSearchPlaceholder then props.Localization:getText("General", "SearchBarDefaultText") else nil,
 		SearchTerm = displayedSearchTerm,
 		Style = "ToolboxSearchBar",
 		Width = props.Width,
@@ -218,6 +221,12 @@ function SearchBarWithAutocomplete:render()
 			Width = props.Width,
 		}),
 	})
+end
+
+if FFlagToolboxLocalizeSearchPlaceholder then
+	SearchBarWithAutocomplete = withContext({
+		Localization = ContextServices.Localization,
+	})(SearchBarWithAutocomplete)
 end
 
 local function mapStateToProps(state, props)

@@ -38,6 +38,7 @@ local ColumnResizeHelperFunctions = require(UtilFolder.ColumnResizeHelperFunctio
 local Actions = PluginFolder.Src.Actions
 local SetCurrentFrameNumber = require(Actions.Callstack.SetCurrentFrameNumber)
 local SetCurrentThread = require(Actions.Callstack.SetCurrentThread)
+local ColumnFilterChange = require(Actions.Callstack.ColumnFilterChange)
 
 local Models = PluginFolder.Src.Models
 local CallstackRow = require(Models.Callstack.CallstackRow)
@@ -63,6 +64,8 @@ local columnNameToKey = {
 	FunctionColumn = "functionColumn",
 	LineColumn = "lineColumn",
 }
+
+local CALLSTACK_WINDOW_CONFIGS = "callstackWindowConfigs"
 
 local TABLE_PADDING = 1
 
@@ -119,6 +122,18 @@ function CallstackComponent:addAction(action, func)
 end
 
 function CallstackComponent:didMount()
+	local props = self.props
+	local plugin = props.Plugin:get()
+	local configs = plugin:GetSetting(CALLSTACK_WINDOW_CONFIGS)
+	if configs and configs[Constants.ColumnSize] and configs[Constants.ColumnFilter] then
+		props.onColumnFilterChange(configs[Constants.ColumnFilter])
+		self:setState(function(state)
+			return {
+				sizes = ColumnResizeHelperFunctions.fetchSizesFromColumnScales(configs[Constants.ColumnSize]),
+			}
+		end)
+	end
+
 	local pluginActions = self.props.PluginActions
 	self.connections = {}
 	self.shortcuts = {}
@@ -127,6 +142,13 @@ function CallstackComponent:didMount()
 end
 
 function CallstackComponent:willUnmount()
+	local props = self.props
+	local plugin = props.Plugin:get()
+	local configs = {}
+	configs[Constants.ColumnFilter] = props.ColumnFilter
+	configs[Constants.ColumnSize] = ColumnResizeHelperFunctions.fetchScaleFromColumnSizes(self.state.sizes)
+	plugin:SetSetting(CALLSTACK_WINDOW_CONFIGS, configs)
+
 	if self.connections then
 		for _, connection in ipairs(self.connections) do
 			connection:Disconnect()
@@ -145,7 +167,6 @@ end
 function CallstackComponent:init()
 	local initialSizes = {}
 	if hasTableColumnResizeFFlags then
-		-- TODO:  RIDE-7392 - Save Current Column Sizes When Closing Widget
 		local numColumns = #defaultColumnKey + #self.props.ColumnFilter
 		for i = 1, numColumns do
 			table.insert(initialSizes, UDim.new(1 / numColumns, 0))
@@ -155,7 +176,7 @@ function CallstackComponent:init()
 	self.state = {
 		selectedRows = {},
 		selectAll = false,
-		sizes = hasTableColumnResizeFFlags and initialSizes,
+		sizes = initialSizes,
 	}
 
 	self.OnColumnSizesChange = function(newSizes: { UDim })
@@ -351,9 +372,12 @@ end
 
 function CallstackComponent:didUpdate(prevProps)
 	local props = self.props
-	if #props.ColumnFilter ~= #prevProps.ColumnFilter then
-		-- add 1 for arrow column (default key)
-		local columnNumber = #props.ColumnFilter + #defaultColumnKey
+	-- add 1 for arrow column (default key)
+	local columnNumber = #props.ColumnFilter + #defaultColumnKey
+
+	-- if #state.sizes == columnNumber but the ColumnFilter size changed we have loaded the user's saved column sizes into the state
+	-- in didMount(), and this didUpdate() was triggered from dispatching the saved ColumnFilter, rather than the user adding/deleting visible columns.
+	if #props.ColumnFilter ~= #prevProps.ColumnFilter and #self.state.sizes ~= columnNumber then
 		local updatedSizes = {}
 
 		-- columns have been resized so we need to scale the existing columns proportionally as we add/delete new columns
@@ -595,6 +619,9 @@ end, function(dispatch)
 			)
 			debuggerUIService:SetCurrentThreadId(threadId)
 			return dispatch(SetCurrentThread(threadId))
+		end,
+		onColumnFilterChange = function(enabledColumns)
+		    return dispatch(ColumnFilterChange(enabledColumns))
 		end,
 	}
 end)(CallstackComponent)

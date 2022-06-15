@@ -18,8 +18,8 @@ local FFlagEnableSetCoreGuiEnabledExpChat = game:DefineFastFlag("FFlagEnableSetC
 
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "ExperienceChat"
--- Set DisplayOrder to -1 to rest behind the SettingsHub
-screenGui.DisplayOrder = -1
+screenGui.ResetOnSpawn = false
+screenGui.DisplayOrder = -1 -- Set DisplayOrder to -1 to rest behind the SettingsHub
 screenGui.Parent = CoreGui
 
 local function findTextChannel(name: string): TextChannel
@@ -43,9 +43,19 @@ if FFlagEnableSetCoreGuiEnabledExpChat then
 	end
 end
 
-ExperienceChat.mountClientApp({
-	defaultTargetTextChannel = findTextChannel("RBXGeneral"),
-	defaultSystemTextChannel = findTextChannel("RBXSystem"),
-	translator = RobloxTranslator :: any,
-	parent = screenGui,
-})
+if game:DefineFastFlag("ExpChatShouldNotYieldWithoutDefaultChannels", false) then
+	local createdDefaultChannels = TextChatService.CreateDefaultTextChannels
+	ExperienceChat.mountClientApp({
+		defaultTargetTextChannel = if createdDefaultChannels then findTextChannel("RBXGeneral") else nil,
+		defaultSystemTextChannel = if createdDefaultChannels then findTextChannel("RBXSystem") else nil,
+		translator = RobloxTranslator :: any,
+		parent = screenGui,
+	})
+else
+	ExperienceChat.mountClientApp({
+		defaultTargetTextChannel = findTextChannel("RBXGeneral"),
+		defaultSystemTextChannel = findTextChannel("RBXSystem"),
+		translator = RobloxTranslator :: any,
+		parent = screenGui,
+	})
+end

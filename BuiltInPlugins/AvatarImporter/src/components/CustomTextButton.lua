@@ -7,11 +7,10 @@
 		number layoutOrder - sets LayoutOrder property
 		string labelText - text to display on the button
 ]]
-local FFlagAvatarImporterDeduplicatePackages = game:GetFastFlag("AvatarImporterDeduplicatePackages")
 local root = script.Parent.Parent.Parent
 
 -- imports
-local Roact = if FFlagAvatarImporterDeduplicatePackages then require(root.Packages.Roact) else require(root.Packages._Old.lib.Roact)
+local Roact = require(root.Packages.Roact)
 local Assets = require(root.src.Assets)
 local themeConfig = require(root.src.utils.themeConfig)
 local Constants = require(root.src.Constants)

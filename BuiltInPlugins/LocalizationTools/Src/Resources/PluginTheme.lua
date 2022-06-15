@@ -21,11 +21,35 @@ local createDefaultTheme = FrameworkStyle.createDefaultTheme
 local UI = Framework.UI
 local Decoration = UI.Decoration
 
+-- pcall needed to effectively mock service call for unit tests
+local highDpiServiceFound, isHighDpiBuild = pcall(function() return game:GetService("StudioHighDpiService"):IsNotHighDPIAwareBuild() end)
+local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and (not highDpiServiceFound or isHighDpiBuild)
+
+local LocalizationResourceFolderTheme1 = "rbxasset://studio_svg_textures/Lua/Localization/%s/Large/"
+local LocalizationLightResources = string.format(LocalizationResourceFolderTheme1,"Light/")
+local LocalizationDarkResources = string.format(LocalizationResourceFolderTheme1,"Dark/")
+
+local NavigationResourceFolderTheme1 = "rbxasset://studio_svg_textures/Shared/Navigation/%s/Standard/"
+local NavigationLightResources = string.format(NavigationResourceFolderTheme1,"Light/")
+local NavigationDarkResources = string.format(NavigationResourceFolderTheme1,"Dark/")
+
 local darkThemeOverride = {
 	[StyleKey.ProgressSpinnerImage] = "rbxasset://textures/DarkThemeLoadingCircle.png",
+    [StyleKey.Import] = LocalizationDarkResources .. "ImportCSV.png",
+    [StyleKey.Export] = LocalizationDarkResources .. "ExportCSV.png",
+    [StyleKey.TextCapture] = LocalizationDarkResources .. "TextCapture.png",
+    [StyleKey.TextCaptureOn] = LocalizationDarkResources .. "TextCaptureStop.png",
+    [StyleKey.ArrowExpanded] = NavigationDarkResources .. "ArrowDown.png",
+    [StyleKey.ArrowCollapsed] = NavigationDarkResources .. "ArrowRight.png",
 }
 local lightThemeOverride = {
 	[StyleKey.ProgressSpinnerImage] = "rbxasset://textures/LightThemeLoadingCircle.png",
+    [StyleKey.Import] = LocalizationLightResources .. "ImportCSV.png",
+    [StyleKey.Export] = LocalizationLightResources .. "ExportCSV.png",
+    [StyleKey.TextCapture] = LocalizationLightResources .. "TextCapture.png",
+    [StyleKey.TextCaptureOn] = LocalizationLightResources .. "TextCaptureStop.png",
+    [StyleKey.ArrowExpanded] = NavigationLightResources .. "ArrowDown.png",
+    [StyleKey.ArrowCollapsed] = NavigationLightResources .. "ArrowRight.png",
 }
 
 return function(makeMock)
@@ -137,22 +161,22 @@ return function(makeMock)
          DisabledTextColor = StyleKey.DimmedText,
          IconSize = 16,
          IconColor = StyleKey.BrightText,
-         IconImageOpen = "rbxasset://textures/collapsibleArrowDown.png",
-         IconImageClosed = "rbxasset://textures/collapsibleArrowRight.png",
+         IconImageOpen = FFlagHighDpiIcons and StyleKey.ArrowExpanded or "rbxasset://textures/collapsibleArrowDown.png",
+         IconImageClosed = FFlagHighDpiIcons and StyleKey.ArrowCollapsed or "rbxasset://textures/collapsibleArrowRight.png",
          TextColor = StyleKey.BrightText,
          TopBarHeight = 24,
       },
       [ui.EmbeddedTableSection] = {
-         ExportButtonImage = "rbxasset://textures/localizationExport.png",
-         ImportButtonImage = "rbxasset://textures/localizationImport.png",
+         ExportButtonImage = FFlagHighDpiIcons and StyleKey.Export or "rbxasset://textures/localizationExport.png",
+         ImportButtonImage = FFlagHighDpiIcons and StyleKey.Import or "rbxasset://textures/localizationImport.png",
          LeftIndent = 15,
          PaddingTop = 5,
          SectionLabelSize = 20,
          SectionLabelTextSize = 10,
          TextColor = StyleKey.BrightText,
          TextCaptureButtonImage = {
-            On = "rbxasset://textures/localizationUIScrapingOn.png",
-            Off = "rbxasset://textures/localizationUIScrapingOff.png",
+            On = FFlagHighDpiIcons and StyleKey.TextCaptureOn or "rbxasset://textures/localizationUIScrapingOn.png",
+            Off = FFlagHighDpiIcons and StyleKey.TextCapture or "rbxasset://textures/localizationUIScrapingOff.png",
          },
       },
       [ui.LabeledImageButton] = {
