@@ -41,19 +41,20 @@ local SetViewType = require(Actions.SetViewType)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local Flags = Plugin.Src.Flags
-local getFFlagMaterialManagerApplyToModels = require(Flags.getFFlagMaterialManagerApplyToModels)
 local getFFlagMaterialPack2022Update = require(Flags.getFFlagMaterialPack2022Update)
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
+local getFFlagMaterialManagerGridOverhaul = require(Flags.getFFlagMaterialManagerGridOverhaul)
 
 local Util = Plugin.Src.Util
 local MaterialController = require(Util.MaterialController)
+local MaterialServiceController = require(Util.MaterialServiceController)
 local PluginController = require(Util.PluginController)
 local TeachingCallout = require(Plugin.Src.Components.TeachingCallout)
 
 local ApplyToSelection = require(Plugin.Src.Util.ApplyToSelection)
 
-local getFFlagMaterialManagerTeachingCallout = require(Flags.getFFlagMaterialManagerTeachingCallout)
 local getFFlagMaterialManagerGridListView = require(Flags.getFFlagMaterialManagerGridListView)
+local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
 
 local TopBar = Roact.PureComponent:extend("TopBar")
 
@@ -74,6 +75,7 @@ type _Props = Props & {
 	Localization: any,
 	Material: _Types.Material?,
 	MaterialController: any,
+	MaterialServiceController: any?, -- Not optional with FFlagMaterialManagerGridOverhaul
 	MaterialTileSize: number,
 	MenuHover: boolean,
 	PluginController: any,
@@ -149,6 +151,9 @@ function TopBar:init()
 			Selection:Set({
 				props.Material.MaterialVariant
 			})
+			if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
+				props.Analytics:report("showInExplorer")
+			end
 		end
 	end
 
@@ -158,10 +163,16 @@ function TopBar:init()
 		if getFFlagMaterialManagerGlassNeonForceField() and props.Material then
 			ApplyToSelection(props.Material.Material,
 				if props.Material.MaterialVariant then props.Material.MaterialVariant.Name else nil)
+			if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
+				props.Analytics:report("applyToSelectionButton")
+			end
 		else
-			if getFFlagMaterialManagerApplyToModels() and props.Material then
+			if props.Material then
 				ApplyToSelection(props.Material.Material,
 					if props.Material.MaterialVariant then props.Material.MaterialVariant.Name else nil)
+				if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
+					props.Analytics:report("applyToSelectionButton")
+				end
 			elseif Selection and props.Material then
 				local instances = Selection:Get()
 				ChangeHistoryService:SetWaypoint("Applied Material to Selection")
@@ -174,15 +185,28 @@ function TopBar:init()
 						end
 					end
 				end
+
+				if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
+					props.Analytics:report("applyToSelectionButton")
+				end
 			end
 		end
 	end
 
 	self.setSearch = function(search)
 		local props: _Props = self.props
-		local dispatchSetSearch = props.dispatchSetSearch
 
-		dispatchSetSearch(search)
+		-- props.MaterialServiceController is no longer optional, remove with flag
+		if getFFlagMaterialManagerGridOverhaul() and props.MaterialServiceController then
+			props.MaterialServiceController:setSearch(search)
+		else
+			props.dispatchSetSearch(search)
+		end
+
+		
+		if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
+			props.Analytics:report("searchBar")
+		end
 	end
 
 	-- TODO : Uncomment when adding sortOrder functionality
@@ -490,11 +514,11 @@ function TopBar:render()
 			OnClick = if not state.isDisabledApplyToSelection then self.applyToSelection else function() end,
 			TooltipText = localization:getText("TopBar", "Apply"),
 			IsDisabled = state.isDisabledApplyToSelection,
-			TeachingCallout = if getFFlagMaterialManagerTeachingCallout() then Roact.createElement(TeachingCallout, {
+			TeachingCallout = Roact.createElement(TeachingCallout, {
 				Offset = Vector2.new(0, 6),
 				DefinitionId = "MaterialManagerApplyCallout",
 				LocationId = "MaterialManagerApplyButton",
-			}) else nil,
+			}),
 		}),
 		RestPane = Roact.createElement(Pane, {
 			Size = if getFFlagMaterialManagerGridListView() then
@@ -561,6 +585,7 @@ TopBar = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
 	MaterialController = MaterialController,
+	MaterialServiceController = if getFFlagMaterialManagerGridOverhaul() then MaterialServiceController else nil,
 	PluginController = PluginController,
 	Stylizer = Stylizer,
 })(TopBar)

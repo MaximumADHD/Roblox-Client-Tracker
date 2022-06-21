@@ -24,6 +24,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local DEFAULT_WIDTH = 10
 local DEFAULT_BORDER_SIZE = 2
@@ -32,7 +33,7 @@ local Keyframe = Roact.PureComponent:extend("Keyframe")
 
 function Keyframe:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local style = props.KeyframeStyle
 	local selected = props.Selected
 

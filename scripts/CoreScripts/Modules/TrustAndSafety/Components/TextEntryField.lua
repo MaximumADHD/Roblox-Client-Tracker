@@ -140,12 +140,12 @@ function TextEntryField:renderWithSelectionCursor(getSelectionCursor)
 					BackgroundTransparency = 1,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextYAlignment = Enum.TextYAlignment.Top,
-
 					TextColor3 = textTheme.Color,
 					TextTransparency = textTheme.Transparency,
 					Font = textFont.Font,
 					TextSize = textFont.RelativeSize * style.Font.BaseSize,
 					TextWrapped = true,
+					MultiLine = true,
 					SelectionImageObject = getSelectionCursor(CursorKind.InputFields),
 
 					[Roact.Ref] = self.textBoxRef,

@@ -30,7 +30,7 @@ return function()
 			root:render(element)
 		end)
 
-		signal:Fire()
+		signal:fire()
 
 		expect(count).toBe(1)
 
@@ -38,7 +38,7 @@ return function()
 			root:unmount()
 		end)
 
-		signal:Fire()
+		signal:fire()
 
 		expect(count).toBe(1)
 	end)
@@ -87,7 +87,7 @@ return function()
 			root:render(React.createElement(SignalContainer))
 		end)
 
-		firstSignal:Fire()
+		firstSignal:fire()
 
 		expect(count).toBe(1)
 
@@ -95,11 +95,11 @@ return function()
 			changeSignal(secondSignal)
 		end)
 
-		firstSignal:Fire()
+		firstSignal:fire()
 
 		expect(count).toBe(1)
 
-		secondSignal:Fire()
+		secondSignal:fire()
 
 		expect(count).toBe(2)
 
@@ -109,7 +109,7 @@ return function()
 			end)
 		end)
 
-		secondSignal:Fire()
+		secondSignal:fire()
 
 		expect(count).toBe(2)
 	end)

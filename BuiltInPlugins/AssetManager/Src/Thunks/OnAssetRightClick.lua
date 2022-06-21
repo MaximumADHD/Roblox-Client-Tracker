@@ -23,6 +23,7 @@ local StudioService = game:GetService("StudioService")
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 local FFlagAssetManagerRefactorPath = game:GetFastFlag("AssetManagerRefactorPath")
+local FFlagAssetManagerMassUpdateContextMenuFix = game:GetFastFlag("AssetManagerMassUpdateContextMenuFix")
 
 local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
 
@@ -175,7 +176,7 @@ local function createPackageContextMenu(analytics, assetData, contextMenu, isAss
     local state = store:getState()
     local view = state.AssetManagerReducer.view
     local userHasPermission = assetData.action == "Edit" or assetData.action == "Own"
-    local userCanUpdate = assetData.upToVersion > 1
+    local userCanUpdate = if FFlagAssetManagerMassUpdateContextMenuFix then nil else (assetData.upToVersion > 1) --remove line with FFlagAssetManagerMassUpdateContextMenuFix
     if view.Key == View.LIST.Key and not isAssetPreviewMenu then
         contextMenu:AddNewAction("AssetPreview", localization:getText("ContextMenu", "AssetPreview")).Triggered:connect(function()
             -- when opening asset preview, set selected assets to that asset only
@@ -194,14 +195,16 @@ local function createPackageContextMenu(analytics, assetData, contextMenu, isAss
             end
         end)
     end
-    if RunService:IsEdit() and userCanUpdate then
-        contextMenu:AddNewAction("UpdateAll", localization:getText("ContextMenu", "UpdateAll")).Triggered:connect(function()
-            AssetManagerService:UpdateAllPackages(assetData.id)
-            analytics:report("clickContextMenuItem")
-            if FFlagNewPackageAnalyticsWithRefactor2 then
-                analytics:report("massUpdateFromAssetManager")
-            end
-        end)
+    if RunService:IsEdit() then
+        if FFlagAssetManagerMassUpdateContextMenuFix or userCanUpdate then -- remove with FFlagAssetManagerMassUpdateContextMenuFix
+            contextMenu:AddNewAction("UpdateAll", localization:getText("ContextMenu", "UpdateAll")).Triggered:connect(function()
+                AssetManagerService:UpdateAllPackages(assetData.id)
+                analytics:report("clickContextMenuItem")
+                if FFlagNewPackageAnalyticsWithRefactor2 then
+                    analytics:report("massUpdateFromAssetManager")
+                end
+            end)
+        end
     end
     contextMenu:AddNewAction("ViewOnWebsite", localization:getText("ContextMenu", "ViewOnWebsite")).Triggered:connect(function()
         AssetManagerService:ViewPackageOnWebsite(assetData.id)

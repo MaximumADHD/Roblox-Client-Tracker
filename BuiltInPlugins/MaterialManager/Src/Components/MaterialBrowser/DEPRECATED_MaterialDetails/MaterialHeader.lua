@@ -23,7 +23,7 @@ local Util = Plugin.Src.Util
 local MaterialController = require(Util.MaterialController)
 
 local Components = Plugin.Src.Components
-local MaterialPreview = require(Components.MaterialPreview)
+local MaterialPreview = require(Components.DEPRECATED_MaterialPreview)
 
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)

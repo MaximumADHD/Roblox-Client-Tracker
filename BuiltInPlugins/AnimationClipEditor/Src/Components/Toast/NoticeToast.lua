@@ -27,6 +27,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local BaseToast = require(Plugin.Src.Components.Toast.BaseToast)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local NoticeToast = Roact.PureComponent:extend("NoticeToast")
 
@@ -95,7 +96,7 @@ end
 
 function NoticeToast:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local toastTheme = theme.toastTheme
 	local state = self.state
 	local text = props.Text

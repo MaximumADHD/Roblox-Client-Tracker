@@ -11,9 +11,15 @@ local UI = Framework.UI
 local Decoration = UI.Decoration
 local LightTheme = Style.Themes.LightTheme
 local DarkTheme = Style.Themes.DarkTheme
+local getRawComponentStyle = Style.getRawComponentStyle
+local ui = Style.ComponentSymbols
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 local GetFFlagFaceControlsEditorUXImprovements = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUXImprovements)
+
+local Dash = Framework.Dash
+local join = Dash.join
 
 -- Add new entries to both themes
 local overridedLightTheme = Cryo.Dictionary.join(LightTheme, {
@@ -414,6 +420,15 @@ local buttonTheme = {
 	}
 }
 
+local frameworkButton = getRawComponentStyle("Button")
+local button = join(frameworkButton, {
+	["&ACEHeaderButtonDefault"] = join(frameworkButton["&Round"], {
+		Background = Decoration.RoundBox,
+	}),
+	["&ACEHeaderButtonActive"] = join(frameworkButton["&RoundPrimary"], {
+	}),
+})
+ 
 local eventMarker = {
 	imageColor = StyleKey.EventMarkerImageColor,
 	borderColor = StyleKey.EventMarkerBorderColor,
@@ -608,6 +623,17 @@ local progressBarTheme = {
 	backgroundColor = Colors.Blue,
 }
 
+local radioButtons = {
+	font = Enum.Font.SourceSans,
+	textColor = StyleKey.MainText,
+	textSize = 15,
+	buttonHeight = 20,
+	radioButtonBackground = "rbxasset://textures/GameSettings/RadioButton.png",
+	radioButtonSelected = "rbxasset://textures/ui/LuaApp/icons/ic-blue-dot.png",
+	contentPadding = 16,
+	buttonPadding = 6,
+}
+
 local PluginTheme = {
 	font = Enum.Font.SourceSans,
 	backgroundColor = StyleKey.MainBackground,
@@ -641,8 +667,11 @@ local PluginTheme = {
 	scrubberTheme = scrubberTheme,
 	curveTheme = curveTheme,
 	progressBarTheme = progressBarTheme,
+	[ui.Button] = button,
+	radioButton = radioButtons,
 }
 
+--TODO remobe with FFlagExtendPluginTheme
 local UILibraryOverrides = {
 	radioButton = {
 		font = PluginTheme.font,
@@ -657,15 +686,21 @@ local UILibraryOverrides = {
 }
 
 return function(createMock: boolean?)
-	local styleRoot
-	if createMock then
-		styleRoot = StudioTheme.mock(overridedDarkTheme)
-	else
-		styleRoot = StudioTheme.new(overridedDarkTheme, overridedLightTheme)
-	end
-
-	return styleRoot:extend({
-		PluginTheme = PluginTheme,
-		UILibraryOverrides = UILibraryOverrides,
-	})
+	if GetFFlagExtendPluginTheme() then 
+		local baseTheme = if createMock then StudioTheme.mock(overridedDarkTheme, overridedLightTheme) else StudioTheme.new(overridedDarkTheme, overridedLightTheme)
+		local theme = baseTheme:extend(PluginTheme)
+		return theme
+	else 
+		local styleRoot
+		if createMock then
+			styleRoot = StudioTheme.mock(overridedDarkTheme)
+		else
+			styleRoot = StudioTheme.new(overridedDarkTheme, overridedLightTheme)
+		end
+	
+		return styleRoot:extend({
+			PluginTheme = PluginTheme,
+			UILibraryOverrides = UILibraryOverrides,
+		})	
+	end 
 end

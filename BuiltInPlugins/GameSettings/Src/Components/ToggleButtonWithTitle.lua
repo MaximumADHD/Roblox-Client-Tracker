@@ -13,8 +13,6 @@
 		boolean ShowWarning: whether the description text is shown as warning text
 ]]
 
-local FFlagGameSettingsEnableVoiceChat = game:GetFastFlag("GameSettingsEnableVoiceChat")
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
@@ -29,7 +27,7 @@ local TextWithInlineLink = Framework.UI.TextWithInlineLink
 
 local FitTextLabel = Util.FitFrame.FitTextLabel
 
-local LayoutOrderIterator = FFlagGameSettingsEnableVoiceChat and Util.LayoutOrderIterator or nil
+local LayoutOrderIterator = Util.LayoutOrderIterator
 
 local ToggleButtonWithTitle = Roact.PureComponent:extend("ToggleButtonWithTitle")
 
@@ -65,12 +63,9 @@ function ToggleButtonWithTitle:render()
 	local title = props.Title
 	local onClick = props.OnClick
 	local showWarning = props.ShowWarning
-	local linkProps = FFlagGameSettingsEnableVoiceChat and props.LinkProps or nil
+	local linkProps = props.LinkProps
 
-	local layoutIndex
-	if FFlagGameSettingsEnableVoiceChat then
-		layoutIndex = LayoutOrderIterator.new()
-	end
+	local layoutIndex = LayoutOrderIterator.new()
 
 	return Roact.createElement(TitledFrame, {
 		Title = title,
@@ -79,7 +74,7 @@ function ToggleButtonWithTitle:render()
 		ToggleButton = Roact.createElement(ToggleButton, {
 			Disabled = disabled,
 			Selected = selected,
-			LayoutOrder = FFlagGameSettingsEnableVoiceChat and layoutIndex:getNextOrder() or 1,
+			LayoutOrder = layoutIndex:getNextOrder(),
 			OnClick = onClick,
 			Size = theme.settingsPage.toggleButtonSize,
 		}),
@@ -87,7 +82,7 @@ function ToggleButtonWithTitle:render()
 		Description = props.Description and
 			Roact.createElement(FitTextLabel, Cryo.Dictionary.join(showWarning and theme.fontStyle.SmallError or theme.fontStyle.Subtext, {
 				BackgroundTransparency = 1,
-				LayoutOrder = FFlagGameSettingsEnableVoiceChat and layoutIndex:getNextOrder() or 2,
+				LayoutOrder = layoutIndex:getNextOrder(),
 				TextTransparency = props.Disabled and 0.5 or 0,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Top,
@@ -109,7 +104,7 @@ function ToggleButtonWithTitle:render()
 
 		DescriptionWidth = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
-			LayoutOrder = FFlagGameSettingsEnableVoiceChat and layoutIndex:getNextOrder() or 3,
+			LayoutOrder = layoutIndex:getNextOrder(),
 			Size = UDim2.new(1,0,0,0),
 			[Roact.Ref] = self.descriptionRef,
 			[Roact.Change.AbsoluteSize] = self.onResize,

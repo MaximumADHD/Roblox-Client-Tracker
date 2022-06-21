@@ -44,6 +44,7 @@ local IKTreeView = require(Plugin.Src.Components.IK.IKTreeView)
 local IKModeButtons = require(Plugin.Src.Components.IK.IKModeButtons)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local IKWindow = Roact.PureComponent:extend("IKWindow")
 
@@ -128,7 +129,7 @@ end
 function IKWindow:render()
 	local localization = self.props.Localization
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local rootInstance = props.RootInstance
 	local pinnedParts = props.PinnedParts
 	local isR15 = props.IsR15

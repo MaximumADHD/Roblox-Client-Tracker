@@ -12,6 +12,7 @@ local NavigationContainer = require(Plugin.Src.Components.Navigation.NavigationC
 
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
+local Constants = require(Plugin.Src.Util.Constants)
 
 local StudioUI = require(Plugin.Packages.Framework).StudioUI
 local PluginButton = StudioUI.PluginButton
@@ -33,6 +34,12 @@ local makeTheme = require(Plugin.Src.Resources.makeTheme)
 local ManagementApp = Roact.PureComponent:extend("ManagementApp")
 
 function ManagementApp:init()
+	local plugin = self.props.plugin
+	local configs = plugin:GetSetting(Constants.PLUGIN_SETTING_NAME)
+	if (configs == nil) then
+		plugin:SetSetting(Constants.PLUGIN_SETTING_NAME, {})
+	end
+
 	self.state = {
 		enabled = false,
 		killDockWidget = false,

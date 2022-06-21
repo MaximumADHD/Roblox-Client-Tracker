@@ -19,6 +19,7 @@ local Framework = require(Plugin.Packages.Framework)
 local Constants = require(Plugin.Src.Util.Constants)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local AddEventEntry = Roact.PureComponent:extend("AddEventEntry")
 
@@ -39,7 +40,7 @@ end
 function AddEventEntry:render()
 	local localization = self.props.Localization
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local size = props.Size
 	local paddingLeft = props.PaddingLeft
 	local paddingRight = props.PaddingRight

@@ -26,6 +26,7 @@ local SetShowFaceControlsEditorPanel = require(Plugin.Src.Actions.SetShowFaceCon
 local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 local TeachingCallout = require(Plugin.Src.Components.TeachingCallout)
 local GetFFlagFaceControlsEditorShowCallout = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorShowCallout)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local FaceControlsEditorController = Roact.PureComponent:extend("FaceControlsEditorController")
 
@@ -94,7 +95,7 @@ end
 function FaceControlsEditorController:render()
 	local localization = self.props.Localization
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local selectedTrack = self.getLastSelectedTrack()
 	local style = theme.button
 	local state = self.state

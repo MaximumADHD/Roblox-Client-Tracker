@@ -49,6 +49,7 @@ local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFixButtonStyle = require(Plugin.LuaFlags.GetFFlagFixButtonStyle)
 local GetFFlagCreateAnimationFromVideoTutorialEnabled = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoTutorialEnabled)
 local GetFFlagCreateAnimationFromVideoAnalytics = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoAnalytics)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local AnimationClipDropdown = Roact.PureComponent:extend("AnimationClipDropdown")
 
@@ -255,7 +256,7 @@ function AnimationClipDropdown:render()
 	local localization = self.props.Localization
 	local props = self.props
 	local state = self.state
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 
 	local animationName = props.AnimationName
 	local layoutOrder = props.LayoutOrder

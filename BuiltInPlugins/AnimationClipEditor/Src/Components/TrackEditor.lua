@@ -48,6 +48,7 @@ local SwitchEditorMode = require(Plugin.Src.Thunks.SwitchEditorMode)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
+local GetFFlagCurveEditorFreeZoom = require(Plugin.LuaFlags.GetFFlagCurveEditorFreeZoom)
 
 local TrackEditor = Roact.PureComponent:extend("TrackEditor")
 
@@ -226,7 +227,7 @@ function TrackEditor:render()
 		[Roact.Change.AbsoluteSize] = self.updateSize,
 
 		[Roact.Event.InputBegan] = self.inputBegan,
-		[Roact.Event.InputChanged] = self.inputChanged,
+		[Roact.Event.InputChanged] = if not GetFFlagCurveEditorFreeZoom() then self.inputChanged else nil,
 		[Roact.Event.InputEnded] = self.inputEnded,
 		[Roact.Event.MouseLeave] = self.stopDragging,
 	}, {
@@ -270,6 +271,7 @@ function TrackEditor:render()
 			IsChannelAnimation = isChannelAnimation,
 			ColorsPosition = GetFFlagCurveEditor() and colorsPosition or nil,
 			ZIndex = GetFFlagCurveEditor() and 1 or nil,
+			OnInputChanged = if GetFFlagCurveEditorFreeZoom() then self.inputChanged else nil,
 		}) or nil,
 
 		CurveEditorController = (GetFFlagCurveEditor() and showCurveCanvas) and Roact.createElement(CurveEditorController, {
@@ -278,11 +280,12 @@ function TrackEditor:render()
 			EndTick = endTick,
 			TrackPadding = trackPadding,
 			Size = UDim2.new(1, 0, 1, -Constants.TIMELINE_HEIGHT - Constants.SCROLL_BAR_SIZE),
-			VerticalScroll = verticalScroll,
-			VerticalZoom = verticalZoom,
+			VerticalScroll = if not GetFFlagCurveEditorFreeZoom() then verticalScroll else nil,
+			VerticalZoom = if not GetFFlagCurveEditorFreeZoom() then verticalZoom else nil,
 			ShowAsSeconds = showAsSeconds,
 			Playhead = playhead,
 			ZIndex = GetFFlagCurveEditor() and 1 or nil,
+			OnInputChanged = if GetFFlagCurveEditorFreeZoom() then self.inputChanged else nil,
 		}) or nil,
 
 		ZoomBar = not GetFFlagCurveEditor() and Roact.createElement(ZoomBar_deprecated, {

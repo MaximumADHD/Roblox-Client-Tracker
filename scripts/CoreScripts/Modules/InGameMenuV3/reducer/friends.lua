@@ -7,6 +7,7 @@ local Rodux = InGameMenuDependencies.Rodux
 local InGameMenu = script.Parent.Parent
 
 local SetFriendStatus = require(InGameMenu.Actions.SetFriendStatus)
+local SetFriendBlockConfirmation = require(InGameMenu.Actions.SetFriendBlockConfirmation)
 
 return Rodux.createReducer({}, {
 	[SetFriendStatus.name] = function(state, action)
@@ -15,6 +16,13 @@ return Rodux.createReducer({}, {
 
 		return Cryo.Dictionary.join(state, {
 			[userId] = friendStatus or Cryo.None,
+		})
+	end,
+
+	[SetFriendBlockConfirmation.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			isFriendBlockOpen = action.isFriendBlockOpen,
+			targetBlockFriend = action.targetBlockFriend,
 		})
 	end,
 })

@@ -9,7 +9,7 @@ return function()
 
 	local InGameMenu = script.Parent.Parent.Parent
 	local reducer = require(InGameMenu.reducer)
-
+	
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
 
@@ -27,7 +27,7 @@ return function()
 			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 				style = appStyle,
 			}, {
-				MuteAllButton = Roact.createElement(QuickActionsTooltip, {
+				QuickActionsTooltip = Roact.createElement(QuickActionsTooltip, {
 					layoutOrder = 1,
 				}),
 			}),

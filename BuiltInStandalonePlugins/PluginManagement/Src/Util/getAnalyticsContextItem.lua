@@ -29,37 +29,37 @@ return function()
         end
 
         return {
-            TryInstallPluginFromWeb = function(pluginId)
-                sendAndCount("TryInstallPluginFromWeb", {
+            TryInstallPluginFromWeb = function(eventName, pluginId)
+                sendAndCount(eventName, {
                     pluginId = pluginId,
                 })
             end,
-            InstallPluginFromWebSuccess = function(pluginId)
-                sendAndCount("InstallPluginFromWebSuccess", {
+            InstallPluginFromWebSuccess = function(eventName, pluginId)
+                sendAndCount(eventName, {
                     pluginId = pluginId,
                 })
             end,
-            InstallPluginFromWebFailure = function(pluginId, pluginInstallStatusCode)
-                sendAndCount("InstallPluginFromWebFailure", {
+            InstallPluginFromWebFailure = function(eventName, pluginId, pluginInstallStatusCode)
+                sendAndCount(eventName, {
                     pluginId = pluginId,
                     pluginInstallStatusCode = pluginInstallStatusCode,
                 })
             end,
-            TryUpdatePlugin = function(pluginId)
-                sendAndCount("TryUpdatePlugin", {
+            TryUpdatePlugin = function(eventName, pluginId)
+                sendAndCount(eventName, {
                     pluginId = pluginId,
                 })
             end,
-            TryUpdateAllPlugins = function()
-                sendAndCount("TryUpdateAllPlugins")
+            TryUpdateAllPlugins = function(eventName)
+                sendAndCount(eventName)
             end,
-            UpdatePluginSuccess = function(pluginId)
-                sendAndCount("UpdatePluginSuccess", {
+            UpdatePluginSuccess = function(eventName, pluginId)
+                sendAndCount(eventName, {
                     pluginId = pluginId,
                 })
             end,
-            UpdatePluginFailure = function(pluginId)
-                sendAndCount("UpdatePluginFailure", {
+            UpdatePluginFailure = function(eventName, pluginId)
+                sendAndCount(eventName, {
                     pluginId = pluginId,
                 })
             end,

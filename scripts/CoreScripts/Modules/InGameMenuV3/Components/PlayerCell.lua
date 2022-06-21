@@ -96,11 +96,21 @@ function PlayerCell:renderWithSelectionCursor(getSelectionCursor)
 
 	return withStyle(function(style)
 		local backgroundStyle = style.Theme.BackgroundContrast
+		local bgBrightness = 1.1
 		if self.props.isSelected then
 			backgroundStyle = style.Theme.BackgroundOnHover
+			bgBrightness = 0.23
 		end
+		local bgColor = backgroundStyle.Color
 
 		return Roact.createElement(Cell, {
+
+			background = self.props.isSelected and Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundColor3 = bgColor,
+				BackgroundTransparency = backgroundStyle.Transparency,
+			}) or nil,
+
 			onActivated = FFlagPlayerCellHandleTouchTap and self.onActivatedOverride or self.onActivated,
 			onTouchTapped = FFlagPlayerCellHandleTouchTap and self.onActivated or nil,
 
@@ -154,7 +164,11 @@ function PlayerCell:renderWithSelectionCursor(getSelectionCursor)
 							}),
 							Border = Roact.createElement("UIStroke", {
 								ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-								Color = backgroundStyle.Color,
+								Color = Color3.new(
+									bgColor.R * bgBrightness,
+									bgColor.G * bgBrightness,
+									bgColor.B * bgBrightness
+								),
 								Transparency = 0,
 								Thickness = 2,
 							}),

@@ -24,6 +24,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local AddTrackButton = Roact.PureComponent:extend("AddTrackButton")
 
@@ -173,7 +174,7 @@ end
 function AddTrackButton:render()
 	local localization = self.props.Localization
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local state = self.state
 
 	local showMenu = state.showMenu

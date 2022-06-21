@@ -27,7 +27,8 @@ StatusPropertyMap = {
         "BadCallError",
         "PoseError",
         "UncaughtExceptionError",
-        "UploadAlreadyRunningError"
+        "UploadAlreadyRunningError",
+        "CageMismatchWarning",
     },
 }
 

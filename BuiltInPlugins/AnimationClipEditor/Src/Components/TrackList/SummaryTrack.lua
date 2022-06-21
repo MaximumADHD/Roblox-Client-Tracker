@@ -30,6 +30,7 @@ local StringUtils = require(Plugin.Src.Util.StringUtils)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local SummaryTrack = Roact.PureComponent:extend("SummaryTrack")
 
@@ -45,7 +46,7 @@ end
 
 function SummaryTrack:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local name = props.Name
 	local layoutOrder = props.LayoutOrder
 	local tracks = props.UnusedTracks

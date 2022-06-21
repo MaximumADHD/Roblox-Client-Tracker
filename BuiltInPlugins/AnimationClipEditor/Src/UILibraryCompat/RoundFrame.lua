@@ -9,6 +9,7 @@ local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local ROUNDED_FRAME_SLICE = Rect.new(3, 3, 13, 13)
 local DEFAULT_BORDER_COLOR = Color3.fromRGB(27, 42, 53)
@@ -22,7 +23,7 @@ function RoundFrame:init(initialProps)
 end
 
 function RoundFrame:render()
-	local theme = self.props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and self.props.Stylizer or self.props.Stylizer.PluginTheme
 
 	local props = self.props
 	local roundFrameTheme = theme.roundFrame

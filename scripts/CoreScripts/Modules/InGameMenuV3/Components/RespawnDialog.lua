@@ -18,6 +18,12 @@ local ConfirmationDialog = require(script.Parent.ConfirmationDialog)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
 
+local FRAME_WIDTH = 320
+local FRAME_PADDING = 24
+local ILLUSTRATION_FRAME_HEIGHT = 128
+local ILLUSTRATION_ICON_HEIGHT = 92
+local ILLUSTRATION_ICON_WIDTH = 92
+
 local function RespawnDialog(props)
 	local function renderRespawnDialogControllerBar()
 		return Roact.createElement(IGMRespawnControllerBar, {
@@ -39,18 +45,16 @@ local function RespawnDialog(props)
 				bodyText = localized.bodyText,
 				confirmText = localized.confirmText,
 				cancelText = localized.cancelText,
-
 				bindReturnToConfirm = true,
-
 				onCancel = props.onCancel,
 				onConfirm = props.onConfirm,
-
+				onOverlyActivated = props.onCancel,
 				inputType = props.inputType,
-				frameWidth = 320,
-				framePadding = 24,
-				illustrationFrameHeight = 128,
-				illustrationIconHeight = 92,
-				illustrationIconWidth = 92,
+				frameWidth = FRAME_WIDTH,
+				framePadding = FRAME_PADDING,
+				illustrationFrameHeight = ILLUSTRATION_FRAME_HEIGHT,
+				illustrationIconHeight = ILLUSTRATION_ICON_HEIGHT,
+				illustrationIconWidth = ILLUSTRATION_ICON_WIDTH,
 				showIllustration = true,
 			})
 		})

@@ -1,10 +1,6 @@
 --[[
+	Device Emulator main script
 	Mounts and unmounts the Roact tree.
-	New Plugin Setup: Change all instances of "DeviceEmulator" to the
-		name of your plugin (incl. csv, .config, and rbxp file)
-
-	**** NOTE: In the rbxp file, the name of the rbxm that is defined in
-		"projectFileMap" must be the same as the name of the folder
 ]]
 
 if not plugin then

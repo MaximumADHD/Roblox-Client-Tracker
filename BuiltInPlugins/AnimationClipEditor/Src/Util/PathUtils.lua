@@ -78,4 +78,8 @@ function PathUtils.removePath(paths, path)
 	return paths
 end
 
+function PathUtils.toString(path: Path): string
+	return table.concat(path, ".")
+end
+
 return PathUtils

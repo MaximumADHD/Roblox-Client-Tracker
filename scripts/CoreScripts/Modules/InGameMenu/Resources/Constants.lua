@@ -52,6 +52,7 @@ local Constants = {
 	NewAnalyticsReportMenu = "new_analytics_report_menu",
 	AnalyticsFieldChanged = "field_changed",
 	AnalyticsSubmissionDuration = "submission_duration",
+	AnalyticsVoiceReportSubmitted = "submission_voice_report",
 	AnalyticsReportLeft = "ingame_menu_report_left",
 	AnalyticsReportSubmittedName = "ingame_menu_report_submitted",
 	AnalyticsRequestFriendName = "RequestFriendship",

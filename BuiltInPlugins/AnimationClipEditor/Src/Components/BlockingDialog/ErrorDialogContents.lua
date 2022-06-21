@@ -20,11 +20,12 @@ local Framework = require(Plugin.Packages.Framework)
 local Constants = require(Plugin.Src.Util.Constants)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local ErrorDialogContents = Roact.PureComponent:extend("ErrorDialogContents")
 
 function ErrorDialogContents:render()
-	local theme = self.props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and self.props.Stylizer or self.props.Stylizer.PluginTheme
 	local localization = self.props.Localization
 	local dialogTheme = theme.dialogTheme
 	local props = self.props

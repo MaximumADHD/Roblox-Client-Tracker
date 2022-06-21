@@ -55,6 +55,7 @@ local function run(testChildren, container, testRunner)
 
 	local element = provideMockContext({
 		theme,
+		ContextServices.Analytics.mock(),
 		localization,
 		ContextServices.Store.new(store),
 		ContextServices.API.new({

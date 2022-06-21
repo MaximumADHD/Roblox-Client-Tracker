@@ -10,6 +10,8 @@ return function()
 
 	local InGameMenu = script.Parent.Parent.Parent
 	local reducer = require(InGameMenu.reducer)
+	local Localization = require(InGameMenu.Localization.Localization)
+	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
@@ -28,9 +30,13 @@ return function()
 			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 				style = appStyle,
 			}, {
-				MuteAllButton = Roact.createElement(MuteSelfButton, {
-					iconSize = IconSize.Medium,
-					layoutOrder = 1,
+				LocalizationProvider = Roact.createElement(LocalizationProvider, {
+					localization = Localization.new("en-us"),
+				}, {
+					MuteSelfButton = Roact.createElement(MuteSelfButton, {
+						iconSize = IconSize.Medium,
+						layoutOrder = 1,
+					}),
 				}),
 			}),
 		})

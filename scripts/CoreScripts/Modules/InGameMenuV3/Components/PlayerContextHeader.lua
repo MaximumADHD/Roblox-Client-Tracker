@@ -23,6 +23,7 @@ PlayerContextHeader.validateProps = t.strictInterface({
 			DisplayName = t.string,
 		})
 	),
+	zIndex = t.optional(t.number),
 })
 
 function PlayerContextHeader:render()
@@ -40,6 +41,7 @@ function PlayerContextHeader:render()
 			Size = UDim2.new(1, 0, 0, 92),
 			LayoutOrder = 0,
 			Selectable = false,
+			ZIndex = self.props.zIndex or 1,
 		}, {
 			Background = Roact.createElement("ImageLabel", {
 				BackgroundTransparency = 1,
@@ -92,7 +94,7 @@ function PlayerContextHeader:render()
 				AnchorPoint = Vector2.new(0.5, 0),
 				BackgroundTransparency = 1,
 				Image = "rbxthumb://type=AvatarHeadShot&id=" .. userId .. "&w=150&h=150",
-				ZIndex = 2,
+				ZIndex = 3,
 			}),
 
 			Divider = not self.props.lastButton and Roact.createElement("Frame", {
@@ -102,7 +104,7 @@ function PlayerContextHeader:render()
 				BackgroundTransparency = style.Theme.Divider.Transparency,
 				BackgroundColor3 = style.Theme.Divider.Color,
 				BorderSizePixel = 0,
-				ZIndex = 3,
+				ZIndex = 4,
 			}),
 		})
 	end)

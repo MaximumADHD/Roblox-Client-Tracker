@@ -40,6 +40,8 @@ local Util = Framework.Util
 local Typecheck = Util.Typecheck
 Typecheck.wrap(GenerateScreen, script)
 
+local GetFFlagAccessoryFittingToolAnalytics = require(Plugin.Src.Flags.GetFFlagAccessoryFittingToolAnalytics)
+
 function GenerateScreen:init()
 	self.onGenerateClicked = function()
 		self.props.SetControlsPanelBlockerActivity(true)
@@ -85,7 +87,12 @@ function GenerateScreen:didUpdate(prevProps)
 		task.delay(0, function()
 			local editingItem = self.props.EditingItemContext:getItem()
 			local sourceItem = self.props.EditingItemContext:getSourceItemWithUniqueDeformerNames()
-			self.props.FinishEditing(self.props.LuaMeshEditingModuleContext, editingItem, sourceItem)
+			local analytics = self.props.Analytics
+			if GetFFlagAccessoryFittingToolAnalytics() then
+				self.props.FinishEditing(self.props.LuaMeshEditingModuleContext, editingItem, sourceItem, analytics)
+			else
+				self.props.FinishEditing(self.props.LuaMeshEditingModuleContext, editingItem, sourceItem)
+			end
 			self.props.SetControlsPanelBlockerActivity(false)
 
 			-- return to start screen
@@ -98,6 +105,7 @@ function GenerateScreen:didUpdate(prevProps)
 end
 
 GenerateScreen = withContext({
+	Analytics = ContextServices.Analytics,
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	EditingItemContext = EditingItemContext,
@@ -117,9 +125,15 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetControlsPanelBlockerActivity(isActive))
 		end,
 
-		FinishEditing = function(context, item, sourceItem)
-			dispatch(FinishEditing(context, item, sourceItem))
-		end,
+		FinishEditing = if GetFFlagAccessoryFittingToolAnalytics() 
+			then 
+				function(context, item, sourceItem, analytics)
+					dispatch(FinishEditing(context, item, sourceItem, analytics))
+				end
+			else
+				function(context, item, sourceItem)
+					dispatch(FinishEditing(context, item, sourceItem))
+				end,
 
 		ReleaseEditor = function()
 			dispatch(ReleaseEditor())

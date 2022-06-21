@@ -18,6 +18,7 @@ local Pane = UI.Pane
 local TruncatedTextLabel = UI.TruncatedTextLabel
 
 local GeneralServiceController = require(Plugin.Src.Util.GeneralServiceController)
+local getFFlagMaterialManagerUIUXFixes = require(Plugin.Src.Flags.getFFlagMaterialManagerUIUXFixes)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local Actions = Plugin.Src.Actions
@@ -33,6 +34,8 @@ local getMaterialName = require(Constants.getMaterialName)
 local getSupportedMaterials = require(Constants.getSupportedMaterials)
 
 local supportedMaterials = getSupportedMaterials()
+
+local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
 
 export type Props = {
 	LayoutOrder: number?,
@@ -102,6 +105,9 @@ function MaterialInformation:init()
 
 		if material and material.MaterialVariant then
 			props.GeneralServiceController:destroyWithUndo(material.MaterialVariant)
+			if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
+				props.Analytics:report("deleteMaterialVariant")
+			end
 		end
 	end
 
@@ -109,11 +115,20 @@ function MaterialInformation:init()
 		local props: _Props = self.props
 		local material: _Types.Material? = props.Material
 
-		if material then
-			props.dispatchClearMaterialVariant()
-			props.dispatchSetBaseMaterial(material.Material)
-			props.dispatchSetMode("Create")
-			props.OpenPrompt("Create")
+		if getFFlagMaterialManagerUIUXFixes() then
+			if material and not material.MaterialVariant then
+				props.dispatchClearMaterialVariant()
+				props.dispatchSetBaseMaterial(material.Material)
+				props.dispatchSetMode("Create")
+				props.OpenPrompt("Create")
+			end
+		else
+			if material then
+				props.dispatchClearMaterialVariant()
+				props.dispatchSetBaseMaterial(material.Material)
+				props.dispatchSetMode("Create")
+				props.OpenPrompt("Create")
+			end
 		end
 	end
 end
@@ -231,7 +246,7 @@ MaterialInformation = withContext({
 })(MaterialInformation)
 
 return RoactRodux.connect(
-	function(state: MainReducer.State, props: _Props)
+	function(state: MainReducer.State, props: Props)
 		return {
 			Material = props.MaterialMock or state.MaterialBrowserReducer.Material
 		}

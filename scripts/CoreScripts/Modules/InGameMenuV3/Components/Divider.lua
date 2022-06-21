@@ -18,6 +18,7 @@ local validateProps = t.strictInterface({
 	AnchorPoint = t.optional(t.Vector2),
 	LayoutOrder = t.optional(t.integer),
 	Visible = t.optional(t.boolean),
+	theme = t.optional(t.string),
 })
 
 local function Divider(props)
@@ -26,13 +27,16 @@ local function Divider(props)
 	end
 
 	return withStyle(function(style)
+		local theme = props.theme and style.Theme[props.theme] or style.Theme.Divider
+
 		-- Divider relies on being right-aligned in order to be left-indented.
 		return Roact.createElement("Frame", Cryo.Dictionary.join({
 			Size = UDim2.new(1, 0, 0, 1),
 		}, props, {
 			BorderSizePixel = 0,
-			BackgroundColor3 = style.Theme.Divider.Color,
-			BackgroundTransparency = style.Theme.Divider.Transparency,
+			BackgroundColor3 = theme.Color,
+			BackgroundTransparency = theme.Transparency,
+			theme = Cryo.None,
 		}))
 	end)
 end

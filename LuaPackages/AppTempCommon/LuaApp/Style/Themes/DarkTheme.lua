@@ -183,6 +183,12 @@ local theme = {
 		Transparency = 0,
 		Image = "component_assets/avatarBG_dark",
 	},
+
+	ItemBackgroundDefault = {
+		Color = Colors.Black,
+		Transparency = 0,
+		Image = "component_assets/itemBG_dark",
+	},
 }
 
 return theme

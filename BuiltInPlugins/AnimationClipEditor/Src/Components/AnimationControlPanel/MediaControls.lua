@@ -28,6 +28,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local LayoutOrderIterator = require(Plugin.Src.Util.LayoutOrderIterator)
 local Button = Framework.UI.Button
 local Tooltip = require(Plugin.Src.Components.Tooltip)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local MediaControls = Roact.PureComponent:extend("MediaControls")
 
@@ -50,7 +51,7 @@ export type Props = {
 }
 
 function MediaControls:makeButton(image: string, onClick: () -> (), playbackTheme: any, tooltipKey: string): (any)
-	local style = self.props.Stylizer.PluginTheme.button
+	local style = GetFFlagExtendPluginTheme() and self.props.Stylizer.button or self.props.Stylizer.PluginTheme.button
 	return Roact.createElement("Frame", {
 		LayoutOrder = self.layoutOrderIterator:getNextOrder(),
 		Size = UDim2.new(0, Constants.TIMELINE_HEIGHT, 0, Constants.TIMELINE_HEIGHT),
@@ -76,7 +77,7 @@ function MediaControls:makeButton(image: string, onClick: () -> (), playbackThem
 end
 
 function MediaControls:makeToggle(active: boolean, activeImage: string, inactiveImage: string, onClick: () -> (), playbackTheme: any, tooltipKey: string): (any)
-	local style = self.props.Stylizer.PluginTheme.button
+	local style = GetFFlagExtendPluginTheme() and self.props.Stylizer.button or self.props.Stylizer.PluginTheme.button
 	return Roact.createElement("Frame", {
 		LayoutOrder = self.layoutOrderIterator:getNextOrder(),
 		Size = UDim2.new(0, Constants.TIMELINE_HEIGHT, 0, Constants.TIMELINE_HEIGHT),
@@ -102,7 +103,7 @@ function MediaControls:makeToggle(active: boolean, activeImage: string, inactive
 end
 
 function MediaControls:makePlayToggle_deprecated(active: boolean, image: string, playState: string, playbackTheme: any, tooltipKey: string): (any)
-	local style = self.props.Stylizer.PluginTheme.button
+	local style = GetFFlagExtendPluginTheme() and self.props.Stylizer.button or self.props.Stylizer.PluginTheme.button
 	return Roact.createElement("Frame", {
 		LayoutOrder = self.layoutOrderIterator:getNextOrder(),
 		Size = UDim2.new(0, Constants.TIMELINE_HEIGHT, 0, Constants.TIMELINE_HEIGHT),
@@ -132,7 +133,7 @@ function MediaControls:makePlayToggle_deprecated(active: boolean, image: string,
 end
 
 function MediaControls:makePlayToggle(active: boolean, activeImage: string, inactiveImage: string, playState: string, playbackTheme: any, activeTooltipKey: string, inactiveTooltipKey): (any)
-	local style = self.props.Stylizer.PluginTheme.button
+	local style = GetFFlagExtendPluginTheme() and self.props.Stylizer.button or self.props.Stylizer.PluginTheme.button
 	return Roact.createElement("Frame", {
 		LayoutOrder = self.layoutOrderIterator:getNextOrder(),
 		Size = UDim2.new(0, Constants.TIMELINE_HEIGHT, 0, Constants.TIMELINE_HEIGHT),
@@ -163,7 +164,7 @@ end
 
 function MediaControls:render(): (any)
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 
 	local isLooping = props.IsLooping
 	local isReverse = props.PlayState == Constants.PLAY_STATE.Reverse

@@ -26,7 +26,6 @@ local LightTheme = Style.Themes.LightTheme
 local StyleKey = Style.StyleKey
 
 
-local FFlagDevFrameworkIconButtonBorderColor = game:GetFastFlag("DevFrameworkIconButtonBorderColor")
 local FFlagMaterialManagerSideBarHide = game:GetFastFlag("MaterialManagerSideBarHide")
 
 local Flags = Plugin.Src.Flags
@@ -45,12 +44,18 @@ local function getPluginTheme()
 	local MaterialDetailsTextureHeight = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then 64 else 60
 	local MaterialDetaulsLabelWidth = 108
 	local ColumnWidth = 270
+	local LabelColumnWidth = UDim.new(0, 80)
 	local DialogWidth = 720
 	local DialogHeight = 480
 	local SearchBarMaxWidth = 600
 	local IconSize = UDim2.fromOffset(20, 20)
 	local MaterialTileWidth = 200
 	local TilePadding = 10
+	local LabeledItemSpacing = 5
+	local LabeledVerticalSpacing = 4
+	local LabeledItemPaddingHorizontal = UDim.new(0, 35)
+	local LabeledErrorOrWarningTextSize = 16
+	local LabeledErrorOrWarningColor = Color3.fromRGB(255, 0, 0)
 
 	return {
 		MaterialBrowser = {
@@ -87,10 +92,27 @@ local function getPluginTheme()
 
 		GeneralSettings = {
 			DialogColumnSize = UDim2.new(0, ColumnWidth, 0, 25),
+			LabelColumnWidth = LabelColumnWidth,
+			ItemSpacing = LabeledItemSpacing,
+			VerticalSpacing = LabeledVerticalSpacing,
+			ItemPaddingHorizontal = LabeledItemPaddingHorizontal,
+			ErrorOrWarningTextSize = LabeledErrorOrWarningTextSize,
+			ErrorOrWarningColor = LabeledErrorOrWarningColor,
+		},
+
+		TextureSettings = {
+			LabelColumnWidth = LabelColumnWidth,
+			ItemSpacing = LabeledItemSpacing,
 		},
 
 		AdditionalPropertiesSettings = {
 			DialogColumnSize = UDim2.new(0, ColumnWidth, 0, 25),
+			ItemSpacing = LabeledItemSpacing,
+			LabelColumnWidth = LabelColumnWidth,
+			VerticalSpacing = LabeledVerticalSpacing,
+			ItemPaddingHorizontal = LabeledItemPaddingHorizontal,
+			ErrorOrWarningTextSize = LabeledErrorOrWarningTextSize,
+			ErrorOrWarningColor = LabeledErrorOrWarningColor,
 		},
 
 		CustomSelectInput = join(selectInput, {
@@ -108,6 +130,14 @@ local function getPluginTheme()
 			}),
 		}),
 
+		LabeledTextureElement = {
+			VerticalSpacing = LabeledVerticalSpacing,
+			ItemPaddingHorizontal = LabeledItemPaddingHorizontal,
+			ErrorOrWarningTextSize = LabeledErrorOrWarningTextSize,
+			ErrorOrWarningColor = LabeledErrorOrWarningColor,
+		},
+
+		-- Remove with removing FFlagMaterialManagerRefactorMaterialVariantCreator
 		LabeledElementList = {
 			ItemSpacing = 5,
 			VerticalSpacing = 4,
@@ -118,15 +148,15 @@ local function getPluginTheme()
 
 		MaterialGrid = {
 			BackgroundColor = StyleKey.ScrollingFrameBackgroundColor,
-			Padding = 5,
-			Spacing = 5,
-			IconColor = StyleKey.ButtonText,
-			BottomBarTransparency = 0.2,
-			BottomBarBackgroundColor = StyleKey.MainBackground,
-			ShowIcon = "rbxasset://textures/MaterialManager/chevrons-right.png",
 			ChevronLeft = "rbxasset://textures/MaterialManager/chevrons-left.png",
 			ChevronRight = "rbxasset://textures/MaterialManager/chevrons-right.png",
+			GridPadding = 4,
+			IconColor = StyleKey.ButtonText,
 			IconSize = IconSize,
+			ListHeight = 40,
+			ListPadding = 2,
+			Padding = 5,
+			ShowIcon = "rbxasset://textures/MaterialManager/chevrons-right.png",
 		},
 
 		MaterialItem = {
@@ -169,6 +199,46 @@ local function getPluginTheme()
 			Size = if FFlagMaterialManagerSideBarHide then UDim2.fromOffset(MaterialTileWidth, MaterialTileWidth) else UDim2.fromOffset(200, 200),
 			Spacing = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then 10 else 5,
 			TextLabelSize = UDim2.new(1, if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then -20 else -10, 0, 18),
+
+		},
+
+		MaterialListItem = {
+			ApplyIcon = {
+				Image = "rbxasset://textures/MaterialManager/Apply_To_Selection.png",
+				Color = StyleKey.BrightText,
+			},
+			ApplyIconPosition = UDim2.new(1, -4, 0, 4),
+			ButtonSize = UDim2.fromOffset(28, 28),
+			Height = 40,
+			IconSize = IconSize,
+			MaterialVariantIcon = {
+				Image = "rbxasset://textures/MaterialManager/Material_Variant.png",
+			},
+			Spacing = 4,
+			TextSize = 20,
+		},
+
+
+		MaterialTileItem = {
+			ApplyIcon = {
+				Image = "rbxasset://textures/MaterialManager/Apply_To_Selection.png",
+				Color = StyleKey.BrightText,
+			},
+			ApplyIconPosition = UDim2.new(1, -4, 0, 4),
+			ApplyIconAnchorPoint = Vector2.new(1, 0),
+			ButtonSize = UDim2.fromOffset(28, 28),
+			Gradient = StyleKey.Gradient,
+			GradientHover = StyleKey.GradientHover,
+			GradientPosition = UDim2.new(0.5, 0, 1, -2),
+			GradientSize = UDim2.new(1, -8, 0, 24),
+			IconSize = IconSize,
+			MaterialVariantIcon = {
+				Image = "rbxasset://textures/MaterialManager/Material_Variant.png",
+			},
+			MaterialVariantIconAnchorPoint = Vector2.new(1, 1),
+			MaterialVariantIconPosition = UDim2.new(1, -4, 1, -4),
+			Padding = 6,
+			StatusIconPosition = UDim2.new(0, 10, 0, 10),
 			TextSize = 20,
 		},
 
@@ -293,8 +363,8 @@ local function getPluginTheme()
 			IconImportPaddingRight = 55,
 
 			ButtonIconColor = StyleKey.Icon,
-			ButtonIconHoveredColor = if FFlagDevFrameworkIconButtonBorderColor then Color3.fromRGB(255, 255, 255) else StyleKey.ButtonHover,
-			BorderColorError = if FFlagDevFrameworkIconButtonBorderColor then StyleKey.ErrorText else nil,
+			ButtonIconHoveredColor = Color3.fromRGB(255, 255, 255),
+			BorderColorError = StyleKey.ErrorText,
 
 			ToolbarTransparency = 0.4,
 			ToolbarBackgroundColor = StyleKey.ToolbarBackgroundColor,

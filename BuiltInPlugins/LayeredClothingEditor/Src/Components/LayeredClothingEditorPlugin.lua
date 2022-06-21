@@ -42,6 +42,7 @@ local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 
 local LayeredClothingEditor = require(Plugin.Src.Components.LayeredClothingEditor)
 
+local CloseEditor = require(Plugin.Src.Thunks.CloseEditor)
 local ReleaseEditor = require(Plugin.Src.Thunks.ReleaseEditor)
 
 local makePluginActions = require(Plugin.Src.Util.makePluginActions)
@@ -57,6 +58,8 @@ local TOOLBAR_NAME = "LayeredClothing"
 local TOOLBAR_BUTTON_NAME = "LayeredClothingEditorButton"
 
 local WINDOW_MIN_SIZE = Vector2.new(380, 550)
+
+local GetFFlagAccessoryFittingToolAnalytics = require(Plugin.Src.Flags.GetFFlagAccessoryFittingToolAnalytics)
 
 function LayeredClothingEditorPlugin:init()
 	local plugin = self.props.plugin
@@ -96,9 +99,13 @@ function LayeredClothingEditorPlugin:init()
 		self:setState({
 			enabled = false
 		})
-		plugin:Deactivate()
-		self.store:dispatch(ReleaseEditor())
-		self.meshEditingContext:cleanup()
+		if GetFFlagAccessoryFittingToolAnalytics() then
+			self.store:dispatch(CloseEditor(plugin, self.analytics, self.meshEditingContext))
+		else
+			plugin:Deactivate()
+			self.store:dispatch(ReleaseEditor())
+			self.meshEditingContext:cleanup()
+		end
 	end
 
 	self.onToggleWidget = function()
@@ -109,6 +116,9 @@ function LayeredClothingEditorPlugin:init()
 		else
 			if not self.state.enabled then
 				plugin:Activate(true)
+				if GetFFlagAccessoryFittingToolAnalytics() then
+					self.analytics:getHandler("PluginOpened")()
+				end
 			end
 			self:setState(function(state)
 				return {
@@ -116,9 +126,13 @@ function LayeredClothingEditorPlugin:init()
 				}
 			end)
 			if not self.state.enabled then
-				plugin:Deactivate()
-				self.store:dispatch(ReleaseEditor())
-				self.meshEditingContext:cleanup()
+				if GetFFlagAccessoryFittingToolAnalytics() then
+					self.store:dispatch(CloseEditor(plugin, self.analytics, self.meshEditingContext))
+				else
+					plugin:Deactivate()
+					self.store:dispatch(ReleaseEditor())
+					self.meshEditingContext:cleanup()
+				end
 			end
 		end
 	end

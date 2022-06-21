@@ -18,6 +18,7 @@
 		number currentSoundId
 ]]
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
+local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
@@ -57,6 +58,9 @@ local NavigationContext = require(Plugin.Core.ContextServices.NavigationContext)
 local Framework = require(Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+local FrameworkUtil = if FFlagAssetVoteSimplification then Framework.Util else nil
+local formatVoteNumber = if FFlagAssetVoteSimplification then FrameworkUtil.formatVoteNumber else nil
+local getTextSize = if FFlagAssetVoteSimplification then FrameworkUtil.GetTextSize else nil
 
 local disableRatings = require(Plugin.Core.Util.ToolboxUtilities).disableRatings
 
@@ -148,12 +152,7 @@ function Asset:init(props)
 		local result
 		local showPrices = Category.shouldShowPrices(self.props.categoryName)
 		if showPrices then
-			result = UDim2.new(
-				0,
-				Constants.ASSET_WIDTH_NO_PADDING,
-				0,
-				Constants.ASSET_HEIGHT + Constants.PRICE_HEIGHT
-			)
+			result = UDim2.new(0, Constants.ASSET_WIDTH_NO_PADDING, 0, Constants.ASSET_HEIGHT + Constants.PRICE_HEIGHT)
 		else
 			result = UDim2.new(0, Constants.ASSET_WIDTH_NO_PADDING, 0, Constants.ASSET_HEIGHT)
 		end
@@ -300,14 +299,47 @@ function Asset:renderContent(theme, localization, localizedContent)
 
 	local showPrices = Category.shouldShowPrices(props.categoryName)
 
-	local assetOutlineHeight = showVotes and Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTING
-		or Constants.ASSET_OUTLINE_EXTRA_HEIGHT
+	local assetOutlineHeight, showVoteButtons, showVoteCounts, hasEnoughRatings, useOneLineForAssetName, assetNameOnlyNeedsOneLine, assetNameFontSize, assetNameFont
+	if FFlagAssetVoteSimplification then
+		hasEnoughRatings = votingProps ~= nil
+			and votingProps.VoteCount ~= nil
+			and formatVoteNumber.hasEnoughRatings(votingProps.VoteCount)
+		showVoteCounts = showVotes and isHovered and hasEnoughRatings
+		showVoteButtons = showVotes and votingProps ~= nil and votingProps.showVoteButtons
+		-- Once a user inserts an asset, VoteButtons show regardless of hovering but we only want to change the outline when hovered
+		if showVoteButtons and isHovered then
+			assetOutlineHeight = Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTE_BUTTONS_HOVERED
+			-- VoteCounts will only show when hovered, so we don't need to check for hover state like above
+		elseif showVoteCounts then
+			assetOutlineHeight = Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTING_COUNT
+		else
+			assetOutlineHeight = Constants.ASSET_OUTLINE_EXTRA_HEIGHT
+		end
+		assetNameFontSize = Constants.ASSET_NAME_FONT_SIZE
+		assetNameFont = Constants.FONT
+		local assetNameLength = getTextSize(assetName, assetNameFontSize, assetNameFont).X
+		-- use the asset width since if it's larger then that, then it'll go off the tile and look bad
+		assetNameOnlyNeedsOneLine = assetNameLength <= Constants.ASSET_WIDTH_NO_PADDING
+		-- when vote buttons are showing and it's hovered, we force the asset name to be one line
+		if assetNameOnlyNeedsOneLine or showVoteButtons then
+			useOneLineForAssetName = true
+			assetOutlineHeight = assetOutlineHeight - Constants.ASSET_NAME_ONE_LINE_HEIGHT
+		end
+	else
+		assetOutlineHeight = if showVotes
+			then Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTING
+			else Constants.ASSET_OUTLINE_EXTRA_HEIGHT
+	end
 	if showStatus then
 		assetOutlineHeight = assetOutlineHeight + Constants.ASSET_CREATOR_NAME_HEIGHT
 	end
 
 	if hasScripts then
 		assetOutlineHeight = assetOutlineHeight + Constants.PRICE_HEIGHT
+	end
+
+	if FFlagAssetVoteSimplification and showVoteButtons and isHovered and hasScripts then
+		assetOutlineHeight = assetOutlineHeight + Constants.ASSET_VOTE_BUTTONS_SCRIPT_PADDING
 	end
 
 	-- At current stage, price and audio length won't exist together.
@@ -416,15 +448,17 @@ function Asset:renderContent(theme, localization, localizedContent)
 
 			AssetName = Roact.createElement(AssetName, {
 				Size = UDim2.new(1, 0, 0.45, 0),
-				LayoutOrder = 1,
-
+				LayoutOrder = if FFlagAssetVoteSimplification then 10 else 1,
+				NumberRows = if FFlagAssetVoteSimplification and useOneLineForAssetName then 1 else nil,
 				assetId = assetId,
 				assetName = assetName,
+				TextSize = if FFlagAssetVoteSimplification then assetNameFontSize else nil,
+				Font = if FFlagAssetVoteSimplification then assetNameFont else nil,
 			}),
 
 			Price = showPrices and Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
-				LayoutOrder = 2,
+				LayoutOrder = if FFlagAssetVoteSimplification then 20 else 2,
 				Size = UDim2.new(1, 0, 0, Constants.PRICE_HEIGHT),
 			}, {
 				Layout = Roact.createElement("UIListLayout", {
@@ -466,7 +500,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 
 			CreatorName = isHovered and Roact.createElement(AssetCreatorName, {
 				Size = UDim2.new(1, 0, 0.15, 0),
-				LayoutOrder = 3,
+				LayoutOrder = if FFlagAssetVoteSimplification then 30 else 3,
 
 				assetId = assetId,
 				creatorName = creatorName,
@@ -476,15 +510,32 @@ function Asset:renderContent(theme, localization, localizedContent)
 				isVerifiedCreator = isVerifiedCreator,
 			}),
 
-			Voting = isHovered and showVotes and Roact.createElement(Voting, {
-				LayoutOrder = 4,
-				assetId = assetId,
-				voting = votingProps,
-			}),
+			Voting = if not FFlagAssetVoteSimplification
+					and isHovered
+					and showVotes
+				then Roact.createElement(Voting, {
+					LayoutOrder = 4,
+					assetId = assetId,
+					voting = votingProps,
+				})
+				elseif
+					FFlagAssetVoteSimplification
+					-- if an asset is hovered, show the vote counts and percentage. if an asset is inserted (making showvotebuttons true) then we want to show the vote buttons even after they hover.
+					-- The same component is used for vote bar and vote buttons, so we use this boolean to determine whether to show that component
+					and (showVoteCounts or showVoteButtons)
+				then
+					Roact.createElement(Voting, {
+						-- if we're showing buttons to vote, move them to before the creator name (layout order 25). But if we're showing the vote count, keep it after (layout order 35).
+						LayoutOrder = if showVoteButtons then 25 else 35,
+						assetId = assetId,
+						voting = votingProps,
+						showBackgroundBox = isHovered,
+					})
+				else nil,
 
 			AudioLength = isHovered and showAudioLength and Roact.createElement("TextLabel", {
 				Size = UDim2.new(1, 0, 0, Constants.AUDIO_LENGTH_HEIGHT),
-				LayoutOrder = 4,
+				LayoutOrder = if FFlagAssetVoteSimplification then 40 else 4,
 				Text = durationText,
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
@@ -496,7 +547,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 
 			HasScripts = isHovered and hasScripts and Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
-				LayoutOrder = 5,
+				LayoutOrder = if FFlagAssetVoteSimplification then 50 else 5,
 				Size = UDim2.new(1, 0, 0, Constants.PRICE_HEIGHT),
 			}, {
 				Layout = Roact.createElement("UIListLayout", {
@@ -529,7 +580,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 
 			Status = isHovered and showStatus and Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,
-				LayoutOrder = 6,
+				LayoutOrder = if FFlagAssetVoteSimplification then 60 else 6,
 				Size = UDim2.new(1, 0, 0, Constants.STATUS_NAME_HEIGHT),
 				Text = localizedContent.Status[status],
 				TextColor3 = theme.asset.textColor,
@@ -585,8 +636,7 @@ local function mapStateToProps(state, props)
 		assetData = assetData,
 		categoryName = categoryName,
 		currentSoundId = sound.currentSoundId or 0,
-		currentUserPackagePermissions = state.packages.permissionsTable or {}
-			or nil,
+		currentUserPackagePermissions = state.packages.permissionsTable or {} or nil,
 		searchTerm = searchTerm,
 		ownsAsset = ownsAsset,
 		isLoading = (sound.currentSoundId == assetId) and sound.isLoading or false,
@@ -610,13 +660,7 @@ local function mapDispatchToProps(dispatch)
 
 		tryCreateContextMenu = function(assetData, localizedContent, plugin, tryOpenAssetConfig, assetAnalyticsContext)
 			dispatch(
-				TryCreateContextMenu(
-					assetData,
-					localizedContent,
-					plugin,
-					tryOpenAssetConfig,
-					assetAnalyticsContext
-				)
+				TryCreateContextMenu(assetData, localizedContent, plugin, tryOpenAssetConfig, assetAnalyticsContext)
 			)
 		end,
 

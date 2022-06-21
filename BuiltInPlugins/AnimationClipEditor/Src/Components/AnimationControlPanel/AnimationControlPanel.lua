@@ -30,6 +30,7 @@ local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local SkipAnimation = require(Plugin.Src.Thunks.Playback.SkipAnimation)
 local UpdateEditingLength = require(Plugin.Src.Thunks.UpdateEditingLength)
 local SetPlayState = require(Plugin.Src.Actions.SetPlayState)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local AnimationControlPanel = Roact.PureComponent:extend("AnimationControlPanel")
 
@@ -70,7 +71,7 @@ end
 
 function AnimationControlPanel:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 
 	local animationData = props.AnimationData
 	local playState = props.PlayState

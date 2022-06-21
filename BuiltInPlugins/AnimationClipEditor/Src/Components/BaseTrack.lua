@@ -20,10 +20,11 @@ local withContext = ContextServices.withContext
 local Roact = require(Plugin.Packages.Roact)
 
 local BaseTrack = Roact.PureComponent:extend("BaseTrack")
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 function BaseTrack:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local trackTheme = theme.trackTheme
 	local size = props.Size
 	local width = props.Width

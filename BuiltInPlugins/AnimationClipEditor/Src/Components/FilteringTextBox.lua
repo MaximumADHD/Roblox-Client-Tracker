@@ -26,6 +26,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local TextBox = require(Plugin.Src.Components.TextBox)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local FilteringTextBox = Roact.PureComponent:extend("FilteringTextBox")
 
@@ -70,7 +71,7 @@ end
 
 function FilteringTextBox:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local dropdownTheme = theme.dropdownTheme
 
 	local state = self.state

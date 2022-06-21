@@ -1,4 +1,5 @@
 game:DefineFastFlag("DebugLCEditAvatarCage", false)
-game:DefineFastFlag("AFTChooseAssetTypeFirst", false)
+game:DefineFastFlag("AccessoryFittingToolAnalytics", false)
+game:DefineFastFlag("FFlagDebugSetPreviewToStarterCharacterButton", false)
 
 return nil

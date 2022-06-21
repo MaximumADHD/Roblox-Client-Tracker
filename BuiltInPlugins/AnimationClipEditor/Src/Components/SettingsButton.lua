@@ -9,6 +9,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local SettingsMenu = require(Plugin.Src.Components.SettingsMenu)
 
@@ -51,7 +52,7 @@ end
 function SettingsButton:render()
 	local props = self.props
 	local state = self.state
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 
 	local onChangeFPS = props.OnChangeFPS
 	local onChangePlaybackSpeed = props.OnChangePlaybackSpeed

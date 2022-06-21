@@ -41,6 +41,8 @@ local GetFFlagScreenTime = require(CorePackages.Regulations.ScreenTime.GetFFlagS
 
 local GetFFlagEnableCaptureMode = require(RobloxGui.Modules.Flags.GetFFlagEnableCaptureMode)
 
+local GetFFlagScreenshotHudApi = require(RobloxGui.Modules.Flags.GetFFlagScreenshotHudApi)
+
 local GetFFlagEnableVoiceDefaultChannel = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceDefaultChannel)
 
 local GetFFlagStartScreenTimeUsingGuacEnabled
@@ -239,6 +241,10 @@ ScriptContext:AddCoreScriptLocal("CoreScripts/NetworkPause", RobloxGui)
 
 if GetFFlagEnableCaptureMode() and not PolicyService:IsSubjectToChinaPolicies() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/CaptureHud", RobloxGui)
+end
+
+if GetFFlagScreenshotHudApi() and not PolicyService:IsSubjectToChinaPolicies() then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/ScreenshotHud", RobloxGui)
 end
 
 if game:GetEngineFeature("VoiceChatSupported") and GetFFlagEnableVoiceDefaultChannel() then

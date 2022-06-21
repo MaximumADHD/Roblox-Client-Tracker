@@ -5,11 +5,16 @@
 	Events in GA are aggregated and organized in order by category, action, label.
 ]]
 
+export type GoogleAnalytics = {
+	setEnabled: (self: GoogleAnalytics, isEnabled: boolean) -> (),
+	trackEvent: (self: GoogleAnalytics, category: string, action: string, label: string?, value: number?) -> (),
+}
+
 local GoogleAnalytics = {}
 GoogleAnalytics.__index = GoogleAnalytics
 
 -- reportingService : (table or userdata) any object that defines the same functions for GA as AnalyticsService
-function GoogleAnalytics.new(reportingService)
+function GoogleAnalytics.new(reportingService): GoogleAnalytics
 	local rsType = type(reportingService)
 	assert(rsType == "table" or rsType == "userdata", "Unexpected value for reportingService")
 

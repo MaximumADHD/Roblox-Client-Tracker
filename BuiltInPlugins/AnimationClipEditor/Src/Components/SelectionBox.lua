@@ -17,12 +17,13 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local DragTarget = Framework.UI.DragListener
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local SelectionBox = Roact.PureComponent:extend("SelectionBox")
 
 function SelectionBox:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local selectionStart = props.SelectionStart
 	local selectionEnd = props.SelectionEnd
 	local sourceExtents = props.SourceExtents

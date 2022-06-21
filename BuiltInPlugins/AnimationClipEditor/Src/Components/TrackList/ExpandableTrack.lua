@@ -30,6 +30,7 @@ local withContext = ContextServices.withContext
 local TrackListEntry = require(Plugin.Src.Components.TrackList.TrackListEntry)
 local ContextButton = require(Plugin.Src.Components.ContextButton)
 local Constants = require(Plugin.Src.Util.Constants)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local ExpandableTrack = Roact.PureComponent:extend("ExpandableTrack")
 
@@ -60,7 +61,7 @@ end
 
 function ExpandableTrack:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local layoutOrder = props.LayoutOrder
 	local indent = props.Indent or 0
 	local name = props.Name

@@ -254,6 +254,10 @@ local function createValuesInternal(mock)
 		ButtonHeight = 36
 	}
 
+	local PreviewToStarterCharacterButton = {
+		ButtonHeight = 36,
+	}
+
 	local MeshPartTool = {
 		Transparency = 0.8,
 		InBoundsColor = Color3.new(0, 0, 1),
@@ -318,6 +322,7 @@ local function createValuesInternal(mock)
 		Lattice = Lattice,
 		Wireframe = Wireframe,
 		ResetSettings = ResetSettings,
+		PreviewToStarterCharacterButton = PreviewToStarterCharacterButton,
 		TextInput = TextInput,
 		InstanceSelector = InstanceSelector,
 		MeshPartTool = MeshPartTool,

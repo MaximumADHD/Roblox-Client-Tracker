@@ -114,7 +114,7 @@ MaterialAdditional = withContext({
 	Stylizer = Stylizer,
 })(MaterialAdditional)
 
-local function mapStateToProps(state: MainReducer.State, props: _Props)
+local function mapStateToProps(state: MainReducer.State, props: Props)
 	return {
 		Material = props.MockMaterial or state.MaterialBrowserReducer.Material
 	}

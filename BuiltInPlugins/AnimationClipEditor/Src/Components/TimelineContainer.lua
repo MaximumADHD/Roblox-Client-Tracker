@@ -26,8 +26,11 @@ local KeyboardListener = Framework.UI.KeyboardListener
 local Input = require(Plugin.Src.Util.Input)
 local Timeline = require(Plugin.Src.Components.Timeline.Timeline)
 local Tooltip = require(Plugin.Src.Components.Tooltip)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+local TeachingCallout = require(Plugin.Src.Components.TeachingCallout)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagCurveEditorCallout = require(Plugin.LuaFlags.GetFFlagCurveEditorCallout)
 
 local TimelineContainer = Roact.PureComponent:extend("TimelineContainer")
 
@@ -107,7 +110,7 @@ end
 
 function TimelineContainer:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local startTick = props.StartTick
 	local endTick = props.EndTick
 	local lastTick = props.LastTick
@@ -172,7 +175,12 @@ function TimelineContainer:render()
 				}),
 				Tooltip = Roact.createElement(Tooltip, {
 					TextKey = if isCurveCanvas then "GoToDopesheetEditor" else "GoToCurveEditor",
-			}),
+				}),
+				TeachingCallout = if GetFFlagCurveEditorCallout() then Roact.createElement(TeachingCallout, {
+					Offset = Vector2.new(0, 6),
+					DefinitionId = "CurveEditorCallout",
+					LocationId = "ToggleEditorButton"
+				}) else nil,
 		}) else nil,
 		KeyboardListener = Roact.createElement(KeyboardListener, {
 			OnKeyPressed = function(input)

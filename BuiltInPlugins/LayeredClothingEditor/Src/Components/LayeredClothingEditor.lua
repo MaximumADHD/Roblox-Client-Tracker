@@ -25,29 +25,56 @@ local GenerateScreen = require(Plugin.Src.Components.Screens.GenerateScreen)
 
 local SelectedEditingItem = require(Plugin.Src.Components.Preview.SelectedEditingItem)
 
+local AnalyticsGlobals = require(Plugin.Src.Util.AnalyticsGlobals)
+local Constants = require(Plugin.Src.Util.Constants)
+
 local LayeredClothingEditor = Roact.PureComponent:extend("LayeredClothingEditor")
 
+local GetFFlagAccessoryFittingToolAnalytics = require(Plugin.Src.Flags.GetFFlagAccessoryFittingToolAnalytics)
+
 function LayeredClothingEditor:init()
-	self.screens = {
-		SelectItemScreen,
-		AssetTypeScreen,
-		EditorScreen,
-		GenerateScreen,
-	}
+	if GetFFlagAccessoryFittingToolAnalytics() then
+		self.screenInfo = {
+			{
+				Id = Constants.SCREENS.Select,
+				Component = SelectItemScreen,
+			},
+			{
+				Id = Constants.SCREENS.AssetType,
+				Component = AssetTypeScreen,
+			},
+			{
+				Id = Constants.SCREENS.Edit,
+				Component = EditorScreen,
+			},
+			{
+				Id = Constants.SCREENS.Generate,
+				Component = GenerateScreen,
+			},
+		}
+
+		self.screens = {}
+		for _, info in ipairs(self.screenInfo) do
+			table.insert(self.screens, info.Component)
+		end
+	else
+		self.screens = {
+			SelectItemScreen,
+			AssetTypeScreen,
+			EditorScreen,
+			GenerateScreen,
+		}
+	end
 
 	self.screenToIndexMap = {}
 	for index, screen in ipairs(self.screens) do
 		self.screenToIndexMap[screen] = index
 	end
 
-	self.state = {
-		currentScreen = 0,
-	}
-
 	self.onScreenChanged = function(index)
-		self:setState({
-			currentScreen = index,
-		})
+		if GetFFlagAccessoryFittingToolAnalytics() then
+			AnalyticsGlobals.CurrentScreen = self.screenInfo[index].Id
+		end
 	end
 
 	self.getNextIndex = function(currentIndex)
@@ -98,11 +125,8 @@ function LayeredClothingEditor:willUnmount()
 	self.props.EditingItemContext:clear()
 end
 
-
 LayeredClothingEditor = withContext({
 	EditingItemContext = EditingItemContext,
 })(LayeredClothingEditor)
-
-
 
 return LayeredClothingEditor

@@ -19,12 +19,13 @@ local withContext = ContextServices.withContext
 
 local UILibraryCompat = Plugin.Src.UILibraryCompat
 local RoundFrame = require(UILibraryCompat.RoundFrame)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local TimeTag = Roact.PureComponent:extend("TimeTag")
 
 function TimeTag:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local position = props.Position
 	local size = props.Size
 	local anchorPoint = props.AnchorPoint

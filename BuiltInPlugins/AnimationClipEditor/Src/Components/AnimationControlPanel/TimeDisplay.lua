@@ -31,6 +31,7 @@ local withContext = ContextServices.withContext
 
 local TextBox = require(Plugin.Src.Components.TextBox)
 local Tooltip = require(Plugin.Src.Components.Tooltip)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local TimeDisplay = Roact.PureComponent:extend("TimeDisplay")
 
@@ -76,7 +77,7 @@ end
 
 function TimeDisplay:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 
 	local showAsTime = props.ShowAsTime
 	local playhead = props.Playhead

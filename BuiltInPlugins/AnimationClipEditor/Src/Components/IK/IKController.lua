@@ -34,6 +34,7 @@ local SetShowTree = require(Plugin.Src.Actions.SetShowTree)
 local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local IKController = Roact.PureComponent:extend("IKController")
 
@@ -148,14 +149,16 @@ end
 function IKController:render()
 	local localization = self.props.Localization
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local selectedTrack = self.getLastSelectedTrack()
 	local style = theme.button
 	local state = self.state
 
 	local toggleShowTree = props.ToggleShowTree
 	local canUseIK, emptyR15 = RigUtils.canUseIK(props.RootInstance)
-
+	-- TODO: Remove with FFlagExtendPluginTheme
+	local oldStyling = state.showTree and style.IKActive or style.IKDefault
+	local newStyling = if state.showTree then "ACEHeaderButtonActive" else "ACEHeaderButtonDefault"
 
 	return self.props.RootInstance and Roact.createElement("Frame", {
 		Position = props.Position,
@@ -164,7 +167,7 @@ function IKController:render()
 		AnchorPoint = Vector2.new(0, 0.5),
 	}, {
 		IKButton = props.RootInstance and canUseIK and Roact.createElement(Button, {
-			Style = state.showTree and style.IKActive or style.IKDefault,
+			Style = if GetFFlagExtendPluginTheme() then newStyling else oldStyling,
 			Size = UDim2.new(1, 0, 1, 0),
 			OnClick = toggleShowTree,
 		}, {

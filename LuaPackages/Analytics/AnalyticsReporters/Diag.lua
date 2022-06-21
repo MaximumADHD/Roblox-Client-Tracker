@@ -5,11 +5,17 @@
 
 local UserInputService = game:GetService("UserInputService")
 
+export type Diag = {
+	setEnabled: (self: Diag, isEnabled: boolean) -> (),
+	reportCounter: (self: Diag, counterName: string, amount: number) -> (),
+	reportStats: (self: Diag, category: string, value: number) -> (),
+}
+
 local Diag = {}
 Diag.__index = Diag
 
 -- reportingService - (object) any object that defines the same functions for Diag as AnalyticsService
-function Diag.new(reportingService)
+function Diag.new(reportingService): Diag
 	local rsType = type(reportingService)
 	assert(rsType == "table" or rsType == "userdata", "Unexpected value for reportingService")
 

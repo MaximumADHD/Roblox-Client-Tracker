@@ -18,6 +18,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local FocusedPrompt = require(Plugin.Src.Components.EditEventsDialog.FocusedPrompt)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local ProgressScreen = Roact.PureComponent:extend("ProgressScreen")
 
@@ -49,7 +50,7 @@ function ProgressScreen:statusCodeToString(status)
 end
 
 function ProgressScreen:render()
-	local theme = self.props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and self.props.Stylizer or self.props.Stylizer.PluginTheme
 	local localization = self.props.Localization
 	local progressScreenTheme = theme.progressScreenTheme
 	local props = self.props

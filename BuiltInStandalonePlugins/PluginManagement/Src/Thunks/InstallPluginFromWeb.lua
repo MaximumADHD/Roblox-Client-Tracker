@@ -27,10 +27,9 @@ return function(studioServiceImpl, apiImpl, analytics, pluginId)
 			store:dispatch(SetPluginInstallStatus(pluginId, code, message))
 		end
 
-		-- when a plugin is installed from the web, we must do 3 things :
-		-- 1) check the ownership of the plugin to make sure we're not installing a plugin we don't own
-		local userId = studioServiceImpl:GetUserId()
-		apiImpl.API.Ownership.HasAsset(pluginId, userId):andThen(function(ownershipResults)
+		local function ownershipSuccessHandler(ownershipResults)
+			-- when a plugin is installed from the web, we must do 3 things :
+		    -- 1) check the ownership of the plugin to make sure we're not installing a plugin we don't own
 			local isOwned = tostring(ownershipResults.responseBody) == "true"
 			if isOwned then
 				-- 2) get the assetVersionId
@@ -83,10 +82,18 @@ return function(studioServiceImpl, apiImpl, analytics, pluginId)
 				setStatus(PIS.PLUGIN_NOT_OWNED, "")
 				return
 			end
-		end, function(ownershipErr)
-			-- failed to fetch ownership information
+		end
+
+		local function ownershipFailureHandler(ownershipErr)
 			setStatus(PIS.HTTP_ERROR, ownershipErr)
 			return
-		end)
+		end
+
+		local userId = studioServiceImpl:GetUserId()
+		if (userId % 100) < game:GetFastInt("StandalonePluginOwnershipHasAssetMigrationRolloutPercentage") then
+			apiImpl.Inventory.v1.Users.Items.IsOwned(userId, Enum.AvatarItemType.Asset, pluginId):andThen(ownershipSuccessHandler, ownershipFailureHandler)
+		else
+			apiImpl.API.Ownership.HasAsset(pluginId, userId):andThen(ownershipSuccessHandler, ownershipFailureHandler)
+		end
 	end
 end

@@ -18,6 +18,7 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local DragListenerArea = require(Plugin.Src.Components.DragListenerArea)
 
@@ -25,7 +26,7 @@ local ScaleHandle = Roact.PureComponent:extend("ScaleHandle")
 
 function ScaleHandle:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local size = props.Size
 	local position = props.Position
 	local zIndex = props.ZIndex

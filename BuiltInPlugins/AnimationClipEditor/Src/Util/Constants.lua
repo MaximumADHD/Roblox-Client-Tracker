@@ -3,6 +3,7 @@ local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimati
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFaceControlsEditorUIUpdate = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUIUpdate)
 local GetFFlagFaceControlsEditorBugBash2Update = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorBugBash2Update)
+local GetFFlagCreateAnimationFromVideoMultiplePeopleStatusCode = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoMultiplePeopleStatusCode)
 
 local FFlagStudioUseAnimationEditorAnalytics2 = game:DefineFastFlag("StudioUseAnimationEditorAnalytics2", false)
 
@@ -430,13 +431,16 @@ local Constants = {
 		InputHasNoPerson = 8,
 		InputUnstable = 9,
 		TimedOut = 10,
-		Cancelled = 11
+		Cancelled = 11,
+		MultiplePeopleInFrame = GetFFlagCreateAnimationFromVideoMultiplePeopleStatusCode() and 12 or nil
 	},
 
 	ANIMATION_TYPE = {
 		KeyframeSequence = "KeyframeSequence",
 		CurveAnimation = "CurveAnimation",
 	},
+
+	CANVAS_ZOOM_INCREMENT = 0.1
 }
 
 Constants.MAIN_MINIMUM_SIZE = Vector2.new(Constants.TRACK_LIST_MIN_WIDTH + Constants.TIMELINE_MIN_WIDTH, 200)

@@ -14,12 +14,13 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local CaptureFocus = Framework.UI.CaptureFocus
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local InactiveCover = Roact.PureComponent:extend("InactiveCover")
 
 function InactiveCover:render()
 	local onFocused = self.props.OnFocused
-	local theme = self.props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and self.props.Stylizer or self.props.Stylizer.PluginTheme
 	local localization = self.props.Localization
 
 	return Roact.createElement(CaptureFocus, {

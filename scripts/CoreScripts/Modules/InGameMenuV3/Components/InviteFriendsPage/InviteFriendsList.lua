@@ -2,6 +2,7 @@ local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
+local Cryo = InGameMenuDependencies.Cryo
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local t = InGameMenuDependencies.t
@@ -172,6 +173,7 @@ function InviteFriendsList:renderListEntries()
 					LayoutOrder = layoutOrder,
 					Size = UDim2.new(1, 0, 0, 1),
 					Visible = true,
+					theme = "BackgroundContrast",
 				})
 
 				layoutOrder = layoutOrder + 1
@@ -193,16 +195,28 @@ function InviteFriendsList:render()
 			Position = UDim2.new(0, 0, 0, 0),
 			Size = UDim2.new(1, 0, 1, 0),
 			CanvasSize = UDim2.new(1, 0, 0, visibleEntryCount * (PLAYER_CELL_HEIGHT + 1)),
+			onCanvasPositionChanged = self.state.selectedPlayer and function()
+				self:setState({
+					selectedPlayer = Roact.None,
+				})
+			end or nil
 		}, listEntries),
 
 		MoreActionsMenu = Roact.createElement(PlayerContextualMenuWrapper, {
 			xOffset = Constants.PageWidth,
 			selectedPlayer = self.state.selectedPlayer,
 			selectedPlayerPosition = self.state.selectedPlayerPosition,
-			onActionComplete = function()
-				self:setState({
-					selectedPlayer = Roact.None,
-				})
+			onActionComplete = function(shouldClose)
+				if shouldClose then
+					self:setState({
+						selectedPlayer = Roact.None,
+					})
+				else
+					-- refresh contents forcibly
+					self:setState(function(prevState, props)
+						return Cryo.Dictionary.join(prevState)
+					end)
+				end
 			end,
 		}),
 		Watcher = Roact.createElement(PageNavigationWatcher, {

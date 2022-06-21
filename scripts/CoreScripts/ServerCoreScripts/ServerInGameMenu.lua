@@ -3,16 +3,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 local Constants = require(RobloxGui.Modules.Common.Constants)
 local RobloxReplicatedStorage = game:GetService('RobloxReplicatedStorage')
 
-local RemoteFunction_GetPrivateServerId = Instance.new("RemoteFunction")
-RemoteFunction_GetPrivateServerId.Name = "GetPrivateServerId"
-RemoteFunction_GetPrivateServerId.Parent = RobloxReplicatedStorage
-
-local function getPrivateServerId()
-    return game.PrivateServerId
-end
-
-RemoteFunction_GetPrivateServerId.OnServerInvoke = getPrivateServerId
-
 local RemoteFunction_GetServerType = Instance.new("RemoteFunction")
 RemoteFunction_GetServerType.Name = "GetServerType"
 RemoteFunction_GetServerType.Parent = RobloxReplicatedStorage

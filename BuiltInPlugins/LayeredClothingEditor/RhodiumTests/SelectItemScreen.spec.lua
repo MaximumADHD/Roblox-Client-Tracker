@@ -5,8 +5,6 @@ return function()
 	local Rhodium = require(Plugin.Packages.Dev.Rhodium)
 	local XPath = Rhodium.XPath
 
-	local GetFFlagFixNoCageMeshIdCrash = require(Plugin.Src.Flags.GetFFlagFixNoCageMeshIdCrash)
-
 	local TestHelper = require(Plugin.Src.Util.TestHelper)
 	local TestRunner = require(Plugin.Src.Util.TestRunner)
 	local runRhodiumTest = TestRunner.runRhodiumTest
@@ -102,19 +100,17 @@ return function()
 			end)
 		end)
 
-		if GetFFlagFixNoCageMeshIdCrash() then
-			it("Should not pick Wraps with no MeshId", function()
-				runRhodiumTest(function()
-					expect(TestHelper.waitForXPathInstance(NextButtonPath)).to.be.ok()
+		it("Should not pick Wraps with no MeshId", function()
+			runRhodiumTest(function()
+				expect(TestHelper.waitForXPathInstance(NextButtonPath)).to.be.ok()
 
-					TestHelper.addLCItemWithInvalidCageFromExplorer()
-					TestHelper.clickXPath(NextButtonPath)
+				TestHelper.addLCItemWithInvalidCageFromExplorer()
+				TestHelper.clickXPath(NextButtonPath)
 
-					-- We should still be on SelectItemScreen if we clicked Next while the button was inactive
-					expect(TestHelper.waitForXPathInstance(SelectFramePath)).to.be.ok()
-				end)
+				-- We should still be on SelectItemScreen if we clicked Next while the button was inactive
+				expect(TestHelper.waitForXPathInstance(SelectFramePath)).to.be.ok()
 			end)
-		end
+		end)
 
 		it("Should not pick Avatars", function()
 			runRhodiumTest(function()

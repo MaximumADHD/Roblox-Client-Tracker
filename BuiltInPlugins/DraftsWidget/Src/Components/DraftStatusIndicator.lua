@@ -1,11 +1,10 @@
 --[[
-    An indicator for the status of a draft
+	An indicator for the status of a draft
 
 	Props:
 	Icon - icon for the status indicator
-    Tooltip - text for the icon's tooltip
+	Tooltip - text for the icon's tooltip
 --]]
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local UILibrary = require(Plugin.Packages.UILibrary)

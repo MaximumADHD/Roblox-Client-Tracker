@@ -3,6 +3,7 @@ local Plugin = script:FindFirstAncestor("Toolbox")
 
 local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
 local FFlagToolboxRemoveSFXMonstercatBanner = game:GetFastFlag("ToolboxRemoveSFXMonstercatBanner")
+local FFlagToolboxFurtherTryInStudioFixes = game:GetFastFlag("ToolboxFurtherTryInStudioFixes")
 local FFlagToolboxAudioDiscoveryRound2 =
 	require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscoveryRound2()
 
@@ -28,7 +29,9 @@ local Settings = require(Plugin.Core.ContextServices.Settings)
 local CategoryDropDown = require(Plugin.Core.Components.CategoryDropDown.CategoryDropDown)
 local CallToActionBanner = require(Plugin.Core.Components.CallToActionBanner.CallToActionBanner)
 local ContextServices = require(Packages.Framework).ContextServices
+local GetAssetPreviewDataForStartup = require(Plugin.Core.Thunks.GetAssetPreviewDataForStartup)
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
+local getStartupAssetId = require(Plugin.Core.Util.getStartupAssetId)
 local withContext = ContextServices.withContext
 local getNetwork = ContextGetter.getNetwork
 
@@ -39,6 +42,7 @@ type _InteralAudioWrapperProps = {
 	Stylizer: any,
 	Settings: any,
 	AssetAnalytics: any,
+	getAssetPreviewDataForStartup: any,
 	SearchWithOptions: (
 		networkInterface: any,
 		settings: any,
@@ -81,7 +85,7 @@ type _ExternalAudioRowProps = {
 	tryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn,
 }
 
-type AudioWrapperProps = _InteralAudioWrapperProps & _ExternalAudioRowProps
+type AudioWrapperProps = _InteralAudioWrapperProps & _ExternalAudioRowProps & AssetLogicWrapper.AssetLogicWrapperProps
 
 type AudioWrapperState = {
 	selectedTab: string,
@@ -240,6 +244,23 @@ function AudioWrapper:init(props: AudioWrapperProps)
 end
 
 function AudioWrapper:didMount()
+	if FFlagToolboxFurtherTryInStudioFixes then
+		local props: AudioWrapperProps = self.props
+		local assetIdStr = getStartupAssetId()
+		local assetId = tonumber(assetIdStr)
+
+		if assetId then
+			local onAssetPreviewButtonClicked = props.OnAssetPreviewButtonClicked
+			props.getAssetPreviewDataForStartup(
+				assetId,
+				props.TryInsert,
+				props.Localization,
+				getNetwork(self),
+				onAssetPreviewButtonClicked
+			)
+		end
+	end
+
 	if self.sizerRef.current then
 		self.onAbsoluteSizeChanged(self.sizerRef.current)
 	end
@@ -309,6 +330,13 @@ local mapDispatchToProps = function(dispatch)
 		getPageInfoAnalyticsContextInfo = if FFlagToolboxHomeViewAnalyticsUpdate
 			then function()
 				return dispatch(GetPageInfoAnalyticsContextInfo())
+			end
+			else nil,
+		getAssetPreviewDataForStartup = if FFlagToolboxFurtherTryInStudioFixes
+			then function(assetId, tryInsert, localization, networkInterface, setAssetPreview)
+				dispatch(
+					GetAssetPreviewDataForStartup(assetId, tryInsert, localization, networkInterface, setAssetPreview)
+				)
 			end
 			else nil,
 	}

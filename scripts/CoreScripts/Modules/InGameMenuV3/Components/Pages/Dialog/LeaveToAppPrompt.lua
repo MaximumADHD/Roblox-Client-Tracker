@@ -13,14 +13,14 @@ local LeavePrompt = require(script.Parent.LeavePrompt)
 local InGameMenu = script.Parent.Parent.Parent.Parent
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
-local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
+local NavigateBack = require(InGameMenu.Actions.NavigateBack)
 
 local LeaveToAppPrompt = Roact.PureComponent:extend("LeaveToAppPrompt")
 
 LeaveToAppPrompt.validateProps = t.strictInterface({
-	closeMenu = t.callback,
+	navigateBack = t.callback,
 	canGamepadCaptureFocus = t.optional(t.boolean),
 	canKeyboardCaptureFocus = t.optional(t.boolean),
 	-- used only for unit testing until we can properly mock
@@ -64,7 +64,7 @@ function LeaveToAppPrompt:render()
 			confirmText = localized.confirmText,
 			cancelText = localized.cancelText,
 			onConfirm = self.props.onConfirm or self.goToHomePage,
-			onCancel = self.props.closeMenu,
+			onCancel = self.props.navigateBack,
 			canGamepadCaptureFocus = self.props.canGamepadCaptureFocus,
 			canKeyboardCaptureFocus = self.props.canKeyboardCaptureFocus,
 			homeView = true,
@@ -90,8 +90,8 @@ return RoactRodux.UNSTABLE_connect2(
 	end,
 	function(dispatch)
 		return {
-			closeMenu = function()
-				dispatch(CloseMenu)
+			navigateBack = function()
+				dispatch(NavigateBack())
 			end,
 		}
 	end

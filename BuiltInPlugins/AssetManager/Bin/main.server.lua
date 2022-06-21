@@ -10,6 +10,7 @@ commonInit()
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 local FFlagAssetManagerGeneralizeSignalAPI = game:GetFastFlag("AssetManagerGeneralizeSignalAPI")
+local FFlagAssetManagerDragAndDrop = game:GetFastFlag("AssetManagerDragAndDrop")
 
 local AssetManagerService = game:GetService("AssetManagerService")
 local BulkImportService = game:GetService("BulkImportService")
@@ -23,12 +24,15 @@ local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 local Framework = require(Plugin.Packages.Framework)
+local InsertAsset = require(Plugin.Packages.InsertAsset)
 
 -- context services
 local ContextServices = Framework.ContextServices
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
 local UILibraryWrapper = ContextServices.UILibraryWrapper
 local UILibrary = require(Plugin.Packages.UILibrary)
+
+local InsertAssetContext = InsertAsset.Context.InsertAssetContext
 
 -- data
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
@@ -119,6 +123,7 @@ local function openPluginWindow()
 		store = store,
 		mouse = plugin:getMouse(),
 		calloutController = calloutController,
+		insertAsset = if FFlagAssetManagerDragAndDrop then InsertAssetContext.new(plugin, pluginGui) else nil,
 	}, {
 		MainView = Roact.createElement(MainView, {}),
 	})

@@ -35,6 +35,7 @@ local HierarchyLines = require(Plugin.Src.Components.IK.HierarchyLines)
 local LayoutOrderIterator = require(Plugin.Src.Util.LayoutOrderIterator)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local IKTreeView = Roact.PureComponent:extend("IKTreeView")
 
@@ -228,7 +229,7 @@ end
 
 function IKTreeView:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local position = props.Position
 	local size = props.Size
 	local rootInstance = props.RootInstance

@@ -216,8 +216,8 @@ local function createPrompt_DEPRECATED(prompt, inputType)
 	local tweenInfoFast = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
 	local tweenInfoQuick = TweenInfo.new(0.06, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
 
-	local actionTextSize = TextService:GetTextSize(prompt.ActionText, 19, Enum.Font.GothamSemibold, Vector2.new(1000, 1000))
-	local objectTextSize = TextService:GetTextSize(prompt.ObjectText, 14, Enum.Font.GothamSemibold, Vector2.new(1000, 1000))
+	local actionTextSize = TextService:GetTextSize(prompt.ActionText, 19, Enum.Font.GothamMedium, Vector2.new(1000, 1000))
+	local objectTextSize = TextService:GetTextSize(prompt.ObjectText, 14, Enum.Font.GothamMedium, Vector2.new(1000, 1000))
 	local maxTextWidth = math.max(actionTextSize.X, objectTextSize.X)
 	local promptHeight = 72
 	local promptWidth = 72
@@ -268,7 +268,7 @@ local function createPrompt_DEPRECATED(prompt, inputType)
 		actionText.Name = "ActionText"
 		actionText.Position = UDim2.new(0.5, textPaddingLeft - promptWidth/2, 0, 0)
 		actionText.Size = UDim2.fromScale(1, 1)
-		actionText.Font = Enum.Font.GothamSemibold
+		actionText.Font = Enum.Font.GothamMedium
 		actionText.TextSize = 19
 		actionText.BackgroundTransparency = 1
 		actionText.TextColor3 = Color3.new(1, 1, 1)
@@ -291,7 +291,7 @@ local function createPrompt_DEPRECATED(prompt, inputType)
 			objectText.Name = "ObjectText"
 			objectText.Position = UDim2.new(0.5, textPaddingLeft - promptWidth/2, 0, -10)
 			objectText.Size = UDim2.fromScale(1, 1)
-			objectText.Font = Enum.Font.GothamSemibold
+			objectText.Font = Enum.Font.GothamMedium
 			objectText.TextSize = 14
 			objectText.BackgroundTransparency = 1
 			objectText.TextColor3 = Color3.new(0.7, 0.7, 0.7)
@@ -376,7 +376,7 @@ local function createPrompt_DEPRECATED(prompt, inputType)
 		buttonText.Name = "ButtonText"
 		buttonText.Position = UDim2.fromOffset(-1, -1)
 		buttonText.Size = UDim2.fromScale(1, 1)
-		buttonText.Font = Enum.Font.GothamSemibold
+		buttonText.Font = Enum.Font.GothamMedium
 		buttonText.TextSize = 14
 		buttonText.BackgroundTransparency = 1
 		buttonText.TextColor3 = Color3.new(1, 1, 1)
@@ -487,7 +487,7 @@ local function createPrompt(prompt, inputType, gui)
 	local actionText = Instance.new("TextLabel")
 	actionText.Name = "ActionText"
 	actionText.Size = UDim2.fromScale(1, 1)
-	actionText.Font = Enum.Font.GothamSemibold
+	actionText.Font = Enum.Font.GothamMedium
 	actionText.TextSize = 19
 	actionText.BackgroundTransparency = 1
 	if FFlagProximityPromptsFadeIn then
@@ -504,7 +504,7 @@ local function createPrompt(prompt, inputType, gui)
 	local objectText = Instance.new("TextLabel")
 	objectText.Name = "ObjectText"
 	objectText.Size = UDim2.fromScale(1, 1)
-	objectText.Font = Enum.Font.GothamSemibold
+	objectText.Font = Enum.Font.GothamMedium
 	objectText.TextSize = 14
 	objectText.BackgroundTransparency = 1
 	if FFlagProximityPromptsFadeIn then
@@ -620,7 +620,7 @@ local function createPrompt(prompt, inputType, gui)
 				buttonText.Name = "ButtonText"
 				buttonText.Position = UDim2.fromOffset(0, -1)
 				buttonText.Size = UDim2.fromScale(1, 1)
-				buttonText.Font = Enum.Font.GothamSemibold
+				buttonText.Font = Enum.Font.GothamMedium
 
 				if FFlagProximityPromptMoreKeyCodes2 then
 					local buttonTextSize = KeyCodeToFontSize[prompt.KeyboardKeyCode]
@@ -654,7 +654,7 @@ local function createPrompt(prompt, inputType, gui)
 			buttonText.Name = "ButtonText"
 			buttonText.Position = UDim2.fromOffset(-1, -1)
 			buttonText.Size = UDim2.fromScale(1, 1)
-			buttonText.Font = Enum.Font.GothamSemibold
+			buttonText.Font = Enum.Font.GothamMedium
 			buttonText.TextSize = 14
 			buttonText.BackgroundTransparency = 1
 			if FFlagProximityPromptsFadeIn then
@@ -751,8 +751,8 @@ local function createPrompt(prompt, inputType, gui)
 	
 	local function updateUIFromPrompt()
 		-- todo: Use AutomaticSize instead of GetTextSize when that feature becomes available
-		local actionTextSize = TextService:GetTextSize(prompt.ActionText, 19, Enum.Font.GothamSemibold, Vector2.new(1000, 1000))
-		local objectTextSize = TextService:GetTextSize(prompt.ObjectText, 14, Enum.Font.GothamSemibold, Vector2.new(1000, 1000))
+		local actionTextSize = TextService:GetTextSize(prompt.ActionText, 19, Enum.Font.GothamMedium, Vector2.new(1000, 1000))
+		local objectTextSize = TextService:GetTextSize(prompt.ObjectText, 14, Enum.Font.GothamMedium, Vector2.new(1000, 1000))
 		local maxTextWidth = math.max(actionTextSize.X, objectTextSize.X)
 		local promptHeight = 72
 		local promptWidth = 72

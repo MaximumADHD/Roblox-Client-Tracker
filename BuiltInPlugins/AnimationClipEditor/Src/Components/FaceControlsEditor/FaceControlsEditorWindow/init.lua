@@ -83,6 +83,7 @@ local StyleModifier = Util.StyleModifier
 local GetFFlagFaceControlsEditorSelectTracks = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorSelectTracks)
 local GetFFlagFaceControlsEditorUIUpdate = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUIUpdate)
 local GetFFlagFaceControlsEditorBugBash2Update = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorBugBash2Update)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local PADDING = 10
 
@@ -380,7 +381,7 @@ end
 function makeFacsOnFaceDiagramSliderUIItems (self, style, localization)
 	local children = {}
 
-	local theme = self.props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and self.props.Stylizer or self.props.Stylizer.PluginTheme
 
 	local Facs = getFacsListData()
 	for _, facs in ipairs(Facs) do
@@ -500,7 +501,7 @@ function makeEyesControlDragBox (self, style, localization)
 
 	local children = {}
 
-	local theme = self.props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and self.props.Stylizer or self.props.Stylizer.PluginTheme
 
 	local sliderProps = faceControlsMapping.FacsControlToFaceSliderInfoMap[eyesDragBoxControlName]
 
@@ -807,7 +808,7 @@ function FaceControlsEditorWindow:render()
 
 	local showContextMenu = state.showContextMenu
 
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 
 	local style = self.props.Stylizer
 

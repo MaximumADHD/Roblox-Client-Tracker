@@ -11,6 +11,7 @@ local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local withTheme = ContextHelper.withTheme
+local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
 
 local VoteButton = Roact.PureComponent:extend("VoteButton")
 
@@ -42,6 +43,7 @@ function VoteButton:renderContent()
 	local state = self.state
 
 	local theme = props.Stylizer
+	local votingTheme = if FFlagAssetVoteSimplification then theme.asset.voting else nil
 	local hasVoted = props.hasVoted
 	local userVotedThisButton = props.userVote
 
@@ -56,6 +58,7 @@ function VoteButton:renderContent()
 
 	local votingTheme = theme.asset.voting
 
+	local votingImage = if FFlagAssetVoteSimplification then votingTheme.votingButtonImage else nil
 	local colour = votingTheme.voteThumb
 	local rotation = 0
 	local size = UDim2.new(1, -2, 1, -2)
@@ -63,10 +66,14 @@ function VoteButton:renderContent()
 	if hasVoted and userVotedThisButton then
 		if isVoteUp then
 			colour = votingTheme.votedUpThumb
+			votingImage = if FFlagAssetVoteSimplification then Images.THUMB_UP_GREEN else nil
 		else
 			colour = votingTheme.votedDownThumb
+			votingImage = if FFlagAssetVoteSimplification then Images.THUMB_UP_RED else nil
 		end
-		size = UDim2.new(1, 0, 1, 0)
+		if not FFlagAssetVoteSimplification then
+			size = UDim2.new(1, 0, 1, 0)
+		end
 	end
 
 	if not isVoteUp then
@@ -91,8 +98,8 @@ function VoteButton:renderContent()
 
 			BackgroundTransparency = 1,
 
-			Image = Images.THUMB,
-			ImageColor3 = colour,
+			Image = if FFlagAssetVoteSimplification then votingImage else Images.THUMB,
+			ImageColor3 = if FFlagAssetVoteSimplification then nil else colour,
 			ImageTransparency = (isHovered and 0) or 0.2,
 		}),
 	})

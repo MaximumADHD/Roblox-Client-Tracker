@@ -11,8 +11,6 @@ local TestStore = require(src.Util.TestStore)
 local MainReducer = require(src.Reducers.MainReducer)
 local MainMiddleware = require(src.Middleware.MainMiddleware)
 
-local FFlagDevFrameworkRemoveInfiniteScroller = game:GetFastFlag("DevFrameworkRemoveInfiniteScroller")
-
 return function()
 	local function createCallstack(initalState)
 		return mockContext(initalState, {
@@ -35,9 +33,6 @@ return function()
 	end)
 
 	it("should populate based on actions", function()
-		if not FFlagDevFrameworkRemoveInfiniteScroller then
-			return
-		end
 		local defaultStore = Rodux.Store.new(MainReducer, nil, MainMiddleware)
 
 		local mockContext = createCallstack(defaultStore:getState())

@@ -5,16 +5,20 @@
 	connects these events to thunks and drag logic.
 
 	Properties:
-		EndTick: End tick of the timeline range (TODO: Pass HorizontalScroll/HorizontalZoom instead)
+		EndTick: End tick of the timeline range (TODO: Pass HorizontalScroll/
+			HorizontalZoom instead)
 		Playhead: Position (in ticks) of the scrubber
 		Position: Position of this component
-		ShowAsSeconds: Whether timestamps should be displayed as seconds:frame, or frame
+		OnInputChanged: Callback for dragging events (this lets the TrackEditor
+			handle the pan operation)
+		ShowAsSeconds: Whether timestamps should be displayed as seconds:frame,
+			or frame
 		ShowEvents: Whether the events bar should be displayed
 		Size: Size of this component
-		StartTick: Beginning tick of the timeline range (TODO: Pass HorizontalScroll/HorizontalZoom instead)
-		TrackPadding: Padding used around the Canvas (and filled by the the vertical ruler on the right side)
-		VerticalScroll: Vertical scroll offset
-		VerticalZoom: Vertical zoom factor
+		StartTick: Beginning tick of the timeline range (TODO: Pass
+			HorizontalScroll/HorizontalZoom instead)
+		TrackPadding: Padding used around the Canvas (and filled by the the
+			vertical ruler on the right side)
 		ZIndex: Display index of this component
 ]]
 
@@ -31,6 +35,7 @@ local DragTarget = Framework.UI.DragListener
 
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local Constants = require(Plugin.Src.Util.Constants)
+local CurveUtils = require(Plugin.Src.Util.CurveUtils)
 local DragContext = require(Plugin.Src.Util.DragContext)
 local Input = require(Plugin.Src.Util.Input)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
@@ -43,6 +48,7 @@ local Pause = require(Plugin.Src.Actions.Pause)
 local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
 local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
+local SetVerticalScrollZoom = require(Plugin.Src.Actions.SetVerticalScrollZoom)
 
 local CurveCanvas = require(Plugin.Src.Components.Curves.CurveCanvas)
 local KeyframeActions = require(Plugin.Src.Components.Curves.KeyframeActions)
@@ -64,6 +70,8 @@ local SetKeyframeTangent = require(Plugin.Src.Thunks.SetKeyframeTangent)
 local SetSelectedKeyframeData = require(Plugin.Src.Thunks.Selection.SetSelectedKeyframeData)
 
 local GetFFlagFixButtonStyle = require(Plugin.LuaFlags.GetFFlagFixButtonStyle)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+local GetFFlagCurveEditorFreeZoom = require(Plugin.LuaFlags.GetFFlagCurveEditorFreeZoom)
 
 local CurveEditorController = Roact.Component:extend("CurveEditorController")
 
@@ -74,11 +82,16 @@ export type Props = {
 	AnimationData: any,
 	FrameRate: number,
 	Localization: any,
+	MaxValue: number,
+	MinValue: number,
+	PluginActions: any,
 	SelectedKeyframes: any,
 	SelectedTracks: any,
 	SnapMode: string,
 	Stylizer: any,
 	Theme: any,
+	VerticalScroll: number,
+	VerticalZoom: number,
 
 	-- Actions/Thunks
 	AddWaypoint: () -> (),
@@ -102,8 +115,6 @@ export type Props = {
 	Size: UDim2?,
 	StartTick: number,
 	TrackPadding: number,
-	VerticalScroll: number,
-	VerticalZoom: number,
 	ZIndex: number?,
 }
 
@@ -119,6 +130,7 @@ type State = {
 	HasDragWaypoint: boolean,
 	ShowKeyframeMenu: boolean,
 	ShowTangentMenu: boolean,
+	Tracks: {},
 }
 
 function CurveEditorController:init()
@@ -132,8 +144,11 @@ function CurveEditorController:init()
 		DraggingSelection = false,
 		DragTick = false,
 		HasDragWaypoint = false,
+		MinValue = 0,
+		MaxValue = Constants.CURVE_CANVAS_MIN_RANGE,
 		ShowKeyframeMenu = false,
 		ShotTangentMenu = false,
+		Tracks = {},
 	}
 
 	self.isMounted = false
@@ -142,13 +157,14 @@ function CurveEditorController:init()
 	self.dragMode = nil
 	self.mouseDown = false
 	self.mouseDownInCanvas = false
-	self.tracks = {}
+	self.tracks = if not GetFFlagCurveEditorFreeZoom() then {} else nil
+	self.ctrlHeld = false
 
 	self.selectDragStart, self.updateSelectDragStart = Roact.createBinding(nil)
 	self.selectDragEnd, self.updateSelectDragEnd = Roact.createBinding(nil)
 
-	if self.props.AnimationData then
-		self:updateTracks(self.props)
+	if not GetFFlagCurveEditorFreeZoom() and self.props.AnimationData then
+		self:updateTracks_deprecated(self.props)
 	end
 
 	self.recalculateExtents = function(rbx: any): ()
@@ -216,8 +232,15 @@ function CurveEditorController:init()
 
 	self.toCurveSpace = function(position: Vector2): Vector2
 		local props = self.props
+		local state = self.state
 
-		local minValue, maxValue = self.minValue, self.maxValue
+		local minValue, maxValue
+		if not GetFFlagCurveEditorFreeZoom() then
+			minValue, maxValue = self.minValue, self.maxValue
+		else
+			minValue, maxValue = state.MinValue, state.MaxValue
+		end
+
 		local scroll, zoom = props.VerticalScroll, props.VerticalZoom
 
 		zoom = math.min(zoom, 0.99)
@@ -305,10 +328,12 @@ function CurveEditorController:init()
 	end
 
 	self.onSelectDragMoved = function(input: any): ()
+		local state = self.state
 		local props = self.props
 		local position = input.Position
 		self.updateSelectDragEnd(position)
 		local dragStart = self.selectDragStart:getValue()
+		local tracks = if GetFFlagCurveEditorFreeZoom() then state.Tracks else self.tracks
 
 		-- Find min and max times/values of the selected area. Note that Y is flipped, as a higher Y position means a lower value.
 		local minPos = self.toCurveSpace(Vector2.new(math.min(position.X, dragStart.X), math.max(position.Y, dragStart.Y)))
@@ -320,7 +345,7 @@ function CurveEditorController:init()
 		}
 		local selection: {[string]: {[string]: Component}} = {}
 
-		for _, track in ipairs(self.tracks) do
+		for _, track in ipairs(tracks) do
 			local instance = track.Instance
 			for tck, data in pairs(track.Data) do
 				local valueInRange = false
@@ -526,7 +551,7 @@ function CurveEditorController:init()
 	end
 end
 
-function CurveEditorController:updateCanvasExtents(): ()
+function CurveEditorController:updateCanvasExtents_deprecated(): ()
 	-- Recalculate the min and max values of all the tracks being displayed
 	self.minValue = nil
 	self.maxValue = nil
@@ -557,7 +582,67 @@ function CurveEditorController:updateCanvasExtents(): ()
 	end
 end
 
-function CurveEditorController:updateTracks(nextProps: Props): ()
+function CurveEditorController:updateCanvasExtents(tracks): ()
+	local minValue, maxValue
+
+	if tracks then
+		for _, track in pairs(tracks) do
+			TrackUtils.traverseTracks(nil, track, function(component, _, _): ()
+				local lastTck, lastKeyframe = nil, nil
+				if component.Keyframes and not isEmpty(component.Keyframes) then
+					for _, tck in ipairs(component.Keyframes) do
+						local keyframe = component.Data[tck]
+						local min, max
+						if not lastTck then
+							-- First keyframe of the track, use the keyframe's value as min and max
+							if component.Type == Constants.TRACK_TYPES.Quaternion then
+								min, max = 0, 1
+							else
+								local value = keyframe.Value
+								min, max = value, value
+							end
+						else
+							local lastSlope = KeyframeUtils.getSlope(component, lastTck, Constants.SLOPES.Right)
+							local slope = KeyframeUtils.getSlope(component, tck, Constants.SLOPES.Left)
+							if component.Type == Constants.TRACK_TYPES.Quaternion then
+								min, max = CurveUtils.getYExtents(lastTck, 0, lastSlope, tck, 1, slope)
+							else
+								local lastValue, value = lastKeyframe.Value, keyframe.Value
+								min, max = CurveUtils.getYExtents(lastTck, lastValue, lastSlope, tck, value, slope)
+								if component.Type == Constants.TRACK_TYPES.Facs then
+									min, max = math.clamp(min, 0, 1), math.clamp(max, 0, 1)
+								end
+							end
+						end
+						minValue = if minValue then math.min(minValue, min) else min
+						maxValue = if maxValue then math.max(maxValue, max) else max
+
+						lastKeyframe = keyframe
+						lastTck = tck
+					end
+				end
+			end, true)
+		end
+	end
+
+	-- minValue and maxValue could be nil here.
+	-- This happens if no track is selected, or if the selected track has no
+	-- keyframes
+	minValue, maxValue = minValue or 0, maxValue or 1
+	-- minValue and maxValue could also be equal. In this case, we put that
+	-- value at the center of a range of length 1.
+	if minValue == maxValue then
+		minValue = minValue - 0.5
+		maxValue = maxValue + 0.5
+	end
+
+	self:setState({
+		MinValue = minValue,
+		MaxValue = maxValue,
+	})
+end
+
+function CurveEditorController:updateTracks_deprecated(nextProps: Props): ()
 	-- Fill tracks with the selected tracks data from animationData.
 	-- This is only done when either the selectionTracks change, or the data in the selected tracks changes.
 
@@ -578,23 +663,99 @@ function CurveEditorController:updateTracks(nextProps: Props): ()
 		end
 	end
 
-	self:updateCanvasExtents()
+	self:updateCanvasExtents_deprecated()
+end
+
+function CurveEditorController:updateTracks(oldProps: Props): ()
+	-- Fill tracks with the selected tracks data from animationData.
+	local props = self.props
+	local tracks = {}
+
+	if props.SelectedTracks and props.AnimationData and props.AnimationData.Instances then
+		local addedTracks = {}
+
+		for _, selectedTrack in pairs(props.SelectedTracks) do
+			local track = AnimationData.getTrack(props.AnimationData, "Root", selectedTrack)
+			if track then
+				TrackUtils.traverseTracks(nil, track, function(t, _, path)
+					local fullPath = Cryo.List.join(selectedTrack, path)
+					local fullPathName = table.concat(fullPath, ".")
+					if not addedTracks[fullPathName] then
+						table.insert(tracks, Cryo.Dictionary.join(t, {Path = fullPath, Instance = "Root"}))
+						addedTracks[fullPathName] = true
+					end
+				end, true)
+			end
+		end
+		self:setState({
+			Tracks = tracks,
+		})
+	end
+
+	if props.SelectedTracks ~= oldProps.SelectedTracks then
+		self:updateCanvasExtents(tracks)
+	end
 end
 
 function CurveEditorController:willUpdate(nextProps: Props): ()
-	local props = self.props
+	if not GetFFlagCurveEditorFreeZoom() then
+		local props = self.props
 
-	if nextProps.AnimationData ~= props.AnimationData or nextProps.SelectedTracks ~= props.SelectedTracks then
-		self:updateTracks(nextProps)
+		if nextProps.AnimationData ~= props.AnimationData or nextProps.SelectedTracks ~= props.SelectedTracks then
+			self:updateTracks_deprecated(nextProps)
+		end
+	end
+end
+
+function CurveEditorController:didUpdate(oldProps: Props): ()
+	if GetFFlagCurveEditorFreeZoom() then
+		local props = self.props
+		if oldProps.AnimationData ~= props.AnimationData or oldProps.SelectedTracks ~= props.SelectedTracks then
+			self:updateTracks(oldProps)
+		end
+	end
+end
+
+function CurveEditorController:addAction(action, func)
+	if action then
+		action.Enabled = true
+		table.insert(self.Actions, action)
+		table.insert(self.Connections, action.Triggered:Connect(func))
 	end
 end
 
 function CurveEditorController:didMount(): ()
 	self.isMounted = true
+
+	if GetFFlagCurveEditorFreeZoom() then
+		self:updateTracks({})
+
+		local actions = self.props.PluginActions
+		self.Connections = {}
+		self.Actions = {}
+		self:addAction(actions:get("ResizeCanvas"), function()
+			self:updateCanvasExtents(self.state.Tracks)
+			self.props.SetVerticalScrollZoom(0, 0)
+		end)
+	end
 end
 
 function CurveEditorController:willUnmount(): ()
 	self.isMounted = false
+
+	if GetFFlagCurveEditorFreeZoom() then
+		if self.Connections then
+			for _, connection in ipairs(self.Connections) do
+				connection:Disconnect()
+			end
+			self.Connections = {}
+		end
+		if self.Actions then
+			for _, action in ipairs(self.Actions) do
+				action.Enabled = false
+			end
+		end
+	end
 end
 
 function CurveEditorController:hasSelectedKeyframes(): (boolean)
@@ -619,10 +780,44 @@ function CurveEditorController:handleCanvasInputBegan(input: any, keysHeld: bool
 		elseif Input.isDeleteKey(input.KeyCode) then
 			self.props.DeleteSelectedKeyframes(self.props.Analytics)
 		end
+		if GetFFlagCurveEditorFreeZoom() and Input.isControl(input.KeyCode) then
+			self.ctrlHeld = true
+		end
 	elseif input.UserInputType == Enum.UserInputType.MouseButton1 then
 		self.props.DeselectAllKeyframes()
 		self.mouseDownInCanvas = true
 		self.onSelectDragStarted(input)
+	end
+end
+
+function CurveEditorController:handleCanvasInputChanged(input: any): ()
+	-- Only handle MouseWheel without Ctrl (zoom vertically).
+	-- MouseWheel+Ctrl zooms horizontally.
+	-- MouseMovement with dragging Mouse3 pans the canvas.
+	if input.UserInputType == Enum.UserInputType.MouseWheel and not self.ctrlHeld then
+		local refY = self.toCurveSpace(Vector2.new(0, input.Position.Y)).Y
+		local zoomFactor = 1 + Constants.CANVAS_ZOOM_INCREMENT
+
+		-- TODO: We can do better than this. It would be nicer to adjust the
+		-- zoom/scroll until they reach (0, 0), and only then change the
+		-- Min/Max values.
+
+		if input.Position.Z > 0 then
+			self:setState({
+				MinValue = refY + (self.state.MinValue - refY) / zoomFactor,
+				MaxValue = refY + (self.state.MaxValue - refY) / zoomFactor,
+			})
+		elseif input.Position.Z < 0 then
+			self:setState({
+				MinValue = refY + (self.state.MinValue - refY) * zoomFactor,
+				MaxValue = refY + (self.state.MaxValue - refY) * zoomFactor,
+			})
+		end
+	else
+		-- Forward all other events to the parent (horizontal zoom and panning)
+		if self.props.OnInputChanged then
+			self.props.OnInputChanged(nil, input)
+		end
 	end
 end
 
@@ -632,7 +827,9 @@ function CurveEditorController:handleCanvasInputEnded(input: any): ()
 		if Input.isMultiSelectKey(input.KeyCode) then
 			self.isMultiSelecting = false
 		end
-
+		if GetFFlagCurveEditorFreeZoom() and Input.isControl(input.KeyCode) then
+			self.ctrlHeld = false
+		end
 	elseif input.UserInputType == Enum.UserInputType.MouseButton1 then
 		self.mouseDownInCanvas = false
 	elseif input.UserInputType == Enum.UserInputType.MouseButton2 then
@@ -643,7 +840,7 @@ end
 function CurveEditorController:render(): (any)
 	local props = self.props
 	local state = self.state
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 
 	local animationData = props.AnimationData
 	local isMounted = self.isMounted
@@ -665,9 +862,9 @@ function CurveEditorController:render(): (any)
 	local showAsSeconds = props.ShowAsSeconds
 	local dragging = state.Dragging
 	local draggingScale = state.DraggingScale
-	local tracks = self.tracks
-	local minValue = self.minValue
-	local maxValue = self.maxValue
+	local tracks = if GetFFlagCurveEditorFreeZoom() then state.Tracks else self.tracks
+	local minValue = if GetFFlagCurveEditorFreeZoom() then state.MinValue else self.minValue
+	local maxValue = if GetFFlagCurveEditorFreeZoom() then state.MaxValue else self.maxValue
 
 	local draggingSelection = state.DraggingSelection
 
@@ -715,6 +912,9 @@ function CurveEditorController:render(): (any)
 					self:handleCanvasInputEnded(input)
 				end
 			end,
+			[Roact.Event.InputChanged] = if GetFFlagCurveEditorFreeZoom() then function(_, input)
+				self:handleCanvasInputChanged(input)
+			end else nil,
 		}, {
 			KeyboardListener = Roact.createElement(KeyboardListener, {
 				OnKeyPressed = function(input, keysHeld)
@@ -843,8 +1043,9 @@ function CurveEditorController:render(): (any)
 end
 
 CurveEditorController = withContext({
-	Localization = ContextServices.Localization,
 	Analytics = ContextServices.Analytics,
+	Localization = ContextServices.Localization,
+	PluginActions = ContextServices.PluginActions,
 	Stylizer = ContextServices.Stylizer,
 })(CurveEditorController)
 
@@ -858,6 +1059,8 @@ local function mapStateToProps(state): ({[string]: any})
 		SelectedKeyframes = status.SelectedKeyframes,
 		SelectedTracks = status.SelectedTracks,
 		SnapMode = status.SnapMode,
+		VerticalScroll = status.VerticalScroll,
+		VerticalZoom = status.VerticalZoom,
 	}
 
 	return stateToProps
@@ -923,6 +1126,10 @@ local function mapDispatchToProps(dispatch): ({[string]: any})
 		SetSelectedKeyframeData = function(newData: any): ()
 			dispatch(AddWaypoint())
 			dispatch(SetSelectedKeyframeData(newData))
+		end,
+
+		SetVerticalScrollZoom = function(scroll: number, zoom: number): ()
+			dispatch(SetVerticalScrollZoom(scroll, zoom))
 		end,
 	}
 

@@ -11,7 +11,8 @@
 		RightSlope: Right slope of this keyframe. Nil if auto-tangent
 		Selected: Whether this keyframe is selected
 		ShowTooltip: Whether the tooltip should be displayed (deactivated when the key is moving, for instance)
-		TrackName: Name of the track this keyframe belongs to
+		TrackName: Name of the track this keyframe belongs to (obsolete with FFlagACECurveEditorNewTooltips)
+		Path: Full path of the track this keyframe belongs to
 		Width: Size of the keyframe
 		ZIndex: Display index of this component
 
@@ -26,9 +27,13 @@ local Framework = require(Plugin.Packages.Framework)
 local Tooltip = Framework.UI.Tooltip
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+
 local Constants = require(Plugin.Src.Util.Constants)
+local PathUtils = require(Plugin.Src.Util.PathUtils)
 
 local FFlagDisableTooltipsWhenDragging = game:DefineFastFlag("ACEDisableTooltipsWhenDragging", false)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+local FFlagCurveEditorNewTooltips = game:DefineFastFlag("ACECurveEditorNewTooltips", false)
 
 local Keyframe = Roact.PureComponent:extend("Keyframe")
 
@@ -41,12 +46,13 @@ export type Props = {
 	Color: Color3,
 	InterpolationMode: Enum.KeyInterpolationMode,
 	LeftSlope: number?,
+	Path: PathUtils.Path,
 	Position: Vector2,
 	PrevInterpolationMode: Enum.KeyInterpolationMode,
 	RightSlope: number?,
 	Selected: boolean,
 	ShowTooltip: boolean,
-	TrackName: string,
+	TrackName: string,  -- Obsolete with FFlagACECurveEditorNewTooltips
 	Width: number?,
 	ZIndex: number?,
 
@@ -64,21 +70,42 @@ function Keyframe:buildTooltip(): ()
 		return string.format("%.3f", if slope == 0 then math.abs(slope) else slope * Constants.TICK_FREQUENCY)
 	end
 
-	tooltipText = props.TrackName .. "\n" .. localization:getText("Curves", "InterpolationMode", {interpolationMode = props.InterpolationMode.Name})
-	if props.PrevInterpolationMode == Enum.KeyInterpolationMode.Cubic then
-		tooltipText = tooltipText .. "\n"
-		if props.LeftSlope then
-			tooltipText = tooltipText .. localization:getText("Curves", "LeftTangentValuePerSecond", {value = formatSlope(props.LeftSlope)})
-		else
-			tooltipText = tooltipText .. localization:getText("Curves", "LeftTangentAuto")
+	if not FFlagCurveEditorNewTooltips then
+		tooltipText = props.TrackName .. "\n" .. localization:getText("Curves", "InterpolationMode", {interpolationMode = props.InterpolationMode.Name})
+		if props.PrevInterpolationMode == Enum.KeyInterpolationMode.Cubic then
+			tooltipText = tooltipText .. "\n"
+			if props.LeftSlope then
+				tooltipText = tooltipText .. localization:getText("Curves", "LeftTangentValuePerSecond", {value = formatSlope(props.LeftSlope)})
+			else
+				tooltipText = tooltipText .. localization:getText("Curves", "LeftTangentAuto")
+			end
 		end
-	end
-	if props.InterpolationMode == Enum.KeyInterpolationMode.Cubic then
-		tooltipText = tooltipText .. "\n"
-		if props.RightSlope then
-			tooltipText = tooltipText .. localization:getText("Curves", "RightTangentValuePerSecond", {value = formatSlope(props.RightSlope)})
-		else
-			tooltipText = tooltipText .. localization:getText("Curves", "RightTangentAuto")
+		if props.InterpolationMode == Enum.KeyInterpolationMode.Cubic then
+			tooltipText = tooltipText .. "\n"
+			if props.RightSlope then
+				tooltipText = tooltipText .. localization:getText("Curves", "RightTangentValuePerSecond", {value = formatSlope(props.RightSlope)})
+			else
+				tooltipText = tooltipText .. localization:getText("Curves", "RightTangentAuto")
+			end
+		end
+	else
+		local function addTangentInformation(labelId: string, slope: number?): string
+			local info = "\n" .. localization:getText("Curves", labelId) .. " "
+			if slope then
+				info = info .. localization:getText("Curves", "TangentValuePerSecond", {value = formatSlope(slope)})
+			else
+				info = info .. localization:getText("Curves", "TangentAuto")
+			end
+			return info
+		end
+
+		tooltipText = PathUtils.toString(props.Path or {}) .. "\n"
+		tooltipText = tooltipText .. localization:getText("Curves", "InterpolationMode2", {interpolationMode = props.InterpolationMode.Name})
+		if props.PrevInterpolationMode == Enum.KeyInterpolationMode.Cubic then
+			tooltipText = tooltipText .. addTangentInformation("LeftTangentLabel", props.LeftSlope)
+		end
+		if props.InterpolationMode == Enum.KeyInterpolationMode.Cubic then
+			tooltipText = tooltipText .. addTangentInformation("RightTangentLabel", props.RightSlope)
 		end
 	end
 
@@ -87,7 +114,7 @@ end
 
 function Keyframe:render(): ()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local width = props.Width or Constants.KEYFRAME_WIDTH
 	local color = props.Color
 	local selected = props.Selected

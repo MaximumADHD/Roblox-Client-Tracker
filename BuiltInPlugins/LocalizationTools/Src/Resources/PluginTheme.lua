@@ -22,8 +22,12 @@ local UI = Framework.UI
 local Decoration = UI.Decoration
 
 -- pcall needed to effectively mock service call for unit tests
-local highDpiServiceFound, isHighDpiBuild = pcall(function() return game:GetService("StudioHighDpiService"):IsNotHighDPIAwareBuild() end)
-local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and (not highDpiServiceFound or isHighDpiBuild)
+local function isHighDpiEnabled()
+    local highDpiServiceFound, isNotHighDpiBuild = pcall(function() return game:GetService("StudioHighDpiService"):IsNotHighDPIAwareBuild() end)
+    assert(highDpiServiceFound or isNotHighDpiBuild == "'StudioHighDpiService' is not a valid Service name")
+    return not highDpiServiceFound or not isNotHighDpiBuild
+end
+local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and isHighDpiEnabled()
 
 local LocalizationResourceFolderTheme1 = "rbxasset://studio_svg_textures/Lua/Localization/%s/Large/"
 local LocalizationLightResources = string.format(LocalizationResourceFolderTheme1,"Light/")

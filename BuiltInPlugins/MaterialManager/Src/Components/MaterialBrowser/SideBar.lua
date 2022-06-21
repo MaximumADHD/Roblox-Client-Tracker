@@ -21,6 +21,9 @@ local SetPath = require(Actions.SetPath)
 local Util = Plugin.Src.Util
 local getCategories = require(Util.getCategories)
 local MaterialController = require(Util.MaterialController)
+local MaterialServiceController = require(Util.MaterialServiceController)
+
+local getFFlagMaterialManagerGridOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerGridOverhaul)
 
 local SideBar = Roact.PureComponent:extend("SideBar")
 
@@ -35,6 +38,7 @@ type _Props = Props & {
 	dispatchSetPath: (path: _Types.Path) -> (),
 	Localization: any,
 	MaterialController: any,
+	MaterialServiceController: any?,  -- Not optional with FFlagMaterialManagerGridOverhaul
 	Stylizer: any,
 }
 
@@ -111,7 +115,12 @@ function SideBar:init()
 		local props: _Props = self.props
 
 		for key, value in pairs(newSelection) do
-			props.dispatchSetPath(key.path)
+			-- props.MaterialServiceController is no longer optional, remove with flag
+			if getFFlagMaterialManagerGridOverhaul() and props.MaterialServiceController then
+				props.MaterialServiceController:setPath(key.path)
+			else
+				props.dispatchSetPath(key.path)
+			end
 		end
 
 		self:setState({
@@ -170,6 +179,7 @@ SideBar = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
 	MaterialController = MaterialController,
+	MaterialServiceController = if getFFlagMaterialManagerGridOverhaul() then MaterialServiceController else nil,
 })(SideBar)
 
 return RoactRodux.connect(

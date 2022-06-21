@@ -25,7 +25,7 @@ return {
 	BackgroundColor3 = Color3.fromRGB(250, 250, 250),
 	TextColor3 = Color3.fromRGB(57, 59, 61),
 	TextSize = 16,
-	Font = Enum.Font.GothamSemibold,
+	Font = Enum.Font.GothamMedium,
 	Transparency = .1,
 	CornerEnabled = true, -- In case devs are concerned with UICorner performance issues, they can just disable those
 	CornerRadius = UDim.new(0, 12),

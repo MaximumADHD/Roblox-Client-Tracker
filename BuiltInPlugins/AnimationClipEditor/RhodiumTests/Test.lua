@@ -23,6 +23,7 @@ local Framework = require(Plugin.Packages.Framework)
 local Signal = Framework.Util.Signal
 local Signals = require(Plugin.Src.Context.Signals)
 
+local ServiceWrapper = Framework.TestHelpers.ServiceWrapper
 local ContextServices = Framework.ContextServices
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
@@ -32,6 +33,7 @@ local Theme = require(Plugin.Src.Util.Theme)
 local MakePluginActions = require(Plugin.Src.Util.MakePluginActions)
 local Localization = ContextServices.Localization
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+local CalloutController = require(Plugin.Src.Util.CalloutController)
 
 local AnimationClipEditor = require(Plugin.Src.Components.AnimationClipEditor)
 local MainProvider = require(Plugin.Src.Context.MainProvider)
@@ -155,6 +157,8 @@ function Test.new(plugin)
 	self.analytics = ContextServices.Analytics.mock()
 	self.pluginActions = ContextServices.PluginActions.new(self.mockPlugin, MakePluginActions(self.mockPlugin, self.localization))
 	self.signals = Signals.new(Constants.SIGNAL_KEYS)
+	self.calloutController = CalloutController.new(ServiceWrapper.new("CalloutService", true):asService())
+
 	return self
 end
 
@@ -168,7 +172,8 @@ function Test:run(testRunner)
 		pluginActions = self.pluginActions,
 		mouse = self.mockPlugin:GetMouse(),
 		analytics = self.analytics,
-		signals = self.signals
+		signals = self.signals,
+		calloutController = self.calloutController,
 	}, {
 		AnimationClipEditor = Roact.createElement(AnimationClipEditor),
 	})
@@ -191,6 +196,7 @@ function Test:destroy()
 	self.theme:destroy()
 	self.store:destruct()
 	self.localization:destroy()
+	self.calloutController:destroy()
 
 	for _, window in ipairs(self.subWindows) do
 		window:Destroy()

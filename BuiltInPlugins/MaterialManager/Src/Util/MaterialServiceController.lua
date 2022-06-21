@@ -5,15 +5,19 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextItem = Framework.ContextServices.ContextItem
 local ServiceWrapper = Framework.TestHelpers.ServiceWrapper
 
-local Flags = Plugin.Src.Flags
-local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
+local getFFlagMaterialManagerGlassNeonForceField = require(Plugin.Src.Flags.getFFlagMaterialManagerGlassNeonForceField)
+local MaterialBrowserReducer = require(Plugin.Src.Reducers.MaterialBrowserReducer)
 
 local Actions = Plugin.Src.Actions
 local ClearMaterialWrapper = require(Actions.ClearMaterialWrapper)
 local SetMaterialOverride = require(Actions.SetMaterialOverride)
 local SetMaterialOverrides = require(Actions.SetMaterialOverrides)
+local SetMaterialList = require(Actions.SetMaterialList)
 local SetMaterialStatus = require(Actions.SetMaterialStatus)
 local SetMaterialWrapper = require(Actions.SetMaterialWrapper)
+local SetPath = require(Actions.SetPath)
+local SetSearch = require(Actions.SetSearch)
+local SetUse2022Materials = require(Actions.SetUse2022Materials)
 
 local Constants = Plugin.Src.Resources.Constants
 local getMaterialPath = require(Constants.getMaterialPath)
@@ -22,6 +26,8 @@ local getMaterialName = require(Constants.getMaterialName)
 local getSupportedMaterials = require(Constants.getSupportedMaterials)
 
 local Util = Plugin.Src.Util
+local ContainsPath = require(Util.ContainsPath)
+local getMaterials = require(Util.getMaterials)
 local getOverrides = require(Util.getOverrides)
 
 local supportedMaterials = getSupportedMaterials()
@@ -76,6 +82,10 @@ function MaterialServiceController.new(store: any, mock: boolean?)
 		self._store:dispatch(SetMaterialStatus(material, self._materialServiceWrapper:asService():GetOverrideStatus(material)))
 	end)
 
+	self._uses2022MaterialsChanged = self._materialServiceWrapper:asInstance():GetPropertyChangedSignal("Use2022Materials"):Connect(function(value)
+		self._store:dispatch(SetUse2022Materials(value))
+	end)
+
 	for material, isSupported in pairs(supportedMaterials) do
 		self:addMaterial(material, nil, getMaterialPath(material))
 		if isSupported then
@@ -108,6 +118,7 @@ function MaterialServiceController:destroy()
 	self._materialServiceRemoved:Disconnect()
 	self._materialServiceChanged:Disconnect()
 	self._materialServiceStatus:Disconnect()
+	self._uses2022MaterialsChanged:Disconnect()
 	self._materialServiceWrapper:destroy()
 
 	for materialIndex, materialListeners in ipairs(self._materialChangedListeners) do
@@ -177,6 +188,8 @@ function MaterialServiceController:addMaterial(material: Enum.Material, material
 
 			self._store:dispatch(SetMaterialWrapper(materialWrapper))
 		end)
+	else
+		self._store:dispatch(SetMaterialStatus(material, self._materialServiceWrapper:asService():GetOverrideStatus(material)))
 	end
 
 	if supportedMaterials[material] then
@@ -184,6 +197,11 @@ function MaterialServiceController:addMaterial(material: Enum.Material, material
 	end
 
 	self._store:dispatch(SetMaterialWrapper(materialWrapper))
+
+	local currentPath = self._store:getState().MaterialBrowserReducer.Path
+	if ContainsPath(currentPath, path) then
+		self:updateMaterialList()
+	end
 end
 
 -- Built-in Materials will never be removed so there is not point in adding support for them here
@@ -207,6 +225,11 @@ function MaterialServiceController:removeMaterial(material: MaterialVariant, mov
 
 	self._store:dispatch(ClearMaterialWrapper(self._store:getState().MaterialBrowserReducer.Materials[material]))
 	self:updateOverrides(material.BaseMaterial)
+
+	local currentPath = self._store:getState().MaterialBrowserReducer.Path
+	if ContainsPath(currentPath, path) then
+		self:updateMaterialList()
+	end
 end
 
 function MaterialServiceController:moveMaterial(material: _Types.Material)
@@ -224,10 +247,16 @@ function MaterialServiceController:moveMaterial(material: _Types.Material)
 		end
 	end
 
-	category = self:addCategory(path, not material.MaterialVariant)
+	self._materialPaths[material.MaterialVariant] = getMaterialPath(material.Material)
+	category = self:addCategory(self._materialPaths[material.MaterialVariant], not material.MaterialVariant)
 	assert(category, "Category to which a Material is added should exist, or be created")
 	table.insert(category.Materials, material)
 	self:updateOverrides(material.Material)
+
+	local currentPath = self._store:getState().MaterialBrowserReducer.Path
+	if ContainsPath(currentPath, path) or ContainsPath(self._materialPaths[material.MaterialVariant], material.MaterialPath) then
+		self:updateMaterialList()
+	end
 end
 
 function MaterialServiceController:updateOverrides(material: Enum.Material)
@@ -239,6 +268,31 @@ end
 
 function MaterialServiceController:setMaterialOverride(material: Enum.Material, materialVariant: string?)
 	self._materialServiceWrapper:asService():SetBaseMaterialOverride(material, materialVariant or "")
+end
+
+function MaterialServiceController:updateMaterialList(path: _Types.Path?, search: string?)
+	local state: MaterialBrowserReducer.State = self._store:getState().MaterialBrowserReducer
+	local guaranteedPath = path or state.Path
+	local guaranteedSearch = search or state.Search
+	local category = self:findCategory(guaranteedPath)
+
+	local materialList = getMaterials(category, guaranteedPath, guaranteedSearch)
+	self._store:dispatch(SetMaterialList(materialList))
+end
+
+function MaterialServiceController:setPath(path: _Types.Path)
+	self:updateMaterialList(path)
+	self._store:dispatch(SetPath(path))
+end
+
+function MaterialServiceController:setSearch(search: string)
+	self:updateMaterialList(nil, search)
+	self._store:dispatch(SetSearch(search))
+end
+
+function MaterialServiceController:hasDefaultMaterial(material: Enum.Material, override: string): boolean
+	return (getMaterialName(material) == override or override == "None") and
+		not self._materialServiceWrapper:asService():GetMaterialVariant(material, override)
 end
 
 return MaterialServiceController

@@ -24,9 +24,9 @@ return function()
 
 	it("should create and destroy without errors", function()
 		local mockServiceWrapper = Roact.createElement(MockServiceWrapper, {}, {
-            MainView = Roact.createElement(DraftListView, {}),
-        })
-        local instance = Roact.mount(mockServiceWrapper)
+			MainView = Roact.createElement(DraftListView, {}),
+		})
+		local instance = Roact.mount(mockServiceWrapper)
 		Roact.unmount(instance)
 	end)
 

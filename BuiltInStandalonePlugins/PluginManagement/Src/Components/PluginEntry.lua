@@ -170,6 +170,7 @@ function PluginEntry:render()
 	local deniedHttpCount = props.deniedHttpCount
 	local allowedScriptInjection = props.allowedScriptInjection
 	local showMore = state.showMore
+	local plugin = props.plugin
 
 	local localization = props.Localization
 	local theme = props.Stylizer
@@ -275,8 +276,10 @@ function PluginEntry:render()
 			}),
 
 			UpdateOverview = if FFlagAutoUpdatePlugins then Roact.createElement(UpdateOverview, {
-				assetId = data.assetId,
+				data = data,
 				LayoutOrder = 4,
+				plugin = plugin,
+				updateAvailable = showUpdateButton,
 			}) else nil,
 		}),
 

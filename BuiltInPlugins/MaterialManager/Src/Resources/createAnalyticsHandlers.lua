@@ -27,6 +27,15 @@ return function(analyticsService)
 		analyticsService:SendEventDeferred("studio", pluginAnalyticsContext, eventName, args)
 	end
 
+	local function _reportCounter(counterName, count)
+		count = count or 1
+		if DebugFlags.LogAnalytics() then
+			print(("%s ReportCounter counterName=%s count=%s"):format(
+				pluginAnalyticsContext, tostring(counterName), tostring(count)))
+		end
+		analyticsService:ReportCounter(counterName, count)
+	end
+
 	local function _reportInfluxSeries(eventName, additionalArgs, throttlingPercent)
 		additionalArgs = additionalArgs or {}
 
@@ -38,22 +47,49 @@ return function(analyticsService)
 		analyticsService:ReportInfluxSeries(eventName, additionalArgs, throttlingPercent)
 	end
 
-	local function _reportCounter(counterName, count)
-		count = count or 1
-		if DebugFlags.LogAnalytics() then
-			print(("%s ReportCounter counterName=%s count=%s"):format(
-				pluginAnalyticsContext, tostring(counterName), tostring(count)))
-		end
-		analyticsService:ReportCounter(counterName, count)
-	end
-
 	return {
 		newMaterialVariantCounter = function()
 			_reportCounter("NewMaterialVariant")
 		end,
 
-		newMaterialVariant = function(additionalArgs, throttlingPercent)
+		newMaterialVariant = function(_, additionalArgs, throttlingPercent)
 			_reportInfluxSeries("BaseMaterialForVariant", additionalArgs, throttlingPercent)
+		end,
+
+		showInExplorer = function()
+			_reportCounter("ShowInExplorer")
+		end,
+
+		importTextureMap = function()
+			_reportCounter("ImportTextureMap")
+		end,
+
+		uploadAssetIdTextureMap = function()
+			_reportCounter("UploadAssetIdTextureMap")
+		end,
+
+		editMaterialVariantAndSave = function()
+			_reportCounter("EditMaterialVariantAndSave")
+		end,
+
+		deleteMaterialVariant = function()
+			_reportCounter("DeleteMaterialVariant")
+		end,
+
+		applyToSelectionButton = function()
+			_reportCounter("ApplyToSelectionButton")
+		end,
+
+		applyToSelectionAction = function()
+			_reportCounter("ApplyToSelectionAction")
+		end,
+
+		setOverrideToggled = function()
+			_reportCounter("SetOverrideToggled")
+		end,
+
+		searchBar = function()
+			_reportCounter("SearchBar")
 		end,
 	}
 end

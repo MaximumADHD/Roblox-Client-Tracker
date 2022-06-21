@@ -19,12 +19,13 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local Constants = require(Plugin.Src.Util.Constants)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local TrackListEntry = Roact.PureComponent:extend("TrackListEntry")
 
 function TrackListEntry:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local layoutOrder = props.LayoutOrder
 	local indent = props.Indent or 0
 	local height = props.Height

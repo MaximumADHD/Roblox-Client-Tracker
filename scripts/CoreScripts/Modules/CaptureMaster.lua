@@ -16,8 +16,11 @@ function CaptureMaster.new()
 	setmetatable(self, CaptureMaster)
 	self.init = false
 	self.captureEvent = Instance.new("BindableEvent")
+	self.permissionEvent = Instance.new("BindableEvent")
 	if shouldSaveScreenshotToAlbum() then
-		self.captureNotification = Roact.createElement(CaptureNotification)
+		self.captureNotification = Roact.createElement(CaptureNotification, {
+			permissionEvent = self.permissionEvent,
+		})
 	end
 
 	return self
@@ -36,21 +39,33 @@ end
 
 local master = CaptureMaster.new()
 
-function CaptureMaster:Capture()
+function CaptureMaster:DismissNotification()
 	if not self.init then
 		master:Start()
 	elseif shouldSaveScreenshotToAlbum() then
 		Roact.update(self.captureNotificationInstance, Roact.createElement(CaptureNotification, {
+			permissionEvent = self.permissionEvent,
 			forceDismissToast = {
 				onDismissed = function()
 					Roact.update(self.captureNotificationInstance, Roact.createElement(CaptureNotification, {
+						permissionEvent = self.permissionEvent,
 						forceDismissToast = nil,
 					}))
 				end,
 			}
 		}))
 	end
+end
 
+function CaptureMaster:ShowPermissionToast()
+	if not self.init then
+		master:Start()
+	end
+	self.permissionEvent:Fire()
+end
+
+function CaptureMaster:Capture()
+	self:DismissNotification()
 	self.captureEvent:Fire()
 end
 

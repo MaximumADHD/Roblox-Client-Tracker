@@ -47,6 +47,8 @@ local Typecheck = Util.Typecheck
 local SelectedEditingItem = Roact.PureComponent:extend("SelectedEditingItem")
 Typecheck.wrap(SelectedEditingItem, script)
 
+local GetFFlagAccessoryFittingToolAnalytics = require(Plugin.Src.Flags.GetFFlagAccessoryFittingToolAnalytics)
+
 local function onMannequinChanged(self, regenerated)
 	local props = self.props
 
@@ -58,6 +60,7 @@ local function onMannequinChanged(self, regenerated)
 	local editingItemContext = props.EditingItemContext
 	local luaMeshEditingModuleContext = props.LuaMeshEditingModuleContext
 	local meshEditingContext = luaMeshEditingModuleContext:getCurrentContext()
+	local analytics = props.Analytics
 
 	local mannequinInstance = self.mannequin.model
 	local sourceDisplayItem = self.mannequin.sourceDisplayItem
@@ -98,7 +101,11 @@ local function onMannequinChanged(self, regenerated)
 		verifyBounds(displayItem)
 
 		if not regenerated then
-			self.props.SelectEditingItem(luaMeshEditingModuleContext, displayItem)
+			if GetFFlagAccessoryFittingToolAnalytics() then
+				self.props.SelectEditingItem(luaMeshEditingModuleContext, displayItem, analytics)
+			else
+				self.props.SelectEditingItem(luaMeshEditingModuleContext, displayItem)
+			end
 			AvatarUtil:focusCameraOnAvatar(mannequinInstance)
 		end
 
@@ -184,9 +191,16 @@ local function mapDispatchToProps(dispatch)
 		SetAccessoryTypeInfo = function(info)
 			dispatch(SetAccessoryTypeInfo(info))
 		end,
-		SelectEditingItem = function(context, item)
-			dispatch(SelectEditingItem(context, item))
-		end,
+		SelectEditingItem = if GetFFlagAccessoryFittingToolAnalytics() 
+			then 
+				function(context, item, analytics)
+					dispatch(SelectEditingItem(context, item, analytics))
+				end
+			else 
+				function(context, item)
+					dispatch(SelectEditingItem(context, item))
+				end,
+
 		VerifyBounds = function(editingItem)
 			dispatch(VerifyBounds(editingItem))
 		end,
@@ -194,6 +208,7 @@ local function mapDispatchToProps(dispatch)
 end
 
 SelectedEditingItem = withContext({
+	Analytics = ContextServices.Analytics,
 	EditingItemContext = EditingItemContext,
 	LuaMeshEditingModuleContext = LuaMeshEditingModuleContext,
 })(SelectedEditingItem)

@@ -2,6 +2,7 @@ local Plugin = script.Parent.Parent.Parent
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 local AssetConfigConstants = require(Plugin.Core.Util.AssetConfigConstants)
+local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
 
 local Images = {}
 
@@ -19,9 +20,13 @@ Images.SCROLLBAR_MIDDLE_IMAGE = "rbxasset://textures/StudioToolbox/ScrollBarMidd
 Images.SCROLLBAR_BOTTOM_IMAGE = "rbxasset://textures/StudioToolbox/ScrollBarBottom.png"
 
 Images.THUMB = "rbxasset://textures/StudioToolbox/Voting/Thumb.png"
+Images.THUMB_UP_WHITE = if FFlagAssetVoteSimplification then "rbxasset://textures/StudioToolbox/Voting/thumbs-up-white.png" else nil
+Images.THUMB_UP_DARK_GRAY = if FFlagAssetVoteSimplification then "rbxasset://textures/StudioToolbox/Voting/thumbs-up-dark-gray.png" else nil
 Images.THUMB_UP_GREY = "rbxasset://textures/StudioToolbox/Voting/thumbup.png"
 Images.THUMB_DOWN_GREY = "rbxasset://textures/StudioToolbox/Voting/thumb-down.png"
-Images.THUMB_UP_GREEN = "rbxasset://textures/StudioToolbox/Voting/thumbs-up-filled.png"
+-- These buttons are the same ones as in the Asset Preview in dev framework, so use the same images
+Images.THUMB_UP_GREEN = if FFlagAssetVoteSimplification then "rbxasset://textures/DeveloperFramework/Votes/rating_up_green.png" else "rbxasset://textures/StudioToolbox/Voting/thumbs-up-filled.png"
+Images.THUMB_UP_RED = if FFlagAssetVoteSimplification then "rbxasset://textures/DeveloperFramework/Votes/rating_up_red.png" else nil
 Images.THUMB_DOWN_RED = "rbxasset://textures/StudioToolbox/Voting/thumbs-down-filled.png"
 
 Images.AUDIO_PREVIEW_PLAY = "rbxasset://textures/StudioToolbox/AssetPreview/play_button.png"

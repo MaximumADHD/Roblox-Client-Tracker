@@ -12,8 +12,6 @@ local MainReducer = require(src.Reducers.MainReducer)
 local MainMiddleware = require(src.Middleware.MainMiddleware)
 local SetWatchSortState = require(src.Actions.Watch.SetWatchSortState)
 
-local FFlagDevFrameworkRemoveInfiniteScroller = game:GetFastFlag("DevFrameworkRemoveInfiniteScroller")
-
 return function()
 	local function createDisplayTable(initalState)
 		return mockContext(initalState, {
@@ -36,9 +34,6 @@ return function()
 	end)
 
 	it("should populate based on actions", function()
-		if not FFlagDevFrameworkRemoveInfiniteScroller then
-			return
-		end
 		local defaultStore = Rodux.Store.new(MainReducer, nil, MainMiddleware)
 
 		local mockContext = createDisplayTable(defaultStore:getState())

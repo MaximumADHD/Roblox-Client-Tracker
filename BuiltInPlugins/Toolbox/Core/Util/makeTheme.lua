@@ -1,5 +1,6 @@
 local Plugin = script:FindFirstAncestor("Toolbox")
 local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
+local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
 local FFlagToolboxSearchResultsBackButton = game:GetFastFlag("ToolboxSearchResultsBackButton")
 
 local Images = require(Plugin.Core.Util.Images)
@@ -30,6 +31,7 @@ local makeTheme = function(themeExtension, themeClass)
 	local styleRoot
 	local overridedDarkTheme = Cryo.Dictionary.join(DarkTheme, {
 		[StyleKey.Toolbox_PublishAssetBackground] = StyleColors.Slate,
+		[StyleKey.Toolbox_AssetOutlineBackground] = if FFlagAssetVoteSimplification then Color3.fromHex("#3B3B3B") else nil,
 		[StyleKey.Toolbox_AssetOutlineBoarderColor] = Color3.fromHex("#121212"),
 		[StyleKey.Toolbox_AssetOutlineTransparency] = 0,
 		[StyleKey.Toolbox_AssetOutlineVerifiedBackground] = Color3.fromRGB(12, 43, 89),
@@ -69,8 +71,13 @@ local makeTheme = function(themeExtension, themeClass)
 		[StyleKey.Toolbox_TabTopBorderColor] = StyleColors.Blue,
 		[StyleKey.Toolbox_TabSelectedColor] = StyleColors.White,
 		[StyleKey.Toolbox_IconTileGradientColor] = StyleColors.Black,
-		[StyleKey.Toolbox_HomeviewBackgroundColor] = Color3.fromHex("#222222"),
+		[StyleKey.Toolbox_HomeviewBackgroundColor] = if FFlagAssetVoteSimplification then StyleColors.Slate else Color3.fromHex("#222222"),
 		[StyleKey.Toolbox_SearchOptionButtonHover] = StyleColors.White,
+		[StyleKey.Toolbox_RateTextColor] = if FFlagAssetVoteSimplification then Color3.fromHex("#BDBEBE") else nil,
+		[StyleKey.Toolbox_VoteCountColor] = if FFlagAssetVoteSimplification then Color3.fromHex("#AAAAAA") else nil,
+		[StyleKey.Toolbox_LowConfidencePercentageColor] = if FFlagAssetVoteSimplification then Color3.fromHex("#CCCCCC") else nil,
+		[StyleKey.Toolbox_VotingButtonsBackgroundBoxColor] = if FFlagAssetVoteSimplification then Color3.fromHex("#FFFFFF") else nil,
+		[StyleKey.Toolbox_VotingButtonImage] = if FFlagAssetVoteSimplification then Images.THUMB_UP_WHITE else nil,
 
 		-- Asset Configuration
 		[StyleKey.AssetConfig_DividerHorizontalLineColor] = StyleColors.Carbon,
@@ -85,6 +92,7 @@ local makeTheme = function(themeExtension, themeClass)
 	})
 	local overridedLightTheme = Cryo.Dictionary.join(LightTheme, {
 		[StyleKey.Toolbox_PublishAssetBackground] = StyleColors.Slate,
+		[StyleKey.Toolbox_AssetOutlineBackground] = if FFlagAssetVoteSimplification then StyleColors.White else nil,
 		[StyleKey.Toolbox_AssetOutlineBoarderColor] = Color3.fromHex("#989898"),
 		[StyleKey.Toolbox_AssetOutlineTransparency] = 0.08,
 		[StyleKey.Toolbox_AssetOutlineVerifiedBackground] = Color3.fromRGB(229, 243, 255),
@@ -126,6 +134,11 @@ local makeTheme = function(themeExtension, themeClass)
 		[StyleKey.Toolbox_IconTileGradientColor] = StyleColors.Gray_Light,
 		[StyleKey.Toolbox_HomeviewBackgroundColor] = StyleColors.White,
 		[StyleKey.Toolbox_SearchOptionButtonHover] = StyleColors.Black,
+		[StyleKey.Toolbox_RateTextColor] = if FFlagAssetVoteSimplification then Color3.fromHex("#3B3B3B") else nil,
+		[StyleKey.Toolbox_VoteCountColor] = if FFlagAssetVoteSimplification then Color3.fromHex("#666666") else nil,
+		[StyleKey.Toolbox_LowConfidencePercentageColor] = if FFlagAssetVoteSimplification then Color3.fromHex("#666666") else nil,
+		[StyleKey.Toolbox_VotingButtonsBackgroundBoxColor] = if FFlagAssetVoteSimplification then Color3.fromHex("#000000") else nil,
+		[StyleKey.Toolbox_VotingButtonImage] = if FFlagAssetVoteSimplification then Images.THUMB_UP_DARK_GRAY else nil,
 
 		-- Asset Configuration
 		[StyleKey.AssetConfig_DividerHorizontalLineColor] = Color3.fromRGB(227, 227, 227),
@@ -172,7 +185,7 @@ local makeTheme = function(themeExtension, themeClass)
 			},
 
 			outline = {
-				backgroundColor = StyleKey.MainBackground,
+				backgroundColor = if FFlagAssetVoteSimplification then StyleKey.Toolbox_AssetOutlineBackground else StyleKey.MainBackground,
 				verifiedBackgroundColor = StyleKey.Toolbox_AssetOutlineVerifiedBackground,
 				borderColor = StyleKey.Toolbox_AssetOutlineBoarderColor,
 				transparency = StyleKey.Toolbox_AssetOutlineTransparency,
@@ -187,6 +200,11 @@ local makeTheme = function(themeExtension, themeClass)
 				votedDownThumb = Color3.fromRGB(216, 104, 104),
 				votedUpThumb = Color3.fromRGB(0, 178, 89),
 				voteThumb = Color3.fromRGB(117, 117, 117),
+				rateTextColor = if FFlagAssetVoteSimplification then StyleKey.Toolbox_RateTextColor else nil,
+				voteCountColor = if FFlagAssetVoteSimplification then StyleKey.Toolbox_VoteCountColor else nil,
+				lowConfidencePercentageColor = if FFlagAssetVoteSimplification then StyleKey.Toolbox_LowConfidencePercentageColor else nil,
+				votingButtonsBackgroundBoxColor = if FFlagAssetVoteSimplification then StyleKey.Toolbox_VotingButtonsBackgroundBoxColor else nil,
+				votingButtonImage = if FFlagAssetVoteSimplification then StyleKey.Toolbox_VotingButtonImage else nil,
 			},
 		},
 

@@ -16,6 +16,7 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Constants = require(Plugin.Src.Util.Constants)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local ScaleTick = Roact.PureComponent:extend("TimelineTick")
 
@@ -34,7 +35,7 @@ export type Props = {
 
 function ScaleTick:render(): (any)
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local timelineTheme = theme.timelineTheme
 
 	local value = props.Value

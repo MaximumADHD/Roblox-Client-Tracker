@@ -24,7 +24,13 @@ return function (state, action)
 			local parentPage = page.parentPage
 			if parentPage ~= nil then
 				return Cryo.Dictionary.join(state, {
-					menuPage = parentPage
+					menuPage = parentPage,
+					previousPage = state.menuPage,
+				})
+			elseif state.previousPage then
+				return Cryo.Dictionary.join(state, {
+					menuPage = state.previousPage,
+					previousPage = state.menuPage,
 				})
 			end
 		end

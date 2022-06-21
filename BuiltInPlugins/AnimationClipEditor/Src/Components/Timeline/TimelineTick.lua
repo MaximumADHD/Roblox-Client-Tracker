@@ -20,6 +20,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local TimelineTick = Roact.PureComponent:extend("TimelineTick")
 local Tooltip = require(Plugin.Src.Components.Tooltip)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local LABEL_SIZE = UDim2.new(0, 25, 0, 15)
 local LABEL_POSITION = UDim2.new(0, 5, 0, 0)
@@ -27,7 +28,7 @@ local TICK_HEIGHT_SCALE = 0.7
 
 function TimelineTick:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local timelineTheme = theme.timelineTheme
 
 	local time = props.Time

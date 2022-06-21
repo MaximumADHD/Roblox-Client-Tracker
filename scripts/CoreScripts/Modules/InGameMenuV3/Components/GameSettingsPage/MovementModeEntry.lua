@@ -51,6 +51,7 @@ local TOUCH_MOVEMENT_MODE_LOCALIZATION_KEYS = {
 local DEV_MOVEMENT_MODE_LOCALIZATION_KEYS = {
 	[Enum.DevComputerMovementMode.KeyboardMouse] = "CoreScripts.InGameMenu.GameSettings.ComputerMoveModeKeyboardMouse",
 	[Enum.DevComputerMovementMode.ClickToMove] = "CoreScripts.InGameMenu.GameSettings.ComputerMoveModeClickToMove",
+	[Enum.DevComputerMovementMode.Scriptable] = nil,	-- TODO(APPEXP-304): add localization
 }
 
 local MovementModeEntry = Roact.PureComponent:extend("MovementModeEntry")
@@ -231,11 +232,13 @@ function MovementModeEntry:render()
 			BackgroundTransparency = 1,
 		}, {
 			Dropdown = withLocalization(localizedTexts)(function(localized)
+				-- TODO(APPEXP-304): Remove this after localization is added.
+				local placeholderText = localized.placeholder or "" -- Make sure placeholderText is not nil.
 				local optionTexts = {}
 				local nameToIndex = {}
 				if disabled then
-					nameToIndex[localized.placeholder] = 1
-					optionTexts[1] = { text = localized.placeholder }
+					nameToIndex[placeholderText] = 1
+					optionTexts[1] = { text = placeholderText }
 				else
 					for index, text in ipairs(localized) do
 						nameToIndex[text] = index
@@ -249,7 +252,7 @@ function MovementModeEntry:render()
 							dropdownMenuOpen = menuOpen
 						})
 					end,
-					placeholder = disabled and localized.placeholder or localized[selectedIndex],
+					placeholder = disabled and placeholderText or localized[selectedIndex],
 					size = (not UIBloxConfig.fixDropdownMenuListPositionAndSize) and UDim2.new(1, 0, 0, 44) or nil,
 					height = UIBloxConfig.fixDropdownMenuListPositionAndSize and UDim.new(0,44) or nil,
 					screenSize = self.props.screenSize,

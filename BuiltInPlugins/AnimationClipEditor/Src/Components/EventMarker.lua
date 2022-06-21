@@ -20,6 +20,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local Tooltip = require(Plugin.Src.Components.Tooltip)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local EventMarker = Roact.PureComponent:extend("EventMarker")
 
@@ -36,7 +37,7 @@ end
 
 function EventMarker:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 
 	local selected = props.Selected
 	local names = props.Names

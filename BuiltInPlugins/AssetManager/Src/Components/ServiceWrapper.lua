@@ -1,6 +1,8 @@
 --[[
 	A centralized place for providers, and an entry point for the Roact trees of plugins
 ]]
+local FFlagAssetManagerDragAndDrop = game:GetFastFlag("AssetManagerDragAndDrop")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -23,6 +25,9 @@ function ServiceWrapper:init()
 	assert(self.props.focusGui ~= nil, "Expected a focusGui object")
 	assert(self.props.mouse ~= nil, "Expected a PluginMouse object")
 	assert(self.props.uiLibWrapper ~= nil, "Expected a UILibraryWrapper object")
+	if FFlagAssetManagerDragAndDrop then
+		assert(self.props.insertAsset ~= nil, "Expected a InsertAsset object")
+	end
 end
 
 
@@ -37,6 +42,7 @@ function ServiceWrapper:render()
 	local theme = self.props.theme
 	local uiLibraryWrapper = self.props.uiLibWrapper
 	local calloutController = self.props.calloutController
+	local insertAsset = if FFlagAssetManagerDragAndDrop then self.props.insertAsset else nil
 
 	return ContextServices.provide({
 		analytics,
@@ -47,7 +53,8 @@ function ServiceWrapper:render()
 		ContextServices.Store.new(store),
 		ContextServices.API.new(),
 		ContextServices.Mouse.new(mouse),
-		calloutController
+		calloutController,
+		insertAsset,
 	}, {
 		-- UILibraryWrapper consumes theme, focus etc. so needs to be wrapped in these items for React.createContext to consume them.
 		UILibraryWrapper = ContextServices.provide({

@@ -5,6 +5,20 @@
 
 local UserInputService = game:GetService("UserInputService")
 
+type Table = {[any]: any}
+
+type SendEventFunction = (self: any, eventContext: string, eventName: string, additionalArgs: Table) -> ()
+
+export type EventStream = {
+	setEnabled: (self: EventStream, isEnabled: boolean) -> (),
+	setRBXEvent: SendEventFunction,
+	setRBXEventStream: SendEventFunction,
+	sendEventImmediately: SendEventFunction,
+	sendEventDeferred: SendEventFunction,
+	updateHeartbeatObject: (self: EventStream, additionalArgs: Table) -> (),
+	releaseRBXEventStream: (self: EventStream) -> (),
+}
+
 local function getPlatformTarget()
 	local platformTarget = "unknownLua"
 	local platformEnum = Enum.Platform.None
@@ -46,7 +60,7 @@ local EventStream = {}
 EventStream.__index = EventStream
 
 -- reportingService - (object) any object that defines the same functions for Event Stream as AnalyticsService
-function EventStream.new(reportingService)
+function EventStream.new(reportingService): EventStream
 	local rsType = type(reportingService)
 	assert(rsType == "table" or rsType == "userdata", "Unexpected value for reportingService")
 

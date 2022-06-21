@@ -10,6 +10,8 @@ return function()
 		local UIBlox = InGameMenuDependencies.UIBlox
 		local InGameMenu = script.Parent.Parent.Parent
 		local reducer = require(InGameMenu.reducer)
+		local Localization = require(InGameMenu.Localization.Localization)
+		local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 
 		local QuickActions = require(script.Parent)
 
@@ -24,7 +26,11 @@ return function()
 			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 				style = appStyle,
 			}, {
-				QuickActions = Roact.createElement(QuickActions),
+				LocalizationProvider = Roact.createElement(LocalizationProvider, {
+					localization = Localization.new("en-us"),
+				}, {
+					QuickActions = Roact.createElement(QuickActions),
+				}),
 			}),
 		})
 		local instance = Roact.mount(element)

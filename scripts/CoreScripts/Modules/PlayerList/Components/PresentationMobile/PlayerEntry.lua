@@ -150,7 +150,7 @@ function PlayerEntry:getPlayerNameFont(layoutValues, style)
 	local isLocalPlayer = self.props.player == LocalPlayer
 	if isLocalPlayer then
 		return {
-			Font = Enum.Font.GothamSemibold,
+			Font = Enum.Font.GothamMedium,
 			Size = style.Font.CaptionHeader.RelativeSize * style.Font.BaseSize,
 			MinSize = style.Font.Footer.RelativeMinSize * style.Font.BaseSize,
 		}

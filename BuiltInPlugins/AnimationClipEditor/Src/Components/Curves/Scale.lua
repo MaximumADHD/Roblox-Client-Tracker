@@ -29,6 +29,7 @@ local withContext = ContextServices.withContext
 
 local Constants = require(Plugin.Src.Util.Constants)
 local ScaleTick = require(Plugin.Src.Components.Curves.ScaleTick)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local Scale = Roact.PureComponent:extend("Scale")
 
@@ -144,7 +145,7 @@ end
 
 function Scale:render(): (any)
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local timelineTheme = theme.timelineTheme
 
 	local children = {}

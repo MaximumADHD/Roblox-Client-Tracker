@@ -106,6 +106,6 @@ if FFlagEnableExperienceChat then
 		UIBlox.init()
 
 		local ExperienceChat = require(CorePackages.ExperienceChat)
-		ExperienceChat.mountServerApp()
+		ExperienceChat.mountServerApp({})
 	end
 end

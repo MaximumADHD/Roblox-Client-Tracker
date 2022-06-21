@@ -126,7 +126,7 @@ MaterialTextures = withContext({
 })(MaterialTextures)
 
 return RoactRodux.connect(
-	function(state: MainReducer.State, props: _Props)
+	function(state: MainReducer.State, props: Props)
 		return {
 			Material = props.MockMaterial or state.MaterialBrowserReducer.Material,
 		}

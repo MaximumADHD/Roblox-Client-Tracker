@@ -21,11 +21,14 @@ local TextLabel = UI.Decoration.TextLabel
 local TruncatedTextLabel = UI.TruncatedTextLabel
 
 local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Plugin.Src.Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
+local getFFlagMaterialManagerGridOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerGridOverhaul)
 local getSupportedMaterials = require(Plugin.Src.Resources.Constants.getSupportedMaterials)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local MaterialServiceController = require(Plugin.Src.Util.MaterialServiceController)
 local SetBaseMaterial = require(Plugin.Src.Actions.SetBaseMaterial)
+local DEPRECATED_StatusIcon = require(Plugin.Src.Components.DEPRECATED_StatusIcon)
 local StatusIcon = require(Plugin.Src.Components.StatusIcon)
+local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
 
 local supportedMaterials = getSupportedMaterials()
 
@@ -42,6 +45,7 @@ type _Props = Props & {
 	MaterialOverride: number,
 	MaterialOverrides: _Types.Array<string>,
 	MaterialServiceController: any,
+	MaterialStatus: Enum.PropertyStatus,
 	Stylizer: any,
 }
 
@@ -99,6 +103,10 @@ function MaterialOverrides:init()
 
 				props.MaterialServiceController:setMaterialOverride(props.Material.Material, props.MaterialOverrides[materialIndex])
 			end
+
+			if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
+				props.Analytics:report("setOverrideToggled")
+			end
 		end
 	end
 end
@@ -108,6 +116,7 @@ function MaterialOverrides:render()
 	local style = props.Stylizer.MaterialDetails
 	local localization = props.Localization
 	local material = props.Material
+	local materialStatus = props.MaterialStatus
 
 	if not material then
 		return Roact.createElement(Pane)
@@ -125,11 +134,18 @@ function MaterialOverrides:render()
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 				HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			}, {
-				Status = Roact.createElement(StatusIcon, {
-					LayoutOrder = 1,
-					Material = material,
-					Size = style.ImageSize,
-				}),
+				Status = if getFFlagMaterialManagerGridOverhaul() then
+					Roact.createElement(StatusIcon, {
+						LayoutOrder = 1,
+						Size = style.ImageSize,
+						Status = materialStatus,
+					})
+					else
+					Roact.createElement(DEPRECATED_StatusIcon, {
+						LayoutOrder = 1,
+						Material = material,
+						Size = style.ImageSize,
+					}),
 				Label = Roact.createElement(TextLabel, {
 					FitWidth = if FFlagDevFrameworkRemoveFitFrame then nil else true,
 					AutomaticSize = if FFlagDevFrameworkRemoveFitFrame then Enum.AutomaticSize.XY else nil,
@@ -208,7 +224,7 @@ MaterialOverrides = withContext({
 })(MaterialOverrides)
 
 return RoactRodux.connect(
-	function(state: MainReducer.State, props: _Props)
+	function(state: MainReducer.State, props: Props)
 		if props.MockMaterial then
 			return {
 				Material = props.MockMaterial,
@@ -220,6 +236,10 @@ return RoactRodux.connect(
 				Material = state.MaterialBrowserReducer.Material,
 				MaterialOverrides = state.MaterialBrowserReducer.MaterialOverrides[state.MaterialBrowserReducer.Material.Material],
 				MaterialOverride = state.MaterialBrowserReducer.MaterialOverride[state.MaterialBrowserReducer.Material.Material],
+				MaterialStatus = if not state.MaterialBrowserReducer.Material.MaterialVariant then
+					state.MaterialBrowserReducer.MaterialStatus[state.MaterialBrowserReducer.Material.Material]
+					else
+					nil
 			}
 		end
 	end,

@@ -38,6 +38,7 @@ ConfirmationDialog.validateProps = t.strictInterface({
 
 	onCancel = t.callback,
 	onConfirm = t.callback,
+	onOverlyActivated = t.optional(t.callback),
 
 	blurBackground = t.boolean,
 	visible = t.boolean,
@@ -59,6 +60,7 @@ ConfirmationDialog.defaultProps = {
 	showIllustration = false,
 	frameWidth = 335,
 	framePadding = 20,
+	onOverlyActivated = nil,
 }
 
 function ConfirmationDialog:init()
@@ -122,6 +124,7 @@ function ConfirmationDialog:render()
 					BorderSizePixel = 0,
 					Size = UDim2.new(1, 0, 1, 0),
 					Text = "",
+					[Roact.Event.Activated] = props.onOverlyActivated,
 				}),
 				DialogMainFrame = Roact.createElement(ImageSetLabel, {
 					AnchorPoint = Vector2.new(0.5, 0.5),

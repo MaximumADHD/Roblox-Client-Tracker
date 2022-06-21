@@ -46,8 +46,6 @@ local LayoutOrderIterator = Util.LayoutOrderIterator
 
 local AssetTypeScreen = Roact.PureComponent:extend("AssetTypeScreen")
 
-local GetFFlagAFTChooseAssetTypeFirst = require(Plugin.Src.Flags.GetFFlagAFTChooseAssetTypeFirst)
-
 Typecheck.wrap(AssetTypeScreen, script)
 
 local function makeButtonList(localization, keys)
@@ -74,64 +72,37 @@ local function hasMultipleAttachments(assetTypeInfo)
 	return false
 end
 
-if GetFFlagAFTChooseAssetTypeFirst() then
-	function AssetTypeScreen:initWithPreviousAssetTypeInfo(previousMultiAttachmentAsset)
-		local assetType
-		local accessoryTypeInfo = self.props.AccessoryTypeInfo
-		if previousMultiAttachmentAsset then
-			assetType = next(previousMultiAttachmentAsset)
-		elseif accessoryTypeInfo then
-			assetType = accessoryTypeInfo.AssetType
-		else
-			return
-		end
-
-		local assetTypeAccessoryTable = AssetTypeAttachmentInfo.Accessory[assetType]
-		local assetTypeClothingTable = AssetTypeAttachmentInfo.Clothing[assetType]
-		if assetTypeAccessoryTable then
-			if hasMultipleAttachments(assetTypeAccessoryTable) then
-				self.multiAttachmentAsset = {
-					[assetType] = assetTypeAccessoryTable
-				}
-			end
-			self.initialSelectedAccessoryType = assetType
-		elseif assetTypeClothingTable then
-			if hasMultipleAttachments(assetTypeClothingTable) then
-				self.multiAttachmentAsset = {
-					[assetType] = assetTypeClothingTable
-				}
-			end
-			self.initialSelectedClothingType = assetType
-		end
-
-		if accessoryTypeInfo then
-			self.initialSelectedSubType = accessoryTypeInfo.AssetSubType
-		end
+function AssetTypeScreen:initWithPreviousAssetTypeInfo(previousMultiAttachmentAsset)
+	local assetType
+	local accessoryTypeInfo = self.props.AccessoryTypeInfo
+	if previousMultiAttachmentAsset then
+		assetType = next(previousMultiAttachmentAsset)
+	elseif accessoryTypeInfo then
+		assetType = accessoryTypeInfo.AssetType
+	else
+		return
 	end
-else
-	function AssetTypeScreen:initWithPreviousAssetTypeInfo()
-		local accessoryTypeInfo = self.props.AccessoryTypeInfo
-		if accessoryTypeInfo then
-			local assetTypeAccessoryTable = AssetTypeAttachmentInfo.Accessory[accessoryTypeInfo.AssetType]
-			local assetTypeClothingTable = AssetTypeAttachmentInfo.Clothing[accessoryTypeInfo.AssetType]
-			if assetTypeAccessoryTable then
-				if hasMultipleAttachments(assetTypeAccessoryTable) then
-					self.multiAttachmentAsset = {
-						[accessoryTypeInfo.AssetType] = assetTypeAccessoryTable
-					}
-				end
-				self.initialSelectedAccessoryType = accessoryTypeInfo.AssetType
-			elseif assetTypeClothingTable then
-				if hasMultipleAttachments(assetTypeClothingTable) then
-					self.multiAttachmentAsset = {
-						[accessoryTypeInfo.AssetType] = assetTypeClothingTable
-					}
-				end
-				self.initialSelectedClothingType = accessoryTypeInfo.AssetType
-			end
 
-			self.initialSelectedSubType = accessoryTypeInfo.AssetSubType
+	local assetTypeAccessoryTable = AssetTypeAttachmentInfo.Accessory[assetType]
+	local assetTypeClothingTable = AssetTypeAttachmentInfo.Clothing[assetType]
+	if assetTypeAccessoryTable then
+		if hasMultipleAttachments(assetTypeAccessoryTable) then
+			self.multiAttachmentAsset = {
+				[assetType] = assetTypeAccessoryTable
+			}
 		end
+		self.initialSelectedAccessoryType = assetType
+	elseif assetTypeClothingTable then
+		if hasMultipleAttachments(assetTypeClothingTable) then
+			self.multiAttachmentAsset = {
+				[assetType] = assetTypeClothingTable
+			}
+		end
+		self.initialSelectedClothingType = assetType
+	end
+
+	if accessoryTypeInfo then
+		self.initialSelectedSubType = accessoryTypeInfo.AssetSubType
 	end
 end
 
@@ -151,7 +122,7 @@ function AssetTypeScreen:init()
 			self:setState({
 				multiAttachmentAsset = Cryo.Dictionary.join(self.multiAttachmentAsset),
 			})
-			if GetFFlagAFTChooseAssetTypeFirst() and self.props.AccessoryTypeInfo then
+			if self.props.AccessoryTypeInfo then
 				self.multiAttachmentAsset = nil
 			end
 		else
@@ -161,9 +132,7 @@ function AssetTypeScreen:init()
 
 	self.onBack = function()
 		if self.state.multiAttachmentAsset then
-			if GetFFlagAFTChooseAssetTypeFirst() then
-				self:initWithPreviousAssetTypeInfo(self.state.multiAttachmentAsset)
-			end
+			self:initWithPreviousAssetTypeInfo(self.state.multiAttachmentAsset)
 			self:setState({
 				multiAttachmentAsset = Roact.None,
 			})
@@ -321,13 +290,10 @@ function AssetTypeScreen:render()
 	local localization = props.Localization
 	local renderContent = self:getContentToRender()
 
-	local nextButtonEnabled = true
-	if GetFFlagAFTChooseAssetTypeFirst() then
-		nextButtonEnabled =
-			accessoryTypeInfo ~= nil or
-			(self.multiAttachmentAsset ~= nil and state.multiAttachmentAsset == nil) or
-			(self.multiAttachmentAsset == nil and state.multiAttachmentAsset ~= nil)
-	end
+	local nextButtonEnabled =
+		accessoryTypeInfo ~= nil or
+		(self.multiAttachmentAsset ~= nil and state.multiAttachmentAsset == nil) or
+		(self.multiAttachmentAsset == nil and state.multiAttachmentAsset ~= nil)
 
 	return Roact.createElement(Pane, {
 		Size = UDim2.new(1, 0, 1, 0),

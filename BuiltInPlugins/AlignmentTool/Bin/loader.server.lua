@@ -7,7 +7,6 @@ local SourceStrings = Plugin.Src.Resources.Localization.SourceStrings
 local LocalizedStrings = Plugin.Src.Resources.Localization.LocalizedStrings
 
 local FFlagDebugRbxQtitanRibbonAndDockingEnabled = game:GetFastFlag("DebugRbxQtitanRibbonAndDockingEnabled")
-local FFlagFixToolbarButtonForFreshInstallation_AlignmentTool = game:GetFastFlag("FixToolbarButtonForFreshInstallation_AlignmentTool")
 
 local args : PluginLoaderBuilder.Args = {
 	plugin = plugin,
@@ -33,7 +32,7 @@ local args : PluginLoaderBuilder.Args = {
 	dockWidgetInfo = {
 		dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(
 			Enum.InitialDockState.Left, --initialDockState,
-			not (FFlagDebugRbxQtitanRibbonAndDockingEnabled or FFlagFixToolbarButtonForFreshInstallation_AlignmentTool), --initialEnabled,
+			false, --initialEnabled,
 			false, --initialEnabledShouldOverrideRestore,
 			300, --size.X,
 			250, --size.Y,

@@ -24,102 +24,225 @@ local ExpressionEvaluated = require(Actions.Watch.ExpressionEvaluated)
 local AddBreakpoint = require(Actions.BreakpointsWindow.AddBreakpoint)
 local AddChildVariables = require(Actions.Watch.AddChildVariables)
 local SetCurrentThreadAction = require(Actions.Callstack.SetCurrentThread)
+local FFlagDebuggerOnlyLoadCurrentFrameVariables = require(Src.Flags.GetFFlagDebuggerOnlyLoadCurrentFrameVariables)
 
 local DebugConnectionListener = require(Src.Util.DebugConnectionListener.DebugConnectionListener)
 local Constants = require(Src.Util.Constants)
 
-local expressionData1 = {
-	expression = "Expression 1",
-	path = "3",
-	scope = ScopeEnum.Local,
-	value = "somePreview",
-	dataType = "string",
-	childPaths = {},
-}
+local expressionData1
+local expressionRow1
+local varData1Child1
+local varData1Child2
+local varData1Child11
+local varData1Child21
+local debuggerVar2
+local varData2Child1
+local varData2Child11
+local variableRow1Child1
+local variableRow1Child2
+local variableRow1Child11
+local variableRow1Child21
+local variableRow2Child1
+local variableRow2Child11
+local scriptRef1
+local scriptRef2
+local testStackFrameOne
+local testStackFrameTwo
+local testCallstack1
+local testCallstack2
+local testThreadOne
+local testThreadTwo
+local testPausedState1
+local testPausedState2
 
-local expressionRow1 = WatchRow.fromData(expressionData1)
+if not FFlagDebuggerOnlyLoadCurrentFrameVariables() then
+	expressionData1 = {
+		expression = "Expression 1",
+		path = "3",
+		scope = ScopeEnum.Local,
+		value = "somePreview",
+		dataType = "string",
+		childPaths = {},
+	}
 
-local debuggerVar1 = mockDebuggerVariable.new(1, "Alex", "somePreview", "map")
+	expressionRow1 = WatchRow.fromData(expressionData1)
 
-local varData1Child1 = {
-	name = "Heesoo",
-	path = "1_1",
-	scope = ScopeEnum.Local,
-	value = "somePreview",
-	dataType = "map",
-}
+	debuggerVar1 = mockDebuggerVariable.new(1, "Alex", "somePreview", "map")
 
-local varData1Child2 = {
-	name = "Austin",
-	path = "1_2",
-	scope = ScopeEnum.Local,
-	value = "somePreview",
-	dataType = "string",
-}
+	varData1Child1 = {
+		name = "Heesoo",
+		path = "1_1",
+		scope = ScopeEnum.Local,
+		value = "somePreview",
+		dataType = "map",
+	}
 
-local varData1Child11 = {
-	name = "Raul",
-	path = "1_1_1",
-	scope = ScopeEnum.Local,
-	value = "somePreview",
-	dataType = "string",
-}
+	varData1Child2 = {
+		name = "Austin",
+		path = "1_2",
+		scope = ScopeEnum.Local,
+		value = "somePreview",
+		dataType = "string",
+	}
 
-local varData1Child21 = {
-	name = "Karan",
-	path = "1_2_1",
-	scope = ScopeEnum.Local,
-	value = "somePreview",
-	dataType = "string",
-}
+	varData1Child11 = {
+		name = "Raul",
+		path = "1_1_1",
+		scope = ScopeEnum.Local,
+		value = "somePreview",
+		dataType = "string",
+	}
 
-local debuggerVar2 = mockDebuggerVariable.new(2, "UnitedStates", "somePreview2", "map")
+	varData1Child21 = {
+		name = "Karan",
+		path = "1_2_1",
+		scope = ScopeEnum.Local,
+		value = "somePreview",
+		dataType = "string",
+	}
 
-local varData2Child1 = {
-	name = "Wisconsin",
-	path = "2_1",
-	scope = ScopeEnum.Local,
-	value = "somePreview2",
-	dataType = "map",
-}
+	debuggerVar2 = mockDebuggerVariable.new(2, "UnitedStates", "somePreview2", "map")
 
-local varData2Child11 = {
-	name = "GreenBay",
-	path = "2_1_1",
-	scope = ScopeEnum.Local,
-	value = "somePreview2",
-	dataType = "string",
-}
+	varData2Child1 = {
+		name = "Wisconsin",
+		path = "2_1",
+		scope = ScopeEnum.Local,
+		value = "somePreview2",
+		dataType = "map",
+	}
 
-local variableRow1Child1 = VariableRow.fromData(varData1Child1)
-local variableRow1Child2 = VariableRow.fromData(varData1Child2)
-local variableRow1Child11 = VariableRow.fromData(varData1Child11)
-local variableRow1Child21 = VariableRow.fromData(varData1Child21)
-local variableRow2Child1 = VariableRow.fromData(varData2Child1)
-local variableRow2Child11 = VariableRow.fromData(varData2Child11)
+	varData2Child11 = {
+		name = "GreenBay",
+		path = "2_1_1",
+		scope = ScopeEnum.Local,
+		value = "somePreview2",
+		dataType = "string",
+	}
 
-local scriptRef1 = mockScriptRef.new()
-local scriptRef2 = mockScriptRef.new()
+	variableRow1Child1 = VariableRow.fromData(varData1Child1)
+	variableRow1Child2 = VariableRow.fromData(varData1Child2)
+	variableRow1Child11 = VariableRow.fromData(varData1Child11)
+	variableRow1Child21 = VariableRow.fromData(varData1Child21)
+	variableRow2Child1 = VariableRow.fromData(varData2Child1)
+	variableRow2Child11 = VariableRow.fromData(varData2Child11)
 
-local testStackFrameOne = mockStackFrame.new(10, scriptRef1, "TestFrame1", "C")
-local testStackFrameTwo = mockStackFrame.new(20, scriptRef2, "TestFrame2", "C")
-local testCallstack1 = {
-	[0] = testStackFrameOne,
-	[1] = testStackFrameTwo,
-}
+	scriptRef1 = mockScriptRef.new()
+	scriptRef2 = mockScriptRef.new()
 
-local testCallstack2 = {
-	[0] = testStackFrameTwo,
-	[1] = testStackFrameOne,
-}
+	testStackFrameOne = mockStackFrame.new(10, scriptRef1, "TestFrame1", "C")
+	testStackFrameTwo = mockStackFrame.new(20, scriptRef2, "TestFrame2", "C")
+	testCallstack1 = {
+		[0] = testStackFrameOne,
+		[1] = testStackFrameTwo,
+	}
 
-local testThreadOne = mockThreadState.new(1, scriptRef1, true)
-local testThreadTwo = mockThreadState.new(2, scriptRef2, true)
+	testCallstack2 = {
+		[0] = testStackFrameTwo,
+		[1] = testStackFrameOne,
+	}
 
-local testPausedState1 = mockPausedState.new(Constants.DebuggerPauseReason.Requested, 1, true)
-local testPausedState2 = mockPausedState.new(Constants.DebuggerPauseReason.Requested, 2, true)
+	testThreadOne = mockThreadState.new(1, scriptRef1, true)
+	testThreadTwo = mockThreadState.new(2, scriptRef2, true)
+
+	testPausedState1 = mockPausedState.new(Constants.DebuggerPauseReason.Requested, 1, true)
+	testPausedState2 = mockPausedState.new(Constants.DebuggerPauseReason.Requested, 2, true)
+end
 
 return function(store)
+	
+	if FFlagDebuggerOnlyLoadCurrentFrameVariables() then
+		expressionData1 = {
+			expression = "Expression 1",
+			path = "3",
+			scope = ScopeEnum.Local,
+			value = "somePreview",
+			dataType = "string",
+			childPaths = {},
+		}
+
+		expressionRow1 = WatchRow.fromData(expressionData1)
+
+		debuggerVar1 = mockDebuggerVariable.new(1, "Alex", "somePreview", "map")
+
+		varData1Child1 = {
+			name = "Heesoo",
+			path = "1_1",
+			scope = ScopeEnum.Local,
+			value = "somePreview",
+			dataType = "map",
+		}
+
+		varData1Child2 = {
+			name = "Austin",
+			path = "1_2",
+			scope = ScopeEnum.Local,
+			value = "somePreview",
+			dataType = "string",
+		}
+
+		varData1Child11 = {
+			name = "Raul",
+			path = "1_1_1",
+			scope = ScopeEnum.Local,
+			value = "somePreview",
+			dataType = "string",
+		}
+
+		varData1Child21 = {
+			name = "Karan",
+			path = "1_2_1",
+			scope = ScopeEnum.Local,
+			value = "somePreview",
+			dataType = "string",
+		}
+
+		debuggerVar2 = mockDebuggerVariable.new(2, "UnitedStates", "somePreview2", "map")
+
+		varData2Child1 = {
+			name = "Wisconsin",
+			path = "2_1",
+			scope = ScopeEnum.Local,
+			value = "somePreview2",
+			dataType = "map",
+		}
+
+		varData2Child11 = {
+			name = "GreenBay",
+			path = "2_1_1",
+			scope = ScopeEnum.Local,
+			value = "somePreview2",
+			dataType = "string",
+		}
+
+		variableRow1Child1 = VariableRow.fromData(varData1Child1)
+		variableRow1Child2 = VariableRow.fromData(varData1Child2)
+		variableRow1Child11 = VariableRow.fromData(varData1Child11)
+		variableRow1Child21 = VariableRow.fromData(varData1Child21)
+		variableRow2Child1 = VariableRow.fromData(varData2Child1)
+		variableRow2Child11 = VariableRow.fromData(varData2Child11)
+
+		scriptRef1 = mockScriptRef.new()
+		scriptRef2 = mockScriptRef.new()
+
+		testStackFrameOne = mockStackFrame.new(10, scriptRef1, "TestFrame1", "C")
+		testStackFrameTwo = mockStackFrame.new(20, scriptRef2, "TestFrame2", "C")
+		testCallstack1 = {
+			[0] = testStackFrameOne,
+			[1] = testStackFrameTwo,
+		}
+
+		testCallstack2 = {
+			[0] = testStackFrameTwo,
+			[1] = testStackFrameOne,
+		}
+
+		testThreadOne = mockThreadState.new(1, scriptRef1, true)
+		testThreadTwo = mockThreadState.new(2, scriptRef2, true)
+
+		testPausedState1 = mockPausedState.new(Constants.DebuggerPauseReason.Requested, 1, true)
+		testPausedState2 = mockPausedState.new(Constants.DebuggerPauseReason.Requested, 2, true)
+	end
+	
 	local currentMockConnection = MockDebuggerConnection.new(1)
 	local mainConnectionManager = MockDebuggerConnectionManager.new()
 	local _mainListener = DebugConnectionListener.new(
@@ -141,8 +264,10 @@ return function(store)
 	currentMockConnection.MockSetDebuggerVariablesByCallstackFrame(testStackFrameTwo, defaults2)
 
 	mainConnectionManager.ConnectionStarted:Fire(currentMockConnection)
-
-	currentMockConnection.Paused:Fire(testPausedState2, testPausedState2.Reason)
+	
+	if not FFlagDebuggerOnlyLoadCurrentFrameVariables() then
+		currentMockConnection.Paused:Fire(testPausedState2, testPausedState2.Reason)
+	end
 	currentMockConnection.Paused:Fire(testPausedState1, testPausedState1.Reason)
 
 	local state = store:getState()

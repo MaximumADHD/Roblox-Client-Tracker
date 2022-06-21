@@ -15,8 +15,9 @@ local Stylizer = Framework.Style.Stylizer
 local UI = Framework.UI
 local TextInput = UI.TextInput
 local SelectInput = UI.SelectInput
+local Pane = UI.Pane
 
-local LabeledElementList = require(Plugin.Src.Components.LabeledElementList)
+local LabeledElement = require(Plugin.Src.Components.MaterialPrompt.MaterialVariantCreator.LabeledElement)
 
 local Constants = Plugin.Src.Resources.Constants
 local getMaterialPatterns = require(Constants.getMaterialPatterns)
@@ -48,7 +49,12 @@ type _Props = Props & {
 
 type _Style = {
 	DialogColumnSize: UDim2,
-	CustomSelectInput: any,
+	ErrorOrWarningColor: Color3,
+	ErrorOrWarningTextSize: number,
+	ItemPaddingHorizontal: UDim,
+	ItemSpacing: number,
+	LabelColumnWidth: UDim,
+	VerticalSpacing: number,
 }
 
 local materialPatterns = getMaterialPatterns()
@@ -90,48 +96,6 @@ function AdditionalPropertiesSettings:init()
 			})
 		end
 	end
-
-	self.renderContent = function(key: string)
-		local props: _Props = self.props
-		local style: _Style = props.Stylizer.AdditionalPropertiesSettings
-
-		-- TODO: remove key strings
-		if key == "StudsPerTileVariant" then
-			return Roact.createElement(TextInput, {
-				Style = "FilledRoundedBorder",
-				Size = style.DialogColumnSize,
-				Text = if getFFlagMaterialManagerGlassNeonForceField() then tostring(props.StudsPerTile) else props.StudsPerTile,
-				OnTextChanged = self.onStudsPerTileChanged,
-			})
-		elseif key == "MaterialPatternVariant" then
-			return Roact.createElement(SelectInput, {
-				Items = self.materialPatterns,
-				Size = style.DialogColumnSize,
-				OnItemActivated = self.onMaterialPatternSelected,
-				SelectedIndex = self.state.currentIndex,
-			})
-		end
-
-		return nil
-	end
-
-	self.getError = function(key: string)
-		local props: _Props = self.props
-
-		-- TODO: remove key strings
-		if key == "StudsPerTileVariant" then
-			return props.ErrorStudsPerTile
-		end
-
-		return nil
-	end
-
-	self.getText = function(key: string)
-		local props: _Props = self.props
-		local localization = props.Localization
-
-		return localization:getText("CreateDialog", key)
-	end
 end
 
 function AdditionalPropertiesSettings:didMount()
@@ -154,18 +118,47 @@ end
 
 function AdditionalPropertiesSettings:render()
 	local props: _Props = self.props
+	local localization = props.Localization
+	local style: _Style = props.Stylizer.AdditionalPropertiesSettings
 
-	local items = {
-		"StudsPerTileVariant",
-		"MaterialPatternVariant",
-	}
-
-	return Roact.createElement(LabeledElementList, {
-		GetText = self.getText,
-		GetError = self.getError,
-		Items = items,
+	return Roact.createElement(Pane, {
+		AutomaticSize = Enum.AutomaticSize.XY,
+		Layout = Enum.FillDirection.Vertical,
 		LayoutOrder = props.LayoutOrder,
-		RenderContent = self.renderContent,
+		Spacing = style.ItemSpacing,
+	}, {
+		StudsPerTileVariant = Roact.createElement(LabeledElement, {
+			LabelColumnWidth = style.LabelColumnWidth,
+			LayoutOrder = 1,
+			Spacing = style.ItemPaddingHorizontal,
+			Text = localization:getText("CreateDialog", "StudsPerTileVariant"),
+			ErrorText = props.ErrorStudsPerTile,
+			TextSize = style.ErrorOrWarningTextSize,
+			TextErrorOrWarningColor = style.ErrorOrWarningColor,
+			VerticalSpacing = style.VerticalSpacing,
+		}, {
+			Roact.createElement(TextInput, {
+				Style = if props.ErrorStudsPerTile then "FilledRoundedRedBorder" else "FilledRoundedBorder",
+				Size = style.DialogColumnSize,
+				Text = if getFFlagMaterialManagerGlassNeonForceField() then tostring(props.StudsPerTile) else props.StudsPerTile,
+				OnTextChanged = self.onStudsPerTileChanged,
+			})
+		}),
+		MaterialPatternVariant = Roact.createElement(LabeledElement, {
+			LabelColumnWidth = style.LabelColumnWidth,
+			LayoutOrder = 2,
+			Spacing = style.ItemPaddingHorizontal,
+			Text = localization:getText("CreateDialog", "MaterialPatternVariant"),
+			TextSize = style.ErrorOrWarningTextSize,
+			VerticalSpacing = style.VerticalSpacing,
+		}, {
+			Roact.createElement(SelectInput, {
+				Items = self.materialPatterns,
+				Size = style.DialogColumnSize,
+				OnItemActivated = self.onMaterialPatternSelected,
+				SelectedIndex = self.state.currentIndex,
+			})
+		}),
 	})
 end
 

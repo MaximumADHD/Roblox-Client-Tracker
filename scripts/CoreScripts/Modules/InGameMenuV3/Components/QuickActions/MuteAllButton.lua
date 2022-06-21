@@ -9,6 +9,7 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 
 local InGameMenu = script.Parent.Parent.Parent
 local SetQuickActionsTooltip = require(InGameMenu.Actions.SetQuickActionsTooltip)
+local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -29,13 +30,11 @@ function MuteAllButton:init()
 
 	self.onActivated = function()
 		VoiceChatServiceManager:MuteAll(not self.state.allMuted)
-
 		if self.state.allMuted then
-			self.props.setQuickActionsTooltip("Unmute All")
+			self.props.setQuickActionsTooltip(self.unmuteAll or "Unmute all")
 		else
-			self.props.setQuickActionsTooltip("Mute All")
+			self.props.setQuickActionsTooltip(self.muteAll or "Mute All")
 		end
-
 		self:setState({
 			allMuted = not self.state.allMuted
 		})
@@ -43,16 +42,23 @@ function MuteAllButton:init()
 end
 
 function MuteAllButton:render()
-	return Roact.createElement(IconButton, {
-		iconTransparency = self.props.backgroundTransparency,
-		backgroundTransparency = self.props.backgroundTransparency,
-		backgroundColor = self.props.backgroundColor,
-		showBackground = true,
-		layoutOrder = self.props.layoutOrder,
-		icon = VoiceChatServiceManager:GetIcon(self.state.allMuted and "MuteAll" or "UnmuteAll", "Misc"),
-		iconSize = self.props.iconSize,
-		onActivated = self.onActivated,
-	})
+	return withLocalization({
+		muteAll = "CoreScripts.InGameMenu.QuickActions.MuteAll",
+		unmuteAll = "CoreScripts.InGameMenu.QuickActions.UnmuteAll",
+	})(function(localized)
+		self.unmuteAll = localized.unmuteAll
+		self.muteAll = localized.muteAll
+		return Roact.createElement(IconButton, {
+			iconTransparency = self.props.backgroundTransparency,
+			backgroundTransparency = self.props.backgroundTransparency,
+			backgroundColor = self.props.backgroundColor,
+			showBackground = true,
+			layoutOrder = self.props.layoutOrder,
+			icon = VoiceChatServiceManager:GetIcon(self.state.allMuted and "MuteAll" or "UnmuteAll", "Misc"),
+			iconSize = self.props.iconSize,
+			onActivated = self.onActivated,
+		})
+	end)
 end
 
 local function mapDispatchToProps(dispatch)

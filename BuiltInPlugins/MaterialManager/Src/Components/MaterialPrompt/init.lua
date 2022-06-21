@@ -24,15 +24,17 @@ local Constants = Plugin.Src.Resources.Constants
 local getMaterialPath = require(Constants.getMaterialPath)
 local getMaterialName = require(Constants.getMaterialName)
 
-local ImportAssetHandler = require(Plugin.Src.Components.ImportAssetHandler)
-local MaterialVariantCreator = require(Plugin.Src.Components.MaterialPrompt.MaterialVariantCreator)
-
 local MaterialController = require(Plugin.Src.Util.MaterialController)
+local MaterialServiceController = require(Plugin.Src.Util.MaterialServiceController)
 
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
+local getFFlagMaterialManagerGridOverhaul = require(Flags.getFFlagMaterialManagerGridOverhaul)
+local getFFlagMaterialManagerRefactorMaterialVariantCreator = require(Flags.getFFlagMaterialManagerRefactorMaterialVariantCreator)
+local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
 
-local FIntInfluxReportMaterialManagerHundrethPercent = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent")
+local ImportAssetHandler = require(Plugin.Src.Components.ImportAssetHandler)
+local MaterialVariantCreator = if getFFlagMaterialManagerRefactorMaterialVariantCreator() then require(Plugin.Src.Components.MaterialPrompt.MaterialVariantCreator) else require(Plugin.Src.Components.MaterialPrompt.DEPRECATED_MaterialVariantCreator)
 
 export type Props = {
 	PromptClosed: () -> (),
@@ -55,9 +57,10 @@ type _Props = Props & {
 	Stylizer: any,
 	ImportAssetHandler: any,
 	MaterialController: any,
+	MaterialServiceController: any?, -- Not optional with MaterialManagerGridOverhaul
 	dispatchClearMaterialVariant: () -> (),
 	dispatchSetMaterial: (material: _Types.Material) -> (),
-	dispatchSetPath: (path: _Types.Path) -> (),
+	dispatchSetPath: (path: _Types.Path) -> (), -- Remove with MaterialManagerGridOverhaul
 }
 
 type _Style = {
@@ -104,18 +107,6 @@ function MaterialPrompt:getBaseMaterialError()
 	return nil
 end
 
-function MaterialPrompt:sendAnalyticsToKibana()
-	local props: _Props = self.props
-	local baseMaterial = props.BaseMaterial
-
-	if props.Mode == "Create" and baseMaterial then
-		local args = {
-			["BaseMaterial"] = getMaterialName(baseMaterial),
-		}
-		props.Analytics:report("newMaterialVariant", args, FIntInfluxReportMaterialManagerHundrethPercent)
-	end
-end
-
 function MaterialPrompt:createTempMaterialVariant()
 	local props: _Props = self.props
 
@@ -144,7 +135,12 @@ function MaterialPrompt:createTempMaterialVariant()
 			self.materialVariantTemp.Parent = game:GetService("MaterialService")
 
 			if getFFlagMaterialManagerGlassNeonForceField() then
-				props.dispatchSetPath(getMaterialPath(self.materialVariantTemp.BaseMaterial))
+				if getFFlagMaterialManagerGridOverhaul() then
+					assert(props.MaterialServiceController, "MaterialServiceController is required with FFlagMaterialManagerGridOverhaul")
+					props.MaterialServiceController:setPath(getMaterialPath(self.materialVariant.BaseMaterial))
+				else
+					props.dispatchSetPath(getMaterialPath(self.materialVariantTemp.BaseMaterial))
+				end
 			else
 				props.dispatchSetPath(getMaterialPath(self.materialVariantTemp))
 			end
@@ -176,6 +172,20 @@ function MaterialPrompt:init()
 		end
 	end
 
+	self.sendAnalyticsToKibanaOnSave = function()
+		local props: _Props = self.props
+		local baseMaterial = props.BaseMaterial
+	
+		if props.Mode == "Create" and baseMaterial then
+			local args = {
+				["BaseMaterial"] = getMaterialName(baseMaterial),
+			}
+			props.Analytics:report("newMaterialVariant", args, FIntInfluxReportMaterialManagerHundrethPercent2)
+		elseif props.Mode == "Edit" then
+			props.Analytics:report("editMaterialVariantAndSave")
+		end
+	end
+
 	self.onSave = function()
 		local props: _Props = self.props
 		local materialController = props.MaterialController
@@ -194,9 +204,15 @@ function MaterialPrompt:init()
 							(materialVariant:: any)[mapType] = assetId
 						end)
 					end)
-					-- Use already uploaded assetId
+					if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 and props.Mode == "Create" then
+						props.Analytics:report("importTextureMap")
+					end
+				-- Use already uploaded assetId
 				elseif map.assetId then
 					(materialVariant:: any)[mapType] = map.assetId
+					if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 and props.Mode == "Create" then
+						props.Analytics:report("uploadAssetIdTextureMap")
+					end
 				else
 					(materialVariant:: any)[mapType] = ""
 				end
@@ -238,13 +254,18 @@ function MaterialPrompt:init()
 
 		props.dispatchSetMaterial(materialController:getMaterial(materialVariant))
 		if getFFlagMaterialManagerGlassNeonForceField() then
-			props.dispatchSetPath(getMaterialPath(materialVariant.BaseMaterial))
+			if getFFlagMaterialManagerGridOverhaul() then
+				assert(props.MaterialServiceController, "MaterialServiceController is required with FFlagMaterialManagerGridOverhaul")
+				props.MaterialServiceController:setPath(getMaterialPath(materialVariant.BaseMaterial))
+			else
+				props.dispatchSetPath(getMaterialPath(materialVariant.BaseMaterial))
+			end
 		else
 			props.dispatchSetPath(getMaterialPath(materialVariant))
 		end
 
-		if FIntInfluxReportMaterialManagerHundrethPercent > 0 then
-			self:sendAnalyticsToKibana()
+		if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
+			self.sendAnalyticsToKibanaOnSave()
 		end
 		
 		if props.Mode == "Edit" then
@@ -353,6 +374,7 @@ MaterialPrompt = withContext({
 	Stylizer = Stylizer,
 	ImportAssetHandler = ImportAssetHandler,
 	MaterialController = MaterialController,
+	MaterialServiceController = if getFFlagMaterialManagerGridOverhaul() then MaterialServiceController else nil,
 })(MaterialPrompt)
 
 

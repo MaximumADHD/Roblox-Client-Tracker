@@ -52,6 +52,13 @@ local Constants = {
 		ToolChanged = "ToolChanged",
 		PluginWindowFocused = "PluginWindowFocused",
 	},
+
+	SCREENS = {
+		Select = "Select",
+		AssetType = "AssetType",
+		Edit = "Edit",
+		Generate = "Generate",
+	}
 }
 
 Constants.EDIT_MODE_KEY_TO_STRING = {

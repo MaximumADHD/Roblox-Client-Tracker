@@ -73,7 +73,6 @@ function MainPage:init()
 	end
 	self.pageSize, self.setPageSize = Roact.createBinding(UDim2.new(0, 0, 0, 0))
 
-	PageUtils.initOnScrollDownState(self)
 end
 
 function MainPage:renderMainPageFocusHandler()
@@ -94,81 +93,84 @@ function MainPage:render()
 		canCaptureFocus = self.canGamepadCaptureFocus(self.props)
 	end
 
-	return withStyle(function(style)
-		return Roact.createElement("TextButton", {
-			Size = UDim2.new(0, MAIN_PAGE_WIDTH, 1, 0),
-			BackgroundColor3 = style.Theme.BackgroundDefault.Color,
-			BackgroundTransparency = style.Theme.BackgroundDefault.Transparency,
-			BorderSizePixel = 0,
-			Visible = self.props.open,
-			Text = "",
-			AutoButtonColor = false,
-			Selectable = false,
-		}, {
-			MainPageFocusHandler = GetFFlagUseIGMControllerBar()
-					and not (VRService.VREnabled and FFlagEnableNewVrSystem)
-					and self:renderMainPageFocusHandler()
-				or nil,
-			ControllerBar = Roact.createElement(IGMMainPageControllerBar, {
-				canCaptureFocus = canCaptureFocus,
-			}),
-			ZonePortal = Roact.createElement(ZonePortal, {
-				targetZone = 0,
-				direction = Direction.Left,
-			}),
-			PageContents = Roact.createElement("ScrollingFrame", {
-				BackgroundTransparency = 1,
+	return PageUtils.withScrollDownState(function(onScroll, scrollingDown)
+		return withStyle(function(style)
+			return Roact.createElement("TextButton", {
+				Size = UDim2.new(0, MAIN_PAGE_WIDTH, 1, 0),
+				BackgroundColor3 = style.Theme.BackgroundDefault.Color,
+				BackgroundTransparency = style.Theme.BackgroundDefault.Transparency,
 				BorderSizePixel = 0,
-				CanvasSize = self.pageSize,
-				Size = UDim2.new(1, 0, 1, 0),
-				[Roact.Change.CanvasPosition] = self.onScroll,
+				Visible = self.props.open,
+				Text = "",
+				AutoButtonColor = false,
+				Selectable = false,
 			}, {
-				Layout = Roact.createElement("UIListLayout", {
-					HorizontalAlignment = Enum.HorizontalAlignment.Right,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					VerticalAlignment = Enum.VerticalAlignment.Top,
-					[Roact.Change.AbsoluteContentSize] = function(rbx)
-						self.setPageSize(UDim2.new(0, 0, 0, rbx.AbsoluteContentSize.Y))
-					end,
+				MainPageFocusHandler = GetFFlagUseIGMControllerBar()
+						and not (VRService.VREnabled and FFlagEnableNewVrSystem)
+						and self:renderMainPageFocusHandler()
+					or nil,
+				ControllerBar = Roact.createElement(IGMMainPageControllerBar, {
+					canCaptureFocus = canCaptureFocus,
 				}),
-				GameIconHeader = Roact.createElement(GameIconHeader, { LayoutOrder = 1 }),
-				Spacer = Roact.createElement(Spacer, {
-					layoutOrder = 2,
+				ZonePortal = Roact.createElement(ZonePortal, {
+					targetZone = 0,
+					direction = Direction.Left,
 				}),
-				PageNavigation = Roact.createElement(PageNavigation, {
-					LayoutOrder = 3,
-					mainPageFirstButtonRef = self.mainPageFirstButtonRef,
-					autosize = true,
-				}),
-				Description = Roact.createElement("Frame", {
-					LayoutOrder = 4,
-					AutomaticSize = Enum.AutomaticSize.XY,
+				PageContents = Roact.createElement("ScrollingFrame", {
 					BackgroundTransparency = 1,
-					Size = UDim2.new(1, 0, 0, 0),
+					BorderSizePixel = 0,
+					CanvasSize = self.pageSize,
+					Size = UDim2.new(1, 0, 1, 0),
+					ScrollingDirection = Enum.ScrollingDirection.Y,
+					[Roact.Change.CanvasPosition] = onScroll,
 				}, {
-					Padding = Roact.createElement("UIPadding", {
-						PaddingTop = UDim.new(0, 24),
-						PaddingBottom = UDim.new(0, 80),
-						PaddingLeft = UDim.new(0, 24),
-						PaddingRight = UDim.new(0, 24),
+					Layout = Roact.createElement("UIListLayout", {
+						HorizontalAlignment = Enum.HorizontalAlignment.Right,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						VerticalAlignment = Enum.VerticalAlignment.Top,
+						[Roact.Change.AbsoluteContentSize] = function(rbx)
+							self.setPageSize(UDim2.new(0, 0, 0, rbx.AbsoluteContentSize.Y))
+						end,
 					}),
-					DescriptionText = Roact.createElement(StyledTextLabel, {
-						fontStyle = style.Font.CaptionBody,
-						colorStyle = style.Theme.TextEmphasis,
-						size = UDim2.new(1, 0, 0, 0),
-						text = self.props.gameDescription,
-						textWrapped = true,
-						fluidSizing = false,
-						textXAlignment = Enum.TextXAlignment.Left,
-						textYAlignment = Enum.TextYAlignment.Top,
-						automaticSize = Enum.AutomaticSize.Y,
+					GameIconHeader = Roact.createElement(GameIconHeader, { LayoutOrder = 1 }),
+					Spacer = Roact.createElement(Spacer, {
+						layoutOrder = 2,
+					}),
+					PageNavigation = Roact.createElement(PageNavigation, {
+						LayoutOrder = 3,
+						mainPageFirstButtonRef = self.mainPageFirstButtonRef,
+						autosize = true,
+					}),
+					Description = Roact.createElement("Frame", {
+						LayoutOrder = 4,
+						AutomaticSize = Enum.AutomaticSize.XY,
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, 0, 0, 0),
+					}, {
+						Padding = Roact.createElement("UIPadding", {
+							PaddingTop = UDim.new(0, 24),
+							PaddingBottom = UDim.new(0, 80),
+							PaddingLeft = UDim.new(0, 24),
+							PaddingRight = UDim.new(0, 24),
+						}),
+						DescriptionText = Roact.createElement(StyledTextLabel, {
+							fontStyle = style.Font.CaptionBody,
+							colorStyle = style.Theme.TextEmphasis,
+							size = UDim2.new(1, 0, 0, 0),
+							text = self.props.gameDescription,
+							textWrapped = true,
+							fluidSizing = false,
+							textXAlignment = Enum.TextXAlignment.Left,
+							textYAlignment = Enum.TextYAlignment.Top,
+							automaticSize = Enum.AutomaticSize.Y,
+						}),
 					}),
 				}),
-			}),
-			LeaveButton = Roact.createElement(LeaveButton, {
-				hidden = self.state.scrollingDown,
-			}),
-		})
+				LeaveButton = Roact.createElement(LeaveButton, {
+					hidden = scrollingDown,
+				}),
+			})
+		end)
 	end)
 end
 

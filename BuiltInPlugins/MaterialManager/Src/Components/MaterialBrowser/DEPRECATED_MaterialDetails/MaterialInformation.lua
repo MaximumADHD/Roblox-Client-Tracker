@@ -31,8 +31,11 @@ local MaterialController = require(Plugin.Src.Util.MaterialController)
 
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
+local getFFlagMaterialManagerUIUXFixes = require(Flags.getFFlagMaterialManagerUIUXFixes)
 
 local supportedMaterials = getSupportedMaterials()
+
+local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
 
 export type Props = {
 	LayoutOrder: number?,
@@ -103,6 +106,9 @@ function MaterialInformation:init()
 		if material and material.MaterialVariant then
 			changeHistoryService:SetWaypoint("Delete MaterialVariant")
 			material.MaterialVariant.Parent = nil
+			if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
+				props.Analytics:report("deleteMaterialVariant")
+			end
 		end
 	end
 
@@ -111,11 +117,20 @@ function MaterialInformation:init()
 		local material: _Types.Material? = props.Material
 
 		if getFFlagMaterialManagerGlassNeonForceField() then
-			if material and material.MaterialVariant then
-				props.dispatchClearMaterialVariant()
-				props.dispatchSetBaseMaterial(material.Material)
-				props.dispatchSetMode("Create")
-				props.OpenPrompt("Create")
+			if getFFlagMaterialManagerUIUXFixes() then
+				if material and not material.MaterialVariant then
+					props.dispatchClearMaterialVariant()
+					props.dispatchSetBaseMaterial(material.Material)
+					props.dispatchSetMode("Create")
+					props.OpenPrompt("Create")
+				end
+			else
+				if material and material.MaterialVariant then
+					props.dispatchClearMaterialVariant()
+					props.dispatchSetBaseMaterial(material.Material)
+					props.dispatchSetMode("Create")
+					props.OpenPrompt("Create")
+				end
 			end
 		else
 			if material and material.MaterialVariant then

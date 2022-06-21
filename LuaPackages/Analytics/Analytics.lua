@@ -17,12 +17,18 @@ local EventStreamReporter = require(Reporters.EventStream)
 local GoogleAnalyticsReporter = require(Reporters.GoogleAnalytics)
 local InfluxDbReporter = require(Reporters.Influx)
 
+export type Analytics = {
+	Diag: DiagReporter.Diag,
+	EventStream: EventStreamReporter.EventStream,
+	GoogleAnalytics: GoogleAnalyticsReporter.GoogleAnalytics,
+	InfluxDb: InfluxDbReporter.InfluxDb,
+}
 
 local Analytics = {}
 Analytics.__index = Analytics
 
 -- reportingService : (Service, optional) an object that exposes the same functions as AnalyticsService
-function Analytics.new(reportingService)
+function Analytics.new(reportingService): Analytics
 	if not reportingService then
 		reportingService = AnalyticsService
 	end

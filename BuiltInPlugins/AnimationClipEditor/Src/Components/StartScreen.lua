@@ -18,13 +18,14 @@ local TextEntryPrompt = require(Plugin.Src.Components.TextEntryPrompt)
 local CaptureFocus = Framework.UI.CaptureFocus
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local GetFFlagFixButtonStyle = require(Plugin.LuaFlags.GetFFlagFixButtonStyle)
 
 local StartScreen = Roact.PureComponent:extend("StartScreen")
 
 function StartScreen:render()
-	local theme = self.props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and self.props.Stylizer or self.props.Stylizer.PluginTheme
 	local localization = self.props.Localization
 	local startScreenTheme = theme.startScreenTheme
 	local props = self.props

@@ -38,6 +38,7 @@ local withContext = ContextServices.withContext
 
 local FocusedPrompt = require(Plugin.Src.Components.EditEventsDialog.FocusedPrompt)
 local TextBox = require(Plugin.Src.Components.TextBox)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local TextEntryPrompt = Roact.PureComponent:extend("TextEntryPrompt")
 
@@ -76,7 +77,7 @@ end
 
 function TextEntryPrompt:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local dialogTheme = theme.dialogTheme
 
 	local state = self.state

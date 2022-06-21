@@ -22,6 +22,7 @@ local RigUtils = require(Plugin.Src.Util.RigUtils)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local FloorGrid = Roact.PureComponent:extend("FloorGrid")
 
@@ -60,7 +61,7 @@ end
 
 function FloorGrid:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local gridTheme = theme.gridTheme
 	local container = props.Container or CoreGui
 	local rootInstance = props.RootInstance

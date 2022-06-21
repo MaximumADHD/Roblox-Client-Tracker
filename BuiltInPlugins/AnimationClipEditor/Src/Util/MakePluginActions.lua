@@ -5,6 +5,7 @@
 local Plugin = script.Parent.Parent.Parent
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFaceAnimationEditorFocusFaceWithF = require(Plugin.LuaFlags.GetFFlagFaceAnimationEditorFocusFaceWithF)
+local GetFFlagCurveEditorFreeZoom = require(Plugin.LuaFlags.GetFFlagCurveEditorFreeZoom)
 
 local ACTION_KEYS = {
 	-- Keyframe manipulation
@@ -66,6 +67,10 @@ else
 	table.insert(ACTION_KEYS, "ClearTangents")
 end
 
+-- Move that back to the ACTION_KEYS table when GetFFlagCurveEditorFreeZoom is retired
+if GetFFlagCurveEditorFreeZoom() then
+	table.insert(ACTION_KEYS, "ResizeCanvas")
+end
 
 local function makeAction(plugin, localization, key)
 	return {
@@ -105,6 +110,10 @@ return function(plugin, localization)
 	
 	if GetFFlagFaceAnimationEditorFocusFaceWithF() then
 		actions.FocusCamera.defaultShortcut = "F"
+	end
+
+	if GetFFlagCurveEditorFreeZoom() then
+		actions.ResizeCanvas.defaultShortcut = "A"
 	end
 
 	return actions

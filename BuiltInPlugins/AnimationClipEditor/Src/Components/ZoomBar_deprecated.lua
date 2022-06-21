@@ -21,6 +21,7 @@ local withContext = ContextServices.withContext
 
 local DragTarget = Framework.UI.DragListener
 local ArrowButton = require(Plugin.Src.Components.ArrowButton)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local ZoomBar = Roact.PureComponent:extend("ZoomBar")
 
@@ -136,7 +137,7 @@ end
 function ZoomBar:render()
 	local props = self.props
 	local state = self.state
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local zoomBarTheme = theme.zoomBarTheme
 
 	local position = props.Position

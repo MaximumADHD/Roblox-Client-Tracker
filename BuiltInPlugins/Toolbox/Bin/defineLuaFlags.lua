@@ -1,4 +1,3 @@
-
 game:DefineFastFlag("InfiniteScrollerForVersions2", false)
 -- Corrects the UI's portrayal of group permissions. Specifically, it limits
 -- the apparent ability to modify group role permissions in Studio that are more
@@ -12,5 +11,7 @@ game:DefineFastFlag("ToolboxLocalizeInsertTool", false)
 game:DefineFastFlag("ToolboxLocalizeSearchPlaceholder", false)
 
 game:DefineFastFlag("ToolboxHomeViewSingleLaneNoTitle", false)
+
+game:DefineFastFlag("ToolboxFurtherTryInStudioFixes", false)
 
 return nil

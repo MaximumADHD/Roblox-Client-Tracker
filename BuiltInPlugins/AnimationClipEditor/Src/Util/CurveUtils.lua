@@ -253,4 +253,55 @@ function CurveUtils.generateCurve(trackType, easingStyle, easingDirection, tickA
 	end
 end
 
+-- Find the min and max Y of a track between two consecutive keyframes.
+-- See https://www.desmos.com/calculator/zpiscuiegt
+function CurveUtils.getYExtents(
+		tckA: number, valueA: number, slopeA: number,
+		tckB: number, valueB: number, slopeB: number
+	): (number, number)
+
+	local ax, ay = tckA, valueA
+	local fx, fy = tckB, valueB
+
+	-- Use keyframe A's value by default, so we can always do a min/max on
+	-- all four values, regardless of the number of local extrema we find
+	local m1, m2 = ay, ay
+
+	-- Scale the slopes to work within the x=[0, 1], y=[0, 1] interval
+	-- (Hermite space)
+	local s0 = slopeA * (fx - ax) / (fy - ay)
+	local s1 = slopeB * (fx - ax) / (fy - ay)
+
+	-- Calculate the discriminant for the first derivative of the cubic
+	-- equation
+	local d = (6 - 4 * s0 - 2 * s1)
+	local r = d * d - 4 * (3 * s0 + 3 * s1 - 6) * s0
+
+	-- Hermite cubic between (0, 0) and (1, 1), with slopes s0 and s1
+	local function h(x: number): number
+		return x * (x * ((3 - 2 * x) + (x - 2) * s0 + (x - 1) * s1) + s0)
+	end
+
+	if r >= 0 then
+		-- At least one local extremum. Find the roots (w1 and possibly w2),
+		-- then evaluate the Hermite curve for those roots using h(), and
+		-- finally scale the values back to the curve space.
+		-- We only care about extrema that are between 0 and 1, as this maps
+		-- to the curve between the two keyframes.
+		local sqrt_r = math.sqrt(r)
+
+		local w1 = (4 * s0 + 2 * s1 - 6 + sqrt_r) / (6 * s0 + 6 * s1 - 12)
+		if w1 > 0 and w1 < 1 then
+			m1 = ay + h(w1) * (fy - ay)
+		end
+
+		local w2 = (4 * s0 + 2 * s1 - 6 - sqrt_r) / (6 * s0 + 6 * s1 - 12)
+		if w2 > 0 and w2 < 1 then
+			m2 = ay + h(w2) * (fy - ay)
+		end
+	end
+
+	return math.min(ay, m1, m2, fy), math.max(ay, m1, m2, fy)
+end
+
 return CurveUtils

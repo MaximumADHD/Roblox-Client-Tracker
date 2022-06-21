@@ -48,6 +48,7 @@ local FocusedPrompt = require(Plugin.Src.Components.EditEventsDialog.FocusedProm
 
 local GetFFlagFixButtonStyle = require(Plugin.LuaFlags.GetFFlagFixButtonStyle)
 local FFlagFixRenameAllPromptLabel = game:DefineFastFlag("ACEFixRenameAllPromptLabel", false)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local EditEventsDialog = Roact.PureComponent:extend("EditEventsDialog")
 
@@ -372,7 +373,7 @@ function EditEventsDialog:renderRenameAllPrompt(theme, localization)
 end
 
 function EditEventsDialog:render()
-	local theme = self.props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and self.props.Stylizer or self.props.Stylizer.PluginTheme
 	local localization = self.props.Localization
 	self.layout = LayoutOrderIterator.new()
 	local props = self.props

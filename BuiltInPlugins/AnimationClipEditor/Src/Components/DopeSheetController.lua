@@ -68,6 +68,7 @@ local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAni
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFixButtonStyle = require(Plugin.LuaFlags.GetFFlagFixButtonStyle)
+local GetFFlagCurveEditorFreeZoom = require(Plugin.LuaFlags.GetFFlagCurveEditorFreeZoom)
 
 local DopeSheetController = Roact.Component:extend("DopeSheetController")
 
@@ -631,6 +632,7 @@ function DopeSheetController:render()
 			Position = position,
 			BackgroundTransparency = 1,
 			ZIndex = GetFFlagCurveEditor() and props.ZIndex or nil,
+			[Roact.Event.InputChanged] = if GetFFlagCurveEditorFreeZoom() then self.props.OnInputChanged else nil,
 		}, {
 			Layout = Roact.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Vertical,

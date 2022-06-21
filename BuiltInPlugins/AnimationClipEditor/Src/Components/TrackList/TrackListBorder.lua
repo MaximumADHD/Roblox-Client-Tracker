@@ -19,12 +19,13 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local TrackListBorder = Roact.PureComponent:extend("TrackListBorder")
 
 function TrackListBorder:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(0, 2, 1, 0),

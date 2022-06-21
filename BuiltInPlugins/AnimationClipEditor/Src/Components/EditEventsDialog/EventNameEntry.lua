@@ -33,6 +33,7 @@ local withContext = ContextServices.withContext
 local FilteringTextBox = require(Plugin.Src.Components.FilteringTextBox)
 local EditEventMenu = require(Plugin.Src.Components.EditEventsDialog.EditEventMenu)
 local ContextButton = require(Plugin.Src.Components.ContextButton)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local EventNameEntry = Roact.PureComponent:extend("EventNameEntry")
 
@@ -123,7 +124,7 @@ end
 
 function EventNameEntry:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local state = self.state
 	local size = props.Size
 	local name = props.Name

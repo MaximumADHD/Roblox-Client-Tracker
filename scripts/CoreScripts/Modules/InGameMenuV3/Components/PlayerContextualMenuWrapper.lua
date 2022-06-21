@@ -31,6 +31,8 @@ local PlayerContextualMenu = require(InGameMenu.Components.PlayerContextualMenu)
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 local InviteUserToPlaceId = require(InGameMenu.Thunks.InviteUserToPlaceId)
 
+local SetFriendBlockConfirmation = require(InGameMenu.Actions.SetFriendBlockConfirmation)
+
 local InviteStatus = Constants.InviteStatus
 
 local PlayerContextualMenuWrapper = Roact.PureComponent:extend("PlayerContextualMenuWrapper")
@@ -52,6 +54,7 @@ PlayerContextualMenuWrapper.validateProps = t.strictInterface({
 	dispatchInviteUserToPlaceId = t.callback,
 	blockPlayer = t.callback,
 	unblockPlayer = t.callback,
+	openFriendBlockConfirmation = t.callback,
 })
 
 PlayerContextualMenuWrapper.defaultProps = {
@@ -60,7 +63,7 @@ PlayerContextualMenuWrapper.defaultProps = {
 	screenSize = Vector2.new(0, 0),
 	selectedPlayer = nil,
 	selectedPlayerPosition = Vector2.new(0, 0),
-	onActionComplete = function() end,
+	onActionComplete = function(shouldClose) end,
 }
 
 local ACTION_WIDTH = 300
@@ -99,8 +102,11 @@ function PlayerContextualMenuWrapper:renderWithLocalized(localized)
 	local maxMenuHeight = 0
 	local anchorFromBottom = false
 	local moreActions = {}
+	local isFriendsWithPlayer = false
 	if self.props.selectedPlayer ~= nil then
-		moreActions = self:getMoreActions(localized)
+		local player = self.props.selectedPlayer
+		isFriendsWithPlayer = self.props.playersService.LocalPlayer:IsFriendsWith(player.UserId)
+		moreActions = self:getMoreActions(localized, player, isFriendsWithPlayer)
 		local actionMenuHeight = (math.min(7.5, #moreActions) * ACTION_HEIGHT) + CONTEXT_MENU_HEADER_HEIGHT
 		local screenWidth = self.props.screenSize.X
 		local screenHeight = self.props.screenSize.Y
@@ -146,8 +152,9 @@ function PlayerContextualMenuWrapper:renderWithLocalized(localized)
 				yOffset = moreMenuPositionYOffset,
 				canCaptureFocus = canCaptureFocus,
 				player = self.props.selectedPlayer,
+				isFriend = isFriendsWithPlayer,
 				onClose = function()
-					self.props.onActionComplete()
+					self.props.onActionComplete(true)
 				end,
 			})
 		or nil
@@ -155,10 +162,7 @@ function PlayerContextualMenuWrapper:renderWithLocalized(localized)
 	return moreActionsMenuPanel
 end
 
-function PlayerContextualMenuWrapper:getMoreActions(localized)
-	local player = self.props.selectedPlayer
-	local isFriendsWithPlayer = self.props.playersService.LocalPlayer:IsFriendsWith(player.UserId)
-
+function PlayerContextualMenuWrapper:getMoreActions(localized, player, isFriendsWithPlayer)
 	local moreActions = {}
 	if self.props.selectedPlayer ~= nil then
 		local inviteAction = self:getInviteAction(localized, player, isFriendsWithPlayer)
@@ -186,7 +190,7 @@ function PlayerContextualMenuWrapper:getMoreActions(localized)
 			table.insert(moreActions, mutePlayerAction)
 		end
 
-		local blockPlayerAction = self:getBlockPlayerAction(localized, player)
+		local blockPlayerAction = self:getBlockPlayerAction(localized, player, isFriendsWithPlayer)
 		if blockPlayerAction then
 			table.insert(moreActions, blockPlayerAction)
 		end
@@ -245,6 +249,11 @@ end
 function PlayerContextualMenuWrapper:getFriendAction(localized, player)
 	local isPlayerInstanceType = typeof(player) == "Instance" and player:IsA("Player")
 	if not isPlayerInstanceType then
+		return nil
+	end
+
+	-- check if player is same as local player
+	if player.UserId == Players.LocalPlayer.UserId then
 		return nil
 	end
 
@@ -373,7 +382,7 @@ function PlayerContextualMenuWrapper:getViewAvatarAction(localized, player)
 		onActivated = function()
 			GuiService:InspectPlayerFromUserIdWithCtx(player.UserId, "escapeMenu")
 			self.props.closeMenu()
-			self.props.onActionComplete()
+			self.props.onActionComplete(true)
 			SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsExamineAvatarName, {})
 		end,
 	}
@@ -390,7 +399,7 @@ function PlayerContextualMenuWrapper:getReportAction(localized, player)
 		icon = Images["icons/actions/feedback"],
 		onActivated = function()
 			TrustAndSafety.openReportDialogForPlayer(player)
-			self.props.onActionComplete()
+			self.props.onActionComplete(true)
 		end,
 	}
 end
@@ -414,7 +423,7 @@ function PlayerContextualMenuWrapper:getMutePlayerAction(localized, player)
 				icon = VoiceChatServiceManager:GetIcon(isMuted and "Unmute" or "Mute", "Misc"),
 				onActivated = function()
 					VoiceChatServiceManager:ToggleMutePlayer(player.UserId)
-					self.props.onActionComplete()
+					self.props.onActionComplete(false)
 				end,
 			}
 		end
@@ -423,7 +432,7 @@ function PlayerContextualMenuWrapper:getMutePlayerAction(localized, player)
 	return nil
 end
 
-function PlayerContextualMenuWrapper:getBlockPlayerAction(localized, player)
+function PlayerContextualMenuWrapper:getBlockPlayerAction(localized, player, isFriendsWithPlayer)
 	local isPlayerInstanceType = typeof(player) == "Instance" and player:IsA("Player")
 	if not isPlayerInstanceType then
 		return nil
@@ -441,11 +450,15 @@ function PlayerContextualMenuWrapper:getBlockPlayerAction(localized, player)
 		onActivated = function()
 			if isBlocked then
 				self.props.unblockPlayer(player)
+				self.props.onActionComplete(false)
 			else
-				self.props.blockPlayer(player)
+				if isFriendsWithPlayer then
+					self.props.openFriendBlockConfirmation(player)
+				else
+					self.props.blockPlayer(player)
+					self.props.onActionComplete(false)
+				end
 			end
-
-			self.props.onActionComplete()
 		end,
 	}
 end
@@ -487,6 +500,9 @@ return RoactRodux.connect(function(state, props)
 	}
 end, function(dispatch)
 	return {
+		openFriendBlockConfirmation = function(friend)
+			dispatch(SetFriendBlockConfirmation(true, friend))
+		end,
 		closeMenu = function()
 			dispatch(CloseMenu)
 		end,

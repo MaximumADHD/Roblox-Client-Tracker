@@ -13,8 +13,11 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 
 local InGameMenu = script.Parent.Parent.Parent
 local SetQuickActionsTooltip = require(InGameMenu.Actions.SetQuickActionsTooltip)
+local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+local VoiceConstants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
+local GetFFlagEnableVoiceChatManualReconnect = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatManualReconnect)
 
 local MuteSelfButton = Roact.PureComponent:extend("MuteSelfButton")
 
@@ -29,35 +32,49 @@ MuteSelfButton.validateProps = t.interface({
 
 function MuteSelfButton:init()
 	self:setState({
-		selfMuted = false,
+		selfMuted = VoiceChatServiceManager.localMuted or true
 	})
+	VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
+		self:setState({
+			selfMuted = muted
+		})
+	end)
 
 	self.onActivated = function()
-		VoiceChatServiceManager:ToggleMic()
-
-		if self.state.selfMuted then
-			self.props.setQuickActionsTooltip("Unmute Self")
+		if GetFFlagEnableVoiceChatManualReconnect() and self.props.voiceState == VoiceConstants.VOICE_STATE.ERROR then
+			VoiceChatServiceManager:RejoinPreviousChannel()
 		else
-			self.props.setQuickActionsTooltip("Mute Self")
+			VoiceChatServiceManager:ToggleMic()
+			if self.state.selfMuted then
+				self.props.setQuickActionsTooltip(self.unmuteSelf or "Unmute Self")
+			else
+				self.props.setQuickActionsTooltip(self.muteSelf or "Mute Self")
+			end
+			self:setState({
+				selfMuted = not self.state.selfMuted
+			})
 		end
-
-		self:setState({
-			selfMuted = not self.state.selfMuted
-		})
 	end
 end
 
 function MuteSelfButton:render()
-	return Roact.createElement(IconButton, {
-		iconTransparency = self.props.backgroundTransparency,
-		backgroundTransparency = self.props.backgroundTransparency,
-		backgroundColor = self.props.backgroundColor,
-		showBackground = true,
-		layoutOrder = self.props.layoutOrder,
-		icon = self.state.selfMuted and MUTED_ICON or UNMUTED_ICON,
-		iconSize = self.props.iconSize,
-		onActivated = self.onActivated,
-	})
+	return withLocalization({
+		muteSelf = "CoreScripts.InGameMenu.QuickActions.MuteSelf",
+		unmuteSelf = "CoreScripts.InGameMenu.QuickActions.UnmuteSelf",
+	})(function(localized)
+		self.muteSelf = localized.muteSelf
+		self.unmuteSelf = localized.unmuteSelf
+		return Roact.createElement(IconButton, {
+			iconTransparency = self.props.backgroundTransparency,
+			backgroundTransparency = self.props.backgroundTransparency,
+			backgroundColor = self.props.backgroundColor,
+			showBackground = true,
+			layoutOrder = self.props.layoutOrder,
+			icon = self.state.selfMuted and MUTED_ICON or UNMUTED_ICON,
+			iconSize = self.props.iconSize,
+			onActivated = self.onActivated,
+		})
+	end)
 end
 
 local function mapDispatchToProps(dispatch)

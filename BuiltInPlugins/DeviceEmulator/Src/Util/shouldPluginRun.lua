@@ -4,20 +4,21 @@ return function()
 		return false
 	end
 
-	-- TODO New Plugin Setup: Plugins should probably be internal-only in development
+	-- TODO: remove this for Beta
 	local hasInternalPermission = require(script.Parent.hasInternalPermission)
 	if not hasInternalPermission() then
 		return false
 	end
 
-	-- TODO New Plugin Setup: Uncomment this line and replace with your flag's name.
 	--[[
-	if not game:GetFastFlag("<YOUR FLAG HERE>") then
-		return false
-	end
-	--]]
+		-- currently we're flagging in main.server.lua
+		-- if we switch to the shouldPluginRun model, uncomment and fix this
+		local main = script.Parent.Parent.Parent
+		local getFFlagDeviceEmulatorPluginBasedUi = require(main.Src.Flags.getFFlagDeviceEmulatorPluginBasedUi)
+		if not getFFlagDeviceEmulatorPluginBasedUi() then
+			return false
+		end
+	]]
 
-	-- TODO New Plugin Setup: Once your plugin is flagged, uncomment this line
-	-- return true
-	return false
+	return true
 end

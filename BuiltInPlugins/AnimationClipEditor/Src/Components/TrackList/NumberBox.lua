@@ -44,6 +44,8 @@ local RoundFrame = require(UILibraryCompat.RoundFrame)
 local TextBox = require(Plugin.Src.Components.TextBox)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+local GetFFlagValidateNumberBox = require(Plugin.LuaFlags.GetFFlagValidateNumberBox)
 
 local NumberBox = Roact.PureComponent:extend("NumberBox")
 
@@ -68,7 +70,10 @@ function NumberBox:init()
 				local text = rbx.Text
 				local number = tonumber(text)
 				if number and self.props.SetNumber then
-					self.props.SetNumber(number)
+					local validatedNumber = self.props.SetNumber(number)
+					if GetFFlagValidateNumberBox() and validatedNumber then
+						rbx.Text = self:formatNumber(validatedNumber)
+					end
 				else
 					rbx.Text = self.props.Number
 				end
@@ -98,7 +103,7 @@ end
 
 function NumberBox:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 
 	local textBoxTheme = theme.textBox
 	local trackTheme = theme.trackTheme

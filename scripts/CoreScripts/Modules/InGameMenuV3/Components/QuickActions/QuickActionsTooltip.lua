@@ -12,7 +12,8 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 
 local QuickActionsTooltip = Roact.PureComponent:extend("QuickActionsTooltip")
 
-local QUICK_ACTIONS_CONTROL_TOOLTIP_HEIGHT = 36
+local TOOLTIP_WIDTH = 250
+local TOOLTIP_HEIGHT = 36
 local FPS = 30
 
 QuickActionsTooltip.validateProps = t.strictInterface({
@@ -68,7 +69,8 @@ function QuickActionsTooltip:render()
 			LayoutOrder = self.props.layoutOrder,
 			TextSize = style.Font.Header2.RelativeSize * style.Font.BaseSize,
 			TextWrapped = true,
-			Size = UDim2.new(1, 0, 0, QUICK_ACTIONS_CONTROL_TOOLTIP_HEIGHT),
+			Size = UDim2.new(0, TOOLTIP_WIDTH, 0, TOOLTIP_HEIGHT),
+			Position = UDim2.new(1, -TOOLTIP_WIDTH, 0, 0),
 			TextColor3 = style.Theme.TextEmphasis.Color,
 			TextTransparency = self.textTransparency,
 		})
@@ -111,7 +113,7 @@ end
 
 local function mapStateToProps(state, _)
 	return {
-		text = state.tooltipText,
+		text = state.quickActions.tooltipText,
 	}
 end
 

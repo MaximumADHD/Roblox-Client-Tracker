@@ -21,6 +21,7 @@ local withContext = ContextServices.withContext
 local Constants = require(Plugin.Src.Util.Constants)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local TrackColors = Roact.PureComponent:extend("TrackColors")
 
@@ -73,7 +74,7 @@ end
 
 function TrackColors:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local children = self:renderTracks(theme)
 
 	local position = props.Position

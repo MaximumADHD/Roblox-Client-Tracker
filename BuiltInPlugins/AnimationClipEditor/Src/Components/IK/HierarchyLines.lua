@@ -25,6 +25,7 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local HierarchyLines = Roact.PureComponent:extend("HierarchyLines")
 
@@ -34,7 +35,7 @@ local WIDTH = 20
 
 function HierarchyLines:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local isLeafNode = props.IsLeafNode
 	local inActiveChain = props.InActiveChain
 	local isChildNode = props.IsChildNode

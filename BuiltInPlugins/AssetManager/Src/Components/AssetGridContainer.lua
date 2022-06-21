@@ -6,10 +6,15 @@
         OnOverlayActivated = callback, to display the overlay when the overlay button is clicked.
     Optional Properties:
 ]]
+local FFlagAssetManagerDragAndDrop = game:GetFastFlag("AssetManagerDragAndDrop")
+
 local Plugin = script.Parent.Parent.Parent
 
+local InsertAsset = require(Plugin.Packages.InsertAsset)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+
+local InsertAssetContext = InsertAsset.Context.InsertAssetContext
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -37,6 +42,7 @@ local SetAssets = require(Plugin.Src.Actions.SetAssets)
 
 local GetAssets = require(Plugin.Src.Thunks.GetAssets)
 local LoadAllAliases = require(Plugin.Src.Thunks.LoadAllAliases)
+local OnAssetDrag = require(Plugin.Src.Thunks.OnAssetDrag)
 local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
 local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
 local UpdateSelectedAssets = require(Plugin.Src.Thunks.UpdateSelectedAssets)
@@ -130,6 +136,14 @@ function AssetGridContainer:init()
     self.onAssetPreviewClose = function()
         self.props.OnAssetPreviewClose()
     end
+
+    if FFlagAssetManagerDragAndDrop then
+        self.onAssetDrag = function(assetData)
+            local props = self.props
+            local insertAsset = props.InsertAsset:get()
+            props.dispatchOnAssetDrag(insertAsset, assetData, props.Analytics)
+        end
+    end
 end
 
 function AssetGridContainer:didMount()
@@ -222,6 +236,7 @@ function AssetGridContainer:createTiles(apiImpl, localization, theme,
                     Enabled = enabled,
                     OnOpenAssetPreview = self.onOpenAssetPreview,
                     OnAssetPreviewClose = self.onAssetPreviewClose,
+                    OnAssetDrag = if FFlagAssetManagerDragAndDrop then self.onAssetDrag else nil,
                 })
                 assetsToDisplay[asset.id] = assetTile
                 numberAssets = numberAssets + 1
@@ -278,6 +293,7 @@ function AssetGridContainer:createListItems(apiImpl, localization, theme,
                     Enabled = enabled,
                     OnOpenAssetPreview = self.onOpenAssetPreview,
                     OnAssetPreviewClose = self.onAssetPreviewClose,
+                    OnAssetDrag = if FFlagAssetManagerDragAndDrop then self.onAssetDrag else nil,
                 })
                 assetsToDisplay[asset.id] = assetListItem
                 numberAssets = numberAssets + 1
@@ -446,6 +462,7 @@ end
 AssetGridContainer = withContext({
     Analytics = ContextServices.Analytics,
     API = ContextServices.API,
+    InsertAsset = if FFlagAssetManagerDragAndDrop then InsertAssetContext else nil,
     Localization = ContextServices.Localization,
     Plugin = ContextServices.Plugin,
     Stylizer = ContextServices.Stylizer,
@@ -477,6 +494,9 @@ local function mapDispatchToProps(dispatch)
             props.AssetData = placesFolder
             dispatch(OnAssetRightClick(props))
         end,
+        dispatchOnAssetDrag = if FFlagAssetManagerDragAndDrop then function(insertAsset, assetData, analytics)
+            dispatch(OnAssetDrag(insertAsset, assetData, analytics))
+        end else nil,
         dispatchOnScreenChange = function(apiImpl, screen)
             dispatch(OnScreenChange(apiImpl, screen))
         end,

@@ -43,6 +43,7 @@ local StringUtils = require(Plugin.Src.Util.StringUtils)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local FFlagFixExtremeZoomOnTick = game:DefineFastFlag("ACEFixExtremeZoomOnTick", false)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local Timeline = Roact.PureComponent:extend("Timeline")
 
@@ -112,7 +113,7 @@ end
 
 function Timeline:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local timelineTheme = theme.timelineTheme
 
 	local state = self.state

@@ -40,6 +40,8 @@ local SetCurrentFrameNumber = require(Actions.Callstack.SetCurrentFrameNumber)
 local SetCurrentThread = require(Actions.Callstack.SetCurrentThread)
 local ColumnFilterChange = require(Actions.Callstack.ColumnFilterChange)
 
+local LoadAllVariablesForThreadAndFrame = require(PluginFolder.Src.Thunks.Watch.LoadAllVariablesForThreadAndFrame)
+
 local Models = PluginFolder.Src.Models
 local CallstackRow = require(Models.Callstack.CallstackRow)
 
@@ -51,8 +53,9 @@ local StudioService = game:GetService("StudioService")
 
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
 local FFlagDevFrameworkTableHeaderTooltip = game:GetFastFlag("DevFrameworkTableHeaderTooltip")
-local FFlagDevFrameworkCustomTableRowHeight = game:GetFastFlag("DevFrameworkCustomTableRowHeight")
 local hasTableColumnResizeFFlags = FFlagDevFrameworkTableColumnResize
+
+local FFlagDebuggerOnlyLoadCurrentFrameVariables = require(PluginFolder.Src.Flags.GetFFlagDebuggerOnlyLoadCurrentFrameVariables)
 
 local defaultColumnKey = {
 	[1] = "arrowColumn",
@@ -232,6 +235,10 @@ function CallstackComponent:init()
 					rowInfo.lineColumn,
 					false
 				)
+				
+				if FFlagDebuggerOnlyLoadCurrentFrameVariables() then
+					props.onCurrentFrameChanged(props.CurrentDebuggerConnectionId, threadId, frameNumber)
+				end
 			end
 		end
 	end
@@ -544,10 +551,8 @@ function CallstackComponent:render()
 				UseScale = if hasTableColumnResizeFFlags then true else nil,
 				ClampSize = if hasTableColumnResizeFFlags then true else nil,
 				Padding = TABLE_PADDING,
-				ColumnHeaderHeight = if FFlagDevFrameworkCustomTableRowHeight
-					then Constants.COLUMN_HEADER_HEIGHT
-					else nil,
-				RowHeight = if FFlagDevFrameworkCustomTableRowHeight then Constants.ROW_HEIGHT else nil,
+				ColumnHeaderHeight = Constants.COLUMN_HEADER_HEIGHT,
+				RowHeight = Constants.ROW_HEIGHT,
 			}),
 		}),
 	})
@@ -608,6 +613,12 @@ end, function(dispatch)
 		setCurrentFrameNumber = function(threadId, frameNumber)
 			return dispatch(SetCurrentFrameNumber(threadId, frameNumber))
 		end,
+		onCurrentFrameChanged = function(currentDebuggerConnectionId, threadId, frameNumber)
+			local debuggerUIService = game:GetService("DebuggerUIService")
+			local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
+			local connection = debuggerConnectionManager:GetConnectionById(currentDebuggerConnectionId)
+			return dispatch(LoadAllVariablesForThreadAndFrame(threadId, connection,frameNumber-1,debuggerUIService))
+		end,
 		onExpansionClicked = function(threadId, topFrame, currentDebuggerConnectionId)
 			local debuggerUIService = game:GetService("DebuggerUIService")
 			debuggerUIService:OpenScriptAtLine(topFrame.scriptGUID, currentDebuggerConnectionId, topFrame.lineColumn, false)
@@ -617,8 +628,15 @@ end, function(dispatch)
 				topFrame.lineColumn,
 				true
 			)
-			debuggerUIService:SetCurrentThreadId(threadId)
-			return dispatch(SetCurrentThread(threadId))
+			
+			if FFlagDebuggerOnlyLoadCurrentFrameVariables() then
+				local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
+				local connection = debuggerConnectionManager:GetConnectionById(currentDebuggerConnectionId)
+				return dispatch(LoadAllVariablesForThreadAndFrame(threadId, connection,0,debuggerUIService))
+			else
+				debuggerUIService:SetCurrentThreadId(threadId)
+				return dispatch(SetCurrentThread(threadId))
+			end
 		end,
 		onColumnFilterChange = function(enabledColumns)
 		    return dispatch(ColumnFilterChange(enabledColumns))

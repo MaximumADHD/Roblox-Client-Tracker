@@ -10,12 +10,15 @@ local ClearConnectionDataAction = require(Actions.Common.ClearConnectionData)
 local RequestCallstackThunk = require(Src.Thunks.Callstack.RequestCallstackThunk)
 local LoadStackFrameVariables = require(Src.Thunks.Callstack.LoadStackFrameVariables)
 local ExecuteExpressionForAllFrames = require(Src.Thunks.Watch.ExecuteExpressionForAllFrames)
+local LoadAllVariablesForThreadAndFrame = require(Src.Thunks.Watch.LoadAllVariablesForThreadAndFrame)
 
 local Models = Src.Models
 local DebuggerStateToken = require(Models.DebuggerStateToken)
 local StepStateBundle = require(Models.StepStateBundle)
 
 local Constants = require(Src.Util.Constants)
+
+local FFlagDebuggerOnlyLoadCurrentFrameVariables = require(Src.Flags.GetFFlagDebuggerOnlyLoadCurrentFrameVariables)
 
 local DebugConnectionListener = {}
 DebugConnectionListener.__index = DebugConnectionListener
@@ -56,24 +59,33 @@ function DebugConnectionListener:onExecutionPaused(
 		for index, threadState in pairs(threadStates) do
 			self.store:dispatch(AddThreadId(threadState.ThreadId, threadState.ThreadName, dst))
 			self.store:dispatch(RequestCallstackThunk(threadState, connection, dst, scriptChangeService))
-			debuggerUIService:SetCurrentThreadId(threadState.ThreadId)
-			self.store:dispatch(SetCurrentThread(threadState.ThreadId))
+			
+			if not FFlagDebuggerOnlyLoadCurrentFrameVariables() then
+				debuggerUIService:SetCurrentThreadId(threadState.ThreadId)
+				self.store:dispatch(SetCurrentThread(threadState.ThreadId))
+			end
+			
 			connection:Populate(threadState, function()
 				if not isThreadIdValid() then
 					return
 				end
-				local callstack = threadState:GetChildren()
-				for stackFrameId, stackFrame in ipairs(callstack) do
-					local stepStateBundle = StepStateBundle.ctor(dst, threadState.ThreadId, stackFrameId)
-					self.store:dispatch(LoadStackFrameVariables(connection, stackFrame, stepStateBundle))
-				end
+				
+				if FFlagDebuggerOnlyLoadCurrentFrameVariables() then
+					self.store:dispatch(LoadAllVariablesForThreadAndFrame(threadState.ThreadId, connection, 0, debuggerUIService))
+				else
+					local callstack = threadState:GetChildren()
+					for stackFrameId, stackFrame in ipairs(callstack) do
+						local stepStateBundle = StepStateBundle.ctor(dst, threadState.ThreadId, stackFrameId)
+						self.store:dispatch(LoadStackFrameVariables(connection, stackFrame, stepStateBundle))
+					end
 
-				local listOfExpressions = self.store:getState().Watch.listOfExpressions
-				for _, expression in ipairs(listOfExpressions) do
-					self.store:dispatch(
-						ExecuteExpressionForAllFrames(expression, connection, dst, threadState.ThreadId)
-					)
-				end
+					local listOfExpressions = self.store:getState().Watch.listOfExpressions
+					for _, expression in ipairs(listOfExpressions) do
+						self.store:dispatch(
+							ExecuteExpressionForAllFrames(expression, connection, dst, threadState.ThreadId)
+						)
+					end
+				end		
 
 				-- Open script at top of callstack
 				local topFrame = threadState:GetFrame(0)

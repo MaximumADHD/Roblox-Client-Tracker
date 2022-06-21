@@ -1,15 +1,20 @@
+local Plugin = script.Parent.Parent.Parent
+local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local mockContext = require(Plugin.Src.Util.mockContext)
+
+local join = Framework.Dash.join
+
+local MaterialPreview = require(script.Parent.MaterialPreview)
+
 return function()
-	local Plugin = script.Parent.Parent.Parent
-	local Roact = require(Plugin.Packages.Roact)
-	local mockContext = require(Plugin.Src.Util.mockContext)
-
-	local MaterialPreview = require(script.Parent.MaterialPreview)
-
-	local function createTestElement(props: MaterialPreview.Props?)
-		props = props or {}
+	local function createTestElement(props: {}?)
+		local materialPreviewProps: MaterialPreview.Props = join({
+			Material = Enum.Material.Plastic,
+		}, props or {})
 
 		return mockContext({
-			MaterialPreview = Roact.createElement(MaterialPreview, props)
+			MaterialPreview = Roact.createElement(MaterialPreview, materialPreviewProps)
 		})
 	end
 
@@ -29,10 +34,10 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly with only metalness map", function()
+	it("should render correctly with MaterialVariant", function()
 		local container = Instance.new("Folder")
 		local element = createTestElement({
-			MetalnessMap = "rbxassetid://8207243574",
+			MaterialVariant = "PlasticVariant"
 		})
 		local instance = Roact.mount(element, container)
 
@@ -41,10 +46,10 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly with only normal map", function()
+	it("should render correctly in Static mode", function()
 		local container = Instance.new("Folder")
 		local element = createTestElement({
-			NormalMap = "rbxassetid://8706416568",
+			Static = true
 		})
 		local instance = Roact.mount(element, container)
 
@@ -53,22 +58,10 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly with only roughness map", function()
+	it("should render correctly in DisableZoom mode", function()
 		local container = Instance.new("Folder")
 		local element = createTestElement({
-			RoughnessMap = "rbxassetid://8706417425",
-		})
-		local instance = Roact.mount(element, container)
-
-		local main = container:FindFirstChildOfClass("Frame")
-		expect(main).to.be.ok()
-		Roact.unmount(instance)
-	end)
-
-	it("should render correctly when in static mode", function()
-		local container = Instance.new("Folder")
-		local element = createTestElement({
-			Static = true,
+			DisableZoom = true
 		})
 		local instance = Roact.mount(element, container)
 

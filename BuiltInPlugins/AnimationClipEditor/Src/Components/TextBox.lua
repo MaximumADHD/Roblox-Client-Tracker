@@ -25,6 +25,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local UILibraryCompat = Plugin.Src.UILibraryCompat
 local RoundFrame = require(UILibraryCompat.RoundFrame)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local TextBox = Roact.PureComponent:extend("TextBox")
 
@@ -67,7 +68,7 @@ end
 
 function TextBox:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local state = self.state
 
 	local size = props.Size

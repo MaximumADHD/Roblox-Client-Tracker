@@ -46,7 +46,6 @@ local Constants = require(Plugin.Src.Util.Constants)
 local SelectItemScreen = Roact.PureComponent:extend("SelectItemScreen")
 
 local GetFFlagDebugLCEditAvatarCage = require(Plugin.Src.Flags.GetFFlagDebugLCEditAvatarCage)
-local GetFFlagFixNoCageMeshIdCrash = require(Plugin.Src.Flags.GetFFlagFixNoCageMeshIdCrash)
 
 local Util = Framework.Util
 local Typecheck = Util.Typecheck
@@ -109,19 +108,17 @@ function SelectItemScreen:init()
 		local selectedPart = state.selectedPart
 
 		-- final sanity check in-case the user tries to change something about the target they selected before hitting "Next"
-		if GetFFlagFixNoCageMeshIdCrash() then
-			local valid = self.isSelectedInstanceValid(selectedPart)
-			if not valid then
-				self:setState({
-					invalidSelected = true,
-					selectedPart = Roact.None,
-				})
-				ShowDialog(props.Plugin, props.Localization, ConfirmDialog,{
-					Text = self.props.Localization:getText("Select", "Invalid"),
-					OnClose = function() end,
-				})
-				return
-			end
+		local valid = self.isSelectedInstanceValid(selectedPart)
+		if not valid then
+			self:setState({
+				invalidSelected = true,
+				selectedPart = Roact.None,
+			})
+			ShowDialog(props.Plugin, props.Localization, ConfirmDialog,{
+				Text = self.props.Localization:getText("Select", "Invalid"),
+				OnClose = function() end,
+			})
+			return
 		end
 
 		if selectedPart then
@@ -144,7 +141,7 @@ function SelectItemScreen:init()
 			return false
 		end
 
-		if GetFFlagFixNoCageMeshIdCrash() and ItemCharacteristics.hasInvalidCage(item) then
+		if ItemCharacteristics.hasInvalidCage(item) then
 			return false
 		end
 

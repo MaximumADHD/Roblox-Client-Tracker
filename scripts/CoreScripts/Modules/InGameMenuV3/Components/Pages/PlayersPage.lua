@@ -5,6 +5,7 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
+local Cryo = InGameMenuDependencies.Cryo
 local Roact = InGameMenuDependencies.Roact
 local UIBlox = InGameMenuDependencies.UIBlox
 local RoactRodux = InGameMenuDependencies.RoactRodux
@@ -39,9 +40,11 @@ local SearchBar = require(script.Parent.Parent.SearchBar)
 local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicator)
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 
-local DIVIDER_INDENT = 104
+local DIVIDER_INDENT = 0
+local DIVIDER_HEIGHT = 1
 local LIST_HEADER_HEIGHT = 24
 local PLAYER_CELL_HEIGHT = 72
+local INVITE_CELL_HEIGHT = 56
 
 local ICON_SIZE = getIconSize(UIBlox.App.ImageSet.Enum.IconSize.Medium)
 
@@ -154,8 +157,6 @@ function PlayersPage:init()
 			searchText = "",
 		})
 	end
-
-	PageUtils.initOnScrollDownState(self)
 end
 
 function PlayersPage:getPlayerByUserId(userId)
@@ -336,7 +337,8 @@ function PlayersPage:renderListEntries(style, localized, players)
 			if index < #players then
 				listComponents["divider_" .. id] = Roact.createElement(Divider, {
 					LayoutOrder = layoutOrder,
-					Size = UDim2.new(1, -DIVIDER_INDENT, 0, 1),
+					Size = UDim2.new(1, -DIVIDER_INDENT, 0, DIVIDER_HEIGHT),
+					theme = "BackgroundContrast",
 				})
 
 				layoutOrder = layoutOrder + 1
@@ -373,10 +375,17 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(style, localized, get
 				xOffset = Constants.PageWidth,
 				selectedPlayer = self.state.selectedPlayer,
 				selectedPlayerPosition = self.state.selectedPlayerPosition,
-				onActionComplete = function()
-					self:setState({
-						selectedPlayer = Roact.None,
-					})
+				onActionComplete = function(shouldClose)
+					if shouldClose then
+						self:setState({
+							selectedPlayer = Roact.None,
+						})
+					else
+						-- refresh contents forcibly
+						self:setState(function(prevState, props)
+							return Cryo.Dictionary.join(prevState)
+						end)
+					end
 				end,
 			})
 		or nil
@@ -386,61 +395,72 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(style, localized, get
 		localized,
 		self.props.players
 	)
-	local canvasSize = visibleEntryCount * (PLAYER_CELL_HEIGHT + 1) + (visibleHeadersCount * LIST_HEADER_HEIGHT)
-	return Roact.createElement(Page, {
-		useLeaveButton = true,
-		scrollingDown = self.state.scrollingDown,
-		pageTitle = self.props.pageTitle,
-		titleChildren = Roact.createElement(IconButton, {
-			size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
-			icon = Images["icons/common/search"],
-			onActivated = function()
-				self:setState({
-					isFilteringMode = true,
-				})
-			end,
-		}),
-		isFilteringMode = self.state.isFilteringMode,
-		searchBar = Roact.createElement(SearchBar, {
-			size = UDim2.new(1, 0, 0, 36),
-			autoCaptureFocus = true,
-			onTextChanged = self.onSearchTextChanged,
-			onCancelled = self.onSearchBarDismissed,
-		}),
-	}, {
-		PlayerListContent = withStyle(function(style)
-			return Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				Size = UDim2.new(1, 0, 1, 0),
-			}, {
-				PlayerList = Roact.createElement(BarOnTopScrollingFrame, {
-					Position = UDim2.new(0, 0, 0, 0),
-					Size = UDim2.new(1, 0, 1, 0),
-					CanvasSize = UDim2.new(1, 0, 0, canvasSize),
-					ScrollingEnabled = self.state.selectedPlayer == nil,
-					onCanvasPositionChanged = self.onScroll,
-				}, listEntries),
+	local canvasSize = INVITE_CELL_HEIGHT
+		+ (visibleEntryCount * (PLAYER_CELL_HEIGHT + DIVIDER_HEIGHT))
+		+ (visibleHeadersCount * LIST_HEADER_HEIGHT)
 
-				MoreActionsMenu = moreActionsMenuPanel,
-			})
-		end),
-		FocusHandler = self:renderFocusHandler(canCaptureFocus),
-		Watcher = Roact.createElement(PageNavigationWatcher, {
-			desiredPage = "Players",
-			onNavigateTo = function()
-				self:setState({
-					players = Players:GetPlayers(),
+	return PageUtils.withScrollDownState(function(onScroll, scrollingDown)
+		return Roact.createElement(Page, {
+			useLeaveButton = true,
+			scrollingDown = scrollingDown,
+			pageTitle = self.props.pageTitle,
+			titleChildren = Roact.createElement(IconButton, {
+				size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
+				icon = Images["icons/common/search"],
+				onActivated = function()
+					self:setState({
+						isFilteringMode = true,
+					})
+				end,
+			}),
+			isFilteringMode = self.state.isFilteringMode,
+			searchBar = Roact.createElement(SearchBar, {
+				size = UDim2.new(1, 0, 0, 36),
+				autoCaptureFocus = true,
+				onTextChanged = self.onSearchTextChanged,
+				onCancelled = self.onSearchBarDismissed,
+			}),
+		}, {
+			PlayerListContent = withStyle(function(style)
+				return Roact.createElement("Frame", {
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					Size = UDim2.new(1, 0, 1, 0),
+				}, {
+					PlayerList = Roact.createElement(BarOnTopScrollingFrame, {
+						Position = UDim2.new(0, 0, 0, 0),
+						Size = UDim2.new(1, 0, 1, 0),
+						CanvasSize = UDim2.new(1, 0, 0, canvasSize),
+						onCanvasPositionChanged = function(rbx)
+							if self.state.selectedPlayer then
+								self:setState({
+									selectedPlayer = Roact.None,
+								})
+							end
+							onScroll(rbx)
+						end,
+					}, listEntries),
+
+					MoreActionsMenu = moreActionsMenuPanel,
 				})
-			end,
-			onNavigateAway = function()
-				self:setState({
-					selectedPlayer = Roact.None,
-					pendingIncomingPlayerInvite = Roact.None,
-				})
-			end,
-		}),
-	})
+			end),
+			FocusHandler = self:renderFocusHandler(canCaptureFocus),
+			Watcher = Roact.createElement(PageNavigationWatcher, {
+				desiredPage = "Players",
+				onNavigateTo = function()
+					self:setState({
+						players = Players:GetPlayers(),
+					})
+				end,
+				onNavigateAway = function()
+					self:setState({
+						selectedPlayer = Roact.None,
+						pendingIncomingPlayerInvite = Roact.None,
+					})
+				end,
+			}),
+		})
+	end)
 end
 
 function PlayersPage:renderWithLocalized(style, localized)

@@ -1,3 +1,5 @@
+local FFlagAssetManagerDragAndDrop = game:GetFastFlag("AssetManagerDragAndDrop")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Cryo = require(Plugin.Packages.Cryo)
@@ -9,6 +11,8 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UI = Framework.UI
+local DragSource = UI.DragSource
+local Pane = UI.Pane
 local Tooltip = UI.Tooltip
 
 local Util = Framework.Util
@@ -78,6 +82,12 @@ local function getClassIcon(assetData)
     end
 end
 
+function ListItem:isFolder()
+	local props = self.props
+	local isFolder = props.AssetData.ClassName == "Folder"
+	return isFolder
+end
+
 function ListItem:init()
     self.state = {
         -- StyleModifier must be upper case first character because of how Theme in ContextServices uses it.
@@ -128,39 +138,86 @@ function ListItem:init()
         end
     end
 
-    self.onMouseActivated = function(rbx, obj, clickCount)
-        local props = self.props
-        if not props.Enabled then
-            return
+    if FFlagAssetManagerDragAndDrop then
+        self.onClick = function(input, clickCount)
+            local props = self.props
+            if not props.Enabled then
+                return
+            end
+            local assetData = props.AssetData
+            if clickCount == 0 then
+                props.dispatchOnAssetSingleClick(input, assetData)
+            elseif clickCount == 1 then
+                props.dispatchOnAssetDoubleClick(props.Analytics, assetData)
+            end
         end
-        local assetData = props.AssetData
-        if clickCount == 0 then
-            props.dispatchOnAssetSingleClick(obj, assetData)
-        elseif clickCount == 1 then
-            props.dispatchOnAssetDoubleClick(props.Analytics, assetData)
-        end
-    end
 
-    self.onMouseButton2Click = function(rbx, x, y)
-        local props = self.props
-        if not props.Enabled then
-            return
-        end
-        local assetData = props.AssetData
-        local isFolder = assetData.ClassName == "Folder"
-        if isFolder then
-            if not props.SelectedAssets[assetData.Screen.LayoutOrder] then
-                props.dispatchOnAssetSingleClick(nil, assetData)
+        self.onDragBegan = function(input)
+            if self:isFolder() then
+                return
             end
-        else
-            if not props.SelectedAssets[assetData.key] then
-                props.dispatchOnAssetSingleClick(nil, assetData)
+            local props = self.props
+            local assetData = props.AssetData
+            props.OnAssetDrag(assetData)
+        end
+
+        self.onRightClick = function()
+            local props = self.props
+            if not props.Enabled then
+                return
+            end
+            local assetData = props.AssetData
+            local isFolder = assetData.ClassName == "Folder"
+            if isFolder then
+                if not props.SelectedAssets[assetData.Screen.LayoutOrder] then
+                    props.dispatchOnAssetSingleClick(nil, assetData)
+                end
+            else
+                if not props.SelectedAssets[assetData.key] then
+                    props.dispatchOnAssetSingleClick(nil, assetData)
+                end
+            end
+            if props.RecentListItem then
+                props.dispatchOnRecentAssetRightClick(props)
+            else
+                props.dispatchOnAssetRightClick(props)
             end
         end
-        if props.RecentListItem then
-            props.dispatchOnRecentAssetRightClick(props)
-        else
-            props.dispatchOnAssetRightClick(props)
+    else
+        self.onMouseActivated = function(rbx, obj, clickCount)
+            local props = self.props
+            if not props.Enabled then
+                return
+            end
+            local assetData = props.AssetData
+            if clickCount == 0 then
+                props.dispatchOnAssetSingleClick(obj, assetData)
+            elseif clickCount == 1 then
+                props.dispatchOnAssetDoubleClick(props.Analytics, assetData)
+            end
+        end
+
+        self.onMouseButton2Click = function(rbx, x, y)
+            local props = self.props
+            if not props.Enabled then
+                return
+            end
+            local assetData = props.AssetData
+            local isFolder = assetData.ClassName == "Folder"
+            if isFolder then
+                if not props.SelectedAssets[assetData.Screen.LayoutOrder] then
+                    props.dispatchOnAssetSingleClick(nil, assetData)
+                end
+            else
+                if not props.SelectedAssets[assetData.key] then
+                    props.dispatchOnAssetSingleClick(nil, assetData)
+                end
+            end
+            if props.RecentListItem then
+                props.dispatchOnRecentAssetRightClick(props)
+            else
+                props.dispatchOnAssetRightClick(props)
+            end
         end
     end
 
@@ -171,9 +228,9 @@ function ListItem:init()
                 editText = text,
             })
         end
-	end
+    end
 
-	self.onTextBoxFocusLost = function(rbx, enterPressed, inputObject)
+    self.onTextBoxFocusLost = function(rbx, enterPressed, inputObject)
         local props = self.props
         local assetData = props.AssetData
         local newName = self.state.editText
@@ -272,7 +329,8 @@ function ListItem:render()
     local backgroundColor = pluginStyle.BackgroundColor
     local backgroundTransparency = pluginStyle.BackgroundTransparency
     local borderSizePixel = pluginStyle.BorderSizePixel
-    local padding = pluginStyle.Padding
+    local padding = if FFlagAssetManagerDragAndDrop then nil else pluginStyle.Padding
+    local spacing = if FFlagAssetManagerDragAndDrop then pluginStyle.Spacing else nil
 
     local imageInfo = {}
     local isFolder = assetData.ClassName == "Folder"
@@ -336,7 +394,7 @@ function ListItem:render()
     local displayModerationStatus
     local moderationTooltip
     if FFlagStudioAssetManagerAssetModeration then
-        textFrameSize = UDim2.new(1, pluginStyle.Text.Frame.XOffset, 0, pluginStyle.Text.Frame.YOffset)      
+        textFrameSize = UDim2.new(1, pluginStyle.Text.Frame.XOffset, 0, pluginStyle.Text.Frame.YOffset)
         if not isFolder then
             local moderationData = props.ModerationData
             if moderationData and next(moderationData) ~= nil then
@@ -346,7 +404,7 @@ function ListItem:render()
                 displayModerationStatus = isPending or not isApproved
                 if displayModerationStatus then
                     if isPending then
-                        moderationImage = pluginStyle.Image.ModerationStatus.Pending  
+                        moderationImage = pluginStyle.Image.ModerationStatus.Pending
                     elseif not isApproved then
                         moderationImage = pluginStyle.Image.ModerationStatus.Rejected
                     end
@@ -357,112 +415,219 @@ function ListItem:render()
         end
     end
 
-    return Roact.createElement("ImageButton", {
-        Size = size,
-        BackgroundColor3 = backgroundColor,
-        BackgroundTransparency = backgroundTransparency,
-        BorderSizePixel = borderSizePixel,
+    if FFlagAssetManagerDragAndDrop then
+        return Roact.createElement(DragSource, {
+            Size = size,
 
-        LayoutOrder = layoutOrder,
+            OnClick = self.onClick,
+            OnRightClick = self.onRightClick,
+            OnDragBegan = self.onDragBegan,
+        }, {
+            ListItem = Roact.createElement(Pane, {
+                AutomaticSize = Enum.AutomaticSize.Y,
+                BackgroundColor = backgroundColor,
+                Layout = Enum.FillDirection.Horizontal,
+                LayoutOrder = layoutOrder,
+                Spacing = spacing,
+                Transparency = backgroundTransparency,
 
-        [Roact.Event.Activated] = self.onMouseActivated,
-        [Roact.Event.MouseButton2Click] = self.onMouseButton2Click,
-        [Roact.Event.MouseEnter] = self.onMouseEnter,
-        [Roact.Event.MouseLeave] = self.onMouseLeave,
-    }, {
-        ListItem = Roact.createElement(FitFrameOnAxis, {
-			BackgroundTransparency = 1,
-            axis = FitFrameOnAxis.Axis.Vertical,
-            FillDirection = Enum.FillDirection.Horizontal,
-            minimumSize = size,
-			contentPadding = padding,
-		}, {
-            ImageFrame = Roact.createElement("Frame", {
-                Size = imageFrameSize,
-                LayoutOrder = layoutIndex:getNextOrder(),
-
-                BackgroundTransparency = 0,
-                BackgroundColor3 = imageBGColor,
-                BorderSizePixel = 0,
-            },{
-                Image = Roact.createElement("ImageLabel", Cryo.Dictionary.join(imageInfo, {
-                    Size = imageSize,
-                    Position = imagePos,
-                    AnchorPoint = imageAnchorPos,
-
-                    BackgroundTransparency = 1,
-                }))
-            }),
-
-            Name = not isEditingAsset and Roact.createElement("TextLabel", {
-                Size = textFrameSize,
-                LayoutOrder = layoutIndex:getNextOrder(),
-
-                Text = displayName,
-                TextColor3 = textColor,
-                Font = textFont,
-                TextSize = textSize,
-
-                BackgroundTransparency = textBGTransparency,
-                TextXAlignment = textXAlignment,
-                TextYAlignment = textYAlignment,
-                TextTruncate = textTruncate,
-                TextWrapped = true,
+                [Roact.Event.MouseEnter] = self.onMouseEnter,
+                [Roact.Event.MouseLeave] = self.onMouseLeave,
             }, {
-                NameTooltip = FFlagStudioAssetManagerAssetModeration and Roact.createElement(Tooltip, {
-                    Text = name,
-                    Enabled = enabled,
+                ImageFrame = Roact.createElement("Frame", {
+                    Size = imageFrameSize,
+                    LayoutOrder = layoutIndex:getNextOrder(),
+
+                    BackgroundTransparency = 0,
+                    BackgroundColor3 = imageBGColor,
+                    BorderSizePixel = 0,
+                },{
+                    Image = Roact.createElement("ImageLabel", Cryo.Dictionary.join(imageInfo, {
+                        Size = imageSize,
+                        Position = imagePos,
+                        AnchorPoint = imageAnchorPos,
+
+                        BackgroundTransparency = 1,
+                    }))
                 }),
-            }),
 
-            RenameTextBox = isEditingAsset and Roact.createElement("TextBox", {
-                Size = UDim2.new(0, editTextSize.X + editTextPadding, 0, textFrameSize.Y.Offset),
-                LayoutOrder = layoutIndex:getNextOrder(),
+                Name = not isEditingAsset and Roact.createElement("TextLabel", {
+                    Size = textFrameSize,
+                    LayoutOrder = layoutIndex:getNextOrder(),
 
-                BackgroundColor3 = editTextFrameBackgroundColor,
-                BorderColor3 = editTextFrameBorderColor,
+                    Text = displayName,
+                    TextColor3 = textColor,
+                    Font = textFont,
+                    TextSize = textSize,
 
-                Text = editText,
-                TextColor3 = textColor,
-                Font = textFont,
-                TextSize = textSize,
+                    BackgroundTransparency = textBGTransparency,
+                    TextXAlignment = textXAlignment,
+                    TextYAlignment = textYAlignment,
+                    TextTruncate = textTruncate,
+                    TextWrapped = true,
+                }, {
+                    NameTooltip = FFlagStudioAssetManagerAssetModeration and Roact.createElement(Tooltip, {
+                        Text = name,
+                        Enabled = enabled,
+                    }),
+                }),
 
-                TextXAlignment = editTextXAlignment,
-                ClearTextOnFocus = editTextClearOnFocus,
+                RenameTextBox = isEditingAsset and Roact.createElement("TextBox", {
+                    Size = UDim2.new(0, editTextSize.X + editTextPadding, 0, textFrameSize.Y.Offset),
+                    LayoutOrder = layoutIndex:getNextOrder(),
 
-                [Roact.Ref] = self.textBoxRef,
+                    BackgroundColor3 = editTextFrameBackgroundColor,
+                    BorderColor3 = editTextFrameBorderColor,
 
-                [Roact.Change.Text] = self.onTextChanged,
-                [Roact.Event.FocusLost] = self.onTextBoxFocusLost,
-            }),
+                    Text = editText,
+                    TextColor3 = textColor,
+                    Font = textFont,
+                    TextSize = textSize,
 
-            ModerationImageFrame = displayModerationStatus and Roact.createElement("Frame", {
-                Size = imageFrameSize,
-                LayoutOrder = layoutIndex:getNextOrder(),
+                    TextXAlignment = editTextXAlignment,
+                    ClearTextOnFocus = editTextClearOnFocus,
 
-                BackgroundTransparency = 1,
-            },{
-                Image = Roact.createElement("ImageLabel", {
-                    Image = moderationImage,
-                    Size = imageSize,
-                    Position = imagePos,
-                    AnchorPoint = imageAnchorPos,
+                    [Roact.Ref] = self.textBoxRef,
+
+                    [Roact.Change.Text] = self.onTextChanged,
+                    [Roact.Event.FocusLost] = self.onTextBoxFocusLost,
+                }),
+
+                ModerationImageFrame = displayModerationStatus and Roact.createElement("Frame", {
+                    Size = imageFrameSize,
+                    LayoutOrder = layoutIndex:getNextOrder(),
 
                     BackgroundTransparency = 1,
-                }),
+                },{
+                    Image = Roact.createElement("ImageLabel", {
+                        Image = moderationImage,
+                        Size = imageSize,
+                        Position = imagePos,
+                        AnchorPoint = imageAnchorPos,
 
-                ModerationTooltip = Roact.createElement(Tooltip, {
-                    Text = moderationTooltip,
-                    Enabled = enabled,
+                        BackgroundTransparency = 1,
+                    }),
+
+                    ModerationTooltip = Roact.createElement(Tooltip, {
+                        Text = moderationTooltip,
+                        Enabled = enabled,
+                    }),
                 }),
             }),
-        }),
 
-        DEPRECATED_Tooltip = not FFlagStudioAssetManagerAssetModeration and enabled and Roact.createElement(Tooltip, {
-            Text = name,
-            Enabled = true,
-        }),
-    })
+            DEPRECATED_Tooltip = not FFlagStudioAssetManagerAssetModeration and enabled and Roact.createElement(Tooltip, {
+                Text = name,
+                Enabled = true,
+            }),
+        })
+    else
+        return Roact.createElement("ImageButton", {
+            Size = size,
+            BackgroundColor3 = backgroundColor,
+            BackgroundTransparency = backgroundTransparency,
+            BorderSizePixel = borderSizePixel,
+
+            LayoutOrder = layoutOrder,
+
+            [Roact.Event.Activated] = self.onMouseActivated,
+            [Roact.Event.MouseButton2Click] = self.onMouseButton2Click,
+            [Roact.Event.MouseEnter] = self.onMouseEnter,
+            [Roact.Event.MouseLeave] = self.onMouseLeave,
+        }, {
+            ListItem = Roact.createElement(FitFrameOnAxis, {
+                BackgroundTransparency = 1,
+                axis = FitFrameOnAxis.Axis.Vertical,
+                FillDirection = Enum.FillDirection.Horizontal,
+                minimumSize = size,
+                contentPadding = padding,
+            }, {
+                ImageFrame = Roact.createElement("Frame", {
+                    Size = imageFrameSize,
+                    LayoutOrder = layoutIndex:getNextOrder(),
+
+                    BackgroundTransparency = 0,
+                    BackgroundColor3 = imageBGColor,
+                    BorderSizePixel = 0,
+                },{
+                    Image = Roact.createElement("ImageLabel", Cryo.Dictionary.join(imageInfo, {
+                        Size = imageSize,
+                        Position = imagePos,
+                        AnchorPoint = imageAnchorPos,
+
+                        BackgroundTransparency = 1,
+                    }))
+                }),
+
+                Name = not isEditingAsset and Roact.createElement("TextLabel", {
+                    Size = textFrameSize,
+                    LayoutOrder = layoutIndex:getNextOrder(),
+
+                    Text = displayName,
+                    TextColor3 = textColor,
+                    Font = textFont,
+                    TextSize = textSize,
+
+                    BackgroundTransparency = textBGTransparency,
+                    TextXAlignment = textXAlignment,
+                    TextYAlignment = textYAlignment,
+                    TextTruncate = textTruncate,
+                    TextWrapped = true,
+                }, {
+                    NameTooltip = FFlagStudioAssetManagerAssetModeration and Roact.createElement(Tooltip, {
+                        Text = name,
+                        Enabled = enabled,
+                    }),
+                }),
+
+                RenameTextBox = isEditingAsset and Roact.createElement("TextBox", {
+                    Size = UDim2.new(0, editTextSize.X + editTextPadding, 0, textFrameSize.Y.Offset),
+                    LayoutOrder = layoutIndex:getNextOrder(),
+
+                    BackgroundColor3 = editTextFrameBackgroundColor,
+                    BorderColor3 = editTextFrameBorderColor,
+
+                    Text = editText,
+                    TextColor3 = textColor,
+                    Font = textFont,
+                    TextSize = textSize,
+
+                    TextXAlignment = editTextXAlignment,
+                    ClearTextOnFocus = editTextClearOnFocus,
+
+                    [Roact.Ref] = self.textBoxRef,
+
+                    [Roact.Change.Text] = self.onTextChanged,
+                    [Roact.Event.FocusLost] = self.onTextBoxFocusLost,
+                }),
+
+                ModerationImageFrame = displayModerationStatus and Roact.createElement("Frame", {
+                    Size = imageFrameSize,
+                    LayoutOrder = layoutIndex:getNextOrder(),
+
+                    BackgroundTransparency = 1,
+                },{
+                    Image = Roact.createElement("ImageLabel", {
+                        Image = moderationImage,
+                        Size = imageSize,
+                        Position = imagePos,
+                        AnchorPoint = imageAnchorPos,
+
+                        BackgroundTransparency = 1,
+                    }),
+
+                    ModerationTooltip = Roact.createElement(Tooltip, {
+                        Text = moderationTooltip,
+                        Enabled = enabled,
+                    }),
+                }),
+            }),
+
+            DEPRECATED_Tooltip = not FFlagStudioAssetManagerAssetModeration and enabled and Roact.createElement(Tooltip, {
+                Text = name,
+                Enabled = true,
+            }),
+        })
+    end
 end
 
 ListItem = withContext({

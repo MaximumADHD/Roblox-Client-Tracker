@@ -8,15 +8,7 @@ require(script.Parent.defineLuaFlags)
 local Plugin = script.Parent.Parent
 
 local FFlagRemoveUILibraryFitContent = game:GetFastFlag("RemoveUILibraryFitContent")
-
-local getTheme
-local ContextServices
-if FFlagRemoveUILibraryFitContent then
-	local Framework = require(Plugin.Packages.Framework)
-	ContextServices = Framework.ContextServices
-	local makeTheme = Framework.Style.makeTheme
-	getTheme = makeTheme(Plugin.Src.Components)
-end
+local FFlagUpdateDraftsWidgetToDFContextServices = game:GetFastFlag("UpdateDraftsWidgetToDFContextServices")
 
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 local MockDraftsService = require(Plugin.Src.TestHelpers.MockDraftsService)
@@ -28,6 +20,9 @@ local StudioService = game:GetService("StudioService")
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local UILibraryWrapper = ContextServices.UILibraryWrapper
 
 -- components
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
@@ -44,29 +39,49 @@ local CommitState = require(Plugin.Src.Symbols.CommitState)
 local DraftState = require(Plugin.Src.Symbols.DraftState)
 
 -- theme
-local DEPRECATED_PluginTheme = require(Plugin.Src.Resources.PluginTheme)
+local getTheme
+local PluginTheme = if FFlagUpdateDraftsWidgetToDFContextServices then require(Plugin.Src.Resources.MakeTheme) else require(Plugin.Src.Resources.DEPRECATED_UILibraryTheme)
+if not FFlagUpdateDraftsWidgetToDFContextServices and FFlagRemoveUILibraryFitContent then
+	local makeTheme = Framework.Style.makeTheme
+	getTheme = makeTheme(Plugin.Src.Components)
+end
 
 -- localization
 local SourceStrings = Plugin.Src.Resources.SourceStrings
 local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
-local Localization = UILibrary.Studio.Localization
+
+local function overrideLocale()
+	if #OverrideLocaleId > 0 then
+		return OverrideLocaleId
+	else
+		return StudioService["StudioLocaleId"]
+	end
+end
 
 -- Plugin Specific Globals
 local roduxStore = Rodux.Store.new(MainReducer)
-local theme = DEPRECATED_PluginTheme.new()
-local localization = Localization.new({
-	stringResourceTable = SourceStrings,
-	translationResourceTable = LocalizedStrings,
-	overrideLocaleChangedSignal = StudioService:GetPropertyChangedSignal("StudioLocaleId"),
-	getLocale = function()
-		if #OverrideLocaleId > 0 then
-			return OverrideLocaleId
-		else
-			return StudioService["StudioLocaleId"]
-		end
-	end,
-	pluginName = "Drafts",
-})
+local theme = if FFlagUpdateDraftsWidgetToDFContextServices then PluginTheme() else PluginTheme.new()
+
+local localization
+if FFlagUpdateDraftsWidgetToDFContextServices then
+	local Localization = ContextServices.Localization
+	localization = Localization.new({
+		stringResourceTable = SourceStrings,
+		translationResourceTable = LocalizedStrings,
+		overrideLocaleChangedSignal = StudioService:GetPropertyChangedSignal("StudioLocaleId"),
+		overrideGetLocale = overrideLocale,
+		pluginName = "Drafts",
+	})
+else
+	local Localization = UILibrary.Studio.Localization
+	localization = Localization.new({
+		stringResourceTable = SourceStrings,
+		translationResourceTable = LocalizedStrings,
+		overrideLocaleChangedSignal = StudioService:GetPropertyChangedSignal("StudioLocaleId"),
+		getLocale = overrideLocale,
+		pluginName = "Drafts",
+	})
+end
 
 local draftsTestCase = game:GetFastInt("DebugStudioDraftsWidgetTestCase")
 local draftsService = draftsTestCase == 0 and DraftsService or MockDraftsService.new(draftsTestCase)
@@ -75,8 +90,6 @@ local draftsService = draftsTestCase == 0 and DraftsService or MockDraftsService
 local pluginHandle
 local pluginGui
 
--- Fast flags
-
 --Initializes and populates the plugin popup window
 local function openPluginWindow()
 	if pluginHandle then
@@ -84,26 +97,43 @@ local function openPluginWindow()
 		return
 	end
 
-	-- create the roact tree
-	local DEPRECATED_servicesProvider = Roact.createElement(ServiceWrapper, {
-		draftsService = draftsService,
-		plugin = plugin,
-		pluginGui = pluginGui,
-		localization = localization,
-		theme = theme,
-		store = roduxStore,
-	}, {
-		mainView = Roact.createElement(MainView, {}),
-	})
-
-	if FFlagRemoveUILibraryFitContent then
-		pluginHandle = Roact.mount(ContextServices.provide({
-			Theme = getTheme()
+	if FFlagUpdateDraftsWidgetToDFContextServices then
+		-- create the roact tree
+		local servicesProvider = Roact.createElement(ServiceWrapper, {
+			draftsService = draftsService,
+			focusGui = pluginGui,
+			localization = localization,
+			plugin = plugin,
+			store = roduxStore,
+			theme = theme,
+			uiLibWrapper = UILibraryWrapper.new(UILibrary),
 		}, {
-			Provide = DEPRECATED_servicesProvider
-		}), pluginGui)
+			mainView = Roact.createElement(MainView, {}),
+		})
+
+		pluginHandle = Roact.mount(servicesProvider, pluginGui)
 	else
-		pluginHandle = Roact.mount(DEPRECATED_servicesProvider, pluginGui)
+		-- create the roact tree
+		local DEPRECATED_servicesProvider = Roact.createElement(ServiceWrapper, {
+			draftsService = draftsService,
+			plugin = plugin,
+			pluginGui = pluginGui,
+			localization = localization,
+			theme = theme,
+			store = roduxStore,
+		}, {
+			mainView = Roact.createElement(MainView, {}),
+		})
+
+		if FFlagRemoveUILibraryFitContent then
+			pluginHandle = Roact.mount(ContextServices.provide({
+				Theme = getTheme()
+			}, {
+				Provide = DEPRECATED_servicesProvider
+			}), pluginGui)
+		else
+			pluginHandle = Roact.mount(DEPRECATED_servicesProvider, pluginGui)
+		end
 	end
 end
 
@@ -120,26 +150,26 @@ local function toggleWidget()
 end
 
 local function createToolTip(enabled)
-    local toolbar = plugin:CreateToolbar("draftsToolbar")
-    local pluginButton = toolbar:CreateButton(
-        "draftsButton",
-        localization:getText("Meta", "PluginButtonTooltip"),
-        ""
-    )
+	local toolbar = plugin:CreateToolbar("draftsToolbar")
+	local pluginButton = toolbar:CreateButton(
+		"draftsButton",
+		localization:getText("Meta", "PluginButtonTooltip"),
+		""
+	)
 
-    if enabled then
-        pluginButton.ClickableWhenViewportHidden = true
-        pluginButton.Click:connect(toggleWidget)
-    end
+	if enabled then
+		pluginButton.ClickableWhenViewportHidden = true
+		pluginButton.Click:connect(toggleWidget)
+	end
 
-    pluginButton.Enabled = enabled
+	pluginButton.Enabled = enabled
 
-    return pluginButton
+	return pluginButton
 end
 
 if not game:GetService("RunService"):IsEdit() then
-    createToolTip(false)
-    return
+	createToolTip(false)
+	return
 end
 
 -- The widget should open automatically if there are checked out drafts, or whenever
@@ -226,7 +256,7 @@ local function connectToDraftsService()
 
 		draftsService.DraftStatusChanged:connect(function(draft)
 			local draftStatus = draftsService:GetDraftStatus(draft)
-            handleStatus(draft, draftStatus)
+			handleStatus(draft, draftStatus)
 		end)
 
 		draftsService.UpdateStatusChanged:connect(function(draft, draftStatus)

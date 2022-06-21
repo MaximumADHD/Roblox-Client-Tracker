@@ -22,12 +22,13 @@ local ShowOnTop = Framework.UI.ShowOnTop
 local DropShadow = Framework.UI.DropShadow
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local BaseToast = Roact.PureComponent:extend("BaseToast")
 
 function BaseToast:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local toastTheme = theme.toastTheme
 
 	local anchorPoint = props.AnchorPoint

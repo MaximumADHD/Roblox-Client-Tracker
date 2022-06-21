@@ -5,7 +5,6 @@ return function(plugin, pluginLoaderContext)
 
 	-- Fast flags
 	local FFlagDebugBuiltInPluginModalsNotBlocking = game:GetFastFlag("DebugBuiltInPluginModalsNotBlocking")
-	local FFlagDebugPluginModals = game:GetFastFlag("DebugPluginModals")
 	local FFlagDeveloperSubscriptionsEnabled = game:GetFastFlag("DeveloperSubscriptionsEnabled")
 	local FFlagGameSettingsRoactInspector = game:DefineFastFlag("GameSettingsRoactInspector", false)
 
@@ -135,23 +134,10 @@ return function(plugin, pluginLoaderContext)
 				local CancelDialogBody
 				local size = props.Size or Vector2.new(473, 197)
 				local dialog
-				if FFlagDebugPluginModals then
-					local info = DockWidgetPluginGuiInfo.new(
-						Enum.InitialDockState.Float,
-						false,
-						false,
-						size.X,
-						size.Y,
-						size.X,
-						size.Y
-					)
-					dialog = plugin:CreateDockWidgetPluginGui(props.Title, info)
-				else
-					dialog = plugin:CreateQWidgetPluginGui(props.Title, {
-						Size = size,
-						Modal = not FFlagDebugBuiltInPluginModalsNotBlocking,
-					})
-				end
+				dialog = plugin:CreateQWidgetPluginGui(props.Title, {
+					Size = size,
+					Modal = not FFlagDebugBuiltInPluginModalsNotBlocking,
+				})
 				dialog.Enabled = true
 				dialog.Title = props.Title
 				local dialogContents = Roact.createElement(ExternalServicesWrapper, {
@@ -266,26 +252,13 @@ return function(plugin, pluginLoaderContext)
 	local function makePluginGui()
 		local pluginId = Plugin.Name
 		local size = Vector2.new(960, 600)
-		if FFlagDebugPluginModals then
-			local info = DockWidgetPluginGuiInfo.new(
-				Enum.InitialDockState.Float,
-				false,
-				false,
-				size.X,
-				size.Y,
-				size.X,
-				size.Y
-			)
-			pluginGui = plugin:CreateDockWidgetPluginGui(pluginId, info)
-		else
-			pluginGui = plugin:CreateQWidgetPluginGui(pluginId, {
-				Size = size,
-				MinSize = size,
-				Resizable = true,
-				Modal = not FFlagDebugBuiltInPluginModalsNotBlocking,
-				InitialEnabled = false,
-			})
-		end
+		pluginGui = plugin:CreateQWidgetPluginGui(pluginId, {
+			Size = size,
+			MinSize = size,
+			Resizable = true,
+			Modal = not FFlagDebugBuiltInPluginModalsNotBlocking,
+			InitialEnabled = false,
+		})
 		pluginGui.Name = Plugin.Name
 		pluginGui.Title = localization:getText("General", "PluginName")
 		pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling

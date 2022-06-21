@@ -5,4 +5,7 @@ game:DefineFastInt("StudioAssetManagerAssetFetchNumber", 50)
 game:DefineFastFlag("StudioAssetManagerAssetModeration", false)
 game:DefineFastFlag("AssetManagerRefactorPath", false)
 game:DefineFastFlag("AssetManagerFixOpenAssetPreview1", false)
+game:DefineFastFlag("AssetManagerMassUpdateContextMenuFix", false)
+game:DefineFastFlag("EnableAssetManagerGlobalSearchBar", false)
+game:DefineFastFlag("StudioAssetManagerAssetModerationPendingIcon", false)
 return nil

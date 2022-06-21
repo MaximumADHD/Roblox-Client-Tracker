@@ -11,7 +11,7 @@ local withStyle = UIBlox.Core.Style.withStyle
 local QuickActionsTooltip = require(script.QuickActionsTooltip)
 local QuickActionsMenu = require(script.QuickActionsMenu)
 
-local FFlagEnableInGameMenuQAScreenshot = game:DefineFastFlag("EnableInGameMenuQAScreenshot", true)
+local FFlagEnableInGameMenuQAScreenshot = game:DefineFastFlag("EnableInGameMenuQAScreenshot", false)
 
 local QuickActions = Roact.PureComponent:extend("QuickActions")
 

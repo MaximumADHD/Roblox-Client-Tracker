@@ -19,6 +19,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local ContextButton = Roact.PureComponent:extend("ContextButton")
 
@@ -58,7 +59,7 @@ end
 
 function ContextButton:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local state = self.state
 	local trackTheme = theme.trackTheme
 	local anchorPoint = props.AnchorPoint

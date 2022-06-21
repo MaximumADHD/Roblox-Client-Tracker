@@ -25,6 +25,7 @@ local withContext = ContextServices.withContext
 local DragTarget = Framework.UI.DragListener
 
 local ArrowButton = require(Plugin.Src.Components.ArrowButton)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local WideScrollingFrame = Roact.PureComponent:extend("WideScrollingFrame")
 
@@ -110,7 +111,7 @@ end
 
 function WideScrollingFrame:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local state = self.state
 	local size = props.Size
 	local anchorPoint = props.AnchorPoint

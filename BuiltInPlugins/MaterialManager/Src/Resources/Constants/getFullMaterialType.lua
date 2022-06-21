@@ -5,11 +5,16 @@ local getMaterialName = require(Plugin.Src.Resources.Constants.getMaterialName)
 
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
+local getFFlagMaterialManagerUIUXFixes = require(Flags.getFFlagMaterialManagerUIUXFixes)
 
-return function(material : _Types.Material, localization : any) : string
+return function(material: _Types.Material, localization: any): string
 	local materialOrigin
 	if getFFlagMaterialManagerGlassNeonForceField() then
-		materialOrigin = if material.MaterialVariant then "Material" else "Variant"
+		if getFFlagMaterialManagerUIUXFixes() then
+			materialOrigin = if material.MaterialVariant then "Variant" else "Material"
+		else
+			materialOrigin = if material.MaterialVariant then "Material" else "Variant"
+		end
 	else
 		materialOrigin = if material.IsBuiltin then "Material" else "Variant"
 	end

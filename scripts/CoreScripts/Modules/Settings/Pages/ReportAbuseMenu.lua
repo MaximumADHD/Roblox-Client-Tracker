@@ -61,6 +61,8 @@ if GetFFlagVoiceAbuseReportsEnabled() then
 end
 
 local DEFAULT_ABUSE_DESC_TEXT = "   Short Description (Optional)"
+local DEFAULT_ABUSE_DESC_TEXT_KEY = "Feature.SettingsHub.Label.ReportComment"
+
 if utility:IsSmallTouchScreen() then
 	DEFAULT_ABUSE_DESC_TEXT = "   (Optional)"
 end
@@ -69,7 +71,11 @@ pcall(function()
 	if utility:IsSmallTouchScreen() then
 		DEFAULT_ABUSE_DESC_TEXT = RobloxTranslator:FormatByKey("KEY_DESCRIPTION_OPTIONAL")
 	else
-		DEFAULT_ABUSE_DESC_TEXT = RobloxTranslator:FormatByKey("KEY_DESCRIPTION_SHORT_DECRIPTION_OPTIONAL")
+		if GetFFlagVoiceAbuseReportsEnabled() then
+			DEFAULT_ABUSE_DESC_TEXT = RobloxTranslator:FormatByKey(DEFAULT_ABUSE_DESC_TEXT_KEY)
+		else
+			DEFAULT_ABUSE_DESC_TEXT = RobloxTranslator:FormatByKey("KEY_DESCRIPTION_SHORT_DECRIPTION_OPTIONAL")
+		end
 	end
 end)
 
@@ -82,6 +88,8 @@ local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForCh
 
 local MIN_GAME_REPORT_TEXT_LENGTH = 5
 local timeEntered
+local inSortingExperiment = true
+local inEntryExperiment = true
 
 type MethodOfAbuse = ReportAbuseLogic.MethodOfAbuse
 local MethodsOfAbuse = ReportAbuseLogic.MethodsOfAbuse
@@ -113,9 +121,10 @@ local function Initialize()
 
 	local function getMethodOfAbuseDropdownItems()
 		return Cryo.List.map(Cryo.Dictionary.values(TypeOfAbuseOptions), function(item: MOAOption)
-			item.title = RobloxTranslator:FormatByKey(item.title)
-			item.subtitle = RobloxTranslator:FormatByKey(item.subtitle)
-			return item
+			return Cryo.Dictionary.join(item, {
+				title = RobloxTranslator:FormatByKey(item.title),
+				subtitle = RobloxTranslator:FormatByKey(item.subtitle)
+			})
 		end)
 	end
 
@@ -195,7 +204,7 @@ local function Initialize()
 	end
 
 	function this:UpdateMethodOfAbuse()
-		if GetFFlagVoiceAbuseReportsEnabled() and voiceChatEnabled then
+		if GetFFlagVoiceAbuseReportsEnabled() and voiceChatEnabled and inEntryExperiment then
 			local AbuseType = ReportAbuseLogic.GetDefaultMethodOfAbuse(nextPlayerToReport, VoiceChatServiceManager)
 			PageInstance.MethodOfAbuseMode:SetSelectionIndex(TypeOfAbuseOptions[AbuseType].index)
 		end
@@ -257,7 +266,7 @@ local function Initialize()
 			end
 		end
 
-		if GetFFlagVoiceAbuseReportsEnabled() and this:isVoiceReportSelected() then
+		if GetFFlagVoiceAbuseReportsEnabled() and this:isVoiceReportSelected() and inSortingExperiment then
 			local localPlayerPart = this:getPlayerPrimaryPart(PlayersService.LocalPlayer)
 
 			if localPlayerPart then
@@ -419,6 +428,13 @@ local function Initialize()
 				voiceChatEnabled = true
 				this:updateVoiceLayout()
 				updateMethodOfAbuseVisibility()
+				IXPServiceWrapper:InitializeAsync(PlayersService.LocalPlayer.UserId, "Social.VoiceAbuseReport.ReportAbuseMenu.V1")
+				local layerData = IXPServiceWrapper:IsEnabled() and IXPServiceWrapper:GetLayerData("Social.VoiceAbuseReport.ReportAbuseMenu.V1")
+				if layerData then
+					inSortingExperiment = layerData.VoiceAbuseReportProximitySort
+					inEntryExperiment = layerData.VoiceAbuseReportSmartEntry
+				end
+				log:debug("In Sorting Experiment {}, In Entry Experiment {}", inSortingExperiment, inEntryExperiment)
 			end):catch(function()
 				voiceChatEnabled = false
 				log:warning("ReportAbuseMenu: Failed to init VoiceChatServiceManager")
@@ -552,6 +568,7 @@ local function Initialize()
 							end)
 						end)
 
+						SendEventStream(Constants.AnalyticsVoiceReportSubmitted)
 						reportAnalytics("user", currentAbusingPlayer.UserId)
 					else
 						spawn(function()

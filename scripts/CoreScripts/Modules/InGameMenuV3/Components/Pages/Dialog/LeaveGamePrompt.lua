@@ -13,7 +13,8 @@ local InGameMenu = script.Parent.Parent.Parent.Parent
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local Constants = require(InGameMenu.Resources.Constants)
-local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
+local NavigateBack = require(InGameMenu.Actions.NavigateBack)
+
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
@@ -21,7 +22,7 @@ local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualit
 local LeaveGamePrompt = Roact.PureComponent:extend("LeaveGamePrompt")
 
 LeaveGamePrompt.validateProps = t.strictInterface({
-	closeMenu = t.callback,
+	navigateBack = t.callback,
 	canGamepadCaptureFocus = t.optional(t.boolean),
 	canKeyboardCaptureFocus = t.optional(t.boolean),
 	-- used only for unit testing until we can properly mock
@@ -51,7 +52,7 @@ function LeaveGamePrompt:render()
 			confirmText = localized.confirmText,
 			cancelText = localized.cancelText,
 			onConfirm = self.props.onConfirm or self.leaveGameConfirm,
-			onCancel = self.props.closeMenu,
+			onCancel = self.props.navigateBack,
 			canGamepadCaptureFocus = self.props.canGamepadCaptureFocus,
 			canKeyboardCaptureFocus = self.props.canKeyboardCaptureFocus,
 		})
@@ -76,9 +77,8 @@ return RoactRodux.UNSTABLE_connect2(
 	end,
 	function(dispatch)
 		return {
-			closeMenu = function()
-				-- Since we dont have a navigation stack we will just close the menu for now.
-				dispatch(CloseMenu)
+			navigateBack = function()
+				dispatch(NavigateBack())
 				SendAnalytics(
 					Constants.AnalyticsInGameMenuName,
 					Constants.AnalyticsLeaveGameName,

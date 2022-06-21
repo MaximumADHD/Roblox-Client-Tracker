@@ -57,6 +57,7 @@ local withContext = ContextServices.withContext
 local TrackListEntry = require(Plugin.Src.Components.TrackList.TrackListEntry)
 local Constants = require(Plugin.Src.Util.Constants)
 local NumberBox = require(Plugin.Src.Components.TrackList.NumberBox)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local NumberTrack = Roact.PureComponent:extend("NumberTrack")
 
@@ -94,7 +95,7 @@ function NumberTrack:init(props)
 
 	self.onItemChanged = function(key, value)
 		if self.props.OnItemChanged then
-			self.props.OnItemChanged(key, value)
+			return self.props.OnItemChanged(key, value)
 		end
 	end
 end
@@ -114,7 +115,7 @@ end
 
 function NumberTrack:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local state = self.state
 	local layoutOrder = props.LayoutOrder
 	local indent = props.Indent or 0
@@ -168,7 +169,7 @@ function NumberTrack:render()
 			SetNumber = function(number)
 				props.OnChangeBegan()
 				self.onSetNumber(index, number)
-				self.onItemChanged(item.Key, number)
+				return self.onItemChanged(item.Key, number)
 			end,
 			OnDragMoved = function(input)
 				self.onItemChanged(item.Key, item.Value + input.Delta.X * DRAG_MULTIPLIER)

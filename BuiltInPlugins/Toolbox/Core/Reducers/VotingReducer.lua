@@ -1,3 +1,5 @@
+local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -13,19 +15,23 @@ local function handleVoting(state, assetId, voteDirection)
 	local currentVoting = state[assetId]
 	local newVoteUp = currentVoting.UpVotes
 	local newVoteDown = currentVoting.DownVotes
+	local newVoteCount = if FFlagAssetVoteSimplification then currentVoting.VoteCount else nil
 
 	if voteDirection then
 		if currentVoting.HasVoted and not currentVoting.UserVote then
 			newVoteDown = currentVoting.DownVotes - 1
+			newVoteCount = if FFlagAssetVoteSimplification then newVoteCount - 1 else nil
 		end
-
 		newVoteUp = currentVoting.UpVotes + 1
+		newVoteCount = if FFlagAssetVoteSimplification then newVoteCount + 1 else nil
 	else
 		if currentVoting.HasVoted and currentVoting.UserVote then
 			newVoteUp = currentVoting.UpVotes - 1
+			newVoteCount = if FFlagAssetVoteSimplification then newVoteCount - 1 else nil
 		end
 
 		newVoteDown = currentVoting.DownVotes + 1
+		newVoteCount = if FFlagAssetVoteSimplification then newVoteCount + 1 else nil
 	end
 
 	return Cryo.Dictionary.join(state, {
@@ -34,6 +40,7 @@ local function handleVoting(state, assetId, voteDirection)
 			UserVote = voteDirection,
 			UpVotes = newVoteUp,
 			DownVotes = newVoteDown,
+			VoteCount = FFlagAssetVoteSimplification and newVoteCount,
 		}),
 	})
 end
@@ -42,12 +49,14 @@ local function handleUnvoting(state, assetId)
 	local currentVoting = state[assetId]
 	local newVoteUp = currentVoting.UpVotes
 	local newVoteDown = currentVoting.DownVotes
+	local newVoteCount = if FFlagAssetVoteSimplification then currentVoting.VoteCount else nil
 	if currentVoting.HasVoted then
 		if currentVoting.UserVote == true then
 			newVoteUp = newVoteUp - 1
 		else
 			newVoteDown = newVoteDown - 1
 		end
+		newVoteCount = if FFlagAssetVoteSimplification then newVoteCount - 1 else nil
 	end
 
 	return Cryo.Dictionary.join(state, {
@@ -56,6 +65,7 @@ local function handleUnvoting(state, assetId)
 			UserVote = Cryo.None,
 			UpVotes = newVoteUp,
 			DownVotes = newVoteDown,
+			VoteCount = FFlagAssetVoteSimplification and newVoteCount,
 		}),
 	})
 end

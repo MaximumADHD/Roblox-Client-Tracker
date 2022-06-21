@@ -32,6 +32,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 local MakePluginActions = require(Plugin.Src.Util.MakePluginActions)
 local showBlockingDialog = require(Plugin.Src.Util.showBlockingDialog)
+local CalloutController = require(Plugin.Src.Util.CalloutController)
 
 local ReleaseEditor = require(Plugin.Src.Thunks.ReleaseEditor)
 local SetDefaultEulerAnglesOrder = require(Plugin.Src.Actions.SetDefaultEulerAnglesOrder)
@@ -44,15 +45,15 @@ local DraggerWrapper = require(Plugin.Src.Components.Draggers.DraggerWrapper)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFaceControlsEditorShowCallout = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorShowCallout)
+local GetFFlagCurveEditorCallout = require(Plugin.LuaFlags.GetFFlagCurveEditorCallout)
 
 -- analytics
 local AnalyticsHandlers = require(Plugin.Src.Resources.AnalyticsHandlers)
 
 local AnimationClipEditorPlugin = Roact.PureComponent:extend("AnimationClipEditorPlugin")
 
-local calloutController = nil
-
 local FStringFaceControlsEditorLink = game:GetFastString("FaceControlsEditorLink")
+local FStringCurveEditorLink = game:DefineFastString("ACECurveEditorLink", "https://create.roblox.com/docs/building-and-visuals/animation/curve-editor")
 local GetFFlagFaceControlsEditorBugBash3Update = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorBugBash3Update)
 
 function AnimationClipEditorPlugin:handleButtonClick(plugin)
@@ -91,20 +92,30 @@ function AnimationClipEditorPlugin:init(initialProps)
 		translationResourceTable = LocalizedStrings,
 	})
 
-	if GetFFlagFaceControlsEditorShowCallout() then
-		local CalloutController = require(Plugin.Src.Util.CalloutController)
-		calloutController = CalloutController.new()
+	if GetFFlagFaceControlsEditorShowCallout() or GetFFlagCurveEditorCallout() then
+		self.calloutController = CalloutController.new()
 		do
-			local definitionId = "FaceControlsEditorCallout"
+			if GetFFlagFaceControlsEditorShowCallout() then
+				local definitionId = "FaceControlsEditorCallout"
 
-			local title = self.localization:getText("FaceControlsEditorButtonCallout", "Title")
-			local description = self.localization:getText("FaceControlsEditorButtonCallout", "Description")
-			local learnMoreUrl = "https://create.roblox.com/docs/avatar/dynamic-heads/animating-dynamic-heads"
-			if GetFFlagFaceControlsEditorBugBash3Update() then
-				learnMoreUrl = FStringFaceControlsEditorLink
+				local title = self.localization:getText("FaceControlsEditorButtonCallout", "Title")
+				local description = self.localization:getText("FaceControlsEditorButtonCallout", "Description")
+				local learnMoreUrl = "https://create.roblox.com/docs/avatar/dynamic-heads/animating-dynamic-heads"
+				if GetFFlagFaceControlsEditorBugBash3Update() then
+					learnMoreUrl = FStringFaceControlsEditorLink
+				end
+
+				self.calloutController:defineCallout(definitionId, title, description, learnMoreUrl)
 			end
 
-			calloutController:defineCallout(definitionId, title, description, learnMoreUrl)
+			if GetFFlagCurveEditorCallout() then
+				self.calloutController:defineCallout(
+					"CurveEditorCallout",
+					self.localization:getText("CurveEditorCallout", "Title"),
+					self.localization:getText("CurveEditorCallout", "Description"),
+					FStringCurveEditorLink
+				)
+			end
 		end
 	end
 
@@ -329,7 +340,7 @@ function AnimationClipEditorPlugin:render()
 			mouse = mouse,
 			analytics = analytics,
 			signals = self.signals,
-			calloutController = calloutController,
+			calloutController = self.calloutController,
 		}, {
 			AnimationClipEditor = Roact.createElement(AnimationClipEditor),
 			Dragger = Roact.createElement(DraggerWrapper),

@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local RoactRodux = require(CorePackages.RoactRodux)
 local CoreGui = game:GetService("CoreGui")
 local ContextActionService = game:GetService("ContextActionService")
 local GuiService = game:GetService("GuiService")
@@ -15,11 +16,15 @@ local InGameMenu = script.Parent.Parent
 local FocusHandler = require(script.Parent.Connection.FocusHandler)
 local RootedConnection = require(script.Parent.Connection.RootedConnection)
 local PlayerContextHeader = require(InGameMenu.Components.PlayerContextHeader)
+local SetFriendBlockConfirmation = require(InGameMenu.Actions.SetFriendBlockConfirmation)
+local Constants = require(InGameMenu.Resources.Constants)
 
 local Flags = InGameMenu.Flags
 local GetFFlagIGMRefactorPlayerContextualMenuGamepadSupport = require(
 	Flags.GetFFlagIGMRefactorPlayerContextualMenuGamepadSupport
 )
+
+local FriendBlockConfirmation = require(script.Parent.FriendBlockConfirmation)
 
 local PLAYER_CONTEXTUAL_MENU_CLOSE_ACTION = "player_contextual_menu_close_action"
 local SELECTION_PARENT_NAME = "player_contextual_menu_selection_parent"
@@ -32,13 +37,23 @@ PlayerContextualMenu.validateProps = t.strictInterface({
 	xOffset = t.number,
 	yOffset = t.number,
 	onClose = t.callback,
+	closeFriendBlockConfirmation = t.callback,
 	canCaptureFocus = t.boolean,
 	player = t.table,
 	maxHeight = t.optional(t.number),
 	anchorFromBottom = t.optional(t.boolean),
+	isFriend = t.optional(t.boolean),
+	isFriendBlockOpen = t.optional(t.boolean),
 })
 
 function PlayerContextualMenu:init()
+	self.closeContextualMenu = function()
+		if self.props.isFriendBlockOpen then
+			self.props.closeFriendBlockConfirmation()
+		end
+		self.props.onClose()
+	end
+
 	if GetFFlagIGMRefactorPlayerContextualMenuGamepadSupport() then
 		self.firstOptionRef = Roact.createRef()
 		self.containerRef = Roact.createRef()
@@ -125,6 +140,16 @@ function PlayerContextualMenu:render()
 			IgnoreGuiInset = true,
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 		}, {
+			TouchBackground = Roact.createElement("TextButton", {
+				AutoButtonColor = false,
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				Position = UDim2.fromOffset(Constants.PageWidth, 0),
+				Size = UDim2.new(1, 0, 1, 0),
+				Text = "",
+				ZIndex = -10,
+				[Roact.Event.Activated] = self.props.onClose,
+			}),
 			FocusHandler = not GetFFlagIGMRefactorPlayerContextualMenuGamepadSupport()
 					and self:renderContextualMenuFocusHandler()
 				or nil,
@@ -166,6 +191,7 @@ function PlayerContextualMenu:render()
 								Size = UDim2.fromScale(1, 1),
 								BackgroundTransparency = 1,
 								[Roact.Ref] = self.containerRef,
+								ZIndex = 1,
 							}, {
 								MenuFrame = Roact.createElement("Frame", {
 									AutomaticSize = Enum.AutomaticSize.Y,
@@ -173,6 +199,7 @@ function PlayerContextualMenu:render()
 									BackgroundTransparency = 1,
 									Position = menuFramePosition,
 									AnchorPoint = Vector2.new(0, self.props.anchorFromBottom and 1 or 0),
+									Visible = not self.props.isFriendBlockOpen,
 								}, {
 									PlayerContextHeader = Roact.createElement(
 										PlayerContextHeader,
@@ -185,9 +212,46 @@ function PlayerContextualMenu:render()
 										setFirstItemRef = self.firstOptionRef,
 										width = UDim.new(0, self.props.actionWidth),
 										position = UDim2.fromOffset(0, 92),
-									}),
+									})
 								}),
 							}),
+							FriendBlockConfirmation = self.props.isFriend and Roact.createElement("Frame", {
+								Size = UDim2.fromScale(1, 1),
+								BackgroundTransparency = 1,
+								[Roact.Ref] = self.containerRef,
+								ZIndex = 2,
+							}, {
+								Overlay = Roact.createElement("TextButton", {
+									AutoButtonColor = false,
+									BackgroundTransparency = 1,
+									BorderSizePixel = 0,
+									Size = UDim2.new(1, 0, 1, 0),
+									Text = "",
+									ZIndex = 1,
+									Visible = self.props.isFriendBlockOpen,
+									[Roact.Event.Activated] = self.closeContextualMenu,
+								}),
+								BlockFrame = Roact.createElement("Frame", {
+									AutomaticSize = Enum.AutomaticSize.Y,
+									Size = UDim2.new(0, self.props.actionWidth, 0, 0),
+									BackgroundTransparency = 1,
+									Position = menuFramePosition,
+									AnchorPoint = Vector2.new(0, self.props.anchorFromBottom and 1 or 0),
+									ZIndex = 2,
+									Visible = self.props.isFriendBlockOpen,
+								}, {
+									PlayerContextHeader = Roact.createElement(PlayerContextHeader, {
+										player = self.props.player,
+										zIndex = 4,
+									}),
+									BlockDialog = Roact.createElement(FriendBlockConfirmation, {
+										width = self.props.actionWidth,
+										zIndex = 3,
+										onClosePlayerContextualMenu = self.props.onClose,
+										player = self.props.player,
+									}),
+								}),
+							}) or nil,
 						})
 					end,
 				}
@@ -196,4 +260,18 @@ function PlayerContextualMenu:render()
 	})
 end
 
-return PlayerContextualMenu
+local function mapStateToProps(state)
+	return {
+		isFriendBlockOpen = state.friends.isFriendBlockOpen or false,
+	}
+end
+
+local function mapDispatchToProps(dispatch)
+	return {
+		closeFriendBlockConfirmation = function()
+			dispatch(SetFriendBlockConfirmation(false))
+		end,
+	}
+end
+
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerContextualMenu)

@@ -14,6 +14,7 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local KeyframeCluster = Roact.PureComponent:extend("KeyframeCluster")
 
@@ -21,7 +22,7 @@ local TRIM_AMOUNT = 4
 
 function KeyframeCluster:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local keyframeTheme = theme.keyframeTheme
 	local position = props.Position
 	local size = props.Size

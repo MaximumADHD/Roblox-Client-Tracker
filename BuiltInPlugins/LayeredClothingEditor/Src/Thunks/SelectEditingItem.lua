@@ -22,6 +22,8 @@ local SelectPreviewTab = require(Plugin.Src.Actions.SelectPreviewTab)
 local SetCagesTransparency = require(Plugin.Src.Actions.SetCagesTransparency)
 local SetToolMode = require(Plugin.Src.Actions.SetToolMode)
 
+local GetFFlagAccessoryFittingToolAnalytics = require(Plugin.Src.Flags.GetFFlagAccessoryFittingToolAnalytics)
+
 -- select default cage when editing item changed
 local function selectCage(store, item)
 	if ItemCharacteristics.isItemEmpty(item) or not ItemCharacteristics.hasAnyCage(item) then
@@ -73,7 +75,7 @@ local function getPreviewTab(newEditingItem, storeState)
 	return getPreviewPanelTab(activeTabsForNewEditingItem)
 end
 
-return function(context, item)
+return function(context, item, analytics)
 	return function(store)
 		local state = store:getState()
 
@@ -106,9 +108,15 @@ return function(context, item)
 			outerCageContext:initFromCageMesh(Enum.CageType.Outer, item)
 			context:setInnerCageContext(innerCageContext)
 			context:setOuterCageContext(outerCageContext)
+			if GetFFlagAccessoryFittingToolAnalytics() then
+				analytics:getHandler("LayeredAccessorySelected")()
+			end
 		else
 			context:setInnerCageContext()
 			context:setOuterCageContext()
+			if GetFFlagAccessoryFittingToolAnalytics() then
+				analytics:getHandler("RigidAccessorySelected")()
+			end
 		end
 	end
 end

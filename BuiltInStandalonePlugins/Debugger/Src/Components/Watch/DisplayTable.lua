@@ -50,7 +50,6 @@ local ColumnResizeHelperFunctions = require(UtilFolder.ColumnResizeHelperFunctio
 
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
 local FFlagDevFrameworkTableHeaderTooltip = game:GetFastFlag("DevFrameworkTableHeaderTooltip")
-local FFlagDevFrameworkCustomTableRowHeight = game:GetFastFlag("DevFrameworkCustomTableRowHeight")
 local hasTableColumnResizeFFlags = FFlagDevFrameworkTableColumnResize
 
 local DisplayTable = Roact.PureComponent:extend("DisplayTable")
@@ -478,8 +477,8 @@ function DisplayTable:render()
 		UseDeficit = if hasTableColumnResizeFFlags then false else nil,
 		UseScale = if hasTableColumnResizeFFlags then true else nil,
 		ClampSize = if hasTableColumnResizeFFlags then true else nil,
-		ColumnHeaderHeight = if FFlagDevFrameworkCustomTableRowHeight then Constants.COLUMN_HEADER_HEIGHT else nil,
-		RowHeight = if FFlagDevFrameworkCustomTableRowHeight then Constants.ROW_HEIGHT else nil,
+		ColumnHeaderHeight = Constants.COLUMN_HEADER_HEIGHT,
+		RowHeight = Constants.ROW_HEIGHT,
 	})
 end
 
@@ -498,7 +497,7 @@ DisplayTable = RoactRodux.connect(function(state, props)
 	local isVariablesTab = (tabState == TableTab.Variables)
 
 	local threadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
-	local frameNumber = threadId and common.currentFrameMap[common.currentDebuggerConnectionId][threadId] or nil
+	local frameNumber = (threadId and common.currentFrameMap[common.currentDebuggerConnectionId] and common.currentFrameMap[common.currentDebuggerConnectionId][threadId]) or nil
 	local token = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
 	local watchVars = token and watch.stateTokenToRoots[token] or nil
 

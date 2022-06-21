@@ -11,6 +11,10 @@ local WrapUtil = AccessoryAndBodyToolSharedUtil.WrapUtil
 local getDeformerToPartMap = AccessoryAndBodyToolSharedUtil.getDeformerToPartMap
 local ItemCharacteristics = AccessoryAndBodyToolSharedUtil.ItemCharacteristics
 
+local AnalyticsGlobals = require(Plugin.Src.Util.AnalyticsGlobals)
+
+local GetFFlagAccessoryFittingToolAnalytics = require(Plugin.Src.Flags.GetFFlagAccessoryFittingToolAnalytics)
+
 local function fromModelToAccessory(model)
 	local accessory = Instance.new("Accessory", Workspace)
 	model:GetChildren()[1].Parent = accessory
@@ -138,7 +142,7 @@ local function generateCagedAvatar(meshEditingContext, editingItem, sourceItem)
 	WrapUtil:renameDeformers(clone, sourceItem)
 end
 
-return function(meshEditingContext, editingItem, sourceItem)
+return function(meshEditingContext, editingItem, sourceItem, analytics)
 	return function(store)
 		if not editingItem or not sourceItem then
 			return
@@ -147,8 +151,16 @@ return function(meshEditingContext, editingItem, sourceItem)
 		if ItemCharacteristics.isClothes(editingItem) then
 			if ItemCharacteristics.hasAnyCage(editingItem) then
 				generateCagedAccessory(store, meshEditingContext, editingItem, sourceItem)
+				if GetFFlagAccessoryFittingToolAnalytics() then
+					analytics:getHandler("LayeredAccessoryPublished")()
+					AnalyticsGlobals.HasPublished = true
+				end
 			else
 				generateRigidAccessory(store, editingItem, sourceItem)
+				if GetFFlagAccessoryFittingToolAnalytics() then
+					analytics:getHandler("RigidAccessoryPublished")()
+					AnalyticsGlobals.HasPublished = true
+				end
 			end
 		elseif ItemCharacteristics.isAvatar(editingItem) then
 			generateCagedAvatar(meshEditingContext, editingItem, sourceItem)

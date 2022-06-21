@@ -59,9 +59,9 @@ local WideScrollingFrame = require(Plugin.Src.Components.TrackList.WideScrolling
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
-local GetFFlagFixClampValuesForFacs = require(Plugin.LuaFlags.GetFFlagFixClampValuesForFacs)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+local GetFFlagValidateNumberBox = require(Plugin.LuaFlags.GetFFlagValidateNumberBox)
 local TrackList = Roact.PureComponent:extend("TrackList")
 
 function TrackList:init()
@@ -229,20 +229,28 @@ function TrackList:renderExpandedCFrameTrack(track, children, theme)
 				ReadOnly = isPlaying,
 				DragMultiplier = dragMultiplier,
 				OnItemChanged = function(key, value)
+					if GetFFlagValidateNumberBox() then
+						if GetFFlagFacsUiChanges() and not GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs then
+							value = math.clamp(math.floor(.5 + value * 100) / 100, 0, 1)
+						end
+					end
 					for _, item in ipairs(items[targetProperty]) do
 						if item.Key == key then
 							item.Value = value
 						end
 					end
 					local newValue = TrackUtils.getPropertyForItems(track, items, props.DefaultEulerAnglesOrder)
-					if GetFFlagFacsUiChanges() and not GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs then
-						newValue = math.clamp(math.floor(.5 + newValue * 100) / 100, 0, 1)
+					if not GetFFlagValidateNumberBox() then
+						if GetFFlagFacsUiChanges() and not GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs then
+							newValue = math.clamp(math.floor(.5 + newValue * 100) / 100, 0, 1)
+						end
 					end
 					if GetFFlagChannelAnimations() then
 						self.onValueChanged(instance, {name}, track.Type, playhead, newValue)
 					else
 						self.onValueChanged_deprecated(instance, name, playhead, newValue, props.analytics)
 					end
+					return value
 				end,
 				OnChangeBegan = props.OnChangeBegan,
 			})
@@ -263,6 +271,7 @@ function TrackList:renderExpandedCFrameTrack(track, children, theme)
 					end
 					local newValue = TrackUtils.getPropertyForItems(track, items, props.DefaultEulerAnglesOrder)
 					self.onValueChanged_deprecated(instance, name, playhead, newValue, props.analytics)
+					return newValue
 				end,
 				OnChangeBegan = props.OnChangeBegan,
 			})
@@ -371,16 +380,24 @@ function TrackList:renderTrack(track, children, theme, parentPath, parentType)
 		Selected = selected,
 		DragMultiplier = dragMultiplier,
 		OnItemChanged = function(key, value)
+			if GetFFlagValidateNumberBox() then
+				if GetFFlagFacsUiChanges() and not GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs then
+					value = math.clamp(value, 0, 1)
+				end
+			end
 			for _, item in ipairs(items) do
 				if item.Key == key then
 					item.Value = value
 				end
 			end
 			local newValue = TrackUtils.getPropertyForItems(track, items, props.DefaultEulerAnglesOrder)
-			if GetFFlagFacsUiChanges() and not GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs then
-				newValue = math.clamp(newValue, 0, 1)
+			if not GetFFlagValidateNumberBox() then
+				if GetFFlagFacsUiChanges() and not GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs then
+					newValue = math.clamp(newValue, 0, 1)
+				end
 			end
 			self.onValueChanged(instance, path, trackType, playhead, newValue)
+			return value
 		end,
 		OnExpandToggled = isExpandable and function(newExpandedState)
 			self.onTrackExpandToggled(path, newExpandedState)
@@ -487,6 +504,7 @@ function TrackList:renderTrack_deprecated(track, children, theme)
 					value = math.clamp(value, 0, 1)
 				end
 				self.onFacsChanged(instance, name, playhead, value, props.Analytics)
+				return value
 			end,
 			OnChangeBegan = props.OnChangeBegan,
 			OnContextButtonClick = function()
@@ -529,7 +547,7 @@ function TrackList:render()
 	self.maxTrackWidth = 0
 
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local state = self.state
 
 	local size = props.Size

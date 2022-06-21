@@ -42,6 +42,7 @@ local TimeTag = require(Plugin.Src.Components.ScaleControls.TimeTag)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local ScaleControls = Roact.PureComponent:extend("PureComponent")
 
@@ -230,7 +231,7 @@ end
 
 function ScaleControls:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 
 	local showSelectionArea = props.ShowSelectionArea
 	local showAsSeconds = props.ShowAsSeconds

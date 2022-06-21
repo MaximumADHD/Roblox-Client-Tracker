@@ -11,6 +11,7 @@ local UIBlox = require(CorePackages.UIBlox)
 local withStyle = UIBlox.Core.Style.withStyle
 
 local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local GetFFlagVoiceARUnblockingUnmutingEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceARUnblockingUnmutingEnabled)
 
@@ -180,14 +181,13 @@ function ReportConfirmationContainer:render()
 
 		local savedMuteState = if self.state.muteFlipped ~= nil then self.state.muteFlipped else false
 		local savedBlockedState = if self.state.blockFlipped ~= nil then self.state.blockFlipped else false
-
 		local selectActionsPage = Roact.createElement(ReportActionSelection, {
-			titleText = "Thanks for your report!",
-			subtitleText = "We've received your report and will take action soon if needed. Your feedback helps keep our community safe.",
-			instructionText = "Other steps you can take:",
-			muteText = "Mute "..self.userFullName,
-			blockText = "Block "..self.userFullName,
-			doneText = "Done",
+			titleText = RobloxTranslator:FormatByKey("Feature.SettingsHub.Heading.Report.ThanksForReport"),
+			subtitleText = RobloxTranslator:FormatByKey("Feature.SettingsHub.ReportSubmitted.ThankYou"),
+			instructionText = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.Report.OtherActionsHeader"),
+			muteText = RobloxTranslator:FormatByKey("Feature.SettingsHub.ReportSubmitted.MutePlayer", {Player = self.userFullName}),
+			blockText = RobloxTranslator:FormatByKey("Feature.SettingsHub.ReportSubmitted.BlockPlayer", {Player = self.userFullName}),
+			doneText = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.Report.Done"),
 			showVoiceMuting = self.props.isVoiceReport,
 			isVoiceMuted = savedMuteState or self.state.targetInitiallyVoiceMuted,
 			isBlocked = savedBlockedState or self.state.targetInitiallyBlocked,
@@ -198,14 +198,14 @@ function ReportConfirmationContainer:render()
 		})
 
 		local confirmActionsPage = Roact.createElement(ReportActionAreYouSure, {
-			mutedTitleText = string.format("Mute %s?", self.userFullName),
-			blockedTitleText = string.format("Block %s?", self.userFullName),
-			mutedAndBlockedTitleText = string.format("Mute & Block %s?", self.userFullName),
-			mutedSubtitleText = string.format("You won’t be able to hear %s.", self.userFullName),
-			blockedSubtitleText = string.format("You and %s will no longer be able to communicate with each other.", self.userFullName),
-			mutedAndBlockedSubtitleText = string.format("You won’t be able to hear %s. You will also no longer be able to communicate with each other.", self.userFullName),
-			cancelText = "Cancel",
-			confirmText = "Confirm",
+			mutedTitleText = RobloxTranslator:FormatByKey("Feature.SettingsHub.ReportSubmitted.MutePlayer", {Player = self.userFullName}),
+			blockedTitleText = RobloxTranslator:FormatByKey("Feature.SettingsHub.ReportSubmitted.BlockPlayer", {Player = self.userFullName}),
+			mutedAndBlockedTitleText = RobloxTranslator:FormatByKey("Feature.SettingsHub.ReportSubmitted.MuteAndBlockPlayer", {DisplayName = self.userFullName}),
+			mutedSubtitleText = RobloxTranslator:FormatByKey("Feature.SettingsHub.ReportSubmitted.MutedSubtitleText", {Player = self.userFullName}),
+			blockedSubtitleText = RobloxTranslator:FormatByKey("Feature.SettingsHub.ReportSubmitted.BlockedSubtitleText", {Player = self.userFullName}),
+			mutedAndBlockedSubtitleText = RobloxTranslator:FormatByKey("Feature.SettingsHub.ReportSubmitted.MuteAndBlockWarning", {Player = self.userFullName}),
+			cancelText = RobloxTranslator:FormatByKey("InGame.InspectMenu.Action.Cancel"),
+			confirmText = RobloxTranslator:FormatByKey("InGame.InspectMenu.Action.Confirm"),
 			isMuted = self.state.muteFlipped,
 			isBlocked = self.state.blockFlipped,
 			onCancelActivated = self.onYesOrNoCancel,

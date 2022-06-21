@@ -16,24 +16,17 @@ local Image = UI.Decoration.Image
 local Pane = UI.Pane
 local Tooltip = UI.Tooltip
 
-local Util = Plugin.Src.Util
-local MaterialController = require(Util.MaterialController)
-
-local Flags = Plugin.Src.Flags
-local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
-
 export type Props = {
 	LayoutOrder: number?,
-	Material: _Types.Material,
 	Position: UDim2?,
 	Size: UDim2?,
+	Status: Enum.PropertyStatus,
 	ZIndex: number?,
 }
 
 type _Props = Props & {
 	Analytics: any,
 	Localization: any,
-	Material: _Types.Material,
 	MaterialController: any,
 	Stylizer: any,
 }
@@ -50,14 +43,7 @@ function StatusIcon:render()
 	local props: _Props = self.props
 	local style: _Style = props.Stylizer.StatusIcon
 	local localization = props.Localization
-	local material = props.Material
-
-	local status
-	if getFFlagMaterialManagerGlassNeonForceField() then
-		status = props.MaterialController:getOverrideStatus(material.Material)
-	else
-		status = props.MaterialController:getOverrideStatus(material.MaterialVariant.BaseMaterial)
-	end
+	local status = props.Status
 
 	local statusImage
 	local statusText = ""
@@ -92,7 +78,6 @@ end
 StatusIcon = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
-	MaterialController = MaterialController,
 	Stylizer = Stylizer,
 })(StatusIcon)
 

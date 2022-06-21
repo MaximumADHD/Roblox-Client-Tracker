@@ -31,6 +31,7 @@ local CaptureNotification = Roact.PureComponent:extend("CaptureNotification")
 
 CaptureNotification.validateProps = t.strictInterface({
 	forceDismissToast = t.optional(t.table),
+	permissionEvent = t.optional(t.instance),
 })
 
 function CaptureNotification:init()
@@ -111,6 +112,13 @@ function CaptureNotification:init()
 			toastContent = self.getToastContent(notificationType),
 		})
 	end
+	
+	self.permissionEventCallback = function()
+		self:setState({
+			notificationType = NotificationType.Permission,
+			toastContent = self.getToastContent(NotificationType.Permission),
+		})
+	end
 end
 
 function CaptureNotification:render()
@@ -168,9 +176,13 @@ function CaptureNotification:render()
 						screenSize = self.state.screenSize,
 					}),
 				}),
-				EventConnection = shouldSaveScreenshotToAlbum() and Roact.createElement(ExternalEventConnection, {
+				ScreenshotSavedToAlbumConnection = shouldSaveScreenshotToAlbum() and Roact.createElement(ExternalEventConnection, {
 					event = game.ScreenshotSavedToAlbum,
 					callback = self.screenshotSavedToAlbumCallback,
+				}),
+				PermissionEventConnection = self.props.permissionEvent and Roact.createElement(ExternalEventConnection, {
+					event = self.props.permissionEvent.Event,
+					callback = self.permissionEventCallback,
 				}),
 			})
 		})

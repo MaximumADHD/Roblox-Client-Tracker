@@ -9,6 +9,7 @@
 
 local Plugin = script.Parent.Parent.Parent
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
+local FFlagEnableAssetManagerGlobalSearchBar = game:GetFastFlag("EnableAssetManagerGlobalSearchBar")
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -107,8 +108,22 @@ function TopBar:render()
 
     local searchBarOffset = topBarTheme.Button.Size * 5 + topBarTheme.Padding * 4
 
-    local defaultText = localization:getText("SearchBar", "PlaceholderText")
+    -- Remove variable when removing flag
+    local showSearchBar
+    local defaultText
+    if FFlagEnableAssetManagerGlobalSearchBar then 
+        showSearchBar = true
+        if currentScreen.Path ~= Screens.MAIN.Path then
+            defaultText = localization:getText("SearchBar", "PlaceholderText")
+                .. " " .. localization:getText("Folders", currentScreen.Path)
+        else
+            defaultText = localization:getText("SearchBar", "GlobalPlaceholderText")
+        end
+    else
+        showSearchBar = currentScreen.Path ~= Screens.MAIN.Path
+        defaultText = localization:getText("SearchBar", "PlaceholderText")
         .. " " .. localization:getText("Folders", currentScreen.Path)
+    end
 
     local layoutIndex = LayoutOrderIterator.new()
 
@@ -329,7 +344,7 @@ function TopBar:render()
             }),
         }),
 
-        SearchBar = currentScreen.Path ~= Screens.MAIN.Path and Roact.createElement(SearchBar, {
+        SearchBar = showSearchBar and Roact.createElement(SearchBar, {
             Size = UDim2.new(1, -searchBarOffset, 1, 0),
             LayoutOrder = layoutIndex:getNextOrder(),
 

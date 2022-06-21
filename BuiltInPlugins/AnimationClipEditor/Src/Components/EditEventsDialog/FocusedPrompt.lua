@@ -28,6 +28,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local GetFFlagFixButtonStyle = require(Plugin.LuaFlags.GetFFlagFixButtonStyle)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local FocusedPrompt = Roact.PureComponent:extend("FocusedPrompt")
 
@@ -49,7 +50,7 @@ function FocusedPrompt:renderButton(index, button, textSize)
 
 function FocusedPrompt:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local dialogTheme = theme.dialogTheme
 
 	local buttonPadding = Constants.PROMPT_BUTTON_PADDING

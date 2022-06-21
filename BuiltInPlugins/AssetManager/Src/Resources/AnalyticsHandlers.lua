@@ -1,3 +1,5 @@
+local FFlagAssetManagerDragAndDrop = game:GetFastFlag("AssetManagerDragAndDrop")
+
 local GA_CATEGORY_ACTION = "Action"
 local ASSET_MANAGER_CATEGORY = "Asset Manager"
 
@@ -36,6 +38,11 @@ return function(rbxAnalyticsService)
             rbxAnalyticsService:TrackEvent(GA_CATEGORY_ACTION, ASSET_MANAGER_CATEGORY, "Double Click Insert")
             rbxAnalyticsService:ReportCounter("AssetManagerDoubleClickInsert", 1)
         end,
+
+        dragInsert = if FFlagAssetManagerDragAndDrop then function()
+            rbxAnalyticsService:TrackEvent(GA_CATEGORY_ACTION, ASSET_MANAGER_CATEGORY, "Drag Insert")
+            rbxAnalyticsService:ReportCounter("AssetManagerDragInsert", 1)
+        end else nil,
 
         AssetPreviewPlaySound = function()
             rbxAnalyticsService:TrackEvent(GA_CATEGORY_ACTION, ASSET_MANAGER_CATEGORY, "Asset Preview Play Sound")

@@ -7,6 +7,7 @@ local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local ServiceWrapper = Framework.TestHelpers.ServiceWrapper
 
 local MockPlugin = Framework.TestHelpers.Instances.MockPlugin
 local MainProvider = require(Plugin.Src.Context.MainProvider)
@@ -15,6 +16,9 @@ local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local Localization = ContextServices.Localization
 local Signals = require(Plugin.Src.Context.Signals)
 local Constants = require(Plugin.Src.Util.Constants)
+local CalloutController = require(Plugin.Src.Util.CalloutController)
+
+local GetFFlagCurveEditorCallout = require(Plugin.LuaFlags.GetFFlagCurveEditorCallout)
 
 local MockWrapper = Roact.Component:extend("MockWrapper")
 
@@ -68,6 +72,8 @@ function MockWrapper.getMockGlobals(props)
 
 	local analytics = ContextServices.Analytics.mock()
 
+	local calloutController = CalloutController.new(ServiceWrapper.new("CalloutService", true):asService())
+
 	return {
 		focusGui = focusGui,
 		plugin = pluginInstance,
@@ -77,7 +83,8 @@ function MockWrapper.getMockGlobals(props)
 		store = store,
 		analytics = analytics,
 		pluginActions = pluginActions,
-		signals = signals
+		signals = signals,
+		calloutController = calloutController,
 	}
 end
 

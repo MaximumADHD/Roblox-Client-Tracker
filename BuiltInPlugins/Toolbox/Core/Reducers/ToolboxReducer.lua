@@ -1,3 +1,5 @@
+local FFlagToolboxFurtherTryInStudioFixes = game:GetFastFlag("ToolboxFurtherTryInStudioFixes")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -19,6 +21,7 @@ local RolesReducer = require(Reducers.RolesReducer)
 local ItemTagsReducer = require(Reducers.ItemTagsReducer)
 local Purchase = require(Reducers.Purchase)
 local Packages = require(Reducers.Packages)
+local TryInStudio = if FFlagToolboxFurtherTryInStudioFixes then require(Reducers.TryInStudio) else nil
 local HomeConfiguration = require(Reducers.HomeConfiguration)
 
 -- TODO CLIDEVSRVS-1595: Error handling/promise rejections
@@ -37,6 +40,7 @@ local ToolboxReducer = Rodux.combineReducers({
 	itemTags = ItemTagsReducer,
 	purchase = Purchase,
 	packages = Packages,
+	tryInStudio = if FFlagToolboxFurtherTryInStudioFixes then TryInStudio else nil,
 })
 
 return function(state, action)

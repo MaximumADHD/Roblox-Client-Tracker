@@ -6,6 +6,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Rodux = require(Plugin.Packages.Rodux)
 
 local Framework = require(Plugin.Packages.Framework)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -77,7 +78,7 @@ return function()
 			local testThemedElement = Roact.PureComponent:extend("testThemedElement")
 
 			function testThemedElement:render()
-				local theme = self.props.Stylizer.PluginTheme
+				local theme = GetFFlagExtendPluginTheme() and self.props.Stylizer or self.props.Stylizer.PluginTheme
 				return Roact.createElement("Frame",{
 					BackgroundColor3 = theme.BackgroundColor
 				})

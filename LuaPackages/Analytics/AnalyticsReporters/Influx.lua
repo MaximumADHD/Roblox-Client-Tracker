@@ -6,11 +6,18 @@
 	~Kyler Mulherin (9/12/2017)
 ]]
 
+type Table = {[any]: any}
+
+export type Influx = {
+	setEnabled: (self: Influx, isEnabled: boolean) -> (),
+	reportSeries: (self: Influx, seriesName: string, additionalArgs: Table?, throttlingPercent: number) -> (),
+}
+
 local Influx = {}
 Influx.__index = Influx
 
 -- reportingService - (object) any object that defines the same functions for Influx as AnalyticsService
-function Influx.new(reportingService)
+function Influx.new(reportingService): Influx
 	local rsType = type(reportingService)
 	assert(rsType == "table" or rsType == "userdata", "Unexpected value for reportingService")
 

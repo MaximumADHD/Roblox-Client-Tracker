@@ -5,10 +5,7 @@ return function(plugin, pluginLoaderContext)
 
 	local Plugin = script.Parent.Parent
 
-	game:DefineFastFlag("TerrainToolsRoactInspector", false)
-
 	local FFlagTerrainToolsImportUploadAssets = game:GetFastFlag("TerrainToolsImportUploadAssets")
-	local FFlagTerrainToolsRoactInspector = game:GetFastFlag("TerrainToolsRoactInspector")
 
 	-- Libraries
 	local Framework = require(Plugin.Packages.Framework)
@@ -167,16 +164,14 @@ return function(plugin, pluginLoaderContext)
 		local roactHandle = Roact.mount(Roact.createElement(TerrainTools, contextItems))
 
 		local inspector
-		if FFlagTerrainToolsRoactInspector then
-			-- StudioService isn't always available, so ignore if an error is thrown trying to access
-			local ok, hasInternalPermission = pcall(function()
-				return game:GetService("StudioService"):HasInternalPermission()
-			end)
+		-- StudioService isn't always available, so ignore if an error is thrown trying to access
+		local ok, hasInternalPermission = pcall(function()
+			return game:GetService("StudioService"):HasInternalPermission()
+		end)
 
-			if ok and hasInternalPermission then
-				local inspector = Framework.DeveloperTools.forPlugin("Terrain Editor", plugin)
-				inspector:addRoactTree("Roact tree", roactHandle, Roact)
-			end
+		if ok and hasInternalPermission then
+			local inspector = Framework.DeveloperTools.forPlugin("Terrain Editor", plugin)
+			inspector:addRoactTree("Roact tree", roactHandle, Roact)
 		end
 
 		plugin.Unloading:Connect(function()
@@ -185,7 +180,7 @@ return function(plugin, pluginLoaderContext)
 				roactHandle = nil
 			end
 
-			if FFlagTerrainToolsRoactInspector and inspector then
+			if inspector then
 				inspector:destroy()
 				inspector = nil
 			end

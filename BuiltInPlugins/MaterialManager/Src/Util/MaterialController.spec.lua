@@ -9,11 +9,6 @@ return function()
 
 	local DEPRECATED_getBuiltInMaterialVariants = require(Plugin.Src.Resources.Constants.DEPRECATED_getBuiltInMaterialVariants)
 	local MaterialController = require(Plugin.Src.Util.MaterialController)
-	local MockMaterialService = require(Plugin.Src.TestHelpers.MockMaterialService)
-
-	local getFFlagDevFrameworkMockWrapper = require(Plugin.Src.Flags.getFFlagDevFrameworkMockWrapper)
-
-	local MaterialServiceWrapper = require(Plugin.Src.Util.MaterialServiceWrapper)
 
 	local builtInMaterialVariants
 	if getFFlagMaterialManagerGlassNeonForceField() then
@@ -27,11 +22,7 @@ return function()
 	local materialServiceWrapper
 
 	beforeEach(function()
-		if getFFlagDevFrameworkMockWrapper() then
-			materialServiceWrapper = ServiceWrapper.new("MaterialService")
-		else
-			materialServiceWrapper = MaterialServiceWrapper.new(MockMaterialService.new())
-		end
+		materialServiceWrapper = ServiceWrapper.new("MaterialService")
 	end)
 
 	afterEach(function()

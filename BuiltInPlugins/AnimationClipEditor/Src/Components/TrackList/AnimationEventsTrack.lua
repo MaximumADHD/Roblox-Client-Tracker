@@ -18,6 +18,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local TrackListEntry = require(Plugin.Src.Components.TrackList.TrackListEntry)
 local Constants = require(Plugin.Src.Util.Constants)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local AnimationEventsTrack = Roact.PureComponent:extend("AnimationEventsTrack")
 
@@ -64,7 +65,7 @@ end
 function AnimationEventsTrack:render()
 	local localization = self.props.Localization
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local state = self.state
 	local layoutOrder = props.LayoutOrder
 	local indent = props.Indent or 0

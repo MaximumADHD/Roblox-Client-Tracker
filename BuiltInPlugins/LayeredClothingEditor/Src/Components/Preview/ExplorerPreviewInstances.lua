@@ -73,7 +73,7 @@ local function onPreviewSelectionChanged(self)
 	end
 end
 
-local function transformOrDeformPreviewLayers(self)
+local function transformOrDeformPreviewLayers(self, selectionChanged)
 	local props = self.props
 
 	local attachmentPoint = props.AttachmentPoint
@@ -82,6 +82,8 @@ local function transformOrDeformPreviewLayers(self)
 	local editingCage = props.EditingCage
 	local itemSize = props.ItemSize
 	local luaMeshEditingModuleContext = props.LuaMeshEditingModuleContext
+	local outerCageContext = luaMeshEditingModuleContext:getOuterCageContext()
+	local innerCageContext = luaMeshEditingModuleContext:getInnerCageContext()
 	local meshEditingContext = luaMeshEditingModuleContext:getCurrentContext()
 
 	local previewAvatars = previewContext:getAvatars()
@@ -89,8 +91,17 @@ local function transformOrDeformPreviewLayers(self)
 		if editingCage == Constants.EDIT_MODE.Mesh then
 			avatar:transformLayer(1, itemSize, attachmentPoint.AttachmentCFrame, attachmentPoint.ItemCFrame, accessoryTypeInfo.Name)
 		else
-			if meshEditingContext then
-				avatar:deformLayer(1, meshEditingContext:getVertexData(), editingCage)
+			if game:GetFastFlag("FixDeformerUpdateOnCageEdit") and selectionChanged then
+				if outerCageContext then
+					avatar:deformLayer(1, outerCageContext:getVertexData(), Enum.CageType.Outer)
+				end
+				if innerCageContext then
+					avatar:deformLayer(1, innerCageContext:getVertexData(), Enum.CageType.Inner)
+				end
+			else
+				if meshEditingContext then
+					avatar:deformLayer(1, meshEditingContext:getVertexData(), editingCage)
+				end
 			end
 		end
 	end
@@ -108,7 +119,11 @@ local function updatePreviewAssets(self, selectionChanged)
 			onPreviewSelectionChanged(self)
 		end
 
-		transformOrDeformPreviewLayers(self)
+		if game:GetFastFlag("FixDeformerUpdateOnCageEdit") then
+			transformOrDeformPreviewLayers(self, selectionChanged)
+		else
+			transformOrDeformPreviewLayers(self)
+		end
 
 		self.isUpdateInProgress = false
 	end)()

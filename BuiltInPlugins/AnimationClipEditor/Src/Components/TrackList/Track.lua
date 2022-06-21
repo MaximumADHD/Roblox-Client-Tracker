@@ -38,6 +38,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local Track = Roact.PureComponent:extend("Track")
 
@@ -96,14 +97,14 @@ function Track:init()
 
 	self.onItemChanged = function(key, value)
 		if self.props.OnItemChanged then
-			self.props.OnItemChanged(key, value)
+			return self.props.OnItemChanged(key, value)
 		end
 	end
 end
 
 function Track:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local layoutOrder = props.LayoutOrder
 	local indent = props.Indent or 0
 	local name = props.Name
@@ -189,7 +190,7 @@ function Track:render()
 				if not GetFFlagFacsUiChanges() then
 					self.onSetNumber(index, number)
 				end
-				self.onItemChanged(item.Key, number)
+				return self.onItemChanged(item.Key, number)
 			end,
 			OnDragMoved = function(input)
 				self.onItemChanged(item.Key, item.Value + input.Delta.X * (GetFFlagFacsUiChanges() and dragMultiplier or Constants.NUMBERBOX_DRAG_MULTIPLIER))

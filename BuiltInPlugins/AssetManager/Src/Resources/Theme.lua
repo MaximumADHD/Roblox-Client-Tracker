@@ -1,3 +1,5 @@
+local FFlagAssetManagerDragAndDrop = game:GetFastFlag("AssetManagerDragAndDrop")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Cryo = require(Plugin.Packages.Cryo)
@@ -20,6 +22,8 @@ local Spritesheet = Util.Spritesheet
 local FONT_SIZE_SMALL = 14
 local FONT_SIZE_MEDIUM = 16
 local FONT_SIZE_LARGE = 18
+
+local FFlagStudioAssetManagerAssetModerationPendingIcon = game:GetFastFlag("StudioAssetManagerAssetModerationPendingIcon")
 
 local arrowSpritesheet = Spritesheet("rbxasset://textures/StudioSharedUI/arrowSpritesheet.png", {
 	SpriteSize = 12,
@@ -157,7 +161,7 @@ local image = {
 local tile = {
 	Size = UDim2.new(0, 85, 0, 121),
 	BackgroundTransparency = 1,
-	BorderSizePixel = 0,
+	BorderSizePixel = if FFlagAssetManagerDragAndDrop then nil else 0,
 
 	AssetPreview = {
 		Button = {
@@ -189,7 +193,7 @@ local tile = {
 			XOffset = 4,
 			YOffset = 4,
 			Rejected = "rbxasset://textures/StudioSharedUI/alert_error_withbg.png",
-			Pending = "rbxasset://textures/StudioSharedUI/pending_withbg.png",
+			Pending = if FFlagStudioAssetManagerAssetModerationPendingIcon then StyleKey.TilePendingImage else "rbxasset://textures/StudioSharedUI/DEPRECATED_pending_withbg.png",
 		},
 	},
 
@@ -243,8 +247,9 @@ local listItem = {
 	Font = Enum.Font.SourceSans,
 	Size = UDim2.new(1, 0, 0, 24),
 	BackgroundTransparency = 1,
-	BorderSizePixel = 0,
-	Padding = UDim.new(0, 4),
+	BorderSizePixel = if FFlagAssetManagerDragAndDrop then nil else 0,
+	Padding = if not FFlagAssetManagerDragAndDrop then UDim.new(0, 4) else nil,
+	Spacing = if FFlagAssetManagerDragAndDrop then UDim.new(0, 4) else nil,
 
 	Image = {
 		FrameSize = UDim2.new(0, 24, 0, 24),
@@ -257,7 +262,7 @@ local listItem = {
 
 		ModerationStatus = {
 			Rejected = "rbxasset://textures/StudioSharedUI/alert_error.png",
-			Pending = "rbxasset://textures/StudioSharedUI/pending.png",
+			Pending = if FFlagStudioAssetManagerAssetModerationPendingIcon then StyleKey.ListItemPendingImage else "rbxasset://textures/StudioSharedUI/pending.png",
 		},
 	},
 
@@ -442,11 +447,25 @@ local PluginTheme = {
 	[ui.LinkText] = join(getRawComponentStyle("LinkText"), linkText),
 }
 
+local darkThemeOverride = {
+	[StyleKey.TilePendingImage] = "rbxasset://textures/StudioSharedUI/pending_withbg.png",
+	[StyleKey.ListItemPendingImage] = "rbxasset://textures/StudioSharedUI/pending-dark.png",
+}
+local lightThemeOverride = {
+	[StyleKey.TilePendingImage] = "rbxasset://textures/StudioSharedUI/pending_withbg.png",
+	[StyleKey.ListItemPendingImage] = "rbxasset://textures/StudioSharedUI/pending-light.png",
+}
 
 local getUILibraryTheme = require(script.Parent.DEPRECATED_UILibraryTheme)
 
 return function(createMock: boolean?)
-	local styleRoot = if createMock then StudioTheme.mock() else StudioTheme.new()
+	local studioTheme
+	if FFlagStudioAssetManagerAssetModerationPendingIcon then
+		studioTheme = if createMock then StudioTheme.mock(darkThemeOverride, lightThemeOverride) else StudioTheme.new(darkThemeOverride, lightThemeOverride)
+	else
+		studioTheme = if createMock then StudioTheme.mock() else StudioTheme.new()
+	end
+	local styleRoot = studioTheme
 	local theme = styleRoot:extend(PluginTheme)
 	theme.getUILibraryTheme = getUILibraryTheme
 	return theme

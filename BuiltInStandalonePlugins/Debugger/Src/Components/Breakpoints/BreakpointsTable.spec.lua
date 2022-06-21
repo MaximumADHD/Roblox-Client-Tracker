@@ -11,8 +11,6 @@ local MetaBreakpointModel = require(Models.MetaBreakpoint)
 
 local mockContext = require(Plugin.Src.Util.mockContext)
 
-local FFlagDevFrameworkRemoveInfiniteScroller = game:GetFastFlag("DevFrameworkRemoveInfiniteScroller")
-
 return function()
 	local function createBreakpointsTable(...)
 		local arg = { ... }
@@ -34,9 +32,6 @@ return function()
 	end
 
 	it("should create and destroy breakpoints without errors", function()
-		if not FFlagDevFrameworkRemoveInfiniteScroller then
-			return
-		end
 		local breakpointsTableElement = createBreakpointsTable()
 		local folder = Instance.new("Folder")
 		local folderInstance = Roact.mount(breakpointsTableElement.getChildrenWithMockContext(), folder)
@@ -47,9 +42,6 @@ return function()
 	end)
 
 	it("should populate and sort breakpoints table through actions", function()
-		if not FFlagDevFrameworkRemoveInfiniteScroller then
-			return
-		end
 		local breakpointsTableElement = createBreakpointsTable()
 		local store = breakpointsTableElement.getStore()
 
@@ -82,9 +74,6 @@ return function()
 	end)
 
 	it("should populate and sort breakpoints table set by initial store", function()
-		if not FFlagDevFrameworkRemoveInfiniteScroller then
-			return
-		end
 		local initialBreakpointData = {}
 
 		--uniqueID is used as the lineNumber in the mock breakpoints, which is how the breakpoints are sorted
@@ -159,9 +148,6 @@ return function()
 	end
 	
 	it("should have initial sorting not affected by breakpoint enabled state", function()
-		if not FFlagDevFrameworkRemoveInfiniteScroller then
-			return
-		end
 		local initialBreakpointData = {}
 
 		--uniqueID is used as the lineNumber in the mock breakpoints, which is how the breakpoints are sorted

@@ -107,8 +107,7 @@ function MainPlugin:renderButtons(toolbar)
 			Id = "template_button",
 			Title = self.localization:getText("Plugin", "Button"),
 			Tooltip = self.localization:getText("Plugin", "Description"),
-			--New Plugin Setup: Change Icon. Can be nil if QT is managing the icon
-			Icon = "rbxasset://textures/GameSettings/ToolbarIcon.png",
+			Icon = "rbxasset://textures/DeviceEmulator/emulator.png",
 			OnClick = self.toggleEnabled,
 			ClickableWhenViewportHidden = true,
 		}),
@@ -150,6 +149,7 @@ function MainPlugin:render()
 		}, {
 			-- Plugin contents are mounted here
 			-- New Plugin Setup: Switch out ExampleComponent with your component
+			-- TODO: pull in other widgets, like GraphicsWidget as needed
 			ExampleComponent = Roact.createElement(ExampleComponent),
 			ExampleRoactRoduxComponent = Roact.createElement(ExampleRoactRoduxComponent),
 		}),

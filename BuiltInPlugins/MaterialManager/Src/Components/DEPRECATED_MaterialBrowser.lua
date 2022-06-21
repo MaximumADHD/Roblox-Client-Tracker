@@ -18,6 +18,7 @@ local IconButton = UI.IconButton
 
 local Components = Plugin.Src.Components
 
+local DEPRECATED_MaterialGrid = require(Components.MaterialBrowser.DEPRECATED_MaterialGrid)
 local MaterialGrid = require(Components.MaterialBrowser.MaterialGrid)
 local SideBar = require(Components.MaterialBrowser.SideBar)
 local TopBar = require(Components.MaterialBrowser.TopBar)
@@ -25,8 +26,8 @@ local TopBar = require(Components.MaterialBrowser.TopBar)
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialManagerDetailsOverhaul = require(Flags.getFFlagMaterialManagerDetailsOverhaul)
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
+local getFFlagMaterialManagerGridOverhaul = require(Flags.getFFlagMaterialManagerGridOverhaul)
 
-local FFlagDevFrameworkIconButtonBorderColor = game:GetFastFlag("DevFrameworkIconButtonBorderColor")
 local FFlagMaterialManagerSideBarHide = game:GetFastFlag("MaterialManagerSideBarHide")
 
 local MaterialDetails = if getFFlagMaterialManagerDetailsOverhaul() and getFFlagMaterialManagerGlassNeonForceField() then
@@ -126,7 +127,7 @@ function DEPRECATED_MaterialBrowser:init()
 					Size = style.IconSize,
 					LeftIcon = style.HideIcon,
 					IconColor = style.IconColor,
-					BorderColor = if FFlagDevFrameworkIconButtonBorderColor then style.BackgroundColor else nil,
+					BorderColor = style.BackgroundColor,
 					OnClick = self.onHideButtonClicked,
 					AnchorPoint = Vector2.new(1, 1),
 					Position = UDim2.new(1, -5, 1, -5),
@@ -156,7 +157,7 @@ function DEPRECATED_MaterialBrowser:init()
 				LayoutOrder = 2,
 			}, {
 				MaterialGrid = if showMaterialGrid then
-					Roact.createElement(MaterialGrid, {
+					Roact.createElement(if getFFlagMaterialManagerGridOverhaul() then MaterialGrid else DEPRECATED_MaterialGrid, {
 						LayoutOrder = 1,
 						Size = if showMaterialDetails then style.MaterialGridSize else UDim2.fromScale(1, 1),
 						OnShowButtonClicked = self.onShowButtonClicked,
@@ -279,7 +280,7 @@ function DEPRECATED_MaterialBrowser:render()
 	local props: _Props = self.props
 	local style: _Style = props.Stylizer.MaterialBrowser
 
-	local material: _Types.Material = props.Material
+	local material: _Types.Material? = props.Material
 
 	local sideBarSize = self.state.sideBarSize
 	local canHideGrid = false
@@ -375,7 +376,7 @@ function DEPRECATED_MaterialBrowser:render()
 					LayoutOrder = 2,
 				}, {
 					MaterialGrid = if showMaterialGrid then
-						Roact.createElement(MaterialGrid, {
+						Roact.createElement(if getFFlagMaterialManagerGridOverhaul() then MaterialGrid else DEPRECATED_MaterialGrid, {
 							LayoutOrder = 1,
 							Size = if showMaterialDetails then style.MaterialGridSize else UDim2.fromScale(1, 1),
 						})

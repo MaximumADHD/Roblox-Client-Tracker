@@ -19,6 +19,7 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Constants = require(Plugin.Src.Util.Constants)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local TangentControl = Roact.PureComponent:extend("TangentControl")
 
@@ -38,7 +39,7 @@ export type Props = {
 
 function TangentControl:render(): (any)
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 
 	local position = props.Position
 	local slope = props.Slope

@@ -19,6 +19,7 @@ local SplitPane = UI.SplitPane
 
 local Components = Plugin.Src.Components
 
+local DEPRECATED_MaterialGrid = require(Components.MaterialBrowser.DEPRECATED_MaterialGrid)
 local MaterialGrid = require(Components.MaterialBrowser.MaterialGrid)
 local SideBar = require(Components.MaterialBrowser.SideBar)
 local TopBar = require(Components.MaterialBrowser.TopBar)
@@ -26,6 +27,7 @@ local TopBar = require(Components.MaterialBrowser.TopBar)
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialManagerDetailsOverhaul = require(Flags.getFFlagMaterialManagerDetailsOverhaul)
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
+local getFFlagMaterialManagerGridOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerGridOverhaul)
 
 local MaterialDetails = if getFFlagMaterialManagerDetailsOverhaul() and getFFlagMaterialManagerGlassNeonForceField() then
 	require(Components.MaterialBrowser.MaterialDetails)
@@ -228,7 +230,7 @@ function MaterialBrowser:render()
 	local state = self.state
 	local style: _Style = props.Stylizer.MaterialBrowser
 
-	local material: _Types.Material = props.Material
+	local material: _Types.Material? = props.Material
 
 	local sideBarSize = self.state.sideBarSize
 	local detailsVisible = state.detailsVisible and material
@@ -306,7 +308,7 @@ function MaterialBrowser:render()
 				HorizontalAlignment = Enum.HorizontalAlignment.Right,
 			}, {
 				MaterialGrid = if showMaterialGrid then
-					Roact.createElement(MaterialGrid, {
+					Roact.createElement(if getFFlagMaterialManagerGridOverhaul() then MaterialGrid else DEPRECATED_MaterialGrid, {
 						DetailsVisible = detailsVisible,
 						LayoutOrder = 1,
 						OnDetailsButtonClicked = self.onDetailsButtonClicked,

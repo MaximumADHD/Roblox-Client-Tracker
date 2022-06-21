@@ -15,6 +15,7 @@ return function()
 	local reducer = require(InGameMenu.reducer)
 	local Constants = require(InGameMenu.Resources.Constants)
 	local SetInputType = require(InGameMenu.Actions.SetInputType)
+	local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
 	local LeaveButton = require(InGameMenu.Components.LeaveButton)
 	local PageUtils = require(InGameMenu.Components.Pages.PageUtils)
 	local Localization = require(InGameMenu.Localization.Localization)
@@ -68,6 +69,7 @@ return function()
 		local instance = Roact.mount(element, frame)
 		act(function()
 			store:dispatch(SetInputType(Constants.InputType.MouseAndKeyboard))
+			store:dispatch(SetMenuOpen(true))
 			store:flush()
 		end)
 
@@ -86,34 +88,77 @@ return function()
 	it("tracks scroll frame position to decide to show/hide leave button", function()
 		local scrollEvent = function(pos)
 			return {
+				MaxCanvasPosition = {
+					Y = 1000,
+				},
 				CanvasPosition = {
 					Y = pos,
 				},
 			}
 		end
 
-		local element = getMountableTreeAndStore({
-			LeaveButton = Roact.createElement(LeaveButton, {}),
+		local onScroll = nil
+		local isScrollingDown = false
+
+		local element, store = getMountableTreeAndStore({
+
+			LeaveButton = PageUtils.withScrollDownState(function(scrollCb, scrollingDown)
+				onScroll = scrollCb
+				isScrollingDown = scrollingDown
+				return Roact.createElement(LeaveButton, {
+					hidden = scrollingDown,
+				})
+			end),
 		})
 
-		function element:init()
-			PageUtils.initOnScrollDownState(self)
-
-			self.onScroll(scrollEvent(10))
-			expect(self.state.scrollingDown).to.be.equal(true)
-			self.onScroll(scrollEvent(10))
-			expect(self.state.scrollingDown).to.be.equal(true)
-			self.onScroll(scrollEvent(5))
-			expect(self.state.scrollingDown).to.be.equal(false)
-			self.onScroll(scrollEvent(5))
-			expect(self.state.scrollingDown).to.be.equal(false)
-			self.onScroll(scrollEvent(-5))
-			expect(self.state.scrollingDown).to.be.equal(false)
-			self.onScroll(scrollEvent(0))
-			expect(self.state.scrollingDown).to.be.equal(false)
-		end
-
 		local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+
+		act(function()
+			store:dispatch(SetMenuOpen(true))
+			store:flush()
+		end)
+
+		act(function()
+			onScroll(scrollEvent(100))
+		end)
+		expect(isScrollingDown).to.be.equal(true)
+
+		act(function()
+			onScroll(scrollEvent(100))
+		end)
+		expect(isScrollingDown).to.be.equal(true)
+
+		act(function()
+			onScroll(scrollEvent(50))
+		end)
+		expect(isScrollingDown).to.be.equal(false)
+
+		act(function()
+			onScroll(scrollEvent(-50))
+		end)
+		expect(isScrollingDown).to.be.equal(false)
+
+		act(function()
+			onScroll(scrollEvent(0))
+		end)
+		expect(isScrollingDown).to.be.equal(false)
+
+		act(function()
+			onScroll(scrollEvent(1))
+		end)
+		expect(isScrollingDown).to.be.equal(false)
+
+		act(function()
+			onScroll(scrollEvent(100))
+		end)
+		expect(isScrollingDown).to.be.equal(true)
+
+		act(function()
+			store:dispatch(SetMenuOpen(false))
+			store:flush()
+		end)
+		expect(isScrollingDown).to.be.equal(false)
+
 
 		Roact.unmount(instance)
 	end)

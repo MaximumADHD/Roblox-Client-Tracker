@@ -1,17 +1,20 @@
+local Plugin = script.Parent.Parent.Parent
+local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local mockContext = require(Plugin.Src.Util.mockContext)
+
+local join = Framework.Dash.join
+
+local StatusIcon = require(script.Parent.StatusIcon)
+
 return function()
-	local Plugin = script.Parent.Parent.Parent
-	local Roact = require(Plugin.Packages.Roact)
-	local mockContext = require(Plugin.Src.Util.mockContext)
-
-	local StatusIcon = require(script.Parent.StatusIcon)
-
-	local function createTestElement(props: StatusIcon.Props?)
-		props = props or {
-			Material = Enum.Material.Plastic,
-		}
+	local function createTestElement(props: {}?)
+		local statusIconProps: StatusIcon.Props = join({
+			Status = Enum.PropertyStatus.Ok,
+		}, props)
 
 		return mockContext({
-			StatusIcon = Roact.createElement(StatusIcon, props)
+			StatusIcon = Roact.createElement(StatusIcon, statusIconProps)
 		})
 	end
 
@@ -21,12 +24,22 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should render correctly", function()
+	it("should render correctly with warning", function()
 		local container = Instance.new("Folder")
 		local element = createTestElement({
-			LayoutOrder = 1,
-			Material = Enum.Material.Plastic,
-			Size = UDim2.fromScale(1, 1),
+			Status = Enum.PropertyStatus.Warning,
+		})
+		local instance = Roact.mount(element, container)
+
+		local main = container:FindFirstChildOfClass("Frame")
+		expect(main).to.be.ok()
+		Roact.unmount(instance)
+	end)
+
+	it("should render correctly with error", function()
+		local container = Instance.new("Folder")
+		local element = createTestElement({
+			Status = Enum.PropertyStatus.Error,
 		})
 		local instance = Roact.mount(element, container)
 

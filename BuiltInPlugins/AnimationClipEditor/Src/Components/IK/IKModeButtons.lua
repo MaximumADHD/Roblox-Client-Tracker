@@ -22,6 +22,7 @@ local withContext = ContextServices.withContext
 local Constants = require(Plugin.Src.Util.Constants)
 
 local IKModeButtons = Roact.PureComponent:extend("IKModeButtons")
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local LABEL_WIDTH = 64
 local GROUP_WIDTH = 186
@@ -29,7 +30,7 @@ local GROUP_WIDTH = 186
 function IKModeButtons:render()
 	local localization = self.props.Localization
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 
 	local ikMode = props.IKMode
 	local height = props.Height

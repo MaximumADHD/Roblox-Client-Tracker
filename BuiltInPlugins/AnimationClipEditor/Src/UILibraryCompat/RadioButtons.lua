@@ -16,6 +16,7 @@ local createFitToContent = require(script.Parent.createFitToContent)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local RadioButtons = Roact.PureComponent:extend("RadioButtons")
 
@@ -100,7 +101,7 @@ end
 
 function RadioButtons:render()
 	local props = self.props
-	local theme = props.Stylizer.UILibraryOverrides
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.UILibraryOverrides
 
 	local buttons = props.Buttons
 	local layoutOrder = props.LayoutOrder

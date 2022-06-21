@@ -2,6 +2,7 @@
 local Plugin = script:FindFirstAncestor("Toolbox")
 local FFlagToolboxFixAssetFetcherOnUpdate = game:GetFastFlag("ToolboxFixAssetFetcherOnUpdate")
 local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
+local FFlagToolboxFixAssetsNoVoteData = game:GetFastFlag("ToolboxFixAssetsNoVoteData")
 local Packages = Plugin.Packages
 local Framework = require(Packages.Framework)
 local Sort = require(Plugin.Core.Types.Sort)
@@ -21,6 +22,7 @@ local networkInterfaceFactory = NetworkInterfaceMock.new()
 local ResultsFetcher = require(Plugin.Core.Components.ResultsFetcher)
 local Category = require(Plugin.Core.Types.Category)
 local AssetInfo = require(Plugin.Core.Models.AssetInfo)
+local MockWrapper = require(Plugin.Core.Util.MockWrapper)
 
 local TOTAL_RESULTS = 737
 type NetworkInterfaceMockArgs = {
@@ -121,7 +123,11 @@ local function createResultsFetcher(networkInterfaceMock, props: any?)
 		end,
 	}, props)
 
-	return ResultsFetcher.Generator(finalProps)
+	if FFlagToolboxFixAssetsNoVoteData then
+		return ResultsFetcher.NoRoduxGenerator(finalProps)
+	else
+		return ResultsFetcher.Generator(finalProps)
+	end
 end
 
 local function renderResultsFetcher(networkInterfaceMock: any?, props: any?)

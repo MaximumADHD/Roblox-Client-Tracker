@@ -33,6 +33,7 @@ local UI = Framework.UI
 local Pane = UI.Pane
 
 local PreviewTabsRibbon = require(Plugin.Src.Components.Preview.PreviewTabsRibbon)
+local PreviewToStarterCharacterButton = require(Plugin.Src.Components.Preview.PreviewToStarterCharacterButton)
 local Grid = require(Plugin.Src.Components.Preview.Grid)
 
 local SetSliderPlayhead = require(Plugin.Src.Actions.SetSliderPlayhead)
@@ -113,6 +114,11 @@ function PreviewFrame:render()
 				TrackLength = trackLength,
 			}),
 		}),
+		PreviewButton = if game:GetFastFlag("FFlagDebugSetPreviewToStarterCharacterButton") 
+			then 
+				Roact.createElement(PreviewToStarterCharacterButton, { LayoutOrder = orderIterator:getNextOrder(), }) 
+			else 
+				nil,
 	})
 end
 

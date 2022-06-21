@@ -19,10 +19,11 @@ local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local ArrowButton = Roact.PureComponent:extend("ArrowButton")
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 function ArrowButton:render()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 
 	local scrollTheme = theme.scrollBarTheme
 	local rotation = props.Rotation

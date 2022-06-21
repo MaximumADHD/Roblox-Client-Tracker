@@ -4,8 +4,6 @@ local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 local Cryo = require(Plugin.Packages.Cryo)
 local ItemCharacteristics = {}
 
-local GetFFlagFixNoCageMeshIdCrash = require(Plugin.Src.Flags.GetFFlagFixNoCageMeshIdCrash)
-
 function ItemCharacteristics.isItemEmpty(item)
 	return not item or item == Cryo.None
 end
@@ -77,11 +75,7 @@ end
 
 function ItemCharacteristics.hasAnyCage(item)
 	local hasInnerCage, hasOuterCage = ItemCharacteristics.hasCages(item)
-	if GetFFlagFixNoCageMeshIdCrash() then
-		return not ItemCharacteristics.hasInvalidCage(item) and (hasInnerCage or hasOuterCage)
-	else
-		return hasInnerCage or hasOuterCage
-	end
+	return not ItemCharacteristics.hasInvalidCage(item) and (hasInnerCage or hasOuterCage)
 end
 
 function ItemCharacteristics.getAvatarFromMeshPart(meshPart)

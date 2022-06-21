@@ -41,6 +41,7 @@ local Keyframe = require(Plugin.Src.Components.Curves.Keyframe)
 local TangentControl = require(Plugin.Src.Components.Curves.TangentControl)
 
 local GetFFlagClampFacsCurves = require(Plugin.LuaFlags.GetFFlagClampFacsCurves)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local CurveCanvas = Roact.PureComponent:extend("CurveCanvas")
 
@@ -80,7 +81,7 @@ end
 
 function CurveCanvas:renderXAxis(): ()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 
 	local xAxis = self:toCanvasSpace(Vector2.new())
 
@@ -127,7 +128,7 @@ end
 
 function CurveCanvas:renderCurve(track): ()
 	local props = self.props
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 
 	if not track.Keyframes then
 		return
@@ -249,7 +250,8 @@ function CurveCanvas:renderCurve(track): ()
 			if track.Type ~= Constants.TRACK_TYPES.Quaternion or keyframeIndex > 1 then
 				self.children[keyframeName] = Roact.createElement(Keyframe, {
 					Position = cur,
-					TrackName = trackName,
+					TrackName = trackName,  -- Obsolete with FFlagACECurveEditorNewTooltips
+					Path = track.Path,
 					InterpolationMode = curKeyframe.InterpolationMode,
 					PrevInterpolationMode = if prevKeyframe then prevKeyframe.InterpolationMode else nil,
 					LeftSlope = if keyframeIndex == 1 then nil else curKeyframe.LeftSlope,
@@ -275,7 +277,8 @@ function CurveCanvas:renderCurve(track): ()
 			if keyframeIndex < #track.Keyframes and track.Type == Constants.TRACK_TYPES.Quaternion then
 				self.children[keyframeName .. "b"] = Roact.createElement(Keyframe, {
 					Position = curB,
-					TrackName = trackName,
+					TrackName = trackName,  -- Obsolete with FFlagACECurveEditorNewTooltips
+					Path = track.Path,
 					InterpolationMode = curKeyframe.InterpolationMode,
 					PrevInterpolationMode = if prevKeyframe then prevKeyframe.InterpolationMode else nil,
 					LeftSlope = if keyframeIndex == 1 then nil else curKeyframe.LeftSlope,

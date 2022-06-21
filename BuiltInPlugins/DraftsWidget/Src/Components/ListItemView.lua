@@ -34,12 +34,12 @@ local FFlagRemoveUILibraryFitContent = game:GetFastFlag("RemoveUILibraryFitConte
 local Plugin = script.Parent.Parent.Parent
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
 
 local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
 
 local AbstractItemView = require(Plugin.Src.Components.AbstractItemView)
 
-local Framework = require(Plugin.Packages.Framework)
 local UI = Framework.UI
 local Pane = UI.Pane
 
@@ -72,7 +72,7 @@ function ListItemView:render()
 	local renderItem = self.props.RenderItem
 	local makeMenuActions = self.props.MakeMenuActions
 	local onDoubleClicked = self.props.OnDoubleClicked
-	local onSelectionChanged = self.props.OnSelectionChanged	
+	local onSelectionChanged = self.props.OnSelectionChanged
 	local buttonStyle = self.props.ButtonStyle
 	local getCurrentSelection = self.props.GetCurrentSelection
 

@@ -143,6 +143,10 @@ function ReportDialog:renderPlayerInfo()
 end
 
 function ReportDialog:renderDropDownMenu()
+	if not self.props.isReportDialogOpen then
+		-- workaround to force the DropdownMenu to reset selectedValue
+		return nil
+	end
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
 		Position = UDim2.new(0, 0, 0, 72),

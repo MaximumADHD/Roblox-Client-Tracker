@@ -6,8 +6,9 @@ local Framework = require(Plugin.Packages.Framework)
 local FitFrame = require(Plugin.Packages.FitFrame)
 local Constants = require(Plugin.Src.Util.Constants)
 
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+local deepCopy = Framework.Util.deepCopy
 
 local UI = Framework.UI
 local Pane = UI.Pane
@@ -15,23 +16,47 @@ local Checkbox = UI.Checkbox
 local TextLabel = UI.Decoration.TextLabel
 local Separator = UI.Separator
 
+local UpdatePlugin = require(Plugin.Src.Thunks.UpdatePlugin)
+
 local UpdateOverview = Roact.PureComponent:extend("UpdateOverview")
 
 UpdateOverview.defaultProps = {
 	LayoutOrder = 1,
-	assetId = 0,
+	data = nil,
 }
 
-function UpdateOverview:init()	
+function UpdateOverview:init()
+	local props = self.props
+	local plugin = props.plugin
+	local updateAvailable = props.updateAvailable
+	local id = tostring(props.data.assetId)
+	local configs = plugin:GetSetting(Constants.PLUGIN_SETTING_NAME)
+
+	if (configs[id] == nil) then
+		local newConfigs = deepCopy(configs)
+		newConfigs[id] = false
+		plugin:SetSetting(Constants.PLUGIN_SETTING_NAME, newConfigs)
+		configs = plugin:GetSetting(Constants.PLUGIN_SETTING_NAME)
+	end
+
 	self.state = {
-		checked = true,
-		lastModified = DateTime.fromUniversalTime(2022, 6, 6),
+		checked = configs[id],
+		lastModified = props.data.updated,
 	}
 
 	self.onClick = function()
+		local currConfigs = plugin:GetSetting(Constants.PLUGIN_SETTING_NAME)
+		local newConfigs = deepCopy(currConfigs)
+		newConfigs[id] = not currConfigs[id]
+		plugin:SetSetting(Constants.PLUGIN_SETTING_NAME, newConfigs)
 		self:setState({
-			checked = not self.state.checked
+			checked = newConfigs[id],
+			lastModified = props.data.updated,
 		})
+		if (self.state.checked and updateAvailable) then
+			props.Analytics:report("TryUpdatePlugin", props.data.assetId)
+			props.UpdatePlugin(props.data, props.Analytics)
+		end
 	end
 end
 
@@ -84,7 +109,7 @@ function UpdateOverview:render()
 			LayoutOrder = 3,
 			Size = UDim2.fromScale(0.5, 1),
 			Text = localization:getText("PluginEntry", "AutoUpdateEntry", {
-				date = self.state.lastModified.UnixTimestamp
+				date = self.state.lastModified,
 			}),
 			TextSize = 16,
 			TextXAlignment = Enum.TextXAlignment.Left,
@@ -93,8 +118,18 @@ function UpdateOverview:render()
 end
 
 UpdateOverview = withContext({
+	Analytics = ContextServices.Analytics,
 	Localization = ContextServices.Localization,
+	Plugin = ContextServices.Plugin,
 	Stylizer = ContextServices.Stylizer,
 })(UpdateOverview)
 
-return UpdateOverview
+local function mapDispatchToProps(dispatch)
+	return {
+		UpdatePlugin = function(plugin, analytics)
+			dispatch(UpdatePlugin(plugin, analytics))
+		end,
+	}
+end
+
+return RoactRodux.connect(nil, mapDispatchToProps)(UpdateOverview)

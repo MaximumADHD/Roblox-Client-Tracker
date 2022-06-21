@@ -31,7 +31,6 @@ local BreakpointsTreeTableCell = require(PluginFolder.Src.Components.Breakpoints
 local BreakpointsTable = Roact.PureComponent:extend("BreakpointsTable")
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
 local FFlagDevFrameworkTableHeaderTooltip = game:GetFastFlag("DevFrameworkTableHeaderTooltip")
-local FFlagDevFrameworkCustomTableRowHeight = game:GetFastFlag("DevFrameworkCustomTableRowHeight")
 local hasTableColumnResizeFFlags = FFlagDevFrameworkTableColumnResize
 
 local UtilFolder = PluginFolder.Src.Util
@@ -548,10 +547,8 @@ function BreakpointsTable:render()
 				UseDeficit = if hasTableColumnResizeFFlags then false else nil,
 				UseScale = if hasTableColumnResizeFFlags then true else nil,
 				ClampSize = if hasTableColumnResizeFFlags then true else nil,
-				ColumnHeaderHeight = if FFlagDevFrameworkCustomTableRowHeight
-					then Constants.COLUMN_HEADER_HEIGHT
-					else nil,
-				RowHeight = if FFlagDevFrameworkCustomTableRowHeight then Constants.ROW_HEIGHT else nil,
+				ColumnHeaderHeight = Constants.COLUMN_HEADER_HEIGHT,
+				RowHeight = Constants.ROW_HEIGHT,
 			}),
 		}),
 	})

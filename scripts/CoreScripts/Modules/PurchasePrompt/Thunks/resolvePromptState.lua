@@ -21,6 +21,7 @@ local Thunk = require(Root.Thunk)
 
 local GetFFlagEnablePPUpsellProductListRefactor = require(Root.Flags.GetFFlagEnablePPUpsellProductListRefactor)
 local GetFFlagEnableLuobuInGameUpsell = require(Root.Flags.GetFFlagEnableLuobuInGameUpsell)
+local GetFFlagPurchasePromptNotEnoughRobux = require(Root.Flags.GetFFlagPurchasePromptNotEnoughRobux)
 
 local requiredServices = {
 	Analytics,
@@ -75,7 +76,7 @@ local function resolvePromptState(productInfo, accountInfo, alreadyOwned, isRobl
 					store:dispatch(PromptNativeUpsell(product.productId, product.robuxValue))
 				end, function()
 					-- No upsell item will provide sufficient funds to make this purchase
-					if platform == Enum.Platform.XBoxOne then
+					if GetFFlagPurchasePromptNotEnoughRobux() or platform == Enum.Platform.XBoxOne then
 						store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
 					else
 						store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobux))
@@ -88,7 +89,7 @@ local function resolvePromptState(productInfo, accountInfo, alreadyOwned, isRobl
 						store:dispatch(PromptNativeUpsell(product.productId, product.robuxValue))
 					end, function()
 						-- No upsell item will provide sufficient funds to make this purchase
-						if platform == Enum.Platform.XBoxOne then
+						if GetFFlagPurchasePromptNotEnoughRobux() or platform == Enum.Platform.XBoxOne then
 							store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
 						else
 							store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobux))

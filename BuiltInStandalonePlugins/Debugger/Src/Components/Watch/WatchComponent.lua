@@ -16,10 +16,16 @@ local DisplayTable = require(script.Parent.DisplayTable)
 local ControlledTabs = require(script.Parent.ControlledTabs)
 local ScopeDropdownField = require(script.Parent.ScopeDropdownField)
 local SearchBarField = require(script.Parent.SearchBarField)
-local TableTab = require(Plugin.Src.Models.Watch.TableTab)
 
-local Constants = require(Plugin.Src.Util.Constants)
-local AddExpression = require(Plugin.Src.Actions.Watch.AddExpression)
+local src = Plugin.Src
+local models = src.Models
+local TableTab = require(models.Watch.TableTab)
+local StepStateBundle = require(models.StepStateBundle)
+local Constants = require(src.Util.Constants)
+local AddExpression = require(src.Actions.Watch.AddExpression)
+local SetTab = require(src.Actions.Watch.SetTab)
+local ExecuteExpressionForAllFrames = require(src.Thunks.Watch.ExecuteExpressionForAllFrames)
+local AnalyticsEventNames = require(src.Resources.AnalyticsEventNames)
 
 local WatchComponent = Roact.PureComponent:extend("WatchComponent")
 
@@ -42,14 +48,31 @@ end
 function WatchComponent:init()
 
 	local debuggerUIService = game:GetService("DebuggerUIService")
-	if debuggerUIService then
-		-- if check for unit tests
-		debuggerUIService.ExpressionAdded:Connect(
-			function(expression)
-				self.props.OnAddExpression(expression)
+	debuggerUIService.ExpressionAdded:Connect(
+		function(expression)
+			self.props.Analytics:report(AnalyticsEventNames.WatchAdded, "WatchWindow")
+			self.props.OnAddExpression(expression)
+			self.props.OnSetTab("Watches")
+			
+			local props = self.props
+			local currentStepStateBundle = props.CurrentStepStateBundle
+			if currentStepStateBundle ~= nil then
+				local dst = currentStepStateBundle.debuggerStateToken
+				if dst ~= nil then
+					local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
+					local debuggerConnection = debuggerConnectionManager:GetConnectionById(dst.debuggerConnectionId)
+					if debuggerConnection ~= nil then
+						self.props.OnExecuteExpressionForAllFrames(
+							expression,
+							debuggerConnection,
+							dst,
+							currentStepStateBundle.threadId
+						)
+					end
+				end
 			end
-		)
-	end
+		end
+	)
 
 	self.componentRef = Roact.createRef()
 	self.state = {
@@ -189,13 +212,30 @@ WatchComponent = withContext({
 })(WatchComponent)
 
 WatchComponent = RoactRodux.connect(function(state, props)
+	local common = state.Common
+	local token = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
+	local threadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
+	local frameNumber = threadId and common.currentFrameMap[common.currentDebuggerConnectionId][threadId] or nil
+
+	local currentStepStateBundle = nil
+	if token ~= nil and threadId ~= nil and frameNumber ~= nil then
+		StepStateBundle.ctor(token, threadId, frameNumber)
+	end
+
 	return {
 		IsVariablesTab = state.Watch.currentTab == TableTab.Variables,
+		CurrentStepStateBundle = currentStepStateBundle,
 	}
 end, function(dispatch)
 	return {
 		OnAddExpression = function(newExpression)
 			return dispatch(AddExpression(newExpression))
+		end,
+		OnSetTab = function(tab)
+			return dispatch(SetTab(tab))
+		end,
+		OnExecuteExpressionForAllFrames = function(expression, debuggerConnection, dst, threadId)
+			return dispatch(ExecuteExpressionForAllFrames(expression, debuggerConnection, dst, threadId))
 		end,
 	}
 end)(WatchComponent)

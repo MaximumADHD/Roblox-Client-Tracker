@@ -79,6 +79,7 @@ local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControl
 local GetFFlagFaceControlsEditorFixNonChannelPath = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorFixNonChannelPath)
 local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 local GetFFlagCreateAnimationFromVideoAnalytics = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoAnalytics)
+local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local FFlagShowDualScrollbars = game:DefineFastFlag("ACEShowDualScrollbars", false)
 
@@ -568,7 +569,7 @@ end
 function EditorController:render()
 	local props = self.props
 	local state = self.state
-	local theme = props.Stylizer.PluginTheme
+	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
 	local startTick = 0
 	local endTick = 0
 	local lastTick = 0

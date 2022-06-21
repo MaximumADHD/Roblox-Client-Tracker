@@ -38,6 +38,7 @@ local InstanceSelectorTile = Components.InstanceSelectorTile
 
 local AccessoryAndBodyToolSharedUtil = AvatarToolsShared.Util.AccessoryAndBodyToolShared
 local AvatarToolsSharedConstants = AccessoryAndBodyToolSharedUtil.Constants
+local PreviewConstants = AccessoryAndBodyToolSharedUtil.PreviewConstants
 local PreviewConstantsInterface = AccessoryAndBodyToolSharedUtil.PreviewConstantsInterface
 local PreviewFolderManager = AccessoryAndBodyToolSharedUtil.PreviewFolderManager
 
@@ -64,6 +65,8 @@ local ShowDialog = require(Plugin.Src.Util.ShowDialog)
 
 local Grid = Roact.PureComponent:extend("Grid")
 Typecheck.wrap(Grid, script)
+
+local GetFFlagAccessoryFittingToolAnalytics = require(Plugin.Src.Flags.GetFFlagAccessoryFittingToolAnalytics)
 
 local function getSelectedIds(self)
 	local props = self.props
@@ -95,6 +98,19 @@ function Grid:init()
 		if tabInfo then
 			local localizedText = localization:getText(AvatarToolsSharedConstants.LOCALIZATION_KEYS.Preview, tabInfo.PanelBlockerLocalizationKey)
 			props.StartSelectingFromExplorer(Constants.SELECTOR_MODE.Preview, localizedText)
+		end
+	end
+
+	self.onThumbnailClick = function(id, selected)
+		self.props.UpdatePreviewAssetsSelected(id, not selected)
+		if not selected then
+			local selectedTab = self.props.SelectedTab
+			local prebuiltAssetsInfo = self.props.PrebuiltAssetsInfo
+			local analytics = self.props.Analytics
+			local usingCustomAssets = prebuiltAssetsInfo[id] == nil
+			if selectedTab == PreviewConstants.TABS_KEYS.Clothing or selectedTab == PreviewConstants.TABS_KEYS.Animations then
+				analytics:getHandler("PreviewAssetSelected")(usingCustomAssets, selectedTab == PreviewConstants.TABS_KEYS.Animations)
+			end
 		end
 	end
 
@@ -205,6 +221,7 @@ function Grid:render()
 	local size = props.size
 	local layoutOrder = props.layoutOrder
 	local theme = props.Stylizer
+	local analytics = props.Analytics
 	local selectedTab = props.SelectedTab
 
 	local orderIterator = LayoutOrderIterator.new()
@@ -233,9 +250,13 @@ function Grid:render()
 				LayoutOrder = orderIterator:getNextOrder(),
 				SelectedTiles = getSelectedIds(self),
 				DefaultThumbnail = theme.DefaultTileImages[selectedTab],
-				OnThumbnailClick = function(id, selected)
-					self.props.UpdatePreviewAssetsSelected(id, not selected)
-				end,
+				OnThumbnailClick = if GetFFlagAccessoryFittingToolAnalytics() 
+					then
+						function(id, selected)
+							self.props.UpdatePreviewAssetsSelected(id, not selected)
+						end
+					else
+						self.onThumbnailClick,
 			})
 		)
 	end
@@ -270,6 +291,7 @@ function Grid:didMount()
 end
 
 Grid = withContext({
+	Analytics = ContextServices.Analytics,
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	API = ContextServices.API,

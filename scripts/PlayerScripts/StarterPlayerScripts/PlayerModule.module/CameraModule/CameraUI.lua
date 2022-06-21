@@ -113,7 +113,7 @@ local function initializeUI()
 					BackgroundTransparency = 1,
 					Position = UDim2.new(0, 0, 0.5, 0),
 					Size = UDim2.new(1, 0, 0, 19),
-					Font = Enum.Font.GothamSemibold,
+					Font = Enum.Font.GothamMedium,
 					Text = "Camera control enabled",
 					TextColor3 = TOAST_FOREGROUND_COLOR,
 					TextTransparency = 1,

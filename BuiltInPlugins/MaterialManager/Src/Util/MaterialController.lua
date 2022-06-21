@@ -10,7 +10,6 @@ local Signal = FrameworkUtil.Signal
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialPack2022Update = require(Flags.getFFlagMaterialPack2022Update)
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
-local getFFlagDevFrameworkMockWrapper = require(Flags.getFFlagDevFrameworkMockWrapper)
 
 local Util = Plugin.Src.Util
 local damerauLevenshteinDistance = require(Util.DamerauLevenshteinDistance)
@@ -225,11 +224,7 @@ function MaterialController:getCategoriesChangedSignal(): RBXScriptSignal
 end
 
 function MaterialController:getOverrideStatus(materialType : Enum.Material) : Enum.PropertyStatus
-	if getFFlagDevFrameworkMockWrapper() then
-		return self._materialServiceWrapper:asService():GetOverrideStatus(materialType)
-	else
-		return self._materialServiceWrapper:asMaterialService():GetOverrideStatus(materialType)
-	end
+	return self._materialServiceWrapper:asService():GetOverrideStatus(materialType)
 end
 
 function MaterialController:DEPRECATED_addMaterial(material : MaterialVariant, moving : boolean)
@@ -422,52 +417,32 @@ end
 
 function MaterialController:getUses2022Materials(): boolean
 	if getFFlagMaterialPack2022Update() then
-		if getFFlagDevFrameworkMockWrapper() then
-			return self._materialServiceWrapper:asService().Use2022Materials
-		else
-			return self._materialServiceWrapper:asMaterialService().Use2022Materials
-		end
+		return self._materialServiceWrapper:asService().Use2022Materials
 	end
 
 	return false
 end
 
 function MaterialController:getMaterialOverrideChangedSignal(material : Enum.Material)
-	if getFFlagDevFrameworkMockWrapper() then
-		return self._materialServiceWrapper:asService():GetMaterialOverrideChanged(material)
-	else
-		return self._materialServiceWrapper:asMaterialService():GetMaterialOverrideChanged(material)
-	end
+	return self._materialServiceWrapper:asService():GetMaterialOverrideChanged(material)
 end
 
 function MaterialController:getBuiltInMaterialsChangedSignal(material : Enum.Material)
 	assert(getFFlagMaterialPack2022Update(), "Enable FFlagMaterialPack2022Update in order to use this functionality.")
 
-	if getFFlagDevFrameworkMockWrapper() then
-		return self._materialServiceWrapper:asInstance():GetPropertyChangedSignal("Use2022Materials")
-	else
-		return self._materialServiceWrapper:asMaterialService():GetPropertyChangedSignal("Use2022Materials")
-	end
+	return self._materialServiceWrapper:asInstance():GetPropertyChangedSignal("Use2022Materials")
 end
 
 function MaterialController:getMaterialOverride(material : Enum.Material) : string
 	if not getFFlagMaterialManagerGlassNeonForceField() or supportedMaterials[material] then
-		if getFFlagDevFrameworkMockWrapper() then
-			return self._materialServiceWrapper:asService():GetBaseMaterialOverride(material)
-		else
-			return self._materialServiceWrapper:asMaterialService():GetBaseMaterialOverride(material)
-		end
+		return self._materialServiceWrapper:asService():GetBaseMaterialOverride(material)
 	else
 		return ""
 	end
 end
 
 function MaterialController:setMaterialOverride(material : Enum.Material, materialVariant : string?)
-	if getFFlagDevFrameworkMockWrapper() then
-		self._materialServiceWrapper:asService():SetBaseMaterialOverride(material, materialVariant or "")
-	else
-		self._materialServiceWrapper:asMaterialService():SetBaseMaterialOverride(material, materialVariant or "")
-	end
+	self._materialServiceWrapper:asService():SetBaseMaterialOverride(material, materialVariant or "")
 end
 
 function MaterialController:getMaterialOverrides(material: Enum.Material): (_Types.Array<_Types.Material>, number)
@@ -509,11 +484,7 @@ function MaterialController:getMaterialOverrides(material: Enum.Material): (_Typ
 end
 
 function MaterialController:getMaterialVariant(material : Enum.Material, name : string) : MaterialVariant
-	if getFFlagDevFrameworkMockWrapper() then
-		return self._materialServiceWrapper:asService():GetMaterialVariant(material, name)
-	else
-		return self._materialServiceWrapper:asMaterialService():GetMaterialVariant(material, name)
-	end
+	return self._materialServiceWrapper:asService():GetMaterialVariant(material, name)
 end
 
 function MaterialController:getMaterialAddedSignal(): RBXScriptSignal
@@ -537,11 +508,7 @@ function MaterialController:getOverrideChangedSignal(): RBXScriptSignal
 end
 
 function MaterialController:getOverrideStatusChangedSignal() : RBXScriptSignal
-	if getFFlagDevFrameworkMockWrapper() then
-		return self._materialServiceWrapper:asService().OverrideStatusChanged
-	else
-		return self._materialServiceWrapper:asMaterialService().OverrideStatusChanged
-	end
+	return self._materialServiceWrapper:asService().OverrideStatusChanged
 end
 
 return MaterialController

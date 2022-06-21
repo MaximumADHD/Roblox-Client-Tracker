@@ -1,5 +1,5 @@
 -- Centralized Place for Keys used throughout the widget
-local FFlagGameSettingsEnableVoiceChat = game:GetFastFlag("GameSettingsEnableVoiceChat")
+local FFlagGreyOutCollabEditingForTeamCreateOff2 = game:GetFastFlag("GreyOutCollabEditingForTeamCreateOff2")
 local KeyProvider = {}
 
 function KeyProvider.getCopyIdKeyName()
@@ -47,8 +47,6 @@ function KeyProvider.getSelectedKeyName()
 end
 
 function KeyProvider.getVoiceChatEnabledKeyName()
-	assert(FFlagGameSettingsEnableVoiceChat)
-
 	return "VoiceChatEnabled"
 end
 
@@ -102,6 +100,12 @@ end
 
 function KeyProvider.getScriptCollaborationEnabledOnServerKeyName()    
     return "ScriptCollaborationEnabledOnServer"
+end
+
+function KeyProvider.getTeamCreateEnabledKeyName()
+	assert(FFlagGreyOutCollabEditingForTeamCreateOff2)
+
+    return "TeamCreateEnabled"
 end
 
 return KeyProvider

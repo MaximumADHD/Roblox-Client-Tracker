@@ -40,7 +40,6 @@ local CalloutController = require(Utils.CalloutController)
 local GeneralServiceController = require(Utils.GeneralServiceController)
 local MaterialController = require(Utils.MaterialController)
 local MaterialServiceController = require(Utils.MaterialServiceController)
-local MaterialServiceWrapper = require(Utils.MaterialServiceWrapper)
 local PluginController = require(Utils.PluginController)
 
 local Flags = main.Src.Flags
@@ -50,9 +49,8 @@ local getFFlagMaterialManagerDetailsOverhaul = require(Flags.getFFlagMaterialMan
 local getFFlagMaterialManagerHideDetails = require(Flags.getFFlagMaterialManagerHideDetails)
 
 local DEPRECATED_getBuiltInMaterialVariants = require(main.Src.Resources.Constants.DEPRECATED_getBuiltInMaterialVariants)
-local FIntInfluxReportMaterialManagerHundrethPercent = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent")
+local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
 
-local getFFlagDevFrameworkMockWrapper = require(main.Src.Flags.getFFlagDevFrameworkMockWrapper)
 local FFlagMaterialManagerSideBarHide = game:GetFastFlag("MaterialManagerSideBarHide")
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
@@ -126,7 +124,7 @@ function MainPlugin:init(props)
 	})
 
 	self.analytics = nil
-	if FIntInfluxReportMaterialManagerHundrethPercent then
+	if FIntInfluxReportMaterialManagerHundrethPercent2 then
 		self.analytics = ContextServices.Analytics.new(createAnalyticsHandlers)
 	else
 		self.analytics = ContextServices.Analytics.new(function()
@@ -135,29 +133,15 @@ function MainPlugin:init(props)
 	end
 
 	if getFFlagMaterialManagerGlassNeonForceField() then
-		if getFFlagDevFrameworkMockWrapper() then
-			self.materialController = MaterialController.new(
-				nil,
-				ServiceWrapper.new("MaterialService")
-			)
-		else
-			self.materialController = MaterialController.new(
-				nil,
-				MaterialServiceWrapper.new()
-			)
-		end
+		self.materialController = MaterialController.new(
+			nil,
+			ServiceWrapper.new("MaterialService")
+		)
 	else
-		if getFFlagDevFrameworkMockWrapper() then
-			self.materialController = MaterialController.new(
-				DEPRECATED_getBuiltInMaterialVariants(),
-				ServiceWrapper.new("MaterialService")
-			)
-		else
-			self.materialController = MaterialController.new(
-				DEPRECATED_getBuiltInMaterialVariants(),
-				MaterialServiceWrapper.new()
-			)
-		end
+		self.materialController = MaterialController.new(
+			DEPRECATED_getBuiltInMaterialVariants(),
+			ServiceWrapper.new("MaterialService")
+		)
 	end
 
 	if getFFlagMaterialManagerDetailsOverhaul() then
@@ -165,7 +149,6 @@ function MainPlugin:init(props)
 		self.generalServiceController = GeneralServiceController.new()
 	end
 
-	-- Remove with FFlagMaterialManagerTeachingCallout, also CalloutController and TeachingCallout
 	self.calloutController = CalloutController.new()
 	local definitionId = "MaterialManagerApplyCallout"
 	local description = self.localization:getText("Callout", "MaterialManagerApplyDescription")
