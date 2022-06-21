@@ -6,7 +6,7 @@ local ReducerTypes = require(Types.ReducerTypes)
 local Dash = require(Packages.Dash) :: any
 
 return function(state: ReducerTypes.ByContactId, action: ActionTypes.FindContactFriendsSucceeded)
-	local contactIds: { string } = action.responseBody.UserContactIds
+	local contactIds: { string } = action.responseBody.userContactIds
 	local newState = {}
 
 	local getNewContacts = Dash.filter(contactIds, function(contactId)

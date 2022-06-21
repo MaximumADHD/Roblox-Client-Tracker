@@ -4,6 +4,7 @@ local RoduxNetworking = require(Packages.RoduxNetworking) :: any
 local NetworkingContacts = require(Packages.NetworkingContacts) :: any
 
 local Contacts = require(script.Reducers.ContactsReducer)
+local Selectors = require(script.Selectors)
 
 return {
 	config = function(options)
@@ -17,6 +18,7 @@ return {
 			installReducer = function()
 				return Contacts(options)
 			end,
+			Selectors = Selectors(options),
 		}
 	end,
 }

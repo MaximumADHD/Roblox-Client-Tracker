@@ -185,6 +185,7 @@ local function initializeLibrary(configs)
 			SaveTile = require(script.App.Tile.SaveTile.SaveTile),
 			ItemTile = require(script.App.Tile.ItemTile.ItemTile),
 			ItemTileFooter = require(script.App.Tile.ItemTile.ItemTileFooter),
+			ItemSplitTile = require(script.App.Tile.ItemSplitTile.ItemSplitTile),
 			MenuTile = require(script.App.Tile.MenuTile.MenuTile),
 			Experimental = strict({
 				-- BaseTile should not be officially exposed.

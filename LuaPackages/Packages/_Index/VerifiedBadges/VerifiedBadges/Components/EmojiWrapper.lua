@@ -7,6 +7,7 @@ local constants = require(VerifiedBadges.constants)
 
 local defaultProps = {
 	emoji = constants.PREMIUM_EMOJI,
+	color = Color3.fromHex("#fff"),
 	font = Enum.Font.Gotham,
 	size = UDim2.fromScale(1, 0),
 	automaticSize = Enum.AutomaticSize.XY,
@@ -60,6 +61,7 @@ local function EmojiWrapper(props: Props)
 			LayoutOrder = 2,
 			Text = props.emoji,
 			Font = props.font,
+			TextColor3 = props.color,
 			TextSize = emojiSize,
 			BackgroundTransparency = 1,
 			TextYAlignment = Enum.TextYAlignment.Center,

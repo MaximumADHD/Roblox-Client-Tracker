@@ -20,6 +20,7 @@ return {
 			RoactPaginator = require(script.RoactPaginator),
 			RoduxTools = require(script.RoduxTools),
 			populate = require(script.populate),
+			TestingAnalytics = require(script.TestingAnalytics),
 
 			StoryMiddleware = require(script.StoryMiddleware),
 			Context = require(script.Context),

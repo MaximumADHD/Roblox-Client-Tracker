@@ -284,6 +284,7 @@ function SystemBar:renderList(items, renderItem)
 			Size = self.props.size or UDim2.new(1, 0, 1, 0),
 			ClipsDescendants = true,
 			LayoutOrder = self.props.layoutOrder,
+			BackgroundTransparency = 1,
 			[Roact.Change.AbsoluteSize] = function(rbx)
 				if self.state.portrait and rbx.AbsoluteSize.X > rbx.AbsoluteSize.Y then
 					self:setState({

@@ -181,7 +181,13 @@ local theme = {
 		Color = Colors.White,
 		Transparency = 0,
 		Image = "component_assets/avatarBG_light",
-	}
+	},
+	
+	ItemBackgroundDefault = {
+		Color = Colors.White,
+		Transparency = 0,
+		Image = "component_assets/itemBG_light",
+	},
 }
 
 return theme

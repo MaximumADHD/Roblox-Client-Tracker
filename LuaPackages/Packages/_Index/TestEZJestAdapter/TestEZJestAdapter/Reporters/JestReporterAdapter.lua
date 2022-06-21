@@ -5,6 +5,8 @@ local Array = LuauPolyfill.Array
 local Set = LuauPolyfill.Set
 local String = LuauPolyfill.String
 
+local TestService = game:GetService("TestService")
+
 type Array<T> = LuauPolyfill.Array<T>
 
 local chalk = require(Packages.ChalkLua)
@@ -237,6 +239,9 @@ local function reporterAdapter(reporter)
 		local aggregatedResults = testNodeToAggregatedResults(node)
 
 		reporter:onRunComplete(Set.new(), aggregatedResults)
+		if aggregatedResults.numFailedTests > 0 then
+			TestService:Error(("%s test(s) failed."):format(tostring(aggregatedResults.numFailedTests)))
+		end
 	end
 
 	return {

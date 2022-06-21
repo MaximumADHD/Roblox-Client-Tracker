@@ -13,9 +13,16 @@ local createGetFriendsCountFromUserId: (any) -> any = require(networkRequests.cr
 local createRequestFriendshipFromUserId: (any) -> any = require(networkRequests.createRequestFriendshipFromUserId)
 local createGetFollowingExists: (any) -> any = require(networkRequests.createGetFollowingExists)
 local createGetUserFollowers: (any) -> any = require(networkRequests.createGetUserFollowers)
-local createGetFriendRecommendationsFromUserId: (config: networkingFriendsTypes.Config) ->
-	networkingFriendsTypes.GetFriendRecommendationsFromUserId = require(networkRequests.createGetFriendRecommendationsFromUserId)
-local createGetFriendshipStatus: (config: networkingFriendsTypes.Config) -> any = require(networkRequests.createGetFriendshipStatus)
+local createGetFriendRecommendationsFromUserId: (config: networkingFriendsTypes.Config) -> networkingFriendsTypes.GetFriendRecommendationsFromUserId =
+	require(
+		networkRequests.createGetFriendRecommendationsFromUserId
+	)
+local createGetFriendshipStatus: (config: networkingFriendsTypes.Config) -> any = require(
+	networkRequests.createGetFriendshipStatus
+)
+local createGetExtendedFriendshipStatus: (config: networkingFriendsTypes.Config) -> any = require(
+	networkRequests.createGetExtendedFriendshipStatus
+)
 
 return function(config: networkingFriendsTypes.Config): networkingFriendsTypes.RequestThunks
 	return {
@@ -31,6 +38,7 @@ return function(config: networkingFriendsTypes.Config): networkingFriendsTypes.R
 		GetFollowingExists = createGetFollowingExists(config),
 		GetUserFollowers = createGetUserFollowers(config),
 		GetFriendRecommendationsFromUserId = createGetFriendRecommendationsFromUserId(config),
-		GetFriendshipStatus = createGetFriendshipStatus(config)
+		GetFriendshipStatus = createGetFriendshipStatus(config),
+		GetExtendedFriendshipStatus = createGetExtendedFriendshipStatus(config),
 	}
 end

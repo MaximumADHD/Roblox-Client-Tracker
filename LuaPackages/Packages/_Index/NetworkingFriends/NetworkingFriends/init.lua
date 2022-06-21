@@ -1,8 +1,6 @@
 --!strict
-local createRequestThunks= require(script.createRequestThunks)
-local networkingFriendsTypes = require(script.networkingFriendsTypes)
+local createRequestThunks = require(script.createRequestThunks)
 
 return {
 	config = createRequestThunks,
-	networkingFriendsTypes = networkingFriendsTypes,
 }

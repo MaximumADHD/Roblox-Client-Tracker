@@ -11,7 +11,7 @@ return function(state: ReducerTypes.ByContactId, action: ActionTypes.GetContactE
 
 	Dash.forEach(contactUsers, function(contact)
 		newState[contact.id] = {
-			name = contact.name,
+			contactName = contact.name,
 			mutualContacts = contact.mutualContacts,
 		}
 	end)

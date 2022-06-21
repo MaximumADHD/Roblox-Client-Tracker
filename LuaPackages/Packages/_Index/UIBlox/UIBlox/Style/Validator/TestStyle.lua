@@ -16,7 +16,7 @@ local selectionCursor = {
 		NumberSequenceKeypoint.new(1, 0),
 	}),
 }
-local playerBackgroundDefault = {
+local themedBackgroundImage = {
 	Color = Color3.fromRGB(0, 0, 0),
 	Transparency = 0,
 	Image = "",
@@ -60,7 +60,8 @@ local testTheme = {
 	Badge = color,
 	BadgeContent = color,
 	SelectionCursor = selectionCursor,
-	PlayerBackgroundDefault = playerBackgroundDefault,
+	PlayerBackgroundDefault = themedBackgroundImage,
+	ItemBackgroundDefault = themedBackgroundImage,
 }
 
 local font = {

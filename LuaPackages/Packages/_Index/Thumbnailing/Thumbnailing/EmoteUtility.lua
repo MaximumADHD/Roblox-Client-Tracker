@@ -17,7 +17,7 @@ local FALLBACK_POSE_ANIMATION_ID = "http://www.roblox.com/asset/?id=532421348"
 
 -- When passed in as an asset id to use for posing, it means "user did not select
 -- an emote or have a non-default idle anim equipped: use default idle anim".
-module.PLACEHOLDER_POSE_ASSET_ID = "0"
+module.PLACEHOLDER_POSE_ASSET_ID = 0
 
 -- In cases where asset id is "0" (the placeholder), that means they want to pose the avatar
 -- based on the default idle animation.  That's some weird special case (it's an animation that
@@ -392,6 +392,10 @@ module.SetPlayerCharacterPose = function(character,
 	poseAssetId,
 	confirmProceedAfterYield,
 	ignoreRotationInPoseAsset)
+	if poseAssetId ~= nil then
+		assert(typeof(poseAssetId) == "number", "EmoteUtility.SetPlayerCharacterPose expects poseAssetId to be a number or nil")
+	end
+
 	local humanoid = character:FindFirstChildOfClass("Humanoid")
 
 	if not humanoid then

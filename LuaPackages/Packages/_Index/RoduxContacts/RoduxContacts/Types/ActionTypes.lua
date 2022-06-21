@@ -6,7 +6,7 @@ export type UserContact = {
 
 export type FindContactFriendsSucceeded = {
 	responseBody: {
-		UserContactIds: { string },
+		userContactIds: { string },
 	},
 }
 

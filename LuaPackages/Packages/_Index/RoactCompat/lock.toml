@@ -4,7 +4,7 @@ version = "17.0.1-rc.12"
 commit = "5088d0c0b98902ec9dcd5694041257291588d42b"
 source = "url+https://github.com/roblox/roact-alignment"
 dependencies = [
-    "LuauPolyfill LuauPolyfill 0.3.2 url+https://github.com/roblox/luau-polyfill",
+    "LuauPolyfill LuauPolyfill 0.3.4 url+https://github.com/roblox/luau-polyfill",
     "React React 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
     "ReactRoblox ReactRoblox 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
     "Shared Shared 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",

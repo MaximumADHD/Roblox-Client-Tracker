@@ -15,8 +15,7 @@ local LuauPolyfill = require(Packages.LuauPolyfill)
 local Object = LuauPolyfill.Object
 type Array<T> = LuauPolyfill.Array<T>
 
-local RobloxShared = require(Packages.RobloxShared)
-local AssertionError = RobloxShared.AssertionError
+local AssertionError = LuauPolyfill.AssertionError
 
 local matcherUtils = require(Packages.JestMatcherUtils)
 
@@ -216,7 +215,7 @@ function makeThrowingMatcher(
 				errorTable.stack = preservedStack
 				error(errorTable)
 			else
-				local errorTable = AssertionError.new(result)
+				local errorTable = AssertionError.new({ message = result })
 				errorTable.stack = preservedStack
 				error(errorTable)
 			end

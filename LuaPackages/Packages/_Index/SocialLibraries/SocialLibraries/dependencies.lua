@@ -13,14 +13,20 @@ return {
 	RoactNavigation = require(Packages.RoactNavigation),
 	Rodux = require(Packages.Rodux),
 	Lumberyak = require(Packages.Lumberyak),
+	tutils = require(Packages.tutils),
 	t = require(Packages.t),
 	Promise = require(Packages.Promise),
 	Symbol = require(Packages.Symbol),
+	LuauPolyfill = require(Packages.LuauPolyfill),
 	Otter = require(Packages.Otter),
 	llama = require(Packages.llama),
 	RoduxPresence = RoduxPresence.config({
 		keyPath = "SocialLibraries.Presence",
 	}),
+	RoduxFriends = RoduxPresence.config({
+		keyPath = "SocialLibraries.Friends",
+	}),
+	enumerate = require(Packages.enumerate),
 
 	-- TODO remove this when keyboard covering screen is automatically tracked on android
 	UserInputService = UserInputService,

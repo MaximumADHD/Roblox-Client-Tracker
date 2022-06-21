@@ -17,7 +17,7 @@ local JEST_TEST_CONTEXT = "__JEST_TEST_CONTEXT__"
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Error = LuauPolyfill.Error
 local instanceof = LuauPolyfill.instanceof
-local AssertionError = require(Packages.RobloxShared).AssertionError
+local AssertionError = LuauPolyfill.AssertionError
 
 local getType = require(Packages.JestGetType).getType
 
