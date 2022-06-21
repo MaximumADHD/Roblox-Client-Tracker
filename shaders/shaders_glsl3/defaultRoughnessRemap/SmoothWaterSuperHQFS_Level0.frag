@@ -108,7 +108,7 @@ void main()
     vec3 f72 = texture(GBufferColorTexture, f71).xyz;
     float f73 = 0.08900000154972076416015625 + (f12 * 0.9110000133514404296875);
     vec3 f74 = -CB0[11].xyz;
-    vec3 f75 = normalize(f74 + f17);
+    vec3 f75 = normalize(f17 - CB0[11].xyz);
     float f76 = f73 * f73;
     float f77 = max(0.001000000047497451305389404296875, dot(f15, f75));
     float f78 = dot(f74, f75);

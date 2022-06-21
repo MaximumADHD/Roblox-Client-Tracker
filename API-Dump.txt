@@ -1040,6 +1040,8 @@ Class DebuggerVariable : Instance [NotCreatable] [NotReplicated]
 	Function DebuggerVariable DebuggerVariable:GetVariableByName(string name) {RobloxScriptSecurity}
 Class DebuggerWatch : Instance
 	Property string DebuggerWatch.Expression
+Class DeviceIdService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function string DeviceIdService:GetDeviceId() {RobloxScriptSecurity}
 Class Dialog : Instance
 	Property Enum.DialogBehaviorType Dialog.BehaviorType
 	Property float Dialog.ConversationDistance
@@ -2498,6 +2500,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property bool BasePart.CanCollide
 	Property bool BasePart.CanQuery
 	Property bool BasePart.CanTouch
+	Property string BasePart.CollisionGroup {RobloxScriptSecurity} [<📁> LoadOnly] [Hidden] [NotReplicated]
 	Property int BasePart.CollisionGroupId
 	Property CFrame BasePart.CFrame
 	Property float BasePart.LocalTransparencyModifier [Hidden] [NotReplicated]
@@ -2761,9 +2764,11 @@ Class PackageLink : Instance [NotCreatable] [NotBrowsable]
 	Property string PackageLink.PackageAssetName [ReadOnly] [NotScriptable]
 	Property Enum.PackagePermission PackageLink.PermissionLevel [ReadOnly] [NotScriptable]
 	Property bool PackageLink.AutoUpdate [NotScriptable]
-	Property Content PackageLink.PackageId [ReadOnly]
+	Property Content PackageLink.Package Id [ReadOnly] [NotScriptable]
+	Property Content PackageLink.PackageId [Hidden] [ReadOnly]
 	Property string PackageLink.Status {RobloxScriptSecurity} [ReadOnly]
-	Property int64 PackageLink.VersionNumber {✏️NotAccessibleSecurity} [<📁> LoadOnly] [NotReplicated]
+	Property int64 PackageLink.Version Number [NotReplicated] [NotScriptable]
+	Property int64 PackageLink.VersionNumber {✏️NotAccessibleSecurity} [Hidden] [NotReplicated]
 Class PackageService : Instance [NotCreatable] [Service] [NotReplicated]
 Class PackageUIService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void PackageUIService:ConvertToPackageUpload(string uploadUrl, Objects cloneInstances, Objects originalInstances) {RobloxScriptSecurity}
@@ -2828,7 +2833,7 @@ Class Path : Instance [NotCreatable] [NotReplicated]
 	Function Array Path:GetWaypoints()
 	Event Path.Blocked(int blockedWaypointIdx)
 	Event Path.Unblocked(int unblockedWaypointIdx)
-Class PathfindingLink : Instance [NotBrowsable]
+Class PathfindingLink : Instance
 	Property Attachment PathfindingLink.Attachment0
 	Property Attachment PathfindingLink.Attachment1
 	Property bool PathfindingLink.IsBidirectional
@@ -3107,6 +3112,8 @@ Class Plugin : Instance [NotCreatable]
 	Event Plugin.Deactivation() {PluginSecurity}
 	Event Plugin.Ready() {RobloxScriptSecurity}
 	Event Plugin.Unloading() {PluginSecurity}
+	Callback Objects Plugin.ProcessAssetInsertionDrag(string assetId, int assetTypeId, Objects instances) {RobloxScriptSecurity} [NoYield]
+	Callback void Plugin.ProcessAssetInsertionDrop() {RobloxScriptSecurity} [NoYield]
 Class PluginAction : Instance [NotReplicated]
 	Property string PluginAction.ActionId [ReadOnly]
 	Property bool PluginAction.AllowBinding [ReadOnly]
@@ -3371,6 +3378,15 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event RunService.RenderStepped(double deltaTime)
 	Event RunService.Stepped(double time, double deltaTime)
 Class RuntimeScriptService : Instance [NotCreatable] [Service] [NotReplicated]
+Class ScreenshotHud : Instance [NotCreatable] [NotReplicated]
+	Property Content ScreenshotHud.CameraButtonIcon
+	Property UDim2 ScreenshotHud.CameraButtonPosition
+	Property UDim2 ScreenshotHud.CloseButtonPosition
+	Property bool ScreenshotHud.ExperienceNameOverlayEnabled
+	Property Enum.Font ScreenshotHud.OverlayFont
+	Property bool ScreenshotHud.UsernameOverlayEnabled
+	Property bool ScreenshotHud.CloseWhenScreenshotTaken
+	Property bool ScreenshotHud.Visible
 Class ScriptChangeService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event ScriptChangeService.ScriptAdded(LuaSourceContainer script) {RobloxScriptSecurity}
 	Event ScriptChangeService.ScriptBeingRemoved(LuaSourceContainer script) {RobloxScriptSecurity}
@@ -3411,18 +3427,19 @@ Class ScriptDebugger : Instance [NotCreatable]
 	Event ScriptDebugger.WatchAdded(Instance watch)
 	Event ScriptDebugger.WatchRemoved(Instance watch)
 Class ScriptDocument : Instance [NotCreatable] [NotReplicated]
-	Function Tuple ScriptDocument:EditTextAsync(string newText, int startLine, int startCharacter, int endLine = -1, int endCharacter = -1) {RobloxScriptSecurity} [Yields]
+	Function Tuple ScriptDocument:EditTextAsync(string newText, int startLine, int startCharacter, int endLine = -1, int endCharacter = -1) {PluginSecurity} [Yields]
 	Function string ScriptDocument:GetInternalUri() {RobloxScriptSecurity}
-	Function int ScriptDocument:GetNumLines() {RobloxScriptSecurity}
-	Function LuaSourceContainer ScriptDocument:GetScript() {RobloxScriptSecurity}
-	Function string ScriptDocument:GetText() {RobloxScriptSecurity}
-	Function bool ScriptDocument:IsCommandBar() {RobloxScriptSecurity}
+	Function string ScriptDocument:GetLine(int lineIndex = -1234567) {PluginSecurity}
+	Function int ScriptDocument:GetLineCount() {PluginSecurity}
+	Function LuaSourceContainer ScriptDocument:GetScript() {PluginSecurity}
+	Function string ScriptDocument:GetText(int startLine = -1234567, int startCharacter = -1234567, int endLine = -1234567, int endCharacter = -1234567) {PluginSecurity}
+	Function bool ScriptDocument:IsCommandBar() {PluginSecurity}
 Class ScriptEditorService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function ScriptDocument ScriptEditorService:FindScriptDocument(LuaSourceContainer script) {RobloxScriptSecurity}
+	Function ScriptDocument ScriptEditorService:FindScriptDocument(LuaSourceContainer script) {PluginSecurity}
 	Function void ScriptEditorService:RegisterLSPCallback(Enum.LSPMethodType methodToOverride, Function callbackFunction) {RobloxScriptSecurity}
-	Event ScriptEditorService.TextDocumentDidChange(ScriptDocument document, Variant changesArray) {RobloxScriptSecurity}
-	Event ScriptEditorService.TextDocumentDidClose(ScriptDocument oldDocument) {RobloxScriptSecurity}
-	Event ScriptEditorService.TextDocumentDidOpen(ScriptDocument newDocument) {RobloxScriptSecurity}
+	Event ScriptEditorService.TextDocumentDidChange(ScriptDocument document, Variant changesArray) {PluginSecurity}
+	Event ScriptEditorService.TextDocumentDidClose(ScriptDocument oldDocument) {PluginSecurity}
+	Event ScriptEditorService.TextDocumentDidOpen(ScriptDocument newDocument) {PluginSecurity}
 Class ScriptRegistrationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function LuaSourceContainer ScriptRegistrationService:GetSourceContainerByScriptGuid(string guid) {RobloxScriptSecurity}
 Class ScriptService : Instance [NotCreatable] [Service]
@@ -3767,6 +3784,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property float Studio.Camera Speed
 	Property bool Studio.Camera Zoom to Mouse Position
 	Property QDir Studio.DefaultScriptFileDir
+	Property QDir Studio.IconOverrideDir {RobloxScriptSecurity}
 	Property QDir Studio.LocalAssetsFolder {✏️RobloxScriptSecurity}
 	Property QDir Studio.PluginsDir
 	Property bool Studio.Show Core GUI in Explorer while Playing

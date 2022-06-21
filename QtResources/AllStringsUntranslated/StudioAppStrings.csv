@@ -163,6 +163,8 @@ Studio.App.IdeDoc.OpeningPlace,Roblox IDE Doc,Opening Place,Opening Place
 Studio.App.IdeDoc.OpenPlaceFileReadOnly,Roblox IDE Doc,File is in use or is not writable. Opened for read-only.,File is in use or is not writable. Opened for read-only.
 Studio.App.IdeDoc.PasteInto,Roblox IDE Doc,Paste Into,Paste Into
 Studio.App.IdeDoc.PasteIntoSelected,Roblox IDE Doc,Paste Into Selected,Paste Into Selected
+Studio.App.IdeDoc.PasteIntoAtOriginalLocation,Roblox IDE Doc,Paste Into At Original Location,Paste Into At Original Location
+Studio.App.IdeDoc.PasteIntoSelectedAtOriginalLocation,Roblox IDE Doc,Paste Into Selected At Original Location,Paste Into Selected At Original Location
 Studio.App.IdeDoc.PlayGame,Roblox IDE Doc,Play Game,Play Game
 Studio.App.IdeDoc.PleaseCheckPermissionsAndTryAgain,Roblox IDE Doc,Please check permissions and try again.,Please check permissions and try again.
 Studio.App.IdeDoc.Publish,Roblox IDE Doc,Publish,Publish
@@ -1090,6 +1092,8 @@ Studio.App.RBXMainWindow.SaveAsCSVElps,,Save as CSV...,Save as CSV...
 Studio.App.RBXMainWindow.OpenPreviousTab,,Open Previous Tab,Open Previous Tab
 Studio.App.RBXMainWindow.ModelElps,,Model...,Model...
 Studio.App.RBXMainWindow.PasteInto,,Paste Into,Paste Into
+Studio.App.RBXMainWindow.PasteAtOriginalLocation,,Paste At Original Location,Paste At Original Location
+Studio.App.RBXMainWindow.PasteIntoAtOriginalLocation,,Paste At Original Location,Paste At Original Location
 Studio.App.RBXMainWindow.InsertModels,,Insert Models,Insert Models
 Studio.App.RBXMainWindow.InsertBasicObjects,,Insert Basic Objects,Insert Basic Objects
 Studio.App.RBXMainWindow.BasicObjects,,Basic Objects,Basic Objects
@@ -3292,3 +3296,5 @@ Studio.App.BetaFeatures.DebuggerV2Description,,"Enable a new debugging experienc
 Studio.App.RobloxApplication.AbnormalTerminateMessage,,An unexpected error has occurred and Studio needs to quit. Please restart Studio or contact support if the problem persists.,An unexpected error has occurred and Studio needs to quit. Please restart Studio or contact support if the problem persists.
 Studio.App.BetaFeatures.NonuniformUnionsTitle,,Nonuniform Unions,Nonuniform Unions
 Studio.App.BetaFeatures.NonuniformUnionsDescription,,Allow unions created with the CSG system to scale nonuniformly in the same way as MeshParts. Change the interpretation of existing nonuniformly scaled unions.,Allow unions created with the CSG system to scale nonuniformly in the same way as MeshParts. Change the interpretation of existing nonuniformly scaled unions.
+Studio.App.BetaFeatures.ScriptEditorApiTitle,,Script Editor API,Script Editor API
+Studio.App.BetaFeatures.ScriptEditorApiDescription,,"Allow plugins to access the ScriptEditorService and ScriptDocument objects, permitting them to interact with an active editor.","Allow plugins to access the ScriptEditorService and ScriptDocument objects, permitting them to interact with an active editor."

@@ -52,7 +52,7 @@ void main()
     vec3 f27 = textureCube(EnvMapTexture, reflect(-f16, f15)).xyz;
     float f28 = 0.08900000154972076416015625 + (f12 * 0.9110000133514404296875);
     vec3 f29 = -CB0[11].xyz;
-    vec3 f30 = normalize(f29 + f16);
+    vec3 f30 = normalize(f16 - CB0[11].xyz);
     float f31 = f28 * f28;
     float f32 = max(0.001000000047497451305389404296875, dot(f14, f30));
     float f33 = dot(f29, f30);

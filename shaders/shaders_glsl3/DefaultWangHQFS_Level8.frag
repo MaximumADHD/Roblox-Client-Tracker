@@ -120,7 +120,7 @@ void main()
     vec4 f71 = texture(PrecomputedBRDFTexture, vec2(f65, max(9.9999997473787516355514526367188e-05, dot(f28, f1))));
     float f72 = f23.x * f64;
     vec3 f73 = mix(vec3(0.039999999105930328369140625), f35.xyz, vec3(f72));
-    vec3 f74 = normalize(f29 + f1);
+    vec3 f74 = normalize(f1 - CB0[11].xyz);
     float f75 = clamp((f30 * CB0[9].w) * (((f30 * CB0[47].x) > 0.0) ? mix(min((f54 <= f58) ? 1.0 : clamp(((f59 / (f59 + (f60 * f60))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f55 <= f61) ? 1.0 : clamp(((f62 / (f62 + (f63 * f63))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f45, clamp((length(f36 - CB0[7].xyz) * CB0[46].y) - (CB0[46].x * CB0[46].y), 0.0, 1.0)) : f45), 0.0, 1.0);
     float f76 = f65 * f65;
     float f77 = max(0.001000000047497451305389404296875, dot(f28, f74));

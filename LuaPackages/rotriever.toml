@@ -14,7 +14,7 @@ RoactRodux = "github.com/roblox/roact-rodux@0.2"
 RoactNavigation = "github.com/roblox/roact-navigation@0.5.2"
 Cryo = "github.com/roblox/cryo@1.0"
 Dash = "github.com/roblox/dash@0.1"
-VerifiedBadges = "github.com/roblox/lua-verified-badges@0.1.0"
+VerifiedBadges = "github.com/roblox/lua-verified-badges@0.2.0"
 LuaChatDeps = { git = "https://github.com/Roblox/lua-chat-deps" }
 LuaSocialLibrariesDeps = { git = "https://github.com/Roblox/lua-social-libraries-deps" }
 PremiumUpsellDeps = { git = "https://github.com/Roblox/premium-upsell-deps" }
@@ -32,15 +32,15 @@ Lumberyak = { git = "https://github.com/Roblox/lumberyak" }
 StringUtilities = "github.com/Roblox/string-utilities@1.0.0"
 UrlBuilder = { git = "https://github.com/Roblox/url-builder", rev = "master" }
 FitFrame = "github.com/roblox/roact-fit-components@2.0.0"
-ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v1.2.3" }
-ExperienceChatV1_3_0 = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v1.3.0" }
+ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v1.3.0" }
+ExperienceChatV1_4_1 = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v1.4.1" }
 RoduxGames = { git = "https://github.com/Roblox/rodux-games", rev = "master" }
 React = "github.com/Roblox/roact-alignment@17.0.1-rc.12"
 ReactIs = "github.com/Roblox/roact-alignment@17.0.1-rc.12"
 ReactRoblox = "github.com/Roblox/roact-alignment@17.0.1-rc.12"
 Promise = "github.com/Roblox/roblox-lua-promise@3.3.0"
 RoactNavigationUpgradeFlag = { git = "https://github.com/roblox/roact-navigation-upgrade", rev = "v0.1.0", package = "RoactNavigationUpgradeFlag" }
-VirtualizedList = { git = "https://github.com/roblox/virtualized-list-lua", rev = "v0.1.0-rc.2" }
+VirtualizedList = "github.com/roblox/virtualized-list-lua@0.1.0-rc.4"
 LuauPolyfill = { git = "https://github.com/roblox/luau-polyfill", rev = "v0.3.4" }
 
 # The following packages were ported from AppTempCommon
@@ -52,7 +52,7 @@ InGameMenuDependencies = { git = "https://github.com/Roblox/in-game-menu-depende
 RoactGamepad = "github.com/roblox/roact-gamepad@0.4.6"
 
 [dev_dependencies]
-JestGlobals = "github.com/roblox/jest-roblox@2.4.0"
+JestGlobals = "github.com/roblox/jest-roblox@2.4.1"
 Rhodium = "github.com/roblox/rhodium@0.2.8"
 
 # Dependencies for the Roact17 inspector

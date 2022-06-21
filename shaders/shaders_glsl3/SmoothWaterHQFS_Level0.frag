@@ -53,7 +53,7 @@ void main()
     vec3 f27 = -f16;
     vec3 f28 = reflect(f27, f15);
     vec3 f29 = -CB0[11].xyz;
-    vec3 f30 = normalize(f29 + f16);
+    vec3 f30 = normalize(f16 - CB0[11].xyz);
     float f31 = f12 * f12;
     float f32 = max(0.001000000047497451305389404296875, dot(f14, f30));
     float f33 = dot(f29, f30);

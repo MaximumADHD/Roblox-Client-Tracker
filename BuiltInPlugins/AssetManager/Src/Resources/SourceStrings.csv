@@ -1,4 +1,5 @@
 Key,Source,en-us
+Studio.AssetManager.SearchBar.GlobalPlaceholderText,Filter Assets,Filter Assets
 Studio.AssetManager.ContextMenu.ViewOnWebsite,View On Website,View On Website
 Studio.AssetManager.ContextMenu.ViewPlaceHistory,View History,View History
 Studio.AssetManager.Main.Title,Asset Manager,Asset Manager
@@ -8,9 +9,6 @@ Studio.AssetManager.BulkImport.BulkImportShowLink,Check current status,Check cur
 Studio.AssetManager.TopBar.GridViewButton,Grid View,Grid View
 Studio.AssetManager.TopBar.ExplorerOverlayButton,Explorer Overlay,Explorer Overlay
 Studio.AssetManager.Main.Tooltip,"Add, remove, and modify assets","Add, remove, and modify assets"
-Studio.AssetManager.TopBar.ForwardButton,Forward,Forward
-Studio.AssetManager.ContextMenu.RevertToLastPublishedVersion,Revert To Last Published Version,Revert To Last Published Version
-Studio.AssetManager.NavBar.ID,ID: {gameId:int},ID: {gameId:int}
 Studio.AssetManager.Meta.PluginName,AssetManager,AssetManager
 Studio.AssetManager.MainView.SaveToRobloxButtonText,Save to Roblox,Save to Roblox
 Studio.AssetManager.ContextMenu.EditAsset,Edit Asset,Edit Asset
@@ -20,6 +18,9 @@ Studio.AssetManager.ContextMenu.AddVideo,Add Video,Add Video
 Studio.AssetManager.NavBar.GamePlaceholderName,Game,Game
 Studio.AssetManager.ContextMenu.InsertWithLocation,Insert With Location,Insert With Location
 Studio.AssetManager.SearchBar.PlaceholderText,Filter,Filter
+Studio.AssetManager.TopBar.ForwardButton,Forward,Forward
+Studio.AssetManager.ContextMenu.RevertToLastPublishedVersion,Revert To Last Published Version,Revert To Last Published Version
+Studio.AssetManager.NavBar.ID,ID: {gameId:int},ID: {gameId:int}
 Studio.AssetManager.Folders.IMAGES,Images,Images
 Studio.AssetManager.Folders.MESHES,Meshes,Meshes
 Studio.AssetManager.ContextMenu.PublishLinkedSource,Publish this LinkedSource,Publish this LinkedSource

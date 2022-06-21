@@ -7,6 +7,7 @@ Studio.AnimationClipEditor.AnimationFromVideo.InputHasNoPerson, ,"Couldn't detec
 Studio.AnimationClipEditor.AnimationFromVideo.InputTooLong, ,That video is too long – try a video shorter than 10 seconds.
 Studio.AnimationClipEditor.AnimationFromVideo.InputUnstable, ,That video is too shaky – try a more stable video.
 Studio.AnimationClipEditor.AnimationFromVideo.ModerationRejected, ,Your animation did not comply with our moderation rules. Please try a different video.
+Studio.AnimationClipEditor.AnimationFromVideo.MultiplePeopleInFrame, ,Multiple people detected - Please try a video with a single person fully in frame.
 Studio.AnimationClipEditor.AnimationFromVideo.Pending, ,Video pending – please wait...
 Studio.AnimationClipEditor.AnimationFromVideo.Processing, ,Your video is processing...
 Studio.AnimationClipEditor.AnimationFromVideo.RequiresModeration, ,Our moderation team is taking a look – we'll be in touch shortly.
@@ -51,11 +52,18 @@ Studio.AnimationClipEditor.ContextMenu.TogglePlay, ,Toggle Play
 Studio.AnimationClipEditor.ContextMenu.Undo, ,Undo
 Studio.AnimationClipEditor.ContextMenu.ZeroBothTangents, ,Set Both Tangents To Zero
 Studio.AnimationClipEditor.ContextMenu.ZeroTangent, ,Set Tangent To Zero
+Studio.AnimationClipEditor.CurveEditorCallout.Description, ,The Curve Editor is a new way to visually create and edit rich animations within the Animation Editor.
+Studio.AnimationClipEditor.CurveEditorCallout.Title, ,Curve Editor
 Studio.AnimationClipEditor.Curves.InterpolationMode, ,Interpolation Mode: {interpolationMode}
+Studio.AnimationClipEditor.Curves.InterpolationMode2, ,{interpolationMode} Mode
 Studio.AnimationClipEditor.Curves.LeftTangentAuto, ,Left tangent: Auto
+Studio.AnimationClipEditor.Curves.LeftTangentLabel, ,L. Tangent:
 Studio.AnimationClipEditor.Curves.LeftTangentValuePerSecond, ,Left tangent: {value}/s
 Studio.AnimationClipEditor.Curves.RightTangentAuto, ,Right tangent: Auto
+Studio.AnimationClipEditor.Curves.RightTangentLabel, ,R. Tangent:
 Studio.AnimationClipEditor.Curves.RightTangentValuePerSecond, ,Right tangent: {value}/s
+Studio.AnimationClipEditor.Curves.TangentAuto, ,Auto
+Studio.AnimationClipEditor.Curves.TangentValuePerSecond, ,{value}/s
 Studio.AnimationClipEditor.Dialog.AnimationName, ,Animation Name
 Studio.AnimationClipEditor.Dialog.Cancel, ,Cancel
 Studio.AnimationClipEditor.Dialog.ChangeAll, ,Change All

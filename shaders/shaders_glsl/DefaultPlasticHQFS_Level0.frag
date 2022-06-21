@@ -70,7 +70,7 @@ void main()
     vec3 f34 = textureCube(EnvironmentMapTexture, reflect(-f1, f19)).xyz;
     vec3 f35 = -CB0[11].xyz;
     float f36 = (dot(f19, f35) * CB0[9].w) * ((1.0 - ((step(f31.x, f32) * clamp(CB0[24].z + (CB0[24].w * abs(f32 - 0.5)), 0.0, 1.0)) * f31.y)) * f30.y);
-    vec3 f37 = normalize(f35 + f1);
+    vec3 f37 = normalize(f1 - CB0[11].xyz);
     float f38 = clamp(f36, 0.0, 1.0);
     float f39 = f33 * f33;
     float f40 = max(0.001000000047497451305389404296875, dot(f19, f37));

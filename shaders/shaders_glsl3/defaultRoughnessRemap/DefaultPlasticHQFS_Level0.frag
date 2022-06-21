@@ -93,7 +93,7 @@ void main()
     vec4 f45 = texture(PrecomputedBRDFTexture, vec2(f38, max(9.9999997473787516355514526367188e-05, dot(f20, f1))));
     vec3 f46 = -CB0[11].xyz;
     float f47 = (dot(f20, f46) * CB0[9].w) * ((1.0 - ((step(f35.x, f36) * clamp(CB0[24].z + (CB0[24].w * abs(f36 - 0.5)), 0.0, 1.0)) * f35.y)) * f33.y);
-    vec3 f48 = normalize(f46 + f1);
+    vec3 f48 = normalize(f1 - CB0[11].xyz);
     float f49 = clamp(f47, 0.0, 1.0);
     float f50 = f38 * f38;
     float f51 = max(0.001000000047497451305389404296875, dot(f20, f48));

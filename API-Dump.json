@@ -19724,6 +19724,30 @@
         {
             "Members": [
                 {
+                    "MemberType": "Function",
+                    "Name": "GetDeviceId",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "DeviceIdService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "BehaviorType",
@@ -47402,6 +47426,28 @@
                 {
                     "Category": "Collision",
                     "MemberType": "Property",
+                    "Name": "CollisionGroup",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Collision",
+                    "MemberType": "Property",
                     "Name": "CollisionGroupId",
                     "Security": {
                         "Read": "None",
@@ -52890,6 +52936,29 @@
                     }
                 },
                 {
+                    "Category": "Link",
+                    "MemberType": "Property",
+                    "Name": "Package Id",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "PackageAssetName",
@@ -52925,6 +52994,7 @@
                         "CanSave": true
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated"
                     ],
@@ -52982,16 +53052,39 @@
                 {
                     "Category": "Link",
                     "MemberType": "Property",
+                    "Name": "Version Number",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
+                },
+                {
+                    "Category": "Link",
+                    "MemberType": "Property",
                     "Name": "VersionNumber",
                     "Security": {
                         "Read": "None",
                         "Write": "NotAccessibleSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
@@ -54149,10 +54242,7 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "PathfindingLink",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotBrowsable"
-            ]
+            "Superclass": "Instance"
         },
         {
             "Members": [
@@ -59829,6 +59919,57 @@
                     ],
                     "Security": "PluginSecurity",
                     "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Callback",
+                    "Name": "ProcessAssetInsertionDrag",
+                    "Parameters": [
+                        {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "assetTypeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "instances",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Objects"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Objects"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "NoYield"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Callback",
+                    "Name": "ProcessAssetInsertionDrop",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "NoYield"
+                    ],
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -64367,6 +64508,161 @@
         {
             "Members": [
                 {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "CameraButtonIcon",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "CameraButtonPosition",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "UDim2"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "CloseButtonPosition",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "UDim2"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "CloseWhenScreenshotTaken",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "ExperienceNameOverlayEnabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "OverlayFont",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "Font"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "UsernameOverlayEnabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "Visible",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ScreenshotHud",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
                     "MemberType": "Event",
                     "Name": "ScriptAdded",
                     "Parameters": [
@@ -65131,14 +65427,34 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "GetNumLines",
+                    "Name": "GetLine",
+                    "Parameters": [
+                        {
+                            "Default": "-1234567",
+                            "Name": "lineIndex",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "PluginSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetLineCount",
                     "Parameters": [
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
                         "Name": "int"
                     },
-                    "Security": "RobloxScriptSecurity",
+                    "Security": "PluginSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -65150,19 +65466,51 @@
                         "Category": "Class",
                         "Name": "LuaSourceContainer"
                     },
-                    "Security": "RobloxScriptSecurity",
+                    "Security": "PluginSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
                     "MemberType": "Function",
                     "Name": "GetText",
                     "Parameters": [
+                        {
+                            "Default": "-1234567",
+                            "Name": "startLine",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Default": "-1234567",
+                            "Name": "startCharacter",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Default": "-1234567",
+                            "Name": "endLine",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Default": "-1234567",
+                            "Name": "endCharacter",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
                         "Name": "string"
                     },
-                    "Security": "RobloxScriptSecurity",
+                    "Security": "PluginSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -65174,7 +65522,7 @@
                         "Category": "Primitive",
                         "Name": "bool"
                     },
-                    "Security": "RobloxScriptSecurity",
+                    "Security": "PluginSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -65223,7 +65571,7 @@
                         "Category": "Group",
                         "Name": "Tuple"
                     },
-                    "Security": "RobloxScriptSecurity",
+                    "Security": "PluginSecurity",
                     "Tags": [
                         "Yields"
                     ],
@@ -65256,7 +65604,7 @@
                         "Category": "Class",
                         "Name": "ScriptDocument"
                     },
-                    "Security": "RobloxScriptSecurity",
+                    "Security": "PluginSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -65304,7 +65652,7 @@
                             }
                         }
                     ],
-                    "Security": "RobloxScriptSecurity",
+                    "Security": "PluginSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -65319,7 +65667,7 @@
                             }
                         }
                     ],
-                    "Security": "RobloxScriptSecurity",
+                    "Security": "PluginSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -65334,7 +65682,7 @@
                             }
                         }
                     ],
-                    "Security": "RobloxScriptSecurity",
+                    "Security": "PluginSecurity",
                     "ThreadSafety": "Unsafe"
                 }
             ],
@@ -72346,6 +72694,24 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Directories",
+                    "MemberType": "Property",
+                    "Name": "IconOverrideDir",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "QDir"
                     }
                 },
                 {

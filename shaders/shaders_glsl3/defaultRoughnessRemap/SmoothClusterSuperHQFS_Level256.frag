@@ -149,7 +149,7 @@ void main()
     vec3 f89 = reflect(-f84, f72);
     vec3 f90 = -CB0[11].xyz;
     float f91 = (dot(f72, f90) * CB0[9].w) * ((1.0 - ((step(f82.x, f83) * clamp(CB0[24].z + (CB0[24].w * abs(f83 - 0.5)), 0.0, 1.0)) * f82.y)) * f80.y);
-    vec3 f92 = normalize(f90 + f84);
+    vec3 f92 = normalize(f84 - CB0[11].xyz);
     float f93 = clamp(f91, 0.0, 1.0);
     float f94 = f85 * f85;
     float f95 = max(0.001000000047497451305389404296875, dot(f72, f92));

@@ -98,25 +98,26 @@ Studio.AssetImporter.Sections.FileGeometry,File Geometry
 Studio.AssetImporter.Sections.FileTransform,File Transform
 Studio.AssetImporter.Sections.ObjectGeneral,Object General
 Studio.AssetImporter.Sections.ObjectGeometry,Object Geometry
-Studio.AssetImporter.Statuses.CageNonManifoldWarning,"This cage has non-manifold geometry, which can cause deformation issues. Non-manifold area is marked in the preview render"
-Studio.AssetImporter.Statuses.CageOverlappingVerticesWarning,"Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render"
+Studio.AssetImporter.Statuses.CageMismatchWarning,The number of cage vertices between the outer and inner cage don't match.
+Studio.AssetImporter.Statuses.CageNonManifoldWarning,"This cage has non-manifold geometry, which can cause deformation issues. Non-manifold area is marked in the preview render."
+Studio.AssetImporter.Statuses.CageOverlappingVerticesWarning,"Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render."
 Studio.AssetImporter.Statuses.CageUVMisMatchedWarning,"For this asset to be Layered Clothing compatible, you need to use the original cage template and ensure that you do not modify the UV map."
-Studio.AssetImporter.Statuses.CouldNotReadDiffuseError,Could not read the diffuse texture file associated with this object
-Studio.AssetImporter.Statuses.CouldNotReadMetalnessError,Could not read the metalness texture file associated with this object
-Studio.AssetImporter.Statuses.CouldNotReadNormalError,Could not read the normal texture file associated with this object
-Studio.AssetImporter.Statuses.CouldNotReadRoughnessError,Could not read the roughness texture file associated with this object
-Studio.AssetImporter.Statuses.CouldNotReadTextureError,Could not read the texture file associated with this object
-Studio.AssetImporter.Statuses.DefaultError,Import experienced a {type} error
-Studio.AssetImporter.Statuses.DefaultWarnings,Import experienced a {type} warning
-Studio.AssetImporter.Statuses.DiffuseBadFileFormatError,Unsupported diffuse texture file format
+Studio.AssetImporter.Statuses.CouldNotReadDiffuseError,Could not read the diffuse texture file associated with this object.
+Studio.AssetImporter.Statuses.CouldNotReadMetalnessError,Could not read the metalness texture file associated with this object.
+Studio.AssetImporter.Statuses.CouldNotReadNormalError,Could not read the normal texture file associated with this object.
+Studio.AssetImporter.Statuses.CouldNotReadRoughnessError,Could not read the roughness texture file associated with this object.
+Studio.AssetImporter.Statuses.CouldNotReadTextureError,Could not read the texture file associated with this object.
+Studio.AssetImporter.Statuses.DefaultError,Import experienced a {type} error.
+Studio.AssetImporter.Statuses.DefaultWarnings,Import experienced a {type} warning.
+Studio.AssetImporter.Statuses.DiffuseBadFileFormatError,Unsupported diffuse texture file format.
 Studio.AssetImporter.Statuses.IncorrectR15Warning,This rig does not follow the guidelines of chosen rig type.
-Studio.AssetImporter.Statuses.MaterialIgnoredWarning,The material included with this object is currently unsupported
-Studio.AssetImporter.Statuses.MeshScaleWarning,One of the objects dimensions are larger than can be imported
-Studio.AssetImporter.Statuses.MeshSizeWarning,The number of triangles is greater than is supported. Object will be simplified
-Studio.AssetImporter.Statuses.MetalnessBadFileFormatError,Unsupported metalness texture file format
-Studio.AssetImporter.Statuses.NormalBadFileFormatError,Unsupported normal texture file format
-Studio.AssetImporter.Statuses.RoughnessBadFileFormatError,Unsupported roughness texture file format
-Studio.AssetImporter.Statuses.TextureBadFileFormatError,Unsupported texture file format
+Studio.AssetImporter.Statuses.MaterialIgnoredWarning,The material included with this object is currently unsupported.
+Studio.AssetImporter.Statuses.MeshScaleWarning,One of the objects dimensions are larger than can be imported.
+Studio.AssetImporter.Statuses.MeshSizeWarning,The number of triangles is greater than is supported. Object will be simplified.
+Studio.AssetImporter.Statuses.MetalnessBadFileFormatError,Unsupported metalness texture file format.
+Studio.AssetImporter.Statuses.NormalBadFileFormatError,Unsupported normal texture file format.
+Studio.AssetImporter.Statuses.RoughnessBadFileFormatError,Unsupported roughness texture file format.
+Studio.AssetImporter.Statuses.TextureBadFileFormatError,Unsupported texture file format.
 Studio.AssetImporter.TreeViewToolbar.Collapse,Collapse
 Studio.AssetImporter.TreeViewToolbar.Expand,Expand
 Studio.AssetImporter.Upload.Failure,Import failed

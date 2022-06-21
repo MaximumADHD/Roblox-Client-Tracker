@@ -105,7 +105,7 @@ void main()
     vec3 f70 = textureCube(EnvMapTexture, f39).xyz;
     vec3 f71 = texture2D(GBufferColorTexture, f69).xyz;
     vec3 f72 = -CB0[11].xyz;
-    vec3 f73 = normalize(f72 + f17);
+    vec3 f73 = normalize(f17 - CB0[11].xyz);
     float f74 = f12 * f12;
     float f75 = max(0.001000000047497451305389404296875, dot(f15, f73));
     float f76 = dot(f72, f73);

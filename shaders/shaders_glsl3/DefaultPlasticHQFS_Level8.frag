@@ -114,7 +114,7 @@ void main()
         f63 = mix(f62, textureLod(PrefilteredEnvBlendTargetTexture, f60, f59).xyz, vec3(CB0[27].w));
     }
     vec4 f64 = texture(PrecomputedBRDFTexture, vec2(f57, max(9.9999997473787516355514526367188e-05, dot(f20, f1))));
-    vec3 f65 = normalize(f21 + f1);
+    vec3 f65 = normalize(f1 - CB0[11].xyz);
     float f66 = clamp((f22 * CB0[9].w) * (((f22 * CB0[47].x) > 0.0) ? mix(min((f46 <= f50) ? 1.0 : clamp(((f51 / (f51 + (f52 * f52))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f47 <= f53) ? 1.0 : clamp(((f54 / (f54 + (f55 * f55))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f37, clamp((length(f28 - CB0[7].xyz) * CB0[46].y) - (CB0[46].x * CB0[46].y), 0.0, 1.0)) : f37), 0.0, 1.0);
     float f67 = f57 * f57;
     float f68 = max(0.001000000047497451305389404296875, dot(f20, f65));
