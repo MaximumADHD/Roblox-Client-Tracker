@@ -1125,7 +1125,7 @@ Class FaceAnimatorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool FaceAnimatorService.AudioAnimationEnabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool FaceAnimatorService.FlipHeadOrientation {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool FaceAnimatorService.VideoAnimationEnabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
-Class FaceControls : Instance [NotBrowsable]
+Class FaceControls : Instance
 	Property float FaceControls.Corrugator {PluginSecurity} [NotReplicated]
 	Property float FaceControls.LeftBrowLowerer {PluginSecurity} [NotReplicated]
 	Property float FaceControls.LeftInnerBrowRaiser {PluginSecurity} [NotReplicated]
@@ -4075,22 +4075,22 @@ Class TestService : Instance [Service]
 	Event TestService.ServerCollectConditionalResult(bool condition, string text, Instance script, int line)
 	Event TestService.ServerCollectResult(string text, Instance script, int line)
 Class TextBoxService : Instance [NotCreatable] [Service]
-Class TextChannel : Instance [NotBrowsable]
+Class TextChannel : Instance
 	Function Tuple TextChannel:AddUserAsync(int64 userId) [Yields]
 	Function TextChatMessage TextChannel:DisplaySystemMessage(string systemMessage, string metadata = "")
 	Function TextChatMessage TextChannel:SendAsync(string message, string metadata = "") [Yields]
 	Event TextChannel.MessageReceived(TextChatMessage incomingMessage)
 	Callback Tuple TextChannel.OnIncomingMessage(TextChatMessage message)
-Class TextChatCommand : Instance [NotBrowsable]
+Class TextChatCommand : Instance
 	Property bool TextChatCommand.Enabled
 	Property string TextChatCommand.PrimaryAlias
 	Property string TextChatCommand.SecondaryAlias
 	Event TextChatCommand.Triggered(TextSource originTextSource, string unfilteredText)
 Class TextChatConfigurations : Instance [NotCreatable] [NotReplicated]
-Class ChatInputBarConfiguration : TextChatConfigurations [NotCreatable] [NotBrowsable]
+Class ChatInputBarConfiguration : TextChatConfigurations [NotCreatable]
 	Property bool ChatInputBarConfiguration.Enabled
 	Property TextChannel ChatInputBarConfiguration.TargetTextChannel
-Class ChatWindowConfiguration : TextChatConfigurations [NotCreatable] [NotBrowsable]
+Class ChatWindowConfiguration : TextChatConfigurations [NotCreatable]
 	Property bool ChatWindowConfiguration.Enabled
 Class TextChatMessage : Instance [NotCreatable]
 	Property string TextChatMessage.MessageId
@@ -4104,7 +4104,7 @@ Class TextChatMessage : Instance [NotCreatable]
 Class TextChatMessageProperties : Instance
 	Property string TextChatMessageProperties.PrefixText
 	Property string TextChatMessageProperties.Text
-Class TextChatService : Instance [NotCreatable] [Service] [NotBrowsable]
+Class TextChatService : Instance [NotCreatable] [Service]
 	Property Enum.ChatVersion TextChatService.ChatVersion {✏️NotAccessibleSecurity}
 	Property bool TextChatService.CreateDefaultCommands {✏️PluginSecurity}
 	Property bool TextChatService.CreateDefaultTextChannels {✏️PluginSecurity}
@@ -4121,7 +4121,7 @@ Class TextService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Vector2 TextService:GetTextBoundsAsync(GetTextBoundsParams params) [Yields]
 	Function Vector2 TextService:GetTextSize(string string, int fontSize, Enum.Font font, Vector2 frameSize)
 	Function void TextService:SetResolutionScale(float scale) {RobloxScriptSecurity}
-Class TextSource : Instance [NotCreatable] [NotBrowsable]
+Class TextSource : Instance [NotCreatable]
 	Property bool TextSource.CanSend
 	Property int64 TextSource.UserId [ReadOnly]
 Class ThirdPartyUserService : Instance [NotCreatable] [Service] [NotReplicated]

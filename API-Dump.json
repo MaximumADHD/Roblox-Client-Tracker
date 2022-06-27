@@ -22398,10 +22398,7 @@
             ],
             "MemoryCategory": "Animation",
             "Name": "FaceControls",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotBrowsable"
-            ]
+            "Superclass": "Instance"
         },
         {
             "Members": [
@@ -77824,10 +77821,7 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "TextChannel",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotBrowsable"
-            ]
+            "Superclass": "Instance"
         },
         {
             "Members": [
@@ -77910,10 +77904,7 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "TextChatCommand",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotBrowsable"
-            ]
+            "Superclass": "Instance"
         },
         {
             "Members": [
@@ -77969,8 +77960,7 @@
             "Name": "ChatInputBarConfiguration",
             "Superclass": "TextChatConfigurations",
             "Tags": [
-                "NotCreatable",
-                "NotBrowsable"
+                "NotCreatable"
             ]
         },
         {
@@ -77998,8 +77988,7 @@
             "Name": "ChatWindowConfiguration",
             "Superclass": "TextChatConfigurations",
             "Tags": [
-                "NotCreatable",
-                "NotBrowsable"
+                "NotCreatable"
             ]
         },
         {
@@ -78310,8 +78299,7 @@
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
-                "Service",
-                "NotBrowsable"
+                "Service"
             ]
         },
         {
@@ -78583,8 +78571,7 @@
             "Name": "TextSource",
             "Superclass": "Instance",
             "Tags": [
-                "NotCreatable",
-                "NotBrowsable"
+                "NotCreatable"
             ]
         },
         {
