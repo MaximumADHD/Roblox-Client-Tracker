@@ -17,13 +17,14 @@ local FFlagFixThumbnailTileInconsistency = require(CorePackages.UIBloxFlags.FFla
 local GetFFlagUIBloxEnableRadioButtonGamepadSupport = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableRadioButtonGamepadSupport
 )
-
 local GetFFlagUIBloxEnableActionBarLayoutFix = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableActionBarLayoutFix
 )
-
 local GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix = require(
-		CorePackages.UIBloxFlags.GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix
+	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix
+)
+local GetFFlagUIBloxEnableStandardButtonSizes = require(
+	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableStandardButtonSizes
 )
 
 return {
@@ -48,4 +49,5 @@ return {
 	-- Config to enable new icon sizes
 	enableNewIconSizes = game:DefineFastFlag("UIBloxUseNewIconSizes", false),
 	enableGenericButtonHoverBackgroundFix = GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix(),
+	enableStandardButtonSizes = GetFFlagUIBloxEnableStandardButtonSizes(),
 }

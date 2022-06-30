@@ -24,6 +24,7 @@ local InviteFriendsList = require(script.InviteFriendsList)
 local AddFriendsNow = require(script.AddFriendsNow)
 local LoadingFriendsError = require(script.LoadingFriendsError)
 local ShareInviteLinkButton = require(script.ShareInviteLinkButton)
+local mapDispatchToProps = require(script.InviteFriendsPageMapDispatchToProps)
 
 local IconButton = UIBlox.App.Button.IconButton
 local getIconSize = UIBlox.App.ImageSet.getIconSize
@@ -72,6 +73,16 @@ function InviteFriendsPage:init()
 			isFilteringMode = false,
 			searchText = "",
 		})
+	end
+
+	if GetFFlagShareInviteLinkContextMenuV3Enabled() then
+		self.shareInviteLinkButtonOnActivated = function()
+			if self.props.shareInviteLink == nil then
+				self.props.fetchShareInviteLink()
+			else
+				-- TODO COEXP-319: Show sharesheet if self.props.shareInviteLink is present
+			end
+		end
 	end
 end
 
@@ -158,6 +169,7 @@ function InviteFriendsPage:render()
 					isFilteringMode = self.state.isFilteringMode,
 					searchBar = Roact.createElement(SearchBar, {
 						size = UDim2.new(1, 0, 0, 36),
+						text = self.state.searchText,
 						autoCaptureFocus = true,
 						onTextChanged = self.onSearchTextChanged,
 						onCancelled = self.onSearchBarDismissed,
@@ -186,6 +198,7 @@ function InviteFriendsPage:getActions()
 		}),
 		ShareIcon = GetFFlagShareInviteLinkContextMenuV3Enabled() and Roact.createElement(ShareInviteLinkButton, {
 			layoutOrder = 1,
+			onActivated = self.shareInviteLinkButtonOnActivated,
 		}) or nil,
 		SearchIcon = Roact.createElement(IconButton, {
 			layoutOrder = GetFFlagShareInviteLinkContextMenuV3Enabled() and 2 or 1,
@@ -209,6 +222,8 @@ function InviteFriendsPage:didUpdate(prevProps, prevState)
 	if not self.props.isMenuOpen and prevProps.isMenuOpen then
 		self.onSearchBarDismissed()
 	end
+
+	-- TODO COEXP-319: Show sharesheet if shareInviteLink is present
 end
 
 function InviteFriendsPage:loadFriends()
@@ -276,16 +291,33 @@ function InviteFriendsPage:willUnmount()
 	self.mounted = false
 end
 
-return RoactRodux.connect(function(state, props)
-	local canCaptureFocus = state.menuPage == "InviteFriends"
-		and state.isMenuOpen
-		and state.displayOptions.inputType == Constants.InputType.Gamepad
-		and not state.respawn.dialogOpen
-		and state.currentZone == 1
-
-	return {
-		canCaptureFocus = canCaptureFocus,
-		menuPage = state.menuPage,
-		isMenuOpen = state.isMenuOpen,
-	}
-end)(InviteFriendsPage)
+if GetFFlagShareInviteLinkContextMenuV3Enabled() then
+	return RoactRodux.connect(function(state, props)
+		local canCaptureFocus = state.menuPage == "InviteFriends"
+			and state.isMenuOpen
+			and state.displayOptions.inputType == Constants.InputType.Gamepad
+			and not state.respawn.dialogOpen
+			and state.currentZone == 1
+	
+		return {
+			canCaptureFocus = canCaptureFocus,
+			menuPage = state.menuPage,
+			isMenuOpen = state.isMenuOpen,
+			shareInviteLink = state.shareLinks.Invites.ShareInviteLink
+		}
+	end, mapDispatchToProps)(InviteFriendsPage)
+else
+	return RoactRodux.connect(function(state, props)
+		local canCaptureFocus = state.menuPage == "InviteFriends"
+			and state.isMenuOpen
+			and state.displayOptions.inputType == Constants.InputType.Gamepad
+			and not state.respawn.dialogOpen
+			and state.currentZone == 1
+	
+		return {
+			canCaptureFocus = canCaptureFocus,
+			menuPage = state.menuPage,
+			isMenuOpen = state.isMenuOpen,
+		}
+	end)(InviteFriendsPage)
+end

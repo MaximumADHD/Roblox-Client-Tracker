@@ -4,17 +4,17 @@
 
 local CorePackages = game:GetService("CorePackages")
 local Signal = require(CorePackages.AppTempCommon.Common.Signal)
-local React = require(CorePackages.Packages.React)
+local VarargHooks = require(CorePackages.AppTempCommon.Hooks.VarargHooks)
 
 type Signal = typeof(Signal.new())
 
 local function useSignal(signal: Signal, callback: (...any) -> ())
-	React.useEffect(function()
+	VarargHooks.useEffect(function()
 		local connection = signal:connect(callback)
 		return function()
 			connection:disconnect()
 		end
-	end, {signal :: any, callback})
+	end, signal, callback)
 end
 
 return useSignal

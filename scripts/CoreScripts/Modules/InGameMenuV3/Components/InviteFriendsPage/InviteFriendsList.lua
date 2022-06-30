@@ -2,7 +2,6 @@ local Players = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
-local Cryo = InGameMenuDependencies.Cryo
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local t = InGameMenuDependencies.t
@@ -14,6 +13,7 @@ local IconButton = UIBlox.App.Button.IconButton
 local Images = UIBlox.App.ImageSet.Images
 
 local InGameMenu = script.Parent.Parent.Parent
+local InviteUserToPlaceId = require(InGameMenu.Thunks.InviteUserToPlaceId)
 local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
 local PlayerCell = require(InGameMenu.Components.PlayerCell)
 local PlayerContextualMenuWrapper = require(InGameMenu.Components.PlayerContextualMenuWrapper)
@@ -45,6 +45,8 @@ InviteFriendsList.validateProps = t.strictInterface({
 
 	isFilteringMode = t.optional(t.boolean),
 	searchText = t.optional(t.string),
+
+	dispatchInviteUserToPlaceId = t.callback,
 })
 
 InviteFriendsList.defaultProps = {
@@ -136,6 +138,8 @@ function InviteFriendsList:renderListEntries()
 		end
 
 		if isEntryVisibleForPlayer then
+			local userInvited = self.props.invitesState[tostring(playerInfo.Id)]
+
 			visibleEntryIndex = visibleEntryIndex + 1
 			friendList["friend_" .. index] = Roact.createElement(PlayerCell, {
 				username = playerInfo.Username,
@@ -156,12 +160,22 @@ function InviteFriendsList:renderListEntries()
 					self.toggleMoreActions(self:getPlayerByIndex(index))
 				end,
 			}, {
-				Icon = Roact.createElement(IconButton, {
+				InviteFriend = Roact.createElement(IconButton, {
 					size = UDim2.fromOffset(0, 0),
-					icon = Images["icons/actions/friends/friendInvite"],
+					icon = userInvited and Images["icons/status/success"]
+						or Images["icons/actions/friends/friendInvite"],
 					anchorPoint = Vector2.new(1, 0.5),
-					onActivated = function(_)
-						self.toggleMoreActions(self:getPlayerByIndex(index))
+					onActivated = function()
+						local player = self:getPlayerByIndex(index)
+						if userInvited then
+							self.toggleMoreActions(player)
+						else
+							local placeId = tostring(game.PlaceId)
+							local userId = tostring(player.UserId)
+							if placeId then
+								self.props.dispatchInviteUserToPlaceId(userId, placeId)
+							end
+						end
 					end,
 				}),
 			})
@@ -199,7 +213,7 @@ function InviteFriendsList:render()
 				self:setState({
 					selectedPlayer = Roact.None,
 				})
-			end or nil
+			end or nil,
 		}, listEntries),
 
 		MoreActionsMenu = Roact.createElement(PlayerContextualMenuWrapper, {
@@ -211,11 +225,6 @@ function InviteFriendsList:render()
 					self:setState({
 						selectedPlayer = Roact.None,
 					})
-				else
-					-- refresh contents forcibly
-					self:setState(function(prevState, props)
-						return Cryo.Dictionary.join(prevState)
-					end)
 				end
 			end,
 		}),
@@ -282,4 +291,10 @@ return RoactRodux.connect(function(state, props)
 		inviteFriends = state.inviteFriends.inviteFriends,
 		shouldForgetPreviousSelection = state.menuPage == Constants.MainPagePageKey or state.currentZone == 0,
 	}
-end, nil)(InviteFriendsList)
+end, function(dispatch)
+	return {
+		dispatchInviteUserToPlaceId = function(userId, placeId)
+			dispatch(InviteUserToPlaceId(userId, placeId))
+		end,
+	}
+end)(InviteFriendsList)

@@ -3,6 +3,7 @@ local AppTempCommon = CorePackages.AppTempCommon
 
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local ShareGame = Modules.Settings.Pages.ShareGame
+local dependencies = require(ShareGame.dependencies)
 
 local PlaceInfos = require(AppTempCommon.LuaChat.Reducers.PlaceInfos)
 local Users = require(AppTempCommon.LuaApp.Reducers.Users)
@@ -14,6 +15,9 @@ local DeviceInfo = require(ShareGame.Reducers.DeviceInfo)
 local Invites = require(ShareGame.Reducers.Invites)
 local Page = require(ShareGame.Reducers.Page)
 local Toasts = require(ShareGame.Reducers.Toasts)
+
+local RoduxShareLinks = dependencies.RoduxShareLinks
+local ShareLinks = RoduxShareLinks.installReducer()
 
 return function(state, action)
 	state = state or {}
@@ -28,5 +32,6 @@ return function(state, action)
 		Users = Users(state.Users, action),
 		Friends = Friends(state.Friends, action),
 		FriendCount = FriendCount(state.FriendCount, action),
+		ShareLinks = ShareLinks(state.ShareLinks, action),
 	}
 end

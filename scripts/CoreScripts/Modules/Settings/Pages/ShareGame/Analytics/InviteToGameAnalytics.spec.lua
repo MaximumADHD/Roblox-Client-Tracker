@@ -163,4 +163,48 @@ return function()
 			expect(diagSum).to.equal(1)
 		end)
 	end)
+
+	describe("onLinkGenerated", function()
+		it("SHOULD fire `EventName.LinkGenerated` event", function()
+			local mockEventStream = createMockEventStream()
+
+			local lastEventContext = nil
+			local lastEventName = nil
+
+			mockEventStream.onSetRBXEventStream:connect(function(_, eventName, additionalArgs)
+				lastEventContext = "testing123"
+				lastEventName = eventName
+			end)
+
+			local analytics = InviteToGameAnalytics.new()
+				:withEventStream(mockEventStream)
+
+			analytics:onLinkGenerated("", "123456")
+
+			expect(lastEventContext).to.equal("testing123")
+			expect(lastEventName).to.equal(InviteToGameAnalytics.EventName.LinkGenerated)
+		end)
+	end)
+
+	describe("onShareButtonClick", function()
+		it("SHOULD fire `EventName.ShareButtonClick` event", function()
+			local mockEventStream = createMockEventStream()
+
+			local lastEventContext = nil
+			local lastEventName = nil
+
+			mockEventStream.onSetRBXEventStream:connect(function(_, eventName, additionalArgs)
+				lastEventContext = 'testing123'
+				lastEventName = eventName
+			end)
+
+			local analytics = InviteToGameAnalytics.new()
+				:withEventStream(mockEventStream)
+
+			analytics:onShareButtonClick()
+
+			expect(lastEventContext).to.equal('testing123')
+			expect(lastEventName).to.equal(InviteToGameAnalytics.EventName.ShareButtonClick)
+		end)
+	end)
 end

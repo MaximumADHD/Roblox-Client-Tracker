@@ -50,7 +50,7 @@ function SliderEntry:render()
 			min = self.props.min,
 			max = self.props.max,
 			stepInterval = self.props.stepInterval,
-			disabled = self.props.disabled,
+			isDisabled = self.props.disabled,
 			onValueChanged =  self.props.valueChanged,
 			textInputEnabled = true,
 			position = UDim2.new(0, 0, 0, 32),

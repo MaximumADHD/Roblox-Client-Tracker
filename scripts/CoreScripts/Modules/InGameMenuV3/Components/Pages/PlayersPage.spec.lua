@@ -24,6 +24,9 @@ return function()
 	local SetInputType = require(InGameMenu.Actions.SetInputType)
 	local Constants = require(InGameMenu.Resources.Constants)
 
+	local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
+	local ParticipantAdded = require(RobloxGui.Modules.VoiceChat.Actions.ParticipantAdded)
+
 	local appStyle = {
 		Theme = AppDarkTheme,
 		Font = AppFont,
@@ -68,6 +71,8 @@ return function()
 				players = players,
 			}, props or {})
 		)
+
+		store:dispatch(ParticipantAdded(tostring(localPlayer.UserId)))
 
 		return Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
@@ -210,11 +215,16 @@ return function()
 				DisplayName = "Potential Friend",
 			}
 
-			local element = getMountableTreeAndStore({
+			local element, store = getMountableTreeAndStore({
 				incomingFriendRequests = {
 					potentialFriend,
 				},
 			})
+			act(function()
+				store:dispatch(ParticipantAdded(tostring(potentialFriend.UserId)))
+				store:flush()
+			end)
+
 			jestExpect(Players.LocalPlayer.PlayerGui).toBeDefined()
 
 			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)

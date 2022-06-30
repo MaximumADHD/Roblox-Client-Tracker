@@ -24,6 +24,7 @@ local SearchBar = Roact.PureComponent:extend("SearchBar")
 
 SearchBar.validateProps = t.interface({
 	size = t.UDim2,
+	text = t.optional(t.string),
 	onTextChanged = t.optional(t.callback),
 	onFocused = t.optional(t.callback),
 	onCancelled = t.optional(t.callback),
@@ -67,22 +68,12 @@ function SearchBar:init()
 	end
 
 	self.searchBoxFocused = function(rbx)
-		-- clear text
-		if self.textboxRef and self.textboxRef.current then
-			self.textboxRef.current.Text = ""
-		end
-
 		if self.props.onFocused then
 			self.props.onFocused()
 		end
 	end
 
 	self.searchCancel = function()
-		-- clear text
-		if self.textboxRef and self.textboxRef.current then
-			self.textboxRef.current.Text = ""
-		end
-
 		if self.props.onCancelled then
 			self.props.onCancelled()
 		end
@@ -174,7 +165,7 @@ function SearchBar:render()
 								SEARCH_TEXTBOX_HEIGHT
 							),
 							Font = inputFontStyle.Font,
-							Text = "",
+							Text = self.props.text or "",
 							TextSize = inputTextSize,
 							TextColor3 = style.Theme.TextEmphasis.Color,
 							TextXAlignment = Enum.TextXAlignment.Left,

@@ -14,7 +14,6 @@ return function(networkImpl, universeId)
 
 	return function(store)
 		return GameGetIsFavorite(networkImpl, universeId):andThen(function(result)
-			print( result.responseBody)
 			local data = result.responseBody
 
 			if data ~= nil and data.isFavorited ~= nil then

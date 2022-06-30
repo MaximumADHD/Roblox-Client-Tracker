@@ -131,6 +131,7 @@ function ReportMenu:renderHeaderBar()
 		}, {
 			Roact.createElement(SearchBar, {
 				size = UDim2.fromScale(1, 1),
+				text = self.state.filterText,
 				autoCaptureFocus = true,
 				onTextChanged = self.onTextChanged,
 				onCancelled = self.onCancel,

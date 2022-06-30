@@ -62,6 +62,7 @@ local Constants = {
 		-- Fullscreen Title Bar should be on top of Topbar (DisplayOrder = 6)
 		FullscreenTitleBar = 7,
 		ConfirmationDialog = 8,
+		RobloxGui = 8, -- default 0, increase to 8 when open InGameMenu
 		EducationalPopup = 9,
 		HeadsetDisconnectedDialog = 100,
 		ControllerBar = 9,

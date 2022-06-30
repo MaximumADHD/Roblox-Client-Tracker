@@ -212,6 +212,11 @@ local function PageNavigation(props)
 	local followSelected = props.isFollowed ~= nil and props.isFollowed or false
 
 	local actions = {
+		shareServerLink = {
+			onActivated = function()
+				-- TODO(COEXP-318): Generate invite link and pull up sharesheet.
+			end
+		},
 		favorite = {
 			selected = favoriteSelected,
 			onActivated = function()

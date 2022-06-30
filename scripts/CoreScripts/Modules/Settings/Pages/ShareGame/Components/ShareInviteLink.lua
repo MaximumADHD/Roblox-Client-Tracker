@@ -4,12 +4,15 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Roact = require(CorePackages.Roact)
+local RoactRodux = require(CorePackages.RoactRodux)
 
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 local Constants = require(ShareGame.Constants)
 local ShareButton = require(ShareGame.Components.ShareButton)
 local getTranslator = require(ShareGame.getTranslator)
 local RobloxTranslator = getTranslator()
+local mapDispatchToProps = require(ShareGame.Components.ShareInviteLinkMapDispatchToProps)
+local mapStateToProps = require(ShareGame.Components.ShareInviteLinkMapStateToProps)
 
 local ShareInviteLink = Roact.PureComponent:extend("ShareInviteLink")
 
@@ -17,6 +20,14 @@ local CONTENTS_LEFT_RIGHT_PADDING = 12
 local CONTENTS_TOP_BOTTOM_PADDING = 8
 local SHARE_BUTTON_WIDTH = 69
 local SHARE_INVITE_LINK_BACKGROUND = Color3.fromRGB(79, 84, 95)
+
+function ShareInviteLink:didUpdate(oldProps)
+	-- TODO COEXP-310: Show sharesheet if self.props.shareInviteLink is present
+	if oldProps.shareInviteLink == nil and self.props.shareInviteLink ~= nil then
+		-- TODO (timothyhsu): Fire analytics with linkType enum when enum is available
+		self.props.analytics:onLinkGenerated("linkType", self.props.shareInviteLink.linkId)
+	end
+end
 
 function ShareInviteLink:render()
 	local size = self.props.size
@@ -26,7 +37,12 @@ function ShareInviteLink:render()
 	local layoutSpecific = Constants.LayoutSpecific[deviceLayout]
 
 	local onShare = function()
-		-- TODO: COEXP-310, COEXP-311, COEXP-344
+		self.props.analytics:onShareButtonClick()
+		if self.props.shareInviteLink == nil then
+			self.props.fetchShareInviteLink()
+		else
+			-- TODO COEXP-310: Show sharesheet
+		end
 	end
 
 
@@ -69,5 +85,7 @@ function ShareInviteLink:render()
 		}),
 	})
 end
+
+ShareInviteLink = RoactRodux.connect(mapStateToProps, mapDispatchToProps)(ShareInviteLink)
 
 return ShareInviteLink

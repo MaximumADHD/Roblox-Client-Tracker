@@ -4,6 +4,8 @@ return function()
 	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Roact = InGameMenuDependencies.Roact
+	local RoactRodux = require(CorePackages.RoactRodux)
+	local Store = require(CorePackages.Rodux).Store
 	local UIBlox = InGameMenuDependencies.UIBlox
 	local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 	local Constants = require(ShareGame.Constants)
@@ -19,12 +21,26 @@ return function()
 	local ShareInviteLink = require(script.Parent.ShareInviteLink)
 
 	it("should mount", function()
-		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = appStyle,
+		local store = Store.new(function()
+			return {
+				ShareLinks = {
+					Invites = {
+						shareInviteLink = "test"
+					}
+				}
+			}
+		end)
+
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = store,
 		}, {
-			ShareButton = Roact.createElement(ShareInviteLink, {
-				deviceLayout = Constants.DeviceLayout.DESKTOP,
-			}),
+			ShareInviteLink = Roact.createElement(UIBlox.Core.Style.Provider, {
+				style = appStyle,
+			}, {
+				ShareButton = Roact.createElement(ShareInviteLink, {
+					deviceLayout = Constants.DeviceLayout.DESKTOP,
+				}),
+			})
 		})
 
 		local instance = Roact.mount(element)

@@ -13,6 +13,7 @@ local ShareInviteLinkButton = Roact.PureComponent:extend("ShareInviteLinkButton"
 
 ShareInviteLinkButton.validateProps = t.strictInterface({
 	layoutOrder = t.optional(t.number),
+	onActivated = t.optional(t.callback),
 })
 
 function ShareInviteLinkButton:render()
@@ -21,6 +22,7 @@ function ShareInviteLinkButton:render()
 		size = UDim2.fromOffset(0, 0),
 		iconSize = IconSize.Medium,
 		icon = Images["icons/actions/share"],
+		onActivated = self.props.onActivated,
 	})
 end
 

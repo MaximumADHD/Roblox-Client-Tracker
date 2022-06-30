@@ -45,6 +45,8 @@ local DFFlagEnableRemoteProfilingForDevConsole = settings():GetFFlag("EnableRemo
 
 local FFlagAdminServerLogs = settings():GetFFlag("AdminServerLogs")
 
+game:DefineFastFlag("SafelyDisconnectStatsReceived", false)
+
 local DEV_TAB_LIST = {
 	Log = {
 		tab = Log,
@@ -232,6 +234,11 @@ function DevConsoleMaster:Start()
 
 			if clientReplicator then
 				self._statsConnector = clientReplicator.StatsReceived:connect(function(stats)
+					if game:GetFastFlag("SafelyDisconnectStatsReceived") then
+						if not self._statsConnector then
+							return
+						end
+					end
 					self._statsConnector:Disconnect()
 					self._statsConnector = nil
 

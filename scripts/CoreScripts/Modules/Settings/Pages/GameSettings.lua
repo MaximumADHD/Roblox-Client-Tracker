@@ -1445,7 +1445,7 @@ local function Initialize()
 			function()
 				this.MouseAdvancedEntry:SetInteractable(true)
 
-				local num = tonumber(string.match(textBox.Text, "([%d%.]+)"))
+				local num = tonumber((string.match(textBox.Text, "([%d%.]+)")))
 
 				if num then
 					setMouseSensitivity(clampMouseSensitivity(num), textBox)

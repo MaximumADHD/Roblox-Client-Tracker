@@ -2,6 +2,9 @@ local CorePackages = game:GetService("CorePackages")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
@@ -10,6 +13,9 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local withStyle = UIBlox.Core.Style.withStyle
 local QuickActionsTooltip = require(script.QuickActionsTooltip)
 local QuickActionsMenu = require(script.QuickActionsMenu)
+
+local InGameMenu = script.Parent.Parent
+local Constants = require(InGameMenu.Resources.Constants)
 
 local FFlagEnableInGameMenuQAScreenshot = game:DefineFastFlag("EnableInGameMenuQAScreenshot", false)
 
@@ -22,6 +28,7 @@ if not localPlayer then
 	localPlayer = Players.LocalPlayer
 end
 local touchControlGui = nil
+local RobloxGuiDisplayOrderDefault = 0 -- default as 0
 
 local CONTROL_WIDTH = 60
 local NOTCH_OFFSET = 44
@@ -231,6 +238,8 @@ function QuickActions:render()
 end
 
 function QuickActions:didUpdate(prevProps, _)
+	-- RobloxGui's displayOrder is under InGameMenu, bring it up to show above InGameMenu.
+	-- Hide TouchFrame when InGameMenu opens
 	if self.props.visible == true then
 		self:setState({
 			frameVisible = true
@@ -238,10 +247,13 @@ function QuickActions:didUpdate(prevProps, _)
 		if touchControlGui then
 			touchControlGui.Visible = false
 		end
+		RobloxGuiDisplayOrderDefault = RobloxGui.DisplayOrder
+		RobloxGui.DisplayOrder = Constants.DisplayOrder.RobloxGui
 	else
 		if touchControlGui then
 			touchControlGui.Visible = true
 		end
+		RobloxGui.DisplayOrder = RobloxGuiDisplayOrderDefault
 	end
 	if prevProps.visible ~= self.props.visible then
 		self:playAnimation(showAnimation, prevProps.visible)

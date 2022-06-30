@@ -1,4 +1,4 @@
---!nocheck
+--!nonstrict
 
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
@@ -15,14 +15,10 @@ local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatSer
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
 local playerAnimations = {}
-local playerCharacterObservers = {}
+local playerCharacterAddConnections = {}
+local playerCharacterRemoveConnections = {}
 local playerJoinedChat = {}
 local playerJoinedGame = {}
-
-local playerRemovingConnection = nil
-local playerAddedConnection = nil
-
-local participantsStateChangedConnection = nil
 
 local facialAnimationStreamingInited = false
 
@@ -37,7 +33,7 @@ local function playerTrace(message, player)
 			userName = player.Name
 		end
 	end
-	log:trace(message .. " {id: " .. userId .. ", name: " .. userName .. "}.")
+	log:trace(string.format("%s {id: %s, name: %s}.", message, userId, userName))
 end
 
 local function playerAnimate(player)
@@ -54,10 +50,10 @@ local function playerAnimate(player)
 	playerAnimations[player.UserId] = playerAnimation
 end
 
-local function playerCharacterRespawned(character)
+local function onCharacterAdded(character)
 	local player = Players:GetPlayerFromCharacter(character)
 
-	playerTrace("Player character respawned", player)
+	playerTrace("Player character added", player)
 
 	if playerAnimations[player.UserId] and playerAnimations[player.UserId].animationTrack then
 		playerAnimations[player.UserId].animationTrack:Stop(0.0)
@@ -67,28 +63,46 @@ local function playerCharacterRespawned(character)
 	playerAnimate(player)
 end
 
+local function onCharacterRemoving(character)
+	local player = Players:GetPlayerFromCharacter(character)
+	if player then
+		playerTrace("Player character removing", player)
+
+		if playerAnimations[player.UserId] and playerAnimations[player.UserId].animationTrack then
+			playerAnimations[player.UserId].animationTrack:Stop(0.0)
+			playerAnimations[player.UserId] = nil
+		end
+	end
+end
+
 local function playerUpdate(player)
 	playerTrace("Player update", player)
 
-	-- True if player is local.
-	-- True if player is remote and joined in voice chat as well.
-	local playerJoined = playerJoinedGame[player.UserId] and (playerJoinedChat[player.UserId] or Players.LocalPlayer.UserId == player.UserId)
+	-- Setup the player animation if streaming is enabled, and:
+	-- if player is local
+	-- OR
+	-- if player is remote and joined in voice chat as well.
+	local isLocal = Players.LocalPlayer.UserId == player.UserId
+	local setupPlayer = FacialAnimationStreamingService.Enabled and playerJoinedGame[player.UserId] and (playerJoinedChat[player.UserId] or isLocal)
 
-	if playerCharacterObservers[player.UserId] then
-		playerCharacterObservers[player.UserId]:Disconnect()
-		playerCharacterObservers[player.UserId] = nil
+	if playerCharacterAddConnections[player.UserId] then
+		playerCharacterAddConnections[player.UserId]:Disconnect()
+		playerCharacterAddConnections[player.UserId] = nil
 	end
 
-	if playerJoined then
+	if playerCharacterRemoveConnections[player.UserId] then
+		playerCharacterRemoveConnections[player.UserId]:Disconnect()
+		playerCharacterRemoveConnections[player.UserId] = nil
+	end
+
+	if setupPlayer then
 		playerTrace("Player update - joined", player)
 
-		if not player.Character then
-			player.CharacterAdded:Wait()
+		if player.Character then
+			playerAnimate(player)
 		end
-
-		playerCharacterObservers[player.UserId] = player.CharacterAdded:Connect(playerCharacterRespawned)
-
-		playerAnimate(player)
+		playerCharacterAddConnections[player.UserId] = player.CharacterAdded:Connect(onCharacterAdded)
+		playerCharacterRemoveConnections[player.UserId] = player.CharacterRemoving:Connect(onCharacterRemoving)
 	else -- Player left game/chat
 		playerTrace("Player update - left", player)
 
@@ -99,54 +113,54 @@ local function playerUpdate(player)
 	end
 end
 
+if VoiceChatServiceManager then
+	VoiceChatServiceManager:asyncInit():andThen(function()
+		local VoiceChatService = VoiceChatServiceManager:getService()
+		VoiceChatService.ParticipantsStateChanged:Connect(function(participantsLeft, participantsJoined, statesUpdated)
+			for _, userId in ipairs(participantsLeft) do
+				local player = Players:GetPlayerByUserId(userId)
+				if player then
+					playerTrace("Player leaving chat", player)
+
+					playerJoinedChat[player.UserId] = nil
+					playerUpdate(player)
+				end
+			end
+			for _, userId in ipairs(participantsJoined) do
+				local player = Players:GetPlayerByUserId(userId)
+				if player then
+					playerTrace("Player joining chat", player)
+
+					playerJoinedChat[player.UserId] = true
+					playerUpdate(player)
+				end
+			end
+		end)
+	end):catch(function()
+		log:trace("Failed to initialize streaming of facial animations - voice chat not available.")
+	end)
+end
+
+Players.PlayerRemoving:Connect(function(player)
+	playerTrace("Player leaving game", player)
+
+	playerJoinedGame[player.UserId] = nil
+	playerUpdate(player)
+end)
+
+Players.PlayerAdded:Connect(function(player)
+	playerTrace("Player joining game", player)
+
+	playerJoinedGame[player.UserId] = true
+	playerUpdate(player)
+end)
+
 function InitializeFacialAnimationStreaming()
 	if facialAnimationStreamingInited or not FacialAnimationStreamingService.Enabled then
 		return
 	end
 	facialAnimationStreamingInited = true
 	FaceAnimatorService.FlipHeadOrientation = true
-
-	playerRemovingConnection = Players.PlayerRemoving:Connect(function(player)
-		playerTrace("Player leaving game", player)
-
-		playerJoinedGame[player.UserId] = nil
-		playerUpdate(player)
-	end)
-
-	playerAddedConnection = Players.PlayerAdded:Connect(function(player)
-		playerTrace("Player joining game", player)
-
-		playerJoinedGame[player.UserId] = true
-		playerUpdate(player)
-	end)
-
-	if VoiceChatServiceManager then
-		VoiceChatServiceManager:asyncInit():andThen(function()
-			local VoiceChatService = VoiceChatServiceManager:getService()
-			participantsStateChangedConnection = VoiceChatService.ParticipantsStateChanged:Connect(function(participantsLeft, participantsJoined, statesUpdated)
-				for _, userId in ipairs(participantsJoined) do
-					local player = Players:GetPlayerByUserId(userId)
-					if player then
-						playerTrace("Player leaving chat", player)
-
-						playerJoinedChat[player.UserId] = nil
-						playerUpdate(player)
-					end
-				end
-				for _, userId in ipairs(participantsJoined) do
-					local player = Players:GetPlayerByUserId(userId)
-					if player then
-						playerTrace("Player joining chat", player)
-
-						playerJoinedChat[player.UserId] = true
-						playerUpdate(player)
-					end
-				end
-			end)
-		end):catch(function()
-			log:trace("Failed to initialize streaming of facial animations - voice chat not available.")
-		end)
-	end
 
 	for _, player in ipairs(Players:GetPlayers()) do
 		playerJoinedGame[player.UserId] = true
@@ -159,35 +173,10 @@ function CleanupFacialAnimationStreaming()
 		return
 	end
 
-	if participantsStateChangedConnection then
-		participantsStateChangedConnection:Disconnect()
-		participantsStateChangedConnection = nil
+	for _, player in ipairs(Players:GetPlayers()) do
+		playerJoinedGame[player.UserId] = nil
+		playerUpdate(player)
 	end
-
-	for _, characterAddedConn in pairs(playerCharacterObservers) do
-		characterAddedConn:Disconnect()
-	end
-	playerCharacterObservers = {}
-
-	for _, playerAnim in pairs(playerAnimations) do
-		if playerAnim and playerAnim.animationTrack then
-			playerAnim.animationTrack:Stop(0.0)
-		end
-	end
-	playerAnimations = {}
-
-	if playerRemovingConnection then
-		playerRemovingConnection:Disconnect()
-		playerRemovingConnection = nil
-	end
-
-	if playerAddedConnection then
-		playerAddedConnection:Disconnect()
-		playerAddedConnection = nil
-	end
-
-	playerJoinedChat = {}
-	playerJoinedGame = {}
 
 	facialAnimationStreamingInited = false
 end

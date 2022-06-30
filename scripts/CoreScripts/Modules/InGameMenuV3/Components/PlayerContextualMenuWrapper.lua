@@ -28,7 +28,6 @@ local Assets = require(InGameMenu.Resources.Assets)
 local Constants = require(InGameMenu.Resources.Constants)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local PlayerContextualMenu = require(InGameMenu.Components.PlayerContextualMenu)
-local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 local InviteUserToPlaceId = require(InGameMenu.Thunks.InviteUserToPlaceId)
 
 local SetFriendBlockConfirmation = require(InGameMenu.Actions.SetFriendBlockConfirmation)
@@ -50,7 +49,6 @@ PlayerContextualMenuWrapper.validateProps = t.strictInterface({
 	isRespawnDialogOpen = t.optional(t.boolean),
 	isGamepadLastInput = t.optional(t.boolean),
 	isCurrentZoneActive = t.optional(t.boolean),
-	closeMenu = t.callback,
 	dispatchInviteUserToPlaceId = t.callback,
 	blockPlayer = t.callback,
 	unblockPlayer = t.callback,
@@ -76,6 +74,48 @@ local CONTEXT_LEFT_PADDING = 20
 local CONTEXT_MENU_BUTTON_CONTAINER_WIDTH = 118
 local CONTEXT_MENU_BUTTON_CONTAINER_HEIGHT = 36
 local CONTEXT_MENU_BUTTON_WIDTH = 47
+
+function PlayerContextualMenuWrapper:init()
+	self:setState({
+		isBlocked = false,
+		canToggleMute = false,
+		isMuted = false,
+	})
+end
+
+function PlayerContextualMenuWrapper.getDerivedStateFromProps(nextProps, lastState)
+	local selectedPlayer = nextProps.selectedPlayer
+	if selectedPlayer ~= nil then
+		local userId = selectedPlayer.UserId
+		-- block player
+		local isBlocked = nextProps.blockingUtility:IsPlayerBlockedByUserId(userId)
+		-- mute voice chat
+		local canToggleMute = false
+		local isMuted = false
+		if nextProps.voiceEnabled then
+			local voiceParticipant = VoiceChatServiceManager.participants[tostring(userId)]
+			if voiceParticipant then
+				canToggleMute = true
+				isMuted = voiceParticipant.isMutedLocally
+			end
+		end
+		return {
+			isBlocked = isBlocked,
+			canToggleMute = canToggleMute,
+			isMuted = isMuted,
+		}
+	else
+		return {
+			isBlocked = false,
+			canToggleMute = false,
+			isMuted = false,
+		}
+	end
+end
+
+function PlayerContextualMenuWrapper:updateDerivedState()
+	self:setState(self.getDerivedStateFromProps(self.props, self.state))
+end
 
 function PlayerContextualMenuWrapper:render()
 	return withLocalization({
@@ -258,8 +298,7 @@ function PlayerContextualMenuWrapper:getFriendAction(localized, player)
 	end
 
 	-- check if player is blocked
-	local isBlocked = self.props.blockingUtility:IsPlayerBlockedByUserId(player.UserId)
-	if isBlocked then
+	if self.state.isBlocked then
 		return nil
 	end
 
@@ -293,83 +332,61 @@ function PlayerContextualMenuWrapper:getFriendAction(localized, player)
 			end,
 		}
 	elseif friendStatus == Enum.FriendStatus.FriendRequestReceived then
-		-- check to see if we have a pending incoming friend acceptance
-		-- this happens when we have a pending friend request and we
-		-- are about to decide whether we want to reject or accept friend request
-		if self.state.pendingIncomingPlayerInvite then
-			-- show reject/accept friend buttons
-			return {
-				text = localized.accept,
-				icon = Images["icons/actions/friends/friendpending"],
-				onActivated = function()
-					self:setState({
-						pendingIncomingPlayerInvite = Roact.None,
-					})
-				end,
-				renderRightSideGadget = self.state.pendingIncomingPlayerInvite and function()
-					return {
-						ButtonStack = Roact.createElement(ButtonStack, {
-							buttons = {
-								{
-									buttonType = ButtonType.Secondary,
-									props = {
-										icon = Images["icons/actions/reject"],
-										size = UDim2.fromOffset(
-											CONTEXT_MENU_BUTTON_WIDTH,
-											CONTEXT_MENU_BUTTON_CONTAINER_HEIGHT
-										),
-										onActivated = function()
-											self.props.playersService.LocalPlayer:RevokeFriendship(player)
-											self.setState({
-												selectedPlayer = Roact.None,
-												pendingIncomingPlayerInvite = Roact.None,
-											})
-										end,
-										layoutOrder = 1,
-									},
-								},
-								{
-									buttonType = ButtonType.PrimarySystem,
-									props = {
-										icon = Images["icons/actions/friends/friendAdd"],
-										size = UDim2.fromOffset(
-											CONTEXT_MENU_BUTTON_WIDTH,
-											CONTEXT_MENU_BUTTON_CONTAINER_HEIGHT
-										),
-										onActivated = function()
-											self.props.playersService.LocalPlayer:RequestFriendship(player)
-											self.setState({
-												selectedPlayer = Roact.None,
-												pendingIncomingPlayerInvite = Roact.None,
-											})
-										end,
-										layoutOrder = 2,
-									},
+		return {
+			text = localized.accept,
+			icon = Images["icons/actions/friends/friendpending"],
+			onActivated = function() end,
+			renderRightSideGadget = function()
+				return {
+					ButtonStack = Roact.createElement(ButtonStack, {
+						buttons = {
+							{
+								buttonType = ButtonType.Secondary,
+								props = {
+									icon = Images["icons/actions/reject"],
+									size = UDim2.fromOffset(
+										CONTEXT_MENU_BUTTON_WIDTH,
+										CONTEXT_MENU_BUTTON_CONTAINER_HEIGHT
+									),
+									onActivated = function()
+										self.props.playersService.LocalPlayer:RevokeFriendship(player)
+										self.setState({
+											selectedPlayer = Roact.None,
+										})
+									end,
+									layoutOrder = 1,
 								},
 							},
-							buttonHeight = CONTEXT_MENU_BUTTON_CONTAINER_HEIGHT,
-							forcedFillDirection = Enum.FillDirection.Horizontal,
-							marginBetween = 8,
-						}),
-					}
-				end,
-				rightSideGadgetSize = self.state.pendingIncomingPlayerInvite and Vector2.new(
-					CONTEXT_MENU_BUTTON_CONTAINER_WIDTH,
-					CONTEXT_MENU_BUTTON_CONTAINER_HEIGHT
-				),
-			}
-		else
-			-- show pending incoming friend invite state
-			return {
-				text = localized.pendingFriendRequest,
-				icon = Images["icons/actions/friends/friendpending"],
-				onActivated = function()
-					self:setState({
-						pendingIncomingPlayerInvite = player,
-					})
-				end,
-			}
-		end
+							{
+								buttonType = ButtonType.PrimarySystem,
+								props = {
+									icon = Images["icons/actions/friends/friendAdd"],
+									size = UDim2.fromOffset(
+										CONTEXT_MENU_BUTTON_WIDTH,
+										CONTEXT_MENU_BUTTON_CONTAINER_HEIGHT
+									),
+									onActivated = function()
+										self.props.playersService.LocalPlayer:RequestFriendship(player)
+										self.setState({
+											selectedPlayer = Roact.None,
+										})
+									end,
+									layoutOrder = 2,
+								},
+							},
+						},
+						buttonHeight = CONTEXT_MENU_BUTTON_CONTAINER_HEIGHT,
+						forcedFillDirection = Enum.FillDirection.Horizontal,
+						marginBetween = 8,
+					}),
+				}
+			end,
+			rightSideGadgetSize = Vector2.new(
+				CONTEXT_MENU_BUTTON_CONTAINER_WIDTH,
+				CONTEXT_MENU_BUTTON_CONTAINER_HEIGHT
+			),
+		}
+
 	else
 		return nil
 	end
@@ -381,8 +398,6 @@ function PlayerContextualMenuWrapper:getViewAvatarAction(localized, player)
 		icon = Assets.Images.ViewAvatar,
 		onActivated = function()
 			GuiService:InspectPlayerFromUserIdWithCtx(player.UserId, "escapeMenu")
-			self.props.closeMenu()
-			self.props.onActionComplete(true)
 			SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsExamineAvatarName, {})
 		end,
 	}
@@ -414,19 +429,16 @@ function PlayerContextualMenuWrapper:getMutePlayerAction(localized, player)
 		return nil
 	end
 
-	if self.props.voiceEnabled then
-		local voiceParticipant = VoiceChatServiceManager.participants[tostring(player.UserId)]
-		if voiceParticipant then
-			local isMuted = voiceParticipant.isMutedLocally
-			return {
-				text = isMuted and localized.unmutePlayer or localized.mutePlayer,
-				icon = VoiceChatServiceManager:GetIcon(isMuted and "Unmute" or "Mute", "Misc"),
-				onActivated = function()
-					VoiceChatServiceManager:ToggleMutePlayer(player.UserId)
-					self.props.onActionComplete(false)
-				end,
-			}
-		end
+	if self.state.canToggleMute then
+		return {
+			text = self.state.isMuted and localized.unmutePlayer or localized.mutePlayer,
+			icon = VoiceChatServiceManager:GetIcon(self.state.isMuted and "Unmute" or "Mute", "Misc"),
+			onActivated = function()
+				VoiceChatServiceManager:ToggleMutePlayer(player.UserId)
+				self:updateDerivedState()
+				self.props.onActionComplete(false)
+			end,
+		}
 	end
 
 	return nil
@@ -443,19 +455,21 @@ function PlayerContextualMenuWrapper:getBlockPlayerAction(localized, player, isF
 		return nil
 	end
 
-	local isBlocked = self.props.blockingUtility:IsPlayerBlockedByUserId(player.UserId)
+	local isBlocked = self.state.isBlocked
 	return {
 		text = isBlocked and localized.unblockPlayer or localized.blockPlayer,
 		icon = Images["icons/actions/block"],
 		onActivated = function()
 			if isBlocked then
 				self.props.unblockPlayer(player)
+				self:updateDerivedState()
 				self.props.onActionComplete(false)
 			else
 				if isFriendsWithPlayer then
 					self.props.openFriendBlockConfirmation(player)
 				else
 					self.props.blockPlayer(player)
+					self:updateDerivedState()
 					self.props.onActionComplete(false)
 				end
 			end
@@ -502,9 +516,6 @@ end, function(dispatch)
 	return {
 		openFriendBlockConfirmation = function(friend)
 			dispatch(SetFriendBlockConfirmation(true, friend))
-		end,
-		closeMenu = function()
-			dispatch(CloseMenu)
 		end,
 		dispatchInviteUserToPlaceId = function(userId, placeId)
 			dispatch(InviteUserToPlaceId(userId, placeId))

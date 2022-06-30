@@ -4,6 +4,7 @@ local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Cryo = InGameMenuDependencies.Cryo
 
 local InGameMenu = script.Parent
+local SocialDependencies = require(InGameMenu.SocialDependencies)
 
 local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
 local SetMainPageMoreMenuOpen = require(InGameMenu.Actions.SetMainPageMoreMenuOpen)
@@ -30,6 +31,8 @@ local displayOptions = require(script.displayOptions)
 local nativeClosePrompt = require(script.nativeClosePrompt)
 local voiceStateReducer = require(InGameMenu.Parent.VoiceChat.Reducers.voiceState)
 local FetchingStatus = require(CorePackages.AppTempCommon.LuaApp.Reducers.FetchingStatus)
+local RoduxShareLinks = SocialDependencies.RoduxShareLinks
+local ShareLinks = RoduxShareLinks.installReducer()
 
 local FFlagRecordRecording = require(InGameMenu.Flags.FFlagRecordRecording)
 local GetFFlagUseIGMControllerBar = require(InGameMenu.Flags.GetFFlagUseIGMControllerBar)
@@ -171,6 +174,7 @@ local function reducer(state, action)
 	state.quickActions = quickActions(state.quickActions, action)
 	state.displayOptions = displayOptions(state.displayOptions, action)
 	state.nativeClosePrompt = nativeClosePrompt(state.nativeClosePrompt, action)
+	state.shareLinks = ShareLinks(state.shareLinks, action)
 
 	state.FetchingStatus = FetchingStatus(state.FetchingStatus, action)
 

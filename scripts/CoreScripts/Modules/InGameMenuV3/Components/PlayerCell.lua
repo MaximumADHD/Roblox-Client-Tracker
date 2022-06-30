@@ -26,7 +26,7 @@ local DISPLAYNAME_HEIGHT = 20
 local USERNAME_HEIGHT = 14
 
 local CORNER_RADIUS = UDim.new(0, PLAYER_ICON_SIZE / 2)
-local BUTTONS_PADDING = 12
+local BUTTONS_PADDING = 5
 
 local FFlagPlayerCellHandleTouchTap = game:DefineFastFlag("PlayerCellHandleTouchTap", false)
 
@@ -192,7 +192,7 @@ function PlayerCell:renderWithSelectionCursor(getSelectionCursor)
 						PaddingLeft = UDim.new(0, 6),
 					}),
 					DisplayNameLabel = Roact.createElement(ThemedTextLabel, {
-						fontKey = "Header2",
+						fontKey = "CaptionHeader",
 						themeKey = "TextEmphasis",
 						BackgroundTransparency = 1,
 						AnchorPoint = Vector2.new(0, 0.5),
@@ -204,7 +204,7 @@ function PlayerCell:renderWithSelectionCursor(getSelectionCursor)
 					}),
 
 					UsernameLabel = Roact.createElement(ThemedTextLabel, {
-						fontKey = "CaptionHeader",
+						fontKey = "Footer",
 						themeKey = "TextDefault",
 						BackgroundTransparency = 1,
 						AnchorPoint = Vector2.new(0, 0.5),

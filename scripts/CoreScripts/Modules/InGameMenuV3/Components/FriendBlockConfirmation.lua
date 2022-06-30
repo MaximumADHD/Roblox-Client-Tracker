@@ -9,7 +9,7 @@ local t = InGameMenuDependencies.t
 local InGameMenu = script.Parent.Parent
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 local withStyle = UIBlox.Core.Style.withStyle
-local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
+local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -21,19 +21,19 @@ local SetFriendBlockConfirmation = require(InGameMenu.Actions.SetFriendBlockConf
 local ButtonStack = UIBlox.App.Button.ButtonStack
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 
-local DIALOG_HEIGHT = 217
+local DIALOG_HEIGHT = 235
 local DIALOG_Y_POSITION = 82
 local CORNER_RADIUS = 8
-local ACTIONS_HEIGHT = 70
+local ACTIONS_HEIGHT = 60
 local ACTIONS_BUTTON_HEIGHT = 36
-local PADDING = 24
-local ACTIONS_TOP_PADDING = 10
-local TITLE_Y_OFFSET = 10
+local PADDING = 20
+local TITLE_TOP_PADDING = 10
 local TITLE_FRAME_HEIGHT = 54
 local TITLE_HEIGHT = 44
-local CONTENT_HEIGHT= 96
-local CONTENT_TOP_PADDING = 20.5
-local CONTENT_BOTTOM_PADDING = 10.5
+local CONTENT_HEIGHT= 121
+local CONTENT_BODY_HEIGHT = 100
+local CONTENT_TOP_PADDING = 0.5
+local CONTENT_BOTTOM_PADDING = 20.5
 
 local FriendBlockConfirmation = Roact.PureComponent:extend("FriendBlockConfirmation")
 
@@ -59,25 +59,30 @@ function FriendBlockConfirmation:init()
 	end
 end
 
-function FriendBlockConfirmation:renderTitle(text)
+function FriendBlockConfirmation:renderTitle(style, text)
 	return Roact.createElement("Frame", {
 		LayoutOrder = 1,
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1, 0, 0, TITLE_FRAME_HEIGHT),
 	}, {
-		Icon = Roact.createElement(ThemedTextLabel, {
-			BackgroundTransparency = 1,
-			Position = UDim2.new(0, PADDING, 0, TITLE_Y_OFFSET),
-			Size = UDim2.new(1, -PADDING * 2, 0, TITLE_HEIGHT),
-			Text = text,
-			TextXAlignment = Enum.TextXAlignment.Center,
-			fontKey = "Header1",
-			themeKey = "TextEmphasis",
-		})
+		Padding = Roact.createElement("UIPadding", {
+			PaddingTop = UDim.new(0, TITLE_TOP_PADDING),
+		}),
+		TitleText = Roact.createElement(StyledTextLabel, {
+			size = UDim2.new(1, 0, 0, TITLE_HEIGHT),
+			text = text,
+			fontStyle = style.Font.Header1,
+			colorStyle = style.Theme.TextEmphasis,
+			textTruncate = Enum.TextTruncate.AtEnd,
+			fluidSizing = true,
+			richText = false,
+			lineHeight = 1,
+			textXAlignment = Enum.TextXAlignment.Center,
+		}),
 	})
 end
 
-function FriendBlockConfirmation:renderContent(bodyText)
+function FriendBlockConfirmation:renderContent(style, text)
 	return Roact.createElement("Frame", {
 		LayoutOrder = 3,
 		BackgroundTransparency = 1,
@@ -86,15 +91,17 @@ function FriendBlockConfirmation:renderContent(bodyText)
 		Padding = Roact.createElement("UIPadding", {
 			PaddingTop = UDim.new(0, CONTENT_TOP_PADDING),
 			PaddingBottom = UDim.new(0, CONTENT_BOTTOM_PADDING),
-			PaddingLeft = UDim.new(0, PADDING),
-			PaddingRight = UDim.new(0, PADDING),
 		}),
-		BodyText = Roact.createElement(ThemedTextLabel, {
-			AutomaticSize = Enum.AutomaticSize.Y,
-			Size = UDim2.fromScale(1, 0),
-			Text = bodyText,
-			TextWrapped = true,
-			TextXAlignment = Enum.TextXAlignment.Left,
+		BodyText = Roact.createElement(StyledTextLabel, {
+			size = UDim2.new(1, 0, 0, CONTENT_BODY_HEIGHT),
+			text = text,
+			fontStyle = style.Font.Body,
+			colorStyle = style.Theme.TextDefault,
+			textTruncate = Enum.TextTruncate.AtEnd,
+			fluidSizing = true,
+			richText = false,
+			lineHeight = 1,
+			textXAlignment = Enum.TextXAlignment.Center,
 		}),
 	})
 end
@@ -106,10 +113,7 @@ function FriendBlockConfirmation:renderActions(localized, player)
 		Size = UDim2.new(1, 0, 0, ACTIONS_HEIGHT),
 	}, {
 		Padding = Roact.createElement("UIPadding", {
-			PaddingTop = UDim.new(0, ACTIONS_TOP_PADDING),
 			PaddingBottom = UDim.new(0, PADDING),
-			PaddingLeft = UDim.new(0, PADDING),
-			PaddingRight = UDim.new(0, PADDING),
 		}),
 		ActionButtons = Roact.createElement(ButtonStack, {
 			buttonHeight = ACTIONS_BUTTON_HEIGHT,
@@ -137,10 +141,7 @@ function FriendBlockConfirmation:render()
 	local displayName = player and player.DisplayName or nil
 	local userName = player and player.Name or nil
 	return withLocalization({
-		titleText = {
-			"CoreScripts.InGameMenu.Report.BlockTitle",
-			DISPLAY_NAME = displayName,
-		},
+		titleText = "CoreScripts.InGameMenu.Actions.BlockFriend",
 		cancelText = "CoreScripts.InGameMenu.Cancel",
 		blockText = "CoreScripts.InGameMenu.Report.Block",
 		bodyText = {
@@ -161,14 +162,18 @@ function FriendBlockConfirmation:render()
 				UICorner = Roact.createElement("UICorner", {
 					CornerRadius = UDim.new(0, CORNER_RADIUS),
 				}),
+				Padding = Roact.createElement("UIPadding", {
+					PaddingLeft = UDim.new(0, PADDING),
+					PaddingRight = UDim.new(0, PADDING),
+				}),
 				ListLayout = Roact.createElement("UIListLayout", {
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					FillDirection = Enum.FillDirection.Vertical,
 					HorizontalAlignment = Enum.HorizontalAlignment.Center,
 					VerticalAlignment = Enum.VerticalAlignment.Center,
 				}),
-				TitleText = self:renderTitle(localized.titleText),
-				BodyText = self:renderContent(localized.bodyText),
+				TitleText = self:renderTitle(style, localized.titleText),
+				BodyText = self:renderContent(style, localized.bodyText),
 				ActionBar = self:renderActions(localized, player),
 			})
 		end)

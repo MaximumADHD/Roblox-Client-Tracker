@@ -98,6 +98,7 @@ function ShareGamePageFrame:render()
 		}),
 		ShareInviteLink = GetFFlagShareInviteLinkContextMenuV1Enabled()
 			and Roact.createElement(ShareInviteLink, {
+				analytics = analytics,
 				deviceLayout = deviceLayout,
 				size = UDim2.new(1, 0, 0, SHARE_INVITE_LINK_HEIGHT),
 				layoutOrder = 1,

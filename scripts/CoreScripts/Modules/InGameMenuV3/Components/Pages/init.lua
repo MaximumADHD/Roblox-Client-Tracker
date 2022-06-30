@@ -12,6 +12,8 @@ local Constants = require(InGameMenu.Resources.Constants)
 
 local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
 
+local GetFFlagShareInviteLinkContextMenuV3Enabled = require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
+
 local navigationBar = {
 	{
 		page = Constants.LeaveToAppPromptPageKey,
@@ -63,6 +65,14 @@ local pages = {
 		component = script.Parent.InviteFriendsPage,
 		navigationDepth = 2,
 		parentPage = Constants.PlayersPageKey,
+	},
+	{
+		key = "ShareServerLink",
+		title = "CoreScripts.InGameMenu.Action.ShareServerLink",
+		icon = Images["icons/actions/share"],
+		navigationDepth = 2,
+		parentPage = GetFFlagShareInviteLinkContextMenuV3Enabled() and Constants.MainPagePageKey or nil,
+		actionKey = "shareServerLink",
 	},
 	{
 		key = "Favorite",

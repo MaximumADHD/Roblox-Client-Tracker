@@ -9,6 +9,8 @@ InviteToGameAnalytics.ButtonName = {
 InviteToGameAnalytics.EventName = {
 	InviteSent = "inputShareGameInviteSent",
 	EntryPoint = "inputShareGameEntryPoint",
+	LinkGenerated = "linkGenerated",
+	ShareButtonClick = "buttonClick",
 }
 
 InviteToGameAnalytics.DiagCounters = {
@@ -85,6 +87,30 @@ function InviteToGameAnalytics:inputShareGameEntryPoint()
 	if counterName then
 		self:_getDiag():reportCounter(counterName, 1)
 	end
+end
+
+function InviteToGameAnalytics:onLinkGenerated(linkType: string, linkId: number)
+	local eventName = InviteToGameAnalytics.EventName.LinkGenerated
+	local eventContext = "shareLinks"
+	local additionalArgs = {
+		linkType = linkType,
+		linkId = linkId,
+		page = "inGameMenu",
+		subpage = "inviteFriendsPage",
+		target = "mobile",
+	}
+	self:_getEventStream():setRBXEventStream(eventContext, eventName, additionalArgs)
+end
+
+function InviteToGameAnalytics:onShareButtonClick()
+	local eventName = InviteToGameAnalytics.EventName.ShareButtonClick
+	local eventContext = "shareLinks"
+	local additionalArgs = {
+		page = "inGameMenu",
+		subpage = "inviteFriendsPage",
+		target = "mobile"
+	}
+	self:_getEventStream():setRBXEventStream(eventContext, eventName, additionalArgs)
 end
 
 function InviteToGameAnalytics:_getEventStream()

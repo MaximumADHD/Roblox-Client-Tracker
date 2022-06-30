@@ -214,4 +214,6 @@ return{
 	["CoreScripts.InGameMenu.CoreScripts.InGameMenu.Prompt.ReturnHome"] = [[]],
 	["CoreScripts.InGameMenu.Prompt.ReturnHome"] = [[]],
 	["CoreScripts.InGameMenu.Prompt.ReturnHomeBodyText"] = [[]],
+	["CoreScripts.InGameMenu.Actions.BlockFriend"] = [[]],
+	["CoreScripts.InGameMenu.QuickActions.ScreenshotSaved"] = [[]],
 }

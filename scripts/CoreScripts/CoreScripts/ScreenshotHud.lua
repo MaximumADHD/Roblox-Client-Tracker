@@ -317,7 +317,7 @@ local FlashOverlayFrame = createFrame({
 
 local function checkOrRequestExternalStoragePermissions()	
 	return PermissionsProtocol.default:checkOrRequestPermissions({
-			PermissionsProtocol.Permissions.WRITE_STORAGE,
+			PermissionsProtocol.Permissions.WRITE_MEDIA_STORAGE,
 		}):andThen(function(permissionResponseStatus)
 			local permissionGranted = permissionResponseStatus == PermissionsProtocol.Status.AUTHORIZED
 			return permissionGranted and Promise.resolve() or Promise.reject()
