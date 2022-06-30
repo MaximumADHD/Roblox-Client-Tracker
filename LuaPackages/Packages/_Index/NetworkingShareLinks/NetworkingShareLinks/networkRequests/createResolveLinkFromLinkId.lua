@@ -23,9 +23,9 @@ return function(config: networkingShareLinkTypes.Config)
 		request.Mock.reply(function()
 			return {
 				responseBody = {
-					linkStatus = "VALID",
+					linkStatus = "Valid",
 					linkInfo = {
-						linkState = "VALID",
+						linkState = "Valid",
 						linkMetadata = {
 							inviterId = 46430379,
 							placeId = 1818,

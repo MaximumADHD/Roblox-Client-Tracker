@@ -14,6 +14,7 @@ local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCurs
 local validateButtonProps = require(Button.validateButtonProps)
 local GenericButton = require(UIBlox.Core.Button.GenericButton)
 local ControlState = require(UIBlox.Core.Control.Enum.ControlState)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local AlertButton = Roact.PureComponent:extend("AlertButton")
 
@@ -36,6 +37,9 @@ function AlertButton:render()
 	return withSelectionCursorProvider(function(getSelectionCursor)
 		return Roact.createElement(RoactGamepad.Focusable[GenericButton], {
 			Size = self.props.size,
+			standardSize = if UIBloxConfig.enableStandardButtonSizes then self.props.standardSize else nil,
+			maxWidth = if UIBloxConfig.enableStandardButtonSizes then self.props.maxWidth else nil,
+			fitContent = if UIBloxConfig.enableStandardButtonSizes then self.props.fitContent else nil,
 			AnchorPoint = self.props.anchorPoint,
 			Position = self.props.position,
 			LayoutOrder = self.props.layoutOrder,

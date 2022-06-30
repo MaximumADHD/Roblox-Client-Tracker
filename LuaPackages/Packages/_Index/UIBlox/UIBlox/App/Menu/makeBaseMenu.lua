@@ -10,17 +10,17 @@ local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
-local validateButtonProps = require(script.Parent.validateButtonProps)
-
-local withSelectionCursorProvider = require(UIBlox.App.SelectionImage.withSelectionCursorProvider)
-local CursorKind = require(UIBlox.App.SelectionImage.CursorKind)
-local Images = require(Packages.UIBlox.App.ImageSet.Images)
-
-local DROP_SHADOW_ASSET = Images["component_assets/dropshadow_17_8"]
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
-
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
+local validateButtonProps = require(script.Parent.validateButtonProps)
+
+local VerticalScrollViewV2 = require(App.Container.VerticalScrollViewV2)
+local Images = require(App.ImageSet.Images)
+local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
+local CursorKind = require(App.SelectionImage.CursorKind)
+
+local DROP_SHADOW_ASSET = Images["component_assets/dropshadow_17_8"]
 local MENU_BACKGROUND_ASSET = Images["component_assets/circle_17"]
 
 local ELEMENT_HEIGHT = 56
@@ -107,18 +107,8 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 					AnchorPoint = Vector2.new(0, 0.5),
 					ClipsDescendants = true,
 				}, {
-					ScrollingFrame = Roact.createElement("ScrollingFrame", {
-						[Roact.Ref] = props.setFrameRef,
-						Selectable = false,
-						BackgroundTransparency = 1,
-						Size = UDim2.new(1, 0, 1, 0),
-						BorderSizePixel = 0,
-						ScrollBarThickness = 4,
-						ScrollBarImageColor3 = stylePalette.Theme.UIEmphasis.Color,
-						ScrollBarImageTransparency = stylePalette.Theme.UIEmphasis.Transparency,
-						ScrollingDirection = Enum.ScrollingDirection.Y,
-						CanvasSize = UDim2.new(1, 0, 0,#props.buttonProps * ELEMENT_HEIGHT),
-						ClipsDescendants = false,
+					ScrollingFrame = Roact.createElement(VerticalScrollViewV2, {
+						canvasSizeY = UDim.new(0,#props.buttonProps * ELEMENT_HEIGHT),
 					}, children),
 				}),
 			})

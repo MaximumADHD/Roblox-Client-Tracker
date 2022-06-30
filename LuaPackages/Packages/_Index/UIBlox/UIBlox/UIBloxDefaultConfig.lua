@@ -83,4 +83,7 @@ return {
 
 	-- indicate whether hover background fix for button is enabled
 	enableGenericButtonHoverBackgroundFix = false,
+
+	-- Allow standardSize enum (Regular/Small/XSmall) for GenericButton, PrimaryContextualButton, etc.
+	enableStandardButtonSizes = false,
 }

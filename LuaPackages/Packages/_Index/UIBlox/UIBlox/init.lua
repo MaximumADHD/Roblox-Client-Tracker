@@ -63,6 +63,12 @@ local function initializeLibrary(configs)
 		InfiniteScroller = strict(require(Packages.InfiniteScroller)),
 	})
 
+	UIBlox.Common = strict({
+		Style = strict({
+			ColorSystem = require(script.Common.Style.ColorSystem),
+		}),
+	})
+
 	UIBlox.App = strict({
 		Context = strict({
 			ContentProvider = require(script.App.Context.ContentProvider),
@@ -91,6 +97,7 @@ local function initializeLibrary(configs)
 		Button = strict({
 			Enum = strict({
 				ButtonType = require(script.App.Button.Enum.ButtonType),
+				StandardButtonSize = require(script.Core.Button.Enum.StandardButtonSize),
 			}),
 			PrimaryContextualButton = require(script.App.Button.PrimaryContextualButton),
 			PrimarySystemButton = require(script.App.Button.PrimarySystemButton),
@@ -152,6 +159,7 @@ local function initializeLibrary(configs)
 				script.App.Container.VerticalScrollViewV2
 			) or require(script.App.Container.VerticalScrollViewWithMargin),
 			VerticalScrollViewWithMargin = require(script.App.Container.VerticalScrollViewWithMargin),
+			VerticalScrollViewWithIndicator = require(script.App.Container.VerticalScrollViewV2),
 			getPageMargin = require(script.App.Container.getPageMargin),
 			LoadingStateContainer = require(script.App.Container.LoadingStateContainer),
 			HorizontalPageMargin = require(script.App.Container.HorizontalPageMargin),

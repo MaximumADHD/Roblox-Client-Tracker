@@ -9,12 +9,45 @@ local t = require(Packages.t)
 local validateImage = require(Core.ImageSet.Validator.validateImage)
 local validateFontInfo = require(Core.Style.Validator.validateFontInfo)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local StandardButtonSize = require(Core.Button.Enum.StandardButtonSize)
+local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
+
+-- standardSize and maxWidth are only allowed if UIBloxConfig.enableStandardButtonSizes is on
+-- These special functions let us flag the prop validation in way that dynamically checks the flag's value,
+-- which is good for tests which dynamically modify flags, instead of just checking the flag once on init.
+local standardSizeValidator = function(value)
+	if UIBloxConfig.enableStandardButtonSizes then
+		return t.optional(enumerateValidator(StandardButtonSize))(value)
+	else
+		return value == nil
+	end
+end
+local maxWidthValidator = function(value)
+	if UIBloxConfig.enableStandardButtonSizes then
+		return t.optional(t.numberPositive)(value)
+	else
+		return value == nil
+	end
+end
+
 return t.strictInterface({
 	-- The automatic size of the button
 	automaticSize = t.optional(t.EnumItem),
 
 	--The size of the button
 	size = t.optional(t.UDim2),
+
+	-- Standard button size (Regular/Small/XSmall) is optional
+	standardSize = standardSizeValidator,
+
+	--For standard buttons, optionally override the default max width of 640 for Regular and Small,
+	--or set a max width for XSmall (e.g. width of parent container)
+	maxWidth = maxWidthValidator,
+
+	--For standard buttons, optionally override the default width behavior.
+	--If true: button just wide enough to fit its text. If false: default to the full width of its container.
+	fitContent = t.optional(t.boolean),
 
 	--The anchor point of the button
 	anchorPoint = t.optional(t.Vector2),

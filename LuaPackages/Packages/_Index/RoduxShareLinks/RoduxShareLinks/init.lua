@@ -1,6 +1,7 @@
 local Invites = require(script.Reducers)
 local Actions = require(script.Actions)
 local Models = require(script.Models)
+local Enums = require(script.Enums)
 
 local Packages = script.Parent
 local Cryo = require(Packages.Cryo)
@@ -21,6 +22,7 @@ return {
 			end,
 			Actions = Actions,
 			Models = Models,
+			Enums = Enums,
 		}
 	end,
 }

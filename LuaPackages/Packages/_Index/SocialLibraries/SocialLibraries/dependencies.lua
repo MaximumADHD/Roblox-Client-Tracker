@@ -5,6 +5,7 @@ local RoduxPresence = require(Packages.RoduxPresence)
 
 return {
 	Roact = require(Packages.Roact),
+	React = require(Packages.React),
 	-- TODO add ability to pass in UIBlox config on setup (currently assumes UIBlox is initialized by consuming project)
 	UIBlox = UIBlox,
 	RoactFitComponents = require(Packages.RoactFitComponents),

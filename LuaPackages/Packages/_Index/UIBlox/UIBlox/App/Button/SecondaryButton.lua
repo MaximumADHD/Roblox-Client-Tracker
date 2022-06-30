@@ -13,6 +13,7 @@ local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCurs
 local validateButtonProps = require(Button.validateButtonProps)
 local GenericButton = require(UIBlox.Core.Button.GenericButton)
 local ControlState = require(UIBlox.Core.Control.Enum.ControlState)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local SecondaryButton = Roact.PureComponent:extend("SecondaryButton")
 
@@ -38,6 +39,9 @@ function SecondaryButton:render()
 		return Roact.createElement(RoactGamepad.Focusable[GenericButton], {
 			AutomaticSize = self.props.automaticSize,
 			Size = self.props.size,
+			standardSize = if UIBloxConfig.enableStandardButtonSizes then self.props.standardSize else nil,
+			maxWidth = if UIBloxConfig.enableStandardButtonSizes then self.props.maxWidth else nil,
+			fitContent = if UIBloxConfig.enableStandardButtonSizes then self.props.fitContent else nil,
 			AnchorPoint = self.props.anchorPoint,
 			Position = self.props.position,
 			LayoutOrder = self.props.layoutOrder,

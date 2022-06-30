@@ -9,6 +9,7 @@ local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local Interactable = require(Core.Control.Interactable)
 
@@ -24,10 +25,11 @@ local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 local withAnimation = require(UIBlox.Core.Animation.withAnimation)
 local validateFontInfo = require(Core.Style.Validator.validateFontInfo)
 local HoverButtonBackground = require(Core.Button.HoverButtonBackground)
+local StandardButtonSize = require(Button.Enum.StandardButtonSize)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local validateImage = require(Core.ImageSet.Validator.validateImage)
+local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 
 local CONTENT_PADDING = 5
 local PLACEHOLDER_ABSOLUTE_SIZE_PX = 100
@@ -122,7 +124,22 @@ local validateProps = t.interface({
 	--A Boolean value that determines whether user events are ignored and sink input
 	userInteractionEnabled = t.optional(t.boolean),
 
-	forwardedRef = t.optional(t.table)
+	--Which standard button size we should use, instead of fixed Size, to determine button height and font size
+	standardSize = if UIBloxConfig.enableStandardButtonSizes
+		then t.optional(enumerateValidator(StandardButtonSize))
+		else nil,
+
+	--For standard buttons, optionally override the default max width of 640 for Regular and Small,
+	--or set a max width for XSmall (e.g. width of parent container)
+	maxWidth = if UIBloxConfig.enableStandardButtonSizes
+		then t.optional(t.numberPositive)
+		else nil,
+
+	--For standard buttons, optionally override the default width behavior.
+	--If true: button just wide enough to fit its text. If false: default to the full width of its container.
+	fitContent = t.optional(t.boolean),
+
+	forwardedRef = t.optional(t.table),
 
 	-- Note that this component can accept all valid properties of the Roblox ImageButton instance
 })
@@ -182,6 +199,10 @@ function GenericButton:renderButton(loadingProgress)
 		local textStateColorMap = self.props.textStateColorMap or contentStateColorMap
 		local iconStateColorMap = self.props.iconStateColorMap or contentStateColorMap
 		local inputIconStateColorMap = self.props.inputIconStateColorMap or contentStateColorMap
+		local size = self.props.Size
+		local standardSize = if UIBloxConfig.enableStandardButtonSizes then self.props.standardSize else nil
+		local maxWidth = if UIBloxConfig.enableStandardButtonSizes then (self.props.maxWidth or 640) else nil
+		local fitContent = if UIBloxConfig.enableStandardButtonSizes then self.props.fitContent else nil
 
 		if text then
 			assert(colorStateMap(textStateColorMap), "textStateColorMap is missing or invalid.")
@@ -236,18 +257,51 @@ function GenericButton:renderButton(loadingProgress)
 			showHoverBackground = false
 		end
 
+		-- Handle standard button sizes
+		local sidePadding = CONTENT_PADDING
+		if UIBloxConfig.enableStandardButtonSizes and standardSize then
+			local height
+			local fitContentDefault
+			if standardSize == StandardButtonSize.Regular then
+				height = 48
+				sidePadding = 12
+				fontStyle = style.Font.Header2
+				fitContentDefault = false
+			elseif standardSize == StandardButtonSize.Small then
+				height = 36
+				sidePadding = 8
+				fontStyle = style.Font.Header2
+				fitContentDefault = false
+			elseif standardSize == StandardButtonSize.XSmall then
+				height = 28
+				sidePadding = 8
+				fontStyle = style.Font.CaptionHeader
+				fitContentDefault = true
+			end
+			if fitContent == nil then
+				fitContent = fitContentDefault
+			end
+			local widthScale = if fitContent then 0 else 1
+			size = UDim2.new(widthScale, 0, 0, height)
+		end
+
 		local buttonContentLayer
 		if isLoading then
 			buttonContentLayer = {
 				isLoadingShimmer = Roact.createElement(ShimmerPanel, {
 					Size = UDim2.new(1, 0, 1, 0),
-				})
+				}),
 			}
 		else
-			-- We want to set maxSize for the textLabel: what's the biggest the text
-			-- can be.
-			local maxSizeX = self.state.absoluteSize.X - 2 * CONTENT_PADDING
+			-- We want to set maxSize for the textLabel: what's the biggest the text can be.
+			local containerWidth = self.state.absoluteSize.X
+			if UIBloxConfig.enableStandardButtonSizes and standardSize and fitContent then
+				-- If no max width has been provided, the limit is infinity (math.huge)
+				containerWidth = maxWidth
+			end
+
 			local maxSizeY = self.state.absoluteSize.Y - 2 * CONTENT_PADDING
+			local maxSizeX = containerWidth - 2 * sidePadding
 			if icon then
 				maxSizeX -= (CONTENT_PADDING + getIconSize(IconSize.Medium))
 			end
@@ -276,6 +330,18 @@ function GenericButton:renderButton(loadingProgress)
 					colorStyle = textStyle,
 					LayoutOrder = 2,
 					maxSize = maxSize,
+					-- For standard buttons, text should truncate with ... and never wrap onto 2 lines
+					TextWrapped = if (UIBloxConfig.enableStandardButtonSizes and standardSize)
+						then false
+						else nil,
+					TextTruncate = if (UIBloxConfig.enableStandardButtonSizes and standardSize)
+						then Enum.TextTruncate.AtEnd
+						else nil,
+					-- For standard buttons, if there's an icon, left-align the text to avoid a big gap
+					-- between icon and text, especially in cases where the text is truncated
+					TextXAlignment = if (UIBloxConfig.enableStandardButtonSizes and standardSize and icon)
+						then Enum.TextXAlignment.Left
+						else nil,
 				}) or nil,
 			}
 			if UIBloxConfig.genericButtonInputChanges then
@@ -319,8 +385,15 @@ function GenericButton:renderButton(loadingProgress)
 			isDelayedInput = Cryo.None,
 			enableInputDelayed = Cryo.None,
 			delayInputSeconds = Cryo.None,
+			standardSize = if UIBloxConfig.enableStandardButtonSizes then Cryo.None else nil,
+			maxWidth = if UIBloxConfig.enableStandardButtonSizes then Cryo.None else nil,
+			fitContent = if UIBloxConfig.enableStandardButtonSizes then Cryo.None else nil,
 			[Roact.Children] = Cryo.None,
 
+			Size = if UIBloxConfig.enableStandardButtonSizes then size else nil,
+			AutomaticSize = if UIBloxConfig.enableStandardButtonSizes and standardSize and fitContent
+				then Enum.AutomaticSize.X
+				else nil,
 			[Roact.Ref] = self.props.forwardedRef,
 			isDisabled = isDisabled,
 			onStateChanged = self.onStateChanged,
@@ -334,6 +407,22 @@ function GenericButton:renderButton(loadingProgress)
 			[Roact.Event.Activated] = self.props.onActivated,
 			[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChanged,
 		}), {
+			-- For standard button sizes, enforce max width if present
+			UISizeConstraint = if UIBloxConfig.enableStandardButtonSizes and standardSize and maxWidth
+					then
+						Roact.createElement("UISizeConstraint", {
+							-- Each standard size has a fixed height, so the max height can be infinite (math.huge)
+							MaxSize = Vector2.new(maxWidth, math.huge),
+						})
+					else nil,
+			-- For standard button sizes, require sidePadding (only really necessary if scaleWidthAutomatically)
+			UIPadding = if UIBloxConfig.enableStandardButtonSizes and standardSize
+					then
+						Roact.createElement("UIPadding", {
+							PaddingLeft = UDim.new(0, sidePadding),
+							PaddingRight = UDim.new(0, sidePadding),
+						})
+					else nil,
 			ButtonContent = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
