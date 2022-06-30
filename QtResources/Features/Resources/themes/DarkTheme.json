@@ -980,6 +980,9 @@
             "stop0": "#272727",
             "bottom-stop0": "#242424",
             "stop1": "#2E2E2E"
+        },
+        "ErrorText": {
+            "color": "#F68802"
         }
     },
     "BulkImport": {

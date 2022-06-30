@@ -701,6 +701,10 @@ Studio.App.ScriptingCmd.FOLDBLOCK,,Fold Code Block,Fold Code Block
 Studio.App.ScriptingCmd.FOLDBLOCKTooltip,,Fold a block of code in the script,Fold a block of code in the script
 Studio.App.ScriptingCmd.UNFOLDBLOCK,,Unfold Code Block,Unfold Code Block
 Studio.App.ScriptingCmd.UNFOLDBLOCKTooltip,,Unfold a block of code in the script,Unfold a block of code in the script
+Studio.App.NamedViewCmd.IMPORTSNIPPETPACK,,Import snippet pack,Import snippet pack
+Studio.App.NamedViewCmd.IMPORTSNIPPETPACKTooltip,,Import snippet pack from json file as user snippet pack.,Import snippet pack from json file as user snippet pack.
+Studio.App.NamedViewCmd.TOGGLESNIPPETSETTING,,Toggle snippet setting,Toggle snippet setting
+Studio.App.NamedViewCmd.TOGGLESNIPPETSETTINGTooltip,,Toggle snippet or snippet pack in autocomplete menu,Toggle snippet or snippet pack in autocomplete menu
 Studio.App.NamedViewCmd.TOGGLEDISPLAYONLYCURRENTSCRIPT,,Display only current script,Display only current script
 Studio.App.NamedViewCmd.TOGGLEDISPLAYONLYCURRENTSCRIPTTooltip,,Display only the current script in the Script Analysis widget,Display only the current script in the Script Analysis widget
 Studio.App.NamedViewCmd.TOGGLEDISPLAYERRORSTooltip,,Display errors in the Script Analysis widget,Display errors in the Script Analysis widget
@@ -1148,6 +1152,7 @@ Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock,,Click on parts to lo
 Studio.App.RobloxRibbonMainWindow.ClientsAndServers,,Clients and Servers,Clients and Servers
 Studio.App.RobloxRibbonMainWindow.Clipboard,,Clipboard,Clipboard
 Studio.App.RobloxRibbonMainWindow.Cobblestone,,Cobblestone,Cobblestone
+Studio.App.RobloxRibbonMainWindow.Collaborate,,Collaborate,Collaborate
 Studio.App.RobloxRibbonMainWindow.Collaboration,,Collaboration,Collaboration
 Studio.App.RobloxRibbonMainWindow.CollisionGroups,,Collision Groups,Collision Groups
 Studio.App.RobloxRibbonMainWindow.Collisions,,Collisions,Collisions
@@ -1238,6 +1243,7 @@ Studio.App.RobloxRibbonMainWindow.InsertAScript,,Insert a script,Insert a script
 Studio.App.RobloxRibbonMainWindow.InsertAttachment,,Insert attachment,Insert attachment
 Studio.App.RobloxRibbonMainWindow.InsertBlockPart,,Insert block part,Insert block part
 Studio.App.RobloxRibbonMainWindow.InsertCylinderPart,,Insert cylinder part,Insert cylinder part
+Studio.App.RobloxRibbonMainWindow.InsertCornerWedge,,Insert CornerWedgePart,Insert CornerWedgePart
 Studio.App.RobloxRibbonMainWindow.InsertItemsFromTheToolbox,,Insert items from the toolbox,Insert items from the toolbox
 Studio.App.RobloxRibbonMainWindow.InsertScriptsAndOtherAdvance,,Insert scripts and other advanced objects into the game,Insert scripts and other advanced objects into the game
 Studio.App.RobloxRibbonMainWindow.InsertObjectToolTip,,View list of insertable objects,View list of insertable objects
@@ -1529,6 +1535,14 @@ Studio.App.RobloxTeamCreateWidget.DeleteUser,,Delete User,Delete User
 Studio.App.RobloxTeamCreateWidget.TeamCreateOptions,,Team Create Options,Team Create Options
 Studio.App.RobloxTeamCreateWidget.TurnOffTeamCreate,,Turn OFF Team Create,Turn OFF Team Create
 Studio.App.RobloxTeamCreateWidget.GroupOwnedPlace,,Group owned place,Group owned place
+Studio.App.SnippetWidget.ShowInAutocomplete,,Show in Autocomplete,Show in Autocomplete
+Studio.App.SnippetWidget.SnippetPackName,,Pack Name,Pack Name
+Studio.App.SnippetWidget.SnippetName,,Snippet Name,Snippet Name
+Studio.App.SnippetWidget.Prefix,,Prefix,Prefix
+Studio.App.SnippetWidget.Description,,Description,Description
+Studio.App.SnippetWidget.Snippet,,Snippet,Snippet
+Studio.App.SnippetWidget.BuiltinSnippet,,Built-in Snippets,Built-in Snippets
+Studio.App.SnippetWidget.MySnippetPacks,,My Snippet Packs,My Snippet Packs
 Studio.App.ScriptAnalysisWidget.DisplayOnlyCurrentScript,,Display only current script,Display only current script
 Studio.App.ScriptAnalysisWidget.NumErrorsTextFmt2,,%1 of %2 Errors,%1 of %2 Errors
 Studio.App.ScriptAnalysisWidget.NumWarningsTextFmt2,,%1 of %2 Warnings,%1 of %2 Warnings
@@ -1599,6 +1613,7 @@ Studio.App.PackageMassUpdate.Cancelling,One of the update status,Cancelling...,C
 Studio.App.PackageMassUpdate.Cancelled,One of the update status,Cancelled,Cancelled
 Studio.App.PackageMassUpdate.Updated,One of the update status,Updated,Updated
 Studio.App.PackageMassUpdate.UpdateFailed,One of the update status,Update Failed,Update Failed
+Studio.App.PackageMassUpdate.WarningModifiedPackages2,%1 is the number of modified packages detected. %2 is the total number of packages detected. e.g. Warning: Did not update 8/10 packages due to modifications,Warning: Did not update %1/%2 packages due to modifications,Warning: Did not update %1/%2 packages due to modifications
 Studio.App.PackageMassUpdate.InitializationFailed,,Could not initialize Mass Update Window for this Package.,Could not initialize Mass Update Window for this Package.
 Studio.App.PackageMassUpdate.ChangeHistoryWayPoint,,Update packages in current place to latest,Update packages in current place to latest
 Studio.App.PackageMassUpdate.ErrorNoDataModel,,Error: No datamodel,Error: No datamodel
@@ -1663,6 +1678,7 @@ Studio.App.AutocompleteTooltip.FunctionNumberLabelTextFmt2,,%1 of %2,%1 of %2
 Studio.App.AutocompleteMenu.MoreChildrenItemTextFmt1,,%1 more children...,%1 more children...
 Studio.App.Shapes.Sphere,,Sphere,Sphere
 Studio.App.Shapes.Cylinder,,Cylinder,Cylinder
+Studio.App.Shapes.CornerWedge,,Corner Wedge,Corner Wedge
 Studio.App.Materials.Plastic,,Plastic,Plastic
 Studio.App.Materials.Wood,,Wood,Wood
 Studio.App.Materials.Slate,,Slate,Slate
@@ -1816,6 +1832,7 @@ Studio.App.SettingsHeader.Studio,,Studio,Studio
 Studio.App.SettingsCategory.StudioCamera,,Camera,Camera
 Studio.App.Property.CameraSpeed,,Camera Speed,Camera Speed
 Studio.App.Property.CameraShiftSpeed,,Camera Shift Speed,Camera Shift Speed
+Studio.App.Property.CameraPanSpeed,,Camera Pan Speed,Camera Pan Speed
 Studio.App.Property.CameraMouseWheelSpeed,,Camera Mouse Wheel Speed,Camera Mouse Wheel Speed
 Studio.App.Property.CameraZoomToMousePosition,,Camera Zoom to Mouse Position,Camera Zoom to Mouse Position
 Studio.App.SettingsCategory.StudioDirectories,,Directories,Directories
@@ -3298,3 +3315,5 @@ Studio.App.BetaFeatures.NonuniformUnionsTitle,,Nonuniform Unions,Nonuniform Unio
 Studio.App.BetaFeatures.NonuniformUnionsDescription,,Allow unions created with the CSG system to scale nonuniformly in the same way as MeshParts. Change the interpretation of existing nonuniformly scaled unions.,Allow unions created with the CSG system to scale nonuniformly in the same way as MeshParts. Change the interpretation of existing nonuniformly scaled unions.
 Studio.App.BetaFeatures.ScriptEditorApiTitle,,Script Editor API,Script Editor API
 Studio.App.BetaFeatures.ScriptEditorApiDescription,,"Allow plugins to access the ScriptEditorService and ScriptDocument objects, permitting them to interact with an active editor.","Allow plugins to access the ScriptEditorService and ScriptDocument objects, permitting them to interact with an active editor."
+Studio.App.BetaFeatures.OneClickCollaborateTitle,,One-click Collaborate Button,One-click Collaborate Button
+Studio.App.BetaFeatures.OneClickCollaborateDescription,,"The ""Collaborate"" button is always present in Studio's top-right corner. Click on it to add, view, or manage collaborators and their permissions for your game. Once you add collaborators, Team Create will be turned on to enable co-editing.","The ""Collaborate"" button is always present in Studio's top-right corner. Click on it to add, view, or manage collaborators and their permissions for your game. Once you add collaborators, Team Create will be turned on to enable co-editing."

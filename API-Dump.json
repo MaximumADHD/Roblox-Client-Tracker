@@ -13628,92 +13628,6 @@
         },
         {
             "Members": [
-                {
-                    "Category": "Destruction",
-                    "MemberType": "Property",
-                    "Name": "Broken",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated",
-                        "NotBrowsable"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Destruction",
-                    "MemberType": "Property",
-                    "Name": "DestructionEnabled",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Destruction",
-                    "MemberType": "Property",
-                    "Name": "DestructionForce",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    }
-                },
-                {
-                    "Category": "Destruction",
-                    "MemberType": "Property",
-                    "Name": "DestructionTorque",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "float"
-                    }
-                }
             ],
             "MemoryCategory": "PhysicsParts",
             "Name": "RigidConstraint",
@@ -43850,8 +43764,7 @@
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
-                "Service",
-                "NotBrowsable"
+                "Service"
             ]
         },
         {
@@ -43985,10 +43898,7 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "MaterialVariant",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotBrowsable"
-            ]
+            "Superclass": "Instance"
         },
         {
             "Members": [
@@ -58320,7 +58230,7 @@
                         "Name": "Objects"
                     },
                     "Security": "None",
-                    "ThreadSafety": "Unsafe"
+                    "ThreadSafety": "Safe"
                 },
                 {
                     "MemberType": "Function",
@@ -65548,7 +65458,6 @@
                             }
                         },
                         {
-                            "Default": "-1",
                             "Name": "endLine",
                             "Type": {
                                 "Category": "Primitive",
@@ -65556,7 +65465,6 @@
                             }
                         },
                         {
-                            "Default": "-1",
                             "Name": "endCharacter",
                             "Type": {
                                 "Category": "Primitive",
@@ -71965,6 +71873,24 @@
                 {
                     "Category": "Camera",
                     "MemberType": "Property",
+                    "Name": "Camera Pan Speed",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Camera",
+                    "MemberType": "Property",
                     "Name": "Camera Shift Speed",
                     "Security": {
                         "Read": "None",
@@ -76090,7 +76016,7 @@
                         "Name": "Objects"
                     },
                     "Security": "None",
-                    "ThreadSafety": "Unsafe"
+                    "ThreadSafety": "Safe"
                 },
                 {
                     "MemberType": "Event",
@@ -76126,6 +76052,26 @@
             "MemoryCategory": "Instances",
             "Name": "Team",
             "Superclass": "Instance"
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Event",
+                    "Name": "ToggleManageCollaborators",
+                    "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "TeamCreateService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
         },
         {
             "Members": [
@@ -76993,10 +76939,7 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "TerrainDetail",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotBrowsable"
-            ]
+            "Superclass": "Instance"
         },
         {
             "Members": [
@@ -87014,6 +86957,9 @@
                     "Value": 8
                 },
                 {
+                    "LegacyNames": [
+                        "TeeShirt"
+                    ],
                     "Name": "TShirt",
                     "Value": 9
                 },
@@ -87432,6 +87378,9 @@
                     "Value": 1
                 },
                 {
+                    "LegacyNames": [
+                        "TeeShirt"
+                    ],
                     "Name": "TShirt",
                     "Value": 2
                 },
@@ -87608,6 +87557,9 @@
                     "Value": 62
                 },
                 {
+                    "LegacyNames": [
+                        "TeeShirtAccessory"
+                    ],
                     "Name": "TShirtAccessory",
                     "Value": 64
                 },
@@ -87820,6 +87772,9 @@
                     "Value": 61
                 },
                 {
+                    "LegacyNames": [
+                        "TeeShirtAccessory"
+                    ],
                     "Name": "TShirtAccessory",
                     "Value": 64
                 },
@@ -87920,14 +87875,26 @@
         {
             "Items": [
                 {
+                    "LegacyNames": [
+                        "Right",
+                        "Left"
+                    ],
                     "Name": "X",
                     "Value": 0
                 },
                 {
+                    "LegacyNames": [
+                        "Bottom",
+                        "Top"
+                    ],
                     "Name": "Y",
                     "Value": 1
                 },
                 {
+                    "LegacyNames": [
+                        "Back",
+                        "Front"
+                    ],
                     "Name": "Z",
                     "Value": 2
                 }
@@ -87937,6 +87904,11 @@
         {
             "Items": [
                 {
+                    "LegacyNames": [
+                        "Slingshot",
+                        "Rocket",
+                        "Laser"
+                    ],
                     "Name": "Script",
                     "Value": 0
                 },
@@ -88910,10 +88882,16 @@
                     "Value": 1000
                 },
                 {
+                    "LegacyNames": [
+                        "Default"
+                    ],
                     "Name": "Medium",
                     "Value": 2000
                 },
                 {
+                    "LegacyNames": [
+                        "Medium"
+                    ],
                     "Name": "Default",
                     "Value": 2000
                 },
@@ -88940,6 +88918,9 @@
         {
             "Items": [
                 {
+                    "LegacyNames": [
+                        "Mouse Lock Switch"
+                    ],
                     "Name": "MouseLockSwitch",
                     "Value": 1
                 },
@@ -89670,6 +89651,9 @@
                     "Value": 0
                 },
                 {
+                    "LegacyNames": [
+                        "CratersAndDebris"
+                    ],
                     "Name": "Craters",
                     "Value": 1
                 }
@@ -89794,6 +89778,9 @@
                     "Value": 17
                 },
                 {
+                    "LegacyNames": [
+                        "GothamSemibold"
+                    ],
                     "Name": "GothamMedium",
                     "Value": 18
                 },
@@ -90038,6 +90025,9 @@
                     "Value": 0
                 },
                 {
+                    "LegacyNames": [
+                        "Block"
+                    ],
                     "Name": "Brick",
                     "Value": 1
                 },
@@ -90850,6 +90840,19 @@
         {
             "Items": [
                 {
+                    "LegacyNames": [
+                        "RightTread",
+                        "UpDown",
+                        "Action2",
+                        "Action3",
+                        "Steer",
+                        "Throttle",
+                        "Action1",
+                        "Throtle",
+                        "LeftTread",
+                        "Action4",
+                        "Action5"
+                    ],
                     "Name": "NoInput",
                     "Value": 0
                 },
@@ -92234,6 +92237,9 @@
                     "Value": 816
                 },
                 {
+                    "LegacyNames": [
+                        "Corroded Metal"
+                    ],
                     "Name": "CorrodedMetal",
                     "Value": 1040
                 },
@@ -92242,6 +92248,9 @@
                     "Value": 1056
                 },
                 {
+                    "LegacyNames": [
+                        "Aluminum"
+                    ],
                     "Name": "Foil",
                     "Value": 1072
                 },
@@ -92309,58 +92318,34 @@
                 },
                 {
                     "Name": "Rock",
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "Value": 896
                 },
                 {
                     "Name": "Glacier",
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "Value": 1552
                 },
                 {
                     "Name": "Snow",
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "Value": 1328
                 },
                 {
                     "Name": "Sandstone",
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "Value": 912
                 },
                 {
                     "Name": "Mud",
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "Value": 1344
                 },
                 {
                     "Name": "Basalt",
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "Value": 788
                 },
                 {
                     "Name": "Ground",
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "Value": 1360
                 },
                 {
                     "Name": "CrackedLava",
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "Value": 804
                 },
                 {
@@ -92373,37 +92358,22 @@
                 },
                 {
                     "Name": "Asphalt",
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "Value": 1376
                 },
                 {
                     "Name": "LeafyGrass",
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "Value": 1284
                 },
                 {
                     "Name": "Salt",
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "Value": 1392
                 },
                 {
                     "Name": "Limestone",
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "Value": 820
                 },
                 {
                     "Name": "Pavement",
-                    "Tags": [
-                        "NotBrowsable"
-                    ],
                     "Value": 836
                 },
                 {
@@ -93465,86 +93435,149 @@
                     "Value": 0
                 },
                 {
+                    "LegacyNames": [
+                        "Level  1"
+                    ],
                     "Name": "Level01",
                     "Value": 1
                 },
                 {
+                    "LegacyNames": [
+                        "Level  2"
+                    ],
                     "Name": "Level02",
                     "Value": 2
                 },
                 {
+                    "LegacyNames": [
+                        "Level  3"
+                    ],
                     "Name": "Level03",
                     "Value": 3
                 },
                 {
+                    "LegacyNames": [
+                        "Level  4"
+                    ],
                     "Name": "Level04",
                     "Value": 4
                 },
                 {
+                    "LegacyNames": [
+                        "Level  5"
+                    ],
                     "Name": "Level05",
                     "Value": 5
                 },
                 {
+                    "LegacyNames": [
+                        "Level  6"
+                    ],
                     "Name": "Level06",
                     "Value": 6
                 },
                 {
+                    "LegacyNames": [
+                        "Level  7"
+                    ],
                     "Name": "Level07",
                     "Value": 7
                 },
                 {
+                    "LegacyNames": [
+                        "Level  8"
+                    ],
                     "Name": "Level08",
                     "Value": 8
                 },
                 {
+                    "LegacyNames": [
+                        "Level  9"
+                    ],
                     "Name": "Level09",
                     "Value": 9
                 },
                 {
+                    "LegacyNames": [
+                        "Level 10"
+                    ],
                     "Name": "Level10",
                     "Value": 10
                 },
                 {
+                    "LegacyNames": [
+                        "Level 11"
+                    ],
                     "Name": "Level11",
                     "Value": 11
                 },
                 {
+                    "LegacyNames": [
+                        "Level 12"
+                    ],
                     "Name": "Level12",
                     "Value": 12
                 },
                 {
+                    "LegacyNames": [
+                        "Level 13"
+                    ],
                     "Name": "Level13",
                     "Value": 13
                 },
                 {
+                    "LegacyNames": [
+                        "Level 14"
+                    ],
                     "Name": "Level14",
                     "Value": 14
                 },
                 {
+                    "LegacyNames": [
+                        "Level 15"
+                    ],
                     "Name": "Level15",
                     "Value": 15
                 },
                 {
+                    "LegacyNames": [
+                        "Level 16"
+                    ],
                     "Name": "Level16",
                     "Value": 16
                 },
                 {
+                    "LegacyNames": [
+                        "Level 17"
+                    ],
                     "Name": "Level17",
                     "Value": 17
                 },
                 {
+                    "LegacyNames": [
+                        "Level 18"
+                    ],
                     "Name": "Level18",
                     "Value": 18
                 },
                 {
+                    "LegacyNames": [
+                        "Level 19"
+                    ],
                     "Name": "Level19",
                     "Value": 19
                 },
                 {
+                    "LegacyNames": [
+                        "Level 20"
+                    ],
                     "Name": "Level20",
                     "Value": 20
                 },
                 {
+                    "LegacyNames": [
+                        "Level 21"
+                    ],
                     "Name": "Level21",
                     "Value": 21
                 }
@@ -95031,14 +95064,23 @@
         {
             "Items": [
                 {
+                    "LegacyNames": [
+                        "Alternating Supports"
+                    ],
                     "Name": "AlternatingSupports",
                     "Value": 0
                 },
                 {
+                    "LegacyNames": [
+                        "Bridge Style Supports"
+                    ],
                     "Name": "BridgeStyleSupports",
                     "Value": 1
                 },
                 {
+                    "LegacyNames": [
+                        "No Supports"
+                    ],
                     "Name": "NoSupports",
                     "Value": 2
                 }
@@ -95082,10 +95124,17 @@
         {
             "Items": [
                 {
+                    "LegacyNames": [
+                        "Unjoinable",
+                        "Spawn"
+                    ],
                     "Name": "Smooth",
                     "Value": 0
                 },
                 {
+                    "LegacyNames": [
+                        "Bumps"
+                    ],
                     "Name": "Glue",
                     "Value": 1
                 },
@@ -95543,6 +95592,9 @@
         {
             "Items": [
                 {
+                    "LegacyNames": [
+                        "PartialThread"
+                    ],
                     "Name": "Auto",
                     "Value": 0
                 },

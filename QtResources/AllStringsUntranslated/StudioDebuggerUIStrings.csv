@@ -32,6 +32,10 @@ Studio.App.DebuggerUIUtilities.DeleteBreakpoint,,Delete Breakpoint,Delete Breakp
 Studio.App.DebuggerUIUtilities.EditBreakpointElps,,Edit Breakpoint...,Edit Breakpoint...
 Studio.App.DebuggerUIUtilities.EnableBreakpoint,,Enable Breakpoint,Enable Breakpoint
 Studio.App.DebuggerUIUtilities.DisableBreakpoint,,Disable Breakpoint,Disable Breakpoint
+Studio.App.DebuggerUIUtilities.DeleteLogpoint,,Delete Logpoint,Delete Logpoint
+Studio.App.DebuggerUIUtilities.EditLogpointElps,,Edit Logpoint...,Edit Logpoint...
+Studio.App.DebuggerUIUtilities.EnableLogpoint,,Enable Logpoint,Enable Logpoint
+Studio.App.DebuggerUIUtilities.DisableLogpoint,,Disable Logpoint,Disable Logpoint
 Studio.App.DebuggerUIUtilities.BreakpointsDisabledLinkedSource,,Breakpoints are currently disabled for LinkedSource.,Breakpoints are currently disabled for LinkedSource.
 Studio.App.DebuggerUIUtilities.ScriptNotAvailable,,"The script is currently not available because it is not loaded into the Client data model yet. Once the Client data model starts executing, the script will be available.","The script is currently not available because it is not loaded into the Client data model yet. Once the Client data model starts executing, the script will be available."
 Studio.App.BreakpointTooltip.BreakpointLocationFmt2,,"Location: %1, line %2","Location: %1, line %2"

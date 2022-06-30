@@ -974,6 +974,9 @@
             "stop0": "#EDEDED",
             "bottom-stop0": "#DEDEDE",
             "stop1": "#00FFFFFF"
+        },
+        "ErrorText": {
+            "color": "#F6A102"
         }
     },
     "BulkImport": {

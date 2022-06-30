@@ -718,10 +718,6 @@ Class LinearVelocity : Constraint
 Class PlaneConstraint : Constraint
 Class Plane : PlaneConstraint [Deprecated]
 Class RigidConstraint : Constraint
-	Property bool RigidConstraint.Broken [ReadOnly] [NotBrowsable]
-	Property bool RigidConstraint.DestructionEnabled [NotBrowsable]
-	Property float RigidConstraint.DestructionForce [NotBrowsable]
-	Property float RigidConstraint.DestructionTorque [NotBrowsable]
 Class RodConstraint : Constraint
 	Property float RodConstraint.Thickness
 	Property float RodConstraint.CurrentDistance [ReadOnly]
@@ -2288,7 +2284,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.ServerPurchaseVerification(Dictionary serverResponseTable) {RobloxScriptSecurity}
 	Event MarketplaceService.ThirdPartyPurchaseFinished(Instance player, string productId, string receipt, bool wasPurchased) {LocalUserSecurity}
 	Callback Enum.ProductPurchaseDecision MarketplaceService.ProcessReceipt(Dictionary receiptInfo)
-Class MaterialService : Instance [NotCreatable] [Service] [NotBrowsable]
+Class MaterialService : Instance [NotCreatable] [Service]
 	Property string MaterialService.AsphaltName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.BasaltName {RobloxSecurity} [NotScriptable]
 	Property string MaterialService.BrickName {RobloxSecurity} [NotScriptable]
@@ -2329,7 +2325,7 @@ Class MaterialService : Instance [NotCreatable] [Service] [NotBrowsable]
 	Function Enum.PropertyStatus MaterialService:GetOverrideStatus(Enum.Material material) {RobloxScriptSecurity}
 	Function void MaterialService:SetBaseMaterialOverride(Enum.Material material, string name)
 	Event MaterialService.OverrideStatusChanged(Enum.Material material) {RobloxScriptSecurity}
-Class MaterialVariant : Instance [NotBrowsable]
+Class MaterialVariant : Instance
 	Property Enum.Material MaterialVariant.BaseMaterial {PluginSecurity}
 	Property Content MaterialVariant.ColorMap {PluginSecurity}
 	Property Enum.MaterialPattern MaterialVariant.MaterialPattern
@@ -3045,7 +3041,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Function string Players:GetNameFromUserIdAsync(int64 userId) [Yields]
 	Function Player Players:GetPlayerByUserId(int64 userId)
 	Function Player Players:GetPlayerFromCharacter(Model character)
-	Function Objects Players:GetPlayers()
+	Function Objects Players:GetPlayers() {🧬Safe}
 	Function int64 Players:GetUserIdFromNameAsync(string userName) [Yields]
 	Function Tuple Players:GetUserThumbnailAsync(int64 userId, Enum.ThumbnailType thumbnailType, Enum.ThumbnailSize thumbnailSize) [Yields]
 	Function void Players:ReportAbuse(Player player, string reason, string optionalMessage) {LocalUserSecurity}
@@ -3427,7 +3423,7 @@ Class ScriptDebugger : Instance [NotCreatable]
 	Event ScriptDebugger.WatchAdded(Instance watch)
 	Event ScriptDebugger.WatchRemoved(Instance watch)
 Class ScriptDocument : Instance [NotCreatable] [NotReplicated]
-	Function Tuple ScriptDocument:EditTextAsync(string newText, int startLine, int startCharacter, int endLine = -1, int endCharacter = -1) {PluginSecurity} [Yields]
+	Function Tuple ScriptDocument:EditTextAsync(string newText, int startLine, int startCharacter, int endLine, int endCharacter) {PluginSecurity} [Yields]
 	Function string ScriptDocument:GetInternalUri() {RobloxScriptSecurity}
 	Function string ScriptDocument:GetLine(int lineIndex = -1234567) {PluginSecurity}
 	Function int ScriptDocument:GetLineCount() {PluginSecurity}
@@ -3780,6 +3776,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.DeprecatedObjectsShown
 	Property Enum.PermissionLevelShown Studio.PermissionLevelShown
 	Property float Studio.Camera Mouse Wheel Speed
+	Property float Studio.Camera Pan Speed {RobloxScriptSecurity}
 	Property float Studio.Camera Shift Speed
 	Property float Studio.Camera Speed
 	Property bool Studio.Camera Zoom to Mouse Position
@@ -4001,9 +3998,11 @@ Class Team : Instance
 	Property int Team.ChildOrder {RobloxScriptSecurity} [Hidden]
 	Property int Team.Score [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property BrickColor Team.TeamColor
-	Function Objects Team:GetPlayers()
+	Function Objects Team:GetPlayers() {🧬Safe}
 	Event Team.PlayerAdded(Player player)
 	Event Team.PlayerRemoved(Player player)
+Class TeamCreateService : Instance [NotCreatable] [Service] [NotReplicated]
+	Event TeamCreateService.ToggleManageCollaborators() {RobloxScriptSecurity}
 Class Teams : Instance [NotCreatable] [Service]
 	Function Objects Teams:GetTeams()
 	Function void Teams:RebalanceTeams() [Deprecated]
@@ -4036,7 +4035,7 @@ Class TeleportService : Instance [NotCreatable] [Service]
 	Event TeleportService.TeleportInitFailed(Instance player, Enum.TeleportResult teleportResult, string errorMessage, int64 placeId, Instance teleportOptions)
 Class TemporaryCageMeshProvider : Instance [NotCreatable] [Service] [NotReplicated]
 Class TemporaryScriptService : Instance [NotCreatable] [Service] [NotReplicated]
-Class TerrainDetail : Instance [NotBrowsable]
+Class TerrainDetail : Instance
 	Property Content TerrainDetail.ColorMap {PluginSecurity}
 	Property Enum.TerrainFace TerrainDetail.Face
 	Property Enum.MaterialPattern TerrainDetail.MaterialPattern
@@ -5843,33 +5842,33 @@ Enum Material
 	EnumItem Material.Wood : 512
 	EnumItem Material.WoodPlanks : 528
 	EnumItem Material.Marble : 784
-	EnumItem Material.Basalt : 788 [NotBrowsable]
+	EnumItem Material.Basalt : 788
 	EnumItem Material.Slate : 800
-	EnumItem Material.CrackedLava : 804 [NotBrowsable]
+	EnumItem Material.CrackedLava : 804
 	EnumItem Material.Concrete : 816
-	EnumItem Material.Limestone : 820 [NotBrowsable]
+	EnumItem Material.Limestone : 820
 	EnumItem Material.Granite : 832
-	EnumItem Material.Pavement : 836 [NotBrowsable]
+	EnumItem Material.Pavement : 836
 	EnumItem Material.Brick : 848
 	EnumItem Material.Pebble : 864
 	EnumItem Material.Cobblestone : 880
-	EnumItem Material.Rock : 896 [NotBrowsable]
-	EnumItem Material.Sandstone : 912 [NotBrowsable]
+	EnumItem Material.Rock : 896
+	EnumItem Material.Sandstone : 912
 	EnumItem Material.CorrodedMetal : 1040
 	EnumItem Material.DiamondPlate : 1056
 	EnumItem Material.Foil : 1072
 	EnumItem Material.Metal : 1088
 	EnumItem Material.Grass : 1280
-	EnumItem Material.LeafyGrass : 1284 [NotBrowsable]
+	EnumItem Material.LeafyGrass : 1284
 	EnumItem Material.Sand : 1296
 	EnumItem Material.Fabric : 1312
-	EnumItem Material.Snow : 1328 [NotBrowsable]
-	EnumItem Material.Mud : 1344 [NotBrowsable]
-	EnumItem Material.Ground : 1360 [NotBrowsable]
-	EnumItem Material.Asphalt : 1376 [NotBrowsable]
-	EnumItem Material.Salt : 1392 [NotBrowsable]
+	EnumItem Material.Snow : 1328
+	EnumItem Material.Mud : 1344
+	EnumItem Material.Ground : 1360
+	EnumItem Material.Asphalt : 1376
+	EnumItem Material.Salt : 1392
 	EnumItem Material.Ice : 1536
-	EnumItem Material.Glacier : 1552 [NotBrowsable]
+	EnumItem Material.Glacier : 1552
 	EnumItem Material.Glass : 1568
 	EnumItem Material.ForceField : 1584
 	EnumItem Material.Air : 1792 [NotBrowsable]

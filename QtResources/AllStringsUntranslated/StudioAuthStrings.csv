@@ -1,3 +1,5 @@
 Key,Context,Source,en-us
 Studio.Auth.EmbeddedAuthorizationDialog.LaunchFailed,Title for the error dialog when Studio fails to launch,Launch Failed,Launch Failed
 Studio.Auth.EmbeddedAuthorizationDialog.InvalidWebView2Fmt1,Error message is shown when the user doesn't have WebView2 installed. WebView2 is required for Studio to load the login page correctly.,WebView2 installation required to launch Studio. Click <a href='%1'>here</a> for installation details.,WebView2 installation required to launch Studio. Click <a href='%1'>here</a> for installation details.
+Studio.Auth.AccountInfo.Mismatch,Error when web credentials don't match Studio's existing credentials,Studio failed to open because your web account credentials do not match the current Studio account credentials.,Studio failed to open because your web account credentials do not match the current Studio account credentials.
+Studio.Auth.Launch.Failed,This is shown as a header for an error dialog when Studio failes to launch,Launch Failed,Launch Failed
