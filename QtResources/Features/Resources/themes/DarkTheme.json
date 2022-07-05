@@ -1204,6 +1204,14 @@
             }
         },
         {
+            "GameTableView": {
+                "background": "#252525",
+                "selectedRow": "#424242",
+                "header": "#353535",
+                "border": "#292929"
+            }
+        },
+        {
             "SearchWidget": {
                 "text": "#CCCCCC",
                 "border": "#1A1A1A",

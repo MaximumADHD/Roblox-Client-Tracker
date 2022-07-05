@@ -18,7 +18,6 @@ Studio.Debugger.BreakpointsWindow.ScriptColumn,Script,Script
 Studio.Debugger.Common.DeleteLogpoint,Delete Logpoint,Delete Logpoint
 Studio.Debugger.Common.None,None,None
 Studio.Debugger.EditDebugpoint.Cancel,Cancel,Cancel
-Studio.Debugger.Watch.Local,Local,Local
 Studio.Debugger.EditDebugpoint.Save,Save,Save
 Studio.Debugger.EditDebugpoint.EnabledLabel,isEnabled,isEnabled
 Studio.Debugger.Callstack.SourceColumnTooltip,The script where the function call of a frame originated,The script where the function call of a frame originated
@@ -70,7 +69,11 @@ Studio.Debugger.BreakpointsWindow.ContinueExecutionColumn,Continue Execution,Con
 Studio.Debugger.BreakpointsWindow.ContinueExecutionColumnTooltip,Determines if execution will be paused when a breakpoint is hit,Determines if execution will be paused when a breakpoint is hit
 Studio.Debugger.BreakpointsWindow.DisableAll,Disable All Breakpoints,Disable All Breakpoints
 Studio.Debugger.BreakpointsWindow.DeleteAll,Delete All Breakpoints,Delete All Breakpoints
+Studio.Debugger.BreakpointsWindow.DeleteAllPopupText,Do you want to delete all breakpoints?,Do you want to delete all breakpoints?
+Studio.Debugger.BreakpointsWindow.DeleteAllPopupYes,Yes,Yes
+Studio.Debugger.BreakpointsWindow.DeleteAllPopupNo,No,No
 Studio.Debugger.Watch.AllScopes,All Scopes,All Scopes
+Studio.Debugger.Watch.Local,Local,Local
 Studio.Debugger.Watch.LocalTooltip,A local variable is accessible only within the block of code where it's declared,A local variable is accessible only within the block of code where it's declared
 Studio.Debugger.Watch.Upvalue,Upvalue,Upvalue
 Studio.Debugger.Watch.UpvalueTooltip,An upvalue is a local variable that an inner function or loop uses,An upvalue is a local variable that an inner function or loop uses

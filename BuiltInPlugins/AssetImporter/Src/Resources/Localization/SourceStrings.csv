@@ -98,6 +98,7 @@ Studio.AssetImporter.Sections.FileGeometry,File Geometry
 Studio.AssetImporter.Sections.FileTransform,File Transform
 Studio.AssetImporter.Sections.ObjectGeneral,Object General
 Studio.AssetImporter.Sections.ObjectGeometry,Object Geometry
+Studio.AssetImporter.Statuses.CageHasMaterialWarning,Material(s) found under this cage mesh will be ignored. Materials cannot be applied to CageWrap instances.
 Studio.AssetImporter.Statuses.CageMismatchWarning,The number of cage vertices between the outer and inner cage don't match.
 Studio.AssetImporter.Statuses.CageNonManifoldWarning,"This cage has non-manifold geometry, which can cause deformation issues. Non-manifold area is marked in the preview render."
 Studio.AssetImporter.Statuses.CageOverlappingVerticesWarning,"Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render."

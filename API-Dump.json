@@ -2987,6 +2987,21 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "MemberType": "Function",
+                    "Name": "StartSessionWithPrompt",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "AssetImportSession"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
                     "MemberType": "Event",
                     "Name": "ProgressUpdate",
                     "Parameters": [
@@ -3030,6 +3045,138 @@
             "Tags": [
                 "NotCreatable",
                 "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "Cancel",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetCurrentImportMap",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetCurrentStatusTable",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetFilename",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetSettingsRoot",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "IsAvatar",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Upload",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "UploadComplete",
+                    "Parameters": [
+                        {
+                            "Name": "succeeded",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        },
+                        {
+                            "Name": "errorMap",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "UploadProgress",
+                    "Parameters": [
+                        {
+                            "Name": "progressRatio",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AssetImportSession",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
                 "NotReplicated"
             ]
         },
@@ -40132,6 +40279,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "SetExperienceSettingsLocaleId",
+                    "Parameters": [
+                        {
+                            "Name": "locale",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SetRobloxLocaleId",
                     "Parameters": [
                         {
@@ -41261,6 +41427,24 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Content"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "RunContext",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "RunContext"
                     }
                 }
             ],
@@ -65378,6 +65562,18 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetSelection",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "PluginSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetText",
                     "Parameters": [
                         {
@@ -65480,6 +65676,42 @@
                     "Tags": [
                         "Yields"
                     ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "SelectionChanged",
+                    "Parameters": [
+                        {
+                            "Name": "positionLine",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "positionCharacter",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "anchorLine",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "anchorCharacter",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "Security": "PluginSecurity",
                     "ThreadSafety": "Unsafe"
                 }
             ],
@@ -74336,6 +74568,18 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "ClearUploadNames",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PublishAs",
                     "Parameters": [
                         {
@@ -74508,6 +74752,14 @@
                                 "Name": "string"
                             }
                         }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "GamePublishCancelled",
+                    "Parameters": [
                     ],
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
@@ -87892,8 +88144,8 @@
                 },
                 {
                     "LegacyNames": [
-                        "Back",
-                        "Front"
+                        "Front",
+                        "Back"
                     ],
                     "Name": "Z",
                     "Value": 2
@@ -88886,13 +89138,6 @@
                         "Default"
                     ],
                     "Name": "Medium",
-                    "Value": 2000
-                },
-                {
-                    "LegacyNames": [
-                        "Medium"
-                    ],
-                    "Name": "Default",
                     "Value": 2000
                 },
                 {
@@ -90841,17 +91086,17 @@
             "Items": [
                 {
                     "LegacyNames": [
+                        "Action4",
+                        "Action5",
                         "RightTread",
-                        "UpDown",
-                        "Action2",
-                        "Action3",
+                        "Throtle",
+                        "Action1",
                         "Steer",
                         "Throttle",
-                        "Action1",
-                        "Throtle",
+                        "Action2",
+                        "UpDown",
                         "LeftTread",
-                        "Action4",
-                        "Action5"
+                        "Action3"
                     ],
                     "Name": "NoInput",
                     "Value": 0
@@ -93961,6 +94206,27 @@
         {
             "Items": [
                 {
+                    "Name": "Legacy",
+                    "Value": 0
+                },
+                {
+                    "Name": "Server",
+                    "Value": 1
+                },
+                {
+                    "Name": "Client",
+                    "Value": 2
+                },
+                {
+                    "Name": "Plugin",
+                    "Value": 3
+                }
+            ],
+            "Name": "RunContext"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Aggregate",
                     "Value": 0
                 },
@@ -95125,8 +95391,8 @@
             "Items": [
                 {
                     "LegacyNames": [
-                        "Unjoinable",
-                        "Spawn"
+                        "Spawn",
+                        "Unjoinable"
                     ],
                     "Name": "Smooth",
                     "Value": 0
@@ -96291,6 +96557,14 @@
                 {
                     "Name": "HSRInnerReverse",
                     "Value": 11
+                },
+                {
+                    "Name": "LayerCageFittedToBase",
+                    "Value": 12
+                },
+                {
+                    "Name": "LayerCageFittedToPrev",
+                    "Value": 13
                 }
             ],
             "Name": "WrapLayerDebugMode"

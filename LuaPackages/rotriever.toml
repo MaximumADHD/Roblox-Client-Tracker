@@ -32,8 +32,8 @@ Lumberyak = { git = "https://github.com/Roblox/lumberyak" }
 StringUtilities = "github.com/Roblox/string-utilities@1.0.0"
 UrlBuilder = { git = "https://github.com/Roblox/url-builder", rev = "master" }
 FitFrame = "github.com/roblox/roact-fit-components@2.0.0"
-ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v1.3.0" }
-ExperienceChatV1_4_1 = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v1.4.1" }
+ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v1.4.1" }
+ExperienceChatV1_5_0 = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v1.5.0" }
 RoduxGames = { git = "https://github.com/Roblox/rodux-games", rev = "master" }
 React = "github.com/Roblox/roact-alignment@17.0.1-rc.12"
 ReactIs = "github.com/Roblox/roact-alignment@17.0.1-rc.12"
@@ -49,7 +49,7 @@ tutils = { git = "https://github.com/Roblox/tutils" }
 
 InGameMenuDependencies = { git = "https://github.com/Roblox/in-game-menu-dependencies", rev = "master" }
 
-RoactGamepad = "github.com/roblox/roact-gamepad@0.4.6"
+RoactGamepad = "github.com/roblox/roact-gamepad@0.5.4"
 
 [dev_dependencies]
 JestGlobals = "github.com/roblox/jest-roblox@2.4.1"
@@ -89,4 +89,4 @@ RoactRodux = "github.com/Roblox/roact-rodux@0.5.1"
 InfiniteScroller = "github.com/Roblox/infinite-scroller@0.9.5"
 
 [config.patch."github.com/roblox/roact-gamepad"]
-RoactGamepad = "github.com/Roblox/roact-gamepad@0.5.3"
+RoactGamepad = "github.com/Roblox/roact-gamepad@0.5.4"

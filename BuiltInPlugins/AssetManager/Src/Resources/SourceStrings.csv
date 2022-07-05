@@ -2,10 +2,10 @@ Key,Source,en-us
 Studio.AssetManager.SearchBar.GlobalPlaceholderText,Filter Assets,Filter Assets
 Studio.AssetManager.ContextMenu.ViewOnWebsite,View On Website,View On Website
 Studio.AssetManager.ContextMenu.ViewPlaceHistory,View History,View History
+Studio.AssetManager.BulkImport.BulkImportShowLink,Check current status,Check current status
 Studio.AssetManager.Main.Title,Asset Manager,Asset Manager
 Studio.AssetManager.Main.ToolbarButton,Asset Manager,Asset Manager
 Studio.AssetManager.Meta.ToolbarName,Asset Manager,Asset Manager
-Studio.AssetManager.BulkImport.BulkImportShowLink,Check current status,Check current status
 Studio.AssetManager.TopBar.GridViewButton,Grid View,Grid View
 Studio.AssetManager.TopBar.ExplorerOverlayButton,Explorer Overlay,Explorer Overlay
 Studio.AssetManager.Main.Tooltip,"Add, remove, and modify assets","Add, remove, and modify assets"
@@ -18,8 +18,8 @@ Studio.AssetManager.ContextMenu.AddVideo,Add Video,Add Video
 Studio.AssetManager.NavBar.GamePlaceholderName,Game,Game
 Studio.AssetManager.ContextMenu.InsertWithLocation,Insert With Location,Insert With Location
 Studio.AssetManager.SearchBar.PlaceholderText,Filter,Filter
-Studio.AssetManager.TopBar.ForwardButton,Forward,Forward
 Studio.AssetManager.ContextMenu.RevertToLastPublishedVersion,Revert To Last Published Version,Revert To Last Published Version
+Studio.AssetManager.TopBar.ForwardButton,Forward,Forward
 Studio.AssetManager.NavBar.ID,ID: {gameId:int},ID: {gameId:int}
 Studio.AssetManager.Folders.IMAGES,Images,Images
 Studio.AssetManager.Folders.MESHES,Meshes,Meshes
@@ -33,14 +33,13 @@ Studio.AssetManager.ContextMenu.RenameAlias,Rename Alias,Rename Alias
 Studio.AssetManager.Folders.SCRIPTS,Scripts,Scripts
 Studio.AssetManager.ContextMenu.PackageDetails,Package Details,Package Details
 Studio.AssetManager.Folders.AUDIO,Audio,Audio
-Studio.AssetManager.AssetItem.PendingModerationTooltip,This asset is pending moderation review, This asset is pending moderation review
 Studio.AssetManager.MainView.SaveText,Save to start using Asset Manager.,Save to start using Asset Manager.
 Studio.AssetManager.Folders.VIDEO,Video,Video
 Studio.AssetManager.ContextMenu.RemoveFromGame,Remove From Game,Remove From Game
 Studio.AssetManager.Folders.MODELS,Models,Models
 Studio.AssetManager.AssetGrid.NoResults,No {assetType} Found,No {assetType} Found
-Studio.AssetManager.ContextMenu.AddAudio,Add Audio,Add Audio
 Studio.AssetManager.AssetGrid.LoadButton,Load All Pages,Load All Pages
+Studio.AssetManager.ContextMenu.AddAudio,Add Audio,Add Audio
 Studio.AssetManager.Callout.BadgesDevProductsDescription,Badges and Developer Products have moved to Monetization Page in Game Settings,Badges and Developer Products have moved to Monetization Page in Game Settings
 Studio.AssetManager.ContextMenu.CopyMeshIdToClipboard,Copy Mesh ID to Clipboard,Copy Mesh ID to Clipboard
 Studio.AssetManager.ContextMenu.OpenFolder,Open,Open
@@ -52,15 +51,21 @@ Studio.AssetManager.ContextMenu.NewPlaceAdded,New Place Added,New Place Added
 Studio.AssetManager.ContextMenu.CopyTextureIdToClipboard,Copy Texture ID to Clipboard,Copy Texture ID to Clipboard
 Studio.AssetManager.ContextMenu.Rename,Rename,Rename
 Studio.AssetManager.ContextMenu.CopyIdToClipboard,Copy ID to Clipboard,Copy ID to Clipboard
-Studio.AssetManager.MainView.SaveButtonText,Save,Save
-Studio.AssetManager.MainView.ButtonText,Publish,Publish
 Studio.AssetManager.AssetPreview.Insert,Insert,Insert
 Studio.AssetManager.ContextMenu.Insert,Insert,Insert
+Studio.AssetManager.MainView.SaveButtonText,Save,Save
+Studio.AssetManager.MainView.ButtonText,Publish,Publish
 Studio.AssetManager.TopBar.ListViewButton,List View,List View
 Studio.AssetManager.ContextMenu.InsertAsLocalScript,Insert As Local Script,Insert As Local Script
 Studio.AssetManager.ContextMenu.InsertAsModuleScript,Insert As Module Script,Insert As Module Script
 Studio.AssetManager.ContextMenu.RefreshScript,Refresh Script,Refresh Script
 Studio.AssetManager.RecentlyImportedView.Title,Recently Added,Recently Added
+Studio.AssetManager.SortOption.RecentlyAdded,Recently Added, Recently Added
 Studio.AssetManager.TopBar.BackButton,Back,Back
 Studio.AssetManager.TopBar.BulkImportButton,Bulk import,Bulk import
+Studio.AssetManager.TopBar.SortButton,Sorting Options, Sorting Options
+Studio.AssetManager.SortOption.RecentlyUsed,Recently Used, Recently Used
+Studio.AssetManager.SortOption.AscendingName,Name (Ascending), Name (Ascending)
+Studio.AssetManager.SortOption.DescendingName,Name (Descending), Name (Descending)
+Studio.AssetManager.AssetItem.PendingModerationTooltip,This asset is pending moderation review, This asset is pending moderation review
 Studio.AssetManager.AssetItem.FailedModerationTooltip,This asset has failed moderation review, This asset has failed moderation review

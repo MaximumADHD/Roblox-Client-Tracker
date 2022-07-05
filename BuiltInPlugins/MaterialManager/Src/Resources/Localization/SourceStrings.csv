@@ -60,6 +60,7 @@ Studio.MaterialManager.MaterialInformation.ClearOverride,Clear Override
 Studio.MaterialManager.MaterialInformation.ClearPartOverride,Clear Part Override
 Studio.MaterialManager.MaterialInformation.ClearTerrainOverride,Clear Terrain Override
 Studio.MaterialManager.MaterialInformation.CreateVariant,Create Variant
+Studio.MaterialManager.MaterialInformation.Delete,Delete
 Studio.MaterialManager.MaterialInformation.Edit,Edit
 Studio.MaterialManager.MaterialInformation.ResetMaterial,Reset Material
 Studio.MaterialManager.MaterialInformation.ResetPartMaterial,Reset Part Material
@@ -204,5 +205,8 @@ Studio.MaterialManager.Plugin.Name,Material Manager
 Studio.MaterialManager.TopBar.Apply,Apply to Selected Parts
 Studio.MaterialManager.TopBar.Create,Create Material Variant
 Studio.MaterialManager.TopBar.Filters,Filters
+Studio.MaterialManager.TopBar.MaterialAsTool,Use Material as Tool
 Studio.MaterialManager.TopBar.Search,Search Materials
 Studio.MaterialManager.TopBar.Show,Show in Explorer
+Studio.MaterialManager.ViewType.Grid,Grid
+Studio.MaterialManager.ViewType.List,List

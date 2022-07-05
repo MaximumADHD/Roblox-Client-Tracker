@@ -36,6 +36,10 @@ Studio.App.StartPage.MakingPrivate,,Making private,Making private
 Studio.App.StartPage.ShareOnTwitter,,Share on Twitter,Share on Twitter
 Studio.App.StartPage.ShareOnFacebook,,Share on Facebook,Share on Facebook
 Studio.App.TemplatesPage.AllTemplates,Templates page tab,All Templates,All Templates
+Studio.App.ListView.ExperienceName,The name of my game,Experience Name,Experience Name
+Studio.App.ListView.Description,,Description,Description
+Studio.App.ListView.DateCreated,,Date Created,Date Created
+Studio.App.ListView.Playability,,Playability,Playability
 Studio.App.Debugger.PausedForDebugging,,Rendering is paused for debugging...,Rendering is paused for debugging...
 Studio.App.Breakpoints.DeleteAllBreakpoints,Debugger widgets,Delete All Breakpoints,Delete All Breakpoints
 Studio.App.Breakpoints.DeleteSelectedBreakpoint,Debugger widgets,Delete Selected Breakpoint,Delete Selected Breakpoint
@@ -316,11 +320,21 @@ Studio.App.MainWindow.UploadingPlaceQuitSaveFailed,Main Window,Failed To Save. P
 Studio.App.MainWindow.UploadingPlaceQuitPublishFailed,Main Window,Failed To Publish. Please try again later.,Failed To Publish. Please try again later.
 Studio.App.AudioPrivacyPublishDialog.WarningTitle,Description title for warning pop-up that lets users know they have to grant audio permissions,Be aware before publishing,Be aware before publishing
 Studio.App.AudioPrivacyPublishDialog.WarningDescription,"Description of warning that users need to give their universe permission to use audio or else, their audio won't play in the experience they publsih","You are publishing an Experience that includes assets that may be private. Please consider granting access to the destination Experience. If you do not grant access, any private assets will not work.","You are publishing an Experience that includes assets that may be private. Please consider granting access to the destination Experience. If you do not grant access, any private assets will not work."
+Studio.App.AudioPrivacyPublishDialog.NoPermissionsTitle,Description title for no permissions granted dialog pop-up that lets users know they have to grant audio permission,No permission to use Audio file(s),No permission to use Audio file(s)
+Studio.App.AudioPrivacyPublishDialog.NoPermissionsDescription,"Description of warning that users need to give their universe permission to use audio or else, their audio won't play in the experience they publsih","This experience has no permission to use some assets. Please consider granting permissions to the destination Experience. If you do not grant permissions, assets will not be available for this experience.","This experience has no permission to use some assets. Please consider granting permissions to the destination Experience. If you do not grant permissions, assets will not be available for this experience."
+Studio.App.AudioPrivacyPublishDialog.PermissionsGrantedTitle,Description title for permissions successfully granted dialog,All permissions have been granted!,All permissions have been granted!
+Studio.App.AudioPrivacyPublishDialog.PermissionsGrantedDescription,Description for permissions successfully granted dialog and continue with publish,All asset permissions have been granted to this experience.,All asset permissions have been granted to this experience.
+Studio.App.AudioPrivacyPublishDialog.PermissionsNotGrantedTitle,Description title for permissions cannot be granted dialog to some assets by the user,You cannot grant permissions for some assets,You cannot grant permissions for some assets
+Studio.App.AudioPrivacyPublishDialog.PermissionsNotGrantedDescription,Description of dialog with assets that cannot be granted permission by the user. Have options to publish without permissions or cancel publish,"You don't have the ability to grant permissions for assets below. Please reach out to the asset creator to grant permissions to this experience, or these assets will not be available.","You don't have the ability to grant permissions for assets below. Please reach out to the asset creator to grant permissions to this experience, or these assets will not be available."
 Studio.App.AudioPrivacyPublishDialog.AssetTable.AssetNameColTitle,Name of audio file in the place file,Audio Asset Name,Audio Asset Name
 Studio.App.AudioPrivacyPublishDialog.AssetTable.AssetIdColTitle,,Asset ID,Asset ID
 Studio.App.AudioPrivacyPublishDialog.AssetTable.AssetCreatorColTitle,,Creator,Creator
 Studio.App.AudioPrivacyPublishDialog.PublishWithoutPermissionButton,warning modal button that publishes game without granting permission,Publish without Granting,Publish without Granting
 Studio.App.AudioPrivacyPublishDialog.PublishAndGrantPermissionButton,warning modal button that grants the universe permission to all assets in the game during publish,Grant Permissions,Grant Permissions
+Studio.App.AudioPrivacyPublishDialog.GrantAllPermissionsButton,warning modal button that grants the universe permission to all assets in the game,Grant All Permissions,Grant All Permissions
+Studio.App.AudioPrivacyPublishDialog.PublishToRobloxButton,warning modal button that publishes game after granting permission,Publish to Roblox,Publish to Roblox
+Studio.App.AudioPrivacyPublishDialog.PublishWithoutGrantingButton,warning modal button that publishes game without granting permission,Publish without Permissions,Publish without Permissions
+Studio.App.AudioPrivacyPublishDialog.CancelPublishButton,warning modal button that cancel the publish,Cancel Publish,Cancel Publish
 Studio.App.AudioPrivacyCheck.GrantPermissionUserFailure3,"Appears in output window when permission granting fails. %1 is replaced by universe id, %2 is replaced by assed id and %3 is replaced by user id.",Failed to grant the Universe %1 permission to use asset %2. Your User ID %3 is not authorized to grant asset permissions.,Failed to grant the Universe %1 permission to use asset %2. Your User ID %3 is not authorized to grant asset permissions.
 Studio.App.MainWindow.Version1,Main Window,Version %1,Version %1
 Studio.App.MainWindow.VersionLatest1,About Dialog,Latest version available %1,Latest version available %1
@@ -2163,6 +2177,8 @@ Studio.App.BetaFeatures.AutoUpdateTitle,,Auto Update on Packages,Auto Update on 
 Studio.App.BetaFeatures.AutoUpdateDescription,,Adds an option to automatically update a package when a newer package is available,Adds an option to automatically update a package when a newer package is available
 Studio.App.BetaFeatures.LuauNonStrictByDefaultTitle,,Scripts Are Non-Strict By Default,Scripts Are Non-Strict By Default
 Studio.App.BetaFeatures.LuauNonStrictByDefaultDescription,,"Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis.","Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis."
+Studio.App.BetaFeatures.LuauLowerBoundsTitle,,Experimental Luau language features,Experimental Luau language features
+Studio.App.BetaFeatures.LuauLowerBoundsDescription,,Adds shared self types and lower-bounds calculation to script analysis for more accurate type inference.,Adds shared self types and lower-bounds calculation to script analysis for more accurate type inference.
 Studio.App.BetaFeatures.ParallelLuaTitle,,Parallel Lua,Parallel Lua
 Studio.App.BetaFeatures.ParallelLuaDescription,,Allows writing scripts that can execute in parallel to improve throughput.,Allows writing scripts that can execute in parallel to improve throughput.
 Studio.App.BetaFeatures.AvatarLoadingBetaTitle,,New Avatar Loading Signal Ordering,New Avatar Loading Signal Ordering
@@ -3194,8 +3210,6 @@ Studio.App.BulkImportService.UniverseNotValid,,Universe is not valid,Universe is
 Studio.App.BulkImportService.UniverseResourcesNotLoaded,,Universe resources are not loaded yet,Universe resources are not loaded yet
 Studio.App.Callout.LearnMore,"Within a Teaching Callout, this text is a link that takes a user to a learning resource for a new feature. Teaching Callouts are used to showcase new Studio features to users.",Learn more,Learn more
 Studio.App.Callout.GotIt,Button that a user clicks to dismiss a Teaching Callout. Teaching Callouts are used to showcase new Studio features to users.,Got it!,Got it!
-Studio.App.CalloutController.DraggerModeCalloutTitle,,Drag Mode,Drag Mode
-Studio.App.CalloutController.DraggerModeCalloutDescription,,Leverages the physics engine and constraints solver to simulate real-world behavior when moving objects. It adjusts some settings to work properly.,Leverages the physics engine and constraints solver to simulate real-world behavior when moving objects. It adjusts some settings to work properly.
 Studio.App.CalloutController.PivotEditorCalloutTitle,,Pivot Editor,Pivot Editor
 Studio.App.CalloutController.PivotEditorCalloutDescription,,Change the pivot point around which an object rotates and translates.,Change the pivot point around which an object rotates and translates.
 Studio.App.CalloutService.TargetNotGuiBase2d,,Target is not a GuiBase2d,Target is not a GuiBase2d

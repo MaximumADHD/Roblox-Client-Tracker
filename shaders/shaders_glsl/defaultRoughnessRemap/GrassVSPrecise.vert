@@ -6,7 +6,7 @@
 #include <GrassPerFrameParams.h>
 uniform vec4 CB0[53];
 uniform vec4 CB1[2];
-uniform vec4 CB2[3];
+uniform vec4 CB2[4];
 attribute vec4 POSITION;
 attribute vec4 NORMAL;
 varying vec4 VARYING0;
@@ -26,7 +26,7 @@ void main()
     gl_Position = v4 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     VARYING0 = vec4(((v3 + vec3(0.0, 6.0, 0.0)).yxz * CB0[16].xyz) + CB0[17].xyz, clamp(exp2((CB0[13].z * length(v5)) + CB0[13].x) - CB0[13].w, 0.0, 1.0));
     VARYING1 = vec3(dot(CB0[20], v4), dot(CB0[21], v4), dot(CB0[22], v4));
-    VARYING2 = (CB0[10].xyz * clamp((abs(dot((NORMAL.xyz * 2.0) - vec3(1.0), -CB0[11].xyz)) + 0.89999997615814208984375) * 0.52631580829620361328125, 0.0, 1.0)) * exp2((-clamp(NORMAL.w, 0.0, 1.0)) * CB2[1].x);
+    VARYING2 = (CB0[10].xyz * clamp((abs(dot((NORMAL.xyz * 2.0) - vec3(1.0), -CB0[11].xyz)) + 0.89999997615814208984375) * 0.52631580829620361328125, 0.0, 1.0)) * exp2((((-clamp(NORMAL.w, 0.0, 1.0)) * CB2[3].x) + CB2[3].y) * CB2[1].x);
     VARYING3 = v5;
 }
 

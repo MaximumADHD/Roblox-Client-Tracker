@@ -275,6 +275,7 @@ Studio.GameSettings.Permissions.MultipleLabel,(Multiple), ,(Multiple)
 Studio.GameSettings.AccessPermissions.AdminDescription,"Can play, edit, and manage this game", ,"Can play, edit, and manage this game"
 Studio.GameSettings.Permissions.AdminDescription,"Can play, edit, and manage this game", ,"Can play, edit, and manage this game"
 Studio.GameSettings.Permissions.NoUserEditGroupGameDescription,Must be in owner group to edit, ,Must be in owner group to edit
+Studio.GameSettings.General.NumberError,Please enter a number, ,Please enter a number
 Studio.GameSettings.Monetization.DevProducts,Developer Products, ,Developer Products
 Studio.GameSettings.General.ServerRestartWarning,The Team Create server needs to restart for this change to take effect. The server will automatically restart once all editors have left the session., ,The Team Create server needs to restart for this change to take effect. The server will automatically restart once all editors have left the session.
 Studio.GameSettings.General.TitleScriptCollab,Enable Collaborative Editing, ,Enable Collaborative Editing

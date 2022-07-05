@@ -152,9 +152,20 @@ Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Tuple AssetImportService:ImportMesh(string fileName) {RobloxScriptSecurity}
 	Function Tuple AssetImportService:ImportMeshWithPrompt() {RobloxScriptSecurity} [Yields]
 	Function bool AssetImportService:IsAvatar() {RobloxScriptSecurity}
+	Function AssetImportSession AssetImportService:StartSessionWithPrompt() {RobloxScriptSecurity} [Yields]
 	Function void AssetImportService:Upload() {RobloxScriptSecurity}
 	Event AssetImportService.ProgressUpdate(float progressRatio)
 	Event AssetImportService.UploadFinished(bool succeeded, Dictionary errorMap)
+Class AssetImportSession : Instance [NotCreatable] [NotReplicated]
+	Function void AssetImportSession:Cancel() {RobloxScriptSecurity}
+	Function Dictionary AssetImportSession:GetCurrentImportMap() {RobloxScriptSecurity}
+	Function Dictionary AssetImportSession:GetCurrentStatusTable() {RobloxScriptSecurity}
+	Function string AssetImportSession:GetFilename() {RobloxScriptSecurity}
+	Function Instance AssetImportSession:GetSettingsRoot() {RobloxScriptSecurity}
+	Function bool AssetImportSession:IsAvatar() {RobloxScriptSecurity}
+	Function void AssetImportSession:Upload() {RobloxScriptSecurity}
+	Event AssetImportSession.UploadComplete(bool succeeded, Dictionary errorMap)
+	Event AssetImportSession.UploadProgress(float progressRatio)
 Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function int64 AssetManagerService:AddNewPlace() {RobloxScriptSecurity} [Yields]
 	Function void AssetManagerService:CreateAlias(int assetType, int64 assetId, string aliasName) {RobloxScriptSecurity} [Yields]
@@ -2163,6 +2174,7 @@ Class LocalizationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void LocalizationService:PromptExportToCSVs() {RobloxScriptSecurity} [Yields]
 	Function void LocalizationService:PromptImportFromCSVs() {RobloxScriptSecurity} [Yields]
 	Function Instance LocalizationService:PromptUploadCSVToGameTable() {RobloxScriptSecurity} [Yields]
+	Function void LocalizationService:SetExperienceSettingsLocaleId(string locale) {RobloxScriptSecurity}
 	Function void LocalizationService:SetRobloxLocaleId(string locale) {RobloxScriptSecurity}
 	Function void LocalizationService:StartTextScraper() {RobloxScriptSecurity}
 	Function void LocalizationService:StopTextScraper() {RobloxScriptSecurity}
@@ -2213,6 +2225,7 @@ Class LuaSourceContainer : Instance [NotCreatable] [NotBrowsable]
 	Property Instance LuaSourceContainer.CurrentEditor [NotScriptable]
 Class BaseScript : LuaSourceContainer [NotCreatable]
 	Property bool BaseScript.Disabled
+	Property Enum.RunContext BaseScript.RunContext {PluginSecurity}
 	Property Content BaseScript.LinkedSource
 Class CoreScript : BaseScript [NotCreatable] [NotReplicated]
 Class Script : BaseScript
@@ -3428,8 +3441,10 @@ Class ScriptDocument : Instance [NotCreatable] [NotReplicated]
 	Function string ScriptDocument:GetLine(int lineIndex = -1234567) {PluginSecurity}
 	Function int ScriptDocument:GetLineCount() {PluginSecurity}
 	Function LuaSourceContainer ScriptDocument:GetScript() {PluginSecurity}
+	Function Tuple ScriptDocument:GetSelection() {PluginSecurity}
 	Function string ScriptDocument:GetText(int startLine = -1234567, int startCharacter = -1234567, int endLine = -1234567, int endCharacter = -1234567) {PluginSecurity}
 	Function bool ScriptDocument:IsCommandBar() {PluginSecurity}
+	Event ScriptDocument.SelectionChanged(int64 positionLine, int64 positionCharacter, int64 anchorLine, int64 anchorCharacter) {PluginSecurity}
 Class ScriptEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ScriptDocument ScriptEditorService:FindScriptDocument(LuaSourceContainer script) {PluginSecurity}
 	Function void ScriptEditorService:RegisterLSPCallback(Enum.LSPMethodType methodToOverride, Function callbackFunction) {RobloxScriptSecurity}
@@ -3911,6 +3926,7 @@ Class StudioDeviceEmulatorService : Instance [NotCreatable] [Service] [NotReplic
 Class StudioHighDpiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool StudioHighDpiService:IsNotHighDPIAwareBuild() {RobloxScriptSecurity}
 Class StudioPublishService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void StudioPublishService:ClearUploadNames() {RobloxScriptSecurity}
 	Function void StudioPublishService:PublishAs(int64 universeId, int64 placeId, int64 groupId, bool isPublish, Variant publishParameters) {RobloxScriptSecurity}
 	Function void StudioPublishService:RefreshDocumentDisplayName() {RobloxScriptSecurity}
 	Function void StudioPublishService:SetTeamCreateOnPublishInfo(bool shouldTurnOnTcOnPublish, string newPlaceName) {RobloxScriptSecurity}
@@ -3918,6 +3934,7 @@ Class StudioPublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioPublishService:SetUploadNames(string placeName, string universeName) {RobloxScriptSecurity}
 	Function void StudioPublishService:ShowSaveOrPublishPlaceToRoblox(bool showGameSelect, bool isPublish, Enum.StudioCloseMode closeMode) {RobloxScriptSecurity}
 	Event StudioPublishService.GameNameUpdated(string name) {RobloxScriptSecurity}
+	Event StudioPublishService.GamePublishCancelled() {RobloxScriptSecurity}
 	Event StudioPublishService.GamePublishFinished(bool success, int64 gameId) {RobloxScriptSecurity}
 	Event StudioPublishService.OnSaveOrPublishPlaceToRoblox(bool showGameSelect, bool isPublish, Enum.StudioCloseMode closeMode) {RobloxScriptSecurity}
 Class StudioScriptDebugEventListener : Instance [NotCreatable] [Service] [NotReplicated]
@@ -5044,7 +5061,6 @@ Enum ConnectionState
 Enum ContextActionPriority
 	EnumItem ContextActionPriority.Low : 1000
 	EnumItem ContextActionPriority.Medium : 2000
-	EnumItem ContextActionPriority.Default : 2000
 	EnumItem ContextActionPriority.High : 3000
 Enum ContextActionResult
 	EnumItem ContextActionResult.Sink : 0
@@ -6228,6 +6244,11 @@ Enum RotationOrder
 Enum RotationType
 	EnumItem RotationType.MovementRelative : 0
 	EnumItem RotationType.CameraRelative : 1
+Enum RunContext
+	EnumItem RunContext.Legacy : 0
+	EnumItem RunContext.Server : 1
+	EnumItem RunContext.Client : 2
+	EnumItem RunContext.Plugin : 3
 Enum RuntimeUndoBehavior
 	EnumItem RuntimeUndoBehavior.Aggregate : 0
 	EnumItem RuntimeUndoBehavior.Snapshot : 1
@@ -6783,6 +6804,8 @@ Enum WrapLayerDebugMode
 	EnumItem WrapLayerDebugMode.HSROuter : 9
 	EnumItem WrapLayerDebugMode.HSRInner : 10
 	EnumItem WrapLayerDebugMode.HSRInnerReverse : 11
+	EnumItem WrapLayerDebugMode.LayerCageFittedToBase : 12
+	EnumItem WrapLayerDebugMode.LayerCageFittedToPrev : 13
 Enum WrapTargetDebugMode
 	EnumItem WrapTargetDebugMode.None : 0
 	EnumItem WrapTargetDebugMode.TargetCageOriginal : 1

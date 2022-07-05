@@ -104,6 +104,7 @@ Studio.MaterialManager.Materials.Pavement,Pavement,Pavement
 Studio.MaterialManager.Materials.Pebble,Pebble,Pebble
 Studio.MaterialManager.Categories.Plastic,Plastic,Plastic
 Studio.MaterialManager.Materials.Plastic,Plastic,Plastic
+Studio.MaterialManager.TopBar.MaterialAsTool,Use Material as Tool,Use Material as Tool
 Studio.MaterialManager.Categories.Sand,Sand,Sand
 Studio.MaterialManager.Materials.Sand,Sand,Sand
 Studio.MaterialManager.Materials.Slate,Slate,Slate
@@ -164,6 +165,7 @@ Studio.MaterialManager.Materials.ForcefieldVariant,Force Field Variant,Force Fie
 Studio.MaterialManager.Materials.GlacierVariant,Glacier Variant,Glacier Variant
 Studio.MaterialManager.Materials.GlassVariant,Glass Variant,Glass Variant
 Studio.MaterialManager.Materials.GraniteVariant,Granite Variant,Granite Variant
+Studio.MaterialManager.ViewType.Grid,Grid,Grid
 Studio.MaterialManager.Materials.IceVariant,Ice Variant,Ice Variant
 Studio.MaterialManager.Materials.LeafyGrassVariant,Leafy Grass Variant,Leafy Grass Variant
 Studio.MaterialManager.Materials.LimestoneVariant,Limestone Variant,Limestone Variant
@@ -226,3 +228,4 @@ Studio.MaterialManager.MaterialAdditional.Additional,Additional,Additional
 Studio.MaterialManager.Callout.MaterialManagerApplyDescription,Click here to apply the selected material to the selected parts,Click here to apply the selected material to the selected parts
 Studio.MaterialManager.MaterialPatterns.Regular,Regular,Regular
 Studio.MaterialManager.Categories.Special,Special,Special
+Studio.MaterialManager.ViewType.List,List,List

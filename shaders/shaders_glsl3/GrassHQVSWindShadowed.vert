@@ -6,7 +6,7 @@
 #include <GrassPerFrameParams.h>
 uniform vec4 CB0[53];
 uniform vec4 CB1[2];
-uniform vec4 CB2[3];
+uniform vec4 CB2[4];
 in vec4 POSITION;
 in vec4 NORMAL;
 out vec4 VARYING0;
@@ -67,7 +67,7 @@ void main()
     float v46 = length(v45);
     vec3 v47 = -CB0[11].xyz;
     float v48 = abs(dot(v44, v47));
-    float v49 = exp2((-clamp(NORMAL.w, 0.0, 1.0)) * CB2[1].x);
+    float v49 = exp2((((-clamp(NORMAL.w, 0.0, 1.0)) * CB2[3].x) + CB2[3].y) * CB2[1].x);
     vec3 v50 = v45 / vec3(v46);
     vec3 v51 = normalize(v47 + v50);
     float v52 = 1.0 - clamp(((v46 - CB2[1].y) + 40.0) * 0.02500000037252902984619140625, 0.0, 1.0);

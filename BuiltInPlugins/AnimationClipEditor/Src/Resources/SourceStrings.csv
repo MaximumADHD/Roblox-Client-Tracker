@@ -4,7 +4,7 @@ Studio.AnimationClipEditor.AnimationFromVideo.ChooseVideo, ,Choose Video
 Studio.AnimationClipEditor.AnimationFromVideo.Error, ,"We encountered an error. Please try again in a bit, and if you continue to see this error, you may need to try a new video."
 Studio.AnimationClipEditor.AnimationFromVideo.Initializing, ,Getting started...
 Studio.AnimationClipEditor.AnimationFromVideo.InputHasNoPerson, ,"Couldn't detect a person – try a video with a person fully in frame, facing the camera."
-Studio.AnimationClipEditor.AnimationFromVideo.InputTooLong, ,That video is too long – try a video shorter than 10 seconds.
+Studio.AnimationClipEditor.AnimationFromVideo.InputTooLong, ,That video is too long – try a video shorter than 15 seconds.
 Studio.AnimationClipEditor.AnimationFromVideo.InputUnstable, ,That video is too shaky – try a more stable video.
 Studio.AnimationClipEditor.AnimationFromVideo.ModerationRejected, ,Your animation did not comply with our moderation rules. Please try a different video.
 Studio.AnimationClipEditor.AnimationFromVideo.MultiplePeopleInFrame, ,Multiple people detected - Please try a video with a single person fully in frame.
@@ -13,7 +13,7 @@ Studio.AnimationClipEditor.AnimationFromVideo.Processing, ,Your video is process
 Studio.AnimationClipEditor.AnimationFromVideo.RequiresModeration, ,Our moderation team is taking a look – we'll be in touch shortly.
 Studio.AnimationClipEditor.AnimationFromVideo.Success, ,Success! Your animation is ready.
 Studio.AnimationClipEditor.AnimationFromVideo.TimedOut, ,"Sorry, we're unable to process your video right now due to a high volume of requests. Please try again in a bit."
-Studio.AnimationClipEditor.AnimationFromVideo.TutorialText, ,"Choose a short video (10 seconds or less) containing a single person, fully in frame. Try to use a video with a stable, unmoving camera."
+Studio.AnimationClipEditor.AnimationFromVideo.TutorialText, ,"Choose a short video (15 seconds or less) containing a single person, fully in frame. Try to use a video with a stable, unmoving camera."
 Studio.AnimationClipEditor.AnimationFromVideo.TutorialTitle, ,Create animation from video
 Studio.AnimationClipEditor.ContextMenu.AddEvent, ,Add Animation Event Here
 Studio.AnimationClipEditor.ContextMenu.AddKeyframe, ,Add Keyframe
@@ -98,7 +98,7 @@ Studio.AnimationClipEditor.Menu.Action2, ,Action2
 Studio.AnimationClipEditor.Menu.Action3, ,Action3
 Studio.AnimationClipEditor.Menu.Action4, ,Action4
 Studio.AnimationClipEditor.Menu.AddAllFacs, ,Add All Facial Animation Controls
-Studio.AnimationClipEditor.Menu.AddAllTracks, ,Add All
+Studio.AnimationClipEditor.Menu.AddAllTracks, ,Add All Body
 Studio.AnimationClipEditor.Menu.Brows, ,Brows
 Studio.AnimationClipEditor.Menu.Core, ,Core
 Studio.AnimationClipEditor.Menu.CreateFromVideo, ,Create from video

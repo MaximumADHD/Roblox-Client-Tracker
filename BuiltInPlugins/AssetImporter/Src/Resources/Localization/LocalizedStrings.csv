@@ -1,4 +1,5 @@
 Key,Source,en-us
+Studio.AssetImporter.Statuses.DefaultWarnings,Import experienced a {type} warning.,Import experienced a {type} warning.
 Studio.AssetImporter.Plugin.Description,Import a mesh rig or avatar from a file using the import UI.,Import a mesh rig or avatar from a file using the import UI.
 Studio.AssetImporter.Plugin.Name,AssetImporter,AssetImporter
 Studio.AssetImporter.Properties.PolygonCount,Polygon Count,Polygon Count
@@ -9,23 +10,21 @@ Studio.AssetImporter.Plugin.Toolbar,Mesh Importer,Mesh Importer
 Studio.AssetImporter.Properties.FileDimensions,File Dimensions,File Dimensions
 Studio.AssetImporter.Plugin.Button,Import,Import
 Studio.AssetImporter.Plugin.Import,Import,Import
+Studio.AssetImporter.Statuses.MaterialIgnoredWarning,The material included with this object is currently unsupported.,The material included with this object is currently unsupported.
 Studio.AssetImporter.AssetImportTree.Errors,error(s),error(s)
 Studio.AssetImporter.Plugin.Browse,Browse...,Browse...
-Studio.AssetImporter.Statuses.DefaultWarnings,Import experienced a {type} warning,Import experienced a {type} warning
 Studio.AssetImporter.PropertiesTooltip.DoubleSided,Whether or not vertices should be one sided (you can see through them from one direction) or double sided (opaque from both directions),Whether or not vertices should be one sided (you can see through them from one direction) or double sided (opaque from both directions)
 Studio.AssetImporter.EnumItem.RthroNarrow,Rthro Narrow,Rthro Narrow
 Studio.AssetImporter.TreeViewToolbar.Expand,Expand,Expand
 Studio.AssetImporter.TreeViewToolbar.Collapse,Collapse,Collapse
 Studio.AssetImporter.Upload.Success,Successfully Imported!,Successfully Imported!
+Studio.AssetImporter.Statuses.DefaultError,Import experienced a {type} error.,Import experienced a {type} error.
 Studio.AssetImporter.AssetImportTree.Contains,Contains %d %s,Contains %d %s
 Studio.AssetImporter.AssetImportTree.Descendants,Descendants contain %d %s,Descendants contain %d %s
 Studio.AssetImporter.Upload.WindowTitle,Importing,Importing
-Studio.AssetImporter.Error.DefaultNoStatus,Import failed,Import failed
-Studio.AssetImporter.Upload.Failure,Import failed,Import failed
 Studio.AssetImporter.AssetImportTree.Warnings,warning(s),warning(s)
 Studio.AssetImporter.Plugin.Cancel,Cancel,Cancel
 Studio.AssetImporter.PropertiesTooltip.FileDimensions,The size of the extents of the file in studs,The size of the extents of the file in studs
-Studio.AssetImporter.Statuses.CouldNotReadTextureError,Could not read the texture file associated with this object,Could not read the texture file associated with this object
 Studio.AssetImporter.Plugin.WindowTitle,Import Preview,Import Preview
 Studio.AssetImporter.Properties.MergeMeshes,Merge Meshes,Merge Meshes
 Studio.AssetImporter.Sections.FileTransform,File Transform,File Transform
@@ -38,15 +37,14 @@ Studio.AssetImporter.Sections.FileGeometry,File Geometry,File Geometry
 Studio.AssetImporter.Properties.InsertInWorkspace,Insert In Workspace,Insert In Workspace
 Studio.AssetImporter.Properties.ImportName,Name,Name
 Studio.AssetImporter.Sections.ObjectGeneral,Object General,Object General
+Studio.AssetImporter.Statuses.CouldNotReadTextureError,Could not read the texture file associated with this object.,Could not read the texture file associated with this object.
 Studio.AssetImporter.Sections.ObjectGeometry,Object Geometry,Object Geometry
 Studio.AssetImporter.Properties.Dimensions,Object Dimensions,Object Dimensions
 Studio.AssetImporter.PropertiesTooltip.Anchored,If this object should be anchored,If this object should be anchored
-Studio.AssetImporter.Statuses.CouldNotReadNormalError,Could not read the normal texture file associated with this object,Could not read the normal texture file associated with this object
 Studio.AssetImporter.Properties.DoubleSided,Make Double Sided,Make Double Sided
 Studio.AssetImporter.Properties.InvertNegativeFaces,Invert Negative Faces,Invert Negative Faces
 Studio.AssetImporter.Properties.FilePath,File Path,File Path
 Studio.AssetImporter.Upload.SuccessDescription,You may find your asset in Toolbox or Asset Manager.,You may find your asset in Toolbox or Asset Manager.
-Studio.AssetImporter.Statuses.NormalBadFileFormatError,Unsupported normal texture file format,Unsupported normal texture file format
 Studio.AssetImporter.PropertiesTooltip.ImportAsModelAsset,Controls whether individual MeshParts are imported as separate assets in addition to being grouped into a model,Controls whether individual MeshParts are imported as separate assets in addition to being grouped into a model
 Studio.AssetImporter.Properties.ScaleUnit,Scale Unit,Scale Unit
 Studio.AssetImporter.PropertiesTooltip.ScaleUnit,The scale used when exporting the file,The scale used when exporting the file
@@ -59,20 +57,22 @@ Studio.AssetImporter.Properties.RigType,Rig Type,Rig Type
 Studio.AssetImporter.PropertiesTooltip.IgnoreVertexColors,Whether or not vertex color information should be extracted,Whether or not vertex color information should be extracted
 Studio.AssetImporter.Error.Default,Status: {type},Status: {type}
 Studio.AssetImporter.Statues.MeshScaleWarning,One of the objects dimensions are larger than can be imported,One of the objects dimensions are larger than can be imported
-Studio.AssetImporter.Statuses.MeshScaleWarning,One of the objects dimensions are larger than can be imported,One of the objects dimensions are larger than can be imported
 Studio.AssetImporter.Statues.MeshSizeWarning,The number of triangles is greater than is supported. Object will be simplified,The number of triangles is greater than is supported. Object will be simplified
-Studio.AssetImporter.Statuses.MeshSizeWarning,The number of triangles is greater than is supported. Object will be simplified,The number of triangles is greater than is supported. Object will be simplified
+Studio.AssetImporter.Upload.FailureDescription,Reason:,Reason:
+Studio.AssetImporter.Statuses.MeshScaleWarning,One of the objects dimensions are larger than can be imported.,One of the objects dimensions are larger than can be imported.
+Studio.AssetImporter.Statuses.CageHasMaterialWarning,Material(s) found under this cage mesh will be ignored. Materials cannot be applied to CageWrap instances.,Material(s) found under this cage mesh will be ignored. Materials cannot be applied to CageWrap instances.
+Studio.AssetImporter.Statuses.MeshSizeWarning,The number of triangles is greater than is supported. Object will be simplified.,The number of triangles is greater than is supported. Object will be simplified.
 Studio.AssetImporter.PropertiesTooltip.ImportName,The name of the object,The name of the object
 Studio.AssetImporter.PropertiesTooltip.InsertInWorkspace,If this object should be inserted into the workspace after import,If this object should be inserted into the workspace after import
 Studio.AssetImporter.PropertiesTooltip.InvertNegativeFaces,Whether or not to flip negative faces,Whether or not to flip negative faces
-Studio.AssetImporter.Statuses.DefaultError,Import experienced a {type} error,Import experienced a {type} error
 Studio.AssetImporter.PropertiesTooltip.PolygonCount,The total count of polygons in this object,The total count of polygons in this object
 Studio.AssetImporter.PropertiesTooltip.RigType,The type of Rig to import,The type of Rig to import
+Studio.AssetImporter.Statuses.CouldNotReadRoughnessError,Could not read the roughness texture file associated with this object.,Could not read the roughness texture file associated with this object.
 Studio.AssetImporter.PropertiesTooltip.WorldForward,The file's forward vector,The file's forward vector
 Studio.AssetImporter.PropertiesTooltip.WorldUp,The file's up vector,The file's up vector
 Studio.AssetImporter.Plugin.Close,Close,Close
-Studio.AssetImporter.Statuses.MaterialIgnoredWarning,The material included with this object is currently unsupported,The material included with this object is currently unsupported
-Studio.AssetImporter.Upload.FailureDescription,Reason:,Reason:
+Studio.AssetImporter.Error.DefaultNoStatus,Import failed,Import failed
+Studio.AssetImporter.Upload.Failure,Import failed,Import failed
 Studio.AssetImporter.Upload.Uploading,Uploading,Uploading
 Studio.AssetImporter.Error.WindowTitle,Error,Error
 Studio.AssetImporter.Error.Header,Failed to open the selected file.,Failed to open the selected file.
@@ -82,6 +82,7 @@ Studio.AssetImporter.EnumItem.R15,R15,R15
 Studio.AssetImporter.EnumItem.Rthro,Rthro,Rthro
 Studio.AssetImporter.EnumItem.Custom,Custom,Custom
 Studio.AssetImporter.EnumItem.None,No Rig,No Rig
+Studio.AssetImporter.Statuses.RoughnessBadFileFormatError,Unsupported roughness texture file format.,Unsupported roughness texture file format.
 Studio.AssetImporter.EnumItem.Meter,Meter,Meter
 Studio.AssetImporter.EnumItem.Back,Back,Back
 Studio.AssetImporter.EnumItem.Front,Front,Front
@@ -93,22 +94,21 @@ Studio.AssetImporter.EnumItem.CM,CM,CM
 Studio.AssetImporter.EnumItem.MM,MM,MM
 Studio.AssetImporter.EnumItem.Foot,Foot,Foot
 Studio.AssetImporter.EnumItem.Inch,Inch,Inch
-Studio.AssetImporter.Statuses.TextureBadFileFormatError,Unsupported texture file format,Unsupported texture file format
+Studio.AssetImporter.Statuses.TextureBadFileFormatError,Unsupported texture file format.,Unsupported texture file format.
 Studio.AssetImporter.Upload.FailureDescriptionNoError,Something went wrong. Please try again.,Something went wrong. Please try again.
 Studio.AssetImporter.PropertiesTooltip.CageManifoldPreview,"This cage has non-manifold geometry, which can cause deformation issues. Non-manifold area is marked in the preview render","This cage has non-manifold geometry, which can cause deformation issues. Non-manifold area is marked in the preview render"
-Studio.AssetImporter.Statuses.CageNonManifoldWarning,"This cage has non-manifold geometry, which can cause deformation issues. Non-manifold area is marked in the preview render","This cage has non-manifold geometry, which can cause deformation issues. Non-manifold area is marked in the preview render"
 Studio.AssetImporter.HttpError.422,Name was moderated. Please rename and try again.,Name was moderated. Please rename and try again.
 Studio.AssetImporter.PropertiesTooltip.MetalnessFilePath,The file path of the metalness map. The metalness map is a grayscale image used to determine how metallic a surface should look,The file path of the metalness map. The metalness map is a grayscale image used to determine how metallic a surface should look
 Studio.AssetImporter.HttpError.429,Upload failed. Endpoint has too many requests - please try again later.,Upload failed. Endpoint has too many requests - please try again later.
 Studio.AssetImporter.HttpError.UnknownStatusCode,Upload failed. Status Code:,Upload failed. Status Code:
 Studio.AssetImporter.HttpError.UploadResultBadIdParse,Could not upload. Asset name may have been rejected by moderation.,Could not upload. Asset name may have been rejected by moderation.
 Studio.AssetImporter.Statuses.IncorrectR15Warning,This rig does not follow the guidelines of chosen rig type.,This rig does not follow the guidelines of chosen rig type.
-Studio.AssetImporter.Statuses.CouldNotReadDiffuseError,Could not read the diffuse texture file associated with this object,Could not read the diffuse texture file associated with this object
-Studio.AssetImporter.Statuses.DiffuseBadFileFormatError,Unsupported diffuse texture file format,Unsupported diffuse texture file format
-Studio.AssetImporter.Statuses.CouldNotReadMetalnessError,Could not read the metalness texture file associated with this object,Could not read the metalness texture file associated with this object
-Studio.AssetImporter.Statuses.MetalnessBadFileFormatError,Unsupported metalness texture file format,Unsupported metalness texture file format
-Studio.AssetImporter.Statuses.CouldNotReadRoughnessError,Could not read the roughness texture file associated with this object,Could not read the roughness texture file associated with this object
-Studio.AssetImporter.Statuses.RoughnessBadFileFormatError,Unsupported roughness texture file format,Unsupported roughness texture file format
+Studio.AssetImporter.Statuses.CouldNotReadDiffuseError,Could not read the diffuse texture file associated with this object.,Could not read the diffuse texture file associated with this object.
+Studio.AssetImporter.Statuses.DiffuseBadFileFormatError,Unsupported diffuse texture file format.,Unsupported diffuse texture file format.
+Studio.AssetImporter.Statuses.CouldNotReadMetalnessError,Could not read the metalness texture file associated with this object.,Could not read the metalness texture file associated with this object.
+Studio.AssetImporter.Statuses.MetalnessBadFileFormatError,Unsupported metalness texture file format.,Unsupported metalness texture file format.
+Studio.AssetImporter.Statuses.CouldNotReadNormalError,Could not read the normal texture file associated with this object.,Could not read the normal texture file associated with this object.
+Studio.AssetImporter.Statuses.NormalBadFileFormatError,Unsupported normal texture file format.,Unsupported normal texture file format.
 Studio.AssetImporter.Properties.DiffuseFilePath,Diffuse File Path,Diffuse File Path
 Studio.AssetImporter.Properties.NormalFilePath,Normal File Path,Normal File Path
 Studio.AssetImporter.Properties.MetalnessFilePath,Metalness File Path,Metalness File Path
@@ -121,14 +121,16 @@ Studio.AssetImporter.PreviewTooltip.ResetCam,Reset camera,Reset camera
 Studio.AssetImporter.Properties.Manifold,Manifold,Manifold
 Studio.AssetImporter.Properties.InsertWithScenePosition,Insert Using Scene Position,Insert Using Scene Position
 Studio.AssetImporter.Statuses.CageManifoldWarning,This cage mesh is not a manifold. Non-manifold area is marked in the preview render,This cage mesh is not a manifold. Non-manifold area is marked in the preview render
-Studio.AssetImporter.PropertiesTooltip.CageNoOverlappingVerticesPreview,"Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render","Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render"
-Studio.AssetImporter.Statuses.CageOverlappingVerticesWarning,"Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render","Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render"
+Studio.AssetImporter.Statuses.CageOverlappingVerticesWarning,"Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render.","Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render."
 Studio.AssetImporter.Properties.CageManifoldPreview,Non-Manifold Geometry,Non-Manifold Geometry
 Studio.AssetImporter.Properties.CageNoOverlappingVerticesPreview,Coincident Vertices,Coincident Vertices
+Studio.AssetImporter.PropertiesTooltip.CageNoOverlappingVerticesPreview,"Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render","Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render"
 Studio.AssetImporter.PropertiesTooltip.InsertWithScenePosition,If this object should be inserted using its location in the imported scene,If this object should be inserted using its location in the imported scene
 Studio.AssetImporter.PropertiesTooltip.UseSceneOriginAsPivot,If the model's pivot point should be set at the imported scene's origin,If the model's pivot point should be set at the imported scene's origin
+Studio.AssetImporter.Statuses.CageNonManifoldWarning,"This cage has non-manifold geometry, which can cause deformation issues. Non-manifold area is marked in the preview render.","This cage has non-manifold geometry, which can cause deformation issues. Non-manifold area is marked in the preview render."
 Studio.AssetImporter.PropertiesTooltip.CageUVMatchedPreview,"For this asset to be Layered Clothing compatible, you need to use the original cage template and ensure that you do not modify the UV map.","For this asset to be Layered Clothing compatible, you need to use the original cage template and ensure that you do not modify the UV map."
 Studio.AssetImporter.Statuses.CageUVMisMatchedWarning,"For this asset to be Layered Clothing compatible, you need to use the original cage template and ensure that you do not modify the UV map.","For this asset to be Layered Clothing compatible, you need to use the original cage template and ensure that you do not modify the UV map."
 Studio.AssetImporter.Properties.CageUVMatchedPreview,Modified UV map,Modified UV map
 Studio.AssetImporter.Properties.UseImportedPivot,Use Imported Pivot,Use Imported Pivot
 Studio.AssetImporter.PropertiesTooltip.UseImportedPivot,Whether or not to use the pivot defined in the scene file (instead of centering the pivot within the object's geometry),Whether or not to use the pivot defined in the scene file (instead of centering the pivot within the object's geometry)
+Studio.AssetImporter.Statuses.CageMismatchWarning,The number of cage vertices between the outer and inner cage don't match.,The number of cage vertices between the outer and inner cage don't match.

@@ -1,66 +1,72 @@
 {
-  "name": "BuiltInSnippetPack",
-  "description": "Default built-in snippets",
-  "snippets": [
-    {
-      "id": "while",
-      "prefix": "while",
-      "code": "while ${1:condition} do \n\t${2:body}\nend",
-      "description": "A while loop that executes a code block while a condition holds true"
-    },
-    {
-      "id": "generic for(pairs)",
-      "prefix": "for",
-      "code": "for ${2:key}, ${3:value} in ipairs(${1:var}) do\n\t${4:body}\nend",
-      "description": "A for loop that iterates over table as dictionaries."
-    },
-    {
-      "id": "generic for(ipairs)",
-      "prefix": "for",
-      "code": "for ${2:index}, ${3:value} in ipairs(${1:var}) do\n\t${4:body}\nend",
-      "description": "A for loop that iterates over table as array."
-    },
-    {
-      "id": "numeric for",
-      "prefix": "for",
-      "code": "for ${1:index} = ${2:startValue}, ${3:endValue}, ${4:incrementer} do\n\t${5:body}\nend",
-      "description": "A for loop that executes a code block exp1 to exp2 times, (optionally) using exp3 to increment value. The default increment value is 1."
-    },
-    {
-      "id": "if",
-      "prefix": "if",
-      "code": "if ${1:condition} then\n\t${2:body}\nend",
-      "description": "An if statement that executes a code block if a condition is true"
-    },
-    {
-      "id": "if else",
-      "prefix": "if",
-      "code": "if ${1:condition} then\n\t${2:body}\nelse\n\t${3:secondaryBody}\nend",
-      "description": "An if statement that executes one code block if a condition is true, and another code block if it is not."
-    },
-    {
-      "id": "if elseif",
-      "prefix": "if",
-      "code": "if ${1:condition} then\n\t${2:body}\nelseif ${3:secondaryCondition}\n\t${4:secondaryBody}\nend",
-      "description": "An if statement that executes one code block if a condition is true, or another code block if a secondary condition is true."
-    },
-    {
-      "id": "function",
-      "prefix": "function",
-      "code": "function ${1:name}()\n\t${2:body}\nend",
-      "description": "A definition of a function."
-    },
-    {
-      "id": "generic class",
-      "prefix": "class",
-      "code": "class = {}\nfunction class.new()\n\t${0}\nend",
-      "description": "A generic class definition, using a table as the underlying data structure."
-    },
-    {
-      "id": "get service",
-      "prefix": "getservice",
-      "code": "local ${1:service} = game:GetService(\"${1}\")",
-      "description": "Returns the service with the requested class name, creating it if it does not exist."
-    }
-  ]
+    "name": "Default Built-in Snippets",
+    "description": "Default Built-in Snippets",
+    "snippets": [
+        {
+            "id": "while",
+            "prefix": "while",
+            "code": "while ${1:condition} do \n\t${2:body}\nend",
+            "description": "A while loop that executes a code block while a condition holds true"
+        },
+        {
+            "id": "generic for(pairs)",
+            "prefix": "for",
+            "code": "for ${2:key}, ${3:value} in pairs(${1:var}) do\n\t${4:body}\nend",
+            "description": "A for loop that iterates over table as dictionaries."
+        },
+        {
+            "id": "generic for(ipairs)",
+            "prefix": "for",
+            "code": "for ${2:index}, ${3:value} in ipairs(${1:var}) do\n\t${4:body}\nend",
+            "description": "A for loop that iterates over table as array."
+        },
+        {
+            "id": "numeric for",
+            "prefix": "for",
+            "code": "for ${1:index} = ${2:startValue}, ${3:endValue}, ${4:incrementer} do\n\t${5:body}\nend",
+            "description": "A for loop that executes a code block exp1 to exp2 times, (optionally) using exp3 to increment value. The default increment value is 1."
+        },
+        {
+            "id": "if",
+            "prefix": "if",
+            "code": "if ${1:condition} then\n\t${2:body}\nend",
+            "description": "An if statement that executes a code block if a condition is true"
+        },
+        {
+            "id": "if else",
+            "prefix": "if",
+            "code": "if ${1:condition} then\n\t${2:body}\nelse\n\t${3:secondaryBody}\nend",
+            "description": "An if statement that executes one code block if a condition is true, and another code block if it is not."
+        },
+        {
+            "id": "if elseif",
+            "prefix": "if",
+            "code": "if ${1:condition} then\n\t${2:body}\nelseif ${3:secondaryCondition} then\n\t${4:secondaryBody}\nend",
+            "description": "An if statement that executes one code block if a condition is true, or another code block if a secondary condition is true."
+        },
+        {
+            "id": "function",
+            "prefix": "function",
+            "code": "function ${1:name}()\n\t${2:body}\nend",
+            "description": "A definition of a function."
+        },
+        {
+            "id": "class",
+            "prefix": "class",
+            "code": "class = {}\nfunction class.new()\n\t${0}\nend",
+            "description": "A generic class definition, using a table as the underlying data structure."
+        },
+        {
+            "id": "new",
+            "prefix": "new",
+            "code": "${1:var} = ${2:type}.new(${0})",
+            "description": "A statement that creates a new instance of an object."
+        },
+        {
+            "id": "getservice",
+            "prefix": "getservice",
+            "code": "local ${1:service} = game:GetService(\"${1}\")",
+            "description": "Returns the service with the requested class name, creating it if it does not exist."
+        }
+    ]
 }
