@@ -48,7 +48,7 @@ local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimati
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFixButtonStyle = require(Plugin.LuaFlags.GetFFlagFixButtonStyle)
 local GetFFlagCreateAnimationFromVideoTutorialEnabled = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoTutorialEnabled)
-local GetFFlagCreateAnimationFromVideoAnalytics = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoAnalytics)
+local GetFFlagCreateAnimationFromVideoAnalytics2 = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoAnalytics2)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local AnimationClipDropdown = Roact.PureComponent:extend("AnimationClipDropdown")
@@ -190,7 +190,7 @@ function AnimationClipDropdown:init()
 	end
 
 	self.createFromVideoRequested = function()
-		if GetFFlagCreateAnimationFromVideoAnalytics() then
+		if GetFFlagCreateAnimationFromVideoAnalytics2() then
 			self.props.Analytics:report("onAnimationEditorImportVideoCreate")
 		end
 		if GetFFlagCreateAnimationFromVideoTutorialEnabled() then

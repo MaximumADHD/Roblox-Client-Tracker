@@ -6,10 +6,10 @@ local MockServiceWrapper = require(Plugin.Src.TestHelpers.MockServiceWrapper)
 local Roact = require(Plugin.Packages.Roact)
 
 return function()
-    it("should construct and destroy without any errors", function()
-        local container = Instance.new("Folder")
+	it("should construct and destroy without any errors", function()
+		local container = Instance.new("Folder")
 
-        local element = Roact.createElement(MockServiceWrapper, {
+		local element = Roact.createElement(MockServiceWrapper, {
 			storeState = {
 				AssetManagerReducer = {
 					assetsTable = {
@@ -22,7 +22,7 @@ return function()
 				}
 			}
 		}, {
-            AssetPreviewWrapper = Roact.createElement(AssetPreviewWrapper, {
+			AssetPreviewWrapper = Roact.createElement(AssetPreviewWrapper, {
 				AssetData = {
 					id = 1234,
 				},
@@ -42,17 +42,17 @@ return function()
 					Creator = {
 						Type = 1,
 						TypeId = 1,
-                        TargetId = 9876543210,
-                        Name = "helloworld",
+						TargetId = 9876543210,
+						Name = "helloworld",
 					},
 					rootTreeViewInstance = Instance.new("Model"),
 				},
-                OnAssetPreviewClose = function() end,
-            })
-        })
+				OnAssetPreviewClose = function() end,
+			})
+		})
 
-        local instance = Roact.mount(element, container)
+		local instance = Roact.mount(element, container)
 
-        Roact.unmount(instance)
-    end)
+		Roact.unmount(instance)
+	end)
 end

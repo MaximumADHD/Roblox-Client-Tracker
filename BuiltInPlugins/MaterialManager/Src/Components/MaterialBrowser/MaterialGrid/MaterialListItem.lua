@@ -24,7 +24,6 @@ local StatusIcon = require(Components.StatusIcon)
 
 local Util = Plugin.Src.Util
 local CalculateFillWidth = require(Util.CalculateFillWidth)
-local MaterialServiceController = require(Util.MaterialServiceController)
 
 export type Props = {
 	ApplyToSelection: () -> (),
@@ -44,7 +43,6 @@ export type Props = {
 type _Props = Props & {
 	Analytics: any,
 	Localization: any,
-	MaterialController: any,
 	Stylizer: any,
 }
 
@@ -178,6 +176,5 @@ end
 return withContext({
 	Analytics = Analytics,
 	Localization = Localization,
-	MaterialController = MaterialServiceController,
 	Stylizer = Stylizer,
 })(MaterialListItem)

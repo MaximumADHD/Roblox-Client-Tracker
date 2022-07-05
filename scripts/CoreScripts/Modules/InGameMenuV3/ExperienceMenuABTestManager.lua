@@ -1,7 +1,7 @@
 --[[
 	Handles A/B testing of experience menu with IXP service
 	on the Experience.Menu layer
-	eg. v1 = old menu, v2 = new menu
+	eg. v1 = old menu, v2 = deprecated menu, v3 = new menu
 ]]
 
 local AppStorageService = game:GetService("AppStorageService")
@@ -14,6 +14,7 @@ local IsExperienceMenuABTestEnabled = require(script.Parent.IsExperienceMenuABTe
 local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION = "ExperienceMenuVersion"
 local DEFAULT_MENU_VERSION = "v1"
 local MENU_VERSION_V2 = "v2"
+local MENU_VERSION_V3 = "v3"
 
 local ExperienceMenuABTestManager = {}
 ExperienceMenuABTestManager.__index = ExperienceMenuABTestManager
@@ -56,6 +57,10 @@ end
 
 function ExperienceMenuABTestManager:isV2MenuEnabled()
 	return self:getVersion() == MENU_VERSION_V2
+end
+
+function ExperienceMenuABTestManager:isV3MenuEnabled()
+	return self:getVersion() == MENU_VERSION_V3
 end
 
 -- this is called on the assumption that IXP layers are initialized

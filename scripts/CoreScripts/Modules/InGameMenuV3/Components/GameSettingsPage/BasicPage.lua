@@ -4,6 +4,7 @@ local GuiService = game:GetService("GuiService")
 local CorePackages = game:GetService("CorePackages")
 local VRService = game:GetService("VRService")
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
+local UserInputService = game:GetService("UserInputService")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -47,6 +48,7 @@ local Constants = require(InGameMenu.Resources.Constants)
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local VerticalScrollViewWithIndicator = UIBlox.App.Container.VerticalScrollViewWithIndicator
 
 local Flags = InGameMenu.Flags
 local GetFFlagInGameMenuVRToggle = require(Flags.GetFFlagInGameMenuVRToggle)
@@ -60,6 +62,8 @@ end
 local canUseVignette = FFlagUserVRVignetteToggle
 
 local VREnabledChanged = UserGameSettings:GetPropertyChangedSignal("VREnabled")
+local platform = UserInputService:GetPlatform()
+local isMobileClient = (platform == Enum.Platform.IOS) or (platform == Enum.Platform.Android)
 
 local BasicPage = Roact.PureComponent:extend("BasicPage")
 BasicPage.validateProps = t.strictInterface({
@@ -90,9 +94,18 @@ function BasicPage:init()
 		voiceChatEnabled = false,
 	})
 
-	self.pageSize, self.setPageSize = Roact.createBinding(UDim2.new(0, 0, 0, 0))
 	self.cameraModeButton = Roact.createRef() -- reference to the cameramode button at the top of the page
 	self.volumeButton = Roact.createRef() -- reference to the slider button at the top of the page in vr
+	self.scrollingFrameRef = Roact.createRef()
+end
+
+function BasicPage:didUpdate(prevProps)
+	if self.props.isMenuOpen and not prevProps.isMenuOpen then
+		local scrollingFrame = self.scrollingFrameRef:getValue()
+		if scrollingFrame and scrollingFrame.CanvasPosition.Y > 0 then
+			scrollingFrame.CanvasPosition = Vector2.new(0, 0)
+		end
+	end
 end
 
 function BasicPage:renderWithSelectionCursor(getSelectionCursor)
@@ -121,23 +134,18 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 					end
 				end,
 			}),
-			PageContents = Roact.createElement("ScrollingFrame", {
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				CanvasSize = self.pageSize,
-				Position = self.props.position,
-				Size = UDim2.new(1, 0, 1, 0),
-				Selectable = false,
-				ScrollingDirection = Enum.ScrollingDirection.Y,
+			PageContents = Roact.createElement(VerticalScrollViewWithIndicator, {
+				position = self.props.position,
+				size = UDim2.new(1, 0, 1, 0),
+				useAutomaticCanvasSize = true,
+				canvasSizeY = UDim.new(0, 0), -- no minmum size
+				scrollingFrameRef = self.scrollingFrameRef,
 				[Roact.Change.CanvasPosition] = onScroll,
 			}, {
 				Layout = Roact.createElement("UIListLayout", {
 					HorizontalAlignment = Enum.HorizontalAlignment.Right,
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					VerticalAlignment = Enum.VerticalAlignment.Top,
-					[Roact.Change.AbsoluteContentSize] = function(rbx)
-						self.setPageSize(UDim2.new(0, 0, 0, rbx.AbsoluteContentSize.Y))
-					end,
 				}),
 
 				CameraHeader = Roact.createElement(CategoryHeader, {
@@ -173,7 +181,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 					LayoutOrder = 6,
 					localizationKey = "CoreScripts.InGameMenu.GameSettings.ControlsAudio",
 				}),
-				ShiftLock = shouldSettingsDisabledInVRBeShown and Roact.createElement(AutoPropertyToggleEntry, {
+				ShiftLock = not isMobileClient and shouldSettingsDisabledInVRBeShown and Roact.createElement(AutoPropertyToggleEntry, {
 					LayoutOrder = 7,
 					labelKey = "CoreScripts.InGameMenu.GameSettings.ShiftLock",
 					instance = UserGameSettings,
@@ -181,7 +189,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 					onValue = Enum.ControlMode.MouseLockSwitch,
 					offValue = Enum.ControlMode.Classic,
 					lockedToOff = not self.state.shiftLockEnabled,
-				}),
+				}) or nil,
 				MovementMode = shouldSettingsDisabledInVRBeShown and Roact.createElement(MovementModeEntry, {
 					LayoutOrder = 8,
 					canOpen = self.props.canCaptureFocus,
@@ -224,7 +232,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 					canCaptureFocus = self.props.canCaptureFocus and self.props.canGamepadCaptureFocus,
 					isMenuOpen = self.props.isMenuOpen,
 				}),
-				FullScreen = shouldSettingsDisabledInVRBeShown and Roact.createElement(ToggleEntry, {
+				FullScreen = not isMobileClient and shouldSettingsDisabledInVRBeShown and Roact.createElement(ToggleEntry, {
 					LayoutOrder = 15,
 					labelKey = "CoreScripts.InGameMenu.GameSettings.FullScreen",
 					checked = self.state.fullScreenEnabled,
@@ -232,7 +240,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 						GuiService:ToggleFullscreen()
 						SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 					end,
-				}),
+				}) or nil,
 				VRMode = GetFFlagInGameMenuVRToggle()
 					and (self.state.vrActive or UserGameSettings.HasEverUsedVR)
 					and Roact.createElement(AutoPropertyToggleEntry, {
@@ -243,12 +251,15 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 						subtextEnabled = self.state.vrEnabled ~= vrEnabledAtModuleLoad,
 						subtextKey = "CoreScripts.InGameMenu.GameSettings.RestartPending",
 					}),
-				VignetteEnabled = canUseVignette and self.state.vrActive and Roact.createElement(AutoPropertyToggleEntry, {
-					LayoutOrder = 17,
-					labelKey = "CoreScripts.InGameMenu.GameSettings.VignetteEnabled",
-					instance = UserGameSettings,
-					valueKey = "VignetteEnabled",
-				}),
+				VignetteEnabled = canUseVignette and self.state.vrActive and Roact.createElement(
+					AutoPropertyToggleEntry,
+					{
+						LayoutOrder = 17,
+						labelKey = "CoreScripts.InGameMenu.GameSettings.VignetteEnabled",
+						instance = UserGameSettings,
+						valueKey = "VignetteEnabled",
+					}
+				),
 				GraphicsDivider = Roact.createElement(Divider, {
 					LayoutOrder = 18,
 					Size = dividerSize,
@@ -379,6 +390,8 @@ end, function(dispatch)
 	return {
 		switchToAdvancedPage = function()
 			dispatch(SetCurrentPage(Constants.advancedSettingsPageKey))
+
+			SendAnalytics(Constants.AnalyticsInGameMenuName, Constants.advancedSettingsPageKey, {})
 		end,
 	}
 end)(BasicPage)

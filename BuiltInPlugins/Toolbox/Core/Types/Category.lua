@@ -1,4 +1,4 @@
-local FFlagToolboxReorderAssetTypes = game:GetFastFlag("ToolboxReorderAssetTypes")
+local FFlagToolboxFixDurationOnCreationTab = game:GetFastFlag("ToolboxFixDurationOnCreationTab")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
 local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
@@ -584,67 +584,35 @@ Category.CREATIONS_GROUP_DRESS_SKIRT_ACCESSORIES = {
 	ownershipType = Category.OwnershipType.GROUP,
 }
 
-if FFlagToolboxReorderAssetTypes then
-	-- Category sets used for splitting inventory/shop
-	Category.MARKETPLACE = {
-		Category.FREE_MODELS,
-		Category.WHITELISTED_PLUGINS,
-		Category.FREE_AUDIO,
-		Category.FREE_DECALS,
-		Category.FREE_MESHES,
-		Category.MARKETPLACE_VIDEOS,
-	}
+-- Category sets used for splitting inventory/shop
+Category.MARKETPLACE = {
+	Category.FREE_MODELS,
+	Category.WHITELISTED_PLUGINS,
+	Category.FREE_AUDIO,
+	Category.FREE_DECALS,
+	Category.FREE_MESHES,
+	Category.MARKETPLACE_VIDEOS,
+}
 
-	Category.INVENTORY = {
-		Category.MY_MODELS,
-		Category.MY_PLUGINS,
-		Category.MY_AUDIO,
-		Category.MY_DECALS,
-		Category.MY_MESHES,
-		Category.MY_PACKAGES,
-		Category.MY_ANIMATIONS,
-		Category.MY_VIDEOS,
-	}
+Category.INVENTORY = {
+	Category.MY_MODELS,
+	Category.MY_PLUGINS,
+	Category.MY_AUDIO,
+	Category.MY_DECALS,
+	Category.MY_MESHES,
+	Category.MY_PACKAGES,
+	Category.MY_ANIMATIONS,
+	Category.MY_VIDEOS,
+}
 
-	Category.RECENT = {
-		Category.RECENT_MODELS,
-		Category.RECENT_AUDIO,
-		Category.RECENT_DECALS,
-		Category.RECENT_MESHES,
-		Category.RECENT_ANIMATIONS,
-		Category.RECENT_VIDEO,
-	}
-else
-	-- Category sets used for splitting inventory/shop
-	Category.MARKETPLACE = {
-		Category.FREE_MODELS,
-		Category.FREE_DECALS,
-		Category.FREE_MESHES,
-		Category.FREE_AUDIO,
-		Category.MARKETPLACE_VIDEOS,
-		Category.WHITELISTED_PLUGINS,
-	}
-
-	Category.INVENTORY = {
-		Category.MY_MODELS,
-		Category.MY_DECALS,
-		Category.MY_MESHES,
-		Category.MY_AUDIO,
-		Category.MY_PACKAGES,
-		Category.MY_VIDEOS,
-		Category.MY_PLUGINS,
-		Category.MY_ANIMATIONS,
-	}
-
-	Category.RECENT = {
-		Category.RECENT_MODELS,
-		Category.RECENT_DECALS,
-		Category.RECENT_MESHES,
-		Category.RECENT_AUDIO,
-		Category.RECENT_VIDEO,
-		Category.RECENT_ANIMATIONS,
-	}
-end
+Category.RECENT = {
+	Category.RECENT_MODELS,
+	Category.RECENT_AUDIO,
+	Category.RECENT_DECALS,
+	Category.RECENT_MESHES,
+	Category.RECENT_ANIMATIONS,
+	Category.RECENT_VIDEO,
+}
 
 Category.DEFAULT = nil
 if disableMarketplaceAndRecents() then
@@ -690,6 +658,10 @@ Category.API_NAMES = {
 	[Category.RECENT_ANIMATIONS.name] = "animation",
 }
 
+if FFlagToolboxFixDurationOnCreationTab then
+	Category.API_NAMES[Category.CREATIONS_AUDIO.name] = "audio"
+end
+
 Category.AUTOCOMPLETE_API_NAMES = {
 	[Category.FREE_AUDIO.name] = "audio",
 	[Category.WHITELISTED_PLUGINS.name] = "plugin",
@@ -701,41 +673,22 @@ Category.AUTOCOMPLETE_API_NAMES = {
 }
 
 local function getCreationCategories()
-	if FFlagToolboxReorderAssetTypes then
-		return {
-			Category.CREATIONS_DEVELOPMENT_SECTION_DIVIDER,
-			Category.CREATIONS_MODELS,
-			Category.CREATIONS_PLUGIN,
-			Category.CREATIONS_AUDIO,
-			Category.CREATIONS_DECALS,
-			Category.CREATIONS_MESHES,
-			Category.CREATIONS_ANIMATIONS,
-			Category.CREATIONS_GROUP_MODELS,
-			Category.CREATIONS_GROUP_PLUGIN,
-			Category.CREATIONS_GROUP_AUDIO,
-			Category.CREATIONS_GROUP_DECALS,
-			Category.CREATIONS_GROUP_MESHES,
-			Category.CREATIONS_GROUP_PACKAGES,
-			Category.CREATIONS_GROUP_ANIMATIONS,
-		}
-	else
-		return {
-			Category.CREATIONS_DEVELOPMENT_SECTION_DIVIDER,
-			Category.CREATIONS_MODELS,
-			Category.CREATIONS_DECALS,
-			Category.CREATIONS_AUDIO,
-			Category.CREATIONS_MESHES,
-			Category.CREATIONS_PLUGIN,
-			Category.CREATIONS_ANIMATIONS,
-			Category.CREATIONS_GROUP_MODELS,
-			Category.CREATIONS_GROUP_DECALS,
-			Category.CREATIONS_GROUP_AUDIO,
-			Category.CREATIONS_GROUP_MESHES,
-			Category.CREATIONS_GROUP_PLUGIN,
-			Category.CREATIONS_GROUP_PACKAGES,
-			Category.CREATIONS_GROUP_ANIMATIONS,
-		}
-	end
+	return {
+		Category.CREATIONS_DEVELOPMENT_SECTION_DIVIDER,
+		Category.CREATIONS_MODELS,
+		Category.CREATIONS_PLUGIN,
+		Category.CREATIONS_AUDIO,
+		Category.CREATIONS_DECALS,
+		Category.CREATIONS_MESHES,
+		Category.CREATIONS_ANIMATIONS,
+		Category.CREATIONS_GROUP_MODELS,
+		Category.CREATIONS_GROUP_PLUGIN,
+		Category.CREATIONS_GROUP_AUDIO,
+		Category.CREATIONS_GROUP_DECALS,
+		Category.CREATIONS_GROUP_MESHES,
+		Category.CREATIONS_GROUP_PACKAGES,
+		Category.CREATIONS_GROUP_ANIMATIONS,
+	}
 end
 
 Category.MARKETPLACE_KEY = "Marketplace"

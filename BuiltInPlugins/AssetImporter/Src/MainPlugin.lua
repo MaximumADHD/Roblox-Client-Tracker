@@ -1,19 +1,6 @@
 --[[
 	The main plugin component.
 	Consists of the PluginWidget, Toolbar, Button, and Roact tree.
-
-	New Plugin Setup: When creating a plugin, commit this template
-		first with /packages in a secondary pull request.
-
-		A common workaround for the large diffs from Packages/_Index is to put
-		the Packages/_Index changes into a separate PR like this:
-			master <- PR <- Packages PR
-		Get people to review *PR*, then after approvals, merge *Packages PR*
-		into *PR*, and then *PR* into master.
-
-
-	New Plugin Setup: Search for other TODOs to see other tasks to modify this template for
-	your needs. All setup TODOs are tagged as New Plugin Setup:
 ]]
 
 local main = script.Parent.Parent
@@ -36,7 +23,7 @@ local MeshImportDialog = require(Components.MeshImportDialog)
 local ProgressWidget = require(Components.ProgressWidget)
 local ErrorWidget = require(Components.ErrorWidget)
 
-local getFFlagAssetImporterDSATelemetry = require(main.Src.Flags.getFFlagAssetImporterDSATelemetry)
+local getFFlagUseAssetImportSession = require(main.Src.Flags.getFFlagUseAssetImportSession)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -78,19 +65,25 @@ function MainPlugin:init(props)
 		})
 	end
 
-	self.onCancel = function()
+	self.onCancel = function(session)
 		self.onClose()
-		if getFFlagAssetImporterDSATelemetry() then
+		if getFFlagUseAssetImportSession() then
+			session:Cancel()
+		else
 			AssetImportService:Cancel()
 		end
 	end
 
-	self.onImport = function(assetSettings)
+	self.onImport = function(session)
 		self.onClose()
 		self:setState({
 			uploadInProgress = true,
 		})
-		AssetImportService:Upload()
+		if getFFlagUseAssetImportSession() then
+			session:Upload()
+		else
+			AssetImportService:Upload()
+		end
 	end
 end
 

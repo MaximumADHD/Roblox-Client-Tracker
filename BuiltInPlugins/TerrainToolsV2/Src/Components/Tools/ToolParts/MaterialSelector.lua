@@ -17,6 +17,12 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
+local FFlagTerrainToolsUse2022Materials = game:GetFastFlag("TerrainToolsUse2022Materials")
+
+local MaterialService = nil
+if FFlagTerrainToolsUse2022Materials then
+	MaterialService = game:GetService("MaterialService")
+end
 local TextService = game:GetService("TextService")
 
 local TexturePath = "rbxasset://textures/TerrainTools/"
@@ -126,7 +132,12 @@ MaterialTooltip = withContext({
 		local isSelected = props.IsSelected
 		local isHovered = props.IsHovered
 
-		local image = MaterialDetails[material].image
+		local image
+		if props.Use2022Materials then
+			image = MaterialDetails[material].image_2022
+		else
+			image = MaterialDetails[material].image
+		end
 
 		local materialName
 		if isHovered then
@@ -180,6 +191,18 @@ function MaterialSelector:init(props)
 	end
 end
 
+if FFlagTerrainToolsUse2022Materials then
+	function MaterialSelector:didMount()
+		self.connection = MaterialService:GetPropertyChangedSignal("Use2022Materials"):Connect(function()
+			self:setState({})
+		end)
+	end
+
+	function MaterialSelector:willUnmount()
+		self.connection:Disconnect()
+	end
+end
+
 function MaterialSelector:render()
 	local theme = self.props.Theme:get()
 	local localization = self.props.Localization:get()
@@ -215,6 +238,7 @@ function MaterialSelector:render()
 			OnMouseEnter = self.onMouseEnterMaterial,
 			OnMouseLeave = self.onMouseLeaveMaterial,
 			SelectMaterial = self.selectMaterial,
+			Use2022Materials = FFlagTerrainToolsUse2022Materials and MaterialService.Use2022Materials
 		})
 	end
 

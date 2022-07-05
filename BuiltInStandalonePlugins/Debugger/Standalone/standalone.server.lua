@@ -30,14 +30,8 @@ if DebugFlags.RunningUnderCLI() then
 end
 
 -- If the Debugger is disabled in the setting, DebuggerUIService does not exist, quit this plugin.
-if game:GetFastFlag("StudioGetServiceWorksFromLua2") then
-	if not game:FindService("DebuggerUIService") then
-		return
-	end
-else
-	if not game:GetService("DebuggerUIService") then
-		return
-	end
+if not game:FindService("DebuggerUIService") then
+	return
 end
 
 -- New Plugin Setup: Uncomment this line and replace with your flag's name.

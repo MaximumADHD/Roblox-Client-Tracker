@@ -11,19 +11,32 @@
 	Optional Props:
 	LayoutOrder = number, will automatic be overrode Position property by UILayouter.
 ]]
+local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
-local UILibrary = require(Packages.UILibrary)
+local Framework = require(Packages.Framework)
+
+local FFlagRemoveUILibraryRoundTextBox = Framework.SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
+
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
+
+local UI = Framework.UI
+local TextInput2 = UI.TextInput2
 
 local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
 
-local RoundTextBox = UILibrary.Component.RoundTextBox
+local RoundTextBox
+if not FFlagRemoveUILibraryRoundTextBox then
+	local UILibrary = require(Packages.UILibrary)
+	RoundTextBox = UILibrary.Component.RoundTextBox
+end
 
-local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
+local withTheme = if FFlagUpdateConvertToPackageToDFContextServices then nil else require(Plugin.Src.ContextServices.Theming).withTheme
 local ConfigTextField = Roact.PureComponent:extend("ConfigTextField")
 
 local TITLE_HEIGHT = 40
@@ -44,7 +57,9 @@ function ConfigTextField:init(props)
 end
 
 function ConfigTextField:render()
-	return withTheme(function(theme)
+	local style = self.props.Stylizer
+
+	local function renderWithContext(theme)
 		local props = self.props
 		local state = self.state
 
@@ -89,23 +104,42 @@ function ConfigTextField:render()
 				LayoutOrder = 1,
 			}),
 
-			TextField = Roact.createElement(RoundTextBox, {
-				Active = true,
-				ErrorMessage = nil,
-				MaxLength = MaxCount,
-				Text = currentContent,
-				Font = Constants.FONT,
-				TextSize = Constants.FONT_SIZE_TITLE,
-				Height = TotalHeight - TITLE_HEIGHT - TOOL_TIP_HEIGHT,
-				WidthOffset = -Constants.TITLE_GUTTER_WIDTH,
-				Multiline = MaxCount > 50,
+			TextField = (if FFlagRemoveUILibraryRoundTextBox then
+				Roact.createElement(TextInput2, {
+					LayoutOrder = 2,
+					MaxLength = MaxCount,
+					MultiLine = MaxCount > 50,
+					OnTextChanged = self.onTextChanged,
+					Text = currentContent,
+					Width = if FFlagRemoveUILibraryRoundTextBox then UDim.new(1, -Constants.TITLE_GUTTER_WIDTH) else nil,
+				})
+			else
+				Roact.createElement(RoundTextBox, {
+					Active = true,
+					ErrorMessage = nil,
+					MaxLength = MaxCount,
+					Text = currentContent,
+					Font = Constants.FONT,
+					TextSize = Constants.FONT_SIZE_TITLE,
+					Height = TotalHeight - TITLE_HEIGHT - TOOL_TIP_HEIGHT,
+					WidthOffset = -Constants.TITLE_GUTTER_WIDTH,
+					Multiline = MaxCount > 50,
 
-				SetText = self.onTextChanged,
+					SetText = self.onTextChanged,
 
-				LayoutOrder = 2,
-			})
+					LayoutOrder = 2,
+				})
+			),
 		})
-	end)
+	end
+
+	return if FFlagUpdateConvertToPackageToDFContextServices then renderWithContext(style) else withTheme(renderWithContext)
+end
+
+if FFlagUpdateConvertToPackageToDFContextServices then
+	ConfigTextField = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(ConfigTextField)
 end
 
 return ConfigTextField

@@ -1,3 +1,4 @@
+-- Remove with FFlagMaterialManagerRefactorTextureMapSelector
 local Plugin = script.Parent.Parent.Parent
 local getErrorTypes = require(Plugin.Src.Resources.Constants.getErrorTypes)
 local ErrorTypes = getErrorTypes()

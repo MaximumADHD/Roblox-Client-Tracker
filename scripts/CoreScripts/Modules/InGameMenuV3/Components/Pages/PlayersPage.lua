@@ -16,6 +16,7 @@ local withStyle = UIBlox.Core.Style.withStyle
 local IconButton = UIBlox.App.Button.IconButton
 local Images = UIBlox.App.ImageSet.Images
 local getIconSize = UIBlox.App.ImageSet.getIconSize
+local VerticalScrollViewWithIndicator = UIBlox.App.Container.VerticalScrollViewWithIndicator
 
 local InGameMenu = script.Parent.Parent.Parent
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
@@ -29,7 +30,6 @@ local CoPlayInviteCell = require(InGameMenu.Components.CoPlayInviteCell)
 local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
 local Divider = require(InGameMenu.Components.Divider)
 
-local BarOnTopScrollingFrame = require(InGameMenu.Components.BarOnTopScrollingFrame)
 local Page = require(InGameMenu.Components.Page)
 local PageUtils = require(InGameMenu.Components.Pages.PageUtils)
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
@@ -45,8 +45,6 @@ local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 local DIVIDER_INDENT = 0
 local DIVIDER_HEIGHT = 1
 local LIST_HEADER_HEIGHT = 24
-local PLAYER_CELL_HEIGHT = 72
-local INVITE_CELL_HEIGHT = 56
 
 local ICON_SIZE = getIconSize(UIBlox.App.ImageSet.Enum.IconSize.Medium)
 
@@ -80,6 +78,8 @@ PlayersPage.defaultProps = {
 }
 
 function PlayersPage:init()
+	self.scrollingFrameRef = Roact.createRef()
+
 	self:setState({
 		selectedPlayer = nil,
 		selectedPlayerPosition = Vector2.new(0, 0),
@@ -181,6 +181,20 @@ function PlayersPage:getIncomingFriendRequestsPlayerByUserId(userId)
 	return nil
 end
 
+function PlayersPage:isPlayerUserIdMuted(userId)
+	if not self.props.voiceEnabled then
+		return nil
+	end
+
+	local voiceParticipant = VoiceChatServiceManager.participants[tostring(userId)]
+	local isMuted = nil
+	if voiceParticipant then
+		isMuted = voiceParticipant.isMutedLocally
+	end
+
+	return isMuted
+end
+
 function PlayersPage:renderListEntries(style, localized, players)
 	local layoutOrder = 0
 	local listComponents = {}
@@ -246,7 +260,6 @@ function PlayersPage:renderListEntries(style, localized, players)
 
 			if isEntryVisible then
 				visibleEntryCount = visibleEntryCount + 1
-
 				listComponents["incoming_request_player_" .. id] = Roact.createElement(PlayerCell, {
 					username = player.Name,
 					displayName = player.DisplayName,
@@ -259,15 +272,21 @@ function PlayersPage:renderListEntries(style, localized, players)
 						or nil,
 					[Roact.Ref] = self.setSelectedPlayerRef,
 				}, {
-					VoiceIndicator =  Roact.createElement(VoiceIndicator, {
+					VoiceIndicator = self.props.voiceEnabled and Roact.createElement(VoiceIndicator, {
 						userId = tostring(player.UserId),
 						hideOnError = true,
 						iconStyle = "SpeakerLight",
 						size = UDim2.fromOffset(36, 36),
 						onClicked = function()
+							local isMuted = self:isPlayerUserIdMuted(player.UserId)
 							VoiceChatServiceManager:ToggleMutePlayer(player.UserId)
-						end
-					}),
+							SendAnalytics(
+								Constants.AnalyticsMenuActionName,
+								isMuted and Constants.AnalyticsUnmutePlayer or Constants.AnalyticsMutePlayer,
+								{ source = Constants.AnalyticsPlayerCellSource }
+							)
+						end,
+					}) or nil,
 					Icon = Roact.createElement(IconButton, {
 						size = UDim2.fromOffset(0, 0),
 						icon = Images["icons/actions/friends/friendpending"],
@@ -276,7 +295,7 @@ function PlayersPage:renderListEntries(style, localized, players)
 						layoutOrder = 3,
 						onActivated = function()
 							self.toggleMoreActionsForIncomingFriendRequests(player.UserId)
-						end
+						end,
 					}),
 				})
 
@@ -317,15 +336,19 @@ function PlayersPage:renderListEntries(style, localized, players)
 			RoactRef = self.setSelectedPlayerRef
 		end
 		local isEntryVisibleForPlayer = PlayerSearchPredicate(self.state.searchText, player.Name, player.DisplayName)
-
 		if isEntryVisibleForPlayer then
 			visibleEntryCount = visibleEntryCount + 1
 
 			local notLocalPlayer = player and player ~= self.props.playersService.LocalPlayer
 			local iconStyle = notLocalPlayer and "SpeakerLight" or "MicLight"
 
-			local friendStatus = notLocalPlayer and player.Parent == Players and self.props.playersService.LocalPlayer:GetFriendStatus(player) or nil
-			local notFriend = friendStatus and (friendStatus == Enum.FriendStatus.Unknown or friendStatus == Enum.FriendStatus.NotFriend) or nil
+			local friendStatus = notLocalPlayer
+					and player.Parent == Players
+					and self.props.playersService.LocalPlayer:GetFriendStatus(player)
+				or nil
+			local notFriend = friendStatus
+					and (friendStatus == Enum.FriendStatus.Unknown or friendStatus == Enum.FriendStatus.NotFriend)
+				or nil
 			local pendingFriend = friendStatus and friendStatus == Enum.FriendStatus.FriendRequestSent or nil
 
 			listComponents["player_" .. id] = Roact.createElement(PlayerCell, {
@@ -341,19 +364,32 @@ function PlayersPage:renderListEntries(style, localized, players)
 				[Roact.Change.AbsolutePosition] = self.state.selectedPlayer == player and self.positionChanged or nil,
 				[Roact.Ref] = RoactRef,
 			}, {
-				VoiceIndicator =  Roact.createElement(VoiceIndicator, {
+				VoiceIndicator = self.props.voiceEnabled and Roact.createElement(VoiceIndicator, {
 					userId = tostring(player.UserId),
 					hideOnError = true,
 					iconStyle = iconStyle,
 					size = UDim2.fromOffset(36, 36),
 					onClicked = function()
+						local isMuted = self:isPlayerUserIdMuted(player.UserId)
 						if notLocalPlayer then
 							VoiceChatServiceManager:ToggleMutePlayer(player.UserId)
+
+							SendAnalytics(
+								Constants.AnalyticsMenuActionName,
+								isMuted and Constants.AnalyticsUnmutePlayer or Constants.AnalyticsMutePlayer,
+								{ source = Constants.AnalyticsPlayerCellSource }
+							)
 						else
 							VoiceChatServiceManager:ToggleMic()
+
+							SendAnalytics(
+								Constants.AnalyticsMenuActionName,
+								isMuted and Constants.AnalyticsUnmuteSelf or Constants.AnalyticsMuteSelf,
+								{ source = Constants.AnalyticsPlayerCellSource }
+							)
 						end
-					end
-				}),
+					end,
+				}) or nil,
 				AddFriend = notFriend and not pendingFriend and Roact.createElement(IconButton, {
 					size = UDim2.fromOffset(0, 0),
 					icon = Images["icons/actions/friends/friendAdd"],
@@ -366,7 +402,11 @@ function PlayersPage:renderListEntries(style, localized, players)
 
 						if success then
 							AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
-							SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsRequestFriendName, {})
+							SendAnalytics(
+								Constants.AnalyticsMenuActionName,
+								Constants.AnalyticsRequestFriendName,
+								{ source = Constants.AnalyticsPlayerCellSource }
+							)
 						end
 					end,
 				}) or nil,
@@ -378,10 +418,14 @@ function PlayersPage:renderListEntries(style, localized, players)
 					onActivated = function(_)
 						pcall(function()
 							self.props.playersService.LocalPlayer:RevokeFriendship(player)
+							SendAnalytics(
+								Constants.AnalyticsMenuActionName,
+								Constants.AnalyticsRevokeFriendshipName,
+								{ source = Constants.AnalyticsPlayerCellSource }
+							)
 						end)
 					end,
 				}) or nil,
-
 			})
 
 			layoutOrder = layoutOrder + 1
@@ -437,14 +481,7 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(style, localized, get
 			})
 		or nil
 
-	local listEntries, visibleEntryCount, visibleHeadersCount = self:renderListEntries(
-		style,
-		localized,
-		self.props.players
-	)
-	local canvasSize = INVITE_CELL_HEIGHT
-		+ (visibleEntryCount * (PLAYER_CELL_HEIGHT + DIVIDER_HEIGHT))
-		+ (visibleHeadersCount * LIST_HEADER_HEIGHT)
+	local listEntries = self:renderListEntries(style, localized, self.props.players)
 
 	return PageUtils.withScrollDownState(function(onScroll, scrollingDown)
 		return Roact.createElement(Page, {
@@ -469,29 +506,29 @@ function PlayersPage:renderWithLocalizedAndSelectionCursor(style, localized, get
 				onCancelled = self.onSearchBarDismissed,
 			}),
 		}, {
-			PlayerListContent = withStyle(function(style)
-				return Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					BorderSizePixel = 0,
-					Size = UDim2.new(1, 0, 1, 0),
-				}, {
-					PlayerList = Roact.createElement(BarOnTopScrollingFrame, {
-						Position = UDim2.new(0, 0, 0, 0),
-						Size = UDim2.new(1, 0, 1, 0),
-						CanvasSize = UDim2.new(1, 0, 0, canvasSize),
-						onCanvasPositionChanged = function(rbx)
-							if self.state.selectedPlayer then
-								self:setState({
-									selectedPlayer = Roact.None,
-								})
-							end
-							onScroll(rbx)
-						end,
-					}, listEntries),
+			PlayerListContent = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				Size = UDim2.new(1, 0, 1, 0),
+			}, {
+				PlayerList = Roact.createElement(VerticalScrollViewWithIndicator, {
+					position = UDim2.new(0, 0, 0, 0),
+					size = UDim2.new(1, 0, 1, 0),
+					canvasSizeY = UDim.new(0, 0),
+					useAutomaticCanvasSize = true,
+					scrollingFrameRef = self.scrollingFrameRef,
+					[Roact.Change.CanvasPosition] = function(rbx)
+						if self.state.selectedPlayer then
+							self:setState({
+								selectedPlayer = Roact.None,
+							})
+						end
+						onScroll(rbx)
+					end,
+				}, listEntries),
 
-					MoreActionsMenu = moreActionsMenuPanel,
-				})
-			end),
+				MoreActionsMenu = moreActionsMenuPanel,
+			}),
 			FocusHandler = self:renderFocusHandler(canCaptureFocus),
 			Watcher = Roact.createElement(PageNavigationWatcher, {
 				desiredPage = "Players",
@@ -535,6 +572,10 @@ function PlayersPage:didUpdate(prevProps, prevState)
 		self:setState({
 			selectedPlayer = Roact.None,
 		})
+		local scrollingFrame = self.scrollingFrameRef:getValue()
+		if scrollingFrame and scrollingFrame.CanvasPosition.Y > 0 then
+			scrollingFrame.CanvasPosition = Vector2.new(0, 0)
+		end
 	end
 
 	if not self.props.isMenuOpen and prevProps.isMenuOpen then

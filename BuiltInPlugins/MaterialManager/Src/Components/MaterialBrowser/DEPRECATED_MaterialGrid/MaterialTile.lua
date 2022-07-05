@@ -1,11 +1,12 @@
 -- Remove MaterialTile with FFlagMaterialManagerGridListView
-local FFlagDevFrameworkRemoveFitFrame = game:GetFastFlag("DevFrameworkRemoveFitFrame")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local _Types = require(Plugin.Src.Types)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
+
+local FFlagDevFrameworkRemoveFitFrame = Framework.SharedFlags.getFFlagDevFrameworkRemoveFitFrame()
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -24,13 +25,14 @@ local Pane = UI.Pane
 local TextLabel = UI.Decoration.TextLabel
 local Tooltip = UI.Tooltip
 
+local MaterialController = require(Plugin.Src.Controllers.MaterialController)
+
 local Components = Plugin.Src.Components
 local MaterialPreview = require(Components.DEPRECATED_MaterialPreview)
 local StatusIcon = require(Components.DEPRECATED_StatusIcon)
 
 local getFullMaterialType = require(Plugin.Src.Resources.Constants.getFullMaterialType)
 local getMaterialName = require(Plugin.Src.Resources.Constants.getMaterialName)
-local MaterialController = require(Plugin.Src.Util.MaterialController)
 local ApplyToSelection = require(Plugin.Src.Util.ApplyToSelection)
 
 local Flags = Plugin.Src.Flags

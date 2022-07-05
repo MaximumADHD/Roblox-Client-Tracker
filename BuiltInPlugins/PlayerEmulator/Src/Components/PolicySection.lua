@@ -20,12 +20,12 @@
 		function updateListItem
 			update setting of list item
 ]]
-local FFlagRemoveUILibraryFitContent = game:GetFastFlag("RemoveUILibraryFitContent")
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
+local FFlagRemoveUILibraryFitContent = Framework.SharedFlags.getFFlagRemoveUILibraryFitContent()
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local NetworkingContext = require(Plugin.Src.ContextServices.NetworkingContext)

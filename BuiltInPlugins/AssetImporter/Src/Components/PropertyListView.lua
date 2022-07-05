@@ -1,11 +1,11 @@
-local FFlagDevFrameworkRemoveFitFrame = game:GetFastFlag("DevFrameworkRemoveFitFrame")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Types = require(Plugin.Src.Types)
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local Cryo = require(Plugin.Packages.Cryo)
+
+local FFlagDevFrameworkRemoveFitFrame = Framework.SharedFlags.getFFlagDevFrameworkRemoveFitFrame()
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -142,7 +142,7 @@ function PropertyListView:render()
 
 		-- Create property components
 		for propertyIndex, propertyMetadata: Types.PropDescriptor in pairs(sectionMetadata.Properties) do
-			if not propertyMetadata.ShouldHide or not propertyMetadata.ShouldHide(props.Instance) then
+			if not propertyMetadata.ShouldHide or not propertyMetadata.ShouldHide(props.Instance, props.AssetImportSession) then
 				local level, message = getHighestSeverityStatus(props.Instance, propertyMetadata.Name)
 
 				if level and not statusObject.GlobalStatus and statusObject.StatusLevel ~= StatusLevel.Error then

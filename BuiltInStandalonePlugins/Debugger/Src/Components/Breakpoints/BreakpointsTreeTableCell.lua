@@ -25,7 +25,7 @@ local TreeTableCell = UI.TreeTableCell
 
 local BreakpointsTreeTableCell = Roact.PureComponent:extend("BreakpointsTreeTableCell")
 
-local FFlagDevFrameworkFixSplitPaneAlignment = game:GetFastFlag("DevFrameworkFixSplitPaneAlignment")
+local FFlagDevFrameworkExpandColumnOnDoubleClickDragbar = game:GetFastFlag("DevFrameworkExpandColumnOnDoubleClickDragbar")
 
 function BreakpointsTreeTableCell:init()
 	self.onToggle = function()
@@ -50,7 +50,8 @@ function BreakpointsTreeTableCell:init()
 			bp,
 			row,
 			self.props.Analytics,
-			"LuaBreakpointsTable.BreakpointIconClicked"
+			"LuaBreakpointsTable.BreakpointIconClicked",
+			self.props.CurrentConnectionId
 		)
 	end
 end
@@ -119,7 +120,7 @@ function BreakpointsTreeTableCell:render()
 			BorderSizePixel = 1,
 			BorderColor3 = style.Border,
 			Size = UDim2.new(width.Scale, width.Offset, 1, 0),
-			ClipsDescendants = FFlagDevFrameworkFixSplitPaneAlignment,
+			ClipsDescendants = true,
 		}, {
 			Left = Roact.createElement(Pane, {
 				Layout = Enum.FillDirection.Horizontal,
@@ -164,7 +165,7 @@ function BreakpointsTreeTableCell:render()
 			BorderSizePixel = 1,
 			BorderColor3 = style.Border,
 			Size = UDim2.new(width.Scale, width.Offset, 1, 0),
-			ClipsDescendants = FFlagDevFrameworkFixSplitPaneAlignment,
+			ClipsDescendants = true,
 		}, {
 			EnabledCheckbox = hasChildren and Roact.createElement(Checkbox, {
 				Checked = value,
@@ -184,6 +185,7 @@ function BreakpointsTreeTableCell:render()
 		RowIndex = props.RowIndex,
 		HighlightCell = props.HighlightCell,
 		OnRightClick = props.OnRightClick,
+		SetCellContentsWidth = if FFlagDevFrameworkExpandColumnOnDoubleClickDragbar then props.SetCellContentsWidth else nil,
 	})
 end
 
@@ -192,8 +194,10 @@ BreakpointsTreeTableCell = ContextServices.withContext({
 })(BreakpointsTreeTableCell)
 
 BreakpointsTreeTableCell = RoactRodux.connect(function(state, props)
+	local common = state.Common
+	local currentConnectionId = common.currentDebuggerConnectionId
 	return {
-		-- empty
+		CurrentConnectionId = currentConnectionId,
 	}
 end, function(dispatch)
 	return nil

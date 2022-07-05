@@ -15,6 +15,7 @@ function Spacer:render()
 			LayoutOrder = self.props.layoutOrder or 0,
 			AnchorPoint = self.props.anchorPoint,
 			Position = self.props.position,
+			BorderSizePixel = 0,
 		})
 	end)
 end

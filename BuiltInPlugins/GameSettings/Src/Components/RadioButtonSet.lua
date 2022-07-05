@@ -24,12 +24,13 @@
 		function SelectionChanged(index, title) = A callback for when the selected option changes.
 		int LayoutOrder = The order this RadioButtonSet will sort to when placed in a UIListLayout.
 ]]
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = require(Plugin.Packages.Framework)
+local FFlagDevFrameworkRemoveFitFrame = Framework.SharedFlags.getFFlagDevFrameworkRemoveFitFrame()
+
 local Util = Framework.Util
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -118,20 +119,24 @@ function RadioButtonSet:render()
 			}))
 		end
 	end
+	local size = UDim2.fromScale(1, 0)
+	if not FFlagDevFrameworkRemoveFitFrame then
+		-- Still need to define a maxHeight instead of using AutomaticSize for the TitledFrame until it is refactored.
+		local maxHeight = numButtons * radioButtonTheme.size * 2
+				+ numButtons * radioButtonTheme.padding
+				+ (props.Description and radioButtonSetTheme.description.height or 0)
 
-	-- Still need to define a maxHeight instead of using AutomaticSize for the TitledFrame until it is refactored.
-	local maxHeight = numButtons * radioButtonTheme.size * 2
-			+ numButtons * radioButtonTheme.padding
-			+ (props.Description and radioButtonSetTheme.description.height or 0)
-
-	maxHeight = math.max(self.state.maxHeight, maxHeight)
+		maxHeight = math.max(self.state.maxHeight, maxHeight)
+		size = UDim2.new(1, 0, 0, maxHeight)
+	end
 
 	local topFrameLayoutIndex = LayoutOrderIterator.new()
 	return Roact.createElement("Frame", {
+		AutomaticSize = if FFlagDevFrameworkRemoveFitFrame then Enum.AutomaticSize.Y else nil,
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 		LayoutOrder = props.LayoutOrder or 1,
-		Size = UDim2.new(1, 0, 0, maxHeight),
+		Size = size,
 	},{
 		ListLayout = Roact.createElement("UIListLayout", {
 			Padding = UDim.new(0, radioButtonSetTheme.padding),

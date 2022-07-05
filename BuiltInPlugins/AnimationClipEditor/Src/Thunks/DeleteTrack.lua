@@ -22,6 +22,7 @@ return function(trackName, analytics)
 		local tracks = status.Tracks
 		local selectedTracks = status.SelectedTracks
 		local root = status.RootInstance
+		local editorMode = status.EditorMode
 
 		if root == nil then
 			return
@@ -63,7 +64,7 @@ return function(trackName, analytics)
 						store:dispatch(UpdateAnimationData(newData))
 						store:dispatch(SetSelectedKeyframes({}))
 
-						analytics:report("onTrackDeleted", trackName, hadKeyframes)
+						analytics:report("onTrackDeleted", trackName, hadKeyframes, editorMode)
 						return
 					end
 				end

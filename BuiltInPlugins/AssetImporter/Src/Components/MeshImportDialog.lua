@@ -26,12 +26,12 @@ local MeshImportDialog = Roact.PureComponent:extend("MeshImportDialog")
 function MeshImportDialog:init()
 	self.onButtonPressed = function(key)
 		if key == "Cancel" then
-			self.props.OnClose()
+			self.props.OnClose(self.props.AssetImportSession)
 		elseif key == "Import" then
 			local props = self.props
 			local importEnabled = props.SettingsCheckedCount ~= 0 and not props.ErrorNodeChecked
 			if importEnabled then
-				self.props.OnImport(self.props.AssetSettings)
+				self.props.OnImport(self.props.AssetImportSession)
 			end
 		end
 	end
@@ -57,7 +57,7 @@ function MeshImportDialog:render()
 			{ Key = "Import", Text = localization:getText("Plugin", "Import"), Style = "RoundPrimary",
 				StyleModifier = not importEnabled and StyleModifier.Disabled or nil },
 		},
-		OnClose = props.OnClose,
+		OnClose = function() props.OnClose(props.AssetImportSession) end,
 		OnButtonPressed = self.onButtonPressed,
 		Style = "FullBleed",
 	}, {
@@ -83,6 +83,7 @@ MeshImportDialog = withContext({
 local function mapStateToProps(state)
 	return {
 		AssetSettings = state.assetSettings,
+		AssetImportSession = state.assetImportSession,
 		SettingsCheckedCount = state.settingsCheckedCount,
 		ErrorNodeChecked = state.errorNodeChecked,
 	}

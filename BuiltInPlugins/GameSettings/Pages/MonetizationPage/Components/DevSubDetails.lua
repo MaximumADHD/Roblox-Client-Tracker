@@ -38,22 +38,28 @@ local DevSubModeration = require(Page.Thunks.DevSubModeration)
 local RoundTextButton = UILibrary.Component.RoundTextButton
 local TitledFrame = UILibrary.Component.TitledFrame
 
-local RoundTextBox = require(Plugin.Packages.RoactStudioWidgets.RoundTextBox)
-
 local Framework = require(Plugin.Packages.Framework)
+local FFlagRemoveUILibraryRoundTextBox = Framework.SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
+
+local RoundTextBox
+if not FFlagRemoveUILibraryRoundTextBox then
+	RoundTextBox = require(Plugin.Packages.RoactStudioWidgets.RoundTextBox)
+end
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+
+local UI = Framework.UI
+local HoverArea = UI.HoverArea
+local Pane = UI.Pane
+local Separator = UI.Separator
+local TextInput2 = UI.TextInput2
+local Image = UI.Decoration.Image
 
 local Util = Framework.Util
 local GetTextSize = Util.GetTextSize
 local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
 local LayoutOrderIterator = Util.LayoutOrderIterator
-
-local FrameworkUI = Framework.UI
-local HoverArea = FrameworkUI.HoverArea
-local Pane = FrameworkUI.Pane
-local Separator = FrameworkUI.Separator
 
 local FitToContent
 if not FFlagGameSettingsRemoveFitContent then
@@ -98,8 +104,8 @@ function DeveloperSubscriptionDetails:init()
 		end
 	end
 
-	function self.onNameFocusChanged(focused, pressedEnter)
-		if not focused then
+	function self.onNameFocusChanged(focused)
+		if FFlagRemoveUILibraryRoundTextBox or not focused then
 			self.CheckName()
 		end
 	end
@@ -297,17 +303,28 @@ function DeveloperSubscriptionDetails:render()
 			MaxHeight = 64,
 			TextSize = theme.fontStyle.Normal.TextSize,
 		}, {
-			Roact.createElement(RoundTextBox, Cryo.Dictionary.join(theme.fontStyle.Normal, {
-				Active = true,
-				Enabled = canEdit,
-				ShowTextWhenDisabled = true,
-				MaxLength = 32,
-				Multiline = false,
-				Text = developerSubscription.Name or "",
-				ErrorMessage = nameError,
-				SetText = self.onNameChanged,
-				FocusChanged = self.onNameFocusChanged,
-			})),
+			TextBox = (if FFlagRemoveUILibraryRoundTextBox then
+				Roact.createElement(TextInput2, {
+					Disabled = not canEdit,
+					ErrorText = nameError,
+					MaxLength = 32,
+					OnTextChanged = self.onNameChanged,
+					OnFocusLost = self.onNameFocusChanged,
+					Text = developerSubscription.Name or "",
+				})
+			else
+				Roact.createElement(RoundTextBox, Cryo.Dictionary.join(theme.fontStyle.Normal, {
+					Active = true,
+					Enabled = canEdit,
+					ShowTextWhenDisabled = true,
+					MaxLength = 32,
+					Multiline = false,
+					Text = developerSubscription.Name or "",
+					ErrorMessage = nameError,
+					SetText = self.onNameChanged,
+					FocusChanged = self.onNameFocusChanged,
+				}))
+			),
 		}),
 
 		Image = canEdit and Roact.createElement(UploadableIconWidget, {
@@ -336,7 +353,22 @@ function DeveloperSubscriptionDetails:render()
 			LayoutOrder = layoutIndex:getNextOrder(),
 			MaxHeight = 64,
 			TextSize = theme.fontStyle.Normal.TextSize,
-		}, {
+		}, if FFlagRemoveUILibraryRoundTextBox then {
+			Input = Roact.createElement(TextInput2, {
+				Disabled = not developerSubscription.IsNew,
+				ErrorText = priceError,
+				MaxLength = 50000,
+				OnTextChanged = self.onPriceChanged,
+				Text = tostring(developerSubscription.Price),
+				Size = UDim2.new(0, 200, 0, 32),
+				LeadingComponent = Image,
+				LeadingComponentProps = {
+					Size = UDim2.new(0, priceIconSize, 0, priceIconSize),
+					Image = theme.robuxFeeBase.icon.image,
+					ImageColor3 = Color3.fromRGB(25, 25, 25),
+				},
+			}),
+		} else {
 			Icon = Roact.createElement("ImageLabel", {
 				BackgroundTransparency = 1,
 				Size = UDim2.new(0, priceIconSize, 0, priceIconSize),
@@ -351,7 +383,7 @@ function DeveloperSubscriptionDetails:render()
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, -(priceIconSize + PRICE_ICON_PADDING), 0, DEPRECATED_Constants.ROUND_TEXT_BOX_DEFAULT_HEIGHT),
 			}, {
-				NumberBox = Roact.createElement(RoundTextBox, {
+				Roact.createElement(RoundTextBox, {
 					Enabled = developerSubscription.IsNew,
 					ShowTextWhenDisabled = true,
 					ShowToolTip = false,
@@ -359,7 +391,7 @@ function DeveloperSubscriptionDetails:render()
 					Text = tostring(developerSubscription.Price),
 					ErrorMessage = priceError,
 					SetText = self.onPriceChanged,
-				})
+				}),
 			}),
 		}),
 
@@ -425,7 +457,7 @@ return RoactRodux.connect(
 		changedDevSubs = changedDevSubs.DeveloperSubscriptions or {}
 
 		local getValue = function(propName)
-            return settingFromState(state.Settings, propName)
+			return settingFromState(state.Settings, propName)
 		end
 
 		local allDevSubs = DeepMergeTables.Merge(currDevSubs, changedDevSubs) or {}

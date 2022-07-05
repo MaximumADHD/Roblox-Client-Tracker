@@ -6,13 +6,13 @@ local mockContext = require(Plugin.Src.Util.mockContext)
 local PreviewDialog = require(script.Parent.PreviewDialog)
 
 return function()
-	local renderPreview = function() return Roact.createElement("Frame") end
+	local imageId = ""
 	local onClose = function() end
 	local metadata = {""}
 
 	local function createTestElement(props: PreviewDialog.Props?)
 		props = props or {
-			RenderPreview = renderPreview,
+			ImageId = imageId,
 			OnClose = onClose,
 			Metadata = metadata,
 		}
@@ -30,14 +30,11 @@ return function()
 	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local element = createTestElement({
-			RenderPreview = renderPreview,
+			ImageId = "rbxasset://textures/MaterialManager/Create_New_Variant.png",
 			OnClose = onClose,
 			Metadata = {"SelectedName"},
 		})
 		local instance = Roact.mount(element, container)
-
-		local main = container:FindFirstChildOfClass("Frame")
-		expect(main).to.be.ok()
 		Roact.unmount(instance)
 	end)
 end

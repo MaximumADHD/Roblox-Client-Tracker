@@ -21,7 +21,7 @@ local Image = UI.Decoration.Image
 local Pane = UI.Pane
 local TruncatedTextLabel = UI.TruncatedTextLabel
 
-local MaterialController = require(Plugin.Src.Util.MaterialController)
+local MaterialController = require(Plugin.Src.Controllers.MaterialController)
 
 local Flags = Plugin.Src.Flags
 local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)

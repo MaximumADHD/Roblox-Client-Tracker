@@ -5,7 +5,7 @@ local Screens = require(Plugin.Src.Util.Screens)
 
 return Rodux.createReducer({
 	--[[
-		members of the screen table should have the structure of 
+		members of the screen table should have the structure of
 		SCREENNAME = {
 			Parent = <SCREENNAME of parent>,
 			Key = "ScreenName",
@@ -20,8 +20,8 @@ return Rodux.createReducer({
 		return Cryo.Dictionary.join(state, {
 			currentScreen = action.screen,
 			previousScreens = Cryo.Dictionary.join(state.previousScreens, {
-                [#state.previousScreens + 1] = state.currentScreen,
-            }),
+				[#state.previousScreens + 1] = state.currentScreen,
+			}),
 			nextScreens = {},
 		})
 	end,
@@ -32,8 +32,8 @@ return Rodux.createReducer({
 			currentScreen = state.previousScreens[#state.previousScreens],
 			previousScreens = {unpack(state.previousScreens, 1, #state.previousScreens-1)},
 			nextScreens = Cryo.Dictionary.join(state.nextScreens, {
-                [#state.nextScreens + 1] = state.currentScreen,
-            }),
+				[#state.nextScreens + 1] = state.currentScreen,
+			}),
 		})
 	end,
 
@@ -42,7 +42,7 @@ return Rodux.createReducer({
 		return Cryo.Dictionary.join(state, {
 			currentScreen = state.nextScreens[#state.nextScreens],
 			previousScreens = Cryo.Dictionary.join(state.previousScreens, {
-                [#state.previousScreens + 1] = state.currentScreen,
+				[#state.previousScreens + 1] = state.currentScreen,
 			}),
 			nextScreens = {unpack(state.nextScreens, 1, #state.nextScreens-1)},
 		})

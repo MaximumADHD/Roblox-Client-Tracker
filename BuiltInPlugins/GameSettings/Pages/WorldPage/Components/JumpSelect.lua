@@ -11,19 +11,28 @@
 	Optional Props:
 		LayoutOrder (number)
 ]]
-
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+
+local Framework = require(Plugin.Packages.Framework)
+local FFlagRemoveUILibraryRoundTextBox = Framework.SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
+
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+
+local UI = Framework.UI
+local TextInput2 = UI.TextInput2
 
 local WorldRootPhysics = require(Page.ContextServices.WorldRootPhysics)
 
 local formatNumberForDisplay = require(Page.Util.formatNumberForDisplay)
 
 local RoactStudioWidgets = Plugin.Packages.RoactStudioWidgets
-local StudioWidgetRoundTextBox = require(RoactStudioWidgets.RoundTextBox)
+local StudioWidgetRoundTextBox
+if not FFlagRemoveUILibraryRoundTextBox then
+	StudioWidgetRoundTextBox = require(RoactStudioWidgets.RoundTextBox)
+end
 local StudioWidgetRadioButtonSet = require(RoactStudioWidgets.RadioButtonSet)
 local StudioWidgetText = require(RoactStudioWidgets.Text)
 
@@ -82,57 +91,91 @@ function JumpSelect:render()
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
 
-			JumpHeightInputBox = Roact.createElement(StudioWidgetRoundTextBox, {
-				ShowToolTip = false,
-				Enabled = not useJumpPower,
-				ShowTextWhenDisabled = true,
-				LayoutOrder = 1,
-				Text = formatNumberForDisplay(jumpHeight),
-				MaxLength = 100,
-				Width = 150,
-				Height = rowHeight,
-				PaddingBottom = UDim.new(0, 0),
-				PaddingTop = UDim.new(0, 0),
-				Mouse = mouse,
-
-				FocusChanged = function(focused)
-					if not focused then
+			JumpHeightInputBox = (if FFlagRemoveUILibraryRoundTextBox then
+				Roact.createElement(TextInput2, {
+					Disabled = useJumpPower,
+					LayoutOrder = 1,
+					OnFocusLost = function()
 						local newValue = math.clamp(jumpHeight, 0, math.huge)
 						setJumpHeight(newValue)
-					end
-				end,
+					end,
+					OnTextChanged = function(newValue)
+						newValue = tonumber(newValue) or 0
+						setJumpHeight(newValue)
+					end,
+					Size = UDim2.fromOffset(150, rowHeight),
+					Text = formatNumberForDisplay(jumpHeight),
+				})
+			else
+				Roact.createElement(StudioWidgetRoundTextBox, {
+					ShowToolTip = false,
+					Enabled = not useJumpPower,
+					ShowTextWhenDisabled = true,
+					LayoutOrder = 1,
+					Text = formatNumberForDisplay(jumpHeight),
+					MaxLength = 100,
+					Width = 150,
+					Height = rowHeight,
+					PaddingBottom = UDim.new(0, 0),
+					PaddingTop = UDim.new(0, 0),
+					Mouse = mouse,
 
-				SetText = function(newValue)
-					newValue = tonumber(newValue) or 0
-					setJumpHeight(newValue)
-				end,
-			}),
+					FocusChanged = function(focused)
+						if not focused then
+							local newValue = math.clamp(jumpHeight, 0, math.huge)
+							setJumpHeight(newValue)
+						end
+					end,
 
-			JumpPowerInputBox = Roact.createElement(StudioWidgetRoundTextBox, {
-				ShowToolTip = false,
-				Enabled = useJumpPower,
-				ShowTextWhenDisabled = true,
-				LayoutOrder = 2,
-				Text = formatNumberForDisplay(jumpPower),
-				MaxLength = 100,
-				Width = 150,
-				Height = rowHeight,
-				PaddingBottom = UDim.new(0, 0),
-				PaddingTop = UDim.new(0, 0),
-				Mouse = mouse,
+					SetText = function(newValue)
+						newValue = tonumber(newValue) or 0
+						setJumpHeight(newValue)
+					end,
+				})
+			),
 
-				FocusChanged = function(focused)
-					if not focused then
+			JumpPowerInputBox = (if FFlagRemoveUILibraryRoundTextBox then
+				Roact.createElement(TextInput2, {
+					Disabled = not useJumpPower,
+					LayoutOrder = 2,
+					OnFocusLost = function()
 						local newValue = math.clamp(jumpPower, 0, 1000)
 						setJumpPower(newValue)
-					end
-				end,
+					end,
+					OnTextChanged = function(newValue)
+						newValue = tonumber(newValue) or 0
+						setJumpPower(newValue)
+					end,
+					Size = UDim2.new(0, 150, 0, rowHeight),
+					Text = formatNumberForDisplay(jumpPower),
+				})
+			else
+				Roact.createElement(StudioWidgetRoundTextBox, {
+					ShowToolTip = false,
+					Enabled = useJumpPower,
+					ShowTextWhenDisabled = true,
+					LayoutOrder = 2,
+					Text = formatNumberForDisplay(jumpPower),
+					MaxLength = 100,
+					Width = 150,
+					Height = rowHeight,
+					PaddingBottom = UDim.new(0, 0),
+					PaddingTop = UDim.new(0, 0),
+					Mouse = mouse,
 
-				SetText = function(newValue)
-					newValue = tonumber(newValue) or 0
-					setJumpPower(newValue)
-				end,
-			}),
+					FocusChanged = function(focused)
+						if not focused then
+							local newValue = math.clamp(jumpPower, 0, 1000)
+							setJumpPower(newValue)
+						end
+					end,
+
+					SetText = function(newValue)
+						newValue = tonumber(newValue) or 0
+						setJumpPower(newValue)
+					end,
+				})
+			),
 		}),
 
 		MetricLabels = Roact.createElement("Frame", {

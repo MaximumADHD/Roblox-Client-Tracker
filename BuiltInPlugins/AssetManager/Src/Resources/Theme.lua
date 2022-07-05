@@ -24,6 +24,7 @@ local FONT_SIZE_MEDIUM = 16
 local FONT_SIZE_LARGE = 18
 
 local FFlagStudioAssetManagerAssetModerationPendingIcon = game:GetFastFlag("StudioAssetManagerAssetModerationPendingIcon")
+local FFlagEnableAssetManagerSortButton = game:GetFastFlag("EnableAssetManagerSortButton")
 
 local arrowSpritesheet = Spritesheet("rbxasset://textures/StudioSharedUI/arrowSpritesheet.png", {
 	SpriteSize = 12,
@@ -122,12 +123,38 @@ local button = {
 			Image = "rbxasset://textures/StudioSharedUI/list.png",
 		})
 	}),
+
+	["&SortButton"] = if FFlagEnableAssetManagerSortButton then join(assetManagerButton, {
+		BackgroundStyle = join(assetManagerButton.BackgroundStyle, {
+			BorderSize = 0,
+		}),
+		ForegroundStyle = join(assetManagerButton.ForegroundStyle, {
+			Image = "rbxasset://textures/StudioSharedUI/sort.png",
+			Size = UDim2.new(0, 16, 0, 16),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.new(0.5, 0, 0.5, 0),
+		}),
+		[StyleModifier.Selected] = {
+			BackgroundStyle = {
+				Color = StyleKey.ButtonSelected,
+			},
+		},
+	}) else nil,
 }
 
 local assetManagerDefault = {
 	Font = Enum.Font.SourceSans,
 	TextSize = FONT_SIZE_MEDIUM,
 	EnableHover = true,
+}
+
+local dropdownMenu = {
+	Width = 150,
+	MaxHeight = 100,
+	ItemHeight = 25,
+	Text = {
+		TextSize = FONT_SIZE_SMALL,
+	},
 }
 
 local linkText = {
@@ -443,6 +470,7 @@ local PluginTheme = {
 	[ui.ListItem] = listItem,
 
 	[ui.Button] = join(getRawComponentStyle("Button"), button),
+	[ui.DropdownMenu] = if FFlagEnableAssetManagerSortButton then join(getRawComponentStyle("DropdownMenu"), dropdownMenu) else nil ,
 	[ui.Image] = image,
 	[ui.LinkText] = join(getRawComponentStyle("LinkText"), linkText),
 }

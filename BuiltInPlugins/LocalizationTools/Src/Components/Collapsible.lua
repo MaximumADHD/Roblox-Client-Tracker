@@ -1,11 +1,11 @@
 --[[
 	A collapsible widget for advanced options
 ]]
-local FFlagRemoveUILibraryFitContent = game:GetFastFlag("RemoveUILibraryFitContent")
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
+local FFlagRemoveUILibraryFitContent = Framework.SharedFlags.getFFlagRemoveUILibraryFitContent()
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 

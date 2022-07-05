@@ -135,14 +135,11 @@ return function()
 			local renderedPlayerListContent = renderedPlayersPage:FindFirstChild("PlayerListContent", true)
 			jestExpect(renderedPlayerListContent).toBeDefined()
 
-			local renderedContentScrollingFrame = renderedPlayerListContent:FindFirstChild(
-				"ContentsScrollingFrame",
+			local renderedPlayers = renderedPlayerListContent:FindFirstChild(
+				"MainCanvas",
 				true
 			)
-			jestExpect(renderedContentScrollingFrame).toBeDefined()
-			jestExpect(#renderedContentScrollingFrame:GetChildren()).toEqual(1)
-
-			local renderedPlayers = renderedContentScrollingFrame:GetChildren()[1]
+			jestExpect(renderedPlayers).toBeDefined()
 
 			-- 1 actual player listed in the current players
 			local playerCount = 0

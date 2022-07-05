@@ -14,18 +14,21 @@
 	LayoutOrder number, will be checked by the layouter used inside the assetConfigFooter to
 	override the Position of the whole component.
 ]]
-
+local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local UILibrary = require(Packages.UILibrary)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local withContext = if FFlagUpdateConvertToPackageToDFContextServices then ContextServices.withContext else require(Plugin.Src.ContextServices.withContext)
 
 local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
 
 local RoundTextButton = UILibrary.Component.RoundTextButton
-local withContext = require(Plugin.Src.ContextServices.withContext)
+
 local AssetConfigFooter = Roact.PureComponent:extend("AssetConfigFooter")
 
 local BUTTON_HEIGHT = 35
@@ -35,7 +38,9 @@ local EDGE_PADDING = 35
 local PADDING = 24
 
 function AssetConfigFooter:render()
-	return withContext(function(localization, theme)
+	local style = self.props.Stylizer
+
+	local function renderWithContext(localization, theme)
 		local props = self.props
 		local Size = props.Size
 		local LayoutOrder = props.LayoutOrder
@@ -95,7 +100,16 @@ function AssetConfigFooter:render()
 				LayoutOrder = 3,
 			})
 		})
-	end)
+	end
+
+	return if FFlagUpdateConvertToPackageToDFContextServices then renderWithContext(self.props.Localization, style) else withContext(renderWithContext)
+end
+
+if FFlagUpdateConvertToPackageToDFContextServices then
+	AssetConfigFooter = withContext({
+		Localization = ContextServices.Localization,
+		Stylizer = ContextServices.Stylizer,
+	})(AssetConfigFooter)
 end
 
 return AssetConfigFooter

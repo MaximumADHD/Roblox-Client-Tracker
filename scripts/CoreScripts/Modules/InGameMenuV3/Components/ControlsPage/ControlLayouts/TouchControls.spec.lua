@@ -32,7 +32,9 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					TouchControls = Roact.createElement(TouchControls),
+					TouchControls = Roact.createElement(TouchControls, {
+						screenSize = Vector2.new(1920, 1080)
+					}),
 				}),
 			}),
 		})

@@ -12,19 +12,26 @@
         OnSocialSlotTypeChanged = function(button) callback for when radio button is selected
         OnCustomSocialSlotsCountChanged = function(text) callback for when text inside custom social slot input is changed
 ]]
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = require(Plugin.Packages.Framework)
+local FFlagRemoveUILibraryRoundTextBox = Framework.SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
+
 local FitFrameOnAxis = Framework.Util.FitFrame.FitFrameOnAxis
+
+local UI = Framework.UI
+local TextInput2 = UI.TextInput2
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local UILibrary = require(Plugin.Packages.UILibrary)
-local RoundTextBox = UILibrary.Component.RoundTextBox
+local RoundTextBox
+if not FFlagRemoveUILibraryRoundTextBox then
+    local UILibrary = require(Plugin.Packages.UILibrary)
+	RoundTextBox = UILibrary.Component.RoundTextBox
+end
 
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local RadioButton = require(Plugin.Src.Components.RadioButton)
@@ -121,17 +128,27 @@ function ServerFill:render()
                             end,
                         }),
 
-                        InputField = hasInputField and Roact.createElement(RoundTextBox, {
-                            LayoutOrder = 2,
-                            Active = hasInputField,
-                            ShowToolTip = false,
-                            Size = UDim2.new(0, theme.placePage.textBox.length, 0, theme.textBox.height),
-                            Text = customSocialSlotsCount,
-                            ErrorMessage = errorMessage,
-                            TextSize = theme.fontStyle.Normal.TextSize,
+                        InputField = hasInputField and (if FFlagRemoveUILibraryRoundTextBox then
+                            Roact.createElement(TextInput2, {
+                                ErrorText = errorMessage,
+                                LayoutOrder = 2,
+                                OnTextChanged = onCustomSocialSlotsCountChanged,
+                                Width = theme.placePage.textBox.length,
+                                Text = customSocialSlotsCount,
+                            })
+                        else
+                            Roact.createElement(RoundTextBox, {
+                                LayoutOrder = 2,
+                                Active = hasInputField,
+                                ShowToolTip = false,
+                                Size = UDim2.new(0, theme.placePage.textBox.length, 0, theme.textBox.height),
+                                Text = customSocialSlotsCount,
+                                ErrorMessage = errorMessage,
+                                TextSize = theme.fontStyle.Normal.TextSize,
 
-                            SetText = onCustomSocialSlotsCountChanged,
-                        }),
+                                SetText = onCustomSocialSlotsCountChanged,
+                            })
+                        ),
                     })
                 else
                     return Roact.createElement(RadioButton, {

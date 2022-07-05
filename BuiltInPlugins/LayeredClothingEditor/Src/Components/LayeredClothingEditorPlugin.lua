@@ -61,6 +61,8 @@ local WINDOW_MIN_SIZE = Vector2.new(380, 550)
 
 local GetFFlagAccessoryFittingToolAnalytics = require(Plugin.Src.Flags.GetFFlagAccessoryFittingToolAnalytics)
 
+local FFlagFixPluginsEnabledViaDockingContextMenu = game:GetFastFlag("FixPluginsEnabledViaDockingContextMenu")
+
 function LayeredClothingEditorPlugin:init()
 	local plugin = self.props.plugin
 	plugin.Name = PLUGIN_NAME
@@ -162,6 +164,12 @@ function LayeredClothingEditorPlugin:init()
 			self.signals:get(Constants.SIGNAL_KEYS.PluginWindowFocused):Fire()
 		end)
 	end
+
+	self.onWidgetEnabledChanged = function(widget)
+		self:setState({
+			enabled = widget.Enabled,
+		})
+	end
 end
 
 function LayeredClothingEditorPlugin:render()
@@ -195,6 +203,7 @@ function LayeredClothingEditorPlugin:render()
 			OnClose = self.onClose,
 			OnWidgetRestored = function() end,
 			OnWidgetFocused = self.onFocus,
+			[Roact.Change.Enabled] = if FFlagFixPluginsEnabledViaDockingContextMenu then self.onWidgetEnabledChanged else nil,
 		}, {
 			LayeredClothingEditor = self.state.enabled and Roact.createElement(LayeredClothingEditor),
 		})

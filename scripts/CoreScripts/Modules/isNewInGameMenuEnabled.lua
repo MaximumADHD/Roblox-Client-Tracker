@@ -1,8 +1,8 @@
 local Players = game:GetService("Players")
 local VRService = game:GetService("VRService")
 
-local IsExperienceMenuABTestEnabled = require(script.Parent.InGameMenu.IsExperienceMenuABTestEnabled)
-local ExperienceMenuABTestManager = require(script.Parent.InGameMenu.ExperienceMenuABTestManager)
+local IsExperienceMenuABTestEnabled = require(script.Parent.InGameMenuV3.IsExperienceMenuABTestEnabled)
+local ExperienceMenuABTestManager = require(script.Parent.InGameMenuV3.ExperienceMenuABTestManager)
 
 game:DefineFastInt("NewInGameMenuPercentRollout3", 0)
 game:DefineFastString("NewInGameMenuForcedUserIds", "")
@@ -13,8 +13,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
 local FFlagDisableNewIGMinDUA = game:DefineFastFlag("DisableNewIGMinDUA", false)
 
-local isSubjectToDesktopPolicies = require(
-	script.Parent.InGameMenu.isSubjectToDesktopPolicies)
+local isSubjectToDesktopPolicies = require(script.Parent.InGameMenu.isSubjectToDesktopPolicies)
 
 return function()
 	if game:GetFastFlag("NewInGameMenuDisabledInVR") and not FFlagEnableNewVrSystem then
@@ -47,7 +46,7 @@ return function()
 		end
 	end
 
-	if IsExperienceMenuABTestEnabled() and ExperienceMenuABTestManager.default:isV2MenuEnabled() then
+	if IsExperienceMenuABTestEnabled() and ExperienceMenuABTestManager.default:isV3MenuEnabled() then
 		return true
 	end
 

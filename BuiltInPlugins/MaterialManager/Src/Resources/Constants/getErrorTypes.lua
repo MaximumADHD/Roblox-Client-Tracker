@@ -5,6 +5,8 @@ export type ErrorType = string
 
 local ErrorTypes: _Types.Map<string, ErrorType> = {
 	FailedUrl = "FailedUrl",
+	FailedToSelectFile = "FailedToSelectFile",
+	FailedToImportMap = "FailedToImportMap",
 	MissingMaterial = "MissingMaterial",
 	None = "None",
 }

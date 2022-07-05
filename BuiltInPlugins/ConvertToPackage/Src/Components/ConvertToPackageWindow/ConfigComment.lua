@@ -4,18 +4,21 @@
 	Props:
 	ToggleCallback, function, will return current selected statue if toggled.
 ]]
-
+local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local UILibrary = require(Packages.UILibrary)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
 
 local ToggleButton = UILibrary.Component.ToggleButton
-local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
+local withTheme = if FFlagUpdateConvertToPackageToDFContextServices then nil else require(Plugin.Src.ContextServices.Theming).withTheme
 
 local ConfigComment = Roact.PureComponent:extend("ConfigComment")
 
@@ -23,7 +26,9 @@ local TOGGLE_BUTTON_WIDTH = 40
 local TOGGLE_BUTTON_HEIGHT = 24
 
 function ConfigComment:render()
-	return withTheme(function(theme)
+	local style = self.props.Stylizer
+
+	local function renderWithContext(theme)
 		local props = self.props
 
 		local Title = props.Title
@@ -78,7 +83,15 @@ function ConfigComment:render()
 				LayoutOrder = 2,
 			}),
 		})
-	end)
+	end
+
+	return if FFlagUpdateConvertToPackageToDFContextServices then renderWithContext(style) else withTheme(renderWithContext)
+end
+
+if FFlagUpdateConvertToPackageToDFContextServices then
+	ConfigComment = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(ConfigComment)
 end
 
 return ConfigComment

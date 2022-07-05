@@ -1,4 +1,5 @@
 local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
+local FFlagToolboxFixVoteCountAfterRating = game:GetFastFlag("ToolboxFixVoteCountAfterRating")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -34,13 +35,16 @@ local function handleVoting(state, assetId, voteDirection)
 		newVoteCount = if FFlagAssetVoteSimplification then newVoteCount + 1 else nil
 	end
 
+	-- We don't change VoteCount here and below for two reasons:
+	-- 1. In the past, user votes were counted immediately. But now there's a several day delay between when they're counted. So we shouldn't update the votecount immediately
+	-- 2. The backend sends rounded numbers (e.g. 13 --> 10+, 121 --> 100+), so if we updated the votecount it would look bad (e.g. 11+,.
 	return Cryo.Dictionary.join(state, {
 		[assetId] = Cryo.Dictionary.join(state[assetId], {
 			HasVoted = true,
 			UserVote = voteDirection,
 			UpVotes = newVoteUp,
 			DownVotes = newVoteDown,
-			VoteCount = FFlagAssetVoteSimplification and newVoteCount,
+			VoteCount = if FFlagToolboxFixVoteCountAfterRating and FFlagAssetVoteSimplification then currentVoting.VoteCount else FFlagAssetVoteSimplification and newVoteCount,
 		}),
 	})
 end
@@ -65,7 +69,7 @@ local function handleUnvoting(state, assetId)
 			UserVote = Cryo.None,
 			UpVotes = newVoteUp,
 			DownVotes = newVoteDown,
-			VoteCount = FFlagAssetVoteSimplification and newVoteCount,
+			VoteCount = if FFlagToolboxFixVoteCountAfterRating and FFlagAssetVoteSimplification then currentVoting.VoteCount else FFlagAssetVoteSimplification and newVoteCount,
 		}),
 	})
 end

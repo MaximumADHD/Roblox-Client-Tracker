@@ -22,6 +22,7 @@ local ControlsPage = Roact.PureComponent:extend("ControlsPage")
 
 ControlsPage.validateProps = t.strictInterface({
 	pageTitle = t.string,
+	screenSize = t.Vector2,
 	controlLayout = t.optional(t.string),
 	canCaptureFocus = t.optional(t.boolean),
 })
@@ -34,7 +35,9 @@ function ControlsPage:render()
 	local controlLayout = self.props.controlLayout
 
 	if controlLayout == Controls.ControlLayouts.TOUCH then
-		return Roact.createElement(TouchControls)
+		return Roact.createElement(TouchControls, {
+			screenSize = self.props.screenSize
+		})
 	elseif controlLayout == Controls.ControlLayouts.KEYBOARD then
 		return Roact.createElement(KeyboardControls)
 	elseif controlLayout == Controls.ControlLayouts.GAMEPAD then
@@ -63,6 +66,7 @@ return RoactRodux.UNSTABLE_connect2(function(state)
 	local controlLayout = state.controlLayout
 
 	return {
+		screenSize = state.screenSize,
 		controlLayout = controlLayout,
 		canCaptureFocus = state.menuPage == "Controls",
 	}

@@ -24,7 +24,6 @@ local TextEntryField = Roact.PureComponent:extend("TextEntryField")
 local FULL_CIRCLE_OVERAGE = 10
 local LARGER_CIRCLE_CHARACTERS = 20
 local TEXT_SIDE_PADDING = 12
-local CIRCLE_BACKGROUND_ASSET = Images["component_assets/circle_17"]
 
 TextEntryField.validateProps = t.strictInterface({
 	-- Wether the TextEntryField is enabled or disabled. Can not be interacted with when disabled.
@@ -89,11 +88,6 @@ function TextEntryField:renderWithSelectionCursor(getSelectionCursor)
 			Vector2.new(self.state.textBoxWidth, 10000)
 		)
 
-		local imageSize = CIRCLE_BACKGROUND_ASSET.ImageRectSize
-		local imageOffset = CIRCLE_BACKGROUND_ASSET.ImageRectOffset
-		local imageWidth = imageSize.X
-		local halfImageWidth = imageWidth / 2
-
 		return Roact.createElement(ImageSetLabel, {
 			BackgroundTransparency = 1,
 			Image = Assets.Images.RoundedRect.Image,
@@ -106,7 +100,7 @@ function TextEntryField:renderWithSelectionCursor(getSelectionCursor)
 			LayoutOrder = self.props.LayoutOrder,
 		}, {
 			ScrollingFrame = Roact.createElement("ScrollingFrame", {
-				Size = UDim2.new(1, -(TEXT_SIDE_PADDING * 2), 1, -44),
+				Size = UDim2.new(1, -(TEXT_SIDE_PADDING * 2), 1, -14),
 				AnchorPoint = Vector2.new(0.5, 0),
 				Position = UDim2.new(0.5, 0, 0, 7),
 				BackgroundTransparency = 1,
@@ -192,36 +186,21 @@ function TextEntryField:renderWithSelectionCursor(getSelectionCursor)
 					}),
 				}),
 			}),
-
-			BottomBar = Roact.createElement("ImageLabel", {
+			TextAmmountIndicator = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
-				Image = CIRCLE_BACKGROUND_ASSET.Image,
-				ImageColor3 = style.Theme.BackgroundMuted.Color,
-				ImageTransparency = 0,
-				ScaleType = Enum.ScaleType.Slice,
-				AnchorPoint = Vector2.new(0, 1),
-				Position = UDim2.new(0, 0, 1, 0),
-				Size = UDim2.new(1, 0, 0, 32),
-				SliceCenter = Rect.new(halfImageWidth - 1, 0, halfImageWidth + 1, 1),
-				SliceScale = 1 / Images.ImagesResolutionScale,
-				ImageRectSize = Vector2.new(imageWidth, halfImageWidth),
-				ImageRectOffset = (imageOffset + Vector2.new(0, halfImageWidth)),
+				Position = UDim2.new(1, -10, 1, -16),
+				AnchorPoint = Vector2.new(1, 0.5),
+				Size = UDim2.new(0, 20, 0, 20),
+				ZIndex = 1,
 			}, {
-				TextAmmountIndicator = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					Position = UDim2.new(1, -10, 0.5, 0),
-					AnchorPoint = Vector2.new(1, 0.5),
-					Size = UDim2.new(0, 20, 0, 20),
-				}, {
-					Roact.createElement(FillCircle, {
-						Position = UDim2.new(0.5, 0, 0.5, 0),
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						fillFraction = utf8.len(utf8.nfcnormalize(self.props.text)) / (self.props.maxTextLength - FULL_CIRCLE_OVERAGE),
-						largerCircleFraction = (self.props.maxTextLength - LARGER_CIRCLE_CHARACTERS) / self.props.maxTextLength,
-						popCircleFraction = 1,
-						shakeCircleFraction = self.props.maxTextLength / (self.props.maxTextLength - FULL_CIRCLE_OVERAGE),
-						BackgroundColor = style.Theme.BackgroundMuted.Color,
-					})
+				Roact.createElement(FillCircle, {
+					Position = UDim2.new(0.5, 0, 0.5, 0),
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					fillFraction = utf8.len(utf8.nfcnormalize(self.props.text)) / (self.props.maxTextLength - FULL_CIRCLE_OVERAGE),
+					largerCircleFraction = (self.props.maxTextLength - LARGER_CIRCLE_CHARACTERS) / self.props.maxTextLength,
+					popCircleFraction = 1,
+					shakeCircleFraction = self.props.maxTextLength / (self.props.maxTextLength - FULL_CIRCLE_OVERAGE),
+					BackgroundColor = style.Theme.BackgroundMuted.Color,
 				})
 			}),
 		})

@@ -7,6 +7,7 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+local VoiceConstants = require(RobloxGui.Modules.InGameChat.BubbleChat.Constants)
 local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 local BlockPlayer = require(RobloxGui.Modules.PlayerList.Thunks.BlockPlayer)
 local UnblockPlayer = require(RobloxGui.Modules.PlayerList.Thunks.UnblockPlayer)
@@ -45,6 +46,7 @@ PlayerContextualMenuWrapper.validateProps = t.strictInterface({
 	onActionComplete = t.optional(t.callback),
 	invitesState = t.table,
 	voiceEnabled = t.optional(t.boolean),
+	voiceState = t.optional(t.string),
 	screenSize = t.Vector2,
 	isRespawnDialogOpen = t.optional(t.boolean),
 	isGamepadLastInput = t.optional(t.boolean),
@@ -78,8 +80,6 @@ local CONTEXT_MENU_BUTTON_WIDTH = 47
 function PlayerContextualMenuWrapper:init()
 	self:setState({
 		isBlocked = false,
-		canToggleMute = false,
-		isMuted = false,
 	})
 end
 
@@ -89,26 +89,12 @@ function PlayerContextualMenuWrapper.getDerivedStateFromProps(nextProps, lastSta
 		local userId = selectedPlayer.UserId
 		-- block player
 		local isBlocked = nextProps.blockingUtility:IsPlayerBlockedByUserId(userId)
-		-- mute voice chat
-		local canToggleMute = false
-		local isMuted = false
-		if nextProps.voiceEnabled then
-			local voiceParticipant = VoiceChatServiceManager.participants[tostring(userId)]
-			if voiceParticipant then
-				canToggleMute = true
-				isMuted = voiceParticipant.isMutedLocally
-			end
-		end
 		return {
 			isBlocked = isBlocked,
-			canToggleMute = canToggleMute,
-			isMuted = isMuted,
 		}
 	else
 		return {
 			isBlocked = false,
-			canToggleMute = false,
-			isMuted = false,
 		}
 	end
 end
@@ -131,6 +117,8 @@ function PlayerContextualMenuWrapper:render()
 		mutePlayer = "CoreScripts.InGameMenu.Action.MutePlayer",
 		pendingFriendRequest = "CoreScripts.InGameMenu.Action.PendingFriendRequest",
 		accept = "CoreScripts.InGameMenu.Action.Accept",
+		muteSelf = "CoreScripts.InGameMenu.QuickActions.MuteSelf",
+		unmuteSelf = "CoreScripts.InGameMenu.QuickActions.UnmuteSelf",
 	})(function(localized)
 		return self:renderWithLocalized(localized)
 	end)
@@ -278,6 +266,11 @@ function PlayerContextualMenuWrapper:getInviteAction(localized, player, isFriend
 				local userId = tostring(player.UserId)
 				if placeId then
 					self.props.dispatchInviteUserToPlaceId(userId, placeId)
+
+					SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsInvitePlayerToPlaceId, {
+						placeId = placeId,
+						source = Constants.AnalyticsPlayerContextMenuSource,
+					})
 				end
 			end,
 		}
@@ -315,9 +308,10 @@ function PlayerContextualMenuWrapper:getFriendAction(localized, player)
 			onActivated = function()
 				self.props.playersService.LocalPlayer:RequestFriendship(player)
 
-				-- send analytic events
-				AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
-				SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsRequestFriendName, {})
+				AnalyticsService:ReportCounter(Constants.AnalyticsCounterRequestFriendship)
+				SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsRequestFriendName, {
+					source = Constants.AnalyticsPlayerContextMenuSource,
+				})
 			end,
 		}
 	elseif friendStatus == Enum.FriendStatus.FriendRequestSent then
@@ -328,7 +322,9 @@ function PlayerContextualMenuWrapper:getFriendAction(localized, player)
 				-- cancel request if there's a pending friend request
 				self.props.playersService.LocalPlayer:RevokeFriendship(player)
 
-				-- todo: send analytics counter and event
+				SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsRevokeFriendshipName, {
+					source = Constants.AnalyticsPlayerContextMenuSource,
+				})
 			end,
 		}
 	elseif friendStatus == Enum.FriendStatus.FriendRequestReceived then
@@ -350,9 +346,15 @@ function PlayerContextualMenuWrapper:getFriendAction(localized, player)
 									),
 									onActivated = function()
 										self.props.playersService.LocalPlayer:RevokeFriendship(player)
-										self.setState({
+										self:setState({
 											selectedPlayer = Roact.None,
 										})
+
+										SendAnalytics(
+											Constants.AnalyticsMenuActionName,
+											Constants.AnalyticsRejectFriendshipRequest,
+											{}
+										)
 									end,
 									layoutOrder = 1,
 								},
@@ -367,9 +369,15 @@ function PlayerContextualMenuWrapper:getFriendAction(localized, player)
 									),
 									onActivated = function()
 										self.props.playersService.LocalPlayer:RequestFriendship(player)
-										self.setState({
+										self:setState({
 											selectedPlayer = Roact.None,
 										})
+
+										SendAnalytics(
+											Constants.AnalyticsMenuActionName,
+											Constants.AnalyticsAcceptFriendshipRequest,
+											{}
+										)
 									end,
 									layoutOrder = 2,
 								},
@@ -386,7 +394,6 @@ function PlayerContextualMenuWrapper:getFriendAction(localized, player)
 				CONTEXT_MENU_BUTTON_CONTAINER_HEIGHT
 			),
 		}
-
 	else
 		return nil
 	end
@@ -415,6 +422,12 @@ function PlayerContextualMenuWrapper:getReportAction(localized, player)
 		onActivated = function()
 			TrustAndSafety.openReportDialogForPlayer(player)
 			self.props.onActionComplete(true)
+
+			SendAnalytics(
+				Constants.AnalyticsMenuActionName,
+				Constants.AnalyticsReportAbuse,
+				{ source = Constants.AnalyticsPlayerContextMenuSource }
+			)
 		end,
 	}
 end
@@ -429,16 +442,44 @@ function PlayerContextualMenuWrapper:getMutePlayerAction(localized, player)
 		return nil
 	end
 
-	if self.state.canToggleMute then
-		return {
-			text = self.state.isMuted and localized.unmutePlayer or localized.mutePlayer,
-			icon = VoiceChatServiceManager:GetIcon(self.state.isMuted and "Unmute" or "Mute", "Misc"),
-			onActivated = function()
-				VoiceChatServiceManager:ToggleMutePlayer(player.UserId)
-				self:updateDerivedState()
-				self.props.onActionComplete(false)
-			end,
-		}
+	if self.props.voiceState == VoiceConstants.VOICE_STATE.HIDDEN then
+		return nil
+	end
+
+	if self.props.voiceEnabled then
+		local voiceParticipant = VoiceChatServiceManager.participants[tostring(player.UserId)]
+		local isLocalPlayer = player.UserId == Players.LocalPlayer.UserId
+		if isLocalPlayer then
+			local isMuted = self.props.voiceState == VoiceConstants.VOICE_STATE.MUTED or self.props.voiceState == VoiceConstants.VOICE_STATE.LOCAL_MUTED
+			return {
+				text = isMuted and localized.unmuteSelf or localized.muteSelf,
+				icon = VoiceChatServiceManager:GetIcon(isMuted and "Mute" or "Unmute", "Misc"),
+				onActivated = function()
+					VoiceChatServiceManager:ToggleMic()
+					SendAnalytics(
+						Constants.AnalyticsMenuActionName,
+						isMuted and Constants.AnalyticsUnmuteSelf or Constants.AnalyticsMuteSelf,
+						{ source = Constants.AnalyticsPlayerContextMenuSource }
+					)
+					self.props.onActionComplete(false)
+				end,
+			}
+		elseif voiceParticipant then
+			local isMuted = voiceParticipant.isMutedLocally
+			return {
+				text = isMuted and localized.unmutePlayer or localized.mutePlayer,
+				icon = VoiceChatServiceManager:GetIcon(isMuted and "Muted" or "Unmuted0", "SpeakerLight"),
+				onActivated = function()
+					VoiceChatServiceManager:ToggleMutePlayer(player.UserId)
+					SendAnalytics(
+						Constants.AnalyticsMenuActionName,
+						isMuted and Constants.AnalyticsUnmutePlayer or Constants.AnalyticsMutePlayer,
+						{ source = Constants.AnalyticsPlayerContextMenuSource }
+					)
+					self.props.onActionComplete(false)
+				end,
+			}
+		end
 	end
 
 	return nil
@@ -464,6 +505,8 @@ function PlayerContextualMenuWrapper:getBlockPlayerAction(localized, player, isF
 				self.props.unblockPlayer(player)
 				self:updateDerivedState()
 				self.props.onActionComplete(false)
+
+				SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsUnblockPlayer, {})
 			else
 				if isFriendsWithPlayer then
 					self.props.openFriendBlockConfirmation(player)
@@ -471,6 +514,8 @@ function PlayerContextualMenuWrapper:getBlockPlayerAction(localized, player, isF
 					self.props.blockPlayer(player)
 					self:updateDerivedState()
 					self.props.onActionComplete(false)
+
+					SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsBlockPlayer, {})
 				end
 			end
 		end,
@@ -498,15 +543,21 @@ function PlayerContextualMenuWrapper:getUnfriendAction(localized, player, isFrie
 			-- todo: use non - players service API
 			self.props.playersService.LocalPlayer:RevokeFriendship(player)
 
-			-- todo: add analytics
+			SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsUnfriendPlayer, {})
 		end,
 	}
 end
 
 return RoactRodux.connect(function(state, props)
+	local voiceState = ""
+	if props.selectedPlayer and props.selectedPlayer.UserId then
+		voiceState = state.voiceState[tostring(props.selectedPlayer.UserId)]
+	end
+
 	return {
 		invitesState = state.invites,
 		voiceEnabled = state.voiceState.voiceEnabled,
+		voiceState = voiceState,
 		screenSize = state.screenSize,
 		isRespawnDialogOpen = state.respawn.dialogOpen,
 		isGamepadLastInput = state.displayOptions.inputType == Constants.InputType.Gamepad,

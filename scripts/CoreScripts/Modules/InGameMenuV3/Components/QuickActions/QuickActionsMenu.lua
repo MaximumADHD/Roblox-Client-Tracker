@@ -20,6 +20,8 @@ local SetRespawning = require(InGameMenu.Actions.SetRespawning)
 local MuteAllButton = require(InGameMenu.Components.QuickActions.MuteAllButton)
 local MuteSelfButton = require(InGameMenu.Components.QuickActions.MuteSelfButton)
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
+local Constants = require(InGameMenu.Resources.Constants)
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
 local QuickActionsMenu = Roact.PureComponent:extend("QuickActionsMenu")
 
@@ -33,14 +35,20 @@ QuickActionsMenu.validateProps = t.strictInterface({
 	startRespawning = t.callback,
 	transparencies = t.table,
 	voiceEnabled = t.boolean,
+	respawnEnabled = t.boolean,
 	screenshotEnabled = t.boolean,
 	closeMenu = t.callback,
 })
 
-
 function QuickActionsMenu:init()
 	self.openReportMenu = function()
 		TrustAndSafety.openReportMenu()
+
+		SendAnalytics(
+			Constants.AnalyticsMenuActionName,
+			Constants.AnalyticsReportAbuse,
+			{ source = Constants.AnalyticsQuickActionsMenuSource }
+		)
 	end
 
 	self.screenshot = function()
@@ -49,21 +57,57 @@ function QuickActionsMenu:init()
 			RunService.RenderStepped:Wait()
 		end
 		CoreGui:TakeScreenshot()
+
+		SendAnalytics(
+			Constants.AnalyticsMenuActionName,
+			Constants.AnalyticsScreenshot,
+			{ source = Constants.AnalyticsQuickActionsMenuSource }
+		)
 	end
+
+	self.startRespawning = function()
+		self.props.startRespawning()
+
+		SendAnalytics(
+			Constants.AnalyticsMenuActionName,
+			Constants.AnalyticsRespawnCharacterName,
+			{ source = Constants.AnalyticsQuickActionsMenuSource }
+		)
+	end
+end
+
+local function updateTransparency(props)
+	local transparency = {
+		respawn =  props.transparencies.button1,
+		screenshot =  props.transparencies.button2,
+		report = props.transparencies.button3,
+		muteAll = props.transparencies.button4,
+		muteSelf = props.transparencies.button5,
+	}
+	if props.respawnEnabled then
+		if not props.screenshotEnabled then
+			transparency.report = props.transparencies.button2
+			transparency.muteAll = props.transparencies.button3
+			transparency.muteSelf = props.transparencies.button4
+		end
+	else
+		if props.screenshotEnabled then
+			transparency.screenshot =  props.transparencies.button1
+			transparency.report = props.transparencies.button2
+			transparency.muteAll = props.transparencies.button3
+			transparency.muteSelf = props.transparencies.button4
+		else
+			transparency.report = props.transparencies.button1
+			transparency.muteAll = props.transparencies.button2
+			transparency.muteSelf = props.transparencies.button3
+		end
+	end
+	return transparency
 end
 
 function QuickActionsMenu:render()
 	return withStyle(function(style)
-		local reportButtonTransparency, muteAllButtonTransparency, muteSelfButtonTransparency
-			if self.props.screenshotEnabled then
-				reportButtonTransparency = self.props.transparencies.button3
-				muteAllButtonTransparency = self.props.transparencies.button4
-				muteSelfButtonTransparency = self.props.transparencies.button5
-			else
-				reportButtonTransparency = self.props.transparencies.button2
-				muteAllButtonTransparency = self.props.transparencies.button3
-				muteSelfButtonTransparency = self.props.transparencies.button4
-			end
+		local transparency =  updateTransparency(self.props)
 		return Roact.createElement("Frame", {
 			LayoutOrder = self.props.layoutOrder,
 			Size = UDim2.new(0, QUICK_ACTIONS_WIDTH, 0, 0),
@@ -87,22 +131,22 @@ function QuickActionsMenu:render()
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
 			MuteSelfButton = self.props.voiceEnabled and Roact.createElement(MuteSelfButton, {
-				iconTransparency = muteSelfButtonTransparency,
-				backgroundTransparency = muteSelfButtonTransparency,
+				iconTransparency = transparency.muteSelf,
+				backgroundTransparency = transparency.muteSelf,
 				backgroundColor = style.Theme.BackgroundUIDefault,
 				iconSize = IconSize.Medium,
 				layoutOrder = 1,
 			}) or nil,
 			MuteAllButton = self.props.voiceEnabled and Roact.createElement(MuteAllButton, {
-				iconTransparency = muteAllButtonTransparency,
-				backgroundTransparency = muteAllButtonTransparency,
+				iconTransparency = transparency.muteAll,
+				backgroundTransparency = transparency.muteAll,
 				backgroundColor = style.Theme.BackgroundUIDefault,
 				iconSize = IconSize.Medium,
 				layoutOrder = 2,
 			}) or nil,
 			ReportButton = Roact.createElement(IconButton, {
-				iconTransparency = reportButtonTransparency,
-				backgroundTransparency = reportButtonTransparency,
+				iconTransparency = transparency.report,
+				backgroundTransparency = transparency.report,
 				backgroundColor = style.Theme.BackgroundUIDefault,
 				showBackground = true,
 				layoutOrder = 3,
@@ -111,8 +155,8 @@ function QuickActionsMenu:render()
 				onActivated = self.openReportMenu,
 			}),
 			ScreenshotButton = self.props.screenshotEnabled and Roact.createElement(IconButton, {
-				iconTransparency = self.props.transparencies.button2,
-				backgroundTransparency = self.props.transparencies.button2,
+				iconTransparency = transparency.screenshot,
+				backgroundTransparency = transparency.screenshot,
 				backgroundColor = style.Theme.BackgroundUIDefault,
 				showBackground = true,
 				layoutOrder = 4,
@@ -120,16 +164,16 @@ function QuickActionsMenu:render()
 				onActivated = self.screenshot,
 				icon = Assets.Images.ScreenshotIcon,
 			}) or nil,
-			RespawnButton = Roact.createElement(IconButton, {
-				iconTransparency = self.props.transparencies.button1,
-				backgroundTransparency = self.props.transparencies.button1,
+			RespawnButton = self.props.respawnEnabled and Roact.createElement(IconButton, {
+				iconTransparency = transparency.respawn,
+				backgroundTransparency = transparency.respawn,
 				backgroundColor = style.Theme.BackgroundUIDefault,
 				showBackground = true,
 				layoutOrder = 5,
-				onActivated = self.props.startRespawning,
+				onActivated = self.startRespawning,
 				iconSize = IconSize.Medium,
 				icon = Assets.Images.RespawnIcon,
-			}),
+			}) or nil,
 		})
 	end)
 end

@@ -41,12 +41,9 @@ local function buildNetworkInterfaceMock(undefaultedArgs: NetworkInterfaceMockAr
 			local searchTerm = getToolboxItemsArgs.keyword
 			local cursor = getToolboxItemsArgs.cursor
 			local limit = getToolboxItemsArgs.limit
-			local startValue: number
-			if searchTerm then
-				_, _, startValue = string.find(searchTerm, "start(%d+)")
-			end
-			startValue = startValue or 1
-			startValue = tonumber(cursor) or startValue
+
+			local searchStart = searchTerm and string.match(searchTerm, "start(%d+)")
+			local startValue = tonumber(cursor) or tonumber(searchStart) or 1
 
 			local response = {
 				responseBody = {

@@ -414,6 +414,7 @@ local function mapStateToProps(state): {[string]: any}
 		SelectedTracks = status.SelectedTracks,
 		Tick = status.RightClickContextInfo.Tick,
 		Tool = status.Tool,
+		Tracks = status.Tracks,
 	}
 end
 

@@ -11,7 +11,6 @@ game:DefineFastInt("StudioAudioDiscoveryBreakdownAnalyticsThrottle", 10000) --> 
 game:DefineFastInt("StudioAudioDiscoveryPermissionCheckAnalyticsThrottle", 1000) --> 10% http request results
 
 game:DefineFastFlag("AudioDiscoveryAddPermCheck", false)
-game:DefineFastInt("AudioDiscoveryPermCheckMaxAssetIdsPerRequest", 60)
 game:DefineFastFlag("DEBUG_StudioAudioDiscoveryPermissionCheckErrors", false)
 
 return nil

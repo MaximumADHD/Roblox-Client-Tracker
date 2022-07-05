@@ -36,11 +36,15 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
 local Framework = require(Plugin.Packages.Framework)
+local FFlagRemoveUILibraryRoundTextBox = Framework.SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local TitledFrame = UILibrary.Component.TitledFrame
-local RoundTextBox = UILibrary.Component.RoundTextBox
-local Separator = if FFlagRemoveUILibrarySeparator then Framework.UI.Separator else UILibrary.Component.Separator
+
+local RoundTextBox
+if not FFlagRemoveUILibraryRoundTextBox then
+	RoundTextBox = UILibrary.Component.RoundTextBox
+end
 
 local TeachingCallout = require(Plugin.Src.Components.TeachingCallout)
 
@@ -73,15 +77,18 @@ local selectedKey = KeyProvider.getSelectedKeyName()
 local termsOfUseDialogKey = KeyProvider.getTermsOfUseDialogKeyName()
 local buttonClickedKey = KeyProvider.getButtonClickedKeyName()
 
-local Button = Framework.UI.Button
-local HoverArea = Framework.UI.HoverArea
-local Image = Framework.UI.Decoration.Image
-local LinkText = Framework.UI.LinkText
-local SelectInput = Framework.UI.SelectInput
+local UI = Framework.UI
+local Button = UI.Button
+local HoverArea = UI.HoverArea
+local Image = UI.Decoration.Image
+local LinkText = UI.LinkText
+local SelectInput = UI.SelectInput
+local Separator = if FFlagRemoveUILibrarySeparator then UI.Separator else UILibrary.Component.Separator
 local StyledDialog = Framework.StudioUI.StyledDialog
-local TextLabel = Framework.UI.Decoration.TextLabel
-local TextWithInlineLink = Framework.UI.TextWithInlineLink
-local Tooltip = Framework.UI.Tooltip
+local TextLabel = UI.Decoration.TextLabel
+local TextInput2 = UI.TextInput2
+local TextWithInlineLink = UI.TextWithInlineLink
+local Tooltip = UI.Tooltip
 
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 
@@ -163,7 +170,7 @@ local function displayContents(parent)
 
 	-- Question: Is there a way for me to get the size and font type automagically from the LinkText Style "Body"?
 	local hyperLinkTextSize = calculateTextSize(localization:getText(optInLocationsKey, "RequirementsLinkText"), 14, "SourceSans")
-
+	
 	local displayResult = {
 		Header = Roact.createElement(Header, {
 			Title = localization:getText("MenuItem", "BasicInfo"),
@@ -176,14 +183,23 @@ local function displayContents(parent)
 			LayoutOrder = layoutOrder:getNextOrder(),
 			TextSize = Constants.TEXT_SIZE,
 		}, {
-			TextBox = Roact.createElement(RoundTextBox, {
-				Active = true,
-				ErrorMessage = nameError and localization:getText("Error", nameError, { tostring(nameLength), tostring(MAX_NAME_LENGTH) }),
-				MaxLength = MAX_NAME_LENGTH,
-				Text = name,
-				TextSize = Constants.TEXT_SIZE,
-				SetText = nameChanged,
-			}),
+			TextBox = (if FFlagRemoveUILibraryRoundTextBox then
+				Roact.createElement(TextInput2,  {
+					ErrorText = nameError and localization:getText("Error", nameError, { tostring(nameLength), tostring(MAX_NAME_LENGTH) }),
+					MaxLength = MAX_NAME_LENGTH,
+					OnTextChanged = nameChanged,
+					Text = name,
+				})
+			else
+				Roact.createElement(RoundTextBox, {
+					Active = true,
+					ErrorMessage = nameError and localization:getText("Error", nameError, { tostring(nameLength), tostring(MAX_NAME_LENGTH) }),
+					MaxLength = MAX_NAME_LENGTH,
+					Text = name,
+					TextSize = Constants.TEXT_SIZE,
+					SetText = nameChanged,
+				})
+			),
 		}),
 
 		Description = Roact.createElement(TitledFrame, {
@@ -192,16 +208,27 @@ local function displayContents(parent)
 			LayoutOrder = layoutOrder:getNextOrder(),
 			TextSize = Constants.TEXT_SIZE,
 		}, {
-			TextBox = Roact.createElement(RoundTextBox, {
-				Active = true,
-				Height = theme.descriptionBox.textBoxHeight,
-				Multiline = true,
-				MaxLength = MAX_DESCRIPTION_LENGTH,
-				Text = description,
-				TextSize = Constants.TEXT_SIZE,
-				SetText = descriptionChanged,
-				ErrorMessage = descriptionError and localization:getText("Error", descriptionError, { tostring(descriptionLength), tostring(MAX_DESCRIPTION_LENGTH) }),
-			}),
+			TextBox = (if FFlagRemoveUILibraryRoundTextBox then
+				Roact.createElement(TextInput2, {
+					ErrorText = descriptionError and localization:getText("Error", descriptionError, { tostring(descriptionLength), tostring(MAX_DESCRIPTION_LENGTH) }),
+					Height = theme.descriptionBox.textBoxHeight,
+					MaxLength = MAX_DESCRIPTION_LENGTH,
+					MultiLine = true,
+					OnTextChanged = descriptionChanged,
+					Text = description,
+				})
+			else
+				Roact.createElement(RoundTextBox, {
+					Active = true,
+					Height = theme.descriptionBox.textBoxHeight,
+					Multiline = true,
+					MaxLength = MAX_DESCRIPTION_LENGTH,
+					Text = description,
+					TextSize = Constants.TEXT_SIZE,
+					SetText = descriptionChanged,
+					ErrorMessage = descriptionError and localization:getText("Error", descriptionError, { tostring(descriptionLength), tostring(MAX_DESCRIPTION_LENGTH) }),
+				})
+			),
 		}),
 
 		Separator1 = Roact.createElement(Separator, {

@@ -25,6 +25,9 @@ local SuccessWidget = require(Plugin.Src.Components.UploadWidgets.SuccessWidget)
 local FailureWidget = require(Plugin.Src.Components.UploadWidgets.FailureWidget)
 local trimFilename = require(Plugin.Src.Utility.trimFilename)
 
+local getFFlagUseAssetImportSession = require(Plugin.Src.Flags.getFFlagUseAssetImportSession)
+local getFFlagAssetImporterFixUnmount = require(Plugin.Src.Flags.getFFlagAssetImporterFixUnmount)
+
 local ProgressWidget = Roact.PureComponent:extend("ProgressWidget")
 
 function ProgressWidget:init()
@@ -102,13 +105,20 @@ function ProgressWidget:didMount()
 		self:setState({ doneUploading = true, uploadSucceeded = succeeded, errorMap = errorMap })
 	end
 
-	self._updateImportProgressConnection = AssetImportService.ProgressUpdate:Connect(self._updateImportProgress)
-	self._updateImportSuccessConnection = AssetImportService.UploadFinished:Connect(self._updateImportSuccess)
+	if getFFlagUseAssetImportSession() then
+		self._updateImportProgressConnection = self.props.AssetImportSession.UploadProgress:Connect(self._updateImportProgress)
+		self._updateImportSuccessConnection = self.props.AssetImportSession.UploadComplete:Connect(self._updateImportSuccess)
+	else
+		self._updateImportProgressConnection = AssetImportService.ProgressUpdate:Connect(self._updateImportProgress)
+		self._updateImportSuccessConnection = AssetImportService.UploadFinished:Connect(self._updateImportSuccess)
+	end
 end
 
-function ProgressWidget:didUnmount()
-	self._updateImportProgressConnection:Disconnect()
-	self._updateImportSuccessConnection:Disconnect()
+if getFFlagAssetImporterFixUnmount() then
+	function ProgressWidget:willUnmount()
+			self._updateImportProgressConnection:Disconnect()
+			self._updateImportSuccessConnection:Disconnect()
+	end
 end
 
 function ProgressWidget:render()
@@ -157,6 +167,7 @@ end
 
 local function mapStateToProps(state)
 	return {
+		AssetImportSession = state.assetImportSession,
 		Filename = state.filename,
 	}
 end

@@ -1,5 +1,6 @@
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
+local UserInputService = game:GetService("UserInputService")
 
 local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
@@ -16,6 +17,8 @@ local Images = UIBlox.App.ImageSet.Images
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local shouldSaveScreenshotToAlbum = require(RobloxGui.Modules.shouldSaveScreenshotToAlbum)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+
+local GetFFlagUpdateCapturePermissionText = require(RobloxGui.Modules.Flags.GetFFlagUpdateCapturePermissionText)
 
 local TOAST_DURATION = 3
 local CAPTURE_NOTIFICATION_DISPLAY_ORDER = 9
@@ -119,6 +122,20 @@ function CaptureNotification:init()
 			toastContent = self.getToastContent(NotificationType.Permission),
 		})
 	end
+
+	self.getPermissionAlertBodyText = function()
+		if GetFFlagUpdateCapturePermissionText() then
+			if UserInputService:GetPlatform() == Enum.Platform.IOS then
+				return RobloxTranslator:FormatByKey("NotificationScript2.Capture.Permission.AlertTextIOS")
+			elseif UserInputService:GetPlatform() == Enum.Platform.Android then
+				return RobloxTranslator:FormatByKey("NotificationScript2.Capture.Permission.AlertTextAndroid")
+			else
+				return RobloxTranslator:FormatByKey("NotificationScript2.Capture.Permission.AlertText")
+			end
+		else
+			return RobloxTranslator:FormatByKey("NotificationScript2.Capture.Permission.AlertText")
+		end
+	end
 end
 
 function CaptureNotification:render()
@@ -160,7 +177,7 @@ function CaptureNotification:render()
 				}, {
 					PermissionAlert = Roact.createElement(InteractiveAlert, {
 						title = RobloxTranslator:FormatByKey("NotificationScript2.Capture.Permission.AlertTitle"),
-						bodyText = RobloxTranslator:FormatByKey("NotificationScript2.Capture.Permission.AlertText"),
+						bodyText = self.getPermissionAlertBodyText(),
 						buttonStackInfo = {
 							buttons = {
 								{

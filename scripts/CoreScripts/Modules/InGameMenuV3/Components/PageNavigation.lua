@@ -72,7 +72,7 @@ function NavigationButton:init(props)
 
 	self.motor = Otter.createGroupMotor({
 		fillProgress = startingFillProgress,
-		hoverTransparency = startingHoverTransparency
+		hoverTransparency = startingHoverTransparency,
 	})
 
 	self.motor:onStep(function(values)
@@ -128,14 +128,20 @@ function NavigationButton:renderWithSelectionCursor(getSelectionCursor)
 					})
 				end,
 				[Roact.Event.InputBegan] = function(_, input)
-					if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+					if
+						input.UserInputType == Enum.UserInputType.MouseButton1
+						or input.UserInputType == Enum.UserInputType.Touch
+					then
 						self:setState({
 							pressing = true,
 						})
 					end
 				end,
 				[Roact.Event.InputEnded] = function(_, input)
-					if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+					if
+						input.UserInputType == Enum.UserInputType.MouseButton1
+						or input.UserInputType == Enum.UserInputType.Touch
+					then
 						self:setState({
 							pressing = false,
 						})
@@ -154,7 +160,10 @@ function NavigationButton:renderWithSelectionCursor(getSelectionCursor)
 						BackgroundTransparency = 1,
 						Image = props.image,
 						ImageColor3 = style.Theme.IconEmphasis.Color,
-						ImageTransparency = divideTransparency(style.Theme.IconEmphasis.Transparency, showPressEffect and 2 or 1),
+						ImageTransparency = divideTransparency(
+							style.Theme.IconEmphasis.Transparency,
+							showPressEffect and 2 or 1
+						),
 						Position = UDim2.new(0, NAV_ICON_LEFT_PADDING, 0.5, 0),
 						Size = UDim2.new(0, NAV_ICON_SIZE, 0, NAV_ICON_SIZE),
 						ZIndex = 3,
@@ -167,7 +176,10 @@ function NavigationButton:renderWithSelectionCursor(getSelectionCursor)
 						Position = UDim2.new(0, NAV_ICON_LEFT_PADDING + NAV_ICON_SIZE + NAV_ICON_TEXT_PADDING, 0.5, 0),
 						Size = UDim2.new(1, -TEXT_SIZE_INSET, 1, 0),
 						Text = localized.text,
-						TextTransparency = divideTransparency(style.Theme.TextEmphasis.Transparency, showPressEffect and 2 or 1),
+						TextTransparency = divideTransparency(
+							style.Theme.TextEmphasis.Transparency,
+							showPressEffect and 2 or 1
+						),
 						TextXAlignment = Enum.TextXAlignment.Left,
 						ZIndex = 3,
 					}),
@@ -205,7 +217,7 @@ local function PageNavigation(props)
 		Layout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			HorizontalAlignment = Enum.HorizontalAlignment.Right,
-		})
+		}),
 	}
 
 	local favoriteSelected = props.isFavorited ~= nil and props.isFavorited or false
@@ -214,7 +226,13 @@ local function PageNavigation(props)
 	local actions = {
 		shareServerLink = {
 			onActivated = function()
-				-- TODO(COEXP-318): Generate invite link and pull up sharesheet.
+				-- TODO(COEXP-318): Generate invite link, pull up sharesheet, and send linkId/linkType in analytics.
+				SendAnalytics(Constants.ShareLinksAnalyticsName, Constants.ShareLinksAnalyticsLinkGeneratedName, {
+					page = "inGameMenu",
+					subpage = "inviteFriendsPage",
+					linkId = "",
+					linkType = ""
+				})
 			end
 		},
 		favorite = {
@@ -222,19 +240,38 @@ local function PageNavigation(props)
 			onActivated = function()
 				props.setFavorite(not favoriteSelected)
 				props.postFavorite(networkImpl, not favoriteSelected)
-			end
+
+				SendAnalytics(
+					Constants.AnalyticsMenuActionName,
+					favoriteSelected and Constants.AnalyticsUnfavoritingExperience
+						or Constants.AnalyticsFavoritingExperience,
+					{ source = Constants.AnalyticsExperiencePageSource }
+				)
+			end,
 		},
 		follow = {
 			selected = followSelected,
 			onActivated = function()
 				props.setFollowing(not followSelected)
 				props.postFollowing(networkImpl, not followSelected)
-			end
+
+				SendAnalytics(
+					Constants.AnalyticsMenuActionName,
+					followSelected and Constants.AnalyticsUnfollowExperience or Constants.AnalyticsFollowExperience,
+					{}
+				)
+			end,
 		},
 		reportExperience = {
 			onActivated = function()
 				TrustAndSafety.openReportDialogForPlace()
-			end
+
+				SendAnalytics(
+					Constants.AnalyticsMenuActionName,
+					Constants.AnalyticsReportAbuse,
+					{ source = Constants.AnalyticsExperiencePageSource }
+				)
+			end,
 		},
 	}
 
@@ -263,7 +300,7 @@ local function PageNavigation(props)
 			if index < pageCount then
 				frameChildren["Divider" .. layoutOrder] = Roact.createElement(Divider, {
 					LayoutOrder = layoutOrder,
-					Size = UDim2.new(1, -DIVIDER_INDENT, 0, 1)
+					Size = UDim2.new(1, -DIVIDER_INDENT, 0, 1),
 				})
 
 				layoutOrder = layoutOrder + 1
@@ -288,7 +325,6 @@ local function PageNavigation(props)
 			-- pageCount nav buttons, plus pageCount - 1 dividers (which are 1px tall)
 			Size = UDim2.new(1, -Constants.Zone.ContentOffset, 0, pageCount * NAV_BUTTON_HEIGHT + (pageCount - 1)),
 		}, frameChildren)
-
 	end
 end
 
@@ -319,7 +355,7 @@ end, function(dispatch)
 		end,
 		setCurrentPage = function(pageKey)
 			dispatch(SetCurrentPage(pageKey))
-			SendAnalytics( "open_" .. pageKey .. "_tab", Constants.AnalyticsMenuActionName, {})
+			SendAnalytics("open_" .. pageKey .. "_tab", Constants.AnalyticsMenuActionName, {})
 		end,
 	}
 end)(PageNavigation)

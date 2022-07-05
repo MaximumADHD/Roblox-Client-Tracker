@@ -4,14 +4,18 @@ return function(plugin, pluginLoaderContext)
 	end
 
 	local FFlagDebugBuiltInPluginModalsNotBlocking = game:GetFastFlag("DebugBuiltInPluginModalsNotBlocking")
+	local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
 
 	local Plugin = script.Parent.Parent
 	local Roact = require(Plugin.Packages.Roact)
 	local Rodux = require(Plugin.Packages.Rodux)
 	local UILibrary = require(Plugin.Packages.UILibrary)
+	local Framework = require(Plugin.Packages.Framework)
+	local ContextServices = Framework.ContextServices
+	local UILibraryWrapper = ContextServices.UILibraryWrapper
 
 	local Util = Plugin.Src.Util
-	local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
+	local PluginTheme = if FFlagUpdateConvertToPackageToDFContextServices then require(Plugin.Src.Resources.MakeTheme) else require(Plugin.Src.Resources.DEPRECATED_UILibraryTheme)
 	local Constants = require(Util.Constants)
 
 	local MainReducer = require(Plugin.Src.Reducers.MainReducer)
@@ -21,7 +25,7 @@ return function(plugin, pluginLoaderContext)
 	-- localization
 	local SourceStrings = Plugin.Src.Resources.SourceStrings
 	local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
-	local Localization = UILibrary.Studio.Localization
+	local Localization = if FFlagUpdateConvertToPackageToDFContextServices then ContextServices.Localization else UILibrary.Studio.Localization
 
 	local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
 
@@ -85,7 +89,8 @@ return function(plugin, pluginLoaderContext)
 			Rodux.thunkMiddleware,
 		})
 
-		local theme = PluginTheme.new()
+		local theme = if FFlagUpdateConvertToPackageToDFContextServices then PluginTheme() else PluginTheme.new()
+
 		local networkInterface = NetworkInterface.new()
 		local assetConfigComponent = Roact.createElement(ServiceWrapper, {
 			plugin = plugin,
@@ -94,6 +99,7 @@ return function(plugin, pluginLoaderContext)
 			focusGui = assetConfigGui,
 			networkInterface = networkInterface,
 			localization = localization,
+			uiLibWrapper = if FFlagUpdateConvertToPackageToDFContextServices then UILibraryWrapper.new(UILibrary) else nil,
 		}, {
 			Roact.createElement(ScreenSelect, {
 				onClose = onAssetConfigDestroy,

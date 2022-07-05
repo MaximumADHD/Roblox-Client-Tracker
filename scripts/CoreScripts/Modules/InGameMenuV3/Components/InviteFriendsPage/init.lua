@@ -19,6 +19,7 @@ local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
 local FocusHandler = require(InGameMenu.Components.Connection.FocusHandler)
 local RootedConnection = require(InGameMenu.Components.Connection.RootedConnection)
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
 local InviteFriendsList = require(script.InviteFriendsList)
 local AddFriendsNow = require(script.AddFriendsNow)
@@ -77,6 +78,11 @@ function InviteFriendsPage:init()
 
 	if GetFFlagShareInviteLinkContextMenuV3Enabled() then
 		self.shareInviteLinkButtonOnActivated = function()
+			SendAnalytics(Constants.ShareLinksAnalyticsName, Constants.ShareLinksAnalyticsButtonClickName, {
+				page = "inGameMenu",
+				subpage = "inviteFriendsPage",
+			})
+
 			if self.props.shareInviteLink == nil then
 				self.props.fetchShareInviteLink()
 			else
@@ -223,7 +229,16 @@ function InviteFriendsPage:didUpdate(prevProps, prevState)
 		self.onSearchBarDismissed()
 	end
 
-	-- TODO COEXP-319: Show sharesheet if shareInviteLink is present
+	if prevProps.shareInviteLink == nil and self.props.shareInviteLink ~= nil then
+		-- TODO COEXP-319: Show sharesheet if shareInviteLink is present
+		-- TODO (timothyhsu): fix linkType when enum is available
+		SendAnalytics(Constants.ShareLinksAnalyticsName, Constants.ShareLinksAnalyticsLinkGeneratedName, {
+			page = "inGameMenu",
+			subpage = "inviteFriendsPage",
+			linkId = self.props.shareInviteLink.linkId,
+			linkType = ""
+		})
+	end
 end
 
 function InviteFriendsPage:loadFriends()

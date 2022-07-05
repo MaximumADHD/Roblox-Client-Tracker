@@ -15,6 +15,7 @@ local t = InGameMenuDependencies.t
 
 local withStyle = UIBlox.Core.Style.withStyle
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
+local VerticalScrollViewWithIndicator = UIBlox.App.Container.VerticalScrollViewWithIndicator
 
 local InGameMenu = script.Parent.Parent
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
@@ -67,12 +68,11 @@ MainPage.validateProps = t.strictInterface({
 
 function MainPage:init()
 	self.mainPageFirstButtonRef = Roact.createRef()
+	self.scrollingFrameRef = Roact.createRef()
 
 	self.fetchGameIsFavorite = function()
 		return self.props.fetchGameIsFavorite(networkImpl)
 	end
-	self.pageSize, self.setPageSize = Roact.createBinding(UDim2.new(0, 0, 0, 0))
-
 end
 
 function MainPage:renderMainPageFocusHandler()
@@ -116,21 +116,17 @@ function MainPage:render()
 					targetZone = 0,
 					direction = Direction.Left,
 				}),
-				PageContents = Roact.createElement("ScrollingFrame", {
-					BackgroundTransparency = 1,
-					BorderSizePixel = 0,
-					CanvasSize = self.pageSize,
-					Size = UDim2.new(1, 0, 1, 0),
-					ScrollingDirection = Enum.ScrollingDirection.Y,
+				PageContents = Roact.createElement(VerticalScrollViewWithIndicator, {
+					size = UDim2.new(1, 0, 1, 0),
+					useAutomaticCanvasSize = true,
+					canvasSizeY = UDim.new(0, 0),  -- no minmum size
+					scrollingFrameRef = self.scrollingFrameRef,
 					[Roact.Change.CanvasPosition] = onScroll,
 				}, {
 					Layout = Roact.createElement("UIListLayout", {
 						HorizontalAlignment = Enum.HorizontalAlignment.Right,
 						SortOrder = Enum.SortOrder.LayoutOrder,
 						VerticalAlignment = Enum.VerticalAlignment.Top,
-						[Roact.Change.AbsoluteContentSize] = function(rbx)
-							self.setPageSize(UDim2.new(0, 0, 0, rbx.AbsoluteContentSize.Y))
-						end,
 					}),
 					GameIconHeader = Roact.createElement(GameIconHeader, { LayoutOrder = 1 }),
 					Spacer = Roact.createElement(Spacer, {
@@ -185,6 +181,13 @@ end
 function MainPage:didUpdate(prevProps, prevState)
 	if VRService.VREnabled and FFlagEnableNewVrSystem then
 		UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
+	end
+
+	if self.props.open and not prevProps.open then
+		local scrollingFrame = self.scrollingFrameRef:getValue()
+		if scrollingFrame and scrollingFrame.CanvasPosition.Y > 0 then
+			scrollingFrame.CanvasPosition = Vector2.new(0, 0)
+		end
 	end
 end
 

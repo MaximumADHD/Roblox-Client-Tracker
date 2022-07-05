@@ -28,8 +28,6 @@ local DMBridge = require(Plugin.Src.Util.DMBridge)
 local SetPluginState = require(Plugin.Src.Actions.Common.SetPluginState)
 local SetShouldSetEmulationDevice = require(Plugin.Src.Actions.PlaybackTab.SetShouldSetEmulationDevice)
 
-local FFlagDevFrameworkTimeProgressBar = game:GetFastFlag("DevFrameworkTimeProgressBar")
-
 local FileSelectorUIGroup = Roact.PureComponent:extend("FileSelectorUIGroup")
 
 function FileSelectorUIGroup:init()
@@ -118,7 +116,7 @@ function FileSelectorUIGroup:render()
 			OnCanStartPlaying = self.onCanStartPlaying,
 		}),
 
-		LoadingBar = (FFlagDevFrameworkTimeProgressBar and isLoadingBarVisible) and
+		LoadingBar = isLoadingBarVisible and
 			Roact.createElement(TimeProgressBar, {
 			Width = style.ProgressBarWidth,
 			LayoutOrder = 2,

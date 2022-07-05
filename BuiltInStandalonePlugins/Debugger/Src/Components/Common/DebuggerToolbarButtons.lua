@@ -104,7 +104,7 @@ end
 function DebuggerToolbarButtons:renderButtons(toolbar)
 	local uiService = game:GetService("DebuggerUIService")
 	local connectionForPlayDataModel = false
-	if self.props.CurrentConnectionId ~= -1 then
+	if self.props.CurrentConnectionId ~= Constants.kInvalidDebuggerConnectionId then
 		connectionForPlayDataModel = uiService:IsConnectionForPlayDataModel(self.props.CurrentConnectionId)
 	end
 	local isPaused = self.props.IsPaused

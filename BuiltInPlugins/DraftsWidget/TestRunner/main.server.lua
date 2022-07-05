@@ -7,7 +7,6 @@ require(script.Parent.defineLuaFlags)
 
 local Plugin = script.Parent.Parent
 
-local FFlagRemoveUILibraryFitContent = game:GetFastFlag("RemoveUILibraryFitContent")
 local FFlagUpdateDraftsWidgetToDFContextServices = game:GetFastFlag("UpdateDraftsWidgetToDFContextServices")
 
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
@@ -23,6 +22,8 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local UILibraryWrapper = ContextServices.UILibraryWrapper
+
+local FFlagRemoveUILibraryFitContent = Framework.SharedFlags.getFFlagRemoveUILibraryFitContent()
 
 -- components
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)

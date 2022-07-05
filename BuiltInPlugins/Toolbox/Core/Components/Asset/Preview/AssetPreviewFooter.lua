@@ -7,14 +7,14 @@
 	Optional Props:
 		number LayoutOrder: LayoutOrder of the component.
 ]]
-local FFlagDevFrameworkRemoveFitFrame = game:GetFastFlag("DevFrameworkRemoveFitFrame")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 
 local Framework = require(Packages.Framework)
+local FFlagDevFrameworkRemoveFitFrame = Framework.SharedFlags.getFFlagDevFrameworkRemoveFitFrame()
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local TextLabel = Framework.UI.Decoration.TextLabel

@@ -512,11 +512,7 @@ function TrackUtils.getItemsForProperty(track, value, name, defaultEAO)
 		local position = value.Position
 		local xRot, yRot, zRot
 		if GetFFlagCurveEditor() then
-			if GetFFlagUseCFrameAPI() then
-				xRot, yRot, zRot = value:ToEulerAngles(eulerAnglesOrder)
-			else
-				xRot, yRot, zRot = CFrameUtils.ToEulerAngles(value, eulerAnglesOrder)
-			end
+			xRot, yRot, zRot = value:ToEulerAngles(eulerAnglesOrder)
 		else
 			xRot, yRot, zRot = value:ToEulerAnglesXYZ()
 		end
@@ -577,7 +573,11 @@ function TrackUtils.getItemsForProperty(track, value, name, defaultEAO)
 	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Quaternion then
 		local xRot, yRot, zRot
 		if GetFFlagCurveEditor() then
-			xRot, yRot, zRot = CFrameUtils.ToEulerAngles(value, eulerAnglesOrder)
+			if GetFFlagUseCFrameAPI() then
+				xRot, yRot, zRot = value:ToEulerAngles(eulerAnglesOrder)
+			else
+				xRot, yRot, zRot = CFrameUtils.ToEulerAngles(value, eulerAnglesOrder)
+			end
 		else
 			xRot, yRot, zRot = value:ToEulerAnglesXYZ()
 		end
@@ -631,24 +631,15 @@ function TrackUtils.getPropertyForItems(track, items, defaultEAO)
 		local xRot = math.rad(rotation[1].Value)
 		local yRot = math.rad(rotation[2].Value)
 		local zRot = math.rad(rotation[3].Value)
-		if GetFFlagUseCFrameAPI() then
-			value = CFrame.new(position[1].Value, position[2].Value, position[3].Value)
+		value = CFrame.new(position[1].Value, position[2].Value, position[3].Value)
 			* CFrame.fromEulerAngles(xRot, yRot, zRot, eulerAnglesOrder)
-		else
-			value = CFrame.new(position[1].Value, position[2].Value, position[3].Value)
-				* CFrame.fromEulerAnglesXYZ(xRot, yRot, zRot)
-		end
 	elseif GetFFlagChannelAnimations() then
 		if trackType == Constants.TRACK_TYPES.Position then
 			value = Vector3.new(items[1].Value, items[2].Value, items[3].Value)
 		elseif trackType == Constants.TRACK_TYPES.EulerAngles then
 			value = Vector3.new(math.rad(items[1].Value), math.rad(items[2].Value), math.rad(items[3].Value))
 		elseif trackType == Constants.TRACK_TYPES.Quaternion then
-			if GetFFlagUseCFrameAPI() then
-				value = CFrame.fromEulerAngles(math.rad(items[1].Value), math.rad(items[2].Value), math.rad(items[3].Value), eulerAnglesOrder)
-			else
-				value = CFrame.fromEulerAnglesXYZ(math.rad(items[1].Value), math.rad(items[2].Value), math.rad(items[3].Value))
-			end
+			value = CFrame.fromEulerAngles(math.rad(items[1].Value), math.rad(items[2].Value), math.rad(items[3].Value), eulerAnglesOrder)
 		elseif trackType == Constants.TRACK_TYPES.Number then
 			value = items[1].Value
 		elseif trackType == Constants.TRACK_TYPES.Angle then
@@ -766,11 +757,7 @@ function TrackUtils.splitTrackComponents(track, rotationType, eulerAnglesOrder)
 				local position = cFrame.Position
 				local rotation
 				if GetFFlagCurveEditor() then
-					if GetFFlagUseCFrameAPI() then
-						rotation = Vector3.new(cFrame:ToEulerAngles(eulerAnglesOrder))
-					else
-						rotation = Vector3.new(CFrameUtils.ToEulerAngles(cFrame, eulerAnglesOrder))
-					end
+					rotation = Vector3.new(cFrame:ToEulerAngles(eulerAnglesOrder))
 				else
 					rotation = Vector3.new(cFrame:ToEulerAnglesXYZ())
 				end
@@ -965,11 +952,7 @@ function TrackUtils.traverseValue(trackType, value, func, rotationType, eulerAng
 				rotation = _value - position
 			else
 				if GetFFlagCurveEditor() then
-					if GetFFlagUseCFrameAPI() then
-						rotation = Vector3.new(_value:ToEulerAngles(eulerAnglesOrder))
-					else
-						rotation = Vector3.new(CFrameUtils.ToEulerAngles(_value, eulerAnglesOrder))
-					end
+					rotation = Vector3.new(_value:ToEulerAngles(eulerAnglesOrder))
 				else
 					rotation = Vector3.new(_value:ToEulerAnglesXYZ())
 				end

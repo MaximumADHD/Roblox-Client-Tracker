@@ -24,7 +24,6 @@
 		description: "TooLong"
 		devices: "NoDevices"
 ]]
-
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 
 local StudioService = game:GetService("StudioService")
@@ -54,17 +53,35 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
-local UILibrary = require(Plugin.Packages.UILibrary)
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+
+local Framework = require(Plugin.Packages.Framework)
+local FFlagRemoveUILibraryRoundTextBox = Framework.SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
+
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local Dialog = require(Plugin.Src.ContextServices.Dialog)
 
+local UI = Framework.UI
+local MultiLineTextInput = UI.MultiLineTextInput
+local Separator = UI.Separator
+local LinkText = UI.LinkText
+local Tooltip = UI.Tooltip
+local Image = UI.Decoration.Image
+local TextLabel = UI.Decoration.TextLabel
+local HoverArea = UI.HoverArea
+local TextWithInlineLink = UI.TextWithInlineLink
+local TextInput2 = UI.TextInput2
+
+local UILibrary = require(Plugin.Packages.UILibrary)
 local TitledFrame = UILibrary.Component.TitledFrame
+local RoundTextBox
+if not FFlagRemoveUILibraryRoundTextBox then
+	RoundTextBox = UILibrary.Component.RoundTextBox
+end
+
 local CheckBoxSet = require(Plugin.Src.Components.CheckBoxSet)
-local RoundTextBox = UILibrary.Component.RoundTextBox
 local Dropdown = require(Plugin.Src.Components.Dropdown)
-local Separator = require(Plugin.Packages.Framework).UI.Separator
 local ThumbnailController = require(Page.Components.Thumbnails.ThumbnailController)
 local UploadableIconWidget = require(Plugin.Src.Components.UploadableIcon.UploadableIconWidget)
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
@@ -99,14 +116,6 @@ local checkboxToggleKey = KeyProvider.getCheckboxToggleKeyName()
 local selectedKey = KeyProvider.getSelectedKeyName()
 local termsOfUseDialogKey = KeyProvider.getTermsOfUseDialogKeyName()
 local buttonClickedKey = KeyProvider.getButtonClickedKeyName()
-
-local Framework = require(Plugin.Packages.Framework)
-local LinkText = Framework.UI.LinkText
-local Tooltip = Framework.UI.Tooltip
-local Image = Framework.UI.Decoration.Image
-local TextLabel = Framework.UI.Decoration.TextLabel
-local HoverArea = Framework.UI.HoverArea
-local TextWithInlineLink = Framework.UI.TextWithInlineLink
 
 local Util = Framework.Util
 local StyleModifier = Util.StyleModifier
@@ -777,15 +786,25 @@ function BasicInfo:render()
 				LayoutOrder = layoutOrder:getNextOrder(),
 				TextSize = DEPRECATED_Constants.TEXT_SIZE,
 			}, {
-				TextBox = Roact.createElement(RoundTextBox, {
-					Active = props.Name ~= nil,
-					ErrorMessage = nameError,
-					MaxLength = MAX_NAME_LENGTH,
-					Text = props.Name or "",
-					TextSize = DEPRECATED_Constants.TEXT_SIZE,
+				TextBox = (if FFlagRemoveUILibraryRoundTextBox then
+					Roact.createElement(TextInput2, {
+						Disabled = props.Name == nil,
+						ErrorText = nameError,
+						MaxLength = MAX_NAME_LENGTH,
+						OnTextChanged = props.NameChanged,
+						Text = props.Name or "",
+					})
+				else
+					Roact.createElement(RoundTextBox, {
+						Active = props.Name ~= nil,
+						ErrorMessage = nameError,
+						MaxLength = MAX_NAME_LENGTH,
+						Text = props.Name or "",
+						TextSize = DEPRECATED_Constants.TEXT_SIZE,
 
-					SetText = props.NameChanged,
-				}),
+						SetText = props.NameChanged,
+					})
+				),
 			}),
 
 			Description = Roact.createElement(TitledFrame, {
@@ -794,18 +813,30 @@ function BasicInfo:render()
 				LayoutOrder = layoutOrder:getNextOrder(),
 				TextSize = DEPRECATED_Constants.TEXT_SIZE,
 			}, {
-				TextBox = Roact.createElement(RoundTextBox, {
-					Height = 130,
-					Multiline = true,
+				TextBox = (if FFlagRemoveUILibraryRoundTextBox then 
+					Roact.createElement(TextInput2, {
+						Disabled = props.Description == nil,
+						ErrorText = descriptionError,
+						MaxLength = MAX_DESCRIPTION_LENGTH,
+						MultiLine = true,
+						OnTextChanged = props.DescriptionChanged,
+						Height = 130,
+						Text = props.Description or "",
+					})
+				else
+					Roact.createElement(RoundTextBox, {
+						Height = 130,
+						Multiline = true,
 
-					Active = props.Description ~= nil,
-					ErrorMessage = descriptionError,
-					MaxLength = MAX_DESCRIPTION_LENGTH,
-					Text = props.Description or "",
-					TextSize = DEPRECATED_Constants.TEXT_SIZE,
+						Active = props.Description ~= nil,
+						ErrorMessage = descriptionError,
+						MaxLength = MAX_DESCRIPTION_LENGTH,
+						Text = props.Description or "",
+						TextSize = DEPRECATED_Constants.TEXT_SIZE,
 
-					SetText = props.DescriptionChanged,
-				}),
+						SetText = props.DescriptionChanged,
+					})
+				),
 			}),
 
 			Separator = Roact.createElement(Separator, {

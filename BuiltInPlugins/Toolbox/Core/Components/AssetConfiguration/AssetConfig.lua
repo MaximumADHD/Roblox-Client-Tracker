@@ -9,7 +9,6 @@
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 local FFlagToolboxAssetConfigurationMatchPluginFlow = game:GetFastFlag("ToolboxAssetConfigurationMatchPluginFlow")
 local FFlagToolboxAssetConfigurationFixPriceToggle = game:GetFastFlag("ToolboxAssetConfigurationFixPriceToggle")
-local FFlagAssetConfigCleanupDuplicateActions = game:GetFastFlag("AssetConfigCleanupDuplicateActions")
 
 local StudioService = game:GetService("StudioService")
 
@@ -114,14 +113,14 @@ function AssetConfig:init(props)
 		-- We will be using the AssetTypeEnum passed in instead.
 		owner = nil,
 		genres = {
-			DEFAULT_GENRE
+			DEFAULT_GENRE,
 		},
 		allowCopy = true, -- Enable the copy toggle if the flag to modify copy behavior is off or user is verified.
 		copyOn = false,
 		copyChanged = false, -- If the user has changed the copy status
-		allowComment = true,  -- Default to allow comment, but off.
+		allowComment = true, -- Default to allow comment, but off.
 		commentOn = nil,
-		price = nil,		-- The price has to be nil in the first place for the price to load correctly when initial load.
+		price = nil, -- The price has to be nil in the first place for the price to load correctly when initial load.
 		status = nil,
 		isAssetPublic = false,
 
@@ -204,7 +203,8 @@ function AssetConfig:init(props)
 			local props = self.props
 			local isAudio = props.assetTypeEnum == Enum.AssetType.Audio
 			local isModel = props.assetTypeEnum == Enum.AssetType.Model
-			if isAudio
+			if
+				isAudio
 				and state.isAssetPublicOriginalValue ~= true
 				and state.isAssetPublic == AssetConfigConstants.SHARING_KEYS.Public
 			then
@@ -212,9 +212,10 @@ function AssetConfig:init(props)
 					confirmationDialogKey = directImportId or DIRECT_IMPORT_ID_DEFAULT,
 					isConfirmationDialogEnabled = true,
 				}
-			elseif isModel
-					and state.isAssetPublic == AssetConfigConstants.SHARING_KEYS.Public
-					and AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW == props.screenFlowType
+			elseif
+				isModel
+				and state.isAssetPublic == AssetConfigConstants.SHARING_KEYS.Public
+				and AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW == props.screenFlowType
 			then
 				local hasPrivateDescendant = false
 				for _, permission in pairs(props.descendantPermissions) do
@@ -241,7 +242,9 @@ function AssetConfig:init(props)
 	self.tryPublish = function(directImportId)
 		local function tryPublishGeneral()
 			local function getExtension(allowedAssetTypesForUpload, assetTypeEnum)
-				local uploadDataForAssetType = allowedAssetTypesForUpload and assetTypeEnum and allowedAssetTypesForUpload[assetTypeEnum.Name]
+				local uploadDataForAssetType = allowedAssetTypesForUpload
+					and assetTypeEnum
+					and allowedAssetTypesForUpload[assetTypeEnum.Name]
 				local allowedFileExtensions = uploadDataForAssetType and uploadDataForAssetType.allowedFileExtensions
 				local extension = (allowedFileExtensions and #allowedFileExtensions > 0) and allowedFileExtensions[1]
 				-- if we have an extension, remove the '.' from the front of the extension string
@@ -253,7 +256,9 @@ function AssetConfig:init(props)
 
 			if AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW == props.screenFlowType then
 				-- download flow should only be for animations currently
-				StudioService:AnimationIdSelected(directImportId ~= DIRECT_IMPORT_ID_DEFAULT and directImportId or state.overrideAssetId)
+				StudioService:AnimationIdSelected(
+					directImportId ~= DIRECT_IMPORT_ID_DEFAULT and directImportId or state.overrideAssetId
+				)
 
 				props.onClose()
 			elseif AssetConfigConstants.FLOW_TYPE.EDIT_FLOW == props.screenFlowType then
@@ -275,7 +280,6 @@ function AssetConfig:init(props)
 						warn("Could not configure sales, missing Asset Status!")
 					end
 				elseif AssetConfigUtil.isMarketplaceAsset(props.assetTypeEnum) then
-
 					local copyOn = state.copyOn
 					if not state.copyChanged then
 						-- DEVTOOLS-3926: Don't submit this optional field unless the user has changed it
@@ -299,18 +303,14 @@ function AssetConfig:init(props)
 			elseif AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW == props.screenFlowType then
 				if props.assetTypeEnum == Enum.AssetType.Animation then
 					if ConfigTypes:isOverride(props.currentTab) then
-						props.overrideAnimationAsset(
-							getNetwork(self),
-							state.overrideAssetId,
-							props.instances
-						)
+						props.overrideAnimationAsset(getNetwork(self), state.overrideAssetId, props.instances)
 					else
 						props.uploadAnimationAsset({
 							networkInterface = getNetwork(self),
-							assetId = 0, 								-- empyt or 0 for new asset
+							assetId = 0, -- empty or 0 for new asset
 							name = state.name,
 							description = state.description or "",
-							groupId = state.groupId,					-- Used only for upload group asset.
+							groupId = state.groupId, -- Used only for upload group asset.
 							instance = props.instances,
 						})
 					end
@@ -337,8 +337,10 @@ function AssetConfig:init(props)
 							self.state.tags
 						)
 					end
-				elseif AssetConfigUtil.isMarketplaceAsset(props.assetTypeEnum) and
-					ConfigTypes:isOverride(props.currentTab) then
+				elseif
+					AssetConfigUtil.isMarketplaceAsset(props.assetTypeEnum)
+					and ConfigTypes:isOverride(props.currentTab)
+				then
 					-- Only need assetId from existing asset
 					props.overrideAsset(
 						getNetwork(self),
@@ -352,14 +354,14 @@ function AssetConfig:init(props)
 
 					props.uploadMarketplaceItem({
 						networkInterface = getNetwork(self),
-						assetId = 0, 								-- empyt or 0 for new asset
-						assetType = props.assetTypeEnum.Name,		-- accepts both id and name of the assetType.
+						assetId = 0, -- empty or 0 for new asset
+						assetType = props.assetTypeEnum.Name, -- accepts both id and name of the assetType.
 						name = state.name,
 						description = state.description or "",
-						genreTypeId = genreTypeId, 					-- Convert into a ID
+						genreTypeId = genreTypeId, -- Convert into a ID
 						copyOn = state.copyOn,
 						commentOn = state.commentOn,
-						groupId = state.groupId,					-- Used only for upload group asset.
+						groupId = state.groupId, -- Used only for upload group asset.
 						instances = props.instances,
 						saleStatus = state.status,
 						price = state.price,
@@ -462,35 +464,35 @@ function AssetConfig:init(props)
 		self.props.makeChangeRequest("AssetConfigName", getCurrent("Name", ""), newName)
 
 		self:setState({
-			name = newName
+			name = newName,
 		})
 	end
 
 	self.onDescChange = function(newDesc)
 		self.props.makeChangeRequest("AssetConfigDesc", getCurrent("Description", ""), newDesc)
 		self:setState({
-			description = newDesc
+			description = newDesc,
 		})
 	end
 
 	self.onTagsChange = function(newTags)
 		self.props.makeChangeRequest("AssetItemTags", getCurrent("ItemTags", {}), newTags, TagsUtil.areSetsDifferent)
 		self:setState({
-			tags = newTags
+			tags = newTags,
 		})
 	end
 
 	self.onStatusChange = function(newStatus)
 		self.props.makeChangeRequest("AssetConfigStatus", getCurrent("Status"), newStatus)
 		self:setState({
-			status = newStatus
+			status = newStatus,
 		})
 	end
 
 	self.onPriceChange = function(newPrice)
 		self.props.makeChangeRequest("AssetConfigPrice", getCurrent("Price"), newPrice)
 		self:setState({
-			price = newPrice
+			price = newPrice,
 		})
 	end
 
@@ -504,10 +506,10 @@ function AssetConfig:init(props)
 		end
 
 		self:setState({
-			owner =	Cryo.Dictionary.join(self.state.owner or {}, {
+			owner = Cryo.Dictionary.join(self.state.owner or {}, {
 				typeId = newOwnerIndex,
 			}),
-			groupId = groupId
+			groupId = groupId,
 		})
 	end
 
@@ -519,7 +521,7 @@ function AssetConfig:init(props)
 		self:setState({
 			genres = Cryo.Dictionary.join(self.state.genres or {}, {
 				[1] = newGenreName,
-			})
+			}),
 		})
 	end
 
@@ -530,18 +532,26 @@ function AssetConfig:init(props)
 
 		self:setState({
 			copyChanged = copyChanged,
-			copyOn = newCopyStatus
+			copyOn = newCopyStatus,
 		})
 
-		self.props.makeChangeRequest("AssetConfigCopy", self.props.assetConfigData.IsCopyingAllowed or false, newCopyStatus)
+		self.props.makeChangeRequest(
+			"AssetConfigCopy",
+			self.props.assetConfigData.IsCopyingAllowed or false,
+			newCopyStatus
+		)
 	end
 
 	self.toggleComment = function(newCommentStatus)
 		self:setState({
-			commentOn = newCommentStatus
+			commentOn = newCommentStatus,
 		})
 
-		self.props.makeChangeRequest("AssetConfigComment", self.props.assetConfigData.EnableComments or false, newCommentStatus)
+		self.props.makeChangeRequest(
+			"AssetConfigComment",
+			self.props.assetConfigData.EnableComments or false,
+			newCommentStatus
+		)
 	end
 
 	self.onTabSelect = function(index, tabItem)
@@ -550,7 +560,7 @@ function AssetConfig:init(props)
 
 	self.onOverrideAssetSelected = function(assetId)
 		self:setState({
-			overrideAssetId = assetId
+			overrideAssetId = assetId,
 		})
 	end
 
@@ -563,19 +573,23 @@ function AssetConfig:init(props)
 		-- Probably need to handle the if it fails
 		if success and iconFile then
 			self:setState({
-				iconFile = iconFile
+				iconFile = iconFile,
 			})
 
 			self.props.makeChangeRequest("AssetConfigIconSelect", "", iconFile.Name)
-			self.props.updateStore({iconFile = iconFile})
+			self.props.updateStore({ iconFile = iconFile })
 		end
 	end
 
 	self.onSharingChanged = function(isAssetPublic)
 		self:setState({
-			isAssetPublic = isAssetPublic
+			isAssetPublic = isAssetPublic,
 		})
-		self.props.makeChangeRequest("SharingEnabled", self.props.assetConfigData.SharingEnabled or false, isAssetPublic)
+		self.props.makeChangeRequest(
+			"SharingEnabled",
+			self.props.assetConfigData.SharingEnabled or false,
+			isAssetPublic
+		)
 
 		if not isAssetPublic then
 			local state = self.state
@@ -615,7 +629,7 @@ if FFlagToolboxAssetConfigurationFixPriceToggle then
 				return
 			end
 
-			if (not self.state.dispatchGetFunction) then
+			if not self.state.dispatchGetFunction then
 				local creator = assetConfigData.Creator or {}
 				local groupMetadataMissing = not self.state.groupMetadata or next(self.state.groupMetadata) == nil
 				if creator.typeId == ConfigTypes.OWNER_TYPES.User and not creator.username then
@@ -634,7 +648,7 @@ if FFlagToolboxAssetConfigurationFixPriceToggle then
 
 			-- If we have assetConfigData and state is nil(default state),
 			-- then we will use the data retrived from the assetConfigData to trigger a re-render.
-			if (not self.init) then
+			if not self.init then
 				local isAssetPublic
 				if assetConfigData["AssetPermissions"] then
 					isAssetPublic = AssetPermissionUtil.isAssetPublic(assetConfigData["AssetPermissions"])
@@ -645,8 +659,7 @@ if FFlagToolboxAssetConfigurationFixPriceToggle then
 
 				self:setState({
 					-- assetId is named differently in the data returned by different end-points
-					assetId = AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum)
-						and assetConfigData.Id
+					assetId = AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) and assetConfigData.Id
 						or assetConfigData.AssetId,
 					name = assetConfigData.Name,
 					description = assetConfigData.Description,
@@ -656,7 +669,10 @@ if FFlagToolboxAssetConfigurationFixPriceToggle then
 					copyOn = isCopyingAllowed,
 					copyOnOriginalValue = isCopyingAllowed,
 					commentOn = assetConfigData.EnableComments,
-					price = assetConfigData.Price or AssetConfigUtil.getMinPrice(self.props.allowedAssetTypesForRelease, self.props.assetTypeEnum),
+					price = assetConfigData.Price or AssetConfigUtil.getMinPrice(
+						self.props.allowedAssetTypesForRelease,
+						self.props.assetTypeEnum
+					),
 					status = assetStatus,
 					isAssetPublic = isAssetPublic,
 					isAssetPublicOriginalValue = isAssetPublic,
@@ -672,7 +688,7 @@ if FFlagToolboxAssetConfigurationFixPriceToggle then
 		else
 			if (self.props.isVerifiedCreator ~= nil) and self.state.allowCopy ~= self.props.isVerifiedCreator then
 				self:setState({
-					allowCopy = self.props.isVerifiedCreator
+					allowCopy = self.props.isVerifiedCreator,
 				})
 			end
 		end
@@ -681,7 +697,7 @@ else
 	function AssetConfig:didUpdate(previousProps, previousState)
 		if self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
 			local assetConfigData = self.props.assetConfigData
-			if next(assetConfigData) and (not self.state.dispatchGetFunction) then
+			if next(assetConfigData) and not self.state.dispatchGetFunction then
 				local creator = assetConfigData.Creator or {}
 				local groupMetadataMissing = not self.state.groupMetadata or next(self.state.groupMetadata) == nil
 				if creator.typeId == ConfigTypes.OWNER_TYPES.User and not creator.username then
@@ -698,22 +714,20 @@ else
 				end
 			end
 		end
-	
+
 		-- If we have assetConfigData and state is nil(default state),
 		-- then we will use the data retrived from the assetConfigData to trigger a re-render.
 		if self.props.screenFlowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW then
 			local assetConfigData = self.props.assetConfigData
-			if next(assetConfigData) and (not self.init) then
-	
+			if next(assetConfigData) and not self.init then
 				local isAssetPublic
 				if assetConfigData["AssetPermissions"] then
 					isAssetPublic = AssetPermissionUtil.isAssetPublic(assetConfigData["AssetPermissions"])
 				end
-	
+
 				self:setState({
 					-- assetId is named differently in the data returned by different end-points
-					assetId = AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum)
-						and assetConfigData.Id
+					assetId = AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum) and assetConfigData.Id
 						or assetConfigData.AssetId,
 					name = assetConfigData.Name,
 					description = assetConfigData.Description,
@@ -723,14 +737,17 @@ else
 					copyOn = assetConfigData.IsCopyingAllowed,
 					copyOnOriginalValue = assetConfigData.IsCopyingAllowed,
 					commentOn = assetConfigData.EnableComments,
-					price = assetConfigData.Price or AssetConfigUtil.getMinPrice(self.props.allowedAssetTypesForRelease, self.props.assetTypeEnum),
+					price = assetConfigData.Price or AssetConfigUtil.getMinPrice(
+						self.props.allowedAssetTypesForRelease,
+						self.props.assetTypeEnum
+					),
 					status = assetConfigData.Status,
 					isAssetPublic = isAssetPublic,
 					isAssetPublicOriginalValue = isAssetPublic,
 				})
 				self.init = true
 			end
-	
+
 			if assetConfigData.ItemTags and self.state.tags == nil then
 				self:setState({
 					tags = TagsUtil.getTagsFromItemTags(assetConfigData.ItemTags),
@@ -739,7 +756,7 @@ else
 		else
 			if (self.props.isVerifiedCreator ~= nil) and self.state.allowCopy ~= self.props.isVerifiedCreator then
 				self:setState({
-					allowCopy = self.props.isVerifiedCreator
+					allowCopy = self.props.isVerifiedCreator,
 				})
 			end
 		end
@@ -759,19 +776,17 @@ function AssetConfig:didMount()
 			if AssetConfigUtil.isCatalogAsset(self.props.assetTypeEnum) then
 				self.props.getAssetDetails(getNetwork(self), self.props.assetId, false)
 
-				if TagsUtil.areTagsEnabled(self.props.isItemTagsFeatureEnabled, self.props.enabledAssetTypesForItemTags, self.props.assetTypeEnum) then
+				if
+					TagsUtil.areTagsEnabled(
+						self.props.isItemTagsFeatureEnabled,
+						self.props.enabledAssetTypesForItemTags,
+						self.props.assetTypeEnum
+					)
+				then
 					self.props.getAssetTags(getNetwork(self), self.props.assetId)
 				end
 			else
-				if FFlagAssetConfigCleanupDuplicateActions then 
-					self.props.getMarketplaceAsset(getNetwork(self), self.props.assetId)
-				else
-					if AssetConfigUtil.isBuyableMarketplaceAsset(self.props.assetTypeEnum) then
-						self.props.getMarketplaceAsset(getNetwork(self), self.props.assetId)
-					else
-						self.props.getAssetConfigData(getNetwork(self), self.props.assetId)
-					end
-				end
+				self.props.getMarketplaceAsset(getNetwork(self), self.props.assetId)
 
 				if self.props.isPackageAsset == nil then
 					self.props.dispatchPostPackageMetadataRequest(getNetwork(self), self.props.assetId)
@@ -788,7 +803,7 @@ function AssetConfig:didMount()
 		local instances = self.props.instances
 		if instances and #instances > 0 then
 			self:setState({
-				name = instances[1].Name
+				name = instances[1].Name,
 			})
 		end
 
@@ -804,7 +819,7 @@ function AssetConfig:didMount()
 		})
 		local audioIds = {}
 		if instances and self.props.assetTypeEnum == Enum.AssetType.Model then
-			for _,instance in pairs(instances) do
+			for _, instance in pairs(instances) do
 				local descendants = instance:GetDescendants()
 				for _, descendant in pairs(descendants) do
 					-- Add audio instances that are descendants of model
@@ -859,9 +874,18 @@ local function validatePrice(text, minPrice, maxPrice, assetStatus)
 	return result
 end
 
-local function checkCanSave(changeTable, name, description, price, minPrice, maxPrice,
-	assetStatus, currentTab, screenFlowType, assetTypeEnum)
-
+local function checkCanSave(
+	changeTable,
+	name,
+	description,
+	price,
+	minPrice,
+	maxPrice,
+	assetStatus,
+	currentTab,
+	screenFlowType,
+	assetTypeEnum
+)
 	if ConfigTypes:isOverride(currentTab) then
 		-- Overwriting an existing asset is a separate flow, we can only save if an asset is selected
 		return changeTable and changeTable.OverrideAssetId
@@ -899,7 +923,7 @@ local function getMessageBoxProps(getAssetFailed, localizedContent, cancelFunc, 
 		Font = Constants.FONT,
 		Icon = Images.INFO_ICON,
 		onButtonClicked = closeFunc,
-		onClose = cancelFunc
+		onClose = cancelFunc,
 	}
 
 	-- Check error
@@ -913,7 +937,7 @@ local function getMessageBoxProps(getAssetFailed, localizedContent, cancelFunc, 
 				Font = Constants.FONT,
 				TextSize = Constants.FONT_SIZE_MEDIUM,
 				action = "yes",
-			}
+			},
 		}
 	else
 		messageProps.Title = localizedContent.AssetConfig.Discard
@@ -925,12 +949,13 @@ local function getMessageBoxProps(getAssetFailed, localizedContent, cancelFunc, 
 				Font = Constants.FONT,
 				TextSize = Constants.FONT_SIZE_MEDIUM,
 				action = "no",
-			}, {
+			},
+			{
 				Text = localizedContent.AssetConfig.Discard,
 				Font = Constants.FONT,
 				TextSize = Constants.FONT_SIZE_MEDIUM,
 				action = "yes",
-			}
+			},
 		}
 	end
 
@@ -992,21 +1017,21 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 	-- And then we show price according to the sales status and if user is whitelisted.
 	local previewType = AssetConfigUtil.getPreviewType(assetTypeEnum, props.instances)
 
-	local showTags = TagsUtil.areTagsEnabled(props.isItemTagsFeatureEnabled, props.enabledAssetTypesForItemTags, assetTypeEnum)
+	local showTags = TagsUtil.areTagsEnabled(
+		props.isItemTagsFeatureEnabled,
+		props.enabledAssetTypesForItemTags,
+		assetTypeEnum
+	)
 
 	local isPriceValid = validatePrice(price, minPrice, maxPrice, newAssetStatus)
 	local isMarketBuyAndNonWhiteList
 	local tabItems
 	if FFlagToolboxAssetConfigurationMatchPluginFlow then
 		isMarketBuyAndNonWhiteList = nil
-		tabItems = ConfigTypes:getAssetconfigContent(
-			screenFlowType,
-			assetTypeEnum,
-			self.props.isPackageAsset,
-			owner
-		)
+		tabItems = ConfigTypes:getAssetconfigContent(screenFlowType, assetTypeEnum, self.props.isPackageAsset, owner)
 	else
-		isMarketBuyAndNonWhiteList = AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) and (not allowedAssetTypesForRelease[assetTypeEnum.Name])
+		isMarketBuyAndNonWhiteList = AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum)
+			and not allowedAssetTypesForRelease[assetTypeEnum.Name]
 		tabItems = ConfigTypes:getAssetconfigContent(
 			screenFlowType,
 			assetTypeEnum,
@@ -1018,8 +1043,18 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 
 	local isLoading = self:isLoading()
 
-	local canSave = checkCanSave(changeTable, name, description, price, minPrice, maxPrice,
-		newAssetStatus, currentTab, screenFlowType, assetTypeEnum) and not isLoading
+	local canSave = checkCanSave(
+		changeTable,
+		name,
+		description,
+		price,
+		minPrice,
+		maxPrice,
+		newAssetStatus,
+		currentTab,
+		screenFlowType,
+		assetTypeEnum
+	) and not isLoading
 
 	local packagePermissionsWidth = -PREVIEW_WIDTH - Constants.SCROLLBAR_PADDING
 
@@ -1056,7 +1091,7 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 	if isAudio then
 		showSharing = true
 	end
-	
+
 	if isAudio then
 		allowCopy = isAssetPublic
 	end
@@ -1076,20 +1111,24 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 			Padding = UDim.new(0, 0),
 		}),
 
-		AssetConfigMessageBox = isShowChangeDiscardMessageBox and Roact.createElement(MessageBox,
-			getMessageBoxProps(showGetAssetFailed, localizedContent, self.onMessageBoxClosed, self.tryCloseAssetConfig)),
+		AssetConfigMessageBox = isShowChangeDiscardMessageBox and Roact.createElement(
+			MessageBox,
+			getMessageBoxProps(showGetAssetFailed, localizedContent, self.onMessageBoxClosed, self.tryCloseAssetConfig)
+		),
 
-		AssetConfigMakeAssetPublicMessageBox = if isPublishAssetsDialogEnabled then Roact.createElement(WarningDialog, {
-			AcceptText = assetPublishAcceptText,
-			CancelText = assetPublishCancelText,
-			ConfirmationKey = nil,
-			Description = assetPublishDescription,
-			Enabled = isPublishAssetsDialogEnabled,
-			Heading = assetPublishHeading,
-			OnAccepted = self.onAssetPublishDialogAccepted,
-			OnCanceled = self.onAssetPublishDialogCanceled,
-			Title = assetPublishTitle,
-		}) else nil,
+		AssetConfigMakeAssetPublicMessageBox = if isPublishAssetsDialogEnabled
+			then Roact.createElement(WarningDialog, {
+				AcceptText = assetPublishAcceptText,
+				CancelText = assetPublishCancelText,
+				ConfirmationKey = nil,
+				Description = assetPublishDescription,
+				Enabled = isPublishAssetsDialogEnabled,
+				Heading = assetPublishHeading,
+				OnAccepted = self.onAssetPublishDialogAccepted,
+				OnCanceled = self.onAssetPublishDialogCanceled,
+				Title = assetPublishTitle,
+			})
+			else nil,
 
 		MainPage = Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 1, -FOOTER_HEIGHT),
@@ -1139,7 +1178,7 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 			}),
 
 			VerticalLine = Roact.createElement("Frame", {
-				Size = UDim2.new(0 , 2, 1, 0),
+				Size = UDim2.new(0, 2, 1, 0),
 
 				BackgroundTransparency = 0,
 				BackgroundColor3 = theme.divider.verticalLineColor,
@@ -1156,61 +1195,62 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 					Size = UDim2.new(0, 100, 0, 100),
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					Position = UDim2.fromScale(0.5, 0.5),
-				})
+				}),
 			}),
 
-			PublishAsset = not isLoading and
-				(ConfigTypes:isGeneral(currentTab) and Roact.createElement(PublishAsset, {
-					Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
+			PublishAsset = not isLoading and (ConfigTypes:isGeneral(currentTab) and Roact.createElement(PublishAsset, {
+				Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
 
-					allowSelectPrivate = allowSelectPrivate,
-					assetId = assetId,
-					name = name,
-					description = description,
-					tags = tags,
-					owner = owner,
-					genres = genres,
-					allowCopy = allowCopy,
-					copyOn = copyOn,
-					allowComment = allowComment,
-					commentOn = commentOn,
-					isAssetPublic = isAssetPublic,
+				allowSelectPrivate = allowSelectPrivate,
+				assetId = assetId,
+				name = name,
+				description = description,
+				tags = tags,
+				owner = owner,
+				genres = genres,
+				allowCopy = allowCopy,
+				copyOn = copyOn,
+				allowComment = allowComment,
+				commentOn = commentOn,
+				isAssetPublic = isAssetPublic,
 
-					assetTypeEnum = assetTypeEnum,
-					onClickRefreshVerficationStatus = if FFlagToolboxAudioAssetConfigIdVerification then self.getVerficationStatus else nil,
-					onNameChange = self.onNameChange,
-					onDescChange = self.onDescChange,
-					onTagsChange = self.onTagsChange,
-					onOwnerSelected = self.onAccessChange,
-					onGenreSelected = self.onGenreChange,
-					onSharingChanged = self.onSharingChanged,
-					toggleCopy = self.toggleCopy,
-					toggleComment = self.toggleComment,
+				assetTypeEnum = assetTypeEnum,
+				onClickRefreshVerficationStatus = if FFlagToolboxAudioAssetConfigIdVerification
+					then self.getVerficationStatus
+					else nil,
+				onNameChange = self.onNameChange,
+				onDescChange = self.onDescChange,
+				onTagsChange = self.onTagsChange,
+				onOwnerSelected = self.onAccessChange,
+				onGenreSelected = self.onGenreChange,
+				onSharingChanged = self.onSharingChanged,
+				toggleCopy = self.toggleCopy,
+				toggleComment = self.toggleComment,
 
-					displayOwnership = showOwnership,
-					displayGenre = showGenre,
-					displayCopy = showCopy,
-					displayComment = showComment,
-					displayAssetType = showAssetType,
-					displayTags = showTags,
-					displaySharing = showSharing,
+				displayOwnership = showOwnership,
+				displayGenre = showGenre,
+				displayCopy = showCopy,
+				displayComment = showComment,
+				displayAssetType = showAssetType,
+				displayTags = showTags,
+				displaySharing = showSharing,
 
-					maximumItemTagsPerItem = props.maximumItemTagsPerItem,
+				maximumItemTagsPerItem = props.maximumItemTagsPerItem,
 
-					allowedAssetTypesForRelease = isPlugin and allowedAssetTypesForRelease or nil,
-					newAssetStatus = isPlugin and newAssetStatus or nil,
-					currentAssetStatus = isPlugin and currentAssetStatus or nil,
+				allowedAssetTypesForRelease = isPlugin and allowedAssetTypesForRelease or nil,
+				newAssetStatus = isPlugin and newAssetStatus or nil,
+				currentAssetStatus = isPlugin and currentAssetStatus or nil,
 
-					onStatusChange = isPlugin and self.onStatusChange or nil,
-					onPriceChange = isPlugin and self.onPriceChange or nil,
-					price = isPlugin and price or nil,
-					minPrice = isPlugin and minPrice or nil,
-					maxPrice = isPlugin and maxPrice or nil,
-					feeRate = isPlugin and feeRate or nil,
-					isPriceValid = isPlugin and isPriceValid or nil,
+				onStatusChange = isPlugin and self.onStatusChange or nil,
+				onPriceChange = isPlugin and self.onPriceChange or nil,
+				price = isPlugin and price or nil,
+				minPrice = isPlugin and minPrice or nil,
+				maxPrice = isPlugin and maxPrice or nil,
+				feeRate = isPlugin and feeRate or nil,
+				isPriceValid = isPlugin and isPriceValid or nil,
 
-					LayoutOrder = 3,
-				})),
+				LayoutOrder = 3,
+			})),
 
 			Versions = ConfigTypes:isVersions(currentTab) and Roact.createElement(Versions, {
 				Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
@@ -1269,19 +1309,16 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 			TryCancel = self.tryCancelWithYield,
 			TryPublish = self.tryPublishWithConfirmDialog,
 
-			LayoutOrder = 2
-		})
+			LayoutOrder = 2,
+		}),
 	})
 end
-
 
 AssetConfig = withContext({
 	Focus = ContextServices.Focus,
 	Localization = ContextServices.Localization,
 	Stylizer = ContextServices.Stylizer,
 })(AssetConfig)
-
-
 
 local function mapStateToProps(state, props)
 	state = state or {}
@@ -1314,10 +1351,6 @@ end
 
 local function mapDispatchToProps(dispatch)
 	local dispatchToProps = {
-		getAssetConfigData = if not FFlagAssetConfigCleanupDuplicateActions then function(networkInterface, assetId)
-			dispatch(GetMarketplaceInfoRequest(networkInterface, assetId))
-		end else nil,
-
 		getAssetDetails = function(networkInterface, assetId, isMarketBuy)
 			dispatch(GetAssetDetailsRequest(networkInterface, assetId, isMarketBuy))
 		end,
@@ -1335,11 +1368,45 @@ local function mapDispatchToProps(dispatch)
 		end,
 
 		uploadCatalogItem = function(networkInterface, nameWithoutExtension, extension, description, assetTypeEnum, instances, tags)
-			dispatch(UploadCatalogItemRequest(networkInterface, nameWithoutExtension, extension, description, assetTypeEnum, instances, tags))
+			dispatch(
+				UploadCatalogItemRequest(
+					networkInterface,
+					nameWithoutExtension,
+					extension,
+					description,
+					assetTypeEnum,
+					instances,
+					tags
+				)
+			)
 		end,
 
-		configureCatalogItem = function(networkInterface, assetId, nameWithoutExtension, description, fromStatus, toStatus, fromPrice, toPrice, fromItemTags, toTags)
-			dispatch(ConfigureCatalogItemRequest(networkInterface, assetId, nameWithoutExtension, description, fromStatus, toStatus, fromPrice, toPrice, fromItemTags, toTags))
+		configureCatalogItem = function(
+			networkInterface,
+			assetId,
+			nameWithoutExtension,
+			description,
+			fromStatus,
+			toStatus,
+			fromPrice,
+			toPrice,
+			fromItemTags,
+			toTags
+		)
+			dispatch(
+				ConfigureCatalogItemRequest(
+					networkInterface,
+					assetId,
+					nameWithoutExtension,
+					description,
+					fromStatus,
+					toStatus,
+					fromPrice,
+					toPrice,
+					fromItemTags,
+					toTags
+				)
+			)
 		end,
 
 		-- For locale changes, we have no UI for them now, but we can add that in the future.
@@ -1373,7 +1440,18 @@ local function mapDispatchToProps(dispatch)
 		end,
 
 		uploadCatalogItemWithFee = function(networkInterface, nameWithoutExtension, extension, description, assetTypeEnum, instances, tags, groupId)
-			dispatch(AvatarAssetsUploadRequest(networkInterface, nameWithoutExtension, extension, description, assetTypeEnum, instances, tags, groupId))
+			dispatch(
+				AvatarAssetsUploadRequest(
+					networkInterface,
+					nameWithoutExtension,
+					extension,
+					description,
+					assetTypeEnum,
+					instances,
+					tags,
+					groupId
+				)
+			)
 		end,
 
 		dispatchPostPackageMetadataRequest = function(networkInterface, assetId)
@@ -1397,12 +1475,12 @@ local function mapDispatchToProps(dispatch)
 		end,
 
 		dispatchGetGroupMetadata = function(groupId)
-            dispatch(GetGroupMetadata(groupId))
+			dispatch(GetGroupMetadata(groupId))
 		end,
 
 		dispatchGetGroupRoleInfo = function(networkInterface, groupId)
-            dispatch(GetGroupRoleInfo(networkInterface, groupId))
-        end,
+			dispatch(GetGroupRoleInfo(networkInterface, groupId))
+		end,
 
 		dispatchGetUsername = function(userId)
 			dispatch(GetUsername(userId))
@@ -1416,7 +1494,7 @@ local function mapDispatchToProps(dispatch)
 			dispatch(GetAssetPermissionsRequest(networkInterface, assetId))
 		end,
 
-		dispatchSetDescendantPermissions = function(descendantPermissions) 
+		dispatchSetDescendantPermissions = function(descendantPermissions)
 			dispatch(SetDescendantPermissions(descendantPermissions))
 		end,
 

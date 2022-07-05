@@ -15,15 +15,15 @@ local UI = Framework.UI
 local Button = UI.Button
 local Image = UI.Decoration.Image
 local Pane = UI.Pane
+local Tooltip = UI.Tooltip
 local TruncatedTextLabel = UI.TruncatedTextLabel
 
-local GeneralServiceController = require(Plugin.Src.Util.GeneralServiceController)
+local GeneralServiceController = require(Plugin.Src.Controllers.GeneralServiceController)
 local getFFlagMaterialManagerUIUXFixes = require(Plugin.Src.Flags.getFFlagMaterialManagerUIUXFixes)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local Actions = Plugin.Src.Actions
 local ClearMaterialVariant = require(Actions.ClearMaterialVariant)
-local SetMaterial = require(Actions.SetMaterial)
 local SetBaseMaterial = require(Actions.SetBaseMaterial)
 local SetFromVariantInstance = require(Actions.SetFromVariantInstance)
 local SetMode = require(Actions.SetMode)
@@ -35,6 +35,8 @@ local getSupportedMaterials = require(Constants.getSupportedMaterials)
 
 local supportedMaterials = getSupportedMaterials()
 
+local getFFlagMaterialManagerExtraTooltips = require(Plugin.Src.Flags.getFFlagMaterialManagerExtraTooltips)
+local getFFlagMaterialManagerUIGlitchFix = require(Plugin.Src.Flags.getFFlagMaterialManagerUIGlitchFix)
 local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
 
 export type Props = {
@@ -46,7 +48,6 @@ export type Props = {
 type _Props = Props & { 
 	Analytics: any,
 	dispatchClearMaterialVariant: () -> (),
-	dispatchSetMaterial: (material: _Types.Material) -> (),
 	dispatchSetBaseMaterial: (baseMaterial: Enum.Material) -> (),
 	dispatchSetFromVariantInstance: (materialVariant: MaterialVariant) -> (),
 	dispatchSetMode: (mode: string) -> (),
@@ -93,6 +94,9 @@ function MaterialInformation:init()
 		local material: _Types.Material? = props.Material
 
 		if material and  material.MaterialVariant then
+			if getFFlagMaterialManagerUIGlitchFix() then
+				props.dispatchClearMaterialVariant()
+			end
 			props.dispatchSetFromVariantInstance(material.MaterialVariant)
 			props.dispatchSetMode("Edit")
 			props.OpenPrompt("Edit")
@@ -194,7 +198,10 @@ function MaterialInformation:render()
 						Style = style.CreateVariant,
 						Size = style.ImageSize,
 						Position = style.ImagePosition,
-					})
+					}),
+					Tooltip = if getFFlagMaterialManagerExtraTooltips() then Roact.createElement(Tooltip, {
+						Text = localization:getText("MaterialInformation", "CreateVariant")
+					}) else nil
 				}) else nil,
 			Edit = if not isBuiltin then
 				Roact.createElement(Button, {
@@ -207,7 +214,10 @@ function MaterialInformation:render()
 						Style = style.Edit,
 						Size = style.ImageSize,
 						Position = style.ImagePosition,
-					})
+					}),
+					Tooltip = if getFFlagMaterialManagerExtraTooltips() then Roact.createElement(Tooltip, {
+						Text = localization:getText("MaterialInformation", "Edit")
+					}) else nil
 				}) else nil,
 			Delete = if not isBuiltin then
 				Roact.createElement(Button, {
@@ -220,7 +230,10 @@ function MaterialInformation:render()
 						Style = style.Delete,
 						Size = style.ImageSize,
 						Position = style.ImagePosition,
-					})
+					}),
+					Tooltip = if getFFlagMaterialManagerExtraTooltips() then Roact.createElement(Tooltip, {
+						Text = localization:getText("MaterialInformation", "Delete")
+					}) else nil
 				}) else nil,
 		}),
 		MaterialType = Roact.createElement(TruncatedTextLabel, {
@@ -255,9 +268,6 @@ return RoactRodux.connect(
 		return {
 			dispatchClearMaterialVariant = function()
 				dispatch(ClearMaterialVariant())
-			end,
-			dispatchSetMaterial = function(material: _Types.Material)
-				dispatch(SetMaterial(material))
 			end,
 			dispatchSetFromVariantInstance = function(materialVariant: MaterialVariant)
 				dispatch(SetFromVariantInstance(materialVariant))

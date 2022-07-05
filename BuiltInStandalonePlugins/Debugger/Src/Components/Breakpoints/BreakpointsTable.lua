@@ -29,9 +29,8 @@ local Constants = require(PluginFolder.Src.Util.Constants)
 local BreakpointsTreeTableCell = require(PluginFolder.Src.Components.Breakpoints.BreakpointsTreeTableCell)
 
 local BreakpointsTable = Roact.PureComponent:extend("BreakpointsTable")
-local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
 local FFlagDevFrameworkTableHeaderTooltip = game:GetFastFlag("DevFrameworkTableHeaderTooltip")
-local hasTableColumnResizeFFlags = FFlagDevFrameworkTableColumnResize
+local FFlagDevFrameworkExpandColumnOnDoubleClickDragbar = game:GetFastFlag("DevFrameworkExpandColumnOnDoubleClickDragbar")
 
 local UtilFolder = PluginFolder.Src.Util
 local MakePluginActions = require(UtilFolder.MakePluginActions)
@@ -49,6 +48,7 @@ local SetBreakpointSortState = require(Actions.BreakpointsWindow.SetBreakpointSo
 local BreakpointColumnFilter = require(Actions.BreakpointsWindow.BreakpointColumnFilter)
 
 local BreakpointsDropdownField = require(script.Parent.BreakpointsDropdownField)
+local DeleteAllBreakpointsDialog = require(script.Parent.DeleteAllBreakpointsDialog)
 
 local defaultColumnKeys = {
 	[1] = "isEnabled",
@@ -76,15 +76,13 @@ end
 
 function BreakpointsTable:init()
 	local initialSizes = {}
-	if hasTableColumnResizeFFlags then
-		local numColumns = #defaultColumnKeys + #self.props.ColumnFilter
-		for i = 1, numColumns do
-			-- have the script name column be double the size as the others.
-			if i == 2 then
-				table.insert(initialSizes, UDim.new(2 / (numColumns + 1), 0))
-			else
-				table.insert(initialSizes, UDim.new(1 / (numColumns + 1), 0))
-			end
+	local numColumns = #defaultColumnKeys + #self.props.ColumnFilter
+	for i = 1, numColumns do
+		-- have the script name column be double the size as the others.
+		if i == 2 then
+			table.insert(initialSizes, UDim.new(2 / (numColumns + 1), 0))
+		else
+			table.insert(initialSizes, UDim.new(1 / (numColumns + 1), 0))
 		end
 	end
 
@@ -92,6 +90,7 @@ function BreakpointsTable:init()
 		selectedBreakpoints = {},
 		breakpointIdToExpansionState = {},
 		sizes = initialSizes,
+		deleteAllPopup = false,
 	}
 
 	self.OnDoubleClick = function(row)
@@ -99,13 +98,11 @@ function BreakpointsTable:init()
 	end
 
 	self.OnColumnSizesChange = function(newSizes: { UDim })
-		if hasTableColumnResizeFFlags then
-			self:setState(function(state)
-				return {
-					sizes = newSizes,
-				}
-			end)
-		end
+		self:setState(function(state)
+			return {
+				sizes = newSizes,
+			}
+		end)
 	end
 
 	self.onSelectionChange = function(selection)
@@ -150,7 +147,8 @@ function BreakpointsTable:init()
 				bp,
 				row,
 				self.props.Analytics,
-				"LuaBreakpointsTable.ContextMenu"
+				"LuaBreakpointsTable.ContextMenu",
+				self.props.CurrentDebuggerConnectionId
 			)
 		elseif actionId == Constants.CommonActions.GoToScript then
 			self.goToScript()
@@ -177,6 +175,22 @@ function BreakpointsTable:init()
 		local actions = MakePluginActions.getBreakpointActions(localization, row.item.isEnabled, isLogpoint)
 		local actionsOrder = MakePluginActions.getBreakpointActionsOrder(row.item.isEnabled, isLogpoint)
 		showContextMenu(plugin, "Breakpoint", actions, self.onMenuActionSelected, { row = row }, actionsOrder)
+	end
+
+	self.displayDeleteAllBreakpointsPopup = function()
+		self:setState(function(state)
+			return {
+				deleteAllPopup = true,	
+			}
+		end)
+	end
+
+	self.closeDeleteAllBreakpointsPopup = function()
+		self:setState(function(state)
+			return {
+				deleteAllPopup = false,	
+			}
+		end)
 	end
 
 	self.deleteAllBreakpoints = function()
@@ -429,7 +443,7 @@ function BreakpointsTable:render()
 		},
 	}
 
-	for _, v in pairs(props.ColumnFilter) do
+	for _, v in ipairs(props.ColumnFilter) do
 		local currCol = {
 			Name = localization:getText("BreakpointsWindow", v),
 			Key = dropdownColumnNameToKey[v],
@@ -439,13 +453,11 @@ function BreakpointsTable:render()
 		table.insert(tableColumns, currCol)
 	end
 
-	if hasTableColumnResizeFFlags then
-		tableColumns = map(tableColumns, function(column, index: number)
-			return join(column, {
-				Width = self.state.sizes[index],
-			})
-		end)
-	end
+	local tableColumnsWithWidths = map(tableColumns, function(column, index: number)
+		return join(column, {
+			Width = self.state.sizes[index],
+		})
+	end)
 
 	local expansionTable = {}
 	for _, bp in pairs(props.Breakpoints) do
@@ -501,7 +513,7 @@ function BreakpointsTable:render()
 					LayoutOrder = 2,
 					LeftIcon = "rbxasset://textures/Debugger/Breakpoints/delete_all@2x.png",
 					TooltipText = localization:getText("BreakpointsWindow", "DeleteAll"),
-					OnClick = self.deleteAllBreakpoints,
+					OnClick = self.displayDeleteAllBreakpointsPopup,
 				}),
 			}),
 			DropdownContainer = Roact.createElement(Pane, {
@@ -525,7 +537,7 @@ function BreakpointsTable:render()
 		}, {
 			BreakpointsTable = Roact.createElement(TreeTable, {
 				Size = UDim2.new(1, 0, 1, 0),
-				Columns = tableColumns,
+				Columns = tableColumnsWithWidths,
 				RootItems = props.Breakpoints or {},
 				OnExpansionChange = self.onExpansionChange,
 				RightClick = self.onRightClick,
@@ -543,13 +555,19 @@ function BreakpointsTable:render()
 				SortIndex = props.SortIndex,
 				SortOrder = props.SortOrder,
 				OnSortChange = self.OnSortChange,
-				OnColumnSizesChange = if hasTableColumnResizeFFlags then self.OnColumnSizesChange else nil,
-				UseDeficit = if hasTableColumnResizeFFlags then false else nil,
-				UseScale = if hasTableColumnResizeFFlags then true else nil,
-				ClampSize = if hasTableColumnResizeFFlags then true else nil,
+				OnColumnSizesChange = self.OnColumnSizesChange,
+				UseDeficit = false,
+				UseScale = true,
+				ClampSize = true,
 				ColumnHeaderHeight = Constants.COLUMN_HEADER_HEIGHT,
 				RowHeight = Constants.ROW_HEIGHT,
+				ExpandOnDoubleClick = if FFlagDevFrameworkExpandColumnOnDoubleClickDragbar then true else nil,
 			}),
+		}),
+		DeleteAllDialog = Roact.createElement(DeleteAllBreakpointsDialog, {
+			Enabled = self.state.deleteAllPopup,
+			CloseDialog = self.closeDeleteAllBreakpointsPopup,
+			DeleteAllBreakpoints = self.deleteAllBreakpoints,
 		}),
 	})
 end

@@ -18,6 +18,9 @@ local Framework = require(Plugin.Packages.Framework)
 local Constants = require(Plugin.Src.Util.Constants)
 local Cryo = require(Plugin.Packages.Cryo)
 
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+
 local ContextMenu = require(Plugin.Src.Components.ContextMenu)
 local Tooltip = require(Plugin.Src.Components.Tooltip)
 local ContextServices = Framework.ContextServices
@@ -25,6 +28,10 @@ local withContext = ContextServices.withContext
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+
+local RigUtils = require(Plugin.Src.Util.RigUtils)
+
+local GetFFlagFaceAnimationEditorUITweaks = require(Plugin.LuaFlags.GetFFlagFaceAnimationEditorUITweaks)
 
 local AddTrackButton = Roact.PureComponent:extend("AddTrackButton")
 
@@ -162,9 +169,12 @@ function AddTrackButton:makeTrackActions(localization)
 	end
 
 	if GetFFlagFacialAnimationSupport() then
-		local facsItems = self:makeFacialAnimationRegionSubMenu(localization)
-		for _, item in pairs(facsItems) do
-			table.insert(actions, item)
+		local isFacsRig = GetFFlagFaceAnimationEditorUITweaks() and RigUtils.getFaceControls(self.props.RootInstance)
+		if GetFFlagFaceAnimationEditorUITweaks() == false or (GetFFlagFaceAnimationEditorUITweaks() and isFacsRig) then
+			local facsItems = self:makeFacialAnimationRegionSubMenu(localization)
+			for _, item in pairs(facsItems) do
+				table.insert(actions, item)
+			end
 		end
 	end
 
@@ -216,10 +226,20 @@ function AddTrackButton:render()
 	})
 end
 
+local function mapStateToProps(state, props)
+	return {
+		RootInstance = state.Status.RootInstance,
+	}
+end
+
 AddTrackButton = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
 })(AddTrackButton)
 
-return AddTrackButton
+if GetFFlagFaceAnimationEditorUITweaks() then
+	return RoactRodux.connect(mapStateToProps)(AddTrackButton)
+else
+	return AddTrackButton
+end

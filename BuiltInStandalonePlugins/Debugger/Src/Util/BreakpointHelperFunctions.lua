@@ -5,7 +5,9 @@ local Constants = require(PluginFolder.Src.Util.Constants)
 
 local module = {}
 
-module.setBreakpointRowEnabled = function(bp, row, analytics, actionSource)
+local FFlagStudioDebuggerEnableAllContextsTogglingInEdit = game:GetFastFlag("StudioDebuggerEnableAllContextsTogglingInEdit")
+
+module.setBreakpointRowEnabled = function(bp, row, analytics, actionSource, connectionId)
 	local isEnabled = not row.item.isEnabled
 
 	if row.item.context == nil then
@@ -22,7 +24,17 @@ module.setBreakpointRowEnabled = function(bp, row, analytics, actionSource)
 			return
 		end
 
-		bp:SetChildBreakpointEnabledByScriptAndContext(row.item.scriptGUID, intForGST, isEnabled)
+		local uiService = game:GetService("DebuggerUIService")
+		local editDM = false
+		if FFlagStudioDebuggerEnableAllContextsTogglingInEdit and connectionId and connectionId ~= Constants.kInvalidDebuggerConnectionId then
+			editDM = not uiService:IsConnectionForPlayDataModel(connectionId)
+		end
+
+		if editDM and isEnabled then
+			bp:SetEnabled(isEnabled)
+		else
+			bp:SetChildBreakpointEnabledByScriptAndContext(row.item.scriptGUID, intForGST, isEnabled)
+		end
 
 		if isEnabled then
 			analytics:report(AnalyticsEventNames.EnableBreakpoint, actionSource)

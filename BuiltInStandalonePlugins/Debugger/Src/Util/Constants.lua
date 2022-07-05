@@ -139,6 +139,8 @@ local Tab = "Tab"
 local ScopeFilter = "ScopeFilter"
 local ColumnFilter = "ColumnFilter"
 
+local kInvalidDebuggerConnectionId = -1
+
 return {
 	CallstackActionIds = CallstackActionIds,
 	WatchActionIds = WatchActionIds,
@@ -171,4 +173,5 @@ return {
 	ColumnFilter = ColumnFilter,
 	ColumnSizeVariables = ColumnSizeVariables,
 	ColumnSizeMyWatches = ColumnSizeMyWatches,
+	kInvalidDebuggerConnectionId = kInvalidDebuggerConnectionId,
 }

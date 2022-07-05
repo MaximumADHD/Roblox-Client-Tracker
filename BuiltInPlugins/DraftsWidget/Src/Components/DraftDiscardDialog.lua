@@ -6,7 +6,7 @@
 	ChoiceSelected - Callback to invoke whenever the user selects an option
 		in the dialog. True for confirm, false for cancel / closing the dialog
 --]]
-local FFlagRemoveUILibraryFitContent = game:GetFastFlag("RemoveUILibraryFitContent")
+
 local FFlagUpdateDraftsWidgetToDFContextServices = game:GetFastFlag("UpdateDraftsWidgetToDFContextServices")
 
 local TextService = game:GetService("TextService")
@@ -16,8 +16,17 @@ local Roact = require(Plugin.Packages.Roact)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
 local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryFitContent = SharedFlags.getFFlagRemoveUILibraryFitContent()
+local FFlagRemoveUILibraryBulletPoint = SharedFlags.getFFlagRemoveUILibraryBulletPoint()
+
 local UI = Framework.UI
+local BulletList = UI.BulletList
 local Pane = UI.Pane
+
+local Dash = Framework.Dash
+local map = Dash.map
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -25,7 +34,11 @@ local withContext = ContextServices.withContext
 local withTheme = if FFlagUpdateDraftsWidgetToDFContextServices then nil else require(Plugin.Src.ContextServices.Theming).withTheme
 local withLocalization = if FFlagUpdateDraftsWidgetToDFContextServices then nil else UILibrary.Localizing.withLocalization
 
-local BulletPoint = UILibrary.Component.BulletPoint
+local BulletPoint
+if not FFlagRemoveUILibraryBulletPoint then
+    BulletPoint = UILibrary.Component.BulletPoint
+end
+
 local StyledDialog = UILibrary.Component.StyledDialog
 local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
 
@@ -94,16 +107,26 @@ function DraftDiscardDialog:render()
 	local style = self.props.Stylizer
 	local drafts = self.props.Drafts
 	local choiceSelected = self.props.ChoiceSelected
-
-	local bullets = {}
-	for i,draft in ipairs(drafts) do
-		bullets[draft] = Roact.createElement(BulletPoint, {
-			Text = draft.Name,
+	
+	local bullets
+	if FFlagRemoveUILibraryBulletPoint then
+		bullets = Roact.createElement(BulletList, {
 			TextTruncate = Enum.TextTruncate.AtEnd,
-			TextSize = BULLET_TEXT_SIZE,
-
-			LayoutOrder = i,
+			Items = map(drafts, function(draft)
+				return draft.Name
+			end)
 		})
+	else
+		bullets = {}
+		for i,draft in ipairs(drafts) do
+			bullets[draft] = Roact.createElement(BulletPoint, {
+				Text = draft.Name,
+				TextTruncate = Enum.TextTruncate.AtEnd,
+				TextSize = BULLET_TEXT_SIZE,
+
+				LayoutOrder = i,
+			})
+		end
 	end
 
 	local function renderWithContext(theme, localization)
@@ -155,7 +178,7 @@ function DraftDiscardDialog:render()
 					end,
 				}),
 
-				FitContent = (
+				Bullets = if FFlagRemoveUILibraryBulletPoint then bullets else (
 					if FFlagRemoveUILibraryFitContent then
 						Roact.createElement(Pane, {
 							AutomaticSize = Enum.AutomaticSize.Y,
@@ -166,7 +189,7 @@ function DraftDiscardDialog:render()
 						Roact.createElement(FitToContent, {
 							BackgroundTransparency = 1,
 						}, bullets)
-				),
+				)
 			})
 		})
 	end

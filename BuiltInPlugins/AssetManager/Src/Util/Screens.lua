@@ -21,22 +21,22 @@ local ScriptsIconPath
 local AudioIconPath
 local ModelsIconPath
 if FFlagHighDpiIcons then
-    PlacesIconPath = ModernIcons.IconEnums.Places
-    ImagesIconPath = ModernIcons.IconEnums.Images
-    MeshesIconPath = ModernIcons.IconEnums.Meshes
-    PackagesIconPath = ModernIcons.IconEnums.Packages
-    ScriptsIconPath = ModernIcons.IconEnums.Scripts
-    AudioIconPath = ModernIcons.IconEnums.Audio
-    ModelsIconPath = ModernIcons.IconEnums.Models
+	PlacesIconPath = ModernIcons.IconEnums.Places
+	ImagesIconPath = ModernIcons.IconEnums.Images
+	MeshesIconPath = ModernIcons.IconEnums.Meshes
+	PackagesIconPath = ModernIcons.IconEnums.Packages
+	ScriptsIconPath = ModernIcons.IconEnums.Scripts
+	AudioIconPath = ModernIcons.IconEnums.Audio
+	ModelsIconPath = ModernIcons.IconEnums.Models
 else
-    PlacesIconPath = "rbxasset://textures/StudioSharedUI/places.png"
-    ImagesIconPath = "rbxasset://textures/StudioSharedUI/images.png"
-    MeshesIconPath = "rbxasset://textures/StudioSharedUI/meshes.png"
-    PackagesIconPath = "rbxasset://textures/StudioSharedUI/packages.png"
-    ScriptsIconPath = "rbxasset://textures/StudioSharedUI/scripts.png"
-    AudioIconPath = "rbxasset://textures/StudioSharedUI/audio.png"
-    VideoIconPath = "rbxasset://textures/StudioSharedUI/videos.png"
-    ModelsIconPath = "rbxasset://textures/StudioSharedUI/models.png"
+	PlacesIconPath = "rbxasset://textures/StudioSharedUI/places.png"
+	ImagesIconPath = "rbxasset://textures/StudioSharedUI/images.png"
+	MeshesIconPath = "rbxasset://textures/StudioSharedUI/meshes.png"
+	PackagesIconPath = "rbxasset://textures/StudioSharedUI/packages.png"
+	ScriptsIconPath = "rbxasset://textures/StudioSharedUI/scripts.png"
+	AudioIconPath = "rbxasset://textures/StudioSharedUI/audio.png"
+	VideoIconPath = "rbxasset://textures/StudioSharedUI/videos.png"
+	ModelsIconPath = "rbxasset://textures/StudioSharedUI/models.png"
 end
 
 

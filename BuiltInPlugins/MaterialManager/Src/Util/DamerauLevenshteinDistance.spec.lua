@@ -1,8 +1,8 @@
+local Plugin = script.Parent.Parent.Parent
+
+local DamerauLevenshteinDistance = require(Plugin.Src.Util.DamerauLevenshteinDistance)
+
 return function()
-	local Plugin = script.Parent.Parent.Parent
-
-	local DamerauLevenshteinDistance = require(Plugin.Src.Util.DamerauLevenshteinDistance)
-
 	it("no difference between lowercase and uppercase letters", function()
 		local name = "Brick"
 		local search = "brIck"

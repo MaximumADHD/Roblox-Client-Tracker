@@ -20,6 +20,8 @@ local TextLabel = UI.Decoration.TextLabel
 local TruncatedTextLabel = UI.TruncatedTextLabel
 local Tooltip = UI.Tooltip
 
+local MaterialController = require(Plugin.Src.Controllers.MaterialController)
+
 local Components = Plugin.Src.Components
 local MaterialPreview = require(Components.DEPRECATED_MaterialPreview)
 local StatusIcon = require(Components.DEPRECATED_StatusIcon)
@@ -29,7 +31,6 @@ local getFullMaterialType = require(Constants.getFullMaterialType)
 local getMaterialName = require(Constants.getMaterialName)
 
 local Util = Plugin.Src.Util
-local MaterialController = require(Util.MaterialController)
 local ApplyToSelection = require(Util.ApplyToSelection)
 local CalculateFillWidth = require(Util.CalculateFillWidth)
 

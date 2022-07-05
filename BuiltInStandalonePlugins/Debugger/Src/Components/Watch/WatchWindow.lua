@@ -12,6 +12,8 @@ local Localization = ContextServices.Localization
 
 local WatchComponent = require(Plugin.Src.Components.Watch.WatchComponent)
 
+local FFlagDebuggerUIQTitanDockingFixes = require(Plugin.Src.Flags.GetFFlagDebuggerUIQTitanDockingFixes)
+
 local WatchWindow = Roact.PureComponent:extend("WatchWindow")
 
 function WatchWindow:render()
@@ -25,12 +27,15 @@ function WatchWindow:render()
 		Title = localization:getText("Watch", "WindowName"),
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 		InitialDockState = Enum.InitialDockState.Bottom,
-		InitialEnabled = true,
-		InitialEnabledShouldOverrideRestore = false,
+		InitialEnabled = if FFlagDebuggerUIQTitanDockingFixes() then nil else true,
+		InitialEnabledShouldOverrideRestore = if FFlagDebuggerUIQTitanDockingFixes() then nil else false,
 		Size = Vector2.new(640, 480),
 		MinSize = Vector2.new(250, 200),
 		Enabled = enabled,
 		OnClose = onClose,
+		ShouldRestore = if FFlagDebuggerUIQTitanDockingFixes() then true else nil,
+		OnWidgetRestored = if FFlagDebuggerUIQTitanDockingFixes() then props.OnRestore else nil,
+		[Roact.Change.Enabled] = if FFlagDebuggerUIQTitanDockingFixes() then props.OnWidgetEnabledChanged else nil,
 	}, {
 		Watch = Roact.createElement(WatchComponent),
 	})

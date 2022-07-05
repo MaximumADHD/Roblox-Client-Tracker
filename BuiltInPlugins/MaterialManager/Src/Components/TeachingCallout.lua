@@ -6,7 +6,7 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local CalloutController = require(Plugin.Src.Util.CalloutController)
+local CalloutController = require(Plugin.Src.Controllers.CalloutController)
 
 local TeachingCallout = Roact.PureComponent:extend("TeachingCallout")
 

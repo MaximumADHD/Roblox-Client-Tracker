@@ -13,7 +13,7 @@ local SetAnimationImportStatus = require(Plugin.Src.Actions.SetAnimationImportSt
 local SetCreatingAnimationFromVideo = require(Plugin.Src.Actions.SetCreatingAnimationFromVideo)
 
 local GetFFlagCreateAnimationFromVideoErrorCodes = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoErrorCodes)
-local GetFFlagCreateAnimationFromVideoAnalytics = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoAnalytics)
+local GetFFlagCreateAnimationFromVideoAnalytics2 = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoAnalytics2)
 
 -- this function is is a variation of : ImportFBXAnimationUserMayChooseModel function (but is provided with a fbxFilePath parameter)
 local function _ImportFBXAnimationFromFilePathUserMayChooseModel(store, fbxFilePath, plugin, animationClipDropdown, analytics)
@@ -87,7 +87,7 @@ return function(plugin, animationClipDropdown, analytics)
 			if not GetFFlagCreateAnimationFromVideoErrorCodes() or store:getState().Status.AnimationImportStatus == Constants.ANIMATION_FROM_VIDEO_STATUS.Initializing then
 				animationClipDropdown:hideAnimationImportProgress()
 			end
-			if GetFFlagCreateAnimationFromVideoAnalytics() then
+			if GetFFlagCreateAnimationFromVideoAnalytics2() then
 				analytics:report("onAnimationEditorImportVideoError", result)
 			end
 			warn(result)
@@ -96,7 +96,7 @@ return function(plugin, animationClipDropdown, analytics)
 
 		local fbxFilePath = result
 
-		if GetFFlagCreateAnimationFromVideoAnalytics() then
+		if GetFFlagCreateAnimationFromVideoAnalytics2() then
 			analytics:report("onAnimationEditorImportVideoUploadSucceed")
 		end
 

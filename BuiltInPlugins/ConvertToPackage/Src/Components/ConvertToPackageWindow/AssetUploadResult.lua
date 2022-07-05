@@ -5,20 +5,19 @@
 		Size UDim2, the size of the window
 		onClose callback, called when the user presses the "cancel" button
 ]]
-
-local ContentProvider = game:GetService("ContentProvider")
-local HttpService = game:GetService("HttpService")
+local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local withContext = if FFlagUpdateConvertToPackageToDFContextServices then ContextServices.withContext else require(Plugin.Src.ContextServices.withContext)
 
 local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
-
-local withContext = require(Plugin.Src.ContextServices.withContext)
 
 local Components = Plugin.Src.Components
 local AssetThumbnailPreview = require(Components.ConvertToPackageWindow.AssetThumbnailPreview)
@@ -55,7 +54,9 @@ function AssetUploadResult:init(props)
 end
 
 function AssetUploadResult:render()
-	return withContext(function(localization, theme)
+	local style = self.props.Stylizer
+
+	local function renderWithContext(localization, theme)
 		local props = self.props
 		local assetName = props.assetName
 
@@ -160,7 +161,16 @@ function AssetUploadResult:render()
 				}),
 			}),
 		})
-	end)
+	end
+
+	return if FFlagUpdateConvertToPackageToDFContextServices then renderWithContext(self.props.Localization, style) else withContext(renderWithContext)
+end
+
+if FFlagUpdateConvertToPackageToDFContextServices then
+	AssetUploadResult = withContext({
+		Localization = ContextServices.Localization,
+		Stylizer = ContextServices.Stylizer,
+	})(AssetUploadResult)
 end
 
 local function mapStateToProps(state, props)

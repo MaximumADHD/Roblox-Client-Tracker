@@ -1,10 +1,10 @@
-local FFlagDevFrameworkRemoveFitFrame = game:GetFastFlag("DevFrameworkRemoveFitFrame")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local _Types = require(Plugin.Src.Types)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
+
+local FFlagDevFrameworkRemoveFitFrame = Framework.SharedFlags.getFFlagDevFrameworkRemoveFitFrame()
 
 local Stylizer = Framework.Style.Stylizer
 
@@ -20,14 +20,19 @@ local ToggleButton = UI.ToggleButton
 local TextLabel = UI.Decoration.TextLabel
 local TruncatedTextLabel = UI.TruncatedTextLabel
 
-local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Plugin.Src.Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
-local getFFlagMaterialManagerGridOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerGridOverhaul)
+local MaterialServiceController = require(Plugin.Src.Controllers.MaterialServiceController)
+
 local getSupportedMaterials = require(Plugin.Src.Resources.Constants.getSupportedMaterials)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-local MaterialServiceController = require(Plugin.Src.Util.MaterialServiceController)
 local SetBaseMaterial = require(Plugin.Src.Actions.SetBaseMaterial)
 local DEPRECATED_StatusIcon = require(Plugin.Src.Components.DEPRECATED_StatusIcon)
 local StatusIcon = require(Plugin.Src.Components.StatusIcon)
+
+local Flags = Plugin.Src.Flags
+local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
+local getFFlagMaterialManagerGridOverhaul = require(Flags.getFFlagMaterialManagerGridOverhaul)
+local getFFlagMaterialManagerEnableTests = require(Flags.getFFlagMaterialManagerEnableTests)
+
 local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
 
 local supportedMaterials = getSupportedMaterials()
@@ -226,9 +231,21 @@ MaterialOverrides = withContext({
 return RoactRodux.connect(
 	function(state: MainReducer.State, props: Props)
 		if props.MockMaterial then
-			return {
-				Material = props.MockMaterial,
-			}
+			if getFFlagMaterialManagerEnableTests() then
+				return {
+					Material = props.MockMaterial,
+					MaterialOverrides = state.MaterialBrowserReducer.MaterialOverrides[props.MockMaterial.Material],
+					MaterialOverride = state.MaterialBrowserReducer.MaterialOverride[props.MockMaterial.Material],
+					MaterialStatus = if not props.MockMaterial.MaterialVariant then
+						state.MaterialBrowserReducer.MaterialStatus[props.MockMaterial.Material]
+						else
+						nil
+				}
+			else
+				return {
+					Material = props.MockMaterial
+				}
+			end
 		elseif not state.MaterialBrowserReducer.Material or not supportedMaterials[state.MaterialBrowserReducer.Material.Material] then
 			return {}
 		else

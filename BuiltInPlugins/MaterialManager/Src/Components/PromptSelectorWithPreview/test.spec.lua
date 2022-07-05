@@ -6,7 +6,7 @@ local PromptSelectorWithPreview = require(script.Parent)
 
 return function()
 	local hasSelection = false
-	local renderPreview = function() return Roact.createElement("Frame") end
+	local imageId = ""
 	local promptSelection = function() end
 	local urlSelection = function(searchUrl: string?) end
 	local borderColorUrlBool = false
@@ -17,7 +17,7 @@ return function()
 	local function createTestElement(props: PromptSelectorWithPreview.Props?)
 		props = props or {
 			HasSelection = hasSelection,
-			RenderPreview = renderPreview,
+			ImageId = imageId,
 			PromptSelection = promptSelection,
 			UrlSelection = urlSelection,
 			BorderColorUrlBool = borderColorUrlBool,
@@ -41,7 +41,7 @@ return function()
 		local container = Instance.new("Folder")
 		local element = createTestElement({
 			HasSelection = true,
-			RenderPreview = renderPreview,
+			ImageId = "rbxasset://textures/MaterialManager/Create_New_Variant.png",
 			PromptSelection = promptSelection,
 			UrlSelection = urlSelection,
 			BorderColorUrlBool = true,

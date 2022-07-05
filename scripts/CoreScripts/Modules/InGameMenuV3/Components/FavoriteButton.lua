@@ -6,6 +6,8 @@ local InGameMenu = script.Parent.Parent
 local ApiFetchGameIsFavorite = require(InGameMenu.Thunks.ApiFetchGameIsFavorite)
 local SetGameFavorite = require(InGameMenu.Actions.SetGameFavorite)
 local GamePostFavorite = require(InGameMenu.Thunks.GamePostFavorite)
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
+local Constants = require(InGameMenu.Resources.Constants)
 
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local Network = InGameMenu.Network
@@ -38,12 +40,9 @@ function FavoriteButton:didMount()
 end
 
 function FavoriteButton:render()
-
 	local favoriteChecked = (self.props.isFavorited ~= nil) and self.props.isFavorited or false
 
-
 	return withStyle(function(style)
-
 		return Roact.createElement(IconButton, {
 			showBackground = true,
 			layoutOrder = self.props.layoutOrder,
@@ -58,30 +57,34 @@ function FavoriteButton:render()
 			onActivated = function()
 				self.props.setFavorite(not favoriteChecked)
 				self.props.postFavorite(networkImpl, not favoriteChecked)
+
+				SendAnalytics(
+					Constants.AnalyticsMenuActionName,
+					favoriteChecked and Constants.AnalyticsUnfavoritingExperience
+						or Constants.AnalyticsFavoritingExperience,
+					{ source = Constants.AnalyticsLeavePromptSource }
+				)
 			end,
 		})
 	end)
 end
 
-return RoactRodux.connect(
-	function(state, props)
-		return {
-			isFavorited = state.gameInfo.isFavorited,
-		}
-	end,
-	function(dispatch)
-		local universeId = game.GameId
+return RoactRodux.connect(function(state, props)
+	return {
+		isFavorited = state.gameInfo.isFavorited,
+	}
+end, function(dispatch)
+	local universeId = game.GameId
 
-		return {
-			fetchGameIsFavorite = function(networking)
-				return universeId > 0 and dispatch(ApiFetchGameIsFavorite(networking, tostring(universeId)))
-			end,
-			postFavorite = function(networking, isFavorite)
-				return dispatch(GamePostFavorite(networking, tostring(universeId), isFavorite))
-			end,
-			setFavorite = function(isFavorite)
-				return dispatch(SetGameFavorite(tostring(universeId), isFavorite))
-			end,
-		}
-	end
-)(FavoriteButton)
+	return {
+		fetchGameIsFavorite = function(networking)
+			return universeId > 0 and dispatch(ApiFetchGameIsFavorite(networking, tostring(universeId)))
+		end,
+		postFavorite = function(networking, isFavorite)
+			return dispatch(GamePostFavorite(networking, tostring(universeId), isFavorite))
+		end,
+		setFavorite = function(isFavorite)
+			return dispatch(SetGameFavorite(tostring(universeId), isFavorite))
+		end,
+	}
+end)(FavoriteButton)

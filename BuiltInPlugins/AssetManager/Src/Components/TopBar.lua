@@ -1,15 +1,15 @@
 --[[
-    The Top Bar contains the buttons for displaying the overlay, going back and forwards, importing assets
-        as well the search bar.
+	The Top Bar contains the buttons for displaying the overlay, going back and forwards,
+	importing assets as well the search bar.
 
-    Necessary Properties:
-        OnOverlayActivated = callback, to display the overlay when the overlay button is clicked.
-    Optional Properties:
+	Required Props:
+		callback OnOverlayActivated: To display the overlay when the overlay button is clicked.
 ]]
 
 local Plugin = script.Parent.Parent.Parent
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagEnableAssetManagerGlobalSearchBar = game:GetFastFlag("EnableAssetManagerGlobalSearchBar")
+local FFlagEnableAssetManagerSortButton = game:GetFastFlag("EnableAssetManagerSortButton")
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -19,6 +19,7 @@ local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local Button = UI.Button
+local DropdownMenu = UI.DropdownMenu
 local HoverArea = UI.HoverArea
 local LinkText = UI.LinkText
 local Pane = UI.Pane
@@ -49,359 +50,460 @@ local BulkImportService = game:GetService("BulkImportService")
 local enableBadgesCallout = require(Plugin.Src.Util.AssetManagerUtilities).enableBadgesCallout
 local TeachingCallout = enableBadgesCallout() and require(script.Parent.TeachingCallout) or nil
 
+local NUM_BUTTONS = 6
+local NUM_PADDING = 2
+
 local TopBar = Roact.PureComponent:extend("TopBar")
 
 function TopBar:init()
-    self.OnTreeViewButtonActivated = function()
-        local props = self.props
-        props.OnOverlayActivated()
-    end
+	self.state = {
+		showSortDropdown = false,
+	}
 
-    self.OnSearchRequested = function(searchTerm)
-        local props = self.props
-        props.Analytics:report("search")
-        props.dispatchSetSearchTerm(searchTerm)
-    end
+	self.OnTreeViewButtonActivated = function()
+		local props = self.props
+		props.OnOverlayActivated()
+	end
+
+	self.OnSearchRequested = function(searchTerm)
+		local props = self.props
+		props.Analytics:report("search")
+		props.dispatchSetSearchTerm(searchTerm)
+	end
+
+	self.OnSelectSortItem = function(value, index)
+		-- TODO: connect to backend and add dropdown functionality
+		self:setState({
+			showSortDropdown = false
+		})
+	end
+
+	self.OnOpenSortDropdown = function()
+		self:setState({
+			showSortDropdown = true
+		})
+	end
+
+	self.OnCloseSortDropdown = function()
+		self:setState({
+			showSortDropdown = false
+		})
+	end
 end
 
 function TopBar:render()
-    local props = self.props
-    local analytics = props.Analytics
-    local theme = props.Stylizer
-    local topBarTheme = theme.TopBar
-    local localization = props.Localization
+	local props = self.props
+	local analytics = props.Analytics
+	local theme = props.Stylizer
+	local topBarTheme = theme.TopBar
+	local localization = props.Localization
 
-    local size = props.Size
-    local layoutOrder = props.LayoutOrder
+	local size = props.Size
+	local layoutOrder = props.LayoutOrder
 
-    local enabled = props.Enabled
+	local enabled = props.Enabled
 
-    local recentViewToggled = props.RecentViewToggled
-    local dispatchSetRecentViewToggled = props.dispatchSetRecentViewToggled
+	local recentViewToggled = props.RecentViewToggled
+	local dispatchSetRecentViewToggled = props.dispatchSetRecentViewToggled
 
-    local currentScreen = props.CurrentScreen
-    local previousScreens = props.PreviousScreens
-    local nextScreens = props.NextScreens
-    local dispatchSetToPreviousScreen = props.dispatchSetToPreviousScreen
-    local dispatchSetToNextScreen = props.dispatchSetToNextScreen
-    local previousButtonEnabled = #previousScreens > 0
-    local nextButtonEnabled = #nextScreens > 0
+	local currentScreen = props.CurrentScreen
+	local previousScreens = props.PreviousScreens
+	local nextScreens = props.NextScreens
+	local dispatchSetToPreviousScreen = props.dispatchSetToPreviousScreen
+	local dispatchSetToNextScreen = props.dispatchSetToNextScreen
+	local previousButtonEnabled = #previousScreens > 0
+	local nextButtonEnabled = #nextScreens > 0
 
-    local bulkImporterRunning = props.BulkImporterRunning
-    local dispatchLaunchBulkImporter = props.dispatchLaunchBulkImporter
-    local bulkImporterTooltipText = localization:getText("BulkImport", "BulkImportRunning")
-    local bulkImporterLinkText = localization:getText("BulkImport", "BulkImportShowLink")
-    local tooltipTextExtents = GetTextSize(bulkImporterTooltipText, topBarTheme.Tooltip.TextSize,
-        theme.Font, Vector2.new(topBarTheme.Tooltip.Width, math.huge))
-    local linkTextExtents = GetTextSize(bulkImporterLinkText, topBarTheme.Tooltip.TextSize,
-        theme.Font, Vector2.new(topBarTheme.Tooltip.Width, math.huge))
-    local tooltipHeight = tooltipTextExtents.Y + topBarTheme.Tooltip.Padding + linkTextExtents.Y
+	local bulkImporterRunning = props.BulkImporterRunning
+	local dispatchLaunchBulkImporter = props.dispatchLaunchBulkImporter
+	local bulkImporterTooltipText = localization:getText("BulkImport", "BulkImportRunning")
+	local bulkImporterLinkText = localization:getText("BulkImport", "BulkImportShowLink")
+	local tooltipTextExtents = GetTextSize(bulkImporterTooltipText, topBarTheme.Tooltip.TextSize,
+		theme.Font, Vector2.new(topBarTheme.Tooltip.Width, math.huge))
+	local linkTextExtents = GetTextSize(bulkImporterLinkText, topBarTheme.Tooltip.TextSize,
+		theme.Font, Vector2.new(topBarTheme.Tooltip.Width, math.huge))
+	local tooltipHeight = tooltipTextExtents.Y + topBarTheme.Tooltip.Padding + linkTextExtents.Y
 
-    local view = props.View
-    local dispatchSetView = props.dispatchSetView
-    local viewStyle
-    if view.Key == View.GRID.Key then
-        viewStyle = "ListViewButton"
-    elseif view.Key == View.LIST.Key then
-        viewStyle = "GridViewButton"
-    end
+	local view = props.View
+	local dispatchSetView = props.dispatchSetView
+	local viewStyle
+	if view.Key == View.GRID.Key then
+		viewStyle = "ListViewButton"
+	elseif view.Key == View.LIST.Key then
+		viewStyle = "GridViewButton"
+	end
 
-    local searchBarOffset = topBarTheme.Button.Size * 5 + topBarTheme.Padding * 4
+	local searchBarOffset
+	if FFlagEnableAssetManagerSortButton then
+		searchBarOffset = topBarTheme.Button.Size * NUM_BUTTONS + topBarTheme.Padding * NUM_PADDING
+	else
+		searchBarOffset = topBarTheme.Button.Size * 5 + topBarTheme.Padding * 4
+	end
 
-    -- Remove variable when removing flag
-    local showSearchBar
-    local defaultText
-    if FFlagEnableAssetManagerGlobalSearchBar then 
-        showSearchBar = true
-        if currentScreen.Path ~= Screens.MAIN.Path then
-            defaultText = localization:getText("SearchBar", "PlaceholderText")
-                .. " " .. localization:getText("Folders", currentScreen.Path)
-        else
-            defaultText = localization:getText("SearchBar", "GlobalPlaceholderText")
-        end
-    else
-        showSearchBar = currentScreen.Path ~= Screens.MAIN.Path
-        defaultText = localization:getText("SearchBar", "PlaceholderText")
-        .. " " .. localization:getText("Folders", currentScreen.Path)
-    end
 
-    local layoutIndex = LayoutOrderIterator.new()
+	-- Remove variable when removing flag
+	local showSearchBar
+	local defaultText
+	if FFlagEnableAssetManagerGlobalSearchBar then
+		showSearchBar = true
+		if currentScreen.Path ~= Screens.MAIN.Path then
+			defaultText = localization:getText("SearchBar", "PlaceholderText")
+				.. " " .. localization:getText("Folders", currentScreen.Path)
+		else
+			defaultText = localization:getText("SearchBar", "GlobalPlaceholderText")
+		end
+	else
+		showSearchBar = currentScreen.Path ~= Screens.MAIN.Path
+		defaultText = localization:getText("SearchBar", "PlaceholderText")
+			.. " " .. localization:getText("Folders", currentScreen.Path)
+	end
 
-    local explorerOverlayButtonTooltipText = localization:getText("TopBar", "ExplorerOverlayButton")
-    local backButtonTooltipText = localization:getText("TopBar", "BackButton")
-    local forwardButtonTooltipText = localization:getText("TopBar", "ForwardButton")
-    local bulkImportButtonTooltipText = localization:getText("TopBar", "BulkImportButton")
-    local gridListToggleButtonTooltipText
-    if view.Key == View.GRID.Key then
-        gridListToggleButtonTooltipText = localization:getText("TopBar", "ListViewButton")
-    elseif view.Key == View.LIST.Key then
-        gridListToggleButtonTooltipText = localization:getText("TopBar", "GridViewButton")
-    end
+	local layoutIndex = LayoutOrderIterator.new()
 
-    return Roact.createElement("Frame", {
-        Size = size,
-        LayoutOrder = layoutOrder,
+	local explorerOverlayButtonTooltipText = localization:getText("TopBar", "ExplorerOverlayButton")
+	local backButtonTooltipText = localization:getText("TopBar", "BackButton")
+	local forwardButtonTooltipText = localization:getText("TopBar", "ForwardButton")
+	local bulkImportButtonTooltipText = localization:getText("TopBar", "BulkImportButton")
+	local gridListToggleButtonTooltipText
+	if view.Key == View.GRID.Key then
+		gridListToggleButtonTooltipText = localization:getText("TopBar", "ListViewButton")
+	elseif view.Key == View.LIST.Key then
+		gridListToggleButtonTooltipText = localization:getText("TopBar", "GridViewButton")
+	end
+	local sortButtonTooltipText
+	local recentlyAddedOption
+	local recentlyUsedOption
+	local ascendingNameOption
+	local descendingNameOption
+	if FFlagEnableAssetManagerSortButton then
+		sortButtonTooltipText = localization:getText("TopBar", "SortButton")
+		recentlyAddedOption = localization:getText("SortOption", "RecentlyAdded")
+		recentlyUsedOption = localization:getText("SortOption", "RecentlyUsed")
+		ascendingNameOption = localization:getText("SortOption", "AscendingName")
+		descendingNameOption = localization:getText("SortOption", "DescendingName")
+	end
 
-        BackgroundColor3 = theme.BackgroundColor,
-        BorderColor3 = theme.BorderColor,
-        BorderSizePixel = 1,
-    }, {
-        TopBarLayout = Roact.createElement("UIListLayout", {
-            Padding = UDim.new(0, topBarTheme.Padding),
-            FillDirection = Enum.FillDirection.Horizontal,
-            VerticalAlignment = Enum.VerticalAlignment.Center,
-            SortOrder = Enum.SortOrder.LayoutOrder,
-        }),
+	return Roact.createElement("Frame", {
+		Size = size,
+		LayoutOrder = layoutOrder,
 
-        Padding = Roact.createElement("UIPadding", {
-            PaddingLeft = UDim.new(0, topBarTheme.Padding),
-            PaddingRight = UDim.new(0, topBarTheme.Padding),
-        }),
+		BackgroundColor3 = theme.BackgroundColor,
+		BorderColor3 = theme.BorderColor,
+		BorderSizePixel = 1,
+	}, {
+		TopBarLayout = Roact.createElement("UIListLayout", {
+			Padding = UDim.new(0, topBarTheme.Padding),
+			FillDirection = Enum.FillDirection.Horizontal,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
 
-        ExplorerOverlayButton = Roact.createElement(Button, {
-            Size = UDim2.new(0, topBarTheme.Button.Size, 0, topBarTheme.Button.Size),
-            AnchorPoint = Vector2.new(0.5, 0.5),
-            LayoutOrder = layoutIndex:getNextOrder(),
+		Padding = Roact.createElement("UIPadding", {
+			PaddingLeft = UDim.new(0, topBarTheme.Padding),
+			PaddingRight = UDim.new(0, topBarTheme.Padding),
+		}),
 
-            Style = "OverlayButton",
+		ExplorerOverlayButton = Roact.createElement(Button, {
+			Size = UDim2.new(0, topBarTheme.Button.Size, 0, topBarTheme.Button.Size),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			LayoutOrder = layoutIndex:getNextOrder(),
 
-            OnClick = function()
-                if enabled then
-                    self.OnTreeViewButtonActivated()
-                end
-            end,
-        }, {
-            HoverArea = enabled and Roact.createElement(HoverArea, {
-                Cursor = "PointingHand",
-                MouseEnter = self.mouseEnter,
-                MouseLeave = self.mouseLeave,
-            }),
+			Style = "OverlayButton",
 
-            Tooltip = enabled and Roact.createElement(Tooltip, {
-                Text = explorerOverlayButtonTooltipText,
-                Enabled = true,
-            }),
-        }),
+			OnClick = function()
+				if enabled then
+					self.OnTreeViewButtonActivated()
+				end
+			end,
+		}, {
+			HoverArea = enabled and Roact.createElement(HoverArea, {
+				Cursor = "PointingHand",
+				MouseEnter = self.mouseEnter,
+				MouseLeave = self.mouseLeave,
+			}),
 
-        NavigationButtonsFrame = Roact.createElement("Frame", {
-            Size = UDim2.new(0, 2 * topBarTheme.Button.Size, 0, topBarTheme.Button.Size),
-            BackgroundTransparency = 1,
-            LayoutOrder = layoutIndex:getNextOrder(),
-        }, {
-            ButtonLayout = Roact.createElement("UIListLayout", {
-                Padding = UDim.new(0, 0),
-                FillDirection = Enum.FillDirection.Horizontal,
-                SortOrder = Enum.SortOrder.LayoutOrder,
-            }),
+			Tooltip = enabled and Roact.createElement(Tooltip, {
+				Text = explorerOverlayButtonTooltipText,
+				Enabled = true,
+			}),
+		}),
 
-            PreviousButton = Roact.createElement(Button, {
-                Size = UDim2.new(0, topBarTheme.Button.Size, 0, topBarTheme.Button.Size),
-                AnchorPoint = Vector2.new(0.5, 0.5),
-                LayoutOrder = 1,
+		NavigationButtonsFrame = Roact.createElement("Frame", {
+			Size = UDim2.new(0, 2 * topBarTheme.Button.Size, 0, topBarTheme.Button.Size),
+			BackgroundTransparency = 1,
+			LayoutOrder = layoutIndex:getNextOrder(),
+		}, {
+			ButtonLayout = Roact.createElement("UIListLayout", {
+				Padding = UDim.new(0, 0),
+				FillDirection = Enum.FillDirection.Horizontal,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
 
-                Style = "PreviousButton",
-                StyleModifier = not previousButtonEnabled and StyleModifier.Disabled,
+			PreviousButton = Roact.createElement(Button, {
+				Size = UDim2.new(0, topBarTheme.Button.Size, 0, topBarTheme.Button.Size),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				LayoutOrder = 1,
 
-                OnClick = function()
-                    if previousButtonEnabled and enabled then
-                        dispatchSetToPreviousScreen(previousButtonEnabled)
-                        if FFlagStudioAssetManagerAddRecentlyImportedView and recentViewToggled then
-                            dispatchSetRecentViewToggled(false)
-                        end
-                    end
-                end,
-            }, {
-                HoverArea = previousButtonEnabled and enabled and Roact.createElement(HoverArea, {
-                    Cursor = "PointingHand",
-                    MouseEnter = self.mouseEnter,
-                    MouseLeave = self.mouseLeave,
-                }),
+				Style = "PreviousButton",
+				StyleModifier = not previousButtonEnabled and StyleModifier.Disabled,
 
-                Tooltip = previousButtonEnabled and enabled and Roact.createElement(Tooltip, {
-                    Text = backButtonTooltipText,
-                    Enabled = true,
-                }),
-            }),
+				OnClick = function()
+					if previousButtonEnabled and enabled then
+						dispatchSetToPreviousScreen(previousButtonEnabled)
+						if FFlagStudioAssetManagerAddRecentlyImportedView and recentViewToggled then
+							dispatchSetRecentViewToggled(false)
+						end
+					end
+				end,
+			}, {
+				HoverArea = previousButtonEnabled and enabled and Roact.createElement(HoverArea, {
+					Cursor = "PointingHand",
+					MouseEnter = self.mouseEnter,
+					MouseLeave = self.mouseLeave,
+				}),
 
-            NextButton = Roact.createElement(Button, {
-                Size = UDim2.new(0, topBarTheme.Button.Size, 0, topBarTheme.Button.Size),
-                AnchorPoint = Vector2.new(0.5, 0.5),
-                LayoutOrder = 2,
+				Tooltip = previousButtonEnabled and enabled and Roact.createElement(Tooltip, {
+					Text = backButtonTooltipText,
+					Enabled = true,
+				}),
+			}),
 
-                Style = "NextButton",
-                StyleModifier = not nextButtonEnabled and StyleModifier.Disabled,
+			NextButton = Roact.createElement(Button, {
+				Size = UDim2.new(0, topBarTheme.Button.Size, 0, topBarTheme.Button.Size),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				LayoutOrder = 2,
 
-                OnClick = function()
-                    if nextButtonEnabled and enabled then
-                        dispatchSetToNextScreen(nextButtonEnabled)
-                        if FFlagStudioAssetManagerAddRecentlyImportedView and recentViewToggled then
-                            dispatchSetRecentViewToggled(false)
-                        end
-                    end
-                end,
-            }, {
-                HoverArea = nextButtonEnabled and enabled and Roact.createElement(HoverArea, {
-                    Cursor = "PointingHand",
-                    MouseEnter = self.mouseEnter,
-                    MouseLeave = self.mouseLeave,
-                }),
+				Style = "NextButton",
+				StyleModifier = not nextButtonEnabled and StyleModifier.Disabled,
 
-                Tooltip = nextButtonEnabled and enabled and Roact.createElement(Tooltip, {
-                    Text = forwardButtonTooltipText,
-                    Enabled = true,
-                }),
-            }),
-        }),
+				OnClick = function()
+					if nextButtonEnabled and enabled then
+						dispatchSetToNextScreen(nextButtonEnabled)
+						if FFlagStudioAssetManagerAddRecentlyImportedView and recentViewToggled then
+							dispatchSetRecentViewToggled(false)
+						end
+					end
+				end,
+			}, {
+				HoverArea = nextButtonEnabled and enabled and Roact.createElement(HoverArea, {
+					Cursor = "PointingHand",
+					MouseEnter = self.mouseEnter,
+					MouseLeave = self.mouseLeave,
+				}),
 
-        BulkImporterButton = Roact.createElement(Button, {
-            Size = UDim2.new(0, topBarTheme.Button.Size, 0, topBarTheme.Button.Size),
-            AnchorPoint = Vector2.new(0.5, 0.5),
-            LayoutOrder = layoutIndex:getNextOrder(),
+				Tooltip = nextButtonEnabled and enabled and Roact.createElement(Tooltip, {
+					Text = forwardButtonTooltipText,
+					Enabled = true,
+				}),
+			}),
+		}),
 
-            Style = "BulkImporterButton",
-            StyleModifier = bulkImporterRunning and StyleModifier.Disabled,
+		BulkImporterButton = Roact.createElement(Button, {
+			Size = UDim2.new(0, topBarTheme.Button.Size, 0, topBarTheme.Button.Size),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			LayoutOrder = layoutIndex:getNextOrder(),
 
-            OnClick = function()
-                if not bulkImporterRunning and enabled then
-                    analytics:report("clickBulkImportButton")
-                    dispatchLaunchBulkImporter(0)
-                end
-            end,
-        }, {
-            OpenBulkImporterTooltip = Roact.createElement(Tooltip, {
-                Content = Roact.createElement(Pane, {
-                    Layout = Enum.FillDirection.Vertical,
-                    Spacing = topBarTheme.Tooltip.Padding,
-                    Style = "Box",
-                }, {
-                    TextLabel = Roact.createElement(TextLabel, {
-                        AutomaticSize = Enum.AutomaticSize.Y,
-                        Font = theme.Font,
-                        LayoutOrder = 1,
-                        Size = UDim2.fromScale(1, 0),
-                        Text = bulkImporterTooltipText,
-                        TextSize = topBarTheme.Tooltip.TextSize,
-                        TextWrapped = true,
-                        TextXAlignment = Enum.TextXAlignment.Left,
-                    }),
+			Style = "BulkImporterButton",
+			StyleModifier = bulkImporterRunning and StyleModifier.Disabled,
 
-                    LinkText = Roact.createElement(LinkText, {
-                        LayoutOrder = 2,
-                        Style = "BulkImporterTooltip",
-                        Text = bulkImporterLinkText,
+			OnClick = function()
+				if not bulkImporterRunning and enabled then
+					analytics:report("clickBulkImportButton")
+					dispatchLaunchBulkImporter(0)
+				end
+			end,
+		}, {
+			OpenBulkImporterTooltip = Roact.createElement(Tooltip, {
+				Content = Roact.createElement(Pane, {
+					Layout = Enum.FillDirection.Vertical,
+					Spacing = topBarTheme.Tooltip.Padding,
+					Style = "Box",
+				}, {
+					TextLabel = Roact.createElement(TextLabel, {
+						AutomaticSize = Enum.AutomaticSize.Y,
+						Font = theme.Font,
+						LayoutOrder = 1,
+						Size = UDim2.fromScale(1, 0),
+						Text = bulkImporterTooltipText,
+						TextSize = topBarTheme.Tooltip.TextSize,
+						TextWrapped = true,
+						TextXAlignment = Enum.TextXAlignment.Left,
+					}),
 
-                        OnClick = function()
-                            BulkImportService:ShowBulkImportView()
-                        end,
-                    }),
-                }),
-                ContentExtents = Vector2.new(topBarTheme.Tooltip.Width, tooltipHeight),
-                Enabled = bulkImporterRunning,
-            }),
+					LinkText = Roact.createElement(LinkText, {
+						LayoutOrder = 2,
+						Style = "BulkImporterTooltip",
+						Text = bulkImporterLinkText,
 
-            HoverArea = not bulkImporterRunning and enabled and Roact.createElement(HoverArea, {
-                Cursor = "PointingHand",
-                MouseEnter = self.mouseEnter,
-                MouseLeave = self.mouseLeave,
-            }),
+						OnClick = function()
+							BulkImportService:ShowBulkImportView()
+						end,
+					}),
+				}),
+				ContentExtents = Vector2.new(topBarTheme.Tooltip.Width, tooltipHeight),
+				Enabled = bulkImporterRunning,
+			}),
 
-            BulkImportButtonTooltip = not bulkImporterRunning and enabled and Roact.createElement(Tooltip, {
-                Text = bulkImportButtonTooltipText,
-                Enabled = true,
-            }),
-        }),
+			HoverArea = not bulkImporterRunning and enabled and Roact.createElement(HoverArea, {
+				Cursor = "PointingHand",
+				MouseEnter = self.mouseEnter,
+				MouseLeave = self.mouseLeave,
+			}),
 
-        GridListToggleButton = Roact.createElement(Button, {
-            Size = UDim2.new(0, topBarTheme.Button.Size, 0, topBarTheme.Button.Size),
-            AnchorPoint = Vector2.new(0.5, 0.5),
-            LayoutOrder = layoutIndex:getNextOrder(),
+			BulkImportButtonTooltip = not bulkImporterRunning and enabled and Roact.createElement(Tooltip, {
+				Text = bulkImportButtonTooltipText,
+				Enabled = true,
+			}),
+		}),
 
-            Style = viewStyle,
-            StyleModifier = bulkImporterRunning and StyleModifier.Disabled,
+		GridListToggleButton = Roact.createElement(Button, {
+			Size = UDim2.new(0, topBarTheme.Button.Size, 0, topBarTheme.Button.Size),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			LayoutOrder = layoutIndex:getNextOrder(),
 
-            OnClick = function()
-                if view.Key == View.GRID.Key then
-                    dispatchSetView(View.LIST)
-                elseif view.Key == View.LIST.Key then
-                    dispatchSetView(View.GRID)
-                end
-            end,
-        }, {
-            HoverArea = not bulkImporterRunning and enabled and Roact.createElement(HoverArea, {
-                Cursor = "PointingHand",
-                MouseEnter = self.mouseEnter,
-                MouseLeave = self.mouseLeave,
-            }),
+			Style = viewStyle,
+			StyleModifier = bulkImporterRunning and StyleModifier.Disabled,
 
-            Tooltip = enabled and Roact.createElement(Tooltip, {
-                Text = gridListToggleButtonTooltipText,
-                Enabled = true,
-            }),
+			OnClick = function()
+				if view.Key == View.GRID.Key then
+					dispatchSetView(View.LIST)
+				elseif view.Key == View.LIST.Key then
+					dispatchSetView(View.GRID)
+				end
+			end,
+		}, {
+			HoverArea = not bulkImporterRunning and enabled and Roact.createElement(HoverArea, {
+				Cursor = "PointingHand",
+				MouseEnter = self.mouseEnter,
+				MouseLeave = self.mouseLeave,
+			}),
 
-            TeachingCallout = enableBadgesCallout() and Roact.createElement(TeachingCallout, {
-                DefinitionId = "AssetManagerBadgesDevProductCallout",
-                LocationId = "GridListToggleButton",
-            }),
-        }),
+			Tooltip = enabled and Roact.createElement(Tooltip, {
+				Text = gridListToggleButtonTooltipText,
+				Enabled = true,
+			}),
 
-        SearchBar = showSearchBar and Roact.createElement(SearchBar, {
-            Size = UDim2.new(1, -searchBarOffset, 1, 0),
-            LayoutOrder = layoutIndex:getNextOrder(),
+			TeachingCallout = enableBadgesCallout() and Roact.createElement(TeachingCallout, {
+				DefinitionId = "AssetManagerBadgesDevProductCallout",
+				LocationId = "GridListToggleButton",
+			}),
+		}),
 
-            Enabled = enabled,
+		SearchBar = if not FFlagEnableAssetManagerSortButton and showSearchBar then Roact.createElement(SearchBar, {
+			Size = UDim2.new(1, -searchBarOffset, 1, 0),
+			LayoutOrder = layoutIndex:getNextOrder(),
 
-            TextSearchDelay = 0,
-            DefaultText = defaultText,
+			Enabled = enabled,
 
-            OnSearchRequested = self.OnSearchRequested,
-        }),
-    })
+			TextSearchDelay = 0,
+			DefaultText = defaultText,
+
+			OnSearchRequested = self.OnSearchRequested,
+		}) else nil,
+
+		SearchSortFrame = if FFlagEnableAssetManagerSortButton then Roact.createElement(Pane, {
+			Size = UDim2.new(1, -searchBarOffset, 0, topBarTheme.Button.Size),
+			BackgroundTransparency = 1,
+			Layout = Enum.FillDirection.Horizontal,
+			LayoutOrder = layoutIndex:getNextOrder(),
+		}, {
+			SearchBar = showSearchBar and Roact.createElement(SearchBar, {
+				Size = UDim2.new(1, -topBarTheme.Button.Size, 1, 0),
+				LayoutOrder = 1,
+
+				Enabled = enabled,
+
+				TextSearchDelay = 0,
+				DefaultText = defaultText,
+
+				OnSearchRequested = self.OnSearchRequested,
+			}),
+
+			SortButton = Roact.createElement(Button, {
+				Size = UDim2.new(0, topBarTheme.Button.Size, 0, topBarTheme.Button.Size),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				LayoutOrder = 2,
+
+				Style = "SortButton",
+				StyleModifier = self.state.showSortDropdown and StyleModifier.Selected,
+
+				OnClick = function()
+					if enabled then
+						self.OnOpenSortDropdown()
+					end
+				end,
+			}, {
+				Menu = Roact.createElement(DropdownMenu, {
+					Hide = not self.state.showSortDropdown,
+					Items = {
+						recentlyAddedOption,
+						recentlyUsedOption,
+						ascendingNameOption,
+						descendingNameOption,
+					},
+					OnItemActivated = self.OnSelectSortItem,
+					OnFocusLost = self.OnCloseSortDropdown,
+				}),
+
+				HoverArea = enabled and Roact.createElement(HoverArea, {
+					Cursor = "PointingHand",
+					MouseEnter = self.mouseEnter,
+					MouseLeave = self.mouseLeave,
+				}),
+
+				Tooltip = enabled and Roact.createElement(Tooltip, {
+					Text = sortButtonTooltipText,
+					Enabled = true,
+				}),
+			}),
+		}) else nil,
+	})
 end
 
 TopBar = withContext({
-    Analytics = ContextServices.Analytics,
-    Localization = ContextServices.Localization,
-    Stylizer = ContextServices.Stylizer,
+	Analytics = ContextServices.Analytics,
+	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer,
 })(TopBar)
 
 local function mapStateToProps(state, props)
-    local previousScreens = state.Screen.previousScreens
-    local nextScreens = state.Screen.nextScreens
+	local previousScreens = state.Screen.previousScreens
+	local nextScreens = state.Screen.nextScreens
 
 	return {
-        BulkImporterRunning = state.AssetManagerReducer.bulkImporterRunning,
-        CurrentScreen = state.Screen.currentScreen,
-        PreviousScreens = previousScreens,
-        NextScreens = nextScreens,
-        RecentViewToggled = state.AssetManagerReducer.recentViewToggled,
-        View = state.AssetManagerReducer.view,
+		BulkImporterRunning = state.AssetManagerReducer.bulkImporterRunning,
+		CurrentScreen = state.Screen.currentScreen,
+		PreviousScreens = previousScreens,
+		NextScreens = nextScreens,
+		RecentViewToggled = state.AssetManagerReducer.recentViewToggled,
+		View = state.AssetManagerReducer.view,
 	}
 end
 
 local function mapDispatchToProps(dispatch)
 	return {
-        dispatchLaunchBulkImporter = function(assetType)
-            dispatch(LaunchBulkImport(assetType))
-        end,
-        dispatchSetRecentViewToggled = function(toggled)
-            dispatch(SetRecentViewToggled(toggled))
-        end,
-        dispatchSetSearchTerm = function(searchTerm)
-            dispatch(SetSearchTerm(searchTerm))
-        end,
-        dispatchSetToPreviousScreen = function(enabled)
-            if enabled then
-                dispatch(SetToPreviousScreen())
-            end
-        end,
-        dispatchSetToNextScreen = function(enabled)
-            if enabled then
-                dispatch(SetToNextScreen())
-            end
-        end,
-        dispatchSetView = function(view)
-            dispatch(SetView(view))
-        end,
+		dispatchLaunchBulkImporter = function(assetType)
+			dispatch(LaunchBulkImport(assetType))
+		end,
+		dispatchSetRecentViewToggled = function(toggled)
+			dispatch(SetRecentViewToggled(toggled))
+		end,
+		dispatchSetSearchTerm = function(searchTerm)
+			dispatch(SetSearchTerm(searchTerm))
+		end,
+		dispatchSetToPreviousScreen = function(enabled)
+			if enabled then
+				dispatch(SetToPreviousScreen())
+			end
+		end,
+		dispatchSetToNextScreen = function(enabled)
+			if enabled then
+				dispatch(SetToNextScreen())
+			end
+		end,
+		dispatchSetView = function(view)
+			dispatch(SetView(view))
+		end,
 	}
 end
 

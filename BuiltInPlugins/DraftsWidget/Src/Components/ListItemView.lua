@@ -29,12 +29,11 @@
 	[GetCurrentSelection]
 		Passthrough BindableFunction to AbstractItemView
 --]]
-local FFlagRemoveUILibraryFitContent = game:GetFastFlag("RemoveUILibraryFitContent")
-
 local Plugin = script.Parent.Parent.Parent
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
+local FFlagRemoveUILibraryFitContent = Framework.SharedFlags.getFFlagRemoveUILibraryFitContent()
 
 local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
 

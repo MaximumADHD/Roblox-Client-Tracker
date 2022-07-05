@@ -5,6 +5,7 @@ local AssetImportService = game:GetService("AssetImportService")
 
 local Plugin = script.Parent.Parent.Parent
 
+local SetAssetImportSession = require(Plugin.Src.Actions.SetAssetImportSession)
 local SetAssetSettings = require(Plugin.Src.Actions.SetAssetSettings)
 local SetFilename = require(Plugin.Src.Actions.SetFilename)
 local SetInstanceMap = require(Plugin.Src.Actions.SetInstanceMap)
@@ -14,12 +15,31 @@ local SetImportStatuses = require(Plugin.Src.Actions.SetImportStatuses)
 
 local UpdateChecked = require(Plugin.Src.Thunks.UpdateChecked)
 
+local getFFlagUseAssetImportSession = require(Plugin.Src.Flags.getFFlagUseAssetImportSession)
+
 return function(promptClosedHandler)
 	return function(store)
-		local settings, filename, statuses = AssetImportService:ImportMeshWithPrompt()
+		local session
+		local settings, filename, statuses
+
+		if (getFFlagUseAssetImportSession()) then
+			session = AssetImportService:StartSessionWithPrompt()
+			if session then
+				settings = session:GetSettingsRoot()
+				filename = session:GetFilename()
+				statuses = session:GetCurrentStatusTable()
+			end
+		else
+			 settings, filename, statuses = AssetImportService:ImportMeshWithPrompt()
+		end
 
 		if settings and filename then
-			local instanceMap = AssetImportService:GetCurrentImportMap()
+			local instanceMap
+			if (getFFlagUseAssetImportSession()) then
+				instanceMap = session:GetCurrentImportMap()
+			else
+				instanceMap = AssetImportService:GetCurrentImportMap()
+			end
 
 			local checked = {}
 
@@ -46,11 +66,22 @@ return function(promptClosedHandler)
 
 		store:dispatch(SetImportStatuses(statuses))
 
+		if (getFFlagUseAssetImportSession()) then
+			store:dispatch(SetAssetImportSession(session))
+		end
+
 		if promptClosedHandler then
-			local success = settings ~= nil and filename ~= nil
-			-- An empty string is returned if no file was selected
-			local closed = filename == ""
-			promptClosedHandler(success, closed)
+			if (getFFlagUseAssetImportSession()) then
+				local success = settings ~= nil and filename ~= nil
+				-- No session returned if no file was selected
+				local closed = session == nil
+				promptClosedHandler(success, closed)
+			else
+				local success = settings ~= nil and filename ~= nil
+				-- An empty string is returned if no file was selected
+				local closed = filename == ""
+				promptClosedHandler(success, closed)
+			end
 		end
 	end
 end

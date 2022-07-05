@@ -7,6 +7,7 @@ local GuiService = game:GetService("GuiService")
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local UIBlox = InGameMenuDependencies.UIBlox
+local withStyle = UIBlox.Core.Style.withStyle
 local t = InGameMenuDependencies.t
 
 local BaseMenu = UIBlox.App.Menu.BaseMenu
@@ -129,6 +130,12 @@ function PlayerContextualMenu:renderContextualMenuFocusHandler(isRooted, childre
 end
 
 function PlayerContextualMenu:render()
+	return withStyle(function(style)
+		return self:renderWithStyle(style)
+	end)
+end
+
+function PlayerContextualMenu:renderWithStyle(style)
 	local menuFramePosition = self.props.anchorFromBottom and UDim2.new(0, self.props.xOffset, 1, -24)
 		or UDim2.fromOffset(self.props.xOffset, self.props.yOffset)
 
@@ -142,9 +149,10 @@ function PlayerContextualMenu:render()
 		}, {
 			TouchBackground = Roact.createElement("TextButton", {
 				AutoButtonColor = false,
-				BackgroundTransparency = 1,
+				BackgroundColor3 = style.Theme.Overlay.Color,
+				BackgroundTransparency = style.Theme.Overlay.Transparency,
 				BorderSizePixel = 0,
-				Position = UDim2.fromOffset(Constants.PageWidth, 0),
+				Position = UDim2.fromOffset(Constants.PageWidth + Constants.SideNavigationWidth, 0),
 				Size = UDim2.new(1, 0, 1, 0),
 				Text = "",
 				ZIndex = -10,

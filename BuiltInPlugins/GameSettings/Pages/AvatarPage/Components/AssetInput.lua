@@ -13,19 +13,49 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactStudioWidgets = Plugin.Packages.RoactStudioWidgets
 
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local Framework = require(Plugin.Packages.Framework)
+local FFlagRemoveUILibraryRoundTextBox = Framework.SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
+
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+
+local UI = Framework.UI
+local TextInput2 = UI.TextInput2
 
 local StateInterfaceTheme = require(Page.Util.StateInterfaceTheme)
 
 local ToggleButton = require(RoactStudioWidgets.ToggleButton)
 local TitledFrame = require(RoactStudioWidgets.TitledFrame)
-local RoundTextBox = require(RoactStudioWidgets.RoundTextBox)
+local RoundTextBox
+if not FFlagRemoveUILibraryRoundTextBox then
+	RoundTextBox = require(Plugin.Packages.RoactStudioWidgets.RoundTextBox)
+end
 
 local calculateTextSize = nil
 local getText = nil
 
 local AssetInput = Roact.PureComponent:extend("AssetInput")
+
+if FFlagRemoveUILibraryRoundTextBox then
+	function AssetInput:init()
+		self.onTextChanged = function(text: string)
+			self.currentTextInputBoxText = text
+		end
+		self.onFocusLost = function()
+			if self.props.SetValue then
+				self.props.SetValue(self.currentTextInputBoxText)
+			end
+		end
+		self.onValidateText = function(text: string)
+			local isValid = text == "" or tonumber(text) ~= nil
+			local errorText
+			if not isValid then
+				errorText = self.props.localization:getText("General", "NumberError")
+			end
+			return isValid, errorText
+		end
+	end
+end
 
 function AssetInput:render()
 	local props = self.props
@@ -68,30 +98,44 @@ function AssetInput:render()
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Center,
 		}),
-		InputBox = Roact.createElement(RoundTextBox, {
-			Enabled = self.props.IsEnabled,
-			PlaceholderText = localization:getText("General", "AvatarOverrideId"),
-			MaxLength = 100,
-			Text = self.currentTextInputBoxText,
-			ErrorMessage = self.props.ErrorMessage,
-			Position = UDim2.new(0, INPUT_BOX_HORIZONTAL_POSITION, 0, 0),
-			Width = INPUT_BOX_WIDTH,
-			Height = INPUT_BOX_HEIGHT,
-			ShowToolTip = false,
-			PaddingBottom = UDim.new(0, 0),
-			PaddingTop = UDim.new(0, 0),
-			Mouse = mouse,
+		InputBox = (if FFlagRemoveUILibraryRoundTextBox then
+			Roact.createElement(TextInput2, {
+				Disabled = not self.props.IsEnabled,
+				ErrorText = self.props.ErrorMessage,
+				OnTextChanged = self.onTextChanged,
+				OnFocusLost = self.onFocusLost,
+				OnValidateText = self.onValidateText,
+				PlaceholderText = localization:getText("General", "AvatarOverrideId"),
+				Position = UDim2.new(0, INPUT_BOX_HORIZONTAL_POSITION, 0, 0),
+				Width = INPUT_BOX_WIDTH,
+				Text = self.currentTextInputBoxText,
+			})
+		else
+			Roact.createElement(RoundTextBox, {
+				Enabled = self.props.IsEnabled,
+				PlaceholderText = localization:getText("General", "AvatarOverrideId"),
+				MaxLength = 100,
+				Text = self.currentTextInputBoxText,
+				ErrorMessage = self.props.ErrorMessage,
+				Position = UDim2.new(0, INPUT_BOX_HORIZONTAL_POSITION, 0, 0),
+				Width = INPUT_BOX_WIDTH,
+				Height = INPUT_BOX_HEIGHT,
+				ShowToolTip = false,
+				PaddingBottom = UDim.new(0, 0),
+				PaddingTop = UDim.new(0, 0),
+				Mouse = mouse,
 
-			SetText = function(text)
-				self.currentTextInputBoxText = text
-			end,
+				SetText = function(text)
+					self.currentTextInputBoxText = text
+				end,
 
-			FocusChanged = function(hasFocus, enterPressed)
-				if not hasFocus and self.props.SetValue then
-					self.props.SetValue(self.currentTextInputBoxText)
+				FocusChanged = function(hasFocus, enterPressed)
+					if not hasFocus and self.props.SetValue then
+						self.props.SetValue(self.currentTextInputBoxText)
+					end
 				end
-			end
-		})
+			})
+		),
 	}
 
 	return Roact.createElement(TitledFrame, {

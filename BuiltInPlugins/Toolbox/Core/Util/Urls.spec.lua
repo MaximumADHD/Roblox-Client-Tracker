@@ -1,6 +1,7 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
 local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
+local FFlagToolboxIncludedPlaceIdInConfigRequest = game:GetFastFlag("ToolboxIncludedPlaceIdInConfigRequest")
 
 local Packages = Plugin.Packages
 
@@ -59,20 +60,53 @@ return function()
 	end)
 
 	it("should generate section asset urls", function()
-		expect(Urls.constructGetToolboxItemsUrl({
-			categoryName = Category.FREE_MODELS.name,
-			sectionName = "trending",
-		})).toBe(string.format("%s/home/%d/section/trending/assets", EXPECTED_BASE_URL, Enum.AssetType.Model.Value))
+		if FFlagToolboxIncludedPlaceIdInConfigRequest then
+			expect(Urls.constructGetToolboxItemsUrl({
+				categoryName = Category.FREE_MODELS.name,
+				sectionName = "trending",
+			})).toBe(
+				string.format(
+					"%s/home/%d/section/trending/assets?placeId=0",
+					EXPECTED_BASE_URL,
+					Enum.AssetType.Model.Value
+				)
+			)
+		else
+			expect(Urls.constructGetToolboxItemsUrl({
+				categoryName = Category.FREE_MODELS.name,
+				sectionName = "trending",
+			})).toBe(
+				string.format("%s/home/%d/section/trending/assets", EXPECTED_BASE_URL, Enum.AssetType.Model.Value)
+			)
+		end
 	end)
 
 	it("should generate section asset urls with params", function()
-		expect(Urls.constructGetToolboxItemsUrl({
-			categoryName = Category.FREE_MODELS.name,
-			sectionName = "trending",
-			limit = 10,
-		})).toBe(
-			string.format("%s/home/%d/section/trending/assets?limit=10", EXPECTED_BASE_URL, Enum.AssetType.Model.Value)
-		)
+		if FFlagToolboxIncludedPlaceIdInConfigRequest then
+			expect(Urls.constructGetToolboxItemsUrl({
+				categoryName = Category.FREE_MODELS.name,
+				sectionName = "trending",
+				limit = 10,
+			})).toBe(
+				string.format(
+					"%s/home/%d/section/trending/assets?limit=10&placeId=0",
+					EXPECTED_BASE_URL,
+					Enum.AssetType.Model.Value
+				)
+			)
+		else
+			expect(Urls.constructGetToolboxItemsUrl({
+				categoryName = Category.FREE_MODELS.name,
+				sectionName = "trending",
+				limit = 10,
+			})).toBe(
+				string.format(
+					"%s/home/%d/section/trending/assets?limit=10",
+					EXPECTED_BASE_URL,
+					Enum.AssetType.Model.Value
+				)
+			)
+		end
 	end)
 
 	if FFlagToolboxAudioDiscovery then

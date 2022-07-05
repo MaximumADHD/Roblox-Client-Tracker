@@ -1,4 +1,4 @@
-local IsExperienceMenuABTestEnabled = require(script.Parent.Parent.InGameMenu.IsExperienceMenuABTestEnabled)
+local IsExperienceMenuABTestEnabled = require(script.Parent.Parent.InGameMenuV3.IsExperienceMenuABTestEnabled)
 local GetFFlagEnableIXPInGame = require(script.Parent.Parent.Common.Flags.GetFFlagEnableIXPInGame)
 
 return function()

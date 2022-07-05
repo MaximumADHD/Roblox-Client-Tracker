@@ -29,6 +29,7 @@ StatusPropertyMap = {
         "UncaughtExceptionError",
         "UploadAlreadyRunningError",
         "CageMismatchWarning",
+        "CageHasMaterialWarning",
     },
 }
 

@@ -77,8 +77,6 @@ local Promise = require(Packages.Framework).Util.Promise
 
 ]]
 
-local FFlagAssetConfigHandlePermissionsAssetTypeNotEnabled = game:GetFastFlag("AssetConfigHandlePermissionsAssetTypeNotEnabled")
-
 local function isHigherPermission(current, newPerm)
 	if current == nil then
 		return newPerm
@@ -102,7 +100,7 @@ local function deserializeResults(results)
 	for _, data in ipairs(results) do
 		local newPermLevel = KeyConverter.resolveActionPermission(data.action, data.status, data.assetId)
 
-		if FFlagAssetConfigHandlePermissionsAssetTypeNotEnabled and newPermLevel == PermissionsConstants.NoneKey then
+		if newPermLevel == PermissionsConstants.NoneKey then
 			continue
 		end
 

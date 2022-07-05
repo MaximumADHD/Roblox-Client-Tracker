@@ -31,6 +31,8 @@ local STUDIO_RELAY_PLUGIN_BUTTON = "AlignTool"
 
 local AlignmentToolPlugin = Roact.PureComponent:extend("AlignmentToolPlugin")
 
+local FFlagFixPluginsEnabledViaDockingContextMenu = game:GetFastFlag("FixPluginsEnabledViaDockingContextMenu")
+
 function AlignmentToolPlugin:init()
 	self._hasOpenedThisSession = false
 
@@ -50,9 +52,14 @@ function AlignmentToolPlugin:init()
 		self.setToolEnabled(enabled, initiatedByUser)
 	end
 
-		self.onDockWidgetCreated = function()
-			self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleState)
-		end
+	self.onDockWidgetCreated = function()
+		self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleState)
+	end
+
+	self.onDockWidgetEnabledChanged = function(widget)
+		local initiatedByUser = true 
+		self.setToolEnabled(widget.Enabled, initiatedByUser)
+	end
 
 	self.setToolEnabled = function(enabled, initiatedByUser)
 		local props = self.props
@@ -108,6 +115,7 @@ function AlignmentToolPlugin:render()
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
 			OnWidgetCreated = self.onDockWidgetCreated,
+			[Roact.Change.Enabled] = if FFlagFixPluginsEnabledViaDockingContextMenu then self.onDockWidgetEnabledChanged else nil,
 		}, {
 			DockWidgetContent = self:_renderDockWidgetContents(enabled),
 		})

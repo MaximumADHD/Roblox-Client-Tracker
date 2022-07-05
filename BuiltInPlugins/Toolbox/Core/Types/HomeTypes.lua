@@ -25,6 +25,7 @@ export type Subcategory = {
 
 export type HomeConfigurationSection = {
 	name: string,
+	displayName: string,
 	subcategory: Subcategory?,
 }
 

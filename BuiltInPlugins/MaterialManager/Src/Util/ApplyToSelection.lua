@@ -1,3 +1,5 @@
+-- Remove with MaterialManagerUtilTests
+
 local Selection = game:GetService("Selection")
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 

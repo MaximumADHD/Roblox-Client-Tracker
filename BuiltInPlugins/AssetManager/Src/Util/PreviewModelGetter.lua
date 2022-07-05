@@ -21,11 +21,11 @@ local function getPreviewModel(assetId)
 	local assetInstances = nil
 	local success, errorMessage = pcall(function()
 		local url = ASSET_ID_STRING:format(assetId)
-        assetInstances = game:GetObjectsAsync(url)
+		assetInstances = game:GetObjectsAsync(url)
 	end)
 
 	if not success then
-        return errorMessage
+		return errorMessage
 	end
 
 	local model

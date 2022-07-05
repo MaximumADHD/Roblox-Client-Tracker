@@ -1,3 +1,3 @@
 return function()
-    return game:GetFastFlag("EnableMaterialManager")
+	return game:GetFastFlag("EnableMaterialManager")
 end

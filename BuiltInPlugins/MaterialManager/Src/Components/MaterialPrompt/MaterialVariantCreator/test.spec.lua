@@ -5,18 +5,27 @@ return function()
 
 	local MaterialVariantCreator = require(script.Parent)
 
-	local defaultMaterialVariant = Enum.Material.Plastic
+	local materialVariant
 
 	local function createTestElement(props: MaterialVariantCreator.Props?)
 		props = props or {
 			SetStudsPerTileError = function() end,
-			MaterialVariantTemp = defaultMaterialVariant,
+			MaterialVariantTemp = materialVariant,
 		}
 
 		return mockContext({
-			MaterialVariantCreator = Roact.createElement(MaterialVariantCreator, nil)
+			MaterialVariantCreator = Roact.createElement(MaterialVariantCreator, props)
 		})
 	end
+
+	beforeEach(function()
+		materialVariant = Instance.new("MaterialVariant")
+	end)
+
+	afterEach(function()
+		materialVariant:Destroy()
+		materialVariant = nil
+	end)
 
 	it("should create and destroy without errors", function()
 		local element = createTestElement()
@@ -30,7 +39,7 @@ return function()
 			ErrorName = "ErrorName",
 			ErrorBaseMaterial = "ErrorBaseMaterial",
 			SetStudsPerTileError = function() end,
-			MaterialVariantTemp = defaultMaterialVariant,
+			MaterialVariantTemp = materialVariant,
 		})
 		local instance = Roact.mount(element, container)
 

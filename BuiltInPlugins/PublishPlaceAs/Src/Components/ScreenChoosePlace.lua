@@ -5,6 +5,7 @@
 local FFlagPlacePublishManagementUI2 = game:GetFastFlag("PlacePublishManagementUI2")
 local FFlagEnablePlacePublishManagementInTeamCreate = game:GetFastFlag("EnablePlacePublishManagementInTeamCreate")
 local FFlagRemoveUILibrarySeparator = game:GetFastFlag("RemoveUILibrarySeparator")
+local FFlagCOLLAB1610SelectedGameNilCheckInPublishCallback = game:GetFastFlag("COLLAB1610SelectedGameNilCheckInPublishCallback")
 
 local StudioService = game:GetService("StudioService")
 local StudioPublishService = game:GetService("StudioPublishService")
@@ -80,6 +81,11 @@ end
 function ScreenChoosePlace:didMount()
 	if FFLagMovePublishToStudioPublishService then
 		self.finishedConnection = StudioPublishService.GamePublishFinished:connect(function(success)
+
+			if FFlagCOLLAB1610SelectedGameNilCheckInPublishCallback and self.state.selectedPlace == nil then
+				return
+			end
+
 			if success then
 				self.props.OpenPublishSuccessfulPage(self.state.selectedPlace, self.props.ParentGame)
 			else
@@ -88,6 +94,11 @@ function ScreenChoosePlace:didMount()
 		end)
 	else
 		self.finishedConnection = StudioService.DEPRECATED_GamePublishFinished:connect(function(success)
+			
+			if FFlagCOLLAB1610SelectedGameNilCheckInPublishCallback and self.state.selectedPlace == nil then
+				return
+			end
+
 			if success then
 				self.props.OpenPublishSuccessfulPage(self.state.selectedPlace, self.props.ParentGame)
 			else

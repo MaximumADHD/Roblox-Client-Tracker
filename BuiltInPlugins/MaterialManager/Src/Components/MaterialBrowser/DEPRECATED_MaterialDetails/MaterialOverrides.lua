@@ -1,10 +1,10 @@
-local FFlagDevFrameworkRemoveFitFrame = game:GetFastFlag("DevFrameworkRemoveFitFrame")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local _Types = require(Plugin.Src.Types)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
+
+local FFlagDevFrameworkRemoveFitFrame = Framework.SharedFlags.getFFlagDevFrameworkRemoveFitFrame()
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -20,11 +20,8 @@ local ToggleButton = UI.ToggleButton
 local TextLabel = UI.Decoration.TextLabel
 local TruncatedTextLabel = UI.TruncatedTextLabel
 
-local Actions = Plugin.Src.Actions
-local SetBaseMaterial = require(Actions.SetBaseMaterial)
-
-local Util = Plugin.Src.Util
-local MaterialController = require(Util.MaterialController)
+local MaterialController = require(Plugin.Src.Controllers.MaterialController)
+local SetBaseMaterial = require(Plugin.Src.Actions.SetBaseMaterial)
 
 local Components = Plugin.Src.Components
 local StatusIcon = require(Components.DEPRECATED_StatusIcon)

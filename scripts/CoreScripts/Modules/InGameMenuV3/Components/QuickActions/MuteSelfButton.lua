@@ -1,11 +1,11 @@
 local CorePackages = game:GetService("CorePackages")
+local Players = game:GetService("Players")
 
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
 local IconButton = UIBlox.App.Button.IconButton
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -14,15 +14,15 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 local InGameMenu = script.Parent.Parent.Parent
 local SetQuickActionsTooltip = require(InGameMenu.Actions.SetQuickActionsTooltip)
 local withLocalization = require(InGameMenu.Localization.withLocalization)
+local Constants = require(InGameMenu.Resources.Constants)
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceConstants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
+local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicator)
 local GetFFlagEnableVoiceChatManualReconnect = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatManualReconnect)
 
 local MuteSelfButton = Roact.PureComponent:extend("MuteSelfButton")
-
-local MUTED_ICON =  "rbxasset://textures/ui/VoiceChat/Muted.png"
-local UNMUTED_ICON =  "rbxasset://textures/ui/VoiceChat/Blank.png"
 
 MuteSelfButton.validateProps = t.interface({
 	layoutOrder = t.integer,
@@ -32,11 +32,11 @@ MuteSelfButton.validateProps = t.interface({
 
 function MuteSelfButton:init()
 	self:setState({
-		selfMuted = VoiceChatServiceManager.localMuted or true
+		selfMuted = VoiceChatServiceManager.localMuted or true,
 	})
 	VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
 		self:setState({
-			selfMuted = muted
+			selfMuted = muted,
 		})
 	end)
 
@@ -50,8 +50,15 @@ function MuteSelfButton:init()
 			else
 				self.props.setQuickActionsTooltip(self.muteSelf or "Mute Self")
 			end
+
+			SendAnalytics(
+				Constants.AnalyticsMenuActionName,
+				self.state.selfMuted and Constants.AnalyticsUnmuteSelf or Constants.AnalyticsMuteSelf,
+				{ source = Constants.AnalyticsQuickActionsMenuSource }
+			)
+
 			self:setState({
-				selfMuted = not self.state.selfMuted
+				selfMuted = not self.state.selfMuted,
 			})
 		end
 	end
@@ -65,14 +72,20 @@ function MuteSelfButton:render()
 		self.muteSelf = localized.muteSelf
 		self.unmuteSelf = localized.unmuteSelf
 		return Roact.createElement(IconButton, {
-			iconTransparency = self.props.backgroundTransparency,
 			backgroundTransparency = self.props.backgroundTransparency,
 			backgroundColor = self.props.backgroundColor,
 			showBackground = true,
 			layoutOrder = self.props.layoutOrder,
-			icon = self.state.selfMuted and MUTED_ICON or UNMUTED_ICON,
-			iconSize = self.props.iconSize,
 			onActivated = self.onActivated,
+		}, {
+			VoiceIndicator = Roact.createElement(VoiceIndicator, {
+				userId = tostring(Players.LocalPlayer.UserId),
+				hideOnError = false,
+				iconStyle = "MicLight",
+				size = UDim2.fromOffset(36, 36),
+				onClicked = self.onActivated,
+				iconTransparency = self.props.backgroundTransparency,
+			}),
 		})
 	end)
 end

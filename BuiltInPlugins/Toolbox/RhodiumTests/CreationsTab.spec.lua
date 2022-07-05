@@ -95,11 +95,11 @@ return function()
 
 			local DropdownScrollingFramePath =
 				game.CoreGui.ScreenGui.ClickEventDetectFrame.ScrollBlocker.StyledScrollingFrame.ScrollingFrame
-			local dropdownDecalsPath = DropdownScrollingFramePath:FindFirstChild(
-				CurrentSelectionBasicText .. Category.CREATIONS_AUDIO.name
+			local dropdownPluginPath = DropdownScrollingFramePath:FindFirstChild(
+				CurrentSelectionBasicText .. Category.CREATIONS_PLUGIN.name
 			)
-			TestHelpers.clickInstanceWithXPath(dropdownDecalsPath)
-			expect(currentSelection:getRbxInstance().Text).to.equal(CurrentSelectionAudioText)
+			TestHelpers.clickInstanceWithXPath(dropdownPluginPath)
+			expect(currentSelection:getRbxInstance().Text).to.equal(CurrentSelectionPluginsText)
 
 			TestHelpers.clickInstanceWithXPath(DropdownIconPath)
 			local ClickEventScrollingFrame =

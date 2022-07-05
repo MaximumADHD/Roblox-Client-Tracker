@@ -229,10 +229,8 @@ function TrackList:renderExpandedCFrameTrack(track, children, theme)
 				ReadOnly = isPlaying,
 				DragMultiplier = dragMultiplier,
 				OnItemChanged = function(key, value)
-					if GetFFlagValidateNumberBox() then
-						if GetFFlagFacsUiChanges() and not GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs then
-							value = math.clamp(math.floor(.5 + value * 100) / 100, 0, 1)
-						end
+					if GetFFlagValidateNumberBox() and track.Type == Constants.TRACK_TYPES.Facs then
+						value = math.clamp(math.floor(.5 + value * 100) / 100, 0, 1)
 					end
 					for _, item in ipairs(items[targetProperty]) do
 						if item.Key == key then
@@ -380,10 +378,8 @@ function TrackList:renderTrack(track, children, theme, parentPath, parentType)
 		Selected = selected,
 		DragMultiplier = dragMultiplier,
 		OnItemChanged = function(key, value)
-			if GetFFlagValidateNumberBox() then
-				if GetFFlagFacsUiChanges() and not GetFFlagChannelAnimations() and track.Type == Constants.TRACK_TYPES.Facs then
-					value = math.clamp(value, 0, 1)
-				end
+			if GetFFlagValidateNumberBox() and track.Type == Constants.TRACK_TYPES.Facs then
+				value = math.clamp(value, 0, 1)
 			end
 			for _, item in ipairs(items) do
 				if item.Key == key then

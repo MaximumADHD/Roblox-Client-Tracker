@@ -10,6 +10,7 @@ local Constants = require(InGameMenu.Resources.Constants)
 local Assets = require(InGameMenu.Resources.Assets)
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
 local KeyLabel = UIBlox.App.Menu.KeyLabel
 local withStyle = UIBlox.Core.Style.withStyle
@@ -108,6 +109,8 @@ end, function(dispatch)
 	return {
 		startLeavingGame = function()
 			dispatch(SetCurrentPage(Constants.LeaveGamePromptPageKey))
+
+			SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsLeaveGameName, {})
 		end,
 	}
 end)(LeaveButton)

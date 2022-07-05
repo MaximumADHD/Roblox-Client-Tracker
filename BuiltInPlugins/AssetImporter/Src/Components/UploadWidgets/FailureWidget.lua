@@ -1,8 +1,8 @@
-local FFlagDevFrameworkRemoveFitFrame = game:GetFastFlag("DevFrameworkRemoveFitFrame")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
+local FFlagDevFrameworkRemoveFitFrame = Framework.SharedFlags.getFFlagDevFrameworkRemoveFitFrame()
+
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)

@@ -5,12 +5,15 @@
 	Necessary props:
 	assetId, number, will be used to request assetData on didMount.
 ]]
-
+local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
 local Plugin = script.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local withContext = if FFlagUpdateConvertToPackageToDFContextServices then ContextServices.withContext else require(Plugin.Src.ContextServices.withContext)
 
 local Components = Plugin.Src.Components
 local ConvertToPackageWindow = Components.ConvertToPackageWindow
@@ -23,13 +26,11 @@ local SetAssetName = require(Plugin.Src.Actions.SetAssetName)
 local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
 
-local getPluginGui = require(Plugin.Src.ContextServices.PluginContext).getPluginGui
+local getPluginGui = if FFlagUpdateConvertToPackageToDFContextServices then nil else require(Plugin.Src.ContextServices.PluginContext).getPluginGui
 local getUserId = require(Plugin.Src.Util.getUserId)
 
 local MakeChangeRequest = require(Plugin.Src.Thunks.MakeChangeRequest)
 local UploadConvertToPackageRequest = require(Plugin.Src.Thunks.UploadConvertToPackageRequest)
-
-local withContext = require(Plugin.Src.ContextServices.withContext)
 
 local AssetConfig = Roact.PureComponent:extend("AssetConfig")
 
@@ -122,7 +123,7 @@ function AssetConfig:init(props)
 
 	self.closeAssetConfig = function()
 		-- Close the assetConfig
-		local pluginGui = getPluginGui(self)
+		local pluginGui = if FFlagUpdateConvertToPackageToDFContextServices then self.props.Plugin:get() else getPluginGui(self)
 		-- And we will let AssetConfigWrapper to handle the onClose and unMount.
 		pluginGui.Enabled = false
 	end
@@ -237,7 +238,9 @@ local function getMessageBoxProps(localization, cancelFunc, closeFunc)
 end
 
 function AssetConfig:render()
-	return withContext(function(localization, theme)
+	local style = self.props.Stylizer
+
+	local function renderWithContext(localization, theme)
 		local props = self.props
 		local state = self.state
 		local Size = props.Size
@@ -323,7 +326,17 @@ function AssetConfig:render()
 				LayoutOrder = 2
 			})
 		})
-	end)
+	end
+
+	return if FFlagUpdateConvertToPackageToDFContextServices then renderWithContext(self.props.Localization, style) else withContext(renderWithContext)
+end
+
+if FFlagUpdateConvertToPackageToDFContextServices then
+	AssetConfig = withContext({
+		Localization = ContextServices.Localization,
+		Plugin = ContextServices.Plugin,
+		Stylizer = ContextServices.Stylizer,
+	})(AssetConfig)
 end
 
 local function mapStateToProps(state, props)

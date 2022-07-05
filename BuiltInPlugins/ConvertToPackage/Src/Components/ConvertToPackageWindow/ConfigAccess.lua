@@ -5,13 +5,16 @@
 	owner.creatorId, number, id of currently selected owner for asset
 	onDropDownSelect, function, will return current selected item if selected.
 ]]
-
+local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local UILibrary = require(Packages.UILibrary)
 local RoactRodux = require(Packages.RoactRodux)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local withContext = if FFlagUpdateConvertToPackageToDFContextServices then ContextServices.withContext else require(Plugin.Src.ContextServices.withContext)
 
 local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
@@ -19,26 +22,25 @@ local Constants = require(Util.Constants)
 local StyledDropdownMenu = UILibrary.Component.StyledDropdown
 
 local Thunks = Plugin.Src.Thunks
-local GetAssetConfigGroupDataRequest
 
 local GetMyGroupsRequest = require(Thunks.GetMyGroupsRequest)
-local withContext = require(Plugin.Src.ContextServices.withContext)
 
-local getNetwork = require(Plugin.Src.ContextServices.NetworkContext).getNetwork
+local getNetwork = if FFlagUpdateConvertToPackageToDFContextServices then nil else require(Plugin.Src.ContextServices.NetworkContext).getNetwork
+local NetworkContext = if FFlagUpdateConvertToPackageToDFContextServices then require(Plugin.Src.ContextServices.NetworkContext) else nil
 
 local ConfigAccess = Roact.PureComponent:extend("ConfigAccess")
 local DROP_DOWN_WIDTH = 220
 local DROP_DOWN_HEIGHT = 38
 
-local CURRENT_USER_DROPDOWN_INDEX = 1
-
 function ConfigAccess:didMount()
 	-- Initial request
-	self.props.getMyGroups(getNetwork(self))
+	self.props.getMyGroups(if FFlagUpdateConvertToPackageToDFContextServices then self.props.Network:get() else getNetwork(self))
 end
 
 function ConfigAccess:render()
-	return withContext(function(localization, theme)
+	local style = self.props.Stylizer
+
+	local function renderWithContext(localization, theme)
 		local props = self.props
 
 		local Title = props.Title
@@ -130,7 +132,17 @@ function ConfigAccess:render()
 				ListWidth = DROP_DOWN_WIDTH,
 			}),
 		})
-	end)
+	end
+
+	return if FFlagUpdateConvertToPackageToDFContextServices then renderWithContext(self.props.Localization, style) else withContext(renderWithContext)
+end
+
+if FFlagUpdateConvertToPackageToDFContextServices then
+	ConfigAccess = withContext({
+		Localization = ContextServices.Localization,
+		Network = NetworkContext,
+		Stylizer = ContextServices.Stylizer,
+	})(ConfigAccess)
 end
 
 local function mapStateToProps(state, props)

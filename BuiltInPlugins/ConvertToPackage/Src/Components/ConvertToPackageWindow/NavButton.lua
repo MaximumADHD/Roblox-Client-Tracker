@@ -11,17 +11,20 @@
 		Position UDim2, position of the button
 		LayoutOrder number, layout order of the button
 ]]
-
+local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local UILibrary = require(Packages.UILibrary)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
 
-local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
+local withTheme = if FFlagUpdateConvertToPackageToDFContextServices then nil else require(Plugin.Src.ContextServices.Theming).withTheme
 local RoundFrame = UILibrary.Component.RoundFrame
 
 local NavButton = Roact.Component:extend("NavButton")
@@ -50,7 +53,9 @@ function NavButton:init(props)
 end
 
 function NavButton:render()
-	return withTheme(function(theme)
+	local style = self.props.Stylizer
+
+	local function renderWithContext(theme)
 		local props = self.props
 		local colors = props.isPrimary and theme.nav.mainButton or theme.nav.button
 
@@ -84,7 +89,15 @@ function NavButton:render()
 				Size = UDim2.new(1, 0, 1, 0),
 			})
 		})
-	end)
+	end
+
+	return if FFlagUpdateConvertToPackageToDFContextServices then renderWithContext(style) else withTheme(renderWithContext)
+end
+
+if FFlagUpdateConvertToPackageToDFContextServices then
+	NavButton = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(NavButton)
 end
 
 return NavButton

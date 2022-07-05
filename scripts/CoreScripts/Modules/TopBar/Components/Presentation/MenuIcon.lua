@@ -11,6 +11,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
+local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 
 local InGameMenuConstants = require(RobloxGui.Modules.InGameMenu.Resources.Constants)
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
@@ -66,6 +67,7 @@ function MenuIcon:init()
 			if isNewInGameMenuEnabled() then
 				if EnableInGameMenuV3() then
 					InGameMenu.openInGameMenu("Players")
+					PlayerListMaster:SetVisibility(false)
 				else
 					InGameMenu.openInGameMenu(InGameMenuConstants.MainPagePageKey)
 				end

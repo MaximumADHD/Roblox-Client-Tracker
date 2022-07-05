@@ -20,6 +20,7 @@ local SplitPane = UI.SplitPane
 local Components = Plugin.Src.Components
 
 local DEPRECATED_MaterialGrid = require(Components.MaterialBrowser.DEPRECATED_MaterialGrid)
+local DEPRECATED_TopBar = require(Components.MaterialBrowser.DEPRECATED_TopBar)
 local MaterialGrid = require(Components.MaterialBrowser.MaterialGrid)
 local SideBar = require(Components.MaterialBrowser.SideBar)
 local TopBar = require(Components.MaterialBrowser.TopBar)
@@ -28,6 +29,7 @@ local Flags = Plugin.Src.Flags
 local getFFlagMaterialManagerDetailsOverhaul = require(Flags.getFFlagMaterialManagerDetailsOverhaul)
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
 local getFFlagMaterialManagerGridOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerGridOverhaul)
+local getFFlagMaterialManagerTopBarOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerTopBarOverhaul)
 
 local MaterialDetails = if getFFlagMaterialManagerDetailsOverhaul() and getFFlagMaterialManagerGlassNeonForceField() then
 	require(Components.MaterialBrowser.MaterialDetails)
@@ -252,7 +254,7 @@ function MaterialBrowser:render()
 		BackgroundColor = Color3.new(0, 255, 0),
 	}, props.WrapperProps), {
 
-		TopBar = Roact.createElement(TopBar, {
+		TopBar = Roact.createElement(if getFFlagMaterialManagerTopBarOverhaul() then TopBar else DEPRECATED_TopBar, {
 			OpenPrompt = props.OpenPrompt,
 			Size = style.TopBarSize,
 			BackgroundColor = Color3.new(255, 0, 0),

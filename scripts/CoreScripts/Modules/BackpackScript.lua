@@ -5,6 +5,7 @@
 
 local BackpackScript = {}
 BackpackScript.OpenClose = nil -- Function to toggle open/close
+BackpackScript.IsHotbarVisible = false
 BackpackScript.IsOpen = false
 BackpackScript.StateChanged = Instance.new('BindableEvent') -- Fires after any open/close, passes IsNowOpen
 
@@ -90,6 +91,8 @@ RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local IsTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 local Utility = require(RobloxGui.Modules.Settings.Utility)
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
+
+local FFlagEnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 
 pcall(function()
 	local LocalizationService = game:GetService("LocalizationService")
@@ -230,6 +233,7 @@ local function AdjustHotbarFrames()
 
 	OpenInventoryButton.Visible = not inventoryOpen and (hotbarIsVisible or not isInventoryEmpty())
 	OpenInventoryButton.Position = UDim2.new(0.5, -15, 1, hotbarIsVisible and -110 or -50)
+	BackpackScript.IsHotbarVisible = hotbarIsVisible
 end
 
 local function UpdateScrollingFrameCanvasSize()
@@ -1883,8 +1887,20 @@ GuiService.MenuOpened:Connect(function()
 	if BackpackScript.IsOpen then
 		BackpackScript.OpenClose()
 	end
+	if FFlagEnableInGameMenuV3 then
+		if BackpackScript.IsHotbarVisible then
+			HotbarFrame.Visible = false
+		end
+	end
 end)
-
+	
+if FFlagEnableInGameMenuV3 then
+	GuiService.MenuClosed:Connect(function()
+		if BackpackScript.IsHotbarVisible then
+			HotbarFrame.Visible = true
+		end
+	end)
+end
 
 local BackpackStateChangedInVRConn, VRModuleOpenedConn, VRModuleClosedConn = nil, nil, nil
 local function OnVREnabled()

@@ -17,8 +17,8 @@ local UI = Framework.UI
 local Pane = UI.Pane
 local ScrollingFrame = UI.ScrollingFrame
 
-local Actions = Plugin.Src.Actions
-local ClearMaterial = require(Actions.ClearMaterial)
+local ClearMaterial = require(Plugin.Src.Actions.ClearMaterial)
+local MaterialController = require(Plugin.Src.Controllers.MaterialController)
 
 local MaterialDetailsComponents = Plugin.Src.Components.MaterialBrowser.MaterialDetails
 local MaterialHeader = require(MaterialDetailsComponents.MaterialHeader)
@@ -29,9 +29,6 @@ local MaterialOverrides = require(MaterialDetailsComponents.MaterialOverrides)
 
 local getSupportedMaterials = require(Plugin.Src.Resources.Constants.getSupportedMaterials)
 local supportedMaterials = getSupportedMaterials()
-
-local Util = Plugin.Src.Util
-local MaterialController = require(Util.MaterialController)
 
 local MaterialDetails = Roact.PureComponent:extend("MaterialDetails")
 

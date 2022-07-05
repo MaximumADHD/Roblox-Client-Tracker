@@ -8,6 +8,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 
 local Actions = Plugin.Src.Actions
+local SetAssetImportSession = require(Actions.SetAssetImportSession)
 local SetAssetSettings = require(Actions.SetAssetSettings)
 local SetCheckedCount = require(Actions.SetCheckedCount)
 local SetFilename = require(Actions.SetFilename)
@@ -19,6 +20,7 @@ local SetTreeExpansion = require(Actions.SetTreeExpansion)
 local SetErrorNodeChecked = require(Actions.SetErrorNodeChecked)
 
 export type Store = {
+	assetImportSession: Instance,
 	assetSettings: Instance,
 	filename: string,
 	importStatuses: SetImportStatuses.StatusMap,
@@ -31,6 +33,7 @@ export type Store = {
 }
 
 local initialState = {
+	assetImportSession = nil,
 	assetSettings = nil,
 	filename = "",
 	importStatuses = nil,
@@ -43,6 +46,11 @@ local initialState = {
 }
 
 local MainReducer = Rodux.createReducer(initialState, {
+	[SetAssetImportSession.name] = function(state: Store, action: SetAssetImportSession.Props)
+		return Cryo.Dictionary.join(state, {
+			assetImportSession = action.assetImportSession,
+		})
+	end,
 	[SetAssetSettings.name] = function(state: Store, action: SetAssetSettings.Props)
 		return Cryo.Dictionary.join(state, {
 			assetSettings = action.assetSettings,

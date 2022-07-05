@@ -24,7 +24,6 @@ local ContextHelper = require(Util.ContextHelper)
 local ContextGetter = require(Util.ContextGetter)
 local InsertAsset = require(Util.InsertAsset)
 local Analytics = require(Util.Analytics.Analytics)
-local PageInfoHelper = require(Util.PageInfoHelper)
 local AssetAnalyticsContextItem = require(Util.Analytics.AssetAnalyticsContextItem)
 
 local getUserId = require(Util.getUserId)
@@ -38,7 +37,6 @@ local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
 local withModal = ContextHelper.withModal
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 local getModal = ContextGetter.getModal
 
@@ -75,6 +73,7 @@ local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUs
 local FFlagToolboxAssetPreviewProtectAgainstNilAssetData = game:GetFastFlag(
 	"ToolboxAssetPreviewProtectAgainstNilAssetData"
 )
+local FFlagToolboxFixInstallGroupPlugins = game:GetFastFlag("ToolboxFixInstallGroupPlugins")
 
 local disableRatings = require(Plugin.Core.Util.ToolboxUtilities).disableRatings
 
@@ -381,18 +380,35 @@ function AssetPreviewWrapper:init(props)
 				})
 			end
 		else
-			if not owned then
-				-- Prompt user to purchase plugin
-				local showInstallationBar = false
-				self:setState({
-					showPurchaseFlow = true,
-					showInstallationBar = showInstallationBar,
-				})
-				return false
+			if FFlagToolboxFixInstallGroupPlugins then
+				-- Group plugins will not be owned by the user, but they should have permission to install them if they can see the group creations tab
+				if not owned and categoryName ~= Category.CREATIONS_GROUP_PLUGIN.name then
+					-- Prompt user to purchase plugin
+					local showInstallationBar = false
+					self:setState({
+						showPurchaseFlow = true,
+						showInstallationBar = showInstallationBar,
+					})
+					return false
+				else
+					self:setState({
+						showPurchaseFlow = false,
+					})
+				end
 			else
-				self:setState({
-					showPurchaseFlow = false,
-				})
+				if not owned then
+					-- Prompt user to purchase plugin
+					local showInstallationBar = false
+					self:setState({
+						showPurchaseFlow = true,
+						showInstallationBar = showInstallationBar,
+					})
+					return false
+				else
+					self:setState({
+						showPurchaseFlow = false,
+					})
+				end
 			end
 		end
 
@@ -636,12 +652,8 @@ local function mapStateToProps(state, props)
 	local assets = state.assets or {}
 	local previewModel = assets.previewModel
 	local pageInfo = state.pageInfo or {}
-	local idToAssetMap = assets.idToAssetMap or {}
 
 	local assetId = assets.previewAssetId
-
-	local manageableAssets = assets.manageableAssets or {}
-	local canManage = manageableAssets[tostring(assetId)]
 
 	local purchase = state.purchase or {}
 	local purchaseStatus = purchase.status
@@ -712,13 +724,7 @@ local function mapDispatchToProps(dispatch)
 
 		tryCreateContextMenu = function(assetData, localizedContent, plugin, tryOpenAssetConfig, assetAnalyticsContext)
 			dispatch(
-				TryCreateContextMenu(
-					assetData,
-					localizedContent,
-					plugin,
-					tryOpenAssetConfig,
-					assetAnalyticsContext
-				)
+				TryCreateContextMenu(assetData, localizedContent, plugin, tryOpenAssetConfig, assetAnalyticsContext)
 			)
 		end,
 

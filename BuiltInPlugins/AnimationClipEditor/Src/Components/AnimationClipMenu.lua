@@ -50,8 +50,6 @@ local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 local FFlagAnimationFromVideoCreatorServiceInAnimationEditor = game:DefineFastFlag("AnimationFromVideoCreatorServiceInAnimationEditor", false)
 
-local FFlagNewAnimationPriorities = game:DefineFastFlag("NewAnimationPriorities", false)
-
 local AnimationClipMenu = Roact.PureComponent:extend("AnimationClipMenu")
 
 function AnimationClipMenu:makeLoadMenu(localization, current)
@@ -116,22 +114,6 @@ function AnimationClipMenu:makePrioritySubMenu(localization, current)
 	local priority = Enum.AnimationPriority
 	local setPriority = props.SetPriority
 
-	if FFlagNewAnimationPriorities then
-		return {
-			Name = localization:getText("Menu", "SetPriority"),
-			CurrentValue = current,
-			Items = {
-				{Name = localization:getText("Menu", priority.Core.Name), Value = priority.Core, ItemSelected = setPriority},
-				{Name = localization:getText("Menu", priority.Idle.Name), Value = priority.Idle, ItemSelected = setPriority},
-				{Name = localization:getText("Menu", priority.Movement.Name), Value = priority.Movement, ItemSelected = setPriority},
-				{Name = localization:getText("Menu", priority.Action.Name), Value = priority.Action, ItemSelected = setPriority},
-				{Name = localization:getText("Menu", priority.Action2.Name), Value = priority.Action2, ItemSelected = setPriority},
-				{Name = localization:getText("Menu", priority.Action3.Name), Value = priority.Action3, ItemSelected = setPriority},
-				{Name = localization:getText("Menu", priority.Action4.Name), Value = priority.Action4, ItemSelected = setPriority},
-			}
-		}
-	end
-
 	return {
 		Name = localization:getText("Menu", "SetPriority"),
 		CurrentValue = current,
@@ -140,6 +122,9 @@ function AnimationClipMenu:makePrioritySubMenu(localization, current)
 			{Name = localization:getText("Menu", priority.Idle.Name), Value = priority.Idle, ItemSelected = setPriority},
 			{Name = localization:getText("Menu", priority.Movement.Name), Value = priority.Movement, ItemSelected = setPriority},
 			{Name = localization:getText("Menu", priority.Action.Name), Value = priority.Action, ItemSelected = setPriority},
+			{Name = localization:getText("Menu", priority.Action2.Name), Value = priority.Action2, ItemSelected = setPriority},
+			{Name = localization:getText("Menu", priority.Action3.Name), Value = priority.Action3, ItemSelected = setPriority},
+			{Name = localization:getText("Menu", priority.Action4.Name), Value = priority.Action4, ItemSelected = setPriority},
 		}
 	}
 end

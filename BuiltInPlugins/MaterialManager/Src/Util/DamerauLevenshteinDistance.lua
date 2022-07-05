@@ -7,7 +7,9 @@
 ]]
 
 return function(token1: string, token2: string)
-	
+	token1 = string.lower(token1)
+	token2 = string.lower(token2)
+
 	local lenToken1 = utf8.len(token1)
 	local lenToken2 = utf8.len(token2)
 	local distances = {}

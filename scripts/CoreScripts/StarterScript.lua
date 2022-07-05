@@ -50,8 +50,9 @@ local GetFFlagStartScreenTimeUsingGuacEnabled
 
 local GetFFlagEnableIXPInGame = require(CoreGuiModules.Common.Flags.GetFFlagEnableIXPInGame)
 
-local IsExperienceMenuABTestEnabled = require(CoreGuiModules.InGameMenu.IsExperienceMenuABTestEnabled)
-local ExperienceMenuABTestManager = require(CoreGuiModules.InGameMenu.ExperienceMenuABTestManager)
+local IsExperienceMenuABTestEnabled = require(CoreGuiModules.InGameMenuV3.IsExperienceMenuABTestEnabled)
+local ExperienceMenuABTestManager = require(CoreGuiModules.InGameMenuV3.ExperienceMenuABTestManager)
+
 local GetCoreScriptsLayers = require(CoreGuiModules.Experiment.GetCoreScriptsLayers)
 
 local FFlagEnableLuobuWarningToast = require(RobloxGui.Modules.Flags.FFlagEnableLuobuWarningToast)
@@ -65,7 +66,6 @@ local GetFFlagRtMessaging = require(RobloxGui.Modules.Flags.GetFFlagRtMessaging)
 initify(CoreGuiModules.InGameMenu)
 initify(CoreGuiModules.InGameMenuV3)
 initify(CoreGuiModules.TrustAndSafety)
-
 
 local UIBlox = require(CorePackages.UIBlox)
 local uiBloxConfig = require(CoreGuiModules.UIBloxInGameConfig)

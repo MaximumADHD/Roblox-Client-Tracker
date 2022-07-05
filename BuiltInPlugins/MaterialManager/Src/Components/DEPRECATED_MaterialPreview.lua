@@ -10,8 +10,7 @@ local StudioUI = Framework.StudioUI
 local Pane = UI.Pane
 local AssetRenderModel = StudioUI.AssetRenderModel
 
-local Util = Plugin.Src.Util
-local MaterialController = require(Util.MaterialController)
+local MaterialController = require(Plugin.Src.Controllers.MaterialController)
 
 local Constants = Plugin.Src.Resources.Constants
 local getMaterialColor = require(Constants.getMaterialColor)

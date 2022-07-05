@@ -1,7 +1,6 @@
 --[[
 	Generic component for "user selects something that can be previewed".
-	Implement PromptSelection and RenderPreview to define how the user selects an item, and how this component should
-	display that item.
+	Implement PromptSelection to define how the user selects an item
 
 	Props
 		SelectionName: string
@@ -10,9 +9,8 @@
 			Whether something is currently selected
 		PreviewTitle: string
 			Title to use on the expanded preview window
-
-		RenderPreview: void -> Roact element
-			Function to render a preview of the current item
+		ImageId: string
+			Image id to render preview
 		PromptSelection: void -> void
 			Callback to prompt the user to select an item (e.g. with StudioService:PromptImportFile())
 		UrlSelection: string -> void
@@ -29,8 +27,6 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
-local FrameworkTypes = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Types)
-
 local ContextServices = Framework.ContextServices
 local Localization = ContextServices.Localization
 local withContext = ContextServices.withContext
@@ -51,7 +47,7 @@ export type Props = {
 	SelectionName: string?,
 	PreviewTitle: string?,
 	HasSelection: boolean,
-	RenderPreview: () -> FrameworkTypes.RoactElement,
+	ImageId: string,
 	PromptSelection: () -> (),
 	UrlSelection: (string) -> (),
 	BorderColorUrlBool: boolean,
@@ -153,7 +149,7 @@ function PromptSelectorWithPreview:render()
 			}, {
 				PreviewImage = Roact.createElement(PreviewImage, {
 					HasSelection = props.HasSelection,
-					RenderPreview = props.RenderPreview,
+					ImageId = props.ImageId,
 					ClearSelection = props.ClearSelection,
 					OpenExpandedPreview = self.openExpandedPreview,
 					LayoutOrder = layoutOrderIterator:getNextOrder(),
@@ -162,7 +158,7 @@ function PromptSelectorWithPreview:render()
 				ExpandedPreview = showingExpandedPreview and Roact.createElement(PreviewDialog, {
 					LayoutOrder = layoutOrderIterator:getNextOrder(),
 					PreviewTitle = previewTitle,
-					RenderPreview = props.RenderPreview,
+					ImageId = props.ImageId,
 					Metadata = metadata,
 					OnClose = self.closeExpandedPreview,
 				}),

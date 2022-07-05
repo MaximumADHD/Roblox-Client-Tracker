@@ -13,13 +13,11 @@ local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local Constants = require(Plugin.Src.Util.Constants)
-local CFrameUtils = require(Plugin.Src.Util.CFrameUtils)
 local PathUtils = require(Plugin.Src.Util.PathUtils)
 local Templates = require(Plugin.Src.Util.Templates)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-local GetFFlagUseCFrameAPI = require(Plugin.LuaFlags.GetFFlagUseCFrameAPI)
 
 return function(instanceName: string, path: PathUtils.Path, newType: string, analytics: any): ({[string]: any}) -> ()
 	return function(store: {[string]: any}): ()
@@ -78,11 +76,7 @@ return function(instanceName: string, path: PathUtils.Path, newType: string, ana
 									local prevTick = track.Keyframes[index-1]
 									if prevTick then
 										local prevKeyframe = track.Data[prevTick]
-										if GetFFlagUseCFrameAPI() then
-											prevValue = Vector3.new(prevKeyframe.Value:ToEulerAngles(eulerAnglesOrder))
-										else
-											prevValue = Vector3.new(CFrameUtils.ToEulerAngles(prevKeyframe.Value, eulerAnglesOrder))
-										end
+										prevValue = Vector3.new(prevKeyframe.Value:ToEulerAngles(eulerAnglesOrder))
 									end
 								end
 								if prevValue then
@@ -98,11 +92,7 @@ return function(instanceName: string, path: PathUtils.Path, newType: string, ana
 									local nextTick = track.Keyframes[index+1]
 									if nextTick then
 										local nextKeyframe = track.Data[nextTick]
-										if GetFFlagUseCFrameAPI() then
-											nextValue = Vector3.new(nextKeyframe.Value:ToEulerAngles(eulerAnglesOrder))
-										else
-											nextValue = Vector3.new(CFrameUtils.ToEulerAngles(nextKeyframe.Value, eulerAnglesOrder))
-										end
+										nextValue = Vector3.new(nextKeyframe.Value:ToEulerAngles(eulerAnglesOrder))
 									end
 								end
 								if nextValue then

@@ -40,8 +40,8 @@ return Rodux.createReducer({
 		})
 	end,
 
-    SetBulkImporterRunning = function(state, action)
-        return Cryo.Dictionary.join(state, {
+	SetBulkImporterRunning = function(state, action)
+		return Cryo.Dictionary.join(state, {
 			bulkImporterRunning = action.bulkImporterRunning,
 		})
 	end,
@@ -53,7 +53,7 @@ return Rodux.createReducer({
 	end,
 
 	SetIsFetchingAssets = function(state, action)
-        return Cryo.Dictionary.join(state, {
+		return Cryo.Dictionary.join(state, {
 			isFetchingAssets = action.isFetchingAssets,
 		})
 	end,
@@ -70,7 +70,7 @@ return Rodux.createReducer({
 		})
 	end,
 
-    SetSearchTerm = function(state, action)
+	SetSearchTerm = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			searchTerm = action.searchTerm,
 		})

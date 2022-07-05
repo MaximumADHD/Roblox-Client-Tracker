@@ -41,6 +41,7 @@ local KeyframeCluster = require(Plugin.Src.Components.KeyframeCluster)
 local Tooltip = require(Plugin.Src.Components.Tooltip)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local FFlagFixClusterKeyframes = game:DefineFastFlag("ACEFixClusterKeyframes", false)
 
 local DopeSheetTrack = Roact.PureComponent:extend("DopeSheetTrack")
 
@@ -119,9 +120,11 @@ function DopeSheetTrack:renderKeyframes(keys)
 
 		if showCluster then
 			local startIndex, endIndex = TrackUtils.getKeyframesExtents(keyframes, startTick, endTick)
-			local clusterXPos = TrackUtils.getScaledKeyframePosition(keyframes[startIndex], startTick, endTick, width)
-			local clusterXPosEnd = TrackUtils.getScaledKeyframePosition(keyframes[endIndex], startTick, endTick, width)
-			keys[endIndex] = self:renderKeyframeCluster(clusterXPos, clusterXPosEnd, Constants.MIN_SPACE_BETWEEN_KEYS)
+			if not FFlagFixClusterKeyframes or (startIndex ~= nil and endIndex ~= nil) then
+				local clusterXPos = TrackUtils.getScaledKeyframePosition(keyframes[startIndex], startTick, endTick, width)
+				local clusterXPosEnd = TrackUtils.getScaledKeyframePosition(keyframes[endIndex], startTick, endTick, width)
+				keys[endIndex] = self:renderKeyframeCluster(clusterXPos, clusterXPosEnd, Constants.MIN_SPACE_BETWEEN_KEYS)
+			end
 		else
 			local componentsInfo = TrackUtils.getComponentsInfo(track, startTick, endTick)
 
@@ -163,12 +166,15 @@ function DopeSheetTrack:renderKeyframes(keys)
 		local name = track.Name
 
 		local startIndex, endIndex = TrackUtils.getKeyframesExtents(keyframes, startTick, endTick)
+		if FFlagFixClusterKeyframes and (startIndex == nil or endIndex == nil) then
+			return
+		end
 
 		if showCluster then
 			local clusterXPos = TrackUtils.getScaledKeyframePosition(keyframes[startIndex], startTick, endTick, width)
 			local clusterXPosEnd = TrackUtils.getScaledKeyframePosition(keyframes[endIndex], startTick, endTick, width)
 			keys[endIndex] = self:renderKeyframeCluster(clusterXPos, clusterXPosEnd, Constants.MIN_SPACE_BETWEEN_KEYS)
-		elseif startIndex ~= nil and endIndex ~= nil then
+		elseif FFlagFixClusterKeyframes or (startIndex ~= nil and endIndex ~= nil) then
 			for index = startIndex, endIndex do
 				local tick = keyframes[index]
 				local data = trackData[tick]

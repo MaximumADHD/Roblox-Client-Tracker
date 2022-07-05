@@ -47,11 +47,14 @@ local ReportMenu = Roact.PureComponent:extend("ReportMenu")
 
 ReportMenu.validateProps = t.strictInterface({
 	isReportMenuOpen = t.boolean,
+	screenSize = t.Vector2,
 	closeDialog = t.callback,
 	openReportDialog = t.callback,
 })
 
 function ReportMenu:init()
+	self.scrollingFrameRef = Roact.createRef()
+
 	self.state = {
 		isFilterMode = false,
 		filterText = nil,
@@ -190,8 +193,9 @@ function ReportMenu:renderContents()
 			style = cellStyle,
 		}, {
 			Roact.createElement(BarOnTopScrollingFrame, {
-				Size = UDim2.new(1, 0, 1, 0),
+				Size = UDim2.fromScale(1, 1),
 				CanvasSize = UDim2.new(1, 0, 0, canvasHeight),
+				scrollingFrameRef = self.scrollingFrameRef,
 			}, items)
 		})
 	end)
@@ -201,6 +205,7 @@ function ReportMenu:render()
 	return Roact.createFragment({
 		ModalDialog = Roact.createElement(ModalDialog, {
 			visible = self.props.isReportMenuOpen,
+			screenSize = self.props.screenSize,
 			headerBar = self:renderHeaderBar(),
 			showCloseButton = true,
 			contents = self:renderContents(),
@@ -217,12 +222,17 @@ function ReportMenu:didUpdate(prevProps)
 			isFilterMode = false,
 			filterText = Roact.None,
 		})
+		local scrollingFrame = self.scrollingFrameRef:getValue()
+		if scrollingFrame and scrollingFrame.CanvasPosition.Y > 0 then
+			scrollingFrame.CanvasPosition = Vector2.new(0, 0)
+		end
 	end
 end
 
 return RoactRodux.UNSTABLE_connect2(function(state, props)
 	return {
 		isReportMenuOpen = state.report.isReportMenuOpen,
+		screenSize = state.displayOptions.screenSize,
 		--TODO: integrate inputType
 	}
 end, function(dispatch)

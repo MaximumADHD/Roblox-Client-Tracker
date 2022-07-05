@@ -15,7 +15,7 @@
 		int LayoutOrder - will be used by the layouter to change the position of the components (defaults to 1 if not passed in)
 
 ]]
-
+local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
 local PREVIEW_TITLE_PADDING = 12
 local PREVIEW_TITLE_HEIGHT = 24
 
@@ -27,11 +27,14 @@ local Util = Plugin.Src.Util
 local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
 local UILibrary = require(Packages.UILibrary)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local Constants = require(Util.Constants)
 local RoundFrame = UILibrary.Component.RoundFrame
 
-local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
+local withTheme = if FFlagUpdateConvertToPackageToDFContextServices then nil else require(Plugin.Src.ContextServices.Theming).withTheme
 
 local function removeAllScripts(object)
 	for _, descendant in pairs(object:GetDescendants()) do
@@ -108,7 +111,9 @@ function AssetThumbnailPreview:getName()
 end
 
 function AssetThumbnailPreview:render()
-	return withTheme(function(theme)
+	local style = self.props.Stylizer
+
+	local function renderWithContext(theme)
 		local props = self.props
 
 		local title = props.title or self:getName()
@@ -158,7 +163,15 @@ function AssetThumbnailPreview:render()
 				BackgroundTransparency = 1,
 			})
 		})
-	end)
+	end
+
+	return if FFlagUpdateConvertToPackageToDFContextServices then renderWithContext(style) else withTheme(renderWithContext)
+end
+
+if FFlagUpdateConvertToPackageToDFContextServices then
+	AssetThumbnailPreview = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(AssetThumbnailPreview)
 end
 
 local function mapStateToProps(state, props)

@@ -12,7 +12,10 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
+
 local Framework = require(Plugin.Packages.Framework)
+local FFlagRemoveUILibraryRoundTextBox = Framework.SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
+
 local Util = Framework.Util
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -26,9 +29,12 @@ local DevSubList = require(Page.Components.DevSubList)
 local DevSubDetails = require(Page.Components.DevSubDetails)
 local Badges = require(Page.Components.Badges)
 
-local FrameworkUI = Framework.UI
-local HoverArea = FrameworkUI.HoverArea
-local Separator = FrameworkUI.Separator
+local UI = Framework.UI
+local Container = UI.Container
+local HoverArea = UI.HoverArea
+local Image = UI.Decoration.Image
+local Separator = UI.Separator
+local TextInput2 = UI.TextInput2
 
 local LayoutOrderIterator = Util.LayoutOrderIterator
 local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
@@ -36,9 +42,15 @@ local GetTextSize = Util.GetTextSize
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local TitledFrame = UILibrary.Component.TitledFrame
-local RoundTextBox = UILibrary.Component.RoundTextBox
+
+local RoundTextBox
+local TextEntry
+if not FFlagRemoveUILibraryRoundTextBox then
+	RoundTextBox = UILibrary.Component.RoundTextBox
+    TextEntry = UILibrary.Component.TextEntry
+end
+
 local RoundFrame = UILibrary.Component.RoundFrame
-local TextEntry = UILibrary.Component.TextEntry
 
 local BadgeIconThumbnail = require(Plugin.Src.Components.AutoThumbnails.BadgeIconThumbnail)
 
@@ -55,7 +67,6 @@ local AddDevSubKeyChange = require(Page.Thunks.AddDevSubKeyChange)
 local AddDevSubKeyError = require(Page.Thunks.AddDevSubKeyError)
 local AddDevSubChange = require(Page.Thunks.AddDevSubChange)
 
-local Container = FrameworkUI.Container
 local LoadingIndicator = UILibrary.Component.LoadingIndicator
 local LoadState = require(Plugin.Src.Util.LoadState)
 local ShouldAllowBadges = require(Plugin.Src.Util.GameSettingsUtilities).shouldAllowBadges
@@ -812,6 +823,62 @@ local function displayEditDevProductsPage(props)
 
     local setUnsavedDevProducts = props.SetUnsavedDevProducts
 
+    local onTextChanged = function(name: string)
+        local nameLength = utf8.len(name)
+
+        local errorKey = "devProductName"
+        local errorValue
+        if nameLength == 0 then
+            errorValue = "Empty"
+        end
+
+        currentDevProduct = Cryo.Dictionary.join(currentDevProduct, {
+            name = tostring(name),
+        })
+
+        if currentDevProduct.id then
+            editedDevProducts = Cryo.Dictionary.join(editedDevProducts, {
+                [productId] = currentDevProduct
+            })
+            setDevProducts(editedDevProducts, errorKey, errorValue)
+        else
+            unsavedDevProducts = Cryo.Dictionary.join(unsavedDevProducts, {
+                [productId] = currentDevProduct
+            })
+            setUnsavedDevProducts(unsavedDevProducts, errorKey, errorValue)
+        end
+    end
+
+    local onPriceTextChanged = function(price: string)
+        local numberValue = tonumber(price)
+
+        local errorKey = "devProductPrice"
+        local errorValue
+        if not numberValue then
+            errorValue = INVALID
+        elseif numberValue < FIntDevProductsMinPrice then
+            errorValue = BELOW_MIN
+        elseif numberValue > FIntDevProductsMaxPrice then
+            errorValue = ABOVE_MAX
+        end
+
+        currentDevProduct = Cryo.Dictionary.join(currentDevProduct, {
+            price = tostring(price)
+        })
+
+        if currentDevProduct.id then
+            editedDevProducts = Cryo.Dictionary.join(editedDevProducts, {
+                [productId] = currentDevProduct
+            })
+            setDevProducts(editedDevProducts, errorKey, errorValue)
+        else
+            unsavedDevProducts = Cryo.Dictionary.join(unsavedDevProducts, {
+                [productId] = currentDevProduct
+            })
+            setUnsavedDevProducts(unsavedDevProducts, errorKey, errorValue)
+        end
+    end
+
     return {
         HeaderFrame = Roact.createElement(FitFrameOnAxis, {
             LayoutOrder = layoutIndex:getNextOrder(),
@@ -865,40 +932,25 @@ local function displayEditDevProductsPage(props)
             LayoutOrder = layoutIndex:getNextOrder(),
             TextSize = theme.fontStyle.Normal.TextSize,
         }, {
-            TextBox = Roact.createElement(RoundTextBox, {
-                Active = true,
-                MaxLength = FIntMaxNameLength,
-                Text = productTitle,
-                TextSize = theme.fontStyle.Normal.TextSize,
+            TextBox = (if FFlagRemoveUILibraryRoundTextBox then
+                Roact.createElement(TextInput2, {
+                    ErrorText = dpNameError,
+                    MaxLength = FIntMaxNameLength,
+                    OnTextChanged = onTextChanged,
+                    Text = productTitle,
+                })
+            else
+                Roact.createElement(RoundTextBox, {
+                    Active = true,
+                    MaxLength = FIntMaxNameLength,
+                    Text = productTitle,
+                    TextSize = theme.fontStyle.Normal.TextSize,
 
-                ErrorMessage = dpNameError,
+                    ErrorMessage = dpNameError,
 
-                SetText = function(name)
-                    local nameLength = utf8.len(name)
-
-                    local errorKey = "devProductName"
-                    local errorValue
-                    if nameLength == 0 then
-                        errorValue = "Empty"
-                    end
-
-                    currentDevProduct = Cryo.Dictionary.join(currentDevProduct, {
-                        name = tostring(name),
-                    })
-
-                    if currentDevProduct.id then
-                        editedDevProducts = Cryo.Dictionary.join(editedDevProducts, {
-                            [productId] = currentDevProduct
-                        })
-                        setDevProducts(editedDevProducts, errorKey, errorValue)
-                    else
-                        unsavedDevProducts = Cryo.Dictionary.join(unsavedDevProducts, {
-                            [productId] = currentDevProduct
-                        })
-                        setUnsavedDevProducts(unsavedDevProducts, errorKey, errorValue)
-                    end
-                end
-            }),
+                    SetText = onTextChanged,
+                })
+            ),
         }),
 
         Price = Roact.createElement(TitledFrame, {
@@ -913,7 +965,19 @@ local function displayEditDevProductsPage(props)
             }),
 
             --TODO: Change price entry in RobuxFeeBase and this to be a shared component
-            PriceFrame = Roact.createElement(RoundFrame, {
+            PriceFrame = if FFlagRemoveUILibraryRoundTextBox then
+                Roact.createElement(TextInput2, {
+                    OnTextChanged = onPriceTextChanged,
+                    Size = UDim2.new(0, 200, 0, 32),
+                    Text = productPrice,
+                    LeadingComponent = Image,
+                    LeadingComponentProps = {
+                        Size = UDim2.new(0, theme.robuxFeeBase.icon.size, 0, theme.robuxFeeBase.icon.size),
+                        ImageColor3 = theme.robuxFeeBase.icon.imageColor,
+                        Image = theme.robuxFeeBase.icon.image,
+                    }
+                })
+            else Roact.createElement(RoundFrame, {
                 Size = UDim2.new(0, theme.robuxFeeBase.priceField.width, 0, theme.rowHeight),
 
                 BorderColor3 = theme.textBox.borderDefault,
@@ -946,42 +1010,14 @@ local function displayEditDevProductsPage(props)
                     PlaceholderText = "",
                     Enabled = true,
 
-                    SetText = function(price)
-                        local numberValue = tonumber(price)
-
-                        local errorKey = "devProductPrice"
-                        local errorValue
-                        if not numberValue then
-                            errorValue = INVALID
-                        elseif numberValue < FIntDevProductsMinPrice then
-                            errorValue = BELOW_MIN
-                        elseif numberValue > FIntDevProductsMaxPrice then
-                            errorValue = ABOVE_MAX
-                        end
-
-                        currentDevProduct = Cryo.Dictionary.join(currentDevProduct, {
-                            price = tostring(price)
-                        })
-
-                        if currentDevProduct.id then
-                            editedDevProducts = Cryo.Dictionary.join(editedDevProducts, {
-                                [productId] = currentDevProduct
-                            })
-                            setDevProducts(editedDevProducts, errorKey, errorValue)
-                        else
-                            unsavedDevProducts = Cryo.Dictionary.join(unsavedDevProducts, {
-                                [productId] = currentDevProduct
-                            })
-                            setUnsavedDevProducts(unsavedDevProducts, errorKey, errorValue)
-                        end
-                    end,
+                    SetText = onPriceTextChanged,
 
                     FocusChanged = function()
                     end,
 
                     HoverChanged = function()
                     end,
-                }))
+                })),
             }),
 
             ErrorMessage = dpPriceError and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.SmallError, {

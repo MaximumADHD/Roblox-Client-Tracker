@@ -31,22 +31,24 @@ local Components = main.Src.Components
 local DEPRECATED_MaterialBrowser = require(Components.DEPRECATED_MaterialBrowser)
 local MaterialBrowser = require(Components.MaterialBrowser)
 local MaterialPrompt = require(Components.MaterialPrompt)
-local ImageUploader = require(Components.ImageUploader)
-local ImportAssetHandler = require(Components.ImportAssetHandler)
-local ImageLoader = require(Components.ImageLoader)
 
-local Utils = main.Src.Util
-local CalloutController = require(Utils.CalloutController)
-local GeneralServiceController = require(Utils.GeneralServiceController)
-local MaterialController = require(Utils.MaterialController)
-local MaterialServiceController = require(Utils.MaterialServiceController)
-local PluginController = require(Utils.PluginController)
+local Controllers = main.Src.Controllers
+local CalloutController = require(Controllers.CalloutController)
+local GeneralServiceController = require(Controllers.GeneralServiceController)
+local ImageUploader = require(Controllers.ImageUploader)
+local ImportAssetHandler = require(Controllers.ImportAssetHandler)
+local ImageLoader = require(Controllers.ImageLoader)
+local MaterialController = require(Controllers.MaterialController)
+local MaterialServiceController = require(Controllers.MaterialServiceController)
+local PluginController = require(Controllers.PluginController)
+
 
 local Flags = main.Src.Flags
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
 local getFFlagMaterialManagerGridListView = require(Flags.getFFlagMaterialManagerGridListView)
 local getFFlagMaterialManagerDetailsOverhaul = require(Flags.getFFlagMaterialManagerDetailsOverhaul)
 local getFFlagMaterialManagerHideDetails = require(Flags.getFFlagMaterialManagerHideDetails)
+local getFFlagMaterialManagerMaterialAsTool = require(Flags.getFFlagMaterialManagerMaterialAsTool)
 
 local DEPRECATED_getBuiltInMaterialVariants = require(main.Src.Resources.Constants.DEPRECATED_getBuiltInMaterialVariants)
 local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
@@ -154,7 +156,7 @@ function MainPlugin:init(props)
 	local description = self.localization:getText("Callout", "MaterialManagerApplyDescription")
 	self.calloutController:defineCallout(definitionId, "", description, "")
 
-	self.pluginController = PluginController.new(plugin, self.store)
+	self.pluginController = PluginController.new(plugin, self.store, plugin:getMouse())
 	if getFFlagMaterialManagerGridListView() then
 		self.pluginController:initialize()
 	end
@@ -173,6 +175,11 @@ function MainPlugin:willUnmount()
 		end
 		if self.generalServiceController then
 			self.generalServiceController:destroy()
+		end
+	end
+	if getFFlagMaterialManagerMaterialAsTool() then
+		if self.pluginController then
+			self.pluginController:destroy()
 		end
 	end
 end

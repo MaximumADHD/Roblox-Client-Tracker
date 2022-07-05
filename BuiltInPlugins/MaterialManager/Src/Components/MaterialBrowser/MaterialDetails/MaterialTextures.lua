@@ -18,7 +18,8 @@ local TruncatedTextLabel = UI.TruncatedTextLabel
 
 local LabeledTexture = require(Plugin.Src.Components.MaterialBrowser.MaterialDetails.LabeledTexture)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-local SetMaterial = require(Plugin.Src.Actions.SetMaterial)
+
+local getFFlagMaterialManagerEnableTests = require(Plugin.Src.Flags.getFFlagMaterialManagerEnableTests)
 
 export type Props = {
 	LayoutOrder: number?,
@@ -27,7 +28,6 @@ export type Props = {
 
 type _Props = Props & { 
 	Analytics: any,
-	dispatchSetMaterial: (material: _Types.Material) -> (),
 	Localization: any,
 	Material: _Types.Material?,
 	Stylizer: any,
@@ -70,7 +70,11 @@ function MaterialTextures:render()
 	local localization = props.Localization
 	local material = props.Material
 
-	if not material then
+	if getFFlagMaterialManagerEnableTests() then
+		if not material or not material.MaterialVariant then
+			return Roact.createElement(Pane)
+		end
+	elseif not material then
 		return Roact.createElement(Pane)
 	end
 
@@ -129,13 +133,6 @@ return RoactRodux.connect(
 	function(state: MainReducer.State, props: Props)
 		return {
 			Material = props.MockMaterial or state.MaterialBrowserReducer.Material,
-		}
-	end,
-	function(dispatch)
-		return {
-			dispatchSetMaterial = function(material: _Types.Material)
-				dispatch(SetMaterial(material))
-			end,
 		}
 	end
 )(MaterialTextures)

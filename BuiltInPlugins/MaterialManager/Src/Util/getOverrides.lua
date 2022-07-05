@@ -9,6 +9,8 @@ local getMaterialName = require(Constants.getMaterialName)
 local Util = Plugin.Src.Util
 local MapMaterials = require(Util.MapMaterials)
 
+local getFFlagMaterialManagerUtilTests = require(Plugin.Src.Flags.getFFlagMaterialManagerUtilTests)
+
 return function(currentOverride: string, category: _Types.Category, material: Enum.Material): (_Types.Array<string>, number)
 	local materialIndex = 0
 	local materials = {}
@@ -39,9 +41,16 @@ return function(currentOverride: string, category: _Types.Category, material: En
 
 	table.insert(materials, 1, "None")
 
-	if currentOverride == "" then
-		return materials, 1
+	if getFFlagMaterialManagerUtilTests() then
+		if currentOverride == "" or not materialNames[currentOverride] then
+			return materials, 1
+		end
+	else
+		if currentOverride == "" then
+			return materials, 1
+		end
 	end
+
 
 	return materials, materialIndex + 1
 end

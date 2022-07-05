@@ -8,6 +8,7 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
+local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local Players = game:GetService("Players")
 local StarterGui = game:GetService("StarterGui")
 local UserInputService = game:GetService("UserInputService")
@@ -16,10 +17,14 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CaptureMaster = require(RobloxGui.Modules.CaptureMaster)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
+local httpRequest = require(CorePackages.AppTempCommon.Temp.httpRequest)
+local httpImpl = httpRequest(HttpRbxApiService)
 local PermissionsProtocol = require(CorePackages.UniversalApp.Permissions.PermissionsProtocol)
 local Promise = require(CorePackages.Promise)
 
+local GetGameNameAndDescription = require(RobloxGui.Modules.Common.GetGameNameAndDescription)
 local GetFFlagScreenshotHudApi = require(RobloxGui.Modules.Flags.GetFFlagScreenshotHudApi)
+local GetFFlagFixExperienceNameOverlay = require(RobloxGui.Modules.Flags.GetFFlagFixExperienceNameOverlay)
 
 if not GetFFlagScreenshotHudApi() then
 	return
@@ -314,6 +319,16 @@ local FlashOverlayFrame = createFrame({
 
 --[[ Event functions ]]
 --
+
+local function fetchExperienceName()
+	if game.GameId ~= 0 then
+		GetGameNameAndDescription(httpImpl, game.GameId):andThen(function(result)
+			if result.Name then
+				ExperienceNameTextLabel.Text = result.Name
+			end
+		end)
+	end
+end
 
 local function checkOrRequestExternalStoragePermissions()	
 	return PermissionsProtocol.default:checkOrRequestPermissions({
@@ -617,5 +632,8 @@ ScreenshotHud:GetPropertyChangedSignal("CloseButtonPosition"):Connect(function()
 	})
 end)
 
+if GetFFlagFixExperienceNameOverlay() then
+	fetchExperienceName()
+end
 updateGamepadButtons()
 screenshotHudEnabled(ScreenshotHud.Visible)

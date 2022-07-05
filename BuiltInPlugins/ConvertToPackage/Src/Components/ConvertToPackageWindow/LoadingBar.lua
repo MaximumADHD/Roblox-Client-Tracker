@@ -13,7 +13,7 @@
 		number loadingTime - total time it takes to load without waiting for onFinish
 		callback onFinish - provide this callback to signal that loading has finished
 ]]
-
+local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local RunService = game:GetService("RunService")
@@ -21,6 +21,9 @@ local RunService = game:GetService("RunService")
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local UILibrary = require(Packages.UILibrary)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local Util = Plugin.Src.Util
 local Constants = require(Util.Constants)
@@ -29,7 +32,7 @@ local RoundFrame = UILibrary.Component.RoundFrame
 local LOADING_TITLE_HEIGHT = 20
 local LOADING_TITLE_PADDING = 10
 
-local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
+local withTheme = if FFlagUpdateConvertToPackageToDFContextServices then nil else require(Plugin.Src.ContextServices.Theming).withTheme
 
 local LoadingBar = Roact.Component:extend("LoadingBar")
 
@@ -82,7 +85,9 @@ function LoadingBar:willUnmount()
 end
 
 function LoadingBar:render()
-	return withTheme(function(theme)
+	local style = self.props.Stylizer
+
+	local function renderWithContext(theme)
 		local props = self.props
 		local state = self.state
 
@@ -118,7 +123,15 @@ function LoadingBar:render()
 				}),
 			}),
 		})
-	end)
+	end
+
+	return if FFlagUpdateConvertToPackageToDFContextServices then renderWithContext(style) else withTheme(renderWithContext)
+end
+
+if FFlagUpdateConvertToPackageToDFContextServices then
+	LoadingBar = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(LoadingBar)
 end
 
 return LoadingBar

@@ -35,6 +35,8 @@ local TopBar = require(Components.TopBar)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
+local FFlagFixPluginsEnabledViaDockingContextMenu = game:GetFastFlag("FixPluginsEnabledViaDockingContextMenu")
+
 function MainPlugin:init(props)
 	self.state = {
 		enabled = false,
@@ -66,6 +68,12 @@ function MainPlugin:init(props)
 	self.onRestore = function(enabled)
 		self:setState({
 			enabled = enabled,
+		})
+	end
+
+	self.onWidgetEnabledChanged = function(widget)
+		self:setState({
+			enabled = widget.Enabled,
 		})
 	end
 
@@ -135,6 +143,7 @@ function MainPlugin:render()
 			OnClose = self.onClose,
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
+			[Roact.Change.Enabled] = if FFlagFixPluginsEnabledViaDockingContextMenu then self.onWidgetEnabledChanged else nil,
 		}, {
 			TopBar = enabled and Roact.createElement(TopBar),
 			Window = enabled and Roact.createElement(SplitPane, {

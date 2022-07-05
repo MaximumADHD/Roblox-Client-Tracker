@@ -31,7 +31,6 @@ local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagBoneAdornmentSelection = require(Plugin.LuaFlags.GetFFlagBoneAdornmentSelection)
 local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 
-local FFlagFixGetBoneFromBoneNode = game:DefineFastFlag("ACEFixGetBoneFromBoneNode", false)
 local FFlagCheckPart0OfMotor6DExists = game:DefineFastFlag("CheckPart0OfMotor6DExists", false)
 
 
@@ -151,11 +150,7 @@ local function createBoneNode(bone, folder, visualizeBones, boneLinks)
 end
 
 function RigUtils.getBoneFromBoneNode(boneNode)
-	if FFlagFixGetBoneFromBoneNode then
-		return boneNode:gsub("(.*)Node$", "%1")
-	else
-		return boneNode:gsub("Node", "")
-	end
+	return boneNode:gsub("(.*)Node$", "%1")
 end
 
 function RigUtils.updateMicrobones(rig, visualizeBones)
@@ -1943,7 +1938,9 @@ function RigUtils.stepRigAnimation(rig, instance, tck)
 		end
 	end
 
-	animator:StepAnimations(0)
+	if animator then
+		animator:StepAnimations(0)
+	end
 end
 
 function RigUtils.clearPose(rig)

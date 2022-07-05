@@ -40,6 +40,8 @@ export type TextureMap = {
 export type Image = {
 	Image: string,
 	Color: Color3,
+	Position: UDim?,
+	Size: UDim?,
 }
 
 return {}

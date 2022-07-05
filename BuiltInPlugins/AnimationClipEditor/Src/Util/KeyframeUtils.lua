@@ -6,17 +6,13 @@
 local Plugin = script.Parent.Parent.Parent
 local Constants = require(Plugin.Src.Util.Constants)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
-local CFrameUtils = require(Plugin.Src.Util.CFrameUtils)
 
 local Types = require(Plugin.Src.Types)
 
 local TweenService = game:GetService("TweenService")
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local GetFFlagUseCFrameAPI = require(Plugin.LuaFlags.GetFFlagUseCFrameAPI)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-
-local FFlagUseClampedAutoTangents = game:DefineFastFlag("ACEUseClampedAutoTangents", false)
 
 local KeyframeUtils = {}
 
@@ -254,9 +250,7 @@ function KeyframeUtils.getSlope(track, tck, side)
 
 					local fd = .5 * (((nextKeyframe.Value - keyframe.Value) / (nextTick - tck)) +
 									((prevKeyframe.Value - keyframe.Value) / (prevTick - tck)))
-					if FFlagUseClampedAutoTangents then
-						fd *= clamp((keyframe.Value - prevKeyframe.Value) / (nextKeyframe.Value - prevKeyframe.Value))
-					end
+					fd *= clamp((keyframe.Value - prevKeyframe.Value) / (nextKeyframe.Value - prevKeyframe.Value))
 
 					return fd
 				end
@@ -494,11 +488,7 @@ if GetFFlagChannelAnimations() then
 			if rotationTrack.Type == Constants.TRACK_TYPES.EulerAngles then
 				local rotation = rotationTrack and KeyframeUtils.getValue(rotationTrack, tck, defaultEulerAnglesOrder)::Vector3? or Vector3.new()
 				if GetFFlagCurveEditor() then
-					if GetFFlagUseCFrameAPI() then
-						return CFrame.new(position) * CFrame.fromEulerAngles(rotation.X, rotation.Y, rotation.Z, rotationTrack.EulerAnglesOrder or defaultEulerAnglesOrder)
-					else
-						return CFrame.new(position) * CFrameUtils.FromEulerAngles(rotation.X, rotation.Y, rotation.Z, rotationTrack.EulerAnglesOrder or defaultEulerAnglesOrder)
-					end
+					return CFrame.new(position) * CFrame.fromEulerAngles(rotation.X, rotation.Y, rotation.Z, rotationTrack.EulerAnglesOrder or defaultEulerAnglesOrder)
 				else
 					return CFrame.new(position) * CFrame.fromEulerAnglesXYZ(rotation.X, rotation.Y, rotation.Z)
 				end

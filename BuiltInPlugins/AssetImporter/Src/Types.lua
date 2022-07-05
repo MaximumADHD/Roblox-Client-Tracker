@@ -1,7 +1,7 @@
 export type PropDescriptor = {
 	Name: string,
 	Editable: boolean,
-	ShouldHide: (Instance) -> boolean,
+	ShouldHide: (Instance, Instance) -> boolean,
 	Dependencies: {string}?,
 	ValueType: string,
 }

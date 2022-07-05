@@ -12,6 +12,9 @@ local ControlLayoutContainer = require(script.Parent.Parent.ControlLayoutContain
 
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 local TEXT_BOX_HEIGHT = 19
+local HEADER_HEIGHT = 44
+local INNER_FRAME_SIZE = UDim2.fromOffset(500, 350)
+local INNER_FRAME_PADDING_BOTTOM_DEFAULT = 24
 
 local Images = {
 	unequip_item = {
@@ -244,6 +247,11 @@ function moveArea(style, labels)
 	})
 end
 
+function isInnerFrameScrollable(screenSize)
+	local innerFrameBottom = HEADER_HEIGHT + INNER_FRAME_SIZE.Y.Offset + INNER_FRAME_PADDING_BOTTOM_DEFAULT
+	return innerFrameBottom > screenSize.Y
+end
+
 local function TouchControls(props)
 
 	local movementMode = GameSettings.TouchMovementMode
@@ -272,17 +280,18 @@ local function TouchControls(props)
 		})(function(localizedLabels)
 			return Roact.createElement(ControlLayoutContainer, {
 				titleText = titleText,
-				headerHeight = 44,
+				headerHeight = HEADER_HEIGHT,
 				headerContentYCenter = 22,
 			}, {
 				Roact.createElement("ScrollingFrame", {
 					Size = UDim2.new(1, 0, 1, 0),
 					CanvasSize = UDim2.new(1, 0, 1.33, 0),
 					BackgroundTransparency = 1,
+					ScrollingEnabled = isInnerFrameScrollable(props.screenSize),
 					ScrollingDirection = Enum.ScrollingDirection.Y,
 				}, {
 					InnerFrame = Roact.createElement("Frame", {
-						Size = UDim2.fromOffset(500, 350),
+						Size = INNER_FRAME_SIZE,
 						BackgroundTransparency = 1,
 						AnchorPoint = Vector2.new(0.5, 0),
 						Position = UDim2.new(0.5, 0, 0.0, 0),

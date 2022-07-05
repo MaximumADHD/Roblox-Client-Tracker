@@ -39,7 +39,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should will trigger the switch to LandscapeLeft and back to Portrait", function()
+	it("should will trigger the switch to LandscapeRight and back to Portrait", function()
 
 		local playerGUI = {
 			CurrentScreenOrientation = Enum.ScreenOrientation.Portrait,
@@ -70,7 +70,7 @@ return function()
 			store:dispatch(SetMenuOpen(true))
 			store:flush()
 		end)
-		expect(playerGUI.ScreenOrientation).to.equal(Enum.ScreenOrientation.LandscapeLeft)
+		expect(playerGUI.ScreenOrientation).to.equal(Enum.ScreenOrientation.LandscapeRight)
 
 		act(function()
 			store:dispatch(SetMenuOpen(false))
@@ -79,7 +79,7 @@ return function()
 		expect(playerGUI.ScreenOrientation).to.equal(Enum.ScreenOrientation.Portrait)
 
 		-- noop case
-		playerGUI.CurrentScreenOrientation = Enum.ScreenOrientation.LandscapeLeft
+		playerGUI.CurrentScreenOrientation = Enum.ScreenOrientation.LandscapeRight
 		playerGUI.ScreenOrientation = nil
 		act(function()
 			store:dispatch(SetMenuOpen(true))
@@ -93,7 +93,7 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should will trigger the switch to LandscapeLeft and back to Sensor", function()
+	it("should will trigger the switch to LandscapeRight and back to Sensor", function()
 
 		local playerGUI = {
 			CurrentScreenOrientation = Enum.ScreenOrientation.Portrait,
@@ -124,7 +124,7 @@ return function()
 			store:dispatch(SetMenuOpen(true))
 			store:flush()
 		end)
-		expect(playerGUI.ScreenOrientation).to.equal(Enum.ScreenOrientation.LandscapeLeft)
+		expect(playerGUI.ScreenOrientation).to.equal(Enum.ScreenOrientation.LandscapeRight)
 
 		act(function()
 			store:dispatch(SetMenuOpen(false))

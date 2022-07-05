@@ -97,7 +97,6 @@ function InviteToGameAnalytics:onLinkGenerated(linkType: string, linkId: number)
 		linkId = linkId,
 		page = "inGameMenu",
 		subpage = "inviteFriendsPage",
-		target = "mobile",
 	}
 	self:_getEventStream():setRBXEventStream(eventContext, eventName, additionalArgs)
 end
@@ -108,7 +107,6 @@ function InviteToGameAnalytics:onShareButtonClick()
 	local additionalArgs = {
 		page = "inGameMenu",
 		subpage = "inviteFriendsPage",
-		target = "mobile"
 	}
 	self:_getEventStream():setRBXEventStream(eventContext, eventName, additionalArgs)
 end

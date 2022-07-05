@@ -178,6 +178,7 @@ function AssetImporterUI:render()
 			}, {
 				ImportConfiguration = Roact.createElement(ImportConfiguration, {
 					SettingsItem = props.SelectedSettingsItem,
+					AssetImportSession = props.AssetImportSession,
 				}),
 			}),
 		})
@@ -199,6 +200,7 @@ end
 
 local function mapStateToProps(state)
 	return {
+		AssetImportSession = state.assetImportSession,
 		AssetSettings = state.assetSettings,
 		Filename = state.filename,
 		InstanceMap = state.instanceMap,

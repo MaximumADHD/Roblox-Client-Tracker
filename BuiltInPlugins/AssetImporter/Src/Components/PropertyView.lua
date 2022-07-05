@@ -26,6 +26,8 @@ local StringProperty = require(Properties.StringProperty)
 local PathProperty = require(Properties.PathProperty)
 local VectorProperty = require(Properties.VectorProperty)
 
+local getFFlagUseAssetImportSession = require(Plugin.Src.Flags.getFFlagUseAssetImportSession)
+
 local SetInstanceMap = require(Plugin.Src.Actions.SetInstanceMap)
 
 local ELEMENT_CLASSES = {
@@ -72,7 +74,12 @@ end
 
 function PropertyView:init()
 	self.updateInstanceMap = function()
-		local instanceMap = AssetImportService:GetCurrentImportMap()
+		local instanceMap
+		if getFFlagUseAssetImportSession() then
+			instanceMap = self.props.AssetImportSession:GetCurrentImportMap()
+		else
+			instanceMap = AssetImportService:GetCurrentImportMap()
+		end
 		self.props.SetInstanceMap(instanceMap)
 	end
 	self.onToggleItem = function()
@@ -182,7 +189,9 @@ PropertyView = withContext({
 })(PropertyView)
 
 local function mapStateToProps(state)
-	return {}
+	return {
+		AssetImportSession = state.assetImportSession,
+	}
 end
 
 local function mapDispatchToProps(dispatch)

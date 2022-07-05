@@ -26,6 +26,9 @@ local GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix = require(
 local GetFFlagUIBloxEnableStandardButtonSizes = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableStandardButtonSizes
 )
+local GetFFlagUIBloxSliderUpdateOnDismiss = require(
+	CorePackages.UIBloxFlags.GetFFlagUIBloxSliderUpdateOnDismiss
+)
 
 return {
 	useNewUICornerRoundedCorners = GetFFlagLuaAppUseNewUIBloxRoundedCorners(),
@@ -50,4 +53,6 @@ return {
 	enableNewIconSizes = game:DefineFastFlag("UIBloxUseNewIconSizes", false),
 	enableGenericButtonHoverBackgroundFix = GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix(),
 	enableStandardButtonSizes = GetFFlagUIBloxEnableStandardButtonSizes(),
+
+	sliderUpdateOnDismiss = GetFFlagUIBloxSliderUpdateOnDismiss()
 }

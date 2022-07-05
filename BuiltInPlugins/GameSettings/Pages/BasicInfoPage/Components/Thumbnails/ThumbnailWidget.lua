@@ -30,7 +30,11 @@ local Cryo = require(Plugin.Packages.Cryo)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Framework = require(Plugin.Packages.Framework)
 
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryBulletPoint = SharedFlags.getFFlagRemoveUILibraryBulletPoint()
+
 local UI = Framework.UI
+local BulletList = UI.BulletList
 local Pane = UI.Pane
 
 local ContextServices = Framework.ContextServices
@@ -40,7 +44,11 @@ local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 local ThumbnailSet = require(Page.Components.Thumbnails.ThumbnailSet)
 local DragGhostThumbnail = require(Page.Components.Thumbnails.DragGhostThumbnail)
-local BulletPoint = UILibrary.Component.BulletPoint
+
+local BulletPoint
+if not FFlagRemoveUILibraryBulletPoint then
+    BulletPoint = UILibrary.Component.BulletPoint
+end
 
 local FitToContent
 
@@ -55,7 +63,6 @@ end
 local getSocialMediaReferencesAllowed = require(Plugin.Src.Util.GameSettingsUtilities).getSocialMediaReferencesAllowed
 
 local ThumbnailWidget = Roact.PureComponent:extend("ThumbnailWidget")
-
 
 function ThumbnailWidget:init()
 	self.frameRef = Roact.createRef()
@@ -162,31 +169,27 @@ function ThumbnailWidget:render()
 	else
 		countTextColor = theme.thumbnail.count
 	end
-
-	local children = {
-		-- Placed in a folder to prevent this component from being part
-		-- of the LayoutOrder. This component is a drag area that is the size
-		-- of the entire component.
-		DragFolder = Roact.createElement("Folder", {}, {
-			DragGhost = Roact.createElement(DragGhostThumbnail, {
-				Enabled = active and dragging,
-				Image = dragImageId,
-				StopDragging = self.stopDragging,
-			}),
-		}),
-
-		Title = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-			LayoutOrder = 0,
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-			Size = UDim2.new(1, 0, 0, 16),
-
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextYAlignment = Enum.TextYAlignment.Top,
-			Text = localization:getText("General", "TitleThumbnails"),
-		})),
-
-		Notes = Roact.createElement("Frame", {
+	
+	local notes
+	
+	if FFlagRemoveUILibraryBulletPoint then
+        notes = Roact.createElement(BulletList, {
+            TextTruncate = Enum.TextTruncate.AtEnd,
+            Items = {
+				if getSocialMediaReferencesAllowed() then localization:getText("General", "ThumbnailsLimit", {
+					maxThumbnails = DEPRECATED_Constants.MAX_THUMBNAILS,
+				})
+				else localization:getText("General", "ThumbnailsLimitLuobu", {
+					maxThumbnails = DEPRECATED_Constants.MAX_THUMBNAILS,
+				}),
+				localization:getText("General", "ThumbnailsHint", {
+					fileTypes = table.concat(DEPRECATED_Constants.IMAGE_TYPES, ", "),
+				}),
+				localization:getText("General", "ThumbnailsModeration"),
+			}
+        })
+    else
+		notes = Roact.createElement("Frame", {
 			LayoutOrder = 1,
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 0, 72),
@@ -215,7 +218,33 @@ function ThumbnailWidget:render()
 				LayoutOrder = 3,
 				Text = localization:getText("General", "ThumbnailsModeration"),
 			}),
+		})
+	end
+
+	local children = {
+		-- Placed in a folder to prevent this component from being part
+		-- of the LayoutOrder. This component is a drag area that is the size
+		-- of the entire component.
+		DragFolder = Roact.createElement("Folder", {}, {
+			DragGhost = Roact.createElement(DragGhostThumbnail, {
+				Enabled = active and dragging,
+				Image = dragImageId,
+				StopDragging = self.stopDragging,
+			}),
 		}),
+
+		Title = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
+			LayoutOrder = 0,
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			Size = UDim2.new(1, 0, 0, 16),
+
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Top,
+			Text = localization:getText("General", "TitleThumbnails"),
+		})),
+
+		Notes = notes,
 
 		Thumbnails = Roact.createElement(ThumbnailSet, {
 			LayoutOrder = 2,

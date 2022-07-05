@@ -149,7 +149,7 @@ function ReportDialog:renderDropDownMenu()
 	end
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
-		Position = UDim2.new(0, 0, 0, 72),
+		Position = UDim2.fromOffset(0, 72),
 		Size = UDim2.new(1, 0, 0, 48),
 		ZIndex = 10,
 	}, {
@@ -208,8 +208,8 @@ function ReportDialog:renderPlayerContents()
 				maxTextLength = MAX_TEXT_LENGTH,
 				autoFocusOnEnabled = false,
 				PlaceholderText = localized.placeHolderText,
-				Position = UDim2.new(0, 0, 0, 132),
-				Size = UDim2.new(0, 492, 0, TEXTFIELD_HEIGHT),
+				Position = UDim2.fromOffset(0, 132),
+				Size = UDim2.new(1, 0, 1, -132),
 			})
 		})
 	end)
@@ -226,7 +226,7 @@ function ReportDialog:renderPlaceContents()
 		return Roact.createFragment({
 			PlaceInfo = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
-				Position = UDim2.new(0, 0, 0, 24),
+				Position = UDim2.fromOffset(0, 24),
 				Size = UDim2.new(1, 0, 0, 64),
 			}, {
 				GameIcon = Roact.createElement(GameIcon, {
@@ -240,7 +240,7 @@ function ReportDialog:renderPlaceContents()
 					AnchorPoint = Vector2.new(0, 0.5),
 					BackgroundTransparency = 1,
 					Position = UDim2.new(0, 76, 0.5, 0),
-					Size = UDim2.new(0, 416, 0, 40),
+					Size = UDim2.new(1, -76, 0, 40),
 					Text = localized.labelText,
 					TextWrapped = true,
 					TextXAlignment = Enum.TextXAlignment.Left,
@@ -253,8 +253,8 @@ function ReportDialog:renderPlaceContents()
 				maxTextLength = MAX_TEXT_LENGTH,
 				autoFocusOnEnabled = false,
 				PlaceholderText = localized.placeHolderText,
-				Position = UDim2.new(0, 0, 0, 112),
-				Size = UDim2.new(0, 492, 0, 119),
+				Position = UDim2.fromOffset(0, 112),
+				Size = UDim2.new(1, 0, 1, -112),
 			})
 		})
 	end)
@@ -289,10 +289,11 @@ function ReportDialog:render()
 	})(function(localized)
 		return Roact.createElement(ModalDialog, {
 			visible = self.props.isReportDialogOpen,
+			screenSize = self.props.screenSize,
 			titleText = localized.titleText,
 			contents = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 1, 0),
+				Size = UDim2.fromScale(1, 1),
 			}, {
 				Padding = Roact.createElement("UIPadding", {
 					PaddingLeft = UDim.new(0, 24),

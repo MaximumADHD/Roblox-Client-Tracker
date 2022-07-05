@@ -26,8 +26,6 @@ local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAni
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
-local FFlagFixEulerAnglesOrder = game:DefineFastFlag("ACEFixEulerAnglesOrder", false)
-
 local DraggerWrapper = Roact.PureComponent:extend("DraggerWrapper")
 
 function DraggerWrapper:init()
@@ -73,11 +71,7 @@ local function mapDraggerContextToProps(draggerContext, props)
 					rotationType = TrackUtils.getRotationTypeFromName(trackName, props.Tracks) or props.DefaultRotationType
 					if GetFFlagCurveEditor() and rotationType == Constants.TRACK_TYPES.EulerAngles then
 						local track = AnimationData.getTrack(props.AnimationData, "Root", path)
-						if not FFlagFixEulerAnglesOrder then
-							eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track)
-						else
-							eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track) or eulerAnglesOrder
-						end
+						eulerAnglesOrder = TrackUtils.getEulerAnglesOrder(track) or eulerAnglesOrder
 					end
 					-- Change the value of all tracks
 					TrackUtils.traverseValue(Constants.TRACK_TYPES.CFrame, value, function(_trackType, relPath, _value)

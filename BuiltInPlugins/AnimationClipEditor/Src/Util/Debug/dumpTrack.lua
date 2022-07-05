@@ -1,8 +1,6 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local Constants = require(Plugin.Src.Util.Constants)
-local CFrameUtils = require(Plugin.Src.Util.CFrameUtils)
-local GetFFlagUseCFrameAPI = require(Plugin.LuaFlags.GetFFlagUseCFrameAPI)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 -- Traverses a track, calling a func on each of its leaf components
@@ -46,11 +44,7 @@ local function getValues(track, timestamp, defaultEAO)
 		local cFrame = KeyframeUtils.getValue(track, timestamp, defaultEAO)
 		local rX, rY, rZ
 		if not GetFFlagCurveEditor() then
-			if GetFFlagUseCFrameAPI() then
-				rX, rY, rZ = cFrame:ToEulerAngles(cFrame, defaultEAO)
-			else
-				rX, rY, rZ = CFrameUtils.ToEulerAngles(cFrame, defaultEAO)
-			end
+			rX, rY, rZ = cFrame:ToEulerAngles(defaultEAO)
 		else
 			rX, rY, rZ = cFrame:ToEulerAnglesXYZ()
 		end

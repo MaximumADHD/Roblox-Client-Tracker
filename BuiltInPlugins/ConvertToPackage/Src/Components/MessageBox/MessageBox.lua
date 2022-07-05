@@ -1,15 +1,17 @@
+local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local UILibrary = require(Packages.UILibrary)
 local Framework = require(Packages.Framework)
+local ContextServices = Framework.ContextServices
+local withContext = if FFlagUpdateConvertToPackageToDFContextServices then ContextServices.withContext else require(Plugin.Src.ContextServices.withContext)
 
 local GetTextSize = Framework.Util.GetTextSize
 
 local Constants = require(Plugin.Src.Util.Constants)
 
-local withContext = require(Plugin.Src.ContextServices.withContext)
 local Dialog = UILibrary.Component.Dialog
 local Button = UILibrary.Component.Button
 
@@ -50,7 +52,9 @@ function MessageBox:willUnmount()
 end
 
 function MessageBox:render()
-	return withContext(function(localization,theme)
+	local style = self.props.Stylizer
+
+	local function renderWithContext(localization, theme)
 		local props = self.props
 
 		local title = props.Title or ""
@@ -273,7 +277,16 @@ function MessageBox:render()
 				}, buttons)
 			})
 		})
-	end)
+	end
+
+	return if FFlagUpdateConvertToPackageToDFContextServices then renderWithContext(self.props.Localization, style) else withContext(renderWithContext)
+end
+
+if FFlagUpdateConvertToPackageToDFContextServices then
+	MessageBox = withContext({
+		Localization = ContextServices.Localization,
+		Stylizer = ContextServices.Stylizer,
+	})(MessageBox)
 end
 
 return MessageBox

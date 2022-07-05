@@ -10,6 +10,8 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 local InGameMenu = script.Parent.Parent.Parent
 local SetQuickActionsTooltip = require(InGameMenu.Actions.SetQuickActionsTooltip)
 local withLocalization = require(InGameMenu.Localization.withLocalization)
+local Constants = require(InGameMenu.Resources.Constants)
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -35,8 +37,15 @@ function MuteAllButton:init()
 		else
 			self.props.setQuickActionsTooltip(self.muteAll or "Mute All")
 		end
+
+		SendAnalytics(
+			Constants.AnalyticsMenuActionName,
+			self.state.allMuted and Constants.AnalyticsUnmuteAll or Constants.AnalyticsMuteAll,
+			{ source = Constants.AnalyticsQuickActionsMenuSource }
+		)
+
 		self:setState({
-			allMuted = not self.state.allMuted
+			allMuted = not self.state.allMuted,
 		})
 	end
 end

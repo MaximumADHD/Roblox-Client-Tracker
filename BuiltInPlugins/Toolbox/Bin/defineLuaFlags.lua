@@ -14,4 +14,8 @@ game:DefineFastFlag("ToolboxHomeViewSingleLaneNoTitle", false)
 
 game:DefineFastFlag("ToolboxFurtherTryInStudioFixes", false)
 
+game:DefineFastFlag("ToolboxFixInstallGroupPlugins", false)
+
+game:DefineFastFlag("ToolboxCreatorMarketplaceWebLinks", false)
+
 return nil

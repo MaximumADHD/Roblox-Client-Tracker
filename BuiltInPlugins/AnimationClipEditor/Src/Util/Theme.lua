@@ -17,6 +17,7 @@ local ui = Style.ComponentSymbols
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 local GetFFlagFaceControlsEditorUXImprovements = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUXImprovements)
+local FFlagChangeRotationXColor = game:DefineFastFlag("ACEChangeRotationXColor", false)
 
 local Dash = Framework.Dash
 local join = Dash.join
@@ -65,7 +66,7 @@ local overridedLightTheme = Cryo.Dictionary.join(LightTheme, {
 	[StyleKey.CurvePositionX] = Color3.fromRGB(255, 0, 0),
 	[StyleKey.CurvePositionY] = Color3.fromRGB(3, 201, 3),
 	[StyleKey.CurvePositionZ] = Color3.fromRGB(0, 0, 255),
-	[StyleKey.CurveRotationX] = Color3.fromRGB(0, 191, 255),
+	[StyleKey.CurveRotationX] = if FFlagChangeRotationXColor then Color3.fromRGB(47, 128, 123) else Color3.fromRGB(0, 191, 255),
 	[StyleKey.CurveRotationY] = Color3.fromRGB(255, 0, 255),
 	[StyleKey.CurveRotationZ] = Color3.fromRGB(255, 165, 0),
 	[StyleKey.CurveEditorButton] = "rbxasset://textures/AnimationEditor/Button_Curve_Lightmode.png",
@@ -115,7 +116,7 @@ local overridedDarkTheme = Cryo.Dictionary.join(DarkTheme, {
 	[StyleKey.CurvePositionX] = Color3.fromRGB(255, 0, 0),
 	[StyleKey.CurvePositionY] = Color3.fromRGB(3, 201, 3),
 	[StyleKey.CurvePositionZ] = Color3.fromRGB(0, 0, 255),
-	[StyleKey.CurveRotationX] = Color3.fromRGB(0, 191, 255),
+	[StyleKey.CurveRotationX] = if FFlagChangeRotationXColor then Color3.fromRGB(47, 128, 123) else Color3.fromRGB(0, 191, 255),
 	[StyleKey.CurveRotationY] = Color3.fromRGB(255, 0, 255),
 	[StyleKey.CurveRotationZ] = Color3.fromRGB(255, 165, 0),
 	[StyleKey.CurveEditorButton] = "rbxasset://textures/AnimationEditor/Button_Curve_Darkmode.png",
@@ -245,7 +246,7 @@ local knobMaxValueStyle = {
 	Size = UDim2.new(0, faceSliderLargeHandleSize, 0, faceSliderLargeHandleSize),
 	[StyleModifier.Disabled] = {
 		Color = StyleKey.Button,
-	},	
+	},
 }
 
 local faceSliderTheme = {
@@ -331,7 +332,7 @@ local faceDragBoxTheme = {
 		[StyleModifier.Disabled] = {
 			Color = StyleKey.Button,
 		},
-	},	
+	},
 	OutlineStyle = {
 		Color = Color3.fromRGB(87, 87, 87),
 	},
@@ -362,7 +363,7 @@ local faceDragBoxMaxValueTheme = {
 		[StyleModifier.Disabled] = {
 			Color = StyleKey.Button,
 		},
-	},	
+	},
 	OutlineStyle = {
 		Color = Color3.fromRGB(87, 87, 87),
 	},
@@ -417,6 +418,14 @@ local buttonTheme = {
 
 	IKActive = {
 		Background = Decoration.RoundBox,
+	},
+
+	FaceControlsEditorActive = {
+		Background = Decoration.RoundBox,
+	},
+
+	FaceControlsEditorDefault = {
+		Background = Decoration.RoundBox,
 	}
 }
 
@@ -428,7 +437,7 @@ local button = join(frameworkButton, {
 	["&ACEHeaderButtonActive"] = join(frameworkButton["&RoundPrimary"], {
 	}),
 })
- 
+
 local eventMarker = {
 	imageColor = StyleKey.EventMarkerImageColor,
 	borderColor = StyleKey.EventMarkerBorderColor,
@@ -686,21 +695,21 @@ local UILibraryOverrides = {
 }
 
 return function(createMock: boolean?)
-	if GetFFlagExtendPluginTheme() then 
+	if GetFFlagExtendPluginTheme() then
 		local baseTheme = if createMock then StudioTheme.mock(overridedDarkTheme, overridedLightTheme) else StudioTheme.new(overridedDarkTheme, overridedLightTheme)
 		local theme = baseTheme:extend(PluginTheme)
 		return theme
-	else 
+	else
 		local styleRoot
 		if createMock then
 			styleRoot = StudioTheme.mock(overridedDarkTheme)
 		else
 			styleRoot = StudioTheme.new(overridedDarkTheme, overridedLightTheme)
 		end
-	
+
 		return styleRoot:extend({
 			PluginTheme = PluginTheme,
 			UILibraryOverrides = UILibraryOverrides,
-		})	
-	end 
+		})
+	end
 end

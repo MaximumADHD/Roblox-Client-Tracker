@@ -48,9 +48,8 @@ local MakePluginActions = require(UtilFolder.MakePluginActions)
 local Constants = require(UtilFolder.Constants)
 local ColumnResizeHelperFunctions = require(UtilFolder.ColumnResizeHelperFunctions)
 
-local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
 local FFlagDevFrameworkTableHeaderTooltip = game:GetFastFlag("DevFrameworkTableHeaderTooltip")
-local hasTableColumnResizeFFlags = FFlagDevFrameworkTableColumnResize
+local FFlagDevFrameworkExpandColumnOnDoubleClickDragbar = game:GetFastFlag("DevFrameworkExpandColumnOnDoubleClickDragbar")
 
 local DisplayTable = Roact.PureComponent:extend("DisplayTable")
 
@@ -207,19 +206,15 @@ function DisplayTable:init()
 	end
 
 	local variableInitialSizes = {}
-	if hasTableColumnResizeFFlags then
-		local numColumns = 4
-		for i = 1, numColumns do
-			table.insert(variableInitialSizes, UDim.new(1 / numColumns, 0))
-		end
+	local numColumns = 4
+	for i = 1, numColumns do
+		table.insert(variableInitialSizes, UDim.new(1 / numColumns, 0))
 	end
 
 	local myWatchInitialSizes = {}
-	if hasTableColumnResizeFFlags then
-		local numColumns = 3
-		for i = 1, numColumns do
-			table.insert(myWatchInitialSizes, UDim.new(1 / numColumns, 0))
-		end
+	local numWatchColumns = 3
+	for i = 1, numWatchColumns do
+		table.insert(myWatchInitialSizes, UDim.new(1 / numColumns, 0))
 	end
 
 	self.state = {
@@ -228,22 +223,20 @@ function DisplayTable:init()
 	}
 
 	self.OnColumnSizesChange = function(newSizes: { UDim })
-		if hasTableColumnResizeFFlags then
-			local props = self.props
-			local isVariablesTab = props.SelectedTab == TableTab.Variables
-			if isVariablesTab then
-				self:setState(function(state)
-					return {
-						VariableColumnSizes = newSizes,
-					}
-				end)
-			else
-				self:setState(function(state)
-					return {
-						MyWatchColumnSizes = newSizes,
-					}
-				end)
-			end
+		local props = self.props
+		local isVariablesTab = props.SelectedTab == TableTab.Variables
+		if isVariablesTab then
+			self:setState(function(state)
+				return {
+					VariableColumnSizes = newSizes,
+				}
+			end)
+		else
+			self:setState(function(state)
+				return {
+					MyWatchColumnSizes = newSizes,
+				}
+			end)
 		end
 	end
 
@@ -439,26 +432,23 @@ function DisplayTable:render()
 	local isVariablesTab = props.SelectedTab == TableTab.Variables
 
 	local tableColumns = (isVariablesTab and self.getVariableTableColumns() or self.getWatchTableColumns())
-
-	if hasTableColumnResizeFFlags then
-		tableColumns = map(tableColumns, function(column, index: number)
-			if isVariablesTab then
-				return join(column, {
-					Width = self.state.VariableColumnSizes[index],
-				})
-			else
-				return join(column, {
-					Width = self.state.MyWatchColumnSizes[index],
-				})
-			end
-		end)
-	end
+	local tableColumnsWithWidths = map(tableColumns, function(column, index: number)
+		if isVariablesTab then
+			return join(column, {
+				Width = self.state.VariableColumnSizes[index],
+			})
+		else
+			return join(column, {
+				Width = self.state.MyWatchColumnSizes[index],
+			})
+		end
+	end)
 
 	local textInputCols = not isVariablesTab and { [1] = true } or nil
 	return Roact.createElement(TreeTable, {
 		Scroll = true,
 		Size = UDim2.fromScale(1, 1),
-		Columns = tableColumns,
+		Columns = tableColumnsWithWidths,
 		RootItems = props.RootItems,
 		Stylizer = style,
 		OnExpansionChange = self.onExpansionChange,
@@ -473,12 +463,13 @@ function DisplayTable:render()
 		SortOrder = props.SortOrder,
 		OnSortChange = self.OnSortChange,
 		SortChildren = self.childSort,
-		OnColumnSizesChange = if hasTableColumnResizeFFlags then self.OnColumnSizesChange else nil,
-		UseDeficit = if hasTableColumnResizeFFlags then false else nil,
-		UseScale = if hasTableColumnResizeFFlags then true else nil,
-		ClampSize = if hasTableColumnResizeFFlags then true else nil,
+		OnColumnSizesChange = self.OnColumnSizesChange,
+		UseDeficit = false,
+		UseScale = true,
+		ClampSize = true,
 		ColumnHeaderHeight = Constants.COLUMN_HEADER_HEIGHT,
 		RowHeight = Constants.ROW_HEIGHT,
+		ExpandOnDoubleClick = if FFlagDevFrameworkExpandColumnOnDoubleClickDragbar then true else nil,
 	})
 end
 

@@ -20,17 +20,26 @@ local ClearMaterialVariant = require(Actions.ClearMaterialVariant)
 local defaultMaterialVariant = {
 	name = "Default Material Variant",
 	baseMaterial = Enum.Material.Plastic,
-	colorMap = "rbxassetid://8706345277",
-	metalnessMap = "rbxassetid://8207243574",
-	normalMap = "rbxassetid://8706416568",
-	roughnessMap = "rbxassetid://8706417425",
+	colorMap = {
+		assetId = "rbxassetid://8706345277"
+	},
+	metalnessMap = {
+		assetId = "rbxassetid://8207243574"
+	},
+	normalMap = {
+		assetId = "rbxassetid://8706416568"
+	},
+	roughnessMap = {
+		assetId = "rbxassetid://8706417425"
+	},
 }
 
 return function()
 	it("should return its expected default state", function()
 		local r = Rodux.Store.new(MaterialPromptReducer, nil, nil, nil)
 		expect(r:getState()).to.be.ok()
-		expect(r:getState().DefaultStateObject).to.equal("")
+		expect(r:getState().StudsPerTile).to.equal(10)
+		expect(r:getState().MaterialPattern).to.equal(Enum.MaterialPattern.Regular)
 	end)
 
 	describe("SetName", function()
@@ -38,8 +47,8 @@ return function()
 			local state = MaterialPromptReducer(nil, SetName(defaultMaterialVariant.name))
 
 			expect(state).to.be.ok()
-			expect(state.name).to.be.ok()
-			expect(state.name).to.equal(defaultMaterialVariant.name)
+			expect(state.Name).to.be.ok()
+			expect(state.Name).to.equal(defaultMaterialVariant.name)
 		end)
 
 		it("should preserve immutability", function()
@@ -53,8 +62,8 @@ return function()
 			local state = MaterialPromptReducer(nil, SetBaseMaterial(defaultMaterialVariant.baseMaterial))
 
 			expect(state).to.be.ok()
-			expect(state.baseMaterial).to.be.ok()
-			expect(state.baseMaterial).to.equal(defaultMaterialVariant.baseMaterial)
+			expect(state.BaseMaterial).to.be.ok()
+			expect(state.BaseMaterial).to.equal(defaultMaterialVariant.baseMaterial)
 		end)
 
 		it("should preserve immutability", function()
@@ -68,8 +77,8 @@ return function()
 			local state = MaterialPromptReducer(nil, SetColorMap(defaultMaterialVariant.colorMap))
 
 			expect(state).to.be.ok()
-			expect(state.colorMap).to.be.ok()
-			expect(state.colorMap).to.equal(defaultMaterialVariant.colorMap)
+			expect(state.ColorMap).to.be.ok()
+			expect(state.ColorMap).to.equal(defaultMaterialVariant.colorMap)
 		end)
 
 		it("should preserve immutability", function()
@@ -83,8 +92,8 @@ return function()
 			local state = MaterialPromptReducer(nil, SetNormalMap(defaultMaterialVariant.normalMap))
 
 			expect(state).to.be.ok()
-			expect(state.normalMap).to.be.ok()
-			expect(state.normalMap).to.equal(defaultMaterialVariant.normalMap)
+			expect(state.NormalMap).to.be.ok()
+			expect(state.NormalMap).to.equal(defaultMaterialVariant.normalMap)
 		end)
 
 		it("should preserve immutability", function()
@@ -98,8 +107,8 @@ return function()
 			local state = MaterialPromptReducer(nil, SetMetalnessMap(defaultMaterialVariant.metalnessMap))
 
 			expect(state).to.be.ok()
-			expect(state.metalnessMap).to.be.ok()
-			expect(state.metalnessMap).to.equal(defaultMaterialVariant.metalnessMap)
+			expect(state.MetalnessMap).to.be.ok()
+			expect(state.MetalnessMap).to.equal(defaultMaterialVariant.metalnessMap)
 		end)
 
 		it("should preserve immutability", function()
@@ -113,8 +122,8 @@ return function()
 			local state = MaterialPromptReducer(nil, SetRoughnessMap(defaultMaterialVariant.roughnessMap))
 
 			expect(state).to.be.ok()
-			expect(state.roughnessMap).to.be.ok()
-			expect(state.roughnessMap).to.equal(defaultMaterialVariant.roughnessMap)
+			expect(state.RoughnessMap).to.be.ok()
+			expect(state.RoughnessMap).to.equal(defaultMaterialVariant.roughnessMap)
 		end)
 
 		it("should preserve immutability", function()
@@ -127,12 +136,12 @@ return function()
 		it("should set the normal map for Material Variant", function()
 			local state = MaterialPromptReducer(nil, ClearMaterialVariant())
 
-			expect(state.name).to.equal(nil)
-			expect(state.baseMaterial).to.equal(nil)
-			expect(state.colorMap).to.equal(nil)
-			expect(state.normalMap).to.equal(nil)
-			expect(state.metalnessMap).to.equal(nil)
-			expect(state.roughnessMap).to.equal(nil)
+			expect(state.Name).to.equal(nil)
+			expect(state.BaseMaterial).to.equal(nil)
+			expect(state.ColorMap).to.equal(nil)
+			expect(state.NormalMap).to.equal(nil)
+			expect(state.MetalnessMap).to.equal(nil)
+			expect(state.RoughnessMap).to.equal(nil)
 		end)
 	end)
 end

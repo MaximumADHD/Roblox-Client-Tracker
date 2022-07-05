@@ -51,10 +51,8 @@ local Constants = require(PluginFolder.Src.Util.Constants)
 
 local StudioService = game:GetService("StudioService")
 
-local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
 local FFlagDevFrameworkTableHeaderTooltip = game:GetFastFlag("DevFrameworkTableHeaderTooltip")
-local hasTableColumnResizeFFlags = FFlagDevFrameworkTableColumnResize
-
+local FFlagDevFrameworkExpandColumnOnDoubleClickDragbar = game:GetFastFlag("DevFrameworkExpandColumnOnDoubleClickDragbar")
 local FFlagDebuggerOnlyLoadCurrentFrameVariables = require(PluginFolder.Src.Flags.GetFFlagDebuggerOnlyLoadCurrentFrameVariables)
 
 local defaultColumnKey = {
@@ -169,11 +167,9 @@ end
 -- CallstackComponent
 function CallstackComponent:init()
 	local initialSizes = {}
-	if hasTableColumnResizeFFlags then
-		local numColumns = #defaultColumnKey + #self.props.ColumnFilter
-		for i = 1, numColumns do
-			table.insert(initialSizes, UDim.new(1 / numColumns, 0))
-		end
+	local numColumns = #defaultColumnKey + #self.props.ColumnFilter
+	for i = 1, numColumns do
+		table.insert(initialSizes, UDim.new(1 / numColumns, 0))
 	end
 
 	self.state = {
@@ -183,13 +179,11 @@ function CallstackComponent:init()
 	}
 
 	self.OnColumnSizesChange = function(newSizes: { UDim })
-		if hasTableColumnResizeFFlags then
-			self:setState(function(state)
-				return {
-					sizes = newSizes,
-				}
-			end)
-		end
+		self:setState(function(state)
+			return {
+				sizes = newSizes,
+			}
+		end)
 	end
 
 	self.getTreeChildren = function(item)
@@ -445,7 +439,7 @@ function CallstackComponent:render()
 		},
 	}
 
-	for _, v in pairs(visibleColumns) do
+	for _, v in ipairs(visibleColumns) do
 		local currCol = {
 			Name = localization:getText("Callstack", v),
 			Key = columnNameToKey[v],
@@ -454,14 +448,12 @@ function CallstackComponent:render()
 		table.insert(tableColumns, currCol)
 	end
 
-	if hasTableColumnResizeFFlags then
-		local widthsToUse = self.state.sizes
-		tableColumns = map(tableColumns, function(column, index: number)
-			return join(column, {
-				Width = widthsToUse[index],
-			})
-		end)
-	end
+	local widthsToUse = self.state.sizes
+	local tableColumnsWithWidths = map(tableColumns, function(column, index: number)
+		return join(column, {
+			Width = widthsToUse[index],
+		})
+	end)
 
 	local topBarHeight = Constants.HEADER_HEIGHT + Constants.BUTTON_PADDING * 2
 
@@ -535,7 +527,7 @@ function CallstackComponent:render()
 			TableView = Roact.createElement(TreeTable, {
 				Scroll = true,
 				Size = UDim2.fromScale(1, 1),
-				Columns = tableColumns,
+				Columns = tableColumnsWithWidths,
 				RootItems = props.RootItems,
 				Stylizer = style,
 				Expansion = props.ExpansionTable,
@@ -546,13 +538,14 @@ function CallstackComponent:render()
 				OnExpansionChange = self.onExpansionChange,
 				FullSpan = true,
 				HighlightedRows = self.state.selectedRows,
-				OnColumnSizesChange = if hasTableColumnResizeFFlags then self.OnColumnSizesChange else nil,
-				UseDeficit = if hasTableColumnResizeFFlags then false else nil,
-				UseScale = if hasTableColumnResizeFFlags then true else nil,
-				ClampSize = if hasTableColumnResizeFFlags then true else nil,
+				OnColumnSizesChange = self.OnColumnSizesChange,
+				UseDeficit = false,
+				UseScale = true,
+				ClampSize = true,
 				Padding = TABLE_PADDING,
 				ColumnHeaderHeight = Constants.COLUMN_HEADER_HEIGHT,
 				RowHeight = Constants.ROW_HEIGHT,
+				ExpandOnDoubleClick = if FFlagDevFrameworkExpandColumnOnDoubleClickDragbar then true else nil,
 			}),
 		}),
 	})

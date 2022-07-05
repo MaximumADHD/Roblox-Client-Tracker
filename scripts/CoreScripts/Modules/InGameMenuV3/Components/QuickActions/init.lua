@@ -1,7 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
 local RunService = game:GetService("RunService")
-local Players = game:GetService("Players")
-
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -21,13 +19,6 @@ local FFlagEnableInGameMenuQAScreenshot = game:DefineFastFlag("EnableInGameMenuQ
 
 local QuickActions = Roact.PureComponent:extend("QuickActions")
 
--- Wait for LocalPlayer to exist
-local localPlayer = Players.LocalPlayer
-if not localPlayer then
-	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
-	localPlayer = Players.LocalPlayer
-end
-local touchControlGui = nil
 local RobloxGuiDisplayOrderDefault = 0 -- default as 0
 
 local CONTROL_WIDTH = 60
@@ -37,6 +28,7 @@ local TOOLTIP_HEIGHT = 36
 local FPS = 30
 
 QuickActions.validateProps = t.strictInterface({
+	respawnEnabled = t.boolean,
 	visible = t.boolean,
 	voiceEnabled = t.boolean,
 })
@@ -50,7 +42,7 @@ local function isBetweenFrames(dTime, startFrame, endFrame)
 	return dTime >= (startFrame/FPS) and dTime <= (endFrame/FPS)
 end
 
-local buttonCount = 2 -- default: Respawn, Report
+local buttonCount = 1 -- default: Report
 local frameFinalTransparency = 0.2 -- default: style.Theme.UIMuted
 
 local function showAnimation(timeElapsed, updateBindings, reverse, stopCallback)
@@ -166,13 +158,11 @@ function QuickActions:init()
 	if FFlagEnableInGameMenuQAScreenshot then
 		buttonCount = buttonCount + 1
 	end
+	if self.props.respawnEnabled then
+		buttonCount = buttonCount + 1
+	end
 	if self.props.voiceEnabled then
 		buttonCount = buttonCount + 2
-	end
-
-	local touchScreenGui = localPlayer.PlayerGui:FindFirstChild("TouchGui")
-	if touchScreenGui then
-		touchControlGui = touchScreenGui:FindFirstChild("TouchControlFrame")
 	end
 end
 
@@ -229,6 +219,7 @@ function QuickActions:render()
 				Menu = Roact.createElement(QuickActionsMenu, {
 					layoutOrder = 2,
 					voiceEnabled = self.props.voiceEnabled,
+					respawnEnabled = self.props.respawnEnabled,
 					screenshotEnabled = FFlagEnableInGameMenuQAScreenshot,
 					transparencies = transparencies,
 				}),
@@ -238,21 +229,14 @@ function QuickActions:render()
 end
 
 function QuickActions:didUpdate(prevProps, _)
-	-- RobloxGui's displayOrder is under InGameMenu, bring it up to show above InGameMenu.
-	-- Hide TouchFrame when InGameMenu opens
-	if self.props.visible == true then
+	if self.props.visible then
 		self:setState({
 			frameVisible = true
 		})
-		if touchControlGui then
-			touchControlGui.Visible = false
-		end
+		-- RobloxGui's displayOrder is under InGameMenu, bring it up to show above InGameMenu.
 		RobloxGuiDisplayOrderDefault = RobloxGui.DisplayOrder
 		RobloxGui.DisplayOrder = Constants.DisplayOrder.RobloxGui
 	else
-		if touchControlGui then
-			touchControlGui.Visible = true
-		end
 		RobloxGui.DisplayOrder = RobloxGuiDisplayOrderDefault
 	end
 	if prevProps.visible ~= self.props.visible then
@@ -297,6 +281,7 @@ local function mapStateToProps(state, _)
 		voiceEnabled = state.voiceState.voiceEnabled or false
 	end
 	return {
+		respawnEnabled = state.respawn.enabled,
 		visible = state.isMenuOpen,
 		voiceEnabled = voiceEnabled,
 	}

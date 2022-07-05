@@ -9,11 +9,6 @@ local Workspace = game:GetService("Workspace")
 local Plugin = script.Parent.Parent.Parent
 local FLAGS_FOLDER = Plugin.Name .. "Flags"
 
-local inStudio, hasInternalPermission = pcall(function()
-	-- Currently not available in CLI
-	return game:GetService("StudioService"):HasInternalPermission()
-end)
-
 local function defineFlag(flagName, default: boolean?)
 	default = default or false
 	return function()
@@ -30,6 +25,4 @@ DebugFlags.RunningUnderCLI = defineFlag("RunningUnderCLI")
 DebugFlags.RunTests = defineFlag("RunTests", false)
 DebugFlags.LogTestsQuiet = defineFlag("LogTestsQuiet")
 DebugFlags.LogAnalytics = defineFlag("LogAnalytics")
-DebugFlags.RunDeveloperFrameworkTests = defineFlag("RunDeveloperFrameworkTests")
-DebugFlags.EnableRoactConfigs = defineFlag("EnableRoactConfigs", inStudio and hasInternalPermission)
 return DebugFlags

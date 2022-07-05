@@ -16,8 +16,7 @@ local Image = UI.Decoration.Image
 local Pane = UI.Pane
 local Tooltip = UI.Tooltip
 
-local Util = Plugin.Src.Util
-local MaterialController = require(Util.MaterialController)
+local MaterialController = require(Plugin.Src.Controllers.MaterialController)
 
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)

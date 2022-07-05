@@ -5,8 +5,8 @@ local AssetManagerReducer = require(Plugin.Src.Reducers.AssetManagerReducer)
 local Screen = require(Plugin.Src.Reducers.Screen)
 
 local MainReducer = Rodux.combineReducers({
-    AssetManagerReducer = AssetManagerReducer,
-    Screen = Screen,
+	AssetManagerReducer = AssetManagerReducer,
+	Screen = Screen,
 })
 
 return MainReducer

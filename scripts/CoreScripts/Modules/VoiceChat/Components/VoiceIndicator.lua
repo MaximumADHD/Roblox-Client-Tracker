@@ -19,6 +19,8 @@ local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local log = require(RobloxGui.Modules.InGameChat.BubbleChat.Logger)(script.Name)
 
 local Roact = require(CorePackages.Packages.Roact)
+local ReactIs = require(CorePackages.Packages.ReactIs)
+
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 
@@ -40,6 +42,7 @@ VoiceIndicator.validateProps = t.strictInterface({
 		t.literal("SpeakerDark"),
 		t.literal("SpeakerLight")
 	)),
+	iconTransparency = t.optional(t.union(t.number, t.table)),
 
 	-- RoactRodux
 	voiceState = t.string,
@@ -103,14 +106,28 @@ function VoiceIndicator:renderWithSelectionCursor(getSelectionCursor)
 		and (not self.props.voiceState or userIsHiddenOrErrored) then
 		return nil
 	end
+
+	local imageTransparency = (self.props.voiceState == Constants.VOICE_STATE.LOCAL_MUTED and GetFFlagEnableVoiceChatLocalMuteUI())
+		and 0.5
+		or 0
+
+	if self.props.iconTransparency then
+		local t = imageTransparency
+		if ReactIs.isBinding(self.props.iconTransparency) then
+			imageTransparency = self.props.iconTransparency:map(function(v)
+				return 1 - ((1 - v) * (1 - t))
+			end)
+		else
+			imageTransparency = 1 - ((1 - self.props.iconTransparency) * (1 - t))
+		end
+	end
+
 	return Roact.createElement("ImageButton", {
 		Size = self.props.size or UDim2.fromOffset(28, 28),
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 		Image = self.levelIcon,
-		ImageTransparency = (self.props.voiceState == Constants.VOICE_STATE.LOCAL_MUTED and GetFFlagEnableVoiceChatLocalMuteUI())
-			and 0.5
-			or 0,
+		ImageTransparency = imageTransparency,
 		SelectionImageObject = getSelectionCursor(CursorKind.RoundedRectNoInset),
 		[Roact.Event.Activated] = self.props.onClicked,
 	})

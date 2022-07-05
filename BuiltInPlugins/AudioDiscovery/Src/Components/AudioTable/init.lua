@@ -33,10 +33,6 @@
 		table CellProps: A table of props which are passed from the table's props to the CellComponent.
 		number ScrollFocusIndex: An optional row index for the infinite scroller to focus upon rendering.
 ]]
-local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
-
-local hasTableColumnResizeFFlags = FFlagDevFrameworkTableColumnResize
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
@@ -143,7 +139,7 @@ function AudioTable:willUpdate(nextProps)
 	if props.Rows ~= nextProps.Rows then
 		self:calculateRowIndices(nextProps.Rows)
 	end
-	if hasTableColumnResizeFFlags and props.Columns ~= nextProps.Columns then
+	if props.Columns ~= nextProps.Columns then
 		local changedColumnCount = #props.Columns ~= #nextProps.Columns
 		local changedColumnWidth = some(props.Columns, function(column, index: number)
 			local nextColumn = nextProps.Columns[index]
@@ -216,7 +212,7 @@ end
 
 function AudioTable:renderHeadings()
 	local props = self.props
-	if hasTableColumnResizeFFlags and props.OnColumnSizesChange then
+	if props.OnColumnSizesChange then
 		return self:renderResizableHeadings()
 	else
 		return self:renderFixedHeadings()
@@ -277,7 +273,7 @@ function AudioTable:render()
 		BorderSizePixel = 1,
 	}, headings)
 
-	local useVariableWidth = hasTableColumnResizeFFlags and props.OnColumnSizesChange and not props.UseScale and not props.ClampSize
+	local useVariableWidth = props.OnColumnSizesChange and not props.UseScale and not props.ClampSize
 	local width = 0
 
 	local size = UDim2.new(1, 0, 1, -(headerHeight + footerHeight))
@@ -293,7 +289,7 @@ function AudioTable:render()
 
 	local list = Roact.createElement(Pane, {
 		VerticalAlignment = Enum.VerticalAlignment.Top,
-		HorizontalAlignment = hasTableColumnResizeFFlags and Enum.HorizontalAlignment.Left or nil,
+		HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		Layout = Enum.FillDirection.Vertical,
 		Padding = 2,
 		LayoutOrder = 2,

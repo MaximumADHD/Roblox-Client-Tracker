@@ -15,6 +15,9 @@ local FFlagFixThumbnailTileInconsistency = require(CorePackages.UIBloxFlags.FFla
 local GetFFlagUIBloxEnableRadioButtonGamepadSupport = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableRadioButtonGamepadSupport
 )
+local GetFFlagUIBloxSliderUpdateOnDismiss = require(
+	CorePackages.UIBloxFlags.GetFFlagUIBloxSliderUpdateOnDismiss
+)
 
 local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 
@@ -34,4 +37,6 @@ return {
 
 	useNewVerticalScrollView = false, -- TODO: https://jira.rbx.com/browse/UIBLOX-225
 	enableRightSideGadgetView = EnableInGameMenuV3(),
+
+	sliderUpdateOnDismiss = GetFFlagUIBloxSliderUpdateOnDismiss()
 }

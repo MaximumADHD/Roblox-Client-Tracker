@@ -1,6 +1,8 @@
 local StudioPublishService = game:GetService("StudioPublishService")
 local FFLagMovePublishToStudioPublishService = game:GetFastFlag("MovePublishToStudioPublishService")
 local FFlagDebugBuiltInPluginModalsNotBlocking = game:GetFastFlag("DebugBuiltInPluginModalsNotBlocking")
+local FFlagAudioPublishWorkflowWithPermissionsCheck = game:GetFastFlag("AudioPublishWorkflowWithPermissionsCheck")
+local FFlagAudioPublishWorkflowWithPermissionsCheck2 = game:GetFastFlag("AudioPublishWorkflowWithPermissionsCheck2")
 return function(plugin, pluginLoaderContext)
 	if not plugin then
 		return
@@ -149,6 +151,15 @@ return function(plugin, pluginLoaderContext)
 
 			pluginLoaderContext.signals["StudioService.DEPRECATED_GamePublishFinished"]:Connect(function(success)
 				dataStore:dispatch(SetIsPublishing(false))
+			end)
+		end
+
+		if FFlagAudioPublishWorkflowWithPermissionsCheck then
+			pluginLoaderContext.signals["StudioPublishService.GamePublishCancelled"]:Connect(function()
+				if FFlagAudioPublishWorkflowWithPermissionsCheck2 then
+					StudioPublishService:clearUploadNames()
+				end
+				closePlugin()
 			end)
 		end
 	end

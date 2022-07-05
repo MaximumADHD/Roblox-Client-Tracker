@@ -1,14 +1,9 @@
 --[[
-    The Explorer Overlay contains the TreeView of all the asset folders in Asset Manager.
-    Clicking on any of the folders will bring you to that folder in the Tile View.
+	The Explorer Overlay contains the TreeView of all the asset folders in Asset Manager.
+	Clicking on any of the folders will bring you to that folder in the Tile View.
 
-    Necessary Properties:
-        CloseOverlay = callback, that closes the overlay.
-
-    Dispatch Properties:
-        dispatchSetScreen = callback, sets the screen to the one that was clicked in the folder.
-
-    Optional Properties:
+	Required Props:
+		callback CloseOverlay: that closes the overlay.
 ]]
 local Plugin = script.Parent.Parent.Parent
 
@@ -34,15 +29,15 @@ local SetScreen = require(Plugin.Src.Actions.SetScreen)
 local ExplorerOverlay = Roact.PureComponent:extend("ExplorerOverlay")
 
 function ExplorerOverlay:render()
-    local props = self.props
-    local theme = props.Stylizer
-    local overlayTheme = theme.Overlay
+	local props = self.props
+	local theme = props.Stylizer
+	local overlayTheme = theme.Overlay
 
-    local dispatchSetScreen = props.dispatchSetScreen
-    local closeOverlay = props.CloseOverlay
+	local dispatchSetScreen = props.dispatchSetScreen
+	local closeOverlay = props.CloseOverlay
 
-    local recentViewToggled = props.RecentViewToggled
-    local dispatchSetRecentViewToggled = props.dispatchSetRecentViewToggled
+	local recentViewToggled = props.RecentViewToggled
+	local dispatchSetRecentViewToggled = props.dispatchSetRecentViewToggled
 
 	return Roact.createElement(ShowOnTop, {}, {
 		Background = Roact.createElement(Pane, {
@@ -111,24 +106,24 @@ end
 
 ExplorerOverlay = withContext({
 	Stylizer = ContextServices.Stylizer,
-    Localization = ContextServices.Localization,
+	Localization = ContextServices.Localization,
 })(ExplorerOverlay)
 
 local function mapStateToProps(state, props)
 	return {
-        RecentViewToggled = state.AssetManagerReducer.recentViewToggled,
+		RecentViewToggled = state.AssetManagerReducer.recentViewToggled,
 	}
 end
 
 local function mapDispatchToProps(dispatch)
-    return {
-        dispatchSetRecentViewToggled = function(toggled)
-            dispatch(SetRecentViewToggled(toggled))
-        end,
-        dispatchSetScreen = function(screen)
-            dispatch(SetScreen(screen))
-        end,
-    }
+	return {
+		dispatchSetRecentViewToggled = function(toggled)
+			dispatch(SetRecentViewToggled(toggled))
+		end,
+		dispatchSetScreen = function(screen)
+			dispatch(SetScreen(screen))
+		end,
+	}
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(ExplorerOverlay)

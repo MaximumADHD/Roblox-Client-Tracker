@@ -1,8 +1,6 @@
 --[[
 	For managing cloud localization tables
 ]]
-local FFlagRemoveUILibraryFitContent = game:GetFastFlag("RemoveUILibraryFitContent")
-
 local GuiService = game:GetService("GuiService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -10,6 +8,8 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
+local FFlagRemoveUILibraryFitContent = Framework.SharedFlags.getFFlagRemoveUILibraryFitContent()
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 

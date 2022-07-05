@@ -10,6 +10,7 @@ local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAna
 local FFlagToolboxFixTryInStudio = game:GetFastFlag("ToolboxFixTryInStudio")
 local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
 local FFlagToolboxHomeViewSingleLaneNoTitle = game:GetFastFlag("ToolboxHomeViewSingleLaneNoTitle")
+local FFlagToolboxUseDisplayName = game:GetFastFlag("ToolboxUseDisplayName")
 
 local Libs = Plugin.Packages
 
@@ -296,7 +297,9 @@ function HomeView:init()
 				OnClickSeeAllAssets = onClickSeeAllAssets,
 				OnAssetPreviewButtonClicked = onAssetPreviewButtonClicked,
 				LayoutOrder = i,
-				Title = localization:getText("HomeView", section.name),
+				Title = if FFlagToolboxUseDisplayName
+					then section.displayName
+					else localization:getText("HomeView", section.name),
 				TryInsert = tryInsert,
 				TryOpenAssetConfig = tryOpenAssetConfig,
 				ZIndex = assetSectionCount - i + 1,
@@ -397,7 +400,9 @@ function HomeView:init()
 				Font = sectionHeaderTheme.font,
 				LayoutOrder = orderIterator:getNextOrder(),
 				Size = UDim2.new(1, 0, 0, sectionHeaderTheme.textSize),
-				Text = localization:getText("HomeView", assetSections[assetSectionCount].name),
+				Text = if FFlagToolboxUseDisplayName
+					then assetSections[assetSectionCount].displayName
+					else localization:getText("HomeView", assetSections[assetSectionCount].name),
 				TextColor3 = sectionHeaderTheme.textColor,
 				TextSize = sectionHeaderTheme.textSize,
 				TextXAlignment = Enum.TextXAlignment.Left,

@@ -17,6 +17,7 @@ local StyledDialog = StudioUI.StyledDialog
 local Actions = Plugin.Src.Actions
 local ClearMaterialVariant = require(Actions.ClearMaterialVariant)
 local SetMaterial = require(Actions.SetMaterial)
+local SetMaterialVariant = require(Actions.SetMaterialVariant)
 local SetPath = require(Actions.SetPath)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
@@ -24,16 +25,20 @@ local Constants = Plugin.Src.Resources.Constants
 local getMaterialPath = require(Constants.getMaterialPath)
 local getMaterialName = require(Constants.getMaterialName)
 
-local MaterialController = require(Plugin.Src.Util.MaterialController)
-local MaterialServiceController = require(Plugin.Src.Util.MaterialServiceController)
+local Controllers = Plugin.Src.Controllers
+local ImportAssetHandler = require(Controllers.ImportAssetHandler)
+local MaterialController = require(Controllers.MaterialController)
+local MaterialServiceController = require(Controllers.MaterialServiceController)
 
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
 local getFFlagMaterialManagerGridOverhaul = require(Flags.getFFlagMaterialManagerGridOverhaul)
+local getFFlagMaterialManagerDetailsOverhaul = require(Flags.getFFlagMaterialManagerDetailsOverhaul)
 local getFFlagMaterialManagerRefactorMaterialVariantCreator = require(Flags.getFFlagMaterialManagerRefactorMaterialVariantCreator)
+local getFFlagMaterialManagerUIGlitchFix = require(Flags.getFFlagMaterialManagerUIGlitchFix)
+local getFFlagMaterialManagerStudsPerTileFix = require(Flags.getFFlagMaterialManagerStudsPerTileFix)
 local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
 
-local ImportAssetHandler = require(Plugin.Src.Components.ImportAssetHandler)
 local MaterialVariantCreator = if getFFlagMaterialManagerRefactorMaterialVariantCreator() then require(Plugin.Src.Components.MaterialPrompt.MaterialVariantCreator) else require(Plugin.Src.Components.MaterialPrompt.DEPRECATED_MaterialVariantCreator)
 
 export type Props = {
@@ -49,6 +54,7 @@ export type Props = {
 	MaterialMock: _Types.Material?,
 	Mode: string?,
 	Material: _Types.Material?,
+	Materials: any,
 }
 
 type _Props = Props & {
@@ -60,6 +66,7 @@ type _Props = Props & {
 	MaterialServiceController: any?, -- Not optional with MaterialManagerGridOverhaul
 	dispatchClearMaterialVariant: () -> (),
 	dispatchSetMaterial: (material: _Types.Material) -> (),
+	dispatchSetMaterialVariant: (materialVariant: MaterialVariant) -> (),
 	dispatchSetPath: (path: _Types.Path) -> (), -- Remove with MaterialManagerGridOverhaul
 }
 
@@ -135,10 +142,7 @@ function MaterialPrompt:createTempMaterialVariant()
 			self.materialVariantTemp.Parent = game:GetService("MaterialService")
 
 			if getFFlagMaterialManagerGlassNeonForceField() then
-				if getFFlagMaterialManagerGridOverhaul() then
-					assert(props.MaterialServiceController, "MaterialServiceController is required with FFlagMaterialManagerGridOverhaul")
-					props.MaterialServiceController:setPath(getMaterialPath(self.materialVariant.BaseMaterial))
-				else
+				if not getFFlagMaterialManagerGridOverhaul() then
 					props.dispatchSetPath(getMaterialPath(self.materialVariantTemp.BaseMaterial))
 				end
 			else
@@ -252,7 +256,15 @@ function MaterialPrompt:init()
 		}
 		handleMaps(maps, materialVariant)
 
-		props.dispatchSetMaterial(materialController:getMaterial(materialVariant))
+		if getFFlagMaterialManagerDetailsOverhaul() then
+			if getFFlagMaterialManagerUIGlitchFix() then
+				props.dispatchSetMaterialVariant(materialVariant)
+			else
+				props.dispatchSetMaterial(props.Materials[materialVariant])
+			end
+		else
+			props.dispatchSetMaterial(materialController:getMaterial(materialVariant))
+		end
 		if getFFlagMaterialManagerGlassNeonForceField() then
 			if getFFlagMaterialManagerGridOverhaul() then
 				assert(props.MaterialServiceController, "MaterialServiceController is required with FFlagMaterialManagerGridOverhaul")
@@ -283,11 +295,19 @@ function MaterialPrompt:init()
 			local materialVariant = self.materialVariant
 			materialVariant.Name = self.materialVariantTemp.Name
 			materialVariant.Parent = game:GetService("MaterialService")
+			props.dispatchSetMaterialVariant(materialVariant)
 		end
 
-		self.clearMaterialVariantTemp()
+		if not getFFlagMaterialManagerStudsPerTileFix() then
+			self.clearMaterialVariantTemp()
+		end
 		props.PromptClosed()
-		props.dispatchClearMaterialVariant()
+		if getFFlagMaterialManagerStudsPerTileFix() then
+			self.clearMaterialVariantTemp()
+		end
+		if not getFFlagMaterialManagerUIGlitchFix() then
+			props.dispatchClearMaterialVariant()
+		end
 	end
 
 	self.onButtonPressed = function(key)
@@ -304,7 +324,9 @@ function MaterialPrompt:didMount()
 
 	if props.Mode == "Edit" then
 		local materialController = props.MaterialController
-		props.dispatchSetMaterial(materialController:getMaterial(self.materialVariantTemp))
+		if not getFFlagMaterialManagerDetailsOverhaul() or getFFlagMaterialManagerUIGlitchFix() then
+			props.dispatchSetMaterial(materialController:getMaterial(self.materialVariantTemp))
+		end
 	end
 end
 
@@ -390,6 +412,7 @@ local function mapStateToProps(state: MainReducer.State, props: _Props)
 		StudsPerTile = state.MaterialPromptReducer.StudsPerTile,
 		MaterialPattern = state.MaterialPromptReducer.MaterialPattern,
 		Material = props.MaterialMock or state.MaterialBrowserReducer.Material,
+		Materials = state.MaterialBrowserReducer.Materials,
 		Mode = state.MaterialPromptReducer.Mode,
 	}
 end
@@ -401,6 +424,9 @@ local function mapDispatchToProps(dispatch)
 		end,
 		dispatchSetMaterial = function(material: _Types.Material)
 			dispatch(SetMaterial(material))
+		end,
+		dispatchSetMaterialVariant = function(materialVariant: MaterialVariant)
+			dispatch(SetMaterialVariant(materialVariant))
 		end,
 		dispatchSetPath = function(path)
 			dispatch(SetPath(path))

@@ -2,8 +2,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
-local FrameworkTypes = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Types)
-
 local ContextServices = Framework.ContextServices
 local Localization = ContextServices.Localization
 local withContext = ContextServices.withContext
@@ -15,10 +13,11 @@ local TextLabel = UI.Decoration.TextLabel
 
 local Components = Plugin.Src.Components
 local PreviewToolbarButton = require(Components.PromptSelectorWithPreview.PreviewToolbarButton)
+local LoadingImage = require(Plugin.Src.Components.LoadingImage)
 
 export type Props = {
 	HasSelection: boolean,
-	RenderPreview: () -> FrameworkTypes.RoactElement,
+	ImageId: string,
 	ClearSelection: () -> (),
 	OpenExpandedPreview: () -> (),
 }
@@ -72,10 +71,6 @@ function PreviewImage:render()
 	local state = self.state
 
 	local hasSelection = props.HasSelection
-	local previewRenderResult
-	if hasSelection and props.RenderPreview then
-		previewRenderResult = props.RenderPreview()
-	end
 	local shouldShowToolbar = (hasSelection and state.promptSelectionHovered) and true or false
 
 	return Roact.createElement("ImageLabel", {
@@ -107,7 +102,12 @@ function PreviewImage:render()
 			ZIndex = 2,
 			Size = UDim2.new(1, 0, 1, 0),
 		}, {
-			PreviewContent = previewRenderResult,
+			PreviewContent = Roact.createElement(LoadingImage, {
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 1, 0),
+				Image = props.ImageId,
+				ScaleType = Enum.ScaleType.Fit,
+			}),
 		}),
 
 		Toolbar = Roact.createElement("Frame", {

@@ -25,10 +25,19 @@ local Page = script.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
+
 local Framework = require(Plugin.Packages.Framework)
+local FFlagRemoveUILibraryRoundTextBox = Framework.SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+
+local UI = Framework.UI
+local Button = UI.Button
+local HoverArea = UI.HoverArea
+local Separator = UI.Separator
+local LinkText = UI.LinkText
+local TextInput2 = UI.TextInput2
 
 local Util = Framework.Util
 local deepJoin = Util.deepJoin
@@ -36,15 +45,13 @@ local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
 local GetTextSize = Util.GetTextSize
 local LayoutOrderIterator = Util.LayoutOrderIterator
 
-local FrameworkUI = Framework.UI
-local Button = FrameworkUI.Button
-local HoverArea = FrameworkUI.HoverArea
-local Separator = FrameworkUI.Separator
-local LinkText = FrameworkUI.LinkText
-
 local UILibrary = require(Plugin.Packages.UILibrary)
 local TitledFrame = UILibrary.Component.TitledFrame
-local RoundTextBox = UILibrary.Component.RoundTextBox
+
+local RoundTextBox
+if not FFlagRemoveUILibraryRoundTextBox then
+	RoundTextBox = UILibrary.Component.RoundTextBox
+end
 
 local Header = require(Plugin.Src.Components.Header)
 local ServerFill = require(Page.Components.ServerFill)
@@ -426,17 +433,27 @@ local function displayEditPlacePage(props, localization)
 			LayoutOrder = layoutIndex:getNextOrder(),
 			TextSize = theme.fontStyle.Normal.TextSize,
 		}, {
-			TextBox = Roact.createElement(RoundTextBox, {
-				Active = true,
-				MaxLength = MAX_NAME_LENGTH,
-				ErrorMessage = placeNameError,
-				Text = placeName,
-				TextSize = theme.fontStyle.Normal.TextSize,
-
-				SetText = function(name)
-					dispatchSetPlaceName(places, editPlaceId, name)
-				end,
-			}),
+			TextBox = (if FFlagRemoveUILibraryRoundTextBox then
+				Roact.createElement(TextInput2, {
+					ErrorText = placeNameError,
+					MaxLength = MAX_NAME_LENGTH,
+					OnTextChanged = function(name)
+						dispatchSetPlaceName(places, editPlaceId, name)
+					end,
+					Text = placeName,
+				})
+			else
+				Roact.createElement(RoundTextBox, {
+					Active = true,
+					MaxLength = MAX_NAME_LENGTH,
+					ErrorMessage = placeNameError,
+					Text = placeName,
+					TextSize = theme.fontStyle.Normal.TextSize,
+					SetText = function(name)
+						dispatchSetPlaceName(places, editPlaceId, name)
+					end,
+				})
+			),
 		}),
 
 		MaxPlayers = Roact.createElement(TitledFrame, {
@@ -451,19 +468,31 @@ local function displayEditPlacePage(props, localization)
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
 
-			TextBox = Roact.createElement(RoundTextBox, {
-				Active = true,
-				LayoutOrder = 1,
-				ShowToolTip = placePlayerCountError and true or false,
-				Size = UDim2.new(0, theme.placePage.textBox.length, 0, theme.textBox.height),
-				Text = maxPlayerCount,
-				ErrorMessage = placePlayerCountError,
-				TextSize = theme.fontStyle.Normal.TextSize,
+			TextBox = (if FFlagRemoveUILibraryRoundTextBox then
+				Roact.createElement(TextInput2, {
+					LayoutOrder = 1,
+					Text = maxPlayerCount,
+					ErrorText = placePlayerCountError,
+					OnTextChanged = function(playerCount: number)
+						dispatchSetPlaceMaxPlayerCount(places, editPlaceId, playerCount)
+					end,
+					Width = theme.placePage.textBox.length,
+				})
+			else
+				Roact.createElement(RoundTextBox, {
+					Active = true,
+					LayoutOrder = 1,
+					ShowToolTip = placePlayerCountError and true or false,
+					Size = UDim2.new(0, theme.placePage.textBox.length, 0, theme.textBox.height),
+					Text = maxPlayerCount,
+					ErrorMessage = placePlayerCountError,
+					TextSize = theme.fontStyle.Normal.TextSize,
 
-				SetText = function(playerCount)
-					dispatchSetPlaceMaxPlayerCount(places, editPlaceId, playerCount)
-				end,
-			}),
+					SetText = function(playerCount)
+						dispatchSetPlaceMaxPlayerCount(places, editPlaceId, playerCount)
+					end,
+				})
+			),
 
 			MaxPlayersSubText = not placePlayerCountError and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtext, {
 				Size = UDim2.new(1, 0, 0, maxPlayersSubTextSize.Y),

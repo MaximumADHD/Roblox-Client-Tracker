@@ -21,7 +21,7 @@ local withContext = ContextServices.withContext
 local UI = Framework.UI
 local LoadingIndicator = UI.LoadingIndicator
 
-local ImageLoader = require(Plugin.Src.Components.ImageLoader)
+local ImageLoader = require(Plugin.Src.Controllers.ImageLoader)
 
 export type Props = {
 	BackgroundTransparency: number?,

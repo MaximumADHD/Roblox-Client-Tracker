@@ -10,6 +10,12 @@ local getUserId = require(Plugin.Core.Util.getUserId)
 
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
 local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
+local FFlagToolboxIncludedPlaceIdInConfigRequest = game:GetFastFlag("ToolboxIncludedPlaceIdInConfigRequest")
+
+local getPlaceId
+if FFlagToolboxIncludedPlaceIdInConfigRequest then
+	getPlaceId = require(Plugin.Core.Util.getPlaceId)
+end
 
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
 local function getStudioSessionId()
@@ -32,17 +38,19 @@ local function getPlatformId()
 	return 0
 end
 
-local function getPlaceId()
-	-- while game.PlaceId is normally a safe call, it's possible that the code might be executed by tests
-	-- outside the context of an open place.
-	local placeId = -1
-	local success, result = pcall(function()
-		placeId = game.PlaceId
-	end)
-	if not success and DebugFlags.shouldDebugWarnings() then
-		warn(result)
+if not FFlagToolboxIncludedPlaceIdInConfigRequest then
+	getPlaceId = function()
+		-- while game.PlaceId is normally a safe call, it's possible that the code might be executed by tests
+		-- outside the context of an open place.
+		local placeId = -1
+		local success, result = pcall(function()
+			placeId = game.PlaceId
+		end)
+		if not success and DebugFlags.shouldDebugWarnings() then
+			warn(result)
+		end
+		return placeId
 	end
-	return placeId
 end
 
 local Analytics = {}

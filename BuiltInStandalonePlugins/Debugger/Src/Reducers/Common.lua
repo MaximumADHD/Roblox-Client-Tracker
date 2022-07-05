@@ -2,6 +2,7 @@ local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
+local Constants = require(Plugin.Src.Util.Constants)
 local Actions = Plugin.Src.Actions
 local SetCurrentThreadAction = require(Actions.Callstack.SetCurrentThread)
 local SetCurrentFrameNumberAction = require(Actions.Callstack.SetCurrentFrameNumber)
@@ -39,7 +40,7 @@ type CommonStore = {
 
 local productionStartStore = {
 	debuggerConnectionIdToDST = {},
-	currentDebuggerConnectionId = -1,
+	currentDebuggerConnectionId = Constants.kInvalidDebuggerConnectionId,
 	debuggerConnectionIdToCurrentThreadId = {},
 	currentFrameMap = {},
 	currentBreakpointId = nil,
@@ -90,7 +91,7 @@ return Rodux.createReducer(productionStartStore, {
 		local shouldBePaused = state.isPaused
 		local newFocusedConnectionId = state.currentDebuggerConnectionId
 		if removedConnectionId == state.currentDebuggerConnectionId then
-			newFocusedConnectionId = -1
+			newFocusedConnectionId = Constants.kInvalidDebuggerConnectionId
 			shouldBePaused = false
 		end
 		local newPausedDebuggerConnectionIds = Cryo.Dictionary.join(

@@ -42,8 +42,6 @@ local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAni
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagACEFixTrackOptionsClickPostDeleteKey = require(Plugin.LuaFlags.GetFFlagACEFixTrackOptionsClickPostDeleteKey)
 
-local FFlagUseInternalPermissionForDebugging = game:DefineFastFlag("ACEUseInternalPermissionForDebugging", false)
-
 export type Props = {
 	-- State/Context
 	Analytics: any,
@@ -349,7 +347,7 @@ function TrackActions:render(): (any?)
 	 	menuActions = self:makeMenuActions(topLevelTrack, showEulerConversion)
 	end
 
-	if FFlagUseInternalPermissionForDebugging and self.hasInternalPermission then
+	if self.hasInternalPermission then
 		table.insert(menuActions, {
 			Name = "[INTERNAL] Dump track data",
 			ItemSelected = function()

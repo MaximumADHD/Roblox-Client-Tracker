@@ -14,6 +14,7 @@
 		float WalkSpeed
 		float MaxSlopeAngle - maximum incline angle (in degrees) that the avatar can walk up
 ]]
+
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)

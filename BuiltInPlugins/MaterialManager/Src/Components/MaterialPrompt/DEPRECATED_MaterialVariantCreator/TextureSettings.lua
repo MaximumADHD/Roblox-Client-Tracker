@@ -13,7 +13,7 @@ local Localization = ContextServices.Localization
 local Stylizer = Framework.Style.Stylizer
 
 local LabeledElementList = require(Plugin.Src.Components.DEPRECATED_LabeledElementList)
-local TextureMapSelector = require(Plugin.Src.Components.MaterialPrompt.MaterialVariantCreator.TextureMapSelector)
+local TextureMapSelector = require(Plugin.Src.Components.MaterialPrompt.DEPRECATED_MaterialVariantCreator.TextureMapSelector)
 
 local Actions = Plugin.Src.Actions
 local SetColorMap = require(Actions.SetColorMap)
@@ -121,6 +121,8 @@ function TextureSettings:init()
 		elseif mapType == TextureMaps.MetalnessMap then
 			if (not errorMessage or errorMessage == "") and newState then
 				props.dispatchSetMetalnessMap(newState)
+			else
+				props.dispatchSetMetalnessMap(nil)
 			end
 			self:setState(function(state)
 				return {
@@ -131,6 +133,8 @@ function TextureSettings:init()
 		elseif mapType == TextureMaps.NormalMap then
 			if (not errorMessage or errorMessage == "") and newState then
 				props.dispatchSetNormalMap(newState)
+			else
+				props.dispatchSetNormalMap(nil)
 			end
 			self:setState(function(state)
 				return {
@@ -141,6 +145,8 @@ function TextureSettings:init()
 		elseif mapType == TextureMaps.RoughnessMap then
 			if (not errorMessage or errorMessage == "") and newState then
 				props.dispatchSetRoughnessMap(newState)
+			else
+				props.dispatchSetRoughnessMap(nil)
 			end
 			self:setState(function(state)
 				return {
@@ -253,7 +259,7 @@ function TextureSettings:init()
 				ClearSelection = self.clearNormalMap,
 				PreviewTitle = localization:getText("Import", "NormalMapPreview"),
 				SearchUrl = self.state.urlNormalMap,
-				UrlSelection = self.state.urlSelectNormalMap,
+				UrlSelection = self.urlSelectNormalMap,
 			})
 		elseif key == "ImportRoughnessMap" then
 			return Roact.createElement(TextureMapSelector, {

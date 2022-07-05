@@ -29,6 +29,7 @@ local ReportSentDialog = Roact.PureComponent:extend("ReportSentDialog")
 
 ReportSentDialog.validateProps = t.strictInterface({
 	isReportSentOpen = t.boolean,
+	screenSize = t.Vector2,
 	inputType = t.optional(t.string),
 	reportType = t.optional(t.valueOf(Constants.ReportType)),
 	targetPlayer = t.optional(playerInterface),
@@ -171,6 +172,7 @@ function ReportSentDialog:render()
 		return Roact.createFragment({
 			ModalDialog = Roact.createElement(ModalDialog, {
 				visible = self.props.isReportSentOpen,
+				screenSize = self.props.screenSize,
 				titleText = localized.titleText,
 				contents = self:renderContents(),
 				actionButtons = Roact.createElement(PrimarySystemButton, {
@@ -191,6 +193,7 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 		isReportSentOpen = state.report.isReportSentOpen,
 		reportType = state.report.reportType,
 		targetPlayer = state.report.targetPlayer,
+		screenSize = state.displayOptions.screenSize,
 		--TODO: integrate inputType
 	}
 end, function(dispatch)

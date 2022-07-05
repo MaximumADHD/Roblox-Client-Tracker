@@ -46,6 +46,7 @@ local function ItemSelected(props)
 		}, {
 			PropertyList = Roact.createElement(PropertyListView, {
 				Instance = props.SettingsItem,
+				AssetImportSession = props.AssetImportSession,
 				Localization = localization,
 			}),
 		})
@@ -66,6 +67,7 @@ function ImportConfiguration:render()
 		}),
 		ItemSelected = props.SettingsItem and Roact.createElement(ItemSelected, {
 			SettingsItem = props.SettingsItem,
+			AssetImportSession = props.AssetImportSession,
 		}),
 	})
 end

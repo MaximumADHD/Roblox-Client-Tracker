@@ -22,6 +22,7 @@ local BlockPlayerDialog = Roact.PureComponent:extend("BlockPlayerDialog")
 
 BlockPlayerDialog.validateProps = t.strictInterface({
 	isBlockPlayerOpen = t.boolean,
+	screenSize = t.Vector2,
 	targetPlayer = t.optional(playerInterface),
 	closeDialog = t.callback,
 	blockPlayer = t.callback,
@@ -85,6 +86,7 @@ function BlockPlayerDialog:render()
 		return Roact.createFragment({
 			ModalDialog = Roact.createElement(ModalDialog, {
 				visible = self.props.isBlockPlayerOpen,
+				screenSize = self.props.screenSize,
 				titleText = localized.titleText,
 				contents = self:renderContents(localized.bodyText),
 				actionButtons = Roact.createElement(ButtonStack, {
@@ -115,6 +117,7 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 	return {
 		isBlockPlayerOpen = state.report.isBlockPlayerOpen,
 		targetPlayer = state.report.targetPlayer,
+		screenSize = state.displayOptions.screenSize,
 	}
 end, function(dispatch)
 	return {

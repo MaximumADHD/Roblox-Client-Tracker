@@ -153,7 +153,7 @@ function DebugConnectionListener:onConnectionEnded(debuggerConnection, reason, d
 end
 
 function DebugConnectionListener:onFocusChanged(debuggerConnection)
-	local focusedDebuggerConnectionId = if debuggerConnection ~= nil then debuggerConnection.Id else -1
+	local focusedDebuggerConnectionId = if debuggerConnection ~= nil then debuggerConnection.Id else Constants.kInvalidDebuggerConnectionId
 	self.store:dispatch(SetFocusedDebuggerConnection(focusedDebuggerConnectionId))
 end
 
@@ -194,7 +194,7 @@ function DebugConnectionListener.new(store, debuggerConnectionManager, debuggerU
 end
 
 function DebugConnectionListener:destroy()
-	self.store:dispatch(SetFocusedDebuggerConnection(-1))
+	self.store:dispatch(SetFocusedDebuggerConnection(Constants.kInvalidDebuggerConnectionId))
 
 	if self._connectionStartedConnection then
 		self._connectionStartedConnection:Disconnect()

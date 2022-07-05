@@ -56,6 +56,7 @@ local CrossDMScriptChangeListener = require(Src.Util.CrossDMScriptChangeListener
 
 local FFlagStudioDebuggerOverhaul_Dev = game:GetFastFlag("StudioDebuggerOverhaul_Dev")
 local FFlagDebugPopulateDebuggerPlugin = game:GetFastFlag("DebugPopulateDebuggerPlugin")
+local FFlagDebuggerUIQTitanDockingFixes = require(Src.Flags.GetFFlagDebuggerUIQTitanDockingFixes)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -71,13 +72,13 @@ function MainPlugin:init(props)
 
 	self.state = {
 		callstackWindow = {
-			Enabled = plugin:GetSetting("callstackWindow_Enabled") or false,
+			Enabled = if FFlagDebuggerUIQTitanDockingFixes() then false else plugin:GetSetting("callstackWindow_Enabled"),
 		},
 		breakpointsWindow = {
-			Enabled = plugin:GetSetting("breakpointsWindow_Enabled") or false,
+			Enabled = if FFlagDebuggerUIQTitanDockingFixes() then false else plugin:GetSetting("breakpointsWindow_Enabled"),
 		},
 		watchWindow = {
-			Enabled = plugin:GetSetting("watchWindow_Enabled") or false,
+			Enabled = if FFlagDebuggerUIQTitanDockingFixes() then false else plugin:GetSetting("watchWindow_Enabled"),
 		},
 		uiDmLoaded = false,
 	}
@@ -101,7 +102,10 @@ function MainPlugin:init(props)
 
 	self.toggleWidgetEnabled = function(targetWidget)
 		local newEnabled = not self.state[targetWidget].Enabled
-		self.props.Plugin:SetSetting(targetWidget .. "_Enabled", newEnabled)
+		if not FFlagDebuggerUIQTitanDockingFixes() then
+			self.props.Plugin:SetSetting(targetWidget .. "_Enabled", newEnabled)
+		end
+		
 		self:setState(function(_state)
 			return {
 				[targetWidget] = {
@@ -110,13 +114,26 @@ function MainPlugin:init(props)
 			}
 		end)
 	end
+	
+	self.onWidgetClose = function(targetWidget)		
+		if not FFlagDebuggerUIQTitanDockingFixes() then
+			self.props.Plugin:SetSetting(targetWidget .. "_Enabled", false)
+		end
 
-	self.onWidgetClose = function(targetWidget)
-		self.props.Plugin:SetSetting(targetWidget .. "_Enabled", false)
 		self:setState(function(_state)
 			return {
 				[targetWidget] = {
 					Enabled = false,
+				},
+			}
+		end)
+	end
+	
+	self.setWidgetEnabledState = function(targetWidget, enabledState)		
+		self:setState(function(_state)
+			return {
+				[targetWidget] = {
+					Enabled = enabledState,
 				},
 			}
 		end)
@@ -221,29 +238,46 @@ function MainPlugin:render()
 			end,
 		}),
 		ToolbarWithRoduxConnection = FFlagStudioDebuggerOverhaul_Dev and Roact.createElement(DebuggerToolbarButtons),
-		CallstackWindow = (FFlagStudioDebuggerOverhaul_Dev and callstackWindowEnabled) and Roact.createElement(
-			CallstackWindow,
-			{
+		CallstackWindow = (FFlagStudioDebuggerOverhaul_Dev and (if FFlagDebuggerUIQTitanDockingFixes() then true else callstackWindowEnabled)) and Roact.createElement(
+			CallstackWindow,{
 				Enabled = callstackWindowEnabled,
 				OnClose = function()
 					self.onWidgetClose("callstackWindow")
 				end,
+				OnRestore = if FFlagDebuggerUIQTitanDockingFixes() then function(enabled)
+					self.setWidgetEnabledState("callstackWindow", enabled)
+				end else nil,
+				OnWidgetEnabledChanged = if FFlagDebuggerUIQTitanDockingFixes() then function(widget)
+					self.setWidgetEnabledState("callstackWindow", widget.Enabled)
+				end else nil,
 			}
 		) or nil,
-		BreakpointsWindow = (FFlagStudioDebuggerOverhaul_Dev and breakpointsWindowEnabled) and Roact.createElement(
-			BreakpointsWindow,
-			{
+		BreakpointsWindow = (FFlagStudioDebuggerOverhaul_Dev and (if FFlagDebuggerUIQTitanDockingFixes() then true else breakpointsWindowEnabled)) and Roact.createElement(
+			BreakpointsWindow,{
 				Enabled = breakpointsWindowEnabled,
 				OnClose = function()
 					self.onWidgetClose("breakpointsWindow")
 				end,
+				OnRestore = if FFlagDebuggerUIQTitanDockingFixes() then function(enabled)
+					self.setWidgetEnabledState("breakpointsWindow", enabled)
+				end else nil,
+				OnWidgetEnabledChanged = if FFlagDebuggerUIQTitanDockingFixes() then function(widget)
+					self.setWidgetEnabledState("breakpointsWindow", widget.Enabled)
+				end else nil,
 			}
 		) or nil,
-		WatchWindow = (FFlagStudioDebuggerOverhaul_Dev and watchWindowEnabled) and Roact.createElement(WatchWindow, {
-			Enabled = watchWindowEnabled,
-			OnClose = function()
-				self.onWidgetClose("watchWindow")
-			end,
+		WatchWindow = (FFlagStudioDebuggerOverhaul_Dev and (if FFlagDebuggerUIQTitanDockingFixes() then true else watchWindowEnabled)) and Roact.createElement(
+			WatchWindow, {
+				Enabled = watchWindowEnabled,
+				OnClose = function()
+					self.onWidgetClose("watchWindow")
+				end,
+				OnRestore = if FFlagDebuggerUIQTitanDockingFixes() then function(enabled)
+					self.setWidgetEnabledState("watchWindow", enabled)
+				end else nil,
+				OnWidgetEnabledChanged = if FFlagDebuggerUIQTitanDockingFixes() then function(widget)
+					self.setWidgetEnabledState("watchWindow", widget.Enabled)
+				end else nil,
 		}, {
 			Watch = Roact.createElement(WatchComponent),
 		}) or nil,
@@ -253,10 +287,12 @@ end
 function MainPlugin:willUnmount()
 	local props = self.props
 	local plugin = props.Plugin
-
-	plugin:SetSetting("callstackWindow_Enabled", self.state.callstackWindow.Enabled)
-	plugin:SetSetting("watchWindow_Enabled", self.state.watchWindow.Enabled)
-	plugin:SetSetting("breakpointsWindow_Enabled", self.state.breakpointsWindow.Enabled)
+	
+	if not FFlagDebuggerUIQTitanDockingFixes() then
+		plugin:SetSetting("callstackWindow_Enabled", self.state.callstackWindow.Enabled)
+		plugin:SetSetting("watchWindow_Enabled", self.state.watchWindow.Enabled)
+		plugin:SetSetting("breakpointsWindow_Enabled", self.state.breakpointsWindow.Enabled)
+	end
 
 	if FFlagStudioDebuggerOverhaul_Dev and self.debugConnectionListener then
 		self.debugConnectionListener:destroy()

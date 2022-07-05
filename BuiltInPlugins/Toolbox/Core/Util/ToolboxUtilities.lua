@@ -1,6 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 local isCli = require(script.Parent.isCli)
 
+local FFlagToolboxCreatorMarketplaceWebLinks = game:GetFastFlag("ToolboxCreatorMarketplaceWebLinks")
 local FFlagAssetConfigSharingDesignTweaks = game:GetFastFlag("AssetConfigSharingDesignTweaks")
 local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 
@@ -86,6 +87,12 @@ if FFlagAssetConfigSharingDesignTweaks then
 	}
 	function ToolboxUtilities.getAssetConfigMessaging(): AssetConfigMessaging
 		return ToolboxPolicy["AssetConfigMessaging"] or {}
+	end
+end
+
+if FFlagToolboxCreatorMarketplaceWebLinks then
+	function ToolboxUtilities.getCreatorMarketplaceWebBaseUrl(): string?
+		return ToolboxPolicy["CreatorMarketplaceWebUrl"]
 	end
 end
 

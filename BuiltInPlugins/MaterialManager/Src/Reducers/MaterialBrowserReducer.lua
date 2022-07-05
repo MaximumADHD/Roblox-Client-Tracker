@@ -11,6 +11,7 @@ local SetMaterial = require(Actions.SetMaterial)
 local SetMaterialList = require(Actions.SetMaterialList)
 local SetMaterialStatus = require(Actions.SetMaterialStatus)
 local SetMaterialTileSize = require(Actions.SetMaterialTileSize)
+local SetMaterialVariant = require(Actions.SetMaterialVariant)
 local SetMaterialWrapper = require(Actions.SetMaterialWrapper)
 local SetMenuHover = require(Actions.SetMenuHover)
 local SetMaterialOverride = require(Actions.SetMaterialOverride)
@@ -23,10 +24,13 @@ local SetViewType = require(Actions.SetViewType)
 local Util = Plugin.Src.Util
 local CompareMaterials = require(Util.CompareMaterials)
 
+local getFFlagMaterialManagerUIGlitchFix = require(Plugin.Src.Flags.getFFlagMaterialManagerUIGlitchFix)
+
 export type State = {
 	GridLock: boolean,
 	Material: _Types.Material?,
 	Materials: any,
+	MaterialList: _Types.Array<_Types.Material>?,
 	MaterialTileSize: number,
 	MaterialOverride: _Types.Map<Enum.Material, number>,
 	MaterialOverrides: _Types.Map<Enum.Material, _Types.Array<string>>,
@@ -56,6 +60,12 @@ return (Rodux.createReducer(initialState, {
 	[SetMaterial.name] = function(state: State, action: SetMaterial.Payload): State
 		return Cryo.Dictionary.join(state, {
 			Material = action.Material,
+		})
+	end,
+
+	[SetMaterialVariant.name] = function(state: State, action: SetMaterialVariant.Payload): State
+		return Cryo.Dictionary.join(state, {
+			Material = state.Materials[action.MaterialVariant]
 		})
 	end,
 
@@ -97,12 +107,13 @@ return (Rodux.createReducer(initialState, {
 
 	[SetMaterialWrapper.name] = function(state: State, action: SetMaterialWrapper.Payload): State
 		local index = if action.MaterialWrapper.MaterialVariant then action.MaterialWrapper.MaterialVariant else action.MaterialWrapper.Material
+		local hasMaterial = not getFFlagMaterialManagerUIGlitchFix() or state.Material
 
 		return Cryo.Dictionary.join(state, {
 			Materials = Cryo.Dictionary.join(state.Materials, {
 				[index] = action.MaterialWrapper,
 			}),
-			Material = if CompareMaterials(state.Materials[index], state.Material) then action.MaterialWrapper else nil,
+			Material = if hasMaterial and CompareMaterials(state.Materials[index], state.Material) then action.MaterialWrapper else nil,
 		})
 	end,
 

@@ -312,12 +312,16 @@ local function getPluginTheme()
 			CreateNewVariant = {
 				Image = "rbxasset://textures/MaterialManager/Create_New_Variant.png",
 				Color = StyleKey.BrightText,
+				Position = UDim2.fromOffset(6, 6),
+				Size = UDim2.fromOffset(16, 16),
 			},
 			Grid = StyleKey.GridIcon,
 			List = StyleKey.ListIcon,
 			ShowInExplorer = {
 				Image = "rbxasset://textures/MaterialManager/Show_In_Explorer.png",
 				Color = StyleKey.BrightText,
+				Position = UDim2.fromOffset(6, 6),
+				Size = UDim2.fromOffset(16, 16),
 				[StyleModifier.Disabled] = {
 					Transparency = 0.5,
 				},
@@ -325,8 +329,22 @@ local function getPluginTheme()
 			ApplyToSelection = {
 				Image = "rbxasset://textures/MaterialManager/Apply_To_Selection.png",
 				Color = StyleKey.BrightText,
+				Position = UDim2.fromOffset(6, 6),
+				Size = UDim2.fromOffset(16, 16),
 				[StyleModifier.Disabled] = {
 					Transparency = 0.5,
+				},
+			},
+			MaterialAsToolMouseIcon = {
+				Image = "rbxasset://textures/FillCursor.png",
+				Color = StyleKey.BrightText,
+				Position = UDim2.fromOffset(-20, -5),
+				Size = UDim2.fromOffset(50, 50),
+				[StyleModifier.Disabled] = {
+					Transparency = 0.5,
+				},
+				[StyleModifier.Pressed] = {
+					BackgroundColor = StyleKey.ButtonPressed,
 				},
 			},
 			-- TODO: return when Filter is on
@@ -381,7 +399,18 @@ local function getPluginTheme()
 			ExpandedPreviewDefaultSize = Vector2.new(400, 400),
 			ExpandedPreviewMinSize = Vector2.new(100, 100),
 			ExpandedPreviewPadding = UDim.new(0, 16),
-		}
+		},
+
+		ViewTypeButton = {
+			Grid = StyleKey.GridIcon,
+			List = StyleKey.ListIcon,
+			ViewTypeBackground = StyleKey.Button,
+			ViewTypeSize = UDim2.new(0, 50, 1, 0),
+		},
+
+		ActionButton = {
+			ButtonSize = UDim2.fromOffset(TopBarButtonWidth, TopBarButtonWidth),
+		},
 	}
 end
 

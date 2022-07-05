@@ -48,6 +48,13 @@ local FFlagUserUpdatePlayerScriptsTouchControlsEnabled do
 	FFlagUserUpdatePlayerScriptsTouchControlsEnabled = success and result
 end
 
+local FFlagUserHideControlsWhenMenuOpen do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserHideControlsWhenMenuOpen")
+	end)
+	FFlagUserHideControlsWhenMenuOpen = success and result
+end
+
 local TouchThumbstick = require(script:WaitForChild("TouchThumbstick"))
 
 -- These controllers handle only walk/run movement, jumping is handled by the
@@ -121,6 +128,20 @@ function ControlModule.new()
 	self.vehicleController = nil
 
 	self.touchControlFrame = nil
+
+	if FFlagUserHideControlsWhenMenuOpen then
+		GuiService.MenuOpened:Connect(function()
+			if self.touchControlFrame and self.touchControlFrame.Visible then
+				self.touchControlFrame.Visible = false
+			end
+		end)
+		
+		GuiService.MenuClosed:Connect(function()
+			if self.touchControlFrame then
+				self.touchControlFrame.Visible = true
+			end
+		end)
+	end
 
 	self.vehicleController = VehicleController.new(CONTROL_ACTION_PRIORITY)
 

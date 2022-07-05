@@ -1,5 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
-
+local UserInputService = game:GetService("UserInputService")
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
@@ -15,7 +15,8 @@ local Constants = require(InGameMenu.Resources.Constants)
 local GlobalConfig = require(InGameMenu.GlobalConfig)
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 
-local VECTOR2_ZERO = Vector2.new(0,0)
+local VECTOR2_ZERO = Vector2.new(0, 0)
+local KEYBOARD_CLOSED_HYSTERESIS_SECONDS = 0.350
 
 local validateProps = t.strictInterface({
 	currentPage = t.string,
@@ -25,7 +26,62 @@ local validateProps = t.strictInterface({
 	screenSize = t.Vector2,
 })
 
-local function ViewportOverlay(props)
+local ViewportOverlay = Roact.Component:extend("ViewportOverlay")
+
+function ViewportOverlay:init()
+	self.inhibitMenuClose = nil
+	self.timeAtReleased = 0
+
+	self.canCloseMenu = function()
+		local now = time()
+		local timeSinceRelease = now - self.timeAtReleased
+		return not self.inhibitMenuClose and timeSinceRelease > KEYBOARD_CLOSED_HYSTERESIS_SECONDS
+	end
+
+	self.handleActivated = function()
+		if self.canCloseMenu() then
+			self.props.onActivated()
+		end
+	end
+
+	self.onScreenKeyboardVisibleChanged = function()
+		local keyboardVisible = UserInputService.OnScreenKeyboardVisible or nil
+		self.inhibitMenuClose = keyboardVisible
+		if not keyboardVisible then
+			self.timeAtReleased = time()
+		end
+	end
+
+	self.disconnectSignals = function()
+		if self.onScreenKeyboardVisibleSignal then
+			self.onScreenKeyboardVisibleSignal:Disconnect()
+		end
+		self.onScreenKeyboardVisibleSignal = nil
+	end
+end
+
+function ViewportOverlay:willUnmount(priorProps)
+	self:disconnectSignals()
+end
+
+function ViewportOverlay:didUpdate(priorProps)
+	local menuOpen = self.props.open
+	local menuWasJustOpenedOrClosed = menuOpen ~= priorProps.menuOpen
+
+	if menuWasJustOpenedOrClosed then
+		self:disconnectSignals()
+		self.inhibitMenuClose = nil
+		if menuOpen and UserInputService.TouchEnabled then
+			self.onScreenKeyboardVisibleSignal = UserInputService
+				:GetPropertyChangedSignal("OnScreenKeyboardVisible")
+				:Connect(self.onScreenKeyboardVisibleChanged)
+		end
+	end
+end
+
+function ViewportOverlay:render()
+	local props = self.props
+
 	if GlobalConfig.propValidation then
 		assert(validateProps(props))
 	end
@@ -51,13 +107,13 @@ local function ViewportOverlay(props)
 				Position = UDim2.new(1, 0, 0, 0),
 				Size = UDim2.new(1, -props.occupiedWidth, 1, 0),
 				Text = "",
-				[Roact.Event.Activated] = props.onActivated,
-			})
+				[Roact.Event.Activated] = self.handleActivated,
+			}),
 		})
 	end)
 end
 
-return RoactRodux.UNSTABLE_connect2(function(state, props)
+return RoactRodux.connect(function(state, props)
 	local occupiedWidth = sideBarWidth + Constants.PageWidth
 
 	return {

@@ -7,20 +7,26 @@
 	Optional Props:
 	LayoutOrder number, will be used by the layouter to change the position of the components.
 ]]
-
+local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
+
 local AssetThumbnailPreview = require(Plugin.Src.Components.ConvertToPackageWindow.AssetThumbnailPreview)
 local Util = Plugin.Src.Util
 local LayoutOrderIterator = require(Util.LayoutOrderIterator)
-local withTheme = require(Plugin.Src.ContextServices.Theming).withTheme
+local withTheme = if FFlagUpdateConvertToPackageToDFContextServices then nil else require(Plugin.Src.ContextServices.Theming).withTheme
 
 local PreviewArea = Roact.PureComponent:extend("PreviewArea")
 
 function PreviewArea:render()
-	return withTheme(function(theme)
+	local style = self.props.Stylizer
+
+	local function renderWithContext(theme)
 		local props = self.props
 
 		local TotalWidth = props.TotalWidth
@@ -59,7 +65,15 @@ function PreviewArea:render()
 				LayoutOrder = orderIterator:getNextOrder()
 			})
 		})
-	end)
+	end
+
+	return if FFlagUpdateConvertToPackageToDFContextServices then renderWithContext(style) else withTheme(renderWithContext)
+end
+
+if FFlagUpdateConvertToPackageToDFContextServices then
+	PreviewArea = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(PreviewArea)
 end
 
 return PreviewArea

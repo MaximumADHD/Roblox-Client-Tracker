@@ -1,3 +1,5 @@
+local FFlagToolboxCreatorMarketplaceWebLinks = game:GetFastFlag("ToolboxCreatorMarketplaceWebLinks")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Util = Plugin.Core.Util
@@ -8,7 +10,7 @@ local Analytics = require(Util.Analytics.Analytics)
 
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local EnumConvert = require(Util.EnumConvert)
-
+local ToolboxUtilities = require(Util.ToolboxUtilities)
 
 local getReportUrl = require(Util.getReportUrl)
 
@@ -77,11 +79,35 @@ function ContextMenuHelper.tryCreateContextMenu(
 	menu
 		:AddNewAction(string.format("OpenInBrowser-%s", instanceGuid), localize.RightClickMenu.ViewInBrowser).Triggered
 		:connect(function()
-			local baseUrl = ContentProvider.BaseUrl
-			local targetUrl = string.format("%slibrary/%s/asset", baseUrl, HttpService:urlEncode(assetId))
-			if trackingAttributes then
-				targetUrl = targetUrl .. "?" .. Url.makeQueryString(trackingAttributes)
+			local targetUrl
+			if FFlagToolboxCreatorMarketplaceWebLinks then
+				local baseUrl = ToolboxUtilities.getCreatorMarketplaceWebBaseUrl()
+				if baseUrl then
+					targetUrl = string.format("%sasset/%s", baseUrl, HttpService:urlEncode(assetId))
+					if trackingAttributes then
+						targetUrl = targetUrl
+							.. "?"
+							.. Url.makeQueryString({
+								keyword = trackingAttributes.SearchKeyword,
+								searchId = trackingAttributes.SearchId,
+								viewFromStudio = true,
+							})
+					end
+				else
+					baseUrl = ContentProvider.BaseUrl
+					targetUrl = string.format("%slibrary/%s/asset", baseUrl, HttpService:urlEncode(assetId))
+					if trackingAttributes then
+						targetUrl = targetUrl .. "?" .. Url.makeQueryString(trackingAttributes)
+					end
+				end
+			else
+				local baseUrl = ContentProvider.BaseUrl
+				targetUrl = string.format("%slibrary/%s/asset", baseUrl, HttpService:urlEncode(assetId))
+				if trackingAttributes then
+					targetUrl = targetUrl .. "?" .. Url.makeQueryString(trackingAttributes)
+				end
 			end
+
 			GuiService:OpenBrowserWindow(targetUrl)
 		end)
 

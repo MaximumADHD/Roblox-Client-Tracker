@@ -17,6 +17,8 @@ local Image = UI.Decoration.Image
 local Pane = UI.Pane
 local TruncatedTextLabel = UI.TruncatedTextLabel
 
+local MaterialController = require(Plugin.Src.Controllers.MaterialController)
+
 local Actions = Plugin.Src.Actions
 local ClearMaterialVariant = require(Actions.ClearMaterialVariant)
 local SetMaterial = require(Actions.SetMaterial)
@@ -27,7 +29,6 @@ local SetMode = require(Actions.SetMode)
 local getFullMaterialType = require(Plugin.Src.Resources.Constants.getFullMaterialType)
 local getMaterialName = require(Plugin.Src.Resources.Constants.getMaterialName)
 local getSupportedMaterials = require(Plugin.Src.Resources.Constants.getSupportedMaterials)
-local MaterialController = require(Plugin.Src.Util.MaterialController)
 
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)

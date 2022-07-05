@@ -107,13 +107,13 @@ return function(plugin, localization)
 	actions.ToggleTool.defaultShortcut = "R"
 
 	actions.ToggleBoneVis.defaultShortcut = "V"
-	
+
 	if GetFFlagFaceAnimationEditorFocusFaceWithF() then
 		actions.FocusCamera.defaultShortcut = "F"
 	end
 
 	if GetFFlagCurveEditorFreeZoom() then
-		actions.ResizeCanvas.defaultShortcut = "A"
+		actions.ResizeCanvas.defaultShortcut = "H"
 	end
 
 	return actions

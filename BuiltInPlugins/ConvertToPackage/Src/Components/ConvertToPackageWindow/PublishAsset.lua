@@ -13,20 +13,21 @@
 	onOwnerSelected, function, callback when owner changes.
 	toggleComment, function, callback when comment changes.
 ]]
+local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local UILibrary = require(Packages.UILibrary)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local withContext = if FFlagUpdateConvertToPackageToDFContextServices then ContextServices.withContext else require(Plugin.Src.ContextServices.withContext)
 
 local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
 
 local Util = Plugin.Src.Util
 local LayoutOrderIterator = require(Util.LayoutOrderIterator)
 local Constants = require(Util.Constants)
-
-local withContext = require(Plugin.Src.ContextServices.withContext)
-
 
 local ConvertToPackageWindow = Plugin.Src.Components.ConvertToPackageWindow
 local ConfigTextField = require(ConvertToPackageWindow.ConfigTextField)
@@ -49,7 +50,9 @@ function PublishAsset:init(props)
 end
 
 function PublishAsset:render()
-	return withContext(function(localization,theme)
+	local style = self.props.Stylizer
+
+	local function renderWithContext(localization, theme)
 		local props = self.props
 
 		local Size = props.Size
@@ -143,7 +146,16 @@ function PublishAsset:render()
 				LayoutOrder = orderIterator:getNextOrder()
 			}),
 		})
-	end)
+	end
+
+	return if FFlagUpdateConvertToPackageToDFContextServices then renderWithContext(self.props.Localization, style) else withContext(renderWithContext)
+end
+
+if FFlagUpdateConvertToPackageToDFContextServices then
+	PublishAsset = withContext({
+		Localization = ContextServices.Localization,
+		Stylizer = ContextServices.Stylizer,
+	})(PublishAsset)
 end
 
 return PublishAsset

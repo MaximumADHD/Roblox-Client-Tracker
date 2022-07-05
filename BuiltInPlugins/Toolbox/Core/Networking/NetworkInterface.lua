@@ -25,7 +25,6 @@ local ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
 local FFlagAssetConfigDynamicDistributionQuotas2 = game:GetFastFlag("AssetConfigDynamicDistributionQuotas2")
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 local FIntToolboxGrantUniverseAudioPermissionsTimeoutInMS = game:GetFastInt("ToolboxGrantUniverseAudioPermissionsTimeoutInMS")
-local FFlagPackagesApiEnabled = game:GetFastFlag("PackagesApiEnabled")
 
 local NetworkInterface = {}
 NetworkInterface.__index = NetworkInterface
@@ -682,12 +681,7 @@ function NetworkInterface:getLocalUserFriends(userId)
 end
 
 function NetworkInterface:postForPackageMetadata(assetid)
-	local targetUrl
-	if FFlagPackagesApiEnabled then
-		targetUrl = Urls.constructPostPackageMetadata()
-	else
-		targetUrl = Urls.DEPRECATED_constructPostPackageMetadata()
-	end
+	local targetUrl = Urls.constructPostPackageMetadata()
 
 	local payload = '[{ "assetId" : ' .. assetid .. ', "assetVersionNumber" : 1 }]'
 	return self._networkImp:httpPostJson(targetUrl, payload)

@@ -11,6 +11,7 @@ local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
 
 local IconButton = UIBlox.App.Button.IconButton
 local Images = UIBlox.App.ImageSet.Images
+local VerticalScrollViewWithIndicator = UIBlox.App.Container.VerticalScrollViewWithIndicator
 
 local InGameMenu = script.Parent.Parent.Parent
 local InviteUserToPlaceId = require(InGameMenu.Thunks.InviteUserToPlaceId)
@@ -18,15 +19,12 @@ local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatche
 local PlayerCell = require(InGameMenu.Components.PlayerCell)
 local PlayerContextualMenuWrapper = require(InGameMenu.Components.PlayerContextualMenuWrapper)
 local PlayerSearchPredicate = require(InGameMenu.Utility.PlayerSearchPredicate)
+local Constants = require(InGameMenu.Resources.Constants)
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
 local Divider = require(InGameMenu.Components.Divider)
-local BarOnTopScrollingFrame = require(InGameMenu.Components.BarOnTopScrollingFrame)
 local FocusHandler = require(InGameMenu.Components.Connection.FocusHandler)
 local RootedConnection = require(InGameMenu.Components.Connection.RootedConnection)
-
-local Constants = require(InGameMenu.Resources.Constants)
-
-local PLAYER_CELL_HEIGHT = 72
 
 local InviteFriendsList = Roact.PureComponent:extend("InviteFriendsList")
 
@@ -57,6 +55,7 @@ InviteFriendsList.defaultProps = {
 
 function InviteFriendsList:init()
 	self.playerRefs = RoactGamepad.createRefCache()
+	self.scrollingFrameRef = Roact.createRef()
 
 	self.state = {
 		selectedPlayer = nil,
@@ -117,6 +116,13 @@ function InviteFriendsList:didUpdate(prevProps, prevState)
 			})
 		end
 	end
+
+	if self.props.isMenuOpen and not prevProps.isMenuOpen then
+		local scrollingFrame = self.scrollingFrameRef:getValue()
+		if scrollingFrame and scrollingFrame.CanvasPosition.Y > 0 then
+			scrollingFrame.CanvasPosition = Vector2.new(0, 0)
+		end
+	end
 end
 
 function InviteFriendsList:renderListEntries()
@@ -174,6 +180,15 @@ function InviteFriendsList:renderListEntries()
 							local userId = tostring(player.UserId)
 							if placeId then
 								self.props.dispatchInviteUserToPlaceId(userId, placeId)
+
+								SendAnalytics(
+									Constants.AnalyticsMenuActionName,
+									Constants.AnalyticsInvitePlayerToPlaceId,
+									{
+										placeId = placeId,
+										source = Constants.AnalyticsInviteFriendsListSource,
+									}
+								)
 							end
 						end
 					end,
@@ -199,21 +214,23 @@ function InviteFriendsList:renderListEntries()
 end
 
 function InviteFriendsList:render()
-	local listEntries, visibleEntryCount = self:renderListEntries()
+	local listEntries = self:renderListEntries()
 
 	local friendsList = Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1, 0, 1, 0),
 	}, {
-		List = Roact.createElement(BarOnTopScrollingFrame, {
-			Position = UDim2.new(0, 0, 0, 0),
-			Size = UDim2.new(1, 0, 1, 0),
-			CanvasSize = UDim2.new(1, 0, 0, visibleEntryCount * (PLAYER_CELL_HEIGHT + 1)),
-			onCanvasPositionChanged = self.state.selectedPlayer and function()
+		List = Roact.createElement(VerticalScrollViewWithIndicator, {
+			position = UDim2.new(0, 0, 0, 0),
+			size = UDim2.new(1, 0, 1, 0),
+			canvasSizeY = UDim.new(0, 0),
+			useAutomaticCanvasSize = true,
+			[Roact.Change.CanvasPosition] = self.state.selectedPlayer and function()
 				self:setState({
 					selectedPlayer = Roact.None,
 				})
 			end or nil,
+			scrollingFrameRef = self.scrollingFrameRef,
 		}, listEntries),
 
 		MoreActionsMenu = Roact.createElement(PlayerContextualMenuWrapper, {

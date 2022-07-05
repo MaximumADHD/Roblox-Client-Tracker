@@ -15,23 +15,23 @@ local FFlagAssetManagerRefactorPath = game:GetFastFlag("AssetManagerRefactorPath
 local FFlagStudioAssetManagerAssetModeration = game:GetFastFlag("StudioAssetManagerAssetModeration")
 
 return function(apiImpl, screen)
-    return function(store)
-        store:dispatch(SetAssets({
-            assets = {},
-        }))
-        if FFlagStudioAssetManagerAssetModeration then
-            store:dispatch(SetAssetsModerationData({}))
-        end
-        store:dispatch(SetIsFetchingAssets(false))
-        store:dispatch(SetEditingAssets({}))
-        store:dispatch(SetSelectedAssets({}))
-        store:dispatch(SetSearchTerm(""))
-        if screen.Path ~= Screens.MAIN.Path then
-            if FFlagAssetManagerRefactorPath then
-                store:dispatch(GetAssets(apiImpl, screen.Path))
-            else
-                store:dispatch(GetAssets(apiImpl, screen.AssetType))
-            end
-        end
-    end
+	return function(store)
+		store:dispatch(SetAssets({
+			assets = {},
+		}))
+		if FFlagStudioAssetManagerAssetModeration then
+			store:dispatch(SetAssetsModerationData({}))
+		end
+		store:dispatch(SetIsFetchingAssets(false))
+		store:dispatch(SetEditingAssets({}))
+		store:dispatch(SetSelectedAssets({}))
+		store:dispatch(SetSearchTerm(""))
+		if screen.Path ~= Screens.MAIN.Path then
+			if FFlagAssetManagerRefactorPath then
+				store:dispatch(GetAssets(apiImpl, screen.Path))
+			else
+				store:dispatch(GetAssets(apiImpl, screen.AssetType))
+			end
+		end
+	end
 end

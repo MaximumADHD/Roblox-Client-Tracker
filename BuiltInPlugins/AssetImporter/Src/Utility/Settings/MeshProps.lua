@@ -3,11 +3,16 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local getFFlagDisableAvatarAnchoredSetting = require(Plugin.Src.Flags.getFFlagDisableAvatarAnchoredSetting)
 local getFFlagLCQualityCheckDisplay = require(Plugin.Src.Flags.getFFlagLCQualityCheckDisplay)
 local getFFlagAssetImporterUseImportedPivots = require(Plugin.Src.Flags.getFFlagAssetImporterUseImportedPivots)
+local getFFlagUseAssetImportSession = require(Plugin.Src.Flags.getFFlagUseAssetImportSession)
 
 local AssetImportService = game:GetService("AssetImportService")
 
-local function hideIfAvatar()
-	return AssetImportService:IsAvatar() and getFFlagDisableAvatarAnchoredSetting()
+local function hideIfAvatar(meshSettings, assetImportSession)
+	if getFFlagUseAssetImportSession() then
+		return assetImportSession:IsAvatar() and getFFlagDisableAvatarAnchoredSetting()
+	else
+		return AssetImportService:IsAvatar() and getFFlagDisableAvatarAnchoredSetting()
+	end
 end
 
 local function hideIfManifold(meshSettings)

@@ -15,8 +15,10 @@ local Stylizer = Framework.Style.Stylizer
 local UI = Framework.UI
 local Pane = UI.Pane
 
-local LabeledTextureElement = require(Plugin.Src.Components.MaterialPrompt.MaterialVariantCreator.LabeledTextureElement)
 local getTextureMapNames = require(Plugin.Src.Resources.Constants.getTextureMapNames)
+local Flags = Plugin.Src.Flags
+local getFFlagMaterialManagerRefactorTextureMapSelector = require(Flags.getFFlagMaterialManagerRefactorTextureMapSelector)
+local LabeledTextureElement = if getFFlagMaterialManagerRefactorTextureMapSelector() then require(Plugin.Src.Components.MaterialPrompt.MaterialVariantCreator.LabeledTextureElement) else require(Plugin.Src.Components.MaterialPrompt.MaterialVariantCreator.DEPRECATED_LabeledTextureElement)
 
 local TextureMaps = getTextureMapNames()
 
@@ -73,7 +75,7 @@ function TextureSettings:render()
 		ImportRoughnessMap = Roact.createElement(LabeledTextureElement, {
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			LabelColumnWidth = style.LabelColumnWidth,
-			MapType = TextureMaps.Roughness,
+			MapType = TextureMaps.RoughnessMap,
 			PreviewTitle = localization:getText("Import", "RoughnessMapPreview"),
 			Text = localization:getText("CreateDialog", "ImportRoughnessMap"),
 		})

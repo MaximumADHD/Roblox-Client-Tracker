@@ -9,6 +9,8 @@ local t = InGameMenuDependencies.t
 local InGameMenu = script.Parent.Parent
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 local withStyle = UIBlox.Core.Style.withStyle
+local Constants = require(InGameMenu.Resources.Constants)
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 
 local CoreGui = game:GetService("CoreGui")
@@ -30,7 +32,7 @@ local PADDING = 20
 local TITLE_TOP_PADDING = 10
 local TITLE_FRAME_HEIGHT = 54
 local TITLE_HEIGHT = 44
-local CONTENT_HEIGHT= 121
+local CONTENT_HEIGHT = 121
 local CONTENT_BODY_HEIGHT = 100
 local CONTENT_TOP_PADDING = 0.5
 local CONTENT_BOTTOM_PADDING = 20.5
@@ -56,6 +58,8 @@ function FriendBlockConfirmation:init()
 		self.props.blockPlayer(targetPlayer)
 		self.props.closeFriendBlockConfirmation()
 		self.props.onClosePlayerContextualMenu()
+
+		SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsBlockPlayer, {})
 	end
 end
 
@@ -117,21 +121,24 @@ function FriendBlockConfirmation:renderActions(localized, player)
 		}),
 		ActionButtons = Roact.createElement(ButtonStack, {
 			buttonHeight = ACTIONS_BUTTON_HEIGHT,
-			buttons = {{
-				buttonType = ButtonType.Secondary,
-				props = {
-					onActivated = self.onCancel,
-					text = localized.cancelText,
+			buttons = {
+				{
+					buttonType = ButtonType.Secondary,
+					props = {
+						onActivated = self.onCancel,
+						text = localized.cancelText,
+					},
 				},
-			},{
-				buttonType = ButtonType.Alert,
-				props = {
-					onActivated = function()
-						self.onConfirm(player)
-					end,
-					text = localized.blockText,
+				{
+					buttonType = ButtonType.Alert,
+					props = {
+						onActivated = function()
+							self.onConfirm(player)
+						end,
+						text = localized.blockText,
+					},
 				},
-			}}
+			},
 		}),
 	})
 end
@@ -148,7 +155,7 @@ function FriendBlockConfirmation:render()
 			"CoreScripts.InGameMenu.Report.BlockBody",
 			DISPLAY_NAME = displayName,
 			RBX_NAME = userName,
-		}
+		},
 	})(function(localized)
 		return withStyle(function(style)
 			return Roact.createElement("Frame", {

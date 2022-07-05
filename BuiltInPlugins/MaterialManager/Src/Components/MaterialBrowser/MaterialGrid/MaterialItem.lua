@@ -11,20 +11,21 @@ local Localization = ContextServices.Localization
 
 local Stylizer = Framework.Style.Stylizer
 
+local ApplyToSelection = require(Plugin.Src.Util.ApplyToSelection)
+local GeneralServiceController = require(Plugin.Src.Controllers.GeneralServiceController)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+local MaterialController = require(Plugin.Src.Controllers.MaterialController)
 local SetMaterial = require(Plugin.Src.Actions.SetMaterial)
 
 local Constants = Plugin.Src.Resources.Constants
 local getFullMaterialType = require(Constants.getFullMaterialType)
 local getMaterialName = require(Constants.getMaterialName)
 
-local Util = Plugin.Src.Util
-local MaterialController = require(Util.MaterialController)
-local ApplyToSelection = require(Util.ApplyToSelection)
-
 local MaterialGrid = Plugin.Src.Components.MaterialBrowser.MaterialGrid
 local MaterialListItem = require(MaterialGrid.MaterialListItem)
 local MaterialTileItem = require(MaterialGrid.MaterialTileItem)
+
+local getFFlagMaterialManagerUtilTests = require(Plugin.Src.Flags.getFFlagMaterialManagerUtilTests)
 
 local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
 
@@ -36,6 +37,7 @@ export type Props = {
 type _Props = Props & {
 	Analytics: any,
 	dispatchSetMaterial: (material: _Types.Material) -> (),
+	GeneralServiceController: any,
 	Localization: any,
 	Material: _Types.Material,
 	MaterialController: any,
@@ -91,7 +93,11 @@ function MaterialItem:init()
 		local props : _Props = self.props
 		local materialItem = props.MaterialItem
 
-		ApplyToSelection(materialItem.Material, if materialItem.MaterialVariant then materialItem.MaterialVariant.Name else nil)
+		if getFFlagMaterialManagerUtilTests() then
+			props.GeneralServiceController:ApplyToSelection(materialItem.Material, if materialItem.MaterialVariant then materialItem.MaterialVariant.Name else nil)
+		else
+			ApplyToSelection(materialItem.Material, if materialItem.MaterialVariant then materialItem.MaterialVariant.Name else nil)
+		end
 
 		if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
 			props.Analytics:report("applyToSelectionAction")
@@ -149,6 +155,7 @@ end
 
 MaterialItem = withContext({
 	Analytics = Analytics,
+	GeneralServiceController = GeneralServiceController,
 	Localization = Localization,
 	MaterialController = MaterialController,
 	Stylizer = Stylizer,

@@ -41,7 +41,7 @@ local Constants = {
 		SettingsTriggered = "Settings",
 		EducationalMenuTriggered = "EducationalMenu",
 		ScreenshotToast = "ScreenshotToast",
-		
+
 		-- Legacy menu open types. These occur when the old system menu is
 		-- opened; the new menu won't trigger it.
 		GamepadLeaveGame = "GamepadLeaveGame",
@@ -53,10 +53,42 @@ local Constants = {
 	AnalyticsConfirmedName = "confirmed",
 	AnalyticsCancelledName = "cancelled",
 	AnalyticsRequestFriendName = "RequestFriendship",
+	AnalyticsRevokeFriendshipName = "RevokeFriendship",
+	AnalyticsUnfriendPlayer = "unfriend_player",
+	AnalyticsAcceptFriendshipRequest = "accept_friendship_request",
+	AnalyticsRejectFriendshipRequest = "reject_friendship_request",
 	AnalyticsExamineAvatarName = "examine_avatar",
+	AnalyticsReportAbuse = "report_abuse_dialog_opened",
+	AnalyticsUnmutePlayer = "unmute_player",
+	AnalyticsMutePlayer = "mute_player",
+	AnalyticsUnmuteSelf = "unmute_self",
+	AnalyticsMuteSelf = "mute_self",
+	AnalyticsUnmuteAll = "unmute_all",
+	AnalyticsMuteAll = "mute_all",
+	AnalyticsUnblockPlayer = "unblock_player",
+	AnalyticsBlockPlayer = "block_player",
+	AnalyticsInvitePlayerToPlaceId = "invite_player_to_place_id",
+	AnalyticsScreenshot = "screenshot",
+	AnalyticsFollowExperience = "follow_experience",
+	AnalyticsUnfollowExperience = "unfollow_experience",
+	AnalyticsFavoritingExperience = "favoriting_experience",
+	AnalyticsUnfavoritingExperience = "unfavoriting_experience",
+	AnalyticsPlayerCellSource = "player_cell",
+	AnalyticsPlayerContextMenuSource = "player_context_menu",
+	AnalyticsQuickActionsMenuSource = "quick_actions_menu",
+	AnalyticsExperiencePageSource = "experience_page",
+	AnalyticsInviteFriendsListSource = "invite_friends_list",
+	AnalyticsLeavePromptSource = "leave_prompt",
+	ShareLinksAnalyticsName = "shareLinks",
+	ShareLinksAnalyticsLinkGeneratedName = "linkGenerated",
+	ShareLinksAnalyticsButtonClickName = "buttonClick",
+
+	-- counters
+	AnalyticsCounterRequestFriendship = "PlayersMenu-RequestFriendship",
 
 	ControllerBarHeight = 72,
 	PageWidth = 320,
+	SideNavigationWidth = 64,
 
 	DisplayOrder = {
 		-- Fullscreen Title Bar should be on top of Topbar (DisplayOrder = 6)

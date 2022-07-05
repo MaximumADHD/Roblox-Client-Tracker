@@ -28,6 +28,7 @@ local function wrappee(instanceName, trackName, trackType, rotationType, eulerAn
 			return
 		end
 
+		local editorMode = status.EditorMode
 		local tracks = status.Tracks
 		rotationType = rotationType or status.DefaultRotationType
 
@@ -58,7 +59,7 @@ local function wrappee(instanceName, trackName, trackType, rotationType, eulerAn
 
 		store:dispatch(SortAndSetTracks(newTracks))
 		if analytics then
-			analytics:report("onTrackAdded", trackName)
+			analytics:report("onTrackAdded", trackName, editorMode)
 		end
 	end
 end

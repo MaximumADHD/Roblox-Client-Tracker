@@ -12,12 +12,14 @@
 	Optional Props:
 	LayoutOrder = number, will automatic be overrode Position property by UILayouter.
 ]]
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
-local ContextServices = require(Packages.Framework).ContextServices
+local Framework = require(Packages.Framework)
+local FFlagRemoveUILibraryRoundTextBox = Framework.SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
+
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local Util = Plugin.Core.Util
@@ -25,8 +27,10 @@ local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 
-local Framework = require(Packages.Framework)
-local TextInputWithBottomText = Framework.StudioUI.TextInputWithBottomText
+local StyleModifier = Framework.Util.StyleModifier
+
+local UI = Framework.UI
+local TextInput = if FFlagRemoveUILibraryRoundTextBox then UI.TextInput2 else Framework.StudioUI.TextInputWithBottomText
 
 local withLocalization = ContextHelper.withLocalization
 
@@ -124,7 +128,15 @@ function ConfigTextField:renderContent(theme, localization, localizedContent)
 			LayoutOrder = 1,
 		}),
 
-		TextField = Roact.createElement(TextInputWithBottomText, {
+		TextField = Roact.createElement(TextInput, if FFlagRemoveUILibraryRoundTextBox then {
+			BottomText = countText,
+			LayoutOrder = 2,
+			MultiLine = isMultiLine,
+			OnTextChanged = self.onTextChanged,
+			Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, TotalHeight - TITLE_HEIGHT - TOOL_TIP_HEIGHT),
+			StyleModifier = if textOverMaxCount then StyleModifier.Error else nil,
+			Text = currentContent,
+		} else {
 			BottomText = countText,
 			LayoutOrder = 2,
 			Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, TotalHeight - TITLE_HEIGHT - TOOL_TIP_HEIGHT),

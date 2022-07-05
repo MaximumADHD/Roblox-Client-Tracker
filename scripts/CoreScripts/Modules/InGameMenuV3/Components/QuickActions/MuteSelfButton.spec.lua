@@ -1,5 +1,7 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
+	local CoreGui = game:GetService("CoreGui")
+	local Players = game:GetService("Players")
 
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Roact = InGameMenuDependencies.Roact
@@ -12,6 +14,7 @@ return function()
 	local reducer = require(InGameMenu.reducer)
 	local Localization = require(InGameMenu.Localization.Localization)
 	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
+	local ParticipantAdded = require(CoreGui.RobloxGui.Modules.VoiceChat.Actions.ParticipantAdded)
 
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
@@ -23,9 +26,10 @@ return function()
 
 	local MuteSelfButton = require(script.Parent.MuteSelfButton)
 
+	local store = Rodux.Store.new(reducer)
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = Rodux.Store.new(reducer)
+			store = store
 		}, {
 			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 				style = appStyle,
@@ -40,6 +44,8 @@ return function()
 				}),
 			}),
 		})
+		store:dispatch(ParticipantAdded(tostring(Players.localPlayer.UserId)))
+
 		local instance = Roact.mount(element)
 		Roact.unmount(instance)
 	end)

@@ -34,9 +34,6 @@ return function()
 			Icon = icon,
 		})
 		local instance = Roact.mount(element, container)
-
-		local main = container:FindFirstChildOfClass("Frame")
-		expect(main).to.be.ok()
 		Roact.unmount(instance)
 	end)
 end

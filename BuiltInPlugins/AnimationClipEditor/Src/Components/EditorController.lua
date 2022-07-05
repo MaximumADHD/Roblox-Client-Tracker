@@ -78,10 +78,9 @@ local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
 local GetFFlagFaceControlsEditorFixNonChannelPath = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorFixNonChannelPath)
 local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
-local GetFFlagCreateAnimationFromVideoAnalytics = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoAnalytics)
+local GetFFlagCreateAnimationFromVideoAnalytics2 = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoAnalytics2)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
-local FFlagShowDualScrollbars = game:DefineFastFlag("ACEShowDualScrollbars", false)
 
 local EditorController = Roact.PureComponent:extend("EditorController")
 
@@ -199,7 +198,7 @@ function EditorController:init()
 	end
 
 	self.cancelCreateFromVideo = function()
-		if GetFFlagCreateAnimationFromVideoAnalytics() then
+		if GetFFlagCreateAnimationFromVideoAnalytics2() then
 			self.props.Analytics:report("onAnimationEditorImportVideoUploadCancel")
 		end
 		self.hideAnimationImportProgress()
@@ -302,6 +301,8 @@ function EditorController:init()
 		local props = self.props
 		local setSelectedTracks = props.SetSelectedTracks
 		local animationData = self.props.AnimationData
+		local editorMode = self.props.EditorMode
+
 		if self.controlDown then
 			self.controlSelectTrack(path)
 		elseif (not GetFFlagCurveEditor() or not AnimationData.isChannelAnimation(animationData)) and self.shiftDown then
@@ -312,9 +313,9 @@ function EditorController:init()
 		end
 		self.findCurrentParts({path}, props.RootInstance)
 		if GetFFlagCurveEditor() then
-			props.Analytics:report("onTrackSelected", path[1], "TrackList")
+			props.Analytics:report("onTrackSelected", path[1], "TrackList", editorMode)
 		else
-			props.Analytics:report("onTrackSelected", path, "TrackList")
+			props.Analytics:report("onTrackSelected", path, "TrackList", editorMode)
 		end
 	end
 
@@ -719,7 +720,7 @@ function EditorController:render()
 					BorderSizePixel = 0,
 				}, {
 					TrackList = Roact.createElement(TrackList, {
-						Size = UDim2.new(1, (FFlagShowDualScrollbars or showCurveCanvas) and (-Constants.SCROLL_BAR_SIZE - 1) or 0, 1, 0),
+						Size = UDim2.new(1, -Constants.SCROLL_BAR_SIZE - 1, 1, 0),
 						TopTrackIndex = topTrackIndex,
 						Tracks = tracks,
 						SelectedTracks = selectedTracks,
@@ -742,7 +743,7 @@ function EditorController:render()
 						OnTrackSelected = self.onTrackSelected,
 					}),
 
-					TrackScrollbarFrame = (FFlagShowDualScrollbars or showCurveCanvas) and Roact.createElement("Frame", {
+					TrackScrollbarFrame = Roact.createElement("Frame", {
 						Size = UDim2.new(0, Constants.SCROLL_BAR_SIZE, 1, 0),
 						Position = UDim2.new(1, -Constants.SCROLL_BAR_SIZE, 0, 0),
 						BackgroundColor3 = theme.scrollBarTheme.backgroundColor,
@@ -754,7 +755,7 @@ function EditorController:render()
 							SetTopTrackIndex = self.setTopTrackIndex,
 							OnScroll = self.onScroll,
 						})
-					}) or nil,
+					}),
 				}) or nil,
 
 				TrackList = not GetFFlagCurveEditor() and Roact.createElement(TrackList, {
@@ -959,7 +960,7 @@ function EditorController:willUnmount()
 	end
 	props.ReleaseEditor(props.Analytics)
 	if GetFFlagCurveAnalytics() then
-		props.Analytics:report("onEditorModeSwitch", props.EditorMode, os.time() - props.EditorModeSwitchTime)
+		props.Analytics:report("onEditorModeSwitch", props.EditorMode, nil, os.time() - props.EditorModeSwitchTime)
 	end
 	props.Analytics:report("onEditorClosed", os.time() - self.openedTimestamp)
 end

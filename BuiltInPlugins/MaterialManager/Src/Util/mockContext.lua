@@ -10,26 +10,45 @@ local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 local Framework = require(Plugin.Packages.Framework)
 local TestHelpers = Framework.TestHelpers
+local ServiceWrapper = TestHelpers.ServiceWrapper
 local ContextServices = Framework.ContextServices
 
-local getFFlagMaterialManagerDetailsOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerDetailsOverhaul)
+local getFFlagMaterialManagerGlassNeonForceField = require(Plugin.Src.Flags.getFFlagMaterialManagerGlassNeonForceField)
+local DEPRECATED_getBuiltInMaterialVariants = require(Plugin.Src.Resources.Constants.DEPRECATED_getBuiltInMaterialVariants)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local MakeTheme = require(Plugin.Src.Resources.MakeTheme)
 
-local Util = Plugin.Src.Util
-local GeneralServiceController = require(Util.GeneralServiceController)
-local MaterialServiceController = require(Util.MaterialServiceController)
+local Controllers = Plugin.Src.Controllers
+local CalloutController = require(Controllers.CalloutController)
+local GeneralServiceController = require(Controllers.GeneralServiceController)
+local ImageLoader = require(Controllers.ImageLoader)
+local ImportAssetHandler = require(Controllers.ImportAssetHandler)
+local MaterialController = require(Controllers.MaterialController)
+local MaterialServiceController = require(Controllers.MaterialServiceController)
+local PluginController = require(Controllers.PluginController)
 
 -- New Plugin Setup: Populate contextItemsList with mocks
 
-local store = ContextServices.Store.new(Rodux.Store.new(MainReducer, nil, nil, nil))
+local store = ContextServices.Store.new(Rodux.Store.new(MainReducer, nil, {
+	Rodux.thunkMiddleware,
+}, nil))
+local materialController = if getFFlagMaterialManagerGlassNeonForceField() then
+	MaterialController.new(nil, ServiceWrapper.new("MaterialService", true))
+else
+	MaterialController.new(DEPRECATED_getBuiltInMaterialVariants(), ServiceWrapper.new("MaterialService", true))
+
 
 local contextItemsList = {
 	ContextServices.Analytics.mock(),
 	ContextServices.Localization.mock(),
 	store,
-	if getFFlagMaterialManagerDetailsOverhaul() then MaterialServiceController.mock(store) else nil,
-	if getFFlagMaterialManagerDetailsOverhaul() then GeneralServiceController.mock() else nil,
+	CalloutController.mock(),
+	GeneralServiceController.mock(),
+	ImportAssetHandler.mock(),
+	ImageLoader.mock(),
+	materialController,
+	MaterialServiceController.mock(store.store),
+	PluginController.mock(),
 	MakeTheme(true),
 }
 

@@ -1,5 +1,5 @@
 local View = {
-    GRID = {
+	GRID = {
 		Key = "GRID",
 	},
 	LIST = {

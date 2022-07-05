@@ -19,9 +19,9 @@ local ScrollingFrame = UI.ScrollingFrame
 local Util = Framework.Util
 local LayoutOrderIterator = Util.LayoutOrderIterator
 
-local GeneralSettings = require(Plugin.Src.Components.MaterialPrompt.MaterialVariantCreator.GeneralSettings)
-local TextureSettings = require(Plugin.Src.Components.MaterialPrompt.MaterialVariantCreator.TextureSettings)
-local AdditionalPropertiesSettings = require(Plugin.Src.Components.MaterialPrompt.MaterialVariantCreator.AdditionalPropertiesSettings)
+local GeneralSettings = require(Plugin.Src.Components.MaterialPrompt.DEPRECATED_MaterialVariantCreator.GeneralSettings)
+local TextureSettings = require(Plugin.Src.Components.MaterialPrompt.DEPRECATED_MaterialVariantCreator.TextureSettings)
+local AdditionalPropertiesSettings = require(Plugin.Src.Components.MaterialPrompt.DEPRECATED_MaterialVariantCreator.AdditionalPropertiesSettings)
 local MaterialPreview = require(Plugin.Src.Components.MaterialPreview)
 local DEPRECATED_MaterialPreview = require(Plugin.Src.Components.DEPRECATED_MaterialPreview)
 

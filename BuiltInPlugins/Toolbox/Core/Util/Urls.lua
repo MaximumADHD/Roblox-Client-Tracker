@@ -15,11 +15,13 @@ local Category = require(Plugin.Core.Types.Category)
 local Url = require(Plugin.Libs.Http.Url)
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
+local getPlaceId = require(Plugin.Core.Util.getPlaceId)
 
 local FFlagAssetConfigDynamicDistributionQuotas2 = game:GetFastFlag("AssetConfigDynamicDistributionQuotas2")
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 local FIntCanManageLuaRolloutPercentage = game:DefineFastInt("CanManageLuaRolloutPercentage", 0)
 local FFlagInfiniteScrollerForVersions2 = game:getFastFlag("InfiniteScrollerForVersions2")
+local FFlagToolboxIncludedPlaceIdInConfigRequest = game:GetFastFlag("ToolboxIncludedPlaceIdInConfigRequest")
 
 local Urls = {}
 
@@ -87,7 +89,6 @@ local CAN_MANAGE_ASSET_DEVELOP_URL = Url.DEVELOP_URL .. "v1/user/%d/canmanage/%d
 local ASSET_PURCHASE_URLV2 = Url.ECONOMY_URL .. "/v2/user-products/%d/purchase"
 
 -- Package Permissions URLs
-local DEPRECATED_POST_PACKAGE_METADATA = Url.DEVELOP_URL .. "v1/packages/assets/versions/metadata/get"
 local POST_PACKAGE_METADATA = Url.APIS_URL .. "packages-api/v1/packages/assets/versions/metadata/get"
 
 -- Asset Permissions URLs
@@ -172,7 +173,8 @@ function Urls.constructGetToolboxItemsUrl(
 			"ownerId",
 			"tags",
 		}),
-		{ tags = if FFlagToolboxAudioDiscovery and args.tags then Array.join(args.tags, ",") else nil }
+		{ tags = if FFlagToolboxAudioDiscovery and args.tags then Array.join(args.tags, ",") else nil },
+		{ placeId = if FFlagToolboxIncludedPlaceIdInConfigRequest and args.sectionName then getPlaceId() else nil }
 	)
 
 	local categoryData = Category.getCategoryByName(categoryName)
@@ -501,10 +503,6 @@ function Urls.getRobuxPurchaseUrl()
 	return ROBUX_PURCHASE_URL
 end
 
-function Urls.DEPRECATED_constructPostPackageMetadata()
-	return DEPRECATED_POST_PACKAGE_METADATA
-end
-
 function Urls.constructPostPackageMetadata()
 	return POST_PACKAGE_METADATA
 end
@@ -597,6 +595,7 @@ function Urls.constructGetHomeConfigurationUrl(assetType: Enum.AssetType, locale
 	return string.format("%s/home/%s/configuration?", TOOLBOX_SERVICE_URL, assetType.Name)
 		.. Url.makeQueryString({
 			locale = locale,
+			placeId = if FFlagToolboxIncludedPlaceIdInConfigRequest then getPlaceId() else nil,
 		})
 end
 

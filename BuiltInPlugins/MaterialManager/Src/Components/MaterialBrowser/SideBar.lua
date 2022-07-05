@@ -20,8 +20,10 @@ local SetPath = require(Actions.SetPath)
 
 local Util = Plugin.Src.Util
 local getCategories = require(Util.getCategories)
-local MaterialController = require(Util.MaterialController)
-local MaterialServiceController = require(Util.MaterialServiceController)
+
+local Controllers = Plugin.Src.Controllers
+local MaterialController = require(Controllers.MaterialController)
+local MaterialServiceController = require(Controllers.MaterialServiceController)
 
 local getFFlagMaterialManagerGridOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerGridOverhaul)
 

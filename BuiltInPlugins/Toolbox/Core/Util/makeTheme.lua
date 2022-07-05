@@ -8,22 +8,20 @@ local Images = require(Plugin.Core.Util.Images)
 local Packages = Plugin.Packages
 
 local Framework = require(Packages.Framework)
+local Cryo = require(Packages.Cryo)
 
 local Util = Plugin.Core.Util
 local Colors = require(Util.Colors)
 local isCli = require(Util.isCli)
 
-local FrameworkStyle = Framework.Style
-local StudioTheme = FrameworkStyle.Themes.StudioTheme
-local StyleKey = FrameworkStyle.StyleKey
-local StyleColors = FrameworkStyle.Colors
-local DarkTheme = require(Packages.Framework).Style.Themes.DarkTheme
-local LightTheme = require(Packages.Framework).Style.Themes.LightTheme
-
-local Cryo = require(Packages.Cryo)
-
-local ui = FrameworkStyle.ComponentSymbols
-local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
+local ColorSystem = Framework.Style.ColorSystem
+local DarkTheme = Framework.Style.Themes.DarkTheme
+local getRawComponentStyle = Framework.Style.getRawComponentStyle
+local LightTheme = Framework.Style.Themes.LightTheme
+local StudioTheme = Framework.Style.Themes.StudioTheme
+local StyleColors = Framework.Style.Colors
+local StyleKey = Framework.Style.StyleKey
+local ui = Framework.Style.ComponentSymbols
 
 local makeTheme = function(themeExtension, themeClass)
 	themeClass = themeClass or StudioTheme
@@ -426,7 +424,7 @@ local makeTheme = function(themeExtension, themeClass)
 		searchTag = {
 			backgroundColor = StyleKey.Toolbox_SearchTagBackgroundColor,
 			borderColor = StyleKey.Border,
-			textColor = if FFlagToolboxSearchResultsBackButton then StyleKey.TextContrast else StyleKey.MainText,
+			textColor = if FFlagToolboxSearchResultsBackButton then ColorSystem.Black[0] else StyleKey.MainText,
 			clearAllText = StyleKey.LinkText,
 		},
 

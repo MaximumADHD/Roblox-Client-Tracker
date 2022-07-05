@@ -16,11 +16,8 @@ local Button = UI.Button
 local Image = UI.Decoration.Image
 local Pane = UI.Pane
 
-local Actions = Plugin.Src.Actions
-local ClearMaterial = require(Actions.ClearMaterial)
-
-local Util = Plugin.Src.Util
-local MaterialController = require(Util.MaterialController)
+local ClearMaterial = require(Plugin.Src.Actions.ClearMaterial)
+local MaterialController = require(Plugin.Src.Controllers.MaterialController)
 
 local Components = Plugin.Src.Components
 local MaterialPreview = require(Components.DEPRECATED_MaterialPreview)

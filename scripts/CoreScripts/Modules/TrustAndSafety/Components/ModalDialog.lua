@@ -6,6 +6,7 @@ local UIBlox = require(CorePackages.UIBlox)
 local t = require(CorePackages.Packages.t)
 
 local TnsModule = script.Parent.Parent
+local VirtualKeyboardMonitor = require(TnsModule.Components.VirtualKeyboardMonitor)
 local Assets = require(TnsModule.Resources.Assets)
 local Dependencies = require(TnsModule.Dependencies)
 local Divider = require(Dependencies.Divider)
@@ -17,8 +18,9 @@ local HeaderBar = UIBlox.App.Bar.HeaderBar
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local UIBloxImages = UIBlox.App.ImageSet.Images
 
-local DIALOG_WIDTH = 540
-local DIALOG_HEIGHT = 375
+local MAX_WIDTH = 540
+local MAX_HEIGHT = 375
+local TITLE_HEIGHT = 49
 local CONTENT_HEIGHT = 230
 local ACTION_BAR_HEIGHT = 96
 local MODAL_DISMISS_ACTION = "ModalDialogDismiss"
@@ -27,6 +29,7 @@ local ModalDialog = Roact.PureComponent:extend("ModalDialog")
 
 ModalDialog.validateProps = t.strictInterface({
 	visible = t.boolean,
+	screenSize = t.Vector2,
 	titleText = t.optional(t.string),
 	showCloseButton = t.optional(t.boolean),
 	headerBar = t.optional(t.table),
@@ -35,6 +38,17 @@ ModalDialog.validateProps = t.strictInterface({
 	onDismiss = t.callback,
 	onBackButtonActivated = t.optional(t.callback),
 })
+
+function ModalDialog:init()
+	self.virtualKeyboardMonitor = VirtualKeyboardMonitor.getInstance()
+	self.onOverlayActivated = function()
+		if self.virtualKeyboardMonitor:isKeyboardJustOff() then
+			-- Ignore the first touch event after text box focus released to prevent misoperation.
+			return
+		end
+		self.props.onDismiss()
+	end
+end
 
 function ModalDialog:renderHeaderBarLeft()
 	local props = self.props
@@ -67,7 +81,24 @@ end
 
 function ModalDialog:render()
 	local props = self.props
-	local contentHeight = CONTENT_HEIGHT
+	-- screen resolution adaptivity
+	-- It's similar to ModalWindow. If the screen size is smaller than the max
+	-- width of the Modal, then it will act as a popup from the bottom of the
+	-- screen, anything larger and it behaves similarly to an Alert.
+	local size = Vector2.new(
+		math.min(props.screenSize.X, MAX_WIDTH),
+		math.min(props.screenSize.Y, MAX_HEIGHT)
+	)
+	local anchorPoint, position
+	if props.screenSize.X < MAX_WIDTH then
+		anchorPoint = Vector2.new(0.5, 1)
+		position = UDim2.fromScale(0.5, 1)
+	else
+		anchorPoint = Vector2.new(0.5, 0.5)
+		position = UDim2.fromScale(0.5, 0.5)
+	end
+	-- content height
+	local contentHeight = math.min(CONTENT_HEIGHT, size.Y - TITLE_HEIGHT - ACTION_BAR_HEIGHT)
 	if not props.actionButtons then
 		-- If there isn't any action button, extend content frame
 		contentHeight += ACTION_BAR_HEIGHT
@@ -76,7 +107,7 @@ function ModalDialog:render()
 	return withStyle(function(style)
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 1, 0),
+			Size = UDim2.fromScale(1, 1),
 			Visible = props.visible,
 		}, {
 			Overlay = Roact.createElement("TextButton", {
@@ -84,21 +115,21 @@ function ModalDialog:render()
 				BackgroundColor3 = style.Theme.Overlay.Color,
 				BackgroundTransparency = style.Theme.Overlay.Transparency,
 				BorderSizePixel = 0,
-				Size = UDim2.new(1, 0, 1, 0),
+				Size = UDim2.fromScale(1, 1),
 				Text = "",
 				ZIndex = -10,
-				[Roact.Event.Activated] = props.onDismiss,
+				[Roact.Event.Activated] = self.onOverlayActivated,
 			}),
 			Dialog = Roact.createElement(ImageSetLabel, {
 				Active = true,	-- block the input to overlay
-				AnchorPoint = Vector2.new(0.5, 0.5),
+				AnchorPoint = anchorPoint,
 				BackgroundTransparency = 1,
 				Image = Assets.Images.RoundedRect.Image,
 				ImageColor3 = style.Theme.BackgroundUIDefault.Color,
 				ImageTransparency = style.Theme.BackgroundUIDefault.Transparency,
-				Position = UDim2.new(0.5, 0, 0.5, 0),
+				Position = position,
 				ScaleType = Assets.Images.RoundedRect.ScaleType,
-				Size = UDim2.new(0, DIALOG_WIDTH, 0, DIALOG_HEIGHT),
+				Size = UDim2.fromOffset(size.X, size.Y),
 				SliceCenter = Assets.Images.RoundedRect.SliceCenter,
 			}, {
 				Layout = Roact.createElement("UIListLayout", {
@@ -109,7 +140,7 @@ function ModalDialog:render()
 				HeaderBar = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
 					LayoutOrder = 1,
-					Size = UDim2.new(1, 0, 0, 48),
+					Size = UDim2.new(1, 0, 0, TITLE_HEIGHT - 1),
 				}, {
 					Bar = props.headerBar or Roact.createElement(HeaderBar, {
 						backgroundTransparency = 1,

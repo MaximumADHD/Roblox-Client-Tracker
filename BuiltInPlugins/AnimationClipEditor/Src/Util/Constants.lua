@@ -5,15 +5,11 @@ local GetFFlagFaceControlsEditorUIUpdate = require(Plugin.LuaFlags.GetFFlagFaceC
 local GetFFlagFaceControlsEditorBugBash2Update = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorBugBash2Update)
 local GetFFlagCreateAnimationFromVideoMultiplePeopleStatusCode = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoMultiplePeopleStatusCode)
 
-local FFlagStudioUseAnimationEditorAnalytics2 = game:DefineFastFlag("StudioUseAnimationEditorAnalytics2", false)
-
 local Constants = {
 	PLUGIN_NAME = "AnimationClipEditor",
 
 	PLUGIN_BUTTON_IMAGE = "rbxasset://textures/AnimationEditor/animation_editor_blue.png",
 	CHECK_IMAGE = "rbxasset://textures/ui/LuaChat/icons/ic-check@2x.png",
-
-	USE_MOCK_ANALYTICS = not FFlagStudioUseAnimationEditorAnalytics2,
 
 	SETTINGS = {
 		EulerAnglesOrder = "ACE_EulerAnglesOrder",

@@ -22,6 +22,7 @@ return function()
 			}, {
 				ModalDialog = Roact.createElement(ModalDialog, {
 					visible = true,
+					screenSize = Vector2.new(480, 320),	-- iPhone 4s
 					onDismiss = function() end,
 				}),
 			})
@@ -36,6 +37,7 @@ return function()
 			}, {
 				ModalDialog = Roact.createElement(ModalDialog, {
 					visible = true,
+					screenSize = Vector2.new(568, 320),	-- iPhone 5
 					titleText = "Title",
 					showCloseButton = true,
 					headerBar = nil,
@@ -56,6 +58,7 @@ return function()
 			}, {
 				ModalDialog = Roact.createElement(ModalDialog, {
 					visible = true,
+					screenSize = Vector2.new(667, 375),	-- iPhone 6
 					titleText = "Title",
 					showCloseButton = false,
 					headerBar = nil,

@@ -31,6 +31,8 @@ local UpdateChecked = require(Plugin.Src.Thunks.UpdateChecked)
 local StatusLevel = require(Plugin.Src.Utility.StatusLevel)
 local trimFilename = require(Plugin.Src.Utility.trimFilename)
 
+local getFFlagUseAssetImportSession = require(Plugin.Src.Flags.getFFlagUseAssetImportSession)
+
 local SEPARATOR_WEIGHT = 1
 local ICON_DIMENSION = 20
 
@@ -183,7 +185,13 @@ function AssetImportTree:init()
 	self.setChecked = function(checked)
 		self.props.SetChecked(checked)
 
-		local instanceMap = AssetImportService:GetCurrentImportMap()
+		local instanceMap
+
+		if getFFlagUseAssetImportSession() then
+			instanceMap = self.props.AssetImportSession:GetCurrentImportMap()
+		else
+			instanceMap = AssetImportService:GetCurrentImportMap()
+		end
 
 		self.props.SetInstanceMap(instanceMap)
 	end
@@ -270,6 +278,7 @@ AssetImportTree = withContext({
 
 local function mapStateToProps(state)
 	return {
+		AssetImportSession = state.assetImportSession,
 		Selection = state.selectedSettingsItem and {
 			[state.selectedSettingsItem] = true,
 		} or {},

@@ -10,7 +10,6 @@
 		string Title = The title of this widget's TitledFrame
 		bool TutorialEnabled = Whether or not we show the tutorial for icons
 ]]
-
 local GuiService = game:GetService("GuiService")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 
@@ -20,8 +19,15 @@ local NOTES_SIZE = UDim2.new(1, -180, 0, 100)
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryBulletPoint = SharedFlags.getFFlagRemoveUILibraryBulletPoint()
+
 local Cryo = require(Plugin.Packages.Cryo)
 local UILibrary = require(Plugin.Packages.UILibrary)
+
+local UI = Framework.UI
+local BulletList = UI.BulletList
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
@@ -31,7 +37,10 @@ local withContext = ContextServices.withContext
 local TUTORIAL_URL = HttpRbxApiService:GetDocumentationUrl("articles/Game-Icons-Tips")
 
 local TitledFrame = UILibrary.Component.TitledFrame
-local BulletPoint = UILibrary.Component.BulletPoint
+local BulletPoint
+if not FFlagRemoveUILibraryBulletPoint then
+    BulletPoint = UILibrary.Component.BulletPoint
+end
 local UploadableIcon = require(Plugin.Src.Components.UploadableIcon.UploadableIcon)
 local NewUploadableIcon = require(Plugin.Src.Components.UploadableIcon.NewUploadableIcon)
 
@@ -80,25 +89,23 @@ function UploadableIconWidget:render()
 		preview = false
 	end
 
-	return Roact.createElement(TitledFrame, {
-		Title = title,
-		MaxHeight = 150,
-		LayoutOrder = self.props.LayoutOrder or 1,
-		TextSize = theme.fontStyle.Title.TextSize,
-	}, {
-		Icon = Roact.createElement(UploadableIcon, {
-			Visible = active and icon ~= "None" or preview,
-			Preview = preview,
-			Image = icon,
-			OnClick = self.props.AddIcon,
-		}),
 
-		NewIcon = Roact.createElement(NewUploadableIcon, {
-			Visible = active and icon == "None" and not preview,
-			OnClick = self.props.AddIcon,
-		}),
-
-		Notes = Roact.createElement("Frame", {
+	local notes
+	if FFlagRemoveUILibraryBulletPoint then
+		notes = Roact.createElement(BulletList, {
+			Items = {
+				localization:getText("General", "GameIconHint", {
+					fileTypes = table.concat(DEPRECATED_Constants.IMAGE_TYPES, ", "),
+					newline = "\n",
+				}),
+				localization:getText("General", "GameIconModeration"),
+			},
+			Position = NOTES_POSITION,
+			Size = NOTES_SIZE,
+			TextWrapped = true,
+		})
+	else
+		notes = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Position = NOTES_POSITION,
 			Size = NOTES_SIZE,
@@ -120,7 +127,28 @@ function UploadableIconWidget:render()
 				TextWrapped = true,
 				Text = localization:getText("General", "GameIconModeration"),
 			}),
+		})
+	end
+
+	return Roact.createElement(TitledFrame, {
+		Title = title,
+		MaxHeight = 150,
+		LayoutOrder = self.props.LayoutOrder or 1,
+		TextSize = theme.fontStyle.Title.TextSize,
+	}, {
+		Icon = Roact.createElement(UploadableIcon, {
+			Visible = active and icon ~= "None" or preview,
+			Preview = preview,
+			Image = icon,
+			OnClick = self.props.AddIcon,
 		}),
+
+		NewIcon = Roact.createElement(NewUploadableIcon, {
+			Visible = active and icon == "None" and not preview,
+			OnClick = self.props.AddIcon,
+		}),
+
+		Notes = notes,
 
 		NewNote = tutorialEnabled and Roact.createElement("TextButton", Cryo.Dictionary.join(theme.fontStyle.Smaller, {
 			BackgroundTransparency = 1,

@@ -746,7 +746,7 @@ local allowScreenshots = not PolicyService:IsSubjectToChinaPolicies()
 
 if allowScreenshots then
 	-- Otherwise game.ScreenshotSavedToAlbum signal will be fired, handling in CaptureNotification.lua
-	if not shouldSaveScreenshotToAlbum() and not EnableInGameMenuV3 then
+	if not shouldSaveScreenshotToAlbum() and not EnableInGameMenuV3() then
 		game.ScreenshotReady:Connect(function(path)
 			local titleText = RobloxTranslator:FormatByKey("NotificationScript2.Screenshot.Title")
 			local descriptionText = RobloxTranslator:FormatByKey("NotificationScript2.Screenshot.Description")

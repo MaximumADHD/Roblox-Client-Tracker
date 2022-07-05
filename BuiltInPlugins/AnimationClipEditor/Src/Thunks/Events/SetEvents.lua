@@ -11,6 +11,7 @@ return function(newEvents, analytics)
 	return function(store)
 		local state = store:getState()
 		local animationData = state.AnimationData
+		local editorMode = state.Status.EditorMode
 		if not animationData then
 			return
 		end
@@ -23,7 +24,7 @@ return function(newEvents, analytics)
 		for tick, events in pairs(newEvents.Data) do
 			for name, parameter in pairs(events) do
 				if oldEvents[tick] == nil or oldEvents[tick][name] == nil then
-					analytics:report("onAddEvent", name, parameter)
+					analytics:report("onAddEvent", name, parameter, editorMode)
 				end
 			end
 		end

@@ -16,6 +16,7 @@ BarOnTopScrollingFrame.validateProps = t.strictInterface({
 	ScrollingEnabled = t.optional(t.boolean),
 	[Roact.Children] = t.table,
 	onCanvasPositionChanged = t.optional(t.callback),
+	scrollingFrameRef = t.optional(t.table),
 })
 
 BarOnTopScrollingFrame.defaultProps = {
@@ -24,7 +25,7 @@ BarOnTopScrollingFrame.defaultProps = {
 
 function BarOnTopScrollingFrame:init()
 	self.state = {
-		canvasPosition = Vector2.new(0, 0),
+		CanvasPosition = Vector2.new(0, 0),
 	}
 end
 
@@ -47,6 +48,7 @@ function BarOnTopScrollingFrame:render()
 			ScrollingEnabled = self.props.ScrollingEnabled,
 			ScrollingDirection = Enum.ScrollingDirection.Y,
 			Selectable = false,
+			[Roact.Ref] = self.props.scrollingFrameRef,
 			[Roact.Change.CanvasPosition] = function(rbx)
 				self:setState({
 					CanvasPosition = rbx.CanvasPosition

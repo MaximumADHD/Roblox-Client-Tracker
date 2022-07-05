@@ -16,10 +16,11 @@ local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimati
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 if GetFFlagChannelAnimations() then
-	return function(instanceName, path, trackType, tick, keyframeData, analytics)
+	return function(instanceName, path, trackType, tck, keyframeData, analytics)
 		return function(store)
 			local state = store:getState()
 			local animationData = state.AnimationData
+			local editorMode = state.Status and state.Status.EditorMode
 			if not animationData or not animationData.Instances[instanceName] then
 				return
 			end
@@ -52,25 +53,26 @@ if GetFFlagChannelAnimations() then
 			end
 
 			local trackData = track.Data
-			if trackData[tick] == nil then
-				AnimationData.addKeyframe(track, tick, keyframeData)
-				if tick ~= 0 and trackData[0] == nil then
+			if trackData[tck] == nil then
+				AnimationData.addKeyframe(track, tck, keyframeData)
+				if tck ~= 0 and trackData[0] == nil then
 					AnimationData.addDefaultKeyframe(track, 0, trackType)
 				end
 
 				store:dispatch(UpdateAnimationData(newData))
 
 				if analytics then
-					analytics:report("onAddKeyframe", path[1], tick)
+					analytics:report("onAddKeyframe", path[1], editorMode)
 				end
 			end
 		end
 	end
 else
-	local function wrappee(instanceName, trackName, trackType, tick, value, analytics)
+	local function wrappee(instanceName, trackName, trackType, tck, value, analytics)
 		return function(store)
 			local state = store:getState()
 			local animationData = state.AnimationData
+			local editorMode = state.Status and state.Status.EditorMode
 			if not animationData then
 				return
 			end
@@ -95,11 +97,11 @@ else
 			local track = tracks[trackName]
 			local trackData = track.Data
 
-			if trackData[tick] == nil then
-				AnimationData.addKeyframe_deprecated(track, tick, value)
+			if trackData[tck] == nil then
+				AnimationData.addKeyframe_deprecated(track, tck, value)
 
 				-- if no base pose kf exists at time 0, create one now
-				if tick ~= 0 and trackData[0] == nil then
+				if tck ~= 0 and trackData[0] == nil then
 					if GetFFlagFacialAnimationSupport() then
 						AnimationData.addDefaultKeyframe(track, 0, trackType)
 					else
@@ -110,19 +112,19 @@ else
 				store:dispatch(UpdateAnimationData(newData))
 
 				if analytics then
-					analytics:report("onAddKeyframe", trackName, tick)
+					analytics:report("onAddKeyframe", trackName, editorMode)
 				end
 			end
 		end
 	end
 
 	if GetFFlagFacialAnimationSupport() then
-		return function(instanceName, trackName, trackType, tick, value, analytics)
-			return wrappee(instanceName, trackName, trackType, tick, value, analytics)
+		return function(instanceName, trackName, trackType, tck, value, analytics)
+			return wrappee(instanceName, trackName, trackType, tck, value, analytics)
 		end
 	else
-		return function(instanceName, trackName, tick, value, analytics)
-			return wrappee(instanceName, trackName, nil, tick, value, analytics)
+		return function(instanceName, trackName, tck, value, analytics)
+			return wrappee(instanceName, trackName, nil, tck, value, analytics)
 		end
 	end
 end

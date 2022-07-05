@@ -30,6 +30,9 @@ local args : PluginLoaderBuilder.Args = {
 		["StudioPublishService.GamePublishFinished"] = function()
 			return StudioPublishService.GamePublishFinished
 		end,
+		["StudioPublishService.GamePublishCancelled"] = function()
+			return StudioPublishService.GamePublishCancelled
+		end,
 		["StudioPublishService.OnSaveOrPublishPlaceToRoblox"] = function()
 			return StudioPublishService.OnSaveOrPublishPlaceToRoblox
 		end

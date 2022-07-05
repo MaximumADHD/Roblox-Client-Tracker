@@ -2,8 +2,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
-local FrameworkTypes = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Types)
-
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -16,11 +14,13 @@ local StudioUI = Framework.StudioUI
 local Dialog = StudioUI.Dialog
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 
+local LoadingImage = require(Plugin.Src.Components.LoadingImage)
+
 type Array<T> = { [number]: T }
 
 type _ExternalProps = {
 	PreviewTitle: string?,
-	RenderPreview: () -> FrameworkTypes.RoactElement,
+	ImageId: string,
 }
 
 type _InternalProps = {
@@ -52,12 +52,6 @@ function PreviewDialog:render()
 	local style: _Style = props.Stylizer.PromptSelectorWithPreview
 
 	local previewTitle = props.PreviewTitle or ""
-
-	local previewRenderResult
-	if props.RenderPreview then
-		previewRenderResult = props.RenderPreview()
-	end
-
 	local metadata = props.Metadata or {}
 
 	local padding = 4
@@ -77,7 +71,12 @@ function PreviewDialog:render()
 			BackgroundColor3 = style.PreviewBackgroundColor,
 			BorderColor3 = style.PreviewBorderColor,
 		}, {
-			PreviewContent = previewRenderResult,
+			PreviewContent = Roact.createElement(LoadingImage, {
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 1, 0),
+				Image = props.ImageId,
+				ScaleType = Enum.ScaleType.Fit,
+			}),
 		}),
 
 		-- Double the padding between the preview and filename

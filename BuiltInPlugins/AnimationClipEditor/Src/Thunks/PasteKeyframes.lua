@@ -20,12 +20,14 @@ local SetNotification = require(Plugin.Src.Actions.SetNotification)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 
 return function(tck: number, analytics: any): (any) -> ()
 	return function(store: Types.Store)
 		local state = store:getState()
 		local clipboard = state.Status.Clipboard
 		local animationData = state.AnimationData
+		local editorMode = state.EditorMode
 		if not animationData or not clipboard then
 			return
 		end
@@ -75,6 +77,9 @@ return function(tck: number, analytics: any): (any) -> ()
 							for keyframe, data in pairs(track.Data) do
 								local insertFrame = tck + (keyframe - lowestFrame)
 								AnimationData.addKeyframe(dataTrack, insertFrame, data)
+								if GetFFlagCurveAnalytics() then
+									analytics:report("onAddKeyframe", track.TopTrackName, editorMode)
+								end
 							end
 						else
 							store:dispatch(SetNotification("CannotPasteError", true))
@@ -106,7 +111,7 @@ return function(tck: number, analytics: any): (any) -> ()
 						AnimationData.addKeyframe_deprecated(dataTrack, insertFrame, data.Value)
 						AnimationData.setKeyframeData(dataTrack, insertFrame, data)
 
-						analytics:report("onAddKeyframe", trackName, insertFrame)
+						analytics:report("onAddKeyframe", trackName, editorMode)
 					end
 				end
 			end

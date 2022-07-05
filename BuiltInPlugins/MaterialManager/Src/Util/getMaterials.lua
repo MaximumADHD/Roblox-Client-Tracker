@@ -13,6 +13,8 @@ local ContainsPath = require(Util.ContainsPath)
 local DamerauLevenshteinDistance = require(Util.DamerauLevenshteinDistance)
 local MapMaterials = require(Util.MapMaterials)
 
+local getFFlagMaterialManagerUtilTests = require(Plugin.Src.Flags.getFFlagMaterialManagerUtilTests)
+
 return function(category: _Types.Category, path: _Types.Path, search: string?)
 	assert(category, "Tried to get materials for path which does not exist")
 
@@ -42,6 +44,12 @@ return function(category: _Types.Category, path: _Types.Path, search: string?)
 		else
 			materials = filtered
 		end
+	elseif getFFlagMaterialManagerUtilTests() then
+		local function pathFilter(material)
+			return #path == 0 or ContainsPath(path, getMaterialPath(material.Material))
+		end
+
+		materials = filter(materials, pathFilter)
 	end
 
 	return materials

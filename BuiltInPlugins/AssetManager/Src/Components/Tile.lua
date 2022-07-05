@@ -44,632 +44,632 @@ local ContentProvider = game:GetService("ContentProvider")
 local Tile = Roact.PureComponent:extend("Tile")
 
 local function stripText(text)
-    local newText = string.gsub(text, "%s+", "")
-    newText = string.gsub(newText, "\n", "")
-    newText = string.gsub(newText, "\t", "")
-    return newText
+	local newText = string.gsub(text, "%s+", "")
+	newText = string.gsub(newText, "\n", "")
+	newText = string.gsub(newText, "\t", "")
+	return newText
 end
 
 local ICON_SIZE = 150
 
 function Tile:init()
-    self.state = {
-        -- StyleModifier must be upper case first character because of how Theme in ContextServices uses it.
-        StyleModifier = nil,
-        assetFetchStatus = nil,
-        assetPreviewButtonHovered = false,
-        editText = "",
-    }
+	self.state = {
+		-- StyleModifier must be upper case first character because of how Theme in ContextServices uses it.
+		StyleModifier = nil,
+		assetFetchStatus = nil,
+		assetPreviewButtonHovered = false,
+		editText = "",
+	}
 
-    self.editing = false
+	self.editing = false
 
-    self.textBoxRef = Roact.createRef()
+	self.textBoxRef = Roact.createRef()
 
-    self.onMouseEnter = function()
-        local props = self.props
-        if not props.Enabled then
-            return
-        end
-        if self.state.StyleModifier == nil then
-            self:setState({
-                StyleModifier = StyleModifier.Hover,
-            })
-        end
-        self:setState({
-            assetPreviewButtonHovered = true,
-        })
-        local assetData = self.props.AssetData
-        local isFolder = assetData.ClassName == "Folder"
-        local isPlace = assetData.assetType == Enum.AssetType.Place
-        if not isFolder and not isPlace then
-            if FFlagAssetManagerFixOpenAssetPreview1 then
-                local assetPreviewData = self.props.AssetsTable.assetPreviewData[assetData.id]
-                -- asset preview data is not loaded or stored
-                if type(assetPreviewData) ~= "table" then
-                    self.props.dispatchGetAssetPreviewData(self.props.API:get(), {assetData.id})
-                end
-            else
-                self.props.dispatchGetAssetPreviewData(self.props.API:get(), {assetData.id})
-            end
-        end
-    end
+	self.onMouseEnter = function()
+		local props = self.props
+		if not props.Enabled then
+			return
+		end
+		if self.state.StyleModifier == nil then
+			self:setState({
+				StyleModifier = StyleModifier.Hover,
+			})
+		end
+		self:setState({
+			assetPreviewButtonHovered = true,
+		})
+		local assetData = self.props.AssetData
+		local isFolder = assetData.ClassName == "Folder"
+		local isPlace = assetData.assetType == Enum.AssetType.Place
+		if not isFolder and not isPlace then
+			if FFlagAssetManagerFixOpenAssetPreview1 then
+				local assetPreviewData = self.props.AssetsTable.assetPreviewData[assetData.id]
+				-- asset preview data is not loaded or stored
+				if type(assetPreviewData) ~= "table" then
+					self.props.dispatchGetAssetPreviewData(self.props.API:get(), {assetData.id})
+				end
+			else
+				self.props.dispatchGetAssetPreviewData(self.props.API:get(), {assetData.id})
+			end
+		end
+	end
 
-    self.onMouseLeave = function()
-        local props = self.props
-        if not props.Enabled then
-            return
-        end
-        if self.state.StyleModifier == StyleModifier.Hover then
-            self:setState({
-                StyleModifier = Roact.None,
-            })
-        end
-        self:setState({
-            assetPreviewButtonHovered = false,
-        })
-    end
+	self.onMouseLeave = function()
+		local props = self.props
+		if not props.Enabled then
+			return
+		end
+		if self.state.StyleModifier == StyleModifier.Hover then
+			self:setState({
+				StyleModifier = Roact.None,
+			})
+		end
+		self:setState({
+			assetPreviewButtonHovered = false,
+		})
+	end
 
-    if FFlagAssetManagerDragAndDrop then
-        self.onClick = function(input, clickCount)
-            local props = self.props
-            if not props.Enabled then
-                return
-            end
-            local assetData = props.AssetData
-            if clickCount == 0 then
-                props.dispatchOnAssetSingleClick(input, assetData)
-            elseif clickCount == 1 then
-                props.dispatchOnAssetDoubleClick(props.Analytics, assetData)
-            end
-        end
+	if FFlagAssetManagerDragAndDrop then
+		self.onClick = function(input, clickCount)
+			local props = self.props
+			if not props.Enabled then
+				return
+			end
+			local assetData = props.AssetData
+			if clickCount == 0 then
+				props.dispatchOnAssetSingleClick(input, assetData)
+			elseif clickCount == 1 then
+				props.dispatchOnAssetDoubleClick(props.Analytics, assetData)
+			end
+		end
 
-        self.onDragBegan = function(input)
-            local props = self.props
-            local assetData = props.AssetData
-            props.OnAssetDrag(assetData)
-        end
+		self.onDragBegan = function(input)
+			local props = self.props
+			local assetData = props.AssetData
+			props.OnAssetDrag(assetData)
+		end
 
-        self.onRightClick = function()
-            local props = self.props
-            if not props.Enabled then
-                return
-            end
-            local assetData = props.AssetData
-            local isFolder = assetData.ClassName == "Folder"
-            if isFolder then
-                if not props.SelectedAssets[assetData.Screen.LayoutOrder] then
-                    props.dispatchOnAssetSingleClick(nil, assetData)
-                end
-            else
-                if not props.SelectedAssets[assetData.key] then
-                    props.dispatchOnAssetSingleClick(nil, assetData)
-                end
-            end
-            props.dispatchOnAssetRightClick(props)
-        end
-    else
-        self.onMouseActivated = function(rbx, obj, clickCount)
-            local props = self.props
-            if not props.Enabled then
-                return
-            end
-            local assetData = props.AssetData
-            if clickCount == 0 then
-                props.dispatchOnAssetSingleClick(obj, assetData)
-            elseif clickCount == 1 then
-                props.dispatchOnAssetDoubleClick(props.Analytics, assetData)
-            end
-        end
+		self.onRightClick = function()
+			local props = self.props
+			if not props.Enabled then
+				return
+			end
+			local assetData = props.AssetData
+			local isFolder = assetData.ClassName == "Folder"
+			if isFolder then
+				if not props.SelectedAssets[assetData.Screen.LayoutOrder] then
+					props.dispatchOnAssetSingleClick(nil, assetData)
+				end
+			else
+				if not props.SelectedAssets[assetData.key] then
+					props.dispatchOnAssetSingleClick(nil, assetData)
+				end
+			end
+			props.dispatchOnAssetRightClick(props)
+		end
+	else
+		self.onMouseActivated = function(rbx, obj, clickCount)
+			local props = self.props
+			if not props.Enabled then
+				return
+			end
+			local assetData = props.AssetData
+			if clickCount == 0 then
+				props.dispatchOnAssetSingleClick(obj, assetData)
+			elseif clickCount == 1 then
+				props.dispatchOnAssetDoubleClick(props.Analytics, assetData)
+			end
+		end
 
-        self.onMouseButton2Click = function(rbx, x, y)
-            local props = self.props
-            if not props.Enabled then
-                return
-            end
-            local assetData = props.AssetData
-            local isFolder = assetData.ClassName == "Folder"
-            if isFolder then
-                if not props.SelectedAssets[assetData.Screen.LayoutOrder] then
-                    props.dispatchOnAssetSingleClick(nil, assetData)
-                end
-            else
-                if not props.SelectedAssets[assetData.key] then
-                    props.dispatchOnAssetSingleClick(nil, assetData)
-                end
-            end
-            props.dispatchOnAssetRightClick(props)
-        end
-    end
+		self.onMouseButton2Click = function(rbx, x, y)
+			local props = self.props
+			if not props.Enabled then
+				return
+			end
+			local assetData = props.AssetData
+			local isFolder = assetData.ClassName == "Folder"
+			if isFolder then
+				if not props.SelectedAssets[assetData.Screen.LayoutOrder] then
+					props.dispatchOnAssetSingleClick(nil, assetData)
+				end
+			else
+				if not props.SelectedAssets[assetData.key] then
+					props.dispatchOnAssetSingleClick(nil, assetData)
+				end
+			end
+			props.dispatchOnAssetRightClick(props)
+		end
+	end
 
-    self.openAssetPreview = function()
-        self:setState({
-            assetPreviewButtonHovered = false,
-        })
-        local assetData = self.props.AssetData
-        self.props.OnOpenAssetPreview(assetData)
-    end
+	self.openAssetPreview = function()
+		self:setState({
+			assetPreviewButtonHovered = false,
+		})
+		local assetData = self.props.AssetData
+		self.props.OnOpenAssetPreview(assetData)
+	end
 
-    self.onTextChanged = function(rbx)
-        local text = rbx.Text
-        if text ~= self.props.AssetData.name then
-            self:setState({
-                editText = text,
-            })
-        end
+	self.onTextChanged = function(rbx)
+		local text = rbx.Text
+		if text ~= self.props.AssetData.name then
+			self:setState({
+				editText = text,
+			})
+		end
 	end
 
 	self.onTextBoxFocusLost = function(rbx, enterPressed, inputObject)
-        local props = self.props
-        local assetData = props.AssetData
-        local newName = self.state.editText
-        if utf8.len(newName) ~= 0 and utf8.len(stripText(newName)) ~= 0 then
-            if assetData.assetType == Enum.AssetType.Place then
-                AssetManagerService:RenamePlace(assetData.id, newName)
-            elseif assetData.assetType == Enum.AssetType.Image
-            or assetData.assetType == Enum.AssetType.MeshPart
-            or assetData.assetType == Enum.AssetType.Lua
-            or (enableAudioImport() and assetData.assetType == Enum.AssetType.Audio)
-            or (enableVideoImport() and assetData.assetType == Enum.AssetType.Video)
-            then
-                local prefix
-                -- Setting asset type to same value as Enum.AssetType since it cannot be passed into function
-                if assetData.assetType == Enum.AssetType.Image then
-                    prefix = "Images/"
-                elseif assetData.assetType == Enum.AssetType.MeshPart then
-                    prefix = "Meshes/"
-                elseif assetData.assetType == Enum.AssetType.Lua then
-                    prefix = "Scripts/"
-                elseif (enableAudioImport() and assetData.assetType == Enum.AssetType.Audio) then
-                    prefix = "Audio/"
-                elseif (enableVideoImport() and assetData.assetType == Enum.AssetType.Video) then
-                    prefix = "Video/"
-                elseif FFlagAssetManagerEnableModelAssets and assetData.assetType == Enum.AssetType.Model then
-                    prefix = "Models/"
-                end
-                AssetManagerService:RenameAlias(assetData.assetType.Value, assetData.id, prefix .. assetData.name, prefix .. newName)
-            end
-            props.AssetData.name = newName
-        end
-        props.dispatchSetEditingAssets({})
-        self.editing = false
-        -- force re-render to show updated name
-        self:setState({
-            editText = props.AssetData.name,
-        })
+		local props = self.props
+		local assetData = props.AssetData
+		local newName = self.state.editText
+		if utf8.len(newName) ~= 0 and utf8.len(stripText(newName)) ~= 0 then
+			if assetData.assetType == Enum.AssetType.Place then
+				AssetManagerService:RenamePlace(assetData.id, newName)
+			elseif assetData.assetType == Enum.AssetType.Image
+			or assetData.assetType == Enum.AssetType.MeshPart
+			or assetData.assetType == Enum.AssetType.Lua
+			or (enableAudioImport() and assetData.assetType == Enum.AssetType.Audio)
+			or (enableVideoImport() and assetData.assetType == Enum.AssetType.Video)
+			then
+				local prefix
+				-- Setting asset type to same value as Enum.AssetType since it cannot be passed into function
+				if assetData.assetType == Enum.AssetType.Image then
+					prefix = "Images/"
+				elseif assetData.assetType == Enum.AssetType.MeshPart then
+					prefix = "Meshes/"
+				elseif assetData.assetType == Enum.AssetType.Lua then
+					prefix = "Scripts/"
+				elseif (enableAudioImport() and assetData.assetType == Enum.AssetType.Audio) then
+					prefix = "Audio/"
+				elseif (enableVideoImport() and assetData.assetType == Enum.AssetType.Video) then
+					prefix = "Video/"
+				elseif FFlagAssetManagerEnableModelAssets and assetData.assetType == Enum.AssetType.Model then
+					prefix = "Models/"
+				end
+				AssetManagerService:RenameAlias(assetData.assetType.Value, assetData.id, prefix .. assetData.name, prefix .. newName)
+			end
+			props.AssetData.name = newName
+		end
+		props.dispatchSetEditingAssets({})
+		self.editing = false
+		-- force re-render to show updated name
+		self:setState({
+			editText = props.AssetData.name,
+		})
 	end
 
-    local props = self.props
-    local assetData = props.AssetData
+	local props = self.props
+	local assetData = props.AssetData
 
-    local isFolder = assetData.ClassName == "Folder"
-    local assetId = assetData.id
-    if not isFolder then
-        if assetData.assetType == Enum.AssetType.Place then
-            self.thumbnailUrl = string.format("rbxthumb://type=AutoGeneratedAsset&id=%i&w=%i&h=%i", assetId, ICON_SIZE, ICON_SIZE)
-        else
-            self.thumbnailUrl = string.format("rbxthumb://type=Asset&id=%i&w=%i&h=%i", assetId, ICON_SIZE, ICON_SIZE)
-        end
-        spawn(function()
-            local asset = { self.thumbnailUrl }
-            local function setStatus(contentId, status)
-                self:setState({
-                    assetFetchStatus = status
-                })
-            end
-            ContentProvider:PreloadAsync(asset, setStatus)
-        end)
-    end
+	local isFolder = assetData.ClassName == "Folder"
+	local assetId = assetData.id
+	if not isFolder then
+		if assetData.assetType == Enum.AssetType.Place then
+			self.thumbnailUrl = string.format("rbxthumb://type=AutoGeneratedAsset&id=%i&w=%i&h=%i", assetId, ICON_SIZE, ICON_SIZE)
+		else
+			self.thumbnailUrl = string.format("rbxthumb://type=Asset&id=%i&w=%i&h=%i", assetId, ICON_SIZE, ICON_SIZE)
+		end
+		spawn(function()
+			local asset = { self.thumbnailUrl }
+			local function setStatus(contentId, status)
+				self:setState({
+					assetFetchStatus = status
+				})
+			end
+			ContentProvider:PreloadAsync(asset, setStatus)
+		end)
+	end
 end
 
 function Tile:didMount()
-    self:setState({
-        editText = self.props.AssetData.name
-    })
+	self:setState({
+		editText = self.props.AssetData.name
+	})
 end
 
 function Tile:didUpdate(lastProps, lastState)
-    local props = self.props
-    local assetData = props.AssetData
-    local isEditingAsset = props.EditingAssets[assetData.id]
-    if isEditingAsset then
-        if self.textBoxRef and self.textBoxRef.current and not self.editing then
-            local textBox = self.textBoxRef.current
-            textBox:CaptureFocus()
-            textBox.SelectionStart = 1
-            textBox.CursorPosition = #textBox.Text + 1
-            self.editing = true
-        end
-    end
+	local props = self.props
+	local assetData = props.AssetData
+	local isEditingAsset = props.EditingAssets[assetData.id]
+	if isEditingAsset then
+		if self.textBoxRef and self.textBoxRef.current and not self.editing then
+			local textBox = self.textBoxRef.current
+			textBox:CaptureFocus()
+			textBox.SelectionStart = 1
+			textBox.CursorPosition = #textBox.Text + 1
+			self.editing = true
+		end
+	end
 end
 
 function Tile:render()
-    local props = self.props
-    local pluginStyle = props.Stylizer
+	local props = self.props
+	local pluginStyle = props.Stylizer
 
-    local localization = props.Localization
+	local localization = props.Localization
 
-    local enabled = props.Enabled
+	local enabled = props.Enabled
 
-    local size = pluginStyle.Size
+	local size = pluginStyle.Size
 
-    local assetData = props.AssetData
+	local assetData = props.AssetData
 
-    local backgroundColor = pluginStyle.BackgroundColor
-    local backgroundTransparency = pluginStyle.BackgroundTransparency
-    local borderSizePixel = pluginStyle.BorderSizePixel
+	local backgroundColor = pluginStyle.BackgroundColor
+	local backgroundTransparency = pluginStyle.BackgroundTransparency
+	local borderSizePixel = pluginStyle.BorderSizePixel
 
-    local textColor = pluginStyle.Text.Color
-    local textFont = pluginStyle.Font
-    local textSize = pluginStyle.Text.Size
-    local textBGTransparency = pluginStyle.Text.BackgroundTransparency
-    local textTruncate = pluginStyle.Text.TextTruncate
-    local textXAlignment = pluginStyle.Text.XAlignment
-    local textYAlignment = pluginStyle.Text.YAlignment
+	local textColor = pluginStyle.Text.Color
+	local textFont = pluginStyle.Font
+	local textSize = pluginStyle.Text.Size
+	local textBGTransparency = pluginStyle.Text.BackgroundTransparency
+	local textTruncate = pluginStyle.Text.TextTruncate
+	local textXAlignment = pluginStyle.Text.XAlignment
+	local textYAlignment = pluginStyle.Text.YAlignment
 
-    local textFrameSize = pluginStyle.Text.Frame.Size
-    local textFramePos = pluginStyle.Text.Frame.Position
+	local textFrameSize = pluginStyle.Text.Frame.Size
+	local textFramePos = pluginStyle.Text.Frame.Position
 
-    local editText = self.state.editText
-    local isEditingAsset = props.EditingAssets[assetData.id]
-    local editTextWrapped = pluginStyle.EditText.TextWrapped
-    local editTextClearOnFocus = pluginStyle.EditText.ClearTextOnFocus
-    local editTextXAlignment = pluginStyle.Text.XAlignment
+	local editText = self.state.editText
+	local isEditingAsset = props.EditingAssets[assetData.id]
+	local editTextWrapped = pluginStyle.EditText.TextWrapped
+	local editTextClearOnFocus = pluginStyle.EditText.ClearTextOnFocus
+	local editTextXAlignment = pluginStyle.Text.XAlignment
 
-    local editTextFrameBackgroundColor = pluginStyle.EditText.Frame.BackgroundColor
-    local editTextFrameBorderColor = pluginStyle.EditText.Frame.BorderColor
+	local editTextFrameBackgroundColor = pluginStyle.EditText.Frame.BackgroundColor
+	local editTextFrameBorderColor = pluginStyle.EditText.Frame.BorderColor
 
-    local editTextSize = GetTextSize(editText, textSize, textFont, Vector2.new(pluginStyle.Size.X.Offset, math.huge))
-    local editTextPadding
-    if editTextSize.X < pluginStyle.Size.X.Offset then
-        editTextPadding = pluginStyle.EditText.TextPadding
-    else
-        editTextPadding = 0
-    end
+	local editTextSize = GetTextSize(editText, textSize, textFont, Vector2.new(pluginStyle.Size.X.Offset, math.huge))
+	local editTextPadding
+	if editTextSize.X < pluginStyle.Size.X.Offset then
+		editTextPadding = pluginStyle.EditText.TextPadding
+	else
+		editTextPadding = 0
+	end
 
-    local name = assetData.name
-    local displayName = assetData.name
-    local nameSize = GetTextSize(assetData.name, textSize, textFont,
-        Vector2.new(textFrameSize.X.Offset, math.huge))
-    if nameSize.Y > textFrameSize.Y.Offset then
-        -- using hardcoded values for now since tile size is constant
-        displayName = string.sub(assetData.name, 1, 12) .. "..." ..
-            string.sub(assetData.name, string.len(assetData.name) - 5)
-    end
+	local name = assetData.name
+	local displayName = assetData.name
+	local nameSize = GetTextSize(assetData.name, textSize, textFont,
+		Vector2.new(textFrameSize.X.Offset, math.huge))
+	if nameSize.Y > textFrameSize.Y.Offset then
+		-- using hardcoded values for now since tile size is constant
+		displayName = string.sub(assetData.name, 1, 12) .. "..." ..
+			string.sub(assetData.name, string.len(assetData.name) - 5)
+	end
 
-    local isFolder = assetData.ClassName == "Folder"
-    local isPlace = assetData.assetType == Enum.AssetType.Place
+	local isFolder = assetData.ClassName == "Folder"
+	local isPlace = assetData.assetType == Enum.AssetType.Place
 
-    local image
-    if isFolder and FFlagHighDpiIcons then
-        image = ModernIcons.getIconForCurrentTheme(assetData.Screen.Image)
-    elseif isFolder then
-        image = assetData.Screen.Image
-    else
-        image = self.state.assetFetchStatus == Enum.AssetFetchStatus.Success and self.thumbnailUrl
-            or pluginStyle.Image.PlaceHolder
-    end
+	local image
+	if isFolder and FFlagHighDpiIcons then
+		image = ModernIcons.getIconForCurrentTheme(assetData.Screen.Image)
+	elseif isFolder then
+		image = assetData.Screen.Image
+	else
+		image = self.state.assetFetchStatus == Enum.AssetFetchStatus.Success and self.thumbnailUrl
+			or pluginStyle.Image.PlaceHolder
+	end
 
-    local imageFrameSize = pluginStyle.Image.FrameSize
-    local imageSize = pluginStyle.Image.ImageSize
-    local imagePos = pluginStyle.Image.Position
-    local imageFolderPos = pluginStyle.Image.FolderPosition
-    local imageFolderAnchorPos = pluginStyle.Image.FolderAnchorPosition
-    local imageBGColor = pluginStyle.Image.BackgroundColor
+	local imageFrameSize = pluginStyle.Image.FrameSize
+	local imageSize = pluginStyle.Image.ImageSize
+	local imagePos = pluginStyle.Image.Position
+	local imageFolderPos = pluginStyle.Image.FolderPosition
+	local imageFolderAnchorPos = pluginStyle.Image.FolderAnchorPosition
+	local imageBGColor = pluginStyle.Image.BackgroundColor
 
-    local createAssetPreviewButton = not isFolder and not isPlace
-    local showAssetPreviewButton = self.state.assetPreviewButtonHovered
-    local magnifyingGlass = pluginStyle.AssetPreview.Image
-    if FFlagHighDpiIcons then
-        magnifyingGlass = ModernIcons.getIconForCurrentTheme(ModernIcons.IconEnums.Zoom)
-    end
-    local assetPreviewButtonOffset = pluginStyle.AssetPreview.Button.Offset
+	local createAssetPreviewButton = not isFolder and not isPlace
+	local showAssetPreviewButton = self.state.assetPreviewButtonHovered
+	local magnifyingGlass = pluginStyle.AssetPreview.Image
+	if FFlagHighDpiIcons then
+		magnifyingGlass = ModernIcons.getIconForCurrentTheme(ModernIcons.IconEnums.Zoom)
+	end
+	local assetPreviewButtonOffset = pluginStyle.AssetPreview.Button.Offset
 
-    local isRootPlace = assetData.isRootPlace
-    local rootPlaceImageSize = pluginStyle.Image.StartingPlace.Size
-    local rootPlaceIcon = pluginStyle.Image.StartingPlace.Icon
-    if FFlagHighDpiIcons then
-        rootPlaceIcon = ModernIcons.getIconForCurrentTheme(ModernIcons.IconEnums.Spawn)
-    end
-    local rootPlaceIconXOffset = pluginStyle.Image.StartingPlace.XOffset
-    local rootPlaceIconYOffset = pluginStyle.Image.StartingPlace.YOffset
+	local isRootPlace = assetData.isRootPlace
+	local rootPlaceImageSize = pluginStyle.Image.StartingPlace.Size
+	local rootPlaceIcon = pluginStyle.Image.StartingPlace.Icon
+	if FFlagHighDpiIcons then
+		rootPlaceIcon = ModernIcons.getIconForCurrentTheme(ModernIcons.IconEnums.Spawn)
+	end
+	local rootPlaceIconXOffset = pluginStyle.Image.StartingPlace.XOffset
+	local rootPlaceIconYOffset = pluginStyle.Image.StartingPlace.YOffset
 
-    local layoutOrder = props.LayoutOrder
+	local layoutOrder = props.LayoutOrder
 
-    local thumbnailContainer = isFolder and "Frame" or "ImageLabel"
-    local thumbnailContainerProps = {
-        Size = imageFrameSize,
-        Position = imagePos,
+	local thumbnailContainer = isFolder and "Frame" or "ImageLabel"
+	local thumbnailContainerProps = {
+		Size = imageFrameSize,
+		Position = imagePos,
 
-        BackgroundTransparency = 0,
-        BackgroundColor3 = imageBGColor,
-        BorderSizePixel = 0,
-    }
+		BackgroundTransparency = 0,
+		BackgroundColor3 = imageBGColor,
+		BorderSizePixel = 0,
+	}
 
-    if not isFolder then
-        thumbnailContainerProps.Image = image
-    end
+	if not isFolder then
+		thumbnailContainerProps.Image = image
+	end
 
-    local displayModerationStatus
-    local moderationImage
-    local moderationStatusImageSize
-    local moderationStatusIconXOffset
-    local moderationStatusIconYOffset
-    local moderationTooltip
-    if FFlagStudioAssetManagerAssetModeration then
-        if not isFolder then
-            local moderationData = props.ModerationData
-            if moderationData and next(moderationData) ~= nil then
-                -- fetch moderation data then set icon/textbox size
-                local isPending = moderationData.reviewStatus == ReviewStatus.Pending
-                local isApproved = ModerationUtil.isApprovedAsset(moderationData)
-                displayModerationStatus = isPending or not isApproved
-                if displayModerationStatus then
-                    if isPending then
-                        moderationImage = pluginStyle.Image.ModerationStatus.Pending
-                    elseif not isApproved then
-                        moderationImage = pluginStyle.Image.ModerationStatus.Rejected
-                    end
-                    moderationStatusImageSize = pluginStyle.Image.ModerationStatus.Size
-                    moderationStatusIconXOffset = pluginStyle.Image.ModerationStatus.XOffset
-                    moderationStatusIconYOffset = pluginStyle.Image.ModerationStatus.YOffset
-                    moderationTooltip = ModerationUtil.getModerationTooltip(localization, moderationData)
-                end
-            end
-        end
-    end
+	local displayModerationStatus
+	local moderationImage
+	local moderationStatusImageSize
+	local moderationStatusIconXOffset
+	local moderationStatusIconYOffset
+	local moderationTooltip
+	if FFlagStudioAssetManagerAssetModeration then
+		if not isFolder then
+			local moderationData = props.ModerationData
+			if moderationData and next(moderationData) ~= nil then
+				-- fetch moderation data then set icon/textbox size
+				local isPending = moderationData.reviewStatus == ReviewStatus.Pending
+				local isApproved = ModerationUtil.isApprovedAsset(moderationData)
+				displayModerationStatus = isPending or not isApproved
+				if displayModerationStatus then
+					if isPending then
+						moderationImage = pluginStyle.Image.ModerationStatus.Pending
+					elseif not isApproved then
+						moderationImage = pluginStyle.Image.ModerationStatus.Rejected
+					end
+					moderationStatusImageSize = pluginStyle.Image.ModerationStatus.Size
+					moderationStatusIconXOffset = pluginStyle.Image.ModerationStatus.XOffset
+					moderationStatusIconYOffset = pluginStyle.Image.ModerationStatus.YOffset
+					moderationTooltip = ModerationUtil.getModerationTooltip(localization, moderationData)
+				end
+			end
+		end
+	end
 
-    if FFlagAssetManagerDragAndDrop then
-        return Roact.createElement(DragSource, {
-            AutomaticSize = Enum.AutomaticSize.XY,
-            LayoutOrder = layoutOrder,
-            OnClick = self.onClick,
-            OnRightClick = self.onRightClick,
-            OnDragBegan = self.onDragBegan,
-        }, {
-            Button = Roact.createElement(Pane, {
-                BackgroundColor = backgroundColor,
-                Size = size,
-                Transparency = backgroundTransparency,
+	if FFlagAssetManagerDragAndDrop then
+		return Roact.createElement(DragSource, {
+			AutomaticSize = Enum.AutomaticSize.XY,
+			LayoutOrder = layoutOrder,
+			OnClick = self.onClick,
+			OnRightClick = self.onRightClick,
+			OnDragBegan = self.onDragBegan,
+		}, {
+			Button = Roact.createElement(Pane, {
+				BackgroundColor = backgroundColor,
+				Size = size,
+				Transparency = backgroundTransparency,
 
-                [Roact.Event.MouseEnter] = self.onMouseEnter,
-                [Roact.Event.MouseLeave] = self.onMouseLeave,
-            }, {
-                ThumbnailContainer = Roact.createElement(thumbnailContainer, thumbnailContainerProps, {
-                    AssetPreviewButton = createAssetPreviewButton and Roact.createElement(PopUpButton, {
-                        Position = UDim2.new(1, -assetPreviewButtonOffset, 0, assetPreviewButtonOffset),
+				[Roact.Event.MouseEnter] = self.onMouseEnter,
+				[Roact.Event.MouseLeave] = self.onMouseLeave,
+			}, {
+				ThumbnailContainer = Roact.createElement(thumbnailContainer, thumbnailContainerProps, {
+					AssetPreviewButton = createAssetPreviewButton and Roact.createElement(PopUpButton, {
+						Position = UDim2.new(1, -assetPreviewButtonOffset, 0, assetPreviewButtonOffset),
 
-                        Image = magnifyingGlass,
-                        ShowIcon = showAssetPreviewButton,
-                        OnClick = self.openAssetPreview,
-                        OnRightClick = self.onRightClick,
-                    }),
+						Image = magnifyingGlass,
+						ShowIcon = showAssetPreviewButton,
+						OnClick = self.openAssetPreview,
+						OnRightClick = self.onRightClick,
+					}),
 
-                    RootPlaceImage = isRootPlace and Roact.createElement("ImageLabel", {
-                        Size = UDim2.new(0, rootPlaceImageSize, 0, rootPlaceImageSize),
-                        Position = UDim2.new(0, rootPlaceIconXOffset, 0, rootPlaceIconYOffset),
+					RootPlaceImage = isRootPlace and Roact.createElement("ImageLabel", {
+						Size = UDim2.new(0, rootPlaceImageSize, 0, rootPlaceImageSize),
+						Position = UDim2.new(0, rootPlaceIconXOffset, 0, rootPlaceIconYOffset),
 
-                        Image = rootPlaceIcon,
-                        BackgroundTransparency = 1,
-                    }),
+						Image = rootPlaceIcon,
+						BackgroundTransparency = 1,
+					}),
 
-                    ModerationStatusImage = displayModerationStatus and Roact.createElement("ImageLabel", {
-                        Size = UDim2.new(0, moderationStatusImageSize, 0, moderationStatusImageSize),
-                        Position = UDim2.new(0, moderationStatusIconXOffset, 0, moderationStatusIconYOffset),
+					ModerationStatusImage = displayModerationStatus and Roact.createElement("ImageLabel", {
+						Size = UDim2.new(0, moderationStatusImageSize, 0, moderationStatusImageSize),
+						Position = UDim2.new(0, moderationStatusIconXOffset, 0, moderationStatusIconYOffset),
 
-                        Image = moderationImage,
-                        BackgroundTransparency = 1,
-                    }, {
-                        ModerationTooltip = Roact.createElement(Tooltip, {
-                            Text = moderationTooltip,
-                            Enabled = enabled,
-                        }),
-                    }),
+						Image = moderationImage,
+						BackgroundTransparency = 1,
+					}, {
+						ModerationTooltip = Roact.createElement(Tooltip, {
+							Text = moderationTooltip,
+							Enabled = enabled,
+						}),
+					}),
 
-                    FolderImage = isFolder and Roact.createElement("ImageLabel", {
-                        Size = imageSize,
-                        Image = image,
-                        Position = imageFolderPos,
-                        AnchorPoint = imageFolderAnchorPos,
+					FolderImage = isFolder and Roact.createElement("ImageLabel", {
+						Size = imageSize,
+						Image = image,
+						Position = imageFolderPos,
+						AnchorPoint = imageFolderAnchorPos,
 
-                        BackgroundTransparency = 1,
-                    })
-                }),
+						BackgroundTransparency = 1,
+					})
+				}),
 
-                Name = not isEditingAsset and Roact.createElement("TextLabel", {
-                    Size = textFrameSize,
-                    Position = textFramePos,
+				Name = not isEditingAsset and Roact.createElement("TextLabel", {
+					Size = textFrameSize,
+					Position = textFramePos,
 
-                    Text = displayName,
-                    TextColor3 = textColor,
-                    Font = textFont,
-                    TextSize = textSize,
+					Text = displayName,
+					TextColor3 = textColor,
+					Font = textFont,
+					TextSize = textSize,
 
-                    BackgroundTransparency = textBGTransparency,
-                    TextXAlignment = textXAlignment,
-                    TextYAlignment = textYAlignment,
-                    TextTruncate = textTruncate,
-                    TextWrapped = true,
-                }),
+					BackgroundTransparency = textBGTransparency,
+					TextXAlignment = textXAlignment,
+					TextYAlignment = textYAlignment,
+					TextTruncate = textTruncate,
+					TextWrapped = true,
+				}),
 
-                RenameTextBox = isEditingAsset and Roact.createElement("TextBox",{
-                    Size = UDim2.new(0, editTextSize.X + editTextPadding,
-                        0, editTextSize.Y),
-                    Position = textFramePos,
+				RenameTextBox = isEditingAsset and Roact.createElement("TextBox",{
+					Size = UDim2.new(0, editTextSize.X + editTextPadding,
+						0, editTextSize.Y),
+					Position = textFramePos,
 
-                    BackgroundColor3 = editTextFrameBackgroundColor,
-                    BorderColor3 = editTextFrameBorderColor,
+					BackgroundColor3 = editTextFrameBackgroundColor,
+					BorderColor3 = editTextFrameBorderColor,
 
-                    Text = editText,
-                    TextColor3 = textColor,
-                    Font = textFont,
-                    TextSize = textSize,
+					Text = editText,
+					TextColor3 = textColor,
+					Font = textFont,
+					TextSize = textSize,
 
-                    TextXAlignment = editTextXAlignment,
-                    TextTruncate = Enum.TextTruncate.None,
-                    TextWrapped = editTextWrapped,
-                    ClearTextOnFocus = editTextClearOnFocus,
+					TextXAlignment = editTextXAlignment,
+					TextTruncate = Enum.TextTruncate.None,
+					TextWrapped = editTextWrapped,
+					ClearTextOnFocus = editTextClearOnFocus,
 
-                    [Roact.Ref] = self.textBoxRef,
+					[Roact.Ref] = self.textBoxRef,
 
-                    [Roact.Change.Text] = self.onTextChanged,
-                    [Roact.Event.FocusLost] = self.onTextBoxFocusLost,
-                }),
+					[Roact.Change.Text] = self.onTextChanged,
+					[Roact.Event.FocusLost] = self.onTextBoxFocusLost,
+				}),
 
-                NameTooltip = FFlagStudioAssetManagerAssetModeration and Roact.createElement(Tooltip, {
-                    Text = name,
-                    Enabled = enabled,
-                }),
+				NameTooltip = FFlagStudioAssetManagerAssetModeration and Roact.createElement(Tooltip, {
+					Text = name,
+					Enabled = enabled,
+				}),
 
-                DEPRECATED_Tooltip = not FFlagStudioAssetManagerAssetModeration and enabled and Roact.createElement(Tooltip, {
-                    Text = name,
-                    Enabled = true,
-                }),
-            })
-        })
-    else
-        return Roact.createElement("ImageButton", {
-            Size = size,
-            BackgroundColor3 = backgroundColor,
-            BackgroundTransparency = backgroundTransparency,
-            BorderSizePixel = borderSizePixel,
+				DEPRECATED_Tooltip = not FFlagStudioAssetManagerAssetModeration and enabled and Roact.createElement(Tooltip, {
+					Text = name,
+					Enabled = true,
+				}),
+			})
+		})
+	else
+		return Roact.createElement("ImageButton", {
+			Size = size,
+			BackgroundColor3 = backgroundColor,
+			BackgroundTransparency = backgroundTransparency,
+			BorderSizePixel = borderSizePixel,
 
-            LayoutOrder = layoutOrder,
+			LayoutOrder = layoutOrder,
 
-            [Roact.Event.Activated] = self.onMouseActivated,
-            [Roact.Event.MouseButton2Click] = self.onMouseButton2Click,
-            [Roact.Event.MouseEnter] = self.onMouseEnter,
-            [Roact.Event.MouseLeave] = self.onMouseLeave,
-        }, {
-            ThumbnailContainer = Roact.createElement(thumbnailContainer, thumbnailContainerProps, {
-                AssetPreviewButton = createAssetPreviewButton and Roact.createElement(PopUpButton, {
-                    Position = UDim2.new(1, -assetPreviewButtonOffset, 0, assetPreviewButtonOffset),
+			[Roact.Event.Activated] = self.onMouseActivated,
+			[Roact.Event.MouseButton2Click] = self.onMouseButton2Click,
+			[Roact.Event.MouseEnter] = self.onMouseEnter,
+			[Roact.Event.MouseLeave] = self.onMouseLeave,
+		}, {
+			ThumbnailContainer = Roact.createElement(thumbnailContainer, thumbnailContainerProps, {
+				AssetPreviewButton = createAssetPreviewButton and Roact.createElement(PopUpButton, {
+					Position = UDim2.new(1, -assetPreviewButtonOffset, 0, assetPreviewButtonOffset),
 
-                    Image = magnifyingGlass,
-                    ShowIcon = showAssetPreviewButton,
-                    OnClick = self.openAssetPreview,
-                    OnRightClick = self.onMouseButton2Click,
-                }),
+					Image = magnifyingGlass,
+					ShowIcon = showAssetPreviewButton,
+					OnClick = self.openAssetPreview,
+					OnRightClick = self.onMouseButton2Click,
+				}),
 
-                RootPlaceImage = isRootPlace and Roact.createElement("ImageLabel", {
-                    Size = UDim2.new(0, rootPlaceImageSize, 0, rootPlaceImageSize),
-                    Position = UDim2.new(0, rootPlaceIconXOffset, 0, rootPlaceIconYOffset),
+				RootPlaceImage = isRootPlace and Roact.createElement("ImageLabel", {
+					Size = UDim2.new(0, rootPlaceImageSize, 0, rootPlaceImageSize),
+					Position = UDim2.new(0, rootPlaceIconXOffset, 0, rootPlaceIconYOffset),
 
-                    Image = rootPlaceIcon,
-                    BackgroundTransparency = 1,
-                }),
+					Image = rootPlaceIcon,
+					BackgroundTransparency = 1,
+				}),
 
-                ModerationStatusImage = displayModerationStatus and Roact.createElement("ImageLabel", {
-                    Size = UDim2.new(0, moderationStatusImageSize, 0, moderationStatusImageSize),
-                    Position = UDim2.new(0, moderationStatusIconXOffset, 0, moderationStatusIconYOffset),
+				ModerationStatusImage = displayModerationStatus and Roact.createElement("ImageLabel", {
+					Size = UDim2.new(0, moderationStatusImageSize, 0, moderationStatusImageSize),
+					Position = UDim2.new(0, moderationStatusIconXOffset, 0, moderationStatusIconYOffset),
 
-                    Image = moderationImage,
-                    BackgroundTransparency = 1,
-                }, {
-                    ModerationTooltip = Roact.createElement(Tooltip, {
-                        Text = moderationTooltip,
-                        Enabled = enabled,
-                    }),
-                }),
+					Image = moderationImage,
+					BackgroundTransparency = 1,
+				}, {
+					ModerationTooltip = Roact.createElement(Tooltip, {
+						Text = moderationTooltip,
+						Enabled = enabled,
+					}),
+				}),
 
-                FolderImage = isFolder and Roact.createElement("ImageLabel", {
-                    Size = imageSize,
-                    Image = image,
-                    Position = imageFolderPos,
-                    AnchorPoint = imageFolderAnchorPos,
+				FolderImage = isFolder and Roact.createElement("ImageLabel", {
+					Size = imageSize,
+					Image = image,
+					Position = imageFolderPos,
+					AnchorPoint = imageFolderAnchorPos,
 
-                    BackgroundTransparency = 1,
-                })
-            }),
+					BackgroundTransparency = 1,
+				})
+			}),
 
-            Name = not isEditingAsset and Roact.createElement("TextLabel", {
-                Size = textFrameSize,
-                Position = textFramePos,
+			Name = not isEditingAsset and Roact.createElement("TextLabel", {
+				Size = textFrameSize,
+				Position = textFramePos,
 
-                Text = displayName,
-                TextColor3 = textColor,
-                Font = textFont,
-                TextSize = textSize,
+				Text = displayName,
+				TextColor3 = textColor,
+				Font = textFont,
+				TextSize = textSize,
 
-                BackgroundTransparency = textBGTransparency,
-                TextXAlignment = textXAlignment,
-                TextYAlignment = textYAlignment,
-                TextTruncate = textTruncate,
-                TextWrapped = true,
-            }),
+				BackgroundTransparency = textBGTransparency,
+				TextXAlignment = textXAlignment,
+				TextYAlignment = textYAlignment,
+				TextTruncate = textTruncate,
+				TextWrapped = true,
+			}),
 
-            RenameTextBox = isEditingAsset and Roact.createElement("TextBox",{
-                Size = UDim2.new(0, editTextSize.X + editTextPadding,
-                    0, editTextSize.Y),
-                Position = textFramePos,
+			RenameTextBox = isEditingAsset and Roact.createElement("TextBox",{
+				Size = UDim2.new(0, editTextSize.X + editTextPadding,
+					0, editTextSize.Y),
+				Position = textFramePos,
 
-                BackgroundColor3 = editTextFrameBackgroundColor,
-                BorderColor3 = editTextFrameBorderColor,
+				BackgroundColor3 = editTextFrameBackgroundColor,
+				BorderColor3 = editTextFrameBorderColor,
 
-                Text = editText,
-                TextColor3 = textColor,
-                Font = textFont,
-                TextSize = textSize,
+				Text = editText,
+				TextColor3 = textColor,
+				Font = textFont,
+				TextSize = textSize,
 
-                TextXAlignment = editTextXAlignment,
-                TextTruncate = Enum.TextTruncate.None,
-                TextWrapped = editTextWrapped,
-                ClearTextOnFocus = editTextClearOnFocus,
+				TextXAlignment = editTextXAlignment,
+				TextTruncate = Enum.TextTruncate.None,
+				TextWrapped = editTextWrapped,
+				ClearTextOnFocus = editTextClearOnFocus,
 
-                [Roact.Ref] = self.textBoxRef,
+				[Roact.Ref] = self.textBoxRef,
 
-                [Roact.Change.Text] = self.onTextChanged,
-                [Roact.Event.FocusLost] = self.onTextBoxFocusLost,
-            }),
+				[Roact.Change.Text] = self.onTextChanged,
+				[Roact.Event.FocusLost] = self.onTextBoxFocusLost,
+			}),
 
-            NameTooltip = FFlagStudioAssetManagerAssetModeration and Roact.createElement(Tooltip, {
-                Text = name,
-                Enabled = enabled,
-            }),
+			NameTooltip = FFlagStudioAssetManagerAssetModeration and Roact.createElement(Tooltip, {
+				Text = name,
+				Enabled = enabled,
+			}),
 
-            DEPRECATED_Tooltip = not FFlagStudioAssetManagerAssetModeration and enabled and Roact.createElement(Tooltip, {
-                Text = name,
-                Enabled = true,
-            }),
-        })
-    end
+			DEPRECATED_Tooltip = not FFlagStudioAssetManagerAssetModeration and enabled and Roact.createElement(Tooltip, {
+				Text = name,
+				Enabled = true,
+			}),
+		})
+	end
 end
 
 Tile = withContext({
-    Analytics = ContextServices.Analytics,
-    API = ContextServices.API,
-    Localization = ContextServices.Localization,
-    Mouse = ContextServices.Mouse,
-    Plugin = ContextServices.Plugin,
-    Stylizer = ContextServices.Stylizer,
+	Analytics = ContextServices.Analytics,
+	API = ContextServices.API,
+	Localization = ContextServices.Localization,
+	Mouse = ContextServices.Mouse,
+	Plugin = ContextServices.Plugin,
+	Stylizer = ContextServices.Stylizer,
 })(Tile)
 
 local function mapStateToProps(state, props)
-    local assetManagerReducer = state.AssetManagerReducer
+	local assetManagerReducer = state.AssetManagerReducer
 	return {
-        AssetsTable = assetManagerReducer.assetsTable,
-        EditingAssets = assetManagerReducer.editingAssets,
-        SelectedAssets = assetManagerReducer.selectedAssets,
+		AssetsTable = assetManagerReducer.assetsTable,
+		EditingAssets = assetManagerReducer.editingAssets,
+		SelectedAssets = assetManagerReducer.selectedAssets,
 	}
 end
 
 local function mapDispatchToProps(dispatch)
 	return {
-        dispatchGetAssetPreviewData = function(apiImpl, assetIds)
-            dispatch(GetAssetPreviewData(apiImpl, assetIds))
-        end,
-        dispatchOnAssetDoubleClick = function(analytics, assetData)
-            dispatch(OnAssetDoubleClick(analytics, assetData))
-        end,
-        dispatchOnAssetRightClick = function(props)
-            dispatch(OnAssetRightClick(props))
-        end,
-        dispatchOnAssetSingleClick = function(obj, assetData)
-            dispatch(OnAssetSingleClick(obj, assetData))
-        end,
-        dispatchSetEditingAssets = function(editingAssets)
-            dispatch(SetEditingAssets(editingAssets))
-        end,
-    }
+		dispatchGetAssetPreviewData = function(apiImpl, assetIds)
+			dispatch(GetAssetPreviewData(apiImpl, assetIds))
+		end,
+		dispatchOnAssetDoubleClick = function(analytics, assetData)
+			dispatch(OnAssetDoubleClick(analytics, assetData))
+		end,
+		dispatchOnAssetRightClick = function(props)
+			dispatch(OnAssetRightClick(props))
+		end,
+		dispatchOnAssetSingleClick = function(obj, assetData)
+			dispatch(OnAssetSingleClick(obj, assetData))
+		end,
+		dispatchSetEditingAssets = function(editingAssets)
+			dispatch(SetEditingAssets(editingAssets))
+		end,
+	}
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(Tile)

@@ -4,10 +4,15 @@
 	Props:
 		table Buttons = {string cancelButtonName, string confirmButtonName}
 ]]
+local BUTTON_ORDER = 100
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryBulletPoint = SharedFlags.getFFlagRemoveUILibraryBulletPoint()
+
 local Cryo = require(Plugin.Packages.Cryo)
 
 local Pane = Framework.UI.Pane
@@ -49,6 +54,7 @@ function BaseDialog:render()
 			Position = UDim2.new(0, 0, 1, theme.buttonBar.offset),
 			AnchorPoint = Vector2.new(0, 1),
 			Buttons = makeButtons(buttons),
+			LayoutOrder = if FFlagRemoveUILibraryBulletPoint then BUTTON_ORDER else nil,
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			ButtonClicked = props.OnResult
 		})

@@ -1,11 +1,16 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local getFFlagDisableAvatarAnchoredSetting = require(Plugin.Src.Flags.getFFlagDisableAvatarAnchoredSetting)
+local getFFlagUseAssetImportSession = require(Plugin.Src.Flags.getFFlagUseAssetImportSession)
 
 local AssetImportService = game:GetService("AssetImportService")
 
-local function hideIfAvatar()
-	return AssetImportService:IsAvatar() and getFFlagDisableAvatarAnchoredSetting()
+local function hideIfAvatar(groupSettings, assetImportSession)
+	if getFFlagUseAssetImportSession() then
+		return assetImportSession:IsAvatar() and getFFlagDisableAvatarAnchoredSetting()
+	else
+		return AssetImportService:IsAvatar() and getFFlagDisableAvatarAnchoredSetting()
+	end
 end
 
 return {

@@ -108,9 +108,10 @@ function SideNavigation:render()
 
 	return withStyle(function(style)
 		return Roact.createElement("Frame", {
-			Size = UDim2.new(0, 64, 1, 0),
+			Size = UDim2.new(0, Constants.SideNavigationWidth, 1, 0),
 			Position = self.containerPosition,
-			Visible = self.state.frameVisible
+			Visible = self.state.frameVisible,
+			BorderSizePixel = 0,
 		}, {
 			SystemBar = Roact.createElement(SystemBar, {
 				itemList = navItems,

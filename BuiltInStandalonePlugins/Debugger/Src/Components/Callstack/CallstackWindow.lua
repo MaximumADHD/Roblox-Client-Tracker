@@ -12,6 +12,8 @@ local Localization = ContextServices.Localization
 
 local CallstackComponent = require(Plugin.Src.Components.Callstack.CallstackComponent)
 
+local FFlagDebuggerUIQTitanDockingFixes = require(Plugin.Src.Flags.GetFFlagDebuggerUIQTitanDockingFixes)
+
 local CallstackWindow = Roact.PureComponent:extend("CallstackWindow")
 
 function CallstackWindow:render()
@@ -25,12 +27,15 @@ function CallstackWindow:render()
 		Title = localization:getText("Callstack", "WindowName"),
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 		InitialDockState = Enum.InitialDockState.Bottom,
-		InitialEnabled = true,
-		InitialEnabledShouldOverrideRestore = false,
+		InitialEnabled = if FFlagDebuggerUIQTitanDockingFixes() then nil else true,
+		InitialEnabledShouldOverrideRestore = if FFlagDebuggerUIQTitanDockingFixes() then nil else false,
 		Size = Vector2.new(640, 480),
 		MinSize = Vector2.new(250, 200),
 		Enabled = enabled,
 		OnClose = onClose,
+		ShouldRestore = if FFlagDebuggerUIQTitanDockingFixes() then true else nil,
+		OnWidgetRestored = if FFlagDebuggerUIQTitanDockingFixes() then props.OnRestore else nil,
+		[Roact.Change.Enabled] = if FFlagDebuggerUIQTitanDockingFixes() then props.OnWidgetEnabledChanged else nil,
 	}, {
 		Callstack = Roact.createElement(CallstackComponent),
 	})

@@ -22,17 +22,26 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Framework = require(Plugin.Packages.Framework)
+local FFlagRemoveUILibraryRoundTextBox = Framework.SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
 
 local Util = Framework.Util
 local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
 local GetTextSize = Util.GetTextSize
 local LayoutOrderIterator = Util.LayoutOrderIterator
 
+local UI = Framework.UI
+local Image = UI.Decoration.Image
+local Pane = UI.Pane
+local TextInput2 = UI.TextInput2
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local RoundFrame = UILibrary.Component.RoundFrame
-local TextEntry = UILibrary.Component.TextEntry
+local TextEntry
+if not FFlagRemoveUILibraryRoundTextBox then
+    TextEntry = UILibrary.Component.TextEntry
+end
 
 local RobuxFeeBase = Roact.PureComponent:extend("RobuxFeeBase")
 
@@ -71,244 +80,272 @@ function RobuxFeeBase:render()
     local earnVal = (priceVal - feeVal > 0) and priceVal - feeVal or 0
     local earnAmount = string.format("%.f", earnVal)
 
-    local subTextSize
-    if subText then
-        if enabled then
-            subTextSize = GetTextSize(subText, theme.fontStyle.SmallError.TextSize, theme.fontStyle.SmallError.Font,
-                Vector2.new(theme.robuxFeeBase.subText.width, math.huge))
-        else
-            subTextSize = GetTextSize(subText, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font,
-                Vector2.new(theme.robuxFeeBase.subText.width, math.huge))
-        end
-    else
-        subTextSize = {}
-    end
-
-    local transparency = enabled and theme.robuxFeeBase.transparency.enabled or theme.robuxFeeBase.transparency.disabled
-
-    local subTextTheme = enabled and theme.fontStyle.SmallError or theme.fontStyle.Subtext
-
-    local priceBoxComponent
-    if not enabled then
-        priceBoxComponent = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-            Size = UDim2.new(1, -theme.robuxFeeBase.icon.size, 1, 0),
-            Visible = true,
-
-            Text = price,
-
-            BackgroundTransparency = 1,
-
-            TextXAlignment = Enum.TextXAlignment.Left,
-            TextTransparency = theme.robuxFeeBase.transparency.disabled,
-        }))
-    else
-        priceBoxComponent = Roact.createElement(TextEntry, Cryo.Dictionary.join(theme.fontStyle.Normal, {
-            Size = UDim2.new(1, -theme.robuxFeeBase.icon.size, 1, 0),
-            Visible = true,
-
-            Text = price,
-            PlaceholderText = "",
-            Enabled = enabled,
-
-            SetText = onPriceChanged,
-
-            FocusChanged = function()
-            end,
-
-            HoverChanged = function()
-            end,
-        }))
-    end
-    
-
     -- Don't display the Marketplace Fee and Earning fields if there is an error
     -- Except if the error is a price change warning, in which case the fields are valid
     local shouldDisplayFeeAndEarn = not subText or props.ShowPriceChangeWarning
 
-    return Roact.createElement(FitFrameOnAxis, {
-        axis = FitFrameOnAxis.Axis.Vertical,
-        minimumSize = UDim2.new(1, 0, 0, 0),
-        contentPadding = UDim.new(0, theme.robuxFeeBase.spacing),
-        BackgroundTransparency = 1,
-        FillDirection = Enum.FillDirection.Horizontal,
+    local transparency = enabled and theme.robuxFeeBase.transparency.enabled or theme.robuxFeeBase.transparency.disabled
+    local subTextTheme = enabled and theme.fontStyle.SmallError or theme.fontStyle.Subtext
 
-        LayoutOrder = layoutOrder,
+    local feeFrame = shouldDisplayFeeAndEarn and Roact.createElement("Frame", {
+        Size = UDim2.new(1, 0, 0, theme.rowHeight),
+
+        BackgroundTransparency = 1,
+        LayoutOrder = layoutIndex:getNextOrder(),
     }, {
-        ContentOffsetByPrice = Roact.createElement(FitFrameOnAxis, {
-            axis = FitFrameOnAxis.Axis.Vertical,
-            minimumSize = UDim2.new(1, 0, 0, 0),
-            FillDirection = Enum.FillDirection.Vertical,
+        HorizontalLayout = Roact.createElement("UIListLayout",{
+            FillDirection = Enum.FillDirection.Horizontal,
+            SortOrder = Enum.SortOrder.LayoutOrder,
+            VerticalAlignment = Enum.VerticalAlignment.Center,
+        }),
+
+        FeeLabel = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
+            Size = UDim2.new(0, feeTextSize.X, 1, 0),
+
+            BackgroundTransparency = 1,
+
+            TextYAlignment = Enum.TextYAlignment.Center,
+            TextXAlignment = Enum.TextXAlignment.Left,
+            TextTransparency = transparency,
+
+            Text = feeText,
+
+            LayoutOrder = 1,
+        })),
+
+        RobuxIcon = Roact.createElement("ImageLabel", {
+            Size = UDim2.new(0, theme.robuxFeeBase.icon.size, 0, theme.robuxFeeBase.icon.size),
+
+            ImageColor3 = theme.robuxFeeBase.icon.imageColor,
+            Image = theme.robuxFeeBase.icon.image,
+            ImageTransparency = transparency,
+
             BackgroundTransparency = 1,
 
             LayoutOrder = 2,
-        }, {
-            PriceFrame = Roact.createElement(RoundFrame, {
-                Size = UDim2.new(0, theme.robuxFeeBase.priceField.width, 0, theme.rowHeight),
-
-                BorderColor3 = theme.textBox.borderDefault,
-                BorderSizePixel = 1,
-                BackgroundColor3 = theme.textBox.background,
-
-                LayoutOrder = layoutIndex:getNextOrder(),
-            },{
-                HorizontalLayout = Roact.createElement("UIListLayout",{
-                    FillDirection = Enum.FillDirection.Horizontal,
-                    SortOrder = Enum.SortOrder.LayoutOrder,
-                    VerticalAlignment = Enum.VerticalAlignment.Center,
-                }),
-
-                RobuxIcon = Roact.createElement("ImageLabel", {
-                    Size = UDim2.new(0, theme.robuxFeeBase.icon.size, 0, theme.robuxFeeBase.icon.size),
-
-                    ImageColor3 = theme.robuxFeeBase.icon.imageColor,
-                    Image = theme.robuxFeeBase.icon.image,
-                    ImageTransparency = transparency,
-
-                    BackgroundTransparency = 1,
-                }),
-
-                PriceTextBox = priceBoxComponent,
-            }),
-
-            SubText = (subText or hasPriceChanged) and Roact.createElement("TextLabel", Cryo.Dictionary.join(subTextTheme, {
-                Size = UDim2.new(0, math.ceil(subTextSize.X), 0, subTextSize.Y),
-
-                BackgroundTransparency = 1,
-
-                Text = subText,
-
-                TextYAlignment = Enum.TextYAlignment.Center,
-                TextXAlignment = Enum.TextXAlignment.Left,
-
-                TextWrapped = true,
-
-                LayoutOrder = layoutIndex:getNextOrder(),
-            })),
-
-            FeeFrame = shouldDisplayFeeAndEarn and Roact.createElement("Frame", {
-                Size = UDim2.new(1, 0, 0, theme.rowHeight),
-
-                BackgroundTransparency = 1,
-                LayoutOrder = layoutIndex:getNextOrder(),
-            },{
-                HorizontalLayout = Roact.createElement("UIListLayout",{
-                    FillDirection = Enum.FillDirection.Horizontal,
-                    SortOrder = Enum.SortOrder.LayoutOrder,
-                    VerticalAlignment = Enum.VerticalAlignment.Center,
-                }),
-
-                FeeLabel = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-                    Size = UDim2.new(0, feeTextSize.X, 1, 0),
-
-                    BackgroundTransparency = 1,
-
-                    TextYAlignment = Enum.TextYAlignment.Center,
-                    TextXAlignment = Enum.TextXAlignment.Left,
-                    TextTransparency = transparency,
-
-                    Text = feeText,
-
-                    LayoutOrder = 1,
-                })),
-
-                RobuxIcon = Roact.createElement("ImageLabel", {
-                    Size = UDim2.new(0, theme.robuxFeeBase.icon.size, 0, theme.robuxFeeBase.icon.size),
-
-                    ImageColor3 = theme.robuxFeeBase.icon.imageColor,
-                    Image = theme.robuxFeeBase.icon.image,
-                    ImageTransparency = transparency,
-
-                    BackgroundTransparency = 1,
-
-                    LayoutOrder = 2,
-                }),
-
-                FeeAmount = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-                    Size = UDim2.new(1, 0, 0, theme.rowHeight),
-
-                    BackgroundTransparency = 1,
-                    BorderSizePixel = 0,
-
-                    TextYAlignment = Enum.TextYAlignment.Center,
-                    TextXAlignment = Enum.TextXAlignment.Left,
-                    TextTransparency = transparency,
-
-                    Text = feeAmount,
-
-                    LayoutOrder = 3,
-                }))
-            }),
-
-            FeeSubText = shouldDisplayFeeAndEarn and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtext, {
-                Size = UDim2.new(0, math.ceil(feeSubTextSize.X), 0, feeSubTextSize.Y),
-
-                BackgroundTransparency = 1,
-
-                Text = feeSubText,
-
-                TextYAlignment = Enum.TextYAlignment.Center,
-                TextXAlignment = Enum.TextXAlignment.Left,
-
-                TextWrapped = true,
-
-                LayoutOrder = layoutIndex:getNextOrder(),
-            })),
-
-            EarnFrame = shouldDisplayFeeAndEarn and Roact.createElement("Frame", {
-                Size = UDim2.new(1, 0, 0, theme.rowHeight),
-                BackgroundTransparency = 1,
-                LayoutOrder = layoutIndex:getNextOrder(),
-            },{
-                HorizontalLayout = Roact.createElement("UIListLayout",{
-                    FillDirection = Enum.FillDirection.Horizontal,
-                    SortOrder = Enum.SortOrder.LayoutOrder,
-                    VerticalAlignment = Enum.VerticalAlignment.Center,
-                }),
-
-                EarnLabel = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-                    Size = UDim2.new(0, earnTextSize.X, 1, 0),
-
-                    BackgroundTransparency = 1,
-                    BorderSizePixel = 0,
-
-                    TextYAlignment = Enum.TextYAlignment.Center,
-                    TextXAlignment = Enum.TextXAlignment.Left,
-                    TextTransparency = transparency,
-
-                    Text = earnText,
-
-                    LayoutOrder = 1,
-                })),
-
-                RobuxIcon = Roact.createElement("ImageLabel", {
-                    Size = UDim2.new(0, theme.robuxFeeBase.icon.size, 0, theme.robuxFeeBase.icon.size),
-
-                    ImageColor3 = theme.robuxFeeBase.icon.imageColor,
-                    Image = theme.robuxFeeBase.icon.image,
-                    ImageTransparency = transparency,
-
-                    BackgroundTransparency = 1,
-
-                    LayoutOrder = 2,
-                }),
-
-                EarnAmount = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-                    Size = UDim2.new(1, 0, 0, theme.rowHeight),
-
-                    BackgroundTransparency = 1,
-                    BorderSizePixel = 0,
-
-                    TextYAlignment = Enum.TextYAlignment.Center,
-                    TextXAlignment = Enum.TextXAlignment.Left,
-                    TextTransparency = transparency,
-
-                    Text = earnAmount,
-
-                    LayoutOrder = 3,
-                }))
-            }),
         }),
+
+        FeeAmount = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
+            Size = UDim2.new(1, 0, 0, theme.rowHeight),
+
+            BackgroundTransparency = 1,
+            BorderSizePixel = 0,
+
+            TextYAlignment = Enum.TextYAlignment.Center,
+            TextXAlignment = Enum.TextXAlignment.Left,
+            TextTransparency = transparency,
+
+            Text = feeAmount,
+
+            LayoutOrder = 3,
+        }))
     })
+
+    local feeSubTextElement = shouldDisplayFeeAndEarn and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtext, {
+        Size = UDim2.new(0, math.ceil(feeSubTextSize.X), 0, feeSubTextSize.Y),
+
+        BackgroundTransparency = 1,
+
+        Text = feeSubText,
+
+        TextYAlignment = Enum.TextYAlignment.Center,
+        TextXAlignment = Enum.TextXAlignment.Left,
+
+        TextWrapped = true,
+
+        LayoutOrder = layoutIndex:getNextOrder(),
+    }))
+
+    local earnFrame = shouldDisplayFeeAndEarn and Roact.createElement("Frame", {
+        Size = UDim2.new(1, 0, 0, theme.rowHeight),
+        BackgroundTransparency = 1,
+        LayoutOrder = layoutIndex:getNextOrder(),
+    },{
+        HorizontalLayout = Roact.createElement("UIListLayout",{
+            FillDirection = Enum.FillDirection.Horizontal,
+            SortOrder = Enum.SortOrder.LayoutOrder,
+            VerticalAlignment = Enum.VerticalAlignment.Center,
+        }),
+
+        EarnLabel = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
+            Size = UDim2.new(0, earnTextSize.X, 1, 0),
+
+            BackgroundTransparency = 1,
+            BorderSizePixel = 0,
+
+            TextYAlignment = Enum.TextYAlignment.Center,
+            TextXAlignment = Enum.TextXAlignment.Left,
+            TextTransparency = transparency,
+
+            Text = earnText,
+
+            LayoutOrder = 1,
+        })),
+
+        RobuxIcon = Roact.createElement("ImageLabel", {
+            Size = UDim2.new(0, theme.robuxFeeBase.icon.size, 0, theme.robuxFeeBase.icon.size),
+
+            ImageColor3 = theme.robuxFeeBase.icon.imageColor,
+            Image = theme.robuxFeeBase.icon.image,
+            ImageTransparency = transparency,
+
+            BackgroundTransparency = 1,
+
+            LayoutOrder = 2,
+        }),
+
+        EarnAmount = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
+            Size = UDim2.new(1, 0, 0, theme.rowHeight),
+
+            BackgroundTransparency = 1,
+            BorderSizePixel = 0,
+
+            TextYAlignment = Enum.TextYAlignment.Center,
+            TextXAlignment = Enum.TextXAlignment.Left,
+            TextTransparency = transparency,
+
+            Text = earnAmount,
+
+            LayoutOrder = 3,
+        }))
+    })
+
+    if FFlagRemoveUILibraryRoundTextBox then
+        return Roact.createElement(Pane, {
+            AutomaticSize = Enum.AutomaticSize.XY,
+            Layout = Enum.FillDirection.Vertical,
+        }, {
+            TextInput = Roact.createElement(TextInput2, {
+                BottomText = subText,
+                Disabled = not enabled,
+                LayoutOrder = 0,
+                LeadingComponent = Image,
+                LeadingComponentProps = {
+                    ImageColor3 = theme.robuxFeeBase.icon.imageColor,
+                    Image = theme.robuxFeeBase.icon.image,
+                    Size = UDim2.new(0, theme.robuxFeeBase.icon.size, 0, theme.robuxFeeBase.icon.size),
+                },
+                OnTextChanged = onPriceChanged,
+                Width = theme.robuxFeeBase.priceField.width,
+                Text = price,
+            }),
+            FeeFrame = feeFrame,
+            FeeSubText = feeSubTextElement,
+            EarnFrame = earnFrame,
+        })
+    else 
+
+        local subTextSize
+        if subText then
+            if enabled then
+                subTextSize = GetTextSize(subText, theme.fontStyle.SmallError.TextSize, theme.fontStyle.SmallError.Font,
+                    Vector2.new(theme.robuxFeeBase.subText.width, math.huge))
+            else
+                subTextSize = GetTextSize(subText, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font,
+                    Vector2.new(theme.robuxFeeBase.subText.width, math.huge))
+            end
+        else
+            subTextSize = {}
+        end
+
+        local priceBoxComponent
+        if not enabled then
+            priceBoxComponent = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
+                Size = UDim2.new(1, -theme.robuxFeeBase.icon.size, 1, 0),
+                Visible = true,
+
+                Text = price,
+
+                BackgroundTransparency = 1,
+
+                TextXAlignment = Enum.TextXAlignment.Left,
+                TextTransparency = theme.robuxFeeBase.transparency.disabled,
+            }))
+        else
+            priceBoxComponent = Roact.createElement(TextEntry, Cryo.Dictionary.join(theme.fontStyle.Normal, {
+                Size = UDim2.new(1, -theme.robuxFeeBase.icon.size, 1, 0),
+                Visible = true,
+
+                Text = price,
+                PlaceholderText = "",
+                Enabled = enabled,
+
+                SetText = onPriceChanged,
+
+                FocusChanged = function()
+                end,
+
+                HoverChanged = function()
+                end,
+            }))
+        end
+
+        return Roact.createElement(FitFrameOnAxis, {
+            axis = FitFrameOnAxis.Axis.Vertical,
+            minimumSize = UDim2.new(1, 0, 0, 0),
+            contentPadding = UDim.new(0, theme.robuxFeeBase.spacing),
+            BackgroundTransparency = 1,
+            FillDirection = Enum.FillDirection.Horizontal,
+
+            LayoutOrder = layoutOrder,
+        }, {
+            ContentOffsetByPrice = Roact.createElement(FitFrameOnAxis, {
+                axis = FitFrameOnAxis.Axis.Vertical,
+                minimumSize = UDim2.new(1, 0, 0, 0),
+                FillDirection = Enum.FillDirection.Vertical,
+                BackgroundTransparency = 1,
+
+                LayoutOrder = 2,
+            }, {
+                PriceFrame = Roact.createElement(RoundFrame, {
+                    Size = UDim2.new(0, theme.robuxFeeBase.priceField.width, 0, theme.rowHeight),
+
+                    BorderColor3 = theme.textBox.borderDefault,
+                    BorderSizePixel = 1,
+                    BackgroundColor3 = theme.textBox.background,
+
+                    LayoutOrder = layoutIndex:getNextOrder(),
+                },{
+                    HorizontalLayout = Roact.createElement("UIListLayout",{
+                        FillDirection = Enum.FillDirection.Horizontal,
+                        SortOrder = Enum.SortOrder.LayoutOrder,
+                        VerticalAlignment = Enum.VerticalAlignment.Center,
+                    }),
+
+                    RobuxIcon = Roact.createElement("ImageLabel", {
+                        Size = UDim2.new(0, theme.robuxFeeBase.icon.size, 0, theme.robuxFeeBase.icon.size),
+
+                        ImageColor3 = theme.robuxFeeBase.icon.imageColor,
+                        Image = theme.robuxFeeBase.icon.image,
+                        ImageTransparency = transparency,
+
+                        BackgroundTransparency = 1,
+                    }),
+
+                    PriceTextBox = priceBoxComponent,
+                }),
+
+                SubText = (subText or hasPriceChanged) and Roact.createElement("TextLabel", Cryo.Dictionary.join(subTextTheme, {
+                    Size = UDim2.new(0, math.ceil(subTextSize.X), 0, subTextSize.Y),
+
+                    BackgroundTransparency = 1,
+
+                    Text = subText,
+
+                    TextYAlignment = Enum.TextYAlignment.Center,
+                    TextXAlignment = Enum.TextXAlignment.Left,
+
+                    TextWrapped = true,
+
+                    LayoutOrder = layoutIndex:getNextOrder(),
+                })),
+
+                FeeFrame = feeFrame,
+                FeeSubText = feeSubTextElement,
+                EarnFrame = earnFrame,
+            }),
+        })
+    end
 end
 
 RobuxFeeBase = withContext({

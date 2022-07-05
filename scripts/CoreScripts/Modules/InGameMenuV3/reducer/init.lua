@@ -73,8 +73,9 @@ local topLevelReducers = {
 		return Cryo.Dictionary.join(state, {
 			menuPage = action.newPage,
 			-- don't push LeaveGamePrompt as previousPage
-			previousPage = state.menuPage == Constants.LeaveGamePromptPageKey
-				and state.previousPage or state.menuPage,
+			previousPage = (state.menuPage == Constants.LeaveGamePromptPageKey or action.newPage == state.menuPage)
+					and state.previousPage
+				or state.menuPage,
 			-- Changing pages closes moreMenu
 			isMainPageMoreMenuOpen = false,
 			currentZone = action.newPage == Constants.InitalPageKey and 0 or 1,

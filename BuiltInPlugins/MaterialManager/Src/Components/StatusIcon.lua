@@ -27,7 +27,6 @@ export type Props = {
 type _Props = Props & {
 	Analytics: any,
 	Localization: any,
-	MaterialController: any,
 	Stylizer: any,
 }
 

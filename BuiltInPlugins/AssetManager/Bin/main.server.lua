@@ -11,6 +11,7 @@ local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioA
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 local FFlagAssetManagerGeneralizeSignalAPI = game:GetFastFlag("AssetManagerGeneralizeSignalAPI")
 local FFlagAssetManagerDragAndDrop = game:GetFastFlag("AssetManagerDragAndDrop")
+local FFlagEnableAssetManagerSortButton = game:GetFastFlag("EnableAssetManagerSortButton")
 
 local AssetManagerService = game:GetService("AssetManagerService")
 local BulkImportService = game:GetService("BulkImportService")
@@ -279,9 +280,9 @@ local function main()
 		Enum.InitialDockState.Left,  -- Widget will be initialized docked to the left
 		initiallyEnabled,   -- Widget will be initially enabled
 		false,  -- Don't override the previous enabled state
-		300,    -- Default width of the floating window
+		if FFlagEnableAssetManagerSortButton then 350 else 300,    -- Default width of the floating window
 		600,    -- Default height of the floating window
-		270,    -- Minimum width of the floating window (optional)
+		if FFlagEnableAssetManagerSortButton then 350 else 270,    -- Minimum width of the floating window (optional)
 		256     -- Minimum height of the floating window (optional)
 	)
 	pluginGui = plugin:CreateDockWidgetPluginGui(DOCK_WIDGET_PLUGIN_NAME, widgetInfo)

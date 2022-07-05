@@ -14,6 +14,7 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local withStyle = UIBlox.Core.Style.withStyle
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
+local VerticalScrollViewWithIndicator = UIBlox.App.Container.VerticalScrollViewWithIndicator
 
 local DevConsoleMaster = require(CoreGui.RobloxGui.Modules.DevConsoleMaster)
 
@@ -73,81 +74,88 @@ function AdvancedPage:renderWithSelectionCursor(getSelectionCursor)
 					GuiService.SelectedCoreObject = previousSelection or self.performanceToggleRef:getValue()
 				end,
 			}),
-			Layout = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				HorizontalAlignment = Enum.HorizontalAlignment.Right,
-				VerticalAlignment = Enum.VerticalAlignment.Top,
-			}),
-			AdvancedHeader = Roact.createElement(CategoryHeader, {
-				LayoutOrder = 1,
-				localizationKey = "CoreScripts.InGameMenu.GameSettings.AdvancedSettingsTitle",
-			}),
-			PerformanceStats = Roact.createElement(ToggleEntry, {
-				LayoutOrder = 2,
-				labelKey = "CoreScripts.InGameMenu.GameSettings.ShowPerfStats",
-				checked = self.state.performanceStatsEnabled,
-				onToggled = function()
-					UserGameSettings.PerformanceStatsVisible = not UserGameSettings.PerformanceStatsVisible
-					SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
-				end,
-				buttonRef = self.performanceToggleRef,
-				NextSelectionUp = self.backButtonRef,
-			}),
-			MicroProfiler = Roact.createElement(ToggleEntry, {
-				LayoutOrder = 3,
-				labelKey = "CoreScripts.InGameMenu.GameSettings.ShowMicroProfiler",
-				checked = self.state.microProfilerEnabled,
-				onToggled = function()
-					UserGameSettings.OnScreenProfilerEnabled = not UserGameSettings.OnScreenProfilerEnabled
-					SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
-				end,
-			}),
-			DeveloperConsole = withLocalization({
-				text = "CoreScripts.InGameMenu.GameSettings.DeveloperConsole",
-			})(function(localized)
-				return Roact.createElement("TextButton", {
-					BackgroundTransparency = 1,
-					Size = UDim2.new(1, 0, 0, 54),
-					Text = localized.text,
-					TextColor3 = style.Theme.TextEmphasis.Color,
-					Font = style.Font.Header2.Font,
-					TextSize = style.Font.Header2.RelativeSize * style.Font.BaseSize,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					LayoutOrder = 4,
-					SelectionImageObject = getSelectionCursor(CursorKind.Square),
-					[Roact.Event.Activated] = function()
-						DevConsoleMaster:SetVisibility(true)
-						self.props.closeMenu()
+			PageContents = Roact.createElement(VerticalScrollViewWithIndicator, {
+				position = self.props.position,
+				size = UDim2.new(1, 0, 1, 0),
+				useAutomaticCanvasSize = true,
+				canvasSizeY = UDim.new(0, 0), -- no minmum size
+			}, {
+				Layout = Roact.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					HorizontalAlignment = Enum.HorizontalAlignment.Right,
+					VerticalAlignment = Enum.VerticalAlignment.Top,
+				}),
+				AdvancedHeader = Roact.createElement(CategoryHeader, {
+					LayoutOrder = 1,
+					localizationKey = "CoreScripts.InGameMenu.GameSettings.AdvancedSettingsTitle",
+				}),
+				PerformanceStats = Roact.createElement(ToggleEntry, {
+					LayoutOrder = 2,
+					labelKey = "CoreScripts.InGameMenu.GameSettings.ShowPerfStats",
+					checked = self.state.performanceStatsEnabled,
+					onToggled = function()
+						UserGameSettings.PerformanceStatsVisible = not UserGameSettings.PerformanceStatsVisible
+						SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 					end,
-				}, {
-					Padding = Roact.createElement("UIPadding", {
-						PaddingLeft = UDim.new(0, 24),
-					}),
-				})
-			end),
-			Divider = Roact.createElement(Divider, {
-				Size = UDim2.new(1, -24, 0, 1),
-				LayoutOrder = 5,
-			}),
-			VersionReporter = Roact.createElement(VersionReporter, {
-				LayoutOrder = 6,
-			}),
+					buttonRef = self.performanceToggleRef,
+					NextSelectionUp = self.backButtonRef,
+				}),
+				MicroProfiler = Roact.createElement(ToggleEntry, {
+					LayoutOrder = 3,
+					labelKey = "CoreScripts.InGameMenu.GameSettings.ShowMicroProfiler",
+					checked = self.state.microProfilerEnabled,
+					onToggled = function()
+						UserGameSettings.OnScreenProfilerEnabled = not UserGameSettings.OnScreenProfilerEnabled
+						SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
+					end,
+				}),
+				DeveloperConsole = withLocalization({
+					text = "CoreScripts.InGameMenu.GameSettings.DeveloperConsole",
+				})(function(localized)
+					return Roact.createElement("TextButton", {
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, 0, 0, 54),
+						Text = localized.text,
+						TextColor3 = style.Theme.TextEmphasis.Color,
+						Font = style.Font.Header2.Font,
+						TextSize = style.Font.Header2.RelativeSize * style.Font.BaseSize,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						LayoutOrder = 4,
+						SelectionImageObject = getSelectionCursor(CursorKind.Square),
+						[Roact.Event.Activated] = function()
+							DevConsoleMaster:SetVisibility(true)
+							self.props.closeMenu()
+						end,
+					}, {
+						Padding = Roact.createElement("UIPadding", {
+							PaddingLeft = UDim.new(0, 24),
+						}),
+					})
+				end),
+				Divider = Roact.createElement(Divider, {
+					Size = UDim2.new(1, -24, 0, 1),
+					LayoutOrder = 5,
+				}),
+				VersionReporter = Roact.createElement(VersionReporter, {
+					LayoutOrder = 6,
+				}),
 
-			MicroProfilerVisibilityListener = Roact.createElement(ExternalEventConnection, {
-				event = MicroProfilerChanged,
-				callback = function()
-					self:setState({
-						microProfilerEnabled = UserGameSettings.OnScreenProfilerEnabled,
-					})
-				end,
-			}),
-			PerformanceStatsVisibilityListener = Roact.createElement(ExternalEventConnection, {
-				event = UserGameSettings.PerformanceStatsVisibleChanged,
-				callback = function()
-					self:setState({
-						performanceStatsEnabled = UserGameSettings.PerformanceStatsVisible,
-					})
-				end,
+				MicroProfilerVisibilityListener = Roact.createElement(ExternalEventConnection, {
+					event = MicroProfilerChanged,
+					callback = function()
+						self:setState({
+							microProfilerEnabled = UserGameSettings.OnScreenProfilerEnabled,
+						})
+					end,
+				}),
+				PerformanceStatsVisibilityListener = Roact.createElement(ExternalEventConnection, {
+					event = UserGameSettings.PerformanceStatsVisibleChanged,
+					callback = function()
+						self:setState({
+							performanceStatsEnabled = UserGameSettings.PerformanceStatsVisible,
+						})
+					end,
+				}),
 			}),
 		})
 	end)

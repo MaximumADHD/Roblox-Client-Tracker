@@ -8,4 +8,5 @@ game:DefineFastFlag("AssetManagerFixOpenAssetPreview1", false)
 game:DefineFastFlag("AssetManagerMassUpdateContextMenuFix", false)
 game:DefineFastFlag("EnableAssetManagerGlobalSearchBar", false)
 game:DefineFastFlag("StudioAssetManagerAssetModerationPendingIcon", false)
+game:DefineFastFlag("EnableAssetManagerSortButton", false)
 return nil

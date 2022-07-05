@@ -1,11 +1,11 @@
 --[[
 	Localization Tools plugin main view
 ]]
-local FFlagRemoveUILibraryFitContent = game:GetFastFlag("RemoveUILibraryFitContent")
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
+local FFlagRemoveUILibraryFitContent = Framework.SharedFlags.getFFlagRemoveUILibraryFitContent()
+
 local ContextServices = Framework.ContextServices
 
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
@@ -86,6 +86,7 @@ function MainView:render()
 						Style = "Box",
 						AutomaticSize = Enum.AutomaticSize.Y,
 						HorizontalAlignment = Enum.HorizontalAlignment.Left,
+						Layout = Enum.FillDirection.Vertical,
 					}, containerChildren)
 				else
 					Roact.createElement(FitToContent, {

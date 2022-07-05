@@ -160,23 +160,26 @@ return function(analyticsService)
             })
         end,
 
-        onTrackAdded = function(_, trackName, wasManual)
+        onTrackAdded = function(_, trackName, editorMode)
             sendEvent("trackAdded", {
                 trackName = trackName,
+                editorMode = editorMode,
             })
         end,
 
-        onTrackDeleted = function(_, trackName, hadKeyframes)
+        onTrackDeleted = function(_, trackName, hadKeyframes, editorMode)
             sendEvent("trackDeleted", {
                 trackName = trackName,
                 hadKeyframes = hadKeyframes,
+                editorMode = editorMode,
             })
         end,
 
-        onTrackSelected = function(_, trackName, source)
+        onTrackSelected = function(_, trackName, source, editorMode)
             sendEvent("trackSelected", {
                 trackName = trackName,
                 source = source,
+                editorMode = editorMode,
             })
         end,
 
@@ -186,28 +189,29 @@ return function(analyticsService)
             })
         end,
 
-        onAddEvent = function(_, name, parameter)
+        onAddEvent = function(_, name, parameter, editorMode)
             sendEvent("addEvent", {
                 name = name,
                 parameter = parameter,
+                editorMode = editorMode,
             })
             reportCounter(makeStatName("EventAdded"))
             sendEvent("EventAdded")
         end,
 
-        onAddKeyframe = function(_, trackName, tick)
+        onAddKeyframe = function(_, trackName, editorMode)
             sendEvent("addKeyframe", {
                 trackName = trackName,
-                frame = tick,  -- TODO: Check with analytics when to rename this parameter to Tick
+                editorMode = editorMode,
             })
             reportCounter(makeStatName("KeyframeAdded"))
             sendEvent("KeyframeAdded")
         end,
 
-        onDeleteKeyframe = function(_, trackName, tick)
+        onDeleteKeyframe = function(_, trackName, editorMode)
             sendEvent("deleteKeyframe", {
                 trackName = trackName,
-                frame = tick,  -- TODO: Check with analytics when to rename this parameter to Tick
+                editorMode = editorMode,
             })
         end,
 
@@ -219,6 +223,24 @@ return function(analyticsService)
                 numEvents = numEvents,
             })
         end,
+
+				onAnimationEditorImportVideoCreate = function(_)
+					sendEvent("animationEditorImportVideoCreate", {})
+				end,
+
+				onAnimationEditorImportVideoUploadCancel = function(_)
+					sendEvent("animationEditorImportVideoUploadCancel", {})
+				end,
+
+				onAnimationEditorImportVideoUploadSucceed = function(_)
+					sendEvent("animationEditorImportVideoUploadSucceed", {})
+				end,
+
+				onAnimationEditorImportVideoError = function(_, errorMsg)
+					sendEvent("animationEditorImportVideoError", {
+						errorMsg = errorMsg
+					})
+				end,
 
 		onEditorModeSwitch = function(_, oldMode, newMode, duration)
             sendEvent("editorModeSwitch", {

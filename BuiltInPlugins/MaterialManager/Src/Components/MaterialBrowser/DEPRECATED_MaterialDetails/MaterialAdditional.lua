@@ -20,7 +20,7 @@ local TextLabel = UI.Decoration.TextLabel
 
 local getMaterialPatternName = require(Plugin.Src.Resources.Constants.getMaterialPatternName)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-local MaterialController = require(Plugin.Src.Util.MaterialController)
+local MaterialController = require(Plugin.Src.Controllers.MaterialController)
 
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)

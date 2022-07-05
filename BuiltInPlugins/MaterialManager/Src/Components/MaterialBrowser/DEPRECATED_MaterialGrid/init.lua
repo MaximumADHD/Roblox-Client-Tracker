@@ -17,6 +17,9 @@ local Pane = UI.Pane
 local InfiniteScrollingGrid = UI.InfiniteScrollingGrid
 local IconButton = UI.IconButton
 
+local ContainsPath = require(Plugin.Src.Util.ContainsPath)
+local MaterialController = require(Plugin.Src.Controllers.MaterialController)
+
 local Actions = Plugin.Src.Actions
 local SetMaterial = require(Actions.SetMaterial)
 local SetMenuHover = require(Actions.SetMenuHover)
@@ -24,10 +27,6 @@ local SetMenuHover = require(Actions.SetMenuHover)
 local Components = Plugin.Src.Components
 local MaterialItem = require(Components.MaterialBrowser.DEPRECATED_MaterialGrid.MaterialItem)
 local MaterialTile = require(Components.MaterialBrowser.DEPRECATED_MaterialGrid.MaterialTile)
-
-local Util = Plugin.Src.Util
-local ContainsPath = require(Util.ContainsPath)
-local MaterialController = require(Util.MaterialController)
 
 local Constants = Plugin.Src.Resources.Constants
 local getMaterialPath = require(Constants.getMaterialPath)
