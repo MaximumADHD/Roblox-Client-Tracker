@@ -18,6 +18,7 @@ local GetTextHeight = require(UIBlox.Core.Text.GetTextHeight)
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local divideTransparency = require(UIBlox.Utility.divideTransparency)
 local lerp = require(UIBlox.Utility.lerp)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local TooltipOrientation = require(TooltipRoot.Enum.TooltipOrientation)
 local getPositionInfo = require(TooltipRoot.getPositionInfo)
@@ -26,6 +27,8 @@ local FRAME_MAX_WIDTH = 240
 local MARGIN = 12
 local PADDING_BETWEEN = 4
 local TRIANGLE_HEIGHT = 8
+-- Offset is used to remove a 1-pixel gap between caret and content
+local CARET_CONTENT_PADDING_OFFSET = -1
 
 local TriangleImages = {
 	[TooltipOrientation.Bottom] = Images["component_assets/triangleUp_16"],
@@ -122,7 +125,9 @@ function TooltipContainer:render()
 		end)
 
 		local backgroundTransparency = self.progress:map(function(value)
-			local baseTransparency = theme.BackgroundMuted.Transparency
+			local baseTransparency = UIBloxConfig.enableTooltipColorStylesFix
+					and theme.SystemPrimaryDefault.Transparency
+				or theme.BackgroundMuted.Transparency
 			local transparencyDivisor = 1
 			return lerp(1, divideTransparency(baseTransparency, transparencyDivisor), value)
 		end)
@@ -145,6 +150,7 @@ function TooltipContainer:render()
 			UIListLayout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				FillDirection = positionInfo.fillDirection,
+				Padding = UIBloxConfig.enableTooltipColorStylesFix and UDim.new(0, CARET_CONTENT_PADDING_OFFSET) or nil,
 			}),
 			CaretFrame = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
@@ -159,7 +165,8 @@ function TooltipContainer:render()
 					AnchorPoint = positionInfo.caretAnchorPoint,
 					Size = positionInfo.caretImageSize,
 					Image = TriangleImages[positionInfo.updatedOrientation],
-					ImageColor3 = theme.BackgroundMuted.Color,
+					ImageColor3 = UIBloxConfig.enableTooltipColorStylesFix and theme.SystemPrimaryDefault.Color
+						or theme.BackgroundMuted.Color,
 					ImageTransparency = backgroundTransparency,
 					[Roact.Ref] = self.caretRef,
 				}),
@@ -168,7 +175,8 @@ function TooltipContainer:render()
 				AutoButtonColor = false,
 				Text = "",
 				Size = UDim2.fromOffset(frameWidth, frameHeight),
-				BackgroundColor3 = theme.BackgroundMuted.Color,
+				BackgroundColor3 = UIBloxConfig.enableTooltipColorStylesFix and theme.SystemPrimaryDefault.Color
+					or theme.BackgroundMuted.Color,
 				BackgroundTransparency = backgroundTransparency,
 				BorderSizePixel = 0,
 				LayoutOrder = positionInfo.contentLayoutOrder,
@@ -186,7 +194,8 @@ function TooltipContainer:render()
 					PaddingRight = UDim.new(0, MARGIN),
 				}),
 				Header = self.props.headerText and Roact.createElement(GenericTextLabel, {
-					colorStyle = theme.TextEmphasis,
+					colorStyle = UIBloxConfig.enableTooltipColorStylesFix and theme.SystemPrimaryContent
+						or theme.TextEmphasis,
 					fontStyle = headerFont,
 					LayoutOrder = 1,
 					Text = self.props.headerText,
@@ -195,7 +204,8 @@ function TooltipContainer:render()
 					Size = UDim2.new(1, 0, 0, headerTextHeight),
 				}),
 				Body = Roact.createElement(GenericTextLabel, {
-					colorStyle = theme.TextDefault,
+					colorStyle = UIBloxConfig.enableTooltipColorStylesFix and theme.SystemPrimaryContent
+						or theme.TextDefault,
 					fontStyle = bodyFont,
 					LayoutOrder = 2,
 					Text = self.props.bodyText,

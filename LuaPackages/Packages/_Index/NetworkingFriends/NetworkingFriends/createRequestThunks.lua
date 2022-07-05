@@ -11,6 +11,9 @@ local createDeclineFriendRequestFromUserId: (any) -> any = require(networkReques
 local createDeclineAllFriendRequests: (any) -> any = require(networkRequests.createDeclineAllFriendRequests)
 local createGetFriendsCountFromUserId: (any) -> any = require(networkRequests.createGetFriendsCountFromUserId)
 local createRequestFriendshipFromUserId: (any) -> any = require(networkRequests.createRequestFriendshipFromUserId)
+local createRequestFriendshipFromContactId: (config: networkingFriendsTypes.Config) -> any = require(
+	networkRequests.createRequestFriendshipFromContactId
+)
 local createGetFollowingExists: (any) -> any = require(networkRequests.createGetFollowingExists)
 local createGetUserFollowers: (any) -> any = require(networkRequests.createGetUserFollowers)
 local createGetFriendRecommendationsFromUserId: (config: networkingFriendsTypes.Config) -> networkingFriendsTypes.GetFriendRecommendationsFromUserId =
@@ -35,6 +38,7 @@ return function(config: networkingFriendsTypes.Config): networkingFriendsTypes.R
 		DeclineAllFriendRequests = createDeclineAllFriendRequests(config),
 		GetFriendsCountFromUserId = createGetFriendsCountFromUserId(config),
 		RequestFriendshipFromUserId = createRequestFriendshipFromUserId(config),
+		RequestFriendshipFromContactId = createRequestFriendshipFromContactId(config),
 		GetFollowingExists = createGetFollowingExists(config),
 		GetUserFollowers = createGetUserFollowers(config),
 		GetFriendRecommendationsFromUserId = createGetFriendRecommendationsFromUserId(config),

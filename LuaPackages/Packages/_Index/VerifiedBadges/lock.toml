@@ -5,7 +5,7 @@ commit = "9d6a37477817cdc7dfddf73e9eb45fc1b7cdbff3"
 source = "url+https://github.com/roblox/lua-verified-badges"
 dependencies = [
     "Cryo Cryo 1.0.1 url+https://github.com/roblox/cryo",
-    "FriendsNetworking NetworkingFriends 2.4.1 url+https://github.com/roblox/networking-friends",
+    "FriendsNetworking NetworkingFriends 2.5.2 url+https://github.com/roblox/networking-friends",
     "HttpRequest HttpRequest 1.1.1 url+https://github.com/roblox/http-request",
     "React React 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",
     "ReactRoblox ReactRoblox 17.0.1-rc.12 url+https://github.com/roblox/roact-alignment",

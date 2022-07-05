@@ -86,4 +86,11 @@ return {
 
 	-- Allow standardSize enum (Regular/Small/XSmall) for GenericButton, PrimaryContextualButton, etc.
 	enableStandardButtonSizes = false,
+
+	-- indicate whether fix for tooltip color styles is enabled
+	enableTooltipColorStylesFix = false,
+
+	-- if true, SliderTextInput will update its value whenever the text box loses focus,
+	-- otherwise it will only update when <enter> is pressed
+	sliderUpdateOnDismiss = false,
 }

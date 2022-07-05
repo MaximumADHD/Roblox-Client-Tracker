@@ -153,6 +153,7 @@ local function connectToEvent(binding, engineInterface)
 
 		return wrapWithGamepadStateListener(engineInterface, connection)
 	end
+	return nil
 end
 
 local function makeInputBinding(kind)

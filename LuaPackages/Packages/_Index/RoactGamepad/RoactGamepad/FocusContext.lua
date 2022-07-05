@@ -1,4 +1,4 @@
 local Packages = script.Parent.Parent
-local Roact = require(Packages.Roact)
+local React = require(Packages.React)
 
-return Roact.createContext(nil)
+return React.createContext(nil) :: React.ReactContext<any>
