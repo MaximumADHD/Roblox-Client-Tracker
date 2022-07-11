@@ -2151,6 +2151,7 @@ AUTHORITY_INFO_ACCESS
 AUTHORITY_KEYID
 Authority0
 Authority0v0
+Authority1
 AuthorityId
 AuthorityText
 AuthorityUrl
@@ -12122,15 +12123,6 @@ DiffuseFilePath
 DigestAlgorithm_find_ctx
 DigestAlgorithm_init_bio
 DigestedData_do_final
-DigiCertAssuredIDRootCA.crl0
-DigiCertAssuredIDRootCA.crt0E
-DigiCertEVCodeSigningCA
-DigiCertHighAssuranceEVRootCA.crl0
-DigiCertHighAssuranceEVRootCA.crt0
-DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crl0
-DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crt0
-DigiCertTrustedRootG4.crl0
-DigiCertTrustedRootG4.crt0C
 DigitalSignature
 DilateTemporalFS
 DilleniaUPC
@@ -13570,7 +13562,6 @@ EvaluatedKey
 EvaluateForHovers
 EvaluateGlobalTransform
 EvaluateWatch
-EVCodeSigningSHA2
 Event.button
 Event.clientX
 Event.clientY
@@ -21285,6 +21276,7 @@ NETSCAPE_SPKI_b64_encode
 NETSCAPE2.0
 NETWORK_ERROR
 Network1.0
+Network100.
 NetworkAudit
 NetworkAudit]
 NetworkBandwdithManager
@@ -22219,7 +22211,6 @@ OrFetchPlugin
 OrFirstTier
 Organizaci
 Organization
-Organization1
 OrganizationDomain
 OrganizationName
 Organizations
@@ -26146,7 +26137,6 @@ ReadVariantCountSpeedExceededKicked
 ReadVariantCountSpeedExceededReport
 ReadVoxels
 ReadyBitStream
-ReadyToSend
 ReadyToUseRemoteCandidate
 Reassembly
 Reassigning
@@ -35307,6 +35297,7 @@ SXNET_add_id_INTEGER
 SXNET_add_id_ulong
 SXNET_get_id_asc
 SXNET_get_id_ulong
+SymantecPKI
 SymbolicLinkAlreadyExist
 SymbolValue
 SymFunctionTableAccess64
@@ -36319,7 +36310,6 @@ TimeSpentRemoving
 TimesReplicatedNeverReplicate
 TimesReplicatedNeverReplicatedPerInterval
 Timestamping
-TimeStamping
 TimestampStart
 TimestepArbiterAccelerationModelFactorThou
 TimestepArbiterAngAccelerationThresholdThou

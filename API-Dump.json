@@ -88128,24 +88128,24 @@
             "Items": [
                 {
                     "LegacyNames": [
-                        "Right",
-                        "Left"
+                        "Left",
+                        "Right"
                     ],
                     "Name": "X",
                     "Value": 0
                 },
                 {
                     "LegacyNames": [
-                        "Bottom",
-                        "Top"
+                        "Top",
+                        "Bottom"
                     ],
                     "Name": "Y",
                     "Value": 1
                 },
                 {
                     "LegacyNames": [
-                        "Front",
-                        "Back"
+                        "Back",
+                        "Front"
                     ],
                     "Name": "Z",
                     "Value": 2
@@ -88157,9 +88157,9 @@
             "Items": [
                 {
                     "LegacyNames": [
-                        "Slingshot",
                         "Rocket",
-                        "Laser"
+                        "Laser",
+                        "Slingshot"
                     ],
                     "Name": "Script",
                     "Value": 0
@@ -91086,17 +91086,17 @@
             "Items": [
                 {
                     "LegacyNames": [
-                        "Action4",
-                        "Action5",
-                        "RightTread",
-                        "Throtle",
+                        "LeftTread",
                         "Action1",
-                        "Steer",
                         "Throttle",
                         "Action2",
+                        "RightTread",
+                        "Action5",
+                        "Action3",
+                        "Action4",
+                        "Throtle",
                         "UpDown",
-                        "LeftTread",
-                        "Action3"
+                        "Steer"
                     ],
                     "Name": "NoInput",
                     "Value": 0
