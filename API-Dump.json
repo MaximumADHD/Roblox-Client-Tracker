@@ -50553,6 +50553,28 @@
                         "Category": "Enum",
                         "Name": "CollisionFidelity"
                     }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "MeshSize",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    }
                 }
             ],
             "MemoryCategory": "Instances",
@@ -50683,28 +50705,6 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Content"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "MeshSize",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "DataType",
-                        "Name": "Vector3"
                     }
                 },
                 {
@@ -52672,6 +52672,27 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "UnionsScaleNonuniformly",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "UnionsScaleNonuniformly"
                     }
                 },
                 {
@@ -56568,21 +56589,6 @@
                         "Name": "bool"
                     },
                     "Security": "None",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "IsUserAvailableForExperiment",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    },
-                    "Security": "None",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -74627,6 +74633,18 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "PublishThenTurnOnTeamCreate",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "RefreshDocumentDisplayName",
                     "Parameters": [
                     ],
@@ -75167,115 +75185,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "DEPRECATED_EmitPlacePublishedSignal",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "DEPRECATED_RefreshDocumentDisplayName",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "DEPRECATED_SetUniverseDisplayName",
-                    "Parameters": [
-                        {
-                            "Name": "newName",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "DEPRECATED_ShowSaveOrPublishPlaceToRoblox",
-                    "Parameters": [
-                        {
-                            "Name": "showGameSelect",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        },
-                        {
-                            "Name": "isPublish",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        },
-                        {
-                            "Name": "closeMode",
-                            "Type": {
-                                "Category": "Enum",
-                                "Name": "StudioCloseMode"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "DEPRECATED_publishAs",
-                    "Parameters": [
-                        {
-                            "Name": "universeId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        },
-                        {
-                            "Name": "placeId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        },
-                        {
-                            "Name": "groupId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "GetBadgeConfigureUrl",
                     "Parameters": [
                         {
@@ -75693,87 +75602,6 @@
                     "Tags": [
                         "Yields"
                     ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "DEPRECATED_GameNameUpdated",
-                    "Parameters": [
-                        {
-                            "Name": "name",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "DEPRECATED_GamePublishFinished",
-                    "Parameters": [
-                        {
-                            "Name": "success",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        },
-                        {
-                            "Name": "gameId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "DEPRECATED_OnPublishPlaceToRoblox",
-                    "Parameters": [
-                        {
-                            "Name": "isOverwritePublish",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "DEPRECATED_OnSaveOrPublishPlaceToRoblox",
-                    "Parameters": [
-                        {
-                            "Name": "showGameSelect",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        },
-                        {
-                            "Name": "isPublish",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        },
-                        {
-                            "Name": "closeMode",
-                            "Type": {
-                                "Category": "Enum",
-                                "Name": "StudioCloseMode"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -80061,6 +79889,94 @@
                     "ReturnType": {
                         "Category": "DataType",
                         "Name": "Vector2"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ValidateMeshTriangles",
+                    "Parameters": [
+                        {
+                            "Name": "meshId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ValidateMeshVertColors",
+                    "Parameters": [
+                        {
+                            "Name": "meshId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ValidateTextureSize",
+                    "Parameters": [
+                        {
+                            "Name": "textureId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ValidateUVSpace",
+                    "Parameters": [
+                        {
+                            "Name": "meshId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     },
                     "Security": "RobloxScriptSecurity",
                     "Tags": [
@@ -91086,17 +91002,17 @@
             "Items": [
                 {
                     "LegacyNames": [
-                        "LeftTread",
                         "Action1",
-                        "Throttle",
-                        "Action2",
-                        "RightTread",
-                        "Action5",
-                        "Action3",
                         "Action4",
+                        "Action5",
+                        "LeftTread",
+                        "Steer",
+                        "RightTread",
+                        "Action3",
                         "Throtle",
+                        "Throttle",
                         "UpDown",
-                        "Steer"
+                        "Action2"
                     ],
                     "Name": "NoInput",
                     "Value": 0
@@ -96119,6 +96035,23 @@
                 }
             ],
             "Name": "UiMessageType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Disabled",
+                    "Value": 1
+                },
+                {
+                    "Name": "Enabled",
+                    "Value": 2
+                }
+            ],
+            "Name": "UnionsScaleNonuniformly"
         },
         {
             "Items": [

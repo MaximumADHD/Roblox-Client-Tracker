@@ -40,6 +40,12 @@ Studio.App.ListView.ExperienceName,The name of my game,Experience Name,Experienc
 Studio.App.ListView.Description,,Description,Description
 Studio.App.ListView.DateCreated,,Date Created,Date Created
 Studio.App.ListView.Playability,,Playability,Playability
+Studio.App.ListView.Type,,Type,Type
+Studio.App.ListView.Type.Local,,Local File,Local File
+Studio.App.ListView.Type.Cloud,,Cloud,Cloud
+Studio.App.ListView.Type.TeamCreate,,Team Create,Team Create
+Studio.App.ListView.Owner,,Owner,Owner
+Studio.App.ListView.Owner.You,,You,You
 Studio.App.Debugger.PausedForDebugging,,Rendering is paused for debugging...,Rendering is paused for debugging...
 Studio.App.Breakpoints.DeleteAllBreakpoints,Debugger widgets,Delete All Breakpoints,Delete All Breakpoints
 Studio.App.Breakpoints.DeleteSelectedBreakpoint,Debugger widgets,Delete Selected Breakpoint,Delete Selected Breakpoint
@@ -3325,6 +3331,18 @@ Studio.App.BetaFeatures.CurveAnimationsDescription,,Enable single-channel animat
 Studio.App.BetaFeatures.DebuggerV2Title,,Intuitive Debugger,Intuitive Debugger
 Studio.App.BetaFeatures.DebuggerV2Description,,"Enable a new debugging experience with a more powerful backend architecture and Lua-based UI for the Callstack, Watch, and Breakpoint windows.","Enable a new debugging experience with a more powerful backend architecture and Lua-based UI for the Callstack, Watch, and Breakpoint windows."
 Studio.App.RobloxApplication.AbnormalTerminateMessage,,An unexpected error has occurred and Studio needs to quit. Please restart Studio or contact support if the problem persists.,An unexpected error has occurred and Studio needs to quit. Please restart Studio or contact support if the problem persists.
+Studio.App.BaseDataModel.MigrateOneUnionTitle,,One union is being reinterpreted,One union is being reinterpreted
+Studio.App.BaseDataModel.MigrateOneUnionBody,,"Do you want Studio to perform a one-time migration resizing one union to retain its original appearance?
+
+The migration should only be used on content created under the old scaling behavior. In particular this means you should not use the migration on new content you've been working on under the Nonuniform Unions beta feature.","Do you want Studio to perform a one-time migration resizing one union to retain its original appearance?
+
+The migration should only be used on content created under the old scaling behavior. In particular this means you should not use the migration on new content you've been working on under the Nonuniform Unions beta feature."
+Studio.App.BaseDataModel.MigrateUnionsTitle1,,%1 unions are being reinterpreted,%1 unions are being reinterpreted
+Studio.App.BaseDataModel.MigrateUnionsBody1,,"Do you want Studio to perform a one-time migration resizing %1 unions to retain their original appearance?
+
+The migration should only be used on content created under the old scaling behavior. In particular this means you should not use the migration on new content you've been working on under the Nonuniform Unions beta feature.","Do you want Studio to perform a one-time migration resizing %1 unions to retain their original appearance?
+
+The migration should only be used on content created under the old scaling behavior. In particular this means you should not use the migration on new content you've been working on under the Nonuniform Unions beta feature."
 Studio.App.BetaFeatures.NonuniformUnionsTitle,,Nonuniform Unions,Nonuniform Unions
 Studio.App.BetaFeatures.NonuniformUnionsDescription,,Allow unions created with the CSG system to scale nonuniformly in the same way as MeshParts. Change the interpretation of existing nonuniformly scaled unions.,Allow unions created with the CSG system to scale nonuniformly in the same way as MeshParts. Change the interpretation of existing nonuniformly scaled unions.
 Studio.App.BetaFeatures.ScriptEditorApiTitle,,Script Editor API,Script Editor API

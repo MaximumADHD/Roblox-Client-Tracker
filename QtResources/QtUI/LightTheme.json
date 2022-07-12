@@ -1202,7 +1202,9 @@
                 "background": "#FFFFFF",
                 "selectedRow": "#E4EEFE",
                 "header": "#FFFFFF",
-                "border": "#E3E3E3"
+                "border": "#E3E3E3",
+                "toggleButton": "#00A2FF",
+                "toggleHover": "#33B4FF"
             }
         },
         {

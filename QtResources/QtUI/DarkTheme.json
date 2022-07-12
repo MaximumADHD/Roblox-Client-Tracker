@@ -1208,7 +1208,9 @@
                 "background": "#252525",
                 "selectedRow": "#424242",
                 "header": "#353535",
-                "border": "#292929"
+                "border": "#292929",
+                "toggleButton": "#2E2E2E",
+                "toggleHover": "#424242"
             }
         },
         {

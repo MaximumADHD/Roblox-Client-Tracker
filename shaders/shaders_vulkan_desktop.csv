@@ -61,6 +61,10 @@ DefaultDetiledHQFS_Level0,Fragment
 DefaultDetiledHQFS_Level8,Fragment
 DefaultDetiledHQFS_Level24,Fragment
 DefaultDetiledHQFS_Level536,Fragment
+DefaultDetiledNewHQFS_Level0,Fragment
+DefaultDetiledNewHQFS_Level8,Fragment
+DefaultDetiledNewHQFS_Level24,Fragment
+DefaultDetiledNewHQFS_Level536,Fragment
 DefaultForceFieldFS,Fragment
 DefaultForceFieldHQFS_Level0,Fragment
 DefaultForceFieldHQFS_Level8,Fragment
@@ -410,6 +414,7 @@ LinearizeDepthAAFS,Fragment
 LinearizeDepthBufferFS,Fragment
 LinearizeDepthFS,Fragment
 LowQGlassFS,Fragment
+LowQMaterialDetiledNewFS_Level0,Fragment
 LowQMaterialFS_Level0,Fragment
 LowQMaterialFS_Level2048,Fragment
 LowQMaterialWangFallbackFS,Fragment

@@ -4542,3 +4542,5 @@ Studio.App.AudioPrivacyPublishDialog.GrantAllPermissionsButton,,,Grant All Permi
 Studio.App.AudioPrivacyPublishDialog.PublishToRobloxButton,,,Publish to Roblox,Publish to Roblox,,Publicar en Roblox,Publier sur Roblox,,,Robloxに公開,Roblox에 게시,Publicar na Roblox,,,,,,,發布到 Roblox
 Studio.App.AudioPrivacyPublishDialog.PublishWithoutGrantingButton,,,Publish without Permissions,Publish without Permissions,,Publicar sin permisos,Publier sans autorisation,,,権限なしで公開,권한 없이 게시,Publicar sem permissões,,,,,,,在未授權情況下發布
 Studio.App.AudioPrivacyPublishDialog.CancelPublishButton,,,Cancel Publish,Cancel Publish,,Cancelar publicación,Annuler la publication,,,公開をキャンセル,게시 취소,Cancelar publicação,,,,,,,取消發布
+Studio.App.BetaFeatures.LuauLowerBoundsTitle,,,Experimental Luau language features,Experimental Luau language features,,,,,,,,,,,,,,,
+Studio.App.BetaFeatures.LuauLowerBoundsDescription,,,Adds shared self types and lower-bounds calculation to script analysis for more accurate type inference.,Adds shared self types and lower-bounds calculation to script analysis for more accurate type inference.,,,,,,,,,,,,,,,

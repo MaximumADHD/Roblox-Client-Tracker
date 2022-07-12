@@ -2654,6 +2654,7 @@ Class Terrain : BasePart [NotCreatable]
 	Function void Terrain:WriteVoxels(Region3 region, float resolution, Array materials, Array occupancy) [CustomLuaState]
 Class TriangleMeshPart : BasePart [NotCreatable]
 	Property Enum.CollisionFidelity TriangleMeshPart.CollisionFidelity {✏️PluginSecurity} [<📁> LoadOnly] [NotReplicated]
+	Property Vector3 TriangleMeshPart.MeshSize [ReadOnly]
 Class MeshPart : TriangleMeshPart
 	Property bool MeshPart.DoubleSided {✏️PluginSecurity}
 	Property bool MeshPart.HasJointOffset {✏️NotAccessibleSecurity} [Hidden]
@@ -2663,7 +2664,6 @@ Class MeshPart : TriangleMeshPart
 	Property Enum.RenderFidelity MeshPart.RenderFidelity {✏️PluginSecurity} [NotReplicated]
 	Property Content MeshPart.TextureID
 	Property Vector3 MeshPart.JointOffset {✏️NotAccessibleSecurity} [Hidden]
-	Property Vector3 MeshPart.MeshSize [ReadOnly]
 	Function void MeshPart:ApplyMesh(Instance meshPart)
 Class PartOperation : TriangleMeshPart
 	Property Enum.RenderFidelity PartOperation.RenderFidelity {✏️PluginSecurity}
@@ -2744,6 +2744,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Enum.SignalBehavior Workspace.SignalBehavior [NotScriptable]
 	Property Terrain Workspace.Terrain [ReadOnly]
 	Property bool Workspace.TouchesUseCollisionGroups [NotScriptable]
+	Property Enum.UnionsScaleNonuniformly Workspace.UnionsScaleNonuniformly [NotScriptable]
 	Property Camera Workspace.CurrentCamera [NotReplicated]
 	Property double Workspace.DistributedGameTime [NotReplicated]
 	Property Enum.StreamOutBehavior Workspace.StreamOutBehavior [NotScriptable]
@@ -2969,7 +2970,6 @@ Class Player : Instance
 	Function bool Player:IsBestFriendsWith(int64 userId) [Yields] [Deprecated]
 	Function bool Player:IsFriendsWith(int64 userId) [Yields]
 	Function bool Player:IsInGroup(int64 groupId) [Yields]
-	Function bool Player:IsUserAvailableForExperiment() [Deprecated]
 	Function void Player:Kick(string message = "")
 	Function bool Player:LoadBoolean(string key) [Deprecated]
 	Function void Player:LoadCharacter() [Yields]
@@ -3928,6 +3928,7 @@ Class StudioHighDpiService : Instance [NotCreatable] [Service] [NotReplicated]
 Class StudioPublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioPublishService:ClearUploadNames() {RobloxScriptSecurity}
 	Function void StudioPublishService:PublishAs(int64 universeId, int64 placeId, int64 groupId, bool isPublish, Variant publishParameters) {RobloxScriptSecurity}
+	Function void StudioPublishService:PublishThenTurnOnTeamCreate() {RobloxScriptSecurity}
 	Function void StudioPublishService:RefreshDocumentDisplayName() {RobloxScriptSecurity}
 	Function void StudioPublishService:SetTeamCreateOnPublishInfo(bool shouldTurnOnTcOnPublish, string newPlaceName) {RobloxScriptSecurity}
 	Function void StudioPublishService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
@@ -3954,11 +3955,6 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property string StudioService.StudioLocaleId [ReadOnly]
 	Function void StudioService:AnimationIdSelected(int64 id) {RobloxScriptSecurity}
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
-	Function void StudioService:DEPRECATED_EmitPlacePublishedSignal() {RobloxScriptSecurity}
-	Function void StudioService:DEPRECATED_RefreshDocumentDisplayName() {RobloxScriptSecurity}
-	Function void StudioService:DEPRECATED_SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
-	Function void StudioService:DEPRECATED_ShowSaveOrPublishPlaceToRoblox(bool showGameSelect, bool isPublish, Enum.StudioCloseMode closeMode) {RobloxScriptSecurity}
-	Function void StudioService:DEPRECATED_publishAs(int64 universeId, int64 placeId, int64 groupId) {RobloxScriptSecurity}
 	Function string StudioService:GetBadgeConfigureUrl(int64 badgeId) {RobloxScriptSecurity}
 	Function string StudioService:GetBadgeUploadUrl() {RobloxScriptSecurity}
 	Function Dictionary StudioService:GetClassIcon(string className) {PluginSecurity}
@@ -3982,10 +3978,6 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioService:TryInstallPlugin(int64 assetId, int64 assetVersionId) {RobloxScriptSecurity} [Yields]
 	Function void StudioService:UninstallPlugin(int64 assetId) {RobloxScriptSecurity}
 	Function void StudioService:UpdatePluginManagement() {RobloxScriptSecurity}
-	Event StudioService.DEPRECATED_GameNameUpdated(string name) {RobloxScriptSecurity}
-	Event StudioService.DEPRECATED_GamePublishFinished(bool success, int64 gameId) {RobloxScriptSecurity}
-	Event StudioService.DEPRECATED_OnPublishPlaceToRoblox(bool isOverwritePublish) {RobloxScriptSecurity}
-	Event StudioService.DEPRECATED_OnSaveOrPublishPlaceToRoblox(bool showGameSelect, bool isPublish, Enum.StudioCloseMode closeMode) {RobloxScriptSecurity}
 	Event StudioService.OnImportFromRoblox() {RobloxScriptSecurity}
 	Event StudioService.OnOpenGameSettings(string pageIdentifier) {RobloxScriptSecurity}
 	Event StudioService.OnOpenManagePackagePlugin(int64 userId, int64 assetId) {RobloxScriptSecurity}
@@ -4214,6 +4206,10 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Vector2 UGCValidationService:GetTextureSize(string textureId) {RobloxScriptSecurity} [Yields]
 	Function Vector2 UGCValidationService:GetTextureSizeSync(string textureId) {RobloxScriptSecurity}
 	Function void UGCValidationService:SetMeshIdBlocking(Instance meshPart, string meshId) {RobloxScriptSecurity}
+	Function bool UGCValidationService:ValidateMeshTriangles(string meshId) {RobloxScriptSecurity} [Yields]
+	Function bool UGCValidationService:ValidateMeshVertColors(string meshId) {RobloxScriptSecurity} [Yields]
+	Function bool UGCValidationService:ValidateTextureSize(string textureId) {RobloxScriptSecurity} [Yields]
+	Function bool UGCValidationService:ValidateUVSpace(string meshId) {RobloxScriptSecurity} [Yields]
 Class UIBase : Instance [NotCreatable]
 Class UIComponent : UIBase [NotCreatable]
 Class UIConstraint : UIComponent [NotCreatable]
@@ -6698,6 +6694,10 @@ Enum UITheme [Deprecated]
 Enum UiMessageType
 	EnumItem UiMessageType.UiMessageError : 0
 	EnumItem UiMessageType.UiMessageInfo : 1
+Enum UnionsScaleNonuniformly
+	EnumItem UnionsScaleNonuniformly.Default : 0
+	EnumItem UnionsScaleNonuniformly.Disabled : 1
+	EnumItem UnionsScaleNonuniformly.Enabled : 2
 Enum UsageContext
 	EnumItem UsageContext.Default : 0
 	EnumItem UsageContext.Preview : 1

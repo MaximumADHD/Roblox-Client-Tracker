@@ -54,6 +54,8 @@ DefaultDepthVS_Level6,Vertex
 DefaultDepthVS_Level4098,Vertex
 DefaultDetiledHQFS_Level0,Fragment
 DefaultDetiledHQFS_Level8,Fragment
+DefaultDetiledNewHQFS_Level0,Fragment
+DefaultDetiledNewHQFS_Level8,Fragment
 DefaultForceFieldFS,Fragment
 DefaultForceFieldHQFS_Level0,Fragment
 DefaultForceFieldHQFS_Level8,Fragment
@@ -295,6 +297,7 @@ LightGridPointSplatVS,Vertex
 LinearizeDepthAAFS,Fragment
 LinearizeDepthFS,Fragment
 LowQGlassFS,Fragment
+LowQMaterialDetiledNewFS_Level0,Fragment
 LowQMaterialFS_Level0,Fragment
 LowQMaterialFS_Level2048,Fragment
 LowQMaterialWangFallbackFS,Fragment

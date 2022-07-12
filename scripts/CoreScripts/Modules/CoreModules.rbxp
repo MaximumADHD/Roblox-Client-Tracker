@@ -97,6 +97,9 @@
             "Watermark": {
                 "$path": "Watermark"
             },
+            "LoadingScreen":{
+                "$path": "LoadingScreen"
+            },
             "ABTestHelper": {
                 "$path": "ABTestHelper.lua",
                 ".robloxrc": {
