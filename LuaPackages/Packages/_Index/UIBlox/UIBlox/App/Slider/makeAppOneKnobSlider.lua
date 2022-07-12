@@ -11,6 +11,7 @@ local makeAppSlider = require(Slider.makeAppSlider)
 local SliderTextInput = require(Slider.SliderTextInput)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local validateStyle = require(App.Style.Validator.validateStyle)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local function wrapStyleAndRef(component)
 	return Roact.forwardRef(function(props, ref)
@@ -47,6 +48,10 @@ local function makeAppOneKnobSlider(trackFillThemeKey)
 		forwardedRef = t.optional(t.table),
 		NextSelectionUp = t.optional(t.table),
 		NextSelectionDown = t.optional(t.table),
+
+		customTrack = UIBloxConfig.enableSliderCustomization and t.optional(t.table) or nil,
+		customKnobColorLower = UIBloxConfig.enableSliderCustomization and t.optional(t.Color3) or nil,
+		customPressedKnobShadowTransparencyLower = UIBloxConfig.enableSliderCustomization and t.optional(t.number) or nil,
 		--Internal Only - Don't Pass In
 		style = validateStyle
 	})
@@ -73,6 +78,9 @@ local function makeAppOneKnobSlider(trackFillThemeKey)
 			forwardedRef = props.forwardedRef,
 			NextSelectionUp = props.NextSelectionUp,
 			NextSelectionDown = props.NextSelectionDown,
+			customTrack = UIBloxConfig.enableSliderCustomization and props.customTrack or nil,
+			customKnobColorLower = UIBloxConfig.enableSliderCustomization and props.customKnobColorLower or nil,
+			customPressedKnobShadowTransparencyLower = UIBloxConfig.enableSliderCustomization and props.customPressedKnobShadowTransparencyLower or nil,
 		}
 
 		if not props.textInputEnabled then

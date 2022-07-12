@@ -90,7 +90,17 @@ return {
 	-- indicate whether fix for tooltip color styles is enabled
 	enableTooltipColorStylesFix = false,
 
+	-- whether you can customize aspects of the slider: background, thumb, etc.
+	enableSliderCustomization = false,
+
 	-- if true, SliderTextInput will update its value whenever the text box loses focus,
 	-- otherwise it will only update when <enter> is pressed
 	sliderUpdateOnDismiss = false,
+
+	-- Adds roact-gamepad navigation support to IconButton
+	enableIconButtonGamepadSupport = false,
+
+	-- if true, you can customize Item Tiles with variable sized text underneath, instead of
+	-- always using Header2.
+	enableAdjustableTextUnderTile = false,
 }

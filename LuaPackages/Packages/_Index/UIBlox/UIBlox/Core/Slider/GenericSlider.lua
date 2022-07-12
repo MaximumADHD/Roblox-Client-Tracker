@@ -80,6 +80,7 @@ GenericSlider.validateProps = t.strictInterface({
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
 	focusController = t.optional(t.table),
+	customTrack = UIBloxConfig.enableSliderCustomization and t.optional(t.table) or nil,
 })
 
 GenericSlider.defaultProps = {
@@ -231,6 +232,35 @@ function GenericSlider:processOneKnobGamepadInput(polarity, increments)
 	end
 end
 
+function GenericSlider:renderTrack(fillSize, isTwoKnobs, fillPercentLower)
+	if UIBloxConfig.enableSliderCustomization and self.props.customTrack then
+		return self.props.customTrack
+	else
+		return Roact.createElement(ImageSetComponent.Label, {
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			BackgroundTransparency = 1,
+			ImageColor3 = self.props.trackColor,
+			ImageTransparency = self.props.trackTransparency,
+			Image = self.props.trackImage,
+			Size = UDim2.new(1, 0, 0, 4),
+			Position = UDim2.fromScale(0.5, 0.5),
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = self.props.trackSliceCenter,
+		}, {
+			TrackFill = Roact.createElement(ImageSetComponent.Label, {
+				BackgroundTransparency = 1,
+				ImageColor3 = self.props.trackFillColor,
+				ImageTransparency = self.props.trackFillTransparency,
+				Image = self.props.trackFillImage,
+				Size = fillSize,
+				Position = isTwoKnobs and UDim2.new(fillPercentLower, 0, 0, 0) or UDim2.new(0, 0, 0, 0),
+				ScaleType = Enum.ScaleType.Slice,
+				SliceCenter = self.props.trackFillSliceCenter,
+			})
+		})
+	end
+end
+
 function GenericSlider:render()
 	local knobIsSelected = self.state.lowerKnobIsSelected or self.state.upperKnobIsSelected
 	local isTwoKnobs = self:hasTwoKnobs()
@@ -274,28 +304,7 @@ function GenericSlider:render()
 				end
 			end,
 		}, {
-			Track = Roact.createElement(ImageSetComponent.Label, {
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				BackgroundTransparency = 1,
-				ImageColor3 = self.props.trackColor,
-				ImageTransparency = self.props.trackTransparency,
-				Image = self.props.trackImage,
-				Size = UDim2.new(1, 0, 0, 4),
-				Position = UDim2.fromScale(0.5, 0.5),
-				ScaleType = Enum.ScaleType.Slice,
-				SliceCenter = self.props.trackSliceCenter,
-			}, {
-				TrackFill = Roact.createElement(ImageSetComponent.Label, {
-					BackgroundTransparency = 1,
-					ImageColor3 = self.props.trackFillColor,
-					ImageTransparency = self.props.trackFillTransparency,
-					Image = self.props.trackFillImage,
-					Size = fillSize,
-					Position = isTwoKnobs and UDim2.new(fillPercentLower, 0, 0, 0) or UDim2.new(0, 0, 0, 0),
-					ScaleType = Enum.ScaleType.Slice,
-					SliceCenter = self.props.trackFillSliceCenter,
-				})
-			}),
+			Track = self:renderTrack(fillSize, isTwoKnobs, fillPercentLower),
 			LowerKnob = Roact.createElement(Gamepad.Focusable[ImageSetComponent.Button], {
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				BackgroundTransparency = 1,

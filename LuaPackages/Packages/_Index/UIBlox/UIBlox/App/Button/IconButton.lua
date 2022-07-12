@@ -6,6 +6,7 @@ local Packages = UIBlox.Parent
 local t = require(Packages.t)
 local Roact = require(Packages.Roact)
 local enumerate = require(Packages.enumerate)
+local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 
 local Interactable = require(Core.Control.Interactable)
 
@@ -22,6 +23,12 @@ local HoverButtonBackground = require(Core.Button.HoverButtonBackground)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 
+local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
+local CursorKind = require(App.SelectionImage.CursorKind)
+local RoactGamepad = require(Packages.RoactGamepad)
+local Focusable = RoactGamepad.Focusable
+local isCallable = require(UIBlox.Utility.isCallable)
+
 local DEFAULT_BACKGROUND = "UIMuted"
 
 local IconButton = Roact.PureComponent:extend("IconButton")
@@ -29,9 +36,11 @@ IconButton.debugProps = enumerate("debugProps", {
 	"controlState",
 })
 
+local useGamepad = UIBloxConfig.enableIconButtonGamepadSupport
+
 IconButton.validateProps = t.strictInterface({
 	-- The state change callback for the button
-	onStateChanged = t.optional(t.callback),
+	onStateChanged = t.optional(isCallable),
 
 	-- Is the button visually disabled
 	isDisabled = t.optional(t.boolean),
@@ -48,15 +57,15 @@ IconButton.validateProps = t.strictInterface({
 	userInteractionEnabled = t.optional(t.boolean),
 
 	-- The activated callback for the button
-	onActivated = t.optional(t.callback),
+	onActivated = t.optional(isCallable),
 
 	-- Callback called when the position of the button changes
-	onAbsolutePositionChanged = t.optional(t.callback),
+	onAbsolutePositionChanged = t.optional(isCallable),
 
 	anchorPoint = t.optional(t.Vector2),
 	layoutOrder = t.optional(t.number),
-	position = t.optional(t.UDim2),
-	size = t.optional(t.UDim2),
+	position = t.optional(t.union(t.UDim2, t.table)), -- accept Roact binding as well as UDim2
+	size = t.optional(t.union(t.UDim2, t.table)),
 	icon = t.optional(validateImage),
 	iconSize = t.optional(enumerateValidator(IconSize)),
 	iconColor3 = t.optional(t.Color3),
@@ -69,6 +78,14 @@ IconButton.validateProps = t.strictInterface({
 
 	-- Override the default controlState
 	[IconButton.debugProps.controlState] = t.optional(enumerateValidator(ControlState)),
+
+	-- optional parameters for RoactGamepad
+	NextSelectionLeft = if useGamepad then t.optional(t.table) else nil,
+	NextSelectionRight = if useGamepad then t.optional(t.table) else nil,
+	NextSelectionUp = if useGamepad then t.optional(t.table) else nil,
+	NextSelectionDown = if useGamepad then t.optional(t.table) else nil,
+	inputBindings = if useGamepad then t.optional(t.table) else nil,
+	buttonRef = if useGamepad then t.optional(t.table) else nil,
 })
 
 IconButton.defaultProps = {
@@ -127,65 +144,85 @@ function IconButton:init()
 end
 
 function IconButton:render()
-	return withStyle(function(style)
-		local iconSizeMeasurement = getIconSize(self.props.iconSize)
-		local size = self.getSize(iconSizeMeasurement)
-		local showBackground = self.props.showBackground
-		local currentState = self.props[IconButton.debugProps.controlState] or self.state.controlState
+	if useGamepad then
+		return withStyle(function(style)
+			return withSelectionCursorProvider(function(getSelectionCursor)
+				return self:renderWithProviders(style, getSelectionCursor)
+			end)
+		end)
+	else
+		return withStyle(function(style)
+			return self:renderWithProviders(style, nil)
+		end)
+	end
+end
 
-		local iconStateColorMap = {
-			[ControlState.Default] = self.props.colorStyleDefault,
-			[ControlState.Hover] = self.props.colorStyleHover,
-		}
+function IconButton:renderWithProviders(style, getSelectionCursor)
+	local iconSizeMeasurement = getIconSize(self.props.iconSize)
+	local size = self.getSize(iconSizeMeasurement)
+	local showBackground = self.props.showBackground
+	local currentState = self.props[IconButton.debugProps.controlState] or self.state.controlState
 
-		local iconStyle = getContentStyle(iconStateColorMap, currentState, style)
-		local backgroundColor
-		if self.props.backgroundColor == nil then
-			backgroundColor = style.Theme[DEFAULT_BACKGROUND]
-		else
-			backgroundColor = self.props.backgroundColor
-		end
+	local iconStateColorMap = {
+		[ControlState.Default] = self.props.colorStyleDefault,
+		[ControlState.Hover] = self.props.colorStyleHover,
+	}
 
-		return Roact.createElement(Interactable, {
-			AnchorPoint = self.props.anchorPoint,
-			LayoutOrder = self.props.layoutOrder,
-			Position = self.props.position,
-			Size = size,
+	local iconStyle = getContentStyle(iconStateColorMap, currentState, style)
+	local backgroundColor
+	if self.props.backgroundColor == nil then
+		backgroundColor = style.Theme[DEFAULT_BACKGROUND]
+	else
+		backgroundColor = self.props.backgroundColor
+	end
 
-			isDisabled = self.props.isDisabled,
-			onStateChanged = self.onStateChanged,
-			userInteractionEnabled = self.props.userInteractionEnabled,
+	return Roact.createElement(if useGamepad then Focusable[Interactable] else Interactable, {
+		AnchorPoint = self.props.anchorPoint,
+		LayoutOrder = self.props.layoutOrder,
+		Position = self.props.position,
+		Size = size,
+
+		isDisabled = self.props.isDisabled,
+		onStateChanged = self.onStateChanged,
+		userInteractionEnabled = self.props.userInteractionEnabled,
+		BackgroundTransparency = 1,
+		AutoButtonColor = false,
+
+		[Roact.Change.AbsolutePosition] = self.props.onAbsolutePositionChanged,
+		[Roact.Event.Activated] = self.props.onActivated,
+
+		[Roact.Ref] = if useGamepad then self.props.buttonRef else nil,
+		NextSelectionLeft = if useGamepad then self.props.NextSelectionLeft else nil,
+		NextSelectionRight = if useGamepad then self.props.NextSelectionRight else nil,
+		NextSelectionUp = if useGamepad then self.props.NextSelectionUp else nil,
+		NextSelectionDown = if useGamepad then self.props.NextSelectionDown else nil,
+		inputBindings = if useGamepad then self.props.inputBindings else nil,
+		SelectionImageObject = if useGamepad then getSelectionCursor(CursorKind.RoundedRectNoInset) else nil,
+	}, {
+		sizeConstraint = Roact.createElement("UISizeConstraint", {
+			MinSize = Vector2.new(iconSizeMeasurement, iconSizeMeasurement),
+		}),
+		imageLabel = Roact.createElement(ImageSetComponent.Label, {
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.fromScale(0.5, 0.5),
+			Size = UDim2.fromOffset(iconSizeMeasurement, iconSizeMeasurement),
 			BackgroundTransparency = 1,
-			AutoButtonColor = false,
-
-			[Roact.Change.AbsolutePosition] = self.props.onAbsolutePositionChanged,
-			[Roact.Event.Activated] = self.props.onActivated,
+			Image = self.props.icon,
+			ImageColor3 = self.props.iconColor3 or iconStyle.Color,
+			ImageTransparency = self.props.iconTransparency or iconStyle.Transparency,
+		}, self.props[Roact.Children]),
+		hoverBackground = currentState == ControlState.Hover and Roact.createElement(HoverButtonBackground) or nil,
+		background = showBackground and Roact.createElement("Frame", {
+			Size = UDim2.fromScale(1, 1),
+			BackgroundColor3 = backgroundColor.Color,
+			BackgroundTransparency = self.props.backgroundTransparency or backgroundColor.Transparency,
+			ZIndex = 0,
 		}, {
-			sizeConstraint = Roact.createElement("UISizeConstraint", {
-				MinSize = Vector2.new(iconSizeMeasurement, iconSizeMeasurement),
+			corner = Roact.createElement("UICorner", {
+				CornerRadius = UDim.new(0, 8),
 			}),
-			imageLabel = Roact.createElement(ImageSetComponent.Label, {
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Position = UDim2.fromScale(0.5, 0.5),
-				Size = UDim2.fromOffset(iconSizeMeasurement, iconSizeMeasurement),
-				BackgroundTransparency = 1,
-				Image = self.props.icon,
-				ImageColor3 = self.props.iconColor3 or iconStyle.Color,
-				ImageTransparency = self.props.iconTransparency or iconStyle.Transparency,
-			}, self.props[Roact.Children]),
-			hoverBackground = currentState == ControlState.Hover and Roact.createElement(HoverButtonBackground) or nil,
-			background = showBackground and Roact.createElement("Frame", {
-				Size = UDim2.fromScale(1, 1),
-				BackgroundColor3 = backgroundColor.Color,
-				BackgroundTransparency = self.props.backgroundTransparency or backgroundColor.Transparency,
-				ZIndex = 0,
-			}, {
-				corner = Roact.createElement("UICorner", {
-					CornerRadius = UDim.new(0, 8),
-				}),
-			}) or nil,
-		})
-	end)
+		}) or nil,
+	})
 end
 
 return IconButton

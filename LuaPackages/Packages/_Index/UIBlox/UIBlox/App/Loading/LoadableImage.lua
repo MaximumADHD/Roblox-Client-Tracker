@@ -8,6 +8,7 @@ local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
 
 local ShimmerPanel = require(Loading.ShimmerPanel)
+local DebugProps = require(Loading.Enum.DebugProps)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
 local Images = require(UIBlox.App.ImageSet.Images)
@@ -35,6 +36,8 @@ local function shouldLoadImage(image)
 	return image ~= nil and loadedImagesByUri[image] == nil
 end
 
+local LoadableImage = Roact.PureComponent:extend("LoadableImage")
+
 local validateProps = t.strictInterface({
 	-- The anchor point of the final and loading image
 	AnchorPoint = t.optional(t.Vector2),
@@ -45,7 +48,9 @@ local validateProps = t.strictInterface({
 	-- The corner radius of the image, shimmer, and failed image's rounded corners.
 	cornerRadius = t.optional(t.UDim),
 	-- The final image
-	Image = t.optional(t.string),
+	Image = t.optional(t.union(t.string, t.table)),
+	-- Coloration for final image when loaded
+	ImageColor3 = t.optional(t.Color3),
 	-- The top padding of final image
 	ImagePaddingTop = t.optional(t.number),
 	-- The bottom padding of final image
@@ -63,7 +68,11 @@ local validateProps = t.strictInterface({
 	-- The layout order of the final and loading image
 	LayoutOrder = t.optional(t.integer),
 	-- The loading image which shows if useShimmerAnimationWhileLoading is false
-	loadingImage = t.optional(t.string),
+	loadingImage = t.optional(t.union(t.string, t.table)),
+	-- A render function to run while loading (overrides useShimmerAnimationWhileLoading and loadingImage)
+	renderOnLoading = t.optional(t.callback),
+	-- A render function to run when loading fails
+	renderOnFailed = t.optional(t.callback),
 	-- The max size of all images shown
 	MaxSize = t.optional(t.Vector2),
 	-- The min size of all images shown
@@ -84,9 +93,10 @@ local validateProps = t.strictInterface({
 	ZIndex = t.optional(t.integer),
 
 	contentProvider = t.union(t.instanceOf("ContentProvider"), t.table),
-})
 
-local LoadableImage = Roact.PureComponent:extend("LoadableImage")
+	[DebugProps.forceLoading] = t.optional(t.boolean),
+	[DebugProps.forceFailed] = t.optional(t.boolean),
+})
 
 LoadableImage.defaultProps = {
 	BackgroundTransparency = 0,
@@ -111,6 +121,64 @@ function LoadableImage:init()
 			return self.state.loadingState ~= LoadingState.InProgress
 		end
 	end
+
+	self.defaultRenderOnFail = function(theme, sizeConstraint)
+		local cornerRadius = self.props.cornerRadius
+
+		local failedImage = Images["icons/status/imageunavailable"]
+		local failedImageSize = failedImage.ImageRectSize / Images.ImagesResolutionScale
+
+		return Roact.createElement("Frame", {
+			AnchorPoint = self.props.AnchorPoint,
+			BorderSizePixel = 0,
+			BackgroundColor3 = theme.PlaceHolder.Color,
+			BackgroundTransparency = theme.PlaceHolder.Transparency,
+			LayoutOrder = self.props.LayoutOrder,
+			Position = self.props.Position,
+			Size = self.props.Size,
+			ZIndex = self.props.ZIndex,
+		}, {
+			EmptyIcon = Roact.createElement(ImageSetComponent.Label, {
+				BackgroundTransparency = 1,
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Image = failedImage,
+				ImageColor3 = theme.UIDefault.Color,
+				ImageTransparency = theme.UIDefault.Transparency,
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				Size = UDim2.new(0, failedImageSize.X, 0, failedImageSize.Y),
+			}, {
+				UICorner = cornerRadius ~= UDim.new(0, 0) and Roact.createElement("UICorner", {
+					CornerRadius = cornerRadius,
+				}) or nil,
+			}),
+			UISizeConstraint = sizeConstraint,
+			UICorner = cornerRadius ~= UDim.new(0, 0) and Roact.createElement("UICorner", {
+				CornerRadius = cornerRadius,
+			}) or nil,
+		})
+	end
+
+	self.renderShimmer = function(theme, sizeConstraint)
+		return Roact.createElement("Frame", {
+			AnchorPoint = self.props.AnchorPoint,
+			BorderSizePixel = 0,
+			BackgroundColor3 = theme.PlaceHolder.Color,
+			BackgroundTransparency = theme.PlaceHolder.Transparency,
+			LayoutOrder = self.props.LayoutOrder,
+			Position = self.props.Position,
+			Size = self.props.Size,
+			ZIndex = self.props.ZIndex,
+		}, {
+			Shimmer = Roact.createElement(ShimmerPanel, {
+				Size = UDim2.new(1, 0, 1, 0),
+				cornerRadius = self.props.cornerRadius,
+			}),
+			UISizeConstraint = sizeConstraint,
+			UICorner = Roact.createElement("UICorner", {
+				CornerRadius = self.props.cornerRadius,
+			}) or nil,
+		})
+	end
 end
 
 function LoadableImage:render()
@@ -133,14 +201,24 @@ function LoadableImage:render()
 	local imageTransparency = self.props.ImageTransparency
 	local imageRectOffset = self.props.ImageRectOffset
 	local imageRectSize = self.props.ImageRectSize
+	local imageColor3 = self.props.ImageColor3
 	local maxSize = self.props.MaxSize
 	local minSize = self.props.MinSize
+	local renderOnLoading = self.props.renderOnLoading
+	local renderOnFailed = self.props.renderOnFailed
 	local loadingImage = self.props.loadingImage
 	local useShimmerAnimationWhileLoading = self.props.useShimmerAnimationWhileLoading
 	local showFailedStateWhenLoadingFailed = self.props.showFailedStateWhenLoadingFailed
 	local loadingComplete = self.isLoadingComplete(image)
-	local loadingFailed = self.state.loadingState == LoadingState.Failed
+	local loadingFailed = loadingComplete and self.state.loadingState == LoadingState.Failed
 	local hasUISizeConstraint = false
+
+	if self.props[DebugProps.forceLoading] then
+		loadingComplete = false
+	end
+	if self.props[DebugProps.forceFailed] then
+		loadingFailed = true
+	end
 
 	if maxSize.X ~= inf or maxSize.Y ~= inf or minSize.X ~= 0 or minSize.Y ~= 0 then
 		hasUISizeConstraint = true
@@ -154,58 +232,14 @@ function LoadableImage:render()
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
 
-		if loadingFailed and showFailedStateWhenLoadingFailed then
-			local failedImage = Images["icons/status/imageunavailable"]
-			local failedImageSize = failedImage.ImageRectSize / Images.ImagesResolutionScale
-
-			return Roact.createElement("Frame", {
-				AnchorPoint = anchorPoint,
-				BorderSizePixel = 0,
-				BackgroundColor3 = theme.PlaceHolder.Color,
-				BackgroundTransparency = theme.PlaceHolder.Transparency,
-				LayoutOrder = layoutOrder,
-				Position = position,
-				Size = size,
-				ZIndex = zIndex,
-			}, {
-				EmptyIcon = Roact.createElement(ImageSetComponent.Label, {
-					BackgroundTransparency = 1,
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Image = failedImage,
-					ImageColor3 = theme.UIDefault.Color,
-					ImageTransparency = theme.UIDefault.Transparency,
-					Position = UDim2.new(0.5, 0, 0.5, 0),
-					Size = UDim2.new(0, failedImageSize.X, 0, failedImageSize.Y),
-				}, {
-					UICorner = cornerRadius ~= UDim.new(0, 0) and Roact.createElement("UICorner", {
-						CornerRadius = cornerRadius,
-					}) or nil,
-				}),
-				UISizeConstraint = sizeConstraint,
-				UICorner = cornerRadius ~= UDim.new(0, 0) and Roact.createElement("UICorner", {
-					CornerRadius = cornerRadius,
-				}) or nil,
-			})
+		if loadingFailed and renderOnFailed then
+			return renderOnFailed()
+		elseif loadingFailed and showFailedStateWhenLoadingFailed then
+			return self.defaultRenderOnFail(theme, sizeConstraint)
+		elseif not loadingComplete and renderOnLoading then
+			return renderOnLoading()
 		elseif not loadingComplete and useShimmerAnimationWhileLoading then
-			return Roact.createElement("Frame", {
-				AnchorPoint = anchorPoint,
-				BorderSizePixel = 0,
-				BackgroundColor3 = theme.PlaceHolder.Color,
-				BackgroundTransparency = theme.PlaceHolder.Transparency,
-				LayoutOrder = layoutOrder,
-				Position = position,
-				Size = size,
-				ZIndex = zIndex,
-			}, {
-				Shimmer = Roact.createElement(ShimmerPanel, {
-					Size = UDim2.new(1, 0, 1, 0),
-					cornerRadius = cornerRadius,
-				}),
-				UISizeConstraint = sizeConstraint,
-				UICorner = Roact.createElement("UICorner", {
-					CornerRadius = cornerRadius,
-				}) or nil,
-			})
+			return self.renderShimmer(theme, sizeConstraint)
 		else
 			if enablePlayerTilePaddingFix then
 				return Roact.createElement("Frame", {
@@ -228,6 +262,7 @@ function LoadableImage:render()
 						ImageTransparency = imageTransparency,
 						ImageRectOffset = imageRectOffset,
 						ImageRectSize = imageRectSize,
+						ImageColor3 = loadingComplete and imageColor3 or nil,
 						ScaleType = scaleType,
 						Size = UDim2.new(1, 0, 1, 0),
 					}),
@@ -248,6 +283,7 @@ function LoadableImage:render()
 					ImageTransparency = imageTransparency,
 					ImageRectOffset = imageRectOffset,
 					ImageRectSize = imageRectSize,
+					ImageColor3 = loadingComplete and imageColor3 or nil,
 					LayoutOrder = layoutOrder,
 					Position = position,
 					ScaleType = scaleType,

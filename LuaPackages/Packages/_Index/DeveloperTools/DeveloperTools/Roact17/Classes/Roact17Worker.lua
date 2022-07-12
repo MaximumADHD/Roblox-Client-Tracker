@@ -24,6 +24,7 @@ local forEach = Dash.forEach
 local filter = Dash.filter
 local last = Dash.last
 local reduce = Dash.reduce
+local reverse = Dash.reverse
 local startsWith = Dash.startsWith
 
 local DeveloperToolsTypes = require(Source.Types)
@@ -48,10 +49,6 @@ function Roact17Worker:_init()
 	self.picker = InstancePicker.new(self.debugInterface, function(instance)
 		return self:pickInstance(instance)
 	end)
-	-- React provides the root instance in its API
-	self.picker.getRoot = function()
-		return self:getHostInstance(self.root)
-	end
 	self.fieldWatcher = FieldWatcher.new(function(changedPaths: Array<Path>)
 		forEach(changedPaths, function(path: Path)
 			self:reduceAndSendFields(self.fieldWatcher.root, path)
@@ -297,55 +294,29 @@ function Roact17Worker:pickInstance(instance: Instance)
 end
 
 function Roact17Worker:getPath(instance: Instance)
-	local rootInstance = self:getHostInstance(self.root)
-	local instances = {}
-	if rootInstance ~= instance then
-		insert(instances, instance)
-		local currentInstance = instance
-		while currentInstance and currentInstance.Parent ~= rootInstance do
-			insert(instances, currentInstance.Parent)
-			currentInstance = currentInstance.Parent
-		end
-		if currentInstance.Parent ~= rootInstance then
-			return
-		end
+	local renderer = self:getRenderer()
+	local nodeId = renderer.getFiberIDForNative(instance)
+	if not nodeId  then
+		return nil
 	end
-	local hostNode, key = self:getHostNode(self.root)
-	local childId = hostNode.id
-	local path = {key}
-	for i = #instances, 1, -1 do
-		local childNode = self.devtools.store:getElementByID(childId)
-		if not childNode then
-			return nil
+	local path = {}
+	local branch = {}
+	-- Build up the path to the instance by traversing up node parents
+	while nodeId ~= self.root do
+		print("ooo", nodeId, self.root)
+		local node = self.devtools.store:getElementByID(nodeId)
+		if node.type == ReactTypes.ElementType.HostComponent and #branch > 0 then
+			insert(path, concat(reverse(branch), "."))
+			branch = {}
 		end
-		local childKey = self:_findChildKeyForInstance(childNode, {}, instances[i])
-		insert(path, concat(childKey, "."))
-		childId = last(childKey)
+		insert(branch, nodeId)
+		nodeId = node.parentID
 	end
-	_, key = self:getHostNode(childId)
-	insert(path, key)
-	return path
-end
-
---[[
-	Perform a depth first search to find the key of the ancestor node which hosts
-	the instance beneath the node provided.
-]]
-function Roact17Worker:_findChildKeyForInstance(node, key: Path, instance: Instance)
-	return mapOne(node.children, function(childId: number)
-		local child = self.devtools.store:getElementByID(childId)
-		local childKey = append({}, key, {childId})
-		if child.type == ReactTypes.ElementType.HostComponent then
-			local childInstance = self:getHostInstance(childId)
-			if childInstance == instance then
-				return childKey
-			else
-				return nil
-			end
-		else
-			return self:_findChildKeyForInstance(child, childKey, instance)
-		end
-	end)
+	if #branch > 0 then
+		insert(branch, self.root)
+		insert(path, concat(reverse(branch), "."))
+	end
+	return reverse(path)
 end
 
 function Roact17Worker:openPath(path: Path)
@@ -369,15 +340,15 @@ end
 function Roact17Worker:showChildren(path: Path, updatedIndexes: Array<number>?)
 	if #path == 0 then
 		local hostNode, key = self:getHostNode(self.root)
-		local hostInstance = self:getHostInstance(hostNode.id)
+		local hostInstance = if hostNode then self:getHostInstance(hostNode.id) else nil
 		local rootPath = {key}
 		local children = self:getChildren(rootPath, self.root, 1)
 		self:send({
 			eventName = EventName.RoactInspector.ShowChildren,
 			path = path,
 			children = {
-				[key] = {
-					Name = hostInstance and hostInstance.Name or hostNode.displayName,
+				[key or "None"] = {
+					Name = if hostInstance then hostInstance.Name elseif hostNode then hostNode.displayName else "<None>",
 					Icon = "Branch",
 					Children = children,
 					Path = rootPath,
@@ -450,22 +421,24 @@ function Roact17Worker:_collectChildren(nodeId: number, path: Path, pathKey: str
 	end
 end
 
-function Roact17Worker:getHostNode(nodeId: number, jumpBranch: boolean?)
-	local key = tostring(nodeId)
-	local node
-	while nodeId do
-		node = self.devtools.store:getElementByID(nodeId)
+function Roact17Worker:getHostNode(nodeId: number, jumpBranch: boolean?, key: string?)
+	local nodeName = tostring(nodeId)
+	local nodeKey = if key then ("%s.%s"):format(key, nodeName) else nodeName
+	if nodeId then
+		local node = self.devtools.store:getElementByID(nodeId)
 		if not node then
 			return nil
 		end
 		if node.type == ReactTypes.ElementType.HostComponent then
-			return node, key
+			return node, nodeKey
 		end
-		if #node.children == 0 then
-			return nil
+		for i = 1, #node.children do
+			local resultNode, resultKey = self:getHostNode(node.children[i], jumpBranch, nodeKey)
+			if resultNode then
+				return resultNode, resultKey
+			end
 		end
-		nodeId = node.children[1]
-		key = key .. "." .. tostring(nodeId)
+		return node, nodeKey
 	end
 	return nil
 end

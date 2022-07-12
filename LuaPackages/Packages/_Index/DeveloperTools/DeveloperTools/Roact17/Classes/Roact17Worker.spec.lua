@@ -15,8 +15,15 @@ return function()
 		mockHook
 
 	local rootInstance = {
-		Name = "Root"
+		Name = "Root",
+		__TEST_ID = 1,
 	}
+
+	local instance6 = {
+		Name = "Instance7",
+		__TEST_ID = 6,
+	}
+
 	local listeners, messages
 
 	local mockNodes = {
@@ -32,6 +39,7 @@ return function()
 			key = "Child",
 			displayName = "Test",
 			children = {3},
+			parentID = 1,
 			type = 1,
 		},
 		{
@@ -39,6 +47,7 @@ return function()
 			key = "Child",
 			displayName = "Frame",
 			children = {4, 5},
+			parentID = 2,
 			type = 7 -- host node,
 		},
 		{
@@ -46,6 +55,7 @@ return function()
 			key = "Child",
 			displayName = "ChildA",
 			children = {6},
+			parentID = 3,
 			type = 1
 		},
 		{
@@ -53,6 +63,7 @@ return function()
 			key = "Child",
 			displayName = "ChildB",
 			children = {},
+			parentID = 3,
 			type = 7 -- host node,
 		},
 		{
@@ -60,6 +71,7 @@ return function()
 			key = "Child",
 			displayName = "Grandchild",
 			children = {},
+			parentID = 4,
 			type = 7 -- host node,
 		}
 	}
@@ -71,6 +83,9 @@ return function()
 		mockRenderer = {}
 		function mockRenderer:findNativeNodesForFiberID()
 			return rootInstance
+		end
+		function mockRenderer.getFiberIDForNative(instance)
+			return instance.__TEST_ID
 		end
 		mockHook = {
 			rendererInterfaces = {mockRenderer}
@@ -158,6 +173,10 @@ return function()
 				children = {},
 				path = {"1.2.3", "4.6"},
 			})
+		end)
+		it('can get a path', function()
+			expect(worker:getPath(instance6)).toEqual({"1.2.3", "4.6"})
+
 		end)
 		it('can get a branch', function()
 			worker:showBranch({"1.2.3"})

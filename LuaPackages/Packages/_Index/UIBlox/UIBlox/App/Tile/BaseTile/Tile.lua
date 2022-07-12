@@ -95,6 +95,10 @@ local tileInterface = t.strictInterface({
 
 	-- Optional parameter to include subtitles
 	addSubtitleSpace = t.optional(t.boolean),
+
+	-- What style font to use for title (Header, Body, etc.).
+	-- Defaults to Header2.
+	titleFontStyle = UIBloxConfig.enableAdjustableTextUnderTile and t.optional(t.table) or nil,
 })
 
 local function tileBannerUseValidator(props)
@@ -163,7 +167,14 @@ function Tile:render()
 			local tileHeight = self.state.tileHeight
 			local tileWidth = self.state.tileWidth
 
-			local maxTitleTextHeight = math.ceil(font.BaseSize * font.Header2.RelativeSize * titleTextLineCount)
+			local maxTitleTextHeight
+			local titleFontStyle
+			if UIBloxConfig.enableAdjustableTextUnderTile then
+				titleFontStyle = self.props.titleFontStyle or font.Header2
+				maxTitleTextHeight = math.ceil(font.BaseSize * titleFontStyle.RelativeSize * titleTextLineCount)
+			else
+				maxTitleTextHeight = math.ceil(font.BaseSize * font.Header2.RelativeSize * titleTextLineCount)
+			end
 			local footerHeight = tileHeight - tileWidth - innerPadding - maxTitleTextHeight - innerPadding
 			local titleTextSize = Vector2.new(0,0)
 			local subtitleTextHeight = 0
@@ -179,8 +190,17 @@ function Tile:render()
 						titleTextSize = Vector2.new(0, maxTitleTextHeight)
 					else
 						local textToMeasure = name or ""
-						local titleFontSize = font.BaseSize * font.Header2.RelativeSize
-						local titleFont = font.Header2.Font
+
+						local titleFontSize
+						local titleFont
+						if UIBloxConfig.enableAdjustableTextUnderTile then
+							titleFontSize = font.BaseSize * titleFontStyle.RelativeSize
+							titleFont = titleFontStyle.Font
+						else
+							titleFontSize = font.BaseSize * font.Header2.RelativeSize
+							titleFont = font.Header2.Font
+						end
+
 						if titleIcon then
 							local iconWidth = titleIcon.ImageRectSize.X / Images.ImagesResolutionScale
 							textToMeasure = GetWrappedTextWithIcon(
@@ -263,6 +283,7 @@ function Tile:render()
 						maxWidth = tileWidth,
 						LayoutOrder = 1,
 						useMaxHeight = useMaxTitleHeight,
+						titleFontStyle = UIBloxConfig.enableAdjustableTextUnderTile and titleFontStyle or nil,
 					}),
 					Subtitle = (subtitle ~= "" and subtitle ~= nil) and Roact.createElement(StyledTextLabel, {
 						size = UDim2.new(1, 0, 0, subtitleTextHeight),
@@ -282,6 +303,7 @@ function Tile:render()
 					maxWidth = tileWidth,
 					LayoutOrder = 2,
 					useMaxHeight = useMaxTitleHeight,
+					titleFontStyle = UIBloxConfig.enableAdjustableTextUnderTile and titleFontStyle or nil,
 				}),
 				FooterContainer = hasFooter and Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 0, footerHeight),

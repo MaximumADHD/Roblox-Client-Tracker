@@ -4,6 +4,7 @@ local App = Tile.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
@@ -33,6 +34,10 @@ local validateProps = t.strictInterface({
 	-- Optional height of the title area is set to the max
 	useMaxHeight = t.optional(t.boolean),
 	fluidSizing = t.optional(t.boolean),
+
+	-- Font style for header (Header2, Body, etc)
+	-- Defaults to Header2.
+	titleFontStyle = UIBloxConfig.enableAdjustableTextUnderTile and t.optional(t.table) or nil,
 })
 
 function ItemTileName:render()
@@ -49,7 +54,16 @@ function ItemTileName:render()
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
 		local font = stylePalette.Font
-		local textSize = font.BaseSize * font.Header2.RelativeSize
+
+		local textSize
+		local titleFontStyle
+		if UIBloxConfig.enableAdjustableTextUnderTile then
+			titleFontStyle = self.props.titleFontStyle or font.Header2
+			textSize = font.BaseSize * titleFontStyle.RelativeSize
+		else
+			titleFontStyle = font.Header2
+			textSize = font.BaseSize * font.Header2.RelativeSize
+		end
 
 		if name ~= nil then
 			local titleIconSize = titleIcon and titleIcon.ImageRectSize / Images.ImagesResolutionScale or Vector2.new(0, 0)
@@ -67,7 +81,7 @@ function ItemTileName:render()
 
 				genericTextLabelProps = {
 					fluidSizing = useFluidSizing,
-					fontStyle = font.Header2,
+					fontStyle = titleFontStyle,
 					colorStyle = theme.TextEmphasis,
 					Text = name,
 					TextTruncate = Enum.TextTruncate.AtEnd,

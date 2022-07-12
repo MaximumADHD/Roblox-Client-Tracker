@@ -8,6 +8,7 @@ local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local Images = require(UIBlox.App.ImageSet.Images)
 local ItemRestrictionStatus = require(ItemTileRoot.ItemRestrictionStatus)
@@ -85,6 +86,10 @@ local itemTileInterface = t.strictInterface({
 
 	-- Optional parameter to include subtitles
 	addSubtitleSpace = t.optional(t.boolean),
+
+	-- Font style for title (Header2, Caption, etc.)
+	-- If not set the underlying components will wind up using Header2.
+	titleFontStyle = UIBloxConfig.enableAdjustableTextUnderTile and t.optional(t.table) or nil,
 })
 
 local function tileBannerUseValidator(props)
@@ -129,6 +134,7 @@ function ItemTile:render()
 	local backgroundImage = self.props.backgroundImage
 	local useMaxTitleHeight = self.props.useMaxTitleHeight
 	local addSubtitleSpace = self.props.addSubtitleSpace
+	local titleFontStyle = UIBloxConfig.enableAdjustableTextUnderTile and self.props.titleFontStyle or nil
 
 	local hasOverlayComponents = false
 	local overlayComponents = {}
@@ -176,6 +182,7 @@ function ItemTile:render()
 		titleTextLineCount = titleTextLineCount,
 		useMaxTitleHeight = useMaxTitleHeight,
 		addSubtitleSpace = addSubtitleSpace,
+		titleFontStyle = titleFontStyle,
 
 		NextSelectionLeft = self.props.NextSelectionLeft,
 		NextSelectionRight = self.props.NextSelectionRight,

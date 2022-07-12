@@ -9,6 +9,7 @@ local Otter = require(Packages.Otter)
 local Colors = require(App.Style.Colors)
 local GenericSlider = require(UIBlox.Core.Slider.GenericSlider)
 local Images = require(App.ImageSet.Images)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local SPRING_PARAMETERS = {
 	frequency = 5,
@@ -25,6 +26,7 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 		textInputEnabled = false,
 		stepInterval = 1,
 		width = UDim.new(1, 0),
+		customPressedKnobShadowTransparencyLower = UIBloxConfig.enableSliderCustomization and 1 or nil,
 	}
 
 	function appSliderComponent:init()
@@ -103,7 +105,12 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 			if values.disabled then
 				return 1
 			else
-				return lerp(values.style.Theme.DropShadow.Transparency, 1, values.pressedProgressLower)
+				if UIBloxConfig.enableSliderCustomization then
+					local goalTransparency = self.props.customPressedKnobShadowTransparencyLower
+					return lerp(values.style.Theme.DropShadow.Transparency, goalTransparency, values.pressedProgressLower)
+				else
+					return lerp(values.style.Theme.DropShadow.Transparency, 1, values.pressedProgressLower)
+				end
 			end
 		end)
 
@@ -155,6 +162,14 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 
 	function appSliderComponent:render()
 		local props = self.props
+
+		local knobColorLower
+		if UIBloxConfig.enableSliderCustomization then
+			knobColorLower = props.customKnobColorLower or self.knobColorLower
+		else
+			knobColorLower = self.knobColorLower
+		end
+
 		local sliderProps = {
 			min = props.min,
 			max = props.max,
@@ -181,7 +196,7 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 			trackFillSliceCenter = Rect.new(8, 8, 8, 8),
 
 			knobImage = Images["component_assets/circle_28_padding_10"],
-			knobColorLower = self.knobColorLower,
+			knobColorLower = knobColorLower,
 			knobColorUpper = self.knobColorUpper,
 			knobTransparency = self.knobTransparency,
 
@@ -195,6 +210,7 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 			NextSelectionUp = props.NextSelectionUp,
 			NextSelectionDown = props.NextSelectionDown,
 			focusController = props.focusController,
+			customTrack = UIBloxConfig.enableSliderCustomization and props.customTrack or nil,
 		}
 
 		if isTwoKnobs then
