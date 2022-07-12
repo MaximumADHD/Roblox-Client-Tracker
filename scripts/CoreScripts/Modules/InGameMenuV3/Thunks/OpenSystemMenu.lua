@@ -11,7 +11,7 @@ return function(value)
 	return function(store)
 		GuiService:SetMenuIsOpen(true, "InGameMenu")
 		store:dispatch(SetMenuOpen(true))
-		store:dispatch(SetCurrentPage(Constants.MainPagePageKey))
+		store:dispatch(SetCurrentPage(Constants.PlayersPageKey))
 
 		if store:getState().nativeClosePrompt.menuIconTooltipOpen then
 			store:dispatch(SetMenuIconTooltipOpen(false))

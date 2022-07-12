@@ -7,9 +7,7 @@
 		to save and load settings. Other implementations, such as
 		SettingsImpl_mock, can be provided to allow testing.
 ]]
-local StudioService = game:GetService("StudioService")
 local StudioPublishService = game:GetService("StudioPublishService")
-local FFLagMovePublishToStudioPublishService = game:GetFastFlag("MovePublishToStudioPublishService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -75,18 +73,10 @@ local function saveAll(state, localization, apiImpl, email, isPublish)
 	game:GetService("StudioPublishService"):SetTeamCreateOnPublishInfo(state.teamCreateEnabled, configuration.name)
 
 	StudioPublishService:setUploadNames(configuration.name, configuration.name)
-	if FFLagMovePublishToStudioPublishService then
-		StudioPublishService:publishAs(0, 0, state.creatorId, isPublish, nil)
-	else
-		StudioService:DEPRECATED_publishAs(0, 0, state.creatorId)
-	end
+	StudioPublishService:publishAs(0, 0, state.creatorId, isPublish, nil)
 
 	local success, gameId
-	if FFLagMovePublishToStudioPublishService then
-		success, gameId = StudioPublishService.GamePublishFinished:wait()
-	else
-		success, gameId = StudioService.DEPRECATED_GamePublishFinished:wait()
-	end
+	success, gameId = StudioPublishService.GamePublishFinished:wait()
 
 	-- Failure handled in ScreenCreateNewGame
 	if not success then
@@ -126,15 +116,9 @@ local function saveAll(state, localization, apiImpl, email, isPublish)
 
 	apiImpl.Develop.V2.Universes.configuration(gameId, configuration):makeRequest()
 	:andThen(function()
-		if FFLagMovePublishToStudioPublishService then
-			StudioPublishService:SetUniverseDisplayName(configuration.name)
-			StudioPublishService:RefreshDocumentDisplayName()
-			StudioPublishService:EmitPlacePublishedSignal()
-		else
-			StudioService:DEPRECATED_SetUniverseDisplayName(configuration.name)
-			StudioService:DEPRECATED_RefreshDocumentDisplayName()
-			StudioService:DEPRECATED_EmitPlacePublishedSignal()
-		end
+		StudioPublishService:SetUniverseDisplayName(configuration.name)
+		StudioPublishService:RefreshDocumentDisplayName()
+		StudioPublishService:EmitPlacePublishedSignal()
 	end, function(response)
 		parseErrorMessages(response, localization:getText("Error","SetConfiguration"))
 	end)

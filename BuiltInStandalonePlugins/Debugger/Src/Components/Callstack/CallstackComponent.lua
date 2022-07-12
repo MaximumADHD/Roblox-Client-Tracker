@@ -66,6 +66,14 @@ local columnNameToKey = {
 	LineColumn = "lineColumn",
 }
 
+local columnNameToProportion = {
+	ArrowColumn = 0.5,
+	FrameColumn = 0.5,
+	SourceColumn = 1.5,
+	FunctionColumn = 1.0,
+	LineColumn = 0.5,
+}
+
 local CALLSTACK_WINDOW_CONFIGS = "callstackWindowConfigs"
 
 local TABLE_PADDING = 1
@@ -167,9 +175,15 @@ end
 -- CallstackComponent
 function CallstackComponent:init()
 	local initialSizes = {}
-	local numColumns = #defaultColumnKey + #self.props.ColumnFilter
-	for i = 1, numColumns do
-		table.insert(initialSizes, UDim.new(1 / numColumns, 0))
+
+	local totalScaleDenominator = columnNameToProportion.ArrowColumn
+	for i = 1, #self.props.ColumnFilter do
+		totalScaleDenominator = totalScaleDenominator + columnNameToProportion[self.props.ColumnFilter[i]]
+	end
+
+	table.insert(initialSizes, UDim.new(columnNameToProportion.ArrowColumn / totalScaleDenominator, 0))
+	for i = 1, #self.props.ColumnFilter do
+		table.insert(initialSizes, UDim.new(columnNameToProportion[self.props.ColumnFilter[i]] / totalScaleDenominator, 0))
 	end
 
 	self.state = {

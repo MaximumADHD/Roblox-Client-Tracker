@@ -8,6 +8,7 @@ local ClearMaterial = require(Actions.ClearMaterial)
 local ClearMaterialWrapper = require(Actions.ClearMaterialWrapper)
 local SetGridLock = require(Actions.SetGridLock)
 local SetMaterial = require(Actions.SetMaterial)
+local SetMaterialAsTool = require(Actions.SetMaterialAsTool)
 local SetMaterialList = require(Actions.SetMaterialList)
 local SetMaterialStatus = require(Actions.SetMaterialStatus)
 local SetMaterialTileSize = require(Actions.SetMaterialTileSize)
@@ -27,6 +28,7 @@ local CompareMaterials = require(Util.CompareMaterials)
 local getFFlagMaterialManagerUIGlitchFix = require(Plugin.Src.Flags.getFFlagMaterialManagerUIGlitchFix)
 
 export type State = {
+	ActiveAsTool: boolean,
 	GridLock: boolean,
 	Material: _Types.Material?,
 	Materials: any,
@@ -43,6 +45,7 @@ export type State = {
 }
 
 local initialState: State = {
+	ActiveAsTool = false,
 	GridLock = false,
 	MaterialOverride = {},
 	MaterialOverrides = {},
@@ -155,6 +158,12 @@ return (Rodux.createReducer(initialState, {
 	[SetGridLock.name] = function(state: State, action: SetGridLock.Payload): State
 		return Cryo.Dictionary.join(state, {
 			GridLock = action.GridLock
+		})
+	end,
+
+	[SetMaterialAsTool.name] = function(state: State, action: SetMaterialAsTool.Payload): State
+		return Cryo.Dictionary.join(state, {
+			ActiveAsTool = action.ActiveAsTool
 		})
 	end,
 

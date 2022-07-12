@@ -6,6 +6,7 @@
 	assetId, number, will be used to request assetData on didMount.
 ]]
 local FFlagUpdateConvertToPackageToDFContextServices = game:GetFastFlag("UpdateConvertToPackageToDFContextServices")
+local FFlagUpdateFocusToUsePropsConvertToPackage = game:DefineFastFlag("UpdateFocusToUsePropsConvertToPackage", false)
 local Plugin = script.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
@@ -123,7 +124,15 @@ function AssetConfig:init(props)
 
 	self.closeAssetConfig = function()
 		-- Close the assetConfig
-		local pluginGui = if FFlagUpdateConvertToPackageToDFContextServices then self.props.Plugin:get() else getPluginGui(self)
+		local pluginGui
+
+		if FFlagUpdateFocusToUsePropsConvertToPackage and FFlagUpdateConvertToPackageToDFContextServices then
+			pluginGui = self.props.pluginGui
+		elseif FFlagUpdateConvertToPackageToDFContextServices then
+			pluginGui = self.props.Plugin:get()
+		else
+			pluginGui = getPluginGui(self)
+		end
 		-- And we will let AssetConfigWrapper to handle the onClose and unMount.
 		pluginGui.Enabled = false
 	end
@@ -334,7 +343,7 @@ end
 if FFlagUpdateConvertToPackageToDFContextServices then
 	AssetConfig = withContext({
 		Localization = ContextServices.Localization,
-		Plugin = ContextServices.Plugin,
+		Plugin = if FFlagUpdateFocusToUsePropsConvertToPackage then nil else ContextServices.Plugin,
 		Stylizer = ContextServices.Stylizer,
 	})(AssetConfig)
 end

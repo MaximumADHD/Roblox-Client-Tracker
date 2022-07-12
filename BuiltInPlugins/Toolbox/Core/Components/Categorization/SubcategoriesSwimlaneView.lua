@@ -2,7 +2,7 @@
 --[[
 	A view wrapper displaying a list of swimlanes.
 ]]
-local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
+
 local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
@@ -134,7 +134,7 @@ function SubcategoriesSwimlaneView:init()
 			assetSectionsElems["AssetSwimlane_" .. i] = Roact.createElement(AssetSwimlane, {
 				CanInsertAsset = canInsertAsset,
 				CategoryName = categoryName,
-				SwimlaneCategory = if FFlagToolboxHomeViewAnalyticsUpdate then subcategory.name else nil,
+				SwimlaneCategory = subcategory.name,
 				OnClickSeeAll = function(sectionName: string, categorName: string, sortName: string, searchTerm: string)
 					return self.onClickSeeAllAssets(sectionName, categorName, sortName, searchTerm, subcategory)
 				end,

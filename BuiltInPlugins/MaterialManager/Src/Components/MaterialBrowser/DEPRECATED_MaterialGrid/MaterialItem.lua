@@ -36,7 +36,7 @@ local CalculateFillWidth = require(Util.CalculateFillWidth)
 
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
-local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
+local getFFlagMaterialManagerAnalyticsCounter = require(Flags.getFFlagMaterialManagerAnalyticsCounter)
 
 local TILE_TEXT_THRESHOLD = 100
 
@@ -114,14 +114,12 @@ function MaterialItem:init()
 			elseif props.Item.MaterialVariant then
 				ApplyToSelection(props.Item.MaterialVariant.BaseMaterial)
 			end
-
-			if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
+			if getFFlagMaterialManagerAnalyticsCounter() then
 				props.Analytics:report("applyToSelectionAction")
 			end
 		elseif props.Item.MaterialVariant then
 			ApplyToSelection(if getFFlagMaterialManagerGlassNeonForceField() then item.Material else props.Item.MaterialVariant.BaseMaterial, props.Item.MaterialVariant.Name)
-
-			if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
+			if getFFlagMaterialManagerAnalyticsCounter() then
 				props.Analytics:report("applyToSelectionAction")
 			end
 		end

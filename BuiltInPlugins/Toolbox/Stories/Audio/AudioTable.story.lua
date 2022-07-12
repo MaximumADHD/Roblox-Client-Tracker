@@ -1,9 +1,7 @@
 local Plugin = script:FindFirstAncestor("Toolbox")
-local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
-local CoreTestUtils = require(Plugin.TestUtils.CoreTestUtils)
 local Category = require(Plugin.Core.Types.Category)
 
 local AudioTable = require(Plugin.Core.Components.AudioTable.AudioTable)
@@ -70,23 +68,23 @@ end
 return {
 	summary = "Audio Table",
 	stories = {
-		FFlagToolboxAudioDiscovery and {
+		{
 			name = "Soundeffect",
 			story = Roact.createElement(ToolboxStoryWrapper, {}, {
 				AudioTableWrapper = Roact.createElement(AudioTableWrapper, { AudioType = Category.SOUND_EFFECTS.name }),
 			}),
-		} or CoreTestUtils.mustSetFlag("FFlagToolboxAudioDiscovery", true),
-		FFlagToolboxAudioDiscovery and {
+		},
+		{
 			name = "Music",
 			story = Roact.createElement(ToolboxStoryWrapper, {}, {
 				AudioTableWrapper = Roact.createElement(AudioTableWrapper, { AudioType = Category.MUSIC.name }),
 			}),
-		} or CoreTestUtils.mustSetFlag("FFlagToolboxAudioDiscovery", true),
-		FFlagToolboxAudioDiscovery and {
+		},
+		{
 			name = "Uncategorized",
 			story = Roact.createElement(ToolboxStoryWrapper, {}, {
 				AudioTableWrapper = Roact.createElement(AudioTableWrapper),
 			}),
-		} or CoreTestUtils.mustSetFlag("FFlagToolboxAudioDiscovery", true),
+		},
 	},
 }

@@ -1,14 +1,10 @@
 --!nocheck
 -- TODO STM-151: Re-enable Luau Type Checks when Luau bugs are fixed
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
-local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
 
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
-
-local FFlagToolboxAudioDiscoveryRound2 =
-	require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscoveryRound2()
 
 local Packages = Plugin.Packages
 local Cryo = require(Packages.Cryo)
@@ -387,12 +383,10 @@ function AssetAnalytics:logGoBack(
 	)
 end
 
-if FFlagToolboxAudioDiscoveryRound2 and FFlagToolboxHomeViewAnalyticsUpdate then
-	function AssetAnalytics:onCallToActionBannerClicked(creatorId: number)
-		self.senders.sendEventDeferred(EVENT_TARGET, EVENT_CONTEXT, "CallToActionBannerClicked", {
-			creatorId = creatorId,
-		})
-	end
+function AssetAnalytics:onCallToActionBannerClicked(creatorId: number)
+	self.senders.sendEventDeferred(EVENT_TARGET, EVENT_CONTEXT, "CallToActionBannerClicked", {
+		creatorId = creatorId,
+	})
 end
 
 return AssetAnalytics

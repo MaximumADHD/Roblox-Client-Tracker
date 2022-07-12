@@ -76,7 +76,7 @@ function NavBar:buildPathComponents(props, theme, localization, dispatch)
 		local isTopLevel = screen.Path == Screens.MAIN.Path
 
 		local gameName = props.UniverseName ~= "" and props.UniverseName
-		or localization:getText("NavBar", "GamePlaceholderName")
+			or localization:getText("NavBar", "GamePlaceholderName")
 		local pathPartText = isTopLevel and gameName or localization:getText("Folders", screen.Path)
 
 		local textTruncate = self.truncatedPathParts[screen.Path] and Enum.TextTruncate.AtEnd or nil

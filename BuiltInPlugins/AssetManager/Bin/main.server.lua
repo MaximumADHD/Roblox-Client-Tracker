@@ -15,9 +15,7 @@ local FFlagEnableAssetManagerSortButton = game:GetFastFlag("EnableAssetManagerSo
 
 local AssetManagerService = game:GetService("AssetManagerService")
 local BulkImportService = game:GetService("BulkImportService")
-local StudioService = game:GetService("StudioService")
 local StudioPublishService = game:GetService("StudioPublishService")
-local FFLagMovePublishToStudioPublishService = game:GetFastFlag("MovePublishToStudioPublishService")
 
 -- libraries
 local Plugin = script.Parent.Parent
@@ -298,15 +296,9 @@ local function main()
 	plugin.Unloading:Connect(onPluginUnloading)
 	connectBulkImporterSignals()
 
-	if FFLagMovePublishToStudioPublishService then
-		StudioPublishService.GameNameUpdated:connect(function(name)
-			store:dispatch(SetUniverseName(name))
-		end)
-	else
-		StudioService.DEPRECATED_GameNameUpdated:connect(function(name)
-			store:dispatch(SetUniverseName(name))
-		end)
-	end
+	StudioPublishService.GameNameUpdated:connect(function(name)
+		store:dispatch(SetUniverseName(name))
+	end)
 
 	if FFlagAssetManagerGeneralizeSignalAPI then
 		local assetImportedConnection = AssetManagerService.AssetImportedSignal:Connect(addRecentAsset)

@@ -2,7 +2,6 @@
 	Asset config's allow sharing field.
 ]]
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
-local FFlagAssetConfigSharingDesignTweaks = game:GetFastFlag("AssetConfigSharingDesignTweaks")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -25,8 +24,8 @@ local AssetConfigConstants = require(Util.AssetConfigConstants)
 local ToolboxUtilities = require(Util.ToolboxUtilities)
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 
-local ContentProvider = if FFlagAssetConfigSharingDesignTweaks then game:GetService("ContentProvider") else nil
-local HttpService = if FFlagAssetConfigSharingDesignTweaks then game:GetService("HttpService") else nil
+local ContentProvider = game:GetService("ContentProvider")
+local HttpService = game:GetService("HttpService")
 local GuiService = game:GetService("GuiService")
 
 local ConfigSharing = Roact.PureComponent:extend("ConfigSharing")
@@ -42,13 +41,9 @@ local VERFICATION_NOTICE_SPACING = 10
 
 function ConfigSharing:init()
 	self.onLearnMoreActivated = function()
-		if FFlagAssetConfigSharingDesignTweaks then
-			local url = ToolboxUtilities.getAssetConfigMessaging()["audioPublicationDisabledLink"]
-			if url then
-				GuiService:OpenBrowserWindow(url)
-			end
-		else
-			GuiService:OpenBrowserWindow(AssetConfigConstants.TERM_OF_USE_URL)
+		local url = ToolboxUtilities.getAssetConfigMessaging()["audioPublicationDisabledLink"]
+		if url then
+			GuiService:OpenBrowserWindow(url)
 		end
 	end
 
@@ -101,8 +96,8 @@ function ConfigSharing:render()
 		showVerificationNotice = isIdVerificationRequired and not isVerified
 	end
 
-	local privateText = localization:getText("AssetConfigSharing", if FFlagAssetConfigSharingDesignTweaks then "PrivateSpecificExperiences" else "SpecificExperiences")
-	local publicText = localization:getText("AssetConfigSharing", if FFlagAssetConfigSharingDesignTweaks then "PublicAllExperiences" else "AllExperiences")
+	local privateText = localization:getText("AssetConfigSharing", "PrivateSpecificExperiences")
+	local publicText = localization:getText("AssetConfigSharing", "PublicAllExperiences")
 	local title = localization:getText("AssetConfigSharing", "ExperiencesWithAccess")
 	if allowSelectPrivate then
 		privateInformationText = localization:getText("AssetConfigSharing", "PrivateInformation")
@@ -120,22 +115,24 @@ function ConfigSharing:render()
 		else
 			informationText = localization:getText("AssetConfigSharing", "PublicDisabledInformation")
 			allowSelectPublic = false
-			if FFlagAssetConfigSharingDesignTweaks then
-				publicInformationLinkProps = {
-					Text = localization:getText("AssetConfigSharing", "PublicDisabledLinkText"),
-					OnClick = self.onLearnMoreActivated,
-				}
+			publicInformationLinkProps = {
+				Text = localization:getText("AssetConfigSharing", "PublicDisabledLinkText"),
+				OnClick = self.onLearnMoreActivated,
+			}
 
-				privateInformationText = localization:getText("AssetConfigSharing", "PrivateInformationVersionTwo")
-				if ToolboxUtilities.getAssetConfigMessaging()["showManageUniversePermissionsLink"] and assetId then
-					privateInformationLinkProps = {
-						Text = localization:getText("AssetConfigSharing", "PrivateInformationLinkText"),
-						OnClick = function()
-							local url = string.format("%slibrary/configure?id=%s#!/general", ContentProvider.BaseUrl, HttpService:urlEncode(assetId))
-							return GuiService:OpenBrowserWindow(url)
-						end,
-					}
-				end
+			privateInformationText = localization:getText("AssetConfigSharing", "PrivateInformationVersionTwo")
+			if ToolboxUtilities.getAssetConfigMessaging()["showManageUniversePermissionsLink"] and assetId then
+				privateInformationLinkProps = {
+					Text = localization:getText("AssetConfigSharing", "PrivateInformationLinkText"),
+					OnClick = function()
+						local url = string.format(
+							"%slibrary/configure?id=%s#!/general",
+							ContentProvider.BaseUrl,
+							HttpService:urlEncode(assetId)
+						)
+						return GuiService:OpenBrowserWindow(url)
+					end,
+				}
 			end
 		end
 	else
@@ -210,20 +207,22 @@ function ConfigSharing:render()
 							Key = AssetConfigConstants.SHARING_KEYS.Private,
 							Text = privateText,
 							Description = privateInformationText,
-							LinkProps = if FFlagAssetConfigSharingDesignTweaks then privateInformationLinkProps else nil,
+							LinkProps = privateInformationLinkProps,
 							Disabled = not allowSelectPrivate,
 						},
 						{
 							Key = AssetConfigConstants.SHARING_KEYS.Public,
 							Text = publicText,
-							Description = if (not FFlagToolboxAudioAssetConfigIdVerification or not showVerificationNotice)
-							then
-								informationText
-							else nil,
-							LinkProps = if (not FFlagToolboxAudioAssetConfigIdVerification or not showVerificationNotice)
-							then
-								publicInformationLinkProps
-							else nil,
+							Description = if (
+										not FFlagToolboxAudioAssetConfigIdVerification or not showVerificationNotice
+									)
+								then informationText
+								else nil,
+							LinkProps = if (
+										not FFlagToolboxAudioAssetConfigIdVerification or not showVerificationNotice
+									)
+								then publicInformationLinkProps
+								else nil,
 							Disabled = not allowSelectPublic,
 						},
 					},
@@ -283,25 +282,6 @@ function ConfigSharing:render()
 							Size = BUTTON_SIZE,
 							Text = verificationRefreshText,
 						}),
-					}),
-				})
-				else nil,
-
-			TipsContainer = if not FFlagAssetConfigSharingDesignTweaks and (not FFlagToolboxAudioAssetConfigIdVerification or not showVerificationNotice)
-				then Roact.createElement(Pane, {
-					AutomaticSize = Enum.AutomaticSize.Y,
-					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					Layout = Enum.FillDirection.Vertical,
-					LayoutOrder = orderIterator:getNextOrder(),
-					Padding = {
-						Left = TIPS_LEFT_PADDING,
-					},
-					Size = UDim2.new(1, 0, 0, 0),
-				}, {
-					LinkText = Roact.createElement(LinkText, {
-						LayoutOrder = orderIterator:getNextOrder(),
-						OnClick = self.onLearnMoreActivated,
-						Text = termsOfUseText,
 					}),
 				})
 				else nil,

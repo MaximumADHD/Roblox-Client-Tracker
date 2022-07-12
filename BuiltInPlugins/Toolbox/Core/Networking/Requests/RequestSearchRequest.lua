@@ -1,4 +1,3 @@
-local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Sort = require(Plugin.Core.Types.Sort)
@@ -16,25 +15,14 @@ return function(networkInterface, settings, searchTerm, categoryName, isTopKeywo
 		local sortIndex = Sort.canSort(searchTerm, categoryName or oldPageInfo.categoryName) and oldPageInfo.sortIndex
 			or 1
 
-		if FFlagToolboxHomeViewAnalyticsUpdate then
-			store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
-				searchTerm = searchTerm,
-				sortIndex = sortIndex,
-				categoryName = categoryName,
-				targetPage = 1,
-				currentPage = 0,
-				requestReason = RequestReason.StartSearch,
-				isTopKeyword = isTopKeyword or false,
-			}))
-		else
-			store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
-				searchTerm = searchTerm,
-				sortIndex = sortIndex,
-				categoryName = categoryName,
-				targetPage = 1,
-				currentPage = 0,
-				requestReason = RequestReason.StartSearch,
-			}))
-		end
+		store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
+			searchTerm = searchTerm,
+			sortIndex = sortIndex,
+			categoryName = categoryName,
+			targetPage = 1,
+			currentPage = 0,
+			requestReason = RequestReason.StartSearch,
+			isTopKeyword = isTopKeyword or false,
+		}))
 	end
 end

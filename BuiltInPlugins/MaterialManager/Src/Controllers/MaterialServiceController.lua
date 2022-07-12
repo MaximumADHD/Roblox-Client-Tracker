@@ -12,6 +12,7 @@ local Actions = Plugin.Src.Actions
 local ClearMaterialWrapper = require(Actions.ClearMaterialWrapper)
 local SetMaterialOverride = require(Actions.SetMaterialOverride)
 local SetMaterialOverrides = require(Actions.SetMaterialOverrides)
+local SetMaterial = require(Actions.SetMaterial)
 local SetMaterialList = require(Actions.SetMaterialList)
 local SetMaterialStatus = require(Actions.SetMaterialStatus)
 local SetMaterialWrapper = require(Actions.SetMaterialWrapper)
@@ -26,6 +27,7 @@ local getMaterialName = require(Constants.getMaterialName)
 local getSupportedMaterials = require(Constants.getSupportedMaterials)
 
 local Util = Plugin.Src.Util
+local CheckMaterialName = require(Util.CheckMaterialName)
 local ContainsPath = require(Util.ContainsPath)
 local getMaterials = require(Util.getMaterials)
 local getOverrides = require(Util.getOverrides)
@@ -304,6 +306,11 @@ function MaterialServiceController:setSearch(search: string)
 	self._store:dispatch(SetSearch(search))
 end
 
+function MaterialServiceController:setMaterial(materialVariant: MaterialVariant)
+	local material = self._materialWrappers[materialVariant]
+	self._store:dispatch(SetMaterial(material))
+end
+
 function MaterialServiceController:hasDefaultMaterial(material: Enum.Material, override: string): boolean
 	if getFFlagMaterialManagerEnableTests() and override == "None" then
 		override = ""
@@ -311,6 +318,14 @@ function MaterialServiceController:hasDefaultMaterial(material: Enum.Material, o
 
 	return (getMaterialName(material) == override or override == "") and
 		not self._materialServiceWrapper:asService():GetMaterialVariant(material, override)
+end
+
+function MaterialServiceController:checkMaterialName(name: string, baseMaterial: Enum.Material): boolean
+	local category = self:findCategory({})
+	assert(category, "Tried to get materials for path which does not exist")
+
+	local checkMaterialNameExists = CheckMaterialName(category, name, baseMaterial)
+	return checkMaterialNameExists
 end
 
 return MaterialServiceController

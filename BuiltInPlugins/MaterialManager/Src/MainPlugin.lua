@@ -49,9 +49,11 @@ local getFFlagMaterialManagerGridListView = require(Flags.getFFlagMaterialManage
 local getFFlagMaterialManagerDetailsOverhaul = require(Flags.getFFlagMaterialManagerDetailsOverhaul)
 local getFFlagMaterialManagerHideDetails = require(Flags.getFFlagMaterialManagerHideDetails)
 local getFFlagMaterialManagerMaterialAsTool = require(Flags.getFFlagMaterialManagerMaterialAsTool)
+local getFFlagMaterialManagerAddWayPoints = require(Flags.getFFlagMaterialManagerAddWayPoints)
+local getFFlagMaterialManagerAnalyticsCounter = require(Flags.getFFlagMaterialManagerAnalyticsCounter)
 
 local DEPRECATED_getBuiltInMaterialVariants = require(main.Src.Resources.Constants.DEPRECATED_getBuiltInMaterialVariants)
-local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
+local DEPRECATED_MaterialPrompt = require(Components.MaterialPrompt.DEPRECATED_MaterialPrompt)
 
 local FFlagMaterialManagerSideBarHide = game:GetFastFlag("MaterialManagerSideBarHide")
 
@@ -126,7 +128,7 @@ function MainPlugin:init(props)
 	})
 
 	self.analytics = nil
-	if FIntInfluxReportMaterialManagerHundrethPercent2 then
+	if getFFlagMaterialManagerAnalyticsCounter() then
 		self.analytics = ContextServices.Analytics.new(createAnalyticsHandlers)
 	else
 		self.analytics = ContextServices.Analytics.new(function()
@@ -229,7 +231,7 @@ function MainPlugin:render()
 			end,
 		}),
 
-		MaterialPrompt = prompt and Roact.createElement(MaterialPrompt, {
+		MaterialPrompt = prompt and Roact.createElement(if getFFlagMaterialManagerAddWayPoints() then MaterialPrompt else DEPRECATED_MaterialPrompt, {
 			PromptClosed = self.closePrompt,
 			PromptType = prompt,
 		}) or nil,

@@ -10,7 +10,6 @@
 		callback OnTextChanged: callback for when the text was changed - OnTextChanged(text: string)
 ]]
 local FIntToolboxAutocompleteDropdownSize = game:GetFastInt("ToolboxAutocompleteDropdownSize")
-local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
 local FFlagToolboxLocalizeSearchPlaceholder = game:GetFastFlag("ToolboxLocalizeSearchPlaceholder")
 
 local Plugin = script.Parent.Parent.Parent
@@ -197,7 +196,9 @@ function SearchBarWithAutocomplete:render()
 		OnInputEnded = self.onInputEnded,
 		OnSearchRequested = self.onSearchRequested,
 		OnTextChanged = self.onSearchTextChanged,
-		PlaceholderText = if FFlagToolboxLocalizeSearchPlaceholder then props.Localization:getText("General", "SearchBarDefaultText") else nil,
+		PlaceholderText = if FFlagToolboxLocalizeSearchPlaceholder
+			then props.Localization:getText("General", "SearchBarDefaultText")
+			else nil,
 		SearchTerm = displayedSearchTerm,
 		Style = "ToolboxSearchBar",
 		Width = props.Width,
@@ -244,25 +245,11 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		logSearchAnalytics = if FFlagToolboxHomeViewAnalyticsUpdate
-			then function(keyword, assetType, prefix, keyCount, delCount, autocompleteShown)
-				dispatch(
-					LogMarketplaceSearchAnalytics(
-						keyword,
-						assetType,
-						prefix,
-						keyCount,
-						delCount,
-						autocompleteShown,
-						false
-					)
-				)
-			end
-			else function(keyword, assetType, prefix, keyCount, delCount, autocompleteShown)
-				dispatch(
-					LogMarketplaceSearchAnalytics(keyword, assetType, prefix, keyCount, delCount, autocompleteShown)
-				)
-			end,
+		logSearchAnalytics = function(keyword, assetType, prefix, keyCount, delCount, autocompleteShown)
+			dispatch(
+				LogMarketplaceSearchAnalytics(keyword, assetType, prefix, keyCount, delCount, autocompleteShown, false)
+			)
+		end,
 
 		getAutocompleteResults = function(networkInterface, categoryName, searchTerm, numberOfResults)
 			dispatch(GetAutocompleteResultsRequest(networkInterface, categoryName, searchTerm, numberOfResults))

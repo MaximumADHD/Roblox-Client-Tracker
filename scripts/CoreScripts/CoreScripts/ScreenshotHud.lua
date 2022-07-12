@@ -10,6 +10,7 @@ local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local Players = game:GetService("Players")
+local ProximityPromptService = game:GetService("ProximityPromptService")
 local StarterGui = game:GetService("StarterGui")
 local UserInputService = game:GetService("UserInputService")
 
@@ -393,6 +394,10 @@ doTakeScreenshot = function()
 		StarterGui:SetCoreGuiEnabled(coreGuiType, false)
 	end
 
+	-- Hide Proximity Prompts
+	local proximityPromptsWereEnabled = ProximityPromptService.Enabled
+	ProximityPromptService.Enabled = false
+
 	-- Hide screenshot UI
 	ScreenshotHudContent.Visible = false
 
@@ -423,6 +428,9 @@ doTakeScreenshot = function()
 	if not CameraButtonConnection then
 		CameraButtonConnection = DefaultCameraButton.Activated:connect(onCameraButtonActivated)
 	end
+
+	-- Restore Proximity Prompts
+	ProximityPromptService.Enabled = proximityPromptsWereEnabled
 
 	-- Show usernames
 	for _, player in pairs(Players:GetPlayers()) do

@@ -1,7 +1,6 @@
 local FFlagToolboxFixDurationOnCreationTab = game:GetFastFlag("ToolboxFixDurationOnCreationTab")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
-local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 
 local CreatorInfoHelper = require(Plugin.Core.Util.CreatorInfoHelper)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
@@ -55,32 +54,30 @@ Category.AssetType = {
 	ANIMATION = 28,
 }
 
-if FFlagToolboxAudioDiscovery then
-	Category.AssetType.MUSIC = 300
-	Category.AssetType.SOUND_EFFECT = 301
-	Category.AssetType.UNKNOWN_AUDIO = 302
+Category.AssetType.MUSIC = 300
+Category.AssetType.SOUND_EFFECT = 301
+Category.AssetType.UNKNOWN_AUDIO = 302
 
-	Category.MUSIC = {
-		name = "Music",
-		category = "Music",
-		ownershipType = Category.OwnershipType.FREE,
-		assetType = Category.AssetType.MUSIC,
-	}
+Category.MUSIC = {
+	name = "Music",
+	category = "Music",
+	ownershipType = Category.OwnershipType.FREE,
+	assetType = Category.AssetType.MUSIC,
+}
 
-	Category.SOUND_EFFECTS = {
-		name = "SoundEffect",
-		category = "SoundEffect",
-		ownershipType = Category.OwnershipType.FREE,
-		assetType = Category.AssetType.SOUND_EFFECT,
-	}
+Category.SOUND_EFFECTS = {
+	name = "SoundEffect",
+	category = "SoundEffect",
+	ownershipType = Category.OwnershipType.FREE,
+	assetType = Category.AssetType.SOUND_EFFECT,
+}
 
-	Category.UNKNOWN_AUDIO = {
-		name = "UnknownAudio",
-		category = "UnknownAudio",
-		ownershipType = Category.OwnershipType.FREE,
-		assetType = Category.AssetType.UNKNOWN_AUDIO,
-	}
-end
+Category.UNKNOWN_AUDIO = {
+	name = "UnknownAudio",
+	category = "UnknownAudio",
+	ownershipType = Category.OwnershipType.FREE,
+	assetType = Category.AssetType.UNKNOWN_AUDIO,
+}
 
 Category.ToolboxAssetTypeToEngine = {
 	[Category.AssetType.MODEL] = Enum.AssetType.Model,

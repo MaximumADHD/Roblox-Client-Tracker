@@ -1,6 +1,4 @@
 --!strict
-local FFlagToolboxSortAudioCategories = game:GetFastFlag("ToolboxSortAudioCategories")
-
 local Plugin = script:FindFirstAncestor("Toolbox")
 
 local Packages = Plugin.Packages
@@ -43,8 +41,7 @@ type CategoryDropDownState = {
 type DropDownItem = {
 	name: string,
 	subcategory: HomeTypes.Subcategory?,
-	-- When removing FFlagToolboxSortAudioCategories index should not be optional
-	index: number?,
+	index: number,
 }
 
 type DropDownItems = {
@@ -79,7 +76,7 @@ function CategoryDropDown:render()
 	local dropDownItems: DropDownItems = {}
 
 	table.insert(dropDownItems, {
-		index = if FFlagToolboxSortAudioCategories then 1 else nil,
+		index = 1,
 		name = if Category.MUSIC.name == audioType
 			then localization:getText("Audio.Music", "Browse")
 			else localization:getText("Audio.SoundEffect", "Browse"),
@@ -94,18 +91,15 @@ function CategoryDropDown:render()
 			local item = {
 				name = localization:getText(translationKey, key),
 				subcategory = sub,
-				index = if FFlagToolboxSortAudioCategories then sub.index + 1 else nil,
+				index = sub.index + 1,
 			}
 			table.insert(dropDownItems, item)
 		end
 	end
 
-	if FFlagToolboxSortAudioCategories then
-		dropDownItems = Array.sort(dropDownItems, function(a: DropDownItem, b: DropDownItem)
-			-- When removing FFlagToolboxSortAudioCategories number should not be casted
-			return a.index :: number - b.index :: number
-		end)
-	end
+	dropDownItems = Array.sort(dropDownItems, function(a: DropDownItem, b: DropDownItem)
+		return a.index - b.index
+	end)
 
 	local onItemClicked = function(index: number)
 		self:setState({ selectedIndex = index })

@@ -240,11 +240,12 @@ function ListItem:init()
 		if utf8.len(newName) ~= 0 and utf8.len(stripText(newName)) ~= 0 then
 			if assetData.assetType == Enum.AssetType.Place then
 				AssetManagerService:RenamePlace(assetData.id, newName)
-			elseif assetData.assetType == Enum.AssetType.Image
-			or assetData.assetType == Enum.AssetType.MeshPart
-			or assetData.assetType == Enum.AssetType.Lua
-			or (enableAudioImport() and assetData.assetType == Enum.AssetType.Audio)
-			or (enableVideoImport() and assetData.assetType == Enum.AssetType.Video)
+			elseif
+				assetData.assetType == Enum.AssetType.Image
+				or assetData.assetType == Enum.AssetType.MeshPart
+				or assetData.assetType == Enum.AssetType.Lua
+				or (enableAudioImport() and assetData.assetType == Enum.AssetType.Audio)
+				or (enableVideoImport() and assetData.assetType == Enum.AssetType.Video)
 			then
 				local prefix
 				-- Setting asset type to same value as Enum.AssetType since it cannot be passed into function

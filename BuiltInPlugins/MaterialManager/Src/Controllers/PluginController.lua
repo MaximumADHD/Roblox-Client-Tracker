@@ -3,6 +3,7 @@ local _Types = require(Plugin.Src.Types)
 local Framework = require(Plugin.Packages.Framework)
 
 local Actions = Plugin.Src.Actions
+local SetMaterialAsTool = require(Actions.SetMaterialAsTool)
 local SetMaterialTileSize = require(Actions.SetMaterialTileSize)
 local SetViewType = require(Actions.SetViewType)
 
@@ -76,6 +77,7 @@ function PluginController:toggleMaterialAsTool()
 	end
 
 	self._plugin:Activate(true)
+	self._store:dispatch(SetMaterialAsTool(true))
 	local highlight = nil
 
 	self._mouseMoveConnection = self._mouse.Move:Connect(function()
@@ -98,6 +100,7 @@ function PluginController:toggleMaterialAsTool()
 	end)
 
 	self._deactivationConnection = self._plugin.Deactivation:Connect(function()
+		self._store:dispatch(SetMaterialAsTool(false))
 		if highlight then
 			highlight:Destroy()
 		end

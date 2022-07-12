@@ -4,17 +4,12 @@ local AnalyticsEventNames = require(plugin.Src.Resources.AnalyticsEventNames)
 local EVENT_TARGET = "studio"
 local EVENT_CONTEXT = "Debugger"
 
-local FFlagDebuggerV2ReportAnalytics = game:GetFastFlag("DebuggerV2ReportAnalytics")
 local DFIntDebuggerEventsThrottleHundredthPercent = tonumber(
 	settings():GetFVariable("DebuggerEventsThrottleHundredthPercent")
 )
 
 return function(rbxAnalyticsService)
 	local function reportEvent(eventName, additionalArgs)
-		if not FFlagDebuggerV2ReportAnalytics then
-			return
-		end
-
 		-- Report to points.
 		rbxAnalyticsService:ReportInfluxSeries(eventName, additionalArgs, DFIntDebuggerEventsThrottleHundredthPercent)
 

@@ -36,14 +36,6 @@ local FFlagUserFlagEnableNewVRSystem do
 	FFlagUserFlagEnableNewVRSystem = success and result
 end
 
-local FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame
-do
-	local success, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame")
-	end)
-	FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame = success and value
-end
-
 local FFlagUserCameraControlLastInputTypeUpdate do
 	local success, result = pcall(function()
 		return UserSettings():IsUserFeatureEnabled("UserCameraControlLastInputTypeUpdate")
@@ -449,11 +441,7 @@ end
 function CameraModule:OnCameraTypeChanged(newCameraType: Enum.CameraType)
 	if newCameraType == Enum.CameraType.Scriptable then
 		if UserInputService.MouseBehavior == Enum.MouseBehavior.LockCenter then
-			if FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame then
-				CameraUtils.restoreMouseBehavior()
-			else
-				UserInputService.MouseBehavior = Enum.MouseBehavior.Default
-			end
+			CameraUtils.restoreMouseBehavior()
 		end
 	end
 

@@ -1,10 +1,6 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
 
-local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
-local FFlagToolboxAudioDiscoveryRound2 =
-	require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscoveryRound2()
-
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
@@ -33,10 +29,8 @@ type _ExternalAudioTableProps = {
 	TryInsert: ((assetData: AssetInfo.AssetInfo, assetWasDragged: boolean, insertionMethod: string?) -> nil),
 	CanInsertAsset: () -> boolean,
 	LayoutOrder: number?,
-	-- When removing FFlagToolboxHomeViewAnalyticsUpdate LogImpression should not be optional
 	LogImpression: (asset: AssetInfo.AssetInfo) -> ()?,
-	-- When removing FFlagToolboxAudioDiscoveryRound2 tryOpenAssetConfig should not be optional
-	tryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn?,
+	tryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn,
 }
 
 type AudioTableProps = _ExternalAudioTableProps & {
@@ -87,8 +81,8 @@ function AudioTable:render()
 			OnExpanded = self.setExpandedAssetId,
 			InsertAsset = insertAsset,
 			CanInsertAsset = props.CanInsertAsset,
-			LogImpression = if FFlagToolboxHomeViewAnalyticsUpdate then logImpression else nil,
-			tryOpenAssetConfig = if FFlagToolboxAudioDiscoveryRound2 then props.tryOpenAssetConfig else nil,
+			LogImpression = logImpression,
+			tryOpenAssetConfig = props.tryOpenAssetConfig,
 		})
 	end)
 

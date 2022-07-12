@@ -5,14 +5,6 @@ local RunService = game:GetService("RunService")
 
 local AtomicBinding = require(script:WaitForChild("AtomicBinding"))
 
-local FFlagUserAtomicCharacterSounds
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserAtomicCharacterSounds2")
-	end)
-	FFlagUserAtomicCharacterSounds = success and result
-end
-
 local SOUND_DATA : { [string]: {[string]: any}} = {
 	Climbing = {
 		SoundId = "rbxasset://sounds/action_footsteps_plastic.mp3",
@@ -224,165 +216,59 @@ local function initializeSoundSystem(instances)
 		end
 	end)
 
-	local humanoidAncestryChangedConn: RBXScriptConnection
-	local rootPartAncestryChangedConn: RBXScriptConnection
-	local characterAddedConn: RBXScriptConnection
-
 	local function terminate()
 		stateChangedConn:Disconnect()
 		steppedConn:Disconnect()
-		
-		if not FFlagUserAtomicCharacterSounds then
-			humanoidAncestryChangedConn:Disconnect()
-			rootPartAncestryChangedConn:Disconnect()
-			characterAddedConn:Disconnect()
-		end
-	end
-	
-	if not FFlagUserAtomicCharacterSounds then
-		humanoidAncestryChangedConn = humanoid.AncestryChanged:Connect(function(_, parent)
-			if not parent then
-				terminate()
-			end
-		end)
-
-		rootPartAncestryChangedConn = rootPart.AncestryChanged:Connect(function(_, parent)
-			if not parent then
-				terminate()
-			end
-		end)
-
-		characterAddedConn = player.CharacterAdded:Connect(terminate)
 	end
 	
 	return terminate
 end
 
-if FFlagUserAtomicCharacterSounds then
-	local binding = AtomicBinding.new({
-		humanoid = "Humanoid",
-		rootPart = "HumanoidRootPart",
-	}, initializeSoundSystem)
+local binding = AtomicBinding.new({
+	humanoid = "Humanoid",
+	rootPart = "HumanoidRootPart",
+}, initializeSoundSystem)
 
-	local playerConnections = {}
-	
-	local function characterAdded(character)
-		binding:bindRoot(character)
-	end
-	
-	local function characterRemoving(character)
-		binding:unbindRoot(character)
-	end
-	
-	local function playerAdded(player: Player)
-		local connections = playerConnections[player]
-		if not connections then
-			connections = {}
-			playerConnections[player] = connections
-		end
+local playerConnections = {}
 
-		if player.Character then
-			characterAdded(player.Character)
-		end
-		table.insert(connections, player.CharacterAdded:Connect(characterAdded))
-		table.insert(connections, player.CharacterRemoving:Connect(characterRemoving))
-	end
-	
-	local function playerRemoving(player: Player)
-		local connections = playerConnections[player]
-		if connections then
-			for _, conn in ipairs(connections) do
-				conn:Disconnect()
-			end
-			playerConnections[player] = nil
-		end
-		
-		if player.Character then
-			characterRemoving(player.Character)
-		end
-	end
-	
-	for _, player in ipairs(Players:GetPlayers()) do
-		task.spawn(playerAdded, player)
-	end
-	Players.PlayerAdded:Connect(playerAdded)
-	Players.PlayerRemoving:Connect(playerRemoving)
-	
-else
-	-- wait for the first of the passed signals to fire
-	local function waitForFirst(...) -- RBXScriptSignal
-		local shunt: BindableEvent = Instance.new("BindableEvent")
-		local slots = {...}
+local function characterAdded(character)
+	binding:bindRoot(character)
+end
 
-		local function fire(...)
-			for i = 1, #slots do
-				slots[i]:Disconnect()
-			end
+local function characterRemoving(character)
+	binding:unbindRoot(character)
+end
 
-			return shunt:Fire(...)
-		end
-
-		for i = 1, #slots do -- RBXScriptSignal
-			slots[i] = slots[i]:Connect(fire) -- Change to RBXScriptConnection
-		end
-
-		return shunt.Event:Wait()
-	end
-	
-	
-	local function playerAdded(player: Player)
-		local function characterAdded(character: Model)
-			-- Avoiding memory leaks in the face of Character/Humanoid/RootPart lifetime has a few complications:
-			-- * character deparenting is a Remove instead of a Destroy, so signals are not cleaned up automatically.
-			-- ** must use a waitForFirst on everything and listen for hierarchy changes.
-			-- * the character might not be in the dm by the time CharacterAdded fires
-			-- ** constantly check consistency with player.Character and abort if CharacterAdded is fired again
-			-- * Humanoid may not exist immediately, and by the time it's inserted the character might be deparented.
-			-- * RootPart probably won't exist immediately.
-			-- ** by the time RootPart is inserted and Humanoid.RootPart is set, the character or the humanoid might be deparented.
-
-			if not character.Parent then
-				waitForFirst(character.AncestryChanged, player.CharacterAdded)
-			end
-
-			if player.Character ~= character or not character.Parent then
-				return
-			end
-
-			local humanoid = character:FindFirstChildOfClass("Humanoid") :: Humanoid
-			while character:IsDescendantOf(game) and not humanoid do
-				waitForFirst(character.ChildAdded, character.AncestryChanged, player.CharacterAdded)
-				humanoid = character:FindFirstChildOfClass("Humanoid") :: Humanoid
-			end
-
-			if player.Character ~= character or not character:IsDescendantOf(game) then
-				return
-			end
-
-			-- must rely on HumanoidRootPart naming because Humanoid.RootPart does not fire changed signals
-			local rootPart = character:FindFirstChild("HumanoidRootPart")
-			while character:IsDescendantOf(game) and not rootPart do
-				waitForFirst(character.ChildAdded, character.AncestryChanged, humanoid.AncestryChanged, player.CharacterAdded)
-				rootPart = character:FindFirstChild("HumanoidRootPart")
-			end
-
-			if rootPart and humanoid:IsDescendantOf(game) and character:IsDescendantOf(game) and player.Character == character then
-				initializeSoundSystem({
-					player = player,
-					humanoid = humanoid,
-					rootPart = rootPart
-				})
-			end
-		end
-
-		if player.Character then
-			characterAdded(player.Character)
-		end
-		player.CharacterAdded:Connect(characterAdded)
+local function playerAdded(player: Player)
+	local connections = playerConnections[player]
+	if not connections then
+		connections = {}
+		playerConnections[player] = connections
 	end
 
-	Players.PlayerAdded:Connect(playerAdded)
-	for _, player in ipairs(Players:GetPlayers()) do
-		playerAdded(player)
+	if player.Character then
+		characterAdded(player.Character)
+	end
+	table.insert(connections, player.CharacterAdded:Connect(characterAdded))
+	table.insert(connections, player.CharacterRemoving:Connect(characterRemoving))
+end
+
+local function playerRemoving(player: Player)
+	local connections = playerConnections[player]
+	if connections then
+		for _, conn in ipairs(connections) do
+			conn:Disconnect()
+		end
+		playerConnections[player] = nil
+	end
+	
+	if player.Character then
+		characterRemoving(player.Character)
 	end
 end
+
+for _, player in ipairs(Players:GetPlayers()) do
+	task.spawn(playerAdded, player)
+end
+Players.PlayerAdded:Connect(playerAdded)
+Players.PlayerRemoving:Connect(playerRemoving)

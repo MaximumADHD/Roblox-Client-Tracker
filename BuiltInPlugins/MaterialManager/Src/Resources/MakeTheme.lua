@@ -252,6 +252,10 @@ local function getPluginTheme()
 				Image = "rbxasset://textures/ui/TopBar/close.png",
 				Color = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then StyleKey.BrightText else StyleKey.MainText,
 			},
+			ApplyToSelection = {
+				Image = "rbxasset://textures/MaterialManager/Apply_To_Selection.png",
+				Color = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then StyleKey.BrightText else StyleKey.MainText,
+			},
 			CreateVariant = {
 				Image = "rbxasset://textures/MaterialManager/Create_New_Variant.png",
 				Color = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then StyleKey.BrightText else StyleKey.MainText,

@@ -1,7 +1,7 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
+
 local FFlagToolboxFixAssetFetcherOnUpdate = game:GetFastFlag("ToolboxFixAssetFetcherOnUpdate")
-local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 local FFlagToolboxFixAssetsNoVoteData = game:GetFastFlag("ToolboxFixAssetsNoVoteData")
 local Packages = Plugin.Packages
 local Framework = require(Packages.Framework)
@@ -370,15 +370,13 @@ return function()
 		)
 	end)
 
-	if FFlagToolboxAudioDiscovery then
-		it("should send tags", function()
-			local networkInterfaceMock = buildNetworkInterfaceMock()
-			local roactState = renderResultsFetcher(networkInterfaceMock, { tags = { "whooshes", "bys " } })
-			wait()
-			expect(networkInterfaceMock.getToolboxItems).toHaveBeenCalledWith(
-				networkInterfaceMock, -- because we're calling it as an instance method
-				expect.objectContaining({ tags = { "whooshes", "bys " } })
-			)
-		end)
-	end
+	it("should send tags", function()
+		local networkInterfaceMock = buildNetworkInterfaceMock()
+		local roactState = renderResultsFetcher(networkInterfaceMock, { tags = { "whooshes", "bys " } })
+		wait()
+		expect(networkInterfaceMock.getToolboxItems).toHaveBeenCalledWith(
+			networkInterfaceMock, -- because we're calling it as an instance method
+			expect.objectContaining({ tags = { "whooshes", "bys " } })
+		)
+	end)
 end

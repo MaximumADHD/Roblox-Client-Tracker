@@ -1,11 +1,9 @@
 local Plugin = script:FindFirstAncestor("Toolbox")
-local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
 local Dash = Framework.Dash
-local CoreTestUtils = require(Plugin.TestUtils.CoreTestUtils)
 
 local AudioPlayer = require(Plugin.Core.Components.AudioPlayer.AudioPlayer)
 
@@ -55,13 +53,13 @@ end
 return {
 	summary = "Audio Player",
 	stories = {
-		FFlagToolboxAudioDiscovery and {
+		{
 			name = "Playing",
 			story = Roact.createElement(ToolboxStoryWrapper, {}, {
 				AudioPlayer = Roact.createElement(AudioPlayerWrapper, {
 					SoundId = 142376088,
 				}),
 			}),
-		} or CoreTestUtils.mustSetFlag("FFlagToolboxAudioDiscovery", true),
+		},
 	},
 }

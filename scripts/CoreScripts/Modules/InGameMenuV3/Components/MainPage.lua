@@ -34,6 +34,7 @@ local GamePostFavorite = require(InGameMenu.Thunks.GamePostFavorite)
 local Spacer = require(InGameMenu.Components.Spacer)
 local LeaveButton = require(InGameMenu.Components.LeaveButton)
 local PageUtils = require(InGameMenu.Components.Pages.PageUtils)
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local Network = InGameMenu.Network
@@ -47,6 +48,7 @@ local FocusHandler = require(script.Parent.Connection.FocusHandler)
 local IGMMainPageControllerBar = require(script.Parent.IGMMainPageControllerBar)
 
 local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
+local GetFFlagShareInviteLinkContextMenuV3Enabled = require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
 
 local MAIN_PAGE_WIDTH = Constants.PageWidth
 
@@ -189,6 +191,17 @@ function MainPage:didUpdate(prevProps, prevState)
 			scrollingFrame.CanvasPosition = Vector2.new(0, 0)
 		end
 	end
+	if GetFFlagShareInviteLinkContextMenuV3Enabled() then
+		if prevProps.shareInviteLink == nil and self.props.shareInviteLink ~= nil then
+			-- TODO(COEXP-318): Pull up sharesheet, and send linkType in analytics when enum is available.
+			SendAnalytics(Constants.ShareLinksAnalyticsName, Constants.ShareLinksAnalyticsLinkGeneratedName, {
+				page = "inGameMenu",
+				subpage = Constants.MainPagePageKey,
+				linkId = self.props.shareInviteLink.linkId,
+				linkType = ""
+			})
+		end
+	end	
 end
 
 return RoactRodux.UNSTABLE_connect2(function(state, props)
@@ -213,6 +226,7 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 		isMainPageInForeground = isMainPageInForeground,
 		isFavorited = state.gameInfo.isFavorited,
 		gameDescription = state.gameInfo.description,
+		shareInviteLink = GetFFlagShareInviteLinkContextMenuV3Enabled() and state.shareLinks.Invites.ShareInviteLink or nil,
 	}
 end, function(dispatch)
 	local universeId = game.GameId

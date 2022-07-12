@@ -13,6 +13,7 @@ local FriendCount = require(AppTempCommon.LuaChat.Reducers.FriendCount)
 local ConversationsSearch = require(ShareGame.Reducers.ConversationsSearch)
 local DeviceInfo = require(ShareGame.Reducers.DeviceInfo)
 local Invites = require(ShareGame.Reducers.Invites)
+local GameInfo = require(ShareGame.Reducers.GameInfo)
 local Page = require(ShareGame.Reducers.Page)
 local Toasts = require(ShareGame.Reducers.Toasts)
 
@@ -33,5 +34,6 @@ return function(state, action)
 		Friends = Friends(state.Friends, action),
 		FriendCount = FriendCount(state.FriendCount, action),
 		ShareLinks = ShareLinks(state.ShareLinks, action),
+		GameInfo = GameInfo(state.GameInfo, action),
 	}
 end

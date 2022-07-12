@@ -29,7 +29,7 @@ local StatusIcon = require(Components.DEPRECATED_StatusIcon)
 local Flags = Plugin.Src.Flags
 local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
-local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
+local getFFlagMaterialManagerAnalyticsCounter = require(Flags.getFFlagMaterialManagerAnalyticsCounter)
 
 export type Props = {
 	LayoutOrder: number?,
@@ -159,8 +159,7 @@ function MaterialOverrides:init()
 			self:setState({
 				index = materialIndex
 			})
-
-			if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
+			if getFFlagMaterialManagerAnalyticsCounter() then
 				props.Analytics:report("setOverrideToggled")
 			end
 		end

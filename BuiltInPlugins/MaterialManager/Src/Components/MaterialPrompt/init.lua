@@ -14,11 +14,13 @@ local Stylizer = Framework.Style.Stylizer
 local StudioUI = Framework.StudioUI
 local StyledDialog = StudioUI.StyledDialog
 
+local UI = Framework.UI
+local Pane = UI.Pane
+
 local Actions = Plugin.Src.Actions
 local ClearMaterialVariant = require(Actions.ClearMaterialVariant)
 local SetMaterial = require(Actions.SetMaterial)
 local SetMaterialVariant = require(Actions.SetMaterialVariant)
-local SetPath = require(Actions.SetPath)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local Constants = Plugin.Src.Resources.Constants
@@ -26,17 +28,15 @@ local getMaterialPath = require(Constants.getMaterialPath)
 local getMaterialName = require(Constants.getMaterialName)
 
 local Controllers = Plugin.Src.Controllers
+local GeneralServiceController = require(Plugin.Src.Controllers.GeneralServiceController)
 local ImportAssetHandler = require(Controllers.ImportAssetHandler)
-local MaterialController = require(Controllers.MaterialController)
 local MaterialServiceController = require(Controllers.MaterialServiceController)
 
 local Flags = Plugin.Src.Flags
-local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
-local getFFlagMaterialManagerGridOverhaul = require(Flags.getFFlagMaterialManagerGridOverhaul)
-local getFFlagMaterialManagerDetailsOverhaul = require(Flags.getFFlagMaterialManagerDetailsOverhaul)
 local getFFlagMaterialManagerRefactorMaterialVariantCreator = require(Flags.getFFlagMaterialManagerRefactorMaterialVariantCreator)
 local getFFlagMaterialManagerUIGlitchFix = require(Flags.getFFlagMaterialManagerUIGlitchFix)
 local getFFlagMaterialManagerStudsPerTileFix = require(Flags.getFFlagMaterialManagerStudsPerTileFix)
+local getFFlagMaterialManagerAnalyticsCounter = require(Flags.getFFlagMaterialManagerAnalyticsCounter)
 local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
 
 local MaterialVariantCreator = if getFFlagMaterialManagerRefactorMaterialVariantCreator() then require(Plugin.Src.Components.MaterialPrompt.MaterialVariantCreator) else require(Plugin.Src.Components.MaterialPrompt.DEPRECATED_MaterialVariantCreator)
@@ -61,13 +61,12 @@ type _Props = Props & {
 	Analytics: any,
 	Localization: any,
 	Stylizer: any,
+	GeneralServiceController: any,
 	ImportAssetHandler: any,
-	MaterialController: any,
-	MaterialServiceController: any?, -- Not optional with MaterialManagerGridOverhaul
+	MaterialServiceController: any,
 	dispatchClearMaterialVariant: () -> (),
-	dispatchSetMaterial: (material: _Types.Material) -> (),
+	dispatchSetMaterial: (material: _Types.Material) -> (), -- Remove with FFlagMaterialManagerUIGlitchFix
 	dispatchSetMaterialVariant: (materialVariant: MaterialVariant) -> (),
-	dispatchSetPath: (path: _Types.Path) -> (), -- Remove with MaterialManagerGridOverhaul
 }
 
 type _Style = {
@@ -77,103 +76,93 @@ type _Style = {
 
 local MaterialPrompt = Roact.PureComponent:extend("MaterialPrompt")
 
-function MaterialPrompt:hasValidName()
-	return if self.props.Name and self.props.Name ~= "" then true else false
-end
-
-function MaterialPrompt:getNameError()
-	local props: _Props = self.props
-	local localization = props.Localization
-	local materialController = props.MaterialController
-
-	if not self.state.saveAttempt then
-		return nil
-	end
-
-	if not self:hasValidName() then 
-		return localization:getText("CreateDialog", "ErrorNoName")
-	elseif self.lastName and self.lastName == props.Name and self.lastBaseMaterial and self.lastBaseMaterial == props.BaseMaterial then
-		return nil
-	elseif materialController:ifMaterialNameExists(props.Name, props.BaseMaterial) then
-		return localization:getText("CreateDialog", "ErrorNameExists")
-	end
-	return nil
-end
-
-function MaterialPrompt:getBaseMaterialError()
-	local props: _Props = self.props
-	local localization = props.Localization
-
-	if not self.state.saveAttempt then
-		return nil
-	end
-
-	if not props.BaseMaterial then
-		return localization:getText("CreateDialog", "ErrorBaseMaterialNotSelected")
-	end
-	return nil
-end
-
-function MaterialPrompt:createTempMaterialVariant()
-	local props: _Props = self.props
-
-	if self.materialVariant then 
-		self.materialVariant:Destroy() 
-	end
-	if self.materialVariantTemp then 
-		self.materialVariantTemp:Destroy() 
-	end
-
-	self.materialVariantTemp = Instance.new("MaterialVariant")
-	local tempName = "TempMaterialVariant-" .. game:GetService("HttpService"):GenerateGUID()
-	if props.Mode == "Create" then
-		self.materialVariantTemp.Name = tempName
-		self.materialVariantTemp.Parent = game:GetService("MaterialService")
-	elseif props.Mode == "Edit" then
-		local material = props.Material
-		if material and (getFFlagMaterialManagerGlassNeonForceField() or material.MaterialVariant) then
-			-- self.materialVariant: original MV, store it to be able to restore it on Cancel/Close, give it a temp name
-			-- self.materialVariantTemp: temp MV, store it under MS to modify and show its preview, give it a name and baseMaterial of original
-			self.materialVariant = material.MaterialVariant
-			self.materialVariant.Parent = nil
-			self.materialVariantTemp.Name = material.MaterialVariant.Name
-			self.materialVariantTemp.BaseMaterial = material.MaterialVariant.BaseMaterial
-			self.materialVariant.Name = tempName
-			self.materialVariantTemp.Parent = game:GetService("MaterialService")
-
-			if getFFlagMaterialManagerGlassNeonForceField() then
-				if not getFFlagMaterialManagerGridOverhaul() then
-					props.dispatchSetPath(getMaterialPath(self.materialVariantTemp.BaseMaterial))
-				end
-			else
-				props.dispatchSetPath(getMaterialPath(self.materialVariantTemp))
-			end
-		end
-	end
-end
-
 function MaterialPrompt:init()
 	self:setState({
 		saveAttempt = false,
 		ErrorStudsPerTile = nil,
 	})
-	self.lastName = nil
-	self.lastBaseMaterial = nil
-	self.materialVariant = nil
-	self.materialVariantTemp = nil
-	self:createTempMaterialVariant()
+
+	self.hasValidName = function()
+		return if self.props.Name and self.props.Name ~= "" then true else false
+	end
+
+	self.getNameError = function()
+		local props: _Props = self.props
+		local localization = props.Localization
+
+		local lastName = if props.Mode == "Edit" then self.materialVariant.Name else nil
+		local lastBaseMaterial = if props.Mode == "Edit" then self.materialVariant.BaseMaterial else nil
+	
+		if not self.state.saveAttempt then
+			return nil
+		end
+
+		if not self.hasValidName() then 
+			return localization:getText("CreateDialog", "ErrorNoName")
+		elseif lastName and lastName == props.Name and lastBaseMaterial and lastBaseMaterial == props.BaseMaterial then
+			return nil
+		elseif props.MaterialServiceController:checkMaterialName(props.Name, props.BaseMaterial) then
+			return localization:getText("CreateDialog", "ErrorNameExists")
+		end
+		return nil
+	end
+
+	self.getBaseMaterialError = function()
+		local props: _Props = self.props
+		local localization = props.Localization
+	
+		if not self.state.saveAttempt then
+			return nil
+		end
+		if not props.BaseMaterial then
+			return localization:getText("CreateDialog", "ErrorBaseMaterialNotSelected")
+		end
+		return nil
+	end
+
+	self.clearMaterialVariantOriginal = function()
+		if self.materialVariantOriginal then
+			self.materialVariantOriginal:Destroy()
+			self.materialVariantOriginal = nil
+		end
+	end
+
+	self.clearMaterialVariant = function()
+		if self.materialVariant then
+			self.materialVariant:Destroy()
+			self.materialVariant = nil
+		end
+	end
+
+	self.createTempMaterialVariant = function()
+		local props: _Props = self.props
+	
+		self.clearMaterialVariantOriginal()
+		self.clearMaterialVariant()
+	
+		local tempName = "MaterialVariant"
+		if props.Mode == "Create" then
+			self.materialVariant = Instance.new("MaterialVariant")
+			self.materialVariant.Name = tempName
+			self.materialVariant.Parent = game:GetService("MaterialService")
+		elseif props.Mode == "Edit" then
+			local material = props.Material
+			if material then
+				-- self.materialVariantOriginal: has same properties as original MV, store it to be able to restore it on Cancel/Close, give it a temp name
+				-- self.materialVariant: original MV, served to modify and show its preview
+				self.materialVariantOriginal = material.MaterialVariant:Clone()
+				self.materialVariantOriginal.Name = tempName
+				self.materialVariantOriginal.Parent = game:GetService("CoreGui")
+
+				self.materialVariant = material.MaterialVariant
+			end
+		end
+	end
 
 	self.setStudsPerTileError = function(error)
 		self:setState({
 			ErrorStudsPerTile = error or Roact.None,
 		})
-	end
-
-	self.clearMaterialVariantTemp = function()
-		if self.materialVariantTemp then
-			self.materialVariantTemp:Destroy()
-			self.materialVariantTemp = nil
-		end
 	end
 
 	self.sendAnalyticsToKibanaOnSave = function()
@@ -192,7 +181,6 @@ function MaterialPrompt:init()
 
 	self.onSave = function()
 		local props: _Props = self.props
-		local materialController = props.MaterialController
 		local assetHandler = props.ImportAssetHandler
 
 		self:setState({
@@ -208,13 +196,13 @@ function MaterialPrompt:init()
 							(materialVariant:: any)[mapType] = assetId
 						end)
 					end)
-					if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 and props.Mode == "Create" then
+					if getFFlagMaterialManagerAnalyticsCounter() and props.Mode == "Create" then
 						props.Analytics:report("importTextureMap")
 					end
 				-- Use already uploaded assetId
 				elseif map.assetId then
 					(materialVariant:: any)[mapType] = map.assetId
-					if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 and props.Mode == "Create" then
+					if getFFlagMaterialManagerAnalyticsCounter() and props.Mode == "Create" then
 						props.Analytics:report("uploadAssetIdTextureMap")
 					end
 				else
@@ -223,30 +211,12 @@ function MaterialPrompt:init()
 			end
 		end
 
-		if props.Mode == "Edit" then
-			local material = props.Material
-			if material and (getFFlagMaterialManagerGlassNeonForceField() or material.MaterialVariant) then
-				self.lastName = material.MaterialVariant.Name
-				self.lastBaseMaterial = material.MaterialVariant.BaseMaterial
-			end
-		end
-
-		if self:getNameError() or self:getBaseMaterialError() or self.state.ErrorStudsPerTile then
+		if self.getNameError() or self.getBaseMaterialError() or self.state.ErrorStudsPerTile then
 			return
 		end
 
-		-- TODO: move into separate method "finalizeMaterialVariant()"
-		local materialVariant = self.materialVariantTemp
-		if props.Mode == "Edit" then
-			self.materialVariantTemp = self.materialVariant
-		end
-
-		materialVariant.Name = props.Name
-		materialVariant.BaseMaterial = props.BaseMaterial
-		materialVariant.StudsPerTile = props.StudsPerTile
-		materialVariant.MaterialPattern = props.MaterialPattern
-		materialVariant.Parent = game:GetService("MaterialService")
-
+		self.materialVariant.Name = props.Name
+		self.materialVariant.BaseMaterial = props.BaseMaterial
 		-- Set texture maps
 		local maps = {
 			ColorMap = props.ColorMap or "",
@@ -254,34 +224,22 @@ function MaterialPrompt:init()
 			NormalMap = props.NormalMap or "",
 			RoughnessMap = props.RoughnessMap or ""
 		}
-		handleMaps(maps, materialVariant)
+		handleMaps(maps, self.materialVariant)
+		props.GeneralServiceController:saveMaterialVariant(self.materialVariant)
 
-		if getFFlagMaterialManagerDetailsOverhaul() then
-			if getFFlagMaterialManagerUIGlitchFix() then
-				props.dispatchSetMaterialVariant(materialVariant)
-			else
-				props.dispatchSetMaterial(props.Materials[materialVariant])
-			end
+		if getFFlagMaterialManagerUIGlitchFix() then
+			props.dispatchSetMaterialVariant(self.materialVariant)
 		else
-			props.dispatchSetMaterial(materialController:getMaterial(materialVariant))
-		end
-		if getFFlagMaterialManagerGlassNeonForceField() then
-			if getFFlagMaterialManagerGridOverhaul() then
-				assert(props.MaterialServiceController, "MaterialServiceController is required with FFlagMaterialManagerGridOverhaul")
-				props.MaterialServiceController:setPath(getMaterialPath(materialVariant.BaseMaterial))
-			else
-				props.dispatchSetPath(getMaterialPath(materialVariant.BaseMaterial))
-			end
-		else
-			props.dispatchSetPath(getMaterialPath(materialVariant))
+			props.dispatchSetMaterial(props.Materials[self.materialVariant])
 		end
 
-		if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
+		props.MaterialServiceController:setPath(getMaterialPath(self.materialVariant.BaseMaterial))
+		if getFFlagMaterialManagerAnalyticsCounter() then
 			self.sendAnalyticsToKibanaOnSave()
 		end
 		
 		if props.Mode == "Edit" then
-			self.clearMaterialVariantTemp()
+			self.clearMaterialVariantOriginal()
 		end
 		props.PromptClosed()
 		props.dispatchClearMaterialVariant()
@@ -292,18 +250,19 @@ function MaterialPrompt:init()
 
 		if props.Mode == "Edit" then
 			-- return back to original MV
-			local materialVariant = self.materialVariant
-			materialVariant.Name = self.materialVariantTemp.Name
+			local materialVariant = self.materialVariantOriginal
+			materialVariant.Name = self.materialVariant.Name
 			materialVariant.Parent = game:GetService("MaterialService")
 			props.dispatchSetMaterialVariant(materialVariant)
 		end
 
 		if not getFFlagMaterialManagerStudsPerTileFix() then
-			self.clearMaterialVariantTemp()
+			self.clearMaterialVariant()
 		end
+
 		props.PromptClosed()
 		if getFFlagMaterialManagerStudsPerTileFix() then
-			self.clearMaterialVariantTemp()
+			self.clearMaterialVariant()
 		end
 		if not getFFlagMaterialManagerUIGlitchFix() then
 			props.dispatchClearMaterialVariant()
@@ -322,10 +281,10 @@ end
 function MaterialPrompt:didMount()
 	local props: _Props = self.props
 
+	self.createTempMaterialVariant()
 	if props.Mode == "Edit" then
-		local materialController = props.MaterialController
-		if not getFFlagMaterialManagerDetailsOverhaul() or getFFlagMaterialManagerUIGlitchFix() then
-			props.dispatchSetMaterial(materialController:getMaterial(self.materialVariantTemp))
+		if getFFlagMaterialManagerUIGlitchFix() then
+			props.MaterialServiceController:setMaterial(self.materialVariant)
 		end
 	end
 end
@@ -347,12 +306,16 @@ function MaterialPrompt:render()
 	normalMap = if normalMap then normalMap.assetId or normalMap.tempId else nil
 	roughnessMap = if roughnessMap then roughnessMap.assetId or roughnessMap.tempId else nil
 
-	self.materialVariantTemp.ColorMap = colorMap or ""
-	self.materialVariantTemp.MetalnessMap = metalnessMap or ""
-	self.materialVariantTemp.NormalMap = normalMap or ""
-	self.materialVariantTemp.RoughnessMap = roughnessMap or ""
-	self.materialVariantTemp.StudsPerTile = studsPerTile
-	self.materialVariantTemp.MaterialPattern = materialPattern
+	if not self.materialVariant then
+		return Roact.createElement(Pane)
+	end
+
+	self.materialVariant.ColorMap = colorMap or ""
+	self.materialVariant.MetalnessMap = metalnessMap or ""
+	self.materialVariant.NormalMap = normalMap or ""
+	self.materialVariant.RoughnessMap = roughnessMap or ""
+	self.materialVariant.StudsPerTile = studsPerTile
+	self.materialVariant.MaterialPattern = materialPattern
 
 	local mode = if props.Mode == "Create" then "CreateVariant" else "EditVariant"
 
@@ -380,11 +343,11 @@ function MaterialPrompt:render()
 		Style = "FullBleed",
 	}, {
 		MaterialVariantCreator = Roact.createElement(MaterialVariantCreator, {
-			ErrorName = self:getNameError(),
-			ErrorBaseMaterial = self:getBaseMaterialError(),
+			ErrorName = self.getNameError(),
+			ErrorBaseMaterial = self.getBaseMaterialError(),
 			ErrorStudsPerTile = self.state.ErrorStudsPerTile,
 			SetStudsPerTileError = self.setStudsPerTileError,
-			MaterialVariantTemp = self.materialVariantTemp,
+			MaterialVariantTemp = self.materialVariant,
 		})
 	})
 end
@@ -395,8 +358,8 @@ MaterialPrompt = withContext({
 	Localization = Localization,
 	Stylizer = Stylizer,
 	ImportAssetHandler = ImportAssetHandler,
-	MaterialController = MaterialController,
-	MaterialServiceController = if getFFlagMaterialManagerGridOverhaul() then MaterialServiceController else nil,
+	GeneralServiceController = GeneralServiceController,
+	MaterialServiceController = MaterialServiceController,
 })(MaterialPrompt)
 
 
@@ -427,9 +390,6 @@ local function mapDispatchToProps(dispatch)
 		end,
 		dispatchSetMaterialVariant = function(materialVariant: MaterialVariant)
 			dispatch(SetMaterialVariant(materialVariant))
-		end,
-		dispatchSetPath = function(path)
-			dispatch(SetPath(path))
 		end,
 	}
 end

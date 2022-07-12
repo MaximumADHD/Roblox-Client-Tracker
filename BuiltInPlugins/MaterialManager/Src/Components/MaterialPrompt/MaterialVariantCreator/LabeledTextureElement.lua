@@ -28,6 +28,9 @@ local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local getTextureMapNames = require(Plugin.Src.Resources.Constants.getTextureMapNames)
 local getErrorTypes = require(Plugin.Src.Resources.Constants.getErrorTypes)
 
+local Flags = Plugin.Src.Flags
+local getFFlagMaterialManagerAnalyticsCounter = require(Flags.getFFlagMaterialManagerAnalyticsCounter)
+
 local TextureMaps = getTextureMapNames()
 local ErrorTypes = getErrorTypes()
 
@@ -179,15 +182,24 @@ function LabeledTextureElement:render()
 	local borderColorUrlBool = false
 	local borderColorFileBool = false
 	local errorText = ""
-	if self.state.errorMessage == ErrorTypes.FailedUrl then
+	if state.errorMessage == ErrorTypes.FailedUrl then
 		borderColorUrlBool = true
 		errorText = localization:getText("CreateDialog", "ErrorFindUrl")
-	elseif self.state.errorMessage == ErrorTypes.FailedToSelectFile then 
+		if getFFlagMaterialManagerAnalyticsCounter() then
+			props.Analytics:report("uploadTextureMapError")
+		end
+	elseif state.errorMessage == ErrorTypes.FailedToSelectFile then 
 		borderColorFileBool = true
 		errorText = localization:getText("CreateDialog", "ErrorSelectMap")
-	elseif self.state.errorMessage == ErrorTypes.FailedToImportMap then
+		if getFFlagMaterialManagerAnalyticsCounter() then
+			props.Analytics:report("selectFileTextureMapError")
+		end
+	elseif state.errorMessage == ErrorTypes.FailedToImportMap then
 		borderColorFileBool = true
 		errorText = localization:getText("CreateDialog", "ErrorImportMap")
+		if getFFlagMaterialManagerAnalyticsCounter() then
+			props.Analytics:report("importTextureMapError")
+		end
 	end
 
 	return Roact.createElement(LabeledElement, {

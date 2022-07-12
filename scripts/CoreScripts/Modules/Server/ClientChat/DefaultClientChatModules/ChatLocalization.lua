@@ -3,17 +3,9 @@
 local LocalizationService = game:GetService("LocalizationService")
 local ChatService = game:GetService("Chat")
 
-local success, userShouldLocalizeServerMessages = pcall(function() return UserSettings():IsUserFeatureEnabled("UserShouldLocalizeServerMessages") end)
-local userShouldLocalizeServerMessages = success and userShouldLocalizeServerMessages
-
-local flagExists, userFixWhisperLocalization = pcall(function() return UserSettings():IsUserFeatureEnabled("UserShouldFixWhisperLocalization") end)
-local FixWhisperLocalization = flagExists and userFixWhisperLocalization
-
 local existingKey = {
 	["System"] = "InGame.Chat.Label.SystemMessagePrefix",
 	["Team"] = "InGame.Chat.Label.TeamMessagePrefix",
-	["From "] = not FixWhisperLocalization and "InGame.Chat.Label.From" or nil,
-	["To "] = not FixWhisperLocalization and "InGame.Chat.Label.To" or nil,
 }
 
 local whisperPatterns = {
@@ -66,19 +58,16 @@ function ChatLocalization:Get(key, default, extraParameters)
 end
 
 function ChatLocalization:LocalizeFormattedMessage(message)
-
-	if not userShouldLocalizeServerMessages then
-		return message
-	end
-
 	local keyStart, keyEnd = string.find(message, "{RBX_LOCALIZATION_KEY}")
 	if not keyStart then
 		return message
 	end
+
 	local defaultStart, defaultEnd = string.find(message, "{RBX_LOCALIZATION_DEFAULT}")
 	if not defaultStart then
 		return message
 	end
+
 	local paramStart, paramEnd = string.find(message, "{RBX_LOCALIZATION_PARAMS}")
 	local key = string.sub(message, keyEnd + 1, defaultStart - 1)
 	local default
@@ -86,6 +75,7 @@ function ChatLocalization:LocalizeFormattedMessage(message)
 		default = string.sub(message, defaultEnd + 1)
 		return self:Get(key, default)
 	end
+
 	default = string.sub(message, defaultEnd + 1, paramStart - 1)
 	local params = string.sub(message, paramEnd + 1)
 	local extraParameters = {}
@@ -97,19 +87,11 @@ function ChatLocalization:LocalizeFormattedMessage(message)
 end
 
 function ChatLocalization:FormatMessageToSend(key, defaultMessage, parameterName, value)
-	if userShouldLocalizeServerMessages then
-		if parameterName and value then
-			return "{RBX_LOCALIZATION_KEY}"..key.."{RBX_LOCALIZATION_DEFAULT}"..defaultMessage
-				.."{RBX_LOCALIZATION_PARAMS}"..parameterName.."="..value
-		else
-			return "{RBX_LOCALIZATION_KEY}"..key.."{RBX_LOCALIZATION_DEFAULT}"..defaultMessage
-		end
+	if parameterName and value then
+		return "{RBX_LOCALIZATION_KEY}"..key.."{RBX_LOCALIZATION_DEFAULT}"..defaultMessage
+			.."{RBX_LOCALIZATION_PARAMS}"..parameterName.."="..value
 	else
-		if parameterName and value then
-			return string.gsub(self:Get(key,defaultMessage), "{"..parameterName.."}", value)
-		else
-			return self:Get(key,defaultMessage)
-		end
+		return "{RBX_LOCALIZATION_KEY}"..key.."{RBX_LOCALIZATION_DEFAULT}"..defaultMessage
 	end
 end
 
@@ -127,15 +109,13 @@ function ChatLocalization:tryLocalize(rawString)
 		end
 	end
 
-	if FixWhisperLocalization then
-		for pattern, info in pairs(whisperPatterns) do
-			local startIndex = string.find(rawString, pattern)
-			local namePart = string.match(rawString, pattern)
-			if startIndex and namePart then
-				local localizedPart = self:Get(info.LocalizationKey, info.English)
-				local startPart = if startIndex > 1 then rawString:sub(1, startIndex - 1) else ""
-				return startPart .. localizedPart .. namePart
-			end
+	for pattern, info in pairs(whisperPatterns) do
+		local startIndex = string.find(rawString, pattern)
+		local namePart = string.match(rawString, pattern)
+		if startIndex and namePart then
+			local localizedPart = self:Get(info.LocalizationKey, info.English)
+			local startPart = if startIndex > 1 then rawString:sub(1, startIndex - 1) else ""
+			return startPart .. localizedPart .. namePart
 		end
 	end
 

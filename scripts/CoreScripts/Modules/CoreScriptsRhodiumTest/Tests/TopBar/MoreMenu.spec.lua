@@ -24,6 +24,7 @@ local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
 local EmotesMenuMaster = require(Modules.EmotesMenu.EmotesMenuMaster)
 
 local GetFFlagEnableCaptureMode = require(Modules.Flags.GetFFlagEnableCaptureMode)
+local GetFFlagEnableInGameMenuV3 = require(Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 
 local TopBar = Modules.TopBar
 local Presentation = TopBar.Components.Presentation
@@ -168,7 +169,9 @@ return function()
 				wait()
 			end)
 
-			jestExpect(EmotesMenuMaster:isOpen()).toBeTruthy()
+			if not GetFFlagEnableInGameMenuV3() then
+				jestExpect(EmotesMenuMaster:isOpen()).toBeTruthy()
+			end
 
 			Roact.unmount(handle)
 		end)

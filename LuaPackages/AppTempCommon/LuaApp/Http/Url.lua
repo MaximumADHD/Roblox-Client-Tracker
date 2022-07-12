@@ -141,7 +141,8 @@ local Url = {
 	USER_MODERATION_URL = _baseUserModerationUrl,
 	VOICE_URL = _baseVoiceUrl,
 	TRANSLATIONS_URL = _baseTranslationsUrl,
-	TWOSTEPVERIFICATION_URL = _baseTwoStepVerification
+	TWOSTEPVERIFICATION_URL = _baseTwoStepVerification,
+	AGE_EXPERIENCE_GUIDELINES_URL = _baseApisUrl,
 }
 
 function Url:getUserProfileUrl(userId)

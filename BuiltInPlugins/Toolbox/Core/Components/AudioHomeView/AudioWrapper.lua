@@ -1,11 +1,8 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
 
-local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
 local FFlagToolboxRemoveSFXMonstercatBanner = game:GetFastFlag("ToolboxRemoveSFXMonstercatBanner")
 local FFlagToolboxFurtherTryInStudioFixes = game:GetFastFlag("ToolboxFurtherTryInStudioFixes")
-local FFlagToolboxAudioDiscoveryRound2 =
-	require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscoveryRound2()
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
@@ -136,26 +133,13 @@ function AudioWrapper:init(props: AudioWrapperProps)
 		local selectedTab = state.selectedTab
 		local audioTabSize = state.audioTabSize
 
-		local topContentHeight
-		if not FFlagToolboxAudioDiscoveryRound2 then
-			topContentHeight = Constants.AUDIO_TABS_HEIGHT
-				+ Constants.AUDIO_CATEGORY_HEIGHT
-				+ (Constants.AUDIO_PADDING * 2)
-		end
-
-		local onBannerClick
-		local localization
-		local settings
-		local searchWithOptions
-		if FFlagToolboxAudioDiscoveryRound2 then
-			localization = props.Localization
-			settings = props.Settings:get("Plugin")
-			searchWithOptions = props.SearchWithOptions
-			local analytics = props.AssetAnalytics:get()
-			onBannerClick = function()
-				searchWithOptions(getNetwork(self), settings, MONSTER_CAT_CREATOR)
-				analytics:onCallToActionBannerClicked(MONSTER_CAT_CREATOR.Creator.Id)
-			end
+		local localization = props.Localization
+		local settings = props.Settings:get("Plugin")
+		local searchWithOptions = props.SearchWithOptions
+		local analytics = props.AssetAnalytics:get()
+		local onBannerClick = function()
+			searchWithOptions(getNetwork(self), settings, MONSTER_CAT_CREATOR)
+			analytics:onCallToActionBannerClicked(MONSTER_CAT_CREATOR.Creator.Id)
 		end
 
 		local isMusic
@@ -165,10 +149,8 @@ function AudioWrapper:init(props: AudioWrapperProps)
 
 		return Roact.createElement("Frame", {
 			LayoutOrder = 1,
-			AutomaticSize = if FFlagToolboxAudioDiscoveryRound2 then Enum.AutomaticSize.Y else nil,
-			Size = if FFlagToolboxAudioDiscoveryRound2
-				then UDim2.new(1, 0, 0, 0)
-				else UDim2.new(1, 0, 0, topContentHeight),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			Size = UDim2.new(1, 0, 0, 0),
 			BackgroundTransparency = 1,
 		}, {
 			Roact.createElement("UIPadding", {
@@ -194,8 +176,7 @@ function AudioWrapper:init(props: AudioWrapperProps)
 					OnTabSelect = self.onTabSelect,
 				}),
 			}),
-			CallToActionBanner = if FFlagToolboxAudioDiscoveryRound2
-					and (not FFlagToolboxRemoveSFXMonstercatBanner or isMusic)
+			CallToActionBanner = if (not FFlagToolboxRemoveSFXMonstercatBanner or isMusic)
 				then CallToActionBanner.Generator({
 					LayoutOrder = 2,
 					Image = Images.MONSTER_CAT_BANNER,
@@ -208,7 +189,7 @@ function AudioWrapper:init(props: AudioWrapperProps)
 				})
 				else nil,
 			Roact.createElement(CategoryDropDown, {
-				LayoutOrder = if FFlagToolboxAudioDiscoveryRound2 then 3 else 2,
+				LayoutOrder = 3,
 				Subcategories = props.SubcategoryDict,
 				AudioType = selectedTab,
 				OnCategorySelect = self.onCategorySelect,
@@ -224,21 +205,19 @@ function AudioWrapper:init(props: AudioWrapperProps)
 		end
 	end
 
-	if FFlagToolboxHomeViewAnalyticsUpdate then
-		self.logImpression = function(asset: AssetInfo.AssetInfo)
-			local props = self.props
-			local state: AudioWrapperState = self.state
+	self.logImpression = function(asset: AssetInfo.AssetInfo)
+		local props = self.props
+		local state: AudioWrapperState = self.state
 
-			local getPageInfoAnalyticsContextInfo = props.getPageInfoAnalyticsContextInfo
-			local assetAnalytics = self.props.AssetAnalytics
-			local audioType = state.selectedTab
-			local category = if state.selectedCategory then state.selectedCategory.name else nil
-			if getPageInfoAnalyticsContextInfo and assetAnalytics then
-				local assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
-				assetAnalytics
-					:get()
-					:logImpression(asset, assetAnalyticsContext, { audioType = audioType, categoryName = category })
-			end
+		local getPageInfoAnalyticsContextInfo = props.getPageInfoAnalyticsContextInfo
+		local assetAnalytics = self.props.AssetAnalytics
+		local audioType = state.selectedTab
+		local category = if state.selectedCategory then state.selectedCategory.name else nil
+		if getPageInfoAnalyticsContextInfo and assetAnalytics then
+			local assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
+			assetAnalytics
+				:get()
+				:logImpression(asset, assetAnalyticsContext, { audioType = audioType, categoryName = category })
 		end
 	end
 end
@@ -310,8 +289,8 @@ function AudioWrapper:render()
 					CanInsertAsset = canInsertAsset,
 					RenderTopContent = self.renderTopContent,
 					AudioType = selectedTab,
-					LogImpression = if FFlagToolboxHomeViewAnalyticsUpdate then self.logImpression else nil,
-					tryOpenAssetConfig = if FFlagToolboxAudioDiscoveryRound2 then props.tryOpenAssetConfig else nil,
+					LogImpression = self.logImpression,
+					tryOpenAssetConfig = props.tryOpenAssetConfig,
 				})
 			end,
 		}),
@@ -327,11 +306,11 @@ local mapDispatchToProps = function(dispatch)
 		SearchWithOptions = function(networkInterface, settings, options)
 			dispatch(SearchWithOptions(networkInterface, settings, options))
 		end,
-		getPageInfoAnalyticsContextInfo = if FFlagToolboxHomeViewAnalyticsUpdate
-			then function()
-				return dispatch(GetPageInfoAnalyticsContextInfo())
-			end
-			else nil,
+
+		getPageInfoAnalyticsContextInfo = function()
+			return dispatch(GetPageInfoAnalyticsContextInfo())
+		end,
+
 		getAssetPreviewDataForStartup = if FFlagToolboxFurtherTryInStudioFixes
 			then function(assetId, tryInsert, localization, networkInterface, setAssetPreview)
 				dispatch(
@@ -343,14 +322,10 @@ local mapDispatchToProps = function(dispatch)
 end
 
 AudioWrapper = withContext({
-	AssetAnalytics = if FFlagToolboxAudioDiscoveryRound2 then AssetAnalyticsContextItem else nil,
+	AssetAnalytics = AssetAnalyticsContextItem,
 	Localization = ContextServices.Localization,
-	Settings = if FFlagToolboxAudioDiscoveryRound2 then Settings else nil,
+	Settings = Settings,
 	Stylizer = ContextServices.Stylizer,
 })(AudioWrapper)
 
-if FFlagToolboxAudioDiscoveryRound2 then
-	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AudioWrapper)
-else
-	return AudioWrapper
-end
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AudioWrapper)

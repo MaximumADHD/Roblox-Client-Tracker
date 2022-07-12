@@ -2,10 +2,6 @@
 local Plugin = script:FindFirstAncestor("Toolbox")
 
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
-local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
-
-local FFlagToolboxAudioDiscoveryRound2 =
-	require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscoveryRound2()
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
@@ -59,8 +55,7 @@ type _ExternalAudioRowProps = {
 	InsertAsset: (assetWasDragged: boolean) -> nil,
 	OnExpanded: (assetId: number) -> nil,
 	LogImpression: (asset: AssetInfo.AssetInfo) -> ()?,
-	-- When removing FFlagToolboxAudioDiscoveryRound2 tryOpenAssetConfig should not be optional
-	tryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn?,
+	tryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn,
 }
 
 type AudioRowProps = _InteralAudioRowProps & _ExternalAudioRowProps
@@ -163,10 +158,10 @@ function AudioRow:didMount()
 	local asset = props.AssetInfo
 	local logImpression = props.LogImpression
 
-	if FFlagToolboxAudioDiscoveryRound2 and asset.Asset then
+	if asset.Asset then
 		props.getCanManageAsset(getNetwork(self), asset.Asset.Id)
 	end
-	if FFlagToolboxHomeViewAnalyticsUpdate and asset and logImpression then
+	if asset and logImpression then
 		logImpression(asset)
 	else
 		if asset then
@@ -553,20 +548,12 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		getCanManageAsset = if FFlagToolboxAudioDiscoveryRound2
-			then function(networkInterface, assetId)
-				dispatch(GetCanManageAssetRequest(networkInterface, assetId))
-			end
-			else nil,
+		getCanManageAsset = function(networkInterface, assetId)
+			dispatch(GetCanManageAssetRequest(networkInterface, assetId))
+		end,
 		tryCreateContextMenu = function(assetData, localizedContent, plugin, tryOpenAssetConfig, assetAnalyticsContext)
 			dispatch(
-				TryCreateContextMenu(
-					assetData,
-					localizedContent,
-					plugin,
-					tryOpenAssetConfig,
-					assetAnalyticsContext
-				)
+				TryCreateContextMenu(assetData, localizedContent, plugin, tryOpenAssetConfig, assetAnalyticsContext)
 			)
 		end,
 		getPageInfoAnalyticsContextInfo = if FFlagToolboxUsePageInfoInsteadOfAssetContext

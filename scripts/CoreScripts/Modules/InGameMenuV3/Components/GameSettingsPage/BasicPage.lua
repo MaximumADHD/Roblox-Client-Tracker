@@ -52,14 +52,6 @@ local VerticalScrollViewWithIndicator = UIBlox.App.Container.VerticalScrollViewW
 
 local Flags = InGameMenu.Flags
 local GetFFlagInGameMenuVRToggle = require(Flags.GetFFlagInGameMenuVRToggle)
-local FFlagUserVRVignetteToggle
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserVRVignetteToggle")
-	end)
-	FFlagUserVRVignetteToggle = success and result
-end
-local canUseVignette = FFlagUserVRVignetteToggle
 
 local VREnabledChanged = UserGameSettings:GetPropertyChangedSignal("VREnabled")
 local platform = UserInputService:GetPlatform()
@@ -251,7 +243,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 						subtextEnabled = self.state.vrEnabled ~= vrEnabledAtModuleLoad,
 						subtextKey = "CoreScripts.InGameMenu.GameSettings.RestartPending",
 					}),
-				VignetteEnabled = canUseVignette and self.state.vrActive and Roact.createElement(
+				VignetteEnabled = self.state.vrActive and Roact.createElement(
 					AutoPropertyToggleEntry,
 					{
 						LayoutOrder = 17,

@@ -13,6 +13,8 @@ game:DefineFastFlag("MaterialManagerUpdatedMaterialBall", false)
 game:DefineFastFlag("MaterialManagerMaterialAsTool", false)
 game:DefineFastFlag("MaterialManagerExtraTooltips", false)
 game:DefineFastFlag("MaterialManagerUIGlitchFix", false)
+game:DefineFastFlag("MaterialManagerAddWayPoints", false)
 game:DefineFastFlag("MaterialManagerStudsPerTileFix", false)
+game:DefineFastFlag("MaterialManagerAnalyticsCounter", false)
 
 return nil

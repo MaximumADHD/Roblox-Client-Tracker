@@ -214,4 +214,7 @@ return{
 	["CoreScripts.InGameMenu.CoreScripts.InGameMenu.Prompt.ReturnHome"] = [[홈으로 돌아갈까요?]],
 	["CoreScripts.InGameMenu.Prompt.ReturnHome"] = [[홈으로 돌아갈까요?]],
 	["CoreScripts.InGameMenu.Prompt.ReturnHomeBodyText"] = [[홈으로 돌아가 새로운 체험을 둘러봅니다.]],
+	["CoreScripts.InGameMenu.Actions.BlockFriend"] = [[친구를 차단할까요?]],
+	["CoreScripts.InGameMenu.QuickActions.ScreenshotSaved"] = [[스크린샷 저장 완료]],
+	["CoreScripts.InGameMenu.Action.ShareServerLink"] = [[서버 링크 공유]],
 }

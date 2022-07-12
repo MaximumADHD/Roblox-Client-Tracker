@@ -437,7 +437,7 @@ function AssetPreviewWrapper:init(props)
 					:get()
 					:logInsert(assetData, "PreviewClickInsertButton", nil, assetAnalyticsContext, navData)
 			end,
-		}, nil, nil, networkInterface) -- networkInterface added with FFLagInsertAssetBubbleUpNetwork
+		}, nil, nil, networkInterface)
 		if success then
 			self:setState({
 				overrideEnableVoting = true,

@@ -42,6 +42,10 @@ local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local Network = InGameMenu.Network
 local httpRequest = require(Network.httpRequest)
 local networkImpl = httpRequest(HttpRbxApiService)
+local SocialDependencies = require(InGameMenu.SocialDependencies)
+local NetworkingShareLinks = SocialDependencies.NetworkingShareLinks
+local GetFFlagShareInviteLinkContextMenuV3Enabled = require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
+
 
 local NAV_BUTTON_HEIGHT = 56
 -- The left indent on divider lines
@@ -224,17 +228,19 @@ local function PageNavigation(props)
 	local followSelected = props.isFollowed ~= nil and props.isFollowed or false
 
 	local actions = {
-		shareServerLink = {
+		shareServerLink =  GetFFlagShareInviteLinkContextMenuV3Enabled() and {
 			onActivated = function()
-				-- TODO(COEXP-318): Generate invite link, pull up sharesheet, and send linkId/linkType in analytics.
-				SendAnalytics(Constants.ShareLinksAnalyticsName, Constants.ShareLinksAnalyticsLinkGeneratedName, {
+				-- TODO(COEXP-318): Pull up sharesheet if shareInviteLink is not nil.
+				SendAnalytics(Constants.ShareLinksAnalyticsName, Constants.ShareLinksAnalyticsButtonClickName, {
 					page = "inGameMenu",
-					subpage = "inviteFriendsPage",
-					linkId = "",
-					linkType = ""
+					subpage = props.currentPage,
 				})
+				
+				if props.shareInviteLink == nil then
+					props.fetchShareInviteLink()
+				end
 			end
-		},
+		} or nil,
 		favorite = {
 			selected = favoriteSelected,
 			onActivated = function()
@@ -333,6 +339,7 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 		isFavorited = state.gameInfo.isFavorited,
 		isFollowed = state.gameInfo.isFollowed,
 		currentPage = state.menuPage,
+		shareInviteLink = GetFFlagShareInviteLinkContextMenuV3Enabled() and state.shareLinks.Invites.ShareInviteLink or nil,
 	}
 end, function(dispatch)
 	local universeId = game.GameId
@@ -357,5 +364,9 @@ end, function(dispatch)
 			dispatch(SetCurrentPage(pageKey))
 			SendAnalytics("open_" .. pageKey .. "_tab", Constants.AnalyticsMenuActionName, {})
 		end,
+		fetchShareInviteLink = function()
+			-- TODO (timothyhsu): Set linkType once enum is available
+			dispatch(NetworkingShareLinks.GenerateLink.API({ linkType = "" }))
+		end
 	}
 end)(PageNavigation)

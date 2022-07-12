@@ -214,4 +214,7 @@ return{
 	["CoreScripts.InGameMenu.CoreScripts.InGameMenu.Prompt.ReturnHome"] = [[Retour à la page d'accueil ?]],
 	["CoreScripts.InGameMenu.Prompt.ReturnHome"] = [[Retour à la page d'accueil ?]],
 	["CoreScripts.InGameMenu.Prompt.ReturnHomeBodyText"] = [[Retourner à la page d'accueil et découvrir d'autres expériences.]],
+	["CoreScripts.InGameMenu.Actions.BlockFriend"] = [[Bloquer un ami ?]],
+	["CoreScripts.InGameMenu.QuickActions.ScreenshotSaved"] = [[Capture d'écran sauvegardée]],
+	["CoreScripts.InGameMenu.Action.ShareServerLink"] = [[Partager le lien du serveur]],
 }

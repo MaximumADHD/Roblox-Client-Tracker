@@ -3,17 +3,23 @@ local CorePackages = game:GetService("CorePackages")
 local MessageBus = require(CorePackages.UniversalApp.MessageBus)
 local t = require(CorePackages.Packages.t)
 
-game:DefineFastFlag("EnableWebViewProtocolForTestingOnly", false)
+local Types = require(script.Parent.WebViewProtocolTypes)
 
 type MessageBus = MessageBus.MessageBus
-type Subscriber = MessageBus.Subscriber
-type MessageDescriptor = MessageBus.MessageDescriptor
 type Table = MessageBus.Table
+
+export type WebViewProtocol = Types.WebViewProtocol
+export type WebViewProtocolModule = WebViewProtocol & {
+	__index: WebViewProtocol,
+	new: (messageBus: MessageBus?) -> WebViewProtocol,
+	default: WebViewProtocol,
+}
+
+game:DefineFastFlag("EnableWebViewProtocolForTestingOnly", false)
 
 local NAME = "WebView"
 
-local WebViewProtocol = {}
-WebViewProtocol = {
+local WebViewProtocol: WebViewProtocolModule = {
 	OPEN_WINDOW_DESCRIPTOR = {
 		mid = MessageBus.getMessageId(NAME, "openWindow"),
 		validateParams = t.strictInterface({
@@ -48,35 +54,17 @@ WebViewProtocol = {
 		mid = MessageBus.getMessageId(NAME, "handleWindowClose"),
 		validateParams = t.table,
 	},
-}
+} :: WebViewProtocolModule
 WebViewProtocol.__index = WebViewProtocol
 
-export type WebViewProtocol = {
-	OPEN_WINDOW_DESCRIPTOR: MessageDescriptor,
-	MUTATE_WINDOW_DESCRIPTOR: MessageDescriptor,
-	CLOSE_WINDOW_DESCRIPTOR: MessageDescriptor,
-	HANDLE_WINDOW_CLOSE_DESCRIPTOR: MessageDescriptor,
-
-	new: (MessageBus?) -> WebViewProtocol,
-	openWindow: (WebViewProtocol, Table) -> (),
-	mutateWindow: (WebViewProtocol, Table) -> (),
-	closeWindow: (WebViewProtocol) -> (),
-	listenForWindowClose: (WebViewProtocol, () -> ()) -> (),
-	stopListening: (WebViewProtocol) -> (),
-	isEnabled: () -> boolean,
-
-	messageBus: MessageBus,
-	subscriber: Subscriber,
-}
-
-function WebViewProtocol.new(messageBus: MessageBus?)
-	local messageBus = (messageBus or MessageBus) :: MessageBus
+function WebViewProtocol.new(_messageBus: MessageBus?): WebViewProtocol
+	local messageBus = (_messageBus or MessageBus) :: MessageBus
 	local self = {
 		messageBus = messageBus,
 		subscriber = messageBus.Subscriber.new(),
 	}
 	setmetatable(self, WebViewProtocol)
-	return self
+	return (self :: any) :: WebViewProtocol
 end
 
 function WebViewProtocol:openWindow(params: Table): ()

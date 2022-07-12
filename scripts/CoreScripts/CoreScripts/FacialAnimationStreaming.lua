@@ -17,6 +17,8 @@ local log = require(RobloxGui.Modules.Logger):new(script.Name)
 local playerAnimations = {}
 local playerCharacterAddConnections = {}
 local playerCharacterRemoveConnections = {}
+local playerCharacterDescendantAddedConnections = {}
+local playerCharacterDescendantRemovingConnections = {}
 local playerJoinedChat = {}
 local playerJoinedGame = {}
 
@@ -36,43 +38,98 @@ local function playerTrace(message, player)
 	log:trace(string.format("%s {id: %s, name: %s}.", message, userId, userName))
 end
 
-local function playerAnimate(player)
-	playerTrace("Player animate", player)
-
-	local humanoid = player.Character:WaitForChild("Humanoid")
-	local animator = humanoid:WaitForChild("Animator")
-
-	local playerAnimation = {}
-	playerAnimation.animation = Instance.new("TrackerStreamAnimation")
-	playerAnimation.animationTrack = animator:LoadStreamAnimation(playerAnimation.animation)
-	playerAnimation.animationTrack:Play(0.1, 1)
-
-	playerAnimations[player.UserId] = playerAnimation
+-- clearConnectionForPlayer(connections, userId)
+local function clearConnectionForPlayer(connections, userId)
+	if connections[userId] then
+		connections[userId]:Disconnect()
+		connections[userId] = nil
+	end
 end
 
-local function onCharacterAdded(character)
-	local player = Players:GetPlayerFromCharacter(character)
+local function clearAllConnectionsForPlayer(player)
+	clearConnectionForPlayer(playerCharacterAddConnections, player.UserId)
+	clearConnectionForPlayer(playerCharacterRemoveConnections, player.UserId)
+	clearConnectionForPlayer(playerCharacterDescendantAddedConnections, player.UserId)
+	clearConnectionForPlayer(playerCharacterDescendantRemovingConnections, player.UserId)
+end
 
-	playerTrace("Player character added", player)
-
-	if playerAnimations[player.UserId] and playerAnimations[player.UserId].animationTrack then
-		playerAnimations[player.UserId].animationTrack:Stop(0.0)
+local function clearCharacterAnimations(player)
+	playerTrace("clearCharacterAnimations", player)
+	if playerAnimations[player.UserId] then
+		if playerAnimations[player.UserId].animation then
+			playerAnimations[player.UserId].animation:Destroy()
+			playerAnimations[player.UserId].animation = nil
+		end
+		if playerAnimations[player.UserId].animationTrack then
+			playerAnimations[player.UserId].animationTrack:Stop()
+			playerAnimations[player.UserId].animationTrack:Destroy()
+			playerAnimations[player.UserId].animationTrack = nil
+		end
 		playerAnimations[player.UserId] = nil
 	end
-
-	playerAnimate(player)
 end
 
-local function onCharacterRemoving(character)
-	local player = Players:GetPlayerFromCharacter(character)
-	if player then
-		playerTrace("Player character removing", player)
-
-		if playerAnimations[player.UserId] and playerAnimations[player.UserId].animationTrack then
-			playerAnimations[player.UserId].animationTrack:Stop(0.0)
-			playerAnimations[player.UserId] = nil
+local function getPlayerAnimator(player)
+	if player.Character then
+		local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
+		if humanoid then
+			return humanoid:FindFirstChildOfClass("Animator")
 		end
 	end
+
+	return nil
+end
+
+local function setupAnimator(player, animator)
+	if animator then
+		local playerAnimation = {}
+		playerAnimation.animation = Instance.new("TrackerStreamAnimation")
+		playerAnimation.animationTrack = animator:LoadStreamAnimation(playerAnimation.animation)
+		playerAnimation.animationTrack:Play(0.1, 1)
+
+		playerAnimations[player.UserId] = playerAnimation
+	end
+end
+
+local function onCharacterDescendantAdded(player, descendant)
+	if descendant:IsA("Animator") and descendant:IsDescendantOf(game) then
+		setupAnimator(player, descendant)
+	end
+end
+
+local function onCharacterDescendantRemoving(player, descendant)
+	if descendant:IsA("Animator") then
+		clearCharacterAnimations(player)
+	end
+end
+
+local function onCharacterAdded(player, character)
+	playerTrace("Player character added", player)
+
+	-- clear previous connections
+	clearConnectionForPlayer(playerCharacterDescendantAddedConnections, player.UserId)
+	clearConnectionForPlayer(playerCharacterDescendantRemovingConnections, player.UserId)
+
+	-- listen for descendants of the character
+	playerCharacterDescendantAddedConnections[player.UserId] = character.DescendantAdded:Connect(function(descendant)
+		onCharacterDescendantAdded(player, descendant)
+	end)
+	playerCharacterDescendantRemovingConnections[player.UserId] = character.DescendantRemoving:Connect(function(descendant)
+		onCharacterDescendantRemoving(player, descendant)
+	end)
+
+	-- check if we have the animator ready to animate character
+	setupAnimator(player, getPlayerAnimator(player))
+end
+
+local function onCharacterRemoving(player, character)
+	playerTrace("Player character removing", player)
+
+	-- clear previous connections
+	clearConnectionForPlayer(playerCharacterDescendantAddedConnections, player.UserId)
+	clearConnectionForPlayer(playerCharacterDescendantRemovingConnections, player.UserId)
+
+	clearCharacterAnimations(player)
 end
 
 local function playerUpdate(player)
@@ -85,31 +142,24 @@ local function playerUpdate(player)
 	local isLocal = Players.LocalPlayer.UserId == player.UserId
 	local setupPlayer = FacialAnimationStreamingService.Enabled and playerJoinedGame[player.UserId] and (playerJoinedChat[player.UserId] or isLocal)
 
-	if playerCharacterAddConnections[player.UserId] then
-		playerCharacterAddConnections[player.UserId]:Disconnect()
-		playerCharacterAddConnections[player.UserId] = nil
-	end
-
-	if playerCharacterRemoveConnections[player.UserId] then
-		playerCharacterRemoveConnections[player.UserId]:Disconnect()
-		playerCharacterRemoveConnections[player.UserId] = nil
-	end
+	clearAllConnectionsForPlayer(player)
 
 	if setupPlayer then
 		playerTrace("Player update - joined", player)
 
 		if player.Character then
-			playerAnimate(player)
+			onCharacterAdded(player, player.Character)
 		end
-		playerCharacterAddConnections[player.UserId] = player.CharacterAdded:Connect(onCharacterAdded)
-		playerCharacterRemoveConnections[player.UserId] = player.CharacterRemoving:Connect(onCharacterRemoving)
+
+		playerCharacterAddConnections[player.UserId] = player.CharacterAdded:Connect(function(character)
+			onCharacterAdded(player, character)
+		end)
+		playerCharacterRemoveConnections[player.UserId] = player.CharacterRemoving:Connect(function(character)
+			onCharacterRemoving(player, character)
+		end)
 	else -- Player left game/chat
 		playerTrace("Player update - left", player)
-
-		if playerAnimations[player.UserId] and playerAnimations[player.UserId].animationTrack then
-			playerAnimations[player.UserId].animationTrack:Stop(0.0)
-			playerAnimations[player.UserId] = nil
-		end
+		clearCharacterAnimations(player)
 	end
 end
 

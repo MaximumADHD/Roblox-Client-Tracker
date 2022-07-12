@@ -1,10 +1,6 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
 
-local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
-local FFlagToolboxAudioDiscoveryRound2 =
-	require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscoveryRound2()
-
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
@@ -45,10 +41,8 @@ type _ExternalAudioScrollerProps = {
 	RenderTopContent: nil | (() -> nil),
 	AudioType: string?,
 	FetchNextPage: ((pageSize: number) -> ())?,
-	-- When removing FFlagToolboxHomeViewAnalyticsUpdate LogImpression should not be optional
 	LogImpression: (asset: AssetInfo.AssetInfo) -> ()?,
-	-- When removing FFlagToolboxAudioDiscoveryRound2 tryOpenAssetConfig should not be optional
-	tryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn?,
+	tryOpenAssetConfig: AssetLogicWrapper.TryOpenAssetConfigFn,
 }
 type AudioScrollerProps = _InteralAudioScrollerProps & _ExternalAudioScrollerProps
 
@@ -183,8 +177,8 @@ function AudioScroller:render()
 				TryInsert = tryInsert,
 				CanInsertAsset = canInsertAsset,
 				LayoutOrder = 2,
-				LogImpression = if FFlagToolboxHomeViewAnalyticsUpdate then logImpression else nil,
-				tryOpenAssetConfig = if FFlagToolboxAudioDiscoveryRound2 then props.tryOpenAssetConfig else nil,
+				LogImpression = logImpression,
+				tryOpenAssetConfig = props.tryOpenAssetConfig,
 			}),
 			LoadingIndicator = loading and Roact.createElement("Frame", {
 				BackgroundColor3 = theme.backgroundColor,

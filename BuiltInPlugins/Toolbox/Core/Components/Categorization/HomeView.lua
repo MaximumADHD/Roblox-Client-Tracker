@@ -6,7 +6,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxUseExpandableTopSearch = game:GetFastFlag("ToolboxUseExpandableTopSearch") -- TODO: Flip when UISYS-1334 is ready
 local FintToolboxHomeViewInitialPageSize = game:GetFastInt("ToolboxHomeViewInitialPageSize")
-local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
 local FFlagToolboxFixTryInStudio = game:GetFastFlag("ToolboxFixTryInStudio")
 local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
 local FFlagToolboxHomeViewSingleLaneNoTitle = game:GetFastFlag("ToolboxHomeViewSingleLaneNoTitle")
@@ -210,9 +209,7 @@ function HomeView:init()
 		local networkInterface = getNetwork(self)
 		local settings = self.props.Settings:get("Plugin")
 
-		if FFlagToolboxHomeViewAnalyticsUpdate and logSearchAnalytics then
-			logSearchAnalytics(searchText, categoryName)
-		end
+		logSearchAnalytics(searchText, categoryName)
 		requestSearchRequest(networkInterface, settings, searchText, categoryName)
 	end
 
@@ -514,17 +511,11 @@ local function mapDispatchToProps(dispatch)
 			dispatch(GetAssetPreviewDataForStartup(assetId, tryInsert, localization, networkInterface, setAssetPreview))
 		end,
 		requestSearchRequest = function(networkInterface, settings, searchTerm, categoryName)
-			if FFlagToolboxHomeViewAnalyticsUpdate then
-				dispatch(RequestSearchRequest(networkInterface, settings, searchTerm, categoryName, true))
-			else
-				dispatch(RequestSearchRequest(networkInterface, settings, searchTerm, categoryName))
-			end
+			dispatch(RequestSearchRequest(networkInterface, settings, searchTerm, categoryName, true))
 		end,
-		logSearchAnalytics = if FFlagToolboxHomeViewAnalyticsUpdate
-			then function(keyword, assetType)
-				dispatch(LogMarketplaceSearchAnalytics(keyword, assetType, nil, nil, nil, false, true))
-			end
-			else nil,
+		logSearchAnalytics = function(keyword, assetType)
+			dispatch(LogMarketplaceSearchAnalytics(keyword, assetType, nil, nil, nil, false, true))
+		end,
 	}
 end
 

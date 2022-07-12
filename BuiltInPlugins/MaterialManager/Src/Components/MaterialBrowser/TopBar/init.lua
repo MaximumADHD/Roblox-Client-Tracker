@@ -44,7 +44,7 @@ local ViewTypeSelector = require(TopBarComponents.ViewTypeSelector)
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialManagerMaterialAsTool = require(Flags.getFFlagMaterialManagerMaterialAsTool)
 local getFFlagMaterialManagerUtilTests = require(Flags.getFFlagMaterialManagerUtilTests)
-local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
+local getFFlagMaterialManagerAnalyticsCounter = require(Flags.getFFlagMaterialManagerAnalyticsCounter)
 
 local TopBar = Roact.PureComponent:extend("TopBar")
 
@@ -55,6 +55,7 @@ export type Props = {
 }
 
 type _Props = Props & {
+	ActiveAsTool: boolean,
 	Analytics: any,
 	dispatchClearMaterialVariant: () -> (),
 	dispatchSetMaterialTileSize: (size : number) -> (),
@@ -101,10 +102,6 @@ local BUTTON_COUNT = 3
 local SPACER_COUNT = 2
 
 function TopBar:init()
-	self.state = {
-		pressed = false,
-	}
-
 	self.createMaterialVariant = function()
 		local props: _Props = self.props
 
@@ -120,7 +117,7 @@ function TopBar:init()
 			props.GeneralServiceController:SetSelection({
 				props.Material.MaterialVariant
 			})
-			if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
+			if getFFlagMaterialManagerAnalyticsCounter() then
 				props.Analytics:report("showInExplorer")
 			end
 		end
@@ -137,8 +134,7 @@ function TopBar:init()
 				ApplyToSelection(props.Material.Material,
 					if props.Material.MaterialVariant then props.Material.MaterialVariant.Name else nil)
 			end
-
-			if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
+			if getFFlagMaterialManagerAnalyticsCounter() then
 				props.Analytics:report("applyToSelectionButton")
 			end
 		end
@@ -146,18 +142,11 @@ function TopBar:init()
 
 	self.materialAsTool = function()
 		local props: _Props = self.props
-		local state = self.state
 
-		if not state.pressed and props.Material then
+		if not props.ActiveAsTool and props.Material then
 			props.PluginController:toggleMaterialAsTool()
-			self:setState({
-				pressed = true,
-			})
-		elseif state.pressed then
+		elseif props.ActiveAsTool then
 			props.PluginController:untoggleMaterialAsTool()
-			self:setState({
-				pressed = false,
-			})
 		end
 	end
 
@@ -165,8 +154,7 @@ function TopBar:init()
 		local props: _Props = self.props
 
 		props.MaterialServiceController:setSearch(search)
-
-		if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
+		if getFFlagMaterialManagerAnalyticsCounter() then
 			props.Analytics:report("searchBar")
 		end
 	end
@@ -175,7 +163,6 @@ end
 function TopBar:render()
 	local props: _Props = self.props
 	local style: _Style = props.Stylizer.TopBar
-	local state = self.state
 	local layoutOrder = props.LayoutOrder
 	local size = props.Size
 
@@ -201,7 +188,7 @@ function TopBar:render()
 
 	local isDisabledShowInExplorer = if not props.Material or not props.Material.MaterialVariant then true else false
 	local isDisabledApplyToSelection = not props.Material
-	local isPressed = state.pressed
+	local isPressed = props.ActiveAsTool
 
 	return Roact.createElement(Pane, join({
 		BackgroundColor = backgroundColor,
@@ -274,6 +261,7 @@ TopBar = withContext({
 return RoactRodux.connect(
 	function(state: MainReducer.State)
 		return {
+			ActiveAsTool = state.MaterialBrowserReducer.ActiveAsTool,
 			Material = state.MaterialBrowserReducer.Material,
 			MaterialTileSize = state.MaterialBrowserReducer.MaterialTileSize,
 			MenuHover = state.MaterialBrowserReducer.MenuHover,

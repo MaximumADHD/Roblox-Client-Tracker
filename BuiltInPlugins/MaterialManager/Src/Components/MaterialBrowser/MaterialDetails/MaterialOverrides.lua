@@ -32,8 +32,7 @@ local Flags = Plugin.Src.Flags
 local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
 local getFFlagMaterialManagerGridOverhaul = require(Flags.getFFlagMaterialManagerGridOverhaul)
 local getFFlagMaterialManagerEnableTests = require(Flags.getFFlagMaterialManagerEnableTests)
-
-local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
+local getFFlagMaterialManagerAnalyticsCounter = require(Flags.getFFlagMaterialManagerAnalyticsCounter)
 
 local supportedMaterials = getSupportedMaterials()
 
@@ -108,8 +107,7 @@ function MaterialOverrides:init()
 
 				props.MaterialServiceController:setMaterialOverride(props.Material.Material, props.MaterialOverrides[materialIndex])
 			end
-
-			if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
+			if getFFlagMaterialManagerAnalyticsCounter() then
 				props.Analytics:report("setOverrideToggled")
 			end
 		end

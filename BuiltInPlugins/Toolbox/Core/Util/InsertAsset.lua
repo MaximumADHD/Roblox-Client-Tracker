@@ -13,7 +13,6 @@ local webKeys = require(Plugin.Core.Util.Permissions.Constants).webKeys
 
 local FFlagToolboxFixDragInsertRemains = game:GetFastFlag("ToolboxFixDragInsertRemains")
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
-local FFlagBubbleUpNetworkInterface = game:GetFastFlag("InsertAssetBubbleUpNetwork")
 local FFlagMoveAssetInsertionCallbacksToPlugin = game:GetFastFlag("MoveAssetInsertionCallbacksToPlugin")
 
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
@@ -61,16 +60,9 @@ local function getInsertPosition()
 	end
 end
 
-local function grantAssetPermission(assetId, networkInterface) --networkInterface added with FFLagInsertAssetBubbleUpNetwork
+local function grantAssetPermission(assetId, networkInterface)
 	if game.GameId == 0 then
 		return
-	end
-
-	local _networkInterface = nil -- delete with FFlagBubbleUpNetworkInterface
-	if FFlagBubbleUpNetworkInterface then
-		_networkInterface = networkInterface
-	else
-		_networkInterface = NetworkInterface.new()
 	end
 
 	local requestBody = {
@@ -82,7 +74,7 @@ local function grantAssetPermission(assetId, networkInterface) --networkInterfac
 			},
 		},
 	}
-	return _networkInterface
+	return networkInterface
 		:grantAssetPermissionWithTimeout(assetId, requestBody)
 		:catch(function(err)
 			return err
@@ -90,7 +82,7 @@ local function grantAssetPermission(assetId, networkInterface) --networkInterfac
 		:await()
 end
 
-local function doPermissionGrantDialogForAsset(assetName, assetId, assetTypeId, insertToolPromise, localization, networkInterface) --networkInterface added with FFLagInsertAssetBubbleUpNetwork
+local function doPermissionGrantDialogForAsset(assetName, assetId, assetTypeId, insertToolPromise, localization, networkInterface)
 	if game.GameId == 0 then
 		return
 	end
@@ -113,7 +105,7 @@ local function doPermissionGrantDialogForAsset(assetName, assetId, assetTypeId, 
 		assetType = localization:getText("General", "AssetTypeAudio"),
 	})
 	if grantPermission then
-		local result = grantAssetPermission(assetId, networkInterface) -- networkInterface added with FFLagInsertAssetBubbleUpNetwork
+		local result = grantAssetPermission(assetId, networkInterface)
 		if result ~= nil and result.Body ~= nil and result.Body.Error ~= nil and result.Body.Error.Code ~= nil and result.Body.Error.Code ~= 4 then
 			warn(localization:getText("GrantAssetPermission", "Failure", {
 				assetId = assetId,
@@ -127,13 +119,13 @@ local function doPermissionGrantDialogForAsset(assetName, assetId, assetTypeId, 
 	end
 end
 
-local function insertAudio(assetId, assetName, insertToolPromise, localization, networkInterface) -- networkInterface added with FFLagInsertAssetBubbleUpNetwork
+local function insertAudio(assetId, assetName, insertToolPromise, localization, networkInterface)
 	local url = Urls.constructAssetIdString(assetId)
 	if DebugFlags.shouldDebugUrls() then
 		print(("Inserting sound %s"):format(url))
 	end
 
-	grantAssetPermission(assetId, networkInterface) -- networkInterface added with FFLagInsertAssetBubbleUpNetwork
+	grantAssetPermission(assetId, networkInterface)
 
 	local soundObj = Instance.new("Sound")
 	soundObj.SourceAssetId = assetId
@@ -398,7 +390,7 @@ local function assetTypeIdToString(assetTypeId)
 	end
 end
 
-local function dispatchInsertAsset(options, insertToolPromise, networkInterface) -- networkInterface added with FFLagInsertAssetBubbleUpNetwork
+local function dispatchInsertAsset(options, insertToolPromise, networkInterface)
 	local isPackage = Category.categoryIsPackage(options.categoryName)
 	if isPackage then
 		return insertPackage(options.assetId)
@@ -481,7 +473,7 @@ function InsertAsset.tryInsert(options, insertToolPromise, assetWasDragged, netw
 end
 
 --TODO: CLIDEVSRVS-1691: Replacing category index with assetTypeId for package insertion in lua toolbox
-function InsertAsset.doInsertAsset(options, insertToolPromise, networkInterface) -- networkInterface added with FFLagInsertAssetBubbleUpNetwork
+function InsertAsset.doInsertAsset(options, insertToolPromise, networkInterface)
 	local assetId = options.assetId
 	local assetName = options.assetName
 	local assetTypeId = options.assetTypeId

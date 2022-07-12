@@ -216,4 +216,6 @@ return{
 	["CoreScripts.InGameMenu.Prompt.ReturnHomeBodyText"] = [[]],
 	["CoreScripts.InGameMenu.Actions.BlockFriend"] = [[]],
 	["CoreScripts.InGameMenu.QuickActions.ScreenshotSaved"] = [[]],
+	["CoreScripts.InGameMenu.Action.ShareServerLink"] = [[]],
+	["CoreScripts.InGameMenu.Controls.Scriptable"] = [[]],
 }

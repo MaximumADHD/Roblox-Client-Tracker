@@ -33,6 +33,7 @@ local CoreScriptModules = EmotesModules.Parent
 local RobloxTranslator = require(CoreScriptModules.RobloxTranslator)
 
 local GetFFlagNewEmotesInGame = require(RobloxGui.Modules.Flags.GetFFlagNewEmotesInGame)
+local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 
 local EmotesMenu = Roact.PureComponent:extend("EmotesMenu")
 
@@ -191,8 +192,20 @@ function EmotesMenu:didMount()
 	self.menuOpenedConn = GuiService.MenuOpened:Connect(function()
 		if self.props.displayOptions.menuVisible then
 			self.props.hideMenu()
+			if EnableInGameMenuV3() then
+				self.shouldResumeEmotes = true
+			end
 		end
 	end)
+
+	if EnableInGameMenuV3() then
+		self.menuClosedConn = GuiService.MenuClosed:Connect(function()
+			if self.shouldResumeEmotes then
+				self.props.openMenu()
+				self.shouldResumeEmotes = false
+			end
+		end)
+	end
 
 	self.inputOutsideMenuConn = UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
 		if gameProcessedEvent then
@@ -224,6 +237,11 @@ function EmotesMenu:willUnmount()
 	self.currentCameraChangedConn = nil
 	self.viewportSizeChangedConn = nil
 	self.menuOpenedConn = nil
+	if EnableInGameMenuV3() then
+		self.menuClosedConn:Disconnect()
+		self.menuClosedConn = nil
+		self.shouldResumeEmotes = false
+	end
 	self.inputOutsideMenuConn = nil
 
 	self:unbindActions()

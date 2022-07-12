@@ -181,6 +181,8 @@ return function()
 		end)
 
 		it("should throw error when invalid permissions are given", function(context)
+			local oldValue = game:SetFastFlagForTesting("DebugRomarkAudioPermissionsBypass", false)
+			
 			expect(function()
 				context.PermissionsProtocol:hasPermissions(InvalidPermissions)
 			end).to.throw()
@@ -192,6 +194,8 @@ return function()
 			expect(function()
 				context.PermissionsProtocol:supportsPermissions(InvalidPermissions)
 			end).to.throw()
+
+			game:SetFastFlagForTesting("DebugRomarkAudioPermissionsBypass", oldValue)
 		end)
 	end)
 end

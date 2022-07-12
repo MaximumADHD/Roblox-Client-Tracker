@@ -62,14 +62,6 @@ local FFlagUserFlagEnableNewVRSystem do
 	FFlagUserFlagEnableNewVRSystem = success and result
 end
 
-local FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame
-do
-	local success, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame")
-	end)
-	FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame = success and value
-end
-
 --[[ The Module ]]--
 local BaseCamera = {}
 BaseCamera.__index = BaseCamera
@@ -630,13 +622,7 @@ function BaseCamera:Cleanup()
 	self.lastSubjectCFrame = nil
 
 	-- Unlock mouse for example if right mouse button was being held down
-	if FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame then
-		CameraUtils.restoreMouseBehavior()
-	else
-		if UserInputService.MouseBehavior ~= Enum.MouseBehavior.LockCenter then
-			UserInputService.MouseBehavior = Enum.MouseBehavior.Default
-		end
-	end
+	CameraUtils.restoreMouseBehavior()
 end
 
 function BaseCamera:UpdateMouseBehavior()
@@ -652,21 +638,11 @@ function BaseCamera:UpdateMouseBehavior()
 
 		-- first time transition to first person mode or mouse-locked third person
 		if self.inFirstPerson or self.inMouseLockedMode then
-			if FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame then
-				CameraUtils.setRotationTypeOverride(Enum.RotationType.CameraRelative)
-				CameraUtils.setMouseBehaviorOverride(Enum.MouseBehavior.LockCenter)
-			else
-				UserGameSettings.RotationType = Enum.RotationType.CameraRelative
-				UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
-			end
+			CameraUtils.setRotationTypeOverride(Enum.RotationType.CameraRelative)
+			CameraUtils.setMouseBehaviorOverride(Enum.MouseBehavior.LockCenter)
 		else
-			if FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame then
-				CameraUtils.restoreRotationType()
-				CameraUtils.restoreMouseBehavior()
-			else
-				UserGameSettings.RotationType = Enum.RotationType.MovementRelative
-				UserInputService.MouseBehavior = Enum.MouseBehavior.Default
-			end
+			CameraUtils.restoreRotationType()
+			CameraUtils.restoreMouseBehavior()
 		end
 	end
 end

@@ -6,9 +6,7 @@ local FileUtils = require(Plugin.Src.Util.FileUtils)
 local Promise = Util.Promise
 local Symbol = Util.Symbol
 
-local StudioService = game:GetService("StudioService")
 local StudioPublishService = game:GetService("StudioPublishService")
-local FFLagMovePublishToStudioPublishService = game:GetFastFlag("MovePublishToStudioPublishService")
 
 local GameInfoController = {}
 GameInfoController.__index = GameInfoController
@@ -105,11 +103,7 @@ function GameInfoController:setName(gameId, name)
 	if returnError then
 		error(returnError)
 	else
-		if FFLagMovePublishToStudioPublishService then
-			StudioPublishService:SetUniverseDisplayName(name)
-		else
-			StudioService:DEPRECATED_SetUniverseDisplayName(name)
-		end
+		StudioPublishService:SetUniverseDisplayName(name)
 	end
 end
 

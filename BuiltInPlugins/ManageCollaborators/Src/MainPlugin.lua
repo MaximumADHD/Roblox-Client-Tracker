@@ -2,7 +2,7 @@
 	The main plugin component.
 	Consists of the PluginWidget, Toolbar, Button, and Roact tree.
 
-	New Plugin Setup: When creating a plugin, commit this template
+		New Plugin Setup: When creating a plugin, commit this template
 		first with /packages in a secondary pull request.
 
 		A common workaround for the large diffs from Packages/_Index is to put
@@ -11,22 +11,17 @@
 		Get people to review *PR*, then after approvals, merge *Packages PR*
 		into *PR*, and then *PR* into master.
 
-
-	New Plugin Setup: Search for other TODOs to see other tasks to modify this template for
-	your needs. All setup TODOs are tagged as New Plugin Setup:
 ]]
-
 local main = script.Parent.Parent
 -- local _Types = require(main.Src.Types) -- uncomment to use types
 local Roact = require(main.Packages.Roact)
 local Rodux = require(main.Packages.Rodux)
 
 local Framework = require(main.Packages.Framework)
-
+local FrameworkUtil = Framework.Util
 local StudioUI = Framework.StudioUI
-local DockWidget = StudioUI.DockWidget
-local PluginToolbar = StudioUI.PluginToolbar
-local PluginButton = StudioUI.PluginButton
+
+local Dialog = StudioUI.Dialog
 
 local ContextServices = Framework.ContextServices
 local Plugin = ContextServices.Plugin
@@ -40,12 +35,25 @@ local SourceStrings = main.Src.Resources.Localization.SourceStrings
 local LocalizedStrings = main.Src.Resources.Localization.LocalizedStrings
 
 local Components = main.Src.Components
-local ExampleComponent = require(Components.ExampleComponent)
-local ExampleRoactRoduxComponent = require(Components.ExampleRoactRoduxComponent)
+local PermissionsView = require(Components.PermissionsView)
+local SavetoRobloxView = require(Components.SaveToRobloxView)
+
+local TeamCreateService = game:GetService("TeamCreateService")
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
+local Networking = require(main.Src.Networking.Networking)
+local GroupMetadataController = require(main.Src.Controllers.GroupMetadataController)
+local GroupRolePermissionsController = require(main.Src.Controllers.GroupRolePermissionsController)
+local GamePermissionsController = require(main.Src.Controllers.GamePermissionsController)
+local GameMetadataController = require(main.Src.Controllers.GameMetadataController)
+local SocialController = require(main.Src.Controllers.SocialController)
+
+local ResetStore = require(main.Src.Actions.ResetStore)
+
 function MainPlugin:init(props)
+	self.plugin = Plugin.new(props.Plugin)
+		
 	self.state = {
 		enabled = false,
 	}
@@ -59,12 +67,15 @@ function MainPlugin:init(props)
 	end
 
 	self.onClose = function()
+		-- Clear the store so that we reload when we open
+		self.store:dispatch(ResetStore())
+
 		self:setState({
 			enabled = false,
 		})
 	end
 
-	self.onRestore = function(enabled)
+	self.onRestore = function(enabled)	
 		self:setState({
 			enabled = enabled
 		})
@@ -75,84 +86,76 @@ function MainPlugin:init(props)
 			enabled = widget.Enabled
 		})
 	end
-
-	self.store = Rodux.Store.new(MainReducer, nil, {
-		Rodux.thunkMiddleware,
-	}, nil)
+	
+	local thunkContextItems = {}
+	
+	local networking = Networking.new()
+	local groupMetadataController = GroupMetadataController.new(networking:get())
+	local groupRolePermisionsController = GroupRolePermissionsController.new(networking:get())
+	local gamePermissionsController = GamePermissionsController.new(networking:get())
+	local gameMetadataController = GameMetadataController.new(networking:get())
+	local socialController = SocialController.new(networking:get())
+	
+	thunkContextItems.networking = networking:get()
+	thunkContextItems.groupMetadataController = groupMetadataController
+	thunkContextItems.groupRolePermisionsController = groupRolePermisionsController
+	thunkContextItems.gamePermissionsController = gamePermissionsController
+	thunkContextItems.gameMetadataController = gameMetadataController
+	thunkContextItems.socialController = socialController
+	
+	local thunkWithArgsMiddleWare = FrameworkUtil.ThunkWithArgsMiddleware(thunkContextItems)
+	local middlewares = { thunkWithArgsMiddleWare }
+	
+	self.store = Rodux.Store.new(MainReducer, nil, middlewares)
 
 	self.localization = ContextServices.Localization.new({
 		stringResourceTable = SourceStrings,
 		translationResourceTable = LocalizedStrings,
 		pluginName = "ManageCollaborators",
 	})
-	--[[
-		New Plugin Setup: Each plugin is expected to provide a createEventHandlers function to the constructor
-			which should return a table mapping event -> eventHandler.
 
-			To enable localization, add the plugin to
-			Client/RobloxStudio/Translation/builtin_plugin_config.py
-	--]]
 	self.analytics = ContextServices.Analytics.new(function()
 		return {}
 	end, {})
-end
 
-function MainPlugin:renderButtons(toolbar)
-	local enabled = self.state.enabled
-
-	return {
-		Toggle = Roact.createElement(PluginButton, {
-			Toolbar = toolbar,
-			Active = enabled,
-			Id = "template_button",
-			Title = self.localization:getText("Plugin", "Button"),
-			Tooltip = self.localization:getText("Plugin", "Description"),
-			--New Plugin Setup: Change Icon. Can be nil if QT is managing the icon
-			Icon = "rbxasset://textures/GameSettings/ToolbarIcon.png",
-			OnClick = self.toggleEnabled,
-			ClickableWhenViewportHidden = true,
-		}),
-	}
+	TeamCreateService.ToggleManageCollaborators:Connect(self.toggleEnabled)
 end
 
 function MainPlugin:render()
 	local props = self.props
 	local state = self.state
-	local plugin = props.Plugin
+	
 	local enabled = state.enabled
+	local isPublishedGame = game.GameId ~= 0
+	
+	local style = MakeTheme()
 
 	return ContextServices.provide({
-		Plugin.new(plugin),
+		self.plugin,
 		Store.new(self.store),
-		Mouse.new(plugin:getMouse()),
-		MakeTheme(),
+		Mouse.new(props.Plugin:getMouse()),
+		style,
 		self.localization,
 		self.analytics,
 	}, {
-		Toolbar = Roact.createElement(PluginToolbar, {
-			Title = self.localization:getText("Plugin", "Toolbar"),
-			RenderButtons = function(toolbar)
-				return self:renderButtons(toolbar)
-			end,
-		}),
-
-		MainWidget = Roact.createElement(DockWidget, {
+		Dialog = Roact.createElement(Dialog, {
+			CreateWidgetImmediately = true,
 			Enabled = enabled,
-			Title = self.localization:getText("Plugin", "Name"),
-			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-			InitialDockState = Enum.InitialDockState.Bottom,
-			Size = Vector2.new(640, 480),
-			MinSize = Vector2.new(250, 200),
+			Modal = true,
+			Title = self.localization:getText("Plugin", "Title"),
+			Size = Vector2.new(800, 571),
 			OnClose = self.onClose,
-			ShouldRestore = true,
-			OnWidgetRestored = self.onRestore,
-			[Roact.Change.Enabled] = self.onWidgetEnabledChanged,
 		}, {
-			-- Plugin contents are mounted here
-			-- New Plugin Setup: Switch out ExampleComponent with your component
-			ExampleComponent = Roact.createElement(ExampleComponent),
-			ExampleRoactRoduxComponent = Roact.createElement(ExampleRoactRoduxComponent),
-		}),
+			PermissionsView = isPublishedGame and Roact.createElement(PermissionsView, {
+				CloseWidget = self.onClose,
+				Plugin = self.plugin,
+				Enabled = enabled
+			}) or nil,
+			
+			SaveToRobloxView = not isPublishedGame and Roact.createElement(SavetoRobloxView, {
+				CloseWidget = self.onClose
+			})
+		})
 	})
 end
 

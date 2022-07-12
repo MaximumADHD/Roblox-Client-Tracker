@@ -6,7 +6,6 @@
 	Props:
 		function OnClose - closure to run to close the QWidget dialog
 ]]
-local StudioService = game:GetService("StudioService")
 local FFlagRemoveUILibrarySeparator = game:GetFastFlag("RemoveUILibrarySeparator")
 local Plugin = script.Parent.Parent.Parent
 
@@ -51,7 +50,6 @@ local selectedKey = KeyProvider.getSelectedKeyName()
 local createNewGameKey = KeyProvider.getCreateNewGameKeyName()
 
 local StudioPublishService = game:GetService("StudioPublishService")
-local FFLagMovePublishToStudioPublishService = game:GetFastFlag("MovePublishToStudioPublishService")
 
 local MENU_ENTRIES = {
 	"BasicInfo",
@@ -90,23 +88,13 @@ function ScreenCreateNewGame:init()
 end
 
 function ScreenCreateNewGame:didMount()
-	if FFLagMovePublishToStudioPublishService then
-		self.finishedConnection = StudioPublishService.GamePublishFinished:connect(function(success, gameId)
-			if success and gameId ~=0 then
-				self.props.OpenPublishSuccessfulPage(self.props.Changed)
-			else
-				self.props.OpenPublishFailPage(self.props.Changed)
-			end
-		end)
-	else
-		self.finishedConnection = StudioService.DEPRECATED_GamePublishFinished:connect(function(success, gameId)
-			if success and gameId ~=0 then
-				self.props.OpenPublishSuccessfulPage(self.props.Changed)
-			else
-				self.props.OpenPublishFailPage(self.props.Changed)
-			end
-		end)
-	end
+	self.finishedConnection = StudioPublishService.GamePublishFinished:connect(function(success, gameId)
+		if success and gameId ~=0 then
+			self.props.OpenPublishSuccessfulPage(self.props.Changed)
+		else
+			self.props.OpenPublishFailPage(self.props.Changed)
+		end
+	end)
 
 	self.props.DispatchLoadGroups()
 end

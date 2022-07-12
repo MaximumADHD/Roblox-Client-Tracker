@@ -24,6 +24,9 @@ local fflagPredictedOOMExit = game:DefineFastFlag("PredictedOOMExit", false)
 local fflagPredictedOOMExitContinueChoice = game:DefineFastFlag("PredictedOOMExitContinueChoice", false)
 local fflagExitContinueHighlight = game:DefineFastFlag("ExitContinueHighlight", false)
 
+local fflagSanitizeKickMessageInDisconnectPrompt = game:DefineFastFlag("SanitizeKickMessageInDisconnectPrompt", false)
+local fintMaxKickMessageLength = game:DefineFastInt("MaxKickMessageLength", 200)
+
 local coreGuiOverflowDetection = game:GetEngineFeature("CoreGuiOverflowDetection")
 
 local LEAVE_GAME_FRAME_WAITS = 2
@@ -432,7 +435,7 @@ end
 
 -- Look up in corelocalization for new string. Otherwise fallback to the original string
 -- If it is teleport error but not TELEPORT_FAILED, use general string "Reconnect failed."
-local function getErrorString(errorMsg, errorCode, reconnectError)
+local function getErrorString(errorMsg: string, errorCode, reconnectError)
 	if errorCode == Enum.ConnectionError.OK then
 		return ""
 	end
@@ -446,6 +449,13 @@ local function getErrorString(errorMsg, errorCode, reconnectError)
 	end
 
 	if errorCode == Enum.ConnectionError.DisconnectLuaKick then
+		if fflagSanitizeKickMessageInDisconnectPrompt then
+			-- Collapse all whitespace to single spaces, destroying any newlines.
+			errorMsg = errorMsg:gsub("%s+", " ")
+			-- Limit final message length to a reasonable value
+			errorMsg = errorMsg:sub(1, fintMaxKickMessageLength)
+		end
+
 		if noHardcodedStringInLuaKickMessage then
 			-- errorMsg is dev message
 			local success, attemptTranslation = pcall(function()

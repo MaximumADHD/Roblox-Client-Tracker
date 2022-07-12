@@ -54,7 +54,7 @@ local PluginController = require(Controllers.PluginController)
 local ApplyToSelection = require(Plugin.Src.Util.ApplyToSelection)
 
 local getFFlagMaterialManagerGridListView = require(Flags.getFFlagMaterialManagerGridListView)
-local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
+local getFFlagMaterialManagerAnalyticsCounter = require(Flags.getFFlagMaterialManagerAnalyticsCounter)
 
 local TopBar = Roact.PureComponent:extend("TopBar")
 
@@ -151,7 +151,7 @@ function TopBar:init()
 			Selection:Set({
 				props.Material.MaterialVariant
 			})
-			if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
+			if getFFlagMaterialManagerAnalyticsCounter() then
 				props.Analytics:report("showInExplorer")
 			end
 		end
@@ -163,14 +163,14 @@ function TopBar:init()
 		if getFFlagMaterialManagerGlassNeonForceField() and props.Material then
 			ApplyToSelection(props.Material.Material,
 				if props.Material.MaterialVariant then props.Material.MaterialVariant.Name else nil)
-			if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
+			if getFFlagMaterialManagerAnalyticsCounter() then
 				props.Analytics:report("applyToSelectionButton")
 			end
 		else
 			if props.Material then
 				ApplyToSelection(props.Material.Material,
 					if props.Material.MaterialVariant then props.Material.MaterialVariant.Name else nil)
-				if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
+				if getFFlagMaterialManagerAnalyticsCounter() then
 					props.Analytics:report("applyToSelectionButton")
 				end
 			elseif Selection and props.Material then
@@ -185,8 +185,7 @@ function TopBar:init()
 						end
 					end
 				end
-
-				if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
+				if getFFlagMaterialManagerAnalyticsCounter() then
 					props.Analytics:report("applyToSelectionButton")
 				end
 			end
@@ -203,8 +202,7 @@ function TopBar:init()
 			props.dispatchSetSearch(search)
 		end
 
-		
-		if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
+		if getFFlagMaterialManagerAnalyticsCounter() then
 			props.Analytics:report("searchBar")
 		end
 	end

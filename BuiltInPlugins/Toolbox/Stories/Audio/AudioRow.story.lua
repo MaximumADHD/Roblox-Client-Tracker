@@ -1,11 +1,9 @@
 local Plugin = script:FindFirstAncestor("Toolbox")
-local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
 local Dash = Framework.Dash
-local CoreTestUtils = require(Plugin.TestUtils.CoreTestUtils)
 local Category = require(Plugin.Core.Types.Category)
 
 local AssetInfo = require(Plugin.Core.Models.AssetInfo)
@@ -144,37 +142,37 @@ end
 return {
 	summary = "Audio Row",
 	stories = {
-		FFlagToolboxAudioDiscovery and {
+		{
 			name = "Soundeffect Odd",
 			story = Roact.createElement(ToolboxStoryWrapper, {}, {
 				AudioRow = Roact.createElement(AudioRowWrapper, { AssetInfo = fakeSoundEffectAsset, LayoutOrder = 1 }),
 			}),
-		} or CoreTestUtils.mustSetFlag("FFlagToolboxAudioDiscovery", true),
-		FFlagToolboxAudioDiscovery and {
+		},
+		{
 			name = "Soundeffect Even",
 			story = Roact.createElement(ToolboxStoryWrapper, {}, {
 				AudioRow = Roact.createElement(AudioRowWrapper, { AssetInfo = fakeSoundEffectAsset, LayoutOrder = 2 }),
 			}),
-		} or CoreTestUtils.mustSetFlag("FFlagToolboxAudioDiscovery", true),
-		FFlagToolboxAudioDiscovery and {
+		},
+		{
 			name = "Music Odd",
 			story = Roact.createElement(ToolboxStoryWrapper, {}, {
 				AudioRow = Roact.createElement(AudioRowWrapper, { AssetInfo = fakeMusicAsset, LayoutOrder = 1 }),
 			}),
-		} or CoreTestUtils.mustSetFlag("FFlagToolboxAudioDiscovery", true),
-		FFlagToolboxAudioDiscovery and {
+		},
+		{
 			name = "Music Even",
 			story = Roact.createElement(ToolboxStoryWrapper, {}, {
 				AudioRow = Roact.createElement(AudioRowWrapper, { AssetInfo = fakeMusicAsset, LayoutOrder = 2 }),
 			}),
-		} or CoreTestUtils.mustSetFlag("FFlagToolboxAudioDiscovery", true),
-		FFlagToolboxAudioDiscovery and {
+		},
+		{
 			name = "Empty Music",
 			story = Roact.createElement(ToolboxStoryWrapper, {}, {
 				AudioRow = Roact.createElement(AudioRowWrapper, { AssetInfo = fakeEmptyMusicAsset, LayoutOrder = 2 }),
 			}),
-		} or CoreTestUtils.mustSetFlag("FFlagToolboxAudioDiscovery", true),
-		FFlagToolboxAudioDiscovery and {
+		},
+		{
 			name = "Empty SoundEffect",
 			story = Roact.createElement(ToolboxStoryWrapper, {}, {
 				AudioRow = Roact.createElement(
@@ -182,12 +180,12 @@ return {
 					{ AssetInfo = fakeEmptySoundEffectAsset, LayoutOrder = 2 }
 				),
 			}),
-		} or CoreTestUtils.mustSetFlag("FFlagToolboxAudioDiscovery", true),
-		FFlagToolboxAudioDiscovery and {
+		},
+		{
 			name = "Uncategorized",
 			story = Roact.createElement(ToolboxStoryWrapper, {}, {
 				AudioRow = Roact.createElement(AudioRowWrapper, { AssetInfo = fakeEmptyAsset, LayoutOrder = 2 }),
 			}),
-		} or CoreTestUtils.mustSetFlag("FFlagToolboxAudioDiscovery", true),
+		},
 	},
 }

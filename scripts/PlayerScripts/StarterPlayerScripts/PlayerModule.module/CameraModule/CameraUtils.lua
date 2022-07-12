@@ -5,22 +5,6 @@
 
 --!strict
 
-local FFlagUserCameraToggleDontSetMouseIconEveryFrame
-do
-	local success, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserCameraToggleDontSetMouseIconEveryFrame")
-	end)
-	FFlagUserCameraToggleDontSetMouseIconEveryFrame = success and value
-end
-
-local FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame
-do
-	local success, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame")
-	end)
-	FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame = success and value
-end
-
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
@@ -255,75 +239,71 @@ function CameraUtils.ConvertCameraModeEnumToStandard(enumValue:
 	return Enum.ComputerCameraMovementMode.Classic
 end
 
-if FFlagUserCameraToggleDontSetMouseIconEveryFrame then
-	local function getMouse()
-		local localPlayer = Players.LocalPlayer
-		if not localPlayer then
-			Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
-			localPlayer = Players.LocalPlayer
-		end
-		return localPlayer:GetMouse()
+local function getMouse()
+	local localPlayer = Players.LocalPlayer
+	if not localPlayer then
+		Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
+		localPlayer = Players.LocalPlayer
 	end
-
-	local savedMouseIcon: string = ""
-	local lastMouseIconOverride: string? = nil
-	function CameraUtils.setMouseIconOverride(icon: string)
-		local mouse = getMouse()
-		-- Only save the icon if it was written by another script.
-		if mouse.Icon ~= lastMouseIconOverride then
-			savedMouseIcon = mouse.Icon
-		end
-
-		mouse.Icon = icon
-		lastMouseIconOverride = icon
-	end
-
-	function CameraUtils.restoreMouseIcon()
-		local mouse = getMouse()
-		-- Only restore if it wasn't overwritten by another script.
-		if mouse.Icon == lastMouseIconOverride then
-			mouse.Icon = savedMouseIcon
-		end
-		lastMouseIconOverride = nil
-	end
+	return localPlayer:GetMouse()
 end
 
-if FFlagUserCameraToggleDontSetMouseBehaviorOrRotationTypeEveryFrame then
-	local savedMouseBehavior: Enum.MouseBehavior = Enum.MouseBehavior.Default
-	local lastMouseBehaviorOverride: Enum.MouseBehavior? = nil
-	function CameraUtils.setMouseBehaviorOverride(value: Enum.MouseBehavior)
-		if UserInputService.MouseBehavior ~= lastMouseBehaviorOverride then
-			savedMouseBehavior = UserInputService.MouseBehavior
-		end
-
-		UserInputService.MouseBehavior = value
-		lastMouseBehaviorOverride = value
+local savedMouseIcon: string = ""
+local lastMouseIconOverride: string? = nil
+function CameraUtils.setMouseIconOverride(icon: string)
+	local mouse = getMouse()
+	-- Only save the icon if it was written by another script.
+	if mouse.Icon ~= lastMouseIconOverride then
+		savedMouseIcon = mouse.Icon
 	end
 
-	function CameraUtils.restoreMouseBehavior()
-		if UserInputService.MouseBehavior == lastMouseBehaviorOverride then
-			UserInputService.MouseBehavior = savedMouseBehavior
-		end
-		lastMouseBehaviorOverride = nil
+	mouse.Icon = icon
+	lastMouseIconOverride = icon
+end
+
+function CameraUtils.restoreMouseIcon()
+	local mouse = getMouse()
+	-- Only restore if it wasn't overwritten by another script.
+	if mouse.Icon == lastMouseIconOverride then
+		mouse.Icon = savedMouseIcon
+	end
+	lastMouseIconOverride = nil
+end
+
+local savedMouseBehavior: Enum.MouseBehavior = Enum.MouseBehavior.Default
+local lastMouseBehaviorOverride: Enum.MouseBehavior? = nil
+function CameraUtils.setMouseBehaviorOverride(value: Enum.MouseBehavior)
+	if UserInputService.MouseBehavior ~= lastMouseBehaviorOverride then
+		savedMouseBehavior = UserInputService.MouseBehavior
 	end
 
-	local savedRotationType: Enum.RotationType = Enum.RotationType.MovementRelative
-	local lastRotationTypeOverride: Enum.RotationType? = nil
-	function CameraUtils.setRotationTypeOverride(value: Enum.RotationType)
-		if UserGameSettings.RotationType ~= lastRotationTypeOverride then
-			savedRotationType = UserGameSettings.RotationType
-		end
+	UserInputService.MouseBehavior = value
+	lastMouseBehaviorOverride = value
+end
 
-		UserGameSettings.RotationType = value
-		lastRotationTypeOverride = value
+function CameraUtils.restoreMouseBehavior()
+	if UserInputService.MouseBehavior == lastMouseBehaviorOverride then
+		UserInputService.MouseBehavior = savedMouseBehavior
+	end
+	lastMouseBehaviorOverride = nil
+end
+
+local savedRotationType: Enum.RotationType = Enum.RotationType.MovementRelative
+local lastRotationTypeOverride: Enum.RotationType? = nil
+function CameraUtils.setRotationTypeOverride(value: Enum.RotationType)
+	if UserGameSettings.RotationType ~= lastRotationTypeOverride then
+		savedRotationType = UserGameSettings.RotationType
 	end
 
-	function CameraUtils.restoreRotationType()
-		if UserGameSettings.RotationType == lastRotationTypeOverride then
-			UserGameSettings.RotationType = savedRotationType
-		end
-		lastRotationTypeOverride = nil
+	UserGameSettings.RotationType = value
+	lastRotationTypeOverride = value
+end
+
+function CameraUtils.restoreRotationType()
+	if UserGameSettings.RotationType == lastRotationTypeOverride then
+		UserGameSettings.RotationType = savedRotationType
 	end
+	lastRotationTypeOverride = nil
 end
 
 return CameraUtils

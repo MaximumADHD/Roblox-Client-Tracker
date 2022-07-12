@@ -12,9 +12,7 @@
 		UDim2 Size
 ]]
 local Plugin = script.Parent.Parent.Parent
-local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
-local FFlagToolboxAudioDiscoveryRound2 =
-	require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscoveryRound2()
+
 local FFlagToolboxFixTryInStudio = game:GetFastFlag("ToolboxFixTryInStudio")
 
 local Packages = Plugin.Packages
@@ -37,7 +35,7 @@ local AudioScroller = require(Plugin.Core.Components.AudioHomeView.AudioScroller
 local AssetInfo = require(Plugin.Core.Models.AssetInfo)
 
 local GetAssets
-local SetAssetPreview 
+local SetAssetPreview
 local Actions = Plugin.Core.Actions
 if FFlagToolboxFixTryInStudio then
 	GetAssets = require(Actions.GetAssets)
@@ -103,11 +101,13 @@ function AssetGridContainer:init(props)
 		self.props.nextPage(networkInterface, settings)
 	end
 
-	self.setAssetPreview = if FFlagToolboxFixTryInStudio then function(assetData)
-		local assetId = assetData.Asset.Id
-		props.getAssets({assetData})
-		props.setAssetPreview(true, assetId)
-	end else nil
+	self.setAssetPreview = if FFlagToolboxFixTryInStudio
+		then function(assetData)
+			local assetId = assetData.Asset.Id
+			props.getAssets({ assetData })
+			props.setAssetPreview(true, assetId)
+		end
+		else nil
 end
 
 function AssetGridContainer:didMount()
@@ -117,7 +117,13 @@ function AssetGridContainer:didMount()
 	if assetId then
 		local props = self.props
 		if FFlagToolboxFixTryInStudio then
-			props.getAssetPreviewDataForStartup(assetId, props.TryInsert, props.Localization, getNetwork(self), self.setAssetPreview)
+			props.getAssetPreviewDataForStartup(
+				assetId,
+				props.TryInsert,
+				props.Localization,
+				getNetwork(self),
+				self.setAssetPreview
+			)
 		else
 			props.getAssetPreviewDataForStartup(assetId, props.TryInsert, props.Localization, getNetwork(self))
 		end
@@ -127,7 +133,7 @@ end
 function AssetGridContainer:render()
 	local props: AssetGridContainerProps = self.props
 
-	local ixp = if FFlagToolboxAudioDiscovery then props.IXP else nil
+	local ixp = props.IXP
 	local assetIds = props.assetIds
 	local layoutOrder = props.LayoutOrder
 	local position = props.Position
@@ -158,7 +164,7 @@ function AssetGridContainer:render()
 		end
 	end
 
-	if FFlagToolboxAudioDiscovery and Category.categoryIsAudio(props.categoryName) and not ixp:isError() then
+	if Category.categoryIsAudio(props.categoryName) and not ixp:isError() then
 		if not ixp:isReady() then
 			-- IXP state has not loaded yet, avoid a flash of (potentially) the wrong content
 			return nil
@@ -180,7 +186,7 @@ function AssetGridContainer:render()
 					Position = position,
 					FetchNextPage = self.requestNextPage,
 					Size = size,
-					tryOpenAssetConfig = if FFlagToolboxAudioDiscoveryRound2 then props.TryOpenAssetConfig else nil,
+					tryOpenAssetConfig = props.TryOpenAssetConfig,
 				})
 			end
 		end
@@ -208,7 +214,7 @@ end
 AssetGridContainer = AssetLogicWrapper(AssetGridContainer)
 
 AssetGridContainer = withContext({
-	IXP = if FFlagToolboxAudioDiscovery then IXPContext else nil,
+	IXP = IXPContext,
 	Localization = ContextServices.Localization,
 	Settings = Settings,
 })(AssetGridContainer)
@@ -235,15 +241,19 @@ local function mapDispatchToProps(dispatch)
 		getAssetPreviewDataForStartup = function(assetId, tryInsert, localization, networkInterface, setAssetPreview)
 			dispatch(GetAssetPreviewDataForStartup(assetId, tryInsert, localization, networkInterface, setAssetPreview))
 		end,
-		getAssets = if FFlagToolboxFixTryInStudio then function(assetData)
-			return dispatch(GetAssets(assetData))
-		end else nil,
+		getAssets = if FFlagToolboxFixTryInStudio
+			then function(assetData)
+				return dispatch(GetAssets(assetData))
+			end
+			else nil,
 		nextPage = function(networkInterface, settings)
 			dispatch(NextPageRequest(networkInterface, settings))
 		end,
-		setAssetPreview = if FFlagToolboxFixTryInStudio then function(isPreviewing, previewAssetId)
-			return dispatch(SetAssetPreview(isPreviewing, previewAssetId))
-		end else nil,
+		setAssetPreview = if FFlagToolboxFixTryInStudio
+			then function(isPreviewing, previewAssetId)
+				return dispatch(SetAssetPreview(isPreviewing, previewAssetId))
+			end
+			else nil,
 	}
 end
 

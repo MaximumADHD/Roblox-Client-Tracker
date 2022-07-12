@@ -95,7 +95,11 @@ type MethodOfAbuse = ReportAbuseLogic.MethodOfAbuse
 local MethodsOfAbuse = ReportAbuseLogic.MethodsOfAbuse
 
 type MOAOption = { title: string, subtitle: string, index: number}
-local TypeOfAbuseOptions: { [MethodOfAbuse]: MOAOption } = {
+local TypeOfAbuseOptions: {
+	["voice"]: MOAOption,
+	["text"]: MOAOption,
+	["other"]: MOAOption,
+} = {
 	[MethodsOfAbuse.voice] = {title = "Feature.SettingsHub.MethodOfAbuse.VoiceChat.Title", subtitle = "Feature.SettingsHub.MethodOfAbuse.VoiceChat.Subtitle", index = 1},
 	[MethodsOfAbuse.text] = {title = "Feature.SettingsHub.MethodOfAbuse.Text.Title", subtitle = "Feature.SettingsHub.MethodOfAbuse.Text.Subtitle", index = 2},
 	[MethodsOfAbuse.other] = {title = "Feature.SettingsHub.MethodOfAbuse.Other.Title", subtitle = "Feature.SettingsHub.MethodOfAbuse.Other.Subtitle", index = 3}

@@ -1,6 +1,5 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
-local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 
 local Packages = Plugin.Packages
 local Framework = require(Packages.Framework)
@@ -136,12 +135,9 @@ function Urls.constructGetAssetsUrl(category, searchTerm, pageSize, page, sortTy
 		})
 end
 
-local MIGRATED_ASSET_TYPES
-if FFlagToolboxAudioDiscovery then
-	MIGRATED_ASSET_TYPES = Set.new({ Category.MUSIC.name, Category.SOUND_EFFECTS.name, Category.UNKNOWN_AUDIO.name })
-	function Urls.usesMarketplaceRoute(category: string): boolean
-		return MIGRATED_ASSET_TYPES:has(category)
-	end
+local MIGRATED_ASSET_TYPES = Set.new({ Category.MUSIC.name, Category.SOUND_EFFECTS.name, Category.UNKNOWN_AUDIO.name })
+function Urls.usesMarketplaceRoute(category: string): boolean
+	return MIGRATED_ASSET_TYPES:has(category)
 end
 
 function Urls.constructGetToolboxItemsUrl(
@@ -173,7 +169,7 @@ function Urls.constructGetToolboxItemsUrl(
 			"ownerId",
 			"tags",
 		}),
-		{ tags = if FFlagToolboxAudioDiscovery and args.tags then Array.join(args.tags, ",") else nil },
+		{ tags = if args.tags then Array.join(args.tags, ",") else nil },
 		{ placeId = if FFlagToolboxIncludedPlaceIdInConfigRequest and args.sectionName then getPlaceId() else nil }
 	)
 
@@ -187,7 +183,7 @@ function Urls.constructGetToolboxItemsUrl(
 	if args.sectionName then
 		local apiName = Category.ToolboxAssetTypeToEngine[categoryData.assetType].Value
 		targetUrl = string.format("%s/home/%s/section/%s/assets", TOOLBOX_SERVICE_URL, apiName, args.sectionName)
-	elseif FFlagToolboxAudioDiscovery and Urls.usesMarketplaceRoute(categoryData.name) then
+	elseif Urls.usesMarketplaceRoute(categoryData.name) then
 		targetUrl = string.format("%s/marketplace/%d", TOOLBOX_SERVICE_URL, categoryData.assetType)
 	else
 		local apiName = Category.API_NAMES[categoryName]
@@ -606,11 +602,18 @@ if FFlagToolboxAudioAssetConfigIdVerification then
 end
 
 if FFlagAssetConfigDynamicDistributionQuotas2 then
-	function Urls.getCreatorMarketplaceQuotas(assetType: Enum.AssetType, resourceType: AssetQuotaTypes.AssetQuotaResourceType)
-		return string.format("%s/v1/asset-quotas?%s", Url.PUBLISH_URL, Url.makeQueryString({
-			assetType = assetType.Name,
-			resourceType = resourceType,
-		}))
+	function Urls.getCreatorMarketplaceQuotas(
+		assetType: Enum.AssetType,
+		resourceType: AssetQuotaTypes.AssetQuotaResourceType
+	)
+		return string.format(
+			"%s/v1/asset-quotas?%s",
+			Url.PUBLISH_URL,
+			Url.makeQueryString({
+				assetType = assetType.Name,
+				resourceType = resourceType,
+			})
+		)
 	end
 end
 

@@ -8,6 +8,9 @@ local t = InGameMenuDependencies.t
 
 local withStyle = UIBlox.Style.withStyle
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
+local LoadableImage = UIBlox.App.Loading.LoadableImage
+local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local Images = UIBlox.App.ImageSet.Images
 
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 
@@ -88,13 +91,24 @@ function PlayerContextHeader:render()
 				}),
 			}),
 
-			AvatarImage = Roact.createElement("ImageLabel", {
+			AvatarImage = Roact.createElement(LoadableImage, {
 				Position = UDim2.new(0, 112 / 2, 0, 0),
 				Size = UDim2.new(0, 92, 0, 92),
 				AnchorPoint = Vector2.new(0.5, 0),
 				BackgroundTransparency = 1,
 				Image = "rbxthumb://type=AvatarHeadShot&id=" .. userId .. "&w=150&h=150",
 				ZIndex = 3,
+				renderOnFailed = function()
+					return Roact.createElement(ImageSetLabel, {
+						Position = UDim2.new(0, 112 / 2, 0, 0),
+						Size = UDim2.new(0, 92, 0, 92),
+						AnchorPoint = Vector2.new(0.5, 0),
+						BackgroundTransparency = 1,
+						Image = Images["icons/common/user_60"],
+						ZIndex = 3,
+					})
+				end,
+				useShimmerAnimationWhileLoading = true,
 			}),
 
 			Divider = not self.props.lastButton and Roact.createElement("Frame", {

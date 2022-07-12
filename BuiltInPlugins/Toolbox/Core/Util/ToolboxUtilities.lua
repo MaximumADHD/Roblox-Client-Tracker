@@ -2,8 +2,6 @@ local Plugin = script.Parent.Parent.Parent
 local isCli = require(script.Parent.isCli)
 
 local FFlagToolboxCreatorMarketplaceWebLinks = game:GetFastFlag("ToolboxCreatorMarketplaceWebLinks")
-local FFlagAssetConfigSharingDesignTweaks = game:GetFastFlag("AssetConfigSharingDesignTweaks")
-local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 
 local AssetQuotaTypes = require(Plugin.Core.Types.AssetQuotaTypes)
 
@@ -15,7 +13,6 @@ if isCli() then
 		DisableMarketplaceAndRecents = false,
 		DisableRatings = false,
 		HideNonRelevanceSorts = false,
-		HomeViewEnabledAssetTypes = if FFlagToolboxAudioDiscovery then nil else "Model;Audio",
 		MarketplaceDisabledCategories = "FreePlugins;PaidPlugins;Plugins;FreeVideo",
 		MarketplaceShouldUsePluginCreatorWhitelist = true,
 		DisableAutocomplete = false,
@@ -74,20 +71,12 @@ function ToolboxUtilities.getShouldDisableAutocomplete()
 	return ToolboxPolicy["DisableAutocomplete"]
 end
 
-if not FFlagToolboxAudioDiscovery then
-	function ToolboxUtilities.getHomeViewEnabledAssetTypes()
-		return ToolboxPolicy["HomeViewEnabledAssetTypes"]
-	end
-end
-
-if FFlagAssetConfigSharingDesignTweaks then
-	export type AssetConfigMessaging = {
-		showManageUniversePermissionsLink: boolean?,
-		audioPublicationDisabledLink: string?,
-	}
-	function ToolboxUtilities.getAssetConfigMessaging(): AssetConfigMessaging
-		return ToolboxPolicy["AssetConfigMessaging"] or {}
-	end
+export type AssetConfigMessaging = {
+	showManageUniversePermissionsLink: boolean?,
+	audioPublicationDisabledLink: string?,
+}
+function ToolboxUtilities.getAssetConfigMessaging(): AssetConfigMessaging
+	return ToolboxPolicy["AssetConfigMessaging"] or {}
 end
 
 if FFlagToolboxCreatorMarketplaceWebLinks then

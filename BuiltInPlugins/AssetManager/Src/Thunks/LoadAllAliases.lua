@@ -22,12 +22,14 @@ local function DEPRECATED_GetAliases(apiImpl, assetType, state)
 	local index = 1
 
 	local function request(page)
-		if assetType == Enum.AssetType.Image
-		or assetType == Enum.AssetType.MeshPart
-		or assetType == Enum.AssetType.Lua
-		or (enableAudioImport() and assetType == Enum.AssetType.Audio)
-		or (enableVideoImport() and assetType == Enum.AssetType.Video)
-		or (FFlagAssetManagerEnableModelAssets and assetType == Enum.AssetType.Model) then
+		if
+			assetType == Enum.AssetType.Image
+			or assetType == Enum.AssetType.MeshPart
+			or assetType == Enum.AssetType.Lua
+			or (enableAudioImport() and assetType == Enum.AssetType.Audio)
+			or (enableVideoImport() and assetType == Enum.AssetType.Video)
+			or (FFlagAssetManagerEnableModelAssets and assetType == Enum.AssetType.Model)
+		then
 			return apiImpl.API.Universes.getAliases(game.GameId, page):makeRequest()
 			:andThen(function(response)
 				local body = response.responseBody
@@ -37,12 +39,13 @@ local function DEPRECATED_GetAliases(apiImpl, assetType, state)
 
 				local hasLinkedScripts = state.AssetManagerReducer.hasLinkedScripts
 				for _, alias in pairs(body.Aliases) do
-					if (assetType == Enum.AssetType.Image and string.find(alias.Name, "Images/"))
-					or (assetType == Enum.AssetType.MeshPart and string.find(alias.Name, "Meshes/"))
-					or (assetType == Enum.AssetType.Lua and string.find(alias.Name, "Scripts/"))
-					or (enableAudioImport() and assetType == Enum.AssetType.Audio and string.find(alias.Name, "Audio/"))
-					or (enableVideoImport() and assetType == Enum.AssetType.Video and string.find(alias.Name, "Video/"))
-					or (FFlagAssetManagerEnableModelAssets and (assetType == Enum.AssetType.Model and string.find(alias.Name, "Models/")))
+					if
+						(assetType == Enum.AssetType.Image and string.find(alias.Name, "Images/"))
+						or (assetType == Enum.AssetType.MeshPart and string.find(alias.Name, "Meshes/"))
+						or (assetType == Enum.AssetType.Lua and string.find(alias.Name, "Scripts/"))
+						or (enableAudioImport() and assetType == Enum.AssetType.Audio and string.find(alias.Name, "Audio/"))
+						or (enableVideoImport() and assetType == Enum.AssetType.Video and string.find(alias.Name, "Video/"))
+						or (FFlagAssetManagerEnableModelAssets and (assetType == Enum.AssetType.Model and string.find(alias.Name, "Models/")))
 					then
 						-- creating new table so keys across all assets are consistent
 						local assetAlias = {}

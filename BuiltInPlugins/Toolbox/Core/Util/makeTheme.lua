@@ -1,5 +1,4 @@
 local Plugin = script:FindFirstAncestor("Toolbox")
-local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
 local FFlagToolboxSearchResultsBackButton = game:GetFastFlag("ToolboxSearchResultsBackButton")
 
@@ -29,7 +28,9 @@ local makeTheme = function(themeExtension, themeClass)
 	local styleRoot
 	local overridedDarkTheme = Cryo.Dictionary.join(DarkTheme, {
 		[StyleKey.Toolbox_PublishAssetBackground] = StyleColors.Slate,
-		[StyleKey.Toolbox_AssetOutlineBackground] = if FFlagAssetVoteSimplification then Color3.fromHex("#3B3B3B") else nil,
+		[StyleKey.Toolbox_AssetOutlineBackground] = if FFlagAssetVoteSimplification
+			then Color3.fromHex("#3B3B3B")
+			else nil,
 		[StyleKey.Toolbox_AssetOutlineBoarderColor] = Color3.fromHex("#121212"),
 		[StyleKey.Toolbox_AssetOutlineTransparency] = 0,
 		[StyleKey.Toolbox_AssetOutlineVerifiedBackground] = Color3.fromRGB(12, 43, 89),
@@ -39,26 +40,23 @@ local makeTheme = function(themeExtension, themeClass)
 		[StyleKey.Toolbox_AssetBackgroundImage] = "",
 		[StyleKey.Toolbox_AssetNameColor] = Color3.fromRGB(60, 180, 255),
 		[StyleKey.Toolbox_AssetIconColor] = Color3.fromRGB(178, 178, 178),
-		[StyleKey.Toolbox_AudioRowBackgroundColorEven] = FFlagToolboxAudioDiscovery and Color3.fromHex("#222222")
-			or nil,
-		[StyleKey.Toolbox_AudioRowBackgroundColorOdd] = FFlagToolboxAudioDiscovery and Color3.fromHex("#2C2C2C") or nil,
-		[StyleKey.Toolbox_AudioRowBorderColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#024897") or nil,
-		[StyleKey.Toolbox_AudioRowHeaderTextColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#989898"),
-		[StyleKey.Toolbox_AudioRowTitleTextColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#52ADF4"),
-		[StyleKey.Toolbox_AudioRowTextColor] = FFlagToolboxAudioDiscovery and StyleColors.White or nil,
-		[StyleKey.Toolbox_AudioPlayerBackgroundColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#171717") or nil,
-		[StyleKey.Toolbox_AudioPlayerProgressBarColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#0077D6")
-			or nil,
-		[StyleKey.Toolbox_AudioPlayerIndicatorColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#555555") or nil,
-		[StyleKey.Toolbox_AudioPlayerIndicatorBorderColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#555555")
-			or nil,
-		[StyleKey.Toolbox_AudioTabTextColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#3B3B3B") or nil,
-		[StyleKey.Toolbox_AudioTabSelectedTextColor] = FFlagToolboxAudioDiscovery and StyleColors.White or nil,
+		[StyleKey.Toolbox_AudioRowBackgroundColorEven] = Color3.fromHex("#222222"),
+		[StyleKey.Toolbox_AudioRowBackgroundColorOdd] = Color3.fromHex("#2C2C2C"),
+		[StyleKey.Toolbox_AudioRowBorderColor] = Color3.fromHex("#024897"),
+		[StyleKey.Toolbox_AudioRowHeaderTextColor] = Color3.fromHex("#989898"),
+		[StyleKey.Toolbox_AudioRowTitleTextColor] = Color3.fromHex("#52ADF4"),
+		[StyleKey.Toolbox_AudioRowTextColor] = StyleColors.White,
+		[StyleKey.Toolbox_AudioPlayerBackgroundColor] = Color3.fromHex("#171717"),
+		[StyleKey.Toolbox_AudioPlayerProgressBarColor] = Color3.fromHex("#0077D6"),
+		[StyleKey.Toolbox_AudioPlayerIndicatorColor] = Color3.fromHex("#555555"),
+		[StyleKey.Toolbox_AudioPlayerIndicatorBorderColor] = Color3.fromHex("#555555"),
+		[StyleKey.Toolbox_AudioTabTextColor] = Color3.fromHex("#3B3B3B"),
+		[StyleKey.Toolbox_AudioTabSelectedTextColor] = StyleColors.White,
 		[StyleKey.Toolbox_DeleteIconColor] = Color3.fromRGB(136, 136, 136),
 		[StyleKey.Toolbox_DropdownItemSelectedColor] = StyleColors.Blue_Dark,
 		[StyleKey.Toolbox_DropdownIconColor] = StyleColors.White,
 		[StyleKey.Toolbox_HorizontalLineColor] = Color3.fromRGB(34, 34, 34),
-		[StyleKey.Toolbox_NavigationLinkTextColor] = StyleColors.White or nil,
+		[StyleKey.Toolbox_NavigationLinkTextColor] = StyleColors.White,
 		[StyleKey.Toolbox_NavigationLinkTextColorHover] = Color3.fromHex("#AAAAAA"),
 		[StyleKey.ScrollingFrameBackgroundColor] = Color3.fromRGB(41, 41, 41),
 		[StyleKey.ScrollingFrameImageColor] = Color3.fromRGB(85, 85, 85),
@@ -69,12 +67,18 @@ local makeTheme = function(themeExtension, themeClass)
 		[StyleKey.Toolbox_TabTopBorderColor] = StyleColors.Blue,
 		[StyleKey.Toolbox_TabSelectedColor] = StyleColors.White,
 		[StyleKey.Toolbox_IconTileGradientColor] = StyleColors.Black,
-		[StyleKey.Toolbox_HomeviewBackgroundColor] = if FFlagAssetVoteSimplification then StyleColors.Slate else Color3.fromHex("#222222"),
+		[StyleKey.Toolbox_HomeviewBackgroundColor] = if FFlagAssetVoteSimplification
+			then StyleColors.Slate
+			else Color3.fromHex("#222222"),
 		[StyleKey.Toolbox_SearchOptionButtonHover] = StyleColors.White,
 		[StyleKey.Toolbox_RateTextColor] = if FFlagAssetVoteSimplification then Color3.fromHex("#BDBEBE") else nil,
 		[StyleKey.Toolbox_VoteCountColor] = if FFlagAssetVoteSimplification then Color3.fromHex("#AAAAAA") else nil,
-		[StyleKey.Toolbox_LowConfidencePercentageColor] = if FFlagAssetVoteSimplification then Color3.fromHex("#CCCCCC") else nil,
-		[StyleKey.Toolbox_VotingButtonsBackgroundBoxColor] = if FFlagAssetVoteSimplification then Color3.fromHex("#FFFFFF") else nil,
+		[StyleKey.Toolbox_LowConfidencePercentageColor] = if FFlagAssetVoteSimplification
+			then Color3.fromHex("#CCCCCC")
+			else nil,
+		[StyleKey.Toolbox_VotingButtonsBackgroundBoxColor] = if FFlagAssetVoteSimplification
+			then Color3.fromHex("#FFFFFF")
+			else nil,
 		[StyleKey.Toolbox_VotingButtonImage] = if FFlagAssetVoteSimplification then Images.THUMB_UP_WHITE else nil,
 
 		-- Asset Configuration
@@ -100,21 +104,18 @@ local makeTheme = function(themeExtension, themeClass)
 		[StyleKey.Toolbox_AssetBackgroundImage] = Images.NO_BACKGROUND_ICON,
 		[StyleKey.Toolbox_AssetNameColor] = Color3.fromHex("#0B5AAF"),
 		[StyleKey.Toolbox_AssetIconColor] = Color3.fromRGB(170, 170, 170),
-		[StyleKey.Toolbox_AudioPlayerBackgroundColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#E1E1E1") or nil,
-		[StyleKey.Toolbox_AudioPlayerProgressBarColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#0077D6")
-			or nil,
-		[StyleKey.Toolbox_AudioPlayerIndicatorColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#CBCBCB") or nil,
-		[StyleKey.Toolbox_AudioPlayerIndicatorBorderColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#222222")
-			or nil,
-		[StyleKey.Toolbox_AudioRowBackgroundColorEven] = FFlagToolboxAudioDiscovery and Color3.fromHex("#EDEDED")
-			or nil,
-		[StyleKey.Toolbox_AudioRowBackgroundColorOdd] = FFlagToolboxAudioDiscovery and Color3.fromHex("#FAFAFA") or nil,
-		[StyleKey.Toolbox_AudioRowBorderColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#3DB3FF") or nil,
-		[StyleKey.Toolbox_AudioRowHeaderTextColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#3B3B3B"),
-		[StyleKey.Toolbox_AudioRowTitleTextColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#0055AC"),
-		[StyleKey.Toolbox_AudioRowTextColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#171717") or nil,
-		[StyleKey.Toolbox_AudioTabTextColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#3B3B3B") or nil,
-		[StyleKey.Toolbox_AudioTabSelectedTextColor] = FFlagToolboxAudioDiscovery and Color3.fromHex("#FAFAFA") or nil,
+		[StyleKey.Toolbox_AudioPlayerBackgroundColor] = Color3.fromHex("#E1E1E1"),
+		[StyleKey.Toolbox_AudioPlayerProgressBarColor] = Color3.fromHex("#0077D6"),
+		[StyleKey.Toolbox_AudioPlayerIndicatorColor] = Color3.fromHex("#CBCBCB"),
+		[StyleKey.Toolbox_AudioPlayerIndicatorBorderColor] = Color3.fromHex("#222222"),
+		[StyleKey.Toolbox_AudioRowBackgroundColorEven] = Color3.fromHex("#EDEDED"),
+		[StyleKey.Toolbox_AudioRowBackgroundColorOdd] = Color3.fromHex("#FAFAFA"),
+		[StyleKey.Toolbox_AudioRowBorderColor] = Color3.fromHex("#3DB3FF"),
+		[StyleKey.Toolbox_AudioRowHeaderTextColor] = Color3.fromHex("#3B3B3B"),
+		[StyleKey.Toolbox_AudioRowTitleTextColor] = Color3.fromHex("#0055AC"),
+		[StyleKey.Toolbox_AudioRowTextColor] = Color3.fromHex("#171717"),
+		[StyleKey.Toolbox_AudioTabTextColor] = Color3.fromHex("#3B3B3B"),
+		[StyleKey.Toolbox_AudioTabSelectedTextColor] = Color3.fromHex("#FAFAFA"),
 		[StyleKey.Toolbox_DeleteIconColor] = Color3.fromRGB(184, 184, 184),
 		[StyleKey.Toolbox_DropdownItemSelectedColor] = StyleColors.Blue_Light,
 		[StyleKey.Toolbox_DropdownIconColor] = Color3.fromRGB(25, 25, 25),
@@ -134,8 +135,12 @@ local makeTheme = function(themeExtension, themeClass)
 		[StyleKey.Toolbox_SearchOptionButtonHover] = StyleColors.Black,
 		[StyleKey.Toolbox_RateTextColor] = if FFlagAssetVoteSimplification then Color3.fromHex("#3B3B3B") else nil,
 		[StyleKey.Toolbox_VoteCountColor] = if FFlagAssetVoteSimplification then Color3.fromHex("#666666") else nil,
-		[StyleKey.Toolbox_LowConfidencePercentageColor] = if FFlagAssetVoteSimplification then Color3.fromHex("#666666") else nil,
-		[StyleKey.Toolbox_VotingButtonsBackgroundBoxColor] = if FFlagAssetVoteSimplification then Color3.fromHex("#000000") else nil,
+		[StyleKey.Toolbox_LowConfidencePercentageColor] = if FFlagAssetVoteSimplification
+			then Color3.fromHex("#666666")
+			else nil,
+		[StyleKey.Toolbox_VotingButtonsBackgroundBoxColor] = if FFlagAssetVoteSimplification
+			then Color3.fromHex("#000000")
+			else nil,
 		[StyleKey.Toolbox_VotingButtonImage] = if FFlagAssetVoteSimplification then Images.THUMB_UP_DARK_GRAY else nil,
 
 		-- Asset Configuration
@@ -183,7 +188,9 @@ local makeTheme = function(themeExtension, themeClass)
 			},
 
 			outline = {
-				backgroundColor = if FFlagAssetVoteSimplification then StyleKey.Toolbox_AssetOutlineBackground else StyleKey.MainBackground,
+				backgroundColor = if FFlagAssetVoteSimplification
+					then StyleKey.Toolbox_AssetOutlineBackground
+					else StyleKey.MainBackground,
 				verifiedBackgroundColor = StyleKey.Toolbox_AssetOutlineVerifiedBackground,
 				borderColor = StyleKey.Toolbox_AssetOutlineBoarderColor,
 				transparency = StyleKey.Toolbox_AssetOutlineTransparency,
@@ -200,8 +207,12 @@ local makeTheme = function(themeExtension, themeClass)
 				voteThumb = Color3.fromRGB(117, 117, 117),
 				rateTextColor = if FFlagAssetVoteSimplification then StyleKey.Toolbox_RateTextColor else nil,
 				voteCountColor = if FFlagAssetVoteSimplification then StyleKey.Toolbox_VoteCountColor else nil,
-				lowConfidencePercentageColor = if FFlagAssetVoteSimplification then StyleKey.Toolbox_LowConfidencePercentageColor else nil,
-				votingButtonsBackgroundBoxColor = if FFlagAssetVoteSimplification then StyleKey.Toolbox_VotingButtonsBackgroundBoxColor else nil,
+				lowConfidencePercentageColor = if FFlagAssetVoteSimplification
+					then StyleKey.Toolbox_LowConfidencePercentageColor
+					else nil,
+				votingButtonsBackgroundBoxColor = if FFlagAssetVoteSimplification
+					then StyleKey.Toolbox_VotingButtonsBackgroundBoxColor
+					else nil,
 				votingButtonImage = if FFlagAssetVoteSimplification then StyleKey.Toolbox_VotingButtonImage else nil,
 			},
 		},
@@ -210,14 +221,14 @@ local makeTheme = function(themeExtension, themeClass)
 			labelTextColor = StyleKey.DimmedText,
 		},
 
-		audioPlayer = FFlagToolboxAudioDiscovery and {
+		audioPlayer = {
 			backgroundColor = StyleKey.Toolbox_AudioPlayerBackgroundColor,
 			progressBarColor = StyleKey.Toolbox_AudioPlayerProgressBarColor,
 			indicatorColor = StyleKey.Toolbox_AudioPlayerIndicatorColor,
 			indicatorBorderColor = StyleKey.Toolbox_AudioPlayerIndicatorBorderColor,
-		} or nil,
+		},
 
-		audioRow = FFlagToolboxAudioDiscovery and {
+		audioRow = {
 			backgroundColorEven = StyleKey.Toolbox_AudioRowBackgroundColorEven,
 			backgroundColorOdd = StyleKey.Toolbox_AudioRowBackgroundColorOdd,
 			borderColor = StyleKey.Toolbox_AudioRowBorderColor,
@@ -229,9 +240,9 @@ local makeTheme = function(themeExtension, themeClass)
 			pauseButtonColor = Colors.BLUE_PRIMARY,
 			insertButtonColor = Color3.fromHex("#0077D6"),
 			insertButtonTextColor = Colors.WHITE,
-		} or nil,
+		},
 
-		audioTabs = FFlagToolboxAudioDiscovery and {
+		audioTabs = {
 			backgroundButtonColor = StyleKey.Toolbox_AudioPlayerBackgroundColor,
 			selectedButtonColor = Color3.fromHex("#0077D6"),
 			selectedTextColor = StyleKey.Toolbox_AudioTabSelectedTextColor,

@@ -27,7 +27,8 @@ local Assets = require(InGameMenu.Resources.Assets)
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
-local HEADER_SIDE_PADDING = 95
+local HEADER_SIDE_PADDING = 44
+local HEADER_CLOSE_ICON_OFFSET_X = 24
 
 local validateProps = t.strictInterface({
 	titleText = t.string,
@@ -74,7 +75,7 @@ local function ControlLayoutContainerWithSelectionCursor(props, getSelectionCurs
 					}),
 					CloseButton = Roact.createElement(ImageSetButton, {
 						AnchorPoint = Vector2.new(0, 0.5),
-						Position = UDim2.new(0, 0, 0, headerContentYCenter),
+						Position = UDim2.new(0, HEADER_CLOSE_ICON_OFFSET_X, 0, headerContentYCenter),
 
 						Size = UDim2.new(0, 36, 0, 36),
 						Image = Assets.Images.CloseModal,

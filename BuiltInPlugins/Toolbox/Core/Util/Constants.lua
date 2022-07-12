@@ -6,7 +6,6 @@ local getMaxAudioLength = require(Plugin.Core.Util.ToolboxUtilities).getMaxAudio
 
 local StudioService = game:GetService("StudioService")
 
-local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
 
 local Category = require(Plugin.Core.Types.Category)
@@ -152,7 +151,8 @@ if FFlagAssetVoteSimplification then
 	Constants.ASSET_VOTING_BUTTONS_BACKGROUND_BOX_PADDING = 2
 	Constants.ASSET_VOTING_BUTTONS_BACKGROUND_BOX_CORNER_RADIUS = 3
 	-- Multiply padding by two below for top and bottom padding
-	Constants.ASSET_VOTING_BUTTONS_HEIGHT = Constants.THUMB_ICON_HEIGHT + Constants.ASSET_VOTING_BUTTONS_BACKGROUND_BOX_PADDING * 2
+	Constants.ASSET_VOTING_BUTTONS_HEIGHT = Constants.THUMB_ICON_HEIGHT
+		+ Constants.ASSET_VOTING_BUTTONS_BACKGROUND_BOX_PADDING * 2
 
 	Constants.ASSET_VOTE_BUTTONS_TEXT_PADDING = 4
 	Constants.ASSET_VOTE_BUTTONS_HORIZONTAL_PADDING = 1
@@ -176,7 +176,7 @@ if FFlagAssetVoteSimplification then
 		+ Constants.ASSET_INNER_PADDING
 	Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTE_BUTTONS_HOVERED = Constants.ASSET_OUTLINE_EXTRA_HEIGHT
 		+ Constants.ASSET_VOTING_BUTTONS_HEIGHT
-		+ Constants. THUMB_ICON_PADDING
+		+ Constants.THUMB_ICON_PADDING
 else
 end
 
@@ -295,60 +295,58 @@ Constants.TOOLBOX_ITEM_SEARCH_LIMIT = 30
 Constants.PLUGIN_LIBRARY_URL =
 	"https://www.roblox.com/develop/library?CatalogContext=2&SortAggregation=5&LegendExpanded=true&Category=7"
 
-if FFlagToolboxAudioDiscovery then
-	Constants.AUDIO_TABS_HEIGHT = 30
-	Constants.AUDIO_CATEGORY_HEIGHT = 40
-	Constants.AUDIO_PADDING = 11
-	Constants.AUDIO_ROW = {
-		COLUMNS = {
-			ICON = 0,
-			NAME = 1,
-			CATEGORY = 2,
-			GENRE = 3,
-			ARTIST = 4,
-			DURATION = 5,
-		},
-		ICON_SIZE = 18,
-		ROW_HEIGHT = 30,
-		EXPANDED_MUSIC_ROW_HEIGHT = 121,
-		EXPANDED_SOUND_EFFECT_ROW_HEIGHT = 108,
-		EXPANDED_UNCATEGORIZED_ROW_HEIGHT = 56,
-		LEFT_RIGHT_PADDING = 10,
-		TOP_BUTTON_PADDING = 6,
-		BORDER_SIZE = 2,
-	}
+Constants.AUDIO_TABS_HEIGHT = 30
+Constants.AUDIO_CATEGORY_HEIGHT = 40
+Constants.AUDIO_PADDING = 11
+Constants.AUDIO_ROW = {
+	COLUMNS = {
+		ICON = 0,
+		NAME = 1,
+		CATEGORY = 2,
+		GENRE = 3,
+		ARTIST = 4,
+		DURATION = 5,
+	},
+	ICON_SIZE = 18,
+	ROW_HEIGHT = 30,
+	EXPANDED_MUSIC_ROW_HEIGHT = 121,
+	EXPANDED_SOUND_EFFECT_ROW_HEIGHT = 108,
+	EXPANDED_UNCATEGORIZED_ROW_HEIGHT = 56,
+	LEFT_RIGHT_PADDING = 10,
+	TOP_BUTTON_PADDING = 6,
+	BORDER_SIZE = 2,
+}
 
-	Constants.CalculateAudioColumnSize =
-		function(audioType: string?, column: number, yScale: number?, yOffset: number?): UDim2
-			local yScale = (yScale or 1) :: number
-			local yOffset = (yOffset or 0) :: number
-			local isSoundEffectType = audioType == Category.SOUND_EFFECTS.name
-			local isMusicType = audioType == Category.MUSIC.name
-			local isUncategorized = not isMusicType and not isSoundEffectType
-			local columns = Constants.AUDIO_ROW.COLUMNS
-			local iconColumnWidth = Constants.AUDIO_ROW.ICON_SIZE + (Constants.AUDIO_ROW.LEFT_RIGHT_PADDING * 2)
-			local durationWidth = 50
+Constants.CalculateAudioColumnSize =
+	function(audioType: string?, column: number, yScale: number?, yOffset: number?): UDim2
+		local yScale = (yScale or 1) :: number
+		local yOffset = (yOffset or 0) :: number
+		local isSoundEffectType = audioType == Category.SOUND_EFFECTS.name
+		local isMusicType = audioType == Category.MUSIC.name
+		local isUncategorized = not isMusicType and not isSoundEffectType
+		local columns = Constants.AUDIO_ROW.COLUMNS
+		local iconColumnWidth = Constants.AUDIO_ROW.ICON_SIZE + (Constants.AUDIO_ROW.LEFT_RIGHT_PADDING * 2)
+		local durationWidth = 50
 
-			if column == columns.ICON then
-				return UDim2.new(0, iconColumnWidth, yScale, yOffset)
-			elseif column == columns.NAME then
-				if isUncategorized then
-					return UDim2.new(1, -iconColumnWidth - durationWidth, yScale, yOffset)
-				else
-					return UDim2.new(0.6, -iconColumnWidth - durationWidth, yScale, yOffset)
-				end
-			elseif column == columns.CATEGORY then
-				return UDim2.new(0.4, 0, yScale, yOffset)
-			elseif column == columns.GENRE then
-				return UDim2.new(0.2, 0, yScale, yOffset)
-			elseif column == columns.ARTIST then
-				return UDim2.new(0.2, 0, yScale, yOffset)
-			elseif column == columns.DURATION then
-				return UDim2.new(0, durationWidth, yScale, yOffset)
+		if column == columns.ICON then
+			return UDim2.new(0, iconColumnWidth, yScale, yOffset)
+		elseif column == columns.NAME then
+			if isUncategorized then
+				return UDim2.new(1, -iconColumnWidth - durationWidth, yScale, yOffset)
+			else
+				return UDim2.new(0.6, -iconColumnWidth - durationWidth, yScale, yOffset)
 			end
-
-			return UDim2.new(0, 0, 0, 0)
+		elseif column == columns.CATEGORY then
+			return UDim2.new(0.4, 0, yScale, yOffset)
+		elseif column == columns.GENRE then
+			return UDim2.new(0.2, 0, yScale, yOffset)
+		elseif column == columns.ARTIST then
+			return UDim2.new(0.2, 0, yScale, yOffset)
+		elseif column == columns.DURATION then
+			return UDim2.new(0, durationWidth, yScale, yOffset)
 		end
-end
+
+		return UDim2.new(0, 0, 0, 0)
+	end
 
 return wrapStrictTable(Constants, "Constants")

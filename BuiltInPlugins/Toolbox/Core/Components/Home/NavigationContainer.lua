@@ -2,7 +2,6 @@
 local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
-local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 
 local Packages = Plugin.Packages
 local Framework = require(Packages.Framework)
@@ -82,7 +81,7 @@ local function wrapViewForRoactNavigation(pageConstructor)
 						focused = focused,
 						navigateTo = self.navigateTo,
 						navigateGoBack = self.navigateGoBack,
-						logPageView = if FFlagToolboxAudioDiscovery then self.logPageView else nil,
+						logPageView = self.logPageView,
 					},
 					props or {},
 
@@ -129,9 +128,7 @@ end
 -- A list of views we can route to. Add any new navigatable pages here.
 local navigationRoutes = {
 	[Constants.NAVIGATION.HOME] = wrapViewForRoactNavigation(function(viewProps)
-		local component = if FFlagToolboxAudioDiscovery and viewProps.AssetType == Enum.AssetType.Audio
-			then AudioHomeView
-			else HomeView
+		local component = if viewProps.AssetType == Enum.AssetType.Audio then AudioHomeView else HomeView
 
 		return Roact.createElement(
 			component,
@@ -195,7 +192,7 @@ local navigationRoutes = {
 				Size = UDim2.new(1, 0, 1, 0),
 				TopKeywords = viewProps.TopKeywords,
 				MaxWidth = viewProps.MaxWidth,
-				LogPageView = if FFlagToolboxAudioDiscovery then viewProps.logPageView else nil,
+				LogPageView = viewProps.logPageView,
 			})
 		)
 	end),

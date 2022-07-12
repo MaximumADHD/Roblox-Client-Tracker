@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local GuiService = game:GetService("GuiService")
 local VRService = game:GetService("VRService")
 local GamepadService = game:GetService("GamepadService")
 
@@ -67,7 +68,14 @@ function MenuIcon:init()
 			if isNewInGameMenuEnabled() then
 				if EnableInGameMenuV3() then
 					InGameMenu.openInGameMenu("Players")
-					PlayerListMaster:SetVisibility(false)
+					if PlayerListMaster:GetSetVisible() then
+						PlayerListMaster:HideTemp("InGameMenuV3", true)
+						self.menuClosedPlayerListConnection = GuiService.MenuClosed:Connect(function()
+							PlayerListMaster:HideTemp("InGameMenuV3", false)
+							self.menuClosedPlayerListConnection:Disconnect()
+							self.menuClosedPlayerListConnection = nil
+						end)
+					end
 				else
 					InGameMenu.openInGameMenu(InGameMenuConstants.MainPagePageKey)
 				end
@@ -116,6 +124,15 @@ function MenuIcon:render()
 			end,
 		})
 	})
+end
+
+function MenuIcon:willUnmount()
+	if isNewInGameMenuEnabled() and EnableInGameMenuV3() then
+		if self.menuClosedPlayerListConnection then
+			self.menuClosedPlayerListConnection:Disconnect()
+			self.menuClosedPlayerListConnection = nil
+		end
+	end
 end
 
 local function mapDispatchToProps(dispatch)

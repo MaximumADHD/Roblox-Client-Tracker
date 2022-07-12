@@ -19,9 +19,6 @@ local MemStorageService = game:GetService("MemStorageService")
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxAudioLengthSearchFix =
-	require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioLengthSearchFix()
-
 local Packages = Plugin.Packages
 local Cryo = require(Packages.Cryo)
 local Roact = require(Packages.Roact)
@@ -70,7 +67,6 @@ local IXPContext = require(Plugin.Core.ContextServices.IXPContext)
 
 local HomeTypes = require(Plugin.Core.Types.HomeTypes)
 
-local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
 local FFlagToolboxSearchResultsBackButton = game:GetFastFlag("ToolboxSearchResultsBackButton")
 
@@ -279,50 +275,30 @@ function Toolbox:render()
 	local inHomeViewExperiment = false
 	local homeViewAssetTypes: { Enum.AssetType } = {}
 	local selectedAssetType = Category.getEngineAssetType(Category.getCategoryByName(categoryName).assetType)
-
-	if FFlagToolboxAudioDiscovery then
-		if
-			currentTabKey == Category.MARKETPLACE_KEY
-			and not ixp:isError()
-			and (not creator or creator == "")
-			and searchTerm == ""
-			and (not FFlagToolboxAudioLengthSearchFix or audioSearchInfo == nil)
-		then
-			if not ixp:isReady() then
-				-- IXP state has not loaded yet, avoid a flash of (potentially) the wrong content
-				return nil
-			end
-
-			local ixpVariables = ixp:getVariables()["MarketplaceHomeView"]
-
-			if ixpVariables then
-				if ixpVariables["HomeViewEnabled"] then
-					table.insert(homeViewAssetTypes, Enum.AssetType.Model)
-				end
-
-				if ixpVariables["2022Q2AudioDiscoveryEnabled"] then
-					table.insert(homeViewAssetTypes, Enum.AssetType.Audio)
-				end
-
-				inHomeViewExperiment = table.find(homeViewAssetTypes, selectedAssetType)
-			end
+	if
+		currentTabKey == Category.MARKETPLACE_KEY
+		and not ixp:isError()
+		and (not creator or creator == "")
+		and searchTerm == ""
+		and audioSearchInfo == nil
+	then
+		if not ixp:isReady() then
+			-- IXP state has not loaded yet, avoid a flash of (potentially) the wrong content
+			return nil
 		end
-	else
-		if
-			currentTabKey == Category.MARKETPLACE_KEY
-			and table.find(HomeTypes.ENABLED_ASSET_TYPES, selectedAssetType) ~= nil
-			and not ixp:isError()
-			and (not creator or creator == "")
-			and searchTerm == ""
-		then
-			if not ixp:isReady() then
-				-- IXP state has not loaded yet, avoid a flash of (potentially) the wrong content
-				return nil
+
+		local ixpVariables = ixp:getVariables()["MarketplaceHomeView"]
+
+		if ixpVariables then
+			if ixpVariables["HomeViewEnabled"] then
+				table.insert(homeViewAssetTypes, Enum.AssetType.Model)
 			end
-			local ixpVariables = ixp:getVariables()["MarketplaceHomeView"]
-			if ixpVariables then
-				inHomeViewExperiment = ixpVariables["HomeViewEnabled"]
+
+			if ixpVariables["2022Q2AudioDiscoveryEnabled"] then
+				table.insert(homeViewAssetTypes, Enum.AssetType.Audio)
 			end
+
+			inHomeViewExperiment = table.find(homeViewAssetTypes, selectedAssetType)
 		end
 	end
 
@@ -360,7 +336,7 @@ function Toolbox:render()
 				Size = UDim2.new(1, 0, 1, -(Constants.HEADER_HEIGHT + headerOffset + 2)),
 				SortName = Sort.getDefaultSortNameForCategory(categoryName),
 				TryOpenAssetConfig = tryOpenAssetConfig,
-				EnabledAssetTypes = if FFlagToolboxAudioDiscovery then homeViewAssetTypes else nil,
+				EnabledAssetTypes = homeViewAssetTypes,
 			})
 			else Roact.createElement(MainView, {
 				Position = UDim2.new(0, 0, 0, headerOffset + Constants.HEADER_HEIGHT + 1),
@@ -395,7 +371,7 @@ local function mapStateToProps(state, props)
 	return {
 		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
 		creator = pageInfo.creator,
-		audioSearchInfo = if FFlagToolboxAudioLengthSearchFix then pageInfo.audioSearchInfo else nil,
+		audioSearchInfo = pageInfo.audioSearchInfo,
 		roles = state.roles or {},
 		searchTerm = pageInfo.searchTerm or "",
 		sorts = pageInfo.sorts or {},

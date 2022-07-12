@@ -19,40 +19,22 @@ MessageBus.publish({ "my-message-id", validateParams, }, params);
 The call to MessageBus.publish() immediately calls the callback that myMessageBusSubscriber registered with subscribe().
 ]]--
 
-export type Table = { [string]: any }
-export type MessageDescriptor = {
-	mid: string,
-	validateParams: (Table) -> (boolean, string?)
-}
-export type ProtocolMethodDescriptor = {
-	protocolName: string,
-	methodName: string,
-	validateParams: (Table) -> (boolean, string?)
-}
-export type FunctionDescriptor = {
-	fid: string,
-	validateParams: (any) -> (boolean, string?)
-}
-
 local MessageBusService = game:GetService("MessageBusService")
+
+local Types = require(script.Parent.MessageBusTypes)
+
+export type Table = Types.Table
+export type Promise<T> = Types.Promise<T>
+export type MessageDescriptor = Types.MessageDescriptor
+export type ProtocolMethodDescriptor = Types.ProtocolMethodDescriptor
+export type FunctionDescriptor = Types.FunctionDescriptor
+export type MessageBus = Types.MessageBus
+export type Subscriber = Types.Subscriber
+
+local LuaAppFixMessageBusServiceCase = game:DefineFastFlag("LuaAppFixMessageBusServiceCase", false)
 
 local MessageBus = {}
 MessageBus.__index = MessageBus
-
-export type MessageBus = {
-	publish: (MessageDescriptor, Table) -> (),
-	publishProtocolMethodRequest: (MessageDescriptor, Table, Table) -> (),
-	publishProtocolMethodResponse: (MessageDescriptor, Table, number, Table) -> (),
-	getLast: (MessageDescriptor) -> Table?,
-	getMessageId: (string, string) -> string,
-	getProtocolMethodRequestMessageId: (string, string) -> string,
-	getProtocolMethodResponseMessageId: (string, string) -> string,
-	deserializeMessageParams: (string) -> Table,
-	serializeMessageParams: (Table) -> string,
-	call: (FunctionDescriptor, any) -> any,
-
-	Subscriber: Subscriber,
-}
 
 function MessageBus.publish(desc: MessageDescriptor, params: Table): ()
 	assert(desc.validateParams(params))
@@ -66,12 +48,20 @@ end
 
 function MessageBus.publishProtocolMethodResponse(desc: ProtocolMethodDescriptor, params: Table, responseCode: number, customTelemetryData: Table): ()
 	assert(desc.validateParams(params))
-	MessageBusService:publishProtocolMethodResponse(desc.protocolName, desc.methodName, params, responseCode, customTelemetryData)
+	if LuaAppFixMessageBusServiceCase then
+		MessageBusService:PublishProtocolMethodResponse(desc.protocolName, desc.methodName, params, responseCode, customTelemetryData)
+	else
+		MessageBusService:publishProtocolMethodResponse(desc.protocolName, desc.methodName, params, responseCode, customTelemetryData)
+	end
 end
 
 function MessageBus.getLast(desc: MessageDescriptor): Table?
 	local params
-	params = MessageBusService:getLast(desc.mid)
+	if LuaAppFixMessageBusServiceCase then
+		params = MessageBusService:GetLast(desc.mid)
+	else
+		params = MessageBusService:getLast(desc.mid)
+	end
 	if params == nil then
 		return nil
 	end
@@ -101,25 +91,11 @@ end
 local Subscriber = {}
 Subscriber.__index = Subscriber
 
-export type Subscriber =  {
-	new: () -> Subscriber,
-	getSubscriptionCount: (Subscriber) -> number,
-	subscribe: (Subscriber, MessageDescriptor, (Table?) -> (), boolean?) -> (),
-	subscribeProtocolMethodRequest: (Subscriber, ProtocolMethodDescriptor, (Table?) -> (), boolean?) -> (),
-	subscribeProtocolMethodResponse: (Subscriber, ProtocolMethodDescriptor, (Table?) -> (), boolean?) -> (),
-	unsubscribe: (Subscriber, MessageDescriptor) -> (),
-	unsubscribeToProtocolMethodRequest: (Subscriber, ProtocolMethodDescriptor) -> (),
-	unsubscribeToProtocolMethodResponse: (Subscriber, ProtocolMethodDescriptor) -> (),
-	unsubscribeFromAllMessages: (Subscriber) -> (),
-
-	connections: { [string]: any },
-}
-
-function Subscriber.new()
+function Subscriber.new(): Subscriber
 	local self = setmetatable({
 		connections = {},
 	}, Subscriber)
-	return self
+	return (self :: any) :: Subscriber
 end
 
 function Subscriber:getSubscriptionCount(): number

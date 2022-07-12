@@ -13,7 +13,6 @@ local FStringToolboxAssetConfigEnabledAudioSharingLearnMoreLink = game:GetFastSt
 )
 local FFlagToolboxAssetConfigurationMatchPluginFlow = game:GetFastFlag("ToolboxAssetConfigurationMatchPluginFlow")
 local FFlagToolboxAssetConfigurationFixPriceToggle = game:getFastFlag("ToolboxAssetConfigurationFixPriceToggle")
-local FFlagAssetConfigSharingDesignTweaks = game:GetFastFlag("AssetConfigSharingDesignTweaks")
 local FFlagAssetConfigDynamicDistributionQuotas2 = game:GetFastFlag("AssetConfigDynamicDistributionQuotas2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -257,7 +256,7 @@ if FFlagAssetConfigDynamicDistributionQuotas2 then
 			local capacity = distributionQuota.capacity
 			local expirationTime = distributionQuota.expirationTime or ""
 			local localeId = self.props.Localization:getLocale()
-			
+
 			if capacity < 1 then
 				publishingEnabled = false
 				quotaMessageText = props.Localization:getText(
@@ -511,37 +510,20 @@ function ConfigCopy:render()
 				})
 				else nil,
 
-			TipsLabel = if FFlagAssetConfigSharingDesignTweaks
-				then Roact.createElement(TextLabel, {
-					AutomaticSize = Enum.AutomaticSize.Y,
-					Size = UDim2.new(1, 0, 0, 0),
-					BorderSizePixel = 0,
+			TipsLabel = Roact.createElement(TextLabel, {
+				AutomaticSize = Enum.AutomaticSize.Y,
+				Size = UDim2.new(1, 0, 0, 0),
+				BorderSizePixel = 0,
 
-					Text = informationText,
-					StyleModifier = StyleModifier.Disabled,
-					TextWrapped = true,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment = Enum.TextYAlignment.Center,
-					TextSize = Constants.FONT_SIZE_LARGE,
+				Text = informationText,
+				StyleModifier = StyleModifier.Disabled,
+				TextWrapped = true,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Center,
+				TextSize = Constants.FONT_SIZE_LARGE,
 
-					LayoutOrder = rightFrameLayoutOrder:getNextOrder(),
-				})
-				else Roact.createElement("TextLabel", {
-					AutomaticSize = Enum.AutomaticSize.Y,
-					Size = UDim2.new(1, 0, 0, 0),
-					BackgroundTransparency = 1,
-					BorderSizePixel = 0,
-
-					Text = informationText,
-					TextWrapped = true,
-					TextColor3 = publishAssetTheme.titleTextColor,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment = Enum.TextYAlignment.Center,
-					TextSize = Constants.FONT_SIZE_LARGE,
-					Font = Constants.FONT,
-
-					LayoutOrder = rightFrameLayoutOrder:getNextOrder(),
-				}),
+				LayoutOrder = rightFrameLayoutOrder:getNextOrder(),
+			}),
 
 			LinkButton = Roact.createElement(LinkText, {
 				LayoutOrder = rightFrameLayoutOrder:getNextOrder(),

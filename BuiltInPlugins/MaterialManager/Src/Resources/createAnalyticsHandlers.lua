@@ -91,5 +91,17 @@ return function(analyticsService)
 		searchBar = function()
 			_reportCounter("SearchBar")
 		end,
+
+		importTextureMapError = function()
+			_reportCounter("ImportTextureMapError")
+		end,
+
+		selectFileTextureMapError = function()
+			_reportCounter("SelectFileTextureMapError")
+		end,
+
+		uploadTextureMapError = function()
+			_reportCounter("UploadTextureMapError")
+		end,
 	}
 end

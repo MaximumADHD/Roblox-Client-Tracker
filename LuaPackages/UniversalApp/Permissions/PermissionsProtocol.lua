@@ -11,6 +11,8 @@ local PERMISSIONS_REQUEST_METHOD_NAME = "PermissionsRequest"
 local HAS_PERMISSIONS_METHOD_NAME = "HasPermissions"
 local SUPPORTS_PERMISSIONS_METHOD_NAME = "SupportsPermissions"
 
+game:DefineFastFlag("DebugRomarkAudioPermissionsBypass", false)
+
 local permissions = {
 	CAMERA_ACCESS = "CAMERA_ACCESS",
 	MICROPHONE_ACCESS = "MICROPHONE_ACCESS",
@@ -143,6 +145,14 @@ not granted
 ]]
 
 function PermissionsProtocol:requestPermissions(permissions: Table): Promise
+	-- Override permissions request in Romark, don't need to ask for them
+	if game:GetFastFlag("DebugRomarkAudioPermissionsBypass") then
+		local params = {}
+		params["missingPermissions"] = {}
+		params["status"] = PermissionsProtocol.Status.AUTHORIZED
+		return Promise.resolve(params)
+	end
+			
 	local promise = Promise.new(function(resolve, _)
 		local desc = self.PERMISSION_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR
 		self.subscriber:subscribeProtocolMethodResponse(desc, function(params: Table)

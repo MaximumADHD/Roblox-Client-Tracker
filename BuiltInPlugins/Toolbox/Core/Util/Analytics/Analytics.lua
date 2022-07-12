@@ -9,7 +9,6 @@ local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local getUserId = require(Plugin.Core.Util.getUserId)
 
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
-local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
 local FFlagToolboxIncludedPlaceIdInConfigRequest = game:GetFastFlag("ToolboxIncludedPlaceIdInConfigRequest")
 
 local getPlaceId
@@ -319,68 +318,36 @@ function Analytics.onIdVerificationIconClicked(assetId)
 	})
 end
 
-if FFlagToolboxHomeViewAnalyticsUpdate then
-	function Analytics.marketplaceSearch(
-		keyword,
-		prefix,
-		keyCount,
-		delCount,
-		autocompleteShown,
-		isTopKeyword: boolean,
-		searchInfo: AnalyticsTypes.SearchInfo
-	)
-		AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "MarketplaceSearch", {
-			studioSid = getStudioSessionId(),
-			clientID = getClientId(),
-			isEditMode = getIsEditMode(),
-			userID = getUserId(),
-			ptid = getPlatformId(),
-			placeID = getPlaceId(),
+function Analytics.marketplaceSearch(
+	keyword,
+	prefix,
+	keyCount,
+	delCount,
+	autocompleteShown,
+	isTopKeyword: boolean,
+	searchInfo: AnalyticsTypes.SearchInfo
+)
+	AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "MarketplaceSearch", {
+		studioSid = getStudioSessionId(),
+		clientID = getClientId(),
+		isEditMode = getIsEditMode(),
+		userID = getUserId(),
+		ptid = getPlatformId(),
+		placeID = getPlaceId(),
 
-			searchKeyword = keyword,
-			autocompletePrefix = prefix,
-			autocompleteKeyCount = keyCount,
-			autocompleteDeleteCount = delCount,
-			autocompleteShown = autocompleteShown,
-			isTopKeyword = isTopKeyword,
+		searchKeyword = keyword,
+		autocompletePrefix = prefix,
+		autocompleteKeyCount = keyCount,
+		autocompleteDeleteCount = delCount,
+		autocompleteShown = autocompleteShown,
+		isTopKeyword = isTopKeyword,
 
-			assetType = searchInfo.assetType,
-			searchByCreatorID = searchInfo.creatorID,
-			searchID = searchInfo.searchId,
-			sort = searchInfo.sort,
-			toolboxTab = searchInfo.toolboxTab,
-		})
-	end
-else
-	function Analytics.marketplaceSearch_DEPRECATED(
-		keyword,
-		prefix,
-		keyCount,
-		delCount,
-		autocompleteShown,
-		searchInfo: AnalyticsTypes.SearchInfo
-	)
-		AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "MarketplaceSearch", {
-			studioSid = getStudioSessionId(),
-			clientID = getClientId(),
-			isEditMode = getIsEditMode(),
-			userID = getUserId(),
-			ptid = getPlatformId(),
-			placeID = getPlaceId(),
-
-			searchKeyword = keyword,
-			autocompletePrefix = prefix,
-			autocompleteKeyCount = keyCount,
-			autocompleteDeleteCount = delCount,
-			autocompleteShown = autocompleteShown,
-
-			assetType = searchInfo.assetType,
-			searchByCreatorID = searchInfo.creatorID,
-			searchID = searchInfo.searchId,
-			sort = searchInfo.sort,
-			toolboxTab = searchInfo.toolboxTab,
-		})
-	end
+		assetType = searchInfo.assetType,
+		searchByCreatorID = searchInfo.creatorID,
+		searchID = searchInfo.searchId,
+		sort = searchInfo.sort,
+		toolboxTab = searchInfo.toolboxTab,
+	})
 end
 
 function Analytics.onToolboxWidgetInteraction(widgetSize)

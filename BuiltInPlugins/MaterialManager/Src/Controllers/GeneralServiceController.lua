@@ -70,4 +70,8 @@ function GeneralServiceController:ApplyToSelection(baseMaterial: Enum.Material, 
 	self._changeHistoryService:asService():SetWaypoint("Applied Material to Selection")
 end
 
+function GeneralServiceController:saveMaterialVariant(instance: Instance)
+	self._changeHistoryService:asService():SetWaypoint("Save Material Variant" .. instance.Name)
+end
+
 return GeneralServiceController

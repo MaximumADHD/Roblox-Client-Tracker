@@ -29,13 +29,6 @@ local BaseCamera = require(script.Parent:WaitForChild("BaseCamera"))
 local VRBaseCamera = setmetatable({}, BaseCamera)
 VRBaseCamera.__index = VRBaseCamera
 
-local FFlagUserVRVignetteToggle do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserVRVignetteToggle")
-	end)
-	FFlagUserVRVignetteToggle = success and result
-end
-
 local FFlagUserFlagEnableVRUpdate2 do
 	local success, result = pcall(function()
 		return UserSettings():IsUserFeatureEnabled("UserFlagEnableVRUpdate2")
@@ -167,10 +160,8 @@ end
 
 -- (VR) Screen effects --------------
 function VRBaseCamera:StartFadeFromBlack()
-	if FFlagUserVRVignetteToggle then
-		if UserGameSettings.VignetteEnabled == false then
-			return
-		end
+	if UserGameSettings.VignetteEnabled == false then
+		return
 	end
 	
 	local VRFade = Lighting:FindFirstChild("VRFade")
@@ -200,10 +191,8 @@ function VRBaseCamera:UpdateFadeFromBlack(timeDelta: number)
 end
 
 function VRBaseCamera:StartVREdgeBlur(player)
-	if FFlagUserVRVignetteToggle then
-		if UserGameSettings.VignetteEnabled == false then
-			return
-		end
+	if UserGameSettings.VignetteEnabled == false then
+		return
 	end
 	
 	local blurPart = nil

@@ -1,6 +1,5 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
-local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
 
 export type AudioDetails = {
@@ -73,7 +72,7 @@ export type AssetInfoVoting = {
 	UpVotes: number, -- the number of upvotes
 	DownVotes: number, -- the number of downVotes
 	VoteCount: number, -- the number of legitimate upvotes + downvotes
-	UpVotePercent:  number, -- legitimate upvotes / total legit votes
+	UpVotePercent: number, -- legitimate upvotes / total legit votes
 	CanVote: boolean, -- whether or not the user can vote
 	UserVote: string, -- the user's vote
 	HasVoted: boolean, -- whethr or not the user voted
@@ -112,7 +111,7 @@ function AssetInfo.fromItemDetailsRequest(data): AssetInfo
 			HasScripts = data.asset.hasScripts,
 		}
 
-		if FFlagToolboxAudioDiscovery and data.asset.audioDetails then
+		if data.asset.audioDetails then
 			result.AudioDetails = {
 				Type = data.asset.audioDetails.audioType,
 				Artist = data.asset.audioDetails.artist,

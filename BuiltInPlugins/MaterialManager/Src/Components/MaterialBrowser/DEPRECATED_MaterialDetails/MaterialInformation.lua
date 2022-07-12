@@ -33,10 +33,9 @@ local getSupportedMaterials = require(Plugin.Src.Resources.Constants.getSupporte
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
 local getFFlagMaterialManagerUIUXFixes = require(Flags.getFFlagMaterialManagerUIUXFixes)
+local getFFlagMaterialManagerAnalyticsCounter = require(Flags.getFFlagMaterialManagerAnalyticsCounter)
 
 local supportedMaterials = getSupportedMaterials()
-
-local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
 
 export type Props = {
 	LayoutOrder: number?,
@@ -107,7 +106,7 @@ function MaterialInformation:init()
 		if material and material.MaterialVariant then
 			changeHistoryService:SetWaypoint("Delete MaterialVariant")
 			material.MaterialVariant.Parent = nil
-			if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
+			if getFFlagMaterialManagerAnalyticsCounter() then
 				props.Analytics:report("deleteMaterialVariant")
 			end
 		end

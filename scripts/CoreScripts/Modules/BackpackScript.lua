@@ -92,7 +92,7 @@ local IsTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 local Utility = require(RobloxGui.Modules.Settings.Utility)
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 
-local FFlagEnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
+local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 
 pcall(function()
 	local LocalizationService = game:GetService("LocalizationService")
@@ -104,6 +104,7 @@ pcall(function()
 end)
 
 local TopbarEnabled = true
+local ShouldResumeBackpack = false
 
 if IsTenFootInterface then
 	ICON_SIZE = 100
@@ -1886,18 +1887,25 @@ OnCoreGuiChanged(healthType, StarterGui:GetCoreGuiEnabled(healthType))
 GuiService.MenuOpened:Connect(function()
 	if BackpackScript.IsOpen then
 		BackpackScript.OpenClose()
+		if EnableInGameMenuV3() then
+			ShouldResumeBackpack = true
+		end
 	end
-	if FFlagEnableInGameMenuV3 then
+	if EnableInGameMenuV3() then
 		if BackpackScript.IsHotbarVisible then
 			HotbarFrame.Visible = false
 		end
 	end
 end)
 	
-if FFlagEnableInGameMenuV3 then
+if EnableInGameMenuV3() then
 	GuiService.MenuClosed:Connect(function()
 		if BackpackScript.IsHotbarVisible then
 			HotbarFrame.Visible = true
+		end
+		if ShouldResumeBackpack then
+			ShouldResumeBackpack = false
+			BackpackScript.OpenClose()
 		end
 	end)
 end

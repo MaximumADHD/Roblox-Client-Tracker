@@ -28,10 +28,8 @@ local FIntStudioAudioDiscoveryMaxAssetIdsPerRequest = game:GetFastInt("StudioAud
 local FIntStudioAudioDiscoveryPerRequestCooldown = game:GetFastInt("StudioAudioDiscoveryPerRequestCooldown")
 local FIntStudioAudioDiscoveryCooldownAfterHttp429 = game:GetFastInt("StudioAudioDiscoveryCooldownAfterHttp429")
 local FIntStudioAudioDiscoveryMaxRecentRequests = game:GetFastInt("StudioAudioDiscoveryMaxRecentRequests")
-local FFlagAudioDiscoveryAddPermCheck = game:GetFastFlag("AudioDiscoveryAddPermCheck")
 local FFlagDEBUG_StudioAudioDiscoveryPermissionCheckError = game:GetFastFlag("DEBUG_StudioAudioDiscoveryPermissionCheckErrors")
-
-local FIntSoundEffectMaxDuration = game:GetFastInt("SoundEffectMaxDuration")
+local FFlagAddNonPermCase = game:GetFastFlag("AddNonPermCase")
 
 local Plugin = script.Parent.Parent.Parent
 local Framework = require(Plugin.Packages.Framework)
@@ -326,17 +324,39 @@ function SoundAssetChecker:_onBatchCheckUniversePermissionResponse(responseBody,
 
 	for idx, assetId in pairs(requestOrderTable) do
 
-		if results[idx].value.status == "HasPermission" then
-			soundIdMap[assetId].OK = "ok"
-			self._goodAssets += 1
-		elseif results[idx].error.message ~= nil then
-			if FFlagDEBUG_StudioAudioDiscoveryPermissionCheckError then
-				warn(("Fetching sound asset universe permissions failed: %s"):format(results[idx].error.code))
+		if FFlagAddNonPermCase then
+			if results[idx].value then
+				if results[idx].value.status == "HasPermission" then
+					soundIdMap[assetId].OK = "ok"
+					self._goodAssets += 1
+				else
+					soundIdMap[assetId].OK = "error"
+					self._badAssets += 1
+				end
+			elseif results[idx].error then
+				if results[idx].error.message then
+					if FFlagDEBUG_StudioAudioDiscoveryPermissionCheckError then
+						warn(("Fetching sound asset universe permissions failed: %s"):format(results[idx].error.code))
+					end
+					self._badAssets += 1
+				end
+			else
+				self._badAssets += 1
 			end
-			self._badAssets += 1
 		else
-			self._badAssets += 1
+			if results[idx].value.status == "HasPermission" then
+				soundIdMap[assetId].OK = "ok"
+				self._goodAssets += 1
+			elseif results[idx].error.message ~= nil then
+				if FFlagDEBUG_StudioAudioDiscoveryPermissionCheckError then
+					warn(("Fetching sound asset universe permissions failed: %s"):format(results[idx].error.code))
+				end
+				self._badAssets += 1
+			else
+				self._badAssets += 1
+			end
 		end
+		
 		self._soundAssets[assetId] = soundIdMap[assetId]
 		table.insert(foundSounds, soundIdMap[assetId])
 	end
@@ -417,87 +437,22 @@ function SoundAssetChecker:_onBatchResponse(requestedBatch : {number}, responseB
 
 	local foundSounds : {Types.SoundDetails} = {}
 
-	if FFlagAudioDiscoveryAddPermCheck then
-		local soundIds = {}
+	local soundIds = {}
 
-		for _, assetAllDetails in ipairs(responseBody.data) do
-			local assetId = assetAllDetails.asset.id
-			self._pendingAssetIds[assetId] = nil
-			requestedSet[assetId] = nil
-	
-			-- If this isn't a sound, then just cache that and bail early
-			if assetAllDetails.asset.typeId ~= AUDIO_TYPE_ID then
-				self._nonSoundAssetIds[assetId] = true
-				continue 
-			else
-				local creatorType = if assetAllDetails.creator.type == USER_TYPE_ID then Enum.CreatorType.User else Enum.CreatorType.Group
-				local isGoodAsset = self:_checkSound(assetAllDetails.creator.id, creatorType)
-				local ok = if isGoodAsset then "ok" else "error"
-				
-				local soundDetails: Types.SoundDetails = {
-					OK = ok,
-					Id = tostring(assetId),
-					Name = assetAllDetails.asset.name,
-					CreatorId = assetAllDetails.creator.id,
-					CreatorType = if assetAllDetails.creator.type == USER_TYPE_ID then "User" else "Group",
-					Creator = assetAllDetails.creator.name,
-					Time = assetAllDetails.asset.duration	,
-				}
-				soundIds[assetId] = soundDetails
-				
-				if game.GameId == 0 then
-					if isGoodAsset then
-						self._goodAssets += 1
-					else
-						self._badAssets += 1
-					end
+	for _, assetAllDetails in ipairs(responseBody.data) do
+		local assetId = assetAllDetails.asset.id
+		self._pendingAssetIds[assetId] = nil
+		requestedSet[assetId] = nil
 
-					self._soundAssets[assetId] = soundDetails
-					table.insert(foundSounds, soundDetails)
-				end
-				
-			end
-		end
-
-		for assetId in pairs(requestedSet) do
-			self._pendingAssetIds[assetId] = nil
+		-- If this isn't a sound, then just cache that and bail early
+		if assetAllDetails.asset.typeId ~= AUDIO_TYPE_ID then
 			self._nonSoundAssetIds[assetId] = true
-		end
-
-		if game.GameId ~= 0 then
-			self:_sendBatchCheckUniversePermission(soundIds)
+			continue 
 		else
-			if #foundSounds > 0 then
-				self.soundsFound:Fire(foundSounds)
-			end
-		
-			if not self:_hasBatchesToSend() and self._batchRequestsInFlight == 0 then
-				-- Done sending batches, report the breakdown
-				Analytics:reportBreakdown(self._goodAssets, self._badAssets)
-			end
-		end
-	else
-		for _, assetAllDetails in ipairs(responseBody.data) do
-			local assetId = assetAllDetails.asset.id
-			self._pendingAssetIds[assetId] = nil
-			requestedSet[assetId] = nil
-	
-			-- If this isn't a sound, then just cache that and bail early
-			if assetAllDetails.asset.typeId ~= AUDIO_TYPE_ID then
-				self._nonSoundAssetIds[assetId] = true
-				continue
-			end
-	
-			local time = assetAllDetails.asset.duration
 			local creatorType = if assetAllDetails.creator.type == USER_TYPE_ID then Enum.CreatorType.User else Enum.CreatorType.Group
-			local isGoodAsset = (time < FIntSoundEffectMaxDuration or self:_checkSound(assetAllDetails.creator.id, creatorType))
+			local isGoodAsset = self:_checkSound(assetAllDetails.creator.id, creatorType)
 			local ok = if isGoodAsset then "ok" else "error"
-			if isGoodAsset then
-				self._goodAssets += 1
-			else
-				self._badAssets += 1
-			end
-	
+			
 			local soundDetails: Types.SoundDetails = {
 				OK = ok,
 				Id = tostring(assetId),
@@ -505,18 +460,32 @@ function SoundAssetChecker:_onBatchResponse(requestedBatch : {number}, responseB
 				CreatorId = assetAllDetails.creator.id,
 				CreatorType = if assetAllDetails.creator.type == USER_TYPE_ID then "User" else "Group",
 				Creator = assetAllDetails.creator.name,
-				Time = time,
+				Time = assetAllDetails.asset.duration	,
 			}
-	
-			self._soundAssets[assetId] = soundDetails
-			table.insert(foundSounds, soundDetails)
+			soundIds[assetId] = soundDetails
+			
+			if game.GameId == 0 then
+				if isGoodAsset then
+					self._goodAssets += 1
+				else
+					self._badAssets += 1
+				end
+
+				self._soundAssets[assetId] = soundDetails
+				table.insert(foundSounds, soundDetails)
+			end
+			
 		end
-	
-		for assetId in pairs(requestedSet) do
-			self._pendingAssetIds[assetId] = nil
-			self._nonSoundAssetIds[assetId] = true
-		end
-	
+	end
+
+	for assetId in pairs(requestedSet) do
+		self._pendingAssetIds[assetId] = nil
+		self._nonSoundAssetIds[assetId] = true
+	end
+
+	if game.GameId ~= 0 then
+		self:_sendBatchCheckUniversePermission(soundIds)
+	else
 		if #foundSounds > 0 then
 			self.soundsFound:Fire(foundSounds)
 		end

@@ -50,13 +50,6 @@ local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local Flags = InGameMenu.Flags
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 local GetFFlagInGameMenuVRToggle = require(Flags.GetFFlagInGameMenuVRToggle)
-local FFlagUserVRVignetteToggle do
-local success, result = pcall(function()
-	return UserSettings():IsUserFeatureEnabled("UserVRVignetteToggle")
-	end)
-	FFlagUserVRVignetteToggle = success and result
-end
-local canUseVignette = FFlagUserVRVignetteToggle
 	 
 local VREnabledChanged = UserGameSettings:GetPropertyChangedSignal("VREnabled")
 
@@ -247,7 +240,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 				subtextEnabled = self.state.vrEnabled ~= vrEnabledAtModuleLoad,
 				subtextKey = "CoreScripts.InGameMenu.GameSettings.RestartPending",
 			}),
-			VignetteEnabled = canUseVignette and self.state.vrActive and Roact.createElement(AutoPropertyToggleEntry, {
+			VignetteEnabled = self.state.vrActive and Roact.createElement(AutoPropertyToggleEntry, {
 				LayoutOrder = 17,
 				labelKey = "CoreScripts.InGameMenu.GameSettings.VignetteEnabled",
 				instance = UserGameSettings,

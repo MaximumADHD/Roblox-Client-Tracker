@@ -217,4 +217,5 @@ return{
 	["CoreScripts.InGameMenu.Actions.BlockFriend"] = [[Block Friend?]],
 	["CoreScripts.InGameMenu.QuickActions.ScreenshotSaved"] = [[Screenshot Saved]],
 	["CoreScripts.InGameMenu.Action.ShareServerLink"] = [[Share Server Link]],
+	["CoreScripts.InGameMenu.Controls.Scriptable"] = [[Scriptable]],
 }

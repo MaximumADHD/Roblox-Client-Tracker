@@ -2,7 +2,6 @@
 local Plugin = script:FindFirstAncestor("Toolbox")
 local Packages = Plugin.Packages
 
-local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 local FFlagToolboxFixAssetFetcherOnUpdate = game:GetFastFlag("ToolboxFixAssetFetcherOnUpdate")
 local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
 local FFlagToolboxFixAssetsNoVoteData = game:GetFastFlag("ToolboxFixAssetsNoVoteData")
@@ -133,7 +132,7 @@ function ResultsFetcher:fetchResults(args: { pageSize: number?, initialPage: boo
 				sectionName = props.sectionName,
 				sortType = props.sortName,
 				keyword = props.searchTerm,
-				tags = if FFlagToolboxAudioDiscovery then props.tags else nil,
+				tags = props.tags,
 				cursor = nextPageCursor,
 				limit = pageSize,
 				includeOnlyVerifiedCreators = includeOnlyVerifiedCreators,

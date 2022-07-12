@@ -43,7 +43,6 @@
 ]]
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 local FFlagToolboxAssetConfigurationMatchPluginFlow = game:GetFastFlag("ToolboxAssetConfigurationMatchPluginFlow")
-local FFlagAssetConfigSharingDesignTweaks = game:GetFastFlag("AssetConfigSharingDesignTweaks")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -79,7 +78,8 @@ local ConfigComment = require(AssetConfiguration.ConfigComment)
 local ConfigSharing = require(AssetConfiguration.ConfigSharing)
 local TagsComponent = require(AssetConfiguration.CatalogTags.TagsComponent)
 local Header = require(AssetConfiguration.Header)
-local PriceComponent = FFlagToolboxAssetConfigurationMatchPluginFlow and require(AssetConfiguration.PriceComponent) or nil
+local PriceComponent = FFlagToolboxAssetConfigurationMatchPluginFlow and require(AssetConfiguration.PriceComponent)
+	or nil
 
 local SetFieldError = require(Plugin.Core.Actions.SetFieldError)
 
@@ -421,10 +421,10 @@ function PublishAsset:renderContent(theme, localizedContent)
 				Position = UDim2.new(0.5, 0, 0.5, 0)
 			}),
 		}),
-		
-		Sharing = if displaySharing then
-			Roact.createElement(ConfigSharing, {
-				AssetId = if FFlagAssetConfigSharingDesignTweaks then props.assetId else nil,
+
+		Sharing = if displaySharing
+			then Roact.createElement(ConfigSharing, {
+				AssetId = props.assetId,
 				AssetType = assetTypeEnum,
 				AllowSelectPrivate = allowSelectPrivate,
 				LayoutOrder = orderIterator:getNextOrder(),
@@ -434,7 +434,7 @@ function PublishAsset:renderContent(theme, localizedContent)
 				OnSelected = onSharingChanged,
 				OnClickRefreshVerficationStatus = onClickRefreshVerficationStatus,
 			})
-		else nil,
+			else nil,
 
 		Copy = displayCopy and Roact.createElement(ConfigCopy, {
 			AssetType = assetTypeEnum,

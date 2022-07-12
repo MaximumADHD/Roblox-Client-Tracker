@@ -25,9 +25,9 @@ local MaterialGrid = Plugin.Src.Components.MaterialBrowser.MaterialGrid
 local MaterialListItem = require(MaterialGrid.MaterialListItem)
 local MaterialTileItem = require(MaterialGrid.MaterialTileItem)
 
-local getFFlagMaterialManagerUtilTests = require(Plugin.Src.Flags.getFFlagMaterialManagerUtilTests)
-
-local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
+local Flags = Plugin.Src.Flags
+local getFFlagMaterialManagerUtilTests = require(Flags.getFFlagMaterialManagerUtilTests)
+local getFFlagMaterialManagerAnalyticsCounter = require(Flags.getFFlagMaterialManagerAnalyticsCounter)
 
 export type Props = {
 	MaterialItem: _Types.Material,
@@ -98,8 +98,7 @@ function MaterialItem:init()
 		else
 			ApplyToSelection(materialItem.Material, if materialItem.MaterialVariant then materialItem.MaterialVariant.Name else nil)
 		end
-
-		if FIntInfluxReportMaterialManagerHundrethPercent2 > 0 then
+		if getFFlagMaterialManagerAnalyticsCounter() then
 			props.Analytics:report("applyToSelectionAction")
 		end
 	end

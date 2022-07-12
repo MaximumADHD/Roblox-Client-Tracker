@@ -274,7 +274,7 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 				categoryName = categoryName,
 				searchTerm = searchTerm,
 				assetIndex = assetIndex,
-			}, self.insertToolPromise, assetWasDragged, getNetwork(self)) -- networkInterface added with FFLagInsertAssetBubbleUpNetwork
+			}, self.insertToolPromise, assetWasDragged, getNetwork(self))
 		end
 
 		self.openAssetPreview = function(assetData)

@@ -8,7 +8,7 @@ local Workspace = game:GetService("Workspace")
 
 local hasInternalPermission = require(script.Parent.hasInternalPermission)()
 
-local FLAGS_FOLDER = "PluginTemplateFlags"
+local FLAGS_FOLDER = "ManageCollaboratorsFlags"
 
 local inCLI = pcall(function()
 	-- Process service only available in CLI

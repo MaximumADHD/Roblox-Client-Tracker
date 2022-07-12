@@ -13,13 +13,24 @@ local ContentProvider = game:GetService("ContentProvider")
 local CoreGui = game:GetService("CoreGui")
 local ReplicatedFirst = game:GetService("ReplicatedFirst")
 local ScriptContext = game:GetService("ScriptContext")
+local LocalizationService = game:GetService("LocalizationService")
+local AppStorageService = game:GetService("AppStorageService")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local Modules = RobloxGui:WaitForChild("Modules")
+local Common = Modules:WaitForChild("Common")
 local create = require(RobloxGui:WaitForChild("Modules"):WaitForChild("Common"):WaitForChild("Create"))
 local PolicyService = require(RobloxGui.Modules.Common:WaitForChild("PolicyService"))
+local LoadingScreen = require(Modules.LoadingScreen.LoadingScreen)
+local LoadingScreenReducer = require(Modules.LoadingScreen.Reducers.LoadingScreenReducer)
+local LocalizationProvider = require(Modules.InGameMenuV3.Localization.LocalizationProvider)
+local Localization = require(Modules.InGameMenuV3.Localization.Localization)
 
+--FFlags
 local FFlagLoadingScreenShowBlankUntilPolicyServiceReturns = game:DefineFastFlag("LoadingScreenShowBlankUntilPolicyServiceReturns", false)
 local FFlagLoadingRemoveRemoteCallErrorPrint = game:DefineFastFlag("LoadingRemoveRemoteCallErrorPrint", false)
+
+local FFlagLoadingScreenRevamp = game:DefineFastFlag("LoadingScreenRevamp", false)
 
 local FFlagShowConnectionErrorCode = settings():GetFFlag("ShowConnectionErrorCode")
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
@@ -45,6 +56,8 @@ local COLORS = {
 }
 local spinnerImageId = "rbxasset://textures/loading/robloxTilt.png"
 
+local LOADING_SCREEN_FADE_OUT_TIME = 5
+
 -- Variables
 local GameAssetInfo -- loaded by InfoProvider:LoadAssets()
 local currScreenGui
@@ -61,59 +74,56 @@ local layoutIsReady = false
 local connectionHealthShown = false
 local connectionHealthCon
 
+-- [Info provider section] should be removed after new loading screen goes alive
 local InfoProvider = {}
-
-local function WaitForPlaceId()
-	local placeId = game.PlaceId
-	if placeId == 0 then
-		game:GetPropertyChangedSignal("PlaceId"):Wait()
-		placeId = game.PlaceId
-	end
-	return placeId
-end
-
-function InfoProvider:GetGameName()
-	if GameAssetInfo ~= nil then
-		return GameAssetInfo.Name
-	else
-		return ''
-	end
-end
-
-function InfoProvider:GetCreatorName()
-	if GameAssetInfo ~= nil then
-		return GameAssetInfo.Creator.Name
-	else
-		return ''
-	end
-end
-
-function InfoProvider:LoadAssets()
-	spawn(function()
-		local PLACEID = game.PlaceId
-		if PLACEID <= 0 then
-			while game.PlaceId <= 0 do
-				wait()
-			end
-			PLACEID = game.PlaceId
+if not FFlagLoadingScreenRevamp then
+	function InfoProvider:GetGameName()
+		if GameAssetInfo ~= nil then
+			return GameAssetInfo.Name
+		else
+			return ''
 		end
+	end
 
-		-- load game asset info
-		coroutine.resume(coroutine.create(function()
-			local success, result = pcall(function()
-				GameAssetInfo = MarketplaceService:GetProductInfo(PLACEID)
-			end)
-			if not FFlagLoadingRemoveRemoteCallErrorPrint then
-				if not success then
-					print("LoadingScript->InfoProvider:LoadAssets:", result)
+	function InfoProvider:GetCreatorName()
+		if GameAssetInfo ~= nil then
+			return GameAssetInfo.Creator.Name
+		else
+			return ''
+		end
+	end
+
+	function InfoProvider:LoadAssets()
+		spawn(function()
+			local PLACEID = game.PlaceId
+			if PLACEID <= 0 then
+				while game.PlaceId <= 0 do
+					wait()
 				end
+				PLACEID = game.PlaceId
 			end
-		end))
-	end)
+
+			-- load game asset info
+			coroutine.resume(coroutine.create(function()
+				local success, result = pcall(function()
+					GameAssetInfo = MarketplaceService:GetProductInfo(PLACEID)
+				end)
+				if not FFlagLoadingRemoveRemoteCallErrorPrint then
+					if not success then
+						print("LoadingScript->InfoProvider:LoadAssets:", result)
+					end
+				end
+			end))
+		end)
+	end
 end
+-- [Info provider section]
+
+-- [UI section] should be removed after new loading screen goes alive
 
 -- create a cancel binding for console to be able to cancel anytime while loading
 local function createTenfootCancelGui()
+	if FFlagLoadingScreenRevamp then return end
 	local cancelLabel = create'ImageLabel'
 	{
 		Name = "CancelLabel",
@@ -168,6 +178,7 @@ local function createTenfootCancelGui()
 end
 
 local function GenerateGui()
+	if FFlagLoadingScreenRevamp then return end
 	local screenGui = create 'ScreenGui' {
 		Name = 'RobloxLoadingGui',
 		DisplayOrder = 8,
@@ -565,176 +576,230 @@ local function GenerateGui()
 	onResized()
 	screenGui:GetPropertyChangedSignal("AbsoluteSize"):connect(onResized)
 end
+-- [UI seciton]
+
+-- Generate transtion when prepraing the loading screen ui
+local function GenerateTransition()
+	local screenGui = create 'ScreenGui' {
+		Name = 'RobloxLoadingTransitionGui',
+		DisplayOrder = 8,
+		IgnoreGuiInset = true,
+	}
+
+	local mainBackgroundContainer = create 'Frame' {
+		Name = 'BlackFrame',
+		BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+		BackgroundTransparency = 0,
+		Size = UDim2.fromScale(10, 10), -- make sure whole screen is covered, since canvas size might not be correct at this point
+		Position = UDim2.fromOffset(0, 0),
+		Active = true,
+		Parent = screenGui
+	}
+	screenGui.Parent = CoreGui
+	return screenGui
+end
 
 ---------------------------------------------------------
 -- Main Script (show something now + setup connections)
-
--- start loading assets asap
-InfoProvider:LoadAssets()
-GenerateGui()
-if isTenFootInterface then
-	createTenfootCancelGui()
+local transtion = nil
+if FFlagLoadingScreenRevamp then
+	transtion = GenerateTransition()
 end
 
-local fadeCycleTime = 1.7
-local turnCycleTime = 2
+if not FFlagLoadingScreenRevamp then
+	-- start loading assets asap
+	InfoProvider:LoadAssets()
+end
 
-local function spinnerEasingFunc(a, b, t)
-	t = t * 2
-	if t < 1 then
-		return b / 2 * t*t*t + a
-	else
-		t = t - 2
-		return b / 2 * (t * t * t + 2) + b
+local loadingScreenUIHandle = nil
+if FFlagLoadingScreenRevamp then
+	local spwanUI = coroutine.create(function()
+		local CorePackages = game:GetService("CorePackages")
+		local Roact = require(CorePackages:WaitForChild("Roact"))
+		local Rodux = require(CorePackages:WaitForChild("Rodux"))
+		local RoactRodux = require(CorePackages:WaitForChild("RoactRodux"))
+		local store = Rodux.Store.new(LoadingScreenReducer, {}, {Rodux.thunkMiddleware})
+		local app = Roact.createElement(RoactRodux.StoreProvider, {
+			store = store,
+		}, {
+			loadingScreenUI = Roact.createElement(LoadingScreen)
+		})
+		loadingScreenUIHandle = Roact.mount(app, CoreGui, "RobloxLoadingGUI")
+		-- Roact mount might lag one frame, make sure transition is destroyed after loading screen shows up.
+		RunService.Heartbeat:wait()
+		transtion:Destroy()
+	end)
+	coroutine.resume(spwanUI)
+else
+	GenerateGui()
+	if isTenFootInterface then
+		createTenfootCancelGui()
 	end
 end
 
-local showAntiAddictionNoticeStringEn = false
-if FFlagLoadingScreenShowBlankUntilPolicyServiceReturns then
-	showAntiAddictionNoticeStringEn = "waiting"
-end
--- PolicyService requires LocalPlayer to exist, which doesn't happen until
--- after we connect to the server. If the server is full, this can take a
--- very long time (like several minutes) to return a value. As a result, we
--- call it asynchronously and default to false.
-coroutine.wrap(function()
-	showAntiAddictionNoticeStringEn = PolicyService:IsSubjectToChinaPolicies()
-end)()
+-- [events section] should be removed after new loading screen goes alive
+if not FFlagLoadingScreenRevamp then
+	local fadeCycleTime = 1.7
+	local turnCycleTime = 2
 
-renderSteppedConnection = RunService.RenderStepped:Connect(function(dt)
-	if not currScreenGui then return end
-	if not currScreenGui:FindFirstChild("BlackFrame") then return end
-
-	local infoFrame = currScreenGui.BlackFrame:FindFirstChild('InfoFrame')
-	if infoFrame then
-		-- set place name
-		if placeLabel and placeLabel.Text == "" then
-			placeLabel.Text = InfoProvider:GetGameName()
+	local function spinnerEasingFunc(a, b, t)
+		t = t * 2
+		if t < 1 then
+			return b / 2 * t*t*t + a
+		else
+			t = t - 2
+			return b / 2 * (t * t * t + 2) + b
 		end
+	end
 
-		-- set creator name
-		if creatorLabel and creatorLabel.Text == "" then
-			if FFlagLoadingScreenShowBlankUntilPolicyServiceReturns and showAntiAddictionNoticeStringEn == "waiting" then
-				creatorLabel.Text = ""
-			elseif showAntiAddictionNoticeStringEn then
-				creatorLabel.Text = antiAddictionNoticeStringEn
-			else
-				local creatorName = InfoProvider:GetCreatorName()
-				if creatorName ~= "" then
-					if isTenFootInterface then
-						creatorLabel.Text = creatorName
-						creatorLabel.Size = UDim2.new(0, creatorLabel.TextBounds.X, 1, 0)
-					else
-						creatorLabel.Text = "By ".. creatorName
+	local showAntiAddictionNoticeStringEn = false
+	if FFlagLoadingScreenShowBlankUntilPolicyServiceReturns then
+		showAntiAddictionNoticeStringEn = "waiting"
+	end
+	-- PolicyService requires LocalPlayer to exist, which doesn't happen until
+	-- after we connect to the server. If the server is full, this can take a
+	-- very long time (like several minutes) to return a value. As a result, we
+	-- call it asynchronously and default to false.
+	coroutine.wrap(function()
+		showAntiAddictionNoticeStringEn = PolicyService:IsSubjectToChinaPolicies()
+	end)()
+
+	renderSteppedConnection = RunService.RenderStepped:Connect(function(dt)
+		if not currScreenGui then return end
+		if not currScreenGui:FindFirstChild("BlackFrame") then return end
+
+		local infoFrame = currScreenGui.BlackFrame:FindFirstChild('InfoFrame')
+		if infoFrame then
+			-- set place name
+			if placeLabel and placeLabel.Text == "" then
+				placeLabel.Text = InfoProvider:GetGameName()
+			end
+
+			-- set creator name
+			if creatorLabel and creatorLabel.Text == "" then
+				if FFlagLoadingScreenShowBlankUntilPolicyServiceReturns and showAntiAddictionNoticeStringEn == "waiting" then
+					creatorLabel.Text = ""
+				elseif showAntiAddictionNoticeStringEn then
+					creatorLabel.Text = antiAddictionNoticeStringEn
+				else
+					local creatorName = InfoProvider:GetCreatorName()
+					if creatorName ~= "" then
+						if isTenFootInterface then
+							creatorLabel.Text = creatorName
+							creatorLabel.Size = UDim2.new(0, creatorLabel.TextBounds.X, 1, 0)
+						else
+							creatorLabel.Text = "By ".. creatorName
+						end
 					end
 				end
 			end
 		end
-	end
 
-	local currentTime = tick()
-	local fadeAmount = dt * fadeCycleTime
+		local currentTime = tick()
+		local fadeAmount = dt * fadeCycleTime
 
-	local spinnerImage = currScreenGui.BlackFrame.GraphicsFrame.LoadingImage
-	local timeInCycle = currentTime % turnCycleTime
-	local cycleAlpha = spinnerEasingFunc(0, 1, timeInCycle / turnCycleTime)
-	spinnerImage.Rotation = cycleAlpha * 360
+		local spinnerImage = currScreenGui.BlackFrame.GraphicsFrame.LoadingImage
+		local timeInCycle = currentTime % turnCycleTime
+		local cycleAlpha = spinnerEasingFunc(0, 1, timeInCycle / turnCycleTime)
+		spinnerImage.Rotation = cycleAlpha * 360
 
 
-	if not isTenFootInterface then
-		if currentTime - startTime > 5 and currScreenGui.BlackFrame.CloseButton.ImageTransparency > 0 then
-			currScreenGui.BlackFrame.CloseButton.ImageTransparency = currScreenGui.BlackFrame.CloseButton.ImageTransparency - fadeAmount
+		if not isTenFootInterface then
+			if currentTime - startTime > 5 and currScreenGui.BlackFrame.CloseButton.ImageTransparency > 0 then
+				currScreenGui.BlackFrame.CloseButton.ImageTransparency = currScreenGui.BlackFrame.CloseButton.ImageTransparency - fadeAmount
 
-			if currScreenGui.BlackFrame.CloseButton.ImageTransparency <= 0 then
-				currScreenGui.BlackFrame.CloseButton.Active = true
-			end
-		end
-	end
-end)
-
--- use the old error frame when on XBox
-if not FFlagConnectionScriptEnabled or isTenFootInterface then
-	local errorImage
-
-	GuiService.ErrorMessageChanged:Connect(function()
-		if GuiService:GetErrorMessage() ~= '' then
-			--TODO: Remove this reference to Utility
-			local utility = require(RobloxGui.Modules.Settings.Utility)
-			if isTenFootInterface then
-				currScreenGui.ErrorFrame.Size = UDim2.new(1, 0, 0, 144)
-				currScreenGui.ErrorFrame.Position = UDim2.new(0, 0, 0, 0)
-				currScreenGui.ErrorFrame.BackgroundColor3 = COLORS.BACKGROUND_COLOR
-				currScreenGui.ErrorFrame.BackgroundTransparency = 0.5
-				currScreenGui.ErrorFrame.ErrorText.TextSize = 36
-				currScreenGui.ErrorFrame.ErrorText.Position = UDim2.new(.3, 0, 0, 0)
-				currScreenGui.ErrorFrame.ErrorText.Size = UDim2.new(.4, 0, 0, 144)
-				if errorImage == nil then
-					errorImage = Instance.new("ImageLabel")
-					errorImage.Image = "rbxasset://textures/ui/ErrorIconSmall.png"
-					errorImage.Size = UDim2.new(0, 96, 0, 79)
-					errorImage.Position = UDim2.new(0.228125, 0, 0, 32)
-					errorImage.ZIndex = 9
-					errorImage.BackgroundTransparency = 1
-					errorImage.Parent = currScreenGui.ErrorFrame
-				end
-			elseif utility:IsSmallTouchScreen() then
-				currScreenGui.ErrorFrame.Size = UDim2.new(0.5, 0, 0, 40)
-			end
-
-			local errorCode = GuiService:GetErrorCode()
-			local errorMessage = GuiService:GetErrorMessage()
-			if not FFlagShowConnectionErrorCode then
-				currScreenGui.ErrorFrame.ErrorText.Text = errorMessage
-			else
-				if not errorCode then
-					currScreenGui.ErrorFrame.ErrorText.Text = ("%s (Error Code: -1)"):format(errorMessage)
-				else
-					currScreenGui.ErrorFrame.ErrorText.Text = ("%s (Error Code: %d)"):format(errorMessage, errorCode.Value)
+				if currScreenGui.BlackFrame.CloseButton.ImageTransparency <= 0 then
+					currScreenGui.BlackFrame.CloseButton.Active = true
 				end
 			end
-
-			currScreenGui.ErrorFrame.Visible = true
-			local blackFrame = currScreenGui:FindFirstChild('BlackFrame')
-			if blackFrame then
-				blackFrame.CloseButton.ImageTransparency = 0
-				blackFrame.CloseButton.Active = true
-			end
-		else
-			currScreenGui.ErrorFrame.Visible = false
 		end
 	end)
-end
 
-backButtonConnection = GuiService.ShowLeaveConfirmation:Connect(function()
-	-- When OS back button is pressed during loading screen, exit
-	-- immediately. Behaves the same as the close button.
-	game:Shutdown()
-end)
+	-- use the old error frame when on XBox
+	if not FFlagConnectionScriptEnabled or isTenFootInterface then
+		local errorImage
 
-GuiService.UiMessageChanged:Connect(function(type, newMessage)
-	if type == Enum.UiMessageType.UiMessageInfo then
-		local blackFrame = currScreenGui and currScreenGui:FindFirstChild('BlackFrame')
-		if blackFrame then
-			local infoFrame = blackFrame:FindFirstChild("InfoFrame")
-			if infoFrame then
-				local uiMessage = infoFrame.UiMessageFrame.UiMessage
-				uiMessage.Text = newMessage
-				if newMessage ~= '' and layoutIsReady then
-					uiMessage.TextTransparency = 0
+		GuiService.ErrorMessageChanged:Connect(function()
+			if GuiService:GetErrorMessage() ~= '' then
+				--TODO: Remove this reference to Utility
+				local utility = require(RobloxGui.Modules.Settings.Utility)
+				if isTenFootInterface then
+					currScreenGui.ErrorFrame.Size = UDim2.new(1, 0, 0, 144)
+					currScreenGui.ErrorFrame.Position = UDim2.new(0, 0, 0, 0)
+					currScreenGui.ErrorFrame.BackgroundColor3 = COLORS.BACKGROUND_COLOR
+					currScreenGui.ErrorFrame.BackgroundTransparency = 0.5
+					currScreenGui.ErrorFrame.ErrorText.TextSize = 36
+					currScreenGui.ErrorFrame.ErrorText.Position = UDim2.new(.3, 0, 0, 0)
+					currScreenGui.ErrorFrame.ErrorText.Size = UDim2.new(.4, 0, 0, 144)
+					if errorImage == nil then
+						errorImage = Instance.new("ImageLabel")
+						errorImage.Image = "rbxasset://textures/ui/ErrorIconSmall.png"
+						errorImage.Size = UDim2.new(0, 96, 0, 79)
+						errorImage.Position = UDim2.new(0.228125, 0, 0, 32)
+						errorImage.ZIndex = 9
+						errorImage.BackgroundTransparency = 1
+						errorImage.Parent = currScreenGui.ErrorFrame
+					end
+				elseif utility:IsSmallTouchScreen() then
+					currScreenGui.ErrorFrame.Size = UDim2.new(0.5, 0, 0, 40)
+				end
+
+				local errorCode = GuiService:GetErrorCode()
+				local errorMessage = GuiService:GetErrorMessage()
+				if not FFlagShowConnectionErrorCode then
+					currScreenGui.ErrorFrame.ErrorText.Text = errorMessage
 				else
-					uiMessage.TextTransparency = 1
+					if not errorCode then
+						currScreenGui.ErrorFrame.ErrorText.Text = ("%s (Error Code: -1)"):format(errorMessage)
+					else
+						currScreenGui.ErrorFrame.ErrorText.Text = ("%s (Error Code: %d)"):format(errorMessage, errorCode.Value)
+					end
+				end
+
+				currScreenGui.ErrorFrame.Visible = true
+				local blackFrame = currScreenGui:FindFirstChild('BlackFrame')
+				if blackFrame then
+					blackFrame.CloseButton.ImageTransparency = 0
+					blackFrame.CloseButton.Active = true
+				end
+			else
+				currScreenGui.ErrorFrame.Visible = false
+			end
+		end)
+	end
+
+	backButtonConnection = GuiService.ShowLeaveConfirmation:Connect(function()
+		-- When OS back button is pressed during loading screen, exit
+		-- immediately. Behaves the same as the close button.
+		game:Shutdown()
+	end)
+
+	GuiService.UiMessageChanged:Connect(function(type, newMessage)
+		if type == Enum.UiMessageType.UiMessageInfo then
+			local blackFrame = currScreenGui and currScreenGui:FindFirstChild('BlackFrame')
+			if blackFrame then
+				local infoFrame = blackFrame:FindFirstChild("InfoFrame")
+				if infoFrame then
+					local uiMessage = infoFrame.UiMessageFrame.UiMessage
+					uiMessage.Text = newMessage
+					if newMessage ~= '' and layoutIsReady then
+						uiMessage.TextTransparency = 0
+					else
+						uiMessage.TextTransparency = 1
+					end
 				end
 			end
 		end
+	end)
+
+	if not FFlagConnectionScriptEnabled and GuiService:GetErrorMessage() ~= '' then
+		currScreenGui.ErrorFrame.ErrorText.Text = GuiService:GetErrorMessage()
+		currScreenGui.ErrorFrame.Visible = true
 	end
-end)
-
-if not FFlagConnectionScriptEnabled and GuiService:GetErrorMessage() ~= '' then
-	currScreenGui.ErrorFrame.ErrorText.Text = GuiService:GetErrorMessage()
-	currScreenGui.ErrorFrame.Visible = true
 end
+-- [events section]
 
-
+-- [ui removal section] should be removed after new loading screen goes alive
 local function stopListeningToRenderingStep()
 	if renderSteppedConnection then
 		renderSteppedConnection:disconnect()
@@ -751,6 +816,7 @@ local function disconnectAndCloseHealthStat()
 end
 
 local function fadeAndDestroyBlackFrame(blackFrame)
+	if FFlagLoadingScreenRevamp then return end
 	if destroyingBackground then return end
 	destroyingBackground = true
 	spawn(function()
@@ -822,6 +888,7 @@ local function fadeAndDestroyBlackFrame(blackFrame)
 end
 
 local function destroyLoadingElements(instant)
+	if FFlagLoadingScreenRevamp then return end
 	if not currScreenGui then return end
 	if destroyedLoadingGui then return end
 	destroyedLoadingGui = true
@@ -838,7 +905,9 @@ local function destroyLoadingElements(instant)
 		end
 	end
 end
+-- [ui removal section]
 
+-- Loading screen removal
 local function waitForCharacterLoaded()
 	if Players.CharacterAutoLoads then
 		local localPlayer = Players.LocalPlayer
@@ -853,10 +922,23 @@ local function waitForCharacterLoaded()
 end
 
 local function handleRemoveDefaultLoadingGui(instant)
-	if isTenFootInterface then
-		ContextActionService:UnbindCoreAction('CancelGameLoad')
+	if FFlagLoadingScreenRevamp then
+		if loadingScreenUIHandle then
+			local CorePackages = game:GetService("CorePackages")
+			local Roact = require(CorePackages.Roact)
+			if not instant then
+				-- wait until loading screen fade out animation is finished, safely unmout the component
+				wait(LOADING_SCREEN_FADE_OUT_TIME)
+			end
+			Roact.unmount(loadingScreenUIHandle)
+			loadingScreenUIHandle = nil
+		end
+	else
+		if isTenFootInterface then
+			ContextActionService:UnbindCoreAction('CancelGameLoad')
+		end
+		destroyLoadingElements(instant)
 	end
-	destroyLoadingElements(instant)
 	ReplicatedFirst:SetDefaultLoadingGuiRemoved()
 end
 
@@ -894,6 +976,7 @@ if ReplicatedFirst:IsDefaultLoadingGuiRemoved() then
 	handleRemoveDefaultLoadingGui()
 end
 
+-- VR
 coroutine.wrap(function()
 	if not VRService.VREnabled then
 		VRService:GetPropertyChangedSignal("VREnabled"):Wait()

@@ -78,11 +78,14 @@ function BreakpointsTable:init()
 	local initialSizes = {}
 	local numColumns = #defaultColumnKeys + #self.props.ColumnFilter
 	for i = 1, numColumns do
-		-- have the script name column be double the size as the others.
 		if i == 2 then
-			table.insert(initialSizes, UDim.new(2 / (numColumns + 1), 0))
+			-- have the default script name column be double the size as the others.
+			table.insert(initialSizes, UDim.new(2 / (numColumns + 0.5), 0))
+		elseif i == 3 then
+			-- have the default line number column be half the size as the others.
+			table.insert(initialSizes, UDim.new(0.5 / (numColumns + 0.5), 0))
 		else
-			table.insert(initialSizes, UDim.new(1 / (numColumns + 1), 0))
+			table.insert(initialSizes, UDim.new(1 / (numColumns + 0.5), 0))
 		end
 	end
 

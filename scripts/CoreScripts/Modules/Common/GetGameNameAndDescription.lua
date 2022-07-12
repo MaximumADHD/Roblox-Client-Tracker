@@ -31,11 +31,13 @@ return function(networkImpl, gameId)
 				Name = gameInfo.name,
 				Description = gameInfo.description or "",
 				Creator = gameInfo.creator and gameInfo.creator.name or "",
+				Created = gameInfo.created,
 			})
 		else
 			return Promise.resolve({
 				Name = gameInfo.name,
 				Description = gameInfo.description or "",
+				Created = gameInfo.created,
 			})
 		end
 	end,

@@ -1,6 +1,4 @@
 --!strict
-local FFlagToolboxHomeViewAnalyticsUpdate = game:GetFastFlag("ToolboxHomeViewAnalyticsUpdate")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
 local Framework = require(Packages.Framework)
@@ -118,7 +116,7 @@ function AssetSwimlane:render()
 			onAssetHovered = onAssetHovered,
 			onAssetHoverEnded = onAssetHoverEnded,
 			onAssetPreviewButtonClicked = onAssetPreviewButtonClicked,
-			swimlaneCategory = if FFlagToolboxHomeViewAnalyticsUpdate then swimlaneCategory else title,
+			swimlaneCategory = swimlaneCategory,
 			tryInsert = tryInsert,
 			tryOpenAssetConfig = tryOpenAssetConfig,
 		})

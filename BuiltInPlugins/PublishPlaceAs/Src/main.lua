@@ -1,5 +1,4 @@
 local StudioPublishService = game:GetService("StudioPublishService")
-local FFLagMovePublishToStudioPublishService = game:GetFastFlag("MovePublishToStudioPublishService")
 local FFlagDebugBuiltInPluginModalsNotBlocking = game:GetFastFlag("DebugBuiltInPluginModalsNotBlocking")
 local FFlagAudioPublishWorkflowWithPermissionsCheck = game:GetFastFlag("AudioPublishWorkflowWithPermissionsCheck")
 local FFlagAudioPublishWorkflowWithPermissionsCheck2 = game:GetFastFlag("AudioPublishWorkflowWithPermissionsCheck2")
@@ -43,7 +42,6 @@ return function(plugin, pluginLoaderContext)
 	local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
 
 	-- Plugin Specific Globals
-	local StudioService = game:GetService("StudioService")
 	local dataStore = Rodux.Store.new(MainReducer, {}, MainMiddleware)
 	local localization = ContextServices.Localization.new({
 		pluginName = Plugin.Name,
@@ -122,37 +120,20 @@ return function(plugin, pluginLoaderContext)
 	local function main()
 		plugin.Name = Plugin.Name
 		makePluginGui()
-		if FFLagMovePublishToStudioPublishService then
-			pluginLoaderContext.signals["StudioPublishService.OnSaveOrPublishPlaceToRoblox"]:Connect(
-				function(showGameSelect, isPublish, closeMode)
-						if isPublish then
-							pluginGui.Title = localization:getText("General", "PublishGame")
-						else
-							pluginGui.Title = localization:getText("General", "SaveGame")
-						end
-					openPluginWindow(showGameSelect, isPublish, closeMode)
-				end
-			)
+		pluginLoaderContext.signals["StudioPublishService.OnSaveOrPublishPlaceToRoblox"]:Connect(
+			function(showGameSelect, isPublish, closeMode)
+					if isPublish then
+						pluginGui.Title = localization:getText("General", "PublishGame")
+					else
+						pluginGui.Title = localization:getText("General", "SaveGame")
+					end
+				openPluginWindow(showGameSelect, isPublish, closeMode)
+			end
+		)
 
-			pluginLoaderContext.signals["StudioPublishService.GamePublishFinished"]:Connect(function(success)
-				dataStore:dispatch(SetIsPublishing(false))
-			end)
-		else
-			pluginLoaderContext.signals["StudioService.DEPRECATED_OnSaveOrPublishPlaceToRoblox"]:Connect(
-				function(showGameSelect, isPublish, closeMode)
-						if isPublish then
-							pluginGui.Title = localization:getText("General", "PublishGame")
-						else
-							pluginGui.Title = localization:getText("General", "SaveGame")
-						end
-					openPluginWindow(showGameSelect, isPublish, closeMode)
-				end
-			)
-
-			pluginLoaderContext.signals["StudioService.DEPRECATED_GamePublishFinished"]:Connect(function(success)
-				dataStore:dispatch(SetIsPublishing(false))
-			end)
-		end
+		pluginLoaderContext.signals["StudioPublishService.GamePublishFinished"]:Connect(function(success)
+			dataStore:dispatch(SetIsPublishing(false))
+		end)
 
 		if FFlagAudioPublishWorkflowWithPermissionsCheck then
 			pluginLoaderContext.signals["StudioPublishService.GamePublishCancelled"]:Connect(function()

@@ -15,7 +15,10 @@ return function(insertAsset, assetData, analytics)
 		local assetId = assetData.id
 		local assetName = assetData.name
 		local assetType = assetData.assetType
-		local isPackage = false -- TODO: add package check
+		local isPackage = assetType == Enum.AssetType.Package
+		if isPackage then
+			assetType = Enum.AssetType.Model
+		end
 
 		insertAsset:beginDragInsert(assetId, assetName, assetType, isPackage)
 		:andThen(function(assetId, insertedInstance)

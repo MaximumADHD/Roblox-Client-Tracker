@@ -26,11 +26,18 @@ local GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix = require(
 local GetFFlagUIBloxEnableStandardButtonSizes = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableStandardButtonSizes
 )
+local FFlagUIBloxSliderCustomization = require(CorePackages.UIBloxFlags.FFlagUIBloxSliderCustomization)
+
 local GetFFlagUIBloxSliderUpdateOnDismiss = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxSliderUpdateOnDismiss
 )
 
+local GetFFlagAdjustableTextUnderTile = require(CorePackages.UIBloxFlags.GetFFlagAdjustableTextUnderTile)
+
+
 return {
+	enableAdjustableTextUnderTile = GetFFlagAdjustableTextUnderTile(),
+	enableSliderCustomization = FFlagUIBloxSliderCustomization,
 	useNewUICornerRoundedCorners = GetFFlagLuaAppUseNewUIBloxRoundedCorners(),
 	genericSliderFilterOldTouchInputs = true,
 	allowSystemBarToAcceptString = game:DefineFastFlag("UIBloxAllowSystemBarToAcceptString", false),

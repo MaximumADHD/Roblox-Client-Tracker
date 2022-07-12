@@ -27,6 +27,10 @@ local CONTROLLER_THUMBSTICK_DEADZONE = 0.8
 local DROPDOWN_BG_TRANSPARENCY = 0.2
 local DROPDOWN_SUBTITLE_OFFSET = 10
 
+local MILLISECONDS_PER_SECOND = 1000
+local MILLISECONDS_PER_DAY = 24 * 60 * 60 * MILLISECONDS_PER_SECOND
+local MILLISECONDS_PER_WEEK = MILLISECONDS_PER_DAY * 7
+
 ------------- SERVICES ----------------
 local HttpService = game:GetService("HttpService")
 local UserInputService = game:GetService("UserInputService")
@@ -36,6 +40,7 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:FindFirstChild("RobloxGui")
 local ContextActionService = game:GetService("ContextActionService")
 local VRService = game:GetService("VRService")
+local Workspace = game:GetService("Workspace")
 
 --------------- FLAGS ----------------
 
@@ -2596,6 +2601,20 @@ end
 -- Returns a rounded number
 function moduleApiTable:Round(n)
 	return n % 1 >= 0.5 and math.ceil(n) or math.floor(n)
+end
+
+function moduleApiTable:IsExperienceOlderThanOneWeek(gameInfo)
+	if gameInfo ~= nil and gameInfo.Created ~= nil then
+		local dateTime = DateTime.fromIsoDate(gameInfo.Created)
+		local createdDateUnixMillis = dateTime.UnixTimestampMillis
+		local currDateUnixMillis = Workspace:GetServerTimeNow() * MILLISECONDS_PER_SECOND
+		
+		if currDateUnixMillis - createdDateUnixMillis > MILLISECONDS_PER_WEEK then
+			return true
+		end
+	end
+
+	return false
 end
 
 

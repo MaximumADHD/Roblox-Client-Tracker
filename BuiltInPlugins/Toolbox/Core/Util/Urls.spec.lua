@@ -1,6 +1,5 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
-local FFlagToolboxAudioDiscovery = require(Plugin.Core.Util.Flags.AudioDiscovery).FFlagToolboxAudioDiscovery()
 local FFlagToolboxIncludedPlaceIdInConfigRequest = game:GetFastFlag("ToolboxIncludedPlaceIdInConfigRequest")
 
 local Packages = Plugin.Packages
@@ -109,46 +108,42 @@ return function()
 		end
 	end)
 
-	if FFlagToolboxAudioDiscovery then
-		describe("Audio Subtypes", function()
-			it("should use new marketplace url when category is music", function()
-				expect(Urls.constructGetToolboxItemsUrl({
-					categoryName = Category.MUSIC.name,
-					limit = 10,
-				})).toBe(string.format("%s/marketplace/%d?limit=10", EXPECTED_BASE_URL, Category.AssetType.MUSIC))
-			end)
-
-			it("should use new marketplace url when category is sound effects", function()
-				expect(Urls.constructGetToolboxItemsUrl({
-					categoryName = Category.SOUND_EFFECTS.name,
-					limit = 10,
-				})).toBe(
-					string.format("%s/marketplace/%d?limit=10", EXPECTED_BASE_URL, Category.AssetType.SOUND_EFFECT)
-				)
-			end)
-
-			it("should use new marketplace url when category is unknown audio", function()
-				expect(Urls.constructGetToolboxItemsUrl({
-					categoryName = Category.UNKNOWN_AUDIO.name,
-					limit = 10,
-				})).toBe(
-					string.format("%s/marketplace/%d?limit=10", EXPECTED_BASE_URL, Category.AssetType.UNKNOWN_AUDIO)
-				)
-			end)
-
-			it("should add tags to url", function()
-				expect(Urls.constructGetToolboxItemsUrl({
-					categoryName = Category.SOUND_EFFECTS.name,
-					limit = 10,
-					tags = { "fight", "hits" },
-				})).toBe(
-					string.format(
-						"%s/marketplace/%d?limit=10&tags=fight%%2Chits",
-						EXPECTED_BASE_URL,
-						Category.AssetType.SOUND_EFFECT
-					)
-				)
-			end)
+	describe("Audio Subtypes", function()
+		it("should use new marketplace url when category is music", function()
+			expect(Urls.constructGetToolboxItemsUrl({
+				categoryName = Category.MUSIC.name,
+				limit = 10,
+			})).toBe(string.format("%s/marketplace/%d?limit=10", EXPECTED_BASE_URL, Category.AssetType.MUSIC))
 		end)
-	end
+
+		it("should use new marketplace url when category is sound effects", function()
+			expect(Urls.constructGetToolboxItemsUrl({
+				categoryName = Category.SOUND_EFFECTS.name,
+				limit = 10,
+			})).toBe(string.format("%s/marketplace/%d?limit=10", EXPECTED_BASE_URL, Category.AssetType.SOUND_EFFECT))
+		end)
+
+		it("should use new marketplace url when category is unknown audio", function()
+			expect(Urls.constructGetToolboxItemsUrl({
+				categoryName = Category.UNKNOWN_AUDIO.name,
+				limit = 10,
+			})).toBe(
+				string.format("%s/marketplace/%d?limit=10", EXPECTED_BASE_URL, Category.AssetType.UNKNOWN_AUDIO)
+			)
+		end)
+
+		it("should add tags to url", function()
+			expect(Urls.constructGetToolboxItemsUrl({
+				categoryName = Category.SOUND_EFFECTS.name,
+				limit = 10,
+				tags = { "fight", "hits" },
+			})).toBe(
+				string.format(
+					"%s/marketplace/%d?limit=10&tags=fight%%2Chits",
+					EXPECTED_BASE_URL,
+					Category.AssetType.SOUND_EFFECT
+				)
+			)
+		end)
+	end)
 end
