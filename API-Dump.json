@@ -88060,8 +88060,8 @@
                 },
                 {
                     "LegacyNames": [
-                        "Back",
-                        "Front"
+                        "Front",
+                        "Back"
                     ],
                     "Name": "Z",
                     "Value": 2
@@ -91002,17 +91002,17 @@
             "Items": [
                 {
                     "LegacyNames": [
-                        "Action1",
+                        "Steer",
                         "Action4",
                         "Action5",
                         "LeftTread",
-                        "Steer",
-                        "RightTread",
-                        "Action3",
+                        "Action2",
                         "Throtle",
+                        "Action1",
+                        "Action3",
                         "Throttle",
                         "UpDown",
-                        "Action2"
+                        "RightTread"
                     ],
                     "Name": "NoInput",
                     "Value": 0
