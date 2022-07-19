@@ -5,7 +5,7 @@
 local FFlagRigBuilderDeduplicatePackages = game:GetFastFlag("RigBuilderDeduplicatePackages")
 if FFlagRigBuilderDeduplicatePackages then
 	local PackageIndex = script.Parent._Index
-	local Package = require(PackageIndex["roblox_roact"]["roact"])
+	local Package = require(PackageIndex["Roact"]["Roact"])
 	return Package
 else
 	local PackageIndex = script.Parent._IndexOld

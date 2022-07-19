@@ -3,6 +3,6 @@
 ]]
 
 local PackageIndex = script.Parent._Index
-local Package = require(PackageIndex["Roact"]["Roact"])
+local Package = require(PackageIndex["DeveloperFramework"]["DeveloperFramework"])
 return Package
 
