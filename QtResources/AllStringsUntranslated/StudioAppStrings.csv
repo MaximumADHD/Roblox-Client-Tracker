@@ -39,13 +39,18 @@ Studio.App.TemplatesPage.AllTemplates,Templates page tab,All Templates,All Templ
 Studio.App.ListView.ExperienceName,The name of my game,Experience Name,Experience Name
 Studio.App.ListView.Description,,Description,Description
 Studio.App.ListView.DateCreated,,Date Created,Date Created
+Studio.App.ListView.LastModified,,Last Modified,Last Modified
 Studio.App.ListView.Playability,,Playability,Playability
 Studio.App.ListView.Type,,Type,Type
-Studio.App.ListView.Type.Local,,Local File,Local File
-Studio.App.ListView.Type.Cloud,,Cloud,Cloud
-Studio.App.ListView.Type.TeamCreate,,Team Create,Team Create
+Studio.App.ListView.TypeLocal,,Local File,Local File
+Studio.App.ListView.TypeCloud,,Cloud,Cloud
+Studio.App.ListView.TeamCreate,,Team Create,Team Create
+Studio.App.ListView.TeamCreateOn,,On,On
+Studio.App.ListView.TeamCreateOff,,Off,Off
 Studio.App.ListView.Owner,,Owner,Owner
 Studio.App.ListView.Owner.You,,You,You
+Studio.App.ListView.ToolTipLoadingComplete,,Loading complete!,Loading complete!
+Studio.App.ListView.ToolTipPleaseWait1,,Please wait... %1 games loaded.,Please wait... %1 games loaded.
 Studio.App.Debugger.PausedForDebugging,,Rendering is paused for debugging...,Rendering is paused for debugging...
 Studio.App.Breakpoints.DeleteAllBreakpoints,Debugger widgets,Delete All Breakpoints,Delete All Breakpoints
 Studio.App.Breakpoints.DeleteSelectedBreakpoint,Debugger widgets,Delete Selected Breakpoint,Delete Selected Breakpoint
@@ -296,6 +301,7 @@ Studio.App.MainWindow.PrivacyPolicyLink1,,<p><a href='%1'>Privacy Policy</a></p>
 Studio.App.MainWindow.QTVersionSpace,Main Window,Qt Version: ,Qt Version: 
 Studio.App.MainWindow.Reconnect,Main Window,Reconnect,Reconnect
 Studio.App.MainWindow.RemovedAsTeamCreateContributor,Main Window,You have been removed as a Team Create contributor.,You have been removed as a Team Create contributor.
+Studio.App.MainWindow.RobloxInternalChannelError,Main Window,ROBLOX INTERNAL: Please check if you or an existing user in this Team Create session are in a channel. All users in a Team Create session must be on the same RCC channel.,ROBLOX INTERNAL: Please check if you or an existing user in this Team Create session are in a channel. All users in a Team Create session must be on the same RCC channel.
 Studio.App.MainWindow.RobloxStudio,Main Window,Roblox Studio,Roblox Studio
 Studio.App.MainWindow.RobloxStudioSpace,Main Window,Roblox Studio ,Roblox Studio 
 Studio.App.MainWindow.SaveActiveLocalFile,Main Window,Save the active local file,Save the active local file
@@ -804,6 +810,7 @@ Studio.App.RBXMainWindow.TogglesVideoRecord,,Toggles video record,Toggles video 
 Studio.App.RBXMainWindow.ShowsHidesGridMaterial,,Shows/Hides Grid Material,Shows/Hides Grid Material
 Studio.App.RBXMainWindow.GridMaterial,,Grid Material,Grid Material
 Studio.App.RBXMainWindow.WireframeRendering,,Wireframe Rendering,Wireframe Rendering
+Studio.App.RBXMainWindow.UIVisibility,,UI Visibility,UI Visibility
 Studio.App.RBXMainWindow.VideoRecord,,Video Record,Video Record
 Studio.App.RBXMainWindow.ViewOutputWindowElps,,View Output Window...,View Output Window...
 Studio.App.RBXMainWindow.UnlockAll,,Unlock All,Unlock All
@@ -1228,6 +1235,7 @@ Studio.App.RobloxRibbonMainWindow.GridOnYPlane,,Display a 3D grid on the y=0 pla
 Studio.App.RobloxRibbonMainWindow.DisplayAxis,,Display Axis,Display Axis
 Studio.App.RobloxRibbonMainWindow.DisplayGridMaterialOnParts,,Display grid material on Parts,Display grid material on Parts
 Studio.App.RobloxRibbonMainWindow.EnableWireframeRendering,,Enable Wireframe Rendering,Enable Wireframe Rendering
+Studio.App.RobloxRibbonMainWindow.EnableUIVisibility,,Toggles visibility of UI in the 3D View,Toggles visibility of UI in the 3D View
 Studio.App.RobloxRibbonMainWindow.DrawConstraintsAttWeldsTop,,"Draw constraints, attachments and welds on top","Draw constraints, attachments and welds on top"
 Studio.App.RobloxRibbonMainWindow.DrawOnTop,,Draw On Top,Draw On Top
 Studio.App.RobloxRibbonMainWindow.EditCollisionGroups,,Edit collision groups,Edit collision groups
@@ -1741,6 +1749,7 @@ Studio.App.PropertyEnum.Game,,Game,Game
 Studio.App.PropertyEnum.HighResolution,,High Resolution,High Resolution
 Studio.App.PropertyEnum.Horizontal,,Horizontal,Horizontal
 Studio.App.PropertyEnum.Hybrid,,Hybrid,Hybrid
+Studio.App.PropertyEnum.Level00,,Level 00,Level 00
 Studio.App.PropertyEnum.Level01,,Level 01,Level 01
 Studio.App.PropertyEnum.Level02,,Level 02,Level 02
 Studio.App.PropertyEnum.Level03,,Level 03,Level 03
@@ -2184,7 +2193,7 @@ Studio.App.BetaFeatures.AutoUpdateDescription,,Adds an option to automatically u
 Studio.App.BetaFeatures.LuauNonStrictByDefaultTitle,,Scripts Are Non-Strict By Default,Scripts Are Non-Strict By Default
 Studio.App.BetaFeatures.LuauNonStrictByDefaultDescription,,"Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis.","Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis."
 Studio.App.BetaFeatures.LuauLowerBoundsTitle,,Experimental Luau language features,Experimental Luau language features
-Studio.App.BetaFeatures.LuauLowerBoundsDescription,,Adds shared self types and lower-bounds calculation to script analysis for more accurate type inference.,Adds shared self types and lower-bounds calculation to script analysis for more accurate type inference.
+Studio.App.BetaFeatures.LuauLowerBoundsDescription,,Adds lower-bounds calculation to script analysis for more accurate type inference.,Adds lower-bounds calculation to script analysis for more accurate type inference.
 Studio.App.BetaFeatures.ParallelLuaTitle,,Parallel Lua,Parallel Lua
 Studio.App.BetaFeatures.ParallelLuaDescription,,Allows writing scripts that can execute in parallel to improve throughput.,Allows writing scripts that can execute in parallel to improve throughput.
 Studio.App.BetaFeatures.AvatarLoadingBetaTitle,,New Avatar Loading Signal Ordering,New Avatar Loading Signal Ordering
@@ -2271,6 +2280,8 @@ Studio.App.BetaFeatures.TextChatServiceTitle,,New Text Chat Service,New Text Cha
 Studio.App.BetaFeatures.TextChatServiceDescription,,"Enables the new TextChatService feature. Once enabled, you can change the ChatVersion property on TextChatService to 'TextChatService', which will prevent the legacy Lua system from loading and enable the new chat.","Enables the new TextChatService feature. Once enabled, you can change the ChatVersion property on TextChatService to 'TextChatService', which will prevent the legacy Lua system from loading and enable the new chat."
 Studio.App.BetaFeatures.ParticleFlipbooksTitle,,Particle Flipbooks,Particle Flipbooks
 Studio.App.BetaFeatures.ParticlFlipbooksDescription,,"Enables the new particle flipbook feature, allowing the use of animated textures on particles (needing a 1024x1024 grid-layout texture of individiual frames).","Enables the new particle flipbook feature, allowing the use of animated textures on particles (needing a 1024x1024 grid-layout texture of individiual frames)."
+Studio.App.BetaFeatures.StartPageListModeTitle,,Start Page List Display,Start Page List Display
+Studio.App.BetaFeatures.StartPageListModeDescription,,"Enables the new list mode feature for Studio's Start Page, allowing you to view and manage your Roblox games from a condensed list view.","Enables the new list mode feature for Studio's Start Page, allowing you to view and manage your Roblox games from a condensed list view."
 Studio.App.DataModelPackageManager.PackageFailedToAutoUpdate1,,%1 failed to auto-update.,%1 failed to auto-update.
 Studio.App.LoginRequest.InternalServerError,Start page login,Our servers are having problems right now. Please try again later.,Our servers are having problems right now. Please try again later.
 Studio.App.LoginRequest.NetworkConnection,Start page login,Could not connect to the server. Please check your internet connection and try again later.,Could not connect to the server. Please check your internet connection and try again later.
@@ -3348,4 +3359,4 @@ Studio.App.BetaFeatures.NonuniformUnionsDescription,,Allow unions created with t
 Studio.App.BetaFeatures.ScriptEditorApiTitle,,Script Editor API,Script Editor API
 Studio.App.BetaFeatures.ScriptEditorApiDescription,,"Allow plugins to access the ScriptEditorService and ScriptDocument objects, permitting them to interact with an active editor.","Allow plugins to access the ScriptEditorService and ScriptDocument objects, permitting them to interact with an active editor."
 Studio.App.BetaFeatures.OneClickCollaborateTitle,,One-click Collaborate Button,One-click Collaborate Button
-Studio.App.BetaFeatures.OneClickCollaborateDescription,,"The ""Collaborate"" button is always present in Studio's top-right corner. Click on it to add, view, or manage collaborators and their permissions for your game. Once you add collaborators, Team Create will be turned on to enable co-editing.","The ""Collaborate"" button is always present in Studio's top-right corner. Click on it to add, view, or manage collaborators and their permissions for your game. Once you add collaborators, Team Create will be turned on to enable co-editing."
+Studio.App.BetaFeatures.OneClickCollaborateDescription,,"A new ""Collaborate"" button that enables you to immediately add, view, or manage collaborators and their permissions for your game. If collaborators are added, Team Create is turned on so that you can work together with your friends.","A new ""Collaborate"" button that enables you to immediately add, view, or manage collaborators and their permissions for your game. If collaborators are added, Team Create is turned on so that you can work together with your friends."

@@ -664,6 +664,24 @@
             "ScriptEditorCurrentLine": {
                 "Default": "#F0F0FF"
             }
+        },
+        {
+          "ToggleButtonBackground": {
+            "Default": "#FFFFFF",
+            "Selected": "#00A2FF",
+            "Hover": "#E4EEFE",
+            "Pressed": "#DBDBDB"
+          }
+        },
+        {
+          "ToggleButtonMultiValuedBackground": {
+            "Default": "#FFFFFF"
+          }
+        },
+        {
+          "ToggleButtonMultiValuedBorder": {
+            "Default": "#00A2FF"
+          }
         }
     ],
     "Paths": [
@@ -1201,10 +1219,18 @@
             "GameTableView": {
                 "background": "#FFFFFF",
                 "selectedRow": "#E4EEFE",
-                "header": "#FFFFFF",
+                "headerText": "#757575",
+                "headerTextSelected": "#00A2FF",
                 "border": "#E3E3E3",
-                "toggleButton": "#00A2FF",
-                "toggleHover": "#33B4FF"
+                "sortArrowAscending": "qrc:/images/StartPage/SortArrowAscending.png",
+                "sortArrowDescending": "qrc:/images/StartPage/SortArrowDescending.png",
+                "userIcon": "qrc:/images/StartPage/UserIcon.png",
+                "groupIcon": "qrc:/images/StartPage/GroupIcon.png",
+                
+                "gridIcon": "qrc:/images/StartPage/GamesGridIcon.png",
+                "listIcon": "qrc:/images/StartPage/GamesListIcon.png",
+                "toggleButton": "#F5F5F5",
+                "toggleHover": "#E4EEFE"
             }
         },
         {

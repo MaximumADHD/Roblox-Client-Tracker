@@ -102,6 +102,7 @@ Class AnimationFromVideoCreatorService : Instance [NotCreatable] [Service]
 Class AnimationFromVideoCreatorStudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string AnimationFromVideoCreatorStudioService:CreateAnimationByUploadingVideo(Function progressCallback) {RobloxScriptSecurity} [Yields]
 	Function string AnimationFromVideoCreatorStudioService:ImportVideoWithPrompt() {RobloxScriptSecurity} [Yields]
+	Function bool AnimationFromVideoCreatorStudioService:IsAgeRestricted() {RobloxScriptSecurity}
 Class AnimationRigData : Instance
 	Function bool AnimationRigData:LoadFromHumanoid(Instance humanoid) {RobloxScriptSecurity}
 Class AnimationStreamTrack : Instance [NotCreatable] [NotReplicated]
@@ -161,6 +162,7 @@ Class AssetImportSession : Instance [NotCreatable] [NotReplicated]
 	Function Dictionary AssetImportSession:GetCurrentImportMap() {RobloxScriptSecurity}
 	Function Dictionary AssetImportSession:GetCurrentStatusTable() {RobloxScriptSecurity}
 	Function string AssetImportSession:GetFilename() {RobloxScriptSecurity}
+	Function Instance AssetImportSession:GetInstance(int nodeId) {RobloxScriptSecurity}
 	Function Instance AssetImportSession:GetSettingsRoot() {RobloxScriptSecurity}
 	Function bool AssetImportSession:IsAvatar() {RobloxScriptSecurity}
 	Function void AssetImportSession:Upload() {RobloxScriptSecurity}
@@ -1689,7 +1691,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool GuiService.AutoSelectGuiEnabled
 	Property Folder GuiService.CoreEffectFolder {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property Folder GuiService.CoreGuiFolder {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property bool GuiService.CoreGuiNavigationEnabled
+	Property bool GuiService.CoreGuiNavigationEnabled [Hidden] [NotReplicated]
 	Property bool GuiService.GuiNavigationEnabled
 	Property bool GuiService.IsModalDialog [ReadOnly] [Deprecated]
 	Property bool GuiService.IsWindows [ReadOnly] [Deprecated]
@@ -1990,14 +1992,20 @@ Class ImporterMaterialSettings : ImporterBaseSettings [NotCreatable] [NotReplica
 Class ImporterMeshSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property bool ImporterMeshSettings.Anchored
 	Property bool ImporterMeshSettings.CageManifold [ReadOnly]
-	Property bool ImporterMeshSettings.CageManifoldPreview
+	Property bool ImporterMeshSettings.CageMeshIntersectedPreview
+	Property bool ImporterMeshSettings.CageMeshNotIntersected [ReadOnly]
 	Property bool ImporterMeshSettings.CageNoOverlappingVertices [ReadOnly]
-	Property bool ImporterMeshSettings.CageNoOverlappingVerticesPreview
+	Property bool ImporterMeshSettings.CageNonManifoldPreview
+	Property bool ImporterMeshSettings.CageOverlappingVerticesPreview
 	Property bool ImporterMeshSettings.CageUVMatched [ReadOnly]
-	Property bool ImporterMeshSettings.CageUVMatchedPreview
+	Property bool ImporterMeshSettings.CageUVMisMatchedPreview
 	Property Vector3 ImporterMeshSettings.Dimensions [ReadOnly]
 	Property bool ImporterMeshSettings.DoubleSided
 	Property bool ImporterMeshSettings.IgnoreVertexColors
+	Property bool ImporterMeshSettings.IrrelevantCageModifiedPreview
+	Property bool ImporterMeshSettings.MeshHoleDetectedPreview
+	Property bool ImporterMeshSettings.MeshNoHoleDetected [ReadOnly]
+	Property bool ImporterMeshSettings.NoIrrelevantCageModified [ReadOnly]
 	Property float ImporterMeshSettings.PolygonCount [ReadOnly]
 	Property bool ImporterMeshSettings.UseImportedPivot
 Class ImporterRootSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
@@ -2510,7 +2518,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property bool BasePart.CanQuery
 	Property bool BasePart.CanTouch
 	Property string BasePart.CollisionGroup {RobloxScriptSecurity} [<📁> LoadOnly] [Hidden] [NotReplicated]
-	Property int BasePart.CollisionGroupId
+	Property int BasePart.CollisionGroupId [NotReplicated]
 	Property CFrame BasePart.CFrame
 	Property float BasePart.LocalTransparencyModifier [Hidden] [NotReplicated]
 	Property bool BasePart.Locked
@@ -2659,7 +2667,6 @@ Class MeshPart : TriangleMeshPart
 	Property bool MeshPart.DoubleSided {✏️PluginSecurity}
 	Property bool MeshPart.HasJointOffset {✏️NotAccessibleSecurity} [Hidden]
 	Property bool MeshPart.HasSkinnedMesh {✏️NotAccessibleSecurity} [Hidden]
-	Property Content MeshPart.MeshID [NotScriptable] [Deprecated]
 	Property Content MeshPart.MeshId {✏️NotAccessibleSecurity}
 	Property Enum.RenderFidelity MeshPart.RenderFidelity {✏️PluginSecurity} [NotReplicated]
 	Property Content MeshPart.TextureID
@@ -2835,6 +2842,10 @@ Class ParticleEmitter : Instance
 	Property float ParticleEmitter.VelocityInheritance
 	Function void ParticleEmitter:Clear()
 	Function void ParticleEmitter:Emit(int particleCount = 16)
+Class PatchMapping : Instance [NotCreatable] [NotReplicated]
+	Property bool PatchMapping.FlattenTree
+	Property string PatchMapping.PatchId
+	Property string PatchMapping.TargetPath
 Class Path : Instance [NotCreatable] [NotReplicated]
 	Property Enum.PathStatus Path.Status [ReadOnly]
 	Function int Path:CheckOcclusionAsync(int start) [Yields]
@@ -3438,11 +3449,11 @@ Class ScriptDebugger : Instance [NotCreatable]
 Class ScriptDocument : Instance [NotCreatable] [NotReplicated]
 	Function Tuple ScriptDocument:EditTextAsync(string newText, int startLine, int startCharacter, int endLine, int endCharacter) {PluginSecurity} [Yields]
 	Function string ScriptDocument:GetInternalUri() {RobloxScriptSecurity}
-	Function string ScriptDocument:GetLine(int lineIndex = -1234567) {PluginSecurity}
+	Function string ScriptDocument:GetLine(int? lineIndex = nil) {PluginSecurity}
 	Function int ScriptDocument:GetLineCount() {PluginSecurity}
 	Function LuaSourceContainer ScriptDocument:GetScript() {PluginSecurity}
 	Function Tuple ScriptDocument:GetSelection() {PluginSecurity}
-	Function string ScriptDocument:GetText(int startLine = -1234567, int startCharacter = -1234567, int endLine = -1234567, int endCharacter = -1234567) {PluginSecurity}
+	Function string ScriptDocument:GetText(int? startLine = nil, int? startCharacter = nil, int? endLine = nil, int? endCharacter = nil) {PluginSecurity}
 	Function bool ScriptDocument:IsCommandBar() {PluginSecurity}
 	Event ScriptDocument.SelectionChanged(int64 positionLine, int64 positionCharacter, int64 anchorLine, int64 anchorCharacter) {PluginSecurity}
 Class ScriptEditorService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -3649,6 +3660,7 @@ Class ReverbSoundEffect : SoundEffect
 	Property float ReverbSoundEffect.Diffusion
 	Property float ReverbSoundEffect.DryLevel
 	Property float ReverbSoundEffect.WetLevel
+Class RomarkSoundEffect : SoundEffect [NotCreatable]
 Class TremoloSoundEffect : SoundEffect
 	Property float TremoloSoundEffect.Depth
 	Property float TremoloSoundEffect.Duty
@@ -3661,6 +3673,7 @@ Class SoundService : Instance [NotCreatable] [Service]
 	Property float SoundService.DopplerScale
 	Property bool SoundService.RespectFilteringEnabled
 	Property float SoundService.RolloffScale
+	Property Enum.VolumetricAudio SoundService.VolumetricAudio [NotScriptable] [NotBrowsable]
 	Function bool SoundService:BeginRecording() {RobloxScriptSecurity}
 	Function Dictionary SoundService:EndRecording() {RobloxScriptSecurity} [Yields]
 	Function Tuple SoundService:GetListener()
@@ -4567,7 +4580,7 @@ Class VoiceChatInternal : Instance [NotCreatable] [Service] [NotBrowsable]
 	Function bool VoiceChatInternal:SubscribeUnblock(int64 userId) {RobloxScriptSecurity}
 	Event VoiceChatInternal.ParticipantsStateChanged(Array participantsLeft, Array participantsJoined, Array updatedStates) {RobloxScriptSecurity} [Deprecated]
 	Event VoiceChatInternal.PlayerMicActivitySignalChange(Dictionary activityInfo) {RobloxScriptSecurity} [Deprecated]
-	Event VoiceChatInternal.StateChanged(Enum.VoiceChatState old, Enum.VoiceChatState new) {RobloxScriptSecurity} [Deprecated]
+	Event VoiceChatInternal.StateChanged(Enum.VoiceChatState old, Enum.VoiceChatState new) [Deprecated]
 Class VoiceChatService : Instance [NotCreatable] [Service]
 	Property bool VoiceChatService.EnableDefaultVoice {PluginSecurity}
 	Property bool VoiceChatService.VoiceChatEnabledForPlaceOnRcc {RobloxScriptSecurity} [Hidden]
@@ -5896,10 +5909,11 @@ Enum MembershipType
 	EnumItem MembershipType.Premium : 4
 Enum MeshPartDetailLevel
 	EnumItem MeshPartDetailLevel.DistanceBased : 0
-	EnumItem MeshPartDetailLevel.Level01 : 1
-	EnumItem MeshPartDetailLevel.Level02 : 2
-	EnumItem MeshPartDetailLevel.Level03 : 3
-	EnumItem MeshPartDetailLevel.Level04 : 4
+	EnumItem MeshPartDetailLevel.Level00 : 1
+	EnumItem MeshPartDetailLevel.Level01 : 2
+	EnumItem MeshPartDetailLevel.Level02 : 3
+	EnumItem MeshPartDetailLevel.Level03 : 4
+	EnumItem MeshPartDetailLevel.Level04 : 5
 Enum MeshPartHeadsAndAccessories
 	EnumItem MeshPartHeadsAndAccessories.Default : 0
 	EnumItem MeshPartHeadsAndAccessories.Disabled : 1
@@ -6774,6 +6788,10 @@ Enum VoiceChatState
 	EnumItem VoiceChatState.Leaving : 4
 	EnumItem VoiceChatState.Ended : 5
 	EnumItem VoiceChatState.Failed : 6
+Enum VolumetricAudio
+	EnumItem VolumetricAudio.Disabled : 0
+	EnumItem VolumetricAudio.Automatic : 1
+	EnumItem VolumetricAudio.Enabled : 2
 Enum WaterDirection
 	EnumItem WaterDirection.NegX : 0
 	EnumItem WaterDirection.X : 1

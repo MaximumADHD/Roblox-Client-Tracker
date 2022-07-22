@@ -2936,6 +2936,12 @@
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
+            <string name="Name">RespectFilteringEnabled</string>
+            <bool name="FFlag">!DisableSoundServiceRespectFilteringEnabled</bool>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
             <string name="Name">DopplerScale</string>
 
           </Properties>
@@ -2950,6 +2956,13 @@
           <Properties>
             <string name="Name">RolloffScale</string>
 
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">VolumetricAudio</string>
+            <bool name="FFlag">AudioToggleVolumetricPanning</bool>
+            
           </Properties>
         </Item>
       </Item>

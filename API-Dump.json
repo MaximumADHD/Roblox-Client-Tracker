@@ -2064,6 +2064,18 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "IsAgeRestricted",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "CreateAnimationByUploadingVideo",
                     "Parameters": [
                         {
@@ -3094,6 +3106,25 @@
                     "ReturnType": {
                         "Category": "Primitive",
                         "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetInstance",
+                    "Parameters": [
+                        {
+                            "Name": "nodeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
@@ -31461,9 +31492,13 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
+                        "CanLoad": false,
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -37147,7 +37182,7 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
-                    "Name": "CageManifoldPreview",
+                    "Name": "CageMeshIntersectedPreview",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -37156,6 +37191,28 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "CageMeshNotIntersected",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -37187,7 +37244,25 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
-                    "Name": "CageNoOverlappingVerticesPreview",
+                    "Name": "CageNonManifoldPreview",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "CageOverlappingVerticesPreview",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -37227,7 +37302,7 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
-                    "Name": "CageUVMatchedPreview",
+                    "Name": "CageUVMisMatchedPreview",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -37294,6 +37369,86 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "IrrelevantCageModifiedPreview",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "MeshHoleDetectedPreview",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "MeshNoHoleDetected",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "NoIrrelevantCageModified",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -47548,6 +47703,9 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -50665,28 +50823,6 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Vector3"
-                    }
-                },
-                {
-                    "Category": "Appearance",
-                    "MemberType": "Property",
-                    "Name": "MeshID",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "NotScriptable",
-                        "Deprecated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "DataType",
-                        "Name": "Content"
                     }
                 },
                 {
@@ -54135,6 +54271,71 @@
             "MemoryCategory": "Instances",
             "Name": "ParticleEmitter",
             "Superclass": "Instance"
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "FlattenTree",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "PatchId",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "TargetPath",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "PatchMapping",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
         },
         {
             "Members": [
@@ -65527,11 +65728,11 @@
                     "Name": "GetLine",
                     "Parameters": [
                         {
-                            "Default": "-1234567",
+                            "Default": "nil",
                             "Name": "lineIndex",
                             "Type": {
                                 "Category": "Primitive",
-                                "Name": "int"
+                                "Name": "int?"
                             }
                         }
                     ],
@@ -65583,35 +65784,35 @@
                     "Name": "GetText",
                     "Parameters": [
                         {
-                            "Default": "-1234567",
+                            "Default": "nil",
                             "Name": "startLine",
                             "Type": {
                                 "Category": "Primitive",
-                                "Name": "int"
+                                "Name": "int?"
                             }
                         },
                         {
-                            "Default": "-1234567",
+                            "Default": "nil",
                             "Name": "startCharacter",
                             "Type": {
                                 "Category": "Primitive",
-                                "Name": "int"
+                                "Name": "int?"
                             }
                         },
                         {
-                            "Default": "-1234567",
+                            "Default": "nil",
                             "Name": "endLine",
                             "Type": {
                                 "Category": "Primitive",
-                                "Name": "int"
+                                "Name": "int?"
                             }
                         },
                         {
-                            "Default": "-1234567",
+                            "Default": "nil",
                             "Name": "endCharacter",
                             "Type": {
                                 "Category": "Primitive",
-                                "Name": "int"
+                                "Name": "int?"
                             }
                         }
                     ],
@@ -69512,6 +69713,16 @@
         },
         {
             "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "RomarkSoundEffect",
+            "Superclass": "SoundEffect",
+            "Tags": [
+                "NotCreatable"
+            ]
+        },
+        {
+            "Members": [
                 {
                     "Category": "State",
                     "MemberType": "Property",
@@ -69686,6 +69897,28 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "VolumetricAudio",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable",
+                        "NotBrowsable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "VolumetricAudio"
                     }
                 },
                 {
@@ -86821,7 +87054,7 @@
                             }
                         }
                     ],
-                    "Security": "RobloxScriptSecurity",
+                    "Security": "None",
                     "Tags": [
                         "Deprecated"
                     ],
@@ -87125,9 +87358,6 @@
                     "Value": 8
                 },
                 {
-                    "LegacyNames": [
-                        "TeeShirt"
-                    ],
                     "Name": "TShirt",
                     "Value": 9
                 },
@@ -87546,9 +87776,6 @@
                     "Value": 1
                 },
                 {
-                    "LegacyNames": [
-                        "TeeShirt"
-                    ],
                     "Name": "TShirt",
                     "Value": 2
                 },
@@ -87725,9 +87952,6 @@
                     "Value": 62
                 },
                 {
-                    "LegacyNames": [
-                        "TeeShirtAccessory"
-                    ],
                     "Name": "TShirtAccessory",
                     "Value": 64
                 },
@@ -87940,9 +88164,6 @@
                     "Value": 61
                 },
                 {
-                    "LegacyNames": [
-                        "TeeShirtAccessory"
-                    ],
                     "Name": "TShirtAccessory",
                     "Value": 64
                 },
@@ -88043,26 +88264,14 @@
         {
             "Items": [
                 {
-                    "LegacyNames": [
-                        "Left",
-                        "Right"
-                    ],
                     "Name": "X",
                     "Value": 0
                 },
                 {
-                    "LegacyNames": [
-                        "Top",
-                        "Bottom"
-                    ],
                     "Name": "Y",
                     "Value": 1
                 },
                 {
-                    "LegacyNames": [
-                        "Front",
-                        "Back"
-                    ],
                     "Name": "Z",
                     "Value": 2
                 }
@@ -88072,11 +88281,6 @@
         {
             "Items": [
                 {
-                    "LegacyNames": [
-                        "Rocket",
-                        "Laser",
-                        "Slingshot"
-                    ],
                     "Name": "Script",
                     "Value": 0
                 },
@@ -89050,9 +89254,6 @@
                     "Value": 1000
                 },
                 {
-                    "LegacyNames": [
-                        "Default"
-                    ],
                     "Name": "Medium",
                     "Value": 2000
                 },
@@ -89079,9 +89280,6 @@
         {
             "Items": [
                 {
-                    "LegacyNames": [
-                        "Mouse Lock Switch"
-                    ],
                     "Name": "MouseLockSwitch",
                     "Value": 1
                 },
@@ -89812,9 +90010,6 @@
                     "Value": 0
                 },
                 {
-                    "LegacyNames": [
-                        "CratersAndDebris"
-                    ],
                     "Name": "Craters",
                     "Value": 1
                 }
@@ -89939,9 +90134,6 @@
                     "Value": 17
                 },
                 {
-                    "LegacyNames": [
-                        "GothamSemibold"
-                    ],
                     "Name": "GothamMedium",
                     "Value": 18
                 },
@@ -90186,9 +90378,6 @@
                     "Value": 0
                 },
                 {
-                    "LegacyNames": [
-                        "Block"
-                    ],
                     "Name": "Brick",
                     "Value": 1
                 },
@@ -91001,19 +91190,6 @@
         {
             "Items": [
                 {
-                    "LegacyNames": [
-                        "Steer",
-                        "Action4",
-                        "Action5",
-                        "LeftTread",
-                        "Action2",
-                        "Throtle",
-                        "Action1",
-                        "Action3",
-                        "Throttle",
-                        "UpDown",
-                        "RightTread"
-                    ],
                     "Name": "NoInput",
                     "Value": 0
                 },
@@ -92398,9 +92574,6 @@
                     "Value": 816
                 },
                 {
-                    "LegacyNames": [
-                        "Corroded Metal"
-                    ],
                     "Name": "CorrodedMetal",
                     "Value": 1040
                 },
@@ -92409,9 +92582,6 @@
                     "Value": 1056
                 },
                 {
-                    "LegacyNames": [
-                        "Aluminum"
-                    ],
                     "Name": "Foil",
                     "Value": 1072
                 },
@@ -92589,20 +92759,24 @@
                     "Value": 0
                 },
                 {
-                    "Name": "Level01",
+                    "Name": "Level00",
                     "Value": 1
                 },
                 {
-                    "Name": "Level02",
+                    "Name": "Level01",
                     "Value": 2
                 },
                 {
-                    "Name": "Level03",
+                    "Name": "Level02",
                     "Value": 3
                 },
                 {
-                    "Name": "Level04",
+                    "Name": "Level03",
                     "Value": 4
+                },
+                {
+                    "Name": "Level04",
+                    "Value": 5
                 }
             ],
             "Name": "MeshPartDetailLevel"
@@ -93596,149 +93770,86 @@
                     "Value": 0
                 },
                 {
-                    "LegacyNames": [
-                        "Level  1"
-                    ],
                     "Name": "Level01",
                     "Value": 1
                 },
                 {
-                    "LegacyNames": [
-                        "Level  2"
-                    ],
                     "Name": "Level02",
                     "Value": 2
                 },
                 {
-                    "LegacyNames": [
-                        "Level  3"
-                    ],
                     "Name": "Level03",
                     "Value": 3
                 },
                 {
-                    "LegacyNames": [
-                        "Level  4"
-                    ],
                     "Name": "Level04",
                     "Value": 4
                 },
                 {
-                    "LegacyNames": [
-                        "Level  5"
-                    ],
                     "Name": "Level05",
                     "Value": 5
                 },
                 {
-                    "LegacyNames": [
-                        "Level  6"
-                    ],
                     "Name": "Level06",
                     "Value": 6
                 },
                 {
-                    "LegacyNames": [
-                        "Level  7"
-                    ],
                     "Name": "Level07",
                     "Value": 7
                 },
                 {
-                    "LegacyNames": [
-                        "Level  8"
-                    ],
                     "Name": "Level08",
                     "Value": 8
                 },
                 {
-                    "LegacyNames": [
-                        "Level  9"
-                    ],
                     "Name": "Level09",
                     "Value": 9
                 },
                 {
-                    "LegacyNames": [
-                        "Level 10"
-                    ],
                     "Name": "Level10",
                     "Value": 10
                 },
                 {
-                    "LegacyNames": [
-                        "Level 11"
-                    ],
                     "Name": "Level11",
                     "Value": 11
                 },
                 {
-                    "LegacyNames": [
-                        "Level 12"
-                    ],
                     "Name": "Level12",
                     "Value": 12
                 },
                 {
-                    "LegacyNames": [
-                        "Level 13"
-                    ],
                     "Name": "Level13",
                     "Value": 13
                 },
                 {
-                    "LegacyNames": [
-                        "Level 14"
-                    ],
                     "Name": "Level14",
                     "Value": 14
                 },
                 {
-                    "LegacyNames": [
-                        "Level 15"
-                    ],
                     "Name": "Level15",
                     "Value": 15
                 },
                 {
-                    "LegacyNames": [
-                        "Level 16"
-                    ],
                     "Name": "Level16",
                     "Value": 16
                 },
                 {
-                    "LegacyNames": [
-                        "Level 17"
-                    ],
                     "Name": "Level17",
                     "Value": 17
                 },
                 {
-                    "LegacyNames": [
-                        "Level 18"
-                    ],
                     "Name": "Level18",
                     "Value": 18
                 },
                 {
-                    "LegacyNames": [
-                        "Level 19"
-                    ],
                     "Name": "Level19",
                     "Value": 19
                 },
                 {
-                    "LegacyNames": [
-                        "Level 20"
-                    ],
                     "Name": "Level20",
                     "Value": 20
                 },
                 {
-                    "LegacyNames": [
-                        "Level 21"
-                    ],
                     "Name": "Level21",
                     "Value": 21
                 }
@@ -95246,23 +95357,14 @@
         {
             "Items": [
                 {
-                    "LegacyNames": [
-                        "Alternating Supports"
-                    ],
                     "Name": "AlternatingSupports",
                     "Value": 0
                 },
                 {
-                    "LegacyNames": [
-                        "Bridge Style Supports"
-                    ],
                     "Name": "BridgeStyleSupports",
                     "Value": 1
                 },
                 {
-                    "LegacyNames": [
-                        "No Supports"
-                    ],
                     "Name": "NoSupports",
                     "Value": 2
                 }
@@ -95306,17 +95408,10 @@
         {
             "Items": [
                 {
-                    "LegacyNames": [
-                        "Spawn",
-                        "Unjoinable"
-                    ],
                     "Name": "Smooth",
                     "Value": 0
                 },
                 {
-                    "LegacyNames": [
-                        "Bumps"
-                    ],
                     "Name": "Glue",
                     "Value": 1
                 },
@@ -95774,9 +95869,6 @@
         {
             "Items": [
                 {
-                    "LegacyNames": [
-                        "PartialThread"
-                    ],
                     "Name": "Auto",
                     "Value": 0
                 },
@@ -96369,6 +96461,23 @@
                 }
             ],
             "Name": "VoiceChatState"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Disabled",
+                    "Value": 0
+                },
+                {
+                    "Name": "Automatic",
+                    "Value": 1
+                },
+                {
+                    "Name": "Enabled",
+                    "Value": 2
+                }
+            ],
+            "Name": "VolumetricAudio"
         },
         {
             "Items": [
