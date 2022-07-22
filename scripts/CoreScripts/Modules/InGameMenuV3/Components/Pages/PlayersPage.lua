@@ -29,11 +29,12 @@ local CoPlayInviteCell = require(InGameMenu.Components.CoPlayInviteCell)
 
 local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatcher)
 local Divider = require(InGameMenu.Components.Divider)
-
 local Page = require(InGameMenu.Components.Page)
 local PageUtils = require(InGameMenu.Components.Pages.PageUtils)
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local Constants = require(InGameMenu.Resources.Constants)
+local ExperienceMenuABTestManager = require(InGameMenu.ExperienceMenuABTestManager)
+local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
 
 local FocusHandler = require(script.Parent.Parent.Connection.FocusHandler)
 local SearchBar = require(script.Parent.Parent.SearchBar)
@@ -407,6 +408,10 @@ function PlayersPage:renderListEntries(style, localized, players)
 								Constants.AnalyticsRequestFriendName,
 								{ source = Constants.AnalyticsPlayerCellSource }
 							)
+
+							if IsMenuCsatEnabled() then
+								ExperienceMenuABTestManager.default:setCSATQualification()
+							end
 						end
 					end,
 				}) or nil,

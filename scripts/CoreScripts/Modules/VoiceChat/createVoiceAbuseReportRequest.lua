@@ -5,7 +5,7 @@ local Cryo = require(CorePackages.Cryo)
 
 local VCSM = require(script.Parent.VoiceChatServiceManager)
 local VoiceUsersByProximity = require(script.Parent.VoiceUsersByProximity)
-local getVoiceUsersByProximity = VoiceUsersByProximity
+local getVoiceUsersByProximity = VoiceUsersByProximity.getSortedPlayers
 local VOICE_TRANSMISSION_RADIUS = 80
 
 export type VoiceAbuseReportData = {
@@ -34,6 +34,7 @@ return function(
 
 	if abuserPosition then
 		impactedUserCount = #getVoiceUsersByProximity(
+			PlayersService,
 			VoiceChatServiceManager,
 			abuserPosition,
 			VOICE_TRANSMISSION_RADIUS*2,
@@ -42,54 +43,82 @@ return function(
 		)
 	end
 
+	local sortedPlayerListUserIds = Cryo.List.map(function(userId)
+		return { data = tostring(userId) }
+	end)
+
 	local request = {
-		submitter = {
-			type = "User",
-			id = tostring(reportData.localUserId),
-		},
-		entryPoint = "in-experience",
-		submissionContexts = {
-			{
-				key = "comment",
-				value = reportData.abuseComment,
+		tags = {
+			ENTRY_POINT = {
+				valueList = {
+					data = "in-experience",
+				}
 			},
-			{
-				key = "targetType",
-				value = "User",
+
+			SUBMITTER_USER_ID = {
+				valueList = {
+					data = tostring(reportData.localUserId),
+				}
 			},
-			{
-				key = "targetId",
-				value = tostring(reportData.abuserUserId),
+
+			REPORT_TARGET_USER_ID = {
+				valueList = {
+					data = tostring(reportData.abuserUserId),
+				}
 			},
-			{
-				key = "category",
-				value = reportData.abuseReason,
+
+			REPORTED_ABUSE_CATEGORY = {
+				valueList = {
+					data = reportData.abuseReason,
+				}
 			},
-			{
-				key = "isVoiceEnabled",
-				value = "true",
+
+			REPORTER_COMMENT = {
+				valueList = {
+					data = reportData.abuseComment,
+				}
 			},
-			{
-				key = "voiceChannelId",
-				value = VoiceChatServiceManager.service:GetGroupId(),
+
+			IS_PLACE_VOICE_ENABLED = {
+				valueList = {
+					data = "true",
+				}
 			},
-			{
-				key = "inExpMenuOpenedUnixMilli",
-				value = reportData.inExpMenuOpenedUnixMilli,
+
+			VOICE_USER_IDS_FROM_CLIENT = {
+				valueList = sortedPlayerListUserIds,
 			},
-			{
-				key = "reportUserIds",
-				value = reportData.sortedPlayerListUserIds,
+
+			IN_EXP_MENU_OPENED_UNIX_MILLI = {
+				valueList = {
+					data = tostring(reportData.inExpMenuOpenedUnixMilli),
+				}
 			},
-			{
-				key = "voiceUserCount",
-				value = tostring(voiceUserCount),
+
+			VOICE_CHANNEL_ID = {
+				valueList = {
+					data = tostring(VoiceChatServiceManager.service:GetGroupId()),
+				}
 			},
-			{
-				key = "impactedUserCount",
-				value = tostring(impactedUserCount),
+
+			VOICE_USER_COUNT = {
+				valueList = {
+					data = tostring(voiceUserCount),
+				}
 			},
-		},
+
+			VOICE_IMPACTED_USER_COUNT = {
+				valueList = {
+					data = tostring(impactedUserCount),
+				}
+			},
+
+			REPORTED_ABUSE_TYPE = {
+				valueList = {
+					data = "voice",
+				}
+			},
+		}
 	}
 
 	return HttpService:JSONEncode(request)

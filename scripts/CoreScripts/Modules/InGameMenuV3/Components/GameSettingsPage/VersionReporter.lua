@@ -1,6 +1,7 @@
 local LATEST_PLACE_VERSION = "CoreScripts.InGameMenu.GameSettings.PlaceVersionWithLatest"
 local PLACE_VERSION = "CoreScripts.InGameMenu.GameSettings.PlaceVersion"
 
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 local ContentProvider = game:GetService("ContentProvider")
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
@@ -22,12 +23,14 @@ local PlayerPermissions = require(CoreGui.RobloxGui.Modules.PlayerPermissionsMod
 
 local InGameMenu = script.Parent.Parent.Parent
 
+local Constants = require(InGameMenu.Resources.Constants)
 local Divider = require(InGameMenu.Components.Divider)
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
+local GetFFlagEventIngestDefaultPlayerScripts = require(RobloxGui.Modules.Flags.GetFFlagEventIngestDefaultPlayerScripts)
 local GetFFlagRemoveAssetVersionEndpoint = require(RobloxGui.Modules.Flags.GetFFlagRemoveAssetVersionEndpoint)
 
 local FFlagShowGitHashInNewExperienceMenu = game:DefineFastFlag("ShowGitHashInNewExperienceMenu", false)
@@ -42,22 +45,32 @@ VersionReporter.validateProps = t.strictInterface({
 local function inferPlayerScriptStatus(starterPlayerScripts)
 	local loader = starterPlayerScripts:FindFirstChild("PlayerScriptsLoader")
 	local playerModule = starterPlayerScripts:FindFirstChild("PlayerModule")
+	local playerScriptStatus
 
 	if loader ~= nil and playerModule ~= nil then
 		if not playerModule.Archivable and not loader.Archivable then
-			return "PlayerScript Status: Default"
+			playerScriptStatus = Constants.PlayerScriptStatusStrings.Default
 		else
-			return "PlayerScript Status: Possibly Custom"
+			playerScriptStatus = Constants.PlayerScriptStatusStrings.PossiblyCustom
+		end
+	else
+		local cameraScript = starterPlayerScripts:FindFirstChild("CameraScript")
+		local controlScript = starterPlayerScripts:FindFirstChild("ControlScript")
+		if cameraScript ~= nil or controlScript ~= nil then
+			playerScriptStatus = Constants.PlayerScriptStatusStrings.CustomOld
+		else
+			playerScriptStatus = Constants.PlayerScriptStatusStrings.Custom
 		end
 	end
 
-	local cameraScript = starterPlayerScripts:FindFirstChild("CameraScript")
-	local controlScript = starterPlayerScripts:FindFirstChild("ControlScript")
-	if cameraScript ~= nil or controlScript ~= nil then
-		return "PlayerScript Status: Custom Old"
-	else
-		return "PlayerScript Status: Custom"
+	if GetFFlagEventIngestDefaultPlayerScripts() then
+		AnalyticsService:setRBXEventStream(Constants.AnalyticsTargetName, "player_scripts_status", "player_scripts_status_action", {
+			defaultPlayerScripts = playerScriptStatus == Constants.PlayerScriptStatusStrings.Default,
+			placeID = tostring(game.PlaceId),
+		})
 	end
+
+	return playerScriptStatus
 end
 
 function VersionReporter:init()

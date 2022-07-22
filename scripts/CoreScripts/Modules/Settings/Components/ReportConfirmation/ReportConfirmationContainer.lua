@@ -99,18 +99,14 @@ function ReportConfirmationContainer:init()
 
 		if muteFlipped and not self.state.targetInitiallyVoiceMuted then
 			self.props.blockingUtility:MutePlayer(player)
-			self.props.reportAbuseAnalytics:action("muteUser", {
-				muteeUserId = player.UserId,
-			})
+			self.props.reportAbuseAnalytics:reportEventAndIncrement("muteUser")
 
 			if voiceParticipant and not voiceParticipant.isMutedLocally then
 				self.props.voiceChatServiceManager:ToggleMutePlayer(player.UserId)
 			end
 		elseif not muteFlipped and self.state.targetInitiallyVoiceMuted and GetFFlagVoiceARUnblockingUnmutingEnabled() then
 			self.props.blockingUtility:UnmutePlayer(player)
-			self.props.reportAbuseAnalytics:action("unmuteUser", {
-				muteeUserId = player.UserId,
-			})
+			self.props.reportAbuseAnalytics:reportEventAndIncrement("unmuteUser")
 
 			if voiceParticipant and voiceParticipant.isMutedLocally then
 				self.props.voiceChatServiceManager:ToggleMutePlayer(player.UserId)

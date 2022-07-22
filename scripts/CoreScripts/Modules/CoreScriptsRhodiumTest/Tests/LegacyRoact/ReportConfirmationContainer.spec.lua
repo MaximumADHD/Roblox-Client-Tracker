@@ -32,7 +32,7 @@ return function()
 				action = c.blockingAnalyticsMock
 			}
 			c.reportAbuseAnalytics = {
-				action = c.reportAbuseAnalyticsMock,
+				reportEventAndIncrement = c.reportAbuseAnalyticsMock,
 			}
 
 			c.mockPlayer = {
@@ -152,9 +152,7 @@ return function()
 				c.jestExpect(c.reportAbuseAnalyticsMockSpy).toHaveBeenCalledTimes(1)
 				c.jestExpect(c.reportAbuseAnalyticsMockSpy).toHaveBeenCalledWith(
 					c.reportAbuseAnalytics,
-					"muteUser",
-					{muteeUserId = c.mockPlayer.UserId}
-				)
+					"muteUser")
 			end)
 
 			it("SHOULD mute and NOT block player when only mute is selected", function(c)
@@ -197,9 +195,7 @@ return function()
 				c.jestExpect(c.reportAbuseAnalyticsMockSpy).toHaveBeenCalledTimes(1)
 				c.jestExpect(c.reportAbuseAnalyticsMockSpy).toHaveBeenCalledWith(
 					c.reportAbuseAnalytics,
-					"muteUser",
-					{muteeUserId = c.mockPlayer.UserId}
-				)
+					"muteUser"				)
 			end)
 
 			it("SHOULD neither mute nor block player when no actions are selected", function(c)
@@ -298,9 +294,7 @@ return function()
 				c.jestExpect(c.reportAbuseAnalyticsMockSpy).toHaveBeenCalledTimes(1)
 				c.jestExpect(c.reportAbuseAnalyticsMockSpy).toHaveBeenCalledWith(
 					c.reportAbuseAnalytics,
-					"unmuteUser",
-					{muteeUserId = c.mockPlayer.UserId}
-				)
+					"unmuteUser"				)
 			end)
 		end)
 	end)

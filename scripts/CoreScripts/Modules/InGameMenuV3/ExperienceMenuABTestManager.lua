@@ -8,10 +8,16 @@ local AppStorageService = game:GetService("AppStorageService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
+local InGameMenu = script.Parent
+local Constants = require(InGameMenu.Resources.Constants)
+local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
+local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
+
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 local IsExperienceMenuABTestEnabled = require(script.Parent.IsExperienceMenuABTestEnabled)
 
 local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION = "ExperienceMenuVersion"
+local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_CSAT_QUALIFICATION = "ExperienceMenuCSATQualification"
 local DEFAULT_MENU_VERSION = "v1"
 local MENU_VERSION_V2 = "v2"
 local MENU_VERSION_V3 = "v3"
@@ -33,9 +39,46 @@ function ExperienceMenuABTestManager.getCachedVersion()
 	return DEFAULT_MENU_VERSION
 end
 
+function ExperienceMenuABTestManager:getCSATQualification()
+	if self._isCSATQualified ~= nil then
+		return self._isCSATQualified
+	end
+
+	local cacheFetchSuccess, isCSATQualified = pcall(function()
+		return AppStorageService:GetItem(LOCAL_STORAGE_KEY_EXPERIENCE_MENU_CSAT_QUALIFICATION)
+	end)
+
+	-- fallback to default if there was an issue with local storage
+	if cacheFetchSuccess and isCSATQualified ~= "" and isCSATQualified ~= nil then
+		return isCSATQualified
+	end
+
+	return false
+end
+
+function ExperienceMenuABTestManager:setCSATQualification()
+	if self._isCSATQualified == true then
+		return
+	end
+
+	local success, error = pcall(function()
+		AppStorageService:SetItem(LOCAL_STORAGE_KEY_EXPERIENCE_MENU_CSAT_QUALIFICATION, true)
+		AppStorageService:Flush()
+	end)
+
+	if success then
+		self._isCSATQualified = true
+	else
+		SendAnalytics(Constants.AnalyticsExperienceMenuTest, Constants.AnalyticsExperienceMenuTestCsatQualificationField, {
+			error = tostring(error),
+		})
+	end
+end
+
 function ExperienceMenuABTestManager.new(ixpServiceWrapper)
 	local instance = {
 		_currentMenuVersion = nil,
+		_isCSATQualified = nil,
 		_ixpServiceWrapper = ixpServiceWrapper or IXPServiceWrapper,
 	}
 	setmetatable(instance, ExperienceMenuABTestManager)
@@ -86,6 +129,10 @@ function ExperienceMenuABTestManager:initialize()
 			AppStorageService:SetItem(LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION, layerData.menuVersion or "")
 			AppStorageService:Flush()
 		end)
+	end
+
+	if IsMenuCsatEnabled() then
+		self._isCSATQualified = self:getCSATQualification()
 	end
 end
 

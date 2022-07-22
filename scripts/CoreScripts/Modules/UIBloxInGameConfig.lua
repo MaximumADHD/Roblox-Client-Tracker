@@ -11,9 +11,11 @@ local GetFFlagUIBloxGenericButtonInputChangesInGame = require(
 local GetFFlagUIBloxUseNewGenericTextLabelProps = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxUseNewGenericTextLabelProps
 )
-local FFlagFixThumbnailTileInconsistency = require(CorePackages.UIBloxFlags.FFlagFixThumbnailTileInconsistency)
 local GetFFlagUIBloxEnableRadioButtonGamepadSupport = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableRadioButtonGamepadSupport
+)
+local GetFFlagUIBloxEnableIconButtonGamepadSupport = require(
+	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableIconButtonGamepadSupport
 )
 local GetFFlagUIBloxSliderUpdateOnDismiss = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxSliderUpdateOnDismiss
@@ -33,10 +35,10 @@ return {
 		false
 	),
 	enableRadioButtonGamepadSupport = GetFFlagUIBloxEnableRadioButtonGamepadSupport(),
-	fixTileThumbnailColorInconsistency = FFlagFixThumbnailTileInconsistency,
 
 	useNewVerticalScrollView = false, -- TODO: https://jira.rbx.com/browse/UIBLOX-225
 	enableRightSideGadgetView = EnableInGameMenuV3(),
 
-	sliderUpdateOnDismiss = GetFFlagUIBloxSliderUpdateOnDismiss()
+	sliderUpdateOnDismiss = GetFFlagUIBloxSliderUpdateOnDismiss(),
+	enableIconButtonGamepadSupport = GetFFlagUIBloxEnableIconButtonGamepadSupport(),
 }

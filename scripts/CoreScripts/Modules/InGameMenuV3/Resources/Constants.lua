@@ -79,12 +79,21 @@ local Constants = {
 	AnalyticsExperiencePageSource = "experience_page",
 	AnalyticsInviteFriendsListSource = "invite_friends_list",
 	AnalyticsLeavePromptSource = "leave_prompt",
+	AnalyticsExperienceMenuTest = "experience_menu_test",
+	AnalyticsExperienceMenuTestCsatQualificationField = "csat_qualification_field",
 	ShareLinksAnalyticsName = "shareLinks",
 	ShareLinksAnalyticsLinkGeneratedName = "linkGenerated",
 	ShareLinksAnalyticsButtonClickName = "buttonClick",
 
 	-- counters
 	AnalyticsCounterRequestFriendship = "PlayersMenu-RequestFriendship",
+
+	PlayerScriptStatusStrings = {
+		Default = "PlayerScript Status: Default",
+		Custom = "PlayerScript Status: Custom",
+		PossiblyCustom = "PlayerScript Status: Possibly Custom",
+		CustomOld = "PlayerScript Status: Custom Old",
+	},
 
 	ControllerBarHeight = 72,
 	PageWidth = 320,

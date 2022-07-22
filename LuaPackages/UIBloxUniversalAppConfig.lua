@@ -13,9 +13,11 @@ local GetFFlagUIBloxEnableSubtitleOnTile = require(CorePackages.UIBloxFlags.GetF
 local GetFFlagUIBloxUseNewGenericTextLabelProps = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxUseNewGenericTextLabelProps
 )
-local FFlagFixThumbnailTileInconsistency = require(CorePackages.UIBloxFlags.FFlagFixThumbnailTileInconsistency)
 local GetFFlagUIBloxEnableRadioButtonGamepadSupport = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableRadioButtonGamepadSupport
+)
+local GetFFlagUIBloxEnableIconButtonGamepadSupport = require(
+	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableIconButtonGamepadSupport
 )
 local GetFFlagUIBloxEnableActionBarLayoutFix = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableActionBarLayoutFix
@@ -33,7 +35,9 @@ local GetFFlagUIBloxSliderUpdateOnDismiss = require(
 )
 
 local GetFFlagAdjustableTextUnderTile = require(CorePackages.UIBloxFlags.GetFFlagAdjustableTextUnderTile)
-
+local GetFFlagUIBloxEnableVirtualizedListForCarousel = require(
+	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableVirtualizedListForCarousel
+)
 
 return {
 	enableAdjustableTextUnderTile = GetFFlagAdjustableTextUnderTile(),
@@ -50,7 +54,6 @@ return {
 	enableGamepadKeyCodeSupportForKeyLabel = true,
 	useNewGenericTextLabelProps = GetFFlagUIBloxUseNewGenericTextLabelProps(),
 	enableCustomMinPaddingForLinkButton = game:DefineFastFlag("UIBloxEnableCustomMinPaddingForLinkButton", false),
-	fixTileThumbnailColorInconsistency = FFlagFixThumbnailTileInconsistency,
 	enableRadioButtonGamepadSupport = GetFFlagUIBloxEnableRadioButtonGamepadSupport(),
 
 	useNewVerticalScrollView = false, -- TODO: https://jira.rbx.com/browse/UIBLOX-225
@@ -61,5 +64,7 @@ return {
 	enableGenericButtonHoverBackgroundFix = GetFFlagUIBloxEnableGenericButtonHoverBackgroundFix(),
 	enableStandardButtonSizes = GetFFlagUIBloxEnableStandardButtonSizes(),
 
-	sliderUpdateOnDismiss = GetFFlagUIBloxSliderUpdateOnDismiss()
+	sliderUpdateOnDismiss = GetFFlagUIBloxSliderUpdateOnDismiss(),
+	enableIconButtonGamepadSupport = GetFFlagUIBloxEnableIconButtonGamepadSupport(),
+	enableVirtualizedListForCarousel = GetFFlagUIBloxEnableVirtualizedListForCarousel(),
 }

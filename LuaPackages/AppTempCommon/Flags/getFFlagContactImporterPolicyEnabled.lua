@@ -2,8 +2,8 @@
 
 local getFFlagContactImporterEnabledForDev = require(script.Parent.getFFlagContactImporterEnabledForDev)
 
-game:DefineFastFlag("ContactImporterPolicyEnabled", false)
+game:DefineFastFlag("ContactImporterPolicyEnabledV1", false)
 
 return function()
-	return getFFlagContactImporterEnabledForDev() or game:GetFastFlag("ContactImporterPolicyEnabled")
+	return getFFlagContactImporterEnabledForDev() or game:GetFastFlag("ContactImporterPolicyEnabledV1")
 end

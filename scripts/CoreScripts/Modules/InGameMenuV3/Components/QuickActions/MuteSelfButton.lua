@@ -16,11 +16,13 @@ local SetQuickActionsTooltip = require(InGameMenu.Actions.SetQuickActionsTooltip
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 local Constants = require(InGameMenu.Resources.Constants)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
+local ExperienceMenuABTestManager = require(InGameMenu.ExperienceMenuABTestManager)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceConstants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
 local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicator)
 local GetFFlagEnableVoiceChatManualReconnect = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatManualReconnect)
+local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
 
 local MuteSelfButton = Roact.PureComponent:extend("MuteSelfButton")
 
@@ -60,6 +62,10 @@ function MuteSelfButton:init()
 			self:setState({
 				selfMuted = not self.state.selfMuted,
 			})
+		end
+
+		if IsMenuCsatEnabled() then
+			ExperienceMenuABTestManager.default:setCSATQualification()
 		end
 	end
 end

@@ -56,7 +56,7 @@ local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagO
 local GetFFlagMuteButtonRaceConditionFix = require(RobloxGui.Modules.Flags.GetFFlagMuteButtonRaceConditionFix)
 
 local GetFFlagRemoveAssetVersionEndpoint = require(RobloxGui.Modules.Flags.GetFFlagRemoveAssetVersionEndpoint)
-
+local GetFFlagEventIngestDefaultPlayerScripts = require(RobloxGui.Modules.Flags.GetFFlagEventIngestDefaultPlayerScripts)
 local GetFFlagInGameMenuV1LeaveToHome = require(RobloxGui.Modules.Flags.GetFFlagInGameMenuV1LeaveToHome)
 local FFlagInGameMenuV1FullScreenTitleBar = game:DefineFastFlag("InGameMenuV1FullScreenTitleBar", false)
 local FFlagInGameMenuHomeButton = game:DefineFastFlag("InGameMenuHomeButton", false)
@@ -893,7 +893,16 @@ local function CreateSettingsHub()
 			if shouldTryLocalizeVersionLabels then
 				playerScriptsString = tryTranslate("InGame.HelpMenu.Label.PlayerScripts", "PlayerScripts: ")
 			end
-			this.OverridesPlayerScriptsLabel.Text = playerScriptsString ..getOverridesPlayerScripts()
+
+			local playerScriptStatus = getOverridesPlayerScripts()
+
+			if GetFFlagEventIngestDefaultPlayerScripts() then
+				AnalyticsService:setRBXEventStream(Constants.AnalyticsTargetName, "player_scripts_status", "player_scripts_status_action", {
+					defaultPlayerScripts = playerScriptStatus == "Default",
+					placeID = tostring(game.PlaceId),
+				})
+			end
+			this.OverridesPlayerScriptsLabel.Text = playerScriptsString .. playerScriptStatus
 			this.OverridesPlayerScriptsLabel.Visible = isTestEnvironment or playerPermissionsModule.IsPlayerAdminAsync(Players.LocalPlayer)
 			addSizeToLabel(this.OverridesPlayerScriptsLabel)
 			this.OverridesPlayerScriptsLabel.TextScaled = not (canGetCoreScriptVersion or this.OverridesPlayerScriptsLabel.TextFits)

@@ -21,6 +21,8 @@ local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local Constants = require(InGameMenu.Resources.Constants)
 local Pages = require(InGameMenu.Components.Pages)
 local InGameMenuPolicy = require(InGameMenu.InGameMenuPolicy)
+local ExperienceMenuABTestManager = require(InGameMenu.ExperienceMenuABTestManager)
+local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
 
 local SELECTION_PARENT_NAME = "SideNavigation_IGMSelectionGroup"
 local HIDE_POSITION = -65
@@ -70,12 +72,12 @@ function SideNavigation:init()
 
 	self:setState({
 		-- delay set Frame.Visible false until motor animation finished
-		frameVisible = false
+		frameVisible = false,
 	})
 	self.positionMotor:onComplete(function(position)
 		if position == HIDE_POSITION then
 			self:setState({
-				frameVisible = false
+				frameVisible = false,
 			})
 		end
 	end)
@@ -84,7 +86,7 @@ end
 function SideNavigation:didUpdate(_, _)
 	if self.props.open == true then
 		self:setState({
-			frameVisible = true
+			frameVisible = true,
 		})
 	end
 	self.positionMotor:setGoal(Otter.spring(self.props.open and 0 or HIDE_POSITION, POSITION_MOTOR_OPTIONS))
@@ -101,6 +103,10 @@ function SideNavigation:render()
 			iconOn = navigationBarItem.iconOn or nil,
 			iconOff = navigationBarItem.iconOff or nil,
 			onActivated = function()
+				if IsMenuCsatEnabled() then
+					ExperienceMenuABTestManager.default:setCSATQualification()
+				end
+
 				return onActivated(navigationBarItem.page)
 			end,
 		}

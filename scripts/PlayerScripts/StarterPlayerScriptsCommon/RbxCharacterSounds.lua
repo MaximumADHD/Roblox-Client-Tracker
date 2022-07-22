@@ -5,6 +5,15 @@ local RunService = game:GetService("RunService")
 
 local AtomicBinding = require(script:WaitForChild("AtomicBinding"))
 
+local function loadFlag(flag: string)
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled(flag)
+	end)
+	return success and result
+end
+
+local FFlagUserAtomicCharacterSoundsUnparent = loadFlag("UserAtomicCharacterSoundsUnparent")
+
 local SOUND_DATA : { [string]: {[string]: any}} = {
 	Climbing = {
 		SoundId = "rbxasset://sounds/action_footsteps_plastic.mp3",
@@ -219,6 +228,16 @@ local function initializeSoundSystem(instances)
 	local function terminate()
 		stateChangedConn:Disconnect()
 		steppedConn:Disconnect()
+
+		if FFlagUserAtomicCharacterSoundsUnparent then
+			-- Unparent all sounds and empty sounds table
+			-- This is needed in order to support the case where initializeSoundSystem might be called more than once for the same player,
+			-- which might happen in case player character is unparented and parented back on server and reset-children mechanism is active.
+			for name: string, sound: Sound in pairs(sounds) do
+				sound:Destroy()
+			end
+			table.clear(sounds)
+		end
 	end
 	
 	return terminate

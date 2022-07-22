@@ -163,9 +163,16 @@ local function playerUpdate(player)
 	end
 end
 
-if VoiceChatServiceManager then
-	VoiceChatServiceManager:asyncInit():andThen(function()
-		local VoiceChatService = VoiceChatServiceManager:getService()
+local function JoinAllExistingPlayers()
+	for _, player in ipairs(Players:GetPlayers()) do
+		playerJoinedGame[player.UserId] = true
+		playerUpdate(player)
+	end
+end
+
+local function ConnectStateChangeCallback()
+	local VoiceChatService = VoiceChatServiceManager:getService()
+	if VoiceChatService then
 		VoiceChatService.ParticipantsStateChanged:Connect(function(participantsLeft, participantsJoined, statesUpdated)
 			for _, userId in ipairs(participantsLeft) do
 				local player = Players:GetPlayerByUserId(userId)
@@ -186,24 +193,42 @@ if VoiceChatServiceManager then
 				end
 			end
 		end)
-	end):catch(function()
-		log:trace("Failed to initialize streaming of facial animations - voice chat not available.")
+	else
+		-- This will happen if mic permissions were denied.
+		log:trace("Could not find VoiceChatService")
+	end
+	Players.PlayerRemoving:Connect(function(player)
+		playerTrace("Player leaving game", player)
+
+		playerJoinedGame[player.UserId] = nil
+		playerUpdate(player)
+	end)
+
+	Players.PlayerAdded:Connect(function(player)
+		playerTrace("Player joining game", player)
+
+		playerJoinedGame[player.UserId] = true
+		playerUpdate(player)
 	end)
 end
 
-Players.PlayerRemoving:Connect(function(player)
-	playerTrace("Player leaving game", player)
-
-	playerJoinedGame[player.UserId] = nil
-	playerUpdate(player)
-end)
-
-Players.PlayerAdded:Connect(function(player)
-	playerTrace("Player joining game", player)
-
-	playerJoinedGame[player.UserId] = true
-	playerUpdate(player)
-end)
+-- NOTE: The connection of players to the facial animation system needs to be deferred until mic permissions are
+-- completed. There is an issue where only one outstanding permissions request can happen at a time. This is a limitation of
+-- the MessageBus system and the implementation of permissions protocol.
+-- Currently, VoiceChatServiceManager::asyncInit will initiate a microphone permission request, then, when the camera is
+-- opened for connecting the local player, another permissions request will be initiated - internally within the library. If 
+-- we don't wait for the mic permission to complete before connecting the local player, then both permission requests fail.
+-- See JIRA task: https://jira.rbx.com/browse/LUAFDN-1092
+-- 
+function InitializeVoiceChatServices()
+	if VoiceChatServiceManager then
+		VoiceChatServiceManager:asyncInit():catch(function(error)
+		end):finally(function()
+			JoinAllExistingPlayers()
+			ConnectStateChangeCallback()
+		end)
+	end
+end
 
 function InitializeFacialAnimationStreaming()
 	if facialAnimationStreamingInited or not FacialAnimationStreamingService.Enabled then
@@ -212,10 +237,7 @@ function InitializeFacialAnimationStreaming()
 	facialAnimationStreamingInited = true
 	FaceAnimatorService.FlipHeadOrientation = true
 
-	for _, player in ipairs(Players:GetPlayers()) do
-		playerJoinedGame[player.UserId] = true
-		playerUpdate(player)
-	end
+	InitializeVoiceChatServices()
 end
 
 function CleanupFacialAnimationStreaming()

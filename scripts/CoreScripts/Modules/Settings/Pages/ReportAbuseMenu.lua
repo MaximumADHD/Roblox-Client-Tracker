@@ -13,7 +13,10 @@ local PlayersService = game:GetService("Players")
 local CorePackages = game:GetService("CorePackages")
 local MarketplaceService = game:GetService("MarketplaceService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
+local Analytics = require(CorePackages.Analytics.Analytics).new(AnalyticsService)
 local Workspace = game:GetService("Workspace")
+
+local Settings = script:FindFirstAncestor("Settings")
 
 local enumerate = require(CorePackages.enumerate)
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
@@ -23,6 +26,8 @@ local Cryo = require(CorePackages.Cryo)
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local Url = require(RobloxGui.Modules.Common.Url)
+
+local ReportAbuseAnalytics = require(Settings.Analytics.ReportAbuseAnalytics)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local ReportAbuseLogic = require(RobloxGui.Modules.VoiceChat.ReportAbuseLogic)
@@ -105,12 +110,6 @@ local TypeOfAbuseOptions: {
 	[MethodsOfAbuse.other] = {title = "Feature.SettingsHub.MethodOfAbuse.Other.Title", subtitle = "Feature.SettingsHub.MethodOfAbuse.Other.Subtitle", index = 3}
 }
 
-local function SendEventStream(action: string, eventTable: { [string]: any } | nil)
-	if GetFFlagVoiceAbuseReportsEnabled() then
-		AnalyticsService:SetRBXEvent(Constants.AnalyticsTargetName, Constants.NewAnalyticsReportMenu, action, eventTable or {})
-	end
-end
-
 ----------- CLASS DECLARATION --------------
 local function Initialize()
 	local settingsPageFactory = require(RobloxGui.Modules.Settings.SettingsPageFactory)
@@ -122,6 +121,10 @@ local function Initialize()
 	local nextPlayerToReport = nil
 
 	local voiceChatEnabled = false
+
+	if GetFFlagVoiceAbuseReportsEnabled() then
+		this.reportAbuseAnalytics = ReportAbuseAnalytics.new(Analytics, ReportAbuseAnalytics.MenuContexts.LegacyMenu)
+	end
 
 	local function getMethodOfAbuseDropdownItems()
 		return Cryo.List.map(Cryo.Dictionary.values(TypeOfAbuseOptions), function(item: MOAOption)
@@ -177,14 +180,31 @@ local function Initialize()
 			this.AbuseDescriptionFrame.LayoutOrder = 5
 
 			local function methodOfAbuseChanged(newIndex)
-				this:UpdatePlayerDropDown()
+				if not this.WhichPlayerMode.CurrentIndex then
+					this:UpdatePlayerDropDown()
+				end
+
+				local selectedMethodOfAbuse
+
+				if this:isVoiceReportMethodActive() and newIndex == 1 then
+					selectedMethodOfAbuse = "voice"
+				elseif (this:isVoiceReportMethodActive() and newIndex == 2) or newIndex == 1 then
+					selectedMethodOfAbuse = "text"
+				else
+					selectedMethodOfAbuse = "other"
+				end
+
+				this.reportAbuseAnalytics:reportAnalyticsFieldChanged({
+					field = 'MethodOfAbuse',
+					methodOfAbuse = selectedMethodOfAbuse,
+				})
 			end
 
 			this.MethodOfAbuseMode.IndexChanged:connect(methodOfAbuseChanged)
 		end
 	end
 
-	function this:updateTypeOfAbuseDropdown()
+	function this:updateMethodOfAbuseDropdown()
 		local recentVoicePlayers = VoiceChatServiceManager:getRecentUsersInteractionData()
 		local player = this:GetPlayerFromIndex(this.WhichPlayerMode.CurrentIndex)
 
@@ -197,34 +217,39 @@ local function Initialize()
 		else
 			this.MethodOfAbuseMode:UpdateDropDownList(getSortedMethodOfAbuseList())
 		end
-		SendEventStream(Constants.AnalyticsFieldChanged, {
-			field = 'MethodOfAbuse',
-			methodOfAbuse = TypeOfAbuseOptions[MethodsOfAbuse.text]
-		})
 	end
 
 	function this:getPlayerPrimaryPart(player)
 		return player and player.Character and player.Character.PrimaryPart
 	end
 
-	function this:UpdateMethodOfAbuse()
+	function this:SetDefaultMethodOfAbuse(player)
 		if GetFFlagVoiceAbuseReportsEnabled() and voiceChatEnabled and inEntryExperiment then
-			local AbuseType = ReportAbuseLogic.GetDefaultMethodOfAbuse(nextPlayerToReport, VoiceChatServiceManager)
+			local AbuseType = ReportAbuseLogic.GetDefaultMethodOfAbuse(player, VoiceChatServiceManager)
 			PageInstance.MethodOfAbuseMode:SetSelectionIndex(TypeOfAbuseOptions[AbuseType].index)
 		end
+	end
+
+	function this:isVoiceReportMethodActive()
+		if not GetFFlagVoiceAbuseReportsEnabled() then
+			return false
+		end
+		local recentVoicePlayers = VoiceChatServiceManager:getRecentUsersInteractionData()
+
+		local currentSelectedPlayer = this:GetPlayerFromIndex(this.WhichPlayerMode.CurrentIndex)
+		local isCurrentSelectedPlayerVoice = if currentSelectedPlayer and recentVoicePlayers[tostring(currentSelectedPlayer.UserId)] then true else false
+
+		return (not currentSelectedPlayer or isCurrentSelectedPlayerVoice)
 	end
 
 	function this:isVoiceReportSelected()
 		if not GetFFlagVoiceAbuseReportsEnabled() then
 			return false
 		end
-		local recentVoicePlayers = VoiceChatServiceManager:getRecentUsersInteractionData()
 
 		local isVoiceDropdownSelected = this.MethodOfAbuseMode.CurrentIndex == AbuseVectorIndex.Voice.rawValue()
-		local currentSelectedPlayer = this:GetPlayerFromIndex(this.WhichPlayerMode.CurrentIndex)
-		local isCurrentSelectedPlayerVoice = if currentSelectedPlayer and recentVoicePlayers[tostring(currentSelectedPlayer.UserId)] then true else false
 
-		return isVoiceDropdownSelected and (not currentSelectedPlayer or isCurrentSelectedPlayerVoice)
+		return this:isVoiceReportMethodActive() and isVoiceDropdownSelected
 	end
 
 	function this:UpdatePlayerDropDown()
@@ -325,6 +350,11 @@ local function Initialize()
 		if nextPlayerToReport then
 			local playerNameText = this:GetPlayerNameText(nextPlayerToReport)
 			local playerSelected = this.WhichPlayerMode:SetSelectionByValue(playerNameText)
+
+			if GetFFlagVoiceAbuseReportsEnabled() then
+				this:SetDefaultMethodOfAbuse(nextPlayerToReport)
+			end
+
 			nextPlayerToReport = nil
 
 			if this.GameOrPlayerMode.CurrentIndex == 2 then
@@ -513,10 +543,19 @@ local function Initialize()
 
 				updateSubmitButton()
 			end
-			SendEventStream(Constants.AnalyticsFieldChanged, {
-				field = 'TypeOfAbuse',
-				abuseType = ABUSE_TYPES_GAME[this.TypeOfAbuseMode.CurrentIndex]
-			})
+
+			if GetFFlagVoiceAbuseReportsEnabled() then
+				local abuseType = "Game"
+
+				if this.GameOrPlayerMode.CurrentIndex == 2 then
+					abuseType = "Player"
+				end
+
+				this.reportAbuseAnalytics:reportAnalyticsFieldChanged({
+					field = "TypeOfAbuse",
+					abuseType = abuseType,
+				})
+			end
 		end
 
 		local function cleanupReportAbuseMenu()
@@ -544,6 +583,11 @@ local function Initialize()
 			local reportSucceeded = false
 			local isReportSentEnabled = false
 			local showReportSentAlert = false
+
+			if GetFFlagVoiceAbuseReportsEnabled() then
+				this.hasBeenSubmitted = true
+			end
+
 			if this.GameOrPlayerMode.CurrentIndex == 2 then
 				abuseReason = ABUSE_TYPES_PLAYER[this.TypeOfAbuseMode.CurrentIndex]
 
@@ -567,12 +611,18 @@ local function Initialize()
 									sortedPlayerListUserIds = sortedUserIds,
 								})
 
-								local fullUrl = Url.APIS_URL.."v2.0/abuse-report"
+								local fullUrl = Url.APIS_URL.."/abuse-reporting/v2/abuse-report"
 								HttpRbxApiService:PostAsyncFullUrl(fullUrl, request)
 							end)
 						end)
 
-						SendEventStream(Constants.AnalyticsVoiceReportSubmitted)
+						local timeToComplete = DateTime.now().UnixTimestampMillis - timeEntered.UnixTimestampMillis
+
+						this.reportAbuseAnalytics:reportFormSubmitted(timeToComplete, {
+							methodOfAbuse = "Voice",
+							typeOfAbuse = abuseReason,
+						})
+
 						reportAnalytics("user", currentAbusingPlayer.UserId)
 					else
 						spawn(function()
@@ -611,9 +661,6 @@ local function Initialize()
 					end)
 				end
 			end
-			SendEventStream(Constants.AnalyticsSubmissionDuration, {
-				duration = DateTime.now().UnixTimestampMillis - timeEntered.UnixTimestampMillis
-			})
 
 			if showReportSentAlert then
 				local alertText = "Thanks for your report! Our moderators will review the chat logs and evaluate what happened."
@@ -644,12 +691,13 @@ local function Initialize()
 
 		local function playerSelectionChanged(newIndex)
 			if GetFFlagVoiceAbuseReportsEnabled() then
-				this:updateTypeOfAbuseDropdown()
+				this:updateMethodOfAbuseDropdown()
+
+				this.reportAbuseAnalytics:reportAnalyticsFieldChanged({
+					field = "PlayerSelection",
+				})
 			end
 
-			SendEventStream(Constants.AnalyticsFieldChanged, {
-				field = 'PlayerSelection',
-			})
 			updateSubmitButton()
 		end
 		this.WhichPlayerMode.IndexChanged:connect(playerSelectionChanged)
@@ -682,14 +730,44 @@ do
 	PageInstance.Displayed.Event:connect(function()
 		timeEntered = DateTime.now()
 		open = true
-		PageInstance:UpdateMethodOfAbuse()
+
+		if GetFFlagVoiceAbuseReportsEnabled() then
+			PageInstance.hasBeenSubmitted = false
+		end
+
 		PageInstance:UpdatePlayerDropDown()
 	end)
 
 	if GetFFlagVoiceAbuseReportsEnabled() then
 		PageInstance.Hidden.Event:connect(function()
 			if open then
-				SendEventStream(Constants.AnalyticsReportLeft)
+				if not PageInstance.hasBeenSubmitted then
+					local timeToExit = DateTime.now().UnixTimestampMillis - timeEntered.UnixTimestampMillis
+					local abuseReasonSelected = if PageInstance.TypeOfAbuseMode.CurrentIndex then true else false
+					local abuserSelected = if PageInstance.WhichPlayerMode.CurrentIndex then true else false
+					local commentAdded = if PageInstance.AbuseDescription.Selection.Text ~= "" then true else false
+					local methodOfAbuseSelected = false
+					local reportContentType
+
+					if PageInstance.GameOrPlayerMode.CurrentIndex == 1 then
+						reportContentType = "Game"
+					else
+						reportContentType = "User"
+					end
+
+					if PageInstance.MethodOfAbuseMode and PageInstance.MethodOfAbuseMode.CurrentIndex then
+						methodOfAbuseSelected = true
+					end
+
+					PageInstance.reportAbuseAnalytics:reportFormAbandoned(timeToExit, {
+						reportContentType = reportContentType,
+						abuseReasonSelected = abuseReasonSelected,
+						abuserSelected = abuserSelected,
+						commentAdded = commentAdded,
+						methodOfAbuseSelected = methodOfAbuseSelected,
+					})
+				end
+
 				open = false
 			end
 		end)

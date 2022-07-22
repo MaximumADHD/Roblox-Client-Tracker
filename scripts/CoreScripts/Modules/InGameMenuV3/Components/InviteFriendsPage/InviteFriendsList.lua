@@ -21,10 +21,12 @@ local PlayerContextualMenuWrapper = require(InGameMenu.Components.PlayerContextu
 local PlayerSearchPredicate = require(InGameMenu.Utility.PlayerSearchPredicate)
 local Constants = require(InGameMenu.Resources.Constants)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
+local ExperienceMenuABTestManager = require(InGameMenu.ExperienceMenuABTestManager)
 
 local Divider = require(InGameMenu.Components.Divider)
 local FocusHandler = require(InGameMenu.Components.Connection.FocusHandler)
 local RootedConnection = require(InGameMenu.Components.Connection.RootedConnection)
+local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
 
 local InviteFriendsList = Roact.PureComponent:extend("InviteFriendsList")
 
@@ -189,6 +191,10 @@ function InviteFriendsList:renderListEntries()
 										source = Constants.AnalyticsInviteFriendsListSource,
 									}
 								)
+
+								if IsMenuCsatEnabled() then
+									ExperienceMenuABTestManager.default:setCSATQualification()
+								end
 							end
 						end
 					end,

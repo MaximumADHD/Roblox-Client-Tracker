@@ -26,10 +26,11 @@ local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local FFlagPlayerListFixMobileScrolling = require(PlayerList.Flags.FFlagPlayerListFixMobileScrolling)
+local FFlagPlayerListFixBackgroundFlicker = require(PlayerList.Flags.FFlagPlayerListFixBackgroundFlicker)
 
 local MOTOR_OPTIONS = {
-    dampingRatio = 1,
-    frequency = 4,
+	dampingRatio = 1,
+	frequency = 4,
 }
 
 local OLD_PLAYERLIST_PLAYER_ENTRY_SIZE = 26
@@ -49,25 +50,25 @@ local function playerListSizeFromViewportSize(viewportSize)
 	-- Turn x/y into min/max to stay independent of aspect ratio
 	local vMin = math.min(viewportSize.x, viewportSize.y)
 	local vMax = math.max(viewportSize.x, viewportSize.y)
-	
+
 	-- Map the viewport sizes to the frame sizes
 	-- Min axis: Viewport size 320 -> Frame size 270
 	-- Min axis: Viewport size 375 -> Frame size 330
 	local sMin = map(vMin, 320, 375, 270, 330)
-	
+
 	-- Max axis: Viewport size 480 -> Frame size 434
 	-- Max axis: Viewport size 670 -> Frame size 480
 	local sMax = map(vMax, 480, 670, 434, 480)
-	
+
 	-- Clamp the max size to (500, 600)
 	-- Clamp the min size to 270x434, but always keep a 12px border on the edges
 	sMin = math.clamp(sMin, math.min(270, vMin - 24), 500)
 	sMax = math.clamp(sMax, math.min(434, vMax - 24), 600)
-	
+
 	-- Remap from min/max to x/y
 	local sX = viewportSize.x > viewportSize.y and sMax or sMin
 	local sY = viewportSize.y > viewportSize.x and sMax or sMin
-	
+
 	return UDim2.fromOffset(sX, sY)
 end
 
@@ -101,7 +102,7 @@ function PlayerListApp:init()
 	}
 
 	self.bodyTransparency, self.updateBodyTransparency = Roact.createBinding(0.5)
-	self.bodyTransparencyMotor = Otter.createSingleMotor(0)
+	self.bodyTransparencyMotor = Otter.createSingleMotor(if FFlagPlayerListFixBackgroundFlicker then 1 else 0)
 	self.bodyTransparencyMotor:onStep(function(transparency)
 		self.updateBodyTransparency(transparency)
 		if transparency < 0.5 and self.props.displayOptions.isVisible then
@@ -119,7 +120,7 @@ function PlayerListApp:init()
 	end)
 
 	self.bgTransparency, self.updateBgTransparency = Roact.createBinding(0)
-	self.bgTransparencyMotor = Otter.createSingleMotor(0)
+	self.bgTransparencyMotor = Otter.createSingleMotor(if FFlagPlayerListFixBackgroundFlicker then 1 else 0)
 	self.bgTransparencyMotor:onStep(self.updateBgTransparency)
 
 	self.frameScale, self.updateFrameScale = Roact.createBinding(1)
@@ -182,7 +183,7 @@ function PlayerListApp:renderBodyChildren(previousSizeBound, childElements)
 			BackgroundTransparency = 1,
 			Visible = contentVisible and not dropDownVisible,
 			AutoLocalize = false,
-		}, childElements)
+		}, childElements),
 	}
 end
 
@@ -255,7 +256,7 @@ function PlayerListApp:render()
 				BackgroundTransparency = self.bodyTransparency,
 				BorderColor3 = Color3.fromRGB(0, 0, 0),
 				BorderSizePixel = 0,
-			}, self:renderBodyChildren(previousSizeBound, childElements))
+			}, self:renderBodyChildren(previousSizeBound, childElements)),
 		})
 	end)
 end

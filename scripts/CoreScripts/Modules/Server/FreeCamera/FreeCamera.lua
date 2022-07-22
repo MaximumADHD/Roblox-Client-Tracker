@@ -18,6 +18,8 @@ local RunService = game:GetService("RunService")
 local StarterGui = game:GetService("StarterGui")
 local UserInputService = game:GetService("UserInputService")
 local Workspace = game:GetService("Workspace")
+local Settings = UserSettings()
+local GameSettings = Settings.GameSettings
 
 local LocalPlayer = Players.LocalPlayer
 if not LocalPlayer then
@@ -33,6 +35,14 @@ Workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
 	end
 end)
 
+local FFlagUserExitFreecamBreaksWithShiftlock
+do
+    local success, result = pcall(function()
+        return UserSettings():IsUserFeatureEnabled("UserExitFreecamBreaksWithShiftlock")
+    end)
+    FFlagUserExitFreecamBreaksWithShiftlock = success and result
+end
+ 
 ------------------------------------------------------------------------
 
 local TOGGLE_INPUT_PRIORITY = Enum.ContextActionPriority.Low.Value
@@ -319,6 +329,16 @@ local function StepFreecam(dt)
 	Camera.FieldOfView = cameraFov
 end
 
+local function CheckMouseLockAvailability()
+	local devAllowsMouseLock = Players.LocalPlayer.DevEnableMouseLock
+	local devMovementModeIsScriptable = Players.LocalPlayer.DevComputerMovementMode == Enum.DevComputerMovementMode.Scriptable
+	local userHasMouseLockModeEnabled = GameSettings.ControlMode == Enum.ControlMode.MouseLockSwitch
+	local userHasClickToMoveEnabled =  GameSettings.ComputerMovementMode == Enum.ComputerMovementMode.ClickToMove
+	local MouseLockAvailable = devAllowsMouseLock and userHasMouseLockModeEnabled and not userHasClickToMoveEnabled and not devMovementModeIsScriptable
+
+	return MouseLockAvailable
+end
+
 ------------------------------------------------------------------------
 
 local PlayerState = {} do
@@ -372,7 +392,11 @@ local PlayerState = {} do
 		mouseIconEnabled = UserInputService.MouseIconEnabled
 		UserInputService.MouseIconEnabled = false
 
-		mouseBehavior = UserInputService.MouseBehavior
+		if FFlagUserExitFreecamBreaksWithShiftlock and CheckMouseLockAvailability() then
+			mouseBehavior = Enum.MouseBehavior.Default
+		else
+			mouseBehavior = UserInputService.MouseBehavior
+		end
 		UserInputService.MouseBehavior = Enum.MouseBehavior.Default
 	end
 

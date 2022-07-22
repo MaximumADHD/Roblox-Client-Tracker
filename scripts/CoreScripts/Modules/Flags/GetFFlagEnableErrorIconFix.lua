@@ -1,5 +1,5 @@
-game:DefineFastFlag("EnableErrorIconFix", false)
+game:DefineFastFlag("EnableErrorIconFixV2", false)
 
 return function()
-	return game:GetFastFlag("EnableErrorIconFix")
+	return game:GetFastFlag("EnableErrorIconFixV2")
 end

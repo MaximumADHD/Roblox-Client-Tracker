@@ -9,10 +9,11 @@ local Images = UIBlox.App.ImageSet.Images
 local GameIconButton = require(InGameMenu.Components.SideNavigation.GameIconButton)
 
 local Constants = require(InGameMenu.Resources.Constants)
-
 local EngineFeatureEnableVRUpdate2 = game:GetEngineFeature("EnableVRUpdate2")
 
-local GetFFlagShareInviteLinkContextMenuV3Enabled = require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
+local GetFFlagShareInviteLinkContextMenuV3Enabled = require(
+	InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3Enabled
+)
 
 local navigationBar = {
 	{

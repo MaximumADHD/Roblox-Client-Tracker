@@ -7,12 +7,14 @@ local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
+local dependencies = require(ShareGame.dependencies)
 local Constants = require(ShareGame.Constants)
 local ShareButton = require(ShareGame.Components.ShareButton)
 local getTranslator = require(ShareGame.getTranslator)
 local RobloxTranslator = getTranslator()
 local mapDispatchToProps = require(ShareGame.Components.ShareInviteLinkMapDispatchToProps)
 local mapStateToProps = require(ShareGame.Components.ShareInviteLinkMapStateToProps)
+local RoduxShareLinks = dependencies.RoduxShareLinks
 
 local ShareInviteLink = Roact.PureComponent:extend("ShareInviteLink")
 
@@ -24,8 +26,7 @@ local SHARE_INVITE_LINK_BACKGROUND = Color3.fromRGB(79, 84, 95)
 function ShareInviteLink:didUpdate(oldProps)
 	-- TODO COEXP-310: Show sharesheet if self.props.shareInviteLink is present
 	if oldProps.shareInviteLink == nil and self.props.shareInviteLink ~= nil then
-		-- TODO (timothyhsu): Fire analytics with linkType enum when enum is available
-		self.props.analytics:onLinkGenerated("linkType", self.props.shareInviteLink.linkId)
+		self.props.analytics:onLinkGenerated(RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue(), self.props.shareInviteLink.linkId)
 	end
 end
 

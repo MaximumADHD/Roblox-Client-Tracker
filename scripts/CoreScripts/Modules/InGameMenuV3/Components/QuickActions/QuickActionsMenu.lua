@@ -22,6 +22,8 @@ local MuteSelfButton = require(InGameMenu.Components.QuickActions.MuteSelfButton
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 local Constants = require(InGameMenu.Resources.Constants)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
+local ExperienceMenuABTestManager = require(InGameMenu.ExperienceMenuABTestManager)
+local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
 
 local QuickActionsMenu = Roact.PureComponent:extend("QuickActionsMenu")
 
@@ -49,6 +51,10 @@ function QuickActionsMenu:init()
 			Constants.AnalyticsReportAbuse,
 			{ source = Constants.AnalyticsQuickActionsMenuSource }
 		)
+
+		if IsMenuCsatEnabled() then
+			ExperienceMenuABTestManager.default:setCSATQualification()
+		end
 	end
 
 	self.screenshot = function()
@@ -63,6 +69,10 @@ function QuickActionsMenu:init()
 			Constants.AnalyticsScreenshot,
 			{ source = Constants.AnalyticsQuickActionsMenuSource }
 		)
+
+		if IsMenuCsatEnabled() then
+			ExperienceMenuABTestManager.default:setCSATQualification()
+		end
 	end
 
 	self.startRespawning = function()
@@ -73,13 +83,17 @@ function QuickActionsMenu:init()
 			Constants.AnalyticsRespawnCharacterName,
 			{ source = Constants.AnalyticsQuickActionsMenuSource }
 		)
+
+		if IsMenuCsatEnabled() then
+			ExperienceMenuABTestManager.default:setCSATQualification()
+		end
 	end
 end
 
 local function updateTransparency(props)
 	local transparency = {
-		respawn =  props.transparencies.button1,
-		screenshot =  props.transparencies.button2,
+		respawn = props.transparencies.button1,
+		screenshot = props.transparencies.button2,
 		report = props.transparencies.button3,
 		muteAll = props.transparencies.button4,
 		muteSelf = props.transparencies.button5,
@@ -92,7 +106,7 @@ local function updateTransparency(props)
 		end
 	else
 		if props.screenshotEnabled then
-			transparency.screenshot =  props.transparencies.button1
+			transparency.screenshot = props.transparencies.button1
 			transparency.report = props.transparencies.button2
 			transparency.muteAll = props.transparencies.button3
 			transparency.muteSelf = props.transparencies.button4
@@ -107,7 +121,7 @@ end
 
 function QuickActionsMenu:render()
 	return withStyle(function(style)
-		local transparency =  updateTransparency(self.props)
+		local transparency = updateTransparency(self.props)
 		return Roact.createElement("Frame", {
 			LayoutOrder = self.props.layoutOrder,
 			Size = UDim2.new(0, QUICK_ACTIONS_WIDTH, 0, 0),

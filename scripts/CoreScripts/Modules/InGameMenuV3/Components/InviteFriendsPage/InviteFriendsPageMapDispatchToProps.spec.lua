@@ -12,10 +12,27 @@ return function()
 	end)
 
 	describe("WHEN called", function()
-		it("SHOULD return a dictionary without throwing", function(context)
-			jestExpect(context.mapDispatchToProps()).toEqual({
-				fetchShareInviteLink = jestExpect.any("function"),
-			})
+		describe("WHEN ShareInviteLinkContextMenuV3Enabled FFlag is enabled", function()
+			beforeAll(function(context)
+				game:SetFastFlagForTesting("ShareInviteLinkContextMenuV3Enabled", true)
+			end)
+
+			it("SHOULD return a dictionary without throwing", function(context)
+				jestExpect(context.mapDispatchToProps()).toEqual({
+					fetchShareInviteLink = jestExpect.any("function"),
+					fetchServerType = jestExpect.any("function")
+				})
+			end)
+		end)
+
+		describe("WHEN ShareInviteLinkContextMenuV3Enabled FFlag is disabled", function()
+			beforeAll(function(context)
+				game:SetFastFlagForTesting("ShareInviteLinkContextMenuV3Enabled", false)
+			end)
+			
+			it("SHOULD return a dictionary without throwing", function(context)
+				jestExpect(context.mapDispatchToProps()).toEqual({})
+			end)
 		end)
 	end)
 end

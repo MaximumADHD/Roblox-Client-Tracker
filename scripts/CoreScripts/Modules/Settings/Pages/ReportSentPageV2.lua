@@ -1,4 +1,3 @@
-local AnalyticsService = game:GetService("RbxAnalyticsService")
 local PlayersService = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
@@ -6,6 +5,8 @@ local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxGuiModules = RobloxGui:WaitForChild("Modules")
 
+local AnalyticsService = game:GetService("RbxAnalyticsService")
+local Analytics = require(CorePackages.Analytics.Analytics).new(AnalyticsService)
 local Roact = require(CorePackages.Roact)
 local Settings = script:FindFirstAncestor("Settings")
 local settingsPageFactory = require(RobloxGuiModules.Settings.SettingsPageFactory)
@@ -29,10 +30,7 @@ while not localPlayer do
 	localPlayer = PlayersService.LocalPlayer
 end
 
-local reportAbuseAnalytics = ReportAbuseAnalytics.new(
-	localPlayer.UserId,
-	{ EventStream = AnalyticsService }
-)
+local reportAbuseAnalytics = ReportAbuseAnalytics.new(Analytics, ReportAbuseAnalytics.MenuContexts.LegacySentPage)
 
 local blockingAnalytics = BlockingAnalytics.new(
 	localPlayer.UserId,

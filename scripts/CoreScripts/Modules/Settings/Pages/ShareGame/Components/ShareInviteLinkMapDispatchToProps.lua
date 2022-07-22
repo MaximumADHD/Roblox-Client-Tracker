@@ -4,12 +4,12 @@ local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 local dependencies = require(ShareGame.dependencies)
 
 local NetworkingShareLinks = dependencies.NetworkingShareLinks
+local RoduxShareLinks = dependencies.RoduxShareLinks
 
 return function(dispatch)
     return {
         fetchShareInviteLink = function()
-            -- TODO (timothyhsu): Set linkType once enum is available
-            dispatch(NetworkingShareLinks.GenerateLink.API({ linkType = "" }))
+            dispatch(NetworkingShareLinks.GenerateLink.API({ linkType = RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue() }))
         end
     }
 end

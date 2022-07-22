@@ -12,6 +12,8 @@ local SetQuickActionsTooltip = require(InGameMenu.Actions.SetQuickActionsTooltip
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 local Constants = require(InGameMenu.Resources.Constants)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
+local ExperienceMenuABTestManager = require(InGameMenu.ExperienceMenuABTestManager)
+local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -47,6 +49,10 @@ function MuteAllButton:init()
 		self:setState({
 			allMuted = not self.state.allMuted,
 		})
+
+		if IsMenuCsatEnabled() then
+			ExperienceMenuABTestManager.default:setCSATQualification()
+		end
 	end
 end
 

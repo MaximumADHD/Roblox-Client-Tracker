@@ -30,6 +30,7 @@ local divideTransparency = require(InGameMenu.Utility.divideTransparency)
 
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
+local CommonConstants = require(RobloxGui.Modules.Common.Constants)
 
 local ApiFetchGameIsFavorite = require(InGameMenu.Thunks.ApiFetchGameIsFavorite)
 local SetGameFavorite = require(InGameMenu.Actions.SetGameFavorite)
@@ -38,14 +39,19 @@ local GamePostFavorite = require(InGameMenu.Thunks.GamePostFavorite)
 local SetGameFollow = require(InGameMenu.Actions.SetGameFollow)
 local SendGameFollow = require(InGameMenu.Thunks.SendGameFollow)
 
+local ExperienceMenuABTestManager = require(InGameMenu.ExperienceMenuABTestManager)
+local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
+
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local Network = InGameMenu.Network
 local httpRequest = require(Network.httpRequest)
 local networkImpl = httpRequest(HttpRbxApiService)
 local SocialDependencies = require(InGameMenu.SocialDependencies)
+local IsExperienceOlderThanOneWeek = require(InGameMenu.Utility.IsExperienceOlderThanOneWeek)
 local NetworkingShareLinks = SocialDependencies.NetworkingShareLinks
-local GetFFlagShareInviteLinkContextMenuV3Enabled = require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
-
+local GetFFlagShareInviteLinkContextMenuV3Enabled =
+	require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
+local FFlagEnableServerInGameMenu = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableServerInGameMenu)
 
 local NAV_BUTTON_HEIGHT = 56
 -- The left indent on divider lines
@@ -216,6 +222,19 @@ function NavigationButton:didUpdate()
 	})
 end
 
+local function shouldShowShareInviteLink(gameInfo, serverType)
+	if
+		GetFFlagShareInviteLinkContextMenuV3Enabled()
+		and FFlagEnableServerInGameMenu()
+		and serverType == CommonConstants.STANDARD_SERVER
+		and IsExperienceOlderThanOneWeek(gameInfo)
+	then
+		return true
+	end
+
+	return false
+end
+
 local function PageNavigation(props)
 	local frameChildren = {
 		Layout = Roact.createElement("UIListLayout", {
@@ -228,19 +247,21 @@ local function PageNavigation(props)
 	local followSelected = props.isFollowed ~= nil and props.isFollowed or false
 
 	local actions = {
-		shareServerLink =  GetFFlagShareInviteLinkContextMenuV3Enabled() and {
-			onActivated = function()
-				-- TODO(COEXP-318): Pull up sharesheet if shareInviteLink is not nil.
-				SendAnalytics(Constants.ShareLinksAnalyticsName, Constants.ShareLinksAnalyticsButtonClickName, {
-					page = "inGameMenu",
-					subpage = props.currentPage,
-				})
-				
-				if props.shareInviteLink == nil then
-					props.fetchShareInviteLink()
-				end
-			end
-		} or nil,
+		shareServerLink = GetFFlagShareInviteLinkContextMenuV3Enabled()
+				and {
+					onActivated = function()
+						-- TODO(COEXP-318): Pull up sharesheet if shareInviteLink is not nil.
+						SendAnalytics(Constants.ShareLinksAnalyticsName, Constants.ShareLinksAnalyticsButtonClickName, {
+							page = "inGameMenu",
+							subpage = props.currentPage,
+						})
+
+						if props.shareInviteLink == nil then
+							props.fetchShareInviteLink(props.serverType)
+						end
+					end,
+				}
+			or nil,
 		favorite = {
 			selected = favoriteSelected,
 			onActivated = function()
@@ -253,6 +274,10 @@ local function PageNavigation(props)
 						or Constants.AnalyticsFavoritingExperience,
 					{ source = Constants.AnalyticsExperiencePageSource }
 				)
+
+				if IsMenuCsatEnabled() then
+					ExperienceMenuABTestManager.default:setCSATQualification()
+				end
 			end,
 		},
 		follow = {
@@ -266,6 +291,10 @@ local function PageNavigation(props)
 					followSelected and Constants.AnalyticsUnfollowExperience or Constants.AnalyticsFollowExperience,
 					{}
 				)
+
+				if IsMenuCsatEnabled() then
+					ExperienceMenuABTestManager.default:setCSATQualification()
+				end
 			end,
 		},
 		reportExperience = {
@@ -286,6 +315,14 @@ local function PageNavigation(props)
 	local layoutOrder = 1
 	for index, page in ipairs(Pages.pagesByIndex) do
 		if page.parentPage == Constants.MainPagePageKey then
+			if
+				GetFFlagShareInviteLinkContextMenuV3Enabled()
+				and page.key == "ShareServerLink"
+				and not shouldShowShareInviteLink(props.gameInfo, props.serverType)
+			then
+				continue
+			end
+
 			frameChildren["Page" .. page.key] = Roact.createElement(NavigationButton, {
 				image = (page.actionKey and actions[page.actionKey].selected and page.iconOn) or page.icon,
 				LayoutOrder = layoutOrder,
@@ -339,7 +376,11 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 		isFavorited = state.gameInfo.isFavorited,
 		isFollowed = state.gameInfo.isFollowed,
 		currentPage = state.menuPage,
-		shareInviteLink = GetFFlagShareInviteLinkContextMenuV3Enabled() and state.shareLinks.Invites.ShareInviteLink or nil,
+		shareInviteLink = if GetFFlagShareInviteLinkContextMenuV3Enabled()
+			then state.shareLinks.Invites.ShareInviteLink
+			else nil,
+		serverType = if GetFFlagShareInviteLinkContextMenuV3Enabled() then state.serverType else nil,
+		gameInfo = if GetFFlagShareInviteLinkContextMenuV3Enabled() then state.gameInfo else nil,
 	}
 end, function(dispatch)
 	local universeId = game.GameId
@@ -364,9 +405,12 @@ end, function(dispatch)
 			dispatch(SetCurrentPage(pageKey))
 			SendAnalytics("open_" .. pageKey .. "_tab", Constants.AnalyticsMenuActionName, {})
 		end,
-		fetchShareInviteLink = function()
-			-- TODO (timothyhsu): Set linkType once enum is available
-			dispatch(NetworkingShareLinks.GenerateLink.API({ linkType = "" }))
-		end
+		fetchShareInviteLink = if GetFFlagShareInviteLinkContextMenuV3Enabled()
+			then
+				function(linkType)
+					-- TODO (timothyhsu): Set linkType once enum is available
+					dispatch(NetworkingShareLinks.GenerateLink.API({ linkType = linkType }))
+				end
+			else nil,
 	}
 end)(PageNavigation)

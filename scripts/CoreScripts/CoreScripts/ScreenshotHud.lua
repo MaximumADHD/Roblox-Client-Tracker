@@ -13,6 +13,7 @@ local Players = game:GetService("Players")
 local ProximityPromptService = game:GetService("ProximityPromptService")
 local StarterGui = game:GetService("StarterGui")
 local UserInputService = game:GetService("UserInputService")
+local ContextActionService = game:GetService("ContextActionService")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CaptureMaster = require(RobloxGui.Modules.CaptureMaster)
@@ -72,6 +73,7 @@ local CameraButton
 local CloseButton
 
 local Connections = {}
+local BoundActions = {}
 local CameraButtonConnection = nil
 local UsingGamepad = false
 
@@ -537,16 +539,26 @@ local function setupConnections()
 	end)
 	table.insert(Connections, closeButttonActivated)
 
-	local gamepadInputBeganConn = UserInputService.InputBegan:Connect(function(input)
-		if isGamepad(input.UserInputType) then
-			if input.KeyCode == Enum.KeyCode.ButtonY then
-				onCameraButtonActivated()
-			elseif input.KeyCode == Enum.KeyCode.ButtonB then
-				ScreenshotHud.Visible = false
-			end
+	-- Gamepad button handlers
+	local function gamepadHandleClose(actionName, inputState, inputObject)
+		if inputState == Enum.UserInputState.End and isGamepad(inputObject.UserInputType) then
+			ScreenshotHud.Visible = false
 		end
-	end)
-	table.insert(Connections, gamepadInputBeganConn)
+	end
+
+	local GAMEPAD_CLOSE_ACTION = "ScreenshotHudGamepadClose"
+	ContextActionService:BindAction(GAMEPAD_CLOSE_ACTION, gamepadHandleClose, false, Enum.KeyCode.ButtonB)
+	table.insert(BoundActions, GAMEPAD_CLOSE_ACTION)
+
+	local function gamepadHandleCamera(actionName, inputState, inputObject)
+		if inputState == Enum.UserInputState.End and isGamepad(inputObject.UserInputType) then
+			onCameraButtonActivated()
+		end
+	end
+
+	local GAMEPAD_CAMERA_ACTION = "ScreenshotHudGamepadCamera"
+	ContextActionService:BindAction(GAMEPAD_CAMERA_ACTION, gamepadHandleCamera, false, Enum.KeyCode.ButtonY)
+	table.insert(BoundActions, GAMEPAD_CAMERA_ACTION)
 
 	onLastInputTypeChanged()
 	local lastInputTypeChanged = UserInputService.LastInputTypeChanged:Connect(onLastInputTypeChanged)
@@ -559,6 +571,11 @@ local function disconnectAll()
 		conn = nil
 	end
 	Connections = {}
+
+	for _, action in ipairs(BoundActions) do
+		ContextActionService:UnbindAction(action)
+	end
+	BoundActions = {}
 end
 
 local function screenshotHudEnabled(enabled: boolean)

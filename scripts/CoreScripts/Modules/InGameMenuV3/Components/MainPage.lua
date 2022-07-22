@@ -226,7 +226,8 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 		isMainPageInForeground = isMainPageInForeground,
 		isFavorited = state.gameInfo.isFavorited,
 		gameDescription = state.gameInfo.description,
-		shareInviteLink = GetFFlagShareInviteLinkContextMenuV3Enabled() and state.shareLinks.Invites.ShareInviteLink or nil,
+		gameCreated = if GetFFlagShareInviteLinkContextMenuV3Enabled() then state.gameInfo.created else nil,
+		shareInviteLink = if GetFFlagShareInviteLinkContextMenuV3Enabled() then state.shareLinks.Invites.ShareInviteLink else nil,
 	}
 end, function(dispatch)
 	local universeId = game.GameId

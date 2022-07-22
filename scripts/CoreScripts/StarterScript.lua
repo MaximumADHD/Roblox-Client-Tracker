@@ -266,9 +266,7 @@ if FFlagEnableExperienceChat then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/ExperienceChatMain", RobloxGui)
 end
 
-if game:DefineFastFlag("ReportChatEmoteUsage", false) then
-	ScriptContext:AddCoreScriptLocal("CoreScripts/ChatEmoteUsage", script.Parent)
-end
+ScriptContext:AddCoreScriptLocal("CoreScripts/ChatEmoteUsage", script.Parent)
 
 if GetFFlagRtMessaging() then
 	game:GetService("RtMessagingService")

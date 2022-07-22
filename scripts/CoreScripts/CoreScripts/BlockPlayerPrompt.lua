@@ -16,20 +16,17 @@ while LocalPlayer == nil do
 	LocalPlayer = PlayersService.LocalPlayer
 end
 
+local FFlagRegisterGetBlockedUserIdsEarly = game:DefineFastFlag("RegisterGetBlockedUserIdsEarly", false)
+
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local PromptCreator = require(CoreGuiModules:WaitForChild("PromptCreator"))
 local SocialUtil = require(CoreGuiModules:WaitForChild("SocialUtil"))
 local BlockingUtility = require(CoreGuiModules.BlockingUtility)
--- fetch and store player block list
-BlockingUtility:InitBlockListAsync()
 
-local LegacyThumbnailUrls = require(CoreGuiModules.Common.LegacyThumbnailUrls)
-
-local THUMBNAIL_SIZE = 200
-local BUST_THUMBNAIL_SIZE = 420
-
-local THUMBNAIL_URL = LegacyThumbnailUrls.Thumbnail
-local BUST_THUMBNAIL_URL = LegacyThumbnailUrls.Bust
+if not FFlagRegisterGetBlockedUserIdsEarly then
+	-- fetch and store player block list
+	BlockingUtility:InitBlockListAsync()
+end
 
 local REGULAR_THUMBNAIL_IMAGE_SIZE = Enum.ThumbnailSize.Size150x150
 local CONSOLE_THUMBNAIL_IMAGE_SIZE = Enum.ThumbnailSize.Size352x352
@@ -180,3 +177,10 @@ end
 StarterGui:RegisterSetCore("PromptBlockPlayer", PromptBlockPlayer)
 StarterGui:RegisterSetCore("PromptUnblockPlayer", PromptUnblockPlayer)
 StarterGui:RegisterGetCore("GetBlockedUserIds", GetBlockedUserIds)
+
+if FFlagRegisterGetBlockedUserIdsEarly then
+	-- fetch and store player block list
+	-- This needs to be done after the SetCore and GetCore registrations above so these are registered as early as developers
+	-- might want to use them
+	BlockingUtility:InitBlockListAsync()
+end

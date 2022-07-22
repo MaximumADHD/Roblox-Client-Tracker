@@ -49,14 +49,17 @@ local Constants = {
 	AnalyticsLeaveToHomeName = "leave_to_home",
 	AnalyticsConfirmedName = "confirmed",
 	AnalyticsCancelledName = "cancelled",
-	NewAnalyticsReportMenu = "new_analytics_report_menu",
-	AnalyticsFieldChanged = "field_changed",
-	AnalyticsSubmissionDuration = "submission_duration",
-	AnalyticsVoiceReportSubmitted = "submission_voice_report",
 	AnalyticsReportLeft = "ingame_menu_report_left",
 	AnalyticsReportSubmittedName = "ingame_menu_report_submitted",
 	AnalyticsRequestFriendName = "RequestFriendship",
 	AnalyticsExamineAvatarName = "examine_avatar",
+
+	PlayerScriptStatusStrings = {
+		Default = "PlayerScript Status: Default",
+		Custom = "PlayerScript Status: Custom",
+		PossiblyCustom = "PlayerScript Status: Possibly Custom",
+		CustomOld = "PlayerScript Status: Custom Old",
+	},
 
 	ControllerBarHeight = 72,
 

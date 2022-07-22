@@ -653,11 +653,14 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 
 		self.service.StateChanged:Connect(function(oldState, newState)
 			local inFailedState = newState == (Enum::any).VoiceChatState.Failed
+			local inConnectingState = newState == (Enum::any).VoiceChatState.Joining
 			local newMuted = self.service:IsPublishPaused()
 			if GetFFlagEnableErrorIconFix() then
-				if newMuted ~= self.localMuted and not inFailedState then
+				if newMuted ~= self.localMuted and not inFailedState and not inConnectingState then
 					self.localMuted = newMuted
 					self.muteChanged:Fire(newMuted)
+				elseif inConnectingState then
+					self.localMuted = nil
 				end
 			else
 				if newMuted ~= self.localMuted then
@@ -676,7 +679,6 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 				self.participantsUpdate:Fire(self.participants)
 				if inFailedState then
 					log:debug("State Changed to Failed. Reason: {}", self.service:GetAndClearCallFailureMessage())
-
 				end
 				if oldState == (Enum::any).VoiceChatState.Joining
 					or oldState == (Enum::any).VoiceChatState.JoiningRetry

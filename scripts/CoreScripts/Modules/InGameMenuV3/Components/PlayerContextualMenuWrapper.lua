@@ -30,10 +30,12 @@ local Constants = require(InGameMenu.Resources.Constants)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local PlayerContextualMenu = require(InGameMenu.Components.PlayerContextualMenu)
 local InviteUserToPlaceId = require(InGameMenu.Thunks.InviteUserToPlaceId)
+local ExperienceMenuABTestManager = require(InGameMenu.ExperienceMenuABTestManager)
 
 local SetFriendBlockConfirmation = require(InGameMenu.Actions.SetFriendBlockConfirmation)
 
 local InviteStatus = Constants.InviteStatus
+local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
 
 local PlayerContextualMenuWrapper = Roact.PureComponent:extend("PlayerContextualMenuWrapper")
 
@@ -262,6 +264,10 @@ function PlayerContextualMenuWrapper:getInviteAction(localized, player, isFriend
 			text = localized.inviteFriend,
 			icon = Images["icons/actions/friends/friendInvite"],
 			onActivated = function()
+				if IsMenuCsatEnabled() then
+					ExperienceMenuABTestManager.default:setCSATQualification()
+				end
+
 				local placeId = tostring(game.PlaceId)
 				local userId = tostring(player.UserId)
 				if placeId then
@@ -312,6 +318,10 @@ function PlayerContextualMenuWrapper:getFriendAction(localized, player)
 				SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsRequestFriendName, {
 					source = Constants.AnalyticsPlayerContextMenuSource,
 				})
+
+				if IsMenuCsatEnabled() then
+					ExperienceMenuABTestManager.default:setCSATQualification()
+				end
 			end,
 		}
 	elseif friendStatus == Enum.FriendStatus.FriendRequestSent then
@@ -378,6 +388,10 @@ function PlayerContextualMenuWrapper:getFriendAction(localized, player)
 											Constants.AnalyticsAcceptFriendshipRequest,
 											{}
 										)
+
+										if IsMenuCsatEnabled() then
+											ExperienceMenuABTestManager.default:setCSATQualification()
+										end
 									end,
 									layoutOrder = 2,
 								},
@@ -450,7 +464,8 @@ function PlayerContextualMenuWrapper:getMutePlayerAction(localized, player)
 		local voiceParticipant = VoiceChatServiceManager.participants[tostring(player.UserId)]
 		local isLocalPlayer = player.UserId == Players.LocalPlayer.UserId
 		if isLocalPlayer then
-			local isMuted = self.props.voiceState == VoiceConstants.VOICE_STATE.MUTED or self.props.voiceState == VoiceConstants.VOICE_STATE.LOCAL_MUTED
+			local isMuted = self.props.voiceState == VoiceConstants.VOICE_STATE.MUTED
+				or self.props.voiceState == VoiceConstants.VOICE_STATE.LOCAL_MUTED
 			return {
 				text = isMuted and localized.unmuteSelf or localized.muteSelf,
 				icon = VoiceChatServiceManager:GetIcon(isMuted and "Mute" or "Unmute", "Misc"),

@@ -11,6 +11,8 @@ local SetGameFavorite = require(InGameMenu.Actions.SetGameFavorite)
 local SetGameFollow = require(InGameMenu.Actions.SetGameFollow)
 local SetGameFollowingStatus = require(InGameMenu.Actions.SetGameFollowingStatus)
 
+local GetFFlagShareInviteLinkContextMenuV3Enabled = require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
+
 return Rodux.createReducer({
 	name = "Game",
 	description = "",
@@ -24,6 +26,7 @@ return Rodux.createReducer({
 			name = action.gameName,
 			description = action.gameDescription,
 			creator = action.gameCreator,
+			created = if GetFFlagShareInviteLinkContextMenuV3Enabled() then action.gameCreated else nil,
 		})
 	end,
 	[SetGameFavorite.name] = function(state, action)

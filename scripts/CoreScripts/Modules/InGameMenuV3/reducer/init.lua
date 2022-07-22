@@ -15,6 +15,7 @@ local CancelLeavingGame = require(InGameMenu.Actions.CancelLeavingGame)
 local SetControlLayout = require(InGameMenu.Actions.SetControlLayout)
 local SetVideoRecording = require(InGameMenu.Actions.SetVideoRecording)
 local SetRespawning = require(InGameMenu.Actions.SetRespawning)
+local SetServerType = require(InGameMenu.Actions.SetServerType)
 local SetCurrentZone = require(InGameMenu.Actions.SetCurrentZone)
 local SetControllerBarHeight = require(InGameMenu.Actions.SetControllerBarHeight)
 local DecrementControllerBar = require(InGameMenu.Actions.DecrementControllerBar)
@@ -36,6 +37,7 @@ local ShareLinks = RoduxShareLinks.installReducer()
 
 local FFlagRecordRecording = require(InGameMenu.Flags.FFlagRecordRecording)
 local GetFFlagUseIGMControllerBar = require(InGameMenu.Flags.GetFFlagUseIGMControllerBar)
+local GetFFlagShareInviteLinkContextMenuV3Enabled = require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
 
 local Constants = require(InGameMenu.Resources.Constants)
 local Controls = require(InGameMenu.Resources.Controls)
@@ -130,6 +132,11 @@ local topLevelReducers = {
 			controllerBarCount = state.controllerBarCount - 1,
 		})
 	end or nil,
+	[SetServerType.name] = if GetFFlagShareInviteLinkContextMenuV3Enabled() then function(state, action)
+		return Cryo.Dictionary.join(state, {
+			serverType = action.serverType
+		})
+	end else nil,
 }
 
 local function reducer(state, action)
@@ -157,6 +164,8 @@ local function reducer(state, action)
 			controllerBarHeight = GetFFlagUseIGMControllerBar() and 0 or nil,
 			controllerBarCount = 0,
 			FetchingStatus = {},
+			shareLinks = nil,
+			serverType = nil,
 		}
 	end
 

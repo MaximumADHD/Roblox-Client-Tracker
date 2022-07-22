@@ -12,6 +12,8 @@ local GetGameNameAndDescription = require(RobloxGui.Modules.Common.GetGameNameAn
 local ApiFetchGameIsFavorite = require(InGameMenu.Thunks.ApiFetchGameIsFavorite)
 local ApiFetchGameFollowingStatus = require(InGameMenu.Thunks.ApiFetchGameFollowingStatus)
 
+local GetFFlagShareInviteLinkContextMenuV3Enabled = require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
+
 local function requestGameNameAndDescription(store)
 	local gameId = game.GameId;
 	if gameId == 0 then
@@ -19,7 +21,11 @@ local function requestGameNameAndDescription(store)
 	end
 
 	GetGameNameAndDescription(httpImpl, gameId):andThen(function(result)
-		store:dispatch(SetGameNameAndDescription(result.Name, result.Description, result.Creator))
+		if GetFFlagShareInviteLinkContextMenuV3Enabled() then
+			store:dispatch(SetGameNameAndDescription(result.Name, result.Description, result.Creator, result.Created))
+		else
+			store:dispatch(SetGameNameAndDescription(result.Name, result.Description, result.Creator))
+		end
 	end):catch(function()
 		warn("Unable to retrieve game name for in game menu")
 	end)

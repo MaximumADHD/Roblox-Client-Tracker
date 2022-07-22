@@ -1,5 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -13,6 +15,7 @@ local InGameMenu = script.Parent.Parent
 local Constants = require(InGameMenu.Resources.Constants)
 local Promise = require(InGameMenu.Utility.Promise)
 local withLocalization = require(InGameMenu.Localization.withLocalization)
+local CommonConstants = require(RobloxGui.Modules.Common.Constants)
 
 local Page = require(InGameMenu.Components.Page)
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
@@ -20,6 +23,7 @@ local PageNavigationWatcher = require(InGameMenu.Components.PageNavigationWatche
 local FocusHandler = require(InGameMenu.Components.Connection.FocusHandler)
 local RootedConnection = require(InGameMenu.Components.Connection.RootedConnection)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
+local IsExperienceOlderThanOneWeek = require(InGameMenu.Utility.IsExperienceOlderThanOneWeek)
 
 local InviteFriendsList = require(script.InviteFriendsList)
 local AddFriendsNow = require(script.AddFriendsNow)
@@ -36,6 +40,7 @@ local SearchBar = require(script.Parent.SearchBar)
 
 local Flags = InGameMenu.Flags
 local GetFFlagShareInviteLinkContextMenuV3Enabled = require(Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
+local FFlagEnableServerInGameMenu = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableServerInGameMenu)
 
 local ACTIONS_ICON_PADDING = 10
 
@@ -59,6 +64,7 @@ function InviteFriendsPage:init()
 		friends = {},
 		isFilteringMode = false,
 		searchText = "",
+		serverType = nil,
 	}
 
 	self.onSearchTextChanged = function(searchText)
@@ -84,12 +90,24 @@ function InviteFriendsPage:init()
 			})
 
 			if self.props.shareInviteLink == nil then
-				self.props.fetchShareInviteLink()
+				self.props.fetchShareInviteLink(self.props.serverType)
 			else
 				-- TODO COEXP-319: Show sharesheet if self.props.shareInviteLink is present
 			end
 		end
 	end
+end
+
+function InviteFriendsPage:shouldShowShareInviteLink(gameInfo)
+	if GetFFlagShareInviteLinkContextMenuV3Enabled()
+		and FFlagEnableServerInGameMenu()
+		and self.props.serverType == CommonConstants.STANDARD_SERVER
+		and IsExperienceOlderThanOneWeek(gameInfo)
+	then
+		return true
+	end
+
+	return false
 end
 
 function InviteFriendsPage:renderLoadingPage()
@@ -202,10 +220,10 @@ function InviteFriendsPage:getActions()
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 			Padding = UDim.new(0, padding),
 		}),
-		ShareIcon = GetFFlagShareInviteLinkContextMenuV3Enabled() and Roact.createElement(ShareInviteLinkButton, {
+		ShareIcon = if self:shouldShowShareInviteLink(self.props.gameInfo) then Roact.createElement(ShareInviteLinkButton, {
 			layoutOrder = 1,
 			onActivated = self.shareInviteLinkButtonOnActivated,
-		}) or nil,
+		}) else nil,
 		SearchIcon = Roact.createElement(IconButton, {
 			layoutOrder = GetFFlagShareInviteLinkContextMenuV3Enabled() and 2 or 1,
 			size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
@@ -222,6 +240,12 @@ end
 function InviteFriendsPage:didMount()
 	self.mounted = true
 	self:loadFriends()
+
+	if GetFFlagShareInviteLinkContextMenuV3Enabled() then
+		if self.state.serverType == nil then
+			self.props.fetchServerType()
+		end
+	end
 end
 
 function InviteFriendsPage:didUpdate(prevProps, prevState)
@@ -318,7 +342,9 @@ if GetFFlagShareInviteLinkContextMenuV3Enabled() then
 			canCaptureFocus = canCaptureFocus,
 			menuPage = state.menuPage,
 			isMenuOpen = state.isMenuOpen,
-			shareInviteLink = state.shareLinks.Invites.ShareInviteLink
+			shareInviteLink = state.shareLinks.Invites.ShareInviteLink,
+			gameInfo = state.gameInfo,
+			serverType = state.serverType,
 		}
 	end, mapDispatchToProps)(InviteFriendsPage)
 else
