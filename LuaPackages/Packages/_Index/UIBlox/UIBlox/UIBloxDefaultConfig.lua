@@ -60,9 +60,6 @@ return {
 
 	enableCustomMinPaddingForLinkButton = false,
 
-	-- Fix a slight inconsistentcy of the tile thumbnail background color.
-	fixTileThumbnailColorInconsistency = false,
-
 	-- New version of vertical scroll view
 	useNewVerticalScrollView = false,
 
@@ -103,4 +100,7 @@ return {
 	-- if true, you can customize Item Tiles with variable sized text underneath, instead of
 	-- always using Header2.
 	enableAdjustableTextUnderTile = false,
+
+	-- use VirtualizedList.BidirectionalFlatList in HorizontalCarousel component instead of InfiniteScroller
+	enableVirtualizedListForCarousel = false,
 }

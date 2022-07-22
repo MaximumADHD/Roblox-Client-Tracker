@@ -14,6 +14,7 @@ return function(UrlBuilder)
 		serversPreopenCreateVip = UrlBuilder.fromString("www:games/servers-section-preopen-create-vip/{universeId}"),
 		group = UrlBuilder.fromString("www:groups/{creatorId}"),
 		user = UrlBuilder.fromString("www:users/{creatorId}/profile"),
+		pass = UrlBuilder.fromString("www:game-pass/{passId}"),
 		-- {creatorType=Group|User, creatorId}
 		creator = function(params)
 			if params.creatorType == "Group" then

@@ -11,6 +11,7 @@ local GameUrlPatterns = require(script.Parent.UrlPatterns.GameUrlPatterns)
 local UserUrlPatterns = require(script.Parent.UrlPatterns.UserUrlPatterns)
 local StaticUrlPatterns = require(script.Parent.UrlPatterns.StaticUrlPatterns)
 local CatalogUrlPatterns = require(script.Parent.UrlPatterns.CatalogUrlPatterns)
+local ShareLinksUrlPatterns = require(script.Parent.UrlPatterns.ShareLinksUrlPatterns)
 local UserModerationPatterns = require(script.Parent.UrlPatterns.UserModerationPatterns)
 local AccountInformationPatterns = require(script.Parent.UrlPatterns.AccountInformationPatterns)
 
@@ -392,5 +393,6 @@ UrlBuilder.catalog = CatalogUrlPatterns(UrlBuilder)
 UrlBuilder.static = StaticUrlPatterns(UrlBuilder)
 UrlBuilder.usermoderation = UserModerationPatterns(UrlBuilder)
 UrlBuilder.accountinformation = AccountInformationPatterns(UrlBuilder)
+UrlBuilder.sharelinks = ShareLinksUrlPatterns(UrlBuilder)
 
 return UrlBuilder

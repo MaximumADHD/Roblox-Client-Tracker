@@ -4,39 +4,34 @@ export type Config = {
 	useMockedResponse: boolean,
 }
 
-type ExperienceInviteLinkMetadata = {
-    inviterId: number,
-    placeId: number,
-    instanceId: string,
-}
-
-type ExperienceInviteLinkInfo = {
-    linkState: string,
-    linkMetadata: ExperienceInviteLinkMetadata,
+type ExperienceInviteData = {
+	status: string,
+	inviterId: number?,
+	placeId: number?,
+	instanceId: string?,
+	universeId: number,
 }
 
 export type GenerateLinkRequest = {
-    linkType: string,
+	linkType: string,
 }
 
 export type GenerateLinkResponse = {
-    linkId: number,
+	linkId: string,
 }
 
 export type ResolveLinkRequest = {
-    linkId: number,
-    linkType: string,
+	linkId: string,
+	linkType: string,
 }
 
-type ResolveExperienceInviteLinkResponse = {
-    linkStatus: string,
-    linkInfo: ExperienceInviteLinkInfo,
+export type ResolveLinkResponse = {
+	experienceInviteData: ExperienceInviteData,
 }
-
-export type ResolveLinkResponse = ResolveExperienceInviteLinkResponse
 
 export type RequestThunks = {
-	ResolveLinkRequest: any,
+	GenerateLink: GenerateLinkRequest,
+	ResolveLinkFromLinkId: ResolveLinkRequest,
 }
 
 return {}

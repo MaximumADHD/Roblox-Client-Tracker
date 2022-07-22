@@ -1,4 +1,5 @@
 return {
-	ExperienceInviteState = require(script.ExperienceInviteState),
+	ExperienceInviteStatus = require(script.ExperienceInviteStatus),
 	LinkStatus = require(script.LinkStatus),
+	LinkType = require(script.LinkType),
 }

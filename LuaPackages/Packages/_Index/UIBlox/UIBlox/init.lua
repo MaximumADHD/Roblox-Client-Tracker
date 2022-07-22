@@ -298,6 +298,7 @@ local function initializeLibrary(configs)
 
 		Table = strict({
 			ListTable = require(script.App.Table.ListTable),
+			ScrollingListTable = require(script.App.Table.ScrollingListTable),
 			Cell = require(script.App.Table.Cell),
 			CellHeadDetail = require(script.App.Table.CellHeadDetail),
 			CellTailDescription = require(script.App.Table.CellTailDescription),

@@ -12,6 +12,8 @@ local FitFrameOnAxis = FitFrame.FitFrameOnAxis
 local CarouselHeader = require(Carousel.CarouselHeader)
 local HorizontalCarousel = require(Carousel.HorizontalCarousel)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local DEFAULT_INNER_PADDING = 12
 local DEFAULT_ITEM_PADDING = 12
 local DEFAULT_MARGIN = 24
@@ -54,6 +56,9 @@ FreeFlowCarousel.validateProps = t.strictInterface({
 	-- A callback function, called when the infinite scroll reaches the leading end of the itemList (index
 	-- #itemList).
 	loadNext = t.optional(t.callback),
+
+	-- Set up initial maxNumOfItemsVisible without waiting for resize triegger to do it, used for testing
+	maxNumOfItemsVisible = t.optional(t.integer),
 })
 
 FreeFlowCarousel.defaultProps = {
@@ -89,6 +94,9 @@ function FreeFlowCarousel:render()
 			carouselMargin = carouselMargin,
 			layoutOrder = 2,
 			loadNext = self.props.loadNext,
+			maxNumOfItemsVisible = if UIBloxConfig.enableVirtualizedListForCarousel
+				then self.props.maxNumOfItemsVisible
+				else nil,
 		}),
 	})
 end

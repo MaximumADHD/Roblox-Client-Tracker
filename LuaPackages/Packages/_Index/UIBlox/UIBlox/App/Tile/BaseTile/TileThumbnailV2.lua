@@ -11,8 +11,6 @@ local LoadableImage = require(UIBlox.App.Loading.LoadableImage)
 local TileSelectionOverlay = require(BaseTile.TileSelectionOverlay)
 local TileUnselectedOverlay = require(BaseTile.TileUnselectedOverlay)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local TileThumbnail = Roact.PureComponent:extend("TileThumbnail")
 
 local validateProps = t.strictInterface({
@@ -104,7 +102,7 @@ function TileThumbnail:render()
 					}) or Roact.createElement(LoadableImage, {
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						BackgroundColor3 = theme.PlaceHolder.Color,
-						BackgroundTransparency = if UIBloxConfig.fixTileThumbnailColorInconsistency then 1 else theme.PlaceHolder.Transparency,
+						BackgroundTransparency = 1,
 						Image = image,
 						Position = UDim2.fromScale(0.5, 0.5),
 						Size = imageSize,

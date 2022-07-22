@@ -23,16 +23,14 @@ return function(config: networkingShareLinkTypes.Config)
 		request.Mock.reply(function()
 			return {
 				responseBody = {
-					linkStatus = "Valid",
-					linkInfo = {
-						linkState = "Valid",
-						linkMetadata = {
-							inviterId = 46430379,
-							placeId = 1818,
-							instanceId = "ABCDEF",
-						},
-					}
-				}
+					experienceInviteData = {
+						instanceId = "ABCDEF",
+						inviterId = 46430379,
+						placeId = 1818,
+						status = "Valid",
+						universeId = 13058,
+					},
+				},
 			}
 		end)
 	end

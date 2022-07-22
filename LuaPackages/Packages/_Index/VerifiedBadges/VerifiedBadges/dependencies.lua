@@ -7,10 +7,8 @@ local FriendsNetworking = require(Packages.FriendsNetworking)
 local RoduxNetworking = require(Packages.RoduxNetworking)
 local HttpRequest = require(Packages.HttpRequest)
 
-local constants = require(script.Parent.constants)
-
 local myRoduxNetworking = RoduxNetworking.config({
-	keyPath = constants.RODUX_KEY .. ".NetworkStatus",
+	keyPath = "VerifiedBadges.NetworkStatus",
 	networkImpl = HttpRequest.config({
 		requestFunction = HttpRequest.requestFunctions.RequestInternal,
 		maxRetryCount = 0,

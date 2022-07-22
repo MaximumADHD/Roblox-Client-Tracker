@@ -5,8 +5,6 @@ local UIBlox = App.Parent
 local Core = UIBlox.Core
 local Packages = UIBlox.Parent
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
@@ -79,9 +77,7 @@ function ExperienceTile:renderImageFrame(isOffset, useFullSize, stylePalette)
 	}, {
 		Image = Roact.createElement(LoadableImage, {
 			BackgroundColor3 = theme.PlaceHolder.Color,
-			BackgroundTransparency = if UIBloxConfig.fixTileThumbnailColorInconsistency
-				then 1
-				else theme.PlaceHolder.Transparency,
+			BackgroundTransparency = 1,
 			Image = thumbnail,
 			Position = UDim2.fromScale(0, if isOffset then -1 else 0),
 			Size = UDim2.fromScale(1, if useFullSize then 1 else 2),

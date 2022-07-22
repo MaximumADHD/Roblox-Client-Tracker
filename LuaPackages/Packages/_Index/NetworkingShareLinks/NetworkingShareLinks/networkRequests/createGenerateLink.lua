@@ -18,7 +18,7 @@ return function(config: networkingShareLinkTypes.Config)
 	if config.useMockedResponse then
 		request.Mock.clear()
 		request.Mock.reply(function()
-			return { responseBody = { linkId = 42685 } }
+			return { responseBody = { linkId = "42685" } }
 		end)
 	end
 
