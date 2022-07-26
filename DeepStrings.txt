@@ -54,7 +54,6 @@ A_NW4UserInputType
 AA61B3A2068118C14FDE5E01E7934
 AAAAAAAAAAAAAAAAAAAAAAAA
 AAACertificateServices.crl0
-AAACertificateServices.crl04
 AAACertificateServices.crl06
 AAAEB11E38B9D871882A8E559
 AAAEC11E38B9D871882A8E559
@@ -2163,7 +2162,6 @@ AUTHORITY_INFO_ACCESS
 AUTHORITY_KEYID
 Authority0
 Authority0v0
-Authority1
 AuthorityId
 AuthorityText
 AuthorityUrl
@@ -7020,7 +7018,6 @@ BFE701C11E3B075CBAD925AA50F
 BFF90CBF11EB9CD4979655F24EDD
 BFFA0CBF11EB9CD4979655F24EDD
 BFJMPSVX[]_acegiklnpqstvwyz
-BGeaF6bCh4GFEIA3P5vzB
 BgUpdateRedirectsDisable
 BgUpdateRedirectsHttpErrInfluxHundredthsPercentage
 BgUpdateRedirectsRejectInfluxHundredthsPercentage
@@ -7308,6 +7305,7 @@ BoxHandleAdornment
 BoxMappedMeshLODFix_v2
 BoxSelectCommand
 BPEAUIUnknown
+BPlayerRemoving
 BPQVYB6_F3P
 BPu_fD9B`uXfD9BpuQ
 BQByteArray
@@ -7567,6 +7565,7 @@ BVTextureId
 BW4HighlightDepthMode
 BW4ModelLevelOfDetail
 BW4TexturePackAlphaMode
+BWdjq4Zc2k0V8ip8ZXo1ERYmOus3JtngkKZ8PKy29
 BweAimdRateControlConfig
 BweBackOffFactor
 BweCappedProbing
@@ -10127,8 +10126,8 @@ Corporation
 Corporation.
 Corporation\Roblox
 Corporation\Roblox\FilteredExceptionCrash
-CORPORATION0
-CORPORATION1
+Corporation0
+Corporation1
 Corporation1402
 CorrectCharacterCountForTextEdits
 CorrectCreationOfConnections
@@ -11701,6 +11700,7 @@ DebugStudioUseBulkImporterMock
 DebugStudioWindowsWebViewSilentMode
 DebugTable
 DebugTerrainCustomDeformationParameters
+DebugTextBoxServiceShowOverlay
 DebugTextRenderingMaxDistance
 DebugTextureManagerSkipMips
 DebugTexturePack
@@ -12439,6 +12439,15 @@ DiffuseFilePath
 DigestAlgorithm_find_ctx
 DigestAlgorithm_init_bio
 DigestedData_do_final
+DigiCertAssuredIDRootCA.crl0
+DigiCertAssuredIDRootCA.crt0E
+DigiCertEVCodeSigningCA
+DigiCertHighAssuranceEVRootCA.crl0
+DigiCertHighAssuranceEVRootCA.crt0
+DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crl0
+DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crt0
+DigiCertTrustedRootG4.crl0
+DigiCertTrustedRootG4.crt0C
 DigitalSignature
 DilateTemporalFS
 DilleniaUPC
@@ -12479,6 +12488,7 @@ DisableAccoutrementWeldCreationForCloudEditAndPackages
 DisableBreakpoints.png
 DisableCollisionGroupId
 DisableCorescriptLoadstring
+DisableCrashIfNoEventHandler
 DisableCSGv2
 Disabled.png
 DISABLED_remoteDebugDockWidget
@@ -12781,7 +12791,6 @@ DPERF_BeginEvent
 DPERF_EndEvent
 DPERF_GetStatus
 DPOLY1305_ASM
-DQIeMyohjsGPlG0H
 Dqlqlqlqlql
 DraftAdded
 DraftCommitted
@@ -12926,7 +12935,6 @@ DtmfProvider
 DtmfSender
 DtmfSenderInterface
 DtmfSenderProxyWithInternal
-DTNl1WuVURjt6kiJpI3
 DualStreamVertexData5
 DUARAndOpenSurvey
 DueToMaxBytesInFlightCountToTotalCount
@@ -12982,6 +12990,7 @@ DXSetResourceShareHandleNV
 DXUnlockObjectsNV
 DXUnregisterObjectNV
 DXVideoMemory
+DY6Ban67VnN5vXQxVpZVFeXl5XRxkKpiK
 DynamicallyMoveSoundStorageLocationOnMemoryNotification
 DynamicFastVariableReloaderPreserveStaticFilters
 DynamicFastVariableReloaderTest1
@@ -13789,6 +13798,7 @@ EnvMapAvoidGenMipMaps
 EnvMapUpdate
 EnvTexture
 EnvTextureInProgress
+EoMDVsEcoL4EtkEUvdnEojvza5sG0p6TofFpGa0CAwEAAQ
 EoOoZoaozo
 EphemeralCounter
 EphemeralCounterInfluxReportingEnabled
@@ -13859,6 +13869,7 @@ ErrOutOfRetries
 Erscheinungsbild
 Erstelldatum
 Erweiterte
+Es52xwndpKfYlGeXJCjZA7usfEz
 Escritorio
 ESDescriptor
 ESDHwith3DES
@@ -13890,6 +13901,7 @@ EvaluatedKey
 EvaluateForHovers
 EvaluateGlobalTransform
 EvaluateWatch
+EVCodeSigningSHA2
 Event.button
 Event.clientX
 Event.clientY
@@ -15349,7 +15361,6 @@ FrontParamA
 FrontParamB
 FrontSurface
 FrontSurfaceInput
-FRQQJ4QUHpDhT2YpawTgzmgr2Ih9i2Ne7i0
 FrustumEnvMap
 FrustumLodOptional
 FrustumOrdered
@@ -16549,6 +16560,7 @@ GImpactCompound
 GImpactCompoundShape
 GivenByTargetSpeedKBps
 GizmoRaycast
+GjT1rGvIQrghMF21PEU7SWwN3od
 GL_ARB_copy_image
 GL_ARB_half_float_vertex
 GL_ARB_pixel_buffer_object
@@ -16568,7 +16580,6 @@ GL_RENDERER
 GL_VERSION
 GlacierName
 GlassTintFS
-GlbgefahXvGOXmkP0UMHfiT7t8LwnjYhIbY2ycLsB4OGfONmgcwPC1QwIQHMn
 GLContextDetailsEvent
 GLModuleType
 GlobalAdvancedSettings
@@ -16911,6 +16922,7 @@ GunWaitCursor.png
 GvEphfEUiHHoD6hYFI4xWGpAnIHcklKQCxrf46kAhDGeZnqIgeGszlGdWafunGE8
 GVKUTS[BXIWH\KbHi
 GXGfGkGpGuG
+GYb3UZ4vKyg
 GyroscopeEnabled
 H[_^A\A]A^A_]
 H_Key_dn.png
@@ -17047,6 +17059,7 @@ HbaoCompositOldFadeFS
 HBAODepthDownFS
 HbaoRenderCompute
 Hbbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaaaaaaaaaa
+HBL.PXRrPfH
 Hcircumflex
 HdAvailables
 HDCacheLock
@@ -17689,7 +17702,6 @@ HW4MatchType
 HW4Orientation
 HW4PacketPriority
 HW4TransformationMode
-HwfRyoL2VOJNIVSG0Y
 HwngSmldAskhBcraMaweNegsOgnaT
 HwngSmldAskhBcraMegsOgnaTaweNmnoGuhsNoyoSbnaZrgoDgnoGghoRakaMfdeMogoSdgoSmylEdnaNpnmHohcWsrhCkaiDstiKizeY
 HWYGOTH.ttf
@@ -17817,6 +17829,7 @@ IgnoreVertexColors
 IgnoreWater
 Ignorieren
 Igravesmall
+IHtIr9E885sbxev8v
 IID_IAMDirectSound
 IID_IAMLine21Decoder
 IID_IAMStreamConfig
@@ -18922,7 +18935,6 @@ JitterBufferDelayProxyWithInternal
 JJJBBB\\\xx
 JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ
 JKLMNOPQRSTU
-JmB6e5FCZR803LHyDBs2ML
 JobTimerDuringInitialExperience
 Jogabilidade
 JoinAttemptId
@@ -19042,9 +19054,8 @@ KaiTi_GB2312
 Kameraempfindlichkeit
 Kamerageschwindigkeit
 Kamerazoom
-KBIqLDSNMUs5WHdMzOvVMzi0s1xsucVr7OUCAwEAAQ
 KBytesPerSec
-KcBZ8hWVBqBBRnWqI1oKRn9s8E1ux30MD47qXZNxqXVL5MiXbxlJaka
+Kcw8psZrjpKEHS9m3EQpfkwSLNry9CN4Igiyi360jqgJ7K7yatcvwkpgPv1zeAG
 KeepAliveTimeout
 KeepAutoSkinMeshesShared
 KeepPositionOnInsert
@@ -19117,6 +19128,7 @@ KickByDatacenter_
 KickClientOnCoreGuiRenderOverflow
 KiDszBCYB0gyp03Pc
 KillPtClicked
+KKA3By9qe0h4EOeBGlv6uA
 KKKKKKKKKK
 KKKKKKKKKKKK
 KKKKKKKKKKKKKKKKKKKKKK
@@ -19150,7 +19162,6 @@ KPEBDPEBDH
 Kugelverbindung
 Kundendienst.
 Kundensupport.
-KXXaCflJQREETktPXXhXnxzseIdb8KyyAs
 KYULPhCBFoD3mw5mygYqAeFlHdSL2k3MnDG
 L^N6LfN6LlN6LdN6Ly
 LA_SHAPE_MAX
@@ -19959,6 +19970,7 @@ LSRegExErrorHundredthsPercentage
 LUA_ERRRUN
 LUA_ERRSYNTAX
 LUA_UNAUTHORIZED_LOG_OUT
+LuaAlteredChatMessage
 LuaAnalyticsReleasePeriod
 LuaAppAEUseAppPolicyForShowingBuyRobuxOnTopBar
 LuaAppConvertUniverseIdToStringV364
@@ -20126,6 +20138,7 @@ LuauLowerBoundsBetaFeatureRolloutPercent
 LuauLowerBoundsBetaFeatureUrl
 LuauLowerBoundsCalculation
 LuauMaybeGenericIntersectionTypes
+LuaUnalteredChatMessage
 LuauNeverTypesAndOperatorsInference
 LuauNonStrictByDefault
 LuauNonStrictByDefaultBetaFeature
@@ -21061,7 +21074,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEAyXqwd87EWrDUcEHQ
+MIICCgKCAgEAri9l7rA
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -21633,6 +21646,7 @@ NCONF_get_string
 NCONF_load
 NCONF_load_bio
 NCONF_load_fp
+NdhygRVYB2qKtvXIckvWf5bIOozgVHiujEA85uN55AYJVYXJN7EI2x
 NdnuScpeLkclOiiaVruaSilaKgnjRicyLiraCidyLmahCanaLtvaTtsvApygErmaSusiLumaBavaJietMimrAbraSitrPilhPhkrOihtKktaBharBdnaMmkaCcreMoreMdrlPdrhSaroSrkaTzzzZssaBbhgAlpuDablEnarGjohKdniSaniLjhaMinaMdneMidoMoorMtabNbraNmrePgnmHmlaPcuaPplhPddiShriTaraWmohAwulHrtaHtluMgn
 NE9F0uHE9F4uBE9F8u
 NearIntensity
@@ -21921,7 +21935,7 @@ NfAddActVs
 NfAddReport
 NfPfRpPtL.T6VJZ
 NfXf`fhfzf
-NG2XzmytxfiZ5IQyQTpKc25Nm
+NgDnrD6CISIWWkFcwppSyF8DIigPtiulm9VEQgeG0jjFOu8MtyTaUD6g3DNJpW3
 NHVVariant
 NineSliceFixOutOfBoundsRendering
 NinjaMask.mesh
@@ -22079,7 +22093,6 @@ NPEBVConnection
 NPEBVIceCandidateInterface
 NPEBVIStatus
 NPEBVLocalizationTable
-Ns1Lt6LGUXbbyu7I6w6I9KJq5
 NSNNNNNNTNh0ii
 NSNNNNNNTNPVR
 NSNNNNNNTNPVV
@@ -22091,7 +22104,6 @@ NSNNNNNWNSNN_NSNSNSNNNNSNWN`N^^N
 NSNNNNNWNWNNN^^N
 NSNNNNNWNZP[\
 Ntildesmall
-Nu9HXW0XMPGij5FfvT9Tq5
 NullAudioPoller
 NullDeviceGuid
 NullNodeSettingsError
@@ -22635,6 +22647,7 @@ OrFetchPlugin
 OrFirstTier
 Organizaci
 Organization
+Organization1
 OrganizationDomain
 OrganizationName
 Organizations
@@ -25343,7 +25356,6 @@ Prozentsatz
 PSPECIFIED
 Psychadelic
 Psychedelic
-PTCgAbkOQoc
 PtdL9w`t^L9whtXH
 PTransportChannel
 Pu7fA9r`u0fA9rpu
@@ -25912,7 +25924,6 @@ QItemDelegate
 QItemSelection
 QItemSelectionModel
 QItemSelectionRange
-QJDWuO6v8aAKF84oLz8m18OQJwnczHUjHALeEAm
 QJsonArray
 QJsonDocument
 QJsonObject
@@ -26426,6 +26437,7 @@ Rayonnements
 RbfDiagonalEps
 RbfMinDistance
 RbTbVLZ\h6lPpbvf
+RBvxwdvnnHQUg4sIy4cCqlDW2QnEGGjbTPvohZWRFFFsOdfUq9Se24v8EtkrFa3
 RBX_CHANGE_D3D9_PRESENTATION_INTERVAL
 RBX_CHECK_EMPTY_LINES_IN_MAINWINDOW_TOOLBAR_LOAD
 RBX_CHECK_EQUAL
@@ -26557,7 +26569,6 @@ RccUseDataModelPatcher2
 RCCWorldStepMsecDtPerNOU
 RcpReferenceTime
 RDeserializeToPBQ
-RDNZGXG33MUcSXo3qXy7LywHfkDUnFeDTR9KtREFvR
 ReachedTarget
 ReactionForceEnabled
 ReactionTorqueEnabled
@@ -28422,7 +28433,6 @@ RxIgnoredBytes
 RxIgnoredPackets
 RxQueueSize
 RxRlReport
-RzKQpCqzm7FwrI11DpR1d
 S_Key_dn.png
 SA_KPEAPEBVfacet
 SA_NAEBVConnection
@@ -29078,10 +29088,6 @@ SecondaryFilterValue
 SecondaryTangentAxis
 SecondsBetweenDynamicVariableReloading
 SecondsPerBatchAwardPointsCall
-SectigoPublicCodeSigningCAR36.crl0y
-SectigoPublicCodeSigningCAR36.crt0
-SectigoPublicCodeSigningRootR46.crl0
-SectigoPublicCodeSigningRootR46.p7c0
 SectionClicked
 SectionResizeMode
 SectionsClickable
@@ -30943,7 +30949,6 @@ StatusMessage
 StatusRemoved
 StatusSuccessIcon
 StatusType
-StCIpIr7nTC6s7A4UYc0Jr
 StdWString
 StealLeastAudibleSoundChannelOnMaxSurpassed2
 SteelSeries
@@ -36331,6 +36336,9 @@ TextBoxServiceFilterEnabledV2
 TextBoxServiceHistorySize
 TextBoxServiceMasterV2
 TextBoxServiceMasterV3
+TextBoxServiceMasterV4
+TextBoxServiceMasterV4AnalyticsEnabled
+TextBoxServiceMasterV4FilterEnabled
 TextBoxServiceNormalizeMessages
 TextboxWidget
 TextButton
@@ -36813,6 +36821,7 @@ TimeSpentRemoving
 TimesReplicatedNeverReplicate
 TimesReplicatedNeverReplicatedPerInterval
 Timestamping
+TimeStamping
 TimestampStart
 TimestepArbiterAccelerationModelFactorThou
 TimestepArbiterAngAccelerationThresholdThou
@@ -37027,6 +37036,7 @@ TlsVerificationFail
 TLSVersion
 Tmap_traits
 TMFixOutstandingCounter
+TMpPVloXz1e586IW9Y5zU4Y8o87XDK
 TMxQPxAA13
 ToAbnormalTerminate
 ToArtistIntentAssetMigratorEnabled
@@ -37958,6 +37968,7 @@ ULinkedScriptLoadData
 ULoadedImage
 ULoadedTexturePack
 ULuaCallbacks
+ULWmg4R5U9ZMmdREOPV9bdcrHTWSQmf1FdGZkwyN2193oCvzICa
 UMasteringMetadata
 UMaterialIgnoredWarning
 UMaterialVariantCallback
@@ -38429,7 +38440,6 @@ UPromiseResult
 UPropertyPair
 UpSampleTentFS
 UPublishDiagnosticsNotification
-Uq9rWvqLL7WUzRS
 UQLatin1Char
 UQMetaObject
 UQPrivateSignal
@@ -38830,7 +38840,6 @@ UUUUUUUUUUUUUU
 UUUUUUUUUUUUUUUU3333333333333333
 UUUUUUUUUUUUUUUUUU
 UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
-Uv0mZkQ59nMWRA
 UVariablesResponseBody
 UVariantMessageContents
 UVATAUAVAW
@@ -41393,7 +41402,7 @@ Wiederholen
 Wiederholungslimit
 Wiederverbindung
 WilError_03
-Win64.536.52036
+Win64.536.52038
 WinchEnabled
 WinchForce
 WinchResponsiveness
@@ -41799,6 +41808,7 @@ XQColorDialog
 Xregex_error
 XResolution
 Xtime_get_ticks
+Xu584DqjFER60WujRU2336pQWHMnS3g
 XUEditTextRequest
 XUNetworkResult
 XUPlaySoloConfiguration
@@ -41918,8 +41928,7 @@ YHcN4HcF0H
 YieldEvent
 YieldFuncDesc
 YieldFunction
-YJiouh77aL6x9
-YofrpV5skGpn
+YJi9IwgcvWpGgQxX4YGBM5
 YResolution
 YwBBvY55YvBBwY5
 YYYYYYYYYYYYYYYYYYYYYYYYY

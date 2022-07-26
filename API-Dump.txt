@@ -3673,7 +3673,7 @@ Class SoundService : Instance [NotCreatable] [Service]
 	Property float SoundService.DopplerScale
 	Property bool SoundService.RespectFilteringEnabled
 	Property float SoundService.RolloffScale
-	Property Enum.VolumetricAudio SoundService.VolumetricAudio [NotScriptable] [NotBrowsable]
+	Property Enum.VolumetricAudio SoundService.VolumetricAudio [NotScriptable]
 	Function bool SoundService:BeginRecording() {RobloxScriptSecurity}
 	Function Dictionary SoundService:EndRecording() {RobloxScriptSecurity} [Yields]
 	Function Tuple SoundService:GetListener()
