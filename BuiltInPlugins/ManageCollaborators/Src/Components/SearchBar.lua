@@ -27,8 +27,6 @@
 		int HeaderHeight : The height of headers in dropdown in pixels
 		int ItemHeight : The height of each entry in the dropdown, in pixels.
 		int TextPadding : The amount of padding, in pixels, around the text elements.
-		bool ShowRibbon : Whether to show a colored ribbon next to the currently
-			hovered dropdown entry. Usually should be enabled for Light theme only.
 		int ScrollBarPadding : The padding which appears on either side of the scrollbar.
 		int ScrollBarThickness : The horizontal width of the scrollbar.
 
@@ -50,6 +48,7 @@ local Localization = ContextServices.Localization
 
 local Framework = require(Plugin.Packages.Framework)
 local Stylizer = Framework.Style.Stylizer
+local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 
 local COLLABORATORTYPE_USER = Constants.COLLABORATORTYPE_USER
 
@@ -263,7 +262,6 @@ function SearchBar:init()
 		local dropdownItem = self.state.dropdownItem
 
 		local noResultsText = props.NoResultsText
-		local showRibbon = props.showRibbon
 		local headerHeight = props.HeaderHeight
 		local itemHeight = props.ItemHeight
 		local textPadding = searchBarTheme.textPadding
@@ -334,12 +332,10 @@ function SearchBar:init()
 		-- user/group items
 		else
 			local key = item.Key
+			local isFriend = item.IsFriend
 			local isHovered = dropdownItem == key
-			-- setting offset for textbox to be icon frame or icon frame and enter icon frame
-			-- if hovered and if showRibbon is true
-			local ribbonSize = isHovered and showRibbon and searchBarTheme.ribbonWidth or 0
-			local iconOffset = isHovered and itemHeight * 2 or itemHeight
-			local textLabelOffset = -(ribbonSize + iconOffset)
+			
+			local layoutOrderIterator = LayoutOrderIterator.new()
 
 			local backgroundColor = isHovered and searchBarTheme.dropDown.hovered.backgroundColor
 				or searchBarTheme.dropDown.backgroundColor
@@ -361,16 +357,9 @@ function SearchBar:init()
 						LayoutOrder = index,
 						BackgroundTransparency = 1,
 					} , {
-						Ribbon = isHovered and showRibbon and Roact.createElement("Frame", {
-							Size = UDim2.new(0, searchBarTheme.ribbonWidth, 1, 0),
-							BackgroundColor3 = searchBarTheme.dropDown.selected.backgroundColor,
-							BorderSizePixel = 0,
-							LayoutOrder = 0,
-						}),
-
 					IconFrame = Roact.createElement("Frame", {
 						BackgroundTransparency = 1,
-						LayoutOrder = 1,
+						LayoutOrder = layoutOrderIterator:getNextOrder(),
 						Size = UDim2.new(0, itemHeight,
 							0, itemHeight),
 					} , {
@@ -391,22 +380,52 @@ function SearchBar:init()
 					}),
 
 					TextLabel = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
-						Size = UDim2.new(1, textLabelOffset, 0, itemHeight),
+						Size = UDim2.new(0, searchBarTheme.nameLabelWidth, 0, itemHeight),
 						Text = item.Name,
 						TextXAlignment = Enum.TextXAlignment.Left,
 						TextColor3 = isHovered and searchBarTheme.dropDown.hovered.displayText or searchBarTheme.dropDown.displayText,
 						BackgroundTransparency = 1,
 						TextWrapped = true,
 						ClipsDescendants = true,
-						LayoutOrder = 2,
+						LayoutOrder = layoutOrderIterator:getNextOrder(),
 						BorderSizePixel = 0,
-						}), {
-							Padding = Roact.createElement("UIPadding", {
-								PaddingLeft = UDim.new(0, searchBarTheme.renderItemTextPadding),
-							}),
+					}), {
+						Padding = Roact.createElement("UIPadding", {
+							PaddingLeft = UDim.new(0, searchBarTheme.renderItemTextPadding),
 						}),
-					})
+					}),
+					
+					FriendIconFrame = if isFriend then Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						LayoutOrder = layoutOrderIterator:getNextOrder(),
+						Size = UDim2.new(0, searchBarTheme.friendIcon.FrameWidth, 0, itemHeight)
+					}, {
+						FriendImageLabel = Roact.createElement("ImageLabel", {
+							Size = UDim2.new(0, searchBarTheme.friendIcon.LabelWidth, 0, searchBarTheme.friendIcon.LabelHeight),
+							Image = searchBarTheme.friendIcon.Image,
+							AnchorPoint = Vector2.new(.5, .5),
+							Position = UDim2.new(.5, 0, .5, 0),
+							BackgroundTransparency = 1,
+						})
+					}) else nil,
+
+					FriendTextLabel = if isFriend then Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Normal, {
+						Size = UDim2.new(1, 0, 0, itemHeight),
+						AutomaticSize = Enum.AutomaticSize.X,
+						Text = localization:getText("SearchBar", "FriendLabel"),
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextYAlignment = Enum.TextYAlignment.Center,
+						TextColor3 = isHovered and searchBarTheme.dropDown.hovered.displayText or searchBarTheme.dropDown.displayText,
+						BackgroundTransparency = 1,
+						LayoutOrder = layoutOrderIterator:getNextOrder(),
+						BorderSizePixel = 0,
+					}), {
+							Padding = Roact.createElement("UIPadding", {
+								PaddingRight = UDim.new(0, 29),
+							}),
+						}) else nil,
 				})
+			})
 		end
 	end
 

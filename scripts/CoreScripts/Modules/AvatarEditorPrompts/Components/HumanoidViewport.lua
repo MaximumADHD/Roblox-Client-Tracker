@@ -182,6 +182,10 @@ function HumanoidViewport:loadHumanoidModel()
 			}):await()
 		end
 
+		if not self.mounted then
+			return
+		end
+
 		self:positionCamera()
 		self:loadIdleAnimation(model)
 

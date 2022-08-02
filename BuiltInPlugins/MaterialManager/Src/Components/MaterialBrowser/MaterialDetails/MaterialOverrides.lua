@@ -25,14 +25,7 @@ local MaterialServiceController = require(Plugin.Src.Controllers.MaterialService
 local getSupportedMaterials = require(Plugin.Src.Resources.Constants.getSupportedMaterials)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local SetBaseMaterial = require(Plugin.Src.Actions.SetBaseMaterial)
-local DEPRECATED_StatusIcon = require(Plugin.Src.Components.DEPRECATED_StatusIcon)
 local StatusIcon = require(Plugin.Src.Components.StatusIcon)
-
-local Flags = Plugin.Src.Flags
-local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
-local getFFlagMaterialManagerGridOverhaul = require(Flags.getFFlagMaterialManagerGridOverhaul)
-local getFFlagMaterialManagerEnableTests = require(Flags.getFFlagMaterialManagerEnableTests)
-local getFFlagMaterialManagerAnalyticsCounter = require(Flags.getFFlagMaterialManagerAnalyticsCounter)
 
 local supportedMaterials = getSupportedMaterials()
 
@@ -107,9 +100,7 @@ function MaterialOverrides:init()
 
 				props.MaterialServiceController:setMaterialOverride(props.Material.Material, props.MaterialOverrides[materialIndex])
 			end
-			if getFFlagMaterialManagerAnalyticsCounter() then
-				props.Analytics:report("setOverrideToggled")
-			end
+			props.Analytics:report("setOverrideToggled")
 		end
 	end
 end
@@ -137,18 +128,11 @@ function MaterialOverrides:render()
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 				HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			}, {
-				Status = if getFFlagMaterialManagerGridOverhaul() then
-					Roact.createElement(StatusIcon, {
-						LayoutOrder = 1,
-						Size = style.ImageSize,
-						Status = materialStatus,
-					})
-					else
-					Roact.createElement(DEPRECATED_StatusIcon, {
-						LayoutOrder = 1,
-						Material = material,
-						Size = style.ImageSize,
-					}),
+				Status = Roact.createElement(StatusIcon, {
+					LayoutOrder = 1,
+					Size = style.ImageSize,
+					Status = materialStatus,
+				}),
 				Label = Roact.createElement(TextLabel, {
 					FitWidth = if FFlagDevFrameworkRemoveFitFrame then nil else true,
 					AutomaticSize = if FFlagDevFrameworkRemoveFitFrame then Enum.AutomaticSize.XY else nil,
@@ -185,12 +169,12 @@ function MaterialOverrides:render()
 				LayoutOrder = 2,
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 				Size = UDim2.new(0, 195, 0, 20),
-				Padding = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then 5 else nil,
+				Padding = 5,
 			}, {
 				ToggleButton = Roact.createElement(ToggleButton, {
 					OnClick = function() self.onOverrideToggled(toggled) end,
 					Selected = toggled,
-					Size = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then UDim2.fromOffset(30, 18) else UDim2.fromOffset(40, 24),
+					Size = UDim2.fromOffset(30, 18),
 				})
 			})
 		}
@@ -229,21 +213,15 @@ MaterialOverrides = withContext({
 return RoactRodux.connect(
 	function(state: MainReducer.State, props: Props)
 		if props.MockMaterial then
-			if getFFlagMaterialManagerEnableTests() then
-				return {
-					Material = props.MockMaterial,
-					MaterialOverrides = state.MaterialBrowserReducer.MaterialOverrides[props.MockMaterial.Material],
-					MaterialOverride = state.MaterialBrowserReducer.MaterialOverride[props.MockMaterial.Material],
-					MaterialStatus = if not props.MockMaterial.MaterialVariant then
-						state.MaterialBrowserReducer.MaterialStatus[props.MockMaterial.Material]
-						else
-						nil
-				}
-			else
-				return {
-					Material = props.MockMaterial
-				}
-			end
+			return {
+				Material = props.MockMaterial,
+				MaterialOverrides = state.MaterialBrowserReducer.MaterialOverrides[props.MockMaterial.Material],
+				MaterialOverride = state.MaterialBrowserReducer.MaterialOverride[props.MockMaterial.Material],
+				MaterialStatus = if not props.MockMaterial.MaterialVariant then
+					state.MaterialBrowserReducer.MaterialStatus[props.MockMaterial.Material]
+					else
+					nil
+			}
 		elseif not state.MaterialBrowserReducer.Material or not supportedMaterials[state.MaterialBrowserReducer.Material.Material] then
 			return {}
 		else

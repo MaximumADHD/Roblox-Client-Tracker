@@ -21,9 +21,9 @@ return function(newEvents, analytics)
 		store:dispatch(UpdateAnimationData(newData))
 
 		local oldEvents = animationData.Events.Data
-		for tick, events in pairs(newEvents.Data) do
+		for tck, events in pairs(newEvents.Data) do
 			for name, parameter in pairs(events) do
-				if oldEvents[tick] == nil or oldEvents[tick][name] == nil then
+				if oldEvents[tck] == nil or oldEvents[tck][name] == nil then
 					analytics:report("onAddEvent", name, parameter, editorMode)
 				end
 			end

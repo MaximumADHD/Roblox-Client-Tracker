@@ -20,9 +20,11 @@ local ScrollingFrame = UI.ScrollingFrame
 local Decoration = UI.Decoration
 local TextLabel = Decoration.TextLabel
 
+local getFFlagAssetImportSessionCleanup = require(Plugin.Src.Flags.getFFlagAssetImportSessionCleanup)
+
 local FailureWidget = Roact.PureComponent:extend("FailureWidget")
 
-local function generateErrorSections(errorMap, uploadStyle, absoluteContentSize, instanceMap, localization)
+local function generateErrorSectionsDeprecated(errorMap, uploadStyle, absoluteContentSize, instanceMap, localization)
     local sections = {}
     for nodeId, errorCode in pairs(errorMap) do
         local errorMsg, sectionText
@@ -33,6 +35,38 @@ local function generateErrorSections(errorMap, uploadStyle, absoluteContentSize,
                 errorMsg = string.format("%s %s", localization:getText("HttpError", "UnknownStatusCode"), errorCode)
             end
             sectionText = string.format("%s: %s", instanceMap[nodeId].Name, errorMsg)
+        else
+            sectionText = errorCode
+        end
+
+        local section = Roact.createElement(TextLabel, {
+            LayoutOrder = #sections + 1,
+            Text = sectionText,
+            TextSize = uploadStyle.SubtextSize,
+            TextXAlignment = Enum.TextXAlignment.Center,
+            FitWidth = if FFlagDevFrameworkRemoveFitFrame then nil else true,
+            FitMaxWidth = if FFlagDevFrameworkRemoveFitFrame then nil else absoluteContentSize,
+            AutomaticSize = if FFlagDevFrameworkRemoveFitFrame then Enum.AutomaticSize.Y else nil,
+            Size = if FFlagDevFrameworkRemoveFitFrame then UDim2.fromScale(1, 0) else nil,
+            HorizontalAlignment = Enum.HorizontalAlignment.Center,
+        })
+        table.insert(sections, section)
+    end
+
+    return sections
+end
+
+local function generateErrorSections(errorMap, uploadStyle, absoluteContentSize, importSession, localization)
+    local sections = {}
+    for nodeId, errorCode in pairs(errorMap) do
+        local errorMsg, sectionText
+        -- TODO: not all errored nodes may have an analog in instance. Retrieve the actual node name by receiving a list of error pairs instead.
+        if (importSession:GetInstance(nodeId)) then
+            errorMsg = GetLocalizedString(localization, "HttpError", errorCode)
+            if not errorMsg then
+                errorMsg = string.format("%s %s", localization:getText("HttpError", "UnknownStatusCode"), errorCode)
+            end
+            sectionText = string.format("%s: %s", importSession:GetInstance(nodeId).Name, errorMsg)
         else
             sectionText = errorCode
         end
@@ -81,7 +115,12 @@ function FailureWidget:render()
         or localization:getText("Upload", "FailureDescription")
 
     -- TODO FFlagDevFrameworkRemoveFitFrame remove state.absoluteContentSize argument when flag is retired
-    local sections = generateErrorSections(errorMap, uploadStyle, if FFlagDevFrameworkRemoveFitFrame then nil else state.absoluteContentSize, props.InstanceMap, localization)
+    local sections
+    if getFFlagAssetImportSessionCleanup() then
+        sections = generateErrorSections(errorMap, uploadStyle, if FFlagDevFrameworkRemoveFitFrame then nil else state.absoluteContentSize, props.AssetImportSession, localization)
+    else
+        sections = generateErrorSectionsDeprecated(errorMap, uploadStyle, if FFlagDevFrameworkRemoveFitFrame then nil else state.absoluteContentSize, props.InstanceMap, localization)
+    end
 
     local titleSize = uploadStyle.TextSize + uploadStyle.SubtextSize + 10
 
@@ -149,9 +188,10 @@ local function mapDispatchToProps(dispatch)
 end
 
 local function mapStateToProps(state)
-	return {
-		InstanceMap = state.instanceMap,
-	}
+    return {
+        InstanceMap = state.instanceMap,
+        AssetImportSession = state.assetImportSession,
+    }
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(FailureWidget)

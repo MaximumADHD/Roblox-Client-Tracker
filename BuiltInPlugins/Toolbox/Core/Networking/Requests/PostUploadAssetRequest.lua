@@ -19,7 +19,6 @@ local SetAssetId = require(Actions.SetAssetId)
 local TrySaveSalesAndThumbnailRequest = require(Plugin.Core.Networking.Requests.TrySaveSalesAndThumbnailRequest)
 
 local FFlagDebugAssetConfigNetworkError = game:GetFastFlag("DebugAssetConfigNetworkError")
-local FFlagToolboxAssetConfigurationMatchPluginFlow = game:GetFastFlag("ToolboxAssetConfigurationMatchPluginFlow")
 
 -- publishInfo is a table contains the following:
 -- assetId, number, defualt to 0 for new asset.
@@ -93,22 +92,20 @@ return function(publishInfo)
 		end
 
 		return SerializeInstances(publishInfo.instances, services.StudioAssetService):andThen(function(fileDataString)
-			local isPublicOverride = publishInfo.copyOn
-			if not FFlagToolboxAssetConfigurationMatchPluginFlow and publishInfo.assetType == Enum.AssetType.Plugin.Name then
-				isPublicOverride = true
-			end
-				
-			return publishInfo.networkInterface:postUploadAsset(
-				publishInfo.assetId,
-				publishInfo.assetType,
-				publishInfo.name,
-				publishInfo.description,
-				publishInfo.genreTypeID,
-				isPublicOverride,
-				publishInfo.commentOn,
-				publishInfo.groupId,
-				fileDataString
-			):andThen(onSuccess, onFail)
+
+			return publishInfo.networkInterface
+				:postUploadAsset(
+					publishInfo.assetId,
+					publishInfo.assetType,
+					publishInfo.name,
+					publishInfo.description,
+					publishInfo.genreTypeID,
+					publishInfo.copyOn,
+					publishInfo.commentOn,
+					publishInfo.groupId,
+					fileDataString
+				)
+				:andThen(onSuccess, onFail)
 		end, onSerializeFail)
 	end
 end

@@ -25,12 +25,15 @@ local Controllers = Plugin.Src.Controllers
 local MaterialController = require(Controllers.MaterialController)
 local MaterialServiceController = require(Controllers.MaterialServiceController)
 
-local getFFlagMaterialManagerGridOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerGridOverhaul)
+local Flags = Plugin.Src.Flags
+local getFFlagMaterialManagerSideBarSplitPaneUpdate = require(Flags.getFFlagMaterialManagerSideBarSplitPaneUpdate)
 
 local SideBar = Roact.PureComponent:extend("SideBar")
 
 export type Props = {
+	-- Remove LayoutOrder prop with FFlagMaterialManagerSideBarSplitPaneUpdate
 	LayoutOrder: number?,
+	ZIndex: number?,
 	Size: UDim2?,
 }
 
@@ -40,7 +43,7 @@ type _Props = Props & {
 	dispatchSetPath: (path: _Types.Path) -> (),
 	Localization: any,
 	MaterialController: any,
-	MaterialServiceController: any?,  -- Not optional with FFlagMaterialManagerGridOverhaul
+	MaterialServiceController: any,
 	Stylizer: any,
 }
 
@@ -117,12 +120,7 @@ function SideBar:init()
 		local props: _Props = self.props
 
 		for key, value in pairs(newSelection) do
-			-- props.MaterialServiceController is no longer optional, remove with flag
-			if getFFlagMaterialManagerGridOverhaul() and props.MaterialServiceController then
-				props.MaterialServiceController:setPath(key.path)
-			else
-				props.dispatchSetPath(key.path)
-			end
+			props.MaterialServiceController:setPath(key.path)
 		end
 
 		self:setState({
@@ -165,10 +163,12 @@ function SideBar:render()
 
 	local size = props.Size
 	local layoutOrder = props.LayoutOrder
+	local zIndex = props.ZIndex
 
 	return Roact.createElement(TreeView, {
 		Size = size,
-		LayoutOrder = layoutOrder,
+		LayoutOrder = if not getFFlagMaterialManagerSideBarSplitPaneUpdate() then layoutOrder else nil, 	-- Remove LayoutOrder prop with FFlagMaterialManagerSideBarSplitPaneUpdate
+		ZIndex = if getFFlagMaterialManagerSideBarSplitPaneUpdate() then zIndex else nil,
 		Expansion = state.Expansion,
 		Selection = state.Selection,
 		RootItems = self.categories or {},
@@ -181,7 +181,7 @@ SideBar = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
 	MaterialController = MaterialController,
-	MaterialServiceController = if getFFlagMaterialManagerGridOverhaul() then MaterialServiceController else nil,
+	MaterialServiceController = MaterialServiceController,
 })(SideBar)
 
 return RoactRodux.connect(

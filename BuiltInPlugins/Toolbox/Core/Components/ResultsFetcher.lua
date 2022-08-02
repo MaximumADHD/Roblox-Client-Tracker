@@ -4,7 +4,7 @@ local Packages = Plugin.Packages
 
 local FFlagToolboxFixAssetFetcherOnUpdate = game:GetFastFlag("ToolboxFixAssetFetcherOnUpdate")
 local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
-local FFlagToolboxFixAssetsNoVoteData = game:GetFastFlag("ToolboxFixAssetsNoVoteData")
+local FFlagToolboxFixAssetsNoVoteData2 = game:GetFastFlag("ToolboxFixAssetsNoVoteData2")
 local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
 local Framework = require(Packages.Framework)
@@ -20,6 +20,7 @@ local AssetInfo = require(Plugin.Core.Models.AssetInfo)
 
 local Actions = Plugin.Core.Actions
 local GetAssets = require(Actions.GetAssets)
+local GetAssetsVotingData = FFlagToolboxFixAssetsNoVoteData2 and require(Actions.GetAssetsVotingData)
 
 local ResultsFetcher = Roact.PureComponent:extend("ResultsFetcher")
 
@@ -223,9 +224,8 @@ function ResultsFetcher:fetchResults(args: { pageSize: number?, initialPage: boo
 			stateUpdate.total = args.initialPage and assetIdsResponse.responseBody.totalResults or nil
 			stateUpdate.nextPageCursor = assetIdsResponse.responseBody.nextPageCursor
 			stateUpdate.fetchNextPage = self.fetchNextPage
-
-			if FFlagToolboxFixAssetsNoVoteData and self.props.dispatchGetAssets then
-				self.props.dispatchGetAssets(stateUpdate.assets)
+			if FFlagToolboxFixAssetsNoVoteData2 and self.props.dispatchGetAssetsVotingData then
+				self.props.dispatchGetAssetsVotingData(stateUpdate.assets)
 			end
 
 			return stateUpdate
@@ -250,7 +250,7 @@ function ResultsFetcher:render()
 	return self.props.render(self.state)
 end
 
-if FFlagToolboxFixAssetsNoVoteData then
+if FFlagToolboxFixAssetsNoVoteData2 then
 	local ResultsFetcherRoduxWrapper = Roact.PureComponent:extend("ResultsFetcherRoduxWrapper")
 
 	function ResultsFetcherRoduxWrapper:render()
@@ -259,8 +259,8 @@ if FFlagToolboxFixAssetsNoVoteData then
 
 	local function mapDispatchToProps(dispatch)
 		return {
-			dispatchGetAssets = function(assetResults)
-				dispatch(GetAssets(assetResults, nil, nil))
+			dispatchGetAssetsVotingData = function(assetResults)
+				dispatch(GetAssetsVotingData(assetResults))
 			end,
 		}
 	end

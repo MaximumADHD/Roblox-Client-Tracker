@@ -11,7 +11,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
-local Cryo = require(Plugin.Packages.Cryo)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = if FFlagUpdateConvertToPackageToDFContextServices then ContextServices.withContext else require(Plugin.Src.ContextServices.withContext)
@@ -41,14 +40,12 @@ local DEFAULT_GENRE = "All"
 
 function AssetConfig:init(props)
 	local defaultOwner = nil
-	if game:GetFastFlag("FixPackageOwnerDefault") then
-		if game.CreatorId == 0 then
-			-- default owner is local user if game has no owner
-			defaultOwner = { creatorId = getUserId() }
-		else
-			-- default owner is game owner
-			defaultOwner = { creatorId = game.CreatorId }
-		end
+	if game.CreatorId == 0 then
+		-- default owner is local user if game has no owner
+		defaultOwner = { creatorId = getUserId() }
+	else
+		-- default owner is game owner
+		defaultOwner = { creatorId = game.CreatorId }
 	end
 	self.state = {
 		assetId = nil,
@@ -66,7 +63,7 @@ function AssetConfig:init(props)
 		commentOn = nil,
 		status = nil,
 		isShowChangeDiscardMessageBox = false,
-		groupId =  (game:GetFastFlag("FixPackageOwnerDefault") and game.CreatorType == Enum.CreatorType.Group and game.CreatorId) or nil, -- if game owner is group, then set groupId
+		groupId =  (game.CreatorType == Enum.CreatorType.Group and game.CreatorId) or nil, -- if game owner is group, then set groupId
 	}
 		-- Used to fetching name before publish
 	self.tryPublish = function()
@@ -161,20 +158,10 @@ function AssetConfig:init(props)
 			groupId = item.creatorId
 		end
 
-		if game:GetFastFlag("FixPackageOwnerDefault") then
-			self:setState({
-				owner =	{creatorId = item.creatorId},
-				groupId = (groupId or "")
-			})
-		else
-			self:setState({
-				owner =	Cryo.Dictionary.join(self.state.owner or {}, {
-					typeId = item.Key,
-				}),
-
-				groupId = (groupId or "")
-			})
-		end
+		self:setState({
+			owner = { creatorId = item.creatorId },
+			groupId = (groupId or ""),
+		})
 	end
 
 	self.toggleComment = function(newCommentStatus)

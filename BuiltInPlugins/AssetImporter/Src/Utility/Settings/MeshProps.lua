@@ -2,7 +2,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local getFFlagDisableAvatarAnchoredSetting = require(Plugin.Src.Flags.getFFlagDisableAvatarAnchoredSetting)
 local getFFlagLCQualityCheckDisplay = require(Plugin.Src.Flags.getFFlagLCQualityCheckDisplay)
-local getFFlagAssetImporterUseImportedPivots = require(Plugin.Src.Flags.getFFlagAssetImporterUseImportedPivots)
 local getFFlagUseAssetImportSession = require(Plugin.Src.Flags.getFFlagUseAssetImportSession)
 
 local AssetImportService = game:GetService("AssetImportService")
@@ -42,8 +41,32 @@ local function hideIfUVMatched(meshSettings)
 	return true
 end
 
-local function hideIfUseImportedPivotsFlagOff(meshSettings)
-	return not getFFlagAssetImporterUseImportedPivots()
+local function hideIfCageMeshNotIntersected(meshSettings)
+	if getFFlagLCQualityCheckDisplay() then
+		if meshSettings.ImportName:match("_OuterCage") or meshSettings.ImportName:match("_InnerCage") then
+			return meshSettings.CageMeshNotIntersected
+		end
+	end
+	return true
+end
+
+local function hideIfMeshNoHoleDetected(meshSettings)
+	if getFFlagLCQualityCheckDisplay() then
+		--Display hole checking warning as long as it is not an attribute
+		if not meshSettings.ImportName:match("_Att") then
+			return meshSettings.MeshNoHoleDetected
+		end
+	end
+	return true
+end
+
+local function hideIfNoIrrelevantCageModified(meshSettings)
+	if getFFlagLCQualityCheckDisplay() then
+		if meshSettings.ImportName:match("_OuterCage") or meshSettings.ImportName:match("_InnerCage") then
+			return meshSettings.NoIrrelevantCageModified
+		end
+	end
+	return true
 end
 
 return {
@@ -52,7 +75,7 @@ return {
 		Properties = {
 			{Name = "ImportName", Editable = true},
 			{Name = "Anchored", Editable = true, ShouldHide = hideIfAvatar},
-			{Name = "UseImportedPivot", Editable = true, ShouldHide = hideIfUseImportedPivotsFlagOff},
+			{Name = "UseImportedPivot", Editable = true},
 		},
 	},
 	{
@@ -62,9 +85,12 @@ return {
 			{Name = "PolygonCount", Editable = false},
 			{Name = "DoubleSided", Editable = true},
 			{Name = "IgnoreVertexColors", Editable = true},
-			{Name = "CageManifoldPreview", Editable = true, ShouldHide = hideIfManifold},
-			{Name = "CageNoOverlappingVerticesPreview", Editable = true, ShouldHide = hideIfNoOverlappingVertices},
-			{Name = "CageUVMatchedPreview", Editable = true, ShouldHide = hideIfUVMatched},
+			{Name = "CageNonManifoldPreview", Editable = true, ShouldHide = hideIfManifold},
+			{Name = "CageOverlappingVerticesPreview", Editable = true, ShouldHide = hideIfNoOverlappingVertices},
+			{Name = "CageUVMisMatchedPreview", Editable = true, ShouldHide = hideIfUVMatched},
+			{Name = "CageMeshIntersectedPreview", Editable = true, ShouldHide = hideIfCageMeshNotIntersected},
+			{Name = "MeshHoleDetectedPreview", Editable = true, ShouldHide = hideIfMeshNoHoleDetected},
+			{Name = "IrrelevantCageModifiedPreview", Editable = true, ShouldHide = hideIfNoIrrelevantCageModified},
 		},
 	},
 }

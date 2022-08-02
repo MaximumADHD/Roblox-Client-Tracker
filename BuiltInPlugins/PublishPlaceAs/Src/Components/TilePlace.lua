@@ -1,10 +1,18 @@
 local FFlagRemoveUILibrarySeparator = game:GetFastFlag("RemoveUILibrarySeparator")
+
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+
+local UI = Framework.UI
+local TextLabel = UI.Decoration.TextLabel
 
 -- TODO: jbousellam - remove with FFlagRemoveUILibrarySeparator
 local UILibrary = require(Plugin.Packages.UILibrary)
@@ -89,23 +97,30 @@ function TilePlace:render()
 			Size = UDim2.new(1, -80, 1, 0),
 			BackgroundTransparency = 1,
 		}, {
-			Pad = Roact.createElement("UIPadding", {
+			Padding = Roact.createElement("UIPadding", {
 				PaddingLeft =  UDim.new(0, 10),
 				PaddingRight =  UDim.new(0, 10),
 				PaddingBottom = UDim.new(0, 10),
 			}),
 
-			Name = Roact.createElement("TextLabel", {
-				Text = name,
-				Size = UDim2.new(1, 0, 1, 0),
-				TextXAlignment = 0,
+			Name = if FFlagDevFrameworkMigrateTextLabels then (
+				Roact.createElement(TextLabel, {
+					Text = name,
+					TextWrapped = true,
+				})
+			) else (
+				Roact.createElement("TextLabel", {
+					Text = name,
+					Size = UDim2.new(1, 0, 1, 0),
+					TextXAlignment = 0,
 
-				TextWrapped = true,
-				TextSize = 11,
-				BorderSizePixel = 0,
-				BackgroundTransparency = 1,
-				TextColor3 = theme.textColor,
-			}),
+					TextWrapped = true,
+					TextSize = 11,
+					BorderSizePixel = 0,
+					BackgroundTransparency = 1,
+					TextColor3 = theme.textColor,
+				})
+			),
 
 			Selected = selected and Roact.createElement("ImageLabel", {
 				Image = theme.icons.checkmark,

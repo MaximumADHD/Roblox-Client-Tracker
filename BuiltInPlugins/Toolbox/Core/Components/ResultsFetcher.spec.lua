@@ -2,7 +2,7 @@
 local Plugin = script:FindFirstAncestor("Toolbox")
 
 local FFlagToolboxFixAssetFetcherOnUpdate = game:GetFastFlag("ToolboxFixAssetFetcherOnUpdate")
-local FFlagToolboxFixAssetsNoVoteData = game:GetFastFlag("ToolboxFixAssetsNoVoteData")
+local FFlagToolboxFixAssetsNoVoteData2 = game:GetFastFlag("ToolboxFixAssetsNoVoteData2")
 local Packages = Plugin.Packages
 local Framework = require(Packages.Framework)
 local Sort = require(Plugin.Core.Types.Sort)
@@ -120,7 +120,7 @@ local function createResultsFetcher(networkInterfaceMock, props: any?)
 		end,
 	}, props)
 
-	if FFlagToolboxFixAssetsNoVoteData then
+	if FFlagToolboxFixAssetsNoVoteData2 then
 		return ResultsFetcher.NoRoduxGenerator(finalProps)
 	else
 		return ResultsFetcher.Generator(finalProps)

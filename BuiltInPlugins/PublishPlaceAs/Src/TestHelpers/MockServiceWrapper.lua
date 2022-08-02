@@ -1,16 +1,19 @@
 --[[
 	A customizable wrapper for tests that supplies all the required providers for component testing
 ]]
+local FFlagRemoveUILibraryLocalization = game:GetFastFlag("RemoveUILibraryLocalization")
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
-local UILibrary = require(Plugin.Packages.UILibrary)
+local Framework = require(Plugin.Packages.Framework)
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
 local MakeTheme = require(Plugin.Src.Resources.MakeTheme)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local MainMiddleware = require(Plugin.Src.Middleware.MainMiddleware)
-local Localization = UILibrary.Studio.Localization
+local UILibrary = if FFlagRemoveUILibraryLocalization then nil else require(Plugin.Packages.UILibrary)
+local ContextServices = Framework.ContextServices
+local Localization = if FFlagRemoveUILibraryLocalization then ContextServices.Localization else UILibrary.Studio.Localization
 
 local MockServiceWrapper = Roact.Component:extend("MockServiceWrapper")
 

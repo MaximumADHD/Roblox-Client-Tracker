@@ -1,6 +1,7 @@
 --[[
 	BrushSettings.lua
 ]]
+local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -18,7 +19,7 @@ local LayoutOrderIterator = Util.LayoutOrderIterator
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local ContextItems = require(Plugin.Src.ContextItems)
+local ContextItems = if FFlagRemoveUILibraryCompatLocalization then nil else require(Plugin.Src.ContextItems)
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -97,7 +98,7 @@ function BrushSettings:init(initialProps)
 
 		self._Selection.SelectionChanged:Fire()
 	end
-	
+
 	self.toggleEditPlaneMode = function()
 		self.props.setEditPlaneMode(not self.props.editPlaneMode)
 	end
@@ -173,7 +174,7 @@ function BrushSettings:render()
 		self.resetPlaneCFrame()
 	end
 
-	local localization = self.props.Localization:get()
+	local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
 
 	local layoutOrder = self.props.LayoutOrder
 	local LayoutOrderIterator = LayoutOrderIterator.new()
@@ -265,7 +266,7 @@ function BrushSettings:render()
 
 		Dragger = editPlaneMode and showEditPlaneMode and Roact.createElement(DraggerToolComponent,
 			self._draggerProps),
-		
+
 		PositionInput = editPlaneMode and showEditPlaneMode and Roact.createElement(VectorTextInput, {
 			LayoutOrder = LayoutOrderIterator:getNextOrder(),
 			Text = localization:getText("BrushSettings", "Position"),
@@ -274,7 +275,7 @@ function BrushSettings:render()
 			Precisions = {X = 2, Y = 2, Z = 2},
 			OnFocusLost = self.onPositionVectorFocusLost,
 		}),
-		
+
 		RotateInput = editPlaneMode and showEditPlaneMode and Roact.createElement(VectorTextInput, {
 			LayoutOrder = LayoutOrderIterator:getNextOrder(),
 			Text = localization:getText("BrushSettings", "Rotation"),
@@ -324,11 +325,8 @@ function BrushSettings:render()
 	})
 end
 
-
 BrushSettings = withContext({
-	Localization = ContextItems.UILibraryLocalization,
+	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
 })(BrushSettings)
-
-
 
 return BrushSettings

@@ -24,6 +24,10 @@ local FocusHandler = require(InGameMenu.Components.Connection.FocusHandler)
 local RootedConnection = require(InGameMenu.Components.Connection.RootedConnection)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local IsExperienceOlderThanOneWeek = require(InGameMenu.Utility.IsExperienceOlderThanOneWeek)
+local GetFriends = require(InGameMenu.Thunks.GetFriends)
+local SocialDependencies = require(InGameMenu.SocialDependencies)
+local RoduxShareLinks = SocialDependencies.RoduxShareLinks
+local UrlBuilder = SocialDependencies.UrlBuilder
 
 local InviteFriendsList = require(script.InviteFriendsList)
 local AddFriendsNow = require(script.AddFriendsNow)
@@ -40,6 +44,7 @@ local SearchBar = require(script.Parent.SearchBar)
 
 local Flags = InGameMenu.Flags
 local GetFFlagShareInviteLinkContextMenuV3Enabled = require(Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
+local GetFFlagConsolidateGetFriends = require(Flags.GetFFlagConsolidateGetFriends)
 local FFlagEnableServerInGameMenu = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableServerInGameMenu)
 
 local ACTIONS_ICON_PADDING = 10
@@ -92,8 +97,13 @@ function InviteFriendsPage:init()
 			if self.props.shareInviteLink == nil then
 				self.props.fetchShareInviteLink(self.props.serverType)
 			else
-				-- TODO COEXP-319: Show sharesheet if self.props.shareInviteLink is present
+				self.showSharesheet(self.props.shareInviteLink.linkId)
 			end
+		end
+
+		self.showSharesheet = function(linkId) 
+			-- TODO COEXP-310: Show sharesheet with url as the text
+			local _url = UrlBuilder.sharelinks.appsflyer(linkId, RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue())
 		end
 	end
 end
@@ -254,18 +264,39 @@ function InviteFriendsPage:didUpdate(prevProps, prevState)
 	end
 
 	if prevProps.shareInviteLink == nil and self.props.shareInviteLink ~= nil then
-		-- TODO COEXP-319: Show sharesheet if shareInviteLink is present
-		-- TODO (timothyhsu): fix linkType when enum is available
+		local linkId = self.props.shareInviteLink.linkId
 		SendAnalytics(Constants.ShareLinksAnalyticsName, Constants.ShareLinksAnalyticsLinkGeneratedName, {
 			page = "inGameMenu",
 			subpage = "inviteFriendsPage",
-			linkId = self.props.shareInviteLink.linkId,
-			linkType = ""
+			linkId = linkId,
+			linkType = RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue(),
 		})
+		self.showSharesheet(linkId)
 	end
 end
 
 function InviteFriendsPage:loadFriends()
+	if GetFFlagConsolidateGetFriends() then
+		self.props.getFriends(self.props.PlayersService)
+			:andThen(function(friends)
+				friends = Cryo.List.sort(friends, sortFriends)
+				if self.mounted then
+					self:setState({
+						loadingFriends = false,
+						friends = friends,
+					})
+				end
+			end)
+			:catch(function()
+				if self.mounted then
+					self:setState({
+						loadingFriends = false,
+						loadingFriendsError = true,
+					})
+				end
+			end)
+		return
+	end
 	Promise.new(function(resolve, reject)
 		coroutine.wrap(function()
 			local localPlayer = self.props.PlayersService.LocalPlayer
@@ -360,5 +391,11 @@ else
 			menuPage = state.menuPage,
 			isMenuOpen = state.isMenuOpen,
 		}
-	end)(InviteFriendsPage)
+	end, if GetFFlagConsolidateGetFriends() then function(dispatch)
+		return {
+			getFriends = function(playersService)
+				return dispatch(GetFriends(playersService))
+			end,
+		}
+	end else nil)(InviteFriendsPage)
 end

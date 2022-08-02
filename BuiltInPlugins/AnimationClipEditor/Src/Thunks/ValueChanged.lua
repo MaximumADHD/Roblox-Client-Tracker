@@ -19,7 +19,7 @@ local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimati
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 if GetFFlagChannelAnimations() then
-	return function(instanceName, path, trackType, tick, value, analytics)
+	return function(instanceName, path, trackType, tck, value, analytics)
 		return function(store)
 			local state = store:getState()
 			local animationData = state.AnimationData
@@ -48,12 +48,12 @@ if GetFFlagChannelAnimations() then
 					keyframeData.EasingStyle = Enum.PoseEasingStyle.Linear
 					keyframeData.EasingDirection = Enum.PoseEasingDirection.In
 				end
-				store:dispatch(AddKeyframe(instanceName, path, trackType, tick, keyframeData, analytics))
+				store:dispatch(AddKeyframe(instanceName, path, trackType, tck, keyframeData, analytics))
 			else
 				local trackData = track.Data
 
-				if trackData and trackData[tick] then
-					store:dispatch(SetKeyframeData(instanceName, path, tick, {
+				if trackData and trackData[tck] then
+					store:dispatch(SetKeyframeData(instanceName, path, tck, {
 						Value = value,
 					}))
 				else
@@ -67,14 +67,14 @@ if GetFFlagChannelAnimations() then
 						keyframeData.EasingDirection = Enum.PoseEasingDirection.In
 					end
 
-					store:dispatch(AddKeyframe(instanceName, path, trackType, tick, keyframeData, analytics))
+					store:dispatch(AddKeyframe(instanceName, path, trackType, tck, keyframeData, analytics))
 				end
 			end
-			store:dispatch(StepAnimation(tick))
+			store:dispatch(StepAnimation(tck))
 		end
 	end
 else
-	local function wrappee(instanceName, trackName, trackType, tick, value, analytics)
+	local function wrappee(instanceName, trackName, trackType, tck, value, analytics)
 		return function(store)
 			local animationData = store:getState().AnimationData
 			if not animationData then
@@ -95,41 +95,41 @@ else
 			if track == nil then
 				if GetFFlagFacialAnimationSupport() then
 					store:dispatch(AddTrack(instanceName, trackName, trackType, analytics))
-					store:dispatch(AddKeyframe(instanceName, trackName, trackType, tick, value, analytics))
+					store:dispatch(AddKeyframe(instanceName, trackName, trackType, tck, value, analytics))
 				else
 					store:dispatch(AddTrack(instanceName, trackName, analytics))
-					store:dispatch(AddKeyframe(instanceName, trackName, tick, value, analytics))
+					store:dispatch(AddKeyframe(instanceName, trackName, tck, value, analytics))
 				end
 
-				store:dispatch(StepAnimation(tick))
+				store:dispatch(StepAnimation(tck))
 				return
 			end
 
 			local trackData = track.Data
 
-			if trackData and trackData[tick] then
-				store:dispatch(SetKeyframeData(instanceName, trackName, tick, {
+			if trackData and trackData[tck] then
+				store:dispatch(SetKeyframeData(instanceName, trackName, tck, {
 					Value = value,
 				}))
 			else
 				if GetFFlagFacialAnimationSupport() then
-					store:dispatch(AddKeyframe(instanceName, trackName, trackType, tick, value, analytics))
+					store:dispatch(AddKeyframe(instanceName, trackName, trackType, tck, value, analytics))
 				else
-					store:dispatch(AddKeyframe(instanceName, trackName, tick, value, analytics))
+					store:dispatch(AddKeyframe(instanceName, trackName, tck, value, analytics))
 				end
 			end
 
-			store:dispatch(StepAnimation(tick))
+			store:dispatch(StepAnimation(tck))
 		end
 	end
 
 	if GetFFlagFacialAnimationSupport() then
-		return function(instanceName, trackName, trackType, tick, value, analytics)
-			return wrappee(instanceName, trackName, trackType, tick, value, analytics)
+		return function(instanceName, trackName, trackType, tck, value, analytics)
+			return wrappee(instanceName, trackName, trackType, tck, value, analytics)
 		end
 	else
-		return function(instanceName, trackName, tick, value, analytics)
-			return wrappee(instanceName, trackName, nil, tick, value, analytics)
+		return function(instanceName, trackName, tck, value, analytics)
+			return wrappee(instanceName, trackName, nil, tck, value, analytics)
 		end
 	end
 end

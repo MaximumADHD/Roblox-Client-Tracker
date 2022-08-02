@@ -1,8 +1,3 @@
-local Plugin = script.Parent.Parent.Parent.Parent
-
-local Flags = Plugin.Src.Flags
-local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
-
 local enumToName = {
 	[Enum.Material.Air] = "Air",
 	[Enum.Material.Asphalt] = "Asphalt",
@@ -15,7 +10,7 @@ local enumToName = {
 	[Enum.Material.DiamondPlate] = "DiamondPlate",
 	[Enum.Material.Fabric] = "Fabric",
 	[Enum.Material.Foil] = "Foil",
-	[Enum.Material.ForceField] = if getFFlagMaterialManagerGlassNeonForceField() then "ForceField" else nil,
+	[Enum.Material.ForceField] = "ForceField",
 	[Enum.Material.Glacier] = "Glacier",
 	[Enum.Material.Glass] = "Glass",
 	[Enum.Material.Granite] = "Granite",

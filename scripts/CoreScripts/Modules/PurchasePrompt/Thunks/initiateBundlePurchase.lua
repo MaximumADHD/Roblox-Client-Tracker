@@ -7,6 +7,7 @@ local PurchaseError = require(Root.Enums.PurchaseError)
 local getBundleDetails = require(Root.Network.getBundleDetails)
 local getProductPurchasableDetails = require(Root.Network.getProductPurchasableDetails)
 local getAccountInfo = require(Root.Network.getAccountInfo)
+local getBalanceInfo = require(Root.Network.getBalanceInfo)
 local Network = require(Root.Services.Network)
 local ExternalSettings = require(Root.Services.ExternalSettings)
 local hasPendingRequest = require(Root.Utils.hasPendingRequest)
@@ -14,6 +15,8 @@ local Promise = require(Root.Promise)
 local Thunk = require(Root.Thunk)
 
 local resolveBundlePromptState = require(script.Parent.resolveBundlePromptState)
+
+local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
 
 local requiredServices = {
 	Network,
@@ -45,7 +48,8 @@ local function initiateBundlePurchase(bundleId)
 
 		return Promise.all({
 			bundleDetails = getBundleDetails(network, bundleId),
-			accountInfo = getAccountInfo(network, externalSettings)
+			accountInfo = getAccountInfo(network, externalSettings),
+			balanceInfo = FFlagPPAccountInfoMigration and getBalanceInfo(network, externalSettings) or Promise.resolve(),
 		})
 			:andThen(function(results)
 				local bundleProductId = results.bundleDetails.product.id
@@ -54,7 +58,8 @@ local function initiateBundlePurchase(bundleId)
 						store:dispatch(resolveBundlePromptState(
 							productPurchasableDetails,
 							results.bundleDetails,
-							results.accountInfo
+							results.accountInfo,
+							results.balanceInfo
 						))
 					end)
 			end)

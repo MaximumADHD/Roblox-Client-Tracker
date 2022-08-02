@@ -4,6 +4,7 @@ local UserInputService = game:GetService("UserInputService")
 local SetPromptState = require(Root.Actions.SetPromptState)
 local ProductInfoReceived = require(Root.Actions.ProductInfoReceived)
 local AccountInfoReceived = require(Root.Actions.AccountInfoReceived)
+local BalanceInfoRecieved = require(Root.Actions.BalanceInfoRecieved)
 local PromptNativeUpsell = require(Root.Actions.PromptNativeUpsell)
 local ErrorOccurred = require(Root.Actions.ErrorOccurred)
 local CompleteRequest = require(Root.Actions.CompleteRequest)
@@ -21,14 +22,14 @@ local Thunk = require(Root.Thunk)
 
 local GetFFlagEnablePPUpsellProductListRefactor = require(Root.Flags.GetFFlagEnablePPUpsellProductListRefactor)
 local GetFFlagEnableLuobuInGameUpsell = require(Root.Flags.GetFFlagEnableLuobuInGameUpsell)
-local GetFFlagPurchasePromptNotEnoughRobux = require(Root.Flags.GetFFlagPurchasePromptNotEnoughRobux)
+local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
 
 local requiredServices = {
 	Analytics,
 	ExternalSettings,
 }
 
-local function resolvePromptState(productInfo, accountInfo, alreadyOwned, isRobloxPurchase)
+local function resolvePromptState(productInfo, accountInfo, balanceInfo, alreadyOwned, isRobloxPurchase)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local state = store:getState()
 		local analytics = services[Analytics]
@@ -36,6 +37,9 @@ local function resolvePromptState(productInfo, accountInfo, alreadyOwned, isRobl
 
 		store:dispatch(ProductInfoReceived(productInfo))
 		store:dispatch(AccountInfoReceived(accountInfo))
+		if FFlagPPAccountInfoMigration then
+			store:dispatch(BalanceInfoRecieved(balanceInfo))
+		end
 
 		local restrictThirdParty =
 			(not externalSettings.getFlagBypassThirdPartySettingForRobloxPurchase() or not isRobloxPurchase)
@@ -54,46 +58,38 @@ local function resolvePromptState(productInfo, accountInfo, alreadyOwned, isRobl
 			end
 		end
 
-		local isPlayerPremium = accountInfo.MembershipType == 4
+		local robuxBalance = FFlagPPAccountInfoMigration and balanceInfo.robux or accountInfo.RobuxBalance
+		local isPlayerPremium = FFlagPPAccountInfoMigration and accountInfo.isPremium or accountInfo.MembershipType == 4
 		local price = getPlayerProductInfoPrice(productInfo, isPlayerPremium)
 		local platform = UserInputService:GetPlatform()
 
-		if price > accountInfo.RobuxBalance then
+		if price > robuxBalance then
 
 			if externalSettings.getFFlagDisableRobuxUpsell() then
 				return store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxNoUpsell))
 			end
 
-			local neededRobux = price - accountInfo.RobuxBalance
-			local hasMembership = accountInfo.MembershipType > 0
+			local neededRobux = price - robuxBalance
 
 			if GetFFlagEnablePPUpsellProductListRefactor() then
 				local isAmazon = getHasAmazonUserAgent()
 				local isLuobu = GetFFlagEnableLuobuInGameUpsell()
 				local paymentPlatform = getPaymentFromPlatform(platform, isLuobu, isAmazon)
-				return selectRobuxProductFromProvider(paymentPlatform, neededRobux, hasMembership, nil):andThen(function(product)
+				return selectRobuxProductFromProvider(paymentPlatform, neededRobux, isPlayerPremium, nil):andThen(function(product)
 					analytics.signalProductPurchaseUpsellShown(productInfo.productId, state.requestType, product.productId)
 					store:dispatch(PromptNativeUpsell(product.productId, product.robuxValue))
 				end, function()
 					-- No upsell item will provide sufficient funds to make this purchase
-					if GetFFlagPurchasePromptNotEnoughRobux() or platform == Enum.Platform.XBoxOne then
-						store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
-					else
-						store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobux))
-					end
+					store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
 				end)
 			else
-				return selectRobuxProduct(platform, neededRobux, hasMembership)
+				return selectRobuxProduct(platform, neededRobux, isPlayerPremium)
 					:andThen(function(product)
 						analytics.signalProductPurchaseUpsellShown(productInfo.productId, state.requestType, product.productId)
 						store:dispatch(PromptNativeUpsell(product.productId, product.robuxValue))
 					end, function()
 						-- No upsell item will provide sufficient funds to make this purchase
-						if GetFFlagPurchasePromptNotEnoughRobux() or platform == Enum.Platform.XBoxOne then
-							store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
-						else
-							store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobux))
-						end
+						store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
 					end)
 			end
 		end

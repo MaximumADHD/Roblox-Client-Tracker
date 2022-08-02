@@ -1,5 +1,9 @@
 local Plugin = script.Parent.Parent
 
+local Framework = require(Plugin.Packages.Framework)
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkList = SharedFlags.getFFlagDevFrameworkList()
+
 local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local TestPaths = {}
@@ -92,7 +96,9 @@ end
 
 function TestPaths.getTreeViewJoint(ikWindow, nodeName)
 	local base = TestPaths.getIKTreeView(ikWindow)
-	return TestPaths.waitForDescendant(base, {
+	return TestPaths.waitForDescendant(base, if FFlagDevFrameworkList then {
+		"Contents", "List", nodeName,
+	} else {
 		"Contents", "ScrollingFrame", "Scroller", nodeName,
 	})
 end

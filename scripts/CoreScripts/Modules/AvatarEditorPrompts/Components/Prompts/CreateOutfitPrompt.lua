@@ -29,6 +29,8 @@ local AvatarEditorPromptsPolicy = require(AvatarEditorPrompts.AvatarEditorPrompt
 
 local EngineFeatureAESMoreOutfitMethods = game:GetEngineFeature("AESMoreOutfitMethods2")
 
+local FFlagFixAvatarEditorPromptsGamepadSelection = require(RobloxGui.Modules.Flags.FFlagFixAvatarEditorPromptsGamepadSelection)
+
 local VIEWPORT_SIDE_PADDING = 10
 local SCREEN_SIZE_PADDING = 30
 
@@ -139,6 +141,7 @@ function CreateOutfitPrompt:render()
 							onActivated = self.props.signalCreateOutfitPermissionDenied,
 							text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.CreateOutfitPromptNo"),
 						},
+						isDefaultChild = if FFlagFixAvatarEditorPromptsGamepadSelection then true else nil,
 					},
 					{
 						buttonType = ButtonType.PrimarySystem,

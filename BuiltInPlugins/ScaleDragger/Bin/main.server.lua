@@ -12,7 +12,6 @@ local ExtrudeHandles = require(DraggerFramework.Handles.ExtrudeHandles)
 local DraggerSchemaCore = Plugin.Packages.DraggerSchemaCore
 local DraggerSchema = require(DraggerSchemaCore.DraggerSchema)
 
-local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
 local getFFlagFixScalingWithNonDefaultPivot = require(DraggerFramework.Flags.getFFlagFixScalingWithNonDefaultPivot)
 
 local PLUGIN_NAME = "ScaleDragger"
@@ -91,14 +90,12 @@ local function main()
 	draggerContext = DraggerContext_PluginImpl.new(
 		plugin, game, settings(), DraggerSchema.Selection.new())
 
-	if getEngineFeatureModelPivotVisual() then
-		if getFFlagFixScalingWithNonDefaultPivot() then
-			-- note: we can remove this variable entirely when we flip the flag on.
-			-- see also BoundingBoxUtils.lua and SelectionInfo.lua
-			draggerContext.ScaleToolSpecialCaseIgnorePivotWithSinglePartSelected = false
-		else
-			draggerContext.ScaleToolSpecialCaseIgnorePivotWithSinglePartSelected = true
-		end
+	if getFFlagFixScalingWithNonDefaultPivot() then
+		-- note: we can remove this variable entirely when we flip the flag on.
+		-- see also BoundingBoxUtils.lua and SelectionInfo.lua
+		draggerContext.ScaleToolSpecialCaseIgnorePivotWithSinglePartSelected = false
+	else
+		draggerContext.ScaleToolSpecialCaseIgnorePivotWithSinglePartSelected = true
 	end
 
 	plugin.Deactivation:Connect(function()

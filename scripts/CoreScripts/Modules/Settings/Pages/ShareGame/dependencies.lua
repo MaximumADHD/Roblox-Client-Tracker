@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+
 local LuaSocialLibrariesDeps = require(CorePackages.LuaSocialLibrariesDeps)
 local RoduxShareLinks = LuaSocialLibrariesDeps.RoduxShareLinks
 local NetworkingShareLinks = LuaSocialLibrariesDeps.NetworkingShareLinks
@@ -41,6 +42,5 @@ return {
 	}),
 	NetworkingShareLinks = NetworkingShareLinks.config({
 		roduxNetworking = myRoduxNetworking,
-		useMockedResponse = true,
 	}),
 }

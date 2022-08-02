@@ -4,12 +4,6 @@ local mockContext = require(Plugin.Src.Util.mockContext)
 
 local MaterialTextures = require(script.Parent.MaterialTextures)
 
-local getFFlagMaterialManagerEnableTests = require(Plugin.Src.Flags.getFFlagMaterialManagerEnableTests)
-
-if not getFFlagMaterialManagerEnableTests() then
-	return function() end
-end
-
 return function()
 	local colorMap = "rbxassetid://6505035810"
 	local metalnessMap = "rbxassetid://6505037219"

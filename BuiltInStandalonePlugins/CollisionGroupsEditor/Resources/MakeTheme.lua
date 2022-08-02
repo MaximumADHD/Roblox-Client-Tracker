@@ -132,10 +132,6 @@ local function getPluginTheme()
 		TableEntrySelected = StyleKey.ActionFocusBorder,
 		TableEntryHover = StyleKey.ButtonHover,
 
-		CheckboxUncheckedImage = StyleKey.CheckboxUncheckedImage,
-		CheckboxCheckedImage = StyleKey.CheckboxCheckedImage,
-		NoCheckboxPanelColor = StyleKey.ForegroundMain,
-
 		AddGroupInternalButtonSize = UDim2.new(0, ControlsHeaderButtonWidth, 0, ControlsHeaderButtonHeight),
 
 		ScrollBarThickness = scrollBarThickness,
@@ -200,6 +196,15 @@ local function getPluginTheme()
 			},
 			UnselectedViewPadding = scrollBarThickness,
 		},
+
+		CollisionCheckbox = Dash.join(ui.TableRow, {
+			Border = StyleKey.SubBackground,
+			BackgroundOdd = StyleKey.MainBackground,
+			BackgroundEven = StyleKey.SubBackground2,
+			CheckboxUncheckedImage = StyleKey.CheckboxUncheckedImage,
+			CheckboxCheckedImage = StyleKey.CheckboxCheckedImage,
+			NoCheckboxPanelColor = StyleKey.ForegroundMain,
+		}),
 
 		ControlsHeaderRow = {
 			Size = UDim2.new(1, 0, 0, ControlsHeaderRowHeight + ControlsHeaderRowPadding * 2),

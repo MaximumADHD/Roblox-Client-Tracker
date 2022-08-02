@@ -32,7 +32,6 @@ local Colors = require(Util.Colors)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 
 local DEPRECATED_InfiniteScrollingFrame = require(Plugin.Core.Components.InfiniteScrollingFrame)
-local InfiniteScrollingFrame = Framework.UI.InfiniteScrollingFrame
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext

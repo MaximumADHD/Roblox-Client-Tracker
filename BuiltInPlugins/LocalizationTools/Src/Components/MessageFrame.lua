@@ -1,13 +1,19 @@
 --[[
 	The message fram at the bottom of plugin window
 ]]
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+
+local UI = Framework.UI
+local TextLabel = UI.Decoration.TextLabel
 
 local MessageFrame = Roact.PureComponent:extend("MessageFrame")
 
@@ -27,14 +33,22 @@ function MessageFrame:render()
 		Padding = Roact.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, theme.Padding),
 		}),
-		MessageTextLabel = Roact.createElement("TextLabel", {
-			Size = UDim2.new(1, 0, 1, 0),
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-			TextColor3 = theme.TextColor,
-			Text = message,
-			TextXAlignment = Enum.TextXAlignment.Left,
-		})
+		MessageTextLabel = if FFlagDevFrameworkMigrateTextLabels then (
+			Roact.createElement(TextLabel, {
+				AutomaticSize = Enum.AutomaticSize.Y,
+				Text = message,
+				TextWrapped = true,
+			})
+		) else  (
+			Roact.createElement("TextLabel", {
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				TextColor3 = theme.TextColor,
+				Text = message,
+				TextXAlignment = Enum.TextXAlignment.Left,
+			})
+		)
 	})
 end
 

@@ -66,21 +66,19 @@ function Constants.getOwnerDropDownContent(groupsArray, localization)
 		{name = localization:getText("General", "Me"), Text = localization:getText("General", "Me"), creatorType = "User", creatorId = getUserId(), Key = 1}
 	}
 	local currentIndex = 2
-	if game:GetFastFlag("FixPackageOwnerDefault") then
-		if game.CreatorType == Enum.CreatorType.Group and next(groupsArray) == nil then
-			-- we haven't fetched groups yet, but we need to have the group owning this place as an option
-			local owningGroupItem = {
-				-- this just exists so that the dropdown can select the owning group as the default when it first opens,
-				-- so these blank strings won't be seen by the user unless the group data request takes a *long* time
-				name = "",
-				Text = "",
-				creatorType = "Group",
-				creatorId = game.CreatorId,
-				Key = currentIndex
-			}
-			table.insert(result, owningGroupItem)
-			return result
-		end
+	if game.CreatorType == Enum.CreatorType.Group and next(groupsArray) == nil then
+		-- we haven't fetched groups yet, but we need to have the group owning this place as an option
+		local owningGroupItem = {
+			-- this just exists so that the dropdown can select the owning group as the default when it first opens,
+			-- so these blank strings won't be seen by the user unless the group data request takes a *long* time
+			name = "",
+			Text = "",
+			creatorType = "Group",
+			creatorId = game.CreatorId,
+			Key = currentIndex,
+		}
+		table.insert(result, owningGroupItem)
+		return result
 	end
 	for _, groupData in pairs(groupsArray) do
 		local newDropDownitem = {

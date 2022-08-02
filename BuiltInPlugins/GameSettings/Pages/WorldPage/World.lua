@@ -14,12 +14,17 @@
 		float WalkSpeed
 		float MaxSlopeAngle - maximum incline angle (in degrees) that the avatar can walk up
 ]]
-
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+
+local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
+
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local WorldRootPhysics = require(Page.ContextServices.WorldRootPhysics)
@@ -32,9 +37,11 @@ local JumpSelect = require(Page.Components.JumpSelect)
 local NumberInputRow = require(Page.Components.NumberInputRow)
 
 local RoactStudioWidgets = Plugin.Packages.RoactStudioWidgets
-local StudioWidgetTitledFrame = require(RoactStudioWidgets.TitledFrame)
-local Separator = require(Plugin.Packages.Framework).UI.Separator
 local StudioWidgetText = require(RoactStudioWidgets.Text)
+
+local UI = Framework.UI
+local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else require(RoactStudioWidgets.TitledFrame)
+local Separator = UI.Separator
 
 local INPUT_BOX_OFFSET = 160
 local METRIC_LABEL_OFFSET = 170
@@ -266,10 +273,12 @@ function World:render()
 				end,
 			}),
 
-			JumpDistance = Roact.createElement(StudioWidgetTitledFrame, {
+			JumpDistance = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+				LayoutOrder = 7,
+				Title = "",
+			} else {
 				Title = "",
 				MaxHeight = 10,
-				LayoutOrder = 7,
 				TitleTextYAlignment = Enum.TextYAlignment.Center
 			}, {
 				Layout = Roact.createElement("UIListLayout", {

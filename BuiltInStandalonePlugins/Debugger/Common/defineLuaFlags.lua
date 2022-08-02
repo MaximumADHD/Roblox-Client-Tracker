@@ -4,6 +4,5 @@
 -- In most circumstances flags should be initialized to false
 
 game:DefineFastFlag("DebugPopulateDebuggerPlugin", false)
-game:DefineFastFlag("DeduplicatePackagesDebugger", false)
 
 return nil

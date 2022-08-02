@@ -1,5 +1,3 @@
-local FFlagGSPermsRemoveCollaboratorsFixEnabled = game:GetFastFlag("GSPermsRemoveCollaboratorsFixEnabled")
-
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -144,27 +142,15 @@ UserCollaboratorItem = withContext({
 
 UserCollaboratorItem = RoactRodux.connect(
 	function(state, props)
+		local currentPermission = GetUserPermission(state, props.Id)
 
-		if FFlagGSPermsRemoveCollaboratorsFixEnabled then
-			local currentPermission = GetUserPermission(state, props.Id)
-
-			if currentPermission then
-				return {
-					OwnerType = state.GameOwnerMetadata.creatorType,
-					IsOwner = IsUserOwner(state, props.Id),
-					IsOwnerFriend = IsUserCreatorFriend(state, props.Id),
-					UserName = GetUserName(state, props.Id),
-					CurrentPermission = currentPermission,
-				}
-			end
-		else
+		if currentPermission then
 			return {
 				OwnerType = state.GameOwnerMetadata.creatorType,
-
 				IsOwner = IsUserOwner(state, props.Id),
 				IsOwnerFriend = IsUserCreatorFriend(state, props.Id),
 				UserName = GetUserName(state, props.Id),
-				CurrentPermission = GetUserPermission(state, props.Id),
+				CurrentPermission = currentPermission,
 			}
 		end
 	end,

@@ -11,8 +11,6 @@ local UI = Framework.UI
 local Pane = UI.Pane
 local Separator = UI.Separator
 
-local FFlagGSPermsRemoveCollaboratorsFixEnabled = game:GetFastFlag("GSPermsRemoveCollaboratorsFixEnabled")
-
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -115,10 +113,8 @@ function GroupCollaboratorItem:render()
 	local groupRolesets = props.GroupRolesets
 	local groupName = props.GroupName
 
-	if FFlagGSPermsRemoveCollaboratorsFixEnabled then
-		if not groupRolesets then
-			return
-		end
+	if not groupRolesets then
+		return
 	end
 
 	local setGroupPermission = props.SetGroupPermission
@@ -231,23 +227,13 @@ GroupCollaboratorItem = withContext({
 
 GroupCollaboratorItem = RoactRodux.connect(
 	function(state, props)
+		local groupName = GetGroupName(state, props.Id)
 
-		if FFlagGSPermsRemoveCollaboratorsFixEnabled then
-			local groupName = GetGroupName(state, props.Id)
-
-			if groupName then
-				return {
-					IsOwner = IsGroupOwner(state, props.Id),
-					GroupRolesets = GetGroupRolesets(state, props.Id),
-					GroupName = groupName,
-					CurrentPermission = GetGroupPermission(state, props.Id),
-				}
-			end
-		else	
+		if groupName then
 			return {
 				IsOwner = IsGroupOwner(state, props.Id),
 				GroupRolesets = GetGroupRolesets(state, props.Id),
-				GroupName = GetGroupName(state, props.Id),
+				GroupName = groupName,
 				CurrentPermission = GetGroupPermission(state, props.Id),
 			}
 		end

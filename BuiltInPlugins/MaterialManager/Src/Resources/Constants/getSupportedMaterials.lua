@@ -1,9 +1,6 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local _Types = require(Plugin.Src.Types)
 
-local Flags = Plugin.Src.Flags
-local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
-
 local supportedMaterials = {
 	[Enum.Material.Asphalt] = true,
 	[Enum.Material.Basalt] = true,
@@ -77,16 +74,10 @@ local supportedMaterialsList = {
 	Enum.Material.WoodPlanks,
 }
 
-if getFFlagMaterialManagerGlassNeonForceField() then
-	return function(isList : boolean?) : _Types.Map<any, any>
-		if isList then
-			return supportedMaterialsList
-		else
-			return supportedMaterials
-		end
-	end
-else
-	return function() : _Types.Array<Enum.Material>
+return function(isList : boolean?) : _Types.Map<any, any>
+	if isList then
 		return supportedMaterialsList
+	else
+		return supportedMaterials
 	end
 end

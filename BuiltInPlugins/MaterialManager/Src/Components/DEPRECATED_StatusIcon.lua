@@ -18,9 +18,6 @@ local Tooltip = UI.Tooltip
 
 local MaterialController = require(Plugin.Src.Controllers.MaterialController)
 
-local Flags = Plugin.Src.Flags
-local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
-
 export type Props = {
 	LayoutOrder: number?,
 	Material: _Types.Material,
@@ -51,13 +48,7 @@ function StatusIcon:render()
 	local localization = props.Localization
 	local material = props.Material
 
-	local status
-	if getFFlagMaterialManagerGlassNeonForceField() then
-		status = props.MaterialController:getOverrideStatus(material.Material)
-	else
-		status = props.MaterialController:getOverrideStatus(material.MaterialVariant.BaseMaterial)
-	end
-
+	local status = props.MaterialController:getOverrideStatus(material.Material)
 	local statusImage
 	local statusText = ""
 	if status == Enum.PropertyStatus.Error then

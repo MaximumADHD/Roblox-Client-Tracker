@@ -5,10 +5,12 @@
 		array selected = list of track names that are selected.
 ]]
 
+local Plugin = script.Parent.Parent.Parent
 local Action = require(script.Parent.Action)
+local GetFFlagFixSelectionRightArrow = require(Plugin.LuaFlags.GetFFlagFixSelectionRightArrow)
 
 return Action(script.Name, function(tracks)
 	return {
-		selectedTracks = tracks,
+		selectedTracks = if GetFFlagFixSelectionRightArrow() then (tracks or {}) else tracks,
 	}
 end)

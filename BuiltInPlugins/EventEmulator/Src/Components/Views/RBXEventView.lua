@@ -12,18 +12,22 @@
 	Style Values:
 		table Layout: consistent values for either horizontal or vertical UIListLayout
 ]]
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local Pane = UI.Pane
+local TextLabel = UI.Decoration.TextLabel
 
 local Actions = Plugin.Src.Actions
 local SetRBXParameters = require(Actions.SetRBXParameters)
@@ -97,14 +101,22 @@ function RBXEventView:init()
 		local layout = theme.Layout
 
 		local children = {
-			Layout = Roact.createElement("UIListLayout", layout.Vertical),
-			Warning = (not self.state.ValidJson) and Roact.createElement("TextLabel", {
-				LayoutOrder = ORDERING["Warning"],
-				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 0, 20),
-				Text = "Warning! Detail expects JSON.",
-				TextColor3 = Color3.new(1, 0.5, 0),
-			}),
+			Layout = if FFlagDevFrameworkMigrateTextLabels then nil else Roact.createElement("UIListLayout", layout.Vertical),
+			Warning = (not self.state.ValidJson) and if FFlagDevFrameworkMigrateTextLabels then (
+				Roact.createElement(TextLabel, {
+					LayoutOrder = ORDERING.Warning,
+					AutomaticSize = Enum.AutomaticSize.Y,
+					Style = "Warning",
+				})
+			) else (
+				Roact.createElement("TextLabel", {
+					LayoutOrder = ORDERING["Warning"],
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, 0, 0, 20),
+					Text = "Warning! Detail expects JSON.",
+					TextColor3 = Color3.new(1, 0.5, 0),
+				})
+			),
 			Activators = Roact.createElement(ButtonArray, {
 				OnClearClicked = self.onClearClicked,
 				OnSaveClicked = self.onSaveClicked,
@@ -128,11 +140,18 @@ function RBXEventView:init()
 end
 
 function RBXEventView:render()
-	return Roact.createElement(Pane, {
-		Size = UDim2.new(1, 0, 1, 0),
-		BackgroundTransparency = 1,
-		LayoutOrder = INPUT_PANE_LAYOUT.View,
-	}, self.createChildren())
+	if FFlagDevFrameworkMigrateTextLabels then
+		return Roact.createElement(Pane, {
+			Layout = Enum.FillDirection.Vertical,
+			LayoutOrder = INPUT_PANE_LAYOUT.View,
+		}, self.createChildren())
+	else
+		return Roact.createElement(Pane, {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			LayoutOrder = INPUT_PANE_LAYOUT.View,
+		}, self.createChildren())
+	end
 end
 
 

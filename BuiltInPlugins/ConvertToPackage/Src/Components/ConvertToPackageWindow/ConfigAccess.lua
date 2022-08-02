@@ -51,29 +51,14 @@ function ConfigAccess:render()
 
 		self.dropdownContent = Constants.getOwnerDropDownContent(props.groupsArray, localization)
 
-		local ownerIndex;
-		if game:GetFastFlag("FixPackageOwnerDefault") then
-			-- find index of item in dropdown that corresponds to selected owner id
-			for index, creator in pairs(self.dropdownContent) do
-				if creator.creatorId == owner.creatorId then
-					ownerIndex = index
-				end
-			end
-			assert(ownerIndex)
-		else
-			-- We have a bug, on here: https://developer.roblox.com/api-reference/enum/CreatorType
-			-- User is 0, however in source code, User is 1.
-			-- TODO: Notice UX to change the website.
-			ownerIndex = (owner.typeId or 1)
-			if game.CreatorType == Enum.CreatorType.Group and ownerIndex == 1 then
-				for pos, group in pairs(self.dropdownContent) do
-					if group.creatorId == game.CreatorId then
-						ownerIndex = pos
-						onDropDownSelect(self.dropdownContent[ownerIndex])
-					end
-				end
+		local ownerIndex
+		-- find index of item in dropdown that corresponds to selected owner id
+		for index, creator in pairs(self.dropdownContent) do
+			if creator.creatorId == owner.creatorId then
+				ownerIndex = index
 			end
 		end
+		assert(ownerIndex)
 
 		local publishAssetTheme = theme.publishAsset
 

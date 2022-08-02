@@ -465,36 +465,6 @@ if toolbarButton then
         end
     end)
 
-	local function areAllAncestorsGuiBase2dToStarterGui(guiObject)
-		if not guiObject:isA("GuiObject") then
-			return false
-		end
-
-		local ancestor = guiObject.Parent
-		while ancestor ~= nil do
-
-			if FFlagFixStarterGuiErrors then
-				if ancestor == StarterGuiService then
-					return true
-				elseif not ancestor:isA("GuiBase2d") and not ancestor:isA("Folder") then
-					return false
-				end
-			else
-				if ancestor == game.StarterGui then
-					return true
-				elseif not ancestor:isA("GuiBase2d") and not ancestor:isA("Folder") then
-					return false
-				end
-			end
-			
-			ancestor = ancestor.Parent 
-		end
-		return false
-	end
-	local function passesGuiFilter(instance)
-		return areAllAncestorsGuiBase2dToStarterGui(instance) and instance:FindFirstAncestorOfClass("ScreenGui") ~= nil
-	end
-
 	local function testRestrictedInstance(instance)
 		local a = instance.Name
 	end
@@ -503,7 +473,7 @@ if toolbarButton then
 		local selection = SelectionService:Get()
 		for i = 1, #selection do
 			local instance = selection[i]
-			if pcall(testRestrictedInstance, instance) and passesGuiFilter(instance) then
+			if pcall(testRestrictedInstance, instance) and SelectionManager:passesGuiFilter(instance) then
 				On()
 				return
 			end

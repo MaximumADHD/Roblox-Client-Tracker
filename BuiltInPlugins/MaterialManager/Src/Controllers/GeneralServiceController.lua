@@ -8,9 +8,6 @@ local ContextItem = Framework.ContextServices.ContextItem
 
 local ApplyToInstances = require(Plugin.Src.Util.ApplyToInstances)
 
-local getFFlagMaterialManagerGridOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerGridOverhaul)
-local getFFlagMaterialManagerTopBarOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerTopBarOverhaul)
-
 local GeneralServiceController = ContextItem:extend("GeneralServiceController")
 
 function GeneralServiceController.new(mock: boolean?)
@@ -50,7 +47,6 @@ function GeneralServiceController:LoadLocalAsset(asset: string)
 		return model
 	end
 
-	assert(getFFlagMaterialManagerGridOverhaul(), "Enable FFlagMaterialManagerGridOverhaul to use this function.")
 	if not self._loadedFiles[asset] then
 		self._loadedFiles[asset] = self._insertService:asService():LoadLocalAsset(asset)
 	end
@@ -59,7 +55,6 @@ function GeneralServiceController:LoadLocalAsset(asset: string)
 end
 
 function GeneralServiceController:SetSelection(selection: {})
-	assert(getFFlagMaterialManagerTopBarOverhaul(), "Enable FFlagMaterialManagerTopBarOverhaul to use this function.")
 	self._selection:asService():Set(selection)
 end
 

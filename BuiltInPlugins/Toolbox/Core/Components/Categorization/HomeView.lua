@@ -10,6 +10,7 @@ local FFlagToolboxFixTryInStudio = game:GetFastFlag("ToolboxFixTryInStudio")
 local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
 local FFlagToolboxHomeViewSingleLaneNoTitle = game:GetFastFlag("ToolboxHomeViewSingleLaneNoTitle")
 local FFlagToolboxUseDisplayName = game:GetFastFlag("ToolboxUseDisplayName")
+local FFlagToolboxFixMissingCategories = game:GetFastFlag("ToolboxFixMissingCategories")
 
 local Libs = Plugin.Packages
 
@@ -331,15 +332,17 @@ function HomeView:init()
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			VerticalAlignment = Enum.VerticalAlignment.Top,
 		}, {
-			SubcategorySwimlane = Roact.createElement(Swimlane, {
-				Data = subcategoryDict,
-				LayoutOrder = orderIterator:getNextOrder(),
-				OnClickSeeAll = self.onClickSeeAllSubcategories,
-				OnRenderItem = self.renderSubcategory,
-				Size = UDim2.new(0, swimlaneWidth, 0, 0),
-				Title = categoriesHeaderText,
-				Total = subcategoryCount,
-			}),
+			SubcategorySwimlane = if not FFlagToolboxFixMissingCategories or subcategoryCount > 0
+				then Roact.createElement(Swimlane, {
+					Data = subcategoryDict,
+					LayoutOrder = orderIterator:getNextOrder(),
+					OnClickSeeAll = self.onClickSeeAllSubcategories,
+					OnRenderItem = self.renderSubcategory,
+					Size = UDim2.new(0, swimlaneWidth, 0, 0),
+					Title = categoriesHeaderText,
+					Total = subcategoryCount,
+				})
+				else nil,
 
 			TopKeywords = if not FFlagToolboxUseExpandableTopSearch and showTopKeywords
 				then Roact.createElement(Pane, {
@@ -419,16 +422,32 @@ function HomeView:render()
 	local size = props.Size
 	local theme = props.Stylizer
 	local assetSections = props.AssetSections
+	local subcategoryDict = props.SubcategoryDict
 	local sectionName = assetSections[#assetSections] and assetSections[#assetSections].name or nil
 
 	local hideTopContent
-	if FFlagToolboxHomeViewSingleLaneNoTitle then
-		-- If there is only a single swimlane defined, it has no subcategories, and there are no top keywords, we hide the top content
-		hideTopContent = #assetSections == 1
-			and assetSections[#assetSections]
-			and not assetSections[#assetSections].subcategory
-			and props.TopKeywords
-			and #props.TopKeywords == 0
+
+	if FFlagToolboxFixMissingCategories then
+		local hasSubcategories = next(subcategoryDict) ~= nil
+
+		if FFlagToolboxHomeViewSingleLaneNoTitle then
+			-- If there is only a single swimlane defined, it has no subcategories, and there are no top keywords, we hide the top content
+			hideTopContent = #assetSections == 1
+				and not hasSubcategories
+				and assetSections[#assetSections]
+				and not assetSections[#assetSections].subcategory
+				and props.TopKeywords
+				and #props.TopKeywords == 0
+		end
+	else
+		if FFlagToolboxHomeViewSingleLaneNoTitle then
+			-- If there is only a single swimlane defined, it has no subcategories, and there are no top keywords, we hide the top content
+			hideTopContent = #assetSections == 1
+				and assetSections[#assetSections]
+				and not assetSections[#assetSections].subcategory
+				and props.TopKeywords
+				and #props.TopKeywords == 0
+		end
 	end
 
 	-- Props from AssetLogicWrapper

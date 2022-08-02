@@ -13,7 +13,6 @@
 local HttpService = game:GetService("HttpService")
 
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
-local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
 local FFlagToolboxFixTryInStudio = game:GetFastFlag("ToolboxFixTryInStudio")
 local FFlagToolboxLocalizeInsertTool = game:GetFastFlag("ToolboxLocalizeInsertTool")
 
@@ -250,11 +249,8 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 
 			local currentCategoryName = categoryName
 
-			local assetAnalyticsContext
-			if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-				local getPageInfoAnalyticsContextInfo = self.props._getPageInfoAnalyticsContextInfo
-				assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
-			end
+			local getPageInfoAnalyticsContextInfo = self.props._getPageInfoAnalyticsContextInfo
+			local assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
 
 			local plugin = self.props._Plugin:get()
 			InsertAsset.tryInsert({
@@ -468,11 +464,9 @@ local AssetLogicWrapperFunction = function(wrappedComponent)
 			_setMostRecentAssetInsertTime = function()
 				dispatch(SetMostRecentAssetInsertTime())
 			end,
-			_getPageInfoAnalyticsContextInfo = if FFlagToolboxUsePageInfoInsteadOfAssetContext
-				then function()
-					return dispatch(GetPageInfoAnalyticsContextInfo())
-				end
-				else nil,
+			_getPageInfoAnalyticsContextInfo = function()
+				return dispatch(GetPageInfoAnalyticsContextInfo())
+			end,
 		}
 	end
 

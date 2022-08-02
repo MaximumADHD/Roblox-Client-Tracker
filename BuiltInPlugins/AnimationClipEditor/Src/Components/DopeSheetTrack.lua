@@ -45,7 +45,7 @@ local FFlagFixClusterKeyframes = game:DefineFastFlag("ACEFixClusterKeyframes", f
 
 local DopeSheetTrack = Roact.PureComponent:extend("DopeSheetTrack")
 
-function DopeSheetTrack:renderKeyframe(selected, xOffset, track, tick, override, data, filled)
+function DopeSheetTrack:renderKeyframe(selected, xOffset, track, tck, override, data, filled)
 	local props = self.props
 	local path = props.Path or {track.Name}
 
@@ -69,22 +69,22 @@ function DopeSheetTrack:renderKeyframe(selected, xOffset, track, tick, override,
 		OnActivated = props.OnKeyActivated,
 		OnRightClick = function(_, input)
 			if GetFFlagChannelAnimations() then
-				props.OnKeyRightClick(track.Instance, path, tick, selected)
+				props.OnKeyRightClick(track.Instance, path, tck, selected)
 			else
-				props.OnKeyRightClick(track.Instance, track.Name, tick, selected)
+				props.OnKeyRightClick(track.Instance, track.Name, tck, selected)
 			end
 		end,
 
 		OnInputBegan = function(_, input)
 			if GetFFlagChannelAnimations() then
-				props.OnKeyInputBegan(track.Instance, path, tick, selected, input)
+				props.OnKeyInputBegan(track.Instance, path, tck, selected, input)
 			else
-				props.OnKeyInputBegan(track.Instance, track.Name, tick, selected, input)
+				props.OnKeyInputBegan(track.Instance, track.Name, tck, selected, input)
 			end
 		end,
 
 		OnInputEnded = function(_, input)
-			props.OnKeyInputEnded(tick, selected, input)
+			props.OnKeyInputEnded(tck, selected, input)
 		end,
 	}, {
 		Tooltip = tooltipText and Roact.createElement(Tooltip, {
@@ -137,18 +137,18 @@ function DopeSheetTrack:renderKeyframes(keys)
 				selectionTrack = selectionTrack.Components and selectionTrack.Components[part] or selectionTrack[part]
 			end
 
-			for tick, info in pairs(componentsInfo) do
+			for tck, info in pairs(componentsInfo) do
 				local override
-				local data = trackData and trackData[tick]
+				local data = trackData and trackData[tck]
 				local complete = not isChannelAnimation or info.Complete
 
-				if componentsInfo[tick].Complete then
-					override = isChannelAnimation and componentsInfo[tick].InterpolationMode or componentsInfo[tick].EasingStyle
+				if componentsInfo[tck].Complete then
+					override = isChannelAnimation and componentsInfo[tck].InterpolationMode or componentsInfo[tck].EasingStyle
 				end
 
-				local xPos = TrackUtils.getScaledKeyframePosition(tick, startTick, endTick, width)
-				local selected = selectionTrack and selectionTrack.Selection and selectionTrack.Selection[tick]
-				table.insert(keys, self:renderKeyframe(selected, xPos, track, tick, override, data, complete))
+				local xPos = TrackUtils.getScaledKeyframePosition(tck, startTick, endTick, width)
+				local selected = selectionTrack and selectionTrack.Selection and selectionTrack.Selection[tck]
+				table.insert(keys, self:renderKeyframe(selected, xPos, track, tck, override, data, complete))
 			end
 		end
 	else
@@ -176,14 +176,14 @@ function DopeSheetTrack:renderKeyframes(keys)
 			keys[endIndex] = self:renderKeyframeCluster(clusterXPos, clusterXPosEnd, Constants.MIN_SPACE_BETWEEN_KEYS)
 		elseif FFlagFixClusterKeyframes or (startIndex ~= nil and endIndex ~= nil) then
 			for index = startIndex, endIndex do
-				local tick = keyframes[index]
-				local data = trackData[tick]
+				local tck = keyframes[index]
+				local data = trackData[tck]
 				local override = data.EasingStyle
 
-				local xPos = TrackUtils.getScaledKeyframePosition(tick, startTick, endTick, width)
+				local xPos = TrackUtils.getScaledKeyframePosition(tck, startTick, endTick, width)
 				local selected = selectedKeyframes[instance] and selectedKeyframes[instance][name]
-					and selectedKeyframes[instance][name][tick]
-				keys[index] = self:renderKeyframe(selected, xPos, track, tick, override, data)
+					and selectedKeyframes[instance][name][tck]
+				keys[index] = self:renderKeyframe(selected, xPos, track, tck, override, data)
 			end
 		end
 	end

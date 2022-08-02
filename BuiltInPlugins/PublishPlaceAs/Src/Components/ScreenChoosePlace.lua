@@ -19,11 +19,17 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local FFlagDevFrameworkMigrateSearchBar = Framework.SharedFlags.getFFlagDevFrameworkMigrateSearchBar()
+local FFlagRemoveUILibraryLoadingIndicator = Framework.SharedFlags.getFFlagRemoveUILibraryLoadingIndicator()
+
 local Constants = require(Plugin.Src.Resources.Constants)
 
-local Separator = if FFlagRemoveUILibrarySeparator then Framework.UI.Separator else UILibrary.Component.Separator
+local UI = Framework.UI
+local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator then UI.LoadingIndicator else UILibrary.Component.LoadingIndicator
 local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
-local SearchBar = UILibrary.Component.SearchBar
+local SearchBar = if FFlagDevFrameworkMigrateSearchBar then Framework.StudioUI.SearchBar else UILibrary.Component.SearchBar
+local Separator = if FFlagRemoveUILibrarySeparator then UI.Separator else UILibrary.Component.Separator
+
 local RoundTextButton = UILibrary.Component.RoundTextButton
 
 local SetIsPublishing = require(Plugin.Src.Actions.SetIsPublishing)
@@ -40,7 +46,6 @@ local getIsOptInChina = require(Plugin.Src.Util.PublishPlaceAsUtilities).getIsOp
 local isTeamCreateEnabled = require(Plugin.Src.Util.PublishPlaceAsUtilities).isTeamCreateEnabled
 
 local ScreenChoosePlace = Roact.PureComponent:extend("ScreenChoosePlace")
-local LoadingIndicator = UILibrary.Component.LoadingIndicator
 
 function shouldShowNextPublishManagemnt(optInRegions, isPublish)
 	if not FFlagPlacePublishManagementUI2 or not isPublish then
@@ -74,6 +79,12 @@ function ScreenChoosePlace:init()
 	self.finishedConnection = nil
 
 	self.layoutRef = Roact.createRef()
+
+	self.OnSearchRequested = function(searchTerm)
+		self:setState({
+			searchTerm = searchTerm
+		})
+	end
 end
 
 function ScreenChoosePlace:didMount()
@@ -230,7 +241,13 @@ function ScreenChoosePlace:render()
 			Size = UDim2.new(0, theme.DROPDOWN_WIDTH + 20, 0, theme.DROPDOWN_HEIGHT),
 			BackgroundTransparency = 1,
 		}, {
-			Roact.createElement(SearchBar, {
+			Roact.createElement(SearchBar, if FFlagDevFrameworkMigrateSearchBar then {
+				Size = UDim2.new(0.7, 0, 1, 0),
+				ShowSearchIcon = true,
+				ShowSearchButton = false,
+				IncrementalTextSearch = true,
+				OnSearchRequested = self.OnSearchRequested,
+			} else {
 				Position = UDim2.new(1, 0, 1, 0),
 				Size = UDim2.new(0.7, 0, 1, 0),
 				Enabled = true,

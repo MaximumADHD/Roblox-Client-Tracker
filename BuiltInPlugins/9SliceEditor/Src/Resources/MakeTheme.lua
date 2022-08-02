@@ -18,7 +18,6 @@ local StyleKey = Style.StyleKey
 
 local Constants = require(Plugin.Src.Util.Constants)
 
-local FFlag9SliceEditorNewDraggers = game:GetFastFlag("9SliceEditorNewDraggers")
 local FFlag9SliceEditorResizableImagePreviewWindow = game:GetFastFlag("9SliceEditorResizableImagePreviewWindow")
 
 ui:add("AlertDialog")
@@ -60,7 +59,7 @@ local PluginTheme = {
 	},
 
 	[ui.ImageDragger] = {
-		EdgeHandleSize = FFlag9SliceEditorNewDraggers and UDim2.fromOffset(30, 28) or UDim2.fromOffset(30, 27),
+		EdgeHandleSize = UDim2.fromOffset(30, 28),
 		EdgeHandleInsetPx = 2,
 	},
 

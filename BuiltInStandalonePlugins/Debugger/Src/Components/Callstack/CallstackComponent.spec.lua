@@ -2,6 +2,10 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 
+local Framework = require(Plugin.Packages.Framework)
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkList = SharedFlags.getFFlagDevFrameworkList()
+
 local src = Plugin.Src
 local Components = src.Components
 local CallstackComponent = require(Components.Callstack.CallstackComponent)
@@ -45,21 +49,21 @@ return function()
 		local folderInstance = Roact.mount(mockContext.getChildrenWithMockContext(), folder)
 
 		local tableView = folder:FindFirstChild("TableView", true)
-		local list = tableView.Contents.List.Child.Scroller
+		local list = if FFlagDevFrameworkList then tableView.Contents.List.Child else tableView.Contents.List.Child.Scroller
 
 		local state = store:getState()
 		local currDST = state.Common.debuggerConnectionIdToDST[state.Common.currentDebuggerConnectionId]
-		expect(list["1"].Row[1].Left.Text.Text).to.equal(
+		expect((if FFlagDevFrameworkList then list["1"] else list["1"].Row)[1].Left.Text.Text).to.equal(
 			state.Callstack.stateTokenToCallstackVars[currDST].threadList[1].displayString
 		)
 
-		expect(list["2"].Row[2].Left.Text.Text).to.equal("1")
-		expect(list["2"].Row[4].Left.Text.Text).to.equal("TestFrame1")
-		expect(list["2"].Row[5].Left.Text.Text).to.equal("10")
+		expect((if FFlagDevFrameworkList then list["2"] else list["2"].Row)[2].Left.Text.Text).to.equal("1")
+		expect((if FFlagDevFrameworkList then list["2"] else list["2"].Row)[4].Left.Text.Text).to.equal("TestFrame1")
+		expect((if FFlagDevFrameworkList then list["2"] else list["2"].Row)[5].Left.Text.Text).to.equal("10")
 
-		expect(list["3"].Row[2].Left.Text.Text).to.equal("2")
-		expect(list["3"].Row[4].Left.Text.Text).to.equal("TestFrame2")
-		expect(list["3"].Row[5].Left.Text.Text).to.equal("20")
+		expect((if FFlagDevFrameworkList then list["3"] else list["3"].Row)[2].Left.Text.Text).to.equal("2")
+		expect((if FFlagDevFrameworkList then list["3"] else list["3"].Row)[4].Left.Text.Text).to.equal("TestFrame2")
+		expect((if FFlagDevFrameworkList then list["3"] else list["3"].Row)[5].Left.Text.Text).to.equal("20")
 
 		Roact.unmount(folderInstance)
 	end)

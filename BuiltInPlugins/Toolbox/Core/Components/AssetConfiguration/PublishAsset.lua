@@ -42,7 +42,6 @@
 		LayoutOrder, number, used by the layouter to set the position of the component.
 ]]
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
-local FFlagToolboxAssetConfigurationMatchPluginFlow = game:GetFastFlag("ToolboxAssetConfigurationMatchPluginFlow")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -63,7 +62,7 @@ local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
 local LayoutOrderIterator = require(Util.LayoutOrderIterator)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
-local AssetConfigUtil = FFlagToolboxAssetConfigurationMatchPluginFlow and require(Util.AssetConfigUtil) or nil
+local AssetConfigUtil = require(Util.AssetConfigUtil)
 local Constants = require(Util.Constants)
 local Images = require(Plugin.Core.Util.Images)
 
@@ -78,9 +77,7 @@ local ConfigComment = require(AssetConfiguration.ConfigComment)
 local ConfigSharing = require(AssetConfiguration.ConfigSharing)
 local TagsComponent = require(AssetConfiguration.CatalogTags.TagsComponent)
 local Header = require(AssetConfiguration.Header)
-local PriceComponent = FFlagToolboxAssetConfigurationMatchPluginFlow and require(AssetConfiguration.PriceComponent)
-	or nil
-
+local PriceComponent = require(AssetConfiguration.PriceComponent)
 local SetFieldError = require(Plugin.Core.Actions.SetFieldError)
 
 local PublishAsset = Roact.PureComponent:extend("PublishAsset")
@@ -88,7 +85,6 @@ local PublishAsset = Roact.PureComponent:extend("PublishAsset")
 local NAME_HEIGHT = 100
 local DESC_HEIGHT = 180
 local ACCESS_HEIGHT = 70
-local ASSET_TYPE_HEIGHT = not FFlagToolboxAssetConfigurationMatchPluginFlow and 60 or nil -- unused variable, remove with FFlagToolboxAssetConfigurationMatchPluginFlow
 local GENRE_HEIGHT = 70
 local COPY_HEIGHT = 80
 local COMMENT_HEIGHT = 80
@@ -113,7 +109,8 @@ function PublishAsset:init(props)
 		if self.baseFrameRef.current and self.listLayoutRef.current then
 			local baseFrame = self.baseFrameRef.current
 			local uiListLayout = self.listLayoutRef.current
-			local canvasHeight = math.max(uiListLayout.AbsoluteContentSize.y + PADDING*2, self.state.maxDropdownPosition)
+			local canvasHeight =
+				math.max(uiListLayout.AbsoluteContentSize.y + PADDING * 2, self.state.maxDropdownPosition)
 			baseFrame.CanvasSize = UDim2.new(props.Size.X.Scale, props.Size.X.Offset, 0, canvasHeight)
 		end
 	end
@@ -121,14 +118,12 @@ function PublishAsset:init(props)
 	self.updateMaxDropdownPosition = function(ref, dropdownHeight)
 		local frame = ref.current
 		if frame and dropdownHeight > 0 then
-			local topOfDropdownField =
-				ref.current.AbsolutePosition.Y
+			local topOfDropdownField = ref.current.AbsolutePosition.Y
 				+ self.baseFrameRef.current.CanvasPosition.Y
 				+ -self.baseFrameRef.current.AbsolutePosition.Y
 				- PADDING
 
-			local bottomOfDropdown =
-				topOfDropdownField
+			local bottomOfDropdown = topOfDropdownField
 				+ PADDING
 				+ ref.current.AbsoluteSize.Y
 				+ dropdownHeight
@@ -187,7 +182,7 @@ function PublishAsset:renderContent(theme, localizedContent)
 
 	local isAudio = assetTypeEnum == Enum.AssetType.Audio
 	local isModel = assetTypeEnum == Enum.AssetType.Model
-	local isPlugin = FFlagToolboxAssetConfigurationMatchPluginFlow and assetTypeEnum == Enum.AssetType.Plugin
+	local isPlugin = assetTypeEnum == Enum.AssetType.Plugin
 
 	local onNameChange = props.onNameChange
 	local onDescChange = props.onDescChange
@@ -202,7 +197,7 @@ function PublishAsset:renderContent(theme, localizedContent)
 	local displayGenre = props.displayGenre
 	local displayCopy = props.displayCopy
 	local displayComment = props.displayComment
-	local displayAssetType = props.displayAssetType and not isPlugin
+	local displayAssetType = if isPlugin then false else props.displayAssetType
 	local displayTags = props.displayTags
 	local displaySharing = props.displaySharing
 
@@ -216,7 +211,9 @@ function PublishAsset:renderContent(theme, localizedContent)
 	local feeRate = if isPlugin then props.feeRate else nil
 	local isPriceValid = if isPlugin then props.isPriceValid else nil
 	local onPriceChange = if isPlugin then props.onPriceChange else nil
-	local canChangeSalesStatus = if isPlugin and (AssetConfigUtil.isReadyForSale(newAssetStatus) or AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum)) then true else nil
+	local canChangeSalesStatus = if isPlugin
+		then AssetConfigUtil.isReadyForSale(newAssetStatus) or AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum)
+		else nil
 
 	local maximumItemTagsPerItem = props.maximumItemTagsPerItem
 
@@ -237,7 +234,7 @@ function PublishAsset:renderContent(theme, localizedContent)
 	if isModel then
 		modelPublishWarningText = localization:getText("AssetConfig", "ModelPublishWarning")
 	end
-	
+
 	local orderIterator = LayoutOrderIterator.new()
 
 	local publishAssetTheme = theme.publishAsset
@@ -256,11 +253,9 @@ function PublishAsset:renderContent(theme, localizedContent)
 
 	-- If the asset is a plugin, buyable on the marketplace, and the user is not whitelisted, we hide the price.
 	-- The copy option will only be able to toggle between Free and OffSale.
-	local showPrice = isPlugin and allowedAssetTypesForRelease[assetTypeEnum.Name] or false
+	local showPrice = if isPlugin then allowedAssetTypesForRelease[assetTypeEnum.Name] else false
 
-	return Roact.createElement(StyledScrollingFrame,
-		scrollingFrameProps,
-	{
+	return Roact.createElement(StyledScrollingFrame, scrollingFrameProps, {
 		Padding = Roact.createElement("UIPadding", {
 			PaddingTop = UDim.new(0, PADDING),
 			PaddingBottom = UDim.new(0, PADDING),
@@ -277,51 +272,56 @@ function PublishAsset:renderContent(theme, localizedContent)
 
 			[Roact.Change.AbsoluteContentSize] = self.refreshCanvas or function(rbx)
 				if self.baseFrameRef.current then
-					self.baseFrameRef.current.CanvasSize = UDim2.new(Size.X.Scale, Size.X.Offset, 0, rbx.AbsoluteContentSize.y + PADDING*2)
+					self.baseFrameRef.current.CanvasSize =
+						UDim2.new(Size.X.Scale, Size.X.Offset, 0, rbx.AbsoluteContentSize.y + PADDING * 2)
 				end
 			end,
 
 			[Roact.Ref] = self.listLayoutRef,
 		}),
 
-		ModelWarningFrame = if isModel then Roact.createElement(Pane, {
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			Layout = Enum.FillDirection.Horizontal,
-			LayoutOrder = orderIterator:getNextOrder(),
-			Size = UDim2.new(1, 0, 0, Constants.FONT_SIZE_TITLE),
-			Padding = {
-				Bottom = BOTTOM_PADDING,
-			},
-			Spacing = SPACING,
-			VerticalAlignment = Enum.VerticalAlignment.Top,
-		}, {
-			Icon = Roact.createElement("ImageLabel", {
-				LayoutOrder = 1,
-				BackgroundTransparency = 1,
-				Image = Images.WARNING_ICON,
-				ImageColor3 = publishAssetTheme.warningIconColor,
-				Size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
-			}),
+		ModelWarningFrame = if isModel
+			then Roact.createElement(Pane, {
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+				Layout = Enum.FillDirection.Horizontal,
+				LayoutOrder = orderIterator:getNextOrder(),
+				Size = UDim2.new(1, 0, 0, Constants.FONT_SIZE_TITLE),
+				Padding = {
+					Bottom = BOTTOM_PADDING,
+				},
+				Spacing = SPACING,
+				VerticalAlignment = Enum.VerticalAlignment.Top,
+			}, {
+				Icon = Roact.createElement("ImageLabel", {
+					LayoutOrder = 1,
+					BackgroundTransparency = 1,
+					Image = Images.WARNING_ICON,
+					ImageColor3 = publishAssetTheme.warningIconColor,
+					Size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
+				}),
 
-			WarningText = Roact.createElement("TextLabel", {
-				AutomaticSize = Enum.AutomaticSize.XY,
-				LayoutOrder = 2,
-				BackgroundTransparency = 1,
-				Font = Constants.FONT,
-				Size = UDim2.new(1, 0, 1, 0),
-				Text = modelPublishWarningText,
-				TextWrapped = true,
-				TextColor3 = theme.assetConfig.warningColor,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Center,
-				TextSize = Constants.FONT_SIZE_TITLE,
-			}),
-		}) else nil,
+				WarningText = Roact.createElement("TextLabel", {
+					AutomaticSize = Enum.AutomaticSize.XY,
+					LayoutOrder = 2,
+					BackgroundTransparency = 1,
+					Font = Constants.FONT,
+					Size = UDim2.new(1, 0, 1, 0),
+					Text = modelPublishWarningText,
+					TextWrapped = true,
+					TextColor3 = theme.assetConfig.warningColor,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextYAlignment = Enum.TextYAlignment.Center,
+					TextSize = Constants.FONT_SIZE_TITLE,
+				}),
+			})
+			else nil,
 
-		Header = isPlugin and Roact.createElement(Header, {
-			LayoutOrder = orderIterator:getNextOrder(),
-			Title = localization:getText("AssetConfig", "PublishPluginHeader"),
-		}),
+		Header = if isPlugin
+			then Roact.createElement(Header, {
+				LayoutOrder = orderIterator:getNextOrder(),
+				Title = localization:getText("AssetConfig", "PublishPluginHeader"),
+			})
+			else nil,
 
 		Title = Roact.createElement(ConfigTextField, {
 			Title = publishAssetLocalized.Title,
@@ -340,7 +340,7 @@ function PublishAsset:renderContent(theme, localizedContent)
 		Description = Roact.createElement(ConfigTextField, {
 			Title = publishAssetLocalized.Description,
 			TotalHeight = DESC_HEIGHT,
-			MaxCount = AssetConfigConstants.DESCRIPTION_CHARACTER_LIMIT ,
+			MaxCount = AssetConfigConstants.DESCRIPTION_CHARACTER_LIMIT,
 			TextChangeCallBack = onDescChange,
 			TextContent = description,
 
@@ -365,7 +365,7 @@ function PublishAsset:renderContent(theme, localizedContent)
 				Text = publishAssetLocalized.AssetTextDisplay[assetTypeEnum],
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Top,
-			})
+			}),
 		}),
 
 		Tags = displayTags and Roact.createElement(TagsComponent, {
@@ -418,7 +418,7 @@ function PublishAsset:renderContent(theme, localizedContent)
 			Size = UDim2.new(1, 0, 0, DIVIDER_BASE_HEIGHT),
 		}, {
 			Separator = Roact.createElement(Separator, {
-				Position = UDim2.new(0.5, 0, 0.5, 0)
+				Position = UDim2.new(0.5, 0, 0.5, 0),
 			}),
 		}),
 

@@ -55,12 +55,16 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = require(Plugin.Packages.Framework)
-local FFlagRemoveUILibraryRoundTextBox = Framework.SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
+
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryRoundTextBox = SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
+local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local Dialog = require(Plugin.Src.ContextServices.Dialog)
+local UILibrary = if FFlagRemoveUILibraryTitledFrame and FFlagRemoveUILibraryRoundTextBox then nil else require(Plugin.Packages.UILibrary)
 
 local UI = Framework.UI
 local MultiLineTextInput = UI.MultiLineTextInput
@@ -72,13 +76,17 @@ local TextLabel = UI.Decoration.TextLabel
 local HoverArea = UI.HoverArea
 local TextWithInlineLink = UI.TextWithInlineLink
 local TextInput2 = UI.TextInput2
+local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
 
-local UILibrary = require(Plugin.Packages.UILibrary)
-local TitledFrame = UILibrary.Component.TitledFrame
 local RoundTextBox
 if not FFlagRemoveUILibraryRoundTextBox then
 	RoundTextBox = UILibrary.Component.RoundTextBox
 end
+
+local Util = Framework.Util
+local StyleModifier = Util.StyleModifier
+local LayoutOrderIterator = Util.LayoutOrderIterator
+local deepJoin = Util.deepJoin
 
 local CheckBoxSet = require(Plugin.Src.Components.CheckBoxSet)
 local Dropdown = require(Plugin.Src.Components.Dropdown)
@@ -97,11 +105,12 @@ local SetCreatorType = require(Plugin.Src.Actions.SetCreatorType)
 local FileUtils = require(Plugin.Src.Util.FileUtils)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
-local shouldShowDevPublishLocations = require(Plugin.Src.Util.GameSettingsUtilities).shouldShowDevPublishLocations
-local getPlayerAppDownloadLink = require(Plugin.Src.Util.GameSettingsUtilities).getPlayerAppDownloadLink
-local getOptInLocationsRequirementsLink = require(Plugin.Src.Util.GameSettingsUtilities).getOptInLocationsRequirementsLink
-local sendAnalyticsToKibana = require(Plugin.Src.Util.GameSettingsUtilities).sendAnalyticsToKibana
-local calculateTextSize = require(Plugin.Src.Util.GameSettingsUtilities).calculateTextSize
+local Utilities = require(Plugin.Src.Util.GameSettingsUtilities)
+local shouldShowDevPublishLocations = Utilities.shouldShowDevPublishLocations
+local getPlayerAppDownloadLink = Utilities.getPlayerAppDownloadLink
+local getOptInLocationsRequirementsLink = Utilities.getOptInLocationsRequirementsLink
+local sendAnalyticsToKibana = Utilities.sendAnalyticsToKibana
+local calculateTextSize = Utilities.calculateTextSize
 
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 
@@ -116,11 +125,6 @@ local checkboxToggleKey = KeyProvider.getCheckboxToggleKeyName()
 local selectedKey = KeyProvider.getSelectedKeyName()
 local termsOfUseDialogKey = KeyProvider.getTermsOfUseDialogKeyName()
 local buttonClickedKey = KeyProvider.getButtonClickedKeyName()
-
-local Util = Framework.Util
-local StyleModifier = Util.StyleModifier
-local LayoutOrderIterator = Util.LayoutOrderIterator
-local deepJoin = Util.deepJoin
 
 local function loadSettings(store, contextItems)
 	local state = store:getState()
@@ -780,7 +784,10 @@ function BasicInfo:render()
 		end
 
 		return {
-			Name = Roact.createElement(TitledFrame, {
+			Name = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+				LayoutOrder = layoutOrder:getNextOrder(),
+				Title = localization:getText("General", "TitleName"),
+			} else {
 				Title = localization:getText("General", "TitleName"),
 				MaxHeight = 60,
 				LayoutOrder = layoutOrder:getNextOrder(),
@@ -807,7 +814,10 @@ function BasicInfo:render()
 				),
 			}),
 
-			Description = Roact.createElement(TitledFrame, {
+			Description = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+				LayoutOrder = layoutOrder:getNextOrder(),
+				Title = localization:getText("General", "TitleDescription"),
+			} else {
 				Title = localization:getText("General", "TitleDescription"),
 				MaxHeight = 150,
 				LayoutOrder = layoutOrder:getNextOrder(),
@@ -872,7 +882,10 @@ function BasicInfo:render()
 				LayoutOrder = layoutOrder:getNextOrder(),
 			}),
 
-			Genre = Roact.createElement(TitledFrame, {
+			Genre = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+				LayoutOrder = layoutOrder:getNextOrder(),
+				Title = localization:getText("General", "TitleGenre"),
+			} else {
 				Title = localization:getText("General", "TitleGenre"),
 				MaxHeight = 38,
 				LayoutOrder = layoutOrder:getNextOrder(),

@@ -7,11 +7,17 @@
 local CoreGui = game:GetService("CoreGui")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 local Constants = require(ShareGame.Constants)
+local dependencies = require(ShareGame.dependencies)
+local RoduxShareLinks = dependencies.RoduxShareLinks
+local ClearShareInviteLink = RoduxShareLinks.Actions.ClearShareInviteLink
 local OpenPage = require(ShareGame.Actions.OpenPage)
 local ClosePage = require(ShareGame.Actions.ClosePage)
+
+local GetFFlagShareInviteLinkContextMenuV1Enabled = require(Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
 
 local settingsPageFactory = require(RobloxGui.Modules.Settings.SettingsPageFactory)
 local this = settingsPageFactory:CreateNewPage()
@@ -59,6 +65,15 @@ function this:ConnectHubToApp(settingsHub, shareGameApp)
 	end)
 
 	shareGameApp.store:dispatch(ClosePage(Constants.PageRoute.SETTINGS_HUB))
+end
+
+if GetFFlagShareInviteLinkContextMenuV1Enabled() then
+	function this:ClearShareInviteLink(shareGameApp)
+		local state = shareGameApp.store:getState()
+		if state.ShareLinks.Invites.ShareInviteLink ~= nil then
+			shareGameApp.store:dispatch(ClearShareInviteLink())
+		end
+	end
 end
 
 return this

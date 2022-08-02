@@ -1,6 +1,5 @@
 --!nocheck
 -- TODO STM-151: Re-enable Luau Type Checks when Luau bugs are fixed
-local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
 
 local HttpService = game:GetService("HttpService")
 
@@ -134,32 +133,6 @@ function AssetAnalytics.schedule(delayS: number, callback: () -> any)
 	delay(delayS, callback)
 end
 
-if not FFlagToolboxUsePageInfoInsteadOfAssetContext then
-	function AssetAnalytics.addContextToAssetResults(assetResults: Array<Object<any>>, pageInfo: PageInfo)
-		local context = AssetAnalytics.pageInfoToContext(pageInfo)
-		for _, asset in pairs(assetResults) do
-			local contextClone = Cryo.Dictionary.join(context)
-			asset.Context = contextClone
-		end
-	end
-
-	function AssetAnalytics.pageInfoToContext(pageInfo: PageInfo): AssetContext
-		if DebugFlags.shouldDebugWarnings() and not pageInfo.searchId then
-			warn("no searchId in pageInfo, analytics won't be tracked for asset")
-		end
-
-		return {
-			category = "Studio",
-			currentCategory = PageInfoHelper.getCategoryForPageInfo(pageInfo),
-			toolboxTab = PageInfoHelper.getCurrentTab(pageInfo),
-			sort = PageInfoHelper.getSortTypeForPageInfo(pageInfo),
-			searchKeyword = pageInfo.searchTerm,
-			page = pageInfo.targetPage,
-			searchId = pageInfo.searchId,
-		}
-	end
-end
-
 function AssetAnalytics.getAssetCategoryName(assetTypeId: number)
 	for _, item in ipairs(Enum.AssetType:GetEnumItems()) do
 		if item.Value == assetTypeId then
@@ -170,28 +143,17 @@ function AssetAnalytics.getAssetCategoryName(assetTypeId: number)
 end
 
 function AssetAnalytics.isAssetTrackable(assetData: AssetData, assetAnalyticsContext)
-	if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-		return assetData
-			and assetData.Asset
-			and assetData.Asset.Id
-			and assetAnalyticsContext
-			and assetAnalyticsContext.searchId
-	else
-		return assetData and assetData.Asset and assetData.Asset.Id and assetData.Context and assetData.Context.searchId
-	end
+	return assetData
+		and assetData.Asset
+		and assetData.Asset.Id
+		and assetAnalyticsContext
+		and assetAnalyticsContext.searchId
 end
 
 function AssetAnalytics.getTrackingAttributes(assetData: AssetData, assetAnalyticsContext)
-	local context
-	local searchId
-	if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-		local assetContext = assetData.Context or {}
-		context = Cryo.Dictionary.join(assetAnalyticsContext, assetContext)
-		searchId = assetAnalyticsContext.searchId
-	else
-		context = assetData.Context
-		searchId = assetData.Context.searchId
-	end
+	local assetContext = assetData.Context or {}
+	local context = Cryo.Dictionary.join(assetAnalyticsContext, assetContext)
+	local searchId = assetAnalyticsContext.searchId
 
 	local attributes = Cryo.Dictionary.join(context, {
 		assetID = assetData.Asset.Id,
@@ -235,13 +197,7 @@ function AssetAnalytics:logImpression(assetData: AssetData, assetAnalyticsContex
 	end
 
 	local assetId = assetData.Asset.Id
-	local searchId
-	if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-		searchId = assetAnalyticsContext.searchId
-	else
-		local context = assetData.Context
-		searchId = context.searchId
-	end
+	local searchId = assetAnalyticsContext.searchId
 
 	if not self._searches[searchId] then
 		self._searches[searchId] = {
@@ -251,12 +207,7 @@ function AssetAnalytics:logImpression(assetData: AssetData, assetAnalyticsContex
 
 	local search = self._searches[searchId]
 
-	local trackingAttributes
-	if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-		trackingAttributes = AssetAnalytics.getTrackingAttributes(assetData, assetAnalyticsContext)
-	else
-		trackingAttributes = AssetAnalytics.getTrackingAttributes(assetData)
-	end
+	local trackingAttributes = AssetAnalytics.getTrackingAttributes(assetData, assetAnalyticsContext)
 
 	trackingAttributes = Dash.join(trackingAttributes, navigationData or {})
 

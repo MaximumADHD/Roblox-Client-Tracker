@@ -4,6 +4,7 @@
 
 game:DefineFastFlag("TerrainToolsImportUploadAssets", false)
 game:DefineFastFlag("TerrainToolsGlobalState", false)
+game:DefineFastFlag("RemoveUILibraryCompatLocalization", false)
 
 -- Need to explicitly return something from a module
 -- Else you get an error "Module code did not return exactly one value"

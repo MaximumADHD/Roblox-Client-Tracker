@@ -218,4 +218,5 @@ return{
 	["CoreScripts.InGameMenu.QuickActions.ScreenshotSaved"] = [[]],
 	["CoreScripts.InGameMenu.Action.ShareServerLink"] = [[]],
 	["CoreScripts.InGameMenu.Controls.Scriptable"] = [[]],
+	["CoreScripts.InGameMenu.QuickActions.Connecting"] = [[]],
 }

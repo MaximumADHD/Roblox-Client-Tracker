@@ -9,8 +9,6 @@ local AssetCard = require(InspectAndBuyFolder.Components.AssetCard)
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
 local ShimmerPanel = UIBlox.Loading.ShimmerPanel
 
-local FFlagInspectAndBuyShimmerPanelEnabled = require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyShimmerPanelEnabled)
-
 local AssetList = Roact.PureComponent:extend("AssetList")
 
 local CARD_PADDING = 10
@@ -75,14 +73,12 @@ function AssetList:render()
 		})
 	end
 
-	if FFlagInspectAndBuyShimmerPanelEnabled then
-		if numAssets == 0 then
-			-- show shimmer panels if we're still waiting for the assets table to be filled
-			for i = 1, NUM_SHIMMER_PANELS do
-				assetCards[i] = Roact.createElement(ShimmerPanel, {
-					Size = UDim2.new(1, 0, 0, assetCardSizeX),
-				})
-			end
+	if numAssets == 0 then
+		-- show shimmer panels if we're still waiting for the assets table to be filled
+		for i = 1, NUM_SHIMMER_PANELS do
+			assetCards[i] = Roact.createElement(ShimmerPanel, {
+				Size = UDim2.new(1, 0, 0, assetCardSizeX),
+			})
 		end
 	end
 

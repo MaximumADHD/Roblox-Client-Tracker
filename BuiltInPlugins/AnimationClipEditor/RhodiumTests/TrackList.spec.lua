@@ -11,6 +11,7 @@ return function()
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 	local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+	local GetFFlagFixSelectionRightArrow = require(Plugin.LuaFlags.GetFFlagFixSelectionRightArrow)
 
 	local Templates = require(Plugin.Src.Util.Templates)
 
@@ -80,7 +81,11 @@ return function()
 
 			TestHelpers.clickInstance(trackList:WaitForChild("Track_Head"))
 			TestHelpers.clickInstance(trackList)
-			expect(store:getState().Status.SelectedTracks).never.to.be.ok()
+			if GetFFlagFixSelectionRightArrow() then
+				expect(#store:getState().Status.SelectedTracks).to.equal(0)
+			else
+				expect(store:getState().Status.SelectedTracks).never.to.be.ok()
+			end
 		end)
 	end)
 

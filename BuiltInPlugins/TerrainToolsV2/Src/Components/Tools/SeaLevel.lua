@@ -2,6 +2,7 @@
 	Displays panels associated with the SeaLevel tool
 ]]
 local FFlagTerrainToolsGlobalState = game:GetFastFlag("TerrainToolsGlobalState")
+local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -50,7 +51,7 @@ function SeaLevel:init()
 end
 
 function SeaLevel:render()
-	local localization = self.props.Localization:get()
+	local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
 
 	local position = self.props.Position
 	local size = self.props.Size
@@ -99,13 +100,10 @@ function SeaLevel:render()
 	})
 end
 
-
 SeaLevel = withContext({
-	Localization = ContextItems.UILibraryLocalization,
+	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
 	SeaLevel = ContextItems.SeaLevel,
 })(SeaLevel)
-
-
 
 local function mapStateToProps(state, props)
 	return {

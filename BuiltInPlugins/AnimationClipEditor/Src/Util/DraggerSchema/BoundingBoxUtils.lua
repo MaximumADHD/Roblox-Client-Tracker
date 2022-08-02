@@ -8,8 +8,6 @@ local GetFFlagBoneAdornmentSelection = require(Plugin.LuaFlags.GetFFlagBoneAdorn
 
 local shouldDragAsFace = require(DraggerFramework.Utility.shouldDragAsFace)
 
-local EngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)()
-
 local BoundingBoxUtils = {}
 
 function BoundingBoxUtils.computeBoundingBox(basisCFrame, allParts, allAttachments)
@@ -224,10 +222,10 @@ function BoundingBoxUtils.computeInfo(draggerContext, selectedObjects)
 				table.insert(allParts, instance)
 				allPartSet[instance] = true
 				basisCFrame = instance.CFrame
-				if GetFFlagBoneAdornmentSelection() then 
+				if GetFFlagBoneAdornmentSelection() then
 					local strippedBone = RigUtils.getBoneFromBoneNode(instance.Name)
 					local bone = RigUtils.getBoneByName(draggerContext.RootInstance, strippedBone)
-					if bone then 
+					if bone then
 						table.insert(allBones, bone)
 					else
 						local boneName = draggerContext.BoneLinksToBone[instance.Name]
@@ -271,8 +269,8 @@ function BoundingBoxUtils.computeInfo(draggerContext, selectedObjects)
 	end
 
 	-- Look for a pivot
-	if EngineFeatureModelPivotVisual and #selectedObjects == 1 then
-		-- note: we can remove the ScaleToolSpecialCaseIgnorePivotWithSinglePartSelected variable 
+	if #selectedObjects == 1 then
+		-- note: we can remove the ScaleToolSpecialCaseIgnorePivotWithSinglePartSelected variable
 		-- and the specialIgnore case entirely when we permanently turn on the flag
 		-- FFlagFixScalingWithNonDefaultPivot and remove its associated code.
 		local specialIgnore =

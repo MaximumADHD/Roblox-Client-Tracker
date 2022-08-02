@@ -16,8 +16,6 @@ local UI = Framework.UI
 local Pane = UI.Pane
 local TruncatedTextLabel = UI.TruncatedTextLabel
 
-local getFFlagMaterialManagerGlassNeonForceField = require(Plugin.Src.Flags.getFFlagMaterialManagerGlassNeonForceField)
-
 local getMaterialPatternName = require(Plugin.Src.Resources.Constants.getMaterialPatternName)
 local LabeledString = require(Plugin.Src.Components.MaterialBrowser.MaterialDetails.LabeledString)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer) 
@@ -71,7 +69,7 @@ function MaterialAdditional:render()
 	local localization = props.Localization
 	local material = props.Material
 
-	if not material or (getFFlagMaterialManagerGlassNeonForceField() and not material.MaterialVariant) then
+	if not material or not material.MaterialVariant then
 		return Roact.createElement(Pane)
 	end
 

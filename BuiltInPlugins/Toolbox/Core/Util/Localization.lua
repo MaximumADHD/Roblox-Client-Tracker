@@ -5,6 +5,8 @@
 local Plugin = script.Parent.Parent.Parent
 
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
+local FFlagToolboxAssetConfigurationMinPriceFloor = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor")
+
 local Packages = Plugin.Packages
 local Cryo = require(Packages.Cryo)
 
@@ -120,17 +122,38 @@ function Localization:getLocalizedCreatorIntroText(userName)
 	})
 end
 
-function Localization:getLocalizedEarningText(earning)
-	return self:_safeLocalize("Studio.Toolbox.General.SalesEarning", {
-		earning = tostring(earning),
-	})
-end
+if FFlagToolboxAssetConfigurationMinPriceFloor then
+	function Localization:getLocalizedMinimumPrice(minPrice)
+		return self:_safeLocalize("Studio.Toolbox.General.SalesMinimumPrice", {
+			minPrice = tostring(minPrice),
+		})
+	end
 
-function Localization:getLocalizedPriceRangeText(minPrice, maxPrice)
-	return self:_safeLocalize("Studio.Toolbox.General.SalesPriceRange", {
-		minPrice = tostring(minPrice),
-		maxPrice = tostring(maxPrice),
-	})
+	function Localization:getLocalizedCreatorEarnings(earningsPercent)
+		return self:_safeLocalize("Studio.Toolbox.General.SalesCreatorEarnings", {
+			earningsPercent = tostring(earningsPercent),
+		})
+	end
+else
+	function Localization:getLocalizedEarningText(earning)
+		return self:_safeLocalize("Studio.Toolbox.General.SalesEarning", { -- unused, remove translation with FFlagToolboxAssetConfigurationMinPriceFloor
+			earning = tostring(earning),
+		})
+	end
+
+	function Localization:getLocalizedPriceRangeText(minPrice, maxPrice)
+		return self:_safeLocalize("Studio.Toolbox.General.SalesPriceRange", { -- deprecated, remove translation with FFlagToolboxAssetConfigurationMinPriceFloor
+			minPrice = tostring(minPrice),
+			maxPrice = tostring(maxPrice),
+		})
+	end
+
+	-- percent, string, from 0 to 100
+	function Localization:getLocalizedFee(percent)
+		return self:_safeLocalize("Studio.Toolbox.General.Fee", { -- deprecated, remove translation with FFlagToolboxAssetConfigurationMinPriceFloor
+			percent = percent,
+		})
+	end
 end
 
 function Localization:getLocalizedAssetIDText(assetId)
@@ -150,13 +173,6 @@ function Localization:getLocalizedImageFormat(formatString, maxX, maxY)
 		formatString = formatString,
 		maxDimensionsX = tostring(maxX),
 		maxDimensionsY = tostring(maxY),
-	})
-end
-
--- percent, string, from 0 to 100
-function Localization:getLocalizedFee(percent)
-	return self:_safeLocalize("Studio.Toolbox.General.Fee", {
-		percent = percent,
 	})
 end
 
@@ -633,13 +649,14 @@ function Localization:_recalculateContent()
 		Sales = {
 			Sale = self:_safeLocalize("Studio.Toolbox.General.SalesSale"),
 			Onsale = self:_safeLocalize("Studio.Toolbox.General.SalesOnsale"),
-			OnsaleApplyToSave = self:_safeLocalize("Studio.Toolbox.General.SalesOnsaleApplyToSave"),
+			OnsaleApplyToSave = if FFlagToolboxAssetConfigurationMinPriceFloor then nil else self:_safeLocalize("Studio.Toolbox.General.SalesOnsaleApplyToSave"), -- unused, remove translation with FFlagToolboxAssetConfigurationMinPriceFloor
 			Offsale = self:_safeLocalize("Studio.Toolbox.General.SalesOffsale"),
-			OffsaleApplyToSave = self:_safeLocalize("Studio.Toolbox.General.SalesOffsaleApplyToSave"),
-			ItemCannotBeSold = self:_safeLocalize("Studio.Toolbox.General.SalesItemCannotBeSold"),
+			OffsaleApplyToSave = if FFlagToolboxAssetConfigurationMinPriceFloor then nil else self:_safeLocalize("Studio.Toolbox.General.SalesOffsaleApplyToSave"), -- unused, remove translation with FFlagToolboxAssetConfigurationMinPriceFloor
+			ItemCannotBeSold = if FFlagToolboxAssetConfigurationMinPriceFloor then nil else self:_safeLocalize("Studio.Toolbox.General.SalesItemCannotBeSold"), -- unused, remove translation with FFlagToolboxAssetConfigurationMinPriceFloor
 			Price = self:_safeLocalize("Studio.Toolbox.General.SalesPrice"),
-			ServiceFee = self:_safeLocalize("Studio.Toolbox.General.SalesServiceFee"),
-			Earn = self:_safeLocalize("Studio.Toolbox.General.Earn"),
+			ServiceFee = if FFlagToolboxAssetConfigurationMinPriceFloor then nil else self:_safeLocalize("Studio.Toolbox.General.SalesServiceFee"), -- unused, remove translation with FFlagToolboxAssetConfigurationMinPriceFloor
+			Earn = if FFlagToolboxAssetConfigurationMinPriceFloor then nil else self:_safeLocalize("Studio.Toolbox.General.Earn"), -- deprecated, remove translation with FFlagToolboxAssetConfigurationMinPriceFloor
+			FreePrice = if FFlagToolboxAssetConfigurationMinPriceFloor then self:_safeLocalize("Studio.Toolbox.General.SalesFreePrice") else nil,
 			PremiumBenefits = self:_safeLocalize("Studio.Toolbox.General.PremiumBenefits"),
 		},
 

@@ -24,8 +24,8 @@ return function()
 			return
 		end
 
-		for tick, _ in pairs(selectedEvents) do
-			AnimationData.deleteEvents(events, tick)
+		for tck, _ in pairs(selectedEvents) do
+			AnimationData.deleteEvents(events, tck)
 		end
 		store:dispatch(SetSelectedEvents({}))
 		store:dispatch(UpdateAnimationData(newData))

@@ -2,7 +2,6 @@
 	Displays a list of scripts you have checked out. Drafts are loaded from the
 	Rodux store
 --]]
-local FFlagUpdateDraftsWidgetToDFContextServices = game:GetFastFlag("UpdateDraftsWidgetToDFContextServices")
 local RunService = game:GetService("RunService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -17,10 +16,6 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local GetTextSize = Framework.Util.GetTextSize
-
-local getPlugin = if FFlagUpdateDraftsWidgetToDFContextServices then nil else require(Plugin.Src.ContextServices.StudioPlugin).getPlugin
-local withTheme = if FFlagUpdateDraftsWidgetToDFContextServices then nil else require(Plugin.Src.ContextServices.Theming).withTheme
-local withLocalization = if FFlagUpdateDraftsWidgetToDFContextServices then nil else UILibrary.Localizing.withLocalization
 
 local DraftDiscardDialog = require(Plugin.Src.Components.DraftDiscardDialog)
 local DraftListItem = require(Plugin.Src.Components.DraftListItem)
@@ -38,7 +33,7 @@ local PADDING = 4
 local DraftListView = Roact.Component:extend("DraftListView")
 
 function DraftListView:init()
-	local draftsService = if FFlagUpdateDraftsWidgetToDFContextServices then nil else self.props.draftsService
+	local draftsService = nil
 	self:setState({
 		draftsPendingDiscard = nil,
 		draftsHasActiveSelection = false,
@@ -57,38 +52,30 @@ function DraftListView:init()
 	end
 
 	self.openScripts = function(selection)
-		local plugin = if FFlagUpdateDraftsWidgetToDFContextServices then self.props.Plugin:get() else getPlugin(self)
+		local plugin = self.props.Plugin:get()
 		for _,draft in pairs(selection) do
 			plugin:OpenScript(draft)
 		end
 	end
 
 	self.diffChanges = function(selection)
-		if FFlagUpdateDraftsWidgetToDFContextServices then
-			draftsService = self.props.DraftService:get()
-		end
+		draftsService = self.props.DraftService:get()
 		draftsService:ShowDiffsAgainstServer(selection)
 	end
 
 	self.commitChanges = function(selection)
-		if FFlagUpdateDraftsWidgetToDFContextServices then
-			draftsService = self.props.DraftService:get()
-		end
+		draftsService = self.props.DraftService:get()
 		self.props.DraftsCommitted(selection)
 		draftsService:CommitEdits(selection)
 	end
 
 	self.updateSource = function(selection)
-		if FFlagUpdateDraftsWidgetToDFContextServices then
-			draftsService = self.props.DraftService:get()
-		end
+		draftsService = self.props.DraftService:get()
 		draftsService:UpdateToLatestVersion(selection)
 	end
 
 	self.restoreScripts = function(selection)
-		if FFlagUpdateDraftsWidgetToDFContextServices then
-			draftsService = self.props.DraftService:get()
-		end
+		draftsService = self.props.DraftService:get()
 		draftsService:RestoreScripts(selection)
 	end
 
@@ -100,9 +87,7 @@ function DraftListView:init()
 
 	self.discardPromptClosed = function(confirmed)
 		if confirmed then
-			if FFlagUpdateDraftsWidgetToDFContextServices then
-				draftsService = self.props.DraftService:get()
-			end
+			draftsService = self.props.DraftService:get()
 			draftsService:DiscardEdits(self.state.draftsPendingDiscard)
 		end
 
@@ -138,8 +123,8 @@ function DraftListView:init()
 		end
 	end
 
-	self.makeMenuActions = function(DEPRECATED_localization, selectedDrafts)
-		local localization = if FFlagUpdateDraftsWidgetToDFContextServices then self.props.Localization else DEPRECATED_localization
+	self.makeMenuActions = function(selectedDrafts)
+		local localization = self.props.Localization
 		local updateActionVisible = true
 		local restoreActionVisible = true
 
@@ -236,6 +221,7 @@ function DraftListView:init()
 end
 
 function DraftListView:render()
+	local localization = self.props.Localization
 	local style = self.props.Stylizer
 	local drafts = self.props.Drafts
 	local pendingDiscards = self.state.draftsPendingDiscard
@@ -258,100 +244,92 @@ function DraftListView:render()
 		return a.Name:lower() < b.Name:lower()
 	end)
 
-	local function renderWithContext(theme, localization)
-		local commitButtonText = localization:getText("Toolbar", "CommitButton")
+	local commitButtonText = localization:getText("Toolbar", "CommitButton")
 
-		return Roact.createElement("Frame", {
+	return Roact.createElement("Frame", {
+		BackgroundTransparency = 1,
+		Size = UDim2.new(1, 0, 1, 0),
+	}, {
+		UIListLayout = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Vertical,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
+		Toolbar = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 1, 0),
+			Size = UDim2.new(1, 0, 0, TOOLBAR_HEIGHT),
+			LayoutOrder = 0,
 		}, {
+			UIPadding = Roact.createElement("UIPadding", {
+				PaddingTop = UDim.new(0, PADDING),
+				PaddingRight = UDim.new(0, PADDING),
+				PaddingBottom = UDim.new(0, PADDING),
+				PaddingLeft = UDim.new(0, PADDING),
+			}),
 			UIListLayout = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Vertical,
-				SortOrder = Enum.SortOrder.LayoutOrder,
+				FillDirection = Enum.FillDirection.Horizontal,
+				HorizontalAlignment = Enum.HorizontalAlignment.Right,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
 			}),
-			Toolbar = Roact.createElement("Frame", {
+			CommitButton = Roact.createElement(RoundTextButton, {
+				Active = commitButtonEnabled,
+				Size = UDim2.new(0, GetTextSize(commitButtonText).X+PADDING*2, 1, 0),
+				Style = style.draftsButton,
+				Name = commitButtonText,
+				OnClicked = self.commitSelectedScripts,
+				TextSize = style.draftsButton.TextSize,
+				BorderMatchesBackground = true,
+			})
+		}),
+		Container = Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			Size = UDim2.new(1, 0, 1, -TOOLBAR_HEIGHT),
+			LayoutOrder = 1,
+		}, {
+			ListItemView = Roact.createElement(ListItemView, {
+				ButtonStyle = "tableItemButton",
+				Items = sortedDraftList,
+				ItemHeight = ITEM_HEIGHT,
+
+				GetCurrentSelection = self.GetCurrentSelection,
+				OnDoubleClicked = self.onDoubleClicked,
+				OnSelectionChanged = self.onSelectionChanged,
+				MakeMenuActions = self.makeMenuActions,
+
+				RenderItem = function(draft, buttonTheme, hovered)
+					return Roact.createElement(DraftListItem, {
+						Draft = draft,
+						PrimaryTextColor = buttonTheme.textColor,
+						StatusTextColor = buttonTheme.dimmedTextColor,
+						Font = buttonTheme.font,
+						TextSize = buttonTheme.textSize,
+
+						IndicatorMargin = draftStatusSidebarEnabled and ITEM_HEIGHT or 0,
+					})
+				end,
+			}),
+
+			EmptyLabel = noDrafts and Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 0, TOOLBAR_HEIGHT),
-				LayoutOrder = 0,
-			}, {
-				UIPadding = Roact.createElement("UIPadding", {
-					PaddingTop = UDim.new(0, PADDING),
-					PaddingRight = UDim.new(0, PADDING),
-					PaddingBottom = UDim.new(0, PADDING),
-					PaddingLeft = UDim.new(0, PADDING),
-				}),
-				UIListLayout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Horizontal,
-					HorizontalAlignment = Enum.HorizontalAlignment.Right,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-				}),
-				CommitButton = Roact.createElement(RoundTextButton, {
-					Active = commitButtonEnabled,
-					Size = UDim2.new(0, GetTextSize(commitButtonText).X+PADDING*2, 1, 0),
-					Style = if FFlagUpdateDraftsWidgetToDFContextServices then style.draftsButton else theme.defaultButton,
-					Name = commitButtonText,
-					OnClicked = self.commitSelectedScripts,
-					TextSize = if FFlagUpdateDraftsWidgetToDFContextServices then style.draftsButton.TextSize else theme.defaultButton.TextSize,
-					BorderMatchesBackground = true,
-				})
+				Size = UDim2.new(1, -16, 1, -16),
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+
+				Text = localization:getText("Main", "NoDrafts"),
+				TextColor3 = style.labels.MainText,
+				TextSize = 22,
+				Font = style.labels.MainFont,
+
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Top,
 			}),
-			Container = Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 1, -TOOLBAR_HEIGHT),
-				LayoutOrder = 1,
-			}, {
-				ListItemView = Roact.createElement(ListItemView, {
-					ButtonStyle = "tableItemButton",
-					Items = sortedDraftList,
-					ItemHeight = ITEM_HEIGHT,
+		}),
 
-					GetCurrentSelection = self.GetCurrentSelection,
-					OnDoubleClicked = self.onDoubleClicked,
-					OnSelectionChanged = self.onSelectionChanged,
-					MakeMenuActions = self.makeMenuActions,
+		DiscardDialog = showDiscardDialog and Roact.createElement(DraftDiscardDialog, {
+			Drafts = pendingDiscards,
 
-					RenderItem = function(draft, buttonTheme, hovered)
-						return Roact.createElement(DraftListItem, {
-							Draft = draft,
-							PrimaryTextColor = buttonTheme.textColor,
-							StatusTextColor = buttonTheme.dimmedTextColor,
-							Font = buttonTheme.font,
-							TextSize = buttonTheme.textSize,
-
-							IndicatorMargin = draftStatusSidebarEnabled and ITEM_HEIGHT or 0,
-						})
-					end,
-				}),
-
-				EmptyLabel = noDrafts and Roact.createElement("TextLabel", {
-					BackgroundTransparency = 1,
-					Size = UDim2.new(1, -16, 1, -16),
-					Position = UDim2.new(0.5, 0, 0.5, 0),
-					AnchorPoint = Vector2.new(0.5, 0.5),
-
-					Text = localization:getText("Main", "NoDrafts"),
-					TextColor3 = if FFlagUpdateDraftsWidgetToDFContextServices then style.labels.MainText else theme.Labels.MainText,
-					TextSize = 22,
-					Font = if FFlagUpdateDraftsWidgetToDFContextServices then style.labels.MainFont else theme.Labels.MainFont,
-
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment = Enum.TextYAlignment.Top,
-				}),
-			}),
-
-			DiscardDialog = showDiscardDialog and Roact.createElement(DraftDiscardDialog, {
-				Drafts = pendingDiscards,
-
-				ChoiceSelected = self.discardPromptClosed,
-			}),
-		})
-	end
-
-	return if FFlagUpdateDraftsWidgetToDFContextServices then renderWithContext(style, self.props.Localization) else withTheme(function(theme)
-		return withLocalization(function(localization)
-			return renderWithContext(theme, localization)
-		end)
-	end)
+			ChoiceSelected = self.discardPromptClosed,
+		}),
+	})
 end
 
 local function mapStateToProps(state, props)
@@ -372,23 +350,11 @@ local function dispatchChanges(dispatch)
 	}
 end
 
-if FFlagUpdateDraftsWidgetToDFContextServices then
-	DraftListView = withContext({
-		DraftService = DraftService,
-		Localization = ContextServices.Localization,
-		Plugin = ContextServices.Plugin,
-		Stylizer = ContextServices.Stylizer,
-	})(DraftListView)
-else
-	local Component = DraftListView
-	DraftListView = function(props)
-		return Roact.createElement(DraftService.Consumer, {
-			render = function(draftsService)
-				props.draftsService = draftsService
-				return Roact.createElement(Component, props)
-			end
-		})
-	end
-end
+DraftListView = withContext({
+	DraftService = DraftService,
+	Localization = ContextServices.Localization,
+	Plugin = ContextServices.Plugin,
+	Stylizer = ContextServices.Stylizer,
+})(DraftListView)
 
 return RoactRodux.connect(mapStateToProps, dispatchChanges)(DraftListView)

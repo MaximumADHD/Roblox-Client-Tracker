@@ -1,5 +1,3 @@
-local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Actions = Plugin.Core.Actions
@@ -78,10 +76,6 @@ local function dispatchGetAssets(store, pageInfo, creationDetailsTable, creatorN
 		creatorType
 	)
 
-	if not FFlagToolboxUsePageInfoInsteadOfAssetContext then
-		AssetAnalytics.addContextToAssetResults(assetResults, pageInfo)
-	end
-
 	store:dispatch(GetAssets(assetResults, nil, nextCursor))
 	store:dispatch(SetCurrentPage(0))
 	store:dispatch(SetLoading(false))
@@ -124,10 +118,6 @@ return function(networkInterface, pageInfoOnStart)
 				if data then
 					dispatchCreatorInfo(store, extractCreatorInfo(data.Results))
 					local assetResults = data.Results or {}
-
-					if not FFlagToolboxUsePageInfoInsteadOfAssetContext then
-						AssetAnalytics.addContextToAssetResults(assetResults, pageInfoOnStart)
-					end
 
 					store:dispatch(GetAssets(assetResults, data.TotalResults))
 					-- If success get asset, update currentPage.

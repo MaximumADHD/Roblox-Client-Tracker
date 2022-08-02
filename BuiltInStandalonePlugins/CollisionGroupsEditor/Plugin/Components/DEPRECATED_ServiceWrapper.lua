@@ -8,6 +8,15 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local StudioPlugin = require(script.Parent.Parent.ContextServices.StudioPlugin)
 local Localizing = UILibrary.Localizing
 
+local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+
+local ContextServices = Framework.ContextServices
+local Style = Framework.Style
+local makeTheme = Style.makeTheme
+
 -- props.localization : (UILibary.Localization) an object for fetching translated strings
 -- props.plugin : (plugin instance) the instance of plugin defined in main.server.lua
 -- props.store : (Rodux Store) the data store for the plugin
@@ -18,6 +27,10 @@ function ServiceWrapper:init()
 	assert(self.props[Roact.Children] ~= nil, "Expected child elements to wrap")
 	assert(self.props.localization ~= nil, "Expected a Localization object")
 	assert(self.props.plugin ~= nil, "Expected a plugin object")
+
+	if FFlagDevFrameworkMigrateTextLabels then
+		self.theme = makeTheme(Plugin.Plugin.Components)()
+	end
 end
 
 local function addProvider(provider, props, rootElement)
@@ -35,7 +48,15 @@ function ServiceWrapper:render()
 	root = addProvider(Localizing.Provider, { localization = localization }, root)
 	root = addProvider(StudioPlugin.Provider, { plugin = plugin }, root)
 
-	return root
+	if FFlagDevFrameworkMigrateTextLabels then
+		return ContextServices.provide({
+			self.theme
+		}, {
+			Child = root
+		})
+	else
+		return root
+	end
 end
 
 return ServiceWrapper

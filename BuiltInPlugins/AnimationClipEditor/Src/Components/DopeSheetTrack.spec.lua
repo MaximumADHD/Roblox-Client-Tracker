@@ -5,8 +5,8 @@ local sampleTrack = {
 }
 
 local sampleData = {}
-for _, tick in ipairs(sampleTrack.Keyframes) do
-	sampleData[tick] = {
+for _, tck in ipairs(sampleTrack.Keyframes) do
+	sampleData[tck] = {
 		EasingStyle = Enum.PoseEasingStyle.Linear,
 	}
 end

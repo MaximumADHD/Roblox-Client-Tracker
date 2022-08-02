@@ -27,13 +27,16 @@
 		function onEmulatedCountryRegionChanged
 			on changing selected country region
 ]]
-
 local PlayerEmulatorService = game:GetService("PlayerEmulatorService")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local NetworkingContext = require(Plugin.Src.ContextServices.NetworkingContext)
@@ -42,6 +45,11 @@ local DropdownModule = require(Plugin.Src.Components.DropdownModule)
 local GetCountryRegion = require(Plugin.Src.Networking.Requests.GetCountryRegion)
 local Constants = require(Plugin.Src.Util.Constants)
 local OnEmulatedCountryRegionChanged = require(Plugin.Src.Actions.OnEmulatedCountryRegionChanged)
+
+local UI = Framework.UI
+local TextLabel = UI.Decoration.TextLabel
+
+local StyleModifier = Framework.Util.StyleModifier
 
 local CountryRegionSection = Roact.PureComponent:extend("CountryRegionSection")
 
@@ -118,15 +126,25 @@ function CountryRegionSection:render()
 			Padding = theme.HORIZONTAL_LISTLAYOUT_PADDING,
 		}),
 
-		Label = Roact.createElement("TextLabel", {
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextYAlignment = Enum.TextYAlignment.Center,
-			TextColor3 = mainSwitchEnabled and theme.TextColor or theme.DisabledColor,
-			Size = theme.SECTION_LABEL_SIZE,
-			Text = localization:getText("CountryRegionSection", "LabelText"),
-			BackgroundTransparency = 1,
-			LayoutOrder = 1,
-		}),
+		Label = if FFlagDevFrameworkMigrateTextLabels then (
+			Roact.createElement(TextLabel, {
+				AutomaticSize = Enum.AutomaticSize.Y,
+				StyleModifier = if mainSwitchEnabled then nil else StyleModifier.Disabled,
+				Style = "Subtitle",
+				Text = localization:getText("CountryRegionSection", "LabelText"),
+				LayoutOrder = 1,
+			})
+		) else (
+			Roact.createElement("TextLabel", {
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Center,
+				TextColor3 = mainSwitchEnabled and theme.TextColor or theme.DisabledColor,
+				Size = theme.SECTION_LABEL_SIZE,
+				Text = localization:getText("CountryRegionSection", "LabelText"),
+				BackgroundTransparency = 1,
+				LayoutOrder = 1,
+			})
+		),
 
 		Dropdown = Roact.createElement(DropdownModule, {
 			LayoutOrder = 2,

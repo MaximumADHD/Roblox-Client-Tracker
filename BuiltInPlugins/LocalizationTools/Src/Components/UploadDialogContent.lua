@@ -4,28 +4,41 @@
 --[[
 	The content to be rendered in confirm dialog
 ]]
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local Button = UI.Button
 local HoverArea = UI.HoverArea
+local TextLabel = UI.Decoration.TextLabel
 
 local UploadDialogContent = Roact.PureComponent:extend("UploadDialogContent")
 
 local function Line(props)
-	return Roact.createElement("TextLabel", {
-		TextXAlignment = Enum.TextXAlignment.Left,
-		BackgroundTransparency = 1,
-		Text = props.Text,
-		Size = UDim2.new(1, 0, 0, 20),
-		TextColor3 = props.Color,
-		LayoutOrder = props.LayoutOrder,
-	})
+	if FFlagDevFrameworkMigrateTextLabels then
+		return Roact.createElement(TextLabel, {
+			AutomaticSize = Enum.AutomaticSize.XY,
+			Text = props.Text,
+			TextColor = props.Color,
+			LayoutOrder = props.LayoutOrder,
+		})
+	else
+		return Roact.createElement("TextLabel", {
+			TextXAlignment = Enum.TextXAlignment.Left,
+			BackgroundTransparency = 1,
+			Text = props.Text,
+			Size = UDim2.new(1, 0, 0, 20),
+			TextColor3 = props.Color,
+			LayoutOrder = props.LayoutOrder,
+		})
+	end
 end
 
 local function StringContentLine(props)

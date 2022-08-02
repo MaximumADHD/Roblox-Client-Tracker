@@ -30,7 +30,9 @@ local DebuggerStateToken = require(Models.DebuggerStateToken)
 local StepStateBundle = require(Models.StepStateBundle)
 
 local defaultDebuggerToken = DebuggerStateToken.fromData({ debuggerConnectionId = 1, stepNumber = 1 })
+local defaultDebuggerToken2 = DebuggerStateToken.fromData({ debuggerConnectionId = 1, stepNumber = 1 })
 local defaultThreadId = 1
+local defaultThreadId2 = 2
 local stepStateBundle = StepStateBundle.ctor(defaultDebuggerToken, 2, 2)
 
 return function()
@@ -239,6 +241,21 @@ return function()
 			expect(#state.listOfEnabledScopes).to.equal(3)
 			expect(#state.listOfExpressions).to.be.ok()
 			expect(#state.listOfExpressions).to.equal(0)
+		end)
+
+		it("should work when two pause events are received", function()
+			local state = WatchReducer(nil, SimPaused(defaultDebuggerToken, defaultThreadId))
+			state = WatchReducer(state, SimPaused(defaultDebuggerToken2, defaultThreadId2))
+			expect(state).to.be.ok()
+			expect(state.stateTokenToRoots).to.be.ok()
+			expect(state.stateTokenToRoots[defaultDebuggerToken2]).to.be.ok()
+			expect(state.stateTokenToRoots[defaultDebuggerToken2][defaultThreadId2]).to.be.ok()
+			state = WatchReducer(state, Resumed(defaultDebuggerToken, defaultThreadId))
+			state = WatchReducer(state, Resumed(defaultDebuggerToken2, defaultThreadId2))
+			expect(state.stateTokenToRoots[defaultDebuggerToken]).to.be.ok()
+			expect(state.stateTokenToRoots[defaultDebuggerToken][defaultThreadId]).to.equal(nil)
+			expect(state.stateTokenToRoots[defaultDebuggerToken2]).to.be.ok()
+			expect(state.stateTokenToRoots[defaultDebuggerToken2][defaultThreadId2]).to.equal(nil)
 		end)
 
 		it("should preserve immutability", function()

@@ -1,3 +1,4 @@
+local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -7,16 +8,11 @@ local ContextServices = Framework.ContextServices
 
 local StudioUI = Framework.StudioUI
 local DockWidget = StudioUI.DockWidget
-local PluginToolbar = StudioUI.PluginToolbar
-local PluginButton = StudioUI.PluginButton
 
 local Manager = require(Plugin.Src.Components.Manager)
 local ToolSelectionListener = require(Plugin.Src.Components.ToolSelectionListener)
 
 local Constants = require(Plugin.Src.Util.Constants)
-
-local EDITOR_META_NAME = "Editor"
-local TOOLBAR_NAME = "TerrainToolsLuaToolbarName"
 
 local INITIAL_WIDGET_SIZE = Vector2.new(300, 600)
 
@@ -145,7 +141,7 @@ function TerrainTools:render()
 		calloutController,
 	}, {
 		TerrainTools = Roact.createElement(DockWidget, {
-			Title = localization:get():getText("Main", "Title"),
+			Title = if FFlagRemoveUILibraryCompatLocalization then localization:getText("Main", "Title") else localization:get():getText("Main", "Title"),
 			Enabled = enabled,
 
 			Widget = self.props.pluginLoaderContext and

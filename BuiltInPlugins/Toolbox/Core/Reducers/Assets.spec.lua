@@ -1,5 +1,3 @@
-local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
-
 return function()
 	local Plugin = script.Parent.Parent.Parent
 	local Packages = Plugin.Packages
@@ -200,11 +198,6 @@ return function()
 
 			networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({ 1, 2 })):andThen(function(results)
 				local assetsList = results.responseBody.Results
-
-				if not FFlagToolboxUsePageInfoInsteadOfAssetContext then
-					AssetAnalytics.addContextToAssetResults(assetsList, stubPageInfo)
-				end
-
 				state = Assets(state, GetAssets(assetsList))
 			end)
 
@@ -218,11 +211,6 @@ return function()
 
 			networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({ 3 })):andThen(function(results)
 				local assetsList = results.responseBody.Results
-
-				if not FFlagToolboxUsePageInfoInsteadOfAssetContext then
-					stubPageInfo.targetPage = 2
-					AssetAnalytics.addContextToAssetResults(assetsList, stubPageInfo)
-				end
 				state = Assets(state, GetAssets(assetsList))
 			end)
 

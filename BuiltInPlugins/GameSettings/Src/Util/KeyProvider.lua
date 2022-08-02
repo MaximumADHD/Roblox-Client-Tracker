@@ -1,5 +1,4 @@
 -- Centralized Place for Keys used throughout the widget
-local FFlagGreyOutCollabEditingForTeamCreateOff2 = game:GetFastFlag("GreyOutCollabEditingForTeamCreateOff2")
 local KeyProvider = {}
 
 function KeyProvider.getCopyIdKeyName()
@@ -103,8 +102,6 @@ function KeyProvider.getScriptCollaborationEnabledOnServerKeyName()
 end
 
 function KeyProvider.getTeamCreateEnabledKeyName()
-	assert(FFlagGreyOutCollabEditingForTeamCreateOff2)
-
     return "TeamCreateEnabled"
 end
 

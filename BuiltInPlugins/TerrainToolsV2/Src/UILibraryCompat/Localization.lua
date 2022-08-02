@@ -1,3 +1,7 @@
+local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
+if FFlagRemoveUILibraryCompatLocalization then
+	return {}
+end
 --[[
 	Same as UILibrary Localization.lua but with dev framework Signal
 ]]

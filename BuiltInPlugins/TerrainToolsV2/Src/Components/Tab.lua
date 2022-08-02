@@ -1,7 +1,7 @@
 --[[
 	Renders the top tab which allows switching tab-view by clicking
 ]]
-
+local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -21,7 +21,7 @@ end
 
 function Tab:render()
 	local theme = self.props.Theme:get()
-	local localization = self.props.Localization:get()
+	local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
 
 	local tabId = self.props.TabId
 	local text = localization:getText("Tab", tabId)
@@ -60,12 +60,9 @@ function Tab:render()
 	})
 end
 
-
 Tab = withContext({
 	Theme = ContextItems.UILibraryTheme,
-	Localization = ContextItems.UILibraryLocalization,
+	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
 })(Tab)
-
-
 
 return Tab

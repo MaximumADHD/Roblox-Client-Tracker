@@ -29,6 +29,9 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
+
 local Util = Framework.Util
 local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
 local GetTextSize = Util.GetTextSize
@@ -37,7 +40,10 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.Packages.UILibrary)
-local TitledFrame = UILibrary.Component.TitledFrame
+
+local UI = Framework.UI
+local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
+
 local ToggleButton = UILibrary.Component.ToggleButton
 
 local RobuxFeeBase = require(Page.Components.RobuxFeeBase)
@@ -89,7 +95,10 @@ function PaidAccess:render()
 
         LayoutOrder = layoutOrder,
     }, {
-        ToggleAndSubscriptionsAndTotal = Roact.createElement(TitledFrame, {
+        ToggleAndSubscriptionsAndTotal = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+            LayoutOrder = 1,
+			Title = title,
+        } else {
 			Title = title,
             TextSize = theme.fontStyle.Title.TextSize,
 
@@ -132,7 +141,10 @@ function PaidAccess:render()
             })),
         }),
 
-        PriceConfigPaidOnly = selected and Roact.createElement(TitledFrame, {
+        PriceConfigPaidOnly = selected and Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+            LayoutOrder = 2,
+            Title = priceTitle,
+        } else {
             Title = priceTitle,
 
             TextSize = theme.fontStyle.Normal.TextSize,

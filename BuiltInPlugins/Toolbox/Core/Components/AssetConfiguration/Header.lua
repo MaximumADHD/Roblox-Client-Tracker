@@ -5,12 +5,6 @@
 		string Title = The text to display for this header
 ]]
 
-local FFlagToolboxAssetConfigurationMatchPluginFlow = game:GetFastFlag("ToolboxAssetConfigurationMatchPluginFlow")
-
-if not FFlagToolboxAssetConfigurationMatchPluginFlow then
-	return nil
-end
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -48,7 +42,7 @@ function Header:render()
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Top,
 			Size = UDim2.new(0, 0, 0, HEADER_HEIGHT),
-		})
+		}),
 	})
 end
 

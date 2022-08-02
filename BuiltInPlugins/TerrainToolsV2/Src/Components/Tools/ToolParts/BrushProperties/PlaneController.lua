@@ -1,3 +1,4 @@
+local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent.Parent
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
@@ -24,7 +25,7 @@ local PlaneController = Roact.PureComponent:extend(script.Name)
 function PlaneController:render()
 	local props = self.props
 
-	local localization = props.Localization:get()
+	local localization = if FFlagRemoveUILibraryCompatLocalization then props.Localization else props.Localization:get()
 	local theme = props.Theme:get()
 
 	local editPlaneMode = props.EditPlaneMode
@@ -53,7 +54,7 @@ function PlaneController:render()
 			Action = Roact.createElement(Button, {
 				LayoutOrder = 1,
 				Size = UDim2.new(0, FULL_WIDTH - SPACER_WIDTH - BUTTON_HEIGHT, 0, BUTTON_HEIGHT),
-				Style = "Round",
+				Style = "RoundPrimary",
 
 				Text = name,
 				OnClick = function() self.props.SetEditPlaneMode(not self.props.EditPlaneMode) end,
@@ -74,7 +75,7 @@ function PlaneController:render()
 end
 
 PlaneController = withContext({
-	Localization = ContextItems.UILibraryLocalization,
+	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
 	Theme = ContextItems.UILibraryTheme,
 })(PlaneController)
 

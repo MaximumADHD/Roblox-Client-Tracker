@@ -62,6 +62,7 @@ local FFlagInGameMenuV1FullScreenTitleBar = game:DefineFastFlag("InGameMenuV1Ful
 local FFlagInGameMenuHomeButton = game:DefineFastFlag("InGameMenuHomeButton", false)
 local FFlagInGameMenuV1ExitModal = game:DefineFastFlag("InGameMenuV1ExitModal", false)
 local GetFFlagVoiceAbuseReportsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceAbuseReportsEnabled)
+local GetFFlagShareInviteLinkContextMenuV1Enabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -1877,6 +1878,10 @@ local function CreateSettingsHub()
 			GuiService.SelectedCoreObject = nil
 
 			this.GameSettingsPage:CloseSettingsPage()
+
+			if GetFFlagShareInviteLinkContextMenuV1Enabled() then
+				this.ShareGamePage:ClearShareInviteLink(this.ShareGameApp)
+			end
 		end
 
 		if visibilityChanged then

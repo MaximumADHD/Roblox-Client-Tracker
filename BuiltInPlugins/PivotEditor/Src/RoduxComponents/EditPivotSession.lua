@@ -18,7 +18,6 @@ local SelectionUpdaterBound = require(Plugin.Src.RoduxComponents.SelectionUpdate
 local BeginSelectingPivot = require(Plugin.Src.Actions.BeginSelectingPivot)
 local DoneSelectingPivot = require(Plugin.Src.Actions.DoneSelectingPivot)
 
-local getFFlagStudioToastNotificationsInLua = require(Plugin.Src.Flags.getFFlagStudioToastNotificationsInLua)
 local getFFlagStudioBoundingBoxMoveHandlesSetting = require(DraggerFramework.Flags.getFFlagStudioBoundingBoxMoveHandlesSetting)
 
 local EditingMode = require(Plugin.Src.Utility.EditingMode)
@@ -32,7 +31,6 @@ local ANALYTICS_NAME = "EditPivot"
 
 -- Control which StatusMessages are user facing
 local function shouldShowNotification(statusMessage)
-	assert(getFFlagStudioToastNotificationsInLua())
 	if statusMessage == StatusMessage.None or statusMessage == StatusMessage.NoSelection then
 		return false
 	else
@@ -106,21 +104,19 @@ function EditPivotSession:willUpdate(nextProps, nextState)
 	local showIndicator = nextStatusMessage == StatusMessage.None
 	self._draggerContext:setPivotIndicator(showIndicator)
 
-	if getFFlagStudioToastNotificationsInLua() then
-		local statusMessage = self.props.statusMessage
-		if statusMessage ~= nextStatusMessage then
-			-- If the status is being cleared (set to StatusMessage.None), hide the
-			-- last status message when the status is cleared.
-			if statusMessage ~= StatusMessage.None then
-				-- Has no effect if the notification has already disappeared.
-				self.props.ToastNotification:hideNotification(statusMessage)
-			end
+	local statusMessage = self.props.statusMessage
+	if statusMessage ~= nextStatusMessage then
+		-- If the status is being cleared (set to StatusMessage.None), hide the
+		-- last status message when the status is cleared.
+		if statusMessage ~= StatusMessage.None then
+			-- Has no effect if the notification has already disappeared.
+			self.props.ToastNotification:hideNotification(statusMessage)
+		end
 
-			if shouldShowNotification(nextStatusMessage) then
-				local localization = self.props.Localization
-				local message = localization:getText("Notification", nextStatusMessage)
-				self.props.ToastNotification:showNotification(message, nextStatusMessage)
-			end
+		if shouldShowNotification(nextStatusMessage) then
+			local localization = self.props.Localization
+			local message = localization:getText("Notification", nextStatusMessage)
+			self.props.ToastNotification:showNotification(message, nextStatusMessage)
 		end
 	end
 end

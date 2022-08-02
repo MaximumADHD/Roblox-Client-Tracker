@@ -132,7 +132,7 @@ end
 
 function Gui:didMount()
 	self:setState({plugin = self.props.Plugin:get()})
-	self.setStateAndRefreshConnection = self.props.plugin:OnInvoke("setStateAndRefresh", function(digestedState)
+	self.setStateAndRefreshConnection = self.props.plugin:OnInvoke("SetStateAndRefresh", function(digestedState)
 		if digestedState == nil then
 			digestedState = {}
 		end

@@ -25,8 +25,6 @@ local SetViewType = require(Actions.SetViewType)
 local Util = Plugin.Src.Util
 local CompareMaterials = require(Util.CompareMaterials)
 
-local getFFlagMaterialManagerUIGlitchFix = require(Plugin.Src.Flags.getFFlagMaterialManagerUIGlitchFix)
-
 export type State = {
 	ActiveAsTool: boolean,
 	GridLock: boolean,
@@ -110,7 +108,7 @@ return (Rodux.createReducer(initialState, {
 
 	[SetMaterialWrapper.name] = function(state: State, action: SetMaterialWrapper.Payload): State
 		local index = if action.MaterialWrapper.MaterialVariant then action.MaterialWrapper.MaterialVariant else action.MaterialWrapper.Material
-		local hasMaterial = not getFFlagMaterialManagerUIGlitchFix() or state.Material
+		local hasMaterial = state.Material
 
 		return Cryo.Dictionary.join(state, {
 			Materials = Cryo.Dictionary.join(state.Materials, {

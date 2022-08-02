@@ -8,9 +8,6 @@ local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextItem = Framework.ContextServices.ContextItem
-local Http = Framework.Http
-
-local ImageUploader = require(Plugin.Src.Controllers.ImageUploader)
 
 -- Pull the numeric part out of a content id (of form rbxasset://xyz or rbxtemp://xyz etc.)
 local function numericIdFromContentId(id)
@@ -33,13 +30,8 @@ function ImportAssetHandler.new(imageUploader, userId)
 	return self
 end
 
-function ImportAssetHandler.mock()
-	local networking = Http.Networking.new({
-		isInternal = true,
-	})
-	local imageUploader = ImageUploader.new(networking)
-
-	return ImportAssetHandler.new(imageUploader, "")
+function ImportAssetHandler.mock(imageUploader, userId)
+	return ImportAssetHandler.new(imageUploader, userId)
 end
 
 function ImportAssetHandler:handleAsset(assetFile: File, onAssetUpload: (string) -> ())

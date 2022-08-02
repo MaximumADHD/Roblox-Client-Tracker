@@ -9,7 +9,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 
-return function(instanceName, trackName, tick, multiSelect)
+return function(instanceName, trackName, tck, multiSelect)
 	return function(store)
 		local state = store:getState()
 		local status = state.Status
@@ -42,12 +42,12 @@ return function(instanceName, trackName, tick, multiSelect)
 			return
 		end
 
-		if track.Data and track.Data[tick] then
+		if track.Data and track.Data[tck] then
 			if not multiSelect then
 				store:dispatch(SetSelectedKeyframes({
 					[instanceName] = {
 						[trackName] = {
-							[tick] = true,
+							[tck] = true,
 						},
 					},
 				}))
@@ -55,9 +55,9 @@ return function(instanceName, trackName, tick, multiSelect)
 				local newInstance = selectedKeyframes[instanceName] ~= nil and selectedKeyframes[instanceName] or {}
 				local newTrack = newInstance[trackName] ~= nil and newInstance[trackName] or {}
 
-				if not newTrack[tick] then
+				if not newTrack[tck] then
 					local newKeyframes = Cryo.Dictionary.join(newTrack, {
-						[tick] = true,
+						[tck] = true,
 					})
 
 					store:dispatch(SetSelectedKeyframes(Cryo.Dictionary.join(selectedKeyframes, {

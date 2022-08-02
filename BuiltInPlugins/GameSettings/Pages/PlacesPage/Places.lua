@@ -27,17 +27,13 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryRoundTextBox = Framework.SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
+local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-
-local UI = Framework.UI
-local Button = UI.Button
-local HoverArea = UI.HoverArea
-local Separator = UI.Separator
-local LinkText = UI.LinkText
-local TextInput2 = UI.TextInput2
 
 local Util = Framework.Util
 local deepJoin = Util.deepJoin
@@ -45,8 +41,15 @@ local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
 local GetTextSize = Util.GetTextSize
 local LayoutOrderIterator = Util.LayoutOrderIterator
 
-local UILibrary = require(Plugin.Packages.UILibrary)
-local TitledFrame = UILibrary.Component.TitledFrame
+local UILibrary = if FFlagRemoveUILibraryTitledFrame and FFlagRemoveUILibraryRoundTextBox then nil else require(Plugin.Packages.UILibrary)
+	
+local UI = Framework.UI
+local Button = UI.Button
+local HoverArea = UI.HoverArea
+local Separator = UI.Separator
+local LinkText = UI.LinkText
+local TextInput2 = UI.TextInput2
+local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
 
 local RoundTextBox
 if not FFlagRemoveUILibraryRoundTextBox then
@@ -427,7 +430,10 @@ local function displayEditPlacePage(props, localization)
 			}),
 		}),
 
-		Name = Roact.createElement(TitledFrame, {
+		Name = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Title = localization:getText("General", "TitleName"),
+		} else {
 			Title = localization:getText("General", "TitleName"),
 			MaxHeight = 60,
 			LayoutOrder = layoutIndex:getNextOrder(),
@@ -456,7 +462,10 @@ local function displayEditPlacePage(props, localization)
 			),
 		}),
 
-		MaxPlayers = Roact.createElement(TitledFrame, {
+		MaxPlayers = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Title = localization:getText("Places", "MaxPlayers"),
+		} else {
 			Title = localization:getText("Places", "MaxPlayers"),
 			MaxHeight = 60,
 			LayoutOrder = layoutIndex:getNextOrder(),
@@ -554,7 +563,10 @@ local function displayEditPlacePage(props, localization)
 			end,
 		}),
 
-		VersionHistory = Roact.createElement(TitledFrame, {
+		VersionHistory = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Title = localization:getText("Places", "VersionHistory"),
+		} else {
 			Title = localization:getText("Places", "VersionHistory"),
 			MaxHeight = 60,
 			LayoutOrder = layoutIndex:getNextOrder(),

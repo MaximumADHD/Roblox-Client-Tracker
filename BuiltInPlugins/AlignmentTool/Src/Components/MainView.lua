@@ -4,7 +4,6 @@
 	Contains a UI section for each alignment setting, and button for aligning
 	the selection using the current settings.
 ]]
-
 local Plugin = script.Parent.Parent.Parent
 
 local DraggerSchemaCore = Plugin.Packages.DraggerSchemaCore
@@ -17,6 +16,9 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
 
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local UI = Framework.UI
@@ -24,6 +26,7 @@ local Button = UI.Button
 local Container = UI.Container
 local Decoration = UI.Decoration
 local ScrollingFrame = UI.ScrollingFrame
+local TextLabel = UI.Decoration.TextLabel
 
 local Util = Framework.Util
 local LayoutOrderIterator = Util.LayoutOrderIterator
@@ -31,7 +34,10 @@ local StyleModifier = Util.StyleModifier
 
 local SetAlignableObjects = require(Plugin.Src.Actions.SetAlignableObjects)
 local AlignmentSettings = require(Plugin.Src.Components.AlignmentSettings)
-local InfoLabel = require(Plugin.Src.Components.InfoLabel)
+local InfoLabel
+if not FFlagDevFrameworkMigrateTextLabels then
+	InfoLabel = require(Plugin.Src.Components.InfoLabel)
+end
 local AlignObjectsPreview = require(Plugin.Src.Components.AlignObjectsPreview)
 local UpdateAlignEnabled = require(Plugin.Src.Thunks.UpdateAlignEnabled)
 local UpdateAlignment = require(Plugin.Src.Thunks.UpdateAlignment)
@@ -104,7 +110,13 @@ function MainView:render()
 				LayoutOrder = layoutOrderIterator:getNextOrder(),
 			}),
 
-			InfoLabel = Roact.createElement(InfoLabel, {
+			InfoLabel = if FFlagDevFrameworkMigrateTextLabels then Roact.createElement(TextLabel, {
+				AutomaticSize = Enum.AutomaticSize.Y,
+				LayoutOrder = layoutOrderIterator:getNextOrder(),
+				Text = errorText or "",
+				Size = UDim2.fromScale(1, 0),
+				Style = "Error"
+			}) else Roact.createElement(InfoLabel, {
 				LayoutOrder = layoutOrderIterator:getNextOrder(),
 				Text = errorText,
 				Type = InfoLabel.Error,

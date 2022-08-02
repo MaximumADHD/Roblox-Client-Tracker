@@ -49,7 +49,7 @@ function SummaryTrack:getSummaryKeyframes()
 	return TrackUtils.getSummaryKeyframes(tracks, startTick, endTick, selectedKeyframes, previewKeyframes)
 end
 
-function SummaryTrack:renderKeyframe(selected, xOffset, tick, name)
+function SummaryTrack:renderKeyframe(selected, xOffset, tck, name)
 	local props = self.props
 	return Roact.createElement(Keyframe, {
 		Selected = selected,
@@ -62,15 +62,15 @@ function SummaryTrack:renderKeyframe(selected, xOffset, tick, name)
 
 		OnActivated = props.OnKeyActivated,
 		OnRightClick = function(_, input)
-			props.OnKeyRightClick(nil, nil, tick, selected)
+			props.OnKeyRightClick(nil, nil, tck, selected)
 		end,
 
 		OnInputBegan = function(_, input)
-			props.OnKeyInputBegan(nil, nil, tick, selected, input)
+			props.OnKeyInputBegan(nil, nil, tck, selected, input)
 		end,
 
 		OnInputEnded = function(_, input)
-			props.OnKeyInputEnded(tick, selected, input)
+			props.OnKeyInputEnded(tck, selected, input)
 		end,
 	}, {
 		Tooltip = name and Roact.createElement(Tooltip, {
@@ -111,11 +111,11 @@ function SummaryTrack:renderKeyframes(keys)
 		keys[endIndex] = self:renderKeyframeCluster(clusterXPos, clusterXPosEnd, Constants.MIN_SPACE_BETWEEN_KEYS)
 	elseif startIndex ~= nil and endIndex ~= nil then
 		for index = startIndex, endIndex do
-			local tick = ticks[index]
-			local xPos = TrackUtils.getScaledKeyframePosition(tick, startTick, endTick, width)
-			local selected = selectedTicks[tick]
+			local tck = ticks[index]
+			local xPos = TrackUtils.getScaledKeyframePosition(tck, startTick, endTick, width)
+			local selected = selectedTicks[tck]
 
-			keys[index] = self:renderKeyframe(selected, xPos, tick, namedKeyframes[tick])
+			keys[index] = self:renderKeyframe(selected, xPos, tck, namedKeyframes[tck])
 		end
 	end
 end

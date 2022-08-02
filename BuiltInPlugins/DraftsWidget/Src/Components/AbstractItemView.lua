@@ -43,14 +43,16 @@
 		alternative is to create a global reducer for _every_ AbstractItemView (list/grid view) which is absolutely awful.
 		Example use cases: on PluginAction keybind invoke, delete the selection; on button click, commit the selection
 --]]
-local FFlagUpdateDraftsWidgetToDFContextServices = game:GetFastFlag("UpdateDraftsWidgetToDFContextServices")
 local Plugin = script.Parent.Parent.Parent
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
+local Framework = require(Plugin.Packages.Framework)
+
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local ContextMenus = UILibrary.Studio.ContextMenus
-local withLocalization = if FFlagUpdateDraftsWidgetToDFContextServices then nil else UILibrary.Localizing.withLocalization
 
 local Button = UILibrary.Component.Button
 
@@ -195,7 +197,7 @@ function AbstractItemView:init()
 		self.selectionChanged(self.state.selection)
 	end
 
-	self.makeMenuActions = function(DEPRECATED_localization)
+	self.makeMenuActions = function()
 		local items = self.props.Items
 		local makeMenuActions = self.props.MakeMenuActions
 
@@ -205,7 +207,7 @@ function AbstractItemView:init()
 				table.insert(selectedIds, id)
 			end
 		end
-		return makeMenuActions(DEPRECATED_localization, selectedIds)
+		return makeMenuActions(selectedIds)
 	end
 
 	self.getSelectedIds = function()
@@ -287,23 +289,23 @@ function AbstractItemView:render()
 		self.selectionChanged(self.state.selection)
 	end
 
-	local function renderWithContext(DEPRECATED_localization)
-		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, 0),
-			BackgroundTransparency = 1,
-		}, {
-			Contents = renderContents(itemList),
+	return Roact.createElement("Frame", {
+		Size = UDim2.new(1, 0, 1, 0),
+		BackgroundTransparency = 1,
+	}, {
+		Contents = renderContents(itemList),
 
-			ContextMenu = self.state.contextMenuOpened and Roact.createElement(ContextMenus.ContextMenu, {
-				Actions = self.makeMenuActions(DEPRECATED_localization),
-				OnMenuOpened = function()
-					self:setState({contextMenuOpened = false})
-				end,
-			}),
-		})
-	end
-
-	return if FFlagUpdateDraftsWidgetToDFContextServices then renderWithContext() else withLocalization(renderWithContext)
+		ContextMenu = self.state.contextMenuOpened and Roact.createElement(ContextMenus.ContextMenu, {
+			Actions = self.makeMenuActions(),
+			OnMenuOpened = function()
+				self:setState({contextMenuOpened = false})
+			end,
+		}),
+	})
 end
+
+AbstractItemView = withContext({
+	Localization = ContextServices.Localization,
+})(AbstractItemView)
 
 return AbstractItemView

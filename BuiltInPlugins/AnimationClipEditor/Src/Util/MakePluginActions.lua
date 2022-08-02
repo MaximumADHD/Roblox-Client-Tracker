@@ -12,7 +12,6 @@ local ACTION_KEYS = {
 	"CopySelected",
 	"CutSelected",
 	"DeleteSelected",
-	"DeleteSelectedBackspace",
 	"ResetSelected",
 	"AddKeyframeHere",
 	"AddResetKeyframe",
@@ -29,7 +28,6 @@ local ACTION_KEYS = {
 	"EditEvents",
 	"AddEvent",
 	"DeleteEvents",
-	"DeleteEventsBackspace",
 	"PasteEvents",
 
 	-- Track manipulation
@@ -89,14 +87,12 @@ return function(plugin, localization)
 	actions.CopySelected.defaultShortcut = "Ctrl+C"
 	actions.CutSelected.defaultShortcut = "Ctrl+X"
 	actions.DeleteSelected.defaultShortcut = "Delete"
-	actions.DeleteSelectedBackspace.defaultShortcut = "Backspace"
 	actions.PasteKeyframes.defaultShortcut = "Ctrl+V"
 	actions.AddKeyframeAtScrubber.defaultShortcut = "K"
 
 	actions.CopyEvents.defaultShortcut = "Ctrl+C"
 	actions.CutEvents.defaultShortcut = "Ctrl+X"
 	actions.DeleteEvents.defaultShortcut = "Delete"
-	actions.DeleteEventsBackspace.defaultShortcut = "Backspace"
 	actions.PasteEvents.defaultShortcut = "Ctrl+V"
 
 	actions.Undo.defaultShortcut = "Ctrl+Z"

@@ -21,8 +21,6 @@ local StudioService = game:GetService("StudioService")
 
 local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
-local FFlagAssetManagerFixOpenAssetPreview1 = game:GetFastFlag("AssetManagerFixOpenAssetPreview1")
-
 local MAX_PREVIEW_WIDTH = 640
 
 local PADDING = 32
@@ -111,18 +109,9 @@ function AssetPreviewWrapper:render()
 	local theme = props.Stylizer
 
 	local assetData = props.AssetPreviewData
-	local selectedInstance
-	local favoriteCount
-	local favorited
-	if FFlagAssetManagerFixOpenAssetPreview1 then
-		selectedInstance = if self.state.selectedPreviewInstance then self.state.selectedPreviewInstance else assetData.rootTreeViewInstance
-		favoriteCount = if assetData.favoriteCount then tonumber(assetData.favoriteCount) else 0
-		favorited = if assetData.favorited then assetData.favorited else false
-	else
-		selectedInstance = self.state.selectedPreviewInstance or assetData.rootTreeViewInstance
-		favoriteCount = assetData.favoriteCount and assetData.favoriteCount or 0
-		favorited = assetData.favorited and assetData.favorited or false
-	end
+	local selectedInstance = if self.state.selectedPreviewInstance then self.state.selectedPreviewInstance else assetData.rootTreeViewInstance
+	local favoriteCount = if assetData.favoriteCount then tonumber(assetData.favoriteCount) else 0
+	local favorited = if assetData.favorited then assetData.favorited else false     
 
 	local maxPreviewWidth = math.min(state.maxPreviewWidth, MAX_PREVIEW_WIDTH)
 	local maxPreviewHeight = state.maxPreviewHeight

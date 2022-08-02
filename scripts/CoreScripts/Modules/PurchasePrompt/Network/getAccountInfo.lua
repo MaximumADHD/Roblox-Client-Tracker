@@ -6,15 +6,19 @@ local Promise = require(Root.Promise)
 
 local MAX_ROBUX = 2147483647
 
+local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
+
 local function getAccountInfo(network, externalSettings)
 	return network.getAccountInfo()
 		:andThen(function(result)
-			--[[
-				In studio, we falsely report that users have the maximum amount
-				 of robux, so that they can always test the normal purchase flow
-			]]
-			if externalSettings.isStudio() then
-				result.RobuxBalance = MAX_ROBUX
+			if not FFlagPPAccountInfoMigration then
+				--[[
+					In studio, we falsely report that users have the maximum amount
+					of robux, so that they can always test the normal purchase flow
+				]]
+				if externalSettings.isStudio() then
+					result.RobuxBalance = MAX_ROBUX
+				end
 			end
 
 			return Promise.resolve(result)

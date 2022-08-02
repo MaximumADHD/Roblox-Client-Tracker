@@ -7,12 +7,14 @@ local PurchasePromptPolicy = PolicyProvider.withGetPolicyImplementation(implemen
 
 PurchasePromptPolicy.Mapper = function(policy)
 	return {
+		--[[
 		enablePurchaseWarningChecks = function()
 			if policy.EnablePurchaseWarningChecks ~= nil then
 				return policy.EnablePurchaseWarningChecks
 			end
 			return true
 		end,
+		--]]
 	}
 end
 

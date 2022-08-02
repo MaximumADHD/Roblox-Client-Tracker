@@ -17,8 +17,8 @@
 
 		number currentSoundId
 ]]
-local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
 local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
+local FFlagToolboxUseGetVote = game:GetFastFlag("ToolboxUseGetVote")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
@@ -51,6 +51,7 @@ local PermissionsConstants = require(Plugin.Core.Components.AssetConfiguration.P
 
 local GetOwnsAssetRequest = require(Plugin.Core.Networking.Requests.GetOwnsAssetRequest)
 local GetCanManageAssetRequest = require(Plugin.Core.Networking.Requests.GetCanManageAssetRequest)
+local GetVoteRequest = FFlagToolboxUseGetVote and require(Plugin.Core.Networking.Requests.GetVoteRequest)
 
 local SetAssetPreview = require(Plugin.Core.Actions.SetAssetPreview)
 local NavigationContext = require(Plugin.Core.ContextServices.NavigationContext)
@@ -62,7 +63,8 @@ local FrameworkUtil = if FFlagAssetVoteSimplification then Framework.Util else n
 local formatVoteNumber = if FFlagAssetVoteSimplification then FrameworkUtil.formatVoteNumber else nil
 local getTextSize = if FFlagAssetVoteSimplification then FrameworkUtil.GetTextSize else nil
 
-local disableRatings = require(Plugin.Core.Util.ToolboxUtilities).disableRatings
+local disableRatings = not FFlagToolboxUseGetVote and require(Plugin.Core.Util.ToolboxUtilities).disableRatings
+local ratingsDisabled = FFlagToolboxUseGetVote and require(Plugin.Core.Util.ToolboxUtilities).disableRatings
 
 local Category = require(Plugin.Core.Types.Category)
 
@@ -85,8 +87,14 @@ function Asset:init(props)
 	}
 	local canInsertAsset = props.canInsertAsset
 
+	-- showVotes in voting prop is set to true from the back end even when it shouldn't be -- e.g. for assets in the Inventory. So we'll set it to false by default and override it in render
+	self.showVotes = if FFlagToolboxUseGetVote then false else nil
 	self.onMouseEntered = function(rbx, x, y)
 		self.props.onAssetHovered(self.props.assetId)
+		if FFlagToolboxUseGetVote and self.showVotes then
+			local categoryNameEnum = Category.getCategoryByName(self.props.categoryName).assetType
+			props.getVote(getNetwork(self), self.props.assetId, Category.getAssetTypeByNumber(categoryNameEnum))
+		end
 	end
 
 	self.onMouseLeave = function(rbx, x, y)
@@ -139,11 +147,8 @@ function Asset:init(props)
 		local plugin = props.Plugin:get()
 		local tryOpenAssetConfig = props.tryOpenAssetConfig
 
-		local assetAnalyticsContext
-		if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-			local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
-			assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
-		end
+		local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
+		local assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
 
 		self.props.tryCreateContextMenu(assetData, localization, plugin, tryOpenAssetConfig, assetAnalyticsContext)
 	end
@@ -187,10 +192,9 @@ function Asset:init(props)
 
 		if assetData and wasAssetBoundsWithinScrollingBounds and not self.wasAssetBoundsWithinScrollingBounds then
 			local assetAnalyticsContext
-			if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-				local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
-				assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
-			end
+			local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
+			assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
+
 			local swimlaneName = self.props.swimlaneCategory
 			local nav = self.props.NavigationContext:get()
 			local analytics = self.props.AssetAnalytics:get()
@@ -211,11 +215,9 @@ function Asset:didMount()
 	self.props.getCanManageAsset(getNetwork(self), assetId)
 
 	if assetData then
-		local assetAnalyticsContext
-		if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-			local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
-			assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
-		end
+		local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
+		local assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
+
 		local swimlaneName = self.props.swimlaneCategory
 		local nav = self.props.NavigationContext:get()
 		local analytics = self.props.AssetAnalytics:get()
@@ -285,8 +287,16 @@ function Asset:renderContent(theme, localization, localizedContent)
 	local votingProps = props.voting or {}
 	local showVotes = votingProps.ShowVotes
 	local isCurrentlyCreationsTab = Category.getTabForCategoryName(props.categoryName) == Category.CREATIONS
-	if isCurrentlyCreationsTab or showAudioLength or disableRatings() then
+	local isMarketplaceTab = FFlagToolboxUseGetVote
+		and Category.getTabForCategoryName(props.categoryName) == Category.MARKETPLACE
+	if FFlagToolboxUseGetVote and (not isMarketplaceTab or showAudioLength or ratingsDisabled()) then
 		showVotes = false
+	elseif not FFlagToolboxUseGetVote and (isCurrentlyCreationsTab or showAudioLength or disableRatings()) then
+		showVotes = false
+	end
+	-- When removing this flag, make all of showVotes using self
+	if FFlagToolboxUseGetVote then
+		self.showVotes = showVotes
 	end
 
 	local showStatus = isCurrentlyCreationsTab
@@ -299,18 +309,28 @@ function Asset:renderContent(theme, localization, localizedContent)
 
 	local showPrices = Category.shouldShowPrices(props.categoryName)
 
-	local assetOutlineHeight, showVoteButtons, showVoteCounts, hasEnoughRatings, useOneLineForAssetName, assetNameOnlyNeedsOneLine, assetNameFontSize, assetNameFont
+	local assetOutlineHeight, showVoteButtons, showVoteCounts, hasEnoughRatings, useOneLineForAssetName, assetNameOnlyNeedsOneLine, assetNameFontSize, assetNameFont, showVoteLoading
 	if FFlagAssetVoteSimplification then
 		hasEnoughRatings = votingProps ~= nil
 			and votingProps.VoteCount ~= nil
 			and formatVoteNumber.hasEnoughRatings(votingProps.VoteCount)
 		showVoteCounts = showVotes and isHovered and hasEnoughRatings
 		showVoteButtons = showVotes and votingProps ~= nil and votingProps.showVoteButtons
+		showVoteLoading = FFlagToolboxUseGetVote
+			and showVotes
+			and isHovered
+			and votingProps ~= nil
+			and votingProps.VoteLoading
 		-- Once a user inserts an asset, VoteButtons show regardless of hovering but we only want to change the outline when hovered
-		if showVoteButtons and isHovered then
+		if
+			(FFlagToolboxUseGetVote and showVoteButtons)
+			or (not FFlagToolboxUseGetVote and showVoteButtons and isHovered)
+		then
 			assetOutlineHeight = Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTE_BUTTONS_HOVERED
 			-- VoteCounts will only show when hovered, so we don't need to check for hover state like above
-		elseif showVoteCounts then
+		elseif showVoteCounts or (FFlagToolboxUseGetVote and showVoteLoading) then
+			-- Make the height with vote count what we use when loading since it's more likely that users will not have voted an asset (meaning we show vote count once finished loading) than if they have (meaning we show vote buttons)
+			-- Having the same height during loading and after creates a smoother UX
 			assetOutlineHeight = Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTING_COUNT
 		else
 			assetOutlineHeight = Constants.ASSET_OUTLINE_EXTRA_HEIGHT
@@ -520,6 +540,22 @@ function Asset:renderContent(theme, localization, localizedContent)
 				})
 				elseif
 					FFlagAssetVoteSimplification
+					-- If an asset is hovered, show the vote counts and percentage. if an asset is inserted (making showvotebuttons true) then we want to show the vote buttons even after they hover.
+					-- If we're still fetching the vote, show the vote loading spinner.
+					-- The same component is used for vote bar, vote buttons, and vote loading, so we use this boolean to determine whether to show that component
+					and FFlagToolboxUseGetVote
+					and (showVoteCounts or showVoteButtons or showVoteLoading)
+				then
+					Roact.createElement(Voting, {
+						-- if we're showing buttons to vote, move them to before the creator name (layout order 25). But if we're showing the vote count or loading animation, keep it after (layout order 35).
+						LayoutOrder = if showVoteButtons then 25 else 35,
+						assetId = assetId,
+						voting = votingProps,
+						showBackgroundBox = isHovered,
+					})
+
+				elseif
+					FFlagAssetVoteSimplification
 					-- if an asset is hovered, show the vote counts and percentage. if an asset is inserted (making showvotebuttons true) then we want to show the vote buttons even after they hover.
 					-- The same component is used for vote bar and vote buttons, so we use this boolean to determine whether to show that component
 					and (showVoteCounts or showVoteButtons)
@@ -654,6 +690,10 @@ local function mapDispatchToProps(dispatch)
 			dispatch(GetCanManageAssetRequest(networkInterface, assetId))
 		end,
 
+		getVote = function(networkInterface: any, assetId: number, assetType: number)
+			dispatch(GetVoteRequest(networkInterface, assetId, assetType, true))
+		end,
+
 		onPreviewToggled = function(isPreviewing, previewAssetId)
 			dispatch(SetAssetPreview(isPreviewing, previewAssetId))
 		end,
@@ -664,11 +704,9 @@ local function mapDispatchToProps(dispatch)
 			)
 		end,
 
-		getPageInfoAnalyticsContextInfo = if FFlagToolboxUsePageInfoInsteadOfAssetContext
-			then function()
-				return dispatch(GetPageInfoAnalyticsContextInfo())
-			end
-			else nil,
+		getPageInfoAnalyticsContextInfo = function()
+			return dispatch(GetPageInfoAnalyticsContextInfo())
+		end,
 	}
 end
 

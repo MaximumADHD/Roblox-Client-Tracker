@@ -174,6 +174,12 @@ local PluginTheme = {
 		friendsAccessTextPosition = UDim2.new(1, -28, 0, 14),
 
 		searchIcon = _StyleKey.SubText,
+		friendIcon = {
+			Image = _StyleKey.FriendIcon,
+			LabelWidth = 20,
+			LabelHeight = 13,
+			FrameWidth = 37,
+		},
 
 		clearButton = {
 			imageSelected = _StyleKey.SubText,
@@ -189,6 +195,9 @@ local PluginTheme = {
 		searchBarHeight = 40,
 		clearButtonIconSize = 32,
 		textPadding = 16,
+		nameLabelWidth = 480,
+		
+		
 
 		dropDown = {
 			collaboratorTypeText = {
@@ -338,6 +347,7 @@ return function(createMock: boolean?)
 		[_StyleKey.CloseWidget] = "rbxasset://textures/ManageCollaborators/closeWidget_dark.png",
 		[_StyleKey.RightArrow] = "rbxasset://textures/ManageCollaborators/arrowRight_dark.png",
 		[_StyleKey.DownArrow] = "rbxasset://textures/ManageCollaborators/arrowDown_dark.png",
+		[_StyleKey.FriendIcon] = "rbxasset://textures/ManageCollaborators/friendIcon_dark.png",
 		[_StyleKey.FooterBorder] = Color3.fromRGB(0, 0, 0),
 	})
 	
@@ -345,6 +355,7 @@ return function(createMock: boolean?)
 		[_StyleKey.CloseWidget] = "rbxasset://textures/ManageCollaborators/closeWidget_light.png",
 		[_StyleKey.RightArrow] = "rbxasset://textures/ManageCollaborators/arrowRight_light.png",
 		[_StyleKey.DownArrow] = "rbxasset://textures/ManageCollaborators/arrowDown_light.png",
+		[_StyleKey.FriendIcon] = "rbxasset://textures/ManageCollaborators/friendIcon_light.png",
 		[_StyleKey.FooterBorder] = Color3.fromRGB(244, 244, 244),
 		[_StyleKey.Dropdown] = Color3.fromRGB(228, 238, 254),
 	})

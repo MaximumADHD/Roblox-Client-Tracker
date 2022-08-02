@@ -17,6 +17,7 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 local Constants = require(InGameMenu.Resources.Constants)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local ExperienceMenuABTestManager = require(InGameMenu.ExperienceMenuABTestManager)
+local GetFFlagSelfMuteConnectingFix = require(InGameMenu.Flags.GetFFlagSelfMuteConnectingFix)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceConstants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
@@ -46,7 +47,12 @@ function MuteSelfButton:init()
 		if GetFFlagEnableVoiceChatManualReconnect() and self.props.voiceState == VoiceConstants.VOICE_STATE.ERROR then
 			VoiceChatServiceManager:RejoinPreviousChannel()
 		else
+			if GetFFlagSelfMuteConnectingFix() and self.localMuted == nil then -- Voice still connecting
+				self.props.setQuickActionsTooltip(self.connecting or "Connecting...")
+				return
+			end
 			VoiceChatServiceManager:ToggleMic()
+
 			if self.state.selfMuted then
 				self.props.setQuickActionsTooltip(self.unmuteSelf or "Unmute Self")
 			else
@@ -74,9 +80,11 @@ function MuteSelfButton:render()
 	return withLocalization({
 		muteSelf = "CoreScripts.InGameMenu.QuickActions.MuteSelf",
 		unmuteSelf = "CoreScripts.InGameMenu.QuickActions.UnmuteSelf",
+		connecting = "CoreScripts.InGameMenu.QuickActions.Connecting",
 	})(function(localized)
 		self.muteSelf = localized.muteSelf
 		self.unmuteSelf = localized.unmuteSelf
+		self.connecting = localized.connecting
 		return Roact.createElement(IconButton, {
 			backgroundTransparency = self.props.backgroundTransparency,
 			backgroundColor = self.props.backgroundColor,

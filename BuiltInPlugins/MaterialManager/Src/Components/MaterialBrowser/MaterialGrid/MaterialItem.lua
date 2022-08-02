@@ -11,7 +11,6 @@ local Localization = ContextServices.Localization
 
 local Stylizer = Framework.Style.Stylizer
 
-local ApplyToSelection = require(Plugin.Src.Util.ApplyToSelection)
 local GeneralServiceController = require(Plugin.Src.Controllers.GeneralServiceController)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local MaterialController = require(Plugin.Src.Controllers.MaterialController)
@@ -24,10 +23,6 @@ local getMaterialName = require(Constants.getMaterialName)
 local MaterialGrid = Plugin.Src.Components.MaterialBrowser.MaterialGrid
 local MaterialListItem = require(MaterialGrid.MaterialListItem)
 local MaterialTileItem = require(MaterialGrid.MaterialTileItem)
-
-local Flags = Plugin.Src.Flags
-local getFFlagMaterialManagerUtilTests = require(Flags.getFFlagMaterialManagerUtilTests)
-local getFFlagMaterialManagerAnalyticsCounter = require(Flags.getFFlagMaterialManagerAnalyticsCounter)
 
 export type Props = {
 	MaterialItem: _Types.Material,
@@ -93,14 +88,8 @@ function MaterialItem:init()
 		local props : _Props = self.props
 		local materialItem = props.MaterialItem
 
-		if getFFlagMaterialManagerUtilTests() then
-			props.GeneralServiceController:ApplyToSelection(materialItem.Material, if materialItem.MaterialVariant then materialItem.MaterialVariant.Name else nil)
-		else
-			ApplyToSelection(materialItem.Material, if materialItem.MaterialVariant then materialItem.MaterialVariant.Name else nil)
-		end
-		if getFFlagMaterialManagerAnalyticsCounter() then
-			props.Analytics:report("applyToSelectionAction")
-		end
+		props.GeneralServiceController:ApplyToSelection(materialItem.Material, if materialItem.MaterialVariant then materialItem.MaterialVariant.Name else nil)
+		props.Analytics:report("applyToSelectionAction")
 	end
 
 	self.state = {

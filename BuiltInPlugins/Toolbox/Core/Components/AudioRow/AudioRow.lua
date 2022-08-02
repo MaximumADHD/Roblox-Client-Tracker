@@ -1,8 +1,6 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
 
-local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
-
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
@@ -165,11 +163,8 @@ function AudioRow:didMount()
 		logImpression(asset)
 	else
 		if asset then
-			local assetAnalyticsContext
-			if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-				local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
-				assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
-			end
+			local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
+			local assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
 			self.props.AssetAnalytics:get():logImpression(asset, assetAnalyticsContext)
 		end
 	end
@@ -223,17 +218,15 @@ function AudioRow:renderContent(localizedContent: any)
 	end
 
 	local tryCreateLocalizedContextMenu = function()
-		if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-			local props: AudioRowProps = self.props
-			local assetInfo = props.AssetInfo
-			local plugin = props.Plugin:get()
-			local tryOpenAssetConfig = props.tryOpenAssetConfig
+		local props: AudioRowProps = self.props
+		local assetInfo = props.AssetInfo
+		local plugin = props.Plugin:get()
+		local tryOpenAssetConfig = props.tryOpenAssetConfig
 
-			local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
-			local assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
+		local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
+		local assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
 
-			props.tryCreateContextMenu(assetInfo, localizedContent, plugin, tryOpenAssetConfig, assetAnalyticsContext)
-		end
+		props.tryCreateContextMenu(assetInfo, localizedContent, plugin, tryOpenAssetConfig, assetAnalyticsContext)
 	end
 
 	if isSoundEffectType then
@@ -556,11 +549,9 @@ local function mapDispatchToProps(dispatch)
 				TryCreateContextMenu(assetData, localizedContent, plugin, tryOpenAssetConfig, assetAnalyticsContext)
 			)
 		end,
-		getPageInfoAnalyticsContextInfo = if FFlagToolboxUsePageInfoInsteadOfAssetContext
-			then function()
-				return dispatch(GetPageInfoAnalyticsContextInfo())
-			end
-			else nil,
+		getPageInfoAnalyticsContextInfo = function()
+			return dispatch(GetPageInfoAnalyticsContextInfo())
+		end,
 	}
 end
 

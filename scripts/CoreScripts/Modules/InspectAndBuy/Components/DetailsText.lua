@@ -15,9 +15,6 @@ local Constants = require(InspectAndBuyFolder.Constants)
 local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
 local getSelectionImageObjectRegular = require(InspectAndBuyFolder.getSelectionImageObjectRegular)
 
-local FFlagInspectAndBuyLayeredClothingR6Support =
-	require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyLayeredClothingR6Support)
-
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
 
 local PremiumIcon = UIBloxImages["icons/status/premium"]
@@ -70,12 +67,9 @@ function DetailsText:render()
 	local multipleBundles = assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn > 1
 	local showPremiumIcon = assetInfo.premiumPricing ~= nil
 	local premiumIconPadding = showPremiumIcon and (UIBloxIconSize.Regular + PREMIUM_ICON_PADDING) or 0
-	local layeredClothingOnR6 = false
-	if FFlagInspectAndBuyLayeredClothingR6Support then
-		-- add notification when inspecting layered clothing asset on R6
-		layeredClothingOnR6 = Constants.LayeredAssetTypes[assetInfo.assetTypeId] ~= nil and self.props.localPlayerModel
-			and self.props.localPlayerModel.Humanoid.RigType == Enum.HumanoidRigType.R6
-	end
+	-- add notification when inspecting layered clothing asset on R6
+	local layeredClothingOnR6 = Constants.LayeredAssetTypes[assetInfo.assetTypeId] ~= nil and self.props.localPlayerModel
+		and self.props.localPlayerModel.Humanoid.RigType == Enum.HumanoidRigType.R6
 
 	local noticeKey = nil
 	if multipleBundles then

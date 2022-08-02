@@ -29,6 +29,7 @@ local RootedConnection = require(InGameMenu.Components.Connection.RootedConnecti
 local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
 
 local InviteFriendsList = Roact.PureComponent:extend("InviteFriendsList")
+local GetFFlagFixV3InviteReducer = require(InGameMenu.Flags.GetFFlagFixV3InviteReducer)
 
 InviteFriendsList.validateProps = t.strictInterface({
 	friends = t.array(t.strictInterface({
@@ -42,7 +43,12 @@ InviteFriendsList.validateProps = t.strictInterface({
 	canCaptureFocus = t.boolean,
 	playersService = t.union(t.Instance, t.table),
 	isMenuOpen = t.optional(t.boolean),
-
+	inviteFriends = not GetFFlagFixV3InviteReducer() and t.optional(t.array(t.strictInterface({
+		IsOnline = t.boolean,
+		Id = t.integer,
+		Username = t.string,
+		Displayname = t.string,
+	}))) or nil,
 	isFilteringMode = t.optional(t.boolean),
 	searchText = t.optional(t.string),
 
@@ -308,12 +314,21 @@ function InviteFriendsList:getPlayerByIndex(index)
 end
 
 return RoactRodux.connect(function(state, props)
-	return {
-		isMenuOpen = state.isMenuOpen,
-		invitesState = state.invites,
-		inviteFriends = state.inviteFriends.inviteFriends,
-		shouldForgetPreviousSelection = state.menuPage == Constants.MainPagePageKey or state.currentZone == 0,
-	}
+	if GetFFlagFixV3InviteReducer() then
+		return {
+			isMenuOpen = state.isMenuOpen,
+			invitesState = state.invites,
+			shouldForgetPreviousSelection = state.menuPage == Constants.MainPagePageKey or state.currentZone == 0,
+		}
+	else
+		return {
+			isMenuOpen = state.isMenuOpen,
+			invitesState = state.invites,
+			inviteFriends = state.inviteFriends.inviteFriends,
+			shouldForgetPreviousSelection = state.menuPage == Constants.MainPagePageKey or state.currentZone == 0,
+		}
+	end
+
 end, function(dispatch)
 	return {
 		dispatchInviteUserToPlaceId = function(userId, placeId)

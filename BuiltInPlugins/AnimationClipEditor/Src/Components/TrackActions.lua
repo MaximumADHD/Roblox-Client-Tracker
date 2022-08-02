@@ -37,10 +37,12 @@ local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local PathUtils = require(Plugin.Src.Util.PathUtils)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
+local Types = require(Plugin.Src.Types)
+
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-local GetFFlagACEFixTrackOptionsClickPostDeleteKey = require(Plugin.LuaFlags.GetFFlagACEFixTrackOptionsClickPostDeleteKey)
+local GetFFlagFixEulerAnglesMenu = require(Plugin.LuaFlags.GetFFlagFixEulerAnglesMenu)
 
 export type Props = {
 	-- State/Context
@@ -71,7 +73,7 @@ export type Props = {
 	OnMenuOpened: () -> (),
 }
 
-local EULER_ANGLES_ORDER: {EnumItem} = {
+local EULER_ANGLES_ORDER: { EnumItem } = {
 	Enum.RotationOrder.XYZ,
 	Enum.RotationOrder.XZY,
 	Enum.RotationOrder.YXZ,
@@ -87,25 +89,26 @@ function TrackActions:init(): ()
 end
 
 function TrackActions:makeEulerAnglesOrderSubMenu(): ContextMenu.MenuItem
+	local props = self.props
 	local localization = self.props.Localization
 	local animationData = self.props.AnimationData
 	local instanceName = self.props.InstanceName
 	local path = self.props.Path
 
 	local track = AnimationData.getTrack(animationData, instanceName, path)
+	local currentEulerAngles = TrackUtils.getEulerAnglesOrder(track) or props.DefaultEulerAnglesOrder
+
 	return {
 		Name = localization:getText("ContextMenu", "EulerAnglesOrder"),
 		Items = EULER_ANGLES_ORDER,
-		CurrentValue = track.EulerAnglesOrder.Value,
+		CurrentValue = if GetFFlagFixEulerAnglesMenu() then currentEulerAngles.Value else ((track::Types.Track).EulerAnglesOrder::(Enum.RotationOrder)).Value,
 		ItemSelected = function(eulerAngleOrder)
-			self.props.SetTrackEulerAnglesOrder(
-				instanceName, path, eulerAngleOrder
-			)
+			self.props.SetTrackEulerAnglesOrder(instanceName, path, eulerAngleOrder)
 		end,
 	}
 end
 
-function TrackActions:makeMenuActions(isTopLevel: boolean, showEulerConversion: boolean): {PluginAction}
+function TrackActions:makeMenuActions(isTopLevel: boolean, showEulerConversion: boolean): { PluginAction }
 	local props = self.props
 	local pluginActions = props.PluginActions
 	local isChannelAnimation = props.IsChannelAnimation
@@ -262,7 +265,7 @@ function TrackActions:didMount(): ()
 			if trackType == Constants.TRACK_TYPES.CFrame then
 				table.insert(path, Constants.PROPERTY_KEYS.Rotation)
 				local track = AnimationData.getTrack(animationData, instanceName, path)
-				if track.Type ~= Constants.TRACK_TYPES.Quaternion then
+				if not track or track.Type ~= Constants.TRACK_TYPES.Quaternion then
 					return
 				end
 			end
@@ -293,18 +296,9 @@ function TrackActions:render(): (any?)
 		if GetFFlagChannelAnimations() then
 			if path and instanceName then
 				local track = AnimationData.getTrack(animationData, instanceName, path)
-				if not GetFFlagCurveEditor() then
-					if GetFFlagACEFixTrackOptionsClickPostDeleteKey() then
-						--nil check to not get error when clicking dots after deleting key
-						if track then
-						showEulerConversion = track.Type == Constants.TRACK_TYPES.Quaternion or
-							(track.Type == Constants.TRACK_TYPES.CFrame and TrackUtils.getRotationType(track) == Constants.TRACK_TYPES.Quaternion)
-						end
-					else
-						--old implementation, throws an error when clicking 3 dots on track after deleting key
-						showEulerConversion = track.Type == Constants.TRACK_TYPES.Quaternion or
-							(track.Type == Constants.TRACK_TYPES.CFrame and TrackUtils.getRotationType(track) == Constants.TRACK_TYPES.Quaternion)
-					end
+				if not GetFFlagCurveEditor() and track then
+					showEulerConversion = track.Type == Constants.TRACK_TYPES.Quaternion or
+						(track.Type == Constants.TRACK_TYPES.CFrame and TrackUtils.getRotationType(track) == Constants.TRACK_TYPES.Quaternion)
 				end
 				local enabled
 
@@ -344,7 +338,7 @@ function TrackActions:render(): (any?)
 	if GetFFlagCurveEditor() then
 		menuActions = self:makeMenuActions()
 	else
-	 	menuActions = self:makeMenuActions(topLevelTrack, showEulerConversion)
+		menuActions = self:makeMenuActions(topLevelTrack, showEulerConversion)
 	end
 
 	if self.hasInternalPermission then
@@ -404,7 +398,7 @@ TrackActions = withContext({
 	Analytics = ContextServices.Analytics,
 })(TrackActions)
 
-local function mapStateToProps(state): {[string]: any}
+local function mapStateToProps(state): { [string]: any }
 	local status = state.Status
 
 	return {
@@ -419,8 +413,8 @@ local function mapStateToProps(state): {[string]: any}
 	}
 end
 
-local function mapDispatchToProps(dispatch): {[string]: any}
-	return{
+local function mapDispatchToProps(dispatch): { [string]: any }
+	return {
 		AddKeyframe = function(instance, path, trackType, tck, keyframeData, analytics)
 			dispatch(AddWaypoint())
 			dispatch(AddKeyframe(instance, path, trackType, tck, keyframeData, analytics))
@@ -437,7 +431,7 @@ local function mapDispatchToProps(dispatch): {[string]: any}
 		-- Remove when GetFFlagFacialAnimationSupport() is retired
 		AddKeyframe_deprecated = function(instance, trackName, tck, value, analytics)
 			dispatch(AddWaypoint())
-			dispatch(AddKeyframe(instance, trackName, tck, value, analytics))	-- Luau warning is fine since signature changes with flags
+			dispatch(AddKeyframe(instance, trackName, tck, value, analytics)) -- Luau warning is fine since signature changes with flags
 			dispatch(SetRightClickContextInfo({}))
 		end,
 

@@ -29,9 +29,6 @@ local SetMaterialTileSize = require(Actions.SetMaterialTileSize)
 local SetMode = require(Actions.SetMode)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
-local Util = Plugin.Src.Util
-local ApplyToSelection = require(Util.ApplyToSelection)
-
 local Controllers = Plugin.Src.Controllers
 local GeneralServiceController = require(Controllers.GeneralServiceController)
 local MaterialServiceController = require(Controllers.MaterialServiceController)
@@ -41,10 +38,9 @@ local TopBarComponents = Plugin.Src.Components.MaterialBrowser.TopBar
 local ActionButton = require(TopBarComponents.ActionButton)
 local ViewTypeSelector = require(TopBarComponents.ViewTypeSelector)
 
-local Flags = Plugin.Src.Flags
-local getFFlagMaterialManagerMaterialAsTool = require(Flags.getFFlagMaterialManagerMaterialAsTool)
-local getFFlagMaterialManagerUtilTests = require(Flags.getFFlagMaterialManagerUtilTests)
-local getFFlagMaterialManagerAnalyticsCounter = require(Flags.getFFlagMaterialManagerAnalyticsCounter)
+local getFFlagMaterialManagerAnalyticsMaterialAsTool = require(
+	Plugin.Src.Flags.getFFlagMaterialManagerAnalyticsMaterialAsTool
+)
 
 local TopBar = Roact.PureComponent:extend("TopBar")
 
@@ -80,7 +76,6 @@ type _Image = {
 }
 
 type _Style = {
-	ApplyToSelection: _Image,
 	BackgroundColor: Color3,
 	ButtonSize: UDim2,
 	CreateNewVariant: _Image,
@@ -117,26 +112,7 @@ function TopBar:init()
 			props.GeneralServiceController:SetSelection({
 				props.Material.MaterialVariant
 			})
-			if getFFlagMaterialManagerAnalyticsCounter() then
-				props.Analytics:report("showInExplorer")
-			end
-		end
-	end
-
-	self.applyToSelection = function()
-		local props: _Props = self.props
-
-		if props.Material then
-			if getFFlagMaterialManagerUtilTests() then
-				props.GeneralServiceController:ApplyToSelection(props.Material.Material,
-					if props.Material.MaterialVariant then props.Material.MaterialVariant.Name else nil)
-			else
-				ApplyToSelection(props.Material.Material,
-					if props.Material.MaterialVariant then props.Material.MaterialVariant.Name else nil)
-			end
-			if getFFlagMaterialManagerAnalyticsCounter() then
-				props.Analytics:report("applyToSelectionButton")
-			end
+			props.Analytics:report("showInExplorer")
 		end
 	end
 
@@ -148,15 +124,17 @@ function TopBar:init()
 		elseif props.ActiveAsTool then
 			props.PluginController:untoggleMaterialAsTool()
 		end
+
+		if getFFlagMaterialManagerAnalyticsMaterialAsTool() then
+			props.Analytics:report("materialAsTool")
+		end
 	end
 
 	self.setSearch = function(search)
 		local props: _Props = self.props
 
 		props.MaterialServiceController:setSearch(search)
-		if getFFlagMaterialManagerAnalyticsCounter() then
-			props.Analytics:report("searchBar")
-		end
+		props.Analytics:report("searchBar")
 	end
 end
 
@@ -170,7 +148,6 @@ function TopBar:render()
 
 	local layoutOrderIterator = LayoutOrderIterator.new()
 
-	local applyToSelection = style.ApplyToSelection
 	local createNewVariant = style.CreateNewVariant
 	local showInExplorer = style.ShowInExplorer
 	local materialAsToolMouseIcon = style.MaterialAsToolMouseIcon
@@ -187,7 +164,6 @@ function TopBar:render()
 	local percentage = math.min(1, restWidth / (SPACER_COUNT * spacerWidth + searchBarMaxWidth))
 
 	local isDisabledShowInExplorer = if not props.Material or not props.Material.MaterialVariant then true else false
-	local isDisabledApplyToSelection = not props.Material
 	local isPressed = props.ActiveAsTool
 
 	return Roact.createElement(Pane, join({
@@ -213,22 +189,13 @@ function TopBar:render()
 			OnClick = self.showInExplorer,
 			TooltipText = localization:getText("TopBar", "Show"),
 		}),
-		ApplyToSelection = not getFFlagMaterialManagerMaterialAsTool() and Roact.createElement(ActionButton, {
-			DefinitionId = "MaterialManagerApplyCallout",
-			ImageStyle = applyToSelection,
-			IsDisabled = isDisabledApplyToSelection,
-			LayoutOrder = layoutOrderIterator:getNextOrder(),
-			LocationId = "MaterialManagerApplyButton",
-			OnClick = self.applyToSelection,
-			TooltipText = localization:getText("TopBar", "Apply"),
-		}) or nil,
-		MaterialAsTool = getFFlagMaterialManagerMaterialAsTool() and Roact.createElement(ActionButton, {
+		MaterialAsTool = Roact.createElement(ActionButton, {
 			ImageStyle = materialAsToolMouseIcon,
 			IsPressed = isPressed,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			OnClick = self.materialAsTool,
 			TooltipText = localization:getText("TopBar", "MaterialAsTool"),
-		}) or nil,
+		}),
 		RestPane = Roact.createElement(Pane, {
 			Size = UDim2.new(1, - (BUTTON_COUNT * (buttonWidth + padding) + (viewTypeWidth + padding)), 1, 0),
 			LayoutOrder = layoutOrderIterator:getNextOrder(),

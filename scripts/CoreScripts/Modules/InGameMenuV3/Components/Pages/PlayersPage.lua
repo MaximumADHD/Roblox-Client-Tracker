@@ -6,6 +6,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
+local Cryo = InGameMenuDependencies.Cryo
 local Roact = InGameMenuDependencies.Roact
 local UIBlox = InGameMenuDependencies.UIBlox
 local RoactRodux = InGameMenuDependencies.RoactRodux
@@ -22,6 +23,7 @@ local InGameMenu = script.Parent.Parent.Parent
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local PlayerSearchPredicate = require(InGameMenu.Utility.PlayerSearchPredicate)
 local withLocalization = require(InGameMenu.Localization.withLocalization)
+local GetFFlagInGameMenuV3SortPlayersByDisplayName = require(InGameMenu.Flags.GetFFlagInGameMenuV3SortPlayersByDisplayName)
 
 local PlayerCell = require(InGameMenu.Components.PlayerCell)
 local PlayerContextualMenuWrapper = require(InGameMenu.Components.PlayerContextualMenuWrapper)
@@ -196,7 +198,16 @@ function PlayersPage:isPlayerUserIdMuted(userId)
 	return isMuted
 end
 
+local function sortPlayers(p1, p2)
+	return p1.DisplayName:lower() < p2.DisplayName:lower()
+end
+
 function PlayersPage:renderListEntries(style, localized, players)
+	local sortedPlayers = players
+	if GetFFlagInGameMenuV3SortPlayersByDisplayName() then
+		sortedPlayers = Cryo.List.sort(players, sortPlayers)
+	end
+
 	local layoutOrder = 0
 	local listComponents = {}
 	local visibleEntryCount = 0
@@ -328,7 +339,7 @@ function PlayersPage:renderListEntries(style, localized, players)
 
 	layoutOrder = layoutOrder + 1
 
-	for index, player in pairs(players) do
+	for index, player in pairs(sortedPlayers) do
 		local id = player.UserId
 		local RoactRef
 		if index == 1 and not self.state.selectedPlayer then
@@ -435,7 +446,7 @@ function PlayersPage:renderListEntries(style, localized, players)
 
 			layoutOrder = layoutOrder + 1
 
-			if index < #players then
+			if index < #sortedPlayers then
 				listComponents["divider_" .. id] = Roact.createElement(Divider, {
 					LayoutOrder = layoutOrder,
 					Size = UDim2.new(1, -DIVIDER_INDENT, 0, DIVIDER_HEIGHT),

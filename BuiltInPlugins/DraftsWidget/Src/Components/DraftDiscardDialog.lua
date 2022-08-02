@@ -6,9 +6,6 @@
 	ChoiceSelected - Callback to invoke whenever the user selects an option
 		in the dialog. True for confirm, false for cancel / closing the dialog
 --]]
-
-local FFlagUpdateDraftsWidgetToDFContextServices = game:GetFastFlag("UpdateDraftsWidgetToDFContextServices")
-
 local TextService = game:GetService("TextService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -30,9 +27,6 @@ local map = Dash.map
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-
-local withTheme = if FFlagUpdateDraftsWidgetToDFContextServices then nil else require(Plugin.Src.ContextServices.Theming).withTheme
-local withLocalization = if FFlagUpdateDraftsWidgetToDFContextServices then nil else UILibrary.Localizing.withLocalization
 
 local BulletPoint
 if not FFlagRemoveUILibraryBulletPoint then
@@ -104,10 +98,11 @@ function DraftDiscardDialog:didMount()
 end
 
 function DraftDiscardDialog:render()
+	local localization = self.props.Localization
 	local style = self.props.Stylizer
 	local drafts = self.props.Drafts
 	local choiceSelected = self.props.ChoiceSelected
-	
+
 	local bullets
 	if FFlagRemoveUILibraryBulletPoint then
 		bullets = Roact.createElement(BulletList, {
@@ -129,83 +124,73 @@ function DraftDiscardDialog:render()
 		end
 	end
 
-	local function renderWithContext(theme, localization)
-		return Roact.createElement(StyledDialog, {
-			Buttons = {
-				{Key = true, Text = localization:getText("Dialog", "Yes")},
-				{Key = false, Style = "Primary", Text = localization:getText("Dialog", "No")},
-			},
-			OnButtonClicked = choiceSelected,
-			OnClose = function() choiceSelected(false) end,
+	return Roact.createElement(StyledDialog, {
+		Buttons = {
+			{Key = true, Text = localization:getText("Dialog", "Yes")},
+			{Key = false, Style = "Primary", Text = localization:getText("Dialog", "No")},
+		},
+		OnButtonClicked = choiceSelected,
+		OnClose = function() choiceSelected(false) end,
 
-			TextSize = BUTTON_TEXT_SIZE,
-			Size = DIALOG_SIZE,
-			BorderPadding = BORDER_PADDING,
-			ButtonPadding = BUTTON_PADDING,
-			ButtonHeight = BUTTON_HEIGHT,
-			ButtonWidth = BUTTON_WIDTH,
+		TextSize = BUTTON_TEXT_SIZE,
+		Size = DIALOG_SIZE,
+		BorderPadding = BORDER_PADDING,
+		ButtonPadding = BUTTON_PADDING,
+		ButtonHeight = BUTTON_HEIGHT,
+		ButtonWidth = BUTTON_WIDTH,
 
-			Title = localization:getText("DiscardDialog", "Title"),
+		Title = localization:getText("DiscardDialog", "Title"),
+	}, {
+		Header = Roact.createElement("TextLabel", {
+			BackgroundTransparency = 1,
+
+			TextXAlignment = Enum.TextXAlignment.Center,
+			TextYAlignment = Enum.TextYAlignment.Top,
+			TextWrapped = true,
+
+			Text = localization:getText("DiscardDialog", "ConfirmQuestion"),
+			TextSize = HEADER_TEXT_SIZE,
+			Font = style.dialogUILibrary.HeaderFont,
+			TextColor3 = style.dialogUILibrary.HeaderTextColor,
+
+			[Roact.Ref] = self.headerRef,
+		}),
+
+		DraftList = Roact.createElement(StyledScrollingFrame, {
+			BackgroundTransparency = 1,
+			[Roact.Ref] = self.canvasRef,
 		}, {
-			Header = Roact.createElement("TextLabel", {
-				BackgroundTransparency = 1,
+			UIListLayout = Roact.createElement("UIListLayout", {
+				VerticalAlignment = Enum.VerticalAlignment.Top,
+				Padding = UDim.new(0, 0),
 
-				TextXAlignment = Enum.TextXAlignment.Center,
-				TextYAlignment = Enum.TextYAlignment.Top,
-				TextWrapped = true,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				FillDirection = Enum.FillDirection.Horizontal,
 
-				Text = localization:getText("DiscardDialog", "ConfirmQuestion"),
-				TextSize = HEADER_TEXT_SIZE,
-				Font = if FFlagUpdateDraftsWidgetToDFContextServices then style.dialogUILibrary.HeaderFont else theme.Dialog.HeaderFont,
-				TextColor3 = if FFlagUpdateDraftsWidgetToDFContextServices then style.dialogUILibrary.HeaderTextColor else theme.Dialog.HeaderTextColor,
-
-				[Roact.Ref] = self.headerRef,
+				[Roact.Change.AbsoluteContentSize] = function(rbx)
+					self.contentSizeChanged(rbx.AbsoluteContentSize)
+				end,
 			}),
 
-			DraftList = Roact.createElement(StyledScrollingFrame, {
-				BackgroundTransparency = 1,
-				[Roact.Ref] = self.canvasRef,
-			}, {
-				UIListLayout = Roact.createElement("UIListLayout", {
-					VerticalAlignment = Enum.VerticalAlignment.Top,
-					Padding = UDim.new(0, 0),
-
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					FillDirection = Enum.FillDirection.Horizontal,
-
-					[Roact.Change.AbsoluteContentSize] = function(rbx)
-						self.contentSizeChanged(rbx.AbsoluteContentSize)
-					end,
-				}),
-
-				Bullets = if FFlagRemoveUILibraryBulletPoint then bullets else (
-					if FFlagRemoveUILibraryFitContent then
-						Roact.createElement(Pane, {
-							AutomaticSize = Enum.AutomaticSize.Y,
-							HorizontalAlignment = Enum.HorizontalAlignment.Left,
-							Layout = Enum.FillDirection.Vertical,
-						}, bullets)
-					else
-						Roact.createElement(FitToContent, {
-							BackgroundTransparency = 1,
-						}, bullets)
-				)
-			})
+			Bullets = if FFlagRemoveUILibraryBulletPoint then bullets else (
+				if FFlagRemoveUILibraryFitContent then
+					Roact.createElement(Pane, {
+						AutomaticSize = Enum.AutomaticSize.Y,
+						HorizontalAlignment = Enum.HorizontalAlignment.Left,
+						Layout = Enum.FillDirection.Vertical,
+					}, bullets)
+				else
+					Roact.createElement(FitToContent, {
+						BackgroundTransparency = 1,
+					}, bullets)
+			)
 		})
-	end
-
-	return if FFlagUpdateDraftsWidgetToDFContextServices then renderWithContext(style, self.props.Localization) else withTheme(function(theme)
-		return withLocalization(function(localization)
-			return renderWithContext(theme, localization)
-		end)
-	end)
+	})
 end
 
-if FFlagUpdateDraftsWidgetToDFContextServices then
-	DraftDiscardDialog = withContext({
-		Localization = ContextServices.Localization,
-		Stylizer = ContextServices.Stylizer,
-	})(DraftDiscardDialog)
-end
+DraftDiscardDialog = withContext({
+	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer,
+})(DraftDiscardDialog)
 
 return DraftDiscardDialog

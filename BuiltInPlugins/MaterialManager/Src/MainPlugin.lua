@@ -28,7 +28,6 @@ local LocalizedStrings = main.Src.Resources.Localization.LocalizedStrings
 local SetGridLock = require(main.Src.Actions.SetGridLock)
 
 local Components = main.Src.Components
-local DEPRECATED_MaterialBrowser = require(Components.DEPRECATED_MaterialBrowser)
 local MaterialBrowser = require(Components.MaterialBrowser)
 local MaterialPrompt = require(Components.MaterialPrompt)
 
@@ -41,21 +40,6 @@ local ImageLoader = require(Controllers.ImageLoader)
 local MaterialController = require(Controllers.MaterialController)
 local MaterialServiceController = require(Controllers.MaterialServiceController)
 local PluginController = require(Controllers.PluginController)
-
-
-local Flags = main.Src.Flags
-local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
-local getFFlagMaterialManagerGridListView = require(Flags.getFFlagMaterialManagerGridListView)
-local getFFlagMaterialManagerDetailsOverhaul = require(Flags.getFFlagMaterialManagerDetailsOverhaul)
-local getFFlagMaterialManagerHideDetails = require(Flags.getFFlagMaterialManagerHideDetails)
-local getFFlagMaterialManagerMaterialAsTool = require(Flags.getFFlagMaterialManagerMaterialAsTool)
-local getFFlagMaterialManagerAddWayPoints = require(Flags.getFFlagMaterialManagerAddWayPoints)
-local getFFlagMaterialManagerAnalyticsCounter = require(Flags.getFFlagMaterialManagerAnalyticsCounter)
-
-local DEPRECATED_getBuiltInMaterialVariants = require(main.Src.Resources.Constants.DEPRECATED_getBuiltInMaterialVariants)
-local DEPRECATED_MaterialPrompt = require(Components.MaterialPrompt.DEPRECATED_MaterialPrompt)
-
-local FFlagMaterialManagerSideBarHide = game:GetFastFlag("MaterialManagerSideBarHide")
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -74,20 +58,16 @@ function MainPlugin:init(props)
 	self.imageLoader = ImageLoader.new()
 
 	self.openPrompt = function()
-		if getFFlagMaterialManagerDetailsOverhaul() then
-			self.store:dispatch(SetGridLock(true))
-		end
+		self.store:dispatch(SetGridLock(true))
 		self:setState({
-			prompt = true
+			prompt = true,
 		})
 	end
 
 	self.closePrompt = function()
-		if getFFlagMaterialManagerDetailsOverhaul() then
-			self.store:dispatch(SetGridLock(false))
-		end
+		self.store:dispatch(SetGridLock(false))
 		self:setState({
-			prompt = false
+			prompt = false,
 		})
 	end
 
@@ -107,13 +87,13 @@ function MainPlugin:init(props)
 
 	self.onRestore = function(enabled)
 		self:setState({
-			enabled = enabled
+			enabled = enabled,
 		})
 	end
 
 	self.onWidgetEnabledChanged = function(widget)
 		self:setState({
-			enabled = widget.Enabled
+			enabled = widget.Enabled,
 		})
 	end
 
@@ -127,31 +107,11 @@ function MainPlugin:init(props)
 		pluginName = "MaterialManager",
 	})
 
-	self.analytics = nil
-	if getFFlagMaterialManagerAnalyticsCounter() then
-		self.analytics = ContextServices.Analytics.new(createAnalyticsHandlers)
-	else
-		self.analytics = ContextServices.Analytics.new(function()
-			return {}
-		end, {})
-	end
+	self.analytics = ContextServices.Analytics.new(createAnalyticsHandlers)
+	self.materialController = MaterialController.new(ServiceWrapper.new("MaterialService"))
 
-	if getFFlagMaterialManagerGlassNeonForceField() then
-		self.materialController = MaterialController.new(
-			nil,
-			ServiceWrapper.new("MaterialService")
-		)
-	else
-		self.materialController = MaterialController.new(
-			DEPRECATED_getBuiltInMaterialVariants(),
-			ServiceWrapper.new("MaterialService")
-		)
-	end
-
-	if getFFlagMaterialManagerDetailsOverhaul() then
-		self.materialServiceController = MaterialServiceController.new(self.store)
-		self.generalServiceController = GeneralServiceController.new()
-	end
+	self.materialServiceController = MaterialServiceController.new(self.store)
+	self.generalServiceController = GeneralServiceController.new()
 
 	self.calloutController = CalloutController.new()
 	local definitionId = "MaterialManagerApplyCallout"
@@ -159,9 +119,7 @@ function MainPlugin:init(props)
 	self.calloutController:defineCallout(definitionId, "", description, "")
 
 	self.pluginController = PluginController.new(plugin, self.store, plugin:getMouse())
-	if getFFlagMaterialManagerGridListView() then
-		self.pluginController:initialize()
-	end
+	self.pluginController:initialize()
 end
 
 function MainPlugin:willUnmount()
@@ -171,18 +129,14 @@ function MainPlugin:willUnmount()
 	if self.imageLoader then
 		self.imageLoader:destroy()
 	end
-	if getFFlagMaterialManagerDetailsOverhaul() then
-		if self.materialServiceController then
-			self.materialServiceController:destroy()
-		end
-		if self.generalServiceController then
-			self.generalServiceController:destroy()
-		end
+	if self.materialServiceController then
+		self.materialServiceController:destroy()
 	end
-	if getFFlagMaterialManagerMaterialAsTool() then
-		if self.pluginController then
-			self.pluginController:destroy()
-		end
+	if self.generalServiceController then
+		self.generalServiceController:destroy()
+	end
+	if self.pluginController then
+		self.pluginController:destroy()
 	end
 end
 
@@ -231,7 +185,7 @@ function MainPlugin:render()
 			end,
 		}),
 
-		MaterialPrompt = prompt and Roact.createElement(if getFFlagMaterialManagerAddWayPoints() then MaterialPrompt else DEPRECATED_MaterialPrompt, {
+		MaterialPrompt = prompt and Roact.createElement(MaterialPrompt, {
 			PromptClosed = self.closePrompt,
 			PromptType = prompt,
 		}) or nil,
@@ -242,12 +196,12 @@ function MainPlugin:render()
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			InitialDockState = Enum.InitialDockState.Bottom,
 			Size = Vector2.new(640, 480),
-			MinSize = if FFlagMaterialManagerSideBarHide then Vector2.new(300, 200) else Vector2.new(400, 200),
+			MinSize = Vector2.new(300, 200),
 			OnClose = self.onClose,
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
 		}, {
-			Roact.createElement(if getFFlagMaterialManagerHideDetails() and FFlagMaterialManagerSideBarHide then MaterialBrowser else DEPRECATED_MaterialBrowser, {
+			Roact.createElement(MaterialBrowser, {
 				OpenPrompt = self.openPrompt
 			}),
 		}),

@@ -8,7 +8,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
 
-return function(tick, multiSelect)
+return function(tck, multiSelect)
 	return function(store)
 		local animationData = store:getState().AnimationData
 		local selectedEvents = store:getState().Status.SelectedEvents
@@ -21,14 +21,14 @@ return function(tick, multiSelect)
 			return
 		end
 
-		if events.Data and events.Data[tick] then
+		if events.Data and events.Data[tck] then
 			if multiSelect then
 				store:dispatch(SetSelectedEvents(Cryo.Dictionary.join(selectedEvents, {
-					[tick] = true,
+					[tck] = true,
 				})))
 			else
 				store:dispatch(SetSelectedEvents({
-					[tick] = true,
+					[tck] = true,
 				}))
 			end
 		end

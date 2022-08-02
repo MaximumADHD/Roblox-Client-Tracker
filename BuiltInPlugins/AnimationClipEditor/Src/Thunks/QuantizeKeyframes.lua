@@ -18,12 +18,12 @@ local function traverseKeyframes(animationData, func, reverseOrder)
 			local keyframes = track.Keyframes
 			if reverseOrder then
 				for index = #keyframes, 1, -1 do
-					local tick = keyframes[index]
-					func(instanceName, trackName, tick)
+					local tck = keyframes[index]
+					func(instanceName, trackName, tck)
 				end
 			else
-				for _, tick in ipairs(keyframes) do
-					func(instanceName, trackName, tick)
+				for _, tck in ipairs(keyframes) do
+					func(instanceName, trackName, tck)
 				end
 			end
 		end
@@ -33,8 +33,8 @@ end
 local function traverseCenters(centers, func)
 	for instanceName, instance in pairs(centers) do
 		for trackName, track in pairs(instance) do
-			for baseFrame, tick in pairs(track) do
-				func(instanceName, trackName, baseFrame, tick)
+			for baseFrame, tck in pairs(track) do
+				func(instanceName, trackName, baseFrame, tck)
 			end
 		end
 	end
@@ -53,9 +53,9 @@ return function()
 		local rightCenters = {}
 
 		-- Save leftmost and rightmost center keyframes
-		traverseKeyframes(newData, function(instanceName, trackName, tick)
-			local baseFrame = math.floor(tick)
-			if tick ~= baseFrame then
+		traverseKeyframes(newData, function(instanceName, trackName, tck)
+			local baseFrame = math.floor(tck)
+			if tck ~= baseFrame then
 				leftCenters[instanceName] = leftCenters[instanceName] or {}
 				rightCenters[instanceName] = rightCenters[instanceName] or {}
 				leftCenters[instanceName][trackName] = leftCenters[instanceName][trackName] or {}
@@ -63,43 +63,43 @@ return function()
 				local lefts = leftCenters[instanceName][trackName]
 				local rights = rightCenters[instanceName][trackName]
 
-				lefts[baseFrame] = lefts[baseFrame] == nil and tick or lefts[baseFrame]
-				rights[baseFrame] = rights[baseFrame] == nil and tick
-					or math.max(rights[baseFrame], tick)
+				lefts[baseFrame] = lefts[baseFrame] == nil and tck or lefts[baseFrame]
+				rights[baseFrame] = rights[baseFrame] == nil and tck
+					or math.max(rights[baseFrame], tck)
 			end
 		end)
 
 		-- Move leftmost center keyframes left, unless there is already a keyframe there
-		traverseCenters(leftCenters, function(instanceName, trackName, baseFrame, tick)
+		traverseCenters(leftCenters, function(instanceName, trackName, baseFrame, tck)
 			local track = newData.Instances[instanceName].Tracks[trackName]
 			local data = track.Data
 			if not data[baseFrame] then
-				AnimationData.moveKeyframe(track, tick, baseFrame)
-				AnimationData.moveNamedKeyframe(newData, tick, baseFrame)
+				AnimationData.moveKeyframe(track, tck, baseFrame)
+				AnimationData.moveNamedKeyframe(newData, tck, baseFrame)
 				-- We've already moved the keyframe, so don't move it right if we would
 				if rightCenters[instanceName] and rightCenters[instanceName][trackName]
-					and rightCenters[instanceName][trackName][baseFrame] == tick then
+					and rightCenters[instanceName][trackName][baseFrame] == tck then
 					rightCenters[instanceName][trackName][baseFrame] = nil
 				end
 			end
 		end)
 
 		-- Move rightmost center keyframes right, unless there is already a keyframe there
-		traverseCenters(rightCenters, function(instanceName, trackName, baseFrame, tick)
+		traverseCenters(rightCenters, function(instanceName, trackName, baseFrame, tck)
 			local track = newData.Instances[instanceName].Tracks[trackName]
 			local data = track.Data
 			if not data[baseFrame + 1] then
-				AnimationData.moveKeyframe(track, tick, baseFrame + 1)
-				AnimationData.moveNamedKeyframe(newData, tick, baseFrame + 1)
+				AnimationData.moveKeyframe(track, tck, baseFrame + 1)
+				AnimationData.moveNamedKeyframe(newData, tck, baseFrame + 1)
 			end
 		end)
 
 		-- Delete all leftover center keyframes
-		traverseKeyframes(newData, function(instanceName, trackName, tick)
-			local baseFrame = math.floor(tick)
-			if tick ~= baseFrame then
+		traverseKeyframes(newData, function(instanceName, trackName, tck)
+			local baseFrame = math.floor(tck)
+			if tck ~= baseFrame then
 				local track = newData.Instances[instanceName].Tracks[trackName]
-				AnimationData.deleteKeyframe(track, tick)
+				AnimationData.deleteKeyframe(track, tck)
 			end
 		end, true)
 

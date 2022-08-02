@@ -123,10 +123,10 @@ function TrackEditor:init()
 			absoluteSize.X - self.getTrackPadding())
 	end
 
-	self.stepAnimation = function(tick)
+	self.stepAnimation = function(tck)
 		local props = self.props
 		if props.PlayState == Constants.PLAY_STATE.Pause then
-			props.StepAnimation(tick)
+			props.StepAnimation(tck)
 		end
 	end
 

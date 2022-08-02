@@ -5,6 +5,7 @@ local SetPromptState = require(Root.Actions.SetPromptState)
 local ErrorOccurred = require(Root.Actions.ErrorOccurred)
 local BundleProductInfoReceived = require(Root.Actions.BundleProductInfoReceived)
 local AccountInfoReceived = require(Root.Actions.AccountInfoReceived)
+local BalanceInfoRecieved = require(Root.Actions.BalanceInfoRecieved)
 local PromptNativeUpsell = require(Root.Actions.PromptNativeUpsell)
 local PromptState = require(Root.Enums.PromptState)
 local PurchaseError = require(Root.Enums.PurchaseError)
@@ -18,7 +19,7 @@ local Thunk = require(Root.Thunk)
 
 local GetFFlagEnablePPUpsellProductListRefactor = require(Root.Flags.GetFFlagEnablePPUpsellProductListRefactor)
 local GetFFlagEnableLuobuInGameUpsell = require(Root.Flags.GetFFlagEnableLuobuInGameUpsell)
-local GetFFlagPurchasePromptNotEnoughRobux = require(Root.Flags.GetFFlagPurchasePromptNotEnoughRobux)
+local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
 
 local function getPurchasableStatus(productPurchasableDetails)
 	local reason = productPurchasableDetails.reason
@@ -36,10 +37,13 @@ local function getPurchasableStatus(productPurchasableDetails)
 	end
 end
 
-local function resolveBundlePromptState(productPurchasableDetails, bundleDetails, accountInfo)
+local function resolveBundlePromptState(productPurchasableDetails, bundleDetails, accountInfo, balanceInfo)
 	return Thunk.new(script.Name, {}, function(store, services)
 		store:dispatch(BundleProductInfoReceived(bundleDetails))
 		store:dispatch(AccountInfoReceived(accountInfo))
+		if FFlagPPAccountInfoMigration then
+			store:dispatch(BalanceInfoRecieved(balanceInfo))
+		end
 
 		local canPurchase = productPurchasableDetails.purchasable
 		local failureReason = getPurchasableStatus(productPurchasableDetails)
@@ -64,11 +68,7 @@ local function resolveBundlePromptState(productPurchasableDetails, bundleDetails
 							store:dispatch(PromptNativeUpsell(product.productId, product.robuxValue))
 						end, function()
 							-- No upsell item will provide sufficient funds to make this purchase
-							if GetFFlagPurchasePromptNotEnoughRobux() or platform == Enum.Platform.XBoxOne then
-								store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
-							else
-								store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobux))
-							end
+							store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
 						end)
 					else
 						return selectRobuxProduct(platform, neededRobux, hasMembership)
@@ -77,11 +77,7 @@ local function resolveBundlePromptState(productPurchasableDetails, bundleDetails
 								store:dispatch(PromptNativeUpsell(product.productId, product.robuxValue))
 							end, function()
 								-- No upsell item will provide sufficient funds to make this purchase
-								if GetFFlagPurchasePromptNotEnoughRobux() or platform == Enum.Platform.XBoxOne then
-									store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
-								else
-									store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobux))
-								end
+								store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
 							end
 						)
 					end

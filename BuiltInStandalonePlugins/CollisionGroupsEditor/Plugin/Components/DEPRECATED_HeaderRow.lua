@@ -1,8 +1,17 @@
-local Roact = require(script.Parent.Parent.Parent.Packages.Roact)
+local Plugin = script.Parent.Parent.Parent
+local Roact = require(Plugin.Packages.Roact)
 
 local choose = require(script.Parent.Parent.DEPRECATED_choose)
-local UILibrary = require(script.Parent.Parent.Parent.Packages.UILibrary)
+local UILibrary = require(Plugin.Packages.UILibrary)
 local withLocalization = UILibrary.Localizing.withLocalization
+
+local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+
+local UI = Framework.UI
+local TextLabel = UI.Decoration.TextLabel
 
 local Constants = require(script.Parent.Parent.DEPRECATED_Constants)
 
@@ -54,15 +63,23 @@ function HeaderRow:renderConsolidated(localized)
 		}, {
 			Padding = Roact.createElement(Padding, {Padding = UDim.new(0, 4)}),
 
-			Roact.createElement("TextLabel", {
-				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 1, 0),
-				Text = text,
-				TextWrapped = true,
-				TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainText),
+			Label = if FFlagDevFrameworkMigrateTextLabels then (
+				Roact.createElement(TextLabel, {
+					Text = text,
+					TextWrapped = true,
+					ZIndex = 2,
+				})
+			) else (
+				Roact.createElement("TextLabel", {
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, 0, 1, 0),
+					Text = text,
+					TextWrapped = true,
+					TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainText),
 
-				ZIndex = 2,
-			}),
+					ZIndex = 2,
+				})
+			),
 		})
 	end
 
@@ -94,14 +111,22 @@ function HeaderRow:renderConsolidated(localized)
 		}, {
 			Padding = Roact.createElement(GroupLabelPadding),
 
-			Text = Roact.createElement("TextLabel", {
-				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 1, 0),
+			Text = if FFlagDevFrameworkMigrateTextLabels then (
+				Roact.createElement(TextLabel, {
+					Text = localized:getText("Headers", "GroupName"),
+					Style = "SubText",
+					TextXAlignment = Enum.TextXAlignment.Right,
+				})	
+			) else (
+				Roact.createElement("TextLabel", {
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, 0, 1, 0),
 
-				Text = localized:getText("Headers", "GroupName"),
-				TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.SubText),
-				TextXAlignment = Enum.TextXAlignment.Right,
-			}),
+					Text = localized:getText("Headers", "GroupName"),
+					TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.SubText),
+					TextXAlignment = Enum.TextXAlignment.Right,
+				})
+			),
 		}),
 
 		-- this is ugly, but I can't think of any better way of figuring out

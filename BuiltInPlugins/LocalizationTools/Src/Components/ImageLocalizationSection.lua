@@ -5,14 +5,19 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local Pane = UI.Pane
-local TitledFrame = Framework.StudioUI.TitledFrame
 local Button = UI.Button
 local HoverArea = UI.HoverArea
+local TextLabel = UI.Decoration.TextLabel
+local TitledFrame = Framework.StudioUI.TitledFrame
 
 local AnalyticsContext = require(Plugin.Src.ContextServices.AnalyticsContext)
 
@@ -124,15 +129,24 @@ function ImageLocalizationSection:render()
 		},
 		Spacing = theme.Spacing,
 	}, {
-		SectionLabel = Roact.createElement("TextLabel", {
-			BackgroundTransparency = 1,
-			LayoutOrder = 1,
-			Size = UDim2.new(1, 0, 0, theme.SectionLabelSize),
-			Text = localization:getText("ImageLocalizationSection", "SectionLabel"),
-			TextColor3 = theme.TextColor,
-			TextSize = theme.SectionLabelTextSize,
-			TextXAlignment = Enum.TextXAlignment.Left,
-		}),
+		SectionLabel = if FFlagDevFrameworkMigrateTextLabels then (
+			Roact.createElement(TextLabel, {
+				AutomaticSize = Enum.AutomaticSize.XY,
+				LayoutOrder = 1,
+				Style = "Label",
+				Text = localization:getText("ImageLocalizationSection", "SectionLabel"),
+			})
+		) else (
+			Roact.createElement("TextLabel", {
+				BackgroundTransparency = 1,
+				LayoutOrder = 1,
+				Size = UDim2.new(1, 0, 0, theme.SectionLabelSize),
+				Text = localization:getText("ImageLocalizationSection", "SectionLabel"),
+				TextColor3 = theme.TextColor,
+				TextSize = theme.SectionLabelTextSize,
+				TextXAlignment = Enum.TextXAlignment.Left,
+			})
+		),
 		Content = content,
 	})
 end

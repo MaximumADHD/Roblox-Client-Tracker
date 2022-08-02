@@ -1,3 +1,4 @@
+local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -29,7 +30,7 @@ local BiomeSelector = Roact.PureComponent:extend("BiomeSelector")
 
 function BiomeSelector:render()
 	local theme = self.props.Theme:get()
-	local localization = self.props.Localization:get()
+	local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
 
 	local selectBiome = self.props.selectBiome
 	local biomeSelection = self.props.biomeSelection
@@ -85,12 +86,9 @@ function BiomeSelector:render()
 	})
 end
 
-
 BiomeSelector = withContext({
 	Theme = ContextItems.UILibraryTheme,
-	Localization = ContextItems.UILibraryLocalization,
+	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
 })(BiomeSelector)
-
-
 
 return BiomeSelector

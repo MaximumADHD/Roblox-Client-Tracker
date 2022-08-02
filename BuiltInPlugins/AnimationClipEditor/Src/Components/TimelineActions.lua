@@ -71,7 +71,6 @@ local Redo = require(Plugin.Src.Thunks.History.Redo)
 
 local TogglePlay = require(Plugin.Src.Thunks.Playback.TogglePlay)
 
-local FFlagAnimEditorFixBackspaceOnMac = require(Plugin.LuaFlags.GetFFlagAnimEditorFixBackspaceOnMac)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
@@ -250,7 +249,7 @@ function TimelineActions:didMount()
 
 	self:addAction(actions:get("AddKeyframeHere"), function()
 		local props = self.props
-		local tick = props.Tick
+		local tck = props.Tick
 		local trackName = props.TrackName
 		local instanceName = props.InstanceName
 		local tracks = props.Tracks
@@ -270,13 +269,13 @@ function TimelineActions:didMount()
 				if isChannelAnimation then
 					TrackUtils.traverseComponents(trackType, function(componentType, relPath)
 						local componentPath = Cryo.List.join(path, relPath)
-						props.SplitTrack(instanceName, componentPath, componentType, tick, props.Analytics)
+						props.SplitTrack(instanceName, componentPath, componentType, tck, props.Analytics)
 					end, rotationType)
 				else
 					local track = AnimationData.getTrack(animationData, instanceName, path)
 					local value
 					if track and track.Keyframes then
-						value = KeyframeUtils.getValue(track, tick)
+						value = KeyframeUtils.getValue(track, tck)
 					else
 						value = KeyframeUtils.getDefaultValue(trackType)
 					end
@@ -285,7 +284,7 @@ function TimelineActions:didMount()
 						EasingStyle = Enum.PoseEasingStyle.Linear,
 						EasingDirection = Enum.PoseEasingDirection.In
 					}
-					props.AddKeyframe(instanceName, path, trackType, tick, keyframeData, props.Analytics)
+					props.AddKeyframe(instanceName, path, trackType, tck, keyframeData, props.Analytics)
 				end
 			end
 		else
@@ -296,7 +295,7 @@ function TimelineActions:didMount()
 				local newValue
 
 				if track and track.Keyframes then
-					newValue = KeyframeUtils.getValue(track, tick)
+					newValue = KeyframeUtils.getValue(track, tck)
 				else
 					if GetFFlagFacialAnimationSupport() then
 						-- If the type could not be determined by an existing track or by
@@ -308,9 +307,9 @@ function TimelineActions:didMount()
 					end
 				end
 				if GetFFlagFacialAnimationSupport() then
-					props.AddKeyframe_deprecated2(instanceName, trackName, trackType, tick, newValue, props.Analytics)
+					props.AddKeyframe_deprecated2(instanceName, trackName, trackType, tck, newValue, props.Analytics)
 				else
-					props.AddKeyframe_deprecated(instanceName, trackName, tick, newValue, props.Analytics)
+					props.AddKeyframe_deprecated(instanceName, trackName, tck, newValue, props.Analytics)
 				end
 			end
 		end
@@ -408,7 +407,7 @@ function TimelineActions:didMount()
 
 	self:addAction(actions:get("AddResetKeyframe"), function()
 		local props = self.props
-		local tick = props.Tick
+		local tck = props.Tick
 		local trackName = props.TrackName
 		local instanceName = props.InstanceName
 		local tracks = props.Tracks
@@ -424,10 +423,10 @@ function TimelineActions:didMount()
 
 			if GetFFlagFacialAnimationSupport() then
 				newValue = TrackUtils.getDefaultValueByType(trackType)
-				props.AddKeyframe_deprecated2(instanceName, trackName, trackType, tick, newValue, props.Analytics)
+				props.AddKeyframe_deprecated2(instanceName, trackName, trackType, tck, newValue, props.Analytics)
 			else
 				newValue = TrackUtils.getDefaultValue(track)
-				props.AddKeyframe_deprecated(instanceName, trackName, tick, newValue, props.Analytics)
+				props.AddKeyframe_deprecated(instanceName, trackName, tck, newValue, props.Analytics)
 			end
 		elseif GetFFlagChannelAnimations() and instanceName and path then
 			local value
@@ -441,7 +440,7 @@ function TimelineActions:didMount()
 						Value = value,
 						InterpolationMode = Enum.KeyInterpolationMode.Cubic
 					}
-					props.AddKeyframe(instanceName, componentPath, componentType, tick, keyframeData, props.Analytics)
+					props.AddKeyframe(instanceName, componentPath, componentType, tck, keyframeData, props.Analytics)
 				end, rotationType)
 			else
 				value = KeyframeUtils.getDefaultValue(trackType)
@@ -450,7 +449,7 @@ function TimelineActions:didMount()
 					EasingStyle = Enum.PoseEasingStyle.Linear,
 					EasingDirection = Enum.PoseEasingDirection.In
 				}
-				props.AddKeyframe(instanceName, path, trackType, tick, keyframeData, props.Analytics)
+				props.AddKeyframe(instanceName, path, trackType, tck, keyframeData, props.Analytics)
 			end
 		else
 			-- If the user clicked the summary track, add a reset keyframe for
@@ -478,7 +477,7 @@ function TimelineActions:didMount()
 								Value = newValue,
 								InterpolationMode = Enum.KeyInterpolationMode.Cubic
 							}
-							props.AddKeyframe(instanceName, path, componentType, tick, keyframeData, props.Analytics)
+							props.AddKeyframe(instanceName, path, componentType, tck, keyframeData, props.Analytics)
 						end, rotationType)
 					else
 						if GetFFlagChannelAnimations() then
@@ -489,14 +488,14 @@ function TimelineActions:didMount()
 								EasingStyle = Enum.PoseEasingStyle.Linear,
 								EasingDirection = Enum.PoseEasingDirection.In
 							}
-							props.AddKeyframe(instanceName, {trackName}, trackType, tick, keyframeData, props.Analytics)
+							props.AddKeyframe(instanceName, {trackName}, trackType, tck, keyframeData, props.Analytics)
 						elseif GetFFlagFacialAnimationSupport() then
 							trackType = track and track.Type or TrackUtils.getTrackTypeFromName(trackName, tracks)
 							newValue = TrackUtils.getDefaultValueByType(trackType)
-							props.AddKeyframe_deprecated2(instanceName, trackName, trackType, tick, newValue, props.Analytics)
+							props.AddKeyframe_deprecated2(instanceName, trackName, trackType, tck, newValue, props.Analytics)
 						else
 							newValue = TrackUtils.getDefaultValue(track)
-							props.AddKeyframe_deprecated(instanceName, trackName, tick, newValue, props.Analytics)
+							props.AddKeyframe_deprecated(instanceName, trackName, tck, newValue, props.Analytics)
 						end
 					end
 				end
@@ -511,8 +510,8 @@ function TimelineActions:didMount()
 
 	self:addAction(actions:get("PasteKeyframes"), function()
 		local props = self.props
-		local tick = props.Tick or props.Playhead
-		props.PasteKeyframes(tick, props.Analytics)
+		local tck = props.Tick or props.Playhead
+		props.PasteKeyframes(tck, props.Analytics)
 	end)
 
 	self:addAction(actions:get("CutSelected"), function()
@@ -550,9 +549,6 @@ function TimelineActions:didMount()
 
 	self:addAction(actions:get("CopySelected"), self.props.CopySelectedKeyframes)
 	self:addAction(actions:get("DeleteSelected"), deleteSelectedKeyframesWrapper)
-	if FFlagAnimEditorFixBackspaceOnMac() then
-		self:addAction(actions:get("DeleteSelectedBackspace"), deleteSelectedKeyframesWrapper)
-	end
 	self:addAction(actions:get("ResetSelected"), self.props.ResetSelectedKeyframes)
 	self:addAction(actions:get("SelectAll"), self.props.SelectAllKeyframes)
 	self:addAction(actions:get("DeselectAll"), self.props.DeselectAllKeyframes)
@@ -615,9 +611,6 @@ function TimelineActions:render()
 			pluginActions:get("CopySelected").Enabled = true
 			pluginActions:get("ResetSelected").Enabled = true
 			pluginActions:get("DeleteSelected").Enabled = true
-			if FFlagAnimEditorFixBackspaceOnMac() then
-				pluginActions:get("DeleteSelectedBackspace").Enabled = true
-			end
 		else
 			pluginActions:get("SelectAll").Enabled = true
 		end
@@ -740,9 +733,9 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
-		PasteKeyframes = function(tick, analytics)
+		PasteKeyframes = function(tck, analytics)
 			dispatch(AddWaypoint())
-			dispatch(PasteKeyframes(tick, analytics))
+			dispatch(PasteKeyframes(tck, analytics))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
@@ -752,28 +745,28 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
-		AddKeyframe = function(instance, path, trackType, tick, keyframeData, analytics)
+		AddKeyframe = function(instance, path, trackType, tck, keyframeData, analytics)
 			dispatch(AddWaypoint())
-			dispatch(AddKeyframe(instance, path, trackType, tick, keyframeData, analytics))
+			dispatch(AddKeyframe(instance, path, trackType, tck, keyframeData, analytics))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
-		AddKeyframe_deprecated2 = function(instance, trackName, trackType, tick, value, analytics)
+		AddKeyframe_deprecated2 = function(instance, trackName, trackType, tck, value, analytics)
 			dispatch(AddWaypoint())
-			dispatch(AddKeyframe(instance, trackName, trackType, tick, value, analytics))
+			dispatch(AddKeyframe(instance, trackName, trackType, tck, value, analytics))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
 		-- Remove when GetFFlagFacialAnimationSupport() and GetFFlagChannelAnimations() are retired
-		AddKeyframe_deprecated = function(instance, trackName, tick, value, analytics)
+		AddKeyframe_deprecated = function(instance, trackName, tck, value, analytics)
 			dispatch(AddWaypoint())
-			dispatch(AddKeyframe(instance, trackName, tick, value, analytics))
+			dispatch(AddKeyframe(instance, trackName, tck, value, analytics))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
-		OnEditEvents = function(tick)
+		OnEditEvents = function(tck)
 			dispatch(SetShowEvents(true))
-			dispatch(SetEventEditingTick(tick))
+			dispatch(SetEventEditingTick(tck))
 		end,
 
 		Undo = function(signals)

@@ -12,6 +12,7 @@ local Utility = require(script.Parent.Utility)
 local SelectionService = game:GetService("Selection")
 
 local FFlagFixStarterGuiErrors = game:DefineFastFlag("FixStarterGuiErrors", false)
+local FFlagAddUiComponentToGuiFilter = game:DefineFastFlag("AddUiComponentToGuiFilter", false)
 
 --filtered selection
 --when selection changes register to changed event on new items
@@ -103,13 +104,21 @@ local function notifyFilteredSelectionChanged()
 	end
 end
 
+-- Returns true if the instance is GUI-related
+local function isGui(instance)
+	if FFlagAddUiComponentToGuiFilter then
+		return instance:isA("GuiObject") or instance:isA("UIComponent")
+	end
+	return instance:isA("GuiObject")
+end
+
 -- Returns true if the object is a GuiObject and all of the ancestors
 -- are GuiBase2d until the StarterGui.
 --
 -- bool areAllAncestorsGuiBase2dToStarterGui(GuiObject guiObject)
 local function areAllAncestorsGuiBase2dToStarterGui(guiObject)
-	if not guiObject:isA("GuiObject") then
-		return
+	if not isGui(guiObject) then
+		return false
 	end
 
 	local purebredGui = false
@@ -149,7 +158,7 @@ end
 -- are GuiBase2d, and it's under a ScreenGui.
 --
 -- bool passesGuiFilter(Instance instance)
-local function passesGuiFilter(instance)
+function SelectionManager:passesGuiFilter(instance)
 	-- Check that all the ancestors up to StarterGui are GuiBase2d. Otherwise
 	-- you can put a Frame under another Frame under a Part and it will show up
 	-- with the selection rectangle.
@@ -163,7 +172,7 @@ end
 
 -- void SelectionManager:onDescendantAddedToStarterGui(Instance child)
 function SelectionManager:onDescendantAddedToStarterGui(child)
-	if passesGuiFilter(child) then
+	if SelectionManager:passesGuiFilter(child) and child:isA("GuiObject")then
 		-- There is a new GUI object in StaterGui so it should
 		-- be added to the filtered selection.
 		SelectionManager:onSelectionChanged()
@@ -191,7 +200,7 @@ function SelectionManager:onSelectionChanged()
 	for i = 1, #m_rawSelection do
 		local instance = m_rawSelection[i]
 
-        if passesGuiFilter(instance) and instance:isA("GuiObject") then
+        if SelectionManager:passesGuiFilter(instance) and instance:isA("GuiObject") then
             table.insert(m_filteredSelection, instance)
         end
 	end

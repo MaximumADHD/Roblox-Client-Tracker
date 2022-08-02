@@ -12,20 +12,30 @@
 		boolean Selected: whether the button should be on or off.
 		boolean ShowWarning: whether the description text is shown as warning text
 ]]
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
-local withContext = ContextServices.withContext
 
 local Framework = require(Plugin.Packages.Framework)
-local Util = Framework.Util
-local TitledFrame = Framework.StudioUI.TitledFrame
-local ToggleButton = Framework.UI.ToggleButton
-local TextWithInlineLink = Framework.UI.TextWithInlineLink
 
-local FitTextLabel = Util.FitFrame.FitTextLabel
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
+
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
+
+local Util = Framework.Util
+
+local UI = Framework.UI
+local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else Framework.StudioUI.TitledFrame
+local ToggleButton = UI.ToggleButton
+local TextWithInlineLink = UI.TextWithInlineLink
+local TextLabel = UI.Decoration.TextLabel
+
+local FitTextLabel
+if not FFlagRemoveUILibraryTitledFrame then
+	FitTextLabel = Util.FitFrame.FitTextLabel
+end
 
 local LayoutOrderIterator = Util.LayoutOrderIterator
 
@@ -80,7 +90,8 @@ function ToggleButtonWithTitle:render()
 		}),
 
 		Description = props.Description and
-			Roact.createElement(FitTextLabel, Cryo.Dictionary.join(showWarning and theme.fontStyle.SmallError or theme.fontStyle.Subtext, {
+			Roact.createElement(if FFlagRemoveUILibraryTitledFrame then TextLabel else FitTextLabel, Cryo.Dictionary.join(showWarning and theme.fontStyle.SmallError or theme.fontStyle.Subtext, {
+				AutomaticSize = if FFlagRemoveUILibraryTitledFrame then Enum.AutomaticSize.XY else nil,
 				BackgroundTransparency = 1,
 				LayoutOrder = layoutIndex:getNextOrder(),
 				TextTransparency = props.Disabled and 0.5 or 0,

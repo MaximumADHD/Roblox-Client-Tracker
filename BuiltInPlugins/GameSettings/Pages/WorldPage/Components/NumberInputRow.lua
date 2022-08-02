@@ -22,25 +22,28 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
-local FFlagRemoveUILibraryRoundTextBox = Framework.SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryRoundTextBox = SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
+local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local RoactStudioWidgets = Plugin.Packages.RoactStudioWidgets
+
 local UI = Framework.UI
 local TextInput2 = UI.TextInput2
+local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else require(RoactStudioWidgets.TitledFrame)
 
-local WorldRootPhysics = require(Page.ContextServices.WorldRootPhysics)
-
-local formatNumberForDisplay = require(Page.Util.formatNumberForDisplay)
-
-local RoactStudioWidgets = Plugin.Packages.RoactStudioWidgets
-local StudioWidgetTitledFrame = require(RoactStudioWidgets.TitledFrame)
 local StudioWidgetRoundTextBox
 if not FFlagRemoveUILibraryRoundTextBox then
 	StudioWidgetRoundTextBox = require(RoactStudioWidgets.RoundTextBox)
 end
 local StudioWidgetText = require(RoactStudioWidgets.Text)
+
+local WorldRootPhysics = require(Page.ContextServices.WorldRootPhysics)
+
+local formatNumberForDisplay = require(Page.Util.formatNumberForDisplay)
 
 local INPUT_BOX_OFFSET = 160
 local METRIC_LABEL_OFFSET = 170
@@ -87,7 +90,10 @@ function NumberInputRow:render()
 	local mouse = props.Mouse:get()
 	local worldRootPhysicsController = props.WorldRootPhysics:get()
 
-	return Roact.createElement(StudioWidgetTitledFrame, {
+	return Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+		LayoutOrder = layoutOrder,
+		Title = title,
+	} else {
 		Title = title,
 		MaxHeight = ROW_HEIGHT,
 		LayoutOrder = layoutOrder,

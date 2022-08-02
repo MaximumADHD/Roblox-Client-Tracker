@@ -18,7 +18,7 @@ return function()
 
 	local retryAfterUpsell = require(script.Parent.retryAfterUpsell)
 
-	local GetFFlagPPRetryPost2SVWebviewFix = require(Root.Flags.GetFFlagPPRetryPost2SVWebviewFix)
+	local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
 
 	it("should run without errors", function()
 		local store = Rodux.Store.new(Reducer, {
@@ -49,9 +49,17 @@ return function()
 		network.getAccountInfo():andThen(function(result)
 			accountInfo = result
 		end)
+		local balanceInfo
+		network.getBalanceInfo():andThen(function(result)
+			balanceInfo = result
+		end)
 
 		-- Account info should be re-populated
-		expect(state.accountInfo.balance).to.be.equal(accountInfo.RobuxBalance)
+		if FFlagPPAccountInfoMigration then
+			expect(state.accountInfo.balance).to.be.equal(balanceInfo.robux)
+		else
+			expect(state.accountInfo.balance).to.be.equal(accountInfo.RobuxBalance)
+		end
 		expect(state.accountInfo.membershipType).to.be.equal(accountInfo.MembershipType)
 	end)
 
@@ -65,10 +73,14 @@ return function()
 		network.getAccountInfo():andThen(function(result)
 			accountInfo = result
 		end)
+		local balanceInfo
+		network.getBalanceInfo():andThen(function(result)
+			balanceInfo = result
+		end)
 
 		local store = Rodux.Store.new(Reducer, {
 			productInfo = {
-				price = accountInfo.RobuxBalance + 1,
+				price = FFlagPPAccountInfoMigration and balanceInfo.robux + 1 or accountInfo.RobuxBalance + 1,
 				membershipTypeRequired = 0,
 			},
 			promptRequest = {
@@ -89,31 +101,29 @@ return function()
 		expect(analytics.spies.signalFailedPurchasePostUpsell.callCount).to.equal(1)
 	end)
 
-	if GetFFlagPPRetryPost2SVWebviewFix() then
-		it("should not run if there is no request", function()
-			local store = Rodux.Store.new(Reducer, {
-				productInfo = {
-					price = 0,
-					membershipTypeRequired = 0,
-				},
-				promptRequest = {
-					requestType = RequestType.None,
-				},
-			})
-	
-			local thunk = retryAfterUpsell()
-			local network = MockNetwork.new()
-			local analytics = MockAnalytics.new()
-			local externalSettings = MockExternalSettings.new(true, false, {})
-	
-			Thunk.test(thunk, store, {
-				[Analytics] = analytics.mockService,
-				[Network] = network,
-				[ExternalSettings] = externalSettings,
-			})
-	
-			local state = store:getState()
-			expect(state.promptState).to.equal(PromptState.None)
-		end)
-	end
+	it("should not run if there is no request", function()
+		local store = Rodux.Store.new(Reducer, {
+			productInfo = {
+				price = 0,
+				membershipTypeRequired = 0,
+			},
+			promptRequest = {
+				requestType = RequestType.None,
+			},
+		})
+
+		local thunk = retryAfterUpsell()
+		local network = MockNetwork.new()
+		local analytics = MockAnalytics.new()
+		local externalSettings = MockExternalSettings.new(true, false, {})
+
+		Thunk.test(thunk, store, {
+			[Analytics] = analytics.mockService,
+			[Network] = network,
+			[ExternalSettings] = externalSettings,
+		})
+
+		local state = store:getState()
+		expect(state.promptState).to.equal(PromptState.None)
+	end)
 end

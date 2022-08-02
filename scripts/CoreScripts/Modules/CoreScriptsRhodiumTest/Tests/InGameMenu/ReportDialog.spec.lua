@@ -82,7 +82,7 @@ return function()
 		end)
 
 		it("Should not remember the last highligted element when opened", function(c)
-			if GetFFlagIGMGamepadSelectionHistory() and game:GetEngineFeature("GamepadUIBetterTieBreakingEnabled") then
+			if GetFFlagIGMGamepadSelectionHistory() then
 				local store = c.store
 
 
@@ -108,7 +108,7 @@ return function()
 		end)
 
 		it("Should remember the last highligted element when coming back from another dialog", function(c)
-			if GetFFlagIGMGamepadSelectionHistory() and game:GetEngineFeature("GamepadUIBetterTieBreakingEnabled") then
+			if GetFFlagIGMGamepadSelectionHistory() then
 				local store = c.store
 
 				c.storeUpdate(SetMenuOpen(true))

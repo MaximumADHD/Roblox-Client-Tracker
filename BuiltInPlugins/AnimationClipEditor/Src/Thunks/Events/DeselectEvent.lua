@@ -6,7 +6,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
 
-return function(tick)
+return function(tck)
 	return function(store)
 		local animationData = store:getState().AnimationData
 		local selectedEvents = store:getState().Status.SelectedEvents
@@ -19,9 +19,9 @@ return function(tick)
 			return
 		end
 
-		if events.Data and events.Data[tick] then
+		if events.Data and events.Data[tck] then
 			store:dispatch(SetSelectedEvents(Cryo.Dictionary.join(selectedEvents, {
-				[tick] = Cryo.None,
+				[tck] = Cryo.None,
 			})))
 		end
 	end

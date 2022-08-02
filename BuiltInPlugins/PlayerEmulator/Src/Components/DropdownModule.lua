@@ -13,14 +13,22 @@
 		function OnItemClicked(item)
 			Called when an item is clicked. Returns the item itself.
 ]]
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local UILibrary = require(Plugin.Packages.UILibrary)
 local DropdownMenu = UILibrary.Component.DropdownMenu
+
+local UI = Framework.UI
+local TextLabel = UI.Decoration.TextLabel
+
+local StyleModifier = Framework.Util.StyleModifier
 
 local DropdownModule = Roact.PureComponent:extend("DropdownModule")
 
@@ -81,13 +89,20 @@ function DropdownModule:render()
 			Indent = Roact.createElement("UIPadding", {
 				PaddingLeft = theme.TEXT_INDENT_PADDING,
 			}),
-			Label = Roact.createElement("TextLabel", {
-				Size = UDim2.new(1, 0, 1, 0),
-				Text = currentSelected or localization:getText("LanguageSection", "CustomLanguageDisplayText"),
-				TextColor3 = enabled and theme.TextColor or theme.DisabledColor,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				BackgroundTransparency = 1,
-			}),
+			Label = if FFlagDevFrameworkMigrateTextLabels then (
+				Roact.createElement(TextLabel, {
+					Text = currentSelected or localization:getText("LanguageSection", "CustomLanguageDisplayText"),
+					StyleModifier = if enabled then nil else StyleModifier.Disabled,
+				})
+			) else (
+				Roact.createElement("TextLabel", {
+					Size = UDim2.new(1, 0, 1, 0),
+					Text = currentSelected or localization:getText("LanguageSection", "CustomLanguageDisplayText"),
+					TextColor3 = enabled and theme.TextColor or theme.DisabledColor,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					BackgroundTransparency = 1,
+				})
+			),
 			Arrow = Roact.createElement("ImageLabel", {
 				Position = theme.DROPDOWN_ARROW_POSITION,
 				Size = theme.DROPDOWN_ARROW_SIZE,
@@ -131,13 +146,20 @@ function DropdownModule:render()
 							PaddingLeft = theme.TEXT_INDENT_PADDING,
 						}),
 
-						Label = Roact.createElement("TextLabel", {
-							Size = UDim2.new(1, 0, 1, 0),
-							TextColor3 = theme.TextColor,
-							TextXAlignment = Enum.TextXAlignment.Left,
-							Text = displayText,
-							BackgroundTransparency = 1,
-						})
+						Label = if FFlagDevFrameworkMigrateTextLabels then (
+							Roact.createElement(TextLabel, {
+								TextXAlignment = Enum.TextXAlignment.Left,
+								Text = displayText,
+							})
+						) else (
+							Roact.createElement("TextLabel", {
+								Size = UDim2.new(1, 0, 1, 0),
+								TextColor3 = theme.TextColor,
+								TextXAlignment = Enum.TextXAlignment.Left,
+								Text = displayText,
+								BackgroundTransparency = 1,
+							})
+						)
 					})
 				end,
 			})

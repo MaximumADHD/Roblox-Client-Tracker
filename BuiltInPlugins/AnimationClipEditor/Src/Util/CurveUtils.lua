@@ -61,7 +61,7 @@ function CurveUtils.makeBounce(easingDirection, tickA, keyframeA, tickB, keyfram
 	local lastSlope
 
 	for _ = 1, count do
-		local tick
+		local tck
 		local keyframe
 
 		-- Add a rebound
@@ -91,19 +91,19 @@ function CurveUtils.makeBounce(easingDirection, tickA, keyframeA, tickB, keyfram
 		end
 
 		-- Create a keyframe for the rebound
-		tick = KeyframeUtils.getNearestTick(tickA + reboundX * dt)
+		tck = KeyframeUtils.getNearestTick(tickA + reboundX * dt)
 		keyframe = Templates.keyframe()
 		keyframe.InterpolationMode = Enum.KeyInterpolationMode.Cubic
 		keyframe.LeftSlope = reboundLeftSlope * dv / dt
 		keyframe.RightSlope = reboundRightSlope * dv / dt
 		keyframe.Value = easingDirection == Enum.PoseEasingDirection.In and keyframeA.Value or keyframeB.Value
-		keyframes[tick] = keyframe
+		keyframes[tck] = keyframe
 
 		-- Keep the slope of the rebound, because we'll need it for the last keyframe
 		lastSlope = if easingDirection == Enum.PoseEasingDirection.Out then keyframe.RightSlope else keyframe.LeftSlope
 
 		-- Create a keyframe for the apex
-		tick = KeyframeUtils.getNearestTick(tickA + apexX * dt)
+		tck = KeyframeUtils.getNearestTick(tickA + apexX * dt)
 		keyframe = Templates.keyframe()
 		keyframe.InterpolationMode = Enum.KeyInterpolationMode.Cubic
 		keyframe.LeftSlope = 0
@@ -113,7 +113,7 @@ function CurveUtils.makeBounce(easingDirection, tickA, keyframeA, tickB, keyfram
 		else
 			keyframe.Value = keyframeA.Value + apexY * (keyframeB.Value - keyframeA.Value)
 		end
-		keyframes[tick] = keyframe
+		keyframes[tck] = keyframe
 
 		-- Prepare for next iteration
 		root = root + 2 * e
@@ -178,7 +178,7 @@ function CurveUtils.makeElastic(easingDirection, tickA, keyframeA, tickB, keyfra
 		end
 
 		-- Create a keyframe
-		local tick = KeyframeUtils.getNearestTick(tickA + x * dt)
+		local tck = KeyframeUtils.getNearestTick(tickA + x * dt)
 		local keyframe = Templates.keyframe()
 		keyframe.InterpolationMode = Enum.KeyInterpolationMode.Cubic
 		keyframe.LeftSlope = 0
@@ -188,7 +188,7 @@ function CurveUtils.makeElastic(easingDirection, tickA, keyframeA, tickB, keyfra
 		else
 			keyframe.Value = keyframeA.Value + y * (keyframeB.Value - keyframeA.Value)
 		end
-		keyframes[tick] = keyframe
+		keyframes[tck] = keyframe
 	end
 
 	-- Adjust the slopes at the ends of the segment
@@ -223,7 +223,7 @@ function CurveUtils.generateCurve(trackType, easingStyle, easingDirection, tickA
 		-- For InOut easing, and unless we're dealing with Constant or Linear easing for which InOut is meaningless,
 		-- we need to create a keyframe half way between the ends, and apply the easing In on the first half, and
 		-- the easing Out on the second half.
-		local tick = KeyframeUtils.getNearestTick((tickA + tickB) * 0.5)
+		local tck = KeyframeUtils.getNearestTick((tickA + tickB) * 0.5)
 		local keyframe = Templates.keyframe()
 
 		if isQuaternionTrack then
@@ -232,14 +232,14 @@ function CurveUtils.generateCurve(trackType, easingStyle, easingDirection, tickA
 			keyframe.Value = (keyframeA.Value + keyframeB.Value) * 0.5
 		end
 
-		local keyframesA = CurveUtils.generateCurve(trackType, easingStyle, Enum.PoseEasingDirection.In, tickA, keyframeA, tick, keyframe)
-		local keyframesB = CurveUtils.generateCurve(trackType, easingStyle, Enum.PoseEasingDirection.Out, tick, keyframe, tickB, keyframeB)
+		local keyframesA = CurveUtils.generateCurve(trackType, easingStyle, Enum.PoseEasingDirection.In, tickA, keyframeA, tck, keyframe)
+		local keyframesB = CurveUtils.generateCurve(trackType, easingStyle, Enum.PoseEasingDirection.Out, tck, keyframe, tickB, keyframeB)
 
 		local keyframes = Cryo.Dictionary.join(keyframesA, keyframesB)
 
 		-- The curve looks better if we don't include the middle tick for Elastic easing
 		if easingStyle ~= Enum.PoseEasingStyle.Elastic then
-			keyframes[tick] = keyframe
+			keyframes[tck] = keyframe
 		end
 
 		return keyframes

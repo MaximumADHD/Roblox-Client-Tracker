@@ -354,7 +354,8 @@ function InfoPanel:render()
 				Text = "Select a story from the tree",
 				TextWrapped = true,
 				LayoutOrder = 2,
-				AutomaticSize = Enum.AutomaticSize.XY,
+				AutomaticSize = Enum.AutomaticSize.Y,
+				Size = UDim2.new(1, -80, 0, 0),
 			}),
 		})
 	end

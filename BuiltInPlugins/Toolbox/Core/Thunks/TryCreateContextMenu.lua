@@ -8,8 +8,6 @@ local PermissionsConstants = require(Plugin.Core.Components.AssetConfiguration.P
 local Category = require(Plugin.Core.Types.Category)
 local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
 
-local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
-
 local function nameForValueInEnum(enum, value)
 	local items = enum:GetEnumItems()
 
@@ -47,15 +45,8 @@ return function(assetData, localizedContent, plugin, tryOpenAssetConfig, assetAn
 			showEditOption = canEditPackage
 		end
 
-		local context
-		local position
-		if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-			context = assetAnalyticsContext
-			position = assetData.Context.position
-		else
-			context = assetData.Context
-			position = context.position
-		end
+		local context = assetAnalyticsContext
+		local position = assetData.Context.position
 		local creatorTypeEnumValue
 
 		-- TODO STM-406: Refactor creator types to be stored as Enum.CreatorType in Toolbox Rodux
@@ -82,12 +73,8 @@ return function(assetData, localizedContent, plugin, tryOpenAssetConfig, assetAn
 
 		local creatorId = (assetData.Creator and assetData.Creator.Id) or nil
 
-		local currentCategory
-		if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-			currentCategory = PageInfoHelper.getCategoryForPageInfo(pageInfo)
-		else
-			currentCategory = assetData.Context.currentCategory
-		end
+		local currentCategory = PageInfoHelper.getCategoryForPageInfo(pageInfo)
+
 		ContextMenuHelper.tryCreateContextMenu(
 			plugin,
 			assetId,

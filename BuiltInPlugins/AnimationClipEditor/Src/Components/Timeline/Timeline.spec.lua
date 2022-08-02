@@ -41,10 +41,10 @@ return function()
 		expect(frame.Ticks).to.be.ok()
 		local ticks = frame.Ticks
 		expect(#ticks:GetChildren()).to.never.equal(0)
-		for _, tick in ipairs(ticks:GetChildren()) do
-			expect(tick).to.be.ok()
-			expect(tick.TimeLabel).to.be.ok()
-			expect(tick.TickLine).to.be.ok()
+		for _, tck in ipairs(ticks:GetChildren()) do
+			expect(tck).to.be.ok()
+			expect(tck.TimeLabel).to.be.ok()
+			expect(tck.TickLine).to.be.ok()
 		end
 
 		Roact.unmount(instance)

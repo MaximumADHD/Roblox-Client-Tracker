@@ -1,3 +1,0 @@
-local FFlagInspectAndBuyLayeredClothingSupport = require(script.Parent.FFlagInspectAndBuyLayeredClothingSupport)
-
-return FFlagInspectAndBuyLayeredClothingSupport and game:DefineFastFlag("InspectAndBuyLayeredClothingR6Support", false)

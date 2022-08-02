@@ -20,12 +20,16 @@ local GetFFlagUIBloxEnableIconButtonGamepadSupport = require(
 local GetFFlagUIBloxSliderUpdateOnDismiss = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxSliderUpdateOnDismiss
 )
+local GetFFlagUIBloxFixDropdownMenuCellTextSize = require(
+	CorePackages.UIBloxFlags.GetFFlagUIBloxFixDropdownMenuCellTextSize
+)
 
 local EnableInGameMenuV3 = require(RobloxGui.Modules.InGameMenuV3.Flags.GetFFlagEnableInGameMenuV3)
 
 return {
 	useUpdatedCheckbox = true,
 	fixDropdownMenuListPositionAndSize = GetFFlagUIBloxFixDropdownMenuListPositionAndSize(),
+	fixDropdownMenuCellTextSize = GetFFlagUIBloxFixDropdownMenuCellTextSize(),
 	useNewGenericTextLabelProps = GetFFlagUIBloxUseNewGenericTextLabelProps(),
 	useAnimatedXboxCursors = game:DefineFastFlag("GamepadAnimatedCursor", false),
 	genericButtonInputChanges = GetFFlagUIBloxGenericButtonInputChangesInGame(),

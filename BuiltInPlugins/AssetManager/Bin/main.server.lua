@@ -12,6 +12,7 @@ local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableM
 local FFlagAssetManagerGeneralizeSignalAPI = game:GetFastFlag("AssetManagerGeneralizeSignalAPI")
 local FFlagAssetManagerDragAndDrop = game:GetFastFlag("AssetManagerDragAndDrop")
 local FFlagEnableAssetManagerSortButton = game:GetFastFlag("EnableAssetManagerSortButton")
+local FFlagAssetManagerInitiallyDisabled = game:GetFastFlag("AssetManagerInitiallyDisabled")
 
 local AssetManagerService = game:GetService("AssetManagerService")
 local BulkImportService = game:GetService("BulkImportService")
@@ -271,17 +272,17 @@ local function main()
 		toolbarButton:SetActive(pluginGui.Enabled)
 	end
 
-	local initiallyEnabled = true
+	local initiallyEnabled = if FFlagAssetManagerInitiallyDisabled then false else true
 
 	-- create the plugin
 	local widgetInfo = DockWidgetPluginGuiInfo.new(
-		Enum.InitialDockState.Left,  -- Widget will be initialized docked to the left
-		initiallyEnabled,   -- Widget will be initially enabled
-		false,  -- Don't override the previous enabled state
-		if FFlagEnableAssetManagerSortButton then 350 else 300,    -- Default width of the floating window
-		600,    -- Default height of the floating window
-		if FFlagEnableAssetManagerSortButton then 350 else 270,    -- Minimum width of the floating window (optional)
-		256     -- Minimum height of the floating window (optional)
+		Enum.InitialDockState.Left, -- Widget will be initialized docked to the left
+		initiallyEnabled, -- Whether the widget will be initially enabled
+		false, -- Don't override the previous enabled state
+		if FFlagEnableAssetManagerSortButton then 350 else 300, -- Default width of the floating window
+		600, -- Default height of the floating window
+		if FFlagEnableAssetManagerSortButton then 350 else 270, -- Minimum width of the floating window (optional)
+		256 -- Minimum height of the floating window (optional)
 	)
 	pluginGui = plugin:CreateDockWidgetPluginGui(DOCK_WIDGET_PLUGIN_NAME, widgetInfo)
 	pluginGui.Name = localization:getText("Meta", "PluginName")

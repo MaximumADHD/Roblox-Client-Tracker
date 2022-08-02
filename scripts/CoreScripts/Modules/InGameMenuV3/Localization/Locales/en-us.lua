@@ -216,6 +216,7 @@ return{
 	["CoreScripts.InGameMenu.Prompt.ReturnHomeBodyText"] = [[Return to home from here and discover new experiences.]],
 	["CoreScripts.InGameMenu.Actions.BlockFriend"] = [[Block Friend?]],
 	["CoreScripts.InGameMenu.QuickActions.ScreenshotSaved"] = [[Screenshot Saved]],
-	["CoreScripts.InGameMenu.Action.ShareServerLink"] = [[Share Server Link]],
+	["CoreScripts.InGameMenu.Action.ShareServerLink"] = [[Share]],
 	["CoreScripts.InGameMenu.Controls.Scriptable"] = [[Scriptable]],
+	["CoreScripts.InGameMenu.QuickActions.Connecting"] = [[Connecting...]],
 }

@@ -12,7 +12,7 @@ return function()
 		local element = Roact.createElement(MockWrapper, {}, {
 			Navigation = Roact.createElement(
 				NavigationContainer,
-				{ AssetSections = {}, CategoryName = Category.FREE_MODELS.name }
+				{ AssetSections = {}, CategoryName = Category.FREE_MODELS.name, SubcategoryDict = {} }
 			),
 		})
 		local instance = Roact.mount(element)

@@ -30,8 +30,6 @@ local CopySelectedEvents = require(Plugin.Src.Thunks.Events.CopySelectedEvents)
 local DeleteSelectedEvents = require(Plugin.Src.Thunks.Events.DeleteSelectedEvents)
 local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
 
-local FFlagAnimEditorFixBackspaceOnMac = require(Plugin.LuaFlags.GetFFlagAnimEditorFixBackspaceOnMac)
-
 local EventActions = Roact.PureComponent:extend("EventActions")
 
 function EventActions:makeMenuActions()
@@ -72,14 +70,14 @@ function EventActions:didMount()
 
 	self:addAction(actions:get("EditEvents"), function()
 		local props = self.props
-		local tick = props.Tick
-		props.OnEditEvents(tick)
+		local tck = props.Tick
+		props.OnEditEvents(tck)
 	end)
 
 	self:addAction(actions:get("PasteEvents"), function()
 		local props = self.props
-		local tick = props.Tick or props.Playhead
-		props.PasteEvents(tick)
+		local tck = props.Tick or props.Playhead
+		props.PasteEvents(tck)
 	end)
 
 	self:addAction(actions:get("CutEvents"), function()
@@ -90,10 +88,6 @@ function EventActions:didMount()
 
 	self:addAction(actions:get("CopyEvents"), self.props.CopySelectedEvents)
 	self:addAction(actions:get("DeleteEvents"), self.props.DeleteSelectedEvents)
-
-	if FFlagAnimEditorFixBackspaceOnMac() then
-		self:addAction(actions:get("DeleteEventsBackspace"), self.props.DeleteSelectedEvents)
-	end
 end
 
 function EventActions:render()
@@ -122,9 +116,6 @@ function EventActions:render()
 			pluginActions:get("CutEvents").Enabled = true
 			pluginActions:get("CopyEvents").Enabled = true
 			pluginActions:get("DeleteEvents").Enabled = true
-			if FFlagAnimEditorFixBackspaceOnMac() then
-				pluginActions:get("DeleteEventsBackspace").Enabled = true
-			end
 		end
 		if props.OnEvent then
 			pluginActions:get("EditEvents").Enabled = true
@@ -184,9 +175,9 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
-		PasteEvents = function(tick)
+		PasteEvents = function(tck)
 			dispatch(AddWaypoint())
-			dispatch(PasteEvents(tick))
+			dispatch(PasteEvents(tck))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 	}

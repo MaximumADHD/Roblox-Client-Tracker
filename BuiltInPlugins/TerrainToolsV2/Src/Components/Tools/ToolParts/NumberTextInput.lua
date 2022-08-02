@@ -13,7 +13,7 @@
 
 		See LabeledTextInput for more
 ]]
-
+local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -22,7 +22,7 @@ local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local ContextItems = require(Plugin.Src.ContextItems)
+local ContextItems = if FFlagRemoveUILibraryCompatLocalization then nil else require(Plugin.Src.ContextItems)
 
 local ToolParts = script.Parent
 local LabeledTextInput = require(ToolParts.LabeledTextInput)
@@ -63,7 +63,7 @@ function NumberTextInput:init(props)
 	end
 
 	self.getLocalization = function()
-		return self.props.Localization:get()
+		return if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
 	end
 
 	self.isTextValid = function(text)
@@ -139,11 +139,8 @@ function NumberTextInput:render()
 	return Roact.createElement(LabeledTextInput, newProps)
 end
 
-
 NumberTextInput = withContext({
-	Localization = ContextItems.UILibraryLocalization,
+	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
 })(NumberTextInput)
-
-
 
 return NumberTextInput

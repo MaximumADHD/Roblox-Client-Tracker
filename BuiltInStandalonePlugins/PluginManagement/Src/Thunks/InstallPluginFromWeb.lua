@@ -90,10 +90,6 @@ return function(studioServiceImpl, apiImpl, analytics, pluginId)
 		end
 
 		local userId = studioServiceImpl:GetUserId()
-		if (userId % 100) < game:GetFastInt("StandalonePluginOwnershipHasAssetMigrationRolloutPercentage") then
-			apiImpl.Inventory.v1.Users.Items.IsOwned(userId, Enum.AvatarItemType.Asset, pluginId):andThen(ownershipSuccessHandler, ownershipFailureHandler)
-		else
-			apiImpl.API.Ownership.HasAsset(pluginId, userId):andThen(ownershipSuccessHandler, ownershipFailureHandler)
-		end
+		apiImpl.Inventory.v1.Users.Items.IsOwned(userId, Enum.AvatarItemType.Asset, pluginId):andThen(ownershipSuccessHandler, ownershipFailureHandler)
 	end
 end

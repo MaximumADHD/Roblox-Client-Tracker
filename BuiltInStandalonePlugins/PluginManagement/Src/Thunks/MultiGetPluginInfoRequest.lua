@@ -5,6 +5,8 @@ local cleanTimestamp = require(Plugin.Src.Util.cleanTimestamp)
 
 local MAX_IDS_PER_REQUESTS = 50
 
+local FFlagAutoUpdatePlugins = game:GetFastFlag("AutoUpdatePlugins")
+
 
 -- apiImpl : (Http.API)
 -- marketplaceService : (Service) something that implements GetProductInfo
@@ -60,6 +62,9 @@ local function multigetPluginInfoRequest(apiImpl, marketplaceService, assetIds, 
 					p.enabled = entry.enabled
 					p.installedVersion = entry.installedVersion
 					p.isModerated = entry.isModerated
+					if FFlagAutoUpdatePlugins then
+						p.autoUpdateEnabled = entry.autoUpdateEnabled
+					end
 
 					if assetsMerged == #assetIds then
 						break

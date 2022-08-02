@@ -14,10 +14,6 @@ local InspectAndBuyControllerBar = require(InspectAndBuyFolder.Components.Inspec
 local GetIsFavorite = require(InspectAndBuyFolder.Selectors.GetIsFavorite)
 local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
 
-local FFlagInspectAndBuyLayeredClothingSupport = require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyLayeredClothingSupport)
-local FFlagInspectAndBuyLayeredClothingR6Support =
-	require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyLayeredClothingR6Support)
-
 local FFlagFixInspectAndBuyPremiumPrice = game:DefineFastFlag("FixInspectAndBuyPremiumPrice", false)
 local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyFolder.Flags.GetFFlagUseInspectAndBuyControllerBar)
 
@@ -137,15 +133,9 @@ function DetailsButtons:render()
 		end
 
 		showTryOn = not isAnimationAsset(assetInfo.assetTypeId)
-		if FFlagInspectAndBuyLayeredClothingSupport then
-			if Constants.HumanoidDescriptionIdToName[assetInfo.assetTypeId] == nil
-				and Constants.AssetTypeIdToAccessoryTypeEnum[assetInfo.assetTypeId] == nil then
-				showTryOn = false
-			end
-		else
-			if Constants.HumanoidDescriptionIdToName[assetInfo.assetTypeId] == nil then
-				showTryOn = false
-			end
+		if Constants.HumanoidDescriptionIdToName[assetInfo.assetTypeId] == nil
+			and Constants.AssetTypeIdToAccessoryTypeEnum[assetInfo.assetTypeId] == nil then
+			showTryOn = false
 		end
 	end
 
@@ -178,7 +168,7 @@ function DetailsButtons:render()
 			partOfBundleAndOffsale = partOfBundleAndOffsale,
 			bundleId = bundleId,
 			tryOnButtonRef = self.tryOnButtonRef,
-			localPlayerModel = FFlagInspectAndBuyLayeredClothingR6Support and self.props.localPlayerModel or nil,
+			localPlayerModel = self.props.localPlayerModel,
 		}),
 		TryOnFiller = Roact.createElement("ImageLabel", {
 			AnchorPoint = Vector2.new(0.5, 0),

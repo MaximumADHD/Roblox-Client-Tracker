@@ -216,5 +216,5 @@ return{
 	["CoreScripts.InGameMenu.Prompt.ReturnHomeBodyText"] = [[Вернись на главную страницу и исследуй другие плейсы.]],
 	["CoreScripts.InGameMenu.Actions.BlockFriend"] = [[Заблокировать друга?]],
 	["CoreScripts.InGameMenu.QuickActions.ScreenshotSaved"] = [[Скриншот сохранён]],
-	["CoreScripts.InGameMenu.Action.ShareServerLink"] = [[Поделиться ссылкой на сервер]],
+	["CoreScripts.InGameMenu.Action.ShareServerLink"] = [[Поделиться]],
 }

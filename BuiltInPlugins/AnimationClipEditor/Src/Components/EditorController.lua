@@ -64,6 +64,7 @@ local PromoteKeyframeSequence = require(Plugin.Src.Thunks.PromoteKeyframeSequenc
 local SetEditorMode = require(Plugin.Src.Actions.SetEditorMode)
 local SwitchEditorMode = require(Plugin.Src.Thunks.SwitchEditorMode)
 local SetCreatingAnimationFromVideo = require(Plugin.Src.Actions.SetCreatingAnimationFromVideo)
+local SetLastSelectedPath = require(Plugin.Src.Actions.SetLastSelectedPath)
 
 local Playback = require(Plugin.Src.Components.Playback)
 local InstanceSelector = require(Plugin.Src.Components.InstanceSelector)
@@ -80,7 +81,8 @@ local GetFFlagFaceControlsEditorFixNonChannelPath = require(Plugin.LuaFlags.GetF
 local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 local GetFFlagCreateAnimationFromVideoAnalytics2 = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoAnalytics2)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
-
+local GetFFlagFixSelectionRightArrow = require(Plugin.LuaFlags.GetFFlagFixSelectionRightArrow)
+local GetFFlagFixTrackListSelection = require(Plugin.LuaFlags.GetFFlagFixTrackListSelection)
 
 local EditorController = Roact.PureComponent:extend("EditorController")
 
@@ -222,8 +224,12 @@ function EditorController:init()
 			if selectedTracks and PathUtils.findPath(selectedTracks, path) then
 				setSelectedTracks(PathUtils.removePath(selectedTracks, path))
 			else
-				self.lastSelected = path
-				setSelectedTracks(Cryo.List.join(selectedTracks or {}, {path}))
+				if GetFFlagFixTrackListSelection() then
+					props.SetLastSelectedPath(path)
+				else
+					self.lastSelected = path
+				end
+				setSelectedTracks(Cryo.List.join(selectedTracks or {}, { path }))
 			end
 		else
 			local trackName = path
@@ -242,9 +248,13 @@ function EditorController:init()
 		local setSelectedTracks = props.SetSelectedTracks
 		local trackName = path
 		local currentSelectedIndex, lastSelectedIndex
+		local lastSelectedPath = self.props.LastSelectedPath
 		for index, track in ipairs(tracks) do
 			if GetFFlagCurveEditor() then
-				if track.Name == self.lastSelected[1] then
+				if
+					(GetFFlagFixTrackListSelection() and lastSelectedPath and track.Name == lastSelectedPath[1])
+					or (not GetFFlagFixTrackListSelection() and track.Name == self.lastSelected[1])
+				then
 					lastSelectedIndex = index
 				elseif track.Name == path[1] then
 					currentSelectedIndex = index
@@ -266,8 +276,12 @@ function EditorController:init()
 			end
 			setSelectedTracks(newSelectedTracks)
 		else
-			self.lastSelected = if GetFFlagCurveEditor() then path else trackName
-			setSelectedTracks(if GetFFlagCurveEditor() then {path} else {trackName})
+			if GetFFlagFixTrackListSelection() then
+				self.props.SetLastSelectedPath(path)
+			else
+				self.lastSelected = if GetFFlagCurveEditor() then path else trackName
+			end
+			setSelectedTracks(if GetFFlagCurveEditor() then { path } else { trackName })
 		end
 	end
 
@@ -308,8 +322,12 @@ function EditorController:init()
 		elseif (not GetFFlagCurveEditor() or not AnimationData.isChannelAnimation(animationData)) and self.shiftDown then
 			self.shiftSelectTrack(path)
 		else
-			self.lastSelected = path
-			setSelectedTracks({path})
+			if GetFFlagFixTrackListSelection() then
+				props.SetLastSelectedPath(path)
+			else
+				self.lastSelected = path
+			end
+			setSelectedTracks({ path })
 		end
 		self.findCurrentParts({path}, props.RootInstance)
 		if GetFFlagCurveEditor() then
@@ -330,8 +348,12 @@ function EditorController:init()
 				return
 			end
 		end
-		self.lastSelected = path
-		setSelectedTracks({path})
+		if GetFFlagFixTrackListSelection() then
+			props.SetLastSelectedPath(path)
+		else
+			self.lastSelected = path
+		end
+		setSelectedTracks({ path })
 	end
 
 	self.addTrackWrapper = function(instanceName, trackName, trackType)
@@ -696,7 +718,10 @@ function EditorController:render()
 				ImageTransparency = 1,
 				LayoutOrder = GetFFlagCurveEditor() and 1 or nil,
 				[Roact.Event.Activated] = function()
-					props.SetSelectedTracks()
+					props.SetSelectedTracks(if GetFFlagFixSelectionRightArrow() then {} else nil)
+					if GetFFlagFixTrackListSelection() then
+						props.SetLastSelectedPath(nil)
+					end
 					props.SetSelectedTrackInstances({})
 				end,
 			}, {
@@ -841,8 +866,7 @@ function EditorController:render()
 			TopTrackIndex = topTrackIndex,
 			Tracks = if GetFFlagCurveEditor() then nil else tracks,
 			LayoutOrder = 2,
-			Size = UDim2.new(1, -trackListWidth - Constants.SCROLL_BAR_SIZE
-				- Constants.SCROLL_BAR_PADDING, 1, 0),
+			Size = UDim2.new(1, -trackListWidth - Constants.SCROLL_BAR_SIZE - Constants.SCROLL_BAR_PADDING, 1, 0),
 			StartTick = startTick,
 			EndTick = endTick,
 			LastTick = lastTick,
@@ -933,10 +957,12 @@ function EditorController:render()
 			OnClose = self.hideChangePlaybackSpeedPrompt,
 		}),
 
-		PromotePrompt = if GetFFlagCurveEditor() and showPromotePrompt then Roact.createElement(PromoteToCurvesPrompt, {
-			OnPromote = self.promoteKeyframeSequence,
-			OnClose = self.hidePromotePrompt
-		}) else nil,
+		PromotePrompt = if GetFFlagCurveEditor() and showPromotePrompt
+			then Roact.createElement(PromoteToCurvesPrompt, {
+				OnPromote = self.promoteKeyframeSequence,
+				OnClose = self.hidePromotePrompt,
+			})
+			else nil,
 	})
 end
 
@@ -990,6 +1016,7 @@ local function mapStateToProps(state)
 		MotorData = status.MotorData,
 		PinnedParts = status.PinnedParts,
 		SelectedTracks = status.SelectedTracks,
+		LastSelectedPath = status.LastSelectedPath,
 		PlayState = status.PlayState,
 		FrameRate = status.FrameRate,
 		Analytics = state.Analytics,
@@ -1007,6 +1034,10 @@ end
 
 local function mapDispatchToProps(dispatch)
 	local dispatchToProps = {
+		SetLastSelectedPath = function(path: PathUtils.Path?): ()
+			dispatch(SetLastSelectedPath(path))
+		end,
+
 		SetTracksExpanded = function(paths, expanded)
 			dispatch(SetTracksExpanded(paths, expanded, false))
 		end,

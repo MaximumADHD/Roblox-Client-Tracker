@@ -73,9 +73,16 @@ return function()
 	describe("InitCountryRegionSetting", function()
 		local SUBDOMAIN = "api"
 		local PATH = "users/account-info"
-		local url = UrlConstructor.BuildUrl(SUBDOMAIN, PATH)
 
-		local mockHttpResposne = {
+		if game:GetFastFlag("PlayerEmulatorMigratedCountryCodeCallEnabled") then
+			-- Update subdomain and path to use the migrated enpoint that speicifically
+			-- provides the country code
+			SUBDOMAIN = "users"
+			PATH = "v1/users/authenticated/country-code"
+		end
+
+		local url = UrlConstructor.BuildUrl(SUBDOMAIN, PATH)
+		local mockHttpResponse = {
 			[url] = {
 				Body = "{\"CountryCode\":\"AD\"}",
 				Success = true,
@@ -83,6 +90,17 @@ return function()
 				StatusCode = 200,
 			},
 		}
+
+		if game:GetFastFlag("PlayerEmulatorMigratedCountryCodeCallEnabled") then
+			mockHttpResponse = {
+				[url] = {
+					Body = "{\"countryCode\":\"AD\"}",
+					Success = true,
+					StatusMessage = "OK",
+					StatusCode = 200,
+				},
+			}
+		end
 		local mockCountryRegionTable = {
 			countryRegionTable = {
 				US = {
@@ -95,7 +113,7 @@ return function()
 		it("should set PlayerEmulatorService.StudioEmulatedCountryRegionCode using cached value", function()
 			local store = createTestStore(mockCountryRegionTable)
 			local mockPlugin = MockStudioPlugin.new("US")
-			local mockNetworkingImpl = Http.Networking.mock(mockHttpResposne)
+			local mockNetworkingImpl = Http.Networking.mock(mockHttpResponse)
 			store:dispatch(InitCountryRegionSetting(mockNetworkingImpl, mockPlugin))
 			expect(PlayerEmulatorService.EmulatedCountryCode).equal("US")
 		end)
@@ -103,7 +121,7 @@ return function()
 		it("should set PlayerEmulatorService.StudioEmulatedCountryRegionCode using account-info value", function()
 			local store = createTestStore(mockCountryRegionTable)
 			local mockPlugin = MockStudioPlugin.new()
-			local mockNetworkingImpl = Http.Networking.mock(mockHttpResposne)
+			local mockNetworkingImpl = Http.Networking.mock(mockHttpResponse)
 			store:dispatch(InitCountryRegionSetting(mockNetworkingImpl, mockPlugin))
 			expect(PlayerEmulatorService.EmulatedCountryCode).equal("AD")
 		end)

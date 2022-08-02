@@ -1,4 +1,5 @@
 local FFlagToolboxFixDurationOnCreationTab = game:GetFastFlag("ToolboxFixDurationOnCreationTab")
+local FFlagToolboxUseGetVote = game:GetFastFlag("ToolboxUseGetVote")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
 
@@ -57,6 +58,13 @@ Category.AssetType = {
 Category.AssetType.MUSIC = 300
 Category.AssetType.SOUND_EFFECT = 301
 Category.AssetType.UNKNOWN_AUDIO = 302
+
+Category.AssetTypeInverted = {}
+if FFlagToolboxUseGetVote then
+	for assetType, val in pairs(Category.AssetType) do
+		Category.AssetTypeInverted[val] = assetType
+	end
+end
 
 Category.MUSIC = {
 	name = "Music",
@@ -794,6 +802,12 @@ function Category.getCategoryIndex(categoryName, roles)
 		warn(("Lua Toolbox: no category index for name %s"):format(tostring(categoryName)))
 	end
 	return 1
+end
+
+if FFlagToolboxUseGetVote then
+	function Category.getAssetTypeByNumber(assetTypeNumber: number)
+		return Category.AssetTypeInverted[assetTypeNumber]
+	end
 end
 
 function Category.categoryIsPackage(categoryName)

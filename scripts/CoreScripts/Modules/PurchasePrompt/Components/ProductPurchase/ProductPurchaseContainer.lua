@@ -38,8 +38,6 @@ local MultiTextLocalizer = require(Root.Components.Connection.MultiTextLocalizer
 local LocalizationService = require(Root.Localization.LocalizationService)
 local getPlayerPrice = require(Root.Utils.getPlayerPrice)
 
-local GetFFlagPurchasePromptPurchaseWarningGuac = require(Root.Flags.GetFFlagPurchasePromptPurchaseWarningGuac)
-
 local Animator = require(script.Parent.Animator)
 
 local ProductPurchaseContainer = Roact.Component:extend(script.Name)
@@ -70,7 +68,6 @@ local function isRelevantRequestType(requestType)
 		or requestType == RequestType.Bundle
 		or requestType == RequestType.GamePass
 		or requestType == RequestType.Product
-		or requestType == RequestType.Subscription
 end
 
 function ProductPurchaseContainer:init()
@@ -139,7 +136,7 @@ function ProductPurchaseContainer:init()
 		return isDoneAnimating
 	end
 
-	self.getConfirmButtonAction = function(promptState, requestType, purchaseError, enablePurchaseWarningChecks)
+	self.getConfirmButtonAction = function(promptState, requestType, purchaseError)
 		if promptState == PromptState.None or not isRelevantRequestType(requestType) then
 			return nil
 
@@ -148,11 +145,7 @@ function ProductPurchaseContainer:init()
 			return self.props.onBuy
 		elseif promptState == PromptState.RobuxUpsell
 				or promptState == PromptState.UpsellInProgress then
-			if enablePurchaseWarningChecks then
-				return self.props.onRobuxUpsell
-			else
-				return self.props.onScaryModalConfirm
-			end
+			return self.props.onRobuxUpsell
 		elseif promptState == PromptState.U13PaymentModal
 				or promptState == PromptState.U13MonthlyThreshold1Modal
 				or promptState == PromptState.U13MonthlyThreshold2Modal then
@@ -175,7 +168,7 @@ function ProductPurchaseContainer:init()
 
 	self.confirmButtonPressed = function()
 		local confirmButtonAction = self.getConfirmButtonAction(self.props.promptState,
-			self.props.requestType, self.props.purchaseError, self.props.enablePurchaseWarningChecks)
+			self.props.requestType, self.props.purchaseError)
 		if confirmButtonAction ~= nil and self.canConfirmInput() then
 			confirmButtonAction()
 		end
@@ -309,7 +302,6 @@ function ProductPurchaseContainer:render()
 	local accountInfo = self.props.accountInfo
 	local nativeUpsell = self.props.nativeUpsell
 	local isTestPurchase = self.props.isTestPurchase
-	local enablePurchaseWarningChecks = self.props.enablePurchaseWarningChecks
 
 	local prompt
 	if promptState == PromptState.None or not isRelevantRequestType(requestType) then
@@ -336,7 +328,7 @@ function ProductPurchaseContainer:render()
 			buyItemControllerIcon = self.props.isGamepadEnabled and Images[XBOX_A_ICON] or nil,
 			cancelControllerIcon = self.props.isGamepadEnabled and Images[XBOX_B_ICON] or nil,
 
-			buyItemActivated = self.getConfirmButtonAction(promptState, requestType, purchaseError, enablePurchaseWarningChecks),
+			buyItemActivated = self.getConfirmButtonAction(promptState, requestType, purchaseError),
 			cancelPurchaseActivated = self.getCancelButtonAction(promptState, requestType),
 			
 			isLuobu = self.state.isLuobu,
@@ -359,7 +351,7 @@ function ProductPurchaseContainer:render()
 			buyItemControllerIcon = self.props.isGamepadEnabled and Images[XBOX_A_ICON] or nil,
 			cancelControllerIcon = self.props.isGamepadEnabled and Images[XBOX_B_ICON] or nil,
 
-			buyItemActivated = self.getConfirmButtonAction(promptState, requestType, purchaseError, enablePurchaseWarningChecks),
+			buyItemActivated = self.getConfirmButtonAction(promptState, requestType, purchaseError),
 			cancelPurchaseActivated = self.getCancelButtonAction(promptState, requestType),
 			
 			isLuobu = self.state.isLuobu,
@@ -383,7 +375,7 @@ function ProductPurchaseContainer:render()
 							{
 								buttonType = ButtonType.PrimarySystem,
 								props = {
-									onActivated = self.getConfirmButtonAction(promptState, requestType, purchaseError, enablePurchaseWarningChecks),
+									onActivated = self.getConfirmButtonAction(promptState, requestType, purchaseError),
 									text = localeMap.okText,
 									inputIcon = self.props.isGamepadEnabled and Images[XBOX_A_ICON] or nil,
 								},
@@ -407,7 +399,7 @@ function ProductPurchaseContainer:render()
 							{
 								buttonType = ButtonType.PrimarySystem,
 								props = {
-									onActivated = self.getConfirmButtonAction(promptState, requestType, purchaseError, enablePurchaseWarningChecks),
+									onActivated = self.getConfirmButtonAction(promptState, requestType, purchaseError),
 									text = localeMap.okText,
 									inputIcon = self.props.isGamepadEnabled and Images[XBOX_A_ICON] or nil,
 								},
@@ -502,13 +494,13 @@ local function mapDispatchToProps(dispatch)
 end
 
 -- Make sure this is before connectToStore
-if GetFFlagPurchasePromptPurchaseWarningGuac() then
-	ProductPurchaseContainer = PurchasePromptPolicy.connect(function(appPolicy, props)
-		return {
-			enablePurchaseWarningChecks = appPolicy.enablePurchaseWarningChecks(),
-		}
-	end)(ProductPurchaseContainer)
-end
+--[[
+ProductPurchaseContainer = PurchasePromptPolicy.connect(function(appPolicy, props)
+	return {
+		enablePurchaseWarningChecks = appPolicy.enablePurchaseWarningChecks(),
+	}
+end)(ProductPurchaseContainer)
+]]--
 
 ProductPurchaseContainer = connectToStore(
 	mapStateToProps,

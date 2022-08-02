@@ -5,6 +5,7 @@ local SetPromptState = require(Root.Actions.SetPromptState)
 local ErrorOccurred = require(Root.Actions.ErrorOccurred)
 local PremiumInfoRecieved = require(Root.Actions.PremiumInfoRecieved)
 local AccountInfoReceived = require(Root.Actions.AccountInfoReceived)
+local BalanceInfoRecieved = require(Root.Actions.BalanceInfoRecieved)
 local PromptState = require(Root.Enums.PromptState)
 local PurchaseError = require(Root.Enums.PurchaseError)
 local Analytics = require(Root.Services.Analytics)
@@ -14,13 +15,15 @@ local postPremiumImpression = require(Root.Network.postPremiumImpression)
 local completeRequest = require(Root.Thunks.completeRequest)
 local Thunk = require(Root.Thunk)
 
+local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
+
 local requiredServices = {
 	Network,
 	ExternalSettings,
 	Analytics,
 }
 
-local function resolvePremiumPromptState(accountInfo, premiumProduct, canShowUpsell)
+local function resolvePremiumPromptState(accountInfo, balanceInfo, premiumProduct, canShowUpsell)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local network = services[Network]
 		local externalSettings = services[ExternalSettings]
@@ -29,6 +32,9 @@ local function resolvePremiumPromptState(accountInfo, premiumProduct, canShowUps
 
 		store:dispatch(PremiumInfoRecieved(premiumProduct))
 		store:dispatch(AccountInfoReceived(accountInfo))
+		if FFlagPPAccountInfoMigration then
+			store:dispatch(BalanceInfoRecieved(balanceInfo))
+		end
 
 		if canShowUpsell == false then
 			analytics.signalPremiumUpsellPrecheckFail()

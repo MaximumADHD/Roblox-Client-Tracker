@@ -54,8 +54,8 @@ local function getValues(track, timestamp, defaultEAO)
 	return values
 end
 
-local function makeRow(tick, values)
-	local s = (format(tick / Constants.TICK_FREQUENCY) .. ",")
+local function makeRow(tck, values)
+	local s = (format(tck / Constants.TICK_FREQUENCY) .. ",")
 	return s .. table.concat(values, ",") .. "\n"
 end
 

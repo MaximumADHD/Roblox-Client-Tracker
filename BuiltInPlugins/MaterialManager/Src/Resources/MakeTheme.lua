@@ -25,12 +25,6 @@ local DarkTheme = Style.Themes.DarkTheme
 local LightTheme = Style.Themes.LightTheme
 local StyleKey = Style.StyleKey
 
-
-local FFlagMaterialManagerSideBarHide = game:GetFastFlag("MaterialManagerSideBarHide")
-
-local Flags = Plugin.Src.Flags
-local getFFlagDevFrameworkInfiniteScrollingGridBottomPadding = require(Flags.getFFlagDevFrameworkInfiniteScrollingGridBottomPadding)
-
 local devFrameworkRoundBox = getRawComponentStyle("RoundBox")
 local devFrameworkSelectInput = getRawComponentStyle("SelectInput")
 local roundBox = deepCopy(devFrameworkRoundBox)
@@ -41,7 +35,7 @@ local function getPluginTheme()
 	local MaterialDetailsWidth = 300
 	local TopBarButtonWidth = 28
 	local MaterialDetailsRowHeight = 30
-	local MaterialDetailsTextureHeight = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then 64 else 60
+	local MaterialDetailsTextureHeight = 64
 	local MaterialDetaulsLabelWidth = 108
 	local ColumnWidth = 270
 	local LabelColumnWidth = UDim.new(0, 80)
@@ -130,20 +124,11 @@ local function getPluginTheme()
 			}),
 		}),
 
-		LabeledTextureElement = {
+		TextureMapSelector = {
 			VerticalSpacing = LabeledVerticalSpacing,
 			ItemPaddingHorizontal = LabeledItemPaddingHorizontal,
 			ErrorOrWarningTextSize = LabeledErrorOrWarningTextSize,
 			ErrorOrWarningColor = LabeledErrorOrWarningColor,
-		},
-
-		-- Remove with removing FFlagMaterialManagerRefactorMaterialVariantCreator
-		LabeledElementList = {
-			ItemSpacing = 5,
-			VerticalSpacing = 4,
-			ItemPaddingHorizontal = UDim.new(0, 35),
-			ErrorOrWarningTextSize = 16,
-			ErrorOrWarningColor = Color3.fromRGB(255, 0, 0),			
 		},
 
 		MaterialGrid = {
@@ -182,24 +167,6 @@ local function getPluginTheme()
 			Spacing = 4,
 			StatusIconPosition = UDim2.new(0, 6, 0, 6),
 			TextSize = 20,
-		},
-
-		-- Remove MaterialTile with FFlagMaterialManagerGridListView
-		MaterialTile = {
-			Height = 40,
-			ApplyMaterialIconPosition = UDim2.new(1, -34, 0, 6),
-			MaterialVariantIconPosition = UDim2.new(1, -26, 1, -26),
-			StatusIconPosition = UDim2.new(0, 10, 0, 10),
-			Padding = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then TilePadding else 5,
-			IconSize = IconSize,
-			MaterialVariant = {
-				Image = "rbxasset://textures/MaterialManager/Material_Variant.png",
-			},
-			MaxWidth = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then 180 else 190,
-			Size = if FFlagMaterialManagerSideBarHide then UDim2.fromOffset(MaterialTileWidth, MaterialTileWidth) else UDim2.fromOffset(200, 200),
-			Spacing = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then 10 else 5,
-			TextLabelSize = UDim2.new(1, if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding then -20 else -10, 0, 18),
-
 		},
 
 		MaterialListItem = {
@@ -243,48 +210,40 @@ local function getPluginTheme()
 		},
 
 		MaterialDetails = {
-			AdditionalLabelSize = UDim2.new(0, MaterialDetaulsLabelWidth, 1, 0), -- Remove with FFlagMaterialManagerDetailsOverhaul
-			AdditionalTextSize = UDim2.new(1, -MaterialDetaulsLabelWidth, 1, 0), -- Remove with FFlagMaterialManagerDetailsOverhaul
+		
 			ButtonPosition = UDim2.new(1, -MaterialDetailsRowHeight, 0, 5),
 			ButtonSize = UDim2.fromOffset(MaterialDetailsRowHeight, MaterialDetailsRowHeight),
 			ButtonStyle = "RoundSubtle",
 			Close = {
 				Image = "rbxasset://textures/ui/TopBar/close.png",
-				Color = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then StyleKey.BrightText else StyleKey.MainText,
+				Color = StyleKey.BrightText,
 			},
 			ApplyToSelection = {
 				Image = "rbxasset://textures/MaterialManager/Apply_To_Selection.png",
-				Color = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then StyleKey.BrightText else StyleKey.MainText,
+				Color = StyleKey.BrightText,
 			},
 			CreateVariant = {
 				Image = "rbxasset://textures/MaterialManager/Create_New_Variant.png",
-				Color = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then StyleKey.BrightText else StyleKey.MainText,
+				Color = StyleKey.BrightText,
 			},
 			Delete = {
 				Image = "rbxasset://textures/MaterialManager/Delete.png",
-				Color = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then StyleKey.BrightText else StyleKey.MainText,
+				Color = StyleKey.BrightText,
 			},
 			DropdownSize = UDim2.fromOffset(160, 30),
 			Edit = {
 				Image = "rbxasset://textures/MaterialManager/Edit.png",
-				Color = if getFFlagDevFrameworkInfiniteScrollingGridBottomPadding() then StyleKey.BrightText else StyleKey.MainText,
+				Color = StyleKey.BrightText,
 			},
 			HeaderBackground = StyleKey.ScrollingFrameBackgroundColor,
 			HeaderFont = Enum.Font.SourceSansBold,
 			HeaderSize = UDim2.new(1, 0, 0, 300),
 			ImagePosition = UDim2.fromOffset(5, 5),
 			ImageSize = UDim2.fromOffset(20, 20),
-			-- Remove NameLabelSize* with FFlagMaterialManagerGlassNeonForceField
-			NameLabelSizeVariant = UDim2.new(1, -2 * MaterialDetailsRowHeight, 1, 0),
-			NameLabelSizeBuiltIn = UDim2.new(1, -MaterialDetailsRowHeight, 1, 0),
-			NoTexture = StyleKey.NoTextureFound, -- Remove with FFlagMaterialManagerDetailsOverhaul
 			LabelRowSize = UDim2.new(1, 0, 0, MaterialDetailsRowHeight),
 			OverrideSize = UDim2.fromOffset(140, 20),
 			Padding = 10,
 			SectionHeaderTextSize = 18,
-			TextureLabelSize = UDim2.new(1, -MaterialDetailsTextureHeight, 1, 0), -- Remove with FFlagMaterialManagerDetailsOverhaul
-			TextureRowSize = UDim2.new(1, 0, 0, MaterialDetailsTextureHeight), -- Remove with FFlagMaterialManagerDetailsOverhaul
-			TextureSize = UDim2.fromOffset(MaterialDetailsTextureHeight, MaterialDetailsTextureHeight), -- Remove with FFlagMaterialManagerDetailsOverhaul
 			TitleTextSize = 22,
 		},
 
@@ -323,15 +282,6 @@ local function getPluginTheme()
 			List = StyleKey.ListIcon,
 			ShowInExplorer = {
 				Image = "rbxasset://textures/MaterialManager/Show_In_Explorer.png",
-				Color = StyleKey.BrightText,
-				Position = UDim2.fromOffset(6, 6),
-				Size = UDim2.fromOffset(16, 16),
-				[StyleModifier.Disabled] = {
-					Transparency = 0.5,
-				},
-			},
-			ApplyToSelection = {
-				Image = "rbxasset://textures/MaterialManager/Apply_To_Selection.png",
 				Color = StyleKey.BrightText,
 				Position = UDim2.fromOffset(6, 6),
 				Size = UDim2.fromOffset(16, 16),

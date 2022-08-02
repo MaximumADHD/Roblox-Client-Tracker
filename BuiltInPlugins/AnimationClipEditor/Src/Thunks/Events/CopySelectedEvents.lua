@@ -24,8 +24,8 @@ return function()
 
 		if not isEmpty(selectedEvents) then
 			local newClipboard = {}
-			for tick, _ in pairs(selectedEvents) do
-				newClipboard[tick] = deepCopy(events.Data[tick])
+			for tck, _ in pairs(selectedEvents) do
+				newClipboard[tck] = deepCopy(events.Data[tck])
 			end
 
 			store:dispatch(SetClipboard(newClipboard, Constants.CLIPBOARD_TYPE.Events))

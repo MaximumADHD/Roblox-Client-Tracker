@@ -20,7 +20,6 @@ local FIntStudioAssetManagerAssetFetchNumber = game:GetFastInt("StudioAssetManag
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 local FFlagAssetManagerRefactorPath = game:GetFastFlag("AssetManagerRefactorPath")
-local FFlagStudioAssetManagerAssetModeration = game:GetFastFlag("StudioAssetManagerAssetModeration")
 
 local numberOfAssetsToFetch = FIntStudioAssetManagerAssetFetchNumber
 
@@ -117,30 +116,28 @@ if FFlagAssetManagerRefactorPath then
 					store:dispatch(SetIsFetchingAssets(false))
 					store:dispatch(SetAssets(assets, index))
 
-					if FFlagStudioAssetManagerAssetModeration then
-						local assetIds = {}
-						for _, asset in pairs(assets) do
-							table.insert(assetIds, asset.id)
-						end
-
-						requestPromise = apiImpl.Develop.V1.Assets.assets(assetIds):makeRequest()
-						:andThen(function(response)
-							local body = response.responseBody
-							for _, asset in pairs(body.data) do
-									assetModerationData = {
-										reviewStatus = asset.reviewStatus,
-										isModerated = asset.isModerated,
-										moderationStatus = asset.moderationStatus
-									}
-									assets.assetsModerationData = Cryo.Dictionary.join(assets.assetsModerationData, {
-										[asset.id] = assetModerationData,
-									})
-							end
-							store:dispatch(SetAssetsModerationData(assets.assetsModerationData))
-						end, function()
-							error("Failed to load asset information")
-						end)
+					local assetIds = {}
+					for _, asset in pairs(assets) do
+						table.insert(assetIds, asset.id)
 					end
+
+					requestPromise = apiImpl.Develop.V1.Assets.assets(assetIds):makeRequest()
+					:andThen(function(response)
+						local body = response.responseBody
+						for _, asset in pairs(body.data) do
+								assetModerationData = {
+									reviewStatus = asset.reviewStatus,
+									isModerated = asset.isModerated,
+									moderationStatus = asset.moderationStatus
+								}
+								assets.assetsModerationData = Cryo.Dictionary.join(assets.assetsModerationData, {
+									[asset.id] = assetModerationData,
+								})
+						end
+						store:dispatch(SetAssetsModerationData(assets.assetsModerationData))
+					end, function()
+						error("Failed to load asset information")
+					end)
 				end)
 			end
 		end
@@ -223,7 +220,7 @@ else
 						newAssets.pageNumber = nil
 					end
 					for _, alias in pairs(body.Aliases) do
-						if
+						if 
 							(assetType == Enum.AssetType.Image and string.find(alias.Name, "Images/"))
 							or (assetType == Enum.AssetType.MeshPart and string.find(alias.Name, "Meshes/"))
 							or (assetType == Enum.AssetType.Lua and string.find(alias.Name, "Scripts/"))
@@ -256,34 +253,30 @@ else
 								[sAssetAliasId] = assetAlias,
 							})
 							index = index + 1
-							if FFlagStudioAssetManagerAssetModeration then
-								table.insert(assetIds, assetAlias.id)
-							end
+							table.insert(assetIds, assetAlias.id)
 						end
 					end
 					store:dispatch(SetHasLinkedScripts(hasLinkedScripts))
 					store:dispatch(SetIsFetchingAssets(false))
 					store:dispatch(SetAssets(newAssets, index))
 
-					if FFlagStudioAssetManagerAssetModeration then
-						requestPromise = apiImpl.Develop.V1.Assets.assets(assetIds):makeRequest()
-						:andThen(function(response)
-							local body = response.responseBody
-							for _, asset in pairs(body.data) do
-									assetModerationData = {
-										reviewStatus = asset.reviewStatus,
-										isModerated = asset.isModerated,
-										moderationStatus = asset.moderationStatus
-									}
-									newAssets.assetsModerationData = Cryo.Dictionary.join(newAssets.assetsModerationData, {
-										[asset.id] = assetModerationData,
-									})
-							end
-							store:dispatch(SetAssetsModerationData(newAssets.assetsModerationData))
-						end, function()
-							error("Failed to load asset information")
-						end)
-					end
+					requestPromise = apiImpl.Develop.V1.Assets.assets(assetIds):makeRequest()
+					:andThen(function(response)
+						local body = response.responseBody
+						for _, asset in pairs(body.data) do
+								assetModerationData = {
+									reviewStatus = asset.reviewStatus,
+									isModerated = asset.isModerated,
+									moderationStatus = asset.moderationStatus
+								}
+								newAssets.assetsModerationData = Cryo.Dictionary.join(newAssets.assetsModerationData, {
+									[asset.id] = assetModerationData,
+								})
+						end
+						store:dispatch(SetAssetsModerationData(newAssets.assetsModerationData))
+					end, function()
+						error("Failed to load asset information")
+					end)
 				end, function()
 					store:dispatch(SetIsFetchingAssets(false))
 					error("Failed to load aliases")
@@ -310,33 +303,29 @@ else
 							[sAssetId] = newAsset,
 						})
 						index = index + 1
-						if FFlagStudioAssetManagerAssetModeration then
-							table.insert(assetIds, newAsset.id)
-						end
+						table.insert(assetIds, newAsset.id)
 					end
 
 					store:dispatch(SetIsFetchingAssets(false))
 					store:dispatch(SetAssets(newAssets, index))
 
-					if FFlagStudioAssetManagerAssetModeration then
-						requestPromise = apiImpl.Develop.V1.Assets.assets(assetIds):makeRequest()
-						:andThen(function(response)
-							local body = response.responseBody
-							for _, asset in pairs(body.data) do
-									assetModerationData = {
-										reviewStatus = asset.reviewStatus,
-										isModerated = asset.isModerated,
-										moderationStatus = asset.moderationStatus
-									}
-									newAssets.assetsModerationData = Cryo.Dictionary.join(newAssets.assetsModerationData, {
-										[asset.id] = assetModerationData,
-									})
-							end
-							store:dispatch(SetAssetsModerationData(newAssets.assetsModerationData))
-						end, function()
-							error("Failed to load asset information")
-						end)
-					end
+					requestPromise = apiImpl.Develop.V1.Assets.assets(assetIds):makeRequest()
+					:andThen(function(response)
+						local body = response.responseBody
+						for _, asset in pairs(body.data) do
+								assetModerationData = {
+									reviewStatus = asset.reviewStatus,
+									isModerated = asset.isModerated,
+									moderationStatus = asset.moderationStatus
+								}
+								newAssets.assetsModerationData = Cryo.Dictionary.join(newAssets.assetsModerationData, {
+									[asset.id] = assetModerationData,
+								})
+						end
+						store:dispatch(SetAssetsModerationData(newAssets.assetsModerationData))
+					end, function()
+						error("Failed to load asset information")
+					end)
 				end)
 			end
 		end

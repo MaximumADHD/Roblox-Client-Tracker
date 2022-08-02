@@ -34,12 +34,18 @@ local GetFFlagUIBloxSliderUpdateOnDismiss = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxSliderUpdateOnDismiss
 )
 
+local GetFFlagUIBloxFixDropdownMenuCellTextSize = require(
+	CorePackages.UIBloxFlags.GetFFlagUIBloxFixDropdownMenuCellTextSize
+)
+
 local GetFFlagAdjustableTextUnderTile = require(CorePackages.UIBloxFlags.GetFFlagAdjustableTextUnderTile)
+local GetFFlagEnableTileInsets = require(CorePackages.UIBloxFlags.GetFFlagEnableTileInsets)
 local GetFFlagUIBloxEnableVirtualizedListForCarousel = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableVirtualizedListForCarousel
 )
 
 return {
+	enableTileInsets = GetFFlagEnableTileInsets(),
 	enableAdjustableTextUnderTile = GetFFlagAdjustableTextUnderTile(),
 	enableSliderCustomization = FFlagUIBloxSliderCustomization,
 	useNewUICornerRoundedCorners = GetFFlagLuaAppUseNewUIBloxRoundedCorners(),
@@ -67,4 +73,6 @@ return {
 	sliderUpdateOnDismiss = GetFFlagUIBloxSliderUpdateOnDismiss(),
 	enableIconButtonGamepadSupport = GetFFlagUIBloxEnableIconButtonGamepadSupport(),
 	enableVirtualizedListForCarousel = GetFFlagUIBloxEnableVirtualizedListForCarousel(),
+
+	fixDropdownMenuCellTextSize =  GetFFlagUIBloxFixDropdownMenuCellTextSize(),
 }

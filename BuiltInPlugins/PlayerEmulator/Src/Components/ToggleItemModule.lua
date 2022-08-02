@@ -12,14 +12,21 @@
 			Because the ToggleButton in UILibrary only takes isOn as parameter,
 			but we need pass key into callback for any meaning logic business
 ]]
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local UILibrary = require(Plugin.Packages.UILibrary)
 local ToggleButton = UILibrary.Component.ToggleButton
+
+local UI = Framework.UI
+local TextLabel = UI.Decoration.TextLabel
+local StyleModifier = Framework.Util.StyleModifier
 
 local ToggleItemModule = Roact.PureComponent:extend("ToggleItemModule")
 
@@ -44,14 +51,22 @@ function ToggleItemModule:render()
 		Size = theme.TOGGLE_ITEM_FRAME_SIZE,
 		BackgroundTransparency = 1,
 	}, {
-		TextLabel = Roact.createElement("TextLabel", {
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextYAlignment = Enum.TextYAlignment.Center,
-			TextColor3 = enabled and theme.TextColor or theme.DisabledColor,
-			Size = theme.TOGGLE_ITEM_LABEL_SIZE,
-			Text = key,
-			BackgroundTransparency = 1,
-		}),
+		TextLabel = if FFlagDevFrameworkMigrateTextLabels then (
+			Roact.createElement(TextLabel, {
+				StyleModifier = if enabled then nil else StyleModifier.Disabled,
+				Size = theme.TOGGLE_ITEM_LABEL_SIZE,
+				Text = key,
+			})
+		) else (
+			Roact.createElement("TextLabel", {
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Center,
+				TextColor3 = enabled and theme.TextColor or theme.DisabledColor,
+				Size = theme.TOGGLE_ITEM_LABEL_SIZE,
+				Text = key,
+				BackgroundTransparency = 1,
+			})
+		),
 		Toggle = Roact.createElement(ToggleButton, {
 			Size = UDim2.new(0, theme.TOGGLE_BUTTON_WIDTH, 0, theme.TOGGLE_BUTTON_HEIGHT),
 			AnchorPoint = Vector2.new(0, 0.5),

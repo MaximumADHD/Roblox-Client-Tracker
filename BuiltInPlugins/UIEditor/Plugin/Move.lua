@@ -24,6 +24,8 @@ local SnappingType 			= require(script.Parent.Enum.SnappingType)
 local UserInputService = game:GetService("UserInputService")
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 
+local FFlagStudioUIEditorSelectGuiObjectsInFolders = game:DefineFastFlag("StudioUIEditorSelectGuiObjectsInFolders", false)
+
 -----------------------------------
 -------------VARIABLES-------------
 -----------------------------------
@@ -54,47 +56,96 @@ local m_originalExtents = nil
 -------------FUNCTIONS-------------
 -----------------------------------
 
+local function findFirstAncestorNotOfType(instance: Instance, className: string): Instance?
+	local ancestor: Instance? = instance.Parent
+
+	while ancestor do
+		if ancestor:IsA(className) then
+			ancestor = ancestor.Parent
+		else
+			return ancestor
+		end
+	end
+
+	return nil
+end
+
 local function dragElementsBy(vector)
 	for i = 1, #m_originalSelectionData do
 		local element = m_originalSelectionData[i][DATA_INSTANCE]
 		
-		if (element.Parent and element.Parent:IsA("GuiBase2d")) then
-			
-			local shouldUseScalePosition = Utility:isOnlyScaleUDim2(m_originalSelectionData[i][DATA_POSITION]) or 
-									(not Utility:isOnlyOffsetUDim2(m_originalSelectionData[i][DATA_POSITION]) and
-									GlobalValues:isScale())
-										
-			local padding = element.parent:FindFirstChildWhichIsA("UIPadding")
-			local paddingTL = Vector2.new(0, 0)
-			local paddingBR = Vector2.new(0, 0)
-			if padding then
-				paddingTL = Vector2.new(padding.PaddingLeft.Offset, padding.PaddingTop.Offset)
-					+ Vector2.new(padding.PaddingLeft.Scale, padding.PaddingTop.Scale) * element.parent.AbsoluteSize
-				paddingBR = Vector2.new(padding.PaddingRight.Offset, padding.PaddingBottom.Offset)
-					+ Vector2.new(padding.PaddingRight.Scale, padding.PaddingBottom.Scale) * element.parent.AbsoluteSize
-			end
-
-			if (shouldUseScalePosition) then
-				local scale = vector / (element.Parent.AbsoluteSize - paddingTL - paddingBR)
-				-- divide by AbsoluteWindowSize to get Frame without scrollbars and further divide
-				-- scale by CanvasSize scale since that represents the entire area of ScrollFrame
-				-- to get accurate scale for position when dragging
-				if (element.Parent:IsA("ScrollingFrame")) then
-					-- bug in quantum gui, should use scrolling frame's parent size
-					if (element.Parent.CanvasSize.X.Scale >= 1) then
-						scale = Vector2.new(vector.X / (element.Parent.AbsoluteCanvasSize.X - paddingTL.X - paddingBR.X), scale.Y)
-					end
-					if (element.Parent.CanvasSize.Y.Scale >= 1) then
-						scale = Vector2.new(scale.X , vector.Y / (element.Parent.AbsoluteCanvasSize.Y - paddingTL.Y - paddingBR.Y))
-					end
+		if FFlagStudioUIEditorSelectGuiObjectsInFolders then
+			local effectiveParent: Instance? = findFirstAncestorNotOfType(element, "Folder")
+			if effectiveParent and effectiveParent:IsA("GuiBase2d") then
+				local shouldUseScalePosition = Utility:isOnlyScaleUDim2(m_originalSelectionData[i][DATA_POSITION]) or 
+										(not Utility:isOnlyOffsetUDim2(m_originalSelectionData[i][DATA_POSITION]) and
+										GlobalValues:isScale())
+											
+				local padding: UIPadding? = effectiveParent:FindFirstChildWhichIsA("UIPadding")
+				local paddingTL = Vector2.new(0, 0)
+				local paddingBR = Vector2.new(0, 0)
+				if padding then
+					paddingTL = Vector2.new(padding.PaddingLeft.Offset, padding.PaddingTop.Offset)
+						+ Vector2.new(padding.PaddingLeft.Scale, padding.PaddingTop.Scale) * effectiveParent.AbsoluteSize
+					paddingBR = Vector2.new(padding.PaddingRight.Offset, padding.PaddingBottom.Offset)
+						+ Vector2.new(padding.PaddingRight.Scale, padding.PaddingBottom.Scale) * effectiveParent.AbsoluteSize
 				end
-				element.Position = m_originalSelectionData[i][DATA_POSITION] + UDim2.new(scale.X, 0, scale.Y, 0)
-			else
-				element.Position = m_originalSelectionData[i][DATA_POSITION] + UDim2.new(0, vector.X, 0, vector.Y)
+
+				if shouldUseScalePosition then
+					local scale = vector / (effectiveParent.AbsoluteSize - paddingTL - paddingBR)
+					-- divide by AbsoluteWindowSize to get Frame without scrollbars and further divide
+					-- scale by CanvasSize scale since that represents the entire area of ScrollFrame
+					-- to get accurate scale for position when dragging
+					if effectiveParent:IsA("ScrollingFrame") then
+						-- bug in quantum gui, should use scrolling frame's parent size
+						if (effectiveParent.CanvasSize.X.Scale >= 1) then
+							scale = Vector2.new(vector.X / (effectiveParent.AbsoluteCanvasSize.X - paddingTL.X - paddingBR.X), scale.Y)
+						end
+						if (effectiveParent.CanvasSize.Y.Scale >= 1) then
+							scale = Vector2.new(scale.X , vector.Y / (effectiveParent.AbsoluteCanvasSize.Y - paddingTL.Y - paddingBR.Y))
+						end
+					end
+					element.Position = m_originalSelectionData[i][DATA_POSITION] + UDim2.new(scale.X, 0, scale.Y, 0)
+				else
+					element.Position = m_originalSelectionData[i][DATA_POSITION] + UDim2.new(0, vector.X, 0, vector.Y)
+				end
+			end
+		else
+			if (element.Parent and element.Parent:IsA("GuiBase2d")) then
+				local shouldUseScalePosition = Utility:isOnlyScaleUDim2(m_originalSelectionData[i][DATA_POSITION]) or 
+										(not Utility:isOnlyOffsetUDim2(m_originalSelectionData[i][DATA_POSITION]) and
+										GlobalValues:isScale())
+											
+				local padding = element.parent:FindFirstChildWhichIsA("UIPadding")
+				local paddingTL = Vector2.new(0, 0)
+				local paddingBR = Vector2.new(0, 0)
+				if padding then
+					paddingTL = Vector2.new(padding.PaddingLeft.Offset, padding.PaddingTop.Offset)
+						+ Vector2.new(padding.PaddingLeft.Scale, padding.PaddingTop.Scale) * element.parent.AbsoluteSize
+					paddingBR = Vector2.new(padding.PaddingRight.Offset, padding.PaddingBottom.Offset)
+						+ Vector2.new(padding.PaddingRight.Scale, padding.PaddingBottom.Scale) * element.parent.AbsoluteSize
+				end
+
+				if (shouldUseScalePosition) then
+					local scale = vector / (element.Parent.AbsoluteSize - paddingTL - paddingBR)
+					-- divide by AbsoluteWindowSize to get Frame without scrollbars and further divide
+					-- scale by CanvasSize scale since that represents the entire area of ScrollFrame
+					-- to get accurate scale for position when dragging
+					if (element.Parent:IsA("ScrollingFrame")) then
+						-- bug in quantum gui, should use scrolling frame's parent size
+						if (element.Parent.CanvasSize.X.Scale >= 1) then
+							scale = Vector2.new(vector.X / (element.Parent.AbsoluteCanvasSize.X - paddingTL.X - paddingBR.X), scale.Y)
+						end
+						if (element.Parent.CanvasSize.Y.Scale >= 1) then
+							scale = Vector2.new(scale.X , vector.Y / (element.Parent.AbsoluteCanvasSize.Y - paddingTL.Y - paddingBR.Y))
+						end
+					end
+					element.Position = m_originalSelectionData[i][DATA_POSITION] + UDim2.new(scale.X, 0, scale.Y, 0)
+				else
+					element.Position = m_originalSelectionData[i][DATA_POSITION] + UDim2.new(0, vector.X, 0, vector.Y)
+				end
 			end
 		end
-		
-		
 	end
 	
 end

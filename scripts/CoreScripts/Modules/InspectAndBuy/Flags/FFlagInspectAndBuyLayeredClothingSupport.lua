@@ -1,1 +1,0 @@
-return game:DefineFastFlag("InspectAndBuyLayeredClothingSupport6", false)

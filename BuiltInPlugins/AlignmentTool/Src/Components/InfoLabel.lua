@@ -2,12 +2,18 @@
 	A text label that spans the width of its container, and resizes vertically
 	to fit the height of wrapped text.
 ]]
-
 local Plugin = script.Parent.Parent.Parent
+local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+
+-- TODO delete this file when flag is removed
+if FFlagDevFrameworkMigrateTextLabels then
+	return nil
+end
 
 local Roact = require(Plugin.Packages.Roact)
-
-local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext

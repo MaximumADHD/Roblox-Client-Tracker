@@ -1073,8 +1073,8 @@ local function Initialize()
 
 		-- Create "invite friends" button if it doesn't exist yet
 		-- We shouldn't create this button if we're not in a live game
-		local isStudio = (not RunService:IsStudio())
-		if canShareCurrentGame() and not shareGameButton and isStudio then
+		local isNotStudio = (not RunService:IsStudio())
+		if canShareCurrentGame() and not shareGameButton and isNotStudio then
 			local inviteToGameAnalytics = InviteToGameAnalytics.new()
 				:withEventStream(EventStream.new())
 				:withDiag(Diag.new(AnalyticsService))

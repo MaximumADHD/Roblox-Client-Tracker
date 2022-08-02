@@ -14,18 +14,21 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactStudioWidgets = Plugin.Packages.RoactStudioWidgets
 
 local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryRoundTextBox = Framework.SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
+local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UI = Framework.UI
+local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else require(RoactStudioWidgets.TitledFrame)
 local TextInput2 = UI.TextInput2
 
 local StateInterfaceTheme = require(Page.Util.StateInterfaceTheme)
 
 local ToggleButton = require(RoactStudioWidgets.ToggleButton)
-local TitledFrame = require(RoactStudioWidgets.TitledFrame)
 local RoundTextBox
 if not FFlagRemoveUILibraryRoundTextBox then
 	RoundTextBox = require(Plugin.Packages.RoactStudioWidgets.RoundTextBox)
@@ -138,21 +141,21 @@ function AssetInput:render()
 		),
 	}
 
-	return Roact.createElement(TitledFrame, {
+	return Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+		LayoutOrder = self.props.LayoutOrder or 1,
+		Title = self.props.Title,
+	} else {
 		Title = self.props.Title,
 		MaxHeight = WIDGET_HEIGHT,
 		LayoutOrder = self.props.LayoutOrder or 1,
 	}, children)
 end
 
-
 AssetInput = withContext({
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
 	Stylizer = if FFlagRemoveStudioThemeFromPlugins then ContextServices.Stylizer else nil,
 })(AssetInput)
-
-
 
 calculateTextSize = function(text, textSize, font)
 	local hugeFrameSizeNoTextWrapping = Vector2.new(5000, 5000)

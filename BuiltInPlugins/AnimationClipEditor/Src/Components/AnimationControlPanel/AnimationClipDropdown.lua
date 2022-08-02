@@ -50,6 +50,7 @@ local GetFFlagFixButtonStyle = require(Plugin.LuaFlags.GetFFlagFixButtonStyle)
 local GetFFlagCreateAnimationFromVideoTutorialEnabled = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoTutorialEnabled)
 local GetFFlagCreateAnimationFromVideoAnalytics2 = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoAnalytics2)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+local GetFFlagCreateAnimationFromVideoAgeGateEnabled = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoAgeGateEnabled)
 
 local AnimationClipDropdown = Roact.PureComponent:extend("AnimationClipDropdown")
 
@@ -275,6 +276,16 @@ function AnimationClipDropdown:render()
 
 	local showCreateAnimationFromVideoTutorial = GetFFlagCreateAnimationFromVideoTutorialEnabled() and state.showCreateAnimationFromVideoTutorial or nil
 
+	local isCreateAnimationFromVideoAgeRestricted = false
+	if GetFFlagCreateAnimationFromVideoAgeGateEnabled() and showCreateAnimationFromVideoTutorial then
+		-- Before showing the create animation from video tutorial, check the age
+		-- restriction and display that instead if required.
+		isCreateAnimationFromVideoAgeRestricted = game:GetService("AnimationFromVideoCreatorStudioService"):IsAgeRestricted()
+		if isCreateAnimationFromVideoAgeRestricted then
+			showCreateAnimationFromVideoTutorial = false
+		end
+	end
+
 	return Roact.createElement("ImageButton", {
 		Size = UDim2.new(1, -Constants.CONTROLS_WIDTH - Constants.TIME_DISPLAY_WIDTH, 1, 0),
 		BackgroundTransparency = 1,
@@ -444,6 +455,19 @@ function AnimationClipDropdown:render()
 				if shouldContinue then
 					self.continueAfterCreateAnimationFromVideoTutorial()
 				end
+			end,
+			OnClose = function()
+				self.setShowCreateAnimationFromVideoTutorial(false)
+			end
+		}),
+
+		CreateAnimationFromVideoAgeGate = isCreateAnimationFromVideoAgeRestricted and Roact.createElement(FocusedPrompt, {
+			PromptText = localization:getText("AnimationFromVideo", "AgeRestricted"),
+			Buttons = {
+				{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = if GetFFlagFixButtonStyle() then "Round" else nil},
+			},
+			OnButtonClicked = function()
+				self.setShowCreateAnimationFromVideoTutorial(false)
 			end,
 			OnClose = function()
 				self.setShowCreateAnimationFromVideoTutorial(false)

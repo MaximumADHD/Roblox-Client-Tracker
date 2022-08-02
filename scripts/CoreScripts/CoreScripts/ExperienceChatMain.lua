@@ -15,6 +15,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local ExperienceChat = require(CorePackages.ExperienceChat)
 local FFlagEnableSetCoreGuiEnabledExpChat = game:DefineFastFlag("FFlagEnableSetCoreGuiEnabledExpChat", false)
+local GetFFlagUpgradeExpChatV2_0_0 = require(CorePackages.Flags.GetFFlagUpgradeExpChatV2_0_0)
 
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "ExperienceChat"
@@ -33,13 +34,21 @@ local function findTextChannel(name: string): TextChannel
 end
 
 if FFlagEnableSetCoreGuiEnabledExpChat then
-	local SetCoreGuiEnabledChanged = ExperienceChat.ChatVisibility.Actions.SetCoreGuiEnabledChanged
-	if SetCoreGuiEnabledChanged then
+	if GetFFlagUpgradeExpChatV2_0_0() then
 		StarterGui.CoreGuiChangedSignal:Connect(function(coreGuiType, enabled)
 			if coreGuiType == Enum.CoreGuiType.All or coreGuiType == Enum.CoreGuiType.Chat then
-				ExperienceChat.DispatchBindableEvent:Fire(SetCoreGuiEnabledChanged(enabled))
+				ExperienceChat.Events.SetCoreGuiEnabledChanged(enabled)
 			end
 		end)
+	else
+		local SetCoreGuiEnabledChanged = ExperienceChat.ChatVisibility.Actions.SetCoreGuiEnabledChanged
+		if SetCoreGuiEnabledChanged then
+			StarterGui.CoreGuiChangedSignal:Connect(function(coreGuiType, enabled)
+				if coreGuiType == Enum.CoreGuiType.All or coreGuiType == Enum.CoreGuiType.Chat then
+					ExperienceChat.DispatchBindableEvent:Fire(SetCoreGuiEnabledChanged(enabled))
+				end
+			end)
+		end
 	end
 end
 
@@ -51,4 +60,3 @@ ExperienceChat.mountClientApp({
 	translator = RobloxTranslator :: any,
 	parent = screenGui,
 })
-

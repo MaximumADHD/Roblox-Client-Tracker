@@ -33,9 +33,13 @@ local InviteUserToPlaceId = require(InGameMenu.Thunks.InviteUserToPlaceId)
 local ExperienceMenuABTestManager = require(InGameMenu.ExperienceMenuABTestManager)
 
 local SetFriendBlockConfirmation = require(InGameMenu.Actions.SetFriendBlockConfirmation)
+local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
+local SetInspectedUserInfo = require(InGameMenu.Actions.InspectAndBuy.SetInspectedUserInfo)
 
 local InviteStatus = Constants.InviteStatus
 local IsMenuCsatEnabled = require(InGameMenu.Flags.IsMenuCsatEnabled)
+
+local FFlagInspectAndBuyV2Enabled = require(InGameMenu.Flags.FFlagInspectAndBuyV2Enabled)
 
 local PlayerContextualMenuWrapper = Roact.PureComponent:extend("PlayerContextualMenuWrapper")
 
@@ -57,6 +61,8 @@ PlayerContextualMenuWrapper.validateProps = t.strictInterface({
 	blockPlayer = t.callback,
 	unblockPlayer = t.callback,
 	openFriendBlockConfirmation = t.callback,
+	openInspectAndBuyPage = FFlagInspectAndBuyV2Enabled and t.callback or nil,
+	setInspectedUserInfo = FFlagInspectAndBuyV2Enabled and t.callback or nil,
 })
 
 PlayerContextualMenuWrapper.defaultProps = {
@@ -418,7 +424,12 @@ function PlayerContextualMenuWrapper:getViewAvatarAction(localized, player)
 		text = localized.viewAvatar,
 		icon = Assets.Images.ViewAvatar,
 		onActivated = function()
-			GuiService:InspectPlayerFromUserIdWithCtx(player.UserId, "escapeMenu")
+			if FFlagInspectAndBuyV2Enabled then
+				self.props.setInspectedUserInfo(player.UserId, player.DisplayName)
+				self.props.openInspectAndBuyPage()
+			else
+				GuiService:InspectPlayerFromUserIdWithCtx(player.UserId, "escapeMenu")
+			end
 			SendAnalytics(Constants.AnalyticsMenuActionName, Constants.AnalyticsExamineAvatarName, {})
 		end,
 	}
@@ -592,5 +603,11 @@ end, function(dispatch)
 		unblockPlayer = function(player)
 			return dispatch(UnblockPlayer(player))
 		end,
+		openInspectAndBuyPage = FFlagInspectAndBuyV2Enabled and function()
+			return dispatch(SetCurrentPage(Constants.InspectAndBuyPageKey))
+		end or nil,
+		setInspectedUserInfo = FFlagInspectAndBuyV2Enabled and function(userId, displayName)
+			return dispatch(SetInspectedUserInfo(userId, displayName))
+		end or nil,
 	}
 end)(PlayerContextualMenuWrapper)

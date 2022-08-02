@@ -3,7 +3,7 @@ local commonInit = require(Main.Common.commonInit)
 commonInit()
 
 local FFlagCGELocalizeWindowTitle = game:GetFastFlag("CGELocalizeWindowTitle")
-local FFlagCGERefreshUI = game:GetFastFlag("CGERefreshUI")
+local FFlagCGERefreshUI = game:GetFastFlag("CGERefreshUI2")
 
 local Roact = require(Main.Packages.Roact)
 

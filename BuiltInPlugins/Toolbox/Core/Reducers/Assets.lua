@@ -1,5 +1,3 @@
-local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -49,23 +47,16 @@ local function handleAssetsAddedToState(state, assets, totalAssets, newCursor)
 			continue
 		end
 
-		if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-			local currTotal = (state.assetsReceived or 0)
-			local position = currTotal + index
-			local page = Math.round(currTotal / Constants.TOOLBOX_ITEM_SEARCH_LIMIT, 0) + 1
+		local currTotal = (state.assetsReceived or 0)
+		local position = currTotal + index
+		local page = Math.round(currTotal / Constants.TOOLBOX_ITEM_SEARCH_LIMIT, 0) + 1
 
-			local assetContext = asset.Context or {}
-			asset.Context = Cryo.Dictionary.join(assetContext, {
-				page = page,
-				pagePosition = index,
-				position = position,
-			})
-		else
-			if asset.Context then
-				asset.Context.pagePosition = index
-				asset.Context.position = (state.assetsReceived or 0) + index
-			end
-		end
+		local assetContext = asset.Context or {}
+		asset.Context = Cryo.Dictionary.join(assetContext, {
+			page = page,
+			pagePosition = index,
+			position = position,
+		})
 
 		newIdToAssetMap[id] = Cryo.Dictionary.join(asset, removeVoting)
 		newIdsToRender[index] = id

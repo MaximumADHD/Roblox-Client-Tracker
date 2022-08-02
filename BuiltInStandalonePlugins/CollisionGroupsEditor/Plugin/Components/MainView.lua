@@ -150,7 +150,7 @@ function MainView:render()
 					Groups = props.Groups,
 					RowHovered = self.state.RowHovered,
 					OnColHovered = self.onColHovered,
-					OnRowHovered = self.rowHoverForced,
+					OnRowHovered = self.onRowHovered,
 				}),
 			}),
 			ListFrame = self.state.ToggleListView and Roact.createElement(ScrollingFrame, {

@@ -1,7 +1,7 @@
 --[[
 	Displays panels associated with the improved import tool
 ]]
-
+local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -244,7 +244,7 @@ function ImportLocal:init()
 
 	self.setErrorMessage = function(errorTitle, errorBody)
 		if errorTitle then
-			local localization = self.props.Localization:get()
+			local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
 
 			local mainText = localization:getText("ImportError", errorTitle)
 			local subText = localization:getText("ImportError", errorBody)
@@ -313,7 +313,7 @@ function ImportLocal:didMount()
 	self._isMounted = true
 
 	self._onImportFinishConnection = self.props.TerrainImporter:subscribeToImportFinish(function()
-		local localization = self.props.Localization:get()
+		local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
 		if self.props.TerrainImporter:getHasPixelWarning() and self._isMounted then
 			self:setState({
 				hasWarning = true,
@@ -344,7 +344,7 @@ function ImportLocal:willUnmount()
 end
 
 function ImportLocal:render()
-	local localization = self.props.Localization:get()
+	local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
 
 	local importPaused = self.props.TerrainImporter:isPaused()
 	local importInProgress = self.props.TerrainImporter:isImporting()
@@ -538,13 +538,10 @@ function ImportLocal:render()
 	})
 end
 
-
 ImportLocal = withContext({
-	Localization = ContextItems.UILibraryLocalization,
+	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
 	TerrainImporter = ContextItems.TerrainImporter,
 })(ImportLocal)
-
-
 
 local function mapStateToProps(state, props)
 	return {

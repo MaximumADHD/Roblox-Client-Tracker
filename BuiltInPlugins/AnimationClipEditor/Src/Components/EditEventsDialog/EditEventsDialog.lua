@@ -47,7 +47,6 @@ local AddEventEntry = require(Plugin.Src.Components.EditEventsDialog.AddEventEnt
 local FocusedPrompt = require(Plugin.Src.Components.EditEventsDialog.FocusedPrompt)
 
 local GetFFlagFixButtonStyle = require(Plugin.LuaFlags.GetFFlagFixButtonStyle)
-local FFlagFixRenameAllPromptLabel = game:DefineFastFlag("ACEFixRenameAllPromptLabel", false)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
 local EditEventsDialog = Roact.PureComponent:extend("EditEventsDialog")
@@ -70,10 +69,10 @@ function EditEventsDialog:init(initialProps)
 
 	self.onAddEvent = function()
 		local events = self.state.CurrentEvents
-		local tick = self.props.Tick
+		local tck = self.props.Tick
 		-- Add new events as empty strings so that the text box
 		-- automatically focuses for us
-		AnimationData.addEvent(events, tick, "", "")
+		AnimationData.addEvent(events, tck, "", "")
 		self:setState({
 			CurrentEvents = events,
 		})
@@ -81,11 +80,11 @@ function EditEventsDialog:init(initialProps)
 
 	self.onRenameEvent = function(name, newName)
 		local events = self.state.CurrentEvents
-		local tick = self.props.Tick
-		if events.Data[tick] and events.Data[tick][name] then
-			local value = events.Data[tick][name]
-			AnimationData.removeEvent(events, tick, name)
-			AnimationData.addEvent(events, tick, newName, value)
+		local tck = self.props.Tick
+		if events.Data[tck] and events.Data[tck][name] then
+			local value = events.Data[tck][name]
+			AnimationData.removeEvent(events, tck, name)
+			AnimationData.addEvent(events, tck, newName, value)
 		end
 		self:setState({
 			CurrentEvents = events,
@@ -94,8 +93,8 @@ function EditEventsDialog:init(initialProps)
 
 	self.onSetEventValue = function(name, newValue)
 		local events = self.state.CurrentEvents
-		local tick = self.props.Tick
-		AnimationData.setEventValue(events, tick, name, newValue)
+		local tck = self.props.Tick
+		AnimationData.setEventValue(events, tck, name, newValue)
 		self:setState({
 			CurrentEvents = events,
 		})
@@ -103,8 +102,8 @@ function EditEventsDialog:init(initialProps)
 
 	self.onDeleteEvent = function(name)
 		local events = self.state.CurrentEvents
-		local tick = self.props.Tick
-		AnimationData.removeEvent(events, tick, name)
+		local tck = self.props.Tick
+		AnimationData.removeEvent(events, tck, name)
 		self:setState({
 			CurrentEvents = events,
 		})
@@ -112,9 +111,9 @@ function EditEventsDialog:init(initialProps)
 
 	self.onDeleteAllEvents = function(name)
 		local events = self.state.CurrentEvents
-		for tick, event in pairs(events.Data) do
+		for tck, event in pairs(events.Data) do
 			if event[name] then
-				AnimationData.removeEvent(events, tick, name)
+				AnimationData.removeEvent(events, tck, name)
 			end
 		end
 		self:setState({
@@ -124,11 +123,11 @@ function EditEventsDialog:init(initialProps)
 
 	self.onRenameAllEvents = function(name, newName)
 		local events = self.state.CurrentEvents
-		for tick, event in pairs(events.Data) do
+		for tck, event in pairs(events.Data) do
 			if event[name] then
 				local value = event[name]
-				AnimationData.removeEvent(events, tick, name)
-				AnimationData.addEvent(events, tick, newName, value)
+				AnimationData.removeEvent(events, tck, name)
+				AnimationData.addEvent(events, tck, newName, value)
 			end
 		end
 		self:setState({
@@ -163,7 +162,7 @@ function EditEventsDialog:init(initialProps)
 		})
 	end
 
-	self.getUnusedEvents = function(tick)
+	self.getUnusedEvents = function(tck)
 		local unusedEvents = {}
 		local currentEvents = self.state.CurrentEvents
 		for _, event in pairs(currentEvents.Data) do
@@ -171,8 +170,8 @@ function EditEventsDialog:init(initialProps)
 				unusedEvents[name] = true
 			end
 		end
-		if currentEvents.Data[tick] then
-			for name, _ in pairs(currentEvents.Data[tick]) do
+		if currentEvents.Data[tck] then
+			for name, _ in pairs(currentEvents.Data[tck]) do
 				unusedEvents[name] = nil
 			end
 		end
@@ -297,13 +296,13 @@ end
 function EditEventsDialog:renderEvents(theme, contents)
 	local props = self.props
 	local state = self.state
-	local tick = props.Tick
+	local tck = props.Tick
 	local events = state.CurrentEvents
 	local innerHeight = MIN_INNER_HEIGHT
 
-	if events and events.Data and events.Data[tick] then
-		local unusedEvents = self.getUnusedEvents(tick)
-		local keys = Cryo.Dictionary.keys(events.Data[tick])
+	if events and events.Data and events.Data[tck] then
+		local unusedEvents = self.getUnusedEvents(tck)
+		local keys = Cryo.Dictionary.keys(events.Data[tck])
 		-- Sort alphabetically but leave empty strings at the end,
 		-- so that new events always show up at the bottom.
 		table.sort(keys, function(key1, key2)
@@ -316,7 +315,7 @@ function EditEventsDialog:renderEvents(theme, contents)
 			end
 		end)
 		for _, key in ipairs(keys) do
-			local value = events.Data[tick][key]
+			local value = events.Data[tck][key]
 			contents["Event_" .. key] = self:addEventRow(theme, key, value, unusedEvents)
 			innerHeight = innerHeight + ROW_HEIGHT
 		end
@@ -356,10 +355,7 @@ function EditEventsDialog:renderRenameAllPrompt(theme, localization)
 			{Key = false, Text = localization:getText("Dialog", "ChangeThis"), Style = if GetFFlagFixButtonStyle() then "Round" else nil},
 			{Key = true, Text = localization:getText("Dialog", "ChangeAll"), Style = if GetFFlagFixButtonStyle() then "Round" else nil},
 		},
-		PromptText = if FFlagFixRenameAllPromptLabel then
-			localization:getText("Dialog", "RenameAllPrompt_Migrated",	{name = name, newName = newName})
-		else
-			localization:getText("Dialog", "RenameAllPrompt_Migrated",	{name = name}, {newName = newName}),
+		PromptText = localization:getText("Dialog", "RenameAllPrompt_Migrated",	{name = name, newName = newName}),
 		OnButtonClicked = function(doRenameAll)
 			if doRenameAll then
 				self.onRenameAllEvents(name, newName)

@@ -12,16 +12,13 @@ local GetAssets = require(Plugin.Src.Thunks.GetAssets)
 local Screens = require(Plugin.Src.Util.Screens)
 
 local FFlagAssetManagerRefactorPath = game:GetFastFlag("AssetManagerRefactorPath")
-local FFlagStudioAssetManagerAssetModeration = game:GetFastFlag("StudioAssetManagerAssetModeration")
 
 return function(apiImpl, screen)
 	return function(store)
 		store:dispatch(SetAssets({
 			assets = {},
 		}))
-		if FFlagStudioAssetManagerAssetModeration then
-			store:dispatch(SetAssetsModerationData({}))
-		end
+		store:dispatch(SetAssetsModerationData({}))
 		store:dispatch(SetIsFetchingAssets(false))
 		store:dispatch(SetEditingAssets({}))
 		store:dispatch(SetSelectedAssets({}))

@@ -54,15 +54,15 @@ local TIME_TAG_SIZE = UDim2.new(0, 30, 0, TIME_TAG_HEIGHT)
 function ScaleControls:init()
 	self.leftScaleHandleDragStart = function()
 		if self.props.OnScaleHandleDragStart then
-			local tick = self.getSelectionData().latestKeyframe
-			self.props.OnScaleHandleDragStart(tick)
+			local tck = self.getSelectionData().latestKeyframe
+			self.props.OnScaleHandleDragStart(tck)
 		end
 	end
 
 	self.rightScaleHandleDragStart = function()
 		if self.props.OnScaleHandleDragStart then
-			local tick = self.getSelectionData().earliestKeyframe
-			self.props.OnScaleHandleDragStart(tick)
+			local tck = self.getSelectionData().earliestKeyframe
+			self.props.OnScaleHandleDragStart(tck)
 		end
 	end
 
@@ -183,9 +183,9 @@ function ScaleControls:init()
 					end
 
 					-- Calculate the extents of the selection
-					for tick, _ in pairs(track.Selection or {}) do
-						earliestKeyframe = math.min(earliestKeyframe, tick)
-						latestKeyframe = math.max(latestKeyframe, tick)
+					for tck, _ in pairs(track.Selection or {}) do
+						earliestKeyframe = math.min(earliestKeyframe, tck)
+						latestKeyframe = math.max(latestKeyframe, tck)
 					end
 				end
 				for componentName, component in pairs(track.Components or {}) do

@@ -43,12 +43,15 @@ local GetFFlagBubbleChatDuplicateMessagesFix = require(RobloxGui.Modules.Flags.G
 local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatLocalMuteUI)
 local FFlagEnableExperienceChat = require(RobloxGui.Modules.Common.Flags.FFlagEnableExperienceChat)
 local FFlagExperienceChatFixBubbleChat = game:DefineFastFlag("ExperienceChatFixBubbleChat", false)
+local GetFFlagUpgradeExpChatV2_0_0 = require(CorePackages.Flags.GetFFlagUpgradeExpChatV2_0_0)
 
 local ExperienceChat
 local MessageReceivedBindableEvent
 if FFlagEnableExperienceChat then
 	ExperienceChat = require(CorePackages.ExperienceChat)
-	MessageReceivedBindableEvent = ExperienceChat.MessageReceivedBindableEvent
+	if not GetFFlagUpgradeExpChatV2_0_0() then
+		MessageReceivedBindableEvent = ExperienceChat.MessageReceivedBindableEvent
+	end
 end
 
 local log = require(RobloxGui.Modules.InGameChat.BubbleChat.Logger)(script.Name)
@@ -197,8 +200,9 @@ local function initBubbleChat()
 		end)
 	end
 
-	if MessageReceivedBindableEvent then
-		MessageReceivedBindableEvent.Event:Connect(function(textChatMessage)
+	if GetFFlagUpgradeExpChatV2_0_0() then
+		local TextChatService = game:GetService("TextChatService")
+		TextChatService.MessageReceived:Connect(function(textChatMessage)
 			local textSource = textChatMessage.TextSource
 			if textSource and textSource.UserId then
 				local player = Players:GetPlayerByUserId(textSource.UserId)
@@ -216,6 +220,27 @@ local function initBubbleChat()
 				end
 			end
 		end)
+	else
+		if MessageReceivedBindableEvent then
+			MessageReceivedBindableEvent.Event:Connect(function(textChatMessage)
+				local textSource = textChatMessage.TextSource
+				if textSource and textSource.UserId then
+					local player = Players:GetPlayerByUserId(textSource.UserId)
+					if player then
+						local character = player.Character
+						if character and character.PrimaryPart then
+							if FFlagExperienceChatFixBubbleChat then
+								if textChatMessage.Status == Enum.TextChatMessageStatus.Success then
+									addMessage(character, textChatMessage.Text)
+								end
+							else
+								addMessage(character, textChatMessage.Text)
+							end
+						end
+					end
+				end
+			end)
+		end
 	end
 end
 

@@ -2,6 +2,9 @@
 	A set of utilities for interfacing between Motor6D Rigs and the AnimationClip editor.
 ]]
 
+local RunService = game:GetService("RunService")
+local Workspace = game:GetService("Workspace")
+
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
@@ -17,8 +20,6 @@ local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local Adorn = require(Plugin.Src.Util.Adorn)
 local Templates = require(Plugin.Src.Util.Templates)
 
-local Workspace = game:GetService("Workspace")
-
 local Constants = require(Plugin.Src.Util.Constants)
 
 local GetFFlagACESaveRigWithAnimation = require(Plugin.LuaFlags.GetFFlagACESaveRigWithAnimation)
@@ -32,7 +33,8 @@ local GetFFlagBoneAdornmentSelection = require(Plugin.LuaFlags.GetFFlagBoneAdorn
 local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 
 local FFlagCheckPart0OfMotor6DExists = game:DefineFastFlag("CheckPart0OfMotor6DExists", false)
-
+local FFlagCheckIsRunning = game:DefineFastFlag("ACECheckIsRunning", false)
+local FFlagRetireGetBoneMap = game:DefineFastFlag("ACERetireGetBoneMap", false)
 
 local RigUtils = {}
 
@@ -242,6 +244,7 @@ local function getAnimator(rig)
 	end
 end
 
+-- Unused when FFlagRetireGetBoneMap is true
 function RigUtils.getBoneMap(rig)
 	local parts, motorMap, constraints, boneMap = RigUtils.getRigInfo(rig)
 	return boneMap
@@ -256,8 +259,14 @@ function RigUtils.findRootPart(rig)
 		return rig.PrimaryPart
 	end
 
-	local _, motorMap = RigUtils.getRigInfo(rig)
-	local boneMap = RigUtils.getBoneMap(rig)
+	local motorMap, boneMap
+	if FFlagRetireGetBoneMap then
+		_, motorMap, _, boneMap = RigUtils.getRigInfo(rig)
+	else
+		_, motorMap = RigUtils.getRigInfo(rig)
+		boneMap = RigUtils.getBoneMap(rig)
+	end
+
 	local root = nil
 	local currentPart = next(motorMap)
 	if currentPart then
@@ -555,7 +564,12 @@ function RigUtils.getPartByName(rig, name)
 end
 
 function RigUtils.getBoneByName(rig, name)
-	local boneMap = RigUtils.getBoneMap(rig)
+	local boneMap
+	if FFlagRetireGetBoneMap then
+		_, _, _, boneMap = RigUtils.getRigInfo(rig)
+	else
+		boneMap = RigUtils.getBoneMap(rig)
+	end
 	local bone = boneMap[name]
 	if bone then
 		return bone
@@ -1221,8 +1235,8 @@ end
 function RigUtils.fillFloatCurve(track, curve)
 	if track then
 		if not GetFFlagCurveEditor() then
-			for tick, keyframe in pairs(track.Data) do
-				local time = tick / Constants.TICK_FREQUENCY
+			for tck, keyframe in pairs(track.Data) do
+				local time = tck / Constants.TICK_FREQUENCY
 				local key = FloatCurveKey.new(time, keyframe.Value, keyframe.InterpolationMode or Enum.KeyInterpolationMode.Cubic)
 				key.LeftTangent = keyframe.LeftSlope and (keyframe.LeftSlope * Constants.TICK_FREQUENCY) or nil
 				if keyframe.InterpolationMode == Enum.KeyInterpolationMode.Cubic then
@@ -1254,8 +1268,8 @@ end
 
 function RigUtils.fillQuaternionCurve(track, curve)
 	if not GetFFlagCurveEditor() then
-		for tick, keyframe in pairs(track.Data) do
-			local time = tick / Constants.TICK_FREQUENCY
+		for tck, keyframe in pairs(track.Data) do
+			local time = tck / Constants.TICK_FREQUENCY
 			local key = RotationCurveKey.new(time, keyframe.Value, keyframe.InterpolationMode)
 			if keyframe.InterpolationMode == Enum.KeyInterpolationMode.Cubic then
 				key.LeftTangent = keyframe.LeftSlope and (keyframe.LeftSlope * Constants.TICK_FREQUENCY) or nil
@@ -1452,9 +1466,9 @@ function RigUtils.readCurve(track, curve, trackType)
 
 		local keys = curve:GetKeys()
 		for _, key in ipairs(keys) do
-			local tick = KeyframeUtils.getNearestTick(key.Time * Constants.TICK_FREQUENCY)
-			if tick > endTick then
-				endTick = tick
+			local tck = KeyframeUtils.getNearestTick(key.Time * Constants.TICK_FREQUENCY)
+			if tck > endTick then
+				endTick = tck
 			end
 
 			local leftSlope = key.LeftTangent and (key.LeftTangent / Constants.TICK_FREQUENCY) or nil
@@ -1465,7 +1479,7 @@ function RigUtils.readCurve(track, curve, trackType)
 				LeftSlope = leftSlope,
 				RightSlope = rightSlope
 			}
-			AnimationData.addKeyframe(track, tick, keyframeData)
+			AnimationData.addKeyframe(track, tck, keyframeData)
 		end
 	else
 		track.Components = {}
@@ -1645,15 +1659,15 @@ function RigUtils.toRigAnimation(animationData, rig)
 	local pathMap = createPathMap(tracks, partsToMotors, boneMap)
 
 	for trackName, track in pairs(tracks) do
-		for _, tick in pairs(track.Keyframes) do
-			local time = tick / Constants.TICK_FREQUENCY
-			local keyframeInstance = kfsByTick[tick]
+		for _, tck in pairs(track.Keyframes) do
+			local time = tck / Constants.TICK_FREQUENCY
+			local keyframeInstance = kfsByTick[tck]
 			if not keyframeInstance then
 				keyframeInstance = createKeyframeInstance(keyframeSequence, time)
-				kfsByTick[tick] = keyframeInstance
+				kfsByTick[tck] = keyframeInstance
 			end
 			local trackType = track.Type
-			local trackData = track.Data[tick]
+			local trackData = track.Data[tck]
 
 			if GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
 				makePoseChain(keyframeInstance, trackName, trackType, trackData, pathMap)
@@ -1662,8 +1676,8 @@ function RigUtils.toRigAnimation(animationData, rig)
 			end
 
 			-- Set keyframe name, if one exists
-			if namedKeyframes[tick] then
-				keyframeInstance.Name = namedKeyframes[tick]
+			if namedKeyframes[tck] then
+				keyframeInstance.Name = namedKeyframes[tck]
 			end
 
 			numPoses = numPoses + 1
@@ -1671,14 +1685,14 @@ function RigUtils.toRigAnimation(animationData, rig)
 	end
 
 	-- Create events
-	for _, tick in ipairs(events.Keyframes) do
-		local data = events.Data[tick]
+	for _, tck in ipairs(events.Keyframes) do
+		local data = events.Data[tck]
 		for name, value in pairs(data) do
-			local time = tick / Constants.TICK_FREQUENCY
-			local keyframeInstance = kfsByTick[tick]
+			local time = tck / Constants.TICK_FREQUENCY
+			local keyframeInstance = kfsByTick[tck]
 				if not keyframeInstance then
 					keyframeInstance = createKeyframeInstance(keyframeSequence, time)
-					kfsByTick[tick] = keyframeInstance
+					kfsByTick[tck] = keyframeInstance
 				end
 			local marker = Instance.new("KeyframeMarker", keyframeInstance)
 			marker.Name = name
@@ -1769,7 +1783,7 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 	local tracks = animationData.Instances.Root.Tracks
 	for _, keyframe in pairs(keyframes) do
 		local time = keyframe.Time
-		local tick = KeyframeUtils.getNearestTick(time * Constants.TICK_FREQUENCY)
+		local tck = KeyframeUtils.getNearestTick(time * Constants.TICK_FREQUENCY)
 
 		-- Add keyframes at this tick
 		traversePoses(keyframe, function(pose)
@@ -1796,17 +1810,17 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 						EasingStyle = pose.EasingStyle,
 						EasingDirection = pose.EasingDirection
 					}
-					AnimationData.addKeyframe(track, tick, keyframeData)
+					AnimationData.addKeyframe(track, tck, keyframeData)
 				elseif GetFFlagFacialAnimationSupport() then
 					local value = pose:IsA("Pose") and pose.CFrame or pose.Value
-					AnimationData.addKeyframe_deprecated(track, tick, value)
-					AnimationData.setKeyframeData(track, tick, {
+					AnimationData.addKeyframe_deprecated(track, tck, value)
+					AnimationData.setKeyframeData(track, tck, {
 						EasingStyle = pose.EasingStyle,
 						EasingDirection = pose.EasingDirection,
 					})
 				else
-					AnimationData.addKeyframe_deprecated(track, tick, pose.CFrame)
-					AnimationData.setKeyframeData(track, tick, {
+					AnimationData.addKeyframe_deprecated(track, tck, pose.CFrame)
+					AnimationData.setKeyframeData(track, tck, {
 						EasingStyle = pose.EasingStyle,
 						EasingDirection = pose.EasingDirection,
 					})
@@ -1818,7 +1832,7 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 
 		-- Add events at this frame
 		traverseKeyframeMarkers(keyframe, function(marker)
-			AnimationData.addEvent(animationData.Events, tick, marker.Name, marker.Value)
+			AnimationData.addEvent(animationData.Events, tck, marker.Name, marker.Value)
 			numEvents = numEvents + 1
 		end)
 
@@ -1829,7 +1843,7 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 		end
 
 		if keyframe.Name ~= Constants.DEFAULT_KEYFRAME_NAME then
-			AnimationData.setKeyframeName(animationData, tick, keyframe.Name)
+			AnimationData.setKeyframeName(animationData, tck, keyframe.Name)
 		end
 	end
 
@@ -1881,8 +1895,14 @@ end
 
 function RigUtils.stepRigAnimation(rig, instance, tck)
 	local animator = getAnimator(rig)
-	local parts, partsToMotors = RigUtils.getRigInfo(rig)
-	local boneMap = RigUtils.getBoneMap(rig)
+	local parts, partsToMotors, boneMap
+
+	if FFlagRetireGetBoneMap then
+		parts, partsToMotors, _, boneMap = RigUtils.getRigInfo(rig)
+	else
+		parts, partsToMotors = RigUtils.getRigInfo(rig)
+		boneMap = RigUtils.getBoneMap(rig)
+	end
 
 	if not GetFFlagFacialAnimationSupport() then
 		for _, part in ipairs(parts) do
@@ -1938,7 +1958,7 @@ function RigUtils.stepRigAnimation(rig, instance, tck)
 		end
 	end
 
-	if animator then
+	if animator and (not FFlagCheckIsRunning or not RunService:IsRunning()) then
 		animator:StepAnimations(0)
 	end
 end
@@ -1952,7 +1972,7 @@ function RigUtils.clearPose(rig)
 		joint.Transform = CFrame.new()
 	end
 
-	if animator then
+	if animator and (not FFlagCheckIsRunning or not RunService:IsRunning()) then
 		animator:StepAnimations(0)
 	end
 end

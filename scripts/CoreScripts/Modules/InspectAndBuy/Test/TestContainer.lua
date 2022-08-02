@@ -19,8 +19,6 @@ local WideView = require(InspectAndBuyFolder.WideView)
 
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
 
-local FFlagInspectAndBuyShimmerPanelEnabled = require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyShimmerPanelEnabled)
-
 local TestContainer = Roact.Component:extend("TestContainer")
 
 function TestContainer:init()
@@ -37,37 +35,25 @@ function TestContainer:render()
 	assert(#self.props[Roact.Children] > 0,
 		"TestContainer: no children provided, nothing will be tested")
 
-	if FFlagInspectAndBuyShimmerPanelEnabled then
-		-- include theme provider for shimmer panels used in the asset list
-		local appStyle = {
-			Theme = AppDarkTheme,
-			Font = AppFont,
-		}
+	-- include theme provider for shimmer panels used in the asset list
+	local appStyle = {
+		Theme = AppDarkTheme,
+		Font = AppFont,
+	}
 
-		return Roact.createElement(InspectAndBuyContext.Provider, {
-			value = self.views
+	return Roact.createElement(InspectAndBuyContext.Provider, {
+		value = self.views
+	}, {
+		Roact.createElement(RoactRodux.StoreProvider, {
+			store = self.store,
 		}, {
-			Roact.createElement(RoactRodux.StoreProvider, {
-				store = self.store,
-			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
-					InspectMenu = Roact.createElement("ScreenGui", {}, self.props[Roact.Children])
-				})
-			})
-		})
-	else
-		return Roact.createElement(InspectAndBuyContext.Provider, {
-			value = self.views
-		}, {
-			Roact.createElement(RoactRodux.StoreProvider, {
-				store = self.store,
+			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+				style = appStyle,
 			}, {
 				InspectMenu = Roact.createElement("ScreenGui", {}, self.props[Roact.Children])
 			})
 		})
-	end
+	})
 end
 
 return TestContainer

@@ -1,3 +1,4 @@
+local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -5,7 +6,7 @@ local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local ContextItems = require(Plugin.Src.ContextItems)
+local ContextItems = if FFlagRemoveUILibraryCompatLocalization then nil else require(Plugin.Src.ContextItems)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local PivotType = TerrainEnums.PivotType
@@ -17,7 +18,7 @@ local SingleSelectButtonGroup = require(ToolParts.SingleSelectButtonGroup)
 local PivotSelector = Roact.PureComponent:extend("PivotSelector")
 
 function PivotSelector:render()
-	local localization = self.props.Localization:get()
+	local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
 
 	local layoutOrder = self.props.LayoutOrder
 	local pivot = self.props.pivot
@@ -49,11 +50,8 @@ function PivotSelector:render()
 	})
 end
 
-
 PivotSelector = withContext({
-	Localization = ContextItems.UILibraryLocalization,
+	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
 })(PivotSelector)
-
-
 
 return PivotSelector

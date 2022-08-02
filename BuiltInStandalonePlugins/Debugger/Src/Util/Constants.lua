@@ -138,6 +138,7 @@ local ColumnSizeMyWatches = "ColumnSizeMyWatches"
 local Tab = "Tab"
 local ScopeFilter = "ScopeFilter"
 local ColumnFilter = "ColumnFilter"
+local WatchVariables = "WatchVariables"
 
 local kInvalidDebuggerConnectionId = -1
 
@@ -173,5 +174,6 @@ return {
 	ColumnFilter = ColumnFilter,
 	ColumnSizeVariables = ColumnSizeVariables,
 	ColumnSizeMyWatches = ColumnSizeMyWatches,
+	WatchVariables = WatchVariables,
 	kInvalidDebuggerConnectionId = kInvalidDebuggerConnectionId,
 }

@@ -17,7 +17,6 @@
 		function SetSelectedTracks(string) = sets currently selected joint to given string
 		function OnTreeUpdated = callback for when the nodes of the tree are updated
 ]]
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local Constants = require(Plugin.Src.Util.Constants)
@@ -25,8 +24,13 @@ local RigUtils = require(Plugin.Src.Util.RigUtils)
 
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local TreeView = Framework.UI.TreeView
-local Button = Framework.UI.Button
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkList = SharedFlags.getFFlagDevFrameworkList()
+
+local UI = Framework.UI
+local Button = UI.Button
+local Pane = UI.Pane
+local TreeView = UI.TreeView
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -36,6 +40,8 @@ local LayoutOrderIterator = require(Plugin.Src.Util.LayoutOrderIterator)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+
+local IKTreeRow = if FFlagDevFrameworkList then require(Plugin.Src.Components.IK.IKTreeRow) else nil
 
 local IKTreeView = Roact.PureComponent:extend("IKTreeView")
 
@@ -78,12 +84,13 @@ function IKTreeView:init()
 		end
 	end
 
-	self.getVerticalLineHeight = function(elementProps, forIK)
+	self.getVerticalLineHeight = function(elementPropsOrItem, forIK: boolean)
+		local item = if FFlagDevFrameworkList then elementPropsOrItem else elementPropsOrItem.item
 		local startIndex = 1
 		local orderedChildren = {}
-		local children = self.getChildren(elementProps.item)
+		local children = self.getChildren(item)
 		for index, node in ipairs(self.state.treeArray) do
-			if node == elementProps.item then
+			if node == item then
 				startIndex = index
 			end
 			for _, child in ipairs(children) do
@@ -102,7 +109,7 @@ function IKTreeView:init()
 			endIndex = orderedChildren[#orderedChildren].index
 		end
 		return (endIndex - startIndex) * Constants.TRACK_HEIGHT
-	end
+	end	
 
 	self.toggleExpanded = function(elementName)
 		self:setState(function(oldState)
@@ -136,6 +143,32 @@ function IKTreeView:init()
 		})
 		self.props.OnTreeUpdated(rows)
 	end
+
+	if FFlagDevFrameworkList then
+		self.getRowProps = function(row, index, position: UDim2, size: UDim2)
+			local props = self.props
+			local selectedTrack = props.SelectedTrack
+			local item = row.item
+			return {
+				Chain = props.Chain,
+				Depth = row.depth,
+				GetVerticalLineHeight = self.getVerticalLineHeight,
+				IsExpanded = self.state.expandedItems[item],
+				IsLeafNode = #self.getChildren(item) == 0,
+				Item = item,
+				Key = index,
+				OnInputBegan = self.onInputBegan,
+				OnToggleExpanded = self.toggleExpanded,
+				PinnedParts = props.PinnedParts,
+				Position = position,
+				RootInstance = props.RootInstance,
+				IKMode = props.IKMode,
+				IsSelected = if GetFFlagCurveEditor() then (selectedTrack and selectedTrack[1] == item) else selectedTrack == item,
+				Size = size,
+				TogglePinnedPart = props.TogglePinnedPart,
+			}
+		end
+	end
 end
 
 function IKTreeView:didMount()
@@ -146,85 +179,87 @@ function IKTreeView:didUpdate(prevProps, prevState)
 	self.calculateRows(prevState)
 end
 
-function IKTreeView:renderPinButton(theme, elementProps, selected)
-	local props = self.props
+if not FFlagDevFrameworkList then
+	function IKTreeView:renderPinButton(theme, elementProps, selected)
+		local props = self.props
 
-	local rootInstance = props.RootInstance
-	local pinnedParts = props.PinnedParts
-	local togglePinnedPart = props.TogglePinnedPart
+		local rootInstance = props.RootInstance
+		local pinnedParts = props.PinnedParts
+		local togglePinnedPart = props.TogglePinnedPart
 
-	local part = RigUtils.getPartByName(rootInstance, elementProps.item)
-	local pinned = pinnedParts[part]
+		local part = RigUtils.getPartByName(rootInstance, elementProps.item)
+		local pinned = pinnedParts[part]
 
-	return Roact.createElement(Button, {
-		Position = UDim2.new(1, PIN_OFFSET, 0.5, 0),
-		AnchorPoint = Vector2.new(1, 0.5),
-		ZIndex = 1,
-		IsRound = false,
-		Size = UDim2.new(0, PIN_SIZE, 0, PIN_SIZE),
-		BorderSizePixel = 0,
-		OnClick = function()
-			togglePinnedPart(part)
-		end
-		}, {
-			Image = Roact.createElement("ImageLabel", {
-				BackgroundColor3 = selected and theme.ikTheme.selected or theme.backgroundColor,
-				BorderSizePixel = 0,
-				Size = UDim2.new(1, 0, 1, 0),
-				Image = theme.ikTheme.pinImage,
-				ImageColor3 = pinned and theme.ikTheme.pinHover or theme.ikTheme.iconColor,
-			}),
-	})
-end
+		return Roact.createElement(Button, {
+			Position = UDim2.new(1, PIN_OFFSET, 0.5, 0),
+			AnchorPoint = Vector2.new(1, 0.5),
+			ZIndex = 1,
+			IsRound = false,
+			Size = UDim2.new(0, PIN_SIZE, 0, PIN_SIZE),
+			BorderSizePixel = 0,
+			OnClick = function()
+				togglePinnedPart(part)
+			end
+			}, {
+				Image = Roact.createElement("ImageLabel", {
+					BackgroundColor3 = selected and theme.ikTheme.selected or theme.backgroundColor,
+					BorderSizePixel = 0,
+					Size = UDim2.new(1, 0, 1, 0),
+					Image = theme.ikTheme.pinImage,
+					ImageColor3 = pinned and theme.ikTheme.pinHover or theme.ikTheme.iconColor,
+				}),
+		})
+	end
 
-function IKTreeView:renderHierarchyLines(elementProps, isSelected)
-	local props = self.props
+	function IKTreeView:renderHierarchyLines(elementProps, isSelected)
+		local props = self.props
 
-	local chain = props.Chain
-	local joint = elementProps.item
-	local indent = elementProps.depth - 1
-	local expanded = true
-	local toggleExpanded = self.toggleExpanded
+		local chain = props.Chain
+		local joint = elementProps.item
+		local indent = elementProps.depth - 1
+		local expanded = true
+		local toggleExpanded = self.toggleExpanded
 
-	return Roact.createElement(HierarchyLines, {
-		Highlight = chain[joint] ~= nil,
-		IsSelected = isSelected,
-		InActiveChain = chain[joint],
-		IsLeafNode = #self.getChildren(joint) == 0,
-		IsChildNode = indent > 0,
-		IsExpanded = expanded,
-		Indent = indent,
-		Height = self.getVerticalLineHeight(elementProps, false),
-		IKHeight = self.getVerticalLineHeight(elementProps, true),
-		LayoutOrder = 1,
-		ToggleExpanded = toggleExpanded,
-		Element = elementProps.item,
-	})
-end
+		return Roact.createElement(HierarchyLines, {
+			Highlight = chain[joint] ~= nil,
+			IsSelected = isSelected,
+			InActiveChain = chain[joint],
+			IsLeafNode = #self.getChildren(joint) == 0,
+			IsChildNode = indent > 0,
+			IsExpanded = expanded,
+			Indent = indent,
+			Height = self.getVerticalLineHeight(elementProps, false),
+			IKHeight = self.getVerticalLineHeight(elementProps, true),
+			LayoutOrder = 1,
+			ToggleExpanded = toggleExpanded,
+			Element = elementProps.item,
+		})
+	end
 
-function IKTreeView:renderJointLabel(theme, elementProps, isSelected)
-	local text = elementProps.item
+	function IKTreeView:renderJointLabel(theme, elementProps, isSelected)
+		local text = elementProps.item
 
-	return Roact.createElement("TextLabel", {
-		Text = text,
-		TextSize = theme.ikTheme.textSize,
-		Font = theme.font,
-		TextColor3 = isSelected and theme.ikTheme.primaryTextColor or theme.ikTheme.textColor,
-		TextXAlignment = Enum.TextXAlignment.Left,
-		TextYAlignment = Enum.TextYAlignment.Center,
-		Size = UDim2.new(0, LABEL_WIDTH, 1, 0),
-		TextTruncate = Enum.TextTruncate.AtEnd,
-		BackgroundTransparency = 1,
-		LayoutOrder = 3,
-	})
-end
+		return Roact.createElement("TextLabel", {
+			Text = text,
+			TextSize = theme.ikTheme.textSize,
+			Font = theme.font,
+			TextColor3 = isSelected and theme.ikTheme.primaryTextColor or theme.ikTheme.textColor,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Center,
+			Size = UDim2.new(0, LABEL_WIDTH, 1, 0),
+			TextTruncate = Enum.TextTruncate.AtEnd,
+			BackgroundTransparency = 1,
+			LayoutOrder = 3,
+		})
+	end
 
-function IKTreeView:renderPadding()
-	return Roact.createElement("Frame", {
-		BackgroundTransparency = 1,
-		Size = UDim2.new(0, PADDING, 0, 0),
-		LayoutOrder = 2,
-	})
+	function IKTreeView:renderPadding()
+		return Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			Size = UDim2.new(0, PADDING, 0, 0),
+			LayoutOrder = 2,
+		})
+	end
 end
 
 function IKTreeView:render()
@@ -250,7 +285,10 @@ function IKTreeView:render()
 			RootItems = rootItems,
 			GetChildren = self.getChildren,
 			Expansion = self.state.expandedItems,
-			RenderRow = function(elementProps)
+			RowComponent = if FFlagDevFrameworkList then IKTreeRow else nil,
+			RowHeight = if FFlagDevFrameworkList then Constants.TRACK_HEIGHT else nil,
+			GetRowProps = if FFlagDevFrameworkList then self.getRowProps else nil,
+			RenderRow = if FFlagDevFrameworkList then nil else function(elementProps)
 				-- exclude root
 				if elementProps.item == rootPart.Name then
 					return nil

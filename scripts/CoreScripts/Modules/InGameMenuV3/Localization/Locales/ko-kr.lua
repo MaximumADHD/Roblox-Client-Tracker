@@ -216,5 +216,6 @@ return{
 	["CoreScripts.InGameMenu.Prompt.ReturnHomeBodyText"] = [[홈으로 돌아가 새로운 체험을 둘러봅니다.]],
 	["CoreScripts.InGameMenu.Actions.BlockFriend"] = [[친구를 차단할까요?]],
 	["CoreScripts.InGameMenu.QuickActions.ScreenshotSaved"] = [[스크린샷 저장 완료]],
-	["CoreScripts.InGameMenu.Action.ShareServerLink"] = [[서버 링크 공유]],
+	["CoreScripts.InGameMenu.Action.ShareServerLink"] = [[공유]],
+	["CoreScripts.InGameMenu.Controls.Scriptable"] = [[스크립터블]],
 }

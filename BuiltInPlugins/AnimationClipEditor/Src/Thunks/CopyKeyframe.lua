@@ -15,7 +15,7 @@ local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAni
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 -- TODO: Can be deleted when GetFFlagChannelAnimations() is ON
-return function(instanceName, trackName, tick, multiAdd)
+return function(instanceName, trackName, tck, multiAdd)
 	return function(store)
 		if GetFFlagChannelAnimations() then
 			return
@@ -49,8 +49,8 @@ return function(instanceName, trackName, tick, multiAdd)
 
 		local trackData = track.Data
 
-		if trackData and trackData[tick] then
-			local data = track.Data[tick]
+		if trackData and trackData[tck] then
+			local data = track.Data[tck]
 			local copiedData = Cryo.Dictionary.join(data)
 			local trackType = track.Type
 
@@ -60,10 +60,10 @@ return function(instanceName, trackName, tick, multiAdd)
 						[trackName] = GetFFlagFacialAnimationSupport() and {
 							Type = trackType,
 							Data = {
-								[tick] = copiedData,
+								[tck] = copiedData,
 							},
 						} or {
-							[tick] = copiedData,
+							[tck] = copiedData,
 						},
 					},
 				}))
@@ -82,10 +82,10 @@ return function(instanceName, trackName, tick, multiAdd)
 						[trackName] = GetFFlagFacialAnimationSupport() and
 							Cryo.Dictionary.join(newTrack, {
 								Data = Cryo.Dictionary.join(newData, {
-									[tick] = copiedData,
+									[tck] = copiedData,
 								}),
 							}) or Cryo.Dictionary.join(newTrack, {
-								[tick] = copiedData,
+								[tck] = copiedData,
 							}),
 					}),
 				})))

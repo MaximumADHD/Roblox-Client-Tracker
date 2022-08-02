@@ -1,5 +1,7 @@
 local HttpService = game:GetService("HttpService")
 
+local FFlagAutoUpdatePlugins = game:GetFastFlag("AutoUpdatePlugins")
+
 return function(json)
 	if json == nil or json == "" then
 		return {}
@@ -13,6 +15,9 @@ return function(json)
 		newEntry.enabled = data.Enabled
 		newEntry.installedVersion = data.AssetVersion
 		newEntry.isModerated = data.Moderated
+		if FFlagAutoUpdatePlugins then
+			newEntry.autoUpdateEnabled = data.AutoUpdate
+		end
 		table.insert(result, newEntry)
 	end
 	return result

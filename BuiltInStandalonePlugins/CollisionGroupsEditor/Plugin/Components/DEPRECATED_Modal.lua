@@ -1,6 +1,16 @@
-local Roact = require(script.Parent.Parent.Parent.Packages.Roact)
-local UILibrary = require(script.Parent.Parent.Parent.Packages.UILibrary)
+local Plugin = script.Parent.Parent.Parent
+
+local Roact = require(Plugin.Packages.Roact)
+local UILibrary = require(Plugin.Packages.UILibrary)
 local withLocalization = UILibrary.Localizing.withLocalization
+
+local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+
+local UI = Framework.UI
+local TextLabel = UI.Decoration.TextLabel
 
 local Padding = require(script.Parent.DEPRECATED_Padding)
 
@@ -48,14 +58,22 @@ return function(props)
 				}, {
 					Padding = Roact.createElement(Padding, {Padding = UDim.new(0, 16)}),
 
-					Message = Roact.createElement("TextLabel", {
-						BackgroundTransparency = 1,
-						Size = UDim2.new(1, 0, 1, 0),
-						Text = message,
-						TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainText),
-						TextWrapped = true,
-						ZIndex = zIndex,
-					})
+					Message = if FFlagDevFrameworkMigrateTextLabels then (
+						Roact.createElement(TextLabel, {
+							Text = message,
+							TextWrapped = true,
+							ZIndex = zIndex,
+						})
+					) else (
+						Roact.createElement("TextLabel", {
+							BackgroundTransparency = 1,
+							Size = UDim2.new(1, 0, 1, 0),
+							Text = message,
+							TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainText),
+							TextWrapped = true,
+							ZIndex = zIndex,
+						})
+					)
 				}),
 
 				ButtonsFrame = Roact.createElement("Frame", {

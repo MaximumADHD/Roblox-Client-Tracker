@@ -11,8 +11,6 @@ local SetTryingOnInfo = require(InspectAndBuyFolder.Actions.SetTryingOnInfo)
 local TryOnItem = require(InspectAndBuyFolder.Thunks.TryOnItem)
 local getSelectionImageObjectRounded = require(InspectAndBuyFolder.getSelectionImageObjectRounded)
 
-local FFlagInspectAndBuyLayeredClothingR6Support =
-	require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyLayeredClothingR6Support)
 local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyFolder.Flags.GetFFlagUseInspectAndBuyControllerBar)
 local TryOnShorcutKeycode = require(script.Parent.Common.ControllerShortcutKeycodes).TryOn
 
@@ -53,13 +51,10 @@ function TryOnButton:activateButton()
 	local partOfBundleAndOffsale = self.props.partOfBundleAndOffsale
 	local bundleId = self.props.bundleId
 
-	local layeredClothingOnR6 = false
-	if FFlagInspectAndBuyLayeredClothingR6Support then
-		-- disable the try on button if wanting to try on a layered clothing asset on R6
-		layeredClothingOnR6 = assetInfo and self.props.localPlayerModel
-				and Constants.LayeredAssetTypes[assetInfo.assetTypeId] ~= nil
-				and self.props.localPlayerModel.Humanoid.RigType == Enum.HumanoidRigType.R6
-	end
+	-- disable the try on button if wanting to try on a layered clothing asset on R6
+	local layeredClothingOnR6 = assetInfo and self.props.localPlayerModel
+		and Constants.LayeredAssetTypes[assetInfo.assetTypeId] ~= nil
+		and self.props.localPlayerModel.Humanoid.RigType == Enum.HumanoidRigType.R6
 
 	if not layeredClothingOnR6 then
 		if tryingOn then
@@ -96,13 +91,10 @@ function TryOnButton:render()
 		tryOnTextKey = TRY_ON_KEY
 	end
 
-	local layeredClothingOnR6 = false
-	if FFlagInspectAndBuyLayeredClothingR6Support then
-		-- disable the try on button if wanting to try on a layered clothing asset on R6
-		layeredClothingOnR6 = assetInfo and self.props.localPlayerModel
-				and Constants.LayeredAssetTypes[assetInfo.assetTypeId] ~= nil
-				and self.props.localPlayerModel.Humanoid.RigType == Enum.HumanoidRigType.R6
-	end
+	-- disable the try on button if wanting to try on a layered clothing asset on R6
+	local layeredClothingOnR6 = assetInfo and self.props.localPlayerModel
+		and Constants.LayeredAssetTypes[assetInfo.assetTypeId] ~= nil
+		and self.props.localPlayerModel.Humanoid.RigType == Enum.HumanoidRigType.R6
 
 	return Roact.createElement("ImageLabel", {
 		AnchorPoint = Vector2.new(0.5, 0),

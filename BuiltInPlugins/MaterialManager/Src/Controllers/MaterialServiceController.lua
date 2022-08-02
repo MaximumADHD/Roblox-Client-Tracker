@@ -5,7 +5,6 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextItem = Framework.ContextServices.ContextItem
 local ServiceWrapper = Framework.TestHelpers.ServiceWrapper
 
-local getFFlagMaterialManagerGlassNeonForceField = require(Plugin.Src.Flags.getFFlagMaterialManagerGlassNeonForceField)
 local MaterialBrowserReducer = require(Plugin.Src.Reducers.MaterialBrowserReducer)
 
 local Actions = Plugin.Src.Actions
@@ -31,9 +30,6 @@ local CheckMaterialName = require(Util.CheckMaterialName)
 local ContainsPath = require(Util.ContainsPath)
 local getMaterials = require(Util.getMaterials)
 local getOverrides = require(Util.getOverrides)
-
-local getFFlagMaterialManagerEnableTests = require(Plugin.Src.Flags.getFFlagMaterialManagerEnableTests)
-local getFFlagMaterialManagerUIGlitchFix = require(Plugin.Src.Flags.getFFlagMaterialManagerUIGlitchFix)
 
 local supportedMaterials = getSupportedMaterials()
 
@@ -89,13 +85,11 @@ function MaterialServiceController.new(store: any, mock: boolean?)
 	end)
 
 	if not mock then
-		self._uses2022MaterialsChanged = self._materialServiceWrapper:asInstance():GetPropertyChangedSignal("Use2022Materials"):Connect(function(value)
-			self._store:dispatch(SetUse2022Materials(value))
+		self._uses2022MaterialsChanged = self._materialServiceWrapper:asInstance():GetPropertyChangedSignal("Use2022Materials"):Connect(function()
+			self._store:dispatch(SetUse2022Materials(self._materialServiceWrapper:asService().Use2022Materials))
 		end)
 
-		if getFFlagMaterialManagerUIGlitchFix() then
-			self._store:dispatch(SetUse2022Materials(self._materialServiceWrapper:asService().Use2022Materials))
-		end
+		self._store:dispatch(SetUse2022Materials(self._materialServiceWrapper:asService().Use2022Materials))
 	end
 
 	for material, isSupported in pairs(supportedMaterials) do
@@ -234,7 +228,7 @@ function MaterialServiceController:removeMaterial(material: MaterialVariant, mov
 		end
 	end
 
-	if not getFFlagMaterialManagerGlassNeonForceField() or self._materialChangedListeners[material] then
+	if self._materialChangedListeners[material] then
 		self._materialChangedListeners[material]:Disconnect()
 		self._materialChangedListeners[material] = nil
 	end
@@ -312,7 +306,7 @@ function MaterialServiceController:setMaterial(materialVariant: MaterialVariant)
 end
 
 function MaterialServiceController:hasDefaultMaterial(material: Enum.Material, override: string): boolean
-	if getFFlagMaterialManagerEnableTests() and override == "None" then
+	if override == "None" then
 		override = ""
 	end
 

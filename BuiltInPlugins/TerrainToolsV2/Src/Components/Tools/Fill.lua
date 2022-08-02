@@ -1,7 +1,7 @@
 --[[
 	Displays panels associated with the Fill tool
 ]]
-
+local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -10,7 +10,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local ContextItems = require(Plugin.Src.ContextItems)
+local ContextItems = if FFlagRemoveUILibraryCompatLocalization then nil else require(Plugin.Src.ContextItems)
 
 local ToolParts = Plugin.Src.Components.Tools.ToolParts
 local ButtonGroup = require(ToolParts.ButtonGroup)
@@ -54,7 +54,7 @@ function Fill:didMount()
 end
 
 function Fill:render()
-	local localization = self.props.Localization:get()
+	local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
 
 	local mergeEmpty = self.props.mergeEmpty
 	local material = self.props.material
@@ -86,12 +86,9 @@ function Fill:render()
 	})
 end
 
-
 Fill = withContext({
-	Localization = ContextItems.UILibraryLocalization,
+	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
 })(Fill)
-
-
 
 local function mapStateToProps(state, props)
 	return {

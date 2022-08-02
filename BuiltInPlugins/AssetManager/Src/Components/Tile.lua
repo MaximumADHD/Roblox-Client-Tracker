@@ -32,8 +32,6 @@ local ReviewStatus = require(Plugin.Src.Util.ReviewStatus)
 local ModerationUtil = require(Plugin.Src.Util.ModerationUtil)
 
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
-local FFlagStudioAssetManagerAssetModeration = game:GetFastFlag("StudioAssetManagerAssetModeration")
-local FFlagAssetManagerFixOpenAssetPreview1 = game:GetFastFlag("AssetManagerFixOpenAssetPreview1")
 
 local ModernIcons = require(Plugin.Src.Util.ModernIcons)
 local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and not game:GetService("StudioHighDpiService"):IsNotHighDPIAwareBuild()
@@ -82,13 +80,9 @@ function Tile:init()
 		local isFolder = assetData.ClassName == "Folder"
 		local isPlace = assetData.assetType == Enum.AssetType.Place
 		if not isFolder and not isPlace then
-			if FFlagAssetManagerFixOpenAssetPreview1 then
-				local assetPreviewData = self.props.AssetsTable.assetPreviewData[assetData.id]
-				-- asset preview data is not loaded or stored
-				if type(assetPreviewData) ~= "table" then
-					self.props.dispatchGetAssetPreviewData(self.props.API:get(), {assetData.id})
-				end
-			else
+			local assetPreviewData = self.props.AssetsTable.assetPreviewData[assetData.id]
+			-- asset preview data is not loaded or stored
+			if type(assetPreviewData) ~= "table" then
 				self.props.dispatchGetAssetPreviewData(self.props.API:get(), {assetData.id})
 			end
 		end
@@ -396,25 +390,23 @@ function Tile:render()
 	local moderationStatusIconXOffset
 	local moderationStatusIconYOffset
 	local moderationTooltip
-	if FFlagStudioAssetManagerAssetModeration then
-		if not isFolder then
-			local moderationData = props.ModerationData
-			if moderationData and next(moderationData) ~= nil then
-				-- fetch moderation data then set icon/textbox size
-				local isPending = moderationData.reviewStatus == ReviewStatus.Pending
-				local isApproved = ModerationUtil.isApprovedAsset(moderationData)
-				displayModerationStatus = isPending or not isApproved
-				if displayModerationStatus then
-					if isPending then
-						moderationImage = pluginStyle.Image.ModerationStatus.Pending
-					elseif not isApproved then
-						moderationImage = pluginStyle.Image.ModerationStatus.Rejected
-					end
-					moderationStatusImageSize = pluginStyle.Image.ModerationStatus.Size
-					moderationStatusIconXOffset = pluginStyle.Image.ModerationStatus.XOffset
-					moderationStatusIconYOffset = pluginStyle.Image.ModerationStatus.YOffset
-					moderationTooltip = ModerationUtil.getModerationTooltip(localization, moderationData)
+	if not isFolder then
+		local moderationData = props.ModerationData
+		if moderationData and next(moderationData) ~= nil then
+			-- fetch moderation data then set icon/textbox size
+			local isPending = moderationData.reviewStatus == ReviewStatus.Pending
+			local isApproved = ModerationUtil.isApprovedAsset(moderationData)
+			displayModerationStatus = isPending or not isApproved
+			if displayModerationStatus then
+				if isPending then
+					moderationImage = pluginStyle.Image.ModerationStatus.Pending
+				elseif not isApproved then
+					moderationImage = pluginStyle.Image.ModerationStatus.Rejected
 				end
+				moderationStatusImageSize = pluginStyle.Image.ModerationStatus.Size
+				moderationStatusIconXOffset = pluginStyle.Image.ModerationStatus.XOffset
+				moderationStatusIconYOffset = pluginStyle.Image.ModerationStatus.YOffset
+				moderationTooltip = ModerationUtil.getModerationTooltip(localization, moderationData)
 			end
 		end
 	end
@@ -516,12 +508,12 @@ function Tile:render()
 					[Roact.Event.FocusLost] = self.onTextBoxFocusLost,
 				}),
 
-				NameTooltip = FFlagStudioAssetManagerAssetModeration and Roact.createElement(Tooltip, {
+				NameTooltip = Roact.createElement(Tooltip, {
 					Text = name,
 					Enabled = enabled,
 				}),
 
-				DEPRECATED_Tooltip = not FFlagStudioAssetManagerAssetModeration and enabled and Roact.createElement(Tooltip, {
+				DEPRECATED_Tooltip = enabled and Roact.createElement(Tooltip, {
 					Text = name,
 					Enabled = true,
 				}),
@@ -622,14 +614,9 @@ function Tile:render()
 				[Roact.Event.FocusLost] = self.onTextBoxFocusLost,
 			}),
 
-			NameTooltip = FFlagStudioAssetManagerAssetModeration and Roact.createElement(Tooltip, {
+			NameTooltip = Roact.createElement(Tooltip, {
 				Text = name,
 				Enabled = enabled,
-			}),
-
-			DEPRECATED_Tooltip = not FFlagStudioAssetManagerAssetModeration and enabled and Roact.createElement(Tooltip, {
-				Text = name,
-				Enabled = true,
 			}),
 		})
 	end

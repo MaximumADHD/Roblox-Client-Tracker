@@ -52,7 +52,6 @@ local BulkImportService = game:GetService("BulkImportService")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 local FFlagAssetManagerGeneralizeSignalAPI = game:GetFastFlag("AssetManagerGeneralizeSignalAPI")
 local FFlagAssetManagerRefactorPath = game:GetFastFlag("AssetManagerRefactorPath")
-local FFlagStudioAssetManagerAssetModeration = game:GetFastFlag("StudioAssetManagerAssetModeration")
 
 local shouldEnableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).shouldEnableAudioImport
 local shouldEnableVideoImport = require(Plugin.Src.Util.AssetManagerUtilities).shouldEnableVideoImport
@@ -229,7 +228,7 @@ function AssetGridContainer:createTiles(apiImpl, localization, theme,
 				asset.key = asset.layoutOrder
 				local assetTile = Roact.createElement(Tile, {
 					AssetData = asset,
-					ModerationData = if FFlagStudioAssetManagerAssetModeration then assetsModerationData[asset.id] else nil,
+					ModerationData = assetsModerationData[asset.id],
 					LayoutOrder = asset.layoutOrder,
 					StyleModifier = selectedAssets[asset.layoutOrder] and StyleModifier.Selected or nil,
 					Enabled = enabled,
@@ -286,7 +285,7 @@ function AssetGridContainer:createListItems(apiImpl, localization, theme,
 				asset.key = asset.layoutOrder
 				local assetListItem = Roact.createElement(ListItem, {
 					AssetData = asset,
-					ModerationData = if FFlagStudioAssetManagerAssetModeration then assetsModerationData[asset.id] else nil,
+					ModerationData = assetsModerationData[asset.id],
 					LayoutOrder = asset.layoutOrder,
 					StyleModifier = selectedAssets[asset.layoutOrder] and StyleModifier.Selected or nil,
 					Enabled = enabled,

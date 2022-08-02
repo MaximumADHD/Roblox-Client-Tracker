@@ -6,8 +6,6 @@ return function()
 	local ImageDragger = require(script.Parent.ImageDragger)
 	local Orientation = require(Plugin.Src.Util.Orientation)
 
-	local FFlag9SliceEditorNewDraggers = game:GetFastFlag("9SliceEditorNewDraggers")
-
 	local function getDraggerTopLevelComponent(container)
 		return container:GetChildren()[1]
 	end
@@ -29,11 +27,7 @@ return function()
 			sliceRect = {2, 2, 2, 2},
 		}, function(container)
 			local dragger = getDraggerTopLevelComponent(container)
-			if FFlag9SliceEditorNewDraggers then
-				expect(dragger:IsA("Frame")).to.equal(true)
-			else
-				expect(dragger:IsA("ImageButton")).to.equal(true)
-			end
+			expect(dragger:IsA("Frame")).to.equal(true)
 		end)
 	end)
 

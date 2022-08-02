@@ -8,7 +8,6 @@ local CoreGui = game:GetService("CoreGui")
 local EmotesConstants = require(CoreGui.RobloxGui.Modules.EmotesMenu.Constants)
 local MaybeSendEmoteFailureAnalyticsFromPlayer =
 	require(CoreGui.RobloxGui.Modules.EmotesMenu.Utility.MaybeSendEmoteFailureAnalyticsFromPlayer)
-local FFlagSendEmoteFailureEvents = require(CoreGui.RobloxGui.Modules.Flags.FFlagSendEmoteFailureEvents)
 
 type EquippedEmote = {
 	Name: string,
@@ -192,19 +191,13 @@ LocalPlayer.Chatted:Connect(function(message: string, _recipient: Player?)
 			end
 		end
 
-		if FFlagSendEmoteFailureEvents then
-			if emoteUsed then
-				reportEmoteUsed(emoteUsed)
-				MaybeSendEmoteFailureAnalyticsFromPlayer(LocalPlayer, function(errorType)
-					reportEmoteFailed(errorType, emoteUsed)
-				end)
-			else
-				reportEmoteFailed(EmotesConstants.ErrorTypes.NoMatchingEmote)
-			end
+		if emoteUsed then
+			reportEmoteUsed(emoteUsed)
+			MaybeSendEmoteFailureAnalyticsFromPlayer(LocalPlayer, function(errorType)
+				reportEmoteFailed(errorType, emoteUsed)
+			end)
 		else
-			if emoteUsed then
-				reportEmoteUsed(emoteUsed)
-			end
+			reportEmoteFailed(EmotesConstants.ErrorTypes.NoMatchingEmote)
 		end
 	end
 end)

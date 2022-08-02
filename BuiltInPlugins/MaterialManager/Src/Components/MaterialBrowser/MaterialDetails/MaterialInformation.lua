@@ -19,7 +19,6 @@ local Tooltip = UI.Tooltip
 local TruncatedTextLabel = UI.TruncatedTextLabel
 
 local GeneralServiceController = require(Plugin.Src.Controllers.GeneralServiceController)
-local getFFlagMaterialManagerUIUXFixes = require(Plugin.Src.Flags.getFFlagMaterialManagerUIUXFixes)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local Actions = Plugin.Src.Actions
@@ -28,22 +27,12 @@ local SetBaseMaterial = require(Actions.SetBaseMaterial)
 local SetFromVariantInstance = require(Actions.SetFromVariantInstance)
 local SetMode = require(Actions.SetMode)
 
-local Util = Plugin.Src.Util
-local ApplyToSelection = require(Util.ApplyToSelection)
-
 local Constants = Plugin.Src.Resources.Constants
 local getFullMaterialType = require(Constants.getFullMaterialType)
 local getMaterialName = require(Constants.getMaterialName)
 local getSupportedMaterials = require(Constants.getSupportedMaterials)
 
 local supportedMaterials = getSupportedMaterials()
-
-local Flags = Plugin.Src.Flags
-local getFFlagMaterialManagerExtraTooltips = require(Flags.getFFlagMaterialManagerExtraTooltips)
-local getFFlagMaterialManagerUIGlitchFix = require(Flags.getFFlagMaterialManagerUIGlitchFix)
-local getFFlagMaterialManagerMaterialAsTool = require(Flags.getFFlagMaterialManagerMaterialAsTool)
-local getFFlagMaterialManagerUtilTests = require(Flags.getFFlagMaterialManagerUtilTests)
-local getFFlagMaterialManagerAnalyticsCounter = require(Flags.getFFlagMaterialManagerAnalyticsCounter)
 
 export type Props = {
 	LayoutOrder: number?,
@@ -101,9 +90,7 @@ function MaterialInformation:init()
 		local material: _Types.Material? = props.Material
 
 		if material and material.MaterialVariant then
-			if getFFlagMaterialManagerUIGlitchFix() then
-				props.dispatchClearMaterialVariant()
-			end
+			props.dispatchClearMaterialVariant()
 			props.dispatchSetFromVariantInstance(material.MaterialVariant)
 			props.dispatchSetMode("Edit")
 			props.OpenPrompt("Edit")
@@ -116,9 +103,7 @@ function MaterialInformation:init()
 
 		if material and material.MaterialVariant then
 			props.GeneralServiceController:destroyWithUndo(material.MaterialVariant)
-			if getFFlagMaterialManagerAnalyticsCounter() then
-				props.Analytics:report("deleteMaterialVariant")
-			end
+			props.Analytics:report("deleteMaterialVariant")
 		end
 	end
 
@@ -126,20 +111,11 @@ function MaterialInformation:init()
 		local props: _Props = self.props
 		local material: _Types.Material? = props.Material
 
-		if getFFlagMaterialManagerUIUXFixes() then
-			if material and not material.MaterialVariant then
-				props.dispatchClearMaterialVariant()
-				props.dispatchSetBaseMaterial(material.Material)
-				props.dispatchSetMode("Create")
-				props.OpenPrompt("Create")
-			end
-		else
-			if material then
-				props.dispatchClearMaterialVariant()
-				props.dispatchSetBaseMaterial(material.Material)
-				props.dispatchSetMode("Create")
-				props.OpenPrompt("Create")
-			end
+		if material and not material.MaterialVariant then
+			props.dispatchClearMaterialVariant()
+			props.dispatchSetBaseMaterial(material.Material)
+			props.dispatchSetMode("Create")
+			props.OpenPrompt("Create")
 		end
 	end
 
@@ -147,16 +123,9 @@ function MaterialInformation:init()
 		local props: _Props = self.props
 
 		if props.Material then
-			if getFFlagMaterialManagerUtilTests() then
-				props.GeneralServiceController:ApplyToSelection(props.Material.Material,
-					if props.Material.MaterialVariant then props.Material.MaterialVariant.Name else nil)
-			else
-				ApplyToSelection(props.Material.Material,
-					if props.Material.MaterialVariant then props.Material.MaterialVariant.Name else nil)
-			end
-			if getFFlagMaterialManagerAnalyticsCounter() then
-				props.Analytics:report("applyToSelectionButton")
-			end
+			props.GeneralServiceController:ApplyToSelection(props.Material.Material,
+				if props.Material.MaterialVariant then props.Material.MaterialVariant.Name else nil)
+			props.Analytics:report("applyToSelectionButton")
 		end
 	end
 end
@@ -185,18 +154,12 @@ function MaterialInformation:render()
 	local pathString = table.concat(localizedPathParts, " > ")
 
 	local numButtons = 0
-	if getFFlagMaterialManagerMaterialAsTool() then
-		if material.MaterialVariant then
-			numButtons = 3
-		elseif not material.MaterialVariant and supportedMaterials[material.Material] then
-			numButtons = 2
-		end
-	else
-		if material.MaterialVariant then
-			numButtons = 2
-		elseif not material.MaterialVariant and supportedMaterials[material.Material] then
-			numButtons = 1
-		end
+	if material.MaterialVariant then
+		numButtons = 3
+	elseif not material.MaterialVariant and supportedMaterials[material.Material] then
+		numButtons = 2
+	elseif not supportedMaterials[material.Material] then
+		numButtons = 1
 	end
 	local nameLabelSize = UDim2.new(1, -(numButtons * style.ButtonSize.X.Offset), 1, 0)
 
@@ -219,25 +182,24 @@ function MaterialInformation:render()
 				TextSize = style.TitleTextSize,
 				TextXAlignment = Enum.TextXAlignment.Left,
 			}),
-			ApplyToSelection = if getFFlagMaterialManagerMaterialAsTool() then
-				Roact.createElement(Button, {
-					LayoutOrder = 2,
-					OnClick = self.applyToSelection,
-					Size = style.ButtonSize,
-					Style = style.ButtonStyle,
-				}, {
-					Image = Roact.createElement(Image, {
-						Style = style.ApplyToSelection,
-						Size = style.ImageSize,
-						Position = style.ImagePosition,
-					}),
-					Tooltip = if getFFlagMaterialManagerExtraTooltips() then Roact.createElement(Tooltip, {
-						Text = localization:getText("TopBar", "Apply"),
-					}) else nil
-				}) else nil,
+			ApplyToSelection = Roact.createElement(Button, {
+				LayoutOrder = 2,
+				OnClick = self.applyToSelection,
+				Size = style.ButtonSize,
+				Style = style.ButtonStyle,
+			}, {
+				Image = Roact.createElement(Image, {
+					Style = style.ApplyToSelection,
+					Size = style.ImageSize,
+					Position = style.ImagePosition,
+				}),
+				Tooltip = Roact.createElement(Tooltip, {
+					Text = localization:getText("TopBar", "Apply"),
+				})
+			}),
 			CreateVariant = if isBuiltin and supportedMaterials[material.Material] then
 				Roact.createElement(Button, {
-					LayoutOrder = if getFFlagMaterialManagerMaterialAsTool() then 3 else 2,
+					LayoutOrder = 3,
 					OnClick = self.createVariant,
 					Size = style.ButtonSize,
 					Style = style.ButtonStyle,
@@ -247,13 +209,13 @@ function MaterialInformation:render()
 						Size = style.ImageSize,
 						Position = style.ImagePosition,
 					}),
-					Tooltip = if getFFlagMaterialManagerExtraTooltips() then Roact.createElement(Tooltip, {
+					Tooltip = Roact.createElement(Tooltip, {
 						Text = localization:getText("MaterialInformation", "CreateVariant")
-					}) else nil
+					})
 				}) else nil,
 			Edit = if not isBuiltin then
 				Roact.createElement(Button, {
-					LayoutOrder =  if getFFlagMaterialManagerMaterialAsTool() then 3 else 2,
+					LayoutOrder = 3,
 					OnClick = self.edit,
 					Size = style.ButtonSize,
 					Style = style.ButtonStyle,
@@ -263,13 +225,13 @@ function MaterialInformation:render()
 						Size = style.ImageSize,
 						Position = style.ImagePosition,
 					}),
-					Tooltip = if getFFlagMaterialManagerExtraTooltips() then Roact.createElement(Tooltip, {
+					Tooltip = Roact.createElement(Tooltip, {
 						Text = localization:getText("MaterialInformation", "Edit")
-					}) else nil
+					})
 				}) else nil,
 			Delete = if not isBuiltin then
 				Roact.createElement(Button, {
-					LayoutOrder =  if getFFlagMaterialManagerMaterialAsTool() then 4 else 3,
+					LayoutOrder = 4,
 					OnClick = self.delete,
 					Size = style.ButtonSize,
 					Style = style.ButtonStyle,
@@ -279,9 +241,9 @@ function MaterialInformation:render()
 						Size = style.ImageSize,
 						Position = style.ImagePosition,
 					}),
-					Tooltip = if getFFlagMaterialManagerExtraTooltips() then Roact.createElement(Tooltip, {
+					Tooltip = Roact.createElement(Tooltip, {
 						Text = localization:getText("MaterialInformation", "Delete")
-					}) else nil
+					})
 				}) else nil,
 		}),
 		MaterialType = Roact.createElement(TruncatedTextLabel, {

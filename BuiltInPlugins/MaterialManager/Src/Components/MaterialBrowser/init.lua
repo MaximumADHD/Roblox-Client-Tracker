@@ -10,68 +10,64 @@ local join = Framework.Dash.join
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
+
 local Stylizer = Framework.Style.Stylizer
 local UI = Framework.UI
-local Button = UI.Button
-local Image = UI.Decoration.Image
 local Pane = UI.Pane
 local SplitPane = UI.SplitPane
+local IconButton = UI.IconButton
 
 local Components = Plugin.Src.Components
 
-local DEPRECATED_MaterialGrid = require(Components.MaterialBrowser.DEPRECATED_MaterialGrid)
-local DEPRECATED_TopBar = require(Components.MaterialBrowser.DEPRECATED_TopBar)
 local MaterialGrid = require(Components.MaterialBrowser.MaterialGrid)
 local SideBar = require(Components.MaterialBrowser.SideBar)
 local TopBar = require(Components.MaterialBrowser.TopBar)
 
 local Flags = Plugin.Src.Flags
-local getFFlagMaterialManagerDetailsOverhaul = require(Flags.getFFlagMaterialManagerDetailsOverhaul)
-local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
-local getFFlagMaterialManagerGridOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerGridOverhaul)
-local getFFlagMaterialManagerTopBarOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerTopBarOverhaul)
+local getFFlagMaterialManagerSideBarSplitPaneUpdate = require(Flags.getFFlagMaterialManagerSideBarSplitPaneUpdate)
 
-local MaterialDetails = if getFFlagMaterialManagerDetailsOverhaul() and getFFlagMaterialManagerGlassNeonForceField() then
-	require(Components.MaterialBrowser.MaterialDetails)
-	else
-	require(Components.MaterialBrowser.DEPRECATED_MaterialDetails)
+local MaterialDetails = require(Components.MaterialBrowser.MaterialDetails)
 
 export type Props = {
-	OpenPrompt: (type: _Types.MaterialPromptType) -> ()
+	OpenPrompt: (type: _Types.MaterialPromptType) -> (),
 }
 
 type _Props = Props & {
 	AbsoluteSize: Vector2,
 	Material: _Types.Material,
-	MaterialTileSize: number,
 	Stylizer: any,
-	ViewType: string,
 	WrapperProps: any,
 }
 
 type _Style = {
-	BackgroundColor: Color3,
-	ChevronLeft: string,
-	ChevronRight: string,
-	IconColor: Color3,
-	IconSize: UDim2,
-	MainViewSize: UDim2,
-	MaterialDetailsSize: UDim2,
-	MaterialDetailsWidth: number,
-	MaterialGridSize: UDim2,
-	MaterialTileWidth: number,
-	MaterialViewSize: UDim2,
-	MinListWidth: number,
-	MinSideBarWidth: number,
-	Padding: number,
 	SideBarSize: UDim2,
 	TopBarSize: UDim2,
+	MainViewSize: UDim2,
+	MinSideBarWidth: number,
+	MaterialDetailsWidth: number,
+	MaterialViewSize: UDim2,
+	MaterialGridSize: UDim2,
+	MaterialDetailsSize: UDim2,
+	HideIcon: string,
+	IconColor: Color3,
+	BackgroundColor: Color3,
+	IconSize: UDim2,
+	MaterialTileWidth: number,
+	Padding: number,
 }
 
 local MaterialBrowser = Roact.PureComponent:extend("MaterialBrowser")
 
 function MaterialBrowser:init()
-	self.onHideSidebarButtonClicked = function()
+	self.state = {
+		sideBarSize = UDim.new(0, 200),
+		lastSideBarSize = UDim.new(0, 200),
+		sideBarVisible = true,
+		clickedHide = false,
+	}
+
+	self.onHideButtonClicked = function()
 		self:setState(function(state)
 			return {
 				sideBarSize = UDim.new(0, 0),
@@ -82,17 +78,17 @@ function MaterialBrowser:init()
 		end)
 	end
 
-	self.onSidebarButtonClicked = function()
+	self.onShowButtonClicked = function()
 		local props: _Props = self.props
 		local style: _Style = props.Stylizer.MaterialBrowser
 		local state = self.state
 
-		local freeSize = props.AbsoluteSize.X 
+		local freeSize = props.AbsoluteSize.X
 		if props.Material then
 			freeSize = props.AbsoluteSize.X - style.MaterialDetailsWidth
 		end
 
-		local materialTileWidth = if props.ViewType == "Grid" then props.MaterialTileSize + style.Padding * 2 else style.MinListWidth
+		local materialTileWidth = style.MaterialTileWidth + style.Padding * 2
 		local newSideBarSize = state.lastSideBarSize
 		if freeSize - state.lastSideBarSize.Offset < materialTileWidth then
 			newSideBarSize = UDim.new(0, style.MinSideBarWidth)
@@ -108,50 +104,95 @@ function MaterialBrowser:init()
 		end)
 	end
 
-	self.onDetailsButtonClicked = function()
-		self:setState(function(state)
-			return {
-				detailsVisible = true,
-			}
-		end)
+	self.SideBar = function(layoutOrder: number?)
+		local props: _Props = self.props
+		local style: _Style = props.Stylizer.MaterialBrowser
+		local state = self.state
+
+		return Roact.createElement(Pane, {
+			LayoutOrder = if getFFlagMaterialManagerSideBarSplitPaneUpdate() then layoutOrder else 1,
+			Size = UDim2.fromScale(1, 1),
+		}, {
+			SideBar = if state.sideBarVisible
+				then Roact.createElement(SideBar, {
+					Size = UDim2.fromScale(1, 1),
+					ZIndex = if getFFlagMaterialManagerSideBarSplitPaneUpdate() then 1 else nil,
+				})
+				else nil,
+			HideButton = if state.sideBarVisible
+				then Roact.createElement(IconButton, {
+					Size = style.IconSize,
+					LeftIcon = style.HideIcon,
+					IconColor = style.IconColor,
+					BorderColor = style.BackgroundColor,
+					OnClick = self.onHideButtonClicked,
+					AnchorPoint = Vector2.new(1, 1),
+					Position = UDim2.new(1, -5, 1, -5),
+					ZIndex = if getFFlagMaterialManagerSideBarSplitPaneUpdate() then 2 else nil,
+				})
+				else nil,
+		})
 	end
 
-	self.onHideDetailsButtonClicked = function()
-		self:setState(function(state)
-			return {
-				detailsVisible = false,
-			}
-		end)
-	end
+	self.MaterialView = function(layoutOrder: number?)
+		local props: _Props = self.props
+		local style: _Style = props.Stylizer.MaterialBrowser
+		local state = self.state
 
-	self.state = {
-		detailsVisible = true,
-		sideBarSize = UDim.new(0, 200),
-		lastSideBarSize = UDim.new(0, 200),
-		sideBarVisible = true,
-		clickedHide = false,
-	}
+		local material: _Types.Material = props.Material
+		local canHideGrid = false
+		local materialTileWidth = style.MaterialTileWidth + style.Padding * 2
+		if props.AbsoluteSize.X - state.sideBarSize.Offset < materialTileWidth then
+			canHideGrid = true
+		end
+
+		local showMaterialGrid = not material or not canHideGrid
+		local showMaterialDetails = material
+		local showSideBar = state.sideBarVisible
+			or (showMaterialDetails and props.AbsoluteSize.X < style.MaterialDetailsWidth + style.MinSideBarWidth)
+
+		return Roact.createElement(Pane, {
+			Size = UDim2.fromScale(1, 1),
+			Layout = Enum.FillDirection.Horizontal,
+			LayoutOrder = if getFFlagMaterialManagerSideBarSplitPaneUpdate() then layoutOrder else 2,
+		}, {
+			MaterialGrid = if showMaterialGrid then
+				Roact.createElement(MaterialGrid, {
+					LayoutOrder = 1,
+					Size = if showMaterialDetails then style.MaterialGridSize else UDim2.fromScale(1, 1),
+					OnShowButtonClicked = self.onShowButtonClicked,
+					SideBarVisible = showSideBar,
+				})
+				else nil,
+			MaterialDetails = if showMaterialDetails then
+				Roact.createElement(MaterialDetails, {
+					LayoutOrder = 2,
+					OpenPrompt = props.OpenPrompt,
+					Size = if showMaterialGrid then style.MaterialDetailsSize else UDim2.fromScale(1, 1),
+				})
+				else nil,
+		})
+	end
 end
 
-function MaterialBrowser:didUpdate(prevProps, prevState)
-	-- Talk to design about whether this is really needed or not, we should not have this much seemingly arbitrary logic in didUpdate
+function MaterialBrowser:didUpdate(nextProps, nextState)
 	local props: _Props = self.props
 	local style: _Style = props.Stylizer.MaterialBrowser
 	local state = self.state
 
-	local detailsVisible = props.Material and state.detailsVisible
-	local changeAbsoluteSize = prevProps.AbsoluteSize.X ~= props.AbsoluteSize.X
-	local materialViewWidth = (if detailsVisible then style.MaterialDetailsWidth else 0) + (if props.ViewType == "Grid" then props.MaterialTileSize + style.Padding * 2 else style.MinListWidth)
-	local materialTileWidth = if props.ViewType == "Grid" then props.MaterialTileSize + style.Padding * 2 else style.MinListWidth
+	local newMaterial = not nextProps.Material and props.Material
+	local changeAbsoluteSize = nextProps.AbsoluteSize.X ~= props.AbsoluteSize.X
+	local materialViewWidth = style.MaterialDetailsWidth + style.MaterialTileWidth + style.Padding * 2
+	local materialTileWidth = style.MaterialTileWidth + style.Padding * 2
 
 	-- Case 1: when material is just selected or material was already selected and window size shrinks -> 
 	-- Check to update the SideBar size or hide it
-	if (detailsVisible and changeAbsoluteSize) and prevState.sideBarVisible then
-		if (prevProps.AbsoluteSize.X - prevState.sideBarSize.Offset) < materialViewWidth then
-			if prevProps.AbsoluteSize.X - materialViewWidth >= style.MinSideBarWidth then
+	if (newMaterial or nextProps.Material and changeAbsoluteSize) and nextState.sideBarVisible then
+		if (nextProps.AbsoluteSize.X - nextState.sideBarSize.Offset) < materialViewWidth then
+			if nextProps.AbsoluteSize.X - materialViewWidth >= style.MinSideBarWidth then
 				self:setState(function(state)
 					return {
-						sideBarSize = UDim.new(0, prevProps.AbsoluteSize.X - materialViewWidth),
+						sideBarSize = UDim.new(0, nextProps.AbsoluteSize.X - materialViewWidth),
 						lastSideBarSize = state.sideBarSize,
 						sideBarVisible = true,
 						clickedHide = false,
@@ -172,8 +213,8 @@ function MaterialBrowser:didUpdate(prevProps, prevState)
 
 	-- Case 2: when material is selected and window size expands -> 
 	-- Check to automatically show SideBar
-	if (detailsVisible and changeAbsoluteSize) and not prevState.sideBarVisible and not prevState.clickedHide then
-		if (prevProps.AbsoluteSize.X - state.lastSideBarSize.Offset) > materialViewWidth then
+	if (props.Material and changeAbsoluteSize) and not nextState.sideBarVisible and not nextState.clickedHide then
+		if (nextProps.AbsoluteSize.X - state.lastSideBarSize.Offset) > materialViewWidth then
 			self:setState(function(state)
 				return {
 					lastSideBarSize = state.lastSideBarSize,
@@ -187,8 +228,8 @@ function MaterialBrowser:didUpdate(prevProps, prevState)
 
 	-- Case 3: when no material is selected and window size shrinks -> 
 	-- Check to automatically resize (decrease) SideBar or hide it
-	if not detailsVisible and changeAbsoluteSize and prevState.sideBarVisible then
-		if props.AbsoluteSize.X - prevState.sideBarSize.Offset < materialTileWidth then
+	if not props.Material and changeAbsoluteSize and nextState.sideBarVisible then
+		if props.AbsoluteSize.X - nextState.sideBarSize.Offset < materialTileWidth then
 			if props.AbsoluteSize.X - materialTileWidth >= style.MinSideBarWidth then
 				self:setState(function(state)
 					return {
@@ -213,7 +254,7 @@ function MaterialBrowser:didUpdate(prevProps, prevState)
 
 	-- Case 4: when material is closed -> 
 	-- Check to automatically show SideBar
-	if not detailsVisible and not prevState.sideBarVisible and not prevState.clickedHide then
+	if not props.Material and not nextState.sideBarVisible and not nextState.clickedHide then
 		if (props.AbsoluteSize.X - state.lastSideBarSize.Offset) >= materialTileWidth then
 			self:setState(function(state)
 				return {
@@ -229,21 +270,15 @@ end
 
 function MaterialBrowser:render()
 	local props: _Props = self.props
-	local state = self.state
 	local style: _Style = props.Stylizer.MaterialBrowser
+	local layoutOrderIterator = LayoutOrderIterator.new()
 
 	local material: _Types.Material? = props.Material
 
 	local sideBarSize = self.state.sideBarSize
-	local detailsVisible = state.detailsVisible and material
-
-	local materialViewWidth = (if detailsVisible then style.MaterialDetailsWidth else 0) + (if props.ViewType == "Grid" then props.MaterialTileSize + style.Padding * 2 else style.MinListWidth)
-	local materialTileWidth = if props.ViewType == "Grid" then props.MaterialTileSize + style.Padding * 2 else style.MinListWidth
+	local materialViewWidth = style.MaterialDetailsWidth + style.MaterialTileWidth + style.Padding * 2
+	local materialTileWidth = style.MaterialTileWidth + style.Padding * 2
 	local sizes = { sideBarSize, UDim.new(0, props.AbsoluteSize.X - sideBarSize.Offset) }
-
-	local showMaterialGrid = props.AbsoluteSize.X - sideBarSize.Offset - (if detailsVisible then style.MaterialDetailsWidth else 0) > materialTileWidth
-	local showSideBar = state.sideBarVisible or (detailsVisible and props.AbsoluteSize.X < style.MaterialDetailsWidth + style.MinSideBarWidth)
-
 	local minSizeMaterialGrid = if not material then materialTileWidth else materialViewWidth
 
 	return Roact.createElement(Pane, join({
@@ -251,102 +286,34 @@ function MaterialBrowser:render()
 		Layout = Enum.FillDirection.Vertical,
 		VerticalAlignment = Enum.VerticalAlignment.Top,
 		Size = UDim2.fromScale(1, 1),
-		BackgroundColor = Color3.new(0, 255, 0),
 	}, props.WrapperProps), {
 
-		TopBar = Roact.createElement(if getFFlagMaterialManagerTopBarOverhaul() then TopBar else DEPRECATED_TopBar, {
+		TopBar = Roact.createElement(TopBar, {
 			OpenPrompt = props.OpenPrompt,
 			Size = style.TopBarSize,
-			BackgroundColor = Color3.new(255, 0, 0),
 		}),
 
-		Pane = Roact.createElement(SplitPane, {
+		Pane = if not getFFlagMaterialManagerSideBarSplitPaneUpdate() or self.state.sideBarVisible then Roact.createElement(SplitPane, {
 			ClampSize = true,
 			Sizes = sizes,
 			Layout = Enum.FillDirection.Horizontal,
 			MinSizes = { UDim.new(0, 90), UDim.new(0, minSizeMaterialGrid) },
 			OnSizesChange = function(sizes)
-				if state.sideBarVisible then
-					self:setState(function(state)
-						return {
-							lastSideBarSize = state.sideBarSize,
-							sideBarSize = sizes[1],
-						}
-					end)
-				end
+				self:setState(function(state)
+					return {
+						lastSideBarSize = state.sideBarSize,
+						sideBarSize = sizes[1],
+					}
+				end)
 			end,
-			Size = style.MainViewSize,
-			BackgroundColor3 = Color3.new(0, 0, 255),		
+			Size = style.MainViewSize,	
 		}, {
-			Roact.createElement(Pane, {
-				LayoutOrder = 1,
-				Size = UDim2.fromScale(1, 1),
-			}, {
-				SideBar = if state.sideBarVisible then Roact.createElement(SideBar, {
-					Size = UDim2.fromScale(1, 1),
-				}) else nil,
-				HideButton = if state.sideBarVisible then Roact.createElement(Button, {
-					AnchorPoint = Vector2.new(1, 1),
-					LayoutOrder = 2,
-					OnClick = self.onHideSidebarButtonClicked,
-					Position = UDim2.new(1, -5, 1, -5),
-					Size = style.IconSize,
-					Style = "RoundSubtle",
-					ZIndex = 2,
-				}, {
-						Image = Roact.createElement(Image, {
-							Style = {
-								Image = style.ChevronLeft,
-								Color = style.IconColor
-							},
-							Size = style.IconSize,
-						})
-					}) else nil,
-			}),
-			Roact.createElement(Pane, {
-				Size = UDim2.fromScale(1, 1),
-				Layout = Enum.FillDirection.Horizontal,
-				LayoutOrder = 2,
-				HorizontalAlignment = Enum.HorizontalAlignment.Right,
-			}, {
-				MaterialGrid = if showMaterialGrid then
-					Roact.createElement(if getFFlagMaterialManagerGridOverhaul() then MaterialGrid else DEPRECATED_MaterialGrid, {
-						DetailsVisible = detailsVisible,
-						LayoutOrder = 1,
-						OnDetailsButtonClicked = self.onDetailsButtonClicked,
-						OnSidebarButtonClicked = self.onSidebarButtonClicked,
-						SideBarVisible = showSideBar,
-						Size = if detailsVisible then style.MaterialGridSize else UDim2.fromScale(1, 1),
-					})
-					else nil,
-				MaterialDetails = if detailsVisible then Roact.createElement(Pane, {
-					LayoutOrder = 2,
-					Size = style.MaterialDetailsSize,
-					HorizontalAlignment = Enum.HorizontalAlignment.Right,
-				}, {
-						MaterialDetails = Roact.createElement(MaterialDetails, {
-							LayoutOrder = 1,
-							OpenPrompt = props.OpenPrompt,
-							Size = UDim2.fromScale(1, 1),
-						}),
-						HideButton = if state.detailsVisible then Roact.createElement(Button, {
-							LayoutOrder = 2,
-							OnClick = self.onHideDetailsButtonClicked,
-							Position = UDim2.new(0, 5, 0, 5),
-							Size = style.IconSize,
-							Style = "RoundSubtle",
-							ZIndex = 2,
-						}, {
-							Image = Roact.createElement(Image, {
-								Style = {
-									Image = style.ChevronRight,
-									Color = style.IconColor,
-								},
-								Size = style.IconSize,
-							})
-						}) else nil,
-					}) else nil,
-			}),
+			self.SideBar(layoutOrderIterator:getNextOrder()),
+			self.MaterialView(layoutOrderIterator:getNextOrder()),
+		}) else Roact.createElement(Pane, {
+			Size = style.MainViewSize,
+		}, {
+			self.MaterialView()
 		})
 	})
 end
@@ -359,8 +326,6 @@ return RoactRodux.connect(
 	function(state, props)
 		return {
 			Material = state.MaterialBrowserReducer.Material,
-			MaterialTileSize = state.MaterialBrowserReducer.MaterialTileSize,
-			ViewType = state.MaterialBrowserReducer.ViewType,
 		}
 	end
 )(withAbsoluteSize(MaterialBrowser))

@@ -12,7 +12,7 @@
 		PreviewTitle : string
 			Title to use on the expanded preview window
 ]]
-
+local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -21,7 +21,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local ContextItems = require(Plugin.Src.ContextItems)
+local ContextItems = if FFlagRemoveUILibraryCompatLocalization then nil else require(Plugin.Src.ContextItems)
 
 local LoadingImage = require(Plugin.Src.Components.LoadingImage)
 
@@ -85,7 +85,7 @@ function LocalImageSelector:render()
 		hasSelection = true
 		filename = self.props.CurrentFile.file.Name
 	else
-		filename = self.props.Localization:get():getText("LocalImageSelector", "NoImageSelected")
+		filename = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization:getText("LocalImageSelector", "NoImageSelected") else self.props.Localization:get():getText("LocalImageSelector", "NoImageSelected")
 	end
 
 	local newProps = Cryo.Dictionary.join(self.props, {
@@ -106,11 +106,8 @@ function LocalImageSelector:render()
 	return Roact.createElement(PromptSelectorWithPreview, newProps)
 end
 
-
 LocalImageSelector = withContext({
-	Localization = ContextItems.UILibraryLocalization,
+	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
 })(LocalImageSelector)
-
-
 
 return LocalImageSelector

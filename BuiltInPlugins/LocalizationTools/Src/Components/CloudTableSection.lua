@@ -8,7 +8,9 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
-local FFlagRemoveUILibraryFitContent = Framework.SharedFlags.getFFlagRemoveUILibraryFitContent()
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryFitContent = SharedFlags.getFFlagRemoveUILibraryFitContent()
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -16,6 +18,7 @@ local withContext = ContextServices.withContext
 local UI = Framework.UI
 local LinkText = UI.LinkText
 local Pane = UI.Pane
+local TextLabel = UI.Decoration.TextLabel
 
 local FitToContent
 if not FFlagRemoveUILibraryFitContent then
@@ -164,11 +167,18 @@ function CloudTableSection:render()
 			BorderColor3 = theme.MessageFrameBorder,
 			LayoutOrder = 2,
 		}, {
-			PublishPlaceMessage = Roact.createElement("TextLabel", {
-				Position = UDim2.new(0.5, 0, 0.5, 0),
-				Text = localization:getText("CloudTableSection", "PublishPlaceMessage"),
-				TextColor3 = theme.TextColor,
-			})
+			PublishPlaceMessage = if FFlagDevFrameworkMigrateTextLabels then (
+				Roact.createElement(TextLabel, {
+					Position = UDim2.new(0.5, 0, 0.5, 0),
+					Text = localization:getText("CloudTableSection", "PublishPlaceMessage"),
+				})
+			) else (
+				Roact.createElement("TextLabel", {
+					Position = UDim2.new(0.5, 0, 0.5, 0),
+					Text = localization:getText("CloudTableSection", "PublishPlaceMessage"),
+					TextColor3 = theme.TextColor,
+				})
+			)
 		})
 	end
 
@@ -176,15 +186,24 @@ function CloudTableSection:render()
 		Padding = Roact.createElement("UIPadding", {
 			PaddingTop = UDim.new(0, theme.PaddingTop),
 		}),
-		SectionLabel = Roact.createElement("TextLabel", {
-			BackgroundTransparency = 1,
-			LayoutOrder = 1,
-			Size = UDim2.new(1, 0, 0, theme.SectionLabelSize),
-			Text = localization:getText("CloudTableSection", "SectionLabel"),
-			TextColor3 = theme.TextColor,
-			TextSize = theme.SectionLabelTextSize,
-			TextXAlignment = Enum.TextXAlignment.Left,
-		}),
+		SectionLabel = if FFlagDevFrameworkMigrateTextLabels then (
+			Roact.createElement(TextLabel, {
+				AutomaticSize = Enum.AutomaticSize.XY,
+				LayoutOrder = 1,
+				Style = "Subtitle",
+				Text = localization:getText("CloudTableSection", "SectionLabel"),
+			})
+		) else (
+			Roact.createElement("TextLabel", {
+				BackgroundTransparency = 1,
+				LayoutOrder = 1,
+				Size = UDim2.new(1, 0, 0, theme.SectionLabelSize),
+				Text = localization:getText("CloudTableSection", "SectionLabel"),
+				TextColor3 = theme.TextColor,
+				TextSize = theme.SectionLabelTextSize,
+				TextXAlignment = Enum.TextXAlignment.Left,
+			})
+		),
 		Content = content,
 	}
 

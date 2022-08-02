@@ -23,7 +23,6 @@ local withContext = ContextServices.withContext
 local Analytics = ContextServices.Analytics
 local Localization = ContextServices.Localization
 
-local FFlag9SliceEditorNewDraggers = game:GetFastFlag("9SliceEditorNewDraggers")
 local FFlag9SliceEditorResizableImagePreviewWindow = game:GetFastFlag("9SliceEditorResizableImagePreviewWindow")
 
 local ImageDragger = Roact.PureComponent:extend("ImageDragger")
@@ -72,11 +71,9 @@ function ImageDragger:init(props)
 		local draggerWidth = Constants.DRAGGER_WIDTH
 		local adjacentOffset = 0
 
-		if FFlag9SliceEditorNewDraggers then
-			draggerWidth = Constants.DRAGGER_CLICK_WINDOW_WIDTH
-			-- Settle case of exactly overlapping draggers
-			adjacentOffset = (orientation == RIGHT or orientation == BOTTOM) and 0.01 or 0
-		end
+		draggerWidth = Constants.DRAGGER_CLICK_WINDOW_WIDTH
+		-- Settle case of exactly overlapping draggers
+		adjacentOffset = (orientation == RIGHT or orientation == BOTTOM) and 0.01 or 0
 		
 		if orientation == LEFT or orientation == RIGHT then
 			distance = math.abs(draggerInstance.AbsolutePosition.X + adjacentOffset + draggerWidth/2 - input.Position.X)
@@ -84,12 +81,7 @@ function ImageDragger:init(props)
 			distance = math.abs(draggerInstance.AbsolutePosition.Y + adjacentOffset + draggerWidth/2 - input.Position.Y)
 		end
 
-		if FFlag9SliceEditorNewDraggers then
-			self.props.addDragCandidateWithId(obj, self.props.orientation, distance, draggerInstance, self.selectionPriority)
-			return
-		end
-
-		self.props.addDragCandidate(self.props.orientation, distance, draggerInstance)
+		self.props.addDragCandidateWithId(obj, self.props.orientation, distance, draggerInstance, self.selectionPriority)
 	end
 
 	self.onInputBeganOnLowPriorityHandles = function(obj, input)
@@ -132,12 +124,7 @@ function ImageDragger:init(props)
 				dragging = false,
 			})
 		elseif input.UserInputType == Enum.UserInputType.MouseMovement then
-			if FFlag9SliceEditorNewDraggers then
-				self.props.removeDragCandidateWithId(instance)
-				return
-			end
-
-			self.props.removeDragCandidate(self.props.orientation)
+			self.props.removeDragCandidateWithId(instance)
 		end
 	end
 
@@ -150,84 +137,7 @@ function ImageDragger:init(props)
 	end
 end
 
-function ImageDragger:DEPRECATED_render()
-	local props = self.props
-	local sliceRect = props.sliceRect
-	local pixelDimensions = props.pixelDimensions
-	local orientation = props.orientation
-	local style = props.Stylizer
-	local isHovering = props.isHovering
-
-	local sliceValue = math.round(sliceRect[orientation])
-	local draggerImage, draggerPosition, draggerSize,
-		handle1Position, handle2Position, handleSize
-
-	if orientation == LEFT or orientation == RIGHT then
-		local sideOffset = sliceValue / pixelDimensions.X
-		sideOffset = math.clamp(sideOffset, 0, 1)
-		draggerImage = Constants.IMAGES.VERTICAL_DRAGGER
-		draggerPosition = UDim2.fromScale(sideOffset, 0.5)
-		draggerSize = UDim2.fromOffset(Constants.DRAGGER_WIDTH, Constants.DRAGGER_HEIGHT)
-		handle1Position = UDim2.new(0.5, 0, 0, style.EdgeHandleInsetPx)
-		handle2Position = UDim2.new(0.5, 0, 1, -style.EdgeHandleInsetPx)
-		handleSize = style.EdgeHandleSize
-
-	elseif orientation == TOP or orientation == BOTTOM then
-		local sideOffset = sliceValue / pixelDimensions.Y
-		sideOffset = math.clamp(sideOffset, 0, 1)
-		draggerImage = Constants.IMAGES.HORIZONTAL_DRAGGER
-		draggerPosition = UDim2.fromScale(0.5, sideOffset)
-		draggerSize = UDim2.fromOffset(Constants.DRAGGER_HEIGHT, Constants.DRAGGER_WIDTH)
-		handle1Position = UDim2.new(0, style.EdgeHandleInsetPx, 0.5, 0)
-		handle2Position = UDim2.new(1, -style.EdgeHandleInsetPx, 0.5, 0)
-		handleSize = UDim2.new(style.EdgeHandleSize.Y, style.EdgeHandleSize.X)
-	end
-
-	local hoverColor = Color3.new(0.8, 0.8, 1)
-
-	return Roact.createElement("ImageButton", {
-		AnchorPoint = Vector2.new(0.5, 0.5),
-		BackgroundTransparency = 1,
-		AutoButtonColor = false,
-		Image = draggerImage,
-		Position = draggerPosition,
-		Size = draggerSize,
-		BorderSizePixel = 0,
-		ZIndex = 5 + zIndexMap[orientation],
-		ImageColor3 = isHovering and hoverColor or Color3.new(1, 1, 1),
-		[Roact.Event.InputBegan] = self.onInputBegan,
-		[Roact.Event.InputChanged] = self.onInputChanged,
-		[Roact.Event.InputEnded] = self.onInputEnded,
-		[Roact.Ref] = self.draggerInstanceRef,
-	}, {
-		handle1 = handle1Position and Roact.createElement("Frame", {
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			Position = handle1Position,
-			Size = handleSize,
-			BorderSizePixel = 0,
-			ZIndex = 1 + zIndexMap[orientation],
-			BackgroundColor3 = Color3.new(0, 1, 0),
-			BackgroundTransparency = 1,
-			[Roact.Event.InputBegan] = self.onInputBeganOnLowPriorityHandles,
-			[Roact.Event.InputChanged] = self.onHandleInputChanged,
-			[Roact.Event.InputEnded] = self.onHandleInputEnded,
-		}),
-		handle2 = handle1Position and Roact.createElement("Frame", {
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			Position = handle2Position,
-			Size = handleSize,
-			BorderSizePixel = 0,
-			ZIndex = 1 + zIndexMap[orientation],
-			BackgroundColor3 = Color3.new(0, 1, 0),
-			BackgroundTransparency = 1,
-			[Roact.Event.InputBegan] = self.onInputBeganOnLowPriorityHandles,
-			[Roact.Event.InputChanged] = self.onHandleInputChanged,
-			[Roact.Event.InputEnded] = self.onHandleInputEnded,
-		}),
-	})
-end
-
-function ImageDragger:renderNewDraggers()
+function ImageDragger:render()
 	local props = self.props
 	local sliceRect = props.sliceRect
 	local pixelDimensions = props.pixelDimensions
@@ -361,14 +271,6 @@ function ImageDragger:renderNewDraggers()
 			}),
 		}),
 	})
-end
-
-function ImageDragger:render()
-	if FFlag9SliceEditorNewDraggers then
-		return self:renderNewDraggers()
-	end
-
-	return self:DEPRECATED_render()
 end
 
 ImageDragger = withContext({

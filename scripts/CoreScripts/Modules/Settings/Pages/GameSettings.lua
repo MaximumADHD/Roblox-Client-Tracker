@@ -1823,7 +1823,8 @@ local function Initialize()
 		local deviceNames = {}
 		local deviceGuids = {}
 		local selectedIndex = 1
-		if GetFFlagEnableCameraByDefault() or UserGameSettings.DefaultCameraID == "{DefaultDeviceGuid}" then
+		-- Set to default device in case UserGameSettings.DefaultCameraID is not available (in search below)
+		if GetFFlagEnableCameraByDefault() and (UserGameSettings.DefaultCameraID ~= "{NullDeviceGuid}") then
 			selectedIndex = 2
 		end
 		table.insert(deviceNames, "Off")

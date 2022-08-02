@@ -2,15 +2,21 @@
 	A widget containing a text label on the left
 	and a image button with text underneath on the right
 ]]
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local HoverArea = UI.HoverArea
+local TextLabel = UI.Decoration.TextLabel
+
+local StyleModifier = Framework.Util.StyleModifier
 
 local LabeledImageButton = Roact.PureComponent:extend("LabeledImageButton")
 
@@ -66,16 +72,27 @@ function LabeledImageButton:render()
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Horizontal,
 		}),
-		Label = Roact.createElement("TextLabel", {
-			BackgroundTransparency = 1,
-			LayoutOrder = 1,
-			Size = UDim2.new(0, theme.LabelWidth, 1, 0),
-			Text = labelText,
-			TextColor3 = active and theme.TextColor
-				or theme.DisabledTextColor,
-			TextWrapped = true,
-			TextXAlignment = Enum.TextXAlignment.Left,
-		}),
+		Label = if FFlagDevFrameworkMigrateTextLabels then (
+			Roact.createElement(TextLabel, {
+				LayoutOrder = 1,
+				Size = UDim2.new(0, theme.LabelWidth, 1, 0),
+				Text = labelText,
+				StyleModifier = if active then nil else StyleModifier.Disabled,
+				TextWrapped = true,
+				TextXAlignment = Enum.TextXAlignment.Left,
+			})
+		) else (
+			Roact.createElement("TextLabel", {
+				BackgroundTransparency = 1,
+				LayoutOrder = 1,
+				Size = UDim2.new(0, theme.LabelWidth, 1, 0),
+				Text = labelText,
+				TextColor3 = active and theme.TextColor
+					or theme.DisabledTextColor,
+				TextWrapped = true,
+				TextXAlignment = Enum.TextXAlignment.Left,
+			})
+		),
 		Button = Roact.createElement("ImageButton", {
 			AutoButtonColor = false,
 			BackgroundColor3 = hovered
@@ -96,17 +113,29 @@ function LabeledImageButton:render()
 				Image = buttonImage,
 				BackgroundTransparency = 1,
 			}),
-			TextLabel = Roact.createElement("TextLabel", {
-				Position = UDim2.new(0.5, 0, 1, -theme.TextLabelSize/2),
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Size = UDim2.new(1, 0, 0, theme.TextLabelSize),
-				Text = buttonText,
-				TextColor3 = active and theme.TextColor
-					or theme.DisabledTextColor,
-				TextSize = theme.TextLabelTextSize,
-				TextWrapped = true,
-				BackgroundTransparency = 1,
-			}),
+			TextLabel = if FFlagDevFrameworkMigrateTextLabels then (
+				Roact.createElement(TextLabel, {
+					Position = UDim2.new(0.5, 0, 1, -theme.TextLabelSize/2),
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Size = UDim2.new(1, 0, 0, theme.TextLabelSize),
+					Text = buttonText,
+					StyleModifier = if active then nil else StyleModifier.Disabled,
+					Style = "Label",
+					TextWrapped = true,
+				})
+			) else (
+				Roact.createElement("TextLabel", {
+					Position = UDim2.new(0.5, 0, 1, -theme.TextLabelSize/2),
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Size = UDim2.new(1, 0, 0, theme.TextLabelSize),
+					Text = buttonText,
+					TextColor3 = active and theme.TextColor
+						or theme.DisabledTextColor,
+					TextSize = theme.TextLabelTextSize,
+					TextWrapped = true,
+					BackgroundTransparency = 1,
+				})
+			),
 			Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
 		})
 	})

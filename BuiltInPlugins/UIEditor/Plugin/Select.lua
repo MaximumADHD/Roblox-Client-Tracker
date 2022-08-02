@@ -9,6 +9,7 @@ local UserInputService = game:GetService("UserInputService")
 
 -- Flags
 local FFlagFixStarterGuiErrors = game:DefineFastFlag("FixStarterGuiErrors", false)
+local FFlagStudioUIEditorSelectGuiObjectsInFolders = game:DefineFastFlag("StudioUIEditorSelectGuiObjectsInFolders", false)
 
 local paintOrder = {} --array of paintOrder
 local paintOrderMap = {} --map of child to position in order
@@ -60,14 +61,16 @@ local function doesPointExistInInstance(point, instance)
 end
 
 
-
 local function collectVisibleGuiObjectsUnder(instance)
 	local children = instance:GetChildren()
 	
 	local allItems = {}
 	for i = 1, #children do
-		if (children[i]:IsA("GuiObject")) then
-			
+		local shouldIndexChildren: boolean = if FFlagStudioUIEditorSelectGuiObjectsInFolders
+			then children[i]:IsA("GuiBase2d") or children[i]:IsA("Folder")
+			else children[i]:IsA("GuiObject")
+		
+		if shouldIndexChildren then
 			local ancestors = collectVisibleGuiObjectsUnder(children[i])
 			
 			if (InstanceInfo:isVisible(children[i])) then
@@ -117,7 +120,8 @@ local function refreshPaintOrder()
 	paintOrder = {}
 	
 	for i = 1, #children do
-		if (children[i]:IsA("ScreenGui")) then
+		local isFolder = FFlagStudioUIEditorSelectGuiObjectsInFolders and children[i]:IsA("Folder")
+		if children[i]:IsA("ScreenGui") or isFolder then
 			
 			local guiAncestors = guessScreenGui(children[i])
 			

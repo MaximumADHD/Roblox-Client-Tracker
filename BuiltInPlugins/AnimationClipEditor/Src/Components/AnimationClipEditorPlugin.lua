@@ -5,8 +5,6 @@
 	Also creates the external services which are provided to context.
 ]]
 
-game:DefineFastFlag("AnimationEditorDisableOnClosing", false)
-
 local RunService = game:GetService("RunService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -194,14 +192,9 @@ function AnimationClipEditorPlugin:init(initialProps)
 
 	self.theme = Theme()
 	self.closeWidget = function()
-		if game:GetFastFlag("AnimationEditorDisableOnClosing") then
-			self:setState({
-				enabled = false,
-			})
-		else
-			self:setState({
-			})
-		end
+		self:setState({
+			enabled = false,
+		})
 	end
 end
 

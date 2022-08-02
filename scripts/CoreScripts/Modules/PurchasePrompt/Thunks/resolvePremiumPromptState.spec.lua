@@ -16,6 +16,7 @@ return function()
 	local Thunk = require(Root.Thunk)
 
 	local resolvePremiumPromptState = require(script.Parent.resolvePremiumPromptState)
+	local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
 
 	local function getTestProductInfo()
 		return {
@@ -29,17 +30,30 @@ return function()
 		}
 	end
 
+	local function getTestAccountInfoDetails()
+		return FFlagPPAccountInfoMigration and {
+			isPremium = false,
+		} or {
+			RobuxBalance = 10,
+			MembershipType = 0,
+		}
+	end
+
+	local function getTestBalanceDetails()
+		return {
+			robux = 10
+		}
+	end
+
 	it("should populate store with provided info", function()
 		local store = Rodux.Store.new(Reducer, {})
 
 		local mockAnalytics = MockAnalytics.new()
 
 		local productInfo = getTestProductInfo()
-		local accountInfo = {
-			RobuxBalance = 10,
-			MembershipType = 0,
-		}
-		local thunk = resolvePremiumPromptState(accountInfo, productInfo)
+		local accountInfo = getTestAccountInfoDetails()
+		local balanceInfo = getTestBalanceDetails()
+		local thunk = resolvePremiumPromptState(accountInfo, balanceInfo, productInfo)
 
 		Thunk.test(thunk, store, {
 			[Analytics] = mockAnalytics.mockService,
@@ -49,7 +63,6 @@ return function()
 		})
 
 		local state = store:getState()
-
 		expect(state.premiumProductInfo.mobileProductId).to.be.ok()
 		expect(state.accountInfo.membershipType).to.be.ok()
 	end)
@@ -60,11 +73,9 @@ return function()
 		local mockAnalytics = MockAnalytics.new()
 
 		local productInfo = nil
-		local accountInfo = {
-			RobuxBalance = 10,
-			MembershipType = 0,
-		}
-		local thunk = resolvePremiumPromptState(accountInfo, productInfo)
+		local accountInfo = getTestAccountInfoDetails()
+		local balanceInfo = getTestBalanceDetails()
+		local thunk = resolvePremiumPromptState(accountInfo, balanceInfo, productInfo)
 
 		Thunk.test(thunk, store, {
 			[Analytics] = mockAnalytics.mockService,
@@ -84,11 +95,9 @@ return function()
 		local mockAnalytics = MockAnalytics.new()
 
 		local productInfo = nil
-		local accountInfo = {
-			RobuxBalance = 10,
-			MembershipType = 0,
-		}
-		local thunk = resolvePremiumPromptState(accountInfo, productInfo)
+		local accountInfo = getTestAccountInfoDetails()
+		local balanceInfo = getTestBalanceDetails()
+		local thunk = resolvePremiumPromptState(accountInfo, balanceInfo, productInfo)
 
 		Thunk.test(thunk, store, {
 			[Analytics] = mockAnalytics.mockService,
@@ -108,11 +117,9 @@ return function()
 		local mockAnalytics = MockAnalytics.new()
 
 		local productInfo = getTestProductInfo()
-		local accountInfo = {
-			RobuxBalance = 10,
-			MembershipType = 0,
-		}
-		local thunk = resolvePremiumPromptState(accountInfo, productInfo, true)
+		local accountInfo = getTestAccountInfoDetails()
+		local balanceInfo = getTestBalanceDetails()
+		local thunk = resolvePremiumPromptState(accountInfo, balanceInfo, productInfo, true)
 
 		Thunk.test(thunk, store, {
 			[Analytics] = mockAnalytics.mockService,
@@ -133,11 +140,9 @@ return function()
 		local mockAnalytics = MockAnalytics.new()
 
 		local productInfo = getTestProductInfo()
-		local accountInfo = {
-			RobuxBalance = 10,
-			MembershipType = 0,
-		}
-		local thunk = resolvePremiumPromptState(accountInfo, productInfo, false)
+		local accountInfo = getTestAccountInfoDetails()
+		local balanceInfo = getTestBalanceDetails()
+		local thunk = resolvePremiumPromptState(accountInfo, balanceInfo, productInfo, false)
 
 		Thunk.test(thunk, store, {
 			[Analytics] = mockAnalytics.mockService,

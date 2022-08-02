@@ -32,15 +32,20 @@ local StudioService = game:GetService("StudioService")
 
 local Roact = require(Plugin.Packages.Roact)
 
-local UILibrary = require(Plugin.Packages.UILibrary)
-local TitledFrame = UILibrary.Component.TitledFrame
-
 local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
+local UILibrary = if FFlagRemoveUILibraryTitledFrame then nil else require(Plugin.Packages.UILibrary)
+
 local Util = Framework.Util
 local GetTextSize = Util.GetTextSize
-local FrameworkUI = Framework.UI
-local Button = FrameworkUI.Button
-local HoverArea = FrameworkUI.HoverArea
+
+local UI = Framework.UI
+local Button = UI.Button
+local HoverArea = UI.HoverArea
+local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
@@ -96,12 +101,15 @@ function DevProducts:render()
 
         LayoutOrder = layoutOrder,
     }, {
-        DevProductsTitle = Roact.createElement(TitledFrame,{
+        DevProductsTitle = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+            LayoutOrder = 1,
+            Title = localization:getText("Monetization", "DevProducts"),
+        } else {
             Title = localization:getText("Monetization", "DevProducts"),
             LayoutOrder = 1,
             MaxHeight = theme.header.height,
             TextSize = theme.fontStyle.Title.TextSize,
-        },{
+        }, {
             Padding = Roact.createElement("UIPadding", {
                 PaddingRight = UDim.new(0, theme.devProducts.titlePadding)
             }),

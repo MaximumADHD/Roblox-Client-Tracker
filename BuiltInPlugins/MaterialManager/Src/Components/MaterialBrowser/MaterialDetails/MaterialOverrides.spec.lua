@@ -8,12 +8,6 @@ local join = Framework.Dash.join
 
 local MaterialOverrides = require(script.Parent.MaterialOverrides)
 
-local getFFlagMaterialManagerEnableTests = require(Plugin.Src.Flags.getFFlagMaterialManagerEnableTests)
-
-if not getFFlagMaterialManagerEnableTests() then
-	return function() end
-end
-
 return function()
 	local TestMaterial
 

@@ -17,6 +17,9 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local FFlagDevFrameworkMigrateSearchBar = Framework.SharedFlags.getFFlagDevFrameworkMigrateSearchBar()
+local FFlagRemoveUILibraryLoadingIndicator = Framework.SharedFlags.getFFlagRemoveUILibraryLoadingIndicator()
+
 local Constants = require(Plugin.Src.Resources.Constants)
 
 local LoadExistingGames = require(Plugin.Src.Thunks.LoadExistingGames)
@@ -30,11 +33,12 @@ local TileGame = require(Plugin.Src.Components.TileGame)
 
 local StyledDropDown = UILibrary.Component.StyledDropdown
 local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
-local SearchBar = UILibrary.Component.SearchBar
+local SearchBar = if FFlagDevFrameworkMigrateSearchBar then Framework.StudioUI.SearchBar else UILibrary.Component.SearchBar
 local Separator = if FFlagRemoveUILibrarySeparator then Framework.UI.Separator else UILibrary.Component.Separator
 local RoundTextButton = UILibrary.Component.RoundTextButton
 
-local LoadingIndicator = UILibrary.Component.LoadingIndicator
+local UI = Framework.UI
+local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator then UI.LoadingIndicator else UILibrary.Component.LoadingIndicator
 
 local ScreenChooseGame = Roact.PureComponent:extend("ScreenChooseGame")
 local SelectedItemKey = 0
@@ -48,6 +52,12 @@ function ScreenChooseGame:init()
 	self.props.DispatchLoadExistingGames(SelectedItemType, SelectedItemKey)
 	self.props.DispatchLoadGroups()
 	--self.layoutRef = Roact.createRef()
+
+	self.OnSearchRequested = function(searchTerm)
+		self:setState({
+			searchTerm = searchTerm
+		})
+	end
 end
 
 function ScreenChooseGame:render()
@@ -144,7 +154,13 @@ function ScreenChooseGame:render()
 			Size = UDim2.new(0, theme.DROPDOWN_WIDTH - 10, 0, theme.DROPDOWN_HEIGHT),
 			BackgroundTransparency = 1,
 		}, {
-			Roact.createElement(SearchBar, {
+			Roact.createElement(SearchBar, if FFlagDevFrameworkMigrateSearchBar then {
+				Size = UDim2.new(1, 0, 1, 0),
+				ShowSearchIcon = true,
+				ShowSearchButton = false,
+				IncrementalTextSearch = true,
+				OnSearchRequested = self.OnSearchRequested,
+			} else {
 				Position = UDim2.new(1, 0, 1, 0),
 				Size = UDim2.new(1, 0, 1, 0),
 				Enabled = true,

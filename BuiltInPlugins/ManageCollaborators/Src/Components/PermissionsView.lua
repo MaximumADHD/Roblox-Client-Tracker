@@ -29,8 +29,8 @@ local CollaboratorsWidget = require(Plugin.Src.Components.CollaboratorsWidget)
 local SearchBarWidget = require(Plugin.Src.Components.CollaboratorSearchWidget)
 local Footer = require(Plugin.Src.Components.Footer)
 
-local LoadPermissions = require(Plugin.Src.Thunks.LoadPermissions)
 local SavePermissions = require(Plugin.Src.Thunks.SavePermissions)
+local PermissionsLoader = require(Plugin.Src.Thunks.PermissionsLoader)
 
 local LoadState = require(Plugin.Src.Util.LoadState)
 local SaveState = require(Plugin.Src.Util.SaveState)
@@ -283,7 +283,7 @@ PermissionsView = RoactRodux.connect(
 	function(dispatch)
 		return {
 			LoadPermissions = function()
-				dispatch(LoadPermissions())
+				dispatch(PermissionsLoader:LoadPermissions())
 			end,
 			SavePermissions = function()
 				dispatch(SavePermissions())

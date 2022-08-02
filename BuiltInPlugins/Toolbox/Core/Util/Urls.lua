@@ -16,11 +16,11 @@ local Url = require(Plugin.Libs.Http.Url)
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 local getPlaceId = require(Plugin.Core.Util.getPlaceId)
 
-local FFlagAssetConfigDynamicDistributionQuotas2 = game:GetFastFlag("AssetConfigDynamicDistributionQuotas2")
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
 local FIntCanManageLuaRolloutPercentage = game:DefineFastInt("CanManageLuaRolloutPercentage", 0)
 local FFlagInfiniteScrollerForVersions2 = game:getFastFlag("InfiniteScrollerForVersions2")
 local FFlagToolboxIncludedPlaceIdInConfigRequest = game:GetFastFlag("ToolboxIncludedPlaceIdInConfigRequest")
+local FFlagToolboxUseGetVote = game:GetFastFlag("ToolboxUseGetVote")
 
 local Urls = {}
 
@@ -103,6 +103,8 @@ local DELETE_ITEM_TAG = Url.ITEM_CONFIGURATION_URL .. "v1/item-tags/%s"
 local TOOLBOX_SERVICE_URL = Url.APIS_URL .. "toolbox-service/v1"
 local GET_TOOLBOX_ITEMS = Url.APIS_URL .. "toolbox-service/v1/%s?"
 local GET_ITEM_DETAILS = Url.APIS_URL .. "toolbox-service/v1/items/details?"
+
+local GET_VOTE = FFlagToolboxUseGetVote and TOOLBOX_SERVICE_URL .. "/voting/vote?"
 
 local AVATAR_ASSETS_GET_UPLOAD_FEE = Url.ITEM_CONFIGURATION_URL .. "v1/avatar-assets/%s/get-upload-fee"
 local AVATAR_ASSETS_UPLOAD = Url.ITEM_CONFIGURATION_URL .. "v1/avatar-assets/%s/upload"
@@ -303,6 +305,13 @@ end
 
 function Urls.constructConfigureCatalogItemUrl(assetId)
 	return GET_CONFIG_CATALOG_ITEM:format(assetId)
+end
+
+function Urls.constructGetVoteUrl(assetId, assetType)
+	return GET_VOTE .. Url.makeQueryString({
+		assetId = assetId,
+		assetType = assetType,
+	})
 end
 
 function Urls.constructPostVoteUrl()
@@ -601,20 +610,18 @@ if FFlagToolboxAudioAssetConfigIdVerification then
 	end
 end
 
-if FFlagAssetConfigDynamicDistributionQuotas2 then
-	function Urls.getCreatorMarketplaceQuotas(
-		assetType: Enum.AssetType,
-		resourceType: AssetQuotaTypes.AssetQuotaResourceType
+function Urls.getCreatorMarketplaceQuotas(
+	assetType: Enum.AssetType,
+	resourceType: AssetQuotaTypes.AssetQuotaResourceType
+)
+	return string.format(
+		"%s/v1/asset-quotas?%s",
+		Url.PUBLISH_URL,
+		Url.makeQueryString({
+			assetType = assetType.Name,
+			resourceType = resourceType,
+		})
 	)
-		return string.format(
-			"%s/v1/asset-quotas?%s",
-			Url.PUBLISH_URL,
-			Url.makeQueryString({
-				assetType = assetType.Name,
-				resourceType = resourceType,
-			})
-		)
-	end
 end
 
 return wrapStrictTable(Urls) :: typeof(Urls)

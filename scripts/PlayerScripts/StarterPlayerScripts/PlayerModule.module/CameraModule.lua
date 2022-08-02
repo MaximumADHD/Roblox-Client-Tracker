@@ -15,32 +15,11 @@
 local CameraModule = {}
 CameraModule.__index = CameraModule
 
-local FFlagUserRemoveTheCameraApi do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserRemoveTheCameraApi")
-	end)
-	FFlagUserRemoveTheCameraApi = success and result
-end
-
-local FFlagUserFixCameraSelectModuleWarning do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFixCameraSelectModuleWarning")
-	end)
-	FFlagUserFixCameraSelectModuleWarning = success and result
-end
-
 local FFlagUserFlagEnableNewVRSystem do
 	local success, result = pcall(function()
 		return UserSettings():IsUserFeatureEnabled("UserFlagEnableNewVRSystem")
 	end)
 	FFlagUserFlagEnableNewVRSystem = success and result
-end
-
-local FFlagUserCameraControlLastInputTypeUpdate do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserCameraControlLastInputTypeUpdate")
-	end)
-	FFlagUserCameraControlLastInputTypeUpdate = success and result
 end
 
 -- NOTICE: Player property names do not all match their StarterPlayer equivalents,
@@ -178,13 +157,6 @@ function CameraModule.new()
 		self:OnCurrentCameraChanged()
 	end)
 
-	if not FFlagUserCameraControlLastInputTypeUpdate then
-		self.lastInputType = UserInputService:GetLastInputType()
-		UserInputService.LastInputTypeChanged:Connect(function(newLastInputType)
-			self.lastInputType = newLastInputType
-		end)
-	end 
-
 	return self
 end
 
@@ -321,19 +293,11 @@ function CameraModule:ActivateCameraController(cameraMovementMode, legacyCameraT
 		--]]
 
 		if legacyCameraType == Enum.CameraType.Scriptable then
-			if FFlagUserFixCameraSelectModuleWarning then
-				if self.activeCameraController then
-					self.activeCameraController:Enable(false)
-					self.activeCameraController = nil
-				end
-				return
-			else
-				if self.activeCameraController then
-					self.activeCameraController:Enable(false)
-					self.activeCameraController = nil
-					return
-				end
+			if self.activeCameraController then
+				self.activeCameraController:Enable(false)
+				self.activeCameraController = nil
 			end
+			return
 
 		elseif legacyCameraType == Enum.CameraType.Custom then
 			cameraMovementMode = self:GetCameraMovementModeFromSettings()
@@ -564,10 +528,7 @@ function CameraModule:GetCameraControlChoice()
 	local player = Players.LocalPlayer
 
 	if player then
-		if FFlagUserCameraControlLastInputTypeUpdate and UserInputService:GetLastInputType() == Enum.UserInputType.Touch
-			or not FFlagUserCameraControlLastInputTypeUpdate and self.lastInputType == Enum.UserInputType.Touch
-			or UserInputService.TouchEnabled then
-
+		if UserInputService:GetLastInputType() == Enum.UserInputType.Touch or UserInputService.TouchEnabled then
 			-- Touch
 			if player.DevTouchCameraMode == Enum.DevTouchCameraMovementMode.UserChoice then
 				return CameraUtils.ConvertCameraModeEnumToStandard( UserGameSettings.TouchCameraMovementMode )
@@ -619,10 +580,5 @@ function CameraModule:OnMouseLockToggled()
 end
 
 local cameraModuleObject = CameraModule.new()
-local cameraApi = {}
 
-if FFlagUserRemoveTheCameraApi then
-	return cameraApi
-else
-	return cameraModuleObject
-end
+return {}

@@ -3,7 +3,6 @@
 -- And then error when trying to use flags that aren't yet defined
 game:DefineFastFlag("UXImprovementsShowUserPermsWhenCollaborator2", false)
 game:DefineFastFlag("GameSettingsFixSearchBarRef", false)
-game:DefineFastFlag("GSPermsRemoveCollaboratorsFixEnabled", false)
 game:DefineFastFlag("GameSettingsRemoveFitContent", false)
 game:DefineFastFlag("RemoveStudioThemeFromPlugins", false)
 

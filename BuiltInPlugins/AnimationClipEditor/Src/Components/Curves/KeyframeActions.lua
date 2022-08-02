@@ -58,7 +58,6 @@ local Redo = require(Plugin.Src.Thunks.History.Redo)
 
 local TogglePlay = require(Plugin.Src.Thunks.Playback.TogglePlay)
 
-local FFlagAnimEditorFixBackspaceOnMac = require(Plugin.LuaFlags.GetFFlagAnimEditorFixBackspaceOnMac)
 local FFlagCurveEditorEvents = game:DefineFastFlag("ACECurveEditorEvents", false)
 
 local KeyframeActions = Roact.PureComponent:extend("KeyframeActions")
@@ -256,8 +255,8 @@ function KeyframeActions:didMount(): ()
 
 	self:addAction(actions:get("PasteKeyframes"), function(): ()
 		local props = self.props
-		local tick = props.Tick or props.Playhead
-		props.PasteKeyframes(tick, props.Analytics)
+		local tck = props.Tick or props.Playhead
+		props.PasteKeyframes(tck, props.Analytics)
 	end)
 
 	self:addAction(actions:get("CutSelected"), function(): ()
@@ -303,9 +302,6 @@ function KeyframeActions:didMount(): ()
 
 	self:addAction(actions:get("CopySelected"), self.props.CopySelectedKeyframes)
 	self:addAction(actions:get("DeleteSelected"), deleteSelectedKeyframesWrapper)
-	if FFlagAnimEditorFixBackspaceOnMac() then
-		self:addAction(actions:get("DeleteSelectedBackspace"), deleteSelectedKeyframesWrapper)
-	end
 	self:addAction(actions:get("ResetSelected"), self.props.ResetSelectedKeyframes)
 	self:addAction(actions:get("SelectAll"), self.props.SelectAllKeyframes)
 	self:addAction(actions:get("DeselectAll"), self.props.DeselectAllKeyframes)
@@ -347,9 +343,6 @@ function KeyframeActions:render(): any
 			pluginActions:get("CopySelected").Enabled = true
 			pluginActions:get("ResetSelected").Enabled = true
 			pluginActions:get("DeleteSelected").Enabled = true
-			if FFlagAnimEditorFixBackspaceOnMac() then
-				pluginActions:get("DeleteSelectedBackspace").Enabled = true
-			end
 		else
 			pluginActions:get("SelectAll").Enabled = true
 		end

@@ -3,61 +3,58 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 
-local UI = Framework.UI
-local Pane = UI.Pane
-local Table = UI.Table
-
 local CollisionCheckbox = require(script.Parent.CollisionCheckbox)
 local Constants = require(script.Parent.Parent.Constants)
 
 local GroupCollisionMatrix = Roact.PureComponent:extend("GroupCollisionMatrix")
 
+	-- TODO STUDIOPLAT-28529 Extend DF Table to include Row Headers & Horizontal Scrolling
+	-- Using string name components here because STUDIOPLAT-27988 and STUDIOPLAT-26721 broke
+	-- the layout of this view
 function GroupCollisionMatrix:render()
 	local props = self.props
 	local groupCount = #props.Groups
 	local style = props.Stylizer.GroupCollisionMatrix
 
-	local rows = {}
-	local columns = {}
-	local initialSizes = {}
+	local grid = {
+		Padding = Roact.createElement("UIPadding", {
+			PaddingBottom = UDim.new(0, 0),
+			PaddingTop = UDim.new(0, 1),
+			PaddingLeft = UDim.new(0, 1),
+			PaddingRight = UDim.new(0, 0),
+		}),
+		UIGridLayout = Roact.createElement("UIGridLayout", {
+			CellPadding = UDim2.fromOffset(1, 1),
+			CellSize = Constants.GridCellSize,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
+	}
 
 	local columnIndex = groupCount
 	for groupIndex, group in ipairs(props.Groups) do
-		local newRow = {}
 		for otherIndex, otherGroup in ipairs(props.Groups) do
-			newRow[groupCount - (otherIndex - 1)] = {
+			local gridIndex = (groupCount * groupIndex)  - otherIndex
+			grid[gridIndex] = CollisionCheckbox({
 				ShouldShowCheckbox = groupIndex <= otherIndex,
 				Group = group,
 				OtherGroup = otherGroup,
-				style = props.Stylizer,
+				Style = props.Stylizer,
+				RowHovered = props.RowHovered,
 				OnColHovered = props.OnColHovered,
 				OnRowHovered = props.OnRowHovered,
-			}
+				LayoutOrder = gridIndex,
+				RowIndex = columnIndex,})
 		end
-		rows[groupIndex] = newRow
 
-		columns[columnIndex] = {Key = columnIndex}
-		initialSizes[columnIndex] = UDim.new(0, Constants.GridCellSize.X.Offset)
 		columnIndex = columnIndex - 1
 	end
 
-	return Roact.createElement(Table, {
+	return Roact.createElement("Frame", {
 		Size = Constants.CalculateTableSize(groupCount),
-		ShowHeader = false,
-		initialSizes = initialSizes,
-		RowHeight = Constants.GroupRowHeight,
-		ColumnHeaderHeight = 0,
-		Rows = rows,
-		Columns = columns,
-		CellComponent = CollisionCheckbox,
-		Padding = 0,
-		OnHoverRow = function(row, rowIndex)
-			props.OnRowHovered(row[1].Group.Name)
-		end,
-		OnSelectRow = function(row, rowIndex)
-			row[1].Group.OnSelected()
-		end,
-	})
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+	}, grid )
 end
 
 GroupCollisionMatrix = ContextServices.withContext({

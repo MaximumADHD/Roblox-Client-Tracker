@@ -13,15 +13,24 @@
 		function ListItemsCheckBoxCallback
 			callback to parent when checkbox in this list is clicked
 ]]
-
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local UILibrary = require(Plugin.Packages.UILibrary)
 local ExpandableList = UILibrary.Component.ExpandableList
+
+local Util = Framework.Util
+local StyleModifier = Util.StyleModifier
+
+local UI = Framework.UI
+local TextLabel = UI.Decoration.TextLabel
 
 local CheckBoxModule = require(Plugin.Src.Components.CheckBoxModule)
 
@@ -76,13 +85,20 @@ function ListItemsModule:render()
 				Size = UDim2.new(1, 0, 0, 25),
 				BackgroundTransparency = 1,
 			}, {
-				Label = Roact.createElement("TextLabel", {
-					Size = UDim2.new(1, 0, 1, 0),
-					Text = labelText,
-					TextColor3 = enabled and theme.TextColor or theme.DisabledColor,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					BackgroundTransparency = 1,
-				}),
+				Label = if FFlagDevFrameworkMigrateTextLabels then (
+					Roact.createElement(TextLabel, {
+						Text = labelText,
+						StyleModifier = if enabled then nil else StyleModifier.Disabled,
+					})
+				) else (
+					Roact.createElement("TextLabel", {
+						Size = UDim2.new(1, 0, 1, 0),
+						Text = labelText,
+						TextColor3 = enabled and theme.TextColor or theme.DisabledColor,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						BackgroundTransparency = 1,
+					})
+				),
 				CollapseArrow = Roact.createElement("ImageLabel", Cryo.Dictionary.join(arrowImageProps, {
 					Size = UDim2.new(0, theme.Arrow.dimension, 0, theme.Arrow.dimension),
 					AnchorPoint = Vector2.new(0, 0.5),

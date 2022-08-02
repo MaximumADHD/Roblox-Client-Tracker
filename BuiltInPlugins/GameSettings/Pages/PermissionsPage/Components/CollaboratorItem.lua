@@ -1,5 +1,4 @@
 local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
-local FFlagGSPermsRemoveCollaboratorsFixEnabled = game:GetFastFlag("GSPermsRemoveCollaboratorsFixEnabled")
 
 local ITEM_HEIGHT = 60
 local PADDING_Y = 20
@@ -16,17 +15,21 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local UI = Framework.UI
+
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryLoadingIndicator = SharedFlags.getFFlagRemoveUILibraryLoadingIndicator()
+
 local Util = Framework.Util
 local StyleModifier = Util.StyleModifier
-local SelectInput = UI.SelectInput
-local Button = UI.Button
-local TextLabel = UI.Decoration.TextLabel
 
 local UILibrary = require(Plugin.Packages.UILibrary)
-
-local LoadingIndicator = UILibrary.Component.LoadingIndicator
 local UILibraryButton = UILibrary.Component.Button
+
+local UI = Framework.UI
+local Button = UI.Button
+local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator then UI.LoadingIndicator else UILibrary.Component.LoadingIndicator
+local SelectInput = UI.SelectInput
+local TextLabel = UI.Decoration.TextLabel
 
 local PermissionsConstants = require(Page.Util.PermissionsConstants)
 
@@ -170,10 +173,8 @@ function CollaboratorItem:render()
 
 	local currentPermission = props.CurrentPermission
 
-	if FFlagGSPermsRemoveCollaboratorsFixEnabled then
-		if not currentPermission then
-			return
-		end
+	if not currentPermission then
+		return
 	end
 
 	local availablePermissions = props.AvailablePermissions

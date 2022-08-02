@@ -18,7 +18,7 @@ return function()
 	local resolvePromptState = require(script.Parent.resolvePromptState)
 	local RequestType = require(Root.Enums.RequestType)
 
-	local GetFFlagDisableRobuxUpsell = require(Root.Flags.GetFFlagDisableRobuxUpsell)
+	local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
 
 	local function getTestProductInfo()
 		return {
@@ -34,15 +34,23 @@ return function()
 	end
 
 	local function getTestAccountInfo()
-		return {
+		return FFlagPPAccountInfoMigration and {
+			isPremium = false,
+		} or {
 			RobuxBalance = 10,
 			MembershipType = 0,
 		}
 	end
 
+	local function getTestBalance()
+		return {
+			robux = 10
+		}
+	end
+
 	local function testThunk(mockAnalytics, mockExternalSettings, store,
-			productInfo, accountInfo, alreadyOwned, isRobloxPurchase)
-		return Thunk.test(resolvePromptState(productInfo, accountInfo, alreadyOwned, isRobloxPurchase), store, {
+			productInfo, accountInfo, balanceInfo, alreadyOwned, isRobloxPurchase)
+		return Thunk.test(resolvePromptState(productInfo, accountInfo, balanceInfo, alreadyOwned, isRobloxPurchase), store, {
 			[Analytics] = mockAnalytics or MockAnalytics.new().mockService,
 			[ExternalSettings] = mockExternalSettings or MockExternalSettings.new(false, false, {})
 		})
@@ -54,7 +62,8 @@ return function()
 		local mockAnalytics = MockAnalytics.new()
 		local productInfo = getTestProductInfo()
 		local accountInfo = getTestAccountInfo()
-		testThunk(mockAnalytics.mockService, nil, store, productInfo, accountInfo, false, false)
+		local balanceInfo = getTestBalance()
+		testThunk(mockAnalytics.mockService, nil, store, productInfo, accountInfo, balanceInfo, false, false)
 
 		local state = store:getState()
 
@@ -71,11 +80,12 @@ return function()
 		productInfo.AssetId = 0
 		productInfo.Creator.CreatorTargetId = game.CreatorId + 2
 		local accountInfo = getTestAccountInfo()
+		local balanceInfo = getTestBalance()
 		testThunk(nil, MockExternalSettings.new(false, false, {
 			LuaUseThirdPartyPermissions = true,
 			PermissionsServiceIsThirdPartyPurchaseAllowed = false,
 			HideThirdPartyPurchaseFailure = true,
-		}), store, productInfo, accountInfo, false, false)
+		}), store, productInfo, accountInfo, balanceInfo, false, false)
 
 		local state = store:getState()
 
@@ -90,7 +100,8 @@ return function()
 		-- Set product to not for sale
 		productInfo.IsForSale = false
 		local accountInfo = getTestAccountInfo()
-		testThunk(nil, nil, store, productInfo, accountInfo, false, false)
+		local balanceInfo = getTestBalance()
+		testThunk(nil, nil, store, productInfo, accountInfo, balanceInfo, false, false)
 
 		local state = store:getState()
 
@@ -102,7 +113,8 @@ return function()
 
 		local productInfo = getTestProductInfo()
 		local accountInfo = getTestAccountInfo()
-		testThunk(nil, nil, store, productInfo, accountInfo, false, false)
+		local balanceInfo = getTestBalance()
+		testThunk(nil, nil, store, productInfo, accountInfo, balanceInfo, false, false)
 
 		local state = store:getState()
 		expect(state.promptState).to.equal(PromptState.PromptPurchase)
@@ -113,11 +125,12 @@ return function()
 
 		local productInfo = getTestProductInfo()
 		local accountInfo = getTestAccountInfo()
+		local balanceInfo = getTestBalance()
 		testThunk(nil, MockExternalSettings.new(false, false, {
 			LuaUseThirdPartyPermissions = true,
 			PermissionsServiceIsThirdPartyPurchaseAllowed = false,
 			BypassThirdPartySettingForRobloxPurchase = true,
-		}), store, productInfo, accountInfo, false, false)
+		}), store, productInfo, accountInfo, balanceInfo, false, false)
 
 		local state = store:getState()
 		expect(state.promptState).to.equal(PromptState.PromptPurchase)
@@ -130,8 +143,13 @@ return function()
 		local productInfo = getTestProductInfo()
 		-- Player will not have enough robux
 		local accountInfo = getTestAccountInfo()
-		accountInfo.RobuxBalance = 0
-		testThunk(mockAnalytics, nil, store, productInfo, accountInfo, false, false):andThen(function()
+		local balanceInfo = getTestBalance()
+		if FFlagPPAccountInfoMigration then
+			balanceInfo.robux = 0
+		else
+			accountInfo.RobuxBalance = 0
+		end
+		testThunk(mockAnalytics, nil, store, productInfo, accountInfo, balanceInfo, false, false):andThen(function()
 			local state = store:getState()
 			expect(state.promptState).to.equal(PromptState.RobuxUpsell)
 			expect(mockAnalytics.spies.signalProductPurchaseUpsellShown.callCount).to.equal(1)
@@ -145,10 +163,15 @@ return function()
 		local productInfo = getTestProductInfo()
 		-- Player will not have enough robux
 		local accountInfo = getTestAccountInfo()
-		accountInfo.RobuxBalance = 0
+		local balanceInfo = getTestBalance()
+		if FFlagPPAccountInfoMigration then
+			balanceInfo.robux = 0
+		else
+			accountInfo.RobuxBalance = 0
+		end
 		testThunk(mockAnalytics, MockExternalSettings.new(false, false, {
 			DisableRobuxUpsell = true,
-		}), store, productInfo, accountInfo, false, false)
+		}), store, productInfo, accountInfo, balanceInfo, false, false)
 
 		local state = store:getState()
 		expect(state.promptState).to.equal(PromptState.Error)

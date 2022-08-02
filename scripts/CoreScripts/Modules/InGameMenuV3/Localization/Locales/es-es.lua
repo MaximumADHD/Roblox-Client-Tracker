@@ -216,5 +216,6 @@ return{
 	["CoreScripts.InGameMenu.Prompt.ReturnHomeBodyText"] = [[Vuelve a Inicio desde aquí y descubre nuevas experiencias.]],
 	["CoreScripts.InGameMenu.Actions.BlockFriend"] = [[¿Bloquear amigo(a)?]],
 	["CoreScripts.InGameMenu.QuickActions.ScreenshotSaved"] = [[Captura guardada]],
-	["CoreScripts.InGameMenu.Action.ShareServerLink"] = [[Compartir enlace del servidor]],
+	["CoreScripts.InGameMenu.Action.ShareServerLink"] = [[Compartir]],
+	["CoreScripts.InGameMenu.Controls.Scriptable"] = [[Ejecutar scripts]],
 }

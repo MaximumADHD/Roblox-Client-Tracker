@@ -9,7 +9,6 @@ local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local PathUtils = require(Plugin.Src.Util.PathUtils)
 
 local Constants = require(Plugin.Src.Util.Constants)
-local CFrameUtils = require(Plugin.Src.Util.CFrameUtils)
 local CurveUtils = require(Plugin.Src.Util.CurveUtils)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Templates = require(Plugin.Src.Util.Templates)
@@ -19,7 +18,6 @@ local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAni
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-local GetFFlagUseCFrameAPI = require(Plugin.LuaFlags.GetFFlagUseCFrameAPI)
 
 local TrackUtils = {}
 
@@ -36,7 +34,7 @@ end
 -- track (as an array of track names), and a flag telling if it's a leaf track.
 -- If leavesOnly is true, then func is only called for tracks that don't have components
 function TrackUtils.traverseTracks(trackName, track, func, leavesOnly)
-	assert(func ~= nil)
+	assert(func ~= nil, "func must not be nil")
 
 	local function traverse(track, trackName, path)
 		if track ~= nil then
@@ -71,9 +69,9 @@ function TrackUtils.traverseKeyframeRange(keyframes, startTick, endTick, func)
 	local lastIndex = last
 
 	for keyIndex = firstIndex, lastIndex do
-		local tick = keyframes[keyIndex]
-		if tick >= startTick and tick <= endTick then
-			func(tick, keyframes[keyIndex])
+		local tck = keyframes[keyIndex]
+		if tck >= startTick and tck <= endTick then
+			func(tck, keyframes[keyIndex])
 		end
 	end
 end
@@ -137,11 +135,11 @@ function TrackUtils.getSummaryKeyframes(tracks, startTick, endTick, selectedKeyf
 
 				local selection = selectedTrack and selectedTrack.Selection or {}
 				if keyframes and not isEmpty(keyframes) then
-					TrackUtils.traverseKeyframeRange(keyframes, startTick, endTick, function(tick)
+					TrackUtils.traverseKeyframeRange(keyframes, startTick, endTick, function(tck)
 
-						foundTicks[tick] = true
-						if selection[tick] then
-							selectedTicks[tick] = true
+						foundTicks[tck] = true
+						if selection[tck] then
+							selectedTicks[tck] = true
 						end
 					end)
 				end
@@ -154,15 +152,15 @@ function TrackUtils.getSummaryKeyframes(tracks, startTick, endTick, selectedKeyf
 			local keyframes = track.Keyframes
 
 			if keyframes then
-				TrackUtils.traverseKeyframeRange(keyframes, startTick, endTick, function(tick)
+				TrackUtils.traverseKeyframeRange(keyframes, startTick, endTick, function(tck)
 					local selected = selectedKeyframes and selectedKeyframes[instance]
 						and selectedKeyframes[instance][name]
-						and selectedKeyframes[instance][name][tick]
+						and selectedKeyframes[instance][name][tck]
 
 					if not (selected and previewing) then
-						foundTicks[tick] = true
+						foundTicks[tck] = true
 						if selected then
-							selectedTicks[tick] = true
+							selectedTicks[tck] = true
 						end
 					end
 				end)
@@ -174,15 +172,15 @@ function TrackUtils.getSummaryKeyframes(tracks, startTick, endTick, selectedKeyf
 	return ticks, selectedTicks
 end
 
-function TrackUtils.getScaledKeyframePosition(tick, startTick, endTick, width)
-	return math.floor((tick - startTick) * width / (endTick - startTick))
+function TrackUtils.getScaledKeyframePosition(tck, startTick, endTick, width)
+	return math.floor((tck - startTick) * width / (endTick - startTick))
 end
 
 function TrackUtils.getKeyframeFromPosition(position, startTick, endTick, trackLeft, trackWidth)
 	local timelineScale = trackWidth / (endTick - startTick)
 	local xposInTimeline = position.X - trackLeft
-	local tick = startTick + xposInTimeline / timelineScale
-	return KeyframeUtils.getNearestTick(tick)
+	local tck = startTick + xposInTimeline / timelineScale
+	return KeyframeUtils.getNearestTick(tck)
 end
 
 function TrackUtils.countVisibleKeyframes(keyframes, startTick, endTick)
@@ -300,7 +298,7 @@ function TrackUtils.getComponentTypeFromPath(path, tracks)
 	end
 end
 
-function TrackUtils.getEulerAnglesOrder(track: Types.Track): (string?)
+function TrackUtils.getEulerAnglesOrder(track: Types.Track?): (Enum.RotationOrder?)
 	if track == nil then
 		return nil
 	end
@@ -573,11 +571,7 @@ function TrackUtils.getItemsForProperty(track, value, name, defaultEAO)
 	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Quaternion then
 		local xRot, yRot, zRot
 		if GetFFlagCurveEditor() then
-			if GetFFlagUseCFrameAPI() then
-				xRot, yRot, zRot = value:ToEulerAngles(eulerAnglesOrder)
-			else
-				xRot, yRot, zRot = CFrameUtils.ToEulerAngles(value, eulerAnglesOrder)
-			end
+			xRot, yRot, zRot = value:ToEulerAngles(eulerAnglesOrder)
 		else
 			xRot, yRot, zRot = value:ToEulerAnglesXYZ()
 		end
@@ -681,8 +675,8 @@ function TrackUtils.adjustCurves(track)
 	-- Make a copy, because we're possibly going to add new keyframes (cubic/bounce/elastic interpolation)
 	local keyframesCopy = Cryo.List.join({}, track.Keyframes)
 
-	for index, tick in pairs(keyframesCopy) do
-		local data = track.Data[tick]
+	for index, tck in pairs(keyframesCopy) do
+		local data = track.Data[tck]
 		local easingStyle = data.EasingStyle
 		local easingDirection = data.EasingDirection
 
@@ -690,7 +684,7 @@ function TrackUtils.adjustCurves(track)
 			local nextTick = keyframesCopy[index+1]
 			local nextData = track.Data[nextTick]
 
-			local newKeyframes = CurveUtils.generateCurve(track.Type, easingStyle, easingDirection, tick, data, nextTick, nextData)
+			local newKeyframes = CurveUtils.generateCurve(track.Type, easingStyle, easingDirection, tck, data, nextTick, nextData)
 			if newKeyframes and not isEmpty(newKeyframes) then
 				track.Keyframes = Cryo.List.join(track.Keyframes, Cryo.Dictionary.keys(newKeyframes))
 				track.Data = Cryo.Dictionary.join(track.Data, newKeyframes)
@@ -737,8 +731,8 @@ function TrackUtils.splitTrackComponents(track, rotationType, eulerAnglesOrder)
 
 		createTrackComponents(track)
 
-		for _, tick in pairs(track.Keyframes or {}) do
-			local cFrame = track.Data[tick].Value
+		for _, tck in pairs(track.Keyframes or {}) do
+			local cFrame = track.Data[tck].Value
 
 			if rotationType == Constants.TRACK_TYPES.Quaternion then
 				local position = cFrame.Position
@@ -748,10 +742,10 @@ function TrackUtils.splitTrackComponents(track, rotationType, eulerAnglesOrder)
 				local rotationTrack = track.Components.Rotation
 
 				for _, componentName in ipairs(Constants.COMPONENT_TRACK_TYPES[Constants.TRACK_TYPES.Position]._Order) do
-					positionTrack.Components[componentName].Data[tick] = Cryo.Dictionary.join(track.Data[tick], { Value = position[componentName] })
+					positionTrack.Components[componentName].Data[tck] = Cryo.Dictionary.join(track.Data[tck], { Value = position[componentName] })
 				end
 
-				rotationTrack.Data[tick] = Cryo.Dictionary.join(track.Data[tick], { Value = quaternion })
+				rotationTrack.Data[tck] = Cryo.Dictionary.join(track.Data[tck], { Value = quaternion })
 			else
 				-- Decompose the CFrame into two Vectors so they can both be accessed by .X, .Y, .Z
 				local position = cFrame.Position
@@ -766,7 +760,7 @@ function TrackUtils.splitTrackComponents(track, rotationType, eulerAnglesOrder)
 					local values = componentName == Constants.PROPERTY_KEYS.Position and position or rotation
 
 					for grandchildName, grandchild in pairs(componentTrack.Components) do
-						grandchild.Data[tick] = Cryo.Dictionary.join(track.Data[tick], {
+						grandchild.Data[tck] = Cryo.Dictionary.join(track.Data[tck], {
 							Value = values[grandchildName]
 						})
 					end
@@ -857,19 +851,19 @@ function TrackUtils.getComponentsInfo(track: any, startTick: number, endTick: nu
 
 	TrackUtils.traverseTracks(nil, track, function(track)
 		if track.Data then
-			for tick, data in pairs(track.Data) do
-				if tick >= startTick and tick <= endTick then
-					if info[tick] then
-						info[tick].Count = info[tick].Count + 1
-						info[tick].Complete = info[tick].Count == expectedComponents
-						if info[tick].EasingStyle ~= data.EasingStyle then
-							info[tick].EasingStyle = nil
+			for tck, data in pairs(track.Data) do
+				if tck >= startTick and tck <= endTick then
+					if info[tck] then
+						info[tck].Count = info[tck].Count + 1
+						info[tck].Complete = info[tck].Count == expectedComponents
+						if info[tck].EasingStyle ~= data.EasingStyle then
+							info[tck].EasingStyle = nil
 						end
-						if info[tick].InterpolationMode ~= data.InterpolationMode then
-							info[tick].InterpolationMode = nil
+						if info[tck].InterpolationMode ~= data.InterpolationMode then
+							info[tck].InterpolationMode = nil
 						end
 					else
-						info[tick] = {
+						info[tck] = {
 							Count = 1,
 							Complete = expectedComponents == 1,
 							EasingStyle = data.EasingStyle,
@@ -1008,9 +1002,7 @@ function TrackUtils.convertTrackToEulerAngles(track: Track, eulerAnglesOrder: En
 	-- Given a set of three previous angles and a new CFrame, find the Euler
 	-- decomposition that best fits the previous angles.
 	local function findClosestAngles(prevAngles: Vector3, value:CFrame): Vector3
-		local angles = if GetFFlagUseCFrameAPI()
-			then Vector3.new(value:ToEulerAngles(eulerAnglesOrder))
-			else Vector3.new(CFrameUtils.ToEulerAngles(value, eulerAnglesOrder))
+		local angles = Vector3.new(value:ToEulerAngles(eulerAnglesOrder))
 
 		if not prevAngles then
 			return angles

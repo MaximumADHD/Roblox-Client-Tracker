@@ -12,7 +12,7 @@ Props:
 	OnSizeChanged : (vector : string, axis : string, value : string, isValid : bool) -> void
 	SetMapSettingsValid : (bool) -> void
 ]]
-
+local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -21,7 +21,7 @@ local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local ContextItems = require(Plugin.Src.ContextItems)
+local ContextItems = if FFlagRemoveUILibraryCompatLocalization then nil else require(Plugin.Src.ContextItems)
 
 local ToolParts = script.Parent
 local VectorTextInput = require(ToolParts.VectorTextInput)
@@ -125,7 +125,7 @@ function MapSettingsFragment:init(props)
 end
 
 function MapSettingsFragment:render()
-	local localization = self.props.Localization:get()
+	local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
 
 	local pos = self.props.Position
 	local size = self.props.Size
@@ -165,11 +165,8 @@ function MapSettingsFragment:render()
 	})
 end
 
-
 MapSettingsFragment = withContext({
-	Localization = ContextItems.UILibraryLocalization,
+	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
 })(MapSettingsFragment)
-
-
 
 return MapSettingsFragment

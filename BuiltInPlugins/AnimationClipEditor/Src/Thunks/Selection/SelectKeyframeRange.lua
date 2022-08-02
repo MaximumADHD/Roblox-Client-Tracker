@@ -46,8 +46,8 @@ return function(instanceName, path, minTick, maxTick, multiSelect)
 		-- keys within the range. If not, we don't want to waste time/memory
 		-- (re)allocating the SelectedKeyframes store variable
 		local function hasSelectedTicks(track)
-			for _, tick in pairs(track.Keyframes or {}) do
-				if tick >= minTick and tick <= maxTick then
+			for _, tck in pairs(track.Keyframes or {}) do
+				if tck >= minTick and tck <= maxTick then
 					return true
 				end
 			end
@@ -102,9 +102,9 @@ return function(instanceName, path, minTick, maxTick, multiSelect)
 		local function traverse(track, current)
 			local keyframes = {}
 
-			for _, tick in pairs(track.Keyframes or {}) do
-				if tick >= minTick and tick <= maxTick then
-					keyframes[tick] = true
+			for _, tck in pairs(track.Keyframes or {}) do
+				if tck >= minTick and tck <= maxTick then
+					keyframes[tck] = true
 				end
 			end
 

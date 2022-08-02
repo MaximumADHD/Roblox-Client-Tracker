@@ -7,7 +7,6 @@
 		table SettingsLoadJobs - Table of function callbacks invoked on page load used to load settings
 		table SettingsSaveJobs - Table of function callbacks invoked on page save used to save settings
 ]]
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -16,14 +15,18 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local FrameworkUI = Framework.UI
 local Util = Framework.Util
 local UILibrary = require(Plugin.Packages.UILibrary)
 
-local Container = FrameworkUI.Container
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryLoadingIndicator = SharedFlags.getFFlagRemoveUILibraryLoadingIndicator()
+
+local UI = Framework.UI
+local Container = UI.Container
+local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator then UI.LoadingIndicator else UILibrary.Component.LoadingIndicator
+
 local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
 local Header = require(Plugin.Src.Components.Header)
-local LoadingIndicator = UILibrary.Component.LoadingIndicator
 local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
 local LoadFailedPage = require(Plugin.Src.Components.SettingsPages.LoadFailedPage)
 

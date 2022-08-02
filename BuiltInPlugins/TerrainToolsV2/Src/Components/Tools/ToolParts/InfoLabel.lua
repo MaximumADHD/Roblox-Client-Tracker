@@ -1,3 +1,4 @@
+-- TODO delete this file when FFlagDevFrameworkMigrateTextLabels is removed
 --[[
 	A text label that fits within the 2 column layout of the plugin.
 	It resizes vertically to fit the text.
@@ -9,9 +10,15 @@ Props
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
+local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
-local Roact = require(Plugin.Packages.Roact)
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+
+if FFlagDevFrameworkMigrateTextLabels then
+	return nil
+end
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext

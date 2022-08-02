@@ -22,9 +22,10 @@ local Category = require(Plugin.Core.Types.Category)
 
 local ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
 
-local FFlagAssetConfigDynamicDistributionQuotas2 = game:GetFastFlag("AssetConfigDynamicDistributionQuotas2")
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
-local FIntToolboxGrantUniverseAudioPermissionsTimeoutInMS = game:GetFastInt("ToolboxGrantUniverseAudioPermissionsTimeoutInMS")
+local FIntToolboxGrantUniverseAudioPermissionsTimeoutInMS = game:GetFastInt(
+	"ToolboxGrantUniverseAudioPermissionsTimeoutInMS"
+)
 
 local NetworkInterface = {}
 NetworkInterface.__index = NetworkInterface
@@ -269,6 +270,15 @@ function NetworkInterface:getMetaData()
 
 	return sendRequestAndRetry(function()
 		printUrl("getAccountInfo", "GET", targetUrl)
+		return self._networkImp:httpGetJson(targetUrl)
+	end)
+end
+
+function NetworkInterface:getVote(assetId, assetType)
+	local targetUrl = Urls.constructGetVoteUrl(assetId, assetType)
+
+	return sendRequestAndRetry(function()
+		printUrl("getVote", "GET", targetUrl)
 		return self._networkImp:httpGetJson(targetUrl)
 	end)
 end
@@ -885,12 +895,13 @@ if FFlagToolboxAudioAssetConfigIdVerification then
 	end
 end
 
-if FFlagAssetConfigDynamicDistributionQuotas2 then
-	function NetworkInterface:getCreatorMarketplaceQuotas(assetType: Enum.AssetType, resourceType: AssetQuotaTypes.AssetQuotaResourceType)
-		local targetUrl = Urls.getCreatorMarketplaceQuotas(assetType, resourceType)
-		printUrl("getCreatorMarketplaceQuotas", "GET", targetUrl)
-		return self._networkImp:httpGetJson(targetUrl)
-	end
+function NetworkInterface:getCreatorMarketplaceQuotas(
+	assetType: Enum.AssetType,
+	resourceType: AssetQuotaTypes.AssetQuotaResourceType
+)
+	local targetUrl = Urls.getCreatorMarketplaceQuotas(assetType, resourceType)
+	printUrl("getCreatorMarketplaceQuotas", "GET", targetUrl)
+	return self._networkImp:httpGetJson(targetUrl)
 end
 
 export type NetworkInterface = typeof(NetworkInterface)

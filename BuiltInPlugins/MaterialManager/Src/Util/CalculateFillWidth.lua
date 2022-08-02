@@ -1,8 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 local _Types = require(Plugin.Src.Types)
 
-local getFFlagMaterialManagerUtilTests = require(Plugin.Src.Flags.getFFlagMaterialManagerUtilTests)
-
 return function(widths: _Types.Array<UDim>, padding: number?, spacing: number?) : UDim
 	local offset = 0
 	local scale = 0
@@ -17,17 +15,12 @@ return function(widths: _Types.Array<UDim>, padding: number?, spacing: number?) 
 		end
 	end
 
-	if getFFlagMaterialManagerUtilTests() then
-		if numWidths == 0 then
-			return UDim.new(1, 0)
-		end
-
-		offset += (padding or 0) * 2
-		offset += (spacing or 0) * (numWidths - 1)
-	else
-		offset += (padding or 0) * 2
-		offset += (spacing or 0) * numWidths
+	if numWidths == 0 then
+		return UDim.new(1, 0)
 	end
+
+	offset += (padding or 0) * 2
+	offset += (spacing or 0) * (numWidths - 1)
 
 	return UDim.new(1 - scale, -offset)
 end

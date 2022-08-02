@@ -17,6 +17,8 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local FFlagDevFrameworkMigrateSearchBar = Framework.SharedFlags.getFFlagDevFrameworkMigrateSearchBar()
+
 local UI = Framework.UI
 local Button = UI.Button
 local DropdownMenu = UI.DropdownMenu
@@ -31,8 +33,9 @@ local LayoutOrderIterator = Util.LayoutOrderIterator
 local StyleModifier = Util.StyleModifier
 local GetTextSize = Util.GetTextSize
 
+-- TODO(@rbujnowicz) remove this require with FFlagDevFrameworkMigrateSearchBar
 local UILibrary = require(Plugin.Packages.UILibrary)
-local SearchBar = UILibrary.Component.SearchBar
+local SearchBar = if FFlagDevFrameworkMigrateSearchBar then Framework.StudioUI.SearchBar else UILibrary.Component.SearchBar
 
 local SetRecentViewToggled = require(Plugin.Src.Actions.SetRecentViewToggled)
 local SetSearchTerm = require(Plugin.Src.Actions.SetSearchTerm)
@@ -133,13 +136,15 @@ function TopBar:render()
 		viewStyle = "GridViewButton"
 	end
 
-	local searchBarOffset
+	local searchBarXOffset
 	if FFlagEnableAssetManagerSortButton then
-		searchBarOffset = topBarTheme.Button.Size * NUM_BUTTONS + topBarTheme.Padding * NUM_PADDING
+		searchBarXOffset = topBarTheme.Button.Size * NUM_BUTTONS + topBarTheme.Padding * NUM_PADDING
 	else
-		searchBarOffset = topBarTheme.Button.Size * 5 + topBarTheme.Padding * 4
+		searchBarXOffset = topBarTheme.Button.Size * 5 + topBarTheme.Padding * 4
 	end
 
+    -- Shrink the y-height of the search bar to fit into the smaller top-bar height
+    local searchBarYOffset = 2
 
 	-- Remove variable when removing flag
 	local showSearchBar
@@ -389,25 +394,58 @@ function TopBar:render()
 			}),
 		}),
 
-		SearchBar = if not FFlagEnableAssetManagerSortButton and showSearchBar then Roact.createElement(SearchBar, {
-			Size = UDim2.new(1, -searchBarOffset, 1, 0),
-			LayoutOrder = layoutIndex:getNextOrder(),
-
-			Enabled = enabled,
-
-			TextSearchDelay = 0,
-			DefaultText = defaultText,
-
-			OnSearchRequested = self.OnSearchRequested,
-		}) else nil,
+		SearchBar = if not FFlagEnableAssetManagerSortButton and showSearchBar then 
+			Roact.createElement(SearchBar, if FFlagDevFrameworkMigrateSearchBar then {
+				Size = UDim2.new(1, -searchBarXOffset, 1, -searchBarYOffset),
+				LayoutOrder = layoutIndex:getNextOrder(),
+				
+				Disabled = not enabled,
+				
+				Style = "Compact",
+				ShowSearchIcon = true,
+				ShowSearchButton = false,
+				
+				PlaceholderText = defaultText,
+				
+				IncrementalTextSearch = true,
+				IncrementalTextSearchDelay = 0,
+				
+				OnSearchRequested = self.OnSearchRequested,
+			} else {
+				Size = UDim2.new(1, -searchBarXOffset, 1, 0),
+				LayoutOrder = layoutIndex:getNextOrder(),
+				
+				Enabled = enabled,
+				
+				TextSearchDelay = 0,
+				DefaultText = defaultText,
+				
+				OnSearchRequested = self.OnSearchRequested,
+			}) else nil,
 
 		SearchSortFrame = if FFlagEnableAssetManagerSortButton then Roact.createElement(Pane, {
-			Size = UDim2.new(1, -searchBarOffset, 0, topBarTheme.Button.Size),
+			Size = UDim2.new(1, -searchBarXOffset, 0, topBarTheme.Button.Size),
 			BackgroundTransparency = 1,
 			Layout = Enum.FillDirection.Horizontal,
 			LayoutOrder = layoutIndex:getNextOrder(),
 		}, {
-			SearchBar = showSearchBar and Roact.createElement(SearchBar, {
+			SearchBar = showSearchBar and Roact.createElement(SearchBar, if FFlagDevFrameworkMigrateSearchBar then {
+				Size = UDim2.new(1, -topBarTheme.Button.Size, 1, -searchBarYOffset),
+				LayoutOrder = 1,
+				
+				Disabled = not enabled,
+				
+				Style = "Compact",
+				ShowSearchIcon = true,
+				ShowSearchButton = false,
+				
+				PlaceholderText = defaultText,
+				
+				IncrementalTextSearch = true,
+				IncrementalTextSearchDelay = 0,
+				
+				OnSearchRequested = self.OnSearchRequested,
+			} else {
 				Size = UDim2.new(1, -topBarTheme.Button.Size, 1, 0),
 				LayoutOrder = 1,
 

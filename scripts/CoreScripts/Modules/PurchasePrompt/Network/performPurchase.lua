@@ -12,29 +12,17 @@ local function performPurchase(network, infoType, productId, expectedPrice, requ
 				opened the purchase prompt, so an AlreadyOwned status is
 				acceptable.
 			]]
-			if infoType == Enum.InfoType.Asset or infoType == Enum.InfoType.GamePass or infoType == Enum.InfoType.Bundle
-					or infoType == Enum.InfoType.Product then
-				if result.purchased or result.reason == "AlreadyOwned" then
-					return Promise.resolve(result)
-				elseif result.reason == Constants.PurchaseFailureReason.EconomyDisabled then
-					return Promise.reject(PurchaseError.PurchaseDisabled)
-				elseif result.reason == Constants.PurchaseFailureReason.TwoStepVerificationRequired then
-					return Promise.reject(PurchaseError.TwoFactorNeeded)
-				elseif result.transactionStatus == 24 then
-					return Promise.reject(PurchaseError.TwoFactorNeeded)
-				else
-					return Promise.reject(PurchaseError.UnknownFailure)
-				end
-			elseif infoType == Enum.InfoType.Subscription then
-				if result.success or result.reason == "AlreadyOwned" then
-					return Promise.resolve(result)
-				elseif result.reason == "EconomyDisabled" then
-					return Promise.reject(PurchaseError.PurchaseDisabled)
-				else
-					return Promise.reject(PurchaseError.UnknownFailure)
-				end
+			if result.purchased or result.reason == "AlreadyOwned" then
+				return Promise.resolve(result)
+			elseif result.reason == Constants.PurchaseFailureReason.EconomyDisabled then
+				return Promise.reject(PurchaseError.PurchaseDisabled)
+			elseif result.reason == Constants.PurchaseFailureReason.TwoStepVerificationRequired then
+				return Promise.reject(PurchaseError.TwoFactorNeeded)
+			elseif result.transactionStatus == 24 then
+				return Promise.reject(PurchaseError.TwoFactorNeeded)
+			else
+				return Promise.reject(PurchaseError.UnknownFailure)
 			end
-
 		end, function(failure)
 			return Promise.reject(PurchaseError.UnknownFailure)
 		end)

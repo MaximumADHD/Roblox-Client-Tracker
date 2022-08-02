@@ -7,8 +7,6 @@ require(script.Parent.defineLuaFlags)
 
 local Plugin = script.Parent.Parent
 
-local FFlagUpdateDraftsWidgetToDFContextServices = game:GetFastFlag("UpdateDraftsWidgetToDFContextServices")
-
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 local MockDraftsService = require(Plugin.Src.TestHelpers.MockDraftsService)
 local DraftsService = game:GetService("DraftsService")
@@ -22,8 +20,6 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local UILibraryWrapper = ContextServices.UILibraryWrapper
-
-local FFlagRemoveUILibraryFitContent = Framework.SharedFlags.getFFlagRemoveUILibraryFitContent()
 
 -- components
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
@@ -40,12 +36,7 @@ local CommitState = require(Plugin.Src.Symbols.CommitState)
 local DraftState = require(Plugin.Src.Symbols.DraftState)
 
 -- theme
-local getTheme
-local PluginTheme = if FFlagUpdateDraftsWidgetToDFContextServices then require(Plugin.Src.Resources.MakeTheme) else require(Plugin.Src.Resources.DEPRECATED_UILibraryTheme)
-if not FFlagUpdateDraftsWidgetToDFContextServices and FFlagRemoveUILibraryFitContent then
-	local makeTheme = Framework.Style.makeTheme
-	getTheme = makeTheme(Plugin.Src.Components)
-end
+local PluginTheme = require(Plugin.Src.Resources.MakeTheme)
 
 -- localization
 local SourceStrings = Plugin.Src.Resources.SourceStrings
@@ -61,28 +52,16 @@ end
 
 -- Plugin Specific Globals
 local roduxStore = Rodux.Store.new(MainReducer)
-local theme = if FFlagUpdateDraftsWidgetToDFContextServices then PluginTheme() else PluginTheme.new()
+local theme = PluginTheme()
 
-local localization
-if FFlagUpdateDraftsWidgetToDFContextServices then
-	local Localization = ContextServices.Localization
-	localization = Localization.new({
-		stringResourceTable = SourceStrings,
-		translationResourceTable = LocalizedStrings,
-		overrideLocaleChangedSignal = StudioService:GetPropertyChangedSignal("StudioLocaleId"),
-		overrideGetLocale = overrideLocale,
-		pluginName = "Drafts",
-	})
-else
-	local Localization = UILibrary.Studio.Localization
-	localization = Localization.new({
-		stringResourceTable = SourceStrings,
-		translationResourceTable = LocalizedStrings,
-		overrideLocaleChangedSignal = StudioService:GetPropertyChangedSignal("StudioLocaleId"),
-		getLocale = overrideLocale,
-		pluginName = "Drafts",
-	})
-end
+local Localization = ContextServices.Localization
+local localization = Localization.new({
+	stringResourceTable = SourceStrings,
+	translationResourceTable = LocalizedStrings,
+	overrideLocaleChangedSignal = StudioService:GetPropertyChangedSignal("StudioLocaleId"),
+	overrideGetLocale = overrideLocale,
+	pluginName = "Drafts",
+})
 
 local draftsTestCase = game:GetFastInt("DebugStudioDraftsWidgetTestCase")
 local draftsService = draftsTestCase == 0 and DraftsService or MockDraftsService.new(draftsTestCase)
@@ -98,44 +77,20 @@ local function openPluginWindow()
 		return
 	end
 
-	if FFlagUpdateDraftsWidgetToDFContextServices then
-		-- create the roact tree
-		local servicesProvider = Roact.createElement(ServiceWrapper, {
-			draftsService = draftsService,
-			focusGui = pluginGui,
-			localization = localization,
-			plugin = plugin,
-			store = roduxStore,
-			theme = theme,
-			uiLibWrapper = UILibraryWrapper.new(UILibrary),
-		}, {
-			mainView = Roact.createElement(MainView, {}),
-		})
+	-- create the roact tree
+	local servicesProvider = Roact.createElement(ServiceWrapper, {
+		draftsService = draftsService,
+		focusGui = pluginGui,
+		localization = localization,
+		plugin = plugin,
+		store = roduxStore,
+		theme = theme,
+		uiLibWrapper = UILibraryWrapper.new(UILibrary),
+	}, {
+		mainView = Roact.createElement(MainView, {}),
+	})
 
-		pluginHandle = Roact.mount(servicesProvider, pluginGui)
-	else
-		-- create the roact tree
-		local DEPRECATED_servicesProvider = Roact.createElement(ServiceWrapper, {
-			draftsService = draftsService,
-			plugin = plugin,
-			pluginGui = pluginGui,
-			localization = localization,
-			theme = theme,
-			store = roduxStore,
-		}, {
-			mainView = Roact.createElement(MainView, {}),
-		})
-
-		if FFlagRemoveUILibraryFitContent then
-			pluginHandle = Roact.mount(ContextServices.provide({
-				Theme = getTheme()
-			}, {
-				Provide = DEPRECATED_servicesProvider
-			}), pluginGui)
-		else
-			pluginHandle = Roact.mount(DEPRECATED_servicesProvider, pluginGui)
-		end
-	end
+	pluginHandle = Roact.mount(servicesProvider, pluginGui)
 end
 
 --Closes and unmounts the Skeleton Editor popup window

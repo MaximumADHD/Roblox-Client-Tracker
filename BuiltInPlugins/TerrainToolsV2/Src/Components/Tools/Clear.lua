@@ -1,7 +1,7 @@
 --[[
 	Displays panels associated with the Clear tool
 ]]
-
+local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -88,7 +88,7 @@ end
 
 function Clear:render()
 	local theme = self.props.Theme:get()
-	local localization = self.props.Localization:get()
+	local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
 
 	if not self.state.showingDialog then
 		return nil
@@ -208,14 +208,11 @@ function Clear:render()
 	})
 end
 
-
 Clear = withContext({
 	Theme = ContextItems.UILibraryTheme,
-	Localization = ContextItems.UILibraryLocalization,
+	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
 	Terrain = ContextItems.Terrain,
 })(Clear)
-
-
 
 local function mapDispatchToProps(dispatch)
 	return {

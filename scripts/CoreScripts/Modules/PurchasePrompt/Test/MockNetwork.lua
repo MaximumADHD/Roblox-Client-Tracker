@@ -7,6 +7,8 @@ local Promise = require(Root.Promise)
 
 local PurchaseWarning = require(Root.Enums.PurchaseWarning)
 
+local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
+
 local function getABTestGroup()
 	return Promise.resolve(false)
 end
@@ -53,9 +55,21 @@ local function loadAssetForEquip(assetId)
 end
 
 local function getAccountInfo()
+	if FFlagPPAccountInfoMigration then
+		return Promise.resolve({
+			isPremium = false,
+		})
+	else
+		return Promise.resolve({
+			RobuxBalance = 2147483647,
+			MembershipType = 0,
+		})
+	end
+end
+
+local function getBalanceInfo()
 	return Promise.resolve({
-		RobuxBalance = 2147483647,
-		MembershipType = 0,
+		robux = 2147483647,
 	})
 end
 
@@ -131,6 +145,7 @@ function MockNetwork.new(successResult, failureResult)
 			performPurchase = retFunction,
 			loadAssetForEquip = retFunction,
 			getAccountInfo = retFunction,
+			getBalanceInfo = retFunction,
 			getBundleDetails = retFunction,
 			getProductPurchasableDetails = retFunction,
 			postPremiumImpression = retFunction,
@@ -146,6 +161,7 @@ function MockNetwork.new(successResult, failureResult)
 			performPurchase = performPurchase,
 			loadAssetForEquip = loadAssetForEquip,
 			getAccountInfo = getAccountInfo,
+			getBalanceInfo = getBalanceInfo,
 			getBundleDetails = getBundleDetails,
 			getProductPurchasableDetails = getProductPurchasableDetails,
 			postPremiumImpression = postPremiumImpression,

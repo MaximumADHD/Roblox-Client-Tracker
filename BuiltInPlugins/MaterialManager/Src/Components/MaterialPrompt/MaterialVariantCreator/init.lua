@@ -23,10 +23,6 @@ local GeneralSettings = require(Plugin.Src.Components.MaterialPrompt.MaterialVar
 local TextureSettings = require(Plugin.Src.Components.MaterialPrompt.MaterialVariantCreator.TextureSettings)
 local AdditionalPropertiesSettings = require(Plugin.Src.Components.MaterialPrompt.MaterialVariantCreator.AdditionalPropertiesSettings)
 local MaterialPreview = require(Plugin.Src.Components.MaterialPreview)
-local DEPRECATED_MaterialPreview = require(Plugin.Src.Components.DEPRECATED_MaterialPreview)
-
-local FFlagMaterialManagerSideBarHide = game:GetFastFlag("MaterialManagerSideBarHide")
-local getFFlagMaterialManagerGridOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerGridOverhaul)
 
 export type Props = {
 	ErrorName: string?,
@@ -120,12 +116,12 @@ function MaterialVariantCreator:render()
 			}),
 		}),
 
-		MaterialPreview = Roact.createElement(if getFFlagMaterialManagerGridOverhaul() then MaterialPreview else DEPRECATED_MaterialPreview, {
+		MaterialPreview = Roact.createElement(MaterialPreview, {
 			BackgroundColor = style.Background,
 			DisableZoom = true,
-			MaterialVariant = if getFFlagMaterialManagerGridOverhaul() then materialVariant else materialVariant.Name,
+			MaterialVariant = materialVariant,
 			Material = materialVariant.BaseMaterial,
-			InitialDistance = if FFlagMaterialManagerSideBarHide then 8 else 12,
+			InitialDistance = 8,
 			LayoutOrder = 2,
 			Size = style.PreviewSize,
 		})

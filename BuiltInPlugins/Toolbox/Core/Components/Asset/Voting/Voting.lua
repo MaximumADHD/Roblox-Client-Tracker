@@ -19,32 +19,47 @@
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
+local Framework = require(Packages.Framework)
 local Roact = require(Packages.Roact)
 
 local Constants = require(Plugin.Core.Util.Constants)
 
 local VoteBar = require(Plugin.Core.Components.Asset.Voting.VoteBar)
 local VoteButtons = require(Plugin.Core.Components.Asset.Voting.VoteButtons)
+local LoadingIndicator = Framework.UI.LoadingIndicator
 
 local FFlagAssetVoteSimplification = game:GetFastFlag("AssetVoteSimplification")
+local FFlagToolboxUseGetVote = game:GetFastFlag("ToolboxUseGetVote")
+
 local function Voting(props)
 	local layoutOrder = props.LayoutOrder or 0
 	local showVotes = props.voting.ShowVotes
 	local showVoteButtons = props.voting.showVoteButtons or false
+	local showVoteLoading = props.voting.VoteLoading
 
 	local children = {}
 	if showVotes then
-		if showVoteButtons then
+		if FFlagToolboxUseGetVote and showVoteLoading then
+			children.VoteLoading = Roact.createElement(LoadingIndicator, { Size = UDim2.new(0.333, 0, 0.333, 0) })
+			children.UIListLayout = Roact.createElement("UIListLayout", {
+				HorizontalAlignment = Enum.HorizontalAlignment.Center,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+			})
+		elseif showVoteButtons then
 			children.VoteButtons = Roact.createElement(VoteButtons, props)
 		else
 			children.VoteBar = Roact.createElement(VoteBar, props)
 		end
 	end
 
+	local height = if FFlagAssetVoteSimplification and showVoteButtons then Constants.ASSET_VOTING_BUTTONS_HEIGHT
+		elseif FFlagAssetVoteSimplification then Constants.ASSET_VOTE_COUNT_HEIGHT
+		else Constants.ASSET_VOTING_HEIGHT
+
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
-		Size = if FFlagAssetVoteSimplification and showVoteButtons then UDim2.new(1, 0, 0, Constants.ASSET_VOTING_BUTTONS_HEIGHT) elseif FFlagAssetVoteSimplification then UDim2.new(1, 0, 0, Constants.ASSET_VOTE_COUNT_HEIGHT) else UDim2.new(1, 0, 0, Constants.ASSET_VOTING_HEIGHT),
+		Size = UDim2.new(1, 0, 0, height),
 	}, children)
 end
 

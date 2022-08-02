@@ -8,10 +8,13 @@
 		int LayoutOrder = The order this CheckBoxSet will sort to when placed in a UIListLayout.
 		string ErrorMessage = An error message to display on this CheckBoxSet.
 ]]
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
+
 local Cryo = require(Plugin.Packages.Cryo)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
@@ -22,7 +25,8 @@ local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 local CheckBox = UILibrary.Component.CheckBox
 
-local TitledFrame = UILibrary.Component.TitledFrame
+local UI = Framework.UI
+local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
 
 local CheckBoxSet = Roact.PureComponent:extend("CheckBoxSet")
 
@@ -77,7 +81,10 @@ function CheckBoxSet:render()
 		maxHeight = maxHeight * 3
 	end
 
-	return Roact.createElement(TitledFrame, {
+	return Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+		LayoutOrder = props.LayoutOrder or 1,
+		Title = props.Title,
+	} else {
 		Title = props.Title,
 		MaxHeight = maxHeight,
 		LayoutOrder = props.LayoutOrder or 1,

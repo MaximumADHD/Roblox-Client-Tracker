@@ -42,8 +42,8 @@ return function()
 						end
 
 						if dataTrack.Data then
-							for tick, _ in pairs(dataTrack.Data) do
-								selectionTrack.Selection[tick] = true
+							for tck, _ in pairs(dataTrack.Data) do
+								selectionTrack.Selection[tck] = true
 							end
 						end
 
@@ -53,8 +53,8 @@ return function()
 					local selectionTrack = selectedKeyframes[instanceName][trackName]
 					traverse(selectionTrack, track)
 				else
-					for _, tick in ipairs(track.Keyframes) do
-						selectedKeyframes[instanceName][trackName][tick] = true
+					for _, tck in ipairs(track.Keyframes) do
+						selectedKeyframes[instanceName][trackName][tck] = true
 					end
 				end
 			end

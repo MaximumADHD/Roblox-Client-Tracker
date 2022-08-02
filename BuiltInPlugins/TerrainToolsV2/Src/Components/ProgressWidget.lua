@@ -15,7 +15,7 @@
 		vector2 AnchorPoint
 		UDim2 Position
 ]]
-
+local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -23,7 +23,7 @@ local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local ContextItems = require(Plugin.Src.ContextItems)
+local ContextItems = if FFlagRemoveUILibraryCompatLocalization then nil else require(Plugin.Src.ContextItems)
 
 local UI = Framework.UI
 local Container = UI.Container
@@ -55,7 +55,7 @@ local ProgressWidget = Roact.PureComponent:extend("ProgressWidget")
 
 function ProgressWidget:render()
 	local props = self.props
-	local localization = self.props.Localization:get()
+	local localization = if FFlagRemoveUILibraryCompatLocalization then props.Localization else self.props.Localization:get()
 
 	local anchorPoint = props.AnchorPoint
 	local position = props.Position
@@ -149,7 +149,9 @@ function ProgressWidget:render()
 			PauseButton = pausable and Roact.createElement(ProgressWidgetButton, {
 				LayoutOrder = 1,
 				Text = localization:getText("Action", isPaused and "Resume" or "Pause"),
-				Style = "Round",
+				-- This was set to "Round", but the terrain-specific color scheme was modified to make Round look the same as RoundPrimary,
+				-- I don't know what was the original intention, but this keeps the looks unchanged.
+				Style = "RoundPrimary",   
 				OnClick = onPauseButtonClicked,
 			}),
 
@@ -163,11 +165,8 @@ function ProgressWidget:render()
 	})
 end
 
-
 ProgressWidget = withContext({
-	Localization = ContextItems.UILibraryLocalization,
+	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
 })(ProgressWidget)
-
-
 
 return ProgressWidget

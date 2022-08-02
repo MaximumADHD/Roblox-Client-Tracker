@@ -1,7 +1,9 @@
 local CorePackages = game:GetService("CorePackages")
-
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
+local UrlBuilderPackage = require(CorePackages.Packages.UrlBuilder)
+local UrlBuilder = UrlBuilderPackage.UrlBuilder
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -23,10 +25,19 @@ local CONTENTS_TOP_BOTTOM_PADDING = 8
 local SHARE_BUTTON_WIDTH = 69
 local SHARE_INVITE_LINK_BACKGROUND = Color3.fromRGB(79, 84, 95)
 
+function ShareInviteLink:init()
+	self.showSharesheet = function(linkId, linkType)
+		-- TODO COEXP-310: Show sharesheet with url as the text
+		local _url = UrlBuilder.sharelinks.appsflyer(linkId, linkType)
+	end
+end
+
 function ShareInviteLink:didUpdate(oldProps)
-	-- TODO COEXP-310: Show sharesheet if self.props.shareInviteLink is present
 	if oldProps.shareInviteLink == nil and self.props.shareInviteLink ~= nil then
-		self.props.analytics:onLinkGenerated(RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue(), self.props.shareInviteLink.linkId)
+		local linkType = RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue()
+		local linkId = self.props.shareInviteLink.linkId
+		self.props.analytics:onLinkGenerated(linkType, linkId)
+		self.showSharesheet(linkId, linkType)
 	end
 end
 
@@ -42,10 +53,11 @@ function ShareInviteLink:render()
 		if self.props.shareInviteLink == nil then
 			self.props.fetchShareInviteLink()
 		else
-			-- TODO COEXP-310: Show sharesheet
+			local linkType = RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue()
+			local linkId = self.props.shareInviteLink.linkId
+			self.showSharesheet(linkId, linkType)
 		end
 	end
-
 
 	return Roact.createElement("Frame", {
 		Size = size,

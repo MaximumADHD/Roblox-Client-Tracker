@@ -27,8 +27,12 @@ local PathProperty = require(Properties.PathProperty)
 local VectorProperty = require(Properties.VectorProperty)
 
 local getFFlagUseAssetImportSession = require(Plugin.Src.Flags.getFFlagUseAssetImportSession)
+local getFFlagAssetImportSessionCleanup = require(Plugin.Src.Flags.getFFlagAssetImportSessionCleanup)
+local getFFlagAssetImportUsePropertyFactories = require(Plugin.Src.Flags.getFFlagAssetImportUsePropertyFactories)
 
 local SetInstanceMap = require(Plugin.Src.Actions.SetInstanceMap)
+local UpdatePreviewInstance = require(Plugin.Src.Thunks.UpdatePreviewInstance)
+
 
 local ELEMENT_CLASSES = {
 	["boolean"] = BooleanProperty,
@@ -36,13 +40,17 @@ local ELEMENT_CLASSES = {
 	["number"] = NumberProperty,
 	["string"] = StringProperty,
 	["vector"] = VectorProperty,
-	["path"] = PathProperty,
 }
+
+if not getFFlagAssetImportUsePropertyFactories() then
+	ELEMENT_CLASSES["path"] = PathProperty
+end
 
 local function GetPropertyComponent(instance, valueType)
 	local constructor
 
 	if valueType then
+		-- Remove valueType with getFFlagAssetImportUsePropertyFactories
 		constructor = ELEMENT_CLASSES[valueType]
 	else
 		constructor = ELEMENT_CLASSES[type(instance)]
@@ -56,8 +64,22 @@ end
 local PropertyView = Roact.PureComponent:extend("PropertyView")
 
 function PropertyView:_connect()
+	local linkedProp = nil
+
+	if getFFlagAssetImportUsePropertyFactories() then
+		local propertyMetadata = self.props.PropertyMetadata
+
+		if propertyMetadata.LinkedProp then
+			linkedProp = propertyMetadata.LinkedProp
+		else
+			linkedProp = propertyMetadata.Name
+		end
+	else
+		linkedProp = self.props.PropertyName
+	end
+
 	if self.props.Instance then
-		local event = self.props.Instance:GetPropertyChangedSignal(self.props.PropertyName)
+		local event = self.props.Instance:GetPropertyChangedSignal(linkedProp)
 		self._changedConnection = event:Connect(function()
 			-- Update the render
 			self:setState({})
@@ -73,6 +95,10 @@ function PropertyView:_disconnect()
 end
 
 function PropertyView:init()
+	
+	local function updatePreviewInstance()
+		self.props.UpdatePreviewInstance(self.props.AssetImportSession:GetInstance(self.props.Instance.Id))
+	end
 	self.updateInstanceMap = function()
 		local instanceMap
 		if getFFlagUseAssetImportSession() then
@@ -83,15 +109,38 @@ function PropertyView:init()
 		self.props.SetInstanceMap(instanceMap)
 	end
 	self.onToggleItem = function()
-		self.props.Instance[self.props.PropertyName] = not self.props.Instance[self.props.PropertyName]
-		self.updateInstanceMap()
+		if getFFlagAssetImportUsePropertyFactories() then
+			local propertyMetadata = self.props.PropertyMetadata
+			self.props.Instance[propertyMetadata.Name] = not self.props.Instance[propertyMetadata.Name]
+		else
+			self.props.Instance[self.props.PropertyName] = not self.props.Instance[self.props.PropertyName]
+		end
+		if getFFlagAssetImportSessionCleanup() then
+			updatePreviewInstance()
+		else
+			self.updateInstanceMap()
+		end
 	end
 	self.onSetItem = function(newText)
-		self.props.Instance[self.props.PropertyName] = newText
+		if getFFlagAssetImportUsePropertyFactories() then
+			local propertyMetadata = self.props.PropertyMetadata
+			self.props.Instance[propertyMetadata.Name] = newText
+		else
+			self.props.Instance[self.props.PropertyName] = newText
+		end
 	end
 	self.onSelectItem = function(itemName)
-		self.props.Instance[self.props.PropertyName] = self.props.Instance[self.props.PropertyName].EnumType[itemName]
-		self.updateInstanceMap()
+		if getFFlagAssetImportUsePropertyFactories() then
+			local propertyMetadata = self.props.PropertyMetadata
+			self.props.Instance[propertyMetadata.Name] = self.props.Instance[propertyMetadata.Name].EnumType[itemName]
+		else
+			self.props.Instance[self.props.PropertyName] = self.props.Instance[self.props.PropertyName].EnumType[itemName]
+		end
+		if getFFlagAssetImportSessionCleanup() then
+			updatePreviewInstance()
+		else
+			self.updateInstanceMap()
+		end
 	end
 end
 
@@ -124,15 +173,42 @@ function PropertyView:render()
 	local localization = props.Localization
 	local style = props.Stylizer
 
-	local editable = props.Editable
+	local propertyMetadata = props.PropertyMetadata
+
 	local instance = props.Instance
 	local statusLevel = props.StatusLevel
 	local statusMessage = props.StatusMessage
-	local value = instance[props.PropertyName]
+	local editable = nil
+	local propertyName = nil
+	if getFFlagAssetImportUsePropertyFactories() then
+		editable = propertyMetadata.Editable
+		propertyName = propertyMetadata.Name
+	else
+		editable = props.Editable
+		propertyName = props.PropertyName
+	end
+	local value = instance[propertyName]
 
 	local dependentValues
-	if self.props.Dependencies then
-		dependentValues = getDependentValues(self.props.Dependencies, instance)
+	if getFFlagAssetImportUsePropertyFactories() then
+		if propertyMetadata.Dependencies then
+			dependentValues = getDependentValues(propertyMetadata.Dependencies, instance)
+		end
+	else
+		if self.props.Dependencies then
+			dependentValues = getDependentValues(self.props.Dependencies, instance)
+		end
+	end
+
+	local editorComponent = nil
+	if getFFlagAssetImportUsePropertyFactories() then
+		if propertyMetadata.ComponentFactory then
+			editorComponent = propertyMetadata.ComponentFactory
+		else
+			editorComponent = GetPropertyComponent(value)
+		end
+	else
+		editorComponent = GetPropertyComponent(value, props.ValueType)
 	end
 
 	local iconSize = style.PropertyView.IconSize
@@ -158,27 +234,28 @@ function PropertyView:render()
 		}),
 		Label = Roact.createElement(TextLabel, {
 			AutomaticSize = Enum.AutomaticSize.Y,
-			Text = localization:getText("Properties", props.PropertyName),
+			Text = localization:getText("Properties", propertyName),
 			TextWrapped = false,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			LayoutOrder = 1,
 			Size = UDim2.new(0.5, -labelOffset, 0, 0),
 		}, {
 			Tooltip = Roact.createElement(Tooltip, {
-				Text = localization:getText("PropertiesTooltip", props.PropertyName),
+				Text = localization:getText("PropertiesTooltip", propertyName),
 			})
 		}),
-		Editor = Roact.createElement(GetPropertyComponent(value, props.ValueType), {
+		Editor = Roact.createElement(editorComponent, {
 			DependentValues = dependentValues,
 			Editable = editable,
 			LayoutOrder = 3,
-			Name = props.PropertyName,
+			Name = propertyName,
 			OnSelectItem = self.onSelectItem,
 			OnSetItem = self.onSetItem,
 			OnToggleItem = self.onToggleItem,
 			Size = UDim2.new(0.5, 0, 0, 24),
 			Value = value,
 			Localization = localization,
+			PropertyMetadata = propertyMetadata,
 		}),
 	})
 end
@@ -198,6 +275,9 @@ local function mapDispatchToProps(dispatch)
 	return {
 		SetInstanceMap = function(instanceMap)
 			dispatch(SetInstanceMap(instanceMap))
+		end,
+		UpdatePreviewInstance = function(previewInstance)
+			dispatch(UpdatePreviewInstance(previewInstance))
 		end,
 	}
 end

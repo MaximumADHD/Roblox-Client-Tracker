@@ -1,9 +1,5 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local _Types = require(Plugin.Src.Types)
-
-local Flags = Plugin.Src.Flags
-local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
-
 local enumToPath = {
 	[Enum.Material.Aluminum] = {
 		"Materials",
@@ -45,10 +41,10 @@ local enumToPath = {
 		"Materials",
 		"Fabric",
 	},
-	[Enum.Material.ForceField] = if getFFlagMaterialManagerGlassNeonForceField() then {
+	[Enum.Material.ForceField] = {
 		"Materials",
 		"Special"
-	} else nil,
+	},
 	[Enum.Material.Glacier] = {
 		"Materials",
 		"Organic",
@@ -81,10 +77,10 @@ local enumToPath = {
 		"Materials",
 		"Rock",
 	},
-	[Enum.Material.Neon] = if getFFlagMaterialManagerGlassNeonForceField() then {
+	[Enum.Material.Neon] = {
 		"Materials",
 		"Special",
-	} else nil,
+	},
 	[Enum.Material.Marble] = {
 		"Materials",
 		"Rock",
@@ -147,12 +143,6 @@ local enumToPath = {
 	},
 }
 
-if getFFlagMaterialManagerGlassNeonForceField() then
-	return function(material : Enum.Material) : _Types.Path
-		return enumToPath[material]
-	end
-else
-	return function(materialVariant : MaterialVariant) : _Types.Path
-		return enumToPath[materialVariant.BaseMaterial]
-	end
+return function(material : Enum.Material) : _Types.Path
+	return enumToPath[material]
 end

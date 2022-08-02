@@ -1,14 +1,14 @@
 local Root = script.Parent.Parent
 
 local AccountInfoReceived = require(Root.Actions.AccountInfoReceived)
+local BalanceInfoRecieved = require(Root.Actions.BalanceInfoRecieved)
 local PurchaseCompleteRecieved = require(Root.Actions.PurchaseCompleteRecieved)
 local ErrorOccurred = require(Root.Actions.ErrorOccurred)
-local UpsellFlow = require(Root.Enums.UpsellFlow)
 local PurchaseError = require(Root.Enums.PurchaseError)
 local PromptState = require(Root.Enums.PromptState)
 local RequestType = require(Root.Enums.RequestType)
-local getUpsellFlow = require(Root.NativeUpsell.getUpsellFlow)
 local getAccountInfo = require(Root.Network.getAccountInfo)
+local getBalanceInfo = require(Root.Network.getBalanceInfo)
 local Network = require(Root.Services.Network)
 local Analytics = require(Root.Services.Analytics)
 local ExternalSettings = require(Root.Services.ExternalSettings)
@@ -18,7 +18,7 @@ local Thunk = require(Root.Thunk)
 
 local purchaseItem = require(script.Parent.purchaseItem)
 
-local GetFFlagPPRetryPost2SVWebviewFix = require(Root.Flags.GetFFlagPPRetryPost2SVWebviewFix)
+local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
 
 local MAX_RETRIES = game:DefineFastInt("UpsellAccountBalanceRetryAttemps", 3)
 local RETRY_RATE = game:DefineFastInt("UpsellAccountBalanceRetryIntervalSec", 1)
@@ -40,10 +40,8 @@ local function retryAfterUpsell(retriesRemaining)
 		local requestType = state.promptRequest.requestType
 		local promptState = state.promptState
 
-		if GetFFlagPPRetryPost2SVWebviewFix() then
-			if requestType == RequestType.None then
-				return
-			end
+		if requestType == RequestType.None then
+			return
 		end
 
 		if requestType == RequestType.Premium then
@@ -52,16 +50,21 @@ local function retryAfterUpsell(retriesRemaining)
 				store:dispatch(completeRequest())
 			end
 		else
-			return getAccountInfo(network, externalSettings)
-				:andThen(function(accountInfo)
+			return (FFlagPPAccountInfoMigration
+				and getBalanceInfo(network, externalSettings)
+				or getAccountInfo(network, externalSettings))
+				:andThen(function(balanceInfo)
 					local state = store:getState()
-
 					local isPlayerPremium = state.accountInfo.membershipType == 4
 					local price = getPlayerPrice(state.productInfo, isPlayerPremium)
 
-					local balance = accountInfo.RobuxBalance
+					local balance = FFlagPPAccountInfoMigration and balanceInfo.robux or balanceInfo.RobuxBalance
 
-					store:dispatch(AccountInfoReceived(accountInfo))
+					if FFlagPPAccountInfoMigration then
+						store:dispatch(BalanceInfoRecieved(balanceInfo))
+					else
+						store:dispatch(AccountInfoReceived(balanceInfo))
+					end
 
 					if price ~= nil and price > balance then
 						if retriesRemaining > 0 then

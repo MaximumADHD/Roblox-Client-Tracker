@@ -40,6 +40,7 @@ return function()
 	local SetActive = require(Plugin.Src.Actions.SetActive)
 
 	local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+	local GetFFlagFixSelectionRightArrow = require(Plugin.LuaFlags.GetFFlagFixSelectionRightArrow)
 
 	local testRightClickInfo = {
 		InstanceName = "Root",
@@ -343,7 +344,11 @@ return function()
 
 			store:dispatch(SetSelectedTracks())
 			state = store:getState()
-			expect(state.SelectedTracks).never.to.be.ok()
+			if GetFFlagFixSelectionRightArrow() then
+				expect(#state.SelectedTracks).to.equal(0)
+			else
+				expect(state.SelectedTracks).never.to.be.ok()
+			end
 		end)
 	end)
 

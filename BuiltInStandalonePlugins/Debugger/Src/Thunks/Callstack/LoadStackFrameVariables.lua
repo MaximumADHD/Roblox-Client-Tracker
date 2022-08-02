@@ -9,8 +9,6 @@ local Actions = Plugin.Src.Actions
 local AddRootVariables = require(Actions.Watch.AddRootVariables)
 local AddChildVariables = require(Actions.Watch.AddChildVariables)
 
-local FFlagDebuggerOnlyLoadCurrentFrameVariables = require(Plugin.Src.Flags.GetFFlagDebuggerOnlyLoadCurrentFrameVariables)
-
 local function addChildVariableRowsForDebuggerVariable(store, stepStateBundle, debuggerVar, scope)
 	local state = store:getState()
 	local filterText = state.Watch.filterText
@@ -147,7 +145,7 @@ end
 
 return function(debuggerConnection, stackFrame, stepStateBundle: StepStateBundle.StepStateBundle)
 	return function(store, contextItems)
-		if not FFlagDebuggerOnlyLoadCurrentFrameVariables() or not stackFrame.Populated then
+		if not stackFrame.Populated then
 			debuggerConnection:Populate(stackFrame, function()
 				local dst = stepStateBundle.debuggerStateToken
 				if dst ~= store:getState().Common.debuggerConnectionIdToDST[dst.debuggerConnectionId] then

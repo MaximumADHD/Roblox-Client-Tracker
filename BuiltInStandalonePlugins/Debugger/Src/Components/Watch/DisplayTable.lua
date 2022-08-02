@@ -214,7 +214,7 @@ function DisplayTable:init()
 	local myWatchInitialSizes = {}
 	local numWatchColumns = 3
 	for i = 1, numWatchColumns do
-		table.insert(myWatchInitialSizes, UDim.new(1 / numColumns, 0))
+		table.insert(myWatchInitialSizes, UDim.new(1 / numWatchColumns, 0))
 	end
 
 	self.state = {
@@ -411,6 +411,11 @@ function DisplayTable:didMount()
 				MyWatchColumnSizes = ColumnResizeHelperFunctions.fetchSizesFromColumnScales(configs[Constants.ColumnSizeMyWatches]),
 			}
 		end)
+		if configs[Constants.WatchVariables] then
+			for _, exp in ipairs(configs[Constants.WatchVariables]) do
+				props.OnAddExpression(exp)
+			end
+		end
 	end
 end
 
@@ -422,6 +427,7 @@ function DisplayTable:willUnmount()
 	configs[Constants.Tab] = props.SelectedTab
 	configs[Constants.ColumnSizeVariables] = ColumnResizeHelperFunctions.fetchScaleFromColumnSizes(self.state.VariableColumnSizes)
 	configs[Constants.ColumnSizeMyWatches] = ColumnResizeHelperFunctions.fetchScaleFromColumnSizes(self.state.MyWatchColumnSizes)
+	configs[Constants.WatchVariables] = props.Expressions
 	plugin:SetSetting(WATCH_WINDOW_CONFIGS, configs)
 end
 
@@ -532,6 +538,7 @@ DisplayTable = RoactRodux.connect(function(state, props)
 		SortIndex = watch.columnIndex,
 		SortOrder = watch.sortDirection,
 		EnabledScopes = watch.listOfEnabledScopes,
+		Expressions = watch.listOfExpressions,
 	}
 end, function(dispatch)
 	return {

@@ -36,15 +36,33 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
 local Framework = require(Plugin.Packages.Framework)
-local FFlagRemoveUILibraryRoundTextBox = Framework.SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
 
-local UILibrary = require(Plugin.Packages.UILibrary)
-local TitledFrame = UILibrary.Component.TitledFrame
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryRoundTextBox = SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
+local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
+
+local UILibrary = if FFlagRemoveUILibraryTitledFrame and FFlagRemoveUILibraryRoundTextBox then nil else require(Plugin.Packages.UILibrary)
 
 local RoundTextBox
 if not FFlagRemoveUILibraryRoundTextBox then
 	RoundTextBox = UILibrary.Component.RoundTextBox
 end
+
+local Framework = require(Plugin.Packages.Framework)
+local UI = Framework.UI
+
+local Button = UI.Button
+local HoverArea = UI.HoverArea
+local Image = UI.Decoration.Image
+local LinkText = UI.LinkText
+local SelectInput = UI.SelectInput
+local Separator = if FFlagRemoveUILibrarySeparator then Framework.UI.Separator else UILibrary.Component.Separator
+local StyledDialog = Framework.StudioUI.StyledDialog
+local TextLabel = UI.Decoration.TextLabel
+local TextInput2 = UI.TextInput2
+local TextWithInlineLink = UI.TextWithInlineLink
+local Tooltip = UI.Tooltip
+local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
 
 local TeachingCallout = require(Plugin.Src.Components.TeachingCallout)
 
@@ -76,19 +94,6 @@ local checkboxToggleKey = KeyProvider.getCheckboxToggleKeyName()
 local selectedKey = KeyProvider.getSelectedKeyName()
 local termsOfUseDialogKey = KeyProvider.getTermsOfUseDialogKeyName()
 local buttonClickedKey = KeyProvider.getButtonClickedKeyName()
-
-local UI = Framework.UI
-local Button = UI.Button
-local HoverArea = UI.HoverArea
-local Image = UI.Decoration.Image
-local LinkText = UI.LinkText
-local SelectInput = UI.SelectInput
-local Separator = if FFlagRemoveUILibrarySeparator then UI.Separator else UILibrary.Component.Separator
-local StyledDialog = Framework.StudioUI.StyledDialog
-local TextLabel = UI.Decoration.TextLabel
-local TextInput2 = UI.TextInput2
-local TextWithInlineLink = UI.TextWithInlineLink
-local Tooltip = UI.Tooltip
 
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 
@@ -177,7 +182,10 @@ local function displayContents(parent)
 			LayoutOrder = layoutOrder:getNextOrder(),
 		}),
 
-		Name = Roact.createElement(TitledFrame, {
+		Name = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+			LayoutOrder = layoutOrder:getNextOrder(),
+			Title = localization:getText("PageTitle", "Name"),
+		} else {
 			Title = localization:getText("PageTitle", "Name"),
 			MaxHeight = 60,
 			LayoutOrder = layoutOrder:getNextOrder(),
@@ -202,7 +210,10 @@ local function displayContents(parent)
 			),
 		}),
 
-		Description = Roact.createElement(TitledFrame, {
+		Description = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+			LayoutOrder = layoutOrder:getNextOrder(),
+			Title = localization:getText("PageTitle", "Description"),
+		} else {
 			Title = localization:getText("PageTitle", "Description"),
 			MaxHeight = theme.descriptionBox.maxHeight,
 			LayoutOrder = layoutOrder:getNextOrder(),
@@ -235,7 +246,10 @@ local function displayContents(parent)
 			LayoutOrder = layoutOrder:getNextOrder(),
 		}),
 
-		Creator = Roact.createElement(TitledFrame, {
+		Creator = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+			LayoutOrder = layoutOrder:getNextOrder(),
+			Title = localization:getText("PageTitle", "Creator"),
+		} else {
 			Title = localization:getText("PageTitle", "Creator"),
 			MaxHeight = 38,
 			TextSize = Constants.TEXT_SIZE,
@@ -280,7 +294,10 @@ local function displayContents(parent)
 			LayoutOrder = layoutOrder:getNextOrder(),
 		}),
 
-		Genre = Roact.createElement(TitledFrame, {
+		Genre = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+			LayoutOrder = layoutOrder:getNextOrder(),
+			Title = localization:getText("PageTitle", "Genre"),
+		} else {
 			Title = localization:getText("PageTitle", "Genre"),
 			MaxHeight = 38,
 			TextSize = Constants.TEXT_SIZE,

@@ -30,30 +30,24 @@ function UpdateOverview:init()
 	local plugin = props.plugin
 	local updateAvailable = props.updateAvailable
 	local id = tostring(props.data.assetId)
-	local configs = plugin:GetSetting(Constants.PLUGIN_SETTING_NAME)
-
-	if (configs[id] == nil) then
-		local newConfigs = deepCopy(configs)
-		newConfigs[id] = false
-		plugin:SetSetting(Constants.PLUGIN_SETTING_NAME, newConfigs)
-		configs = plugin:GetSetting(Constants.PLUGIN_SETTING_NAME)
-	end
-
+	
 	self.state = {
-		checked = configs[id],
+		checked = props.data.autoUpdateEnabled,
 		lastModified = props.data.updated,
 	}
 
 	self.onClick = function()
-		local currConfigs = plugin:GetSetting(Constants.PLUGIN_SETTING_NAME)
-		local newConfigs = deepCopy(currConfigs)
-		newConfigs[id] = not currConfigs[id]
-		plugin:SetSetting(Constants.PLUGIN_SETTING_NAME, newConfigs)
+		local PluginManagementService = game:GetService("PluginManagementService")
+		local pluginId = tonumber(id)
+		local enabled = not self.state.checked
+
+		PluginManagementService:SetAutoUpdate(pluginId, enabled)
 		self:setState({
-			checked = newConfigs[id],
+			checked = enabled,
 			lastModified = props.data.updated,
 		})
-		if (self.state.checked and updateAvailable) then
+		
+		if (enabled and updateAvailable) then
 			props.Analytics:report("TryUpdatePlugin", props.data.assetId)
 			props.UpdatePlugin(props.data, props.Analytics)
 		end

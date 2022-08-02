@@ -1,14 +1,10 @@
 local MockServiceWrapper = require(script.Parent.MockServiceWrapper)
-local FFlagUpdateDraftsWidgetToDFContextServices = game:GetFastFlag("UpdateDraftsWidgetToDFContextServices")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-
-local withLocalization = if FFlagUpdateDraftsWidgetToDFContextServices then nil else require(Plugin.Packages.UILibrary).Localizing.withLocalization
-local withTheme = if FFlagUpdateDraftsWidgetToDFContextServices then nil else require(Plugin.Src.ContextServices.Theming).withTheme
 
 return function()
 	it("should create and destroy without errors", function()
@@ -32,35 +28,25 @@ return function()
 
 	describe("Localization", function()
 		local function createTestLocalizedElement()
-			if FFlagUpdateDraftsWidgetToDFContextServices then
-				local testElement = Roact.PureComponent:extend("TestElement")
+			local testElement = Roact.PureComponent:extend("TestElement")
 
-				function testElement:render()
-					local localization = self.props.Localization
-					return Roact.createElement("TextLabel",{
-						Text = localization:getText("test", "Hello World")
-					})
-				end
-
-				testElement = withContext({
-					Localization = ContextServices.Localization,
-				})(testElement)
-
-				return testElement
-			else
-				return
+			function testElement:render()
+				local localization = self.props.Localization
+				return Roact.createElement("TextLabel",{
+					Text = localization:getText("test", "Hello World")
+				})
 			end
+
+			testElement = withContext({
+				Localization = ContextServices.Localization,
+			})(testElement)
+
+			return testElement
 		end
 
 		it("should supply a functional localization object to its children", function()
 			local element = Roact.createElement(MockServiceWrapper, {}, {
-				TestElement = Roact.createElement(if FFlagUpdateDraftsWidgetToDFContextServices then createTestLocalizedElement() else function()
-					return withLocalization(function(localization)
-						return Roact.createElement("TextLabel", {
-							Text = localization:getText("test", "Hello World")
-						})
-					end)
-				end)
+				TestElement = Roact.createElement(createTestLocalizedElement())
 			})
 
 			local container = Instance.new("Folder")
@@ -103,35 +89,25 @@ return function()
 
 	describe("Theme", function()
 		local function createTestThemedElement()
-			if FFlagUpdateDraftsWidgetToDFContextServices then
-				local testElement = Roact.PureComponent:extend("TestElement")
+			local testElement = Roact.PureComponent:extend("TestElement")
 
-				function testElement:render()
-					local theme = self.props.Stylizer
-					return Roact.createElement("Frame",{
-						BackgroundColor3 = theme.backgroundColor
-					})
-				end
-
-				testElement = withContext({
-					Stylizer = ContextServices.Stylizer,
-				})(testElement)
-
-				return testElement
-			else
-				return
+			function testElement:render()
+				local theme = self.props.Stylizer
+				return Roact.createElement("Frame",{
+					BackgroundColor3 = theme.backgroundColor
+				})
 			end
+
+			testElement = withContext({
+				Stylizer = ContextServices.Stylizer,
+			})(testElement)
+
+			return testElement
 		end
 
 		it("should supply a functional theme object to its children", function()
 			local element = Roact.createElement(MockServiceWrapper, {}, {
-				TestElement = Roact.createElement(if FFlagUpdateDraftsWidgetToDFContextServices then createTestThemedElement() else function()
-					return withTheme(function(theme)
-						return Roact.createElement("Frame", {
-							BackgroundColor3 = theme.backgroundColor
-						})
-					end)
-				end)
+				TestElement = Roact.createElement(createTestThemedElement())
 			})
 			local container = Instance.new("Folder")
 			local instance = Roact.mount(element, container)

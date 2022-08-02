@@ -7,7 +7,6 @@
 	TextSize - size of text in the item
 	Font - font of the text in the item
 --]]
-local FFlagUpdateDraftsWidgetToDFContextServices = game:GetFastFlag("UpdateDraftsWidgetToDFContextServices")
 local TextService = game:GetService("TextService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -17,9 +16,6 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-
-local withLocalization = if FFlagUpdateDraftsWidgetToDFContextServices then nil else UILibrary.Localizing.withLocalization
-local withTheme = if FFlagUpdateDraftsWidgetToDFContextServices then nil else require(Plugin.Src.ContextServices.Theming).withTheme
 
 local DraftStatusIndicator = require(Plugin.Src.Components.DraftStatusIndicator)
 local Tooltip = UILibrary.Component.Tooltip
@@ -44,22 +40,22 @@ function DraftListItem:init()
 		})
 	end
 
-	self.getDraftIndicator = function(DEPRECATED_theme, DEPRECATED_localization)
+	self.getDraftIndicator = function()
 		local draftState = self.props.Drafts[self.props.Draft]
-		local localization = if FFlagUpdateDraftsWidgetToDFContextServices then self.props.Localization else DEPRECATED_localization
-		local theme = if FFlagUpdateDraftsWidgetToDFContextServices then self.props.Stylizer else DEPRECATED_theme
+		local localization = self.props.Localization
+		local theme = self.props.Stylizer
 		local indicatorText
 		local indicatorIcon
 
 		if draftState[DraftState.Committed] == CommitState.Committed then
 			indicatorText = localization:getText("Tooltip", "DraftCommitted")
-			indicatorIcon = if FFlagUpdateDraftsWidgetToDFContextServices then theme.icons.DraftState.Committed else theme.Icons.DraftState.Committed
+			indicatorIcon = theme.icons.DraftState.Committed
 		elseif draftState[DraftState.Deleted] then
 			indicatorText = localization:getText("Tooltip", "ScriptDeleted")
-			indicatorIcon = if FFlagUpdateDraftsWidgetToDFContextServices then theme.icons.DraftState.Deleted else theme.Icons.DraftState.Deleted
+			indicatorIcon = theme.icons.DraftState.Deleted
 		elseif draftState[DraftState.Outdated] then
 			indicatorText = localization:getText("Tooltip", "DraftOutdated")
-			indicatorIcon = if FFlagUpdateDraftsWidgetToDFContextServices then theme.icons.DraftState.Outdated else theme.Icons.DraftState.Outdated
+			indicatorIcon = theme.icons.DraftState.Outdated
 		end
 
 		if indicatorIcon then
@@ -70,9 +66,9 @@ function DraftListItem:init()
 		end
 	end
 
-	self.getStatusText = function(DEPRECATED_localization)
+	self.getStatusText = function()
 		local draftState = self.props.Drafts[self.props.Draft]
-		local localization = if FFlagUpdateDraftsWidgetToDFContextServices then self.props.Localization else DEPRECATED_localization
+		local localization = self.props.Localization
 
 		if draftState[DraftState.Committed] == CommitState.Committed then
 			return ""
@@ -87,18 +83,14 @@ function DraftListItem:init()
 		return ""
 	end
 
-	self.getLabelText = function(DEPRECATED_localization)
+	self.getLabelText = function()
 		local draft = self.props.Draft
 		local draftName = self.state.draftName
 		local draftState = self.props.Drafts[draft]
-		local localization = if FFlagUpdateDraftsWidgetToDFContextServices then self.props.Localization else DEPRECATED_localization
+		local localization = self.props.Localization
 
 		if draftState[DraftState.Committed] == CommitState.Committed then
-			if FFlagUpdateDraftsWidgetToDFContextServices then
-				return localization:getText("DraftItem", "CommittedLabel", {draftName})
-			else
-				return localization:getText("DraftItem", "CommittedLabel", draftName)
-			end
+			return localization:getText("DraftItem", "CommittedLabel", {draftName})
 		else
 			return ".../"..draftName
 		end
@@ -130,75 +122,65 @@ function DraftListItem:render()
 	local indicatorMargin = self.props.IndicatorMargin
 	local indicatorEnabled = indicatorMargin > 0
 
-	local function renderWithContext(theme, localization)
-		local indicator = self.getDraftIndicator(theme, localization)
-		local text = self.getLabelText(localization)
-		local statusText = self.getStatusText(localization)
-		local statusWidth = TextService:GetTextSize(statusText, textSize, font, Vector2.new(math.huge, math.huge)).X
-		statusWidth = statusWidth > 0 and statusWidth + HORIZONTAL_PADDING or 0
+	local indicator = self.getDraftIndicator()
+	local text = self.getLabelText()
+	local statusText = self.getStatusText()
+	local statusWidth = TextService:GetTextSize(statusText, textSize, font, Vector2.new(math.huge, math.huge)).X
+	statusWidth = statusWidth > 0 and statusWidth + HORIZONTAL_PADDING or 0
 
-		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, 0),
+	return Roact.createElement("Frame", {
+		Size = UDim2.new(1, 0, 1, 0),
+		BackgroundTransparency = 1,
+	}, {
+		Indicator = indicatorEnabled and Roact.createElement("Frame", {
+			Size = UDim2.new(0, indicatorMargin, 1, 0),
 			BackgroundTransparency = 1,
 		}, {
-			Indicator = indicatorEnabled and Roact.createElement("Frame", {
-				Size = UDim2.new(0, indicatorMargin, 1, 0),
-				BackgroundTransparency = 1,
-			}, {
-				Indicator = indicator,
-			}),
+			Indicator = indicator,
+		}),
 
-			Status = Roact.createElement("TextLabel", {
-				BackgroundTransparency = 1,
-				Size = UDim2.new(0, statusWidth, 1, 0),
-				AnchorPoint = Vector2.new(1, 0),
-				Position = UDim2.new(1, 0, 0, 0),
-				Text = statusText,
-				TextColor3 = statusTextColor,
-				TextXAlignment = Enum.TextXAlignment.Right,
-				Font = font,
-				TextSize = textSize,
-			}),
+		Status = Roact.createElement("TextLabel", {
+			BackgroundTransparency = 1,
+			Size = UDim2.new(0, statusWidth, 1, 0),
+			AnchorPoint = Vector2.new(1, 0),
+			Position = UDim2.new(1, 0, 0, 0),
+			Text = statusText,
+			TextColor3 = statusTextColor,
+			TextXAlignment = Enum.TextXAlignment.Right,
+			Font = font,
+			TextSize = textSize,
+		}),
 
-			ScriptName = Roact.createElement("TextLabel", {
-				Size = UDim2.new(1, -(indicatorMargin+statusWidth), 1, 0),
-				Position = UDim2.new(0, indicatorMargin, 0, 0),
-				BackgroundTransparency = 1,
+		ScriptName = Roact.createElement("TextLabel", {
+			Size = UDim2.new(1, -(indicatorMargin+statusWidth), 1, 0),
+			Position = UDim2.new(0, indicatorMargin, 0, 0),
+			BackgroundTransparency = 1,
 
-				TextTruncate = Enum.TextTruncate.AtEnd,
-				Text = text,
-				TextXAlignment = Enum.TextXAlignment.Left,
+			TextTruncate = Enum.TextTruncate.AtEnd,
+			Text = text,
+			TextXAlignment = Enum.TextXAlignment.Left,
 
-				TextColor3 = primaryTextColor,
-				Font = font,
-				TextSize = textSize,
-			}, {
-				Tooltip = Roact.createElement(Tooltip, {
-					Text = draft:GetFullName(),
-					Enabled = true,
-				})
-			}),
-
-			UIPadding = Roact.createElement("UIPadding", {
-				PaddingLeft = UDim.new(0, indicatorEnabled and 0 or HORIZONTAL_PADDING),
-				PaddingRight = UDim.new(0, 12 + HORIZONTAL_PADDING),
+			TextColor3 = primaryTextColor,
+			Font = font,
+			TextSize = textSize,
+		}, {
+			Tooltip = Roact.createElement(Tooltip, {
+				Text = draft:GetFullName(),
+				Enabled = true,
 			})
+		}),
+
+		UIPadding = Roact.createElement("UIPadding", {
+			PaddingLeft = UDim.new(0, indicatorEnabled and 0 or HORIZONTAL_PADDING),
+			PaddingRight = UDim.new(0, 12 + HORIZONTAL_PADDING),
 		})
-	end
-
-	return if FFlagUpdateDraftsWidgetToDFContextServices then renderWithContext() else withTheme(function(theme)
-		return withLocalization(function(localization)
-			return renderWithContext(theme, localization)
-		end)
-	end)
+	})
 end
 
-if FFlagUpdateDraftsWidgetToDFContextServices then
-	DraftListItem = withContext({
-		Localization = ContextServices.Localization,
-		Stylizer = ContextServices.Stylizer,
-	})(DraftListItem)
-end
+DraftListItem = withContext({
+	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer,
+})(DraftListItem)
 
 local function mapStateToProps(state, props)
 	local drafts = state.Drafts

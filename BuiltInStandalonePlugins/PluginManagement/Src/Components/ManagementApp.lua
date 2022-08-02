@@ -35,10 +35,6 @@ local ManagementApp = Roact.PureComponent:extend("ManagementApp")
 
 function ManagementApp:init()
 	local plugin = self.props.plugin
-	local configs = plugin:GetSetting(Constants.PLUGIN_SETTING_NAME)
-	if (configs == nil) then
-		plugin:SetSetting(Constants.PLUGIN_SETTING_NAME, {})
-	end
 
 	self.state = {
 		enabled = false,

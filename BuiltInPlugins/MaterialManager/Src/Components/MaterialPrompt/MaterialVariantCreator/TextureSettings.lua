@@ -16,9 +16,7 @@ local UI = Framework.UI
 local Pane = UI.Pane
 
 local getTextureMapNames = require(Plugin.Src.Resources.Constants.getTextureMapNames)
-local Flags = Plugin.Src.Flags
-local getFFlagMaterialManagerRefactorTextureMapSelector = require(Flags.getFFlagMaterialManagerRefactorTextureMapSelector)
-local LabeledTextureElement = if getFFlagMaterialManagerRefactorTextureMapSelector() then require(Plugin.Src.Components.MaterialPrompt.MaterialVariantCreator.LabeledTextureElement) else require(Plugin.Src.Components.MaterialPrompt.MaterialVariantCreator.DEPRECATED_LabeledTextureElement)
+local TextureMapSelector = require(Plugin.Src.Components.MaterialPrompt.MaterialVariantCreator.TextureMapSelector)
 
 local TextureMaps = getTextureMapNames()
 
@@ -51,28 +49,28 @@ function TextureSettings:render()
 		LayoutOrder = props.LayoutOrder,
 		Spacing = style.ItemSpacing,
 	}, {
-		ImportColorMap = Roact.createElement(LabeledTextureElement, {
+		ImportColorMap = Roact.createElement(TextureMapSelector, {
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			LabelColumnWidth = style.LabelColumnWidth,
 			MapType = TextureMaps.ColorMap,
 			PreviewTitle = localization:getText("Import", "ColorMapPreview"),
 			Text = localization:getText("CreateDialog", "ImportColorMap"),
 		}),
-		ImportMetalnessMap = Roact.createElement(LabeledTextureElement, {
+		ImportMetalnessMap = Roact.createElement(TextureMapSelector, {
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			LabelColumnWidth = style.LabelColumnWidth,
 			MapType = TextureMaps.MetalnessMap,
 			PreviewTitle = localization:getText("Import", "MetalnessMapPreview"),
 			Text = localization:getText("CreateDialog", "ImportMetalnessMap"),
 		}),
-		ImportNormalMap = Roact.createElement(LabeledTextureElement, {
+		ImportNormalMap = Roact.createElement(TextureMapSelector, {
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			LabelColumnWidth = style.LabelColumnWidth,
 			MapType = TextureMaps.NormalMap,
 			PreviewTitle = localization:getText("Import", "NormalMapPreview"),
 			Text = localization:getText("CreateDialog", "ImportNormalMap"),
 		}),
-		ImportRoughnessMap = Roact.createElement(LabeledTextureElement, {
+		ImportRoughnessMap = Roact.createElement(TextureMapSelector, {
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			LabelColumnWidth = style.LabelColumnWidth,
 			MapType = TextureMaps.RoughnessMap,

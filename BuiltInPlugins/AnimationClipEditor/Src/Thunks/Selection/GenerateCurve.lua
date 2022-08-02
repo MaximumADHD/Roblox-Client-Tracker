@@ -71,9 +71,9 @@ return function(easingStyle, easingDirection)
 					end
 
 					-- Delete keyframes from dataTrack
-					for _, tick in ipairs(dataTrack.Keyframes) do
-						if tick > earliest and tick < latest then
-							dataTrack.Data[tick] = nil
+					for _, tck in ipairs(dataTrack.Keyframes) do
+						if tck > earliest and tck < latest then
+							dataTrack.Data[tck] = nil
 						end
 					end
 

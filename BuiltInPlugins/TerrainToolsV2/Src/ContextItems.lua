@@ -1,4 +1,5 @@
 local Plugin = script.Parent.Parent
+local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 
 local Framework = require(Plugin.Packages.Framework)
 
@@ -20,7 +21,7 @@ return {
 			theme:destroy()
 		end,
 	}),
-	UILibraryLocalization = ContextItem:createSimple("UILibraryLocalization", {
+	UILibraryLocalization = if FFlagRemoveUILibraryCompatLocalization then nil else ContextItem:createSimple("UILibraryLocalization", {
 		getChangedSignal = function(localization)
 			return localization.localeChanged
 		end,

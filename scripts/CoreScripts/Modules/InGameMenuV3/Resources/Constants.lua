@@ -25,6 +25,7 @@ local Constants = {
 	ReportDialogKey = "ReportDialog",
 	PlayersPageKey = "Players",
 	GameSettingsPageKey = "GameSettings",
+	InspectAndBuyPageKey = "InspectAndBuy",
 
 	AnalyticsTargetName = "client",
 	AnalyticsInGameMenuName = "ingame_menu",

@@ -1,16 +1,46 @@
 local FFlagDebugLuaArgCheck = game:DefineFastFlag("DebugLuaArgCheck", false)
 
-local function IsRunningInStudio()
-	return game:GetService("RunService"):IsStudio()
+local ArgCheck = {}
+
+function ArgCheck.isEnabled()
+	return FFlagDebugLuaArgCheck or _G.__TESTEZ_RUNNING_TEST__ or game:GetService("RunService"):IsStudio()
 end
 
 local function assert_(condition, message)
-	if FFlagDebugLuaArgCheck or IsRunningInStudio() or _G.__TESTEZ_RUNNING_TEST__ then
+	if ArgCheck.isEnabled() then
 		assert(condition, message)
 	end
 end
 
-local ArgCheck = {}
+local function stubArgCheckFunction()
+	return true
+end
+
+--[[
+	A wrapper for functions that should only be invoked when
+	arg checks are enabled.
+
+	Example usage:
+
+		local validateProps = ArgCheck.wrap(t.strictInterface({
+			screenSize = t.Vector2,
+			position = t.optional(t.UDim2),
+		}))
+
+		function MyComponent(props)
+			assert(validateProps(props))
+			...
+		end
+
+	@param argCheckFunction The function that will be invoked only if arg checks are enabled
+
+	@return	A function that will be either:
+		1. [arg checks disabled] a no-op stub that always returns true
+		2. [arg checks enabled] the original argCheckFunction passed in
+]]
+function ArgCheck.wrap(argCheckFunction)
+	return if ArgCheck.isEnabled() then argCheckFunction else stubArgCheckFunction
+end
 
 function ArgCheck.isNonNegativeNumber(value, name)
 	-- Temporarily disabled outside of studio/tests. See MOBLUAPP-1161.
@@ -96,7 +126,7 @@ end
 	ArgCheck.matchesInterface(someValue, "Tree", "myVal", myTypes)
 ]]--
 function ArgCheck.matchesInterface(value, iface, name, dependencies)
-	if IsRunningInStudio() or _G.__TESTEZ_RUNNING_TEST__ then
+	if ArgCheck.isEnabled() then
 		local checkFnList = {
 			integer = ArgCheck.representsInteger,
 			nonEmptyString = ArgCheck.isNonEmptyString,

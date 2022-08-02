@@ -1,8 +1,6 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local isTeamCreateEnabled = require(Plugin.Src.Util.GameSettingsUtilities).isTeamCreateEnabled
 
-local FFlagGreyOutCollabEditingForTeamCreateOff2 = game:GetFastFlag("GreyOutCollabEditingForTeamCreateOff2")
-
 local GameOptionsController = {}
 GameOptionsController.__index = GameOptionsController
 
@@ -78,8 +76,6 @@ function GameOptionsController:setVoiceChatEnabled(gameId, optIn)
 end
 
 function GameOptionsController:getIsTeamCreateEnabled()
-	assert(FFlagGreyOutCollabEditingForTeamCreateOff2)
-	
 	return isTeamCreateEnabled()
 end
 

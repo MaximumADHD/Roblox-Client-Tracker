@@ -27,9 +27,6 @@ local SetName = require(Actions.SetName)
 local SetBaseMaterial = require(Actions.SetBaseMaterial)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
-local Flags = Plugin.Src.Flags
-local getFFlagMaterialManagerGlassNeonForceField = require(Flags.getFFlagMaterialManagerGlassNeonForceField)
-
 export type Props = {
 	LayoutOrder: number?,
 	ErrorName: string?,
@@ -58,13 +55,7 @@ type _Style = {
 	VerticalSpacing: number,
 }
 
-local materials = {}
-
-if getFFlagMaterialManagerGlassNeonForceField() then
-	materials = getSupportedMaterials(true)
-else
-	materials = getSupportedMaterials()
-end
+local materials = getSupportedMaterials(true)
 
 local GeneralSettings = Roact.PureComponent:extend("GeneralSettings")
 

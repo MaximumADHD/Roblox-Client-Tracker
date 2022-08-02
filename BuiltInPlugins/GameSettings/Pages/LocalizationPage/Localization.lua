@@ -23,15 +23,25 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local UILibrary = require(Plugin.Packages.UILibrary)
+local ToggleButton = UILibrary.Component.ToggleButton
+
+local UI = Framework.UI
+local LinkText = UI.LinkText
+local Pane = UI.Pane
+local Separator = UI.Separator
+local TextLabel = UI.Decoration.TextLabel
+local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
+
 local FrameworkUtil = Framework.Util
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
-
-local UILibrary = require(Plugin.Packages.UILibrary)
-local TitledFrame = UILibrary.Component.TitledFrame
-local ToggleButton = UILibrary.Component.ToggleButton
 
 local FitToContent
 if not FFlagGameSettingsRemoveFitContent then
@@ -43,13 +53,7 @@ if not FFlagGameSettingsRemoveFitContent then
 end
 
 local Dropdown = require(Plugin.Src.Components.Dropdown)
-
-local UI = Framework.UI
-local LinkText = UI.LinkText
-local Pane = UI.Pane
-local Separator = UI.Separator
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
-local TextLabel = UI.Decoration.TextLabel
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local ReloadAutoTranslationTargetLanguages = require(Page.Thunks.ReloadAutoTranslationTargetLanguages)
@@ -177,7 +181,10 @@ local function getAutomaticTranslationEntries(props, theme)
 		local layoutIndex = LayoutOrderIterator.new()
 		for languageCode, autoTranslationEnabled in pairs(targetLanguages) do
 			if autoTranslationEnabled then
-				children[languageCode] = Roact.createElement(TitledFrame, {
+				children[languageCode] = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+					LayoutOrder = layoutIndex:getNextOrder(),
+					Title = props.LanguageCodeToNames[languageCode],
+				} else {
 					LayoutOrder = layoutIndex:getNextOrder(),
 					Title = props.LanguageCodeToNames[languageCode],
 					MaxHeight = 36,
@@ -213,7 +220,10 @@ local function displayLocalizationSettingsPage(props, localization, theme)
 	local hyperLinkTextSize = calculateTextSize(localization:getText("General", "LocalizationSettingsLinkText"), 14, "SourceSans")
 
 	return {
-		SourceLanguage = Roact.createElement(TitledFrame, {
+		SourceLanguage = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Title = localization:getText("General", "SourceLanguageTitle"),
+		} else {
 			LayoutOrder = layoutIndex:getNextOrder(),
 			Title = localization:getText("General", "SourceLanguageTitle"),
 			MaxHeight = 50,
@@ -245,7 +255,10 @@ local function displayLocalizationSettingsPage(props, localization, theme)
 		Separator1 = Roact.createElement(Separator, {
 			LayoutOrder = layoutIndex:getNextOrder(),
 		}),
-		AutoTextCapture = Roact.createElement(TitledFrame, {
+		AutoTextCapture = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Title = localization:getText("General", "AutoTextCaptureTitle"),
+		} else {
 			LayoutOrder = layoutIndex:getNextOrder(),
 			Title = localization:getText("General", "AutoTextCaptureTitle"),
 			MaxHeight = 36,
@@ -276,7 +289,10 @@ local function displayLocalizationSettingsPage(props, localization, theme)
 		Separator2 = Roact.createElement(Separator, {
 			LayoutOrder = layoutIndex:getNextOrder(),
 		}),
-		UseTranslatedContent = Roact.createElement(TitledFrame, {
+		UseTranslatedContent = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Title = localization:getText("General", "UseTranslatedContentTitle"),
+		} else {
 			LayoutOrder = layoutIndex:getNextOrder(),
 			Title = localization:getText("General", "UseTranslatedContentTitle"),
 			MaxHeight = 36,
@@ -307,7 +323,10 @@ local function displayLocalizationSettingsPage(props, localization, theme)
 		Separator3 = Roact.createElement(Separator, {
 			LayoutOrder = layoutIndex:getNextOrder(),
 		}),
-		AutoTranslationTitle = showAutoTranslationTitle and Roact.createElement(TitledFrame, {
+		AutoTranslationTitle = showAutoTranslationTitle and Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Title = localization:getText("General", "AutoTranslationTitle"),
+		} else {
 			LayoutOrder = layoutIndex:getNextOrder(),
 			Title = localization:getText("General", "AutoTranslationTitle"),
 			MaxHeight = 22,

@@ -216,5 +216,5 @@ return{
 	["CoreScripts.InGameMenu.Prompt.ReturnHomeBodyText"] = [[Von hier zurück zum Hauptmenü und neue Erlebnisse entdecken.]],
 	["CoreScripts.InGameMenu.Actions.BlockFriend"] = [[Freund:in blockieren?]],
 	["CoreScripts.InGameMenu.QuickActions.ScreenshotSaved"] = [[Screenshot gespeichert]],
-	["CoreScripts.InGameMenu.Action.ShareServerLink"] = [[Serverlink teilen]],
+	["CoreScripts.InGameMenu.Action.ShareServerLink"] = [[Teilen]],
 }

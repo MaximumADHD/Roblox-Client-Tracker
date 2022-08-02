@@ -37,7 +37,6 @@ local ColumnResizeHelperFunctions = require(UtilFolder.ColumnResizeHelperFunctio
 
 local Actions = PluginFolder.Src.Actions
 local SetCurrentFrameNumber = require(Actions.Callstack.SetCurrentFrameNumber)
-local SetCurrentThread = require(Actions.Callstack.SetCurrentThread)
 local ColumnFilterChange = require(Actions.Callstack.ColumnFilterChange)
 
 local LoadAllVariablesForThreadAndFrame = require(PluginFolder.Src.Thunks.Watch.LoadAllVariablesForThreadAndFrame)
@@ -53,7 +52,6 @@ local StudioService = game:GetService("StudioService")
 
 local FFlagDevFrameworkTableHeaderTooltip = game:GetFastFlag("DevFrameworkTableHeaderTooltip")
 local FFlagDevFrameworkExpandColumnOnDoubleClickDragbar = game:GetFastFlag("DevFrameworkExpandColumnOnDoubleClickDragbar")
-local FFlagDebuggerOnlyLoadCurrentFrameVariables = require(PluginFolder.Src.Flags.GetFFlagDebuggerOnlyLoadCurrentFrameVariables)
 
 local defaultColumnKey = {
 	[1] = "arrowColumn",
@@ -244,9 +242,7 @@ function CallstackComponent:init()
 					false
 				)
 				
-				if FFlagDebuggerOnlyLoadCurrentFrameVariables() then
-					props.onCurrentFrameChanged(props.CurrentDebuggerConnectionId, threadId, frameNumber)
-				end
+				props.onCurrentFrameChanged(props.CurrentDebuggerConnectionId, threadId, frameNumber)
 			end
 		end
 	end
@@ -636,14 +632,9 @@ end, function(dispatch)
 				true
 			)
 			
-			if FFlagDebuggerOnlyLoadCurrentFrameVariables() then
-				local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
-				local connection = debuggerConnectionManager:GetConnectionById(currentDebuggerConnectionId)
-				return dispatch(LoadAllVariablesForThreadAndFrame(threadId, connection,0,debuggerUIService))
-			else
-				debuggerUIService:SetCurrentThreadId(threadId)
-				return dispatch(SetCurrentThread(threadId))
-			end
+			local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
+			local connection = debuggerConnectionManager:GetConnectionById(currentDebuggerConnectionId)
+			return dispatch(LoadAllVariablesForThreadAndFrame(threadId, connection,0,debuggerUIService))
 		end,
 		onColumnFilterChange = function(enabledColumns)
 		    return dispatch(ColumnFilterChange(enabledColumns))

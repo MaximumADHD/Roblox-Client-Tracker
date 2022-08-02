@@ -25,13 +25,9 @@ local SimPaused = require(Actions.Common.SimPaused)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local LoadAllVariablesForThreadAndFrame = require(script.Parent.LoadAllVariablesForThreadAndFrame)
-local FFlagDebuggerOnlyLoadCurrentFrameVariables = require(Plugin.Src.Flags.GetFFlagDebuggerOnlyLoadCurrentFrameVariables)
 
 return function()
 	it("should load variables mocks", function()
-		if not FFlagDebuggerOnlyLoadCurrentFrameVariables() then
-			return
-		end
 		local store = Rodux.Store.new(MainReducer, nil, MainMiddleware)
 
 		-- setup mocks to initialize the store

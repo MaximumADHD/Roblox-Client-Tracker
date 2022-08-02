@@ -65,8 +65,8 @@ function AnimationData.toCFrameArray(bones, data, frameRate)
 	for boneIndex, boneName in ipairs(bones) do
 		local keyframes = {}
 		if tracks[boneName] then
-			for tick = 1, outputLength do
-				keyframes[tick] = KeyframeUtils.getValue(tracks[boneName], tick * rateConversion)
+			for tck = 1, outputLength do
+				keyframes[tck] = KeyframeUtils.getValue(tracks[boneName], tck * rateConversion)
 			end
 		end
 		poses[boneIndex] = keyframes
@@ -91,15 +91,15 @@ function AnimationData.fromCFrameArray(bones, poses, name, frameRate)
 				rootTracks[boneName].Data = {}
 			end
 			animationData.Metadata.EndTick = math.max(animationData.Metadata.EndTick, #poses[boneIndex])
-			for tick = 1, #poses[boneIndex] do
-				table.insert(rootTracks[boneName].Keyframes, tick)
+			for tck = 1, #poses[boneIndex] do
+				table.insert(rootTracks[boneName].Keyframes, tck)
 				local newKeyframe = Templates.keyframe()
 				if GetFFlagChannelAnimations() then
 					newKeyframe.EasingStyle = Enum.PoseEasingStyle.Linear
 					newKeyframe.EasingDirection = Enum.PoseEasingDirection.In
 				end
-				newKeyframe.Value = poses[boneIndex][tick]
-				rootTracks[boneName].Data[tick] = newKeyframe
+				newKeyframe.Value = poses[boneIndex][tck]
+				rootTracks[boneName].Data[tck] = newKeyframe
 			end
 		end
 	end
@@ -109,18 +109,18 @@ end
 
 -- Adds an event to the events table at the given tick,
 -- with the given name and value.
-function AnimationData.addEvent(events, tick, name, value)
+function AnimationData.addEvent(events, tck, name, value)
 	local eventKeyframes = events.Keyframes
 	local eventData = events.Data
-	if not eventData[tick] then
-		local insertIndex = KeyframeUtils.findInsertIndex(eventKeyframes, tick)
+	if not eventData[tck] then
+		local insertIndex = KeyframeUtils.findInsertIndex(eventKeyframes, tck)
 		if insertIndex then
-			table.insert(eventKeyframes, insertIndex, tick)
+			table.insert(eventKeyframes, insertIndex, tck)
 		end
-		eventData[tick] = {}
+		eventData[tck] = {}
 	end
-	if not eventData[tick][name] then
-		eventData[tick][name] = value or ""
+	if not eventData[tck][name] then
+		eventData[tck][name] = value or ""
 	end
 end
 
@@ -146,33 +146,33 @@ function AnimationData.moveEvents(events, oldTick, newTick)
 end
 
 -- Deletes all events at the given tick.
-function AnimationData.deleteEvents(events, tick)
+function AnimationData.deleteEvents(events, tck)
 	local eventKeyframes = events.Keyframes
 	local eventData = events.Data
-	if eventData[tick] then
-		local oldIndex = KeyframeUtils.findKeyframe(eventKeyframes, tick)
+	if eventData[tck] then
+		local oldIndex = KeyframeUtils.findKeyframe(eventKeyframes, tck)
 		table.remove(eventKeyframes, oldIndex)
-		eventData[tick] = nil
+		eventData[tck] = nil
 	end
 end
 
 -- Edits the value of the event at the given tick and name.
-function AnimationData.setEventValue(events, tick, name, value)
+function AnimationData.setEventValue(events, tck, name, value)
 	local eventData = events.Data
-	if eventData[tick] and eventData[tick][name] then
-		eventData[tick][name] = value
+	if eventData[tck] and eventData[tck][name] then
+		eventData[tck][name] = value
 	end
 end
 
 -- Removes an event at tick and name from the events table.
-function AnimationData.removeEvent(events, tick, name)
+function AnimationData.removeEvent(events, tck, name)
 	local eventKeyframes = events.Keyframes
 	local eventData = events.Data
-	if eventData[tick] and eventData[tick][name] then
-		eventData[tick][name] = nil
-		if isEmpty(eventData[tick]) then
-			eventData[tick] = nil
-			local keyIndex = KeyframeUtils.findKeyframe(eventKeyframes, tick)
+	if eventData[tck] and eventData[tck][name] then
+		eventData[tck][name] = nil
+		if isEmpty(eventData[tck]) then
+			eventData[tck] = nil
+			local keyIndex = KeyframeUtils.findKeyframe(eventKeyframes, tck)
 			table.remove(eventKeyframes, keyIndex)
 		end
 	end
@@ -197,28 +197,28 @@ end
 
 -- Adds a new keyframe at the given tick with the given value.
 -- If the keyframe already exists, update its data
-function AnimationData.addKeyframe(track, tick, keyframeData)
+function AnimationData.addKeyframe(track, tck, keyframeData)
 	local trackKeyframes = track.Keyframes
-	local insertIndex = KeyframeUtils.findInsertIndex(trackKeyframes, tick)
+	local insertIndex = KeyframeUtils.findInsertIndex(trackKeyframes, tck)
 	if insertIndex then
-		table.insert(trackKeyframes, insertIndex, tick)
+		table.insert(trackKeyframes, insertIndex, tck)
 	end
-	track.Data[tick] = Cryo.Dictionary.join(track.Data[tick] or Templates.keyframe(), keyframeData)
+	track.Data[tck] = Cryo.Dictionary.join(track.Data[tck] or Templates.keyframe(), keyframeData)
 end
 
 -- Adds a new keyframe at the given tick with the given value.
 -- Deprecated when GetFFlagChannelAnimations() is retired
-function AnimationData.addKeyframe_deprecated(track, tick, value)
+function AnimationData.addKeyframe_deprecated(track, tck, value)
 	local trackKeyframes = track.Keyframes
-	local insertIndex = KeyframeUtils.findInsertIndex(trackKeyframes, tick)
+	local insertIndex = KeyframeUtils.findInsertIndex(trackKeyframes, tck)
 	if insertIndex then
-		table.insert(trackKeyframes, insertIndex, tick)
-		track.Data[tick] = Templates.keyframe()
-		track.Data[tick].Value = value
+		table.insert(trackKeyframes, insertIndex, tck)
+		track.Data[tck] = Templates.keyframe()
+		track.Data[tck].Value = value
 	end
 end
 
-function AnimationData.addDefaultKeyframe(track, tick, trackType)
+function AnimationData.addDefaultKeyframe(track, tck, trackType)
 	if GetFFlagChannelAnimations() then
 		local keyframeData = {
 			Value = KeyframeUtils.getDefaultValue(trackType),
@@ -229,10 +229,10 @@ function AnimationData.addDefaultKeyframe(track, tick, trackType)
 			keyframeData.EasingStyle = Enum.PoseEasingStyle.Linear
 			keyframeData.EasingDirection = Enum.PoseEasingDirection.In
 		end
-		AnimationData.addKeyframe(track, tick, keyframeData)
+		AnimationData.addKeyframe(track, tck, keyframeData)
 	else
 		local value = TrackUtils.getDefaultValueByType(trackType)
-		AnimationData.addKeyframe_deprecated(track, tick, value)
+		AnimationData.addKeyframe_deprecated(track, tck, value)
 	end
 end
 
@@ -246,8 +246,8 @@ function AnimationData.moveNamedKeyframe(data, oldTick, newTick)
 			local shouldMove = true
 			for _, instance in pairs(data.Instances) do
 				local summaryKeyframes = TrackUtils.getSummaryKeyframes(instance.Tracks, data.Metadata.StartTick, data.Metadata.EndTick)
-				for _, tick in ipairs(summaryKeyframes) do
-					if tick == oldTick then
+				for _, tck in ipairs(summaryKeyframes) do
+					if tck == oldTick then
 						shouldMove = false
 					end
 				end
@@ -280,23 +280,23 @@ function AnimationData.moveKeyframe(track, oldTick, newTick)
 end
 
 -- Deletes the keyframe at the given track and tick.
-function AnimationData.deleteKeyframe(track, tick)
-	track.Data[tick] = nil
-	local index = KeyframeUtils.findKeyframe(track.Keyframes, tick)
+function AnimationData.deleteKeyframe(track, tck)
+	track.Data[tck] = nil
+	local index = KeyframeUtils.findKeyframe(track.Keyframes, tck)
 	table.remove(track.Keyframes, index)
 end
 
 -- Sets the data for the keyframe at the given track and tick.
-function AnimationData.setKeyframeData(track, tick, data)
-	track.Data[tick] = Cryo.Dictionary.join(track.Data[tick], data)
+function AnimationData.setKeyframeData(track, tck, data)
+	track.Data[tck] = Cryo.Dictionary.join(track.Data[tck], data)
 end
 
 -- Renames a summary keyframe in the animation.
-function AnimationData.setKeyframeName(data, tick, name)
+function AnimationData.setKeyframeName(data, tck, name)
 	if name == Constants.DEFAULT_KEYFRAME_NAME then
-		data.Events.NamedKeyframes[tick] = nil
+		data.Events.NamedKeyframes[tck] = nil
 	else
-		data.Events.NamedKeyframes[tick] = name
+		data.Events.NamedKeyframes[tck] = name
 	end
 end
 
@@ -308,13 +308,13 @@ function AnimationData.validateKeyframeNames(data)
 			local validTicks = {}
 			for _, instance in pairs(data.Instances) do
 				local summaryKeyframes = TrackUtils.getSummaryKeyframes(instance.Tracks, data.Metadata.StartTick, data.Metadata.EndTick)
-				for _, tick in ipairs(summaryKeyframes) do
-					validTicks[tick] = true
+				for _, tck in ipairs(summaryKeyframes) do
+					validTicks[tck] = true
 				end
 			end
-			for tick, _ in pairs(namedKeyframes) do
-				if not validTicks[tick] then
-					AnimationData.setKeyframeName(data, tick, nil)
+			for tck, _ in pairs(namedKeyframes) do
+				if not validTicks[tck] then
+					AnimationData.setKeyframeName(data, tck, nil)
 				end
 			end
 		end
@@ -394,9 +394,9 @@ function AnimationData.removeExtraKeyframes(data)
 			-- Remove keyframes and Data. Works for tracks and events.
 			local function removeKeyframesAndData(track)
 				if track and track.Keyframes and track.Data then
-					for index, tick in ipairs(track.Keyframes) do
-						if tick > Constants.MAX_ANIMATION_LENGTH then
-							track.Data[tick] = nil
+					for index, tck in ipairs(track.Keyframes) do
+						if tck > Constants.MAX_ANIMATION_LENGTH then
+							track.Data[tck] = nil
 							track.Keyframes[index] = nil
 							removed = true
 						end
@@ -436,10 +436,10 @@ function AnimationData.removeExtraKeyframes(data)
 					for i = range.End, range.Start, -1 do
 						local keyframes = data.Instances[instance].Tracks[track].Keyframes
 						local kfData = data.Instances[instance].Tracks[track].Data
-						local tick = keyframes[i]
-						if tick > Constants.MAX_ANIMATION_LENGTH then
+						local tck = keyframes[i]
+						if tck > Constants.MAX_ANIMATION_LENGTH then
 							removed = true
-							kfData[tick] = nil
+							kfData[tck] = nil
 							table.remove(keyframes, i)
 						end
 					end
@@ -449,15 +449,15 @@ function AnimationData.removeExtraKeyframes(data)
 			-- second pass: remove events
 			if data.Events and data.Events.Keyframes then
 				local eventsToRemove = {}
-				for _, tick in ipairs(data.Events.Keyframes) do
-					if tick > Constants.MAX_ANIMATION_LENGTH then
+				for _, tck in ipairs(data.Events.Keyframes) do
+					if tck > Constants.MAX_ANIMATION_LENGTH then
 						removed = true
-						table.insert(eventsToRemove, tick)
+						table.insert(eventsToRemove, tck)
 					end
 				end
 
-				for _, tick in ipairs(eventsToRemove) do
-					AnimationData.deleteEvents(data.Events, tick)
+				for _, tck in ipairs(eventsToRemove) do
+					AnimationData.deleteEvents(data.Events, tck)
 				end
 			end
 		end
@@ -477,9 +477,9 @@ function AnimationData.getSelectionBounds(data, selectedKeyframes)
 	if GetFFlagChannelAnimations() then
 		local function traverse(track)
 			-- Find the extents of the track selection, if any
-			for tick, _ in pairs(track.Selection or {}) do
-				earliest = math.min(tick, earliest)
-				latest = math.max(tick, latest)
+			for tck, _ in pairs(track.Selection or {}) do
+				earliest = math.min(tck, earliest)
+				latest = math.max(tck, latest)
 			end
 			for _, component in pairs(track.Components or {}) do
 				traverse(component)

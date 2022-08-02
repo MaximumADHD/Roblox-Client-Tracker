@@ -29,10 +29,10 @@ local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
 local EventTrack = Roact.PureComponent:extend("EventTrack")
 
-function EventTrack:renderEvent(selected, xOffset, tick)
+function EventTrack:renderEvent(selected, xOffset, tck)
 	local props = self.props
 	local events = props.Events
-	local names = events.Data[tick] and Cryo.Dictionary.keys(events.Data[tick])
+	local names = events.Data[tck] and Cryo.Dictionary.keys(events.Data[tck])
 
 	return Roact.createElement(EventMarker, {
 		Selected = selected,
@@ -41,20 +41,20 @@ function EventTrack:renderEvent(selected, xOffset, tick)
 		ZIndex = props.ZIndex,
 
 		OnRightClick = function(_, input)
-			props.OnEventRightClick(tick, selected)
+			props.OnEventRightClick(tck, selected)
 		end,
 
 		OnInputBegan = function(_, input)
-			props.OnEventInputBegan(tick, selected, input)
+			props.OnEventInputBegan(tck, selected, input)
 		end,
 
 		OnInputEnded = function(_, input)
-			props.OnEventInputEnded(tick, selected, input)
+			props.OnEventInputEnded(tck, selected, input)
 		end,
 	})
 end
 
-function EventTrack:renderPreviewEvent(xOffset, tick)
+function EventTrack:renderPreviewEvent(xOffset, tck)
 	local props = self.props
 	return Roact.createElement(EventMarker, {
 		Selected = true,
@@ -76,12 +76,12 @@ function EventTrack:renderEvents(keys)
 
 	if startIndex ~= nil and endIndex ~= nil then
 		for index = startIndex, endIndex do
-			local tick = events[index]
-			local xPos = TrackUtils.getScaledKeyframePosition(tick, startTick, endTick, width)
-			local selected = selectedEvents and selectedEvents[tick]
+			local tck = events[index]
+			local xPos = TrackUtils.getScaledKeyframePosition(tck, startTick, endTick, width)
+			local selected = selectedEvents and selectedEvents[tck]
 			-- Don't render selected keyframes when rendering preview keyframes
 			if not (previewEvents and selected) then
-				keys[index] = self:renderEvent(selected, xPos, tick)
+				keys[index] = self:renderEvent(selected, xPos, tck)
 			end
 		end
 	end
@@ -96,10 +96,10 @@ function EventTrack:renderPreviewEvents(keys)
 	local editingTick = props.EditingTick
 
 	if previewEvents then
-		for _, tick in ipairs(previewEvents) do
-			if tick >= startTick and tick <= endTick then
-				local xPos = TrackUtils.getScaledKeyframePosition(tick, startTick, endTick, width)
-				table.insert(keys, self:renderPreviewEvent(xPos, tick))
+		for _, tck in ipairs(previewEvents) do
+			if tck >= startTick and tck <= endTick then
+				local xPos = TrackUtils.getScaledKeyframePosition(tck, startTick, endTick, width)
+				table.insert(keys, self:renderPreviewEvent(xPos, tck))
 			end
 		end
 	end

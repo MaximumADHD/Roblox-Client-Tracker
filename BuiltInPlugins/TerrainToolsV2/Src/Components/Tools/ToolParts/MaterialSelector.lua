@@ -7,7 +7,7 @@ Props:
 	setMaterial : (Enum.Material) => void - Callback to select a material
 	AllowAir : boolean = false - Whether to show Air in the materials grid
 ]]
-
+local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -100,12 +100,9 @@ do
 		})
 	end
 
-	
 MaterialTooltip = withContext({
 	Theme = ContextItems.UILibraryTheme,
 })(MaterialTooltip)
-
-
 
 	function MaterialButton:init(props)
 		self.onMouseEnter = function()
@@ -123,7 +120,7 @@ MaterialTooltip = withContext({
 
 	function MaterialButton:render()
 		local theme = self.props.Theme:get()
-		local localization = self.props.Localization:get()
+		local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
 
 		local props = self.props
 		local layoutOrder = props.LayoutOrder
@@ -164,7 +161,7 @@ MaterialTooltip = withContext({
 
 	MaterialButton = withContext({
 		Theme = ContextItems.UILibraryTheme,
-		Localization = ContextItems.UILibraryLocalization,
+		Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
 	})(MaterialButton)
 
 end
@@ -205,7 +202,7 @@ end
 
 function MaterialSelector:render()
 	local theme = self.props.Theme:get()
-	local localization = self.props.Localization:get()
+	local localization = if FFlagRemoveUILibraryCompatLocalization then self.props.Localization else self.props.Localization:get()
 
 	local layoutOrder = self.props.LayoutOrder or 1
 	local material = self.props.material
@@ -278,7 +275,7 @@ end
 
 MaterialSelector = withContext({
 	Theme = ContextItems.UILibraryTheme,
-	Localization = ContextItems.UILibraryLocalization,
+	Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else ContextItems.UILibraryLocalization,
 })(MaterialSelector)
 
 return MaterialSelector

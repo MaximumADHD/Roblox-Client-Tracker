@@ -11,6 +11,7 @@ local Constants = require(Root.Misc.Constants)
 local Network = require(Root.Services.Network)
 --local ABTest = require(Root.Services.ABTest)
 local getProductInfo = require(Root.Network.getProductInfo)
+local getBalanceInfo = require(Root.Network.getBalanceInfo)
 local getIsAlreadyOwned = require(Root.Network.getIsAlreadyOwned)
 local getAccountInfo = require(Root.Network.getAccountInfo)
 local ExternalSettings = require(Root.Services.ExternalSettings)
@@ -19,6 +20,8 @@ local Promise = require(Root.Promise)
 local Thunk = require(Root.Thunk)
 
 local resolvePromptState = require(script.Parent.resolvePromptState)
+
+local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
 
 local requiredServices = {
 	--ABTest,
@@ -65,6 +68,7 @@ local function initiatePurchase(id, infoType, equipIfPurchased, isRobloxPurchase
 			productInfo = getProductInfo(network, id, infoType),
 			accountInfo = getAccountInfo(network, externalSettings),
 			alreadyOwned = getIsAlreadyOwned(network, id, infoType),
+			balanceInfo = FFlagPPAccountInfoMigration and getBalanceInfo(network, externalSettings) or Promise.resolve(),
 		})
 			:andThen(function(results)
 				-- Once we've finished all of our async data fetching, we'll
@@ -72,6 +76,7 @@ local function initiatePurchase(id, infoType, equipIfPurchased, isRobloxPurchase
 				store:dispatch(resolvePromptState(
 					results.productInfo,
 					results.accountInfo,
+					results.balanceInfo,
 					results.alreadyOwned,
 					isRobloxPurchase
 				))

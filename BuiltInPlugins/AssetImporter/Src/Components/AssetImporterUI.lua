@@ -30,6 +30,8 @@ local ShowImportPrompt = require(Plugin.Src.Thunks.ShowImportPrompt)
 local Images = require(Plugin.Src.Utility.Images)
 local GetLocalizedString = require(Plugin.Src.Utility.GetLocalizedString)
 
+local getFFlagAssetImportSessionCleanup = require(Plugin.Src.Flags.getFFlagAssetImportSessionCleanup)
+
 local SEPARATOR_WEIGHT = 1
 local INSERT_CAMERA_DIST_MULT = 0.8
 local CAMERA_FOCUS_DIR = Vector3.new(-1, 1, -1)
@@ -38,7 +40,7 @@ local AssetImporterUI = Roact.PureComponent:extend("AssetImporterUI")
 
 local emptyModel = Instance.new("Model")
 
-local function getRenderModel(instanceMap, selectedInstance)
+local function getRenderModelDeprecated(instanceMap, selectedInstance)
 	local object = nil
 	if instanceMap and selectedInstance then
 		object = instanceMap[selectedInstance.Id]
@@ -49,6 +51,15 @@ local function getRenderModel(instanceMap, selectedInstance)
 	local object = object:Clone()
 	local wrapper = Instance.new("Model")
 	object.Parent = wrapper
+	return wrapper
+end
+
+local function getRenderModel(previewInstance)
+	if previewInstance == nil then
+		return emptyModel
+	end
+	local wrapper = Instance.new("Model")
+	previewInstance.Parent = wrapper
 	return wrapper
 end
 
@@ -64,7 +75,12 @@ end
 function AssetImporterUI:init()
 	self.camera = Instance.new("Camera")
 	self.centerCamera = function()
-		local size = getRenderModel(self.props.InstanceMap, self.props.SelectedSettingsItem):GetExtentsSize()
+		local size
+		if getFFlagAssetImportSessionCleanup() then
+			size = getRenderModel(self.props.PreviewInstance):GetExtentsSize()
+		else
+			size = getRenderModelDeprecated(self.props.InstanceMap, self.props.SelectedSettingsItem):GetExtentsSize()
+		end
 		local cameraDistAway = size.Magnitude * INSERT_CAMERA_DIST_MULT
 		local dir = CAMERA_FOCUS_DIR.Unit
 		self.camera.Focus = CFrame.new()
@@ -81,6 +97,13 @@ function AssetImporterUI:render()
 
 	local recenterCamera = false
 	local recenterModel = true
+
+	local model
+	if getFFlagAssetImportSessionCleanup() then
+		model = getRenderModel(props.PreviewInstance)
+	else
+		model = getRenderModelDeprecated(props.InstanceMap, props.SelectedSettingsItem)
+	end
 
 	return Roact.createElement(Pane, {
 		Layout = Enum.FillDirection.Vertical,
@@ -114,7 +137,7 @@ function AssetImporterUI:render()
 					Size = UDim2.new(1, 0, sizes.PreviewRatio, 0),
 				}, {
 					PreviewRender = Roact.createElement(AssetRenderModel, {
-						Model = getRenderModel(props.InstanceMap, props.SelectedSettingsItem),
+						Model = model,
 						Camera = self.camera,
 						FocusDirection = CAMERA_FOCUS_DIR,
 						RecenterCameraOnUpdate = recenterCamera,
@@ -204,6 +227,7 @@ local function mapStateToProps(state)
 		AssetSettings = state.assetSettings,
 		Filename = state.filename,
 		InstanceMap = state.instanceMap,
+		PreviewInstance = state.previewInstance,
 		SelectedSettingsItem = state.selectedSettingsItem,
 	}
 end

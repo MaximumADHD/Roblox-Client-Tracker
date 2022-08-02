@@ -17,8 +17,6 @@ local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 
 local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyFolder.Flags.GetFFlagUseInspectAndBuyControllerBar)
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
-local FFlagInspectAndBuyLayeredClothingR6Support =
-	require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyLayeredClothingR6Support)
 
 local CONTROLLER_BAR_HEIGHT = require(CoreGui.RobloxGui.Modules.InGameMenuConstants).ControllerBarHeight
 
@@ -104,9 +102,9 @@ function AssetDetails:render()
 				-- Do not show asset information until we know if a bundle should be shown instead.
 				Visible = detailsInformation.viewingDetails and assetInfo.bundlesAssetIsIn ~= nil,
 			}, {
-				DetailsButtons = Roact.createElement(DetailsButtons, FFlagInspectAndBuyLayeredClothingR6Support and {
+				DetailsButtons = Roact.createElement(DetailsButtons, {
 					localPlayerModel = localPlayerModel,
-				} or nil),
+				}),
 				Container = Roact.createElement("ScrollingFrame", {
 					BackgroundTransparency = 1,
 					ScrollBarThickness = 0,
@@ -125,9 +123,9 @@ function AssetDetails:render()
 							self:setScrollingEnabled(enabled)
 						end,
 					}),
-					DetailsText = Roact.createElement(DetailsText, FFlagInspectAndBuyLayeredClothingR6Support and {
+					DetailsText = Roact.createElement(DetailsText, {
 						localPlayerModel = localPlayerModel,
-					} or nil),
+					}),
 					DetailsDescription = Roact.createElement(DetailsDescription),
 				})
 			})

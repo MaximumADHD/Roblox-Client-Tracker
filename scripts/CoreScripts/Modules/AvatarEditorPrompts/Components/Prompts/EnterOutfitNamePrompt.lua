@@ -30,6 +30,8 @@ local ExternalEventConnection = require(CorePackages.RoactUtilities.ExternalEven
 
 local EngineFeatureAESMoreOutfitMethods = game:GetEngineFeature("AESMoreOutfitMethods2")
 
+local FFlagFixAvatarEditorPromptsGamepadSelection = require(RobloxGui.Modules.Flags.FFlagFixAvatarEditorPromptsGamepadSelection)
+
 local NAME_TEXTBOX_HEIGHT = 35
 
 local TOP_SCREEN_PADDING = 20
@@ -176,6 +178,7 @@ function EnterOutfitNamePrompt:render()
 							onActivated = self.props.signalCreateOutfitPermissionDenied,
 							text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.EnterOutfitNamePromptNo"),
 						},
+						isDefaultChild = if FFlagFixAvatarEditorPromptsGamepadSelection then true else nil,
 					},
 					{
 						buttonType = ButtonType.PrimarySystem,

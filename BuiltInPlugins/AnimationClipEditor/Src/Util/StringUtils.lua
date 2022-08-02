@@ -50,13 +50,13 @@ function StringUtils.parseTime(text, frameRate)
 	end
 end
 
-function StringUtils.formatTime(tick, frameRate, asSeconds)
+function StringUtils.formatTime(tck, frameRate, asSeconds)
 	if not asSeconds then
-		return math.floor(tostring(tick * frameRate / Constants.TICK_FREQUENCY))
+		return math.floor(tostring(tck * frameRate / Constants.TICK_FREQUENCY))
 	end
 
 	-- Convert ticks to frames
-	local frame = KeyframeUtils.getNearestTick(tick * frameRate / Constants.TICK_FREQUENCY)
+	local frame = KeyframeUtils.getNearestTick(tck * frameRate / Constants.TICK_FREQUENCY)
 
 	if frameRate == 0 then
 		return tostring("0:" ..string.format("%02d", 0))

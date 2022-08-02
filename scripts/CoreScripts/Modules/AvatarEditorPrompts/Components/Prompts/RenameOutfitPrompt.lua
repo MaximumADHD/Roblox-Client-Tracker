@@ -25,6 +25,8 @@ local PerformRenameOutfit = require(AvatarEditorPrompts.Thunks.PerformRenameOutf
 
 local AvatarEditorPromptsPolicy = require(AvatarEditorPrompts.AvatarEditorPromptsPolicy)
 
+local FFlagFixAvatarEditorPromptsGamepadSelection = require(RobloxGui.Modules.Flags.FFlagFixAvatarEditorPromptsGamepadSelection)
+
 local RenameOutfitNamePrompt = Roact.PureComponent:extend("RenameOutfitNamePrompt")
 
 RenameOutfitNamePrompt.validateProps = t.strictInterface({
@@ -72,6 +74,7 @@ function RenameOutfitNamePrompt:render()
 							onActivated = self.props.signalRenameOutfitPermissionDenied,
 							text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.DisabledRenameOutfitPromptOkay"),
 						},
+						isDefaultChild = if FFlagFixAvatarEditorPromptsGamepadSelection then true else nil,
 					},
 				},
 			},

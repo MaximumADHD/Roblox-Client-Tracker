@@ -1,24 +1,20 @@
 local Src = script.Parent.Parent.Parent
 local Actions = Src.Actions
 local AddThreadId = require(Actions.Callstack.AddThreadId)
-local SetCurrentThread = require(Actions.Callstack.SetCurrentThread)
 local Resumed = require(Actions.Common.Resumed)
 local SimPaused = require(Actions.Common.SimPaused)
 local SetCurrentBreakpointIdAction = require(Actions.Common.SetCurrentBreakpointId)
 local SetFocusedDebuggerConnection = require(Actions.Common.SetFocusedDebuggerConnection)
 local ClearConnectionDataAction = require(Actions.Common.ClearConnectionData)
-local RequestCallstackThunk = require(Src.Thunks.Callstack.RequestCallstackThunk)
-local LoadStackFrameVariables = require(Src.Thunks.Callstack.LoadStackFrameVariables)
-local ExecuteExpressionForAllFrames = require(Src.Thunks.Watch.ExecuteExpressionForAllFrames)
 local LoadAllVariablesForThreadAndFrame = require(Src.Thunks.Watch.LoadAllVariablesForThreadAndFrame)
+local PopulateCallstackThreadThunk = require(Src.Thunks.Callstack.PopulateCallstackThreadThunk)
 
 local Models = Src.Models
 local DebuggerStateToken = require(Models.DebuggerStateToken)
-local StepStateBundle = require(Models.StepStateBundle)
 
 local Constants = require(Src.Util.Constants)
 
-local FFlagDebuggerOnlyLoadCurrentFrameVariables = require(Src.Flags.GetFFlagDebuggerOnlyLoadCurrentFrameVariables)
+local FFlagUsePopulateCallstackThreadThunk = require(Src.Flags.GetFFlagUsePopulateCallstackThreadThunk)
 
 local DebugConnectionListener = {}
 DebugConnectionListener.__index = DebugConnectionListener
@@ -54,39 +50,13 @@ function DebugConnectionListener:onExecutionPaused(
 			return
 		end
 
-		local threadStates = threads:GetArg()
-
-		for index, threadState in pairs(threadStates) do
-			self.store:dispatch(AddThreadId(threadState.ThreadId, threadState.ThreadName, dst))
-			self.store:dispatch(RequestCallstackThunk(threadState, connection, dst, scriptChangeService))
-			
-			if not FFlagDebuggerOnlyLoadCurrentFrameVariables() then
-				debuggerUIService:SetCurrentThreadId(threadState.ThreadId)
-				self.store:dispatch(SetCurrentThread(threadState.ThreadId))
+		local loadThreadData = function(threadState)
+			if not isThreadIdValid() then
+				return
 			end
 			
-			connection:Populate(threadState, function()
-				if not isThreadIdValid() then
-					return
-				end
-				
-				if FFlagDebuggerOnlyLoadCurrentFrameVariables() then
-					self.store:dispatch(LoadAllVariablesForThreadAndFrame(threadState.ThreadId, connection, 0, debuggerUIService))
-				else
-					local callstack = threadState:GetChildren()
-					for stackFrameId, stackFrame in ipairs(callstack) do
-						local stepStateBundle = StepStateBundle.ctor(dst, threadState.ThreadId, stackFrameId)
-						self.store:dispatch(LoadStackFrameVariables(connection, stackFrame, stepStateBundle))
-					end
-
-					local listOfExpressions = self.store:getState().Watch.listOfExpressions
-					for _, expression in ipairs(listOfExpressions) do
-						self.store:dispatch(
-							ExecuteExpressionForAllFrames(expression, connection, dst, threadState.ThreadId)
-						)
-					end
-				end		
-
+			local loadScriptData = function()
+				self.store:dispatch(LoadAllVariablesForThreadAndFrame(threadState.ThreadId, connection, 0, debuggerUIService))
 				-- Open script at top of callstack
 				local topFrame = threadState:GetFrame(0)
 				debuggerUIService:SetScriptLineMarker(
@@ -96,7 +66,31 @@ function DebugConnectionListener:onExecutionPaused(
 					true
 				)
 				debuggerUIService:OpenScriptAtLine(topFrame.Script, common.currentDebuggerConnectionId, topFrame.Line, false)
-			end)
+			end
+
+			if FFlagUsePopulateCallstackThreadThunk() then
+				if pausedState.ThreadId == threadState.ThreadId then
+					loadScriptData()
+				end
+			else
+				loadScriptData()
+			end
+		end
+		
+		local threadStates = threads:GetArg()
+		for index, threadState in pairs(threadStates) do
+			self.store:dispatch(AddThreadId(threadState.ThreadId, threadState.ThreadName, dst))
+
+			if FFlagUsePopulateCallstackThreadThunk() then
+				self.store:dispatch(PopulateCallstackThreadThunk(threadState, connection, dst, scriptChangeService, function()
+					loadThreadData(threadState)
+				end))
+			else
+				self.store:dispatch(PopulateCallstackThreadThunk(threadState, connection, dst, scriptChangeService))
+				connection:Populate(threadState, function()
+					loadThreadData(threadState)
+				end)
+			end
 		end
 	end)
 end

@@ -42,29 +42,29 @@ return function(pivot, newTick, dragContext)
 
 		if delta < 0 then
 			-- Moving backwards, iterate through selection left to right to avoid overwriting
-			for _, tick in ipairs(selectedTicks) do
-				local insertTick = tick + delta
+			for _, tck in ipairs(selectedTicks) do
+				local insertTick = tck + delta
 				if snapMode ~= Constants.SNAP_MODES.None then
 					insertTick = KeyframeUtils.getNearestFrame(insertTick, frameRate)
 				end
-				insertTick = math.clamp(insertTick, tick - earliestTick, Constants.MAX_ANIMATION_LENGTH - (latestTick - tick))
-				AnimationData.moveEvents(events, tick, insertTick)
+				insertTick = math.clamp(insertTick, tck - earliestTick, Constants.MAX_ANIMATION_LENGTH - (latestTick - tck))
+				AnimationData.moveEvents(events, tck, insertTick)
 
-				newSelectedEvents[tick] = nil
+				newSelectedEvents[tck] = nil
 				newSelectedEvents[insertTick] = true
 			end
 		else
 			-- Moving forwards, iterate through selection right to left to avoid overwriting
 			for index = #selectedTicks, 1, -1 do
-				local tick = selectedTicks[index]
-				local insertTick = tick + delta
+				local tck = selectedTicks[index]
+				local insertTick = tck + delta
 				if snapMode ~= Constants.SNAP_MODES.None then
 					insertTick = KeyframeUtils.getNearestFrame(insertTick, frameRate)
 				end
-				insertTick = math.clamp(insertTick, tick - earliestTick, Constants.MAX_ANIMATION_LENGTH - (latestTick - tick))
-				AnimationData.moveEvents(events, tick, insertTick)
+				insertTick = math.clamp(insertTick, tck - earliestTick, Constants.MAX_ANIMATION_LENGTH - (latestTick - tck))
+				AnimationData.moveEvents(events, tck, insertTick)
 
-				newSelectedEvents[tick] = nil
+				newSelectedEvents[tck] = nil
 				newSelectedEvents[insertTick] = true
 			end
 		end

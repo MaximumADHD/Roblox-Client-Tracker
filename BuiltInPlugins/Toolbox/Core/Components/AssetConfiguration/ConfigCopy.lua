@@ -11,9 +11,6 @@ local FStringToolboxAssetConfigDisabledAudioSharingLearnMoreLink = game:GetFastS
 local FStringToolboxAssetConfigEnabledAudioSharingLearnMoreLink = game:GetFastString(
 	"ToolboxAssetConfigEnabledAudioSharingLearnMoreLink"
 )
-local FFlagToolboxAssetConfigurationMatchPluginFlow = game:GetFastFlag("ToolboxAssetConfigurationMatchPluginFlow")
-local FFlagToolboxAssetConfigurationFixPriceToggle = game:getFastFlag("ToolboxAssetConfigurationFixPriceToggle")
-local FFlagAssetConfigDynamicDistributionQuotas2 = game:GetFastFlag("AssetConfigDynamicDistributionQuotas2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -32,7 +29,7 @@ local Util = Plugin.Core.Util
 local DebugFlags = require(Util.DebugFlags)
 local Constants = require(Util.Constants)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
-local AssetConfigUtil = FFlagToolboxAssetConfigurationMatchPluginFlow and require(Util.AssetConfigUtil) or nil
+local AssetConfigUtil = require(Util.AssetConfigUtil)
 local ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
 local LayoutOrderIterator = require(Util.LayoutOrderIterator)
 local ContextGetter = require(Util.ContextGetter)
@@ -92,33 +89,22 @@ function ConfigCopy:init(props)
 			props.ToggleCallback(not copyOn)
 		end
 
-		if FFlagToolboxAssetConfigurationMatchPluginFlow and assetType == Enum.AssetType.Plugin then
+		if assetType == Enum.AssetType.Plugin then
 			local canChangeSalesStatus = props.canChangeSalesStatus
 			local currentAssetStatus = props.currentAssetStatus
 			local onStatusChange = props.onStatusChange
 
 			if canChangeSalesStatus then
-				local newStatus
-				if FFlagToolboxAssetConfigurationFixPriceToggle then
-					newStatus = if AssetConfigUtil.isOnSale(currentAssetStatus)
-						then AssetConfigConstants.ASSET_STATUS.OffSale
-						else AssetConfigConstants.ASSET_STATUS.OnSale
-				else
-					newStatus = AssetConfigUtil.isOnSale(currentAssetStatus)
-							and AssetConfigConstants.ASSET_STATUS.OffSale
-						or AssetConfigConstants.ASSET_STATUS.OnSale
-				end
+				local newStatus = if AssetConfigUtil.isOnSale(currentAssetStatus)
+					then AssetConfigConstants.ASSET_STATUS.OffSale
+					else AssetConfigConstants.ASSET_STATUS.OnSale
 
 				onStatusChange(newStatus)
 			end
 		end
 	end
 
-	if FFlagAssetConfigDynamicDistributionQuotas2 then
-		self.distributionQuotaPolicy = ToolboxUtilities.getAssetConfigDistributionQuotas()
-	else
-		self.distributionQuotas = ToolboxUtilities.getAssetConfigDistributionQuotas()
-	end
+	self.distributionQuotaPolicy = ToolboxUtilities.getAssetConfigDistributionQuotas()
 
 	self.onQuotaLinkActivated = function()
 		local assetType = self.props.AssetType
@@ -126,9 +112,7 @@ function ConfigCopy:init(props)
 			return
 		end
 
-		local quotaPolicyForAssetType = if FFlagAssetConfigDynamicDistributionQuotas2
-			then self.distributionQuotaPolicy[assetType.Name]
-			else self.distributionQuotas[assetType.Name]
+		local quotaPolicyForAssetType = self.distributionQuotaPolicy[assetType.Name]
 		if not quotaPolicyForAssetType or not quotaPolicyForAssetType.link then
 			return
 		end
@@ -152,9 +136,7 @@ function ConfigCopy:didMount(prevProps, prevState)
 		end)
 	end)
 
-	if FFlagAssetConfigDynamicDistributionQuotas2 then
-		self:updateDistributionQuotas()
-	end
+	self:updateDistributionQuotas()
 end
 
 function ConfigCopy:willUnmount()
@@ -188,104 +170,97 @@ function ConfigCopy:didUpdate(prevProps, prevState)
 		end)
 	end
 
-	if FFlagAssetConfigDynamicDistributionQuotas2 and assetType ~= prevProps.AssetType then
+	if assetType ~= prevProps.AssetType then
 		self:updateDistributionQuotas()
 	end
 end
 
-if FFlagAssetConfigDynamicDistributionQuotas2 then
-	function ConfigCopy:updateDistributionQuotas()
-		local networkInterface = getNetwork(self)
+function ConfigCopy:updateDistributionQuotas()
+	local networkInterface = getNetwork(self)
 
-		local assetType = self.props.AssetType
-		local quotaPolicyForAssetType = assetType and self.distributionQuotaPolicy[assetType.Name]
+	local assetType = self.props.AssetType
+	local quotaPolicyForAssetType = assetType and self.distributionQuotaPolicy[assetType.Name]
 
-		if not quotaPolicyForAssetType then
-			self:setState({
-				distributionQuota = Roact.None,
-			})
-			return
-		end
-
-		networkInterface
-			:getCreatorMarketplaceQuotas(assetType, "RateLimitCreatorMarketplaceDistribute")
-			:andThen(function(result)
-				local response: AssetQuotaTypes.AssetQuotasResponse = result.responseBody
-				local monthlyQuota = if response
-						and response.quotas
-						and #response.quotas > 0
-					then Dash.find(response.quotas, function(item)
-						return item.duration == "Month"
-					end)
-					else nil
-				if monthlyQuota then
-					self:setState({
-						distributionQuota = monthlyQuota,
-					})
-				else
-					self:setState({
-						distributionQuota = Roact.None,
-					})
-				end
-			end, function(err)
-				-- Treat failure to fetch quotas as distribution being temporarily disabled
-				self:setState({
-					distributionQuota = {
-						capacity = 0,
-						usage = 0,
-					},
-				})
-				if DebugFlags.shouldDebugWarnings() then
-					warn("Error fetching asset quotas " .. tostring(err))
-				end
-			end)
+	if not quotaPolicyForAssetType then
+		self:setState({
+			distributionQuota = Roact.None,
+		})
+		return
 	end
 
-	function ConfigCopy:getDistributionQuotaStatus()
-		local props = self.props
-		local state = self.state
-		local publishingEnabled: boolean = true
-		local quotaMessageText: string
-		local quotaLinkText: string
-		local assetType = props.AssetType
+	networkInterface
+		:getCreatorMarketplaceQuotas(assetType, "RateLimitCreatorMarketplaceDistribute")
+		:andThen(function(result)
+			local response: AssetQuotaTypes.AssetQuotasResponse = result.responseBody
+			local monthlyQuota = if response
+					and response.quotas
+					and #response.quotas > 0
+				then Dash.find(response.quotas, function(item)
+					return item.duration == "Month"
+				end)
+				else nil
+			if monthlyQuota then
+				self:setState({
+					distributionQuota = monthlyQuota,
+				})
+			else
+				self:setState({
+					distributionQuota = Roact.None,
+				})
+			end
+		end, function(err)
+			-- Treat failure to fetch quotas as distribution being temporarily disabled
+			self:setState({
+				distributionQuota = {
+					capacity = 0,
+					usage = 0,
+				},
+			})
+			if DebugFlags.shouldDebugWarnings() then
+				warn("Error fetching asset quotas " .. tostring(err))
+			end
+		end)
+end
 
-		local quotaPolicyForAssetType = assetType and self.distributionQuotaPolicy[assetType.Name]
-		local distributionQuota = state.distributionQuota
-		if quotaPolicyForAssetType and distributionQuota then
-			local usage = distributionQuota.usage
-			local capacity = distributionQuota.capacity
-			local expirationTime = distributionQuota.expirationTime or ""
-			local localeId = self.props.Localization:getLocale()
+function ConfigCopy:getDistributionQuotaStatus()
+	local props = self.props
+	local state = self.state
+	local publishingEnabled: boolean = true
+	local quotaMessageText: string
+	local quotaLinkText: string
+	local assetType = props.AssetType
 
-			if capacity < 1 then
-				publishingEnabled = false
-				quotaMessageText = props.Localization:getText(
-					"AssetConfigSharing",
-					"DistributeMarketplaceQuotaUnavailable"
-				)
-			elseif usage == 0 then
-				quotaMessageText =
-					props.Localization:getText(
-						"AssetConfigSharing",
-						"DistributeMarketplaceQuotaUnused2",
-						{
-							capacity = string.format("%d", capacity),
-							days = string.format("%d", 30),
-						}
-					)
-			elseif usage >= capacity then
-				publishingEnabled = false
-				local formattedDateTime = formatLocalDateTime(expirationTime, "MMM D, h:mmA", localeId)
-				quotaMessageText = props.Localization:getText(
+	local quotaPolicyForAssetType = assetType and self.distributionQuotaPolicy[assetType.Name]
+	local distributionQuota = state.distributionQuota
+	if quotaPolicyForAssetType and distributionQuota then
+		local usage = distributionQuota.usage
+		local capacity = distributionQuota.capacity
+		local expirationTime = distributionQuota.expirationTime or ""
+		local localeId = self.props.Localization:getLocale()
+
+		if capacity < 1 then
+			publishingEnabled = false
+			quotaMessageText = props.Localization:getText("AssetConfigSharing", "DistributeMarketplaceQuotaUnavailable")
+		elseif usage == 0 then
+			quotaMessageText = props.Localization:getText("AssetConfigSharing", "DistributeMarketplaceQuotaUnused2", {
+				capacity = string.format("%d", capacity),
+				days = string.format("%d", 30),
+			})
+		elseif usage >= capacity then
+			publishingEnabled = false
+			local formattedDateTime = formatLocalDateTime(expirationTime, "MMM D, h:mmA", localeId)
+			quotaMessageText =
+				props.Localization:getText(
 					"AssetConfigSharing",
 					"DistributeMarketplaceQuotaExhausted1",
 					{
 						dateTime = formattedDateTime,
 					}
 				)
-			elseif usage > 0 then
-				local formattedDate = formatLocalDateTime(expirationTime, "MMM D", localeId)
-				quotaMessageText = props.Localization:getText(
+		elseif usage > 0 then
+			local formattedDate = formatLocalDateTime(expirationTime, "MMM D", localeId)
+			quotaMessageText =
+				props.Localization:getText(
 					"AssetConfigSharing",
 					"DistributeMarketplaceQuotaRemaining2",
 					{
@@ -293,18 +268,14 @@ if FFlagAssetConfigDynamicDistributionQuotas2 then
 						date = formattedDate,
 					}
 				)
-			end
-
-			if quotaPolicyForAssetType.link then
-				quotaLinkText = props.Localization:getText(
-					"AssetConfigSharing",
-					"DistributeMarketplaceQuotaInfoShortLink"
-				)
-			end
 		end
 
-		return publishingEnabled, quotaMessageText, quotaLinkText
+		if quotaPolicyForAssetType.link then
+			quotaLinkText = props.Localization:getText("AssetConfigSharing", "DistributeMarketplaceQuotaInfoShortLink")
+		end
 	end
+
+	return publishingEnabled, quotaMessageText, quotaLinkText
 end
 
 function ConfigCopy:render()
@@ -327,37 +298,11 @@ function ConfigCopy:render()
 	local quotaMessageText
 	local quotaLinkText
 	if assetType and CopyEnabled then
-		if FFlagAssetConfigDynamicDistributionQuotas2 then
-			local publishingEnabled
-			publishingEnabled, quotaMessageText, quotaLinkText = self:getDistributionQuotaStatus()
+		local publishingEnabled
+		publishingEnabled, quotaMessageText, quotaLinkText = self:getDistributionQuotaStatus()
 
-			if not publishingEnabled then
-				CopyEnabled = false
-			end
-		else
-			local quotaPolicyForAssetType = self.distributionQuotas[assetType.Name]
-			if quotaPolicyForAssetType then
-				if
-					quotaPolicyForAssetType.capacity ~= nil
-					and quotaPolicyForAssetType.capacity > 0
-					and quotaPolicyForAssetType.days ~= nil
-					and quotaPolicyForAssetType.days > 0
-				then
-					quotaMessageText = props.Localization:getText(
-						"AssetConfigSharing",
-						"DistributeMarketplaceQuotaUnused2",
-						{
-							capacity = string.format("%d", quotaPolicyForAssetType.capacity),
-							days = string.format("%d", quotaPolicyForAssetType.days),
-						}
-					)
-				elseif quotaPolicyForAssetType.link then
-					quotaLinkText = props.Localization:getText(
-						"AssetConfigSharing",
-						"DistributeMarketplaceQuotaInfoLink"
-					)
-				end
-			end
+		if not publishingEnabled then
+			CopyEnabled = false
 		end
 	end
 
@@ -366,7 +311,6 @@ function ConfigCopy:render()
 	local learnMoreText = localization:getText("General", "LearnMore")
 	local showWarningText = copyWarning ~= Cryo.None
 
-	local assetType = props.AssetType
 	if assetType == Enum.AssetType.Audio then
 		localization = props.Localization
 		if isAssetPublic then
@@ -478,10 +422,8 @@ function ConfigCopy:render()
 			QuotaInfo = if quotaMessageText or quotaLinkText
 				then Roact.createElement(Pane, {
 					AutomaticSize = Enum.AutomaticSize.XY,
-					Layout = if FFlagAssetConfigDynamicDistributionQuotas2 then Enum.FillDirection.Vertical else nil,
-					HorizontalAlignment = if FFlagAssetConfigDynamicDistributionQuotas2
-						then Enum.HorizontalAlignment.Left
-						else nil,
+					Layout = Enum.FillDirection.Vertical,
+					HorizontalAlignment = Enum.HorizontalAlignment.Left,
 					LayoutOrder = rightFrameLayoutOrder:getNextOrder(),
 					Padding = {
 						Top = 5,
@@ -497,14 +439,14 @@ function ConfigCopy:render()
 							TextWrapped = true,
 							TextSize = Constants.FONT_SIZE_LARGE,
 							TextColor3 = publishAssetTheme.distributionQuotaTextColor,
-							LayoutOrder = if FFlagAssetConfigDynamicDistributionQuotas2 then 1 else nil,
+							LayoutOrder = 1,
 						})
 						else nil,
 					QuotaLink = if quotaLinkText
 						then Roact.createElement(LinkText, {
 							Text = quotaLinkText,
 							OnClick = self.onQuotaLinkActivated,
-							LayoutOrder = if FFlagAssetConfigDynamicDistributionQuotas2 then 2 else nil,
+							LayoutOrder = 2,
 						})
 						else nil,
 				})

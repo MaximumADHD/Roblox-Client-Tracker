@@ -3,6 +3,10 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -11,7 +15,9 @@ local RepopulatableHistoryItem = require(Components.RepopulatableHistoryItem)
 
 local UI = Framework.UI
 local Container = UI.Container
+local Pane = UI.Pane
 local Decoration = UI.Decoration
+local TextLabel = Decoration.TextLabel
 local ScrollingFrame = UI.ScrollingFrame
 
 local RepopulatableHistory = Roact.PureComponent:extend("RepopulatableHistory")
@@ -45,24 +51,41 @@ function RepopulatableHistory:render()
 	local theme = props.Stylizer
 	local textStyle = theme.Text
 
-	return Roact.createElement(Container, {
-		Background = Decoration.Box,
-		Size = UDim2.new(1, 0, 1, 0),
-	}, {
-		Header = Roact.createElement("TextLabel", {
-			Position = UDim2.new(0.5, 0, 0, 0),
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			Font = Enum.Font.SourceSansBold,
-			Text = "History",
-			TextColor3 = textStyle.BrightText.Color,
-			TextSize = textStyle.BrightText.Size,
-		}),
-		ScrollingContainer = Roact.createElement(ScrollingFrame, {
-			Position = UDim2.new(0, 0, 0, textStyle.BrightText.Size), -- don't overlap!r
-			AutoSizeCanvas = false,
-			Size = UDim2.new(1, 0, 1, -textStyle.BrightText.Size),
-		}, self.createChildren())
-	})
+	if FFlagDevFrameworkMigrateTextLabels then 
+		return Roact.createElement(Pane, {
+			Style = "RoundBox",
+			Layout = Enum.FillDirection.Vertical,
+		}, {
+			Header = Roact.createElement(TextLabel, {
+				AutomaticSize = Enum.AutomaticSize.Y,
+				TextXAlignment = Enum.TextXAlignment.Center,
+				Style = "Bold",
+				Text = "History",
+			}),
+			ScrollingContainer = Roact.createElement(ScrollingFrame, {
+				Size = UDim2.new(1, 0, 1, -textStyle.BrightText.Size),
+			}, self.createChildren())
+		})
+	else
+		return Roact.createElement(Container, {
+			Background = Decoration.Box,
+			Size = UDim2.new(1, 0, 1, 0),
+		}, {
+			Header = Roact.createElement("TextLabel", {
+				Position = UDim2.new(0.5, 0, 0, 0),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Font = Enum.Font.SourceSansBold,
+				Text = "History",
+				TextColor3 = textStyle.BrightText.Color,
+				TextSize = textStyle.BrightText.Size,
+			}),
+			ScrollingContainer = Roact.createElement(ScrollingFrame, {
+				Position = UDim2.new(0, 0, 0, textStyle.BrightText.Size), -- don't overlap!r
+				AutoSizeCanvas = false,
+				Size = UDim2.new(1, 0, 1, -textStyle.BrightText.Size),
+			}, self.createChildren())
+		})
+	end
 end
 
 

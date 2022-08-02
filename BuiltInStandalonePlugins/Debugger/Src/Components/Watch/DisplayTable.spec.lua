@@ -2,6 +2,10 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 
+local Framework = require(Plugin.Packages.Framework)
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkList = SharedFlags.getFFlagDevFrameworkList()
+
 local src = Plugin.Src
 local Components = src.Components
 local DisplayTable = require(Components.Watch.DisplayTable)
@@ -48,17 +52,17 @@ return function()
 
 		local tableView = folder:FindFirstChild("DisplayTable", true)
 
-		local list = tableView.Contents.List.Child.Scroller
+		local list = if FFlagDevFrameworkList then tableView.Contents.List.Child else tableView.Contents.List.Child.Scroller
 
-		expect(list["1"].Row[1].Left.Text.Text).to.equal("Alex")
-		expect(list["1"].Row[2].Left.Text.Text).to.equal("Local")
-		expect(list["1"].Row[3].Left.Text.Text).to.equal("somePreview")
-		expect(list["1"].Row[4].Left.Text.Text).to.equal("map")
+		expect((if FFlagDevFrameworkList then list["1"] else list["1"].Row)[1].Left.Text.Text).to.equal("Alex")
+		expect((if FFlagDevFrameworkList then list["1"] else list["1"].Row)[2].Left.Text.Text).to.equal("Local")
+		expect((if FFlagDevFrameworkList then list["1"] else list["1"].Row)[3].Left.Text.Text).to.equal("somePreview")
+		expect((if FFlagDevFrameworkList then list["1"] else list["1"].Row)[4].Left.Text.Text).to.equal("map")
 
-		expect(list["2"].Row[1].Left.Text.Text).to.equal("UnitedStates")
-		expect(list["2"].Row[2].Left.Text.Text).to.equal("Local")
-		expect(list["2"].Row[3].Left.Text.Text).to.equal("somePreview2")
-		expect(list["2"].Row[4].Left.Text.Text).to.equal("map")
+		expect((if FFlagDevFrameworkList then list["2"] else list["2"].Row)[1].Left.Text.Text).to.equal("UnitedStates")
+		expect((if FFlagDevFrameworkList then list["2"] else list["2"].Row)[2].Left.Text.Text).to.equal("Local")
+		expect((if FFlagDevFrameworkList then list["2"] else list["2"].Row)[3].Left.Text.Text).to.equal("somePreview2")
+		expect((if FFlagDevFrameworkList then list["2"] else list["2"].Row)[4].Left.Text.Text).to.equal("map")
 
 		Roact.unmount(folderInstance)
 	end)

@@ -6,12 +6,12 @@ local Plugin = script.Parent.Parent.Parent
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 
-return function(tick)
+return function(tck)
 	return function(store)
 		local state = store:getState()
 
 		local frameRate = state.Status.FrameRate
-		local snapTick = KeyframeUtils.getNearestFrame(tick, frameRate)
+		local snapTick = KeyframeUtils.getNearestFrame(tck, frameRate)
 
 		store:dispatch(StepAnimation(snapTick))
 	end

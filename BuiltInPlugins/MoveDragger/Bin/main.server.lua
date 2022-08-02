@@ -12,8 +12,6 @@ local DraggerToolComponent = require(DraggerFramework.DraggerTools.DraggerToolCo
 local getFFlagDraggerHandlesIsEnabledFunction = require(DraggerFramework.Flags.getFFlagDraggerHandlesIsEnabledFunction)
 local MoveHandles = require(DraggerFramework.Handles.MoveHandles)
 
-local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
-
 local PLUGIN_NAME = "MoveDragger"
 local DRAGGER_TOOL_NAME = "Move"
 local TOOLBAR_NAME = "Home"
@@ -72,7 +70,7 @@ local function openPlugin()
 				MoveHandles.new(draggerContext, {
 					ShowBoundingBox = false,
 					Summonable = true,
-					Outset = getEngineFeatureModelPivotVisual() and 0.3 or nil,
+					Outset = 0.3,
 					IsEnabledFunction = getFFlagDraggerHandlesIsEnabledFunction() and moveHandlesEnabledFunction or nil,
 				}, DraggerSchema.TransformHandlesImplementation.new(
 					draggerContext, ikTransformMoveHandler)),

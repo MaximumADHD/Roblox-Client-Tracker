@@ -90,8 +90,8 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		StepAnimation = function(tick)
-			dispatch(StepAnimation(tick))
+		StepAnimation = function(tck)
+			dispatch(StepAnimation(tck))
 		end,
 
 		Pause = function()

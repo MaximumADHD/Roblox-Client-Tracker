@@ -216,5 +216,6 @@ return{
 	["CoreScripts.InGameMenu.Prompt.ReturnHomeBodyText"] = [[返回首頁，探索新的體驗。]],
 	["CoreScripts.InGameMenu.Actions.BlockFriend"] = [[封鎖好友？]],
 	["CoreScripts.InGameMenu.QuickActions.ScreenshotSaved"] = [[已儲存截圖]],
-	["CoreScripts.InGameMenu.Action.ShareServerLink"] = [[分享伺服器連結]],
+	["CoreScripts.InGameMenu.Action.ShareServerLink"] = [[分享]],
+	["CoreScripts.InGameMenu.Controls.Scriptable"] = [[可用指令碼]],
 }

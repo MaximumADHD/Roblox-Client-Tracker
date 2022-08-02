@@ -14,7 +14,11 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = require(Plugin.Packages.Framework)
-local FFlagRemoveUILibraryRoundTextBox = Framework.SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
+
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryLoadingIndicator = SharedFlags.getFFlagRemoveUILibraryLoadingIndicator()
+local FFlagRemoveUILibraryRoundTextBox = SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
+local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 
 local Util = Framework.Util
 local ContextServices = Framework.ContextServices
@@ -29,19 +33,20 @@ local DevSubList = require(Page.Components.DevSubList)
 local DevSubDetails = require(Page.Components.DevSubDetails)
 local Badges = require(Page.Components.Badges)
 
+local UILibrary = require(Plugin.Packages.UILibrary)
+
 local UI = Framework.UI
 local Container = UI.Container
 local HoverArea = UI.HoverArea
 local Image = UI.Decoration.Image
+local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator then UI.LoadingIndicator else UILibrary.Component.LoadingIndicator
 local Separator = UI.Separator
 local TextInput2 = UI.TextInput2
+local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
 
 local LayoutOrderIterator = Util.LayoutOrderIterator
 local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
 local GetTextSize = Util.GetTextSize
-
-local UILibrary = require(Plugin.Packages.UILibrary)
-local TitledFrame = UILibrary.Component.TitledFrame
 
 local RoundTextBox
 local TextEntry
@@ -67,7 +72,6 @@ local AddDevSubKeyChange = require(Page.Thunks.AddDevSubKeyChange)
 local AddDevSubKeyError = require(Page.Thunks.AddDevSubKeyError)
 local AddDevSubChange = require(Page.Thunks.AddDevSubChange)
 
-local LoadingIndicator = UILibrary.Component.LoadingIndicator
 local LoadState = require(Plugin.Src.Util.LoadState)
 local ShouldAllowBadges = require(Plugin.Src.Util.GameSettingsUtilities).shouldAllowBadges
 
@@ -926,7 +930,10 @@ local function displayEditDevProductsPage(props)
             }),
         }),
 
-        Name = Roact.createElement(TitledFrame, {
+        Name = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+            LayoutOrder = layoutIndex:getNextOrder(),
+            Title = localization:getText("General", "TitleName"),
+        } else {
             Title = localization:getText("General", "TitleName"),
             MaxHeight = 60,
             LayoutOrder = layoutIndex:getNextOrder(),
@@ -953,7 +960,10 @@ local function displayEditDevProductsPage(props)
             ),
         }),
 
-        Price = Roact.createElement(TitledFrame, {
+        Price = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+            LayoutOrder = layoutIndex:getNextOrder(),
+            Title = localization:getText("Monetization", "PriceTitle"),
+        } else {
             Title = localization:getText("Monetization", "PriceTitle"),
             MaxHeight = 150,
             LayoutOrder = layoutIndex:getNextOrder(),

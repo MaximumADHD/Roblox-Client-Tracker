@@ -24,9 +24,6 @@ local SnappingType			= require(script.Parent.Enum.SnappingType)
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local UserInputService = game:GetService("UserInputService")
 
--- Flags
-local FFlagScaleWithResolution = game:DefineFastFlag("ScaleWithResolution", false)
-
 -- Constants
 local MINIMUM_SIZE = 1
 local HANDLE_POSITION_OFFSET = 3
@@ -38,7 +35,7 @@ local BOUNDING_BOX_COLOR = Color3.fromRGB(222, 222, 222)
 local HANDLE_OFFSET = Vector2.new(1, 1)
 local HANDLE_SIZE_MAX = 7 -- Maximum handle size px
 local HANDLE_SIZE_MIN = 3 -- Minimum handle size px
-local HANDLE_SIZE_TARGET_RATIO = HANDLE_SIZE_MAX / 800 -- Handle size aims to be 7px at 1080p and scales accordingly
+local HANDLE_SIZE_TARGET_RATIO = HANDLE_SIZE_MAX / 800 -- Handle size aims to be 7px at 800 px wide and scales accordingly
 
 local BOUNDING_BOX_WIDTH = 1
 
@@ -128,7 +125,7 @@ end
 -- Returns a UDim2 representing the size of the handle scaled according to resolution.
 local function getHandleSize(): UDim2
 	local handleSize = HANDLE_SIZE_MAX
-	if m_screenGui and FFlagScaleWithResolution then
+	if m_screenGui then
 		handleSize = m_screenGui.AbsoluteSize.Y * HANDLE_SIZE_TARGET_RATIO
 		handleSize = math.clamp(handleSize, HANDLE_SIZE_MIN, HANDLE_SIZE_MAX)
 	end
@@ -139,10 +136,6 @@ end
 --
 -- void updateHandleSize()
 local function updateHandleSize()
-	if not FFlagScaleWithResolution then
-		return
-	end
-
 	for i = 1, #m_handles do
 		local handle = m_handles[i]
 		handle.Size = getHandleSize()

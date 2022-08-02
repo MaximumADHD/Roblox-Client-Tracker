@@ -16,9 +16,6 @@ local Constants = Plugin.Src.Resources.Constants
 local getMaterialColor = require(Constants.getMaterialColor)
 local getMaterialName = require(Constants.getMaterialName)
 
-local Flags = Plugin.Src.Flags
-local getFFlagMaterialPack2022Update = require(Flags.getFFlagMaterialPack2022Update)
-
 local InsertService = game:GetService("InsertService")
 local materialModel = InsertService:LoadLocalAsset("rbxasset://models/MaterialManager/sphere_model.rbxm")
 
@@ -70,13 +67,11 @@ function MaterialPreview:didMount()
 			self:setState({})
 		end)
 
-		if getFFlagMaterialPack2022Update() then
-			-- When 2022 materials are triggered, all builtin previews need to be updated
-			self.builtInMaterialsChangedConnection = props.MaterialController:getBuiltInMaterialsChangedSignal():Connect(function()
-				self.builtinMaterialsChanged = true
-				self:setState({})
-			end)
-		end
+		-- When 2022 materials are triggered, all builtin previews need to be updated
+		self.builtInMaterialsChangedConnection = props.MaterialController:getBuiltInMaterialsChangedSignal():Connect(function()
+			self.builtinMaterialsChanged = true
+			self:setState({})
+		end)
 	end
 
 	self.materialOverride = self.props.MaterialController:getMaterialOverride(self.props.Material)

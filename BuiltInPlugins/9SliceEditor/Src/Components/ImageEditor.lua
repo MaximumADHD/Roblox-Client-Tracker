@@ -241,17 +241,6 @@ function ImageEditor:init(props)
 		end
 	end
 
-	-- TODO: Remove addDragCandidate, removeDragCandidate with flag FFlag9SliceEditorNewDraggers
-	self.addDragCandidate = function(draggerOrientation, distance, instance)
-		self.uncertainDragCandidates[draggerOrientation] = {
-			distance = distance,
-			instance = instance,
-			orientation = draggerOrientation,
-			priority = 0,
-		}
-		self.updateHoverDragger()
-	end
-
 	self.addDragCandidateWithId = function(id, draggerOrientation, distance, instance, priority)
 		self.uncertainDragCandidates[id] = {
 			distance = distance,
@@ -259,11 +248,6 @@ function ImageEditor:init(props)
 			orientation = draggerOrientation,
 			priority = priority or 0
 		}
-		self.updateHoverDragger()
-	end
-
-	self.removeDragCandidate = function(draggerOrientation)
-		self.uncertainDragCandidates[draggerOrientation] = nil
 		self.updateHoverDragger()
 	end
 
@@ -392,9 +376,6 @@ function ImageEditor:createDragger(orientation)
 			onDragBegin = self.onDragBegin,
 			onDragging = self.onDragging,
 			onDragEnd = self.onDragEnd,
-			-- TODO: Remove addDragCandidate, removeDragCandidate with flag FFlag9SliceEditorNewDraggers
-			addDragCandidate = self.addDragCandidate,
-			removeDragCandidate = self.removeDragCandidate,
 			addDragCandidateWithId = self.addDragCandidateWithId,
 			removeDragCandidateWithId = self.removeDragCandidateWithId,
 			isHovering = (self.state.hoveringDraggerOrientation == orientation),

@@ -36,10 +36,12 @@ local AddDevSubKeyChange = require(Page.Thunks.AddDevSubKeyChange)
 local DevSubModeration = require(Page.Thunks.DevSubModeration)
 
 local RoundTextButton = UILibrary.Component.RoundTextButton
-local TitledFrame = UILibrary.Component.TitledFrame
 
 local Framework = require(Plugin.Packages.Framework)
-local FFlagRemoveUILibraryRoundTextBox = Framework.SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
+
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryRoundTextBox = SharedFlags.getFFlagRemoveUILibraryRoundTextBox()
+local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 
 local RoundTextBox
 if not FFlagRemoveUILibraryRoundTextBox then
@@ -51,10 +53,11 @@ local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local HoverArea = UI.HoverArea
+local Image = UI.Decoration.Image
 local Pane = UI.Pane
 local Separator = UI.Separator
 local TextInput2 = UI.TextInput2
-local Image = UI.Decoration.Image
+local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
 
 local Util = Framework.Util
 local GetTextSize = Util.GetTextSize
@@ -265,7 +268,10 @@ function DeveloperSubscriptionDetails:render()
 			}),
 		}),
 
-		IdFrame = not isNew and Roact.createElement(TitledFrame, {
+		IdFrame = not isNew and Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Title = localization:getText("General", "DevSubsId"),
+		} else {
 			Title = localization:getText("General", "DevSubsId"),
 			LayoutOrder = layoutIndex:getNextOrder(),
 			MaxHeight = 42,
@@ -297,7 +303,10 @@ function DeveloperSubscriptionDetails:render()
 			}),
 		}),
 
-		NameFrame = Roact.createElement(TitledFrame, {
+		NameFrame = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Title = localization:getText("General", "DevSubsName"),
+		} else {
 			Title = localization:getText("General", "DevSubsName"),
 			LayoutOrder = layoutIndex:getNextOrder(),
 			MaxHeight = 64,
@@ -336,7 +345,10 @@ function DeveloperSubscriptionDetails:render()
 			ErrorMessage = imageError,
 
 			AddIcon = self.setImage,
-		}) or Roact.createElement(TitledFrame, {
+		}) or Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Title = localization:getText("General", "DevSubsImage"),
+		} else {
 			Title = localization:getText("General", "DevSubsImage"),
 			MaxHeight = 150,
 			LayoutOrder = 3,
@@ -348,7 +360,10 @@ function DeveloperSubscriptionDetails:render()
 			}),
 		}),
 
-		PriceFrame = Roact.createElement(TitledFrame, {
+		PriceFrame = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Title = localization:getText("General", "DevSubsPrice"),
+		} else {
 			Title = localization:getText("General", "DevSubsPrice"),
 			LayoutOrder = layoutIndex:getNextOrder(),
 			MaxHeight = 64,
@@ -395,7 +410,10 @@ function DeveloperSubscriptionDetails:render()
 			}),
 		}),
 
-		PrepaidFrame = Roact.createElement(TitledFrame, {
+		PrepaidFrame = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Title = localization:getText("General", "DevSubsDuration"),
+		} else {
 			Title = localization:getText("General", "DevSubsDuration"),
 			LayoutOrder = layoutIndex:getNextOrder(),
 			MaxHeight = 42,
@@ -409,7 +427,10 @@ function DeveloperSubscriptionDetails:render()
 			}),
 		}),
 
-		EarningFrame = not isNew and Roact.createElement(TitledFrame, {
+		EarningFrame = not isNew and Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Title = localization:getText("General", "DevSubsPendingEarning"),
+		} else {
 			Title = localization:getText("General", "DevSubsPendingEarning"),
 			LayoutOrder = layoutIndex:getNextOrder(),
 			MaxHeight = 42,

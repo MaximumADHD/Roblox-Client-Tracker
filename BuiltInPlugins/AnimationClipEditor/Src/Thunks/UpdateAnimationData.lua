@@ -41,10 +41,10 @@ return function(animationData)
 		AnimationData.setEndTick(animationData)
 		local newEndTick = animationData.Metadata.EndTick
 
-		for _, tick in ipairs(animationData.Events.Keyframes) do
-			if tick > newEndTick then
-				animationData.Metadata.EndTick = tick
-				newEndTick = tick
+		for _, tck in ipairs(animationData.Events.Keyframes) do
+			if tck > newEndTick then
+				animationData.Metadata.EndTick = tck
+				newEndTick = tck
 			end
 		end
 

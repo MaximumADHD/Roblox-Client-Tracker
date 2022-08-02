@@ -1,7 +1,6 @@
 --[[
 	A view wrapper dispalying a back button and a grid of assets based on prop filters.
 ]]
-local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
 local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
 
 local Plugin = script:FindFirstAncestor("Toolbox")

@@ -10,17 +10,23 @@
 		function onPlayerEmulationEnabledChanged
 			on toggle plugin enabled
 ]]
-
 local PlayerEmulatorService = game:GetService("PlayerEmulatorService")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local UILibrary = require(Plugin.Packages.UILibrary)
 local ToggleButton = UILibrary.Component.ToggleButton
+
+local UI = Framework.UI
+local TextLabel = UI.Decoration.TextLabel
 
 local Constants = require(Plugin.Src.Util.Constants)
 local OnPlayerEmulationEnabledChanged = require(Plugin.Src.Actions.OnPlayerEmulationEnabledChanged)
@@ -84,15 +90,23 @@ function MainSwitchSection:render()
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
 	}, {
-		Label = Roact.createElement("TextLabel", {
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextYAlignment = Enum.TextYAlignment.Center,
-			TextColor3 = theme.TextColor,
-			Size = theme.TOGGLE_ITEM_LABEL_SIZE,
-			Text = localization:getText("MainSwitchSection", "LabelText"),
-			BackgroundTransparency = 1,
-			LayoutOrder = 1,
-		}),
+		Label = if FFlagDevFrameworkMigrateTextLabels then (
+			Roact.createElement(TextLabel, {
+				Size = theme.TOGGLE_ITEM_LABEL_SIZE,
+				Text = localization:getText("MainSwitchSection", "LabelText"),
+				LayoutOrder = 1,
+			})
+		) else (
+			Roact.createElement("TextLabel", {
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Center,
+				TextColor3 = theme.TextColor,
+				Size = theme.TOGGLE_ITEM_LABEL_SIZE,
+				Text = localization:getText("MainSwitchSection", "LabelText"),
+				BackgroundTransparency = 1,
+				LayoutOrder = 1,
+			})
+		),
 
 		Toggle = Roact.createElement(ToggleButton, {
 			Size = UDim2.new(0, theme.TOGGLE_BUTTON_WIDTH, 0, theme.TOGGLE_BUTTON_HEIGHT),

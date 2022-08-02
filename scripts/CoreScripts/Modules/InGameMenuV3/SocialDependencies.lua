@@ -6,6 +6,9 @@ local RoduxNetworking = LuaSocialLibrariesDeps.RoduxNetworking
 local HttpRequest = LuaSocialLibrariesDeps.httpRequest
 local Lumberyak = require(CorePackages.Lumberyak)
 
+local UrlBuilderPackage = require(CorePackages.Packages.UrlBuilder)
+local UrlBuilder = UrlBuilderPackage.UrlBuilder
+
 local logger = Lumberyak.Logger.new(nil, "InGameMenu")
 local maxHttpRetries = game:DefineFastInt("InGameMenuHttpRetryCount", 3)
 local httpLogger = logger:new("InGameMenu Networking")
@@ -43,4 +46,5 @@ return {
 		roduxNetworking = myRoduxNetworking,
 		useMockedResponse = true,
 	}),
+	UrlBuilder = UrlBuilder,
 }

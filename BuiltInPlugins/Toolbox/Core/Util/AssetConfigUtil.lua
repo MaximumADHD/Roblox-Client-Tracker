@@ -7,6 +7,7 @@ local Urls = require(Util.Urls)
 local DFIntFileMaxSizeBytes = tonumber(settings():GetFVariable("FileMaxSizeBytes"))
 
 local FFlagUseDefaultThumbnailForAnimation = game:GetFastFlag("UseDefaultThumbnailForAnimation")
+local FFlagToolboxAssetConfigurationMinPriceFloor = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor")
 local StudioService = game:GetService("StudioService")
 
 local round = function(num, numDecimalPlaces)
@@ -36,17 +37,25 @@ end
 function AssetConfigUtil.calculatePotentialEarning(allowedAssetTypesForRelease, price, assetTypeEnum, minPrice)
 	price = tonumber(price)
 	if not price then
-		return 0, 0
+		if FFlagToolboxAssetConfigurationMinPriceFloor then
+			return 0
+		else
+			return 0, 0
+		end
 	end
 	price = round(price)
 
 	local convertToZeroToOne = 0.01
-	local scaler = convertToZeroToOne
+	local scalar = convertToZeroToOne
 		* AssetConfigUtil.getMarketplaceFeesPercentage(allowedAssetTypesForRelease, assetTypeEnum)
-	local roundedPrice = round(price * scaler)
+	local roundedPrice = round(price * scalar)
 	local marketPlaceFee = math.max(minPrice, roundedPrice)
 
-	return math.max(0, price - marketPlaceFee), marketPlaceFee or 0
+	if FFlagToolboxAssetConfigurationMinPriceFloor then
+		return math.max(0, price - marketPlaceFee)
+	else
+		return math.max(0, price - marketPlaceFee), marketPlaceFee or 0
+	end
 end
 
 function AssetConfigUtil.getPriceRange(allowedAssetTypesForRelease, assetTypeEnum)

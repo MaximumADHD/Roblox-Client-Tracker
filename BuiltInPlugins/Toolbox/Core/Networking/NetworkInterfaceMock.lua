@@ -12,8 +12,6 @@ local Promise = require(Packages.Framework).Util.Promise
 
 local AssetQuotaTypes = require(Plugin.Core.Types.AssetQuotaTypes)
 
-local FFlagAssetConfigDynamicDistributionQuotas2 = game:GetFastFlag("AssetConfigDynamicDistributionQuotas2")
-
 -- public api
 local NetworkInterfaceMock = {}
 NetworkInterfaceMock.__index = NetworkInterfaceMock
@@ -289,6 +287,13 @@ function NetworkInterfaceMock:resolveAssets(assets, totalResults, nextPageCursor
 	})
 end
 
+function NetworkInterfaceMock:getVote(assetId: number, assetType)
+	local fakeResponse = {
+		userVote = true
+	}
+	return Promise.resolve(fakeResponse)
+end
+
 function NetworkInterfaceMock:postVote(assetId)
 	return Promise.resolve({
 		model = {
@@ -389,13 +394,11 @@ function NetworkInterfaceMock:uploadCatalogItemFormat(assetId, type, name, descr
 	return Promise.resolve({})
 end
 
-if FFlagAssetConfigDynamicDistributionQuotas2 then
-	function NetworkInterfaceMock:getCreatorMarketplaceQuotas(
-		assetType: Enum.AssetType,
-		resourceType: AssetQuotaTypes.AssetQuotaResourceType
-	)
-		return Promise.resolve({})
-	end
+function NetworkInterfaceMock:getCreatorMarketplaceQuotas(
+	assetType: Enum.AssetType,
+	resourceType: AssetQuotaTypes.AssetQuotaResourceType
+)
+	return Promise.resolve({})
 end
 
 return NetworkInterfaceMock

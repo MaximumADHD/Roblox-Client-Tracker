@@ -1,9 +1,15 @@
 --[[
 	Displays a single row of the StoryTree
 ]]
-
 local main = script.Parent.Parent.Parent.Parent
 local Framework = require(main.Packages.Framework)
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkList = SharedFlags.getFFlagDevFrameworkList()
+
+if FFlagDevFrameworkList then
+	return nil
+end
+
 local Roact = require(main.Packages.Roact)
 
 local StoryTreeRow = Roact.PureComponent:extend("StoryTreeRow")

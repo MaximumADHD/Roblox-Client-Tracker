@@ -29,8 +29,6 @@ local AnalyticsHandlers = require(main.Src.Resources.AnalyticsHandlers)
 local StudioUI = Framework.StudioUI
 local DockWidget = StudioUI.DockWidget
 
-local FFlag9SliceEditorEnableAnalytics = game:GetFastFlag("9SliceEditorEnableAnalytics")
-local FFlag9SliceEditorDontRestoreOnDMLoad = game:GetFastFlag("9SliceEditorDontRestoreOnDMLoad")
 local FFlag9SliceEditorRespectImageRectSize = game:GetFastFlag("9SliceEditorRespectImageRectSize")
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
@@ -43,13 +41,7 @@ function MainPlugin:init(props)
 	})
 
 	self.analytics = nil
-	if FFlag9SliceEditorEnableAnalytics then
-		self.analytics = ContextServices.Analytics.new(AnalyticsHandlers)
-	else
-		self.analytics = ContextServices.Analytics.new(function()
-			return {}
-		end, {})
-	end
+	self.analytics = ContextServices.Analytics.new(AnalyticsHandlers)
 
 	self.state = {
 		-- Main 9-Slice Editor window visible
@@ -81,7 +73,7 @@ function MainPlugin:init(props)
 	end
 
 	self.onClose = function()
-		if FFlag9SliceEditorEnableAnalytics and self.state.enabled then
+		if self.state.enabled then
 			self.reportClose()
 		end
 
@@ -90,29 +82,16 @@ function MainPlugin:init(props)
 		})
 	end
 
-	-- Remove .onRestore with FFlag9SliceEditorDontRestoreOnDMLoad
-	self.onRestore = function(enabled)
-		if FFlag9SliceEditorEnableAnalytics and enabled and not self.state.enabled then
-			self.reportOpen()
-		end
-
-		self:setState({
-			enabled = enabled
-		})
-	end
-
 	self.DEPRECATED_onInstanceUnderEditChanged = function(instance: Instance?, title: string, pixelDimensions: Vector2,
 		sliceRect: Types.SliceRectType, revertSliceRect: Types.SliceRectType)
 
-		if FFlag9SliceEditorEnableAnalytics then
-			if not self.state.enabled then
-				self.reportOpen()
-			end
+		if not self.state.enabled then
+			self.reportOpen()
+		end
 
-			if instance then
-				-- Every time an image is loaded into editor
-				self.analytics:report("sliceEditorImageLoadedIntoEditor")
-			end
+		if instance then
+			-- Every time an image is loaded into editor
+			self.analytics:report("sliceEditorImageLoadedIntoEditor")
 		end
 
 		self:setState({
@@ -126,15 +105,13 @@ function MainPlugin:init(props)
 	end
 
 	self.onInstanceUnderEditChanged = function(instance: Instance?, newState: {[string]: any})
-		if FFlag9SliceEditorEnableAnalytics then
-			if not self.state.enabled then
-				self.reportOpen()
-			end
+		if not self.state.enabled then
+			self.reportOpen()
+		end
 
-			if instance then
-				-- Every time an image is loaded into editor
-				self.analytics:report("sliceEditorImageLoadedIntoEditor")
-			end
+		if instance then
+			-- Every time an image is loaded into editor
+			self.analytics:report("sliceEditorImageLoadedIntoEditor")
 		end
 
 		local nextState = {
@@ -180,7 +157,7 @@ function MainPlugin:init(props)
 end
 
 function MainPlugin:willUnmount()
-	if FFlag9SliceEditorEnableAnalytics and self.state.enabled then
+	if self.state.enabled then
 		self.reportClose()
 	end
 end
@@ -190,13 +167,6 @@ function MainPlugin:render()
 	local state = self.state
 	local plugin = props.Plugin
 	local enabled = state.enabled
-
-	local shouldRestore
-	if FFlag9SliceEditorDontRestoreOnDMLoad then
-		shouldRestore = false
-	else
-		shouldRestore = true
-	end
 
 	return ContextServices.provide({
 		Plugin.new(plugin),
@@ -222,8 +192,7 @@ function MainPlugin:render()
 			Size = Constants.WIDGET_SIZE,
 			MinSize = Constants.WIDGET_SIZE,
 			OnClose = self.onClose,
-			ShouldRestore = shouldRestore,
-			OnWidgetRestored = shouldRestore and self.onRestore or nil,
+			ShouldRestore = false,
 		}, {
 			SliceEditor = enabled and Roact.createElement(SliceEditor, {
 				onClose = self.onClose,

@@ -1,4 +1,12 @@
-local Roact = require(script.Parent.Parent.Parent.Packages.Roact)
+local Plugin = script.Parent.Parent.Parent
+local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
+
+local UI = Framework.UI
+local TextLabel = UI.Decoration.TextLabel
 
 local TextService = game:GetService("TextService")
 
@@ -29,16 +37,25 @@ return function(props)
 				BorderSizePixel = 0
 			}),
 
-			Text = Roact.createElement("TextLabel", {
-				ZIndex = 4,
-				Size = UDim2.new(1, 0, 1, 0),
-				BackgroundTransparency = 1,
-				Text = props.Message,
-				TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainText),
-				TextWrapped = true,
-				Font = font,
-				TextSize = fontSize,
-			}),
+			Text = if FFlagDevFrameworkMigrateTextLabels then (
+				Roact.createElement(TextLabel, {
+					ZIndex = 4,
+					Text = props.Message,
+					TextWrapped = true,
+					Style = "Body",
+				})
+			) else (
+				Roact.createElement("TextLabel", {
+					ZIndex = 4,
+					Size = UDim2.new(1, 0, 1, 0),
+					BackgroundTransparency = 1,
+					Text = props.Message,
+					TextColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainText),
+					TextWrapped = true,
+					Font = font,
+					TextSize = fontSize,
+				})
+			),
 		}),
 	})
 end

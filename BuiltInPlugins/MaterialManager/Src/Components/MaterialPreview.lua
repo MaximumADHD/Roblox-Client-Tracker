@@ -21,8 +21,6 @@ local MaterialServiceController = require(Controllers.MaterialServiceController)
 local Constants = Plugin.Src.Resources.Constants
 local getMaterialColor = require(Constants.getMaterialColor)
 
-local getFFlagMaterialManagerUpdatedMaterialBall = require(Plugin.Src.Flags.getFFlagMaterialManagerUpdatedMaterialBall)
-
 export type Props = {
 	BackgroundColor: Color3?,
 	DisableZoom: boolean?,
@@ -79,10 +77,7 @@ function MaterialPreview:render()
 	local material = materialWrapper.Material
 
 	if not self.materialModel then
-		self.materialModel = props.GeneralServiceController:LoadLocalAsset(if getFFlagMaterialManagerUpdatedMaterialBall() then
-			"rbxasset://models/MaterialManager/smooth_material_model.rbxm"
-		else
-			"rbxasset://models/MaterialManager/material_model.rbxm")
+		self.materialModel = props.GeneralServiceController:LoadLocalAsset("rbxasset://models/MaterialManager/smooth_material_model.rbxm")
 	end
 	self.model = self.materialModel:Clone()
 	self.model.MeshPart.Material = material

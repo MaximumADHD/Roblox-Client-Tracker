@@ -21,13 +21,13 @@ local SwitchEditorMode = require(Plugin.Src.Thunks.SwitchEditorMode)
 local SetEditorMode = require(Plugin.Src.Actions.SetEditorMode)
 local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
+local SetLastSelectedPath = require(Plugin.Src.Actions.SetLastSelectedPath)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
-
-local FFlagResetTrackSelectionOnLoad = game:DefineFastFlag("ACEResetTrackSelectionOnLoad", false)
+local GetFFlagFixTrackListSelection = require(Plugin.LuaFlags.GetFFlagFixTrackListSelection)
 
 return function(animationData, analytics)
 	return function(store)
@@ -36,10 +36,11 @@ return function(animationData, analytics)
 		store:dispatch(SetFuture({}))
 
 		-- Reset all hanging data
-		if FFlagResetTrackSelectionOnLoad then
-			store:dispatch(SetSelectedTracks({}))
-			store:dispatch(SetRightClickContextInfo({}))
+		store:dispatch(SetSelectedTracks({}))
+		if GetFFlagFixTrackListSelection() then
+			store:dispatch(SetLastSelectedPath(nil))
 		end
+		store:dispatch(SetRightClickContextInfo({}))
 		store:dispatch(SetSelectedKeyframes({}))
 		store:dispatch(SortAndSetTracks({}))
 

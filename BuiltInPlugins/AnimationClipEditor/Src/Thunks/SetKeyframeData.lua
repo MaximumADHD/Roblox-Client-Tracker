@@ -16,8 +16,6 @@ local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
-local FFlagFixRealtimeFacsChanges = game:DefineFastFlag("ACEFixRealtimeFacsChanges", false)
-
 if GetFFlagChannelAnimations() then
 	return function(instanceName, path, tck, newKeyframeData)
 		return function(store)
@@ -35,16 +33,12 @@ if GetFFlagChannelAnimations() then
 			local track = AnimationData.getTrack(newData, instanceName, path)
 			if track and track.Data and track.Data[tck] then
 				AnimationData.setKeyframeData(track, tck, newKeyframeData)
-				if FFlagFixRealtimeFacsChanges then
-					store:dispatch(UpdateAnimationData(newData))
-				else
-					store:dispatch(SetAnimationData(newData))
-				end
+				store:dispatch(UpdateAnimationData(newData))
 			end
 		end
 	end
 else
-	return function(instanceName, trackName, tick, newKeyframeData)
+	return function(instanceName, trackName, tck, newKeyframeData)
 		return function(store)
 			local animationData = store:getState().AnimationData
 			if not animationData then
@@ -70,8 +64,8 @@ else
 
 			local trackData = track.Data
 
-			if trackData and trackData[tick] then
-				AnimationData.setKeyframeData(track, tick, newKeyframeData)
+			if trackData and trackData[tck] then
+				AnimationData.setKeyframeData(track, tck, newKeyframeData)
 				store:dispatch(SetAnimationData(newData))
 			end
 		end

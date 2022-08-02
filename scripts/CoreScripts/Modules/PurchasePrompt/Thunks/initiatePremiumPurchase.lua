@@ -9,10 +9,13 @@ local ErrorOccurred = require(Root.Actions.ErrorOccurred)
 local getPremiumUpsellPrecheck = require(Root.Network.getPremiumUpsellPrecheck)
 local getPremiumProductInfo = require(Root.Network.getPremiumProductInfo)
 local getAccountInfo = require(Root.Network.getAccountInfo)
+local getBalanceInfo = require(Root.Network.getBalanceInfo)
 local Network = require(Root.Services.Network)
 local ExternalSettings = require(Root.Services.ExternalSettings)
 local resolvePremiumPromptState = require(Root.Thunks.resolvePremiumPromptState)
 local hasPendingRequest = require(Root.Utils.hasPendingRequest)
+
+local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
 
 local requiredServices = {
 	Network,
@@ -39,9 +42,10 @@ local function initiatePremiumPurchase(id, infoType, equipIfPurchased)
 			canShowUpsell = shouldPrecheck and getPremiumUpsellPrecheck(network) or Promise.resolve(true),
 			premiumProductInfo = getPremiumProductInfo(network),
 			accountInfo = getAccountInfo(network, externalSettings),
+			balanceInfo = FFlagPPAccountInfoMigration and getBalanceInfo(network, externalSettings) or Promise.resolve(),
 		})
 			:andThen(function(results)
-				store:dispatch(resolvePremiumPromptState(results.accountInfo, results.premiumProductInfo, results.canShowUpsell))
+				store:dispatch(resolvePremiumPromptState(results.accountInfo, results.balanceInfo, results.premiumProductInfo, results.canShowUpsell))
 			end)
 			:catch(function(errorReason)
 				store:dispatch(ErrorOccurred(errorReason))

@@ -47,26 +47,6 @@ local function makeTerrainToolsTheme()
 		},
 	}
 
-	theme[ui.Button] = Cryo.Dictionary.join(BaseTheme[ui.Button], {
-		BackgroundStyle = Cryo.Dictionary.join(BaseTheme[ui.RoundBox], {
-			Color = Color3.fromRGB(0, 162, 255),
-		}),
-		TextColor = Color3.fromRGB(255, 255, 255),
-		TextSize = 16,
-
-		[StyleModifier.Hover] = {
-			BackgroundStyle = Cryo.Dictionary.join(BaseTheme[ui.RoundBox], {
-				Color = Color3.fromRGB(50, 181, 254),
-			})
-		},
-
-		[StyleModifier.Disabled] = {
-			BackgroundStyle = Cryo.Dictionary.join(BaseTheme[ui.RoundBox], {
-				Color = StyleKey.TerrainTools_DisabledColor,
-			})
-		},
-	})
-
 	return theme
 end
 

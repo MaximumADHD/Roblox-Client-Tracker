@@ -21,6 +21,9 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
+
 local TitledFrame = Framework.StudioUI.TitledFrame
 local ToggleButton = Framework.UI.ToggleButton
 local TextWithInlineLink = Framework.UI.TextWithInlineLink
@@ -70,9 +73,9 @@ function ToggleButtonWithTitle:render()
     local layoutIndex = LayoutOrderIterator.new()
 
     return Roact.createElement(TitledFrame, {
-        Title = title,
         LayoutOrder = layoutOrder,
-        Style = "Subtitle",
+        Style = if FFlagRemoveUILibraryTitledFrame then nil else "Subtitle",
+        Title = title,
     }, {
         ToggleButton = Roact.createElement(ToggleButton, {
             Disabled = disabled,

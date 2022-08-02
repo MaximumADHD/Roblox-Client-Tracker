@@ -18,6 +18,7 @@ export type Track = {
 	Keyframes: {number}?,
 	Name: string?,
 	Type: string?,
+	EulerAnglesOrder: Enum.RotationOrder?,
 }
 
 export type Marker = {Time: number, Value: string}

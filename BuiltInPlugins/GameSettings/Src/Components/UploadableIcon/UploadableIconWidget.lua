@@ -22,12 +22,18 @@ local Framework = require(Plugin.Packages.Framework)
 
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryBulletPoint = SharedFlags.getFFlagRemoveUILibraryBulletPoint()
+local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
 
 local Cryo = require(Plugin.Packages.Cryo)
-local UILibrary = require(Plugin.Packages.UILibrary)
+local UILibrary = if FFlagRemoveUILibraryTitledFrame and FFlagRemoveUILibraryBulletPoint then nil else require(Plugin.Packages.UILibrary)
 
 local UI = Framework.UI
 local BulletList = UI.BulletList
+local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
+local BulletPoint
+if not FFlagRemoveUILibraryBulletPoint then
+	BulletPoint = UILibrary.Component.BulletPoint
+end
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
@@ -36,11 +42,6 @@ local withContext = ContextServices.withContext
 
 local TUTORIAL_URL = HttpRbxApiService:GetDocumentationUrl("articles/Game-Icons-Tips")
 
-local TitledFrame = UILibrary.Component.TitledFrame
-local BulletPoint
-if not FFlagRemoveUILibraryBulletPoint then
-    BulletPoint = UILibrary.Component.BulletPoint
-end
 local UploadableIcon = require(Plugin.Src.Components.UploadableIcon.UploadableIcon)
 local NewUploadableIcon = require(Plugin.Src.Components.UploadableIcon.NewUploadableIcon)
 
@@ -89,7 +90,6 @@ function UploadableIconWidget:render()
 		preview = false
 	end
 
-
 	local notes
 	if FFlagRemoveUILibraryBulletPoint then
 		notes = Roact.createElement(BulletList, {
@@ -130,7 +130,10 @@ function UploadableIconWidget:render()
 		})
 	end
 
-	return Roact.createElement(TitledFrame, {
+	return Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+		LayoutOrder = self.props.LayoutOrder or 1,
+		Title = title,
+	} else {
 		Title = title,
 		MaxHeight = 150,
 		LayoutOrder = self.props.LayoutOrder or 1,

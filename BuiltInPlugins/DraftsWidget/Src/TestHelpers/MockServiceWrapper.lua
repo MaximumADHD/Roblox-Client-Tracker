@@ -1,7 +1,6 @@
 --[[
 	A customizable wrapper for tests that supplies all the required providers for component testing
 ]]
-local FFlagUpdateDraftsWidgetToDFContextServices = game:GetFastFlag("UpdateDraftsWidgetToDFContextServices")
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -10,15 +9,14 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 
-local Localization = if FFlagUpdateDraftsWidgetToDFContextServices then ContextServices.Localization else UILibrary.Studio.Localization
+local Localization = ContextServices.Localization
 local UILibraryWrapper = ContextServices.UILibraryWrapper
 
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local MockDraftsService = require(Plugin.Src.TestHelpers.MockDraftsService)
 local MockPlugin = require(Plugin.Src.TestHelpers.MockPlugin)
-local PluginTheme = if FFlagUpdateDraftsWidgetToDFContextServices then require(Plugin.Src.Resources.MakeTheme) else require(Plugin.Src.Resources.DEPRECATED_UILibraryTheme)
+local PluginTheme = require(Plugin.Src.Resources.MakeTheme)
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
-
 
 local MockServiceWrapper = Roact.Component:extend("MockServiceWrapper")
 
@@ -47,7 +45,7 @@ function MockServiceWrapper:render()
 
 	local theme = self.props.theme
 	if not theme then
-		theme = if FFlagUpdateDraftsWidgetToDFContextServices then PluginTheme(true) else PluginTheme.mock()
+		theme = PluginTheme(true)
 	end
 
 	return Roact.createElement(ServiceWrapper, {
@@ -56,7 +54,7 @@ function MockServiceWrapper:render()
 		plugin = pluginInstance,
 		store = store,
 		theme = theme,
-		uiLibWrapper = if FFlagUpdateDraftsWidgetToDFContextServices then UILibraryWrapper.new(UILibrary) else nil,
+		uiLibWrapper = UILibraryWrapper.new(UILibrary),
 	}, self.props[Roact.Children])
 end
 

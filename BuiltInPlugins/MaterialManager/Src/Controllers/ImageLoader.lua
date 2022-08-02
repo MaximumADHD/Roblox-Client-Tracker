@@ -78,9 +78,10 @@ function ImageLoader.new(options, mock: boolean?)
 	return self
 end
 
-function ImageLoader.mock()
+function ImageLoader.mock(createImageLabel)
 	return ImageLoader.new({
-		dontPoll = true
+		dontPoll = true,
+		createImageLabel = createImageLabel,
 	}, true)
 end
 

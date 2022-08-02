@@ -29,6 +29,7 @@ local GetGroupCollaborators = require(Plugin.Src.Selectors.GetGroupCollaborators
 local AddUserCollaborator = require(Plugin.Src.Thunks.AddUserCollaborator)
 local AddGroupCollaborator = require(Plugin.Src.Thunks.AddGroupCollaborator)
 local SearchCollaborators = require(Plugin.Src.Thunks.SearchCollaborators)
+local PermissionsLoader = require(Plugin.Src.Thunks.PermissionsLoader)
 
 local IsGroupGame = require(Plugin.Src.Selectors.IsGroupGame)
 
@@ -74,6 +75,7 @@ end
 
 function CollaboratorSearchWidget:getMatches()
 	local props = self.props
+	
 
 	local searchData = props.SearchData
 	local userCollaborators = props.UserCollaborators
@@ -127,9 +129,9 @@ end
 
 function CollaboratorSearchWidget:getResults()
 	local props = self.props
+	
 
 	local searchData = props.SearchData
-
 
 	local isGroupGame = props.IsGroupGame
 
@@ -158,24 +160,39 @@ function CollaboratorSearchWidget:getResults()
 
 	if #matches.Users > 0  then
 		local userResults = {}
+		local userResultsNonFriends =  {}
 
 		for _, user in pairs(matches.Users) do
-			if #userResults + 1 > maxUserResultsAfterAdjustment then 
+			if #userResults + #userResultsNonFriends + 1 > maxUserResultsAfterAdjustment then 
 				break 
 			end
-
-			table.insert(userResults, {
+			
+			local id = user[PermissionsConstants.SubjectIdKey]
+			
+			local userEntry = {
 				Icon = Roact.createElement(UserHeadshotThumbnail, {
-					Id = user[PermissionsConstants.SubjectIdKey],
+					Id = id,
 					Size = UDim2.new(1, 0, 1, 0),
 				}),
 				Name = user[PermissionsConstants.SubjectNameKey],
 				Key = {
 					Type = PermissionsConstants.UserSubjectKey,
-					Id = user[PermissionsConstants.SubjectIdKey],
+					Id = id,
 					Name = user[PermissionsConstants.SubjectNameKey]
 				},
-			})
+			}
+			
+			-- friends first!
+			if self:isFriend(id) then
+				userEntry.IsFriend = true
+				table.insert(userResults, userEntry)
+			else
+				table.insert(userResultsNonFriends, userEntry)
+			end
+		end
+		
+		for _, userEntryNonFriend in userResultsNonFriends do
+			table.insert(userResults, userEntryNonFriend)
 		end
 
 		userResults.LayoutOrder = 0
@@ -268,6 +285,9 @@ function CollaboratorSearchWidget:render()
 			end,
 			OnItemClicked = function(key)
 				-- More info on adding collaborators and access level: https://confluence.rbx.com/pages/viewpage.action?spaceKey=CD&title=Place+Permissions+inside+Studio
+				
+				-- Refresh the friends list so that we have up-to-date permissions
+				props.LoadFriends()
 				if key.Type == PermissionsConstants.UserSubjectKey then
 					if self:isFriend(key.Id) then
 						addUserCollaborator(key.Id, key.Name, EDIT_KEY)
@@ -319,6 +339,9 @@ CollaboratorSearchWidget = RoactRodux.connect(
 			end,
 			SearchCollaborators = function(...)
 				dispatch(SearchCollaborators(...))
+			end,
+			LoadFriends = function()
+				dispatch(PermissionsLoader:LoadFriends())
 			end,
 		}
 	end

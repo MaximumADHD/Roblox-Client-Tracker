@@ -9,7 +9,6 @@ local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
 local deepJoin = Util.deepJoin
 
-local FFlagStudioAssetManagerAssetModeration = game:GetFastFlag("StudioAssetManagerAssetModeration")
 
 return Rodux.createReducer({
 	-- Contains table of assets, associated preview data, and next page/cursor

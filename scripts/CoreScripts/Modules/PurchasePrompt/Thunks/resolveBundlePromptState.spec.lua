@@ -2,7 +2,7 @@ return function()
 	local Root = script.Parent.Parent
 
 	local CorePackages = game:GetService("CorePackages")
-local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
+	local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	local Rodux = PurchasePromptDeps.Rodux
 
 	local PromptState = require(Root.Enums.PromptState)
@@ -14,6 +14,22 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	local resolveBundlePromptState = require(script.Parent.resolveBundlePromptState)
 
 	local GetFFlagDisableRobuxUpsell = require(Root.Flags.GetFFlagDisableRobuxUpsell)
+	local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
+
+	local function getTestAccountInfoDetails()
+		return FFlagPPAccountInfoMigration and {
+			isPremium = false,
+		} or {
+			RobuxBalance = 10,
+			MembershipType = 0,
+		}
+	end
+
+	local function getTestBalanceDetails()
+		return {
+			robux = 10
+		}
+	end
 
 	local function getTestPurchasableDetails()
 		return {
@@ -53,11 +69,10 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 
 		local purchasableDetails = getTestPurchasableDetails()
 		local bundleDetails = getTestBundleDetails()
-		local accountInfo = {
-			RobuxBalance = 10,
-			MembershipType = 0,
-		}
-		local thunk = resolveBundlePromptState(purchasableDetails, bundleDetails, accountInfo)
+		local accountInfo = getTestAccountInfoDetails()
+		local balanceInfo = getTestBalanceDetails()
+		
+		local thunk = resolveBundlePromptState(purchasableDetails, bundleDetails, accountInfo, balanceInfo)
 
 		Thunk.test(thunk, store, {
 			[ExternalSettings] = MockExternalSettings.new(false, false, {})
@@ -75,11 +90,9 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 		local purchasableDetails = getTestPurchasableDetails()
 		local bundleDetails = getTestBundleDetails()		-- Set product to not for sale
 		purchasableDetails.purchasable = false
-		local accountInfo = {
-			RobuxBalance = 10,
-			MembershipType = 0,
-		}
-		local thunk = resolveBundlePromptState(purchasableDetails, bundleDetails, accountInfo)
+		local accountInfo = getTestAccountInfoDetails()
+		local balanceInfo = getTestBalanceDetails()
+		local thunk = resolveBundlePromptState(purchasableDetails, bundleDetails, accountInfo, balanceInfo)
 
 		Thunk.test(thunk, store, {
 			[ExternalSettings] = MockExternalSettings.new(false, false, {})
@@ -95,11 +108,9 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 
 		local purchasableDetails = getTestPurchasableDetails()
 		local bundleDetails = getTestBundleDetails()
-		local accountInfo = {
-			RobuxBalance = 10,
-			MembershipType = 0,
-		}
-		local thunk = resolveBundlePromptState(purchasableDetails, bundleDetails, accountInfo)
+		local accountInfo = getTestAccountInfoDetails()
+		local balanceInfo = getTestBalanceDetails()
+		local thunk = resolveBundlePromptState(purchasableDetails, bundleDetails, accountInfo, balanceInfo)
 
 		Thunk.test(thunk, store, {
 			[ExternalSettings] = MockExternalSettings.new(false, false, {})
@@ -123,7 +134,10 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 			RobuxBalance = 0,
 			MembershipType = 0,
 		}
-		local thunk = resolveBundlePromptState(purchasableDetails, bundleDetails, accountInfo)
+		local accountInfo = getTestAccountInfoDetails()
+		local balanceInfo = getTestBalanceDetails()
+		balanceInfo.robux = 0
+		local thunk = resolveBundlePromptState(purchasableDetails, bundleDetails, accountInfo, balanceInfo)
 
 		Thunk.test(thunk, store, {
 			[ExternalSettings] = MockExternalSettings.new(false, false, {})

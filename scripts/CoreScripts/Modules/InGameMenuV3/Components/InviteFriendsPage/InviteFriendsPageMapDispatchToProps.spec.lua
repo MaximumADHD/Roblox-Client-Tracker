@@ -12,26 +12,41 @@ return function()
 	end)
 
 	describe("WHEN called", function()
+		describe("WHEN all FFlags are disabled", function()
+			beforeAll(function(context)
+				game:SetFastFlagForTesting("ShareInviteLinkContextMenuV3Enabled", false)
+				game:SetFastFlagForTesting("ConsolidateGetFriends", false)
+			end)
+
+			it("SHOULD return a dictionary without throwing", function(context)
+				jestExpect(context.mapDispatchToProps()).toEqual({})
+			end)
+		end)
+
 		describe("WHEN ShareInviteLinkContextMenuV3Enabled FFlag is enabled", function()
 			beforeAll(function(context)
 				game:SetFastFlagForTesting("ShareInviteLinkContextMenuV3Enabled", true)
+				game:SetFastFlagForTesting("ConsolidateGetFriends", false)
 			end)
 
 			it("SHOULD return a dictionary without throwing", function(context)
 				jestExpect(context.mapDispatchToProps()).toEqual({
 					fetchShareInviteLink = jestExpect.any("function"),
-					fetchServerType = jestExpect.any("function")
+					fetchServerType = jestExpect.any("function"),
 				})
 			end)
 		end)
 
-		describe("WHEN ShareInviteLinkContextMenuV3Enabled FFlag is disabled", function()
+		describe("WHEN ConsolidateGetFriends FFlag is enabled", function()
 			beforeAll(function(context)
 				game:SetFastFlagForTesting("ShareInviteLinkContextMenuV3Enabled", false)
+				game:SetFastFlagForTesting("ConsolidateGetFriends", true)
 			end)
-			
+
 			it("SHOULD return a dictionary without throwing", function(context)
-				jestExpect(context.mapDispatchToProps()).toEqual({})
+				jestExpect(context.mapDispatchToProps()).toEqual({
+					getFriends = jestExpect.any("function"),
+				})
 			end)
 		end)
 	end)

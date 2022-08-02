@@ -160,13 +160,13 @@ local function mapDispatchToProps(dispatch)
 			dispatch(ValueChanged(instanceName, path, trackType, tck, value, analytics))
 		end,
 
-		ValueChanged_deprecated2 = function(instanceName, trackName, trackType, tick, value, analytics)
-			dispatch(ValueChanged(instanceName, trackName, trackType, tick, value, analytics))
+		ValueChanged_deprecated2 = function(instanceName, trackName, trackType, tck, value, analytics)
+			dispatch(ValueChanged(instanceName, trackName, trackType, tck, value, analytics))
 		end,
 
 		-- Remove when GetFFlagFacialAnimationSupport() and GetFFlagChannelAnimations() are retired
-		ValueChanged_deprecated = function(instanceName, trackName, tick, value, analytics)
-			dispatch(ValueChanged(instanceName, trackName, tick, value, analytics))
+		ValueChanged_deprecated = function(instanceName, trackName, tck, value, analytics)
+			dispatch(ValueChanged(instanceName, trackName, tck, value, analytics))
 		end,
 
 		AddWaypoint = function()

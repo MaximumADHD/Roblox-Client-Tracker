@@ -17,6 +17,7 @@ local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 local TrackSelectionUtils = require(Plugin.Src.Util.TrackSelectionUtils)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagFixRedoDeleteSelection = require(Plugin.LuaFlags.GetFFlagFixRedoDeleteSelection)
 
 return function()
 	return function(store)
@@ -49,7 +50,8 @@ return function()
 			-- This use case does not happen for now, but it might in the future.
 			-- This is added to mirror the behavior of Undo
 			if GetFFlagCurveEditor() then
-				local newSelectedTracks, changed = TrackSelectionUtils.PruneSelectedTracks(animationData, selectedTracks)
+				local newSelectedTracks, changed = TrackSelectionUtils.PruneSelectedTracks(
+					if GetFFlagFixRedoDeleteSelection() then newState.AnimationData else animationData, selectedTracks)
 				if changed then
 					store:dispatch(SetSelectedTracks(newSelectedTracks))
 				end

@@ -28,7 +28,7 @@ local StatusLevel = require(Plugin.Src.Utility.StatusLevel)
 local StatusPropertyMap = require(Plugin.Src.Utility.StatusPropertyMap)
 local GetLocalizedString = require(Plugin.Src.Utility.GetLocalizedString)
 
-local getFFlagAssetImportShowPropsAfterHidden = require(Plugin.Src.Flags.getFFlagAssetImportShowPropsAfterHidden)
+local getFFlagAssetImportUsePropertyFactories = require(Plugin.Src.Flags.getFFlagAssetImportUsePropertyFactories)
 
 local statusBucketToType = {
 	["Errors"] = StatusLevel.Error,
@@ -150,33 +150,33 @@ function PropertyListView:render()
 					statusObject.StatusMessage = message
 				end
 
-				if getFFlagAssetImportShowPropsAfterHidden() then
-					table.insert(sectionProperties, Roact.createElement(PropertyView, {
-						Dependencies = propertyMetadata.Dependencies,
-						Editable = propertyMetadata.Editable,
-						Instance = props.Instance,
-						LayoutOrder = propertyIndex + #sectionStatuses,
-						Localization = localization,
-						PropertyName = propertyMetadata.Name,
-						SetProperty = props.SetProperty,
-						StatusLevel = level,
-						StatusMessage = message,
-						ValueType = propertyMetadata.ValueType,
-					}))
+				local dependencies = nil
+				local editable = nil
+				local propertyName = nil
+				local valueType = nil
+				local propertyMetadataProp = nil
+				if getFFlagAssetImportUsePropertyFactories() then
+					propertyMetadataProp = propertyMetadata
 				else
-					sectionProperties[propertyIndex] = Roact.createElement(PropertyView, {
-						Dependencies = propertyMetadata.Dependencies,
-						Editable = propertyMetadata.Editable,
-						Instance = props.Instance,
-						LayoutOrder = propertyIndex + #sectionStatuses,
-						Localization = localization,
-						PropertyName = propertyMetadata.Name,
-						SetProperty = props.SetProperty,
-						StatusLevel = level,
-						StatusMessage = message,
-						ValueType = propertyMetadata.ValueType,
-					})
+					dependencies = propertyMetadata.Dependencies
+					editable = propertyMetadata.Editable
+					propertyName = propertyMetadata.Name
+					valueType = propertyMetadata.ValueType
 				end
+
+				table.insert(sectionProperties, Roact.createElement(PropertyView, {
+					Dependencies = dependencies,
+					Editable = editable,
+					Instance = props.Instance,
+					LayoutOrder = propertyIndex + #sectionStatuses,
+					Localization = localization,
+					PropertyName = propertyName,
+					SetProperty = props.SetProperty,
+					StatusLevel = level,
+					StatusMessage = message,
+					ValueType = valueType,
+					PropertyMetadata = propertyMetadataProp,
+				}))
 			end
 		end
 

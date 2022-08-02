@@ -111,7 +111,7 @@ function ConfigTextField:render()
 					MultiLine = MaxCount > 50,
 					OnTextChanged = self.onTextChanged,
 					Text = currentContent,
-					Width = if FFlagRemoveUILibraryRoundTextBox then UDim.new(1, -Constants.TITLE_GUTTER_WIDTH) else nil,
+					Size = UDim2.new(1, -Constants.TITLE_GUTTER_WIDTH, 0, TotalHeight - TITLE_HEIGHT - TOOL_TIP_HEIGHT),
 				})
 			else
 				Roact.createElement(RoundTextBox, {

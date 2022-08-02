@@ -48,8 +48,6 @@ local Pause = require(Plugin.Src.Actions.Pause)
 
 local EditEventsDialog = require(Plugin.Src.Components.EditEventsDialog.EditEventsDialog)
 
-local FFlagAnimEditorFixBackspaceOnMac = require(Plugin.LuaFlags.GetFFlagAnimEditorFixBackspaceOnMac)
-
 local EventsController = Roact.PureComponent:extend("EventsController")
 
 function EventsController:init()
@@ -84,7 +82,7 @@ function EventsController:init()
 	end
 
 	self.getTickFromPosition = function(position, snapToFrame)
-		local tick = TrackUtils.getKeyframeFromPosition(
+		local tck = TrackUtils.getKeyframeFromPosition(
 			position,
 			self.props.StartTick,
 			self.props.EndTick,
@@ -93,31 +91,31 @@ function EventsController:init()
 		)
 
 		if snapToFrame and self.props.SnapMode ~= Constants.SNAP_MODES.None then
-			tick = KeyframeUtils.getNearestFrame(tick, self.props.FrameRate)
+			tck = KeyframeUtils.getNearestFrame(tck, self.props.FrameRate)
 		end
 
-		return tick
+		return tck
 	end
 
-	self.onEventDragStarted = function(tick)
+	self.onEventDragStarted = function(tck)
 		local selectedEvents = self.props.SelectedEvents
 		local animationData = self.props.AnimationData
-		self.DragContext = DragContext.newEvents(animationData, selectedEvents, tick)
+		self.DragContext = DragContext.newEvents(animationData, selectedEvents, tck)
 		self:setState({
 			dragging = true,
-			dragTick = tick,
+			dragTick = tck,
 			hasDragWaypoint = false,
 		})
 	end
 
 	self.onEventDragMoved = function(input)
-		local tick = self.getTickFromPosition(input.Position, true)
-		if self.state.dragTick ~= tick and self.DragContext then
+		local tck = self.getTickFromPosition(input.Position, true)
+		if self.state.dragTick ~= tck and self.DragContext then
 			self.addDragWaypoint()
-			self.DragContext:moveEvents(tick)
+			self.DragContext:moveEvents(tck)
 			self.props.MoveSelectedEvents(self.DragContext.pivotTick, self.DragContext.newTick, self.DragContext)
 			self:setState({
-				dragTick = tick,
+				dragTick = tck,
 			})
 		end
 	end
@@ -158,9 +156,9 @@ function EventsController:init()
 		local minTick = self.getTickFromPosition(minPos + selectionPadding, false)
 		local maxTick = self.getTickFromPosition(maxPos - selectionPadding, false)
 
-		for _, tick in ipairs(self.props.AnimationData.Events.Keyframes) do
-			if tick >= minTick and tick <= maxTick then
-				self.props.SelectEvent(tick, true)
+		for _, tck in ipairs(self.props.AnimationData.Events.Keyframes) do
+			if tck >= minTick and tck <= maxTick then
+				self.props.SelectEvent(tck, true)
 			end
 		end
 		self.updateSelectDragEnd(Vector2.new(position.X, Constants.TRACK_HEIGHT * 2))
@@ -187,9 +185,9 @@ function EventsController:init()
 		})
 	end
 
-	self.setEventEditingTick = function(tick)
+	self.setEventEditingTick = function(tck)
 		self:setState({
-			eventEditingTick = tick or Roact.None,
+			eventEditingTick = tck or Roact.None,
 		})
 	end
 
@@ -205,8 +203,6 @@ function EventsController:handleTimelineInputBegan(input, keysHeld)
 		if Input.isMultiSelectKey(input.KeyCode) then
 			-- Start multi selecting on ctrl hold
 			self.isMultiSelecting = true
-		elseif FFlagAnimEditorFixBackspaceOnMac() and Input.isDeleteKey(input.KeyCode) then
-			self.props.DeleteSelectedEvents()
 		end
 	elseif input.UserInputType == Enum.UserInputType.MouseButton1 then
 		self.props.DeselectAllEvents()
@@ -221,32 +217,32 @@ function EventsController:handleTimelineInputEnded(input, keysHeld)
 			self.isMultiSelecting = false
 		end
 	elseif input.UserInputType == Enum.UserInputType.MouseButton2 then
-		local tick = self.getTickFromPosition(input.Position, true)
+		local tck = self.getTickFromPosition(input.Position, true)
 		self.props.SetRightClickContextInfo({
-			Tick = tick,
+			Tick = tck,
 		})
-		self.props.SelectEvent(tick, false)
+		self.props.SelectEvent(tck, false)
 		self.showMenu()
 	elseif input.UserInputType == Enum.UserInputType.MouseButton1 then
-		local tick = self.getTickFromPosition(input.Position, true)
+		local tck = self.getTickFromPosition(input.Position, true)
 		if self.doubleClickDetector:isDoubleClick() then
 			self.props.DeselectAllEvents()
-			self.props.SelectEvent(tick, false)
-			self.props.SetEventEditingTick(tick)
+			self.props.SelectEvent(tck, false)
+			self.props.SetEventEditingTick(tck)
 		end
 	end
 end
 
-function EventsController:handleEventRightClick(tick)
-	self.props.SelectEvent(tick, false)
+function EventsController:handleEventRightClick(tck)
+	self.props.SelectEvent(tck, false)
 	self.props.SetRightClickContextInfo({
 		OnEvent = true,
-		Tick = tick,
+		Tick = tck,
 	})
 	self.showMenu()
 end
 
-function EventsController:handleEventInputBegan(tick, selected, input)
+function EventsController:handleEventInputBegan(tck, selected, input)
 	-- Select event if not selected
 	if input.UserInputType == Enum.UserInputType.MouseButton1 then
 		self.mouseDownOnEvent = true
@@ -254,19 +250,19 @@ function EventsController:handleEventInputBegan(tick, selected, input)
 		if selected then
 			-- Deselect event if it is clicked again when multi-selecting
 			if self.isMultiSelecting then
-				self.props.DeselectEvent(tick)
+				self.props.DeselectEvent(tck)
 			end
 		else
-			self.props.SelectEvent(tick, self.isMultiSelecting)
+			self.props.SelectEvent(tck, self.isMultiSelecting)
 		end
 	end
 end
 
-function EventsController:handleEventInputEnded(tick, selected, input)
+function EventsController:handleEventInputEnded(tck, selected, input)
 	-- Start dragging if the mouse drags outside the event
 	if input.UserInputType == Enum.UserInputType.MouseMovement then
 		if selected and self.mouseDownOnEvent then
-			self.onEventDragStarted(tick)
+			self.onEventDragStarted(tck)
 			self.mouseDownOnEvent = false
 		end
 	end
@@ -276,8 +272,8 @@ function EventsController:handleEventInputEnded(tick, selected, input)
 		-- Double click to edit an event
 		if selected and self.doubleClickDetector:isDoubleClick() then
 			self.props.DeselectAllEvents()
-			self.props.SelectEvent(tick, false)
-			self.props.SetEventEditingTick(tick)
+			self.props.SelectEvent(tck, false)
+			self.props.SetEventEditingTick(tck)
 		end
 	end
 end
@@ -348,16 +344,16 @@ function EventsController:render()
 			ShowBackground = true,
 			ZIndex = 1,
 
-			OnEventRightClick = function(tick)
-				self:handleEventRightClick(tick)
+			OnEventRightClick = function(tck)
+				self:handleEventRightClick(tck)
 			end,
 
-			OnEventInputBegan = function(tick, selected, input)
-				self:handleEventInputBegan(tick, selected, input)
+			OnEventInputBegan = function(tck, selected, input)
+				self:handleEventInputBegan(tck, selected, input)
 			end,
 
-			OnEventInputEnded = function(tick, selected, input)
-				self:handleEventInputEnded(tick, selected, input)
+			OnEventInputEnded = function(tck, selected, input)
+				self:handleEventInputEnded(tck, selected, input)
 			end,
 		}),
 
@@ -419,13 +415,13 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetEvents(newEvents, analytics))
 		end,
 
-		SelectEvent = function(tick, multiSelect)
+		SelectEvent = function(tck, multiSelect)
 			dispatch(SetSelectedKeyframes({}))
-			dispatch(SelectEvent(tick, multiSelect))
+			dispatch(SelectEvent(tck, multiSelect))
 		end,
 
-		DeselectEvent = function(tick)
-			dispatch(DeselectEvent(tick))
+		DeselectEvent = function(tck)
+			dispatch(DeselectEvent(tck))
 		end,
 
 		DeleteSelectedEvents = function()
@@ -447,8 +443,8 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetRightClickContextInfo(info))
 		end,
 
-		SetEventEditingTick = function(tick)
-			dispatch(SetEventEditingTick(tick))
+		SetEventEditingTick = function(tck)
+			dispatch(SetEventEditingTick(tck))
 		end or nil,
 
 		Pause = function()

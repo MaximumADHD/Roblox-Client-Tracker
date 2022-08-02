@@ -31,6 +31,7 @@ local quickActions = require(script.quickActions)
 local displayOptions = require(script.displayOptions)
 local nativeClosePrompt = require(script.nativeClosePrompt)
 local voiceStateReducer = require(InGameMenu.Parent.VoiceChat.Reducers.voiceState)
+local inspectAndBuy = require(script.inspectAndBuy)
 local FetchingStatus = require(CorePackages.AppTempCommon.LuaApp.Reducers.FetchingStatus)
 local RoduxShareLinks = SocialDependencies.RoduxShareLinks
 local ShareLinks = RoduxShareLinks.installReducer()
@@ -38,6 +39,8 @@ local ShareLinks = RoduxShareLinks.installReducer()
 local FFlagRecordRecording = require(InGameMenu.Flags.FFlagRecordRecording)
 local GetFFlagUseIGMControllerBar = require(InGameMenu.Flags.GetFFlagUseIGMControllerBar)
 local GetFFlagShareInviteLinkContextMenuV3Enabled = require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
+local GetFFlagFixV3InviteReducer = require(InGameMenu.Flags.GetFFlagFixV3InviteReducer)
+local FFlagInspectAndBuyV2Enabled = require(InGameMenu.Flags.FFlagInspectAndBuyV2Enabled)
 
 local Constants = require(InGameMenu.Resources.Constants)
 local Controls = require(InGameMenu.Resources.Controls)
@@ -157,6 +160,7 @@ local function reducer(state, action)
 			inviteFriends = inviteFriends(nil, action),
 			quickActions = quickActions(nil, action),
 			displayOptions = displayOptions(nil, action),
+			inspectAndBuy = FFlagInspectAndBuyV2Enabled and inspectAndBuy(nil, action) or nil,
 			screenSize = Vector2.new(0, 0),
 			recording = false,
 			isMainPageMoreMenuOpen = false,
@@ -180,9 +184,10 @@ local function reducer(state, action)
 	state.voiceState = voiceStateReducer(state.voiceState, action)
 	state.gameInfo = gameInfo(state.gameInfo, action)
 	state.friends = friends(state.friends, action)
-	state.inviteFriends = inviteFriends(state.friends, action)
+	state.inviteFriends = inviteFriends(GetFFlagFixV3InviteReducer() and state.inviteFriends or state.friends, action)
 	state.quickActions = quickActions(state.quickActions, action)
 	state.displayOptions = displayOptions(state.displayOptions, action)
+	state.inspectAndBuy = FFlagInspectAndBuyV2Enabled and inspectAndBuy(state.inspectAndBuy, action) or nil
 	state.nativeClosePrompt = nativeClosePrompt(state.nativeClosePrompt, action)
 	state.shareLinks = ShareLinks(state.shareLinks, action)
 

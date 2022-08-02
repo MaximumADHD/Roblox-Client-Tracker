@@ -29,8 +29,6 @@ local GuiService = game:GetService("GuiService")
 local SelectionService = game:GetService("Selection")
 local RunService = game:GetService("RunService")
 
-local FFlag9SliceEditorAllowImageReplacement = game:GetFastFlag("9SliceEditorAllowImageReplacement")
-local FFlag9SliceEditorSaveSliceOffsets = game:GetFastFlag("9SliceEditorSaveSliceOffsets")
 local FFlag9SliceEditorRespectImageRectSize = game:GetFastFlag("9SliceEditorRespectImageRectSize")
 
 local InstanceUnderEditManager = Roact.PureComponent:extend("InstanceUnderEditManager")
@@ -42,9 +40,6 @@ local BOTTOM = Orientation.Bottom.rawValue()
 
 function InstanceUnderEditManager:init(props)
 	self.state = {
-		-- TODO: Remove with FFlag9SliceEditorAllowImageReplacement
-		DEPRECATED_selectedInstance = nil,
-
 		-- String if we should show an alert, otherwise nil
 		showingAlertTitleKey = nil,
 		showingAlertMessageKey = nil,
@@ -97,7 +92,7 @@ function InstanceUnderEditManager:init(props)
 	end
 
 	self.getImageUnderEdit = function(): Types.GuiImageInstance?
-		return FFlag9SliceEditorAllowImageReplacement and self.instanceUnderEdit or self.state.DEPRECATED_selectedInstance
+		return self.instanceUnderEdit
 	end
 
 	self.onSliceCenterChanged = function()
@@ -107,10 +102,8 @@ function InstanceUnderEditManager:init(props)
 			local sliceRect = SliceRectUtil.getSliceRectFromSliceCenter(instance.SliceCenter)
 			self.props.SliceRectChanged(sliceRect)
 
-			if FFlag9SliceEditorSaveSliceOffsets then
-				local croppedDimensions: Vector2 = self.getImageDimensionsForInstance(instance)
-				self.lastSliceOffsets = SliceRectUtil.getOffsetsFromSliceRect(sliceRect, croppedDimensions)
-			end
+			local croppedDimensions: Vector2 = self.getImageDimensionsForInstance(instance)
+			self.lastSliceOffsets = SliceRectUtil.getOffsetsFromSliceRect(sliceRect, croppedDimensions)
 		end
 	end
 
@@ -192,9 +185,7 @@ function InstanceUnderEditManager:init(props)
 
 			title = title .. ": " .. tostring(instance.Name)
 
-			if FFlag9SliceEditorSaveSliceOffsets then
-				self.lastSliceOffsets = SliceRectUtil.getOffsetsFromSliceRect(sliceRect, croppedPixelSize)
-			end
+			self.lastSliceOffsets = SliceRectUtil.getOffsetsFromSliceRect(sliceRect, croppedPixelSize)
 
 			if FFlag9SliceEditorRespectImageRectSize then
 				info = {
@@ -210,13 +201,7 @@ function InstanceUnderEditManager:init(props)
 			end
 		end
 
-		if FFlag9SliceEditorAllowImageReplacement then
-			self.instanceUnderEdit = instance
-		else
-			self:setState({
-				DEPRECATED_selectedInstance = instance or Roact.None,
-			})
-		end
+		self.instanceUnderEdit = instance
 
 		if FFlag9SliceEditorRespectImageRectSize then
 			self.props.InstanceUnderEditChanged(instance, info)
@@ -241,10 +226,8 @@ function InstanceUnderEditManager:init(props)
 				return
 			end
 
-			if FFlag9SliceEditorAllowImageReplacement then
-				-- Listen for Image changed event on any selected ImageLabel or ImageButton instance.
-				self.connectImageChangedConnection(instance)
-			end
+			-- Listen for Image changed event on any selected ImageLabel or ImageButton instance.
+			self.connectImageChangedConnection(instance)
 
 			if instance.IsLoaded then
 				resolve(instance, thisToken)
@@ -276,9 +259,7 @@ function InstanceUnderEditManager:init(props)
 	end
 
 	self.createAndRunPromiseForImageLoaded = function(inst: Instance, shouldResetSliceCenter: boolean)
-		if FFlag9SliceEditorAllowImageReplacement then
-			self.disconnectImageChangedConnection()
-		end
+		self.disconnectImageChangedConnection()
 		
 		local promise = self.createPromiseForImageLoaded(inst)
 
@@ -291,7 +272,7 @@ function InstanceUnderEditManager:init(props)
 			assert(instance.IsLoaded)
 
 			if shouldResetSliceCenter then
-				if FFlag9SliceEditorSaveSliceOffsets and self.lastSliceOffsets ~= nil then
+				if self.lastSliceOffsets ~= nil then
 					local imageDimensions = self.getImageDimensionsForInstance(instance) -- cropped
 					local newOffsets = self.getOffsetsForResizedImage(self.lastSliceOffsets, imageDimensions)
 					local sliceRect: Types.SliceRectType = SliceRectUtil.getSliceRectFromOffsets(newOffsets, imageDimensions)
@@ -349,9 +330,7 @@ function InstanceUnderEditManager:init(props)
 		end
 
 		if #selections == 0 then
-			if FFlag9SliceEditorAllowImageReplacement then
-				self.disconnectImageChangedConnection()
-			end
+			self.disconnectImageChangedConnection()
 			self.openInstanceInEditor(nil)
 			return
 		end
@@ -417,9 +396,7 @@ function InstanceUnderEditManager:init(props)
 
 		self.openInstanceInEditor(selectedInstance)
 
-		if FFlag9SliceEditorAllowImageReplacement then
-			self.connectImageChangedConnection(selectedInstance)
-		end
+		self.connectImageChangedConnection(selectedInstance)
 	end
 
 	if props.WidgetEnabled then
@@ -441,9 +418,7 @@ function InstanceUnderEditManager:didUpdate(previousProps, previousState)
 		self.stopListeningToSelection()
 		self.clearCurrentImageUnderEdit()
 
-		if FFlag9SliceEditorAllowImageReplacement then
-			self.disconnectImageChangedConnection()
-		end
+		self.disconnectImageChangedConnection()
 	end
 end
 
@@ -452,9 +427,7 @@ function InstanceUnderEditManager:willUnmount()
 	self.stopListeningToSelection()
 	self.clearCurrentImageUnderEdit()
 
-	if FFlag9SliceEditorAllowImageReplacement then
-		self.disconnectImageChangedConnection()
-	end
+	self.disconnectImageChangedConnection()
 
 	if self.onOpen9SliceEditorConnection then
 		self.onOpen9SliceEditorConnection:Disconnect()

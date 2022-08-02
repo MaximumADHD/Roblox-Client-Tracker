@@ -143,31 +143,31 @@ function TrackList:init()
 		end
 	end
 
-	self.onValueChanged = function(instanceName, path, trackType, tick, value)
+	self.onValueChanged = function(instanceName, path, trackType, tck, value)
 		if self.props.OnValueChanged then
-			self.props.OnValueChanged(instanceName, path, trackType, tick, value)
+			self.props.OnValueChanged(instanceName, path, trackType, tck, value)
 		end
 	end
 
-	self.onValueChanged_deprecated = function(instanceName, trackName, tick, value, analytics)
+	self.onValueChanged_deprecated = function(instanceName, trackName, tck, value, analytics)
 		if GetFFlagFacialAnimationSupport() then
 			if self.props.OnValueChangedDeprecated2 then
-				self.props.OnValueChangedDeprecated2(instanceName, trackName, Constants.TRACK_TYPES.CFrame, tick, value, analytics)
+				self.props.OnValueChangedDeprecated2(instanceName, trackName, Constants.TRACK_TYPES.CFrame, tck, value, analytics)
 				local selectionSignal = self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged)
 				selectionSignal:Fire()
 			end
 		else
 			if self.props.OnValueChangedDeprecated then
-				self.props.OnValueChangedDeprecated(instanceName, trackName, tick, value, analytics)
+				self.props.OnValueChangedDeprecated(instanceName, trackName, tck, value, analytics)
 				local selectionSignal = self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged)
 				selectionSignal:Fire()
 			end
 		end
 	end
 
-	self.onFacsChanged = function(instanceName, facsName, tick, value, analytics)
+	self.onFacsChanged = function(instanceName, facsName, tck, value, analytics)
 		if self.props.OnValueChangedDeprecated2 then
-			self.props.OnValueChangedDeprecated2(instanceName, facsName, Constants.TRACK_TYPES.Facs, tick, value, analytics)
+			self.props.OnValueChangedDeprecated2(instanceName, facsName, Constants.TRACK_TYPES.Facs, tck, value, analytics)
 		end
 	end
 

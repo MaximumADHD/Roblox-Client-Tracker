@@ -7,7 +7,6 @@ local RequestType = createEnum("RequestType", {
 	"GamePass",
 	"Product",
 	"Premium",
-	"Subscription",
 })
 
 return RequestType

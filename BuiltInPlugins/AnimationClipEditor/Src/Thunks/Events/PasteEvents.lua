@@ -10,7 +10,7 @@ local deepCopy = require(Plugin.Src.Util.deepCopy)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
-return function(tick)
+return function(tck)
 	return function(store)
 		local animationData = store:getState().AnimationData
 		local clipboard = store:getState().Status.Clipboard
@@ -30,7 +30,7 @@ return function(tick)
 
 		if not isEmpty(clipboard) then
 			for keyframe, data in pairs(clipboard) do
-				local insertFrame = tick + (keyframe - lowestFrame)
+				local insertFrame = tck + (keyframe - lowestFrame)
 				AnimationData.deleteEvents(events, insertFrame)
 				for name, value in pairs(data) do
 					AnimationData.addEvent(events, insertFrame, name, value)

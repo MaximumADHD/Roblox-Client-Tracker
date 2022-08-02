@@ -38,6 +38,9 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
+
 local Util = Framework.Util
 local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
 local GetTextSize = Util.GetTextSize
@@ -50,8 +53,10 @@ local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local RobuxFeeBase = require(Page.Components.RobuxFeeBase)
 
 local UILibrary = require(Plugin.Packages.UILibrary)
-local TitledFrame = UILibrary.Component.TitledFrame
 local ToggleButton = UILibrary.Component.ToggleButton
+
+local UI = Framework.UI
+local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
 
 local shouldDisablePrivateServersAndPaidAccess = require(Plugin.Src.Util.GameSettingsUtilities).shouldDisablePrivateServersAndPaidAccess
 
@@ -172,17 +177,20 @@ function VIPServers:render()
 
         LayoutOrder = layoutOrder,
     }, {
-		ToggleAndSubscriptionsAndTotal = Roact.createElement(TitledFrame, {
-			Title = title,
+        ToggleAndSubscriptionsAndTotal = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+            LayoutOrder = 1,
+            Title = title,
+        } else {
+            Title = title,
             TextSize = theme.fontStyle.Title.TextSize,
 
             MaxHeight = maxToggleHeight,
 
             LayoutOrder = 1,
-		}, {
+        }, {
             UIListLayout = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillDirection = Enum.FillDirection.Vertical,
+                SortOrder = Enum.SortOrder.LayoutOrder,
+                FillDirection = Enum.FillDirection.Vertical,
             }),
 
             ToggleButton = Roact.createElement(ToggleButton, {

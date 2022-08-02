@@ -1,6 +1,5 @@
 --!strict
 type Array<T> = { [number]: T }
-local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
 
 return function()
 	local AssetAnalytics = require(script.Parent.AssetAnalytics) :: any
@@ -62,36 +61,6 @@ return function()
 		}
 	end
 
-	if not FFlagToolboxUsePageInfoInsteadOfAssetContext then
-		it("pageInfoToContext", function()
-			local stubPageInfo = getStubPageInfo()
-			local context = AssetAnalytics.pageInfoToContext(stubPageInfo)
-
-			expect(context.category).to.equal("Studio")
-			expect(context.currentCategory).to.equal("MyModelsExceptPackage")
-			expect(context.searchId).to.equal(stubPageInfo.searchId)
-
-			expect(context.toolboxTab).to.equal("Inventory")
-			expect(context.sort).to.equal("Relevance")
-			expect(context.searchKeyword).to.equal("abc")
-			expect(context.page).to.equal(1)
-		end)
-
-		it("addContextToAssetResults", function()
-			local stubPageInfo = getStubPageInfo()
-			local assets = getStubAssets()
-
-			AssetAnalytics.addContextToAssetResults(assets, stubPageInfo)
-
-			expect(assets[1].Context).to.be.ok()
-			expect(assets[2].Context).to.be.ok()
-
-			-- Ensure context object is not shared
-			assets[1].Context.position = 1
-			expect(assets[2].Context.position).to.equal(nil)
-		end)
-	end
-
 	it("getAssetCategoryName", function()
 		expect(AssetAnalytics.getAssetCategoryName(Enum.AssetType.Model.Value)).to.equal("Model")
 		expect(AssetAnalytics.getAssetCategoryName(-1)).to.equal("")
@@ -107,19 +76,13 @@ return function()
 
 		-- luau can't figure this out without an explicit cast
 		local stubAnalyticsContextInfo: any
-		if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-			stubAnalyticsContextInfo = getStubAnalyticsContextInfo()
-			stubAnalyticsContextInfo.searchId = nil
-		end
+		stubAnalyticsContextInfo = getStubAnalyticsContextInfo()
+		stubAnalyticsContextInfo.searchId = nil
 		-- Ignores assets with no context
 		assetAnalytics:logImpression(assets[1], stubAnalyticsContextInfo)
 		expect(#sendEventDeferredCalls).to.equal(0)
 
-		if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-			stubAnalyticsContextInfo.searchId = SEARCH_ID
-		else
-			AssetAnalytics.addContextToAssetResults(assets, stubPageInfo)
-		end
+		stubAnalyticsContextInfo.searchId = SEARCH_ID
 
 		-- Logs an impression for a search
 		assetAnalytics:logImpression(assets[1], stubAnalyticsContextInfo)
@@ -143,11 +106,7 @@ return function()
 		expect(#sendEventDeferredCalls).to.equal(2)
 
 		-- Logs a new impression if the asset is seen in a new search
-		if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-			stubAnalyticsContextInfo.searchId = "foo"
-		else
-			assets[1].Context.searchId = "foo"
-		end
+		stubAnalyticsContextInfo.searchId = "foo"
 		assetAnalytics:logImpression(assets[1], stubAnalyticsContextInfo)
 		expect(#sendEventDeferredCalls).to.equal(3)
 	end)
@@ -156,12 +115,7 @@ return function()
 		local stubPageInfo = getStubPageInfo()
 		local assets = getStubAssets()
 
-		local stubAnalyticsContextInfo
-		if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-			stubAnalyticsContextInfo = getStubAnalyticsContextInfo()
-		else
-			AssetAnalytics.addContextToAssetResults(assets, stubPageInfo)
-		end
+		local stubAnalyticsContextInfo = getStubAnalyticsContextInfo()
 
 		local assetAnalytics = AssetAnalytics.mock()
 		local stubSenders: any = assetAnalytics.senders
@@ -244,10 +198,8 @@ return function()
 
 			-- luau can't figure this out without an explicit cast
 			local stubAnalyticsContextInfo: any
-			if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-				stubAnalyticsContextInfo = getStubAnalyticsContextInfo()
-				stubAnalyticsContextInfo.searchId = nil
-			end
+			stubAnalyticsContextInfo = getStubAnalyticsContextInfo()
+			stubAnalyticsContextInfo.searchId = nil
 			assetAnalytics:logInsert(assets[1], insertionMethod, stubInstance, stubAnalyticsContextInfo)
 
 			expect(#sendEventDeferredCalls).to.equal(0)
@@ -261,17 +213,11 @@ return function()
 				local stubPageInfo = getStubPageInfo()
 				local assets = getStubAssets()
 				
-				if not FFlagToolboxUsePageInfoInsteadOfAssetContext then
-					AssetAnalytics.addContextToAssetResults(assets, stubPageInfo)
-				end
 				asset = assets[1]
 			end)
 
 			it("schedules nothing if instance is not passed", function()
-				local stubAnalyticsContextInfo
-				if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-					stubAnalyticsContextInfo = getStubAnalyticsContextInfo()
-				end
+				local stubAnalyticsContextInfo = getStubAnalyticsContextInfo()
 				assetAnalytics:logInsert(asset, insertionMethod, nil, stubAnalyticsContextInfo)
 
 				expect(#sendEventDeferredCalls).to.equal(1)
@@ -279,10 +225,7 @@ return function()
 			end)
 
 			it("logs insert and schedules and logs remains events", function()
-				local stubAnalyticsContextInfo
-				if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-					stubAnalyticsContextInfo = getStubAnalyticsContextInfo()
-				end
+				local stubAnalyticsContextInfo = getStubAnalyticsContextInfo()
 				assetAnalytics:logInsert(asset, insertionMethod, stubInstance, stubAnalyticsContextInfo)
 
 				expect(#sendEventDeferredCalls).to.equal(1)
@@ -315,10 +258,7 @@ return function()
 			end)
 
 			it("logs remains, then deleted event if deleted in interim", function()
-				local stubAnalyticsContextInfo
-				if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-					stubAnalyticsContextInfo = getStubAnalyticsContextInfo()
-				end
+				local stubAnalyticsContextInfo = getStubAnalyticsContextInfo()
 				assetAnalytics:logInsert(asset, insertionMethod, stubInstance, stubAnalyticsContextInfo)
 
 				expect(#sendEventDeferredCalls).to.equal(1)
@@ -354,10 +294,7 @@ return function()
 
 			it("only logs a single event for multiple root-level instances", function()
 				local instances: Array<any> = { stubInstance, Instance.new("Part") }
-				local stubAnalyticsContextInfo
-				if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-					stubAnalyticsContextInfo = getStubAnalyticsContextInfo()
-				end
+				local stubAnalyticsContextInfo = getStubAnalyticsContextInfo()
 				assetAnalytics:logInsert(asset, insertionMethod, instances, stubAnalyticsContextInfo)
 
 				expect(#sendEventDeferredCalls).to.equal(1)

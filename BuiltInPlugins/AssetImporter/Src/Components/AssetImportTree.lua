@@ -28,10 +28,12 @@ local SetSelectedSettingsItem = require(Plugin.Src.Actions.SetSelectedSettingsIt
 local SetTreeExpansion = require(Plugin.Src.Actions.SetTreeExpansion)
 local SetInstanceMap = require(Plugin.Src.Actions.SetInstanceMap)
 local UpdateChecked = require(Plugin.Src.Thunks.UpdateChecked)
+local UpdatePreviewInstance = require(Plugin.Src.Thunks.UpdatePreviewInstance)
 local StatusLevel = require(Plugin.Src.Utility.StatusLevel)
 local trimFilename = require(Plugin.Src.Utility.trimFilename)
 
 local getFFlagUseAssetImportSession = require(Plugin.Src.Flags.getFFlagUseAssetImportSession)
+local getFFlagAssetImportSessionCleanup = require(Plugin.Src.Flags.getFFlagAssetImportSessionCleanup)
 
 local SEPARATOR_WEIGHT = 1
 local ICON_DIMENSION = 20
@@ -183,17 +185,37 @@ function AssetImportTree:init()
 	end
 
 	self.setChecked = function(checked)
-		self.props.SetChecked(checked)
+		local props = self.props
+		props.SetChecked(checked)
 
-		local instanceMap
-
-		if getFFlagUseAssetImportSession() then
-			instanceMap = self.props.AssetImportSession:GetCurrentImportMap()
+		if getFFlagAssetImportSessionCleanup() then
+			if props.SelectedSettingsItem then
+				local instance = props.AssetImportSession:GetInstance(props.SelectedSettingsItem.Id)
+				props.UpdatePreviewInstance(instance)
+			end
 		else
-			instanceMap = AssetImportService:GetCurrentImportMap()
-		end
+			local instanceMap
 
-		self.props.SetInstanceMap(instanceMap)
+			if getFFlagUseAssetImportSession() then
+				instanceMap = props.AssetImportSession:GetCurrentImportMap()
+			else
+				instanceMap = AssetImportService:GetCurrentImportMap()
+			end
+
+			props.SetInstanceMap(instanceMap)
+		end
+	end
+
+	self.SelectItem = function(newSelection)
+		local item = next(newSelection)
+		self.props.SetSelectedSettingsItem(item)
+		if getFFlagAssetImportSessionCleanup() then
+			if item then
+				self.props.UpdatePreviewInstance(self.props.AssetImportSession:GetInstance(item.Id))
+			else
+				self.props.UpdatePreviewInstance(nil)
+			end
+		end
 	end
 
 	self.statuses = {}
@@ -253,12 +275,14 @@ function AssetImportTree:render()
 
 		TreeView = Roact.createElement(CheckboxTreeView, {
 			RootItems = props.Instances or {},
-			Selection = props.Selection,
+			Selection = props.SelectedSettingsItem and {
+				[props.SelectedSettingsItem] = true,
+			} or {},
 			Expansion = props.Expansion,
 			Checked = checked,
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			Size = UDim2.new(1, 0, 1, -toolbarHeight),
-			OnSelectionChange = props.SelectItem,
+			OnSelectionChange = self.SelectItem,
 			OnExpansionChange = props.SetExpansion,
 			OnCheck = self.setChecked,
 			GetChildren = self.getChildren,
@@ -279,9 +303,7 @@ AssetImportTree = withContext({
 local function mapStateToProps(state)
 	return {
 		AssetImportSession = state.assetImportSession,
-		Selection = state.selectedSettingsItem and {
-			[state.selectedSettingsItem] = true,
-		} or {},
+		SelectedSettingsItem = state.selectedSettingsItem,
 		Expansion = state.settingsExpansion or {},
 		Checked = state.settingsChecked or {},
 	}
@@ -289,8 +311,8 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		SelectItem = function(newSelection)
-			dispatch(SetSelectedSettingsItem(next(newSelection)))
+		SetSelectedSettingsItem = function(item)
+			dispatch(SetSelectedSettingsItem(item))
 		end,
 		SetExpansion = function(expansion)
 			dispatch(SetTreeExpansion(expansion))
@@ -300,6 +322,9 @@ local function mapDispatchToProps(dispatch)
 		end,
 		SetInstanceMap = function(instanceMap)
 			dispatch(SetInstanceMap(instanceMap))
+		end,
+		UpdatePreviewInstance = function(instance)
+			dispatch(UpdatePreviewInstance(instance))
 		end,
 	}
 end

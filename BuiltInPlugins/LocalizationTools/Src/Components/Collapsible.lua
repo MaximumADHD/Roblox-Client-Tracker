@@ -4,13 +4,19 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local FFlagRemoveUILibraryFitContent = Framework.SharedFlags.getFFlagRemoveUILibraryFitContent()
+
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryFitContent = SharedFlags.getFFlagRemoveUILibraryFitContent()
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local Pane = UI.Pane
+local TextLabel = UI.Decoration.TextLabel
+
+local StyleModifier = Framework.Util.StyleModifier
 
 local FitToContent
 if not FFlagRemoveUILibraryFitContent then
@@ -78,15 +84,24 @@ function Collapsible:render()
 				Size = UDim2.new(0, theme.IconSize, 0, theme.IconSize),
 			}),
 		}),
-		Title = Roact.createElement("TextLabel", {
-			BackgroundTransparency = 1,
-			LayoutOrder = 2,
-			Size = UDim2.new(0, 200, 1, 0),
-			Text = title,
-			TextColor3 = active and theme.TextColor
-				or theme.DisabledTextColor,
-			TextXAlignment = Enum.TextXAlignment.Left,
-		})
+		Title = if FFlagDevFrameworkMigrateTextLabels then (
+			Roact.createElement(TextLabel, {
+				AutomaticSize = Enum.AutomaticSize.XY,
+				LayoutOrder = 2,
+				Text = title,
+				StyleModifier = if active then nil else StyleModifier.Disabled,
+			})
+		) else (
+			Roact.createElement("TextLabel", {
+				BackgroundTransparency = 1,
+				LayoutOrder = 2,
+				Size = UDim2.new(0, 200, 1, 0),
+				Text = title,
+				TextColor3 = active and theme.TextColor
+					or theme.DisabledTextColor,
+				TextXAlignment = Enum.TextXAlignment.Left,
+			})
+		)
 	})
 
 	local content = open and renderContent() or nil

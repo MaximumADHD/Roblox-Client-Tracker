@@ -6,18 +6,20 @@ return function(plugin, pluginLoaderContext)
 	local Plugin = script.Parent.Parent
 
 	local FFlagTerrainToolsImportUploadAssets = game:GetFastFlag("TerrainToolsImportUploadAssets")
+	local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 
 	-- Libraries
 	local Framework = require(Plugin.Packages.Framework)
 	local Roact = require(Plugin.Packages.Roact)
 	local Rodux = require(Plugin.Packages.Rodux)
-	local UILibraryCompat = Plugin.Src.UILibraryCompat
+	local UILibraryCompat = if FFlagRemoveUILibraryCompatLocalization then nil else Plugin.Src.UILibraryCompat
 
 	-- Context
 	local ContextServices = Framework.ContextServices
 	local Analytics = ContextServices.Analytics
 	local Mouse = ContextServices.Mouse
 	local Store = ContextServices.Store
+	local Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else require(UILibraryCompat.Localization)
 
 	local ContextItems = require(Plugin.Src.ContextItems)
 
@@ -35,7 +37,6 @@ return function(plugin, pluginLoaderContext)
 	-- Localization
 	local SourceStrings = Plugin.Src.Resources.SourceStrings
 	local LocalizedStrings = Plugin.Src.Resources.LocalizedStrings
-	local Localization = require(UILibraryCompat.Localization)
 
 	-- Terrain Context Items
 	local PluginActionsController = require(Plugin.Src.Util.PluginActionsController)
@@ -65,7 +66,10 @@ return function(plugin, pluginLoaderContext)
 			stringResourceTable = SourceStrings,
 			translationResourceTable = LocalizedStrings,
 		})
-		local localizationItem = ContextItems.UILibraryLocalization.new(localization)
+		local localizationItem
+		if not FFlagRemoveUILibraryCompatLocalization then
+			localizationItem = ContextItems.UILibraryLocalization.new(localization)
+		end
 
 		local pluginActions = {
 			EditPlane = {
@@ -133,7 +137,7 @@ return function(plugin, pluginLoaderContext)
 			store = store,
 			theme = theme,
 			devFrameworkThemeItem = devFrameworkThemeItem,
-			localization = localizationItem,
+			localization = if FFlagRemoveUILibraryCompatLocalization then localization else localizationItem,
 			analytics = analytics,
 			networking = networking,
 			imageUploader = imageUploader,

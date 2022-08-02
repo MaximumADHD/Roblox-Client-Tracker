@@ -238,10 +238,13 @@ return Rodux.createReducer(productionStartStore, {
 	end,
 
 	[Resumed.name] = function(state: WatchStore, action: Resumed.Props)
-		assert(
-			state.stateTokenToRoots[action.debuggerStateToken] ~= nil
-				and state.stateTokenToRoots[action.debuggerStateToken][action.threadId] ~= nil
-		)
+		assert(state.stateTokenToRoots[action.debuggerStateToken] ~= nil)
+		if state.stateTokenToRoots[action.debuggerStateToken][action.threadId] == nil then
+			-- This can be nil if we hit 2 breakpoints at the same time, the second pause event will
+			-- invalidate the first one, meaning that the DST will point to the 2nd thread and not the first
+			-- when resuming the threads while stepping.
+			return state
+		end
 		assert(
 			state.stateTokenToFlattenedTree[action.debuggerStateToken] ~= nil
 				and state.stateTokenToFlattenedTree[action.debuggerStateToken][action.threadId] ~= nil

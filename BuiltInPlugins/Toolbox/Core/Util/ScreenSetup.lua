@@ -7,7 +7,6 @@ local AssetConfigUtil = require(Util.AssetConfigUtil)
 local ScreenSetup = {}
 
 local FFlagSupportUploadGroupAnimations = game:GetFastFlag("StudioSupportUploadGroupAnimations")
-local FFlagToolboxAssetConfigurationMatchPluginFlow = game:GetFastFlag("ToolboxAssetConfigurationMatchPluginFlow")
 
 ScreenSetup.keys = convertArrayToTable({
 	"SHOW_SALES_TAB",
@@ -95,23 +94,15 @@ params[AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW] = {
 -- everything else falls into default behavior.
 local assetTypeOverride = {
 	[Enum.AssetType.Plugin] = {
-		[AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW] = FFlagToolboxAssetConfigurationMatchPluginFlow and {
+		[AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW] = {
 			[keys.SHOW_ASSET_TYPE] = true,
 			[keys.SHOW_COMMENT] = false,
 			[keys.SHOW_COPY] = true,
 			[keys.SHOW_GENRE] = false,
 			[keys.SHOW_OVERRIDE_BUTTON] = true,
 			[keys.SHOW_PRICE] = false, -- Only show price when sales has been set to OnSale.
-		} or {
-			[keys.SHOW_ASSET_TYPE] = true,
-			[keys.SHOW_COMMENT] = false,
-			[keys.SHOW_COPY] = false, -- For plugin, sales will be acting as allow copy when user is not whitelisted.
-			[keys.SHOW_GENRE] = false,
-			[keys.SHOW_OVERRIDE_BUTTON] = true,
-			[keys.SHOW_PRICE] = false, -- Only show price when sales has been set to OnSale.
-			[keys.SHOW_SALES_TAB] = true,
 		},
-		[AssetConfigConstants.FLOW_TYPE.EDIT_FLOW] = FFlagToolboxAssetConfigurationMatchPluginFlow and {
+		[AssetConfigConstants.FLOW_TYPE.EDIT_FLOW] = {
 			[keys.SHOW_ASSET_TYPE] = true,
 			[keys.SHOW_COMMENT] = false,
 			[keys.SHOW_COPY] = true,
@@ -120,16 +111,6 @@ local assetTypeOverride = {
 			[keys.SHOW_PRICE] = false,
 			[keys.SHOW_SALE] = false,
 			[keys.SHOW_VERSIONS_TAB] = true,
-		} or {
-			[keys.SHOW_ASSET_TYPE] = true,
-			[keys.SHOW_COMMENT] = false,
-			[keys.SHOW_COPY] = false,
-			[keys.SHOW_GENRE] = false,
-			[keys.SHOW_OWNERSHIP] = true,
-			[keys.SHOW_PRICE] = false,
-			[keys.SHOW_SALE] = false,
-			[keys.SHOW_VERSIONS_TAB] = true,
-			[keys.SHOW_SALES_TAB] = true,
 		},
 	},
 	[Enum.AssetType.Model] = {

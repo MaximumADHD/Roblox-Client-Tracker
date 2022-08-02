@@ -11,6 +11,7 @@ return Rodux.createReducer({
 	SelectedKeyframes = {},
 	SelectedEvents = {},
 	SelectedTracks = nil,
+	LastSelectedPath = nil,
 
 	Clipboard = {},
 	ClipboardType = nil,
@@ -185,6 +186,12 @@ return Rodux.createReducer({
 	SetSelectedTracks = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			SelectedTracks = action.selectedTracks or Cryo.None,
+		})
+	end,
+
+	SetLastSelectedPath = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			LastSelectedPath = action.lastSelectedPath or Cryo.None,
 		})
 	end,
 

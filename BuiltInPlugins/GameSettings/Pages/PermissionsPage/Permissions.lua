@@ -1,4 +1,5 @@
 local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
+local FFlagManageCollaboratorsPluginEnabled = game:GetFastFlag("ManageCollaboratorsPluginEnabled")
 
 local StudioService = game:GetService("StudioService")
 
@@ -6,6 +7,10 @@ local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
+
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 local ContextServices = Framework.ContextServices
@@ -16,6 +21,7 @@ local Pane = UI.Pane
 local RadioButtonList = UI.RadioButtonList
 local Separator = UI.Separator
 local TextLabel = UI.Decoration.TextLabel
+local TitledFrame = UI.TitledFrame
 
 local GameOwnerWidget = require(Page.Components.GameOwnerWidget)
 local CollaboratorsWidget = require(Page.Components.CollaboratorsWidget)
@@ -288,60 +294,93 @@ function Permissions:render()
 				Layout = Enum.FillDirection.Vertical,
 				Spacing = theme.playabilityWidget.spacing,
 			}, {
-				TitlePane = Roact.createElement(Pane, {
-					AutomaticSize = Enum.AutomaticSize.Y,
-					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					Layout = Enum.FillDirection.Horizontal,
-					Spacing = theme.playabilityWidget.titlePane.spacing,
-					VerticalAlignment = Enum.VerticalAlignment.Top,
-				}, {
-					Title = Roact.createElement(TextLabel, {
-						Style = "SubText",
-						Text = localization:getText("General", "TitlePlayability"),
-						TextSize = theme.fontStyle.Subtitle.TextSize,
-						TextXAlignment = Enum.TextXAlignment.Left,
-					}),
-					ButtonsFrame = Roact.createElement(Pane, {
+				TitlePane = (if FFlagRemoveUILibraryTitledFrame then
+					Roact.createElement(TitledFrame, {
+						LayoutOrder = 1,
+						Title = localization:getText("General", "TitlePlayability"),
+					}, {
+						Roact.createElement(TitledFrame, {
+							Title = localization:getText("General", "PlayabilityHeader"),
+							Style = "Subtitle",
+						}, {
+							List = Roact.createElement(RadioButtonList, {
+								Buttons = playabilityButtons,
+								OnClick = function(key)
+									if key == "Friends" then
+										isFriendsOnlyChanged(true)
+										isActiveChanged(true, false)
+									else
+										isFriendsOnlyChanged(false)
+										local willShutdown = (function()
+											return isCurrentlyActive and not key
+										end)()
+										isActiveChanged(key, willShutdown)
+									end
+								end,
+								SelectedKey = isFriendsOnly and "Friends" or isActive,
+								TextSize = {
+									Description = theme.fontStyle.Subtext.TextSize,
+									MainText = theme.fontStyle.Normal.TextSize,
+								},
+							}),
+						}),
+					})
+				else
+					Roact.createElement(Pane, {
 						AutomaticSize = Enum.AutomaticSize.Y,
 						HorizontalAlignment = Enum.HorizontalAlignment.Left,
-						Layout = Enum.FillDirection.Vertical,
-						Padding = {
-							Left = theme.playabilityWidget.buttonPane.padding,
-						},
-						Spacing = theme.playabilityWidget.buttonPane.spacing,
+						Layout = Enum.FillDirection.Horizontal,
+						Spacing = theme.playabilityWidget.titlePane.spacing,
+						VerticalAlignment = Enum.VerticalAlignment.Top,
 					}, {
-						Header = Roact.createElement(TextLabel, {
-							LayoutOrder = 0,
-							Style = "Title",
-							Text = localization:getText("General", "PlayabilityHeader"),
-							TextColor = playabilityWarningVisible and theme.fontStyle.Subtitle.TextColor3 or nil,
+						Title = Roact.createElement(TextLabel, {
+							Style = "SubText",
+							Text = localization:getText("General", "TitlePlayability"),
 							TextSize = theme.fontStyle.Subtitle.TextSize,
 							TextXAlignment = Enum.TextXAlignment.Left,
 						}),
-						VerticalList = Roact.createElement(RadioButtonList, {
-							Buttons = playabilityButtons,
-							FillDirection = Enum.FillDirection.Vertical,
-							LayoutOrder = 1,
-							OnClick = function(key)
-								if key == "Friends" then
-									isFriendsOnlyChanged(true)
-									isActiveChanged(true, false)
-								else
-									isFriendsOnlyChanged(false)
-									local willShutdown = (function()
-										return isCurrentlyActive and not key
-									end)()
-									isActiveChanged(key, willShutdown)
-								end
-							end,
-							SelectedKey = isFriendsOnly and "Friends" or isActive,
-							TextSize = {
-								Description = theme.fontStyle.Subtext.TextSize,
-								MainText = theme.fontStyle.Normal.TextSize,
+						ButtonsFrame = Roact.createElement(Pane, {
+							AutomaticSize = Enum.AutomaticSize.Y,
+							HorizontalAlignment = Enum.HorizontalAlignment.Left,
+							Layout = Enum.FillDirection.Vertical,
+							Padding = {
+								Left = theme.playabilityWidget.buttonPane.padding,
 							},
-						}),
+							Spacing = theme.playabilityWidget.buttonPane.spacing,
+						}, {
+							Header = Roact.createElement(TextLabel, {
+								LayoutOrder = 0,
+								Style = "Title",
+								Text = localization:getText("General", "PlayabilityHeader"),
+								TextColor = playabilityWarningVisible and theme.fontStyle.Subtitle.TextColor3 or nil,
+								TextSize = theme.fontStyle.Subtitle.TextSize,
+								TextXAlignment = Enum.TextXAlignment.Left,
+							}),
+							VerticalList = Roact.createElement(RadioButtonList, {
+								Buttons = playabilityButtons,
+								FillDirection = Enum.FillDirection.Vertical,
+								LayoutOrder = 1,
+								OnClick = function(key)
+									if key == "Friends" then
+										isFriendsOnlyChanged(true)
+										isActiveChanged(true, false)
+									else
+										isFriendsOnlyChanged(false)
+										local willShutdown = (function()
+											return isCurrentlyActive and not key
+										end)()
+										isActiveChanged(key, willShutdown)
+									end
+								end,
+								SelectedKey = isFriendsOnly and "Friends" or isActive,
+								TextSize = {
+									Description = theme.fontStyle.Subtext.TextSize,
+									MainText = theme.fontStyle.Normal.TextSize,
+								},
+							}),
+						})
 					})
-				}),
+				),
 				PlayabilityWarning = playabilityWarningVisible and Roact.createElement(TextLabel, {
 					LayoutOrder = 15,
 					Style = "SubText",
@@ -356,17 +395,28 @@ function Permissions:render()
 				LayoutOrder = 20,
 			}),
 
-			OwnerWidget = Roact.createElement(GameOwnerWidget, {
+			OwnerWidget = not FFlagManageCollaboratorsPluginEnabled and Roact.createElement(GameOwnerWidget, {
 				LayoutOrder = 30,
 
 				Writable = canUserEditPermissions,
 			}),
 
-			Separator2 = Roact.createElement(Separator, {
+			Separator2 = not FFlagManageCollaboratorsPluginEnabled and Roact.createElement(Separator, {
 				LayoutOrder = 40,
 			}),
+			
+			CollaboratorsMessage = FFlagManageCollaboratorsPluginEnabled and Roact.createElement(TextLabel, Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
+				Text = localization:getText(LOCALIZATION_ID, "CollaborateButtonMessage"),
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextColor = theme.warningColor,
+				LayoutOrder = 45,
+			}), {
+				Padding = Roact.createElement("UIPadding", {
+					PaddingRight = UDim.new(0, 10)
+				})
+			}),
 
-			TeamCreateWarning = teamCreateWarningVisible and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
+			TeamCreateWarning = not FFlagManageCollaboratorsPluginEnabled and teamCreateWarningVisible and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
 				Text = localization:getText(LOCALIZATION_ID, "TeamCreateWarning"),
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextColor3 = theme.warningColor,
@@ -374,18 +424,18 @@ function Permissions:render()
 				LayoutOrder = 50,
 			})),
 
-			SearchbarWidget = canUserEditCollaborators and Roact.createElement(CollaboratorSearchWidget, {
+			SearchbarWidget = not FFlagManageCollaboratorsPluginEnabled and canUserEditCollaborators and Roact.createElement(CollaboratorSearchWidget, {
 				LayoutOrder = 50,
 				Writable = true,
 			}),
 
-			CollaboratorListWidget = FFlagUXImprovementsShowUserPermsWhenCollaborator2 and isTeamCreateEnabled() and Roact.createElement(CollaboratorsWidget, {
+			CollaboratorListWidget = not FFlagManageCollaboratorsPluginEnabled and FFlagUXImprovementsShowUserPermsWhenCollaborator2 and isTeamCreateEnabled() and Roact.createElement(CollaboratorsWidget, {
 				LayoutOrder = 60,
 				Writable = canUserEditCollaborators,
 				Editable = canUserEditCollaborators
 			}),
 
-			DEPRECATED_CollaboratorListWidget = not FFlagUXImprovementsShowUserPermsWhenCollaborator2 and DEPRECATED_canUserSeeCollaborators and Roact.createElement(CollaboratorsWidget, {
+			DEPRECATED_CollaboratorListWidget = not FFlagManageCollaboratorsPluginEnabled and not FFlagUXImprovementsShowUserPermsWhenCollaborator2 and DEPRECATED_canUserSeeCollaborators and Roact.createElement(CollaboratorsWidget, {
 				LayoutOrder = 60,
 				Writable = true,
 				Editable = canUserEditCollaborators

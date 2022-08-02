@@ -1,5 +1,3 @@
-local FFlagToolboxAssetConfigurationMatchPluginFlow = game:GetFastFlag("ToolboxAssetConfigurationMatchPluginFlow")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Util = Plugin.Core.Util
@@ -60,60 +58,31 @@ ConfigTypes.OWNER_TYPES = {
 	Group = 2,
 }
 
-if FFlagToolboxAssetConfigurationMatchPluginFlow then
-	function ConfigTypes:getAssetconfigContent(screenFlowType, assetTypeEnum, isPackage, owner)
-		local result = {
-			GENERAL,
-		}
+function ConfigTypes:getAssetconfigContent(screenFlowType, assetTypeEnum, isPackage, owner)
+	local result = {
+		GENERAL,
+	}
 
-		if isPackage then
-			if owner then
-				result[#result + 1] = PERMISSIONS
-			end
+	if isPackage then
+		if owner then
+			result[#result + 1] = PERMISSIONS
 		end
+	end
 
-		-- Versions History is only accessible to models and plugins, so we only try to show the Versions if it's a model.
-		if assetTypeEnum == Enum.AssetType.Model then
-			if ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_VERSIONS_TAB) then
-				result[#result + 1] = VERSIONS
-			end
+	-- Versions History is only accessible to models and plugins, so we only try to show the Versions if it's a model.
+	if assetTypeEnum == Enum.AssetType.Model then
+		if ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_VERSIONS_TAB) then
+			result[#result + 1] = VERSIONS
 		end
+	end
 
-		if owner and owner.typeId == ConfigTypes.OWNER_TYPES.Group then
-			return result
-		end
-		if ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_SALES_TAB) then
-			result[#result + 1] = SALES
-		end
+	if owner and owner.typeId == ConfigTypes.OWNER_TYPES.Group then
 		return result
 	end
-else
-	function ConfigTypes:getAssetconfigContent(screenFlowType, assetTypeEnum, isMarketBuyAndNonWhiteList, isPackage, owner)
-		local result = {
-			GENERAL,
-		}
-	
-		if isPackage then
-			if owner then
-				result[#result + 1] = PERMISSIONS
-			end
-		end
-	
-		-- Versions History is only accessible to models and plugins, so we only try to show the Versions if it's a model.
-		if assetTypeEnum == Enum.AssetType.Model then
-			if ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_VERSIONS_TAB) then
-				result[#result + 1] = VERSIONS
-			end
-		end
-	
-		if owner and owner.typeId == ConfigTypes.OWNER_TYPES.Group then
-			return result
-		end
-		if ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_SALES_TAB) then
-			result[#result + 1] = SALES
-		end
-		return result
+	if ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_SALES_TAB) then
+		result[#result + 1] = SALES
 	end
+	return result
 end
 
 function ConfigTypes:isGeneral(item)

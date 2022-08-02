@@ -12,7 +12,9 @@ local GetTextSize = Framework.Util.GetTextSize
 
 local Constants = require(Plugin.Src.Util.Constants)
 
-local Dialog = UILibrary.Component.Dialog
+local FFlagDevFrameworkMigrateDialog = Framework.SharedFlags.getFFlagDevFrameworkMigrateDialog() and FFlagUpdateConvertToPackageToDFContextServices
+
+local Dialog = if FFlagDevFrameworkMigrateDialog then Framework.UI.Dialog else UILibrary.Component.Dialog
 local Button = UILibrary.Component.Button
 
 local MessageBox = Roact.PureComponent:extend("MessageBox")
@@ -58,8 +60,9 @@ function MessageBox:render()
 		local props = self.props
 
 		local title = props.Title or ""
-		local name = props.Name or title
-		local id = props.Id or nil
+		-- TODO(@rbujnowicz): remove with FFlagDevFrameworkMigrateDialog
+		local name = if FFlagDevFrameworkMigrateDialog then nil else (props.Name or title)
+		local id = if FFlagDevFrameworkMigrateDialog then nil else (props.Id or nil)
 
 		local text = props.Text or ""
 		local informativeText = props.InformativeText or ""
@@ -169,7 +172,18 @@ function MessageBox:render()
 		if mockTesting ~= "" then
 			return nil
 		end
-		return Roact.createElement(Dialog, {
+		return Roact.createElement(Dialog, if FFlagDevFrameworkMigrateDialog then {
+			Title = title,
+			Modal = true,
+			Resizable = false,
+			Size = Vector2.new(boxWidth, boxHeight),
+			MinSize = Vector2.new(boxWidth, boxHeight),
+			Enabled = true,
+			OnClose = props.onClose,
+			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+			[Roact.Change.Enabled] = self.onEnabledChanged,
+			[Roact.Event.AncestryChanged] = self.onAncestryChanged,
+		} else {
 			Name = name,
 			Title = title,
 			Id = id,

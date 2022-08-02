@@ -5,11 +5,13 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TrustAndSafety = require(RobloxGui.Modules.TrustAndSafety)
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
+local UrlBuilderPackage = require(CorePackages.Packages.UrlBuilder)
+local UrlBuilder = UrlBuilderPackage.UrlBuilder
 local Otter = InGameMenuDependencies.Otter
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local UIBlox = InGameMenuDependencies.UIBlox
-
+local GameContextualMenu = UIBlox.App.Menu.GameContextualMenu
 local withStyle = UIBlox.Core.Style.withStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
@@ -48,10 +50,12 @@ local httpRequest = require(Network.httpRequest)
 local networkImpl = httpRequest(HttpRbxApiService)
 local SocialDependencies = require(InGameMenu.SocialDependencies)
 local IsExperienceOlderThanOneWeek = require(InGameMenu.Utility.IsExperienceOlderThanOneWeek)
+local RoduxShareLinks = SocialDependencies.RoduxShareLinks
 local NetworkingShareLinks = SocialDependencies.NetworkingShareLinks
 local GetFFlagShareInviteLinkContextMenuV3Enabled =
 	require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
 local FFlagEnableServerInGameMenu = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableServerInGameMenu)
+local FFlagRemoveLegacyMenuHighlighting = require(InGameMenu.Flags.GetFFlagRemoveLegacyMenuHighlighting)
 
 local NAV_BUTTON_HEIGHT = 56
 -- The left indent on divider lines
@@ -70,25 +74,29 @@ local TEXT_SIZE_INSET = NAV_ICON_LEFT_PADDING + NAV_ICON_SIZE + NAV_ICON_TEXT_PA
 local NavigationButton = Roact.PureComponent:extend("NavigationButton")
 
 function NavigationButton:init(props)
-	local startingFillProgress = props.selected and 1 or 0
-	local fillProgress, setFillProgress = Roact.createBinding(startingFillProgress)
 
-	self.fillSize = fillProgress:map(function(value)
-		return UDim2.new(value, 0, 1, 0)
-	end)
+	if not FFlagRemoveLegacyMenuHighlighting() then
 
-	local startingHoverTransparency = 0
-	self.hoverTransparency, self.setHoverTransparency = Roact.createBinding(startingHoverTransparency)
+		local startingFillProgress = props.selected and 1 or 0
+		local fillProgress, setFillProgress = Roact.createBinding(startingFillProgress)
 
-	self.motor = Otter.createGroupMotor({
-		fillProgress = startingFillProgress,
-		hoverTransparency = startingHoverTransparency,
-	})
+		self.fillSize = fillProgress:map(function(value)
+			return UDim2.new(value, 0, 1, 0)
+		end)
 
-	self.motor:onStep(function(values)
-		setFillProgress(values.fillProgress)
-		self.setHoverTransparency(values.hoverTransparency)
-	end)
+		local startingHoverTransparency = 0
+		self.hoverTransparency, self.setHoverTransparency = Roact.createBinding(startingHoverTransparency)
+
+		self.motor = Otter.createGroupMotor({
+			fillProgress = startingFillProgress,
+			hoverTransparency = startingHoverTransparency,
+		})
+
+		self.motor:onStep(function(values)
+			setFillProgress(values.fillProgress)
+			self.setHoverTransparency(values.hoverTransparency)
+		end)
+	end
 
 	self:setState({
 		hovering = false,
@@ -212,14 +220,16 @@ function NavigationButton:render()
 end
 
 function NavigationButton:didUpdate()
-	self.motor:setGoal({
-		fillProgress = Otter.spring(self.props.selected and 1 or 0, {
-			frequency = 2.5,
-		}),
-		hoverTransparency = Otter.spring(self.state.hovering and 1 or 0, {
-			frequency = 5,
-		}),
-	})
+	if not FFlagRemoveLegacyMenuHighlighting() then
+		self.motor:setGoal({
+			fillProgress = Otter.spring(self.props.selected and 1 or 0, {
+				frequency = 2.5,
+			}),
+			hoverTransparency = Otter.spring(self.state.hovering and 1 or 0, {
+				frequency = 5,
+			}),
+		})
+	end
 end
 
 local function shouldShowShareInviteLink(gameInfo, serverType)
@@ -235,139 +245,361 @@ local function shouldShowShareInviteLink(gameInfo, serverType)
 	return false
 end
 
-local function PageNavigation(props)
-	local frameChildren = {
-		Layout = Roact.createElement("UIListLayout", {
-			SortOrder = Enum.SortOrder.LayoutOrder,
-			HorizontalAlignment = Enum.HorizontalAlignment.Right,
-		}),
-	}
 
-	local favoriteSelected = props.isFavorited ~= nil and props.isFavorited or false
-	local followSelected = props.isFollowed ~= nil and props.isFollowed or false
+function renderMenu(props, actions)
+	local labelStrings = {}
+	for index, page in ipairs(Pages.pagesByIndex) do
+		labelStrings[index] = (page.actionKey and actions[page.actionKey] and actions[page.actionKey].selected and page.titleOn) or page.title
+	end
 
-	local actions = {
-		shareServerLink = GetFFlagShareInviteLinkContextMenuV3Enabled()
-				and {
+	return withLocalization(labelStrings)(function(localized)
+		local buttonProps = {}
+		for index, page in ipairs(Pages.pagesByIndex) do
+			if page.parentPage == Constants.MainPagePageKey then
+				if
+					GetFFlagShareInviteLinkContextMenuV3Enabled()
+					and page.key == "ShareServerLink"
+					and not shouldShowShareInviteLink(props.gameInfo, props.serverType)
+				then
+					continue
+				end
+
+				buttonProps[#buttonProps + 1]  = {
+					layoutOrder = index,
+					text = localized[index],
+					icon = (page.actionKey and actions[page.actionKey].selected and page.iconOn) or page.icon,
+					leftPaddingOffset = 7,
 					onActivated = function()
-						-- TODO(COEXP-318): Pull up sharesheet if shareInviteLink is not nil.
-						SendAnalytics(Constants.ShareLinksAnalyticsName, Constants.ShareLinksAnalyticsButtonClickName, {
-							page = "inGameMenu",
-							subpage = props.currentPage,
-						})
-
-						if props.shareInviteLink == nil then
-							props.fetchShareInviteLink(props.serverType)
+						if page.actionKey and actions[page.actionKey] then
+							actions[page.actionKey].onActivated()
+						else
+							props.setCurrentPage(page.key)
 						end
 					end,
 				}
-			or nil,
-		favorite = {
-			selected = favoriteSelected,
-			onActivated = function()
-				props.setFavorite(not favoriteSelected)
-				props.postFavorite(networkImpl, not favoriteSelected)
-
-				SendAnalytics(
-					Constants.AnalyticsMenuActionName,
-					favoriteSelected and Constants.AnalyticsUnfavoritingExperience
-						or Constants.AnalyticsFavoritingExperience,
-					{ source = Constants.AnalyticsExperiencePageSource }
-				)
-
-				if IsMenuCsatEnabled() then
-					ExperienceMenuABTestManager.default:setCSATQualification()
-				end
-			end,
-		},
-		follow = {
-			selected = followSelected,
-			onActivated = function()
-				props.setFollowing(not followSelected)
-				props.postFollowing(networkImpl, not followSelected)
-
-				SendAnalytics(
-					Constants.AnalyticsMenuActionName,
-					followSelected and Constants.AnalyticsUnfollowExperience or Constants.AnalyticsFollowExperience,
-					{}
-				)
-
-				if IsMenuCsatEnabled() then
-					ExperienceMenuABTestManager.default:setCSATQualification()
-				end
-			end,
-		},
-		reportExperience = {
-			onActivated = function()
-				TrustAndSafety.openReportDialogForPlace()
-
-				SendAnalytics(
-					Constants.AnalyticsMenuActionName,
-					Constants.AnalyticsReportAbuse,
-					{ source = Constants.AnalyticsExperiencePageSource }
-				)
-			end,
-		},
-	}
-
-	local pageCount = #Pages.pagesByIndex
-
-	local layoutOrder = 1
-	for index, page in ipairs(Pages.pagesByIndex) do
-		if page.parentPage == Constants.MainPagePageKey then
-			if
-				GetFFlagShareInviteLinkContextMenuV3Enabled()
-				and page.key == "ShareServerLink"
-				and not shouldShowShareInviteLink(props.gameInfo, props.serverType)
-			then
-				continue
 			end
+		end
 
-			frameChildren["Page" .. page.key] = Roact.createElement(NavigationButton, {
-				image = (page.actionKey and actions[page.actionKey].selected and page.iconOn) or page.icon,
-				LayoutOrder = layoutOrder,
-				selected = props.currentPage == page.key,
-				text = (page.actionKey and actions[page.actionKey].selected and page.titleOn) or page.title,
-				onActivated = function()
-					if page.actionKey and actions[page.actionKey] then
-						actions[page.actionKey].onActivated()
-					else
-						props.setCurrentPage(page.key)
-					end
-				end,
-				mainPageFirstButtonRef = layoutOrder == 1 and props.mainPageFirstButtonRef or nil,
-			})
+		return Roact.createElement(GameContextualMenu, {
+			buttonProps = buttonProps,
+			width = UDim.new(1, 0),
+			topElementRounded = false,
+			bottomElementRounded = false,
+		})
+	end)
+end
 
-			layoutOrder = layoutOrder + 1
+local PageNavigation
 
-			if index < pageCount then
-				frameChildren["Divider" .. layoutOrder] = Roact.createElement(Divider, {
-					LayoutOrder = layoutOrder,
-					Size = UDim2.new(1, -DIVIDER_INDENT, 0, 1),
-				})
+if GetFFlagShareInviteLinkContextMenuV3Enabled() then
+	PageNavigation = Roact.Component:extend("PageNavigation")
 
-				layoutOrder = layoutOrder + 1
-			end
+	function PageNavigation:didUpdate(prevProps)
+		if self.props.currentPage == "MainPage" and (prevProps.shareInviteLink == nil and self.props.shareInviteLink ~= nil) then
+			-- TODO(COEXP-318): Pull up sharesheet.
+			local linkType = RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue()
+			local linkId = self.props.shareInviteLink.linkId
+			local _url = UrlBuilder.sharelinks.appsflyer(linkId, linkType)
 		end
 	end
 
-	if props.autosize then
-		return Roact.createElement("Frame", {
-			LayoutOrder = props.LayoutOrder or 0,
-			BackgroundTransparency = 1,
-			Position = props.Position,
-			-- pageCount nav buttons, plus pageCount - 1 dividers (which are 1px tall)
-			Size = UDim2.new(1, 0, 0, 0),
-			AutomaticSize = Enum.AutomaticSize.Y,
-		}, frameChildren)
-	else
-		return Roact.createElement("Frame", {
-			LayoutOrder = props.LayoutOrder or 0,
-			BackgroundTransparency = 1,
-			Position = props.Position,
-			-- pageCount nav buttons, plus pageCount - 1 dividers (which are 1px tall)
-			Size = UDim2.new(1, -Constants.Zone.ContentOffset, 0, pageCount * NAV_BUTTON_HEIGHT + (pageCount - 1)),
-		}, frameChildren)
+	function PageNavigation:render()
+		local props = self.props
+		local frameChildren = {
+			Layout = Roact.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				HorizontalAlignment = Enum.HorizontalAlignment.Right,
+			}),
+		}
+	
+		local favoriteSelected = props.isFavorited ~= nil and props.isFavorited or false
+		local followSelected = props.isFollowed ~= nil and props.isFollowed or false
+	
+		local actions = {
+			shareServerLink = GetFFlagShareInviteLinkContextMenuV3Enabled()
+					and {
+						onActivated = function()
+							SendAnalytics(Constants.ShareLinksAnalyticsName, Constants.ShareLinksAnalyticsButtonClickName, {
+								page = "inGameMenu",
+								subpage = props.currentPage,
+							})
+	
+							if props.shareInviteLink == nil then
+								props.fetchShareInviteLink()
+							else
+								-- TODO(COEXP-318): Pull up sharesheet if shareInviteLink is not nil.
+								local linkType = RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue()
+								local linkId = self.props.shareInviteLink.linkId
+								local _url = UrlBuilder.sharelinks.appsflyer(linkId, linkType)
+							end
+						end,
+					}
+				or nil,
+			favorite = {
+				selected = favoriteSelected,
+				onActivated = function()
+					props.setFavorite(not favoriteSelected)
+					props.postFavorite(networkImpl, not favoriteSelected)
+	
+					SendAnalytics(
+						Constants.AnalyticsMenuActionName,
+						favoriteSelected and Constants.AnalyticsUnfavoritingExperience
+							or Constants.AnalyticsFavoritingExperience,
+						{ source = Constants.AnalyticsExperiencePageSource }
+					)
+	
+					if IsMenuCsatEnabled() then
+						ExperienceMenuABTestManager.default:setCSATQualification()
+					end
+				end,
+			},
+			follow = {
+				selected = followSelected,
+				onActivated = function()
+					props.setFollowing(not followSelected)
+					props.postFollowing(networkImpl, not followSelected)
+	
+					SendAnalytics(
+						Constants.AnalyticsMenuActionName,
+						followSelected and Constants.AnalyticsUnfollowExperience or Constants.AnalyticsFollowExperience,
+						{}
+					)
+	
+					if IsMenuCsatEnabled() then
+						ExperienceMenuABTestManager.default:setCSATQualification()
+					end
+				end,
+			},
+			reportExperience = {
+				onActivated = function()
+					TrustAndSafety.openReportDialogForPlace()
+	
+					SendAnalytics(
+						Constants.AnalyticsMenuActionName,
+						Constants.AnalyticsReportAbuse,
+						{ source = Constants.AnalyticsExperiencePageSource }
+					)
+				end,
+			},
+		}
+	
+		local pageCount = #Pages.pagesByIndex
+		local layoutOrder = 1
+	
+		if FFlagRemoveLegacyMenuHighlighting() then
+			frameChildren["Menu"] = renderMenu(props, actions)
+			layoutOrder = layoutOrder + 1
+	
+			frameChildren["MenuEndDivider"] = Roact.createElement(Divider, {
+				LayoutOrder = layoutOrder,
+				Size = UDim2.new(1, -DIVIDER_INDENT, 0, 1),
+			})
+		else
+			-- delete NavigationButton when deleting this code path
+			for index, page in ipairs(Pages.pagesByIndex) do
+				if page.parentPage == Constants.MainPagePageKey then
+					if
+						GetFFlagShareInviteLinkContextMenuV3Enabled()
+						and page.key == "ShareServerLink"
+						and not shouldShowShareInviteLink(props.gameInfo, props.serverType)
+					then
+						continue
+					end
+	
+					frameChildren["Page" .. page.key] = Roact.createElement(NavigationButton, {
+						image = (page.actionKey and actions[page.actionKey].selected and page.iconOn) or page.icon,
+						LayoutOrder = layoutOrder,
+						selected = props.currentPage == page.key,
+						text = (page.actionKey and actions[page.actionKey].selected and page.titleOn) or page.title,
+						onActivated = function()
+							if page.actionKey and actions[page.actionKey] then
+								actions[page.actionKey].onActivated()
+							else
+								props.setCurrentPage(page.key)
+							end
+						end,
+						mainPageFirstButtonRef = layoutOrder == 1 and props.mainPageFirstButtonRef or nil,
+					})
+	
+					layoutOrder = layoutOrder + 1
+	
+					if index < pageCount then
+						frameChildren["Divider" .. layoutOrder] = Roact.createElement(Divider, {
+							LayoutOrder = layoutOrder,
+							Size = UDim2.new(1, -DIVIDER_INDENT, 0, 1),
+						})
+	
+						layoutOrder = layoutOrder + 1
+					end
+				end
+			end
+		end
+	
+		if props.autosize then
+			return Roact.createElement("Frame", {
+				LayoutOrder = props.LayoutOrder or 0,
+				BackgroundTransparency = 1,
+				Position = props.Position,
+				-- pageCount nav buttons, plus pageCount - 1 dividers (which are 1px tall)
+				Size = UDim2.new(1, 0, 0, 0),
+				AutomaticSize = Enum.AutomaticSize.Y,
+			}, frameChildren)
+		else
+			return Roact.createElement("Frame", {
+				LayoutOrder = props.LayoutOrder or 0,
+				BackgroundTransparency = 1,
+				Position = props.Position,
+				-- pageCount nav buttons, plus pageCount - 1 dividers (which are 1px tall)
+				Size = UDim2.new(1, -Constants.Zone.ContentOffset, 0, pageCount * NAV_BUTTON_HEIGHT + (pageCount - 1)),
+			}, frameChildren)
+		end
+	end
+else
+	PageNavigation = function(props)
+		local frameChildren = {
+			Layout = Roact.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				HorizontalAlignment = Enum.HorizontalAlignment.Right,
+			}),
+		}
+	
+		local favoriteSelected = props.isFavorited ~= nil and props.isFavorited or false
+		local followSelected = props.isFollowed ~= nil and props.isFollowed or false
+	
+		local actions = {
+			shareServerLink = GetFFlagShareInviteLinkContextMenuV3Enabled()
+					and {
+						onActivated = function()
+							-- TODO(COEXP-318): Pull up sharesheet if shareInviteLink is not nil.
+							SendAnalytics(Constants.ShareLinksAnalyticsName, Constants.ShareLinksAnalyticsButtonClickName, {
+								page = "inGameMenu",
+								subpage = props.currentPage,
+							})
+	
+							if props.shareInviteLink == nil then
+								props.fetchShareInviteLink()
+							end
+						end,
+					}
+				or nil,
+			favorite = {
+				selected = favoriteSelected,
+				onActivated = function()
+					props.setFavorite(not favoriteSelected)
+					props.postFavorite(networkImpl, not favoriteSelected)
+	
+					SendAnalytics(
+						Constants.AnalyticsMenuActionName,
+						favoriteSelected and Constants.AnalyticsUnfavoritingExperience
+							or Constants.AnalyticsFavoritingExperience,
+						{ source = Constants.AnalyticsExperiencePageSource }
+					)
+	
+					if IsMenuCsatEnabled() then
+						ExperienceMenuABTestManager.default:setCSATQualification()
+					end
+				end,
+			},
+			follow = {
+				selected = followSelected,
+				onActivated = function()
+					props.setFollowing(not followSelected)
+					props.postFollowing(networkImpl, not followSelected)
+	
+					SendAnalytics(
+						Constants.AnalyticsMenuActionName,
+						followSelected and Constants.AnalyticsUnfollowExperience or Constants.AnalyticsFollowExperience,
+						{}
+					)
+	
+					if IsMenuCsatEnabled() then
+						ExperienceMenuABTestManager.default:setCSATQualification()
+					end
+				end,
+			},
+			reportExperience = {
+				onActivated = function()
+					TrustAndSafety.openReportDialogForPlace()
+	
+					SendAnalytics(
+						Constants.AnalyticsMenuActionName,
+						Constants.AnalyticsReportAbuse,
+						{ source = Constants.AnalyticsExperiencePageSource }
+					)
+				end,
+			},
+		}
+	
+		local pageCount = #Pages.pagesByIndex
+		local layoutOrder = 1
+	
+		if FFlagRemoveLegacyMenuHighlighting() then
+			frameChildren["Menu"] = renderMenu(props, actions)
+			layoutOrder = layoutOrder + 1
+	
+			frameChildren["MenuEndDivider"] = Roact.createElement(Divider, {
+				LayoutOrder = layoutOrder,
+				Size = UDim2.new(1, -DIVIDER_INDENT, 0, 1),
+			})
+		else
+			-- delete NavigationButton when deleting this code path
+			for index, page in ipairs(Pages.pagesByIndex) do
+				if page.parentPage == Constants.MainPagePageKey then
+					if
+						GetFFlagShareInviteLinkContextMenuV3Enabled()
+						and page.key == "ShareServerLink"
+						and not shouldShowShareInviteLink(props.gameInfo, props.serverType)
+					then
+						continue
+					end
+	
+					frameChildren["Page" .. page.key] = Roact.createElement(NavigationButton, {
+						image = (page.actionKey and actions[page.actionKey].selected and page.iconOn) or page.icon,
+						LayoutOrder = layoutOrder,
+						selected = props.currentPage == page.key,
+						text = (page.actionKey and actions[page.actionKey].selected and page.titleOn) or page.title,
+						onActivated = function()
+							if page.actionKey and actions[page.actionKey] then
+								actions[page.actionKey].onActivated()
+							else
+								props.setCurrentPage(page.key)
+							end
+						end,
+						mainPageFirstButtonRef = layoutOrder == 1 and props.mainPageFirstButtonRef or nil,
+					})
+	
+					layoutOrder = layoutOrder + 1
+	
+					if index < pageCount then
+						frameChildren["Divider" .. layoutOrder] = Roact.createElement(Divider, {
+							LayoutOrder = layoutOrder,
+							Size = UDim2.new(1, -DIVIDER_INDENT, 0, 1),
+						})
+	
+						layoutOrder = layoutOrder + 1
+					end
+				end
+			end
+		end
+	
+		if props.autosize then
+			return Roact.createElement("Frame", {
+				LayoutOrder = props.LayoutOrder or 0,
+				BackgroundTransparency = 1,
+				Position = props.Position,
+				-- pageCount nav buttons, plus pageCount - 1 dividers (which are 1px tall)
+				Size = UDim2.new(1, 0, 0, 0),
+				AutomaticSize = Enum.AutomaticSize.Y,
+			}, frameChildren)
+		else
+			return Roact.createElement("Frame", {
+				LayoutOrder = props.LayoutOrder or 0,
+				BackgroundTransparency = 1,
+				Position = props.Position,
+				-- pageCount nav buttons, plus pageCount - 1 dividers (which are 1px tall)
+				Size = UDim2.new(1, -Constants.Zone.ContentOffset, 0, pageCount * NAV_BUTTON_HEIGHT + (pageCount - 1)),
+			}, frameChildren)
+		end
 	end
 end
 
@@ -407,9 +639,8 @@ end, function(dispatch)
 		end,
 		fetchShareInviteLink = if GetFFlagShareInviteLinkContextMenuV3Enabled()
 			then
-				function(linkType)
-					-- TODO (timothyhsu): Set linkType once enum is available
-					dispatch(NetworkingShareLinks.GenerateLink.API({ linkType = linkType }))
+				function()
+					dispatch(NetworkingShareLinks.GenerateLink.API({ linkType = RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue() }))
 				end
 			else nil,
 	}

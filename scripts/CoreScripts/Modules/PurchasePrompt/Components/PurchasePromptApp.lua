@@ -30,8 +30,6 @@ local ProductPurchaseContainer = require(script.Parent.ProductPurchase.ProductPu
 local DarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 local Gotham = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
 
-local GetFFlagPurchasePromptPurchaseWarningGuac = require(Root.Flags.GetFFlagPurchasePromptPurchaseWarningGuac)
-
 local PurchasePromptApp = Roact.Component:extend("PurchasePromptApp")
 
 function PurchasePromptApp:init()
@@ -59,50 +57,20 @@ end
 
 function PurchasePromptApp:render()
 	return provideRobloxLocale(function()
-		if GetFFlagPurchasePromptPurchaseWarningGuac() then
-			return Roact.createElement(RoactRodux.StoreProvider, {
-				store = self.state.store,
+		return Roact.createElement(RoactRodux.StoreProvider, {
+			store = self.state.store,
+		}, {
+			StyleProvider = Roact.createElement(StyleProvider, {
+				style = {
+					Theme = DarkTheme,
+					Font = Gotham,
+				},
 			}, {
-				StyleProvider = Roact.createElement(StyleProvider, {
-					style = {
-						Theme = DarkTheme,
-						Font = Gotham,
-					},
+				LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
+					isTenFootInterface = self.state.isTenFootInterface,
 				}, {
-					LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
-						isTenFootInterface = self.state.isTenFootInterface,
-					}, {
-						PolicyProvider = Roact.createElement(PurchasePromptPolicy.Provider, {
-							policy = { PurchasePromptPolicy.Mapper },
-						}, {
-							PurchasePrompt = Roact.createElement("ScreenGui", {
-								AutoLocalize = false,
-								IgnoreGuiInset = true,
-							}, {
-								PremiumPromptUI = Roact.createElement(PremiumPrompt),
-								ProductPurchase = Roact.createElement(LocaleProvider, {
-									locale = LocalizationService.RobloxLocaleId
-								}, {
-									ProductPurchaseContainer = Roact.createElement(ProductPurchaseContainer)
-								}),
-								EventConnections = Roact.createElement(EventConnections),
-							})
-						})
-					})
-				})
-			})
-		else
-			return Roact.createElement(RoactRodux.StoreProvider, {
-				store = self.state.store,
-			}, {
-				StyleProvider = Roact.createElement(StyleProvider, {
-					style = {
-						Theme = DarkTheme,
-						Font = Gotham,
-					},
-				}, {
-					LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
-						isTenFootInterface = self.state.isTenFootInterface,
+					PolicyProvider = Roact.createElement(PurchasePromptPolicy.Provider, {
+						policy = { PurchasePromptPolicy.Mapper },
 					}, {
 						PurchasePrompt = Roact.createElement("ScreenGui", {
 							AutoLocalize = false,
@@ -119,7 +87,7 @@ function PurchasePromptApp:render()
 					})
 				})
 			})
-		end
+		})
 	end)
 end
 

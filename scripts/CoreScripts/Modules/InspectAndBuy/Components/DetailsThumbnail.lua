@@ -4,8 +4,6 @@ local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 
-local FFlagInspectAndBuyLCShoeFix = require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyLCShoeFix)
-
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
 
 local DetailsThumbnail = Roact.PureComponent:extend("DetailsThumbnail")
@@ -26,25 +24,14 @@ function DetailsThumbnail:getUrl()
 	local partOfBundleAndOffsale = isPartOfBundleAndOffsale(assetInfo)
 	local url = ""
 
-	if FFlagInspectAndBuyLCShoeFix then
-		-- If the asset is part of a bundle and that bundle does
-		-- not include a costumeId with which to get a thumbnail,
-		-- use the asset's thumbnail url
-		if partOfBundleAndOffsale and bundles[bundleId] and bundles[bundleId].costumeId then
-			url = "rbxthumb://type=Outfit&id=" .. bundles[bundleId].costumeId .. "&w=420&h=420"
-		else
-			local assetId = detailsInformation.assetId
-			url = "rbxthumb://type=Asset&id=" .. assetId .. "&w=420&h=420"
-		end
+	-- If the asset is part of a bundle and that bundle does
+	-- not include a costumeId with which to get a thumbnail,
+	-- use the asset's thumbnail url
+	if partOfBundleAndOffsale and bundles[bundleId] and bundles[bundleId].costumeId then
+		url = "rbxthumb://type=Outfit&id=" .. bundles[bundleId].costumeId .. "&w=420&h=420"
 	else
-		if partOfBundleAndOffsale then
-			if bundles[bundleId] then
-				url = "rbxthumb://type=Outfit&id=" .. bundles[bundleId].costumeId .. "&w=420&h=420"
-			end
-		else
-			local assetId = detailsInformation.assetId
-			url = "rbxthumb://type=Asset&id=" .. assetId .. "&w=420&h=420"
-		end
+		local assetId = detailsInformation.assetId
+		url = "rbxthumb://type=Asset&id=" .. assetId .. "&w=420&h=420"
 	end
 
 	return url

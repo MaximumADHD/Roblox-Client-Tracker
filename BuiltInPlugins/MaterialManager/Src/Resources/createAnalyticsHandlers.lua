@@ -84,6 +84,10 @@ return function(analyticsService)
 			_reportCounter("ApplyToSelectionAction")
 		end,
 
+		materialAsTool = function()
+			_reportCounter("MaterialAsTool")
+		end,
+
 		setOverrideToggled = function()
 			_reportCounter("SetOverrideToggled")
 		end,

@@ -32,14 +32,9 @@ local GeneralServiceController = require(Plugin.Src.Controllers.GeneralServiceCo
 local ImportAssetHandler = require(Controllers.ImportAssetHandler)
 local MaterialServiceController = require(Controllers.MaterialServiceController)
 
-local Flags = Plugin.Src.Flags
-local getFFlagMaterialManagerRefactorMaterialVariantCreator = require(Flags.getFFlagMaterialManagerRefactorMaterialVariantCreator)
-local getFFlagMaterialManagerUIGlitchFix = require(Flags.getFFlagMaterialManagerUIGlitchFix)
-local getFFlagMaterialManagerStudsPerTileFix = require(Flags.getFFlagMaterialManagerStudsPerTileFix)
-local getFFlagMaterialManagerAnalyticsCounter = require(Flags.getFFlagMaterialManagerAnalyticsCounter)
-local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
+local MaterialVariantCreator = require(Plugin.Src.Components.MaterialPrompt.MaterialVariantCreator)
 
-local MaterialVariantCreator = if getFFlagMaterialManagerRefactorMaterialVariantCreator() then require(Plugin.Src.Components.MaterialPrompt.MaterialVariantCreator) else require(Plugin.Src.Components.MaterialPrompt.DEPRECATED_MaterialVariantCreator)
+local FIntInfluxReportMaterialManagerHundrethPercent2 = game:GetFastInt("InfluxReportMaterialManagerHundrethPercent2")
 
 export type Props = {
 	PromptClosed: () -> (),
@@ -65,7 +60,6 @@ type _Props = Props & {
 	ImportAssetHandler: any,
 	MaterialServiceController: any,
 	dispatchClearMaterialVariant: () -> (),
-	dispatchSetMaterial: (material: _Types.Material) -> (), -- Remove with FFlagMaterialManagerUIGlitchFix
 	dispatchSetMaterialVariant: (materialVariant: MaterialVariant) -> (),
 }
 
@@ -196,13 +190,13 @@ function MaterialPrompt:init()
 							(materialVariant:: any)[mapType] = assetId
 						end)
 					end)
-					if getFFlagMaterialManagerAnalyticsCounter() and props.Mode == "Create" then
+					if props.Mode == "Create" then
 						props.Analytics:report("importTextureMap")
 					end
 				-- Use already uploaded assetId
 				elseif map.assetId then
 					(materialVariant:: any)[mapType] = map.assetId
-					if getFFlagMaterialManagerAnalyticsCounter() and props.Mode == "Create" then
+					if props.Mode == "Create" then
 						props.Analytics:report("uploadAssetIdTextureMap")
 					end
 				else
@@ -226,17 +220,10 @@ function MaterialPrompt:init()
 		}
 		handleMaps(maps, self.materialVariant)
 		props.GeneralServiceController:saveMaterialVariant(self.materialVariant)
-
-		if getFFlagMaterialManagerUIGlitchFix() then
-			props.dispatchSetMaterialVariant(self.materialVariant)
-		else
-			props.dispatchSetMaterial(props.Materials[self.materialVariant])
-		end
+		props.dispatchSetMaterialVariant(self.materialVariant)
 
 		props.MaterialServiceController:setPath(getMaterialPath(self.materialVariant.BaseMaterial))
-		if getFFlagMaterialManagerAnalyticsCounter() then
-			self.sendAnalyticsToKibanaOnSave()
-		end
+		self.sendAnalyticsToKibanaOnSave()
 		
 		if props.Mode == "Edit" then
 			self.clearMaterialVariantOriginal()
@@ -256,17 +243,9 @@ function MaterialPrompt:init()
 			props.dispatchSetMaterialVariant(materialVariant)
 		end
 
-		if not getFFlagMaterialManagerStudsPerTileFix() then
-			self.clearMaterialVariant()
-		end
-
 		props.PromptClosed()
-		if getFFlagMaterialManagerStudsPerTileFix() then
-			self.clearMaterialVariant()
-		end
-		if not getFFlagMaterialManagerUIGlitchFix() then
-			props.dispatchClearMaterialVariant()
-		end
+		self.clearMaterialVariant()
+		props.dispatchClearMaterialVariant()
 	end
 
 	self.onButtonPressed = function(key)
@@ -283,9 +262,7 @@ function MaterialPrompt:didMount()
 
 	self.createTempMaterialVariant()
 	if props.Mode == "Edit" then
-		if getFFlagMaterialManagerUIGlitchFix() then
-			props.MaterialServiceController:setMaterial(self.materialVariant)
-		end
+		props.MaterialServiceController:setMaterial(self.materialVariant)
 	end
 end
 

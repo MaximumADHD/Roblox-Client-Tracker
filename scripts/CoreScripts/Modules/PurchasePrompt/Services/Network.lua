@@ -10,6 +10,8 @@ local Promise = require(Root.Promise)
 local PremiumProduct = require(Root.Models.PremiumProduct)
 local EngineFeatureEnablePlayerOwnsBundleApi = game:GetEngineFeature("EnablePlayerOwnsBundleApi")
 
+local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
+
 -- This is the approximate strategy for URL building that we use elsewhere
 local BASE_URL = string.gsub(ContentProvider.BaseUrl:lower(), "/m.", "/www.")
 BASE_URL = string.gsub(BASE_URL, "http:", "https:")
@@ -17,10 +19,11 @@ BASE_URL = string.gsub(BASE_URL, "http:", "https:")
 local API_URL = string.gsub(BASE_URL, "https://www", "https://api")
 local APIS_URL = string.gsub(BASE_URL, "https://www", "https://apis")
 local AB_TEST_URL = string.gsub(BASE_URL, "https://www", "https://abtesting")
-local BASE_CATALOG_URL = string.gsub(BASE_URL, "https://www.", "https://catalog.")
-local BASE_ECONOMY_URL = string.gsub(BASE_URL, "https://www.", "https://economy.")
+local CATALOG_URL = string.gsub(BASE_URL, "https://www.", "https://catalog.")
+local ECONOMY_URL = string.gsub(BASE_URL, "https://www.", "https://economy.")
 local PREMIUM_FEATURES_URL = string.gsub(BASE_URL, "https://www.", "https://premiumfeatures.")
 local ECONOMY_CREATOR_STATS_URL = string.gsub(BASE_URL, "https://www.", "https://economycreatorstats.")
+local USERS_URL = string.gsub(BASE_URL, "https://www", "https://users")
 
 local function request(options, resolve, reject)
 	return HttpService:RequestInternal(options):Start(function(success, response)
@@ -126,16 +129,34 @@ local function loadAssetForEquip(assetId)
 end
 
 local function getAccountInfo()
+	if FFlagPPAccountInfoMigration then
+		return Promise.new(function(resolve, reject)
+			request({
+				Url = USERS_URL .. "v1/users/authenticated/app-launch-info",
+				Method = "GET",
+			}, resolve, reject)
+		end)
+	else
+		return Promise.new(function(resolve, reject)
+			request({
+				Url = API_URL .. "users/account-info",
+				Method = "GET",
+			}, resolve, reject)
+		end)
+	end
+end
+
+local function getBalanceInfo()
 	return Promise.new(function(resolve, reject)
 		request({
-			Url = API_URL .. "users/account-info",
+			Url = ECONOMY_URL .. "v1/user/currency",
 			Method = "GET",
 		}, resolve, reject)
 	end)
 end
 
 local function getBundleDetails(bundleId)
-	local url = BASE_CATALOG_URL .."v1/bundles/" ..tostring(bundleId) .."/details"
+	local url = CATALOG_URL .."v1/bundles/" ..tostring(bundleId) .."/details"
 	local options = {
 		Url = url,
 		Method = "GET",
@@ -149,7 +170,7 @@ local function getBundleDetails(bundleId)
 end
 
 local function getProductPurchasableDetails(productId)
-	local url = BASE_ECONOMY_URL .."v1/products/" ..tostring(productId) .."?showPurchasable=true"
+	local url = ECONOMY_URL .."v1/products/" ..tostring(productId) .."?showPurchasable=true"
 	local options = {
 		Url = url,
 		Method = "GET"
@@ -252,6 +273,7 @@ function Network.new()
 		performPurchase = Promise.promisify(performPurchase),
 		loadAssetForEquip = Promise.promisify(loadAssetForEquip),
 		getAccountInfo = Promise.promisify(getAccountInfo),
+		getBalanceInfo = Promise.promisify(getBalanceInfo),
 		getBundleDetails = getBundleDetails,
 		getProductPurchasableDetails = getProductPurchasableDetails,
 		getPremiumProductInfo = Promise.promisify(getPremiumProductInfo),

@@ -17,12 +17,8 @@ local Image = UI.Decoration.Image
 local Pane = UI.Pane
 
 local ClearMaterial = require(Plugin.Src.Actions.ClearMaterial)
-local getFFlagMaterialManagerHideDetails = require(Plugin.Src.Flags.getFFlagMaterialManagerHideDetails)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-local DEPRECATED_MaterialPreview = require(Plugin.Src.Components.DEPRECATED_MaterialPreview)
 local MaterialPreview = require(Plugin.Src.Components.MaterialPreview)
-
-local getFFlagMaterialManagerGridOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerGridOverhaul)
 
 export type Props = {
 	LayoutOrder: number?,
@@ -68,7 +64,6 @@ type _Style = {
 local MaterialHeader = Roact.PureComponent:extend("MaterialHeader")
 
 function MaterialHeader:init()
-	-- Remove with FFlagMaterialManagerHideDetails
 	self.onClose = function()
 		local props: _Props = self.props
 
@@ -85,35 +80,32 @@ function MaterialHeader:render()
 		return Roact.createElement(Pane)
 	end
 
-	local materialVariant = if material.MaterialVariant then material.MaterialVariant else nil -- Inline remove with FFlagMaterialManagerGridOverhaul
-
 	return Roact.createElement(Pane, {
 		LayoutOrder = props.LayoutOrder,
 		Size = style.HeaderSize,
 	}, {
-		Preview = Roact.createElement(if getFFlagMaterialManagerGridOverhaul() then MaterialPreview else DEPRECATED_MaterialPreview, {
+		Preview = Roact.createElement(MaterialPreview, {
 			BackgroundColor = style.HeaderBackground,
 			DisableZoom = true,
 			LayoutOrder = 1,
 			Material = material.Material,
-			MaterialVariant = if not getFFlagMaterialManagerGridOverhaul() and materialVariant then materialVariant.name else materialVariant,
+			MaterialVariant = material.MaterialVariant,
 			Position = UDim2.fromOffset(0, 0),
 			Size = style.MaterialPreviewSize,
 		}),
-		Close = if not getFFlagMaterialManagerHideDetails() then
-			Roact.createElement(Button, {
-				OnClick = self.onClose,
-				Position = style.ButtonPosition,
-				Size = style.ButtonSize,
-				Style = style.ButtonStyle,
-				ZIndex = 2,
-			}, {
-				Image = Roact.createElement(Image, {
-					Style = style.Close,
-					Size = style.ImageSize,
-					Position = style.ImagePosition,
-				})
-			}) else nil
+		Close = Roact.createElement(Button, {
+			OnClick = self.onClose,
+			Position = style.ButtonPosition,
+			Size = style.ButtonSize,
+			Style = style.ButtonStyle,
+			ZIndex = 2,
+		}, {
+			Image = Roact.createElement(Image, {
+				Style = style.Close,
+				Size = style.ImageSize,
+				Position = style.ImagePosition,
+			})
+		})
 	})
 end
 
@@ -131,7 +123,6 @@ return RoactRodux.connect(
 	end,
 	function(dispatch)
 		return {
-			-- Remove with FFlagMaterialManagerHideDetails
 			dispatchClearMaterial = function()
 				dispatch(ClearMaterial())
 			end,

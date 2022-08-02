@@ -4,20 +4,26 @@ local Roact = require(Plugin.Packages.Roact)
 local Badges = Roact.PureComponent:extend(script.Name)
 
 local Framework = require(Plugin.Packages.Framework)
-local UILibrary = require(Plugin.Packages.UILibrary)
-local TitledFrame = UILibrary.Component.TitledFrame
-
-local FrameworkUI = Framework.UI
-local Button = FrameworkUI.Button
-local HoverArea = FrameworkUI.HoverArea
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local FitFrameOnAxis = Framework.Util.FitFrame.FitFrameOnAxis
-local TableWithMenu = require(Plugin.Src.Components.TableWithMenu)
+
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryTitledFrame = SharedFlags.getFFlagRemoveUILibraryTitledFrame()
+
+local UI = Framework.UI
+local Button = UI.Button
+local HoverArea = UI.HoverArea
+
+local UILibrary = if FFlagRemoveUILibraryTitledFrame then nil else require(Plugin.Packages.UILibrary)
+local TitledFrame = if FFlagRemoveUILibraryTitledFrame then UI.TitledFrame else UILibrary.Component.TitledFrame
 
 local TextService = game:GetService("TextService")
 local StudioService = game:GetService("StudioService")
 local GuiService = game:GetService("GuiService")
+
+local TableWithMenu = require(Plugin.Src.Components.TableWithMenu)
+
+local FitFrameOnAxis = Framework.Util.FitFrame.FitFrameOnAxis
 
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 local GetCopyIdKeyName = KeyProvider.getCopyIdKeyName
@@ -60,7 +66,10 @@ function Badges:render()
         BackgroundTransparency = 1,
         LayoutOrder = layoutOrder,
     }, {
-        BadgesTitle = Roact.createElement(TitledFrame,{
+        BadgesTitle = Roact.createElement(TitledFrame, if FFlagRemoveUILibraryTitledFrame then {
+            LayoutOrder = 1,
+            Title = localization:getText("Monetization", "Badges"),
+        } else {
             Title = localization:getText("Monetization", "Badges"),
             LayoutOrder = 1,
             MaxHeight = theme.header.height,

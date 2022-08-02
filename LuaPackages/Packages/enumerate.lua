@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local Package = require(PackageIndex["roblox_enumerate"]["enumerate"])
+local Package = require(PackageIndex["enumerate"]["enumerate"])
 
 return Package

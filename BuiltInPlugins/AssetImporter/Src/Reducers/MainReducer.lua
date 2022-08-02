@@ -6,42 +6,46 @@ local Rodux = require(Plugin.Packages.Rodux)
 
 local Cryo = require(Plugin.Packages.Cryo)
 
-
 local Actions = Plugin.Src.Actions
 local SetAssetImportSession = require(Actions.SetAssetImportSession)
 local SetAssetSettings = require(Actions.SetAssetSettings)
 local SetCheckedCount = require(Actions.SetCheckedCount)
+local SetErrorNodeChecked = require(Actions.SetErrorNodeChecked)
 local SetFilename = require(Actions.SetFilename)
 local SetImportStatuses = require(Actions.SetImportStatuses)
 local SetInstanceMap = require(Actions.SetInstanceMap)
+local SetPreviewInstance = require(Actions.SetPreviewInstance)
 local SetSelectedSettingsItem = require(Actions.SetSelectedSettingsItem)
 local SetTreeChecked = require(Actions.SetTreeChecked)
 local SetTreeExpansion = require(Actions.SetTreeExpansion)
-local SetErrorNodeChecked = require(Actions.SetErrorNodeChecked)
+
+local getFFlagAssetImportSessionCleanup = require(Plugin.Src.Flags.getFFlagAssetImportSessionCleanup)
 
 export type Store = {
 	assetImportSession: Instance,
 	assetSettings: Instance,
+	errorNodeChecked: boolean,
 	filename: string,
 	importStatuses: SetImportStatuses.StatusMap,
 	instanceMap: SetInstanceMap.InstanceMap,
+	previewInstance : Instance,
 	selectedSettingsItem: Instance,
 	settingsChecked: SetTreeChecked.CheckedMap,
 	settingsCheckedCount: number,
-	errorNodeChecked: boolean,
 	settingsExpansion: SetTreeExpansion.ExpansionMap,
 }
 
 local initialState = {
 	assetImportSession = nil,
 	assetSettings = nil,
+	errorNodeChecked = false,
 	filename = "",
 	importStatuses = nil,
 	instanceMap = {},
+	previewInstance = nil,
 	selectedSettingsItem = nil,
 	settingsChecked = {},
 	settingsCheckedCount = -1,
-	errorNodeChecked = false,
 	settingsExpansion = {},
 }
 
@@ -65,8 +69,19 @@ local MainReducer = Rodux.createReducer(initialState, {
 		})
 	end,
 	[SetInstanceMap.name] = function(state: Store, action: SetInstanceMap.Props)
+		if getFFlagAssetImportSessionCleanup() then
+			error("Instance map should no longer be set")
+		end
 		return Cryo.Dictionary.join(state, {
 			instanceMap = action.instanceMap,
+		})
+	end,
+	[SetPreviewInstance.name] = function(state: Store, action: SetPreviewInstance.Props)
+		if not getFFlagAssetImportSessionCleanup() then
+			error("Preview should not be set without cleanup flag")
+		end
+		return Cryo.Dictionary.join(state, {
+			previewInstance = action.previewInstance,
 		})
 	end,
 	[SetSelectedSettingsItem.name] = function(state: Store, action: SetSelectedSettingsItem.Props)

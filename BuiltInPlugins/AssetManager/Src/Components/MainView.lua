@@ -40,7 +40,6 @@ local MainView = Roact.PureComponent:extend("MainView")
 
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagAssetManagerRefactorPath = game:GetFastFlag("AssetManagerRefactorPath")
-local FFlagAssetManagerFixOpenAssetPreview1 = game:GetFastFlag("AssetManagerFixOpenAssetPreview1")
 
 local universeNameSet = false
 local initialHasLinkedScriptValue = false
@@ -97,24 +96,8 @@ function MainView:init()
 		if not assetPreviewData then
 			return
 		end
-		if FFlagAssetManagerFixOpenAssetPreview1 then
-			if type(assetPreviewData) == "table" then
-				local assetPreviewWrapper = Roact.createElement(AssetPreviewWrapper, {
-					AssetPreviewData = assetPreviewData,
-					OnAssetPreviewClose = self.closeAssetPreview,
-					AssetData = assetData,
-				})
-
-				self:setState({
-					showAssetPreview = true,
-					assetPreview = assetPreviewWrapper,
-				})
-			else
-				local localization = self.props.Localization
-				local assetPreviewErrorText = localization:getText("MainView", "AssetPreviewError")
-				print(assetPreviewErrorText)
-			end
-		else
+		
+		if type(assetPreviewData) == "table" then
 			local assetPreviewWrapper = Roact.createElement(AssetPreviewWrapper, {
 				AssetPreviewData = assetPreviewData,
 				OnAssetPreviewClose = self.closeAssetPreview,
@@ -125,6 +108,10 @@ function MainView:init()
 				showAssetPreview = true,
 				assetPreview = assetPreviewWrapper,
 			})
+		else
+			local localization = self.props.Localization
+			local assetPreviewErrorText = localization:getText("MainView", "AssetPreviewError")
+			warn(assetPreviewErrorText)
 		end
 	end
 

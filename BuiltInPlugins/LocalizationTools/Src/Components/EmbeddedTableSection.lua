@@ -7,13 +7,17 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
-local FFlagRemoveUILibraryFitContent = Framework.SharedFlags.getFFlagRemoveUILibraryFitContent()
+
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryFitContent = SharedFlags.getFFlagRemoveUILibraryFitContent()
+local FFlagDevFrameworkMigrateTextLabels = SharedFlags.getFFlagDevFrameworkMigrateTextLabels()
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local Pane = UI.Pane
+local TextLabel = UI.Decoration.TextLabel
 
 local FitToContent
 if not FFlagRemoveUILibraryFitContent then
@@ -94,15 +98,24 @@ function EmbeddedTableSection:render()
 		Padding = Roact.createElement("UIPadding", {
 			PaddingTop = UDim.new(0, theme.PaddingTop * 2),
 		}),
-		SectionLabel = Roact.createElement("TextLabel", {
-			BackgroundTransparency = 1,
-			LayoutOrder = 1,
-			Size = UDim2.new(1, 0, 0, theme.SectionLabelSize),
-			Text = localization:getText("EmbeddedTableSection", "SectionLabel"),
-			TextColor3 = theme.TextColor,
-			TextSize = theme.SectionLabelTextSize,
-			TextXAlignment = Enum.TextXAlignment.Left,
-		}),
+		SectionLabel = if FFlagDevFrameworkMigrateTextLabels then (
+			Roact.createElement(TextLabel, {
+				AutomaticSize = Enum.AutomaticSize.XY,
+				LayoutOrder = 1,
+				Text = localization:getText("EmbeddedTableSection", "SectionLabel"),
+				Style = "Label",
+			})
+		) else (
+			Roact.createElement("TextLabel", {
+				BackgroundTransparency = 1,
+				LayoutOrder = 1,
+				Size = UDim2.new(1, 0, 0, theme.SectionLabelSize),
+				Text = localization:getText("EmbeddedTableSection", "SectionLabel"),
+				TextColor3 = theme.TextColor,
+				TextSize = theme.SectionLabelTextSize,
+				TextXAlignment = Enum.TextXAlignment.Left,
+			})
+		),
 		Container = (
 			if FFlagRemoveUILibraryFitContent then
 				Roact.createElement(Pane, {

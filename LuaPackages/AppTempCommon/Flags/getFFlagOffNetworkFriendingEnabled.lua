@@ -1,7 +1,7 @@
 --!strict
 
-game:DefineFastFlag("OffNetworkFriendingEnabled", false)
+game:DefineFastFlag("OffNetworkFriendingEnabled_2", false)
 
 return function()
-	return game:GetFastFlag("OffNetworkFriendingEnabled")
+	return game:GetFastFlag("OffNetworkFriendingEnabled_2")
 end

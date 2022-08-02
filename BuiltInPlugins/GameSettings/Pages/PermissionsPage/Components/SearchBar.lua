@@ -46,6 +46,9 @@ local Cryo = require(Plugin.Packages.Cryo)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Framework = require(Plugin.Packages.Framework)
 
+local SharedFlags = Framework.SharedFlags
+local FFlagRemoveUILibraryLoadingIndicator = SharedFlags.getFFlagRemoveUILibraryLoadingIndicator()
+
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -53,9 +56,8 @@ local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 local UI = Framework.UI
 local DropdownMenu = UI.DropdownMenu
+local LoadingIndicator = if FFlagRemoveUILibraryLoadingIndicator then UI.LoadingIndicator else UILibrary.Component.LoadingIndicator
 local Pane = UI.Pane
-
-local LoadingIndicator = UILibrary.Component.LoadingIndicator
 
 local FFlagGameSettingsFixSearchBarRef = game:GetFastFlag("GameSettingsFixSearchBarRef")
 

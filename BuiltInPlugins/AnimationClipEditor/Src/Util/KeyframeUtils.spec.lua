@@ -178,19 +178,19 @@ return function()
 
 	describe("getNearestTick", function()
 		it("should find the closest tick to the given float", function()
-			local tick = KeyframeUtils.getNearestTick(1.1)
-			expect(tick).to.equal(1)
+			local tck = KeyframeUtils.getNearestTick(1.1)
+			expect(tck).to.equal(1)
 
-			tick = KeyframeUtils.getNearestTick(1.9)
-			expect(tick).to.equal(2)
+			tck = KeyframeUtils.getNearestTick(1.9)
+			expect(tck).to.equal(2)
 		end)
 
 		it("should round up if at .5", function()
-			local tick = KeyframeUtils.getNearestTick(1.5)
-			expect(tick).to.equal(2)
+			local tck = KeyframeUtils.getNearestTick(1.5)
+			expect(tck).to.equal(2)
 
-			tick = KeyframeUtils.getNearestTick(2.5)
-			expect(tick).to.equal(3)
+			tck = KeyframeUtils.getNearestTick(2.5)
+			expect(tck).to.equal(3)
 		end)
 	end)
 

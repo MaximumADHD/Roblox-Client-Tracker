@@ -16,7 +16,7 @@
 	Optional Properties:
 
 ]]
-local FFlagDevFrameworkReplaceExpandaleWidgetWithExpandablePane = game:GetFastFlag("DevFrameworkReplaceExpandaleWidgetWithExpandablePane")
+local FFlagDevFrameworkReplaceExpandaleWidgetWithExpandablePane = game:GetFastFlag("DevFrameworkReplaceExpandaleWidgetWithExpandablePane2")
 local FFlagLimitGroupRoleSetPermissionsInGui = game:GetFastFlag("LimitGroupRoleSetPermissionsInGui")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
@@ -238,39 +238,32 @@ function GroupCollaboratorItem:renderContent(theme, localization, localized)
 	local expandableList
 	if FFlagDevFrameworkReplaceExpandaleWidgetWithExpandablePane then
 		return Roact.createElement(ExpandablePane, {
+			AutomaticSize = Enum.AutomaticSize.XY,
 			Expanded = props.Enabled and self.state.expanded,
 			LayoutOrder = layoutOrder,
-			OnExpandedChanged = function() end,
-			HeaderComponent = Roact.createElement("TextButton", {
-				AutomaticSize = Enum.AutomaticSize.XY,
-				BackgroundTransparency = 1,
-				Position = UDim2.new(0, collaboratorItemOffset, 0, 0),
-				Size = UDim2.new(1, -collaboratorItemOffset, 0, 60),
-				Text = "",
-				[Roact.Event.Activated] = self.onClick,
-			}, {
-				GroupCollaborator = props.GroupData and Roact.createElement(CollaboratorItem, {
-					Enabled = false,
+			OnExpandedChanged = self.onClick,
+			HeaderComponent = props.GroupData and CollaboratorItem or nil,
+			HeaderComponentProps = {
+				Enabled = false,
 
-					SubjectType = Enum.CreatorType.Group,
+				SubjectType = Enum.CreatorType.Group,
 
-					CollaboratorName = props.GroupData.Name,
-					CollaboratorId = props.GroupData.Id,
-					CollaboratorIcon = Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["GroupIcon"], props.GroupData.Id,
-						AssetConfigConstants.rbxThumbSizes.GroupIconImageSize),
-					UseMask = false,
+				CollaboratorName = props.GroupData.Name,
+				CollaboratorId = props.GroupData.Id,
+				CollaboratorIcon = Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["GroupIcon"], props.GroupData.Id,
+					AssetConfigConstants.rbxThumbSizes.GroupIconImageSize),
+				UseMask = false,
 
-					Action = sameAction and getLabelForAction(localized, sameAction) or localized.PackagePermissions.ActionDropdown.MultipleLabel,
-					Items = anyLocked and {} or props.Items,
+				Action = sameAction and getLabelForAction(localized, sameAction) or localized.PackagePermissions.ActionDropdown.MultipleLabel,
+				Items = anyLocked and {} or props.Items,
 
-					SecondaryText = props.SecondaryText,
-					Removable = props.Removable or false,
-					Removed = props.Removed,
+				SecondaryText = props.SecondaryText,
+				Removable = props.Removable or false,
+				Removed = props.Removed,
 
-					IsLoading = #rolesets == 0,
-					TooltipText = groupHeaderTooltipText
-				})
-			})
+				IsLoading = #rolesets == 0,
+				TooltipText = groupHeaderTooltipText
+			},
 		}, rolesetCollaboratorItems)
 	else
 		return Roact.createElement(ExpandableWidget, {

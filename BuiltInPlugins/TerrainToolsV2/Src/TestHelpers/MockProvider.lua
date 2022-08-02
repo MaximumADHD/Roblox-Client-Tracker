@@ -1,3 +1,4 @@
+local FFlagRemoveUILibraryCompatLocalization = game:GetFastFlag("RemoveUILibraryCompatLocalization")
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -12,8 +13,8 @@ local Http = Framework.Http
 local MockPlugin = Framework.TestHelpers.Instances.MockPlugin
 local MockTerrain = require(Plugin.Src.TestHelpers.MockTerrain)
 
-local UILibraryCompat = Plugin.Src.UILibraryCompat
-local Localization = require(UILibraryCompat.Localization)
+local UILibraryCompat = if FFlagRemoveUILibraryCompatLocalization then nil else Plugin.Src.UILibraryCompat
+local Localization = if FFlagRemoveUILibraryCompatLocalization then ContextServices.Localization else require(UILibraryCompat.Localization)
 
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
@@ -57,7 +58,7 @@ function MockProvider.createMockContextItems(mocks)
 		store = ContextServices.Store.new(mocks.store),
 		theme = ContextItems.UILibraryTheme.new(mocks.theme),
 		devFrameworkThemeItem = makeTheme(true),
-		localization = ContextItems.UILibraryLocalization.new(mocks.localization),
+		localization = if FFlagRemoveUILibraryCompatLocalization then mocks.localization else ContextItems.UILibraryLocalization.new(mocks.localization),
 		analytics = analytics,
 		networking = mocks.networking,
 		imageUploader = imageUploader,

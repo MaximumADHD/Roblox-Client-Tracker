@@ -1,6 +1,4 @@
 --!strict
-local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
-
 local Plugin = script:FindFirstAncestor("Toolbox")
 
 local Packages = Plugin.Packages
@@ -97,11 +95,9 @@ local function wrapViewForRoactNavigation(pageConstructor)
 
 		local function mapDispatchToProps(dispatch)
 			return {
-				getPageInfoAnalyticsContextInfo = if FFlagToolboxUsePageInfoInsteadOfAssetContext
-					then function()
-						return dispatch(GetPageInfoAnalyticsContextInfo())
-					end
-					else nil,
+				getPageInfoAnalyticsContextInfo = function()
+					return dispatch(GetPageInfoAnalyticsContextInfo())
+				end,
 			}
 		end
 

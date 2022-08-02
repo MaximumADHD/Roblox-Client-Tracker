@@ -9,8 +9,6 @@ export type MaterialPromptType = string
 export type MaterialType = string
 
 export type Material = {
-	-- Remove IsBuiltin with FFlagMaterialManagerGlassNeonForceField
-	IsBuiltin : boolean?,
 	Material : Enum.Material,
 	MaterialPath : Path,
 	MaterialType: MaterialType,

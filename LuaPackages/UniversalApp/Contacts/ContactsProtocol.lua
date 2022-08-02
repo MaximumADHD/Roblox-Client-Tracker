@@ -7,7 +7,7 @@ local getFFlagLuaGetContactsAccess = require(script.Parent.Flags.getFFlagLuaGetC
 
 local PROTOCOL_NAME = "ContactsProtocol"
 
-local GET_CONTACTS_METHOD_NAME = "PermissionsRequest"
+local GET_CONTACTS_METHOD_NAME = "getContacts"
 local SUPPORTS_CONTACTS_METHOD_NAME = "SupportsContacts"
 
 local paramsValidator = t.strictInterface({
@@ -17,7 +17,7 @@ local paramsValidator = t.strictInterface({
 })
 
 local ContactsProtocol = {
-	
+
 	GET_CONTACTS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR = {
 		protocolName = PROTOCOL_NAME,
 		methodName = GET_CONTACTS_METHOD_NAME,
@@ -56,18 +56,20 @@ Gets the list of contacts from the users device
 ]]
 
 function ContactsProtocol:getContacts(): Promise
-    if not getFFlagLuaGetContactsAccess() then
-        return Promise.resolve()
-    end
-    local promise = Promise.new(function(resolve, _)
-        local desc = self.GET_CONTACTS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR
-        self.subscriber:subscribeProtocolMethodResponse(desc, function(params: Table)
-            self.subscriber:unsubscribeToProtocolMethodResponse(desc)
-            resolve(params)
-        end)
-    end)
-    MessageBus.publishProtocolMethodRequest(self.GET_CONTACTS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {}, {})
-    return promise
+	if not getFFlagLuaGetContactsAccess() then
+		return Promise.resolve()
+	end
+
+	local promise = Promise.new(function(resolve, _)
+		local desc = self.GET_CONTACTS_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR
+		self.subscriber:subscribeProtocolMethodResponse(desc, function(params: Table)
+			self.subscriber:unsubscribeToProtocolMethodResponse(desc)
+			resolve(params)
+		end)
+	end)
+	MessageBus.publishProtocolMethodRequest(self.GET_CONTACTS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {}, {})
+
+	return promise
 end
 
 --[[
@@ -78,18 +80,19 @@ supported by the device and false if contacts are not supported
 ]]
 
 function ContactsProtocol:supportsContacts(): Promise
-    if not getFFlagLuaGetContactsAccess() then
-        return Promise.resolve()
-    end
-    local promise = Promise.new(function(resolve, _)
-        local desc = self.SUPPORTS_CONTACTS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR
-        self.subscriber:subscribeProtocolMethodResponse(desc, function(params: Table)
-            self.subscriber:unsubscribeToProtocolMethodResponse(desc)
-            resolve(params.support)
-        end)
-    end)
-    MessageBus.publishProtocolMethodRequest(self.SUPPORTS_CONTACTS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {}, {})
-    return promise
+	if not getFFlagLuaGetContactsAccess() then
+		return Promise.resolve()
+	end
+	local promise = Promise.new(function(resolve, _)
+		local desc = self.SUPPORTS_CONTACTS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR
+		self.subscriber:subscribeProtocolMethodResponse(desc, function(params: Table)
+			self.subscriber:unsubscribeToProtocolMethodResponse(desc)
+			resolve(params.support)
+		end)
+	end)
+	MessageBus.publishProtocolMethodRequest(self.SUPPORTS_CONTACTS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {}, {})
+
+	return promise
 end
 
 ContactsProtocol.default = ContactsProtocol.new()

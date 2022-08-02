@@ -16,7 +16,7 @@ local AnimationData = require(Plugin.Src.Util.AnimationData)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
-return function(tick, trackWidth)
+return function(tck, trackWidth)
 	return function(store)
 		local state = store:getState()
 
@@ -46,36 +46,36 @@ return function(tick, trackWidth)
 		end
 
 		local snapped = false
-		local snapTick = tick
+		local snapTick = tck
 		if tracks then
 			local scroll = GetFFlagCurveEditor() and state.Status.HorizontalScroll or state.Status.Scroll
 			local zoom = GetFFlagCurveEditor() and state.Status.HorizontalZoom or state.Status.Zoom
 			local editingLength = state.Status.EditingLength
 			local range = TrackUtils.getZoomRange(animationData, scroll, zoom, editingLength)
 
-			local framePosition = TrackUtils.getScaledKeyframePosition(tick, range.Start, range.End, trackWidth)
+			local framePosition = TrackUtils.getScaledKeyframePosition(tck, range.Start, range.End, trackWidth)
 
 			local closestKey = range.End + 1
 			for _, track in pairs(tracks) do
 				if GetFFlagChannelAnimations() then
 					TrackUtils.traverseTracks(nil, track, function(t)
 						if t.Keyframes and #t.Keyframes > 0 then
-							local first, second = KeyframeUtil.findNearestKeyframes(t.Keyframes, tick)
-							if math.abs(t.Keyframes[first] - tick) < math.abs(tick - closestKey) then
+							local first, second = KeyframeUtil.findNearestKeyframes(t.Keyframes, tck)
+							if math.abs(t.Keyframes[first] - tck) < math.abs(tck - closestKey) then
 								closestKey = t.Keyframes[first]
 							end
-							if second and math.abs(t.Keyframes[second] - tick) < math.abs(tick - closestKey) then
+							if second and math.abs(t.Keyframes[second] - tck) < math.abs(tck - closestKey) then
 								closestKey = t.Keyframes[second]
 							end
 						end
 					end, true)
 				else
 					if track.Keyframes and #track.Keyframes > 0 then
-						local first, second = KeyframeUtil.findNearestKeyframes(track.Keyframes, tick)
-						if math.abs(track.Keyframes[first] - tick) < math.abs(tick - closestKey) then
+						local first, second = KeyframeUtil.findNearestKeyframes(track.Keyframes, tck)
+						if math.abs(track.Keyframes[first] - tck) < math.abs(tck - closestKey) then
 							closestKey = track.Keyframes[first]
 						end
-						if second and math.abs(track.Keyframes[second] - tick) < math.abs(tick - closestKey) then
+						if second and math.abs(track.Keyframes[second] - tck) < math.abs(tck - closestKey) then
 							closestKey = track.Keyframes[second]
 						end
 					end
@@ -95,7 +95,7 @@ return function(tick, trackWidth)
 			store:dispatch(StepAnimation(snapTick))
 		else
 			-- We didn't snap to a keyframe, but we still need to snap to the frames
-			store:dispatch(SnapToNearestFrame(tick))
+			store:dispatch(SnapToNearestFrame(tck))
 		end
 	end
 end

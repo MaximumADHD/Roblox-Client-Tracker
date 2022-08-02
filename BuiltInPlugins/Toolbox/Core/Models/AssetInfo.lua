@@ -37,14 +37,6 @@ export type AssetInfoContext = {
 	page: number,
 	pagePosition: number,
 	position: number,
-
-	-- TODO: Remove the below when FFlagToolboxUsePageInfoInsteadOfAssetContext is enabled
-	category: string?,
-	currentCategory: string?,
-	searchId: string?,
-	searchKeyword: string?,
-	sort: string?,
-	toolboxTab: string?,
 }
 
 export type AssetInfoCreator = {

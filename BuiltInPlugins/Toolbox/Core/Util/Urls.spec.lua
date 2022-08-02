@@ -1,6 +1,7 @@
 --!strict
 local Plugin = script:FindFirstAncestor("Toolbox")
 local FFlagToolboxIncludedPlaceIdInConfigRequest = game:GetFastFlag("ToolboxIncludedPlaceIdInConfigRequest")
+local FFlagToolboxUseGetVote = game:GetFastFlag("ToolboxUseGetVote")
 
 local Packages = Plugin.Packages
 
@@ -57,6 +58,16 @@ return function()
 	it("for inserts", function()
 		expect(Urls.constructInsertAssetUrl(123)).toBe(string.format("%s/insert/asset/123", EXPECTED_BASE_URL))
 	end)
+
+	if FFlagToolboxUseGetVote then
+		it("should have the right get vote url", function()
+			local testVoteUrl = Urls.constructGetVoteUrl(123, "MODEL")
+			-- The constructed URL isn't deterministic, so provide both options
+			local voteUrlIdFirst = string.format("%s/voting/vote?assetId=123&assetType=MODEL", EXPECTED_BASE_URL)
+			local voteUrlTypeFirst = string.format("%s/voting/vote?assetType=MODEL&assetId=123", EXPECTED_BASE_URL)
+			expect(testVoteUrl == voteUrlIdFirst or testVoteUrl == voteUrlTypeFirst).toBeTruthy()
+		end)
+	end
 
 	it("should generate section asset urls", function()
 		if FFlagToolboxIncludedPlaceIdInConfigRequest then

@@ -1,5 +1,4 @@
 return function()
-	local FFlagAssetConfigDynamicDistributionQuotas2 = game:GetFastFlag("AssetConfigDynamicDistributionQuotas2")
 	local Plugin = script:FindFirstAncestor("Toolbox")
 
 	local Packages = Plugin.Packages
@@ -78,74 +77,72 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	if FFlagAssetConfigDynamicDistributionQuotas2 then
-		local function assertToggleEnabled(container: Instance, enabled: boolean)
-			TestHelpers.pollAssertionUntil(function()
-				-- ToggleButton will have no PointingHand if it is disabled
-				local toggleButtonContainer = container:FindFirstChild("ToggleButtonContainer", true)
-				local hand = toggleButtonContainer:FindFirstChild("PointingHand", true)
-				if enabled then
-					expect(hand).never.toBeNil()
-				else
-					expect(hand).toBeNil()
-				end
-			end)
-		end
-
-		it("should not request quotas for asset types with no quota policy", function()
-			renderTestInstance(Enum.AssetType.Animation)
-
-			expect(NetworkInterfaceMock.getCreatorMarketplaceQuotas).never.toHaveBeenCalled()
-		end)
-
-		it("should not show the quota message (and enable the toggle) if no appropriate quotas are available", function()
-			fakeQuota = {
-				capacity = 10,
-				usage = 11,
-				expirationTime = ISO_DATE_STRING,
-				-- No monthly quota returned
-				duration = "Day",
-			}
-			local instance, container = renderTestInstance()
-
-			assertToggleEnabled(container, true)
-		end)
-
-		it("should enable the toggle if within quota with no usage", function()
-			fakeQuota = {
-				capacity = 10,
-				usage = 0,
-				duration = "Month",
-			}
-
-			local instance, container = renderTestInstance()
-
-			assertToggleEnabled(container, true)
-		end)
-
-		it("should enable the toggle if within quota", function()
-			fakeQuota = {
-				capacity = 10,
-				usage = 1,
-				expirationTime = ISO_DATE_STRING,
-				duration = "Month",
-			}
-
-			local instance, container = renderTestInstance()
-
-			assertToggleEnabled(container, true)
-		end)
-
-		it("should disable the toggle if out of quota", function()
-			fakeQuota = {
-				capacity = 10,
-				usage = 11,
-				expirationTime = ISO_DATE_STRING,
-				duration = "Month",
-			}
-			local instance, container = renderTestInstance()
-
-			assertToggleEnabled(container, false)
+	local function assertToggleEnabled(container: Instance, enabled: boolean)
+		TestHelpers.pollAssertionUntil(function()
+			-- ToggleButton will have no PointingHand if it is disabled
+			local toggleButtonContainer = container:FindFirstChild("ToggleButtonContainer", true)
+			local hand = toggleButtonContainer:FindFirstChild("PointingHand", true)
+			if enabled then
+				expect(hand).never.toBeNil()
+			else
+				expect(hand).toBeNil()
+			end
 		end)
 	end
+
+	it("should not request quotas for asset types with no quota policy", function()
+		renderTestInstance(Enum.AssetType.Animation)
+
+		expect(NetworkInterfaceMock.getCreatorMarketplaceQuotas).never.toHaveBeenCalled()
+	end)
+
+	it("should not show the quota message (and enable the toggle) if no appropriate quotas are available", function()
+		fakeQuota = {
+			capacity = 10,
+			usage = 11,
+			expirationTime = ISO_DATE_STRING,
+			-- No monthly quota returned
+			duration = "Day",
+		}
+		local instance, container = renderTestInstance()
+
+		assertToggleEnabled(container, true)
+	end)
+
+	it("should enable the toggle if within quota with no usage", function()
+		fakeQuota = {
+			capacity = 10,
+			usage = 0,
+			duration = "Month",
+		}
+
+		local instance, container = renderTestInstance()
+
+		assertToggleEnabled(container, true)
+	end)
+
+	it("should enable the toggle if within quota", function()
+		fakeQuota = {
+			capacity = 10,
+			usage = 1,
+			expirationTime = ISO_DATE_STRING,
+			duration = "Month",
+		}
+
+		local instance, container = renderTestInstance()
+
+		assertToggleEnabled(container, true)
+	end)
+
+	it("should disable the toggle if out of quota", function()
+		fakeQuota = {
+			capacity = 10,
+			usage = 11,
+			expirationTime = ISO_DATE_STRING,
+			duration = "Month",
+		}
+		local instance, container = renderTestInstance()
+
+		assertToggleEnabled(container, false)
+	end)
 end

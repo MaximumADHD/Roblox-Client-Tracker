@@ -1,18 +1,15 @@
 local ServiceWrapper = require(script.Parent.ServiceWrapper)
-local FFlagUpdateDraftsWidgetToDFContextServices = game:GetFastFlag("UpdateDraftsWidgetToDFContextServices")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
-local UILibrary = require(Plugin.Packages.UILibrary)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 
 local MockDraftsService = require(Plugin.Src.TestHelpers.MockDraftsService)
-local Localization = if FFlagUpdateDraftsWidgetToDFContextServices then ContextServices.Localization else UILibrary.Studio.Localization
+local Localization = ContextServices.Localization
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local MockPlugin = require(Plugin.Src.TestHelpers.MockPlugin)
-local PluginTheme = if FFlagUpdateDraftsWidgetToDFContextServices then require(Plugin.Src.Resources.MakeTheme) else require(Plugin.Src.Resources.DEPRECATED_UILibraryTheme)
-
+local PluginTheme = require(Plugin.Src.Resources.MakeTheme)
 
 return function()
 	it("should construct and destroy without errors", function()
@@ -20,7 +17,7 @@ return function()
 		local localization = Localization.mock()
 		local pluginInstance = MockPlugin.new()
 		local store = Rodux.Store.new(MainReducer, {}, { Rodux.thunkMiddleware })
-		local theme = if FFlagUpdateDraftsWidgetToDFContextServices then PluginTheme(true) else PluginTheme.mock()
+		local theme = PluginTheme(true)
 
 		local element = Roact.createElement(ServiceWrapper, {
 			draftsService = draftsService,

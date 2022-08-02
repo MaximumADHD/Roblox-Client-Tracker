@@ -74,10 +74,10 @@ return function()
 								Data = {}
 							}
 
-							for tick, _ in pairs(selectionTrack.Selection) do
-								local keyframe = dataTrack.Data[tick]
+							for tck, _ in pairs(selectionTrack.Selection) do
+								local keyframe = dataTrack.Data[tck]
 								if keyframe then
-									trackClipboard.Data[tick] = deepCopy(keyframe)
+									trackClipboard.Data[tck] = deepCopy(keyframe)
 								end
 							end
 

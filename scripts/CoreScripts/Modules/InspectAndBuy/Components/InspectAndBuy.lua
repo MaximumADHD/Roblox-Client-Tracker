@@ -43,8 +43,6 @@ local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBu
 
 local PolicyService = require(CoreGui.RobloxGui.Modules.Common.PolicyService)
 
-local FFlagInspectAndBuyShimmerPanelEnabled = require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyShimmerPanelEnabled)
-
 local COMPACT_VIEW_MAX_WIDTH = 600
 local CURSOR_OVERRIDE_KEY = Symbol.named("OverrideCursorInspectMenu")
 local BACK_BUTTON_KEY = "BackButtonInspectMenu"
@@ -251,41 +249,27 @@ end
 function InspectAndBuy:render()
 	local localPlayerModel = self.localPlayerModel
 
-	if FFlagInspectAndBuyShimmerPanelEnabled then
-		-- include theme provider for shimmer panels used in the asset list
-		local appStyle = {
-			Theme = AppDarkTheme,
-			Font = AppFont,
-		}
+	-- include theme provider for shimmer panels used in the asset list
+	local appStyle = {
+		Theme = AppDarkTheme,
+		Font = AppFont,
+	}
 
-		return Roact.createElement(InspectAndBuyContext.Provider, {
-			value = self.state.views,
+	return Roact.createElement(InspectAndBuyContext.Provider, {
+		value = self.state.views,
+	}, {
+		Roact.createElement(RoactRodux.StoreProvider, {
+			store = self.state.store,
 		}, {
-			Roact.createElement(RoactRodux.StoreProvider, {
-				store = self.state.store,
-			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
-					Container = Roact.createElement(Container, {
-						localPlayerModel = localPlayerModel,
-					}),
-				})
-			})
-		})
-	else
-		return Roact.createElement(InspectAndBuyContext.Provider, {
-			value = self.state.views,
-		}, {
-			Roact.createElement(RoactRodux.StoreProvider, {
-				store = self.state.store,
+			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+				style = appStyle,
 			}, {
 				Container = Roact.createElement(Container, {
 					localPlayerModel = localPlayerModel,
 				}),
 			})
 		})
-	end
+	})
 end
 
 function InspectAndBuy:bindButtonB()

@@ -3,15 +3,16 @@
 ]]
 
 local CorePackages = game:GetService("CorePackages")
-local VarargHooks = require(CorePackages.AppTempCommon.Hooks.VarargHooks)
+local React = require(CorePackages.Packages.React)
+local dependencyArray = require(CorePackages.AppTempCommon.Hooks.dependencyArray)
 
 local function useExternalEvent(event: RBXScriptSignal, callback: (...any) -> ())
-	VarargHooks.useEffect(function()
+	React.useEffect(function()
 		local connection = event:Connect(callback)
 		return function()
 			connection:Disconnect()
 		end
-	end, event, callback)
+	end, dependencyArray(event, callback))
 end
 
 return useExternalEvent

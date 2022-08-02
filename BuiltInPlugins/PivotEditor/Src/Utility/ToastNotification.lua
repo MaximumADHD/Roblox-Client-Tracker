@@ -11,12 +11,10 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local ContextItem = ContextServices.ContextItem
 
-local getFFlagStudioToastNotificationsInLua = require(Plugin.Src.Flags.getFFlagStudioToastNotificationsInLua)
-
 local ToastNotification = ContextItem:extend("ToastNotification")
 
 function ToastNotification.new(notificationService)
-	if not notificationService and getFFlagStudioToastNotificationsInLua() then
+	if not notificationService then
 		notificationService = game:GetService("ToastNotificationService")
 	end
 

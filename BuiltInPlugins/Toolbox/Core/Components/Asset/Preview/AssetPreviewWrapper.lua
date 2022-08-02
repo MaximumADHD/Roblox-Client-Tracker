@@ -68,8 +68,6 @@ local PurchaseStatus = require(Plugin.Core.Types.PurchaseStatus)
 
 local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
-local FFlagToolboxFixNonOwnedPluginInstallation = game:GetFastFlag("ToolboxFixNonOwnedPluginInstallation")
-local FFlagToolboxUsePageInfoInsteadOfAssetContext = game:GetFastFlag("ToolboxUsePageInfoInsteadOfAssetContext2")
 local FFlagToolboxAssetPreviewProtectAgainstNilAssetData = game:GetFastFlag(
 	"ToolboxAssetPreviewProtectAgainstNilAssetData"
 )
@@ -224,11 +222,9 @@ function AssetPreviewWrapper:init(props)
 		-- TODO STM-146: Remove this once we are happy with the new MarketplaceAssetPreview event
 		Analytics.onAssetPreviewSelected(assetData.Asset.Id)
 
-		local assetAnalyticsContext
-		if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-			local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
-			assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
-		end
+		local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
+		local assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
+
 		self.props.AssetAnalytics:get():logPreview(assetData, assetAnalyticsContext)
 	end
 
@@ -276,11 +272,8 @@ function AssetPreviewWrapper:init(props)
 		local plugin = props.Plugin:get()
 		local tryOpenAssetConfig = props.tryOpenAssetConfig
 
-		local assetAnalyticsContext
-		if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-			local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
-			assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
-		end
+		local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
+		local assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
 
 		self.props.tryCreateContextMenu(assetData, localization, plugin, tryOpenAssetConfig, assetAnalyticsContext)
 	end
@@ -362,11 +355,9 @@ function AssetPreviewWrapper:init(props)
 		local categoryName = self.props.categoryName
 
 		local owned = self.props.Owned
-
-		if FFlagToolboxFixNonOwnedPluginInstallation then
-			local price = assetData.Product and assetData.Product.Price or 0
-
-			if not owned and price > 0 then
+		if FFlagToolboxFixInstallGroupPlugins then
+			-- Group plugins will not be owned by the user, but they should have permission to install them if they can see the group creations tab
+			if not owned and categoryName ~= Category.CREATIONS_GROUP_PLUGIN.name then
 				-- Prompt user to purchase plugin
 				local showInstallationBar = false
 				self:setState({
@@ -380,45 +371,24 @@ function AssetPreviewWrapper:init(props)
 				})
 			end
 		else
-			if FFlagToolboxFixInstallGroupPlugins then
-				-- Group plugins will not be owned by the user, but they should have permission to install them if they can see the group creations tab
-				if not owned and categoryName ~= Category.CREATIONS_GROUP_PLUGIN.name then
-					-- Prompt user to purchase plugin
-					local showInstallationBar = false
-					self:setState({
-						showPurchaseFlow = true,
-						showInstallationBar = showInstallationBar,
-					})
-					return false
-				else
-					self:setState({
-						showPurchaseFlow = false,
-					})
-				end
+			if not owned then
+				-- Prompt user to purchase plugin
+				local showInstallationBar = false
+				self:setState({
+					showPurchaseFlow = true,
+					showInstallationBar = showInstallationBar,
+				})
+				return false
 			else
-				if not owned then
-					-- Prompt user to purchase plugin
-					local showInstallationBar = false
-					self:setState({
-						showPurchaseFlow = true,
-						showInstallationBar = showInstallationBar,
-					})
-					return false
-				else
-					self:setState({
-						showPurchaseFlow = false,
-					})
-				end
+				self:setState({
+					showPurchaseFlow = false,
+				})
 			end
 		end
 
 		local currentCategoryName = categoryName
-
-		local assetAnalyticsContext
-		if FFlagToolboxUsePageInfoInsteadOfAssetContext then
-			local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
-			assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
-		end
+		local getPageInfoAnalyticsContextInfo = self.props.getPageInfoAnalyticsContextInfo
+		local assetAnalyticsContext = getPageInfoAnalyticsContextInfo()
 
 		local success = InsertAsset.tryInsert({
 			assetId = assetId,
@@ -750,11 +720,9 @@ local function mapDispatchToProps(dispatch)
 			dispatch(ToggleFavoriteStatusRequest(networkInterface, userId, assetId, favorited))
 		end,
 
-		getPageInfoAnalyticsContextInfo = if FFlagToolboxUsePageInfoInsteadOfAssetContext
-			then function()
-				return dispatch(GetPageInfoAnalyticsContextInfo())
-			end
-			else nil,
+		getPageInfoAnalyticsContextInfo = function()
+			return dispatch(GetPageInfoAnalyticsContextInfo())
+		end,
 	}
 end
 

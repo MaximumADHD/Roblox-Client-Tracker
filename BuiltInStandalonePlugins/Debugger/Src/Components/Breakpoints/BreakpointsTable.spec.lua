@@ -9,6 +9,10 @@ local SetBreakpointSortState = require(Plugin.Src.Actions.BreakpointsWindow.SetB
 local Models = Plugin.Src.Models
 local MetaBreakpointModel = require(Models.MetaBreakpoint)
 
+local Framework = require(Plugin.Packages.Framework)
+local SharedFlags = Framework.SharedFlags
+local FFlagDevFrameworkList = SharedFlags.getFFlagDevFrameworkList()
+
 local mockContext = require(Plugin.Src.Util.mockContext)
 
 return function()
@@ -57,16 +61,16 @@ return function()
 		local folderInstance = Roact.mount(breakpointsTableElement.getChildrenWithMockContext(), folder)
 		local breakpointsTable = folder:FindFirstChild("BreakpointsTable", true)
 		local treeTable = breakpointsTable:FindFirstChild("TablePane"):FindFirstChild("BreakpointsTable")
-		local list = treeTable.Contents.List.Child.Scroller
+		local list = if FFlagDevFrameworkList then treeTable.Contents.List.Child else treeTable.Contents.List.Child.Scroller
 
 		expect(list:FindFirstChild("1", false)).to.be.ok()
-		expect(list["1"].Row[3].Left.Text.Text).to.equal("8")
+		expect((if FFlagDevFrameworkList then list["1"] else list["1"].Row)[3].Left.Text.Text).to.equal("8")
 
 		expect(list:FindFirstChild("2", false)).to.be.ok()
-		expect(list["2"].Row[3].Left.Text.Text).to.equal("9")
+		expect((if FFlagDevFrameworkList then list["2"] else list["2"].Row)[3].Left.Text.Text).to.equal("9")
 
 		expect(list:FindFirstChild("3", false)).to.be.ok()
-		expect(list["3"].Row[3].Left.Text.Text).to.equal("10")
+		expect((if FFlagDevFrameworkList then list["3"] else list["3"].Row)[3].Left.Text.Text).to.equal("10")
 
 		expect(list:FindFirstChild("4", false)).to.equal(nil)
 
@@ -99,16 +103,17 @@ return function()
 
 		local breakpointsTable = folder:FindFirstChild("BreakpointsTable", true)
 		local treeTable = breakpointsTable:FindFirstChild("TablePane"):FindFirstChild("BreakpointsTable")
-		local list = treeTable.Contents.List.Child.Scroller
+		local list = if FFlagDevFrameworkList then treeTable.Contents.List.Child else treeTable.Contents.List.Child.Scroller
 
+		
 		expect(list:FindFirstChild("1", false)).to.be.ok()
-		expect(list["1"].Row[3].Left.Text.Text).to.equal("8")
+		expect((if FFlagDevFrameworkList then list["1"] else list["1"].Row)[3].Left.Text.Text).to.equal("8")
 
 		expect(list:FindFirstChild("2", false)).to.be.ok()
-		expect(list["2"].Row[3].Left.Text.Text).to.equal("9")
+		expect((if FFlagDevFrameworkList then list["2"] else list["2"].Row)[3].Left.Text.Text).to.equal("9")
 
 		expect(list:FindFirstChild("3", false)).to.be.ok()
-		expect(list["3"].Row[3].Left.Text.Text).to.equal("10")
+		expect((if FFlagDevFrameworkList then list["3"] else list["3"].Row)[3].Left.Text.Text).to.equal("10")
 
 		expect(list:FindFirstChild("4", false)).to.equal(nil)
 
@@ -130,16 +135,16 @@ return function()
 		store:flush()
 		local breakpointsTable = folder:FindFirstChild("BreakpointsTable", true)
 		local treeTable = breakpointsTable:FindFirstChild("TablePane"):FindFirstChild("BreakpointsTable")
-		local list = treeTable.Contents.List.Child.Scroller
+		local list = if FFlagDevFrameworkList then treeTable.Contents.List.Child else treeTable.Contents.List.Child.Scroller
 
 		expect(list:FindFirstChild("1", false)).to.be.ok()
-		expect(list["1"].Row[3].Left.Text.Text).to.equal("10")
+		expect((if FFlagDevFrameworkList then list["1"] else list["1"].Row)[3].Left.Text.Text).to.equal("10")
 
 		expect(list:FindFirstChild("2", false)).to.be.ok()
-		expect(list["2"].Row[3].Left.Text.Text).to.equal("8")
+		expect((if FFlagDevFrameworkList then list["2"] else list["2"].Row)[3].Left.Text.Text).to.equal("8")
 
 		expect(list:FindFirstChild("3", false)).to.be.ok()
-		expect(list["3"].Row[3].Left.Text.Text).to.equal("9")
+		expect((if FFlagDevFrameworkList then list["3"] else list["3"].Row)[3].Left.Text.Text).to.equal("9")
 
 		expect(list:FindFirstChild("4", false)).to.equal(nil)
 		
