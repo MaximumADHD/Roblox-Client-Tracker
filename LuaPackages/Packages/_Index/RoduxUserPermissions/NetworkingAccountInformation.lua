@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["NetworkingAccountInformation-96003ad7-0.5.0"]["NetworkingAccountInformation"])
+local Package = require(PackageIndex["NetworkingAccountInformation"]["NetworkingAccountInformation"])
 
 return Package

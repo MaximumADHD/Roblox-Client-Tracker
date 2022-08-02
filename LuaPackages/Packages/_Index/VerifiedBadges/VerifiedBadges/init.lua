@@ -11,4 +11,10 @@ return {
 	},
 
 	getFFlagUseVerifiedBadge = require(script.Flags.getFFlagUseVerifiedBadge),
+	getFFlagVerifiedBadgeIXPEnabled = require(script.Flags.getFFlagVerifiedBadgeIXPEnabled),
+	getFStringVerifiedBadgeLayer = require(script.Flags.getFStringVerifiedBadgeLayer),
+
+	appendVerifiedBadge = require(script.Utils.appendVerifiedBadge),
+	appendPremiumBadge = require(script.Utils.appendPremiumBadge),
+	isCreatorOfGameVerified = require(script.Utils.isCreatorOfGameVerified),
 }

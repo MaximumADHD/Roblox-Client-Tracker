@@ -9,7 +9,8 @@ type ExperienceInviteData = {
 	inviterId: number?,
 	placeId: number?,
 	instanceId: string?,
-	universeId: number,
+    -- Note: the server is not yet populating this.
+	universeId: number?,
 }
 
 export type GenerateLinkRequest = {

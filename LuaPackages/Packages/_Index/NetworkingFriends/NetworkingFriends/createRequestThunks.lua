@@ -26,6 +26,7 @@ local createGetFriendshipStatus: (config: networkingFriendsTypes.Config) -> any 
 local createGetExtendedFriendshipStatus: (config: networkingFriendsTypes.Config) -> any = require(
 	networkRequests.createGetExtendedFriendshipStatus
 )
+local createAcceptFriendRequestWithToken: (any) -> any = require(networkRequests.createAcceptFriendRequestWithToken)
 
 return function(config: networkingFriendsTypes.Config): networkingFriendsTypes.RequestThunks
 	return {
@@ -44,5 +45,6 @@ return function(config: networkingFriendsTypes.Config): networkingFriendsTypes.R
 		GetFriendRecommendationsFromUserId = createGetFriendRecommendationsFromUserId(config),
 		GetFriendshipStatus = createGetFriendshipStatus(config),
 		GetExtendedFriendshipStatus = createGetExtendedFriendshipStatus(config),
+		AcceptFriendRequestWithToken = createAcceptFriendRequestWithToken(config),
 	}
 end

@@ -109,9 +109,9 @@ return function()
 		local rotationDegrees = EmoteUtility.GetNumberValueWithDefault(emoteAnim,
 			"ThumbnailCharacterRotation",
 			0)
-		local emoteKeyframes = EmoteUtility.GetEmoteKeyFrames(emoteAnim)
+		local emoteKeyframeSequence = EmoteUtility.GetEmoteAnimationClip(emoteAnim)
 		local thumbnailKeyframe = EmoteUtility.GetThumbnailKeyframe(thumbnailKeyframeNumber,
-			emoteKeyframes,
+			emoteKeyframeSequence,
 			rotationDegrees)
 
 		local mockCharacter = getMockR15Character()
@@ -121,8 +121,8 @@ return function()
 
 		if shouldAddTool then
 			local toolHoldAnim = InsertService:LoadAsset(TOOL_HOLD_ASSET_ID):GetChildren()[1]
-			local toolKeyframes = EmoteUtility.GetEmoteKeyFrames(toolHoldAnim)
-			local toolKeyframe = EmoteUtility.GetThumbnailKeyframe(nil, toolKeyframes, 0)
+			local toolKeyframeSequence = EmoteUtility.GetEmoteAnimationClip(toolHoldAnim)
+			local toolKeyframe = EmoteUtility.GetThumbnailKeyframe(nil, toolKeyframeSequence, 0)
 
 			addTool(mockCharacter)
 			addJointsForKeyframe(mockCharacter, toolKeyframe)

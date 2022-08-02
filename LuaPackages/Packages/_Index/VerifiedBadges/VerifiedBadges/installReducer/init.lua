@@ -6,7 +6,8 @@ local RoduxNetworking = dependencies.RoduxNetworking
 
 return function()
 	return Rodux.combineReducers({
-		HasVerifiedBadge = require(script.HasVerifiedBadge),
+		VerifiedUsers = require(script.VerifiedUsers),
+		VerifiedGroups = require(script.VerifiedGroups),
 		NetworkStatus = RoduxNetworking.installReducer(),
 	})
 end

@@ -4,12 +4,11 @@ local networkingShareLinkTypes = require(script.Parent.Parent.networkingShareLin
 
 return function(config: networkingShareLinkTypes.Config)
 	local roduxNetworking: any = config.roduxNetworking
-
-	--! TODO(kkoa): verify that this is the right URL + params when public endpoint is ready
-	local request = roduxNetworking.GET(
-		{ Name = "GenerateLink" },
+	local name = "create-link"
+	local request = roduxNetworking.POST(
+		{ Name = name },
 		function(requestBuilder: any, request: networkingShareLinkTypes.GenerateLinkRequest)
-			return requestBuilder(SHARELINKS_URL):path("v1"):body({
+			return requestBuilder(SHARELINKS_URL):path("v1"):path(name):body({
 				linkType = request.linkType,
 			})
 		end

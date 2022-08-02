@@ -23,6 +23,11 @@ export type RequestFriendshipFromContactId = {
 	[string]: any
 }
 
+export type AcceptFriendRequestWithToken = {
+	API: (queryArgs: RequestWithTargetUserAndFriendingToken) -> any,
+	[string]: any
+}
+
 export type RequestThunks = {
 	GetFriendsFromUserId: any,
 	GetFriendRequestsCount: any,
@@ -39,6 +44,7 @@ export type RequestThunks = {
 	GetFriendRecommendationsFromUserId: GetFriendRecommendationsFromUserId,
 	GetFriendshipStatus: GetFriendshipStatus,
 	GetExtendedFriendshipStatus: GetExtendedFriendshipStatus,
+	AcceptFriendRequestWithToken: AcceptFriendRequestWithToken,
 }
 
 export type RequestCurrentUser = {
@@ -53,9 +59,15 @@ export type RequestContactUser = {
 	contactId: string
 }
 
+export type RequestFriendingToken = {
+	friendingToken: string
+}
+
 export type RequestWithTargetUser = RequestCurrentUser & RequestTargetUser
 
 export type RequestWithContactUser = RequestCurrentUser & RequestContactUser
+
+export type RequestWithTargetUserAndFriendingToken = RequestCurrentUser & RequestTargetUser & RequestFriendingToken
 
 export type RequestTargetUserIdsType = {
 	targetUserIds: { number | string }

@@ -4,17 +4,14 @@ local networkingShareLinkTypes = require(script.Parent.Parent.networkingShareLin
 
 return function(config: networkingShareLinkTypes.Config)
 	local roduxNetworking: any = config.roduxNetworking
-
-	--! TODO(kkoa): verify that this is the right URL + params when public endpoint is ready
-	local request = roduxNetworking.GET(
-		{ Name = "ResolveLinkFromLinkId" },
+	local name = "resolve-link"
+	local request = roduxNetworking.POST(
+		{ Name = name },
 		function(requestBuilder: any, request: networkingShareLinkTypes.ResolveLinkRequest)
-			return requestBuilder(SHARELINKS_URL)
-				:path("v1")
-				:path("linkId")
-				:id(request.linkId)
-				:path("linkType")
-				:id(request.linkType)
+		return requestBuilder(SHARELINKS_URL):path("v1"):path(name):body({
+			linkType = request.linkType,
+			linkId = request.linkId,
+		})
 		end
 	)
 

@@ -10,6 +10,8 @@ local Core = UIBlox.Core
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
+local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
+local fixDropdownMenuCellTextSize = UIBloxConfig.fixDropdownMenuCellTextSize
 
 local Interactable = require(Core.Control.Interactable)
 
@@ -25,6 +27,10 @@ local validateImage = require(Core.ImageSet.Validator.validateImage)
 local ButtonGetContentStyle = require(Core.Button.getContentStyle)
 
 local CONTENT_PADDING = 5
+local ELEMENT_PADDING = 12
+local ICON_PADDING = 20
+local ICON_SIZE = IconSize.Regular
+
 local DropdownMenuCell = Roact.PureComponent:extend("DropdownMenuCell")
 
 local function getButtonStyle(contentMap, controlState, style, isActive)
@@ -145,6 +151,11 @@ function DropdownMenuCell:render()
 		local iconStyle = icon and getContentStyle(iconStateColorMap, currentState, style, self.props.isActivated, true)
 		local buttonImage = self.props.buttonImage
 		local fontStyle = style.Font.Header2
+		local textRightOffset = ELEMENT_PADDING
+
+		if icon ~= nil then
+			textRightOffset = ICON_SIZE + ICON_PADDING + ELEMENT_PADDING
+		end
 
 		local buttonContentLayer
 		if isLoading then
@@ -168,15 +179,29 @@ function DropdownMenuCell:render()
 							Padding = UDim.new(0, CONTENT_PADDING),
 						}),
 						Padding = Roact.createElement("UIPadding", {
-							PaddingLeft = UDim.new(0, 12),
+							PaddingLeft = UDim.new(0, ELEMENT_PADDING),
 						}),
-						Text = text and Roact.createElement(GenericTextLabel, {
-							BackgroundTransparency = 1,
-							Text = text,
-							fontStyle = fontStyle,
-							colorStyle = textStyle,
-							LayoutOrder = 1,
-						}) or nil,
+						Text = if fixDropdownMenuCellTextSize and text then
+							Roact.createElement(GenericTextLabel, {
+								BackgroundTransparency = 1,
+								Text = text,
+								fontStyle = fontStyle,
+								colorStyle = textStyle,
+								LayoutOrder = 1,
+								Size = UDim2.new(1, -textRightOffset, 1, 0),
+								TextTruncate = Enum.TextTruncate.AtEnd,
+								TextXAlignment = Enum.TextXAlignment.Left,
+								TextWrapped = false,
+							})
+						else if text then
+							Roact.createElement(GenericTextLabel, {
+								BackgroundTransparency = 1,
+								Text = text,
+								fontStyle = fontStyle,
+								colorStyle = textStyle,
+								LayoutOrder = 1,
+							})
+						else nil
 					}),
 					IconContainer = Roact.createElement("Frame", {
 						Size = UDim2.fromScale(1, 1),
@@ -190,10 +215,10 @@ function DropdownMenuCell:render()
 							Padding = UDim.new(0, CONTENT_PADDING),
 						}),
 						Padding = Roact.createElement("UIPadding", {
-							PaddingRight = UDim.new(0, 20),
+							PaddingRight = UDim.new(0, ICON_PADDING),
 						}),
 						Icon = icon and Roact.createElement(ImageSetComponent.Label, {
-							Size = UDim2.fromOffset(IconSize.Regular, IconSize.Regular),
+							Size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
 							BackgroundTransparency = 1,
 							Image = icon,
 							ImageColor3 = iconStyle.Color,

@@ -65,6 +65,7 @@ local function makeCell(backgroundThemeKey)
 		renderRightSideGadget = t.optional(t.callback),
 		rightSideGadgetSize = t.optional(t.Vector2),
 
+		leftPaddingOffset = t.optional(t.number),
 		layoutOrder = t.integer,
 		setButtonRef = t.optional(t.union(t.callback, t.table)),
 		cursorKind = UIBloxConfig.enableAnimatedCursorForNonRoactGamepadComponent and t.optional(
@@ -76,6 +77,7 @@ local function makeCell(backgroundThemeKey)
 		selected = false,
 		disabled = false,
 		rightSideGadgetSize = Vector2.new(0, 0),
+		leftPaddingOffset = 0,
 	}
 
 	function cellComponent:init()
@@ -141,6 +143,7 @@ local function makeCell(backgroundThemeKey)
 			if self.props.icon then
 				leftPadding = ELEMENT_PADDING
 			end
+			leftPadding = leftPadding + self.props.leftPaddingOffset
 			local rightPadding = 0
 			if self.props.keyCodeLabel then
 				rightPadding = KEYLABEL_PADDING

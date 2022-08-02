@@ -36,6 +36,8 @@ local validateProps = t.strictInterface({
 
 	buttonStackProps = t.optional(t.table), -- Button stack validates the contents
 
+	footerContent = t.optional(t.callback), -- Accepts any element
+
 	onCloseClicked = t.optional(t.callback),
 
 	contentPadding = t.optional(t.UDim),
@@ -101,6 +103,12 @@ function PartialPageModal:render()
 				}),
 				Roact.createElement(ButtonStack, self.props.buttonStackProps),
 			}),
+			BottomFrame = if self.props.footerContent then Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, 0),
+				LayoutOrder = 3,
+				BackgroundTransparency = 1,
+				AutomaticSize = Enum.AutomaticSize.Y
+			}, { FooterContent = self.props.footerContent() }) else nil,
 		})
 	})
 end

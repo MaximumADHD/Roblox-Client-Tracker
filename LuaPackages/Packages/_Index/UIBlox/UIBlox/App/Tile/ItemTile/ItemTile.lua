@@ -53,6 +53,9 @@ local itemTileInterface = t.strictInterface({
 	-- Whether the tile is selected or not
 	isSelected = t.optional(t.boolean),
 
+	-- Whether the tile is selectable or not
+	Selectable = t.optional(t.boolean),
+
 	-- Whether the tile is part of a grid where multiple tiles can be selected
 	multiSelect = t.optional(t.boolean),
 
@@ -90,6 +93,9 @@ local itemTileInterface = t.strictInterface({
 	-- Font style for title (Header2, Caption, etc.)
 	-- If not set the underlying components will wind up using Header2.
 	titleFontStyle = UIBloxConfig.enableAdjustableTextUnderTile and t.optional(t.table) or nil,
+
+	-- An inset on the tile image.
+	renderTileInset = UIBloxConfig.enableTileInsets and t.optional(t.callback) or nil,
 })
 
 local function tileBannerUseValidator(props)
@@ -109,6 +115,7 @@ ItemTile.defaultProps = {
 	multiSelect = false,
 	isPremium = false,
 	hasRoundedCorners = true,
+	Selectable = false,
 }
 
 function ItemTile:render()
@@ -134,7 +141,9 @@ function ItemTile:render()
 	local backgroundImage = self.props.backgroundImage
 	local useMaxTitleHeight = self.props.useMaxTitleHeight
 	local addSubtitleSpace = self.props.addSubtitleSpace
+	local Selectable = self.props.Selectable
 	local titleFontStyle = UIBloxConfig.enableAdjustableTextUnderTile and self.props.titleFontStyle or nil
+	local renderTileInset = UIBloxConfig.enableTileInsets and self.props.renderTileInset or nil
 
 	local hasOverlayComponents = false
 	local overlayComponents = {}
@@ -171,6 +180,7 @@ function ItemTile:render()
 		hasRoundedCorners = hasRoundedCorners,
 		innerPadding = innerPadding,
 		isSelected = isSelected,
+		Selectable = Selectable,
 		multiSelect = multiSelect,
 		name = name,
 		subtitle = subtitle,
@@ -183,6 +193,7 @@ function ItemTile:render()
 		useMaxTitleHeight = useMaxTitleHeight,
 		addSubtitleSpace = addSubtitleSpace,
 		titleFontStyle = titleFontStyle,
+		renderTileInset = renderTileInset,
 
 		NextSelectionLeft = self.props.NextSelectionLeft,
 		NextSelectionRight = self.props.NextSelectionRight,

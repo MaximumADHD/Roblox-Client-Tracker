@@ -101,6 +101,17 @@ return {
 	-- always using Header2.
 	enableAdjustableTextUnderTile = false,
 
+	-- if true, the text component in DropdownMenuCell is truncated
+	-- otherwise it overflows the icon and the component boundaries if it's too long
+	fixDropdownMenuCellTextSize = false,
+
+	-- if true, you can customize Item Tiles with an 'inset' that goes over the tile itself (not
+	-- over any title/subtitles, if present).
+	enableTileInsets = false,
+
 	-- use VirtualizedList.BidirectionalFlatList in HorizontalCarousel component instead of InfiniteScroller
 	enableVirtualizedListForCarousel = false,
+
+	-- if true, devMode features (like props validation) will be enabled
+	devMode = false,
 }

@@ -3,7 +3,10 @@ local VerifiedBadges = script:FindFirstAncestor("VerifiedBadges")
 local Cryo = require(VerifiedBadges.Parent.Cryo)
 local React = require(VerifiedBadges.Parent.React)
 local ReactRoblox = require(VerifiedBadges.Parent.ReactRoblox)
+local RoactAppExperiment = require(VerifiedBadges.Parent.RoactAppExperiment)
 local constants = require(VerifiedBadges.constants)
+local getFStringVerifiedBadgeLayer = require(VerifiedBadges.Flags.getFStringVerifiedBadgeLayer)
+local getExperimentValue = require(VerifiedBadges.Experiments.getExperimentValue)
 
 local defaultProps = {
 	emoji = constants.PREMIUM_EMOJI,
@@ -13,16 +16,31 @@ local defaultProps = {
 	automaticSize = Enum.AutomaticSize.XY,
 }
 
-export type Props = typeof(defaultProps) & {
+type DefaultProps = typeof(defaultProps)
+
+export type Props = {
+	emoji: string,
+	color: Color3?,
+	font: Enum.Font?,
+	size: UDim2?,
 	layoutOrder: number?,
 	children: React.ReactElement<any, string>?,
+
+	-- Mocks
+	mockIsEnrolled: boolean?,
 }
 
 local function EmojiWrapper(props: Props)
-	props = Cryo.Dictionary.join(defaultProps, props)
+	local joinedProps: DefaultProps & Props = Cryo.Dictionary.join(defaultProps, props)
 
-	if props.children then
-		assert(React.Children.count(props.children) <= 1, "EmojiWrapper can only contain one child")
+	local isEnrolled = RoactAppExperiment.useUserExperiment({
+		getFStringVerifiedBadgeLayer(),
+	}, getExperimentValue)
+
+	local shouldRenderEmoji = props.mockIsEnrolled or isEnrolled or props.emoji ~= constants.VERIFIED_EMOJI
+
+	if joinedProps.children then
+		assert(React.Children.count(joinedProps.children) <= 1, "EmojiWrapper can only contain one child")
 	end
 
 	local emojiSize, setEmojiSize = React.useState(0)
@@ -33,9 +51,9 @@ local function EmojiWrapper(props: Props)
 	end, {})
 
 	return React.createElement("Frame", {
-		LayoutOrder = props.layoutOrder,
-		Size = props.size,
-		AutomaticSize = props.automaticSize,
+		LayoutOrder = joinedProps.layoutOrder,
+		Size = joinedProps.size,
+		AutomaticSize = joinedProps.automaticSize,
 		BackgroundTransparency = 1,
 	}, {
 		Layout = React.createElement("UIListLayout", {
@@ -54,14 +72,14 @@ local function EmojiWrapper(props: Props)
 				PaddingRight = UDim.new(0, emojiSize),
 			}),
 
-			Children = React.createElement(React.Fragment, nil, props.children),
+			Children = React.createElement(React.Fragment, nil, joinedProps.children),
 		}),
 
-		Emoji = React.createElement("TextLabel", {
+		Emoji = shouldRenderEmoji and React.createElement("TextLabel", {
 			LayoutOrder = 2,
-			Text = props.emoji,
-			Font = props.font,
-			TextColor3 = props.color,
+			Text = joinedProps.emoji,
+			Font = joinedProps.font,
+			TextColor3 = joinedProps.color,
 			TextSize = emojiSize,
 			BackgroundTransparency = 1,
 			TextYAlignment = Enum.TextYAlignment.Center,

@@ -348,7 +348,8 @@ function GenericButton:renderButton(loadingProgress)
 				-- buttonMiddleContent should never == self.props[Roact.Children] and init the standard button content
 				buttonContentLayer = self.props[Roact.Children] or {
 					ButtonMiddleContent = Roact.createElement("Frame", {
-						Size = UDim2.new(1, 0, 1, 0),
+						AutomaticSize = if fitContent then Enum.AutomaticSize.X else nil,
+						Size = if fitContent then UDim2.fromScale(0, 1) else UDim2.fromScale(1, 1),
 						BackgroundTransparency = 1,
 					}, buttonContentLayer),
 					ButtonIcon = inputIcon and Roact.createElement(ImageSetComponent.Label, {
@@ -391,9 +392,8 @@ function GenericButton:renderButton(loadingProgress)
 			[Roact.Children] = Cryo.None,
 
 			Size = if UIBloxConfig.enableStandardButtonSizes then size else nil,
-			AutomaticSize = if UIBloxConfig.enableStandardButtonSizes and standardSize and fitContent
-				then Enum.AutomaticSize.X
-				else nil,
+			-- fitContent is already conditional on UIBloxConfig.enableStandardButtonSizes
+			AutomaticSize = if fitContent then Enum.AutomaticSize.X else nil,
 			[Roact.Ref] = self.props.forwardedRef,
 			isDisabled = isDisabled,
 			onStateChanged = self.onStateChanged,
@@ -424,7 +424,8 @@ function GenericButton:renderButton(loadingProgress)
 						})
 					else nil,
 			ButtonContent = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 1, 0),
+				AutomaticSize = if fitContent then Enum.AutomaticSize.X else nil,
+				Size = if fitContent then UDim2.fromScale(0, 1) else UDim2.fromScale(1, 1),
 				BackgroundTransparency = 1,
 			}, buttonContentLayer),
 			LoadingImage = (UIBloxConfig.genericButtonInputChanges and isDelayedInput) and

@@ -8,6 +8,6 @@ dependencies = [
     "NetworkingGames NetworkingGames 1.1.0 url+https://github.com/roblox/networking-games",
     "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
     "RoduxNetworking RoduxNetworking 2.3.2 url+https://github.com/roblox/rodux-networking",
-    "enumerate roblox/enumerate 1.0.0 url+https://github.com/roblox/enumerate",
+    "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]

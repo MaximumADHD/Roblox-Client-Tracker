@@ -67,6 +67,9 @@ local tileInterface = t.strictInterface({
 	-- Whether the tile is selected or not
 	isSelected = t.optional(t.boolean),
 
+	-- Whether the tile is selectable or not
+	Selectable = t.optional(t.boolean),
+
 	-- Whether the tile is part of a grid where multiple tiles can be selected
 	multiSelect = t.optional(t.boolean),
 
@@ -99,6 +102,9 @@ local tileInterface = t.strictInterface({
 	-- What style font to use for title (Header, Body, etc.).
 	-- Defaults to Header2.
 	titleFontStyle = UIBloxConfig.enableAdjustableTextUnderTile and t.optional(t.table) or nil,
+
+	-- An inset on the tile image.
+	renderTileInset = UIBloxConfig.enableTileInsets and t.optional(t.callback) or nil,
 })
 
 local function tileBannerUseValidator(props)
@@ -118,6 +124,7 @@ Tile.defaultProps = {
 	multiSelect = false,
 	isDisabled = false,
 	hasRoundedCorners = true,
+	Selectable = false,
 }
 
 function Tile:init()
@@ -224,12 +231,14 @@ function Tile:render()
 
 			local hasFooter = footer ~= nil or bannerText ~= nil
 
+			local renderTileInset = UIBloxConfig.enableTileInsets and self.props.renderTileInset or nil
+
 			-- TODO: use generic/state button from UIBlox
 			return Roact.createElement("TextButton", {
 				Text = "",
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
-				Selectable = false,
+				Selectable = self.props.Selectable,
 				[Roact.Event.Activated] = not isDisabled and onActivated or nil,
 				[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChange,
 			}, {
@@ -265,6 +274,7 @@ function Tile:render()
 						imageTransparency = thumbnailTransparency,
 						backgroundImage = backgroundImage,
 					}),
+					TileInset = renderTileInset and renderTileInset() or nil,
 				}),
 				TitleArea = UIBloxConfig.enableSubtitleOnTile and Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 0, titleTextSize.Y+subtitleTextHeight),

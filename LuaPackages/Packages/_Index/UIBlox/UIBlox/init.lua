@@ -51,6 +51,7 @@ local function initializeLibrary(configs)
 			}),
 			Provider = require(script.Core.Style.StyleProvider),
 			withStyle = require(script.Core.Style.withStyle),
+			useStyle = require(script.Core.Style.useStyle),
 		}),
 
 		Text = strict({
@@ -256,7 +257,7 @@ local function initializeLibrary(configs)
 		Menu = strict({
 			BaseMenu = require(script.App.Menu.BaseMenu),
 			OverlayBaseMenu = require(script.App.Menu.OverlayBaseMenu),
-
+			GameContextualMenu = require(script.App.Menu.GameContextualMenu),
 			ContextualMenu = require(script.App.Menu.ContextualMenu),
 			OverlayContextualMenu = require(script.App.Menu.OverlayContextualMenu),
 
@@ -272,6 +273,9 @@ local function initializeLibrary(configs)
 			SegmentedControl = require(script.App.Control.SegmentedControl),
 			RobuxBalance = require(script.App.Control.RobuxBalance),
 			Pill = require(script.App.Control.Pill.Pill),
+			Slot = strict({
+				SlotTray = require(script.App.Control.Slot.SlotTray),
+			}),
 		}),
 
 		Navigation = strict({
@@ -285,6 +289,7 @@ local function initializeLibrary(configs)
 			SelectionCursorProvider = require(script.App.SelectionImage.SelectionCursorProvider),
 			CursorKind = require(script.App.SelectionImage.CursorKind),
 			withSelectionCursorProvider = require(script.App.SelectionImage.withSelectionCursorProvider),
+			useSelectionCursor = require(script.App.SelectionImage.useSelectionCursor),
 		}),
 
 		Template = strict({

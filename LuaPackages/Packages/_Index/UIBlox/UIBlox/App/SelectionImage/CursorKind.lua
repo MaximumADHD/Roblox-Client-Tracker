@@ -4,6 +4,7 @@ local enumerate = require(Packages.enumerate)
 
 local RoundedRectCursor = require(script.Parent.Components.RoundedRect)
 local RoundedRectNoInsetCursor = require(script.Parent.Components.RoundedRectNoInset)
+local RoundedSlotCursor = require(script.Parent.Components.RoundedSlot)
 local SmallPillCursor = require(script.Parent.Components.SmallPill)
 local LargePillCursor = require(script.Parent.Components.LargePill)
 local SelectedKnobCursor = require(script.Parent.Components.SelectedKnob)
@@ -22,6 +23,7 @@ local InputButton = require(script.Parent.Components.InputButton)
 return enumerate(script.Name, {
 	RoundedRect = RoundedRectCursor,
 	RoundedRectNoInset = RoundedRectNoInsetCursor,
+	RoundedSlot = RoundedSlotCursor,
 	SmallPill = SmallPillCursor,
 	LargePill = LargePillCursor,
 	SelectedKnob = SelectedKnobCursor,
