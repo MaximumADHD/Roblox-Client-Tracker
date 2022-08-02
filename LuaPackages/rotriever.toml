@@ -11,15 +11,17 @@ proxy = "https://github.com/roblox/rotriever-proxy-index"
 Roact = { target = "github.com/Roblox/roact-alignment", version = "17.0.1-rc.12", package = "RoactCompat" }
 Rodux = "github.com/roblox/rodux@1.0"
 RoactRodux = "github.com/roblox/roact-rodux@0.2"
+RoactAppExperiment = "github.com/roblox/roact-app-experiment@0.1.1"
 RoactNavigation = "github.com/roblox/roact-navigation@0.5.2"
 Cryo = "github.com/roblox/cryo@1.0"
 Dash = "github.com/roblox/dash@0.1"
-VerifiedBadges = "github.com/roblox/lua-verified-badges@0.3.0"
+VerifiedBadges = "github.com/roblox/lua-verified-badges@0.5.0"
 LuaChatDeps = { git = "https://github.com/Roblox/lua-chat-deps" }
 LuaSocialLibrariesDeps = { git = "https://github.com/Roblox/lua-social-libraries-deps" }
 PremiumUpsellDeps = { git = "https://github.com/Roblox/premium-upsell-deps" }
 AvatarExperienceDeps = { git = "https://github.com/Roblox/avatar-experience-deps" }
 LuaProfileDeps_v200 = { git = "https://github.com/Roblox/lua-profile", rev = "v2.0.0", package = "LuaProfileDeps" }
+LuaProfileDeps_v300 = { git = "https://github.com/Roblox/lua-profile", rev = "v3.0.0", package = "LuaProfileDeps" }
 PurchasePromptDeps = { git = "https://github.com/Roblox/purchase-prompt-deps" }
 IAPExperience = { git = "https://github.com/Roblox/IAPExperience", rev = "master" }
 UIBlox = { git = "https://github.com/Roblox/uiblox", rev = "master" }
@@ -32,8 +34,8 @@ Lumberyak = { git = "https://github.com/Roblox/lumberyak" }
 StringUtilities = "github.com/Roblox/string-utilities@1.0.0"
 UrlBuilder = { git = "https://github.com/Roblox/url-builder", rev = "master" }
 FitFrame = "github.com/roblox/roact-fit-components@2.0.0"
-ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v1.4.1" }
-ExperienceChatV1_5_0 = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v1.5.0" }
+ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v1.5.0" }
+ExperienceChatV2_0_0 = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v2.0.0" }
 RoduxGames = { git = "https://github.com/Roblox/rodux-games", rev = "master" }
 React = "github.com/Roblox/roact-alignment@17.0.1-rc.12"
 ReactIs = "github.com/Roblox/roact-alignment@17.0.1-rc.12"

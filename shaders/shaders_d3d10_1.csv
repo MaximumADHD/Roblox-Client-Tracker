@@ -319,11 +319,9 @@ GrassHQVSDepth,Vertex
 GrassHQVSPreciseShadowedFSM,Vertex
 GrassHQVSPreciseWindShadowedFSM,Vertex
 GrassHQVSShadowed,Vertex
-GrassHQVSShadowedFSM,Vertex
 GrassHQVSWind,Vertex
 GrassHQVSWindDepth,Vertex
 GrassHQVSWindShadowed,Vertex
-GrassHQVSWindShadowedFSM,Vertex
 GrassVS,Vertex
 GrassVSDepth,Vertex
 GrassVSPrecise,Vertex

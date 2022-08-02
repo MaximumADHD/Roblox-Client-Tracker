@@ -359,6 +359,7 @@ Studio.App.MainWindow.StudsSuffix,, studs, studs
 Studio.App.MainWindow.DbarFatalBugNotice1,,Dell Backup and Recovery verion %1 is detected. It has a bug that can cause a fatal error for Roblox Studio. Please try again after it is updated to at least version 1.9 or uninstalled. Roblox Studio will exit now...,Dell Backup and Recovery verion %1 is detected. It has a bug that can cause a fatal error for Roblox Studio. Please try again after it is updated to at least version 1.9 or uninstalled. Roblox Studio will exit now...
 Studio.App.MainWindow.OpenPlaceFailureIncidentId1,Incident ID field displayed in error message dialog,Incident ID: %1,Incident ID: %1
 Studio.App.MainWindow.OpenPlaceFailureIncidentAndPlaceId2,Incident ID and Place ID field displayed in error message dialog,Incident ID: %1<br>Place ID: %2,Incident ID: %1<br>Place ID: %2
+Studio.App.MainWindow.OpenPlaceFailureIncidentAndPlaceId3,"Incident ID, Place ID and Place name field displayed in error message dialog",Incident ID: %1<br>Place ID: %2<br>Place name: %3,Incident ID: %1<br>Place ID: %2<br>Place name: %3
 Studio.App.MainWindow.OpenPlaceFailureReportToForum1,Devforum link field displayed in error message dialog ,"If you continue to encounter this error, please report it on the <a href='%1'>Developer Forum</a>. ","If you continue to encounter this error, please report it on the <a href='%1'>Developer Forum</a>. "
 Studio.App.MainWindow.FatalErrorDialog1,"Message shown when Studio experiences an error that it can't recover from, and must exit. %1 is the message for the error that occurred.",Studio encountered an unrecoverable error and must shut down: %1,Studio encountered an unrecoverable error and must shut down: %1
 Studio.App.UIEditor.ScrollingFrame,ui editor menu,Scrolling Frame,Scrolling Frame
@@ -801,6 +802,9 @@ Studio.App.RBXMainWindow.Properties,,Properties,Properties
 Studio.App.RBXMainWindow.ViewPerformanceDiagnosticsElps,,View Performance Diagnostics...,View Performance Diagnostics...
 Studio.App.RBXMainWindow.3DGrid,,3D Grid,3D Grid
 Studio.App.RBXMainWindow.Performance,,Performance,Performance
+Studio.App.RobloxRibbonMainWindow.Layout,,Layouts,Layouts
+Studio.App.RobloxRibbonMainWindow.LayoutManager,,Layout Manager,Layout Manager
+Studio.App.RobloxRibbonMainWindow.SwitchLayouts,,Manage and Switch Layouts,Manage and Switch Layouts
 Studio.App.RBXMainWindow.ShowViewSelector,,Show View Selector,Show View Selector
 Studio.App.RBXMainWindow.ShowsHidesAxisWidget,,Shows/Hides Axis Widget,Shows/Hides Axis Widget
 Studio.App.RBXMainWindow.ViewSelector,,View Selector,View Selector
@@ -1625,6 +1629,19 @@ Your unpublished changes will be lost!","Are you sure you want to get the latest
 Your unpublished changes will be lost!"
 Studio.App.PackageManagementVerbs.ErrorModelPrimaryPart,,Error: Cannot Publish a Model Package without a PrimaryPart.,Error: Cannot Publish a Model Package without a PrimaryPart.
 Studio.App.PackageManagementVerbs.PublishNoop,,The package instance matched the newest version; no new version was created.,The package instance matched the newest version; no new version was created.
+Studio.App.PackageService.PublishPackageError1,,Package publish error: %1,Package publish error: %1
+Studio.App.PackageService.SetPackageVersionError1,,Set package version error: %1,Set package version error: %1
+Studio.App.PackageService.GetPackageInfoError1,,Get package info error: %1,Get package info error: %1
+Studio.App.PackageService.PackageAPIError.InvalidArgument,,Argument 1 is invalid,Argument 1 is invalid
+Studio.App.PackageService.PackageAPIError.NotAPackage,,Instance is not a package,Instance is not a package
+Studio.App.PackageService.PackageAPIError.NoPermissions,,Insufficient permissions,Insufficient permissions
+Studio.App.PackageService.PackageAPIError.NotArchivable,,Instance is not archivable,Instance is not archivable
+Studio.App.PackageService.PackageAPIError.NotEditMode,,Can only publish packages in Edit Mode,Can only publish packages in Edit Mode
+Studio.App.PackageService.PackageAPIError.NoChanges,,No changes detected,No changes detected
+Studio.App.PackageService.PackageAPIError.UploadPrepFailed,,Failed to prepare instance for upload,Failed to prepare instance for upload
+Studio.App.PackageService.PackageAPIError.LatestVersionFail,,Can't get selected package link latestVersionNum: data not available,Can't get selected package link latestVersionNum: data not available
+Studio.App.PackageService.PackageAPIError.VersionLowerBound,,VersionNumber cannot be less than 1,VersionNumber cannot be less than 1
+Studio.App.PackageService.PackageAPIError.VersionUpperBound.1,%1 is a number. e.g. VersionNumber cannot be greater than 45,VersionNumber cannot be greater than %1,VersionNumber cannot be greater than %1
 Studio.App.PackageMassUpdate.MassUpdate,A function that enables developer to update package across places.,Mass Update,Mass Update
 Studio.App.PackageMassUpdate.UpdateDescription1,<b>%1</b> should not be translated. %1 is name of the package to be updated.,Update all <b>%1</b> copies in the following places of this game to,Update all <b>%1</b> copies in the following places of this game to
 Studio.App.PackageMassUpdate.Version,Version of a package,Version,Version
@@ -2179,7 +2196,7 @@ Studio.App.StudioServiceHost.ConvertToPackageFailed,,Convert to package failed.,
 Studio.App.AuthenticationHelper.AuthFailedTryAgain,,Authentication failed. Please try again or contact support if the problem persists.,Authentication failed. Please try again or contact support if the problem persists.
 Studio.App.AuthenticationHelper.AuthFailedTimeout,,Could not authenticate user. Request timed out.,Could not authenticate user. Request timed out.
 Studio.App.Authenticator.TwoStepFailedParse,,"An error occurred while reading the response from the server. Please try again later, or contact support if the problem persists.","An error occurred while reading the response from the server. Please try again later, or contact support if the problem persists."
-Studio.App.BetaFeatures.CreateAnimationFromVideoTitle,,Create animation from video,Create animation from video
+Studio.App.BetaFeatures.CreateAnimationFromVideoTitle,,Live Animation Creator,Live Animation Creator
 Studio.App.BetaFeatures.CreateAnimationFromVideoDescription,,"Animation clip editor will have a ""Create from video"" option in the Import menu to transfer 3D pose from a video to an avatar.","Animation clip editor will have a ""Create from video"" option in the Import menu to transfer 3D pose from a video to an avatar."
 Studio.App.BetaFeatures.ACESaveRigWithAnimationTitle,,Save rig with Animation,Save rig with Animation
 Studio.App.BetaFeatures.ACESaveRigWithAnimationDescription,,Animation clip editor will save the rig along with keyframes to make the animation retargetable.,Animation clip editor will save the rig along with keyframes to make the animation retargetable.
@@ -2256,8 +2273,6 @@ Studio.App.BetaFeatures.LSPNewFunctionFilterTitle,,Luau-Powered Script Function 
 Studio.App.BetaFeatures.LSPNewFunctionFilterDescription,,"(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Luau type inference now powers the Script Function Filter feature in Script Editor, adding type information to the widget while enhancing performance and reliability.","(! Works better with ""Scripts Are Non-Strict By Default"" Beta Feature ON !) Luau type inference now powers the Script Function Filter feature in Script Editor, adding type information to the widget while enhancing performance and reliability."
 Studio.App.BetaFeatures.LSPLuauScriptEditorTitle,,Luau-Powered Autocomplete & Language Features,Luau-Powered Autocomplete & Language Features
 Studio.App.BetaFeatures.LSPLuauScriptEditorDescription,,"Luau type inference now powers Autocomplete, Go To Declaration, Linting and the Script Function Filter in Script Editor, enhancing performance and reliability of all features. Autocomplete can now offer suggestions based on the type of a variable, while the Function Filter can preview these types.","Luau type inference now powers Autocomplete, Go To Declaration, Linting and the Script Function Filter in Script Editor, enhancing performance and reliability of all features. Autocomplete can now offer suggestions based on the type of a variable, while the Function Filter can preview these types."
-Studio.App.BetaFeatures.PivotEditorTitle,,Pivot Editor,Pivot Editor
-Studio.App.BetaFeatures.PivotEditorDescription,,"Enable the Edit Pivot tool in the Model tab, which allows the origin that defines how parts and models are transformed to be modified.","Enable the Edit Pivot tool in the Model tab, which allows the origin that defines how parts and models are transformed to be modified."
 Studio.App.BetaFeatures.LuauNativeVector3Title,,Native Vector3 Type,Native Vector3 Type
 Studio.App.BetaFeatures.LuauNativeVector3Description,,Enable Luau VM built-in support for Vector3 type to improve script performance.,Enable Luau VM built-in support for Vector3 type to improve script performance.
 Studio.App.BetaFeatures.AcceleratedCollisionPipelineTitle,,Accelerated Collision Pipeline,Accelerated Collision Pipeline
@@ -2383,7 +2398,6 @@ Studio.App.RobloxStudioVerbs.DirtyPublishWarning1,,There are uncommitted script 
 Studio.App.RobloxStudioVerbs.Grant.Permission,,Grant Permission,Grant Permission
 Studio.App.RobloxStudioVerbs.Warning,,Warning,Warning
 Studio.App.RobloxStudioVerbs.GrantUniversePermissionQuestion,,Do you want to allow this game to use this asset?,Do you want to allow this game to use this asset?
-Studio.App.RobloxStudioVerbs.GrantUniversePermissionQuestionCancelButton,,Cancel,Cancel
 Studio.App.AutoSaveDialog.ConfirmTitle,,Confirm Auto-Recovery Delete,Confirm Auto-Recovery Delete
 Studio.App.AutoSaveDialog.ConfirmMessageSingular,,Do you want to delete all auto-recovery files?  There is 1 file.,Do you want to delete all auto-recovery files?  There is 1 file.
 Studio.App.AutoSaveDialog.ConfirmMessage1,,Do you want to delete all auto-recovery files?  There are %1 files.,Do you want to delete all auto-recovery files?  There are %1 files.
@@ -2854,7 +2868,6 @@ Type: %3","Name: %1
 AssetId: %2
 Type: %3"
 Studio.App.IDEPermissionsResolutionLinkDefinition.ExperienceSuccessMessage1,Message that's output after user sucessfully grants their experience permission to use asset,Successfully granted the experience permission to use asset %1,Successfully granted the experience permission to use asset %1
-Studio.App.IDEPermissionsResolutionLinkDefinition.LoadingElps,,Loading...,Loading...
 Studio.App.StudioUtilities.LogInRequired,,Log in required,Log in required
 Studio.App.StudioUtilities.YouMustLogInToPerformThisAction,,You must log in to perform this action!,You must log in to perform this action!
 Studio.App.RESTRICTED.QtUtilities.DontAskMeAgain,,Don't ask me again,Don't ask me again
@@ -3330,7 +3343,6 @@ Studio.App.SettingsCategory.Theme,,Theme,Theme
 Studio.App.StudioDeviceEmulatorService.CannotChangeEmulationDevice,,Can't set emulation device in current game state.,Can't set emulation device in current game state.
 Studio.App.StudioDeviceEmulatorService.InvalidOrientation1,,Can't set orientation to '%1'.,Can't set orientation to '%1'.
 Studio.App.StudioDeviceEmulatorService.NonExistantDeviceId1,,Device ID '%1' doesn't exist.,Device ID '%1' doesn't exist.
-Studio.App.ToastNotificationService.NotAvailable,,ToastNotificationService is not available when FFlagStudioToastNotificationsInLua is false,ToastNotificationService is not available when FFlagStudioToastNotificationsInLua is false
 Studio.App.DataModelLifeCycle.CannotOpenFileForRead,Failed to open file during open place process,Cannot open place file for reading.,Cannot open place file for reading.
 Studio.App.DataModelLifeCycle.GameIsGoneWhileLoadingDM,Game has disappeared during the dm loading process,Game has disappeared while loading dm (client).,Game has disappeared while loading dm (client).
 Studio.App.BetaFeatures.CanvasGroupTitle,,Canvas Group,Canvas Group

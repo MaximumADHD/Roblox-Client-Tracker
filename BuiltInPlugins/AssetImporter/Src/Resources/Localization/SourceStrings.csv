@@ -41,9 +41,10 @@ Studio.AssetImporter.Plugin.Toolbar,Mesh Importer
 Studio.AssetImporter.Plugin.WindowTitle,Import Preview
 Studio.AssetImporter.PreviewTooltip.ResetCam,Reset camera
 Studio.AssetImporter.Properties.Anchored,Anchored
-Studio.AssetImporter.Properties.CageManifoldPreview,Non-Manifold Geometry
-Studio.AssetImporter.Properties.CageNoOverlappingVerticesPreview,Coincident Vertices
-Studio.AssetImporter.Properties.CageUVMatchedPreview,Modified UV map
+Studio.AssetImporter.Properties.CageMeshIntersectedPreview,Cage intersects with clothing
+Studio.AssetImporter.Properties.CageNonManifoldPreview,Non-Manifold Geometry
+Studio.AssetImporter.Properties.CageOverlappingVerticesPreview,Coincident Vertices
+Studio.AssetImporter.Properties.CageUVMisMatchedPreview,Modified UV map
 Studio.AssetImporter.Properties.DiffuseFilePath,Diffuse File Path
 Studio.AssetImporter.Properties.Dimensions,Object Dimensions
 Studio.AssetImporter.Properties.DoubleSided,Make Double Sided
@@ -55,7 +56,9 @@ Studio.AssetImporter.Properties.ImportName,Name
 Studio.AssetImporter.Properties.InsertInWorkspace,Insert In Workspace
 Studio.AssetImporter.Properties.InsertWithScenePosition,Insert Using Scene Position
 Studio.AssetImporter.Properties.InvertNegativeFaces,Invert Negative Faces
+Studio.AssetImporter.Properties.IrrelevantCageModifiedPreview,Irrelevant cage part modified
 Studio.AssetImporter.Properties.MergeMeshes,Merge Meshes
+Studio.AssetImporter.Properties.MeshHoleDetectedPreview,Not watertight
 Studio.AssetImporter.Properties.MetalnessFilePath,Metalness File Path
 Studio.AssetImporter.Properties.NoFilePath,No file provided
 Studio.AssetImporter.Properties.NormalFilePath,Normal File Path
@@ -68,9 +71,10 @@ Studio.AssetImporter.Properties.UseSceneOriginAsPivot,Set Pivot to Scene Origin
 Studio.AssetImporter.Properties.WorldForward,World Forward
 Studio.AssetImporter.Properties.WorldUp,World Up
 Studio.AssetImporter.PropertiesTooltip.Anchored,If this object should be anchored
-Studio.AssetImporter.PropertiesTooltip.CageManifoldPreview,"This cage has non-manifold geometry, which can cause deformation issues. Non-manifold area is marked in the preview render"
-Studio.AssetImporter.PropertiesTooltip.CageNoOverlappingVerticesPreview,"Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render"
-Studio.AssetImporter.PropertiesTooltip.CageUVMatchedPreview,"For this asset to be Layered Clothing compatible, you need to use the original cage template and ensure that you do not modify the UV map."
+Studio.AssetImporter.PropertiesTooltip.CageMeshIntersectedPreview,"The cage intersects with the clothing mesh, which could lead to interpenetration issues."
+Studio.AssetImporter.PropertiesTooltip.CageNonManifoldPreview,"This cage has non-manifold geometry, which can cause deformation issues. Non-manifold area is marked in the preview render"
+Studio.AssetImporter.PropertiesTooltip.CageOverlappingVerticesPreview,"Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render"
+Studio.AssetImporter.PropertiesTooltip.CageUVMisMatchedPreview,"For this asset to be Layered Clothing compatible, you need to use the original cage template and ensure that you do not modify the UV map."
 Studio.AssetImporter.PropertiesTooltip.DiffuseFilePath,The file path of the diffuse map. The diffuse map is an RGB[A] image used to determine the base color of the surface
 Studio.AssetImporter.PropertiesTooltip.Dimensions,The size of the given object in studs
 Studio.AssetImporter.PropertiesTooltip.DoubleSided,Whether or not vertices should be one sided (you can see through them from one direction) or double sided (opaque from both directions)
@@ -81,7 +85,9 @@ Studio.AssetImporter.PropertiesTooltip.ImportName,The name of the object
 Studio.AssetImporter.PropertiesTooltip.InsertInWorkspace,If this object should be inserted into the workspace after import
 Studio.AssetImporter.PropertiesTooltip.InsertWithScenePosition,If this object should be inserted using its location in the imported scene
 Studio.AssetImporter.PropertiesTooltip.InvertNegativeFaces,Whether or not to flip negative faces
+Studio.AssetImporter.PropertiesTooltip.IrrelevantCageModifiedPreview,Some outer cage geometry that is far away from the clothing mesh has been modified. This will lead to issues when other clothing is layered on top.
 Studio.AssetImporter.PropertiesTooltip.MergeMeshes,Combine sub meshes into one mesh
+Studio.AssetImporter.PropertiesTooltip.MeshHoleDetectedPreview,"The clothing mesh is not watertight, meaning there are holes in it. This could lead to issues with Hidden Surface Removal."
 Studio.AssetImporter.PropertiesTooltip.MetalnessFilePath,The file path of the metalness map. The metalness map is a grayscale image used to determine how metallic a surface should look
 Studio.AssetImporter.PropertiesTooltip.NormalFilePath,The file path of the normal map. The normal map is an RGB image used to enhance surface details for lighting
 Studio.AssetImporter.PropertiesTooltip.PolygonCount,The total count of polygons in this object
@@ -99,6 +105,7 @@ Studio.AssetImporter.Sections.FileTransform,File Transform
 Studio.AssetImporter.Sections.ObjectGeneral,Object General
 Studio.AssetImporter.Sections.ObjectGeometry,Object Geometry
 Studio.AssetImporter.Statuses.CageHasMaterialWarning,Material(s) found under this cage mesh will be ignored. Materials cannot be applied to CageWrap instances.
+Studio.AssetImporter.Statuses.CageMeshIntersectedWarning,"The cage intersects with the clothing mesh, which could lead to interpenetration issues."
 Studio.AssetImporter.Statuses.CageMismatchWarning,The number of cage vertices between the outer and inner cage don't match.
 Studio.AssetImporter.Statuses.CageNonManifoldWarning,"This cage has non-manifold geometry, which can cause deformation issues. Non-manifold area is marked in the preview render."
 Studio.AssetImporter.Statuses.CageOverlappingVerticesWarning,"Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render."
@@ -110,15 +117,22 @@ Studio.AssetImporter.Statuses.CouldNotReadRoughnessError,Could not read the roug
 Studio.AssetImporter.Statuses.CouldNotReadTextureError,Could not read the texture file associated with this object.
 Studio.AssetImporter.Statuses.DefaultError,Import experienced a {type} error.
 Studio.AssetImporter.Statuses.DefaultWarnings,Import experienced a {type} warning.
+Studio.AssetImporter.Statuses.DeletedCageGeometryWarning,Some cage geometry has been removed. This will result in layering issues.
 Studio.AssetImporter.Statuses.DiffuseBadFileFormatError,Unsupported diffuse texture file format.
 Studio.AssetImporter.Statuses.IncorrectR15Warning,This rig does not follow the guidelines of chosen rig type.
+Studio.AssetImporter.Statuses.IrrelevantCageModifiedWarning,Some outer cage geometry that is far away from the clothing mesh has been modified. This will lead to issues when other clothing is layered on top.
 Studio.AssetImporter.Statuses.MaterialIgnoredWarning,The material included with this object is currently unsupported.
+Studio.AssetImporter.Statuses.MeshHoleDetectedWarning,"The clothing mesh is not watertight, meaning there are holes in it. This could lead to issues with Hidden Surface Removal."
 Studio.AssetImporter.Statuses.MeshScaleWarning,One of the objects dimensions are larger than can be imported.
 Studio.AssetImporter.Statuses.MeshSizeWarning,The number of triangles is greater than is supported. Object will be simplified.
 Studio.AssetImporter.Statuses.MetalnessBadFileFormatError,Unsupported metalness texture file format.
 Studio.AssetImporter.Statuses.NormalBadFileFormatError,Unsupported normal texture file format.
 Studio.AssetImporter.Statuses.RoughnessBadFileFormatError,Unsupported roughness texture file format.
 Studio.AssetImporter.Statuses.TextureBadFileFormatError,Unsupported texture file format.
+Studio.AssetImporter.Statuses.UGCExceedTextureSizeWarning,Textures exceeds the max texture size limit for UGC upload requirements.
+Studio.AssetImporter.Statuses.UGCExceedUVSpaceWarning,Mesh has UVs defined outside 0-1 space. This can lead to texturing discrepancies and violates UGC upload requirements.
+Studio.AssetImporter.Statuses.UGCMaxMeshTrianglesWarning,Mesh exceeds the max triangle limit (4000) for UGC upload requirements.
+Studio.AssetImporter.Statuses.UGCMeshVertColorsWarning,"Mesh has non-white vertex color values, which violates UGC upload requirements"
 Studio.AssetImporter.TreeViewToolbar.Collapse,Collapse
 Studio.AssetImporter.TreeViewToolbar.Expand,Expand
 Studio.AssetImporter.Upload.Failure,Import failed

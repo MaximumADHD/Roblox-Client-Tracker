@@ -1226,6 +1226,8 @@
                 "sortArrowDescending": "qrc:/images/StartPage/SortArrowDescending.png",
                 "userIcon": "qrc:/images/StartPage/UserIcon.png",
                 "groupIcon": "qrc:/images/StartPage/GroupIcon.png",
+                "localFileIcon": "qrc:/images/StartPage/ListFileIcon.png",
+                "cloudIcon": "qrc:/images/StartPage/ListCloudIcon.png",
                 
                 "gridIcon": "qrc:/images/StartPage/GamesGridIcon.png",
                 "listIcon": "qrc:/images/StartPage/GamesListIcon.png",

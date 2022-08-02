@@ -6,6 +6,7 @@ Studio.AssetImporter.Properties.PolygonCount,Polygon Count,Polygon Count
 Studio.AssetImporter.Properties.UseSceneOriginAsPivot,Set Pivot to Scene Origin,Set Pivot to Scene Origin
 Studio.AssetImporter.Plugin.ImportConfiguration,Settings for the current import,Settings for the current import
 Studio.AssetImporter.PropertiesTooltip.MergeMeshes,Combine sub meshes into one mesh,Combine sub meshes into one mesh
+Studio.AssetImporter.Statuses.UGCExceedUVSpaceWarning,Mesh has UVs defined outside 0-1 space. This can lead to texturing discrepancies and violates UGC upload requirements.,Mesh has UVs defined outside 0-1 space. This can lead to texturing discrepancies and violates UGC upload requirements.
 Studio.AssetImporter.Plugin.Toolbar,Mesh Importer,Mesh Importer
 Studio.AssetImporter.Properties.FileDimensions,File Dimensions,File Dimensions
 Studio.AssetImporter.Plugin.Button,Import,Import
@@ -80,6 +81,8 @@ Studio.AssetImporter.Error.OK,OK,OK
 Studio.AssetImporter.HttpError.OK,OK,OK
 Studio.AssetImporter.EnumItem.R15,R15,R15
 Studio.AssetImporter.EnumItem.Rthro,Rthro,Rthro
+Studio.AssetImporter.PropertiesTooltip.MeshHoleDetectedPreview,"The clothing mesh is not watertight, meaning there are holes in it. This could lead to issues with Hidden Surface Removal.","The clothing mesh is not watertight, meaning there are holes in it. This could lead to issues with Hidden Surface Removal."
+Studio.AssetImporter.Statuses.MeshHoleDetectedWarning,"The clothing mesh is not watertight, meaning there are holes in it. This could lead to issues with Hidden Surface Removal.","The clothing mesh is not watertight, meaning there are holes in it. This could lead to issues with Hidden Surface Removal."
 Studio.AssetImporter.EnumItem.Custom,Custom,Custom
 Studio.AssetImporter.EnumItem.None,No Rig,No Rig
 Studio.AssetImporter.Statuses.RoughnessBadFileFormatError,Unsupported roughness texture file format.,Unsupported roughness texture file format.
@@ -97,6 +100,7 @@ Studio.AssetImporter.EnumItem.Inch,Inch,Inch
 Studio.AssetImporter.Statuses.TextureBadFileFormatError,Unsupported texture file format.,Unsupported texture file format.
 Studio.AssetImporter.Upload.FailureDescriptionNoError,Something went wrong. Please try again.,Something went wrong. Please try again.
 Studio.AssetImporter.PropertiesTooltip.CageManifoldPreview,"This cage has non-manifold geometry, which can cause deformation issues. Non-manifold area is marked in the preview render","This cage has non-manifold geometry, which can cause deformation issues. Non-manifold area is marked in the preview render"
+Studio.AssetImporter.PropertiesTooltip.CageNonManifoldPreview,"This cage has non-manifold geometry, which can cause deformation issues. Non-manifold area is marked in the preview render","This cage has non-manifold geometry, which can cause deformation issues. Non-manifold area is marked in the preview render"
 Studio.AssetImporter.HttpError.422,Name was moderated. Please rename and try again.,Name was moderated. Please rename and try again.
 Studio.AssetImporter.PropertiesTooltip.MetalnessFilePath,The file path of the metalness map. The metalness map is a grayscale image used to determine how metallic a surface should look,The file path of the metalness map. The metalness map is a grayscale image used to determine how metallic a surface should look
 Studio.AssetImporter.HttpError.429,Upload failed. Endpoint has too many requests - please try again later.,Upload failed. Endpoint has too many requests - please try again later.
@@ -123,14 +127,30 @@ Studio.AssetImporter.Properties.InsertWithScenePosition,Insert Using Scene Posit
 Studio.AssetImporter.Statuses.CageManifoldWarning,This cage mesh is not a manifold. Non-manifold area is marked in the preview render,This cage mesh is not a manifold. Non-manifold area is marked in the preview render
 Studio.AssetImporter.Statuses.CageOverlappingVerticesWarning,"Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render.","Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render."
 Studio.AssetImporter.Properties.CageManifoldPreview,Non-Manifold Geometry,Non-Manifold Geometry
+Studio.AssetImporter.Properties.CageNonManifoldPreview,Non-Manifold Geometry,Non-Manifold Geometry
 Studio.AssetImporter.Properties.CageNoOverlappingVerticesPreview,Coincident Vertices,Coincident Vertices
+Studio.AssetImporter.Properties.CageOverlappingVerticesPreview,Coincident Vertices,Coincident Vertices
 Studio.AssetImporter.PropertiesTooltip.CageNoOverlappingVerticesPreview,"Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render","Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render"
+Studio.AssetImporter.PropertiesTooltip.CageOverlappingVerticesPreview,"Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render","Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render"
 Studio.AssetImporter.PropertiesTooltip.InsertWithScenePosition,If this object should be inserted using its location in the imported scene,If this object should be inserted using its location in the imported scene
 Studio.AssetImporter.PropertiesTooltip.UseSceneOriginAsPivot,If the model's pivot point should be set at the imported scene's origin,If the model's pivot point should be set at the imported scene's origin
 Studio.AssetImporter.Statuses.CageNonManifoldWarning,"This cage has non-manifold geometry, which can cause deformation issues. Non-manifold area is marked in the preview render.","This cage has non-manifold geometry, which can cause deformation issues. Non-manifold area is marked in the preview render."
 Studio.AssetImporter.PropertiesTooltip.CageUVMatchedPreview,"For this asset to be Layered Clothing compatible, you need to use the original cage template and ensure that you do not modify the UV map.","For this asset to be Layered Clothing compatible, you need to use the original cage template and ensure that you do not modify the UV map."
+Studio.AssetImporter.PropertiesTooltip.CageUVMisMatchedPreview,"For this asset to be Layered Clothing compatible, you need to use the original cage template and ensure that you do not modify the UV map.","For this asset to be Layered Clothing compatible, you need to use the original cage template and ensure that you do not modify the UV map."
 Studio.AssetImporter.Statuses.CageUVMisMatchedWarning,"For this asset to be Layered Clothing compatible, you need to use the original cage template and ensure that you do not modify the UV map.","For this asset to be Layered Clothing compatible, you need to use the original cage template and ensure that you do not modify the UV map."
 Studio.AssetImporter.Properties.CageUVMatchedPreview,Modified UV map,Modified UV map
+Studio.AssetImporter.Properties.CageUVMisMatchedPreview,Modified UV map,Modified UV map
 Studio.AssetImporter.Properties.UseImportedPivot,Use Imported Pivot,Use Imported Pivot
 Studio.AssetImporter.PropertiesTooltip.UseImportedPivot,Whether or not to use the pivot defined in the scene file (instead of centering the pivot within the object's geometry),Whether or not to use the pivot defined in the scene file (instead of centering the pivot within the object's geometry)
 Studio.AssetImporter.Statuses.CageMismatchWarning,The number of cage vertices between the outer and inner cage don't match.,The number of cage vertices between the outer and inner cage don't match.
+Studio.AssetImporter.PropertiesTooltip.CageMeshIntersectedPreview,"The cage intersects with the clothing mesh, which could lead to interpenetration issues.","The cage intersects with the clothing mesh, which could lead to interpenetration issues."
+Studio.AssetImporter.Statuses.CageMeshIntersectedWarning,"The cage intersects with the clothing mesh, which could lead to interpenetration issues.","The cage intersects with the clothing mesh, which could lead to interpenetration issues."
+Studio.AssetImporter.Properties.CageMeshIntersectedPreview,Cage intersects with clothing,Cage intersects with clothing
+Studio.AssetImporter.PropertiesTooltip.IrrelevantCageModifiedPreview,Some outer cage geometry that is far away from the clothing mesh has been modified. This will lead to issues when other clothing is layered on top.,Some outer cage geometry that is far away from the clothing mesh has been modified. This will lead to issues when other clothing is layered on top.
+Studio.AssetImporter.Statuses.IrrelevantCageModifiedWarning,Some outer cage geometry that is far away from the clothing mesh has been modified. This will lead to issues when other clothing is layered on top.,Some outer cage geometry that is far away from the clothing mesh has been modified. This will lead to issues when other clothing is layered on top.
+Studio.AssetImporter.Properties.MeshHoleDetectedPreview,Not watertight,Not watertight
+Studio.AssetImporter.Properties.IrrelevantCageModifiedPreview,Irrelevant cage part modified,Irrelevant cage part modified
+Studio.AssetImporter.Statuses.UGCMeshVertColorsWarning,"Mesh has non-white vertex color values, which violates UGC upload requirements","Mesh has non-white vertex color values, which violates UGC upload requirements"
+Studio.AssetImporter.Statuses.UGCMaxMeshTrianglesWarning,Mesh exceeds the max triangle limit (4000) for UGC upload requirements.,Mesh exceeds the max triangle limit (4000) for UGC upload requirements.
+Studio.AssetImporter.Statuses.UGCExceedTextureSizeWarning,Textures exceeds the max texture size limit for UGC upload requirements.,Textures exceeds the max texture size limit for UGC upload requirements.
+Studio.AssetImporter.Statuses.DeletedCageGeometryWarning,Some cage geometry has been removed. This will result in layering issues.,Some cage geometry has been removed. This will result in layering issues.

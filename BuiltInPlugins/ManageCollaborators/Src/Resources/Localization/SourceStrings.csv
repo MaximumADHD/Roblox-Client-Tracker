@@ -1,4 +1,6 @@
 Key,Source,en-us
+Studio.ManageCollaborators.CollaboratorTypes.Groups,Groups,Groups
+Studio.ManageCollaborators.SearchBar.FriendLabel,Friend,Friend
 Studio.ManageCollaborators.PermissionDescriptions.NoAccess,Cannot play or edit this game,Cannot play or edit this game
 Studio.ManageCollaborators.Plugin.Button, ,Toggle
 Studio.ManageCollaborators.Plugin.Description, ,Toggles the Template plugin window.
@@ -33,7 +35,6 @@ Studio.ManageCollaborators.Title.TurnOnTcConfirmation,Team Create will be turned
 Studio.ManageCollaborators.PermissionDescriptions.CannotViewGroupRoles,You don't have permission to view the access levels of group roles,You don't have permission to view the access levels of group roles 
 Studio.ManageCollaborators.Title.RobloxStudio,Roblox Studio,Roblox Studio
 Studio.ManageCollaborators.CollaboratorTypes.Users,Users,Users
-Studio.ManageCollaborators.CollaboratorTypes.Groups,Groups,Groups
 Studio.ManageCollaborators.Buttons.TurnOn,Turn On,Turn On
 Studio.ManageCollaborators.Buttons.Save,Save,Save
 Studio.ManageCollaborators.Buttons.Yes,Yes,Yes

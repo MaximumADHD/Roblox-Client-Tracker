@@ -169,7 +169,8 @@ Neck Accessories,Neck Accessories,Studio.Toolbox.AssetConfigUpload.IDCopied
 ID Copied!,ID Copied!,Studio.Toolbox.General.PremiumBenefits
 Add Premium benefits,Add Premium benefits,Studio.Toolbox.General.CategoryCreationsShoulderAccessory
 Shoulder Accessories,Shoulder Accessories,Studio.Toolbox.AssetConfigSharing.PrivateInformation
-Grant permissions to specific Universes through Asset Configuration on the web.,Grant permissions to specific Universes through Asset Configuration on the web.,Studio.Toolbox.General.CategoryCreationsFrontAccessory
+Grant permissions to specific Universes through Asset Configuration on the web.,Grant permissions to specific Universes through Asset Configuration on the web.,Studio.Toolbox.General.SalesCreatorEarnings
+Creator earnings ({earningsPercent}%),Creator earnings ({earningsPercent}%),Studio.Toolbox.General.CategoryCreationsFrontAccessory
 Front Accessories,Front Accessories,Studio.Toolbox.General.CategoryCreationsBackAccessory
 Back Accessories,Back Accessories,Studio.Toolbox.Audio.SoundEffect.Category.robots
 Robots,Robots,Studio.Toolbox.General.CategoryCreationsTShirtAccessory
@@ -244,7 +245,8 @@ Ready For Sale,Studio.Toolbox.General.StatusReviewApproved,Ready For Sale
 Ready For Sale,Studio.Toolbox.General.StatusOffSale,Off Sale
 Off Sale,Studio.Toolbox.General.StatusUnknown,Unknown
 Unknown,Studio.Toolbox.General.SalesOffsale,Offsale
-Offsale,Studio.Toolbox.General.AssetTypeModel,Model
+Offsale,Studio.Toolbox.General.SalesFreePrice,"To set the asset as free, enter 0."
+"To set the asset as free, enter 0.",Studio.Toolbox.General.AssetTypeModel,Model
 Model,Studio.Toolbox.General.AssetTypeDecal,Decal
 Decal,Studio.Toolbox.ThumbnailStatus.Pending,Pending
 Pending,Studio.Toolbox.General.AssetTypeMesh,Mesh
@@ -288,7 +290,8 @@ Me,Studio.Toolbox.General.Proceed,Proceed
 Proceed,Studio.Toolbox.General.AssetType,Asset type
 Asset type,Studio.Toolbox.Audio.SoundEffect.Category.gliders,Gliders
 Gliders,Studio.Toolbox.General.SalesSale,Sale
-Sale,Studio.Toolbox.General.SalesOnsaleApplyToSave,Onsale (apply to save changes)
+Sale,Studio.Toolbox.General.SalesMinimumPrice,The minimum price for this item type is {minPrice}.
+The minimum price for this item type is {minPrice}.,Studio.Toolbox.General.SalesOnsaleApplyToSave,Onsale (apply to save changes)
 Onsale (apply to save changes),Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaInfoLink,How many assets can I publish to the Creator Marketplace?
 How many assets can I publish to the Creator Marketplace?,Studio.Toolbox.General.SalesOffsaleApplyToSave,Offsale (apply to save changes)
 Offsale (apply to save changes),Studio.Toolbox.General.SalesItemCannotBeSold,This item cannot be sold right now
@@ -366,10 +369,10 @@ Electric,Studio.Toolbox.Audio.SoundEffect.Category.flying,Flying
 Flying,Studio.Toolbox.AssetConfig.GetAssetFailed,There was an problem fetching asset data. We will be closing AssetConfig page.
 There was an problem fetching asset data. We will be closing AssetConfig page.,Studio.Toolbox.AssetConfig.Error,Error
 Error,Studio.Toolbox.ThumbnailStatus.Error,Error
-Error,Studio.Toolbox.AssetConfigPackagePermissions.PackageOwner,Package Owner
-Package Owner,Studio.Toolbox.Audio.SoundEffect.Category.pumps,Pumps
-Pumps,Studio.Toolbox.AssetUploadResult.Success,Successfully submitted!
-Successfully submitted!,Studio.Toolbox.Audio.SoundEffect.Category.wagons,Wagons
+Error,Studio.Toolbox.AssetUploadResult.Success,Successfully submitted!
+Successfully submitted!,Studio.Toolbox.Audio.SoundEffect.Category.pumps,Pumps
+Pumps,Studio.Toolbox.AssetConfigPackagePermissions.PackageOwner,Package Owner
+Package Owner,Studio.Toolbox.Audio.SoundEffect.Category.wagons,Wagons
 Wagons,Studio.Toolbox.Audio.Music,Music
 Music,Studio.Toolbox.Audio.SoundEffect.Browse,Browse by Category
 Browse by Category,Studio.Toolbox.AssetConfigPackagePermissions.Owner,Owner
@@ -556,9 +559,9 @@ Jets,Jets,Studio.Toolbox.Audio.SoundEffect.Category.jungle
 Jungle,Jungle,Studio.Toolbox.Audio.SoundEffect.Category.lasers
 Lasers,Lasers,Studio.Toolbox.Audio.SoundEffect.Category.knives-swords
 Knives & Swords,Knives & Swords,Studio.Toolbox.Audio.SoundEffect.Category.land
-Land,Land,Studio.Toolbox.Audio.SoundEffect.Category.liquid-fx
-Liquid FX,Liquid FX,Studio.Toolbox.Audio.SoundEffect.Category.props
-Props,Props,Studio.Toolbox.Audio.SoundEffect.Category.military
+Land,Land,Studio.Toolbox.Audio.SoundEffect.Category.props
+Props,Props,Studio.Toolbox.Audio.SoundEffect.Category.liquid-fx
+Liquid FX,Liquid FX,Studio.Toolbox.Audio.SoundEffect.Category.military
 Military,Military,Studio.Toolbox.Audio.SoundEffect.Category.musical
 Musical,Musical,Studio.Toolbox.Audio.SoundEffect.Category.nautical
 Nautical,Nautical,Studio.Toolbox.Audio.SoundEffect.Category.pistols

@@ -1,0 +1,6 @@
+[workspace]
+version = "0.1.0"
+members = ["../../../modules/**"]
+
+[config]
+path_mode = "Symlink"

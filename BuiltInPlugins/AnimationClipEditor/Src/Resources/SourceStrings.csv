@@ -1,4 +1,5 @@
 Key,Source,en-us
+Studio.AnimationClipEditor.AnimationFromVideo.AgeRestricted, ,We're rolling this out slowly and unfortunately it's not available for you at this time. Please check back periodically to see if we have opened it up.
 Studio.AnimationClipEditor.AnimationFromVideo.Cancelled, ,Your animation creation has been canceled.
 Studio.AnimationClipEditor.AnimationFromVideo.ChooseVideo, ,Choose Video
 Studio.AnimationClipEditor.AnimationFromVideo.Error, ,"We encountered an error. Please try again in a bit, and if you continue to see this error, you may need to try a new video."
@@ -101,7 +102,7 @@ Studio.AnimationClipEditor.Menu.AddAllFacs, ,Add All Facial Animation Controls
 Studio.AnimationClipEditor.Menu.AddAllTracks, ,Add All Body
 Studio.AnimationClipEditor.Menu.Brows, ,Brows
 Studio.AnimationClipEditor.Menu.Core, ,Core
-Studio.AnimationClipEditor.Menu.CreateFromVideo, ,Create from video
+Studio.AnimationClipEditor.Menu.CreateFromVideo, ,Live Animation Creator
 Studio.AnimationClipEditor.Menu.CreateNew, ,Create New
 Studio.AnimationClipEditor.Menu.Export, ,Export
 Studio.AnimationClipEditor.Menu.Eyes, ,Eyes

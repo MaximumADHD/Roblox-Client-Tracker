@@ -324,6 +324,7 @@ Studio.GameSettings.AccessPermissions.CollaboratorSearchbarTooManyText1,You cann
 Studio.GameSettings.Permissions.CollaboratorSearchbarTooManyText1,You cannot add more than {maxNumCollaborators:int} collaborators, ,You cannot add more than {maxNumCollaborators:int} collaborators
 Studio.GameSettings.AccessPermissions.TeamCreateWarning,"To add collaborators, turn on Team Create", ,"To add collaborators, turn on Team Create"
 Studio.GameSettings.Permissions.TeamCreateWarning,"To add collaborators, turn on Team Create", ,"To add collaborators, turn on Team Create"
+Studio.GameSettings.Permissions.CollaborateButtonMessage,Manage collaborators by clicking on the blue Collaborate button in the top right corner of Studio, ,Manage collaborators by clicking on the blue Collaborate button in the top right corner of Studio
 Studio.GameSettings.DraftGames.PublishRequiredToActivatePlayability, to activate Playability options, , to activate Playability options
 Studio.GameSettings.AccessPermissions.DEPRECATED_CollaboratorSearchbarDefaultText,Search by user or group name, ,Search by user or group name
 Studio.GameSettings.Permissions.DEPRECATED_CollaboratorSearchbarDefaultText,Search by user or group name, ,Search by user or group name

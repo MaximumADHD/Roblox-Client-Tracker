@@ -40,17 +40,6 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Event Instance.DescendantAdded(Instance descendant)
 	Event Instance.DescendantRemoving(Instance descendant)
 	Event Instance.Destroying()
-Class ABTestService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function void ABTestService:ClearUserVariations() {LocalUserSecurity}
-	Function Enum.ABTestLoadingStatus ABTestService:GetBrowserTrackerABTestLoadingStatus() {LocalUserSecurity}
-	Function int64 ABTestService:GetPendingOrInitializedUserId() {LocalUserSecurity}
-	Function Enum.ABTestLoadingStatus ABTestService:GetUserABTestLoadingStatus() {LocalUserSecurity}
-	Function string ABTestService:GetVariant(string name) {LocalUserSecurity}
-	Function void ABTestService:InitializeForUserId(int64 userId) {LocalUserSecurity}
-	Function void ABTestService:WaitUntilBrowserTrackerABTestsInitialized() {LocalUserSecurity} [Yields]
-	Function void ABTestService:WaitUntilUserABTestsInitialized() {LocalUserSecurity} [Yields]
-	Event ABTestService.OnBrowserTrackerABTestLoadingStatusChanged(Enum.ABTestLoadingStatus status) {LocalUserSecurity}
-	Event ABTestService.OnUserABTestLoadingStatusChanged(Enum.ABTestLoadingStatus status, int64 userId) {LocalUserSecurity}
 Class Accoutrement : Instance
 	Property Vector3 Accoutrement.AttachmentForward [<📁> LoadOnly] [NotReplicated]
 	Property CFrame Accoutrement.AttachmentPoint
@@ -111,6 +100,7 @@ Class AnimationStreamTrack : Instance [NotCreatable] [NotReplicated]
 	Property float AnimationStreamTrack.WeightCurrent [Hidden] [ReadOnly]
 	Property float AnimationStreamTrack.WeightTarget [Hidden] [ReadOnly]
 	Function void AnimationStreamTrack:AdjustWeight(float weight = 1, float fadeTime = 0.100000001) {RobloxScriptSecurity}
+	Function Tuple AnimationStreamTrack:GetTrackerData() {RobloxScriptSecurity}
 	Function void AnimationStreamTrack:Play(float fadeTime = 0.100000001, float weight = 1) {RobloxScriptSecurity}
 	Function void AnimationStreamTrack:Stop(float fadeTime = 0.100000001) {RobloxScriptSecurity}
 	Event AnimationStreamTrack.Stopped() {RobloxScriptSecurity}
@@ -242,7 +232,7 @@ Class Bone : Attachment
 	Property bool Bone.IsCFrameDriven {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property CFrame Bone.Transform [<📁> LoadOnly] [NotReplicated]
 	Property CFrame Bone.TransformedCFrame [ReadOnly]
-	Property CFrame Bone.TransformedWorldCFrame [ReadOnly]
+	Property CFrame Bone.TransformedWorldCFrame [ReadOnly] {🧬Unsafe}
 Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function HumanoidDescription AvatarEditorService:CheckApplyDefaultClothing(HumanoidDescription humanoidDescription) [Yields]
 	Function HumanoidDescription AvatarEditorService:ConformToAvatarRules(HumanoidDescription humanoidDescription) {RobloxScriptSecurity} [Yields]
@@ -252,8 +242,10 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function InventoryPages AvatarEditorService:GetInventory(Array assetTypes) [Yields]
 	Function Dictionary AvatarEditorService:GetItemDetails(int64 itemId, Enum.AvatarItemType itemType) [Yields]
 	Function OutfitPages AvatarEditorService:GetOutfits(Enum.OutfitSource outfitSource = "All") [Yields]
-	Function Array AvatarEditorService:GetRecommendedAssets(Enum.AvatarAssetType assetType, int64 contextAssetId = 0) [Yields]
-	Function Array AvatarEditorService:GetRecommendedBundles(int64 bundleId) [Yields]
+	Function Array AvatarEditorService:GetRecommendedAssets(Enum.AvatarAssetType assetType, int64 contextAssetId = 0) [Yields] [Deprecated]
+	Function Array AvatarEditorService:GetRecommendedAssetsV2(Enum.AvatarAssetType assetType, int64 assetId, int numItems, bool includeDetails) [Yields]
+	Function Array AvatarEditorService:GetRecommendedBundles(int64 bundleId) [Yields] [Deprecated]
+	Function Array AvatarEditorService:GetRecommendedBundlesV2(Enum.BundleType bundleType, int64 bundleId, int numItems, bool includeDetails) [Yields]
 	Function bool AvatarEditorService:NoPromptCreateOutfit(HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType, string name) {RobloxScriptSecurity}
 	Function bool AvatarEditorService:NoPromptDeleteOutfit(int64 outfitId) {RobloxScriptSecurity}
 	Function bool AvatarEditorService:NoPromptRenameOutfit(int64 outfitId, string name) {RobloxScriptSecurity}
@@ -1022,9 +1014,9 @@ Class DebuggerManager : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void DebuggerManager:EnableDebugging() {LocalUserSecurity}
 	Function Objects DebuggerManager:GetDebuggers()
 	Function void DebuggerManager:Resume()
-	Function void DebuggerManager:StepIn()
-	Function void DebuggerManager:StepOut()
-	Function void DebuggerManager:StepOver()
+	Function void DebuggerManager:StepIn() [Deprecated]
+	Function void DebuggerManager:StepOut() [Deprecated]
+	Function void DebuggerManager:StepOver() [Deprecated]
 	Event DebuggerManager.DebuggerAdded(Instance debugger)
 	Event DebuggerManager.DebuggerRemoved(Instance debugger)
 Class DebuggerUIService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -1200,6 +1192,9 @@ Class Texture : Decal
 	Property float Texture.OffsetStudsV
 	Property float Texture.StudsPerTileU
 	Property float Texture.StudsPerTileV
+Class FacialAnimationRecordingService : Instance [NotCreatable] [Service] [NotReplicated]
+	Property bool FacialAnimationRecordingService.BiometricDataConsent {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Function bool FacialAnimationRecordingService:IsAgeRestricted() {RobloxScriptSecurity}
 Class FacialAnimationStreamingService : Instance [NotCreatable] [Service]
 	Property bool FacialAnimationStreamingService.Enabled {RobloxScriptSecurity} [Hidden]
 Class Feature : Instance [NotCreatable]
@@ -1650,6 +1645,11 @@ Class LineHandleAdornment : HandleAdornment
 	Property float LineHandleAdornment.Thickness
 Class SphereHandleAdornment : HandleAdornment
 	Property float SphereHandleAdornment.Radius
+Class WireframeHandleAdornment : HandleAdornment [NotBrowsable]
+	Function void WireframeHandleAdornment:AddLine(Vector3 from, Vector3 to)
+	Function void WireframeHandleAdornment:AddLines(Array points)
+	Function void WireframeHandleAdornment:AddPath(Array points, bool loop)
+	Function void WireframeHandleAdornment:Clear()
 Class ParabolaAdornment : PVAdornment
 	Property float ParabolaAdornment.A {RobloxScriptSecurity} [Hidden]
 	Property float ParabolaAdornment.B {RobloxScriptSecurity} [Hidden]
@@ -1717,6 +1717,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Enum.ConnectionError GuiService:GetErrorType() {RobloxScriptSecurity}
 	Function bool GuiService:GetGameplayPausedNotificationEnabled()
 	Function Tuple GuiService:GetGuiInset()
+	Function bool GuiService:GetGuiIsVisible(Enum.GuiType guiType) {RobloxScriptSecurity}
 	Function bool GuiService:GetInspectMenuEnabled()
 	Function Dictionary GuiService:GetNotificationTypeList() {RobloxScriptSecurity}
 	Function int GuiService:GetResolutionScale() {RobloxScriptSecurity}
@@ -1744,11 +1745,13 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void GuiService:SetUiMessage(Enum.UiMessageType msgType, string uiMessage = "errorCode") {LocalUserSecurity}
 	Function bool GuiService:ShowStatsBasedOnInputString(string input) {RobloxScriptSecurity}
 	Function void GuiService:ToggleFullscreen() {RobloxScriptSecurity}
+	Function void GuiService:ToggleGuiIsVisibleIfAllowed(Enum.GuiType guiType) {RobloxScriptSecurity}
 	Event GuiService.BrowserWindowClosed() {RobloxScriptSecurity} [Deprecated]
 	Event GuiService.CloseInspectMenuRequest() {RobloxScriptSecurity}
 	Event GuiService.CoreGuiRenderOverflowed() {RobloxScriptSecurity}
 	Event GuiService.EmotesMenuOpenChanged(bool isOpen) {RobloxScriptSecurity}
 	Event GuiService.ErrorMessageChanged(string newErrorMessage) {RobloxScriptSecurity} [Deprecated]
+	Event GuiService.GuiVisibilityChangedSignal(Enum.GuiType guiType, bool visible) {RobloxScriptSecurity}
 	Event GuiService.InspectMenuEnabledChangedSignal(bool enabled) {RobloxScriptSecurity}
 	Event GuiService.InspectPlayerFromHumanoidDescriptionRequest(Instance humanoidDescription, string name) {RobloxScriptSecurity}
 	Event GuiService.InspectPlayerFromUserIdWithCtxRequest(int64 userId, string ctx) {RobloxScriptSecurity}
@@ -1801,17 +1804,17 @@ Class HttpRequest : Instance [NotCreatable]
 	Function void HttpRequest:Start(Function callback) {RobloxScriptSecurity}
 Class HttpService : Instance [NotCreatable] [Service]
 	Property bool HttpService.HttpEnabled {LocalUserSecurity}
-	Function string HttpService:GenerateGUID(bool wrapInCurlyBraces = true)
+	Function string HttpService:GenerateGUID(bool wrapInCurlyBraces = true) {🧬Safe}
 	Function string HttpService:GetAsync(string url, bool nocache = false, Variant headers) [Yields]
 	Function bool HttpService:GetHttpEnabled() {RobloxScriptSecurity}
 	Function string HttpService:GetUserAgent() {RobloxScriptSecurity}
-	Function Variant HttpService:JSONDecode(string input)
-	Function string HttpService:JSONEncode(Variant input)
+	Function Variant HttpService:JSONDecode(string input) {🧬Safe}
+	Function string HttpService:JSONEncode(Variant input) {🧬Safe}
 	Function string HttpService:PostAsync(string url, string data, Enum.HttpContentType content_type = "ApplicationJson", bool compress = false, Variant headers) [Yields]
 	Function Dictionary HttpService:RequestAsync(Dictionary requestOptions) [Yields]
 	Function Instance HttpService:RequestInternal(Dictionary options) {RobloxScriptSecurity}
 	Function void HttpService:SetHttpEnabled(bool enabled) {RobloxScriptSecurity}
-	Function string HttpService:UrlEncode(string input)
+	Function string HttpService:UrlEncode(string input) {🧬Safe}
 Class Humanoid : Instance
 	Property bool Humanoid.BreakJointsOnDeath
 	Property Enum.HumanoidCollisionType Humanoid.CollisionType {✏️PluginSecurity} [Deprecated]
@@ -2354,6 +2357,7 @@ Class MaterialVariant : Instance
 	Property Content MaterialVariant.NormalMap {PluginSecurity}
 	Property Content MaterialVariant.RoughnessMap {PluginSecurity}
 	Property float MaterialVariant.StudsPerTile
+	Property PhysicalProperties MaterialVariant.CustomPhysicalProperties
 Class MemStorageConnection : Instance [NotCreatable] [NotReplicated]
 	Function void MemStorageConnection:Disconnect() {PluginSecurity}
 Class MemStorageService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -2519,11 +2523,8 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property bool BasePart.CanTouch
 	Property string BasePart.CollisionGroup {RobloxScriptSecurity} [<📁> LoadOnly] [Hidden] [NotReplicated]
 	Property int BasePart.CollisionGroupId [NotReplicated]
-	Property CFrame BasePart.CFrame
 	Property float BasePart.LocalTransparencyModifier [Hidden] [NotReplicated]
 	Property bool BasePart.Locked
-	Property Vector3 BasePart.Orientation [<📁> LoadOnly] [NotReplicated]
-	Property Vector3 BasePart.Position [<📁> LoadOnly] [NotReplicated]
 	Property int BasePart.ResizeIncrement [ReadOnly]
 	Property Faces BasePart.ResizeableFaces [ReadOnly]
 	Property Vector3 BasePart.RotVelocity [Hidden] [Deprecated]
@@ -2539,7 +2540,6 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property bool BasePart.Massless
 	Property float BasePart.ReceiveAge [Hidden] [ReadOnly]
 	Property int BasePart.RootPriority
-	Property Vector3 BasePart.Size [<📁> LoadOnly] [NotReplicated]
 	Property Enum.SurfaceType BasePart.BackSurface
 	Property Enum.SurfaceType BasePart.BottomSurface
 	Property Enum.SurfaceType BasePart.FrontSurface
@@ -2564,7 +2564,11 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property float BasePart.TopParamA [Hidden] [Deprecated]
 	Property float BasePart.TopParamB [Hidden] [Deprecated]
 	Property Enum.InputType BasePart.TopSurfaceInput [Hidden] [Deprecated]
+	Property CFrame BasePart.CFrame
+	Property Vector3 BasePart.Orientation [<📁> LoadOnly] [NotReplicated]
 	Property CFrame BasePart.PivotOffset
+	Property Vector3 BasePart.Position [<📁> LoadOnly] [NotReplicated]
+	Property Vector3 BasePart.Size [<📁> LoadOnly] [NotReplicated]
 	Function void BasePart:ApplyAngularImpulse(Vector3 impulse)
 	Function void BasePart:ApplyImpulse(Vector3 impulse)
 	Function void BasePart:ApplyImpulseAtPosition(Vector3 impulse, Vector3 position)
@@ -2705,12 +2709,12 @@ Class Model : PVInstance
 	Function Vector3 Model:GetExtentsSize()
 	Function CFrame Model:GetModelCFrame() [Deprecated]
 	Function Vector3 Model:GetModelSize() [Deprecated]
-	Function CFrame Model:GetPrimaryPartCFrame()
+	Function CFrame Model:GetPrimaryPartCFrame() [Deprecated]
 	Function void Model:MakeJoints()
 	Function void Model:MoveTo(Vector3 position)
 	Function void Model:ResetOrientationToIdentity() [Deprecated]
 	Function void Model:SetIdentityOrientation() [Deprecated]
-	Function void Model:SetPrimaryPartCFrame(CFrame cframe)
+	Function void Model:SetPrimaryPartCFrame(CFrame cframe) [Deprecated]
 	Function void Model:TranslateBy(Vector3 delta)
 	Function void Model:move(Vector3 location) [Deprecated]
 Class Actor : Model
@@ -2744,7 +2748,6 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Enum.InterpolationThrottlingMode Workspace.InterpolationThrottling {✏️PluginSecurity}
 	Property Enum.MeshPartHeadsAndAccessories Workspace.MeshPartHeadsAndAccessories [NotScriptable]
 	Property Enum.PhysicsInertiaAndVolumeFix Workspace.PhysicsInertiaAndVolumeFix [NotScriptable]
-	Property Enum.PhysicsSimulationRate Workspace.PhysicsSimulationRate [Hidden] [NotReplicated]
 	Property Enum.PhysicsSteppingMethod Workspace.PhysicsSteppingMethod [NotScriptable]
 	Property Enum.ReplicateInstanceDestroySetting Workspace.ReplicateInstanceDestroySetting [NotScriptable]
 	Property Enum.AnimatorRetargetingMode Workspace.Retargeting
@@ -2766,7 +2769,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Function bool Workspace:ExperimentalSolverIsEnabled() {LocalUserSecurity}
 	Function int Workspace:GetNumAwakeParts()
 	Function int Workspace:GetPhysicsThrottling()
-	Function double Workspace:GetRealPhysicsFPS()
+	Function double Workspace:GetRealPhysicsFPS() {🧬Safe}
 	Function double Workspace:GetServerTimeNow()
 	Function void Workspace:JoinToOutsiders(Objects objects, Enum.JointCreationMode jointType)
 	Function void Workspace:MakeJoints(Objects objects) {PluginSecurity}
@@ -2789,6 +2792,9 @@ Class PackageLink : Instance [NotCreatable] [NotBrowsable]
 Class PackageService : Instance [NotCreatable] [Service] [NotReplicated]
 Class PackageUIService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void PackageUIService:ConvertToPackageUpload(string uploadUrl, Objects cloneInstances, Objects originalInstances) {RobloxScriptSecurity}
+	Function Dictionary PackageUIService:GetPackageInfo(int64 packageAssetId) {RobloxScriptSecurity} [Yields]
+	Function void PackageUIService:PublishPackage(Instance packageInstance) {RobloxScriptSecurity} [Yields]
+	Function Instance PackageUIService:SetPackageVersion(Instance packageInstance, int64 versionNumber) {RobloxScriptSecurity} [Yields]
 	Event PackageUIService.OnConvertToPackageResult(bool isSuccessful, string errorMessage) {RobloxScriptSecurity}
 	Event PackageUIService.OnOpenConvertToPackagePlugin(Objects instances, string name, Objects cloneInstances) {RobloxScriptSecurity}
 Class Pages : Instance [NotCreatable] [NotReplicated]
@@ -2891,11 +2897,14 @@ Class PhysicsService : Instance [NotCreatable] [Service]
 	Function string PhysicsService:GetCollisionGroupName(int name)
 	Function Array PhysicsService:GetCollisionGroups()
 	Function int PhysicsService:GetMaxCollisionGroups()
+	Function Array PhysicsService:GetRegisteredCollisionGroups()
 	Function void PhysicsService:IkSolve(BasePart part, CFrame target, float translateStiffness, float rotateStiffness) {RobloxScriptSecurity}
 	Function void PhysicsService:LocalIkSolve(BasePart part, CFrame target, float translateStiffness, float rotateStiffness) {LocalUserSecurity}
+	Function void PhysicsService:RegisterCollisionGroup(string name)
 	Function void PhysicsService:RemoveCollisionGroup(string name)
 	Function void PhysicsService:RenameCollisionGroup(string from, string to)
 	Function void PhysicsService:SetPartCollisionGroup(BasePart part, string name)
+	Function void PhysicsService:UnregisterCollisionGroup(string name)
 Class PhysicsSettings : Instance [NotCreatable] [Settings]
 	Property bool PhysicsSettings.AreAnchorsShown
 	Property bool PhysicsSettings.AreAssembliesShown
@@ -3004,6 +3013,7 @@ Class Player : Instance
 	Function void Player:SetAccountAge(int accountAge) {PluginSecurity}
 	Function void Player:SetCharacterAppearanceJson(string jsonBlob) {RobloxScriptSecurity}
 	Function void Player:SetMembershipType(Enum.MembershipType membershipType) {RobloxScriptSecurity}
+	Function void Player:SetModerationAccessKey(string moderationAccessKey) {RobloxScriptSecurity}
 	Function void Player:SetSuperSafeChat(bool value) {PluginSecurity}
 	Function void Player:SetUnder13(bool value) {RobloxSecurity} [Deprecated]
 	Function void Player:UpdatePlayerBlocked(int64 userId, bool blocked) {RobloxScriptSecurity}
@@ -3150,6 +3160,8 @@ Class PluginDragEvent : Instance [NotCreatable] [NotReplicated]
 	Property Vector2 PluginDragEvent.Position [ReadOnly]
 	Property string PluginDragEvent.Sender [ReadOnly]
 Class PluginGuiService : Instance [NotCreatable] [Service] [NotReplicated]
+Class PluginManagementService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void PluginManagementService:SetAutoUpdate(int64 pluginId, bool state) {RobloxScriptSecurity}
 Class PluginManager : Instance [NotCreatable]
 	Function Instance PluginManager:CreatePlugin() {PluginSecurity} [Deprecated] [CustomLuaState]
 	Function void PluginManager:ExportPlace(string filePath = "") {PluginSecurity}
@@ -3376,12 +3388,12 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string RunService:GetCoreScriptVersion() {RobloxScriptSecurity}
 	Function string RunService:GetRobloxClientChannel() {RobloxScriptSecurity}
 	Function string RunService:GetRobloxVersion() {RobloxScriptSecurity}
-	Function bool RunService:IsClient()
-	Function bool RunService:IsEdit() {PluginSecurity}
-	Function bool RunService:IsRunMode()
+	Function bool RunService:IsClient() {🧬Safe}
+	Function bool RunService:IsEdit() {PluginSecurity} {🧬Safe}
+	Function bool RunService:IsRunMode() {🧬Safe}
 	Function bool RunService:IsRunning()
-	Function bool RunService:IsServer()
-	Function bool RunService:IsStudio()
+	Function bool RunService:IsServer() {🧬Safe}
+	Function bool RunService:IsStudio() {🧬Safe}
 	Function void RunService:Pause() {PluginSecurity}
 	Function void RunService:Reset() {PluginSecurity} [Deprecated]
 	Function void RunService:Run() {PluginSecurity}
@@ -3419,8 +3431,11 @@ Class ScriptCloneWatcherHelper : Instance [NotCreatable] [Service] [NotReplicate
 Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool ScriptContext.ScriptsDisabled {LocalUserSecurity} [Hidden]
 	Function void ScriptContext:AddCoreScriptLocal(string name, Instance parent) {RobloxScriptSecurity}
+	Function void ScriptContext:ClearScriptProfilingData() {RobloxScriptSecurity}
 	Function Array ScriptContext:GetCoverageStats() {RobloxScriptSecurity}
 	Function void ScriptContext:SetTimeout(double seconds) {PluginSecurity}
+	Function void ScriptContext:StartScriptProfiling() {RobloxScriptSecurity}
+	Function string ScriptContext:StopScriptProfiling() {RobloxScriptSecurity} [CustomLuaState]
 	Event ScriptContext.Error(string message, string stackTrace, Instance script)
 	Event ScriptContext.ErrorDetailed(string message, string stackTrace, Instance script, string details, int securityLevel) {RobloxScriptSecurity}
 Class ScriptDebugger : Instance [NotCreatable]
@@ -3452,8 +3467,12 @@ Class ScriptDocument : Instance [NotCreatable] [NotReplicated]
 	Function string ScriptDocument:GetLine(int? lineIndex = nil) {PluginSecurity}
 	Function int ScriptDocument:GetLineCount() {PluginSecurity}
 	Function LuaSourceContainer ScriptDocument:GetScript() {PluginSecurity}
+	Function string ScriptDocument:GetSelectedText() {PluginSecurity}
 	Function Tuple ScriptDocument:GetSelection() {PluginSecurity}
+	Function Tuple ScriptDocument:GetSelectionEnd() {PluginSecurity}
+	Function Tuple ScriptDocument:GetSelectionStart() {PluginSecurity}
 	Function string ScriptDocument:GetText(int? startLine = nil, int? startCharacter = nil, int? endLine = nil, int? endCharacter = nil) {PluginSecurity}
+	Function bool ScriptDocument:HasSelectedText() {PluginSecurity}
 	Function bool ScriptDocument:IsCommandBar() {PluginSecurity}
 	Event ScriptDocument.SelectionChanged(int64 positionLine, int64 positionCharacter, int64 anchorLine, int64 anchorCharacter) {PluginSecurity}
 Class ScriptEditorService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -3623,6 +3642,7 @@ Class Sound : Instance
 Class SoundEffect : Instance [NotCreatable]
 	Property bool SoundEffect.Enabled
 	Property int SoundEffect.Priority
+Class AssetSoundEffect : SoundEffect [NotCreatable]
 Class ChorusSoundEffect : SoundEffect
 	Property float ChorusSoundEffect.Depth
 	Property float ChorusSoundEffect.Mix
@@ -3660,7 +3680,6 @@ Class ReverbSoundEffect : SoundEffect
 	Property float ReverbSoundEffect.Diffusion
 	Property float ReverbSoundEffect.DryLevel
 	Property float ReverbSoundEffect.WetLevel
-Class RomarkSoundEffect : SoundEffect [NotCreatable]
 Class TremoloSoundEffect : SoundEffect
 	Property float TremoloSoundEffect.Depth
 	Property float TremoloSoundEffect.Duty
@@ -3928,14 +3947,20 @@ Class StudioData : Instance [NotCreatable] [Service]
 	Property int64 StudioData.SrcPlaceId {RobloxSecurity} [Hidden] [NotReplicated]
 	Property int64 StudioData.SrcUniverseId {RobloxSecurity} [Hidden] [NotReplicated]
 Class StudioDeviceEmulatorService : Instance [NotCreatable] [Service] [NotReplicated]
+	Property bool StudioDeviceEmulatorService.HasMultiTouchStarted {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool StudioDeviceEmulatorService.IsMultiTouchEnabled {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property Vector2 StudioDeviceEmulatorService.PivotPosition {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function bool StudioDeviceEmulatorService:EmulatePCDeviceWithResolution(string deviceId, Vector2 resolution) {RobloxScriptSecurity} [Yields]
 	Function string StudioDeviceEmulatorService:GetCurrentDeviceId() {RobloxScriptSecurity} [Yields]
 	Function Enum.ScreenOrientation StudioDeviceEmulatorService:GetCurrentOrientation() {RobloxScriptSecurity} [Yields]
+	Function int StudioDeviceEmulatorService:GetMaxNumTouches() {RobloxScriptSecurity}
+	Function Vector2 StudioDeviceEmulatorService:GetTouchPosition(int index) {RobloxScriptSecurity}
 	Function bool StudioDeviceEmulatorService:HasDeviceWithId(string deviceId) {RobloxScriptSecurity} [Yields]
 	Function void StudioDeviceEmulatorService:SetCurrentDeviceId(string deviceId) {RobloxScriptSecurity} [Yields]
 	Function void StudioDeviceEmulatorService:SetCurrentOrientation(Enum.ScreenOrientation orientation) {RobloxScriptSecurity} [Yields]
 	Event StudioDeviceEmulatorService.CurrentDeviceIdChanged() {RobloxScriptSecurity}
 	Event StudioDeviceEmulatorService.OrientationChanged() {RobloxScriptSecurity}
+	Event StudioDeviceEmulatorService.TouchPositionsChanged() {RobloxScriptSecurity}
 Class StudioHighDpiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool StudioHighDpiService:IsNotHighDPIAwareBuild() {RobloxScriptSecurity}
 Class StudioPublishService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -4593,13 +4618,6 @@ Class WeldConstraint : Instance
 	Property bool WeldConstraint.Enabled [<📁> LoadOnly] [NotReplicated]
 	Property BasePart WeldConstraint.Part0 [<📁> LoadOnly] [NotReplicated]
 	Property BasePart WeldConstraint.Part1 [<📁> LoadOnly] [NotReplicated]
-Enum ABTestLoadingStatus
-	EnumItem ABTestLoadingStatus.None : 0
-	EnumItem ABTestLoadingStatus.Pending : 1
-	EnumItem ABTestLoadingStatus.Initialized : 2
-	EnumItem ABTestLoadingStatus.Error : 3
-	EnumItem ABTestLoadingStatus.TimedOut : 4
-	EnumItem ABTestLoadingStatus.ShutOff : 5
 Enum AccessoryType
 	EnumItem AccessoryType.Unknown : 0
 	EnumItem AccessoryType.Hat : 1
@@ -4993,6 +5011,7 @@ Enum CollisionFidelity
 	EnumItem CollisionFidelity.Hull : 1
 	EnumItem CollisionFidelity.Box : 2
 	EnumItem CollisionFidelity.PreciseConvexDecomposition : 3
+	EnumItem CollisionFidelity.DynamicPreciseConvexDecomposition : 4
 Enum CommandPermission
 	EnumItem CommandPermission.Plugin : 0
 	EnumItem CommandPermission.LocalUser : 1
@@ -5041,6 +5060,7 @@ Enum ConnectionError
 	EnumItem ConnectionError.DisconnectOutOfMemory : 286
 	EnumItem ConnectionError.DisconnectModeratedGame : 287
 	EnumItem ConnectionError.DisconnectOutOfMemoryExitContinue : 288
+	EnumItem ConnectionError.DisconnectOutOfMemoryKeepPlayingExit : 289
 	EnumItem ConnectionError.PlacelaunchErrors : 512
 	EnumItem ConnectionError.PlacelaunchDisabled : 515
 	EnumItem ConnectionError.PlacelaunchError : 516
@@ -5409,6 +5429,11 @@ Enum GraphicsMode
 	EnumItem GraphicsMode.Metal : 5
 	EnumItem GraphicsMode.Vulkan : 6
 	EnumItem GraphicsMode.NoGraphics : 7
+Enum GuiType
+	EnumItem GuiType.Core : 0
+	EnumItem GuiType.Custom : 1
+	EnumItem GuiType.PlayerNameplates : 2
+	EnumItem GuiType.CustomBillboards : 3
 Enum HandlesStyle
 	EnumItem HandlesStyle.Resize : 0
 	EnumItem HandlesStyle.Movement : 1

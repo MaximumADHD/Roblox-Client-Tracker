@@ -5350,6 +5350,8 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">PrimaryPart</string>
+            <string name="PropertyOrder">200</string>
+            <string name="Description">A Part that serves as a physical reference for the Model's Pivot. If set, the Pivot will follow the PrimaryPart during simulation, otherwise the Pivot will be a fixed world space location.</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -6267,16 +6269,19 @@
       <Item class="ReflectionMetadataMember">
         <Properties>
           <string name="Name">Size</string>
+          <string name="PropertyOrder">50</string>
         </Properties>
       </Item>
         <Item class="ReflectionMetadataMember">
             <Properties>
                 <string name="Name">Position</string>
+                <string name="PropertyOrder">100</string>
             </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
             <Properties>
                 <string name="Name">Orientation</string>
+              <string name="PropertyOrder">200</string>
             </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -7517,7 +7522,7 @@
         <string name="ExplorerImageIndex">109</string>
       </Properties>
     </Item>
-        <Item class="ReflectionMetadataClass">
+    <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">SphereHandleAdornment</string>
         <string name="ClassCategory">Adornments</string>
@@ -7525,7 +7530,16 @@
         <string name="ExplorerImageIndex">112</string>
       </Properties>
     </Item>
-        <Item class="ReflectionMetadataClass">
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="FFlag">WireframeHandleEnable</string>
+        <string name="Name">WireframeHandleAdornment</string>
+        <string name="ClassCategory">Adornments</string>
+        <string name="ExplorerOrder">205</string>
+        <string name="ExplorerImageIndex">113</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">LineHandleAdornment</string>
         <string name="ClassCategory">Adornments</string>
@@ -7540,7 +7554,7 @@
         <string name="ExplorerOrder">205</string>
         <string name="ExplorerImageIndex">108</string>
       </Properties>
-      </Item>
+    </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">SelectionPartLasso</string>
@@ -7579,7 +7593,7 @@
         <string name="Insertable">false</string>
       </Properties>
     </Item>
-      <Item class="ReflectionMetadataClass">
+    <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">NumberPose</string>
         <string name="ExplorerOrder">220</string>
