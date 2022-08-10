@@ -33,7 +33,6 @@ local Header = require(ShareGame.Components.Header)
 local ConversationList = require(ShareGame.Components.ConversationList)
 local Constants = require(ShareGame.Constants)
 local ShareInviteLink = require(ShareGame.Components.ShareInviteLink)
-local FFlagEnableServerInGameMenu = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableServerInGameMenu)
 local GetGameNameAndDescription = require(RobloxGui.Modules.Common.GetGameNameAndDescription)
 
 local FetchUserFriends
@@ -68,7 +67,6 @@ end
 
 function ShareGamePageFrame:shouldShowInviteLink(gameInfo)
 	if GetFFlagShareInviteLinkContextMenuV1Enabled()
-		and FFlagEnableServerInGameMenu()
 		and self.state.serverType == CommonConstants.STANDARD_SERVER
 		and utility:IsExperienceOlderThanOneWeek(gameInfo) then
 			return true
@@ -77,7 +75,7 @@ function ShareGamePageFrame:shouldShowInviteLink(gameInfo)
 		return false
 end
 
-if GetFFlagShareInviteLinkContextMenuV1Enabled() and FFlagEnableServerInGameMenu() then
+if GetFFlagShareInviteLinkContextMenuV1Enabled() then
 	function ShareGamePageFrame:didMount()
 		self.props.fetchGameInfo()
 		if self.state.serverType == nil then

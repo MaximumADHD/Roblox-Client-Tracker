@@ -125,12 +125,15 @@ return function()
 
 				describe("WHEN TextChatService.ChatVersion is new TextChatService", function()
 
-					it("SHOULD have 3 default buttons: Friend, Wave, View.", function(c)
-						if c.isChatVersionValid() then
+					it("SHOULD have 4 default buttons: Friend, Chat, Wave, View.", function(c)
+						if c.isChatVersionValid() and not FFlagEnableExperienceChat then
 							c.TextChatService = {
-								ChatVersion = Enum.ChatVersion.TextChatService,
+								ChatVersion = Enum.ChatVersion.LegacyChatService,
 							}
-							c.testForCorrectButtonNames({ "Wave", "FriendStatus", "View" }, c.TextChatService)
+							c.testForCorrectButtonNames(
+								{ "Wave", "ChatStatus", "FriendStatus", "View" },
+								c.TextChatService
+							)
 						end
 					end)
 				end)

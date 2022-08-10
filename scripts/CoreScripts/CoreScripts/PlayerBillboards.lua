@@ -44,6 +44,7 @@ local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFF
 local FFlagEnableExperienceChat = require(RobloxGui.Modules.Common.Flags.FFlagEnableExperienceChat)
 local FFlagExperienceChatFixBubbleChat = game:DefineFastFlag("ExperienceChatFixBubbleChat", false)
 local GetFFlagUpgradeExpChatV2_0_0 = require(CorePackages.Flags.GetFFlagUpgradeExpChatV2_0_0)
+local FFlagExperienceChatBubbleUseSending = game:DefineFastFlag("ExperienceChatBubbleUseSending", false)
 
 local ExperienceChat
 local MessageReceivedBindableEvent
@@ -147,7 +148,7 @@ local function initBubbleChat()
 		end)
 	end))
 
-	local function addMessage(partOrModel, message)
+	local function addMessageWithId(partOrModel, message, thisMessageId)
 		local part
 		if partOrModel:IsA("Model") then
 			if partOrModel.PrimaryPart then
@@ -178,10 +179,8 @@ local function initBubbleChat()
 			end
 		end
 
-		messageId = messageId + 1
-
 		local message = {
-			id = "chatted_" .. messageId,
+			id = "chatted_" .. thisMessageId,
 			userId = userId,
 			name = partOrModel.Name,
 			text = GameTranslator:TranslateGameText(CoreGui, message),
@@ -190,6 +189,11 @@ local function initBubbleChat()
 		}
 
 		chatStore:dispatch(AddMessageWithTimeout(message))
+	end
+
+	local function addMessage(partOrModel, message)
+		messageId = messageId + 1
+		addMessageWithId(partOrModel, message, messageId)
 	end
 
 	if FFlagEnableExperienceChat then
@@ -202,6 +206,23 @@ local function initBubbleChat()
 
 	if GetFFlagUpgradeExpChatV2_0_0() then
 		local TextChatService = game:GetService("TextChatService")
+
+		if FFlagExperienceChatBubbleUseSending then
+			TextChatService.SendingMessage:Connect(function(textChatMessage)
+				local textSource = textChatMessage.TextSource
+				if textSource and textSource.UserId then
+					local player = Players:GetPlayerByUserId(textSource.UserId)
+					if player then
+						local character = player.Character
+						if textChatMessage.Status == Enum.TextChatMessageStatus.Sending then
+							addMessageWithId(character, textChatMessage.Text, textChatMessage.MessageId)
+						end
+					end
+				end
+			end)
+		end
+
+
 		TextChatService.MessageReceived:Connect(function(textChatMessage)
 			local textSource = textChatMessage.TextSource
 			if textSource and textSource.UserId then
@@ -210,8 +231,19 @@ local function initBubbleChat()
 					local character = player.Character
 					if character and character.PrimaryPart then
 						if FFlagExperienceChatFixBubbleChat then
-							if textChatMessage.Status == Enum.TextChatMessageStatus.Success then
-								addMessage(character, textChatMessage.Text)
+							if FFlagExperienceChatBubbleUseSending then
+								if textChatMessage.Status == Enum.TextChatMessageStatus.Success then
+									local id = "chatted_" .. textChatMessage.MessageId
+									if chatStore:getState().messages[id] then
+										chatStore:dispatch(SetMessageText(id, textChatMessage.Text))
+									else
+										addMessageWithId(character, textChatMessage.Text, textChatMessage.MessageId)
+									end
+								end
+							else
+								if textChatMessage.Status == Enum.TextChatMessageStatus.Success then
+									addMessage(character, textChatMessage.Text)
+								end
 							end
 						else
 							addMessage(character, textChatMessage.Text)

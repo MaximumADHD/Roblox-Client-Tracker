@@ -10,6 +10,8 @@
 		UDim2 Position: The position of the scrolling frame.
 		UDim2 Size: The size of the scrolling frame.
 ]]
+local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Libs = Plugin.Packages
 local Framework = require(Libs.Framework)
@@ -43,14 +45,16 @@ type _ExternalProps = {
 		subcategoryDict: { [string]: HomeTypes.Subcategory },
 		categoryName: string?,
 		sortName: string?,
-		navigation: any
+		navigation: any,
+		queryParams: HomeTypes.SubcategoryQueryParams?
 	) -> ()),
 	OnClickSeeAllAssets: ((
 		sectionName: string?,
 		categoryName: string,
 		sortName: string?,
 		searchTerm: string?,
-		navigation: any
+		navigation: any,
+		queryParams: HomeTypes.SubcategoryQueryParams?
 	) -> ()),
 	Position: UDim2?,
 	Size: UDim2?,
@@ -89,8 +93,10 @@ function SubcategoriesView:init(props: SubcategoriesViewProps)
 
 		local subcategoryData = subcategoryDict[subcategoryName]
 
-		if subcategoryData.childCount == 0 and onClickSeeAllAssets then
+		if not FFlagToolboxUseQueryForCategories2 and subcategoryData.childCount == 0 and onClickSeeAllAssets then
 			onClickSeeAllAssets(nil, categoryName, sortName, subcategoryData.searchKeywords)
+		elseif FFlagToolboxUseQueryForCategories2 and subcategoryData.childCount == 0 and onClickSeeAllAssets then
+			onClickSeeAllAssets(nil, categoryName, sortName, nil, subcategoryData.queryParams)
 		elseif onClickSubcategory then
 			onClickSubcategory({ subcategoryName }, subcategoryData.children, categoryName, sortName)
 		end

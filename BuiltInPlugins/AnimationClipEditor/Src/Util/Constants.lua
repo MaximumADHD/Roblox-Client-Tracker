@@ -382,6 +382,7 @@ local Constants = {
 		Reverse = "Reverse",
 		Pause = "Pause",
 		Play = "Play",
+		Record = "Record",
 	},
 
 	EDITOR_MODE = {

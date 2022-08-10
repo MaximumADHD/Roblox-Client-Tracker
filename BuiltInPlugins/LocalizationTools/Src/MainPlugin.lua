@@ -31,8 +31,6 @@ local WINDOW_SIZE = Vector2.new(300, 250)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
-local FFlagFixPluginsEnabledViaDockingContextMenu = game:GetFastFlag("FixPluginsEnabledViaDockingContextMenu")
-
 function MainPlugin:init()
 	self.state = {
 		enabled = false,
@@ -134,7 +132,7 @@ function MainPlugin:render()
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
 			OnWidgetCreated = self.onDockWidgetCreated,
-			[Roact.Change.Enabled] = if FFlagFixPluginsEnabledViaDockingContextMenu then self.onDockWidgetEnabledChanged else nil,
+			[Roact.Change.Enabled] = self.onDockWidgetEnabledChanged,
 		}, {
 			MainProvider = enabled and ContextServices.provide({
 				Mouse.new(plugin:getMouse()),

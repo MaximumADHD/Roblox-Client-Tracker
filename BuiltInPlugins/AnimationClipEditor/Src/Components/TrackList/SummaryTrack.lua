@@ -21,6 +21,7 @@ local withContext = ContextServices.withContext
 local IKController = require(Plugin.Src.Components.IK.IKController)
 
 local FaceControlsEditorController = require(Plugin.Src.Components.FaceControlsEditor.FaceControlsEditorController)
+local RecordingModeButton = require(Plugin.Src.Components.FacialAnimationRecorder.RecordingModeButton)
 
 local TrackListEntry = require(Plugin.Src.Components.TrackList.TrackListEntry)
 local AddTrackButton = require(Plugin.Src.Components.TrackList.AddTrackButton)
@@ -29,6 +30,7 @@ local isEmpty = require(Plugin.Src.Util.isEmpty)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
+local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
 local GetFFlagFaceControlsEditorUI = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUI)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 
@@ -44,6 +46,18 @@ function SummaryTrack:init()
 	end
 end
 
+function truncateAtMiddle(labelText, maxChars, separator)
+	if #labelText > maxChars then
+		local separator = separator or "..."
+		local separatorLength = #separator
+		local charsToShow = maxChars - separatorLength
+		local frontChars = math.ceil(charsToShow / 2)
+		local backChars = math.floor(charsToShow / 2)
+		return string.sub(labelText, 0, frontChars) .. separator .. string.sub(labelText,  #labelText - backChars)
+	end
+	return labelText
+end
+
 function SummaryTrack:render()
 	local props = self.props
 	local theme = GetFFlagExtendPluginTheme() and props.Stylizer or props.Stylizer.PluginTheme
@@ -52,9 +66,13 @@ function SummaryTrack:render()
 	local tracks = props.UnusedTracks
 	local facs = props.UnusedFacs
 
-	local trackTheme = theme.trackTheme
-
+	local trackTheme = theme.trackTheme	
+	local truncatedAtMiddleName = ""	
 	local textWidth = StringUtils.getTextWidth(name, trackTheme.textSize, theme.font)
+	if GetFFlagFacialAnimationRecordingInStudio() then
+		truncatedAtMiddleName = truncateAtMiddle( name, 16)
+		textWidth = StringUtils.getTextWidth(truncatedAtMiddleName , trackTheme.textSize, theme.font)
+	end	
 	local showTrackButton = (tracks and not isEmpty(tracks)) or (facs and not isEmpty(facs))
 
 	return Roact.createElement(TrackListEntry, {
@@ -68,7 +86,7 @@ function SummaryTrack:render()
 			Position = UDim2.new(0, 0, 0, 0),
 			BackgroundTransparency = 1,
 
-			Text = name,
+			Text = ( GetFFlagFacialAnimationRecordingInStudio() and truncatedAtMiddleName) or name,
 			Font = theme.font,
 			TextSize = trackTheme.textSize,
 			TextColor3 = trackTheme.textColor,
@@ -91,6 +109,9 @@ function SummaryTrack:render()
 			IKController = Roact.createElement(IKController, {
 			}),
 			FaceControlsEditorController = Roact.createElement(FaceControlsEditorController, {
+			}),
+			-- TODO: replace with integration with FaceControlsEditorController button with popup menu
+			RecordingModeButton = GetFFlagFacialAnimationRecordingInStudio() and Roact.createElement(RecordingModeButton, {			
 			}),
 		}),
 

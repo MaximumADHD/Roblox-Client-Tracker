@@ -52,7 +52,11 @@ local AnimationClipEditorPlugin = Roact.PureComponent:extend("AnimationClipEdito
 
 local FStringFaceControlsEditorLink = game:GetFastString("FaceControlsEditorLink")
 local FStringCurveEditorLink = game:DefineFastString("ACECurveEditorLink", "https://create.roblox.com/docs/building-and-visuals/animation/curve-editor")
+--TODO: FStringFaceRecorderLink: replace link string once we get the url to use!
+local FStringFaceRecorderLink = game:DefineFastString("ACEFaceRecorderLink", "https://create.roblox.com/docs/building-and-visuals/animation/face-recorder")
+
 local GetFFlagFaceControlsEditorBugBash3Update = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorBugBash3Update)
+local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
 
 function AnimationClipEditorPlugin:handleButtonClick(plugin)
 	if RunService:IsRunning() then
@@ -90,7 +94,7 @@ function AnimationClipEditorPlugin:init(initialProps)
 		translationResourceTable = LocalizedStrings,
 	})
 
-	if GetFFlagFaceControlsEditorShowCallout() or GetFFlagCurveEditorCallout() then
+	if GetFFlagFaceControlsEditorShowCallout() or GetFFlagCurveEditorCallout() or GetFFlagFacialAnimationRecordingInStudio() then
 		self.calloutController = CalloutController.new()
 		do
 			if GetFFlagFaceControlsEditorShowCallout() then
@@ -114,6 +118,17 @@ function AnimationClipEditorPlugin:init(initialProps)
 					FStringCurveEditorLink
 				)
 			end
+			
+			--Teaching Callout for Face Capture button:
+			if GetFFlagFacialAnimationRecordingInStudio() then
+				self.calloutController:defineCallout(
+					"FaceRecorderCallout",
+					self.localization:getText("FaceCapture", "TeachingCalloutTitle"),
+					self.localization:getText("FaceCapture", "TeachingCalloutDescription"),
+					FStringFaceRecorderLink
+				)
+			end
+			
 		end
 	end
 

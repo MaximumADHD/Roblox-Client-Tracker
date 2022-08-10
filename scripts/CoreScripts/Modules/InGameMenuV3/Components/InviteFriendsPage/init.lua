@@ -3,6 +3,9 @@ local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
+local ExternalContentSharingProtocol
+	= require(CorePackages.UniversalApp.ExternalContentSharing.ExternalContentSharingProtocol).default
+
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local t = InGameMenuDependencies.t
@@ -27,6 +30,9 @@ local IsExperienceOlderThanOneWeek = require(InGameMenu.Utility.IsExperienceOlde
 local GetFriends = require(InGameMenu.Thunks.GetFriends)
 local SocialDependencies = require(InGameMenu.SocialDependencies)
 local RoduxShareLinks = SocialDependencies.RoduxShareLinks
+local NetworkingShareLinks = SocialDependencies.NetworkingShareLinks
+local RoduxNetworking = SocialDependencies.RoduxNetworking
+local NetworkStatus = RoduxNetworking.Enum.NetworkStatus
 local UrlBuilder = SocialDependencies.UrlBuilder
 
 local InviteFriendsList = require(script.InviteFriendsList)
@@ -45,7 +51,6 @@ local SearchBar = require(script.Parent.SearchBar)
 local Flags = InGameMenu.Flags
 local GetFFlagShareInviteLinkContextMenuV3Enabled = require(Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
 local GetFFlagConsolidateGetFriends = require(Flags.GetFFlagConsolidateGetFriends)
-local FFlagEnableServerInGameMenu = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableServerInGameMenu)
 
 local ACTIONS_ICON_PADDING = 10
 
@@ -90,27 +95,30 @@ function InviteFriendsPage:init()
 	if GetFFlagShareInviteLinkContextMenuV3Enabled() then
 		self.shareInviteLinkButtonOnActivated = function()
 			SendAnalytics(Constants.ShareLinksAnalyticsName, Constants.ShareLinksAnalyticsButtonClickName, {
+				btn = "shareServerInviteLink",
 				page = "inGameMenu",
 				subpage = "inviteFriendsPage",
 			})
 
 			if self.props.shareInviteLink == nil then
-				self.props.fetchShareInviteLink(self.props.serverType)
+				self.props.fetchShareInviteLink()
 			else
 				self.showSharesheet(self.props.shareInviteLink.linkId)
 			end
 		end
 
 		self.showSharesheet = function(linkId) 
-			-- TODO COEXP-310: Show sharesheet with url as the text
-			local _url = UrlBuilder.sharelinks.appsflyer(linkId, RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue())
+			local url = UrlBuilder.sharelinks.appsflyer(linkId, RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue())
+			ExternalContentSharingProtocol:shareText({
+				text = url,
+				context = Constants.ShareLinksAnalyticsExternalContentSharingInviteFriendsContextName
+			})
 		end
 	end
 end
 
 function InviteFriendsPage:shouldShowShareInviteLink(gameInfo)
 	if GetFFlagShareInviteLinkContextMenuV3Enabled()
-		and FFlagEnableServerInGameMenu()
 		and self.props.serverType == CommonConstants.STANDARD_SERVER
 		and IsExperienceOlderThanOneWeek(gameInfo)
 	then
@@ -233,6 +241,7 @@ function InviteFriendsPage:getActions()
 		ShareIcon = if self:shouldShowShareInviteLink(self.props.gameInfo) then Roact.createElement(ShareInviteLinkButton, {
 			layoutOrder = 1,
 			onActivated = self.shareInviteLinkButtonOnActivated,
+			isDisabled = if self.props.fetchShareInviteLinkNetworkStatus == NetworkStatus.Fetching then true else false
 		}) else nil,
 		SearchIcon = Roact.createElement(IconButton, {
 			layoutOrder = GetFFlagShareInviteLinkContextMenuV3Enabled() and 2 or 1,
@@ -266,7 +275,7 @@ function InviteFriendsPage:didUpdate(prevProps, prevState)
 	if prevProps.shareInviteLink == nil and self.props.shareInviteLink ~= nil then
 		local linkId = self.props.shareInviteLink.linkId
 		SendAnalytics(Constants.ShareLinksAnalyticsName, Constants.ShareLinksAnalyticsLinkGeneratedName, {
-			page = "inGameMenu",
+			page = "inGameMenuV3",
 			subpage = "inviteFriendsPage",
 			linkId = linkId,
 			linkType = RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue(),
@@ -374,6 +383,7 @@ if GetFFlagShareInviteLinkContextMenuV3Enabled() then
 			menuPage = state.menuPage,
 			isMenuOpen = state.isMenuOpen,
 			shareInviteLink = state.shareLinks.Invites.ShareInviteLink,
+			fetchShareInviteLinkNetworkStatus = NetworkingShareLinks.GenerateLink.getStatus(state, RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue()),
 			gameInfo = state.gameInfo,
 			serverType = state.serverType,
 		}

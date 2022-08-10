@@ -50,7 +50,6 @@ local Constants = require(PluginFolder.Src.Util.Constants)
 
 local StudioService = game:GetService("StudioService")
 
-local FFlagDevFrameworkTableHeaderTooltip = game:GetFastFlag("DevFrameworkTableHeaderTooltip")
 local FFlagDevFrameworkExpandColumnOnDoubleClickDragbar = game:GetFastFlag("DevFrameworkExpandColumnOnDoubleClickDragbar")
 
 local defaultColumnKey = {
@@ -453,7 +452,7 @@ function CallstackComponent:render()
 		local currCol = {
 			Name = localization:getText("Callstack", v),
 			Key = columnNameToKey[v],
-			Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText("Callstack", v .. "Tooltip") or nil,
+			Tooltip = localization:getText("Callstack", v .. "Tooltip") or nil,
 		}
 		table.insert(tableColumns, currCol)
 	end

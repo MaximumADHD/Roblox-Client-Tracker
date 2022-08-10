@@ -15,13 +15,6 @@
 local CameraModule = {}
 CameraModule.__index = CameraModule
 
-local FFlagUserFlagEnableNewVRSystem do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFlagEnableNewVRSystem")
-	end)
-	FFlagUserFlagEnableNewVRSystem = success and result
-end
-
 -- NOTICE: Player property names do not all match their StarterPlayer equivalents,
 -- with the differences noted in the comments on the right
 local PLAYER_CAMERA_PROPERTIES =
@@ -324,7 +317,7 @@ function CameraModule:ActivateCameraController(cameraMovementMode, legacyCameraT
 	end
 
 	if not newCameraCreator then
-		if FFlagUserFlagEnableNewVRSystem and VRService.VREnabled then
+		if VRService.VREnabled then
 			newCameraCreator = VRCamera
 		elseif cameraMovementMode == Enum.ComputerCameraMovementMode.Classic or
 			cameraMovementMode == Enum.ComputerCameraMovementMode.Follow or
@@ -341,7 +334,7 @@ function CameraModule:ActivateCameraController(cameraMovementMode, legacyCameraT
 
 	local isVehicleCamera = self:ShouldUseVehicleCamera()
 	if isVehicleCamera then
-		if FFlagUserFlagEnableNewVRSystem and VRService.VREnabled then
+		if VRService.VREnabled then
 			newCameraCreator = VRVehicleCamera
 		else
 			newCameraCreator = VehicleCamera
@@ -500,9 +493,7 @@ function CameraModule:Update(dt)
 		self.activeCameraController:UpdateMouseBehavior()
 
 		local newCameraCFrame, newCameraFocus = self.activeCameraController:Update(dt)
-		if not FFlagUserFlagEnableNewVRSystem then
-			self.activeCameraController:ApplyVRTransform()
-		end
+
 		if self.activeOcclusionModule then
 			newCameraCFrame, newCameraFocus = self.activeOcclusionModule:Update(dt, newCameraCFrame, newCameraFocus)
 		end

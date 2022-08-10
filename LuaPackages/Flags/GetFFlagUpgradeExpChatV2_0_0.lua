@@ -1,5 +1,5 @@
-game:DefineFastFlag("UpgradeExpChatV2_0_0", false)
+game:DefineFastFlag("UpgradeExpChatV2_1_0", false)
 
 return function()
-	return game:GetFastFlag("UpgradeExpChatV2_0_0")
+	return game:GetFastFlag("UpgradeExpChatV2_1_0")
 end

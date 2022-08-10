@@ -23,7 +23,6 @@ local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-local GetFFlagBoneAdornmentSelection = require(Plugin.LuaFlags.GetFFlagBoneAdornmentSelection)
 
 return function(analytics)
 	return function(store)
@@ -71,11 +70,7 @@ return function(analytics)
 
 		RigUtils.clearMicrobones()
 		if rootInstance and not animationData then
-			if GetFFlagBoneAdornmentSelection() then
-				store:dispatch(SetBoneLinksToBone(RigUtils.updateMicrobones(rootInstance, visualizeBones)))
-			else
-				RigUtils.updateMicrobones(rootInstance, visualizeBones)
-			end
+			store:dispatch(SetBoneLinksToBone(RigUtils.updateMicrobones(rootInstance, visualizeBones)))
 		end
 		store:dispatch(StepAnimation(playhead))
 	end

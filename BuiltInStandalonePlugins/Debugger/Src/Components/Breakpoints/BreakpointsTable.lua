@@ -29,7 +29,6 @@ local Constants = require(PluginFolder.Src.Util.Constants)
 local BreakpointsTreeTableCell = require(PluginFolder.Src.Components.Breakpoints.BreakpointsTreeTableCell)
 
 local BreakpointsTable = Roact.PureComponent:extend("BreakpointsTable")
-local FFlagDevFrameworkTableHeaderTooltip = game:GetFastFlag("DevFrameworkTableHeaderTooltip")
 local FFlagDevFrameworkExpandColumnOnDoubleClickDragbar = game:GetFastFlag("DevFrameworkExpandColumnOnDoubleClickDragbar")
 
 local UtilFolder = PluginFolder.Src.Util
@@ -431,7 +430,7 @@ function BreakpointsTable:render()
 		{
 			Name = localization:getText("BreakpointsWindow", "ScriptColumn"),
 			Key = defaultColumnKeys[2],
-			Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText(
+			Tooltip = localization:getText(
 				"BreakpointsWindow",
 				"ScriptColumnTooltip"
 			) or nil,
@@ -439,7 +438,7 @@ function BreakpointsTable:render()
 		{
 			Name = localization:getText("BreakpointsWindow", "LineColumn"),
 			Key = defaultColumnKeys[3],
-			Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText(
+			Tooltip = localization:getText(
 				"BreakpointsWindow",
 				"LineColumnTooltip"
 			) or nil,
@@ -450,7 +449,7 @@ function BreakpointsTable:render()
 		local currCol = {
 			Name = localization:getText("BreakpointsWindow", v),
 			Key = dropdownColumnNameToKey[v],
-			Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText("BreakpointsWindow", v .. "Tooltip")
+			Tooltip = localization:getText("BreakpointsWindow", v .. "Tooltip")
 				or nil,
 		}
 		table.insert(tableColumns, currCol)

@@ -106,6 +106,15 @@ local function getProductPurchasableDetails(productId)
 	})
 end
 
+local function getRobuxUpsellProduct(price, robuxBalance, paymentPlatform)
+	return Promise.resolve({
+		roblox_product_id = 50,
+		provider_product_id = "robux50",
+		roblox_product_name = "providerRobux50",
+		robux_amount = 500,
+	})
+end
+
 local function postPremiumImpression()
 	return Promise.resolve()
 end
@@ -148,6 +157,7 @@ function MockNetwork.new(successResult, failureResult)
 			getBalanceInfo = retFunction,
 			getBundleDetails = retFunction,
 			getProductPurchasableDetails = retFunction,
+			getRobuxUpsellProduct = retFunction,
 			postPremiumImpression = retFunction,
 			getPremiumUpsellPrecheck = retFunction,
 			getPurchaseWarning = retFunction,
@@ -164,6 +174,7 @@ function MockNetwork.new(successResult, failureResult)
 			getBalanceInfo = getBalanceInfo,
 			getBundleDetails = getBundleDetails,
 			getProductPurchasableDetails = getProductPurchasableDetails,
+			getRobuxUpsellProduct = getRobuxUpsellProduct,
 			postPremiumImpression = postPremiumImpression,
 			getPremiumUpsellPrecheck = getPremiumUpsellPrecheck,
 			getPurchaseWarning = getPurchaseWarning,

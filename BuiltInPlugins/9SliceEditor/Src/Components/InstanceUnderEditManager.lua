@@ -29,8 +29,6 @@ local GuiService = game:GetService("GuiService")
 local SelectionService = game:GetService("Selection")
 local RunService = game:GetService("RunService")
 
-local FFlag9SliceEditorRespectImageRectSize = game:GetFastFlag("9SliceEditorRespectImageRectSize")
-
 local InstanceUnderEditManager = Roact.PureComponent:extend("InstanceUnderEditManager")
 
 local LEFT = Orientation.Left.rawValue()
@@ -85,7 +83,7 @@ function InstanceUnderEditManager:init(props)
 	end
 
 	self.getImageDimensionsForInstance = function(instance: Types.GuiImageInstance): Vector2
-		if FFlag9SliceEditorRespectImageRectSize and instance.ImageRectSize.X > 0 and instance.ImageRectSize.Y > 0 then
+		if instance.ImageRectSize.X > 0 and instance.ImageRectSize.Y > 0 then
 			return instance.ImageRectSize
 		end
 		return instance.ContentImageSize
@@ -173,12 +171,10 @@ function InstanceUnderEditManager:init(props)
 
 			-- Connect to changed events from this instance:
 			table.insert(self.imageUnderEditConnections, instance:GetPropertyChangedSignal("SliceCenter"):Connect(self.onSliceCenterChanged))
-			if FFlag9SliceEditorRespectImageRectSize then
-				table.insert(self.imageUnderEditConnections, instance:GetPropertyChangedSignal("ImageRectOffset"):Connect(self.onImageRectOffsetChanged))
-				table.insert(self.imageUnderEditConnections, instance:GetPropertyChangedSignal("ImageRectSize"):Connect(self.onImageRectSizeChanged))
-				table.insert(self.imageUnderEditConnections, instance:GetPropertyChangedSignal("ImageColor3"):Connect(self.onImageColor3Changed))
-				table.insert(self.imageUnderEditConnections, instance:GetPropertyChangedSignal("ResampleMode"):Connect(self.onResampleModeChanged))
-			end
+			table.insert(self.imageUnderEditConnections, instance:GetPropertyChangedSignal("ImageRectOffset"):Connect(self.onImageRectOffsetChanged))
+			table.insert(self.imageUnderEditConnections, instance:GetPropertyChangedSignal("ImageRectSize"):Connect(self.onImageRectSizeChanged))
+			table.insert(self.imageUnderEditConnections, instance:GetPropertyChangedSignal("ImageColor3"):Connect(self.onImageColor3Changed))
+			table.insert(self.imageUnderEditConnections, instance:GetPropertyChangedSignal("ResampleMode"):Connect(self.onResampleModeChanged))
 
 			sliceRect = SliceRectUtil.getSliceRectFromSliceCenter(instance.SliceCenter)
 			revertSliceRect = SliceRectUtil.copySliceRect(sliceRect)
@@ -187,27 +183,20 @@ function InstanceUnderEditManager:init(props)
 
 			self.lastSliceOffsets = SliceRectUtil.getOffsetsFromSliceRect(sliceRect, croppedPixelSize)
 
-			if FFlag9SliceEditorRespectImageRectSize then
-				info = {
-					title = title,
-					pixelDimensions = pixelSize,
-					sliceRect = sliceRect,
-					revertSliceRect = revertSliceRect,
-					imageRectOffset = instance.ImageRectOffset,
-					imageRectSize = instance.ImageRectSize,
-					imageColor3 = instance.ImageColor3,
-					resampleMode = instance.ResampleMode,
-				}
-			end
+			info = {
+				title = title,
+				pixelDimensions = pixelSize,
+				sliceRect = sliceRect,
+				revertSliceRect = revertSliceRect,
+				imageRectOffset = instance.ImageRectOffset,
+				imageRectSize = instance.ImageRectSize,
+				imageColor3 = instance.ImageColor3,
+				resampleMode = instance.ResampleMode,
+			}
 		end
 
 		self.instanceUnderEdit = instance
-
-		if FFlag9SliceEditorRespectImageRectSize then
-			self.props.InstanceUnderEditChanged(instance, info)
-		else
-			self.props.InstanceUnderEditChanged(instance, title, pixelSize, sliceRect, revertSliceRect)
-		end
+		self.props.InstanceUnderEditChanged(instance, info)
 	end
 
 	self.loadingToken = 0

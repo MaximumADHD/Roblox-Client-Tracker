@@ -7,7 +7,7 @@
 ]]
 
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
-local FFlagToolboxAssetConfigurationMinPriceFloor = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor")
+local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
 
 local StudioService = game:GetService("StudioService")
 
@@ -782,7 +782,7 @@ local function validatePrice(text, minPrice, maxPrice, assetStatus)
 		if isInt then
 			local num = tonumber(text)
 			if num then
-				if FFlagToolboxAssetConfigurationMinPriceFloor then
+				if FFlagToolboxAssetConfigurationMinPriceFloor2 then
 					result = num == 0 or num >= minPrice and num <= maxPrice
 				else
 					result = num >= minPrice and num <= maxPrice
@@ -919,6 +919,7 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 	local screenFlowType = props.screenFlowType
 	local changeTable = props.changeTable or {}
 	local allowedAssetTypesForRelease = props.allowedAssetTypesForRelease
+	local allowedAssetTypesForFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 then props.allowedAssetTypesForFree else nil
 
 	local currentAssetStatus = newAssetStatus or AssetConfigConstants.ASSET_STATUS.Unknown
 
@@ -1139,6 +1140,7 @@ function AssetConfig:renderContent(modalTarget, localizedContent)
 				maximumItemTagsPerItem = props.maximumItemTagsPerItem,
 
 				allowedAssetTypesForRelease = if isPlugin then allowedAssetTypesForRelease else nil,
+				allowedAssetTypesForFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 then allowedAssetTypesForFree else nil,
 				newAssetStatus = if isPlugin then newAssetStatus else nil,
 				currentAssetStatus = if isPlugin then currentAssetStatus else nil,
 
@@ -1236,6 +1238,7 @@ local function mapStateToProps(state, props)
 		instances = state.instances,
 		allowedAssetTypesForRelease = state.allowedAssetTypesForRelease,
 		allowedAssetTypesForUpload = state.allowedAssetTypesForUpload,
+		allowedAssetTypesForFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 then state.allowedAssetTypesForFree else nil,
 		currentTab = state.currentTab,
 		isVerifiedCreator = state.isVerifiedCreator,
 		networkError = state.networkError,

@@ -7,6 +7,8 @@ local Pause = require(Plugin.Src.Actions.Pause)
 local SetPlaybackStartInfo = require(Plugin.Src.Actions.SetPlaybackStartInfo)
 local Constants = require(Plugin.Src.Util.Constants)
 
+local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
+
 local RunService = game:GetService("RunService")
 
 local Playback = Roact.PureComponent:extend("Playback")
@@ -19,7 +21,12 @@ function Playback:didMount()
 		local playbackSpeed = props.PlaybackSpeed
 		local playbackStartInfo = props.PlaybackStartInfo
 
-		local isPlaying = props.PlayState ~= Constants.PLAY_STATE.Pause
+		local isPlaying 
+		if GetFFlagFacialAnimationRecordingInStudio() then
+			isPlaying = props.PlayState == Constants.PLAY_STATE.Play or props.PlayState == Constants.PLAY_STATE.Reverse
+		else
+			isPlaying = props.PlayState ~= Constants.PLAY_STATE.Pause
+		end
 
 		if isPlaying and props.AnimationData ~= nil then
 			local metadata = props.AnimationData.Metadata

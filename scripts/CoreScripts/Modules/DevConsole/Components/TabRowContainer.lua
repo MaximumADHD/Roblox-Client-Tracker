@@ -13,15 +13,13 @@ local Constants = require(script.Parent.Parent.Constants)
 local DROP_DOWN_WIDTH = Constants.TabRowFormatting.TabDropDownWidth
 local TAB_OVERALAP_THESHOLD = Constants.TabRowFormatting.TabOverlapThreshold
 
-local FFlagAdminServerLogs = settings():GetFFlag("AdminServerLogs")
-
 local TabRowContainer = Roact.Component:extend("TabRowContainer")
 
 local function initTabList(tabList)
 	local textWidths = {}
 	local totalLength = 0
 	local count = 0
-	for name,_ in pairs(tabList) do
+	for name, _ in pairs(tabList) do
 		local textVector = TextService:GetTextSize(
 			name,
 			Constants.DefaultFontSize.TabBar,
@@ -37,19 +35,19 @@ end
 
 function TabRowContainer:init()
 	local tabList = self.props.tabList
-	
+
 	local textWidths, totalLength, count = initTabList(tabList)
-	
+
 	self.state = {
-		textWidths = textWidths, -- remove with FFlagAdminServerLogs removal
+		textWidths = textWidths,
 		totalTextLength = totalLength,
 		totalTabCount = count,
-		currContainerWidth = 0
+		currContainerWidth = 0,
 	}
 
 	self.onTabButtonClicked = function(tabIndex)
 		for name, tab in pairs(self.props.tabList) do
-			if tab.layoutOrder  == tabIndex then
+			if tab.layoutOrder == tabIndex then
 				self.props.dispatchSetActiveTab(name, tab.hasClientServer)
 				return
 			end
@@ -58,15 +56,13 @@ function TabRowContainer:init()
 end
 
 function TabRowContainer:didUpdate(previousProps, previousState)
-	if FFlagAdminServerLogs then
-		if previousProps.tabList ~= self.props.tabList then
-			local textWidths, totalLength, count = initTabList(self.props.tabList)
-			self:setState({
-				textWidths = textWidths,
-				totalTextLength = totalLength,
-				totalTabCount = count,
-			})
-		end
+	if previousProps.tabList ~= self.props.tabList then
+		local textWidths, totalLength, count = initTabList(self.props.tabList)
+		self:setState({
+			textWidths = textWidths,
+			totalTextLength = totalLength,
+			totalTabCount = count,
+		})
 	end
 end
 

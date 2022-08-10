@@ -27,8 +27,6 @@ local SetSelectedTrackInstances = require(Plugin.Src.Actions.SetSelectedTrackIns
 local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-local GetFFlagBoneAdornmentSelection = require(Plugin.LuaFlags.GetFFlagBoneAdornmentSelection)
-local GetFFlagCheckPartParentForBoneSelection = require(Plugin.LuaFlags.GetFFlagCheckPartParentForBoneSelection)
 local GetFFlagHideBonesWithToggle = require(Plugin.LuaFlags.GetFFlagHideBonesWithToggle)
 
 
@@ -180,7 +178,7 @@ function InstanceSelector:render()
 	local children = {}
 	local folder = RigUtils.getOrCreateMicroboneFolder()
 
-	if GetFFlagBoneAdornmentSelection() and (not GetFFlagHideBonesWithToggle() or GetFFlagHideBonesWithToggle() and visualizeBones) then 
+	if not GetFFlagHideBonesWithToggle() or GetFFlagHideBonesWithToggle() and visualizeBones then 
 		local boneLinks = folder:GetChildren()
 		for _, boneLink in pairs(boneLinks) do
 			if boneLink:FindFirstChild("Cone") and boneLink.Cone.Color3 == Constants.BONE_COLOR_SELECTED then 
@@ -196,8 +194,8 @@ function InstanceSelector:render()
 	end
 	if props.SelectedTrackInstances then
 		for index, part in ipairs(props.SelectedTrackInstances) do
-			if GetFFlagBoneAdornmentSelection() and (not GetFFlagHideBonesWithToggle() or GetFFlagHideBonesWithToggle() and visualizeBones) then 
-				if (GetFFlagCheckPartParentForBoneSelection() and part.Parent == nil) or part.Parent.Name ~=  "RBX_MICROBONE_NODES" then 
+			if not GetFFlagHideBonesWithToggle() or GetFFlagHideBonesWithToggle() and visualizeBones then 
+				if part.Parent == nil or part.Parent.Name ~=  "RBX_MICROBONE_NODES" then 
 					children["SelectionBox" ..index] = Roact.createElement("SelectionBox", {
 						Archivable = false,
 						Adornee = part,

@@ -51,6 +51,7 @@ local GetFFlagCreateAnimationFromVideoTutorialEnabled = require(Plugin.LuaFlags.
 local GetFFlagCreateAnimationFromVideoAnalytics2 = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoAnalytics2)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
 local GetFFlagCreateAnimationFromVideoAgeGateEnabled = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoAgeGateEnabled)
+local GetFFlagCreateAnimationFromVideoAgeGateSizeFix = require(Plugin.LuaFlags.GetFFlagCreateAnimationFromVideoAgeGateSizeFix)
 
 local AnimationClipDropdown = Roact.PureComponent:extend("AnimationClipDropdown")
 
@@ -462,6 +463,7 @@ function AnimationClipDropdown:render()
 		}),
 
 		CreateAnimationFromVideoAgeGate = isCreateAnimationFromVideoAgeRestricted and Roact.createElement(FocusedPrompt, {
+			Size = GetFFlagCreateAnimationFromVideoAgeGateSizeFix() and UDim2.new(0, Constants.PROMPT_SIZE.Width.Offset, 0, 180) or nil,
 			PromptText = localization:getText("AnimationFromVideo", "AgeRestricted"),
 			Buttons = {
 				{Key = false, Text = localization:getText("Dialog", "Cancel"), Style = if GetFFlagFixButtonStyle() then "Round" else nil},

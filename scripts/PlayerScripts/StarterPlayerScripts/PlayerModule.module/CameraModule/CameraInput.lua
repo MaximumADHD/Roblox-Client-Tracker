@@ -23,20 +23,6 @@ local ZOOM_SPEED_TOUCH = 0.04 -- (scaled studs/DIP %)
 
 local MIN_TOUCH_SENSITIVITY_FRACTION = 0.25 -- 25% sensitivity at 90°
 
-local FFlagUserFlagEnableNewVRSystem do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFlagEnableNewVRSystem")
-	end)
-	FFlagUserFlagEnableNewVRSystem = success and result
-end
-
-local FFlagUserFlagEnableVRUpdate2 do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFlagEnableVRUpdate2")
-	end)
-	FFlagUserFlagEnableVRUpdate2 = success and result
-end
-
 -- right mouse button up & down events
 local rmbDown, rmbUp do
 	local rmbDownBindable = Instance.new("BindableEvent")
@@ -169,8 +155,8 @@ do
 	local gamepadZoomPressBindable = Instance.new("BindableEvent")
 	CameraInput.gamepadZoomPress = gamepadZoomPressBindable.Event
 
-	local gamepadResetBindable = VRService.VREnabled and FFlagUserFlagEnableNewVRSystem and Instance.new("BindableEvent") or nil
-	if VRService.VREnabled and FFlagUserFlagEnableNewVRSystem then
+	local gamepadResetBindable = VRService.VREnabled and Instance.new("BindableEvent") or nil
+	if VRService.VREnabled then
 		CameraInput.gamepadReset = gamepadResetBindable.Event
 	end
 	
@@ -213,10 +199,7 @@ do
 		local function thumbstick(action, state, input)
 			local position = input.Position
 			gamepadState[input.KeyCode.Name] = Vector2.new(thumbstickCurve(position.X), -thumbstickCurve(position.Y))
-			if FFlagUserFlagEnableVRUpdate2 then
-				return Enum.ContextActionResult.Pass
-			end
-			return
+			return Enum.ContextActionResult.Pass
 		end
 
 		local function mouseMovement(input)
@@ -425,7 +408,7 @@ do
 					Enum.KeyCode.O
 				)
 
-				if VRService.VREnabled and FFlagUserFlagEnableNewVRSystem then
+				if VRService.VREnabled then
 					ContextActionService:BindAction(
 						"RbxCameraGamepadReset",
 						gamepadReset,
@@ -452,12 +435,10 @@ do
 				ContextActionService:UnbindAction("RbxCameraMouseWheel")
 				ContextActionService:UnbindAction("RbxCameraKeypress")
 
-				if FFlagUserFlagEnableNewVRSystem then
-					ContextActionService:UnbindAction("RbxCameraGamepadZoom")
-					if VRService.VREnabled then
-						ContextActionService:UnbindAction("RbxCameraGamepadReset")
-					end 
-				end
+				ContextActionService:UnbindAction("RbxCameraGamepadZoom")
+				if VRService.VREnabled then
+					ContextActionService:UnbindAction("RbxCameraGamepadReset")
+				end 
 
 				for _, conn in pairs(connectionList) do
 					conn:Disconnect()

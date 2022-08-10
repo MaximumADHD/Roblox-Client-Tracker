@@ -10,6 +10,7 @@ local getUserId = require(Plugin.Core.Util.getUserId)
 
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
 local FFlagToolboxIncludedPlaceIdInConfigRequest = game:GetFastFlag("ToolboxIncludedPlaceIdInConfigRequest")
+local FFlagToolboxTrackHidden = game:GetFastFlag("ToolboxTrackHidden")
 
 local getPlaceId
 if FFlagToolboxIncludedPlaceIdInConfigRequest then
@@ -264,6 +265,16 @@ function Analytics.onToolboxDisplayed()
 		placeId = getPlaceId(),
 		isEditMode = getIsEditMode(),
 	})
+end
+
+if FFlagToolboxTrackHidden then
+	function Analytics.onToolboxHidden()
+		AnalyticsSenders.sendEventDeferred("studio", "Marketplace", "MarketplaceHidden", {
+			userId = getUserId(),
+			placeId = getPlaceId(),
+			isEditMode = getIsEditMode(),
+		})
+	end
 end
 
 function Analytics.onContextMenuClicked(eventName, assetId, assetTypeId, currentCategory)

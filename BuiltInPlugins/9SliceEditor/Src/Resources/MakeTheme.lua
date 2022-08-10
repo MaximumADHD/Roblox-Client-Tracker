@@ -18,8 +18,6 @@ local StyleKey = Style.StyleKey
 
 local Constants = require(Plugin.Src.Util.Constants)
 
-local FFlag9SliceEditorResizableImagePreviewWindow = game:GetFastFlag("9SliceEditorResizableImagePreviewWindow")
-
 ui:add("AlertDialog")
 ui:add("ImageDragger")
 ui:add("SliceEditor")
@@ -73,7 +71,7 @@ local PluginTheme = {
 		ImageAreaSize = UDim2.fromOffset(Constants.BACKGROUND_SIZE + 10 + Constants.TEXTEDITOR_XSIZE,
 			Constants.BACKGROUND_SIZE + Constants.TEXTSIZE + 10),
 		ButtonsAreaSize = UDim2.fromOffset(Constants.BACKGROUND_SIZE + 10 + Constants.TEXTEDITOR_XSIZE + 10,
-			32 + (FFlag9SliceEditorResizableImagePreviewWindow and 10 or 0)),
+			42),
 		ButtonsSpacing = UDim.new(0, 10),
 		VerticalSpacing = UDim.new(0, 5),
 		HorizontalSpacing = UDim.new(0, 5),

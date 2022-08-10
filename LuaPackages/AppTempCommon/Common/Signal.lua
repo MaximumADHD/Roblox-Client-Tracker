@@ -9,7 +9,23 @@
 
 local Immutable = require(script.Parent.Immutable)
 
-local Signal = {}
+export type SignalHandle = {
+	-- FIXME: This function does not actually take self but all current callers supply it
+	disconnect: (any?) -> (),
+}
+
+export type SignalCallback = (...any) -> ()
+
+export type Signal = {
+	connect: (self: Signal, callback: SignalCallback) -> SignalHandle,
+	fire: (self: Signal, ...any) -> (),
+}
+
+export type SignalClass = {
+	new: () -> Signal
+}
+
+local Signal: any = {}
 
 Signal.__index = Signal
 
@@ -72,4 +88,4 @@ function Signal:Fire(...)
 end
 
 
-return Signal
+return Signal :: SignalClass

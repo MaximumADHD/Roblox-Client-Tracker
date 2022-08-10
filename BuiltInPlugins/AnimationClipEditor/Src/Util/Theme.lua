@@ -71,6 +71,9 @@ local overridedLightTheme = Cryo.Dictionary.join(LightTheme, {
 	[StyleKey.CurveRotationZ] = Color3.fromRGB(255, 165, 0),
 	[StyleKey.CurveEditorButton] = "rbxasset://textures/AnimationEditor/Button_Curve_Lightmode.png",
 	[StyleKey.DopeSheetButton] = "rbxasset://textures/AnimationEditor/Button_Dopesheet_Lightmode.png",
+	-- Face Capture
+	[StyleKey.StopRecordingButtonImage] = "rbxasset://textures/AnimationEditor/FaceCaptureUI/StopRecordButton_lightTheme.png",
+	[StyleKey.FaceCaptureDefaultButtonIconColor] = Color3.fromRGB(82, 82, 82),
 })
 
 local overridedDarkTheme = Cryo.Dictionary.join(DarkTheme, {
@@ -121,6 +124,9 @@ local overridedDarkTheme = Cryo.Dictionary.join(DarkTheme, {
 	[StyleKey.CurveRotationZ] = Color3.fromRGB(255, 165, 0),
 	[StyleKey.CurveEditorButton] = "rbxasset://textures/AnimationEditor/Button_Curve_Darkmode.png",
 	[StyleKey.DopeSheetButton] = "rbxasset://textures/AnimationEditor/Button_Dopesheet_Darkmode.png",
+	-- Face Capture
+	[StyleKey.StopRecordingButtonImage] = "rbxasset://textures/AnimationEditor/FaceCaptureUI/StopRecordButton.png",
+	[StyleKey.FaceCaptureDefaultButtonIconColor] = Color3.fromRGB(255, 255, 255),
 })
 
 local playbackTheme = {
@@ -623,6 +629,13 @@ local curveTheme = {
 	tangentDefinedButton = "rbxasset://textures/AnimationEditor/TangentHandle_SelfDefined_9x9.png",
 }
 
+local faceCaptureTheme = {
+	faceCaptureDefaultButtonIconColor = StyleKey.FaceCaptureDefaultButtonIconColor,
+	stopRecordingButtonImage = StyleKey.StopRecordingButtonImage,
+	errorIcon = "rbxasset://textures/AnimationEditor/icon_error.png",
+	warningIcon = "rbxasset://textures/AnimationEditor/icon_warning.png",
+}
+
 local scrubberTheme = {
 	backgroundColor = StyleKey.DialogMainButton,
 	image = "rbxasset://textures/AnimationEditor/img_scrubberhead.png",
@@ -674,6 +687,7 @@ local PluginTheme = {
 	button = buttonTheme,
 	keyframe = keyframe,
 	scrubberTheme = scrubberTheme,
+	faceCaptureTheme = faceCaptureTheme,
 	curveTheme = curveTheme,
 	progressBarTheme = progressBarTheme,
 	[ui.Button] = button,

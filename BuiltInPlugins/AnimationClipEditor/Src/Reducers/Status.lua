@@ -20,6 +20,8 @@ return Rodux.createReducer({
 	PlaybackStartInfo = {},
 	RightClickContextInfo = {},
 	PlayState = Constants.PLAY_STATE.Pause,
+	inReviewState = false,
+	haveToSetBackToNotLooping = false,
 	Scroll = 0,  -- Deprecated with GetFFlagCurveEditor
 	Zoom = 0,  -- Deprecated with GetFFlagCurveEditor
 	HorizontalScroll = 0,
@@ -119,6 +121,18 @@ return Rodux.createReducer({
 	SetPlayState = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			PlayState = action.playState,
+		})
+	end,
+	
+	SetInReviewState = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			inReviewState = action.inReviewState,
+		})
+	end,
+	
+	SetHaveToSetBackToNotLooping = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			haveToSetBackToNotLooping = action.haveToSetBackToNotLooping,
 		})
 	end,
 

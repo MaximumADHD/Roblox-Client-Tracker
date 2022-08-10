@@ -18,8 +18,6 @@ local FilterScopeWatchThunk = require(Thunks.Watch.FilterScopeWatchThunk)
 
 local flatListToString = require(PluginFolder.Src.Util.flatListToString)
 
-local FFlagDevFrameworkTableHeaderTooltip = game:GetFastFlag("DevFrameworkTableHeaderTooltip")
-
 local ScopeDropdownField = Roact.PureComponent:extend("ScopeDropdownField")
 
 -- Constants
@@ -77,7 +75,7 @@ function ScopeDropdownField:render()
 		Widget = "Watch",
 		DropdownWidth = DROPDOWN_WIDTH,
 		ShouldShowDropdownIcon = props.ShouldShowDropdownIcon,
-		Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText("Watch", "FilterScopes"),
+		Tooltip = localization:getText("Watch", "FilterScopes"),
 	})
 end
 

@@ -16,8 +16,8 @@ local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
 local PerformFetch = require(CorePackages.AppTempCommon.LuaApp.Thunks.Networking.Util.PerformFetch)
 local Result = require(CorePackages.AppTempCommon.LuaApp.Result)
 
-local RETRY_MAX_COUNT = math.max(0, settings():GetFVariable("LuaAppNonFinalThumbnailMaxRetries"))
-local RETRY_TIME_MULTIPLIER = math.max(0, settings():GetFVariable("LuaAppThumbnailsApiRetryTimeMultiplier"))
+local RETRY_MAX_COUNT = math.max(0, tonumber(settings():GetFVariable("LuaAppNonFinalThumbnailMaxRetries")) or 0)
+local RETRY_TIME_MULTIPLIER = math.max(0, tonumber(settings():GetFVariable("LuaAppThumbnailsApiRetryTimeMultiplier")) or 0)
 
 local MAX_REQUEST_COUNT = 100
 
@@ -48,14 +48,14 @@ end
 
 local ApiFetchUsersThumbnail = {}
 
-function ApiFetchUsersThumbnail.getThumbnailsSizeArgForSize(thumbnailSize)
+function ApiFetchUsersThumbnail.getThumbnailsSizeArgForSize(thumbnailSize: string)
 	assert(typeof(thumbnailSize) == "string",
 		string.format("ApiFetchUsersThumbnail expects a string for thumbnailSize. Type: %s", typeof(thumbnailSize))
 	)
 
 	assert(string.match(thumbnailSize, 'Size.+x'),
 		string.format(
-			"ApiFetchUsersThumbnail expects thumbnailSize to follow format \"Size..x..\" Current thumbnailSize: ",
+			"ApiFetchUsersThumbnail expects thumbnailSize to follow format \"Size..x..\" Current thumbnailSize: %s",
 			thumbnailSize
 		)
 	)

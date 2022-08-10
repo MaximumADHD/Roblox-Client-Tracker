@@ -11,6 +11,7 @@ local SetFuture = require(Plugin.Src.Actions.SetFuture)
 local SetPast = require(Plugin.Src.Actions.SetPast)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
+local SetInReviewState = require(Plugin.Src.Actions.SetInReviewState)
 
 local SortAndSetTracks = require(Plugin.Src.Thunks.SortAndSetTracks)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
@@ -19,6 +20,7 @@ local TrackSelectionUtils = require(Plugin.Src.Util.TrackSelectionUtils)
 
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagFixRedoDeleteSelection = require(Plugin.LuaFlags.GetFFlagFixRedoDeleteSelection)
+local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
 
 return function(signals)
 	return function(store)
@@ -31,6 +33,11 @@ return function(signals)
 		local future = history.Future
 
 		if #past > 0 then
+			--in case the user was in review state of face capture and pressed undo then, we exit out of review state
+			if GetFFlagFacialAnimationRecordingInStudio() then
+				store:dispatch(SetInReviewState(false))
+			end			
+			
 			future = Cryo.List.join({
 				{
 					AnimationData = Cryo.Dictionary.join(animationData),

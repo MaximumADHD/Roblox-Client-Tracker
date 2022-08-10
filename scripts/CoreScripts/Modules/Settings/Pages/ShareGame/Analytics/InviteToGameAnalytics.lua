@@ -105,6 +105,7 @@ function InviteToGameAnalytics:onShareButtonClick()
 	local eventName = InviteToGameAnalytics.EventName.ShareButtonClick
 	local eventContext = "shareLinks"
 	local additionalArgs = {
+		btn = "shareServerInviteLink",
 		page = "inGameMenu",
 		subpage = "inviteFriendsPage",
 	}

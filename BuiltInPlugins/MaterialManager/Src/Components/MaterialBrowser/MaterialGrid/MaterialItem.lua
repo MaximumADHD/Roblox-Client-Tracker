@@ -13,7 +13,6 @@ local Stylizer = Framework.Style.Stylizer
 
 local GeneralServiceController = require(Plugin.Src.Controllers.GeneralServiceController)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-local MaterialController = require(Plugin.Src.Controllers.MaterialController)
 local SetMaterial = require(Plugin.Src.Actions.SetMaterial)
 
 local Constants = Plugin.Src.Resources.Constants
@@ -35,7 +34,6 @@ type _Props = Props & {
 	GeneralServiceController: any,
 	Localization: any,
 	Material: _Types.Material,
-	MaterialController: any,
 	MaterialStatus: Enum.PropertyStatus,
 	MaterialTileSize: number,
 	MenuHover: boolean,
@@ -67,44 +65,49 @@ local MaterialItem = Roact.PureComponent:extend("MaterialItem")
 
 function MaterialItem:init()
 	self.onClick = function()
-		local props : _Props = self.props
+		local props: _Props = self.props
 
 		props.dispatchSetMaterial(props.MaterialItem)
 	end
 
 	self.onMouseEnter = function()
 		self:setState({
-			hover = true
+			hover = true,
 		})
 	end
 
 	self.onMouseLeave = function()
 		self:setState({
-			hover = false
+			hover = false,
 		})
 	end
 
 	self.applyToSelection = function()
-		local props : _Props = self.props
+		local props: _Props = self.props
 		local materialItem = props.MaterialItem
 
-		props.GeneralServiceController:ApplyToSelection(materialItem.Material, if materialItem.MaterialVariant then materialItem.MaterialVariant.Name else nil)
+		props.GeneralServiceController:ApplyToSelection(
+			materialItem.Material,
+			if materialItem.MaterialVariant then materialItem.MaterialVariant.Name else nil
+		)
 		props.Analytics:report("applyToSelectionAction")
 	end
 
 	self.state = {
-		hover = false
+		hover = false,
 	}
 end
 
 function MaterialItem:render()
-	local props : _Props = self.props
+	local props: _Props = self.props
 	local localization = props.Localization
 
 	local materialItem = props.MaterialItem
 	local materialDescription = getFullMaterialType(materialItem, localization)
 	local materialVariant = materialItem.MaterialVariant
-	local name = if not materialVariant then localization:getText("Materials", getMaterialName(materialItem.Material)) else materialVariant.Name
+	local name = if not materialVariant
+		then localization:getText("Materials", getMaterialName(materialItem.Material))
+		else materialVariant.Name
 	local viewType = props.ViewType
 
 	if viewType == "List" then
@@ -145,7 +148,6 @@ MaterialItem = withContext({
 	Analytics = Analytics,
 	GeneralServiceController = GeneralServiceController,
 	Localization = Localization,
-	MaterialController = MaterialController,
 	Stylizer = Stylizer,
 })(MaterialItem)
 

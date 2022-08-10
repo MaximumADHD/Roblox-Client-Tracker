@@ -1,9 +1,13 @@
+local FFlagManageCollaboratorsTelemetryEnabled = game:GetFastFlag("ManageCollaboratorsTelemetryEnabled")
+
 local Plugin = script.Parent.Parent.Parent
 
 local SetSaveState = require(Plugin.Src.Actions.SetSaveState)
 local SaveState = require(Plugin.Src.Util.SaveState)
 
-local function GetPermissionsSaveJobs(store, contextItems)
+local Analytics = if FFlagManageCollaboratorsTelemetryEnabled then require(Plugin.Src.Util.Analytics) else nil
+
+local function GetPermissionsSaveJobs(store, contextItems, isGroupGame)
 	local state = store:getState()
 	local gameId = game.GameId
 	local gamePermissionsController = contextItems.gamePermissionsController
@@ -14,16 +18,28 @@ local function GetPermissionsSaveJobs(store, contextItems)
 			local newPermissions = state.Permissions.NewPermissions
 
 			if newPermissions ~= nil then
-				gamePermissionsController:setPermissions(gameId, currentPermissions, newPermissions)
+				if FFlagManageCollaboratorsTelemetryEnabled then
+					local adds, deletes = gamePermissionsController:setPermissions(gameId, currentPermissions, newPermissions)
+					Analytics.reportSaveCollaboratorsPressed(isGroupGame, adds, deletes)
+				else
+					gamePermissionsController:setPermissions(gameId, currentPermissions, newPermissions)
+				end
 			end
 		end,
 	}
 end
 
-return function()
+return function(isGroupGame)
 	return function(store, contextItems)
-		local permissionsJobs = GetPermissionsSaveJobs(store, contextItems)
-
+		local permissionsJobs
+		
+		if FFlagManageCollaboratorsTelemetryEnabled then
+			permissionsJobs = GetPermissionsSaveJobs(store, contextItems, isGroupGame)
+		else
+			permissionsJobs = GetPermissionsSaveJobs(store, contextItems)
+		end
+		
+			
 		store:dispatch(SetSaveState(SaveState.Saving))
 
 		local numSaved = 0

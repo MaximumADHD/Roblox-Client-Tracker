@@ -25,9 +25,12 @@ return function()
 			return {
 				ShareLinks = {
 					Invites = {
-						shareInviteLink = "test"
+						shareInviteLink = {
+							linkId ="123456"
+						}
 					}
-				}
+				},
+				NetworkStatus = {}
 			}
 		end)
 

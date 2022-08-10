@@ -137,12 +137,6 @@ return function()
 			local value = KeyframeUtils.getValue(testTrackData, 4.5)
 			expect(value).to.equal(CFrame.new(0, 1.5, 0))
 		end)
-
-		it("should throw if the track has empty keyframes", function()
-			expect(function()
-				KeyframeUtils.getValue(testEmptyTrackData, 1)
-			end).to.throw()
-		end)
 	end)
 
 	describe("interpolate", function()

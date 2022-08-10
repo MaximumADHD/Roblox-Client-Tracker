@@ -9,15 +9,19 @@ return function()
 		local mockState = {
 			ShareLinks = {
 				Invites = {
-					ShareInviteLink = "test"
+					ShareInviteLink = {
+						linkId = "123456"
+					}
 				}
-			}
+			},
+			NetworkStatus = {},
+			fetchShareInviteLinkNetworkStatus = "NotStarted"
 		}
 
 		it("SHOULD have the expected fields", function()
 			local newProps = mapStateToProps(mockState)
 
-			jestExpect(newProps).toEqual({ shareInviteLink = "test" })
+			jestExpect(newProps).toEqual({ shareInviteLink = { linkId = "123456" }, fetchShareInviteLinkNetworkStatus = "NotStarted" })
 		end)
 	end)
 end

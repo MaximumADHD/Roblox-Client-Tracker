@@ -10,6 +10,7 @@ local Object = LuauPolyfill.Object
 local Array = LuauPolyfill.Array
 
 local AssetQuotaTypes = require(Plugin.Core.Types.AssetQuotaTypes)
+local HomeTypes = require(Plugin.Core.Types.HomeTypes)
 local Category = require(Plugin.Core.Types.Category)
 local Url = require(Plugin.Libs.Http.Url)
 
@@ -20,7 +21,9 @@ local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudi
 local FIntCanManageLuaRolloutPercentage = game:DefineFastInt("CanManageLuaRolloutPercentage", 0)
 local FFlagInfiniteScrollerForVersions2 = game:getFastFlag("InfiniteScrollerForVersions2")
 local FFlagToolboxIncludedPlaceIdInConfigRequest = game:GetFastFlag("ToolboxIncludedPlaceIdInConfigRequest")
+local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
 local FFlagToolboxUseGetVote = game:GetFastFlag("ToolboxUseGetVote")
+local FFlagStudioPluginsUseBedev2Endpoint = game:GetFastFlag("StudioPluginsUseBedev2Endpoint")
 
 local Urls = {}
 
@@ -42,7 +45,8 @@ local POST_VOTE = Url.BASE_URL .. "voting/vote"
 local INSERT_ASSET = Url.BASE_URL .. "IDE/Toolbox/InsertAsset?"
 local GET_MANAGEABLE_GROUPS = Url.DEVELOP_URL .. "v1/user/groups/canmanage"
 
-local GET_PLUGIN_INFO = Url.DEVELOP_URL .. "v1/plugins?"
+local GET_PLUGIN_INFO = Url.APIS_URL .. "studio-plugin-api/v1/plugins?"
+local DEPRECATED_GET_PLUGIN_INFO = Url.DEVELOP_URL .. "v1/plugins?"
 
 local ASSET_ID_STRING = "rbxassetid://%d"
 local ASSET_ID_PATH = "asset/?"
@@ -148,6 +152,7 @@ function Urls.constructGetToolboxItemsUrl(
 		sectionName: string?,
 		sortType: string?,
 		keyword: string?,
+		queryParams: HomeTypes.SubcategoryQueryParams?,
 		cursor: string?,
 		limit: number?,
 		ownerId: number?,
@@ -162,15 +167,9 @@ function Urls.constructGetToolboxItemsUrl(
 )
 	local categoryName = args.categoryName
 	local ownerId = args.ownerId
-
 	local query = Object.assign(
 		{},
-		Dash.omit(args, {
-			"categoryName",
-			"sectionName",
-			"ownerId",
-			"tags",
-		}),
+		Dash.omit(args, { "categoryName", "sectionName", "ownerId", "tags" }),
 		{ tags = if args.tags then Array.join(args.tags, ",") else nil },
 		{ placeId = if FFlagToolboxIncludedPlaceIdInConfigRequest and args.sectionName then getPlaceId() else nil }
 	)
@@ -209,10 +208,17 @@ function Urls.constructGetToolboxItemsUrl(
 			targetUrl = string.format("%s/%s", TOOLBOX_SERVICE_URL, apiName)
 		end
 	end
-
-	local queryParams = Url.makeQueryString(query)
-	if #queryParams > 0 then
-		targetUrl = targetUrl .. "?" .. queryParams
+	-- Add values in queryParams to the query, and override the ones in the query if necessary, since queryParams will be the source of truth going forward
+	if FFlagToolboxUseQueryForCategories2 and query.queryParams ~= nil then
+		for key, val in pairs(query.queryParams) do
+				query[key] = val
+		end
+	end
+	local urlQueryParams = if FFlagToolboxUseQueryForCategories2
+		then Url.makeQueryString(query, false, true)
+		else Url.makeQueryString(query)
+	if #urlQueryParams > 0 then
+		targetUrl = targetUrl .. "?" .. urlQueryParams
 	end
 	return targetUrl
 end
@@ -323,9 +329,15 @@ function Urls.constructInsertAssetUrl(assetId)
 end
 
 function Urls.constructGetPluginInfoUrl(assetId)
-	return GET_PLUGIN_INFO .. Url.makeQueryString({
-		pluginIds = assetId,
-	})
+	if FFlagStudioPluginsUseBedev2Endpoint then
+		return GET_PLUGIN_INFO .. Url.makeQueryString({
+			pluginIds = assetId,
+		})
+	else
+		return DEPRECATED_GET_PLUGIN_INFO .. Url.makeQueryString({
+			pluginIds = assetId,
+		})
+	end
 end
 
 function Urls.constructGetManageableGroupsUrl()

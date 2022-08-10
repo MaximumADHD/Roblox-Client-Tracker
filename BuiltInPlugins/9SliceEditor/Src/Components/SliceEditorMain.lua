@@ -39,9 +39,6 @@ local RIGHT = Orientation.Right.rawValue()
 local TOP = Orientation.Top.rawValue()
 local BOTTOM = Orientation.Bottom.rawValue()
 
-local FFlag9SliceEditorRespectImageRectSize = game:GetFastFlag("9SliceEditorRespectImageRectSize")
-local FFlag9SliceEditorResizableImagePreviewWindow = game:GetFastFlag("9SliceEditorResizableImagePreviewWindow")
-
 local function checkEqualSlices(slice1, slice2)
 	-- checks if values in slice1 == values in slice2
 	return
@@ -66,11 +63,9 @@ function SliceEditor:init(props)
 		order to align with offsets order and use the SliceCenter coordinate system of calculating from (0, 0)
 	]]--
 	self.getImageDimensions = function(): Vector2
-		if FFlag9SliceEditorRespectImageRectSize then
-			local imageRectSize: Vector2? = self.props.imageRectSize
-			if imageRectSize and imageRectSize.X > 0 and imageRectSize.Y > 0 then
-				return imageRectSize
-			end
+		local imageRectSize: Vector2? = self.props.imageRectSize
+		if imageRectSize and imageRectSize.X > 0 and imageRectSize.Y > 0 then
+			return imageRectSize
 		end
 
 		return self.props.pixelDimensions
@@ -109,117 +104,7 @@ function SliceEditor:didMount()
 	MouseCursorManager.resetCursor(self.props.Mouse)
 end
 
-function SliceEditor:DEPRECATED_render()
-	-- Renders SliceEditor as a pane, ImageEditor, TextEditor, and Close/Revert
-	local props = self.props
-	local style = props.Stylizer
-
-	local selectedObject = props.selectedObject
-	local pixelDimensions = self.getImageDimensions()
-
-	local setSliceRect = self.setSliceRect
-	local sliceRect = props.sliceRect
-	local localization = props.Localization
-	local buttonStyle = props.Stylizer.Button
-	local revertEnabled = false
-
-	local childrenComponents
-
-	if not selectedObject then
-		-- Display an informational message instead of the 9SliceEditor
-		local infoText = localization:getText("SliceEditor", "NoImageSelectedMessage")
-		if props.loading then
-			infoText = localization:getText("SliceEditor", "ImageLoadingMessage")
-		end
-
-		childrenComponents = {
-			Message = Roact.createElement(UI.Decoration.TextLabel, {
-				Text = infoText,
-				TextWrapped = true,
-				Size = style.InfoBoxSize,
-			}),
-		}
-	else
-		-- Display 9SliceEditor
-		if not checkEqualSlices(props.sliceRect, props.revertSliceRect) then
-			revertEnabled = true
-		end
-
-		childrenComponents = {
-			VerticalLayout = Roact.createElement(Pane, {
-				Layout = Enum.FillDirection.Vertical,
-				Spacing = style.VerticalSpacing,
-			}, {
-				ImageArea = Roact.createElement(Pane, {
-					LayoutOrder = 1,
-					Layout = Enum.FillDirection.Horizontal,
-					HorizontalAlignment = Enum.HorizontalAlignment.Center,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-					Spacing = style.HorizontalSpacing,
-					Size = style.ImageAreaSize,
-				}, {
-					ImageEditorComponent = Roact.createElement(ImageEditor, {
-						layoutOrder = 1,
-						selectedObject = selectedObject,
-						pixelDimensions = pixelDimensions,
-						setSliceRect = setSliceRect,
-						sliceRect = sliceRect,
-						position = style.ImageEditorPos,
-						imageRectOffset = props.imageRectOffset,
-						imageRectSize = FFlag9SliceEditorRespectImageRectSize and pixelDimensions or nil,
-						imageColor3 = props.imageColor3,
-						resampleMode = props.resampleMode,
-					}),
-					TextEditorComponent = Roact.createElement(TextEditor, {
-						layoutOrder = 2,
-						pixelDimensions = pixelDimensions,
-						setSliceRect = setSliceRect,
-						sliceRect = sliceRect,
-						position = style.TextEditorPos,
-					}),
-				}),
-
-				ButtonsArea = Roact.createElement(Pane, {
-					LayoutOrder = 2,
-					Layout = Enum.FillDirection.Horizontal,
-					HorizontalAlignment = Enum.HorizontalAlignment.Center,
-					VerticalAlignment = Enum.VerticalAlignment.Top,
-					Size = style.ButtonsAreaSize,
-					Position = UDim2.fromOffset(0, style.ButtonsAreaYPos),
-					Spacing = style.ButtonsSpacing,
-				}, {
-					RevertButton = Roact.createElement(Button, {
-						OnClick = self.onRevert,
-						Size = buttonStyle.Size,
-						Style = buttonStyle.Style,
-						StyleModifier = (not revertEnabled) and StyleModifier.Disabled or nil,
-						Text = localization:getText("SliceEditor", "RevertButton"),
-					}),
-					CloseButton = Roact.createElement(Button, {
-						OnClick = props.onClose,
-						Size = buttonStyle.Size,
-						Style = buttonStyle.Style,
-						Text = localization:getText("SliceEditor", "CloseButton"),
-					}),
-				})
-			}),
-		}
-	end
-
-	return Roact.createElement(Pane, {
-		Style = "Box",
-		Size = UDim2.fromScale(1, 1),
-		Position = UDim2.fromOffset(0, 0),
-	}, {
-		EntireFrame = Roact.createElement(Pane, {
-			AutomaticSize = Enum.AutomaticSize.XY,
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			Position = UDim2.fromScale(0.5, 0.5),
-		}, childrenComponents),
-	})
-end
-
-function SliceEditor:NEW_render()
+function SliceEditor:render()
 	local props = self.props
 	local style = props.Stylizer
 
@@ -292,7 +177,7 @@ function SliceEditor:NEW_render()
 				setSliceRect = setSliceRect,
 				sliceRect = sliceRect,
 				imageRectOffset = props.imageRectOffset,
-				imageRectSize = FFlag9SliceEditorRespectImageRectSize and pixelDimensions or nil,
+				imageRectSize = pixelDimensions,
 				imageColor3 = props.imageColor3,
 				resampleMode = props.resampleMode,
 			}),
@@ -331,14 +216,6 @@ function SliceEditor:NEW_render()
 			}),
 		})
 	})
-end
-
-function SliceEditor:render()
-	if FFlag9SliceEditorResizableImagePreviewWindow then
-		return self:NEW_render()
-	end
-
-	return self:DEPRECATED_render()
 end
 
 SliceEditor = withContext({

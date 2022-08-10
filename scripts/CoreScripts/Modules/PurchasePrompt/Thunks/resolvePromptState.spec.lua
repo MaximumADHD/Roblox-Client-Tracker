@@ -13,6 +13,8 @@ return function()
 	local MockAnalytics = require(Root.Test.MockAnalytics)
 	local ExternalSettings = require(Root.Services.ExternalSettings)
 	local MockExternalSettings = require(Root.Test.MockExternalSettings)
+	local Network = require(Root.Services.Network)
+	local MockNetwork = require(Root.Test.MockNetwork)
 	local Thunk = require(Root.Thunk)
 
 	local resolvePromptState = require(script.Parent.resolvePromptState)
@@ -52,7 +54,8 @@ return function()
 			productInfo, accountInfo, balanceInfo, alreadyOwned, isRobloxPurchase)
 		return Thunk.test(resolvePromptState(productInfo, accountInfo, balanceInfo, alreadyOwned, isRobloxPurchase), store, {
 			[Analytics] = mockAnalytics or MockAnalytics.new().mockService,
-			[ExternalSettings] = mockExternalSettings or MockExternalSettings.new(false, false, {})
+			[ExternalSettings] = mockExternalSettings or MockExternalSettings.new(false, false, {}),
+			[Network] = MockNetwork.new(),
 		})
 	end
 

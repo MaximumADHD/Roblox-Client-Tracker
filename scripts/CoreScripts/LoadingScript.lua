@@ -30,7 +30,7 @@ local Localization = require(Modules.InGameMenuV3.Localization.Localization)
 local FFlagLoadingScreenShowBlankUntilPolicyServiceReturns = game:DefineFastFlag("LoadingScreenShowBlankUntilPolicyServiceReturns", false)
 local FFlagLoadingRemoveRemoteCallErrorPrint = game:DefineFastFlag("LoadingRemoveRemoteCallErrorPrint", false)
 
-local FFlagLoadingScreenRevamp = game:DefineFastFlag("LoadingScreenRevamp", false)
+local FFlagLoadingScreenRevamp2 = game:DefineFastFlag("LoadingScreenRevamp2", false)
 
 local FFlagShowConnectionErrorCode = settings():GetFFlag("ShowConnectionErrorCode")
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
@@ -58,6 +58,13 @@ local spinnerImageId = "rbxasset://textures/loading/robloxTilt.png"
 
 local LOADING_SCREEN_FADE_OUT_TIME = 5
 
+-- Check if engine has passed down place_id as Args or not. If yes, use the place_id for quicker start up.
+local PLACE_ID_FROM_ENGINE = 0
+local numArgs = select("#", ...)
+if numArgs > 0 then
+	PLACE_ID_FROM_ENGINE = select(1, ...)
+end
+
 -- Variables
 local GameAssetInfo -- loaded by InfoProvider:LoadAssets()
 local currScreenGui
@@ -76,7 +83,7 @@ local connectionHealthCon
 
 -- [Info provider section] should be removed after new loading screen goes alive
 local InfoProvider = {}
-if not FFlagLoadingScreenRevamp then
+if not FFlagLoadingScreenRevamp2 then
 	function InfoProvider:GetGameName()
 		if GameAssetInfo ~= nil then
 			return GameAssetInfo.Name
@@ -123,7 +130,7 @@ end
 
 -- create a cancel binding for console to be able to cancel anytime while loading
 local function createTenfootCancelGui()
-	if FFlagLoadingScreenRevamp then return end
+	if FFlagLoadingScreenRevamp2 then return end
 	local cancelLabel = create'ImageLabel'
 	{
 		Name = "CancelLabel",
@@ -178,7 +185,7 @@ local function createTenfootCancelGui()
 end
 
 local function GenerateGui()
-	if FFlagLoadingScreenRevamp then return end
+	if FFlagLoadingScreenRevamp2 then return end
 	local screenGui = create 'ScreenGui' {
 		Name = 'RobloxLoadingGui',
 		DisplayOrder = 8,
@@ -602,17 +609,17 @@ end
 ---------------------------------------------------------
 -- Main Script (show something now + setup connections)
 local transtion = nil
-if FFlagLoadingScreenRevamp then
+if FFlagLoadingScreenRevamp2 then
 	transtion = GenerateTransition()
 end
 
-if not FFlagLoadingScreenRevamp then
+if not FFlagLoadingScreenRevamp2 then
 	-- start loading assets asap
 	InfoProvider:LoadAssets()
 end
 
 local loadingScreenUIHandle = nil
-if FFlagLoadingScreenRevamp then
+if FFlagLoadingScreenRevamp2 then
 	local spwanUI = coroutine.create(function()
 		local CorePackages = game:GetService("CorePackages")
 		local Roact = require(CorePackages:WaitForChild("Roact"))
@@ -622,7 +629,9 @@ if FFlagLoadingScreenRevamp then
 		local app = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			loadingScreenUI = Roact.createElement(LoadingScreen)
+			loadingScreenUI = Roact.createElement(LoadingScreen, {
+				placeId = PLACE_ID_FROM_ENGINE,
+			})
 		})
 		loadingScreenUIHandle = Roact.mount(app, CoreGui, "RobloxLoadingGUI")
 		-- Roact mount might lag one frame, make sure transition is destroyed after loading screen shows up.
@@ -638,7 +647,7 @@ else
 end
 
 -- [events section] should be removed after new loading screen goes alive
-if not FFlagLoadingScreenRevamp then
+if not FFlagLoadingScreenRevamp2 then
 	local fadeCycleTime = 1.7
 	local turnCycleTime = 2
 
@@ -816,7 +825,7 @@ local function disconnectAndCloseHealthStat()
 end
 
 local function fadeAndDestroyBlackFrame(blackFrame)
-	if FFlagLoadingScreenRevamp then return end
+	if FFlagLoadingScreenRevamp2 then return end
 	if destroyingBackground then return end
 	destroyingBackground = true
 	spawn(function()
@@ -888,7 +897,7 @@ local function fadeAndDestroyBlackFrame(blackFrame)
 end
 
 local function destroyLoadingElements(instant)
-	if FFlagLoadingScreenRevamp then return end
+	if FFlagLoadingScreenRevamp2 then return end
 	if not currScreenGui then return end
 	if destroyedLoadingGui then return end
 	destroyedLoadingGui = true
@@ -922,7 +931,7 @@ local function waitForCharacterLoaded()
 end
 
 local function handleRemoveDefaultLoadingGui(instant)
-	if FFlagLoadingScreenRevamp then
+	if FFlagLoadingScreenRevamp2 then
 		if loadingScreenUIHandle then
 			local CorePackages = game:GetService("CorePackages")
 			local Roact = require(CorePackages.Roact)

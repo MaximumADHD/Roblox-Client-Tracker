@@ -43,7 +43,7 @@ return function()
 		end)
 
 		it("should clear values for nil keys", function()
-			local state = { [KEY_1] = RetrievalStatus.Fetching }
+			local state: any = { [KEY_1] = RetrievalStatus.Fetching }
 
 			state = FetchingStatusReducer(state, UpdateFetchingStatus(KEY_1, nil))
 			expect(state[KEY_1]).to.equal(nil)

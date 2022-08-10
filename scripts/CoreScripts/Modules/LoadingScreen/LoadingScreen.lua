@@ -6,6 +6,7 @@ local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 local LocalizationService = game:GetService("LocalizationService")
 local ContextActionService = game:GetService("ContextActionService")
+local HttpRbxApiService = game:GetService("HttpRbxApiService")
 -- Dependencies
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Modules = RobloxGui:WaitForChild("Modules")
@@ -25,12 +26,13 @@ local AppStyle = {
 	Font = AppFont,
 }
 local CoreScriptTranslator = CoreGui.CoreScriptLocalization:GetTranslator(LocalizationService.RobloxLocaleId)
-
+local httpRequest = require(AppTempCommon.Temp.httpRequest)
+local networking = httpRequest(HttpRbxApiService)
 -- Constants
 local GAME_ICON_URL = "rbxthumb://type=GameIcon&id=%d&w=256&h=256"
 local GAME_THUMBNAIL_URL = "rbxthumb://type=GameThumbnail&id=%d&w=768&h=432"
 
-local BASE_SCREEN_ORDER = 10
+local BASE_SCREEN_ORDER = 7
 local THUMBNAIL_SIZE = Vector2.new(768, 432)
 local THUMBNAIL_TO_SCREEN_WIDTH_RATIO = 1.5
 local GAME_ICON_FALLBACK_COLOR = Color3.fromRGB(101, 102, 104)
@@ -99,7 +101,8 @@ local ANIMATIONS = {
 				break
 			end
 		end
-
+		-- no animation for info frame but the value needs to be set
+		updateBindings.infoFrameTransparency(INFO_FRAME_TRANSPARENCY)
 		if step == AnimationSteps.AnimateIconThumbnail then
 			local t = 1.0 - ((currentStepLength - timeElapsed) / AnimationLength[step])
 			updateBindings.iconTransparency(lerp(transparencyRange, t))
@@ -210,9 +213,14 @@ function LoadingScreen:renderBackground(style)
 	local thumbnailScaledWidth = self.state.thumbnailScaledWidth
 	local thumbnailScaledHeight = self.state.thumbnailScaledHeight
 	local thumbnailPositionX = self.state.thumbnailPositionX
+	local thumbnailURL = ""
+	if self.props.placeId and self.props.placeId > 0 then
+		thumbnailURL = GAME_THUMBNAIL_URL:format(self.props.placeId)
+	end
 	return Roact.createElement("ScreenGui", {
 		DisplayOrder = BASE_SCREEN_ORDER,
 		IgnoreGuiInset = true,
+		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 	}, {
 		Roact.createElement("Frame", {
 			Name = "BackgroundFrame",
@@ -227,7 +235,7 @@ function LoadingScreen:renderBackground(style)
 		}, {
 			ThumbnailImage = Roact.createElement("ImageLabel", {
 				BackgroundTransparency = 1,
-				Image = self.props.placeId and GAME_THUMBNAIL_URL:format(self.props.placeId) or "",
+				Image = thumbnailURL,
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.fromScale(thumbnailPositionX, 0.5),
 				Size = UDim2.fromOffset(thumbnailScaledWidth, thumbnailScaledHeight),
@@ -260,6 +268,10 @@ end
 
 function LoadingScreen:renderPlaceIcon()
 	local shimPos = self.state.shimPos
+	local iconURL = ""
+	if self.props.universeId and self.props.universeId > 0 then
+		iconURL = GAME_ICON_URL:format(self.props.universeId)
+	end
 	return Roact.createElement("Frame", {
 		Name = "IconFrame",
 		BackgroundTransparency = 0,
@@ -299,7 +311,7 @@ function LoadingScreen:renderPlaceIcon()
 		}),
 		GameIconImage = Roact.createElement("ImageLabel", {
 			BackgroundTransparency = 1,
-			Image = self.props.universeId and GAME_ICON_URL:format(self.props.universeId) or "",
+			Image = iconURL,
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.fromScale(0.5, 0.5),
 			Size = UDim2.fromScale(1, 1),
@@ -404,6 +416,7 @@ function LoadingScreen:renderMain(style)
 	return Roact.createElement("ScreenGui", {
 		DisplayOrder = BASE_SCREEN_ORDER + 1,
 		IgnoreGuiInset = true,
+		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 		OnTopOfCoreBlur = true,
 	}, {
 		DarkGradient = Roact.createElement("Frame", {
@@ -630,9 +643,8 @@ function LoadingScreen:init()
 		local absoluteSize = self.state.absoluteSize
 		local thumbnailScaledWidth = absoluteSize.x * THUMBNAIL_TO_SCREEN_WIDTH_RATIO
 		local thumbnailScaledHeight = thumbnailScaledWidth / THUMBNAIL_SIZE.x * THUMBNAIL_SIZE.y
-		-- if stretched width is less than thumbnail width and screen height is larger than thumbnail height,
-		-- then stretch based on height instead
-		if thumbnailScaledWidth < THUMBNAIL_SIZE.x and absoluteSize.y > THUMBNAIL_SIZE.y then
+		-- if scaled height is less than screen height, scale based on height
+		if absoluteSize.y > thumbnailScaledHeight then
 			thumbnailScaledWidth = absoluteSize.y / THUMBNAIL_SIZE.y * THUMBNAIL_SIZE.x
 			thumbnailScaledHeight = absoluteSize.y
 		end
@@ -642,6 +654,7 @@ function LoadingScreen:init()
 		local nextThumbnailPositionX = self.state.thumbnailPositionX + self.thumbnailMoveSpd * dt
 		if nextThumbnailPositionX >= thumbnailPositionXMax or nextThumbnailPositionX <= thumbnailPositionXMin then
 			self.thumbnailMoveSpd =  -self.thumbnailMoveSpd
+			nextThumbnailPositionX = math.clamp(nextThumbnailPositionX, thumbnailPositionXMin, thumbnailPositionXMax)
 		end
 
 		self:setState({
@@ -708,9 +721,9 @@ function LoadingScreen:didMount()
 
 	RunService:SetRobloxGuiFocused(true)
 
-	self.props.fetchUniverseId()
+	self.props.fetchUniverseId(self.props.placeId)
 
-	self.props.fetchGameProductInfo()
+	self.props.fetchGameProductInfo(self.props.placeId)
 
 	self.props.fetchSubjectToChinaPolicies()
 
@@ -737,20 +750,20 @@ LoadingScreen = RoactRodux.connect(
 		return {
 			productInfo = state.productInfo,
 			isSubjectToChinaPolicies = state.isSubjectToChinaPolicies,
-			placeId = state.gameIds and state.gameIds.placeId or nil,
-			universeId = state.gameIds and state.gameIds.universeId or nil
+			placeId = state.gameIds and state.gameIds.placeId or props.placeId,
+			universeId = state.gameIds and state.gameIds.universeId or 0,
 		}
 	end,
 	function(dispatch)
 		return {
-			fetchGameProductInfo = function()
-				dispatch(GetGameProductInfo())
+			fetchGameProductInfo = function(placeId)
+				dispatch(GetGameProductInfo(placeId))
 			end,
 			fetchSubjectToChinaPolicies = function()
 				dispatch(GetIsSubjectToChinaPolicies())
 			end,
-			fetchUniverseId = function()
-				dispatch(GetUniverseId())
+			fetchUniverseId = function(placeId)
+				dispatch(GetUniverseId(networking, placeId))
 			end,
 		}
 	end

@@ -7,7 +7,8 @@ local ReceivedMultiplePlaceInfos = require(LuaChat.Actions.ReceivedMultiplePlace
 
 local Immutable = require(Common.Immutable)
 
-return function(state, action)
+-- FIXME: any type Rodux
+return function(state: any?, action: any)
 	state = state or {}
 	if action.type == ReceivedMultiplePlaceInfos.name then
 

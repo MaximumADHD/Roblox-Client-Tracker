@@ -26,6 +26,7 @@ local SignalsContext = require(Plugin.Src.Context.Signals)
 local KeyboardListener = Framework.UI.KeyboardListener
 local InactiveCover = require(Plugin.Src.Components.InactiveCover)
 local ProgressScreen = require(Plugin.Src.Components.ProgressScreen)
+local RecordingModeCover = require(Plugin.Src.Components.RecordingModeCover)
 
 local TrackEditor = require(Plugin.Src.Components.TrackEditor)
 local TrackList = require(Plugin.Src.Components.TrackList.TrackList)
@@ -69,10 +70,12 @@ local SetLastSelectedPath = require(Plugin.Src.Actions.SetLastSelectedPath)
 local Playback = require(Plugin.Src.Components.Playback)
 local InstanceSelector = require(Plugin.Src.Components.InstanceSelector)
 local AnimationControlPanel = require(Plugin.Src.Components.AnimationControlPanel.AnimationControlPanel)
+local FacialAnimationRecorder = require(Plugin.Src.Components.FacialAnimationRecorder.FacialAnimationRecorder)
 local TrackColors = require(Plugin.Src.Components.TrackList.TrackColors)
 local PromoteToCurvesPrompt = require(Plugin.Src.Components.PromoteToCurvesPrompt)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
+local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagRootMotionTrack = require(Plugin.LuaFlags.GetFFlagRootMotionTrack)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
@@ -618,6 +621,8 @@ function EditorController:render()
 	local rootInstance = props.RootInstance
 
 	local absoluteSize = state.AbsoluteSize
+	local isInRecordMode = props.PlayState == Constants.PLAY_STATE.Record
+	local inReviewState = props.inReviewState
 	local showChangeFPSPrompt = state.showChangeFPSPrompt
 	local showChangePlaybackSpeedPrompt = state.showChangePlaybackSpeedPrompt
 	local showEditor = animationData ~= nil
@@ -911,9 +916,14 @@ function EditorController:render()
 			Size = UDim2.new(1, -trackListWidth, 1, 0),
 			LayoutOrder = 2,
 			OnCreateAnimation = self.createAnimationWrapper,
+			PlayState = props.PlayState,
+			inReviewState = props.inReviewState
 		}),
 
 		Playback = active and showEditor and Roact.createElement(Playback),
+		-- TODO: Maybe we can just put all of the screens in the FacialAnimationRecorder and present them through Portals
+		FacialAnimationRecorder = active and GetFFlagFacialAnimationRecordingInStudio() and (isInRecordMode or inReviewState) and Roact.createElement(FacialAnimationRecorder),	
+		RecordingModeCover = active and GetFFlagFacialAnimationRecordingInStudio() and isInRecordMode and Roact.createElement(RecordingModeCover),
 		InstanceSelector = active and Roact.createElement(InstanceSelector),
 
 		FloorGrid = active and showEditor and Roact.createElement(FloorGrid, {
@@ -1018,6 +1028,7 @@ local function mapStateToProps(state)
 		SelectedTracks = status.SelectedTracks,
 		LastSelectedPath = status.LastSelectedPath,
 		PlayState = status.PlayState,
+		inReviewState = status.inReviewState,
 		FrameRate = status.FrameRate,
 		Analytics = state.Analytics,
 		PlaybackSpeed = status.PlaybackSpeed,

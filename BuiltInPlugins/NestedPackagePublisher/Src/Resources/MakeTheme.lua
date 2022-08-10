@@ -13,7 +13,19 @@ local Framework = require(Plugin.Packages.Framework)
 
 local Style = Framework.Style
 local StudioTheme = Style.Themes.StudioTheme
--- local _StyleKey = Style.StyleKey -- uncomment to use
+local StyleKey = Style.StyleKey
+
+local darkThemeOverride = {
+    mainWindow = {
+        backgroundColor = StyleKey.MainBackground,
+    },
+}
+
+local lightThemeOverride = {
+    mainWindow = {
+        backgroundColor = StyleKey.MainBackground,
+    },
+}
 
 local PluginTheme = {
 	-- New Plugin Setup: Add theme values, i.e.
@@ -23,9 +35,9 @@ local PluginTheme = {
 return function(createMock: boolean?)
 	local styleRoot
 	if createMock then
-		styleRoot = StudioTheme.mock()
+		styleRoot = StudioTheme.mock(darkThemeOverride, lightThemeOverride)
 	else
-		styleRoot = StudioTheme.new()
+		styleRoot = StudioTheme.new(darkThemeOverride, lightThemeOverride)
 	end
 
 	return styleRoot:extend(PluginTheme)

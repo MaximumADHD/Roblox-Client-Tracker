@@ -18,7 +18,6 @@ local Pane = UI.Pane
 local ScrollingFrame = UI.ScrollingFrame
 
 local ClearMaterial = require(Plugin.Src.Actions.ClearMaterial)
-local MaterialController = require(Plugin.Src.Controllers.MaterialController)
 
 local MaterialDetailsComponents = Plugin.Src.Components.MaterialBrowser.MaterialDetails
 local MaterialHeader = require(MaterialDetailsComponents.MaterialHeader)
@@ -44,7 +43,6 @@ type _Props = Props & {
 	dispatchClearMaterial: () -> (),
 	Localization: any,
 	Material: _Types.Material?,
-	MaterialController: any,
 	Stylizer: any,
 }
 
@@ -106,7 +104,6 @@ end
 MaterialDetails = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
-	MaterialController = MaterialController,
 	Stylizer = Stylizer,
 })(MaterialDetails)
 

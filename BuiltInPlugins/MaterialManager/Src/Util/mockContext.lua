@@ -17,12 +17,11 @@ local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local MakeTheme = require(Plugin.Src.Resources.MakeTheme)
 
 local Controllers = Plugin.Src.Controllers
-local CalloutController = require(Controllers.CalloutController)
 local GeneralServiceController = require(Controllers.GeneralServiceController)
 local ImageLoader = require(Controllers.ImageLoader)
 local ImageUploader = require(Controllers.ImageUploader)
 local ImportAssetHandler = require(Controllers.ImportAssetHandler)
-local MaterialController = require(Controllers.MaterialController)
+local MaterialController = require(Controllers.MaterialController) -- Remove with FFlagDeprecateMaterialController
 local MaterialServiceController = require(Controllers.MaterialServiceController)
 local PluginController = require(Controllers.PluginController)
 
@@ -41,7 +40,6 @@ local contextItemsList = {
 	ContextServices.Analytics.mock(),
 	ContextServices.Localization.mock(),
 	store,
-	CalloutController.mock(),
 	GeneralServiceController.mock(),
 	ImportAssetHandler.mock(imageUploader),
 	ImageLoader.mock(),

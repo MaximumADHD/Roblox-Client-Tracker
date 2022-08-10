@@ -23,6 +23,7 @@ local fIntPotentialClientTimeout = game:DefineFastInt("PotentialClientTimeoutSec
 local fflagPredictedOOMExit = game:DefineFastFlag("PredictedOOMExit", false)
 local fflagPredictedOOMExitContinueChoice = game:DefineFastFlag("PredictedOOMExitContinueChoice", false)
 local fflagExitContinueHighlight = game:DefineFastFlag("ExitContinueHighlight", false)
+local fflagPredictedOOMKeepPlayingExit = game:DefineFastFlag("PredictedOOMKeepPlayingExit", false)
 
 local fflagSanitizeKickMessageInDisconnectPrompt = game:DefineFastFlag("SanitizeKickMessageInDisconnectPrompt", false)
 local fintMaxKickMessageLength = game:DefineFastInt("MaxKickMessageLength", 200)
@@ -69,6 +70,7 @@ local ConnectionPromptState = {
 	RECONNECT_DISABLED = 8, -- General Disable by FFlag, i.e overloaded servers
 	OUT_OF_MEMORY = 9, -- Show Out Of Memory Message
 	OUT_OF_MEMORY_EXIT_CONTINUE = 10, -- Show Out Of Memory with Exit/Continue Message
+	OUT_OF_MEMORY_KEEPPLAYING_EXIT = 11, -- Show Out Of Memory with Keep Playing/Exit Message
 }
 
 local connectionPromptState = ConnectionPromptState.NONE
@@ -86,6 +88,7 @@ local ErrorTitles = {
 	[ConnectionPromptState.RECONNECT_DISABLED] = "Error",
 	[ConnectionPromptState.OUT_OF_MEMORY] = "Disconnected",
 	[ConnectionPromptState.OUT_OF_MEMORY_EXIT_CONTINUE] = "Experience Unstable",
+	[ConnectionPromptState.OUT_OF_MEMORY_KEEPPLAYING_EXIT] = "Out of Memory",
 }
 
 local ErrorTitleLocalizationKey = {
@@ -97,6 +100,7 @@ local ErrorTitleLocalizationKey = {
 	[ConnectionPromptState.RECONNECT_DISABLED] = "InGame.CommonUI.Title.Error",
 	[ConnectionPromptState.OUT_OF_MEMORY] = "InGame.ConnectionError.Title.Disconnected",
 	[ConnectionPromptState.OUT_OF_MEMORY_EXIT_CONTINUE] = "InGame.ConnectionError.Title.ExperienceUnstable",
+	[ConnectionPromptState.OUT_OF_MEMORY_KEEPPLAYING_EXIT] = "InGame.ConnectionError.Title.OutOfMemory",
 }
 
 -- only return success when a valid root id is given
@@ -295,6 +299,21 @@ local ButtonList = {
 			Callback = closePrompt,
 			Primary = if fflagExitContinueHighlight then nil else true,
 		}
+	},
+	[ConnectionPromptState.OUT_OF_MEMORY_KEEPPLAYING_EXIT] = {
+		{
+			Text = "Keep Playing",
+			LocalizationKey = "InGame.CommonUI.Button.KeepPlaying",
+			LayoutOrder = 1,
+			Callback = closePrompt,
+		},
+		{
+			Text = "Exit",
+			LocalizationKey = "InGame.CommonUI.Button.Exit",
+			LayoutOrder = 2,
+			Callback = leaveFunction,
+			Primary = true,
+		}
 	}
 }
 
@@ -380,6 +399,9 @@ local function stateTransit(errorType, errorCode, oldState)
 			-- reconnection will be delayed after graceTimeout
 			graceTimeout = tick() + defaultTimeoutTime
 			errorForReconnect = Enum.ConnectionError.DisconnectErrors
+			if fflagPredictedOOMKeepPlayingExit and errorCode == Enum.ConnectionError["DisconnectOutOfMemoryKeepPlayingExit"] then
+				return ConnectionPromptState.OUT_OF_MEMORY_KEEPPLAYING_EXIT
+			end
 			if fflagPredictedOOMExitContinueChoice and errorCode == Enum.ConnectionError["DisconnectOutOfMemoryExitContinue"] then
 				return ConnectionPromptState.OUT_OF_MEMORY_EXIT_CONTINUE
 			end

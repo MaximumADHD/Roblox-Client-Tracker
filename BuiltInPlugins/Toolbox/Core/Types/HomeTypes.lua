@@ -8,6 +8,9 @@ export type SubcategoryThumbnail = {
 	backgroundColor: string,
 }
 
+-- Use an unsealed table since the backend may send any number of params for this field (e.g. keyword, assetSubtypes, or future fields) and we don't want to have to update Studio for each additional param
+export type SubcategoryQueryParams = {}
+
 export type Subcategory = {
 	displayName: string,
 	children: {
@@ -18,6 +21,7 @@ export type Subcategory = {
 	name: string,
 	path: { string },
 	searchKeywords: string?,
+	queryParams: SubcategoryQueryParams?,
 	thumbnail: SubcategoryThumbnail?,
 	hidden: boolean?,
 }

@@ -1,7 +1,5 @@
 local StudioPublishService = game:GetService("StudioPublishService")
 local FFlagDebugBuiltInPluginModalsNotBlocking = game:GetFastFlag("DebugBuiltInPluginModalsNotBlocking")
-local FFlagAudioPublishWorkflowWithPermissionsCheck = game:GetFastFlag("AudioPublishWorkflowWithPermissionsCheck")
-local FFlagAudioPublishWorkflowWithPermissionsCheck2 = game:GetFastFlag("AudioPublishWorkflowWithPermissionsCheck2")
 return function(plugin, pluginLoaderContext)
 	if not plugin then
 		return
@@ -135,14 +133,11 @@ return function(plugin, pluginLoaderContext)
 			dataStore:dispatch(SetIsPublishing(false))
 		end)
 
-		if FFlagAudioPublishWorkflowWithPermissionsCheck then
-			pluginLoaderContext.signals["StudioPublishService.GamePublishCancelled"]:Connect(function()
-				if FFlagAudioPublishWorkflowWithPermissionsCheck2 then
-					StudioPublishService:clearUploadNames()
-				end
-				closePlugin()
-			end)
-		end
+
+		pluginLoaderContext.signals["StudioPublishService.GamePublishCancelled"]:Connect(function()
+			StudioPublishService:clearUploadNames()
+			closePlugin()
+		end)
 	end
 	main()
 end

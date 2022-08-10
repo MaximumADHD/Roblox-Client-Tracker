@@ -23,10 +23,9 @@ local SearchBar = StudioUI.SearchBar
 local Pane = Framework.UI.Pane
 
 local Actions = Plugin.Src.Actions
-local ClearMaterialVariant = require(Actions.ClearMaterialVariant)
-local SetSearch = require(Actions.SetSearch)
-local SetMaterialTileSize = require(Actions.SetMaterialTileSize)
+local ClearMaterialVariant = require(Actions.ClearMaterialVariant)  -- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 local SetMode = require(Actions.SetMode)
+local SetMaterialVariant = require(Actions.SetMaterialVariant)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local Controllers = Plugin.Src.Controllers
@@ -38,9 +37,12 @@ local TopBarComponents = Plugin.Src.Components.MaterialBrowser.TopBar
 local ActionButton = require(TopBarComponents.ActionButton)
 local ViewTypeSelector = require(TopBarComponents.ViewTypeSelector)
 
+local MaterialVariantEditor = require(Plugin.Src.Components.MaterialBrowser.MaterialVariantEditor)
+
 local getFFlagMaterialManagerAnalyticsMaterialAsTool = require(
 	Plugin.Src.Flags.getFFlagMaterialManagerAnalyticsMaterialAsTool
 )
+local getFFlagMaterialManagerVariantCreatorOverhaul = require(Plugin.Src.Flags.getFFlagMaterialManagerVariantCreatorOverhaul)
 
 local TopBar = Roact.PureComponent:extend("TopBar")
 
@@ -54,18 +56,14 @@ type _Props = Props & {
 	ActiveAsTool: boolean,
 	Analytics: any,
 	dispatchClearMaterialVariant: () -> (),
-	dispatchSetMaterialTileSize: (size : number) -> (),
-	dispatchSetSearch: (string) -> (),
-	dispatchSetMode: (mode : string) -> (),
+	dispatchSetMode: (mode: string) -> (),
+	dispatchSetMaterialVariant: (materialVariant: MaterialVariant) -> (),
 	GeneralServiceController: any,
 	Localization: any,
 	Material: _Types.Material?,
 	MaterialServiceController: any,
-	MaterialTileSize: number,
-	MenuHover: boolean,
 	PluginController: any,
 	Stylizer: any,
-	ViewType: string,
 	WrapperProps: any,
 	AbsoluteSize: Vector2,
 }
@@ -100,9 +98,19 @@ function TopBar:init()
 	self.createMaterialVariant = function()
 		local props: _Props = self.props
 
-		props.dispatchClearMaterialVariant()
 		props.dispatchSetMode("Create")
-		props.OpenPrompt("Create")
+		if getFFlagMaterialManagerVariantCreatorOverhaul() then
+			local materialVariant = props.MaterialServiceController:createMaterialVariant()
+			props.dispatchSetMaterialVariant(materialVariant)
+			MaterialVariantEditor = Roact.createElement(MaterialVariantEditor, {
+				LayoutOrder = 1,
+				OpenPrompt = props.OpenPrompt,
+				Size = UDim2.fromScale(1, 1),
+			})
+		else
+			props.dispatchClearMaterialVariant()
+			props.OpenPrompt("Create")
+		end
 	end
 
 	self.showInExplorer = function()
@@ -230,9 +238,6 @@ return RoactRodux.connect(
 		return {
 			ActiveAsTool = state.MaterialBrowserReducer.ActiveAsTool,
 			Material = state.MaterialBrowserReducer.Material,
-			MaterialTileSize = state.MaterialBrowserReducer.MaterialTileSize,
-			MenuHover = state.MaterialBrowserReducer.MenuHover,
-			ViewType = state.MaterialBrowserReducer.ViewType,
 		}
 	end,
 	function(dispatch)
@@ -240,14 +245,11 @@ return RoactRodux.connect(
 			dispatchClearMaterialVariant = function()
 				dispatch(ClearMaterialVariant())
 			end,
-			dispatchSetSearch = function (search: string)
-				dispatch(SetSearch(search))
-			end,
-			dispatchSetMaterialTileSize = function(size: number)
-				dispatch(SetMaterialTileSize(size))
-			end,
 			dispatchSetMode = function(mode: string)
 				dispatch(SetMode(mode))
+			end,
+			dispatchSetMaterialVariant = function(materialVariant: MaterialVariant)
+				dispatch(SetMaterialVariant(materialVariant))
 			end,
 		}
 	end

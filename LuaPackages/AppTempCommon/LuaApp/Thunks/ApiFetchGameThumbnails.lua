@@ -12,7 +12,7 @@ local TableUtilities = require(LuaApp.TableUtilities)
 
 local THUMBNAIL_PAGE_COUNT = 20
 local THUMBNAIL_SIZE = 150
-local RETRY_MAX_COUNT = math.max(0, settings():GetFVariable("LuaAppNonFinalThumbnailMaxRetries"))
+local RETRY_MAX_COUNT = math.max(0, tonumber(settings():GetFVariable("LuaAppNonFinalThumbnailMaxRetries")) or 0)
 local RETRY_TIME_MULTIPLIER = 2 -- seconds
 
 local function convertToId(value)

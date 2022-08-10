@@ -10,8 +10,8 @@ local Result = require(LuaApp.Result)
 
 local TableUtilities = require(LuaApp.TableUtilities)
 
-local RETRY_MAX_COUNT = math.max(0, settings():GetFVariable("LuaAppNonFinalThumbnailMaxRetries"))
-local RETRY_TIME_MULTIPLIER = math.max(0, settings():GetFVariable("LuaAppThumbnailsApiRetryTimeMultiplier")) -- seconds
+local RETRY_MAX_COUNT = math.max(0, tonumber(settings():GetFVariable("LuaAppNonFinalThumbnailMaxRetries")) or 0)
+local RETRY_TIME_MULTIPLIER = math.max(0, tonumber(settings():GetFVariable("LuaAppThumbnailsApiRetryTimeMultiplier")) or 0) -- seconds
 
 local FetchSubdividedThumbnails = {}
 

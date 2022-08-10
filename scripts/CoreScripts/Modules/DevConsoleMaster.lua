@@ -41,10 +41,6 @@ local DevConsoleAnalytics = require(MiddleWare.DevConsoleAnalytics)
 local IsDeveloperConsoleEnabled = require(DevConsole.IsDeveloperConsoleEnabled)
 local PlayerPermissionsModule = require(CoreGui.RobloxGui.Modules.PlayerPermissionsModule)
 
-local DFFlagEnableRemoteProfilingForDevConsole = settings():GetFFlag("EnableRemoteProfilingForDevConsole")
-
-local FFlagAdminServerLogs = settings():GetFFlag("AdminServerLogs")
-
 game:DefineFastFlag("SafelyDisconnectStatsReceived", false)
 
 local DEV_TAB_LIST = {
@@ -83,15 +79,11 @@ local DEV_TAB_LIST = {
 		tab = ServerJobs,
 		layoutOrder = 8,
 	},
-
-}
-
-if DFFlagEnableRemoteProfilingForDevConsole then
-	DEV_TAB_LIST["MicroProfiler"] = {
+	MicroProfiler = {
 		tab = MicroProfiler,
 		layoutOrder = 9,
-	}
-end
+	},
+}
 
 local PLAYER_TAB_LIST = {
 	Log = {
@@ -161,27 +153,9 @@ function DevConsoleMaster:SetupDevConsole()
 	local platformEnum = UserInputService:GetPlatform()
 	local formFactor = platformConversion[platformEnum]
 
-	local developerConsoleView = isDeveloper()
-
-	local initTabListForStore
-	if FFlagAdminServerLogs then
-		developerConsoleView = false
-		initTabListForStore = {
-			MainView = MainView(nil, SetTabList(PLAYER_TAB_LIST, "Log")),
-		}
-	else
-		initTabListForStore = {
-			MainView = MainView(nil, SetTabList(developerConsoleView and DEV_TAB_LIST or PLAYER_TAB_LIST, "Log")),
-		}
-	end
-
-	if DFFlagEnableRemoteProfilingForDevConsole and developerConsoleView then
-		-- we disable the microprofiler tab on non desktop devices.
-		if formFactor == Constants.FormFactor.Small or
-			formFactor == Constants.FormFactor.Console then
-			DEV_TAB_LIST["MicroProfiler"] = nil
-		end
-	end
+	local initTabListForStore = {
+		MainView = MainView(nil, SetTabList(PLAYER_TAB_LIST, "Log")),
+	}
 
 	-- create store
 	local middleWare = { DevConsoleAnalytics }
@@ -194,7 +168,7 @@ function DevConsoleMaster:SetupDevConsole()
 		store = self.store,
 	}, {
 		DataProvider = Roact.createElement(DataProvider, {
-			isDeveloperView = not FFlagAdminServerLogs and developerConsoleView, -- should default to false when FFlag is removed
+			isDeveloperView = false,
 		}, {
 			App = Roact.createElement("ScreenGui", {
 				OnTopOfCoreBlur = true,
@@ -202,17 +176,17 @@ function DevConsoleMaster:SetupDevConsole()
 			}, {
 				DevConsoleWindow = Roact.createElement(DevConsoleWindow, {
 					formFactor = formFactor,
-					isDeveloperView = developerConsoleView,
-					isVisible = isVisible,  -- determines if visible or not
+					isDeveloperView = false,
+					isVisible = isVisible, -- determines if visible or not
 					isMinimized = false, -- false means windowed, otherwise shows up as a minimized bar
 					position = Constants.MainWindowInit.Position,
 					size = Constants.MainWindowInit.Size,
-					tabList = developerConsoleView and DEV_TAB_LIST or PLAYER_TAB_LIST
+					tabList = PLAYER_TAB_LIST,
 				}),
 
 				RCCProfilerDataCompleteListener = Roact.createElement(RCCProfilerDataCompleteListener),
 			}),
-		})
+		}),
 	})
 
 	self.waitForStart = false
@@ -229,23 +203,21 @@ function DevConsoleMaster:Start()
 		self.init = true
 		self.element = Roact.mount(self.root, CoreGui, "DevConsoleMaster")
 
-		if FFlagAdminServerLogs then
-			local clientReplicator = getClientReplicator()
+		local clientReplicator = getClientReplicator()
 
-			if clientReplicator then
-				self._statsConnector = clientReplicator.StatsReceived:connect(function(stats)
-					if game:GetFastFlag("SafelyDisconnectStatsReceived") then
-						if not self._statsConnector then
-							return
-						end
+		if clientReplicator then
+			self._statsConnector = clientReplicator.StatsReceived:connect(function(stats)
+				if game:GetFastFlag("SafelyDisconnectStatsReceived") then
+					if not self._statsConnector then
+						return
 					end
-					self._statsConnector:Disconnect()
-					self._statsConnector = nil
+				end
+				self._statsConnector:Disconnect()
+				self._statsConnector = nil
 
-					self.store:dispatch(SetTabList(DEV_TAB_LIST, "Log", true))
-				end)
-				clientReplicator:RequestServerStats(true)
-			end
+				self.store:dispatch(SetTabList(DEV_TAB_LIST, "Log", true))
+			end)
+			clientReplicator:RequestServerStats(true)
 		end
 	end
 end

@@ -4,6 +4,8 @@ local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TrustAndSafety = require(RobloxGui.Modules.TrustAndSafety)
 
+local ExternalContentSharingProtocol
+	= require(CorePackages.UniversalApp.ExternalContentSharing.ExternalContentSharingProtocol).default
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local UrlBuilderPackage = require(CorePackages.Packages.UrlBuilder)
 local UrlBuilder = UrlBuilderPackage.UrlBuilder
@@ -51,10 +53,11 @@ local networkImpl = httpRequest(HttpRbxApiService)
 local SocialDependencies = require(InGameMenu.SocialDependencies)
 local IsExperienceOlderThanOneWeek = require(InGameMenu.Utility.IsExperienceOlderThanOneWeek)
 local RoduxShareLinks = SocialDependencies.RoduxShareLinks
+local RoduxNetworking = SocialDependencies.RoduxNetworking
+local NetworkStatus = RoduxNetworking.Enum.NetworkStatus
 local NetworkingShareLinks = SocialDependencies.NetworkingShareLinks
 local GetFFlagShareInviteLinkContextMenuV3Enabled =
 	require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
-local FFlagEnableServerInGameMenu = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableServerInGameMenu)
 local FFlagRemoveLegacyMenuHighlighting = require(InGameMenu.Flags.GetFFlagRemoveLegacyMenuHighlighting)
 
 local NAV_BUTTON_HEIGHT = 56
@@ -132,7 +135,7 @@ function NavigationButton:renderWithSelectionCursor(getSelectionCursor)
 				Size = UDim2.new(1, 0, 0, NAV_BUTTON_HEIGHT),
 				Text = "",
 				SelectionImageObject = getSelectionCursor(CursorKind.Square),
-				[Roact.Event.Activated] = props.onActivated,
+				[Roact.Event.Activated] = if GetFFlagShareInviteLinkContextMenuV3Enabled() and self.props.isDisabled then nil else props.onActivated,
 				[Roact.Ref] = props.LayoutOrder == 1 and props.mainPageFirstButtonRef or nil,
 				[Roact.Event.MouseEnter] = function()
 					self:setState({
@@ -178,7 +181,7 @@ function NavigationButton:renderWithSelectionCursor(getSelectionCursor)
 						BackgroundTransparency = 1,
 						Image = props.image,
 						ImageColor3 = style.Theme.IconEmphasis.Color,
-						ImageTransparency = divideTransparency(
+						ImageTransparency = if GetFFlagShareInviteLinkContextMenuV3Enabled() and self.props.isDisabled then 0.5 else divideTransparency(
 							style.Theme.IconEmphasis.Transparency,
 							showPressEffect and 2 or 1
 						),
@@ -194,7 +197,7 @@ function NavigationButton:renderWithSelectionCursor(getSelectionCursor)
 						Position = UDim2.new(0, NAV_ICON_LEFT_PADDING + NAV_ICON_SIZE + NAV_ICON_TEXT_PADDING, 0.5, 0),
 						Size = UDim2.new(1, -TEXT_SIZE_INSET, 1, 0),
 						Text = localized.text,
-						TextTransparency = divideTransparency(
+						TextTransparency = if GetFFlagShareInviteLinkContextMenuV3Enabled() and self.props.isDisabled then 0.5 else divideTransparency(
 							style.Theme.TextEmphasis.Transparency,
 							showPressEffect and 2 or 1
 						),
@@ -235,7 +238,6 @@ end
 local function shouldShowShareInviteLink(gameInfo, serverType)
 	if
 		GetFFlagShareInviteLinkContextMenuV3Enabled()
-		and FFlagEnableServerInGameMenu()
 		and serverType == CommonConstants.STANDARD_SERVER
 		and IsExperienceOlderThanOneWeek(gameInfo)
 	then
@@ -294,12 +296,25 @@ local PageNavigation
 if GetFFlagShareInviteLinkContextMenuV3Enabled() then
 	PageNavigation = Roact.Component:extend("PageNavigation")
 
+	function openShareSheet(linkId: string)
+		local linkType = RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue()
+		local url = UrlBuilder.sharelinks.appsflyer(linkId, linkType)
+		ExternalContentSharingProtocol:shareText({
+			text = url,
+			context = Constants.ShareLinksAnalyticsExternalContentSharingGameDetailsContextName
+		})
+	end
+
 	function PageNavigation:didUpdate(prevProps)
 		if self.props.currentPage == "MainPage" and (prevProps.shareInviteLink == nil and self.props.shareInviteLink ~= nil) then
-			-- TODO(COEXP-318): Pull up sharesheet.
-			local linkType = RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue()
 			local linkId = self.props.shareInviteLink.linkId
-			local _url = UrlBuilder.sharelinks.appsflyer(linkId, linkType)
+			SendAnalytics(Constants.ShareLinksAnalyticsName, Constants.ShareLinksAnalyticsLinkGeneratedName, {
+				page = "inGameMenuV3",
+				subpage = self.props.currentPage,
+				linkId = linkId,
+				linkType = RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue(),
+			})
+			openShareSheet(linkId)
 		end
 	end
 
@@ -318,19 +333,18 @@ if GetFFlagShareInviteLinkContextMenuV3Enabled() then
 		local actions = {
 			shareServerLink = GetFFlagShareInviteLinkContextMenuV3Enabled()
 					and {
+						isDisabled = if self.props.fetchShareInviteLinkNetworkStatus == NetworkStatus.Fetching then true else false,
 						onActivated = function()
 							SendAnalytics(Constants.ShareLinksAnalyticsName, Constants.ShareLinksAnalyticsButtonClickName, {
-								page = "inGameMenu",
+								btn = "shareServerInviteLink",
+								page = "inGameMenuV3",
 								subpage = props.currentPage,
 							})
 	
 							if props.shareInviteLink == nil then
 								props.fetchShareInviteLink()
 							else
-								-- TODO(COEXP-318): Pull up sharesheet if shareInviteLink is not nil.
-								local linkType = RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue()
-								local linkId = self.props.shareInviteLink.linkId
-								local _url = UrlBuilder.sharelinks.appsflyer(linkId, linkType)
+								openShareSheet(self.props.shareInviteLink.linkId)
 							end
 						end,
 					}
@@ -418,6 +432,7 @@ if GetFFlagShareInviteLinkContextMenuV3Enabled() then
 								props.setCurrentPage(page.key)
 							end
 						end,
+						isDisabled = if GetFFlagShareInviteLinkContextMenuV3Enabled() and page.actionKey then actions[page.actionKey].isDisabled else false,
 						mainPageFirstButtonRef = layoutOrder == 1 and props.mainPageFirstButtonRef or nil,
 					})
 	
@@ -472,7 +487,8 @@ else
 						onActivated = function()
 							-- TODO(COEXP-318): Pull up sharesheet if shareInviteLink is not nil.
 							SendAnalytics(Constants.ShareLinksAnalyticsName, Constants.ShareLinksAnalyticsButtonClickName, {
-								page = "inGameMenu",
+								btn = "shareServerInviteLink",
+								page = "inGameMenuV3",
 								subpage = props.currentPage,
 							})
 	
@@ -611,6 +627,7 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 		shareInviteLink = if GetFFlagShareInviteLinkContextMenuV3Enabled()
 			then state.shareLinks.Invites.ShareInviteLink
 			else nil,
+		fetchShareInviteLinkNetworkStatus = if GetFFlagShareInviteLinkContextMenuV3Enabled() then NetworkingShareLinks.GenerateLink.getStatus(state, RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue()) else nil,
 		serverType = if GetFFlagShareInviteLinkContextMenuV3Enabled() then state.serverType else nil,
 		gameInfo = if GetFFlagShareInviteLinkContextMenuV3Enabled() then state.gameInfo else nil,
 	}

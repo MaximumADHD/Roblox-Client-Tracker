@@ -274,4 +274,11 @@ end
 
 if game:GetEngineFeature("FacialAnimationStreaming") then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/FacialAnimationStreaming", script.Parent)
+	if game:GetEngineFeature("TrackerLodControllerDebugUI") then
+		ScriptContext:AddCoreScriptLocal("CoreScripts/TrackerLodControllerDebugUI", script.Parent)
+	end
+end
+
+if game:GetEngineFeature("NewMoodAnimationTypeApiEnabled") then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/AvatarMood", script.Parent)
 end

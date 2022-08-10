@@ -1,4 +1,3 @@
-local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
 local FFlagToolboxSearchResultsBackButton = game:GetFastFlag("ToolboxSearchResultsBackButton")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -44,7 +43,7 @@ function MainViewHeader:init()
 	self.onCreatorCleared = function()
 		local settings = self.props.Settings:get("Plugin")
 
-		local includeOnlyVerifiedCreators = if FFlagToolboxShowIdVerifiedFilter then self.props.includeOnlyVerifiedCreators else nil
+		local includeOnlyVerifiedCreators = self.props.includeOnlyVerifiedCreators
 		self.props.searchWithOptions(networkInterface, settings, {
 			Creator = "",
 			AudioSearch = self.props.audioSearchInfo,
@@ -56,7 +55,7 @@ function MainViewHeader:init()
 		local settings = self.props.Settings:get("Plugin")
 
 		local creator = self.props.creator
-		local includeOnlyVerifiedCreators = if FFlagToolboxShowIdVerifiedFilter then self.props.includeOnlyVerifiedCreators else nil
+		local includeOnlyVerifiedCreators = self.props.includeOnlyVerifiedCreators
 		local options = {
 			Creator = creator and creator.Name or "",
 			AudioSearch = Cryo.None,
@@ -65,18 +64,16 @@ function MainViewHeader:init()
 		self.props.searchWithOptions(networkInterface, settings, options)
 	end
 
-	if FFlagToolboxShowIdVerifiedFilter then
-		self.onIsVerifiedCleared = function()
-			local settings = self.props.Settings:get("Plugin")
+	self.onIsVerifiedCleared = function()
+		local settings = self.props.Settings:get("Plugin")
 
-			local creator = self.props.creator
-			local options = {
-				Creator = creator and creator.Name or "",
-				AudioSearch = self.props.audioSearchInfo,
-				includeOnlyVerifiedCreators = false,
-			}
-			self.props.searchWithOptions(networkInterface, settings, options)
-		end
+		local creator = self.props.creator
+		local options = {
+			Creator = creator and creator.Name or "",
+			AudioSearch = self.props.audioSearchInfo,
+			includeOnlyVerifiedCreators = false,
+		}
+		self.props.searchWithOptions(networkInterface, settings, options)
 	end
 end
 
@@ -86,7 +83,7 @@ function MainViewHeader:render()
 
 		local searchTerm = props.searchTerm or ""
 		local creatorName = props.creatorFilter.Name
-		local includeOnlyVerifiedCreators = if FFlagToolboxShowIdVerifiedFilter then props.includeOnlyVerifiedCreators else nil
+		local includeOnlyVerifiedCreators = props.includeOnlyVerifiedCreators
 
 		local audioTime
 		local audioSearchInfo = props.audioSearchInfo

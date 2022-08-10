@@ -27,8 +27,6 @@ local DOCKWIDGET_MIN_HEIGHT = 180
 local DOCKWIDGET_INITIAL_WIDTH = 600
 local DOCKWIDGET_INITIAL_HEIGHT = 560
 
-local FFlagPluginManagementFixWhiteScreen = game:GetFastFlag("PluginManagementFixWhiteScreen")
-
 local makeTheme = require(Plugin.Src.Resources.makeTheme)
 
 local ManagementApp = Roact.PureComponent:extend("ManagementApp")
@@ -63,26 +61,22 @@ function ManagementApp:init()
 		})
 	end
 
-	if FFlagPluginManagementFixWhiteScreen then
-		self.props.plugin.MultipleDocumentInterfaceInstance.DataModelSessionEnded:connect(function(dmSession)
-			-- RobloxIDEDoc has a bug in which closes DockWidget that belong to standalone plugins
-			-- which causes state inconsistencies that render empty windows.
-			-- killDockWidget is a workaround that forces the plugin to recreate the widget the next time it is opened
-			self:setState({
-				enabled = false,
-				killDockWidget = true,
-			})
-		end)
-	end
+	self.props.plugin.MultipleDocumentInterfaceInstance.DataModelSessionEnded:connect(function(dmSession)
+		-- RobloxIDEDoc has a bug in which closes DockWidget that belong to standalone plugins
+		-- which causes state inconsistencies that render empty windows.
+		-- killDockWidget is a workaround that forces the plugin to recreate the widget the next time it is opened
+		self:setState({
+			enabled = false,
+			killDockWidget = true,
+		})
+	end)
 end
 
 function ManagementApp.getDerivedStateFromProps(nextProps, finalState)
-	if FFlagPluginManagementFixWhiteScreen then
-		if finalState.enabled then
-			return {
-				killDockWidget = false
-			}
-		end
+	if finalState.enabled then
+		return {
+			killDockWidget = false,
+		}
 	end
 end
 

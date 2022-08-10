@@ -11,9 +11,7 @@ local Category = require(Plugin.Core.Types.Category)
 
 local webKeys = require(Plugin.Core.Util.Permissions.Constants).webKeys
 
-local FFlagToolboxFixDragInsertRemains = game:GetFastFlag("ToolboxFixDragInsertRemains")
 local FFlagToolboxEnableAudioGrantDialog = game:GetFastFlag("ToolboxEnableAudioGrantDialog")
-local FFlagMoveAssetInsertionCallbacksToPlugin = game:GetFastFlag("MoveAssetInsertionCallbacksToPlugin")
 
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local InsertService = game:GetService("InsertService")
@@ -23,15 +21,6 @@ local Workspace = game:GetService("Workspace")
 local StudioService = game:GetService("StudioService")
 local Lighting = game:GetService("Lighting")
 local MarketplaceService = game:GetService("MarketplaceService")
-local ToolboxService
-if not FFlagMoveAssetInsertionCallbacksToPlugin then
-	-- ToolboxService is not available in roblox-cli.
-	if isCli() then
-		ToolboxService = {}
-	else
-		ToolboxService = game:GetService("ToolboxService")
-	end
-end
 
 local INSERT_MAX_SEARCH_DEPTH = 2048
 local INSERT_MAX_DISTANCE_AWAY = 64
@@ -459,11 +448,11 @@ function InsertAsset.tryInsert(options, insertToolPromise, assetWasDragged, netw
 		end
 		activeDraggingState = {
 			assetName = options.assetName,
-			assetId = if FFlagToolboxEnableAudioGrantDialog or FFlagToolboxFixDragInsertRemains then options.assetId else nil,
+			assetId = options.assetId,
 			assetTypeId = if FFlagToolboxEnableAudioGrantDialog then options.assetTypeId else nil,
 			localization = if FFlagToolboxEnableAudioGrantDialog then InsertAsset._localization else nil,
 			insertToolPromise = insertToolPromise,
-			onSuccess = if FFlagToolboxFixDragInsertRemains then options.onSuccess else nil,
+			onSuccess = options.onSuccess,
 		}
 		InsertAsset.doDragInsertAsset(options)
 	else
@@ -542,10 +531,6 @@ function InsertAsset.doDragInsertAsset(options)
 
 	if success then
 		sendInsertionAnalytics(options, true)
-
-		if not FFlagToolboxFixDragInsertRemains then
-			options.onSuccess(assetId)
-		end
 	else
 		warn(("Toolbox failed to drag asset %d %s: %s"):format(assetId, assetName, errorMessage or ""))
 	end
@@ -563,108 +548,55 @@ function InsertAsset.registerLocalization(localization)
 end
 
 function InsertAsset.registerProcessDragHandler(plugin)
-	if FFlagMoveAssetInsertionCallbacksToPlugin then
-		-- This fires when the drag from Toolbox reaches the 3D view
-		plugin.ProcessAssetInsertionDrag = function(assetId, assetTypeId, instances)
-			setSourceAssetIdOnInstances(assetId, instances)
+	-- This fires when the drag from Toolbox reaches the 3D view
+	plugin.ProcessAssetInsertionDrag = function(assetId, assetTypeId, instances)
+		setSourceAssetIdOnInstances(assetId, instances)
 
-			-- Do not block the insert on tracking the analytic
-			spawn(function()
-				Analytics.reportDragInsertFinished(assetId, assetTypeId)
-			end)
+		-- Do not block the insert on tracking the analytic
+		spawn(function()
+			Analytics.reportDragInsertFinished(assetId, assetTypeId)
+		end)
 
-			if assetTypeId == Enum.AssetType.MeshPart.Value then
-				return sanitizeMeshAsset(assetId, instances, InsertAsset._localization)
-			end
-
-			-- We'll need this to scan the remaining instances for scripts for the warning dialog
-			activeDraggingState.instances = instances
-			return instances
+		if assetTypeId == Enum.AssetType.MeshPart.Value then
+			return sanitizeMeshAsset(assetId, instances, InsertAsset._localization)
 		end
 
-		-- This fires when the drag within the 3D Model finishes
-		plugin.ProcessAssetInsertionDrop = function()
-			-- We can't yield within the drop, so spawn this work to pick it up after the drop event finishes.
-			spawn(function()
-				if activeDraggingState then
-					if FFlagToolboxEnableAudioGrantDialog then
-						if activeDraggingState.assetTypeId == Enum.AssetType.Audio.Value then
-							doPermissionGrantDialogForAsset(
-								activeDraggingState.assetName,
-								activeDraggingState.assetId,
-								activeDraggingState.assetTypeId,
-								activeDraggingState.insertToolPromise,
-								activeDraggingState.localization
-							)
-						end
+		-- We'll need this to scan the remaining instances for scripts for the warning dialog
+		activeDraggingState.instances = instances
+		return instances
+	end
+
+	-- This fires when the drag within the 3D Model finishes
+	plugin.ProcessAssetInsertionDrop = function()
+		-- We can't yield within the drop, so spawn this work to pick it up after the drop event finishes.
+		spawn(function()
+			if activeDraggingState then
+				if FFlagToolboxEnableAudioGrantDialog then
+					if activeDraggingState.assetTypeId == Enum.AssetType.Audio.Value then
+						doPermissionGrantDialogForAsset(
+							activeDraggingState.assetName,
+							activeDraggingState.assetId,
+							activeDraggingState.assetTypeId,
+							activeDraggingState.insertToolPromise,
+							activeDraggingState.localization
+						)
 					end
-
-					-- Popup the script warning dialog if necessary
-					doScriptConfirmationIfContainsScripts(
-						activeDraggingState.assetName,
-						activeDraggingState.instances,
-						activeDraggingState.insertToolPromise
-					)
-
-					if FFlagToolboxFixDragInsertRemains and activeDraggingState.onSuccess then
-						activeDraggingState.onSuccess(activeDraggingState.assetId, activeDraggingState.instances)
-					end
-
-					activeDraggingState = nil
 				end
-			end)
-		end
-	else
-		-- This fires when the drag from Toolbox reaches the 3D view
-		ToolboxService.ProcessAssetInsertionDrag = function(assetId, assetTypeId, instances)
-			setSourceAssetIdOnInstances(assetId, instances)
 
-			-- Do not block the insert on tracking the analytic
-			spawn(function()
-				Analytics.reportDragInsertFinished(assetId, assetTypeId)
-			end)
+				-- Popup the script warning dialog if necessary
+				doScriptConfirmationIfContainsScripts(
+					activeDraggingState.assetName,
+					activeDraggingState.instances,
+					activeDraggingState.insertToolPromise
+				)
 
-			if assetTypeId == Enum.AssetType.MeshPart.Value then
-				return sanitizeMeshAsset(assetId, instances, InsertAsset._localization)
-			end
-
-			-- We'll need this to scan the remaining instances for scripts for the warning dialog
-			activeDraggingState.instances = instances
-			return instances
-		end
-
-		-- This fires when the drag within the 3D Model finishes
-		ToolboxService.ProcessAssetInsertionDrop = function()
-			-- We can't yield within the drop, so spawn this work to pick it up after the drop event finishes.
-			spawn(function()
-				if activeDraggingState then
-					if FFlagToolboxEnableAudioGrantDialog then
-						if activeDraggingState.assetTypeId == Enum.AssetType.Audio.Value then
-							doPermissionGrantDialogForAsset(
-								activeDraggingState.assetName,
-								activeDraggingState.assetId,
-								activeDraggingState.assetTypeId,
-								activeDraggingState.insertToolPromise,
-								activeDraggingState.localization
-							)
-						end
-					end
-
-					-- Popup the script warning dialog if necessary
-					doScriptConfirmationIfContainsScripts(
-						activeDraggingState.assetName,
-						activeDraggingState.instances,
-						activeDraggingState.insertToolPromise
-					)
-
-					if FFlagToolboxFixDragInsertRemains and activeDraggingState.onSuccess then
-						activeDraggingState.onSuccess(activeDraggingState.assetId, activeDraggingState.instances)
-					end
-
-					activeDraggingState = nil
+				if activeDraggingState.onSuccess then
+					activeDraggingState.onSuccess(activeDraggingState.assetId, activeDraggingState.instances)
 				end
-			end)
-		end
+
+				activeDraggingState = nil
+			end
+		end)
 	end
 end
 

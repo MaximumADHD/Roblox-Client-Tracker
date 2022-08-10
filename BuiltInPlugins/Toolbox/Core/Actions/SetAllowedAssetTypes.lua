@@ -37,6 +37,11 @@
 		    }
 		}
 	}
+	
+	forFree is a table like the following:
+	{
+		1 = Plugin
+	}
 ]]
 
 local Plugin = script.Parent.Parent.Parent
@@ -45,9 +50,21 @@ local Packages = Plugin.Packages
 local Util = require(Packages.Framework).Util
 local Action = Util.Action
 
-return Action(script.Name, function(forRelease, forUpload)
-	return {
-		allowedAssetTypesForRelease = forRelease,
-		allowedAssetTypesForUpload = forUpload,
-	}
-end)
+local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
+
+if FFlagToolboxAssetConfigurationMinPriceFloor2 then
+	return Action(script.Name, function(forRelease, forUpload, forFree)
+		return {
+			allowedAssetTypesForRelease = forRelease,
+			allowedAssetTypesForUpload = forUpload,
+			allowedAssetTypesForFree = forFree,
+		}
+	end)
+else
+	return Action(script.Name, function(forRelease, forUpload)
+		return {
+			allowedAssetTypesForRelease = forRelease,
+			allowedAssetTypesForUpload = forUpload,
+		}
+	end)
+end

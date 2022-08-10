@@ -15,8 +15,6 @@ local ActionBindingsData = require(Components.ActionBindings.ActionBindingsData)
 local ServerJobsData = require(Components.ServerJobs.ServerJobsData)
 local DataContext = require(Components.DataContext)
 
-local FFlagAdminServerLogs = settings():GetFFlag("AdminServerLogs")
-
 local DataProvider = Roact.Component:extend("DataProvider")
 
 function DataProvider:init()
@@ -33,28 +31,20 @@ function DataProvider:init()
 			ServerStatsData = ServerStatsData.new(),
 			ActionBindingsData = ActionBindingsData.new(),
 			ServerJobsData = ServerJobsData.new(),
-		}
+		},
 	})
 end
 
 function DataProvider:didMount()
-	if self.props.isDeveloperView and not FFlagAdminServerLogs then
-		for _, dataProvider in pairs(self.state.DevConsoleData) do
-			dataProvider:start()
-		end
-	else
-		self.state.DevConsoleData.ClientLogData:start()
-		self.state.DevConsoleData.ClientMemoryData:start()
-	end
+	self.state.DevConsoleData.ClientLogData:start()
+	self.state.DevConsoleData.ClientMemoryData:start()
 end
 
 function DataProvider:willUpdate(nextProps, nextState)
-	if FFlagAdminServerLogs then
-		if nextProps.isDeveloperView and not self.props.isDeveloperView then
-			for _, dataProvider in pairs(self.state.DevConsoleData) do
-				if not dataProvider:isRunning() then
-					dataProvider:start()
-				end
+	if nextProps.isDeveloperView and not self.props.isDeveloperView then
+		for _, dataProvider in pairs(self.state.DevConsoleData) do
+			if not dataProvider:isRunning() then
+				dataProvider:start()
 			end
 		end
 	end

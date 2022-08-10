@@ -27,13 +27,6 @@ local Keyboard = require(script:WaitForChild("Keyboard"))
 local Gamepad = require(script:WaitForChild("Gamepad"))
 local DynamicThumbstick = require(script:WaitForChild("DynamicThumbstick"))
 
-local FFlagUserFlagEnableNewVRSystem do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFlagEnableNewVRSystem")
-	end)
-	FFlagUserFlagEnableNewVRSystem = success and result
-end
-
 local FFlagUserHideControlsWhenMenuOpen do
 	local success, result = pcall(function()
 		return UserSettings():IsUserFeatureEnabled("UserHideControlsWhenMenuOpen")
@@ -344,7 +337,7 @@ local function calculateRawMoveVector(humanoid: Humanoid, cameraRelativeMoveVect
 	
 	local cameraCFrame = camera.CFrame
 	
-	if VRService.VREnabled and FFlagUserFlagEnableNewVRSystem and humanoid.RootPart then
+	if VRService.VREnabled and humanoid.RootPart then
 		-- movement relative to VR frustum
 		local cameraDelta = humanoid.RootPart.CFrame.Position - cameraCFrame.Position
 		if cameraDelta.Magnitude < 3 then -- "nearly" first person

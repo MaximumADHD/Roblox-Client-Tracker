@@ -48,7 +48,6 @@ local MakePluginActions = require(UtilFolder.MakePluginActions)
 local Constants = require(UtilFolder.Constants)
 local ColumnResizeHelperFunctions = require(UtilFolder.ColumnResizeHelperFunctions)
 
-local FFlagDevFrameworkTableHeaderTooltip = game:GetFastFlag("DevFrameworkTableHeaderTooltip")
 local FFlagDevFrameworkExpandColumnOnDoubleClickDragbar = game:GetFastFlag("DevFrameworkExpandColumnOnDoubleClickDragbar")
 
 local DisplayTable = Roact.PureComponent:extend("DisplayTable")
@@ -155,25 +154,25 @@ function DisplayTable:init()
 			{
 				Name = localization:getText("Watch", "NameColumn"),
 				Key = VariableKeys[1],
-				Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText("Watch", "NameColumnTooltip")
+				Tooltip = localization:getText("Watch", "NameColumnTooltip")
 					or nil,
 			},
 			{
 				Name = localization:getText("Watch", "ScopeColumn"),
 				Key = VariableKeys[2],
-				Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText("Watch", "ScopeColumnTooltip")
+				Tooltip = localization:getText("Watch", "ScopeColumnTooltip")
 					or nil,
 			},
 			{
 				Name = localization:getText("Watch", "ValueColumn"),
 				Key = VariableKeys[3],
-				Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText("Watch", "ValueColumnTooltip")
+				Tooltip = localization:getText("Watch", "ValueColumnTooltip")
 					or nil,
 			},
 			{
 				Name = localization:getText("Watch", "DataTypeColumn"),
 				Key = VariableKeys[4],
-				Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText(
+				Tooltip = localization:getText(
 					"Watch",
 					"DataTypeColumnTooltip"
 				) or nil,
@@ -191,13 +190,13 @@ function DisplayTable:init()
 			{
 				Name = localization:getText("Watch", "ValueColumn"),
 				Key = WatchKeys[2],
-				Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText("Watch", "ValueColumnTooltip")
+				Tooltip = localization:getText("Watch", "ValueColumnTooltip")
 					or nil,
 			},
 			{
 				Name = localization:getText("Watch", "DataTypeColumn"),
 				Key = WatchKeys[3],
-				Tooltip = FFlagDevFrameworkTableHeaderTooltip and localization:getText(
+				Tooltip = localization:getText(
 					"Watch",
 					"DataTypeColumnTooltip"
 				) or nil,

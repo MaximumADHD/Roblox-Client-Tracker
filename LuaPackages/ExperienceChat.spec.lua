@@ -23,7 +23,7 @@ return function()
 			ExperienceChat.mountClientApp({
 				defaultTargetTextChannel = Instance.new("TextChannel"),
 				defaultSystemTextChannel = Instance.new("TextChannel"),
-				translator = RobloxTranslator,
+				translator = RobloxTranslator :: any,
 				parent = c.screenGui,
 			})
 		end)

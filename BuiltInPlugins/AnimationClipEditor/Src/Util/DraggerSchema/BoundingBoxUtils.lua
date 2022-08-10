@@ -4,8 +4,6 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local DraggerFramework = Plugin.Packages.DraggerFramework
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 
-local GetFFlagBoneAdornmentSelection = require(Plugin.LuaFlags.GetFFlagBoneAdornmentSelection)
-
 local shouldDragAsFace = require(DraggerFramework.Utility.shouldDragAsFace)
 
 local BoundingBoxUtils = {}
@@ -222,17 +220,15 @@ function BoundingBoxUtils.computeInfo(draggerContext, selectedObjects)
 				table.insert(allParts, instance)
 				allPartSet[instance] = true
 				basisCFrame = instance.CFrame
-				if GetFFlagBoneAdornmentSelection() then
-					local strippedBone = RigUtils.getBoneFromBoneNode(instance.Name)
-					local bone = RigUtils.getBoneByName(draggerContext.RootInstance, strippedBone)
+				local strippedBone = RigUtils.getBoneFromBoneNode(instance.Name)
+				local bone = RigUtils.getBoneByName(draggerContext.RootInstance, strippedBone)
+				if bone then
+					table.insert(allBones, bone)
+				else
+					local boneName = draggerContext.BoneLinksToBone[instance.Name]
+					bone = RigUtils.getBoneByName(draggerContext.RootInstance, boneName)
 					if bone then
 						table.insert(allBones, bone)
-					else
-						local boneName = draggerContext.BoneLinksToBone[instance.Name]
-						bone = RigUtils.getBoneByName(draggerContext.RootInstance, boneName)
-						if bone then
-							table.insert(allBones, bone)
-						end
 					end
 				end
 			end
@@ -270,13 +266,7 @@ function BoundingBoxUtils.computeInfo(draggerContext, selectedObjects)
 
 	-- Look for a pivot
 	if #selectedObjects == 1 then
-		-- note: we can remove the ScaleToolSpecialCaseIgnorePivotWithSinglePartSelected variable
-		-- and the specialIgnore case entirely when we permanently turn on the flag
-		-- FFlagFixScalingWithNonDefaultPivot and remove its associated code.
-		local specialIgnore =
-			draggerContext.ScaleToolSpecialCaseIgnorePivotWithSinglePartSelected and
-			selectedObjects[1]:IsA("BasePart")
-		if (not specialIgnore) and (selectedObjects[1]:IsA("BasePart") or selectedObjects[1]:IsA("Model"))then
+		if selectedObjects[1]:IsA("BasePart") or selectedObjects[1]:IsA("Model") then
 			local pivot = selectedObjects[1]:GetPivot()
 			if pivot then
 				basisCFrame = pivot

@@ -6,5 +6,7 @@
 
 game:DefineFastInt("TeamCreateMaxCollaborators", 200)
 game:DefineFastFlag("ManageCollaboratorsLoadRolePerms", false)
+game:DefineFastFlag("ManageCollaboratorsTelemetryEnabled", false)
+game:DefineFastFlag("ManageCollaboratorsGhostEditorsMessage", false)
 
 return nil

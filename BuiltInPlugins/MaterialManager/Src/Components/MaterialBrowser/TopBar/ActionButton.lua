@@ -16,17 +16,13 @@ local Button = UI.Button
 local Image = UI.Decoration.Image
 local Tooltip = UI.Tooltip
 
-local TeachingCallout = require(Plugin.Src.Components.TeachingCallout)
-
 local ActionButton = Roact.PureComponent:extend("ActionButton")
 
 export type Props = {
-	DefinitionId: string?,
 	ImageStyle: _Types.Image,
 	IsDisabled: boolean?,
 	IsPressed: boolean?,
 	LayoutOrder: number?,
-	LocationId: string?,
 	OnClick: (() -> ()),
 	TooltipText: string,
 }
@@ -65,11 +61,6 @@ function ActionButton:render()
 		Tooltip = Roact.createElement(Tooltip, {
 			Text = props.TooltipText
 		}),
-		TeachingCallout = if props.DefinitionId and props.LocationId then Roact.createElement(TeachingCallout, {
-			Offset = Vector2.new(0, 6),
-			DefinitionId = props.DefinitionId,
-			LocationId = props.LocationId,
-		}) else nil,
 	})
 end
 

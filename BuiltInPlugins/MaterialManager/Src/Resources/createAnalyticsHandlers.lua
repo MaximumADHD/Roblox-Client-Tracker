@@ -68,6 +68,10 @@ return function(analyticsService)
 			_reportCounter("UploadAssetIdTextureMap")
 		end,
 
+		uploadTextureMap = function()
+			_reportCounter("UploadTextureMap")
+		end,
+
 		editMaterialVariantAndSave = function()
 			_reportCounter("EditMaterialVariantAndSave")
 		end,
@@ -100,12 +104,17 @@ return function(analyticsService)
 			_reportCounter("ImportTextureMapError")
 		end,
 
+		-- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 		selectFileTextureMapError = function()
 			_reportCounter("SelectFileTextureMapError")
 		end,
 
 		uploadTextureMapError = function()
 			_reportCounter("UploadTextureMapError")
+		end,
+
+		uploadTextureMapFromFileError = function()
+			_reportCounter("UploadTextureMapFromFileError")
 		end,
 	}
 end

@@ -12,8 +12,10 @@ local SetUserPresence = require(CorePackages.AppTempCommon.LuaApp.Actions.SetUse
 local SetUserThumbnail = require(CorePackages.AppTempCommon.LuaApp.Actions.SetUserThumbnail)
 local ReceivedDisplayName = require(CorePackages.AppTempCommon.LuaApp.Actions.ReceivedDisplayName)
 
-return function(state, action)
+-- FIXME: any type Rodux
+return function(state: any?, action: any)
 	state = state or {}
+	assert(state, "")
 
 	if action.type == AddUser.name then
 		local user = action.user

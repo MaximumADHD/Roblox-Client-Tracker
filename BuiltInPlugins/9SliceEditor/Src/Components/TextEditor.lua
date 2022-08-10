@@ -32,8 +32,6 @@ local RIGHT = Orientation.Right.rawValue()
 local TOP = Orientation.Top.rawValue()
 local BOTTOM = Orientation.Bottom.rawValue()
 
-local FFlag9SliceEditorResizableImagePreviewWindow = game:GetFastFlag("9SliceEditorResizableImagePreviewWindow")
-
 function TextEditor:createOffset(orientation)
 	-- helper function to create TextOffsets
 	local props = self.props
@@ -70,12 +68,7 @@ function TextEditor:render()
 	local style = props.Stylizer
 	local localization = props.Localization
 
-	local size
-	if FFlag9SliceEditorResizableImagePreviewWindow then
-		size = props.size
-	else
-		size = UDim2.fromOffset(Constants.TEXTEDITOR_XSIZE, Constants.TEXTEDITOR_YSIZE)
-	end
+	local size = props.size
 
 	local imageSizeText = localization:getText("ImageEditor", "ImageSize")	
 	local pixelDimensions = props.pixelDimensions
@@ -107,7 +100,7 @@ function TextEditor:render()
 		TopInput = self:createOffset(TOP),
 		BottomInput = self:createOffset(BOTTOM),
 
-		PixelDimensionsText = FFlag9SliceEditorResizableImagePreviewWindow and Roact.createElement(TextLabel, {
+		PixelDimensionsText = Roact.createElement(TextLabel, {
 			Size = UDim2.new(1, 0, 0, style.PixelDimensionsHeightPx),
 			Text = imageSizeText,
 			TextSize = Constants.TEXTSIZE,
@@ -115,7 +108,7 @@ function TextEditor:render()
 			TextYAlignment = Enum.TextYAlignment.Bottom,
 			TextWrapped = true,
 			LayoutOrder = 5,
-		}) or nil,
+		}),
 	})
 end
 

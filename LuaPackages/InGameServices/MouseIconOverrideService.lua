@@ -12,7 +12,8 @@
 
 local UserInputService = game:GetService("UserInputService")
 
-local cursorOverrideStack = {}
+type CursorOverrideEntry = {string | Enum.OverrideMouseIconBehavior}
+local cursorOverrideStack: {CursorOverrideEntry} = {}
 
 local function update()
 	local activeOverride = cursorOverrideStack[#cursorOverrideStack]
@@ -24,10 +25,10 @@ local function update()
 end
 
 return {
-	push = function(key, behavior)
-		assert(type(key) == "userdata" or type(key) == "string")
-		assert(typeof(behavior) == "EnumItem")
-		assert(behavior.EnumType == Enum.OverrideMouseIconBehavior)
+	push = function(key: string, behavior: Enum.OverrideMouseIconBehavior)
+		assert(type(key) == "userdata" or type(key) == "string", "key")
+		assert(typeof(behavior) == "EnumItem", "behavior")
+		assert(behavior.EnumType == Enum.OverrideMouseIconBehavior, "behavior.EnumType")
 
 		for idx, entry in ipairs(cursorOverrideStack) do
 			if entry[1] == key then
@@ -36,11 +37,11 @@ return {
 			end
 		end
 
-		table.insert(cursorOverrideStack, {key, behavior})
+		table.insert(cursorOverrideStack, {key, behavior} :: CursorOverrideEntry)
 		update()
 	end,
 	pop = function(key)
-		assert(type(key) == "userdata" or type(key) == "string")
+		assert(type(key) == "userdata" or type(key) == "string", "key")
 
 		local idx
 

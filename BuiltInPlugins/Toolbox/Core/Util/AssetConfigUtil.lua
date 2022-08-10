@@ -7,7 +7,7 @@ local Urls = require(Util.Urls)
 local DFIntFileMaxSizeBytes = tonumber(settings():GetFVariable("FileMaxSizeBytes"))
 
 local FFlagUseDefaultThumbnailForAnimation = game:GetFastFlag("UseDefaultThumbnailForAnimation")
-local FFlagToolboxAssetConfigurationMinPriceFloor = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor")
+local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
 local StudioService = game:GetService("StudioService")
 
 local round = function(num, numDecimalPlaces)
@@ -37,7 +37,7 @@ end
 function AssetConfigUtil.calculatePotentialEarning(allowedAssetTypesForRelease, price, assetTypeEnum, minPrice)
 	price = tonumber(price)
 	if not price then
-		if FFlagToolboxAssetConfigurationMinPriceFloor then
+		if FFlagToolboxAssetConfigurationMinPriceFloor2 then
 			return 0
 		else
 			return 0, 0
@@ -51,7 +51,7 @@ function AssetConfigUtil.calculatePotentialEarning(allowedAssetTypesForRelease, 
 	local roundedPrice = round(price * scalar)
 	local marketPlaceFee = math.max(minPrice, roundedPrice)
 
-	if FFlagToolboxAssetConfigurationMinPriceFloor then
+	if FFlagToolboxAssetConfigurationMinPriceFloor2 then
 		return math.max(0, price - marketPlaceFee)
 	else
 		return math.max(0, price - marketPlaceFee), marketPlaceFee or 0
@@ -85,7 +85,8 @@ function AssetConfigUtil.getPriceInfo(allowedAssetTypesForRelease, assetTypeEnum
 		feeRate = tonumber(assetInfo.marketplaceFeesPercentage) or 0
 		-- This is V1 work around method for publishing free plugins.
 		-- In V2 we will be having an independent UI to set the "Free" status.
-		if AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) then
+		
+		if not FFlagToolboxAssetConfigurationMinPriceFloor2 and AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) then
 			minPrice = 0
 		else
 			minPrice = priceRange.minRobux and tonumber(priceRange.minRobux) or 0

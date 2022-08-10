@@ -55,13 +55,6 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 local player = Players.LocalPlayer
 
-local FFlagUserFlagEnableNewVRSystem do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFlagEnableNewVRSystem")
-	end)
-	FFlagUserFlagEnableNewVRSystem = success and result
-end
-
 --[[ The Module ]]--
 local BaseCamera = {}
 BaseCamera.__index = BaseCamera
@@ -252,42 +245,38 @@ function BaseCamera:GetSubjectCFrame(): CFrame
 		local humanoid = cameraSubject
 		local humanoidIsDead = humanoid:GetState() == Enum.HumanoidStateType.Dead
 
-		if (VRService.VREnabled and not FFlagUserFlagEnableNewVRSystem) and humanoidIsDead and humanoid == self.lastSubject then
-			result = self.lastSubjectCFrame
-		else
-			local bodyPartToFollow = humanoid.RootPart
+		local bodyPartToFollow = humanoid.RootPart
 
-			-- If the humanoid is dead, prefer their head part as a follow target, if it exists
-			if humanoidIsDead then
-				if humanoid.Parent and humanoid.Parent:IsA("Model") then
-					bodyPartToFollow = humanoid.Parent:FindFirstChild("Head") or bodyPartToFollow
-				end
+		-- If the humanoid is dead, prefer their head part as a follow target, if it exists
+		if humanoidIsDead then
+			if humanoid.Parent and humanoid.Parent:IsA("Model") then
+				bodyPartToFollow = humanoid.Parent:FindFirstChild("Head") or bodyPartToFollow
 			end
+		end
 
-			if bodyPartToFollow and bodyPartToFollow:IsA("BasePart") then
-				local heightOffset
-				if humanoid.RigType == Enum.HumanoidRigType.R15 then
-					if humanoid.AutomaticScalingEnabled then
-						heightOffset = R15_HEAD_OFFSET
+		if bodyPartToFollow and bodyPartToFollow:IsA("BasePart") then
+			local heightOffset
+			if humanoid.RigType == Enum.HumanoidRigType.R15 then
+				if humanoid.AutomaticScalingEnabled then
+					heightOffset = R15_HEAD_OFFSET
 
-						local rootPart = humanoid.RootPart
-						if bodyPartToFollow == rootPart then
-							local rootPartSizeOffset = (rootPart.Size.Y - HUMANOID_ROOT_PART_SIZE.Y)/2
-							heightOffset = heightOffset + Vector3.new(0, rootPartSizeOffset, 0)
-						end
-					else
-						heightOffset = R15_HEAD_OFFSET_NO_SCALING
+					local rootPart = humanoid.RootPart
+					if bodyPartToFollow == rootPart then
+						local rootPartSizeOffset = (rootPart.Size.Y - HUMANOID_ROOT_PART_SIZE.Y)/2
+						heightOffset = heightOffset + Vector3.new(0, rootPartSizeOffset, 0)
 					end
 				else
-					heightOffset = HEAD_OFFSET
+					heightOffset = R15_HEAD_OFFSET_NO_SCALING
 				end
-
-				if humanoidIsDead then
-					heightOffset = ZERO_VECTOR3
-				end
-
-				result = bodyPartToFollow.CFrame*CFrame.new(heightOffset + humanoid.CameraOffset)
+			else
+				heightOffset = HEAD_OFFSET
 			end
+
+			if humanoidIsDead then
+				heightOffset = ZERO_VECTOR3
+			end
+
+			result = bodyPartToFollow.CFrame*CFrame.new(heightOffset + humanoid.CameraOffset)
 		end
 
 	elseif cameraSubject:IsA("BasePart") then
@@ -402,47 +391,40 @@ function BaseCamera:GetSubjectPosition(): Vector3
 			local humanoid = cameraSubject
 			local humanoidIsDead = humanoid:GetState() == Enum.HumanoidStateType.Dead
 
-			if (VRService.VREnabled and not FFlagUserFlagEnableNewVRSystem) and humanoidIsDead and humanoid == self.lastSubject then
-				result = self.lastSubjectPosition
-			else
-				local bodyPartToFollow = humanoid.RootPart
+			local bodyPartToFollow = humanoid.RootPart
 
-				-- If the humanoid is dead, prefer their head part as a follow target, if it exists
-				if humanoidIsDead then
-					if humanoid.Parent and humanoid.Parent:IsA("Model") then
-						bodyPartToFollow = humanoid.Parent:FindFirstChild("Head") or bodyPartToFollow
-					end
+			-- If the humanoid is dead, prefer their head part as a follow target, if it exists
+			if humanoidIsDead then
+				if humanoid.Parent and humanoid.Parent:IsA("Model") then
+					bodyPartToFollow = humanoid.Parent:FindFirstChild("Head") or bodyPartToFollow
 				end
+			end
 
-				if bodyPartToFollow and bodyPartToFollow:IsA("BasePart") then
-					local heightOffset
-					if humanoid.RigType == Enum.HumanoidRigType.R15 then
-						if humanoid.AutomaticScalingEnabled then
-							heightOffset = R15_HEAD_OFFSET
-							if bodyPartToFollow == humanoid.RootPart then
-								local rootPartSizeOffset = (humanoid.RootPart.Size.Y/2) - (HUMANOID_ROOT_PART_SIZE.Y/2)
-								heightOffset = heightOffset + Vector3.new(0, rootPartSizeOffset, 0)
-							end
-						else
-							heightOffset = R15_HEAD_OFFSET_NO_SCALING
+			if bodyPartToFollow and bodyPartToFollow:IsA("BasePart") then
+				local heightOffset
+				if humanoid.RigType == Enum.HumanoidRigType.R15 then
+					if humanoid.AutomaticScalingEnabled then
+						heightOffset = R15_HEAD_OFFSET
+						if bodyPartToFollow == humanoid.RootPart then
+							local rootPartSizeOffset = (humanoid.RootPart.Size.Y/2) - (HUMANOID_ROOT_PART_SIZE.Y/2)
+							heightOffset = heightOffset + Vector3.new(0, rootPartSizeOffset, 0)
 						end
 					else
-						heightOffset = HEAD_OFFSET
+						heightOffset = R15_HEAD_OFFSET_NO_SCALING
 					end
-
-					if humanoidIsDead then
-						heightOffset = ZERO_VECTOR3
-					end
-
-					result = bodyPartToFollow.CFrame.p + bodyPartToFollow.CFrame:vectorToWorldSpace(heightOffset + humanoid.CameraOffset)
+				else
+					heightOffset = HEAD_OFFSET
 				end
+
+				if humanoidIsDead then
+					heightOffset = ZERO_VECTOR3
+				end
+
+				result = bodyPartToFollow.CFrame.p + bodyPartToFollow.CFrame:vectorToWorldSpace(heightOffset + humanoid.CameraOffset)
 			end
 
 		elseif cameraSubject:IsA("VehicleSeat") then
 			local offset = SEAT_OFFSET
-			if VRService.VREnabled and not FFlagUserFlagEnableNewVRSystem then
-				offset = VR_SEAT_OFFSET
-			end
 			result = cameraSubject.CFrame.p + cameraSubject.CFrame:vectorToWorldSpace(offset)
 		elseif cameraSubject:IsA("SkateboardPlatform") then
 			result = cameraSubject.CFrame.p + SEAT_OFFSET
@@ -815,23 +797,6 @@ function BaseCamera:OnNewCameraSubject()
 		self.subjectStateChangedConn:Disconnect()
 		self.subjectStateChangedConn = nil
 	end
-
-	if not FFlagUserFlagEnableNewVRSystem then
-		local humanoid = workspace.CurrentCamera and workspace.CurrentCamera.CameraSubject
-		if self.trackingHumanoid ~= humanoid then
-			self:CancelCameraFreeze()
-		end
-		
-		if humanoid and humanoid:IsA("Humanoid") then
-			self.subjectStateChangedConn = humanoid.StateChanged:Connect(function(oldState, newState)
-				if VRService.VREnabled and newState == Enum.HumanoidStateType.Jumping and not self.inFirstPerson then
-					self:StartCameraFreeze(self:GetSubjectPosition(), humanoid)
-				elseif newState ~= Enum.HumanoidStateType.Jumping and newState ~= Enum.HumanoidStateType.Freefall then
-					self:CancelCameraFreeze(true)
-				end
-			end)
-		end
-	end
 end
 
 function BaseCamera:IsInFirstPerson()
@@ -842,165 +807,11 @@ function BaseCamera:Update(dt)
 	error("BaseCamera:Update() This is a virtual function that should never be getting called.", 2)
 end
 
--- [[ VR Support Section ]] --
 function BaseCamera:GetCameraHeight()
 	if VRService.VREnabled and not self.inFirstPerson then
 		return math.sin(VR_ANGLE) * self.currentSubjectDistance
 	end
 	return 0
 end
-
--- these are support functions for the "old VR code"
-if not FFlagUserFlagEnableNewVRSystem then
-	function BaseCamera:CancelCameraFreeze(keepConstraints: boolean)
-		if not keepConstraints then
-			self.cameraTranslationConstraints = Vector3.new(self.cameraTranslationConstraints.x, 1, self.cameraTranslationConstraints.z)
-		end
-		if self.cameraFrozen then
-			self.trackingHumanoid = nil
-			self.cameraFrozen = false
-		end
-	end
-
-	function BaseCamera:StartCameraFreeze(subjectPosition: Vector3, humanoidToTrack: Humanoid)
-		if not self.cameraFrozen then
-			self.humanoidJumpOrigin = subjectPosition
-			self.trackingHumanoid = humanoidToTrack
-			self.cameraTranslationConstraints = Vector3.new(self.cameraTranslationConstraints.x, 0, self.cameraTranslationConstraints.z)
-			self.cameraFrozen = true
-		end
-	end
-	
-	function BaseCamera:ApplyVRTransform()
-		if not VRService.VREnabled then
-			return
-		end
-
-		--we only want this to happen in first person VR
-		local rootJoint = self.humanoidRootPart and self.humanoidRootPart:FindFirstChild("RootJoint")
-		if not rootJoint then
-			return
-		end
-
-		local cameraSubject = game.Workspace.CurrentCamera.CameraSubject
-		local isInVehicle = cameraSubject and cameraSubject:IsA("VehicleSeat")
-
-		if self.inFirstPerson and not isInVehicle then
-			local vrFrame = VRService:GetUserCFrame(Enum.UserCFrame.Head)
-			local vrRotation = vrFrame - vrFrame.p
-			rootJoint.C0 = CFrame.new(vrRotation:vectorToObjectSpace(vrFrame.p)) * CFrame.new(0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 1, 0)
-		else
-			rootJoint.C0 = CFrame.new(0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 1, 0)
-		end
-	end
-
-
-	function BaseCamera:ShouldUseVRRotation()
-		if not VRService.VREnabled then
-			return false
-		end
-
-		if not self.VRRotationIntensityAvailable and tick() - self.lastVRRotationIntensityCheckTime < 1 then
-			return false
-		end
-
-		local success, vrRotationIntensity = pcall(function() return StarterGui:GetCore("VRRotationIntensity") end)
-		self.VRRotationIntensityAvailable = success and vrRotationIntensity ~= nil
-		self.lastVRRotationIntensityCheckTime = tick()
-
-		self.shouldUseVRRotation = success and vrRotationIntensity ~= nil and vrRotationIntensity ~= "Smooth"
-
-		return self.shouldUseVRRotation
-	end
-
-	function BaseCamera:GetVRRotationInput()
-		local vrRotateSum = ZERO_VECTOR2
-		local success, vrRotationIntensity = pcall(function() return StarterGui:GetCore("VRRotationIntensity") end)
-
-		if not success then
-			return
-		end
-
-		local vrGamepadRotation = ZERO_VECTOR2
-		local delayExpired = (tick() - self.lastVRRotationTime) >= self:GetRepeatDelayValue(vrRotationIntensity)
-
-		if math.abs(vrGamepadRotation.x) >= self:GetActivateValue() then
-			if (delayExpired or not self.vrRotateKeyCooldown[Enum.KeyCode.Thumbstick2]) then
-				local sign = 1
-				if vrGamepadRotation.x < 0 then
-					sign = -1
-				end
-				vrRotateSum = vrRotateSum + self:GetRotateAmountValue(vrRotationIntensity) * sign
-				self.vrRotateKeyCooldown[Enum.KeyCode.Thumbstick2] = true
-			end
-		elseif math.abs(vrGamepadRotation.x) < self:GetActivateValue() - 0.1 then
-			self.vrRotateKeyCooldown[Enum.KeyCode.Thumbstick2] = nil
-		end
-
-		self.vrRotateKeyCooldown[Enum.KeyCode.Left] = nil
-		self.vrRotateKeyCooldown[Enum.KeyCode.Right] = nil
-
-		if vrRotateSum ~= ZERO_VECTOR2 then
-			self.lastVRRotationTime = tick()
-		end
-
-		return vrRotateSum
-	end
-
-
-	function BaseCamera:GetVRFocus(subjectPosition, timeDelta)
-		local lastFocus = self.LastCameraFocus or subjectPosition
-		if not self.cameraFrozen then
-			self.cameraTranslationConstraints = Vector3.new(self.cameraTranslationConstraints.x, math.min(1, self.cameraTranslationConstraints.y + 0.42 * timeDelta), self.cameraTranslationConstraints.z)
-		end
-
-		local newFocus
-		if self.cameraFrozen and self.humanoidJumpOrigin and self.humanoidJumpOrigin.y > lastFocus.y then
-			newFocus = CFrame.new(Vector3.new(subjectPosition.x, math.min(self.humanoidJumpOrigin.y, lastFocus.y + 5 * timeDelta), subjectPosition.z))
-		else
-			newFocus = CFrame.new(Vector3.new(subjectPosition.x, lastFocus.y, subjectPosition.z):lerp(subjectPosition, self.cameraTranslationConstraints.y))
-		end
-
-		if self.cameraFrozen then
-			-- No longer in 3rd person
-			if self.inFirstPerson then -- not VRService.VREnabled
-				self:CancelCameraFreeze()
-			end
-			-- This case you jumped off a cliff and want to keep your character in view
-			-- 0.5 is to fix floating point error when not jumping off cliffs
-			if self.humanoidJumpOrigin and subjectPosition.y < (self.humanoidJumpOrigin.y - 0.5) then
-				self:CancelCameraFreeze()
-			end
-		end
-
-		return newFocus
-	end
-
-	function BaseCamera:GetRotateAmountValue(vrRotationIntensity: string?)
-		vrRotationIntensity = vrRotationIntensity or StarterGui:GetCore("VRRotationIntensity")
-		if vrRotationIntensity then
-			if vrRotationIntensity == "Low" then
-				return VR_LOW_INTENSITY_ROTATION
-			elseif vrRotationIntensity == "High" then
-				return VR_HIGH_INTENSITY_ROTATION
-			end
-		end
-		return ZERO_VECTOR2
-	end
-
-	function BaseCamera:GetRepeatDelayValue(vrRotationIntensity: string?)
-		vrRotationIntensity = vrRotationIntensity or StarterGui:GetCore("VRRotationIntensity")
-		if vrRotationIntensity then
-			if vrRotationIntensity == "Low" then
-				return VR_LOW_INTENSITY_REPEAT
-			elseif vrRotationIntensity == "High" then
-				return VR_HIGH_INTENSITY_REPEAT
-			end
-		end
-		return 0
-	end
-end
-
--- [[ End VR Support Section ]] --
 
 return BaseCamera

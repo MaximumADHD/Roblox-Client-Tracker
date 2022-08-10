@@ -6,6 +6,8 @@ local ModifyBreakpoint = require(Actions.BreakpointsWindow.ModifyBreakpoint)
 local DeleteBreakpoint = require(Actions.BreakpointsWindow.DeleteBreakpoint)
 local SetFilenameForGuidAction = require(Actions.Common.SetFilenameForGuid)
 
+local FFlagStudioDebuggerGetChangedBreakpointSet = game:GetFastFlag("StudioDebuggerGetChangedBreakpointSet")
+
 local BreakpointManagerListener = {}
 BreakpointManagerListener.__index = BreakpointManagerListener
 
@@ -58,6 +60,13 @@ local function setUpConnections(breakpointManagerListener, breakpointManager, sc
 			breakpointManagerListener:onMetaBreakpointChanged(metaBreakpoint)
 		end
 	)
+	if FFlagStudioDebuggerGetChangedBreakpointSet then
+		breakpointManagerListener._metaBreakpointSetChangedConnection = BreakpointManager.MetaBreakpointSetChanged:Connect(
+			function(metaBreakpoint, detail)
+				breakpointManagerListener:onMetaBreakpointChanged(metaBreakpoint)
+			end
+		)
+	end
 	breakpointManagerListener._metaBreakpointRemovedConnection = BreakpointManager.MetaBreakpointRemoved:Connect(
 		function(metaBreakpoint)
 			breakpointManagerListener:onMetaBreakpointRemoved(metaBreakpoint)
@@ -79,6 +88,12 @@ function BreakpointManagerListener:destroy()
 	if self._metaBreakpointChangedConnection then
 		self._metaBreakpointChangedConnection:Disconnect()
 		self._metaBreakpointChangedConnection = nil
+	end
+	if FFlagStudioDebuggerGetChangedBreakpointSet then
+		if self._metaBreakpointSetChangedConnection then
+			self._metaBreakpointSetChangedConnection:Disconnect()
+			self._metaBreakpointSetChangedConnection = nil
+		end
 	end
 end
 

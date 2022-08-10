@@ -39,6 +39,7 @@ local RunService			= game:GetService("RunService")
 
 -- Flags
 local FFlagFixStarterGuiErrors = game:DefineFastFlag("FixStarterGuiErrors", false)
+local FFlagFixUiEditorDeferredSignalingBug = game:DefineFastFlag("FixUiEditorDeferredSignalingBug", false)
 
 -- Variables
 local childAddedEvent = nil
@@ -129,6 +130,23 @@ local function onDescendantAddedToStarterGui(child)
 	SelectionManager:onDescendantAddedToStarterGui(child)
 end
 
+local function onSelectionChanged()
+
+	SelectionManager:onSelectionChanged()
+
+	SnappingPointManager:generateSnappingLines()
+
+	local m_selected = SelectionService:Get()
+
+	if m_selected[1] then
+		if (m_selected[1]:FindFirstAncestor("BillboardGui") or m_selected[1]:FindFirstAncestor("SurfaceGui")) then
+			Resize:hide()
+			SizeBox:setVisible(false)
+			DistanceLinesManager:setVisible(false)
+		end
+	end
+end
+
 local function onInputBegan(inputObject)
 	if (TextEditor:isCurrentlyEditing()) then
 		return
@@ -152,7 +170,9 @@ local function onInputBegan(inputObject)
 
 		local item = Select:selectTopLevelItemAtPoint(location)
 
-
+		if FFlagFixUiEditorDeferredSignalingBug then
+			onSelectionChanged()
+		end
 		Move:startDrag(location)
 		
 		if (not item) then
@@ -290,23 +310,6 @@ local function onInputChanged(inputObject)
 
         Resize:updateHandleHighlight(false)
 	end
-end
-
-local function onSelectionChanged()
-
-	SelectionManager:onSelectionChanged()
-
-	SnappingPointManager:generateSnappingLines()
-
-    local m_selected = SelectionService:Get()
-
-    if m_selected[1] then
-        if (m_selected[1]:FindFirstAncestor("BillboardGui") or m_selected[1]:FindFirstAncestor("SurfaceGui")) then
-            Resize:hide()
-            SizeBox:setVisible(false)
-            DistanceLinesManager:setVisible(false)
-        end
-    end
 end
 
 local function onDragEnter(instances)

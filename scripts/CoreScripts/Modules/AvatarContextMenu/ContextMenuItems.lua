@@ -27,12 +27,15 @@ local ThemeHandler = require(AvatarMenuModules.ThemeHandler)
 local BlockingUtility = require(CoreGuiModules.BlockingUtility)
 local t = require(CorePackages.Packages.t)
 local ArgCheck = require(CorePackages.ArgCheck)
+local ExperienceChat = require(CorePackages.ExperienceChat)
 
 -- FLAGS
 local FFlagAvatarContextMenuItemsChatButtonRefactor
 	= require(CoreGuiModules.Flags.FFlagAvatarContextMenuItemsChatButtonRefactor)
 local FFlagEnableExperienceChat = require(CoreGuiModules.Common.Flags.FFlagEnableExperienceChat)
 local FFlagWaveEmoteOnAvatarContextMenuWithExpChat = require(CoreGuiModules.Common.Flags.FFlagWaveEmoteOnAvatarContextMenuWithExpChat)
+local FFlagWhisperEmoteOnAvatarContextMenuWithExpChat = require(CoreGuiModules.Common.Flags.FFlagWhisperEmoteOnAvatarContextMenuWithExpChat)
+local GetFFlagUpgradeExpChatV2_0_0 = require(CorePackages.Flags.GetFFlagUpgradeExpChatV2_0_0)
 -- VARIABLES
 
 local LocalPlayer = PlayersService.LocalPlayer
@@ -350,7 +353,8 @@ local IChatButtonProps = t.interface({
 })
 
 function ContextMenuItems:CreateChatButton(props)
-	if isExperienceChatOn(self.TextChatService) then
+	local isWhisperEnabledForExpChat = FFlagWhisperEmoteOnAvatarContextMenuWithExpChat and GetFFlagUpgradeExpChatV2_0_0()
+	if not isWhisperEnabledForExpChat and isExperienceChatOn(self.TextChatService) then
 		return
 	end
 
@@ -365,17 +369,31 @@ function ContextMenuItems:CreateChatButton(props)
 		AnalyticsService:ReportCounter("AvatarContextMenu-Chat")
         AnalyticsService:TrackEvent("Game", "AvatarContextMenuChat", "placeId: " .. tostring(game.PlaceId))
 
-		local ChatModule = require(RobloxGui.Modules.ChatSelector)
-		ChatModule:SetVisible(true)
-		local eventDidFire = ChatModule:EnterWhisperState(self.SelectedPlayer)
-		if not eventDidFire then
-			-- Fallback to the old version for backwards compatibility with old chat versions
-			local ChatBar = nil
-			pcall(function() ChatBar = LocalPlayer.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar end)
-			if ChatBar then
-				ChatBar.Text = "/w " .. self.SelectedPlayer.Name
+		if isWhisperEnabledForExpChat and isExperienceChatOn(self.TextChatService) then
+			local textChannel: TextChannel? = findFirstTextChannel()
+			if textChannel then
+				task.spawn(function()
+					textChannel:SendAsync("/w @" .. self.SelectedPlayer.Name)
+				end)
+				if ExperienceChat.Events and ExperienceChat.Events.AvatarContextMenuWhisperSelected then
+					ExperienceChat.Events.AvatarContextMenuWhisperSelected()
+				end
 			end
-			ChatModule:FocusChatBar()
+		else
+			local ChatModule = require(RobloxGui.Modules.ChatSelector)
+			ChatModule:SetVisible(true)
+			local eventDidFire = ChatModule:EnterWhisperState(self.SelectedPlayer)
+			if not eventDidFire then
+				-- Fallback to the old version for backwards compatibility with old chat versions
+				local ChatBar = nil
+				pcall(function()
+					ChatBar = LocalPlayer.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar
+				end)
+				if ChatBar then
+					ChatBar.Text = "/w " .. self.SelectedPlayer.Name
+				end
+				ChatModule:FocusChatBar()
+			end
 		end
 	end
 

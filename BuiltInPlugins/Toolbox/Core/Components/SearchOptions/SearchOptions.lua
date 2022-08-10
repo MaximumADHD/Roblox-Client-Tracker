@@ -15,7 +15,6 @@
 local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag(
 	"ToolboxUseDevFrameworkLoadingBarAndRadioButton"
 )
-local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -163,9 +162,7 @@ function SearchOptions:init(initialProps)
 			}
 		end
 
-		if FFlagToolboxShowIdVerifiedFilter then
-			options.includeOnlyVerifiedCreators = self.state.includeOnlyVerifiedCreators
-		end
+		options.includeOnlyVerifiedCreators = self.state.includeOnlyVerifiedCreators
 
 		self:setState({
 			SortIndex = Roact.None,
@@ -288,10 +285,8 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 	self:resetLayout()
 
 	local showSortOptions = not getShouldHideNonRelevanceSorts()
-	local showIdVerified = if FFlagToolboxShowIdVerifiedFilter then true else false
-	local showSeparator1 = if FFlagToolboxShowIdVerifiedFilter
-		then showCreatorSearch and not showAudioSearch
-		else showCreatorSearch
+	local showIdVerified = true
+	local showSeparator1 = showCreatorSearch and not showAudioSearch
 
 	local scrollbarThickness = 8
 	local bottomButtonHeight = 42

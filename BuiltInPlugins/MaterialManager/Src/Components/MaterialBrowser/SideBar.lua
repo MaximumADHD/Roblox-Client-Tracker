@@ -22,11 +22,12 @@ local Util = Plugin.Src.Util
 local getCategories = require(Util.getCategories)
 
 local Controllers = Plugin.Src.Controllers
-local MaterialController = require(Controllers.MaterialController)
+local MaterialController = require(Controllers.MaterialController) -- Remove with FFlagDeprecateMaterialController
 local MaterialServiceController = require(Controllers.MaterialServiceController)
 
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialManagerSideBarSplitPaneUpdate = require(Flags.getFFlagMaterialManagerSideBarSplitPaneUpdate)
+local getFFlagDeprecateMaterialController = require(Flags.getFFlagDeprecateMaterialController)
 
 local SideBar = Roact.PureComponent:extend("SideBar")
 
@@ -42,7 +43,7 @@ type _Props = Props & {
 	Path: _Types.Path,
 	dispatchSetPath: (path: _Types.Path) -> (),
 	Localization: any,
-	MaterialController: any,
+	MaterialController: any, -- Remove with FFlagDeprecateMaterialController
 	MaterialServiceController: any,
 	Stylizer: any,
 }
@@ -77,7 +78,11 @@ function SideBar:updateSelection()
 
 		recurseCategoriesByChildren(self.categories, {}, props.Path)
 
-		if next(parentCategories) and self.currentCategory.path and not deepEqual(self.categories, parentCategories) then
+		if
+			next(parentCategories)
+			and self.currentCategory.path
+			and not deepEqual(self.categories, parentCategories)
+		then
 			local newSelection = {}
 			local newExpansion = {}
 
@@ -111,7 +116,7 @@ function SideBar:init()
 	self.onExpansionChange = function(newExpansion)
 		self:setState(function(state)
 			return {
-				Expansion = join(state.Expansion, newExpansion)
+				Expansion = join(state.Expansion, newExpansion),
 			}
 		end)
 	end
@@ -124,7 +129,7 @@ function SideBar:init()
 		end
 
 		self:setState({
-			Selection = newSelection
+			Selection = newSelection,
 		})
 	end
 
@@ -138,7 +143,13 @@ end
 function SideBar:didMount()
 	local props: _Props = self.props
 	local localization = props.Localization
-	local rootCategory = props.MaterialController:getRootCategory()
+
+	local rootCategory
+	if getFFlagDeprecateMaterialController() then
+		rootCategory = props.MaterialServiceController:getRootCategory()
+	else
+		rootCategory = props.MaterialController:getRootCategory()
+	end
 
 	if not self.categories then
 		self.categories = getCategories(rootCategory, localization)
@@ -146,7 +157,7 @@ function SideBar:didMount()
 		self:setState({
 			Selection = {
 				[allCategory] = true,
-			}
+			},
 		})
 	end
 
@@ -167,7 +178,7 @@ function SideBar:render()
 
 	return Roact.createElement(TreeView, {
 		Size = size,
-		LayoutOrder = if not getFFlagMaterialManagerSideBarSplitPaneUpdate() then layoutOrder else nil, 	-- Remove LayoutOrder prop with FFlagMaterialManagerSideBarSplitPaneUpdate
+		LayoutOrder = if not getFFlagMaterialManagerSideBarSplitPaneUpdate() then layoutOrder else nil, -- Remove LayoutOrder prop with FFlagMaterialManagerSideBarSplitPaneUpdate
 		ZIndex = if getFFlagMaterialManagerSideBarSplitPaneUpdate() then zIndex else nil,
 		Expansion = state.Expansion,
 		Selection = state.Selection,
@@ -180,7 +191,7 @@ end
 SideBar = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
-	MaterialController = MaterialController,
+	MaterialController = MaterialController, -- Remove with FFlagDeprecateMaterialController
 	MaterialServiceController = MaterialServiceController,
 })(SideBar)
 

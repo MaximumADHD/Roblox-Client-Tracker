@@ -24,8 +24,6 @@ local LocalizedStrings = main.Src.Resources.Localization.LocalizedStrings
 
 local EventEmulator = require(main.Src.Components.EventEmulator)
 
-local FFlagFixPluginsEnabledViaDockingContextMenu = game:GetFastFlag("FixPluginsEnabledViaDockingContextMenu")
-
 Roact.setGlobalConfig({
 	typeChecks = true,
 	propValidation = true,
@@ -119,7 +117,7 @@ function MainPlugin:render()
 			OnClose = self.onClose,
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
-			[Roact.Change.Enabled] = if FFlagFixPluginsEnabledViaDockingContextMenu then self.onWidgetEnabledChanged else nil,
+			[Roact.Change.Enabled] = self.onWidgetEnabledChanged,
 		}, {
 			MainProvider = enabled and ContextServices.provide({
 				Mouse.new(plugin:getMouse()),

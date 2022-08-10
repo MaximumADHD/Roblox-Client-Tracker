@@ -3,7 +3,8 @@ local CorePackages = game:GetService("CorePackages")
 local UpdateFetchingStatus = require(CorePackages.AppTempCommon.LuaApp.Actions.UpdateFetchingStatus)
 local Cryo = require(CorePackages.Cryo)
 
-return function(state, action)
+-- FIXME: any type Rodux
+return function(state: any?, action: any)
 	state = state or {}
 
 	if action.type == UpdateFetchingStatus.name then

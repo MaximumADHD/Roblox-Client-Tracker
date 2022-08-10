@@ -16,8 +16,6 @@ local PlayerEmulatorPlugin = Roact.PureComponent:extend("PlayerEmulatorPlugin")
 
 local PLUGIN_WINDOW_SIZE = Vector2.new(320, 330)
 
-local FFlagFixPluginsEnabledViaDockingContextMenu = game:GetFastFlag("FixPluginsEnabledViaDockingContextMenu")
-
 function PlayerEmulatorPlugin:updateToolbarButtonActiveState()
 	local active = self.state.active
 	if self.button then
@@ -106,7 +104,7 @@ function PlayerEmulatorPlugin:render()
 			MinSize = PLUGIN_WINDOW_SIZE,
 			OnClose = self.onClose,
 			ShouldRestore = false,
-			[Roact.Change.Enabled] = if FFlagFixPluginsEnabledViaDockingContextMenu then self.onWidgetEnabledChanged else nil,
+			[Roact.Change.Enabled] = self.onWidgetEnabledChanged,
 		}, {
 			-- UILibraryWrapper consumes theme, focus etc. so needs to be wrapped in these items for React.createContext to consume them.
 			MainView = active and ContextServices.provide({

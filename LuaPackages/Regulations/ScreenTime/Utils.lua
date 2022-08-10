@@ -26,7 +26,8 @@ local Utils = {
 			globalGetter(string key) -> string
 			globalSetter(string key, string value)
 ]]
-function Utils:new(dependencies)
+-- FIXME: OO types
+function Utils.new(self: any, dependencies)
 	ArgCheck.isType(dependencies.globalGetter, "function", "globalGetter")
 	ArgCheck.isType(dependencies.globalSetter, "function", "globalSetter")
 	local obj = {

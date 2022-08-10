@@ -84,6 +84,7 @@ local GetFFlagFaceControlsEditorSelectTracks = require(Plugin.LuaFlags.GetFFlagF
 local GetFFlagFaceControlsEditorUIUpdate = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorUIUpdate)
 local GetFFlagFaceControlsEditorBugBash2Update = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorBugBash2Update)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
 
 local PADDING = 10
 
@@ -206,7 +207,11 @@ function FaceControlsEditorWindow:didMount()
 		self.Connections = {}
 		self.Actions = {}
 		self:addAction(actions:get("FocusCamera"), function()
-			focusFace(self.props)
+			if GetFFlagFacialAnimationRecordingInStudio() then
+				RigUtils.focusCameraOnFace(self.props.RootInstance)
+			else
+				focusFace(self.props)
+			end
 		end)
 	end
 end
@@ -768,11 +773,17 @@ end
 --function which only focusses face when AutoFocusFaceEnabled
 function handleFocusFace(props)
 	if props.AutoFocusFaceEnabled then
-		focusFace(props)
+		if GetFFlagFacialAnimationRecordingInStudio() then
+			RigUtils.focusCameraOnFace(props.RootInstance)
+		else
+			focusFace(props)
+		end		
 	end	
 end
 
 --the actual focus face function which does not check AutoFocusFaceEnabled, is also called by F key press handler
+--this function is to be removed once face capture GetFFlagFacialAnimationRecordingInStudio() is merged in
+--because then the fucntion RigUtils.focusCameraOnFace is to be used
 function focusFace(props)
 	local currentCamera = game.Workspace.CurrentCamera
 	local faceControls = RigUtils.getFaceControls(props.RootInstance)

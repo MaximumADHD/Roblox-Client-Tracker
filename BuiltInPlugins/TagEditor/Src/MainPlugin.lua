@@ -10,16 +10,12 @@
 			master <- PR <- Packages PR
 		Get people to review *PR*, then after approvals, merge *Packages PR*
 		into *PR*, and then *PR* into master.
-
-
-	New Plugin Setup: Search for other TODOs to see other tasks to modify this template for
-	your needs. All setup TODOs are tagged as New Plugin Setup:
 ]]
 
 local main = script.Parent.Parent
 -- local _Types = require(main.Src.Types) -- uncomment to use types
 local Roact = require(main.Packages.Roact)
-local Rodux = require(main.Packages.Rodux)
+-- local Rodux = require(main.Packages.Rodux)
 
 local Framework = require(main.Packages.Framework)
 
@@ -31,17 +27,14 @@ local PluginButton = StudioUI.PluginButton
 local ContextServices = Framework.ContextServices
 local Plugin = ContextServices.Plugin
 local Mouse = ContextServices.Mouse
-local Store = ContextServices.Store
 
-local MainReducer = require(main.Src.Reducers.MainReducer)
 local MakeTheme = require(main.Src.Resources.MakeTheme)
 
 local SourceStrings = main.Src.Resources.Localization.SourceStrings
 local LocalizedStrings = main.Src.Resources.Localization.LocalizedStrings
 
 local Components = main.Src.Components
-local ExampleComponent = require(Components.ExampleComponent)
-local ExampleRoactRoduxComponent = require(Components.ExampleRoactRoduxComponent)
+local MainGui = require(Components.MainGui)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -76,10 +69,6 @@ function MainPlugin:init(props)
 		})
 	end
 
-	self.store = Rodux.Store.new(MainReducer, nil, {
-		Rodux.thunkMiddleware,
-	}, nil)
-
 	self.localization = ContextServices.Localization.new({
 		stringResourceTable = SourceStrings,
 		translationResourceTable = LocalizedStrings,
@@ -89,8 +78,6 @@ function MainPlugin:init(props)
 		New Plugin Setup: Each plugin is expected to provide a createEventHandlers function to the constructor
 			which should return a table mapping event -> eventHandler.
 
-			To enable localization, add the plugin to
-			Client/RobloxStudio/Translation/builtin_plugin_config.py
 	--]]
 	self.analytics = ContextServices.Analytics.new(function()
 		return {}
@@ -123,7 +110,7 @@ function MainPlugin:render()
 
 	return ContextServices.provide({
 		Plugin.new(plugin),
-		Store.new(self.store),
+		--Store.new(self.store),
 		Mouse.new(plugin:getMouse()),
 		MakeTheme(),
 		self.localization,
@@ -141,17 +128,14 @@ function MainPlugin:render()
 			Title = self.localization:getText("Plugin", "Name"),
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			InitialDockState = Enum.InitialDockState.Bottom,
-			Size = Vector2.new(640, 480),
-			MinSize = Vector2.new(250, 200),
+			Size = Vector2.new(300, 200),
+			MinSize = Vector2.new(150, 150),
 			OnClose = self.onClose,
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
 			[Roact.Change.Enabled] = self.onWidgetEnabledChanged,
 		}, {
-			-- Plugin contents are mounted here
-			-- New Plugin Setup: Switch out ExampleComponent with your component
-			ExampleComponent = Roact.createElement(ExampleComponent),
-			ExampleRoactRoduxComponent = Roact.createElement(ExampleRoactRoduxComponent),
+			MainGui = Roact.createElement(MainGui),
 		}),
 	})
 end

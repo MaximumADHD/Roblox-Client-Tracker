@@ -12,8 +12,6 @@ local SnapPoints = require(Plugin.Src.Components.SnapPoints)
 local DraggedPivot = require(DraggerFramework.Components.DraggedPivot)
 local classifyInstancePivot = require(Plugin.Src.Utility.classifyInstancePivot)
 
-local getFFlagEditPivotSnapRotateDoesNotTranslatePivot = require(DraggerFramework.Flags.getFFlagEditPivotSnapRotateDoesNotTranslatePivot)
-
 local MoveHandlesForDisplay = {
 	MinusZ = {
 		Offset = CFrame.fromMatrix(Vector3.new(), Vector3.new(1, 0, 0), Vector3.new(0, 1, 0)),
@@ -109,25 +107,7 @@ function RotateHandlesImplementation:updateDrag(globalTransform)
 	local newPivot = (globalTransform * self._initialPivot):Orthonormalize()
 	setWorldPivot(self._primaryObject, newPivot)
 
-	-- Note on the _initialRelativePosition.Magnitude check:
-	-- If the pivot is right near the center, just leave it where it is, so
-	-- that it doesn't visibly shift slightly as we rotate (which is really
-	-- the correct behavior if it's following the center of the bounding
-	-- box, but that doesn't look good)
-	-- ^^^ the above comment assumes that if snapping is on and we rotate, we want to keep the
-	-- pivot snapped to its current location relative to the object; and only use the newPivot when it 
-	-- is very close to the center to start with; but the result is that it 
-	-- feels like a bug to most users, because the pivot translates out from under the rotate handles.
-	-- So we have added a flag to remove this behavior.
-	if not getFFlagEditPivotSnapRotateDoesNotTranslatePivot() and self._draggerContext:shouldSnapPivotToGeometry() and self._primaryObject:IsA("Model") and self._initialRelativePosition.Magnitude > 0.05 then
-		local boundsCFrame, boundsSize = self._primaryObject:GetBoundingBox()
-		local modifiedPivot = boundsCFrame:ToWorldSpace(
-			self._initialRelativeRotation + self._initialRelativePosition * boundsSize)
-		setWorldPivot(self._primaryObject, modifiedPivot:Orthonormalize())
-		self._lastPivot = modifiedPivot
-	else
-		self._lastPivot = newPivot
-	end
+	self._lastPivot = newPivot
 
 	self._snapPoints = computeSnapPointsForInstance(self._primaryObject)
 	return globalTransform

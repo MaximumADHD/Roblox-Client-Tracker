@@ -7,22 +7,27 @@ local SetMaterialAsTool = require(Actions.SetMaterialAsTool)
 local SetMaterialTileSize = require(Actions.SetMaterialTileSize)
 local SetViewType = require(Actions.SetViewType)
 
+local GeneralServiceController = require(Plugin.Src.Controllers.GeneralServiceController)
+
 local Util = Plugin.Src.Util
-local ApplyToClicked = require(Util.ApplyToClicked)
+local ApplyToBasePart = require(Util.ApplyToBasePart) -- Remove with FFlagMaterialManagerFixApplyToClicked
 local SetHighlight = require(Util.SetHighlight)
 
 local ContextItem = Framework.ContextServices.ContextItem
 
 local DEFAULT_CURSOR = "rbxasset://SystemCursors/Arrow"
-local PAINT_CURSOR =  "rbxasset://textures/FillCursor.png"
+local PAINT_CURSOR = "rbxasset://textures/FillCursor.png"
+
+local getFFlagMaterialManagerFixApplyToClicked = require(Plugin.Src.Flags.getFFlagMaterialManagerFixApplyToClicked)
 
 local PluginController = ContextItem:extend("PluginController")
 
-function PluginController.new(plugin: any?, store: any?, mouse: any?, mock: boolean?)
+function PluginController.new(plugin: any?, store: any?, mouse: any?, generalServiceController: any?, mock: boolean?)
 	local self = setmetatable({
 		_plugin = plugin,
 		_store = store,
 		_mouse = mouse,
+		_generalServiceController = generalServiceController,
 
 		_mock = mock,
 	}, PluginController)
@@ -35,7 +40,7 @@ function PluginController.new(plugin: any?, store: any?, mouse: any?, mock: bool
 end
 
 function PluginController.mock()
-	return PluginController.new(nil, nil, true)
+	return PluginController.new(nil, nil, GeneralServiceController.mock(), true)
 end
 
 function PluginController:initialize()
@@ -93,9 +98,19 @@ function PluginController:toggleMaterialAsTool()
 		local material = self._store:getState().MaterialBrowserReducer.Material
 		if material then
 			self._mouse.Icon = PAINT_CURSOR
-			ApplyToClicked(self._mouse.Target,
-				material.Material,
-				if material.MaterialVariant then material.MaterialVariant.Name else nil)
+			if getFFlagMaterialManagerFixApplyToClicked() then
+				self._generalServiceController:ApplyToBasePart(
+					self._mouse.Target,
+					material.Material,
+					if material.MaterialVariant then material.MaterialVariant.Name else nil
+				)
+			else
+				ApplyToBasePart(
+					self._mouse.Target,
+					material.Material,
+					if material.MaterialVariant then material.MaterialVariant.Name else nil
+				)
+			end
 		end
 	end)
 

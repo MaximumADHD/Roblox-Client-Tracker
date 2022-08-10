@@ -29,8 +29,6 @@ local AnalyticsHandlers = require(main.Src.Resources.AnalyticsHandlers)
 local StudioUI = Framework.StudioUI
 local DockWidget = StudioUI.DockWidget
 
-local FFlag9SliceEditorRespectImageRectSize = game:GetFastFlag("9SliceEditorRespectImageRectSize")
-
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
 function MainPlugin:init(props)
@@ -79,28 +77,6 @@ function MainPlugin:init(props)
 
 		self:setState({
 			enabled = false,
-		})
-	end
-
-	self.DEPRECATED_onInstanceUnderEditChanged = function(instance: Instance?, title: string, pixelDimensions: Vector2,
-		sliceRect: Types.SliceRectType, revertSliceRect: Types.SliceRectType)
-
-		if not self.state.enabled then
-			self.reportOpen()
-		end
-
-		if instance then
-			-- Every time an image is loaded into editor
-			self.analytics:report("sliceEditorImageLoadedIntoEditor")
-		end
-
-		self:setState({
-			enabled = true,
-			selectedInstance = instance or Roact.None,
-			title = title,
-			pixelDimensions = pixelDimensions,
-			sliceRect = sliceRect,
-			revertSliceRect = revertSliceRect,
 		})
 	end
 
@@ -177,8 +153,7 @@ function MainPlugin:render()
 	}, {
 		InstanceUnderEditManager = Roact.createElement(InstanceUnderEditManager, {
 			WidgetEnabled = enabled,
-			InstanceUnderEditChanged = FFlag9SliceEditorRespectImageRectSize and self.onInstanceUnderEditChanged
-				or self.DEPRECATED_onInstanceUnderEditChanged,
+			InstanceUnderEditChanged = self.onInstanceUnderEditChanged,
 			InstancePropertyChanged = self.onInstancePropertyChanged,
 			SliceRectChanged = self.onSliceRectChanged,
 			LoadingChanged = self.onLoadingChanged,

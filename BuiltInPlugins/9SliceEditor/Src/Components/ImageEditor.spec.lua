@@ -3,16 +3,13 @@ return function()
 	local Roact = require(Plugin.Packages.Roact)
 	local TestHelper = require(Plugin.Src.Util.TestHelper)
 	local ImageEditor = require(script.Parent.ImageEditor)
-	local Constants = require(Plugin.Src.Util.Constants)
 
 	local Rhodium = require(Plugin.Packages.Dev.Rhodium)
 	local Orientation = require(Plugin.Src.Util.Orientation)
 
-	local FFlag9SliceEditorResizableImagePreviewWindow = game:GetFastFlag("9SliceEditorResizableImagePreviewWindow")
-
 	local function getSliderParentFromContainer(container)
 		local background = container:FindFirstChildWhichIsA("ImageButton", true)
-		local sliderParent = if FFlag9SliceEditorResizableImagePreviewWindow then background.ImagePreview else background.imageLabel
+		local sliderParent = background.ImagePreview
 		return sliderParent
 	end
 	
@@ -84,10 +81,7 @@ return function()
 			wait()
 			expect(newSliceRect).to.be.ok()
 
-			local displayedImageSize = Vector2.new(1, 1) * Constants.IMAGE_SIZE
-			if FFlag9SliceEditorResizableImagePreviewWindow then
-				displayedImageSize = sliderParent.AbsoluteSize
-			end
+			local displayedImageSize = sliderParent.AbsoluteSize
 
 			local newSliceVal = initialSliceRect[Orientation.Left.rawValue()] +
 				dragAmountPx / displayedImageSize.X * imageXSize
@@ -131,10 +125,7 @@ return function()
 			wait()
 			expect(newSliceRect).to.be.ok()
 
-			local displayedImageSize = Vector2.new(1, 1) * Constants.IMAGE_SIZE
-			if FFlag9SliceEditorResizableImagePreviewWindow then
-				displayedImageSize = sliderParent.AbsoluteSize
-			end
+			local displayedImageSize = sliderParent.AbsoluteSize
 
 			local newSliceVal = initialSliceRect[Orientation.Bottom.rawValue()] -
 				dragAmountPx / displayedImageSize.Y * imageYSize

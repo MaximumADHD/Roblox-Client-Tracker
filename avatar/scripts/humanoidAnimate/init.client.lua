@@ -143,6 +143,17 @@ end
 script.ChildAdded:connect(scriptChildModified)
 script.ChildRemoved:connect(scriptChildModified)
 
+-- Clear any existing animation tracks
+-- Fixes issue with characters that are moved in and out of the Workspace accumulating tracks
+local animator = if Humanoid then Humanoid:FindFirstChildOfClass("Animator") else nil
+if animator then
+	local animTracks = animator:GetPlayingAnimationTracks()
+	for i,track in ipairs(animTracks) do
+		track:Stop(0)
+		track:Destroy()
+	end
+end
+
 
 for name, fileList in pairs(animNames) do 
 	configureAnimationSet(name, fileList)

@@ -9,7 +9,7 @@ return function(plugin, pluginLoaderContext)
 	local Util = Plugin.Core.Util
 	local FFlagDebugToolboxEnableRoactChecks = game:GetFastFlag("DebugToolboxEnableRoactChecks")
 	local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
-	local FFlagMoveAssetInsertionCallbacksToPlugin = game:GetFastFlag("MoveAssetInsertionCallbacksToPlugin")
+	local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
 
 	local isCli = require(Util.isCli)
 	if isCli() then
@@ -172,6 +172,7 @@ return function(plugin, pluginLoaderContext)
 
 		local assetTypesForRelease = {}
 		local assetTypesForUpload = {}
+		local assetTypesForFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 then {} else nil
 		local packagePermissions = {}
 
 		local isItemTagsFeatureEnabled = false
@@ -181,6 +182,7 @@ return function(plugin, pluginLoaderContext)
 		if toolboxStore then
 			assetTypesForRelease = toolboxStore:getState().roles.allowedAssetTypesForRelease
 			assetTypesForUpload = toolboxStore:getState().roles.allowedAssetTypesForUpload
+			assetTypesForFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 then toolboxStore:getState().roles.allowedAssetTypesForFree else nil
 			packagePermissions = toolboxStore:getState().packages.permissionsTable
 			isItemTagsFeatureEnabled = toolboxStore:getState().itemTags.isItemTagsFeatureEnabled
 			enabledAssetTypesForItemTags = toolboxStore:getState().itemTags.enabledAssetTypesForItemTags
@@ -209,6 +211,7 @@ return function(plugin, pluginLoaderContext)
 			instances = instances,
 			allowedAssetTypesForRelease = assetTypesForRelease,
 			allowedAssetTypesForUpload = assetTypesForUpload,
+			allowedAssetTypesForFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 then assetTypesForFree else nil,
 			isItemTagsFeatureEnabled = isItemTagsFeatureEnabled,
 			enabledAssetTypesForItemTags = enabledAssetTypesForItemTags,
 			maximumItemTagsPerItem = maximumItemTagsPerItem,
@@ -392,7 +395,7 @@ return function(plugin, pluginLoaderContext)
 			end
 		end)
 		InsertAsset.registerLocalization(devFrameworkLocalization)
-		InsertAsset.registerProcessDragHandler(if FFlagMoveAssetInsertionCallbacksToPlugin then plugin else nil)
+		InsertAsset.registerProcessDragHandler(plugin)
 	end
 
 	main()

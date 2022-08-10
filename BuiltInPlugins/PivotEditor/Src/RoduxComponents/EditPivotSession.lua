@@ -18,8 +18,6 @@ local SelectionUpdaterBound = require(Plugin.Src.RoduxComponents.SelectionUpdate
 local BeginSelectingPivot = require(Plugin.Src.Actions.BeginSelectingPivot)
 local DoneSelectingPivot = require(Plugin.Src.Actions.DoneSelectingPivot)
 
-local getFFlagStudioBoundingBoxMoveHandlesSetting = require(DraggerFramework.Flags.getFFlagStudioBoundingBoxMoveHandlesSetting)
-
 local EditingMode = require(Plugin.Src.Utility.EditingMode)
 local StatusMessage = require(Plugin.Src.Utility.StatusMessage)
 
@@ -50,7 +48,7 @@ function EditPivotSession:_getCurrentDraggerHandles()
 				Outset = 0.5,
 				ShowBoundingBox = false,
 				Summonable = false,
-				MustPositionAtPivot = getFFlagStudioBoundingBoxMoveHandlesSetting() and true or nil,
+				MustPositionAtPivot = true,
 			}, DraggerSchema.MoveHandlesImplementation.new(self._draggerContext, ANALYTICS_NAME)),
 			RotateHandles.new(self._draggerContext, {
 				ShowBoundingBox = false,

@@ -34,8 +34,6 @@ local Enums = require(main.Src.Util.Enums)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
-local FFlagFixPluginsEnabledViaDockingContextMenu = game:GetFastFlag("FixPluginsEnabledViaDockingContextMenu")
-
 function MainPlugin:init(props)
 	self.state = {
 		enabled = false,
@@ -149,7 +147,7 @@ function MainPlugin:render()
 			OnClose = self.onClose,
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
-			[Roact.Change.Enabled] = if FFlagFixPluginsEnabledViaDockingContextMenu then self.onWidgetEnabledChanged else nil,
+			[Roact.Change.Enabled] = self.onWidgetEnabledChanged,
 		}, {
 			MainView = enabled and Roact.createElement(MainView)
 		}),

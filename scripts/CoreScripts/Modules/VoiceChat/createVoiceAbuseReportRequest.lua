@@ -8,6 +8,7 @@ local VoiceUsersByProximity = require(script.Parent.VoiceUsersByProximity)
 local getVoiceUsersByProximity = VoiceUsersByProximity.getSortedPlayers
 local VOICE_TRANSMISSION_RADIUS = 80
 
+
 export type VoiceAbuseReportData = {
 	localUserId: number,
 	abuserUserId: number,
@@ -51,37 +52,37 @@ return function(
 		tags = {
 			ENTRY_POINT = {
 				valueList = {
-					data = "in-experience",
+					{ data = "in-experience" },
 				}
 			},
 
 			SUBMITTER_USER_ID = {
 				valueList = {
-					data = tostring(reportData.localUserId),
+					{ data = tostring(reportData.localUserId) },
 				}
 			},
 
 			REPORT_TARGET_USER_ID = {
 				valueList = {
-					data = tostring(reportData.abuserUserId),
+					{ data = tostring(reportData.abuserUserId) },
 				}
 			},
 
 			REPORTED_ABUSE_CATEGORY = {
 				valueList = {
-					data = reportData.abuseReason,
+					{ data = reportData.abuseReason } ,
 				}
 			},
 
 			REPORTER_COMMENT = {
 				valueList = {
-					data = reportData.abuseComment,
+					{ data = reportData.abuseComment },
 				}
 			},
 
 			IS_PLACE_VOICE_ENABLED = {
 				valueList = {
-					data = "true",
+					{ data = "true" },
 				}
 			},
 
@@ -91,31 +92,31 @@ return function(
 
 			IN_EXP_MENU_OPENED_UNIX_MILLI = {
 				valueList = {
-					data = tostring(reportData.inExpMenuOpenedUnixMilli),
+					{ data = tostring(reportData.inExpMenuOpenedUnixMilli) },
 				}
 			},
 
 			VOICE_CHANNEL_ID = {
 				valueList = {
-					data = tostring(VoiceChatServiceManager.service:GetGroupId()),
+					{ data = tostring(VoiceChatServiceManager.service:GetGroupId()) },
 				}
 			},
 
 			VOICE_USER_COUNT = {
 				valueList = {
-					data = tostring(voiceUserCount),
+					{ data = tostring(voiceUserCount) },
 				}
 			},
 
 			VOICE_IMPACTED_USER_COUNT = {
 				valueList = {
-					data = tostring(impactedUserCount),
+					{ data = tostring(impactedUserCount) },
 				}
 			},
 
 			REPORTED_ABUSE_TYPE = {
 				valueList = {
-					data = "voice",
+					{ data = "voice" },
 				}
 			},
 		}

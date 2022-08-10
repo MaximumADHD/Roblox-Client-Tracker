@@ -1,5 +1,3 @@
-local FFlagPluginManagementScrollbarDesign = game:GetFastFlag("PluginManagementScrollbarDesign")
-
 local StudioService = game:GetService("StudioService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -26,7 +24,7 @@ function PluginHolder:init()
 
 	self.resizeContainer = function(rbx)
 		self:setState({
-			contentHeight = rbx.AbsoluteContentSize.Y
+			contentHeight = rbx.AbsoluteContentSize.Y,
 		})
 	end
 end
@@ -171,18 +169,15 @@ function PluginHolder:render()
 		BottomImage = "rbxasset://textures/StudioToolbox/ScrollBarBottom.png",
 		BorderSizePixel = 0,
 
-		ScrollBarImageColor3 = FFlagPluginManagementScrollbarDesign and theme.ScrollbarColor or nil,
-		ScrollBarThickness = FFlagPluginManagementScrollbarDesign and theme.ScrollbarSize or nil,
-		ScrollBarImageTransparency = FFlagPluginManagementScrollbarDesign
-			and theme.ScrollbarTransparency or nil,
+		ScrollBarImageColor3 = theme.ScrollbarColor,
+		ScrollBarThickness = theme.ScrollbarSize,
+		ScrollBarImageTransparency = theme.ScrollbarTransparency,
 	}, pluginEntries)
 end
 
-
 PluginHolder = withContext({
 	Localization = ContextServices.Localization,
-	Stylizer = ContextServices.Stylizer
+	Stylizer = ContextServices.Stylizer,
 })(PluginHolder)
-
 
 return PluginHolder

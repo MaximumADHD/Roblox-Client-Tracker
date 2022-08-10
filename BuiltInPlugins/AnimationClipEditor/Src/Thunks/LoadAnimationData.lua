@@ -21,12 +21,14 @@ local SwitchEditorMode = require(Plugin.Src.Thunks.SwitchEditorMode)
 local SetEditorMode = require(Plugin.Src.Actions.SetEditorMode)
 local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
+local SetInReviewState = require(Plugin.Src.Actions.SetInReviewState)
 local SetLastSelectedPath = require(Plugin.Src.Actions.SetLastSelectedPath)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
+local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
 local GetFFlagFixTrackListSelection = require(Plugin.LuaFlags.GetFFlagFixTrackListSelection)
 
 return function(animationData, analytics)
@@ -83,5 +85,11 @@ return function(animationData, analytics)
 		store:dispatch(SetIsDirty(true))
 		store:dispatch(UpdateEditingLength(animationData.Metadata.EndTick))
 		store:dispatch(SetShowEvents(not isEmpty(animationData.Events.Keyframes)))
+		
+		--in case the user was in review state of face capture and switched animation (like by create new animation) then
+		--we exit out of review state
+		if GetFFlagFacialAnimationRecordingInStudio() then
+			store:dispatch(SetInReviewState(false))
+		end		
 	end
 end

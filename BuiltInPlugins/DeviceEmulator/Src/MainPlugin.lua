@@ -1,27 +1,14 @@
 --[[
 	The main plugin component.
 	Consists of the PluginWidget, Toolbar, Button, and Roact tree.
-
-	New Plugin Setup: When creating a plugin, commit this template
-		first with /packages in a secondary pull request.
-
-		A common workaround for the large diffs from Packages/_Index is to put
-		the Packages/_Index changes into a separate PR like this:
-			master <- PR <- Packages PR
-		Get people to review *PR*, then after approvals, merge *Packages PR*
-		into *PR*, and then *PR* into master.
-
-
-	New Plugin Setup: Search for other TODOs to see other tasks to modify this template for
-	your needs. All setup TODOs are tagged as New Plugin Setup:
 ]]
 
 local main = script.Parent.Parent
 -- local _Types = require(main.Src.Types) -- uncomment to use types
 local Roact = require(main.Packages.Roact)
-local Rodux = require(main.Packages.Rodux)
 
 local Framework = require(main.Packages.Framework)
+-- local _Colors = Framework.Style.Colors
 
 local StudioUI = Framework.StudioUI
 local DockWidget = StudioUI.DockWidget
@@ -31,21 +18,34 @@ local PluginButton = StudioUI.PluginButton
 local ContextServices = Framework.ContextServices
 local Plugin = ContextServices.Plugin
 local Mouse = ContextServices.Mouse
-local Store = ContextServices.Store
 
-local MainReducer = require(main.Src.Reducers.MainReducer)
 local MakeTheme = require(main.Src.Resources.MakeTheme)
 
 local SourceStrings = main.Src.Resources.Localization.SourceStrings
 local LocalizedStrings = main.Src.Resources.Localization.LocalizedStrings
 
-local Components = main.Src.Components
-local ExampleComponent = require(Components.ExampleComponent)
-local ExampleRoactRoduxComponent = require(Components.ExampleRoactRoduxComponent)
+local GraphicsPane = require(main.Src.Components.GraphicsPane)
+local NetworkPane = require(main.Src.Components.NetworkPane)
+
+local UI = Framework.UI
+local Pane = UI.Pane
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
-function MainPlugin:init(props)
+require(main.Bin.defineLuaFlags)
+
+
+export type Props = {
+	OnClick: () -> (),
+	Text: string,
+}
+
+type _Props = Props & {
+	Localization: any,
+	Stylizer: any,
+}
+
+function MainPlugin:init(_props)
 	self.state = {
 		enabled = false,
 	}
@@ -76,22 +76,11 @@ function MainPlugin:init(props)
 		})
 	end
 
-	self.store = Rodux.Store.new(MainReducer, nil, {
-		Rodux.thunkMiddleware,
-	}, nil)
-
 	self.localization = ContextServices.Localization.new({
 		stringResourceTable = SourceStrings,
 		translationResourceTable = LocalizedStrings,
 		pluginName = "DeviceEmulator",
 	})
-	--[[
-		New Plugin Setup: Each plugin is expected to provide a createEventHandlers function to the constructor
-			which should return a table mapping event -> eventHandler.
-
-			To enable localization, add the plugin to
-			Client/RobloxStudio/Translation/builtin_plugin_config.py
-	--]]
 	self.analytics = ContextServices.Analytics.new(function()
 		return {}
 	end, {})
@@ -120,9 +109,11 @@ function MainPlugin:render()
 	local plugin = props.Plugin
 	local enabled = state.enabled
 
+	local graphicsPane = Roact.createElement(GraphicsPane, {})
+  local networkPane = Roact.createElement(NetworkPane, {})
+
 	return ContextServices.provide({
 		Plugin.new(plugin),
-		Store.new(self.store),
 		Mouse.new(plugin:getMouse()),
 		MakeTheme(),
 		self.localization,
@@ -147,12 +138,24 @@ function MainPlugin:render()
 			OnWidgetRestored = self.onRestore,
 			[Roact.Change.Enabled] = self.onWidgetEnabledChanged,
 		}, {
-			-- Plugin contents are mounted here
-			-- New Plugin Setup: Switch out ExampleComponent with your component
-			-- TODO: pull in other widgets, like GraphicsWidget as needed
-			ExampleComponent = Roact.createElement(ExampleComponent),
-			ExampleRoactRoduxComponent = Roact.createElement(ExampleRoactRoduxComponent),
-		}),
+			MainPane = Roact.createElement(Pane, {
+				Style = "Box",
+				Size = UDim2.fromScale(1, 1),
+				Position = UDim2.fromOffset(0, 0)
+			}, {
+				ContainerPane = Roact.createElement(Pane, {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					AnchorPoint = Vector2.new(0, 0),
+					Position = UDim2.fromScale(0, 0),
+					Layout = Enum.FillDirection.Vertical,
+					Padding = 5,
+					Spacing = 5,
+				}, {
+					GraphicsPane = graphicsPane,
+					NetworkPane = networkPane
+				})
+			})
+		})
 	})
 end
 

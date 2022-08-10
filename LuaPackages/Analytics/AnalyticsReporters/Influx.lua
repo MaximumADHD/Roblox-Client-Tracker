@@ -21,7 +21,7 @@ function Influx.new(reportingService): Influx
 	local rsType = type(reportingService)
 	assert(rsType == "table" or rsType == "userdata", "Unexpected value for reportingService")
 
-	local self = {
+	local self: any = {
 		_reporter = reportingService,
 		_isEnabled = true,
 	}

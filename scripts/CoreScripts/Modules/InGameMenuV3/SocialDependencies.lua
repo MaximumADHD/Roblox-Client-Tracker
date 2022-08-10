@@ -9,6 +9,10 @@ local Lumberyak = require(CorePackages.Lumberyak)
 local UrlBuilderPackage = require(CorePackages.Packages.UrlBuilder)
 local UrlBuilder = UrlBuilderPackage.UrlBuilder
 
+local InGameMenu = script.Parent
+local GetFFlagShareInviteLinkContextMenuV3Enabled =
+	require(InGameMenu.Flags.GetFFlagShareInviteLinkContextMenuV3Enabled)
+
 local logger = Lumberyak.Logger.new(nil, "InGameMenu")
 local maxHttpRetries = game:DefineFastInt("InGameMenuHttpRetryCount", 3)
 local httpLogger = logger:new("InGameMenu Networking")
@@ -34,7 +38,7 @@ local myHttpRequest = HttpRequest.config({
 })
 
 local myRoduxNetworking = RoduxNetworking.config({
-	keyPath = "InGameMenu.NetworkStatus",
+	keyPath = "NetworkStatus",
 	networkImpl = myHttpRequest,
 })
 
@@ -44,7 +48,8 @@ return {
 	}),
 	NetworkingShareLinks = NetworkingShareLinks.config({
 		roduxNetworking = myRoduxNetworking,
-		useMockedResponse = true,
+		useMockedResponse = if GetFFlagShareInviteLinkContextMenuV3Enabled() then false else true,
 	}),
 	UrlBuilder = UrlBuilder,
+	RoduxNetworking = myRoduxNetworking,
 }

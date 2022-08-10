@@ -75,11 +75,11 @@ return function()
 
     it("should throw when passed a invalid function", function()
         expect(function()
-            Action("foo", nil)
+            (Action :: any)("foo", nil)
         end).to.throw()
 
         expect(function()
-            Action("foo", {})
+            (Action :: any)("foo", {})
         end).to.throw()
     end)
 end

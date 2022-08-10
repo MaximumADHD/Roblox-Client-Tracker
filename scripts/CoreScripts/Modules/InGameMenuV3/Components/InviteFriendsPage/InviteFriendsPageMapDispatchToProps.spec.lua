@@ -14,7 +14,7 @@ return function()
 	describe("WHEN called", function()
 		describe("WHEN all FFlags are disabled", function()
 			beforeAll(function(context)
-				game:SetFastFlagForTesting("ShareInviteLinkContextMenuV3Enabled", false)
+				game:SetFastFlagForTesting("ShareInviteLinkContextMenuV3Enabled_v2", false)
 				game:SetFastFlagForTesting("ConsolidateGetFriends", false)
 			end)
 
@@ -25,7 +25,7 @@ return function()
 
 		describe("WHEN ShareInviteLinkContextMenuV3Enabled FFlag is enabled", function()
 			beforeAll(function(context)
-				game:SetFastFlagForTesting("ShareInviteLinkContextMenuV3Enabled", true)
+				game:SetFastFlagForTesting("ShareInviteLinkContextMenuV3Enabled_v2", true)
 				game:SetFastFlagForTesting("ConsolidateGetFriends", false)
 			end)
 
@@ -39,7 +39,7 @@ return function()
 
 		describe("WHEN ConsolidateGetFriends FFlag is enabled", function()
 			beforeAll(function(context)
-				game:SetFastFlagForTesting("ShareInviteLinkContextMenuV3Enabled", false)
+				game:SetFastFlagForTesting("ShareInviteLinkContextMenuV3Enabled_v2", false)
 				game:SetFastFlagForTesting("ConsolidateGetFriends", true)
 			end)
 

@@ -17,6 +17,7 @@ local Framework = require(Plugin.Packages.Framework)
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryFitContent = SharedFlags.getFFlagRemoveUILibraryFitContent()
 local FFlagRemoveUILibraryBulletPoint = SharedFlags.getFFlagRemoveUILibraryBulletPoint()
+local FFlagDevFrameworkMigrateStyledDialog = SharedFlags.getFFlagDevFrameworkMigrateStyledDialog()
 
 local UI = Framework.UI
 local BulletList = UI.BulletList
@@ -33,8 +34,9 @@ if not FFlagRemoveUILibraryBulletPoint then
     BulletPoint = UILibrary.Component.BulletPoint
 end
 
-local StyledDialog = UILibrary.Component.StyledDialog
-local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
+local StyledDialog = if FFlagDevFrameworkMigrateStyledDialog then UI.StyledDialog else UILibrary.Component.StyledDialog
+local StyledScrollingFrame = if FFlagDevFrameworkMigrateStyledDialog then UI.ScrollingFrame else UILibrary.Component.StyledScrollingFrame
+local TextLabel = if FFlagDevFrameworkMigrateStyledDialog then UI.TextLabel else "TextLabel"
 
 local FitToContent
 if not FFlagRemoveUILibraryFitContent then
@@ -46,26 +48,42 @@ if not FFlagRemoveUILibraryFitContent then
 end
 
 local HEADER_TEXT_SIZE = 22
-local BUTTON_TEXT_SIZE = 22
 local BULLET_TEXT_SIZE = 18
 
-local DIALOG_SIZE = Vector2.new(473, 300)
-local DIALOG_CONTENTS_PADDING = 32
+local DIALOG_SIZE = if FFlagDevFrameworkMigrateStyledDialog then Vector2.new(430, 200) else Vector2.new(473, 300)
+local DIALOG_CONTENTS_PADDING = if FFlagDevFrameworkMigrateStyledDialog then UDim.new(0, 32) else 32
+local DIALOG_CONTENTS_BORDER_PADDING = if FFlagDevFrameworkMigrateStyledDialog then {
+	PaddingLeft = UDim.new(0, 16),
+	PaddingRight = UDim.new(0, 16),
+	PaddingTop = UDim.new(0, 48),
+	PaddingBottom = UDim.new(0, 48),
+} else nil
 
-local BORDER_PADDING = 35
-local BUTTON_PADDING = 25
-local BUTTON_HEIGHT = 35
-local BUTTON_WIDTH = 125
+local BUTTON_TEXT_SIZE
+local BORDER_PADDING
+local BUTTON_PADDING
+local BUTTON_HEIGHT
+local BUTTON_WIDTH
+if not FFlagDevFrameworkMigrateStyledDialog then
+	BUTTON_TEXT_SIZE = 22
+	BORDER_PADDING = 35
+	BUTTON_PADDING = 25
+	BUTTON_HEIGHT = 35
+	BUTTON_WIDTH = 125
+end
 
 local DraftDiscardDialog = Roact.PureComponent:extend("DraftDiscardDialog")
 
 function DraftDiscardDialog:init()
 	self:setState({})
 
-	self.canvasRef = Roact.createRef()
-	self.headerRef = Roact.createRef()
+	if not FFlagDevFrameworkMigrateStyledDialog then
+		self.canvasRef = Roact.createRef()
+		self.headerRef = Roact.createRef()
+	end
 
 	self.contentSizeChanged = function(contentSize)
+		assert(not FFlagDevFrameworkMigrateStyledDialog)
 		local canvas = self.canvasRef.current
 		if canvas then
 			canvas.CanvasSize = UDim2.new(0, 0, 0, contentSize.Y)
@@ -74,6 +92,7 @@ function DraftDiscardDialog:init()
 
 	-- Update header height based on text size, and then offset the canvas to be below the header
 	self.updateContentGeometry = function()
+		assert(not FFlagDevFrameworkMigrateStyledDialog)
 		local header = self.headerRef.current
 		local canvas = self.canvasRef.current
 		local textSize = TextService:GetTextSize(
@@ -92,9 +111,11 @@ function DraftDiscardDialog:init()
 end
 
 function DraftDiscardDialog:didMount()
-	local header = self.headerRef.current
-	self.textConnection = header:GetPropertyChangedSignal("AbsoluteSize"):connect(self.updateContentGeometry)
-	self.updateContentGeometry()
+	if not FFlagDevFrameworkMigrateStyledDialog then
+		local header = self.headerRef.current
+		self.textConnection = header:GetPropertyChangedSignal("AbsoluteSize"):connect(self.updateContentGeometry)
+		self.updateContentGeometry()
+	end
 end
 
 function DraftDiscardDialog:render()
@@ -124,7 +145,20 @@ function DraftDiscardDialog:render()
 		end
 	end
 
-	return Roact.createElement(StyledDialog, {
+	return Roact.createElement(StyledDialog, if FFlagDevFrameworkMigrateStyledDialog then {
+		Title = localization:getText("DiscardDialog", "Title"),
+		Modal = true,
+
+		Buttons = {
+			{Key = true, Text = localization:getText("Dialog", "Yes"), Style = "RoundLargeText" },
+			{Key = false, Text = localization:getText("Dialog", "No"), Style = "RoundLargeTextPrimary"},
+		},
+		ButtonHorizontalAlignment = Enum.HorizontalAlignment.Center,
+		OnButtonPressed = choiceSelected,
+		OnClose = function() choiceSelected(false) end,
+
+		MinContentSize = DIALOG_SIZE,
+	} else {
 		Buttons = {
 			{Key = true, Text = localization:getText("Dialog", "Yes")},
 			{Key = false, Style = "Primary", Text = localization:getText("Dialog", "No")},
@@ -141,7 +175,29 @@ function DraftDiscardDialog:render()
 
 		Title = localization:getText("DiscardDialog", "Title"),
 	}, {
-		Header = Roact.createElement("TextLabel", {
+		Layout = if FFlagDevFrameworkMigrateStyledDialog then Roact.createElement("UIListLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			FillDirection = Enum.FillDirection.Vertical,
+			Padding = DIALOG_CONTENTS_PADDING,
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+		}) else nil,
+
+		Padding = if FFlagDevFrameworkMigrateStyledDialog then Roact.createElement("UIPadding", DIALOG_CONTENTS_BORDER_PADDING) else nil,
+
+		Header = Roact.createElement(TextLabel, if FFlagDevFrameworkMigrateStyledDialog then {
+			LayoutOrder = 1,
+			AutomaticSize = Enum.AutomaticSize.XY,
+
+			TextXAlignment = Enum.TextXAlignment.Center,
+			TextYAlignment = Enum.TextYAlignment.Top,
+			TextWrapped = true,
+
+			Text = localization:getText("DiscardDialog", "ConfirmQuestion"),
+			TextSize = HEADER_TEXT_SIZE,
+			Font = style.dialogUILibrary.HeaderFont,
+			TextColor = style.dialogUILibrary.HeaderTextColor,
+		} else {
 			BackgroundTransparency = 1,
 
 			TextXAlignment = Enum.TextXAlignment.Center,
@@ -156,11 +212,13 @@ function DraftDiscardDialog:render()
 			[Roact.Ref] = self.headerRef,
 		}),
 
-		DraftList = Roact.createElement(StyledScrollingFrame, {
+		DraftList = Roact.createElement(StyledScrollingFrame, if FFlagDevFrameworkMigrateStyledDialog then {
+			LayoutOrder = 2,
+		} else {
 			BackgroundTransparency = 1,
 			[Roact.Ref] = self.canvasRef,
 		}, {
-			UIListLayout = Roact.createElement("UIListLayout", {
+			UIListLayout = if FFlagDevFrameworkMigrateStyledDialog then nil else Roact.createElement("UIListLayout", {
 				VerticalAlignment = Enum.VerticalAlignment.Top,
 				Padding = UDim.new(0, 0),
 

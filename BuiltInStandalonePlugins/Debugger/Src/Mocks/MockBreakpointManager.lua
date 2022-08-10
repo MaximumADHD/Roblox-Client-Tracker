@@ -14,6 +14,7 @@ function MockBreakpointManager.new()
 		self.MockMetaBreakpointsById[metaBreakpoint.Id] = metaBreakpoint
 	end)
 	self.MetaBreakpointChanged = Signal.new()
+	self.MetaBreakpointSetChanged = Signal.new()
 	self.MetaBreakpointRemoved = Signal.new()
 
 	self.MockMetaBreakpointsById = {}

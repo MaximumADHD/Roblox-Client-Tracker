@@ -32,7 +32,7 @@ local myHttpRequest = HttpRequest.config({
 })
 
 local myRoduxNetworking = RoduxNetworking.config({
-	keyPath = "ShareGame.NetworkStatus",
+	keyPath = "NetworkStatus",
 	networkImpl = myHttpRequest,
 })
 
@@ -43,4 +43,5 @@ return {
 	NetworkingShareLinks = NetworkingShareLinks.config({
 		roduxNetworking = myRoduxNetworking,
 	}),
+	RoduxNetworking = myRoduxNetworking,
 }

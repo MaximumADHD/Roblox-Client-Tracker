@@ -9,7 +9,6 @@ local ContextServices = Framework.ContextServices
 
 local UI = Framework.UI
 local Tabs = UI.Tabs
-local TabsTypes = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.UI.Tabs.types)
 
 local TabbedView = Roact.PureComponent:extend("TabbedView")
 
@@ -22,7 +21,8 @@ function TabbedView:init()
 		selectedTab = props.InitialTab or props.Tabs[1],
 	}
 
-	self.onTabSelected = function(tab: TabsTypes.Tab)
+	-- FIXME STUDIOPLAT-28652: Export the types of tab directly in the init file
+	self.onTabSelected = function(tab)
 		self:setState({
 			selectedTab = tab,
 		})

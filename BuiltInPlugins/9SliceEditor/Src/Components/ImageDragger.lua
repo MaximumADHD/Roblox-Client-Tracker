@@ -23,8 +23,6 @@ local withContext = ContextServices.withContext
 local Analytics = ContextServices.Analytics
 local Localization = ContextServices.Localization
 
-local FFlag9SliceEditorResizableImagePreviewWindow = game:GetFastFlag("9SliceEditorResizableImagePreviewWindow")
-
 local ImageDragger = Roact.PureComponent:extend("ImageDragger")
 
 local LEFT = Orientation.Left.rawValue()
@@ -173,13 +171,8 @@ function ImageDragger:render()
 		draggerImage = showOutline and draggerImageRoot.OUTLINED or draggerImageRoot.NORMAL
 		sliceCenter = Rect.new(0, 8, 8, 8)
 
-		if FFlag9SliceEditorResizableImagePreviewWindow then
-			draggerSize = UDim2.new(0, Constants.DRAGGER_WIDTH_V2, 1, 0)
-			draggerClickWindowSize = UDim2.new(0, Constants.DRAGGER_CLICK_WINDOW_WIDTH, 1, Constants.DRAGGER_HANDLE_SIZE*2)
-		else
-			draggerSize = UDim2.fromOffset(Constants.DRAGGER_WIDTH_V2, Constants.DRAGGER_HEIGHT)
-			draggerClickWindowSize = UDim2.fromOffset(Constants.DRAGGER_CLICK_WINDOW_WIDTH, Constants.DRAGGER_HEIGHT)
-		end
+		draggerSize = UDim2.new(0, Constants.DRAGGER_WIDTH_V2, 1, 0)
+		draggerClickWindowSize = UDim2.new(0, Constants.DRAGGER_CLICK_WINDOW_WIDTH, 1, Constants.DRAGGER_HANDLE_SIZE*2)
 
 	elseif orientation == TOP or orientation == BOTTOM then
 		local sideOffset = sliceValue / pixelDimensions.Y
@@ -204,13 +197,8 @@ function ImageDragger:render()
 		draggerImage = showOutline and draggerImageRoot.OUTLINED or draggerImageRoot.NORMAL
 		sliceCenter = Rect.new(8, 0, 8, 8)
 
-		if FFlag9SliceEditorResizableImagePreviewWindow then
-			draggerSize = UDim2.new(1, 0, 0, Constants.DRAGGER_WIDTH_V2)
-			draggerClickWindowSize = UDim2.new(1, Constants.DRAGGER_HANDLE_SIZE*2, 0, Constants.DRAGGER_CLICK_WINDOW_WIDTH)
-		else
-			draggerSize = UDim2.fromOffset(Constants.DRAGGER_HEIGHT, Constants.DRAGGER_WIDTH_V2)
-			draggerClickWindowSize = UDim2.fromOffset(Constants.DRAGGER_HEIGHT, Constants.DRAGGER_CLICK_WINDOW_WIDTH)
-		end
+		draggerSize = UDim2.new(1, 0, 0, Constants.DRAGGER_WIDTH_V2)
+		draggerClickWindowSize = UDim2.new(1, Constants.DRAGGER_HANDLE_SIZE*2, 0, Constants.DRAGGER_CLICK_WINDOW_WIDTH)
 	end
 
 	local hoverColor = Color3.fromRGB(255, 131, 131)

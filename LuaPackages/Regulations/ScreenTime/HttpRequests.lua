@@ -64,7 +64,8 @@ local function checkFormat(format, object)
 	end
 end
 
-local HttpRequests = {
+-- FIXME: OO types
+local HttpRequests: any = {
 	httpService = nil,
 }
 

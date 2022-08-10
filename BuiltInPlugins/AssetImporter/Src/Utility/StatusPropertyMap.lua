@@ -33,6 +33,7 @@ StatusPropertyMap = {
         "UploadAlreadyRunningError",
         "CageMismatchWarning",
         "CageHasMaterialWarning",
+        "CageNoGeoParentError",
         "UGCMeshVertColorsWarning",
         "UGCMaxMeshTrianglesWarning",
         "UGCExceedUVSpaceWarning",

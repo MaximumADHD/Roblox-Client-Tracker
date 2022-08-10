@@ -3,6 +3,7 @@ local Plugin = script:FindFirstAncestor("Toolbox")
 
 local FFlagToolboxRemoveSFXMonstercatBanner = game:GetFastFlag("ToolboxRemoveSFXMonstercatBanner")
 local FFlagToolboxFurtherTryInStudioFixes = game:GetFastFlag("ToolboxFurtherTryInStudioFixes")
+local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
 
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
@@ -63,7 +64,8 @@ type _ExternalAudioRowProps = {
 		categoryName: string,
 		sortName: string?,
 		searchTerm: string?,
-		navigation: any
+		navigation: any,
+		queryParams: HomeTypes.SubcategoryQueryParams?
 	) -> ()),
 	OnClickSeeAllSubcategories: ((
 		subcategoryDict: { [string]: HomeTypes.Subcategory },
@@ -276,6 +278,7 @@ function AudioWrapper:render()
 			categoryName = selectedTab,
 			sortName = sortName,
 			searchTerm = nil,
+			queryParams = if FFlagToolboxUseQueryForCategories2 then {} else nil,
 			sectionName = sectionName,
 			initialPageSize = 20,
 			tags = tags,

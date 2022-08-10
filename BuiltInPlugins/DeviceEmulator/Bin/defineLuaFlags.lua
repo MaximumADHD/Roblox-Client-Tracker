@@ -6,4 +6,6 @@
 
 game:DefineFastFlag("DeviceEmulatorPluginBasedUi", false)
 
+game:DefineFastFlag("DeviceEmulatorPluginNetworkPaneEnabled", false)
+
 return nil

@@ -8,6 +8,7 @@ local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextItem = Framework.ContextServices.ContextItem
+local Promise = Framework.Util.Promise
 
 -- Pull the numeric part out of a content id (of form rbxasset://xyz or rbxtemp://xyz etc.)
 local function numericIdFromContentId(id)
@@ -32,6 +33,31 @@ end
 
 function ImportAssetHandler.mock(imageUploader, userId)
 	return ImportAssetHandler.new(imageUploader, userId)
+end
+
+function ImportAssetHandler:handleAssetAsync(assetFile: File, assetUploading: () -> ())
+	assert(assetFile, "ImportAssetHandler:handleAsset() requires an assetFile")
+	assetUploading()
+
+	local tempId = assetFile:GetTemporaryId()
+	local assetFileContents
+	local success, _ = pcall(function()
+		assetFileContents = assetFile:GetBinaryContents()
+	end)
+	if not success then
+		return Promise.reject()
+	end
+	return self._imageUploader:upload(tempId, assetFile.Name, --[[description=]]"", assetFileContents):andThen(function(assetId)
+		local assetIdNumber = tonumber(assetId)
+		if not assetIdNumber then
+			local msg = ("Asset id \"%s\" for temp id \"%s\" could not be cast to an integer"):format(assetId, tempId)
+			warn(msg)
+			assert(assetIdNumber, msg)
+		end
+
+		assetId = "rbxassetid://" .. assetIdNumber
+		return assetId
+	end)
 end
 
 function ImportAssetHandler:handleAsset(assetFile: File, onAssetUpload: (string) -> ())

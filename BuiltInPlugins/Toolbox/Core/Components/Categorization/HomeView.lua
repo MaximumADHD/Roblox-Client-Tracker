@@ -7,10 +7,10 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local FFlagToolboxUseExpandableTopSearch = game:GetFastFlag("ToolboxUseExpandableTopSearch") -- TODO: Flip when UISYS-1334 is ready
 local FintToolboxHomeViewInitialPageSize = game:GetFastInt("ToolboxHomeViewInitialPageSize")
 local FFlagToolboxFixTryInStudio = game:GetFastFlag("ToolboxFixTryInStudio")
-local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
 local FFlagToolboxHomeViewSingleLaneNoTitle = game:GetFastFlag("ToolboxHomeViewSingleLaneNoTitle")
 local FFlagToolboxUseDisplayName = game:GetFastFlag("ToolboxUseDisplayName")
 local FFlagToolboxFixMissingCategories = game:GetFastFlag("ToolboxFixMissingCategories")
+local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
 
 local Libs = Plugin.Packages
 
@@ -77,13 +77,15 @@ type _ExternalProps = {
 		subcategoryDict: HomeTypes.Subcategory,
 		categoryName: string?,
 		sortName: string?,
-		navigation: any
+		navigation: any,
+		queryParams: HomeTypes.SubcategoryQueryParams?
 	) -> ()),
 	OnClickSeeAllAssets: ((
 		sectionName: string?,
 		categoryName: string,
 		sortName: string?,
 		searchTerm: string?,
+		queryParams: HomeTypes.SubcategoryQueryParams?,
 		navigation: any
 	) -> ()),
 	OnClickSeeAllSubcategories: ((
@@ -185,7 +187,7 @@ function HomeView:init()
 		local subcategoryDict = props.SubcategoryDict
 
 		local subcategoryData = subcategoryDict[subcategoryName]
-		onClickSubcategory(subcategoryName, subcategoryData, subcategoryData.searchKeywords, categoryName, sortName)
+		onClickSubcategory(subcategoryName, subcategoryData, if FFlagToolboxUseQueryForCategories2 then nil else subcategoryData.searchKeywords, categoryName, sortName, if FFlagToolboxUseQueryForCategories2 then subcategoryData.queryParams else nil)
 	end
 
 	self.onClickSeeAllSubcategories = function()
@@ -476,6 +478,7 @@ function HomeView:render()
 			categoryName = categoryName,
 			sortName = sortName,
 			searchTerm = nil,
+			queryParams = if FFlagToolboxUseQueryForCategories2 then {} else nil,
 			sectionName = sectionName,
 			initialPageSize = INITIAL_PAGE_SIZE,
 			includeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
@@ -518,9 +521,7 @@ function mapStateToProps(state: any, props)
 	state = state or {}
 	local pageInfo = state.pageInfo or {}
 	return {
-		IncludeOnlyVerifiedCreators = if FFlagToolboxShowIdVerifiedFilter
-			then pageInfo.includeOnlyVerifiedCreators
-			else nil,
+		IncludeOnlyVerifiedCreators = pageInfo.includeOnlyVerifiedCreators,
 	}
 end
 
@@ -544,8 +545,4 @@ HomeView = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(HomeView)
 
-if FFlagToolboxShowIdVerifiedFilter then
-	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(HomeView)
-else
-	return RoactRodux.connect(nil, mapDispatchToProps)(HomeView)
-end
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(HomeView)

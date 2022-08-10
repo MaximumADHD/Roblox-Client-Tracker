@@ -6,6 +6,7 @@
 
 local HttpService = game:GetService("HttpService")
 local ContentProvider = game:GetService("ContentProvider")
+local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
 
 -- helper functions
 local function parseBaseUrlInformation()
@@ -83,26 +84,82 @@ function Url:isVanitySite()
 	return self.PREFIX ~= "www"
 end
 
--- data - (table<string, string>) a table of key/value pairs to format
-function Url.makeQueryString(data)
-	--NOTE - This function can be used to create a query string of parameters
-	-- at the end of url query, or create a application/form-url-encoded post body string
-	local params = {}
+function isMap(value)
+	-- In lua, using #value with a table will return the # of elements if it's an array but 0 if it's not an array:
+	return typeof(value) == "table" and #value == 0
+end
 
-	-- NOTE - Arrays are handled, but generally data is expected to be flat.
-	for key, value in pairs(data) do
-		if value ~= nil then --for optional params
-			if type(value) == "table" then
-				for i = 1, #value do
-					table.insert(params, HttpService:UrlEncode(key) .. "=" .. HttpService:UrlEncode(value[i]))
-				end
-			else
-				table.insert(params, HttpService:UrlEncode(key) .. "=" .. HttpService:UrlEncode(tostring(value)))
+function addArrayToParams(params, key, value, separateArrayValsWithComma)
+	if value ~= nil and #value > 0 then
+		if separateArrayValsWithComma then
+			params[HttpService:UrlEncode(key)] = HttpService:UrlEncode(table.concat(value, ","))
+		else
+			-- Supporting the legacy way that arrays were sent while still using a map instead of array for params
+			local stringOfArrayVals = HttpService:UrlEncode(value[1])
+			for i = 2, #value do
+				stringOfArrayVals = stringOfArrayVals .. "&" .. HttpService:UrlEncode(key) .. "=" .. HttpService:UrlEncode(value[i])
 			end
+			params[HttpService:UrlEncode(key)] = stringOfArrayVals
 		end
 	end
+end
 
-	return table.concat(params, "&")
+function addNonMapValueToParams(params, key, value, separateArrayValsWithComma)
+	if value ~= nil and not isMap(value) then --for optional params
+		if type(value) == "table" then
+			addArrayToParams(params, key, value, separateArrayValsWithComma)
+		else
+			params[HttpService:UrlEncode(key)] = HttpService:UrlEncode(tostring(value))
+		end
+	end
+end
+
+-- This function can be used to create a query string of parameters at the end of url query, or create a application/form-url-encoded post body string
+-- data - (table<string, string>) a table of key/value pairs to format
+-- includeMaps - boolean that will include maps in data if true.
+	-- "Including" a map means to add its key and values as query params. e.g. someKeyInData = { a = 2 , b = 3 } would add a=2&b=3 to the result.
+-- separateArrayValsWithComma - boolean indicating how arrays are encoded in the query. If true: arr = {a, b, c} --> arr=a,b,c  . If false: arr = {a, b, c} --> arr=a&arr=b&arr=c
+	-- The falsy way is how it's been done in the past, so it's included for backwards compatibility
+	-- Going forward, devs should strive to set this to true
+function Url.makeQueryString(data, includeMaps, separateArrayValsWithComma)
+	if FFlagToolboxUseQueryForCategories2 then
+		local params = {}
+
+		for key, value in pairs(data) do
+			local valueIsMap = isMap(value)
+			if not valueIsMap then
+				addNonMapValueToParams(params, key, value, separateArrayValsWithComma)
+			elseif valueIsMap and includeMaps then
+				for keyInMap, valInMap in pairs(value) do
+					-- We're ignoring nested maps because sending those in a GET request is too messy and never needed in Toolbox
+					assert(not isMap(valInMap), "Nested maps are not currently supported")
+					addNonMapValueToParams(params, keyInMap, valInMap, separateArrayValsWithComma)
+				end
+			end
+		end
+
+		local flatParams = {}
+		for key, val in pairs(params) do
+			table.insert(flatParams, key .. "=" .. val)
+		end
+		return table.concat(flatParams, "&")
+	else
+		local params = {}
+
+		-- NOTE - Arrays are handled, but generally data is expected to be flat.
+		for key, value in pairs(data) do
+			if value ~= nil then --for optional params
+				if type(value) == "table" then
+					for i = 1, #value do
+						table.insert(params, HttpService:UrlEncode(key) .. "=" .. HttpService:UrlEncode(value[i]))
+					end
+				else
+					table.insert(params, HttpService:UrlEncode(key) .. "=" .. HttpService:UrlEncode(tostring(value)))
+				end
+			end
+		end
+		return table.concat(params, "&")
+	end
 end
 
 return Url

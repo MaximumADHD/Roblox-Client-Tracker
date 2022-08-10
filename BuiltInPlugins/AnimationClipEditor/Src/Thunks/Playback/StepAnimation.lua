@@ -9,7 +9,6 @@ local RigUtils = require(Plugin.Src.Util.RigUtils)
 local SetPlayhead = require(Plugin.Src.Actions.SetPlayhead)
 local SetBoneLinksToBone = require(Plugin.Src.Actions.SetBoneLinksToBone)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
-local GetFFlagBoneAdornmentSelection = require(Plugin.LuaFlags.GetFFlagBoneAdornmentSelection)
 
 return function(tck)
 	return function(store)
@@ -39,10 +38,6 @@ return function(tck)
 		end
 		store:dispatch(SetPlayhead(tck))
 
-		if GetFFlagBoneAdornmentSelection() then 
-			store:dispatch(SetBoneLinksToBone(RigUtils.updateMicrobones(targetInstance, visualizeBones)))
-		else 
-			RigUtils.updateMicrobones(targetInstance, visualizeBones)
-		end
+		store:dispatch(SetBoneLinksToBone(RigUtils.updateMicrobones(targetInstance, visualizeBones)))
 	end
 end

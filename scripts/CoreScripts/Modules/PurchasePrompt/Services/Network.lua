@@ -8,6 +8,10 @@ local Players = game:GetService("Players")
 
 local Promise = require(Root.Promise)
 local PremiumProduct = require(Root.Models.PremiumProduct)
+
+local debugLog = require(Root.Utils.debugLog)
+local serializeTable = require(Root.Utils.serializeTable)
+
 local EngineFeatureEnablePlayerOwnsBundleApi = game:GetEngineFeature("EnablePlayerOwnsBundleApi")
 
 local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
@@ -26,7 +30,9 @@ local ECONOMY_CREATOR_STATS_URL = string.gsub(BASE_URL, "https://www.", "https:/
 local USERS_URL = string.gsub(BASE_URL, "https://www", "https://users")
 
 local function request(options, resolve, reject)
+	debugLog(function() return "Request "..options.Url.."\n"..serializeTable(options) end)
 	return HttpService:RequestInternal(options):Start(function(success, response)
+		debugLog(function() return "Response "..options.Url.."\n"..serializeTable(response) end)
 		if success then
 			local result
 			success, result = pcall(HttpService.JSONDecode, HttpService, response.Body)
@@ -183,6 +189,28 @@ local function getProductPurchasableDetails(productId)
 	end)
 end
 
+local function getRobuxUpsellProduct(price: number, robuxBalance: number, upsellPlatform: string)
+    local options = {
+        Url = APIS_URL .."payments-gateway/v1/products/get-upsell-product",
+        Method = "POST",
+        Body = HttpService:JSONEncode({
+            upsell_platform = upsellPlatform,
+            user_robux_balance = robuxBalance,
+            attempt_robux_amount = price,
+        }),
+        Headers = {
+            ["Content-Type"] = "application/json",
+            ["Accept"] = "application/json",
+        }
+    }
+
+    return Promise.new(function(resolve, reject)
+        spawn(function()
+            request(options, resolve, reject)
+        end)
+    end)
+end
+
 local function postPremiumImpression()
 	local url = ECONOMY_CREATOR_STATS_URL.."v1/universes/" ..tostring(game.GameId) .."/premium-impressions/increment"
 	local options = {
@@ -276,6 +304,7 @@ function Network.new()
 		getBalanceInfo = Promise.promisify(getBalanceInfo),
 		getBundleDetails = getBundleDetails,
 		getProductPurchasableDetails = getProductPurchasableDetails,
+		getRobuxUpsellProduct = Promise.promisify(getRobuxUpsellProduct),
 		getPremiumProductInfo = Promise.promisify(getPremiumProductInfo),
 		postPremiumImpression = Promise.promisify(postPremiumImpression),
 		getPremiumUpsellPrecheck = Promise.promisify(getPremiumUpsellPrecheck),

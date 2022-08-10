@@ -2,6 +2,9 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
+local ExternalContentSharingProtocol
+	= require(CorePackages.UniversalApp.ExternalContentSharing.ExternalContentSharingProtocol).default
+
 local UrlBuilderPackage = require(CorePackages.Packages.UrlBuilder)
 local UrlBuilder = UrlBuilderPackage.UrlBuilder
 
@@ -17,6 +20,8 @@ local RobloxTranslator = getTranslator()
 local mapDispatchToProps = require(ShareGame.Components.ShareInviteLinkMapDispatchToProps)
 local mapStateToProps = require(ShareGame.Components.ShareInviteLinkMapStateToProps)
 local RoduxShareLinks = dependencies.RoduxShareLinks
+local RoduxNetworking = dependencies.RoduxNetworking
+local NetworkStatus = RoduxNetworking.Enum.NetworkStatus
 
 local ShareInviteLink = Roact.PureComponent:extend("ShareInviteLink")
 
@@ -27,8 +32,11 @@ local SHARE_INVITE_LINK_BACKGROUND = Color3.fromRGB(79, 84, 95)
 
 function ShareInviteLink:init()
 	self.showSharesheet = function(linkId, linkType)
-		-- TODO COEXP-310: Show sharesheet with url as the text
-		local _url = UrlBuilder.sharelinks.appsflyer(linkId, linkType)
+		local url = UrlBuilder.sharelinks.appsflyer(linkId, linkType)
+		ExternalContentSharingProtocol:shareText({
+			text = url,
+			context = "V1Menu"
+		})
 	end
 end
 
@@ -95,6 +103,7 @@ function ShareInviteLink:render()
 			size = UDim2.new(0, SHARE_BUTTON_WIDTH, 1, 0),
 			layoutOrder = 1,
 			onShare = onShare,
+			isEnabled = self.props.fetchShareInviteLinkNetworkStatus ~= NetworkStatus.Fetching
 		}),
 	})
 end

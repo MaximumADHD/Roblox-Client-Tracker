@@ -7,17 +7,26 @@ local BundleProductInfoReceived = require(Root.Actions.BundleProductInfoReceived
 local AccountInfoReceived = require(Root.Actions.AccountInfoReceived)
 local BalanceInfoRecieved = require(Root.Actions.BalanceInfoRecieved)
 local PromptNativeUpsell = require(Root.Actions.PromptNativeUpsell)
+
 local PromptState = require(Root.Enums.PromptState)
 local PurchaseError = require(Root.Enums.PurchaseError)
 local UpsellFlow = require(Root.Enums.UpsellFlow)
+
+local RobuxUpsell = require(Root.Models.RobuxUpsell)
+
 local selectRobuxProduct = require(Root.NativeUpsell.selectRobuxProduct)
-local selectRobuxProductFromProvider = require(Root.NativeUpsell.selectRobuxProductFromProvider)
 local getUpsellFlow = require(Root.NativeUpsell.getUpsellFlow)
+
+local getRobuxUpsellProduct = require(Root.Network.getRobuxUpsellProduct)
+
+local Analytics = require(Root.Services.Analytics)
+local Network = require(Root.Services.Network)
+
 local getPaymentFromPlatform = require(Root.Utils.getPaymentFromPlatform)
 local getHasAmazonUserAgent = require(Root.Utils.getHasAmazonUserAgent)
 local Thunk = require(Root.Thunk)
 
-local GetFFlagEnablePPUpsellProductListRefactor = require(Root.Flags.GetFFlagEnablePPUpsellProductListRefactor)
+local GetFFlagPPUpsellEndpoint = require(Root.Flags.GetFFlagPPUpsellEndpoint)
 local GetFFlagEnableLuobuInGameUpsell = require(Root.Flags.GetFFlagEnableLuobuInGameUpsell)
 local FFlagPPAccountInfoMigration = require(Root.Flags.FFlagPPAccountInfoMigration)
 
@@ -37,8 +46,17 @@ local function getPurchasableStatus(productPurchasableDetails)
 	end
 end
 
+local requiredServices = {
+	Analytics,
+	Network,
+}
+
 local function resolveBundlePromptState(productPurchasableDetails, bundleDetails, accountInfo, balanceInfo)
-	return Thunk.new(script.Name, {}, function(store, services)
+	return Thunk.new(script.Name, requiredServices, function(store, services)
+		local state = store:getState()
+		local analytics = services[Analytics]
+		local network = services[Network]
+
 		store:dispatch(BundleProductInfoReceived(bundleDetails))
 		store:dispatch(AccountInfoReceived(accountInfo))
 		if FFlagPPAccountInfoMigration then
@@ -59,17 +77,21 @@ local function resolveBundlePromptState(productPurchasableDetails, bundleDetails
 					local neededRobux = price - accountInfo.RobuxBalance
 					local hasMembership = accountInfo.MembershipType > 0
 
-					if GetFFlagEnablePPUpsellProductListRefactor() then
+					if GetFFlagPPUpsellEndpoint() then
 						local isAmazon = getHasAmazonUserAgent()
 						local isLuobu = GetFFlagEnableLuobuInGameUpsell()
 						local paymentPlatform = getPaymentFromPlatform(platform, isLuobu, isAmazon)
-						return selectRobuxProductFromProvider(paymentPlatform, neededRobux, hasMembership, nil):andThen(function(product)
-							-- We found a valid upsell product for the current platform
-							store:dispatch(PromptNativeUpsell(product.productId, product.robuxValue))
-						end, function()
-							-- No upsell item will provide sufficient funds to make this purchase
-							store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
-						end)
+
+						local robuxBalance = FFlagPPAccountInfoMigration and balanceInfo.robux or accountInfo.RobuxBalance
+		
+						return getRobuxUpsellProduct(network, price, robuxBalance, paymentPlatform)
+							:andThen(function(product: RobuxUpsell.Product)
+								analytics.signalProductPurchaseUpsellShown(product.id, state.requestType, product.providerId)
+								store:dispatch(PromptNativeUpsell(product.providerId, product.robuxAmount))
+							end, function()
+								-- No upsell item will provide sufficient funds to make this purchase
+								store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
+							end)
 					else
 						return selectRobuxProduct(platform, neededRobux, hasMembership)
 							:andThen(function(product)

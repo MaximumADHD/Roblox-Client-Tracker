@@ -1,5 +1,3 @@
-local FFlag9SliceEditorResizableImagePreviewWindow = game:GetFastFlag("9SliceEditorResizableImagePreviewWindow")
-
 local Constants = {}
 
 -- MainPlugin Constants
@@ -61,7 +59,7 @@ Constants.MOUSE_CURSORS = {
 Constants.TEXTIMAGE_PADDING = 70
 Constants.TEXTEDITOR_YOFFSET = 116
 Constants.TEXTEDITOR_XOFFSET =  Constants.BACKGROUND_SIZE + Constants.BACKGROUND_FROMEDGE_PADDING + Constants.TEXTIMAGE_PADDING
-Constants.TEXTEDITOR_XSIZE = if FFlag9SliceEditorResizableImagePreviewWindow then 110 else 115
+Constants.TEXTEDITOR_XSIZE = 110
 Constants.TEXTEDITOR_YSIZE = 140
 Constants.TEXTSIZE = 18
 

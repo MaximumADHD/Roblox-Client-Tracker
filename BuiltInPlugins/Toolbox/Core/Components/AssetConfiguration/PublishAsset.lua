@@ -29,6 +29,8 @@
 		displayAssetType, bool, assetType.
 		displayTags, bool, tags.
 
+		allowedAssetTypesForRelease, table, contains asset types and pricing that the user is allowed to release for monetization.
+		allowedAssetTypesForFree, array, monetizable asset types that the user is allowed to set as free.
 		newAssetStatus, string, from AssetConfigConstants.ASSET_STATUS (what the status for the asset will be in the back-end after we save the changes on this widget)
 		currentAssetStatus, string, from AssetConfigConstants.ASSET_STATUS (what the current status for the asset is in the back-end)
 		price, number, price of asset
@@ -42,6 +44,7 @@
 		LayoutOrder, number, used by the layouter to set the position of the component.
 ]]
 local FFlagToolboxAudioAssetConfigIdVerification = game:GetFastFlag("ToolboxAudioAssetConfigIdVerification")
+local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -202,6 +205,7 @@ function PublishAsset:renderContent(theme, localizedContent)
 	local displaySharing = props.displaySharing
 
 	local allowedAssetTypesForRelease = if isPlugin then props.allowedAssetTypesForRelease else nil
+	local allowedAssetTypesForFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 then props.allowedAssetTypesForFree else nil
 	local newAssetStatus = if isPlugin then props.newAssetStatus else nil
 	local currentAssetStatus = if isPlugin then props.currentAssetStatus else nil
 	local onStatusChange = if isPlugin then props.onStatusChange else nil
@@ -459,6 +463,7 @@ function PublishAsset:renderContent(theme, localizedContent)
 		PriceComponent = showPrice and Roact.createElement(PriceComponent, {
 			AssetTypeEnum = assetTypeEnum,
 			AllowedAssetTypesForRelease = allowedAssetTypesForRelease,
+			AllowedAssetTypesForFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 then allowedAssetTypesForFree else nil,
 			NewAssetStatus = newAssetStatus,
 
 			Price = price,

@@ -1,4 +1,6 @@
 --!strict
+local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
 local Framework = require(Packages.Framework)
@@ -38,6 +40,7 @@ export type AssetSwimlaneProps = Swimlane.SwimlaneProps & {
 	SwimlaneCategory: string,
 	SectionName: string,
 	SearchTerm: string?,
+	QueryParams: HomeTypes.SubcategoryQueryParams?,
 	SortName: string?,
 	SwimlaneWidth: number,
 	OnAssetPreviewButtonClicked: ((assetData: any) -> ()),
@@ -45,8 +48,10 @@ export type AssetSwimlaneProps = Swimlane.SwimlaneProps & {
 		sectionName: string?,
 		categoryName: string,
 		sortName: string?,
+		-- TODO: remove searchTerm when FFlagToolboxUseQueryForCategories2 is removed
 		searchTerm: string?,
-		navigation: any
+		navigation: any,
+		queryParams: HomeTypes.SubcategoryQueryParams?
 	) -> ()),
 	PathName: string,
 	Title: string?,
@@ -69,11 +74,15 @@ function AssetSwimlane:init()
 		local categoryName = self.props.CategoryName
 		local sortName = self.props.SortName
 		local searchTerm = self.props.SearchTerm
+		local queryParams = if FFlagToolboxUseQueryForCategories2 then self.props.QueryParams else nil
 		local pathName = self.props.PathName
 
 		local onClickSeeAllAssets = props.OnClickSeeAllAssets
-
-		onClickSeeAllAssets(sectionName or pathName, categoryName, sortName, searchTerm)
+		if FFlagToolboxUseQueryForCategories2 then
+			onClickSeeAllAssets(sectionName or pathName, categoryName, sortName, nil, queryParams)
+		else
+			onClickSeeAllAssets(sectionName or pathName, categoryName, sortName, searchTerm)
+		end
 	end
 end
 
@@ -88,6 +97,7 @@ function AssetSwimlane:render()
 	local networkInterface = getNetwork(self)
 
 	local onAssetPreviewButtonClicked = props.OnAssetPreviewButtonClicked
+	local queryParams = if FFlagToolboxUseQueryForCategories2 then props.QueryParams else nil
 	local searchTerm = props.SearchTerm
 	local sectionName = props.SectionName
 	local swimlaneCategory = props.SwimlaneCategory
@@ -149,7 +159,8 @@ function AssetSwimlane:render()
 		categoryName = categoryName,
 		includeOnlyVerifiedCreators = props.IncludeOnlyVerifiedCreators,
 		sortName = sortName,
-		searchTerm = searchTerm,
+		searchTerm = if FFlagToolboxUseQueryForCategories2 then nil else searchTerm,
+		queryParams = if FFlagToolboxUseQueryForCategories2 then queryParams else nil,
 		sectionName = sectionName,
 		initialPageSize = initialPageSize,
 		render = renderSwimlane,

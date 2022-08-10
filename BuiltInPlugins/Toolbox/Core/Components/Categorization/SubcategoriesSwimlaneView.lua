@@ -3,7 +3,7 @@
 	A view wrapper displaying a list of swimlanes.
 ]]
 
-local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
+local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
 local Packages = Plugin.Packages
@@ -51,7 +51,8 @@ export type _ExternalProps = {
 		categoryName: string,
 		sortName: string?,
 		searchTerm: string?,
-		navigation: any
+		navigation: any,
+		queryParams: HomeTypes.SubcategoryQueryParams?
 	) -> ()),
 	Position: UDim2?,
 	SectionName: string?,
@@ -97,8 +98,9 @@ function SubcategoriesSwimlaneView:init()
 			local categoryName = props.CategoryName
 			local onClickSeeAllAssets = props.OnClickSeeAllAssets
 			local sortName = props.SortName
-
-			if onClickSeeAllAssets then
+			if FFlagToolboxUseQueryForCategories2 and onClickSeeAllAssets then
+				onClickSeeAllAssets(nil, categoryName, sortName, nil, subcategory.queryParams)
+			elseif onClickSeeAllAssets then
 				onClickSeeAllAssets(nil, categoryName, sortName, subcategory.searchKeywords)
 			end
 		end
@@ -136,11 +138,23 @@ function SubcategoriesSwimlaneView:init()
 				CategoryName = categoryName,
 				SwimlaneCategory = subcategory.name,
 				OnClickSeeAll = function(sectionName: string, categorName: string, sortName: string, searchTerm: string)
-					return self.onClickSeeAllAssets(sectionName, categorName, sortName, searchTerm, subcategory)
+					if FFlagToolboxUseQueryForCategories2 then
+						return self.onClickSeeAllAssets(
+							sectionName,
+							categorName,
+							sortName,
+							nil,
+							subcategory,
+							subcategory.queryParams
+						)
+					else
+						return self.onClickSeeAllAssets(sectionName, categorName, sortName, searchTerm, subcategory)
+					end
 				end,
 				NetworkInterface = getNetwork(self),
 				SortName = sortName,
 				SearchTerm = subcategory.searchKeywords,
+				QueryParams = if FFlagToolboxUseQueryForCategories2 then subcategory.queryParams else nil,
 				IncludeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
 				InitialPageSize = INITIAL_PAGE_SIZE,
 				LayoutOrder = subcategory.index,
@@ -221,9 +235,7 @@ function mapStateToProps(state: any, props)
 	state = state or {}
 	local pageInfo = state.pageInfo or {}
 	return {
-		IncludeOnlyVerifiedCreators = if FFlagToolboxShowIdVerifiedFilter
-			then pageInfo.includeOnlyVerifiedCreators
-			else nil,
+		IncludeOnlyVerifiedCreators = pageInfo.includeOnlyVerifiedCreators,
 	}
 end
 
@@ -232,8 +244,4 @@ SubcategoriesSwimlaneView = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(SubcategoriesSwimlaneView)
 
-if FFlagToolboxShowIdVerifiedFilter then
-	return RoactRodux.connect(mapStateToProps)(SubcategoriesSwimlaneView)
-else
-	return SubcategoriesSwimlaneView
-end
+return RoactRodux.connect(mapStateToProps)(SubcategoriesSwimlaneView)

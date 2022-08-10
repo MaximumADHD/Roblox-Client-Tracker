@@ -15,9 +15,10 @@
 
 	Optional props:
 		LayoutOrder, number, used to override position of the whole component by the layouter.
+		allowedAssetTypesForFree, array, monetizable asset types that the user is allowed to set as free.
 ]]
 local FIntToolboxPriceTextBoxMaxCount = game:GetFastInt("ToolboxPriceTextBoxMaxCount")
-local FFlagToolboxAssetConfigurationMinPriceFloor = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor")
+local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -31,6 +32,7 @@ local TextInput = Framework.UI.TextInput
 local TitledFrame = Framework.StudioUI.TitledFrame
 local GetTextSize = Framework.Util.GetTextSize
 
+local Dash = if FFlagToolboxAssetConfigurationMinPriceFloor2 then Framework.Dash else nil
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
 local LayoutOrderIterator = require(Util.LayoutOrderIterator)
@@ -43,7 +45,7 @@ local withLocalization = ContextHelper.withLocalization
 local ROW_HEIGHT = 24
 local TEXT_INPUT_BOX_HEIGHT = 40
 local SHALLOW_ROW_HEIGHT = ROW_HEIGHT*0.75
-local INPUT_BOX_WIDTH = 200
+local INPUT_BOX_WIDTH = if FFlagToolboxAssetConfigurationMinPriceFloor2 then 225 else 200
 
 local PriceComponent = Roact.PureComponent:extend("PriceComponent")
 
@@ -70,6 +72,7 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 
 	local assetTypeEnum = props.AssetTypeEnum
 	local allowedAssetTypesForRelease = props.AllowedAssetTypesForRelease
+	local allowedAssetTypesForFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 then props.AllowedAssetTypesForFree else nil
 	local assetStatus = props.NewAssetStatus
 
 	local price = props.Price
@@ -81,8 +84,8 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 	local order = props.LayoutOrder
 
 	local orderIterator = LayoutOrderIterator.new()
-	local finalPrice, fee -- remove fee when FFlagToolboxAssetConfigurationMinPriceFloor is removed
-	if FFlagToolboxAssetConfigurationMinPriceFloor then
+	local finalPrice, fee -- remove fee when FFlagToolboxAssetConfigurationMinPriceFloor2 is removed
+	if FFlagToolboxAssetConfigurationMinPriceFloor2 then
 		finalPrice = AssetConfigUtil.calculatePotentialEarning(allowedAssetTypesForRelease, price, assetTypeEnum, minPrice)
 	else
 		finalPrice, fee = AssetConfigUtil.calculatePotentialEarning(allowedAssetTypesForRelease, price, assetTypeEnum, minPrice)
@@ -92,19 +95,23 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 
 	local componentHeight = TEXT_INPUT_BOX_HEIGHT+ROW_HEIGHT+SHALLOW_ROW_HEIGHT
 
-	local creatorEarningsPercent = if FFlagToolboxAssetConfigurationMinPriceFloor then math.max(100 - feeRate, 0) else nil
+	local creatorEarningsPercent = if FFlagToolboxAssetConfigurationMinPriceFloor2 then math.max(100 - feeRate, 0) else nil
 	-- Clamp the earnings and fee to make sure it's within the max and min price range.
 	local feePercent = feeRate / 100
 	local earnPercent = 1 - feePercent
-	fee = if FFlagToolboxAssetConfigurationMinPriceFloor then nil else math.floor(math.min(fee or 0, feePercent * maxPrice))
+	fee = if FFlagToolboxAssetConfigurationMinPriceFloor2 then nil else math.floor(math.min(fee or 0, feePercent * maxPrice))
 	finalPrice = math.floor(math.min(finalPrice, earnPercent * maxPrice))
 
-	local feeString = if FFlagToolboxAssetConfigurationMinPriceFloor then nil else tostring(fee)
+	local feeString = if FFlagToolboxAssetConfigurationMinPriceFloor2 then nil else tostring(fee)
 	local finalPriceString = tostring(finalPrice)
+
+	local canBeSetAsFree = if FFlagToolboxAssetConfigurationMinPriceFloor2 and allowedAssetTypesForFree then Dash.find(allowedAssetTypesForFree, function(assetType)
+		return assetType == assetTypeEnum.Name
+	end) else nil
 
 	local UntypedVector2 = Vector2
 	local inputBoxSize = FFlagPriceComponentTextSize and Vector2.new(INPUT_BOX_WIDTH, ROW_HEIGHT) or UntypedVector2.new(0, INPUT_BOX_WIDTH, 0, ROW_HEIGHT)
-	local feeVector = if FFlagToolboxAssetConfigurationMinPriceFloor then nil else GetTextSize(feeString, Constants.FONT_SIZE_MEDIUM, Constants.FONT, inputBoxSize)
+	local feeVector = if FFlagToolboxAssetConfigurationMinPriceFloor2 then nil else GetTextSize(feeString, Constants.FONT_SIZE_MEDIUM, Constants.FONT, inputBoxSize)
 	local earnVector = GetTextSize(finalPriceString, Constants.FONT_SIZE_MEDIUM, Constants.FONT, inputBoxSize)
 
 	local textboxText = tostring(price or "")
@@ -117,7 +124,7 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 		LayoutOrder = order
 	}, {
 		InputRow = Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, componentHeight-30),
+			Size = if canBeSetAsFree then UDim2.new(1, 0, 0, componentHeight - 15) else UDim2.new(1, 0, 0, componentHeight - 30),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			LayoutOrder = orderIterator:getNextOrder(),
@@ -144,7 +151,7 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 				}),
 
 				RobuxIcon = Roact.createElement("ImageLabel",{
-					Position = if FFlagToolboxAssetConfigurationMinPriceFloor then nil else UDim2.new(0, 0, 0, 0),
+					Position = if FFlagToolboxAssetConfigurationMinPriceFloor2 then nil else UDim2.new(0, 0, 0, 0),
 					Size = Constants.Dialog.ROBUX_SIZE,
 
 					Image = Images.ROBUX_SMALL,
@@ -161,7 +168,7 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 				}),
 			}),
 
-			PriceRangeFrame = if FFlagToolboxAssetConfigurationMinPriceFloor then Roact.createElement("Frame", {
+			PriceRangeFrame = if FFlagToolboxAssetConfigurationMinPriceFloor2 then Roact.createElement("Frame", {
 				AutomaticSize = Enum.AutomaticSize.Y,
 				Size = UDim2.new(1, INPUT_BOX_WIDTH, 0, 0),
 
@@ -170,19 +177,19 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 				LayoutOrder = 2,
 			}, {
 				UIPadding = Roact.createElement("UIPadding", {
-					PaddingTop = UDim.new(0, 4),
+					PaddingTop = if canBeSetAsFree then UDim.new(0, 4) else UDim.new(0, 8),
 					PaddingLeft = UDim.new(0, 26),
 				}),
 
-				UIListLayout = Roact.createElement("UIListLayout", {
+				UIListLayout = if canBeSetAsFree then Roact.createElement("UIListLayout", {
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					FillDirection = Enum.FillDirection.Vertical,
 					HorizontalAlignment = Enum.HorizontalAlignment.Left,
 					VerticalAlignment = Enum.VerticalAlignment.Top,
 					Padding = UDim.new(0, 0),
-				}),
+				}) else nil,
 
-				MinimumPriceLabel = Roact.createElement("TextLabel", {
+				MinimumPriceLabel = if canBeSetAsFree then Roact.createElement("TextLabel", {
 					AutomaticSize = Enum.AutomaticSize.Y,
 					Size = UDim2.new(1, 0, 0, 0),
 
@@ -198,9 +205,9 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 					TextYAlignment = Enum.TextYAlignment.Center,
 
 					LayoutOrder = 1,
-				}),
+				}) else nil,
 
-				FreePriceLabel = Roact.createElement("TextLabel", {
+				FreePriceLabel = if canBeSetAsFree then Roact.createElement("TextLabel", {
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 
@@ -212,10 +219,26 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 					TextYAlignment = Enum.TextYAlignment.Center,
 
 					LayoutOrder = 2,
-				}),
+				}) else nil,
+
+				PriceRangeLabel = if not canBeSetAsFree then Roact.createElement("TextLabel", {
+					Size = UDim2.new(1, INPUT_BOX_WIDTH, 0, 0),
+	
+					BackgroundTransparency = 1,
+					TextColor3 = isPriceValid and assetConfigTheme.labelTextColor or assetConfigTheme.errorColor,
+					BorderSizePixel = 0,
+	
+					Font = Constants.FONT,
+					TextSize = Constants.FONT_SIZE_SMALL,
+	
+					Text = localization:getLocalizedPriceRangeText(minPrice, maxPrice),
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextYAlignment = Enum.TextYAlignment.Center,
+					LayoutOrder = 1,
+				}) else nil,
 			}) else nil,
 
-			PriceRangeLabel = if FFlagToolboxAssetConfigurationMinPriceFloor then nil else Roact.createElement("TextLabel", {
+			PriceRangeLabel = if FFlagToolboxAssetConfigurationMinPriceFloor2 then nil else Roact.createElement("TextLabel", {
 				Size = UDim2.new(0, 105, 0, 15),
 
 				BackgroundTransparency = 1,
@@ -232,9 +255,8 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 			}),
 		}),
 
-		CreatorEarningsFrame = if FFlagToolboxAssetConfigurationMinPriceFloor then Roact.createElement("Frame", {
+		CreatorEarningsFrame = if FFlagToolboxAssetConfigurationMinPriceFloor2 then Roact.createElement("Frame", {
 			Size = UDim2.new(0, INPUT_BOX_WIDTH, 0, ROW_HEIGHT),
-			Position = UDim2.new(0, 26, 0, 0);
 
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
@@ -242,7 +264,6 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 			LayoutOrder = 2,
 		}, {
 			UIPadding = Roact.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, 36),
 				PaddingLeft = UDim.new(0, 26),
 			}),
 
@@ -304,7 +325,7 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 			})
 		}) else nil,
 
-		FeeFrame = if FFlagToolboxAssetConfigurationMinPriceFloor then nil else Roact.createElement("Frame", {
+		FeeFrame = if FFlagToolboxAssetConfigurationMinPriceFloor2 then nil else Roact.createElement("Frame", {
 			Size = UDim2.new(0, INPUT_BOX_WIDTH, 0, ROW_HEIGHT),
 
 			BackgroundTransparency = 1,
@@ -378,7 +399,7 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 			}),
 		}),
 
-		EarnFrame = if FFlagToolboxAssetConfigurationMinPriceFloor then nil else Roact.createElement("Frame", {
+		EarnFrame = if FFlagToolboxAssetConfigurationMinPriceFloor2 then nil else Roact.createElement("Frame", {
 			Size = UDim2.new(0, INPUT_BOX_WIDTH, 0, ROW_HEIGHT),
 
 			BackgroundTransparency = 1,

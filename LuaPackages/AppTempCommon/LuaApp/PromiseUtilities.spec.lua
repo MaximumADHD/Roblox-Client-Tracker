@@ -8,7 +8,7 @@ return function()
 	describe("PromiseUtilities.Batch", function()
 		it("should assert if input is not a list of Promises", function()
 			expect(function()
-				PromiseUtilities.Batch()
+				(PromiseUtilities :: any).Batch()
 			end).to.throw()
 
 			expect(function()

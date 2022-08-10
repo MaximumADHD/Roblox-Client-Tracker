@@ -34,7 +34,9 @@ local voiceStateReducer = require(InGameMenu.Parent.VoiceChat.Reducers.voiceStat
 local inspectAndBuy = require(script.inspectAndBuy)
 local FetchingStatus = require(CorePackages.AppTempCommon.LuaApp.Reducers.FetchingStatus)
 local RoduxShareLinks = SocialDependencies.RoduxShareLinks
+local RoduxNetworking = SocialDependencies.RoduxNetworking
 local ShareLinks = RoduxShareLinks.installReducer()
+local NetworkStatus = RoduxNetworking.installReducer()
 
 local FFlagRecordRecording = require(InGameMenu.Flags.FFlagRecordRecording)
 local GetFFlagUseIGMControllerBar = require(InGameMenu.Flags.GetFFlagUseIGMControllerBar)
@@ -168,6 +170,7 @@ local function reducer(state, action)
 			controllerBarHeight = GetFFlagUseIGMControllerBar() and 0 or nil,
 			controllerBarCount = 0,
 			FetchingStatus = {},
+			NetworkStatus = {},
 			shareLinks = nil,
 			serverType = nil,
 		}
@@ -190,7 +193,8 @@ local function reducer(state, action)
 	state.inspectAndBuy = FFlagInspectAndBuyV2Enabled and inspectAndBuy(state.inspectAndBuy, action) or nil
 	state.nativeClosePrompt = nativeClosePrompt(state.nativeClosePrompt, action)
 	state.shareLinks = ShareLinks(state.shareLinks, action)
-
+	
+	state.NetworkStatus = NetworkStatus(state.NetworkStatus, action)
 	state.FetchingStatus = FetchingStatus(state.FetchingStatus, action)
 
 	return state

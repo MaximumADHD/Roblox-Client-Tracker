@@ -21,6 +21,7 @@ local getMaterialPatterns = require(Plugin.Src.Resources.Constants.getMaterialPa
 local DEFAULT_STUDS_PER_TILE = 10
 local materialPatterns = getMaterialPatterns()
 local DEFAULT_MATERIAL_PATTERN = materialPatterns[1]
+local DEFAUT_BASE_MATERIAL = Enum.Material.Plastic
 
 export type State = {
 	Name: string,
@@ -35,6 +36,7 @@ export type State = {
 }
 
 local initialState = {
+	BaseMaterial = DEFAUT_BASE_MATERIAL,
 	StudsPerTile = DEFAULT_STUDS_PER_TILE,
 	MaterialPattern = DEFAULT_MATERIAL_PATTERN,
 }

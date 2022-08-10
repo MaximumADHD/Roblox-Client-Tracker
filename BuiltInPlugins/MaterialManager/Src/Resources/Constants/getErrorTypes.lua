@@ -7,6 +7,7 @@ local ErrorTypes: _Types.Map<string, ErrorType> = {
 	FailedUrl = "FailedUrl",
 	FailedToSelectFile = "FailedToSelectFile",
 	FailedToImportMap = "FailedToImportMap",
+	FailedToUploadFromFileMap = "FailedToUploadFromFileMap",
 	MissingMaterial = "MissingMaterial",
 	None = "None",
 }

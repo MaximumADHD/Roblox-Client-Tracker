@@ -29,6 +29,7 @@ local StatusPropertyMap = require(Plugin.Src.Utility.StatusPropertyMap)
 local GetLocalizedString = require(Plugin.Src.Utility.GetLocalizedString)
 
 local getFFlagAssetImportUsePropertyFactories = require(Plugin.Src.Flags.getFFlagAssetImportUsePropertyFactories)
+local getFFlagAssetImportGlobalStatusFix = require(Plugin.Src.Flags.getFFlagAssetImportGlobalStatusFix)
 
 local statusBucketToType = {
 	["Errors"] = StatusLevel.Error,
@@ -126,17 +127,29 @@ function PropertyListView:render()
 					statusObject.GlobalStatus = true
 				end
 				local statusStyle = statusBucketToType[statusBucketType] == StatusLevel.Error and style.ErrorStatus or style.WarningStatus
-				table.insert(sectionStatuses, Roact.createElement(TextLabel, {
-					FitMaxWidth = if FFlagDevFrameworkRemoveFitFrame then nil else statusMaxWidth,
-					FitWidth = if FFlagDevFrameworkRemoveFitFrame then nil else true,
-					Size = if FFlagDevFrameworkRemoveFitFrame then UDim2.fromOffset(statusMaxWidth, 0) else nil,
-					AutomaticSize = if FFlagDevFrameworkRemoveFitFrame then Enum.AutomaticSize.XY else nil,
-					LayoutOrder = #sectionStatuses,
-					Style = statusStyle,
-					Text = getLocalizedStatusMessage(localization, status.StatusType, statusBucketType),
-					TextSize = 18,
-					TextXAlignment = Enum.TextXAlignment.Left,
-				}))
+				if getFFlagAssetImportGlobalStatusFix() then
+					table.insert(sectionStatuses, Roact.createElement(TextLabel, {
+						AutomaticSize = Enum.AutomaticSize.XY,
+						LayoutOrder = #sectionStatuses,
+						Size = UDim2.fromOffset(statusMaxWidth, 0),
+						Style = statusStyle,
+						Text = getLocalizedStatusMessage(localization, status.StatusType, statusBucketType),
+						TextWrapped = true,
+						TextXAlignment = Enum.TextXAlignment.Left,
+					}))
+				else
+					table.insert(sectionStatuses, Roact.createElement(TextLabel, {
+						FitMaxWidth = if FFlagDevFrameworkRemoveFitFrame then nil else statusMaxWidth,
+						FitWidth = if FFlagDevFrameworkRemoveFitFrame then nil else true,
+						Size = if FFlagDevFrameworkRemoveFitFrame then UDim2.fromOffset(statusMaxWidth, 0) else nil,
+						AutomaticSize = if FFlagDevFrameworkRemoveFitFrame then Enum.AutomaticSize.XY else nil,
+						LayoutOrder = #sectionStatuses,
+						Style = statusStyle,
+						Text = getLocalizedStatusMessage(localization, status.StatusType, statusBucketType),
+						TextSize = 18,
+						TextXAlignment = Enum.TextXAlignment.Left,
+					}))
+				end
 			end
 		end
 

@@ -29,7 +29,6 @@ local GetFFlagFixRigInfoForFacs = require(Plugin.LuaFlags.GetFFlagFixRigInfoForF
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagRootMotionTrack = require(Plugin.LuaFlags.GetFFlagRootMotionTrack)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
-local GetFFlagBoneAdornmentSelection = require(Plugin.LuaFlags.GetFFlagBoneAdornmentSelection)
 local GetFFlagCurveAnalytics = require(Plugin.LuaFlags.GetFFlagCurveAnalytics)
 
 local FFlagCheckPart0OfMotor6DExists = game:DefineFastFlag("CheckPart0OfMotor6DExists", false)
@@ -121,15 +120,13 @@ local function createBoneLink(bone, folder, visualizeBones, boneLinks)
 				Adorn:Cone("Cone", boneLink, Constants.BONE_LINK_TRANSPARENCY, Constants.BONE_CONE_COLOR, 0)
 				Adorn:Line("Line", boneLink, 1, Constants.BONE_LINK_COLOR, 0, 0)
 			end
-			boneLink.Cone.Transparency = not visualizeBones and 1 or (GetFFlagBoneAdornmentSelection() and Constants.BONE_TRANSPARENCY_DEFAULT or 0)
-			boneLink.Line.Transparency = not visualizeBones and 1 or (GetFFlagBoneAdornmentSelection() and Constants.BONE_TRANSPARENCY_DEFAULT or 0)
+			boneLink.Cone.Transparency = not visualizeBones and 1 or Constants.BONE_TRANSPARENCY_DEFAULT
+			boneLink.Line.Transparency = not visualizeBones and 1 or Constants.BONE_TRANSPARENCY_DEFAULT
 			boneLink.Cone.Radius = length / Constants.LENGTH_TO_RADIUS_RATIO
 			boneLink.Cone.Height = length
 			boneLink.Line.Length = length
 			boneLink.CFrame = alignBoneLink(nodePosition, nextNodePosition)
-			if GetFFlagBoneAdornmentSelection() then
-				boneLinks[boneLink.Name] = bone.Name
-			end
+			boneLinks[boneLink.Name] = bone.Name
 		end
 	end
 end
@@ -146,7 +143,7 @@ local function createBoneNode(bone, folder, visualizeBones, boneLinks)
 		Adorn:Sphere("Sphere", boneNode, Constants.BONE_NODE_TRANSPARENCY, Constants.BONE_NODE_COLOR, 0)
 	end
 	boneNode.Sphere.Radius = getLinkLength(bone) / Constants.LENGTH_TO_RADIUS_RATIO
-	boneNode.Sphere.Transparency = not visualizeBones and 1 or 0
+	boneNode.Sphere.Transparency = not visualizeBones and 1 or Constants.BONE_TRANSPARENCY_DEFAULT
 	boneNode.CFrame = CFrame.new(nodePosition)
 	createBoneLink(bone, folder, visualizeBones, boneLinks)
 end
@@ -166,9 +163,7 @@ function RigUtils.updateMicrobones(rig, visualizeBones)
 	for _, bone in ipairs(bones) do
 		createBoneNode(bone, folder, visualizeBones, boneLinks)
 	end
-	if GetFFlagBoneAdornmentSelection() then
-		return boneLinks
-	end
+	return boneLinks
 end
 
 -- Returns a list of every Motor6D in the rig.
@@ -2018,6 +2013,34 @@ function RigUtils.focusCamera(rig)
 		local center = rootFrame.Position + rootFrame.LookVector * (width * 2)
 		camera.CFrame = CFrame.new(center, rootFrame.Position)
 		camera.Focus = rootFrame
+	end
+end
+
+function RigUtils.focusCameraOnFace(rootInstance)
+	if not rootInstance then return end
+	local currentCamera = workspace.CurrentCamera
+	local faceControls = RigUtils.getFaceControls(rootInstance)
+	if faceControls ~= nil then
+		local head = faceControls.Parent
+		local connectingPart = head.Parent.UpperTorso
+		--support custom setup characters by searching for the Neck joint and then getting Part0 rather than hardcoded "UpperTorso":
+		local neck = head:FindFirstChild("Neck")
+		if neck and neck:IsA("Motor6D") then
+			connectingPart = neck.Part0
+		end
+
+		--eyeballed distance avatar fits in nicely at base fov and avatar being average height (1.75)
+		local width = 0.75
+		local baseWidth = 0.75
+		--base fov is the default fov the camera has
+		local baseFOV = 70
+		width = baseWidth
+		if currentCamera.FieldOfView ~= baseFOV then
+			width = baseWidth / (currentCamera.FieldOfView / baseFOV)
+		end	
+		local center = head.Position + connectingPart.CFrame.LookVector * (width * 2)
+		currentCamera.CFrame = CFrame.lookAt(center, head.CFrame.Position)
+		currentCamera.Focus = head.CFrame		
 	end
 end
 

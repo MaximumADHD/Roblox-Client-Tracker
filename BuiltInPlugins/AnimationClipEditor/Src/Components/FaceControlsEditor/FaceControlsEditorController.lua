@@ -27,9 +27,12 @@ local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 local TeachingCallout = require(Plugin.Src.Components.TeachingCallout)
 local GetFFlagFaceControlsEditorShowCallout = require(Plugin.LuaFlags.GetFFlagFaceControlsEditorShowCallout)
 local GetFFlagExtendPluginTheme = require(Plugin.LuaFlags.GetFFlagExtendPluginTheme)
+local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
 
 local FaceControlsEditorController = Roact.PureComponent:extend("FaceControlsEditorController")
+local GetTextSize = Framework.Util.GetTextSize
 
+local BUTTON_WIDTH_MARGINS = 5
 local BUTTON_WIDTH = 40
 local BUTTON_HEIGHT = 18
 
@@ -102,10 +105,27 @@ function FaceControlsEditorController:render()
 
 	local toggleShowFaceControlsEditorPanel = props.ToggleShowFaceControlsEditorPanel
 	local canUseFaceControlsEditor = RigUtils.canUseFaceControlsEditor(props.RootInstance)
-
+	
+	local titleText = localization:getText("Title", "FACE")
+	local titleTextFontSize = theme.ikTheme.textSize
+	local titleTextFont = theme.font
+	local titleTextSize = GetTextSize(
+		titleText,
+		titleTextFontSize,
+		titleTextFont,
+		Vector2.new(1000, 1000) --arbitrary large area
+	)
+	
+	local buttonUsedWidth = BUTTON_WIDTH
+	
+	if GetFFlagFacialAnimationRecordingInStudio() then
+		buttonUsedWidth = titleTextSize.X + 2*BUTTON_WIDTH_MARGINS
+	end
+	
+	
 	return self.props.RootInstance and Roact.createElement("Frame", {
 		Position = props.Position,
-		Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+		Size = UDim2.new(0, buttonUsedWidth, 0, BUTTON_HEIGHT),
 		BackgroundTransparency = 1,
 		AnchorPoint = Vector2.new(0, 0.5),
 		LayoutOrder = 2,

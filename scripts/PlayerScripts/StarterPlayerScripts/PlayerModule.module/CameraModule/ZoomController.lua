@@ -19,6 +19,7 @@ local pi = math.pi
 
 local cameraMinZoomDistance, cameraMaxZoomDistance do
 	local Player = game:GetService("Players").LocalPlayer
+	assert(Player)
 
 	local function updateBounds()
 		cameraMinZoomDistance = Player.CameraMinZoomDistance

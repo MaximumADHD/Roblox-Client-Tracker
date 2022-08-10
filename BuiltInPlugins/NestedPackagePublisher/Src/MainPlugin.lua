@@ -150,7 +150,9 @@ function MainPlugin:render()
 		}, {
 			-- Plugin contents are mounted here
 			-- New Plugin Setup: Switch out ExampleComponent with your component
-			ExampleComponent = Roact.createElement(ExampleComponent),
+			ExampleComponent = Roact.createElement(ExampleComponent, {
+				Enabled = enabled,
+			}),
 			ExampleRoactRoduxComponent = Roact.createElement(ExampleRoactRoduxComponent),
 		}),
 	})

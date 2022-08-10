@@ -14,8 +14,9 @@ return function()
 	end
 
 	it("should return a function", function()
-		expect(httpRequest()).to.be.ok()
-		expect(type(httpRequest())).to.equal("function")
+		local httpRequestAny = httpRequest :: any
+		expect(httpRequestAny()).to.be.ok()
+		expect(type(httpRequestAny())).to.equal("function")
 	end)
 
 	it("should validate its inputs", function()

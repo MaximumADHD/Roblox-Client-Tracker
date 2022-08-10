@@ -16,7 +16,7 @@ local THEME_MAP = {
 	[Constants.ThemeName.Light] = require(script.Parent.Themes.LightTheme),
 }
 
-function StylePalette.new(style)
+function StylePalette.new(style: any?)
 	--By default a new style will be empty.
 	-- This will allow the font and theme to be merged independently even when one is empty.
 	local self = {}

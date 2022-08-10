@@ -23,6 +23,9 @@
 		table EditingItemContext: An EditingItemContext, which is provided via withContext.
 		table AssetServiceWrapper: An AssetServiceWrapper context item, provided via withContext.
 ]]
+
+local FFlagEnablePreviewTiles = game:GetFastFlag("EnablePreviewTiles")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -206,6 +209,7 @@ local function combineAssetInfo(self, selectedTab)
 			userAddedAssetsById[asset.uniqueId] = {
 				Name = asset.instance.Name,
 				ThumbnailType = "",
+				Instance = if FFlagEnablePreviewTiles then asset.instance else nil,
 			}
 		end
 

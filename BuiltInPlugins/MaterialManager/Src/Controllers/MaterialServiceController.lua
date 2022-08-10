@@ -28,6 +28,7 @@ local getSupportedMaterials = require(Constants.getSupportedMaterials)
 local Util = Plugin.Src.Util
 local CheckMaterialName = require(Util.CheckMaterialName)
 local ContainsPath = require(Util.ContainsPath)
+local GenerateMaterialName = require(Util.GenerateMaterialName)
 local getMaterials = require(Util.getMaterials)
 local getOverrides = require(Util.getOverrides)
 
@@ -135,6 +136,10 @@ function MaterialServiceController:destroy()
 		self._materialChangedListeners[materialIndex]:Disconnect()
 		self._materialChangedListeners[materialIndex] = nil
 	end
+end
+
+function MaterialServiceController:getRootCategory(): Category
+	return self._rootCategory
 end
 
 function MaterialServiceController:getMaterialWrapper(material: Enum.Material, materialVariant: MaterialVariant?): _Types.Material
@@ -320,6 +325,18 @@ function MaterialServiceController:checkMaterialName(name: string, baseMaterial:
 
 	local checkMaterialNameExists = CheckMaterialName(category, name, baseMaterial)
 	return checkMaterialNameExists
+end
+
+function MaterialServiceController:createMaterialVariant(baseMaterial: Enum.Material?)
+	local category = self:findCategory({})
+	assert(category, "Tried to get materials for path which does not exist")
+
+	local materialVariant = Instance.new("MaterialVariant")
+	local generativeName = "MaterialVariant"
+	materialVariant.Name = generativeName .. GenerateMaterialName(category, generativeName)
+	materialVariant.BaseMaterial = baseMaterial or Enum.Material.Plastic
+	materialVariant.Parent = game:GetService("MaterialService")
+	return materialVariant
 end
 
 return MaterialServiceController

@@ -11,17 +11,29 @@ local SetTagsMetadata = require(Plugin.Core.Actions.SetTagsMetadata)
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 
+local FFlagToolboxAssetConfigurationMinPriceFloor2 = game:GetFastFlag("ToolboxAssetConfigurationMinPriceFloor2")
+
 return function(networkInterface)
 	return function(store)
 		if networkInterface and networkInterface.getMetaData then -- this check was only added for when running the unit test (networkInterface and networkInterface.getMetaData were never nil otherwise)
 			local handlerFunc = function(response)
-				local allowedAssetTypesForRelease = response.responseBody
+				local allowedAssetTypesForRelease
+				local allowedAssetTypesForUpload
+				local allowedAssetTypesForFree
+				if FFlagToolboxAssetConfigurationMinPriceFloor2 then
+					allowedAssetTypesForRelease = if response.responseBody then response.responseBody.allowedAssetTypesForRelease else {}
+					allowedAssetTypesForUpload = if response.responseBody then response.responseBody.allowedAssetTypeForUpload else {}
+					allowedAssetTypesForFree = if response.responseBody then response.responseBody.allowedAssetTypesForFree else {}
+					store:dispatch(SetAllowedAssetTypes(allowedAssetTypesForRelease, allowedAssetTypesForUpload, allowedAssetTypesForFree))
+				else
+					allowedAssetTypesForRelease = response.responseBody
 						and response.responseBody.allowedAssetTypesForRelease
 					or {}
-				local allowedAssetTypesForUpload = response.responseBody
+					allowedAssetTypesForUpload = response.responseBody
 						and response.responseBody.allowedAssetTypeForUpload
 					or {}
-				store:dispatch(SetAllowedAssetTypes(allowedAssetTypesForRelease, allowedAssetTypesForUpload))
+					store:dispatch(SetAllowedAssetTypes(allowedAssetTypesForRelease, allowedAssetTypesForUpload))
+				end
 
 				local tagsHandlerFunc = function(response)
 					local isItemTagsFeatureEnabled = response.responseBody

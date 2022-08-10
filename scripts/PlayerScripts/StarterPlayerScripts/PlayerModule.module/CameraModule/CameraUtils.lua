@@ -245,6 +245,7 @@ local function getMouse()
 		Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
 		localPlayer = Players.LocalPlayer
 	end
+	assert(localPlayer)
 	return localPlayer:GetMouse()
 end
 

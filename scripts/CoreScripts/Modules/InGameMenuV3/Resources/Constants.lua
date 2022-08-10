@@ -85,6 +85,8 @@ local Constants = {
 	ShareLinksAnalyticsName = "shareLinks",
 	ShareLinksAnalyticsLinkGeneratedName = "linkGenerated",
 	ShareLinksAnalyticsButtonClickName = "buttonClick",
+	ShareLinksAnalyticsExternalContentSharingInviteFriendsContextName = "V3MenuInviteFriends",
+	ShareLinksAnalyticsExternalContentSharingGameDetailsContextName = "V3MenuGameDetails",
 
 	-- counters
 	AnalyticsCounterRequestFriendship = "PlayersMenu-RequestFriendship",

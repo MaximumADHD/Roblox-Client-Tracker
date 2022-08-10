@@ -4,28 +4,10 @@ local DraggerFramework = Plugin.Packages.DraggerFramework
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local Math = require(DraggerFramework.Utility.Math)
 local Constants = require(Plugin.Src.Util.Constants)
-local GetFFlagBoneAdornmentSelection = require(Plugin.LuaFlags.GetFFlagBoneAdornmentSelection)
 local GetFFlagHideBonesWithToggle = require(Plugin.LuaFlags.GetFFlagHideBonesWithToggle)
 
 local function isValidJoint(rootInstance, joint, partsToMotors)
 	return joint:IsDescendantOf(rootInstance) and joint:IsA("BasePart") and partsToMotors[joint.Name] ~= nil
-end
-
-local function getBone(rootInstance, joint)
-	local boneNodeName = joint.Name
-	local strippedBone = RigUtils.getBoneFromBoneNode(boneNodeName)
-	if strippedBone ~= boneNodeName then
-		local boneName = strippedBone
-		local bone = RigUtils.getBoneByName(rootInstance, strippedBone)
-		if bone then
-			return bone
-		end
-	end
-	return nil
-end
-
-local function isValidBone(rootInstance, bone, boneMap)
-	return bone:IsDescendantOf(rootInstance) and boneMap[bone.Name] ~= nil
 end
 
 local function hitTestEachBoneLink(boneLinkInstance, mouseRay)
@@ -119,7 +101,7 @@ return function(draggerContext, mouseRay, currentSelection)
 		hitDistance = gizmoResult.Distance
 	end
 
-	if GetFFlagBoneAdornmentSelection() and (not GetFFlagHideBonesWithToggle() or GetFFlagHideBonesWithToggle() and draggerContext.VisualizeBones) then 
+	if not GetFFlagHideBonesWithToggle() or GetFFlagHideBonesWithToggle() and draggerContext.VisualizeBones then 
 		local _, partNameToMotorMap, _, boneMap = RigUtils.getRigInfo(draggerContext.RootInstance)
 		local folder = RigUtils.getOrCreateMicroboneFolder()
 		local boneLink, boneDistance = hitTestAllBoneLinks(mouseRay, folder)
@@ -135,18 +117,6 @@ return function(draggerContext, mouseRay, currentSelection)
 		local _, partNameToMotorMap, _, boneMap = RigUtils.getRigInfo(draggerContext.RootInstance)
 		-- prioritize joints
 		local isValidSelectable = isValidJoint(draggerContext.RootInstance, hitSelectable, partNameToMotorMap)
-		if not GetFFlagBoneAdornmentSelection() then 
-			if not isValidSelectable then
-				local bone = getBone(draggerContext.RootInstance, hitSelectable)
-				if bone then 
-					isValidSelectable = isValidBone(draggerContext.RootInstance, bone, boneMap)
-					if isValidSelectable then
-						hitSelectable = bone
-						hitItem = bone
-					end
-				end
-			end
-		end
 		if hitSelectable and isValidSelectable then 
 			return hitSelectable, hitItem, hitDistance
 		end

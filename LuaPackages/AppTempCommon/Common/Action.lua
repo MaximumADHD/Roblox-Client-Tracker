@@ -56,7 +56,7 @@ return function(name, fn)
         name = name,
     }, {
         __call = function(self, ...)
-            local result = fn(...)
+            local result: any = fn(...)
 
             assert(type(result) == "table", "An action must return a table")
 

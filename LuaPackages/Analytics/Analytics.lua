@@ -21,7 +21,7 @@ export type Analytics = {
 	Diag: DiagReporter.Diag,
 	EventStream: EventStreamReporter.EventStream,
 	GoogleAnalytics: GoogleAnalyticsReporter.GoogleAnalytics,
-	InfluxDb: InfluxDbReporter.InfluxDb,
+	InfluxDb: InfluxDbReporter.Influx,
 }
 
 local Analytics = {}
@@ -34,7 +34,7 @@ function Analytics.new(reportingService): Analytics
 	end
 
 	-- All public reporting functions are exposed by the objects defined in the properties
-	local self = {}
+	local self: any = {}
 	self.Diag = DiagReporter.new(reportingService)
 	self.EventStream = EventStreamReporter.new(reportingService)
 	self.GoogleAnalytics = GoogleAnalyticsReporter.new(reportingService)

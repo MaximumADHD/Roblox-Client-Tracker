@@ -17,8 +17,6 @@ local Constants = require(Util.Constants)
 local CreatorInfoHelper = require(Util.CreatorInfoHelper)
 local PageInfoHelper = require(Util.PageInfoHelper)
 
-local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
-
 return function(networkInterface, category, audioSearchInfo, pageInfo, settings, nextPageCursor)
 	return function(store)
 		store:dispatch(SetLoading(true))
@@ -70,9 +68,7 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 				ownerId = PageInfoHelper.getGroupIdForPageInfo(pageInfo)
 			end
 
-			local includeOnlyVerifiedCreators = if FFlagToolboxShowIdVerifiedFilter
-				then pageInfo.includeOnlyVerifiedCreators
-				else nil
+			local includeOnlyVerifiedCreators = pageInfo.includeOnlyVerifiedCreators
 
 			local getRequest = networkInterface:getToolboxItems({
 				categoryName = category,

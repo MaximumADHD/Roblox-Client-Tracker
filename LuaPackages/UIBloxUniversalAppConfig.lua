@@ -43,6 +43,7 @@ local GetFFlagEnableTileInsets = require(CorePackages.UIBloxFlags.GetFFlagEnable
 local GetFFlagUIBloxEnableVirtualizedListForCarousel = require(
 	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableVirtualizedListForCarousel
 )
+local GetFFlagUIBloxEnableDynamicHeadIcon = require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableDynamicHeadIcon)
 
 return {
 	enableTileInsets = GetFFlagEnableTileInsets(),
@@ -75,4 +76,5 @@ return {
 	enableVirtualizedListForCarousel = GetFFlagUIBloxEnableVirtualizedListForCarousel(),
 
 	fixDropdownMenuCellTextSize =  GetFFlagUIBloxFixDropdownMenuCellTextSize(),
+	useDynamicHeadIcon = GetFFlagUIBloxEnableDynamicHeadIcon(),
 }

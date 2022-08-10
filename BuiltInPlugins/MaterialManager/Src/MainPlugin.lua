@@ -32,14 +32,15 @@ local MaterialBrowser = require(Components.MaterialBrowser)
 local MaterialPrompt = require(Components.MaterialPrompt)
 
 local Controllers = main.Src.Controllers
-local CalloutController = require(Controllers.CalloutController)
 local GeneralServiceController = require(Controllers.GeneralServiceController)
 local ImageUploader = require(Controllers.ImageUploader)
 local ImportAssetHandler = require(Controllers.ImportAssetHandler)
 local ImageLoader = require(Controllers.ImageLoader)
-local MaterialController = require(Controllers.MaterialController)
+local MaterialController = require(Controllers.MaterialController) -- Remove with FFlagDeprecateMaterialController
 local MaterialServiceController = require(Controllers.MaterialServiceController)
 local PluginController = require(Controllers.PluginController)
+
+local getFFlagDeprecateMaterialController = require(main.Src.Flags.getFFlagDeprecateMaterialController)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -108,22 +109,19 @@ function MainPlugin:init(props)
 	})
 
 	self.analytics = ContextServices.Analytics.new(createAnalyticsHandlers)
-	self.materialController = MaterialController.new(ServiceWrapper.new("MaterialService"))
+	if not getFFlagDeprecateMaterialController() then
+		self.materialController = MaterialController.new(ServiceWrapper.new("MaterialService"))
+	end
 
 	self.materialServiceController = MaterialServiceController.new(self.store)
 	self.generalServiceController = GeneralServiceController.new()
 
-	self.calloutController = CalloutController.new()
-	local definitionId = "MaterialManagerApplyCallout"
-	local description = self.localization:getText("Callout", "MaterialManagerApplyDescription")
-	self.calloutController:defineCallout(definitionId, "", description, "")
-
-	self.pluginController = PluginController.new(plugin, self.store, plugin:getMouse())
+	self.pluginController = PluginController.new(plugin, self.store, plugin:getMouse(), self.generalServiceController)
 	self.pluginController:initialize()
 end
 
 function MainPlugin:willUnmount()
-	if self.materialController then
+	if self.materialController then -- Remove with FFlagDeprecateMaterialController
 		self.materialController:destroy()
 	end
 	if self.imageLoader then
@@ -171,11 +169,10 @@ function MainPlugin:render()
 		self.localization,
 		self.analytics,
 		self.generalServiceController,
-		self.materialController,
+		self.materialController, -- Remove with FFlagDeprecateMaterialController
 		self.materialServiceController,
 		self.imageLoader,
 		self.assetHandler,
-		self.calloutController,
 		self.pluginController,
 	}, {
 		Toolbar = Roact.createElement(PluginToolbar, {

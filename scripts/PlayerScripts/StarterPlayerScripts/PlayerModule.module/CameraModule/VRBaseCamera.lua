@@ -29,13 +29,6 @@ local BaseCamera = require(script.Parent:WaitForChild("BaseCamera"))
 local VRBaseCamera = setmetatable({}, BaseCamera)
 VRBaseCamera.__index = VRBaseCamera
 
-local FFlagUserFlagEnableVRUpdate2 do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFlagEnableVRUpdate2")
-	end)
-	FFlagUserFlagEnableVRUpdate2 = success and result
-end
-
 function VRBaseCamera.new()
 	local self = setmetatable(BaseCamera.new(), VRBaseCamera)
 
@@ -196,28 +189,25 @@ function VRBaseCamera:StartVREdgeBlur(player)
 	end
 	
 	local blurPart = nil
-	if FFlagUserFlagEnableVRUpdate2 then
-		blurPart = workspace.CurrentCamera:FindFirstChild("VRBlurPart")
-		if not blurPart then
-			blurPart = Instance.new("Part")
-			blurPart.Name = "VRBlurPart"
-			blurPart.Parent = workspace.CurrentCamera
-			blurPart.CanTouch = false
-			blurPart.CanCollide = false
-			blurPart.CanQuery = false
-			blurPart.Anchored = true
-			blurPart.Size = Vector3.new(0.44,0.47,1)
-			blurPart.Transparency = 1
-			blurPart.CastShadow = false
+	blurPart = workspace.CurrentCamera:FindFirstChild("VRBlurPart")
+	if not blurPart then
+		blurPart = Instance.new("Part")
+		blurPart.Name = "VRBlurPart"
+		blurPart.Parent = workspace.CurrentCamera
+		blurPart.CanTouch = false
+		blurPart.CanCollide = false
+		blurPart.CanQuery = false
+		blurPart.Anchored = true
+		blurPart.Size = Vector3.new(0.44,0.47,1)
+		blurPart.Transparency = 1
+		blurPart.CastShadow = false
 
-			RunService.RenderStepped:Connect(function(step)
-				local userHeadCF = VRService:GetUserCFrame(Enum.UserCFrame.Head)
-				local vrCF = workspace.Camera.CFrame * userHeadCF
-				blurPart.CFrame = (vrCF * CFrame.Angles(0, math.rad(180), 0)) + vrCF.LookVector * 1.05
-			end)
-		end
+		RunService.RenderStepped:Connect(function(step)
+			local userHeadCF = VRService:GetUserCFrame(Enum.UserCFrame.Head)
+			local vrCF = workspace.Camera.CFrame * userHeadCF
+			blurPart.CFrame = (vrCF * CFrame.Angles(0, math.rad(180), 0)) + vrCF.LookVector * 1.05
+		end)
 	end
-
 	
 	local VRScreen = player.PlayerGui:FindFirstChild("VRBlurScreen")
 	local VRBlur = nil
@@ -227,15 +217,13 @@ function VRBaseCamera:StartVREdgeBlur(player)
 
 	if not VRBlur then
 		if not VRScreen then
-			VRScreen = FFlagUserFlagEnableVRUpdate2 and Instance.new("SurfaceGui") or Instance.new("ScreenGui")
+			VRScreen = Instance.new("SurfaceGui") or Instance.new("ScreenGui")
 		end
 		
 		VRScreen.Name = "VRBlurScreen"
 		VRScreen.Parent = player.PlayerGui
 		
-		if FFlagUserFlagEnableVRUpdate2 then
-			VRScreen.Adornee = blurPart
-		end
+		VRScreen.Adornee = blurPart
 
 		VRBlur = Instance.new("ImageLabel")
 		VRBlur.Name = "VRBlur"

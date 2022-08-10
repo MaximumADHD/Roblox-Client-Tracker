@@ -35,11 +35,13 @@ return function()
 	local function createStore()
 		local roduxMiddleware = { Rodux.thunkMiddleware }
 
+		local initialState = { ControllerMode = true }
+
 		local reducer = function(state)
 			return state
 		end
 
-		return Rodux.Store.new(reducer, nil, roduxMiddleware)
+		return Rodux.Store.new(reducer, initialState, roduxMiddleware)
 	end
 
 	local function createElement(navigator, testStore)

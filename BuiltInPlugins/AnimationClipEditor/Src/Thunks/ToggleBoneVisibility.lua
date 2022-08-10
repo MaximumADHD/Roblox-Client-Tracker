@@ -7,7 +7,6 @@ local Plugin = script.Parent.Parent.Parent
 local SetBoneVisualization = require(Plugin.Src.Actions.SetBoneVisualization)
 local SetBoneLinksToBone = require(Plugin.Src.Actions.SetBoneLinksToBone)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
-local GetFFlagBoneAdornmentSelection = require(Plugin.LuaFlags.GetFFlagBoneAdornmentSelection)
 
 return function()
 	return function(store)
@@ -23,10 +22,6 @@ return function()
 
 		store:dispatch(SetBoneVisualization(visualizeBones))
 
-		if GetFFlagBoneAdornmentSelection() then 
-			store:dispatch(SetBoneLinksToBone(RigUtils.updateMicrobones(targetInstance, visualizeBones)))
-		else 
-			RigUtils.updateMicrobones(targetInstance, visualizeBones)
-		end
+		store:dispatch(SetBoneLinksToBone(RigUtils.updateMicrobones(targetInstance, visualizeBones)))
 	end
 end

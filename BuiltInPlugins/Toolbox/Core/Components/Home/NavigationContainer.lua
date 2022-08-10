@@ -1,4 +1,6 @@
 --!strict
+local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
+
 local Plugin = script:FindFirstAncestor("Toolbox")
 
 local Packages = Plugin.Packages
@@ -131,7 +133,7 @@ local navigationRoutes = {
 			Dash.join(getAssetLogicWrapperProps(viewProps), {
 				AssetSections = viewProps.AssetSections,
 				CategoryName = viewProps.CategoryName,
-				OnClickSubcategory = function(subcategoryName, subcategoryDict, searchTerm, categoryName, sortName)
+				OnClickSubcategory = function(subcategoryName, subcategoryDict, searchTerm, categoryName, sortName, queryParams)
 					if subcategoryDict.childCount == 0 then
 						viewProps.navigateTo(
 							Constants.NAVIGATION.RESULTS,
@@ -139,8 +141,9 @@ local navigationRoutes = {
 							subcategoryName,
 							Dash.join(viewProps, getAssetLogicWrapperProps(viewProps), {
 								CategoryName = categoryName,
-								SearchTerm = searchTerm,
+								SearchTerm = if FFlagToolboxUseQueryForCategories2 then nil else searchTerm,
 								SortName = sortName,
+								QueryParams = if FFlagToolboxUseQueryForCategories2 then queryParams else nil
 							})
 						)
 					else
@@ -170,7 +173,7 @@ local navigationRoutes = {
 						})
 					)
 				end,
-				OnClickSeeAllAssets = function(sectionName, categoryName, sortName, searchTerm, navigation)
+				OnClickSeeAllAssets = function(sectionName, categoryName, sortName, searchTerm, navigation, queryParams)
 					viewProps.navigateTo(
 						Constants.NAVIGATION.RESULTS,
 						sectionName,
@@ -180,6 +183,7 @@ local navigationRoutes = {
 							SearchTerm = searchTerm,
 							SectionName = sectionName,
 							SortName = sortName,
+							QueryParams = if FFlagToolboxUseQueryForCategories2 then queryParams else nil
 						})
 					)
 				end,
@@ -218,16 +222,17 @@ local navigationRoutes = {
 						})
 					)
 				end,
-				OnClickSeeAllAssets = function(sectionName, myCategoryName, mySortName, searchTerm)
+				OnClickSeeAllAssets = function(sectionName, myCategoryName, mySortName, searchTerm, queryParams)
 					viewProps.navigateTo(
 						Constants.NAVIGATION.RESULTS,
 						Constants.HOMEVIEW_SEARCH_CATEGORY,
 						sectionName,
 						Dash.join(viewProps, getAssetLogicWrapperProps(viewProps), {
 							CategoryName = myCategoryName,
-							SearchTerm = searchTerm,
+							SearchTerm = if FFlagToolboxUseQueryForCategories2 then nil else searchTerm,
 							SectionName = sectionName,
 							SortName = mySortName,
+							QueryParams = if FFlagToolboxUseQueryForCategories2 then queryParams else nil
 						})
 					)
 				end,
@@ -252,7 +257,7 @@ local navigationRoutes = {
 				OnClickBack = function()
 					viewProps:navigateGoBack()
 				end,
-				OnClickSeeAllAssets = function(sectionName, myCategoryName, mySortName, searchTerm)
+				OnClickSeeAllAssets = function(sectionName, myCategoryName, mySortName, searchTerm, queryParams)
 					viewProps.navigateTo(
 						Constants.NAVIGATION.RESULTS,
 						Constants.HOMEVIEW_SEARCH_CATEGORY,
@@ -261,6 +266,7 @@ local navigationRoutes = {
 							CategoryName = myCategoryName,
 							SearchTerm = searchTerm,
 							SortName = mySortName,
+							QueryParams = if FFlagToolboxUseQueryForCategories2 then queryParams else nil,
 						})
 					)
 				end,
@@ -277,6 +283,7 @@ local navigationRoutes = {
 		local sectionName = params and params.SectionName
 		local searchTerm = params and params.SearchTerm
 		local sortName = params and params.SortName
+		local queryParams = if FFlagToolboxUseQueryForCategories2 and params then params.QueryParams else nil
 
 		return Roact.createElement(
 			ResultsView,
@@ -289,6 +296,7 @@ local navigationRoutes = {
 				SectionName = sectionName,
 				Size = UDim2.new(1, 0, 1, 0),
 				SortName = sortName,
+				QueryParams = if FFlagToolboxUseQueryForCategories2 then queryParams else nil
 			})
 		)
 	end),

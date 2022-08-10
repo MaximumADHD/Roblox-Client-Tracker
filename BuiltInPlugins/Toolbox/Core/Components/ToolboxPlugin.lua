@@ -1,3 +1,5 @@
+local FFlagToolboxTrackHidden = game:GetFastFlag("ToolboxTrackHidden")
+
 local StudioService = game:GetService("StudioService")
 local MemStorageService = game:GetService("MemStorageService")
 
@@ -70,6 +72,8 @@ function ToolboxPlugin:init(props)
 
 		if self.dockWidget.Enabled then
 			Analytics.onToolboxDisplayed()
+		elseif FFlagToolboxTrackHidden then
+			Analytics.onToolboxHidden()
 		end
 	end
 

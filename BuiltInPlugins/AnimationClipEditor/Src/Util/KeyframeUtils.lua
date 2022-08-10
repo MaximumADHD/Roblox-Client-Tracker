@@ -13,6 +13,7 @@ local TweenService = game:GetService("TweenService")
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+local GetFFlagFacialAnimationRecordingInStudio = require(Plugin.LuaFlags.GetFFlagFacialAnimationRecordingInStudio)
 
 local KeyframeUtils = {}
 
@@ -480,12 +481,12 @@ if GetFFlagChannelAnimations() then
 		end
 
 		if track.Type == Constants.TRACK_TYPES.CFrame then
-			local positionTrack = track.Components[Constants.PROPERTY_KEYS.Position]
-			local rotationTrack = track.Components[Constants.PROPERTY_KEYS.Rotation]
+			local positionTrack = if ((not GetFFlagFacialAnimationRecordingInStudio()) or (track and track.Components)) then track.Components[Constants.PROPERTY_KEYS.Position] else nil	
+			local rotationTrack = if ((not GetFFlagFacialAnimationRecordingInStudio()) or (track and track.Components)) then track.Components[Constants.PROPERTY_KEYS.Rotation] else nil
 
 			local position = positionTrack and KeyframeUtils.getValue(positionTrack, tck, defaultEulerAnglesOrder)::Vector3? or Vector3.new()
 
-			if rotationTrack.Type == Constants.TRACK_TYPES.EulerAngles then
+			if ((not GetFFlagFacialAnimationRecordingInStudio()) or rotationTrack) and rotationTrack.Type == Constants.TRACK_TYPES.EulerAngles then
 				local rotation = rotationTrack and KeyframeUtils.getValue(rotationTrack, tck, defaultEulerAnglesOrder)::Vector3? or Vector3.new()
 				if GetFFlagCurveEditor() then
 					return CFrame.new(position) * CFrame.fromEulerAngles(rotation.X, rotation.Y, rotation.Z, rotationTrack.EulerAnglesOrder or defaultEulerAnglesOrder)

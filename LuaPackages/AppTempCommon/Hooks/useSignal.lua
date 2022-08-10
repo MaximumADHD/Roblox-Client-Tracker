@@ -7,7 +7,7 @@ local React = require(CorePackages.Packages.React)
 local Signal = require(CorePackages.AppTempCommon.Common.Signal)
 local dependencyArray = require(CorePackages.AppTempCommon.Hooks.dependencyArray)
 
-type Signal = typeof(Signal.new())
+type Signal = Signal.Signal
 
 local function useSignal(signal: Signal, callback: (...any) -> ())
 	React.useEffect(function()

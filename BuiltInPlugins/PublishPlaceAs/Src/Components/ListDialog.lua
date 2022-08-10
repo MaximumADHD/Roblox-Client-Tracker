@@ -29,24 +29,32 @@ local Framework = require(Plugin.Packages.Framework)
 local SharedFlags = Framework.SharedFlags
 local FFlagRemoveUILibraryFitContent = SharedFlags.getFFlagRemoveUILibraryFitContent()
 local FFlagRemoveUILibraryBulletPoint = SharedFlags.getFFlagRemoveUILibraryBulletPoint()
+local FFlagDevFrameworkMigrateStyledDialog = SharedFlags.getFFlagDevFrameworkMigrateStyledDialog()
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local BulletList = UI.BulletList
+local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local BulletPoint
 if not FFlagRemoveUILibraryBulletPoint then
 	BulletPoint = UILibrary.Component.BulletPoint
 end
-local StyledDialog = UILibrary.Component.StyledDialog
+local StyledDialog = if FFlagDevFrameworkMigrateStyledDialog then UI.StyledDialog else UILibrary.Component.StyledDialog
 
-local BORDER_PADDING = 20
-local BUTTON_PADDING = 30
-local BUTTON_HEIGHT = 36
-local BUTTON_WIDTH = 150
+local BORDER_PADDING
+local BUTTON_PADDING
+local BUTTON_HEIGHT
+local BUTTON_WIDTH
+if not FFlagDevFrameworkMigrateStyledDialog then
+	BORDER_PADDING = 20
+	BUTTON_PADDING = 30
+	BUTTON_HEIGHT = 36
+	BUTTON_WIDTH = 150
+end
 
 local ListDialog = Roact.PureComponent:extend("ListDialog")
 
@@ -61,13 +69,28 @@ function ListDialog:render()
 	local onButtonClicked = props.OnButtonClicked
 	local onClose = props.OnClose
 
+	local layoutIndex = if FFlagDevFrameworkMigrateStyledDialog then LayoutOrderIterator.new() else nil
+
 	local children = {
+		Layout = if FFlagDevFrameworkMigrateStyledDialog then Roact.createElement("UIListLayout", {
+			Padding = UDim.new(0, 45),
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}) else nil,
+
+		Padding = if FFlagDevFrameworkMigrateStyledDialog then Roact.createElement("UIPadding", {
+			PaddingTop = UDim.new(0, 10),
+			PaddingLeft = UDim.new(0, 30),
+			PaddingRight = UDim.new(0, 30),
+		}) else nil,
+
 		Header = Roact.createElement("TextLabel", {
-			-- TODO STUDIOPLAT-27986 Remove AnchorPoint, Size, Position when migrating to Dev Framework StyledDialog and use a layout with padding instead.
-			AnchorPoint = Vector2.new(0.5, 0),
-			AutomaticSize = if FFlagRemoveUILibraryBulletPoint then Enum.AutomaticSize.Y else nil,
-			Size = if FFlagRemoveUILibraryBulletPoint then UDim2.new(1, -60, 0, 0) else UDim2.new(1, -60, 0, 80),
-			Position = UDim2.new(0.5, 0, 0, 10),
+			LayoutOrder = if FFlagDevFrameworkMigrateStyledDialog then layoutIndex:getNextOrder() else nil,
+			AnchorPoint = if FFlagDevFrameworkMigrateStyledDialog then nil else Vector2.new(0.5, 0),
+			AutomaticSize = if FFlagRemoveUILibraryBulletPoint then (
+				if FFlagDevFrameworkMigrateStyledDialog then Enum.AutomaticSize.XY else Enum.AutomaticSize.Y) else nil,
+			Size = if FFlagDevFrameworkMigrateStyledDialog then nil else (
+				if FFlagRemoveUILibraryBulletPoint then UDim2.new(1, -60, 0, 0) else UDim2.new(1, -60, 0, 80)),
+			Position = if FFlagDevFrameworkMigrateStyledDialog then nil else UDim2.new(0.5, 0, 0, 10),
 			BackgroundTransparency = 1,
 			Text = header,
 			TextXAlignment = Enum.TextXAlignment.Left,
@@ -81,12 +104,11 @@ function ListDialog:render()
 	if FFlagRemoveUILibraryBulletPoint then
 		children.List = Roact.createElement(BulletList, {
 			Items = entries,
-			-- TODO STUDIOPLAT-27986 Remove Size and Position when migrating to Dev Framework StyledDialog and use a layout with padding instead.
-			Position = UDim2.new(0, 30, 0, 100),
-			Size = UDim2.new(1, -60, 0, 0),
+			LayoutOrder = if FFlagDevFrameworkMigrateStyledDialog then layoutIndex:getNextOrder() else nil,
+			Position = if FFlagDevFrameworkMigrateStyledDialog then nil else UDim2.new(0, 30, 0, 100),
+			Size = if FFlagDevFrameworkMigrateStyledDialog then nil else UDim2.new(1, -60, 0, 0),
 			TextTruncate = Enum.TextTruncate.AtEnd,
 		})
-
 	else
 		local entryList = {
 			Layout = Roact.createElement("UIListLayout", {
@@ -105,6 +127,7 @@ function ListDialog:render()
 		end
 
 		children.Entries = Roact.createElement("Frame", {
+			LayoutOrder = if FFlagDevFrameworkMigrateStyledDialog then layoutIndex:getNextOrder() else nil,
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, -60, 0, 120),
 			AnchorPoint = Vector2.new(0.5, 0),
@@ -112,7 +135,16 @@ function ListDialog:render()
 		}, entryList)
 	end
 
-	return Roact.createElement(StyledDialog, {
+	return Roact.createElement(StyledDialog, if FFlagDevFrameworkMigrateStyledDialog then {
+		Title = title,
+		Modal = true,
+		Buttons = buttons,
+		MinContentSize = Vector2.new(450, 220),
+		ButtonHorizontalAlignment = Enum.HorizontalAlignment.Center,
+		Style = "LargeCenterButtons",
+		OnButtonPressed = onButtonClicked,
+		OnClose = onClose,
+	} else {
 		Title = title,
 		Buttons = buttons,
 		Resizable = false,

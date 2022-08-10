@@ -7,7 +7,7 @@ local SetGameIcons = require(AppTempCommon.LuaApp.Actions.SetGameIcons)
 
 local DEFAULT_ICON_SIZE = "150x150"
 
-return function (networkImpl, universeIds, imageSize)
+return function (networkImpl, universeIds, imageSize: string?)
 	return function(store)
 		local state = store:getState()
 		local stateToCheckForDuplicates = state.GameIcons

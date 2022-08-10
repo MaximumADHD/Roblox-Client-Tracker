@@ -7,8 +7,12 @@ return function()
 
 	local PromptState = require(Root.Enums.PromptState)
 	local Reducer = require(Root.Reducers.Reducer)
+	local Analytics = require(Root.Services.Analytics)
+	local MockAnalytics = require(Root.Test.MockAnalytics)
 	local ExternalSettings = require(Root.Services.ExternalSettings)
 	local MockExternalSettings = require(Root.Test.MockExternalSettings)
+	local Network = require(Root.Services.Network)
+	local MockNetwork = require(Root.Test.MockNetwork)
 	local Thunk = require(Root.Thunk)
 
 	local resolveBundlePromptState = require(script.Parent.resolveBundlePromptState)
@@ -75,7 +79,9 @@ return function()
 		local thunk = resolveBundlePromptState(purchasableDetails, bundleDetails, accountInfo, balanceInfo)
 
 		Thunk.test(thunk, store, {
-			[ExternalSettings] = MockExternalSettings.new(false, false, {})
+			[Analytics] = MockAnalytics.new().mockService,
+			[ExternalSettings] = MockExternalSettings.new(false, false, {}),
+			[Network] = MockNetwork.new(),
 		})
 
 		local state = store:getState()
@@ -95,7 +101,9 @@ return function()
 		local thunk = resolveBundlePromptState(purchasableDetails, bundleDetails, accountInfo, balanceInfo)
 
 		Thunk.test(thunk, store, {
-			[ExternalSettings] = MockExternalSettings.new(false, false, {})
+			[Analytics] = MockAnalytics.new().mockService,
+			[ExternalSettings] = MockExternalSettings.new(false, false, {}),
+			[Network] = MockNetwork.new(),
 		})
 
 		local state = store:getState()
@@ -113,7 +121,9 @@ return function()
 		local thunk = resolveBundlePromptState(purchasableDetails, bundleDetails, accountInfo, balanceInfo)
 
 		Thunk.test(thunk, store, {
-			[ExternalSettings] = MockExternalSettings.new(false, false, {})
+			[Analytics] = MockAnalytics.new().mockService,
+			[ExternalSettings] = MockExternalSettings.new(false, false, {}),
+			[Network] = MockNetwork.new(),
 		})
 
 		local state = store:getState()
@@ -140,7 +150,9 @@ return function()
 		local thunk = resolveBundlePromptState(purchasableDetails, bundleDetails, accountInfo, balanceInfo)
 
 		Thunk.test(thunk, store, {
-			[ExternalSettings] = MockExternalSettings.new(false, false, {})
+			[Analytics] = MockAnalytics.new().mockService,
+			[ExternalSettings] = MockExternalSettings.new(false, false, {}),
+			[Network] = MockNetwork.new(),
 		})
 
 		local state = store:getState()

@@ -20,14 +20,15 @@ local IconButton = UI.IconButton
 
 local Components = Plugin.Src.Components
 
+local MaterialDetails = require(Components.MaterialBrowser.MaterialDetails)
+local MaterialVariantEditor = require(Components.MaterialBrowser.MaterialVariantEditor)
 local MaterialGrid = require(Components.MaterialBrowser.MaterialGrid)
 local SideBar = require(Components.MaterialBrowser.SideBar)
 local TopBar = require(Components.MaterialBrowser.TopBar)
 
 local Flags = Plugin.Src.Flags
 local getFFlagMaterialManagerSideBarSplitPaneUpdate = require(Flags.getFFlagMaterialManagerSideBarSplitPaneUpdate)
-
-local MaterialDetails = require(Components.MaterialBrowser.MaterialDetails)
+local getFFlagMaterialManagerVariantCreatorOverhaul = require(Flags.getFFlagMaterialManagerVariantCreatorOverhaul)
 
 export type Props = {
 	OpenPrompt: (type: _Types.MaterialPromptType) -> (),
@@ -164,8 +165,15 @@ function MaterialBrowser:init()
 					SideBarVisible = showSideBar,
 				})
 				else nil,
-			MaterialDetails = if showMaterialDetails then
+			MaterialDetails = if showMaterialDetails and not getFFlagMaterialManagerVariantCreatorOverhaul() then
 				Roact.createElement(MaterialDetails, {
+					LayoutOrder = 2,
+					OpenPrompt = props.OpenPrompt,
+					Size = if showMaterialGrid then style.MaterialDetailsSize else UDim2.fromScale(1, 1),
+				})
+				else nil,
+			MaterialVariantEditor = if showMaterialDetails and getFFlagMaterialManagerVariantCreatorOverhaul() then
+				Roact.createElement(MaterialVariantEditor, {
 					LayoutOrder = 2,
 					OpenPrompt = props.OpenPrompt,
 					Size = if showMaterialGrid then style.MaterialDetailsSize else UDim2.fromScale(1, 1),

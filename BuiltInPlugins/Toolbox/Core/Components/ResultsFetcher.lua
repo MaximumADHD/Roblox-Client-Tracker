@@ -3,8 +3,8 @@ local Plugin = script:FindFirstAncestor("Toolbox")
 local Packages = Plugin.Packages
 
 local FFlagToolboxFixAssetFetcherOnUpdate = game:GetFastFlag("ToolboxFixAssetFetcherOnUpdate")
-local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
 local FFlagToolboxFixAssetsNoVoteData2 = game:GetFastFlag("ToolboxFixAssetsNoVoteData2")
+local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
 local Roact = require(Packages.Roact)
 local RoactRodux = require(Packages.RoactRodux)
 local Framework = require(Packages.Framework)
@@ -17,6 +17,8 @@ local NetworkInterface = require(Plugin.Core.Networking.NetworkInterface)
 local HttpResponse = require(Plugin.Libs.Http.HttpResponse)
 
 local AssetInfo = require(Plugin.Core.Models.AssetInfo)
+
+local HomeTypes = require(Plugin.Core.Types.HomeTypes)
 
 local Actions = Plugin.Core.Actions
 local GetAssets = require(Actions.GetAssets)
@@ -54,6 +56,7 @@ export type ResultsFetcherProps = {
 	initialPageSize: number,
 	tags: { string }?,
 	includeOnlyVerifiedCreators: boolean?,
+	queryParams: HomeTypes.SubcategoryQueryParams?,
 }
 
 function ResultsFetcher:init(props: ResultsFetcherProps)
@@ -122,9 +125,7 @@ function ResultsFetcher:fetchResults(args: { pageSize: number?, initialPage: boo
 	end)
 
 	local innerFetch = function()
-		local includeOnlyVerifiedCreators = if FFlagToolboxShowIdVerifiedFilter
-			then self.props.includeOnlyVerifiedCreators
-			else nil
+		local includeOnlyVerifiedCreators = self.props.includeOnlyVerifiedCreators
 
 		local promiseError
 		local assetIdsResponse = networkInterface
@@ -137,6 +138,7 @@ function ResultsFetcher:fetchResults(args: { pageSize: number?, initialPage: boo
 				cursor = nextPageCursor,
 				limit = pageSize,
 				includeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
+				queryParams = if FFlagToolboxUseQueryForCategories2 then props.queryParams else nil,
 			})
 			:catch(function(error: HttpResponse.HttpResponse)
 				promiseError = true

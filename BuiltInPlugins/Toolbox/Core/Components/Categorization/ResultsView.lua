@@ -1,7 +1,7 @@
 --[[
-	A view wrapper dispalying a back button and a grid of assets based on prop filters.
+	A view wrapper displaying a back button and a grid of assets based on prop filters.
 ]]
-local FFlagToolboxShowIdVerifiedFilter = game:GetFastFlag("ToolboxShowIdVerifiedFilter")
+local FFlagToolboxUseQueryForCategories2 = game:GetFastFlag("ToolboxUseQueryForCategories2")
 
 local Plugin = script:FindFirstAncestor("Toolbox")
 local Packages = Plugin.Packages
@@ -29,6 +29,7 @@ local ContextGetter = require(Util.ContextGetter)
 local getNetwork = ContextGetter.getNetwork
 
 local Category = require(Plugin.Core.Types.Category)
+local HomeTypes = require(Plugin.Core.Types.HomeTypes)
 
 local INITIAL_PAGE_SIZE = Constants.TOOLBOX_ITEM_SEARCH_LIMIT
 
@@ -41,6 +42,7 @@ export type _ExternalProps = {
 	SectionName: string?,
 	SortName: string?,
 	Size: UDim2?,
+	QueryParams: HomeTypes.SubcategoryQueryParams?,
 }
 
 export type _InternalProps = {
@@ -97,6 +99,7 @@ function ResultsView:render()
 
 	local categoryName = props.CategoryName
 	local searchTerm = props.SearchTerm
+	local queryParams = if FFlagToolboxUseQueryForCategories2 then props.QueryParams else nil
 	local sectionName = props.SectionName
 	local sortName = props.SortName
 	local includeOnlyVerifiedCreators = props.IncludeOnlyVerifiedCreators
@@ -119,6 +122,7 @@ function ResultsView:render()
 		sectionName = sectionName,
 		sortName = sortName,
 		searchTerm = searchTerm,
+		queryParams = if FFlagToolboxUseQueryForCategories2 then queryParams else nil,
 		initialPageSize = INITIAL_PAGE_SIZE,
 		includeOnlyVerifiedCreators = includeOnlyVerifiedCreators,
 		render = function(resultsState)
@@ -159,9 +163,7 @@ function mapStateToProps(state: any, props)
 	state = state or {}
 	local pageInfo = state.pageInfo or {}
 	return {
-		IncludeOnlyVerifiedCreators = if FFlagToolboxShowIdVerifiedFilter
-			then pageInfo.includeOnlyVerifiedCreators
-			else nil,
+		IncludeOnlyVerifiedCreators = pageInfo.includeOnlyVerifiedCreators,
 	}
 end
 
@@ -170,8 +172,4 @@ ResultsView = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(ResultsView)
 
-if FFlagToolboxShowIdVerifiedFilter then
-	return RoactRodux.connect(mapStateToProps)(ResultsView)
-else
-	return ResultsView
-end
+return RoactRodux.connect(mapStateToProps)(ResultsView)

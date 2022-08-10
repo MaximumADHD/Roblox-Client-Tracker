@@ -88,7 +88,7 @@ local function getPluginTheme()
 			DialogColumnSize = UDim2.new(0, ColumnWidth, 0, 25),
 			LabelColumnWidth = LabelColumnWidth,
 			ItemSpacing = LabeledItemSpacing,
-			VerticalSpacing = LabeledVerticalSpacing,
+			VerticalSpacing = LabeledVerticalSpacing, -- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 			ItemPaddingHorizontal = LabeledItemPaddingHorizontal,
 			ErrorOrWarningTextSize = LabeledErrorOrWarningTextSize,
 			ErrorOrWarningColor = LabeledErrorOrWarningColor,
@@ -125,10 +125,11 @@ local function getPluginTheme()
 		}),
 
 		TextureMapSelector = {
-			VerticalSpacing = LabeledVerticalSpacing,
+			VerticalSpacing = LabeledVerticalSpacing, -- Remove with FFlagMaterialManagerVariantCreatorOverhaul
 			ItemPaddingHorizontal = LabeledItemPaddingHorizontal,
 			ErrorOrWarningTextSize = LabeledErrorOrWarningTextSize,
 			ErrorOrWarningColor = LabeledErrorOrWarningColor,
+			InfoTextColor = StyleKey.ButtonText,
 		},
 
 		MaterialGrid = {
@@ -245,6 +246,11 @@ local function getPluginTheme()
 			Padding = 10,
 			SectionHeaderTextSize = 18,
 			TitleTextSize = 22,
+			LabelColumnWidth = LabelColumnWidth,
+			ItemSpacing = LabeledItemSpacing,
+			ErrorOrWarningTextSize = LabeledErrorOrWarningTextSize,
+			ErrorOrWarningColor = LabeledErrorOrWarningColor,
+			DialogColumnSize = UDim2.new(0, ColumnWidth, 0, 25),
 		},
 
 		LabeledString = {

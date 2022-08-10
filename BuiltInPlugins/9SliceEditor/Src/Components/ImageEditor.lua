@@ -24,7 +24,6 @@ local Analytics = ContextServices.Analytics
 local Localization = ContextServices.Localization
 
 local UI = Framework.UI
-local TextLabel = UI.Decoration.TextLabel
 local Pane = UI.Pane
 
 local ImageEditor = Roact.PureComponent:extend("ImageEditor")
@@ -34,9 +33,6 @@ local RIGHT = Orientation.Right.rawValue()
 local TOP = Orientation.Top.rawValue()
 local BOTTOM = Orientation.Bottom.rawValue()
 local UNDEFINED = Orientation.Undefined.rawValue()
-
-local FFlag9SliceEditorRespectImageRectSize = game:GetFastFlag("9SliceEditorRespectImageRectSize")
-local FFlag9SliceEditorResizableImagePreviewWindow = game:GetFastFlag("9SliceEditorResizableImagePreviewWindow")
 
 function ImageEditor:init(props)
 	self.draggerHandlingMovement = false -- red dragger not currently handling drag
@@ -345,28 +341,6 @@ function ImageEditor:init(props)
 	end
 end
 
-function ImageEditor.getDerivedStateFromProps(nextProps, lastState)
-	if FFlag9SliceEditorResizableImagePreviewWindow then
-		return
-	end
-
-	local fitImageSize = Vector2.new(1, 1)
-	local pixelDimensions = nextProps.pixelDimensions
-	local largestDimension = math.max(pixelDimensions.X, pixelDimensions.Y)
-
-	if largestDimension > 0 then
-		fitImageSize = pixelDimensions / largestDimension * Constants.IMAGE_SIZE
-		if FFlag9SliceEditorRespectImageRectSize then
-			-- UDim2 offsets are integers, so we need integer size.
-			fitImageSize = Vector2.new(math.round(fitImageSize.X), math.round(fitImageSize.Y))
-		end
-	end
-	
-	return {
-		fitImageSize = fitImageSize,
-	}
-end
-
 function ImageEditor:createDragger(orientation)
 	-- Helper function for creating the four ImageDraggers
 	return Roact.createElement(ImageDragger, {
@@ -388,81 +362,10 @@ function ImageEditor:createDragger(orientation)
 end
 
 function ImageEditor:didMount()
-	if FFlag9SliceEditorResizableImagePreviewWindow then
-		self.onFitImageSizeChanged(self.backgroundImageRef:getValue())
-	end
+	self.onFitImageSizeChanged(self.backgroundImageRef:getValue())
 end
 
-function ImageEditor:DEPRECATED_render()
-	--[[
-		Renders image pixel size label + grid background as parent
-		to selected image with four image draggers
-	]]--
-	local props = self.props
-	local selectedObject = props.selectedObject
-	local pixelDimensions = props.pixelDimensions
-	local localization = props.Localization
-	local imageSizeText = localization:getText("ImageEditor", "ImageSize")
-
-	local fitImageSize = self.state.fitImageSize
-	if selectedObject then
-		-- if the pixelDimensions have not been loaded, print an error msg
-		if not selectedObject.IsLoaded then
-			imageSizeText = localization:getText("ImageEditor", "ImageSizeError")
-		else
-			imageSizeText = imageSizeText .. (": %dx%d"):format(pixelDimensions.X, pixelDimensions.Y)
-		end
-	end
-
-	return Roact.createElement(Pane, {
-		AutomaticSize = Enum.AutomaticSize.Y,
-		Position = props.position,
-		Size = UDim2.fromOffset(Constants.BACKGROUND_SIZE, Constants.BACKGROUND_SIZE + Constants.TEXTSIZE),
-	}, {
-		BackgroundCheckboardImage = Roact.createElement("ImageButton", {
-			-- also the coding logic background for draggers
-			BackgroundTransparency = 1,
-			Image = Constants.IMAGES.BACKGROUND_GRID,
-
-			ScaleType = Enum.ScaleType.Tile,
-			Size = UDim2.fromOffset(Constants.BACKGROUND_SIZE, Constants.BACKGROUND_SIZE),
-			TileSize = UDim2.fromOffset(Constants.BACKGROUND_TILE_SIZE, Constants.BACKGROUND_TILE_SIZE),
-			[Roact.Event.InputChanged] = self.onBackgroundInputChanged,
-			[Roact.Event.InputEnded] = self.onBackgroundInputEnded,
-			ZIndex = 1,
-			LayoutOrder = props.layoutOrder,
-		}, {
-			imageLabel = Roact.createElement("ImageLabel", {
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				BackgroundTransparency = 1,
-				Image = selectedObject.Image,
-				ImageColor3 = FFlag9SliceEditorRespectImageRectSize and props.imageColor3 or selectedObject.ImageColor3,
-				Position = UDim2.fromScale(0.5, 0.5),
-				ScaleType = Enum.ScaleType.Fit,
-				ResampleMode = FFlag9SliceEditorRespectImageRectSize and props.resampleMode or selectedObject.ResampleMode,
-				ImageRectOffset = props.imageRectOffset,
-				ImageRectSize = props.imageRectSize,
-				Size = UDim2.fromOffset(fitImageSize.X, fitImageSize.Y),
-			}, {
-				LeftDragSlider = self:createDragger(LEFT),
-				RightDragSlider = self:createDragger(RIGHT),
-				TopDragSlider = self:createDragger(TOP),
-				BottomDragSlider = self:createDragger(BOTTOM),
-			}),
-			PixelText = Roact.createElement(TextLabel, {
-				AnchorPoint = Vector2.new(0, 0),
-				Position = UDim2.new(0, 0, 0, Constants.PIXEL_YPOSITION),
-				Size = UDim2.new(1, 0, 0, Constants.TEXTSIZE),
-				Text = imageSizeText,
-				TextSize = Constants.TEXTSIZE,
-				TextXAlignment = Enum.TextXAlignment.Center,
-				TextYAlignment = Enum.TextYAlignment.Top,
-			}),
-		}),
-	})
-end
-
-function ImageEditor:NEW_render()
+function ImageEditor:render()
 	local props = self.props
 	local style = props.Stylizer
 	local selectedObject = props.selectedObject
@@ -504,7 +407,7 @@ function ImageEditor:NEW_render()
 			ImagePreview = Roact.createElement("ImageLabel", {
 				BackgroundTransparency = 1,
 				Image = selectedObject.Image,
-				ImageColor3 = FFlag9SliceEditorRespectImageRectSize and props.imageColor3 or selectedObject.ImageColor3,
+				ImageColor3 = props.imageColor3,
 				Position = UDim2.fromScale(0, 0),
 				ScaleType = Enum.ScaleType.Fit,
 				ResampleMode = resampleMode,
@@ -524,13 +427,6 @@ function ImageEditor:NEW_render()
 			}),
 		}),
 	})
-end
-
-function ImageEditor:render()
-	if FFlag9SliceEditorResizableImagePreviewWindow then
-		return self:NEW_render()
-	end
-	return self:DEPRECATED_render()
 end
 
 ImageEditor = withContext({

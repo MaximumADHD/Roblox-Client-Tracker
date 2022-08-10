@@ -18,7 +18,9 @@ local Urls = require(Plugin.Core.Util.Urls)
 local Constants = require(Plugin.Core.Util.Constants)
 
 local AssetQuotaTypes = require(Plugin.Core.Types.AssetQuotaTypes)
+local HomeTypes = require(Plugin.Core.Types.HomeTypes)
 local Category = require(Plugin.Core.Types.Category)
+
 
 local ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
 
@@ -104,6 +106,7 @@ function NetworkInterface:getToolboxItems(
 		sectionName: string?,
 		sortType: string?,
 		keyword: string?,
+		queryParams: HomeTypes.SubcategoryQueryParams?,
 		cursor: string?,
 		limit: number?,
 		ownerId: number?,

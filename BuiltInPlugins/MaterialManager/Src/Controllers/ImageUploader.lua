@@ -15,7 +15,6 @@ local function makeUploadRequest(networking, name, description, contents)
 	}
 
 	local payload = contents
-
 	return networking:post(url, payload, headers)
 end
 

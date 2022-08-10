@@ -14,7 +14,9 @@ return function()
 				Rodux.thunkMiddleware,
 			}),
 		}, {
-			LoadingScreen = Roact.createElement(LoadingScreen),
+			LoadingScreen = Roact.createElement(LoadingScreen,{
+				placeId = 0,
+			}),
 		})
 
 		local instance = Roact.mount(element)

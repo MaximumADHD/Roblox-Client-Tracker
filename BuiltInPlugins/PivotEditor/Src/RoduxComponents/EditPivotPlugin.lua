@@ -11,7 +11,6 @@ local withContext = ContextServices.withContext
 local Analytics = require(Plugin.Packages.DraggerFramework.Utility.Analytics)
 
 local EditPivotSession = require(Plugin.Src.RoduxComponents.EditPivotSession)
-local getFFlagPivotEditorResetAlsoResetModelRotation = require(Plugin.Src.Flags.getFFlagPivotEditorResetAlsoResetModelRotation)
 
 local EditPivotPlugin = Roact.PureComponent:extend("EditPivotPlugin")
 
@@ -70,21 +69,14 @@ function EditPivotPlugin:_onClearPivot()
 			else
 				-- Just re-center the pivot within the bounds
 				local cframe = object:GetBoundingBox()
-				if getFFlagPivotEditorResetAlsoResetModelRotation() then
-					local wasRotated = object.WorldPivot.Rotation ~= CFrame.identity
-					if object.WorldPivot ~= cframe or wasRotated then
-						object.WorldPivot = CFrame.new(cframe.Position)
-						if wasRotated then
-							-- need to recalculate; bounding box center is different when rotated
-							object.WorldPivot = object:getBoundingBox()
-						end
-						didResetAnyPivot = true
+				local wasRotated = object.WorldPivot.Rotation ~= CFrame.identity
+				if object.WorldPivot ~= cframe or wasRotated then
+					object.WorldPivot = CFrame.new(cframe.Position)
+					if wasRotated then
+						-- need to recalculate; bounding box center is different when rotated
+						object.WorldPivot = object:getBoundingBox()
 					end
-				else
-					if object.WorldPivot ~= cframe then
-						object.WorldPivot = cframe
-						didResetAnyPivot = true
-					end
+					didResetAnyPivot = true
 				end
 			end
 		end
