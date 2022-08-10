@@ -21,6 +21,15 @@ export type Props = {
 	universeId: string,
 }
 
+--[=[
+	Returns whether a given creator is a verified creator,
+	accounting for creatorType.
+
+	Uses the piece of rodux state populated by GamesApi, 
+	and universeId being passed as props.
+	
+	@within VerifiedBadges
+]=]
 local function isCreatorOfGameVerified(state: State, props: Props)
 	local creator = state.GameDetails[props.universeId] and state.GameDetails[props.universeId].creator or nil
 	local userId = ""

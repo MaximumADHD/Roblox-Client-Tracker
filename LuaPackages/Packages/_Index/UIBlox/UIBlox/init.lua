@@ -54,6 +54,11 @@ local function initializeLibrary(configs)
 			useStyle = require(script.Core.Style.useStyle),
 		}),
 
+		VR = strict({
+			Panel3D = require(script.Core.VR.Panel3D),
+			Constants = require(script.Core.VR.Constants)
+		}),
+
 		Text = strict({
 			ExpandableText = strict({
 				GetCanExpand = require(script.Core.Text.ExpandableText.ExpandableTextUtils).getCanExpand,
@@ -250,8 +255,11 @@ local function initializeLibrary(configs)
 				VoteStates = require(script.App.Indicator.Enum.VoteStates),
 			}),
 			PlayerContext = require(script.App.Indicator.PlayerContext),
-			PlayerCount = require(script.App.Indicator.PlayerCount),
+			PlayerCount = if configs.useNewPlayerCount
+				then require(script.App.Indicator.PlayerCountV2)
+				else require(script.App.Indicator.PlayerCount),
 			RateCount = require(script.App.Indicator.RateCount),
+			StatWidget = require(script.App.Indicator.StatWidget),
 		}),
 
 		Menu = strict({

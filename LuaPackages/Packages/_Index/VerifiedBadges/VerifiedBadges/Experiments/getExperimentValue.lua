@@ -1,20 +1,47 @@
---[[
+local VerifiedBadges = script:FindFirstAncestor("VerifiedBadges")
+
+local getFFlagOverrideVerifiedBadgeExperiment = require(VerifiedBadges.Flags.getFFlagOverrideVerifiedBadgeExperiment)
+local getFStringVerifiedBadgeLayer = require(VerifiedBadges.Flags.getFStringVerifiedBadgeLayer)
+
+--[=[
 	Takes in the layers supplied from IXPService to determine if the current
 	client is enrolled in the Verified Badges experiment.
 
-	Returns true if the user is enrolled in the experiment, false if they are in
-	the control group, and nil if the experiment is not running.
-]]
+	:::caution
 
-local VerifiedBadges = script:FindFirstAncestor("VerifiedBadges")
+	If `VerifiedBadgeIXPEnabled` is `false` then this function will always
+	return `nil`.
 
-local getFFlagVerifiedBadgeIXPEnabled = require(VerifiedBadges.Flags.getFFlagVerifiedBadgeIXPEnabled)
-local getFStringVerifiedBadgeLayer = require(VerifiedBadges.Flags.getFStringVerifiedBadgeLayer)
+	:::
 
+	Returns `true` if the user is enrolled in the experiment, `false` if they
+	are in the control group, and `nil` if the experiment is not running.
+
+	Usage:
+
+	```lua
+	local React = require(Packages.React)
+	local RoactAppExperiment = require(Packages.RoactAppExperiment)
+
+	local function Foo()
+	    local isEnrolled = RoactAppExperiment.useUserExperiment({
+	        "Layer.Name.Here"
+	    }, getExperimentValue)
+
+	    return isEnrolled and React.createElement("TextLabel", {
+	        Text = "You're in the experiment!"
+	    })
+	end
+	```
+
+	@within VerifiedBadges
+]=]
 local function getExperimentValue(layers: { [string]: any }): boolean?
 	local layer = getFStringVerifiedBadgeLayer()
 
-	if getFFlagVerifiedBadgeIXPEnabled() then
+	if getFFlagOverrideVerifiedBadgeExperiment() then
+		return true
+	else
 		local verifiedBadgeLayer = layers[layer]
 
 		if verifiedBadgeLayer then

@@ -126,20 +126,24 @@ local function SlotTray(props: Props)
 
 	local selectedIndex, setSelectedIndex = React.useState(props.defaultSelectedSlotIndex or 1)
 
-	local function setScrollPosition()
+	-- Update scroll position whenever selected index changes if it is out of view
+	React.useEffect(function()
 		local scrollingFrame = scrollingFrameRef.current
 
 		if selectedIndex == 0 or not scrollingFrame then
 			return
 		end
 
-		local slotRef = slotRefs[selectedIndex] and slotRefs[selectedIndex].current
+		local selectedSlot = slotRefs[selectedIndex] and slotRefs[selectedIndex].current
+		if not selectedSlot then
+			return
+		end
 
 		local canvasPos = scrollingFrame.CanvasPosition.X
 		local framePosL = scrollingFrame.AbsolutePosition.X
 		local framePosR = framePosL + frameWidth
 
-		local selectSlotPosL = slotRef.AbsolutePosition.X
+		local selectSlotPosL = selectedSlot.AbsolutePosition.X
 		local selectSlotPosR = selectSlotPosL + DEFAULT_SLOT_SIZE
 
 		local offsetR = selectSlotPosR + OUTER_PADDING - framePosR
@@ -153,12 +157,7 @@ local function SlotTray(props: Props)
 		elseif canvasPos > scrollingFramePositionL then
 			motor:setGoal(Otter.spring(scrollingFramePositionL, ANIMATION_SPRING_SETTINGS))
 		end
-	end
-
-	-- Update scroll position whenever selected index changes if it is out of view
-	React.useEffect(function()
-		setScrollPosition()
-	end, {selectedIndex})
+	end, {selectedIndex, frameWidth, slotRefs, scrollingFrameRef, motor})
 
 	local selectIndex = React.useCallback(function(index)
 		setSelectedIndex(index)

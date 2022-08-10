@@ -114,4 +114,10 @@ return {
 
 	-- if true, devMode features (like props validation) will be enabled
 	devMode = false,
+
+	-- if true, uses the new refactored PlayerCount
+	useNewPlayerCount = false,
+
+	-- Add a new ItemTile Icon for dynamic heads
+	useDynamicHeadIcon = false,
 }

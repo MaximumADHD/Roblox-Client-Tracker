@@ -19,6 +19,7 @@ type Object = { [any]: any }
 type Map<K, V> = { [K]: V }
 -- ROBLOX: use patched console from shared
 local console = require(Packages.Shared).console
+local describeError = require(Packages.Shared).describeError
 
 local ReactTypes = require(Packages.Shared)
 -- ROBLOX deviation: ReactElement is defined at the top level of Shared along
@@ -333,7 +334,7 @@ function resolveLazyType<T, P>(
 	-- If we can, let's peek at the resulting type.
 	local payload = lazyComponent._payload
 	local init = lazyComponent._init
-	local ok, result = pcall(init, payload)
+	local ok, result = xpcall(init, describeError, payload)
 	if not ok then
 		-- Leave it in place and let it throw again in the begin phase.
 		return lazyComponent
@@ -937,7 +938,7 @@ local function ChildReconciler(shouldTrackSideEffects)
 		if _G.__DEV__ then
 			-- First, validate keys.
 			local knownKeys = nil
-			for i, child in ipairs(newChildren) do
+			for i, child in newChildren do
 				knownKeys = warnOnInvalidKey(child, knownKeys, returnFiber)
 			end
 		end
@@ -1103,7 +1104,7 @@ local function ChildReconciler(shouldTrackSideEffects)
 		if shouldTrackSideEffects then
 			-- Any existing children that weren't consumed above were deleted. We need
 			-- to add them to the deletion list.
-			for _, child in pairs(existingChildren) do
+			for _, child in existingChildren do
 				deleteChild(returnFiber, child)
 			end
 		end
@@ -1322,7 +1323,7 @@ local function ChildReconciler(shouldTrackSideEffects)
 		if shouldTrackSideEffects then
 			-- Any existing children that weren't consumed above were deleted. We need
 			-- to add them to the deletion list.
-			for _, child in pairs(existingChildren) do
+			for _, child in existingChildren do
 				deleteChild(returnFiber, child)
 			end
 		end

@@ -134,6 +134,7 @@ local StrictMode = ReactTypeOfMode.StrictMode
 local markSkippedUpdateLanes = require(script.Parent.ReactFiberWorkInProgress).markSkippedUpdateLanes
 
 local invariant = require(Packages.Shared).invariant
+local describeError = require(Packages.Shared).describeError
 
 local ConsolePatchingDev = require(Packages.Shared).ConsolePatchingDev
 local disableLogs = ConsolePatchingDev.disableLogs
@@ -413,7 +414,7 @@ local function getStateFromUpdate<State>(
 					-- ROBLOX deviation: YOLO flag for disabling pcall
 					local ok, result
 					if not _G.__YOLO__ then
-						ok, result = pcall(payload, prevState, nextProps)
+						ok, result = xpcall(payload, describeError, prevState, nextProps)
 					else
 						ok = true
 						payload(prevState, nextProps)
@@ -457,7 +458,7 @@ local function getStateFromUpdate<State>(
 					-- ROBLOX deviation: YOLO flag for disabling pcall
 					local ok, result
 					if not _G.__YOLO__ then
-						ok, result = pcall(payload, prevState, nextProps)
+						ok, result = xpcall(payload, describeError, prevState, nextProps)
 					else
 						ok = true
 						payload(prevState, nextProps)
@@ -707,7 +708,7 @@ local function commitUpdateQueue<State>(
 	local effects = finishedQueue.effects
 	finishedQueue.effects = nil
 	if effects ~= nil then
-		for _, effect in ipairs(effects) do
+		for _, effect in effects do
 			local callback = effect.callback
 			if callback ~= nil then
 				callCallback(callback, instance)

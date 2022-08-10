@@ -24,6 +24,7 @@ local ReactFeatureFlags = require(Packages.Shared).ReactFeatureFlags
 -- local enableSchedulerTracing = ReactFeatureFlags.enableSchedulerTracing
 local decoupleUpdatePriorityFromScheduler = ReactFeatureFlags.decoupleUpdatePriorityFromScheduler
 local invariant = require(Packages.Shared).invariant
+local describeError = require(Packages.Shared).describeError
 local ReactFiberLane = require(script.Parent.ReactFiberLane)
 local SyncLanePriority = ReactFiberLane.SyncLanePriority
 local getCurrentUpdateLanePriority = ReactFiberLane.getCurrentUpdateLanePriority
@@ -220,10 +221,10 @@ flushSyncCallbackQueueImpl = function()
           local queue = syncQueue
 
           setCurrentUpdateLanePriority(SyncLanePriority)
-          ok, result = pcall(runWithPriority, ImmediatePriority,
+          ok, result = xpcall(runWithPriority, describeError, ImmediatePriority,
             -- ROBLOX FIXME Luau: Luau sees this as returning void, but then sees an explicit return in runWithPriority and errors
             function(): ...any
-              for index, callback in ipairs(queue) do
+              for index, callback in queue do
                 i = index
                 repeat
                   -- ROBLOX FIXME Luau: Luau doesn't understand loop until nil construct
@@ -241,7 +242,7 @@ flushSyncCallbackQueueImpl = function()
         setCurrentUpdateLanePriority(SyncLanePriority)
           -- ROBLOX FIXME Luau: Luau sees this as returning void, but then sees an explicit return in runWithPriority and errors
           runWithPriority(ImmediatePriority, function(): ...any
-          for index, callback in ipairs(queue) do
+          for index, callback in queue do
             i = index
             repeat
               -- ROBLOX FIXME Luau: Luau doesn't understand loop until nil construct
@@ -277,10 +278,10 @@ flushSyncCallbackQueueImpl = function()
         local isSync = true
         local queue = syncQueue
 
-        ok, result = pcall(runWithPriority, ImmediatePriority,
+        ok, result = xpcall(runWithPriority, describeError, ImmediatePriority,
           -- ROBLOX FIXME Luau: Luau sees this as returning void, but then sees an explicit return in runWithPriority and errors
           function(): ...any
-            for index, callback in ipairs(queue) do
+            for index, callback in queue do
               i = index
               repeat
                 -- ROBLOX FIXME Luau: Luau doesn't understand loop until nil construct
@@ -296,7 +297,7 @@ flushSyncCallbackQueueImpl = function()
         local queue = syncQueue
           -- ROBLOX FIXME Luau: Luau sees this as returning void, but then sees an explicit return in runWithPriority and errors
           runWithPriority(ImmediatePriority, function(): ...any
-          for index, callback in ipairs(queue) do
+          for index, callback in queue do
             i = index
             repeat
               -- ROBLOX FIXME Luau: Luau doesn't understand loop until nil construct

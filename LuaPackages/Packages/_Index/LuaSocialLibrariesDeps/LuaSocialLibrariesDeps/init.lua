@@ -1,13 +1,15 @@
 local LuaSocialLibrariesDeps = script.Parent
 
+local getFFlagMigrateRoduxAliases = require(script.Flags.getFFlagMigrateRoduxAliases)
+
 return {
 	GenericPagination = require(LuaSocialLibrariesDeps.GenericPagination),
 	RoactFitComponents = require(LuaSocialLibrariesDeps.RoactFitComponents),
 	Mock = require(LuaSocialLibrariesDeps.Mock),
 	RoduxNetworking = require(LuaSocialLibrariesDeps.RoduxNetworking),
 	llama = require(LuaSocialLibrariesDeps.llama),
-	RoduxAliases = require(LuaSocialLibrariesDeps.RoduxAliases),
-	RoduxAliases_v2 = require(LuaSocialLibrariesDeps.RoduxAliases_v2),
+	RoduxAliases = if getFFlagMigrateRoduxAliases() then require(LuaSocialLibrariesDeps.RoduxAliases_v210) else require(LuaSocialLibrariesDeps.RoduxAliases),
+	RoduxAliases_v2 = if getFFlagMigrateRoduxAliases() then require(LuaSocialLibrariesDeps.RoduxAliases_v210) else require(LuaSocialLibrariesDeps.RoduxAliases_v2),
 	RoduxUsers = require(LuaSocialLibrariesDeps.RoduxUsers),
 	RoduxUsers_v13 = require(LuaSocialLibrariesDeps.RoduxUsers_v13),
 	RoduxFriends = require(LuaSocialLibrariesDeps.RoduxFriends),

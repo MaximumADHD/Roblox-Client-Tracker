@@ -4,14 +4,27 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
 local enumerate = require(Packages.enumerate)
+local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 
 local strict = require(UIBlox.Utility.strict)
 
-return strict({
+local ItemIconType
+
+if UIBloxConfig.useDynamicHeadIcon then
 	ItemIconType = enumerate("ItemIconType", {
 		"AnimationBundle",
-		"Bundle"
-	}),
+		"Bundle",
+		"DynamicHead",
+	})
+else
+	ItemIconType = enumerate("ItemIconType", {
+		"AnimationBundle",
+		"Bundle",
+	})
+end
+
+return strict({
+	ItemIconType = ItemIconType,
 	StatusStyle = enumerate("StatusStyle", {
 		"Alert",
 		"Info"

@@ -1,21 +1,23 @@
 local VerifiedBadges = script:FindFirstAncestor("VerifiedBadges")
 
-local getFFlagVerifiedBadgeIXPEnabled = require(VerifiedBadges.Flags.getFFlagVerifiedBadgeIXPEnabled)
 local getFStringVerifiedBadgeLayer = require(VerifiedBadges.Flags.getFStringVerifiedBadgeLayer)
 local getFFlagOverrideVerifiedBadgeExperiment = require(VerifiedBadges.Flags.getFFlagOverrideVerifiedBadgeExperiment)
 local constants = require(VerifiedBadges.constants)
 
 return function(IXPService: IXPService)
+	--[=[
+		Appends the Verified emoji to the end of the given string.
+
+		@within VerifiedBadges
+	]=]
 	local function appendVerifiedBadge(inputString: string)
-		if getFFlagVerifiedBadgeIXPEnabled() or getFFlagOverrideVerifiedBadgeExperiment() then
-			local layer = IXPService:GetUserLayerVariables(getFStringVerifiedBadgeLayer())
+		local layer = IXPService:GetUserLayerVariables(getFStringVerifiedBadgeLayer())
 
-			if layer.verifiedBadgeEnabled or getFFlagOverrideVerifiedBadgeExperiment() then
-				return inputString .. " " .. constants.VERIFIED_EMOJI
-			end
+		if layer and layer.verifiedBadgeEnabled or getFFlagOverrideVerifiedBadgeExperiment() then
+			return inputString .. constants.VERIFIED_EMOJI
+		else
+			return inputString
 		end
-
-		return inputString
 	end
 
 	return appendVerifiedBadge

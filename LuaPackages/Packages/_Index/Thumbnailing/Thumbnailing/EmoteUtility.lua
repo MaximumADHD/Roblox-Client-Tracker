@@ -354,7 +354,7 @@ end
 	Final application of poses in the case where user is holding a tool.
 	Also worries about attaching/welding/equipping the tool.
 ]]
-local function doR15ToolPose(character, humanoid, tool, thumbnailKeyframe, defaultToolKeyframe, suggestedKeyframeFromTool)
+local function doR15ToolPose(character, humanoid, tool, poseAssetId, thumbnailKeyframe, defaultToolKeyframe, suggestedKeyframeFromTool)
 	if suggestedKeyframeFromTool then
 		-- If it's the pose suggested by tool, do not respect blacklist (blacklist shouldn't exist
 		-- anyway).  Tool knows exactly how to pose each joint.
@@ -369,7 +369,12 @@ local function doR15ToolPose(character, humanoid, tool, thumbnailKeyframe, defau
 			module.ApplyPose(character, defaultToolKeyframe, --[[generateBlacklist =]] true, --[[applyBlacklist =]]false)
 		end
 		-- Now apply the user-selected pose.
-		module.ApplyPose(character, thumbnailKeyframe, --[[generateBlacklist =]] false, --[[applyBlacklist=]] true)
+		-- Do this iff the user-selected pose was explicitly set with a poseAssetId.  If not, it's a a pose based
+		-- on idle animation, and we don't want to do arbitrary idle animation + tool because for some gear that doesn't look
+		-- right.
+		if poseAssetId ~= nil then
+			module.ApplyPose(character, thumbnailKeyframe, --[[generateBlacklist =]] false, --[[applyBlacklist=]] true)
+		end
 	end
 	clearJointBlacklist()
 
@@ -570,7 +575,7 @@ module.SetPlayerCharacterPose = function(character,
 		-- Un-pose to stock 'at attention' stance.
 		humanoid:BuildRigFromAttachments()
 		if tool then
-			doR15ToolPose(character, humanoid, tool, thumbnailKeyframe, defaultToolKeyframe, suggestedKeyframeFromTool)
+			doR15ToolPose(character, humanoid, tool, poseAssetId, thumbnailKeyframe, defaultToolKeyframe, suggestedKeyframeFromTool)
 		else
 			module.ApplyPose(character, thumbnailKeyframe, false, false)
 		end

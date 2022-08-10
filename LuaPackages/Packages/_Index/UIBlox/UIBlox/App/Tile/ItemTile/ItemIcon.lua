@@ -7,6 +7,7 @@ local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
+local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local Images = require(UIBlox.App.ImageSet.Images)
@@ -19,6 +20,10 @@ local ItemIconTypesMap = {
 	[ItemTileEnums.ItemIconType.AnimationBundle] = Images["icons/status/item/bundle"],
 	[ItemTileEnums.ItemIconType.Bundle] = Images["icons/status/item/bundle"],
 }
+
+if UIBloxConfig.useDynamicHeadIcon then
+	ItemIconTypesMap[ItemTileEnums.ItemIconType.DynamicHead] = Images["icons/status/dynamicHead_small"]
+end
 
 local PADDING_BOTTOM = 12
 local PADDING_RIGHT = 12

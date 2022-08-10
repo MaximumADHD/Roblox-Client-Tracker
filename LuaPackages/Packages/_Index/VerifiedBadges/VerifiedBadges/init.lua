@@ -1,3 +1,15 @@
+--[=[
+	@class VerifiedBadges
+]=]
+
+--[=[
+	Dictionary containing the various emoji that can be used in conjunction
+	with EmojiWrapper.
+
+	@prop emoji { verified: string, premium: string }
+	@within VerifiedBadges
+]=]
+
 local constants = require(script.constants)
 
 return {
@@ -10,11 +22,10 @@ return {
 		premium = constants.PREMIUM_EMOJI,
 	},
 
-	getFFlagUseVerifiedBadge = require(script.Flags.getFFlagUseVerifiedBadge),
-	getFFlagVerifiedBadgeIXPEnabled = require(script.Flags.getFFlagVerifiedBadgeIXPEnabled),
 	getFStringVerifiedBadgeLayer = require(script.Flags.getFStringVerifiedBadgeLayer),
 
 	appendVerifiedBadge = require(script.Utils.appendVerifiedBadge),
 	appendPremiumBadge = require(script.Utils.appendPremiumBadge),
 	isCreatorOfGameVerified = require(script.Utils.isCreatorOfGameVerified),
+	sendExposureEvent = require(script.Utils.sendExposureEvent),
 }

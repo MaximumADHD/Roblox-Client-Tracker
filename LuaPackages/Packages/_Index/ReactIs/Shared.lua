@@ -22,6 +22,8 @@ export type ReactFundamentalComponent<C, H> = Package.ReactFundamentalComponent<
 export type ReactScope = Package.ReactScope
 export type ReactScopeQuery = Package.ReactScopeQuery
 export type ReactScopeInstance = Package.ReactScopeInstance
+export type ReactBinding<T> = Package.ReactBinding<T> 
+export type ReactBindingUpdater<T> = Package.ReactBindingUpdater<T> 
 export type MutableSourceVersion = Package.MutableSourceVersion
 export type MutableSourceGetSnapshotFn<Source, Snapshot> =
 Package.MutableSourceGetSnapshotFn<Source, Snapshot> 

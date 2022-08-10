@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["roblox_networking-aliases-2879963d-30e7008e"]["networking-aliases"])
+local Package = require(PackageIndex["NetworkingAliases-96003ad7-0.6.3"]["NetworkingAliases"])
 
 return Package

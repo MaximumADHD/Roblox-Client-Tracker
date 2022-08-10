@@ -24,7 +24,8 @@ PageMargin.validateProps = t.interface({
 	backgroundTransparency = t.optional(t.number),
 	layoutOrder = t.optional(t.number),
 	size = t.optional(t.UDim2),
-	useAutomaticSizing = t.optional(t.boolean)
+	useAutomaticSizing = t.optional(t.boolean),
+	zIndex = t.optional(t.number),
 })
 
 function PageMargin:init()
@@ -59,6 +60,7 @@ function PageMargin:render()
 		[Roact.Change.AbsoluteSize] = self.onResize,
 		[Roact.Ref] = self.ref,
 		LayoutOrder = self.props.layoutOrder,
+		ZIndex = self.props.zIndex,
 	}, Cryo.Dictionary.join(self.props[Roact.Children], {
 		padding = Roact.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, self.state.margin),
