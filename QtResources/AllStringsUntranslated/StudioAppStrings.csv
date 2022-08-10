@@ -51,6 +51,7 @@ Studio.App.ListView.Owner,,Owner,Owner
 Studio.App.ListView.Owner.You,,You,You
 Studio.App.ListView.ToolTipLoadingComplete,,Loading complete!,Loading complete!
 Studio.App.ListView.ToolTipPleaseWait1,,Please wait... %1 games loaded.,Please wait... %1 games loaded.
+Studio.App.ListView.ShowPlaces1,,View %1 Places,View %1 Places
 Studio.App.Debugger.PausedForDebugging,,Rendering is paused for debugging...,Rendering is paused for debugging...
 Studio.App.Breakpoints.DeleteAllBreakpoints,Debugger widgets,Delete All Breakpoints,Delete All Breakpoints
 Studio.App.Breakpoints.DeleteSelectedBreakpoint,Debugger widgets,Delete Selected Breakpoint,Delete Selected Breakpoint
@@ -330,8 +331,6 @@ Studio.App.MainWindow.UploadingPlaceQuitPublishAuto,Main Window,Publishing in pr
 Studio.App.MainWindow.UploadingPlaceQuitCommitAuto,Main Window,Applying script changes. Studio will close automatically when complete.,Applying script changes. Studio will close automatically when complete.
 Studio.App.MainWindow.UploadingPlaceQuitSaveFailed,Main Window,Failed To Save. Please try again later.,Failed To Save. Please try again later.
 Studio.App.MainWindow.UploadingPlaceQuitPublishFailed,Main Window,Failed To Publish. Please try again later.,Failed To Publish. Please try again later.
-Studio.App.AudioPrivacyPublishDialog.WarningTitle,Description title for warning pop-up that lets users know they have to grant audio permissions,Be aware before publishing,Be aware before publishing
-Studio.App.AudioPrivacyPublishDialog.WarningDescription,"Description of warning that users need to give their universe permission to use audio or else, their audio won't play in the experience they publsih","You are publishing an Experience that includes assets that may be private. Please consider granting access to the destination Experience. If you do not grant access, any private assets will not work.","You are publishing an Experience that includes assets that may be private. Please consider granting access to the destination Experience. If you do not grant access, any private assets will not work."
 Studio.App.AudioPrivacyPublishDialog.NoPermissionsTitle,Description title for no permissions granted dialog pop-up that lets users know they have to grant audio permission,No permission to use Audio file(s),No permission to use Audio file(s)
 Studio.App.AudioPrivacyPublishDialog.NoPermissionsDescription,"Description of warning that users need to give their universe permission to use audio or else, their audio won't play in the experience they publsih","This experience has no permission to use some assets. Please consider granting permissions to the destination Experience. If you do not grant permissions, assets will not be available for this experience.","This experience has no permission to use some assets. Please consider granting permissions to the destination Experience. If you do not grant permissions, assets will not be available for this experience."
 Studio.App.AudioPrivacyPublishDialog.PermissionsGrantedTitle,Description title for permissions successfully granted dialog,All permissions have been granted!,All permissions have been granted!
@@ -758,6 +757,7 @@ Studio.App.RBXMainWindow.Rename,,Rename,Rename
 Studio.App.RBXMainWindow.ClearStats,,Clear Stats,Clear Stats
 Studio.App.RBXMainWindow.ResetsFontSize,,Reset font size,Reset font size
 Studio.App.RBXMainWindow.SelectChildren,,Select Children,Select Children
+Studio.App.RBXMainWindow.SelectParents,,Select Parent(s),Select Parent(s)
 Studio.App.RBXMainWindow.CheckNetworkAndUserAuthentication,,"Feature not available in offline mode.
 Please check internet connection and restart Roblox.","Feature not available in offline mode.
 Please check internet connection and restart Roblox."
@@ -2197,7 +2197,9 @@ Studio.App.AuthenticationHelper.AuthFailedTryAgain,,Authentication failed. Pleas
 Studio.App.AuthenticationHelper.AuthFailedTimeout,,Could not authenticate user. Request timed out.,Could not authenticate user. Request timed out.
 Studio.App.Authenticator.TwoStepFailedParse,,"An error occurred while reading the response from the server. Please try again later, or contact support if the problem persists.","An error occurred while reading the response from the server. Please try again later, or contact support if the problem persists."
 Studio.App.BetaFeatures.CreateAnimationFromVideoTitle,,Live Animation Creator,Live Animation Creator
-Studio.App.BetaFeatures.CreateAnimationFromVideoDescription,,"Animation clip editor will have a ""Create from video"" option in the Import menu to transfer 3D pose from a video to an avatar.","Animation clip editor will have a ""Create from video"" option in the Import menu to transfer 3D pose from a video to an avatar."
+Studio.App.BetaFeatures.CreateAnimationFromVideoDescription,,"Animation clip editor will have a ""Live Animation Creator"" option in the Import menu to transfer 3D pose from a video to an avatar.","Animation clip editor will have a ""Live Animation Creator"" option in the Import menu to transfer 3D pose from a video to an avatar."
+Studio.App.BetaFeatures.FacialAnimationRecordingTitle,,Face Recorder,Face Recorder
+Studio.App.BetaFeatures.FacialAnimationRecordingDescription,,"Animation Editor will have a ""Face Recorder"" button to use a camera to record your own face movements onto an avatar.","Animation Editor will have a ""Face Recorder"" button to use a camera to record your own face movements onto an avatar."
 Studio.App.BetaFeatures.ACESaveRigWithAnimationTitle,,Save rig with Animation,Save rig with Animation
 Studio.App.BetaFeatures.ACESaveRigWithAnimationDescription,,Animation clip editor will save the rig along with keyframes to make the animation retargetable.,Animation clip editor will save the rig along with keyframes to make the animation retargetable.
 Studio.App.BetaFeatures.ForumPostTitleEnding,,%1 is now enabled,%1 is now enabled
@@ -3349,8 +3351,6 @@ Studio.App.BetaFeatures.CanvasGroupTitle,,Canvas Group,Canvas Group
 Studio.App.BetaFeatures.CanvasGroupDescription,,A new UI object that renders descendants as a single layer that can be tinted and made transparent.,A new UI object that renders descendants as a single layer that can be tinted and made transparent.
 Studio.App.BetaFeatures.PathfindingLinksTitle,,Pathfinding Links,Pathfinding Links
 Studio.App.BetaFeatures.PathfindingLinksDescription,,Pathfinding link can be used to connect areas in the place which otherwise are unconnected.,Pathfinding link can be used to connect areas in the place which otherwise are unconnected.
-Studio.App.BetaFeatures.CurveAnimationsTitle,,Channel Animations,Channel Animations
-Studio.App.BetaFeatures.CurveAnimationsDescription,,Enable single-channel animations with new curve-based format in the Animation Clip Editor.,Enable single-channel animations with new curve-based format in the Animation Clip Editor.
 Studio.App.BetaFeatures.DebuggerV2Title,,Intuitive Debugger,Intuitive Debugger
 Studio.App.BetaFeatures.DebuggerV2Description,,"Enable a new debugging experience with a more powerful backend architecture and Lua-based UI for the Callstack, Watch, and Breakpoint windows.","Enable a new debugging experience with a more powerful backend architecture and Lua-based UI for the Callstack, Watch, and Breakpoint windows."
 Studio.App.RobloxApplication.AbnormalTerminateMessage,,An unexpected error has occurred and Studio needs to quit. Please restart Studio or contact support if the problem persists.,An unexpected error has occurred and Studio needs to quit. Please restart Studio or contact support if the problem persists.

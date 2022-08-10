@@ -555,6 +555,7 @@
         <addaction name="replaceAction" text="Studio.Common.Action.Replace" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.FindTextAndReplaceWithElps" icon=":/RibbonBar/images/RibbonIcons/Home/Replace.png" modernIcon="Replace" width="32" height="32" />
         <MenuButton name="actionSelectMenu" text="Studio.Common.Action.Select" tooltip="Studio.App.RobloxRibbonMainWindow.SelectTextElps" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Select.png" modernIcon="SelectText" width="32" height="32" >
           <addaction name="selectAllAction" icon=":/RibbonBar/images/RibbonIcons/Home/Select.png" modernIcon="SelectAll" width="16" height="16" />
+          <addaction name="selectParentsAction" fflag="SelectParentsEnabled"/>
           <addaction name="selectChildrenAction" icon=":/16x16/images/Studio 2.0 icons/16x16/select_children.png" modernIcon="SelectChildren" />
         </MenuButton>
         <!--<addaction name="deleteSelectedAction" text="Studio.Common.Action.Delete" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/Delete.png" modernIcon="" width="32" height="32" />-->

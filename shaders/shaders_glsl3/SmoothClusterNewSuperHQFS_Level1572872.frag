@@ -120,7 +120,7 @@ void main()
     float f72 = max(f60.w - (f71 * f71), f67.y);
     float f73 = f65 - f71;
     vec3 f74 = normalize(f34);
-    float f75 = f28.y;
+    float f75 = 0.08900000154972076416015625 + (f28.y * 0.9110000133514404296875);
     float f76 = f28.x;
     vec3 f77 = mix(vec3(0.039999999105930328369140625), f33, vec3(f76));
     float f78 = CB0[26].w * f35;

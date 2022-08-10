@@ -666,6 +666,11 @@
             }
         },
         {
+            "FontFamilyPickerWindowBorder": {
+                "Default": "#000000"
+            }
+        },
+        {
           "ToggleButtonBackground": {
             "Default": "#FFFFFF",
             "Selected": "#00A2FF",
@@ -1224,6 +1229,8 @@
                 "border": "#E3E3E3",
                 "sortArrowAscending": "qrc:/images/StartPage/SortArrowAscending.png",
                 "sortArrowDescending": "qrc:/images/StartPage/SortArrowDescending.png",
+                "checkmarkIcon": "qrc:/images/StartPage/checkmark_blue.png",
+
                 "userIcon": "qrc:/images/StartPage/UserIcon.png",
                 "groupIcon": "qrc:/images/StartPage/GroupIcon.png",
                 "localFileIcon": "qrc:/images/StartPage/ListFileIcon.png",

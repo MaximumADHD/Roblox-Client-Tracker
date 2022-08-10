@@ -1,0 +1,3 @@
+Key,Context,Example,Source,en-us,de-de,es-es,fr-fr,id-id,it-it,ja-jp,ko-kr,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
+Studio.Settings.BetaFeature.HighDpiAndIconsTitle,,,Enable DPI Aware Studio,Enable DPI Aware Studio,,,,,,,,,,,,,,,
+Studio.Settings.BetaFeature.HighDpiAndIconsDescription,,,Makes Studio scale better on monitors using scalings above 100%.  Also includes new themed icons.,Makes Studio scale better on monitors using scalings above 100%.  Also includes new themed icons.,,,,,,,,,,,,,,,

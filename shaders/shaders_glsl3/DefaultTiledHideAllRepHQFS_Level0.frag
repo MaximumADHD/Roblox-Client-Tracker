@@ -74,7 +74,7 @@ void main()
     vec4 f38 = texture(ShadowMapTexture, f29.xy);
     float f39 = f29.z;
     float f40 = CB0[26].w * f2;
-    float f41 = max(f18.y, 0.04500000178813934326171875);
+    float f41 = 0.08900000154972076416015625 + (f18.y * 0.9110000133514404296875);
     vec3 f42 = reflect(-f1, f23);
     float f43 = f41 * 5.0;
     vec3 f44 = vec4(f42, f43).xyz;

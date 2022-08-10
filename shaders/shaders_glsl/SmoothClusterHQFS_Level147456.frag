@@ -137,7 +137,7 @@ void main()
     vec4 f71 = mix(texture3D(LightGridSkylightTexture, f68), vec4(1.0), f69);
     vec4 f72 = texture2D(ShadowMapTexture, f66.xy);
     float f73 = f66.z;
-    float f74 = f14.y;
+    float f74 = 0.08900000154972076416015625 + (f14.y * 0.9110000133514404296875);
     float f75 = f14.x;
     vec3 f76 = -CB0[11].xyz;
     float f77 = (dot(f65, f76) * CB0[9].w) * ((1.0 - ((step(f72.x, f73) * clamp(CB0[24].z + (CB0[24].w * abs(f73 - 0.5)), 0.0, 1.0)) * f72.y)) * f71.y);

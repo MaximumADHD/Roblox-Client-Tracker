@@ -1,3 +1,5 @@
 Key,Context,Source,en-us
 Studio.FontSelection.FontWeightStatus.Procedural,"Displayed in properties panel when a font is created procedurally, e.g. `Bold (procedural)`.",%1 (procedural),%1 (procedural)
 Studio.FontSelection.FontWeightStatus.Unavailable,"Displayed in properties panel when a font family doesn't contain a weight, e.g. `Thin (unavailable)`.",%1 (unavailable),%1 (unavailable)
+Studio.FontSelection.Action.CopyID,Context menu item for copying a font family's asset ID to the clipboard,Copy ID,Copy ID
+Studio.FontSelection.Action.CopyID.ToolTip,Tooltip for context menu item for copying a font family's asset ID to the clipboard,Copy the asset ID of the family to the clipboard,Copy the asset ID of the family to the clipboard

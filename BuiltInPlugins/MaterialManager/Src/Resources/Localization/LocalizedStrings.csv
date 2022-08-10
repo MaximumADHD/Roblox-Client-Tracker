@@ -109,6 +109,7 @@ Studio.MaterialManager.Categories.Sand,Sand,Sand
 Studio.MaterialManager.Materials.Sand,Sand,Sand
 Studio.MaterialManager.Materials.Slate,Slate,Slate
 Studio.MaterialManager.Materials.Sandstone,Sandstone,Sandstone
+Studio.MaterialManager.CreateDialog.ErrorUploadFromFileMap,Failed to upload Texture Map,Failed to upload Texture Map
 Studio.MaterialManager.Materials.SmoothPlastic,Smooth Plastic,Smooth Plastic
 Studio.MaterialManager.Materials.Water,Water,Water
 Studio.MaterialManager.Materials.WoodPlanks,Wood Planks,Wood Planks
@@ -230,3 +231,5 @@ Studio.MaterialManager.MaterialPatterns.Regular,Regular,Regular
 Studio.MaterialManager.Categories.Special,Special,Special
 Studio.MaterialManager.ViewType.List,List,List
 Studio.MaterialManager.MaterialInformation.Delete,Delete,Delete
+Studio.MaterialManager.CreateDialog.ErrorUploadFromFileMapToLarge,Failed to upload: file is too large,Failed to upload: file is too large
+Studio.MaterialManager.CreateDialog.Uploading,Uploading Texture Map...,Uploading Texture Map...

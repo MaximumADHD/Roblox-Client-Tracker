@@ -97,7 +97,7 @@ void main()
     vec4 f52 = texture(ShadowMapTexture, f43.xy);
     float f53 = f43.z;
     vec3 f54 = normalize(VARYING9);
-    float f55 = f28.y;
+    float f55 = 0.08900000154972076416015625 + (f28.y * 0.9110000133514404296875);
     float f56 = f28.x;
     vec3 f57 = mix(vec3(0.039999999105930328369140625), f33, vec3(f56));
     float f58 = CB0[26].w * f34;

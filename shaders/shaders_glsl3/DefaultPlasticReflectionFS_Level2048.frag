@@ -43,7 +43,7 @@ void main()
     float f15 = f8.z;
     float f16 = (1.0 - ((step(f14.x, f15) * clamp(CB0[24].z + (CB0[24].w * abs(f15 - 0.5)), 0.0, 1.0)) * f14.y)) * f13.y;
     vec3 f17 = reflect(-(VARYING4.xyz / vec3(f0)), normalize(VARYING5.xyz));
-    float f18 = (!(VARYING7.w == 0.0)) ? 0.0 : (max(VARYING5.w, 0.04500000178813934326171875) * 5.0);
+    float f18 = (!(VARYING7.w == 0.0)) ? 0.0 : ((0.08900000154972076416015625 + (VARYING5.w * 0.9110000133514404296875)) * 5.0);
     vec3 f19 = (((VARYING6.xyz * f16) + min((f12.xyz * (f12.w * 120.0)) + (CB0[27].xyz + ((CB0[28].xyz * (2.0 - CB0[9].w)) * f13.x)), vec3(CB0[16].w))) * mix(f7.xyz, textureLod(PrefilteredEnvTexture, vec4(f17, f18).xyz, f18).xyz * mix(CB0[26].xyz, CB0[25].xyz, vec3(clamp(f17.y * 1.58823525905609130859375, 0.0, 1.0))), vec3(VARYING7.w))) + (CB0[10].xyz * ((VARYING6.w * f16) * 0.100000001490116119384765625));
     vec4 f20 = vec4(0.0);
     f20.x = f19.x;

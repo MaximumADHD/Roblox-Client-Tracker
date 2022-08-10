@@ -154,3 +154,4 @@ Studio.AssetImporter.Statuses.UGCMeshVertColorsWarning,"Mesh has non-white verte
 Studio.AssetImporter.Statuses.UGCMaxMeshTrianglesWarning,Mesh exceeds the max triangle limit (4000) for UGC upload requirements.,Mesh exceeds the max triangle limit (4000) for UGC upload requirements.
 Studio.AssetImporter.Statuses.UGCExceedTextureSizeWarning,Textures exceeds the max texture size limit for UGC upload requirements.,Textures exceeds the max texture size limit for UGC upload requirements.
 Studio.AssetImporter.Statuses.DeletedCageGeometryWarning,Some cage geometry has been removed. This will result in layering issues.,Some cage geometry has been removed. This will result in layering issues.
+Studio.AssetImporter.Statuses.CageNoGeoParentError,"Couldn't find geometry for cage, check your mesh names and spelling.","Couldn't find geometry for cage, check your mesh names and spelling."

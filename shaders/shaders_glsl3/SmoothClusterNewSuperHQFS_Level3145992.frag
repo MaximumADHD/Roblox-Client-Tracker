@@ -164,7 +164,7 @@ void main()
     float f101 = max(f89.w - (f100 * f100), f96.y);
     float f102 = f94 - f100;
     vec3 f103 = normalize(f63);
-    float f104 = f28.y;
+    float f104 = 0.08900000154972076416015625 + (f28.y * 0.9110000133514404296875);
     float f105 = CB0[26].w * f64;
     vec3 f106 = reflect(-f103, f72);
     vec3 f107 = normalize(f103 - CB0[11].xyz);

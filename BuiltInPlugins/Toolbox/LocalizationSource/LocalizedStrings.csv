@@ -189,7 +189,8 @@ Crowds,Multitudes,Foules,Folle,群衆,군중,Multidões, , , ,喧嘩,Studio.Tool
 Rejected,Rechazado,Rejeté,Rifiutato,却下済み,거부됨,Rejeitado,Отклонено,已拒绝,已拒绝,遭拒,Studio.Toolbox.General.StatusDelayedRelease,Ready For Sale, 
 Ready For Sale,Listo para la venta,Prêt à la vente,Pronto alla vendita,販売の準備完了,판매 준비 완료,Pronto para venda,Готово для продажи,待售,待售,可上架,Studio.Toolbox.General.StatusReviewApproved,Ready For Sale, 
 Ready For Sale,Listo para la venta,Prêt à la vente,Pronto alla vendita,販売の準備完了,판매 준비 완료,Pronto para venda,Готово для продажи,待售,待售,可上架,Studio.Toolbox.General.StatusOffSale,Off Sale, 
-Off Sale,Fuera de venta,Hors vente,Non in vendita,非売品,판매 종료,Não está à venda,Не в продаже,下架,下架,下架,Studio.Toolbox.General.StatusUnknown,Unknown, 
+Off Sale,Fuera de venta,Hors vente,Non in vendita,非売品,판매 종료,Não está à venda,Не в продаже,下架,下架,下架,Studio.Toolbox.General.SalesFreePrice,"To set the asset as free, enter 0.", 
+"To set the asset as free, enter 0.", ,"Pour libérer le contenu, entrer 0.","Per impostare l'asset come gratis, inserisci 0.",アセットを無料に設定するには、 0 を入力。,애셋을 무료로 설정하려면 0을 입력합니다.,"Para definir o ativo como grátis, digite 0.", , , ,若要將素材設為免費，請輸入「0」。,Studio.Toolbox.General.StatusUnknown,Unknown, 
 Unknown,Desconocido,Inconnu,Sconosciuto,不明,알 수 없음,Desconhecido,Неизвестно,未知,未知,未知,Studio.Toolbox.General.SalesOffsale,Offsale, 
 Offsale,Fuera de venta,Hors vente,Non in vendita,非売品,판매 종료,Não está à venda,Не в продаже,下架,下架,下架,Studio.Toolbox.General.AssetTypeModel,Model, 
 Model,Modelo,Modèle,Modello,モデル,모델,Modelo,Модель,模型,模型,模型,Studio.Toolbox.Subcategory.Model,Model, 
@@ -233,7 +234,8 @@ Learn more,Aprende más,En savoir plus,Maggiori informazioni,もっと詳しく,
 Learn more,Aprende más,En apprendre plus,Maggiori informazioni,もっと詳しく,더 알아보기,Saiba mais,Подробнее,了解更多,了解更多,了解更多,Studio.Toolbox.General.Me,Me, 
 Me,Yo,Moi,Io,自分,나,Eu,Я,我,我,我,Studio.Toolbox.General.AssetType,Asset type, 
 Asset type,Tipo de recurso,Type de contenu,Tipo risorsa,アセットタイプ,애셋 유형,Tipo de ativo,Тип ресурса,素材类型,素材类型,素材類型,Studio.Toolbox.Audio.SoundEffect.Category.gliders,Gliders, 
-Gliders,Planeadores,Planeurs,Alianti,グライダー,글라이더,Planadores, , , ,滑翔機,Studio.Toolbox.General.SalesSale,Sale, 
+Gliders,Planeadores,Planeurs,Alianti,グライダー,글라이더,Planadores, , , ,滑翔機,Studio.Toolbox.General.SalesMinimumPrice,The minimum price for this item type is {minPrice}., 
+The minimum price for this item type is {minPrice}., ,Le prix minimum pour ce type d'article est de {minPrice}.,Il prezzo minimo per questo tipo di articolo è {minPrice}.,このアイテムタイプの最低価格は {minPrice} です。,이 항목 유형의 최소 가격은 {minPrice}입니다.,O preço mínimo para este tipo de item é {minPrice}., , , ,此道具類型的最低價格為 {minPrice}。,Studio.Toolbox.General.SalesSale,Sale, 
 Sale,En venta,Vente,Vendita,セール,판매,Venda,Распродажа,销售,销售,買賣,Studio.Toolbox.General.SalesOnsaleApplyToSave,Onsale (apply to save changes), 
 Onsale (apply to save changes),En venta (aplicar para guardar cambios),En vente (demande pour sauvegarder les changements),In vendita (applica per salvare le modifiche),販売中（適用して変更を保存）,판매 시작(적용하여 변경 사항 저장),À venda (aplicar para salvar mudanças),В продаже (применить,在售 (应用以保存更改),在售 (应用以保存更改),上架（套用以儲存變更）,Studio.Toolbox.AssetConfigSharing.DistributeMarketplaceQuotaInfoLink,How many assets can I publish to the Creator Marketplace?, 
 How many assets can I publish to the Creator Marketplace?,¿Cuántos recursos puedo publicar en el Mercado de creadores?,Combien d'éléments puis-je publier sur le marché des créateurs ?,Quante risorse posso pubblicare nel Mercato dei creatori?,クリエイターマーケットプレイスには、アセットをいくつ公開できますか？,크리에이터 마켓플레이스에 얼마나 많은 애셋을 게시할 수 있나요?,Quantos ativo posso publicar no Mercado do Criador?, ,我可以发布几个素材到创作者商城？,我可以发布几个素材到创作者商城？,我可以發布幾個素材到創作者商城？,Studio.Toolbox.General.SalesOffsaleApplyToSave,Offsale (apply to save changes), 
@@ -299,7 +301,8 @@ Word(s) not found in the tag library,No se han encontrado las palabras en la bib
 (Multiple),(Múltiple),(multiple),(Molteplici),（複数）,(여러 항목),(Múltiplo),(Несколько),(多项),(多项),（多項）,Studio.Toolbox.AssetConfigPackagePermissions.NoAccessDescription,"Cannot use, view or edit this package", 
 "Cannot use, view or edit this package","Este paquete no se puede usar, ver o editar","Ne peut pas utiliser, visualiser ou modifier ce package","Impossibile usare, visualizzare o modificare questo pacchetto",このパッケージの使用、表示、編集はできません,이 패키지를 사용하거나 보거나 편집할 수 없습니다,"Não é possível usar, visualizar ou editar este pacote", view or edit this package,无法使用、查看或编辑此包,无法使用、查看或编辑此包,無法使用、檢視或編輯此套件,Studio.Toolbox.AssetConfigPackagePermissions.UseViewDescription,Can use and view this package, 
 Can use and view this package,Este paquete se puede usar y ver,Peut utiliser et voir ce package,È possibile usare e visualizzare questo pacchetto,このパッケージの使用と表示ができます,이 패키지를 사용하고 볼 수 있습니다,É possível usar e visualizar este pacote,Можно использовать и просматривать пакет,可以使用并查看此包,可以使用并查看此包,可以使用和檢視此套件,Studio.Toolbox.General.CategoryCreationsShortsAccessory,Shorts Accessories, 
-Shorts Accessories,Accesorios para pantalones cortos,Accessoires shorts,Accessori pantaloncini,短パン用アクセサリ,반바지 장신구,Acessórios de short, ,短裤配件,短裤配件,短褲飾品,Studio.Toolbox.AssetConfigPackagePermissions.EditDescription,"Can use, view and edit this package", 
+Shorts Accessories,Accesorios para pantalones cortos,Accessoires shorts,Accessori pantaloncini,短パン用アクセサリ,반바지 장신구,Acessórios de short, ,短裤配件,短裤配件,短褲飾品,Studio.Toolbox.Announcement.Header_Default,Announcement, 
+Announcement, , , , , , , , , , ,Studio.Toolbox.AssetConfigPackagePermissions.EditDescription,"Can use, view and edit this package", 
 "Can use, view and edit this package","Este paquete se puede usar, ver y editar","Peut utiliser, voir et modifier ce package","È possibile usare, visualizzare e modificare questo pacchetto",このパッケージの使用、表示、編集ができます,이 패키지를 사용하고 보고 편집할 수 있습니다,"É possível usar, visualizar e editar este pacote", view and edit this package,可以使用、查看和编辑此包,可以使用、查看和编辑此包,可以使用、檢視及編輯此套件,Studio.Toolbox.AssetConfigPackagePermissions.FriendsCollaboratorType,Friends, 
 Friends,Amigos,Amis,Amici,友達,친구,Amigos,Друзья,好友,好友,好友,Studio.Toolbox.Audio.Music.Genre.blues,Blues, 
 Blues,Blues,Blues,Blues,ブルース,블루스,Blues,Блюз, , ,藍調,Studio.Toolbox.Subcategory.AudioMusicBlues,Blues, 
@@ -725,4 +728,5 @@ Combate, , , ,戰鬥,Studio.Toolbox.HomeView.PirateIsland,Pirate Island, ,Pirate
 Ilha pirata, , , ,海盜島,Studio.Toolbox.HomeView.MansionofWonder,Mansion of Wonder, ,Mansion of Wonder,Mansión de las Maravillas,Manoir de la Merveille,Villa delle meraviglie,不思議な邸宅,맨션 오브 원더
 Mansão de maravilhas, , , ,奇幻豪宅,Studio.Toolbox.HomeView.Racing,Racing, ,Racing,Carreras,Course,Corse,レース,레이싱
 Corrida, , , ,競速,Studio.Toolbox.HomeView.CaptureTheFlag,Capture The Flag, ,Capture The Flag,Juego del pañuelo,Capturer le drapeau,Acchiappa bandiera,フラグ争奪戦,깃발 뺏기
-Capture a bandeira, , , ,奪旗
+Capture a bandeira, , , ,奪旗,Studio.Toolbox.General.SalesCreatorEarnings,Creator earnings ({earningsPercent}%), ,Creator earnings ({earningsPercent}%), ,Gains du créateur ({earningsPercent}%),Guadagni creatori ({earningsPercent}%),クリエーターの収益（{earningsPercent}%),크리에이터 수익({earningsPercent}%)
+Ganhos do criador ({earningsPercent}%), , , ,創作者收入（{earningsPercent}%）

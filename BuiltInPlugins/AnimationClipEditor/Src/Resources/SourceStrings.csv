@@ -85,6 +85,34 @@ Studio.AnimationClipEditor.Dialog.SaveLocation, ,Animation will be saved to Rig 
 Studio.AnimationClipEditor.Dialog.Yes, ,Yes
 Studio.AnimationClipEditor.DropdownMenu.CreateNewClip, ,Create New Clip
 Studio.AnimationClipEditor.EditorErrors.OpenedWhileRunning, ,Animation Editor cannot be used while game is running!
+Studio.AnimationClipEditor.FaceCapture.AgeRestrictedBody, ,We're rolling this out slowly and unfortunately it's not available for you at this time. Please check back periodically to see if we have opened it up.
+Studio.AnimationClipEditor.FaceCapture.AgeRestrictedTitle, ,Feature is not available.
+Studio.AnimationClipEditor.FaceCapture.BioDataCollectionAgree, ,Yes
+Studio.AnimationClipEditor.FaceCapture.BioDataCollectionBody, ,"By clicking \"Yes\", you allow Roblox Studio to access your video camera and you consent to the collection and use of your facial movements as described in the Roblox Facial Animation Privacy Notice. Depending on your location, applicable laws might define this data as a biometric identifier or biometric information."
+Studio.AnimationClipEditor.FaceCapture.BioDataCollectionDisagree, ,No
+Studio.AnimationClipEditor.FaceCapture.BioDataCollectionTitle, ,Allow video and facial movement collection?
+Studio.AnimationClipEditor.FaceCapture.CameraPermissionDeniedWarningText, ,Camera permission is required for this feature. You can enable it for RobloxStudio in your system settings.
+Studio.AnimationClipEditor.FaceCapture.CameraSelectionBody, ,Multiple cameras have been detected. Please choose one to start recording.
+Studio.AnimationClipEditor.FaceCapture.CameraSelectionPlaceholder, ,No camera selected.
+Studio.AnimationClipEditor.FaceCapture.CameraSelectionTitle, ,Select a camera
+Studio.AnimationClipEditor.FaceCapture.DefaultFaceRecordingName, ,Recorded facial animation
+Studio.AnimationClipEditor.FaceCapture.DefaultLearnMoreLabel, ,Learn more
+Studio.AnimationClipEditor.FaceCapture.DetectingCameraTitle, ,Detecting a camera
+Studio.AnimationClipEditor.FaceCapture.IsRecordingCoverText, ,Face Recorder Active
+Studio.AnimationClipEditor.FaceCapture.LearnMoreLabel, ,Learn more
+Studio.AnimationClipEditor.FaceCapture.MainButtonTitle, ,Face Recorder
+Studio.AnimationClipEditor.FaceCapture.NoCameraWarningText, ,A camera is required to use this feature. Please make sure your camera is connected and powered on.
+Studio.AnimationClipEditor.FaceCapture.OverwritingPreviousFacsTracksBody, ,Existing face animation will be overwritten. The action is undoable (Cmd+Z / Ctrl+Z).
+Studio.AnimationClipEditor.FaceCapture.PanelReRecording, ,Re-Record
+Studio.AnimationClipEditor.FaceCapture.PanelReady, ,Ready
+Studio.AnimationClipEditor.FaceCapture.TeachingCalloutDescription, ,Animate faces by recording your face movements directly from your webcam.
+Studio.AnimationClipEditor.FaceCapture.TeachingCalloutTitle, ,Face Recording
+Studio.AnimationClipEditor.FaceCapture.TooltipCameraSettings, ,Camera Settings
+Studio.AnimationClipEditor.FaceCapture.TooltipReRecording, ,Re-Record
+Studio.AnimationClipEditor.FaceCapture.TooltipStartRecording, ,Start Recording
+Studio.AnimationClipEditor.FaceCapture.TooltipStopRecording, ,Stop Recording
+Studio.AnimationClipEditor.FaceCapture.WarningDialogOk, ,Ok
+Studio.AnimationClipEditor.FaceCapture.WarningTitle, ,Warning
 Studio.AnimationClipEditor.FaceControlsEditorButtonCallout.Description, ,The Face Animation Editor provides a user-friendly interface for creating and editing facial animations for dynamic heads.
 Studio.AnimationClipEditor.FaceControlsEditorButtonCallout.Title, ,Face Animation Editor
 Studio.AnimationClipEditor.IKMenu.BodyPart, ,Body Part
@@ -185,7 +213,7 @@ Studio.AnimationClipEditor.Title.DefaultAnimationName, ,Untitled Animation Clip
 Studio.AnimationClipEditor.Title.EditEvents, ,Edit Animation Events
 Studio.AnimationClipEditor.Title.Error, ,Error
 Studio.AnimationClipEditor.Title.EventName, ,Event Name
-Studio.AnimationClipEditor.Title.FACE, ,Face
+Studio.AnimationClipEditor.Title.FACE, ,Face Editor
 Studio.AnimationClipEditor.Title.FaceControlsEditor, ,Face Animation Editor
 Studio.AnimationClipEditor.Title.HoverOverNameDisplay, ,Hover-over name display
 Studio.AnimationClipEditor.Title.IK, ,IK
@@ -223,6 +251,7 @@ Studio.AnimationClipEditor.Tooltip.GoToFirstFrame, ,Move the scrubber to the fir
 Studio.AnimationClipEditor.Tooltip.GoToLastFrame, ,Move the scrubber to the last frame
 Studio.AnimationClipEditor.Tooltip.Pause, ,Pause the animation [Space]
 Studio.AnimationClipEditor.Tooltip.Play, ,Preview the animation [Space]
+Studio.AnimationClipEditor.Tooltip.Record, ,Record facial animation
 Studio.AnimationClipEditor.Tooltip.Reverse, ,Preview the animation in reverse
 Studio.AnimationClipEditor.Tooltip.SkipBackward, ,Move the scrubber to the previous key
 Studio.AnimationClipEditor.Tooltip.SkipForward, ,Move the scrubber to the next key

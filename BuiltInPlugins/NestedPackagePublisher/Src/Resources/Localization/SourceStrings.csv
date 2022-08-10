@@ -1,4 +1,6 @@
 Key,en-us
+Studio.NestedPackagePublisher.Action.Cancel,Cancel
+Studio.NestedPackagePublisher.Action.Publish,Publish
 Studio.NestedPackagePublisher.Plugin.Button,Toggle
 Studio.NestedPackagePublisher.Plugin.Description,Toggles the Template plugin window.
 Studio.NestedPackagePublisher.Plugin.Name,NestedPackagePublisher

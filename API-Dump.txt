@@ -143,6 +143,7 @@ Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Tuple AssetImportService:ImportMesh(string fileName) {RobloxScriptSecurity}
 	Function Tuple AssetImportService:ImportMeshWithPrompt() {RobloxScriptSecurity} [Yields]
 	Function bool AssetImportService:IsAvatar() {RobloxScriptSecurity}
+	Function string AssetImportService:PickFileWithPrompt() {RobloxScriptSecurity} [Yields]
 	Function AssetImportSession AssetImportService:StartSessionWithPrompt() {RobloxScriptSecurity} [Yields]
 	Function void AssetImportService:Upload() {RobloxScriptSecurity}
 	Event AssetImportService.ProgressUpdate(float progressRatio)
@@ -241,7 +242,7 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool AvatarEditorService:GetFavorite(int64 itemId, Enum.AvatarItemType itemType) [Yields]
 	Function InventoryPages AvatarEditorService:GetInventory(Array assetTypes) [Yields]
 	Function Dictionary AvatarEditorService:GetItemDetails(int64 itemId, Enum.AvatarItemType itemType) [Yields]
-	Function OutfitPages AvatarEditorService:GetOutfits(Enum.OutfitSource outfitSource = "All") [Yields]
+	Function OutfitPages AvatarEditorService:GetOutfits(Enum.OutfitSource outfitSource = "All", Enum.OutfitType outfitType = "All") [Yields]
 	Function Array AvatarEditorService:GetRecommendedAssets(Enum.AvatarAssetType assetType, int64 contextAssetId = 0) [Yields] [Deprecated]
 	Function Array AvatarEditorService:GetRecommendedAssetsV2(Enum.AvatarAssetType assetType, int64 assetId, int numItems, bool includeDetails) [Yields]
 	Function Array AvatarEditorService:GetRecommendedBundles(int64 bundleId) [Yields] [Deprecated]
@@ -484,6 +485,7 @@ Class BreakpointManager : Instance [NotCreatable] [Service] [NotReplicated]
 	Event BreakpointManager.MetaBreakpointAdded(MetaBreakpoint breakpoint) {RobloxScriptSecurity}
 	Event BreakpointManager.MetaBreakpointChanged(MetaBreakpoint breakpoint) {RobloxScriptSecurity}
 	Event BreakpointManager.MetaBreakpointRemoved(MetaBreakpoint breakpoint) {RobloxScriptSecurity}
+	Event BreakpointManager.MetaBreakpointSetChanged(MetaBreakpoint breakpoint, Dictionary detail) {RobloxScriptSecurity}
 Class BrowserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void BrowserService:CloseBrowserWindow() {RobloxScriptSecurity}
 	Function void BrowserService:CopyAuthCookieFromBrowserToEngine() {RobloxScriptSecurity}
@@ -866,6 +868,41 @@ Class SkateboardController : Controller
 	Property float SkateboardController.Throttle [ReadOnly]
 	Event SkateboardController.AxisChanged(string axis)
 Class VehicleController : Controller
+Class ControllerBase : Instance [NotCreatable]
+	Property bool ControllerBase.RigidityEnabled
+	Property float ControllerBase.MoveSpeedFactor
+Class AirController : ControllerBase
+	Property float AirController.OrientationMaxTorque
+	Property float AirController.OrientationSpeed
+	Property Vector3 AirController.VectorForce
+	Property bool AirController.CancelAirMomentum
+	Property float AirController.MoveMaxForce
+Class ClimbController : ControllerBase
+	Property float ClimbController.OrientationMaxTorque
+	Property float ClimbController.OrientationSpeed
+	Property float ClimbController.AccelerationTime
+	Property float ClimbController.MoveMaxForce
+Class GroundController : ControllerBase
+	Property float GroundController.AccelerationLean
+	Property float GroundController.AlignSpeed
+	Property float GroundController.AlignTorque
+	Property float GroundController.MaxSlopeAngle
+	Property float GroundController.AccelerationTime
+	Property float GroundController.DecelerationTime
+	Property float GroundController.Friction
+	Property float GroundController.FrictionWeight
+	Property float GroundController.StandForce
+	Property float GroundController.StandSpeed
+	Property float GroundController.TurningFactor
+Class SwimController : ControllerBase
+	Property float SwimController.OrientationMaxTorque
+	Property float SwimController.OrientationSpeed
+	Property float SwimController.AccelerationTime
+Class ControllerManager : Instance
+	Property ControllerBase ControllerManager.ActiveController [ReadOnly]
+	Property float ControllerManager.BaseMoveSpeed
+	Property float ControllerManager.HipHeight
+	Function Objects ControllerManager:GetControllers() {🧬Safe}
 Class ControllerService : Instance [NotCreatable] [Service] [NotReplicated]
 Class CookiesService : Instance [NotCreatable] [Service]
 Class CorePackages : Instance [NotCreatable] [Service] [NotReplicated]
@@ -1194,6 +1231,7 @@ Class Texture : Decal
 	Property float Texture.StudsPerTileV
 Class FacialAnimationRecordingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool FacialAnimationRecordingService.BiometricDataConsent {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Function string FacialAnimationRecordingService:CheckOrRequestCameraPermission() {RobloxScriptSecurity} [Yields]
 	Function bool FacialAnimationRecordingService:IsAgeRestricted() {RobloxScriptSecurity}
 Class FacialAnimationStreamingService : Instance [NotCreatable] [Service]
 	Property bool FacialAnimationStreamingService.Enabled {RobloxScriptSecurity} [Hidden]
@@ -1482,7 +1520,6 @@ Class TextBox : GuiObject
 	Property bool TextBox.TextEditable
 	Property Enum.TextInputType TextBox.TextInputType {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property string TextBox.ContentText [ReadOnly]
-	Property bool TextBox.EnableRealtimeFilteringHints {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property Enum.Font TextBox.Font
 	Property Font TextBox.FontFace
 	Property Enum.FontSize TextBox.FontSize [<📁> LoadOnly] [NotReplicated] [Deprecated]
@@ -1892,6 +1929,7 @@ Class Humanoid : Instance
 	Event Humanoid.CustomStatusAdded(string status) [Deprecated]
 	Event Humanoid.CustomStatusRemoved(string status) [Deprecated]
 	Event Humanoid.Died()
+	Event Humanoid.EmoteTriggered(Tuple successAndTrackTuple) {RobloxScriptSecurity}
 	Event Humanoid.FallingDown(bool active)
 	Event Humanoid.FreeFalling(bool active)
 	Event Humanoid.GettingUp(bool active)
@@ -1923,6 +1961,7 @@ Class HumanoidDescription : Instance
 	Property int64 HumanoidDescription.FallAnimation
 	Property int64 HumanoidDescription.IdleAnimation
 	Property int64 HumanoidDescription.JumpAnimation
+	Property int64 HumanoidDescription.MoodAnimation
 	Property int HumanoidDescription.NumberEmotesLoaded {RobloxScriptSecurity} [Hidden]
 	Property int64 HumanoidDescription.RunAnimation
 	Property int64 HumanoidDescription.SwimAnimation
@@ -2747,7 +2786,6 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Enum.HumanoidOnlySetCollisionsOnStateChange Workspace.HumanoidOnlySetCollisionsOnStateChange [NotScriptable]
 	Property Enum.InterpolationThrottlingMode Workspace.InterpolationThrottling {✏️PluginSecurity}
 	Property Enum.MeshPartHeadsAndAccessories Workspace.MeshPartHeadsAndAccessories [NotScriptable]
-	Property Enum.PhysicsInertiaAndVolumeFix Workspace.PhysicsInertiaAndVolumeFix [NotScriptable]
 	Property Enum.PhysicsSteppingMethod Workspace.PhysicsSteppingMethod [NotScriptable]
 	Property Enum.ReplicateInstanceDestroySetting Workspace.ReplicateInstanceDestroySetting [NotScriptable]
 	Property Enum.AnimatorRetargetingMode Workspace.Retargeting
@@ -3477,6 +3515,7 @@ Class ScriptDocument : Instance [NotCreatable] [NotReplicated]
 	Event ScriptDocument.SelectionChanged(int64 positionLine, int64 positionCharacter, int64 anchorLine, int64 anchorCharacter) {PluginSecurity}
 Class ScriptEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ScriptDocument ScriptEditorService:FindScriptDocument(LuaSourceContainer script) {PluginSecurity}
+	Function Objects ScriptEditorService:GetScriptDocuments() {PluginSecurity}
 	Function void ScriptEditorService:RegisterLSPCallback(Enum.LSPMethodType methodToOverride, Function callbackFunction) {RobloxScriptSecurity}
 	Event ScriptEditorService.TextDocumentDidChange(ScriptDocument document, Variant changesArray) {PluginSecurity}
 	Event ScriptEditorService.TextDocumentDidClose(ScriptDocument oldDocument) {PluginSecurity}
@@ -3948,6 +3987,7 @@ Class StudioData : Instance [NotCreatable] [Service]
 	Property int64 StudioData.SrcUniverseId {RobloxSecurity} [Hidden] [NotReplicated]
 Class StudioDeviceEmulatorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool StudioDeviceEmulatorService.HasMultiTouchStarted {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool StudioDeviceEmulatorService.IsMultiTouchEmulationOn {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool StudioDeviceEmulatorService.IsMultiTouchEnabled {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property Vector2 StudioDeviceEmulatorService.PivotPosition {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function bool StudioDeviceEmulatorService:EmulatePCDeviceWithResolution(string deviceId, Vector2 resolution) {RobloxScriptSecurity} [Yields]
@@ -4190,9 +4230,6 @@ Class TimerService : Instance [NotCreatable] [Service]
 Class ToastNotificationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void ToastNotificationService:HideNotification(string notificationId) {RobloxScriptSecurity}
 	Function void ToastNotificationService:ShowNotification(string message, string notificationId) {RobloxScriptSecurity}
-Class ToolboxService : Instance [NotCreatable] [Service] [NotReplicated]
-	Callback Objects ToolboxService.ProcessAssetInsertionDrag(string assetId, int assetTypeId, Objects instances) {RobloxScriptSecurity} [NoYield]
-	Callback void ToolboxService.ProcessAssetInsertionDrop() {RobloxScriptSecurity} [NoYield]
 Class TouchInputService : Instance [NotCreatable] [Service]
 Class TouchTransmitter : Instance [NotCreatable] [NotBrowsable]
 Class TracerService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -4653,6 +4690,10 @@ Enum ActuatorType
 	EnumItem ActuatorType.None : 0
 	EnumItem ActuatorType.Motor : 1
 	EnumItem ActuatorType.Servo : 2
+Enum AdFormat
+	EnumItem AdFormat.Image : 1
+Enum AdShape
+	EnumItem AdShape.HorizontalRectangle : 1
 Enum AdornCullingMode
 	EnumItem AdornCullingMode.Automatic : 0
 	EnumItem AdornCullingMode.Never : 1
@@ -4783,6 +4824,7 @@ Enum AssetType
 	EnumItem AssetType.DressSkirtAccessory : 72
 	EnumItem AssetType.EyebrowAccessory : 76
 	EnumItem AssetType.EyelashAccessory : 77
+	EnumItem AssetType.MoodAnimation : 78
 Enum AssetTypeVerification
 	EnumItem AssetTypeVerification.Default : 1
 	EnumItem AssetTypeVerification.ClientOnly : 2
@@ -4835,6 +4877,7 @@ Enum AvatarAssetType
 	EnumItem AvatarAssetType.DressSkirtAccessory : 72
 	EnumItem AvatarAssetType.EyebrowAccessory : 76
 	EnumItem AvatarAssetType.EyelashAccessory : 77
+	EnumItem AvatarAssetType.MoodAnimation : 78
 Enum AvatarContextMenuOption
 	EnumItem AvatarContextMenuOption.Friend : 0
 	EnumItem AvatarContextMenuOption.Chat : 1
@@ -4902,6 +4945,8 @@ Enum BundleType
 	EnumItem BundleType.BodyParts : 1
 	EnumItem BundleType.Animations : 2
 	EnumItem BundleType.Shoes : 3
+	EnumItem BundleType.DynamicHead : 4
+	EnumItem BundleType.DynamicHeadAvatar : 5
 Enum Button
 	EnumItem Button.Dismount : 8
 	EnumItem Button.Jump : 32
@@ -6013,6 +6058,10 @@ Enum OutfitSource
 	EnumItem OutfitSource.All : 1
 	EnumItem OutfitSource.Created : 2
 	EnumItem OutfitSource.Purchased : 3
+Enum OutfitType
+	EnumItem OutfitType.All : 1
+	EnumItem OutfitType.Avatar : 2
+	EnumItem OutfitType.DynamicHead : 3
 Enum OutputLayoutMode
 	EnumItem OutputLayoutMode.Horizontal : 0
 	EnumItem OutputLayoutMode.Vertical : 1
@@ -6075,10 +6124,6 @@ Enum PermissionLevelShown
 	EnumItem PermissionLevelShown.RobloxScript : 2
 	EnumItem PermissionLevelShown.Studio : 3
 	EnumItem PermissionLevelShown.Roblox : 4
-Enum PhysicsInertiaAndVolumeFix
-	EnumItem PhysicsInertiaAndVolumeFix.Default : 0
-	EnumItem PhysicsInertiaAndVolumeFix.Disabled : 1
-	EnumItem PhysicsInertiaAndVolumeFix.Enabled : 2
 Enum PhysicsSimulationRate
 	EnumItem PhysicsSimulationRate.Fixed240Hz : 0
 	EnumItem PhysicsSimulationRate.Fixed120Hz : 1

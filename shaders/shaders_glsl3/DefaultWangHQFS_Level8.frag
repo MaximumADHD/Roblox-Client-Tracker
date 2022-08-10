@@ -103,7 +103,7 @@ void main()
     float f62 = max(f50.w - (f61 * f61), f57.y);
     float f63 = f55 - f61;
     float f64 = CB0[26].w * f2;
-    float f65 = max(f23.y, 0.04500000178813934326171875);
+    float f65 = 0.08900000154972076416015625 + (f23.y * 0.9110000133514404296875);
     vec3 f66 = reflect(-f1, f28);
     float f67 = f65 * 5.0;
     vec3 f68 = vec4(f66, f67).xyz;

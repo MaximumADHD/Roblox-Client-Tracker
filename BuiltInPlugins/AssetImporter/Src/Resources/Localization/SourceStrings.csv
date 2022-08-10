@@ -107,6 +107,7 @@ Studio.AssetImporter.Sections.ObjectGeometry,Object Geometry
 Studio.AssetImporter.Statuses.CageHasMaterialWarning,Material(s) found under this cage mesh will be ignored. Materials cannot be applied to CageWrap instances.
 Studio.AssetImporter.Statuses.CageMeshIntersectedWarning,"The cage intersects with the clothing mesh, which could lead to interpenetration issues."
 Studio.AssetImporter.Statuses.CageMismatchWarning,The number of cage vertices between the outer and inner cage don't match.
+Studio.AssetImporter.Statuses.CageNoGeoParentError,"Couldn't find geometry for cage, check your mesh names and spelling."
 Studio.AssetImporter.Statuses.CageNonManifoldWarning,"This cage has non-manifold geometry, which can cause deformation issues. Non-manifold area is marked in the preview render."
 Studio.AssetImporter.Statuses.CageOverlappingVerticesWarning,"Multiple vertices share identical or near-identical positions, which can cause deformation issues, and they are marked in the preview render."
 Studio.AssetImporter.Statuses.CageUVMisMatchedWarning,"For this asset to be Layered Clothing compatible, you need to use the original cage template and ensure that you do not modify the UV map."

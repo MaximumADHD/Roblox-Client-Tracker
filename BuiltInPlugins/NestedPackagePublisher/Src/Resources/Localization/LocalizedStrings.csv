@@ -3,3 +3,5 @@ Studio.NestedPackagePublisher.Plugin.Description,Toggles the Template plugin win
 Studio.NestedPackagePublisher.Plugin.Name,NestedPackagePublisher,NestedPackagePublisher
 Studio.NestedPackagePublisher.Plugin.Toolbar,NestedPackagePublisher,NestedPackagePublisher
 Studio.NestedPackagePublisher.Plugin.Button,Toggle,Toggle
+Studio.NestedPackagePublisher.Action.Cancel,Cancel,Cancel
+Studio.NestedPackagePublisher.Action.Publish,Publish,Publish

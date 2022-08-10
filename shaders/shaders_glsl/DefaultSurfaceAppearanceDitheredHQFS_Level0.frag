@@ -60,7 +60,7 @@ void main()
     vec4 f28 = texture2D(ShadowMapTexture, f22.xy);
     float f29 = f22.z;
     float f30 = CB0[26].w * f1;
-    float f31 = max(f12.y, 0.04500000178813934326171875);
+    float f31 = 0.08900000154972076416015625 + (f12.y * 0.9110000133514404296875);
     float f32 = f12.x * f30;
     vec3 f33 = -CB0[11].xyz;
     float f34 = (dot(f16, f33) * CB0[9].w) * ((1.0 - ((step(f28.x, f29) * clamp(CB0[24].z + (CB0[24].w * abs(f29 - 0.5)), 0.0, 1.0)) * f28.y)) * f27.y);
